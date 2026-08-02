@@ -1,36 +1,38 @@
 /* ============================================================================
-   The scorecard — what the model actually produced, scored against reality
+   The scorecard — what the model actually produced, scored against the registered reference
    ----------------------------------------------------------------------------
    ORIGINAL interactive. The grids below are not illustrative: they are the
-   measured character grids of the project's registered 204-point Phase 6 sweeps.
-   TWO runs are carried, because the first was withdrawn, and they come from two
-   different revisions of the same file — research/phase6-sweep-report.md prints
-   exactly ONE grid, the current one:
+   measured character grids of two historical 204-point CAK Phase 6 sweeps.
+   TWO runs are carried because the first was withdrawn. They come from two
+   revisions of research/phase6-sweep-report.md, which prints one grid at each
+   revision. This module is a CAK correction comparison; it does not display the
+   separately completed M1 arm:
 
-     CAK      the corrected re-sweep. CURRENT STANDING EVIDENCE. Headline 3/90.
+     CAK      the corrected historical re-sweep. Headline 3/90.
               Class totals 6 plate, 168 neutral, 30 column, 0 invalid.
-              Transcribed from research/phase6-sweep-report.md at HEAD. NOT YET
-              GATE EVIDENCE: that report says so in bold above its own headline,
-              because WP5 has not run.
+              Transcribed from research/phase6-sweep-report.md. It is a preserved,
+              independently re-derived measured-only record, not replacement-gate
+              evidence. R15 is planned but unfrozen, unimplemented and unexecuted;
+              its charter obligations remain open.
      CAK_A1   the first run, headline 5/90, INVALIDATED by ADR 0031.
               Transcribed from research/phase6-sweep-report.md at its superseded
               revision, commit 6995868 — it is NOT in the file at HEAD. Its
               artifacts are preserved unmodified at
-              out/phase6-sweep-6995868-cak-a1-superseded/.
+              evidence/phase6-sweep-6995868-cak-a1-superseded/.
 
    Why the first was withdrawn: runner/src/phase6-sweep.ts emitted no
    --param-set, so the CLI default at runner/src/main.ts:535 supplied CAK_A1, in
    which A_prism is identically 1 — while PHASE6_INTERPOLATION registered
    aPrism as "piecewise-linear-in-(Tm-T)", distinct from aBasal "constant-1".
-   All 204 runs violated a registered freeze row. The charter's clause — any
-   post-freeze edit "invalidates prior sweep results, the full sweep re-runs" —
-   voided it. ADR 0031's own words: "an unregistered CLI default silently
-   overrode a registered freeze row."
+   All 204 runs violated a registered freeze row. They are therefore inadmissible
+   as evidence for that registered protocol. Their bytes remain a historical
+   record of what CAK_A1 produced. ADR 0031's own words: "an unregistered CLI
+   default silently overrode a registered freeze row."
 
    The correction was PREDICTED BEFORE IT RAN. ADR 0031 registered that the
    headline would fall "from 5/90 to approximately 2/90", stating "the corrected
    result is expected to be worse, and that is the point." Outcome: 3/90 —
-   direction correct, one point pessimistic. Carrying both arms lets a reader
+   direction correct, one point pessimistic. Carrying both runs lets a reader
    watch that correction happen instead of taking it on trust.
 
    Scoring follows ADR 0025, registered BEFORE either sweep ran:
@@ -58,7 +60,8 @@
   // Temperature columns are (Tm - T) in degrees C, i.e. 2 means -2 C.
   const TEMPS = Array.from({ length: 34 }, (_, i) => i + 2);   // 2..35
 
-  // Supersaturation rows, as a fraction of water saturation.
+  // Each row is a fraction of the water-saturation supersaturation ceiling,
+  // not relative humidity.
   const FRACTIONS = [0.10, 0.15, 0.25, 0.40, 0.60, 0.90];
 
   // The measured diagrams. P = plate (AR <= 0.667), C = column (AR >= 1.5),
@@ -67,12 +70,12 @@
   // TWO ARMS, because the first one was withdrawn and re-run. Both are
   // transcribed verbatim from research/phase6-sweep-report.md.
   const ARMS = {
-    // The CURRENT standing evidence: the corrected re-sweep, parameter set CAK,
+    // The corrected historical re-sweep, parameter set CAK,
     // in which A_prism follows the registered piecewise interpolation.
     // Headline 3 of 90. Class totals 6 plate, 168 neutral, 30 column, 0 invalid.
     cak: {
-      label: "Corrected run (CAK)",
-      note: "current standing evidence",
+      label: "Corrected historical run (CAK)",
+      note: "measured-only; not the replacement gate",
       grid: {
         0.10: "PPP..............CCCCCCCCCCCCCCCCC",
         0.15: "PP...................CCCCCCCCCCCCC",
@@ -85,7 +88,7 @@
     // The WITHDRAWN run: parameter set CAK_A1, in which A_prism was identically
     // 1 — a value the frozen protocol never registered. Headline 5 of 90.
     // Invalidated by ADR 0031; artifacts preserved unmodified at
-    // out/phase6-sweep-6995868-cak-a1-superseded/.
+    // evidence/phase6-sweep-6995868-cak-a1-superseded/.
     cakA1: {
       label: "Withdrawn run (CAK_A1)",
       note: "invalidated by ADR 0031",
@@ -123,19 +126,19 @@
     return BOUNDS.every((b) => Math.abs(t - b) > AMBIGUITY);
   }
 
-  function modelClass(f, t) {
-    return ARMS[ARM].grid[f][t - 2];
+  function modelClass(f, t, arm) {
+    return ARMS[arm || ARM].grid[f][t - 2];
   }
 
   /** Score exactly as the registered rule does. */
-  function score() {
+  function scoreArm(arm) {
     const tally = {};
     for (const r of REGIMES) tally[r.key] = { n: 0, agree: 0, disagree: 0, neutral: 0 };
     for (const f of FRACTIONS) {
       for (const t of TEMPS) {
         if (!counted(t)) continue;
         const r = regimeOf(t);
-        const m = modelClass(f, t);
+        const m = modelClass(f, t, arm);
         const row = tally[r.key];
         row.n++;
         if (m === ".") { row.neutral++; row.disagree++; continue; }
@@ -149,11 +152,15 @@
     return { tally: tally, headlineN: n, headlineAgree: agree };
   }
 
+  function score() {
+    return scoreArm(ARM);
+  }
+
   /* ---------------------------------------------------------------- mount -- */
 
   /**
    *   Sweep.mount(root, { view: "model" })
-   * Views: "model" (what came out), "reference" (what nature does),
+   * Views: "model" (what came out), "reference" (what the registered reference expects),
    *        "agreement" (cell by cell), "counted" (what the rule scores).
    */
   function mount(root, options) {
@@ -170,7 +177,7 @@
     head.appendChild(status);
 
     // Non-removable provenance line: says which of the two runs is on screen and
-    // what its standing is, so a withdrawn grid can never read as live evidence.
+    // what its standing is, so neither historical grid can read as the current gate.
     const provenance = document.createElement("p");
     provenance.className = "anim__sub";
     provenance.style.marginTop = "0.5rem";
@@ -179,16 +186,16 @@
     head.appendChild(provenance);
 
     function paintProvenance() {
-      const live = ARM === "cak";
+      const corrected = ARM === "cak";
       provenance.style.borderLeft =
-        "3px solid " + (live ? "var(--status-good)" : "var(--status-critical)");
-      provenance.innerHTML = live
-        ? "<strong>Current evidence &mdash; the corrected run.</strong> Headline 3 of 90. " +
-          "This is the re-sweep the project ran after withdrawing its first attempt, and it is " +
-          "the number that stands today."
-        : "<strong>Withdrawn evidence.</strong> The project invalidated this run itself in " +
+        "3px solid " + (corrected ? "var(--status-warning)" : "var(--status-critical)");
+      provenance.innerHTML = corrected
+        ? "<strong>Historical measured-only CAK record.</strong> Headline 3 of 90. " +
+          "This is the corrected re-sweep run after the first attempt was withdrawn. Its bytes " +
+          "and measurements are preserved, but it did not execute R15 and is not replacement-gate evidence."
+        : "<strong>Withdrawn protocol evidence; preserved historical run.</strong> The project invalidated this run itself in " +
           "decision&nbsp;0031: an unregistered command-line default had overridden a registered " +
-          "parameter, so its own freeze rule voided all 204 runs. It then registered the expected " +
+          "parameter, so none of its 204 rows is admissible for that registered protocol. It then registered the expected " +
           "corrected headline <em>in advance</em> &mdash; about 2 of 90 &mdash; and the corrected " +
           "run came in at 3 of 90.";
     }
@@ -203,6 +210,59 @@
     let svg = null;
 
     let S = score();
+
+    /* The 34-by-6 SVG is a useful overview but its cells cannot also be
+       finger-sized on a 390 px screen. Keep the complete grid and add a
+       native, keyboard/touch-accessible coordinate reader for narrow screens. */
+    const picker = document.createElement("div");
+    picker.className = "sweep-mobile-picker";
+    picker.setAttribute("aria-label", "Touch-accessible sweep point reader");
+
+    function pickerField(labelText, suffix, values, format) {
+      const label = document.createElement("label");
+      const id = `${root.id || "sweep"}-${suffix}`;
+      label.htmlFor = id;
+      const title = document.createElement("span");
+      title.textContent = labelText;
+      const select = document.createElement("select");
+      select.id = id;
+      values.forEach(function (value) {
+        const option = document.createElement("option");
+        option.value = String(value);
+        option.textContent = format(value);
+        select.appendChild(option);
+      });
+      label.appendChild(title);
+      label.appendChild(select);
+      picker.appendChild(label);
+      return select;
+    }
+
+    const tempPicker = pickerField(
+      "Temperature",
+      "temperature-picker",
+      TEMPS,
+      (temperature) => `−${temperature} °C`,
+    );
+    const fractionPicker = pickerField(
+      "Water-saturation ceiling fraction f",
+      "fraction-picker",
+      FRACTIONS,
+      (fraction) => fraction.toFixed(2),
+    );
+    const mobileReadout = document.createElement("p");
+    mobileReadout.className = "sweep-mobile-readout";
+    mobileReadout.setAttribute("role", "status");
+    mobileReadout.textContent = "Choose a temperature and fraction to read one exact sweep cell.";
+    picker.appendChild(mobileReadout);
+    body.appendChild(picker);
+
+    function pickFromNativeControls() {
+      picked = [Number(fractionPicker.value), Number(tempPicker.value)];
+      render();
+    }
+    tempPicker.addEventListener("change", pickFromNativeControls);
+    fractionPicker.addEventListener("change", pickFromNativeControls);
 
     function render() {
       paintProvenance();
@@ -241,7 +301,7 @@
         x: M.left - 8, y: M.top - 9, "text-anchor": "end",
         fill: c.inkSecondary, "font-size": 10, "font-weight": 660, "font-family": "var(--font-sans)",
       });
-      bandLbl.textContent = "nature:";
+      bandLbl.textContent = "registered reference:";
       svg.appendChild(bandLbl);
 
       /* ---- the cells ---- */
@@ -272,7 +332,12 @@
             "stroke-width": 2,
           });
           cell.style.cursor = "pointer";
-          cell.addEventListener("click", function () { picked = [f, t]; render(); });
+          cell.addEventListener("click", function () {
+            picked = [f, t];
+            tempPicker.value = String(t);
+            fractionPicker.value = String(f);
+            render();
+          });
           svg.appendChild(cell);
         });
       });
@@ -308,7 +373,7 @@
         "font-family": "var(--font-sans)",
         transform: `rotate(-90 16 ${M.top + (H - M.top - M.bottom) / 2})`,
       });
-      yt.textContent = "How wet the air is";
+      yt.textContent = "Fraction of water-saturation supersaturation ceiling";
       svg.appendChild(yt);
 
       /* ---- legend + readout ---- */
@@ -336,8 +401,8 @@
         const name = { P: "a plate", C: "a column", ".": "neither — it would not commit" }[m];
         const ref = r.habit === "P" ? "a plate" : r.habit === "C" ? "a column" : "either";
         status.textContent =
-          `At −${t} °C, air at ${(f * 100).toFixed(0)}% of water saturation: the model grew ` +
-          `${name}. Nature grows ${ref}. ` +
+          `At −${t} °C, f = ${f.toFixed(2)}, a fraction of the water-saturation supersaturation ceiling: the model grew ` +
+          `${name}. The registered reference expects ${ref}. ` +
           (!isC ? "This point sits within 1 °C of a regime boundary, so the rule does not count it."
                 : !r.headline ? "This regime accepts both habits, so it is reported but kept out of the headline."
                 : m !== "." && (r.habit === "*" || m === r.habit) ? "Counted, and it agrees."
@@ -347,14 +412,19 @@
           `${ARMS[ARM].label}: ${S.headlineAgree} of ${S.headlineN} scored points agree. ` +
           `Columns ${S.tally.columns.agree}/${S.tally.columns.n}. ` +
           `Cold plates ${S.tally["plates-cold"].agree}/${S.tally["plates-cold"].n}. ` +
-          `Zero of the 204 runs was invalid.`;
+          (ARM === "cak"
+            ? `Zero of 204 CAK rows was model-invalid.`
+            : `Zero of 204 CAK_A1 rows was model-invalid, but all 204 are protocol-inadmissible because the frozen parameter row was violated.`);
       }
+      mobileReadout.textContent = picked
+        ? status.textContent
+        : "Choose a temperature and fraction to read one exact sweep cell.";
     }
 
     if (bar) {
       const views = [
         ["model", "What the model grew"],
-        ["reference", "What nature grows"],
+        ["reference", "What the registered reference expects"],
         ["agreement", "Agree or not"],
         ["counted", "What the rule counts"],
       ];
@@ -367,7 +437,7 @@
         }, { pressed: key === view });
         buttons.push(b);
       });
-      // Switch between the corrected run and the one the project withdrew.
+      // Switch between the corrected historical CAK run and the one the project withdrew.
       const armBtn = Viz.button(bar, "Show the withdrawn run", function (b) {
         ARM = ARM === "cak" ? "cakA1" : "cak";
         S = score();
@@ -389,8 +459,29 @@
     return { score: S, render: render };
   }
 
+  window.EducationTestHooks = window.EducationTestHooks || {};
+  window.EducationTestHooks.sweep = Object.freeze({
+    schemaVersion: 1,
+    semanticContract: Object.freeze({
+      fractionMeaning: "fraction-of-water-saturation-supersaturation-ceiling",
+      relativeHumidity: false,
+      referenceMeaning: "registered-reference-expectation",
+      cakModelInvalidRows: 0,
+      cakA1ModelInvalidRows: 0,
+      cakA1ProtocolInadmissibleRows: 204,
+    }),
+    temps: Object.freeze(TEMPS.slice()),
+    fractions: Object.freeze(FRACTIONS.slice()),
+    grids: Object.freeze({
+      cak: Object.freeze(Object.assign({}, ARMS.cak.grid)),
+      cakA1: Object.freeze(Object.assign({}, ARMS.cakA1.grid)),
+    }),
+    scoreArm: scoreArm,
+  });
+
   window.Sweep = {
     mount: mount, score: score, ARMS: ARMS, TEMPS: TEMPS, FRACTIONS: FRACTIONS,
+    scoreArm: scoreArm,
     setArm: function (a) { if (ARMS[a]) ARM = a; },
     getArm: function () { return ARM; },
   };

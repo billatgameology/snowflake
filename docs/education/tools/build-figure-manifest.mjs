@@ -1,6 +1,6 @@
 /**
- * Build docs/education/FIGURES.md — the tracked provenance record for every
- * third-party figure the education site references.
+ * Build docs/education/FIGURES.md — the tracked provenance record for source-figure
+ * references discovered in the education chapters' `data-src` metadata.
  *
  *   node docs/education/tools/build-figure-manifest.mjs
  *
@@ -32,6 +32,52 @@ const OUT = join(REPO, "docs/education/FIGURES.md");
 // published site — GitHub Pages serves .md as plain text.
 const OUT_HTML = join(REPO, "docs/education/figures.html");
 
+// Chapter metadata is HTML, so an attribute such as `&ldquo;Snow Crystals&rdquo;`
+// denotes curly-quote characters. Decode that small, explicit vocabulary before the
+// generated page escapes it again; otherwise `&ldquo;` becomes `&amp;ldquo;` and is rendered
+// literally. Unknown named entities fail closed so a new spelling cannot silently regress the
+// provenance page. Numeric references are accepted with the same scalar-value checks as Unicode.
+const ATTRIBUTE_ENTITIES = Object.freeze({
+  amp: "&",
+  apos: "'",
+  deg: "°",
+  gt: ">",
+  ldquo: "“",
+  lt: "<",
+  mdash: "—",
+  middot: "·",
+  micro: "µ",
+  minus: "−",
+  nbsp: "\u00a0",
+  ndash: "–",
+  quot: '"',
+  rdquo: "”",
+  times: "×",
+});
+
+function decodeAttributeEntities(value, chapterFile, attributeName) {
+  return String(value ?? "").replace(/&(#(?:[xX][0-9a-fA-F]+|[0-9]+)|[a-zA-Z][a-zA-Z0-9]+);/g, (whole, token) => {
+    if (token.startsWith("#")) {
+      const hexadecimal = token[1] === "x" || token[1] === "X";
+      const codePoint = Number.parseInt(token.slice(hexadecimal ? 2 : 1), hexadecimal ? 16 : 10);
+      if (
+        !Number.isInteger(codePoint) ||
+        codePoint <= 0 ||
+        codePoint > 0x10ffff ||
+        (codePoint >= 0xd800 && codePoint <= 0xdfff)
+      ) {
+        throw new Error(`Invalid numeric entity ${whole} in ${chapterFile} data-${attributeName}`);
+      }
+      return String.fromCodePoint(codePoint);
+    }
+    const decoded = ATTRIBUTE_ENTITIES[token];
+    if (decoded == null) {
+      throw new Error(`Unsupported named entity ${whole} in ${chapterFile} data-${attributeName}`);
+    }
+    return decoded;
+  });
+}
+
 /** Pull every <figure class="figure" data-…> block out of a chapter file. */
 function extractFigures(html, chapterFile) {
   const out = [];
@@ -41,10 +87,10 @@ function extractFigures(html, chapterFile) {
     const tag = m[0];
     const attr = (name) => {
       const a = new RegExp(`\\bdata-${name}=["']([^"']*)["']`).exec(tag);
-      return a ? a[1] : "";
+      return a ? decodeAttributeEntities(a[1], chapterFile, name) : "";
     };
     out.push({
-      src: m[1],
+      src: attr("src"),
       figure: attr("figure"),
       source: attr("source"),
       page: attr("page"),
@@ -106,7 +152,7 @@ lines.push("node docs/education/tools/build-figure-manifest.mjs");
 lines.push("```");
 lines.push("");
 lines.push(
-  "Every third-party figure the education site references, with the paper, page, and local " +
+  "Every distinct `data-src` figure reference discovered in the education chapters, with the paper, page, and local " +
   "sha256 it was recorded at. The images themselves are **not versioned** — they are third-party " +
   "copyrighted research media, and [decision 0004](../decisions/0004-research-media-not-versioned.md) " +
   "keeps research media out of git. This file is the tracked record; the bytes are a cache."
@@ -124,7 +170,7 @@ lines.push("");
 lines.push("## How to restore the images locally");
 lines.push("");
 lines.push("1. **Re-download the papers** listed in [`research/libbrecht-later-papers.md`](../../research/libbrecht-later-papers.md)");
-lines.push("   and [`research/1910.06389v2-llm.md`](../../research/1910.06389v2-llm.md). Both carry every source URL and sha256.");
+lines.push("   and [`research/1910.06389v2-llm.md`](../../research/1910.06389v2-llm.md). Together they carry the source URLs and sha256 entries used by this figure inventory.");
 lines.push("2. **Rebuild the monograph figure bundle** (supplies `research/1910.06389v2-llm/figures/fig-*/visual.png`):");
 lines.push("   ```");
 lines.push("   python3 scripts/build_pdf_llm_bundle.py --force research/1910.06389v2.pdf");
@@ -203,7 +249,7 @@ const page = `<!doctype html>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Figure provenance — Snow Crystals</title>
-<meta name="description" content="Every source figure this site cites, with the paper, figure number and page it came from — and why the images themselves are not published here.">
+<meta name="description" content="Source-figure references discovered in chapter metadata, with their recorded paper, figure number and page — and why the images themselves are not published here.">
 <meta name="robots" content="noindex">
 <link rel="stylesheet" href="./assets/education.css">
 </head>
@@ -237,7 +283,7 @@ const page = `<!doctype html>
         <p class="chapter-header__eyebrow">Generated</p>
         <h1>Figure provenance</h1>
         <p class="chapter-header__question">
-          Every source figure this site cites, and where to find it.
+          Source-figure references discovered in the chapter metadata, and where to find them.
         </p>
       </header>
 
@@ -251,8 +297,8 @@ const page = `<!doctype html>
         <p>
           These ${figures.length} figures are copyrighted third-party research media.
           This site cites them but does not republish them, so on the published site each one
-          appears as a card naming the paper, figure and page rather than as an image. Every
-          explanation, diagram and animation on the site is ours and does not depend on them.
+          appears as a card naming the paper, figure and page rather than as an image. The
+          site-authored explanations, diagrams and animations remain available without those bytes.
         </p>
       </aside>
 
@@ -295,6 +341,15 @@ ${tableRows}
 </body>
 </html>
 `;
+
+const doubleEscapedEntity = /&amp;(?:#[xX]?[0-9a-fA-F]+|[a-zA-Z][a-zA-Z0-9]+);/g;
+const doubleEscapedMatches = page.match(doubleEscapedEntity) ?? [];
+if (doubleEscapedMatches.length > 0) {
+  throw new Error(
+    `Generated figures.html contains ${doubleEscapedMatches.length} double-escaped HTML entities; ` +
+    `first=${doubleEscapedMatches[0]}`,
+  );
+}
 
 writeFileSync(OUT_HTML, page, "utf8");
 

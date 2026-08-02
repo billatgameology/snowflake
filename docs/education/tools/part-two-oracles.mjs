@@ -7,6 +7,8 @@
  */
 
 import { createHash } from "node:crypto";
+import { readFileSync } from "node:fs";
+import { isAbsolute, join, relative, resolve, sep } from "node:path";
 import {
   CHECKPOINT_TEACHING_CASES_SHA256,
 } from "./checkpoint-production-oracle.mjs";
@@ -19,6 +21,1129 @@ export const PHASE6_ARM2_PROTOCOL_SHA256 =
   "b09a932ec7345eddf838ee2de1c0ef4731212c625a1069e62193c06ae950fdec";
 export const PHASE6_ARM2_VALUES_SHA256 =
   "13e678d5eec467a391958a18c71c8d170900d6efd0d5c23bb4362d863b9acd76";
+
+const PHASE6_EXPECTED_EVIDENCE = Object.freeze([
+  "phase6-crossplatform/arm64-libm-fingerprint.txt",
+  "phase6-crossplatform/x64-libm-fingerprint.txt",
+  "phase6-columns-ladder/ladder-BACKUP-20260731-162007.json",
+  "phase6-columns-ladder/ladder.json",
+  "phase6-domain-escalation/escalation-n80.json",
+  "phase6-domain-spot-check/spot-check.json",
+  "phase6-sweep-6995868-cak-a1-superseded/diagram.svg",
+  "phase6-sweep/points.json",
+  "phase6-sweep/report.json",
+  "phase6-sweep/diagram.svg",
+  "phase6-sweep-arm2-STRANDED-8c781b1/points.json",
+  "phase6-sweep-arm2/diagram.svg",
+  "phase6-sweep-arm2/points.json",
+  "phase6-sweep-arm2/regeneration.json",
+  "phase6-sweep-arm2/report.json",
+  "phase6-sweep-6995868-cak-a1-superseded/points.json",
+  "phase6-sweep-6995868-cak-a1-superseded/report.json",
+  "phase6-throughput-probe/probe.json",
+]);
+const PHASE6_FRACTIONS = Object.freeze([0.10, 0.15, 0.25, 0.40, 0.60, 0.90]);
+const PHASE6_TEMPS_C = Object.freeze(Array.from({ length: 34 }, (_, index) => -(index + 2)));
+const PHASE6_BOUNDARIES = Object.freeze([3.3, 9.9, 21.5]);
+const PHASE6_BISTABLE_C = Object.freeze([-4, -5, -6]);
+const PHASE6_TARGET_EXTENT = 21;
+const PHASE6_DOMAIN_N = 48;
+const PHASE6_DOMAIN_CONTACT_FRACTION = 0.65;
+const PHASE6_STEP_CAP = 100000;
+const PHASE6_ACTIVE_CELLS = 77879;
+const PHASE6_EXTENT_DRIFT_BOUND_AR = 0.135;
+const PHASE6_FINGERPRINT_HOSTS = Object.freeze({
+  x64: "host platform=win32 arch=x64 node=v24.13.1 v8=13.6.233.17-node.40",
+  arm64: "host platform=darwin arch=arm64 node=v24.13.1 v8=13.6.233.17-node.40",
+});
+const PHASE6_FINGERPRINT_SHA256 = Object.freeze({
+  x64: "c21fa3775360cfb910d524bf34eb2a6fef76059476805e50b9acb7531f6b53a4",
+  arm64: "d6686f8e687bc4328cf693febe0325932077582f4fd3445bf6d6010e9bce0c02",
+});
+const PHASE6_SWEEP_ROW_KEYS = Object.freeze([
+  "point", "result", "modelClass", "regime", "score", "inAmbiguityBand",
+  "inHeadlineScope", "extentFragile", "exclusionReason",
+]);
+const PHASE6_SWEEP_RESULT_KEYS = Object.freeze([
+  "tempC", "fraction", "sigmaInf", "steps", "attached", "aspectRatio",
+  "largestExtent", "symmetryError", "deltaSymClean", "allConverged",
+  "domainContact", "seconds",
+]);
+const PHASE6_SWEEP_REPORT_KEYS = Object.freeze([
+  "protocolSha256", "head", "headlineAgree", "headlineTotal", "neutralCount",
+  "excludedCount", "extentFragileCount", "perRegime", "excludedPoints",
+]);
+const PHASE6_M1_REPORT_KEYS = Object.freeze([
+  "arm", "paramSet", "valuesSha256", "justificationSha256",
+  ...PHASE6_SWEEP_REPORT_KEYS,
+  "headlineAgreeCommonDenominator", "headlineTotalCommonDenominator", "bistable",
+]);
+const PHASE6_MANIFEST_KEYS = Object.freeze([
+  "schema", "movedFrom", "movedTo", "note", "fileCount", "totalBytes", "files",
+]);
+const PHASE6_MANIFEST_METADATA = Object.freeze({
+  movedFrom: "out/ (gitignored), plus the byte-identical tracked arm64 fingerprint formerly under docs/",
+  movedTo: "evidence/ (tracked)",
+  note: "Historical sweep digests were computed before their move and re-verified afterward. The arm64 fingerprint preserves the exact former docs/ Git blob (18398 bytes, SHA-256 d6686f8e...). The x64 fingerprint is the complete 2026-08-01 lightweight fixture re-execution backing the exact per-entry comparison; it reproduces registered digest 2a9f64b3. These are preserved claim-backing bytes, not regenerated production sweeps.",
+});
+const PHASE6_WATER_ANCHORS = Object.freeze([
+  [0, 0], [-1, 0.01], [-2, 0.02], [-5, 0.05], [-10, 0.102],
+  [-15, 0.157], [-20, 0.215], [-30, 0.34], [-40, 0.474],
+]);
+const PHASE6_M1_CONFIG = Object.freeze({
+  paramSet: "M1",
+  surfacePolicy: "aggregate-hv-g1h1-v6",
+  farField: "monopole-matched",
+  dxUm: 0.35,
+  pressurePa: 101325,
+  cfl: 0.1,
+  relaxTol: 1e-9,
+  divTol: 1e-7,
+  relaxMaxSweeps: 200000,
+  targetExtent: 21,
+  rngSeed: 1,
+  noiseEpsilon: 0,
+  seedRadius: 2,
+  dimsN: 48,
+  hexRadius: 23,
+  zHalfExtent: 23,
+  activeCells: 77879,
+  seedSites: 19,
+});
+const PHASE6_SWEEP_SPECS = Object.freeze({
+  CAK: Object.freeze({
+    name: "CAK",
+    armSpecific: false,
+    configMode: "legacy-absent",
+    reportIdentity: Object.freeze({
+      protocolSha256: "8aeb2b80a5d85357bca1ddbf7301e63ea7b53e714e4bc5ce290ac22e1b16698e",
+      head: "390fe35a049e6da391c429c1f446fb2ca2cdb931",
+    }),
+  }),
+  M1: Object.freeze({
+    name: "M1",
+    armSpecific: true,
+    configMode: "required-m1",
+    reportIdentity: Object.freeze({
+      arm: "arm2-sdak-m1",
+      paramSet: "M1",
+      valuesSha256: PHASE6_ARM2_VALUES_SHA256,
+      justificationSha256: "1b7faeb85fb9095931ef9294d65c619723ac389de24daddd8d9c173b833d00e8",
+      protocolSha256: PHASE6_ARM2_PROTOCOL_SHA256,
+      head: PHASE6_STATUS_COMMIT,
+    }),
+  }),
+  CAK_A1: Object.freeze({
+    name: "CAK_A1",
+    armSpecific: false,
+    configMode: "legacy-absent",
+    reportIdentity: Object.freeze({
+      protocolSha256: "9aa2e7c148aad117ba9ab7313bb36c55d4de3fccc3fbda4c2e43cc2af4974983",
+      head: "3e3f75ceb1fa7a4afd473f16003c3e467d0a045e",
+    }),
+  }),
+});
+
+function sha256Bytes(bytes) {
+  return createHash("sha256").update(bytes).digest("hex");
+}
+
+function utf8(bytes) {
+  return Buffer.from(bytes).toString("utf8");
+}
+
+function parseJsonBytes(bytes, label, violations) {
+  try {
+    return JSON.parse(utf8(bytes));
+  } catch (error) {
+    violations.push(`${label} JSON: ${error.message}`);
+    return null;
+  }
+}
+
+function hasExactKeys(value, expectedKeys) {
+  return value !== null
+    && typeof value === "object"
+    && !Array.isArray(value)
+    && sameRecord(Object.keys(value).sort(), [...expectedKeys].sort());
+}
+
+const PHASE6_HELDOUT_LOCK = Object.freeze({
+  schema: "phase6-heldout-candidate-lock-v1",
+  lockId: "PHASE6_HELDOUT_CANDIDATES_2026_08_01",
+  cutoffDate: "2026-08-01",
+  status: "candidate-only-no-validation-target-frozen",
+  passEligible: false,
+  reason: "No audited family is presently apples-to-apples with the current single-crystal free-prism solver. This lock prevents source and extraction drift; it supplies no validation threshold.",
+  pressureStatus: "source-locked-context-only",
+  pressureScoreable: false,
+  pressureReason: "Pressure is confounded with liquid-water content, temperature drift, apparatus/run population, polycrystallinity, ventilation, and riming; no pass interval may be derived.",
+  canonicalSha256: "3d25dabd0c60f416f5d5337bfc5b6e63c6e70efe186839af4449d92261e9a0a7",
+  normalizedTextSha256: "f245d9e6e4f899f1629c37376c2a4bf62475b5a705f9966aff816c36763f73a5",
+});
+
+const PHASE6_TIER2_HISTORICAL_ROWS = Object.freeze([
+  Object.freeze({ point: "robust-plate", steps: "175", attached: "1313", aspectRatio: "0.263158", habit: "plate", arm64Wall: "697 s (11.6 min)", x64Wall: "20.9 min" }),
+  Object.freeze({ point: "robust-column", steps: "195", attached: "1171", aspectRatio: "2.33333", habit: "column", arm64Wall: "810 s (13.5 min)", x64Wall: "22.1 min" }),
+  Object.freeze({ point: "fragile-plate-ceiling", steps: "198", attached: "3157", aspectRatio: "0.684211", habit: "neutral", arm64Wall: "780 s (13.0 min)", x64Wall: "23.6 min" }),
+  Object.freeze({ point: "fragile-column-floor", steps: "248", attached: "3037", aspectRatio: "1.50000", habit: "column", arm64Wall: "1197 s (20.0 min)", x64Wall: "33.4 min" }),
+]);
+const PHASE6_TIER2_BASELINE_BINDINGS = Object.freeze([
+  Object.freeze({ point: "robust-plate", tempC: -2, fraction: 0.10, sigmaInf: "0.002000" }),
+  Object.freeze({ point: "robust-column", tempC: -28, fraction: 0.10, sigmaInf: "0.031500" }),
+  Object.freeze({ point: "fragile-plate-ceiling", tempC: -3, fraction: 0.25, sigmaInf: "0.007500" }),
+  Object.freeze({ point: "fragile-column-floor", tempC: -23, fraction: 0.15, sigmaInf: "0.037875" }),
+]);
+
+function derivePhase6HeldOutLock(bytes) {
+  const violations = [];
+  const normalizedTextSha256 = sha256Bytes(
+    Buffer.from(utf8(bytes).replace(/\r\n/g, "\n"), "utf8"),
+  );
+  if (normalizedTextSha256 !== PHASE6_HELDOUT_LOCK.normalizedTextSha256) {
+    violations.push("held-out lock normalized-text SHA-256");
+  }
+  const lock = parseJsonBytes(bytes, "research/phase6-heldout-candidate-lock.json", violations);
+  if (!lock || typeof lock !== "object" || Array.isArray(lock)) {
+    return { violations, lock: null, status: "unavailable", passEligible: "unknown", reason: "lock unavailable" };
+  }
+  if (lock.schema !== PHASE6_HELDOUT_LOCK.schema) violations.push("held-out lock schema");
+  if (lock.lockId !== PHASE6_HELDOUT_LOCK.lockId) violations.push("held-out lock identity");
+  if (lock.cutoffDate !== PHASE6_HELDOUT_LOCK.cutoffDate) violations.push("held-out lock cutoff date");
+  if (lock.status !== PHASE6_HELDOUT_LOCK.status) violations.push("held-out lock status");
+  if (lock.gateMeaning?.passEligible !== PHASE6_HELDOUT_LOCK.passEligible) {
+    violations.push("held-out lock pass eligibility");
+  }
+  if (lock.gateMeaning?.reason !== PHASE6_HELDOUT_LOCK.reason) {
+    violations.push("held-out lock reason");
+  }
+  if (lock.pressureContext?.status !== PHASE6_HELDOUT_LOCK.pressureStatus) {
+    violations.push("held-out lock pressure status");
+  }
+  if (lock.pressureContext?.scoreable !== PHASE6_HELDOUT_LOCK.pressureScoreable) {
+    violations.push("held-out lock pressure eligibility");
+  }
+  if (lock.pressureContext?.reason !== PHASE6_HELDOUT_LOCK.pressureReason) {
+    violations.push("held-out lock pressure reason");
+  }
+  const canonical = (value) => {
+    if (value === null || typeof value !== "object") return JSON.stringify(value);
+    if (Array.isArray(value)) return `[${value.map(canonical).join(",")}]`;
+    return `{${Object.keys(value).sort().map(
+      (key) => `${JSON.stringify(key)}:${canonical(value[key])}`,
+    ).join(",")}}`;
+  };
+  const canonicalSha256 = sha256Bytes(Buffer.from(`${canonical(lock)}\n`, "utf8"));
+  if (canonicalSha256 !== PHASE6_HELDOUT_LOCK.canonicalSha256) {
+    violations.push("held-out lock canonical SHA-256");
+  }
+  return {
+    violations,
+    lock,
+    status: String(lock.status ?? "unknown"),
+    passEligible: String(lock.gateMeaning?.passEligible ?? "unknown"),
+    reason: String(lock.gateMeaning?.reason ?? "reason unavailable"),
+    pressureStatus: String(lock.pressureContext?.status ?? "unknown"),
+    pressureScoreable: String(lock.pressureContext?.scoreable ?? "unknown"),
+    pressureReason: String(lock.pressureContext?.reason ?? "reason unavailable"),
+    canonicalSha256,
+    normalizedTextSha256,
+  };
+}
+
+function derivePhase6Tier2HistoricalReport(text, manifest, cakComparisonByKey) {
+  const violations = [];
+  const sourceText = String(text ?? "");
+  const normalized = sourceText.replace(/\s+/g, " ");
+  const sourceLines = sourceText.split(/\r?\n/);
+  const tableRows = (header, separator, label) => {
+    const headerIndexes = sourceLines.flatMap((line, index) => line === header ? [index] : []);
+    if (headerIndexes.length !== 1) {
+      violations.push(`${label} header inventory`);
+      return [];
+    }
+    const headerIndex = headerIndexes[0];
+    const block = [];
+    for (let index = headerIndex; index < sourceLines.length; index += 1) {
+      const line = sourceLines[index];
+      if (!line.startsWith("|")) break;
+      block.push(line);
+    }
+    if (block[1] !== separator) violations.push(`${label} separator`);
+    const rowsInBlock = block.slice(2);
+    if (rowsInBlock.length !== 4) violations.push(`${label} row inventory`);
+    return rowsInBlock;
+  };
+  const numericCell = (cell) => {
+    let value = String(cell).trim();
+    if (value.startsWith("**") && value.endsWith("**")) value = value.slice(2, -2);
+    if (value.startsWith("`") && value.endsWith("`")) value = value.slice(1, -1);
+    return /^[0-9]+(?:\.[0-9]+)?$/.test(value) ? value : null;
+  };
+  const historicalRawRows = tableRows(
+    "| point | steps | attached | `AR` | habit | arm64 wall | x64 wall |",
+    "|---|---|---|---|---|---|---|",
+    "Tier 2 historical table",
+  );
+  const rowPattern = /^\| `([^`]+)` \| (\d+) \| (\d+) \| ([^|]+) \| \*\*(plate|column|neutral)\*\* \| ([^|]+) \| ([^|]+) \|$/;
+  const rows = historicalRawRows.flatMap((line) => {
+    const match = rowPattern.exec(line);
+    const aspectRatio = match === null ? null : numericCell(match[4]);
+    if (match === null || aspectRatio === null) {
+      violations.push("Tier 2 historical table malformed row");
+      return [];
+    }
+    return [{
+      point: match[1],
+      steps: match[2],
+      attached: match[3],
+      aspectRatio,
+      habit: match[5],
+      arm64Wall: match[6].trim(),
+      x64Wall: match[7].trim(),
+    }];
+  });
+  const rowsMatch = sameRecord(rows, PHASE6_TIER2_HISTORICAL_ROWS);
+  if (!rowsMatch) violations.push("Tier 2 historical table");
+  const x64RawRows = tableRows(
+    "| point | T | σ∞ | steps | attached | `AR` | **habit** |",
+    "|---|---|---|---|---|---|---|",
+    "Tier 2 x64 baseline table",
+  );
+  const x64RowPattern = /^\| `([^`]+)` \| ([−-]\d+) °C \| ([0-9.]+) \| (\d+) \| (\d+) \| ([^|]+) \| \*\*(plate|column|neutral)\*\* \|$/;
+  const x64Rows = x64RawRows.flatMap((line) => {
+    const match = x64RowPattern.exec(line);
+    const aspectRatio = match === null ? null : numericCell(match[6]);
+    if (match === null || aspectRatio === null) {
+      violations.push("Tier 2 x64 baseline table malformed row");
+      return [];
+    }
+    return [{
+      point: match[1],
+      tempC: Number(match[2].replace("−", "-")),
+      sigmaInf: match[3],
+      steps: Number(match[4]),
+      attached: Number(match[5]),
+      aspectRatio: Number(aspectRatio),
+      habit: match[7],
+    }];
+  });
+  const expectedX64Rows = PHASE6_TIER2_BASELINE_BINDINGS.map((binding, index) => ({
+    point: binding.point,
+    tempC: binding.tempC,
+    sigmaInf: binding.sigmaInf,
+    steps: Number(PHASE6_TIER2_HISTORICAL_ROWS[index].steps),
+    attached: Number(PHASE6_TIER2_HISTORICAL_ROWS[index].attached),
+    aspectRatio: Number(PHASE6_TIER2_HISTORICAL_ROWS[index].aspectRatio),
+    habit: PHASE6_TIER2_HISTORICAL_ROWS[index].habit,
+  }));
+  const x64TableMatch = sameRecord(x64Rows, expectedX64Rows);
+  if (!x64TableMatch) violations.push("Tier 2 x64 baseline table");
+  const historicalSemantics = rows.map((row) => ({
+    point: row.point,
+    steps: Number(row.steps),
+    attached: Number(row.attached),
+    aspectRatio: Number(row.aspectRatio),
+    habit: row.habit,
+  }));
+  const derivedX64Semantics = PHASE6_TIER2_BASELINE_BINDINGS.map((binding) => {
+    const row = cakComparisonByKey?.[`${binding.tempC}|${binding.fraction.toFixed(2)}`];
+    if (!row) return { point: binding.point, missing: true };
+    if (row.sigmaInf.toFixed(6) !== binding.sigmaInf) {
+      violations.push(`Tier 2 x64 baseline sigmaInf ${binding.point}`);
+    }
+    return {
+      point: binding.point,
+      steps: row.steps,
+      attached: row.attached,
+      aspectRatio: row.aspectRatio,
+      habit: row.habit,
+    };
+  });
+  const matchesTrackedCak = sameRecord(historicalSemantics, derivedX64Semantics);
+  if (!matchesTrackedCak) {
+    violations.push("Tier 2 historical rows do not match tracked CAK baseline");
+  }
+  const disclosurePresent = /underlying arm64 logs and exit-status bytes were not tracked and are unavailable to this repository; the arm64 output rows are therefore a historical report, not independently rederivable evidence/i.test(normalized);
+  if (!disclosurePresent) violations.push("Tier 2 raw-evidence limit");
+  const fingerprintPaths = new Set([
+    "phase6-crossplatform/arm64-libm-fingerprint.txt",
+    "phase6-crossplatform/x64-libm-fingerprint.txt",
+  ]);
+  const publishedRawPaths = Object.keys(manifest?.files || {}).filter(
+    (path) => path.startsWith("phase6-crossplatform/") && !fingerprintPaths.has(path),
+  );
+  if (publishedRawPaths.length > 0) {
+    violations.push("Tier 2 raw evidence appeared without an education-oracle parser");
+  }
+  return {
+    violations,
+    rows,
+    rowsMatch,
+    x64Rows,
+    x64TableMatch,
+    matchesTrackedCak,
+    rawEvidencePublished: publishedRawPaths.length > 0,
+  };
+}
+
+function phase6FingerprintDigest(entries) {
+  let hash = 0x811c9dc5;
+  for (const entry of entries) {
+    for (const character of `${entry.name}|${entry.argument}|${entry.bits}\n`) {
+      hash ^= character.codePointAt(0);
+      hash = Math.imul(hash, 0x01000193) >>> 0;
+    }
+  }
+  return hash.toString(16).padStart(8, "0");
+}
+
+function parsePhase6Fingerprint(bytes, label, expectedHost, violations) {
+  const text = utf8(bytes);
+  const lines = text.split(/\r?\n/);
+  const hostLines = lines.filter((line) => line.startsWith("host platform="));
+  const countIndexes = lines.flatMap((line, index) => line.startsWith("entries=") ? [index] : []);
+  const digestIndexes = lines.flatMap(
+    (line, index) => line.startsWith("PHASE6 LIBM DIGEST:") ? [index] : [],
+  );
+  const selfReportedHost = hostLines.length === 1 ? hostLines[0] : "";
+  if (hostLines.length !== 1 || selfReportedHost !== expectedHost) {
+    violations.push(`${label} self-reported host identity`);
+  }
+  if (countIndexes.length !== 1) violations.push(`${label} entries header inventory`);
+  if (digestIndexes.length !== 1) violations.push(`${label} digest inventory`);
+  const headerIndex = countIndexes.length === 1 ? countIndexes[0] : -1;
+  const digestIndex = digestIndexes.length === 1 ? digestIndexes[0] : -1;
+  const countMatch = headerIndex >= 0 ? /^entries=(\d+)$/.exec(lines[headerIndex]) : null;
+  const digestMatch = digestIndex >= 0
+    ? /^PHASE6 LIBM DIGEST: ([0-9a-f]{8})$/.exec(lines[digestIndex])
+    : null;
+  const declaredCount = countMatch === null ? Number.NaN : Number(countMatch[1]);
+  const declaredDigest = digestMatch?.[1] || "";
+  if (headerIndex < 0 || digestIndex <= headerIndex) violations.push(`${label} section ordering`);
+  const entryLines = headerIndex >= 0 && digestIndex > headerIndex
+    ? lines.slice(headerIndex + 1, digestIndex)
+    : [];
+  if (entryLines.length !== 448) violations.push(`${label} entry-row inventory`);
+  const entries = new Map();
+  const orderedEntries = [];
+  for (const line of entryLines) {
+    const match = /^  ([^\t]+)\t([^\t]+)\t([0-9a-f]{16})$/.exec(line);
+    if (!match) {
+      violations.push(`${label} malformed entry row`);
+      continue;
+    }
+    const key = `${match[1]}|${match[2]}`;
+    if (entries.has(key)) violations.push(`${label} duplicate ${key}`);
+    entries.set(key, match[3]);
+    orderedEntries.push({ name: match[1], argument: match[2], bits: match[3] });
+  }
+  if (declaredCount !== 448 || entries.size !== 448 || declaredCount !== entries.size) {
+    violations.push(`${label} entry inventory`);
+  }
+  const computedDigest = phase6FingerprintDigest(orderedEntries);
+  if (declaredDigest !== computedDigest) violations.push(`${label} independently derived digest`);
+  return { declaredDigest, computedDigest, entries, selfReportedHost };
+}
+
+function comparePhase6Fingerprints(x64Bytes, arm64Bytes) {
+  const violations = [];
+  if (sha256Bytes(x64Bytes) !== PHASE6_FINGERPRINT_SHA256.x64) {
+    violations.push("x64 fingerprint full-file SHA-256");
+  }
+  if (sha256Bytes(arm64Bytes) !== PHASE6_FINGERPRINT_SHA256.arm64) {
+    violations.push("arm64 fingerprint full-file SHA-256");
+  }
+  const x64 = parsePhase6Fingerprint(
+    x64Bytes,
+    "x64 fingerprint",
+    PHASE6_FINGERPRINT_HOSTS.x64,
+    violations,
+  );
+  const arm64 = parsePhase6Fingerprint(
+    arm64Bytes,
+    "arm64 fingerprint",
+    PHASE6_FINGERPRINT_HOSTS.arm64,
+    violations,
+  );
+  if (x64.computedDigest !== "2a9f64b3") violations.push("x64 fingerprint digest");
+  if (arm64.computedDigest !== "3662b9e2") violations.push("arm64 fingerprint digest");
+  const sampledTemperatureArguments = [...x64.entries.keys()]
+    .filter((key) => key.startsWith("pSatIce|"))
+    .map((key) => key.slice("pSatIce|".length))
+    .sort();
+  const expectedTemperatureArguments = [
+    ...Array.from({ length: 29 }, (_, index) => (-2 - index).toFixed(1)),
+    "-3.3",
+    "-9.9",
+    "-21.5",
+  ].sort();
+  if (!sameRecord(sampledTemperatureArguments, expectedTemperatureArguments)) {
+    violations.push("cross-platform fingerprint temperature coverage");
+  }
+  const keys = new Set([...x64.entries.keys(), ...arm64.entries.keys()]);
+  let differing = 0;
+  let maxUlp = 0n;
+  for (const key of keys) {
+    const left = x64.entries.get(key);
+    const right = arm64.entries.get(key);
+    if (left === undefined || right === undefined) {
+      violations.push(`cross-platform fingerprint key set ${key}`);
+      continue;
+    }
+    if (left !== right) {
+      differing += 1;
+      const distance = BigInt(`0x${left}`) >= BigInt(`0x${right}`)
+        ? BigInt(`0x${left}`) - BigInt(`0x${right}`)
+        : BigInt(`0x${right}`) - BigInt(`0x${left}`);
+      if (distance > maxUlp) maxUlp = distance;
+    }
+  }
+  if (keys.size !== 448 || differing !== 9 || maxUlp !== 31n) {
+    violations.push("cross-platform independently derived difference summary");
+  }
+  return {
+    violations,
+    entries: keys.size,
+    differing,
+    maxUlp: Number(maxUlp),
+    selfReportedHosts: {
+      x64: x64.selfReportedHost,
+      arm64: arm64.selfReportedHost,
+    },
+    temperatureCoverage: "integer -2..-30 C plus boundaries -3.3/-9.9/-21.5 C",
+    missingRegisteredColdTailC: [-31, -32, -33, -34, -35],
+  };
+}
+
+function phase6Regime(tempC) {
+  const supercooling = -tempC;
+  if (supercooling <= 3.3) return { key: "plates-warm", habit: "plate", headline: true };
+  if (supercooling <= 9.9) return { key: "columns", habit: "column", headline: true };
+  if (supercooling <= 21.5) return { key: "plates-cold", habit: "plate", headline: true };
+  return { key: "columns-and-plates", habit: "either", headline: false };
+}
+
+function phase6DistanceToBoundary(tempC) {
+  return Math.min(...PHASE6_BOUNDARIES.map((boundary) => Math.abs(-tempC - boundary)));
+}
+
+function phase6SigmaWater(tempC) {
+  for (let index = 0; index < PHASE6_WATER_ANCHORS.length - 1; index += 1) {
+    const [leftT, leftSigma] = PHASE6_WATER_ANCHORS[index];
+    const [rightT, rightSigma] = PHASE6_WATER_ANCHORS[index + 1];
+    if (tempC <= leftT && tempC >= rightT) {
+      const position = (tempC - leftT) / (rightT - leftT);
+      return leftSigma + position * (rightSigma - leftSigma);
+    }
+  }
+  return Number.NaN;
+}
+
+function phase6HabitClass(aspectRatio) {
+  if (!Number.isFinite(aspectRatio) || aspectRatio <= 0) return "invalid";
+  if (aspectRatio <= 1 / 1.5) return "plate";
+  if (aspectRatio >= 1.5) return "column";
+  return "neutral";
+}
+
+function phase6Score(tempC, modelClass, armSpecific) {
+  if (modelClass === "invalid") return "excluded";
+  if (armSpecific && PHASE6_BISTABLE_C.includes(tempC)) {
+    return modelClass === "neutral" ? "disagree" : "agree";
+  }
+  const regime = phase6Regime(tempC);
+  const agrees = modelClass !== "neutral"
+    && (regime.habit === "either" || modelClass === regime.habit);
+  return agrees ? "agree" : "disagree";
+}
+
+function phase6ExtentFragile(aspectRatio) {
+  return [1 / 1.5, 1.5].some(
+    (threshold) => aspectRatio < threshold
+      && aspectRatio >= threshold - PHASE6_EXTENT_DRIFT_BOUND_AR,
+  );
+}
+
+function phase6ClosedExtentFragile(aspectRatio) {
+  return [1 / 1.5, 1.5].some(
+    (threshold) => Math.abs(aspectRatio - threshold) <= PHASE6_EXTENT_DRIFT_BOUND_AR,
+  );
+}
+
+function phase6InvalidReasons(result, derivedDomainContact) {
+  const reasons = [];
+  if (!Number.isSafeInteger(result.steps) || result.steps < 0) {
+    reasons.push("step count was not a nonnegative safe integer");
+  } else if (result.steps > PHASE6_STEP_CAP) {
+    reasons.push(`step count ${result.steps} exceeded the registered safety cap ${PHASE6_STEP_CAP}`);
+  }
+  if (!Number.isSafeInteger(result.attached) || result.attached < 0) {
+    reasons.push("attached count was not a nonnegative safe integer");
+  } else if (result.attached > PHASE6_ACTIVE_CELLS) {
+    reasons.push(
+      `attached count ${result.attached} exceeded the registered active-cell count ${PHASE6_ACTIVE_CELLS}`,
+    );
+  }
+  if (!Number.isFinite(result.seconds) || result.seconds < 0) {
+    reasons.push("wall seconds was not finite and nonnegative");
+  }
+  const extentTelemetryValid = Number.isSafeInteger(result.largestExtent)
+    && result.largestExtent >= 0;
+  if (!extentTelemetryValid) {
+    reasons.push("largest extent was not a nonnegative safe integer");
+  }
+  if (result.allConverged !== true) {
+    reasons.push(
+      result.allConverged === false
+        ? "a relaxation did not converge"
+        : "allConverged telemetry was not exactly boolean true",
+    );
+  }
+  if (result.deltaSymClean !== true) {
+    reasons.push(
+      result.deltaSymClean === false
+        ? "a per-tick attachment delta broke D6h invariance"
+        : "deltaSymClean telemetry was not exactly boolean true",
+    );
+  }
+  if (result.symmetryError !== 0) {
+    reasons.push(`symmetryError = ${result.symmetryError} with noise off`);
+  }
+  if (result.domainContact !== derivedDomainContact) {
+    reasons.push("domain-contact telemetry did not match the independently derived geometry");
+  }
+  if (derivedDomainContact) reasons.push("tripped the 65% domain-contact guard");
+  if (extentTelemetryValid && result.largestExtent < PHASE6_TARGET_EXTENT) {
+    reasons.push(
+      `stopped at extent ${result.largestExtent}, short of the registered measurement size `
+      + `${PHASE6_TARGET_EXTENT} — habit is size-dependent, so this is not a smaller measurement of the same crystal`,
+    );
+  }
+  if (result.config != null && result.config.stopReason !== "size-target") {
+    reasons.push(`stop reason "${result.config.stopReason}", not the registered "size-target"`);
+  }
+  if (!Number.isFinite(result.aspectRatio) || result.aspectRatio <= 0) {
+    reasons.push("aspect ratio was not finite and positive");
+  }
+  return reasons;
+}
+
+function phase6M1ConfigViolations(config, point, result) {
+  const violations = [];
+  if (!config || typeof config !== "object" || Array.isArray(config)) {
+    return ["missing per-row self-reported configuration"];
+  }
+  const expected = {
+    ...PHASE6_M1_CONFIG,
+    tempC: point.tempC,
+    sigmaInf: Number(point.sigmaInf.toFixed(6)),
+    finalExtent: result.largestExtent,
+  };
+  const actualKeys = Object.keys(config).sort();
+  const expectedKeys = [...Object.keys(expected), "stopReason"].sort();
+  if (!sameRecord(actualKeys, expectedKeys)) violations.push("configuration key set");
+  for (const [key, value] of Object.entries(expected)) {
+    if (config[key] !== value) violations.push(`configuration ${key}`);
+  }
+  if (typeof config.stopReason !== "string" || config.stopReason.length === 0) {
+    violations.push("configuration stopReason");
+  }
+  return violations;
+}
+
+function derivePhase6Sweep(pointsBytes, reportBytes, spec) {
+  const { name, armSpecific } = spec;
+  const violations = [];
+  const points = parseJsonBytes(pointsBytes, `${name} points`, violations);
+  const report = parseJsonBytes(reportBytes, `${name} report`, violations);
+  const classes = { plate: 0, neutral: 0, column: 0, invalid: 0 };
+  const byKey = new Map();
+  const derivedByKey = new Map();
+  let configRows = 0;
+  let commonAgree = 0;
+  let commonTotal = 0;
+  let armAgree = 0;
+  let armTotal = 0;
+
+  if (!Array.isArray(points) || points.length !== 204) {
+    violations.push(`${name} point inventory`);
+  } else {
+    for (const row of points) {
+      if (!hasExactKeys(row, PHASE6_SWEEP_ROW_KEYS)) {
+        violations.push(`${name} row key set`);
+      }
+      const tempC = row?.point?.tempC;
+      const fraction = row?.point?.fraction;
+      const key = `${tempC}|${Number(fraction).toFixed(2)}`;
+      if (
+        !PHASE6_TEMPS_C.includes(tempC)
+        || !PHASE6_FRACTIONS.includes(fraction)
+        || byKey.has(key)
+      ) {
+        violations.push(`${name} grid key ${key}`);
+        continue;
+      }
+      byKey.set(key, row);
+      const sigmaInf = phase6SigmaWater(tempC) * fraction;
+      const distanceToBoundaryC = phase6DistanceToBoundary(tempC);
+      const inAmbiguityBand = distanceToBoundaryC <= 1;
+      const expectedPoint = {
+        tempC,
+        fraction,
+        sigmaInf,
+        inAmbiguityBand,
+        distanceToBoundaryC,
+      };
+      if (!sameRecord(row.point, expectedPoint)) violations.push(`${name} point identity ${key}`);
+
+      const result = row?.result;
+      if (!result || typeof result !== "object" || Array.isArray(result)) {
+        violations.push(`${name} result record ${key}`);
+        continue;
+      }
+      const expectedResultKeys = spec.configMode === "required-m1"
+        ? [...PHASE6_SWEEP_RESULT_KEYS, "config"]
+        : PHASE6_SWEEP_RESULT_KEYS;
+      if (!hasExactKeys(result, expectedResultKeys)) {
+        violations.push(`${name} result key set ${key}`);
+      }
+      if (
+        result.tempC !== tempC
+        || result.fraction !== fraction
+        || result.sigmaInf !== sigmaInf
+      ) violations.push(`${name} result point identity ${key}`);
+      if (
+        !Number.isSafeInteger(result.steps) || result.steps < 0 || result.steps > PHASE6_STEP_CAP
+        || !Number.isSafeInteger(result.attached) || result.attached < 0
+        || result.attached > PHASE6_ACTIVE_CELLS
+        || !Number.isFinite(result.seconds) || result.seconds < 0
+        || !Number.isSafeInteger(result.largestExtent) || result.largestExtent < 0
+      ) violations.push(`${name} result telemetry ${key}`);
+
+      const derivedDomainContact = result.largestExtent / PHASE6_DOMAIN_N
+        > PHASE6_DOMAIN_CONTACT_FRACTION;
+      if (result.domainContact !== derivedDomainContact) {
+        violations.push(`${name} independently derived domain contact ${key}`);
+      }
+      let configValid = true;
+      if (spec.configMode === "required-m1") {
+        const configProblems = phase6M1ConfigViolations(result.config, expectedPoint, result);
+        if (configProblems.length > 0) {
+          configValid = false;
+          violations.push(...configProblems.map((problem) => `${name} ${problem} ${key}`));
+        } else {
+          configRows += 1;
+        }
+      } else if (Object.hasOwn(result, "config")) {
+        configValid = false;
+        violations.push(`${name} legacy row unexpectedly carries config ${key}`);
+      }
+
+      const invalidReasons = phase6InvalidReasons(result, derivedDomainContact);
+      const expectedExclusionReason = configValid
+        ? (invalidReasons.length > 0 ? invalidReasons.join("; ") : null)
+        : "configuration identity did not match the registered M1 configuration";
+      const modelClass = configValid && invalidReasons.length === 0
+        ? phase6HabitClass(result.aspectRatio)
+        : "invalid";
+      classes[modelClass] += 1;
+      const regime = phase6Regime(tempC);
+      const commonProtocolScope = regime.headline && !inAmbiguityBand;
+      const armProtocolScope = commonProtocolScope
+        && (!armSpecific || !PHASE6_BISTABLE_C.includes(tempC));
+      const commonScore = phase6Score(tempC, modelClass, false);
+      const expectedScore = phase6Score(tempC, modelClass, armSpecific);
+      if (commonProtocolScope && commonScore !== "excluded") {
+        commonTotal += 1;
+        if (commonScore === "agree") commonAgree += 1;
+      }
+      if (armProtocolScope && expectedScore !== "excluded") {
+        armTotal += 1;
+        if (expectedScore === "agree") armAgree += 1;
+      }
+
+      const extentFragile = modelClass !== "invalid" && phase6ExtentFragile(result.aspectRatio);
+      const closedExtentFragile = modelClass !== "invalid"
+        && phase6ClosedExtentFragile(result.aspectRatio);
+      const exactThreshold = modelClass !== "invalid"
+        && [1 / 1.5, 1.5].includes(result.aspectRatio);
+      if (
+        row.modelClass !== modelClass
+        || row.regime !== regime.key
+        || row.inAmbiguityBand !== inAmbiguityBand
+        || row.point.inAmbiguityBand !== inAmbiguityBand
+        || row.inHeadlineScope !== armProtocolScope
+        || row.score !== expectedScore
+        || row.extentFragile !== extentFragile
+        || row.exclusionReason !== expectedExclusionReason
+      ) {
+        violations.push(`${name} producer labels ${key}`);
+      }
+      derivedByKey.set(key, {
+        row,
+        modelClass,
+        regime,
+        inAmbiguityBand,
+        armProtocolScope,
+        expectedScore,
+        extentFragile,
+        closedExtentFragile,
+        exactThreshold,
+        expectedExclusionReason,
+      });
+    }
+  }
+
+  for (const tempC of PHASE6_TEMPS_C) {
+    for (const fraction of PHASE6_FRACTIONS) {
+      if (!byKey.has(`${tempC}|${fraction.toFixed(2)}`)) {
+        violations.push(`${name} missing ${tempC}|${fraction.toFixed(2)}`);
+      }
+    }
+  }
+
+  const grid = Object.fromEntries(PHASE6_FRACTIONS.map((fraction) => [
+    String(fraction),
+    PHASE6_TEMPS_C.map((tempC) => {
+      const row = byKey.get(`${tempC}|${fraction.toFixed(2)}`);
+      return ({ plate: "P", column: "C", neutral: ".", invalid: "X" })[
+        derivedByKey.get(`${tempC}|${fraction.toFixed(2)}`)?.modelClass || "invalid"
+      ];
+    }).join(""),
+  ]));
+
+  const reportIsRecord = report !== null && typeof report === "object" && !Array.isArray(report);
+  if (!reportIsRecord) {
+    violations.push(`${name} report record`);
+  } else {
+    const expectedReportKeys = armSpecific ? PHASE6_M1_REPORT_KEYS : PHASE6_SWEEP_REPORT_KEYS;
+    if (!hasExactKeys(report, expectedReportKeys)) {
+      violations.push(`${name} report key set`);
+    }
+    const reportAgree = armSpecific ? armAgree : commonAgree;
+    const reportTotal = armSpecific ? armTotal : commonTotal;
+    for (const [field, value] of Object.entries(spec.reportIdentity)) {
+      if (report[field] !== value) violations.push(`${name} report identity ${field}`);
+    }
+    const derivedRows = [...derivedByKey.values()];
+    const perRegime = ["plates-warm", "columns", "plates-cold", "columns-and-plates"].map(
+      (regimeKey) => {
+        const regime = phase6Regime(
+          regimeKey === "plates-warm" ? -2
+            : regimeKey === "columns" ? -5
+              : regimeKey === "plates-cold" ? -15 : -30,
+        );
+        const rows = derivedRows.filter((entry) => (
+          entry.regime.key === regimeKey
+          && !entry.inAmbiguityBand
+          && (!regime.headline || entry.armProtocolScope)
+        ));
+        return {
+          regime: regimeKey,
+          inHeadline: regime.headline,
+          agree: rows.filter((entry) => entry.expectedScore === "agree").length,
+          disagree: rows.filter((entry) => entry.expectedScore === "disagree").length,
+          excluded: rows.filter((entry) => entry.expectedScore === "excluded").length,
+          neutralCount: rows.filter((entry) => entry.modelClass === "neutral").length,
+          extentFragile: rows.filter((entry) => entry.extentFragile).length,
+        };
+      },
+    );
+    const expectedExcludedPoints = derivedRows
+      .filter((entry) => entry.expectedExclusionReason !== null)
+      .map((entry) => ({
+        tempC: entry.row.point.tempC,
+        fraction: entry.row.point.fraction,
+        reason: entry.expectedExclusionReason,
+      }));
+    if (
+      report.headlineAgree !== reportAgree
+      || report.headlineTotal !== reportTotal
+      || report.neutralCount !== classes.neutral
+      || report.excludedCount !== classes.invalid
+      || report.extentFragileCount !== derivedRows.filter((entry) => entry.extentFragile).length
+      || !sameRecord(report.perRegime, perRegime)
+      || !Array.isArray(report.excludedPoints)
+      || !sameRecord(report.excludedPoints, expectedExcludedPoints)
+      || expectedExcludedPoints.length !== classes.invalid
+    ) {
+      violations.push(`${name} independently derived report`);
+    }
+    if (armSpecific && (
+      report.headlineAgreeCommonDenominator !== commonAgree
+      || report.headlineTotalCommonDenominator !== commonTotal
+    )) {
+      violations.push(`${name} common-denominator report totals`);
+    }
+    if (armSpecific) {
+      const bistable = derivedRows.filter((entry) => PHASE6_BISTABLE_C.includes(entry.row.point.tempC));
+      const expectedBistable = {
+        temperaturesC: [...PHASE6_BISTABLE_C],
+        points: bistable.length,
+        agree: bistable.filter((entry) => entry.expectedScore === "agree").length,
+        neutralCount: bistable.filter((entry) => entry.modelClass === "neutral").length,
+      };
+      if (!sameRecord(report.bistable, expectedBistable)) {
+        violations.push(`${name} independently derived bistable report`);
+      }
+    }
+  }
+
+  const derivedRows = [...derivedByKey.values()];
+  const exactThresholdRows = derivedRows
+    .filter((entry) => entry.exactThreshold)
+    .map((entry) => ({
+      tempC: entry.row.point.tempC,
+      fraction: entry.row.point.fraction,
+      aspectRatio: entry.row.result.aspectRatio,
+    }));
+  const extentFragility = {
+    historicalOneSided: derivedRows.filter((entry) => entry.extentFragile).length,
+    closedSymmetric: derivedRows.filter((entry) => entry.closedExtentFragile).length,
+    additional: derivedRows.filter(
+      (entry) => entry.closedExtentFragile && !entry.extentFragile,
+    ).length,
+    exactThresholdRows,
+  };
+  const comparisonByKey = Object.fromEntries([...derivedByKey].map(([key, entry]) => [
+    key,
+    {
+      sigmaInf: entry.row.point.sigmaInf,
+      steps: entry.row.result.steps,
+      attached: entry.row.result.attached,
+      aspectRatio: entry.row.result.aspectRatio,
+      habit: entry.modelClass,
+    },
+  ]));
+
+  return {
+    violations,
+    points: Array.isArray(points) ? points.length : 0,
+    classes,
+    commonAgree,
+    commonTotal,
+    armAgree,
+    armTotal,
+    configRows,
+    extentFragility,
+    comparisonByKey,
+    grid,
+    report,
+  };
+}
+
+export function loadPhase6TrackedInputs(repoRoot) {
+  const manifestBytes = readFileSync(join(repoRoot, "evidence/MANIFEST.json"));
+  const manifest = JSON.parse(utf8(manifestBytes));
+  const files = {};
+  const evidenceRoot = resolve(repoRoot, "evidence");
+  for (const path of Object.keys(manifest.files || {})) {
+    const resolvedPath = resolve(evidenceRoot, path);
+    if (
+      !/^[A-Za-z0-9._/-]+$/.test(path)
+      || isAbsolute(path)
+      || path.includes("\\")
+      || path.includes("//")
+      || /(?:^|\/)\.{1,2}(?:\/|$)/.test(path)
+      || !resolvedPath.startsWith(`${evidenceRoot}${sep}`)
+      || relative(evidenceRoot, resolvedPath).replace(/\\/g, "/") !== path
+    ) {
+      throw new Error(`unsafe Phase 6 evidence manifest path: ${path}`);
+    }
+    files[path] = readFileSync(resolvedPath);
+  }
+  return {
+    manifestBytes,
+    files,
+    handoff: readFileSync(join(repoRoot, "docs/HANDOFF.md"), "utf8"),
+    progress: readFileSync(join(repoRoot, "docs/PROGRESS.md"), "utf8"),
+    twoArmReport: readFileSync(join(repoRoot, "research/phase6-two-arm-report.md"), "utf8"),
+    heldOutCandidateLockBytes: readFileSync(
+      join(repoRoot, "research/phase6-heldout-candidate-lock.json"),
+    ),
+    crossPlatformReportText: readFileSync(
+      join(repoRoot, "docs/phase6-cross-platform-control.md"),
+      "utf8",
+    ),
+    activePlan: readFileSync(join(repoRoot, "docs/plans/phase-6-science-first-completion.md"), "utf8"),
+    charter: readFileSync(join(repoRoot, "project charter.md"), "utf8"),
+  };
+}
+
+export function derivePhase6TrackedAuthority(inputs) {
+  const violations = [];
+  const manifest = parseJsonBytes(inputs?.manifestBytes, "evidence/MANIFEST.json", violations);
+  let actualBytes = 0;
+  let actualFiles = 0;
+  if (!manifest || manifest.schema !== "phase6-evidence-manifest-v1") {
+    violations.push("Phase 6 manifest schema");
+  } else {
+    if (!hasExactKeys(manifest, PHASE6_MANIFEST_KEYS)) {
+      violations.push("Phase 6 manifest key set");
+    }
+    for (const [field, expected] of Object.entries(PHASE6_MANIFEST_METADATA)) {
+      if (manifest[field] !== expected) violations.push(`Phase 6 manifest provenance ${field}`);
+    }
+    if (
+      typeof manifest.movedFrom !== "string"
+      || typeof manifest.movedTo !== "string"
+      || typeof manifest.note !== "string"
+      || !Number.isInteger(manifest.fileCount) || manifest.fileCount < 0
+      || !Number.isInteger(manifest.totalBytes) || manifest.totalBytes < 0
+      || manifest.files === null || typeof manifest.files !== "object" || Array.isArray(manifest.files)
+    ) {
+      violations.push("Phase 6 manifest field types");
+    }
+    for (const [path, pin] of Object.entries(manifest.files || {})) {
+      const bytes = inputs.files?.[path];
+      actualFiles += 1;
+      if (
+        !hasExactKeys(pin, ["bytes", "sha256"])
+        || !Number.isInteger(pin?.bytes) || pin.bytes < 0
+        || typeof pin?.sha256 !== "string" || !/^[0-9a-f]{64}$/.test(pin.sha256)
+      ) {
+        violations.push(`Phase 6 manifest pin schema ${path}`);
+      }
+      if (!bytes) {
+        violations.push(`Phase 6 manifest missing bytes ${path}`);
+        continue;
+      }
+      const length = bytes.byteLength;
+      actualBytes += length;
+      if (length !== pin?.bytes || sha256Bytes(bytes) !== pin?.sha256) {
+        violations.push(`Phase 6 manifest pin ${path}`);
+      }
+    }
+    if (manifest.fileCount !== actualFiles || manifest.totalBytes !== actualBytes) {
+      violations.push("Phase 6 manifest aggregate");
+    }
+    const actualPaths = Object.keys(manifest.files || {}).sort();
+    const expectedPaths = [...PHASE6_EXPECTED_EVIDENCE].sort();
+    if (!sameRecord(actualPaths, expectedPaths)) {
+      violations.push("Phase 6 evidence manifest inventory");
+    }
+  }
+
+  const file = (path) => inputs.files?.[path] || Buffer.from("null");
+  const crossPlatform = comparePhase6Fingerprints(
+    file("phase6-crossplatform/x64-libm-fingerprint.txt"),
+    file("phase6-crossplatform/arm64-libm-fingerprint.txt"),
+  );
+  const heldOutLock = derivePhase6HeldOutLock(inputs?.heldOutCandidateLockBytes);
+  const cak = derivePhase6Sweep(
+    file("phase6-sweep/points.json"),
+    file("phase6-sweep/report.json"),
+    PHASE6_SWEEP_SPECS.CAK,
+  );
+  const m1 = derivePhase6Sweep(
+    file("phase6-sweep-arm2/points.json"),
+    file("phase6-sweep-arm2/report.json"),
+    PHASE6_SWEEP_SPECS.M1,
+  );
+  const cakA1 = derivePhase6Sweep(
+    file("phase6-sweep-6995868-cak-a1-superseded/points.json"),
+    file("phase6-sweep-6995868-cak-a1-superseded/report.json"),
+    PHASE6_SWEEP_SPECS.CAK_A1,
+  );
+  const tier2Historical = derivePhase6Tier2HistoricalReport(
+    inputs?.crossPlatformReportText,
+    manifest,
+    cak.comparisonByKey,
+  );
+  violations.push(
+    ...crossPlatform.violations,
+    ...heldOutLock.violations,
+    ...tier2Historical.violations,
+    ...cak.violations,
+    ...m1.violations,
+    ...cakA1.violations,
+  );
+
+  const handoff = inputs?.handoff || "";
+  const progress = inputs?.progress || "";
+  const reportText = inputs?.twoArmReport || "";
+  const plan = inputs?.activePlan || "";
+  const charter = inputs?.charter || "";
+  const handoffDate = /^# Handoff[^\n]*\((\d{4}-\d{2}-\d{2})\)\s*$/m.exec(handoff)?.[1] || "";
+  const progressDate = /^- \*\*Last updated:\*\* (\d{4}-\d{2}-\d{2})\b/m.exec(progress)?.[1] || "";
+  const authorityChecks = [
+    [handoffDate !== "" && handoffDate === progressDate, "state-index date agreement"],
+    [/Phase 6 is ACTIVE AND INCOMPLETE/i.test(handoff), "HANDOFF phase status"],
+    [/R15 has no production\s+caller or complete artifact\/gate/i.test(handoff), "HANDOFF R15 status"],
+    [/historical table reports four CAK output rows matching the x64 baseline/i.test(handoff), "HANDOFF portability scope"],
+    [/raw arm64 logs[\s\S]{0,120}unavailable/i.test(handoff), "HANDOFF portability provenance limit"],
+    [/no end-to-end, M1 or full-grid[\s\S]{0,80}independently rederivable/i.test(handoff), "HANDOFF portability limit"],
+    [/passEligible=false/i.test(handoff), "HANDOFF source lock"],
+    [/Phase 6 is ACTIVE AND INCOMPLETE/i.test(progress), "PROGRESS phase status"],
+    [/CAK 3\/90, M1 54\/90/i.test(progress), "PROGRESS measured counts"],
+    [/matched `?M1_NO_DIP_ABLATION`?/i.test(progress), "PROGRESS no-dip obligation"],
+    [/cannot establish physical SDAK causality or necessity/i.test(progress), "PROGRESS causal limit"],
+    [/measured-only[\s\S]{0,120}not ADR 0026/i.test(reportText), "two-arm report gate status"],
+    [/R15[\s\S]{0,120}GPU[\s\S]{0,120}held-out obligations remain open/i.test(reportText), "two-arm report open work"],
+    [/M1_NO_DIP_ABLATION/i.test(plan), "active plan no-dip arm"],
+    [/growth rates vs \(T, σ\), size-dependent habit, pressure dependence, and growth-history responses/i.test(charter), "charter four held-out families"],
+  ];
+  for (const [ok, label] of authorityChecks) if (!ok) violations.push(label);
+
+  const record = {
+    id: "current",
+    label: "Current Phase 6 authority",
+    authority: {
+      stateDate: `${handoffDate || "unknown-date"} tracked authority`,
+      stateIndex: "docs/HANDOFF.md and docs/PROGRESS.md",
+      resultArtifact: "research/phase6-two-arm-report.md",
+      evidenceManifest: `evidence/MANIFEST.json: ${actualFiles} files / ${actualBytes} bytes`,
+      historicalArm2ExecutionCommit: m1.report?.head || "",
+      arm2ValuesSha256: m1.report?.valuesSha256 || "",
+      snapshotMeaning: "both historical arms measured; replacement-gate obligations remain open",
+    },
+    arm1: {
+      runState: "complete historical measurement",
+      points: `${cak.points}/204`,
+      measuredHeadline: `${cak.commonAgree}/${cak.commonTotal}`,
+      classes: `${cak.classes.plate} plate / ${cak.classes.neutral} neutral / ${cak.classes.column} column`,
+      modelInvalidRows: `${cak.classes.invalid}/${cak.points}`,
+      evidenceClass: "measured-only; not the registered replacement gate",
+      historicalScope: "reported broad-facet CAK arm; legacy rows predate per-row self-reported config",
+      extentFragility: `historical one-sided=${cak.extentFragility.historicalOneSided}; closed symmetric |AR-threshold| <= ${PHASE6_EXTENT_DRIFT_BOUND_AR}=${cak.extentFragility.closedSymmetric}; additional=${cak.extentFragility.additional}; exact-threshold witnesses=${cak.extentFragility.exactThresholdRows.map((row) => `${row.tempC}C/f=${row.fraction}/AR=${row.aspectRatio}`).join(",")}`,
+    },
+    arm2: {
+      runState: "complete historical measurement",
+      points: `${m1.points}/204`,
+      measurement: `${m1.commonAgree}/${m1.commonTotal} common scope; ${m1.armAgree}/${m1.armTotal} arm-specific scope`,
+      classes: `${m1.classes.plate} plate / ${m1.classes.neutral} neutral / ${m1.classes.column} column`,
+      modelInvalidRows: `${m1.classes.invalid}/${m1.points}`,
+      model: `M1 everywhere-narrow starter approximation; ${m1.configRows}/${m1.points} rows self-report the registered M1 configuration`,
+      evidenceClass: "measured-only and in-sample; not the registered replacement gate",
+      comparisonLimit: "historical CAK to M1 changes broad curves, A prefactors, and dip factors; causal attribution is confounded",
+      futureMatchedPairLimit: "under one frozen sampled configuration, isolates only the implemented dip-factor intervention effect; not physical SDAK causality or necessity",
+      extentFragility: `historical one-sided=${m1.extentFragility.historicalOneSided}; closed symmetric |AR-threshold| <= ${PHASE6_EXTENT_DRIFT_BOUND_AR}=${m1.extentFragility.closedSymmetric}; additional=${m1.extentFragility.additional}; exact-threshold witnesses=${m1.extentFragility.exactThresholdRows.map((row) => `${row.tempC}C/f=${row.fraction}/AR=${row.aspectRatio}`).join(",")}`,
+    },
+    closure: {
+      registeredScoringRule: "ADR 0026 conservative-intersection rule registered",
+      registeredReplacementGate: "R15 planned; unfrozen; unimplemented; unexecuted",
+      numericalAdequacy: "open",
+      previewGpuCohort: "open",
+      matchedNoDipAblation: "M1_NO_DIP_ABLATION planned; unfrozen; unimplemented; unexecuted",
+      heldOutValidation: `all four charter families open; source lock status=${heldOutLock.status}; passEligible=${heldOutLock.passEligible}; ${heldOutLock.reason}`,
+      pressureValidation: `no quantitative pressure target; source lock pressure status=${heldOutLock.pressureStatus}; scoreable=${heldOutLock.pressureScoreable}; ${heldOutLock.pressureReason}`,
+      sourceSnapshotObligation: "immutable R15 snapshot, environment allowlist, and child source identity verification remain required",
+      crossPlatformControl: `${crossPlatform.differing}/${crossPlatform.entries} Tier 1 entries differ (maximum ${crossPlatform.maxUlp} ULP); coverage=${crossPlatform.temperatureCoverage}, with registered sweep cold tail ${crossPlatform.missingRegisteredColdTailC.join(",")} C absent and required in the new R15 fingerprint; preserved fixtures self-report ${crossPlatform.selfReportedHosts.x64} and ${crossPlatform.selfReportedHosts.arm64}, but those headers are not hardware authentication; Tier 2 tracked historical table reports ${tier2Historical.rows.length} CAK rows matching the x64 baseline, but raw logs/exit records are not published in evidence/ and the arm64 outputs are not independently rederivable; no M1, full-grid, or digit-level portability claim`,
+      phaseStatus: "active and incomplete",
+    },
+  };
+
+  return {
+    violations,
+    record,
+    manifest,
+    crossPlatform,
+    heldOutLock,
+    tier2Historical,
+    sweeps: { cak, m1, cakA1 },
+  };
+}
 
 const TIMELINE_GG_FIXTURE = Object.freeze({
   trigger: { kind: "zExtent", value: 25 },
@@ -704,8 +1829,7 @@ const LEDGER_FIXTURES = Object.freeze({
   }),
 });
 
-const PHASE6_EXPECTED_RECORDS = Object.freeze({
-  historical: Object.freeze({
+const PHASE6_HISTORICAL_RECORD = Object.freeze({
     id: "historical",
     label: "Arm 1 report snapshot",
     authority: {
@@ -729,45 +1853,6 @@ const PHASE6_EXPECTED_RECORDS = Object.freeze({
       independentReview: "not complete",
       crossPlatformArm64: "not run",
     },
-  }),
-  current: Object.freeze({
-    id: "current",
-      label: "Authority at the audit cutoff",
-    authority: {
-      commit: PHASE6_STATUS_COMMIT,
-      verifierCommit: "990840a",
-      inputRepairCommit: "b701285",
-      sourceFingerprintCommit: "154359d",
-      arm2ValuesFreezeCommit: "483f7ee",
-      arm2ValuesPinCommit: "0cb52bf",
-      arm2CombinedProtocolCommit: "8c781b1",
-      progressDisagreement: "docs/PROGRESS.md still asks for the already-landed freeze; commits 483f7ee, 0cb52bf and 8c781b1 are the later artifact record",
-      liveObservation: "2026-07-30 10:23 PDT: corrected Arm 2 sweep running; local output still mutable and incomplete",
-      snapshotMeaning: "committed authority through 8c781b1 plus a dated, read-only execution observation",
-    },
-    arm1: {
-      runState: "historical bytes unchanged",
-      points: "204/204",
-      measuredHeadline: "3/90",
-      verifier: "hardened independent re-derivation passes and rejects both named real forgeries",
-      controls: "seven executed",
-      historicalGaps: "no per-row config/stopReason fields; no completion-time source fingerprint",
-      retroUpgrade: "forbidden — later safeguards do not rewrite what Arm 1 recorded",
-    },
-    arm2: {
-      runState: "corrected canonical sweep observed in progress at the 2026-07-30 10:23 PDT cutoff",
-      measurement: "partial mutable point rows existed; no completed, reviewed sweep result",
-      model: "M1 all-facets-narrow",
-      recordedCombinedProtocolSha256: PHASE6_ARM2_PROTOCOL_SHA256,
-      forecast: "42/90 on Arm 1's common denominator; 42/78 under Arm 2's own bistable exclusion",
-      forecastClass: "registered before execution; partial live rows are not a completed or accepted result",
-    },
-    closure: {
-      flaglessCanonicalGate: "Arm 1 closure not run; Arm 2 sweep in progress at cutoff",
-      independentReview: "zero-blocker closing review not complete",
-      crossPlatformArm64: "not run; runbook still says MAC RUN NEEDED",
-    },
-  }),
 });
 
 const K_BOLTZMANN = 1.380649e-23;
@@ -1700,13 +2785,21 @@ export function transferabilityViolations(evidence) {
   return violations;
 }
 
-export function phase6StatusViolations(evidence) {
+export function phase6StatusViolations(evidence, authority) {
   const violations = [];
-  if (!evidence || evidence.schemaVersion !== 1) {
+  if (!evidence || evidence.schemaVersion !== 2) {
     return ["Phase 6 status hook/schema"];
   }
-  if (!sameRecord(evidence.records, PHASE6_EXPECTED_RECORDS)) {
-    violations.push("Phase 6 source-pinned records");
+  if (!authority || !Array.isArray(authority.violations)) {
+    violations.push("Phase 6 tracked authority unavailable");
+  } else {
+    violations.push(...authority.violations.map((item) => `Phase 6 tracked authority: ${item}`));
+  }
+  if (!sameRecord(evidence.records?.historical, PHASE6_HISTORICAL_RECORD)) {
+    violations.push("Phase 6 historical source-pinned record");
+  }
+  if (!sameRecord(evidence.records?.current, authority?.record)) {
+    violations.push("Phase 6 current tracked-evidence record");
   }
   const historical = evidence.records?.historical;
   const current = evidence.records?.current;
@@ -1726,23 +2819,53 @@ export function phase6StatusViolations(evidence) {
   if (
     !current
     || current.id !== "current"
-    || current.authority.commit !== PHASE6_STATUS_COMMIT
-    || current.authority.arm2ValuesPinCommit !== "0cb52bf"
-    || current.arm2.recordedCombinedProtocolSha256
-      !== PHASE6_ARM2_PROTOCOL_SHA256
+    || current.authority.historicalArm2ExecutionCommit !== PHASE6_STATUS_COMMIT
+    || current.authority.arm2ValuesSha256 !== PHASE6_ARM2_VALUES_SHA256
     || current.arm1.points !== "204/204"
     || current.arm1.measuredHeadline !== "3/90"
-    || !/seven executed/i.test(current.arm1.controls)
-    || !/forbidden/i.test(current.arm1.retroUpgrade)
-    || !/observed in progress/i.test(current.arm2.runState)
-    || current.arm2.model !== "M1 all-facets-narrow"
-    || !/registered before execution/i.test(current.arm2.forecastClass)
-    || !/partial live rows are not a completed or accepted result/i.test(
-      current.arm2.forecastClass,
-    )
-    || !/Arm 2 sweep in progress at cutoff/i.test(current.closure.flaglessCanonicalGate)
-    || !/not complete/i.test(current.closure.independentReview)
-    || !/not run/i.test(current.closure.crossPlatformArm64)
+    || current.arm1.evidenceClass !== "measured-only; not the registered replacement gate"
+    || !/legacy rows predate per-row self-reported config/i.test(current.arm1.historicalScope)
+    || current.arm1.extentFragility !== "historical one-sided=16; closed symmetric |AR-threshold| <= 0.135=59; additional=43; exact-threshold witnesses=-23C/f=0.15/AR=1.5"
+    || current.arm2.runState !== "complete historical measurement"
+    || current.arm2.points !== "204/204"
+    || current.arm2.measurement !== "54/90 common scope; 54/78 arm-specific scope"
+    || !/M1 everywhere-narrow starter approximation/i.test(current.arm2.model)
+    || !/204\/204 rows self-report the registered M1 configuration/i.test(current.arm2.model)
+    || !/measured-only and in-sample/i.test(current.arm2.evidenceClass)
+    || !/causal attribution is confounded/i.test(current.arm2.comparisonLimit)
+    || !/only the implemented dip-factor intervention effect/i.test(current.arm2.futureMatchedPairLimit)
+    || !/not physical SDAK causality or necessity/i.test(current.arm2.futureMatchedPairLimit)
+    || current.arm2.extentFragility !== "historical one-sided=33; closed symmetric |AR-threshold| <= 0.135=85; additional=52; exact-threshold witnesses=-32C/f=0.15/AR=1.5"
+    || current.closure.registeredScoringRule !== "ADR 0026 conservative-intersection rule registered"
+    || current.closure.registeredReplacementGate !== "R15 planned; unfrozen; unimplemented; unexecuted"
+    || current.closure.numericalAdequacy !== "open"
+    || current.closure.previewGpuCohort !== "open"
+    || current.closure.matchedNoDipAblation !== "M1_NO_DIP_ABLATION planned; unfrozen; unimplemented; unexecuted"
+    || !/all four charter families open/i.test(current.closure.heldOutValidation)
+    || !/status=candidate-only-no-validation-target-frozen/i.test(current.closure.heldOutValidation)
+    || !/passEligible=false/i.test(current.closure.heldOutValidation)
+    || !/No audited family is presently apples-to-apples/i.test(current.closure.heldOutValidation)
+    || !/supplies no validation threshold/i.test(current.closure.heldOutValidation)
+    || !/no quantitative pressure target/i.test(current.closure.pressureValidation)
+    || !/status=source-locked-context-only/i.test(current.closure.pressureValidation)
+    || !/scoreable=false/i.test(current.closure.pressureValidation)
+    || !/no pass interval may be derived/i.test(current.closure.pressureValidation)
+    || !/immutable R15 snapshot/i.test(current.closure.sourceSnapshotObligation)
+    || !/environment allowlist/i.test(current.closure.sourceSnapshotObligation)
+    || !/child source identity verification/i.test(current.closure.sourceSnapshotObligation)
+    || current.closure.phaseStatus !== "active and incomplete"
+    || !/9\/448 Tier 1 entries differ/i.test(current.closure.crossPlatformControl)
+    || !/maximum 31 ULP/i.test(current.closure.crossPlatformControl)
+    || !/coverage=integer -2\.\.-30 C plus boundaries -3\.3\/-9\.9\/-21\.5 C/i.test(current.closure.crossPlatformControl)
+    || !/registered sweep cold tail -31,-32,-33,-34,-35 C absent/i.test(current.closure.crossPlatformControl)
+    || !/required in the new R15 fingerprint/i.test(current.closure.crossPlatformControl)
+    || !/fixtures self-report host platform=win32 arch=x64 node=v24\.13\.1 v8=13\.6\.233\.17-node\.40/i.test(current.closure.crossPlatformControl)
+    || !/host platform=darwin arch=arm64 node=v24\.13\.1 v8=13\.6\.233\.17-node\.40/i.test(current.closure.crossPlatformControl)
+    || !/not hardware authentication/i.test(current.closure.crossPlatformControl)
+    || !/Tier 2 tracked historical table reports 4 CAK rows matching the x64 baseline/i.test(current.closure.crossPlatformControl)
+    || !/raw logs\/exit records are not published in evidence\//i.test(current.closure.crossPlatformControl)
+    || !/arm64 outputs are not independently rederivable/i.test(current.closure.crossPlatformControl)
+    || !/no M1, full-grid, or digit-level portability claim/i.test(current.closure.crossPlatformControl)
   ) {
     violations.push("Phase 6 current snapshot");
   }
@@ -1763,9 +2886,9 @@ export function phase6StatusViolations(evidence) {
       || dom.recordId !== record.id
       || dom.arm1Status !== record.arm1.runState
       || dom.arm2Status !== record.arm2.runState
-      || dom.gateStatus !== record.closure.flaglessCanonicalGate
-      || dom.reviewStatus !== record.closure.independentReview
-      || dom.crossPlatformStatus !== record.closure.crossPlatformArm64
+      || dom.gateStatus !== (record.closure.registeredReplacementGate || record.closure.flaglessCanonicalGate)
+      || dom.reviewStatus !== (record.closure.phaseStatus || record.closure.independentReview)
+      || dom.crossPlatformStatus !== (record.closure.crossPlatformControl || record.closure.crossPlatformArm64)
       || dom.arm1MeasuredHeadline !== record.arm1.measuredHeadline
       || dom.arm2Measurement !== (record.arm2.measurement || "none")
     ) {
@@ -1806,9 +2929,10 @@ export function phase6StatusViolations(evidence) {
         view === "historical"
           ? ["Historical wording, preserved", "not a claim about the repository now"]
           : [
-              "Audit-cutoff view, without retroactive repair",
-              "observation, not a completed verdict",
-              "forecast is not added",
+              "Current scope",
+              "historical measured-only comparisons",
+              "not pooled",
+              "active and incomplete",
             ],
       )
     ) {
@@ -1818,8 +2942,8 @@ export function phase6StatusViolations(evidence) {
   if (
     evidence.reset?.view !== "current"
     || !includesEvery(evidence.reset?.visibleStamp, [
-      "Authority at the audit cutoff",
-      "committed authority through 8c781b1",
+      "Current Phase 6 authority",
+      "both historical arms measured",
     ])
   ) {
     violations.push("Phase 6 status reset");
@@ -1827,7 +2951,228 @@ export function phase6StatusViolations(evidence) {
   return violations;
 }
 
-function crossingValue(state, temperature) {
+function expectedSigma0Sample(t) {
+  const basalBroad = 0.02 * Math.pow(t, 1.75) + 0.3;
+  const prismBroad = 0.015 * t * t + 0.02 * Math.pow(t, 0.6);
+  const basalDip = 1 - 0.87 * Math.exp(
+    -Math.pow(Math.log10(t) - Math.log10(4.5), 2) / 0.07,
+  );
+  const prismDip = 1 - 0.95 * Math.exp(
+    -Math.pow(Math.log10(t) - Math.log10(14.4), 2) / 0.06,
+  );
+  const prism2009 = 0.02 * Math.pow(t, 1.9) - 0.025 * (t - 0.3);
+  const prismCube = 0.04 * Math.pow(Math.abs(t - 4), 3);
+  const aPrism = (0.4 + prismCube) / (2.2 + prismCube);
+  return {
+    basalBroad,
+    prismBroad,
+    basalDip,
+    prismDip,
+    basalSigma0: basalBroad * basalDip,
+    prismSigma0: prismBroad * prismDip,
+    basalAlphaHK: Math.exp(-basalBroad / 0.20),
+    prismAlphaHK: aPrism * Math.exp(-prism2009 / 0.20),
+  };
+}
+
+function expectedPreregisterSample(t, cB = 4.5, cP = 14.4) {
+  const basalBroad = 0.02 * Math.pow(t, 1.75) + 0.3;
+  const prismBroad = 0.015 * t * t + 0.02 * Math.pow(t, 0.6);
+  const basalDip = 1 - 0.87 * Math.exp(
+    -Math.pow(Math.log10(t) - Math.log10(cB), 2) / 0.07,
+  );
+  const prismDip = 1 - 0.95 * Math.exp(
+    -Math.pow(Math.log10(t) - Math.log10(cP), 2) / 0.06,
+  );
+  const order = basalBroad * basalDip < prismBroad * prismDip
+    ? "basal-lower"
+    : "prism-lower";
+  return {
+    basalBroad,
+    prismBroad,
+    basalDip,
+    prismDip,
+    order,
+    proxyLabel: order === "basal-lower" ? "C" : "P",
+  };
+}
+
+function sameNumericRecord(actual, expected) {
+  return actual && Object.entries(expected).every(([key, value]) => (
+    typeof value === "number"
+      ? near(actual[key], value, 1e-12, 1e-14)
+      : actual[key] === value
+  ));
+}
+
+const EDUCATION_DIP_SAMPLE_T = Object.freeze([4.5, 8, 14.4]);
+
+export function sigma0AssetViolations(evidence) {
+  const violations = [];
+  if (!evidence || evidence.schemaVersion !== 1) return ["sigma0 asset hook/schema"];
+  if (
+    evidence.semanticContract?.quantity !== "coefficient-order-diagnostic"
+    || evidence.semanticContract?.habitBoundary !== false
+    || evidence.semanticContract?.habitClassification !== false
+    || evidence.semanticContract?.habitProxy !== false
+    || evidence.semanticContract?.dipLogBase !== 10
+  ) violations.push("sigma0 semantic contract");
+  if (
+    evidence.constants?.basalCentreC !== 4.5
+    || evidence.constants?.prismCentreC !== 14.4
+    || evidence.constants?.basalDepth !== 0.87
+    || evidence.constants?.prismDepth !== 0.95
+    || evidence.constants?.basalWidth !== 0.07
+    || evidence.constants?.prismWidth !== 0.06
+  ) violations.push("sigma0 dip constants");
+  if (
+    !Array.isArray(evidence.samples)
+    || !sameRecord(evidence.samples.map((sample) => sample?.t), EDUCATION_DIP_SAMPLE_T)
+  ) {
+    violations.push("sigma0 sample inventory");
+  } else {
+    for (const sample of evidence.samples) {
+      if (!sameNumericRecord(sample.values, expectedSigma0Sample(sample.t))) {
+        violations.push(`sigma0 base-10 formula sample ${sample.t}`);
+      }
+    }
+  }
+  if (
+    !Array.isArray(evidence.sigmaRootsDipped)
+    || evidence.sigmaRootsDipped.length !== 3
+    || !near(evidence.sigmaRootsDipped[0], 3.08, 0.01, 0.03)
+    || !near(evidence.sigmaRootsDipped[1], 8.07, 0.01, 0.03)
+    || !near(evidence.sigmaRootsDipped[2], 24.73, 0.01, 0.03)
+  ) violations.push("sigma0 dipped equality roots");
+  if (
+    !Array.isArray(evidence.alphaHKRoots)
+    || evidence.alphaHKRoots.length !== 3
+    || !near(evidence.alphaHKRoots[0], 3.9, 0.03, 0.15)
+    || !near(evidence.alphaHKRoots[1], 5.0, 0.03, 0.15)
+    || !near(evidence.alphaHKRoots[2], 10.6, 0.03, 0.2)
+  ) violations.push("alphaHK equality roots");
+  for (const id of ["broad", "dipped", "alphaHK"]) {
+    if (!includesEvery(evidence.visible?.[id], [
+      "Diagnostic only",
+      "not a habit boundary",
+      "habit classification",
+    ])) violations.push(`sigma0 ${id} visible diagnostic limit`);
+  }
+  return violations;
+}
+
+export function preregisterAssetViolations(evidence) {
+  const violations = [];
+  if (!evidence || evidence.schemaVersion !== 1) return ["preregister asset hook/schema"];
+  const semantic = evidence.semanticContract || {};
+  if (
+    semantic.quantity !== "temperature-only-equal-field-coefficient-order-proxy"
+    || semantic.fieldSweep !== false
+    || semantic.habitProxy !== true
+    || semantic.proxyIsValid !== false
+    || semantic.implementsAdr0025 !== false
+    || semantic.tokenIsContentHash !== false
+    || semantic.tokenIsProtocolHash !== false
+  ) violations.push("preregister semantic contract");
+  if (
+    evidence.constants?.basalCentreC !== 4.5
+    || evidence.constants?.prismCentreC !== 14.4
+    || evidence.constants?.logBase !== 10
+  ) violations.push("preregister dip constants");
+  if (
+    !Array.isArray(evidence.samples)
+    || !sameRecord(evidence.samples.map((sample) => sample?.t), EDUCATION_DIP_SAMPLE_T)
+  ) {
+    violations.push("preregister sample inventory");
+  } else {
+    for (const sample of evidence.samples) {
+      if (!sameNumericRecord(sample.values, expectedPreregisterSample(sample.t))) {
+        violations.push(`preregister base-10 formula sample ${sample.t}`);
+      }
+    }
+  }
+  if (
+    evidence.scores?.default?.agree !== 15
+    || evidence.scores?.default?.n !== 15
+    || evidence.scores?.noDips?.agree !== 1
+    || evidence.scores?.noDips?.n !== 15
+    || evidence.scores?.nonDefault?.agree !== 15
+    || evidence.scores?.nonDefault?.n !== 15
+  ) violations.push("preregister proxy scores");
+  if (!/^[0-9a-f]{16}$/.test(evidence.illustrativeToken || "")) {
+    violations.push("preregister illustrative token");
+  }
+  if (!includesEvery(evidence.visible?.free, ["invalid proxy", "target is visible"])) {
+    violations.push("preregister free visible state");
+  }
+  if (!includesEvery(evidence.visible?.frozen, [
+    "illustrative token",
+    "not a content hash",
+    "protocol hash",
+    "ADR 0025 implementation",
+  ])) violations.push("preregister frozen visible state");
+  if (!includesEvery(evidence.visible?.revealed, ["invalid proxy scored", "not evidence"])) {
+    violations.push("preregister revealed visible state");
+  }
+  if (!includesEvery(evidence.visible?.nonDefaultRevealed, [
+    "Many different centre pairs",
+    "same proxy score",
+    "not nature",
+  ])) violations.push("preregister non-default revealed visible state");
+  return violations;
+}
+
+export function sweepAssetViolations(evidence, authority) {
+  const violations = [];
+  if (!evidence || evidence.schemaVersion !== 1) return ["sweep asset hook/schema"];
+  const semantic = evidence.semanticContract || {};
+  if (
+    semantic.fractionMeaning !== "fraction-of-water-saturation-supersaturation-ceiling"
+    || semantic.relativeHumidity !== false
+    || semantic.referenceMeaning !== "registered-reference-expectation"
+    || semantic.cakModelInvalidRows !== 0
+    || semantic.cakA1ModelInvalidRows !== 0
+    || semantic.cakA1ProtocolInadmissibleRows !== 204
+  ) violations.push("sweep semantic contract");
+  if (!sameRecord(evidence.grids?.cak, authority?.sweeps?.cak?.grid)) {
+    violations.push("sweep CAK grid from tracked evidence");
+  }
+  if (!sameRecord(evidence.grids?.cakA1, authority?.sweeps?.cakA1?.grid)) {
+    violations.push("sweep CAK_A1 grid from tracked evidence");
+  }
+  if (
+    evidence.scores?.cak?.headlineAgree !== authority?.sweeps?.cak?.commonAgree
+    || evidence.scores?.cak?.headlineN !== authority?.sweeps?.cak?.commonTotal
+  ) violations.push("sweep CAK independently derived score");
+  if (
+    evidence.scores?.cakA1?.headlineAgree !== authority?.sweeps?.cakA1?.commonAgree
+    || evidence.scores?.cakA1?.headlineN !== authority?.sweeps?.cakA1?.commonTotal
+  ) violations.push("sweep CAK_A1 independently derived score");
+  if (!includesEvery(evidence.visible?.cak, [
+    "fraction of the water-saturation supersaturation ceiling",
+    "registered reference",
+    "Zero of 204 CAK rows was model-invalid",
+  ])) violations.push("sweep CAK visible semantics");
+  if (!includesEvery(evidence.visible?.cakA1, [
+    "Zero of 204 CAK_A1 rows was model-invalid",
+    "all 204 are protocol-inadmissible",
+  ])) violations.push("sweep CAK_A1 visible validity distinction");
+  return violations;
+}
+
+export function cm6VisibleLimitViolations(evidence) {
+  const violations = [];
+  for (const view of ["fastRendered", "broadRendered"]) {
+    if (!includesEvery(evidence?.[view]?.visibleStatus, [
+      "Diagnostic only",
+      "not a habit boundary",
+      "habit classification",
+    ])) violations.push(`CM6 ${view} visible diagnostic limit`);
+  }
+  return violations;
+}
+
+function equalityDifference(state, temperature) {
   const baseBasal =
     0.02 * Math.pow(temperature, 1.75) + 0.3;
   const basePrism = state.mode === "corrected"
@@ -1866,7 +3211,7 @@ function crossingValue(state, temperature) {
   return baseBasal * basalFactor - basePrism * prismFactor;
 }
 
-const CROSSING_DEFAULT_STATE = Object.freeze({
+const EQUALITY_DEFAULT_STATE = Object.freeze({
   bOn: false,
   pOn: false,
   bC: 4.5,
@@ -1875,7 +3220,7 @@ const CROSSING_DEFAULT_STATE = Object.freeze({
   mode: "approx",
 });
 
-const CROSSING_PUBLISHED_STATE = Object.freeze({
+const REGISTERED_BASE10_EQUALITY_STATE = Object.freeze({
   bOn: true,
   pOn: true,
   bC: 4.5,
@@ -1884,19 +3229,19 @@ const CROSSING_PUBLISHED_STATE = Object.freeze({
   mode: "corrected",
 });
 
-export function independentCrossings(state, range = [2, 35], step = 0.05) {
-  const crossings = [];
+export function independentEqualityLocations(state, range = [2, 35], step = 0.05) {
+  const equalities = [];
   let previous = null;
   let previousTemperature = null;
   const count = Math.round((range[1] - range[0]) / step);
   for (let index = 0; index <= count; index++) {
     const temperature = range[0] + index * step;
-    const difference = crossingValue(state, temperature);
+    const difference = equalityDifference(state, temperature);
     if (
       previous !== null
       && (previous > 0) !== (difference > 0)
     ) {
-      crossings.push(
+      equalities.push(
         previousTemperature
         + (temperature - previousTemperature)
           * (Math.abs(previous) / (Math.abs(previous) + Math.abs(difference))),
@@ -1905,33 +3250,101 @@ export function independentCrossings(state, range = [2, 35], step = 0.05) {
     previous = difference;
     previousTemperature = temperature;
   }
-  return crossings;
+  return equalities;
 }
 
-function crossingStateViolations(label, stateEvidence, constants) {
+// Retain the old export name for callers outside this verifier while making its
+// restricted quantity explicit everywhere the education site presents it.
+export const independentCrossings = independentEqualityLocations;
+
+function independentOrderBands(state, equalities, range) {
+  const edges = [range[0], ...equalities, range[1]];
+  return edges.slice(0, -1).map((left, index) => {
+    const right = edges[index + 1];
+    const midpoint = (left + right) / 2;
+    return [
+      left,
+      right,
+      equalityDifference(state, midpoint) > 0
+        ? "prism-higher"
+        : "basal-higher",
+    ];
+  });
+}
+
+function sameOrderBands(actual, expected) {
+  return Array.isArray(actual)
+    && actual.length === expected.length
+    && actual.every((band, index) => (
+      Array.isArray(band)
+      && band.length === 3
+      && near(band[0], expected[index][0], 1e-12, 1e-12)
+      && near(band[1], expected[index][1], 1e-12, 1e-12)
+      && band[2] === expected[index][2]
+    ));
+}
+
+function isRegisteredBase10EqualityState(state) {
+  return state.mode === "corrected"
+    && state.bOn === true
+    && state.pOn === true
+    && state.bC === 4.5
+    && state.pC === 14.4;
+}
+
+function independentlyVerifyDipCentreInvariance() {
+  const profiles = [
+    { centre: 4.5, depth: 0.87, width: 0.07 },
+    { centre: 14.4, depth: 0.95, width: 0.06 },
+  ];
+  const logs = [Math.log10, Math.log];
+  return profiles.every(({ centre, depth, width }) => logs.every((log) => {
+    const factor = (temperature) => 1 - depth * Math.exp(
+      -Math.pow(log(temperature) - log(centre), 2) / width,
+    );
+    const atCentre = factor(centre);
+    return near(atCentre, 1 - depth, 0, 1e-15)
+      && factor(centre * 0.999) > atCentre
+      && factor(centre * 1.001) > atCentre;
+  }));
+}
+
+function equalityStateViolations(label, stateEvidence, constants) {
   const violations = [];
-  const expected = independentCrossings(
+  if (!stateEvidence || !stateEvidence.state) {
+    return [`equality ${label} state`];
+  }
+  const expected = independentEqualityLocations(
     stateEvidence.state,
     constants.range,
     constants.sampleStep,
   );
+  const expectedBands = independentOrderBands(
+    stateEvidence.state,
+    expected,
+    constants.range,
+  );
   if (
-    stateEvidence.crossings.length !== expected.length
-    || stateEvidence.crossings.some(
+    !Array.isArray(stateEvidence.equalityLocations)
+    || stateEvidence.equalityLocations.length !== expected.length
+    || stateEvidence.equalityLocations.some(
       (value, index) => !near(value, expected[index], 1e-12, 1e-12),
     )
   ) {
-    violations.push(`crossing ${label} independent roots`);
+    violations.push(`equality ${label} independent roots`);
   }
-  const shouldBePublished =
-    stateEvidence.state.mode === "corrected"
-    && stateEvidence.state.bOn === true
-    && stateEvidence.state.pOn === true
-    && stateEvidence.state.bC === 4.5
-    && stateEvidence.state.pC === 14.4
-    && expected.length === 3;
-  if (stateEvidence.publishedState !== shouldBePublished) {
-    violations.push(`crossing ${label} published-state gate`);
+  if (!sameOrderBands(stateEvidence.orderBands, expectedBands)) {
+    violations.push(`equality ${label} independent order bands`);
+  }
+  const shouldBeRegistered = isRegisteredBase10EqualityState(stateEvidence.state);
+  if (stateEvidence.registeredBase10State !== shouldBeRegistered) {
+    violations.push(`equality ${label} registered-base10-state gate`);
+  }
+  if (
+    stateEvidence.dipCentreLogBaseInvariant !== true
+    || stateEvidence.habitProxy !== false
+  ) {
+    violations.push(`equality ${label} semantic state`);
   }
   if (
     stateEvidence.dom.formulaMode !== stateEvidence.state.mode
@@ -1942,71 +3355,111 @@ function crossingStateViolations(label, stateEvidence, constants) {
     || Number(stateEvidence.dom.basalCentre) !== stateEvidence.state.bC
     || Number(stateEvidence.dom.prismCentre) !== stateEvidence.state.pC
     || Number(stateEvidence.dom.depth) !== stateEvidence.state.depth
-    || Number(stateEvidence.dom.crossingCount) !== expected.length
-    || stateEvidence.dom.publishedState !== String(shouldBePublished)
+    || Number(stateEvidence.dom.equalityCount) !== expected.length
+    || Number(stateEvidence.dom.orderBandCount) !== expectedBands.length
+    || stateEvidence.dom.equalitySemantics
+      !== "sigma0-equality-equal-A-shared-positive-sigmaSurf-only"
+    || stateEvidence.dom.dipCentres !== "4.5,14.4"
+    || stateEvidence.dom.dipCentreLogBaseInvariant !== "true"
+    || stateEvidence.dom.dipLogBaseProvenance
+      !== "P4-registered-base10-source-log-unspecified"
+    || stateEvidence.dom.habitProxy !== "false"
+    || stateEvidence.dom.registeredBase10State !== String(shouldBeRegistered)
     || (
-      shouldBePublished
-      && stateEvidence.dom.verdictKind !== "published-corrected"
+      shouldBeRegistered
+      && stateEvidence.dom.verdictKind !== "registered-base10-diagnostic"
+    )
+    || (
+      !shouldBeRegistered
+      && stateEvidence.dom.verdictKind !== "current-order-diagnostic"
     )
   ) {
-    violations.push(`crossing ${label} rendered state`);
+    violations.push(`equality ${label} rendered state`);
   }
-  const domCrossings = stateEvidence.dom.crossings
-    ? stateEvidence.dom.crossings.split(",").map(Number)
+  const domEqualities = stateEvidence.dom.equalityLocations
+    ? stateEvidence.dom.equalityLocations.split(",").map(Number)
     : [];
   if (
-    domCrossings.length !== expected.length
-    || domCrossings.some(
+    domEqualities.length !== expected.length
+    || domEqualities.some(
       (value, index) => !near(value, expected[index], 0, 5e-7),
     )
   ) {
-    violations.push(`crossing ${label} rendered roots`);
+    violations.push(`equality ${label} rendered roots`);
   }
   const roundedText = expected.length
     ? expected.map((value) => `−${value.toFixed(2)}°C`)
     : [];
   if (
     !includesEvery(stateEvidence.dom.visibleReadout, [
-      `${expected.length} crossing${expected.length === 1 ? "" : "s"}`,
+      `${expected.length} sigma0 equalit`,
       ...roundedText,
+      "log-base-invariant",
     ])
     || !stateEvidence.dom.visibleBanner
     || stateEvidence.dom.visibleSeriesCount !== 2
     || stateEvidence.dom.visibleMarkerCount !== expected.length
-    || stateEvidence.dom.visibleModelBandCount !== expected.length + 1
+    || stateEvidence.dom.visibleOrderBandCount !== expected.length + 1
     || stateEvidence.dom.visibleSvg !== true
   ) {
-    violations.push(`crossing ${label} visible chart state`);
+    violations.push(`equality ${label} visible chart state`);
   }
   return violations;
 }
 
 export function crossingViolations(evidence) {
-  if (!evidence || evidence.schemaVersion !== 1) {
-    return ["crossing hook/schema"];
+  if (!evidence || evidence.schemaVersion !== 2) {
+    return ["equality hook/schema"];
   }
   const violations = [];
   const constants = evidence.constants;
+  const expectedSemanticContract = {
+    quantity: "sigma0-equality-and-restricted-alphaHK-order",
+    constraint: "equal-A-shared-positive-sigmaSurf",
+    labels: ["basal-higher", "prism-higher", "tie"],
+    broadCurveProvenance: "P2-source-fit",
+    dipFormProvenanceForNakaya: "P3-Nakaya-informed",
+    dipLogBaseProvenance: "P4-registered-base10-source-log-unspecified",
+    m1WidthPolicy: "everywhere-narrow-approximation",
+    widthDependentM2Implemented: false,
+    habitProxy: false,
+  };
+  if (!sameRecord(evidence.semanticContract, expectedSemanticContract)) {
+    violations.push("equality semantic contract");
+  }
   if (
     !constants
     || !sameJson(constants.range, [2, 35])
     || constants.sampleStep !== 0.05
     || constants.approximateWidth !== 1.6
-    || !sameRecord(constants.defaultState, CROSSING_DEFAULT_STATE)
-    || !sameRecord(constants.publishedState, CROSSING_PUBLISHED_STATE)
+    || !sameRecord(
+      constants.dipCentres,
+      { basal: 4.5, prism: 14.4, logBaseInvariant: true },
+    )
+    || !sameRecord(constants.defaultState, EQUALITY_DEFAULT_STATE)
+    || !sameRecord(
+      constants.registeredBase10State,
+      REGISTERED_BASE10_EQUALITY_STATE,
+    )
   ) {
-    violations.push("crossing constants");
+    violations.push("equality constants");
     return violations;
   }
-  if (!sameRecord(evidence.default.state, CROSSING_DEFAULT_STATE)) {
-    violations.push("crossing default state");
+  if (!independentlyVerifyDipCentreInvariance()) {
+    violations.push("equality dip-centre log-base invariance");
   }
-  if (!sameRecord(evidence.published.state, CROSSING_PUBLISHED_STATE)) {
-    violations.push("crossing published state");
+  if (!sameRecord(evidence.default.state, EQUALITY_DEFAULT_STATE)) {
+    violations.push("equality default state");
+  }
+  if (!sameRecord(
+    evidence.registeredBase10.state,
+    REGISTERED_BASE10_EQUALITY_STATE,
+  )) {
+    violations.push("equality registered base-10 state");
   }
   const expectedControlStates = {
     default: {
-      state: { ...CROSSING_DEFAULT_STATE },
+      state: { ...EQUALITY_DEFAULT_STATE },
       basalSliderDisabled: true,
       prismSliderDisabled: true,
       depthSliderDisabled: true,
@@ -2014,7 +3467,7 @@ export function crossingViolations(evidence) {
       correctedPressed: "false",
     },
     basalOn: {
-      state: { ...CROSSING_DEFAULT_STATE, bOn: true },
+      state: { ...EQUALITY_DEFAULT_STATE, bOn: true },
       basalSliderDisabled: false,
       prismSliderDisabled: true,
       depthSliderDisabled: false,
@@ -2022,7 +3475,7 @@ export function crossingViolations(evidence) {
       correctedPressed: "false",
     },
     bothOn: {
-      state: { ...CROSSING_DEFAULT_STATE, bOn: true, pOn: true },
+      state: { ...EQUALITY_DEFAULT_STATE, bOn: true, pOn: true },
       basalSliderDisabled: false,
       prismSliderDisabled: false,
       depthSliderDisabled: false,
@@ -2031,7 +3484,7 @@ export function crossingViolations(evidence) {
     },
     basalSlider: {
       state: {
-        ...CROSSING_DEFAULT_STATE,
+        ...EQUALITY_DEFAULT_STATE,
         bOn: true,
         pOn: true,
         bC: 6.2,
@@ -2044,7 +3497,7 @@ export function crossingViolations(evidence) {
     },
     prismSlider: {
       state: {
-        ...CROSSING_DEFAULT_STATE,
+        ...EQUALITY_DEFAULT_STATE,
         bOn: true,
         pOn: true,
         bC: 6.2,
@@ -2058,7 +3511,7 @@ export function crossingViolations(evidence) {
     },
     depthSlider: {
       state: {
-        ...CROSSING_DEFAULT_STATE,
+        ...EQUALITY_DEFAULT_STATE,
         bOn: true,
         pOn: true,
         bC: 6.2,
@@ -2073,7 +3526,7 @@ export function crossingViolations(evidence) {
     },
     correctedMode: {
       state: {
-        ...CROSSING_DEFAULT_STATE,
+        ...EQUALITY_DEFAULT_STATE,
         bOn: true,
         pOn: true,
         bC: 6.2,
@@ -2089,7 +3542,7 @@ export function crossingViolations(evidence) {
     },
     approximateMode: {
       state: {
-        ...CROSSING_DEFAULT_STATE,
+        ...EQUALITY_DEFAULT_STATE,
         bOn: true,
         pOn: true,
         bC: 6.2,
@@ -2104,24 +3557,28 @@ export function crossingViolations(evidence) {
     },
   };
   if (!sameRecord(evidence.controls, expectedControlStates)) {
-    violations.push("crossing actual control wiring");
+    violations.push("equality actual control wiring");
   }
   violations.push(
-    ...crossingStateViolations("default", evidence.default, constants),
-    ...crossingStateViolations("published", evidence.published, constants),
-    ...crossingStateViolations("mutated", evidence.mutated, constants),
+    ...equalityStateViolations("default", evidence.default, constants),
+    ...equalityStateViolations(
+      "registered base-10",
+      evidence.registeredBase10,
+      constants,
+    ),
+    ...equalityStateViolations("mutated", evidence.mutated, constants),
   );
-  const expectedPublished = independentCrossings(
-    constants.publishedState,
+  const expectedRegisteredBase10 = independentEqualityLocations(
+    constants.registeredBase10State,
     constants.range,
     constants.sampleStep,
   );
-  const rounded = expectedPublished.map((value) => Number(value.toFixed(2)));
+  const rounded = expectedRegisteredBase10.map((value) => Number(value.toFixed(2)));
   if (!sameJson(rounded, [3.08, 8.07, 24.73])) {
-    violations.push("crossing published locations");
+    violations.push("equality registered base-10 locations");
   }
-  if (!sameRecord(evidence.reset.state, CROSSING_DEFAULT_STATE)) {
-    violations.push("crossing reset");
+  if (!sameRecord(evidence.reset.state, EQUALITY_DEFAULT_STATE)) {
+    violations.push("equality reset");
   }
   return violations;
 }

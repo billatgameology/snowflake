@@ -1,8 +1,9 @@
 /* ==========================================================================
    CM6 history / hysteresis explorer
 
-   This is deliberately a branch-memory schematic, not a morphology solver.
-   The two basal curves and their printed -5 C parameters are real; the rule
+   This is deliberately a branch-memory and restricted coefficient-order
+   schematic, not a morphology solver.
+   The two basal curves and their source-printed/model-inferred -5 C parameters are source-backed; the rule
    that maps the two control choices to a persistent branch is an explanatory
    device because CM6 prints no transition law or facet-width threshold.
    ======================================================================= */
@@ -51,12 +52,12 @@
       return pulse === "fast" ? "narrow" : "broad";
     }
 
-    function tendency(basalState, sigmaSurf) {
+    function restrictedOrder(basalState, sigmaSurf) {
       const basalValue = alphaHK(BASAL[basalState].sigma0, 1, sigmaSurf);
       const prismValue = alphaHK(PRISM.sigma0, PRISM.A, sigmaSurf);
-      if (basalValue > prismValue) return "column tendency";
-      if (prismValue > basalValue) return "plate tendency";
-      return "no directional tendency";
+      if (basalValue > prismValue) return "basal-higher";
+      if (prismValue > basalValue) return "prism-higher";
+      return "tie";
     }
 
     function evaluate(input) {
@@ -88,7 +89,7 @@
         prismA: PRISM.A,
         alphaHKBasal: alphaHKBasal,
         alphaHKPrism: alphaHKPrism,
-        tendency: tendency(basalState, sigmaSurf),
+        restrictedOrder: restrictedOrder(basalState, sigmaSurf),
       };
     }
 
@@ -115,25 +116,30 @@
       return node;
     }
 
-    function drawCrystal(svg, cx, cy, kind, c) {
-      const isColumn = kind === "column tendency";
-      const isPlate = kind === "plate tendency";
-      const width = isColumn ? 54 : isPlate ? 170 : 92;
-      const height = isColumn ? 174 : isPlate ? 24 : 72;
-
-      svg.appendChild(Viz.svgEl("rect", {
-        x: cx - width / 2,
-        y: cy - height / 2,
-        width: width,
-        height: height,
-        rx: Math.min(9, height / 3),
-        fill: c.series[1],
-        "fill-opacity": 0.22,
-        stroke: c.series[1],
-        "stroke-width": 2.2,
-      }));
-      text(svg, kind, cx, cy + height / 2 + 24, {
-        anchor: "middle", fill: c.series[1], size: 12.5, weight: 680,
+    function drawCoefficientOrder(svg, cx, cy, order, basalValue, prismValue, c) {
+      const maximum = Math.max(basalValue, prismValue);
+      const startX = cx - 92;
+      const maxWidth = 184;
+      [
+        { label: "basal", value: basalValue, color: c.series[0], y: cy - 38 },
+        { label: "prism", value: prismValue, color: c.series[1], y: cy + 18 },
+      ].forEach(function (entry) {
+        text(svg, entry.label, startX, entry.y - 7, {
+          fill: c.inkSecondary, size: 11.5, weight: 660,
+        });
+        svg.appendChild(Viz.svgEl("rect", {
+          x: startX,
+          y: entry.y,
+          width: maxWidth * entry.value / maximum,
+          height: 16,
+          rx: 4,
+          fill: entry.color,
+          "fill-opacity": 0.72,
+          "data-coefficient-series": entry.label,
+        }));
+      });
+      text(svg, order.replace("-", " ") + " alphaHK", cx, cy + 78, {
+        anchor: "middle", fill: c.ink, size: 12.5, weight: 680,
       });
     }
 
@@ -150,22 +156,24 @@
       const basalState = result.basalState;
       const basalValue = result.alphaHKBasal;
       const prismValue = result.alphaHKPrism;
-      const outcome = result.tendency;
+      const order = result.restrictedOrder;
 
       root.dataset.initialPulse = state.pulse;
       root.dataset.surfaceMode = state.surfaceMode;
       root.dataset.basalState = basalState;
       root.setAttribute("data-attachment-hk-basal", basalValue.toFixed(6));
       root.setAttribute("data-attachment-hk-prism", prismValue.toFixed(6));
-      root.dataset.outcomeTendency = outcome.replace(" tendency", "");
+      root.dataset.restrictedOrder = order;
+      root.dataset.habitProxy = "false";
 
       svg = Viz.createSvg(body, W, H, {
         label: "A schematic history experiment at minus five degrees Celsius. A gentle or fast " +
           "initial growth period can leave the basal surface on a broad or narrow branch. The " +
-          "later environment is identical in both cases, but the retained branch changes whether " +
-          "plate-like or column-like growth is favoured.",
+          "later environment is identical in both cases, but the retained branch changes the " +
+          "local basal-versus-prism attachment-coefficient order at one shared surface field.",
         desc: "The selected initial history is " + state.pulse + ". The selected basal state is " +
-          basalState + ", giving a " + outcome + ".",
+          basalState + ", giving restricted order " + order +
+          ". Diagnostic only — not a habit boundary or habit classification.",
       });
 
       const left = { x: 28, y: 30, w: 430, h: 318 };
@@ -231,10 +239,18 @@
           fill: c.ink, size: 12.5, weight: 620,
         });
 
-      text(svg, "3  LATER TENDENCY", right.x + 20, right.y + 30, {
+      text(svg, "3  RESTRICTED LOCAL ORDER", right.x + 20, right.y + 30, {
         fill: c.inkSecondary, size: 11, weight: 720,
       });
-      drawCrystal(svg, right.x + right.w / 2, right.y + 150, outcome, c);
+      drawCoefficientOrder(
+        svg,
+        right.x + right.w / 2,
+        right.y + 142,
+        order,
+        basalValue,
+        prismValue,
+        c,
+      );
       text(svg, "same illustrative σsurf = 0.20%", right.x + right.w / 2, right.y + 275, {
         fill: c.inkSecondary, size: 11.5, anchor: "middle",
       });
@@ -248,9 +264,10 @@
           ? "the fast pulse selects the narrow branch."
           : "the gentle start selects the broad branch.")
         : "Manual surface-state override: history is displayed but does not choose the branch.";
-      status.textContent = modeText + " At the illustrative common later condition, the " +
-        BASAL[basalState].label + " gives a " + outcome + ". This is a branch-memory " +
-        "diagram, not a transition law, growth simulation, or aspect-ratio prediction.";
+      status.textContent = modeText + " At the illustrative shared positive surface field, the " +
+        BASAL[basalState].label + " gives restricted coefficient order " + order +
+        ". Diagnostic only — not a habit boundary or habit classification; this is also not " +
+        "a transition law, growth simulation, or aspect-ratio prediction.";
     }
 
     const pulseButtons = {};
@@ -321,6 +338,11 @@
     window.EducationTestHooks = window.EducationTestHooks || {};
     window.EducationTestHooks.cm6History = Object.freeze({
       evaluate: evaluate,
+      semanticContract: Object.freeze({
+        quantity: "restricted-alphaHK-order",
+        constraint: "shared-positive-sigmaSurf-at-one-temperature",
+        habitProxy: false,
+      }),
       fixedSigmaSurfPercent: SIGMA_SURF,
       broadBasal: Object.freeze({ sigma0Percent: BASAL.broad.sigma0, A: 1 }),
       narrowBasal: Object.freeze({ sigma0Percent: BASAL.narrow.sigma0, A: 1 }),

@@ -304,7 +304,7 @@
         where the charter repeats it in Phase 2&rsquo;s own text: &ldquo;The governing rule is the
         same one that governs the GPU port: never physics ahead of the machinery. Phase 2a must
         stand on its own and be gated before any Libbrecht equation is written&rdquo;
-        (<code>project charter.md</code>, line 245). And once at the oracle&rarr;GPU boundary,
+        (<code>project charter.md</code>, line 247). And once at the oracle&rarr;GPU boundary,
         where §3.1 puts it in a form that will be familiar to anyone who has debugged anything:
         &ldquo;Debugging physics in WGSL is miserable; debugging it in inspectable TypeScript is
         merely hard. Never port ahead of the oracle.&rdquo; (line 221).
@@ -331,10 +331,10 @@
         <figcaption class="anim__foot">
           <span class="built-from">Original interactive. The dependencies are the charter&rsquo;s
           sequential default and its one parallel pair (<code>project charter.md</code> §3.2, line
-          237); a swap is waived only when a numbered decision names that exact pair, so
+          239); a swap is waived only when a numbered decision names that exact pair, so
           everything the decisions do not name stays refused. Refusal messages are quoted from
-          §3.3 (line 337), §3.1 (line 221), §3.2&rsquo;s opening paragraph (line 237), and the
-          Phase 4 and Phase 6 entries (lines 283 and 305). The &ldquo;actually closed in&rdquo;
+          §3.3 (line 339), §3.1 (line 223), §3.2&rsquo;s opening paragraph (line 239), and the
+          Phase 4 and Phase 6 entries (lines 285 and 307). The &ldquo;actually closed in&rdquo;
           order is the gate table&rsquo;s own dates, <code>docs/PROGRESS.md</code> lines
           606&ndash;616.</span>
         </figcaption>
@@ -350,14 +350,14 @@
         Griffeath&rsquo;s threshold rule, with their numbers exactly as printed. No new physics is
         invented at that rung. The gate is a number: a stable, sixfold-symmetric hexagonal plate,
         &ldquo;verified by an automated symmetry check &mdash; not by eyeballing&rdquo;
-        (<code>project charter.md</code>, line 253).
+        (<code>project charter.md</code>, line 255).
       </p>
 
       <p>
         Then &mdash; and this is the part that surprises people &mdash; that borrowed rule is never
         deleted. §3.3 promises permanence to the CPU oracle, and then extends the same promise
         sideways: &ldquo;So does GGThreshold &mdash; the working floor is never deleted, for the
-        same reason the oracle is never deleted.&rdquo; (line 336).
+        same reason the oracle is never deleted.&rdquo; (line 338).
         <code>GGThreshold</code> is just the code&rsquo;s name
         for that borrowed Gravner&ndash;Griffeath rule, and &ldquo;the working floor&rdquo; is the
         guaranteed-decent crystal it produces &mdash; the thing that still works when the new
@@ -385,7 +385,7 @@
         <figcaption class="anim__foot">
           <span class="built-from">Original interactive. The crystals are drawn, not solved &mdash;
           this is a schematic of a debugging situation, not solver output. The logic encodes
-          <code>project charter.md</code> line 257 (why 2a exists as its own gate) and line 254
+          <code>project charter.md</code> line 259 (why 2a exists as its own gate) and line 256
           (&ldquo;A malformed crystal can look plausibly organic&rdquo;).</span>
         </figcaption>
       </figure>
@@ -586,7 +586,7 @@
         Note what the first of those does <em>not</em> say. It does not ban looking at things. Phase
         3 &mdash; the phase whose whole purpose is a 3D viewer &mdash; kept its visual half; the
         gate entry records that app captures were inspected by a coordinator and a reviewer
-        &mdash; both, like every reviewer on this project, language models; see the note below on
+        &mdash; both recorded as language models; see the note below on
         what that is and is not worth. What
         the rule bans is looking at something and then calling the looking a measurement. The
         charter amended Phase 3&rsquo;s gate specifically to make this stick: &ldquo;the
@@ -619,7 +619,7 @@
         <div class="anim__controls"></div>
         <figcaption class="anim__foot">
           <span class="built-from">Original interactive. Rule text on the first three claims is
-          quoted verbatim from <code>project charter.md</code> line 342 and <code>AGENTS.md</code>
+          quoted verbatim from <code>project charter.md</code> line 344 and <code>AGENTS.md</code>
           lines 242&ndash;243 and 331&ndash;332, with supporting quotes from <code>AGENTS.md</code> lines
           252&ndash;253. The fourth claim is quoted from the Phase 3 gate entry in
           <code>docs/PROGRESS.md</code> line 612; the line beneath it is this chapter&rsquo;s
@@ -649,14 +649,14 @@
           Still unsettled
         </p>
         <p>
-          One limitation applies to every review in this project, and it applies to this page too.
-          The project&rsquo;s own sharing document states it flatly: &ldquo;All reviews to date,
-          internal and external-facing, are LLM reviews; for publication that is a disclosed
-          limitation, not a substitute.&rdquo;
-          (<code>docs/stretch-sharing-and-investigation.md</code>, lines 217&ndash;219). Every gate
-          you have read about was reviewed by a language model. So was this chapter, by two of
-          them. No human domain scientist has read a word of it. That is written down here for the
-          same reason the four empty task headings were left in the Phase 1 plan.
+          One recorded limitation applies to this page too. The project&rsquo;s sharing document says
+          repository records contain no human domain-expert review. Every recorded non-maker
+          reviewer-agent round is an LLM review; maker audits are recorded separately, and the maker
+          is not identified as a domain scientist. For publication that is a disclosed limitation, not a substitute
+          (<code>docs/stretch-sharing-and-investigation.md</code>, &sect;4). The gate reviews named
+          here and this chapter&rsquo;s two recorded reviewers are LLM reviews. No expert human review
+          may be inferred from that record. That is written down here for the same reason the four
+          empty task headings were left in the Phase 1 plan.
         </p>
       </aside>
 
@@ -816,7 +816,7 @@
 
       <p class="figure__source">
         The three, in order: decisions 0007 and 0008; decision 0010; decision 0012 &mdash; all named
-        in project charter.md &sect;3.2, line 237, which is also where the quoted fragments come from.
+        in project charter.md &sect;3.2, line 239, which is also where the quoted fragments come from.
       </p>
 
       <p>
@@ -911,8 +911,8 @@
   <div class="shell">
     <p>
       Part of <a href="../index.html">Snow Crystals</a>, an educational site about the science of
-      snowflake formation. Part Two describes a software project; every figure in it is original and
-      is built from the repository files named beneath it.
+      snowflake formation. Part Two describes a software project using named repository sources,
+      independently derived quantities, and clearly labelled fictional teaching examples.
     </p>
     <p><a href="../references.html">References</a> &middot; <a href="../glossary.html">Glossary</a></p>
   </div>
@@ -1031,8 +1031,8 @@
       /* Two nested brackets, both anchored at Phase 2a. The inner one is the 2a→2b boundary.
          The outer one starts at 2a as well, not at 2b: the CPU oracle is the whole Phase 2
          reference solver — "CPU reference solver: plain TypeScript, float64 … This is the
-         ground truth and the debugging environment" (project charter.md §3.1, line 217), and
-         §3.2 names the whole of Phase 2 "CPU reference solver. Split into 2a and 2b" (line 245)
+         ground truth and the debugging environment" (project charter.md §3.1, line 219), and
+         §3.2 names the whole of Phase 2 "CPU reference solver. Split into 2a and 2b" (line 247)
          — so a bracket rooted at 2b would silently equate the oracle with 2b alone. Both label
          columns sit clear of both rails, and the two never share a row. */
       function bracket(fromId, toId, inset, lines) {
@@ -1158,34 +1158,34 @@
     const CANON = PHASES.map(function (p) { return p.id; });
 
     const DEFAULT_QUOTE = {
-      cite: "project charter.md §3.2, line 237",
+      cite: "project charter.md §3.2, line 239",
       q: "Phases 1 and 2 can run in parallel; everything else is sequential except where an accepted, maker-directed ADR records narrower independence.",
       coat: false,
     };
     const QUOTES = {
       "2b|2a": {
-        cite: "project charter.md §3.3, line 337",
+        cite: "project charter.md §3.3, line 339",
         q: "Never physics ahead of the machinery. Phase 2a is gated before any Libbrecht equation is written, exactly as the CPU oracle is gated before any WGSL is written. A physics bug on top of an unproven lattice is two bugs wearing one coat.",
         coat: true,
       },
       "5|2a": {
-        cite: "project charter.md §3.1, line 221",
+        cite: "project charter.md §3.1, line 223",
         q: "Debugging physics in WGSL is miserable; debugging it in inspectable TypeScript is merely hard. Never port ahead of the oracle.",
         coat: true,
       },
       "5|2b": {
-        cite: "project charter.md §3.1, line 221",
+        cite: "project charter.md §3.1, line 223",
         q: "Debugging physics in WGSL is miserable; debugging it in inspectable TypeScript is merely hard. Never port ahead of the oracle.",
         coat: true,
       },
       "4|2a": {
-        cite: "project charter.md §3.2, line 283",
+        cite: "project charter.md §3.2, line 285",
         q: "Pass A, under GGThreshold, certifies the machinery and the metrics: it proves the lattice, diffusion, and measurement pipeline can express and detect every target morphology, independent of any physics.",
         gloss: "GGThreshold is the code’s name for Gravner and Griffeath’s published threshold rule — the borrowed, known-good stand-in the machinery is built and tested on before any new physics is written.",
         coat: false,
       },
       "6|2b": {
-        cite: "project charter.md §3.2, line 305",
+        cite: "project charter.md §3.2, line 307",
         q: "Because temperature is now an input to the physics rather than a label applied afterward, this phase is a test the model can fail. That is its purpose. The old framing — sweep knobs, build an atlas, fit a temperature axis onto it — could not have failed, and therefore could not have taught anything.",
         coat: false,
       },
@@ -1344,7 +1344,7 @@
         });
         banner.appendChild(el("p", {
           margin: "0", fontSize: "0.76rem", color: "var(--ink-muted)", fontFamily: "var(--font-mono)",
-        }, "project charter.md §3.2, line 237"));
+        }, "project charter.md §3.2, line 239"));
       } else if (bad.length === 0) {
         banner.style.borderColor = c.good;
         const h = el("p", { margin: "0 0 0.35rem", fontWeight: "700", color: c.good }, "Order accepted.");
@@ -1617,7 +1617,7 @@
         accept: false,
         rule: "Every scientific milestone is an automated metric, not a screenshot.",
         verbatim: true,
-        cite: "project charter.md §3.3, line 342",
+        cite: "project charter.md §3.3, line 344",
         extra: "The command list adds: “A liveness line, screenshot, test count, or contact-stopped state is not an accepted result.” (AGENTS.md, lines 252–253)",
       },
       {

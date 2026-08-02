@@ -2,8 +2,8 @@
  * Phase 6 historical/current status control.
  *
  * The two records are deliberately separate. Switching views never rewrites the
- * historical Arm 1 artifact and never combines Arm 1 measurements with Arm 2
- * predictions or a still-mutable Arm 2 run.
+ * historical Arm 1 artifact and never combines either measured-only arm into
+ * the still-unexecuted registered replacement gate.
  */
 (function () {
   "use strict";
@@ -36,40 +36,49 @@
     },
     current: {
       id: "current",
-      label: "Authority at the audit cutoff",
+      label: "Current Phase 6 authority",
       authority: {
-        commit: "8c781b166db2c72d2fa86cef001e2e8c48ac96c3",
-        verifierCommit: "990840a",
-        inputRepairCommit: "b701285",
-        sourceFingerprintCommit: "154359d",
-        arm2ValuesFreezeCommit: "483f7ee",
-        arm2ValuesPinCommit: "0cb52bf",
-        arm2CombinedProtocolCommit: "8c781b1",
-        progressDisagreement: "docs/PROGRESS.md still asks for the already-landed freeze; commits 483f7ee, 0cb52bf and 8c781b1 are the later artifact record",
-        liveObservation: "2026-07-30 10:23 PDT: corrected Arm 2 sweep running; local output still mutable and incomplete",
-        snapshotMeaning: "committed authority through 8c781b1 plus a dated, read-only execution observation"
+        stateDate: "2026-08-02 tracked authority",
+        stateIndex: "docs/HANDOFF.md and docs/PROGRESS.md",
+        resultArtifact: "research/phase6-two-arm-report.md",
+        evidenceManifest: "evidence/MANIFEST.json: 18 files / 974627 bytes",
+        historicalArm2ExecutionCommit: "8c781b166db2c72d2fa86cef001e2e8c48ac96c3",
+        arm2ValuesSha256: "13e678d5eec467a391958a18c71c8d170900d6efd0d5c23bb4362d863b9acd76",
+        snapshotMeaning: "both historical arms measured; replacement-gate obligations remain open"
       },
       arm1: {
-        runState: "historical bytes unchanged",
+        runState: "complete historical measurement",
         points: "204/204",
         measuredHeadline: "3/90",
-        verifier: "hardened independent re-derivation passes and rejects both named real forgeries",
-        controls: "seven executed",
-        historicalGaps: "no per-row config/stopReason fields; no completion-time source fingerprint",
-        retroUpgrade: "forbidden — later safeguards do not rewrite what Arm 1 recorded"
+        classes: "6 plate / 168 neutral / 30 column",
+        modelInvalidRows: "0/204",
+        evidenceClass: "measured-only; not the registered replacement gate",
+        historicalScope: "reported broad-facet CAK arm; legacy rows predate per-row self-reported config",
+        extentFragility: "historical one-sided=16; closed symmetric |AR-threshold| <= 0.135=59; additional=43; exact-threshold witnesses=-23C/f=0.15/AR=1.5"
       },
       arm2: {
-        runState: "corrected canonical sweep observed in progress at the 2026-07-30 10:23 PDT cutoff",
-        measurement: "partial mutable point rows existed; no completed, reviewed sweep result",
-        model: "M1 all-facets-narrow",
-        recordedCombinedProtocolSha256: "b09a932ec7345eddf838ee2de1c0ef4731212c625a1069e62193c06ae950fdec",
-        forecast: "42/90 on Arm 1's common denominator; 42/78 under Arm 2's own bistable exclusion",
-        forecastClass: "registered before execution; partial live rows are not a completed or accepted result"
+        runState: "complete historical measurement",
+        points: "204/204",
+        measurement: "54/90 common scope; 54/78 arm-specific scope",
+        classes: "75 plate / 119 neutral / 10 column",
+        modelInvalidRows: "0/204",
+        model: "M1 everywhere-narrow starter approximation; 204/204 rows self-report the registered M1 configuration",
+        evidenceClass: "measured-only and in-sample; not the registered replacement gate",
+        comparisonLimit: "historical CAK to M1 changes broad curves, A prefactors, and dip factors; causal attribution is confounded",
+        futureMatchedPairLimit: "under one frozen sampled configuration, isolates only the implemented dip-factor intervention effect; not physical SDAK causality or necessity",
+        extentFragility: "historical one-sided=33; closed symmetric |AR-threshold| <= 0.135=85; additional=52; exact-threshold witnesses=-32C/f=0.15/AR=1.5"
       },
       closure: {
-        flaglessCanonicalGate: "Arm 1 closure not run; Arm 2 sweep in progress at cutoff",
-        independentReview: "zero-blocker closing review not complete",
-        crossPlatformArm64: "not run; runbook still says MAC RUN NEEDED"
+        registeredScoringRule: "ADR 0026 conservative-intersection rule registered",
+        registeredReplacementGate: "R15 planned; unfrozen; unimplemented; unexecuted",
+        numericalAdequacy: "open",
+        previewGpuCohort: "open",
+        matchedNoDipAblation: "M1_NO_DIP_ABLATION planned; unfrozen; unimplemented; unexecuted",
+        heldOutValidation: "all four charter families open; source lock status=candidate-only-no-validation-target-frozen; passEligible=false; No audited family is presently apples-to-apples with the current single-crystal free-prism solver. This lock prevents source and extraction drift; it supplies no validation threshold.",
+        pressureValidation: "no quantitative pressure target; source lock pressure status=source-locked-context-only; scoreable=false; Pressure is confounded with liquid-water content, temperature drift, apparatus/run population, polycrystallinity, ventilation, and riming; no pass interval may be derived.",
+        sourceSnapshotObligation: "immutable R15 snapshot, environment allowlist, and child source identity verification remain required",
+        crossPlatformControl: "9/448 Tier 1 entries differ (maximum 31 ULP); coverage=integer -2..-30 C plus boundaries -3.3/-9.9/-21.5 C, with registered sweep cold tail -31,-32,-33,-34,-35 C absent and required in the new R15 fingerprint; preserved fixtures self-report host platform=win32 arch=x64 node=v24.13.1 v8=13.6.233.17-node.40 and host platform=darwin arch=arm64 node=v24.13.1 v8=13.6.233.17-node.40, but those headers are not hardware authentication; Tier 2 tracked historical table reports 4 CAK rows matching the x64 baseline, but raw logs/exit records are not published in evidence/ and the arm64 outputs are not independently rederivable; no M1, full-grid, or digit-level portability claim",
+        phaseStatus: "active and incomplete"
       }
     }
   };
@@ -144,9 +153,9 @@
       root.setAttribute("data-record-id", record.id);
       root.setAttribute("data-arm1-status", record.arm1.runState);
       root.setAttribute("data-arm2-status", record.arm2.runState);
-      root.setAttribute("data-gate-status", record.closure.flaglessCanonicalGate);
-      root.setAttribute("data-review-status", record.closure.independentReview);
-      root.setAttribute("data-cross-platform-status", record.closure.crossPlatformArm64);
+      root.setAttribute("data-gate-status", record.closure.registeredReplacementGate || record.closure.flaglessCanonicalGate);
+      root.setAttribute("data-review-status", record.closure.phaseStatus || record.closure.independentReview);
+      root.setAttribute("data-cross-platform-status", record.closure.crossPlatformControl || record.closure.crossPlatformArm64);
       root.setAttribute("data-arm1-measured-headline", record.arm1.measuredHeadline);
       root.setAttribute("data-arm2-measurement", record.arm2.measurement || "none");
 
@@ -176,17 +185,16 @@
         banner.innerHTML = "<b>Historical wording, preserved:</b> this view explains why the report " +
           "says “six” and “no verifier.” It is not a claim about the repository now.";
       } else {
-        banner.innerHTML = "<b>Audit-cutoff view, without retroactive repair:</b> verifier hardening, input pins, " +
-          "and the completion fingerprint protect checking or future runs. They do not add missing " +
-          "fields to Arm 1. The active Arm 2 run is an observation, not a completed verdict; its " +
-          "forecast is not added to Arm 1’s measured 3/90.";
+        banner.innerHTML = "<b>Current scope:</b> CAK 3/90 and M1 54/90 are separate, historical " +
+          "measured-only comparisons. They are not pooled, and neither is the registered replacement " +
+          "gate. Phase 6 remains active and incomplete until the named closure obligations run.";
       }
       body.appendChild(banner);
     }
 
     [
       ["historical", "Report snapshot"],
-      ["current", "Audit cutoff"]
+      ["current", "Current authority"]
     ].forEach(function (entry) {
       var button = document.createElement("button");
       button.type = "button";
@@ -236,7 +244,7 @@
   var root = document.querySelector("[data-demo='phase6-status-history']");
   var mounted = mount(root);
   window.__VCC_EDU_PHASE6_STATUS__ = {
-    schemaVersion: 1,
+    schemaVersion: 2,
     records: clone(RECORDS),
     mount: mount,
     select: function (id) {

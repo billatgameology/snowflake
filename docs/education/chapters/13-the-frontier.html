@@ -91,18 +91,17 @@
         chapter.
       </p>
       <p>
-        Recall what that explanation was. Two curves, one for the flat top and bottom faces and one
-        for the six side faces, tracking how hard it is to start a new layer of ice on each.
-        Whichever curve is lower, that face grows more easily. When the flat top and bottom are the
-        easy ones the crystal grows taller, into a column; when the six side faces are the easy
-        ones it spreads sideways, into a plate. Where the full attachment coefficients cross, the
-        faster-facet tendency reverses. That makes a crossing a <em>candidate</em> habit boundary,
-        not an automatic switch: diffusion, facet width, growth history and how unequal the two
-        rates become still matter.
+        Recall the proposal. Two parameter curves describe basal and prism layer-nucleation
+        barriers. Their order is useful diagnostic information. At one shared positive surface
+        supersaturation the full attachment coefficients can also be compared, but their equality
+        roots are not habit boundaries. A crystal&rsquo;s plate, column, or isometric class comes only
+        from a complete three-dimensional forward run with diffusion, evolving geometry, facet
+        width, history, and a frozen morphology evaluator.
       </p>
       <p>
-        That is a real explanation, built on real measurements. It is also, in the words of the
-        people who built it, a working hypothesis with ill-defined curves. This chapter is about
+        That is a physically motivated working model built from source fits, model inversions, and
+        Nakaya-informed choices. In its authors&rsquo; words it is a working hypothesis with
+        ill-defined curves. This chapter is about
         how to hold both of those thoughts at once &mdash; and about the rather long list of things
         that nobody has worked out at all.
       </p>
@@ -116,9 +115,10 @@
         caption, in one clause, easy to skim past.
       </p>
       <p>
-        <strong>A measurement</strong> is a set of points. Somebody grew a crystal, timed it,
-        measured it, and each point is the result. It comes with error bars, because every
-        measurement is a range rather than a value.
+        <strong>A measurement</strong> is an observed quantity: somebody grew a crystal, timed it,
+        and recorded size or velocity. A plotted parameter point can instead be a
+        <em>model inversion</em> derived from those measurements; error bars do not make the inferred
+        parameter direct.
         <strong>A fit</strong> is a smooth curve pushed through those points. The curve is not a
         measurement; it is a summary, and its shape was chosen by a person.
         <strong>An eye guide</strong> is a line drawn through data with no equation behind it at
@@ -136,14 +136,17 @@
               data-alt="A graph on logarithmic axes showing scattered data points with error bars, joined by a dotted curve that plunges well below two smooth reference lines near minus fourteen degrees Celsius.">
         <figcaption class="figure__caption">
           <strong>What to look at:</strong> three different kinds of object share this one graph.
-          The scattered points with error bars are measurements &mdash; each one is a crystal
-          somebody grew and timed. The dotted line threaded through them is not a measurement, and
+          The scattered points with error bars are inferred parameter values derived from crystals
+          somebody grew and timed. They are model-conditioned, not direct readings of
+          &sigma;<sub>surf</sub> or &sigma;<sub>0</sub>. The dotted line threaded through them is an
+          eye guide, and
           the next paragraph is about what it is instead. The two smooth lines behind everything
           are not measurements of the same thing either; they are the broad-face curves, drawn for
-          comparison. Notice how far the points fall below those lines near &minus;14&nbsp;&deg;C.
-          That gap is the whole SDAK dip. SDAK is short for structure-dependent attachment kinetics
+          comparison. Notice how far the inferred points fall below those lines near
+          &minus;14&nbsp;&deg;C. That gap motivates an SDAK reduction. SDAK is short for structure-dependent attachment kinetics
           &mdash; the proposal from Chapter 12 that a very narrow facet is much easier to start a
-          new layer on than a wide one. The dip is the measured part of that story. (The
+          new layer on than a wide one. The reduction region is supported by a model inversion; the
+          exact M1 dip function is a later P3 choice. (The
           caption&rsquo;s &ldquo;CAK model&rdquo; is the account of Chapters 11 and 12 &mdash; the
           two barrier curves and how they cross.)
           <br><br>
@@ -155,7 +158,7 @@
       </figure>
 
       <p>
-        The same measurements appear in the paper they came from, and there the caption is blunter
+        The same inferred parameter points appear in the paper they came from, and there the caption is blunter
         about the line drawn through them: <em>&ldquo;Measured values of &sigma;<sub>0,prism,SDAK</sub>(T)
         (data points) obtained from growth measurements taken at &sigma;<sub>far</sub> = 32%. The dotted
         line was drawn to guide the eye&rdquo;</em>. (&sigma;<sub>0,prism,SDAK</sub> is the height of
@@ -165,7 +168,9 @@
         always measured against ice, never against liquid water; the same air reads a very
         different number the other way, which is why Chapter 4 kept the two apart.) Nine words at
         the end of a caption tell you that the most memorable feature of the graph &mdash; the
-        swooping dotted curve &mdash; is not a result.
+        swooping dotted curve &mdash; is not a fitted result. The source calls the points
+        &ldquo;measured values,&rdquo; but the underlying analysis infers them through a witness-surface
+        model; the surface field was not independently observed.
       </p>
 
       <figure class="anim" id="epistemic-lines">
@@ -224,13 +229,11 @@
 
       <p>
         Now turn that lens on the explanation you just accepted. Chapter 12 used two dips: a
-        region near &minus;5&nbsp;&deg;C where the top and bottom faces suddenly become easy to
-        grow, and a region near &minus;15&nbsp;&deg;C where the side faces do. Comparing only the
-        two broad-facet barrier curves gives one crossing, while the dipped barrier curves give
-        three. The full attachment coefficients can behave differently because their prefactors
-        also vary, and no crossing by itself computes a crystal habit. The dips are the part of the
-        working model designed to put strong column-like and plate-like tendencies into the
-        observed temperature bands.
+        region near &minus;5&nbsp;&deg;C where the basal barrier is reduced, and one near
+        &minus;15&nbsp;&deg;C for the prism barrier. Comparing only the two broad-facet curves gives
+        one equality root, while the dipped curves give three. Full attachment coefficients depend
+        on prefactors and local surface fields, and no equality root computes or bounds crystal
+        habit. The exact dips are Nakaya-informed parts of the working model.
       </p>
 
       <figure class="figure"
@@ -257,11 +260,11 @@
         Here is what is known about those dips, stated as precisely as the sources state it.
       </p>
       <p>
-        <strong>They are measured, in part.</strong> Two dedicated experiments went after them
-        directly &mdash; one centred near &minus;4&nbsp;&deg;C, one near &minus;14&nbsp;&deg;C, which
-        the monograph&rsquo;s own figure rounds to &minus;5 and &minus;15 &mdash; and both produced
-        real data points with error bars. Figure 4.26 above is one of them; here is the other. The
-        dips are not invented.
+        <strong>Reduction regions are inferred, not directly measured.</strong> Two dedicated growth
+        studies support narrow-facet reductions near &minus;4&nbsp;&deg;C and
+        &minus;14&nbsp;&deg;C. Their plotted barrier points come from model inversions whose local
+        surface supersaturation cannot be independently verified in the same experiment. They do
+        not determine M1&rsquo;s exact analytic depths, widths, or placements.
       </p>
 
       <figure class="figure"
@@ -272,13 +275,14 @@
               data-alt="A graph on logarithmic axes showing data points with horizontal and vertical error bars, joined by a dotted curve that plunges to a minimum near minus four degrees Celsius, well below the two smooth reference curves.">
         <figcaption class="figure__caption">
           <strong>What to look at:</strong> this is the basal companion to Figure 4.26, and the pair
-          is worth reading together. Two <em>separate</em> experiments produced them &mdash; this one
-          hunting the dip near &minus;4&nbsp;&deg;C, the other the dip near &minus;14&nbsp;&deg;C
+          is worth reading together. Two <em>separate</em> growth analyses produced them &mdash; this one
+          probing a reduction near &minus;4&nbsp;&deg;C, the other near &minus;14&nbsp;&deg;C
           &mdash; and each carries its own reference marker in the caption, [2020Lib2] here and
           [2020Lib1] there. Now look at how the points are joined in both graphs: by a
           <em>dotted</em> curve. The solid lines are the broad-face model; the dotted swoop through
-          the data is an eye guide, the third kind of line from the section above. The measurements
-          are real. The curve connecting them is a hand, on both graphs.
+          the inferred points is an eye guide, the third kind of line from the section above. The
+          growth observations are real; the parameter values are model-conditioned, and the curve
+          connecting them is drawn by hand.
           <br><br>
           <em>Published caption: &ldquo;Figure 4.27: Measurements of the basal SDAK parameter […] as
           a function of temperature, revealing a substantial &lsquo;SDAK dip&rsquo; centered near
@@ -314,13 +318,13 @@
           <strong>where</strong>
           <dl>
             <dt>&sigma;<sub>0,basal</sub></dt><dd>how hard it is to start a new layer of ice on the flat top or bottom face, in percent. Bigger means harder, so a smaller number means that face grows more easily</dd>
-            <dt>T</dt><dd>how many degrees below freezing the air is, so T&nbsp;=&nbsp;5 means &minus;5&nbsp;&deg;C. The paper says only &ldquo;temperature &hellip; in degrees Celsius&rdquo;, but a logarithm only works on a positive number, and a centre at 4.5 lines up with the dip measured near &minus;4&nbsp;&deg;C &mdash; so degrees below freezing is the reading that makes sense</dd>
-            <dt>first bracket</dt><dd>the broad-face curve, the well-grounded part. Its numbers come from growth experiments on wide facets</dd>
+            <dt>T</dt><dd>how many degrees below freezing the air is, so T&nbsp;=&nbsp;5 means &minus;5&nbsp;&deg;C. The positive supercooling is required by the logarithm and is the documented implementation convention</dd>
+            <dt>first bracket</dt><dd>the broad-face source fit, constrained by growth experiments on wide facets rather than directly measured as a barrier</dd>
             <dt>second bracket</dt><dd>the dip factor. 1 means &ldquo;no dip here&rdquo;; at the very bottom of the dip it is 0.13, so the barrier falls to about an eighth of its broad-face value</dd>
             <dt>0.87</dt><dd>how deep the dip goes. Chosen, and the least anchored of the three: no measured depth for the basal dip is printed anywhere in these papers. The only printed dip depth of any kind is for the <em>prism</em> dip, which is said to fall to &ldquo;about one-tenth of its broad-facet value&rdquo; at &minus;14&nbsp;&deg;C (arXiv:2012.12916v1, p. 9)</dd>
-            <dt>4.5</dt><dd>where the dip is centred, in degrees below freezing. Chosen to sit on the measured dip, not derived from any theory of the ice surface &mdash; the dedicated experiment puts the basal dip&rsquo;s centre near &minus;4&nbsp;&deg;C, and 4.5 is a round number in that neighbourhood</dd>
+            <dt>4.5</dt><dd>where the analytic dip is centred, in degrees below freezing. It is a P3 choice near the model-inferred reduction region, not a direct measurement or theory prediction. This centre is unchanged if both logarithms are coherently written as log10 or ln</dd>
             <dt>0.07</dt><dd>how wide the dip is. Chosen, not derived &mdash; widths are one of the two things the paper says outright were &ldquo;judiciously chosen&rdquo;</dd>
-            <dt>log</dt><dd>the logarithm, which makes the dip symmetric on the graph rather than in degrees. The source does not state its base. This site uses base 10 because direct evaluation then reproduces the shape and three-crossing pattern of the paper&rsquo;s Figure&nbsp;1. That is an inference from the figure, not a convention printed in the equation</dd>
+            <dt>log</dt><dd>the logarithm, which makes the dip symmetric on the graph rather than in degrees. The source does not state its base. This site uses base 10 as an inference from Figure&nbsp;1. The base changes the width represented by the printed denominator and the equality roots, but cannot move the centre at 4.5</dd>
           </dl>
         </div>
         <p class="equation__cite">Libbrecht, arXiv:2306.13087v1, p. 6 &mdash; the printed expression, with its two missing closing brackets supplied</p>
@@ -338,9 +342,9 @@
       <p>
         Three numbers in that second bracket &mdash; the depth 0.87, the centre 4.5, the width 0.07
         &mdash; were written down rather than derived, and no theory of the ice surface says what
-        they should be. They are not all equally loose. The centre has a measurement standing behind
-        it; the width was chosen to fit; the depth has nothing printed behind it at all. That is not
-        a scandal. It is an honest placeholder, and it is labelled as one. The chart below lets you
+        they should be. Model-conditioned data motivate the centre&rsquo;s neighbourhood, while the
+        exact centre, width, and depth are P3 choices. That is not a scandal. It is an honest
+        placeholder, and it is labelled as one. The chart below lets you
         move all three and watch what the explanation does.
       </p>
 
@@ -349,12 +353,15 @@
           <p class="anim__title">Three numbers you can move</p>
           <p class="anim__sub">The two barrier curves, drawn from the printed equations. The sliders
             control the depth, centre and width of the basal dip &mdash; the three constants that
-            were chosen rather than derived. Every crossing reverses this simplified barrier-order
-            tendency; it does not guarantee that a full growth calculation switches habit. Under
-            the site&rsquo;s documented base-10 reading, the printed constants give three crossings
-            &mdash; not at the same three temperatures as the canonical morphology bands.</p>
+            were chosen rather than derived. Every equality root changes only this barrier order;
+            it does not classify a full growth calculation. Under the site&rsquo;s documented base-10
+            reading, the printed constants give three equality roots. The dip centre remains 4.5
+            under either coherent logarithm base.
+            <span class="mobile-pan-note">On a narrow screen, swipe the chart sideways to read its
+              labels at full size.</span></p>
         </div>
-        <div class="anim__body"></div>
+        <div class="anim__body mobile-pan-region" tabindex="0"
+             aria-label="Scrollable barrier-order chart; pan horizontally to read every label"></div>
         <div class="anim__controls"></div>
         <figcaption class="anim__foot">
           <span class="built-from">Original chart, evaluated from printed equations only &mdash;
@@ -363,20 +370,20 @@
           p. 3, Eq. 2); broad prism &sigma;<sub>0</sub> = 0.015&nbsp;T<sup>2</sup> +
           0.02&nbsp;T<sup>0.6</sup> and both SDAK dip factors, including the printed defaults 0.87,
           4.5 and 0.07 marked on the sliders, from Libbrecht, arXiv:2306.13087v1, pp. 6&ndash;7.
-          Crossing temperatures are computed from those equations by bisection. Only the three
+          Equality-root temperatures are computed from those equations by bisection. Only the three
           basal-dip constants are adjustable here, because those are the three the paper describes
           as chosen. The source prints <code>log</code> without a base. This chart uses base 10
-          because evaluating that reading reproduces the shape and three-crossing pattern in the
+          because evaluating that reading reproduces the shape and three-equality-root pattern in the
           paper&rsquo;s Figure&nbsp;1; the base is therefore a site inference, not a source-printed
-          value. An earlier site version used the natural logarithm and obtained five crossings.
-          Move any slider away from its printed value and you are exploring the same important
-          sensitivity: small changes to an unforced constant can move the crossing
-          locations.</span>
+          value. An earlier site version used the natural logarithm and obtained five equality
+          roots; it did not move the analytic dip centre, which is base-invariant. Move any slider
+          away from its printed value and you are exploring sensitivity of the input-order roots,
+          not a simulated habit boundary.</span>
         </figcaption>
       </figure>
       <p>
-        <strong>The measurements have gaps of their own.</strong> The prism dip <em>curve</em> was
-        mapped at a single humidity, &sigma;<sub>far</sub>&nbsp;=&nbsp;32%, though a second run at
+        <strong>The inversions have gaps of their own.</strong> The prism reduction <em>curve</em> was
+        inferred at a single humidity, &sigma;<sub>far</sub>&nbsp;=&nbsp;32%, though a second run at
         22% did confirm where its minimum sits: <em>&ldquo;A simple quadratic fit yields the peak
         location at T = -14.15 &plusmn; 0.15 C. This temperature also corresponds to the minimum of
         the prism SDAK dip seen in Figure 18&rdquo;</em> (arXiv:2009.08404v2, Figure 19 caption,
@@ -401,9 +408,9 @@
           <em>&ldquo;We still treat the SDAK phenomenon as a working hypothesis … the SDAK
           phenomenon provides the only viable option currently available that can adequately
           explain the Nakaya diagram together with a plethora of other ice-growth data&rdquo;</em>
-          (arXiv:2306.13087v1, p. 5). Read that carefully. &ldquo;The only viable option currently
-          available&rdquo; is a much weaker claim than &ldquo;correct&rdquo;. It means: nobody has
-          anything better, and that is the honest reason to use it.
+          (arXiv:2306.13087v1, p. 5). Read that as the source authors&rsquo; assessment, not a theorem
+          that alternatives are impossible and not a project priority rule. It remains a working
+          hypothesis to test.
         </p>
       </aside>
 
@@ -411,7 +418,7 @@
         Chapter 12 has the sharper version of that gap, stated as a number rather than a mood. A
         first-principles attempt to derive the prism dip's depth from curvature-driven surface
         diffusion predicts the barrier falling to about half its broad-facet value near
-        &minus;14&nbsp;&deg;C; the measurement instead shows it falling to about a tenth &mdash;
+        &minus;14&nbsp;&deg;C; the model-conditioned inversion instead puts it near a tenth &mdash;
         &ldquo;perhaps too small to reproduce the actual SDAK dip&rdquo;, in the same paper's own
         words, and &ldquo;too simplistic to explain the observed SDAK phenomenon&rdquo;
         (arXiv:2012.12916v1, p.&nbsp;9). That is a concrete, citable shortfall in the mechanism
@@ -424,8 +431,9 @@
         along with its complexity and ill-defined curves. Fair enough.&rdquo;</em> The defence
         follows immediately &mdash; the broad-face curves are well grounded in experiments, and the
         dips <em>&ldquo;or something similarly complex, are required to explain a substantial body
-        of additional data&rdquo;</em> (printed p. 153). Something has to make the shape flip three
-        times. The dips are a candidate that fits a lot of measurements. They are not a proof.
+        of additional data&rdquo;</em> (printed p. 153). That necessity language is the source&rsquo;s
+        interpretation. This project treats the dips as a testable candidate, not a proof or an
+        exhaustiveness result.
       </p>
       <p>
         The same researcher has publicly withdrawn several of his own earlier analyses of these
@@ -505,7 +513,7 @@
         <p>
           &ldquo;Possible in principle&rdquo; and &ldquo;not yet accomplished&rdquo; were compatible
           statements in 2012: the first described a route; the second described the evidence then
-          available. Later CAK measurements, the 97- and 206-image needle surveys, newer faceting
+          available. Later CAK fits and model inversions, the 97- and 206-image needle surveys, newer faceting
           calculations, and this repository&rsquo;s own solver gates must each be judged from their
           later artifacts. None retroactively turns a 2012 proposal into a 2012 result.
         </p>
@@ -519,7 +527,9 @@
         could test against those photographs. The names are deliberately modest. M1 is the compact
         first attempt; M2 is a more explicit way to separate broad and narrow facets. The paper says
         model-to-experiment comparison is needed to learn whether changing from one to the other
-        makes substantial differences (arXiv:2306.13087v1, p.&nbsp;7).
+        makes substantial differences (arXiv:2306.13087v1, p.&nbsp;7). In this repository M1 is the
+        implemented everywhere-narrow starter approximation. M2&rsquo;s required width-dependent
+        closure is not implemented.
       </p>
 
       <figure class="figure"
@@ -533,8 +543,9 @@
           and colder prism dip are already inside the two curves; they are not an optional effect to
           add after running M1. The morphology words above the curves are the observed bands the
           model was designed to reproduce, not outputs of this graph. The paper calls the closed
-          forms ad hoc while tracing their broad trends to measurements and their two dips to the
-          dedicated SDAK experiments (arXiv:2306.13087v1, p.&nbsp;6).
+          forms ad hoc while tracing broad trends to source fits and model-conditioned SDAK
+          inversions (arXiv:2306.13087v1, p.&nbsp;6). The exact M1 functions remain
+          Nakaya-informed P3 choices.
         </figcaption>
       </figure>
 
@@ -551,8 +562,8 @@
           <tbody>
             <tr>
               <td>Which barrier curve?</td>
-              <td>Use the dipped &sigma;<sub>0</sub>(T) curves in Figure&nbsp;1 for faceted
-                surfaces. Broad and narrow facets are not distinguished.</td>
+              <td>Use the dipped &sigma;<sub>0</sub>(T) curves in Figure&nbsp;1 everywhere. Broad
+                and narrow facets are not distinguished: this is an everywhere-narrow approximation.</td>
               <td>Use undipped broad-facet curves on broad facets and the dipped curves on narrow
                 ones. A model must therefore decide what &ldquo;narrow&rdquo; means.</td>
             </tr>
@@ -565,12 +576,12 @@
             </tr>
             <tr>
               <td>Why this choice?</td>
-              <td>In air, edge sharpening can quickly make fast-growing facets narrow, so M1 treats
-                narrow-facet kinetics as a first approximation. This is not asserted for every
-                morphology.</td>
-              <td>Facet width becomes explicit in the attachment kinetics, at the price of a
-                non-local classification problem. Curvature enters separately through the surface
-                energy required by both starter models.</td>
+              <td>In air, edge sharpening can make fast-growing facets narrow, motivating M1&rsquo;s
+                deliberately coarse everywhere-narrow first approximation. It does not resolve
+                facet width.</td>
+              <td>Facet width would become explicit in the attachment kinetics, at the price of a
+                non-local classification problem and a missing width-to-parameter closure. This M2
+                path remains unimplemented in the project.</td>
             </tr>
             <tr>
               <td>What remains outside it?</td>
@@ -917,16 +928,18 @@
         with a stated reason: <em>&ldquo;For snow crystal growth in air, thermal effects are
         generally negligible below -10 C, becoming progressively more important as one approaches
         the melting point. … For this reason, I will ignore latent heating and thermal diffusion
-        for the remainder of this paper&rdquo;</em> (arXiv:2306.13087v1, p. 5). That is a defensible
-        simplification for cold air and a known weakness near 0&nbsp;&deg;C &mdash; which happens
-        to be exactly where the surface is slushiest and least understood.
+        for the remainder of this paper&rdquo;</em> (arXiv:2306.13087v1, p. 5). That is the
+        source&rsquo;s regime-scoped justification, not evidence that the omission is harmless across
+        this project&rsquo;s validation grid. The weakness grows toward 0&nbsp;&deg;C &mdash; exactly
+        where the surface is slushiest and least understood.
       </p>
       <p>
-        This is the one item on the list that is not difficult. It is deferred. The physics is
-        standard, the reason for setting it aside is printed in the open, and putting it back is a
-        matter of somebody deciding to. It belongs on the list because the account genuinely does
-        run out near 0&nbsp;&deg;C &mdash; but it runs out on purpose, and a reader who cannot tell
-        this item from the other five has not really been told anything.
+        The transport physics is standard, but the scientific consequence of omitting it is not
+        discharged merely by naming the omission. This project also omits explicit surface-diffusion
+        dynamics, while premelting enters only through recorded attachment parameterizations. For a
+        quantitative validation claim, the regime-dependent error from latent heat, thermal
+        transport and explicit surface diffusion must be bounded or carried as a stated systematic.
+        Implementing more physics is one remedy; narrowing the claimed domain with evidence is another.
       </p>
 
       <figure class="anim" id="confidence-map">
@@ -1151,17 +1164,16 @@
       </p>
 
       <p class="handoff">
-        And there is one more thing you can do with an answer nobody has proved, which is what the
-        rest of this site is. Something has to make the shape flip three times; the two crossing
-        curves are a candidate that fits a lot of measurements and they are not a proof. Nobody had
-        ever installed those curves in a full three-dimensional crystal, grown it, and compared the
-        shapes that came out against Nakaya&rsquo;s diagram. Somebody tried. Part Two, beginning at
-        Chapter 14, is that attempt &mdash; and mostly it is not physics at all but the machinery
-        underneath it: the arithmetic, the tests, and a marking scheme written down and sealed
-        before the answer was known. Without all of that you cannot tell a wrong theory from a
-        broken program. It is not finished. The scores it has produced so far are bad ones,
-        and nobody outside the project has checked them yet. Both of those are the reason to read
-        it.
+        Part Two turns these parameterizations into falsifiable three-dimensional runs. Its
+        historical broad-facet CAK arm measured 3/90 and its everywhere-narrow M1 arm measured
+        54/90 on their common scope (54/78 in M1&rsquo;s arm-specific scope). Those arms are
+        <em>not</em> a clean dip ablation: broad curves, A prefactors, and dip factors all change, so
+        their difference is causally confounded. Both counts are measured-only, not the replacement
+        gate. Only ADR&nbsp;0026&rsquo;s scoring rule is registered. Phase 6 remains active and incomplete:
+        R15 and <code>M1_NO_DIP_ABLATION</code> are planned but unfrozen, unimplemented and
+        unexecuted; numerical adequacy, the GPU cohort and all four held-out families remain open.
+        A future matched pair could isolate only the implemented intervention effect under its frozen
+        sampled configuration, not physical SDAK causality or necessity.
       </p>
 
       <nav class="chapter-nav" aria-label="Chapter navigation">
@@ -1184,8 +1196,9 @@
   <div class="shell">
     <p>
       Part of <a href="../index.html">Snow Crystals</a>, an educational site about the science of
-      snowflake formation. Source figures are &copy; Kenneth G. Libbrecht and are reproduced here
-      from a local research cache under citation; they are not redistributed with this repository.
+      snowflake formation. Source figures are &copy; Kenneth G. Libbrecht and are not redistributed
+      with this repository or public course; a personal offline build may substitute cited copies
+      from a local research cache.
     </p>
     <p><a href="../references.html">References</a> &middot; <a href="../glossary.html">Glossary</a></p>
   </div>
@@ -1209,12 +1222,12 @@
 
   const KINDS = [
     {
-      name: "A measurement",
-      short: "Points with error bars. Each one is an experiment.",
-      gloss: "Points, each with an error bar. Somebody grew a crystal and measured it.",
+      name: "A model-conditioned inversion",
+      short: "Growth observations inverted through a model, with uncertainty bars.",
+      gloss: "The crystals were observed, but the plotted barrier values were inferred through a growth model rather than measured directly.",
       quote: "“Measured values of … as a function of temperature (data points), revealing a substantial ‘SDAK dip’ centered near -14 C”",
       cite: "Libbrecht, Snow Crystals, Figure 4.26 caption (printed p. 172)",
-      points: true, bars: true, curve: "none", tag: "data",
+      points: true, bars: true, curve: "none", tag: "model-inferred",
     },
     {
       name: "A fit",
@@ -1355,7 +1368,7 @@
     const c = Viz.colors();
     svg = Viz.createSvg(body, W, H, {
       label: "Four small graphs showing the four ways a line reaches a published figure: " +
-        "measured points with error bars, a fitted curve, a dotted eye-guide line, and a " +
+        "model-conditioned inverted points with uncertainty bars, a fitted curve, a dotted eye-guide line, and a " +
         "curve of a shape chosen for convenience.",
     });
     for (let i = 0; i < KINDS.length; i++) svg.appendChild(drawPanel(i, c));
@@ -1382,7 +1395,7 @@
    traced off a plotted line. The three constants of the basal SDAK dip (depth
    0.87, centre 4.5, width 0.07; arXiv:2306.13087v1 p. 6) are exposed as
    sliders, because those are exactly the three the paper describes as chosen
-   rather than derived. Crossings are found by bisection on the equations.
+   rather than derived. Equality roots are found by bisection on the equations.
    ======================================================================== */
 (function () {
   const root = document.getElementById("chosen-numbers");
@@ -1408,8 +1421,8 @@
   const state = { depth: 0.87, centre: 4.5, width: 0.07, dips: true };
 
   // The paper prints "log" without a base. This site uses base 10 because that
-  // reading reproduces the shape and three-crossing pattern of its Figure 1.
-  // The page disclosure identifies this as an inference, not a printed value.
+  // reading reproduces the shape and three-root pattern of its Figure 1. The
+  // centre itself is invariant to a coherent change of log base.
   function basalDip(t) {
     return 1 - state.depth *
       Math.exp(-Math.pow(Math.log10(t) - Math.log10(state.centre), 2) / state.width);
@@ -1485,8 +1498,8 @@
       label:
         "How hard it is to start a new layer on each face of an ice crystal, plotted against " +
         "how far below freezing the air is. The basal curve carries an adjustable dip. Where " +
-        "the two curves cross, the simplified faster-facet tendency reverses. The chart does " +
-        "not simulate the final crystal habit.",
+        "the two curves cross, their input order changes. The chart does not classify or bound " +
+        "the final crystal habit.",
     });
 
     const basal = [], prism = [];
@@ -1496,7 +1509,7 @@
     }
     const cross = crossings();
 
-    /* ---- simplified faster-facet tendency below the axis ---- */
+    /* ---- barrier-input order below the axis ---- */
     const STRIP_Y = plot.y0 + 34;
     const edges = [T_LO].concat(cross, [T_HI]);
     for (let i = 0; i < edges.length - 1; i++) {
@@ -1512,7 +1525,7 @@
           x: (xs(a) + xs(b)) / 2, y: STRIP_Y + 15, "text-anchor": "middle",
           fill: ink, "font-size": 11, "font-weight": 620, "font-family": "var(--font-sans)",
         });
-        label.textContent = basalLower ? "column-like" : "plate-like";
+        label.textContent = basalLower ? "basal lower" : "prism lower";
         svg.appendChild(label);
       }
     }
@@ -1521,7 +1534,7 @@
       fill: c.inkSecondary, "font-size": 11, "font-weight": 620,
       "font-family": "var(--font-sans)",
     });
-    stripTitle.textContent = "tendency";
+    stripTitle.textContent = "barrier order";
     svg.appendChild(stripTitle);
 
     /* ---- axes ---- */
@@ -1593,20 +1606,19 @@
     root.dataset.crossingCount = String(n);
     root.dataset.dipsEnabled = String(state.dips);
     root.dataset.logBaseInterpretation = "10-inferred-from-figure";
-    let msg = n + (n === 1 ? " crossing." : " crossings.") + " ";
+    let msg = n + (n === 1 ? " equality root." : " equality roots.") + " ";
     if (!state.dips) {
-      msg += "With the dips taken away, this barrier-only diagram has one candidate tendency " +
-        "reversal. That is not a limit on what a full growth model can do.";
+      msg += "With the dips taken away, this barrier-only diagram has one order swap. " +
+        "That is not a limit on what a full growth model can do.";
     } else if (atPrinted) {
       msg += "These are the printed constants under the site's inferred base-10 reading. The " +
-        "count matches the canonical diagram's three candidate transitions, but not their " +
-        "placement: the warm crossing lands close, the middle misses by almost two degrees, " +
-        "and the coldest sits in a poorly pinned range. A crossing is not a simulated habit.";
+        "three roots are input equalities, not habit boundaries. The analytic dip centre is 4.5 " +
+        "degrees below freezing under either coherent log base.";
     } else if (n >= 3) {
-      msg += "This parameter choice produces at least three candidate tendency reversals, but " +
-        "neither their locations nor the resulting crystal habits are established by this chart.";
+      msg += "This parameter choice produces at least three barrier-order swaps, but neither " +
+        "their locations nor any crystal habit is established by this chart.";
     } else {
-      msg += "This barrier-only comparison produces fewer than three candidate reversals. A full " +
+      msg += "This barrier-only comparison produces fewer than three order swaps. A full " +
         "growth model would still need diffusion, prefactors, facet width and history.";
     }
     status.textContent = msg;

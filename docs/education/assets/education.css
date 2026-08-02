@@ -749,6 +749,11 @@ img { max-width: 100%; height: auto; display: block; }
   color: #fff;
 }
 
+.mobile-pan-note,
+.sweep-mobile-picker {
+  display: none;
+}
+
 @media (max-width: 480px) {
   .anim__controls {
     gap: 0.65rem;
@@ -780,6 +785,72 @@ img { max-width: 100%; height: auto; display: block; }
     overflow-wrap: anywhere;
     text-align: center;
   }
+
+  /* A dense scientific chart stays at its authored SVG scale on a narrow
+     screen. The focusable region supplies a readable horizontal pan instead
+     of shrinking 10–12 px labels into unreadable 5–6 px text. */
+  #chosen-numbers .mobile-pan-region > svg {
+    width: 760px !important;
+    max-width: none !important;
+  }
+
+  #chosen-numbers .mobile-pan-region {
+    overscroll-behavior-inline: contain;
+    touch-action: pan-x pan-y;
+  }
+
+  .mobile-pan-note {
+    display: block;
+    margin-top: 0.55rem;
+    color: var(--ink-primary);
+    font-weight: 600;
+  }
+
+  /* Sweep cells are intentionally dense and remain useful as an overview.
+     Native selects below them expose every exact cell through full-size touch
+     controls, so the 204-point reader does not depend on a 7 px SVG target. */
+  .sweep-mobile-picker {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0.7rem;
+    margin: 0 0 0.85rem;
+    padding: 0.8rem;
+    border: 1px solid var(--rule);
+    border-radius: 8px;
+    background: var(--surface-sunken);
+  }
+
+  .sweep-mobile-picker label {
+    display: grid;
+    gap: 0.3rem;
+    min-width: 0;
+    color: var(--ink-primary);
+    font-size: var(--step--1);
+    font-weight: 600;
+  }
+
+  .sweep-mobile-picker select {
+    width: 100%;
+    min-height: 44px;
+    padding: 0.5rem 0.65rem;
+    border: 1px solid var(--rule-strong);
+    border-radius: 6px;
+    background: var(--surface-1);
+    color: var(--ink-primary);
+    font: inherit;
+  }
+
+  .sweep-mobile-readout {
+    margin: 0;
+    color: var(--ink-secondary);
+    font-size: var(--step--1);
+    line-height: 1.5;
+  }
+}
+
+.mobile-pan-region:focus-visible {
+  outline: 3px solid var(--accent-key);
+  outline-offset: -3px;
 }
 
 /* chart primitives used by inline SVG */

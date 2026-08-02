@@ -1,8 +1,11 @@
 /* ============================================================================
-   The crossing explanation — why the Nakaya diagram looks the way it does
+   A parameter-order diagnostic — what two source curves do and do not imply
    ----------------------------------------------------------------------------
-   ORIGINAL chart. Every curve is EVALUATED FROM A PRINTED EQUATION, never
-   traced off a plotted line. The equations and their citations:
+   ORIGINAL chart. Every curve is evaluated from a source equation rather than
+   traced off a plotted line. For the dips, the source prints "log" without a
+   base; this project registers a base-10 transcription as a P4 interpretation
+   supported by the width shown in Figure 1. The equations as evaluated here and
+   their citations:
 
      sigma0_basal broad   0.02 * t^1.75 + 0.3            [%]
                           arXiv:2009.08404v2, p. 3, Eq. (2)
@@ -17,37 +20,31 @@
                           arXiv:2306.13087v1, p. 6
 
    where t = (T_melt - T) is the supercooling in degrees Celsius, so t = 5
-   means -5 C. The full "M1" model is the broad curve times its dip. CORRECTED
-   2026-07-29: the printed log in both dip formulas is BASE 10, not natural —
-   this file used Math.log (natural) until then, which gave five crossings
-   instead of the three below. See app/scripts/phase6-libbrecht-closed-forms.mjs.
+   means -5 C. The full "M1" parameterization is the broad curve times its dip.
+   The exact dip shapes, depths, widths, and placements are P3
+   Nakaya-informed model choices, not direct measurements of sigma0 on narrow
+   facets. Base 10 is the project's registered transcription, not an explicit
+   label in the source. Changing the base while changing both logarithms
+   coherently cannot move either dip centre:
+   they remain exactly 4.5 and 14.4 C. The values near 3.08, 8.07, and 24.73 C
+   are equality roots of the two sigma0 curves, not dip centres.
 
    WHAT THE CHART IS FOR
    ---------------------
-   sigma0 is how hard it is to start a new layer on a facet. A SMALLER sigma0
-   means that face grows MORE easily, PROVIDED the two facets' A prefactors in
-   alphaHK = A * exp(-sigma0/sigma_surf) are equal — which they are not always
-   (see core/src/libbrecht.ts and Chapter 12's own equation gloss). With that
-   proviso, whichever curve is lower is the face that wins:
+   sigma0 is an input to the Hertz-Knudsen attachment coefficient
+   alphaHK = A * exp(-sigma0/sigma_surf). Comparing sigma0 alone says only
+   which barrier is lower under the restricted assumption of equal A and the
+   same positive sigma_surf. Comparing alphaHK at a chosen shared positive
+   sigma_surf says which coefficient is larger under that artificial local
+   comparison. Neither comparison labels a three-dimensional crystal as a
+   plate or column. Habit is evaluated only from a complete 3-D forward run.
 
-     basal lower  -> the top and bottom faces grow  -> the crystal gets taller -> COLUMN
-     prism lower  -> the six side faces grow        -> the crystal spreads     -> PLATE
+   The equality temperatures shown are computed here by bisection on the
+   equations as transcribed above, not read from a plotted root. They are order-swap diagnostics,
+   not habit boundaries.
 
-   A habit boundary happens where the two curves cross, ON THIS SIMPLIFIED
-   READING. It is not a hard structural limit on how many habit changes a
-   broad-facet model can produce: an earlier version of this comment claimed
-   that, and an adversarial review in 2026 found it wrong — habit is actually
-   set by the full alphaHK, not sigma0 alone, and once the A prefactor is
-   restored the swap count depends on sigma_surf and can reach three even
-   without the dips (research/libbrecht-figure-findings.md). The two dips still
-   matter, as the measured, independently-motivated mechanism this chapter
-   discusses — just not because sigma0-alone crossings are a proven ceiling.
-
-   The crossing temperatures shown are computed here by bisection on those
-   printed equations, not read off anything.
-
-   A SECOND CHART, mountAlphaHK() below, makes that restored-A_prism claim
-   itself checkable: it compares alphaHK_basal and alphaHK_prism directly
+   A SECOND CHART, mountAlphaHK() below, makes the dependence on A_prism and
+   sigma_surf checkable: it compares alphaHK_basal and alphaHK_prism directly
    (Eqs. 1-5 of arXiv:2009.08404v2, p. 3), with a sigma_surf slider and an
    A_prism on/off toggle, instead of comparing sigma0 alone. See the comment
    above its own model functions for the equations and the units convention.
@@ -73,7 +70,7 @@
     return sigma0PrismBroad(t) * (withDips ? prismDip(t) : 1);
   }
 
-  /** Supercoolings where the two curves swap order — i.e. habit boundaries. */
+  /** Supercoolings where the two sigma0 curves swap order. */
   function findCrossings(withDips, lo, hi) {
     const out = [];
     const f = (t) => sigma0("prism", t, withDips) - sigma0("basal", t, withDips);
@@ -139,9 +136,9 @@
     return A * Math.exp(-sigma0Prism2009(t) / sigmaSurf);
   }
 
-  /** Supercoolings where alphaHK_prism and alphaHK_basal swap order — the
-   *  habit-relevant crossings, as opposed to the sigma0-alone crossings
-   *  findCrossings() computes above. lo/hi default to 0-30 C below
+  /** Supercoolings where alphaHK_prism and alphaHK_basal swap order at the
+   *  selected shared positive sigmaSurf. These are coefficient-equality roots,
+   *  not habit boundaries. lo/hi default to 0-30 C below
    *  freezing, a range wide enough to hold every crossing this chapter
    *  discusses. */
   function findAlphaHKCrossings(sigmaSurf, includeAPrism, lo, hi) {
@@ -170,6 +167,9 @@
 
   /**
    *   Sigma0.mount(root, { withDips: true, showHabitStrip: true })
+   *
+   * showHabitStrip is a retained API name. The rendered strip shows parameter
+   * order only; it never assigns morphology.
    */
   function mount(root, options) {
     const o = Object.assign({ withDips: true, showHabitStrip: true }, options || {});
@@ -227,9 +227,8 @@
 
       svg = Viz.createSvg(body, W, H, {
         label:
-          "How hard it is to grow each face of an ice crystal, against how far below freezing " +
-          "the air is. Where the two lines cross, the crystal switches between growing as a " +
-          "plate and growing as a column.",
+          "The adopted basal and prism nucleation-barrier inputs against temperature. " +
+          "Crossings mark equality of these two inputs, not a change of three-dimensional habit.",
       });
 
       const basal = [], prism = [];
@@ -240,7 +239,7 @@
 
       const cross = findCrossings(withDips, T_LO, T_HI);
 
-      /* ---- habit strip, placed BELOW the axis ticks so nothing collides ---- */
+      /* ---- parameter-order strip, placed below the ticks ---- */
       const STRIP_Y = plot.y0 + 34;
       if (o.showHabitStrip) {
         const edges = [T_LO, ...cross, T_HI];
@@ -259,7 +258,7 @@
               "text-anchor": "middle", fill: ink, "font-size": 11, "font-weight": 620,
               "font-family": "var(--font-sans)",
             });
-            label.textContent = basalLower ? "column" : "plate";
+            label.textContent = basalLower ? "basal lower" : "prism lower";
             svg.appendChild(label);
           }
         }
@@ -268,7 +267,7 @@
           fill: c.inkSecondary, "font-size": 11, "font-weight": 620,
           "font-family": "var(--font-sans)",
         });
-        stripTitle.textContent = "you get";
+        stripTitle.textContent = "σ₀ order";
         svg.appendChild(stripTitle);
       }
 
@@ -320,11 +319,11 @@
 
       paintLegend();
       status.textContent = withDips
-        ? cross.length + " crossings from the sigma0-alone comparison — matching the Nakaya " +
-          "diagram's three boundaries in count, though not exactly in place (see the chapter text)."
-        : "Only one sigma0 crossing, at −" + cross[0].toFixed(1) + " °C — but sigma0 alone " +
-          "isn't quite the right thing to compare (see the chapter text), so this is not proof " +
-          "that a broad-facet model can only flip habit once.";
+        ? cross.length + " sigma0-equality roots. The separate dip centres remain −4.5 °C and " +
+          "−14.4 °C under log10 or ln. Diagnostic only — not a habit boundary or habit classification."
+        : "One sigma0-equality root for these broad curves. This restricted input comparison " +
+          "does not bound or predict the number of three-dimensional habit changes. " +
+          "Diagnostic only — not a habit boundary or habit classification.";
     }
 
     if (bar) {
@@ -338,8 +337,8 @@
       const note = document.createElement("span");
       note.className = "control";
       note.style.color = "var(--ink-muted)";
-      note.textContent = "Without the dips the two sigma0 curves cross once — but that count "
-        + "assumes the two facets' A prefactors are equal, which they are not always.";
+      note.textContent = "This strip compares sigma0 only. It assumes equal A and says nothing "
+        + "by itself about the morphology produced by a 3-D forward run.";
       bar.appendChild(note);
     }
 
@@ -356,8 +355,8 @@
    * Unlike mount() above, this compares the full attachment coefficient
    * alphaHK = A exp(-sigma0/sigma_surf), not sigma0 alone, so both the A
    * prefactor (Eq. 5) and the reader's own sigma_surf choice feed into the
-   * crossing count — the "Corrected" callout's point that the count is a
-   * property of sigma_surf, not a fixed property of the two curves.
+   * equality-root count. That count is conditional on sigma_surf and is not a
+   * fixed property of the two barrier curves or a morphology prediction.
    */
   function mountAlphaHK(root, options) {
     const o = Object.assign({ sigmaSurf: 0.20, includeAPrism: true }, options || {});
@@ -416,10 +415,9 @@
 
       svg = Viz.createSvg(body, W, H, {
         label:
-          "The Hertz-Knudsen attachment coefficient alphaHK for the basal and prism facets, " +
-          "against how far below freezing the air is, at the chosen spare-vapour value. Where " +
-          "the two curves cross, the crystal switches between growing as a plate and growing " +
-          "as a column.",
+          "The Hertz-Knudsen attachment coefficients for the basal and prism facets at one " +
+          "chosen, shared positive surface supersaturation. A crossing is coefficient equality, " +
+          "not a three-dimensional habit boundary.",
       });
 
       const basal = [], prism = [];
@@ -431,7 +429,7 @@
       const cross = findAlphaHKCrossings(sigmaSurf, includeAPrism, T_LO, T_HI);
       lastCrossings = cross;
 
-      /* ---- habit strip, placed BELOW the axis ticks so nothing collides ---- */
+      /* ---- coefficient-order strip, placed below the ticks ---- */
       const STRIP_Y = plot.y0 + 34;
       const edges = [T_LO, ...cross, T_HI];
       for (let i = 0; i < edges.length - 1; i++) {
@@ -449,7 +447,7 @@
             "text-anchor": "middle", fill: ink, "font-size": 11, "font-weight": 620,
             "font-family": "var(--font-sans)",
           });
-          label.textContent = basalWins ? "column" : "plate";
+          label.textContent = basalWins ? "basal larger" : "prism larger";
           svg.appendChild(label);
         }
       }
@@ -458,7 +456,7 @@
         fill: c.inkSecondary, "font-size": 11, "font-weight": 620,
         "font-family": "var(--font-sans)",
       });
-      stripTitle.textContent = "you get";
+      stripTitle.textContent = "alphaHK order";
       svg.appendChild(stripTitle);
 
       /* ---- axes ---- */
@@ -507,10 +505,11 @@
       });
 
       paintLegend();
-      status.textContent = cross.length + " crossing" + (cross.length === 1 ? "" : "s") +
-        " at σ_surf = " + sigmaSurf.toFixed(2) + "%, " +
+      status.textContent = cross.length + " coefficient-equality root" + (cross.length === 1 ? "" : "s") +
+        " at shared positive σ_surf = " + sigmaSurf.toFixed(2) + "%, " +
         (includeAPrism ? "A_prism included" : "A held at 1") +
-        (cross.length ? ": " + cross.map((t) => "−" + t.toFixed(1) + "°C").join(", ") : "");
+        (cross.length ? ": " + cross.map((t) => "−" + t.toFixed(1) + "°C").join(", ") : "") +
+        ". Diagnostic only — not a habit boundary or habit classification.";
     }
 
     if (bar) {
@@ -521,10 +520,10 @@
         onInput: function (v) { sigmaSurf = v; render(); },
       });
       aPrismButton = Viz.button(bar,
-        includeAPrism ? "Hold A ≡ 1 (old analysis)" : "Include A_prism (measured)",
+        includeAPrism ? "Hold A ≡ 1 (restricted comparison)" : "Include source-fit A_prism",
         function (b) {
           includeAPrism = !includeAPrism;
-          b.textContent = includeAPrism ? "Hold A ≡ 1 (old analysis)" : "Include A_prism (measured)";
+          b.textContent = includeAPrism ? "Hold A ≡ 1 (restricted comparison)" : "Include source-fit A_prism";
           b.setAttribute("aria-pressed", String(includeAPrism));
           render();
         }, { pressed: includeAPrism });
@@ -546,6 +545,40 @@
       },
     };
   }
+
+  window.EducationTestHooks = window.EducationTestHooks || {};
+  window.EducationTestHooks.sigma0 = Object.freeze({
+    schemaVersion: 1,
+    semanticContract: Object.freeze({
+      quantity: "coefficient-order-diagnostic",
+      habitBoundary: false,
+      habitClassification: false,
+      habitProxy: false,
+      dipLogBase: 10,
+    }),
+    constants: Object.freeze({
+      basalCentreC: 4.5,
+      prismCentreC: 14.4,
+      basalDepth: 0.87,
+      prismDepth: 0.95,
+      basalWidth: 0.07,
+      prismWidth: 0.06,
+    }),
+    evaluate: function (t, withDips, sigmaSurf, includeAPrism) {
+      return Object.freeze({
+        basalBroad: sigma0BasalBroad(t),
+        prismBroad: sigma0PrismBroad(t),
+        basalDip: basalDip(t),
+        prismDip: prismDip(t),
+        basalSigma0: sigma0("basal", t, withDips),
+        prismSigma0: sigma0("prism", t, withDips),
+        basalAlphaHK: alphaHKBasal(sigmaSurf, t),
+        prismAlphaHK: alphaHKPrism(sigmaSurf, t, includeAPrism),
+      });
+    },
+    sigma0Crossings: findCrossings,
+    alphaHKCrossings: findAlphaHKCrossings,
+  });
 
   window.Sigma0 = {
     mount: mount,

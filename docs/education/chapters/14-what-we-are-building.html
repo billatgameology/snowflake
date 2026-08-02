@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>What We Are Building — Snow Crystals</title>
-<meta name="description" content="Somebody built a machine to grow a snow crystal from measured physics, then tried hard to prove it wrong. What the machine is, what it refuses to be, and how success was defined before any code existed.">
+<meta name="description" content="Somebody built a machine with mixed-provenance, experiment-constrained physics, then tried hard to prove it wrong. What the machine is, what it refuses to be, and how success was defined before any code existed.">
 <link rel="stylesheet" href="../assets/education.css">
 </head>
 
@@ -52,7 +52,8 @@
         <p class="chapter-header__eyebrow">Chapter 14</p>
         <h1>What We Are Building</h1>
         <p class="chapter-header__question">
-          Somebody built a machine to grow a snow crystal from measured physics, and then set out
+          Somebody built a machine to grow a snow crystal from mixed-provenance,
+          experiment-constrained physics, and then set out
           to prove it wrong. What is the machine?
         </p>
         <div class="chapter-header__meta">
@@ -98,7 +99,7 @@
         </p>
         <p>
           Every quotation in Part Two comes with something like
-          <code>project charter.md</code>, line&nbsp;183, or
+          <code>project charter.md</code>, line&nbsp;185, or
           <code>research/phase6-sweep-report.md</code>, &ldquo;Scored result&rdquo;. This project
           keeps its records as plain text files &mdash; a founding document, decision records,
           a report for each experiment &mdash; all of them stored together in what programmers call
@@ -120,8 +121,9 @@
         Not knowing, you would read them as boasting. Knowing, you read them as forensics.
       </p>
       <p>
-        The completed solver was run 204 times across a grid of temperatures and humidities, and its
-        results were scored against the Nakaya diagram by a rule written down before the run. It
+        The historical broad-facet CAK arm was run 204 times across a grid of temperatures and
+        humidities, and its results were scored against the Nakaya diagram by a rule written down
+        before the run. It
         agreed with the diagram at <strong>3 of the 90 points that counted</strong>
         (<code>research/phase6-sweep-report.md</code>, &ldquo;Scored result&rdquo;). Ninety, not
         204, because the scoring rule had already set two groups aside &mdash; before anybody knew
@@ -179,21 +181,32 @@
       <p>
         Read those numbers in that order, or you will read them wrong. &ldquo;3 out of 90&rdquo; on
         its own sounds like broken code. &ldquo;3 out of 90 with zero invalid runs&rdquo; is a
-        different kind of statement: the machinery did everything it was asked to do, and the
-        physics it was given still did not produce the diagram.
+        different kind of statement: the recorded run completed its per-row checks, and at this
+        executed setup its parameterization still did not produce the diagram. The open R15
+        numerical-adequacy work means this is not a resolution-independent conclusion.
       </p>
       <p>
-        Be exact about which physics that was. The machine is Libbrecht's measured stickiness
-        curves installed in a three-dimensional lattice &mdash; a later section quotes the sentence
-        it was built from &mdash; and these 204 runs carried the <em>broad-facet</em> curves alone.
+        Be exact about which physics that was. The machine uses source-tabulated, fitted and
+        model-inverted attachment inputs installed in a three-dimensional lattice, and these 204
+        runs carried the <em>broad-facet</em> CAK parameterization alone.
         The extra mechanism chapter 13 ended on, the SDAK dips on narrow facets, was deliberately
         left switched off. That is the design, not an oversight: the dips are the part of the theory
-        whose positions were chosen rather than measured, so the project reports runs with them and
+        whose exact shapes, widths, depths and placements are P3 Nakaya-informed choices, so the project reports runs with them and
         runs without them separately, and what ran here is the half it calls &ldquo;the no-SDAK
         probe &hellip; a first-class result in its own right&rdquo;
-        (<code>project charter.md</code>, &sect;3.2 line 313). Why that separation has to exist, and
+        (<code>project charter.md</code>, &sect;3.2 line 315). Why that separation has to exist, and
         why the other half could not have been a fair test on its own, is chapter 28's argument. For
-        now it is only a label on which physics was in the box.
+        now it is only a label on which physics was in the box. The source-inferred narrow-facet
+        reduction regions are observational constraints, but they do not make the exact M1 prescription measured.
+      </p>
+
+      <p>
+        The separate historical M1 arm has now completed the same 204-row grid. It matched
+        <strong>54 of 90</strong> on the common scope (54 of 78 on its arm-specific scope), with
+        75 plate, 119 neutral, 10 column and zero invalid rows. That larger score does not isolate an
+        SDAK-dip effect: CAK to M1 changes the broad &sigma;<sub>0</sub> functions and
+        <em>A</em> prefactors along with the dip factors. Both arms are measured-only historical
+        records, not the replacement gate.
       </p>
 
       <aside class="callout callout--open">
@@ -201,23 +214,14 @@
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
             <circle cx="12" cy="12" r="9.5"/><path d="M9.2 9.3a2.9 2.9 0 1 1 3.6 3.4v1.6M12.4 17.4v.2"/>
           </svg>
-          Still unsettled
+          Historical report snapshot
         </p>
         <p>
-          Two things stop that 3 from being a finished result, and neither is a hedge added here:
-          both are printed in the report above its own headline. First &mdash; &ldquo;<strong>These
+          When the CAK report was written, it said: &ldquo;<strong>These
           numbers are not yet gate evidence.</strong> WP5 has not run: no independent verifier has
           re-derived <code>report.json</code> from <code>points.json</code>, and the six negative
-          controls have not executed.&rdquo; WP5 is the project's verification-and-closure work
-          package; the negative controls are tests built to fail on purpose, to prove the checker can
-          still detect a fault. What the report claims instead is &ldquo;a measured result with
-          verified provenance, which is not the same thing&rdquo;. Second, this is <strong>one arm of
-          two</strong> &mdash; the control arm, with the extra mechanism switched off &mdash; and the
-          report refuses to draw the Phase&nbsp;6 conclusion until the other arm has run:
-          &ldquo;the numbers below are complete and final for this arm; what they <em>mean</em> for
-          the phase waits&rdquo;. Sixteen of the 204 points are also flagged
-          <em>extent-fragile</em>: habit depends on size, and those sixteen sit close enough to a
-          class threshold that measuring at a slightly different size could move them.
+          controls have not executed.&rdquo; That quotation is a preserved dated snapshot, not the
+          repository&rsquo;s current state. Its caution was correct; its inventory is now obsolete.
         </p>
       </aside>
 
@@ -229,31 +233,15 @@
           Updated
         </p>
         <p>
-          The passage just quoted is the report&rsquo;s own wording as this chapter was first
-          written, and the live repository has since moved past part of it &mdash; checking that is
-          exactly what this project&rsquo;s own currency rule (<code>AGENTS.md</code> Rule 12) asks
-          of a claim before it is trusted. As of 2026-07-29, <strong>seven</strong> negative controls
-          have executed, not six (<code>app/scripts/phase6-wp5-negative-controls.mjs</code>), and an
-          independent verifier (<code>app/scripts/phase6-wp5-independent.mjs</code>) now re-derives
-          all 204 points from <code>points.json</code> and reports PASS. That verifier was itself
-          first found to be doing too little &mdash; it printed the artifact hashes without asserting
-          them, checked one of <code>report.json</code>&rsquo;s nine fields, and trusted a published
-          pass/fail flag instead of recomputing it &mdash; and has since been hardened to actually
-          reject the two forgeries it had previously certified as &ldquo;VERIFIED&hellip;exit
-          0&rdquo;. The seven controls found two real gaps: a run spliced together from a different,
-          superseded parameter set was undetectable, and a run measured at the wrong crystal size
-          scored identically to a correct one. Both are now addressed &mdash; the first for sweeps
-          run from here on (the already-published run predates the fix and is supported instead by
-          its preflight record and the independent verifier, not provable from the artifact bytes
-          alone), the second by a registered check that was confirmed, on re-check, not to move a
-          single one of the 204 already-published rows. None of this closes WP5: the project&rsquo;s
-          own plan still requires a flagless run of the canonical gate command and an independent
-          review down to zero blockers before any of this becomes gate evidence, and
-          <code>docs/PROGRESS.md</code> has not recorded that as done. So the sentence being
-          corrected here is the one naming six controls and no verifier; the sentence it was
-          supporting &mdash; that these numbers are not yet gate evidence &mdash; still holds, now
-          for a narrower reason. Chapters 27 through 29 carry the rest of the detail, including a
-          specific, sobering example of what one unpinned surface can do to a headline number.
+          Both historical arms now have completed artifacts and independent re-derivations. Those
+          checks preserve what the bytes measured; they do not satisfy a replacement protocol that
+          was never executed. R15 is planned but unfrozen, unimplemented and unexecuted; numerical
+          adequacy, the preview-resolution GPU cohort, the likewise-unfrozen
+          <code>M1_NO_DIP_ABLATION</code>, and held-out validation across all four charter families
+          remain open. The historical
+          one-directional extent-fragility rule was also refuted by its own aspect-ratio ladder;
+          a later symmetric audit found more threshold-vulnerable rows. Chapters 27 through 29
+          carry the evidence and its current limits.
         </p>
       </aside>
 
@@ -314,7 +302,7 @@
           response. The crystal that emerges is a readable record of its journey: arms sprouted
           during a cold, humid phase; a column capped by plates when conditions shifted; a hollow
           core formed where vapor could not reach.&rdquo;
-          <br><span class="figure__source"><code>project charter.md</code>, &sect;1.1, line 31</span>
+          <br><span class="figure__source"><code>project charter.md</code>, &sect;1.1, line 33</span>
         </p>
       </blockquote>
       <p>
@@ -350,7 +338,7 @@
           <span class="built-from">Original illustration &mdash; <strong>not the solver</strong>, and
           nothing here is computed from physics. The three features a segment can write (arms, a
           smooth cap, a middle left behind) are the three named in the project's own description of
-          its goal, <code>project charter.md</code> &sect;1.1, line 31. The drawing is a schematic
+          its goal, <code>project charter.md</code> &sect;1.1, line 33. The drawing is a schematic
           of that sentence. Labelling this the way the project would label it is the first thing
           this section does, and it applies to the site as much as to the software.</span>
         </figcaption>
@@ -360,7 +348,7 @@
 
       <p>
         The application is described as a loop with three steps
-        (<code>project charter.md</code>, &sect;1.1, lines 36&ndash;38). One: you edit an
+        (<code>project charter.md</code>, &sect;1.1, lines 38&ndash;40). One: you edit an
         environmental timeline. Two: a field solver &mdash; a program that tracks a quantity spread
         through space, here the water vapour in the air &mdash; grows the crystal through those
         conditions. Three:
@@ -370,7 +358,7 @@
           &ldquo;Diagnostic views expose the normally invisible state driving the growth &mdash; the
           vapor field around the crystal, the local growth propensity on its surface &mdash; so the
           user can see not just what grew, but why.&rdquo;
-          <br><span class="figure__source"><code>project charter.md</code>, &sect;1.1, line 38</span>
+          <br><span class="figure__source"><code>project charter.md</code>, &sect;1.1, line 40</span>
         </p>
       </blockquote>
       <p>
@@ -387,7 +375,7 @@
         grid of cells is. One of its standing rules reads
         &ldquo;Model validity outranks compute. Spend surplus GPU budget on diffusion iterations,
         observability, determinism, and sweeps before resolution&rdquo;
-        (<code>project charter.md</code>, line 335).
+        (<code>project charter.md</code>, line 337).
       </p>
       <p>
         There is a happy accident buried in this. The views that let a user see why a branch
@@ -425,7 +413,7 @@
         </div>
         <p class="equation__cite">The &ldquo;quasi-static diffusion (Laplace) equation,
           &nabla;&sup2;&sigma; &asymp; 0, with the crystal surface as a sink&rdquo; &mdash;
-          <code>project charter.md</code> &sect;2.4, line 130</p>
+          <code>project charter.md</code> &sect;2.4, line 132</p>
       </div>
 
       <p>
@@ -465,7 +453,7 @@
         the number of passes needed &ldquo;scale[s] like (L/&Delta;x)&sup2;&rdquo; &mdash; halve the
         cell size and you quadruple the work, so a browser-sized budget buys a picture that is
         qualitatively right and quantitatively short (<code>project charter.md</code> &sect;2.4,
-        line 139). Chapter 22 is entirely about what stopping early costs when it matters.
+        line 141). Chapter 22 is entirely about what stopping early costs when it matters.
       </p>
       <p>
         The second is what happens when the crystal grows big enough to feel the walls of its box. A
@@ -511,13 +499,14 @@
         just unanswered, it's un-askable&rdquo; (lines 203&ndash;206).
       </p>
       <p>
-        On the other side is the measurement programme you met in chapters 10 to 12: real
-        stickiness curves with real temperatures attached &mdash; but published simulations that
+        On the other side is the empirical programme you met in chapters 10 to 12: attachment
+        parameterizations with real temperatures attached &mdash; but published simulations that
         mostly run in simplified geometry rather than free-form three dimensions. &ldquo;The gap
-        between them is where this project lives&rdquo; (line 215). The build strategy is one
-        sentence: &ldquo;take Gravner&ndash;Griffeath's honeycomb machinery, rip out its
-        temperature-blind attachment thresholds, and install Libbrecht's measured stickiness curves
-        in their place&rdquo; (lines 242&ndash;244).
+        between them is where this project lives&rdquo; (line 215). An earlier build summary called
+        every input a measured stickiness curve; that provenance was too broad. More exactly, the
+        project keeps Gravner&ndash;Griffeath&rsquo;s lattice machinery, replaces its
+        temperature-blind attachment thresholds, and installs Libbrecht&rsquo;s source-tabulated,
+        fitted and model-inverted attachment parameterizations.
       </p>
 
       <figure class="anim" id="anim-dials">
@@ -537,7 +526,7 @@
           shape from any temperature</strong>, and saying so is the same discipline the chapter is
           describing. The un-askable/askable contrast is <code>docs/video-explainer.md</code> lines
           203&ndash;206 and 242&ndash;244; the readout string quoted in Model B's verdict is
-          verbatim from <code>project charter.md</code> line 87.</span>
+          verbatim from <code>project charter.md</code> line 89.</span>
         </figcaption>
       </figure>
 
@@ -557,7 +546,8 @@
           Careful
         </p>
         <p>
-          Installing measured physics in a model is not the same as showing that the model
+          Installing experiment-constrained inputs &mdash; some direct empirical values, some fits,
+          inversions and prescriptions &mdash; is not the same as showing that the model
           reproduces reality. Those are two different claims about two different things &mdash; what
           went in, and what came out. The project treats them as different sentences and never lets
           one stand in for the other.
@@ -577,7 +567,7 @@
           is legitimate because the physics being modeled (vapor diffusion, boundary attachment
           rates) is already continuum-scale &mdash; not because of any hand-wavy &lsquo;fractal
           scaling&rsquo; argument.&rdquo;
-          <br><span class="figure__source"><code>project charter.md</code>, &sect;1.3, line 54</span>
+          <br><span class="figure__source"><code>project charter.md</code>, &sect;1.3, line 56</span>
         </p>
       </blockquote>
       <p>
@@ -594,7 +584,7 @@
           <strong>where</strong>
           <dl>
             <dt>10<sup>18</sup></dt><dd>water molecules in one real snow crystal &mdash; a billion
-              billion (<code>project charter.md</code>, line 54)</dd>
+              billion (<code>project charter.md</code>, line 56)</dd>
             <dt>N<sub>cells</sub></dt><dd>lattice cells in a solver run. The charter&rsquo;s
               <em>design budgets</em> are about 1 million for development, 8 million for preview
               and 130 million for a bake-quality target. They are planning targets, not a claim
@@ -605,7 +595,7 @@
               the program moves</dd>
           </dl>
         </div>
-        <p class="equation__cite">Arithmetic from <code>project charter.md</code> lines 54 and 299</p>
+        <p class="equation__cite">Arithmetic from <code>project charter.md</code> lines 56 and 301</p>
       </div>
 
       <p>
@@ -626,8 +616,9 @@
       </p>
       <p>
         <em>Phenomenological</em> is the load-bearing word there. It means the model copies the
-        <em>behaviour</em> without claiming to have derived it: it reproduces what the measurements
-        do, and does not claim to know why at the level of molecules. Such a model can be extremely
+        <em>behaviour</em> without claiming to have derived it: it is designed to reproduce selected
+        measured behaviour, but whether it succeeds must be tested, and it does not claim to know
+        why at the level of molecules. Such a model can be extremely
         useful and still be wrong about the mechanism, and it has no right to be believed about a
         case nobody measured.
       </p>
@@ -645,13 +636,13 @@
       <p>
         Version 1 of this project is called a success on eight counts. Seven of them are things one
         solver, on one hexagonal-prism lattice, has to be able to do
-        (<code>project charter.md</code> &sect;1.4, lines 62&ndash;71). Quoted exactly:
+        (<code>project charter.md</code> &sect;1.4, lines 64&ndash;73). Quoted exactly:
       </p>
 
       <div class="table-wrap">
         <table>
           <caption>Seven of the eight v1 success criteria, verbatim from
-            <code>project charter.md</code> &sect;1.4, lines 65&ndash;71. Note what is not among
+            <code>project charter.md</code> &sect;1.4, lines 67&ndash;73. Note what is not among
             them.</caption>
           <thead>
             <tr><th class="num">#</th><th>&ldquo;One solver, on a hexagonal-prism lattice, that&hellip;&rdquo;</th></tr>
@@ -675,7 +666,7 @@
         recompute &mdash; how far from sixfold, how tall against how wide, how much lower the vapour
         is at a facet centre than at its rim. The project states the rule for itself in one line:
         &ldquo;Every scientific milestone is an automated metric, not a screenshot&rdquo;
-        (<code>project charter.md</code>, line 342). Its working rules put the same thing less
+        (<code>project charter.md</code>, line 344). Its working rules put the same thing less
         politely: &ldquo;&lsquo;Looks right&rsquo; is not a result. If you eyeballed it, write that
         you eyeballed it&rdquo; (<code>AGENTS.md</code>, line 335).
       </p>
@@ -683,7 +674,7 @@
         Then there is the eighth, which the list is careful to keep separate from the other seven:
         &ldquo;Plus one independent finding from a cheap 2D prototype: that &lsquo;designing a cloud
         journey&rsquo; is understandable and enjoyable as an interaction&rdquo;
-        (<code>project charter.md</code>, line 74). Nothing in that ends in a number. Whether an
+        (<code>project charter.md</code>, line 76). Nothing in that ends in a number. Whether an
         interaction is enjoyable is a judgement a person makes, and no metric settles it. That is
         not a hole in the argument; it is the argument's edge, drawn on purpose. The rule is not
         &ldquo;never accept a human judgement&rdquo; &mdash; it is that <em>the science</em> is
@@ -718,10 +709,10 @@
           <span class="built-from">Original interactive, on the same two-dimensional lattice as the
           X-ray demo above and with the same caveats: it is a miniature, not the project's solver,
           and the numbers in the table are computed live by this page. The criterion text is
-          verbatim from <code>project charter.md</code> &sect;1.4, lines 65&ndash;71. The
+          verbatim from <code>project charter.md</code> &sect;1.4, lines 67&ndash;73. The
           &ldquo;hollowing test&rdquo; row is this page's own crude stand-in for a hollowness
           metric, not the project's. The real gate asks for hollowing that repeats
-          &ldquo;reproducibly across seeds&rdquo; (<code>project charter.md</code>, line 289), and
+          &ldquo;reproducibly across seeds&rdquo; (<code>project charter.md</code>, line 291), and
           in that repository a seed is a random-number seed; this miniature has no randomness in it
           at all, so what it varies instead is the size of the crystal it starts from. The
           unfalsifiability note is this chapter's argument, not a quotation.</span>
@@ -771,21 +762,23 @@
       </p>
 
       <p>
-        And one limitation applies to all of it, including the two-reviewer process that checked this
-        page: every review this project has had was done by a language model, and no human domain
-        scientist has read the work &mdash; in the project's own words a &ldquo;disclosed limitation,
-        not a substitute&rdquo; (<code>docs/stretch-sharing-and-investigation.md</code>, &sect;4).
+        And one limitation applies to all of it, including the recorded two-reviewer process that
+        checked this page: every recorded non-maker reviewer-agent round is an LLM review. Maker
+        audits are recorded separately, the maker is not identified as a domain scientist, and the
+        repository records contain no human domain-expert review &mdash; in the project's own words a &ldquo;disclosed
+        limitation, not a substitute&rdquo;
+        (<code>docs/stretch-sharing-and-investigation.md</code>, &sect;4).
         Chapter 29 gives that its own section, because by then you will be able to see what it costs.
       </p>
 
       <p class="handoff">
         You now know what the machine is for and what it refuses to claim. What you do not yet have
         is the vocabulary that makes those refusals precise &mdash; because &ldquo;we gave the model
-        real physics&rdquo; and &ldquo;the model reproduces reality&rdquo; sound like the same
+        experiment-constrained physical inputs&rdquo; and &ldquo;the model reproduces reality&rdquo; sound like the same
         sentence, and treating them as one is the fastest way to fool yourself. The project's answer
         is not a confidence score. Every quantity it puts on the screen carries <em>two</em> labels,
         held apart on purpose: one for what the number <em>is</em>, and one for what it has
-        <em>earned</em> (<code>project charter.md</code>, &sect;1.5, line 78). The next chapter is
+        <em>earned</em> (<code>project charter.md</code>, &sect;1.5, line 80). The next chapter is
         about why one label was never enough.
       </p>
 
@@ -809,8 +802,8 @@
   <div class="shell">
     <p>
       Part of <a href="../index.html">Snow Crystals</a>, an educational site about the science of
-      snowflake formation. Part Two describes a software project; every figure in it is original,
-      and every quotation is cited to a file and line in that project's repository.
+      snowflake formation. Part Two describes a software project using named repository sources,
+      independently derived quantities, and clearly labelled fictional teaching examples.
     </p>
     <p><a href="../references.html">References</a> &middot; <a href="../glossary.html">Glossary</a></p>
   </div>
@@ -920,7 +913,7 @@
 
     /* The domain-contact guard, in miniature. The project's own rule: "any run
        in which the crystal's bounding box exceeds ~65% of any domain extent is
-       automatically flagged invalid" (project charter.md line 231). Here it is
+       automatically flagged invalid" (project charter.md line 233). Here it is
        enforced rather than reported: past 65% the lattice simply refuses to
        grow, so a reader who keeps pressing "Grow" can watch a safeguard fire. */
     var GUARD = 0.65;
@@ -1793,7 +1786,7 @@
     ];
     /* Starting crystal radii, in cells. NOT random-number seeds: this miniature
        has no randomness in it, so there is nothing for a seed to seed. The real
-       gate varies the RNG seed (project charter.md line 289); this varies size,
+       gate varies the RNG seed (project charter.md line 291); this varies size,
        which is the only thing here that can be varied. */
     var STARTS = [1, 2, 3];
     /* This page's own crude hollowing test: the face centres count as "left

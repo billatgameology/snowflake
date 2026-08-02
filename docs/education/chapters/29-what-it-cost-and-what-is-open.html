@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>What It Cost, and What Is Still Open — Snow Crystals</title>
-<meta name="description" content="A score of 5 of 90 was withdrawn by the project itself, the corrected number was predicted in writing to be worse before it existed, and the re-run came in at 3 of 90. What that cost, and what nobody knows yet.">
+  <meta name="description" content="A score of 5 of 90 was withdrawn by the project itself, the corrected number was predicted in writing to be worse before it existed, and the re-run came in at 3 of 90. What that cost, and what remains open.">
 <link rel="stylesheet" href="../assets/education.css">
 </head>
 
@@ -71,7 +71,7 @@
       <section class="goals">
         <h2>By the end you will be able to</h2>
         <ul>
-          <li>Explain why a pre-registration only proves itself the first time obeying it <em>costs</em> something.</li>
+          <li>Explain why a pre-registration becomes most informative when obeying it <em>costs</em> something.</li>
           <li>Read a prediction against its own outcome &mdash; and say what &ldquo;nearly right&rdquo; earns and what it does not.</li>
           <li>Read a limitations list written by the claimant as the most informative thing on the page &mdash; and write one.</li>
           <li>Tell a retracted <em>interpretation</em> from a retracted <em>measurement</em>, and say why only one of the two costs you your numbers.</li>
@@ -79,6 +79,35 @@
           <li>Say which of Part One&rsquo;s open questions now carries a number, and which do not.</li>
         </ul>
       </section>
+
+      <aside class="callout callout--open">
+        <p class="callout__label">Current Phase 6 status &mdash; corrected 2026-08-01</p>
+        <p>
+          Both historical 204-row arms are complete at measured-only scope: <strong>CAK 3/90</strong>
+          and <strong>M1 54/90 on the common scope, 54/78 on M1's arm scope</strong>. M1 is
+          in-sample for Nakaya. Neither number is ADR&nbsp;0026's registered
+          conservative-intersection headline, and Phase&nbsp;6 remains <strong>active and
+          incomplete</strong>. Only ADR&nbsp;0026&rsquo;s conservative-intersection scoring rule is
+          registered. R15 and <code>M1_NO_DIP_ABLATION</code> are planned but unfrozen,
+          unimplemented and unexecuted; composed numerical adequacy, the preview-budget GPU cohort
+          and all four held-out families remain open.
+          The 408 historical CPU-oracle rows do not substitute for the charter&rsquo;s hundreds of
+          preview-resolution GPU-harness runs, and no ADR amended that obligation.
+        </p>
+        <p>
+          CAK&rarr;M1 is not a clean intervention: broad <em>&sigma;<sub>0</sub></em> functions,
+          prefactors, and dip factors all change. M1 is an everywhere-narrow approximation; it
+          substitutes temperature-only curves for the unresolved width query. The width-dependent
+          project M2 closure is still unimplemented.
+        </p>
+        <p>
+          Keep two uses of <em>invalidated</em> separate. The earlier <code>CAK_A1</code> run
+          contradicted its own frozen protocol and was invalid as that registered experiment. The
+          accepted ADR&nbsp;0040 correction does <strong>not</strong> erase the executed CAK or M1 bytes:
+          it records them as historical measurements and their provenance does not satisfy the
+          replacement gate. R15 remains planned, unfrozen, unimplemented and unexecuted.
+        </p>
+      </aside>
 
       <h2 id="withdrawn">The number has been withdrawn</h2>
 
@@ -95,8 +124,8 @@
 
       <p>
         A review compared the 204 runs against the protocol that was supposed to govern them, row
-        by row. The frozen protocol records how each measured curve is filled in between the
-        temperatures where it was actually measured. Two of those rows sit next to each other:
+        by row. The frozen protocol records how each adopted, fitted, or digitized curve is filled in
+        between its tabulated anchors. Two of those rows sit next to each other:
       </p>
 
       <blockquote class="c29-quote">
@@ -113,7 +142,7 @@
       <p>
         Read the strings as recipes. <code>Tm</code> is the melting temperature, so
         <code>(Tm&nbsp;&minus;&nbsp;T)</code> is just <em>how many degrees below freezing</em>;
-        &ldquo;piecewise-linear&rdquo; means <em>join the measured points with straight lines</em>
+        &ldquo;piecewise-linear&rdquo; means <em>join the recorded anchors with straight lines</em>
         (the &sigma;<sub>0</sub> row does the same joining on logarithmic axes); and
         &ldquo;constant-1&rdquo; means <em>do not interpolate at all &mdash; the answer is always
         1</em>. The basal row says one thing, the prism row says another, and that difference is
@@ -134,7 +163,7 @@
         earlier version of itself. The pair is easy to confuse because both go by
         &ldquo;the digitized prism anchors&rdquo;. The registration says
         <code>A_basal</code> is pinned at 1 and <code>A_prism</code> is <em>not</em>: it is
-        interpolated through nine measured anchors. The decision record is blunt about it:
+        interpolated through nine figure-digitized P2 anchors. The decision record is blunt about it:
         <em>&ldquo;There is no reading of that row on which <code>A_prism &equiv; 1</code>.&rdquo;</em>
       </p>
 
@@ -268,7 +297,8 @@
       <p>
         All five agreements in the withdrawn headline sat at a single temperature, &minus;2&nbsp;&deg;C.
         Restoring the registered <code>A_prism</code> there throttles the prism prefactor
-        <em>down</em> by a factor of 3.6 &mdash; the measured value at that temperature is 0.28,
+        <em>down</em> by a factor of 3.6 &mdash; the registered figure-digitized P2 value at that
+        temperature is 0.28,
         not 1. Less sticky side faces means the crystal spreads sideways less, which makes it
         thicker relative to its width. And the plate class has a ceiling. A crystal whose
         thickness-to-width ratio climbs past 0.6667 stops being scored as a plate, and the scoring
@@ -329,9 +359,9 @@
           &mdash; the two-point interpolation ran hot, <em>&ldquo;which is why three agreements
           survived instead of two&rdquo;</em>. And the rise is not monotone in f, so a single
           throttle-to-rise factor was the wrong model for it in the first place; the two probes
-          happened to sample the two ends. Read that as the estimate working: it got the direction
-          right, the order of magnitude right, and the mechanism right, while getting the size wrong
-          in a way its own record now names.
+          happened to sample the two ends. Read that as a limited directional forecast: it got the
+          sign and rough scale of the response right, but the non-monotone result does not establish
+          a mechanism and the magnitude was wrong in a way its own record now names.
         </p>
       </aside>
 
@@ -346,11 +376,12 @@
       </blockquote>
 
       <p>
-        Why write that down? Because of what it takes off the table. If the number is predicted in
-        advance, nobody can later look at two parameter sets, notice that one scores better, and
-        choose it for that reason while telling a story about provenance.
+        Why write that down? Because it makes a later score-driven switch detectable when the
+        correct history and verifier are inspected. It does not make confusion or misconduct
+        impossible. The historical record put it more strongly:
         <em>&ldquo;It is written down now so that <strong>the parameterization cannot later be
-        chosen by its score</strong>.&rdquo;</em> And the consequence section states the general
+        chosen by its score</strong>.&rdquo;</em> Read that as a procedural rule with an auditable trail,
+        not a theorem about human behaviour. And the consequence section states the general
         rule in one line worth carrying out of this site:
       </p>
 
@@ -376,7 +407,8 @@
       <p>
         A re-run is a dangerous thing to have in your hands after a bad result. It would be very
         easy to present it as a second attempt &mdash; a chance to go back and get the columns
-        band right this time. The decision record closes that door before the sweep starts.
+        band right this time. The decision record makes that reinterpretation detectable if the
+        registered history is actually checked.
       </p>
 
       <p>
@@ -408,8 +440,7 @@
         immediately above the sentences they cancel; you will meet each of them shortly, at the point
         in this chapter where it does its damage. The prohibition they were supporting survived both.
         That is the part worth keeping: a rule can be right for reasons that turn out to be wrong,
-        and the only way anybody ever finds that out is if the reasons were written down somewhere
-        checkable.
+        and writing the reasons somewhere checkable is what made that correction possible here.
       </p>
 
       <p>
@@ -423,10 +454,10 @@
         25-row protocol <code>8aeb2b80&hellip;</code>, and finished clean: exit 0, 204 of 204 points,
         about twenty hours of wall time on six workers. Chapter 28 reads that provenance table as
         part of the result; the row this chapter needs off it is the last one, a sha256 printed for
-        each of the three output files. The raw output lives in an evidence tree the repository does
-        not track, so those hashes <em>are</em> the tracked record &mdash; the standing convention
-        here for research artifacts, and the reason a few paragraphs below are about whether a hash
-        can be trusted at all.
+        each of the three output files. The exact points and report bytes are now tracked under
+        <code>evidence/phase6-sweep/</code> and independently pinned by
+        <code>evidence/MANIFEST.json</code>. The hashes remain provenance checks over those published
+        bytes; they are not a substitute for the bytes.
       </p>
 
       <blockquote class="c29-quote">
@@ -454,9 +485,10 @@
         needs. Warm plates
         scored 3 of 6, columns 0 of 24, cold plates 0 of 60. And all three agreements sit at
         &minus;2&nbsp;&deg;C, the single counting temperature in the warmest regime, which the
-        scoring rule had registered <em>pre-sweep</em> as carrying essentially no statistical weight
-        &mdash; <em>&ldquo;precisely so this could not be presented as a result&rdquo;</em>. Three is
-        not a small success; it is three humidity cells at one weightless temperature. What this
+        scoring rule had registered <em>pre-sweep</em> as carrying essentially no weight for a
+        temperature-general conclusion. Nevertheless, &minus;2&nbsp;&deg;C contributes six equally
+        counted humidity cells to the 90-point measured headline, and three agree. Three is
+        not a small success or a temperature-general result. What this
         chapter adds is the price of being allowed to print it.
       </p>
 
@@ -495,21 +527,15 @@
         </p>
         <p>
           The pre-registered reason for &ldquo;one transition, never three&rdquo; was a counting
-          argument: a habit boundary needs the two critical-supersaturation curves to swap which
-          facet is stickier, every printed broad-facet pair swaps once, Nakaya needs three
-          &mdash; therefore <em>no</em> broad-facet model could ever produce the diagram, and the
-          bound was said to hold independently of diffusion, grid, seed and far field. On 2026-07-29
-          an eighteen-agent adversarial audit refuted that, and the project reproduced the refutation
-          before recording it. Stickiness is not &sigma;<sub>0</sub> alone but
-          <code>alphaHK = A&middot;exp(&minus;&sigma;<sub>0</sub>/&sigma;<sub>surf</sub>)</code>,
-          which carries <code>A_prism</code> &mdash; the very parameter this chapter is about. Put it
-          back in and the registered set has <strong>three</strong> swaps for
-          &sigma;<sub>surf</sub> between 0.247% and 0.366%, a band containing 2 of these 204 points;
-          and because the count depends on &sigma;<sub>surf</sub>, which the diffusion solver sets,
-          it was never independent of diffusion. What survives is measured and much narrower: along
-          this sweep&rsquo;s own constant-humidity ladders the swap count is one at the driest row
-          and zero at every wetter one, never three &mdash; so <em>this parameterization, as run,</em>
-          does not reproduce the diagram. An existence result, not a necessity theorem. The
+          argument that promoted crossings of the two critical-supersaturation functions into habit
+          boundaries. That promotion is retracted. Even the full attachment coefficients can be
+          ordered analytically only at the <em>same positive</em> surface supersaturation; the result
+          is then <em>basal-higher</em>, <em>prism-higher</em>, or a tie. It is an input-function
+          diagnostic, not a plate/column label. The 3-D solver has facet-dependent fields, geometry,
+          size, and seed history, and only the frozen evaluator may assign morphology from published
+          forward-run bytes. What survives is measured and narrower: historical CAK, at its executed
+          configuration, scores 3/90 and does not reproduce the diagram. That is not a necessity
+          theorem about every broad-facet model. The
           retraction is printed at the head of the sweep report, inside ADR 0031 and inside the
           findings ledger, and it is careful to say what it does <em>not</em> touch: &ldquo;the 3/90
           headline, the per-regime table, the class totals, the diagram, the artifact hashes &mdash;
@@ -525,8 +551,9 @@
           Still unsettled
         </p>
         <p>
-          Two things stop 3 of 90 from being a finished result, and the report puts both in its own
-          opening. First, <em>&ldquo;these numbers are not yet gate evidence&rdquo;</em>. Its
+          At the report&rsquo;s historical audit-cutoff snapshot, two things stopped 3 of 90 from being a
+          finished result, and the report put both in its own opening. First, <em>&ldquo;these numbers are
+          not yet gate evidence&rdquo;</em>. Its
           historical inventory says the verification work package had not run, no independent
           verifier had re-derived the summary from the raw per-point file, and the original six
           negative controls &mdash; the tests designed to fail on purpose, to prove the checker can
@@ -535,7 +562,9 @@
           same thing.&rdquo;</em> Second, this is <strong>one arm of a two-arm comparison</strong>.
           On maker direction the phase reports the model without the missing mechanism as the control
           and the model with it as the treatment, together, rather than publishing this arm alone.
-          The numbers above are final for this arm; what they mean for the phase waits.
+          The numbers above were final for that arm. Both snapshot items have since advanced: the
+          next callout records the hardened verifier, and Arm&nbsp;2 later completed. Phase&nbsp;6
+          still waits on the different replacement obligations named at the top of this chapter.
         </p>
       </aside>
 
@@ -569,11 +598,10 @@
           cannot retroactively give it one; re-checking all 204 recorded extents found exactly 21 and
           therefore moved no class or headline.
           This is one more entry for the budget this chapter is about: real, executed, adversarial
-          work, after publication, closing real holes &mdash; and it still does not add up to WP5
-          being closed. The project&rsquo;s own plan still requires an Arm&nbsp;1 flagless closing gate run and
-          an independent review to zero blockers, and <code>docs/PROGRESS.md</code> has not recorded
-          either. &ldquo;Not yet gate evidence&rdquo; is still the accurate sentence; only the
-          inventory behind it has moved.
+          work after publication, closing real holes. It hardened the historical artifact but did
+          not create the replacement scientific gate. The current label for 3/90 is
+          <strong>measured-only</strong>; R15 and its numerical, GPU, ablation, and held-out
+          obligations remain open.
         </p>
       </aside>
 
@@ -614,27 +642,27 @@
         <code>runner/src</code> and fingerprints the set and bytes before the first child launches
         and again after the last one finishes. There were 39 files at that commit; additions are
         included rather than hidden behind a fixed count. The sweep throws rather than publishing if
-        the two fingerprints disagree &mdash; catching a landed commit and an uncommitted edit
-        reverted before the run ends alike. It protects Arm&nbsp;2&rsquo;s in-progress execution; it cannot
+        the two endpoint fingerprints disagree. This catches a commit that remains landed or an
+        edit present at an endpoint; it does not exclude a transient reverted edit, inherited
+        <code>NODE_OPTIONS</code>, or a shadow module. R15 still owes an immutable source snapshot,
+        an environment allowlist and verified child source identity. The endpoint check cannot
         reach backward and verify Arm 1, whose provenance is exactly what this section already
         described: a diff somebody remembered to run, and luck rather than design that it came back
         empty.
       </p>
 
       <p>
-        The second arm has moved too, but only on the preparation side of the line. Its M1 value
+        The second arm moved through execution as well. Its M1 value
         content was frozen at <code>483f7ee</code>; <code>0cb52bf</code> then recorded that freeze
         ancestry and repinned the final gated values hash. Commit <code>8c781b1</code> records an
         arm-specific <em>combined</em> protocol revision hash that moves with
         prose and is therefore revision-pinned rather than frozen as a gate. That repair was caught
         by launching the sweep: its first line exposed Arm&nbsp;1&rsquo;s combined hash, so that run
-        was stopped about a minute in. At this audit&rsquo;s
-        2026-07-30 10:23&nbsp;PDT cutoff, the corrected canonical sweep was running and its local
-        point artifact remained mutable. The registered forecast
-        is 42 of 90 when written over Arm&nbsp;1&rsquo;s common denominator, or 42 of 78 under
-        Arm&nbsp;2&rsquo;s own pre-registered exclusion of the bistable &minus;4, &minus;5, and
-        &minus;6&nbsp;&deg;C rows. Those are predictions transcribed from the input curves, not
-        measurements, and neither is added to Arm&nbsp;1&rsquo;s measured 3 of 90.
+        was stopped about a minute in. The repaired canonical 204-row M1 sweep later completed at
+        <strong>54/90</strong> on Arm&nbsp;1's common measured-only denominator, or
+        <strong>54/78</strong> under Arm&nbsp;2's own exclusions; its classes are 75 plate, 119
+        neutral, and 10 column. It is in-sample for Nakaya and remains separate from CAK's 3/90.
+        The change is also confounded because broad curves, prefactors, and dip factors all differ.
       </p>
 
       <h2 id="turn-on-the-caveats">Turn on the caveats</h2>
@@ -642,20 +670,20 @@
       <p>
         The Phase 6 sweep report ends with a section headed <strong>&ldquo;What this does NOT
         establish&rdquo;</strong>. It is eight bullets long, it was written by the people who
-        produced the result, and it is sharper than anything a hostile reader would have thought
-        of. When you are learning to judge a claim, a limitations list written by the claimant is
-        the single most informative artifact available &mdash; both for what it contains and for
-        whether it exists at all.
+        produced the result. When you are learning to judge a claim, a limitations list written by
+        the claimant can be one of the most informative artifacts &mdash; both for what it contains
+        and for whether it exists at all.
       </p>
 
       <p>
         Two of those eight bullets now begin with the word <strong>CORRECTED</strong>, and they move
         in opposite directions, which is the detail worth stopping on. One <em>withdraws</em> a
-        limitation: an earlier entry said the project&rsquo;s digitized &sigma;<sub>0</sub> curve for
+        limitation: an earlier entry said the project&rsquo;s P2 digitized &sigma;<sub>0</sub> curve for
         the prism faces was too low by 1.6&ndash;3.2&times; exactly where the agreements sit, and
-        that claim is now marked <em>&ldquo;REVERSED&rdquo;</em> &mdash; the dedicated measurement
-        papers give 0.03% at &minus;2&nbsp;&deg;C and about 0.2% at &minus;5&nbsp;&deg;C, the
-        project&rsquo;s curve matches them to roughly 7%, and the closed form it had been judging
+        that claim is now marked <em>&ldquo;REVERSED&rdquo;</em> &mdash; dedicated source papers report
+        fitted or model-inferred P2 values of 0.03% at &minus;2&nbsp;&deg;C and about 0.2% at
+        &minus;5&nbsp;&deg;C, the
+        project&rsquo;s curve matches those reported source values to roughly 7%, and the closed form it had been judging
         itself against turned out to be the outlier. The other bullet <em>sharpens</em> a
         limitation, and that one is discussed below. A limitations list that only ever grows is a
         ritual; one that corrects itself in both directions is being read.
@@ -671,9 +699,9 @@
         <div class="anim__head">
           <p class="anim__title">Turn on the caveats</p>
           <p class="anim__sub">
-            Five claims from the corrected sweep &mdash; the current standing evidence &mdash; and
-            ten stated limits. A claim stops counting as unqualified the moment any limit attaches
-            to it.
+            Five claims from the corrected historical CAK sweep &mdash; preserved measured-only
+            evidence, not the replacement gate &mdash; and ten stated limits. A claim stops counting
+            as unqualified the moment any limit attaches to it.
           </p>
         </div>
         <div class="anim__body"></div>
@@ -690,8 +718,8 @@
             <code>docs/decisions/0031-phase6-paramset-freeze-row.md</code>. Which limit attaches to
             which claim is this page&rsquo;s reading of the report&rsquo;s own scoping sentences,
             not a quotation. The WP5 limit quotes the report&rsquo;s wording verbatim as of writing
-            (six controls, no verifier); the two paragraphs before this figure carry the 2026-07-29
-            update, which does not remove the limit, only revises its detail.
+            (six controls, no verifier); the update above preserves that cutoff as history while
+            replacing it with the hardened-verifier result and current measured-only limit.
           </span>
         </figcaption>
       </figure>
@@ -708,11 +736,11 @@
           nothing being known. A result is a number <em>plus the domain over which it holds</em>.
           The switches are not doubts about whether the sweep happened; they are the boundaries of
           the sentence you are allowed to build from it. Notice also which way the limits point.
-          Both zeroes have now been arrived at twice, under two different parameter sets, and neither
-          moved: not one of the 60 counted cold-plates points changed class between the two runs, and
-          every counted point in the columns band sits inside the window the violation touched, so
-          those 24 were genuinely re-measured rather than inherited. Nothing on the list would make either
-          band agree &mdash; and the one limit that used to point at the warm end, the suspect
+          Both executions reported the same two zeroes, but the earlier <code>CAK_A1</code> execution
+          violated its frozen protocol and is not an admissible registered replication. In the
+          standing historical CAK artifact, not one of the 60 counted cold-plates points agrees, and
+          all 24 counted columns points were rerun under the corrected parameter set rather than
+          inherited. The one limit that used to point at the warm end, the suspect
           &sigma;<sub>0</sub> curve, has since been withdrawn by the project against itself.
         </p>
       </aside>
@@ -723,10 +751,19 @@
         Separately from the sweep&rsquo;s caveats, the model itself has a list of things it simply
         does not contain. The Phase 6 plan carries it under the heading
         <strong>&ldquo;Permanent model limits&rdquo;</strong>: no latent-heat transport, no
-        Gibbs&ndash;Thomson effect, no surface diffusion of admolecules, no sublimation, and a seed
-        that is <em>placed</em> rather than nucleated. To that it adds an intrinsic anisotropy of
-        about 10% that more grid resolution does not remove, and a growth-rate bias that comes from
-        the convergence tolerance itself.
+        Gibbs&ndash;Thomson effect, no explicit surface diffusion of admolecules, no sublimation, and a
+        seed that is <em>placed</em> rather than nucleated. Premelting enters only insofar as the
+        recorded parameterizations encode it; the project has not shown that they quantitatively
+        absorb all such effects. Latent heat and explicit surface diffusion are therefore systematics
+        to quantify or carry, not omissions presumed harmless for validation.
+      </p>
+
+      <p>
+        Earlier reconnaissance also measured about 10% lattice anisotropy and a tolerance-dependent
+        growth-rate bias at named configurations. It varied size, domain, grid, and timestep in
+        separate compositions, so those observations do not establish that refinement leaves the
+        anisotropy unchanged or that the errors compose benignly. R15 still owes the composed
+        numerical-adequacy campaign.
       </p>
 
       <p>
@@ -745,11 +782,13 @@
 
       <p>
         How fast water vapour spreads through air really does depend on temperature. There is no
-        published law for it in the sources this model was built from, so the model holds it fixed
-        &mdash; in a study whose only swept axis is temperature. The second entry is shorter and no
-        gentler: <em>&ldquo;Latent heating is unmodelled. Ignoring it overestimates
-        diffusion-limited growth by 40&ndash;80% on the warm side.&rdquo;</em> Both were written
-        into the plan before the sweep, not discovered afterwards.
+        published <code>D(T)</code> law in the registered source set, so the model follows the
+        monograph&rsquo;s temperature-independent working table at 1&nbsp;atm &mdash; in a study where
+        temperature is a central swept axis. The second entry is shorter and no gentler:
+        <em>&ldquo;Latent heating is unmodelled. Ignoring it overestimates diffusion-limited growth by
+        40&ndash;80% on the warm side.&rdquo;</em> That is a source-side scale carried as a systematic,
+        not a measured correction to each historical row. Both gaps were written into the plan before
+        the sweep, not discovered afterwards.
       </p>
 
       <aside class="callout callout--open">
@@ -760,21 +799,25 @@
           Still unsettled
         </p>
         <p>
-          The obvious next experiment &mdash; switch the narrow-facet M1 mechanism on and see
-          whether the diagram appears &mdash; is the second arm of this phase. Its code and values
-          freeze exist; at the audit cutoff its corrected sweep was running but incomplete, and its
-          evidence ceiling was already fixed. Because
-          the mechanism&rsquo;s parameters were chosen against the Nakaya diagram in the first
-          place, matching it can only ever be labelled <em>in-sample reproduction</em>, never
-          independent validation. There is a harder problem underneath: the width scale the
+          The historical narrow-facet M1 arm has now completed: 54/90 common measured-only scope,
+          or 54/78 on its own exclusions. Because
+          its source-prescribed exact dip forms, depths, denominator constants, and placement were
+          chosen against the Nakaya diagram and remain P3, matching it can only ever be labelled
+          <em>in-sample reproduction</em>, never
+          independent validation. Published model-dependent inversions of narrow-facet growth
+          observations support approximate barrier-reduction regions, but do not directly verify
+          &sigma;<sub>surf</sub> or the exact M1 form. The source leaves <code>log</code> base-unspecified;
+          the project&rsquo;s Figure-1-width-supported base-10 transcription is P4. There is a harder
+          problem underneath: the width scale the
           mechanism depends on is about 50&nbsp;nm, and the registered grid cell is 350&nbsp;nm.
-          M1 avoids that closure instead of solving it: accepted decision 0036 assumes all facets
-          are narrow and uses temperature-only closed forms with A&nbsp;=&nbsp;1 on both facets.
-          The width-dependent M2 model, which would need a sub-grid rule and an unprinted strength
-          parameter, is deferred. One thing about that arm did change with the 2026-07-29 retraction,
-          in its favour: with the necessity argument gone, whether any broad-facet model could
-          reproduce the diagram is open again, so the second arm&rsquo;s outcome is <em>genuinely
-          uncertain rather than foregone</em>.
+          M1 substitutes an everywhere-narrow approximation rather than solving the closure:
+          accepted decision 0036 uses temperature-only forms with A&nbsp;=&nbsp;1 on both facets and
+          performs no facet-width query. The width-dependent project M2 model, which needs a sub-grid
+          rule and an unprinted strength parameter, remains unimplemented. The M1 outcome is
+          in-sample and the CAK&rarr;M1 difference is confounded. The planned but unfrozen,
+          unimplemented and unexecuted <code>M1_NO_DIP_ABLATION</code> could isolate only the
+          implemented intervention effect under one frozen sampled configuration, not physical
+          SDAK causality or necessity.
         </p>
       </aside>
 
@@ -837,19 +880,19 @@
           </thead>
           <tbody>
             <tr>
-              <td>Automated tests, gates and metrics</td>
+              <td>Historical automated tests, artifact readers and metrics</td>
               <td>By machine, re-derived from the published bytes</td>
-              <td>Done, reproducibly</td>
+              <td>Historical arms re-derived; R15/GPU/held-out gates not built or run</td>
             </tr>
             <tr>
-              <td>Code and protocol review</td>
+              <td>Selected code, protocol and interpretation reviews</td>
               <td>By LLMs, cross-model, each review recording its own limits</td>
-              <td>Done, many rounds</td>
+              <td>Many scoped rounds; not exhaustive and not a domain-scientist review</td>
             </tr>
             <tr>
               <td>Reading by a domain scientist</td>
               <td>&mdash;</td>
-              <td><strong>Not yet. Required before any submission.</strong></td>
+              <td><strong>No such review is recorded. Required before any submission.</strong></td>
             </tr>
           </tbody>
         </table>
@@ -857,9 +900,10 @@
 
       <p>
         The project states this itself, in the process requirements that gate anything leaving the
-        repository: <em>&ldquo;At least one human domain scientist reads any manuscript before
-        submission. All reviews to date, internal and external-facing, are LLM reviews; for
-        publication that is a disclosed limitation, not a substitute.&rdquo;</em>
+        repository: at least one human domain scientist must read any manuscript before submission.
+        Repository records presently contain no such review. Every recorded non-maker reviewer-agent
+        round is an LLM review; maker audits are recorded separately, and the maker is not identified
+        as a domain scientist. That is a disclosed limitation rather than a substitute.
       </p>
 
       <aside class="callout callout--key">
@@ -870,8 +914,8 @@
           Key idea
         </p>
         <p>
-          That rule binds this page too. Part Two was written by a language model and checked by
-          two more, and no human snow-crystal scientist has read a word of it. A chain of machines
+          That rule binds this page too. Part Two was written by a language model and its two
+          recorded reviewers are language models; no human snow-crystal expert review is recorded. A chain of machines
           checking each other is not the same thing as one qualified person checking it once. The
           project treats that as a disclosed limitation rather than a substitute for expert review,
           and so should you &mdash; including when you are reading this sentence.
@@ -942,8 +986,8 @@
         &lsquo;Cannot&rsquo;, &lsquo;every&rsquo;, &lsquo;always&rsquo;, &lsquo;independent
         of&rsquo;, and &lsquo;provably&rsquo; assert theorems: they require a stated derivation whose
         quantity and scope are both named &mdash; and the derivation must be about the quantity the
-        claim governs.&rdquo;</em> That last clause is the entire failure. The derivation counted
-        crossings of one quantity; the claim was about a different one. The rule is filed under
+        claim governs.&rdquo;</em> That last clause is the failure here. The derivation counted
+        &sigma;<sub>0</sub> equalities; the claim governed 3-D morphology. The rule is filed under
         <em>Paid for twice in two days</em>, which is what it cost.
       </p>
 
@@ -1003,7 +1047,8 @@
         twice. Pass A used the borrowed threshold rule and was <em>blocking</em>: its job was to
         prove the lattice, the diffusion and the measuring instruments could express and detect each
         target shape at all. That is the pass the capped column belongs to. Pass B re-ran the same
-        list under the measured physics and was <em>diagnostic</em> &mdash; allowed to miss &mdash;
+        list under the physically parameterized P1/P2 attachment rule and was <em>diagnostic</em>
+        &mdash; allowed to miss &mdash;
         and it did miss: three morphology diagnostics passed and five honestly missed, the capped
         history among them. So the diary-of-a-journey capability is demonstrated on the machinery,
         and it was already an early warning about the physics, months before the sweep. Both halves
@@ -1019,9 +1064,9 @@
         </p>
         <p>
           None of those four <em>product profiles</em> exists as software. The Phase&nbsp;3
-          development instrument does. Phase&nbsp;6 is in flight &mdash; first sweep withdrawn,
-          corrected Arm&nbsp;1 reported at 3 of 90 but not gated, Arm&nbsp;2 implemented, frozen
-          and observed running but incomplete &mdash; and Phase&nbsp;7, the product layer, is marked
+          development instrument does. Phase&nbsp;6 is active and incomplete &mdash; historical CAK
+          3/90 and M1 54/90 common (54/78 arm scope) are measured-only, while R15 and its numerical,
+          GPU, matched-ablation, and held-out obligations remain open &mdash; and Phase&nbsp;7, the product layer, is marked
           <strong>not started</strong>; there is no Phase&nbsp;7 plan file. What exists for those
           profiles is one accepted decision record describing what they will be. Read a confident
           specification as a promise binding on its authors, not as a description of a shipped
@@ -1067,45 +1112,42 @@
       </p>
 
       <p>
-        <strong>One.</strong> The model implements measured broad-facet attachment physics. That is
-        a claim about inputs, and it is the best-evidenced sentence in the project. The prism
-        prefactor anchors were digitized off a printed figure, pixel by pixel, before anybody found
-        the later paper that prints the same curve as an equation; compared afterwards they
-        reproduce it to 8.4% at worst and under 2% typically. An extraction that agrees with a
-        source it could not have peeked at is independently confirmed, not merely self-consistent.
+        <strong>One.</strong> The model implements a physically parameterized broad-facet attachment
+        rule with recorded P1/P2 provenance. Measured or source-tabulated empirical inputs adopted
+        directly are P1, including recorded textbook transport properties; source fits, model
+        inversions, project derivations, and figure digitizations remain P2. The prism
+        prefactor anchors were digitized before the later printed fit was found and reproduce it to
+        8.4% at worst and under 2% typically. That is an independent cross-check of one extraction,
+        not proof that every input or the modeled surface state was directly measured.
       </p>
 
       <p>
-        <strong>Two.</strong> It does not reproduce the Nakaya diagram, and the <em>shape</em> of
-        that failure is now measured rather than argued: one habit transition where the reference
-        needs three, and a band 14 to 19&nbsp;&deg;C wide in which the model declines to commit to
-        either shape &mdash; the single largest feature of the measured diagram. That is the sweep
-        report&rsquo;s own finding and it holds under both parameter sets. Read the subject of the
-        sentence carefully, though, because it shrank on 2026-07-29: <em>this parameterization, as
-        run,</em> does not reproduce the diagram. Whether some other broad-facet parameterization
-        could is open again.
+        <strong>Two.</strong> Historical CAK, at its executed extent-21 configuration, does not
+        reproduce the registered Nakaya comparison: 3/90 measured-only, with 6 plate, 168 neutral,
+        and 30 column classes. M1 likewise does not fully reproduce it: 54/90 common scope and
+        54/78 arm scope, in-sample, with 75/119/10 classes. These are forward-morphology results;
+        no input-curve equality is promoted into a habit boundary. Neither historical count is the
+        registered replacement headline, and neither establishes numerical adequacy.
       </p>
 
       <p>
-        <strong>Three.</strong> Libbrecht&rsquo;s claim that the narrow-facet mechanism is
-        load-bearing for the Nakaya diagram has now faced a no-SDAK ablation: Arm&nbsp;1 omitted the
-        mechanism and measured what the registered broad-facet parameterization did instead.
-        Through July 2026 a literature sweep found no earlier independent full-3D test of that
-        published prose claim. That is the scoped first the project may state. It is <em>not</em> a
-        completed result from the narrow-facet mechanism itself; M1 Arm&nbsp;2 was running but
-        incomplete at the audit cutoff. Nor does the
-        ablation license the stronger sentence the project briefly allowed itself, that the
-        mechanism is therefore <em>necessary</em>. One broad-facet parameterization missing the
-        diagram is a measured counterexample to its own sufficiency, not a proof that nothing else
-        could hit it.
+        <strong>Three.</strong> The historical CAK&rarr;M1 comparison does <em>not</em> isolate the
+        narrow-facet dip factors. It changes broad &sigma;<sub>0</sub> functions, prefactors, and dips
+        together, so its score difference is confounded. A scoped literature search supplies context,
+        not a priority claim. A future matched M1/no-dip pair could isolate only the implemented
+        dip-factor intervention effect under one frozen sampled configuration; it cannot establish
+        physical SDAK causality or necessity, and it has not been frozen, implemented or run. M1 itself is an everywhere-narrow approximation,
+        while the width-dependent project M2 closure is still unimplemented.
       </p>
 
       <p>
         And a fourth rung, drawn dashed and grey and not claimed: <em>that this model predicts what
         nature does</em>. The charter forbids that sentence in advance. What would license it is a
-        test on data the model was not built from, and the project&rsquo;s own register lists four
-        candidates &mdash; free-fall growth data, facet-rate curves, size-dependent habit, a
-        pressure ladder. None has been run.
+        test on data the model was not built from. The charter requires all four families: growth
+        rates versus temperature and supersaturation, size-dependent habit, pressure dependence,
+        and growth-history responses. The tracked source lock reports <code>passEligible=false</code>
+        and no audited apples-to-apples target; no held-out family has been frozen or run, and the
+        available pressure comparison is confounded with no quantitative pass target.
       </p>
 
       <p>
@@ -1129,79 +1171,76 @@
       <h2 id="back-to-the-frontier">Back to the frontier</h2>
 
       <p>
-        Chapter 13 left you holding something uncomfortable. The explanation for why snow crystals
-        flip between plates and columns &mdash; two curves, crossing &mdash; is, in the words of the
-        people who built it, <em>a working hypothesis with ill-defined curves</em>. You were asked
-        to accept it anyway, provisionally, the way scientists do.
+        Chapter 13 left you holding something uncomfortable. Narrow-facet feedback is, in the words
+        of the people who built it, <em>a working hypothesis with ill-defined curves</em>. A
+        restricted coefficient-order calculation can compare facets only at the same positive
+        surface field; it does not explain a 3-D plate/column reversal by itself.
       </p>
 
       <p>
         Part Two is what happened when somebody built a machine to test it. The curves are still
-        ill-defined: the location of the crossing carries no evidential weight at all, because the
-        uncertainty already registered on the digitized curves slides it across a 16&nbsp;&deg;C
-        span. The question on Chapter 13&rsquo;s clock &mdash; <em>why does the habit flip, three
+        uncertain. Under the project's registered, Figure-1-width-supported P4 base-10
+        transcription of the source's base-unspecified <code>log</code>, the values
+        &minus;3.08, &minus;8.07, and
+        &minus;24.73&nbsp;&deg;C are restricted equal-A/shared-positive-field equality locations,
+        not dip centres or habit boundaries. The dip centres &minus;4.5 and
+        &minus;14.4&nbsp;&deg;C are invariant to logarithm base. The question on Chapter 13&rsquo;s
+        clock &mdash; <em>why does the habit flip, three
         times over?</em> &mdash; is still open, ninety years after Nakaya started drawing it. Its
         bar on that chart has not closed.
       </p>
 
       <p>
-        But it has changed, in one specific way. Before this, &ldquo;broad-facet kinetics alone
-        cannot explain the diagram&rdquo; was a sentence in a paper. Now it has a number attached:
-        3 of 90, with all three of those agreements sitting at the single temperature the scoring
-        rule had already declared weightless before anyone ran anything; columns 0 of 24; cold
-        plates 0 of 60; zero invalid runs in 204, twice over &mdash; and, measured over five seed
-        shapes, the finding that no knob which is the same at every temperature can rescue it,
-        because the two failing bands need opposite pushes and a seed pushes both the same way.
-        Then notice what that list no longer contains. It does not contain a proof that <em>no</em>
-        broad-facet model could do better; that argument was retracted on the same day the sweep was
-        scored. One parameterization has been tested, thoroughly, under a scheme sealed in advance,
-        and it failed. That is one open question carrying a measurement it did not carry before. The
+        But it has changed, in one specific way. A source claimed that broad-facet kinetics alone
+        cannot explain the diagram. Historical CAK now supplies a scoped forward-run number:
+        3 of 90, with all three agreements at one temperature that contributes six equally counted
+        cells but essentially no support for a temperature-general conclusion; columns 0 of 24; cold
+        plates 0 of 60; zero named invalidities in 204, twice over. A five-seed, two-temperature probe
+        also moved both points in the same direction and rescued neither target. Then notice what
+        that list does not contain: a proof that no broad-facet model could do better, or that a
+        temperature-independent knob can never help under any other configuration. One historical
+        parameterization was tested at a named configuration and missed. That is one open question
+        carrying a scoped measurement it did not carry before. The
         other questions on that clock carry exactly what they carried &mdash; and one of them,
-        whether the broad-facet picture could ever have been enough on its own, was closed for
-        precisely one day and is open again.
+        whether the broad-facet picture could ever have been enough on its own, remains open.
       </p>
 
       <p>
-        And the honest close is a list of things nobody knows. The 3 of 90 is
-        <em>not yet gate evidence</em>: its hardened independent re-derivation passes and seven
-        controls have executed, but the Arm&nbsp;1 closing gate has not run flagless and the closing
-        review has not reached zero blockers. It is one arm of two, and the arm with the mechanism
-        switched on is implemented and protocol-frozen. At this audit&rsquo;s cutoff its corrected
-        sweep was running but its partial artifact had not become a completed, reviewed result
-        &mdash; if it agrees, the best it can earn is <em>in-sample reproduction</em>, because its parameters were chosen
-        against the very diagram it would be reproducing, and the width scale it depends on is seven
-        times smaller than this grid can see. A completion-time source fingerprint now protects
-        future sweeps, but it does not retro-upgrade Arm&nbsp;1: the commit hash on that historical
-        report remains trustworthy because of a diff somebody ran, not because that run had the new
-        mechanism. The interpretation the project had built on top of these
-        numbers was retracted on the same day they were scored, which leaves the measurements exactly
-        where they were and the meaning of them thinner than it looked. And no human domain scientist
-        has read any of this: not the sweep, not the code, not the charter, and not this page.
+        And the honest close is a list of things still open. CAK 3/90 and M1 54/90 common
+        (54/78 arm scope) are preserved as historical measured-only results. M1 is in-sample because
+        its exact functions and placement are P3 Nakaya-informed; its base-10 reading of the
+        source&rsquo;s base-unspecified <code>log</code> is a project P4 transcription. Source model inversions support
+        approximate narrow-facet reduction regions, not direct measurement of
+        &sigma;<sub>surf</sub> or verification of the exact M1 form. M1 also assumes every facet is
+        narrow while the width-dependent M2 closure is unimplemented. The historical bytes stay
+        checkable. Accepted ADR&nbsp;0040 corrects their provenance without freezing R15; the old
+        runs remain inadmissible to the replacement gate, whose full execution is still future work.
+        Repository records contain no human domain-expert review of this corpus.
       </p>
 
       <p>
-        <strong>Current-status boundary.</strong> Those are later safeguards around a historical
-        measurement, not repairs to its bytes. Arm&nbsp;1 still lacks per-row configuration and
-        stop-reason fields and did not execute the completion fingerprint. Arm&nbsp;2 has its own
-        frozen M1 protocol. One launch was stopped about a minute in after its first line exposed
-        the wrong arm&rsquo;s combined hash; the repaired canonical sweep was observed running at the
-        2026-07-30 10:23&nbsp;PDT audit cutoff, with mutable partial output and no completed,
-        reviewed result. The Apple-silicon
-        control is still marked
-        <strong>MAC RUN NEEDED</strong>. The Phase&nbsp;6 bottom line therefore remains open for four
-        separately named reasons: Arm&nbsp;1 closing gate, zero-blocker review, second architecture,
-        and completion and review of the Arm&nbsp;2 sweep. There is also a live-record defect to carry forward:
-        <code>docs/PROGRESS.md</code>&rsquo;s Next step at <code>8c781b1</code> still says to freeze
-        Arm&nbsp;2, although <code>483f7ee</code>, <code>0cb52bf</code>, and <code>8c781b1</code>
-        show the value-content freeze, gated values pin, and combined revision pin already landed.
-        Git history establishes those implementation facts;
-        the progress file remains the authority that needs its stale next action corrected.
+        <strong>Current-status boundary.</strong> Later safeguards do not repair or rewrite old
+        bytes. The tracked Tier&nbsp;1 fixtures self-report <code>win32/x64</code> and
+        <code>darwin/arm64</code> identities; those headers are not independent physical-host
+        authentication. Their bytes differ in 9
+        of 448 entries, but omit the registered &minus;31 through &minus;35&nbsp;&deg;C tail. A
+        historical Tier&nbsp;2 table reports four matching CAK rows attributed to the latter fixture;
+        its raw output and exit records are unavailable, so the table is not independently
+        rederivable. Phase&nbsp;6 remains
+        open for the science-first work, not the old audit-cutoff list: a future reviewed R15 freeze and
+        full replacement execution, composed size/domain/grid/timestep adequacy, 612 planned
+        preview-budget GPU cases across CAK, M1, and matched no-dip, the matched software ablation,
+        and all four charter held-out families. Current source review has not found an apples-to-apples
+        held-out target, which is a scientific scope blocker rather than permission to promote a
+        near match.
       </p>
 
       <p class="c29-aside">
-        Every repository file quoted in Part Two is named where it is quoted, so any sentence on these
-        sixteen pages can be checked against the thing it came from; the papers and the monograph
-        behind Part One are listed on the <a href="../references.html">references page</a>.
+        Part Two names repository sources beside its load-bearing quotations and claims, so those
+        specific statements can be checked against the recorded files. That citation practice is not
+        a machine-complete census and does not make every sentence independently source-verifiable;
+        the papers and monograph behind Part One are listed on the
+        <a href="../references.html">references page</a>.
       </p>
 
       <aside class="callout callout--key">
@@ -1213,12 +1252,12 @@
         </p>
         <p>
           The machinery in Part Two was not built to make the model right. It was built so that
-          when the model came out wrong, you could tell whether the fault was in the theory or in
-          the code &mdash; and the answer, in the findings ledger&rsquo;s own phrase, is
-          <em>the signature of a correct implementation of an insufficient theory</em>, with
-          &ldquo;insufficient&rdquo; now scoped, after the retraction, to the parameterization that
-          was actually run rather than to every one that could be. That separation is the
-          achievement. The score is just where it happened to land.
+          when the model came out wrong, named implementation and evidence faults could be detected
+          rather than silently absorbed. A historical findings-ledger phrase called CAK
+          <em>the signature of a correct implementation of an insufficient theory</em>. Read that as
+          a scoped interpretation of the checks and parameterization actually run, not a proof of
+          implementation correctness or universal theoretical necessity. The score is just where
+          the historical execution landed.
         </p>
       </aside>
 
@@ -1253,10 +1292,10 @@
         &mdash; take a magnifier and a piece of dark card outside and look. It is a better invitation
         now than it was then, because you know what is landing on the card: a lattice choosing its own
         shape one molecule at a time, and choosing it in a way that the model in Part Two &mdash; built
-        from published laboratory measurements of how ice sticks to ice, and marked against a scheme
-        sealed before it ran &mdash; reproduces at three of ninety counting points, all three at a
-        single temperature that scheme had already called weightless, in a result that is not finished
-        being checked. The field is small enough that careful looking still counts.
+        from recorded empirical inputs, source fits, model inversions, and project digitizations
+        &mdash; matched at 3/90 historical CAK points and 54/90 historical M1 common-scope points.
+        Those are measured-only; M1 is in-sample and the comparison is confounded. The replacement
+        scientific gate is unfinished. The field is small enough that careful looking still counts.
       </p>
 
       <nav class="chapter-nav" aria-label="Chapter navigation">
@@ -1279,8 +1318,9 @@
   <div class="shell">
     <p>
       Part of <a href="../index.html">Snow Crystals</a>, an educational site about the science of
-      snowflake formation. Source figures are &copy; Kenneth G. Libbrecht and are reproduced here
-      from a local research cache under citation; they are not redistributed with this repository.
+      snowflake formation. Source figures are &copy; Kenneth G. Libbrecht and are not redistributed
+      with this repository or public course; a personal offline build may substitute cited copies
+      from a local research cache.
     </p>
     <p><a href="../references.html">References</a> &middot; <a href="../glossary.html">Glossary</a></p>
   </div>
@@ -1373,6 +1413,15 @@
   font-size: var(--step--1); line-height: 1.5;
 }
 .c29-meter b { display: block; font-size: 0.72rem; letter-spacing: 0.07em; text-transform: uppercase; }
+@media (max-width: 480px) {
+  .c29-verb .button {
+    min-width: 0;
+    max-width: 100%;
+    white-space: normal;
+    overflow-wrap: anywhere;
+    text-align: left;
+  }
+}
 </style>
 
 <script src="../assets/site.js"></script>
@@ -1380,9 +1429,10 @@
 <script>
 /* ===========================================================================
    Chapter 29 — What It Cost, and What Is Still Open
-   Five original interactives and one chart. Every value below is transcribed
-   from a repository file named in the figure's "built from" line; nothing
-   here is generated, fitted, or invented.
+   Five original interactives and one chart. Each figure's "built from" line
+   identifies the repository sources for its load-bearing historical values and
+   states the figure's limits. Teaching labels, layout values, and derived display
+   quantities are authored or computed here and are not gate evidence.
    ======================================================================== */
 (function () {
   "use strict";
@@ -1841,47 +1891,45 @@
       { id: "k2a", text: "In the columns band the model produced 0 of 24." },
       { id: "k2b", text: "In the cold-plates band, 0 of 60." },
       { id: "k3", text: "204 runs, zero invalid — in both sweeps." },
-      { id: "k4", text: "One habit transition, where the reference has three." }
+      { id: "k4", text: "At the executed CAK grid, classes run plate → neutral → column without a return." }
     ];
 
     var LIMITS = [
       { on: false, hits: ["k1"],
         head: "All three agreements sit at one temperature.",
-        body: "All three are at −2 °C, the single counting temperature in the warmest regime — " +
-              "which the scoring rule registered pre-sweep as carrying essentially no " +
-              "statistical weight, “precisely so this could not be presented as a result”. " +
+        body: "All three are at −2 °C. That temperature contributes six equally counted cells " +
+              "to the 90-point measured headline, but carries essentially no support for a " +
+              "temperature-general conclusion. " +
               "“The model agrees with the reference nowhere else inside the headline scope.”" },
       { on: false, hits: ["k1", "k2a", "k2b", "k3", "k4"],
-        head: "It is not gate evidence yet.",
-        body: "The historical report said no verifier and six controls were still owed. Current " +
-              "history is later: the hardened independent verifier passes and seven controls " +
-              "executed, but the Arm 1 closing gate and zero-blocker review are still " +
-               "owed. Arm 2 is implemented and protocol-frozen; at the audit cutoff its corrected " +
-               "sweep was running but incomplete, so no " +
-              "two-arm phase conclusion is drawn." },
+        head: "It is historical measured-only evidence, not the replacement gate.",
+        body: "Both 204-row artifacts completed: CAK 3/90 and M1 54/90 common scope, 54/78 arm " +
+               "scope. They are not the registered conservative-intersection headline. R15 and " +
+               "M1_NO_DIP_ABLATION are planned, unfrozen, unimplemented and unexecuted; composed " +
+               "numerical adequacy, the preview-budget GPU cohort and all four held-out families remain open." },
       { on: false, hits: ["k1", "k2a", "k2b", "k3", "k4"],
         head: "Arm 1 keeps its historical provenance limit.",
         body: "Its children loaded the working tree after preflight. Nine commits landed during " +
               "the run; the later physics-directory diff was empty — luck, not design. Commit " +
-              "154359d added a dynamic start/end source fingerprint for future sweeps. That closes " +
-              "the timing route forward without retroactively upgrading Arm 1." },
+               "154359d added dynamic start/end source fingerprints for future sweeps. Those endpoints " +
+               "do not exclude a transient reverted edit, NODE_OPTIONS, or a shadow module, and do " +
+               "not retroactively upgrade Arm 1. R15 still owes immutable child inputs." },
       { on: false, hits: ["k4"],
-        head: "The explanation for this one was retracted a day after the numbers landed.",
+        head: "The curve-order explanation for this morphology was retracted.",
         body: "The measurements are untouched — “the 3/90 headline, the per-regime table, the " +
               "class totals, the diagram, the artifact hashes — are unaffected. What is retracted " +
-              "is the interpretation.” What went was the bound: the crossing count had been " +
-              "computed on σ₀ alone, while habit depends on the ordering of " +
-              "alphaHK = A·exp(−σ₀/σ_surf), which carries A_prism. With it included the " +
-              "registered set has three alphaHK crossings for σ_surf in [0.247%, 0.366%] — a band " +
-              "containing 2 of these 204 points — and the count depends on σ_surf, which " +
-              "diffusion sets, so it was never “independent of diffusion”. What survives: along " +
-              "this sweep’s own constant-f ladders the reversal count is 1 at f = 0.10 and 0 at " +
-              "every larger f, never 3. An existence result, not a necessity theorem." },
+              "is the interpretation.” A coefficient-order calculation is restricted to the same " +
+              "positive surface field and returns basal-higher, prism-higher, or tie. It cannot " +
+              "assign plate, column, neutral, or a Nakaya boundary. What survives is the 3-D CAK " +
+              "artifact's measured class sequence at its executed configuration, not a theorem." },
       { on: false, hits: ["k1", "k2a", "k2b"],
         head: "Habit was measured at one crystal size.",
-        body: "“Habit is measured at extent 21, and habit is size-dependent. 16 points sit " +
-              "within the registered ±0.135 extent-drift bound of a class threshold and are " +
-              "flagged extent-fragile.” One of the three surviving agreements is one of them." },
+        body: "The frozen one-sided CAK flag marks 16 rows, including one surviving agreement. " +
+              "The project's own ladder later measured a falling aspect ratio, refuting the " +
+              "one-directional premise. A symmetric closed-distance audit (exact-threshold rows " +
+              "included) finds 59 CAK rows within 0.135 of either class threshold, 43 additional " +
+              "to the old flags; M1 has 85, 52 additional. Those are fragility censuses, not " +
+              "observed class changes at another size, and composed R15 size adequacy remains open." },
       { on: false, hits: ["k1", "k2a", "k2b"],
         head: "Seed shape can change the class — and this entry was corrected against itself.",
         body: "The earlier version called seed shape “a large systematic, though not a " +
@@ -1889,8 +1937,8 @@
               "opposite: a five-seed probe found a needle-like seed produces “a genuine column " +
               "(AR 1.6154) at −15 °C, where the reference requires a plate”. Seed geometry moves " +
               "the aspect ratio by +0.41 at −5 °C and +0.51 at −15 °C — the same direction at " +
-              "both, while the two bands demand opposite moves, so no temperature-independent " +
-              "seed can agree at both. None of the five agreed at either condition." },
+              "both, while the two targets demand opposite moves. None of the five tested seeds " +
+              "agreed at either named condition; that probe does not cover every seed or model." },
       { on: false, hits: ["k1", "k2a", "k2b"],
         head: "The comparison target is a redrawn 1954 schematic.",
         body: "“…whose supersaturation axis WP1 measured as failing an independent " +
@@ -1901,20 +1949,21 @@
               "sense, so any falsification claim is worded for roughly −2 to −20 °C " +
               "and the cold end is reported separately." },
       { on: false, hits: ["k2a", "k2b", "k4"],
-        head: "Arm 1 is not a test of the added mechanism.",
+        head: "CAK to M1 is not a matched dip-factor ablation.",
         body: "The historical report correctly says every completed Arm 1 run is no-SDAK and the " +
-              "mechanism was then absent from source. M1 is now implemented and separately " +
-              "protocol-frozen for Arm 2. One launch was stopped about a minute in after its first line " +
-              "exposed a wrong-arm combined hash; at the audit cutoff the corrected sweep was " +
-              "running but incomplete. Any eventual agreement is " +
-              "in-sample because its dip locations were chosen against this diagram." },
+              "mechanism was then absent from source. M1 later completed at 54/90 common and 54/78 " +
+              "arm scope. Its exact dip form and placement are P3 and in-sample; the source leaves " +
+              "log base-unspecified and the registered base-10 transcription is P4. M1 assumes every " +
+              "facet is narrow, while the width-dependent project M2 closure is unimplemented. " +
+               "CAK to M1 changes broad curves, prefactors, and dips together. The planned matched " +
+               "no-dip arm is unfrozen, unimplemented and unexecuted; it could isolate only the " +
+               "implemented intervention effect, not physical SDAK causality or necessity." },
       { on: false, hits: ["k1", "k2a", "k2b", "k3", "k4"],
-        head: "No cross-platform control has been run.",
-        body: "“No cross-platform control has been run. Scoped to the registered x64 host " +
-              "until the arm64 fixture runs.” Correcting the parameter set knocked that control " +
-              "further down: the fingerprint had to be re-issued because it sampled the wrong " +
-              "code path, and the two-point fixture was emptied because under the registered " +
-              "parameter set its points no longer land in two different habit classes." }
+        head: "The cross-platform control is limited to four CAK points.",
+        body: "Tracked Tier 1 library-math fingerprints differ in 9 of 448 entries, up to 31 ULP. " +
+              "A historical table reports four matching CAK output rows, but the raw arm64 logs " +
+              "and exit records are unavailable here, so Tier 2 is not independently rederivable. " +
+              "End-to-end results, the full grid, and every M1 row remain x64-scoped." }
     ];
 
     var counter = el("p", "c29-note");
@@ -2133,7 +2182,7 @@
 
     var VERBS = ["implements", "reproduces", "predicts"];
     var OBJECTS = [
-      "measured broad-facet attachment kinetics",
+      "broad-facet attachment parameterization with recorded P1/P2 provenance",
       "Libbrecht’s −5 °C laboratory measurements",
       "the Nakaya diagram",
       "what nature grows at a given temperature"
@@ -2145,10 +2194,12 @@
     /* rows = verb, cols = object */
     var GRID = [
       [ /* implements */
-        { v: SUPPORTED, t: "A claim about inputs, and it is earned. The curves are transcribed " +
-            "into core/src/libbrecht.ts from the hash-frozen table, and the digitized anchors " +
-            "reproduce a printed closed form nobody had found when they were extracted — " +
-            "8.4% at worst, under 2% typically (ledger entry A2)." },
+        { v: SUPPORTED, t: "A scoped claim about inputs. The curves are transcribed into " +
+            "core/src/libbrecht.ts from the versioned table. Measured or source-tabulated empirical " +
+            "inputs adopted directly are P1; fits, inversions, derivations, and digitizations remain " +
+            "P2. One blind " +
+            "extraction check reproduces a later-located printed fit to 8.4% at worst and under " +
+            "2% typically; it does not directly measure the modeled surface field." },
         { v: MISLABELLED, t: "A model implements a rule, not a measurement. Choose a verb about " +
             "outputs if you mean the model matched this data." },
         { v: MISLABELLED, t: "The diagram is the comparison target, not a rule that was coded. " +
@@ -2169,12 +2220,12 @@
             "ratio, so the equivalence with the model’s AR is unverified — an equal-area radius " +
             "would move his by about 10%. Even at its best this was a consistency check rather " +
             "than independent validation, because that lab data is upstream of the model’s inputs." },
-        { v: OVER, t: "Measured false. The corrected sweep scores 3 of 90, columns 0 of 24, cold " +
-            "plates 0 of 60 — and all three of those agreements sit at −2 °C, the one counting " +
-            "temperature the scoring rule had already registered as carrying essentially no " +
-            "weight. An earlier run of the same sweep measured 5 of 90 and was withdrawn; the " +
-            "corrected number was predicted in advance at about 2 of 90." },
-        { v: OVER, t: "The charter forbids this sentence in advance: giving a model real physics " +
+        { v: OVER, t: "Not licensed as an unqualified Phase 6 conclusion. Historical CAK is 3/90; " +
+            "historical M1 is 54/90 common scope and 54/78 arm scope, in-sample. Both are " +
+            "measured-only, not the registered replacement headline. R15 and matched no-dip are " +
+            "planned but unfrozen, unimplemented and unexecuted; numerical, GPU, and all four " +
+            "held-out obligations remain open." },
+        { v: OVER, t: "The charter forbids this sentence in advance: giving a model mixed-provenance, experiment-constrained physics " +
             "is not the same as showing the model reproduces reality. No quantity in this project " +
             "currently carries the top evidence tier." }
       ],
@@ -2184,15 +2235,14 @@
             "These measurements are upstream of the model’s inputs, so agreement here cannot " +
             "be a prediction however well it lands — and since 2026-07-29 it does not land " +
             "either: see the verdict on “reproduces”." },
-        { v: OVER, t: "Over-reaching and measured false in the same sentence. The sweep is the " +
-            "test of this claim, and it came back negative: one habit transition where the " +
-            "reference needs three, 0 of 24 in the columns band, 0 of 60 in the cold-plates band, " +
-            "and agreement nowhere in the headline scope except at the single temperature the " +
-            "scoring rule had already declared weightless." },
+        { v: OVER, t: "Prediction requires a held-out result. Historical CAK measured 3/90 and M1 " +
+            "54/90 common scope, but M1 is Nakaya-informed and the two parameterizations are " +
+            "confounded. Input-curve equality is not a habit boundary, and the replacement " +
+            "forward-run gate is unfinished." },
         { v: OVER, t: "This is the rung drawn dashed and grey. What would have to exist: a test " +
-            "on data the model was not built from. The stretch register lists four — " +
-            "free-fall growth data, facet-rate curves, size-dependent habit, a pressure ladder " +
-            "— and none has been run." }
+            "on data the model was not built from. The charter requires four families — growth " +
+            "rates versus (T, sigma), size-dependent habit, pressure dependence, and growth-history " +
+            "responses. The source lock says passEligible=false and none is frozen or run." }
       ]
     ];
 

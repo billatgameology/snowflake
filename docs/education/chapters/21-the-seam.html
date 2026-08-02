@@ -165,7 +165,7 @@
           cell flip; Libbrecht's <code>v_n = alphaHK&middot;v_kin&middot;sigma_surf</code> is a
           continuous velocity. Converting a surface velocity into lattice attachment events is the
           substance of <code>LibbrechtKinetics</code>, not an implementation detail of it.&rdquo;
-          <br><span class="figure__source">project charter.md, line 265 (&sect;3.2, Phase 2b)</span>
+          <br><span class="figure__source">project charter.md, line 267 (&sect;3.2, Phase 2b)</span>
         </p>
       </blockquote>
 
@@ -182,7 +182,7 @@
             <dt>&sigma;<sub>surf</sub></dt><dd>the supersaturation right at the surface, which the diffusion field decides, not you</dd>
           </dl>
         </div>
-        <p class="equation__cite">project charter.md, line 265 (&sect;3.2, Phase 2b)</p>
+        <p class="equation__cite">project charter.md, line 267 (&sect;3.2, Phase 2b)</p>
       </div>
 
       <p>
@@ -245,7 +245,7 @@
             <dt>H<sub>b</sub></dt><dd>a shape correction for the patch of surface one boundary cell stands for. For both kinds of flat face it is 1, cited straight from the monograph, so in these runs it changes nothing (docs/attachment-kinetics.md, lines 539&ndash;540). The two cases still need names, because which cell counts as which is exactly what goes wrong in the source audit at the end of this chapter; the repository writes them <code>[01]</code> and <code>[20]</code>, and the figure just below draws what those labels are counting</dd>
           </dl>
         </div>
-        <p class="equation__cite">docs/attachment-kinetics.md &sect;4.2; forward policy in project charter.md, line 265</p>
+        <p class="equation__cite">docs/attachment-kinetics.md &sect;4.2; forward policy in project charter.md, line 267</p>
       </div>
 
       <p>
@@ -469,11 +469,11 @@
       <blockquote class="callout">
         <p>
           &ldquo;temperature is an input to the physics, not a label applied afterward.
-          &alpha;_basal(T, &sigma;_surf) and &alpha;_prism(T, &sigma;_surf) are computed each step <!-- rule7-waive: verbatim quotation from project charter.md, line 165, preserves the source's own notation -->
+          &alpha;_basal(T, &sigma;_surf) and &alpha;_prism(T, &sigma;_surf) are computed each step <!-- rule7-waive: verbatim quotation from project charter.md, line 167, preserves the source's own notation -->
           from the local supersaturation the diffusion field delivers, and the plate&harr;column
           habit is an output of their competition rather than a knob. This is what allows the model
           to be wrong &mdash; and therefore worth testing&rdquo;
-          <br><span class="figure__source">project charter.md, line 165 (&sect;2.5)</span>
+          <br><span class="figure__source">project charter.md, line 167 (&sect;2.5)</span>
         </p>
       </blockquote>
 
@@ -1201,11 +1201,11 @@
         <p>
           This phase went through six audit rounds, and the repaired code was signed off by an
           independent adversarial review with zero unresolved findings before the final run was
-          allowed to execute. One disclosure belongs here rather than in a footnote: every review
-          in this project to date &mdash; those audit rounds, the adversarial review, and the
-          two-reviewer process that checked this page &mdash; has been a review by a language
-          model. The project treats that as a stated limitation of its evidence, not as a
-          substitute for review by a human domain scientist, of which there has been none.
+          allowed to execute. One disclosure belongs here rather than in a footnote: repository
+          records identify those audit rounds, the adversarial review, and the recorded two-reviewer
+          process that checked this page as language-model reviews, and contain no human
+          domain-expert review. The project treats that as a stated limitation of its evidence, not
+          as a substitute for expert review.
         </p>
       </aside>
 
@@ -1245,8 +1245,9 @@
   <div class="shell">
     <p>
       Part of <a href="../index.html">Snow Crystals</a>, an educational site about the science of
-      snowflake formation. Source figures are &copy; Kenneth G. Libbrecht and are reproduced here
-      from a local research cache under citation; they are not redistributed with this repository.
+      snowflake formation. Source figures are &copy; Kenneth G. Libbrecht and are not redistributed
+      with this repository or public course; a personal offline build may substitute cited copies
+      from a local research cache.
     </p>
     <p><a href="../references.html">References</a> &middot; <a href="../glossary.html">Glossary</a></p>
   </div>

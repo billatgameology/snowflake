@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Why the Shape Flips — Snow Crystals</title>
-<meta name="description" content="Whichever face is harder to start growing loses. Plot both barriers against temperature, and every place the two curves cross is a place where a snow crystal changes from a plate into a column.">
+<meta name="description" content="Basal and prism attachment barriers can swap order with temperature, but only a complete three-dimensional forward run and frozen morphology evaluator can test where crystal habit changes.">
 <link rel="stylesheet" href="../assets/education.css">
 </head>
 
@@ -35,11 +35,11 @@
   <nav class="sidenav" aria-label="On this page">
     <p class="sidenav__title">On this page</p>
     <ol>
-      <li><a href="#crossing-rule">A habit boundary is a crossing</a></li>
-      <li><a href="#counting">One crossing, three boundaries</a></li>
+      <li><a href="#crossing-rule">What a crossing actually says</a></li>
+      <li><a href="#counting">Input equality is not habit</a></li>
       <li><a href="#narrow-facets">A facet 200 molecules wide</a></li>
-      <li><a href="#the-dips">Two dips, then two measurements</a></li>
-      <li><a href="#payoff">Count the crossings again</a></li>
+      <li><a href="#the-dips">Two dips, then two inversions</a></li>
+      <li><a href="#payoff">Count the equality roots</a></li>
       <li><a href="#esi">The edge that sharpens itself</a></li>
       <li><a href="#how-sure">How much of this is settled</a></li>
     </ol>
@@ -52,8 +52,8 @@
         <p class="chapter-header__eyebrow">Chapter 12</p>
         <h1>Why the Shape Flips</h1>
         <p class="chapter-header__question">
-          Whichever face is harder to start growing loses. So what happens at the temperature
-          where the two faces swap places?
+          Two kinetic inputs can swap order. What does that local diagnostic establish, and what
+          still requires a three-dimensional forward run?
         </p>
         <div class="chapter-header__meta">
           <span>~38 min read</span>
@@ -65,25 +65,24 @@
       <section class="goals">
         <h2>By the end you will be able to</h2>
         <ul>
-          <li>State the crossing test: where the basal and prism attachment kinetics swap order,
-            the model&rsquo;s faster-facet tendency can reverse; the crossing alone does not guarantee
-            the final habit.</li>
-          <li>Count the crossings a set of curves produces and compare that count with the number
-            of boundaries on the Nakaya diagram.</li>
+          <li>State the restricted crossing test: at one shared positive surface supersaturation,
+            equal attachment coefficients mark an order swap, not a three-dimensional habit boundary.</li>
+          <li>Count equality roots without treating their count as a theorem about morphology.</li>
           <li>See why comparing &sigma;<sub>0</sub> alone, though it looks decisive, is not quite
             the whole criterion for a habit flip &mdash; and what that means for what a broad-facet
             model can and cannot be shown to do.</li>
           <li>Describe what SDAK proposes: that a very narrow facet has a much lower effective
             barrier than a wide one of the same crystal plane.</li>
-          <li>Locate the two measured dips &mdash; basal near &minus;4&nbsp;&deg;C, prism near
-            &minus;14&nbsp;&deg;C &mdash; and connect them to hollow columns and thin plates.</li>
+          <li>Locate the two model-conditioned narrow-facet reductions &mdash; basal near
+            &minus;4&nbsp;&deg;C, prism near &minus;14&nbsp;&deg;C &mdash; while keeping them distinct
+            from M1&rsquo;s exact P3 dip formula.</li>
           <li>Say honestly which part of this answer is measured and which part is still a working
             hypothesis.</li>
         </ul>
       </section>
 
       <!-- ================================================================= -->
-      <h2 id="crossing-rule">A candidate habit boundary begins with a crossing</h2>
+      <h2 id="crossing-rule">A crossing is an input-order diagnostic</h2>
 
       <p>
         Plate, column, plate, column. Over the forty degrees between freezing and
@@ -98,7 +97,7 @@
         <strong>&sigma;<sub>0</sub></strong>: roughly, how much spare water vapour the air right
         next to the surface has to be carrying before a new molecular layer will start on that
         face. A big &sigma;<sub>0</sub> means the face is stubborn. A small &sigma;<sub>0</sub>
-        means layers start easily and the face runs.
+        means layers start more easily under otherwise matched local conditions.
       </p>
 
       <p>
@@ -138,19 +137,20 @@
         speed. At &sigma;<sub>surf</sub>&nbsp;=&nbsp;0.5&nbsp;%, a face with
         &sigma;<sub>0</sub>&nbsp;=&nbsp;0.35&nbsp;% has alphaHK&nbsp;&asymp;&nbsp;0.5, while a face
         with &sigma;<sub>0</sub>&nbsp;=&nbsp;2.6&nbsp;% has alphaHK&nbsp;&asymp;&nbsp;0.005 &mdash; a
-        hundredfold gap from a barrier only seven times larger. So in practice you rarely need to
-        do the arithmetic. You first need to know <strong>which of the two barriers is
-        smaller</strong>. That identifies the faster-facet tendency, often by a landslide. It does
-        not by itself guarantee a final habit: facet width, diffusion, the A prefactors and the
-        crystal&rsquo;s earlier growth still enter.
+        hundredfold gap from a barrier only seven times larger. That calculation is useful, but it
+        is deliberately local: the two facets were assigned the same positive
+        &sigma;<sub>surf</sub>. A real crystal solves different surface fields around a changing 3-D
+        geometry. Barrier order alone therefore neither classifies habit nor bounds how often habit
+        may change.
       </p>
 
       <p>
-        Chapter&nbsp;7 told you what winning does to the shape. If the six side faces (the
+        Chapter&nbsp;7 described the geometric intuition. If the six side faces (the
         <em>prism</em> facets) grow much faster than the flat top and bottom (the <em>basal</em>
         facets), the crystal spreads sideways and thins into a plate. If the basal facets grow much
         faster, the crystal stretches along its axis into a column. Libbrecht states the
-        requirement with a double inequality, and the double matters:
+        proposed requirement with a double inequality, and the double matters. It is a source-level
+        physical interpretation, not this project&rsquo;s habit evaluator:
       </p>
 
       <blockquote class="callout">
@@ -181,23 +181,20 @@
           Key idea
         </p>
         <p>
-          Plot &sigma;<sub>0</sub> for the basal face and &sigma;<sub>0</sub> for the prism face
-          against temperature. Everywhere the two curves cross, the lower one becomes the upper
-          one and the faster-facet <em>tendency</em> reverses &mdash; <em>provided</em> the two
-          facets&rsquo; A prefactors are equal, which the equation above already told you is not
-          always true. A crossing is therefore a candidate boundary, not a guaranteed switch. Set
-          those conditions aside for a moment and ask the deliberately simplified question: does
-          the number of crossings then limit how many times the tendency can reverse? That question,
-          and exactly where it breaks, is what the rest of this chapter works out.
+          Plot &sigma;<sub>0</sub> for the basal and prism faces against temperature. A crossing says
+          only that the two barrier inputs are equal. If A is also equal and both facets are assigned
+          one shared positive &sigma;<sub>surf</sub>, their attachment coefficients are equal there
+          too. Those restrictions do not hold across a general 3-D crystal, so this is an
+          order-swap diagnostic &mdash; never a habit boundary or a limit on habit changes.
         </p>
       </aside>
 
       <figure class="anim" id="anim-rule">
         <div class="anim__head">
-          <p class="anim__title">Two barriers, one growth tendency</p>
+          <p class="anim__title">Two barriers, one restricted coefficient comparison</p>
           <p class="anim__sub">
-            Set the two barriers by hand. Watch what the crystal does when you make one of them
-            cross the other.
+            Set the two barriers by hand and compare alphaHK at one shared positive
+            &sigma;<sub>surf</sub>. The drawing is intuition, not a forward-run result.
           </p>
         </div>
         <div class="anim__body"></div>
@@ -206,9 +203,9 @@
           <span class="built-from">Original animation. The two alphaHK values are evaluated from the
           printed equation alphaHK = A&nbsp;exp(&minus;&sigma;<sub>0</sub>/&sigma;<sub>surf</sub>)
           with A&nbsp;=&nbsp;1 (Libbrecht, Snow Crystals, printed p. 144). The crystal drawing is a
-          schematic: it encodes <em>which</em> facet is favoured and roughly how strongly, not a
-          calculated aspect ratio. The plate / blocky prism / column verdict follows the inequality
-          printed in Libbrecht, arXiv:2306.13087v1, p. 4.</span>
+          schematic of the source&rsquo;s proposed geometric intuition, not a calculated aspect ratio
+          or this project&rsquo;s 3-D habit classification. The inequality is printed in Libbrecht,
+          arXiv:2306.13087v1, p. 4.</span>
         </figcaption>
       </figure>
 
@@ -237,7 +234,7 @@
       </aside>
 
       <!-- ================================================================= -->
-      <h2 id="counting">One crossing, three boundaries</h2>
+      <h2 id="counting">One equality root is not a habit theorem</h2>
 
       <p>
         So far this is only bookkeeping. The physics arrives when you actually put numbers on the
@@ -304,8 +301,8 @@
         <div class="anim__head">
           <p class="anim__title">The broad-facet barriers, and their single crossing</p>
           <p class="anim__sub">
-            The strip beneath the axis reads out the simplified faster-facet tendency. Count how
-            many times it changes; do not read the strip as a morphology prediction.
+            The strip beneath the axis reports only which barrier is lower. Count its order swaps;
+            do not read the strip as a morphology prediction.
           </p>
         </div>
         <div class="anim__body"></div>
@@ -381,9 +378,9 @@
       </p>
 
       <p>
-        Counted this deliberately simplified way &mdash; comparing the two
-        &sigma;<sub>0</sub> curves alone &mdash; one crossing is what these particular fitted
-        curves give. Refitting the curves moved its location but did not change that count.
+        Compared in this deliberately restricted way &mdash; using the two
+        &sigma;<sub>0</sub> curves alone &mdash; these particular fitted curves have one equality
+        root. That is a property of these formulas, not a statement about 3-D habit.
         Humidity does not enter these curves at all; the model also assumes air pressure does not,
         though that is an assumption rather than a measurement &mdash; the monograph flags &ldquo;an
         implicit assumption that the attachment kinetics does not depend on background gas pressure
@@ -391,17 +388,20 @@
       </p>
 
       <p>
-        But &sigma;<sub>0</sub> alone is not quite the quantity a habit flip depends on. Look back at
+        But &sigma;<sub>0</sub> alone is not even the complete local coefficient comparison. Look back at
         the equation this chapter opened with: alphaHK = A&nbsp;exp(&minus;&sigma;<sub>0</sub>/&sigma;<sub>surf</sub>).
-        Whichever facet wins is whichever has the larger alphaHK, and A is not always 1 &mdash; the
+        At a selected shared positive &sigma;<sub>surf</sub>, the larger alphaHK changes when A is
+        restored, and A is not always 1 &mdash; the
         equation's own gloss above already flagged that the prism A dips well below 1 over part of
         the warm range. Comparing &sigma;<sub>0</sub> alone silently assumes A cancels out of the
         comparison, and it does not. Put A back in and the crossing count stops being a fixed
         property of the two curves and becomes a property of &sigma;<sub>surf</sub> too &mdash; the
-        same spare vapour the slider in the last section let you move. Evaluated that way, at
+        same spare vapour the slider in the last section let you move. Evaluated under that shared-field
+        restriction, at
         &sigma;<sub>surf</sub> = 0.20&ndash;0.30&nbsp;% (outside that band the count drops back to
         two, one, or zero), these same broad-facet curves &mdash; no SDAK, no dips &mdash; swap order
-        <strong>three</strong> times, not once.
+        <strong>three</strong> times, not once. These are coefficient-order swaps, not simulated
+        morphology transitions.
       </p>
 
       <aside class="callout callout--open">
@@ -414,30 +414,30 @@
         <p>
           An earlier version of this chapter counted &sigma;<sub>0</sub> crossings only, and called
           the result &ldquo;structural, not numerical&rdquo; and independent of diffusion. An
-          adversarial review in 2026 found both halves wrong: the habit-relevant quantity is alphaHK,
-          not &sigma;<sub>0</sub> alone, and once A is included the swap count is set by
-          &sigma;<sub>surf</sub>, which diffusion supplies (see the correction in
+          adversarial review in 2026 found the claimed theorem invalid. Restoring A shows that even
+          the local alphaHK order depends on the chosen shared positive
+          &sigma;<sub>surf</sub> (see the correction in
           <code>research/libbrecht-figure-findings.md</code>; the swap count itself is a direct
           evaluation of the basal and prism &sigma;<sub>0</sub> and A forms printed in Libbrecht,
-          arXiv:2009.08404v2, p.&nbsp;3, Eqs.&nbsp;2&ndash;5). So a broad-facet model, with no
-          SDAK at all, is <em>not</em> structurally incapable of three habit transitions the way this
-          chapter first argued. What survives is weaker, and still real: the three swaps found this
-          way sit at different temperatures than the diagram's three boundaries &mdash; at
+          arXiv:2009.08404v2, p.&nbsp;3, Eqs.&nbsp;2&ndash;5). No crossing count establishes what a
+          broad-facet 3-D model can or cannot produce. What survives is a narrower diagnostic: the
+          three coefficient-order swaps found this way sit at different temperatures than the
+          diagram&rsquo;s three boundaries &mdash; at
           &sigma;<sub>surf</sub> = 0.20&nbsp;%, for instance, near 3.9, 5.0 and 10.6&nbsp;&deg;C below
           freezing, clustered rather than spread across the full range &mdash; so showing that three
           is <em>possible</em> is not the same as this particular broad-facet set
           <em>explaining</em> the diagram. That distinction &mdash; possible versus actually
-          happening at the right places &mdash; is the reason SDAK remains a live proposal rather
-          than a settled one, and it is the reason the rest of this chapter exists.
+          appearing in an input diagnostic versus emerging in a 3-D run &mdash; is the reason SDAK
+          remains a live proposal rather than a settled result.
         </p>
       </aside>
 
       <figure class="anim" id="anim-alphaHK-crossings">
         <div class="anim__head">
-          <p class="anim__title">The three-crossing claim, made checkable</p>
+          <p class="anim__title">A conditional coefficient-order comparison</p>
           <p class="anim__sub">
-            The callout above asserts three crossings at &sigma;<sub>surf</sub> = 0.20&nbsp;%, once
-            A<sub>prism</sub> is restored. Move the slider yourself and count them.
+            At one shared &sigma;<sub>surf</sub> = 0.20&nbsp;%, restoring A<sub>prism</sub> gives
+            three coefficient-equality roots. Move the slider and see that the count is conditional.
           </p>
         </div>
         <div class="anim__body"></div>
@@ -448,9 +448,10 @@
           Eqs. (1)&ndash;(5): &sigma;<sub>0,basal</sub> and A<sub>basal</sub> from Eqs. (2) and (4),
           &sigma;<sub>0,prism</sub> and A<sub>prism</sub> from Eqs. (3) and (5). The &ldquo;Hold A
           &equiv; 1&rdquo; toggle reproduces the older, sigma0-only comparison used earlier in this
-          chapter, for contrast &mdash; it is not a claim that A is really 1. Crossings are found by
+          chapter, for contrast &mdash; it is not a claim that A is really 1. Equality roots are found by
           bisection on alphaHK<sub>prism</sub> &minus; alphaHK<sub>basal</sub> across 0&ndash;30&nbsp;&deg;C
-          below freezing, not read off any plotted line.</span>
+          below freezing, not read off any plotted line. The chart does not assign plate or column
+          labels.</span>
         </figcaption>
       </figure>
 
@@ -464,12 +465,14 @@
               data-figure="Figure 1.25"
               data-source="Libbrecht, &ldquo;Snow Crystals&rdquo; (arXiv:1910.06389v2)"
               data-page="PDF p. 33 &middot; printed p. 32"
-              data-alt="Three stacked versions of the Nakaya morphology diagram published by three different research groups, each showing the same sequence of habit bands with temperature.">
+              data-alt="Three stacked published versions of the Nakaya morphology diagram, each showing the same broad sequence of habit bands with temperature.">
         <figcaption class="figure__caption">
-          <strong>What to look at:</strong> three independent groups, three sets of apparatus,
-          spanning more than thirty years. Ignore the labels on the individual regions and read only
-          the sequence of bands along the temperature axis. Plate, column, plate, column &mdash; the
-          same alternation every time. Whatever is wrong, it is not the observation.
+          <strong>What to look at:</strong> three published source figures, spanning more than thirty
+          years and more than one experimental apparatus. Ignore the labels on the individual regions
+          and read only the sequence of bands along the temperature axis. In these three figures the
+          broad alternation is plate, column, plate, column. The exact boundaries differ, but the
+          temperature-dependent alternation is an experimental observation rather than a result of
+          this project&rsquo;s model.
           <br><br>
           <em>Published caption: &ldquo;Figure 1.25: Several published versions of the Nakaya
           diagram observed by different investigators: [1958Hal] (top), [1961Kob] (middle), and
@@ -485,12 +488,11 @@
           How we know
         </p>
         <p>
-          The barrier curves and the morphology diagram come from completely different kinds of
-          experiment. The curves come from measuring how fast a single simple prism thickens and
-          widens, micron by micron, under controlled temperature and humidity. The diagram comes
-          from growing thousands of crystals and cataloguing what they look like. Neither depends on
-          the other, which is exactly why the mismatch between them is informative rather than
-          circular.
+          The broad-facet source fits and the morphology diagram use different observations. The
+          kinetic parameterizations are inferred by fitting growth-rate experiments; they are not
+          direct measurements of &sigma;<sub>0</sub>. The morphology diagram catalogues shapes. That
+          separation makes comparison informative, while the later P3 dip placement remains
+          explicitly Nakaya-informed and therefore in-sample.
         </p>
         <p>
           They are not measured under the same conditions either. The shapes of the barrier curves
@@ -637,7 +639,7 @@
         cost of a step edge on that crystal plane is exactly what it was. What changed is the local
         crowd. &ldquo;With a greater admolecule surface density, terrace nucleation is statistically
         more likely, and this results in a lowering of the effective nucleation barrier&rdquo;
-        (printed p.&nbsp;150). The measured quantity behaves as though &sigma;<sub>0</sub> fell,
+        (printed p.&nbsp;150). The model-inferred effective barrier behaves as though &sigma;<sub>0</sub> fell,
         because layers do start more readily &mdash; and, crucially, &ldquo;This phenomenon cannot
         occur on large facets, because large facets, by definition, are not influenced by edge
         effects&rdquo; (printed p.&nbsp;151).
@@ -744,13 +746,15 @@
       </p>
 
       <p>
-        That split changes the simple Nakaya slogan. With broad basal and prism facets at low
-        &sigma;<sub>surf</sub>, both the model and targeted observations give <em>plates</em> at
+        That split changes the simple Nakaya slogan. In the paper&rsquo;s full model interpretation,
+        with broad basal and prism facets at low &sigma;<sub>surf</sub>, targeted observations give <em>plates</em> at
         &minus;5&nbsp;&deg;C. Columns generally require the narrow basal branch. Temperature and the
         current vapour supply therefore do not select a unique shape. A period of fast early growth
         can create a sharp basal feature, move the crystal onto the narrow branch, and leave it there
         while later conditions match those of a crystal that stayed broad. This is history
-        dependence &mdash; hysteresis &mdash; not noise added after the fact.
+        dependence &mdash; hysteresis &mdash; not noise added after the fact. Those morphology
+        statements come from the reported growth histories; the coefficient comparison below does
+        not independently derive them.
       </p>
 
       <figure class="anim is-wide" id="anim-cm6-history"
@@ -761,7 +765,8 @@
           <p class="anim__sub">
             Choose a gentle start or an initial fast-growth pulse. In &ldquo;follow history&rdquo;
             mode the pulse selects one of the two published basal branches. Then override the branch
-            by hand to separate the measured branch curves from this schematic memory rule.
+            by hand to separate the published, model-inverted branch parameterizations from this
+            schematic memory rule. The readout compares coefficients locally and never labels habit.
           </p>
         </div>
         <div class="anim__body" data-test-hook="cm6-history-body"></div>
@@ -778,8 +783,8 @@
             &sigma;<sub>surf</sub>&nbsp;=&nbsp;0.20&nbsp;% is illustrative. The paper reports that
             initial fast growth and sharp basal features can preserve different outcomes under
             similar later conditions, but prints no transition law, pulse threshold, width threshold
-            or predicted aspect ratio. The demo therefore shows candidate tendencies, not a
-            simulation or forecast.
+            or predicted aspect ratio. The demo therefore shows only restricted attachment-coefficient
+            order at one shared positive surface supersaturation, not a habit tendency, simulation or forecast.
           </span>
         </figcaption>
       </figure>
@@ -811,7 +816,7 @@
       </aside>
 
       <!-- ================================================================= -->
-      <h2 id="the-dips">Two dips, then two measurements</h2>
+      <h2 id="the-dips">Two proposed dips, then two model-conditioned inversions</h2>
 
       <p>
         Turn the mechanism into a prediction. If narrow facets start layers more easily, then the
@@ -854,17 +859,18 @@
       </p>
 
       <p>
-        What rescues it is that the placeholder was then checked. Both dips have since been
-        inferred from dedicated, model-conditioned growth measurements that extract a
-        narrow-facet barrier across a series of temperatures.
+        What later work adds is model-conditioned support. Dedicated growth experiments infer
+        narrow-facet barrier reductions across temperature, but they do not directly measure
+        &sigma;<sub>surf</sub> or the barrier. They support the existence and approximate location of
+        reduction regions; they do not determine M1&rsquo;s exact dip shapes, depths, or widths.
       </p>
 
       <p>
         One bookkeeping note before you read the two graphs, because the numbers shift by a degree.
         The postulated dips were placed near &minus;5&nbsp;&deg;C and &minus;15&nbsp;&deg;C. The
-        measured centres came in a degree warmer, near &minus;4&nbsp;&deg;C and
-        &minus;14&nbsp;&deg;C. Same two features. From here on, the round numbers &minus;5 and
-        &minus;15 are simply the model's labels for them.
+        model-inferred reduction regions are reported nearer &minus;4&nbsp;&deg;C and
+        &minus;14&nbsp;&deg;C. These are approximate, model-dependent observational summaries. M1&rsquo;s
+        analytic dip centres are separately fixed at 4.5 and 14.4 degrees below freezing.
       </p>
 
       <figure class="figure"
@@ -872,9 +878,10 @@
               data-figure="Figure 4.27"
               data-source="Libbrecht, &ldquo;Snow Crystals&rdquo; (arXiv:1910.06389v2)"
               data-page="PDF p. 173 &middot; printed p. 172"
-              data-alt="Plot of the measured basal narrow-facet nucleation parameter against temperature, with data points and error bars dropping far below the solid broad-facet basal line and bottoming out near four degrees below freezing.">
+              data-alt="Plot of an inferred basal narrow-facet nucleation parameter against temperature, with model-conditioned points and error bars dropping below the broad-facet line near four degrees below freezing.">
         <figcaption class="figure__caption">
-          <strong>What to look at:</strong> these are data points with error bars, not a drawn curve.
+          <strong>What to look at:</strong> these are model-inverted parameter estimates with error
+          bars, not direct readings of a surface barrier and not M1&rsquo;s analytic dip curve.
           Follow them from left to right and watch them plunge away from the solid line and come
           back. The bottom of the plunge sits near &minus;4&nbsp;&deg;C &mdash; and near
           &minus;4&nbsp;&deg;C is where hollow columns come from.
@@ -888,13 +895,13 @@
       </figure>
 
       <figure class="figure"
-              data-src="research/figures/sdak-dip-basal-measured-near-minus4C.png"
+              data-src="research/figures/sdak-dip-basal-source-inferred-near-minus4C.png"
               data-figure="Figure 5"
               data-source="Libbrecht, &ldquo;Toward a Comprehensive Model of Snow Crystal Growth Dynamics: 9&rdquo; (arXiv:2011.02353v1)"
               data-page="PDF p. 7"
-              data-alt="Post-monograph graph of measured narrow-basal-facet nucleation barriers with horizontal and vertical error bars, dipping near minus 4 degrees Celsius; a dotted line is drawn only to guide the eye.">
+              data-alt="Post-monograph graph of model-inferred narrow-basal-facet nucleation barriers with error bars, dipping near minus 4 degrees Celsius; a dotted line is an eye guide.">
         <figcaption class="figure__caption">
-          <strong>The direct source behind the basal dip:</strong> measured
+          <strong>The source behind the basal reduction:</strong> model-inferred
           &sigma;<sub>0,basal,SDAK</sub>(T) near &minus;4&nbsp;&deg;C at
           &sigma;<sub>&infin;</sub>&nbsp;&asymp;&nbsp;8&nbsp;%. The points and error bars are the
           evidence; the dotted line is an eye guide. In a companion growth sequence, a column reached
@@ -919,9 +926,10 @@
               data-figure="Figure 4.26"
               data-source="Libbrecht, &ldquo;Snow Crystals&rdquo; (arXiv:1910.06389v2)"
               data-page="PDF p. 173 &middot; printed p. 172"
-              data-alt="Plot of the measured prism narrow-facet nucleation parameter against temperature, with data points and error bars forming a deep dip below the solid broad-facet prism line, bottoming out near fourteen degrees below freezing.">
+              data-alt="Plot of a model-inferred prism narrow-facet nucleation parameter against temperature, with points and error bars forming a reduction below the broad-facet line near fourteen degrees below freezing.">
         <figcaption class="figure__caption">
-          <strong>What to look at:</strong> the same experiment on the other facet, and the dip is
+          <strong>What to look at:</strong> the same kind of model inversion on the other facet, and
+          the inferred reduction is
           somewhere else &mdash; near &minus;14&nbsp;&deg;C, which is exactly where thin plates and
           big stellar crystals live. Two facets, two dips, two different temperatures. That is the
           whole answer in two graphs.
@@ -935,13 +943,13 @@
       </figure>
 
       <figure class="figure"
-              data-src="research/figures/sdak-dip-prism-measured-near-minus14C.png"
+              data-src="research/figures/sdak-dip-prism-source-inferred-near-minus14C.png"
               data-figure="Figure 18"
               data-source="Libbrecht, &ldquo;Toward a Comprehensive Model of Snow Crystal Growth Dynamics: 8&rdquo; (arXiv:2009.08404v2)"
               data-page="PDF p. 15"
-              data-alt="Post-monograph graph of measured narrow-prism-facet nucleation barriers with error bars over minus 5 to minus 40 degrees Celsius, dipping near minus 14 degrees; a dotted line guides the eye.">
+              data-alt="Post-monograph graph of model-inferred narrow-prism-facet nucleation barriers with error bars over minus 5 to minus 40 degrees Celsius, reduced near minus 14 degrees; a dotted line guides the eye.">
         <figcaption class="figure__caption">
-          <strong>The direct source behind the prism dip:</strong> needle-seeded crystals in one-bar
+          <strong>The source behind the prism reduction:</strong> needle-seeded crystals in one-bar
           filtered air, mapped at &sigma;<sub>far</sub>&nbsp;=&nbsp;32&nbsp;%. Near
           &minus;14&nbsp;&deg;C the narrow-prism barrier falls to about one tenth of its broad-facet
           value. The simple exponential description fails near the deepest part, so the source draws
@@ -966,20 +974,20 @@
           errors of perhaps a factor of two in inferred &sigma;<sub>surf</sub> for some morphologies
           and says its central witness assumption cannot be independently verified inside the same
           experiment (arXiv:2009.08404v2, pp. 9&ndash;10, 16). The roughly tenfold narrow-versus-broad
-          contrast is direct enough to challenge the broad curve; its absolute placement remains
-          model-conditioned.
+          contrast supports a challenge to the broad curve within that model; its magnitude and
+          absolute placement remain model-conditioned.
         </p>
       </aside>
 
       <div class="table-wrap">
         <table>
           <caption>
-            The two dips, as reported. Centre temperatures are quoted from the captions of
+            The two inferred reduction regions, as reported. Approximate temperatures are quoted from
             Figures 4.26 and 4.27 (Libbrecht, Snow Crystals, printed p. 172); the shapes they are
             credited with come from the caption of Figure 4.12 (printed p. 152).
           </caption>
           <thead>
-            <tr><th>Which facet dips</th><th class="num">Centre</th><th>What it makes</th></tr>
+            <tr><th>Facet</th><th class="num">Inferred region</th><th>Associated source interpretation</th></tr>
           </thead>
           <tbody>
             <tr>
@@ -1004,25 +1012,26 @@
           How we know
         </p>
         <p>
-          These two data sets are narrower in scope than they look. The prism dip was measured at a
+          These two inversions are narrower in scope than they look. The prism reduction was inferred at a
           single supersaturation, so nothing in that data set says how the dip depends on the supply
           of spare vapour. Near
           the bottom of the dip the simple functional form stops working: &ldquo;The measurements
           near the peak at -14 C do not fit the simple exponential functional form, but the fit is
           reasonable on either side of the peak&rdquo; (arXiv:2009.08404v2, p.&nbsp;15). And the
           dotted lines drawn through both sets of points are eye guides, not fits: the two papers
-          that report these measurements print no equation for either dip.
+          that report these analyses print no equation for either dip.
         </p>
         <p>
           Formulas for the dips do exist, in a later paper, and the chart in the next section uses
           them. But their shape was chosen by hand rather than fitted to these points, which is why
           their own author calls the functional forms &ldquo;completely ad hoc&rdquo;
-          (arXiv:2306.13087v1, p.&nbsp;6). The dips are real. Their exact shape is not pinned down.
+          (arXiv:2306.13087v1, p.&nbsp;6). The experiments support narrow-facet reductions within their
+          model assumptions; the exact M1 shape is a P3 choice and is not pinned down by them.
         </p>
       </aside>
 
       <!-- ================================================================= -->
-      <h2 id="payoff">Count the crossings again</h2>
+      <h2 id="payoff">Count the equality roots again</h2>
 
       <p>
         Now put the dips onto the curves and repeat the exercise that failed before. The chart
@@ -1033,9 +1042,8 @@
         <div class="anim__head">
           <p class="anim__title">The same two curves, with the dips</p>
           <p class="anim__sub">
-            The dashed verticals mark every barrier crossing. The strip underneath names the
-            resulting faster-facet tendency, not a guaranteed habit. Toggle the dips off and on
-            and watch that tendency change.
+            The dashed verticals mark every barrier equality. The strip underneath names only which
+            barrier is lower. Toggle the dips off and on and watch that input order change.
           </p>
         </div>
         <div class="anim__body"></div>
@@ -1043,26 +1051,25 @@
         <figcaption class="anim__foot">
           <span class="built-from">Original chart. Broad-facet curves from Libbrecht,
           arXiv:2009.08404v2, p. 3, Eq. (2) and arXiv:2306.13087v1, p. 7; the two dip factors from
-          arXiv:2306.13087v1, p. 6. Crossings located by bisection on those printed equations. The
+          arXiv:2306.13087v1, p. 6. Equality roots are located by bisection on those printed equations. The
           author describes the dip factors' functional forms as &ldquo;completely ad hoc&rdquo;
-          while the underlying barrier values derive from measurement (arXiv:2306.13087v1,
-          p. 6).</span>
+          while the narrow-facet barrier reductions are inferred through model-conditioned growth
+          analyses (arXiv:2306.13087v1, p. 6).</span>
         </figcaption>
       </figure>
 
       <p>
-        Evaluate those curves with the dips added and the crossings triple. Read only the
-        faster-facet tendency and its order is: plate-like at &minus;2&nbsp;&deg;C, column-like at
-        &minus;5&nbsp;&deg;C, plate-like at &minus;15&nbsp;&deg;C, column-like at
-        &minus;30&nbsp;&deg;C. That reproduces the order of the four canonical Nakaya bands, but it
-        is not yet a crystal-growth calculation: diffusion, facet width, history and the prefactors
-        still decide whether an actual crystal develops an extreme aspect ratio.
+        Evaluate those two barrier curves with the dips added and their equality-root count becomes
+        three. The lower-barrier order alternates across four temperature intervals. Do not translate
+        those intervals into plate and column labels: this calculation omits the A prefactors,
+        unequal surface fields, diffusion, geometry, facet width, and history. Habit belongs to a
+        complete 3-D forward run and its frozen evaluator.
       </p>
 
       <div class="table-wrap">
         <table>
           <caption>
-            Crossings found by solving the printed closed forms for the temperature at which the two
+            Equality roots found by solving the printed closed forms for the temperature at which the two
             barrier curves are equal. Every row shares the same basal curve (arXiv:2009.08404v2,
             p. 3, Eq. 2) and differs only in the prism curve and in whether the dips are applied. The
             paper prints <code>log</code> without naming its base (arXiv:2306.13087v1,
@@ -1072,7 +1079,7 @@
             logarithm and obtained five crossings.
           </caption>
           <thead>
-            <tr><th>Curves used</th><th class="num">Crossings</th><th>At</th></tr>
+            <tr><th>Curves used</th><th class="num">Equality roots</th><th>At</th></tr>
           </thead>
           <tbody>
             <tr>
@@ -1096,18 +1103,19 @@
       </div>
 
       <p>
-        Three crossings from two curves and two dips, matching the diagram&rsquo;s three candidate
-        transitions in <em>count</em>. Whether they match in <em>place</em>, and whether a kinetic
-        crossing becomes a morphology boundary, are separate questions. The positional answer is:
-        partly.
+        Three equality roots from two curves and two dips happen to equal the diagram&rsquo;s boundary
+        count. That numerical coincidence is not a morphology comparison. The roots near 3.08,
+        8.07, and 24.73 degrees below freezing are also not the dip centres: the centres are 4.5 and
+        14.4, unchanged whether the formula is written coherently with log10 or ln.
       </p>
 
       <p>
         Set those three beside the numbers Chapter&nbsp;7 actually printed. Its table of band
         boundaries, measured off a published figure with &plusmn;0.5&nbsp;&deg;C read uncertainty,
-        gave &minus;3.3, &minus;9.9 and &minus;21.5&nbsp;&deg;C. The warm crossing here,
+        gave &minus;3.3, &minus;9.9 and &minus;21.5&nbsp;&deg;C. As a descriptive comparison only,
+        the warm equality root here,
         &minus;3.1&nbsp;&deg;C, agrees with &minus;3.3&nbsp;&deg;C to within that read uncertainty.
-        The middle crossing, &minus;8.1&nbsp;&deg;C, misses &minus;9.9&nbsp;&deg;C by
+        The middle equality root, &minus;8.1&nbsp;&deg;C, misses &minus;9.9&nbsp;&deg;C by
         1.8&nbsp;&deg;C &mdash; outside the read uncertainty, and a plainly weaker match than the
         exact hit an earlier, miscalculated version of this table reported. Be precise about what the
         match that remains does and does not show: the dip onsets were chosen to put the dips near
@@ -1120,21 +1128,17 @@
         coldest boundary is barely pinned at all: the research literature sets the sequence out as
         &ldquo;platelike again from -11 C to -18 C, and columnar again below -30 C&rdquo;
         (arXiv:2012.12916v1, p.&nbsp;1), leaving the twelve degrees in between simply unassigned. The
-        &minus;24.7&nbsp;&deg;C crossing here sits inside that gap, as the miscalculated version's
-        crossing did too, though it now sits further from Chapter&nbsp;7's &minus;21.5&nbsp;&deg;C
+        &minus;24.7&nbsp;&deg;C equality root here sits inside that gap, as the miscalculated version's
+        root did too, though it now sits further from Chapter&nbsp;7's &minus;21.5&nbsp;&deg;C
         than that version claimed.
       </p>
 
       <p>
-        So: under this site&rsquo;s base-10 interpretation, the evaluated count is three. One of the
-        three placements &mdash; the warm one &mdash; remains close. The middle one, which an
-        earlier version of this chapter called &ldquo;an exact hit&rdquo;, does not; that claim was
-        an artefact of the earlier logarithm choice and is withdrawn here. Read the whole exercise
-        as it should have been read from the start: not proof that the SDAK dips are placed
-        correctly, and not a habit simulation, but a demonstration that dips of roughly this size
-        and location can turn one barrier crossing into three candidate tendency reversals.
-        The dips' own standing rests on the two dedicated, model-conditioned data sets in the
-        preceding section, not on how precisely this curve-counting exercise lines up.
+        So: under this site&rsquo;s base-10 interpretation, the evaluated equality-root count is three.
+        Read the exercise narrowly: it verifies the implemented closed forms and shows how their
+        order changes. It is not proof that the dips are placed correctly, not a habit simulation,
+        and not evidence that any root becomes a morphology boundary. The reduction hypothesis rests
+        on the model-conditioned analyses in the preceding section; the exact M1 formula remains P3.
       </p>
 
       <figure class="figure"
@@ -1144,10 +1148,9 @@
               data-page="PDF p. 154 &middot; printed p. 153"
               data-alt="A single plot of the narrow-facet nucleation barriers for basal and prism facets against temperature, annotated with small crystal drawings and the words plates, columns and thin plates in the bands where each facet has the lower barrier.">
         <figcaption class="figure__caption">
-          <strong>What to look at:</strong> the author's own version of the chart you have just been
-          driving. The small crystal drawings are placed in the bands where each curve is lower. If
-          you remember one image from this chapter, make it this one: the alternation you met as a
-          mystery in Chapter 7 is here reduced to two lines taking turns being underneath.
+          <strong>What to look at:</strong> the author&rsquo;s proposed interpretation of the same
+          barrier curves. The small crystal drawings express the source model&rsquo;s morphology claim;
+          they are not a habit result independently established by the two-line plot.
           <br><br>
           <em>Published caption: &ldquo;Figure 4.13: Plotting the SDAK curves from Figure 4.12
           together, we can compare the basal and prism nucleation barriers as a function of
@@ -1353,8 +1356,11 @@
       </p>
 
       <p>
-        <strong>Well established.</strong> The broad-facet barrier curves are measurements. The
-        Nakaya diagram's three boundaries are measurements, reproduced by independent groups. That
+        <strong>Well established.</strong> The broad-facet &sigma;<sub>0</sub> points are
+        model-dependent inversions from growth measurements, and the smooth curves are source fits;
+        neither should be relabelled as a direct measurement of surface supersaturation. The three
+        published morphology figures above show broadly repeated temperature-dependent habit
+        boundaries, with differences in their exact placement. That
         the two broad-facet &sigma;<sub>0</sub> curves alone cross once is arithmetic; that this by
         itself proves no broad-facet model could ever produce three boundaries is not &mdash; an
         earlier version of this chapter claimed exactly that, and it does not survive putting the
@@ -1389,17 +1395,19 @@
         200 molecules wide&rdquo; above into an actual estimate of how much it should lower
         &sigma;<sub>0,prism</sub> near &minus;14&nbsp;&deg;C, and gets &ldquo;a factor-of-two
         reduction in the effective &sigma;<sub>0,prism</sub>&rdquo; &mdash; the barrier dropping to
-        about half its broad-facet value. But the measured dip from &ldquo;Two dips, then two
-        measurements&rdquo; drops it to &ldquo;about one-tenth of its broad-facet value&rdquo;, and
+        about half its broad-facet value. But the effective dip inferred from the narrow-facet
+        experiments discussed above drops it to &ldquo;about one-tenth of its broad-facet value&rdquo;, and
         the same sentence calls the factor-of-two prediction &ldquo;perhaps too small to reproduce
         the actual SDAK dip at -14 C&rdquo; (arXiv:2012.12916v1, p.&nbsp;9). Half versus a tenth is
         roughly a fivefold shortfall &mdash; that arithmetic is this site's, not the paper's &mdash;
-        between what the proposed physical mechanism predicts on its own and what the two dedicated
-        experiments earlier in this chapter actually measured. The same page draws its own
+        between what the proposed physical mechanism predicts on its own and the effective
+        narrow-facet parameter inferred from those experiments. That inference depends on the
+        growth model and its assumed surface supersaturation; it is not a direct measurement of
+        &sigma;<sub>0</sub> or of &sigma;<sub>surf</sub>. The same page draws its own
         conclusion plainly: &ldquo;this basic picture is too simplistic to explain the observed
-        SDAK phenomenon&rdquo; (arXiv:2012.12916v1, p.&nbsp;9). None of that puts the dip itself in
-        doubt &mdash; the dip is the measured data
-        in Figures 4.26 and 4.27 above &mdash; but it is a sharper, more citable measure of the gap
+        SDAK phenomenon&rdquo; (arXiv:2012.12916v1, p.&nbsp;9). None of that erases the observed
+        narrow-facet growth behaviour in Figures 4.26 and 4.27 above, but the exact dip reconstructed
+        from those observations remains model-dependent. The comparison is a sharper, more citable measure of the gap
         than &ldquo;completely ad hoc&rdquo; curve-fitting alone: even working the mechanism forward
         from first principles, its own author comes up several times short of the effect he is
         trying to explain.
@@ -1407,7 +1415,7 @@
 
       <figure class="anim" id="anim-esi-shortfall">
         <div class="anim__head">
-          <p class="anim__title">Predicted versus measured: the mechanism falls short</p>
+          <p class="anim__title">Predicted versus model-inferred: the mechanism falls short</p>
           <p class="anim__sub">
             The two numbers from the paragraph above, side by side. Same &sigma;<sub>0,prism</sub>
             reduction near &minus;14&nbsp;&deg;C, two very different sources.
@@ -1419,8 +1427,9 @@
           <span class="built-from">Original chart. Both values are quoted, not re-derived, from
           Libbrecht, arXiv:2012.12916v1, p.&nbsp;9: the corner-to-facet diffusion mechanism worked
           forward from first principles gives &ldquo;a factor-of-two reduction in the effective
-          &sigma;<sub>0,prism</sub>&rdquo;; the two dedicated measurements in this chapter give
-          &ldquo;about one-tenth of its broad-facet value&rdquo;. The roughly fivefold gap between
+          &sigma;<sub>0,prism</sub>&rdquo;; model-conditioned inversion of the two dedicated growth
+          experiments in this chapter gives &ldquo;about one-tenth of its broad-facet value&rdquo;.
+          The roughly fivefold gap between
           them is this site's arithmetic, not the paper's.</span>
         </figcaption>
       </figure>
@@ -1449,22 +1458,30 @@
       </aside>
 
       <p>
-        The most recent statement of its status is the plainest. SDAK is &ldquo;a working
-        hypothesis&rdquo;, and it survives because it is the only candidate standing: &ldquo;the
-        SDAK phenomenon provides the only viable option currently available that can adequately
-        explain the Nakaya diagram together with a plethora of other ice-growth data&rdquo;
-        (arXiv:2306.13087v1, p.&nbsp;5). The formulas used to draw the dips are described by their
-        own author as &ldquo;completely ad hoc&rdquo; in shape, even though the barrier values
-        underneath them come from experiment (p.&nbsp;6). And the goal is stated without any
+        The source calls SDAK &ldquo;a working hypothesis&rdquo; and argues that it &ldquo;provides the
+        only viable option currently available&rdquo; for the Nakaya diagram and other ice-growth data
+        (arXiv:2306.13087v1, p.&nbsp;5). That is the author&rsquo;s assessment of alternatives, not a
+        theorem or a project priority claim. The formulas used to draw the dips are described by
+        their own author as &ldquo;completely ad hoc&rdquo; in shape; the reduction regions underneath
+        them are model-conditioned inversions rather than direct barrier measurements (p.&nbsp;6).
+        The goal is stated without any
         pretence of finality: &ldquo;My objective with the CAK model presented in this chapter is not
         to declare a full solution to the attachment kinetics problem, but rather to move the ball
         forward while stimulating additional progress in this area&rdquo; (printed p.&nbsp;159).
       </p>
 
+      <p>
+        The implemented forward model carries the same limit in a concrete form. Premelting enters
+        only insofar as the recorded attachment parameterizations encode it; there is no separately
+        evolved quasi-liquid layer or explicit surface-diffusion dynamics, and latent-heat transport
+        is omitted. None of those omissions is automatically harmless for validation. Their
+        regime-dependent error must be bounded or reported as a systematic before a quantitative
+        claim is made over the affected temperatures and growth conditions.
+      </p>
+
       <p class="handoff">
-        That is the best answer anyone currently has to the question Nakaya's diagram posed in the
-        1930s &mdash; and its own author files it as a working hypothesis rather than a result. Three
-        specific things would move it off that shelf: showing that the two facets really do premelt
+        That is one published working hypothesis rather than an accepted result. Three specific
+        things would strengthen it: showing that the two facets really do premelt
         differently from each other; finding what sets the shape of the dips, instead of drawing
         them by hand; and computing attachment kinetics from first principles instead of fitting
         them to growth data. Chapter 13 picks up each of those and asks how far anyone has got.
@@ -1490,8 +1507,9 @@
   <div class="shell">
     <p>
       Part of <a href="../index.html">Snow Crystals</a>, an educational site about the science of
-      snowflake formation. Source figures are &copy; Kenneth G. Libbrecht and are reproduced here
-      from a local research cache under citation; they are not redistributed with this repository.
+      snowflake formation. Source figures are &copy; Kenneth G. Libbrecht and are not redistributed
+      with this repository or public course; a personal offline build may substitute cited copies
+      from a local research cache.
     </p>
     <p><a href="../references.html">References</a> &middot; <a href="../glossary.html">Glossary</a></p>
   </div>
@@ -1515,9 +1533,8 @@
   const dipped = document.getElementById("anim-sigma0-dips");
   if (dipped && window.Sigma0) Sigma0.mount(dipped, { withDips: true });
 
-  // The alphaHK crossing chart that makes the "Corrected" callout's
-  // three-crossing claim checkable — defaults match the callout's own
-  // sigma_surf = 0.20 % example, with A_prism included.
+  // The alphaHK equality chart makes the restricted shared-field calculation
+  // checkable. Defaults match the callout's sigma_surf = 0.20 % example.
   const alphaHKRoot = document.getElementById("anim-alphaHK-crossings");
   if (alphaHKRoot && window.Sigma0 && Sigma0.mountAlphaHK) {
     Sigma0.mountAlphaHK(alphaHKRoot, { sigmaSurf: 0.20, includeAPrism: true });
@@ -1525,10 +1542,10 @@
 })();
 
 /* ===========================================================================
-   2. "Two barriers, one shape"
+   2. "Two barriers, one restricted coefficient comparison"
       alphaHK = A exp(-sigma0 / sigma_surf) with A = 1, evaluated live from the
-      two slider values. The crystal beside it is a SCHEMATIC of which facet
-      is favoured — never a calculated aspect ratio.
+      two slider values. The facet sketch beside it never changes aspect ratio;
+      no morphology is inferred from this local comparison.
    ======================================================================== */
 (function () {
   const root = document.getElementById("anim-rule");
@@ -1542,7 +1559,6 @@
   let svg = null, sliderB = null, sliderP = null;
 
   const alphaHKOf = (s0) => Math.exp(-s0 / sSurf);
-  const clamp = (v, lo, hi) => Math.max(lo, Math.min(hi, v));
 
   function fmtAlpha(a) {
     if (a >= 0.1) return a.toFixed(2);
@@ -1594,17 +1610,16 @@
     const aB = alphaHKOf(s0Basal), aP = alphaHKOf(s0Prism);
     const ratio = aP / aB;
 
-    const verdict = ratio > 1 ? "plate-like tendency"
-      : ratio < 1 ? "column-like tendency" : "no directional tendency";
-    const winner = ratio > 1 ? "Prism attachment is faster in this kinetic comparison."
-      : ratio < 1 ? "Basal attachment is faster in this kinetic comparison."
-      : "The two printed attachment coefficients are equal.";
+    const verdict = ratio > 1 ? "prism alphaHK is larger"
+      : ratio < 1 ? "basal alphaHK is larger" : "the coefficients are equal";
+    const winner = ratio === 1
+      ? "The two attachment coefficients are equal at this shared field."
+      : "This order is conditional on the chosen shared positive surface supersaturation.";
 
     svg = Viz.createSvg(body, W, H, {
-      label: "Two bars showing how hard each face is to start growing, beside a schematic "
-        + "crystal that becomes a plate when the side faces are easier and a column when the "
-        + "top and bottom faces are easier.",
-      desc: "The schematic currently shows a " + verdict + ".",
+      label: "Two barrier inputs and their attachment coefficients at one shared positive "
+        + "surface supersaturation, beside a fixed facet-orientation sketch.",
+      desc: "The local comparison currently says " + verdict + "; no habit is assigned.",
     });
 
     /* ---------------- left panel: the two barriers ---------------- */
@@ -1632,14 +1647,8 @@
     text(svg, 161, 40, "How hard the face is to start (σ₀)", { fill: c.inkSecondary, weight: 620 });
     text(svg, 161, 58, "shorter bar = easier = faster face", { fill: c.muted, size: 11 });
 
-    /* ---------------- right panel: the schematic crystal ---------------- */
-    // Height/width ratio is a bounded, monotone SCHEMATIC map of the alphaHK
-    // ratio. It says which way and roughly how strongly — nothing more.
-    const lg = clamp(Math.log10(ratio), -1.5, 1.5);
-    const hw = Math.pow(3, -lg);
-    let cw = 148 / Math.sqrt(hw), ch = 148 * Math.sqrt(hw);
-    const shrink = Math.min(1, 216 / cw, 176 / ch);
-    cw *= shrink; ch *= shrink;
+    /* ---------------- right panel: fixed facet-orientation sketch ------- */
+    const cw = 148, ch = 148;
 
     const cx = 482, cy = 158;
     svg.appendChild(Viz.svgEl("rect", {
@@ -1659,11 +1668,11 @@
       }));
     });
 
-    text(svg, cx, 40, "the crystal, seen from the side (schematic)",
+    text(svg, cx, 40, "facet orientation (fixed schematic)",
       { fill: c.inkSecondary, weight: 620 });
     text(svg, cx, 58, "blue edges are basal faces, orange edges are prism faces",
       { fill: c.muted, size: 11 });
-    text(svg, cx, base + 19, "model tendency: " + verdict,
+    text(svg, cx, base + 19, "restricted comparison: " + verdict,
       { fill: c.ink, weight: 650, size: 13.5 });
     text(svg, cx, base + 37, winner, { fill: c.inkSecondary, size: 11.5 });
 
@@ -2117,7 +2126,7 @@
 })();
 
 /* ===========================================================================
-   5. "Predicted versus measured: the mechanism falls short"
+   5. "Predicted versus model-inferred: the mechanism falls short"
       A minimal, static paired-bar chart. Both numbers are QUOTED, not
       re-derived, from the paragraph directly above (arXiv:2012.12916v1,
       p. 9). This widget adds no new claim of its own — it only makes the
@@ -2131,7 +2140,7 @@
 
   const W = 480, H = 300;
   const PREDICTED = 2;    // "a factor-of-two reduction" — arXiv:2012.12916v1, p. 9
-  const MEASURED = 10;    // "about one-tenth of its broad-facet value" — same page
+  const MODEL_INFERRED = 10; // model-conditioned inversion: "about one-tenth..." — same page
 
   function label(parent, x, y, str, opts) {
     const o = opts || {};
@@ -2154,14 +2163,14 @@
     svg = Viz.createSvg(body, W, H, {
       label: "A bar chart comparing two reduction factors for the effective prism barrier near " +
         "minus fourteen degrees: a predicted reduction of about two-fold, from working the " +
-        "edge-sharpening mechanism forward from first principles, against a measured reduction " +
-        "of about ten-fold, from the two dedicated experiments earlier in this chapter.",
+        "edge-sharpening mechanism forward from first principles, against a model-inferred " +
+        "reduction of about ten-fold from the two dedicated experiments earlier in this chapter.",
     });
 
     const base = 210, maxH = 130, scaleMax = 12;
     const bars = [
       { x: 150, v: PREDICTED, color: c.series[0], name: "Predicted" },
-      { x: 330, v: MEASURED, color: c.series[1], name: "Measured" },
+      { x: 330, v: MODEL_INFERRED, color: c.series[1], name: "Model-inferred" },
     ];
 
     svg.appendChild(Viz.svgEl("line", {
@@ -2185,7 +2194,7 @@
       { fill: c.muted, size: 10.5 });
 
     label(svg, W / 2, H - 44,
-      "predicted ×2 versus measured ×10 — roughly a ×5 shortfall",
+      "predicted ×2 versus model-inferred ×10 — roughly a ×5 shortfall",
       { fill: c.inkSecondary, weight: 650, size: 12.5 });
     label(svg, W / 2, H - 26,
       "(the ×5 is this site's arithmetic, not the paper's — see the paragraph above)",

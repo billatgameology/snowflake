@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>The Stickiness of Ice — Snow Crystals</title>
-<meta name="description" content="What decides whether an arriving water molecule joins the ice: the attachment coefficient, the terrace-nucleation barrier, and where those numbers were measured.">
+<meta name="description" content="What decides whether an arriving water molecule joins the ice: the attachment coefficient, the terrace-nucleation barrier, and how observations were fitted or inverted into model parameters.">
 <link rel="stylesheet" href="../assets/education.css">
 </head>
 
@@ -83,8 +83,9 @@
         lattice &mdash; along with the growth law
         <em>v</em>&nbsp;=&nbsp;<code>alphaHK</code>&thinsp;<em>v</em><sub>kin</sub>&thinsp;&sigma;<sub>surf</sub>
         and the nucleation barrier standing behind a facet's small <code>alphaHK</code>. Everything there was an
-        idea. <strong>This is the chapter where those ideas become measured numbers</strong>, with
-        error bars, printed in papers, and honest about where they run out.
+        idea. <strong>This is the chapter where those ideas meet experiment-constrained numbers</strong>:
+        direct observations, fitted curves and model-conditioned inversions, with error bars and
+        explicit limits.
       </p>
 
       <p>
@@ -662,12 +663,13 @@
               data-figure="Figure 2"
               data-source="Libbrecht, &ldquo;Toward a Comprehensive Model of Snow Crystal Growth Dynamics: 8&rdquo; (arXiv:2009.08404v2)"
               data-page="PDF p. 3"
-              data-alt="Post-monograph two-panel graph showing measured broad-facet nucleation barriers and A prefactors with error bars, together with smooth basal and prism curves drawn as approximate fits.">
+              data-alt="Post-monograph two-panel graph showing broad-facet parameter estimates inferred from growth data, with error bars and smooth basal and prism source fits.">
         <figcaption class="figure__caption">
           <strong>What the later paper adds:</strong> the dots and error bars behind the smooth
           broad-facet curves. The upper panel is &sigma;<sub>0</sub>; the lower is A. This is the
-          provenance split in one image: measurements are marks, while the continuous CAK curves are
-          approximate fits. The paper prints closed forms for those fits beside the figure and says
+          provenance split in one image: the marks are parameter estimates inferred from growth
+          observations, while the continuous CAK curves are approximate source fits. The paper
+          prints closed forms for those fits beside the figure and says
           their functional forms were chosen solely to represent the available data reasonably
           (arXiv:2009.08404v2, pp. 3&ndash;4).
         </figcaption>
@@ -684,10 +686,10 @@
           </thead>
           <tbody>
             <tr>
-              <td>Broad-facet data</td>
+              <td>Broad-facet observations</td>
               <td>Growth rates of simple, wide basal and prism facets, mostly measured in
                 near-vacuum experiments</td>
-              <td>Empirical attachment kinetics for broad facets over the measured conditions</td>
+              <td>Observational basis for model-inverted attachment parameters over those conditions</td>
             </tr>
             <tr>
               <td>Smooth broad curves</td>
@@ -722,14 +724,23 @@
           so edge effects are absent, and assumes the parameters do not depend on background air
           pressure (arXiv:2009.08404v2, p. 4). It also calls the full CAK account, including SDAK,
           speculative in important places. The honest description is
-          <strong>semi-empirical source map</strong>: measured broad-facet points, fitted smooth
-          curves, measured-but-model-dependent narrow-facet evidence, and a proposed molecular
+          <strong>semi-empirical source map</strong>: broad-facet growth observations,
+          model-inverted parameter points, fitted smooth curves, model-dependent narrow-facet
+          evidence, and a proposed molecular
           mechanism.
+        </p>
+        <p>
+          In this project, <code>LibbrechtKinetics</code> consumes that map but does not explicitly
+          simulate the quasi-liquid layer or surface diffusion, and it omits latent-heat transport.
+          The fitted inputs may encode some premelting response; the project has not shown that they
+          absorb all of it quantitatively. Those omissions need a bound or a stated systematic over
+          any domain for which quantitative validation is claimed.
         </p>
       </aside>
 
       <p>
-        Here is what that looks like at one temperature, with both faces measured at once. Note that
+        Here is what that looks like at one temperature, with both faces model-inferred from growth data in
+        one study. Note that
         these are not growth speeds any more &mdash; they are sticking probabilities, already divided
         back out of the speeds.
       </p>
@@ -779,9 +790,10 @@
       </figure>
 
       <p>
-        Here are the numbers themselves, for the few temperatures where they have been pinned down
-        most carefully. One warning goes with all of them, and the word &ldquo;large&rdquo; in the
-        table's title is carrying it. Every value below was measured on a broad facet &mdash; a face
+        Here are the model-conditioned parameter values themselves, for a few temperatures where
+        experiments constrain them most carefully. One warning goes with all of them, and the word
+        &ldquo;large&rdquo; in the table's title is carrying it. Each value below was fitted or inferred
+        from growth observed on a broad facet &mdash; a face
         wide enough for the terrace-nucleation picture above to apply to it cleanly, in an
         experiment designed to keep it that way. Figure&nbsp;4.3 said
         that a finished snow crystal is steered by the topmost facet terraces at its branch tips,
@@ -795,10 +807,10 @@
       <div class="table-wrap">
         <table>
           <caption>
-            Measured large-facet parameters at three temperatures. The first four rows come from
-            dedicated measurement papers published after the monograph; the last is from the
-            monograph itself. Values are quoted as printed in those sources; the approximately signs
-            are theirs.
+            Source-fit or model-inverted large-facet parameters at three temperatures. The first
+            four rows come from dedicated experimental-model papers published after the monograph;
+            the last is from the monograph itself. Values are quoted as printed in those sources;
+            the approximately signs are theirs.
           </caption>
           <thead>
             <tr>
@@ -1094,8 +1106,9 @@
   <div class="shell">
     <p>
       Part of <a href="../index.html">Snow Crystals</a>, an educational site about the science of
-      snowflake formation. Source figures are &copy; Kenneth G. Libbrecht and are reproduced here
-      from a local research cache under citation; they are not redistributed with this repository.
+      snowflake formation. Source figures are &copy; Kenneth G. Libbrecht and are not redistributed
+      with this repository or public course; a personal offline build may substitute cited copies
+      from a local research cache.
     </p>
     <p><a href="../references.html">References</a> &middot; <a href="../glossary.html">Glossary</a></p>
   </div>
@@ -1715,9 +1728,9 @@
 
 /* ===========================================================================
    4. Cross the barrier — alphaHK = A·exp(−σ0/σ_surf), Equation 4.4, printed p.142.
-      Presets are measured large-facet values near −5 °C (arXiv:1912.03230v1)
+      Presets are source-fit/model-inverted large-facet values near −5 °C (arXiv:1912.03230v1)
       and near −2 °C (arXiv:2004.06212v1, p. 3) — the same numbers printed in
-      the "Measured large-facet parameters" table above.
+      the "Source-fit or model-inverted large-facet parameters" table above.
 
       A second consecutive named-preset click pins whichever curve is already
       on screen as a second, dashed reference curve, so a reader can see
@@ -1931,7 +1944,7 @@
     // step 0.01 (not the coarser 0.05 used elsewhere in this widget) because
     // a <input type="range"> snaps every assigned value — including ones set
     // programmatically by preset() — to the nearest point on the min+n·step
-    // grid. 0.01 keeps every measured σ0 in the table above (0.03, 0.2, 0.4,
+    // grid. 0.01 keeps every source-printed model parameter in the table above (0.03, 0.2, 0.4,
     // 0.7, and 3) exactly reachable; a coarser step silently mis-set them.
     min: 0.01, max: 3, step: 0.01, value: state.s0,
     format: (v) => v.toFixed(2) + " %",
@@ -1970,17 +1983,17 @@
     state.label = label;
     render();
   }
-  Viz.button(controls, "Measured basal, −5 °C", function () {
-    preset(0.7, 1, "basal", "measured large basal facet near −5 °C", "Basal, −5 °C");
+  Viz.button(controls, "Model-inferred basal, −5 °C", function () {
+    preset(0.7, 1, "basal", "model-inferred from large-basal-facet growth near −5 °C", "Basal, −5 °C");
   });
-  Viz.button(controls, "Measured prism, −5 °C", function () {
-    preset(0.2, 0.2, "prism", "measured large prism facet near −5 °C", "Prism, −5 °C");
+  Viz.button(controls, "Model-inferred prism, −5 °C", function () {
+    preset(0.2, 0.2, "prism", "model-inferred from large-prism-facet growth near −5 °C", "Prism, −5 °C");
   });
-  Viz.button(controls, "Measured basal, −2 °C", function () {
-    preset(0.4, 1, "basal", "measured large basal facet near −2 °C", "Basal, −2 °C");
+  Viz.button(controls, "Model-inferred basal, −2 °C", function () {
+    preset(0.4, 1, "basal", "model-inferred from large-basal-facet growth near −2 °C", "Basal, −2 °C");
   });
-  Viz.button(controls, "Measured prism, −2 °C", function () {
-    preset(0.03, 0.25, "prism", "measured large prism facet near −2 °C", "Prism, −2 °C");
+  Viz.button(controls, "Model-inferred prism, −2 °C", function () {
+    preset(0.03, 0.25, "prism", "model-inferred from large-prism-facet growth near −2 °C", "Prism, −2 °C");
   });
   clearBtn = Viz.button(controls, "Clear second curve", function () {
     state.pinned = null;

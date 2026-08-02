@@ -31,13 +31,19 @@ import {
 } from "./checkpoint-production-oracle.mjs";
 import {
   checkpointViolations,
+  cm6VisibleLimitViolations,
   crossingViolations,
+  derivePhase6TrackedAuthority,
   ledgerViolations,
+  loadPhase6TrackedInputs,
   PHASE6_ARM2_PROTOCOL_SHA256,
   PHASE6_ARM2_VALUES_PIN_COMMIT,
   PHASE6_ARM2_VALUES_SHA256,
   PHASE6_STATUS_COMMIT,
   phase6StatusViolations,
+  preregisterAssetViolations,
+  sigma0AssetViolations,
+  sweepAssetViolations,
   timelineViolations,
   TRANSFER_AXIS_COUNT,
   TRANSFER_SOURCE_AUTHORITY,
@@ -52,6 +58,8 @@ const OUT = join(REPO, "out/education-verify");
 const REGISTERED_REAL_GROWTH_SHA256 =
   "6a8d4057e3e588714345eb156c8129f65037cfb0998e16b63618ffd5382fd7e4";
 const MANIFEST = JSON.parse(readFileSync(join(TOOL_DIR, "site-manifest.json"), "utf8"));
+const phase6TrackedInputs = loadPhase6TrackedInputs(REPO);
+const phase6TrackedAuthority = derivePhase6TrackedAuthority(phase6TrackedInputs);
 const ALL_PAGE_PATHS = Object.freeze(Object.keys(MANIFEST));
 const args = new Set(process.argv.slice(2));
 const partOneOnly = args.has("--part-one");
@@ -73,11 +81,29 @@ const screenshots = args.has("--screenshots");
 if (args.has("--public-only") && args.has("--offline-only")) {
   throw new Error("--public-only and --offline-only are mutually exclusive");
 }
-const modes = args.has("--public-only")
+const selectedModes = args.has("--public-only")
   ? ["public"]
   : args.has("--offline-only")
     ? ["offline"]
     : ["public", "offline"];
+// The focused command historically ran public bytes only. Preserve that lightweight default, but
+// honor an explicit offline selector instead of silently ignoring it.
+const modes = partTwoModelsOnly && !args.has("--public-only") && !args.has("--offline-only")
+  ? ["public"]
+  : selectedModes;
+
+const PART_TWO_MODEL_KEYS = Object.freeze([
+  "timeline",
+  "ledger",
+  "transferability",
+  "checkpoint",
+  "sigma0Asset",
+  "preregisterAsset",
+  "sweepAsset",
+  "status",
+  "crossing",
+]);
+let partTwoRunInventory = null;
 
 const failures = [];
 const checks = [];
@@ -100,6 +126,73 @@ function requireCheck(condition, label, detail) {
 
 function sha256(path) {
   return createHash("sha256").update(readFileSync(path)).digest("hex");
+}
+
+/**
+ * Replace one tracked Phase 6 artifact and coherently re-pin the evidence manifest.
+ * Semantic negative controls use this so a manifest mismatch cannot hide a
+ * fail-open scientific predicate.
+ */
+function replacePhase6EvidenceBytes(inputs, path, bytes) {
+  inputs.files[path] = bytes;
+  const manifest = JSON.parse(Buffer.from(inputs.manifestBytes).toString("utf8"));
+  manifest.files[path] = {
+    bytes: bytes.byteLength,
+    sha256: createHash("sha256").update(bytes).digest("hex"),
+  };
+  manifest.fileCount = Object.keys(manifest.files).length;
+  manifest.totalBytes = Object.values(manifest.files)
+    .reduce((total, pin) => total + pin.bytes, 0);
+  inputs.manifestBytes = Buffer.from(JSON.stringify(manifest));
+}
+
+function replacePhase6EvidenceJson(inputs, path, value) {
+  replacePhase6EvidenceBytes(inputs, path, Buffer.from(JSON.stringify(value)));
+}
+
+function phase6FingerprintDigestFromText(text) {
+  const entries = [...text.matchAll(/^  ([^\t]+)\t([^\t]+)\t([0-9a-f]{16})$/gm)];
+  if (entries.length !== 448) {
+    throw new Error(`expected 448 fingerprint entries, found ${entries.length}`);
+  }
+  let hash = 0x811c9dc5;
+  for (const match of entries) {
+    for (const character of `${match[1]}|${match[2]}|${match[3]}\n`) {
+      hash ^= character.codePointAt(0);
+      hash = Math.imul(hash, 0x01000193) >>> 0;
+    }
+  }
+  return hash.toString(16).padStart(8, "0");
+}
+
+function makeCoherentM1InvalidFixture(inputs) {
+  const pointsPath = "phase6-sweep-arm2/points.json";
+  const reportPath = "phase6-sweep-arm2/report.json";
+  const points = JSON.parse(Buffer.from(inputs.files[pointsPath]).toString("utf8"));
+  const row = points[0];
+  row.result.allConverged = false;
+  row.modelClass = "invalid";
+  row.score = "excluded";
+  row.inHeadlineScope = true;
+  row.extentFragile = false;
+  row.exclusionReason = "a relaxation did not converge";
+  replacePhase6EvidenceJson(inputs, pointsPath, points);
+
+  const report = JSON.parse(Buffer.from(inputs.files[reportPath]).toString("utf8"));
+  report.headlineTotal = 77;
+  report.headlineTotalCommonDenominator = 89;
+  report.neutralCount = 118;
+  report.excludedCount = 1;
+  report.perRegime[0].disagree = 0;
+  report.perRegime[0].excluded = 1;
+  report.perRegime[0].neutralCount = 0;
+  report.excludedPoints = [{
+    tempC: -2,
+    fraction: 0.9,
+    reason: "a relaxation did not converge",
+  }];
+  replacePhase6EvidenceJson(inputs, reportPath, report);
+  return { points, report, row };
 }
 
 function listFiles(root) {
@@ -153,7 +246,7 @@ function staticChecks() {
   const sourceFiles = partOneOnly
     ? selectedPublishedSources()
     : listFiles(PUBLIC_ROOT)
-      .filter((path) => [".html", ".js", ".css", ".json", ".md"].includes(extname(path)));
+      .filter((path) => [".html", ".js", ".mjs", ".css", ".json", ".md"].includes(extname(path)));
   const randomCalls = [];
   for (const path of sourceFiles) {
     const text = readFileSync(path, "utf8");
@@ -164,6 +257,14 @@ function staticChecks() {
     `${partOneOnly ? "Part One" : "education"} sources contain no Math.random calls`,
     randomCalls.join(", "),
   );
+
+  if (!partOneOnly) {
+    requireCheck(
+      phase6TrackedAuthority.violations.length === 0,
+      "current Phase 6 authority is independently derived from the tracked manifest, artifact bytes, point rows, reports, and state documents",
+      JSON.stringify(phase6TrackedAuthority.violations),
+    );
+  }
 
   requireCheck(
     ALL_PAGE_PATHS.length === 33 && PAGE_PATHS.length === (partOneOnly ? 17 : 33) && EXPECTED_ROOTS > 0,
@@ -2404,23 +2505,29 @@ async function verifyScientificModels(browser, root, mode) {
       }
 
       const root = document.getElementById("anim-cm6-history");
+      const visibleStatus = () => root.querySelector('[role="status"]')?.innerText || "";
       root.querySelector('[data-control="cm6-pulse-fast"]').click();
       const fastRendered = {
         pulse: root.dataset.initialPulse,
         state: root.dataset.basalState,
-        tendency: root.dataset.outcomeTendency,
+        restrictedOrder: root.dataset.restrictedOrder,
+        habitProxy: root.dataset.habitProxy,
         basal: Number(root.getAttribute("data-attachment-hk-basal")),
         prism: Number(root.getAttribute("data-attachment-hk-prism")),
+        visibleStatus: visibleStatus(),
       };
       root.querySelector('[data-control="cm6-state-broad"]').click();
       const broadRendered = {
         pulse: root.dataset.initialPulse,
         mode: root.dataset.surfaceMode,
         state: root.dataset.basalState,
-        tendency: root.dataset.outcomeTendency,
+        restrictedOrder: root.dataset.restrictedOrder,
+        habitProxy: root.dataset.habitProxy,
+        visibleStatus: visibleStatus(),
       };
       return {
         missing: false,
+        semanticContract: hook.semanticContract,
         fixedSigmaSurfPercent: hook.fixedSigmaSurfPercent,
         broadBasal: hook.broadBasal,
         narrowBasal: hook.narrowBasal,
@@ -2449,33 +2556,46 @@ async function verifyScientificModels(browser, root, mode) {
         && Math.abs(cm6.cases.gentle.alphaHKPrism - expectedPrism) < 1e-12
         && Math.abs(cm6.cases.fast.alphaHKPrism - expectedPrism) < 1e-12
         && cm6.cases.gentle.basalState === "broad"
-        && cm6.cases.gentle.tendency === "plate tendency"
+        && cm6.semanticContract.quantity === "restricted-alphaHK-order"
+        && cm6.semanticContract.constraint
+          === "shared-positive-sigmaSurf-at-one-temperature"
+        && cm6.semanticContract.habitProxy === false
+        && cm6.cases.gentle.restrictedOrder === "prism-higher"
         && cm6.cases.fast.basalState === "narrow"
-        && cm6.cases.fast.tendency === "column tendency"
-        && cm6.cases.forceBroad.tendency === "plate tendency"
-        && cm6.cases.forceNarrow.tendency === "column tendency"
+        && cm6.cases.fast.restrictedOrder === "basal-higher"
+        && cm6.cases.forceBroad.restrictedOrder === "prism-higher"
+        && cm6.cases.forceNarrow.restrictedOrder === "basal-higher"
         && cm6.invalidPulseRejected
         && cm6.invalidSigmaRejected,
-      "CM6 history explorer independently reproduces the printed broad/narrow/prism curves and branch-memory outcomes",
+      "CM6 history explorer independently reproduces the published broad/narrow/prism parameterizations and restricted local coefficient order",
       JSON.stringify(cm6),
     );
     requireCheck(
       !cm6.missing
         && cm6.fastRendered.pulse === "fast"
         && cm6.fastRendered.state === "narrow"
-        && cm6.fastRendered.tendency === "column"
+        && cm6.fastRendered.restrictedOrder === "basal-higher"
+        && cm6.fastRendered.habitProxy === "false"
         && Math.abs(cm6.fastRendered.basal - expectedNarrow) < 5e-7
         && Math.abs(cm6.fastRendered.prism - expectedPrism) < 5e-7
         && cm6.broadRendered.pulse === "fast"
         && cm6.broadRendered.mode === "broad"
         && cm6.broadRendered.state === "broad"
-        && cm6.broadRendered.tendency === "plate",
-      "CM6 controls render the same evaluated branch and allow an explicit history-independent override",
+        && cm6.broadRendered.restrictedOrder === "prism-higher"
+        && cm6.broadRendered.habitProxy === "false",
+      "CM6 controls render the same evaluated branch order without promoting it to a habit proxy",
       JSON.stringify(cm6.missing ? cm6 : {
         fast: cm6.fastRendered,
         broad: cm6.broadRendered,
       }),
     );
+    const cm6VisibleProblems = cm6VisibleLimitViolations(cm6);
+    requireCheck(
+      cm6VisibleProblems.length === 0,
+      "CM6 learner-visible states say the restricted coefficient order is not a habit boundary or classification",
+      JSON.stringify(cm6VisibleProblems),
+    );
+    capturedPartTwoEvidence.cm6 = structuredClone(cm6);
 
     await page.goto(`${server.baseUrl}/chapters/02-four-hundred-years-of-looking.html`, {
       waitUntil: "networkidle",
@@ -2763,6 +2883,7 @@ const capturedPartTwoEvidence = Object.create(null);
 
 async function verifyPartTwoModels(browser, root) {
   const server = await serve(root);
+  const visitedPages = new Set();
   const context = await browser.newContext({
     reducedMotion: "reduce",
     colorScheme: "light",
@@ -2770,11 +2891,12 @@ async function verifyPartTwoModels(browser, root) {
   });
   await installTheme(context, "light");
   const page = await context.newPage();
+  const visit = async (relativePath) => {
+    await page.goto(`${server.baseUrl}/${relativePath}`, { waitUntil: "networkidle" });
+    visitedPages.add(relativePath);
+  };
   try {
-    await page.goto(
-      `${server.baseUrl}/chapters/21-the-seam.html`,
-      { waitUntil: "networkidle" },
-    );
+    await visit("chapters/21-the-seam.html");
     const timelineHeader = await page.evaluate(() => {
       const hook = window.__educationTimelineEvents;
       if (!hook) return null;
@@ -2920,10 +3042,7 @@ async function verifyPartTwoModels(browser, root) {
     );
     await page.setViewportSize({ width: 1100, height: 850 });
 
-    await page.goto(
-      `${server.baseUrl}/chapters/22-when-the-numbers-stop-changing.html`,
-      { waitUntil: "networkidle" },
-    );
+    await visit("chapters/22-when-the-numbers-stop-changing.html");
     const ledgerHeader = await page.evaluate(() => {
       const hook = window.EducationTestHooks?.part2LedgerSeparation;
       return hook
@@ -3009,10 +3128,7 @@ async function verifyPartTwoModels(browser, root) {
       JSON.stringify(ledgerProblems),
     );
 
-    await page.goto(
-      `${server.baseUrl}/chapters/23-walls-that-pretend-to-be-sky.html`,
-      { waitUntil: "networkidle" },
-    );
+    await visit("chapters/23-walls-that-pretend-to-be-sky.html");
     const transferHeader = await page.evaluate(() => {
       const hook = window.EducationTestHooks?.part2Transferability;
       return hook
@@ -3155,10 +3271,7 @@ async function verifyPartTwoModels(browser, root) {
     );
     await page.setViewportSize({ width: 1100, height: 850 });
 
-    await page.goto(
-      `${server.baseUrl}/chapters/27-sealing-the-envelope.html`,
-      { waitUntil: "networkidle" },
-    );
+    await visit("chapters/27-sealing-the-envelope.html");
     const checkpointHeader = await page.evaluate(() => {
       const hook = window.__VCC_EDU_CHECKPOINT_EXPLORER__;
       return hook
@@ -3275,10 +3388,135 @@ async function verifyPartTwoModels(browser, root) {
       );
     }
 
-    await page.goto(
-      `${server.baseUrl}/chapters/28-the-exam-result.html`,
-      { waitUntil: "networkidle" },
+    await visit("chapters/12-why-the-shape-flips.html");
+    const sigma0Asset = await page.evaluate(() => {
+      const hook = window.EducationTestHooks?.sigma0;
+      if (!hook) return null;
+      const visible = (id) => {
+        const rootElement = document.getElementById(id);
+        return `${rootElement?.innerText || ""} ${rootElement?.querySelector("svg")?.textContent || ""}`
+          .replace(/\s+/g, " ").trim();
+      };
+      return {
+        schemaVersion: hook.schemaVersion,
+        semanticContract: JSON.parse(JSON.stringify(hook.semanticContract)),
+        constants: JSON.parse(JSON.stringify(hook.constants)),
+        samples: [4.5, 8, 14.4].map((t) => ({
+          t,
+          values: hook.evaluate(t, true, 0.20, true),
+        })),
+        sigmaRootsBroad: hook.sigma0Crossings(false, 1, 40),
+        sigmaRootsDipped: hook.sigma0Crossings(true, 1, 40),
+        alphaHKRoots: hook.alphaHKCrossings(0.20, true, 0, 30),
+        visible: {
+          broad: visible("anim-sigma0-broad"),
+          dipped: visible("anim-sigma0-dips"),
+          alphaHK: visible("anim-alphaHK-crossings"),
+        },
+      };
+    });
+    capturedPartTwoEvidence.sigma0Asset = structuredClone(sigma0Asset);
+    const sigma0Problems = sigma0AssetViolations(sigma0Asset);
+    requireCheck(
+      sigma0Problems.length === 0,
+      "sigma0 and alphaHK teaching assets execute their base-10 formulas and expose visible non-habit limits",
+      JSON.stringify(sigma0Problems),
     );
+
+    await visit("chapters/17-a-model-that-can-be-wrong.html");
+    const preregisterAsset = await page.evaluate(() => {
+      const hook = window.EducationTestHooks?.preregister;
+      const rootElement = document.getElementById("fig-dartboard");
+      if (!hook || !rootElement) return null;
+      const visible = () => `${rootElement.innerText} ${rootElement.querySelector("svg")?.textContent || ""}`
+        .replace(/\s+/g, " ").trim();
+      const free = visible();
+      [...rootElement.querySelectorAll("button")]
+        .find((button) => /Freeze these settings/.test(button.textContent))?.click();
+      const frozen = visible();
+      [...rootElement.querySelectorAll("button")]
+        .find((button) => /^Run it$/.test(button.textContent.trim()))?.click();
+      const revealed = visible();
+      [...rootElement.querySelectorAll("button")]
+        .find((button) => /^Start over$/.test(button.textContent.trim()))?.click();
+      const sliders = [...rootElement.querySelectorAll('input[type="range"]')];
+      sliders[0].value = "3.0";
+      sliders[0].dispatchEvent(new Event("input", { bubbles: true }));
+      sliders[1].value = "22.6";
+      sliders[1].dispatchEvent(new Event("input", { bubbles: true }));
+      [...rootElement.querySelectorAll("button")]
+        .find((button) => /Freeze these settings/.test(button.textContent))?.click();
+      [...rootElement.querySelectorAll("button")]
+        .find((button) => /^Run it$/.test(button.textContent.trim()))?.click();
+      const nonDefaultRevealed = visible();
+      return {
+        schemaVersion: hook.schemaVersion,
+        semanticContract: JSON.parse(JSON.stringify(hook.semanticContract)),
+        constants: JSON.parse(JSON.stringify(hook.constants)),
+        samples: [4.5, 8, 14.4].map((t) => ({
+          t,
+          values: hook.evaluate(t, 4.5, 14.4, true),
+        })),
+        scores: {
+          default: hook.scoreAt(4.5, 14.4, true),
+          noDips: hook.scoreAt(4.5, 14.4, false),
+          nonDefault: hook.scoreAt(3.0, 22.6, true),
+        },
+        illustrativeToken: hook.illustrativeToken(4.5, 14.4),
+        visible: { free, frozen, revealed, nonDefaultRevealed },
+      };
+    });
+    capturedPartTwoEvidence.preregisterAsset = structuredClone(preregisterAsset);
+    const preregisterProblems = preregisterAssetViolations(preregisterAsset);
+    requireCheck(
+      preregisterProblems.length === 0,
+      "pre-registration teaching asset executes its base-10 proxy while distinguishing its illustrative token and invalid diagnostic scope",
+      JSON.stringify(preregisterProblems),
+    );
+
+    await visit("chapters/28-the-exam-result.html");
+    const sweepAsset = await page.evaluate(() => {
+      const hook = window.EducationTestHooks?.sweep;
+      const rootElement = document.getElementById("c28-sweep");
+      if (!hook || !rootElement) return null;
+      const visible = () => `${rootElement.innerText} ${rootElement.querySelector("svg")?.textContent || ""}`
+        .replace(/\s+/g, " ").trim();
+      const cakSummary = visible();
+      [...rootElement.querySelectorAll("svg rect")]
+        .find((cell) => cell.style.cursor === "pointer")
+        ?.dispatchEvent(new MouseEvent("click", { bubbles: true }));
+      const cakPoint = visible();
+      [...rootElement.querySelectorAll("button")]
+        .find((button) => /Show the withdrawn run/.test(button.textContent))?.click();
+      const cakA1Summary = visible();
+      [...rootElement.querySelectorAll("svg rect")]
+        .find((cell) => cell.style.cursor === "pointer")
+        ?.dispatchEvent(new MouseEvent("click", { bubbles: true }));
+      const cakA1Point = visible();
+      return {
+        schemaVersion: hook.schemaVersion,
+        semanticContract: JSON.parse(JSON.stringify(hook.semanticContract)),
+        temps: JSON.parse(JSON.stringify(hook.temps)),
+        fractions: JSON.parse(JSON.stringify(hook.fractions)),
+        grids: JSON.parse(JSON.stringify(hook.grids)),
+        scores: {
+          cak: hook.scoreArm("cak"),
+          cakA1: hook.scoreArm("cakA1"),
+        },
+        visible: {
+          cak: `${cakSummary} ${cakPoint}`,
+          cakA1: `${cakA1Summary} ${cakA1Point}`,
+        },
+      };
+    });
+    capturedPartTwoEvidence.sweepAsset = structuredClone(sweepAsset);
+    const sweepProblems = sweepAssetViolations(sweepAsset, phase6TrackedAuthority);
+    requireCheck(
+      sweepProblems.length === 0,
+      "sweep teaching asset matches class grids independently derived from tracked point bytes and keeps model validity separate from protocol admissibility",
+      JSON.stringify(sweepProblems),
+    );
+
     const statusHeader = await page.evaluate(() => {
       const hook = window.__VCC_EDU_PHASE6_STATUS__;
       return hook
@@ -3356,10 +3594,10 @@ async function verifyPartTwoModels(browser, root) {
       });
     }
     capturedPartTwoEvidence.status = structuredClone(status);
-    const statusProblems = phase6StatusViolations(status);
+    const statusProblems = phase6StatusViolations(status, phase6TrackedAuthority);
     requireCheck(
       statusProblems.length === 0,
-      "Phase 6 status control keeps Arm 1 history, current safeguards, incomplete Arm 2 execution, and its registered forecast separate",
+      "Phase 6 status control preserves both measured-only historical arms and keeps replacement-gate obligations open",
       JSON.stringify(statusProblems),
     );
 
@@ -3368,6 +3606,7 @@ async function verifyPartTwoModels(browser, root) {
       return hook
         ? {
             schemaVersion: hook.schemaVersion,
+            semanticContract: JSON.parse(JSON.stringify(hook.semanticContract)),
             constants: JSON.parse(JSON.stringify(hook.constants)),
           }
         : null;
@@ -3376,7 +3615,7 @@ async function verifyPartTwoModels(browser, root) {
       ? {
           ...crossingHeader,
           default: null,
-          published: null,
+          registeredBase10: null,
           mutated: null,
           reset: null,
           controls: {},
@@ -3400,8 +3639,11 @@ async function verifyPartTwoModels(browser, root) {
         const evaluated = hook.state();
         return {
           state: JSON.parse(JSON.stringify(evaluated.state)),
-          crossings: [...evaluated.crossings],
-          publishedState: evaluated.publishedState,
+          equalityLocations: [...evaluated.equalityLocations],
+          orderBands: JSON.parse(JSON.stringify(evaluated.orderBands)),
+          registeredBase10State: evaluated.registeredBase10State,
+          dipCentreLogBaseInvariant: evaluated.dipCentreLogBaseInvariant,
+          habitProxy: evaluated.habitProxy,
           dom: {
             formulaMode: rootElement.dataset.formulaMode,
             basalDip: rootElement.dataset.basalDip,
@@ -3409,9 +3651,16 @@ async function verifyPartTwoModels(browser, root) {
             basalCentre: rootElement.dataset.basalCentre,
             prismCentre: rootElement.dataset.prismCentre,
             depth: rootElement.dataset.depth,
-            crossingCount: rootElement.dataset.crossingCount,
-            crossings: rootElement.dataset.crossings,
-            publishedState: rootElement.dataset.publishedState,
+            equalityCount: rootElement.dataset.equalityCount,
+            equalityLocations: rootElement.dataset.equalityLocations,
+            orderBandCount: rootElement.dataset.orderBandCount,
+            equalitySemantics: rootElement.dataset.equalitySemantics,
+            dipCentres: rootElement.dataset.dipCentres,
+            dipCentreLogBaseInvariant:
+              rootElement.dataset.dipCentreLogBaseInvariant,
+            dipLogBaseProvenance: rootElement.dataset.dipLogBaseProvenance,
+            habitProxy: rootElement.dataset.habitProxy,
+            registeredBase10State: rootElement.dataset.registeredBase10State,
             verdictKind: rootElement.dataset.verdictKind,
             visibleReadout:
               rootElement.querySelector(".c28-readout")?.innerText ?? "",
@@ -3420,11 +3669,9 @@ async function verifyPartTwoModels(browser, root) {
             visibleSeriesCount:
               svg?.querySelectorAll("path.series-line").length ?? 0,
             visibleMarkerCount:
-              svg?.querySelectorAll(
-                'line[stroke-dasharray="3 3"][stroke-opacity="0.65"]',
-              ).length ?? 0,
-            visibleModelBandCount:
-              svg?.querySelectorAll('rect[y="292"]').length ?? 0,
+              svg?.querySelectorAll("[data-equality-marker]").length ?? 0,
+            visibleOrderBandCount:
+              svg?.querySelectorAll("[data-order-band]").length ?? 0,
             visibleSvg: isVisible(svg),
           },
         };
@@ -3485,7 +3732,7 @@ async function verifyPartTwoModels(browser, root) {
       );
       crossing.controls.approximateMode = await readControlState();
       await page.click('#c28-crossings [data-control="crossing-load-published"]');
-      crossing.published = await readCrossing();
+      crossing.registeredBase10 = await readCrossing();
       await page.locator(
         '#c28-crossings [data-control="crossing-slider"][data-field="bC"]',
       ).fill("5.2");
@@ -3497,23 +3744,31 @@ async function verifyPartTwoModels(browser, root) {
     const crossingProblems = crossingViolations(crossing);
     requireCheck(
       crossingProblems.length === 0,
-      "crossing explorer derives roots from its actual state, gates the published-form verdict, and resets every control",
+      "parameter-order explorer independently derives equality roots and bands, enforces provenance semantics, and resets every control",
       JSON.stringify(crossingProblems),
     );
   } finally {
     await context.close();
     await server.close();
   }
+  return {
+    pages: [...visitedPages].sort(),
+    logicalModels: PART_TWO_MODEL_KEYS.filter(
+      (key) => Object.hasOwn(capturedPartTwoEvidence, key),
+    ),
+  };
 }
 
 async function negativeControls(
   browser,
-  { partTwoModelControlsOnly = false } = {},
+  { partTwoModelControlsOnly = false, root = PUBLIC_ROOT } = {},
 ) {
-  const server = await serve(PUBLIC_ROOT);
+  const server = await serve(root);
   let passed = 0;
+  let attempted = 0;
 
   async function expectRejected(name, expectedDetection, action) {
+    attempted++;
     let result;
     try {
       result = await action();
@@ -3788,6 +4043,19 @@ async function negativeControls(
         detections: zooGrowthViolations(evidence),
       };
     });
+
+    await expectRejected(
+      "CM6 learner-visible non-habit limit erased",
+      "CM6 fastRendered visible diagnostic limit",
+      async () => {
+        const evidence = structuredClone(capturedPartTwoEvidence.cm6);
+        evidence.fastRendered.visibleStatus = "basal-higher";
+        return {
+          executed: evidence.fastRendered.visibleStatus === "basal-higher",
+          detections: cm6VisibleLimitViolations(evidence),
+        };
+      },
+    );
     }
 
     if (!partOneOnly) {
@@ -4088,36 +4356,41 @@ async function negativeControls(
         },
       );
 
-      await expectRejected(
-        "Phase 6 provenance and forecast coherently falsified",
-        "Phase 6 source-pinned records",
-        async () => {
-          const evidence = structuredClone(capturedPartTwoEvidence.status);
-          evidence.records.current.arm2.forecast =
-            "99/90 measured and gate-passing";
-          evidence.records.current.arm1.verifier = "no verifier exists";
-          evidence.records.historical.arm1.evidenceClass =
-            "validated gate evidence";
-          evidence.records.current.authority.verifierCommit = "bogus";
-          return {
-            executed:
-              evidence.records.current.authority.verifierCommit === "bogus",
-            detections: phase6StatusViolations(evidence),
-          };
-        },
-      );
+      const phase6CurrentLeafPaths = [];
+      const collectPhase6Leaves = (value, path = []) => {
+        for (const [key, child] of Object.entries(value)) {
+          const childPath = [...path, key];
+          if (child && typeof child === "object") collectPhase6Leaves(child, childPath);
+          else phase6CurrentLeafPaths.push(childPath);
+        }
+      };
+      collectPhase6Leaves(phase6TrackedAuthority.record);
+      for (const path of phase6CurrentLeafPaths) {
+        await expectRejected(
+          `Phase 6 current ${path.join(".")} falsified`,
+          "Phase 6 current tracked-evidence record",
+          async () => {
+            const evidence = structuredClone(capturedPartTwoEvidence.status);
+            let target = evidence.records.current;
+            for (const key of path.slice(0, -1)) target = target[key];
+            target[path.at(-1)] = "__falsified__";
+            return {
+              executed: target[path.at(-1)] === "__falsified__",
+              detections: phase6StatusViolations(evidence, phase6TrackedAuthority),
+            };
+          },
+        );
+      }
 
       await expectRejected(
-        "Arm 2 values-pin bridge omitted",
-        "Phase 6 source-pinned records",
+        "Phase 6 historical evidence class falsified",
+        "Phase 6 historical source-pinned record",
         async () => {
           const evidence = structuredClone(capturedPartTwoEvidence.status);
-          evidence.records.current.authority.arm2ValuesPinCommit = "483f7ee";
+          evidence.records.historical.arm1.evidenceClass = "validated gate evidence";
           return {
-            executed:
-              evidence.records.current.authority.arm2ValuesPinCommit
-                === "483f7ee",
-            detections: phase6StatusViolations(evidence),
+            executed: evidence.records.historical.arm1.evidenceClass === "validated gate evidence",
+            detections: phase6StatusViolations(evidence, phase6TrackedAuthority),
           };
         },
       );
@@ -4130,27 +4403,14 @@ async function negativeControls(
           evidence.rendered.current.visibleCards = [];
           return {
             executed: evidence.rendered.current.visibleCards.length === 0,
-            detections: phase6StatusViolations(evidence),
+            detections: phase6StatusViolations(evidence, phase6TrackedAuthority),
           };
         },
       );
 
       await expectRejected(
-        "incomplete Phase 6 arm relabeled complete",
-        "Phase 6 current snapshot",
-        async () => {
-          const evidence = structuredClone(capturedPartTwoEvidence.status);
-          evidence.records.current.arm2.runState = "complete";
-          return {
-            executed: evidence.records.current.arm2.runState === "complete",
-            detections: phase6StatusViolations(evidence),
-          };
-        },
-      );
-
-      await expectRejected(
-        "crossing control wiring falsified",
-        "crossing actual control wiring",
+        "parameter-order control wiring falsified",
+        "equality actual control wiring",
         async () => {
           const evidence = structuredClone(capturedPartTwoEvidence.crossing);
           evidence.controls.default.state.bOn = true;
@@ -4162,26 +4422,862 @@ async function negativeControls(
       );
 
       await expectRejected(
-        "blank crossing learner chart",
-        "crossing published visible chart state",
+        "blank parameter-order learner chart",
+        "equality registered base-10 visible chart state",
         async () => {
           const evidence = structuredClone(capturedPartTwoEvidence.crossing);
-          evidence.published.dom.visibleReadout = "";
+          evidence.registeredBase10.dom.visibleReadout = "";
           return {
-            executed: evidence.published.dom.visibleReadout === "",
+            executed: evidence.registeredBase10.dom.visibleReadout === "",
             detections: crossingViolations(evidence),
           };
         },
       );
 
       await expectRejected(
-        "published crossing location shifted",
-        "crossing published independent roots",
+        "registered base-10 equality location shifted",
+        "equality registered base-10 independent roots",
         async () => {
           const evidence = structuredClone(capturedPartTwoEvidence.crossing);
-          evidence.published.crossings[0] += 1;
+          evidence.registeredBase10.equalityLocations[0] += 1;
           return {
-            executed: evidence.published.crossings[0] > 4,
+            executed: evidence.registeredBase10.equalityLocations[0] > 4,
+            detections: crossingViolations(evidence),
+          };
+        },
+      );
+
+      requireCheck(
+        phase6TrackedAuthority.sweeps.cak.extentFragility.historicalOneSided === 16
+          && phase6TrackedAuthority.sweeps.cak.extentFragility.closedSymmetric === 59
+          && phase6TrackedAuthority.sweeps.cak.extentFragility.additional === 43
+          && JSON.stringify(phase6TrackedAuthority.sweeps.cak.extentFragility.exactThresholdRows)
+            === JSON.stringify([{ tempC: -23, fraction: 0.15, aspectRatio: 1.5 }])
+          && phase6TrackedAuthority.sweeps.m1.extentFragility.historicalOneSided === 33
+          && phase6TrackedAuthority.sweeps.m1.extentFragility.closedSymmetric === 85
+          && phase6TrackedAuthority.sweeps.m1.extentFragility.additional === 52
+          && JSON.stringify(phase6TrackedAuthority.sweeps.m1.extentFragility.exactThresholdRows)
+            === JSON.stringify([{ tempC: -32, fraction: 0.15, aspectRatio: 1.5 }]),
+        "Phase 6 authority independently derives the closed symmetric fragility census and exact-threshold witnesses",
+        JSON.stringify({
+          cak: phase6TrackedAuthority.sweeps.cak.extentFragility,
+          m1: phase6TrackedAuthority.sweeps.m1.extentFragility,
+        }),
+      );
+
+      {
+        const invalidInputs = structuredClone(phase6TrackedInputs);
+        const fixture = makeCoherentM1InvalidFixture(invalidInputs);
+        const invalidAuthority = derivePhase6TrackedAuthority(invalidInputs);
+        requireCheck(
+          invalidAuthority.violations.length === 0
+            && invalidAuthority.sweeps.m1.classes.invalid === 1
+            && invalidAuthority.sweeps.m1.armTotal === 77
+            && invalidAuthority.sweeps.m1.commonTotal === 89
+            && fixture.row.inHeadlineScope === true
+            && fixture.report.excludedPoints[0]?.reason === "a relaxation did not converge",
+          "Phase 6 authority accepts an honestly named invalid protocol-scope row while removing it from both denominators",
+          JSON.stringify(invalidAuthority.violations),
+        );
+      }
+
+      const phase6AuthorityMutations = [
+        {
+          name: "Phase 6 manifest carries an unrecognized producer verdict",
+          expectedDetection: "Phase 6 manifest key set",
+          mutate: (inputs) => {
+            const manifest = JSON.parse(Buffer.from(inputs.manifestBytes).toString("utf8"));
+            manifest.overallPass = true;
+            inputs.manifestBytes = Buffer.from(JSON.stringify(manifest));
+            return manifest.overallPass === true;
+          },
+        },
+        {
+          name: "Phase 6 manifest provenance note promotes the corpus to validation evidence",
+          expectedDetection: "Phase 6 manifest provenance note",
+          mutate: (inputs) => {
+            const manifest = JSON.parse(Buffer.from(inputs.manifestBytes).toString("utf8"));
+            manifest.note = "All files are accepted validation evidence.";
+            inputs.manifestBytes = Buffer.from(JSON.stringify(manifest));
+            return manifest.note === "All files are accepted validation evidence.";
+          },
+        },
+        {
+          name: "Phase 6 manifest pin carries an unrecognized validation verdict",
+          expectedDetection: "Phase 6 manifest pin schema phase6-sweep/points.json",
+          mutate: (inputs) => {
+            const manifest = JSON.parse(Buffer.from(inputs.manifestBytes).toString("utf8"));
+            manifest.files["phase6-sweep/points.json"].validated = true;
+            inputs.manifestBytes = Buffer.from(JSON.stringify(manifest));
+            return manifest.files["phase6-sweep/points.json"].validated === true;
+          },
+        },
+        {
+          name: "Phase 6 manifest aggregate falsified",
+          mutate: (inputs) => {
+            const manifest = JSON.parse(Buffer.from(inputs.manifestBytes).toString("utf8"));
+            manifest.fileCount += 1;
+            inputs.manifestBytes = Buffer.from(JSON.stringify(manifest));
+            return manifest.fileCount;
+          },
+        },
+        {
+          name: "Phase 6 CAK point byte falsified",
+          mutate: (inputs) => {
+            const path = "phase6-sweep/points.json";
+            const points = JSON.parse(Buffer.from(inputs.files[path]).toString("utf8"));
+            points[0].result.aspectRatio = 9;
+            replacePhase6EvidenceJson(inputs, path, points);
+            return points[0].result.aspectRatio === 9;
+          },
+        },
+        {
+          name: "Phase 6 CAK row carries an unrecognized overall verdict",
+          expectedDetection: "CAK row key set",
+          mutate: (inputs) => {
+            const path = "phase6-sweep/points.json";
+            const points = JSON.parse(Buffer.from(inputs.files[path]).toString("utf8"));
+            points[0].overallPass = true;
+            replacePhase6EvidenceJson(inputs, path, points);
+            return points[0].overallPass === true;
+          },
+        },
+        {
+          name: "Phase 6 CAK result carries an unrecognized gate verdict",
+          expectedDetection: "CAK result key set",
+          mutate: (inputs) => {
+            const path = "phase6-sweep/points.json";
+            const points = JSON.parse(Buffer.from(inputs.files[path]).toString("utf8"));
+            points[0].result.gatePass = true;
+            replacePhase6EvidenceJson(inputs, path, points);
+            return points[0].result.gatePass === true;
+          },
+        },
+        {
+          name: "Phase 6 CAK report carries an unrecognized overall verdict",
+          expectedDetection: "CAK report key set",
+          mutate: (inputs) => {
+            const path = "phase6-sweep/report.json";
+            const report = JSON.parse(Buffer.from(inputs.files[path]).toString("utf8"));
+            report.overallPass = true;
+            replacePhase6EvidenceJson(inputs, path, report);
+            return report.overallPass === true;
+          },
+        },
+        {
+          name: "Phase 6 CAK result-to-point identity falsified",
+          mutate: (inputs) => {
+            const path = "phase6-sweep/points.json";
+            const points = JSON.parse(Buffer.from(inputs.files[path]).toString("utf8"));
+            Object.assign(points[0].result, { tempC: -35, fraction: 0.1, sigmaInf: 12345 });
+            replacePhase6EvidenceJson(inputs, path, points);
+            return points[0].result.tempC === -35
+              && points[0].result.fraction === 0.1
+              && points[0].result.sigmaInf === 12345;
+          },
+        },
+        {
+          name: "Phase 6 CAK unsafe integer telemetry admitted",
+          expectedDetection: "CAK result telemetry",
+          mutate: (inputs) => {
+            const path = "phase6-sweep/points.json";
+            const points = JSON.parse(Buffer.from(inputs.files[path]).toString("utf8"));
+            points[0].result.steps = 9_007_199_254_740_992;
+            replacePhase6EvidenceJson(inputs, path, points);
+            return points[0].result.steps === 9_007_199_254_740_992
+              && !Number.isSafeInteger(points[0].result.steps);
+          },
+        },
+        {
+          name: "Phase 6 CAK registered step cap exceeded",
+          expectedDetection: "CAK result telemetry",
+          mutate: (inputs) => {
+            const path = "phase6-sweep/points.json";
+            const points = JSON.parse(Buffer.from(inputs.files[path]).toString("utf8"));
+            points[0].result.steps = 100001;
+            replacePhase6EvidenceJson(inputs, path, points);
+            return points[0].result.steps === 100001;
+          },
+        },
+        {
+          name: "Phase 6 CAK attached count exceeds active domain",
+          expectedDetection: "CAK result telemetry",
+          mutate: (inputs) => {
+            const path = "phase6-sweep/points.json";
+            const points = JSON.parse(Buffer.from(inputs.files[path]).toString("utf8"));
+            points[0].result.attached = 77880;
+            replacePhase6EvidenceJson(inputs, path, points);
+            return points[0].result.attached === 77880;
+          },
+        },
+        {
+          name: "Phase 6 M1 grid supersaturation mapping falsified",
+          mutate: (inputs) => {
+            const path = "phase6-sweep-arm2/points.json";
+            const points = JSON.parse(Buffer.from(inputs.files[path]).toString("utf8"));
+            points[0].point.sigmaInf = 12345;
+            points[0].result.sigmaInf = 12345;
+            points[0].result.config.sigmaInf = 12345;
+            replacePhase6EvidenceJson(inputs, path, points);
+            return points[0].point.sigmaInf === 12345
+              && points[0].result.sigmaInf === 12345
+              && points[0].result.config.sigmaInf === 12345;
+          },
+        },
+        {
+          name: "Phase 6 M1 short measurement extent admitted",
+          mutate: (inputs) => {
+            const path = "phase6-sweep-arm2/points.json";
+            const points = JSON.parse(Buffer.from(inputs.files[path]).toString("utf8"));
+            points[0].result.largestExtent = 20;
+            points[0].result.config.finalExtent = 20;
+            replacePhase6EvidenceJson(inputs, path, points);
+            return points[0].result.largestExtent === 20
+              && points[0].result.config.finalExtent === 20;
+          },
+        },
+        {
+          name: "Phase 6 M1 domain contact boolean forged clean",
+          mutate: (inputs) => {
+            const path = "phase6-sweep-arm2/points.json";
+            const points = JSON.parse(Buffer.from(inputs.files[path]).toString("utf8"));
+            points[0].result.largestExtent = 32;
+            points[0].result.config.finalExtent = 32;
+            points[0].result.domainContact = false;
+            replacePhase6EvidenceJson(inputs, path, points);
+            return points[0].result.largestExtent === 32
+              && points[0].result.domainContact === false;
+          },
+        },
+        {
+          name: "Phase 6 M1 report byte falsified",
+          mutate: (inputs) => {
+            const path = "phase6-sweep-arm2/report.json";
+            const report = JSON.parse(Buffer.from(inputs.files[path]).toString("utf8"));
+            report.headlineAgree = 90;
+            replacePhase6EvidenceJson(inputs, path, report);
+            return report.headlineAgree === 90;
+          },
+        },
+        {
+          name: "Phase 6 HANDOFF R15 status erased",
+          mutate: (inputs) => {
+            inputs.handoff = inputs.handoff.replace(
+              /R15 has no production\s+caller or complete artifact\/gate/i,
+              "R15 is complete",
+            );
+            return /R15 is complete/.test(inputs.handoff);
+          },
+        },
+        {
+          name: "Phase 6 PROGRESS causal limit erased",
+          mutate: (inputs) => {
+            inputs.progress = inputs.progress.replace(
+              /cannot establish physical SDAK causality or necessity/i,
+              "establishes physical SDAK causality",
+            );
+            return /establishes physical SDAK causality/.test(inputs.progress);
+          },
+        },
+        {
+          name: "Phase 6 source-lock status falsified",
+          mutate: (inputs) => {
+            inputs.handoff = inputs.handoff.replaceAll("passEligible=false", "passEligible=true");
+            return /passEligible=true/.test(inputs.handoff);
+          },
+        },
+        {
+          name: "Phase 6 held-out lock pass eligibility falsified at its source",
+          expectedDetection: "held-out lock pass eligibility",
+          mutate: (inputs) => {
+            const lock = JSON.parse(
+              Buffer.from(inputs.heldOutCandidateLockBytes).toString("utf8"),
+            );
+            lock.gateMeaning.passEligible = true;
+            inputs.heldOutCandidateLockBytes = Buffer.from(JSON.stringify(lock));
+            return lock.gateMeaning.passEligible === true;
+          },
+        },
+        {
+          name: "Phase 6 held-out lock external source pin falsified",
+          expectedDetection: "held-out lock normalized-text SHA-256",
+          mutate: (inputs) => {
+            const lock = JSON.parse(
+              Buffer.from(inputs.heldOutCandidateLockBytes).toString("utf8"),
+            );
+            lock.sources.harrison2016Archive.sha256 = "0".repeat(64);
+            inputs.heldOutCandidateLockBytes = Buffer.from(JSON.stringify(lock));
+            return lock.sources.harrison2016Archive.sha256 === "0".repeat(64);
+          },
+        },
+        {
+          name: "Phase 6 pressure context eligibility falsified at its source",
+          expectedDetection: "held-out lock pressure eligibility",
+          mutate: (inputs) => {
+            const lock = JSON.parse(
+              Buffer.from(inputs.heldOutCandidateLockBytes).toString("utf8"),
+            );
+            lock.pressureContext.scoreable = true;
+            lock.pressureContext.reason = "A quantitative pass interval is available.";
+            inputs.heldOutCandidateLockBytes = Buffer.from(JSON.stringify(lock));
+            return lock.pressureContext.scoreable === true
+              && /pass interval is available/.test(lock.pressureContext.reason);
+          },
+        },
+        {
+          name: "Phase 6 Tier 2 historical output row falsified",
+          expectedDetection: "Tier 2 historical table",
+          mutate: (inputs) => {
+            const before = "| `robust-plate` | 175 | 1313 | 0.263158 | **plate** |";
+            const after = "| `robust-plate` | 176 | 1313 | 0.263158 | **plate** |";
+            inputs.crossPlatformReportText = inputs.crossPlatformReportText.replace(before, after);
+            return inputs.crossPlatformReportText.includes(after)
+              && !inputs.crossPlatformReportText.includes(before);
+          },
+        },
+        {
+          name: "Phase 6 Tier 2 historical wall-time cells falsified",
+          expectedDetection: "Tier 2 historical table",
+          mutate: (inputs) => {
+            const before = "697 s (11.6 min) | 20.9 min";
+            const after = "1 s (0.0 min) | 0.1 min";
+            inputs.crossPlatformReportText = inputs.crossPlatformReportText.replace(before, after);
+            return inputs.crossPlatformReportText.includes(after)
+              && !inputs.crossPlatformReportText.includes(before);
+          },
+        },
+        {
+          name: "Phase 6 Tier 2 historical table gains an unparseable fifth row",
+          expectedDetection: "Tier 2 historical table row inventory",
+          mutate: (inputs) => {
+            const after = "| `invented-fifth` | 1 | 1 | NaN | **plate** | ? | ? |";
+            const anchor = "| `fragile-column-floor` | 248 | 3037 | 1.50000 | **column** | 1197 s (20.0 min) | 33.4 min |";
+            if (!inputs.crossPlatformReportText.includes(anchor)) return false;
+            inputs.crossPlatformReportText = inputs.crossPlatformReportText.replace(
+              anchor,
+              `${anchor}\n${after}`,
+            );
+            return inputs.crossPlatformReportText.includes(after);
+          },
+        },
+        {
+          name: "Phase 6 Tier 2 x64 baseline table gains an unparseable fifth row",
+          expectedDetection: "Tier 2 x64 baseline table row inventory",
+          mutate: (inputs) => {
+            const after = "| `invented-fifth` | ? | ? | ? | ? | NaN | **plate** |";
+            const anchor = "| `fragile-column-floor` | −23 °C | 0.037875 | 248 | 3037 | **1.5** | **column** |";
+            if (!inputs.crossPlatformReportText.includes(anchor)) return false;
+            inputs.crossPlatformReportText = inputs.crossPlatformReportText.replace(
+              anchor,
+              `${anchor}\n${after}`,
+            );
+            return inputs.crossPlatformReportText.includes(after);
+          },
+        },
+        {
+          name: "Phase 6 tracked x64 Tier 2 baseline step coherently shifted",
+          expectedDetection: "Tier 2 historical rows do not match tracked CAK baseline",
+          mutate: (inputs) => {
+            const path = "phase6-sweep/points.json";
+            const points = JSON.parse(Buffer.from(inputs.files[path]).toString("utf8"));
+            const row = points.find(
+              (entry) => entry.point.tempC === -2 && entry.point.fraction === 0.1,
+            );
+            if (!row || row.result.steps !== 175) return false;
+            row.result.steps = 176;
+            replacePhase6EvidenceJson(inputs, path, points);
+            return row.result.steps === 176;
+          },
+        },
+        {
+          name: "Phase 6 Tier 2 raw-evidence limit erased",
+          expectedDetection: "Tier 2 raw-evidence limit",
+          mutate: (inputs) => {
+            const before = "not independently rederivable evidence";
+            const after = "independently reproduced evidence";
+            inputs.crossPlatformReportText = inputs.crossPlatformReportText.replace(before, after);
+            return inputs.crossPlatformReportText.includes(after)
+              && !inputs.crossPlatformReportText.includes(before);
+          },
+        },
+        {
+          name: "Phase 6 unparsed Tier 2 raw output inserted under a plausible path",
+          expectedDetection: "Tier 2 raw evidence appeared without an education-oracle parser",
+          mutate: (inputs) => {
+            const path = "phase6-crossplatform/arm64-tier2-output.log";
+            replacePhase6EvidenceBytes(inputs, path, Buffer.from("historical output\n"));
+            return Object.hasOwn(inputs.files, path);
+          },
+        },
+        {
+          name: "Phase 6 Tier 1 self-reported arm64 host identity coherently falsified",
+          expectedDetection: "arm64 fingerprint self-reported host identity",
+          mutate: (inputs) => {
+            const path = "phase6-crossplatform/arm64-libm-fingerprint.txt";
+            const before = "host platform=darwin arch=arm64 node=v24.13.1 v8=13.6.233.17-node.40";
+            const after = "host platform=win32 arch=x64 node=v24.13.1 v8=13.6.233.17-node.40";
+            const fingerprint = Buffer.from(inputs.files[path]).toString("utf8").replace(before, after);
+            replacePhase6EvidenceBytes(inputs, path, Buffer.from(fingerprint));
+            return fingerprint.includes(after) && !fingerprint.includes(before);
+          },
+        },
+        {
+          name: "Phase 6 Tier 1 malformed extra fingerprint row coherently repinned",
+          expectedDetection: "arm64 fingerprint entry-row inventory",
+          mutate: (inputs) => {
+            const path = "phase6-crossplatform/arm64-libm-fingerprint.txt";
+            let fingerprint = Buffer.from(inputs.files[path]).toString("utf8");
+            const digest = "PHASE6 LIBM DIGEST:";
+            if (!fingerprint.includes(digest)) return false;
+            fingerprint = fingerprint.replace(digest, "  bogus\t-2.0\tNOT_HEX\nPHASE6 LIBM DIGEST:");
+            replacePhase6EvidenceBytes(inputs, path, Buffer.from(fingerprint));
+            return fingerprint.includes("  bogus\t-2.0\tNOT_HEX\n");
+          },
+        },
+        {
+          name: "Phase 6 Tier 1 duplicate entries header coherently repinned",
+          expectedDetection: "arm64 fingerprint entries header inventory",
+          mutate: (inputs) => {
+            const path = "phase6-crossplatform/arm64-libm-fingerprint.txt";
+            let fingerprint = Buffer.from(inputs.files[path]).toString("utf8");
+            if (!fingerprint.includes("entries=448\n")) return false;
+            fingerprint = fingerprint.replace("entries=448\n", "entries=448\nentries=999\n");
+            replacePhase6EvidenceBytes(inputs, path, Buffer.from(fingerprint));
+            return fingerprint.includes("entries=448\nentries=999\n");
+          },
+        },
+        {
+          name: "Phase 6 Tier 1 duplicate digest coherently repinned",
+          expectedDetection: "arm64 fingerprint digest inventory",
+          mutate: (inputs) => {
+            const path = "phase6-crossplatform/arm64-libm-fingerprint.txt";
+            let fingerprint = Buffer.from(inputs.files[path]).toString("utf8");
+            const match = /^PHASE6 LIBM DIGEST: [0-9a-f]{8}$/m.exec(fingerprint)?.[0];
+            if (!match) return false;
+            fingerprint = fingerprint.replace(match, `${match}\n${match}`);
+            replacePhase6EvidenceBytes(inputs, path, Buffer.from(fingerprint));
+            return fingerprint.includes(`${match}\n${match}`);
+          },
+        },
+        {
+          name: "Phase 6 Tier 1 entry appended outside the declared section",
+          expectedDetection: "arm64 fingerprint full-file SHA-256",
+          mutate: (inputs) => {
+            const path = "phase6-crossplatform/arm64-libm-fingerprint.txt";
+            const fingerprint = `${Buffer.from(inputs.files[path]).toString("utf8")}  pSatIce\t-31.0\t4080000000000000\n`;
+            replacePhase6EvidenceBytes(inputs, path, Buffer.from(fingerprint));
+            return fingerprint.endsWith("  pSatIce\t-31.0\t4080000000000000\n");
+          },
+        },
+        {
+          name: "Phase 6 Tier 1 footer command silently changes the mandatory parameter set",
+          expectedDetection: "arm64 fingerprint full-file SHA-256",
+          mutate: (inputs) => {
+            const path = "phase6-crossplatform/arm64-libm-fingerprint.txt";
+            let fingerprint = Buffer.from(inputs.files[path]).toString("utf8");
+            if (!fingerprint.includes("--param-set CAK")) return false;
+            fingerprint = fingerprint.replace("--param-set CAK", "--param-set CAK_A1");
+            replacePhase6EvidenceBytes(inputs, path, Buffer.from(fingerprint));
+            return fingerprint.includes("--param-set CAK_A1");
+          },
+        },
+        {
+          name: "Phase 6 Tier 1 fingerprint difference count falsified",
+          expectedDetection: "cross-platform independently derived difference summary",
+          mutate: (inputs) => {
+            const path = "phase6-crossplatform/arm64-libm-fingerprint.txt";
+            const before = "  pSatIce\t-2.0\t408052252bbd85b3";
+            const after = "  pSatIce\t-2.0\t408052252bbd85b4";
+            let fingerprint = Buffer.from(inputs.files[path]).toString("utf8");
+            if (!fingerprint.includes(before) || fingerprint.includes(after)) return false;
+            fingerprint = fingerprint.replace(before, after);
+            const digest = phase6FingerprintDigestFromText(fingerprint);
+            fingerprint = fingerprint.replace(
+              /^PHASE6 LIBM DIGEST: [0-9a-f]{8}$/m,
+              `PHASE6 LIBM DIGEST: ${digest}`,
+            );
+            replacePhase6EvidenceBytes(inputs, path, Buffer.from(fingerprint));
+            return fingerprint.includes(after)
+              && fingerprint.includes(`PHASE6 LIBM DIGEST: ${digest}`);
+          },
+        },
+        {
+          name: "Phase 6 Tier 1 maximum ULP witness falsified while difference count stays nine",
+          expectedDetection: "cross-platform independently derived difference summary",
+          mutate: (inputs) => {
+            const path = "phase6-crossplatform/arm64-libm-fingerprint.txt";
+            const before = "  alphaHK.prism\t-14.0@0.25\t3f78aa2bb8a94f4d";
+            const after = "  alphaHK.prism\t-14.0@0.25\t3f78aa2bb8a94f4c";
+            let fingerprint = Buffer.from(inputs.files[path]).toString("utf8");
+            if (!fingerprint.includes(before) || fingerprint.includes(after)) return false;
+            fingerprint = fingerprint.replace(before, after);
+            const digest = phase6FingerprintDigestFromText(fingerprint);
+            fingerprint = fingerprint.replace(
+              /^PHASE6 LIBM DIGEST: [0-9a-f]{8}$/m,
+              `PHASE6 LIBM DIGEST: ${digest}`,
+            );
+            replacePhase6EvidenceBytes(inputs, path, Buffer.from(fingerprint));
+            return fingerprint.includes(after)
+              && fingerprint.includes(`PHASE6 LIBM DIGEST: ${digest}`);
+          },
+        },
+        {
+          name: "Phase 6 M1 per-regime agreement falsified",
+          mutate: (inputs) => {
+            const path = "phase6-sweep-arm2/report.json";
+            const report = JSON.parse(Buffer.from(inputs.files[path]).toString("utf8"));
+            report.perRegime[0].agree += 1;
+            replacePhase6EvidenceJson(inputs, path, report);
+            return report.perRegime[0].agree === 6;
+          },
+        },
+        {
+          name: "Phase 6 M1 extent-fragile total falsified",
+          mutate: (inputs) => {
+            const path = "phase6-sweep-arm2/report.json";
+            const report = JSON.parse(Buffer.from(inputs.files[path]).toString("utf8"));
+            report.extentFragileCount += 1;
+            replacePhase6EvidenceJson(inputs, path, report);
+            return report.extentFragileCount === 34;
+          },
+        },
+        {
+          name: "Phase 6 M1 extent-fragile row label falsified",
+          mutate: (inputs) => {
+            const path = "phase6-sweep-arm2/points.json";
+            const points = JSON.parse(Buffer.from(inputs.files[path]).toString("utf8"));
+            const before = points[0].extentFragile;
+            points[0].extentFragile = !before;
+            replacePhase6EvidenceJson(inputs, path, points);
+            return points[0].extentFragile !== before;
+          },
+        },
+        {
+          name: "Phase 6 CAK exact-threshold witness omitted from the closed fragility census",
+          expectedDetection: "Phase 6 current tracked-evidence record",
+          mutate: (inputs) => {
+            const path = "phase6-sweep/points.json";
+            const points = JSON.parse(Buffer.from(inputs.files[path]).toString("utf8"));
+            const row = points.find(
+              (entry) => entry.point.tempC === -23 && entry.point.fraction === 0.15,
+            );
+            if (!row || row.result.aspectRatio !== 1.5 || row.extentFragile !== false) return false;
+            row.result.aspectRatio = 1.636;
+            replacePhase6EvidenceJson(inputs, path, points);
+            return row.result.aspectRatio === 1.636;
+          },
+        },
+        {
+          name: "Phase 6 M1 bistable report falsified",
+          mutate: (inputs) => {
+            const path = "phase6-sweep-arm2/report.json";
+            const report = JSON.parse(Buffer.from(inputs.files[path]).toString("utf8"));
+            report.bistable.agree += 1;
+            replacePhase6EvidenceJson(inputs, path, report);
+            return report.bistable.agree === 1;
+          },
+        },
+        {
+          name: "Phase 6 M1 exclusion reason coherently misbound",
+          expectedDetection: "M1 producer labels",
+          mutate: (inputs) => {
+            const fixture = makeCoherentM1InvalidFixture(inputs);
+            const wrong = "tripped the 65% domain-contact guard";
+            fixture.row.exclusionReason = wrong;
+            fixture.report.excludedPoints[0].reason = wrong;
+            replacePhase6EvidenceJson(inputs, "phase6-sweep-arm2/points.json", fixture.points);
+            replacePhase6EvidenceJson(inputs, "phase6-sweep-arm2/report.json", fixture.report);
+            return fixture.row.exclusionReason === wrong
+              && fixture.report.excludedPoints[0].reason === wrong
+              && fixture.row.result.domainContact === false;
+          },
+        },
+        {
+          name: "Phase 6 M1 excluded-point identity misbound",
+          expectedDetection: "M1 independently derived report",
+          mutate: (inputs) => {
+            const fixture = makeCoherentM1InvalidFixture(inputs);
+            fixture.report.excludedPoints[0].tempC = -3;
+            replacePhase6EvidenceJson(inputs, "phase6-sweep-arm2/report.json", fixture.report);
+            return fixture.report.excludedPoints[0].tempC === -3
+              && fixture.row.point.tempC === -2;
+          },
+        },
+      ];
+      const reportIdentityMutations = {
+        arm: "arm1-cak",
+        paramSet: "CAK",
+        valuesSha256: "0".repeat(64),
+        justificationSha256: "1".repeat(64),
+        protocolSha256: "2".repeat(64),
+        head: "3".repeat(40),
+      };
+      for (const [label, path] of [
+        ["CAK", "phase6-sweep/report.json"],
+        ["M1", "phase6-sweep-arm2/report.json"],
+        ["CAK_A1", "phase6-sweep-6995868-cak-a1-superseded/report.json"],
+      ]) {
+        phase6AuthorityMutations.push({
+          name: `Phase 6 ${label} report coherently replaced by JSON null`,
+          expectedDetection: `${label} report record`,
+          mutate: (inputs) => {
+            replacePhase6EvidenceBytes(inputs, path, Buffer.from("null\n"));
+            return Buffer.from(inputs.files[path]).toString("utf8") === "null\n";
+          },
+        });
+      }
+      for (const [field, wrong] of Object.entries(reportIdentityMutations)) {
+        phase6AuthorityMutations.push({
+          name: `Phase 6 M1 report ${field} falsified`,
+          mutate: (inputs) => {
+            const path = "phase6-sweep-arm2/report.json";
+            const report = JSON.parse(Buffer.from(inputs.files[path]).toString("utf8"));
+            report[field] = wrong;
+            replacePhase6EvidenceJson(inputs, path, report);
+            return report[field] === wrong;
+          },
+        });
+      }
+      const configIdentityMutations = {
+        paramSet: "CAK",
+        surfacePolicy: "aggregate-hv-g1h1-v5",
+        farField: "fixed-sigma",
+        dxUm: 0.36,
+        pressurePa: 100000,
+        cfl: 0.2,
+        relaxTol: 1e-8,
+        divTol: 1e-6,
+        relaxMaxSweeps: 199999,
+        targetExtent: 22,
+        rngSeed: 2,
+        noiseEpsilon: 0.01,
+        seedRadius: 3,
+        tempC: -35,
+        sigmaInf: 0.019,
+        dimsN: 64,
+        hexRadius: 22,
+        zHalfExtent: 22,
+        activeCells: 1,
+        seedSites: 20,
+        stopReason: "far-field",
+        finalExtent: 22,
+      };
+      for (const [field, wrong] of Object.entries(configIdentityMutations)) {
+        phase6AuthorityMutations.push({
+          name: `Phase 6 M1 row config ${field} falsified`,
+          mutate: (inputs) => {
+            const path = "phase6-sweep-arm2/points.json";
+            const points = JSON.parse(Buffer.from(inputs.files[path]).toString("utf8"));
+            points[0].result.config[field] = wrong;
+            replacePhase6EvidenceJson(inputs, path, points);
+            return points[0].result.config[field] === wrong;
+          },
+        });
+      }
+      for (const control of phase6AuthorityMutations) {
+        await expectRejected(
+          control.name,
+          control.expectedDetection || "Phase 6 tracked authority",
+          async () => {
+            const inputs = structuredClone(phase6TrackedInputs);
+            const executed = Boolean(control.mutate(inputs));
+            const authority = derivePhase6TrackedAuthority(inputs);
+            return {
+              executed,
+              detections: phase6StatusViolations(
+                capturedPartTwoEvidence.status,
+                authority,
+              ),
+            };
+          },
+        );
+      }
+
+      await expectRejected(
+        "sigma0 formula samples deleted",
+        "sigma0 sample inventory",
+        async () => {
+          const evidence = structuredClone(capturedPartTwoEvidence.sigma0Asset);
+          evidence.samples = [];
+          return {
+            executed: evidence.samples.length === 0,
+            detections: sigma0AssetViolations(evidence),
+          };
+        },
+      );
+      await expectRejected(
+        "sigma0 dip formula changed from registered base 10",
+        "sigma0 base-10 formula sample 8",
+        async () => {
+          const evidence = structuredClone(capturedPartTwoEvidence.sigma0Asset);
+          const sample = evidence.samples.find((row) => row.t === 8);
+          sample.values.basalDip = 1 - 0.87 * Math.exp(
+            -Math.pow(Math.log(8) - Math.log(4.5), 2) / 0.07,
+          );
+          return { executed: true, detections: sigma0AssetViolations(evidence) };
+        },
+      );
+      await expectRejected(
+        "sigma0 dip centre falsified",
+        "sigma0 dip constants",
+        async () => {
+          const evidence = structuredClone(capturedPartTwoEvidence.sigma0Asset);
+          evidence.constants.basalCentreC = 3.08;
+          return { executed: true, detections: sigma0AssetViolations(evidence) };
+        },
+      );
+      await expectRejected(
+        "sigma0 diagnostic promoted to habit proxy",
+        "sigma0 semantic contract",
+        async () => {
+          const evidence = structuredClone(capturedPartTwoEvidence.sigma0Asset);
+          evidence.semanticContract.habitProxy = true;
+          return { executed: true, detections: sigma0AssetViolations(evidence) };
+        },
+      );
+      await expectRejected(
+        "sigma0 learner-visible non-habit limit erased",
+        "sigma0 dipped visible diagnostic limit",
+        async () => {
+          const evidence = structuredClone(capturedPartTwoEvidence.sigma0Asset);
+          evidence.visible.dipped = "three roots";
+          return { executed: true, detections: sigma0AssetViolations(evidence) };
+        },
+      );
+
+      await expectRejected(
+        "pre-registration formula samples deleted",
+        "preregister sample inventory",
+        async () => {
+          const evidence = structuredClone(capturedPartTwoEvidence.preregisterAsset);
+          evidence.samples = [];
+          return {
+            executed: evidence.samples.length === 0,
+            detections: preregisterAssetViolations(evidence),
+          };
+        },
+      );
+      await expectRejected(
+        "pre-registration dip formula changed from registered base 10",
+        "preregister base-10 formula sample 8",
+        async () => {
+          const evidence = structuredClone(capturedPartTwoEvidence.preregisterAsset);
+          const sample = evidence.samples.find((row) => row.t === 8);
+          sample.values.prismDip = 1 - 0.95 * Math.exp(
+            -Math.pow(Math.log(8) - Math.log(14.4), 2) / 0.06,
+          );
+          return { executed: true, detections: preregisterAssetViolations(evidence) };
+        },
+      );
+      await expectRejected(
+        "pre-registration dip centre falsified",
+        "preregister dip constants",
+        async () => {
+          const evidence = structuredClone(capturedPartTwoEvidence.preregisterAsset);
+          evidence.constants.prismCentreC = 8.07;
+          return { executed: true, detections: preregisterAssetViolations(evidence) };
+        },
+      );
+      await expectRejected(
+        "pre-registration proxy relabeled as a humidity sweep",
+        "preregister semantic contract",
+        async () => {
+          const evidence = structuredClone(capturedPartTwoEvidence.preregisterAsset);
+          evidence.semanticContract.fieldSweep = true;
+          return { executed: true, detections: preregisterAssetViolations(evidence) };
+        },
+      );
+      await expectRejected(
+        "pre-registration illustrative token relabeled protocol hash",
+        "preregister semantic contract",
+        async () => {
+          const evidence = structuredClone(capturedPartTwoEvidence.preregisterAsset);
+          evidence.semanticContract.tokenIsProtocolHash = true;
+          return { executed: true, detections: preregisterAssetViolations(evidence) };
+        },
+      );
+      await expectRejected(
+        "pre-registration token disclaimer erased",
+        "preregister frozen visible state",
+        async () => {
+          const evidence = structuredClone(capturedPartTwoEvidence.preregisterAsset);
+          evidence.visible.frozen = "frozen";
+          return { executed: true, detections: preregisterAssetViolations(evidence) };
+        },
+      );
+      await expectRejected(
+        "pre-registration non-default perfect-score multiplicity erased",
+        "preregister non-default revealed visible state",
+        async () => {
+          const evidence = structuredClone(capturedPartTwoEvidence.preregisterAsset);
+          evidence.visible.nonDefaultRevealed = "The invalid proxy scored 15 of 15.";
+          return { executed: true, detections: preregisterAssetViolations(evidence) };
+        },
+      );
+
+      await expectRejected(
+        "sweep CAK class grid falsified",
+        "sweep CAK grid from tracked evidence",
+        async () => {
+          const evidence = structuredClone(capturedPartTwoEvidence.sweepAsset);
+          evidence.grids.cak["0.1"] = `C${evidence.grids.cak["0.1"].slice(1)}`;
+          return { executed: true, detections: sweepAssetViolations(evidence, phase6TrackedAuthority) };
+        },
+      );
+      await expectRejected(
+        "sweep withdrawn CAK_A1 class grid falsified",
+        "sweep CAK_A1 grid from tracked evidence",
+        async () => {
+          const evidence = structuredClone(capturedPartTwoEvidence.sweepAsset);
+          evidence.grids.cakA1["0.15"] = `C${evidence.grids.cakA1["0.15"].slice(1)}`;
+          return { executed: true, detections: sweepAssetViolations(evidence, phase6TrackedAuthority) };
+        },
+      );
+      await expectRejected(
+        "sweep CAK score falsified",
+        "sweep CAK independently derived score",
+        async () => {
+          const evidence = structuredClone(capturedPartTwoEvidence.sweepAsset);
+          evidence.scores.cak.headlineAgree = 90;
+          return { executed: true, detections: sweepAssetViolations(evidence, phase6TrackedAuthority) };
+        },
+      );
+      await expectRejected(
+        "sweep fraction relabeled relative humidity",
+        "sweep semantic contract",
+        async () => {
+          const evidence = structuredClone(capturedPartTwoEvidence.sweepAsset);
+          evidence.semanticContract.relativeHumidity = true;
+          return { executed: true, detections: sweepAssetViolations(evidence, phase6TrackedAuthority) };
+        },
+      );
+      await expectRejected(
+        "withdrawn sweep model validity conflated with protocol admissibility",
+        "sweep semantic contract",
+        async () => {
+          const evidence = structuredClone(capturedPartTwoEvidence.sweepAsset);
+          evidence.semanticContract.cakA1ProtocolInadmissibleRows = 0;
+          return { executed: true, detections: sweepAssetViolations(evidence, phase6TrackedAuthority) };
+        },
+      );
+      await expectRejected(
+        "sweep learner-visible registered-reference wording erased",
+        "sweep CAK visible semantics",
+        async () => {
+          const evidence = structuredClone(capturedPartTwoEvidence.sweepAsset);
+          evidence.visible.cak = "model result";
+          return { executed: true, detections: sweepAssetViolations(evidence, phase6TrackedAuthority) };
+        },
+      );
+
+      await expectRejected(
+        "parameter-order diagnostic relabeled as a habit proxy",
+        "equality semantic contract",
+        async () => {
+          const evidence = structuredClone(capturedPartTwoEvidence.crossing);
+          evidence.semanticContract.habitProxy = true;
+          return {
+            executed: evidence.semanticContract.habitProxy === true,
             detections: crossingViolations(evidence),
           };
         },
@@ -4190,35 +5286,37 @@ async function negativeControls(
   } finally {
     await server.close();
   }
-  const expectedNegativeControls = partTwoModelControlsOnly
-    ? 24
-    : partOneOnly
-      ? 11
-      : 35;
   requireCheck(
-    passed === expectedNegativeControls,
-    `all ${expectedNegativeControls} artifact-backed verifier negative controls executed and were rejected by production predicates`,
-    `passed ${passed}/${expectedNegativeControls}`,
+    passed === attempted,
+    `all ${attempted} artifact-backed verifier negative controls executed and were rejected by production predicates`,
+    `passed ${passed}/${attempted}`,
   );
 }
 
 mkdirSync(OUT, { recursive: true });
 staticChecks();
 
-if (!partTwoModelsOnly && modes.includes("offline")) {
+if (modes.includes("offline")) {
   execFileSync("node", ["docs/education/tools/build-local.mjs"], {
     cwd: REPO,
     stdio: "inherit",
   });
-  verifyOfflineSourceMap();
-  verifyOfflineMediaBytes();
+  if (!partTwoModelsOnly) {
+    verifyOfflineSourceMap();
+    verifyOfflineMediaBytes();
+  }
 }
 
 const browser = await chromium.launch();
 try {
   if (partTwoModelsOnly) {
-    await verifyPartTwoModels(browser, PUBLIC_ROOT);
-    await negativeControls(browser, { partTwoModelControlsOnly: true });
+    const modelMode = modes[0];
+    const modelRoot = modelMode === "public" ? PUBLIC_ROOT : OFFLINE_ROOT;
+    partTwoRunInventory = await verifyPartTwoModels(browser, modelRoot);
+    await negativeControls(browser, {
+      partTwoModelControlsOnly: true,
+      root: modelRoot,
+    });
   } else {
     for (const mode of modes) {
       const root = mode === "public" ? PUBLIC_ROOT : OFFLINE_ROOT;
@@ -4244,9 +5342,18 @@ const report = {
     : partOneOnly
       ? "part-one"
       : "complete-course",
-  pages: partTwoModelsOnly ? 6 : PAGE_PATHS.length,
-  visualRoots: partTwoModelsOnly ? 6 : EXPECTED_ROOTS,
-  modes: partTwoModelsOnly ? ["public"] : modes,
+  ...(partTwoModelsOnly
+    ? {
+        pages: partTwoRunInventory?.pages.length ?? 0,
+        pagePaths: partTwoRunInventory?.pages ?? [],
+        logicalModels: partTwoRunInventory?.logicalModels.length ?? 0,
+        logicalModelIds: partTwoRunInventory?.logicalModels ?? [],
+      }
+    : {
+        pages: PAGE_PATHS.length,
+        visualRoots: EXPECTED_ROOTS,
+      }),
+  modes,
   checks: checks.length,
   failures,
 };

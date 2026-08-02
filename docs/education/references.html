@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>References — Snow Crystals</title>
-<meta name="description" content="Every source behind this site: for Part One, Kenneth Libbrecht's Snow Crystals monograph, his post-monograph measurement papers, and the historical record; for Part Two, this project's own tracked repository — charter, rules, decision records, progress log, findings ledger, sweep report and source trees.">
+<meta name="description" content="Named sources used by this site: for Part One, Kenneth Libbrecht's Snow Crystals monograph, his post-monograph measurement papers, and the historical record; for Part Two, this project's own tracked repository — charter, rules, decision records, progress log, findings ledger, sweep report and source trees. This index is not a machine-complete claim census.">
 <link rel="stylesheet" href="./assets/education.css">
 </head>
 <body data-depth="0">
@@ -387,12 +387,13 @@
       <h2 id="repository">Part Two: a repository, not a literature</h2>
 
       <p>
-        Part One cites <em>papers</em>. Part Two cites a <em>directory tree</em>. Every claim in
-        chapters 14&ndash;29 &mdash; every number, every gate, every admission of failure &mdash;
-        traces to a tracked file in this project&rsquo;s own Git repository, and the chapters
-        usually name the file and sometimes the line. This section lists those files, so you can
-        open them yourself. Counts and versions below are as of <strong>29 July 2026</strong>; the
-        repository moves, so treat them as a snapshot rather than a fixed fact.
+        Part One cites <em>papers</em>. Part Two cites a <em>directory tree</em>. Its scientific claims
+        are intended to name tracked repository sources, and the verifier independently audits the
+        named load-bearing teaching models. Neither this page nor the tooling is a machine-complete
+        claim-to-source census, so an omitted claim artifact remains possible. This section lists
+        the named files so you can open them yourself. Counts and versions below are as of
+        <strong>2 August 2026</strong>; the repository moves, so treat them as a snapshot rather than
+        a fixed fact.
       </p>
 
       <p>
@@ -420,11 +421,14 @@
           expert saying the physics is right.
         </li>
         <li>
-          <strong>The evidence artifacts themselves are not in the repository.</strong> Run outputs
-          land in <code>out/</code>, which is deliberately untracked, because they are reproducible
-          from the recorded seed, dimensions, and command (Rule 6). What is tracked is the recipe,
-          the hashes, and the commit &mdash; not the bytes. To check a number you re-run the command
-          and compare hashes; you cannot simply download the answer.
+          <strong>The published Phase&nbsp;6 sweep bytes and Tier&nbsp;1 fingerprints are
+          tracked.</strong> They live under <code>evidence/</code>, and
+          <code>evidence/MANIFEST.json</code> pins every listed byte count and SHA-256. The historical
+          Tier&nbsp;2 rows attributed to a self-reported <code>darwin/arm64</code> fixture survive
+          only as a prose table: their gitignored raw logs and exit records were never promoted and
+          are no longer available here, so they do not independently
+          back an end-to-end portability claim. R15 must publish useful generated science data under
+          <code>evidence/</code> rather than leave it transient.
         </li>
       </ul>
 
@@ -509,9 +513,9 @@
       </p>
 
       <p>
-        There are <strong>36</strong> numbered records in the current authority,
-        <code>docs/decisions/0001-&hellip;</code> through <code>0036-&hellip;</code>: 34 accepted,
-        one superseded (0002), and one proposed (0030), plus a template. The ones Part Two leans on
+        There are <strong>40</strong> numbered records in the current authority,
+        <code>docs/decisions/0001-&hellip;</code> through <code>0040-&hellip;</code>: 37 accepted,
+        two superseded and one proposed, plus a template. The ones Part Two leans on
         hardest:
       </p>
 
@@ -551,21 +555,21 @@
             <span class="ref__id">docs/decisions/0036-phase6-sdak-arm-pre-registrations.md</span>
           </span>
           <p>
-            Registers Arm&nbsp;2&rsquo;s all-facets-narrow M1 interpretation, its own exclusions and
-            its pre-run forecast. This is a separate protocol from Arm&nbsp;1, never a patch to it:
-            42 of 90 on the common denominator and 42 of 78 under Arm&nbsp;2&rsquo;s own bistable-row
-            exclusion are predictions, not measurements. Its values protocol is frozen. One launch
-            was stopped about a minute in after its first line exposed Arm&nbsp;1&rsquo;s combined
-            protocol hash. At the education audit&rsquo;s
-            2026-07-30 10:23&nbsp;PDT cutoff, the repaired canonical sweep was running; its local
-            output remained mutable and did not yet constitute a completed, reviewed sweep result.
+            Registered the historical everywhere-narrow M1 arm and its exclusions. Its 42/90
+            common-scope and 42/78 arm-scope values are a withdrawn, confounded historical proxy
+            forecast, inadmissible as habit evidence and not a valid pre-run habit prediction. The
+            completed measurement was 54/90 common scope and 54/78 arm scope, with 75 plate, 119
+            neutral, and 10 column rows. It is
+            in-sample measured-only evidence, not the still-absent replacement gate. M1 is an
+            everywhere-narrow approximation; M2&rsquo;s width closure remains unimplemented.
           </p>
         </li>
         <li>
           <span class="ref__title">0003 &mdash; Libbrecht attachment kinetics</span>
           <span class="ref__meta"><span class="ref__id">0003-libbrecht-attachment-kinetics.md</span></span>
           <p>
-            Puts measured attachment kinetics on the Gravner&ndash;Griffeath skeleton, and reframes
+            Puts source-fitted and model-inverted attachment kinetics on the
+            Gravner&ndash;Griffeath skeleton, and reframes
             Phase 6 from <em>calibration</em> to <em>validation</em> &mdash; the decision that made
             it possible to fail. Chapters 17 and 21.
           </p>
@@ -627,8 +631,9 @@
             <span class="ref__id">0034-phase6-e1-justification-correction.md</span>
           </span>
           <p>
-            Hashing prose together with registered values had made it impossible to fix a wrong
-            sentence without invalidating the sweep. 0033 split the hash in two; 0034 then used the
+            Hashing prose together with registered values meant that fixing a wrong sentence moved
+            the combined digest and forced the registered response when the verifier ran. 0033 split
+            the hash in two; 0034 then used the
             split to correct an erratum at zero cost, and to walk back an over-strong claim 0033
             had itself made.
           </p>
@@ -639,9 +644,9 @@
           <p>
             A <code>Status: proposed</code> design record for the second arm. It is not the accepted
             registration and must not be cited as one; accepted decision 0036, the M1 implementation,
-            and the later Arm&nbsp;2 values freeze supersede its preparation status. Both completed
-            Arm&nbsp;1 sweeps were no-SDAK. At the education audit cutoff, Arm&nbsp;2 had mutable
-            partial rows but no completed, reviewed sweep result.
+            and the later M1 implementation supersede its preparation status. The historical CAK
+            arm measured 3/90 and M1 measured 54/90 common scope. Both are measured-only and remain
+            separate; neither is the registered replacement gate.
           </p>
         </li>
         <li>
@@ -659,10 +664,11 @@
 
       <ul class="refs">
         <li>
-          <span class="ref__title">The progress log</span>
-          <span class="ref__meta"><span class="ref__id">docs/PROGRESS.md</span> &mdash; mutable live-state record.</span>
+          <span class="ref__title">The cold-start authority chain</span>
+          <span class="ref__meta"><span class="ref__id">docs/HANDOFF.md → docs/phase6-lessons.md → docs/PROGRESS.md → active plan</span></span>
           <p>
-            The file to open first. It carries the phase table with each gate&rsquo;s status and the
+            Open <code>docs/HANDOFF.md</code> first, then the lessons, then the progress record and
+            the active plan it names. <code>PROGRESS.md</code> carries the phase table with each gate&rsquo;s status and the
             metric that closed it, a <strong>Next step</strong> section that is the current state of
             play, and long passages of &ldquo;traps already known&rdquo; recording defects, dead
             ends, and interrupted runs. Rule 3 requires it be written as work happens rather than
@@ -705,10 +711,9 @@
           <span class="ref__title">The Phase 6 plan</span>
           <span class="ref__meta"><span class="ref__id">docs/plans/phase-6-nakaya-validation.md</span></span>
           <p>
-            The registered plan, with the work-package checklist showing exactly what is done and
-            what is not (WP5 is still unchecked), the freeze list, an explicit <em>Out of
-            scope</em> section, and a <em>Tried and rejected</em> section that includes running the
-            sweep on the GPU &mdash; registered and retracted the same day on measurement.
+            The historical plan and its execution record. Its work-package history remains useful,
+            but the active science-first completion plan supersedes it for R15, numerical adequacy,
+            GPU, matched-ablation, and held-out obligations.
           </p>
         </li>
         <li>
@@ -741,22 +746,24 @@
       <ul class="refs">
         <li>
           <span class="ref__title">The Libbrecht parameter mapping</span>
-          <span class="ref__meta"><span class="ref__id">docs/libbrecht-parameters.md</span> &mdash; 547 lines. Frozen 27 July 2026.</span>
+          <span class="ref__meta"><span class="ref__id">docs/libbrecht-parameters.md</span> &mdash; historical freeze 27 July 2026; corrected replacement-gate draft 1 August 2026.</span>
           <p>
             The mapping layer: which published number, from which page, becomes which constant.
-            Chapter 16 is about this file. Its content hash is registered as
-            <code>PHASE6_PARAMETER_TABLE_SHA256</code> in
-            <code>runner/src/phase6-protocol.ts</code> and enforced, so editing it now breaks the
-            protocol on purpose.
+            Chapter 16 is about this file. The legacy
+            <code>PHASE6_PARAMETER_TABLE_SHA256</code> and values manifests continue to authenticate
+            the historical sweeps. The corrected current revision needs its own accepted decision,
+            identity and R15 freeze; it does not inherit replacement-gate standing from the legacy pin.
           </p>
         </li>
         <li>
           <span class="ref__title">Attachment kinetics &mdash; the physics spec</span>
           <span class="ref__meta"><span class="ref__id">docs/attachment-kinetics.md</span> &mdash; 724 lines.</span>
           <p>
-            The only physically parameterized step of the update cycle, specified in full. Its own
-            header carries a correction: it used to claim this was &ldquo;the only step that is
-            physics&rdquo;, which overstated it.
+            The physically parameterized surface-exchange step, specified in full; vapour diffusion
+            is physical transport too. The implementation does not explicitly evolve a premelted
+            layer, surface diffusion or latent-heat transport. Recorded attachment inputs may encode
+            some premelting response, but do not establish that all such effects are absorbed; the
+            omissions require a bound or stated systematic for quantitative validation.
           </p>
         </li>
         <li>
@@ -905,25 +912,21 @@
           pessimistic.
         </li>
         <li>
-          <strong>3 of 90 is not gate evidence, and the project says so itself.</strong> The sweep
-          report states it in bold. WP5 &mdash; run the registered gate command at one exact clean
-          commit, authenticate the artifacts, and obtain independent review to zero blockers &mdash;
-          is still unchecked in the Phase 6 plan. The historical report says no independent
-          verifier had run. Current history is later: commit <code>990840a</code>&rsquo;s hardened
-          verifier asserts all three artifact digests, requires the exact 204-row set, re-derives all
-          report fields, recomputes ambiguity and domain-contact status, passes the unchanged
-          artifacts, and rejects the two real forgeries its first version accepted. Seven negative
-          controls executed. Arm&nbsp;1&rsquo;s flagless closing gate and zero-blocker review still have
-          not happened, so this remains a measured result with verified provenance, which is a
-          different and lesser thing.
+          <strong>3 of 90 is measured-only, not replacement-gate evidence.</strong> Later readers
+          preserve and independently re-derive the historical bytes; they do not make those bytes
+          satisfy a protocol that was never implemented. R15 is planned but still unfrozen,
+          unimplemented and unexecuted; it must eventually execute its numerical, GPU,
+          matched-ablation, and held-out obligations after freeze and review.
         </li>
         <li>
           Arm&nbsp;1&rsquo;s <strong>historical verification hazard remains historical</strong>:
           its 204 child runs loaded the working tree after provenance was stamped. Nine commits landed
           during the run; a later diff found no physics change, which the report calls luck, not
-          design. Commit <code>154359d</code> now fingerprints the full source graph before and after
-          a future sweep and refuses publication on drift. That closes the timing path forward; it
-          does not retro-upgrade Arm&nbsp;1.
+          design. Commit <code>154359d</code> fingerprints the named source graph before and after a
+          future sweep and refuses publication when those endpoint fingerprints differ. It does not
+          exclude a transient reverted edit, inherited <code>NODE_OPTIONS</code>, or a shadow module.
+          R15 still owes an immutable source snapshot, an environment allowlist, and verified child
+          source identity; none retro-upgrades Arm&nbsp;1.
         </li>
         <li>
           Decision record 0035&rsquo;s checks at <code>b701285</code> bind future child inputs and
@@ -932,23 +935,25 @@
           per-row configuration or stop reason, and later code does not pretend otherwise.
         </li>
         <li>
-          The <strong>SDAK arm is separate</strong>. Its M1 value content was frozen at
-          <code>483f7ee</code>; <code>0cb52bf</code> then recorded that freeze commit in the
-          manifest and repinned the final gated values hash. The corrected arm-specific combined protocol hash is
-          recorded at commit <code>8c781b1</code>, but it moves with prose and is revision-pinned,
-          not a durable gate; the values hash is the freeze. That commit also records the launch
-          stopped about a minute in after its first line exposed the wrong-arm header. At the education
-          audit&rsquo;s 2026-07-30 10:23&nbsp;PDT cutoff, its repaired canonical sweep was running;
-          partial local output was still mutable and was not a completed, reviewed result.
-          Forecasts of 42/90 on Arm&nbsp;1&rsquo;s common denominator and 42/78 under Arm&nbsp;2&rsquo;s
-          own bistable exclusion are predictions, not measurements, and are never merged with
-          Arm&nbsp;1&rsquo;s 3/90. Phase&nbsp;6 reports the two arms together before drawing a
-          conclusion.
+          The <strong>M1 arm is separate</strong>. Its 42/90 common-scope and 42/78 arm-scope
+          values are a withdrawn, confounded historical proxy forecast, inadmissible as habit
+          evidence and not a valid pre-run habit prediction. Its completed measurements are 54/90
+          and 54/78 respectively. Its class census is 75 plate, 119 neutral, 10 column. M1 is
+          in-sample, everywhere-narrow, and
+          measured-only. CAK to M1 changes broad functions and A prefactors along with the dip
+          factors, so the difference does not isolate dip causation. Neither historical arm is the
+          replacement gate.
         </li>
         <li>
-          The x64 cross-platform baseline exists; the Apple-silicon half has not run and its runbook
-          still says <strong>MAC RUN NEEDED</strong>. No cross-platform reproducibility claim has
-          been earned.
+          The tracked Tier&nbsp;1 fixtures self-report <code>win32/x64</code> and
+          <code>darwin/arm64</code> on the same Node/V8 build; those headers do not independently
+          authenticate either physical host. Their floating-point bytes differ in 9 of 448 entries,
+          with a maximum distance of 31 ULP. A historical table reports exact Tier&nbsp;2 output
+          reproduction at four CAK configurations, but the raw output and exit records attributed to
+          the <code>darwin/arm64</code> fixture are unavailable in this repository, so the result is
+          not independently rederivable. It does
+          not establish M1, full-grid, end-to-end, digit-level, bitwise or general-architecture
+          portability.
         </li>
       </ul>
 
@@ -971,11 +976,12 @@
       <h2 id="who-checked">Who has actually checked this</h2>
 
       <p>
-        <strong>Every review this project has had has been an LLM review.</strong> The code, the
-        evidence bundles, the decision records, the sweep report, the chapters of this website
-        including this page &mdash; all of it was written by language models and reviewed by other
-        language models. <strong>No human snow-crystal scientist, numerical-methods specialist, or
-        graphics engineer has read any of it.</strong>
+        <strong>No human domain-expert review is recorded.</strong> Every recorded non-maker
+        reviewer-agent round for the code, evidence bundles, decision records, sweep report, and
+        these chapters is an LLM review. Maker audits are recorded separately, and the maker is not
+        identified as a domain scientist. That record cannot establish that no unrecorded person has ever
+        read the material; it establishes that expert human review cannot be inferred from the
+        project&rsquo;s evidence.
       </p>
 
       <p>
@@ -1065,10 +1071,11 @@
         </p>
         <p>
           Where a quantity exists in the literature only as a curve on a plot, we say so rather
-          than reporting a number as if it had been measured. Values quoted on this site come from
-          printed tables, printed equations, or text — not from our reading of a plotted line.
-          Where we do describe a curve's shape, we describe it qualitatively and point you at the
-          figure.
+          than reporting a graph-read value as if it had been tabulated or measured directly.
+          Many values quoted on this site come from printed tables, equations, or text. Others are
+          explicitly labeled digitizations or reconstructions, with their uncertainty and provenance
+          class; Chapter&nbsp;7 likewise labels its approximate Nakaya boundaries as a calibrated
+          figure read. Qualitative curve descriptions point to the source figure.
         </p>
       </aside>
 

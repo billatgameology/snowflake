@@ -782,16 +782,17 @@
           Still unsettled
         </p>
         <p>
-          Every review round in this project &mdash; including the three rounds that closed this
-          phase, and including the two-reviewer process that checked <em>this page</em> &mdash; has
-          been a review by a language model. The project is worked on &ldquo;by <strong>multiple
+          Every recorded non-maker reviewer-agent round &mdash; including the three rounds
+          that closed this phase and the recorded two-reviewer process that checked <em>this
+          page</em> &mdash; is a language-model review. Maker audits are recorded separately, and the
+          maker is not identified as a domain scientist. The project is worked on &ldquo;by <strong>multiple
           different LLMs across sessions</strong>, with no shared memory between them&rdquo;
           (<code>AGENTS.md</code>, line&nbsp;3), and its Rule&nbsp;10 requires every review to
           record the reviewing model, what it independently re-executed, and what it did
           <em>not</em> check, &ldquo;stated as a limit of the evidence rather than left
           implicit.&rdquo; Reviews by a different model than the one that wrote the code have caught
-          real seams. They are still not the same thing as review by a human domain scientist, and
-          no human domain scientist has read this work. The project treats that as a disclosed
+          real seams. They are still not the same thing as review by a human domain scientist;
+          repository records contain no such review. The project treats that as a disclosed
           limitation rather than a substitute, and so should you.
         </p>
       </aside>
@@ -1153,7 +1154,7 @@
         guessed&rdquo; and decision 0018 moved that work off this gate
         (<code>docs/plans/phase-5-gpu-port.md:245&ndash;247</code>), which the charter turns into a
         flat rule &mdash; <strong>&ldquo;Untested backends carry no Phase 5 claim&rdquo;</strong>
-        (<code>project charter.md</code>, &sect;3.1, line&nbsp;223). And it
+        (<code>project charter.md</code>, &sect;3.1, line&nbsp;225). And it
         does not even say the fast path is fit for a workload longer than the one it was certified
         on; the previous section is what that turned out to cost.
       </p>
@@ -1183,10 +1184,10 @@
       </aside>
 
       <p class="handoff">
-        Which leaves one question standing. If you already suspect the answer might be
-        disappointing, what stops you from quietly adjusting the exam after you have seen the marks?
-        Chapter 27 is about writing the marking scheme down, publishing its fingerprint, and then
-        &mdash; deliberately &mdash; waiting.
+        Which leaves one question standing. If you adjust the exam after seeing disappointing marks,
+        what makes that change visible and stops the old evidence from silently following it?
+        Chapter 27 is about writing the marking scheme down, publishing its fingerprint, and making
+        an authorized correction require a decision record, a new identity and a full rerun.
       </p>
 
       <nav class="chapter-nav" aria-label="Chapter navigation">
@@ -1209,8 +1210,8 @@
   <div class="shell">
     <p>
       Part of <a href="../index.html">Snow Crystals</a>, an educational site about the science of
-      snowflake formation. Part Two describes a software project; every figure in it is original,
-      and every number in it is transcribed from a named file in that project's repository.
+      snowflake formation. Part Two describes a software project using named repository sources,
+      independently derived quantities, and clearly labelled fictional teaching examples.
     </p>
     <p><a href="../references.html">References</a> &middot; <a href="../glossary.html">Glossary</a></p>
   </div>

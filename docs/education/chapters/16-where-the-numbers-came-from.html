@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Where the Numbers Came From — Snow Crystals</title>
-<meta name="description" content="Every number in the model carries a stamp saying where it came from — and one of the stamps means &lsquo;read off a graph, plus or minus twenty-five percent&rsquo;.">
+<meta name="description" content="Every adopted solver input carries recorded provenance — and one provenance route means &lsquo;read off a graph, plus or minus twenty-five percent&rsquo;.">
 <link rel="stylesheet" href="../assets/education.css">
 </head>
 
@@ -69,9 +69,9 @@
         <ul>
           <li>Sort a mixed pile of model inputs into <em>measured</em>, <em>fitted</em>,
             <em>diagram&#8209;informed</em> and <em>numerical</em>.</li>
-          <li>Explain why a missing number has to stay missing rather than be estimated.</li>
+          <li>Explain why a missing source value has to stay missing rather than be guessed.</li>
           <li>Tell an <em>independent</em> check apart from a <em>self&#8209;consistency</em> check &mdash;
-            and say why only the first one is worth much.</li>
+            and say what each can and cannot establish.</li>
           <li>Say why a rule about <em>naming</em> can be a scientific safeguard, when the worst
             failure mode is a believable wrong answer.</li>
         </ul>
@@ -90,25 +90,26 @@
       <p>
         Here is the awkward fact that makes this necessary. Open the file that carries the
         model&rsquo;s physical inputs and you will find, in one table: the number of water molecules
-        in a cubic metre of ice, which is instrument data; a curve somebody fitted through a scatter
+        in a cubic metre of ice, which is a source-tabulated textbook constant; a curve somebody fitted through a scatter
         of measurements; a curve somebody drew <em>specifically so that the model would agree with
         the Nakaya diagram</em>; and the rule for joining up dots on a graph, which is not physics at
         all. Printed as digits they look identical. They are not the same kind of thing.
       </p>
 
       <p>
-        So the project&rsquo;s charter gives every solver input a <strong>provenance class</strong>,
-        and the class travels with the number permanently &mdash; into the parameter file, into the
-        code, into the test that checks the code, into the report at the end. The four classes are
-        quoted here exactly as <code>docs/libbrecht-parameters.md</code> states them, in the section
-        headed &ldquo;Provenance classes (decision 0005; charter &sect;2.7) &mdash; every entry
-        carries one&rdquo;.
+        So the project&rsquo;s charter gives every adopted solver input a <strong>provenance class</strong>.
+        The authoritative table records that class and the source or derivation, while code, tests and
+        protocol evidence keep the implemented value traceable to that record; this is traceability,
+        not a claim that every runtime number carries a literal class tag. The four classes are
+        summarized and excerpted here from <code>docs/libbrecht-parameters.md</code>, in the section
+        headed &ldquo;Provenance classes (decision 0005; charter &sect;2.7) &mdash; every adopted solver
+        input carries one&rdquo;.
       </p>
 
       <div class="table-wrap">
         <table>
           <caption>
-            The four provenance classes, quoted from <code>docs/libbrecht-parameters.md</code>,
+            The four provenance classes, summarized from <code>docs/libbrecht-parameters.md</code>,
             with a real example of each from the same file.
           </caption>
           <thead>
@@ -117,13 +118,15 @@
           <tbody>
             <tr>
               <td><strong>P1</strong></td>
-              <td>&ldquo;measured broad&#8209;facet kinetics. Instrument data; record the stated uncertainty.&rdquo;</td>
-              <td>Ice number density, <em>c</em><sub>ice</sub> &asymp; 3.1 &times; 10<sup>28</sup> m<sup>&minus;3</sup></td>
+              <td>Measured or source-tabulated empirical inputs, plus exact metrological definitions,
+                adopted directly. This includes instrument data and textbook material or transport properties; fits,
+                inversions, derivations, and figure readings are not P1.</td>
+              <td>Ice number density, <em>c</em><sub>ice</sub> &asymp; 3.1 &times; 10<sup>28</sup> m<sup>&minus;3</sup>, source-tabulated in Appendix A</td>
             </tr>
             <tr>
               <td><strong>P2</strong></td>
-              <td>&ldquo;fitted or inferred. Record the functional form and its stated domain of validity &mdash; extrapolating a fit outside its range silently manufactures a fake result. Figure digitizations land here, with the digitization uncertainty recorded.&rdquo;</td>
-              <td>The nucleation curves &sigma;<sub>0</sub>(<em>T</em>) and <em>A</em>(<em>T</em>) &mdash; read off a printed plot</td>
+              <td>Fitted, model-inferred, project-derived or figure-digitized quantities. Record the functional form, domain and uncertainty; <em>extrapolating a fit outside its range silently manufactures a fake result</em>. A source fit or inversion does not become P1 merely because its paper is authoritative.</td>
+              <td>Broad-facet &sigma;<sub>0</sub>(<em>T</em>) and <em>A</em>(<em>T</em>) fits/inversions, and any retained figure digitization</td>
             </tr>
             <tr>
               <td><strong>P3</strong></td>
@@ -171,25 +174,27 @@
       <h2 id="tracer">Follow one number back to its page</h2>
 
       <p>
-        A class letter is cheap. What stops it being decoration is a rule at the top of the
-        parameter file, which reads, verbatim:
+        A class letter is cheap. What stops it being decoration is the parameter file's scoped
+        provenance rule, summarized here:
       </p>
 
       <blockquote class="callout">
         <p>
-          <strong>No number enters this file without a citation</strong> &mdash; paper, section or
-          figure or table, and page. A parameter with no provenance is indistinguishable from a
-          parameter someone tuned until the picture looked right, and that is the exact failure
-          this project exists to avoid.
+          <strong>Every adopted source value or transcription has a citation</strong> &mdash; paper,
+          section or figure or table, and page. Project-derived values and P4 numerical choices name
+          their operands and method; analytic checks and contextual source statements that are not
+          solver inputs are labeled outside P1&ndash;P4. A solver input with no recorded provenance is
+          indistinguishable from a parameter someone tuned until the picture looked right, and that
+          is the exact failure this project exists to avoid.
         </p>
       </blockquote>
 
       <p>
-        That last clause is the whole argument. Handed a simulation and told it produces snow
+        That scope is the whole argument. Handed a simulation and told it produces snow
         crystals, you cannot tell from the output whether its constants were measured in a cold
-        chamber or nudged until the pictures looked convincing. Both make pretty crystals; only one
-        is evidence. A citation is not politeness towards the original author. It is the only thing
-        that makes the difference visible from outside.
+        chamber or nudged until the pictures looked convincing. Both make pretty crystals; the image
+        alone validates neither. A source citation or a recorded project derivation is not itself
+        empirical validation, but it makes the input&rsquo;s provenance and status visible from outside.
       </p>
 
       <p>
@@ -200,7 +205,7 @@
       <figure class="anim" id="anim-tracer">
         <div class="anim__head">
           <p class="anim__title">Provenance tracer</p>
-          <p class="anim__sub">Eight real inputs. Choose one and follow it back to a page number.</p>
+          <p class="anim__sub">Eight real entries. Choose one and follow its recorded provenance.</p>
         </div>
         <div class="anim__body"></div>
         <div class="anim__controls"></div>
@@ -214,15 +219,15 @@
       <p>
         The surprise, if you found it, is <strong>&sigma;<sub>0</sub></strong> &mdash; the nucleation
         parameter, which chapter 11 introduced as the reason a flat facet is reluctant to grow. It is
-        one of the two most important numbers in the whole model. And it was
+        a load-bearing attachment input. In the historical CAK mapping it was
         <strong>read off a graph</strong>.
       </p>
 
       <p>
-        Not out of carelessness. Out of necessity. The parameter file states the situation plainly:
-        &ldquo;Neither the paper nor the monograph prints the fit formulas or a numeric table &mdash;
-        the curves exist only as plots. Documented gap.&rdquo; The values in the model are therefore
-        digitizations of monograph Figure 4.5 (printed p. 144 / pdf 145), taken from a 300&nbsp;dpi
+        Not out of carelessness. Out of necessity. For the original monograph/1910 CAK source pair,
+        the parameter file records no printed fit formula or numeric table for those historical CAK
+        curves: they exist as plots. The historical CAK values are therefore digitizations of
+        monograph Figure 4.5 (printed p. 144 / pdf 145), taken from a 300&nbsp;dpi
         render of the plot, with a declared uncertainty of <strong>&plusmn;25% relative on
         &sigma;<sub>0</sub></strong> and <strong>&plusmn;0.03 absolute on <em>A</em></strong>. Class
         P2, and the file adds: &ldquo;The figure is the authority; anyone can re-read it from
@@ -258,30 +263,26 @@
       </p>
 
       <p>
-        The citation rule is enforced by more than good intentions. That parameter file is now
-        <strong>hash-frozen</strong> &mdash; chapter 15&rsquo;s fingerprint, pointed this time at a
-        table of physical constants instead of a run manifest. (Line endings are normalised before
-        the fingerprint is taken, which is why the file can say the
+        The historical parameter-table revision was <strong>hash-frozen</strong> &mdash; chapter
+        15&rsquo;s fingerprint, pointed this
+        time at a table of physical constants instead of a run manifest. (Line endings are normalised before
+        the fingerprint is taken, which is why the historical file could say the
         fingerprint &ldquo;survives this repository&rsquo;s CRLF checkout conversion and can be
         verified on any platform&rdquo;: Windows and Linux write the invisible end-of-line character
         differently, and without that step the same file would fingerprint differently on the two
-        machines the project wants to compare.) This file&rsquo;s fingerprint is registered in
-        <code>runner/src/phase6-protocol.ts</code> and checked by a test, so &ldquo;an edit here
-        fails the suite rather than silently changing the physics under a completed sweep.&rdquo;
+        machines the project wants to compare.) Its legacy fingerprint is registered in
+        <code>runner/src/phase6-protocol.ts</code> and continues to authenticate the historical
+        sweeps. That content check detects byte drift; it does not decide whether a citation is
+        scientifically faithful. Source/page review and the scoped repository tests perform that
+        semantic check separately.
         (<em>The suite</em> is the set of automatic checks that runs over the whole repository;
         one of them failing stops the change.)
-        Corrections are still allowed, at a price the file prints: any change &ldquo;invalidates
-        every Phase 6 sweep result produced under the current protocol; the sweep re-runs in
-        full.&rdquo; Scope that frozen sentence to Arm&nbsp;1 and other consumers of this exact
-        table. Arm&nbsp;2 intentionally reads its own separately frozen M1 manifest and overrides
-        the relevant parameter row, so editing this Arm&nbsp;1 table does not silently decide the
-        other arm&rsquo;s registered cost. The price is the point &mdash; &ldquo;it is what stops a
-        parameter from being adjusted after a disagreeing result is seen.&rdquo; In the dated evidence snapshot discussed
-        by chapter&nbsp;28, the protected sweep had run while the surrounding Phase&nbsp;6 gate had
-        not closed. That is historical context, not a live status claim; use
-        <code>docs/PROGRESS.md</code>, <strong>Next step</strong>, as the designated live-state
-        starting point, with the known Arm&nbsp;2 freeze lag stated in this chapter&rsquo;s final
-        section rather than silently ignored.
+        Corrections are still allowed. The 1 August source-currency correction is exactly such a
+        case: it requires a logged decision, a separately named current table identity, a new R15
+        freeze and a full replacement sweep. That does not erase the historical CAK or M1 bytes;
+        it keeps them at their measurement-only evidentiary scope. A versioned freeze does not make a
+        post-result adjustment impossible. It makes an authorized adjustment auditable and prevents
+        the adjusted input from silently inheriting prior gate evidence.
       </p>
 
       <!-- ================================================================ 3 -->
@@ -320,9 +321,10 @@
           <span class="built-from">Original interactive. The hidden curve is
           <code>A_prism = (0.4 + 0.04&middot;|T*&minus;4|&sup3;) / (2.2 + 0.04&middot;|T*&minus;4|&sup3;)</code>,
           printed as Eq.&nbsp;(5) of arXiv:2009.08404v2 p.&nbsp;3 and quoted in
-          <code>research/libbrecht-figure-findings.md</code> &sect;2. The nine project anchors
-          &mdash; the nine points read off the plot, which is all the model has of this curve
-          &mdash; are <code>A_PRISM_CAK</code> in <code>core/src/libbrecht.ts</code>.</span>
+          <code>research/libbrecht-figure-findings.md</code> &sect;2. The historical CAK mapping uses
+          nine Figure&nbsp;4.5 anchors, <code>A_PRISM_CAK</code> in
+          <code>core/src/libbrecht.ts</code>; Eq.&nbsp;(5) is a distinct later same-lineage alternative,
+          not the source of those anchors.</span>
         </figcaption>
       </figure>
 
@@ -333,8 +335,8 @@
       <p>
         The nine anchors in the model were digitized on 2026&#8209;07&#8209;15. Nobody on the project
         had the paper that prints the closed form. It turned up much later, and at the worst
-        possible moment: the rule file records that three uncited Libbrecht papers printing closed
-        forms for figure-digitized curves &ldquo;surfaced the day <em>after</em> the table&rsquo;s
+        possible moment: the rule file records that three previously uncited Libbrecht papers printing
+        related broad-facet alternatives and M1/M2 forms &ldquo;surfaced the day <em>after</em> the table&rsquo;s
         hash-freeze, converting a free upgrade into an ADR-plus-re-freeze decision.&rdquo;
       </p>
 
@@ -357,39 +359,37 @@
       </p>
 
       <p>
-        When the comparison was finally run, the digitized anchors reproduced the printed equation to
-        <strong>8.4% at worst and under 2% typically</strong>. The findings ledger &mdash;
-        <code>docs/findings-ledger.md</code>, entry <strong>A2</strong> &mdash; states why that
-        is worth more than it sounds:
+        When the comparison was finally run, the digitized <em>A</em><sub>prism</sub> anchors differed
+        from the later Eq.&nbsp;(5) curve by <strong>8.4% at worst and about 2% typically</strong>.
+        The findings ledger &mdash; <code>docs/findings-ledger.md</code>, entry <strong>A2</strong>
+        &mdash; scopes what that check establishes:
       </p>
 
       <blockquote class="callout">
         <p>
-          An extraction that agrees with sources it had no access to is independently confirmed, not
-          merely self-consistent.
+          A later same-lineage equation supplied a blind second transcription route for these
+          <em>A</em><sub>prism</sub> anchors. That checks the figure reading; it is not identity of the
+          two mappings, table-wide confirmation, independent experiment or physical validation.
         </p>
       </blockquote>
 
       <p>
-        That sentence is the distinction this chapter most wants you to keep.
-        <strong>Self-consistent</strong> means your two methods agree with each other &mdash; which
-        they will, if they share an assumption or a spreadsheet.
-        <strong>Independently confirmed</strong> means your method agrees with something it could
-        not have peeked at.
+        That scope is the distinction this chapter most wants you to keep.
+        <strong>Self-consistency</strong> can establish numerical and bookkeeping contracts and is
+        scientifically useful within that scope. A <strong>blind second route</strong> addresses a
+        different error class because the first transcription could not have copied its result.
+        Neither becomes independent empirical validation when both representations share one
+        author and source lineage.
       </p>
 
       <p>
-        Now be exact about <em>what</em> was independent here, because it is not the two curves.
-        Figure 4.5 is Libbrecht&rsquo;s and Eq.&nbsp;(5) is Libbrecht&rsquo;s, and both render the
-        same broad-facet model: <code>research/libbrecht-figure-findings.md</code> &sect;2 introduces
-        the equation as &ldquo;the broad-facet model in full&rdquo;, and the figure&rsquo;s own
-        caption calls its curves the &ldquo;best-estimate CAK model functions&rdquo;. One author,
-        one model. The agreement therefore says nothing at all about whether he is right about ice.
-        What was independent is the <em>reading</em>: the digitizer could not have peeked at
-        Eq.&nbsp;(5), because nobody on the project had seen it, so agreement with it cannot have
-        been engineered. The same file calls it exactly that &mdash; &ldquo;an independent check on
-        the digitization <em>method</em>&rdquo;. That is the entire strength of the check, and it
-        would have been destroyed had the papers arrived first.
+        Now be exact about the compared objects. Figure&nbsp;4.5 defines the historical CAK
+        digitization; Eq.&nbsp;(5) is a distinct later broad-facet alternative from the same author and
+        lineage. Their numerical closeness at the nine <em>A</em><sub>prism</sub> temperatures does
+        not make them one mapping. The useful independence is narrower: the digitizer had not seen
+        Eq.&nbsp;(5), so this comparison can expose a gross reading or transcription error in those
+        anchors. It says nothing about every &sigma;<sub>0</sub> input, the parameter table as a
+        whole, or whether either model is physically correct.
       </p>
 
       <aside class="callout callout--myth">
@@ -515,7 +515,7 @@
           pieces along the curve and it keeps changing &mdash; 0.22 at one end to 1.62 at the other
           on basal, 2.26 to 1.76 on prism &mdash; and forcing one straight line through everything
           from (T<sub>m</sub>&minus;T) = 3 outwards leaves a leftover error of 21% (basal) and 23.8%
-          (prism). The replacement justification is measured rather than asserted: drop each interior
+          (prism). The replacement justification is numerically recomputed rather than asserted: drop each interior
           anchor, rebuild it from its two neighbours, and see how far off you land. The worst case
           sits comfortably inside the &plusmn;25% band the anchors already carry &mdash; the
           interpolation entry in the tracer above carries the two figures &mdash; and
@@ -561,7 +561,7 @@
           <tbody>
             <tr><td>Diffusivity in air</td><td><code>D_air &asymp; 2 &times; 10<sup>&minus;5</sup> m&sup2;/s</code></td><td>monograph Appendix A, printed p. 500 / pdf 501</td><td>P1</td></tr>
             <tr><td>Same quantity, main text</td><td>&ldquo;<code>D_air &asymp; 10<sup>&minus;5</sup> m&sup2;/s</code>&rdquo; for &ldquo;typical atmospheric conditions&rdquo;</td><td>monograph printed p. 91 / pdf 92</td><td>&mdash; (the source&rsquo;s own factor-2 looseness; Appendix A value adopted)</td></tr>
-            <tr><td>Pressure dependence</td><td><code>D &sim; P<sup>&minus;1</sup></code></td><td>monograph printed p. 65 / pdf 66</td><td>P1 (kinetic theory)</td></tr>
+            <tr><td>Pressure dependence</td><td><code>D &sim; P<sup>&minus;1</sup></code></td><td>monograph printed p. 65 / pdf 66</td><td>P2 (source-stated kinetic-theory relation)</td></tr>
             <tr><td>Temperature dependence</td><td><strong>NOT GIVEN &mdash; GAP.</strong></td><td>&mdash;</td><td>&mdash;</td></tr>
           </tbody>
         </table>
@@ -578,11 +578,11 @@
       </p>
 
       <p>
-        The rule that produced that empty cell is the second half of the file&rsquo;s opening rule,
-        and it is worth reading slowly: &ldquo;<strong>No number is guessed, interpolated, or recalled from
-        memory.</strong> If a value is not in the source, the cell stays empty and the gap is stated.
-        An empty cell is a research task; a wrong cell is a physics bug that will be discovered three
-        phases later, if ever.&rdquo;
+        The rule that produced that empty source-data cell is the second half of the file&rsquo;s opening
+        rule, and it is worth reading slowly: &ldquo;<strong>No adopted source value is guessed or recalled
+        from memory.</strong> If a source value is unavailable, the cell stays empty and the gap is
+        stated. Derived values and P4 interpolation rules are admitted only when their operands and
+        method are named. An unexplained value is a physics bug that may survive several phases.&rdquo;
       </p>
 
       <p>
@@ -649,7 +649,7 @@
       </p>
 
       <p>
-        Put numbers on it. At &minus;15&nbsp;&deg;C the model&rsquo;s prism &sigma;<sub>0</sub> is
+        Put numbers on it. At &minus;15&nbsp;&deg;C the historical CAK mapping&rsquo;s prism &sigma;<sub>0</sub> is
         0.032. With &sigma;<sub>surf</sub> = 0.01, the exponential is exp(&minus;3.2)
         &asymp;&nbsp;0.041 &mdash; about four arriving molecules in a hundred stick, which is slow
         but real. Read &ldquo;3.2 percent&rdquo; as if
@@ -663,8 +663,9 @@
 
       <p>
         So the file adopts one canonical unit &mdash; every supersaturation is a dimensionless
-        fraction &mdash; and then does something slightly obsessive: <strong>every entry records the
-        raw cited value in its raw units <em>and</em> the converted fraction</strong>, side by side.
+        fraction &mdash; and then does something slightly obsessive: <strong>every adopted
+        percent-valued source input records the raw cited percent <em>and</em> the converted
+        fraction</strong>, side by side.
         The conversion happens once, in public, at the point of extraction, where a reader with the
         paper open can check it.
       </p>
@@ -706,7 +707,7 @@
         The second is better. The table&rsquo;s water-saturation column was checked against Murphy
         &amp; Koop (2005), a completely separate published formula that
         <em>the solver does not use anywhere</em>.
-        The test that pins it records the outcome in its own comment: &ldquo;Measured worst deviation
+        The test that pins it records the outcome in its own comment: &ldquo;Computed worst deviation
         is 1.78%, at the -1 C anchor; every anchor from -5 C to -40 C agrees to within 0.5%.&rdquo;
       </p>
 
@@ -874,10 +875,12 @@
 
       <p>
         <code>docs/libbrecht-parameters.md</code> carries more than thirty numbered entries, not
-        eight, and the same rule is supposed to bind all of them: no citation, no entry; no
-        printed source, no number; an empty cell instead of a guess. The browser below is a
+        eight, and the same scoped rule is supposed to bind all of them: every adopted source value
+        or transcription has a citation; every project-derived or P4 choice names its operands and
+        method; an unavailable source value stays empty instead of becoming a guess. The browser below is a
         <strong>33-row grouped teaching view of sections&nbsp;2&ndash;8</strong>, not a
-        byte-for-byte or one-number-per-row rendering of the frozen file. For example, one row
+        byte-for-byte or one-number-per-row rendering of the current content-pinned parameter file.
+        For example, one row
         groups four values at one temperature, and the Table&nbsp;2.1 row groups nine validation
         anchors. Filter it by class, sort it, search it &mdash; then check the source file itself
         for the complete prose, every atomic value and its exact freeze status.
@@ -891,20 +894,17 @@
           What the grouping must not hide
         </p>
         <p>
-          <strong>P1 is a route to a source, not a blanket accuracy badge.</strong> In this view it
-          includes Appendix&nbsp;A textbook constants, direct prose anchors, the image-embedded
-          Table&nbsp;2.1 transcription, the pressure law and the two printed
-          &chi;<sub>0</sub> anchors. Each row names which route it used. The source file also
-          records limitations that do not all fit the one empty-value row: the chosen CAK curves
-          have no printed formula or numeric table; the paper&rsquo;s separate
-          A&nbsp;&equiv;&nbsp;1 &sigma;<sub>0</sub> curves remain undigitized; the original
-          monograph&rsquo;s SDAK temperature dips have no printed functional form in this frozen
-          Arm&nbsp;1 table, although the later M1 paper does print the closed forms now transcribed
-          into the separate Arm&nbsp;2 implementation; SDAK-2 has no extracted anchor table;
-          D(T) has no printed law; &chi;<sub>0</sub> has two anchors and a trend rather than a
-          curve; w<sub>0</sub> is adjustable; and the monograph cites an Appendix&nbsp;B that is
-          absent from v2. See <code>docs/libbrecht-parameters.md</code>, &ldquo;Extraction
-          protocol&rdquo; and &ldquo;Open questions&rdquo;.
+          <strong>P1 is a route to a source, not a blanket accuracy badge.</strong> It includes
+          measured or source-tabulated empirical inputs adopted directly, such as Appendix&nbsp;A
+          material and transport properties and Table&nbsp;2.1 anchors. A source fit, inversion,
+          derivation, figure reading, or kinetic-theory relation belongs in P2 even when its source
+          is authoritative. The current parameter authority records the later-discovered printed
+          broad-facet alternatives and M1 forms, while preserving the historical CAK digitizations
+          that executed runs used.
+          It also keeps the real gaps visible: D(T) has no adopted printed law, SDAK-2 has no
+          extracted closure, M2&rsquo;s width-dependent transition is unimplemented,
+          &chi;<sub>0</sub> has two source anchors and a trend rather than an adopted curve, and
+          w<sub>0</sub> is adjustable. See <code>docs/libbrecht-parameters.md</code>.
         </p>
       </aside>
 
@@ -923,7 +923,9 @@
           including its temperature-dependence gap; &chi;<sub>0</sub>; and the derived quantities of
           &sect;8 &mdash; the same file <a href="#tracer">the tracer above</a> draws its eight
           curated entries from. Values, citations and classes shown are copied; grouping and short
-          explanations are editorial. The frozen source file, not this browser, is the complete
+          explanations are editorial. Values and citations are transcribed; grouped derived rows are
+          assigned classes by applying the current taxonomy. The current content-pinned parameter file,
+          not this browser, is the complete
           parameter record.</span>
         </figcaption>
       </figure>
@@ -932,12 +934,15 @@
         Filter to <strong>GAP</strong> and exactly one <em>empty-value row</em> survives:
         D(T)&rsquo;s temperature dependence. That does not mean it is the file&rsquo;s only open
         extraction question; the limitations listed above live inside otherwise populated rows
-        and in the source file&rsquo;s explicit gap register. Filter to <strong>P3</strong> and you
-        get three grouped rows &mdash;
-        the two SDAK-1 dips and the SDAK-2 A<sub>prism</sub> recovery &mdash; all Nakaya-informed.
+        and in the source file&rsquo;s explicit gap register. <strong>OUTSIDE</strong> separately shows
+        &chi;<sub>0</sub>&rsquo;s contextual source statements, which are not a current solver input and
+        therefore sit outside P1&ndash;P4 rather than masquerading as a missing value. Filter to
+        <strong>P3</strong> and you get four grouped rows &mdash; the two SDAK-1 dips, the SDAK-2
+        A<sub>prism</sub> recovery, and the source-printed width prescription. The three SDAK
+        mechanism rows are Nakaya-informed; the width form is a physical-model prescription.
         The two dip concepts now have an executable M1 transcription from later printed equations;
         SDAK-2 remains unwired. That is the point of building the browser instead of just asserting
-        it: this is a grouped view of the frozen sections, not a complete inventory of the later
+        it: this is a grouped view of the current content-pinned sections, not a complete inventory of the later
         source tree. It exposes provenance classes and recorded limits while refusing to pretend 33
         grouped cards replace either the parameter authority or current implementation evidence.
       </p>
@@ -954,14 +959,10 @@
       <p>
         What it buys is that the number&rsquo;s status is <em>legible</em> &mdash; to a reviewer, to
         a future maintainer, and to you, reading a result twelve chapters from now.
-        Chapter&nbsp;28 reports a dated run whose surrounding Phase&nbsp;6 gate was then still open.
-        For current status, start with <code>docs/PROGRESS.md</code>, <strong>Next step</strong>.
-        There is a dated lag to state rather than hide: at repository commit <code>8c781b1</code>
-        that entry still says to freeze Arm&nbsp;2, while <code>483f7ee</code> froze the value
-        content, <code>0cb52bf</code> recorded the freeze ancestry and final gated values hash, and
-        <code>8c781b1</code> recorded the corrected arm-specific combined revision hash. A corrected Arm&nbsp;2 sweep was observed running at this audit&rsquo;s
-        2026-07-30 10:23&nbsp;PDT cutoff; its local artifact was still mutable and no completed,
-        reviewed sweep result existed. When the
+        Chapter&nbsp;28 reports two historical runs with measurement-only evidentiary scope: CAK 3/90 and M1 54/90 common
+        scope (54/78 arm scope). Their bytes and measurements remain part of the record, but neither
+        is admissible as the still-unexecuted replacement gate. For current status, start with
+        <code>docs/PROGRESS.md</code>, <strong>Next step</strong>. When the
         argument about that dated verdict starts &mdash; why did it come out this way? &mdash; the
         argument is only possible if the inputs are already sorted. Was it the code? The numbers?
         Or the theory? You cannot even ask that question of a parameter table where measurements
@@ -976,13 +977,14 @@
           Still unsettled &mdash; and who checked all this
         </p>
         <p>
-          Almost everything in this chapter has been checked, and almost none of it by a human
-          expert. The project&rsquo;s own process file states the position without softening it:
-          &ldquo;All reviews to date, internal and external-facing, are LLM reviews; for publication
-          that is a disclosed limitation, not a substitute.&rdquo; The same file requires that at
-          least one human domain scientist read any manuscript before submission. That reading has
-          not happened. The same limit applies to this page, which was checked by two reviewers, both
-          of them language models. Carefully checked, and not yet expert-checked, are different
+          Almost everything in this chapter has been checked, but repository records contain no
+          human domain-expert review. The project&rsquo;s own process file says every recorded non-maker
+          reviewer-agent round is an LLM review; maker audits are recorded separately, and the maker
+          is not identified as a domain scientist. It calls that a disclosed limitation, not a substitute. The same
+          file requires that at least one human domain scientist read any manuscript before
+          submission; no such review is recorded. The same limit applies to this page, whose two
+          recorded reviewers are language models. Carefully checked, and not expert-checked in the
+          repository record, are different
           things &mdash; which is, in the end, the argument of this whole chapter applied to the
           chapter itself.
         </p>
@@ -1006,24 +1008,25 @@
       <p>
         Sit with that. Some of this model&rsquo;s <em>available</em> inputs were set, by their
         original author, openly and for a stated reason, so that a model using them would agree with
-        the Nakaya diagram. Arm&nbsp;1 deliberately did not use them. The frozen parameter file still
+        the Nakaya diagram. Arm&nbsp;1 deliberately did not use them. The historical parameter file
         records that &ldquo;<code>SDAK</code> appears in no source file &mdash; so every run to date
         is a no-SDAK run.&rdquo; That sentence is true of the Arm&nbsp;1 execution and is why
-        chapter&nbsp;28&rsquo;s comparison is a real test rather than a rehearsal; it is no longer a
-        current source-tree claim. Accepted decision 0036 transcribes the later paper&rsquo;s printed
-        M1 dip equations into <code>core/src/libbrecht.ts</code>; <code>483f7ee</code> froze their
-        value content for a separate Arm&nbsp;2, and <code>0cb52bf</code> recorded that ancestry and
-        the final gated values hash. SDAK-2 and the width-dependent M2 closure remain
-        unimplemented. One Arm&nbsp;2 launch was stopped about a minute in after its first line
-        exposed a wrong-arm combined hash. Every completed, reviewed Phase&nbsp;6 sweep result
-        remains no-SDAK at the audit cutoff.
+        the Arm&nbsp;1 parameter choice did not use Nakaya-informed SDAK inputs; numerical and
+        protocol failures still leave that result at measurement-only evidentiary scope rather than an accepted gate. The
+        historical sentence is no longer a current source-tree claim. Accepted decision 0036 transcribes the later paper&rsquo;s printed
+        M1 dip equations into <code>core/src/libbrecht.ts</code>. The historical M1 arm later
+        completed at 54/90 common scope (54/78 arm scope), while CAK completed at 3/90. Both retain
+        measurement-only evidentiary scope and are not the registered replacement gate. M1 is an everywhere-narrow starter
+        approximation; SDAK-2 and M2&rsquo;s width-dependent closure remain unimplemented. CAK to
+        M1 also changes broad curves and A prefactors, so the two-arm difference is not a clean dip
+        effect.
       </p>
 
       <p class="handoff">
-        Every number in the model now carries a stamp, and one of those stamps says that the value
+        Every adopted solver input now carries recorded provenance, and one P3 stamp says that the value
         was chosen to make the model agree with the very diagram the project intends to test it
-        against. Why Arm&nbsp;1 had to leave those values unwired, why Arm&nbsp;2 can only earn
-        in-sample reproduction, and why the parameter file keeps
+        against. Why Arm&nbsp;1 had to leave those values unwired, why M1 can only earn
+        in-sample reproduction against Nakaya, and why the parameter record keeps
         &ldquo;<strong>two separate branches</strong>&hellip; never merged&rdquo; is chapter 17
         &mdash; which asks the uncomfortable question underneath all of it: what would it even mean
         for this model to be <em>wrong</em>?
@@ -1078,10 +1081,10 @@
       what: "The number of water molecules packed into a cubic metre of ice. Everything that converts &lsquo;vapour arrived&rsquo; into &lsquo;ice grew&rsquo; runs through it.",
       value: "≈ 3.1 × 10²⁸ m⁻³",
       cls: "P1",
-      clsName: "measured broad-facet kinetics",
+      clsName: "source-tabulated textbook input",
       source: "Snow Crystals monograph (arXiv:1910.06389v2), Appendix A",
       page: "printed p. 500 / pdf 501",
-      method: "Quoted directly from the printed appendix. Textbook instrument data.",
+      method: "Quoted directly from the printed appendix as a textbook material constant; this record does not claim direct instrument provenance.",
       unc: "None stated by the source.",
       code: "core/src/libbrecht.ts — C_ICE",
       note: "The easy case. A printed number, in a printed appendix, on a stated page."
@@ -1092,9 +1095,9 @@
       what: "The energy cost of ice/vapour surface — the quantity behind Part One&rsquo;s story about why sharp corners are expensive.",
       value: "≈ 106 ± 15 mJ/m²",
       cls: "P1",
-      clsName: "measured broad-facet kinetics",
+      clsName: "source-tabulated material property",
       source: "Snow Crystals monograph, Appendix A",
-      page: "printed pp. 500–501",
+      page: "printed p. 500 / pdf 501",
       method: "Quoted directly.",
       unc: "± 15 mJ/m² — the source&rsquo;s own stated uncertainty, carried through verbatim.",
       code: "docs/libbrecht-parameters.md §2 (not yet consumed by the solver)",
@@ -1117,13 +1120,13 @@
     {
       short: "σ₀ prism(−15)",
       name: "sigma_0_prism(−15 °C)",
-      what: "The nucleation parameter on a prism facet — how much spare vapour that face needs before a new molecular layer can start. One of the two numbers the whole model turns on.",
+      what: "The nucleation parameter on a prism facet — one input, together with A and the local surface supersaturation, to the attachment coefficient used by the coupled forward model.",
       value: "0.032 (fraction) · the plot prints it as 3.2%",
       cls: "P2",
       clsName: "fitted or inferred — by figure digitization",
       source: "monograph Figure 4.5, “best-estimate CAK model functions”",
       page: "printed p. 144 / pdf 145",
-      method: "READ OFF THE PLOT. A 300 dpi page render, log–log axes (both axes stretched so that each step along them is a multiplication rather than an addition), gridline-anchored abscissae only. No closed form or numeric table is printed in either source — recorded as a documented gap.",
+      method: "READ OFF THE ORIGINAL PLOT. A 300 dpi page render, log–log axes (both axes stretched so that each step along them is a multiplication rather than an addition), gridline-anchored abscissae only. No closed form was known in the original registered source pair when these historical anchors were extracted; a later source-currency sweep found a printed alternative used as the independent cross-check below.",
       unc: "± 25% relative on sigma_0 · ± 0.03 absolute on A.",
       code: "core/src/libbrecht.ts — SIGMA0_PRISM",
       note: "Cross-check the file records: the monograph&rsquo;s text separately states sigma_0 = 3 percent for a prism facet at −15 °C (printed p. 144 / pdf 145), which agrees with the digitized 3.2% inside the ±25% band."
@@ -1154,7 +1157,7 @@
       method: "The cell stays empty. The solver holds D constant at fixed pressure and says so, after back-computation from the monograph&rsquo;s own Table 2.1 showed that table treats D as temperature-independent at 1 atm.",
       unc: "Unknown, and recorded as unknown.",
       code: "core/src/libbrecht.ts — D_AIR_1ATM, with the gap named in the comment above it",
-      note: "“An empty cell is a research task; a wrong cell is a physics bug that will be discovered three phases later, if ever.”"
+      note: "Current scoped rule: an unavailable source value stays empty; derived values or P4 rules are admitted only with named operands and method."
     },
     {
       short: "SDAK dip",
@@ -1163,12 +1166,12 @@
       value: "minimum sigma_0 ≈ 0.07–0.08% at (Tm−T) ≈ 4–4.5 °C",
       cls: "P3",
       clsName: "Nakaya-informed hypothesis — in-sample for any Nakaya comparison",
-      source: "monograph Figure 4.12",
+      source: "monograph Figure 4.12 digitization",
       page: "printed p. 152 / pdf 153",
-      method: "Digitized from a curve the source draws DOTTED, “to signify their substantial uncertainties”. The source also states the dip positions were chosen “to impose agreement with the known ice-growth behaviors from the Nakaya diagram”.",
+      method: "Digitized from the dotted basal dip in Figure 4.12. The later M1 closed form in arXiv:2306.13087v1 p. 6 is a distinct approximation recorded separately; it is not the source of this displayed range. Model-conditioned growth inversions support a reduction region but do not directly measure this function.",
       unc: "The source states the width and depth are “not well constrained by measurements”.",
-      code: "Historical Arm 1: absent, exactly as the frozen parameter file and sweep report say. Current tree: M1 is a third NucleationParamSet in core/src/libbrecht.ts; 483f7ee froze its separate Arm 2 value content and 0cb52bf recorded that ancestry plus the final values-hash pin. At the education audit’s 2026-07-30 cutoff, its corrected sweep was running but its mutable partial rows were not a completed, reviewed result.",
-      note: "IN-SAMPLE means the answer was already used to draw the question: these values were picked so that a model using them would match the Nakaya diagram, so matching it proves nothing. The later M1 equations make the hypothesis executable; they do not raise its evidence ceiling. This is chapter 17&rsquo;s subject."
+      code: "Historical Arm 1: absent. Current tree: M1 is implemented as an everywhere-narrow NucleationParamSet; its historical arm measured 54/90 common scope (54/78 arm scope). M2 width closure is unimplemented.",
+      note: "IN-SAMPLE means agreement with Nakaya cannot be independent validation. It may still check implementation consistency or reveal disagreement. The M1 equations make the hypothesis executable; they do not raise its provenance ceiling."
     },
     {
       short: "interpolation",
@@ -1179,10 +1182,10 @@
       clsName: "numerical / discretization choice — no physical content",
       source: "the project itself, registered in runner/src/phase6-protocol.ts as PHASE6_INTERPOLATION",
       page: "—",
-      method: "Chosen, declared, hashed into a frozen protocol before the comparison sweep ran.",
-      unc: "Measured, not assumed: worst error when an anchor is deleted and rebuilt from its neighbours is 10.7% (basal) and 9.0% (prism), against the ±25% band the anchors already carry.",
+      method: "Chosen, declared, and hashed into the historical comparison protocol before that sweep ran; the current table is content-pinned but R15 is not frozen.",
+      unc: "Computed, not assumed: worst error when an anchor is deleted and rebuilt from its neighbours is 10.7% (basal) and 9.0% (prism), against the ±25% band the anchors already carry.",
       code: "core/src/libbrecht.ts — interpLogLog / interpLinear",
-      note: "The only entry here with no physical content at all. It still gets a class, a citation and a test — because a choice with no physics in it can still change the answer."
+      note: "The only entry here with no physical content at all. It still gets a class, recorded operands and method, and a test — because a choice with no physics in it can still change the answer."
     }
   ];
 
@@ -1203,6 +1206,7 @@
             : e.cls === "P2" ? c.series[1]
             : e.cls === "P3" ? c.series[2]
             : e.cls === "P4" ? c.inkSecondary
+            : e.kind === "OUTSIDE" ? c.muted
             : c.critical;
 
     body.textContent = "";
@@ -2171,7 +2175,7 @@
    A 33-row teaching view transcribed from docs/libbrecht-parameters.md sections
    2-8. Rows may group multiple atomic values: physical constants; Branch 1
    broad-facet sigma_0(T)/A(T)
-   (digitized anchors and text-cited anchors); the SDAK-1/SDAK-2 hypotheses
+   (source fits, digitized anchors, and text-cited anchors); the SDAK-1/SDAK-2 hypotheses
    and printed width form; v_kin; D(T,P) including its temperature gap;
    chi_0; and the derived quantities of section 8. Complements anim-tracer's
    eight curated entries above rather than repeating them.
@@ -2186,26 +2190,26 @@
   var ENTRIES = [
     /* ---- section 2 : physical constants (monograph Appendix A) ---- */
     { name: "c_ice", what: "ice number density &mdash; converts &lsquo;vapour arrived&rsquo; into &lsquo;ice grew&rsquo;",
-      value: "&asymp; 3.1 &times; 10&sup2;&#8312; m&#8315;&sup3;", cls: "P1", clsName: "measured broad-facet kinetics",
+      value: "&asymp; 3.1 &times; 10&sup2;&#8312; m&#8315;&sup3;", cls: "P1", clsName: "source-tabulated textbook input",
       source: "monograph Appendix A", page: "printed p. 500 / pdf 501", unc: "None stated by the source." },
     { name: "rho_ice", what: "ice mass density",
-      value: "&asymp; 917 kg/m&sup3;", cls: "P1", clsName: "measured broad-facet kinetics",
-      source: "monograph Appendix A", page: "printed p. 500 / pdf 501" },
+      value: "&asymp; 917 kg/m&sup3;", cls: "P1", clsName: "source-tabulated material property",
+      source: "monograph Appendix A", page: "printed p. 501 / pdf 502" },
     { name: "m_mol", what: "mass of one water molecule",
-      value: "&asymp; 3.0 &times; 10&#8315;&sup2;&#8310; kg", cls: "P1", clsName: "measured broad-facet kinetics",
-      source: "monograph Appendix A", page: "printed p. 500 / pdf 501" },
+      value: "&asymp; 3.0 &times; 10&#8315;&sup2;&#8310; kg", cls: "P1", clsName: "source-tabulated physical constant",
+      source: "monograph Appendix A", page: "printed p. 501 / pdf 502" },
     { name: "a", what: "molecule size, c_ice^(&minus;1/3)",
-      value: "&asymp; 0.32 nm (3.2 &times; 10&#8315;&sup1;&#8304; m)", cls: "P1", clsName: "measured broad-facet kinetics",
+      value: "&asymp; 0.32 nm (3.2 &times; 10&#8315;&sup1;&#8304; m)", cls: "P2", clsName: "derived from the P1 ice number density",
       source: "monograph Appendix A", page: "printed p. 500 / pdf 501" },
     { name: "gamma_sv", what: "ice/vapour surface energy",
-      value: "&asymp; 106 &plusmn; 15 mJ/m&sup2;", cls: "P1", clsName: "measured broad-facet kinetics",
-      source: "monograph Appendix A", page: "printed pp. 500&ndash;501", unc: "&plusmn; 15 mJ/m&sup2; &mdash; the source&rsquo;s own stated uncertainty, carried through verbatim.",
+      value: "&asymp; 106 &plusmn; 15 mJ/m&sup2;", cls: "P1", clsName: "source-tabulated material property",
+      source: "monograph Appendix A", page: "printed p. 500 / pdf 501", unc: "&plusmn; 15 mJ/m&sup2; &mdash; the source&rsquo;s own stated uncertainty, carried through verbatim.",
       note: "Not yet consumed by the solver." },
     { name: "d_sv", what: "Gibbs&ndash;Thomson length, gamma_sv/(c_ice&middot;kT)",
       value: "&asymp; 1 nm (1 &times; 10&#8315;&#8313; m)", cls: "P2", clsName: "fitted or inferred &mdash; derived quantity",
-      source: "monograph Appendix A", page: "printed pp. 500&ndash;501", note: "Derived from gamma_sv, not itself printed." },
+      source: "monograph Appendix A", page: "printed p. 500 / pdf 501", note: "The source prints both gamma_sv/(c_ice&middot;kT) and the approximation d_sv &asymp; 1 nm; it remains P2 because it is a derived relation/value." },
     { name: "D_air", what: "water vapour diffusivity in air, at 1 atm",
-      value: "&asymp; 2 &times; 10&#8315;&#8309; m&sup2;/s", cls: "P1", clsName: "measured broad-facet kinetics",
+      value: "&asymp; 2 &times; 10&#8315;&#8309; m&sup2;/s", cls: "P1", clsName: "source-tabulated transport input",
       source: "monograph Appendix A", page: "printed p. 500 / pdf 501",
       note: "The same source repeats this quantity in main text as &lsquo;&asymp; 10&#8315;&#8309; m&sup2;/s&rsquo; for &lsquo;typical atmospheric conditions&rsquo; (printed p. 91 / pdf 92) &mdash; a factor of 2 looser, with no class assigned to that repetition. The Appendix A value is the one adopted." },
 
@@ -2260,17 +2264,17 @@
     /* ---- section 3 : text-cited anchors, not digitized ---- */
     { name: "sigma_0(prism, &minus;15&nbsp;&deg;C), text-cited", what: "printed directly, not read off the plot",
       value: "3 percent (fraction 0.03), VIG apparatus, 20 mbar background air",
-      cls: "P1", clsName: "measured &mdash; text-cited (P1/P2 per the source&rsquo;s own framing)",
+      cls: "P2", clsName: "source-fit parameter &mdash; text-cited",
       source: "monograph Figure 4.4 discussion", page: "printed p. 144 / pdf 145",
       note: "Agrees with the digitized 3.2% &plusmn; 25% at the same temperature above." },
     { name: "A_basal &asymp; 1, text-cited", what: "basal facet, across a wide range",
       value: "A_basal &asymp; 1 for &minus;2 &gt; T &gt; &minus;40&nbsp;&deg;C",
-      cls: "P1", clsName: "measured &mdash; text-cited (P1/P2 per the source&rsquo;s own framing)",
+      cls: "P2", clsName: "source-inferred parameter &mdash; text-cited",
       source: "arXiv:1910.09067, citing [2013Lib]", page: "p. 6",
       note: "&lsquo;Unambiguous evidence for nucleation-limited growth with A &asymp; 1 over the entire temperature range.&rsquo;" },
     { name: "A_prism &lt; 1, text-cited", what: "prism facet, warm side",
       value: "A_prism &lt; 1 above &asymp; &minus;10&nbsp;&deg;C",
-      cls: "P1", clsName: "measured &mdash; text-cited (P1/P2 per the source&rsquo;s own framing)",
+      cls: "P2", clsName: "source-inferred parameter &mdash; text-cited",
       source: "arXiv:1910.09067", page: "p. 4",
       note: "The paper itself then sets this aside and assumes A &asymp; 1 throughout; the monograph&rsquo;s CAK curves (Figure 4.5 lower panel) include it." },
 
@@ -2290,25 +2294,25 @@
     { name: "SDAK-1 dip, basal", what: "narrow-facet reduction in the nucleation barrier",
       value: "&sigma;&#8320; &asymp; 0.07&ndash;0.08% (fraction &asymp; 0.0007&ndash;0.0008), minimum at (Tm&minus;T) &asymp; 4&ndash;4.5&nbsp;&deg;C",
       cls: "P3", clsName: "Nakaya-informed SDAK hypothesis &mdash; in-sample for any Nakaya comparison",
-      source: "monograph Figure 4.12", page: "printed p. 152 / pdf 153",
+      source: "monograph Figure 4.12 digitization", page: "printed p. 152 / pdf 153",
       unc: "&lsquo;Not well constrained by measurements&rsquo; (1910.09067 p. 13); drawn dotted &lsquo;to signify their substantial uncertainties.&rsquo;",
-      note: "Explains rapid basal growth of hollow-column edges near &minus;5&nbsp;&deg;C, by the source&rsquo;s own claim. A later paper prints the M1 closed form now implemented for separate Arm&nbsp;2; this card remains the frozen monograph-table provenance view." },
+      note: "The displayed range is digitized from the dotted monograph curve. The later M1 closed form is a distinct approximation recorded separately; it is not the source of these numbers. A model-conditioned growth inversion supports a basal reduction region near &minus;4&nbsp;&deg;C; it does not directly measure this function." },
     { name: "SDAK-1 dip, prism", what: "narrow-facet reduction in the nucleation barrier",
       value: "&sigma;&#8320; &asymp; 0.18&ndash;0.20% (fraction &asymp; 0.0018&ndash;0.0020), minimum at (Tm&minus;T) &asymp; 14&ndash;16&nbsp;&deg;C",
       cls: "P3", clsName: "Nakaya-informed SDAK hypothesis &mdash; in-sample for any Nakaya comparison",
-      source: "monograph Figure 4.12", page: "printed p. 152 / pdf 153",
+      source: "monograph Figure 4.12 digitization", page: "printed p. 152 / pdf 153",
       unc: "&lsquo;Not well constrained by measurements&rsquo; (1910.09067 p. 13); drawn dotted &lsquo;to signify their substantial uncertainties.&rsquo;",
-      note: "Explains thin-plate edges near &minus;15&nbsp;&deg;C, by the source&rsquo;s own claim. A later paper prints the M1 closed form now implemented for separate Arm&nbsp;2; this card remains the frozen monograph-table provenance view." },
+      note: "The displayed range is digitized from the dotted monograph curve. The later M1 closed form is a distinct approximation recorded separately; it is not the source of these numbers. A model-conditioned growth inversion supports a prism reduction region near &minus;14&nbsp;&deg;C; it does not directly measure this function." },
     { name: "SDAK-2, A_prism recovery", what: "a second, A-side hypothesis on small prism facets",
       value: "Increases A_prism on small prism facets above &asymp; &minus;10&nbsp;&deg;C; supersaturation-dependent, A_prism &rarr; 1 at high &sigma;_surf",
       cls: "P3", clsName: "Nakaya-informed SDAK hypothesis &mdash; in-sample for any Nakaya comparison",
       source: "monograph Figure 4.14 caption", page: "printed p. 154 / pdf 155",
       note: "Aimed at sharp-tipped dendrites &mdash; a different target from SDAK-1&rsquo;s hollow-column and thin-plate edges. Not digitized: no anchor table extracted, nothing in the solver consumes it." },
-    { name: "width parameterization w_0", what: "the one piece of SDAK with a printed functional form",
+    { name: "width parameterization w_0", what: "a source-printed SDAK model form with an adjustable physical-model parameter",
       value: "&sigma;&#8320; = &sigma;&#8320;,&infin;&middot;[1 &minus; exp(&minus;w/w&#8320;)]; w&#8320; is an adjustable model parameter",
-      cls: "P4", clsName: "numerical / discretization choice (the file also flags it P3/P4: an adjustable parameter, not a measurement)",
+      cls: "P3", clsName: "physical-model prescription; the printed form and adjustable w_0 are not measurements",
       source: "monograph, quoting [2015Lib2]", page: "printed p. 157 / pdf 158",
-      note: "&lsquo;The precise functional form for the SDAK effect may not be essential&rsquo; (same page). Any chosen value is registered in a protocol freeze, never fitted against a comparison this project also uses as evidence." },
+      note: "&lsquo;The precise functional form for the SDAK effect may not be essential&rsquo; (same page). A future lattice facet-width estimator, subgrid mapping and evaluation closure would be P4 numerical choices; they do not turn this P3 physical prescription into a discretization parameter." },
 
     /* ---- section 5 : v_kin ---- */
     { name: "v_kin(T), closed form", what: "kinetic velocity &mdash; how fast the surface would grow if every arriving molecule stuck",
@@ -2318,18 +2322,18 @@
       note: "The solver computes this closed form; the Table 2.1 anchors below validate it, they do not interpolate it." },
     { name: "v_kin(T), Table 2.1 anchors", what: "validation data, an embedded image in the PDF",
       value: "9 temperature points, 0 to &minus;40&nbsp;&deg;C; e.g. v_kin(&minus;15&nbsp;&deg;C) = 2.079 &times; 10&#8315;&#8308; m/s (table) vs 2.053 &times; 10&#8315;&#8308; m/s (closed form), agreement &asymp; 1.2%",
-      cls: "P1", clsName: "measured broad-facet kinetics",
+      cls: "P1", clsName: "source-tabulated empirical anchor",
       source: "monograph Table 2.1", page: "printed p. 57 / pdf 58",
       note: "Table is an embedded image in the PDF &mdash; transcribed 2026-07-15, cell-by-cell verified against the page render (findings-ledger.md entry A4)." },
 
     /* ---- section 6 : D(T,P), including the gap ---- */
     { name: "D_air (Appendix A)", what: "water vapour diffusivity in air, 1 atm",
       value: "D_air &asymp; 2 &times; 10&#8315;&#8309; m&sup2;/s",
-      cls: "P1", clsName: "measured broad-facet kinetics",
+      cls: "P1", clsName: "source-tabulated transport input",
       source: "monograph Appendix A", page: "printed p. 500 / pdf 501" },
     { name: "pressure dependence of D", what: "how diffusivity scales with background pressure",
       value: "D &sim; P&#8315;&sup1;",
-      cls: "P1", clsName: "measured broad-facet kinetics (kinetic theory)",
+      cls: "P2", clsName: "source-stated kinetic-theory relation",
       source: "monograph", page: "printed p. 65 / pdf 66" },
     { name: "D(T), temperature dependence", what: "how diffusivity scales with temperature &mdash; the axis this whole project sweeps",
       value: "NOT GIVEN &mdash; GAP.",
@@ -2340,9 +2344,9 @@
     /* ---- section 7 : chi_0 ---- */
     { name: "chi_0(T, P)", what: "latent-heating correction, currently unmodelled",
       value: "&asymp; 0.8 at &minus;1&nbsp;&deg;C, &asymp; 0.4 at &minus;10&nbsp;&deg;C, continues falling colder; chi_0 &sim; P&#8315;&sup1;",
-      cls: "P1", clsName: "measured broad-facet kinetics",
+      cls: null, clsName: "contextual source statement outside P1–P4; not a solver input",
       source: "monograph", page: "printed p. 98 / pdf 99",
-      note: "Anchors only &mdash; two values and a trend, not a curve; any interpolation between them is P4 and registered, not assumed. Matters for diffusion-limited Phase 6 sweep points on the warm side." },
+      note: "Anchors only &mdash; two values and a trend, not a curve; any interpolation between them would be P4 and must be registered, not assumed. Matters for diffusion-limited Phase 6 sweep points on the warm side.", kind: "OUTSIDE" },
 
     /* ---- section 8 : derived quantities ---- */
     { name: "X_0(T, P)", what: "kinetic length &mdash; sets the Robin surface-condition scale",
@@ -2356,7 +2360,7 @@
       source: "attachment-kinetics.md &sect;4.4 component 4", page: "&mdash;" }
   ];
 
-  var CLASS_ORDER = { P1: 0, P2: 1, P3: 2, P4: 3 };
+  var CLASS_ORDER = { P1: 0, P2: 1, P3: 2, P4: 3, OUTSIDE: 4, GAP: 5 };
 
   ENTRIES.forEach(function (e, i) { e._i = i; });
 
@@ -2374,7 +2378,7 @@
   function matchesQuery(e, q) {
     if (!q) return true;
     var hay = (e.name + " " + e.what + " " + e.value + " " + e.source + " " +
-      (e.note || "") + " " + (e.cls || "gap")).toLowerCase();
+      (e.note || "") + " " + (e.cls || e.kind || "gap")).toLowerCase();
     return hay.indexOf(q) >= 0;
   }
 
@@ -2382,15 +2386,15 @@
     var q = query.trim().toLowerCase();
     return ENTRIES.filter(function (e) {
       if (filterCls !== "ALL") {
-        var bucket = e.cls === null ? "GAP" : e.cls;
+        var bucket = e.cls === null ? (e.kind || "GAP") : e.cls;
         if (bucket !== filterCls) return false;
       }
       return matchesQuery(e, q);
     }).sort(function (a, b) {
       if (sortMode === "name") return a.name.localeCompare(b.name);
       if (sortMode === "class") {
-        var ca = a.cls === null ? 9 : CLASS_ORDER[a.cls];
-        var cb = b.cls === null ? 9 : CLASS_ORDER[b.cls];
+        var ca = CLASS_ORDER[a.cls || a.kind || "GAP"];
+        var cb = CLASS_ORDER[b.cls || b.kind || "GAP"];
         return ca !== cb ? ca - cb : a._i - b._i;
       }
       return a._i - b._i; // "file": the order the source file itself uses
@@ -2407,7 +2411,7 @@
       "display:inline-block;padding:0.16rem 0.55rem;border-radius:999px;font-size:0.68rem;" +
       "font-weight:700;letter-spacing:0.04em;text-transform:uppercase;color:" + c.ink +
       ";background:" + ink + "1a;box-shadow:inset 0 0 0 1px " + ink + ";white-space:nowrap;",
-      e.cls || "GAP");
+      e.cls || e.kind || "GAP");
     span.title = e.clsName;
     return span;
   }
@@ -2512,7 +2516,7 @@
     var clsLabel = el("span", "font-size:0.82rem;font-weight:600;color:var(--ink-primary);white-space:nowrap;", "Class:");
     bar.appendChild(clsLabel);
     var clsButtons = [];
-    [["ALL", "All"], ["P1", "P1"], ["P2", "P2"], ["P3", "P3"], ["P4", "P4"], ["GAP", "GAP"]].forEach(function (pair) {
+    [["ALL", "All"], ["P1", "P1"], ["P2", "P2"], ["P3", "P3"], ["P4", "P4"], ["OUTSIDE", "Outside"], ["GAP", "GAP"]].forEach(function (pair) {
       var b = Viz.button(bar, pair[1], function () {
         filterCls = pair[0];
         clsButtons.forEach(function (bb) {

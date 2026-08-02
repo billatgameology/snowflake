@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Sealing the Envelope — Snow Crystals</title>
-<meta name="description" content="Before the validation sweep ran, every choice the project could identify as able to flatter the answer was written down, hashed, and wired to a program that refuses to run if a single byte moves.">
+<meta name="description" content="Before the historical sweep ran, identified protocol values were written down and hashed; preflight compares the live values manifest with its pin and refuses named drift. The replacement outcome operator and R15 remain unfinished.">
 <link rel="stylesheet" href="../assets/education.css">
 </head>
 
@@ -56,8 +56,8 @@
         <p class="chapter-header__eyebrow">Chapter 27</p>
         <h1>Sealing the Envelope</h1>
         <p class="chapter-header__question">
-          When the result comes back disappointing, what stops you from quietly adjusting the
-          rules until it looks better?
+          When the result comes back disappointing, what makes a later rule change auditable and
+          prevents old evidence from silently following it?
         </p>
         <div class="chapter-header__meta">
           <span>~19 min read</span>
@@ -115,6 +115,13 @@
           every protocol&rdquo;</cite>
         </p>
       </blockquote>
+
+      <p>
+        That historical wording overstates what a freeze can do. Registration cannot make
+        post-hoc reinterpretation or misconduct impossible. A versioned freeze instead makes
+        authorized changes auditable and undisclosed byte drift detectable; whether the registered
+        list was complete remains a separate scientific question.
+      </p>
 
       <p>
         This is the whole chapter in one idea. A scientific claim is not just a number; it is a
@@ -210,16 +217,16 @@
             Seven of the twenty-five rows of <code>PHASE6_FREEZE_LIST</code> in
             <code>runner/src/phase6-protocol.ts</code>. The registered values are the file&rsquo;s
             own, glossed into plain English where it uses the repository&rsquo;s shorthand. The
-            right-hand column is not in the file; it is what each row takes away from you afterwards.
+            right-hand column is not in the file; it is the drift a correct preflight is designed to detect.
           </caption>
           <thead>
-            <tr><th>Row</th><th>Registered value</th><th>What it stops you doing later</th></tr>
+            <tr><th>Row</th><th>Registered value</th><th>What a correct verifier should detect later</th></tr>
           </thead>
           <tbody>
             <tr>
               <td><code>t-sigma-grid</code></td>
               <td>34 temperatures &times; 6 supersaturation levels, set as fractions of water saturation, = 204 points; T uniform 1&nbsp;&deg;C from &minus;2 to &minus;35&nbsp;&deg;C</td>
-              <td>Adding or removing temperatures once you can see which ones disagree</td>
+              <td>A changed temperature inventory after results are visible</td>
             </tr>
             <tr>
               <td><code>metric-thresholds</code></td>
@@ -228,32 +235,32 @@
                 flats. At or below 0.6667 it is a plate, at or above 1.5 a column, strictly between
                 them neutral
               </td>
-              <td>Nudging the plate ceiling until a near-miss becomes a plate</td>
+              <td>A changed class threshold that turns a near-miss into a plate</td>
             </tr>
             <tr>
               <td><code>habit-measurement-size</code></td>
               <td>Largest extent 21 lattice cells &mdash; 7.35&nbsp;&micro;m at the registered &Delta;x</td>
-              <td>Measuring the shape a bit later, when it looks more like the answer you wanted</td>
+              <td>A changed measurement size selected after looking at the shape</td>
             </tr>
             <tr>
               <td><code>boundary-ambiguity-band</code></td>
               <td>&plusmn;1.0&nbsp;&deg;C around each of &minus;3.3, &minus;9.9 and &minus;21.5&nbsp;&deg;C</td>
-              <td>Discovering afterwards that the failures were &ldquo;near a boundary anyway&rdquo;</td>
+              <td>A post-result change to which temperatures count near a boundary</td>
             </tr>
             <tr>
               <td><code>noise-amplitude</code></td>
               <td>0 &mdash; noise off at every sweep point</td>
-              <td>Blaming a disagreement on randomness that was never switched on</td>
+              <td>A post-result noise change</td>
             </tr>
             <tr>
               <td><code>seed-ensemble-size</code></td>
               <td>1 &mdash; a single deterministic run per grid point</td>
-              <td>Running a point again and reporting the friendlier of the two</td>
+              <td>A changed seed-ensemble count or selection rule</td>
             </tr>
             <tr>
               <td><code>code-version</code></td>
               <td>Commit <code>e2f1bfcab4cf605f5c9c44ad096d8b1bcc0fe967</code></td>
-              <td>Claiming a protocol was frozen before a sweep that in fact came first</td>
+              <td>An execution whose history does not descend from the freeze commit</td>
             </tr>
           </tbody>
         </table>
@@ -328,8 +335,10 @@
             <strong>values-hash</strong> branch in <code>runner/src/phase6-sweep.ts</code>, with
             <code>&lt;live&gt;</code> and <code>&lt;pin&gt;</code> placeholders. The pin shown is a
             fingerprint of these five fields only, computed when the page loaded &mdash; it is
-            <strong>not</strong> the project&rsquo;s complete values hash. The real values manifest
-            covers every registered result-bearing value and is the durable preflight gate. A
+            <strong>not</strong> the project&rsquo;s complete values hash. Each real historical values
+            manifest covers the key set its producer actually serialized, and preflight compares
+            those live values with that manifest&rsquo;s pin. It did not give the registered ADR&nbsp;0026
+            outcome operator a production caller, and it did not implement R15. A
             separate combined values-plus-prose hash identifies and reports a particular revision;
             prose can move it without pricing a re-sweep, provided its revision pin is updated in
             the same decision record. Note that the canonical form sorts the keys and normalises number
@@ -467,12 +476,12 @@
       </blockquote>
 
       <p>
-        The sentence the ellipsis swallows lists four checks, each closing a different door.
-        <strong>Freeze complete</strong> stops you pre-registering a protocol with blanks in it.
-        <strong>Hash matches the pin</strong> stops you editing a registered value.
-        <strong>Freeze commit is an ancestor of HEAD</strong> stops you writing the protocol after
+        The sentence the ellipsis swallows lists four checks, each designed to reject a different
+        mismatch when the correct preflight actually runs. <strong>Freeze complete</strong> rejects
+        a protocol with blanks in it. <strong>Hash matches the pin</strong> detects an edited
+        registered value. <strong>Freeze commit is an ancestor of HEAD</strong> rejects writing the protocol after
         the runs and backdating it &mdash; git&rsquo;s history is a chain, and a commit cannot be an
-        ancestor of one that already existed. <strong>Tracked tree is clean</strong> stops you
+        ancestor of one that already existed without changing history. <strong>Tracked tree is clean</strong> rejects
         running with uncommitted edits: source you have not committed is source nobody else can
         inspect, and without this check it would defeat the other three.
       </p>
@@ -523,7 +532,8 @@
           &ldquo;<code>9aa2e7c1&hellip;</code> &rarr; <code>8aeb2b80&hellip;</code> (24 freeze rows
           &rarr; 25)&rdquo;, and &sect;&thinsp;Try to cheat is the story of why the list gained that
           twenty-fifth row. Hold on to which hash belongs to which: <code>9aa2e7c1</code> is the
-          withdrawn one, <code>8aeb2b80</code> the one that stands.
+          withdrawn one; <code>8aeb2b80</code> identifies the corrected historical Arm&nbsp;1 run.
+          Neither is the future R15 replacement-gate pin.
         </p>
       </aside>
 
@@ -531,8 +541,8 @@
 
       <p>
         The hardest thing to freeze is not a number. It is the rule that turns runs into a verdict.
-        On 2026-07-27, an independent review &mdash; an LLM review, like every review this project
-        has had; the last section says what that is worth &mdash; found that the freeze had
+        On 2026-07-27, an independent review &mdash; recorded as an LLM review; the last section says
+        what that is worth &mdash; found that the freeze had
         registered the grid, the band, the thresholds and the uncertainty scheme, and had never
         registered how a model habit class is scored at all. Decision record 0025 filled the hole,
         written while the answer was still unknown: <strong>no sweep had run at the time of
@@ -604,10 +614,13 @@
       </blockquote>
 
       <p>
-        That is a claim about what the model <em>can</em> do, written down before anybody looked at
-        what it <em>did</em>. If the count comes back at one, nobody gets to call that a surprise, an
-        artefact, or a matter of tuning: the number that would have to appear was named in advance,
-        and so was the reason. Whether it did is chapter 28&rsquo;s business.
+        That sentence is preserved because it is what the historical freeze said, but its second
+        clause has since been <strong>retracted</strong>. It counted crossings of
+        &sigma;<sub>0</sub>, while the surface law uses the full attachment coefficient
+        <span class="nowrap">alphaHK = <em>A</em> exp(&minus;&sigma;<sub>0</sub>/&sigma;<sub>surf</sub>)</span>
+        on different evolving facets. An input-curve crossing therefore does not bound the number of
+        habit flips in a coupled three-dimensional run. Flip count remains a legitimate measured
+        output; the quoted structural explanation is not admissible to the replacement gate.
       </p>
 
       <p>
@@ -616,21 +629,22 @@
       </p>
 
       <p>
-        <strong>5. A point counts as agreeing only if it agrees twice.</strong> Every point is
-        measured at the registered crystal size, and every point is also <em>grid-extrapolated</em>
-        &mdash; the aspect ratio the run would have reached at infinitely fine spacing, estimated
-        from the two finest spacings in the convergence ladder. That estimate is refused where it
-        cannot be trusted: decision 0026 admits it only where the convergence order fitted from
-        three spacings lands in the window 0.7 to 1.5, and outside it &ldquo;the point is reported
-        not-extrapolatable and carries its measured class alone&rdquo;. The registered rule then
-        takes the harsh reading of the two, in capitals:
+        <strong>5. The registered replacement headline counts a point only if it agrees
+        twice.</strong> Decision 0026 says a replacement-gate point is measured at the registered
+        crystal size and also <em>grid-extrapolated</em> &mdash; an estimate of the aspect ratio at
+        infinitely fine spacing from the two finest spacings in a three-spacing ladder. It admits
+        that estimate only where the fitted convergence order lands from 0.7 to 1.5; outside that
+        window the point is reported not-extrapolatable and carries its measured class alone. The
+        registered rule then takes the harsh reading of the two, in capitals:
         <em>&ldquo;THE HEADLINE IS THE CONSERVATIVE INTERSECTION &mdash; points whose measured class
         agrees AND whose admitted extrapolation does not contradict it&rdquo;</em>, with the two
         component counts and the not-extrapolatable tally &ldquo;reported BENEATH it, never as the
         top line&rdquo; (<code>uncertainty-reporting</code> row of <code>PHASE6_FREEZE_LIST</code>).
         The reason is one sentence in the same row, and it is this chapter&rsquo;s subject exactly:
         &ldquo;counting agreement twice and quoting the friendlier number is the failure mode a dual
-        report invites.&rdquo;
+        report invites.&rdquo; This paragraph describes the registered contract, not an executed
+        result. Neither historical 204-row sweep called the ADR&nbsp;0026 extrapolation operator or
+        wrote its outputs, so 3/90 and 54/90 are measured-only counts, not the registered headline.
       </p>
 
       <p>
@@ -771,11 +785,13 @@
       <p>
         The fourth needs a word of explanation, because it uses a term the freeze list invented. A
         point is <strong>extent-fragile</strong> when its shape is close enough to a class boundary
-        that measuring it at a larger crystal might tip it over. Between the registered measurement
-        size of 21 lattice cells and 31, where the value has actually converged, the aspect ratio
-        drifts upward by 0.135, and only ever upward &mdash; so the registered rule flags &ldquo;any
-        point whose measured AR sits within 0.135 <em>below</em> a class threshold&rdquo;
-        (<code>uncertainty-reporting</code> row of <code>PHASE6_FREEZE_LIST</code>). Flagging costs
+        that measuring it at a larger crystal might tip it over. The historical freeze registered a
+        one-sided rule: flag a measured aspect ratio within 0.135 <em>below</em> a class threshold.
+        Its justification claimed that the extent-21&rarr;31 ladders moved only upward, but the tracked
+        P1 ladder instead falls from 1.52632 to 1.52174. The three sampled extents do not establish
+        convergence. A closed, symmetric audit therefore finds 59/204 historical CAK rows and
+        85/204 M1 rows within 0.135 of a threshold; the historical one-sided labels remain preserved,
+        and R15 numerical-size adequacy remains open. Flagging costs
         nothing. Deleting the flagged points would quietly remove the ones most likely to misbehave,
         which is what the fourth button does. Press them, then read the banner.
       </p>
@@ -801,7 +817,7 @@
             the temperature grid, the &plusmn;1.0&nbsp;&deg;C band, the regime edges and the headline
             scope are the registered values in <code>runner/src/phase6-protocol.ts</code>; the
             scoring follows <code>docs/decisions/0025-phase6-agreement-scoring-rule.md</code>; the
-            re-sweep cost is the wall-clock time the sweep that stands actually took,
+            re-sweep cost is the wall-clock time the corrected historical Arm&nbsp;1 sweep actually took,
             &ldquo;~20&nbsp;h wall on 6 workers&rdquo;
             (<code>research/phase6-sweep-report.md</code>) &mdash; a bill this project has already
             paid once, because the sweep before it had to be run again from the start.
@@ -833,16 +849,14 @@
       </p>
 
       <p>
-        So the accurate claim is narrower than &ldquo;every knob is on the list&rdquo;, and stronger
-        than it sounds. Nobody can prove a list of this kind complete; completeness is exactly what
-        gets discovered the hard way. What the machinery guarantees is two things. Anything
-        <em>on</em> the list cannot move without the fingerprint moving. And anything found to be
-        <em>off</em> the list gets added at a published price: a numbered record, a revision-log
-        entry, and the whole sweep again. That does not rely on anybody&rsquo;s honesty holding under
-        pressure; it makes the move expensive, slow, and &mdash; because the fingerprint and the git
-        history both move &mdash; permanently visible. The charter states the goal in one line:
-        <em>&ldquo;Quiet tuning is not a discipline failure that review catches &mdash; it is
-        structurally impossible to hide.&rdquo;</em>
+        So the accurate claim is narrower than &ldquo;every knob is on the list&rdquo;. Nobody can prove a
+        list of this kind complete; completeness is exactly what gets discovered the hard way.
+        Anything on the versioned list is covered by a recomputable fingerprint, and an authorized
+        change is required to leave a decision record and new history. Those controls make drift
+        detectable to a reviewer who actually checks the artifacts; they do not make misconduct or
+        omission impossible. The replacement-gate consequence is a new freeze and full rerun.
+        Historical executed bytes remain records of what the superseded protocol produced; they are
+        not silently rewritten or promoted to the replacement gate.
       </p>
 
       <h2 id="the-real-exploit">A cheat nobody had to invent</h2>
@@ -982,7 +996,9 @@
         site count). The register&rsquo;s own closure log records the first in one line:
         <em>&ldquo;<code>--steps 1</code> (was plate/AGREE/headline &rarr; now invalid/excluded)&rdquo;</em>,
         closed at commit <code>b701285</code>, &ldquo;a step-capped run is EXCLUDED, and every run input
-        is pinned.&rdquo;
+        is pinned.&rdquo; That final historical phrase was too broad: the repair pins the registered and
+        per-row self-reported run-configuration fields, not the complete execution environment or an
+        immutable source snapshot.
       </p>
 
       <aside class="callout callout--method">
@@ -1018,8 +1034,8 @@
         Everything so far protects the marking scheme. One thing still needs protecting: the
         difference between two very different sentences that both start &ldquo;it failed&rdquo;. A
         program that finishes hands the operating system a small number, its <em>exit code</em>; by
-        convention 0 means success and anything else means failure. The Phase 6 gate uses three, and
-        the assignment is the moral argument of the whole project compiled into a return value:
+        convention 0 means success and anything else means failure. The historical Phase&nbsp;6 gate
+        contract assigned three meanings:
       </p>
 
       <blockquote>
@@ -1031,9 +1047,10 @@
       </blockquote>
 
       <p>
-        The model can disagree with the reference diagram at every single point and the gate still
-        returns 0, because the gate is not asking &ldquo;was the model right?&rdquo; It is asking
-        &ldquo;is this evidence?&rdquo; Exit 2 is subtler: the registered gate command takes no flags
+        Under that historical contract, the model could disagree with the reference diagram at every
+        point and still return 0, because 0 meant that the command&rsquo;s execution checks passed, not
+        that the model was right or that later replacement-gate requirements had been met. Exit 2 is
+        subtler: the registered gate command takes no flags
         at all, so any flag means the thing that ran was not the thing that was registered &mdash; not
         a science failure and not an evidence failure, but its own category of wrong. Almost every
         project says &ldquo;a negative result is a result&rdquo;. This one has to mean it, because a
@@ -1044,8 +1061,8 @@
         <div class="anim__head">
           <p class="anim__title">Run the gate</p>
           <p class="anim__sub">
-            Six situations. Exactly one of them returns 0, and it is the one where the science is
-            disappointing.
+            Six situations under the historical gate contract. Exactly one returns 0, and it is the
+            one where the execution is valid but the science is disappointing.
           </p>
         </div>
         <div class="anim__body"></div>
@@ -1094,7 +1111,8 @@
         All seven mutations really executed. The first pass caught five and exposed two gaps:
         per-row output could not prove which parameter set produced it, and a row measured at the
         wrong size still scored normally. Commit <code>b701285</code>, implementing decision record
-        0035, pins every child input and requires a size-target stop with
+        0035, pins every registered and per-row self-reported child run-configuration field and
+        requires a size-target stop with
         <code>largestExtent&nbsp;&ge;&nbsp;21</code>. The inequality matters: a legitimate growth step
         can jump from 20 to 22. Re-checking the historical Arm&nbsp;1 rows found all 204 at extent
         exactly 21, so its measured 3 of 90 did not move. That repair governs checking and future
@@ -1108,9 +1126,11 @@
         <code>solver-cpu/src</code>, and <code>runner/src</code> before a future sweep launches and
         again when it finishes, and refuses publication if the sets or bytes differ. There were 39
         such files at that commit; later additions are included rather than hidden behind a
-        hard-coded count. It catches a commit landing mid-run and an uncommitted edit that is later
-        reverted. Again, that is a forward safeguard, not a retroactive upgrade of Arm&nbsp;1&rsquo;s
-        provenance.
+        hard-coded count. It detects a different named source graph at the two endpoints, such as a
+        commit that remains landed at completion. It does <em>not</em> exclude a transient edit that
+        was reverted before the final fingerprint, inherited <code>NODE_OPTIONS</code>, or a shadow
+        module. R15 still owes an immutable snapshot, environment allowlist, and verified child
+        identity. This is a forward safeguard, not a retroactive upgrade of Arm&nbsp;1&rsquo;s provenance.
       </p>
 
       <p>
@@ -1199,20 +1219,21 @@
       </p>
 
       <p>
-        <strong>It cannot be undone, and that is the intended discomfort.</strong> A frozen protocol
-        that turns out to have a flaw costs a full re-sweep to fix; there is no setting for &ldquo;this
-        time we were right to change it&rdquo;. The project has already paid that bill once, on its
-        own initiative.
+        <strong>A correction does not rewrite the old experiment.</strong> If a frozen protocol turns
+        out to have a flaw, its executed bytes remain a historical record, while a logged decision,
+        a new freeze and a full rerun are required before replacement-gate evidence is admissible.
+        The project has already paid a full-rerun bill once and now owes R15 for the corrected
+        science contract.
       </p>
 
       <p>
-        <strong>And no human expert has checked any of it.</strong> Every review this project has
-        had &mdash; internal and external-facing, including the two-reviewer process that checked
-        this page &mdash; has been an LLM review. The project&rsquo;s own sharing rules require that
+        <strong>No human domain-expert review is recorded.</strong> Every recorded non-maker
+        reviewer-agent round &mdash; including the two-reviewer process that checked this page &mdash;
+        is an LLM review. Maker audits are recorded separately, and the maker is not identified as
+        a domain scientist. The project&rsquo;s own sharing rules require that
         &ldquo;at least one human domain scientist reads any manuscript before submission&rdquo; and
-        state the current position without softening it: &ldquo;All reviews to date, internal and
-        external-facing, are LLM reviews; for publication that is a disclosed limitation, not a
-        substitute.&rdquo; That limitation is disclosed here for the same reason the freeze list is
+        call the absence of a recorded human domain-expert review a disclosed limitation, not a
+        substitute. That limitation is disclosed here for the same reason the freeze list is
         published: a weakness you have named is one a reader can price.
       </p>
 
@@ -1234,25 +1255,29 @@
 
       <p>
         Phase 6 is still in flight as this is written; Phase 7, the product layer, has not started.
-        What exists is a sealed envelope and a machine that will not open it except in public, under
-        rules nobody can now revise without saying so. It has already done that twice: the sweep ran
-        once under the twenty-four-row protocol, was withdrawn, and ran again under the
-        twenty-five-row one. Both openings are on the public record, which is the arrangement working
-        rather than failing &mdash; but note that &ldquo;sealed&rdquo; never meant &ldquo;opened
-        once&rdquo;. It meant that every opening has to say which envelope it belonged to.
+        What exists is a historical values-manifest mechanism whose verifier can detect registered
+        value drift; R15 itself remains planned, unfrozen, unimplemented and unexecuted. Rules can be
+        revised, confused or bypassed, so the evidence depends on executing and auditing the right
+        checks. The historical executor ran once under the twenty-four-row value protocol, was
+        withdrawn, and ran again under the twenty-five-row value protocol. Neither run executed the
+        ADR&nbsp;0026 conservative-intersection output rule, even though its freeze row existed. Both
+        value-manifest openings are on the public record: every result must say which registered
+        values it used, while separately stating which outcome operators actually ran.
       </p>
 
       <p class="handoff">
         The grid is 204 points and the headline is computed over 90 of them. One piece of
         bookkeeping to carry across, because chapter 28 opens with it: the envelope you just watched
-        being sealed &mdash; the twenty-five-row <code>8aeb2b80&hellip;</code> &mdash; is the one the
-        exam in chapter 28 was actually sat under. The earlier twenty-four-row
-        <code>9aa2e7c1&hellip;</code> is the envelope the <em>withdrawn</em> sweep was sat under. It
+        being sealed &mdash; the twenty-five-row <code>8aeb2b80&hellip;</code> &mdash; identifies the
+        protocol values in force for chapter 28&rsquo;s measured CAK run. It does <strong>not</strong>
+        mean that run executed ADR&nbsp;0026; its 3/90 is measured-only, not the registered
+        conservative-intersection headline. The earlier twenty-four-row
+        <code>9aa2e7c1&hellip;</code> identifies the values used by the <em>withdrawn</em> sweep. It
         was withdrawn not because that hash was wrong but because a knob outside the list had
-        overridden a row inside it &mdash; and adding the missing row moved the pin, which is what
-        makes the two results impossible to confuse. A protocol is identified by its hash, so a
-        number produced under <code>9aa2e7c1</code> can never be quietly reported as a number
-        produced under <code>8aeb2b80</code>. Chapter 29 itemises what going from twenty-four rows to
+        overridden a row inside it &mdash; and adding the missing row moved the pin. A reviewer who
+        runs the correct verifier can therefore distinguish the two results. A protocol is identified
+        by its hash, so reporting a <code>9aa2e7c1</code> number under <code>8aeb2b80</code> is detectable
+        from the preserved evidence; hashing does not make misreporting impossible. Chapter 29 itemises what going from twenty-four rows to
         twenty-five cost. Now the number gets read.
       </p>
 
@@ -1276,8 +1301,8 @@
   <div class="shell">
     <p>
       Part of <a href="../index.html">Snow Crystals</a>, an educational site about the science of
-      snowflake formation. Part Two describes a software project; every figure in it is original,
-      and every number in it is transcribed from a named file in that project's repository.
+      snowflake formation. Part Two describes a software project using named repository sources,
+      independently derived quantities, and clearly labelled fictional teaching examples.
     </p>
     <p><a href="../references.html">References</a> &middot; <a href="../glossary.html">Glossary</a></p>
   </div>
@@ -1345,11 +1370,11 @@
 <script>
 /* ===========================================================================
    Chapter 27 — Sealing the Envelope
-   Five original interactives. Nothing here invents a registered value: every
-   temperature, tolerance, band and regime edge is transcribed from
+   Five original interactives. Registered values are sourced from
    runner/src/phase6-protocol.ts, docs/decisions/0025-*.md, or
-   docs/decisions/0035-*.md. The one invented object is the model habit row in
-   "Try to cheat", which is stamped FICTIONAL on screen because Phase 6's real
+   docs/decisions/0035-*.md; displayed quantities may also be independently
+   derived. The invented model row and fragile set in
+   "Try to cheat" are stamped FICTIONAL on screen because Phase 6's real
    result belongs to chapter 28. "A cheat nobody had to invent" is its real
    counterpart: an executed negative control from the project's own pin
    register, not a stand-in.
@@ -1587,8 +1612,9 @@
               + "  dirty and the fourth check refuses. Commit it and the checks do pass —\n"
               + "  and that is the design, not a hole in it: the pin has moved and the git\n"
               + "  history has moved, so the edit is now a permanent, signed public record.\n"
-              + "  By charter §3.2 it is also a logged decision record that invalidates\n"
-              + "  prior sweep results — the full sweep re-runs."
+              + "  By charter §3.2 it also needs a logged decision record and makes prior\n"
+              + "  sweep evidence inadmissible to the replacement gate until the full rerun.\n"
+              + "  The historical bytes remain records of what their protocol produced."
               : "");
       }
       render();
@@ -1948,7 +1974,7 @@
       } else {
         banner.style.color = c.critical;
         banner.textContent =
-          "PROTOCOL HASH MISMATCH · ALL 204 RESULTS INVALIDATED · RE-SWEEP REQUIRED (~20 h)";
+          "PROTOCOL HASH MISMATCH · NOT REPLACEMENT-GATE EVIDENCE · RE-SWEEP REQUIRED (~20 h)";
         costNote.textContent =
           "Cost: one full re-sweep, ~20 h of compute, plus ONE numbered public decision record and "
           + "ONE permanent revision-log entry — naming "
@@ -2166,7 +2192,8 @@
         build: function () {
           var l = fail(base(), "pre-registration",
             "arm1-cak values hash <live> does not match the registered <pin> — a registered "
-            + "VALUE was edited without updating the pin, which invalidates prior sweeps");
+            + "VALUE was edited without updating the pin, making prior sweep evidence "
+            + "inadmissible to a replacement gate until rerun; historical bytes remain preserved");
           l[1] = { text: pad("provenance") + " SKIP", ok: false };
           return {
             lines: l, tail: [], code: 1,
@@ -2226,7 +2253,7 @@
     body.appendChild(stack);
 
     var LAMPS = [
-      { code: 0, txt: "a valid run, whatever nature says" },
+      { code: 0, txt: "passes this historical execution contract" },
       { code: 1, txt: "the evidence is broken" },
       { code: 2, txt: "somebody deviated from the frozen command" }
     ];

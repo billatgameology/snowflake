@@ -150,7 +150,7 @@
           the application (<code>app/src/main.ts:599</code>, <code>:652</code>,
           <code>:655</code>), a fourth is the shipped control&rsquo;s own label
           (same file, line 1307), and the fifth is the line the charter
-          specifies for a temperature input (<code>project charter.md:87</code>); the shipped
+          specifies for a temperature input (<code>project charter.md:89</code>); the shipped
           control pane has no temperature binding, because it drives the older
           <code>GGThreshold</code> rule, which has no temperature in it.
           <code>&lt;live&gt;</code> marks where the running application substitutes a
@@ -196,14 +196,14 @@
       <p>
         What replaced the ladder is deliberately less convenient. The charter&rsquo;s rule is that
         <em>&ldquo;every quantity shown to the user carries two independent labels, and the UI never
-        silently upgrades either&rdquo;</em> (<code>project charter.md:78</code>). The two labels are:
+        silently upgrades either&rdquo;</em> (<code>project charter.md:80</code>). The two labels are:
       </p>
 
       <p>
         <strong>Type</strong> &mdash; <em>&ldquo;what the quantity is: input (the temperature
         slider), computed state (a vapor field value), derived metric (a hollowness index), or
         phenomenological parameter (a G&ndash;G threshold, a noise amplitude)&rdquo;</em>
-        (<code>project charter.md:81</code>). &ldquo;Phenomenological&rdquo; is the honest word for
+        (<code>project charter.md:83</code>). &ldquo;Phenomenological&rdquo; is the honest word for
         a knob that changes the picture and corresponds to no quantity in nature.
       </p>
 
@@ -211,26 +211,25 @@
         <strong>Evidence</strong> &mdash; <em>&ldquo;what it has earned: unvalidated; qualitatively
         supported; or quantitatively validated over a named domain. Only Phase&nbsp;6 can grant the
         third, and only where the comparison actually holds&rdquo;</em>
-        (<code>project charter.md:82</code>). Phase&nbsp;6 is the validation phase &mdash; the one
-        that runs the model against measurements it could disagree with. It is
-        <strong>in flight as this is written</strong>: its first sweep ran and was invalidated by a
-        later decision record
-        (<code>docs/decisions/0031-phase6-paramset-freeze-row.md</code>); the corrected re-sweep has
-        since run and reported <strong>3 of 90</strong> &mdash; three agreements among the ninety
-        comparisons it scored (<code>research/phase6-sweep-report.md:143</code>). And even that
-        number is not yet allowed
-        to move a label, because the report says so about itself, in bold: <em>&ldquo;These numbers
-        are not yet gate evidence&rdquo;</em> (same file, line&nbsp;40). That sentence describes
-        the report&rsquo;s historical snapshot. The independent re-derivation has since been
-        hardened and passes, but the Arm&nbsp;1 closing gate and zero-blocker review remain open.
-        Chapter&nbsp;28 keeps those dates separate and is where the result lives.
+        (<code>project charter.md:84</code>). Phase&nbsp;6 is the validation phase &mdash; the one
+        that runs the model against measurements it could disagree with. It remains
+        <strong>active and incomplete</strong>. After an initial CAK_A1 sweep was invalidated by
+        decision 0031, the corrected historical CAK arm completed 204 rows and measured
+        <strong>3 of 90</strong>. The separate historical M1 arm completed 204 rows and measured
+        <strong>54 of 90</strong> on the common scope (54 of 78 on its own). Both artifacts can now
+        be independently re-derived, but both remain measured-only: they did not execute R15, which
+        is planned but unfrozen, unimplemented and unexecuted. The same status applies to the matched
+        <code>M1_NO_DIP_ABLATION</code>; numerical adequacy, the preview-resolution GPU cohort and all
+        four held-out families remain open, so neither result promotes the
+        model&rsquo;s Evidence label. Chapter&nbsp;28 keeps the historical records and current
+        obligations separate.
       </p>
 
       <p>
         The whole force of the design is in the word <strong>independent</strong>. Knowing what a
         number is tells you nothing about whether anyone checked it. A temperature you typed has
         never been checked and is still perfectly honest. A
-        supersaturation computed by real physics has also never been checked, and is
+        supersaturation computed from a physical relation has also never been checked, and is
         <em>also</em> perfectly honest &mdash; it just must not be described as a
         result about the world.
       </p>
@@ -238,7 +237,7 @@
       <p>
         Six readouts follow. Five are the application&rsquo;s own wording; the sixth, the
         temperature line, is what the charter specifies for that input
-        (<code>project charter.md:87</code>). Give each a Type and an
+        (<code>project charter.md:89</code>). Give each a Type and an
         Evidence. There is a trap, worth naming in advance so you can watch
         yourself fall into it anyway: <strong>carrying a real physical unit is not evidence of
         anything.</strong>
@@ -258,11 +257,11 @@
           <span class="built-from">Original interactive. The label text of each readout is
           transcribed from <code>app/src/main.ts:599</code>, <code>:652</code>, <code>:655</code>
           and &mdash; for the control rather than a readout &mdash; <code>:1307</code>, and the
-          temperature line from <code>project charter.md:87</code>;
+          temperature line from <code>project charter.md:89</code>;
           <code>&lt;live&gt;</code> as above. The <code>sigma</code> line is composed
           from the frozen <code>fieldTitle</code> and <code>fieldUnits</code> pair at
           <code>app/src/display.ts:42&ndash;43</code>, not printed as a single string anywhere. The
-          label definitions are <code>project charter.md:81&ndash;82</code>.</span>
+          label definitions are <code>project charter.md:83&ndash;84</code>.</span>
         </figcaption>
       </figure>
 
@@ -296,8 +295,8 @@
           <em>&ldquo;No UI label ever claims more physical confidence than Phase&nbsp;6 has earned.
           &lsquo;The model was given real physics&rsquo; and &lsquo;the model was shown to reproduce
           reality&rsquo; are different claims; only Phase&nbsp;6 can promote the first to the
-          second.&rdquo;</em> &mdash; <code>project charter.md:340</code>, one of the ten standing
-          guardrails at lines 335&ndash;344 of the same file.
+          second.&rdquo;</em> &mdash; <code>project charter.md:342</code>, one of the ten standing
+          guardrails at lines 337&ndash;346 of the same file.
         </p>
       </aside>
 
@@ -326,7 +325,7 @@
         <div class="anim__controls"></div>
         <figcaption class="anim__foot">
           <span class="built-from">Original interactive. The rule being applied is the guardrail at
-          <code>project charter.md:340</code>, and the honest split is that guardrail&rsquo;s own
+          <code>project charter.md:342</code>, and the honest split is that guardrail&rsquo;s own
           two sentences. The four example sentences were written for this exercise; none is a
           quotation, and none of the three forbidden ones is a claim this project makes
           anywhere.</span>
@@ -368,8 +367,8 @@
         <div class="anim__controls"></div>
         <figcaption class="anim__foot">
           <span class="built-from">Original interactive. The rule is <code>project
-          charter.md:82</code> and <code>:340</code>; the last three rows are three of the four
-          <strong>held-out</strong> observables named at <code>project charter.md:183</code> &mdash;
+          charter.md:84</code> and <code>:342</code>; the last three rows are three of the four
+          <strong>held-out</strong> observables named at <code>project charter.md:185</code> &mdash;
           measurements deliberately not used to pick any of the model&rsquo;s inputs, so they can
           serve as a fair test. The loadable report is a
           <strong>stand-in</strong> &mdash; a shape, not a real artifact.</span>
@@ -380,28 +379,20 @@
         Two things in that refusal are worth pulling out. First, an upgrade needs a
         <strong>named domain</strong>, not a general endorsement: a report about growth rates says
         nothing about pressure dependence, so five of the six rows stay grey even after it loads.
-        Second, some rows carry a refusal against a class of input that is now implemented for a
-        separate arm but is absent from every completed, reviewed result. Where inputs chosen to impose
-        agreement with the Nakaya diagram are active &mdash; the project&rsquo;s P3 class &mdash;
-        <em>&ldquo;matching Nakaya is in-sample reproduction&rdquo;</em> rather than validation
-        (<code>project charter.md:183</code>). Be exact about the tense. The Arm&nbsp;1 report&rsquo;s
-        sentence &mdash; <em>&ldquo;Every run is no-SDAK; <code>SDAK</code> appears in no source
-        file&rdquo;</em> (<code>research/phase6-sweep-report.md:225</code>) &mdash; is true of the
-        source tree and runs it records. It is not current source-tree status. Accepted decision
-        0036 added M1 as a third <code>NucleationParamSet</code>; its value content was frozen at
-        <code>483f7ee</code>, and <code>0cb52bf</code> then recorded that ancestry and repinned the
-        final values hash. A first Arm&nbsp;2 launch was stopped about a minute in after its first
-        line exposed Arm&nbsp;1&rsquo;s combined protocol hash; commit
-        <code>8c781b1</code> records the arm-specific replacement. At this audit&rsquo;s
-        2026-07-30 10:23&nbsp;PDT cutoff, the corrected canonical sweep was running and its local
-        point file was still changing. Partial rows are measurements of an unfinished run, not a
-        completed, reviewed sweep result. Decision 0030 remains the proposed precursor, not the
-        current registration.
-        Bolting the P3 door before Arm&nbsp;1 ran is what keeps that no-SDAK arm a real test &mdash;
+        Second, P3 inputs chosen to impose agreement with the Nakaya diagram can earn only
+        in-sample reproduction. The Arm&nbsp;1 report&rsquo;s sentence &mdash;
+        <em>&ldquo;Every run is no-SDAK; <code>SDAK</code> appears in no source file&rdquo;</em>
+        (<code>research/phase6-sweep-report.md:225</code>) &mdash; is true of the source tree and
+        runs it records, not the current tree. M1 is now implemented as an everywhere-narrow starter
+        approximation. Its historical arm completed at 54/90 common scope (54/78 arm scope), while
+        CAK completed at 3/90. Both are measured-only; neither is the registered replacement gate.
+        Their difference is confounded because broad curves and A prefactors change with the dips;
+        a matched M1 no-dip arm remains open. Keeping P3 out of Arm&nbsp;1 preserves its historical
+        measurement outside direct Nakaya tuning, but does not upgrade it into the absent gate &mdash;
         the charter&rsquo;s own version of one: <em>&ldquo;Set &minus;5&nbsp;&deg;C &mdash; does a
         column grow? Set &minus;15&nbsp;&deg;C
         &mdash; does the habit flip back to plates? A model that cannot be wrong is not attempting
-        this problem&rdquo;</em> (<code>project charter.md:185</code>). Chapter&nbsp;17 is about
+        this problem&rdquo;</em> (<code>project charter.md:187</code>). Chapter&nbsp;17 is about
         that distinction.
       </p>
 
@@ -416,7 +407,7 @@
         <table>
           <caption>
             The charter&rsquo;s own worked example. The two readouts are verbatim from
-            <code>project charter.md:87</code>; the status and the right-hand column are ours.
+            <code>project charter.md:89</code>; the status and the right-hand column are ours.
           </caption>
           <thead>
             <tr><th>Readout</th><th>Status</th><th>What a reader concludes</th></tr>
@@ -441,7 +432,7 @@
         charter says the opposite, in a clause worth memorising:
         <em>&ldquo;a fake physics readout is worse than none &mdash; and a real-looking number
         resting on an untested model is the most convincing fake of all&rdquo;</em>
-        (<code>project charter.md:87</code>). Precision is not a property of a number but a
+        (<code>project charter.md:89</code>). Precision is not a property of a number but a
         <strong>claim about how well the quantity is known</strong>, and every digit you print is
         another unit of that claim.
       </p>
@@ -571,7 +562,7 @@
         The project carries two surface rules &mdash; the repository calls them <em>surface
         operators</em> &mdash; through the same machinery, permanently:
         <em>&ldquo;GGThreshold &mdash; the working floor is never
-        deleted&rdquo;</em> (<code>project charter.md:336</code>), so that a problem in the
+        deleted&rdquo;</em> (<code>project charter.md:338</code>), so that a problem in the
         physics can be told apart from a problem in the machinery. The
         Gravner&ndash;Griffeath threshold rule tracks an invented quantity called
         <em>vapor mass</em>, written <code>d</code>,
@@ -657,7 +648,7 @@
         (<code>docs/plans/phase-4-morphology-gauntlet.md:899&ndash;904</code>).
         <strong>Pass&nbsp;A</strong> and <strong>Pass&nbsp;B</strong> are the two runs of
         Phase&nbsp;4&rsquo;s shape gauntlet &mdash; the same set of test crystals grown once on the
-        borrowed threshold rule and once on the measured physics; chapter&nbsp;24 is about why there
+        borrowed threshold rule and once on the mixed-provenance Libbrecht parameterization; chapter&nbsp;24 is about why there
         have to be two. Everything about those fixtures was internally consistent. That was the
         problem.
       </p>
@@ -837,15 +828,14 @@
 
       <p>
         This project has been reviewed constantly &mdash; the evidence-class failure above was found
-        by a review round, not by a test &mdash; and <strong>every one of those reviews was
-        conducted by a language model.</strong> So was the two-reviewer process that checked this
-        page. The project&rsquo;s own sharing rules say so, and treat it as a limitation
-        to declare rather than a box ticked:
-        <em>&ldquo;All reviews to date, internal and external-facing, are LLM reviews; for
-        publication that is a disclosed limitation, not a substitute&rdquo;</em>
-        (<code>docs/stretch-sharing-and-investigation.md:217&ndash;219</code>). The same passage
+        by a review round, not by a test &mdash; and every recorded non-maker reviewer-agent round is
+        an <strong>LLM review.</strong> So is the recorded two-reviewer process that checked this
+        page. Maker audits are recorded separately, and the maker is not identified as a domain
+        scientist. The project&rsquo;s own sharing rules treat the absence of a recorded human
+        domain-expert review as a limitation to declare rather than a box ticked
+        (<code>docs/stretch-sharing-and-investigation.md:239&ndash;241</code>). The same passage
         requires at least one human domain scientist to read any manuscript before submission. No
-        human snow-crystal scientist has reviewed any of it.
+        such review is recorded.
       </p>
 
       <p>
@@ -909,8 +899,8 @@
   <div class="shell">
     <p>
       Part of <a href="../index.html">Snow Crystals</a>, an educational site about the science of
-      snowflake formation. Part Two describes a software project; every figure in it is original,
-      and every quotation is from a file in that project&rsquo;s repository, cited by path and line.
+      snowflake formation. Part Two describes a software project using named repository sources,
+      independently derived quantities, and clearly labelled fictional teaching examples.
     </p>
     <p><a href="../references.html">References</a> &middot; <a href="../glossary.html">Glossary</a></p>
   </div>
@@ -1176,7 +1166,7 @@
       why: "You supplied it — today on the runner’s command line (grow-lk --temp-c, " +
         "runner/src/main.ts:570–572). The charter is explicit about the interface it specifies: " +
         "“a real temperature slider is honest: Type = input, Evidence = unvalidated until " +
-        "Phase 6 reports” (project charter.md:85). Real degrees Celsius, and nobody has checked " +
+        "Phase 6 reports” (project charter.md:87). Real degrees Celsius, and nobody has checked " +
         "what the crystal does in them.",
     },
     {
@@ -1299,9 +1289,9 @@
       verdict.style.color = c.critical;
       verdict.textContent =
         "Refused. “Only Phase 6 can grant the third, and only where the comparison actually " +
-        "holds” (project charter.md:82). Phase 6 is in flight: its first sweep ran and was " +
-        "invalidated by decision 0031; the corrected re-sweep has run and reported 3 of 90, and " +
-        "that is not yet gate evidence (research/phase6-sweep-report.md:40, :143). Nothing in the " +
+        "holds” (project charter.md:84). Phase 6 is active and incomplete. Historical CAK and M1 " +
+        "arms measured 3 of 90 and 54 of 90 common-scope respectively, but neither executed R15; " +
+        "both remain measured-only. Nothing in the " +
         "application has been promoted — the status footer still ends: all model quantities: " +
         "Evidence = unvalidated (§1.5).";
       pickEv = null;
@@ -1440,7 +1430,7 @@
 /* =========================================================================
    3. Find the word doing the smuggling.
    Four sentences written for this exercise. Three are forbidden by the
-   guardrail at project charter.md:340; one is already honest.
+   guardrail at project charter.md:342; one is already honest.
    ====================================================================== */
 (function () {
   const root = document.getElementById("fig-smuggle");
@@ -1456,7 +1446,7 @@
         "physics-based": "That is the adjective holding the door open, and on its own it is true — " +
           "the equations really are physical. The word that spends it on the output is a verb.",
       },
-      went: "The solver was given measured attachment kinetics and a real temperature of −15 °C.",
+      went: "The solver was given mixed-provenance, experiment-constrained attachment kinetics and a physical temperature input of −15 °C.",
       claimed: "That the habit it produced is the habit nature grows at −15 °C. Nothing has earned that.",
       verdict: "“shows” is the whole illegitimate move. It uses a fact about the inputs to " +
         "license a claim about the output.",
@@ -1468,30 +1458,30 @@
         "real": "“real” is a true statement about the inputs. It is the load the verb picks up, " +
           "not the verb.",
       },
-      went: "The solver was run with Libbrecht’s measured kinetics at −5 °C.",
+      went: "The solver was run with Libbrecht’s mixed-provenance parameterization at −5 °C.",
       claimed: "That the world has now agreed. “Confirms” needs a comparison, and names none.",
       verdict: "“confirms” is a word about evidence, not about inputs. Only a test the model could " +
         "have failed can put it in a sentence.",
     },
     {
-      text: "The model uses measured attachment coefficients, so it explains the Nakaya diagram.",
+      text: "The model uses experiment-constrained attachment coefficients, so it explains the Nakaya diagram.",
       answer: "explains",
       helpers: {
-        "measured": "“measured” is the true half. The sentence then charges the untested half to it.",
+        "experiment-constrained": "The input-provenance phrase is the true half. The sentence then charges the untested half to it.",
         "so": "You are close — “so” is the join. But the join is only doing damage because of the " +
           "verb it leads to.",
       },
-      went: "The solver was given attachment coefficients taken from measurements.",
+      went: "The solver was given attachment coefficients assembled from direct empirical inputs, fits, inversions and prescriptions.",
       claimed: "That the model accounts for the plate–column alternation. That is a result, and a " +
         "result needs a comparison behind it.",
       verdict: "“explains” is the strongest of the three: it claims the output matches the world " +
         "AND that the model’s reason is the world’s reason.",
     },
     {
-      text: "The solver was given measured kinetics and run at −15 °C; whether the habit it produced is the one nature grows there is a separate question.",
+      text: "The solver was given mixed-provenance kinetics and run at −15 °C; whether the habit it produced is the one nature grows there is a separate question.",
       answer: null,
       helpers: {},
-      went: "The solver was given measured kinetics and run at −15 °C.",
+      went: "The solver was given mixed-provenance kinetics and run at −15 °C.",
       claimed: "Nothing. The second question is named and left open, which is the honest shape.",
       verdict: "Correct — nothing is smuggled here. The sentence says what went in, stops, and " +
         "then says out loud that the other question is unanswered.",
@@ -1712,13 +1702,13 @@
     if (!loaded) {
       message = { tone: "bad", text:
         "Refused. “Only Phase 6 can grant the third, and only where the comparison actually " +
-        "holds” (project charter.md:82), and “no UI label ever claims more physical " +
-        "confidence than Phase 6 has earned” (project charter.md:340). " +
+        "holds” (project charter.md:84), and “no UI label ever claims more physical " +
+        "confidence than Phase 6 has earned” (project charter.md:342). " +
         "Missing precondition: a gate-qualified Phase 6 report naming THIS comparison and the " +
-        "domain it holds over. A sweep HAS reported a number — the corrected re-sweep scored " +
-        "3 of 90 — and that report disclaims itself in bold: “These numbers are not yet gate " +
-        "evidence” (research/phase6-sweep-report.md:40, :143). A measured number that no " +
-        "independent verifier has re-derived is still not something a label can point at." };
+        "domain it holds over. The historical CAK and M1 arms measured 3 of 90 and 54 of 90 " +
+        "common-scope respectively. Later verification preserves those measurements; it does not " +
+        "make either one the registered replacement gate. R15 is planned but unfrozen, " +
+        "unimplemented and unexecuted; its charter obligations remain open." };
     } else if (row.id !== REPORT_DOMAIN) {
       message = { tone: "bad", text:
         "Refused. The loaded report’s named domain is “growth rates vs (T, σ)”. " +
@@ -1728,17 +1718,12 @@
           ? "  This row also carries a second refusal against a separately implemented class of input. " +
             "Where inputs chosen to impose agreement with the Nakaya " +
             "diagram are active — the project’s P3 class — “matching Nakaya is in-sample " +
-            "reproduction” (project charter.md:183), and “results from Nakaya-informed (P3) " +
-            "inputs are never labeled independent validation” (project charter.md:341). Every " +
-            "completed and reviewed sweep result so far is in no-SDAK Arm 1 " +
-            "(research/phase6-sweep-report.md:225). Accepted decision 0036 later added M1 to the " +
-            "source tree; 483f7ee froze its separate Arm 2 value content, and 0cb52bf recorded " +
-            "that ancestry and final values-hash pin. One launch was stopped about a minute in " +
-            "after its first line exposed the wrong arm’s combined hash; " +
-            "8c781b1 records the repair. At this audit’s 2026-07-30 cutoff, the corrected sweep " +
-            "was running but incomplete. So this no-SDAK comparison remains a fair test, while " +
-            "Arm 2 has a registered prediction but no completed, reviewed result and could earn " +
-            "at most in-sample reproduction. Chapter 16 is about those tags; chapter 17 is about why " +
+            "reproduction” (project charter.md:185), and “results from Nakaya-informed (P3) " +
+            "inputs are never labeled independent validation” (project charter.md:343). The " +
+            "historical CAK and M1 arms completed at 3/90 and 54/90 common scope. Both are " +
+            "measured-only and not the replacement gate; M1 is in-sample, and CAK→M1 also " +
+            "changes broad curves and A prefactors, so it is not a clean dip ablation. Chapter 16 " +
+            "is about those tags; chapter 17 is about why " +
             "they close the independent-validation door."
           : "") };
     } else {
@@ -1802,10 +1787,10 @@
     note.style.margin = "0.7rem 0 0";
     note.textContent = loaded
       ? "loaded: stand-in report · named domain: growth rates vs (T, σ) · " +
-        "this artifact does not exist — Phase 6 is in flight, and the corrected re-sweep’s own " +
-        "report (3 of 90) is not yet gate evidence."
+        "this artifact does not exist — Phase 6 remains active and incomplete. Historical CAK " +
+        "(3/90) and M1 (54/90 common scope) are measured-only, not replacement-gate evidence."
       : "no Phase 6 report loaded · the last three rows are three of the four held-out " +
-        "observables named at project charter.md:183 — measurements deliberately not used to " +
+        "observables named at project charter.md:185 — measurements deliberately not used to " +
         "pick any of the model’s inputs, so they can serve as a fair test.";
     list.appendChild(note);
 

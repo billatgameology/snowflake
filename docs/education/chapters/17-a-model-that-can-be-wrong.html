@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>A Model That Can Be Wrong — Snow Crystals</title>
-<meta name="description" content="Some of the model's inputs were chosen so that the answer would come out right. That makes agreement worthless as evidence — and it is why the project rebuilt the experiment so it could lose.">
+<meta name="description" content="Some model inputs were chosen using the target diagram. Agreement can test reproduction and implementation consistency, but not independently validate that tuned target; held-out tests remain open.">
 <link rel="stylesheet" href="../assets/education.css">
 <style>
 /* In-demo honesty banners and the calibration task panel. Scoped with a c17-
@@ -80,7 +80,7 @@
     <ol>
       <li><a href="#in-sample">The answer was already in the question</a></li>
       <li><a href="#how-big">How big is the borrowed piece</a></li>
-      <li><a href="#two-experiments">Two experiments, one of which cannot fail</a></li>
+      <li><a href="#two-experiments">Two experiments, one without an independent test</a></li>
       <li><a href="#held-out">What a real test looks like</a></li>
       <li><a href="#refutable">What would have proved it wrong?</a></li>
       <li><a href="#safety-net">Why a fallback made the risk affordable</a></li>
@@ -95,8 +95,8 @@
         <p class="chapter-header__eyebrow">Chapter 17</p>
         <h1>A Model That Can Be Wrong</h1>
         <p class="chapter-header__question">
-          If some of your numbers were chosen so the answer would come out right, then getting
-          the right answer proves nothing. So how do you build a model that is allowed to lose?
+          If some of your numbers were chosen using the answer, then matching it can check
+          reproduction but cannot independently validate it. So how do you build a model that is allowed to lose?
         </p>
         <div class="chapter-header__meta">
           <span>~16 min read</span>
@@ -108,8 +108,8 @@
       <section class="goals">
         <h2>By the end you will be able to</h2>
         <ul>
-          <li>Explain why matching a target that your inputs were fitted to is not evidence about
-            nature.</li>
+          <li>Explain why matching a target used to choose inputs is reproduction or an
+            implementation-consistency check, not independent validation of nature.</li>
           <li>Say what a <em>held-out</em> observable is, and why this project's honest list of
             them is short.</li>
           <li>Take any claim and name the result that would have refuted it &mdash; and spot the
@@ -124,7 +124,8 @@
 
       <p>
         Chapter 16 sorted every number that goes into the solver by where it came from. Four bins:
-        measured, fitted, numerical, and one more. The project calls that fourth one
+        source-grounded empirical input, fitted or inferred input, numerical choice, and one more.
+        The project calls that fourth one
         <strong>P3</strong>, and it is the subject of this chapter. The project's parameter file
         defines it like this:
       </p>
@@ -149,7 +150,9 @@
         &mdash; a feedback the charter describes as producing &ldquo;thin plates, sharpening edges,
         and hollow columns&rdquo; (<code>project charter.md</code>, &sect;2.5). It is a hypothesis,
         not a measurement, and the &ldquo;narrow-facet dips&rdquo; in the quotation above are how
-        it would enter the model.
+        it would enter the model. Dedicated growth studies provide model-conditioned support for
+        narrow-facet reductions, but do not directly measure the local surface field or fix M1&rsquo;s
+        exact dip functions.
       </p>
 
       <p>
@@ -162,8 +165,9 @@
 
       <p>
         If a number was chosen to make the model agree with the Nakaya diagram, and you then run
-        the model and it agrees with the Nakaya diagram, you have learned nothing about snow. You
-        have learned that the choosing worked. The answer was inside the question. Statisticians
+        the model and it agrees with the Nakaya diagram, that agreement is not independent evidence
+        about snow. It can still test implementation consistency and reveal disagreement despite
+        in-sample inputs, but it cannot validate the tuned target. Statisticians
         call this an <strong>in-sample</strong> result: the thing you are testing against is part
         of what you built with. The opposite is <strong>held-out</strong> &mdash; you test against
         something nobody consulted while building.
@@ -177,8 +181,9 @@
           Key idea
         </p>
         <p>
-          Agreement is only evidence if disagreement was possible. A target your inputs were
-          fitted to cannot supply that possibility, no matter how carefully you run the test.
+          In-sample agreement can support faithful reproduction and implementation consistency;
+          disagreement can still expose a failure. But a target used to choose the inputs cannot
+          independently establish predictive skill, no matter how carefully the same target is rerun.
         </p>
       </aside>
 
@@ -192,10 +197,9 @@
       </p>
 
       <p>
-        The next demo hands you the two knobs the quotation is about. They are real &mdash; the
-        centres of the two dips in the published attachment model &mdash; and moving them changes
-        which face of the crystal is easier to grow. Try to make the model match nature. It is not
-        hard.
+        The next demo hands you the two published dip-centre knobs, then deliberately commits a
+        second error: it maps barrier order directly onto morphology. Tune that invalid proxy to the
+        target and watch how convincing a meaningless score can look.
       </p>
 
       <figure class="anim" id="fig-dartboard">
@@ -206,11 +210,9 @@
           </p>
         </div>
         <p class="c17-flag">
-          <strong>Simplified stand-in &mdash; not the real sweep.</strong> This strip asks only
-          which face has the lower nucleation barrier, at one humidity level instead of six, so it
-          scores out of 15 where the project's registered sweep scores out of 90. The score below
-          is a real number about these two knobs. It is not a result about snow, and the project's
-          own number is a different thing entirely: chapter 28 has it.
+          <strong>Intentionally invalid proxy &mdash; not the real sweep.</strong> This strip maps
+          barrier order directly onto plate/column labels. That map is not the 3-D solver or frozen
+          habit evaluator. Its score out of 15 demonstrates target leakage, not snow physics.
         </p>
         <div class="anim__body"></div>
         <div class="anim__controls"></div>
@@ -219,8 +221,9 @@
           <code>../assets/anim-preregister.js</code>. The two knobs are the dip centres the module
           transcribes from Libbrecht's published closed forms &mdash; the citations are in the
           module's own header &mdash; and <code>docs/libbrecht-parameters.md</code> &sect;4.1
-          records the same dips as provenance class P3. The scoring re-implements the project's
-          registered rule (ADR&nbsp;0025). What this strip is and is not is on the banner above it,
+          records the same dips as provenance class P3. The scoring uses the reference bins but
+          deliberately does <em>not</em> implement ADR&nbsp;0025&rsquo;s 3-D habit rule. What this
+          strip is and is not is on the banner above it,
           where you can read it before the score rather than after.</span>
         </figcaption>
       </figure>
@@ -267,19 +270,19 @@
       </p>
 
       <p>
-        The parameter file records the two dips as digitized readings off a printed figure, sized
-        relative to the broad-facet curve at the same temperature. A &ldquo;broad facet&rdquo; is
-        an ordinary wide flat face; the dips describe what the model does differently on a very
-        narrow one.
+        The current parameter file records the two M1 dips from a printed closed form. Their exact
+        depths, widths, and placements are P3 Nakaya-informed model choices. Dedicated
+        narrow-facet studies motivate reduction regions, but do not directly measure these exact
+        functions.
       </p>
 
       <div class="table-wrap">
         <table>
           <caption>
             The two &sigma;<sub>0</sub> dips &mdash; the mechanism the parameter file labels
-            <strong>SDAK-1</strong> &mdash; transcribed from
-            <code>docs/libbrecht-parameters.md</code> &sect;4.1, where each row is recorded as a
-            digitization of the monograph's Figure&nbsp;4.12. Every row is provenance class P3.
+            <strong>SDAK-1</strong> &mdash; evaluated from the M1 closed forms recorded in
+            <code>docs/libbrecht-parameters.md</code>. Every exact dip parameter is provenance
+            class P3.
           </caption>
           <thead>
             <tr>
@@ -313,8 +316,8 @@
 
       <p>
         A factor of fifteen is not a correction. At the bottom of the prism dip the model is being
-        told that a narrow prism face needs fifteen times less spare vapour before a new layer can
-        start than the measured broad-facet curve says. And &sigma;<sub>0</sub> is not itself a
+        told that a narrow prism face needs roughly fifteen times less spare vapour before a new
+        layer can start than the source-fitted broad-facet curve says. And &sigma;<sub>0</sub> is not itself a
         speed: it enters the growth law inside an exponential &mdash; the attachment coefficient is
         <code>A&nbsp;&middot;&nbsp;exp(&minus;&sigma;<sub>0</sub>&nbsp;/&nbsp;&sigma;<sub>surf</sub>)</code>,
         with &sigma;<sub>surf</sub> the spare vapour actually reaching the surface
@@ -325,7 +328,7 @@
       </p>
 
       <p>
-        The source is also explicit that the dips are a proposal rather than a measurement. They
+        The source is explicit that the exact dips are a proposal rather than a direct measurement. They
         are drawn <em>dotted</em> in the original figure &ldquo;to signify their substantial
         uncertainties&rdquo;, and a companion paper says plainly that &ldquo;Neither the width nor
         depth of the dip structure &hellip; is well constrained by measurements&rdquo;
@@ -356,19 +359,16 @@
       </aside>
 
       <p>
-        So the project has a clean option most modelling projects do not: run the comparison with
-        the diagram-informed pieces removed entirely. Then a Nakaya comparison is a real test,
-        because the inputs no longer contain the answer &mdash; though the project still refuses
-        to call it independent validation. Decision 0005 reserves that phrase for the held-out
-        observables in the next section, and gives this run a different name instead: the no-SDAK
-        probe &ldquo;becomes a first-class scientific result in its own right: does the measured
-        large-facet crossing alone produce <em>any</em> habit reversal? Either answer is
-        publishable within the project's own terms.&rdquo; That is the run chapter 28 reports, and
-        decision 0005 registered it in advance, both outcomes included.
+        The historical broad-facet CAK arm removed the dips, but it is not a clean ablation of M1:
+        the two arms also change broad &sigma;<sub>0</sub> functions and A prefactors. Their 3/90
+        versus 54/90 common-scope measurements are therefore causally confounded. The active plan
+        requires a matched <code>M1_NO_DIP_ABLATION</code> that keeps every implemented M1 kinetic
+        choice except the two dip factors. Even that comparison remains in-sample with respect to
+        other Nakaya-informed M1 choices; independent validation is reserved for held-out observables.
       </p>
 
       <!-- =============================================================== 3 -->
-      <h2 id="two-experiments">Two experiments, one of which cannot fail</h2>
+      <h2 id="two-experiments">Two experiments, one without an independent test</h2>
 
       <p>
         The in-sample trap is not only about borrowed parameters. You can build a whole experiment
@@ -418,23 +418,20 @@
           </p>
         </div>
         <p class="c17-flag">
-          <strong>Simplified stand-in &mdash; not the real sweep.</strong> The same simplified
-          predictor as the strip above, at one humidity level instead of six, and it forces a habit
-          at every temperature. Its scores count columns on this strip &mdash; 15, 28, 34, whatever
-          the axis leaves in scope &mdash; and are not a version of the registered sweep's score out
-          of 90. Nothing you can reach on this screen is a measurement of anything.
+          <strong>Intentionally invalid proxy &mdash; not the real sweep.</strong> The strip maps
+          sigma0 order to P/C labels, forces a label at every temperature, and never runs the 3-D
+          solver. Its scores are a teaching device, not a scientific measurement.
         </p>
         <div class="anim__body"></div>
         <div class="anim__controls"></div>
         <figcaption class="anim__foot">
           <span class="built-from">Original interactive. <em>Calibration</em> mode encodes the
           plan the charter rejected in &sect;2.7 &mdash; abstract knobs, temperature axis assigned
-          afterwards; its three knobs are deliberately meaningless. <em>Validation</em> mode holds
-          the axis fixed and reads the habit from the broad-facet nucleation parameters via
-          <code>Prereg.habitAt</code> in <code>../assets/anim-preregister.js</code>, with the dips
-          off. Reference regimes and the near-boundary exclusion are transcribed from the same
+          afterwards; its three knobs are deliberately meaningless. <em>Frozen proxy</em> mode holds
+          the axis fixed and reads sigma0 order via <code>Prereg.orderAt</code>, then deliberately
+          maps that order to P/C labels. Reference regimes and the near-boundary exclusion are transcribed from the same
           module (its <code>BOUNDS</code> and <code>AMBIGUITY</code>). The banner above the strip
-          says what the strip is; one consequence of it is worth spelling out here. Forcing a habit
+          says what the strip is; one consequence of it is worth spelling out here. Forcing a label
           at every temperature is not what the project does: its registered scoring rule keeps a
           third class &mdash; ADR&nbsp;0025 maps results onto
           &ldquo;<code>{plate, column, neutral, invalid}</code>&rdquo; &mdash; and in the real sweep
@@ -451,11 +448,9 @@
       </p>
 
       <p>
-        Validation mode is the same screen with the axis frozen and the knobs gone, because
-        temperature now enters the equations rather than being written on them afterwards. Most
-        columns disagree, and there is nothing to slide. Do not carry that count away as the
-        project's answer &mdash; the banner above the strip says why it cannot be. Chapter 28 has
-        the project's own number, measured on the real solver and counted a different way.
+        Frozen-proxy mode is the same screen with the axis fixed and the knobs gone. It can disagree,
+        which demonstrates falsifiability of that display, but it is still not a validation model:
+        sigma0 order is not 3-D habit. Chapter 28 reports the separate historical solver counts.
       </p>
 
       <p>
@@ -511,48 +506,24 @@
       </blockquote>
 
       <p>
-        Pressure is the cleanest of the four, because it shows what makes a target genuinely held
-        out. How fast water vapour spreads through air is inversely proportional to pressure; that
-        relationship is exact, it was used at one reference pressure, and nothing in the model was
-        ever adjusted to make anything match at any other. The project's own register puts it in
-        one line: &ldquo;D &prop; 1/P is exact at reference pressure and nothing was tuned to it
-        &mdash; a cheap, genuinely held-out axis&rdquo;
-        (<code>docs/stretch-sharing-and-investigation.md</code> &sect;3, item I4).
+        The current evidence review does <em>not</em> have an admissible member of any of those four
+        families. The tracked candidate-source lock reproduces its source bytes and reports
+        <code>passEligible=false</code>. It found no apples-to-apples family for the present solver,
+        so the charter obligation remains open rather than being narrowed to whatever is convenient.
       </p>
 
       <p>
-        The same register is equally plain about how many such tests are within reach today:
+        Pressure is not a ready-made exception. The available comparison changes pressure together
+        with liquid-water content, temperature drift, apparatus and crystal population; it is
+        confounded and supplies no quantitative pass target. The diffusivity relation can be an
+        implemented input without making those observations a clean validation experiment.
       </p>
 
-      <blockquote class="callout">
-        <p>
-          &ldquo;practically reachable held-out set today is ~5 entries, not 122 &mdash; most sit
-          behind the column-seed ADR&rdquo;
-          <br><span class="figure__source">snowflake repository,
-          docs/stretch-sharing-and-investigation.md &mdash; &sect;3, item I1</span>
-        </p>
-      </blockquote>
-
-      <p>
-        An <strong>ADR</strong> is one of the numbered decision records this chapter keeps quoting
-        &mdash; the project writes them as &ldquo;ADR 0003&rdquo; and &ldquo;decision 0005&rdquo;
-        interchangeably. The column-seed one has not been written yet. It is the pending decision
-        about whether a run may be started from a column-shaped seed crystal and still count as
-        evidence, and until it lands, the Phase 6 plan puts &ldquo;an elongated/column seed
-        class&rdquo; on its out-of-scope list
-        (<code>docs/plans/phase-6-nakaya-validation.md</code>). Most of the remaining held-out
-        tests are waiting behind it.
-      </p>
-
-      <p>
-        Five. Written down by the project about itself, in the same paragraph where it identifies
-        its best falsification target: a set of free-falling-crystal growth measurements whose
-        &ldquo;reported sense opposes the model's expectation &mdash; the single strongest
-        falsification target available&rdquo; &mdash; that is, the measured effect points the
-        opposite way to what the model predicts. The strongest available test is one the project
-        expects to lose, and it is at the top of its own to-do list. That combination is what an
-        honest evidence ledger looks like: short, and pointed at the places that hurt.
-      </p>
+      <aside class="callout callout--open">
+        <p><strong>Current source-lock verdict:</strong> all four charter families remain required,
+        all four remain open, and none has been frozen or run. A source-limited outcome may leave
+        Phase&nbsp;6 incomplete; it cannot convert an in-sample morphology score into validation.</p>
+      </aside>
 
       <p>
         Holding data back sounds obvious until you have to do it.
@@ -580,10 +551,10 @@
       </figure>
 
       <p>
-        Hold nothing back and the score is perfect and meaningless. Hold back the two awkward
-        points and the model gets them wrong, which is not a disaster &mdash; it is the first true
-        thing the exercise has told you. A test you might fail is the only kind that reports
-        anything.
+        Hold nothing back and this constructed nearest-neighbour score is perfect but only reports
+        training-set consistency. Hold back the two awkward points and the model gets them wrong,
+        which is not a disaster &mdash; it is the first independent predictive result in this
+        exercise. The in-sample result and held-out result answer different questions.
       </p>
 
       <!-- =============================================================== 5 -->
@@ -716,29 +687,21 @@
       <h2 id="your-turn">Your turn, before the result</h2>
 
       <p>
-        The outcome is unfinished, and the status is supposed to live on the record rather than in
-        anyone&rsquo;s head. Phase 6 &mdash; the comparison against the diagram &mdash; remains
-        <strong>in progress</strong>; Phase 7, the product layer this whole thing is supposed to
-        become, remains <strong>not started</strong>. The records also expose a lag rather than
-        silently agreeing. <code>docs/plans/phase-6-sdak-arm.md</code> still says &ldquo;not started
-        &mdash; blocked on ADR 0030 acceptance&rdquo;, and the <code>docs/PROGRESS.md</code> Next
-        step at commit <code>8c781b1</code> still says to freeze Arm&nbsp;2. Later accepted decision
-        0036 and the commit history show more: M1 was implemented at <code>2127d96</code>,
-        <code>483f7ee</code> froze its value content, <code>0cb52bf</code> recorded the freeze
-        ancestry and final gated values hash, and <code>8c781b1</code> records the corrected
-        arm-specific combined revision hash. The plan and Next-step sentence are stale on those
-        preparation facts. A launch was stopped about a minute in after its first line exposed the
-        wrong combined hash. At this audit&rsquo;s
-        2026-07-30 10:23&nbsp;PDT cutoff, the repaired canonical sweep was running, its output was
-        still mutable, and no completed, reviewed result existed, so the outcome was still unknown.
+        The historical questions below now have measured answers. The broad-facet CAK arm completed
+        at 3/90; the everywhere-narrow M1 arm completed at 54/90 on the common scope and 54/78 in
+        its arm-specific scope. Both are measured-only results. They do not implement ADR&nbsp;0026&rsquo;s
+        registered conservative-intersection scoring rule in a replacement gate, and their difference
+        is confounded by multiple kinetic changes. Phase 6 therefore remains <strong>active and
+        incomplete</strong>. R15 and <code>M1_NO_DIP_ABLATION</code> are planned but unfrozen,
+        unimplemented and unexecuted; numerical adequacy, preview-resolution GPU runs and all four
+        held-out families remain open.
       </p>
 
       <p>
-        So commit. A prediction written after the result is not a prediction. Mind the asymmetry
-        between the two questions below, because this page has to obey its own rules: chapter 14
-        already told you how the first one turned out, so answering it tests your memory rather
-        than your judgement. The second has a registered forecast but no completed, reviewed answer &mdash;
-        not from you, not from the reviewers, and not from the project.
+        A prediction written after the result is not a prediction. The widget is now explicitly a
+        historical pre-registration exercise: both answers are public, so a new seal tests neither
+        foresight nor validation. It remains useful for understanding what the team committed to
+        before those measured-only runs.
       </p>
 
       <figure class="anim" id="fig-envelope">
@@ -753,10 +716,9 @@
         <div class="anim__controls"></div>
         <figcaption class="anim__foot">
           <span class="built-from">Original interactive. Question 1 restates the charter's Phase 6
-          test (&sect;3.2). Question 2 is now governed by accepted decision 0036 and the separately
-          frozen M1 protocol; the older plan&rsquo;s &ldquo;blocked on ADR 0030 acceptance&rdquo;
-          status is stale. The registered forecast is not an observed answer. At the audit cutoff,
-          Arm&nbsp;2 had mutable partial rows but no completed, reviewed sweep result. Your choices
+           test (&sect;3.2). Question 2 was governed by accepted decision 0036 and the separately
+          frozen historical M1 protocol. Both measured-only answers are now public; the widget is an
+          archival exercise, not a live prediction or the still-absent replacement gate. Your choices
           are stored in this browser and nothing is sent
           anywhere, which also means nothing else can read them: the seal is for you to check
           against chapter 28, not something chapter 28 will open for you.</span>
@@ -771,15 +733,15 @@
           Still unsettled
         </p>
         <p>
-          One limitation belongs on this page rather than in a footnote. Every review this project
-          has had &mdash; including the two-reviewer process that checked this chapter &mdash; has
-          been a review by a language model. The project's own sharing rules say so in advance of
-          any publication: &ldquo;All reviews to date, internal and external-facing, are LLM
-          reviews; for publication that is a disclosed limitation, not a substitute&rdquo;
+          One limitation belongs on this page rather than in a footnote. Every recorded non-maker
+          reviewer-agent round &mdash; including the recorded two-reviewer process that checked this
+          chapter &mdash; is a language-model review. Maker audits are recorded separately, the maker
+          is not identified as a domain scientist, and the repository records contain no human domain-expert review. The
+          project's own sharing rules call that a disclosed limitation rather than a substitute
           (<code>docs/stretch-sharing-and-investigation.md</code> &sect;4). The requirement they
           set for themselves is that at least one human domain scientist reads any manuscript
-          before it is submitted anywhere. That has not happened yet. Nothing in this chapter
-          should be read as having passed expert human review, because it has not.
+          before it is submitted anywhere. No such review is recorded. Nothing in this chapter
+          should be read as having passed expert human review.
         </p>
       </aside>
 
@@ -818,8 +780,8 @@
   <div class="shell">
     <p>
       Part of <a href="../index.html">Snow Crystals</a>, an educational site about the science of
-      snowflake formation. Part Two describes a software project; every figure in it is original,
-      and every quotation is taken from a named file in that project's repository.
+      snowflake formation. Part Two describes a software project using named repository sources,
+      independently derived quantities, and clearly labelled fictional teaching examples.
     </p>
     <p><a href="../references.html">References</a> &middot; <a href="../glossary.html">Glossary</a></p>
   </div>
@@ -847,9 +809,8 @@
 
    Calibration mode reproduces the plan the charter rejected in section 2.7:
    three knobs with no physical meaning, and a temperature axis assigned to
-   the results afterwards. Validation mode freezes the axis and reads the
-   habit out of the broad-facet nucleation parameters (via Prereg.habitAt
-   with the dips off), so nothing on screen can be slid.
+   the results afterwards. Frozen-proxy mode freezes the axis and reads a
+   deliberately invalid P/C proxy via Prereg.proxyLabelAt with the dips off.
    ======================================================================= */
 (function () {
   "use strict";
@@ -938,8 +899,8 @@
     var u = i / (N - 1);
     return Math.sin(2 * Math.PI * (k1 * u + k2)) > k3 ? "P" : "C";
   }
-  function modelHabit(i) {
-    if (mode === "val") return window.Prereg.habitAt(tOf(i), 4.5, 14.4, false);
+  function displayLabel(i) {
+    if (mode === "val") return window.Prereg.proxyLabelAt(tOf(i), 4.5, 14.4, false);
     return atlasHabit(i);
   }
 
@@ -952,7 +913,7 @@
       var r = refHabit(tg, t);
       if (!r) continue;
       n++;
-      if (modelHabit(i) === r) agree++;
+      if (displayLabel(i) === r) agree++;
     }
     return { n: n, agree: agree };
   }
@@ -1051,13 +1012,13 @@
     renderTask();
 
     svg = Viz.createSvg(body, W, H, {
-      label: "A strip of predicted crystal habits compared against a reference diagram of " +
-        "plate and column regions.",
+      label: "A teaching strip of P and C labels compared against a reference diagram. The " +
+        "frozen version is an invalid sigma0-order proxy, not a habit prediction.",
       desc: mode === "cal"
         ? "Three abstract knobs set the model's pattern; two further controls decide which " +
           "temperature each column stands for."
-        : "The temperature axis is fixed and the habit is computed from the broad-facet " +
-          "nucleation parameters, so nothing can be adjusted."
+        : "The temperature axis is fixed and an invalid sigma0-order proxy supplies P/C labels, " +
+          "so nothing can be adjusted."
     });
 
     /* ---- reference bands ---- */
@@ -1082,7 +1043,7 @@
        on colour alone; the legend below the figure glosses P and C. */
     var cw = plotW / N;
     for (var i = 0; i < N; i++) {
-      var h = modelHabit(i);
+      var h = displayLabel(i);
       svg.appendChild(Viz.svgEl("rect", {
         x: M.left + i * cw + 0.4, y: M.top + 46, width: cw - 0.8, height: 30,
         fill: h === "P" ? c.series[0] : c.series[1], "fill-opacity": 0.85
@@ -1104,7 +1065,8 @@
     /* ---- row labels ---- */
     svg.appendChild(label(M.left - 12, M.top + 19,
       mode === "val" ? "nature" : tg.name, c.inkSecondary, 11, 660, "end"));
-    svg.appendChild(label(M.left - 12, M.top + 65, "model", c.inkSecondary, 11, 660, "end"));
+    svg.appendChild(label(M.left - 12, M.top + 65,
+      mode === "val" ? "invalid proxy" : "tunable pattern", c.inkSecondary, 11, 660, "end"));
     svg.appendChild(label(M.left - 12, M.top + 90, "scored", c.muted, 10, 600, "end"));
 
     /* ---- painted axis ---- */
@@ -1137,7 +1099,7 @@
 
     svg.appendChild(label(M.left, 48,
       mode === "cal" ? "DESIGN A · calibration · cannot fail"
-                     : "DESIGN B · validation · can fail",
+                     : "DESIGN B · frozen proxy · can disagree",
       mode === "cal" ? c.critical : c.good, 11, 700, "start"));
 
     /* ---- legend: colour never carries meaning on its own ---- */
@@ -1167,9 +1129,9 @@
       }
     } else {
       status.textContent =
-        "Same screen, two things removed: the axis is frozen and the knobs are gone, because " +
-        "temperature now enters the equations. " + s.agree + " of " + s.n +
-        " agree, and there is nothing you can slide.";
+        "Same screen, two things removed: the axis is frozen and the knobs are gone. The invalid " +
+        "sigma0-order proxy has " + s.agree + " of " + s.n +
+        " labels agree. That disagreement is visible, but this is still not 3-D validation.";
     }
   }
 
@@ -1179,7 +1141,7 @@
     var modeCal = Viz.button(bar, "Design A: calibration", function () {
       mode = "cal"; buildControls(); render();
     }, { pressed: mode === "cal" });
-    var modeVal = Viz.button(bar, "Design B: validation", function () {
+    var modeVal = Viz.button(bar, "Design B: frozen proxy", function () {
       mode = "val"; buildControls(); render();
     }, { pressed: mode === "val" });
     modeCal.setAttribute("aria-pressed", String(mode === "cal"));
@@ -1236,8 +1198,8 @@
       note.className = "control";
       note.style.color = "var(--ink-muted)";
       note.textContent =
-        "No controls. The axis was registered before the run and the habit comes from the " +
-        "measured broad-facet nucleation parameters with the diagram-informed dips off.";
+        "No controls. The axis is fixed; P/C comes from an explicitly invalid mapping of " +
+        "source-fitted broad-facet sigma0 order with the dips off.";
       bar.appendChild(note);
     }
   }
@@ -1449,12 +1411,11 @@
     {
       text: "Every number fed into the solver came from an instrument.",
       refutable: true,
-      why: "Refutable, and false — though not because of the P3 dips, which the solver never " +
-        "loads. The curves it does run on are class P2: Libbrecht published σ₀(T) and A(T) " +
-        "only as plots, so docs/libbrecht-parameters.md §3 records them as readings digitized " +
-        "off Figure 4.5 at ±25%. The rule for interpolating between those readings is class " +
-        "P4 — “a P4 decision, not physics.” Provenance labels exist so this claim can be " +
-        "checked rather than assumed."
+      why: "Refutable, and false. Historical CAK combines directly adopted/source-tabulated P1 " +
+        "inputs with P2 fits, inversions, project derivations and any retained digitizations. " +
+        "Historical M1 adds the exact Nakaya-informed dip prescription as P3 and the project's " +
+        "base-10 reading of the source's unstated logarithm base as P4. Provenance labels exist " +
+        "so this mixed chain can be checked rather than collapsed into ‘measured.’"
     }
   ];
 
@@ -1560,22 +1521,18 @@
   var QUESTIONS = [
     {
       id: "q1",
-      text: "With the diagram-informed dips switched OFF, will the model reproduce the " +
-        "Nakaya diagram's habit reversals?",
-      note: "The charter's registered expectation: plates near −2 °C, columns near " +
-        "−5 °C, plates again near −15 °C, columns below −30 °C.",
+      text: "Will the historical broad-facet CAK arm reproduce the registered Nakaya labels?",
+      note: "Historical measured-only answer now public: 3/90. This was not a matched M1 " +
+        "no-dip ablation and is not the replacement gate.",
       options: ["It will reproduce them", "It will not"]
     },
     {
       id: "q2",
-      text: "When the dips are switched ON, will they right the flip — will the model " +
-        "then produce columns near −5 °C?",
-      note: "Accepted decision 0036 registered a forecast, M1 is implemented, 483f7ee froze " +
-        "its separate value content, and 0cb52bf recorded the freeze ancestry and final values-hash pin. A first launch was stopped about a minute in after its first line exposed " +
-        "a wrong-arm hash; 8c781b1 records the repair. At this audit’s cutoff the corrected sweep " +
-        "was running, but partial mutable rows were not a completed, reviewed answer. A forecast " +
-        "is not the observed answer.",
-      options: ["Yes, the flip is righted", "No, it still does not"]
+      text: "Will the historical everywhere-narrow M1 arm score more registered agreements than CAK?",
+      note: "Historical measured-only answer now public: yes, 54/90 common scope (54/78 arm " +
+        "scope). CAK to M1 changes broad curves, A prefactors, and dips, so that difference is " +
+        "not a causal dip estimate.",
+      options: ["Yes, M1 scores more", "No, it does not"]
     }
   ];
 
@@ -1663,9 +1620,8 @@
       st.appendChild(strong);
       st.appendChild(document.createTextNode(
         " Your answers are locked and stored in this browser only — nothing is sent anywhere " +
-        "and no other page reads them. Check them yourself against chapter 28. Question 2 has " +
-        "no completed, reviewed answer yet: at the audit cutoff, the SDAK-arm sweep had mutable " +
-        "partial rows and was still running."));
+        "and no other page reads them. Check them yourself against chapter 28. Both historical " +
+        "measured-only answers are now public; this seal is an archival exercise, not a forecast."));
       var changed = first && QUESTIONS.some(function (q) {
         return first.answers[q.id] !== sealed.answers[q.id];
       });
@@ -1693,7 +1649,7 @@
     } else {
       var done = QUESTIONS.every(function (q) { return picks[q.id] != null; });
       st.textContent = done
-        ? "Both answered. Sealing writes them down; after that they cannot be quietly edited."
+        ? "Both answered. This teaching seal records them so a later change is visible in the local history; it does not make editing impossible."
         : "Answer both questions, then seal them.";
       var seal = Viz.button(bar, "Seal my answers", function () {
         if (!QUESTIONS.every(function (q) { return picks[q.id] != null; })) return;

@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Glossary — Snow Crystals</title>
-<meta name="description" content="Every technical term and symbol this site uses, each defined in one plain sentence, grouped by subject and linked to the chapter that explains it.">
+<meta name="description" content="A subject-grouped guide to the site's principal technical terms and symbols, with plain-language definitions and links to fuller explanations.">
 <link rel="stylesheet" href="./assets/education.css">
 </head>
 <body data-depth="0">
@@ -57,17 +57,17 @@
         <p class="chapter-header__eyebrow">Reference</p>
         <h1>Glossary</h1>
         <p class="chapter-header__question">
-          Every technical word and symbol this site uses, each in one plain sentence, with a link
-          to the chapter that explains it properly.
+          A guide to the principal technical words and symbols used on this site, each defined in
+          plain language and linked to a chapter that explains it more fully. It is not a
+          machine-complete vocabulary census.
         </p>
       </header>
 
       <p>
         The entries are grouped by what they are <em>about</em> rather than by chapter, and they run
-        alphabetically inside each group. The link on every entry points at the place the term is
-        <strong>explained</strong>, which is not always the first place it appears &mdash; several
-        words are used in passing early on and unpacked properly much later, and the link takes you
-        to the unpacking.
+        alphabetically inside each group. The chapter links point to places where the selected terms
+        are <strong>explained</strong>, which are not always the first places they appear &mdash;
+        several words are used in passing early on and unpacked properly much later.
       </p>
 
       <p>
@@ -103,9 +103,9 @@
       <p>
         One sentence is not the whole story and is not meant to be. Each definition is a compression
         of an argument a chapter makes at length, written so that a word you have half forgotten
-        becomes usable again in about ten seconds. Where a definition rests on a number, the number
-        is the one the site quotes from its sources; the
-        <a href="./references.html">references page</a> says where every one of them came from.
+        becomes usable again in about ten seconds. Source-dependent, load-bearing numbers are routed
+        through the chapters to named records; the <a href="./references.html">references page</a>
+        is a source index, not a machine-complete census of every numeric statement.
       </p>
 
       <!-- ================================================================= -->
@@ -498,7 +498,7 @@
             </tr>
             <tr>
               <td><strong>CAK model</strong></td>
-              <td>Comprehensive Attachment Kinetics &mdash; the agreed set of fitted &sigma;<sub>0</sub>(T) and <em>A</em>(T) curves; bookkeeping for the measurements rather than a rival theory.</td>
+              <td>Comprehensive Attachment Kinetics &mdash; an empirical parameterization of broad-facet &sigma;<sub>0</sub>(T) and <em>A</em>(T). It combines source-tabulated inputs with fits and model-dependent inversions, so it is not simply a table of direct measurements.</td>
               <td><a href="./chapters/11-the-stickiness-of-ice.html">11 &middot; The Stickiness of Ice</a></td>
             </tr>
             <tr>
@@ -684,7 +684,7 @@
             </tr>
             <tr>
               <td><strong>SDAK dip</strong></td>
-              <td>A proposed band of temperatures over which a narrow facet&rsquo;s barrier drops below the broad-facet curve. Narrow-facet observations near &minus;4&nbsp;&deg;C on basal faces and &minus;14&nbsp;&deg;C on prism faces motivate the hypothesis, but the effective dip locations and depths are uncertain, morphology-informed inputs rather than direct measurements. The dips are the proposed route by which the shape can flip three times rather than once.</td>
+              <td>A proposed band of temperatures over which a narrow facet&rsquo;s barrier drops below the broad-facet curve. Narrow-facet observations near &minus;4&nbsp;&deg;C on basal faces and &minus;14&nbsp;&deg;C on prism faces motivate the hypothesis, but the effective dip locations, depths and widths are uncertain, morphology-informed inputs rather than direct measurements. In a full forward model these inputs may alter habit; the barrier ordering by itself is not a habit prediction.</td>
               <td><a href="./chapters/12-why-the-shape-flips.html">12 &middot; Why the Shape Flips</a></td>
             </tr>
             <tr>
@@ -770,8 +770,8 @@
               <td><a href="./chapters/07-plates-columns-plates-columns.html">7 &middot; Plates, Columns, Plates, Columns</a></td>
             </tr>
             <tr>
-              <td><strong>habit boundary</strong> (crossing)</td>
-              <td>The temperature at which the basal and prism barrier curves swap order, so the faster face becomes the slower one and the crystal switches between plate and column.</td>
+              <td><strong>habit boundary</strong></td>
+              <td>A temperature boundary between morphology classes, inferred from observations or from a frozen evaluator applied to complete three-dimensional forward runs. A basal/prism &sigma;<sub>0</sub> equality is a separate input-curve diagnostic and is not sufficient to locate a habit boundary.</td>
               <td><a href="./chapters/12-why-the-shape-flips.html">12 &middot; Why the Shape Flips</a></td>
             </tr>
             <tr>
@@ -1088,7 +1088,7 @@
             </tr>
             <tr>
               <td><strong>LLM review</strong></td>
-              <td>Every review this project has had, internal and outward-facing, was done by a language model; its own rules call that a disclosed limitation rather than a substitute, and require a human domain scientist to read any manuscript first. That reading has not happened.</td>
+              <td>Repository records contain no human domain-expert review. Every recorded non-maker reviewer-agent round is a language-model review; maker audits are recorded separately, and the maker is not identified as a domain scientist. The project&rsquo;s own rules call that a disclosed limitation rather than a substitute, and require a human domain scientist to read any manuscript first.</td>
               <td><a href="./chapters/16-where-the-numbers-came-from.html">16 &middot; Where the Numbers Came From</a> &middot; <a href="./chapters/25-testing-what-nobody-knows.html">25 &middot; Testing What Nobody Knows</a></td>
             </tr>
             <tr>
@@ -1098,7 +1098,7 @@
             </tr>
             <tr>
               <td><strong>no-SDAK run</strong></td>
-              <td>A run with the narrow-facet SDAK dips switched off. Every completed, reviewed Phase&nbsp;6 sweep result at the education audit&rsquo;s cutoff is in the no-SDAK Arm&nbsp;1. M1 dip inputs are implemented and separately protocol-frozen for Arm&nbsp;2; its corrected sweep was then running and had mutable partial rows, but no completed, reviewed sweep result.</td>
+              <td>A run without the narrow-facet dip factors, but the comparison must name everything else that changed. Historical CAK is a broad-facet parameterization; it is <em>not</em> a matched ablation of M1 because M1 also changes the broad curves and prefactors. The planned, unfrozen, unimplemented and unexecuted <code>M1_NO_DIP_ABLATION</code> would instead retain M1 and set only its two implemented dip factors to unity under one frozen sampled configuration. That future software contrast could isolate the implemented intervention&rsquo;s effect, not establish physical SDAK causality or necessity.</td>
               <td><a href="./chapters/16-where-the-numbers-came-from.html">16 &middot; Where the Numbers Came From</a> &middot; <a href="./chapters/17-a-model-that-can-be-wrong.html">17 &middot; A Model That Can Be Wrong</a></td>
             </tr>
             <tr>
@@ -1133,12 +1133,12 @@
             </tr>
             <tr>
               <td><strong>verification hazard</strong></td>
-              <td>A recorded flaw in how a result was <em>verified</em> rather than in the physics: Arm&nbsp;1 stamped provenance once while its 204 children kept loading the working tree. A completion-time source fingerprint now closes that timing path for future sweeps, but cannot retroactively add it to Arm&nbsp;1.</td>
+              <td>A recorded flaw in how a result was <em>verified</em> rather than in the physics: Arm&nbsp;1 stamped provenance once while its 204 children kept loading the working tree. A start/end fingerprint can detect a different source graph at those two instants, but it cannot exclude a transient edit that was reverted, inherited <code>NODE_OPTIONS</code>, or a shadow module. Future R15 therefore still owes an immutable source snapshot, an environment allowlist and child-process source-identity checks; none can be retroactively added to Arm&nbsp;1.</td>
               <td><a href="./chapters/28-the-exam-result.html">28 &middot; The Exam Result</a> &middot; <a href="./chapters/29-what-it-cost-and-what-is-open.html">29 &middot; What It Cost and What Is Open</a></td>
             </tr>
             <tr>
               <td><strong>verifier</strong> (independent)</td>
-              <td>A second implementation that re-derives a summary from the raw per-point data instead of inheriting the producer&rsquo;s verdict. Phase&nbsp;6 now has a hardened one that asserts all three artifact digests, the exact 204-row set and every report field, and rejects two real forgeries its first version accepted; the flagless gate and zero-blocker closing review are still owed.</td>
+              <td>A second implementation that re-derives a summary from the raw per-point data instead of inheriting the producer&rsquo;s verdict. Phase&nbsp;6 has a hardened verifier for each historical 204-row arm. Passing those checks preserves what the artifacts measured; it does not make either arm satisfy the later replacement-gate obligations.</td>
               <td><a href="./chapters/28-the-exam-result.html">28 &middot; The Exam Result</a></td>
             </tr>
             <tr>
@@ -1174,15 +1174,16 @@
           Where the project stands, since several of these entries name a status
         </p>
         <p>
-          The validation work &mdash; <strong>Phase&nbsp;6</strong> &mdash; is <strong>still in
-          development</strong>. Its first 204-point sweep scored 5 of 90 and has been
-          <strong>withdrawn</strong>, invalidated by decision record 0031. The corrected re-sweep has
-          run and reported <strong>3 of 90</strong>. Even that 3 is <strong>not yet gate
-          evidence</strong>: the sweep report says so about itself, in bold. Its hardened independent
-          re-derivation now passes and seven controls have executed, but Arm&nbsp;1&rsquo;s flagless
-          closing gate and zero-blocker review have not happened. Arm&nbsp;2 is implemented and
-          separately frozen; its corrected sweep was observed running but incomplete at the
-          education audit&rsquo;s 2026-07-30 cutoff, with no completed, reviewed sweep result.
+          The validation work &mdash; <strong>Phase&nbsp;6</strong> &mdash; is <strong>still
+          active</strong>. The preserved historical CAK arm completed 204 rows and matched
+          <strong>3 of 90</strong> headline targets, with 6 plate, 168 neutral and 30 column classes.
+          The preserved historical M1 arm also completed 204 rows and matched
+          <strong>54 of 90</strong> on the common scope (54 of 78 on its own), with 75 plate,
+          119 neutral and 10 column classes. Both are independently re-derived measured-only
+          records; neither is the replacement gate. Only ADR&nbsp;0026&rsquo;s conservative-intersection
+          scoring rule is registered. R15 and <code>M1_NO_DIP_ABLATION</code> are planned but
+          unfrozen, unimplemented and unexecuted; numerical adequacy, the GPU cohort and all four
+          held-out validation families remain open.
           <strong>Phase&nbsp;7 has not started</strong>; the
           Phase&nbsp;3 browser development instrument is a distinct thing and already exists.
           Chapters <a href="./chapters/28-the-exam-result.html">28</a> and
@@ -1242,12 +1243,12 @@
             </tr>
             <tr>
               <td><strong>exit code</strong></td>
-              <td>The small number a finished program hands back to the operating system. The Phase&nbsp;6 gate uses three, and 0 means &ldquo;this is evidence&rdquo;, <em>not</em> &ldquo;the model was right&rdquo;: a morphology miss still exits 0.</td>
+              <td>The small number a finished program hands back to the operating system. Exit 0 can establish that a command completed its own execution contract; it does not by itself make the output gate evidence or show that the model was right.</td>
               <td><a href="./chapters/27-sealing-the-envelope.html">27 &middot; Sealing the Envelope</a></td>
             </tr>
             <tr>
               <td><strong>extent-fragile</strong></td>
-              <td>A flag on a sweep point whose habit depends on size and which sits close enough to a class threshold that measuring at a slightly different size could move it; sixteen of the 204 points carry it.</td>
+              <td>A historical evaluator flag for a point close enough to a class threshold that an observed aspect-ratio change across tested extents could move its class. The one-directional count was 16 rows in CAK Arm&nbsp;1 and 33 in M1 Arm&nbsp;2. A later symmetric closed-distance audit found 43 additional CAK rows and 52 additional M1 rows at or above the exact threshold, for 59 and 85 total; this remains a bound, not a replacement for R15 numerical adequacy.</td>
               <td><a href="./chapters/14-what-we-are-building.html">14 &middot; What We Are Building</a></td>
             </tr>
             <tr>
@@ -1267,7 +1268,7 @@
             </tr>
             <tr>
               <td><strong>gate evidence</strong></td>
-              <td>A number a gate is entitled to act on. The corrected sweep&rsquo;s 3 of 90 is still <em>not</em> gate evidence even though its hardened independent re-derivation passes: the registered flagless gate and zero-blocker closing review remain incomplete.</td>
+              <td>A number a gate is entitled to act on. The historical 3-of-90 CAK and 54-of-90 M1 results remain measured-only even though their artifacts can be independently re-derived: they do not execute the planned R15 path or its numerical, GPU, ablation and held-out obligations.</td>
               <td><a href="./chapters/15-two-labels-on-every-number.html">15 &middot; Two Labels on Every Number</a></td>
             </tr>
             <tr>
@@ -1282,7 +1283,7 @@
             </tr>
             <tr>
               <td><strong>in-sample</strong></td>
-              <td>A comparison against the same data the model&rsquo;s numbers were fitted to, which therefore cannot fail and proves only that the arithmetic works.</td>
+              <td>A comparison against data that helped choose the model&rsquo;s numbers. It can expose implementation disagreements or poor agreement, but it is not independent validation and cannot on its own establish out-of-sample predictive skill.</td>
               <td><a href="./chapters/17-a-model-that-can-be-wrong.html">17 &middot; A Model That Can Be Wrong</a></td>
             </tr>
             <tr>
@@ -1322,12 +1323,12 @@
             </tr>
             <tr>
               <td><strong>pre-registration</strong></td>
-              <td>Writing down what will count as success while the answer is still unknown, then sealing the record so it cannot be quietly edited once the answer arrives.</td>
+              <td>Writing down what will count as success while the answer is still unknown, then hashing and reviewing the record so later drift is detectable when the correct verifier runs. The process does not make editing, confusion or misconduct impossible.</td>
               <td><a href="./chapters/27-sealing-the-envelope.html">27 &middot; Sealing the Envelope</a></td>
             </tr>
             <tr>
               <td><strong>provenance class</strong> (P1&ndash;P4)</td>
-              <td>The stamp every borrowed number carries, saying what kind of thing it is: <strong>P1</strong> measured, <strong>P2</strong> fitted or inferred (figure digitizations land here), <strong>P3</strong> a hypothesis chosen to impose agreement with the morphology diagram, <strong>P4</strong> a numerical or discretization choice.</td>
+              <td>The stamp every adopted number carries: <strong>P1</strong> a measured or source-tabulated empirical input adopted directly; <strong>P2</strong> a fit, inversion, derivation or figure reading; <strong>P3</strong> a hypothesis or model choice, including the exact M1 narrow-facet prescription; <strong>P4</strong> a numerical or discretization choice.</td>
               <td><a href="./chapters/16-where-the-numbers-came-from.html">16 &middot; Where the Numbers Came From</a></td>
             </tr>
             <tr>
@@ -1347,7 +1348,7 @@
             </tr>
             <tr>
               <td><strong>work package</strong> (WP)</td>
-              <td>A named unit of work inside a phase, cited the way a section is. Phase&nbsp;6 WP5 includes more than its now-passing independent re-derivation: Arm&nbsp;1&rsquo;s flagless closing gate and independent zero-blocker closure review remain incomplete, so 3 of 90 is not gate evidence.</td>
+              <td>A named unit of work inside a phase, cited the way a section is. In the current Phase&nbsp;6 repair, the science-first replacement path requires R15 and the charter obligations; preserving or re-verifying the historical arms does not substitute for that work.</td>
               <td><a href="./chapters/18-never-physics-ahead-of-the-machinery.html">18 &middot; Never Physics Ahead of the Machinery</a></td>
             </tr>
           </tbody>
@@ -1392,7 +1393,7 @@
             </tr>
             <tr>
               <td><strong>convergence study</strong></td>
-              <td>Refining something that should not matter &mdash; the grid spacing, the size of the box &mdash; and checking that the answer stops moving; the Phase&nbsp;6 studies found the habit class robust on every axis tested, while the aspect ratio underneath it was not.</td>
+              <td>Refining something that should not matter &mdash; the grid spacing, the size of the box &mdash; and checking whether the reported quantity stabilizes. Phase&nbsp;6&rsquo;s historical ladders exposed aspect-ratio sensitivity, including a class change at one registered-scale probe; the planned and still-unfrozen R15 numerical-adequacy study remains open.</td>
               <td><a href="./chapters/23-walls-that-pretend-to-be-sky.html">23 &middot; Walls That Pretend to Be Sky</a> &middot; <a href="./chapters/28-the-exam-result.html">28 &middot; The Exam Result</a></td>
             </tr>
             <tr>
@@ -1492,7 +1493,7 @@
             </tr>
             <tr>
               <td><strong><code>LibbrechtKinetics</code></strong></td>
-              <td>The physics model proper &mdash; attachment kinetics driven by the digitized nucleation curves &mdash; as against the borrowed <code>GGThreshold</code> rule. The two are separate machines and the repository is explicit that they do not share guardrails.</td>
+              <td>The physically parameterized surface-exchange model, used with physical vapour diffusion, as against the phenomenological <code>GGThreshold</code> rule. It consumes source-tabulated, fitted and model-inverted attachment inputs; it does not explicitly evolve a premelted layer, surface diffusion or latent-heat transport, so those regime-dependent omissions must be bounded or stated as systematics for quantitative validation.</td>
               <td><a href="./chapters/17-a-model-that-can-be-wrong.html">17 &middot; A Model That Can Be Wrong</a></td>
             </tr>
             <tr>
@@ -1697,7 +1698,7 @@
             </tr>
             <tr>
               <td><strong><em>T</em>&ndash;&sigma; grid</strong></td>
-              <td>The 204 conditions the sweep visited: 34 temperatures a degree apart from &minus;2 to &minus;35&nbsp;&deg;C, each swept at six supersaturation levels. It is sealed into the manifest <em>by value</em>, so points cannot be added once somebody can see which ones disagree.</td>
+              <td>The 204 conditions the historical sweep visited: 34 temperatures a degree apart from &minus;2 to &minus;35&nbsp;&deg;C, each swept at six supersaturation levels. Its manifest records the values, so an added point changes the hash and should be rejected when the correct verifier runs; hashing does not make later editing impossible.</td>
               <td><a href="./chapters/27-sealing-the-envelope.html">27 &middot; Sealing the Envelope</a></td>
             </tr>
             <tr>
@@ -1761,7 +1762,7 @@
             </tr>
             <tr>
               <td><strong>determinism</strong></td>
-              <td>The guarantee that the same inputs give the same outputs on a re-run, digit for digit &mdash; which is what turns &ldquo;random&rdquo; noise into something a second person can reproduce, and what makes a checkpoint hash worth comparing.</td>
+              <td>Within the float64 oracle&rsquo;s pinned Node/V8 engine, the same inputs and named random stream reproduce digit for digit. Cross-engine, float32 and GPU comparisons use stated tolerances instead. The tracked cross-architecture fixtures self-report <code>win32/x64</code> and <code>darwin/arm64</code>, but those headers are not independent hardware authentication; the latter&rsquo;s four-point Tier&nbsp;2 raw output and exit records are absent, so its surviving prose table is not independently rederivable and creates no portability claim.</td>
               <td><a href="./chapters/20-the-flaw-in-the-last-bit.html">20 &middot; The Flaw in the Last Bit</a></td>
             </tr>
             <tr>
@@ -2043,8 +2044,9 @@
   <div class="shell">
     <p>
       Part of <a href="./index.html">Snow Crystals</a>, an educational site about the science of
-      snowflake formation. Source figures are &copy; Kenneth G. Libbrecht and are reproduced here
-      from a local research cache under citation; they are not redistributed with this repository.
+      snowflake formation. Source figures are &copy; Kenneth G. Libbrecht and are not redistributed
+      with this repository or public course; a personal offline build may substitute cited copies
+      from a local research cache.
     </p>
     <p><a href="./index.html">Contents</a> &middot; <a href="./references.html">References</a></p>
   </div>
