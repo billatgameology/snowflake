@@ -327,6 +327,16 @@ function differentialOptions(paramSet: "CAK" | "M1") {
   } as const;
 }
 
+function multiSweepDifferentialOptions(paramSet: "CAK" | "M1") {
+  return {
+    ...eligibleOptions,
+    paramSet,
+    relaxTol: 1e-8,
+    divTol: 1e-6,
+    relaxMaxSweeps: 200_000,
+  } as const;
+}
+
 describe("LK v3 field-adopting restore", () => {
   for (const paramSet of ["CAK", "M1"] as const) {
     it(`${paramSet}: direct, checkpoint-every-cycle, and multiply resumed evolution are exact`, async () => {
@@ -377,6 +387,88 @@ describe("LK v3 field-adopting restore", () => {
       expect(holeFillCount).toBeGreaterThan(0);
       expect(direct.saturationClippedFill).toBeGreaterThan(0);
       expect(internals(direct).volumeRateM3PerS).toBeGreaterThan(0);
+    });
+  }
+
+  for (const paramSet of ["CAK", "M1"] as const) {
+    it(`${paramSet}: realistic multi-sweep continuation remains exact after nonlinear events`, async () => {
+      const options = multiSweepDifferentialOptions(paramSet);
+      const direct = new LKSolver(options);
+      let checkpointEveryCycle = await roundTrip(new LKSolver(options));
+      let multiplyResumed = await roundTrip(new LKSolver(options));
+      const splitTicks = new Set([1, 3, 5, 8]);
+      const sweepParities = new Set<number>();
+      const sweepSequence: number[] = [];
+      const attachmentSequence: number[] = [];
+      let minimumSweeps = Infinity;
+      let attachmentCount = 0;
+      let firstHoleFillCycle: number | null = null;
+
+      for (let cycle = 1; cycle <= 9; cycle++) {
+        const directReport = direct.step();
+        const everyReport = checkpointEveryCycle.step();
+        const multiplyReport = multiplyResumed.step();
+        expect(everyReport, `cycle ${cycle}: every-cycle report`).toEqual(directReport);
+        expect(multiplyReport, `cycle ${cycle}: multiply-resumed report`).toEqual(directReport);
+        sweepSequence.push(directReport.relaxation.sweeps);
+        attachmentSequence.push(directReport.surface.attachedNow);
+        minimumSweeps = Math.min(minimumSweeps, directReport.relaxation.sweeps);
+        sweepParities.add(directReport.relaxation.sweeps % 2);
+        attachmentCount += directReport.surface.attachedNow;
+        if (firstHoleFillCycle === null && directReport.surface.holeFillCount > 0) {
+          firstHoleFillCycle = cycle;
+        }
+
+        const beforeExport = scientificState(direct);
+        const directCheckpoint = await encodeResume(direct);
+        expect(scientificState(direct), `cycle ${cycle}: export is non-mutating`).toEqual(
+          beforeExport,
+        );
+        checkpointEveryCycle = await roundTrip(checkpointEveryCycle);
+        if (splitTicks.has(cycle)) multiplyResumed = await roundTrip(multiplyResumed);
+
+        const expected = scientificState(direct);
+        expect(
+          scientificState(checkpointEveryCycle),
+          `cycle ${cycle}: every-cycle complete state`,
+        ).toEqual(expected);
+        expect(
+          scientificState(multiplyResumed),
+          `cycle ${cycle}: multiply-resumed complete state`,
+        ).toEqual(expected);
+        expect(
+          await encodeResume(checkpointEveryCycle),
+          `cycle ${cycle}: every-cycle checkpoint bytes`,
+        ).toEqual(directCheckpoint);
+        expect(
+          await encodeResume(multiplyResumed),
+          `cycle ${cycle}: multiply-resumed checkpoint bytes`,
+        ).toEqual(directCheckpoint);
+      }
+
+      expect(minimumSweeps).toBeGreaterThan(1);
+      expect([...sweepParities].sort()).toEqual([0, 1]);
+      expect(sweepSequence).toEqual(
+        paramSet === "CAK"
+          ? [73, 75, 68, 61, 53, 49, 46, 42, 39]
+          : [71, 71, 66, 61, 56, 50, 44, 43, 34],
+      );
+      expect(attachmentSequence).toEqual(
+        paramSet === "CAK"
+          ? [0, 0, 0, 0, 0, 24, 12, 9, 5]
+          : [0, 0, 0, 0, 0, 29, 11, 9, 1],
+      );
+      expect(attachmentCount).toBeGreaterThan(0);
+      expect(direct.saturationClippedFill).toBeGreaterThan(0);
+      expect(internals(direct).volumeRateM3PerS).toBeGreaterThan(0);
+      expect(
+        Array.from(direct.dirichletCells).every(
+          (index) => direct.sigma[index] > 0 && direct.sigma[index] < direct.sigmaInfinity,
+        ),
+      ).toBe(true);
+      if (paramSet === "M1") {
+        expect(firstHoleFillCycle).toBe(8);
+      }
     });
   }
 
