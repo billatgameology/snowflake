@@ -95,8 +95,8 @@ freezes their scientific inputs. The ADR is corrected to preserve that state, re
 generation chain to genesis and defer runner-dependent details. Its exact 1,095-line / 80,760-byte
 pre-review-record core-design candidate (`b9bfec37…3b69f`) received a clean non-author re-review:
 0 blockers and 0 core should-fixes. The ADR remains proposed because WP3-dependent runner inputs are
-unfrozen. The protocol-independent codec and field-adopting restore are now implemented and saved in
-the local restart checkpoint: new core/solver resume suites cover the frozen legacy families,
+unfrozen. The protocol-independent codec and field-adopting restore are saved in local checkpoint
+`557d1de`: new core/solver resume suites cover the frozen legacy families,
 streaming/canonical/state/ownership controls, and exact CAK/M1 continuation. Root observed 2 files /
 34 new tests green, a broader 5-file / 94-test checkpoint+solver set green, and both TypeScript
 projects green. Review found and fixed a Proxy-forgeable symbol constructor capability by replacing

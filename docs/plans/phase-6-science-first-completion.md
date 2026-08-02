@@ -320,7 +320,7 @@ producer-supplied pass field is trusted.
   adoption; and `M1_NO_DIP_ABLATION` remains a wire reservation only until WP3. It recommended new
   isolated `core/test/lk-resume-checkpoint.test.ts` and `solver-cpu/test/lk-resume.test.ts` files so
   current legacy/provenance edits remain undisturbed, with literal/base64 v1/v2 fixture pins before
-  the new path lands. **Restart checkpoint 2026-08-02:** the implementation is present in the named
+  the new path lands. **Restart checkpoint 2026-08-02:** local commit `557d1de` preserves the named
   core and solver files. Root observed the combined new suites green (2 files / 34 tests), the
   broader checkpoint/solver regression green (5 files / 94 tests), and both TypeScript projects
   green. Review found and fixed a Proxy-forgeable symbol constructor capability by replacing it
@@ -329,6 +329,13 @@ producer-supplied pass field is trusted.
   probe as a durable regression. The interrupted non-author review also found a likely public-core
   encode/decode asymmetry for a manually supplied degenerate monopole domain with zero shell radius;
   add a focused probe and make the paired APIs agree. Other read-only review execution was interrupted.
+  The completed cross-reviewer was OpenAI `gpt-5.6-sol` at ultra reasoning with full shared context;
+  it did not author the solver change but did author the paired core codec. It independently ran
+  3 files / 64 tests, root TypeScript, and an uncommitted exact 15-cycle CAK/M1 probe requiring
+  22–72 sweeps/cycle. It did not run root `npm test`, runner integration, production-size memory, or
+  concurrent mutation outside the registered trust boundary. The interrupted independent reviewer
+  was the same model/reasoning with full shared context and authored neither implementation; its
+  static verdict is preliminary because it ran no targeted tests before the restart.
   This checkbox remains open for that test, remaining verdicts/findings, exact `npm test`, final
   provenance, and the reviewed commit.
 - [ ] After WP3 freezes the exact ordered run-spec and manifests plus termination, retry, checkpoint,

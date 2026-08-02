@@ -114,7 +114,7 @@ For unattended long work: first update this index and `HANDOFF.md`; run only fro
 source snapshot; write labeled live/error/exit records; put durable generated science under
 `evidence/`; and report user-facing status at most once per hour unless the maker asks.
 
-1. Resume ADR 0039 implementation review from the local restart checkpoint: add the realistic
+1. Resume ADR 0039 implementation review from local checkpoint `557d1de`: add the realistic
    multi-sweep continuation regression, collect the interrupted read-only verdicts, resolve any
    findings, run exact `npm test`, record provenance/limits, and commit the reviewed unit. Do not
    redo the implementation from scratch.
