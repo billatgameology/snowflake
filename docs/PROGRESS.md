@@ -49,17 +49,22 @@ index, a plan, ADR, or audit links to historical detail.
   (three arms × 204 points × spacings × domains × physical-size strata). The present
   three-spacing, three-domain, one-size baseline is 5,508 CPU rows. This is a feasibility bound, not
   a frozen protocol or evidence result.
-- Proposed [ADR 0039](decisions/0039-cycle-boundary-lk-resume-checkpoints.md) has a clean non-author
-  review of its protocol-independent core design. It requires streamed exact state and field-adopting
-  restore because contemplated fields can exceed 7 GB. No codec, restore path, crash control, or
-  direct/resumed differential exists yet; runner/evidence details remain deferred until WP3 freezes
-  their scientific inputs.
+- Proposed [ADR 0039](decisions/0039-cycle-boundary-lk-resume-checkpoints.md) now has an implemented
+  protocol-independent streamed v3 codec and field-adopting float64 CPU restore path. Frozen GG v1
+  and LK v1/v2 fixtures, cross-family rejection, exact CAK/M1 continuation, canonical framing,
+  topology/state validation, one-use ownership, bounded streaming, and mutation controls are
+  covered. Root verification is green for the combined new tests (2 files / 34 tests), a broader
+  checkpoint/solver set (5 files / 94 tests), and both TypeScript projects. A read-only cross-review
+  found two open items: add a durable realistic multi-sweep continuation regression (its independent
+  15-cycle CAK/M1 probe passed), and close a likely encode/decode asymmetry for degenerate monopole
+  domains where a zero-radius shell may encode but decode rejects. Exact `npm test` remains open. No runner
+  publication/crash path exists; those pieces remain deferred until WP3 freezes scientific inputs.
 - The first source-lock/prepared-kinetics correction unit is committed locally at `8dc7a60` after
   exact `npm test`. The education work-in-progress is frozen in local checkpoint `60e3f3f`; the site
   warns that it is non-authoritative. No education content, figures, visual QA, verifier expansion,
   or acceptance work resumes until Phase 6 is complete.
-- The current non-education WP0 tree is independently reviewed and fully verified but not yet
-  landed. Exact `npm.cmd test` exits 0 in 728.5 seconds; Vitest reports 79 files / 1,404 tests in
+- The non-education WP0/ADR 0040 and progress-compaction unit is landed locally at `7a60eaf` after
+  independent review and exact verification. Exact `npm.cmd test` exited 0 in 728.5 seconds; Vitest reported 79 files / 1,404 tests in
   718.77 seconds after Rule 7 and both typechecks pass. After the final record-only edits, Rule 7 is
   clean over the then-current 416-file scan and the progress-index test passes 7/7. This is
   repository verification, not R15 or validation evidence.
@@ -109,12 +114,14 @@ For unattended long work: first update this index and `HANDOFF.md`; run only fro
 source snapshot; write labeled live/error/exit records; put durable generated science under
 `evidence/`; and report user-facing status at most once per hour unless the maker asks.
 
-1. Land the already reviewed and exact-test-green non-education WP0/ADR 0040 plus record-compaction
-   unit in a local commit; do not push. Then implement proposed ADR 0039's protocol-independent
-   streamed v3 codec, frozen legacy fixtures,
-   field-adopting restore, and direct/checkpoint-every-cycle/multiply-resumed differentials. Defer
-   the WP3-dependent R15 runner/publication layer.
-2. Continue the primary-source/Yamashita pressure lineage and pre-register blind TAX2 segmentation
+1. Resume ADR 0039 implementation review from the local restart checkpoint: add the realistic
+   multi-sweep continuation regression, collect the interrupted read-only verdicts, resolve any
+   findings, run exact `npm test`, record provenance/limits, and commit the reviewed unit. Do not
+   redo the implementation from scratch.
+2. Repair the WP1 handoff before source work: identify the intended Yamashita/pressure citation
+   (the current phrase has no cold-resumable bibliographic identity) and split the circular WP2/WP3
+   sequence into a pre-registered deterministic control ladder, execution, and final production
+   binding. Then pre-register blind TAX2 segmentation before extracting a physical size.
    before extracting a physical size. Do not inspect model output while selecting a target and do
    not promote in-sample or geometry-mismatched data to held-out validation.
 3. Freeze and independently review the replacement R15 ADR/protocol only after WP1 supplies

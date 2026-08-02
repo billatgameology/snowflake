@@ -4,5 +4,6 @@ export * from "./state.ts";
 export * from "./metrics.ts";
 export * from "./timeline.ts";
 export * from "./checkpoint.ts";
+export * from "./lk-resume-checkpoint.ts";
 export * from "./prng.ts";
 export * from "./libbrecht.ts";

@@ -204,7 +204,7 @@ producer-supplied pass field is trusted.
   718.77 seconds. The staged diff check is clean; the local landing commit contains this completion
   record and changes neither legacy manifest nor the frozen education snapshot. After these final
   record-only edits, Rule 7 is clean over the then-current 416-file scan and the progress-index test
-  passes 7/7.
+  passes 7/7. Landed locally as `7a60eaf`; nothing was pushed.
 - [x] Compact `docs/PROGRESS.md` into a small authoritative current-state index. Move only clearly
   historical or explicitly superseded material verbatim into linked archive files; keep the current
   phase/gate state, active-plan pointer, current verification limits, ranked next actions, and
@@ -320,7 +320,17 @@ producer-supplied pass field is trusted.
   adoption; and `M1_NO_DIP_ABLATION` remains a wire reservation only until WP3. It recommended new
   isolated `core/test/lk-resume-checkpoint.test.ts` and `solver-cpu/test/lk-resume.test.ts` files so
   current legacy/provenance edits remain undisturbed, with literal/base64 v1/v2 fixture pins before
-  the new path lands.
+  the new path lands. **Restart checkpoint 2026-08-02:** the implementation is present in the named
+  core and solver files. Root observed the combined new suites green (2 files / 34 tests), the
+  broader checkpoint/solver regression green (5 files / 94 tests), and both TypeScript projects
+  green. Review found and fixed a Proxy-forgeable symbol constructor capability by replacing it
+  with one-use WeakMap identity branding. A read-only solver cross-review found no blocker and one
+  should-fix: preserve its independently passing realistic 15-cycle, multi-sweep CAK/M1 continuation
+  probe as a durable regression. The interrupted non-author review also found a likely public-core
+  encode/decode asymmetry for a manually supplied degenerate monopole domain with zero shell radius;
+  add a focused probe and make the paired APIs agree. Other read-only review execution was interrupted.
+  This checkbox remains open for that test, remaining verdicts/findings, exact `npm test`, final
+  provenance, and the reviewed commit.
 - [ ] After WP3 freezes the exact ordered run-spec and manifests plus termination, retry, checkpoint,
   stop, environment, symmetry, cadence and retention policies, implement the independent R15 worker,
   immutable generations/trace replay, publication crash controls and killed-child differential. A

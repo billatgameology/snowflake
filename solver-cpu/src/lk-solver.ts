@@ -41,6 +41,7 @@ import {
   metersSmootherDrift,
   prepareAlphaHK,
   randomBit,
+  takeDecodedLKResumeCheckpointV3,
   usesCanonicalOpposingOrder,
   validateTimelineSchedule,
   vKin,
@@ -52,6 +53,10 @@ import {
   type FarFieldCondition,
   type LKSurfacePolicy,
   type LKTimelineEnvironment,
+  type DecodedLKResumeCheckpointV3,
+  type LKResumeAdoptedStateV3,
+  type LKResumeRelaxationReportV3,
+  type LKResumeStateV3,
   type NucleationParamSet,
   type PreparedAlphaHK,
 } from "@vcc/core";
@@ -307,11 +312,21 @@ export type LKCycleState =
   | "incomplete"
   | "transitioning";
 
+/**
+ * Module-private, one-shot identity capability for decoded-state adoption. A symbol-keyed branch is
+ * forgeable by a Proxy whose `has` trap is handed the otherwise-secret symbol. WeakMap lookup uses
+ * object identity without invoking Proxy traps, so only the exact fresh token created below can
+ * select the internal constructor path.
+ */
+const LK_RESUME_ADOPTIONS = new WeakMap<object, LKResumeAdoptedStateV3>();
+
 export class LKSolver implements SurfaceOperator {
   readonly surfacePolicy: LKSurfacePolicy;
   readonly dims: Dims;
   private _tempC: number;
   private _sigmaInfinity: number;
+  /** Exact admitted caller input. V3 must not reconstruct this through dxM / 1e-6. */
+  private readonly dxUmInput: number;
   readonly dxM: number;
   readonly pressurePa: number;
   readonly paramSet: NucleationParamSet;
@@ -415,18 +430,166 @@ export class LKSolver implements SurfaceOperator {
   lastRelaxation: RelaxationReport | null = null;
   /** Explicit non-reentrant two-method cycle state. Only boundary accepts an event. */
   private cycleState: LKCycleState = "boundary";
+  /**
+   * Live, process-local encode sentinel. It is deliberately not checkpoint state: a resume starts
+   * a new ownership epoch at zero. Every accepted entry into a mutating solver operation advances
+   * it before the first mutation so an awaited streaming write cannot hide concurrent evolution.
+   */
+  private mutationEpoch = 0;
+  /** Sticky witness: supplying either test hook makes every later resume export ineligible. */
+  private testHookEverUsed = false;
+  /** Successful timeline events, including same-temperature events, are never resume-eligible. */
+  private acceptedEnvironmentEventCount = 0;
   /** Vapor-unit bookkeeping closed at prior temperature changes. */
   private closedPlacedFillVaporUnits = 0;
   /** Ice-cell ledger value at the start of the current constant-temperature segment. */
   private currentTemperatureSegmentStartFill = 0;
 
-  constructor(options: LKSolverOptions) {
+  /**
+   * Consume one core-decoder ownership envelope and construct directly around its final arrays.
+   * A fresh identity token recorded in the module-private WeakMap is the runtime capability:
+   * ordinary JS callers cannot select the adoption branch, and a copied/unbranded/already-consumed
+   * envelope fails in core before this class sees any mutable state.
+   */
+  static fromResumeStateV3(decoded: DecodedLKResumeCheckpointV3): LKSolver {
+    const adopted = takeDecodedLKResumeCheckpointV3(decoded);
+    if (adopted.paramSet === "M1_NO_DIP_ABLATION") {
+      throw new Error(
+        "LK resume paramSet M1_NO_DIP_ABLATION is schema-reserved until its kinetics are implemented",
+      );
+    }
+    const constructionToken = Object.create(null) as object;
+    LK_RESUME_ADOPTIONS.set(constructionToken, adopted);
+    try {
+      return Reflect.construct(LKSolver, [constructionToken]) as LKSolver;
+    } finally {
+      // The constructor takes/deletes before initialization. This cleanup covers an unexpected
+      // failure before that take and makes the capability one-shot on every path.
+      LK_RESUME_ADOPTIONS.delete(constructionToken);
+    }
+  }
+
+  constructor(options: LKSolverOptions);
+  constructor(input: LKSolverOptions | object) {
+    const adopted =
+      typeof input === "object" && input !== null
+        ? LK_RESUME_ADOPTIONS.get(input)
+        : undefined;
+    if (adopted !== undefined) {
+      if (!LK_RESUME_ADOPTIONS.delete(input)) {
+        throw new Error("LK resume construction capability was already consumed");
+      }
+      const state = adopted;
+      // The core wire reserves the matched no-dip spelling, but its kinetics do not exist yet.
+      // Consuming such an envelope must fail here instead of silently substituting M1 or widening
+      // the shared parameter-set enum.
+      if (state.paramSet !== "CAK" && state.paramSet !== "M1") {
+        throw new Error(
+          `LK resume paramSet ${state.paramSet} is schema-reserved but solver-ineligible`,
+        );
+      }
+
+      this.surfacePolicy = state.surfacePolicy;
+      this.canonicalOpposingOrder = usesCanonicalOpposingOrder(state.surfacePolicy);
+      this.dims = Object.freeze(state.dims);
+      this._tempC = state.tempC;
+      this._sigmaInfinity = state.sigmaInfinity;
+      this.dxUmInput = state.dxUm;
+      this.dxM = this.dxUmInput * 1e-6;
+      this.pressurePa = state.pressurePa;
+      this.paramSet = state.paramSet;
+      this.cflFill = state.cflFill;
+      this.relaxTol = state.relaxTol;
+      this.divTol = state.divTol;
+      this.relaxMaxSweeps = state.relaxMaxSweeps;
+      this.rngSeed = state.rngSeed;
+      this.noiseEpsilon = state.noiseEpsilon;
+      this.domain = state.domain;
+      this.farField = state.farField;
+      this.center = Object.freeze(state.center);
+      this.testAlphaOverride = undefined;
+
+      requirePositiveFinite(this.dxM, "derived resume dxM");
+      const resumedScales = deriveEnvironmentScales(
+        this.tempC,
+        this.sigmaInfinity,
+        this.pressurePa,
+        this.dxM,
+      );
+      this._vKinMS = resumedScales.vKinMS;
+      this._x0M = resumedScales.x0M;
+      this._mIceLedger = resumedScales.mIceLedger;
+      this._maximumKineticVelocityScaleMS = resumedScales.maximumKineticVelocityScaleMS;
+      this._maximumKineticFillRateScalePerSecond =
+        resumedScales.maximumKineticFillRateScalePerSecond;
+      this.preparedAlphaHK = prepareAlphaHK(this.tempC, this.paramSet);
+
+      // These are the decoder's final owned arrays. Do not call the ordinary constructor, seed
+      // initializer, topology scan, or `.set`: restore must never hold a second complete copy.
+      this.a = state.a;
+      this.f = state.f;
+      this.sigma = state.sigma;
+      this.wall = state.topology.wall;
+      this.blocked = state.topology.blocked;
+      this.inBoundary = state.topology.inBoundary;
+      this.nTAtt = state.topology.nTAtt;
+      this.nZAtt = state.topology.nZAtt;
+      this.dirichletCells = state.topology.dirichletCells;
+      this.shellRadiusM = state.topology.shellRadiusM;
+      this.boundaryList = state.boundaryOrder;
+      this.lastAttached = state.lastAttached;
+      this.activeCellCount = state.topology.activeCellCount;
+      this.hexRadius = state.topology.hexRadius;
+      this.zHalfExtent = state.topology.zHalfExtent;
+      this.attachedCount = state.topology.attachedCount;
+      this.iMin = state.topology.iMin;
+      this.iMax = state.topology.iMax;
+      this.jMin = state.topology.jMin;
+      this.jMax = state.topology.jMax;
+      this.kMin = state.topology.kMin;
+      this.kMax = state.topology.kMax;
+
+      const n = state.a.length;
+      this.scratch1 = new Float64Array(n);
+      this.scratch2 = new Float64Array(n);
+      this.sEff = new Float64Array(n);
+      this.boundaryAlphaHK = new Float64Array(n);
+      this.boundarySigma = new Float64Array(n);
+      this.boundarySigmaOpp = new Float64Array(n);
+      this.hasClampedShell = true;
+
+      this._tick = state.tick;
+      this.simTimeSeconds = state.simTimeSeconds;
+      this.volumeRateM3PerS = state.volumeRateM3PerS;
+      this.lastMaxFillVelocityMS = state.lastMaxFillVelocityMS;
+      this.fillLedger = state.fillLedger;
+      this.holeFillDeficit = state.holeFillDeficit;
+      this.saturationClippedFill = state.saturationClippedFill;
+      this.holeFillCountTotal = state.holeFillCountTotal;
+      this.lastRelaxation = state.lastRelaxation;
+      this.cycleState = "boundary";
+      this.mutationEpoch = 0;
+      this.acceptedEnvironmentEventCount = state.acceptedEnvironmentEventCount;
+      this.closedPlacedFillVaporUnits = state.closedPlacedFillVaporUnits;
+      this.currentTemperatureSegmentStartFill = state.currentTemperatureSegmentStartFill;
+      this.testHookEverUsed = state.testHookEverUsed;
+      return;
+    }
+
+    const options = input as LKSolverOptions;
     this.surfacePolicy = options.surfacePolicy;
     this.canonicalOpposingOrder = usesCanonicalOpposingOrder(options.surfacePolicy);
-    this.dims = options.dims;
+    // Caller-owned objects are not continuation state. Snapshot their primitive values once so a
+    // later mutation of the options object cannot shift lattice indexing or checkpoint metadata.
+    this.dims = Object.freeze({
+      nx: options.dims.nx,
+      ny: options.dims.ny,
+      nz: options.dims.nz,
+    });
     this._tempC = options.tempC;
     this._sigmaInfinity = options.sigmaInfinity;
-    this.dxM = options.dxUm * 1e-6;
+    this.dxUmInput = options.dxUm;
+    this.dxM = this.dxUmInput * 1e-6;
     this.pressurePa = options.pressurePa ?? 101325;
     this.paramSet = options.paramSet ?? "CAK_A1";
     this.cflFill = options.cflFill ?? 0.1;
@@ -436,9 +599,16 @@ export class LKSolver implements SurfaceOperator {
     this.noiseEpsilon = options.noiseEpsilon ?? 0;
     this.domain = options.domain ?? "hexPrism";
     this.farField = options.farField ?? "dirichlet";
-    this.center = options.center ?? domainCenter(this.dims);
+    const admittedCenter = options.center ?? domainCenter(this.dims);
+    this.center = Object.freeze([
+      admittedCenter[0],
+      admittedCenter[1],
+      admittedCenter[2],
+    ] as const);
     this.testAlphaOverride = options.testAlphaOverride;
     this.divTol = options.divTol ?? 1e-6;
+    this.testHookEverUsed =
+      options.testAlphaOverride !== undefined || options.testExtraSeedSites !== undefined;
 
     // Evidence pin register R26. The two TEST-ONLY hooks are now unusable without an explicit
     // opt-in, and this throw comes FIRST — before any other validation and before any work — so
@@ -480,7 +650,7 @@ export class LKSolver implements SurfaceOperator {
       throw new Error("tempC must stay in the supported temperature domain [-50, -1]");
     }
     requirePositiveFinite(this.sigmaInfinity, "sigmaInfinity");
-    requirePositiveFinite(options.dxUm, "dxUm");
+    requirePositiveFinite(this.dxUmInput, "dxUm");
     requirePositiveFinite(this.pressurePa, "pressurePa");
     if (!isNucleationParamSet(this.paramSet)) {
       throw new Error(`paramSet is invalid: ${String(this.paramSet)}`);
@@ -715,6 +885,131 @@ export class LKSolver implements SurfaceOperator {
   }
 
   /**
+   * Snapshot the protocol-independent v3 cycle-boundary state. The three main fields remain the
+   * solver-owned arrays so the streaming encoder does not allocate multi-gigabyte copies. Core
+   * clones the small ordered lists/report/scalars synchronously at encode start and checks the live
+   * epoch after every awaited sink write.
+   */
+  resumeStateV3(): LKResumeStateV3 {
+    if (this.cycleState !== "boundary") {
+      throw new Error(
+        `LK resume export requires cycle-boundary state (state=${this.cycleState})`,
+      );
+    }
+    if (this.surfacePolicy !== "aggregate-hv-g1h1-v6") {
+      throw new Error(`LK resume export requires aggregate-hv-g1h1-v6, got ${this.surfacePolicy}`);
+    }
+    if (this.farField !== "monopole-matched") {
+      throw new Error(`LK resume export requires monopole-matched far field, got ${this.farField}`);
+    }
+    if (this.domain !== "hexPrism") {
+      throw new Error(`LK resume export requires hexPrism domain, got ${this.domain}`);
+    }
+    if (this.paramSet !== "CAK" && this.paramSet !== "M1") {
+      throw new Error(`LK resume export rejects production-ineligible paramSet ${this.paramSet}`);
+    }
+    if (this.testHookEverUsed) {
+      throw new Error("LK resume export rejects every solver that has ever used a test hook");
+    }
+    if (this.acceptedEnvironmentEventCount !== 0) {
+      throw new Error(
+        `LK resume export requires constant environment; accepted events=${this.acceptedEnvironmentEventCount}`,
+      );
+    }
+    if (
+      !Object.is(this.closedPlacedFillVaporUnits, 0) ||
+      !Object.is(this.currentTemperatureSegmentStartFill, 0)
+    ) {
+      throw new Error(
+        "LK resume export requires canonical zero timeline-ledger origins",
+      );
+    }
+    if ((this.tick === 0) !== (this.lastRelaxation === null)) {
+      throw new Error("LK resume export requires an absent report exactly at tick zero");
+    }
+    const snapshotMutationEpoch = this.mutationEpoch;
+
+    let lastRelaxation: LKResumeRelaxationReportV3 | null = null;
+    if (this.lastRelaxation !== null) {
+      const report = this.lastRelaxation;
+      if (
+        report.residual === null ||
+        report.divergenceResidual === null ||
+        report.shellClampDiagnostic === null ||
+        report.surfaceExchangeDiagnostic === null ||
+        report.smootherDriftDiagnostic === null ||
+        report.minLocalSurfaceExchangeDiagnostic === null
+      ) {
+        throw new Error("LK resume export requires the complete v6 monopole relaxation report");
+      }
+      lastRelaxation = {
+        sweeps: report.sweeps,
+        converged: report.converged,
+        residual: report.residual,
+        divergenceResidual: report.divergenceResidual,
+        shellClampDiagnostic: report.shellClampDiagnostic,
+        surfaceExchangeDiagnostic: report.surfaceExchangeDiagnostic,
+        smootherDriftDiagnostic: report.smootherDriftDiagnostic,
+        minLocalSurfaceExchangeDiagnostic: report.minLocalSurfaceExchangeDiagnostic,
+      };
+    }
+
+    return {
+      numericEngine: "float64-cpu",
+      resumePhase: "cycle-boundary",
+      cycleState: "boundary",
+      timelineMode: "none",
+      dims: this.dims,
+      tick: this.tick,
+      rngSeed: this.rngSeed,
+      noiseEpsilon: this.noiseEpsilon,
+      domain: "hexPrism",
+      center: this.center,
+      tempC: this.tempC,
+      sigmaInfinity: this.sigmaInfinity,
+      dxUm: this.dxUmInput,
+      pressurePa: this.pressurePa,
+      paramSet: this.paramSet,
+      cflFill: this.cflFill,
+      relaxTol: this.relaxTol,
+      divTol: this.divTol,
+      relaxMaxSweeps: this.relaxMaxSweeps,
+      surfacePolicy: "aggregate-hv-g1h1-v6",
+      farField: "monopole-matched",
+      activeCellCount: this.activeCellCount,
+      shellCellCount: this.dirichletCells.length,
+      hexRadius: this.hexRadius,
+      zHalfExtent: this.zHalfExtent,
+      attachedCount: this.attachedCount,
+      holeFillCountTotal: this.holeFillCountTotal,
+      a: this.a,
+      f: this.f,
+      sigma: this.sigma,
+      boundaryOrder: this.boundaryList,
+      lastAttached: this.lastAttached,
+      simTimeSeconds: this.simTimeSeconds,
+      volumeRateM3PerS: this.volumeRateM3PerS,
+      lastMaxFillVelocityMS: this.lastMaxFillVelocityMS,
+      fillLedger: this.fillLedger,
+      holeFillDeficit: this.holeFillDeficit,
+      saturationClippedFill: this.saturationClippedFill,
+      lastRelaxation,
+      acceptedEnvironmentEventCount: this.acceptedEnvironmentEventCount,
+      closedPlacedFillVaporUnits: this.closedPlacedFillVaporUnits,
+      currentTemperatureSegmentStartFill: this.currentTemperatureSegmentStartFill,
+      testHookEverUsed: this.testHookEverUsed,
+      mutationEpoch: () => {
+        if (this.mutationEpoch !== snapshotMutationEpoch) {
+          throw new Error(
+            `LK resume snapshot is stale: mutation epoch ${snapshotMutationEpoch} -> ${this.mutationEpoch}`,
+          );
+        }
+        return snapshotMutationEpoch;
+      },
+    };
+  }
+
+  /**
    * Ice-cell fill-ledger value at the start of the current constant-temperature segment. It is
    * the ledger's own segment origin, not a re-derivation from the vapor-unit total.
    */
@@ -731,6 +1026,14 @@ export class LKSolver implements SurfaceOperator {
       maximumKineticVelocityScaleMS: this.maximumKineticVelocityScaleMS,
       maximumKineticFillRateScalePerSecond: this.maximumKineticFillRateScalePerSecond,
     };
+  }
+
+  /** Advance the live streaming-snapshot sentinel before an accepted state mutation begins. */
+  private beginMutation(): void {
+    if (!Number.isSafeInteger(this.mutationEpoch) || this.mutationEpoch >= Number.MAX_SAFE_INTEGER) {
+      throw new Error("LK mutation epoch is exhausted; refuse to mutate an untrackable solver");
+    }
+    this.mutationEpoch++;
   }
 
   private placedFillVaporUnits(): number {
@@ -751,6 +1054,7 @@ export class LKSolver implements SurfaceOperator {
         `LK timeline environment requires a completed interface-cycle boundary (state=${this.cycleState})`,
       );
     }
+    this.beginMutation();
     this.cycleState = "transitioning";
     try {
       const target = snapshotTimelineEnvironment(environment);
@@ -944,6 +1248,7 @@ export class LKSolver implements SurfaceOperator {
       // The combination is unexercised rather than impossible, which is why it is fixed here
       // rather than left to be discovered by the first run that combines them.
       this.volumeRateM3PerS = 0;
+      this.acceptedEnvironmentEventCount++;
       this.cycleState = "boundary";
       return report;
     } catch (error) {
@@ -1546,6 +1851,7 @@ export class LKSolver implements SurfaceOperator {
     if (this.cycleState !== "boundary" && this.cycleState !== "incomplete") {
       throw new Error(`LK relaxation is not allowed in state ${this.cycleState}`);
     }
+    this.beginMutation();
     // Clear readiness and every old kinetic cache BEFORE the first sweep or callback. A
     // recursive public call therefore sees "relaxing", never a stale accepted surface.
     this.cycleState = "relaxing";
@@ -1658,6 +1964,7 @@ export class LKSolver implements SurfaceOperator {
           `field or unmatched call cannot advance (state=${this.cycleState})`,
       );
     }
+    this.beginMutation();
     this.cycleState = "advancing";
     try {
       const report = this.advanceSurfaceUpdate();

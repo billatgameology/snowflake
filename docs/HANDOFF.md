@@ -95,7 +95,18 @@ freezes their scientific inputs. The ADR is corrected to preserve that state, re
 generation chain to genesis and defer runner-dependent details. Its exact 1,095-line / 80,760-byte
 pre-review-record core-design candidate (`b9bfec37…3b69f`) received a clean non-author re-review:
 0 blockers and 0 core should-fixes. The ADR remains proposed because WP3-dependent runner inputs are
-unfrozen. No codec, restore path, crash control or direct/resumed differential exists yet.
+unfrozen. The protocol-independent codec and field-adopting restore are now implemented and saved in
+the local restart checkpoint: new core/solver resume suites cover the frozen legacy families,
+streaming/canonical/state/ownership controls, and exact CAK/M1 continuation. Root observed 2 files /
+34 new tests green, a broader 5-file / 94-test checkpoint+solver set green, and both TypeScript
+projects green. Review found and fixed a Proxy-forgeable symbol constructor capability by replacing
+it with one-use WeakMap identity branding. A read-only solver cross-review found no blocker and one
+open should-fix: convert its independently passing realistic 15-cycle multi-sweep CAK/M1 probe into
+a durable regression. The interrupted non-author review also found a likely core asymmetry to probe:
+encode skips the decoder's zero-shell-radius rejection when validating a manually supplied
+degenerate monopole state. Other review execution was interrupted by the maker's restart request.
+Resume there, resolve findings, and run exact `npm test`; do not redo the implementation. No runner
+publication/crash control exists yet, and that protocol-dependent work still waits for WP3.
 
 ## 3. Why R15 cannot be launched yet
 
@@ -175,8 +186,7 @@ The executable verifier reproduces those bytes and says `passEligible=false`. Cu
 
 ## 5. Ranked next actions
 
-1. Land the reviewed, exact-test-green non-education WP0/ADR 0040 and progress-compaction unit in a
-   local commit, then implement ADR 0039's protocol-independent streamed core codec, field-adopting
+1. Implement ADR 0039's protocol-independent streamed core codec, field-adopting
    restore, frozen legacy fixtures, and direct/checkpoint-every-cycle/multiply-resumed CAK/M1
    differentials. Do not implement its WP3-dependent runner/publication layer yet.
 2. The adversarial review of the candidate-source lock is clean. Retain `passEligible=false` until
@@ -229,10 +239,9 @@ The executable verifier reproduces those bytes and says `passEligible=false`. Cu
 ## 7. Repository state and current verification
 
 - Branch `main`; local commits remain unpushed. `8dc7a60` commits the reviewed source-lock/
-  prepared-kinetics unit, and `60e3f3f` commits the frozen education snapshot. The expanded
-  interpretation correction, proposed ADR 0039, accepted ADR 0040/current charter v1.19, compact
-  progress record, and current state/plan updates are staged for the local landing commit containing
-  this record. Exact current-tree verification is green. ADR 0039's corrected core design is cleanly
+  prepared-kinetics unit, `60e3f3f` commits the frozen education snapshot, and `7a60eaf` commits the
+  reviewed non-education WP0/ADR 0040, compact progress record, and exact verification record.
+  ADR 0039's corrected core design is cleanly
   reviewed; its runner layer remains WP3-deferred.
 - The repaired current table is 50,464 LF-normalized bytes with current SHA-256
   `c0b314b681146152207f061209a3097609e34a234b0027ed73faa427334c79e2`, propagated through the
