@@ -68,11 +68,20 @@ index, a plan, ADR, or audit links to historical detail.
   718.77 seconds after Rule 7 and both typechecks pass. After the final record-only edits, Rule 7 is
   clean over the then-current 416-file scan and the progress-index test passes 7/7. This is
   repository verification, not R15 or validation evidence.
-- Branch `main` is local and unpushed. Preserve untracked `.claude/settings.local.json` and the
+- Branch `main` is pushed to `origin/main` (github.com/billatgameology/snowflake; equal at
+  `cd54b3e`, checked 2026-08-02). Preserve untracked `.claude/settings.local.json` and the
   zero-byte root file `=`; neither belongs to Phase 6 work. Preserve `research/tmp/` as useful local
   research context, but do not treat its provenance-incomplete cache as evidence. Durable generated
   science belongs under the tracked `evidence/` manifest boundary.
-- **Last updated:** 2026-08-02 by OpenAI Codex (`gpt-5.6-sol`, ultra reasoning)
+- Maker-directed pre-Phase-7 exploration branch `explore/gg-realism-gutcheck` (worktree
+  `../snowflake-gutcheck-gg-realism`; plan `docs/plans/explore-gg-realism-gutcheck.md` exists on
+  that branch only): grow a large noisy `GGThreshold` dendrite, extract a smooth level-set
+  surface, render the ADR 0029 ice look, and eyeball it against the J0521r2p footage. Eyeball-only
+  exploration — not evidence, no gate claim, touches no solver package, and may be discarded;
+  merging is a separate maker decision. It does not alter Phase 6 work or its "only active
+  implementation plan" status below.
+- **Last updated:** 2026-08-02 by Claude Fable 5 (`claude-fable-5`); progress compaction earlier
+  the same day by OpenAI Codex (`gpt-5.6-sol`, ultra reasoning)
 
 ## Phase gates
 
