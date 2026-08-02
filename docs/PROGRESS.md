@@ -45,6 +45,13 @@ index, a plan, ADR, or audit links to historical detail.
   held-out target is apples-to-apples with the current geometry and transport physics. Missing
   crystallography, substrate/needle geometry, latent heat, sublimation, ventilation, and confounded
   pressure conditions are scientific scope blockers, not permission to score a near miss.
+- The bounded [WP1 source-lineage/TAX2 plan](plans/phase-6-wp1-source-lineage-and-tax2.md) is
+  pre-registered and accepted by a read-only non-author review with 0 blockers / 0 should-fixes
+  after correcting the Yamashita chain and freezing search stopping, renderer provenance,
+  machine-readable in-sample/geometry/pass labels, evidence-manifest registration, source currency,
+  and post-extraction anti-tuning rules. No new literature search or TAX2 span extraction has run.
+  Rule 7 is clean over 420 files, the progress-index suite passes 7/7, and `git diff --check` is
+  clean for this plan unit.
 - Under the current whole-grid rule the minimum planning count is `612 × S × D × Z` rows
   (three arms × 204 points × spacings × domains × physical-size strata). The present
   three-spacing, three-domain, one-size baseline is 5,508 CPU rows. This is a feasibility bound, not
@@ -124,17 +131,18 @@ For unattended long work: first update this index and `HANDOFF.md`; run only fro
 source snapshot; write labeled live/error/exit records; put durable generated science under
 `evidence/`; and report user-facing status at most once per hour unless the maker asks.
 
-1. Create `docs/plans/phase-6-wp1-source-lineage-and-tax2.md` from `docs/plans/_TEMPLATE.md`, commit
-   and independently review it, then add to `research/phase6-source-currency.md` a cold-resumable
-   register for `YAMASHITA-FREEFALL-LINEAGE-01`, `MATCHED-AIR-PRESSURE-01`, and
-   `TAX2-PANEL-SPAN-01` before doing source extraction. First record checks: `npm.cmd run lint:rule7`,
+1. Add to `research/phase6-source-currency.md` the pre-execution, cold-resumable register for
+   `YAMASHITA-FREEFALL-LINEAGE-01`, `MATCHED-AIR-PRESSURE-01`, and `TAX2-PANEL-SPAN-01`, including
+   each frozen search scope/stopping rule, before browsing or source extraction. First record checks:
+   `npm.cmd run lint:rule7`,
    `npx.cmd vitest run runner/test/progress-index.test.ts`, and `git diff --check`.
 2. Resolve the Yamashita primary-data lineage and separately search for a genuinely matched
    air-pressure target. Keep the candidate lock `passEligible=false` unless independence, geometry,
    transport, observable, and uncertainty all pass.
 3. Pre-register and independently review the TAX2 segmentation/span operator before any numeric
-   extraction. Do not inspect model output while selecting a target and do not promote in-sample or
-   geometry-mismatched data to held-out validation.
+   extraction. Do not consume or compare new R15 model output while selecting a target; no personnel
+   blindness to historical output is claimed. Do not promote in-sample or geometry-mismatched data
+   to held-out validation.
 4. After WP1 freezes exact source-derived physical-size strata, pre-register, review, execute, and
    independently recompute the deterministic WP2 numerical-control ladder. WP3 may bind only the
    artifact-selected configuration; it may not choose after seeing morphology.

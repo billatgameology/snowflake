@@ -170,7 +170,7 @@ The executable verifier reproduces those bytes and says `passEligible=false`. Cu
 - The classical Nakaya reference gives morphology regions in temperature/supersaturation but no
   crystal size or size stratum. The later 206-panel grid gives field-of-view widths around
   c-axis-needle observations, not reported crystal dimensions for the current free-prism seed.
-  WP2 therefore cannot freeze an arbitrary convenient physical size. A blind, pre-registered panel
+  WP2 therefore cannot freeze an arbitrary convenient physical size. A prospectively frozen panel
   segmentation can derive terminal span from pixels × field of view, but the electric-needle
   geometry remains load-bearing and the corpus is in-sample for M1.
 - A broader 2026-08-01 primary-source search found Nelson 1998 as a cleaner history/sublimation lead
@@ -186,9 +186,10 @@ The executable verifier reproduces those bytes and says `passEligible=false`. Cu
 
 ## 5. Ranked next actions
 
-1. Commit and independently review the bounded WP1 source-lineage/TAX2 plan and create the
-   cold-resumable register for `YAMASHITA-FREEFALL-LINEAGE-01`, `MATCHED-AIR-PRESSURE-01`, and
-   `TAX2-PANEL-SPAN-01` before any numeric extraction.
+1. The bounded `docs/plans/phase-6-wp1-source-lineage-and-tax2.md` is accepted. Add its
+   pre-execution, cold-resumable register to `research/phase6-source-currency.md`, including frozen
+   search scope/stopping rules for `YAMASHITA-FREEFALL-LINEAGE-01`,
+   `MATCHED-AIR-PRESSURE-01`, and `TAX2-PANEL-SPAN-01`, before browsing or numeric extraction.
 2. The adversarial review of the candidate-source lock is clean. Retain `passEligible=false` until
    geometry, independence, observable definition and uncertainty all pass. Do not infer the missing
    Harrison crystallography or a convenient Nakaya measurement size from model output.
@@ -199,7 +200,8 @@ The executable verifier reproduces those bytes and says `passEligible=false`. Cu
    × physical-size strata); the 3×3×1 baseline is 5,508 and no rigorous D6h/monopole bound replaces it.
 4. Resolve the Yamashita primary-data lineage and separately search for a genuinely matched
    air-pressure target. Pre-register and review the TAX2 span operator before execution. Do not
-   inspect model output during extraction; do not promote TAX2 to held-out M1 evidence or infer a
+   consume or compare new R15 model output during extraction; no personnel blindness to historical
+   output is claimed. Do not promote TAX2 to held-out M1 evidence or infer a
    target from rejected candidates' broad size ranges.
 5. After WP1 freezes exact physical-size strata, pre-register, review, and execute the deterministic
    WP2 numerical-control ladder. Independent recomputation selects one production configuration or

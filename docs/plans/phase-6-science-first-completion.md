@@ -230,6 +230,12 @@ producer-supplied pass field is trusted.
 
 ### WP1 — source currency and held-out target inventory
 
+- [ ] Execute the remaining source-lineage and TAX2-size work under the bounded
+  [WP1 subordinate plan](phase-6-wp1-source-lineage-and-tax2.md). Its operator is prospectively
+  frozen before new R15 output and consumes no model result; no personnel blindness to historical
+  output is claimed. The plan's read-only non-author acceptance review closed with 0 blockers / 0
+  should-fixes after the corrections recorded in its Rule 10 section. No new literature search or
+  numeric panel extraction preceded that acceptance.
 - [x] Re-check every Phase 6 input and validation citation against its latest primary-source
   version, and sweep the cited authors' later primary output for superseding forms or data.
 - [x] Build a candidate inventory for all four charter-mandated held-out families: growth rates over
@@ -261,7 +267,8 @@ producer-supplied pass field is trusted.
   unresolved; pressure is confounded; and both history candidates require missing load-bearing
   physics. The classical Nakaya reference also supplies no crystal size or size stratum; the later
   206-panel grid supplies field-of-view widths, not crystal dimensions, and uses a load-bearing
-  c-axis needle seed. A blind, pre-registered pixel-segmentation operator could derive panel terminal
+  c-axis needle seed. A prospectively frozen pixel-segmentation operator that consumes no new R15
+  output could derive panel terminal
   spans from those fields of view, but only after source-byte lock and uncertainty review; the result
   remains in-sample for M1 and requires a matching electric-needle geometry. The second audit
   exact-byte checked Nelson 1998, the official Bailey–Hallett 2002 precursor and Bacon et al. 2003;
