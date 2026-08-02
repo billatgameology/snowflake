@@ -59,11 +59,21 @@ index, a plan, ADR, or audit links to historical detail.
   should-fixes after three rounds, although a later broader schema/Rule 9 audit has reopened the
   amendment. That broader inherited-context non-author review now closes the current bytes at 0
   blockers / 0 should-fixes after exact identity, scheduling-witness, independent-verifier and
-  crash-recovery corrections. No executor exists yet, no live
-  request or TAX2 numeric extraction has run, and all three question IDs remain unexecuted. Current
-  focused checks are exact `npm.cmd run lint:rule7` clean over 420 files, exact
-  `npx.cmd vitest run runner/test/progress-index.test.ts` passing 7/7, and `git diff --check` clean.
-  Exact root `npm test` has not run for this amendment and no full-suite claim is made.
+  crash-recovery corrections; that identity freeze is committed at `1c28c13`. The first uncommitted
+  pure executor skeleton then exposed a missing captured-retry checkpoint state and crash-ambiguous
+  dispatch. A record-only correction now fixes the closed pending row, finite wait/header semantics,
+  bounded resume, pre-dispatch reservation, binary-safe capture, and no-overwrite recovery. Two
+  offline `gpt-5.6-sol` non-author reviews closed its current subsection at 0 blockers / 0
+  should-fixes. The skeleton currently covers only pure registry/schedule identities, normalization,
+  identity union, Git provenance, ownership and atomic canonical writes and passes strict typecheck;
+  it has no HTTP/retry path, checkpoint executor, parser, publisher, independent verifier, CLI or
+  focused test. No live request or TAX2 numeric extraction has run, and all three question IDs
+  remain unexecuted.
+  Current focused checks are exact `npm.cmd run lint:rule7` clean over 421 files,
+  `npx.cmd vitest run runner/test/progress-index.test.ts` passing 7/7,
+  `npx.cmd tsc --noEmit --pretty false` exit 0, and `git diff --check` clean apart from line-ending
+  conversion warnings. Exact root `npm test` has not run for this amendment and no full-suite claim
+  is made.
 - Under the current whole-grid rule the minimum planning count is `612 × S × D × Z` rows
   (three arms × 204 points × spacings × domains × physical-size strata). The present
   three-spacing, three-domain, one-size baseline is 5,508 CPU rows. This is a feasibility bound, not
@@ -143,9 +153,11 @@ For unattended long work: first update this index and `HANDOFF.md`; run only fro
 source snapshot; write labeled live/error/exit records; put durable generated science under
 `evidence/`; and report user-facing status at most once per hour unless the maker asks.
 
-1. Commit the independently accepted Section 11 amendment; then implement and independently review the
-   source-search executor, entry-specific atomic
-   checkpoint/resume path and normalized evidence publisher before any live request. Create
+1. If the independently accepted captured-retry correction is still uncommitted, land it record-only
+   while preserving the untracked skeleton and root `=`. Then update the executor's register pins to
+   the resulting committed Section 11 identity and finish and independently review the source-search
+   executor, entry-specific atomic
+   checkpoint/resume path and normalized evidence publisher before any live request. Complete
    `runner/src/phase6-wp1-source-search.ts`, `runner/src/phase6-wp1-source-search-main.ts`, and
    `runner/test/phase6-wp1-source-search.test.ts` under the accepted WP1 plan. First focused checks
    are `npm.cmd run lint:rule7`,

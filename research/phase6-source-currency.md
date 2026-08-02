@@ -805,6 +805,135 @@ null or the exact six-key object registered below. Outstanding IDs are sorted an
 closed key set, every nested row schema and all cross-references are validated before a checkpoint
 can resume or publish.
 
+#### 2026-08-02 implementation-readiness correction: captured retry state
+
+The first executor skeleton, before HTTP/retry implementation and before any live request, exposed
+two impossible crash-safe transitions: the published request schema allows terminal states only,
+but the cold-resume contract requires a checkpoint immediately after a transient response whose
+registered retry wait has not completed; and the four-attempt dispatch cap needs a durable reservation
+before a transport call whose outcome may become unknowable in a hard crash.
+
+A checkpoint-form request row therefore has one additional `terminalState` value,
+`pending-retry`, with `reasonCode=retry-pending`. All of its ordinary identity, decoded-parameter and
+intended-request fields remain exact. Its result fields are exactly `capTruncated=false`,
+`continuation=null`, `providerTotal=null`, `returnedCount=0`, `occurrenceIds=[]`, and
+`schedulingWitnesses=[]`. It remains in `outstandingRequestIds`. Its `attempts` array has consecutive
+ordinals one through `n`, where `n` is one, two or three; every retained attempt is a captured HTTP
+`429` or `5xx` response with `error=null`, `retryDecision=retry`, and the exact wait derived for that
+ordinal from its own `retry-after` header or the 5/20/60-second fallback. The last attempt's wait is
+the pending wait; earlier waits have completed. Attempt four, a non-retryable status, a missing or
+invalid capture, a mismatched wait, or any nonempty parsed-result field rejects this state. The
+tracked evidence form rejects `pending-retry` and publishes only a later terminal row.
+
+Retry eligibility is decided before interpreting `Retry-After`: only a captured `429` or `5xx` at
+ordinal one, two or three enters the following header rule. The same status at ordinal four is
+`terminalState=terminal-access-failure`, `reasonCode=retry-exhausted`,
+`retryDecision=terminal`, and `waitMs=0` regardless of its header; a non-retryable status follows its
+registered terminal/success rule and likewise does not interpret this header. For an eligible
+response, `Retry-After` is bounded before it can enter a pending row. Its only input is the one exact stored
+lowercase `responseHeaders["retry-after"]` string after trimming leading/trailing HTTP optional
+whitespace without changing internal bytes. A numeric value is syntactically valid only when the
+remainder is ASCII decimal integer seconds and is parsed without a binary64 intermediate. A date is
+syntactically valid only when the remainder is one IMF-fixdate value of exact form
+`ddd, DD Mon YYYY HH:mm:ss GMT`; the pinned engine must parse it to an integral UTC millisecond. Any
+duplicate/comma-joined value, alternate date form or other remainder matches neither grammar and is
+invalid. A valid date's delay is computed relative to that attempt's same recorded `endedUtc`, not
+to a later resume clock. A valid non-past value is accepted only when the resulting `waitMs` is a
+safe integer from zero through `604800000` inclusive and `endedUtc + waitMs` is a safe,
+representable UTC epoch millisecond. A null header, invalid syntax, unparseable date or past date
+uses the registered ordinal's fallback; thus `1.5` is invalid and unambiguously falls back. A
+syntactically valid numeric value over 604800 seconds, a valid future date more than 604800000
+milliseconds after `endedUtc`, or an unsafe deadline is not truncated or replaced by a fallback.
+That captured attempt has `retryDecision=terminal` and `waitMs=0`; attempts have no reason-code
+field. The enclosing request is removed from `outstandingRequestIds` and becomes
+`terminalState=terminal-access-failure` with `reasonCode=retry-after-out-of-range`, plus exactly
+`capTruncated=false`, `continuation=null`, `providerTotal=null`, `returnedCount=0`,
+`occurrenceIds=[]`, and `schedulingWitnesses=[]`.
+
+On resume, the executor reopens and verifies the pending attempt capture, derives
+`retryNotBeforeUtc = endedUtc + waitMs`, and uses only its recorded injected UTC clock. Before it
+computes a remaining wait or applies the 60,000-millisecond threshold, it checks whether the first
+resume-clock epoch is less than the pending attempt's `endedUtc` epoch. A later observed epoch is
+also a regression when it is less than the immediately preceding epoch in the same invocation. On
+either exact predicate the
+executor appends an audit event carrying both epochs, leaves the verified `pending-retry` row and its
+attempt array byte-for-byte unchanged, flushes the checkpoint, normally releases the owner, and exits
+74 with machine-readable `injected-clock-regression`; it appends no synthetic attempt and performs no
+transport call. Only after the first regression check, if more than 60,000 milliseconds remain,
+`run-direct` flushes the unchanged pending checkpoint, normally releases the authenticated owner and
+exits 75 with machine-readable `retry-pending`; it performs no transport call. Otherwise it issues
+exactly one sleep for the nonnegative remaining duration and rechecks the injected UTC clock once. A
+positive sleep after which the clock has not advanced uses the same nonterminal
+exit with reason `injected-clock-stalled`. If the clock advanced but remains before the deadline, the
+executor instead repeats the already specified clean checkpoint/owner release and exit 75
+`retry-pending`; it does not sleep or loop again in that invocation. A later invocation may continue
+only after its clock is at least the captured `endedUtc`; it executes the next consecutive attempt
+ordinal only after that clock reaches the deadline. These no-repeat/no-skip guarantees are relative
+to the recorded injected UTC clock; an external wall-clock step does not support a stronger
+elapsed-time claim.
+
+The checkpoint top-level schema additionally has exact key `dispatchReservation`. It is null except
+immediately around one direct transport call, when it is the exact object `attemptOrdinal`,
+`rawPath`, `requestId`, `reservationId`, and `startedUtc`; `reservationId` is lowercase SHA-256 of
+the canonical other four fields. Immediately before crossing the transport boundary, the executor
+sets the next consecutive ordinal, exclusive raw path and start time, flushes this checkpoint, and
+reopens and validates it. Only then may it call the transport.
+
+A direct response is preserved as canonical sorted-key UTF-8 JSON with schema
+`phase6-wp1-direct-http-capture-v1` and exactly `attemptOrdinal`, `bodyBase64`, `bodyBytes`,
+`bodySha256`, `endedUtc`, `error`, `finalUrl`, `redirects`, `requestId`, `responseHeaders`, `schema`,
+`startedUtc`, and `status`. `bodyBase64` is canonical RFC 4648 base64 with padding of the exact
+registered client-decoded response-body bytes before text parsing, not compressed/wire octets;
+decoded length/hash must equal `bodyBytes`/`bodySha256`; `error` is null and all other values obey the
+attempt schemas. JSON, XML and any other registered response media therefore retain that exact
+pre-parse representation without requiring the body itself to be canonical or JSON. The attempt's
+`captureBytes`/`captureSha256` describe this complete envelope and `captureKind` is
+`direct-http-envelope`. A caught transport failure uses the already registered canonical
+`no-response` object instead.
+
+Either capture kind is committed without overwrite on the same volume: create an owner/sequence-
+specific sibling temporary file with Node `open(...,"wx")`, write and file-sync all bytes, close,
+reopen and validate the complete canonical envelope/object and hash, then call Node `link(temp,
+reservedPath)`. The hard-link operation is the no-replace publication primitive: `EEXIST` is never
+overwritten or treated as success, and any unsupported/cross-device/other failure is a hard executor
+error with the reservation retained. After a successful link, reopen and byte/hash-validate the
+reserved path before unlinking the temporary name. A temporary file alone is never a committed
+capture; existence of the linked reserved path plus successful schema/body/hash/request/ordinal
+validation is the recovery predicate. The next checkpoint atomically appends the captured attempt
+and clears the reservation.
+
+After owner recovery, a nonnull reservation is never redispatched. If its exact reserved raw path
+contains a complete, canonical capture for that request and ordinal, the executor reopens it and
+performs the normal attempt transition. If the path is absent, partial, invalid or mismatched, the
+executor preserves the original path and facts in an audit event and uses the deterministic sibling
+path formed by inserting `.dispatch-unknown` immediately before the reserved path's `.json` suffix.
+That recovery path is also exclusive and contains the same immutable request and attempt ordinals.
+The executor creates there the registered canonical `no-response` object and attempt. Its error is
+exactly `{code:"DISPATCH_OUTCOME_UNKNOWN",message:"Reserved direct request may have crossed the transport boundary before durable capture.",name:"DispatchOutcomeUnknownError"}`;
+`status=null`, `finalUrl` is the exact intended URL, `redirects=[]`, every allow-listed response
+header is null, `startedUtc` is the reservation value, `endedUtc` is the recovery clock,
+`captureKind=no-response`, `retryDecision=terminal`, and `waitMs=0`; capture bytes/hash are rederived
+from that object. The request is removed from `outstandingRequestIds`, has
+`terminalState=terminal-access-failure` and
+`reasonCode=dispatch-outcome-unknown-after-crash`, and has exactly `capTruncated=false`,
+`continuation=null`, `providerTotal=null`, `returnedCount=0`, `occurrenceIds=[]`, and
+`schedulingWitnesses=[]`; the same checkpoint transition clears the reservation. If a crash leaves an already complete canonical recovery
+capture at that sibling path, the next recovery reuses it; an invalid or mismatched recovery path is
+a hard error that preserves the reservation and both files. This conservative recovery can stop a
+request that had not actually crossed the transport boundary, but it never repeats a possibly
+dispatched attempt. Thus at most four registered attempt transport dispatches are possible,
+including crash-ambiguous reservations, and every one consumes one of the four ordinals; each HTTP
+attempt may still follow the separately recorded maximum of ten redirect hops, so this is not a cap
+on underlying wire requests.
+
+Mutation of the pending state, its closed result fields, captured bytes, attempt ordinal,
+`endedUtc`, `waitMs`, retry decision, deadline bound, dispatch reservation, reservation ID or orphan
+recovery is a focused negative control. This correction changes no endpoint, query, search cap or
+scientific screen, and no result has been executed. It prospectively adds fail-closed access outcomes
+for an over-seven-day server delay, clock failure and crash-ambiguous dispatch; those outcomes can
+make a future search incomplete but cannot create a candidate or validation pass. All entries remain
+unexecuted.
+
 At execution start, before every live direct request, and immediately before publication, the
 executor rechecks the same HEAD and a tracked-only clean status. It records Git blob IDs for this
 register, the executor and CLI source, SHA-256 of the exact Section 11 Git-blob bytes, and SHA-256 of
@@ -1028,6 +1157,28 @@ re-executed no test or command. They did not inspect implementation or Git/commi
 live endpoint behavior, execute a request, validate a future checkpoint/evidence bundle, inspect the
 1987 source, or perform TAX2 extraction, solver, GPU or education work. Those remain explicit limits,
 not evidence that execution passed.
+
+The later captured-retry correction received two additional offline non-author reviews before its
+record-only commit. An inherited/shared-context OpenAI Codex `gpt-5.6-sol` reviewer first found three
+blockers and one should-fix in clock/retry precedence, crash-recovery serialization and response-byte
+wording; after revision its current-byte subsection verdict was 0 blockers / 0 should-fixes. A second
+OpenAI Codex `gpt-5.6-sol` reviewer had repository/task context but no author working-chat context. It
+independently found three blockers and two should-fixes in binary-safe capture, no-replace commit,
+bounded sleep, terminal serialization and header interpretation; after two correction rounds its
+final narrow verdict was 0 blockers / 0 should-fixes, including agreement between the register's
+`direct-http-envelope` value and the uncommitted skeleton enum. That reviewer independently read the
+current subsection and surrounding schemas, inspected Git status/diff and the enum, and ran
+`git diff --check` (clean except expected line-ending conversion warnings). Both reviews were
+read-only and offline. Neither implemented or executed transport/recovery, created a checkpoint,
+contacted an endpoint, ran focused tests or exact root `npm test`, inspected source content, or
+reviewed unrelated Phase 6 claims.
+
+On the record-only captured-retry landing candidate, the author executed exact
+`npm.cmd run lint:rule7` (clean, 421 files),
+`npx.cmd vitest run runner/test/progress-index.test.ts` (7/7),
+`npx.cmd tsc --noEmit --pretty false` (exit 0), and `git diff --check` (exit 0 with line-ending
+conversion warnings only). Exact root `npm test` did not run for this record-only correction, and no
+full-suite claim is made.
 
 On the record candidate immediately before this provenance append, the same offline/read-only/
 no-network non-author independently re-executed

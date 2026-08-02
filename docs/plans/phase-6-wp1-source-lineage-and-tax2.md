@@ -89,7 +89,12 @@ independent evidence review.
   should-fixes after three rounds, but a later broader schema/Rule 9 audit reopened that scoped
   verdict. The broader inherited-context `gpt-5.6-sol` non-author review closed the current bytes at
   0 blockers / 0 should-fixes after exact identity, witness, verifier and crash-recovery corrections.
-  No request or numeric extraction ran.
+  After that register landed at `1c28c13`, the first pure executor skeleton exposed a missing
+  checkpoint state for a captured transient response and a crash-ambiguous dispatch. A follow-up
+  record-only correction now closes the pending-row fields, finite `Retry-After`, bounded/yielding
+  resume, pre-dispatch reservation, binary-safe capture and no-overwrite recovery semantics. Two
+  offline `gpt-5.6-sol` non-author reviews closed its current subsection at 0 blockers / 0
+  should-fixes. No HTTP/retry path, request or numeric extraction ran.
 
 - [ ] Implement the deterministic source-search executor, entry-specific checkpoint/resume path,
   normalized occurrence/candidate ledgers, and evidence publisher exactly from Section 11 in
@@ -102,7 +107,10 @@ independent evidence review.
   cap/access terminal states; and prove a late component merge cannot rename a scheduled request.
   The focused command is
   `npx.cmd vitest run runner/test/phase6-wp1-source-search.test.ts`. Obtain a non-author
-  code/evidence-boundary review before the first live request.
+  code/evidence-boundary review before the first live request. An uncommitted pure skeleton currently
+  covers registry/schedule identities, normalization, identity union, Git provenance, entry ownership
+  and atomic canonical writes; it typechecks but has no transport, retry/checkpoint state machine,
+  parser, publisher, independent verifier, CLI or focused test yet.
 
 - [ ] Execute `YAMASHITA-FREEFALL-LINEAGE-01`, beginning from authoritative `1910.06389v2`
   Figure 6.22 (printed p. 234 / PDF p. 235), Figure 7.21 (printed p. 268 / PDF p. 269), and the
