@@ -229,17 +229,22 @@ commitment.
 
 **Maker verdict (one sentence, in the maker's own words):** _pending._
 
-## Proposed follow-up run — paper-scale dendrite (NOT launched; awaiting maker go)
+## Proposed follow-up runs — paper-scale portfolio, three in parallel (NOT launched; awaiting maker go)
 
 Written 2026-08-02 in answer to the maker's "before you run the 8–15 hr job, tell me
-exactly what your plan is." Nothing below has been executed.
+exactly what your plan is," extended same-day after the maker asked for parallelism.
+Nothing below has been executed. Per the working rules, independent cases run as separate
+single-threaded Node processes; on this 10-core / 24 GB M4, three paper-scale runs cost
+the same wall clock as one (4 performance cores; ~2.6–3.4 GB steady each; the ~6 GB
+checkpoint round-trip transients only overlap if two runs finish simultaneously — worst
+case ≈ 22 GB, acceptable, briefly swappy).
 
-**Goal.** Close the "did we reproduce the paper?" question figure-to-figure: grow the
-`dendrite` preset (the paper's Fig. 14 parameter set per `core/src/params.ts` provenance)
-at the paper's own scale — case studies run to radius ≈ 350 — and eyeball it against
-Fig. 14 itself, then re-run the ADR 0029 ice-look comparison at this more honest scale.
+**Goal.** Close the "did we reproduce the paper?" question figure-to-figure at the
+paper's own scale (case studies run to radius ≈ 350), and re-run the ADR 0029 ice-look
+comparison without the scale handicap — three separable questions, one per process, all
+with the existing `grow` CLI (no new code, `runner/` stays untouched).
 
-**Command (exact, from the worktree root):**
+**Run A — classic dendrite vs paper Fig. 14 (exact command, from the worktree root):**
 
 ```
 node runner/src/main.ts grow --preset dendrite --dims 1200,1200,48 --domain hexPrism \
@@ -267,12 +272,52 @@ node runner/src/main.ts grow --preset dendrite --dims 1200,1200,48 --domain hexP
 - Fallback semantics recorded up front: if the tick cap fires before radius 350, the
   result is still a valid eyeball object; the shortfall gets recorded, not hidden.
 
-**Expected result (prediction, written before the run so hindsight can't edit it):** a
+**Run B — plate prototype vs paper Fig. 4 (§VII: 70,000 steps, radius ≈ 350, "ridges
+and plates"):**
+
+```
+node runner/src/main.ts grow --preset plate --dims 1200,1200,48 --domain hexPrism \
+  --ticks 70000 --noise 0 \
+  --metrics-every 500 --full-metrics-every 2000 \
+  --pgm-every 2000 --pgm-dir out/gutcheck-gg-realism/pgm-1200-plate \
+  --out out/gutcheck-gg-realism/plate-1200x1200x48-noise0.ckpt
+```
+
+`--ticks 70000` deliberately matches the paper's stated step count for Fig. 4. The solid
+plate is more massive than the skeletal dendrite, so the reflecting reservoir may
+far-field-stop it before radius 350 — whichever termination fires is recorded. Fig. 4's
+"extensive branching but also regularly shaped plates, or facets" plus midline ridges is
+also, of the four presets, the closest morphology class to the J0521r2p footage specimen
+(a broad-branched sector plate), so B doubles as the best realism candidate.
+
+**Run C — noisy dendrite at paper scale, the realism-redux crystal:**
+
+```
+node runner/src/main.ts grow --preset dendrite --dims 1200,1200,48 --domain hexPrism \
+  --ticks 80000 --seed 20260802 --noise 1e-5 \
+  --metrics-every 500 --full-metrics-every 2000 \
+  --pgm-every 2000 --pgm-dir out/gutcheck-gg-realism/pgm-1200-noise \
+  --out out/gutcheck-gg-realism/dendrite-1200x1200x48-noise1e-5-seed20260802.ckpt
+```
+
+Same configuration lineage as the completed gut-check run (same seed and noise, bigger
+domain). A and B are deterministic and therefore perfectly symmetric — itself a realism
+giveaway; C carries the natural slight asymmetry the footage comparison wants. ~0.8 GB
+extra steady memory for the noise fields.
+
+Logs per run: `grow-1200-dendrite-n0.{log,err,exit-status}`, `grow-1200-plate-n0.*`,
+`grow-1200-dendrite-noise.*` under `out/gutcheck-gg-realism/`.
+
+**Expected result (prediction, written before the run so hindsight can't edit it):** A: a
 deterministic, exactly sixfold-symmetric stellar dendrite ≈ 700 cells across with dense
 alternating sidebranches and midline ridges — Fig. 14's "classic dendrite" morphology at
-Fig. 14's scale. Two extractions of the one checkpoint: crisp (σ ≈ 0.30–0.35) for the
-figure comparison, and the ice look at the σ trade-off sweet spot for the footage
-comparison. If the sidebranch texture does *not* match Fig. 14 qualitatively, that is a
+Fig. 14's scale. B: a broad hexagonal plate that destabilizes into six ridged, faceted
+branches with plate-like sector fill between them — Fig. 4's morphology; stop radius
+honestly uncertain (reservoir-limited, possibly < 350). C: run A's morphology class with
+slight natural asymmetry and stochastic sidebranch placement. Two extractions per
+checkpoint: crisp (σ ≈ 0.30–0.35) for the figure comparisons, and the ice look at the σ
+trade-off sweet spot for the footage comparison. If A's sidebranch texture does *not*
+match Fig. 14 qualitatively, that is a
 real fidelity finding (likeliest suspects, in order: boundary condition — our reflecting
 hexPrism reservoir vs the paper's large-lattice treatment — then scale-dependent
 depletion; a solver defect is unlikely given the Phase 2a gates but would outrank this
@@ -287,7 +332,10 @@ spike if implicated).
    now without the 3–10× scale handicap. Stated limit: the footage specimen is a 2.5 mm
    broad-branched sector-plate crystal grown under changing conditions; ours is a
    fixed-parameter classic dendrite at radius ≈ 350 — this compares look and texture,
-   not specimen morphology.
+   not specimen morphology. C (noisy) is the primary crystal for this lane; B competes
+   if its sector-plate morphology reads closer.
+3. B primary — G-G Fig. 4 (p. 3, the §VII prototype): same parameters, same 70,000-step
+   count, our render vs their published figure. Same copyright handling as Fig. 14.
 
 **Not in this follow-up:** any LK run, any solver/runner edit, any gate or metric claim,
 any charter/ADR/education change. Host note: the charter prefers the Windows box for long
