@@ -177,8 +177,9 @@ control).
 
 What gives it away, in one glance next to the footage: (1) **tip character** — the real
 crystal ends every branch in crisp hexagonal facets and arrowhead sector plates; the G-G
-dendrite's tips are knobby and rounded, and no render setting fixes a shape the model did
-not grow. (2) **Interior relief depth** — the footage's center is packed with bold radial
+dendrite's tips are knobby and rounded in this render. *[Attribution corrected below: the
+roundness is the extraction smoothing, not the model — see the Correction paragraph.]*
+(2) **Interior relief depth** — the footage's center is packed with bold radial
 ridges, concentric ribs, and a central hexagon; the G-G plate interior is nearly flat, and
 even with the recorded 2.5× z-relief stylization its features are an order of magnitude
 shallower. (3) Line boldness — the footage's contour lines are thick and clean; the
@@ -190,6 +191,41 @@ worked on the first real mesh, while both giveaways (facet-straight tips, deep i
 relief) are exactly what `LibbrechtKinetics`' faceted kinetics plus a relief-preserving
 level set are supposed to supply, supporting the ADR's choice to pair the Realistic
 profile with LK rather than G-G.
+
+**Correction (same session, after the maker asked why the G-G figures aren't reproduced).**
+The paragraph above over-attributed giveaway (1): a differential extraction at σ = 0.30,
+spacing 0.35 (`dendrite-384-mesh-s030.bin`, sha256
+`a6bbdaaca732fc5bc3f914345a7f645c56a99be81d6eedf61bd31f545a37bfa6`; render
+`render-384-s030.png`, sha256
+`355e0d2310da6b6946e36b8aafef51ac1ec1f2a803d8af9a79f076c92d417023`, same render params as
+the final) restores crisp 60°/120° hexagonal facet lines at tips, flanks, and interior
+voids. **The tip roundness was the σ = 0.45 extraction smoothing, not the model** — the
+model's facets are lattice-crisp, exactly as the paper's own cell-true prism figures show.
+The measured statement is: at this crystal size (radius 117), facet crispness and
+smooth-surface continuity trade off directly through the smoothing width; σ = 0.30 is
+facet-crisp but lattice texture starts to show, σ = 0.45 is smooth but rounds few-cell
+features. The remaining honest gaps against the footage are (a) **crystal scale** — the
+paper's case studies run to radius ≈ 350 (70,000 steps, §VII) and the J0521r2p crystal is
+2.5 mm ≈ radius 1250 at the paper's ~1 µm-per-cell reading, versus our far-field-stopped
+radius 117, so its feathery fern texture lives at 3–10× our linear scale — and (b)
+**interior relief depth** on the AR 0.038 plate (the model's ridges are present in the
+render but shallow). Both statements are eyeball comparisons of the named images.
+
+**Paper-figure comparison (added with the correction).** G-G's paper (§III, p. 4) names
+its rendering pipeline but does not fully specify it: crystals are drawn as the visible
+boundaries of fundamental prisms on attached sites (cell-true), a boundary smoothing that
+"enlarges the crystal by no more than one mesoscopic unit" is applied without stating the
+algorithm, MATLAB `PATCH` renders faces with edges *drawn on* via the `LINE` routine (the
+figures' dark line work is an overlay, not optics), and photo-viewpoint comparisons use a
+POV-RAY `MESH2` ray-trace whose scene/lighting are not given. Its ray-traced figures
+(pp. 9–10) are stylized white-on-dark-blue backlit images, not photo-real microscope
+looks. So "reproduce the paper's rendering" was never a fully specified target; this
+spike's target was deliberately the harder one — the ADR 0029 ice look against real
+footage. If a paper-scale crystal is wanted for a future comparison, the reflecting
+far-field ratio measured here (stop at radius ≈ 0.61 × hexRadius, two runs) implies
+dims ≈ 1152,1152,48 (hexRadius 575, ~47M active cells, ~3.4 GB, roughly 8–15 h on this
+Mac at the measured ~16 ns per cell-tick) to reach radius ≈ 350 — an option, not a
+commitment.
 
 **Maker verdict (one sentence, in the maker's own words):** _pending._
 
