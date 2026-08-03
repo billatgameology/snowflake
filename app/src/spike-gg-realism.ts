@@ -1,21 +1,19 @@
-// Gut-check spike renderer (docs/plans/explore-gg-realism-gutcheck.md): loads a
-// gutcheck-mesh-v1 binary (scripts/gutcheck-extract-mesh.ts) and renders it in one of two
-// target styles, both maker-directed 2026-08-03:
+// Gut-check spike renderer (docs/plans/explore-gg-realism-gutcheck.md): renders
+// gutcheck-mesh-v1 binaries (scripts/gutcheck-mesh-lib.ts) in two maker-directed styles,
+// as a single static frame, an orbitable viewer, or a growth timeline.
 //
-//   ?style=ice     (default) the ADR 0029 Realistic look aimed at the J0521r2p footage:
-//                  transparent refractive ice over a warm→cool linear gradient, oblique
-//                  two-tone lighting, dark indigo/warm directional edge lines.
-//   ?style=povray  the G-G paper's Fig. 4 ray-trace look: pale translucent blue-white
-//                  crystal over a dark navy radial glow, bright edge lines.
+//   ?style=ice     (default) the ADR 0029 Realistic look aimed at the J0521r2p footage.
+//   ?style=povray  the G-G paper's Fig. 4 ray-trace look.
+//   ?mesh=<url>    single-mesh mode (static unless ?interactive=1).
+//   ?manifest=<url> growth-timeline mode (scripts/gutcheck-animate-grow.ts output):
+//                  slider + play/pause scrub through frame meshes, orbit controls always
+//                  on, "face-on" resets the camera. ?frame=N picks the initial frame
+//                  (default 0, the seed). ?fps=N sets playback rate (default 5).
 //
-// Deliberately separate from the app instrument; classic WebGL renderer because
-// MeshPhysicalMaterial transmission is the mature path there. Rule 7 note: per phase-3
-// A2-7 precedent, the four three.js blending/canvas flags with the banned stem are never
-// used here.
-//
-// Every look input is a URL param with a per-style default so iteration needs no code
-// edits. Shared: mesh, zscale, tilt, zoom, ior, spacing-independent framing. Reports
-// readiness on window.__spikeReady / failure on window.__spikeError.
+// Static captures stay bit-stable for the recorded recipes: fixed backdrop plane, pixel
+// ratio 1, single render. Interactive/timeline modes use a screen-fixed background and
+// device-pixel-ratio supersampling. Rule 7 note: per phase-3 A2-7 precedent, the four
+// three.js blending/canvas flags with the banned stem are never used here.
 
 import * as THREE from "three";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
@@ -30,6 +28,38 @@ interface GutcheckMesh {
   positions: Float32Array;
   normals: Float32Array;
   indices: Uint32Array;
+}
+
+interface AnimFrame {
+  file: string;
+  tick: number;
+  vertexCount: number;
+  triangleCount: number;
+}
+
+interface AnimManifest {
+  format: string;
+  complete: boolean;
+  config: { ticks: number; extraction: { spacing: number } };
+  frames: AnimFrame[];
+  finalBBox: {
+    xMin: number;
+    xMax: number;
+    yMin: number;
+    yMax: number;
+    zMin: number;
+    zMax: number;
+  };
+}
+
+const query = new URLSearchParams(window.location.search);
+const style = query.get("style") === "povray" ? "povray" : "ice";
+
+/** URL param with a per-style default. */
+function param(name: string, iceDefault: string, povDefault?: string): string {
+  const v = query.get(name);
+  if (v !== null && v !== "") return v;
+  return style === "povray" && povDefault !== undefined ? povDefault : iceDefault;
 }
 
 function parseMesh(buffer: ArrayBuffer): GutcheckMesh {
@@ -51,16 +81,6 @@ function parseMesh(buffer: ArrayBuffer): GutcheckMesh {
   return { header, positions, normals, indices };
 }
 
-const query = new URLSearchParams(window.location.search);
-const style = query.get("style") === "povray" ? "povray" : "ice";
-
-/** URL param with a per-style default. */
-function param(name: string, iceDefault: string, povDefault?: string): string {
-  const v = query.get(name);
-  if (v !== null && v !== "") return v;
-  return style === "povray" && povDefault !== undefined ? povDefault : iceDefault;
-}
-
 function makeBackdropTexture(): THREE.CanvasTexture {
   const size = 1024;
   const canvas = document.createElement("canvas");
@@ -69,7 +89,6 @@ function makeBackdropTexture(): THREE.CanvasTexture {
   const ctx = canvas.getContext("2d");
   if (ctx === null) throw new Error("2d context unavailable");
   if (style === "povray") {
-    // Fig. 4 ray-trace backdrop: dark navy with a soft blue glow behind the crystal.
     const inner = "#" + param("bgInner", "", "3f6cb4");
     const outer = "#" + param("bgOuter", "", "060b1c");
     const grad = ctx.createRadialGradient(
@@ -85,7 +104,6 @@ function makeBackdropTexture(): THREE.CanvasTexture {
     ctx.fillStyle = grad;
     ctx.fillRect(0, 0, size, size);
   } else {
-    // Footage backdrop: smooth near-vertical warm amber → cool blue-lavender gradient.
     const top = "#" + param("bgTop", "e6b95c");
     const bottom = "#" + param("bgBottom", "9aa5e0");
     const grad = ctx.createLinearGradient(size * 0.12, 0, 0, size);
@@ -99,9 +117,6 @@ function makeBackdropTexture(): THREE.CanvasTexture {
   return tex;
 }
 
-// Oblique-illumination environment (ice style): light from a warm patch up-left and a
-// faint cool patch down-right, dark horizon, so steep facet walls reflect darkness.
-// The povray style instead uses a dim blue-white environment for pale body specular.
 function makeEnvironmentScene(): THREE.Scene {
   const size = 512;
   const canvas = document.createElement("canvas");
@@ -141,65 +156,103 @@ function makeEnvironmentScene(): THREE.Scene {
   tex.colorSpace = THREE.SRGBColorSpace;
   tex.mapping = THREE.EquirectangularReflectionMapping;
   const envScene = new THREE.Scene();
-  const sphere = new THREE.Mesh(
-    new THREE.SphereGeometry(10, 32, 16),
-    new THREE.MeshBasicMaterial({ map: tex, side: THREE.BackSide }),
+  envScene.add(
+    new THREE.Mesh(
+      new THREE.SphereGeometry(10, 32, 16),
+      new THREE.MeshBasicMaterial({ map: tex, side: THREE.BackSide }),
+    ),
   );
-  envScene.add(sphere);
   return envScene;
 }
 
-async function main(): Promise<void> {
-  const meshUrl = param("mesh", "/gutcheck-mesh.bin");
-  const response = await fetch(meshUrl);
-  if (!response.ok) throw new Error(`mesh fetch failed: ${response.status} ${meshUrl}`);
-  const mesh = parseMesh(await response.arrayBuffer());
+function makeIceMaterial(extentX: number): THREE.MeshPhysicalMaterial {
+  const ice = new THREE.MeshPhysicalMaterial({
+    transmission: Number(param("tr", "1.0", "0.6")),
+    ior: Number(param("ior", "1.31")),
+    thickness: Number(param("thick", "14", "6")),
+    roughness: Number(param("rough", "0.05", "0.12")),
+    metalness: 0,
+    color: new THREE.Color("#" + param("body", "ffffff", "cfe2f8")),
+    attenuationColor: new THREE.Color(0xdff2fb),
+    attenuationDistance: extentX * 2,
+    specularIntensity: Number(param("spec", "0.9", "1.2")),
+    clearcoat: Number(param("cc", "0")),
+    clearcoatRoughness: 0.2,
+    side: param("side", "front") === "double" ? THREE.DoubleSide : THREE.FrontSide,
+  });
+  const dispersion = Number(param("dispersion", "0"));
+  if (dispersion > 0) ice.dispersion = dispersion;
+  return ice;
+}
 
-  const geometry = new THREE.BufferGeometry();
-  geometry.setAttribute("position", new THREE.BufferAttribute(mesh.positions, 3));
-  geometry.setAttribute("normal", new THREE.BufferAttribute(mesh.normals, 3));
-  geometry.setIndex(new THREE.BufferAttribute(mesh.indices, 1));
-  // Optional z-relief exaggeration: the G-G plate is thinner than the footage crystal's
-  // sector-plate relief, so face-on shading nearly vanishes at 1:1. A stated stylization
-  // knob, not a claim about the model.
-  const zscale = Number(param("zscale", "2.5"));
-  if (zscale !== 1) {
-    geometry.scale(1, 1, zscale);
-    geometry.computeVertexNormals();
-  }
-  geometry.computeBoundingBox();
-  const bbox = geometry.boundingBox;
-  if (bbox === null) throw new Error("no bounding box");
-  const center = new THREE.Vector3();
-  bbox.getCenter(center);
-  geometry.translate(-center.x, -center.y, -center.z);
-  const extent = new THREE.Vector3();
-  bbox.getSize(extent);
+function makeEdgeMaterial(): THREE.ShaderMaterial | null {
+  const edgeStrength = Number(param("edge", "1.9", "1.0"));
+  if (edgeStrength <= 0) return null;
+  return new THREE.ShaderMaterial({
+    transparent: true,
+    depthWrite: false,
+    uniforms: {
+      edgeStrength: { value: edgeStrength },
+      edgePow: { value: Number(param("edgePow", "1.3", "1.4")) },
+      edgeLo: { value: Number(param("edgeLo", "0.14", "0.12")) },
+      edgeHi: { value: Number(param("edgeHi", "0.95", "0.85")) },
+      edgeCool: { value: new THREE.Color("#" + param("edgeCool", "141a36", "dcecff")) },
+      edgeWarm: { value: new THREE.Color("#" + param("edgeWarm", "ffd98f", "ffffff")) },
+    },
+    vertexShader: /* glsl */ `
+      varying vec3 vViewNormal;
+      void main() {
+        vViewNormal = normalMatrix * normal;
+        gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+      }
+    `,
+    fragmentShader: /* glsl */ `
+      uniform float edgeStrength;
+      uniform float edgePow;
+      uniform float edgeLo;
+      uniform float edgeHi;
+      uniform vec3 edgeCool;
+      uniform vec3 edgeWarm;
+      varying vec3 vViewNormal;
+      void main() {
+        vec3 n = normalize(vViewNormal);
+        float tilt = 1.0 - abs(n.z);
+        float fw = fwidth(tilt);
+        float edgeAmount =
+          pow(smoothstep(edgeLo - fw, edgeHi + fw, tilt), edgePow) * edgeStrength;
+        vec2 keyDir = normalize(vec2(-0.6, 0.75));
+        float facing = clamp(dot(normalize(n.xy + vec2(1e-5)), keyDir) * 0.5 + 0.5, 0.0, 1.0);
+        vec3 edgeTint = mix(edgeCool, edgeWarm, pow(facing, 1.5));
+        gl_FragColor = vec4(edgeTint, clamp(edgeAmount, 0.0, 1.0));
+      }
+    `,
+  });
+}
 
+interface SceneRig {
+  renderer: THREE.WebGLRenderer;
+  scene: THREE.Scene;
+  camera: THREE.OrthographicCamera;
+  crystal: THREE.Mesh;
+  edgeMesh: THREE.Mesh | null;
+  render: () => void;
+}
+
+/** Build renderer, scene, camera, lights, materials for a given world extent. */
+function buildRig(extent: THREE.Vector3, liveBackground: boolean): SceneRig {
   const renderer = new THREE.WebGLRenderer({ antialias: true });
-  // Deterministic captures stay at 1:1 pixels; the interactive viewer supersamples at
-  // the device ratio to calm shading shimmer while orbiting.
-  renderer.setPixelRatio(
-    query.get("interactive") === "1" ? Math.min(window.devicePixelRatio, 2) : 1,
-  );
+  renderer.setPixelRatio(liveBackground ? Math.min(window.devicePixelRatio, 2) : 1);
   renderer.setSize(window.innerWidth, window.innerHeight);
   renderer.toneMapping = THREE.ACESFilmicToneMapping;
   renderer.toneMappingExposure = Number(param("exposure", "1.0", "1.15"));
   document.body.appendChild(renderer.domElement);
 
   const scene = new THREE.Scene();
-
-  // Near-orthographic face-on framing (plate normal is +z); computed first so the
-  // backdrop plane can be sized to exactly fill the frustum.
   const zoom = Number(param("zoom", "1"));
   const span = (Math.max(extent.x, extent.y) / 2) * 1.12 * zoom;
   const aspect = window.innerWidth / window.innerHeight;
 
-  // Static captures keep the frustum-filling plane (the locked recipes were tuned on
-  // it); the interactive orbit viewer uses a screen-fixed scene background instead, so
-  // the gradient stays behind the crystal from every angle.
-  const interactive = param("interactive", "0") === "1";
-  if (interactive) {
+  if (liveBackground) {
     scene.background = makeBackdropTexture();
   } else {
     const backdrop = new THREE.Mesh(
@@ -210,75 +263,12 @@ async function main(): Promise<void> {
     scene.add(backdrop);
   }
 
-  // Crystal material. ice: transparent refractive per ADR 0029. povray: pale translucent
-  // blue-white per Fig. 4 (partial transmission so the backdrop glow reads through).
-  const ice = new THREE.MeshPhysicalMaterial({
-    transmission: Number(param("tr", "1.0", "0.6")),
-    ior: Number(param("ior", "1.31")),
-    thickness: Number(param("thick", "14", "6")),
-    roughness: Number(param("rough", "0.05", "0.12")),
-    metalness: 0,
-    color: new THREE.Color("#" + param("body", "ffffff", "cfe2f8")),
-    attenuationColor: new THREE.Color(0xdff2fb),
-    attenuationDistance: extent.x * 2,
-    specularIntensity: Number(param("spec", "0.9", "1.2")),
-    clearcoat: Number(param("cc", "0")),
-    clearcoatRoughness: 0.2,
-    side: param("side", "front") === "double" ? THREE.DoubleSide : THREE.FrontSide,
-  });
-  const dispersion = Number(param("dispersion", "0"));
-  if (dispersion > 0) ice.dispersion = dispersion;
-  const crystal = new THREE.Mesh(geometry, ice);
+  const crystal = new THREE.Mesh(new THREE.BufferGeometry(), makeIceMaterial(extent.x));
   scene.add(crystal);
-
-  // Edge pass. ice: dark indigo lines with a warm key-facing flank (the microscopy
-  // look's out-of-cone darkening — screen-space transmission cannot express it, so the
-  // spike darkens where the surface tilts off face-on). povray: the same geometry cue
-  // drawn as bright blue-white line work, matching the paper's LINE-emphasized figures.
-  const edgeStrength = Number(param("edge", "1.9", "1.0"));
-  if (edgeStrength > 0) {
-    const edgeMaterial = new THREE.ShaderMaterial({
-      transparent: true,
-      depthWrite: false,
-      uniforms: {
-        edgeStrength: { value: edgeStrength },
-        edgePow: { value: Number(param("edgePow", "1.3", "1.4")) },
-        edgeLo: { value: Number(param("edgeLo", "0.14", "0.12")) },
-        edgeHi: { value: Number(param("edgeHi", "0.95", "0.85")) },
-        edgeCool: { value: new THREE.Color("#" + param("edgeCool", "141a36", "dcecff")) },
-        edgeWarm: { value: new THREE.Color("#" + param("edgeWarm", "ffd98f", "ffffff")) },
-      },
-      vertexShader: /* glsl */ `
-        varying vec3 vViewNormal;
-        void main() {
-          vViewNormal = normalMatrix * normal;
-          gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
-        }
-      `,
-      fragmentShader: /* glsl */ `
-        uniform float edgeStrength;
-        uniform float edgePow;
-        uniform float edgeLo;
-        uniform float edgeHi;
-        uniform vec3 edgeCool;
-        uniform vec3 edgeWarm;
-        varying vec3 vViewNormal;
-        void main() {
-          vec3 n = normalize(vViewNormal);
-          float tilt = 1.0 - abs(n.z);
-          // Screen-space antialiasing: widen the response by the per-pixel tilt
-          // derivative so lattice-scale normal bumps fade instead of popping.
-          float fw = fwidth(tilt);
-          float edgeAmount =
-            pow(smoothstep(edgeLo - fw, edgeHi + fw, tilt), edgePow) * edgeStrength;
-          vec2 keyDir = normalize(vec2(-0.6, 0.75));
-          float facing = clamp(dot(normalize(n.xy + vec2(1e-5)), keyDir) * 0.5 + 0.5, 0.0, 1.0);
-          vec3 edgeTint = mix(edgeCool, edgeWarm, pow(facing, 1.5));
-          gl_FragColor = vec4(edgeTint, clamp(edgeAmount, 0.0, 1.0));
-        }
-      `,
-    });
-    const edgeMesh = new THREE.Mesh(geometry, edgeMaterial);
+  const edgeMaterial = makeEdgeMaterial();
+  let edgeMesh: THREE.Mesh | null = null;
+  if (edgeMaterial !== null) {
+    edgeMesh = new THREE.Mesh(crystal.geometry, edgeMaterial);
     edgeMesh.renderOrder = 2;
     scene.add(edgeMesh);
   }
@@ -313,23 +303,234 @@ async function main(): Promise<void> {
   camera.lookAt(0, 0, 0);
   scene.add(camera);
 
-  // ?interactive=1: orbitable viewer for the maker (drag to rotate, wheel to zoom,
-  // right-drag to pan). The default stays a single deterministic frame so the capture
-  // harness is unaffected. The backdrop is a fixed plane behind the crystal, so extreme
-  // orbits fly past it by design — the look is engineered face-on.
+  return {
+    renderer,
+    scene,
+    camera,
+    crystal,
+    edgeMesh,
+    render: () => renderer.render(scene, camera),
+  };
+}
+
+function setRigGeometry(rig: SceneRig, geometry: THREE.BufferGeometry): void {
+  rig.crystal.geometry = geometry;
+  if (rig.edgeMesh !== null) rig.edgeMesh.geometry = geometry;
+}
+
+const zscale = Number(param("zscale", "2.5"));
+
+/** Mesh bytes -> display-ready geometry (z-relief scale + constant world offset). */
+function buildGeometry(
+  buffer: ArrayBuffer,
+  offset: readonly [number, number, number],
+): THREE.BufferGeometry {
+  const mesh = parseMesh(buffer);
+  const geometry = new THREE.BufferGeometry();
+  geometry.setAttribute("position", new THREE.BufferAttribute(mesh.positions, 3));
+  geometry.setAttribute("normal", new THREE.BufferAttribute(mesh.normals, 3));
+  geometry.setIndex(new THREE.BufferAttribute(mesh.indices, 1));
+  if (zscale !== 1) {
+    geometry.scale(1, 1, zscale);
+    geometry.computeVertexNormals();
+  }
+  geometry.translate(-offset[0], -offset[1], -offset[2]);
+  return geometry;
+}
+
+// ── Single-mesh mode ─────────────────────────────────────────────────────────────────────
+
+async function singleMeshMain(): Promise<void> {
+  const meshUrl = param("mesh", "/gutcheck-mesh.bin");
+  const response = await fetch(meshUrl);
+  if (!response.ok) throw new Error(`mesh fetch failed: ${response.status} ${meshUrl}`);
+  // Center this mesh on itself: build once with no offset to measure, then translate.
+  const geometry = buildGeometry(await response.arrayBuffer(), [0, 0, 0]);
+  geometry.computeBoundingBox();
+  const bbox = geometry.boundingBox;
+  if (bbox === null) throw new Error("no bounding box");
+  const center = new THREE.Vector3();
+  bbox.getCenter(center);
+  geometry.translate(-center.x, -center.y, -center.z);
+  const extent = new THREE.Vector3();
+  bbox.getSize(extent);
+
+  const interactive = param("interactive", "0") === "1";
+  const rig = buildRig(extent, interactive);
+  setRigGeometry(rig, geometry);
+
   if (interactive) {
-    const controls = new OrbitControls(camera, renderer.domElement);
+    const controls = new OrbitControls(rig.camera, rig.renderer.domElement);
     controls.enableDamping = true;
     const animate = (): void => {
       requestAnimationFrame(animate);
       controls.update();
-      renderer.render(scene, camera);
+      rig.render();
     };
     animate();
   } else {
-    renderer.render(scene, camera);
+    rig.render();
   }
   (window as unknown as SpikeWindow).__spikeReady = true;
+}
+
+// ── Growth-timeline mode ─────────────────────────────────────────────────────────────────
+
+const FRAME_CACHE_CAP = 8;
+
+async function timelineMain(manifestUrl: string): Promise<void> {
+  const manifestAbsolute = new URL(manifestUrl, window.location.href);
+  const response = await fetch(manifestAbsolute);
+  if (!response.ok) {
+    throw new Error(`manifest fetch failed: ${response.status} ${manifestUrl}`);
+  }
+  const manifest = (await response.json()) as AnimManifest;
+  if (manifest.format !== "gutcheck-anim-v1") {
+    throw new Error(`unexpected manifest format: ${manifest.format}`);
+  }
+  if (manifest.frames.length === 0) throw new Error("manifest has no frames yet");
+  const bb = manifest.finalBBox;
+  const extent = new THREE.Vector3(bb.xMax - bb.xMin, bb.yMax - bb.yMin, bb.zMax - bb.zMin);
+  const offset: readonly [number, number, number] = [
+    (bb.xMin + bb.xMax) / 2,
+    (bb.yMin + bb.yMax) / 2,
+    ((bb.zMin + bb.zMax) / 2) * zscale,
+  ];
+
+  const rig = buildRig(extent, true);
+  const controls = new OrbitControls(rig.camera, rig.renderer.domElement);
+  controls.enableDamping = true;
+  controls.saveState();
+
+  // Frame cache with LRU eviction; geometries are display-ready.
+  const cache = new Map<number, THREE.BufferGeometry>();
+  const inflight = new Map<number, Promise<THREE.BufferGeometry>>();
+  const lru: number[] = [];
+  const loadFrame = (index: number): Promise<THREE.BufferGeometry> => {
+    const cached = cache.get(index);
+    if (cached !== undefined) return Promise.resolve(cached);
+    const pending = inflight.get(index);
+    if (pending !== undefined) return pending;
+    const frame = manifest.frames[index];
+    if (frame === undefined) return Promise.reject(new Error(`no frame ${index}`));
+    const promise = fetch(new URL(frame.file, manifestAbsolute))
+      .then((r) => {
+        if (!r.ok) throw new Error(`frame fetch failed: ${r.status} ${frame.file}`);
+        return r.arrayBuffer();
+      })
+      .then((buf) => {
+        const geometry = buildGeometry(buf, offset);
+        cache.set(index, geometry);
+        lru.push(index);
+        while (lru.length > FRAME_CACHE_CAP) {
+          const evict = lru.shift();
+          if (evict !== undefined && evict !== currentFrame) {
+            cache.get(evict)?.dispose();
+            cache.delete(evict);
+          }
+        }
+        inflight.delete(index);
+        return geometry;
+      });
+    inflight.set(index, promise);
+    return promise;
+  };
+
+  // Timeline UI.
+  const ui = document.createElement("div");
+  ui.style.cssText =
+    "position:fixed;left:0;right:0;bottom:0;display:flex;gap:10px;align-items:center;" +
+    "padding:10px 14px;background:rgba(8,12,22,0.62);color:#dfe7f4;" +
+    "font:13px/1.4 ui-monospace,monospace;z-index:10";
+  const playButton = document.createElement("button");
+  playButton.textContent = "play";
+  const prevButton = document.createElement("button");
+  prevButton.textContent = "-1";
+  const nextButton = document.createElement("button");
+  nextButton.textContent = "+1";
+  const faceOnButton = document.createElement("button");
+  faceOnButton.textContent = "face-on";
+  for (const b of [playButton, prevButton, nextButton, faceOnButton]) {
+    b.style.cssText =
+      "background:#233250;color:#dfe7f4;border:1px solid #3a4c72;border-radius:4px;" +
+      "padding:4px 10px;cursor:pointer;font:inherit";
+  }
+  const slider = document.createElement("input");
+  slider.type = "range";
+  slider.min = "0";
+  slider.max = String(manifest.frames.length - 1);
+  slider.step = "1";
+  slider.style.cssText = "flex:1";
+  const label = document.createElement("span");
+  label.style.cssText = "min-width:220px;text-align:right";
+  ui.append(playButton, prevButton, nextButton, slider, label, faceOnButton);
+  document.body.appendChild(ui);
+
+  let currentFrame = -1;
+  let showToken = 0;
+  const showFrame = async (index: number): Promise<void> => {
+    const clamped = Math.max(0, Math.min(manifest.frames.length - 1, index));
+    const token = ++showToken;
+    const geometry = await loadFrame(clamped);
+    if (token !== showToken) return; // a newer request superseded this one
+    currentFrame = clamped;
+    setRigGeometry(rig, geometry);
+    slider.value = String(clamped);
+    const frame = manifest.frames[clamped]!;
+    label.textContent =
+      `tick ${frame.tick.toLocaleString()} / ${manifest.config.ticks.toLocaleString()}` +
+      ` · frame ${clamped + 1}/${manifest.frames.length}`;
+    // Prefetch neighbors for smooth scrubbing/playback.
+    for (const near of [clamped + 1, clamped + 2, clamped - 1]) {
+      if (near >= 0 && near < manifest.frames.length && !cache.has(near)) {
+        void loadFrame(near).catch(() => {});
+      }
+    }
+  };
+
+  let playing = false;
+  const fps = Math.max(1, Number(param("fps", "5")));
+  let lastAdvance = 0;
+  playButton.addEventListener("click", () => {
+    playing = !playing;
+    playButton.textContent = playing ? "pause" : "play";
+    if (playing && currentFrame >= manifest.frames.length - 1) void showFrame(0);
+  });
+  prevButton.addEventListener("click", () => void showFrame(currentFrame - 1));
+  nextButton.addEventListener("click", () => void showFrame(currentFrame + 1));
+  faceOnButton.addEventListener("click", () => controls.reset());
+  slider.addEventListener("input", () => void showFrame(Number(slider.value)));
+
+  await showFrame(Number(param("frame", "0")));
+
+  const animate = (now: number): void => {
+    requestAnimationFrame(animate);
+    if (playing && now - lastAdvance >= 1000 / fps) {
+      const next = currentFrame + 1;
+      if (next >= manifest.frames.length) {
+        playing = false;
+        playButton.textContent = "play";
+      } else if (cache.has(next)) {
+        lastAdvance = now;
+        void showFrame(next);
+      } else {
+        void loadFrame(next).catch(() => {});
+      }
+    }
+    controls.update();
+    rig.render();
+  };
+  requestAnimationFrame(animate);
+  (window as unknown as SpikeWindow).__spikeReady = true;
+}
+
+async function main(): Promise<void> {
+  const manifestUrl = query.get("manifest");
+  if (manifestUrl !== null && manifestUrl !== "") {
+    await timelineMain(manifestUrl);
+    return;
+  }
+  await singleMeshMain();
 }
 
 main().catch((err: unknown) => {
