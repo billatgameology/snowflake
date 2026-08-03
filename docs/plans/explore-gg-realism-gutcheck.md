@@ -687,8 +687,25 @@ branch discipline.
 | Bentley 785 (stellar, fern tips, dense sectored center) | Run B render | **Partial** (`photos/side-by-side-B-vs-bentley785.png`): arm structure rhymes (ridged arms, leaf plates, fern tips), but the photo's central sector medallion has no counterpart — it records a *changed-conditions* growth history (plate core, then branching), which constant-parameter G-G cannot produce. Matching such crystals properly needs the §XII schedule machinery (stage 2). A genuinely useful finding: many natural specimens are environment-history composites. |
 | Bentley 565 (irregular fernlike star) | Fig. 7 render | Composite built (`photos/side-by-side-fig7-vs-bentley565.png`); fern texture class matches, the photo's natural asymmetry has no counterpart in deterministic runs (noise runs are maker-retired). |
 
-Takahashi 1991 Fig. 1(h) (the crown-jewel target): open-PDF hunt in progress; J-Stage
-guess URL failed, agent searching for the working link.
+**Takahashi 1991 Fig. 1(h) — the paper's own named match, landed.** Open-access PDF
+verified and fetched (J-Stage, DOI `10.2151/jmsj1965.69.1_15`; "Vapor Diffusional Growth
+of Free-Falling Snow Crystals between −3 and −23°C", JMSJ 69(1), 1991;
+`photos/takahashi1991.pdf`, journal p. 17 = PDF p. 3). Composite
+`photos/side-by-side-B-vs-takahashi-fig1h.png`: our Run B (the G-G Fig. 4 reproduction)
+vs the laboratory crystal grown at ≈−13 °C that G-G explicitly invited comparison with.
+Eyeball verdict (Claude Fable 5): credible class match on the same terms G-G claimed —
+six ridged main arms with feathery sidebranch fill and a small hexagonal core; sizes in
+the same ballpark under the paper's ~1 µm/cell reading (ours ≈0.59 mm across vs the
+photo's ≈0.55 mm). The lab crystal's fern feathering is finer-grained than our serrated
+arms — consistent with the same-scale texture gaps recorded throughout this branch.
+
+**Side-discovery worth flagging for Phase 6:** Takahashi Fig. 1 is a *lettered,
+temperature-labeled photo ladder* of laboratory crystals (panels a–n spanning −2 to
+−24 °C: thick plate / plate / sector / broad branch / dendrite / column / bundle of
+sheaths) — effectively an experimental Nakaya diagram in open access with per-panel
+scale bars. That is exactly the photo corpus shape `LibbrechtKinetics` validation wants
+to compare against (LK predicts habit vs temperature); recorded here as a Phase 6 input
+pointer, nothing more claimed.
 
 ## Out of scope
 
