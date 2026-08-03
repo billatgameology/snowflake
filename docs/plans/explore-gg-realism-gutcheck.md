@@ -518,6 +518,15 @@ final); expected ~10.5–11 h, ~1.5–2 GB of frame meshes, logs
 `out/gutcheck-gg-realism/anim-B.{log,err,exit-status}`. The viewer works mid-run on the
 partial manifest.
 
+**Restarted 2026-08-03 evening at maker direction with `--every 100`** (the maker wants a
+smoother timeline; the 500-tick run was stopped ~1.5 h in and its partial frames
+discarded). Same command otherwise; 701 frames, estimated ~11.5–12.5 h (snapshot
+extraction becomes ~1–1.5 h of the total), ~8–10 GB of frame meshes (66 GB free on the
+volume at launch). Two viewer defects found by the maker mid-run and fixed first
+(`07f244b`): edge-pass z-fighting stipple at high zoom (polygon offset), and mid-run
+framing magnifying early frames (`?frameExtent=` pins framing to the expected final
+size; for this replay use `frameExtent=620`).
+
 **Registered proposal 2 — more figure-to-figure comparisons (NOT launched), in
 recommendation order:** (a) the tall-domain Fig. 14 rerun already costed above — still
 the single most informative next run; (b) `needle` and `hollowColumn` presets vs Figs.
