@@ -622,7 +622,19 @@ the interim option); **(c) blocked — two-stage environment schedules**: Figs. 
 44 also need mid-run parameter replacement (the Phase 4 G-G event machinery, via
 `GGEnvironmentTransitionReport`) — sweep stage 2. Lanes 1–3 launched: Fig. 3 (the
 paper's own labeled failure case — a deliberate control), Fig. 9 (ρ=0.05 sectored
-plate), Fig. 29 (needle, 128,128,768). Logs under `out/gutcheck-gg-realism/figs/`. Host note: the charter prefers the Windows box for long
+plate), Fig. 29 (needle, 128,128,768). Logs under `out/gutcheck-gg-realism/figs/`.
+
+#### Coverage table (grows as lanes harvest; all eyeball-only, Evidence = unvalidated)
+
+Artifacts per row under `out/gutcheck-gg-realism/figs/` (`figN-mesh.bin`,
+`figN-record.json`, `figN-render.png`, `side-by-side-figN.png`) unless noted. Verdicts
+are Claude Fable 5's eyeballed comparisons of the named composites.
+
+| Figure | Run config | Termination | Verdict |
+|---|---|---|---|
+| Fig. 3 (failure control) | 600,600,48; cap 30k | domain-contact @ 15829, attached 224625 | **Reproduced.** The deliberately "failed" morphology matches: overdense parallel sidebranch thickets on six arms, high midline ridges (theirs oblique, ours face-on). Strong fidelity control — the implementation reproduces the paper's ugly crystal, not just its pretty ones. |
+| Fig. 4 (prototype) | Run B, 1200,1200,48, 70000 ticks exact | tick-cap @ 70000, r=294 | **Reproduced** (recorded above; `side-by-side-B-vs-fig4.png`). |
+| Fig. 14 (classic dendrite) | Run A, 1200,1200,48 | domain-contact @ 57834, r=390 | **Not reproduced at nz=48** — slab starvation (probe-confirmed z-reservoir effect, recorded above). Tall-domain rerun is the costed open item. | Host note: the charter prefers the Windows box for long
 evidence runs; this is an eyeball run and the Mac overnight is acceptable, but the
 registered command reproduces on either host (habit-class reproduction across arm64/x64
 was verified at commit `945437f`; bitwise identity is not claimed cross-arch).
