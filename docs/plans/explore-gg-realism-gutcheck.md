@@ -668,6 +668,28 @@ no output is validation evidence. All photo-bearing composites stay in gitignore
 regardless of rights status. Sourcing workflow `wf_30f47d91-806` gathers targets (paper
 citations, local inventory, PD web sources); target table lands here when it reports.
 
+**Sources landed (2026-08-04).** The paper names five single-specimen photo matches
+(full citation table in the sourcing workflow record): Takahashi et al. 1991 Fig. 1(h) ↔
+G-G Fig. 4 (≈−13 °C crystal; the paper's only size-quantified match); Nakaya Fig. 135 ↔
+Fig. 29; Nakaya Fig. 137 ↔ Figs. 39–40; Nakaya Plate 116 middle ↔ Fig. 39; Libbrecht
+Field Guide p. 44 lower-right ↔ Fig. 43. The paper's stated acceptance criterion is
+verbatim: "visual comparison with snow-crystal photographs is the only method we use to
+decide whether a virtual snowflake is a 'failure' or a 'success.'" Rights-clean photo
+pool fetched to `out/gutcheck-gg-realism/photos/` (Wikimedia PD: Bentley plates 565/785/
+872/890; USDA LT-SEM dendrite) — PD status notwithstanding, media stay in `out/` per
+branch discipline.
+
+**First photo composites (eyeball verdicts, Claude Fable 5, 2026-08-04):**
+
+| Photo (real crystal) | Ours | Verdict |
+|---|---|---|
+| Bentley 890 (sectored plate, radiating ridge fans) | Fig. 9-v2 render | **Class match, strongest of the set** (`photos/side-by-side-fig9v2-vs-bentley890.png`): six broad plate lobes with radiating ridges, notched separations, central ring/medallion in both. Bentley's lobes are rounder fans; ours carry paired midline ridges. |
+| Bentley 785 (stellar, fern tips, dense sectored center) | Run B render | **Partial** (`photos/side-by-side-B-vs-bentley785.png`): arm structure rhymes (ridged arms, leaf plates, fern tips), but the photo's central sector medallion has no counterpart — it records a *changed-conditions* growth history (plate core, then branching), which constant-parameter G-G cannot produce. Matching such crystals properly needs the §XII schedule machinery (stage 2). A genuinely useful finding: many natural specimens are environment-history composites. |
+| Bentley 565 (irregular fernlike star) | Fig. 7 render | Composite built (`photos/side-by-side-fig7-vs-bentley565.png`); fern texture class matches, the photo's natural asymmetry has no counterpart in deterministic runs (noise runs are maker-retired). |
+
+Takahashi 1991 Fig. 1(h) (the crown-jewel target): open-PDF hunt in progress; J-Stage
+guess URL failed, agent searching for the working link.
+
 ## Out of scope
 
 - Any `LibbrechtKinetics` run — LK realism is Phase 6's question.
