@@ -389,6 +389,24 @@ absorbed here. Probe transfer limit (Rule 11 spirit): the probe runs at 384-plan
 conclusion informs the hypothesis, and any paper-scale re-run still measures its own
 morphology.
 
+**Probe outcome (recorded 2026-08-02 ~23:15, numbers copied from the two logs at write
+time): hypothesis supported.** Control (nz=48): far-field stop tick 14875, radius 116,
+attached 136239, AR 0.0386266, farField 0.0666186 — replicating the noisy 384 run's
+macro-trajectory (14900/117), so noise is morphologically neutral here. Tall (nz=144):
+**domain-contact** stop tick 13847, radius 125, attached 243617, AR 0.0996016, farField
+still 0.0911564. At matched radius (tall tick 12000 r=109 vs control tick 14000 r=111;
+`probe-z-compare-matched-radius.png`), the tall crystal shows longer, denser sidebranches
+and fuller arms — plus ~2.6× plate thickness and ~1.8× attached mass at similar radius,
+with tips ~17% faster. Eyeball-scale conclusion: **the thin zHalfExtent-23 slab materially
+starves G-G growth; vertical reservoir depth is a first-order morphology input at this
+scale.** Limits stated: 384-planar probe; nz=144 is still finite and the paper's z-extent
+remains unknown; the probe does not by itself show that a tall paper-scale run reproduces
+Fig. 14's density — that requires the run itself. Paper-scale tall-domain options (costs
+from measured 16 ns/cell·tick, 38 B/cell steady): `1200,1200,144` → radius ~390, ~2.5
+s/tick, ~36 h, ~8 GB steady with a ~14 GB checkpoint transient (fits the 24 GB Mac only
+with nothing else heavy); `960,960,144` → radius ~312, ~1.6 s/tick, ~20 h, ~5 GB steady;
+either runs comfortably on the 64 GB Windows host. Decision is the maker's; not launched.
+
 **Not in this follow-up:** any LK run, any solver/runner edit, any gate or metric claim,
 any charter/ADR/education change. Host note: the charter prefers the Windows box for long
 evidence runs; this is an eyeball run and the Mac overnight is acceptable, but the
