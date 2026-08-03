@@ -191,6 +191,12 @@ function makeEdgeMaterial(): THREE.ShaderMaterial | null {
   return new THREE.ShaderMaterial({
     transparent: true,
     depthWrite: false,
+    // The edge pass re-draws the crystal's own triangles through a different vertex
+    // shader; ulp-level depth differences z-fight into halftone stipple at high zoom.
+    // Pull the layer a hair toward the camera.
+    polygonOffset: true,
+    polygonOffsetFactor: -1,
+    polygonOffsetUnits: -1,
     uniforms: {
       edgeStrength: { value: edgeStrength },
       edgePow: { value: Number(param("edgePow", "1.3", "1.4")) },
@@ -391,6 +397,13 @@ async function timelineMain(manifestUrl: string): Promise<void> {
   if (manifest.frames.length === 0) throw new Error("manifest has no frames yet");
   const bb = manifest.finalBBox;
   const extent = new THREE.Vector3(bb.xMax - bb.xMin, bb.yMax - bb.yMin, bb.zMax - bb.zMin);
+  // Mid-run manifests only know the latest-so-far bbox; ?frameExtent=<world units>
+  // pins the framing to the expected final size so early frames aren't magnified.
+  const frameExtent = Number(param("frameExtent", "0"));
+  if (frameExtent > 0) {
+    extent.x = frameExtent;
+    extent.y = frameExtent;
+  }
   const offset: readonly [number, number, number] = [
     (bb.xMin + bb.xMax) / 2,
     (bb.yMin + bb.yMax) / 2,
