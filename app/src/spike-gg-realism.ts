@@ -1,24 +1,21 @@
 // Gut-check spike renderer (docs/plans/explore-gg-realism-gutcheck.md): loads a
-// gutcheck-mesh-v1 binary (scripts/gutcheck-extract-mesh.ts) and renders it with the
-// ADR 0029 Realistic-profile ice look: transparent refractive material over a designed
-// two-tone backdrop gradient, dark facet edges and bright ridge highlights from oblique
-// lighting, near-orthographic face-on camera, restrained post-processing (tone mapping
-// only). Deliberately separate from the app instrument; classic WebGL renderer because
-// MeshPhysicalMaterial transmission is the mature path there (plan: WebGL2 fallback is
-// acceptable on this Mac). Rule 7 note: per phase-3 A2-7 precedent, the four three.js
-// blending/canvas flags with the banned stem are never used here.
+// gutcheck-mesh-v1 binary (scripts/gutcheck-extract-mesh.ts) and renders it in one of two
+// target styles, both maker-directed 2026-08-03:
 //
-// URL params (all optional, for iteration without code edits):
-//   ?mesh=<url>       mesh location (default /gutcheck-mesh.bin, fulfilled by the capture
-//                     script's route handler)
-//   ?bgInner=<hex>&bgOuter=<hex>  backdrop radial gradient colors
-//   ?tilt=<deg>       camera garnish tilt off face-on (default 0)
-//   ?ior=<x>          index of refraction (default 1.31, ice)
-//   ?rough=<x>        material roughness (default 0.08)
-//   ?thick=<x>        transmission thickness in mesh units (default 6)
-//   ?zoom=<x>         framing multiplier (default 1; >1 zooms out)
-// Reports readiness on window.__spikeReady / failure on window.__spikeError for the
-// deterministic capture harness.
+//   ?style=ice     (default) the ADR 0029 Realistic look aimed at the J0521r2p footage:
+//                  transparent refractive ice over a warm→cool linear gradient, oblique
+//                  two-tone lighting, dark indigo/warm directional edge lines.
+//   ?style=povray  the G-G paper's Fig. 4 ray-trace look: pale translucent blue-white
+//                  crystal over a dark navy radial glow, bright edge lines.
+//
+// Deliberately separate from the app instrument; classic WebGL renderer because
+// MeshPhysicalMaterial transmission is the mature path there. Rule 7 note: per phase-3
+// A2-7 precedent, the four three.js blending/canvas flags with the banned stem are never
+// used here.
+//
+// Every look input is a URL param with a per-style default so iteration needs no code
+// edits. Shared: mesh, zscale, tilt, zoom, ior, spacing-independent framing. Reports
+// readiness on window.__spikeReady / failure on window.__spikeError.
 
 import * as THREE from "three";
 
@@ -53,29 +50,57 @@ function parseMesh(buffer: ArrayBuffer): GutcheckMesh {
   return { header, positions, normals, indices };
 }
 
-function makeBackdropTexture(top: string, bottom: string): THREE.CanvasTexture {
+const query = new URLSearchParams(window.location.search);
+const style = query.get("style") === "povray" ? "povray" : "ice";
+
+/** URL param with a per-style default. */
+function param(name: string, iceDefault: string, povDefault?: string): string {
+  const v = query.get(name);
+  if (v !== null && v !== "") return v;
+  return style === "povray" && povDefault !== undefined ? povDefault : iceDefault;
+}
+
+function makeBackdropTexture(): THREE.CanvasTexture {
   const size = 1024;
   const canvas = document.createElement("canvas");
   canvas.width = size;
   canvas.height = size;
   const ctx = canvas.getContext("2d");
   if (ctx === null) throw new Error("2d context unavailable");
-  // The J0521r2p footage backdrop is a smooth two-tone near-vertical gradient: warm pale
-  // amber above, cool pale blue-lavender below (oblique-illumination microscopy).
-  const grad = ctx.createLinearGradient(size * 0.12, 0, 0, size);
-  grad.addColorStop(0, top);
-  grad.addColorStop(1, bottom);
-  ctx.fillStyle = grad;
-  ctx.fillRect(0, 0, size, size);
+  if (style === "povray") {
+    // Fig. 4 ray-trace backdrop: dark navy with a soft blue glow behind the crystal.
+    const inner = "#" + param("bgInner", "", "3f6cb4");
+    const outer = "#" + param("bgOuter", "", "060b1c");
+    const grad = ctx.createRadialGradient(
+      size * 0.5,
+      size * 0.48,
+      size * 0.04,
+      size * 0.5,
+      size * 0.5,
+      size * 0.75,
+    );
+    grad.addColorStop(0, inner);
+    grad.addColorStop(1, outer);
+    ctx.fillStyle = grad;
+    ctx.fillRect(0, 0, size, size);
+  } else {
+    // Footage backdrop: smooth near-vertical warm amber → cool blue-lavender gradient.
+    const top = "#" + param("bgTop", "e6b95c");
+    const bottom = "#" + param("bgBottom", "9aa5e0");
+    const grad = ctx.createLinearGradient(size * 0.12, 0, 0, size);
+    grad.addColorStop(0, top);
+    grad.addColorStop(1, bottom);
+    ctx.fillStyle = grad;
+    ctx.fillRect(0, 0, size, size);
+  }
   const tex = new THREE.CanvasTexture(canvas);
   tex.colorSpace = THREE.SRGBColorSpace;
   return tex;
 }
 
-// Oblique-illumination environment: light arrives only from a warm patch up-left and a
-// faint cool patch down-right; the horizon is dark. Face-on facets then reflect mid tones
-// while steep facet walls reflect the dark horizon — the footage's dark edge lines —
-// and ridges catch the warm patch as bright glints.
+// Oblique-illumination environment (ice style): light from a warm patch up-left and a
+// faint cool patch down-right, dark horizon, so steep facet walls reflect darkness.
+// The povray style instead uses a dim blue-white environment for pale body specular.
 function makeEnvironmentScene(): THREE.Scene {
   const size = 512;
   const canvas = document.createElement("canvas");
@@ -84,25 +109,33 @@ function makeEnvironmentScene(): THREE.Scene {
   const ctx = canvas.getContext("2d");
   if (ctx === null) throw new Error("2d context unavailable");
   const vertical = ctx.createLinearGradient(0, 0, 0, size);
-  vertical.addColorStop(0, "#fdf3da");
-  vertical.addColorStop(0.32, "#b9b3a4");
-  vertical.addColorStop(0.52, "#14141c");
-  vertical.addColorStop(0.72, "#232a40");
-  vertical.addColorStop(1, "#39456b");
+  if (style === "povray") {
+    vertical.addColorStop(0, "#9db8dc");
+    vertical.addColorStop(0.5, "#22304c");
+    vertical.addColorStop(1, "#101a30");
+  } else {
+    vertical.addColorStop(0, "#fdf3da");
+    vertical.addColorStop(0.32, "#b9b3a4");
+    vertical.addColorStop(0.52, "#14141c");
+    vertical.addColorStop(0.72, "#232a40");
+    vertical.addColorStop(1, "#39456b");
+  }
   ctx.fillStyle = vertical;
   ctx.fillRect(0, 0, size, size);
-  const warm = ctx.createRadialGradient(
-    size * 0.3,
-    size * 0.16,
-    size * 0.02,
-    size * 0.3,
-    size * 0.16,
-    size * 0.3,
-  );
-  warm.addColorStop(0, "rgba(255, 236, 190, 0.95)");
-  warm.addColorStop(1, "rgba(255, 236, 190, 0)");
-  ctx.fillStyle = warm;
-  ctx.fillRect(0, 0, size, size);
+  if (style === "ice") {
+    const warm = ctx.createRadialGradient(
+      size * 0.3,
+      size * 0.16,
+      size * 0.02,
+      size * 0.3,
+      size * 0.16,
+      size * 0.3,
+    );
+    warm.addColorStop(0, "rgba(255, 236, 190, 0.95)");
+    warm.addColorStop(1, "rgba(255, 236, 190, 0)");
+    ctx.fillStyle = warm;
+    ctx.fillRect(0, 0, size, size);
+  }
   const tex = new THREE.CanvasTexture(canvas);
   tex.colorSpace = THREE.SRGBColorSpace;
   tex.mapping = THREE.EquirectangularReflectionMapping;
@@ -115,11 +148,6 @@ function makeEnvironmentScene(): THREE.Scene {
   return envScene;
 }
 
-function param(name: string, fallback: string): string {
-  const v = new URLSearchParams(window.location.search).get(name);
-  return v === null || v === "" ? fallback : v;
-}
-
 async function main(): Promise<void> {
   const meshUrl = param("mesh", "/gutcheck-mesh.bin");
   const response = await fetch(meshUrl);
@@ -130,10 +158,10 @@ async function main(): Promise<void> {
   geometry.setAttribute("position", new THREE.BufferAttribute(mesh.positions, 3));
   geometry.setAttribute("normal", new THREE.BufferAttribute(mesh.normals, 3));
   geometry.setIndex(new THREE.BufferAttribute(mesh.indices, 1));
-  // Optional z-relief exaggeration (?zscale=): the G-G plate is far thinner than the
-  // footage crystal's sector-plate relief, so face-on shading nearly vanishes at 1:1.
-  // A stated stylization knob, not a claim about the model.
-  const zscale = Number(param("zscale", "1"));
+  // Optional z-relief exaggeration: the G-G plate is thinner than the footage crystal's
+  // sector-plate relief, so face-on shading nearly vanishes at 1:1. A stated stylization
+  // knob, not a claim about the model.
+  const zscale = Number(param("zscale", "2.5"));
   if (zscale !== 1) {
     geometry.scale(1, 1, zscale);
     geometry.computeVertexNormals();
@@ -151,61 +179,62 @@ async function main(): Promise<void> {
   renderer.setPixelRatio(1);
   renderer.setSize(window.innerWidth, window.innerHeight);
   renderer.toneMapping = THREE.ACESFilmicToneMapping;
-  renderer.toneMappingExposure = 1.0;
+  renderer.toneMappingExposure = Number(param("exposure", "1.0", "1.15"));
   document.body.appendChild(renderer.domElement);
 
   const scene = new THREE.Scene();
 
   // Near-orthographic face-on framing (plate normal is +z); computed first so the
-  // backdrop plane can be sized to exactly fill the frustum with the full gradient.
+  // backdrop plane can be sized to exactly fill the frustum.
   const zoom = Number(param("zoom", "1"));
   const span = (Math.max(extent.x, extent.y) / 2) * 1.12 * zoom;
   const aspect = window.innerWidth / window.innerHeight;
 
-  // Backdrop: designed two-tone gradient on a frustum-filling plane behind the crystal so
-  // the refractive material picks it up through transmission.
-  const bgTop = "#" + param("bgTop", "f2e2bd");
-  const bgBottom = "#" + param("bgBottom", "bfc6e4");
   const backdropZ = -Math.max(extent.x, extent.y) * 0.75;
   const backdrop = new THREE.Mesh(
     new THREE.PlaneGeometry(span * aspect * 2.1, span * 2.1),
-    new THREE.MeshBasicMaterial({ map: makeBackdropTexture(bgTop, bgBottom) }),
+    new THREE.MeshBasicMaterial({ map: makeBackdropTexture() }),
   );
   backdrop.position.z = backdropZ;
   scene.add(backdrop);
 
-  // Ice material per ADR 0029: transparent refractive, no white volume.
+  // Crystal material. ice: transparent refractive per ADR 0029. povray: pale translucent
+  // blue-white per Fig. 4 (partial transmission so the backdrop glow reads through).
   const ice = new THREE.MeshPhysicalMaterial({
-    transmission: 1.0,
+    transmission: Number(param("tr", "1.0", "0.6")),
     ior: Number(param("ior", "1.31")),
-    thickness: Number(param("thick", "5")),
-    roughness: Number(param("rough", "0.02")),
+    thickness: Number(param("thick", "14", "6")),
+    roughness: Number(param("rough", "0.05", "0.12")),
     metalness: 0,
-    color: 0xffffff,
+    color: new THREE.Color("#" + param("body", "ffffff", "cfe2f8")),
     attenuationColor: new THREE.Color(0xdff2fb),
     attenuationDistance: extent.x * 2,
-    specularIntensity: Number(param("spec", "0.7")),
+    specularIntensity: Number(param("spec", "0.9", "1.2")),
     clearcoat: Number(param("cc", "0")),
     clearcoatRoughness: 0.2,
     side: param("side", "front") === "double" ? THREE.DoubleSide : THREE.FrontSide,
   });
+  const dispersion = Number(param("dispersion", "0"));
+  if (dispersion > 0) ice.dispersion = dispersion;
   const crystal = new THREE.Mesh(geometry, ice);
   scene.add(crystal);
 
-  // Dark facet-edge lines. In the footage they are rays refracted outside the microscope
-  // condenser's collection cone; screen-space transmission cannot express that, so the
-  // spike approximates it by darkening where the surface tilts away from the face-on view
-  // direction. Identifier note (Rule 7 / A2-7): the shader sticks to edge* names.
-  const edgeStrength = Number(param("edge", "0.55"));
+  // Edge pass. ice: dark indigo lines with a warm key-facing flank (the microscopy
+  // look's out-of-cone darkening — screen-space transmission cannot express it, so the
+  // spike darkens where the surface tilts off face-on). povray: the same geometry cue
+  // drawn as bright blue-white line work, matching the paper's LINE-emphasized figures.
+  const edgeStrength = Number(param("edge", "1.9", "1.0"));
   if (edgeStrength > 0) {
     const edgeMaterial = new THREE.ShaderMaterial({
       transparent: true,
       depthWrite: false,
       uniforms: {
         edgeStrength: { value: edgeStrength },
-        edgePow: { value: Number(param("edgePow", "1.7")) },
-        edgeCool: { value: new THREE.Color("#141a36") },
-        edgeWarm: { value: new THREE.Color("#ffd98f") },
+        edgePow: { value: Number(param("edgePow", "1.3", "1.4")) },
+        edgeLo: { value: Number(param("edgeLo", "0.14", "0.12")) },
+        edgeHi: { value: Number(param("edgeHi", "0.95", "0.85")) },
+        edgeCool: { value: new THREE.Color("#" + param("edgeCool", "141a36", "dcecff")) },
+        edgeWarm: { value: new THREE.Color("#" + param("edgeWarm", "ffd98f", "ffffff")) },
       },
       vertexShader: /* glsl */ `
         varying vec3 vViewNormal;
@@ -217,19 +246,19 @@ async function main(): Promise<void> {
       fragmentShader: /* glsl */ `
         uniform float edgeStrength;
         uniform float edgePow;
+        uniform float edgeLo;
+        uniform float edgeHi;
         uniform vec3 edgeCool;
         uniform vec3 edgeWarm;
         varying vec3 vViewNormal;
         void main() {
           vec3 n = normalize(vViewNormal);
           float tilt = 1.0 - abs(n.z);
-          float edgeAmount = pow(smoothstep(0.14, 0.95, tilt), edgePow) * edgeStrength;
-          // Oblique illumination: relief facing the up-left key goes warm, the opposite
-          // flank goes dark indigo.
+          float edgeAmount = pow(smoothstep(edgeLo, edgeHi, tilt), edgePow) * edgeStrength;
           vec2 keyDir = normalize(vec2(-0.6, 0.75));
           float facing = clamp(dot(normalize(n.xy + vec2(1e-5)), keyDir) * 0.5 + 0.5, 0.0, 1.0);
           vec3 edgeTint = mix(edgeCool, edgeWarm, pow(facing, 1.5));
-          gl_FragColor = vec4(edgeTint, edgeAmount);
+          gl_FragColor = vec4(edgeTint, clamp(edgeAmount, 0.0, 1.0));
         }
       `,
     });
@@ -238,15 +267,19 @@ async function main(): Promise<void> {
     scene.add(edgeMesh);
   }
 
-  // Oblique two-tone lighting (the footage look): warm key from upper left, cool fill
-  // from lower right, plus a dim environment for broad body specular.
   const pmrem = new THREE.PMREMGenerator(renderer);
   scene.environment = pmrem.fromScene(makeEnvironmentScene(), 0.04).texture;
-  scene.environmentIntensity = Number(param("env", "1.0"));
-  const key = new THREE.DirectionalLight(0xffe3b0, Number(param("keyI", "2.6")));
+  scene.environmentIntensity = Number(param("env", "1.0", "0.6"));
+  const key = new THREE.DirectionalLight(
+    new THREE.Color("#" + param("keyHex", "ffe3b0", "eaf2ff")),
+    Number(param("keyI", "3.2", "2.0")),
+  );
   key.position.set(-1.4, 1.7, 0.45).multiplyScalar(extent.x);
   scene.add(key);
-  const fill = new THREE.DirectionalLight(0x93a8e0, Number(param("fillI", "1.1")));
+  const fill = new THREE.DirectionalLight(
+    new THREE.Color("#" + param("fillHex", "93a8e0", "6f8fd0")),
+    Number(param("fillI", "1.3", "1.0")),
+  );
   fill.position.set(1.1, -1.3, 0.6).multiplyScalar(extent.x);
   scene.add(fill);
 

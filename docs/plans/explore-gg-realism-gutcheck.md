@@ -513,6 +513,40 @@ and the §VII prototype ρ variations (Figs. 6–12); (d) sectored plates and th
 (Figs. 21–25) after transcribing their parameter vectors from §IX/X. Parallel batches of
 ~3 fit the Mac comfortably; awaiting maker selection.
 
+### Style-matching session (2026-08-03, maker-directed): two locked render recipes
+
+The maker asked to iterate the rendering toward (1) the J0521r2p footage frame and (2)
+G-G Fig. 4's ray-trace. `app/src/spike-gg-realism.ts` was restructured around a `?style=`
+switch (`ice` default / `povray`) with per-style URL-param defaults, so both recipes are
+data, not code. All renders below use Run B's checkpoint.
+
+**Locked recipe 1 — `style=ice` (footage target), hero `style-ice-v4.png` sha256
+`d6b0b4be7e81664d6086f7706b01888b26e0e4c7995e90cd891c5b2196eec59e`:** mesh σ 0.45
+spacing 0.6 (`plate-1200-mesh-s045-h06.bin` sha256
+`fdc32015d3e44c1d6aefad50fc14b33108fd875fbab1c0f732ae5e48900e6c67`), params
+`style=ice&edge=2.2&edgeLo=0.06&edgePow=1.0&edgeCool=100c2e&keyI=3.6&fillI=2.2&fillHex=7d90e8&dispersion=0.18&bgTop=e2ae4e&bgBottom=8f9be0&exposure=1.0&zscale=3.5`.
+Iteration findings recorded: bold-wide edge response (edgeLo 0.06, edgePow 1.0) supplies
+the footage's thick contour lines; the σ 0.30 mesh makes those lines gritty
+(lattice-texture speckle) while σ 0.45 makes them liquid — **at this crystal scale
+(features 10–30 cells) the smoothing/crispness trade-off inverts relative to the small
+384 crystal**, so mesh σ is a per-scale choice, not a constant. Composite:
+`side-by-side-styleice-vs-footage.png` sha256
+`8724986aceee11cd642a16da588ea59814b24d9f9004f04f5f6045ad54dbc609`. Remaining gap is
+model truth, not shading: the footage plate's interior relief density and fill.
+
+**Locked recipe 2 — `style=povray` (Fig. 4 target), hero `style-pov-v2.png` sha256
+`11c2a64bdac53392e622f6d3760f48cb806c50f6d9b650be84bc90fa12fedc95`:** mesh σ 0.375
+spacing 0.6, params
+`style=povray&tr=0.72&body=dceafc&edge=1.35&edgeLo=0.08&edgeCool=ecf4ff&spec=1.5&keyI=2.7&exposure=1.28&bgInner=5b8fd8&bgOuter=04060f`.
+Design: dark navy radial glow backdrop, partial transmission (0.72) so the glow floods
+the plate, bright blue-white edge pass (the paper's own figures draw edges with MATLAB's
+LINE routine, so bright line work is style-faithful). Composite:
+`side-by-side-stylepov-vs-fig4.png` sha256
+`27e774a45dd3720dfda4d3e671c5a485078e8115d8b45ddec51dab84a6bc886b`. Remaining visible
+differences: Fig. 4's hot specular blooms (would need a bloom post-pass — deliberately
+skipped under "restrained post-processing") and the known radius 294-vs-350 tip
+shortfall.
+
 **Not in this follow-up:** any LK run, any solver/runner edit, any gate or metric claim,
 any charter/ADR/education change. Host note: the charter prefers the Windows box for long
 evidence runs; this is an eyeball run and the Mac overnight is acceptable, but the
