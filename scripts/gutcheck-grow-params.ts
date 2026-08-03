@@ -82,6 +82,7 @@ interface Cli {
   noise: number;
   outMesh: string;
   outState: string;
+  seedThickness: number;
   record: string;
   spacing: number;
   sigma: number;
@@ -99,6 +100,7 @@ function parseCli(argv: string[]): Cli {
     noise: 0,
     outMesh: "",
     outState: "",
+    seedThickness: 1,
     record: "",
     spacing: 0.6,
     sigma: 0.45,
@@ -145,6 +147,9 @@ function parseCli(argv: string[]): Cli {
       case "--out-state":
         cli.outState = next();
         break;
+      case "--seed-thickness":
+        cli.seedThickness = Number(next());
+        break;
       case "--record":
         cli.record = next();
         break;
@@ -187,6 +192,7 @@ function main(): void {
     rngSeed: cli.seed,
     noiseEpsilon: cli.noise,
     domain: cli.domain,
+    seedThickness: cli.seedThickness,
   });
   console.log(
     `grow-params label="${spec.label}" rho=${spec.rho} phi=${spec.phi} ` +
