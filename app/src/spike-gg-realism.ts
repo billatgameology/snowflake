@@ -18,6 +18,7 @@
 // readiness on window.__spikeReady / failure on window.__spikeError.
 
 import * as THREE from "three";
+import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 
 interface SpikeWindow {
   __spikeReady?: boolean;
@@ -190,13 +191,20 @@ async function main(): Promise<void> {
   const span = (Math.max(extent.x, extent.y) / 2) * 1.12 * zoom;
   const aspect = window.innerWidth / window.innerHeight;
 
-  const backdropZ = -Math.max(extent.x, extent.y) * 0.75;
-  const backdrop = new THREE.Mesh(
-    new THREE.PlaneGeometry(span * aspect * 2.1, span * 2.1),
-    new THREE.MeshBasicMaterial({ map: makeBackdropTexture() }),
-  );
-  backdrop.position.z = backdropZ;
-  scene.add(backdrop);
+  // Static captures keep the frustum-filling plane (the locked recipes were tuned on
+  // it); the interactive orbit viewer uses a screen-fixed scene background instead, so
+  // the gradient stays behind the crystal from every angle.
+  const interactive = param("interactive", "0") === "1";
+  if (interactive) {
+    scene.background = makeBackdropTexture();
+  } else {
+    const backdrop = new THREE.Mesh(
+      new THREE.PlaneGeometry(span * aspect * 2.1, span * 2.1),
+      new THREE.MeshBasicMaterial({ map: makeBackdropTexture() }),
+    );
+    backdrop.position.z = -Math.max(extent.x, extent.y) * 0.75;
+    scene.add(backdrop);
+  }
 
   // Crystal material. ice: transparent refractive per ADR 0029. povray: pale translucent
   // blue-white per Fig. 4 (partial transmission so the backdrop glow reads through).
@@ -297,7 +305,22 @@ async function main(): Promise<void> {
   camera.lookAt(0, 0, 0);
   scene.add(camera);
 
-  renderer.render(scene, camera);
+  // ?interactive=1: orbitable viewer for the maker (drag to rotate, wheel to zoom,
+  // right-drag to pan). The default stays a single deterministic frame so the capture
+  // harness is unaffected. The backdrop is a fixed plane behind the crystal, so extreme
+  // orbits fly past it by design — the look is engineered face-on.
+  if (interactive) {
+    const controls = new OrbitControls(camera, renderer.domElement);
+    controls.enableDamping = true;
+    const animate = (): void => {
+      requestAnimationFrame(animate);
+      controls.update();
+      renderer.render(scene, camera);
+    };
+    animate();
+  } else {
+    renderer.render(scene, camera);
+  }
   (window as unknown as SpikeWindow).__spikeReady = true;
 }
 
