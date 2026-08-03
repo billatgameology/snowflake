@@ -18,6 +18,7 @@
 import { readFileSync, writeFileSync, mkdirSync } from "node:fs";
 import { dirname } from "node:path";
 import {
+  encodeCheckpoint,
   paramVector,
   validateParams,
   type Dims,
@@ -80,6 +81,7 @@ interface Cli {
   seed: number;
   noise: number;
   outMesh: string;
+  outState: string;
   record: string;
   spacing: number;
   sigma: number;
@@ -96,6 +98,7 @@ function parseCli(argv: string[]): Cli {
     seed: 1,
     noise: 0,
     outMesh: "",
+    outState: "",
     record: "",
     spacing: 0.6,
     sigma: 0.45,
@@ -138,6 +141,9 @@ function parseCli(argv: string[]): Cli {
         break;
       case "--out-mesh":
         cli.outMesh = next();
+        break;
+      case "--out-state":
+        cli.outState = next();
         break;
       case "--record":
         cli.record = next();
@@ -213,6 +219,13 @@ function main(): void {
   console.log(`stop reason=${stopReason} tick=${tick} attached=${solver.attachedCount}`);
 
   const state = solver.state();
+  if (cli.outState !== "") {
+    // Full GG checkpoint (public codec) so partial verdicts can re-extract or resume
+    // analysis without regrowing. Metrics block omitted (observational tooling).
+    mkdirSync(dirname(cli.outState), { recursive: true });
+    writeFileSync(cli.outState, encodeCheckpoint(state, null));
+    console.log(`wrote state checkpoint ${cli.outState}`);
+  }
   const mesh = extractMesh(state, {
     spacing: cli.spacing,
     sigma: cli.sigma,
