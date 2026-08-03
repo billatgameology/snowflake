@@ -571,8 +571,44 @@ differences: Fig. 4's hot specular blooms (would need a bloom post-pass — deli
 skipped under "restrained post-processing") and the known radius 294-vs-350 tip
 shortfall.
 
-**Not in this follow-up:** any LK run, any solver/runner edit, any gate or metric claim,
-any charter/ADR/education change. Host note: the charter prefers the Windows box for long
+### Phase 7 usability inputs (recorded 2026-08-03 at maker request; measured on this branch)
+
+ADR 0029 already commits the Realistic profile to "curated pre-baked histories"; this
+exploration measured what that costs and prototyped the consumption model. Numbers, all
+from artifacts on this branch: growing the paper-scale plate is ~10.5 h on one M4 core
+(50.7M active cells, single-threaded float64 oracle, ~2.6 GB); even the small 384
+dendrite is ~21 min — visitors cannot compute, they must consume. The compute-once /
+replay-forever split works end-to-end: offline `gutcheck-animate-grow.ts` → frame meshes
++ manifest; online the timeline viewer streams frames on demand (visitor downloads only
+manifest + frames actually viewed; LRU cache + prefetch). Raw history weight measured:
+every-100 ≈ 8–10 GB, largest frame ~35 MB at spacing 0.8 — too heavy to ship raw; the
+reduction ladder for Phase 7, in leverage order: (1) 16-bit position quantization +
+octahedral normals + brotli ≈ 6–10×; (2) adaptive frame cadence (dense only at
+morphological events) ≈ 2×; (3) two-tier LOD (coarse scrub mesh, fine at rest) for
+perceived latency; (4) hybrid hero: few-MB fixed-camera video default, streaming 3D
+viewer opt-in. Small-domain live growth (~30 s at 128 scale in a Web Worker) remains the
+Scientific instrument's lane; pre-baked is for big-and-beautiful — and the z-reservoir
+finding (taller domains needed) makes big crystals *more* expensive than assumed,
+strengthening the pre-baked case. Everything here is unvalidated exploration; a real
+Phase 7 plan and a versioned frame format gate any external shipping.
+
+### WP: reproduce-all-paper-figures sweep (registered 2026-08-03, maker-directed)
+
+Maker direction: catalog every virtual snowflake in the G-G paper, then attempt to
+reproduce each and produce a 2D side-by-side (our locked bold-ice render vs the paper
+figure) like the Run-B-vs-Fig. 4 comparison; failures are expected and are themselves the
+finding. Plan: (1) two-pass transcription catalog (parallel transcribers + independent
+verifiers per paper section) into `scripts/gutcheck-gg-figure-catalog.json` — every
+parameter vector with its quoted source sentence; (2) new spike script
+`scripts/gutcheck-grow-params.ts` driving `GGSolver` with arbitrary validated `GGParams`
+(the presets cover only 4 of the paper's vectors), far-field/contact/tick-cap stop rules
+replicated from the public API, final mesh + run-record JSON out; (3) reproduction lanes
+~3 abreast on free cores (the every-100 replay keeps its core), quick figures first,
+radius-350+ figures overnight; (4) per-figure side-by-side + eyeball verdict appended to
+a coverage table here. Known-in-advance caveats: Fig. 4 (reproduced, Run B) and Fig. 14
+(starved in the thin slab, Run A + probe) are already measured and not re-run at nz=48;
+fast-growing dendrite-series figures inherit the z-starvation caveat; sandwich/double
+figures need taller nz by construction; column/needle figures need tall-z domains. Host note: the charter prefers the Windows box for long
 evidence runs; this is an eyeball run and the Mac overnight is acceptable, but the
 registered command reproduces on either host (habit-class reproduction across arm64/x64
 was verified at commit `945437f`; bitwise identity is not claimed cross-arch).
