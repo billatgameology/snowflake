@@ -341,6 +341,54 @@ spike if implicated).
 3. B primary — G-G Fig. 4 (p. 3, the §VII prototype): same parameters, same 70,000-step
    count, our render vs their published figure. Same copyright handling as Fig. 14.
 
+### Run A outcome and the Fig. 14 discrepancy (recorded 2026-08-02 evening)
+
+A ended `stop reason=domain-contact` at tick 57834, radius 390, attached 1046549,
+`symErr=0` at every cadence, `deltaCheckCleanAllTicks=true`, massDrift 2.389e-12,
+checkpoint `dendrite-1200x1200x48-noise0.ckpt` (1175040817 bytes, roundTripIdentical=true,
+sha256 `8d2079790c3132bec0966fbe7bc7e454f8831191a072dbace56e014c9d751554`), exit 0, final
+state guard-flagged NOT valid evidence as expected. ~8.6 h wall clock (0.53 s/tick).
+
+**Discrepancy.** The crystal (occupancy dumps `pgm-1200/occupancy-*.pgm`; crisp mesh
+`dendrite-1200-mesh-s030-h06.bin`) is six slender arms with short sparse sidebranches —
+sparse from at least radius ~213 (tick 30000) onward, not just late. Verified against the
+paper before theorizing: §VIII "Case study 2: classic dendrites" states exactly our preset
+vector (β01=1.6, β10=β20=1.5, β11=1.4, β30=β21=β31=1, κ≡0.1, all μ≡0.008, φ=0; ρ=0.1 for
+Fig. 14), the series crystals are "our largest crystals, with radii around 400" (ours:
+390), their stop rules are ours (edge density below "typically 2ρ/3 or ρ/2", or radius
+> 80% of system radius; §III), and their case-study dynamics are deterministic (§III C).
+Parameters, scale, stop rules, determinism all match — yet eyeballed against the page-9
+figure images (extracted via pdfimages, kept out of the repo), our ρ=0.1 crystal
+resembles their ρ≈0.09 "simple star" more than their ρ=0.1 classic dendrite. One
+systematic difference found in §III: their domain is a hexagonal prism with **periodic**
+boundary conditions and an **unstated z-extent**; ours is a reflecting-wall slab with
+zHalfExtent 23 — a value this spike inherited from the original dims suggestion and never
+examined. Both conditions conserve vapor, so the live hypothesis is not the wall rule but
+the **vertical reservoir**: a thin slab supplies far less vapor per unit plate area, which
+acts like a lower effective ρ, which per §VIII's own ρ ladder produces exactly the
+sidebranch loss we see.
+
+**Registered differential probe (launched on registration):** two deterministic 384-planar
+runs differing only in nz —
+
+```
+node runner/src/main.ts grow --preset dendrite --dims 384,384,48  --domain hexPrism --ticks 30000 --noise 0 \
+  --metrics-every 1000 --full-metrics-every 2000 --pgm-every 2000 \
+  --pgm-dir out/gutcheck-gg-realism/pgm-384-z48-n0  --out out/gutcheck-gg-realism/dendrite-384x384x48-noise0.ckpt
+node runner/src/main.ts grow --preset dendrite --dims 384,384,144 --domain hexPrism --ticks 30000 --noise 0 \
+  --metrics-every 1000 --full-metrics-every 2000 --pgm-every 2000 \
+  --pgm-dir out/gutcheck-gg-realism/pgm-384-z144-n0 --out out/gutcheck-gg-realism/dendrite-384x384x144-noise0.ckpt
+```
+
+Prediction, written before results: if the hypothesis is right, the nz=144 run shows
+visibly fatter arms and denser sidebranching than the nz=48 control at matched radius
+(compare occupancy dumps at equal radius, not equal tick). If they are indistinguishable,
+z-extent is exonerated and the next suspects are the periodic-vs-wall difference and only
+then an implementation seam — the last would outrank this spike and get escalated, not
+absorbed here. Probe transfer limit (Rule 11 spirit): the probe runs at 384-planar, so its
+conclusion informs the hypothesis, and any paper-scale re-run still measures its own
+morphology.
+
 **Not in this follow-up:** any LK run, any solver/runner edit, any gate or metric claim,
 any charter/ADR/education change. Host note: the charter prefers the Windows box for long
 evidence runs; this is an eyeball run and the Mac overnight is acceptable, but the
