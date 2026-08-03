@@ -177,7 +177,11 @@ async function main(): Promise<void> {
   bbox.getSize(extent);
 
   const renderer = new THREE.WebGLRenderer({ antialias: true });
-  renderer.setPixelRatio(1);
+  // Deterministic captures stay at 1:1 pixels; the interactive viewer supersamples at
+  // the device ratio to calm shading shimmer while orbiting.
+  renderer.setPixelRatio(
+    query.get("interactive") === "1" ? Math.min(window.devicePixelRatio, 2) : 1,
+  );
   renderer.setSize(window.innerWidth, window.innerHeight);
   renderer.toneMapping = THREE.ACESFilmicToneMapping;
   renderer.toneMappingExposure = Number(param("exposure", "1.0", "1.15"));
@@ -262,7 +266,11 @@ async function main(): Promise<void> {
         void main() {
           vec3 n = normalize(vViewNormal);
           float tilt = 1.0 - abs(n.z);
-          float edgeAmount = pow(smoothstep(edgeLo, edgeHi, tilt), edgePow) * edgeStrength;
+          // Screen-space antialiasing: widen the response by the per-pixel tilt
+          // derivative so lattice-scale normal bumps fade instead of popping.
+          float fw = fwidth(tilt);
+          float edgeAmount =
+            pow(smoothstep(edgeLo - fw, edgeHi + fw, tilt), edgePow) * edgeStrength;
           vec2 keyDir = normalize(vec2(-0.6, 0.75));
           float facing = clamp(dot(normalize(n.xy + vec2(1e-5)), keyDir) * 0.5 + 0.5, 0.0, 1.0);
           vec3 edgeTint = mix(edgeCool, edgeWarm, pow(facing, 1.5));

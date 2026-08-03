@@ -26,6 +26,7 @@ interface Cli {
   sigma: number;
   iso: number;
   margin: number;
+  normalDelta: number;
   objPath: string | null;
 }
 
@@ -38,6 +39,7 @@ function parseCli(argv: string[]): Cli {
     sigma: 0.6,
     iso: 0.5,
     margin: 4,
+    normalDelta: 1,
     objPath: null,
   };
   for (let i = 0; i < argv.length; i++) {
@@ -60,6 +62,9 @@ function parseCli(argv: string[]): Cli {
       case "--margin":
         cli.margin = Number(next());
         break;
+      case "--normal-delta":
+        cli.normalDelta = Number(next());
+        break;
       case "--obj":
         cli.objPath = next();
         break;
@@ -77,6 +82,7 @@ function parseCli(argv: string[]): Cli {
     ["--sigma", cli.sigma],
     ["--iso", cli.iso],
     ["--margin", cli.margin],
+    ["--normal-delta", cli.normalDelta],
   ] as const) {
     if (!Number.isFinite(v) || v <= 0) throw new Error(`${name} wants a positive number`);
   }
@@ -431,14 +437,18 @@ function main(): void {
     }
     return acc;
   };
+  // Normal smoothness is a separate knob from surface smoothness: a wider gradient
+  // stencil (--normal-delta > 1) calms lattice-scale shading shimmer without moving a
+  // single vertex.
+  const nd = h * cli.normalDelta;
   const normals = new Float32Array(vertexCount * 3);
   for (let vi = 0; vi < vertexCount; vi++) {
     const x = positions[vi * 3]!;
     const y = positions[vi * 3 + 1]!;
     const z = positions[vi * 3 + 2]!;
-    let nxg = sample(x - h, y, z) - sample(x + h, y, z);
-    let nyg = sample(x, y - h, z) - sample(x, y + h, z);
-    let nzg = sample(x, y, z - h) - sample(x, y, z + h);
+    let nxg = sample(x - nd, y, z) - sample(x + nd, y, z);
+    let nyg = sample(x, y - nd, z) - sample(x, y + nd, z);
+    let nzg = sample(x, y, z - nd) - sample(x, y, z + nd);
     const len = Math.hypot(nxg, nyg, nzg);
     if (len > 1e-12) {
       nxg /= len;
@@ -474,6 +484,7 @@ function main(): void {
       sigma,
       iso,
       margin: m,
+      normalDelta: cli.normalDelta,
       levelSet:
         "attached=1; unattached boundary graded by b/ggThreshBeta[2*min(nT,3)+min(nZ,1)]",
     },
