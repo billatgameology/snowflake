@@ -165,6 +165,12 @@ function makeEnvironmentScene(): THREE.Scene {
   return envScene;
 }
 
+// ?clip=1 cuts the crystal at the mid-plane (the paper's own Fig. 22 device: "cutting
+// the crystal along the plane z=0") so interior sandwich structure becomes visible.
+function clipPlanes(): THREE.Plane[] | null {
+  return param("clip", "0") === "1" ? [new THREE.Plane(new THREE.Vector3(0, 0, -1), 0)] : null;
+}
+
 function makeIceMaterial(extentX: number): THREE.MeshPhysicalMaterial {
   const ice = new THREE.MeshPhysicalMaterial({
     transmission: Number(param("tr", "1.0", "0.6")),
@@ -182,15 +188,23 @@ function makeIceMaterial(extentX: number): THREE.MeshPhysicalMaterial {
   });
   const dispersion = Number(param("dispersion", "0"));
   if (dispersion > 0) ice.dispersion = dispersion;
+  const planes = clipPlanes();
+  if (planes !== null) {
+    ice.clippingPlanes = planes;
+    ice.side = THREE.DoubleSide;
+  }
   return ice;
 }
 
 function makeEdgeMaterial(): THREE.ShaderMaterial | null {
   const edgeStrength = Number(param("edge", "1.9", "1.0"));
   if (edgeStrength <= 0) return null;
+  const planes = clipPlanes();
   return new THREE.ShaderMaterial({
     transparent: true,
     depthWrite: false,
+    clipping: planes !== null,
+    clippingPlanes: planes ?? undefined,
     // The edge pass re-draws the crystal's own triangles through a different vertex
     // shader; ulp-level depth differences z-fight into halftone stipple at high zoom.
     // Pull the layer a hair toward the camera.
@@ -247,6 +261,7 @@ interface SceneRig {
 /** Build renderer, scene, camera, lights, materials for a given world extent. */
 function buildRig(extent: THREE.Vector3, liveBackground: boolean): SceneRig {
   const renderer = new THREE.WebGLRenderer({ antialias: true });
+  renderer.localClippingEnabled = clipPlanes() !== null;
   renderer.setPixelRatio(liveBackground ? Math.min(window.devicePixelRatio, 2) : 1);
   renderer.setSize(window.innerWidth, window.innerHeight);
   renderer.toneMapping = THREE.ACESFilmicToneMapping;
