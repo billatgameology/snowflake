@@ -407,6 +407,30 @@ s/tick, ~36 h, ~8 GB steady with a ~14 GB checkpoint transient (fits the 24 GB M
 with nothing else heavy); `960,960,144` → radius ~312, ~1.6 s/tick, ~20 h, ~5 GB steady;
 either runs comfortably on the 64 GB Windows host. Decision is the maker's; not launched.
 
+### Run B outcome — the paper's prototype reproduces (recorded 2026-08-02 ~23:45)
+
+B ended `stop reason=tick-cap` at exactly 70000 (the paper's stated step count for
+Fig. 4), radius 294, attached 961597, `symErr=0` at every cadence, massDrift 3.018e-12,
+no domain contact, farField 0.0732 (never hit the stop), exit 0. Checkpoint
+`plate-1200x1200x48-noise0.ckpt` (1175040791 bytes, roundTripIdentical=true). Crisp mesh
+`plate-1200-mesh-s030-h06.bin` (σ 0.30, spacing 0.6, sha256
+`9222f7598994a98c66dcc8f8ffec6313b1d7c88de3865b7cf5e2974c4a2f4713`).
+
+**Eyeball verdict (Claude Fable 5, from `side-by-side-B-vs-fig4.png`, sha256
+`9fbb517009a49f0e52636732b24b453b42b8dd91a077eb705032b56d8c8dd02f`; Fig. 4 ray-traced
+view cropped from PDF page 5 at 150 dpi, kept in gitignored `out/` — APS copyright):**
+this is a close morphological match. Same six broad branched arms, same prominent midline
+ridges, same serrated arm edges, and the same distinctive detached sector-plate "leaves"
+between arms in comparable positions. Differences: ours is radius 294 vs their ≈350
+(reservoir-limited, pre-registered) and correspondingly slightly sparser in the
+between-arm fill. Conclusion pair, stated together: **the paper's §VII prototype
+reproduces figure-to-figure even in the thin nz=48 slab, while the §VIII classic-dendrite
+series does not** — consistent with the z-starvation reading, since the slow-growing
+(μ≡0.001, strong convexification) prototype demands far less vapor flux than the
+fast-tipped dendrite series (μ≡0.008), and B never even reached the far-field stop. The
+A-vs-Fig. 14 composite is `side-by-side-A-vs-fig14.png` (sha256
+`172e4b3156dd6479bf67115d52380d6014257c417b3f2c2df43bc8d04bf8d11b`).
+
 **Not in this follow-up:** any LK run, any solver/runner edit, any gate or metric claim,
 any charter/ADR/education change. Host note: the charter prefers the Windows box for long
 evidence runs; this is an eyeball run and the Mac overnight is acceptable, but the
