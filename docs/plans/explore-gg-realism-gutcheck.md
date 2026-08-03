@@ -471,6 +471,48 @@ limit — these are lower bounds on what G-G can do):**
   vapor reservoir depth) dominate realism; the plate/ridges regime — not the classic
   dendrite — is G-G's closest approach to this footage specimen.
 
+### Maker feedback round (2026-08-03) and registered proposals
+
+**Maker feedback, recorded verbatim in effect:** render B looks the best; the renders are
+hard to see (too faint); noisy C is the worst — **no more noise runs in this
+exploration**. Consequences applied: the bold look is now the reference for
+presentation renders (`render-1200-B-ice-bold.png`, params
+`keyI=3.2&fillI=1.3&thick=14&edge=1.9&edgePow=1.3&rough=0.05&zscale=2.5&bgTop=e6b95c&bgBottom=9aa5e0`),
+and all future runs in this exploration are noise-off deterministic.
+
+**Why B renders best (recorded so the reason survives):** B is a solid ridged plate — a
+continuous face-on surface with interior relief — so the refraction and the
+edge/tint pass have geometry to work with everywhere; and B never starved (farField
+0.0732 at its cap; slow μ≡0.001 convexifying growth), so it kept its sector fill. The
+dendrites are skeletal thin arms: mostly background with outline strokes, and slab-starved
+besides.
+
+**2D growth-cycle preview (delivered):** `growth-B-topdown.mp4` — Run B's 35 periodic
+occupancy dumps unsheared to cartesian by `scripts/gutcheck-pgm2cart.ts` (exact integer
+unshear at 2× supersampling, √3/2 vertical factor in ffmpeg), 6 fps + 2 s hold.
+
+**Registered proposal 1 — full 3D animated growth of B (NOT launched):** new script
+driving `GGSolver` directly via the public API with the plate preset at B's exact
+configuration (deterministic → bitwise replay of B on this host), emitting a level-set
+mesh every 500 ticks (140 frames, σ 0.375, spacing 0.6, extraction logic shared with
+`gutcheck-extract-mesh.ts`); render pass reuses one dev-server/browser session with the
+camera fixed to the final frame's extent so the crystal grows into frame, bold look;
+ffmpeg to ≥1024² mp4 at 12 fps (~12 s + hold). Cost ≈ the B run again: ~10.5 h solver
+replay + ~1.5 h meshing/render, ~4 GB of frame meshes under `out/`. Driving the solver
+directly with arbitrary `GGParams` is within constraints (new files, public API,
+`runner/` untouched) and as a byproduct enables paper parameter vectors beyond the four
+presets.
+
+**Registered proposal 2 — more figure-to-figure comparisons (NOT launched), in
+recommendation order:** (a) the tall-domain Fig. 14 rerun already costed above — still
+the single most informative next run; (b) `needle` and `hollowColumn` presets vs Figs.
+29/30 — column forms need tall-z domains (e.g. `128,128,512`, ~8.4M cells, cheap; the
+z-starvation lesson applies in reverse); (c) via proposal 1's params-capable driver: the
+§VIII ρ ladder at tall z — 0.105 fern (Fig. 13), 0.095 (Fig. 15), 0.09 star (Fig. 16) —
+and the §VII prototype ρ variations (Figs. 6–12); (d) sectored plates and the μ sweep
+(Figs. 21–25) after transcribing their parameter vectors from §IX/X. Parallel batches of
+~3 fit the Mac comfortably; awaiting maker selection.
+
 **Not in this follow-up:** any LK run, any solver/runner edit, any gate or metric claim,
 any charter/ADR/education change. Host note: the charter prefers the Windows box for long
 evidence runs; this is an eyeball run and the Mac overnight is acceptable, but the
