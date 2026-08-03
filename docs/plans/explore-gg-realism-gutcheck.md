@@ -608,7 +608,21 @@ radius-350+ figures overnight; (4) per-figure side-by-side + eyeball verdict app
 a coverage table here. Known-in-advance caveats: Fig. 4 (reproduced, Run B) and Fig. 14
 (starved in the thin slab, Run A + probe) are already measured and not re-run at nz=48;
 fast-growing dendrite-series figures inherit the z-starvation caveat; sandwich/double
-figures need taller nz by construction; column/needle figures need tall-z domains. Host note: the charter prefers the Windows box for long
+figures need taller nz by construction; column/needle figures need tall-z domains.
+
+**Catalog landed (commit `e15349f`): 45 crystal figures, Figs. 3–47.** Coverage triage
+from the verified transcriptions: **(a) runnable now** (canonical prism seed, single
+parameter stage): Figs. 3, 6–13, 15–22, 29–31, 40–43, 45–47 — Figs. 5/12/18/22 are
+time-sequences of parent runs and are covered by their parents; **(b) blocked — tapered
+seeds** (`GGSolverOptions` exposes only uniform prism seeds; the paper's §X/§XII cones
+like "height 3, lower radius 2, upper radius 1" cannot be constructed via the public
+API): Figs. 23–28 and 32–36 — reproducing them faithfully needs a seed-construction API
+(a real sweep finding for any future phase; labeled canonical-seed *approximations* are
+the interim option); **(c) blocked — two-stage environment schedules**: Figs. 32–39 and
+44 also need mid-run parameter replacement (the Phase 4 G-G event machinery, via
+`GGEnvironmentTransitionReport`) — sweep stage 2. Lanes 1–3 launched: Fig. 3 (the
+paper's own labeled failure case — a deliberate control), Fig. 9 (ρ=0.05 sectored
+plate), Fig. 29 (needle, 128,128,768). Logs under `out/gutcheck-gg-realism/figs/`. Host note: the charter prefers the Windows box for long
 evidence runs; this is an eyeball run and the Mac overnight is acceptable, but the
 registered command reproduces on either host (habit-class reproduction across arm64/x64
 was verified at commit `945437f`; bitwise identity is not claimed cross-arch).
