@@ -491,17 +491,32 @@ besides.
 occupancy dumps unsheared to cartesian by `scripts/gutcheck-pgm2cart.ts` (exact integer
 unshear at 2× supersampling, √3/2 vertical factor in ffmpeg), 6 fps + 2 s hold.
 
-**Registered proposal 1 — full 3D animated growth of B (NOT launched):** new script
-driving `GGSolver` directly via the public API with the plate preset at B's exact
-configuration (deterministic → bitwise replay of B on this host), emitting a level-set
-mesh every 500 ticks (140 frames, σ 0.375, spacing 0.6, extraction logic shared with
-`gutcheck-extract-mesh.ts`); render pass reuses one dev-server/browser session with the
-camera fixed to the final frame's extent so the crystal grows into frame, bold look;
-ffmpeg to ≥1024² mp4 at 12 fps (~12 s + hold). Cost ≈ the B run again: ~10.5 h solver
-replay + ~1.5 h meshing/render, ~4 GB of frame meshes under `out/`. Driving the solver
-directly with arbitrary `GGParams` is within constraints (new files, public API,
-`runner/` untouched) and as a byproduct enables paper parameter vectors beyond the four
-presets.
+**Proposal 1, revised per maker direction (2026-08-03) and LAUNCHED: interactive growth
+timeline, not a fixed mp4.** The maker wants the website viewer animated from seed with a
+scrubbing timeline (forward/backward) and free camera (fixed face-on default). Built and
+committed (`d32cdc2`): `scripts/gutcheck-mesh-lib.ts` (shared extraction core; one
+recorded metadata fix — the mesh header's hardcoded `preset: "dendrite"` was wrong for
+plate checkpoints and is now caller-supplied provenance, so meshes regenerated after the
+refactor differ from earlier recorded hashes in header bytes only),
+`scripts/gutcheck-animate-grow.ts` (deterministic replay of a registered grow config via
+the public `GGSolver` API, one level-set mesh every N ticks, manifest rewritten after
+every frame so a partial replay is already viewable), and `?manifest=` timeline mode in
+the viewer (slider + play/pause + step buttons, LRU frame cache with prefetch, orbit
+controls, face-on reset, framing fixed to the final extent). Pipeline verified at smoke
+scale before launch (20-frame 128,128,48 replay; screenshots at frames 7/20 and 20/20).
+Launched replay (exact command):
+
+```
+node --max-old-space-size=12288 scripts/gutcheck-animate-grow.ts --preset plate \
+  --dims 1200,1200,48 --ticks 70000 --every 500 \
+  --out-dir out/gutcheck-gg-realism/anim-B \
+  --spacing 0.8 --sigma 0.45 --normal-delta 3
+```
+
+Deterministic noise-0 replay of Run B on this host; 141 frames (seed, every 500 ticks,
+final); expected ~10.5–11 h, ~1.5–2 GB of frame meshes, logs
+`out/gutcheck-gg-realism/anim-B.{log,err,exit-status}`. The viewer works mid-run on the
+partial manifest.
 
 **Registered proposal 2 — more figure-to-figure comparisons (NOT launched), in
 recommendation order:** (a) the tall-domain Fig. 14 rerun already costed above — still
