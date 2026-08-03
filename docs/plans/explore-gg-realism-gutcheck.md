@@ -431,6 +431,46 @@ fast-tipped dendrite series (μ≡0.008), and B never even reached the far-field
 A-vs-Fig. 14 composite is `side-by-side-A-vs-fig14.png` (sha256
 `172e4b3156dd6479bf67115d52380d6014257c417b3f2c2df43bc8d04bf8d11b`).
 
+### Run C outcome and the paper-scale realism verdicts (recorded 2026-08-03, closes the portfolio)
+
+C ended `stop reason=domain-contact` at tick 58028, radius 390, attached 1078460,
+`symErr=0.583486` (noise-broken from tick 7916 — wanted for this lane), massDrift
+1.451e-12, exit 0, checkpoint `dendrite-1200x1200x48-noise1e-5-seed20260802.ckpt`
+(1175040845 bytes, roundTripIdentical=true), guard-flagged NOT valid evidence as expected.
+C's macro-trajectory matches deterministic A almost exactly (contact at 58028 vs 57834),
+confirming again that G-G noise decorates rather than redirects growth.
+
+Ice-look meshes (σ 0.375, spacing 0.6): C
+`dendrite-1200-noise-mesh-s0375-h06.bin` sha256
+`6776664a04410cb24befa75a9be8c28f789102d30b29d325e813ee8068c80836`; B
+`plate-1200-mesh-s0375-h06.bin` sha256
+`c31802bae2a4dad004b4661d0832012a854f66665295cb302e8846ec9e3c4657`. Renders (1600²,
+zscale 2.5 stylization as recorded, same look params as the original gut check):
+`render-1200-C-ice.png` sha256
+`1fb039b6472ffa0f450f393b6a0a85c0c9521b130ccffb06a3698dd7163edbe6`,
+`render-1200-B-ice.png` sha256
+`21c4c2de4344310567445d4ddda55b10228fde1be9516173bf5a7609c06d8f4a`. Composites against
+the same J0521r2p 23.633 s frame: `side-by-side-C-vs-footage.png` sha256
+`acea1e71772e4925591b559f322d1c17be12f782cf3c3051b689b348763b7132`,
+`side-by-side-B-vs-footage.png` sha256
+`b3b518ceb5e6f217a4d41e7b28d1a2d8c0aec6baf8885d7f3e14993e9414f54e`.
+
+**Eyeball verdicts (Claude Fable 5, 2026-08-03, both under the stated nz=48-starvation
+limit — these are lower bounds on what G-G can do):**
+
+- **B vs footage: the strongest G-G realism result of the exploration.** The ridged
+  branched plate rhymes with the footage crystal structurally — six broad ridged arms,
+  serrated edges, sector-plate features, hexagonal center. Still gives itself away by
+  thinner limbs, paler thinner line work, and a much emptier center than the footage's
+  bold interior relief.
+- **C vs footage: natural asymmetry works, morphology starved.** The noise-broken
+  symmetry reads organic (no two arms identical, like the footage), but the slab-starved
+  slender arms read as a delicate fern sketch, not the footage's robust plate.
+- Portfolio conclusion for Phase 7 planning, superseding nothing from the original
+  verdict: the ice look transfers; G-G morphology class and growth conditions (especially
+  vapor reservoir depth) dominate realism; the plate/ridges regime — not the classic
+  dendrite — is G-G's closest approach to this footage specimen.
+
 **Not in this follow-up:** any LK run, any solver/runner edit, any gate or metric claim,
 any charter/ADR/education change. Host note: the charter prefers the Windows box for long
 evidence runs; this is an eyeball run and the Mac overnight is acceptable, but the
