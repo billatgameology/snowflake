@@ -918,3 +918,10 @@ artifacts at write time.
   `__spikeReady` with no page errors (`out/gutcheck-gg-realism/check-moved-paths.mjs`).
 - Required local check: exact `TMPDIR=/private/tmp npm test` — exit 0, Rule 7 clean
   (437 files), 81 test files, 1431 passed / 7 skipped (`out/gutcheck-gg-realism/npm-test-4.log`).
+
+Lanes in flight (registered 2026-08-04, after 11/13/15 harvested): Fig. 17 (800,800,96,
+cap 60k), Fig. 19 (800,800,96, cap 60k), Fig. 44 (600,600,96, cap 60k) — specs at
+`figs/spec-fig{17,19,44}.json`, logs `figs/fig{17,19,44}.log`, meshes/states writing to
+`large/figs/` per the inventory WP rule; Fig. 37 capped-column schedule still running.
+Remaining queue: Fig. 38 (Fig. 37 schedule variant), Figs. 32/33 labeled canonical-seed
+approximations.
