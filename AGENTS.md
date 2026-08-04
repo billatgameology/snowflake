@@ -1,10 +1,13 @@
 # Working rules — The Virtual Cloud Chamber
 
 This project is worked on by **multiple different LLMs across sessions**, with no shared memory
-between them. Any model may pick up work another left mid-flight. The markdown files described
-here are the authoritative handoff index; logs, checkpoints, and other artifacts are evidence
-only when the handoff points to them. Treat the handoff as part of the deliverable, not as
-bookkeeping.
+between them. Any model may pick up work another left mid-flight. `docs/PROGRESS.md` is the compact
+current-state index, and the active plan holds the detailed work record; logs, checkpoints, and
+other artifacts are evidence only when one of those current records points to them.
+
+`docs/HANDOFF.md` is a manually triggered stop/restart snapshot, not a second live progress log.
+Update it only when the maker explicitly says the session is stopping, restarting, or needs an
+immediate saved handoff. During ordinary work and long runs, leave it untouched.
 
 **`CLAUDE.md` is a symlink to this file.** Keep `AGENTS.md` canonical and never replace the
 symlink with a second copy; two instruction files will drift.
@@ -26,9 +29,8 @@ Templates live at `docs/plans/_TEMPLATE.md` and `docs/decisions/_TEMPLATE.md`.
 
 Read in this order on every cold start:
 
-0. **Read `docs/HANDOFF.md`.** It is the current resume point: what is done, what is open and ranked,
-   the standing constraints, and how to verify the whole evidence corpus from a clean clone. Then
-   read **`docs/phase6-lessons.md`** — every rule in it came from a real incident that cost time or
+0. **Read `docs/HANDOFF.md`.** It is the last explicitly requested stop/restart snapshot and may
+   predate ongoing work. Then read **`docs/phase6-lessons.md`** — every rule in it came from a real incident that cost time or
    nearly cost evidence, and several are enforced by `npm test`
    (`runner/test/evidence-integrity.test.ts`).
 1. Read `docs/PROGRESS.md` completely, including **Next step**.

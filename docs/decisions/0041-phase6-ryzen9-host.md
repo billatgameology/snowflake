@@ -1,7 +1,7 @@
 # 0041 — Phase 6 continues on the upgraded Ryzen 9 host
 
 - **Date:** 2026-08-02
-- **Status:** accepted by the maker; canonical Git landing pending
+- **Status:** accepted; canonically landed in `1ff948c`
 - **Charter impact:** amends the document revision marker, the current-revision paragraph, and
   §3.1's development-and-gate-hardware paragraph. Historical Phase 5 evidence and pre-upgrade
   Phase 6 sweeps remain on their recorded Ryzen 7 host; neither is relabeled.

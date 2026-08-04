@@ -31,7 +31,7 @@ function currentIndexErrors(text: string): string[] {
     "CAK 3/90, M1 54/90",
     "M1_NO_DIP_ABLATION",
     "cannot establish physical SDAK causality or necessity",
-    "- **Last updated:** 2026-08-02",
+    "- **Last updated:** 2026-08-03",
   ];
   for (const phrase of required) {
     if (!text.includes(phrase)) errors.push(`missing current-state phrase: ${phrase}`);
@@ -107,7 +107,7 @@ describe("compact progress index and byte-exact historical record", () => {
     const progressDate = text.match(/^- \*\*Last updated:\*\* (\d{4}-\d{2}-\d{2})/mu)?.[1];
     const handoffDate = readFileSync(HANDOFF, "utf8")
       .match(/^# Handoff .* \((\d{4}-\d{2}-\d{2})\)$/mu)?.[1];
-    expect(progressDate).toBe("2026-08-02");
+    expect(progressDate).toBe("2026-08-03");
     expect(handoffDate).toBe(progressDate);
     expect(existsSync(ACTIVE_PLAN)).toBe(true);
     expect(existsSync(ARCHIVE)).toBe(true);

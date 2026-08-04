@@ -3,7 +3,7 @@
 - **Phase:** Phase 6 — Validation against the Nakaya diagram
 - **Status:** in progress
 - **Started:** 2026-08-01
-- **Last touched:** 2026-08-02 by OpenAI Codex (`gpt-5.6-sol`, ultra reasoning)
+- **Last touched:** 2026-08-03 by OpenAI Codex (maker redirect execution active)
 
 ## Goal
 
@@ -30,7 +30,7 @@ that clean intervention cannot establish physical SDAK causality or necessity in
 
 ## Done when
 
-Current accepted charter v1.19, verbatim:
+Current accepted charter v1.20, verbatim:
 
 > Done when the model's temperature-vs-supersaturation morphology diagram is compared against Nakaya's, with the agreements and the disagreements both stated. A negative result is a result: if the model does not reproduce the flip, that is a finding about the model, it is reported as one, and GGThreshold still ships a beautiful crystal (Phase 2a). What is not permitted is quietly tuning until the diagram matches and calling it validation — the versioned protocol freeze (item 1) makes every authorized change auditable and invalidates prior sweep evidence for the replacement gate after a post-freeze edit.
 
@@ -52,13 +52,81 @@ This supersedes ADR 0037 §5 only as a scheduling/resource decision. It does not
 ADR 0037's measurements: N = 48 fails its registered domain check at three of four sampled points,
 N = 64 fails against N = 80 at three of four, and no configuration tested so far satisfies every
 registered numerical condition. A new accepted ADR must record this supersession and quote the
-applicable charter clauses before a replacement protocol freezes. Accepted ADR 0040 and current
-charter v1.19 now govern the coefficient/provenance correction discovered during this review; their
-acceptance does not weaken any scientific obligation or freeze R15. ADR 0039 remains proposed. Its
+applicable charter clauses before a replacement protocol freezes. Accepted ADR 0040 and charter
+v1.19 govern the coefficient/provenance correction discovered during this review; accepted ADR 0041
+and charter v1.20 govern only the continuation-host CPU upgrade. Neither acceptance weakens a
+scientific obligation or freezes R15. ADR 0039 remains proposed. Its
 protocol-independent streamed codec and field-adopting float64 CPU restore are implemented and
 reviewed, but the runner generation/publication/retry/trace contract cannot be frozen before WP3.
 No runner/evidence contract becomes authoritative and no production row may use resume until ADR
 0039 is accepted after that review.
+
+The maker's 2026-08-03 direction is binding and reshapes scope. Recorded verbatim from an
+interactive maker session (Claude Fable 5 recording; each numbered choice below was explicitly
+selected by the maker, not inferred):
+
+> I want protection against sloppiness, not malicious attacks on my own research. Cut to the
+> chase: close Phase 6 through the final registered campaign, defer what needs deferring by
+> proper ADR, and stop the review recursion.
+
+1. **Threat model.** Phase 6 evidence infrastructure defends against accidental error, process
+   crashes, and environment drift — not against a hostile author tampering with this repository on
+   this host. Findings whose exploitation requires deliberate attacker action on the maker's own
+   machine — Git replacement-ref/attribute-overlay/stat-cache laundering, junction and reparse
+   attacks, index-hidden tampering, hostile substitution of committed worker/launcher code —
+   are out of scope for Phase 6. One ADR closes that entire class by name; the finding ledgers are
+   preserved as history, not dispatched individually. AGENTS.md's integrity-budget anti-rule
+   governs: no new adversarial evidence machinery without a new **in-scope** attack surface.
+2. **Review depth.** Each unit receives one proportionate non-author review (Rule 10 provenance
+   unchanged). A blocker is a defect that could change a published number or scientific claim, or
+   silently corrupt evidence; hardening suggestions are recorded, non-blocking. A unit that fails
+   review twice escalates to the maker with options rather than a third rebuild. Reviews of
+   reviews end.
+3. **WP1.** The v4/V4.x source-search register, publisher, and control-batch apparatus is closed
+   as rejected history; do not iterate it further. WP1 narrows to freezing the Nakaya-comparison
+   physical size strata from the already-locked sources via the simplest reviewable deterministic
+   operator, under the capped review depth.
+4. **WP7.** All four held-out families are deferred past Phase 6 by ADR and charter amendment,
+   with the audited incompatibility record as the Phase 6 finding and a named post-Phase-6 owner.
+   This supersedes the corresponding "Out of scope" bullet below pending that ADR.
+5. **WP5.** The preview-budget GPU cohort and the v6 WGSL port are deferred to Phase 7 by ADR and
+   charter amendment; the float64 CPU oracle carries the Phase 6 verdict. This also supersedes the
+   corresponding "Out of scope" bullet below pending that ADR.
+6. **Arms.** The final campaign keeps all three arms: CAK, M1, and `M1_NO_DIP_ABLATION`.
+7. **Push.** Once ADR 0041 lands canonically and exact `npm test` is green, push `main`
+   (maker-authorized).
+
+Execution checkpoint: accepted ADR 0041, its charter v1.20 amendment, and the manifest-covered host
+observation landed canonically as `1ff948c`. The six exact untracked root-side V4/V4.x apparatus
+source/test files were removed from live workspace discovery without byte changes and retained under
+`research/tmp/recovery/wp1-v4x-root-apparatus-rejected-20260803/`. No request, acquisition, TAX2
+measurement, evidence publication, control launch, or solver row ran during that closure.
+After recompacting the current-state index and removing the rejected tests from live discovery,
+exact `npm.cmd test` exited 0 in 674.8 seconds: Rule 7 scanned 425 files, both TypeScript projects
+passed, and Vitest passed 81 files / 1,446 tests in 666.70 seconds. This is repository verification,
+not Phase 6 scientific evidence.
+
+The unit's single proportionate non-author review was OpenAI Codex `gpt-5.6-sol`, read-only, with
+full shared thread/repository context and no authorship. It independently ran the metrics,
+progress-index, and evidence-integrity suites (3 files / 46 tests), Rule 7 over 425 then-live files,
+both TypeScript projects, and `git diff --check`; it also compared `crystallographicSpans()` with
+Cartesian projections over 100 deterministic asymmetric sets and all 24 tested D6h transforms. It
+found one blocker: live WP1/register text still instructed a cold reader to resume the rejected
+apparatus. The correction replaced active WP1 with only the narrowed size-strata task, moved the
+four exact register/catalog/finding records into `research/rejected/phase6-wp1-v4x/`, and reduced
+the live Section 11 to a non-authorizing tombstone. The same reviewer performed one bounded
+correction follow-up and reported the original blocker closed with 0 new blockers. After the
+record-only authority repair, the author reran the same 3 files / 46 tests, Rule 7 over 426 files,
+both typechecks, and the diff check successfully. Review limits: no repeated full `npm test`, no
+inspection of individual historical findings or the rejected batch clone, no source-to-size mapping,
+direction-ADR quote audit, clean checkout, or Phase 6 scientific execution.
+
+The 2026-08-01 science-first direction stands for the core: the registered
+conservative-intersection headline, the numerical-control ladder, and the three-arm production
+campaign are executed, not narrowed. The 2026-08-03 direction narrows only the held-out and GPU
+obligations — explicitly, by ADR and charter amendment, never silently. This partially supersedes
+the 2026-08-01 rejection of "narrow O1b by ADR" recorded under Tried and rejected: that rejection
+remains in force for the headline and numerics, and is lifted for WP7 and WP5 only.
 
 The maker's 2026-08-02 sequencing direction is also binding: **freeze all further education-site
 work until Phase 6 is complete.** The landing page carries a prominent warning that the course is
@@ -78,12 +146,14 @@ rules are committed and adversarially reviewed. Reconnaissance may measure cost 
 between predeclared numerical configurations, but it is stamped non-transferable and cannot enter
 a gate result.
 
-Unattended execution is resumable by construction. Before any long task, update `docs/HANDOFF.md`
-and `docs/PROGRESS.md` with the exact resume point; run only from a tracked-clean committed source
+Unattended execution is resumable by construction. Before any long task, update `docs/PROGRESS.md`
+with the exact resume point; update `docs/HANDOFF.md` only when the maker explicitly requests a
+stop/restart handoff. Run only from a tracked-clean committed source
 snapshot; write separate labeled live/error/exit logs; publish useful generated science under the
 tracked `evidence/` manifest boundary; and, after ADR 0039 is implemented, use immutable
 cycle-boundary generations rather than relying on one process surviving. Maker-facing status is at
-most hourly unless requested, so narration cannot consume the context needed to finish the work.
+normal development cadence; only an actually running 2+ hour script or campaign reduces unsolicited
+status to at most hourly unless requested.
 
 The scientific result stays anchored to the float64 CPU oracle and the D6h-equivariant
 `aggregate-hv-g1h1-v6` policy. The GPU cohort is a separately reported preview-budget execution and
@@ -228,56 +298,28 @@ producer-supplied pass field is trusted.
   validate Phase 6 science, inspect education, revalidate historical archive claims, or perform a
   clean-clone checkout.
 
-### WP1 — source currency and held-out target inventory
+### WP1 — freeze Nakaya-comparison physical-size strata from locked sources
 
-- [ ] Execute the remaining source-lineage and TAX2-size work under the bounded
-  [WP1 subordinate plan](phase-6-wp1-source-lineage-and-tax2.md). Its operator is prospectively
-  frozen before new R15 output and consumes no model result; no personnel blindness to historical
-  output is claimed. The plan's read-only non-author acceptance review closed with 0 blockers / 0
-  should-fixes after the corrections recorded in its Rule 10 section. No new literature search or
-  numeric panel extraction preceded that acceptance.
-- [x] Re-check every Phase 6 input and validation citation against its latest primary-source
-  version, and sweep the cited authors' later primary output for superseding forms or data.
-- [x] Build a candidate inventory for all four charter-mandated held-out families: growth rates over
-  named (T, supersaturation) points, size-dependent habit, pressure dependence, and deterministic
-  growth-history responses.
-- [x] Record whether each candidate is truly held out from P1–P4 inputs, its geometry and substrate
-  conditions, observable definition, digitization/measurement uncertainty, and whether the 3-D
-  lattice can make an apples-to-apples prediction without a new fitted quantity.
-- [x] Reject targets that reuse Nakaya-tuned P3 inputs as “independent,” require an unregistered
-  geometry mapping, or cannot be scored without looking at the model output.
-- [x] Freeze candidate primary-source bytes/stable identifiers and a deterministic extraction in a
-  fail-closed partial lock. The 16-trace Harrison/Pokrifka candidate, Takahashi diagnostics,
-  rejected pressure row and two history candidates are pinned by
-  `research/phase6-heldout-candidate-lock.json`; the executable verifier independently checks five
-  external files and 21 archive members. The loader pins LF-normalized source text before parsing,
-  so duplicate JSON keys cannot hide behind `JSON.parse`; the CLI rejects unknown and duplicate
-  flags. Final non-author recheck is clean after all findings. The lock says `passEligible=false`
-  and is not a target.
-- [x] Inventory the mixed root `tmp/` cache and promote its nine durable third-party source files to
-  ignored `research/` paths. Record stable identifiers, byte counts, page/member counts and SHA-256
-  in `research/phase6-source-currency.md`; preserve the unprovenanced derivative renders, parse cache
-  and tool dependencies under ignored `research/tmp/`, explicitly transient and inadmissible as
-  evidence. The five-file verifier re-executed from the new paths with `files=5 members=21
-  maxGap=0.9451000000000249s passEligible=false`. No generated science data was present to promote
-  into `evidence/`.
-- [ ] Freeze a selected validation target, prediction-side geometry/transport uncertainty and
-  scoring operator after independent review. The corrected audit found no presently apples-to-apples
-  family: Harrison crystallography is unobserved; Takahashi's warm supersaturation/rim state is
-  unresolved; pressure is confounded; and both history candidates require missing load-bearing
-  physics. The classical Nakaya reference also supplies no crystal size or size stratum; the later
-  206-panel grid supplies field-of-view widths, not crystal dimensions, and uses a load-bearing
-  c-axis needle seed. A prospectively frozen pixel-segmentation operator that consumes no new R15
-  output could derive panel terminal
-  spans from those fields of view, but only after source-byte lock and uncertainty review; the result
-  remains in-sample for M1 and requires a matching electric-needle geometry. The second audit
-  exact-byte checked Nelson 1998, the official Bailey–Hallett 2002 precursor and Bacon et al. 2003;
-  the indexed 2004 publisher rendering was reviewed, but no journal PDF/hash was available. It
-  rejected those target families for, respectively, sublimation/capillary/thermal physics,
-  filament/polycrystal/coupled-pressure physics, and unresolved/polycrystalline initial state plus
-  supersaturation inferred from the same mass curve.
-  Their 100–300 µm ranges do not define one apples-to-apples size. Source/model compatibility, not
-  compute cost, is the current WP1 blocker.
+- [x] Complete the Phase 6 source-currency audit and preserve the five-file/21-member candidate lock
+  with all 16 reconciled levitation traces. The lock remains `passEligible=false`; its audited result
+  is that no current held-out family is apples-to-apples with the implemented geometry and transport
+  physics. The maker directs that finding into the post-Phase-6 held-out deferral ADR rather than a
+  new Phase 6 source search.
+- [x] Close the V4/V4.x source-search register, publisher, and control-batch apparatus as rejected
+  history. Its exact last live-path register/catalog/finding bytes are retained under
+  `research/rejected/phase6-wp1-v4x/`; its exact source/test bytes remain under
+  `research/tmp/recovery/wp1-v4x-root-apparatus-rejected-20260803/` and the isolated batch clone.
+  Embedded future-tense instructions and open-finding states in those historical bytes have no
+  current authority. No request, import, TAX2 measurement, publication, or solver row executed.
+- [ ] Write a new bounded plan for the narrowed task before implementation. It may consume only
+  already-locked source observations and uncertainties, never model morphology output, a new
+  literature search, or the rejected TAX2 apparatus. Freeze the simplest deterministic operator
+  that maps the source record to one or more Nakaya-comparison physical-size strata plus explicit
+  uncertainty/refusal outcomes; define how each stratum maps to physical seed size without choosing
+  a numerically or morphologically favorable result.
+- [ ] Obtain one proportionate non-author review of that operator and its source operands before
+  freezing any numeric stratum. If the unit fails twice, escalate options to the maker rather than
+  rebuilding a third time. Publish only the reviewed freeze and exact operands needed by WP2.
 
 ### WP2 — numerical configuration campaign
 
@@ -517,9 +559,9 @@ configuration or no-pass → WP3 production binding → fresh R15 production exe
 - [ ] Run exact `npm test`; no substitute command counts as the required local check.
 - [ ] Obtain a non-author closing review that states model/context provenance, independently
   re-executed checks, and explicit limits.
-- [ ] Reconcile the charter, ADRs, solver specs, plan, `docs/PROGRESS.md`, `docs/HANDOFF.md`, reports,
-  and user-facing evidence labels. Phase 6 changes to complete only if the artifact-derived gate
-  exits zero.
+- [ ] Reconcile the charter, ADRs, solver specs, plan, `docs/PROGRESS.md`, reports, and user-facing
+  evidence labels. Reconcile `docs/HANDOFF.md` only if the maker requests a stop/restart handoff.
+  Phase 6 changes to complete only if the artifact-derived gate exits zero.
 
 ## Evidence topology
 
