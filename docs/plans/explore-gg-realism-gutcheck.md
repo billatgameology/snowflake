@@ -518,6 +518,13 @@ final); expected ~10.5–11 h, ~1.5–2 GB of frame meshes, logs
 `out/gutcheck-gg-realism/anim-B.{log,err,exit-status}`. The viewer works mid-run on the
 partial manifest.
 
+**COMPLETE (2026-08-04 evening, every-100 restart):** 701 frames, `complete=true`,
+exit 0, 9.3 GB under `out/gutcheck-gg-realism/anim-B/`, 41,194 s (11.4 h). Endpoint
+determinism check: the final frame's `attached=961597` exactly equals Run B's final
+attached count — the replay landed bit-consistent with the original at the observable
+level. Viewer verified on the finished manifest (`timeline-B-mid.png`,
+`timeline-B-final.png`: scrub, playback controls, face-on reset all live).
+
 **Restarted 2026-08-03 evening at maker direction with `--every 100`** (the maker wants a
 smoother timeline; the 500-tick run was stopped ~1.5 h in and its partial frames
 discarded). Same command otherwise; 701 frames, estimated ~11.5–12.5 h (snapshot
