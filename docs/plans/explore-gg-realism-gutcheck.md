@@ -683,6 +683,24 @@ free lane; Figs. 32–36 will run as **canonical-seed approximations** (their ta
 seeds remain unbuildable via the public API — that seed-construction gap stays the
 recorded frontier for a future phase; nothing on this branch touches `solver-cpu`).
 
+### Maker gaps 1+2: cell-true "ggview" display mode (2026-08-04, commit `ab01e5e`)
+
+The maker asked for "crisp and straight" and "crystal clear" — both delivered by
+implementing the paper's own display mode: `scripts/gutcheck-cellmesh-lib.ts` +
+`gutcheck-extract-cellmesh.ts` emit the exact hexagonal-prism boundary faces of attached
+cells (straight by construction, §III "visible boundaries of translates of the
+fundamental prism") plus drawn edge segments with coplanar continuations suppressed, so
+lines are structure — silhouettes, terrace steps, 120° prism edges — not the cell grid.
+Viewer `?style=ggview`: flat-shaded translucent prisms + line segments over a pale
+backdrop; interior plate boundaries show through the faces (the "crystal clear" ask).
+Face-on and oblique fig9v2 captures sit beside the paper's own MATLAB-view panel as
+visual siblings (`figs/fig9v2-ggview.png`, `figs/side-by-side-fig9v2-ggview.png`).
+Honest limits recorded: (a) the paper additionally applies a ≤1-mesoscopic-unit boundary
+smoothing we have not implemented, so their steps read slightly softer; (b) cellmesh
+sizes scale with surface cells and the largest crystals (Fig. 16-class, 172 MB) still
+crash the headless browser — a merged-coplanar-region optimization is the known fix if
+ever needed.
+
 ### WP: photo-target reproductions (registered 2026-08-04, maker-directed — "beyond the paper")
 
 Maker direction: find real snow-crystal photographs and reproduce the same shapes with
