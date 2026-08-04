@@ -925,8 +925,10 @@ Lanes in flight (registered 2026-08-04, after 11/13/15 harvested): Fig. 17 (800,
 cap 60k), Fig. 19 (800,800,96, cap 60k), Fig. 44 (600,600,96, cap 60k) — specs at
 `figs/spec-fig{17,19,44}.json`, logs `figs/fig{17,19,44}.log`, meshes/states writing to
 `large/figs/` per the inventory WP rule; Fig. 37 capped-column schedule still running.
-Remaining queue: Fig. 38 (Fig. 37 schedule variant), Figs. 32/33 labeled canonical-seed
-approximations.
+Remaining queue: Figs. 32/33 labeled canonical-seed approximations. Fig. 38 launched
+2026-08-04 after the Fig. 37 harvest (320,320,512, cap 60k, two-stage spec
+`figs/spec-fig38.json` — Fig. 30 stage 1, thresholds-2.1 stage 2; same stage-1
+non-monotone `ggThreshBeta` warnings as Figs. 30/37, expected per the paper's vector).
 
 ### Adversarial review round (2026-08-04) — pack/restore hardened
 
