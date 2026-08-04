@@ -683,6 +683,14 @@ free lane; Figs. 32–36 will run as **canonical-seed approximations** (their ta
 seeds remain unbuildable via the public API — that seed-construction gap stays the
 recorded frontier for a future phase; nothing on this branch touches `solver-cpu`).
 
+### Output index website (2026-08-04)
+
+`http://localhost:5173/gutcheck-index.html` (dev server) — browsable index of every
+artifact: interactive viewer links (timeline in each look, hero meshes, cell-true
+views), the full paper-reproduction gallery, real-photo comparisons, style heroes, and
+videos. Data comes from `out/gutcheck-gg-realism/index.json`; refresh it any time with
+`node scripts/gutcheck-build-index.ts` (commit noted in git log).
+
 ### Look registry (maker: "remember each of these distinct looks", 2026-08-04)
 
 The maker is not settled on a style; every distinct look is preserved as a named recipe.
