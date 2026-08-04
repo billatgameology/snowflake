@@ -227,7 +227,10 @@ dims ≈ 1152,1152,48 (hexRadius 575, ~47M active cells, ~3.4 GB, roughly 8–15
 Mac at the measured ~16 ns per cell-tick) to reach radius ≈ 350 — an option, not a
 commitment.
 
-**Maker verdict (one sentence, in the maker's own words):** _pending._
+**Maker verdict (in the maker's own words, 2026-08-04, given after the full sweep rather
+than the original single side-by-side; scope is the whole exploration):** "I think
+visually, it is very close but not as good as gg. the video is impressive, the ability
+to recreate the snowflake with similar background color is also cool."
 
 ## Follow-up runs — paper-scale portfolio, three in parallel (LAUNCHED 2026-08-02, maker-approved)
 
