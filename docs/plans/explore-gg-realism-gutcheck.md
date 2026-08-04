@@ -836,3 +836,49 @@ All entries 2026-08-02, eyeballed on the 128,128,48 smoke mesh (renders kept loc
   extraction step above). This is the G-G analog of the LK fill fraction, and it worked:
   the surface advances sub-cell smoothly between attachments. Phase 7 input as hoped.
 - Canonical comparison frame → **23.633 s** (frame 709/788, ≈90% of duration).
+
+## WP — large-artifact inventory, pack, and restore (2026-08-04, maker-directed)
+
+Maker direction: the generated data should survive into the future (and eventually main)
+without putting 25 GB of binaries into git. Everything here stays regenerable from committed
+scripts + recorded seeds; the archive path exists because regeneration costs hours-to-days
+and "copy to another computer" should be cheap and verifiable.
+
+**Layout** (inside `out/gutcheck-gg-realism/`, which stays gitignored except `tracked/`):
+
+- `tracked/` — the ONE git-tracked folder under `out/` (via `.gitignore` negation).
+  Holds `inventory.json`: every large-artifact relpath, byte size, and sha256, plus the
+  ledger of produced archives (name, group, sha256, member count). Never holds media.
+- `large/` — every checkpoint (`*.ckpt`), extracted mesh (`*-mesh*.bin`, `*cellmesh.bin`),
+  and the frame-set folders, grouped: `large/checkpoints/` (root-run checkpoints),
+  `large/meshes/` (root-run meshes), `large/figs/` (figure checkpoints + meshes),
+  `large/anim-B/` (the 701-frame timeline; internal manifest paths are relative, verified
+  against the viewer's `new URL(frame.file, manifestAbsolute)` resolution).
+  Rule going forward: new lane outputs write here (`--out-state`/`--out-mesh` paths).
+- `archives/` — pack output staging (`gutcheck-large-<group>-<yyyymmdd>.zip`), gitignored,
+  excluded from the inventory scan.
+- Renders, composites, PGM dumps, logs, records, specs stay where they were. Copyrighted
+  media (paper crops, photos, and every composite embedding them) is NEVER tracked and
+  NEVER placed in `tracked/`; it may ride in private Dropbox archives only.
+
+**Scripts** (committed, strict-TS, Rule 7-scanned):
+
+- `scripts/gutcheck-archive-pack.ts` — scans `large/`, rebuilds `tracked/inventory.json`
+  (sha256 cached by relpath+bytes+mtime so re-runs don't re-hash 25 GB), and with
+  `--pack <group|all>` zips each group into `archives/` and records the archive sha256.
+- `scripts/gutcheck-archive-restore.ts <zip> [--dest <dir>] [--force]` — lists entries
+  (rejecting absolute/`..` paths), extracts via bsdtar (present on macOS and Windows 10+),
+  sha256-verifies every file against `tracked/inventory.json`, places files under the dest,
+  and exits nonzero on any mismatch; files absent from the inventory are placed but
+  reported UNVERIFIED.
+
+**Done when**: inventory committed; all groups packed; one archive round-tripped into a
+scratch dest with every hash verified; index page regenerated against the new paths;
+exact `TMPDIR=/private/tmp npm test` green.
+
+**Path migration note**: artifact paths recorded earlier in this plan predate this layout;
+from 2026-08-04 the same files live under `large/<group>/` with unchanged basenames.
+`tracked/inventory.json` is the authoritative current location + hash list. Ad-hoc probe
+files `check-index.mjs`/`check-motion.mjs` may reference stale paths (throwaway probes,
+not maintained). Evidence status of everything inventoried remains: unvalidated,
+eyeball-only, this branch only.
