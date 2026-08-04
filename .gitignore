@@ -24,5 +24,13 @@ node_modules/
 /debug.log
 
 # Run outputs: checkpoints, PGM dumps and scratch land in out/ by convention. Anything that BACKS
-# A PUBLISHED CLAIM belongs in evidence/ instead - see ADR 0038. What stays here is reproducible
-out/
+# A PUBLISHED CLAIM belongs in evidence/ instead - see ADR 0038. What stays here is reproducible.
+#
+# Exception: out/gutcheck-gg-realism/tracked/ holds the gut-check spike's large-artifact
+# inventory (relpaths + sha256 of the gitignored binaries; no media, no third-party content) —
+# see docs/plans/explore-gg-realism-gutcheck.md, "large-artifact inventory" WP. A bare `out/`
+# directory pattern would make re-inclusion impossible, hence the `out/**` form.
+out/**
+!out/gutcheck-gg-realism/
+!out/gutcheck-gg-realism/tracked/
+!out/gutcheck-gg-realism/tracked/**

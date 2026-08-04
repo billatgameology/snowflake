@@ -44,8 +44,9 @@ const meshHref = (look: string, meshPath: string, extra = ""): string =>
 
 const sections: Section[] = [];
 
-// 1. Interactive viewers.
-const timelineManifest = join(ROOT, "anim-B", "manifest.json");
+// 1. Interactive viewers. Large binaries live under large/<group>/ — see the
+// "large-artifact inventory" WP in docs/plans/explore-gg-realism-gutcheck.md.
+const timelineManifest = join(ROOT, "large", "anim-B", "manifest.json");
 const viewers: Item[] = [];
 for (const look of ["bold-ice", "footage-ice", "povray"]) {
   viewers.push({
@@ -54,12 +55,14 @@ for (const look of ["bold-ice", "footage-ice", "povray"]) {
     note: "play / scrub / orbit / upright / spin / bg",
   });
 }
+const meshes = join(ROOT, "large", "meshes");
+const figMeshes = join(ROOT, "large", "figs");
 const viewerMeshes: Array<[string, string, string]> = [
-  ["Run B (Fig. 4 plate) — bold-ice", "bold-ice", join(ROOT, "plate-1200-mesh-s045-h06.bin")],
-  ["Run B — povray", "povray", join(ROOT, "plate-1200-mesh-s0375-h06.bin")],
-  ["Fig. 9-v2 sectored plate — footage-ice", "footage-ice", join(ROOT, "figs", "fig9v2-mesh.bin")],
-  ["Fig. 16 star — ggview (cell-true)", "ggview", join(ROOT, "figs", "fig16-cellmesh.bin")],
-  ["Fig. 9-v2 — ggview (cell-true)", "ggview", join(ROOT, "figs", "fig9v2-cellmesh.bin")],
+  ["Run B (Fig. 4 plate) — bold-ice", "bold-ice", join(meshes, "plate-1200-mesh-s045-h06.bin")],
+  ["Run B — povray", "povray", join(meshes, "plate-1200-mesh-s0375-h06.bin")],
+  ["Fig. 9-v2 sectored plate — footage-ice", "footage-ice", join(figMeshes, "fig9v2-mesh.bin")],
+  ["Fig. 16 star — ggview (cell-true)", "ggview", join(figMeshes, "fig16-cellmesh.bin")],
+  ["Fig. 9-v2 — ggview (cell-true)", "ggview", join(figMeshes, "fig9v2-cellmesh.bin")],
 ];
 for (const [label, look, mesh] of viewerMeshes) {
   try {

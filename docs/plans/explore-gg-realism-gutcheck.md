@@ -664,6 +664,14 @@ are Claude Fable 5's eyeballed comparisons of the named composites.
 | Fig. 21 (ρ=0.15 sandwich plate) | 500,500,96; cap 36100 (paper-exact) | far-field @ 30475, r≈133 (paper ≈150) | **Reproduced.** Silhouette with notched hexagonal lobes matches, and the §IX signature — the nearly circular macrostep ring near center — is plainly present. The paper's glowing ribs are interior structure shown by their transparency ray-trace; our exterior render shows the near-featureless outside the text describes. |
 | Fig. 20 (ρ=0.08 sandwich plate) | 400,400,96; cap 100k | far-field @ 34475, r≈88 (paper: r=150 @ t=100000) | **Under-grown — our domain too small, not a divergence.** The 400-planar reservoir depleted at a third of the paper's stated time and ~60% of its radius. Re-queued at 700,700,96 with the paper's 100k cap (runs when a lane frees). **RESOLVED → Reproduced by v2** (far-field @ 77600, attached 479323, r≈145 vs paper ≈150; `side-by-side-fig20v2.png`): notched hexagonal plate lobes and the §IX circular reverse-shape ring both present; the paper's dark interior star is sandwich-interior structure of the kind our cutaways show. Second confirmation that the earlier shortfall was reservoir size, not model. |
 | Fig. 9 (ρ=0.05 sectored plates) | 600,600,48; cap 60k | tick-cap @ 60000, attached 131173 (farField 0.041, stop 0.033 not reached) | **Partial — under investigation.** Silhouette class reproduces (six broad sectored plates with narrow notches) but the paper's radiating interior ridge line-work is absent. Discriminated against a rendering artifact: 5× relief amplification (`fig9-render-z5.png`) shows the mesh interior is genuinely flat. Remaining suspects, in order: run length (paper time unstated; ρ=0.05 is the slow regime and our cap fired before far-field), z-starvation muting thickness relief, then model divergence. Rerun queued: 600,600,96, cap 200k, with `--out-state` checkpoint capture (`fig9v2-*`). *Cutaway addendum (`fig9-cutaway.png`): the v1 interior carries pocked texture but not the paper's radial sector-ridges.* **RESOLVED → Reproduced by v2** (600,600,96; far-field @ 67200, attached 362809; `side-by-side-fig9v2.png`): with doubled z the full radial ridge system appears — six midline ridges, sectored lobes with internal ridge lines, ribs, open hexagonal center — matching the paper's figure element for element. The v1 flatness was thin-slab z-starvation suppressing thickness relief: the same mechanism as Fig. 14, now confirmed on a second morphology class. *Maker question, center circle (answered with probes, 2026-08-04): not a hole and not an artifact — the state checkpoint shows the center solid and uniformly 19 layers thick at every sampled radius with no partial-layer ring in `b` (probe scripts `probe-center.ts`/`probe-ring.ts` under `out/.../figs/`); it is the shallow surface demarcation where the six midline ridges terminate at the early smooth-plate core, visible but subtle at `zscale=1` (`fig9v2-z1.png`) and amplified by the 2.5× relief stylization. The paper documents circular surface markings as characteristic of exactly this family (§IX's near-circular layer hole; §XIV(d) "sole surface markings of sandwich plates are circular reverse shapes"), and its own Fig. 9 shows a central demarcation — hexagonal there; our σ0.45 level-set smoothing rounds ours toward circular.* |
+| Fig. 13 (ρ=0.105 fern dendrite) | 800,800,96; cap 45k | domain-contact @ 28512, attached 1022565 (`fig13-record.json`) | **Reproduced** (`side-by-side-fig13.png`): six-armed fern with dense closely spaced sidebranches nearly filling the interarm space, midline ridges on arms and sidebranches — the caption's defining crowding is plainly present. Contact-stopped at 63% of cap, so ours is somewhat smaller than the page crystal; texture class matches at scale. |
+| Fig. 15 (ρ=0.095 fewer sidebranches) | 800,800,96; cap 45k | domain-contact @ 34502, attached 856789 (`fig15-record.json`) | **Reproduced** (`side-by-side-fig15.png`): classic stellar dendrite with visibly sparser sidebranching and long bare stretches of main arm between plate-tipped sidebranch clusters — the stated contrast against Figs. 13–14 reads correctly in the pair. |
+| Fig. 11 (ρ=0.4 sandwich plates, inner ridges) | 400,400,160; cap 120k (paper t=120000) | domain-contact @ 1706 — z-axis 65% guard, z-extent 104/160, attached 350941 (`fig11-record.json`) | **Reproduced in character; stated endpoint unreachable here** (`side-by-side-fig11.png`): hexagonal outline, six short broad corner arms, sandwich-plate decks with radiating inner ridges — Fig. 11's labeled features are all present, and our early state is consistent with Fig. 12 ("the crystal of Fig. 11 at earlier times"). At ρ=0.4 the crystal thickens ~0.03 cells/tick in z, so the paper's t=120000 endpoint cannot fit any feasible nz on this host; recorded as a domain-infeasibility bound, not a morphology divergence. |
+
+Harvest render recipe for these three (2026-08-04, from the relocated meshes):
+`node app/scripts/spike-capture.mjs --mesh out/gutcheck-gg-realism/large/figs/figN-mesh.bin --out out/gutcheck-gg-realism/figs/figN-render.png --size 1200 --params "look=bold-ice"`;
+paper panels cropped from pages 8–9 of the local PDF via `pdftoppm -r 150` (crops and
+composites stay gitignored — third-party figures).
 
 Host note: the charter prefers the Windows box for long
 evidence runs; these are eyeball runs and the Mac is acceptable, but the
@@ -882,3 +890,31 @@ from 2026-08-04 the same files live under `large/<group>/` with unchanged basena
 files `check-index.mjs`/`check-motion.mjs` may reference stale paths (throwaway probes,
 not maintained). Evidence status of everything inventoried remains: unvalidated,
 eyeball-only, this branch only.
+
+### Executed record (2026-08-04) — inventory WP done-when met
+
+Numbers below are copied from `out/gutcheck-gg-realism/archive-pack.log` and the named
+artifacts at write time.
+
+- Inventory: 788 files, 24.4 GB, 5 groups — anim-B 702 files / 9.30 GB, anim-smoke 21 /
+  17.9 MB, checkpoints 7 / 3.86 GB, figs 47 / 10.64 GB, meshes 11 / 615.3 MB. Committed as
+  `out/gutcheck-gg-realism/tracked/inventory.json`. Refresh with all hashes cached: 0.07 s.
+- Archives (deflate level 1, in gitignored `archives/`; total ≈ 8.5 GB):
+  - `gutcheck-large-anim-B-20260804.zip` 4.88 GB `a6c67cb24fcfa0b17043b71d2d2c7e5ba0595291aae8d9de9ca1b6a66bf66337`
+  - `gutcheck-large-anim-smoke-20260804.zip` 8.2 MB `d9552dc8d1a8ac8efdd65196c45ac1d096e9b0c3ccd16b74eed76574cd7283cd`
+  - `gutcheck-large-checkpoints-20260804.zip` 965.8 MB `e4d28630f065577528d997d059cae4e592e97289a2390180a1606336f01832ac`
+  - `gutcheck-large-figs-20260804.zip` 2.39 GB `44e71fcbc4547828c13af42411bf862205f05e211f4f0e7389e7417149f4eb0e`
+  - `gutcheck-large-meshes-20260804.zip` 329.9 MB `c6baddf2fef62c0e3629921e39def22ec2f5a508d2d60a488a0f90935f067526`
+- Round trip: anim-smoke zip restored into a scratch dest — 21/21 verified; idempotent rerun
+  21 already-present; spot byte-compare identical.
+- Negative control (executed and observed, per Rule 9): one inventory sha256 mutated →
+  restore reported MISMATCH with both hashes, withheld the file, exit 1; inventory then
+  restored from backup and re-verified against a recomputed hash. First attempt at this
+  control silently never ran (a failed `cp` short-circuited the `&&` chain and supplied the
+  exit 1 itself) — caught by noticing the missing MISMATCH output; lesson re-learned:
+  verify the mutation executed, not just the exit code.
+- Viewer integrity after the move: index page headless-checks clean, and two real loads
+  (hero mesh from `large/meshes/`, 701-frame timeline from `large/anim-B/`) reached
+  `__spikeReady` with no page errors (`out/gutcheck-gg-realism/check-moved-paths.mjs`).
+- Required local check: exact `TMPDIR=/private/tmp npm test` — exit 0, Rule 7 clean
+  (437 files), 81 test files, 1431 passed / 7 skipped (`out/gutcheck-gg-realism/npm-test-4.log`).
