@@ -255,6 +255,8 @@ interface SceneRig {
   camera: THREE.OrthographicCamera;
   crystal: THREE.Mesh;
   edgeMesh: THREE.Mesh | null;
+  /** Parent of crystal + edge pass; in-plane roll animations rotate this. */
+  group: THREE.Group;
   render: () => void;
 }
 
@@ -284,15 +286,17 @@ function buildRig(extent: THREE.Vector3, liveBackground: boolean): SceneRig {
     scene.add(backdrop);
   }
 
+  const group = new THREE.Group();
   const crystal = new THREE.Mesh(new THREE.BufferGeometry(), makeIceMaterial(extent.x));
-  scene.add(crystal);
+  group.add(crystal);
   const edgeMaterial = makeEdgeMaterial();
   let edgeMesh: THREE.Mesh | null = null;
   if (edgeMaterial !== null) {
     edgeMesh = new THREE.Mesh(crystal.geometry, edgeMaterial);
     edgeMesh.renderOrder = 2;
-    scene.add(edgeMesh);
+    group.add(edgeMesh);
   }
+  scene.add(group);
 
   const pmrem = new THREE.PMREMGenerator(renderer);
   scene.environment = pmrem.fromScene(makeEnvironmentScene(), 0.04).texture;
@@ -330,8 +334,126 @@ function buildRig(extent: THREE.Vector3, liveBackground: boolean): SceneRig {
     camera,
     crystal,
     edgeMesh,
+    group,
     render: () => renderer.render(scene, camera),
   };
+}
+
+// ── Gentle camera/crystal motion (maker-directed): every transition eases ────────────────
+
+const easeInOutCubic = (t: number): number =>
+  t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+
+function styledButton(text: string): HTMLButtonElement {
+  const b = document.createElement("button");
+  b.textContent = text;
+  b.style.cssText =
+    "background:#233250;color:#dfe7f4;border:1px solid #3a4c72;border-radius:4px;" +
+    "padding:4px 10px;cursor:pointer;font:inherit";
+  return b;
+}
+
+interface MotionKit {
+  uprightButton: HTMLButtonElement;
+  spinButton: HTMLButtonElement;
+  smoothFaceOn: () => void;
+  update: (now: number) => void;
+}
+
+/**
+ * Upright: ease the crystal's in-plane roll so an arm points straight up (arms lie along
+ * 0°/60°/... in lattice cartesian, so upright = 30° mod 60°) while easing the camera back
+ * to the saved face-on pose. Spin: toggle a slow continuous roll with eased start/stop.
+ */
+function makeMotionKit(rig: SceneRig, controls: OrbitControls): MotionKit {
+  const ROLL_DURATION = 1800;
+  const CAMERA_DURATION = 1800;
+  const SPIN_RATE = 0.12; // rad/s ≈ 52 s per revolution
+  const SPIN_EASE = 1200;
+
+  let rollTween: { from: number; to: number; start: number } | null = null;
+  let cameraTween: {
+    fromPos: THREE.Vector3;
+    fromTarget: THREE.Vector3;
+    fromZoom: number;
+    start: number;
+  } | null = null;
+  let spinTarget = 0;
+  let spinVelocity = 0;
+  let spinEaseFrom = 0;
+  let spinEaseStart = 0;
+  let lastNow: number | null = null;
+
+  const uprightButton = styledButton("upright");
+  const spinButton = styledButton("spin");
+
+  const startCameraTween = (now: number): void => {
+    cameraTween = {
+      fromPos: rig.camera.position.clone(),
+      fromTarget: controls.target.clone(),
+      fromZoom: rig.camera.zoom,
+      start: now,
+    };
+  };
+
+  const startSpinEase = (target: number, now: number): void => {
+    spinTarget = target;
+    spinEaseFrom = spinVelocity;
+    spinEaseStart = now;
+  };
+
+  uprightButton.addEventListener("click", () => {
+    const now = performance.now();
+    startSpinEase(0, now);
+    spinButton.textContent = "spin";
+    // Nearest angle equivalent to 30° (mod 60°) so the turn is short and gentle.
+    const current = rig.group.rotation.z;
+    const sixth = Math.PI / 3;
+    const target = Math.PI / 6;
+    const delta =
+      ((((target - current) % sixth) + sixth + sixth / 2) % sixth) - sixth / 2;
+    rollTween = { from: current, to: current + delta, start: now };
+    startCameraTween(now);
+  });
+
+  spinButton.addEventListener("click", () => {
+    const now = performance.now();
+    const spinning = spinTarget !== 0;
+    startSpinEase(spinning ? 0 : SPIN_RATE, now);
+    spinButton.textContent = spinning ? "spin" : "stop";
+  });
+
+  const smoothFaceOn = (): void => startCameraTween(performance.now());
+
+  const update = (now: number): void => {
+    const dt = lastNow === null ? 0 : Math.min((now - lastNow) / 1000, 0.1);
+    lastNow = now;
+    if (rollTween !== null) {
+      const t = Math.min((now - rollTween.start) / ROLL_DURATION, 1);
+      rig.group.rotation.z =
+        rollTween.from + (rollTween.to - rollTween.from) * easeInOutCubic(t);
+      if (t >= 1) rollTween = null;
+    }
+    const spinT = Math.min((now - spinEaseStart) / SPIN_EASE, 1);
+    spinVelocity = spinEaseFrom + (spinTarget - spinEaseFrom) * easeInOutCubic(spinT);
+    if (spinVelocity !== 0) rig.group.rotation.z += spinVelocity * dt;
+    if (cameraTween !== null) {
+      const t = Math.min((now - cameraTween.start) / CAMERA_DURATION, 1);
+      const k = easeInOutCubic(t);
+      const c = controls as unknown as {
+        position0: THREE.Vector3;
+        target0: THREE.Vector3;
+        zoom0: number;
+      };
+      rig.camera.position.lerpVectors(cameraTween.fromPos, c.position0, k);
+      controls.target.lerpVectors(cameraTween.fromTarget, c.target0, k);
+      rig.camera.zoom = cameraTween.fromZoom + (c.zoom0 - cameraTween.fromZoom) * k;
+      rig.camera.updateProjectionMatrix();
+      if (t >= 1) cameraTween = null;
+    }
+  };
+
+  return { uprightButton, spinButton, smoothFaceOn, update };
 }
 
 function setRigGeometry(rig: SceneRig, geometry: THREE.BufferGeometry): void {
@@ -383,12 +505,23 @@ async function singleMeshMain(): Promise<void> {
   if (interactive) {
     const controls = new OrbitControls(rig.camera, rig.renderer.domElement);
     controls.enableDamping = true;
-    const animate = (): void => {
+    controls.saveState();
+    const kit = makeMotionKit(rig, controls);
+    const faceOnButton = styledButton("face-on");
+    faceOnButton.addEventListener("click", kit.smoothFaceOn);
+    const bar = document.createElement("div");
+    bar.style.cssText =
+      "position:fixed;left:0;right:0;bottom:0;display:flex;gap:10px;justify-content:center;" +
+      "padding:10px 14px;background:rgba(8,12,22,0.62);z-index:10";
+    bar.append(kit.uprightButton, kit.spinButton, faceOnButton);
+    document.body.appendChild(bar);
+    const animate = (now: number): void => {
       requestAnimationFrame(animate);
+      kit.update(now);
       controls.update();
       rig.render();
     };
-    animate();
+    requestAnimationFrame(animate);
   } else {
     rig.render();
   }
@@ -470,19 +603,11 @@ async function timelineMain(manifestUrl: string): Promise<void> {
     "position:fixed;left:0;right:0;bottom:0;display:flex;gap:10px;align-items:center;" +
     "padding:10px 14px;background:rgba(8,12,22,0.62);color:#dfe7f4;" +
     "font:13px/1.4 ui-monospace,monospace;z-index:10";
-  const playButton = document.createElement("button");
-  playButton.textContent = "play";
-  const prevButton = document.createElement("button");
-  prevButton.textContent = "-1";
-  const nextButton = document.createElement("button");
-  nextButton.textContent = "+1";
-  const faceOnButton = document.createElement("button");
-  faceOnButton.textContent = "face-on";
-  for (const b of [playButton, prevButton, nextButton, faceOnButton]) {
-    b.style.cssText =
-      "background:#233250;color:#dfe7f4;border:1px solid #3a4c72;border-radius:4px;" +
-      "padding:4px 10px;cursor:pointer;font:inherit";
-  }
+  const kit = makeMotionKit(rig, controls);
+  const playButton = styledButton("play");
+  const prevButton = styledButton("-1");
+  const nextButton = styledButton("+1");
+  const faceOnButton = styledButton("face-on");
   const slider = document.createElement("input");
   slider.type = "range";
   slider.min = "0";
@@ -491,7 +616,16 @@ async function timelineMain(manifestUrl: string): Promise<void> {
   slider.style.cssText = "flex:1";
   const label = document.createElement("span");
   label.style.cssText = "min-width:220px;text-align:right";
-  ui.append(playButton, prevButton, nextButton, slider, label, faceOnButton);
+  ui.append(
+    playButton,
+    prevButton,
+    nextButton,
+    slider,
+    label,
+    kit.uprightButton,
+    kit.spinButton,
+    faceOnButton,
+  );
   document.body.appendChild(ui);
 
   let currentFrame = -1;
@@ -526,13 +660,14 @@ async function timelineMain(manifestUrl: string): Promise<void> {
   });
   prevButton.addEventListener("click", () => void showFrame(currentFrame - 1));
   nextButton.addEventListener("click", () => void showFrame(currentFrame + 1));
-  faceOnButton.addEventListener("click", () => controls.reset());
+  faceOnButton.addEventListener("click", kit.smoothFaceOn);
   slider.addEventListener("input", () => void showFrame(Number(slider.value)));
 
   await showFrame(Number(param("frame", "0")));
 
   const animate = (now: number): void => {
     requestAnimationFrame(animate);
+    kit.update(now);
     if (playing && now - lastAdvance >= 1000 / fps) {
       const next = currentFrame + 1;
       if (next >= manifest.frames.length) {
