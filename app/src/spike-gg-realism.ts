@@ -28,6 +28,8 @@ interface GutcheckMesh {
   positions: Float32Array;
   normals: Float32Array;
   indices: Uint32Array;
+  /** Present for cell-true meshes: drawn edge segments (endpoint pairs). */
+  edgePositions?: Float32Array;
 }
 
 interface AnimFrame {
@@ -53,7 +55,8 @@ interface AnimManifest {
 }
 
 const query = new URLSearchParams(window.location.search);
-const style = query.get("style") === "povray" ? "povray" : "ice";
+const styleRaw = query.get("style");
+const style = styleRaw === "povray" ? "povray" : styleRaw === "ggview" ? "ggview" : "ice";
 
 /** URL param with a per-style default. */
 function param(name: string, iceDefault: string, povDefault?: string): string {
@@ -67,8 +70,9 @@ function parseMesh(buffer: ArrayBuffer): GutcheckMesh {
   const headerLen = dv.getUint32(0, true);
   const headerText = new TextDecoder().decode(new Uint8Array(buffer, 4, headerLen));
   const header = JSON.parse(headerText) as Record<string, unknown>;
-  if (header["format"] !== "gutcheck-mesh-v1") {
-    throw new Error(`unexpected mesh format: ${String(header["format"])}`);
+  const format = header["format"];
+  if (format !== "gutcheck-mesh-v1" && format !== "gutcheck-cellmesh-v1") {
+    throw new Error(`unexpected mesh format: ${String(format)}`);
   }
   const vertexCount = header["vertexCount"] as number;
   const triangleCount = header["triangleCount"] as number;
@@ -78,7 +82,13 @@ function parseMesh(buffer: ArrayBuffer): GutcheckMesh {
   const normals = new Float32Array(buffer, off, vertexCount * 3);
   off += vertexCount * 3 * 4;
   const indices = new Uint32Array(buffer, off, triangleCount * 3);
-  return { header, positions, normals, indices };
+  off += triangleCount * 3 * 4;
+  let edgePositions: Float32Array | undefined;
+  if (format === "gutcheck-cellmesh-v1") {
+    const edgeSegmentCount = header["edgeSegmentCount"] as number;
+    edgePositions = new Float32Array(buffer, off, edgeSegmentCount * 6);
+  }
+  return { header, positions, normals, indices, edgePositions };
 }
 
 function makeBackdropTexture(): THREE.CanvasTexture {
@@ -88,7 +98,16 @@ function makeBackdropTexture(): THREE.CanvasTexture {
   canvas.height = size;
   const ctx = canvas.getContext("2d");
   if (ctx === null) throw new Error("2d context unavailable");
-  if (style === "povray") {
+  if (style === "ggview") {
+    // The paper's MATLAB-view backdrop: near-white, faintly cool.
+    const top = "#" + param("bgTop", "fafbfd");
+    const bottom = "#" + param("bgBottom", "e4e7ef");
+    const grad = ctx.createLinearGradient(0, 0, 0, size);
+    grad.addColorStop(0, top);
+    grad.addColorStop(1, bottom);
+    ctx.fillStyle = grad;
+    ctx.fillRect(0, 0, size, size);
+  } else if (style === "povray") {
     const inner = "#" + param("bgInner", "", "3f6cb4");
     const outer = "#" + param("bgOuter", "", "060b1c");
     const grad = ctx.createRadialGradient(
@@ -169,6 +188,20 @@ function makeEnvironmentScene(): THREE.Scene {
 // the crystal along the plane z=0") so interior sandwich structure becomes visible.
 function clipPlanes(): THREE.Plane[] | null {
   return param("clip", "0") === "1" ? [new THREE.Plane(new THREE.Vector3(0, 0, -1), 0)] : null;
+}
+
+// ggview: the paper's own PATCH look — flat-shaded translucent pale-cyan prisms.
+function makeCellTrueMaterial(): THREE.MeshStandardMaterial {
+  return new THREE.MeshStandardMaterial({
+    flatShading: true,
+    color: new THREE.Color("#" + param("body", "c2e2de")),
+    transparent: true,
+    opacity: Number(param("faceOp", "0.42")),
+    side: THREE.DoubleSide,
+    depthWrite: false,
+    roughness: 0.55,
+    metalness: 0,
+  });
 }
 
 function makeIceMaterial(extentX: number): THREE.MeshPhysicalMaterial {
@@ -287,9 +320,12 @@ function buildRig(extent: THREE.Vector3, liveBackground: boolean): SceneRig {
   }
 
   const group = new THREE.Group();
-  const crystal = new THREE.Mesh(new THREE.BufferGeometry(), makeIceMaterial(extent.x));
+  const crystal = new THREE.Mesh(
+    new THREE.BufferGeometry(),
+    style === "ggview" ? makeCellTrueMaterial() : makeIceMaterial(extent.x),
+  );
   group.add(crystal);
-  const edgeMaterial = makeEdgeMaterial();
+  const edgeMaterial = style === "ggview" ? null : makeEdgeMaterial();
   let edgeMesh: THREE.Mesh | null = null;
   if (edgeMaterial !== null) {
     edgeMesh = new THREE.Mesh(crystal.geometry, edgeMaterial);
@@ -461,7 +497,7 @@ function setRigGeometry(rig: SceneRig, geometry: THREE.BufferGeometry): void {
   if (rig.edgeMesh !== null) rig.edgeMesh.geometry = geometry;
 }
 
-const zscale = Number(param("zscale", "2.5"));
+const zscale = Number(query.get("zscale") ?? (style === "ggview" ? "1" : "2.5"));
 
 /** Mesh bytes -> display-ready geometry (z-relief scale + constant world offset). */
 function buildGeometry(
@@ -487,8 +523,9 @@ async function singleMeshMain(): Promise<void> {
   const meshUrl = param("mesh", "/gutcheck-mesh.bin");
   const response = await fetch(meshUrl);
   if (!response.ok) throw new Error(`mesh fetch failed: ${response.status} ${meshUrl}`);
+  const buffer = await response.arrayBuffer();
   // Center this mesh on itself: build once with no offset to measure, then translate.
-  const geometry = buildGeometry(await response.arrayBuffer(), [0, 0, 0]);
+  const geometry = buildGeometry(buffer, [0, 0, 0]);
   geometry.computeBoundingBox();
   const bbox = geometry.boundingBox;
   if (bbox === null) throw new Error("no bounding box");
@@ -501,6 +538,30 @@ async function singleMeshMain(): Promise<void> {
   const interactive = param("interactive", "0") === "1";
   const rig = buildRig(extent, interactive);
   setRigGeometry(rig, geometry);
+
+  // Cell-true meshes carry drawn edges (the paper's LINE routine): render them as
+  // segments with the exact transform applied to the face geometry.
+  const parsed = parseMesh(buffer);
+  if (parsed.edgePositions !== undefined) {
+    const edgeGeometry = new THREE.BufferGeometry();
+    edgeGeometry.setAttribute(
+      "position",
+      new THREE.BufferAttribute(parsed.edgePositions.slice(), 3),
+    );
+    if (zscale !== 1) edgeGeometry.scale(1, 1, zscale);
+    edgeGeometry.translate(-center.x, -center.y, -center.z);
+    const lines = new THREE.LineSegments(
+      edgeGeometry,
+      new THREE.LineBasicMaterial({
+        color: new THREE.Color("#" + param("lineHex", "27313e")),
+        transparent: true,
+        opacity: Number(param("lineOp", "0.55")),
+        depthWrite: false,
+      }),
+    );
+    lines.renderOrder = 3;
+    rig.group.add(lines);
+  }
 
   if (interactive) {
     const controls = new OrbitControls(rig.camera, rig.renderer.domElement);
