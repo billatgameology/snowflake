@@ -91,7 +91,19 @@ function parseMesh(buffer: ArrayBuffer): GutcheckMesh {
   return { header, positions, normals, indices, edgePositions };
 }
 
-function makeBackdropTexture(): THREE.CanvasTexture {
+/** Effective backdrop colors for the active style (URL params over per-style defaults). */
+function backdropDefaults(): { a: string; b: string } {
+  if (style === "ggview") {
+    return { a: "#" + param("bgTop", "fafbfd"), b: "#" + param("bgBottom", "e4e7ef") };
+  }
+  if (style === "povray") {
+    return { a: "#" + param("bgInner", "", "3f6cb4"), b: "#" + param("bgOuter", "", "060b1c") };
+  }
+  return { a: "#" + param("bgTop", "e6b95c"), b: "#" + param("bgBottom", "9aa5e0") };
+}
+
+function makeBackdropTexture(over?: { a: string; b: string }): THREE.CanvasTexture {
+  const colors = over ?? backdropDefaults();
   const size = 1024;
   const canvas = document.createElement("canvas");
   canvas.width = size;
@@ -100,16 +112,12 @@ function makeBackdropTexture(): THREE.CanvasTexture {
   if (ctx === null) throw new Error("2d context unavailable");
   if (style === "ggview") {
     // The paper's MATLAB-view backdrop: near-white, faintly cool.
-    const top = "#" + param("bgTop", "fafbfd");
-    const bottom = "#" + param("bgBottom", "e4e7ef");
     const grad = ctx.createLinearGradient(0, 0, 0, size);
-    grad.addColorStop(0, top);
-    grad.addColorStop(1, bottom);
+    grad.addColorStop(0, colors.a);
+    grad.addColorStop(1, colors.b);
     ctx.fillStyle = grad;
     ctx.fillRect(0, 0, size, size);
   } else if (style === "povray") {
-    const inner = "#" + param("bgInner", "", "3f6cb4");
-    const outer = "#" + param("bgOuter", "", "060b1c");
     const grad = ctx.createRadialGradient(
       size * 0.5,
       size * 0.48,
@@ -118,16 +126,14 @@ function makeBackdropTexture(): THREE.CanvasTexture {
       size * 0.5,
       size * 0.75,
     );
-    grad.addColorStop(0, inner);
-    grad.addColorStop(1, outer);
+    grad.addColorStop(0, colors.a);
+    grad.addColorStop(1, colors.b);
     ctx.fillStyle = grad;
     ctx.fillRect(0, 0, size, size);
   } else {
-    const top = "#" + param("bgTop", "e6b95c");
-    const bottom = "#" + param("bgBottom", "9aa5e0");
     const grad = ctx.createLinearGradient(size * 0.12, 0, 0, size);
-    grad.addColorStop(0, top);
-    grad.addColorStop(1, bottom);
+    grad.addColorStop(0, colors.a);
+    grad.addColorStop(1, colors.b);
     ctx.fillStyle = grad;
     ctx.fillRect(0, 0, size, size);
   }
@@ -290,7 +296,32 @@ interface SceneRig {
   edgeMesh: THREE.Mesh | null;
   /** Parent of crystal + edge pass; in-plane roll animations rotate this. */
   group: THREE.Group;
+  /** Regenerate the backdrop gradient with new colors (live). */
+  setBackdrop: (a: string, b: string) => void;
   render: () => void;
+}
+
+/** Two live color pickers for the backdrop gradient, initialized to the current look. */
+function makeBackdropControls(rig: SceneRig): HTMLSpanElement {
+  const wrap = document.createElement("span");
+  wrap.style.cssText = "display:flex;gap:4px;align-items:center";
+  const label = document.createElement("span");
+  label.textContent = "bg";
+  label.style.cssText = "color:#dfe7f4;font:12px ui-monospace,monospace";
+  const colors = backdropDefaults();
+  const inputs = [colors.a, colors.b].map((value) => {
+    const input = document.createElement("input");
+    input.type = "color";
+    input.value = value;
+    input.style.cssText =
+      "width:28px;height:24px;padding:0;border:1px solid #3a4c72;border-radius:4px;" +
+      "background:#233250;cursor:pointer";
+    return input;
+  });
+  const apply = (): void => rig.setBackdrop(inputs[0]!.value, inputs[1]!.value);
+  for (const input of inputs) input.addEventListener("input", apply);
+  wrap.append(label, inputs[0]!, inputs[1]!);
+  return wrap;
 }
 
 /** Build renderer, scene, camera, lights, materials for a given world extent. */
@@ -308,16 +339,29 @@ function buildRig(extent: THREE.Vector3, liveBackground: boolean): SceneRig {
   const span = (Math.max(extent.x, extent.y) / 2) * 1.12 * zoom;
   const aspect = window.innerWidth / window.innerHeight;
 
+  let backdropMaterial: THREE.MeshBasicMaterial | null = null;
   if (liveBackground) {
     scene.background = makeBackdropTexture();
   } else {
+    backdropMaterial = new THREE.MeshBasicMaterial({ map: makeBackdropTexture() });
     const backdrop = new THREE.Mesh(
       new THREE.PlaneGeometry(span * aspect * 2.1, span * 2.1),
-      new THREE.MeshBasicMaterial({ map: makeBackdropTexture() }),
+      backdropMaterial,
     );
     backdrop.position.z = -Math.max(extent.x, extent.y) * 0.75;
     scene.add(backdrop);
   }
+  const setBackdrop = (a: string, b: string): void => {
+    const tex = makeBackdropTexture({ a, b });
+    if (backdropMaterial !== null) {
+      backdropMaterial.map?.dispose();
+      backdropMaterial.map = tex;
+      backdropMaterial.needsUpdate = true;
+    } else {
+      (scene.background as THREE.Texture | null)?.dispose?.();
+      scene.background = tex;
+    }
+  };
 
   const group = new THREE.Group();
   const crystal = new THREE.Mesh(
@@ -371,6 +415,7 @@ function buildRig(extent: THREE.Vector3, liveBackground: boolean): SceneRig {
     crystal,
     edgeMesh,
     group,
+    setBackdrop,
     render: () => renderer.render(scene, camera),
   };
 }
@@ -574,7 +619,7 @@ async function singleMeshMain(): Promise<void> {
     bar.style.cssText =
       "position:fixed;left:0;right:0;bottom:0;display:flex;gap:10px;justify-content:center;" +
       "padding:10px 14px;background:rgba(8,12,22,0.62);z-index:10";
-    bar.append(kit.uprightButton, kit.spinButton, faceOnButton);
+    bar.append(kit.uprightButton, kit.spinButton, faceOnButton, makeBackdropControls(rig));
     document.body.appendChild(bar);
     const animate = (now: number): void => {
       requestAnimationFrame(animate);
@@ -686,6 +731,7 @@ async function timelineMain(manifestUrl: string): Promise<void> {
     kit.uprightButton,
     kit.spinButton,
     faceOnButton,
+    makeBackdropControls(rig),
   );
   document.body.appendChild(ui);
 

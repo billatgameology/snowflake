@@ -85,25 +85,18 @@ export function extractCellMesh(
     }
   };
 
-  const pushHexagon = (
-    hexagon: ReadonlyArray<readonly [number, number, number]>,
-    normal: readonly [number, number, number],
-    drawEdge: number,
-  ): void => {
-    for (const p of hexagon) {
-      positions.push(p[0], p[1], p[2]);
-      normals.push(normal[0], normal[1], normal[2]);
-    }
-    for (let t = 1; t < 5; t++) {
-      indices.push(vertexCount, vertexCount + t, vertexCount + t + 1);
-    }
-    vertexCount += 6;
-    for (let e = 0; e < 6; e++) {
-      if ((drawEdge & (1 << e)) === 0) continue;
-      const p0 = hexagon[e]!;
-      const p1 = hexagon[(e + 1) % 6]!;
-      edges.push(p0[0], p0[1], p0[2], p1[0], p1[1], p1[2]);
-    }
+
+  // Cap-corner dedup: shared hexagon corners collapse to indexed vertices (normal
+  // direction is part of the key so +z and -z caps never share).
+  const capIndex = new Map<string, number>();
+  const capCorner = (x: number, y: number, z: number, up: boolean): number => {
+    const key = `${x.toFixed(4)},${y.toFixed(4)},${z.toFixed(1)},${up ? "t" : "b"}`;
+    const existing = capIndex.get(key);
+    if (existing !== undefined) return existing;
+    positions.push(x, y, z);
+    normals.push(0, 0, up ? 1 : -1);
+    capIndex.set(key, vertexCount);
+    return vertexCount++;
   };
 
   for (let k = 0; k < nz; k++) {
@@ -113,31 +106,33 @@ export function extractCellMesh(
         const cx = i + j / 2;
         const cy = j * SQRT3_2;
         const cz = k;
-        // Side faces toward unattached T-neighbors. Quad edge order: 0 = bottom,
-        // 1 = vertical at corner mB, 2 = top, 3 = vertical at corner mA.
-        const sideExposed = (ii: number, jj: number, kk: number, d: number): boolean => {
+        // Side faces toward unattached T-neighbors, merged over contiguous exposed k-runs
+        // (one tall quad per run instead of one per cell). Emit only at run bottoms.
+        const sideExposed = (kk: number, d: number): boolean => {
           const dir = T_DIRECTIONS[d]!;
-          return attached(ii, jj, kk) && !attached(ii + dir.di, jj + dir.dj, kk);
+          return (
+            attached(i, j, kk) && !attached(i + dir.di, j + dir.dj, kk)
+          );
         };
         for (let d = 0; d < 6; d++) {
           const dir = T_DIRECTIONS[d]!;
           if (attached(i + dir.di, j + dir.dj, k)) continue;
+          if (sideExposed(k - 1, d)) continue; // interior of a run; emitted at its bottom
+          let kTop = k;
+          while (sideExposed(kTop + 1, d)) kTop++;
           const [mA, mB] = sideCorners(d);
           const ca = corners[mA]!;
           const cb = corners[mB]!;
           const angle = (dir.angle * Math.PI) / 180;
-          let drawEdge = 0b1111;
-          if (sideExposed(i, j, k - 1, d)) drawEdge &= 0b1110; // stacked strip below
-          if (sideExposed(i, j, k + 1, d)) drawEdge &= 0b1011; // stacked strip above
           pushQuad(
             [
               [cx + ca[0], cy + ca[1], cz - 0.5],
               [cx + cb[0], cy + cb[1], cz - 0.5],
-              [cx + cb[0], cy + cb[1], cz + 0.5],
-              [cx + ca[0], cy + ca[1], cz + 0.5],
+              [cx + cb[0], cy + cb[1], kTop + 0.5],
+              [cx + ca[0], cy + ca[1], kTop + 0.5],
             ],
             [Math.cos(angle), Math.sin(angle), 0],
-            drawEdge,
+            0b1111,
           );
         }
         // Top / bottom hexagons toward unattached Z-neighbors. Hexagon edge e (corner e
@@ -156,27 +151,30 @@ export function extractCellMesh(
           return drawEdge;
         };
         if (!attached(i, j, k + 1)) {
-          pushHexagon(
-            corners.map((c) => [cx + c[0], cy + c[1], cz + 0.5] as const),
-            [0, 0, 1],
-            capMask(k, 1),
+          const mask = capMask(k, 1);
+          const ring = corners.map((c) =>
+            capCorner(cx + c[0], cy + c[1], cz + 0.5, true),
           );
+          for (let t = 1; t < 5; t++) indices.push(ring[0]!, ring[t]!, ring[t + 1]!);
+          for (let e = 0; e < 6; e++) {
+            if ((mask & (1 << e)) === 0) continue;
+            const c0 = corners[e]!;
+            const c1 = corners[(e + 1) % 6]!;
+            edges.push(cx + c0[0], cy + c0[1], cz + 0.5, cx + c1[0], cy + c1[1], cz + 0.5);
+          }
         }
         if (!attached(i, j, k - 1)) {
-          // Reversed winding flips corner order; adjust the mask to the reversed
-          // enumeration so suppression still targets the correct neighbor.
           const mask = capMask(k, -1);
-          let reversedMask = 0;
-          for (let e = 0; e < 6; e++) {
-            // Reversed corner r = 5 - original corner; reversed edge e spans reversed
-            // corners e..e+1 = original corners 5-e..4-e = original edge 4-e mod 6.
-            if ((mask & (1 << (((4 - e) % 6) + 6) % 6)) !== 0) reversedMask |= 1 << e;
-          }
-          pushHexagon(
-            corners.map((c) => [cx + c[0], cy + c[1], cz - 0.5] as const).reverse(),
-            [0, 0, -1],
-            reversedMask,
+          const ring = corners.map((c) =>
+            capCorner(cx + c[0], cy + c[1], cz - 0.5, false),
           );
+          for (let t = 1; t < 5; t++) indices.push(ring[0]!, ring[t + 1]!, ring[t]!);
+          for (let e = 0; e < 6; e++) {
+            if ((mask & (1 << e)) === 0) continue;
+            const c0 = corners[e]!;
+            const c1 = corners[(e + 1) % 6]!;
+            edges.push(cx + c0[0], cy + c0[1], cz - 0.5, cx + c1[0], cy + c1[1], cz - 0.5);
+          }
         }
       }
     }
