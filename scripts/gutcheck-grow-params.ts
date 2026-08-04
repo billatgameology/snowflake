@@ -24,6 +24,7 @@ import {
   type Dims,
   type DomainShape,
   type GGParams,
+  type GGTimelineEnvironment,
 } from "@vcc/core";
 import { GGSolver, FAR_FIELD_STOP_FRACTION } from "@vcc/solver-cpu";
 import { extractMesh } from "./gutcheck-mesh-lib.ts";
@@ -35,13 +36,30 @@ interface SlotSpec {
   readonly overrides: Record<string, number>;
 }
 
-interface FigureSpec {
-  readonly label: string;
+interface StageSpec {
+  /** Apply the NEXT stage once tick reaches this value; null = final stage. */
+  readonly untilTick: number | null;
   readonly rho: number;
   readonly phi: number;
   readonly ggThreshTable: Record<string, number>;
   readonly kappa: SlotSpec;
   readonly mu: SlotSpec;
+}
+
+interface FigureSpec {
+  readonly label: string;
+  readonly rho?: number;
+  readonly phi?: number;
+  readonly ggThreshTable?: Record<string, number>;
+  readonly kappa?: SlotSpec;
+  readonly mu?: SlotSpec;
+  /**
+   * Optional §XII-style environment schedule (Phase 4 G-G events, ADR 0011): stage 1
+   * initializes the solver; each later stage is applied atomically at its predecessor's
+   * untilTick via the public applyTimelineEnvironment. When present, the top-level
+   * single-vector fields are ignored.
+   */
+  readonly stages?: readonly StageSpec[];
 }
 
 function slotRecord(spec: SlotSpec, name: string): Record<string, number> {
@@ -57,20 +75,64 @@ function slotRecord(spec: SlotSpec, name: string): Record<string, number> {
   return out;
 }
 
-function buildParams(spec: FigureSpec): GGParams {
+interface StageVectors {
+  readonly rho: number;
+  readonly phi: number;
+  readonly ggThreshTable: Record<string, number>;
+  readonly kappa: SlotSpec;
+  readonly mu: SlotSpec;
+}
+
+function buildParams(stage: StageVectors): GGParams {
   const ggThreshRecord: Record<string, number> = {};
   for (const key of SLOT_KEYS) {
-    const value = spec.ggThreshTable[key];
+    const value = stage.ggThreshTable[key];
     if (value === undefined) throw new Error(`ggThreshTable missing slot ${key}`);
     ggThreshRecord[`${key[0]},${key[1]}`] = value;
   }
   return {
-    rho: spec.rho,
-    phi: spec.phi,
-    kappa: paramVector(slotRecord(spec.kappa, "kappa")),
-    mu: paramVector(slotRecord(spec.mu, "mu")),
+    rho: stage.rho,
+    phi: stage.phi,
+    kappa: paramVector(slotRecord(stage.kappa, "kappa")),
+    mu: paramVector(slotRecord(stage.mu, "mu")),
     ggThreshBeta: paramVector(ggThreshRecord),
   };
+}
+
+const sevenTuple = (values: Float64Array): GGTimelineEnvironment["kappa"] =>
+  [values[1]!, values[2]!, values[3]!, values[4]!, values[5]!, values[6]!, values[7]!] as const;
+
+function environmentFromParams(params: GGParams): GGTimelineEnvironment {
+  return {
+    rho: params.rho,
+    phi: params.phi,
+    kappa: sevenTuple(params.kappa),
+    mu: sevenTuple(params.mu),
+    ggThreshBeta: sevenTuple(params.ggThreshBeta),
+  };
+}
+
+function resolveStages(spec: FigureSpec): StageSpec[] {
+  if (spec.stages !== undefined && spec.stages.length > 0) return [...spec.stages];
+  if (
+    spec.rho === undefined ||
+    spec.phi === undefined ||
+    spec.ggThreshTable === undefined ||
+    spec.kappa === undefined ||
+    spec.mu === undefined
+  ) {
+    throw new Error("spec needs either stages[] or a complete single vector");
+  }
+  return [
+    {
+      untilTick: null,
+      rho: spec.rho,
+      phi: spec.phi,
+      ggThreshTable: spec.ggThreshTable,
+      kappa: spec.kappa,
+      mu: spec.mu,
+    },
+  ];
 }
 
 interface Cli {
@@ -179,12 +241,21 @@ function main(): void {
   const cli = parseCli(process.argv.slice(2));
   const t0 = Date.now();
   const spec = JSON.parse(readFileSync(cli.specFile, "utf8")) as FigureSpec;
-  const params = buildParams(spec);
-  const validation = validateParams(params);
-  for (const warning of validation.warnings) console.log(`param warning: ${warning}`);
-  if (validation.errors.length > 0) {
-    throw new Error(`invalid params for ${spec.label}: ${validation.errors.join("; ")}`);
-  }
+  const stages = resolveStages(spec);
+  const stageParams = stages.map((stage, index) => {
+    const params = buildParams(stage);
+    const validation = validateParams(params);
+    for (const warning of validation.warnings) {
+      console.log(`param warning (stage ${index + 1}): ${warning}`);
+    }
+    if (validation.errors.length > 0) {
+      throw new Error(
+        `invalid params for ${spec.label} stage ${index + 1}: ${validation.errors.join("; ")}`,
+      );
+    }
+    return params;
+  });
+  const params = stageParams[0]!;
 
   const solver = new GGSolver({
     dims: cli.dims,
@@ -195,17 +266,30 @@ function main(): void {
     seedThickness: cli.seedThickness,
   });
   console.log(
-    `grow-params label="${spec.label}" rho=${spec.rho} phi=${spec.phi} ` +
-      `dims=${cli.dims.nx},${cli.dims.ny},${cli.dims.nz} domain=${cli.domain} ` +
-      `ticks<=${cli.ticks} seed=${cli.seed} noise=${cli.noise}`,
+    `grow-params label="${spec.label}" stages=${stages.length} rho1=${stages[0]!.rho} ` +
+      `phi1=${stages[0]!.phi} dims=${cli.dims.nx},${cli.dims.ny},${cli.dims.nz} ` +
+      `domain=${cli.domain} ticks<=${cli.ticks} seed=${cli.seed} noise=${cli.noise}`,
   );
 
   let stopReason = "tick-cap";
   let tick = 0;
-  const farFieldStop = FAR_FIELD_STOP_FRACTION * spec.rho;
+  let stageIndex = 0;
+  const transitions: Array<{ tick: number; stage: number }> = [];
+  let farFieldStop = FAR_FIELD_STOP_FRACTION * stages[0]!.rho;
   for (let t = 1; t <= cli.ticks; t++) {
     solver.step();
     tick = t;
+    const boundaryTick = stages[stageIndex]!.untilTick;
+    if (boundaryTick !== null && t >= boundaryTick && stageIndex + 1 < stages.length) {
+      stageIndex++;
+      solver.applyTimelineEnvironment(environmentFromParams(stageParams[stageIndex]!));
+      farFieldStop = FAR_FIELD_STOP_FRACTION * stages[stageIndex]!.rho;
+      transitions.push({ tick: t, stage: stageIndex + 1 });
+      console.log(
+        `environment transition at tick=${t}: stage ${stageIndex + 1} ` +
+          `(rho=${stages[stageIndex]!.rho})`,
+      );
+    }
     if (solver.domainContact()) {
       stopReason = "domain-contact";
       break;
@@ -256,6 +340,7 @@ function main(): void {
   const record = {
     label: spec.label,
     spec,
+    stageTransitions: transitions,
     dims: cli.dims,
     domain: cli.domain,
     seed: cli.seed,
