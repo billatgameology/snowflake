@@ -707,7 +707,8 @@ async function singleMeshMain(): Promise<void> {
       "position:fixed;left:0;right:0;bottom:0;display:flex;gap:10px;justify-content:center;" +
       "padding:10px 14px;background:rgba(8,12,22,0.62);z-index:10";
     bar.append(kit.uprightButton, kit.spinButton, faceOnButton, makeLookSwitcher(), makeBackdropControls(rig));
-    document.body.appendChild(bar);
+    // ?ui=0 suppresses the control bar for headless captures (buttons would land in the PNG).
+    if (param("ui", "1") !== "0") document.body.appendChild(bar);
     const animate = (now: number): void => {
       requestAnimationFrame(animate);
       kit.update(now);
@@ -821,7 +822,8 @@ async function timelineMain(manifestUrl: string): Promise<void> {
     makeLookSwitcher(),
     makeBackdropControls(rig),
   );
-  document.body.appendChild(ui);
+  // ?ui=0 suppresses the control bar for headless captures (buttons would land in the PNG).
+  if (param("ui", "1") !== "0") document.body.appendChild(ui);
 
   let currentFrame = -1;
   let showToken = 0;
