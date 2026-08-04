@@ -1,52 +1,33 @@
-# Handoff — Phase 6 maker redirect: cut to the final campaign (2026-08-03)
+# Handoff — Phase 6 charter v1.21 accepted; pause before push (2026-08-03)
 
-This is the manually triggered cold-start pointer. Current state belongs in `docs/PROGRESS.md`; the
-maker's 2026-08-03 direction is recorded verbatim in the active plan's **Governing direction**
-section and supersedes all prior resume points, including this file's previous version.
+This is the maker-triggered stop snapshot. `docs/PROGRESS.md` is the compact live authority, and the
+maker's verbatim 2026-08-03 direction remains in the active plan's **Governing direction** section.
 
 ## Resume point
 
-Phase 6 is incomplete. Do **not** resume the WP1 eight-control batch preflight, its half-migrated
-schema-v2 state, or any part of the v4/V4.x search-register/publisher/control-batch apparatus. The
-maker closed that line on 2026-08-03: it is preserved rejected history, not open work. Its open
-review findings (worker/launcher authentication, 58-role enforcement, junction/reparse refusal,
-and the rest) are attacker-class or apparatus-internal and are dispatched by the direction's
-threat-model ADR, not by further implementation.
+Decisions 0042–0044 and charter v1.21 are accepted. Their one proportionate read-only non-author
+review found one stale held-out instruction in `research/phase6-source-currency.md`; the bounded
+repair follow-up closed it with 0 blockers and 0 suggestions. Exact quote coverage was 6/6 charter
+deletions and 19/19 ADR quotation blocks. The final exact repository check and resume point are
+recorded in `docs/PROGRESS.md`.
 
-Read in order:
-
-1. `docs/phase6-lessons.md`.
-2. The maker's 2026-08-03 direction in
-   `docs/plans/phase-6-science-first-completion.md` (Governing direction).
-3. `docs/PROGRESS.md`, especially **Next step** — it lists the immediate actions in order.
-
-Summary of the direction: threat model is sloppiness (accidental error, crash, environment drift),
-not malicious attacks by the author on their own research; attacker-class findings close by one ADR
-as a named class. One proportionate non-author review per unit; a unit failing review twice
-escalates to the maker with options. Held-out validation (all four families) and the preview GPU
-cohort are deferred past Phase 6 by ADR + charter amendment with named owners. The final campaign
-keeps three arms (CAK, M1, `M1_NO_DIP_ABLATION`). Push `main` once ADR 0041 lands canonically and
-exact `npm test` is green (maker-authorized).
+The next action is the maker-authorized push of `main`. After pushing, write a bounded plan for the
+narrowed WP1 task before implementation: freeze Nakaya-comparison physical-size strata from the
+already-locked observations and uncertainties through the simplest reviewable deterministic
+operator. Then continue WP2 ladder → WP3 freeze → WP4 R15 → WP6 three-arm campaign → WP8 gate.
 
 ## State to preserve
 
-The isolated clone `research/tmp/recovery/wp1-v42-control-execution-author/` (branch
-`codex/wp1-v42-control-execution`, base `ed2d6e75970cf3284c26378c87e5445ac8ec3eb4`) is preserved
-as-is as rejected history, including its non-compiling schema-v2 checkpoint; do not complete,
-clean, or delete it. The live root remains branch `main`, HEAD
-`62c0f0220e47287372d8d4772488dfcfc0a6325a`, with intentional dirty/untracked entries — do not
-clean, absorb, or revert it. No project evidence process or long run is active. Preserve
-`research/tmp/`; publish scientific data only through the reviewed `evidence/` path.
+- Do not resume the WP1 V4/V4.x search register, publisher, schema migration, or eight-control
+  batch. Preserve `research/tmp/recovery/wp1-v42-control-execution-author/` exactly as rejected
+  history; do not open, repair, clean, or delete it.
+- Held-out execution and the v6 WGSL/preview-GPU cohort belong to the named Phase 7 work packages
+  owned by `billatgameology`; neither is Phase 6 gate evidence.
+- Phase 6 still requires CAK, M1, `M1_NO_DIP_ABLATION`, source-derived size strata, the registered
+  numerical ladder, R15, ADR 0026's conservative intersection, the full float64 campaign, and WP8.
+- Preserve `research/tmp/`; publish useful generated science through tracked `evidence/`. Keep any
+  stray root `=` artifact and local settings out of commits.
+- Education stays frozen at `60e3f3f` until Phase 6 closes. No long solver/evidence run is active.
 
-## Next actions
-
-Follow `docs/PROGRESS.md` **Next step** exactly: land ADR 0041 canonically; restore exact
-`npm test` green on the live root (progress-index date pin and compaction budget included); author
-the three direction ADRs with verbatim charter quotes per Rule 5, amending the charter in the same
-session; push `main`; then the narrowed WP1 size-strata freeze; then WP2 ladder pre-registration →
-registered ladder execution → WP3 freeze → WP4 R15 implementation → WP6 three-arm campaign →
-WP8 gate.
-
-Science integrity takes priority over runtime, under the 2026-08-03 review-depth cap. During
-normal development, update `docs/PROGRESS.md` normally; reduce unsolicited status to at most
-hourly only during an actual 2+ hour run.
+Normal development updates are welcome. Only reduce unsolicited status to at most hourly while an
+actual 2+ hour task is running.

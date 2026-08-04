@@ -317,17 +317,24 @@ current solver.
   Harrison archive members. The PDF checks are byte/hash checks; corrected conditions are a
   digest-pinned manual transcription, not a machine extraction from the PDF. It remains
   `passEligible=false`.
-- WP1's validation-target freeze remains open. No R15 or held-out production row may start from this
-  lock alone.
-- WP2's physical-size freeze is independently source-blocked for the current free-prism/classical-
-  Nakaya geometry; the reference supplies no maximum dimension or size stratum.
+- Decision 0043 records this lock's audited result as a Phase 6 finding, not a validation target or
+  pass. All four held-out families—growth rates, size-dependent habit, pressure dependence, and
+  growth-history responses—are deferred past Phase 6 with no validation credit. Their accountable
+  owner is project maker `billatgameology` through the named Phase 7 held-out-validation work
+  package; no Phase 6 held-out production row may start from this lock.
+- The narrowed WP1 task is separate: freeze Nakaya-comparison physical-size **strata** from the
+  already-locked observations and uncertainties through a new, simplest reviewable deterministic
+  operator. The classical reference supplies no single maximum dimension, so WP1 may not promote
+  one of the non-transferable 100/150/200/300 µm planning probes into a uniquely correct Nakaya
+  measurement size. R15 still waits for that strata freeze and WP2's registered numerical result.
 - A source-specifiable latent-heat arm can narrow the Harrison mismatch, but cannot infer the missing
   per-particle crystallography. Substrate or sublimation work similarly does not erase the other
   candidates' unobserved initial state.
-- The pressure and history obligations must be reported as scientifically blocked unless a matched
-  source or independently specified new geometry/physics is frozen before execution. They are not
-  resource-deferred and must not be marked passed.
-- Any new physics is an ADR/spec/implementation decision with its own numerical and evidence review.
+- The pressure/history gaps and the corresponding gaps in the other two families remain scientific
+  incompatibilities, not resource excuses. Phase 7 must make each comparison apples-to-apples or
+  retain the non-comparable finding; deferral must never be marked as execution or a pass.
+- Any post-Phase-6 new physics is an ADR/spec/implementation decision with its own numerical and
+  evidence review.
 
 ## 10. Review provenance and limits
 

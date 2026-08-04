@@ -20,11 +20,15 @@ index, a plan, ADR, or audit links to historical detail.
   the registered numerical-control ladder, ADR 0026's conservative-intersection headline, and the
   full three-arm float64 campaign. Resources may shape scheduling, not scientific criteria.
 - The maker's 2026-08-03 direction is recorded verbatim in the
-  [active plan](plans/phase-6-science-first-completion.md). It keeps `CAK`, `M1`, and
-  `M1_NO_DIP_ABLATION`; narrows the threat model to accidental error, crashes, and environment
-  drift; caps each unit at one proportionate non-author review; closes the V4/V4.x source-register,
-  publisher, and control-batch line as rejected history; and directs held-out and preview-GPU
-  deferrals by ADR plus charter amendment. Those deferrals do not alter the charter until accepted.
+  [active plan](plans/phase-6-science-first-completion.md) and enacted by accepted decisions
+  [0042](decisions/0042-bound-phase6-evidence-integrity-scope.md),
+  [0043](decisions/0043-defer-incompatible-heldout-families.md), and
+  [0044](decisions/0044-defer-phase6-preview-gpu-cohort.md) plus charter v1.21. The threat model is
+  accidental error/crash/environment drift, with attacker-only local tamper closed as history; each
+  unit gets one proportionate non-author review engagement. Held-out validation and the v6
+  WGSL/preview-GPU cohort move to named Phase 7 work packages owned by `billatgameology`, with no
+  Phase 6 credit. CAK, M1, `M1_NO_DIP_ABLATION`, the numerical ladder, R15, and conservative
+  intersection remain in full.
 - [ADR 0041](decisions/0041-phase6-ryzen9-host.md) and charter v1.20 landed canonically in
   `1ff948c`. The manifest-covered [host observation](../evidence/phase6-host/observation-20260803T033028Z.json)
   is 3,051 bytes with SHA-256
@@ -45,9 +49,11 @@ index, a plan, ADR, or audit links to historical detail.
   Historical parameter/protocol hashes and both legacy manifest schemas remain untouched.
 - The candidate source lock covers five files, 21 Harrison archive members, and all 16 reconciled
   levitation traces but remains `passEligible=false`. The audited incompatibility finding is that no
-  current held-out family is apples-to-apples with the implemented geometry and transport physics.
-  No provider request, new import, TAX2 measurement, R15 row, GPU validation row, or production
-  solver job has run during the continuation work.
+  current held-out family is apples-to-apples with the implemented geometry and transport physics;
+  decision 0043 defers all four without calling that a pass. The amended
+  [source-currency record](../research/phase6-source-currency.md) is 29,714 bytes with SHA-256
+  `af045438ab2e4bb0de82aea4b289388d7d2c0448322298f7ecfe4ed21e5d2563`. No provider request, new
+  import, TAX2 measurement, R15 row, GPU validation row, or production solver job ran.
 - The V4/V4.x search-register, publisher, and eight-control batch apparatus is closed as rejected
   history. The isolated batch clone under `research/tmp/recovery/wp1-v42-control-execution-author/`
   remains untouched. Six exact root-side apparatus files were removed from the live test/source
@@ -65,18 +71,18 @@ index, a plan, ADR, or audit links to historical detail.
 - The minimum current planning count remains `612 × S × D × Z` rows (three arms × 204 points ×
   spacings × domains × physical-size strata). The illustrative three-spacing, three-domain,
   one-size matrix is 5,508 CPU rows; it is a feasibility count, not a frozen protocol.
-- Exact `npm.cmd test` on the redirected live tree exited 0 in 674.8 seconds: Rule 7 was clean over
-  425 files, both TypeScript projects passed, and Vitest passed 81 files / 1,446 tests in 666.70
-  seconds. The unit's one non-author review found and closed a stale live instruction that could
-  reauthorize rejected WP1 work; its bounded follow-up reported 0 blockers. After that record-only
-  repair, the focused set passed 3 files / 46 tests, Rule 7 was clean over 426 files, both typechecks
-  passed, and `git diff --check` was clean. This verifies the repository baseline; it is not Phase 6
-  scientific evidence.
+- The redirected baseline's exact `npm.cmd test` exited 0 in 674.8 seconds (Rule 7: 425 files; both
+  TypeScript projects; Vitest: 81 files / 1,446 tests in 666.70 seconds). The direction-amendment
+  unit's single non-author review found one stale live held-out instruction; its bounded follow-up
+  closed it with 0 blockers / 0 suggestions after exact quote coverage and focused checks. On the
+  accepted v1.21 landing candidate, exact `npm.cmd test` exited 0 in 665.9 seconds: Rule 7 was clean
+  over 428 files, both TypeScript projects passed, and Vitest passed 81 files / 1,446 tests in 657.56
+  seconds. These are repository checks, not Phase 6 scientific evidence.
 - Education remains frozen at commit `60e3f3f` until Phase 6 closes. Preserve `research/tmp/` as
   useful local research context; durable generated science belongs under tracked `evidence/`.
-- Branch `main` is ahead of `origin/main` by the ADR 0041 landing. The maker authorized a push only
-  after exact `npm test` is green and the three direction ADR/charter amendments are accepted. Keep
-  the zero-byte root file `=` and local settings out of Phase 6 commits.
+- Branch `main` remains unpushed. The maker authorized the next push now that ADR 0041 is canonical,
+  exact repository verification is restored, and decisions 0042–0044/charter v1.21 are accepted.
+  Keep any stray root `=` artifact and local settings out of Phase 6 commits.
 - **Last updated:** 2026-08-03 by OpenAI Codex (`gpt-5.6-sol`, ultra reasoning)
 
 ## Phase gates
@@ -93,8 +99,8 @@ and every superseded attempt live in the linked plans and historical progress sn
 | 3 | Complete, maker-asserted 2026-07-23 | `gate3` exit 0: depletion-ratio median `0.531454`, 90.2% below 1, radius 38, symmetry error 0. Repro: `node runner/src/main.ts gate3`. |
 | 4 | Complete 2026-07-18 | `gate4` at `70a2496`: 24/24 blocking G-G records and 12/12 diagnostic LK records executed; `gatePass=true`, `passBDiagnosticPass=false`. Repro: `node runner/src/main.ts gate4`. |
 | 5 | Complete, maker-asserted 2026-07-26 | Clean `c436df5`, observed Windows/Chromium/D3D12: 16/16 gate criteria, 560 bounded segments below 500 ms, zero device losses/errors/full-field display-frame reads, 16/16 negative controls rejected. Repro: `node runner/src/main.ts gate5-lane` and `node runner/src/main.ts gate5`. |
-| 6 | **Active and incomplete** | Historical CAK/M1 measurements are retained. Direction ADRs, size-strata freeze, numerical ladder, WP3/R15, three-arm production, and WP8 gate remain open. Held-out/GPU deferrals are maker-directed but not authoritative until the charter amendments land. |
-| 7 | Not started | Begins only after Phase 6 closes; the maker directs the deferred preview-GPU work here, pending ADR. |
+| 6 | **Active and incomplete** | Historical CAK/M1 measurements are retained. Decisions 0042–0044 are accepted; size-strata freeze, numerical ladder, WP3/R15, three-arm production, and WP8 gate remain open. Held-out/GPU execution is deferred with no Phase 6 credit. |
+| 7 | Not started | Begins only after Phase 6 closes; charter v1.21 assigns held-out validation and v6 WGSL/preview-GPU parity to `billatgameology` here. |
 
 ## Active plan
 
@@ -103,24 +109,18 @@ implementation plan. The detailed V4/V4.x chronology remains in the closed
 [WP1 history](plans/phase-6-wp1-source-lineage-and-tax2.md) and recovery artifacts; it is not a live
 schedule.
 
-Before any production row, the repository must have accepted direction ADRs/charter amendments,
-reviewed source-derived physical-size strata, a pre-registered and executed numerical-control ladder
-that selects one configuration or no-pass, an accepted WP3 protocol freeze, and an independently
-reviewed artifact-derived R15 path. Until the deferral amendments land, the charter's existing
-held-out and preview-GPU clauses remain authoritative.
+Before any production row, the repository must have reviewed source-derived physical-size strata, a
+pre-registered and executed numerical-control ladder that selects one configuration or no-pass, an
+accepted WP3 protocol freeze, and an independently reviewed artifact-derived R15 path. Decisions
+0043–0044's deferrals are authoritative; they are verified records at WP8, not production inputs.
 
 ## Next step
 
-### Current resume point — adopt the maker-direction amendments
+### Current resume point — push v1.21, then plan narrowed WP1
 
-ADR 0041 is canonically landed and the redirected baseline is exact-suite green at the result above.
-Author and accept three direction decisions with verbatim charter quotes and same-session charter
-amendments: held-out deferral with a named post-Phase-6 owner; preview-GPU/v6-WGSL deferral to Phase
-7; and the sloppiness-focused threat model plus review-depth cap closing the attacker-only finding
-class by name. Obtain one proportionate non-author review of that unit. If it fails twice, escalate
-to the maker rather than rebuilding a third time.
-
-Then push `main` (maker-authorized), write the narrowed WP1 size-strata plan, freeze the simplest
-reviewable deterministic operator over already-locked sources, and proceed in order: WP2 ladder
-pre-registration → registered Ryzen 9 execution → WP3 freeze → WP4 R15 → WP6 three-arm campaign →
-WP8 gate. Do not resume education, V4/V4.x apparatus, held-out execution, or preview-GPU work.
+The direction-amendment unit is accepted and has its one completed non-author review. After the
+maker-requested pause, push `main` (already authorized), then write the bounded narrowed-WP1 plan
+before implementation and freeze the simplest reviewable deterministic size-strata operator over
+already-locked observations. Proceed in order: WP2 ladder pre-registration → registered Ryzen 9
+execution → WP3 freeze → WP4 R15 → WP6 three-arm campaign → WP8 gate. Do not resume education,
+V4/V4.x apparatus, held-out execution, or preview-GPU work.

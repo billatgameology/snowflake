@@ -8,11 +8,13 @@
 ## Goal
 
 Complete the Phase 6 scientific gate that the 2026-08-01 external review correctly found
-incomplete. The maker has chosen the science-first branch of open item O1b: execute the registered
-conservative-intersection headline and the omitted charter obligations rather than amend the
-charter to fit the evidence already produced. Resource cost may shape scheduling and concurrency,
-but it may not weaken a validity criterion, substitute an unregistered configuration, or turn a
-missing comparison into a prose limitation.
+incomplete. The maker keeps the science-first core of open item O1b: execute the registered
+conservative-intersection headline, numerical-control ladder, R15 path, and complete three-arm
+float64 campaign. Decisions 0043 and 0044 move only the scientifically incompatible held-out
+families and the non-parity preview-GPU work past Phase 6; decision 0042 bounds evidence hardening to
+honest-execution failures. Resource cost may shape scheduling and concurrency, but it may not weaken
+a retained validity criterion, substitute an unregistered configuration, or turn a missing core
+comparison into prose.
 
 The existing two 204-row sweeps remain tracked measurements of the model at their executed
 configuration. They are not erased, upgraded, or silently pooled into the new result. The accepted
@@ -30,17 +32,17 @@ that clean intervention cannot establish physical SDAK causality or necessity in
 
 ## Done when
 
-Current accepted charter v1.20, verbatim:
+Current accepted charter v1.21, verbatim:
 
 > Done when the model's temperature-vs-supersaturation morphology diagram is compared against Nakaya's, with the agreements and the disagreements both stated. A negative result is a result: if the model does not reproduce the flip, that is a finding about the model, it is reported as one, and GGThreshold still ships a beautiful crystal (Phase 2a). What is not permitted is quietly tuning until the diagram matches and calling it validation — the versioned protocol freeze (item 1) makes every authorized change auditable and invalidates prior sweep evidence for the replacement gate after a post-freeze edit.
 
-The quoted gate is reached only after all preceding Phase 6 charter items that give it meaning are
-also discharged: the full protocol is frozen before new evidence; grid, timestep, and domain
-controls pass at representative registered points; the production headline is the conservative
-intersection required by ADR 0026; hundreds of automated preview-budget runs execute on the
-headless GPU harness; no-SDAK and SDAK results remain separate; held-out growth-rate,
-size-dependent-habit, pressure, and history-response comparisons run; and evidence labels are
-upgraded only where those comparisons support them.
+The quoted gate is reached only after all retained Phase 6 charter items that give it meaning are
+discharged: source-derived physical-size strata and the full protocol freeze before new evidence;
+grid, timestep, and domain controls at registered points; the R15 artifact path; the complete CAK,
+M1, and `M1_NO_DIP_ABLATION` float64 campaigns; ADR 0026's conservative-intersection headline; and
+separate no-SDAK/SDAK reports with evidence labels limited to executed comparisons. Decisions 0043
+and 0044 make the held-out incompatibility finding and GPU deferral explicit; neither earns Phase 6
+credit for work not executed.
 
 ## Governing direction
 
@@ -106,6 +108,31 @@ exact `npm.cmd test` exited 0 in 674.8 seconds: Rule 7 scanned 425 files, both T
 passed, and Vitest passed 81 files / 1,446 tests in 666.70 seconds. This is repository verification,
 not Phase 6 scientific evidence.
 
+Direction-amendment checkpoint: decisions 0042–0044 and charter v1.21 implement the maker's
+2026-08-03 scope boundary. Decision 0042 closes the attacker-only finding class and caps review;
+decision 0043 records the held-out incompatibility finding and assigns the deferred work to
+`billatgameology`; decision 0044 assigns the v6 WGSL/preview cohort to the same owner in Phase 7 and
+leaves the float64 oracle as the Phase 6 verdict path. Their acceptance record and exact landing
+verification are recorded below before this unit closes.
+
+The unit's one proportionate non-author review was OpenAI Codex `gpt-5.6-sol`, read-only, with full
+shared context and no authorship. It independently checked all 19 ADR quote blocks against the
+pre-amendment charter, covered all six deleted charter lines, searched the live plan for stale
+attacker-only/GPU/held-out instructions, checked the three retained arms and core dependencies, and
+verified the Phase 5/permanent-architecture boundary. Its first verdict found one blocker: §9 of the
+live source-currency record still required Phase 6 held-out execution. After the bounded repair, the
+same review engagement independently matched the 29,714-byte amended record at SHA-256
+`af045438ab2e4bb0de82aea4b289388d7d2c0448322298f7ecfe4ed21e5d2563` and returned 0 blockers / 0
+non-blocking suggestions. Rule 7 was clean over 428 files, the focused progress/evidence set passed
+2 files / 14 tests, and `git diff --check` passed apart from line-ending warnings. Review limits: no
+exact full `npm test`, solver/GPU/campaign execution, source acquisition or source-byte verifier,
+rejected-apparatus inspection, finding-by-finding dispatch, or review of prior reviews.
+
+After acceptance, exact `npm.cmd test` on the v1.21 landing candidate exited 0 in 665.9 seconds:
+Rule 7 was clean over 428 files, both TypeScript projects passed, and Vitest passed 81 files / 1,446
+tests in 657.56 seconds. This is repository consistency only, not a solver campaign or scientific
+gate result.
+
 The unit's single proportionate non-author review was OpenAI Codex `gpt-5.6-sol`, read-only, with
 full shared thread/repository context and no authorship. It independently ran the metrics,
 progress-index, and evidence-integrity suites (3 files / 46 tests), Rule 7 over 425 then-live files,
@@ -142,9 +169,9 @@ scientific obligation.
 
 Work proceeds through independently reviewable freezes. No expensive evidence campaign starts
 until its inputs, evaluator, negative controls, output schema, resource estimate, and termination
-rules are committed and adversarially reviewed. Reconnaissance may measure cost or discriminate
-between predeclared numerical configurations, but it is stamped non-transferable and cannot enter
-a gate result.
+rules are committed and receive their one proportionate non-author review. Reconnaissance may
+measure cost or discriminate between predeclared numerical configurations, but it is stamped
+non-transferable and cannot enter a gate result.
 
 Unattended execution is resumable by construction. Before any long task, update `docs/PROGRESS.md`
 with the exact resume point; update `docs/HANDOFF.md` only when the maker explicitly requests a
@@ -155,12 +182,12 @@ cycle-boundary generations rather than relying on one process surviving. Maker-f
 normal development cadence; only an actually running 2+ hour script or campaign reduces unsolicited
 status to at most hourly unless requested.
 
-The scientific result stays anchored to the float64 CPU oracle and the D6h-equivariant
-`aggregate-hv-g1h1-v6` policy. The GPU cohort is a separately reported preview-budget execution and
-CPU-comparison obligation, not a cheaper replacement for the oracle. Before the GPU cohort can run,
-the WGSL path must implement the same registered surface policy and a binary32-appropriate
-convergence rule must be derived and validated against float64; the current v5-only, gather-order
-path cannot be treated as equivalent to v6.
+The Phase 6 result stays anchored to the float64 CPU oracle and the D6h-equivariant
+`aggregate-hv-g1h1-v6` policy. Decision 0044 moves the separately reported preview-budget GPU cohort
+to its named Phase 7 work package; before that cohort runs, WGSL must implement the same registered
+surface policy and a binary32-appropriate convergence rule must be derived and validated against
+float64. The current v5-only, gather-order path cannot be treated as equivalent to v6 or counted in
+Phase 6.
 
 Physical crystal size and numerical convergence are kept distinct. Growth can genuinely depend on
 size, so a larger target extent is not automatically “more converged.” The validation size or size
@@ -245,8 +272,8 @@ producer-supplied pass field is trusted.
   hash rather than retrofitting a new field. Add a separately named revision/current-table hash path
   and redirect only the current-file integrity assertion; do not mutate either historical manifest
   identity. The current-file integrity assertion now uses the separately named current constant.
-  This step does **not** freeze the R15 protocol: its values/protocol hash waits for WP1 held-out
-  targets and WP2 numerical inputs.
+  This step does **not** freeze the R15 protocol: its values/protocol hash waits for WP1's
+  source-derived physical-size strata and WP2 numerical inputs.
 - [x] Run the first WP0 landing checks. Exact `npm.cmd test` exited 0 in 723.7 seconds (Rule 7 clean
   over 415 files, both TypeScript projects green, 78 Vitest files / 1,394 tests in 713.98 seconds).
   The complete public/offline education verifier passed 213 checks as recorded above. These are
@@ -422,9 +449,10 @@ configuration or no-pass → WP3 production binding → fresh R15 production exe
   no-re-sweep scheduling decision, quotes every affected/no-impact charter clause, and preserves
   ADR 0037's negative evidence.
 - [ ] Amend the Phase 6 protocol through the charter's existing post-freeze mechanism. The amendment
-  must name all sizes, grid spacings, physical domains, timestep controls, CPU/GPU roles, selected
-  held-out targets, exact run counts, uncertainty operators, engine versions, environment policy,
-  and failure consequences.
+  must name all sizes, grid spacings, physical domains, timestep controls, the float64 CPU role,
+  exact run counts, uncertainty operators, engine versions, environment policy, and failure
+  consequences. It records decisions 0043–0044's held-out/GPU deferrals rather than inventing
+  targets or GPU rows.
 - [ ] **Bind, do not choose, the production configuration.** Hash-bind the reviewed WP2
   pre-registration and its independently recomputed control artifact. The replacement ADR and
   protocol may bind only the exact configuration selected by the pre-registered function; no author
@@ -445,14 +473,14 @@ configuration or no-pass → WP3 production binding → fresh R15 production exe
   surface mapping, denominators, and registered output set.
 - [ ] Freeze an explicit clean child-process environment allow-list. Inherited `NODE_OPTIONS`,
   preload hooks, and equivalent out-of-repository mutation paths must fail closed.
-- [ ] Add a preflight that proves every frozen row reaches every spawned CPU/GPU invocation and is
+- [ ] Add a preflight that proves every frozen row reaches every spawned CPU invocation and is
   echoed into each result.
-- [ ] Execute production children from an immutable detached source snapshot. Hash the exact argv,
-  allow-listed environment, source tree, package manifests, lockfile, and resolved workspace
-  modules used by each child; before/after endpoint hashes are not evidence against a transient
-  source edit.
+- [ ] Execute production children from one tracked-clean committed source snapshot. Record the exact
+  argv, allow-listed environment, source commit, package manifests, lockfile, and resolved workspace
+  modules used by each child, and refuse accidental source/environment drift between launches.
 - [ ] Subject the ADR, source freeze, protocol, cost model, and expected-result statement to a
-  non-author adversarial review. Resolve findings before any production row runs.
+  single proportionate non-author review under decision 0042. Resolve blockers before any
+  production row runs; record non-blocking hardening suggestions without rebuilding around them.
 
 ### WP4 — implement R15 as an end-to-end evidence path
 
@@ -484,23 +512,15 @@ configuration or no-pass → WP3 production binding → fresh R15 production exe
 - [ ] Make the gate refuse old measured-only artifacts as headline evidence while continuing to
   verify and label them as historical measurements.
 
-### WP5 — make the preview GPU cohort scientifically comparable
+### WP5 — preview GPU work deferred to Phase 7
 
-- [ ] Port `aggregate-hv-g1h1-v6`'s order-invariant opposing-vapor reduction to WGSL and keep legacy
-  v5 evidence bit-unchanged.
-- [ ] Derive a binary32 convergence/error envelope from operation counts and machine precision,
-  then validate it against the float64 oracle over adversarial fields and registered morphology
-  cases. Do not copy the float64 `divTol` or waive dual convergence because it is expensive.
-- [ ] Extend the existing pinned Chromium/D3D12 headless harness to Phase 6 parameter sweeps at the
-  charter's preview budget (approximately eight million total resident cells), with bounded dispatch,
-  device/error provenance, GPU-resident stepping, and fail-closed readback/evaluation.
-- [ ] Freeze and execute an exact count of at least 200 automated preview-budget runs. The intended
-  science-first target is the complete 204-point grid for all three intended arms (612 total: CAK,
-  M1, and matched no-dip) unless the pre-run ADR registers a scientifically stronger coverage design;
-  “hundreds” is never discharged by CPU rows.
-- [ ] Report GPU outcomes separately from the float64 production headline and publish CPU-vs-GPU
-  class, metric, convergence, and failure comparisons. A mismatch is a result, not permission to
-  tune the tolerance after seeing it.
+- [x] Decision 0044 and charter v1.21 move the v6 WGSL port, binary32 convergence/error envelope,
+  adversarial oracle comparison, and preview-budget cohort out of the Phase 6 gate. Owner:
+  `billatgameology`, through the named Phase 7 GPU-parity work package.
+- [x] Preserve the carried scope: at least 200 automated preview-budget runs, intended as all 204
+  points for CAK, M1, and `M1_NO_DIP_ABLATION` (612 total) unless a pre-run ADR registers a
+  scientifically stronger design. The future GPU report remains separate from the Phase 6 float64
+  headline. No Phase 6 CPU row, v5 GPU row, or Phase 5 artifact satisfies that deferred work.
 
 ### WP6 — execute the float64 production campaigns
 
@@ -521,44 +541,30 @@ configuration or no-pass → WP3 production binding → fresh R15 production exe
 - [ ] Verify each completed cohort before allowing it into the aggregate, then generate the
   conservative-intersection diagrams and reports with both agreements and disagreements stated.
 
-### WP7 — execute held-out validation
+### WP7 — held-out validation deferred past Phase 6
 
-- [ ] Do not treat “no compatible target found” as execution of a charter obligation. Continue the
-  primary-source search and, where a scientifically defensible target requires source-specified
-  supported/needle seed geometry, vapor-thermal coupling, ventilation, sublimation, or other
-  load-bearing physics, add the necessary ADR/spec/implementation/verification work before freezing
-  that family. Missing unobserved crystallography may require a set-valued target or new source; it
-  must not be invented from model output. Phase 6 remains incomplete until all four families execute
-  apples-to-apples or the maker explicitly amends the charter.
-
-- [ ] Run the frozen growth-rate comparison and publish residuals against source uncertainty over
-  its named (T, supersaturation, geometry, size, pressure) domain.
-- [ ] Run the frozen size-dependent-habit comparison at every registered size rather than selecting
-  the size whose class is favorable.
-- [ ] Run the frozen pressure comparison with diffusivity and latent-heating limitations carried
-  explicitly; do not attribute a mismatch to one omitted mechanism without a discriminating test.
-- [ ] Run the frozen schedule/history comparison using decision 0011 event semantics and compare
-  predeclared observables at predeclared times/sizes. Do not freeze a target until its free-crystal
-  or explicitly implemented supported/needle geometry, temperature, supersaturation history,
-  pressure, and observables are apples-to-apples with the solver; absence of an admissible current
-  target is a geometry/model-scope blocker to resolve, not permission to score a near miss or close
-  the obligation.
-- [ ] Report each family independently. Failure or non-comparability in one family is not averaged
-  away by another. P3-active Nakaya outcomes remain in-sample; call a held-out-family result
-  independent only after proving that its observable and source were not used to construct or
-  select those inputs.
+- [x] Decision 0043 and charter v1.21 accept the audited `passEligible=false` incompatibility as the
+  Phase 6 finding and move growth-rate, size-dependent-habit, pressure-dependence, and
+  growth-history execution to the named Phase 7 held-out-validation work package. Owner:
+  `billatgameology`.
+- [x] Preserve the four families as separate post-Phase-6 obligations. Each future freeze must make
+  geometry, conditions, transport physics, observable, uncertainty, and scoring apples-to-apples or
+  record continued non-comparability. No near-match score, invented crystallography, P3-active
+  Nakaya result, or absence of a target earns held-out validation credit.
 
 ### WP8 — gate, publication, and handoff
 
 - [ ] Build one flagless Phase 6 gate whose preflight and evaluator re-derive every obligation from
-  committed evidence: freeze identity, numerical controls, R15 conservative intersection, separate
-  arms, preview GPU count/provenance, all four held-out families, diagrams, reports, and evidence
-  labels.
+  committed evidence: freeze identity, source-derived size strata, numerical controls, R15
+  conservative intersection, all three separate float64 arms, diagrams, reports, evidence labels,
+  and the decision-0043/0044 deferral records. It verifies the deferrals without pretending the
+  deferred executions are gate evidence.
 - [ ] Execute all registered negative controls and prove each named mutation occurred independently
   of the verifier it attacks.
 - [ ] Run exact `npm test`; no substitute command counts as the required local check.
-- [ ] Obtain a non-author closing review that states model/context provenance, independently
-  re-executed checks, and explicit limits.
+- [ ] Obtain the gate unit's one proportionate non-author review under decision 0042. It states
+  model/context provenance, independently re-executed checks, explicit limits, and separates
+  blockers from non-blocking hardening suggestions.
 - [ ] Reconcile the charter, ADRs, solver specs, plan, `docs/PROGRESS.md`, reports, and user-facing
   evidence labels. Reconcile `docs/HANDOFF.md` only if the maker requests a stop/restart handoff.
   Phase 6 changes to complete only if the artifact-derived gate exits zero.
@@ -566,25 +572,22 @@ configuration or no-pass → WP3 production binding → fresh R15 production exe
 ## Evidence topology
 
 ```text
-primary sources + currency audit
-              │
-              ├── held-out target freeze ───────────────┐
-              │                                         │
-numerical reconnaissance (non-transferable)             │
-              │                                         │
-              └── production protocol + ADR freeze      │
-                               │                         │
-              ┌────────────┬──────────┼───────────────┐  │
-              │            │          │               │  │
-       float64 CAK   float64 M1   matched no-dip  preview GPU
-              │            │          │               │  │
-              └────────────┴──────────┴──────┬────────┘  │
-                                     │                  │
-                         independent byte re-derivation │
-                                     │                  │
-                                     ├──────────────────┘
-                                     │
-                              flagless Phase 6 gate
+locked sources → size-strata freeze → registered numerical controls
+                                             │
+                                  production protocol + ADR freeze
+                                             │
+                         ┌───────────────────┼────────────────────┐
+                         │                   │                    │
+                    float64 CAK         float64 M1     matched no-dip
+                         │                   │                    │
+                         └───────────────────┼────────────────────┘
+                                             │
+                              independent byte re-derivation
+                                             │
+                                  flagless Phase 6 gate
+
+held-out candidate lock → audited incompatibility → Phase 7 owner (reported, not scored)
+v5/v6 GPU mismatch     → decision 0044         → Phase 7 owner (not a Phase 6 input)
 ```
 
 The producer never supplies both sides of a comparison. The final gate consumes only committed
@@ -593,7 +596,7 @@ source freezes, protocol manifests, raw result artifacts, and independently deri
 ## Out of scope
 
 - Quietly redefining the registered headline to measured-only agreement.
-- Amending the charter to replace GPU evidence with the CPU oracle or to defer held-out validation.
+- Reopening the decision-0043/0044 deferrals inside Phase 6 or treating them as executed evidence.
 - Tuning CAK, M1, the habit thresholds, the ambiguity band, or the reference boundaries to improve
   agreement.
 - Implementing M2's full facet-width-dependent policy or inventing a sub-grid width closure without
@@ -607,8 +610,11 @@ source freezes, protocol manifests, raw result artifacts, and independently deri
 
 ## Tried and rejected
 
-**Narrow O1b by ADR and charter amendment.** Rejected by maker direction on 2026-08-01. It would
-save resources but leave the registered scientific work undone.
+**Narrow O1b wholesale by ADR and charter amendment.** Rejected by maker direction on 2026-08-01.
+The 2026-08-03 direction partially supersedes that scheduling choice for two obligations only:
+decisions 0043 and 0044 defer scientifically incompatible held-out work and the non-parity GPU
+cohort. The conservative-intersection headline, numerical ladder, R15, and three-arm float64
+campaign remain in full.
 
 **Blindly execute the old N = 64 remediation.** Rejected by measurement: N = 64 fails against N =
 80 at three of four registered spot-check points. Spending a full sweep there would knowingly
@@ -622,8 +628,8 @@ observable, not a numerical refinement knob.
 counts, while ADR 0026 requires a conservative intersection that consumes grid-extrapolated
 classes.
 
-**Use the float64 CPU rows to satisfy the preview GPU clause.** Rejected. The charter names the
-headless GPU harness and preview budget explicitly.
+**Use float64 CPU rows as if they were preview-GPU rows.** Rejected. Decision 0044 moves the GPU
+cohort to Phase 7; it does not convert CPU artifacts into GPU evidence.
 
 **Run the existing GPU LK v5 path as if it were CPU v6.** Rejected. V5's gather-order reduction is
 not D6h-equivariant, the GPU path refuses M1 and v6 today, and binary32 cannot inherit a float64
@@ -676,18 +682,18 @@ precede that freeze.
 
 ## Open questions
 
-- No audited held-out family currently has both observed initial state and compatible transport.
-  Harrison's latent-heat term is source-specifiable, but its crystallography is not. A matched
-  experiment or source-constrained set-valued initial-state model is required before a validation
-  target can freeze; an outcome-selected surrogate is forbidden.
-- Pressure needs a matched-pressure experiment or original matched runs. Prescribed history needs
-  either supported/asymmetric/rim physics for Harrington/Pokrifka, or sublimation/ventilation and a
-  source-constrained frozen-droplet state for Magee. Until then both remain explicitly incomplete.
+- Deferred, non-blocking for Phase 6: no audited held-out family currently has both observed initial
+  state and compatible transport. Decision 0043 assigns resolution of the crystallography,
+  latent-heat, pressure, support/asymmetry, sublimation, and ventilation gaps to
+  `billatgameology`'s Phase 7 held-out-validation work package; outcome-selected surrogates remain
+  forbidden.
 - What physical crystal size or size strata make the Nakaya comparison apples-to-apples with the
   selected reference? This must be sourced and frozen, not inferred from the prior ladder.
 - What domain/grid/timestep configuration passes at the eventual physical sizes? WP2 measures it;
   no value is assumed here.
-- Can a v6 float32 solver meet a derived, independently justified error envelope at preview scale?
+- Deferred, non-blocking for Phase 6: can a v6 float32 solver meet a derived, independently
+  justified error envelope at preview scale? Decision 0044 assigns that test to
+  `billatgameology`'s Phase 7 GPU-parity work package.
   If not, the mismatch is escalated as a scientific/implementation blocker rather than waived.
 - What exact wall-clock, storage, and RAM/VRAM budgets follow from the passing configuration?
   Reconnaissance records them; the maker's science-first direction determines that cost alone does
