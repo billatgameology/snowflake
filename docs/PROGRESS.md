@@ -18,6 +18,21 @@ index, a plan, ADR, or audit links to historical detail.
   started. The maker accepted the historical failure to reproduce the Nakaya diagram and selected
   the science-first branch of O1b: execute the omitted obligations rather than narrow the charter.
   Resource cost may determine scheduling and concurrency; it may not weaken a scientific criterion.
+- Maker-accepted [ADR 0041](decisions/0041-phase6-ryzen9-host.md) and charter v1.20 record the CPU
+  upgrade, but their canonical Git landing is still pending; no new production evidence may rely on
+  the host amendment until that complete closure lands.
+  Node independently reports an AMD Ryzen 9 5900XT, 32 logical processors, and 68,603,244,544
+  physical-memory bytes; `nvidia-smi` reports the RTX 3080, 10,240 MiB and driver 591.86. Exact
+  commands/outputs are manifest-covered in
+  [the host observation](../evidence/phase6-host/observation-20260803T033028Z.json) (3,051 bytes,
+  SHA-256 `a21e93a7433666981b1b347f5b88a03e8d4e75658e4e9c25a360aae120a055dd`). Phase 5 and
+  pre-upgrade Phase 6 sweeps keep their historical Ryzen 7 provenance; the latter lack artifact-level
+  host binding and retain that evidence limit. Phase 6 continuation/replacement work uses the new
+  16-core host and records actual host, concurrency and launch fields. No scientific criterion or
+  omitted obligation changed. Detached recovery commit
+  `4955b9b15a097876a5d3bb02a08aee35540a0fbf` and verified bundle SHA-256
+  `583c432426d35b3e83fd780ad5fb5cc8b40e9a27be6cb1991c2370f3cbee94c2` preserve the current
+  record/host correction checkpoint; they are not canonical branch landings.
 - The two historical extent-21 Phase 6 artifacts remain valid measured-only comparisons:
   **CAK 3/90, M1 54/90** over their named scopes. They are not ADR 0026's registered
   conservative-intersection headline. R15 has no production caller or complete artifact-derived
@@ -45,30 +60,24 @@ index, a plan, ADR, or audit links to historical detail.
   held-out target is apples-to-apples with the current geometry and transport physics. Missing
   crystallography, substrate/needle geometry, latent heat, sublimation, ventilation, and confounded
   pressure conditions are scientific scope blockers, not permission to score a near miss.
-- The bounded [WP1 source-lineage/TAX2 plan](plans/phase-6-wp1-source-lineage-and-tax2.md) remains
-  accepted, but its much larger Section 11 execution register is **reopened and not accepted for
-  execution**. At exact register blob `71254cd345379b061011f6c7895dd246c3418d33`, two independent
-  offline `gpt-5.6-sol` audits found respectively 10 blockers / 2 should-fixes in scientific
-  assessment/closure and 9 blockers / 3 should-fixes in operational closure. The prior 0/0 reviews
-  predate this broader attack and must not authorize a request. The current checkpointed correction
-  has closed or specified durable end time, runtime drift rechecks, canonical display selection,
-  OpenAlex DOI resolution, pending-inbox recovery, relation/witness identity, result caps,
-  acquisition locators, version-URL normalization, identity conflicts, total initial screening,
-  append-only date scheduling, and deterministic local Yamashita roots. The current paused register
-  also contains a self-contained v2 assessment contract for append-only effective revisions,
-  reviewed-source screening, acquisition evidence, non-English/OCR/translation provenance,
-  assessment-derived identity, and entry-specific Yamashita/matched-pressure evidence. That v2
-  contract is **not yet integrated** into the downstream scheduling, occurrence, candidate, summary,
-  checkpoint, publication-precondition, or root-bound independent-publication-review schemas; stale
-  v1/single-assessment/non-duplicate assumptions remain below it, and no final exact-blob review has
-  run. The paused register bytes have git-blob SHA-1
-  `62bd4e3c21797db63c0f6ca5650d658f8f082a26` and 2,954 lines. The untracked executor/test skeleton remains deliberately outside
-  this record change; it implements only early pure helpers and is not authorized for transport.
-  No live request or TAX2 numeric extraction has run; all three question IDs remain unexecuted.
-  At this restart checkpoint, exact `npm.cmd run lint:rule7` is clean over 422 files,
-  `npx.cmd vitest run runner/test/progress-index.test.ts` passes 7/7, and `git diff --check` exits 0
-  with line-ending conversion warnings only. Exact root `npm test` and TypeScript checks did not run
-  after the latest prose changes, so no current full-suite or typecheck claim is made.
+- WP1 source-search registers v2 and v3 are both **rejected and unauthorized for execution**. The
+  complete failure registries and recovery anchors live in the
+  [WP1 plan](plans/phase-6-wp1-source-lineage-and-tax2.md). V3 exact-byte audits held register
+  `957216d13166140588e85bd684f6108c0da53a538e48571301012983610371a2` (52,764 bytes / 704 LF),
+  registry `81dbfd2b50535f956240712210cd0c0f331a9c6baf32841319603267a69f3733` (28,565 bytes / 349 LF),
+  and catalog `dc15d1808b5446eb80dc21c07165510e12ad3d89b41376c66924ffc775585963`
+  (23,791 bytes / 528 LF) unchanged. Schema review rejected 10 blockers / 3 should-fixes, science
+  review 5 / 2, and publication/recovery review 7 / 2. Decisive failures include non-unique search
+  traversal, a confound-admitting matched-pressure rule, false-negative pressure screening, a
+  rotation-dependent nonphysical span mapping, undefined attempt/payload/control schemas, impossible
+  clean-checkout source rederivation, and no hard-kill publication recovery. Detached recovery commit
+  `6b19839c8917a61df4ebada882623960e81edb85` plus verified bundle SHA-256
+  `f4360b662299e4df3b61105c64a84acdf0626f9db120cd3df192da72a3bd985d` preserve v3 as rejected
+  evidence. The plan now requires a v4 **combined protocol-and-offline-code freeze**: science rules,
+  exact parsers/schemas, fixtures, verifier and reusable shared-publisher recovery are reviewed at one
+  committed identity before the first request. No provider request, import, publication, TAX2
+  measurement or production solver job has run. The old executor/test skeleton remains untracked
+  reference material. Exact root `npm test` has not run on this WIP.
 - Under the current whole-grid rule the minimum planning count is `612 × S × D × Z` rows
   (three arms × 204 points × spacings × domains × physical-size strata). The present
   three-spacing, three-domain, one-size baseline is 5,508 CPU rows. This is a feasibility bound, not
@@ -148,19 +157,19 @@ For unattended long work: first update this index and `HANDOFF.md`; run only fro
 source snapshot; write labeled live/error/exit records; put durable generated science under
 `evidence/`; and report user-facing status at most once per hour unless the maker asks.
 
-1. Resume the **unaccepted** Section 11 register at the assessment-import schema. Finish the
-   append-only assessment-revision chain, reviewed-source/language provenance, entry-specific
-   evidence, acquisition/publication closure and science-state-root-bound independent publication
-   review. Then run a fresh adversarial review against one exact blob and require 0 blockers / 0
-   should-fixes before a record-only freeze commit. Preserve the untracked executor/test skeleton and
-   root `=`. Only after that freeze, update the executor's register pins and finish and independently
-   review the source-search executor, entry-specific atomic
-   checkpoint/resume path and normalized evidence publisher before any live request. Complete
+1. Preserve the rejected v3 bytes and old skeleton under ignored recovery; do not dispatch a
+   request. Correct the scientific traversal, Rule 12, screening, matched-pressure and physical-
+   observable rules while implementing the offline staged executor, immutable attempt journal,
+   exact payload schemas, governed fixtures, independent semantic verifier and reusable shared-seam
+   hard-crash recovery. Complete
    `runner/src/phase6-wp1-source-search.ts`, `runner/src/phase6-wp1-source-search-main.ts`, and
-   `runner/test/phase6-wp1-source-search.test.ts` under the accepted WP1 plan. First focused checks
-   are `npm.cmd run lint:rule7`,
+   `runner/test/phase6-wp1-source-search.test.ts` under the amended WP1 plan. No live request/import
+   is authorized during offline implementation. First focused checks are `npm.cmd run lint:rule7`,
    `npx.cmd vitest run runner/test/phase6-wp1-source-search.test.ts`,
    `npx.cmd vitest run runner/test/evidence-integrity.test.ts`, and `git diff --check`.
+   Then bind the complete protocol/code/test/fixture/import closure at one committed identity and
+   require fresh non-author schema, science and publication audits at 0 blockers / 0 should-fixes
+   before a record-only freeze authorizes the first request.
 2. From a clean committed executor, resolve the Yamashita primary-data lineage and separately search
    for a genuinely matched air-pressure target. Keep the candidate lock `passEligible=false` unless
    independence, geometry, transport, observable, and uncertainty all pass.

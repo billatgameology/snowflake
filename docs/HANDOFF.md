@@ -1,44 +1,64 @@
 # Handoff — Phase 6 science-first completion active (2026-08-02)
 
-## Restart checkpoint — WP1 register review paused safely
+## Restart checkpoint — WP1 v3 rejected; v4 combined freeze in progress
 
-The current tree is intentionally paused after the self-contained assessment-revision v2 rewrite
-and before that rewrite is integrated into the register's downstream scheduling, occurrence,
-candidate, summary, checkpoint, and publication-review schemas. No source-search request,
-acquisition call, TAX2 extraction, or long evidence job ran. Section 11 of
-`research/phase6-source-currency.md` is a **work-in-progress, unaccepted protocol candidate**; its
-registration header now explicitly forbids dispatch and export. Its older embedded 0/0 review
-statements are historical and do not authorize execution. The paused register bytes have git-blob
-SHA-1 `62bd4e3c21797db63c0f6ca5650d658f8f082a26` and 2,954 lines.
+No source-search request, acquisition/import, TAX2 extraction, R15 row, GPU validation run, evidence
+publication or other production job has run. Section 11 remains **unauthorized for execution**.
 
-Two independent offline `gpt-5.6-sol` audits of exact blob
-`71254cd345379b061011f6c7895dd246c3418d33` reopened it. The scientific audit reported 10 blockers /
-2 should-fixes; the operational/schema audit reported 9 blockers / 3 should-fixes. The current
-working diff has already addressed durable `execution.endedUtc`, per-invocation runtime drift,
-canonical display tie-breaking, OpenAlex DOI resolution, pending-inbox/owner recovery, exact
-relation witnesses, first-200 caps, acquisition locators, normalized/invalid version URLs, identity
-conflicts, total initial screening, append-only date operands, and two deterministic local Yamashita
-roots. The current v2 assessment contract additionally specifies append-only revisions and effective
-heads, reviewed-source screening witnesses, acquisition evidence, explicit OCR/translation/language
-review provenance, assessment identifiers entering the identity graph, and entry-specific Yamashita
-or matched-pressure evidence. Those repairs have not received a final exact-byte review.
+Three non-author exact-byte audits rejected lean v3 without byte drift: schema 10 blockers / 3
+should-fixes, science 5 / 2, and publication/recovery 7 / 2. Exact rejected identities are register
+SHA-256 `957216d13166140588e85bd684f6108c0da53a538e48571301012983610371a2` (52,764 bytes / 704
+LF), registry SHA-256 `81dbfd2b50535f956240712210cd0c0f331a9c6baf32841319603267a69f3733`
+(28,565 bytes / 349 LF), and catalog SHA-256
+`dc15d1808b5446eb80dc21c07165510e12ad3d89b41376c66924ffc775585963` (23,791 bytes / 528 LF).
+The decisive defects are underdetermined citation/Rule 12 traversal, confound-admitting pressure
+matching, false-negative pressure screening, a rotation-dependent transverse mapping, undefined
+attempt/payload/control schemas, impossible clean-checkout reconstruction of omitted source bytes,
+and no real-kill publication recovery. The complete 29-ID v3 registry, inherited v2 dispositions,
+review provenance, independent checks and limits are in
+`docs/plans/phase-6-wp1-source-lineage-and-tax2.md`.
 
-Resume at the scheduling-witness contract near the remaining `unusableVersionUrlSha256s` and
-`versionUrls` fields. Integrate v2 effective heads through scheduling, occurrences, candidates,
-summary actions, terminal scopes, checkpoint ordering, and source inputs; eliminate the remaining
-v1/non-duplicate/single-assessment assumptions; then add an independently imported Rule 10/13
-publication review bound to a canonical science-state root and copied into `verification.json`.
-Reconcile the publication precondition and negative controls afterward. Only then audit one exact
-blob to 0 blockers / 0 should-fixes, update the embedded review provenance, run focused checks, and
-freeze the register in a record-only commit before touching transport.
+Detached recovery commit `6b19839c8917a61df4ebada882623960e81edb85` and verified bundle
+`research/tmp/recovery/wp1-v3-checkpoint-6b19839.bundle` (5,644,114 bytes; SHA-256
+`f4360b662299e4df3b61105c64a84acdf0626f9db120cd3df192da72a3bd985d`) preserve v3 as rejected
+evidence. The older v2 recovery commit/bundle remain preserved as recorded in the plan. These are
+recovery anchors, not canonical branch landings.
 
-The subordinate plan's **Current register-rewrite checkpoint** preserves the two paused read-only
-schema-review recommendations. Both are anchored to committed `HEAD 00b949a`, not the working
-rewrite, and therefore guide reconciliation but do not accept the paused bytes.
+The amended plan now pre-registers a v4 **combined protocol-and-offline-code freeze**. Correct the
+scientific search/admission rules and implement exact schemas, deterministic scheduling/recovery,
+governed fixtures, independent verifier and the smallest reusable shared-publisher hard-crash
+extension. During this work, do not make any live request/import or inspect model output. Bind the
+complete protocol/code/test/fixture/import closure at one committed identity; require fresh schema,
+science and publication reviews at 0 blockers / 0 should-fixes before a record-only freeze authorizes
+the first request. This keeps every decision prospective while avoiding another prose-only schema.
 
-Preserve the untracked root `=`, `runner/src/phase6-wp1-source-search.ts`, and
-`runner/test/phase6-wp1-source-search.test.ts`. They are deliberate pre-freeze skeletons and must not
-be staged with the register. The working branch is ahead of `origin/main`; do not push unless asked.
+The record-only correction state through the v3 rejection, v4 work-order amendment and manifest-
+covered host observation is recoverable from detached commit
+`4955b9b15a097876a5d3bb02a08aee35540a0fbf`. Complete bundle
+`research/tmp/recovery/wp1-v4-record-checkpoint-4955b9b.bundle` is 5,664,516 bytes, SHA-256
+`583c432426d35b3e83fd780ad5fb5cc8b40e9a27be6cb1991c2370f3cbee94c2`, and passes `git bundle
+verify`. It is a recovery anchor, not a canonical branch landing; later pointer prose is not itself
+inside that checkpoint.
+
+The untracked executor/test skeleton is transport-free and written for rejected v1/v2 semantics. It
+is now preserved byte-exact under `research/tmp/recovery/wp1-rejected-skeleton-52fd477b/`: producer
+51,596 bytes / SHA-256 `52fd477b083facb4f6a10642bf894c8abe6fa1f516f61def886b5b3aaa1628d8`;
+test 24,024 bytes / SHA-256 `4a43a633e41683a6edf018ef55d9a3d9e8fe9c26ddb371ce3f4d9a73114f1e76`.
+Preserve `.claude/`, root `=`, and `research/tmp/`. Exact root `npm test` has not run on this WIP. Do
+not push unless asked.
+
+Maker-accepted ADR 0041 and charter v1.20 record the host change, but their complete canonical Git
+landing remains pending and no new production evidence may rely on the amendment before it lands.
+Node independently reports an AMD
+Ryzen 9 5900XT, 32 logical processors, and 68,603,244,544 physical-memory bytes; the maker reports
+the existing RTX 3080 remains, and `nvidia-smi` observes 10,240 MiB with driver 591.86. Exact
+commands/outputs are manifest-covered at `evidence/phase6-host/observation-20260803T033028Z.json`
+(3,051 bytes, SHA-256 `a21e93a7433666981b1b347f5b88a03e8d4e75658e4e9c25a360aae120a055dd`). Phase 5 and
+pre-upgrade Phase 6 sweeps retain Ryzen 7 provenance; the Phase 6 artifacts lack artifact-level host
+binding and preserve that limitation. After protocol freeze, start CPU-oracle work with roughly
+12–14 independent processes and adjust only from measured memory/I/O; every bundle records actual
+concurrency and launch flags, and concurrency cannot change a registered case.
+
 The maker's no-education and at-most-hourly-status constraints remain in force.
 
 Read this file, then `docs/phase6-lessons.md`, `docs/PROGRESS.md`, and the active
@@ -228,13 +248,14 @@ The executable verifier reproduces those bytes and says `passEligible=false`. Cu
 
 ## 5. Ranked next actions
 
-1. The bounded `docs/plans/phase-6-wp1-source-lineage-and-tax2.md` and initial Section 11 register
-   are accepted. The dated pre-execution amendment closes byte-identity, manual-capture, ownership
-   and publication ambiguity. Its broader inherited-context non-author schema/Rule 9 re-review now
-   closes at 0 blockers / 0 should-fixes. Commit the amendment before implementation. Before any live request, implement and independently review its exact
-   source-search executor, entry-specific atomic checkpoint/resume path, negative controls and
-   normalized `evidence/phase6-wp1-source-search-01/` publisher. All three question IDs remain
-   unexecuted; the candidate lock remains `passEligible=false`.
+1. The bounded `docs/plans/phase-6-wp1-source-lineage-and-tax2.md` is accepted and now records the
+   exact v2 rejection plus lean v3 approach. The concise register/registry candidate and local
+   consistency checks are complete at the identities above; preserve the failed v2 bytes in the
+   named recovery bundle. Run fresh exact-byte scientific/downstream/publication reviews and
+   disposition all 36 inherited finding IDs. Require 0 blockers / 0 should-fixes before the
+   record-only freeze. Only then implement and
+   independently review the staged executor/attempt journal/separate verifier/shared publisher. All
+   three question IDs remain unexecuted; the candidate lock remains `passEligible=false`.
 2. The adversarial review of the candidate-source lock is clean. Retain `passEligible=false` until
    geometry, independence, observable definition and uncertainty all pass. Do not infer the missing
    Harrison crystallography or a convenient Nakaya measurement size from model output.
@@ -265,6 +286,9 @@ The executable verifier reproduces those bytes and says `passEligible=false`. Cu
 
 - Do not push unless asked. The maker pushed the restart baseline; later local continuation commits
   may remain ahead of `origin/main` until explicitly requested.
+- The canonical `.git` directory is read-only in this sandbox. Root staging/commit attempts fail at
+  `.git/index.lock`; do not misreport the ignored recovery-clone commit as a branch commit. Keep root
+  files current and create uniquely named verified recovery bundles at meaningful checkpoints.
 - Education is frozen by maker direction until Phase 6 closes. The landing-page warning is already
   included in checkpoint `60e3f3f`; preserve that exact snapshot and authorize no further education
   edits. Defer content,
@@ -300,21 +324,13 @@ The executable verifier reproduces those bytes and says `passEligible=false`. Cu
   incorporated, and exact `npm.cmd test` passed (419 scanned files; both typechecks; 81 files /
   1,442 tests). Its runner layer
   remains WP3-deferred and the ADR remains proposed.
-- WP1's bounded plan is committed at `004818f`; the initial register is committed at `700be66`, and
-  its dated pre-implementation identity/publication amendment is committed at `1c28c13`. That
-  amendment fixes the remaining ID serialization, record hashing, capture, terminal, ownership,
-  drift and five-product publication semantics. A read-only
-  no-shared-chat-context `gpt-5.6-terra` high-reasoning review closed its scoped review after three
-  rounds; a later broader inherited-context `gpt-5.6-sol` audit reopened it, drove exact identity,
-  witness, independent-verifier and crash-recovery corrections, and closed the current bytes at 0
-  blockers / 0 should-fixes. The first uncommitted pure executor skeleton then exposed a missing
-  captured-retry state and crash-ambiguous dispatch before any transport code. A follow-up
-  record-only correction fixes the closed pending row, finite waits, bounded resume, pre-dispatch
-  reservation, binary-safe response envelope and no-overwrite recovery; two offline
-  `gpt-5.6-sol` non-author reviews closed the current subsection at 0 blockers / 0 should-fixes. The
-  skeleton still lacks transport, checkpoint execution, parsing, publication, independent
-  verification, CLI and focused tests. No endpoint was called and no TAX2 span was measured in any
-  registration or skeleton unit.
+- WP1's bounded plan is committed at `004818f`; the historical initial/amended registers remain in
+  `700be66` and `1c28c13`, but their scoped 0/0 verdicts are superseded. Exact v2 and catalog
+  identities, recovery commit/bundle, and all three fresh reject verdicts are recorded at the top
+  and in the plan. V3 is written at the exact candidate identities at the top but remains unaccepted
+  pending fresh reviews. The skeleton still lacks accepted transport, checkpoint execution, parsing,
+  publication, independent verification, CLI and focused tests. No endpoint was called and no TAX2
+  span was measured in any registration or skeleton unit.
 - The repaired current table is 50,464 LF-normalized bytes with current SHA-256
   `c0b314b681146152207f061209a3097609e34a234b0027ed73faa427334c79e2`, propagated through the
   separately named `PHASE6_CURRENT_PARAMETER_TABLE_SHA256`. The final scoped review and exact root

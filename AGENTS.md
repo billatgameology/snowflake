@@ -226,13 +226,15 @@ Decision 0011 resolves the timeline seam left open by decision 0005 D5:
 
 ### Local execution host and operator preference
 
-- The primary Windows execution host has an AMD Ryzen 7 5700G (8 physical cores / 16 logical
+- The primary Windows execution host has an AMD Ryzen 9 5900XT (16 physical cores / 32 logical
   processors), 64 GB RAM (63.8 GB usable), an NVIDIA GeForce RTX 3080 with 10 GB dedicated VRAM,
   and multiple NVMe SSDs. Prefer an NVMe-backed workspace for long evidence runs.
 - Run independent cases, temperature points, sweeps, and other scientifically separable jobs in
   parallel processes whenever the registered protocol and available memory allow it. Preserve
   deterministic per-case semantics and never alter a pre-registered protocol merely to increase
   concurrency.
+- Every long evidence launch records the actual process concurrency and exact launch command and
+  flags in its bundle; the intended concurrency is not silently substituted for what executed.
 - The current float64 CPU oracle is effectively single-threaded per process, so exploit the host
   primarily by running independent cases as separate Node processes. Do not route solver work to
   the GPU before its charter phase and comparison gate authorize that implementation.
