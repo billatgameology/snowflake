@@ -368,7 +368,7 @@ interface MotionKit {
 function makeMotionKit(rig: SceneRig, controls: OrbitControls): MotionKit {
   const ROLL_DURATION = 1800;
   const CAMERA_DURATION = 1800;
-  const SPIN_RATE = 0.12; // rad/s ≈ 52 s per revolution
+  const SPIN_RATE = 0.06; // rad/s ≈ 105 s per revolution (maker: half the original)
   const SPIN_EASE = 1200;
 
   let rollTween: { from: number; to: number; start: number } | null = null;
