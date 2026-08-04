@@ -147,9 +147,10 @@ Everything below is **Evidence = unvalidated** (charter §1.5); nothing here sup
 Reproduction from the checkpoint (or regrow with the registered command above):
 
 ```
-node scripts/gutcheck-extract-mesh.ts out/gutcheck-gg-realism/dendrite-384x384x48-seed20260802.ckpt \
-  out/gutcheck-gg-realism/dendrite-384-mesh.bin --sigma 0.45 --spacing 0.4
-node app/scripts/spike-capture.mjs --mesh out/gutcheck-gg-realism/dendrite-384-mesh.bin \
+# paths current as of the 2026-08-04 large/ migration (see the inventory WP)
+node scripts/gutcheck-extract-mesh.ts out/gutcheck-gg-realism/large/checkpoints/dendrite-384x384x48-seed20260802.ckpt \
+  out/gutcheck-gg-realism/large/meshes/dendrite-384-mesh.bin --sigma 0.45 --spacing 0.4
+node app/scripts/spike-capture.mjs --mesh out/gutcheck-gg-realism/large/meshes/dendrite-384-mesh.bin \
   --out out/gutcheck-gg-realism/render-384-final.png --size 1600 \
   --params "keyI=2.4&fillI=0.9&thick=12&edge=1.1&edgePow=1.9&rough=0.045&zscale=2.5&bgTop=eeca7a&bgBottom=c3c9ee"
 ffmpeg -y -i out/gutcheck-gg-realism/render-384-final.png -i out/gutcheck-gg-realism/target-frame-23.633s.png \
@@ -925,3 +926,35 @@ cap 60k), Fig. 19 (800,800,96, cap 60k), Fig. 44 (600,600,96, cap 60k) — specs
 `large/figs/` per the inventory WP rule; Fig. 37 capped-column schedule still running.
 Remaining queue: Fig. 38 (Fig. 37 schedule variant), Figs. 32/33 labeled canonical-seed
 approximations.
+
+### Adversarial review round (2026-08-04) — pack/restore hardened
+
+Review provenance (Rule 10): a 21-agent workflow (Claude Fable 5 subagents, fresh contexts,
+no shared session with the author) reviewed both scripts and swept the repo for stale paths;
+each non-nit finding went to an independent refutation agent. Several verifiers re-executed
+the claims empirically on this host (Info-ZIP update-in-place, dotfile inclusion, symlink
+placement through the old restore). Not checked: Windows execution of either script (bsdtar
+semantics there are asserted from documentation only); pack/restore behavior under a
+concurrently mutating large/ tree (refuted as a practical concern for this workflow, still
+unguarded by design).
+
+Outcome: 14 findings confirmed, 4 refuted. All 14 fixed in the same session:
+
+- pack: fresh-archive rule (`rmSync` before `zip -r` — same-day re-pack can no longer
+  resurrect deleted files; control A), dotfile exclusion `-x '*/.*'` so zip contents equal
+  the hashed file set (control B), group validation before work, atomic temp+rename
+  inventory writes after hashing and after every archive, script-location-relative ROOT.
+- restore: fail-closed everywhere — missing/malformed inventory hard-aborts (control E);
+  the zip itself is hash-verified against the archives ledger before extraction (control D);
+  entry TYPES vetted via `tar -tvf`, non-regular entries (symlinks/FIFOs/devices) abort
+  before extraction (control C); destination read errors are ERROR, never treated as
+  absent (control G); UNVERIFIED now exits 1 (control H); per-entry error containment so
+  the summary always prints; EXDEV copy fallback; SIGINT/SIGTERM temp-dir cleanup;
+  completeness note listing inventory files missing from the archive (fires in control H).
+- docs: the dendrite-384 reproduction recipe and the animate-grow usage header now name
+  the post-migration `large/` paths.
+
+Controls A–H all executed with observed mutations and expected outcomes (transcript in the
+session; positive round trip re-verified after the rewrite: 21/21, exit 0). Required local
+check rerun after the fixes: exact `TMPDIR=/private/tmp npm test` — exit 0, Rule 7 clean
+(437 files), 81 test files, 1431 passed / 7 skipped (`out/gutcheck-gg-realism/npm-test-5.log`).

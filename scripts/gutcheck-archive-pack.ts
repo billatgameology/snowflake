@@ -15,11 +15,21 @@
 // ledger stay recorded even after the local zip is deleted (the upload may outlive it).
 
 import { createHash } from "node:crypto";
-import { createReadStream, mkdirSync, readdirSync, readFileSync, statSync, writeFileSync } from "node:fs";
+import {
+  createReadStream,
+  mkdirSync,
+  readdirSync,
+  readFileSync,
+  renameSync,
+  rmSync,
+  statSync,
+  writeFileSync,
+} from "node:fs";
 import { join, resolve } from "node:path";
 import { spawnSync } from "node:child_process";
 
-const ROOT = resolve("out/gutcheck-gg-realism");
+// Script-location-relative, so invocation from any CWD resolves the same tree.
+const ROOT = resolve(import.meta.dirname, "..", "out/gutcheck-gg-realism");
 const LARGE = join(ROOT, "large");
 const TRACKED_DIR = join(ROOT, "tracked");
 const INVENTORY = join(TRACKED_DIR, "inventory.json");
@@ -136,18 +146,45 @@ async function main(): Promise<void> {
   const groups = [...new Set(files.map((f) => f.group))].sort();
   const archives: ArchiveEntry[] = [...(prior?.archives ?? [])];
 
+  // Atomic (temp + rename) so a crash mid-write can never truncate the tracked ledger,
+  // and written after hashing and again after every archive so no completed work is lost
+  // to a later failure.
+  const writeInventory = (): void => {
+    mkdirSync(TRACKED_DIR, { recursive: true });
+    const inventory: Inventory = {
+      format: "gutcheck-large-inventory-v1",
+      generated: new Date().toISOString(),
+      root: "out/gutcheck-gg-realism/large",
+      files,
+      archives: [...archives].sort((a, b) => a.name.localeCompare(b.name)),
+    };
+    const tmpPath = join(TRACKED_DIR, ".inventory.json.tmp");
+    writeFileSync(tmpPath, JSON.stringify(inventory, null, 1));
+    renameSync(tmpPath, INVENTORY);
+  };
+
   const packGroups = pack === null ? [] : pack === "all" ? groups : pack;
   for (const group of packGroups) {
     if (!groups.includes(group)) throw new Error(`unknown group "${group}" (have: ${groups.join(", ")})`);
+  }
+  writeInventory();
+
+  for (const group of packGroups) {
     mkdirSync(ARCHIVES, { recursive: true });
     const stamp = new Date().toISOString().slice(0, 10).replace(/-/g, "");
     const name = `gutcheck-large-${group}-${stamp}.zip`;
     const zipPath = join(ARCHIVES, name);
+    // zip -r against an existing archive UPDATES it in place, resurrecting entries for
+    // files deleted since the previous pack — always start from a fresh archive.
+    rmSync(zipPath, { force: true });
     console.log(`packing ${group} -> archives/${name} (deflate level ${level}) ...`);
-    const result = spawnSync("zip", ["-r", "-q", `-${level}`, zipPath, `large/${group}`], {
-      cwd: ROOT,
-      stdio: "inherit",
-    });
+    // -x '*/.*' keeps dot-prefixed names (.DS_Store etc.) out of the zip so the archive
+    // holds exactly the file set the inventory walk hashed.
+    const result = spawnSync(
+      "zip",
+      ["-r", "-q", `-${level}`, zipPath, `large/${group}`, "-x", "*/.*"],
+      { cwd: ROOT, stdio: "inherit" },
+    );
     if (result.status !== 0) throw new Error(`zip failed for group ${group} (status ${result.status})`);
     const zipStat = statSync(zipPath);
     const zipSha = await sha256File(zipPath);
@@ -164,18 +201,9 @@ async function main(): Promise<void> {
     const existing = archives.findIndex((a) => a.name === name);
     if (existing >= 0) archives[existing] = entry;
     else archives.push(entry);
+    writeInventory();
     console.log(`  ${formatBytes(zipStat.size)}  sha256 ${zipSha}`);
   }
-
-  mkdirSync(TRACKED_DIR, { recursive: true });
-  const inventory: Inventory = {
-    format: "gutcheck-large-inventory-v1",
-    generated: new Date().toISOString(),
-    root: "out/gutcheck-gg-realism/large",
-    files,
-    archives: archives.sort((a, b) => a.name.localeCompare(b.name)),
-  };
-  writeFileSync(INVENTORY, JSON.stringify(inventory, null, 1));
 
   console.log(`inventory: ${files.length} files (${hashed} hashed, ${reused} cached) in ${groups.length} groups`);
   for (const group of groups) {

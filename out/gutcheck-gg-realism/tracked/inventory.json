@@ -1,6 +1,6 @@
 {
  "format": "gutcheck-large-inventory-v1",
- "generated": "2026-08-04T14:16:00.041Z",
+ "generated": "2026-08-04T14:48:25.783Z",
  "root": "out/gutcheck-gg-realism/large",
  "files": [
   {
@@ -5533,9 +5533,9 @@
   {
    "name": "gutcheck-large-anim-smoke-20260804.zip",
    "group": "anim-smoke",
-   "createdAt": "2026-08-04T14:13:02.819Z",
+   "createdAt": "2026-08-04T14:48:25.783Z",
    "bytes": 8592946,
-   "sha256": "d9552dc8d1a8ac8efdd65196c45ac1d096e9b0c3ccd16b74eed76574cd7283cd",
+   "sha256": "fb6803945f22754c2fbf0174b4ad193e9469f979b9a75eea64c29c94d96df038",
    "fileCount": 21,
    "totalBytes": 18771275
   },
