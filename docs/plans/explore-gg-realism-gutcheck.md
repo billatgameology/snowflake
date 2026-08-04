@@ -653,6 +653,7 @@ are Claude Fable 5's eyeballed comparisons of the named composites.
 | Fig. 43 (sandwich plate w/ broad branches; photo-matched "[8] p. 44") | 600,600,96; cap 60k | domain-contact @ 25422, attached 379685 | **Reproduced (class + mechanism).** Outer form matches as a younger crystal (our guard fired mid-broadening; theirs is nearly fused hexagonal). The load-bearing check is interior: the cutaway (`fig43-cutaway.png`) reveals the same dendritic vein skeleton inside the sandwich that the paper's transparency shows as its dark central pattern. |
 | Fig. 39 (stellar dendrite w/ nucleating needles) | 480,480,144; cap 60k | domain-contact @ 14269, attached 301085 | **Reproduced (class).** The §XIII hybrid phenomenon — needles nucleating perpendicular from a planar stellar dendrite's faces — appears in both; ours is smaller at contact with correspondingly fewer needle sites. (Paper's own real-photo anchors for this type: Nakaya Fig. 137 and Plate 116 middle.) |
 | Fig. 16 (ρ=0.09 simple star, §VIII ladder) | 800,800,96; cap 45k | domain-contact @ 38501, attached 830437, ~260 across | **Reproduced, near-exact** (`side-by-side-fig16.png`): six slender arms, short plate sidebranches, parabolic tips — the dendrite-series family reproducing cleanly at doubled planar+z domain, further confirming the Fig. 14 miss was reservoir, not model. |
+| Fig. 47 (exploding tips, β01=1.25) | 600,600,96; cap 60k | far-field @ 50525, attached 632347 | **Reproduced.** Segmented plate-cluster arms with widened tip plates and mid-arm hieroglyph markings (`side-by-side-fig47.png`). **Closes §XIII: all nine "eccentric" figures (39–47) judged, all reproduced** — the paper's own most-fragile family ("close to critical... quite sensitive to any change") reproduces in full, the strongest implementation-fidelity statement the sweep can make. |
 | Fig. 45 (exploding tips, β01=1.5 perturbation) | 600,600,96; cap 60k | domain-contact @ 36890, attached 531149 | **Reproduced (class).** The §XIII exploding-tip instability — narrow arm shafts flaring into broad plate tips — on all six arms in both; the paper's interior hieroglyphs are inner-sandwich structure per the established cutaway pattern. |
 | Fig. 46 (exploding tips, β01=1.19) | 600,600,96; cap 60k | domain-contact @ 37383, attached 421447 | **Reproduced.** Chain-of-plates arm architecture matches segment for segment: stacked hexagonal plate segments ending in widened terminal plates on all six arms (`side-by-side-fig46.png`). |
 | Fig. 41 (butterflake, wings along arms) | 320,320,192; cap 60k | domain-contact @ 19822, z-extent 124 | **Reproduced, strikingly** (`side-by-side-fig41.png`): the same butterfly of serrated thin wing-plates radiating in the arm directions with the crossing central blade — one of the paper's "never been seen in nature" idealizations, and our run grows its twin. |
@@ -665,6 +666,19 @@ Host note: the charter prefers the Windows box for long
 evidence runs; these are eyeball runs and the Mac is acceptable, but the
 registered commands reproduce on either host (habit-class reproduction across arm64/x64
 was verified at commit `945437f`; bitwise identity is not claimed cross-arch).
+
+### WP stage 2: environment schedules (maker "do it", 2026-08-04)
+
+`gutcheck-grow-params.ts` now supports multi-stage specs (commit `5001af0`): stage 1
+initializes the solver, later stages apply atomically at their boundaries via the public
+Phase 4 API (`applyTimelineEnvironment`, ADR 0011 semantics), per-stage validation,
+transitions recorded in the run record. Smoke-verified with a miniature Fig. 37 schedule
+(column grows, cap flare initiates at both ends — §XII's "growth along the 18 edges").
+Launched: Fig. 37 tsuzumi at 320,320,512, stage boundary 20000, cap 80000 (~18 h; spec
+`figs/spec-fig37.json` from the verified catalog stage vectors). Fig. 38 follows on a
+free lane; Figs. 32–36 will run as **canonical-seed approximations** (their tapered
+seeds remain unbuildable via the public API — that seed-construction gap stays the
+recorded frontier for a future phase; nothing on this branch touches `solver-cpu`).
 
 ### WP: photo-target reproductions (registered 2026-08-04, maker-directed — "beyond the paper")
 
