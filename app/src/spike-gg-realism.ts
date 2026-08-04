@@ -55,13 +55,59 @@ interface AnimManifest {
 }
 
 const query = new URLSearchParams(window.location.search);
-const styleRaw = query.get("style");
+
+// ── Look registry (maker-directed): every distinct look this exploration produced, kept
+// as a named recipe. ?look=<name> applies one; explicit URL params still override any
+// single knob. The registry is the source of truth — the plan file mirrors it.
+interface LookPreset {
+  readonly style: "ice" | "povray" | "ggview";
+  readonly note: string;
+  readonly params: Readonly<Record<string, string>>;
+}
+const LOOKS: Readonly<Record<string, LookPreset>> = {
+  "footage-ice": {
+    style: "ice",
+    note: "J0521r2p footage target: warm/indigo microscopy ice (locked 2026-08-03)",
+    params: {
+      edge: "2.2", edgeLo: "0.06", edgePow: "1.0", edgeCool: "100c2e",
+      keyI: "3.6", fillI: "2.2", fillHex: "7d90e8", dispersion: "0.18",
+      bgTop: "e2ae4e", bgBottom: "8f9be0", exposure: "1.0", zscale: "3.5",
+    },
+  },
+  "bold-ice": {
+    style: "ice",
+    note: "high-visibility presentation ice (maker-preferred for legibility)",
+    params: {
+      keyI: "3.2", fillI: "1.3", thick: "14", edge: "1.9", edgePow: "1.3",
+      rough: "0.05", zscale: "2.5", bgTop: "e6b95c", bgBottom: "9aa5e0",
+    },
+  },
+  povray: {
+    style: "povray",
+    note: "G-G Fig. 4 ray-trace target: backlit navy glow (locked 2026-08-03)",
+    params: {
+      tr: "0.72", body: "dceafc", edge: "1.35", edgeLo: "0.08", edgeCool: "ecf4ff",
+      spec: "1.5", keyI: "2.7", exposure: "1.28", bgInner: "5b8fd8", bgOuter: "04060f",
+    },
+  },
+  ggview: {
+    style: "ggview",
+    note: "cell-true prisms + drawn structure edges (use a -cellmesh.bin)",
+    params: {},
+  },
+};
+const activeLookName = query.get("look");
+const activeLook = activeLookName !== null ? LOOKS[activeLookName] : undefined;
+
+const styleRaw = query.get("style") ?? activeLook?.style ?? null;
 const style = styleRaw === "povray" ? "povray" : styleRaw === "ggview" ? "ggview" : "ice";
 
-/** URL param with a per-style default. */
+/** URL param, then active-look preset, then per-style default. */
 function param(name: string, iceDefault: string, povDefault?: string): string {
   const v = query.get(name);
   if (v !== null && v !== "") return v;
+  const preset = activeLook?.params[name];
+  if (preset !== undefined) return preset;
   return style === "povray" && povDefault !== undefined ? povDefault : iceDefault;
 }
 
@@ -299,6 +345,45 @@ interface SceneRig {
   /** Regenerate the backdrop gradient with new colors (live). */
   setBackdrop: (a: string, b: string) => void;
   render: () => void;
+}
+
+/**
+ * Look dropdown: reloads the page with ?look=<name>, carrying only content-selection
+ * params (mesh, timeline position, camera hints) so each look starts from its own
+ * clean recipe.
+ */
+function makeLookSwitcher(): HTMLSelectElement {
+  const select = document.createElement("select");
+  select.style.cssText =
+    "background:#233250;color:#dfe7f4;border:1px solid #3a4c72;border-radius:4px;" +
+    "padding:4px 6px;cursor:pointer;font:inherit";
+  const current = activeLookName !== null && LOOKS[activeLookName] ? activeLookName : "";
+  if (current === "") {
+    const opt = document.createElement("option");
+    opt.value = "";
+    opt.textContent = "look: custom";
+    opt.selected = true;
+    select.appendChild(opt);
+  }
+  for (const name of Object.keys(LOOKS)) {
+    const opt = document.createElement("option");
+    opt.value = name;
+    opt.textContent = `look: ${name}`;
+    opt.selected = name === current;
+    select.appendChild(opt);
+  }
+  select.addEventListener("change", () => {
+    if (select.value === "") return;
+    const keep = ["mesh", "manifest", "frame", "frameExtent", "fps", "interactive", "clip", "tilt", "zoom"];
+    const next = new URLSearchParams();
+    for (const key of keep) {
+      const v = query.get(key);
+      if (v !== null) next.set(key, v);
+    }
+    next.set("look", select.value);
+    window.location.search = next.toString();
+  });
+  return select;
 }
 
 /** Two live color pickers for the backdrop gradient, initialized to the current look. */
@@ -542,7 +627,9 @@ function setRigGeometry(rig: SceneRig, geometry: THREE.BufferGeometry): void {
   if (rig.edgeMesh !== null) rig.edgeMesh.geometry = geometry;
 }
 
-const zscale = Number(query.get("zscale") ?? (style === "ggview" ? "1" : "2.5"));
+const zscale = Number(
+  query.get("zscale") ?? activeLook?.params["zscale"] ?? (style === "ggview" ? "1" : "2.5"),
+);
 
 /** Mesh bytes -> display-ready geometry (z-relief scale + constant world offset). */
 function buildGeometry(
@@ -619,7 +706,7 @@ async function singleMeshMain(): Promise<void> {
     bar.style.cssText =
       "position:fixed;left:0;right:0;bottom:0;display:flex;gap:10px;justify-content:center;" +
       "padding:10px 14px;background:rgba(8,12,22,0.62);z-index:10";
-    bar.append(kit.uprightButton, kit.spinButton, faceOnButton, makeBackdropControls(rig));
+    bar.append(kit.uprightButton, kit.spinButton, faceOnButton, makeLookSwitcher(), makeBackdropControls(rig));
     document.body.appendChild(bar);
     const animate = (now: number): void => {
       requestAnimationFrame(animate);
@@ -731,6 +818,7 @@ async function timelineMain(manifestUrl: string): Promise<void> {
     kit.uprightButton,
     kit.spinButton,
     faceOnButton,
+    makeLookSwitcher(),
     makeBackdropControls(rig),
   );
   document.body.appendChild(ui);

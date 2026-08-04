@@ -683,6 +683,21 @@ free lane; Figs. 32–36 will run as **canonical-seed approximations** (their ta
 seeds remain unbuildable via the public API — that seed-construction gap stays the
 recorded frontier for a future phase; nothing on this branch touches `solver-cpu`).
 
+### Look registry (maker: "remember each of these distinct looks", 2026-08-04)
+
+The maker is not settled on a style; every distinct look is preserved as a named recipe.
+**Source of truth: the `LOOKS` table in `app/src/spike-gg-realism.ts`** (this section
+mirrors it); `?look=<name>` applies a recipe, individual URL params still override, and
+both viewer bars carry a `look:` dropdown that switches live (keeping mesh/timeline
+position). The four looks:
+
+| Name | Style | What it is |
+|---|---|---|
+| `footage-ice` | ice | The J0521r2p microscopy target: warm/indigo directional edges, saturated two-tone backdrop, dispersion (locked 2026-08-03) |
+| `bold-ice` | ice | High-visibility presentation ice — maker-preferred legibility recipe |
+| `povray` | povray | The G-G Fig. 4 ray-trace target: pale translucent body over backlit navy radial glow (locked 2026-08-03) |
+| `ggview` | ggview | Cell-true prisms + drawn structure edges over a pale wash (needs a `-cellmesh.bin`) |
+
 ### Maker gaps 1+2: cell-true "ggview" display mode (2026-08-04, commit `ab01e5e`)
 
 The maker asked for "crisp and straight" and "crystal clear" — both delivered by
