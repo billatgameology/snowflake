@@ -40,6 +40,7 @@
       <li><a href="#starting-a-layer">Why a flat face is hard to grow on</a></li>
       <li><a href="#the-barrier">One number per face: the nucleation barrier</a></li>
       <li><a href="#where-the-numbers-come-from">Where the numbers actually come from</a></li>
+      <li><a href="#the-coefficient-that-moves">The coefficient that would not sit still</a></li>
       <li><a href="#a-less-than-one">When the surface is not rigid</a></li>
     </ol>
   </nav>
@@ -68,6 +69,7 @@
           <li>Explain why a <em>low</em> &sigma;<sub>0</sub> means <em>fast</em> growth on that face.</li>
           <li>Say where the published &sigma;<sub>0</sub> and <em>A</em> values came from &mdash; and where the whole scheme is openly resting on guesswork.</li>
           <li>Say why the prism ceiling <em>A</em> sags below 1 near the melting point, and why the explanation offered for it is still a cartoon.</li>
+          <li>Say what a levitated, freshly frozen droplet does to all of the above: why its <code>alphaHK</code> can fall tenfold as the crystal matures, and how that may reconcile measurements that disagree a hundredfold.</li>
         </ul>
       </section>
 
@@ -435,10 +437,14 @@
           like a spiral staircase, so the face keeps advancing without ever having to start a new
           island. Such a crystal shows &ldquo;substantial growth rates even when &sigma;<sub>surf</sub>
           is far below that required for normal terrace nucleation&rdquo; (printed p.&nbsp;168).
-          Everything in this chapter is about the defect-free case. That is a reasonable place to
-          stand rather than a free one: &ldquo;up to 90 percent of well-formed samples are consistent
-          with nucleation-limited growth [2013Lib, 2019Lib2], at least at temperatures above -20
-          C&rdquo; (printed p.&nbsp;169).
+          Nearly everything in this chapter is about the defect-free case. That is a reasonable
+          place to stand rather than a free one: &ldquo;up to 90 percent of well-formed samples are
+          consistent with nucleation-limited growth [2013Lib, 2019Lib2], at least at temperatures
+          above -20 C&rdquo; (printed p.&nbsp;169). But keep the excluded case within reach,
+          because it is no longer hypothetical: a second laboratory has watched freshly frozen
+          droplets growing in exactly this dislocation-fed regime before their facets take over
+          &mdash; the story of <a href="#the-coefficient-that-moves">the coefficient that would
+          not sit still</a>, later in this chapter.
         </p>
       </aside>
 
@@ -933,11 +939,162 @@
       </aside>
 
       <!-- ================================================================ -->
+      <h2 id="the-coefficient-that-moves">The coefficient that would not sit still</h2>
+
+      <p>
+        Every number in this chapter so far has come from one research programme. Different
+        machines, yes &mdash; VIG, VPG, ice needles, a free-fall chamber &mdash; but one
+        laboratory's habits, one set of calibrations, one family of analysis choices. Science is
+        rightly nervous of any quantity with a single source, so it matters a great deal that
+        there is a second laboratory measuring the stickiness of ice by a route that shares almost
+        nothing with the experiments above: a group at Penn State around Jerry Harrington
+        (Harrison, Moyle, Hanson &amp; Harrington, &ldquo;Levitation diffusion chamber
+        measurements of the mass growth of small ice crystals from the vapor,&rdquo;
+        <em>J.&nbsp;Atmos. Sci.</em>&nbsp;73, 2743&ndash;2758, 2016). Their experiment holds a
+        single cloud droplet, about ten microns across, floating in mid-air between charged
+        plates &mdash; levitated electrodynamically, with no substrate, no fibre, nothing touching
+        it at all. The droplet is frozen, and the resulting crystal is then <em>weighed,
+        continuously, while it grows</em>: the voltage needed to keep the particle levitated is
+        itself the mass measurement, a voltage ratio being a mass ratio, good to about
+        5&nbsp;per cent.
+      </p>
+
+      <p>
+        Notice everything this design does without. There is no camera: where the measurements
+        above track how fast an individual facet advances, nanometres per second, this experiment
+        only ever knows how fast the whole crystal gains mass, and never learns its shape. There
+        is no surface: the &ldquo;How we know&rdquo; box above worried about whatever a crystal
+        rests on quietly seeding new terraces, and a levitated crystal rests on nothing. And there
+        is very little overlap in conditions: the crystals grew between &minus;30 and
+        &minus;44&nbsp;&deg;C, at ice supersaturations of 3 to 29&nbsp;per cent, and stayed
+        smaller than about 60&nbsp;microns &mdash; the cirrus regime, colder than the range the
+        classic morphology diagram was drawn for. Independence this thorough cuts both ways, of
+        course: it makes agreement worth more, and comparison harder.
+      </p>
+
+      <p>
+        The part worth savouring is what they did about supersaturation. The largest systematic
+        error in every attachment measurement &mdash; this chapter's included; it is why the
+        witness-surface workaround exists &mdash; is knowing &sigma;<sub>surf</sub>. The Penn
+        State group found two ways to tell what regime a crystal is growing in <em>without
+        knowing the supersaturation at all</em> (Pokrifka, Moyle, Hanson &amp; Harrington,
+        &ldquo;Estimating Surface Attachment Kinetic and Growth Transition Influences on
+        Vapor-Grown Ice Crystals,&rdquo; <em>J.&nbsp;Atmos. Sci.</em>, 2020). The neater of the
+        two is a single exponent computed purely from the mass record. When growth is limited by
+        the delivery of vapour &mdash; chapter 4's diffusion bottleneck &mdash; the rate of mass
+        gain scales as the mass to the one-third power. When it is limited by stickiness &mdash;
+        this chapter's bottleneck &mdash; it scales as the mass to the two-thirds power. Their
+        exponent <em>P</em> counts the thirds: <em>P</em>&nbsp;=&nbsp;1 is pure diffusion,
+        <em>P</em>&nbsp;=&nbsp;2 is pure surface kinetics, and any value noticeably above 1 says
+        the surface is holding growth back &mdash; whatever the crystal's shape, and whatever the
+        supersaturation calibration did or did not get right.
+      </p>
+
+      <p>
+        Plot that exponent against the <code>alphaHK</code> inferred for each crystal and the
+        measurements collapse onto a clean correlation: crystals with small coefficients sit at
+        high <em>P</em>, crystals with large ones at low <em>P</em>. That may sound like mere
+        bookkeeping. Set it against the state of the field: published plots of attachment
+        coefficients against temperature are a byword for scatter, with values from different
+        experiments strewn across orders of magnitude. Here, for once, is an axis along which the
+        data agree with themselves.
+      </p>
+
+      <p>
+        Then comes the result this section is named for. Seventeen of their crystals froze
+        homogeneously &mdash; pure droplets, no speck, frozen by deep supercooling alone. Seven of
+        those seventeen could not be fitted by <em>any</em> constant <code>alphaHK</code>. Not by
+        an unexpected value &mdash; by no value. Their mass grew at a nearly constant rate, and a
+        steady mass gain on a crystal whose collecting surface keeps expanding means the
+        stickiness must be <em>falling</em> while the crystal grows.
+      </p>
+
+      <p>
+        Their reading is a <strong>kinetics transition</strong>. A droplet that has just frozen is
+        not a tidy prism; it is a shock-frozen sphere crusted with defects, steps and high-index
+        rough patches &mdash; surface of the kind this chapter files under
+        <code>alphaHKRough</code>, growing efficiently wherever a dislocation feeds it steps for
+        free. Then the slow faces assert themselves. Basal and prism facets emerge, the rough
+        regions grow themselves out of existence &mdash; fast surfaces grow themselves off the
+        crystal; that has been the rule since chapter 5 &mdash; and growth is handed over to the
+        nucleation-limited faceted kinetics the rest of this chapter describes. In the example
+        they fit, <code>alphaHK</code> fell by an order of magnitude during one crystal's growth,
+        from 0.025 to 0.0016. And the handover can be quick: they cite observations by Gonda and
+        Yamazaki in which a frozen sphere turns into a faceted prism &mdash; by way of the
+        half-round, half-faceted intermediate the field calls a <em>droxtal</em> &mdash; in just
+        two to four minutes at &minus;15&nbsp;&deg;C and 2&nbsp;per cent supersaturation. This is
+        the missing reel between <a href="./01-not-a-frozen-raindrop.html">chapter 1</a>, which
+        ends with a cloud droplet freezing, and this chapter, which begins with a faceted prism
+        already in hand.
+      </p>
+
+      <p>
+        Take the transition seriously and a scandal turns into a mechanism. Published attachment
+        coefficients for ice disagree across the literature by factors approaching a hundred
+        &mdash; Pokrifka et&nbsp;al. 2020 cite values running from about 0.006 to about 0.7 across
+        studies. If a young crystal's coefficient genuinely falls by an order of magnitude as it
+        matures, and if crystals born differently inherit different defect populations, then
+        experiments that caught their crystals at different ages were never measuring the same
+        number in the first place. Irreproducibility stops being an embarrassment about the
+        experiments and becomes a fact about the ice.
+      </p>
+
+      <aside class="callout callout--key">
+        <p class="callout__label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <path d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.7V17h8v-2.3A7 7 0 0 0 12 2z"/>
+          </svg>
+          Key idea
+        </p>
+        <p>
+          <code>alphaHK</code> carries a time axis and a birth certificate. It is not a constant
+          of the face and the temperature, and for a young crystal it is not even a constant of
+          that one crystal: it depends on how mature the crystal is, and on how it became ice in
+          the first place. A published value with no history attached is a snapshot of a moving
+          target.
+        </p>
+      </aside>
+
+      <p>
+        The birth certificate is the strangest part. Crystals frozen heterogeneously &mdash; on a
+        foreign speck, the way chapter 1 says nearly every real droplet freezes; here the speck
+        was a commercial bacterial ice nucleant called Snomax &mdash; showed <code>alphaHK</code>
+        <em>falling</em> as the supersaturation rose. That is backwards twice over: backwards
+        against Equation 4.4, in which a nucleation-limited coefficient must climb with
+        &sigma;<sub>surf</sub>, and backwards against the homogeneously frozen crystals in the
+        same apparatus, whose coefficients climbed just as the equation expects. The group's
+        interpretation reaches straight for the defect this chapter set aside: heterogeneously
+        frozen ice inherits permanent dislocation step sources, and a permanent step source
+        matters most precisely when the supersaturation is low and terrace nucleation is starved.
+        <em>How a droplet froze changes how its crystal grows afterwards</em> &mdash; a variable
+        with no counterpart anywhere in the substrate-grown data this chapter has been standing
+        on.
+      </p>
+
+      <p>
+        Be clear about what this does and does not do to the chapter you have just read. It does
+        not overturn the terrace-nucleation picture. At low supersaturations, and for mature,
+        properly faceted crystals, the Penn State fits are consistent with nucleation-limited
+        growth &mdash; and the characteristic supersaturations in those fits rise with
+        supercooling, which is exactly the direction the &sigma;<sub>0</sub>(T) story requires.
+        What it does is put a time axis and a birth-history axis underneath the coefficient. The
+        &ldquo;Careful&rdquo; box near the top of this chapter said <code>alphaHK</code> is a
+        property of <em>this bit of surface, right now</em>, and that turns out to be even more
+        literal than it sounded: for a freshly frozen droplet, &ldquo;right now&rdquo; changes by
+        the minute. One caution about lineage before moving on: the Penn State group does not fit
+        its crystals with Equation 4.4. They use a composite growth form due to Nelson and Baker,
+        built to span everything from dislocation-fed growth to ledge nucleation &mdash; a
+        different theoretical lineage from the bookkeeping this chapter has leaned on, and a
+        useful reminder, with <a href="./13-the-frontier.html">chapter 13</a> ahead, that more
+        than one working tradition is alive in this small field.
+      </p>
+
+      <!-- ================================================================ -->
       <h2 id="a-less-than-one">When the surface is not rigid: why <em>A</em> is less than one</h2>
 
       <p>
-        Everything so far has quietly assumed a hard, rigid ice surface: a lattice of fixed sites
-        with molecules hopping between them. Close to the melting point that assumption starts to
+        Everything so far &mdash; the Penn State detour aside &mdash; has quietly assumed a hard,
+        rigid ice surface: a lattice of fixed sites with molecules hopping between them. Close to the melting point that assumption starts to
         fail, and Figure 4.11 already told you one consequence &mdash; the step structure &ldquo;will
         become less rigid&hellip;, which should substantially reduce the Ehrlich-Schwoebel
         barrier.&rdquo; A soft step no longer traps admolecules on the terrace they landed on, so the
