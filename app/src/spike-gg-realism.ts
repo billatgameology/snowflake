@@ -421,16 +421,61 @@ function makeLookSwitcher(): HTMLSelectElement {
   }
   select.addEventListener("change", () => {
     if (select.value === "") return;
-    const keep = ["mesh", "manifest", "frame", "frameExtent", "fps", "interactive", "clip", "tilt", "zoom"];
-    const next = new URLSearchParams();
-    for (const key of keep) {
-      const v = query.get(key);
-      if (v !== null) next.set(key, v);
-    }
+    const next = keepContentParams();
     next.set("look", select.value);
     window.location.search = next.toString();
   });
   return select;
+}
+
+/** Content-selection params carried across look/profile reloads. */
+function keepContentParams(): URLSearchParams {
+  const keep = [
+    "mesh", "manifest", "scene", "frame", "frameExtent", "fps",
+    "interactive", "clip", "tilt", "zoom", "ui", "profile", "look",
+  ];
+  const next = new URLSearchParams();
+  for (const key of keep) {
+    const v = query.get(key);
+    if (v !== null) next.set(key, v);
+  }
+  return next;
+}
+
+// ── Profile shell prototype (Phase 7 prep Track D, docs/plans/explore-phase7-prep.md) ────
+// Charter v1.18: a profile changes UI composition and rendering configuration only.
+// "" (full spike surface) | "realistic" (minimal chrome, look pinned to its curated
+// recipe) | "developer" (full surface; scene scripts + capture hooks are its machinery).
+const profileName = query.get("profile") ?? "";
+
+function makeProfileSwitcher(): HTMLSelectElement {
+  const select = document.createElement("select");
+  select.style.cssText =
+    "background:#233250;color:#dfe7f4;border:1px solid #3a4c72;border-radius:4px;" +
+    "padding:4px 6px;cursor:pointer;font:inherit";
+  for (const [value, label] of [["", "profile: full"], ["realistic", "profile: realistic"], ["developer", "profile: developer"]]) {
+    const opt = document.createElement("option");
+    opt.value = value!;
+    opt.textContent = label!;
+    opt.selected = value === profileName;
+    select.appendChild(opt);
+  }
+  select.addEventListener("change", () => {
+    const next = keepContentParams();
+    if (select.value === "") next.delete("profile");
+    else next.set("profile", select.value);
+    window.location.search = next.toString();
+  });
+  return select;
+}
+
+/** Profile-filtered control-bar contents: realistic drops the look dropdown (its look is
+ * the curated recipe the page loaded with); full and developer keep everything. */
+function profileControls(rig: SceneRig, core: HTMLElement[]): HTMLElement[] {
+  if (profileName === "realistic") {
+    return [...core, makeProfileSwitcher(), makeBackdropControls(rig)];
+  }
+  return [...core, makeLookSwitcher(), makeProfileSwitcher(), makeBackdropControls(rig)];
 }
 
 /** Two live color pickers for the backdrop gradient, initialized to the current look. */
@@ -753,7 +798,7 @@ async function singleMeshMain(): Promise<void> {
     bar.style.cssText =
       "position:fixed;left:0;right:0;bottom:0;display:flex;gap:10px;justify-content:center;" +
       "padding:10px 14px;background:rgba(8,12,22,0.62);z-index:10";
-    bar.append(kit.uprightButton, kit.spinButton, faceOnButton, makeLookSwitcher(), makeBackdropControls(rig));
+    bar.append(...profileControls(rig, [kit.uprightButton, kit.spinButton, faceOnButton]));
     // ?ui=0 suppresses the control bar for headless captures (buttons would land in the PNG).
     if (param("ui", "1") !== "0") document.body.appendChild(bar);
     const animate = (now: number): void => {
@@ -858,16 +903,16 @@ async function timelineMain(manifestUrl: string): Promise<void> {
   const label = document.createElement("span");
   label.style.cssText = "min-width:220px;text-align:right";
   ui.append(
-    playButton,
-    prevButton,
-    nextButton,
-    slider,
-    label,
-    kit.uprightButton,
-    kit.spinButton,
-    faceOnButton,
-    makeLookSwitcher(),
-    makeBackdropControls(rig),
+    ...profileControls(rig, [
+      playButton,
+      prevButton,
+      nextButton,
+      slider,
+      label,
+      kit.uprightButton,
+      kit.spinButton,
+      faceOnButton,
+    ]),
   );
   // ?ui=0 suppresses the control bar for headless captures (buttons would land in the PNG).
   if (param("ui", "1") !== "0") document.body.appendChild(ui);

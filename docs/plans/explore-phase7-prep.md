@@ -127,6 +127,35 @@ Numbers copied from the named artifacts/logs at write time.
 - Caption wording carries the §1.5 label ("model output, unvalidated") — outward-facing
   strings stay honest by construction.
 
+## Track D executed record (2026-08-05)
+
+- `?profile=realistic|developer` over the spike viewer (UI composition only, per charter):
+  realistic drops the look dropdown (the page's curated look is pinned), developer keeps
+  the full surface; a profile dropdown switches while carrying every content param.
+- Verified headlessly against the static build (`out/gutcheck-gg-realism/check-profiles.mjs`,
+  screenshots `profile-realistic.png` / `profile-developer.png`): realistic shows no look
+  selector; switching realistic→developer preserved manifest, frame=350, frameExtent, and
+  look (relanded at tick 35,000, frame 351/701) with zero page errors.
+
+## Track C executed record (2026-08-05)
+
+- Compiler `scripts/gutcheck-ramp-compile.ts`: ramp spec -> stages[] staircase executed by
+  the already-tested `gutcheck-grow-params` public-timeline path. Representative ramp:
+  Fig 4 prototype vector -> §VIII dendrite vector over ticks 6000..18000, 400,400,64,
+  cap 24k (`p7/ramp-plate-to-dendrite.json`, seed 1, noise 0).
+- Density ladder (records `p7/ramp-n{96,48,24}-record.json`; all three stopped far-field
+  ~tick 19.7k): attached 212601 / 213057 / 230685. **Step-halving deltas: 48→96 = 0.214%
+  attached (2.2% mesh verts); 24→48 = 7.64% attached.** Aggregates converge by 48 events
+  over 12k ticks.
+- **Prototype finding (the reason this check must be morphology-level):** the eyeball strip
+  (`p7/ramp-convergence.png`) shows n96 vs n48 still visibly differing in sidebranch/fringe
+  placement despite the 0.21% aggregate agreement — branch placement is
+  staircase-density-sensitive after aggregate metrics have converged (consistent with the
+  known perturbation sensitivity of sidebranch patterns). Implication carried forward: the
+  charter's conditional adoption check for the ramp compiler should compare morphology with
+  a stated tolerance, not aggregate counts alone, or it will pass prematurely. These
+  prototype numbers inform but do not constitute that check.
+
 ## Tried and rejected
 
 - **Betting on raw-byte shrink alone for the wire size** — quantization gives only 66.7%
