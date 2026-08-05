@@ -1,6 +1,6 @@
 {
  "format": "gutcheck-large-inventory-v1",
- "generated": "2026-08-04T22:18:46.131Z",
+ "generated": "2026-08-05T00:22:27.147Z",
  "root": "out/gutcheck-gg-realism/large",
  "files": [
   {
@@ -5287,6 +5287,20 @@
    "bytes": 891290116,
    "mtimeMs": 1785868395852.8396,
    "sha256": "6b98579041fafd46c7c3f9e2ef0213c234fce03215a1b668600487b18a1b941f"
+  },
+  {
+   "relPath": "figs/fig38-mesh.bin",
+   "group": "figs",
+   "bytes": 45579052,
+   "mtimeMs": 1785888438568.288,
+   "sha256": "98ff1ab3bef3262f8c7ba3f48d14e968db7858ec8524d3322ee11f2adda2b7aa"
+  },
+  {
+   "relPath": "figs/fig38-state.ckpt",
+   "group": "figs",
+   "bytes": 891290116,
+   "mtimeMs": 1785888426522.5479,
+   "sha256": "a4316d3d73ed70181cd4cb865a907e627f66237a4362723e0ee418cd264b8b89"
   },
   {
    "relPath": "figs/fig39-mesh.bin",
