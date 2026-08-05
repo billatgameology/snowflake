@@ -20,19 +20,35 @@ function arg(name, fallback) {
   return i >= 0 && process.argv[i + 1] !== undefined ? process.argv[i + 1] : fallback;
 }
 
-const scenePath = resolve(arg("scene", ""));
+// Validate the RAW arguments before resolve(): resolve("") returns the cwd and is truthy,
+// so a missing --out-dir would otherwise reach the rmSync below and delete the working
+// directory. (Found by the 2026-08-05 adversarial review; reproduced before fixing.)
+const rawScene = arg("scene", "");
+const rawOutDir = arg("out-dir", "");
+if (rawScene === "" || rawOutDir === "") {
+  throw new Error("need --scene <file> and --out-dir <dir> (both non-empty)");
+}
+const scenePath = resolve(rawScene);
 const siteDir = resolve(arg("site", "out/gutcheck-gg-realism/site"));
-const outDir = resolve(arg("out-dir", ""));
+const outDir = resolve(rawOutDir);
 const width = Number(arg("width", "1280"));
 const height = Number(arg("height", "720"));
 const port = Number(arg("port", "8144"));
 const mp4Path = arg("mp4", null);
-if (!scenePath || !outDir) throw new Error("need --scene and --out-dir");
 
 const scene = JSON.parse(readFileSync(scenePath, "utf8"));
 if (scene.format !== "gutcheck-scene-v1") throw new Error(`bad scene format ${scene.format}`);
 const fps = scene.fps ?? 30;
+// A missing/NaN duration must fail closed: otherwise frameCount is NaN, the capture loop
+// runs zero iterations, and two empty runs hash identically — a determinism check that
+// passes without capturing anything.
+if (typeof scene.duration !== "number" || !Number.isFinite(scene.duration) || scene.duration <= 0) {
+  throw new Error(`scene.duration must be a positive number, got ${String(scene.duration)}`);
+}
 const frameCount = Math.round(scene.duration * fps);
+if (!Number.isInteger(frameCount) || frameCount < 1) {
+  throw new Error(`computed frameCount ${frameCount} is not a positive integer`);
+}
 
 // Stage the scene inside the served tree so relative sources resolve like production.
 mkdirSync(join(siteDir, "scenes"), { recursive: true });
@@ -43,13 +59,30 @@ mkdirSync(outDir, { recursive: true });
 const server = spawn("python3", ["-m", "http.server", "-d", siteDir, String(port)], {
   stdio: ["ignore", "pipe", "pipe"],
 });
+// Drain both pipes: python's http.server logs every GET to stderr, and an undrained pipe
+// blocks the server once ~64 KB accumulates, deadlocking a long capture.
+server.stdout.resume();
+server.stderr.resume();
+let serverExited = null;
+server.on("error", (e) => {
+  serverExited = `spawn failed: ${e.message}`;
+});
+server.on("exit", (code) => {
+  serverExited ??= `server exited early with code ${code}`;
+});
 const waitFor = async (url, ms) => {
   const deadline = Date.now() + ms;
   while (Date.now() < deadline) {
+    if (serverExited !== null) throw new Error(serverExited);
     try {
       const r = await fetch(url);
-      if (r.ok) return;
-    } catch {}
+      // Confirm it is OUR server: a stale process on this port would silently serve old
+      // content and the capture would render the wrong bundle.
+      if (r.ok && r.headers.get("server")?.includes("Python")) return;
+      if (r.ok) throw new Error(`port ${port} is held by a non-Python server; pick another --port`);
+    } catch (e) {
+      if (String(e.message).includes("is held by")) throw e;
+    }
     await new Promise((r) => setTimeout(r, 200));
   }
   throw new Error("static server did not come up");

@@ -63,6 +63,18 @@ function run(): void {
   if (!Number.isInteger(events) || events < 1) throw new Error("--events must be a positive integer");
   const ramp = JSON.parse(readFileSync(resolve(rampPath), "utf8")) as RampSpec;
   if (ramp.rampEndTick <= ramp.rampStartTick) throw new Error("rampEndTick must exceed rampStartTick");
+  // Charter Phase 7: at most one event per solver step. gutcheck-grow-params advances at
+  // most one stage per tick, so N > span silently cascades one event per tick and stretches
+  // the ramp past rampEndTick — the denser rung of a step-halving ladder would then execute
+  // a different schedule, not a denser sampling of the same one. Fail closed instead.
+  // (2026-08-05 adversarial review; reproduced before fixing.)
+  const rampSpan = ramp.rampEndTick - ramp.rampStartTick;
+  if (events > rampSpan) {
+    throw new Error(
+      `--events ${events} exceeds the ramp span of ${rampSpan} ticks: one event per tick is the ` +
+        `solver's native resolution, so the staircase cannot be denser than the span`,
+    );
+  }
 
   const fromKappa = spread(ramp.from.kappa);
   const toKappa = spread(ramp.to.kappa);
@@ -71,14 +83,26 @@ function run(): void {
 
   const stages: unknown[] = [];
   // Stage 0: the `from` vector holds until the ramp starts.
-  const stageAt = (k: number, untilTick: number | null): unknown => ({
-    untilTick,
-    rho: ramp.from.rho + (ramp.to.rho - ramp.from.rho) * k,
-    phi: ramp.from.phi + (ramp.to.phi - ramp.from.phi) * k,
-    ggThreshTable: lerpTable(ramp.from.ggThreshTable, ramp.to.ggThreshTable, k),
-    kappa: asSpread(lerpTable(fromKappa, toKappa, k)),
-    mu: asSpread(lerpTable(fromMu, toMu, k)),
-  });
+  // k === 1 returns the `to` vector exactly rather than a + (b-a)*1, which is not
+  // bit-equal in float64 — the final event must land on the drawn endpoint.
+  const stageAt = (k: number, untilTick: number | null): unknown =>
+    k === 1
+      ? {
+          untilTick,
+          rho: ramp.to.rho,
+          phi: ramp.to.phi,
+          ggThreshTable: { ...ramp.to.ggThreshTable },
+          kappa: asSpread(toKappa),
+          mu: asSpread(toMu),
+        }
+      : {
+          untilTick,
+          rho: ramp.from.rho + (ramp.to.rho - ramp.from.rho) * k,
+          phi: ramp.from.phi + (ramp.to.phi - ramp.from.phi) * k,
+          ggThreshTable: lerpTable(ramp.from.ggThreshTable, ramp.to.ggThreshTable, k),
+          kappa: asSpread(lerpTable(fromKappa, toKappa, k)),
+          mu: asSpread(lerpTable(fromMu, toMu, k)),
+        };
   stages.push(stageAt(0, ramp.rampStartTick));
   const span = ramp.rampEndTick - ramp.rampStartTick;
   // Event i begins at rampStart + span*(i-1)/N and applies the vector at fraction i/N —

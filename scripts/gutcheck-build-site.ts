@@ -22,7 +22,7 @@ import {
   statSync,
   writeFileSync,
 } from "node:fs";
-import { join, resolve } from "node:path";
+import { basename, join, resolve } from "node:path";
 import { spawnSync } from "node:child_process";
 
 const REPO = resolve(import.meta.dirname, "..");
@@ -34,8 +34,15 @@ const skipVite = process.argv.includes("--skip-vite");
 
 if (!skipVite) {
   console.log("vite build ...");
-  const result = spawnSync("npx", ["vite", "build"], { cwd: join(REPO, "app"), stdio: "inherit" });
-  if (result.status !== 0) throw new Error(`vite build failed (status ${result.status})`);
+  // shell:true on Windows, where npx is npx.cmd and bare spawnSync yields a null status.
+  const result = spawnSync("npx", ["vite", "build"], {
+    cwd: join(REPO, "app"),
+    stdio: "inherit",
+    shell: process.platform === "win32",
+  });
+  if (result.status !== 0) {
+    throw new Error(`vite build failed (status ${result.status}${result.error ? `: ${result.error.message}` : ""})`);
+  }
 }
 
 rmSync(SITE, { recursive: true, force: true });
@@ -59,13 +66,22 @@ const scenesDir = join(REPO, "app", "scenes");
 if (existsSync(scenesDir)) copyTree(scenesDir, join(SITE, "scenes"));
 
 // 2. Data bundle (hardlinks for the heavy binaries).
+// Returns the placed file's BASENAME (or null when the source is absent). basename() rather
+// than a "/" search so Windows' backslash paths work; copy fallback so a cross-filesystem
+// out/ tree degrades instead of aborting a build that already deleted the previous site.
 const link = (src: string, dstDir: string, dstName?: string): string | null => {
   if (!existsSync(src)) return null;
   mkdirSync(dstDir, { recursive: true });
-  const dst = join(dstDir, dstName ?? src.slice(src.lastIndexOf("/") + 1));
+  const name = dstName ?? basename(src);
+  const dst = join(dstDir, name);
   rmSync(dst, { force: true });
-  linkSync(src, dst);
-  return dst;
+  try {
+    linkSync(src, dst);
+  } catch (error) {
+    if ((error as NodeJS.ErrnoException).code !== "EXDEV") throw error;
+    copyFileSync(src, dst);
+  }
+  return name;
 };
 
 interface Item {
@@ -101,10 +117,13 @@ if (existsSync(animSrc)) {
     });
   }
 }
+const missingSources: string[] = [];
 for (const [label, look, mesh] of heroMeshes) {
   const linked = link(mesh, join(DATA, "meshes"));
   if (linked !== null) {
-    viewers.push({ label, href: `${viewer}?look=${look}&interactive=1&mesh=data/meshes/${linked.slice(linked.lastIndexOf("/") + 1)}` });
+    viewers.push({ label, href: `${viewer}?look=${look}&interactive=1&mesh=data/meshes/${linked}` });
+  } else {
+    missingSources.push(mesh);
   }
 }
 sections.push({
@@ -128,6 +147,10 @@ const galleries: Array<[string, string, (name: string) => boolean]> = [
 ];
 for (const [title, dir, match] of galleries) {
   const items: Item[] = [];
+  if (!existsSync(dir)) {
+    missingSources.push(dir);
+    continue;
+  }
   for (const name of readdirSync(dir).sort()) {
     if (!match(name) || !statSync(join(dir, name)).isFile()) continue;
     link(join(dir, name), join(DATA, "renders"));
@@ -156,6 +179,12 @@ writeFileSync(
   ),
 );
 
+// Absent sources are a curation fact, never a silent gap: a fresh clone has only tracked/,
+// so the bundle is thinner and the record must say which sections were skipped.
+if (missingSources.length > 0) {
+  console.log(`skipped ${missingSources.length} absent source(s):`);
+  for (const src of missingSources) console.log(`  ${src}`);
+}
 const du = spawnSync("du", ["-sh", SITE], { encoding: "utf8" }).stdout.trim();
 console.log(`site assembled: ${du}`);
 console.log(`serve with: python3 -m http.server -d ${SITE} 8080`);

@@ -156,6 +156,57 @@ Numbers copied from the named artifacts/logs at write time.
   a stated tolerance, not aggregate counts alone, or it will pass prematurely. These
   prototype numbers inform but do not constitute that check.
 
+## Adversarial review round (2026-08-05) — INCOMPLETE, and read the limits
+
+Provenance (Rule 10): a 16-agent workflow (Claude Fable 5 subagents, fresh contexts, not
+sharing the author's session) reviewed all four tracks; each non-nit finding was routed to
+an independent refutation agent. **The round did not finish.** The `quantizer` and `ramp`
+verify agents completed; **10 of 16 agents died on a Fable 5 rate limit**, killing every
+`scene` and `site` verification. So:
+
+- **Independently verified (2 findings, both confirmed, both fixed):** the ramp compiler's
+  duplicate-untilTick cascade when events > span (verifier reproduced the one-event-per-tick
+  stretch past rampEndTick with the real runner), and gutcheck-build-site's Windows-hostile
+  basename/`npx` handling (verifier reproduced with a path.win32 probe; CLAUDE.md names
+  Windows as the primary execution host).
+- **Reported but NOT independently verified (scene + site tracks).** I verified the worst one
+  myself before fixing — `scene-capture.mjs` resolved a missing `--out-dir` to `resolve("")`
+  = the CWD, and the truthiness guard could not catch it, so `rmSync(outDir, {recursive:
+  true, force: true})` would have deleted the working directory. Reproduced the resolve()
+  behavior in isolation (never the deletion), then fixed. **This is author-verified, not
+  independently verified — it carries less weight than the two above, and the remaining
+  scene/site findings were fixed on reading alone.**
+- **The quantizer track produced no confirmed findings**, but its verification is the one
+  place a clean result is trustworthy here, since those agents did complete.
+
+Fixes applied this round (all in `a91d5e2`'s successor commit):
+- `app/scripts/scene-capture.mjs`: raw-argument validation before `resolve()` (the
+  destructive path); positive-duration/frameCount validation so an empty capture can no
+  longer "pass" a determinism check by hashing nothing; server stdout/stderr drained
+  (python's per-GET logging would deadlock a long capture at the ~64 KB pipe buffer);
+  spawn-error and early-exit detection; a Python-server identity check so a stale process
+  on the port cannot silently serve an old bundle.
+- `scripts/gutcheck-ramp-compile.ts`: refuse `--events > span` by name; final event now
+  emits the `to` vector exactly rather than `a + (b−a)·1`.
+- `scripts/gutcheck-build-site.ts`: `basename()` instead of a "/" search; EXDEV copy
+  fallback; `shell: true` for `npx` on win32; existence guards for gitignored source dirs;
+  absent sources printed rather than silently skipped.
+- `app/src/spike-gg-realism.ts`: scene files apply their own `look` on human preview;
+  scene duration and keyframe-track ordering validated (unsorted tracks silently made
+  segments unreachable); `style`/`zscale` carried across profile switches.
+
+Post-fix verification: ramp controls A/B/D executed with observed outcomes (guard fires by
+name; N=span compiles with strictly increasing ticks and an exact endpoint; the recorded
+96/48/24 ladder's tick schedule is bit-identical, so the Track C numbers above still stand);
+capture-runner guard refuses the destructive invocation; site + profile checks re-pass; the
+scene capture re-ran to the **same aggregate sha256
+`67dd656cbb5945b0bcfa1c23f19b91ca60fb654c44c80fcf88221e0c73539353`**. Exact
+`TMPDIR=/private/tmp npm test` green (rule7 clean 443 files, `npm-test-11.log`).
+
+**Open, and it should stay open until done:** re-run the scene and site review lanes to
+completion when the token budget allows. Until then, those two tracks carry author-verified
+fixes only, and this record is the reason not to treat them as reviewed.
+
 ## Tried and rejected
 
 - **Betting on raw-byte shrink alone for the wire size** — quantization gives only 66.7%

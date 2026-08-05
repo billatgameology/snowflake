@@ -433,6 +433,9 @@ function keepContentParams(): URLSearchParams {
   const keep = [
     "mesh", "manifest", "scene", "frame", "frameExtent", "fps",
     "interactive", "clip", "tilt", "zoom", "ui", "profile", "look",
+    // style/zscale are first-class page selectors (?style=povray|ggview): dropping them on
+    // a profile switch silently re-renders a different page.
+    "style", "zscale",
   ];
   const next = new URLSearchParams();
   for (const key of keep) {
@@ -1011,6 +1014,23 @@ async function sceneMain(sceneUrl: string): Promise<void> {
   if (script.format !== "gutcheck-scene-v1") {
     throw new Error(`unexpected scene format: ${script.format}`);
   }
+  // A committed scene names its own look. Previewing ?scene=... without ?look would
+  // otherwise render with the default recipe — the scene's authored appearance is part of
+  // the artifact, so redirect once to apply it (capture already passes ?look explicitly).
+  if (script.look !== undefined && query.get("look") === null) {
+    const next = new URLSearchParams(window.location.search);
+    next.set("look", script.look);
+    window.location.search = next.toString();
+    return;
+  }
+  if (!Number.isFinite(script.duration) || script.duration <= 0) {
+    throw new Error(`scene duration must be a positive number, got ${String(script.duration)}`);
+  }
+  // Keyframe tracks are interpolated by scanning forward, so out-of-order times would
+  // silently make segments unreachable. Fail loudly instead of rendering a wrong scene.
+  const sorted = (times: number[]): boolean => times.every((t, i) => i === 0 || t >= times[i - 1]!);
+  if (!sorted((script.camera ?? []).map((k) => k.t))) throw new Error("scene camera keyframes are not sorted by t");
+  if (!sorted((script.frames ?? []).map((k) => k.t))) throw new Error("scene frame keyframes are not sorted by t");
   const capture = param("capture", "0") === "1";
   const duration = Math.max(0.1, script.duration);
 
