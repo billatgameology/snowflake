@@ -132,6 +132,27 @@ sections.push({
   items: viewers,
 });
 
+// View profiles (charter Phase 7): the SAME replay opened with a different UI composition.
+// Designer is listed so its Phase-6-gated state is visible rather than hidden.
+const profileTargets: Array<[string, string, string]> = [
+  ["Realistic — minimal chrome, curated look", "realistic", "footage-ice"],
+  ["Scientific — recorded run facts panel", "scientific", "bold-ice"],
+  ["Developer — full surface + scene scripts", "developer", "bold-ice"],
+  ["Designer — unavailable until Phase 6 reports", "designer", "bold-ice"],
+];
+if (existsSync(animSrc)) {
+  sections.push({
+    title: "View profiles (same growth timeline, different UI)",
+    note:
+      "A profile changes UI composition and rendering only — the underlying replayed run is " +
+      "identical. Switch between them with the profile dropdown inside any viewer.",
+    items: profileTargets.map(([label, profile, look]) => ({
+      label,
+      href: `${viewer}?look=${look}&manifest=data/anim-B/manifest.json&frameExtent=620&frame=700&profile=${profile}`,
+    })),
+  });
+}
+
 // 3. Our renders (never side-by-side composites, paper crops, or photos).
 const galleries: Array<[string, string, (name: string) => boolean]> = [
   [

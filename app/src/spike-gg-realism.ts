@@ -456,7 +456,13 @@ function makeProfileSwitcher(): HTMLSelectElement {
   select.style.cssText =
     "background:#233250;color:#dfe7f4;border:1px solid #3a4c72;border-radius:4px;" +
     "padding:4px 6px;cursor:pointer;font:inherit";
-  for (const [value, label] of [["", "profile: full"], ["realistic", "profile: realistic"], ["developer", "profile: developer"]]) {
+  for (const [value, label] of [
+    ["", "profile: full"],
+    ["realistic", "profile: realistic"],
+    ["scientific", "profile: scientific"],
+    ["designer", "profile: designer"],
+    ["developer", "profile: developer"],
+  ]) {
     const opt = document.createElement("option");
     opt.value = value!;
     opt.textContent = label!;
@@ -479,6 +485,81 @@ function profileControls(rig: SceneRig, core: HTMLElement[]): HTMLElement[] {
     return [...core, makeProfileSwitcher(), makeBackdropControls(rig)];
   }
   return [...core, makeLookSwitcher(), makeProfileSwitcher(), makeBackdropControls(rig)];
+}
+
+// ── Scientific profile: read-only run facts over the REPLAYED artifact ───────────────────
+// Charter Phase 7's Scientific profile is the full live instrument; this spike replays
+// pre-baked meshes and has no solver, so this panel reports only what the recorded
+// artifacts actually carry (run configuration, provenance hash, extraction settings, the
+// per-frame counts the manifest recorded). It never displays a quantity the artifact does
+// not contain, and §1.5 labeling applies to every line.
+
+type FactGroup = readonly [string, ReadonlyArray<readonly [string, string]>];
+
+function makeSciencePanel(): { el: HTMLElement; set: (groups: FactGroup[]) => void } {
+  const el = document.createElement("div");
+  el.style.cssText =
+    "position:fixed;top:0;left:0;max-height:100vh;overflow:auto;width:330px;" +
+    "background:rgba(8,12,22,0.82);color:#dfe7f4;font:12px/1.55 ui-monospace,monospace;" +
+    "padding:10px 12px;z-index:11;border-right:1px solid #2a3a58";
+  const set = (groups: FactGroup[]): void => {
+    el.replaceChildren();
+    const title = document.createElement("div");
+    title.textContent = "Scientific — recorded run";
+    title.style.cssText = "font-weight:600;margin-bottom:6px;color:#cfe0ff";
+    el.appendChild(title);
+    for (const [name, rows] of groups) {
+      const box = document.createElement("details");
+      box.open = true;
+      box.style.cssText = "margin-bottom:6px;border-top:1px solid #24344f;padding-top:4px";
+      const summary = document.createElement("summary");
+      summary.textContent = name;
+      summary.style.cssText = "cursor:pointer;color:#93a5c4;margin-bottom:3px";
+      box.appendChild(summary);
+      for (const [key, value] of rows) {
+        const row = document.createElement("div");
+        row.style.cssText = "display:flex;gap:8px;justify-content:space-between";
+        const k = document.createElement("span");
+        k.textContent = key;
+        k.style.color = "#8fa2c2";
+        const v = document.createElement("span");
+        v.textContent = value;
+        v.style.cssText = "text-align:right;word-break:break-all";
+        row.append(k, v);
+        box.appendChild(row);
+      }
+      el.appendChild(box);
+    }
+    const note = document.createElement("div");
+    note.textContent =
+      "Replay of a recorded G-G (GGThreshold) run. Parameters are model inputs; " +
+      "the tick has no physical-time meaning and no morphology here is validated " +
+      "against measurement.";
+    note.style.cssText = "margin-top:8px;color:#93a5c4;font-size:11px;line-height:1.45";
+    el.appendChild(note);
+  };
+  return { el, set };
+}
+
+const numberOr = (v: unknown, fallback = "—"): string =>
+  typeof v === "number" ? v.toLocaleString() : fallback;
+
+/** Designer needs Phase 6's morphology diagram (charter v1.18, decision 0029) — it cannot
+ * exist yet, so say so rather than shipping a mock that implies it does. */
+function showDesignerUnavailable(): void {
+  const card = document.createElement("div");
+  card.style.cssText =
+    "position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);max-width:520px;" +
+    "background:rgba(8,12,22,0.92);border:1px solid #33476e;border-radius:8px;" +
+    "padding:18px 20px;color:#dfe7f4;font:14px/1.6 system-ui,sans-serif;z-index:12";
+  card.innerHTML =
+    "<div style='font-weight:600;margin-bottom:8px'>Designer profile — not available yet</div>" +
+    "<div style='color:#b9c6de'>The Designer profile compiles growth intents through " +
+    "<em>the model's own morphology diagram</em>, and that diagram is Phase 6's output. " +
+    "Phase 6 has not reported, so there is nothing to compile against — a mock here would " +
+    "imply a mapping between what you draw and what the model grows that does not exist.<br><br>" +
+    "The other profiles replay recorded runs and are available now.</div>";
+  document.body.appendChild(card);
 }
 
 /** Two live color pickers for the backdrop gradient, initialized to the current look. */
@@ -766,6 +847,41 @@ async function singleMeshMain(): Promise<void> {
   const rig = buildRig(extent, interactive);
   setRigGeometry(rig, geometry);
 
+  if (profileName === "scientific" && param("ui", "1") !== "0") {
+    const header = parseMesh(buffer).header;
+    const src = (header["source"] ?? {}) as Record<string, unknown>;
+    const run = (src["source"] ?? src) as Record<string, unknown>;
+    const extraction = (src["extraction"] ?? header["extraction"] ?? {}) as Record<string, unknown>;
+    const dims = (run["dims"] ?? {}) as Record<string, unknown>;
+    const sha = typeof run["checkpointSha256"] === "string" ? run["checkpointSha256"] : "";
+    const panel = makeSciencePanel();
+    panel.set([
+      ["run", [
+        ["preset", String(run["preset"] ?? "—")],
+        ["dims", `${numberOr(dims["nx"])}×${numberOr(dims["ny"])}×${numberOr(dims["nz"])}`],
+        ["domain", String(run["domain"] ?? "—")],
+        ["seed", numberOr(run["seed"])],
+        ["noise epsilon", numberOr(run["noiseEpsilon"], "0")],
+        ["tick captured", numberOr(run["tick"])],
+      ]],
+      ["surface extraction", [
+        ["spacing", numberOr(extraction["spacing"])],
+        ["sigma", numberOr(extraction["sigma"])],
+        ["iso", numberOr(extraction["iso"])],
+        ["level set", "attached=1; boundary graded by b / ggThreshBeta"],
+        ["z relief shown", `${zscale}×`],
+      ]],
+      ["mesh", [
+        ["vertices", numberOr(header["vertexCount"])],
+        ["triangles", numberOr(header["triangleCount"])],
+        ["encoding", String(header["format"] ?? "—")],
+      ]],
+      ["provenance", [["checkpoint sha256", sha === "" ? "—" : `${sha.slice(0, 16)}…`]]],
+    ]);
+    document.body.appendChild(panel.el);
+  }
+  if (profileName === "designer") showDesignerUnavailable();
+
   // Cell-true meshes carry drawn edges (the paper's LINE routine): render them as
   // segments with the exact transform applied to the face geometry.
   const parsed = parseMesh(buffer);
@@ -920,6 +1036,41 @@ async function timelineMain(manifestUrl: string): Promise<void> {
   // ?ui=0 suppresses the control bar for headless captures (buttons would land in the PNG).
   if (param("ui", "1") !== "0") document.body.appendChild(ui);
 
+  // Scientific profile: recorded configuration plus the manifest's per-frame counts,
+  // refreshed on every frame change.
+  const cfg = manifest.config as unknown as Record<string, unknown>;
+  const cfgDims = (cfg["dims"] ?? {}) as Record<string, unknown>;
+  const cfgExtraction = (cfg["extraction"] ?? {}) as Record<string, unknown>;
+  const sciPanel = profileName === "scientific" && param("ui", "1") !== "0" ? makeSciencePanel() : null;
+  if (sciPanel !== null) document.body.appendChild(sciPanel.el);
+  if (profileName === "designer") showDesignerUnavailable();
+  const sciUpdate = (frameIndex: number): void => {
+    if (sciPanel === null) return;
+    const frame = manifest.frames[frameIndex] as unknown as Record<string, unknown> | undefined;
+    sciPanel.set([
+      ["run", [
+        ["preset", String(cfg["preset"] ?? "—")],
+        ["dims", `${numberOr(cfgDims["nx"])}×${numberOr(cfgDims["ny"])}×${numberOr(cfgDims["nz"])}`],
+        ["domain", String(cfg["domain"] ?? "—")],
+        ["seed", numberOr(cfg["seed"])],
+        ["noise epsilon", numberOr(cfg["noise"], "0")],
+      ]],
+      ["this frame", [
+        ["tick", `${numberOr(frame?.["tick"])} / ${numberOr(cfg["ticks"])}`],
+        ["frame", `${frameIndex + 1} / ${manifest.frames.length}`],
+        ["capture interval", `${numberOr(cfg["every"])} ticks`],
+        ["attached cells", numberOr(frame?.["attachedCount"])],
+        ["mesh vertices", numberOr(frame?.["vertexCount"])],
+      ]],
+      ["surface extraction", [
+        ["spacing", numberOr(cfgExtraction["spacing"])],
+        ["sigma", numberOr(cfgExtraction["sigma"])],
+        ["level set", "attached=1; boundary graded by b / ggThreshBeta"],
+        ["z relief shown", `${zscale}×`],
+      ]],
+    ]);
+  };
+
   let currentFrame = -1;
   let showToken = 0;
   const showFrame = async (index: number): Promise<void> => {
@@ -934,6 +1085,7 @@ async function timelineMain(manifestUrl: string): Promise<void> {
     label.textContent =
       `tick ${frame.tick.toLocaleString()} / ${manifest.config.ticks.toLocaleString()}` +
       ` · frame ${clamped + 1}/${manifest.frames.length}`;
+    sciUpdate(clamped);
     // Prefetch neighbors for smooth scrubbing/playback.
     for (const near of [clamped + 1, clamped + 2, clamped - 1]) {
       if (near >= 0 && near < manifest.frames.length && !cache.has(near)) {

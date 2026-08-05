@@ -207,6 +207,33 @@ scene capture re-ran to the **same aggregate sha256
 completion when the token budget allows. Until then, those two tracks carry author-verified
 fixes only, and this record is the reason not to treat them as reviewed.
 
+## Track D completion (2026-08-05, maker-flagged gap)
+
+Maker feedback: "what happened to the A/B/C/D views?" — the tracks were labeled A–D as
+WORKSTREAMS, which read as the charter's four view PROFILES. Real gap behind the confusion:
+only two profiles existed (realistic, developer), and neither was reachable except by
+hand-editing the URL, so the profiles were effectively untestable. Fixed:
+
+- All four charter profiles are now in the switcher and linked from the index page's own
+  "View profiles" section (same replayed run, different UI composition).
+- **Scientific**: a read-only facts panel over the recorded artifact — run configuration
+  (preset/dims/domain/seed/noise), per-frame tick, capture interval, attached-cell and
+  vertex counts from the manifest, extraction settings, and the checkpoint sha256 for
+  static meshes. It reports ONLY what the artifact carries. The charter's Scientific
+  profile is the live instrument with surface-propensity coloring; this spike replays
+  pre-baked meshes and has no solver, so propensity coloring is absent rather than faked,
+  and the panel footer states the run is unvalidated and the tick has no physical-time
+  meaning (§1.5).
+- **Designer**: deliberately NOT built. It compiles intents through the Phase 6 morphology
+  diagram (decision 0029); Phase 6 has not reported, so the profile renders a labeled
+  "not available yet" card explaining why. A mock would imply a draw→growth mapping that
+  does not exist.
+- Verified headlessly against the static build (`out/gutcheck-gg-realism/check-profiles4.mjs`,
+  screenshots `profile-{realistic,scientific,designer,developer}.png`): all four load with
+  zero page errors, the Scientific panel renders live per-frame facts (tick 35,000,
+  364,585 attached cells at frame 351/701), the Designer notice renders, and the index
+  lists exactly four profile links.
+
 ## Tried and rejected
 
 - **Betting on raw-byte shrink alone for the wire size** — quantization gives only 66.7%
