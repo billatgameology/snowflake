@@ -21,6 +21,9 @@ import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 interface SpikeWindow {
   __spikeReady?: boolean;
   __spikeError?: string;
+  /** Scene mode (?scene=): deterministic seek used by app/scripts/scene-capture.mjs. */
+  __sceneSeek?: (tSeconds: number) => Promise<void>;
+  __sceneDuration?: number;
 }
 
 interface GutcheckMesh {
@@ -111,12 +114,56 @@ function param(name: string, iceDefault: string, povDefault?: string): string {
   return style === "povray" && povDefault !== undefined ? povDefault : iceDefault;
 }
 
+/** Decode gutcheck-mesh-v2q (scripts/gutcheck-mesh-quantize.ts — keep in sync): u16
+ * bbox-quantized positions, octahedral snorm8 normals, u16/u32 indices, 4-byte aligned. */
+function parseMeshV2q(buffer: ArrayBuffer, header: Record<string, unknown>, headerLen: number): GutcheckMesh {
+  const vertexCount = header["vertexCount"] as number;
+  const triangleCount = header["triangleCount"] as number;
+  const bboxMin = header["bboxMin"] as [number, number, number];
+  const bboxMax = header["bboxMax"] as [number, number, number];
+  const align4 = (n: number): number => Math.ceil(n / 4) * 4;
+  const posOff = 4 + headerLen;
+  const normOff = align4(posOff + vertexCount * 3 * 2);
+  const idxOff = align4(normOff + vertexCount * 2);
+  const qPositions = new Uint16Array(buffer, posOff, vertexCount * 3);
+  const qNormals = new Int8Array(buffer, normOff, vertexCount * 2);
+  const positions = new Float32Array(vertexCount * 3);
+  for (let axis = 0; axis < 3; axis++) {
+    const min = bboxMin[axis]!;
+    const span = (bboxMax[axis]! - min) / 65535;
+    for (let i = axis; i < vertexCount * 3; i += 3) positions[i] = min + qPositions[i]! * span;
+  }
+  const normals = new Float32Array(vertexCount * 3);
+  const signNonZero = (v: number): number => (v >= 0 ? 1 : -1);
+  for (let v = 0; v < vertexCount; v++) {
+    let x = qNormals[v * 2]! / 127;
+    let y = qNormals[v * 2 + 1]! / 127;
+    const z = 1 - Math.abs(x) - Math.abs(y);
+    if (z < 0) {
+      const ox = (1 - Math.abs(y)) * signNonZero(x);
+      const oy = (1 - Math.abs(x)) * signNonZero(y);
+      x = ox;
+      y = oy;
+    }
+    const len = Math.hypot(x, y, z) || 1;
+    normals[v * 3] = x / len;
+    normals[v * 3 + 1] = y / len;
+    normals[v * 3 + 2] = z / len;
+  }
+  const indices =
+    header["indexType"] === "u16"
+      ? Uint32Array.from(new Uint16Array(buffer, idxOff, triangleCount * 3))
+      : new Uint32Array(buffer, idxOff, triangleCount * 3);
+  return { header, positions, normals, indices };
+}
+
 function parseMesh(buffer: ArrayBuffer): GutcheckMesh {
   const dv = new DataView(buffer);
   const headerLen = dv.getUint32(0, true);
   const headerText = new TextDecoder().decode(new Uint8Array(buffer, 4, headerLen));
   const header = JSON.parse(headerText) as Record<string, unknown>;
   const format = header["format"];
+  if (format === "gutcheck-mesh-v2q") return parseMeshV2q(buffer, header, headerLen);
   if (format !== "gutcheck-mesh-v1" && format !== "gutcheck-cellmesh-v1") {
     throw new Error(`unexpected mesh format: ${String(format)}`);
   }
@@ -884,7 +931,221 @@ async function timelineMain(manifestUrl: string): Promise<void> {
   (window as unknown as SpikeWindow).__spikeReady = true;
 }
 
+// ── Scene mode (Phase 7 prep Track B, docs/plans/explore-phase7-prep.md) ─────────────────
+// A repo-committed scene script (charter Phase 7 Developer profile) drives camera, frame,
+// and captions from a virtual clock. Read-only over recorded artifacts; cannot alter solver
+// behavior. ?capture=1 disables the free-running clock and exposes window.__sceneSeek(t)
+// for deterministic frame capture. Look/background/frameExtent come from URL params, which
+// the capture runner derives from the scene file.
+
+interface SceneKeyframe {
+  t: number;
+  tilt?: number;
+  yaw?: number;
+  zoom?: number;
+  ease?: "linear" | "inOutCubic";
+}
+interface SceneScript {
+  format: string;
+  title?: string;
+  look?: string;
+  frameExtent?: number;
+  duration: number;
+  fps?: number;
+  source: { manifest?: string; mesh?: string };
+  camera?: SceneKeyframe[];
+  frames?: Array<{ t: number; frame: number }>;
+  captions?: Array<{ t0: number; t1: number; text: string }>;
+}
+
+async function sceneMain(sceneUrl: string): Promise<void> {
+  const sceneAbsolute = new URL(sceneUrl, window.location.href);
+  const sceneResponse = await fetch(sceneAbsolute);
+  if (!sceneResponse.ok) throw new Error(`scene fetch failed: ${sceneResponse.status} ${sceneUrl}`);
+  const script = (await sceneResponse.json()) as SceneScript;
+  if (script.format !== "gutcheck-scene-v1") {
+    throw new Error(`unexpected scene format: ${script.format}`);
+  }
+  const capture = param("capture", "0") === "1";
+  const duration = Math.max(0.1, script.duration);
+
+  // Sources resolve relative to the scene file so committed scenes work from any host root.
+  let manifest: AnimManifest | null = null;
+  let manifestBase: URL | null = null;
+  let staticBuffer: ArrayBuffer | null = null;
+  if (script.source.manifest !== undefined) {
+    manifestBase = new URL(script.source.manifest, sceneAbsolute);
+    const r = await fetch(manifestBase);
+    if (!r.ok) throw new Error(`scene manifest fetch failed: ${r.status}`);
+    manifest = (await r.json()) as AnimManifest;
+    if (manifest.frames.length === 0) throw new Error("scene manifest has no frames");
+  } else if (script.source.mesh !== undefined) {
+    const r = await fetch(new URL(script.source.mesh, sceneAbsolute));
+    if (!r.ok) throw new Error(`scene mesh fetch failed: ${r.status}`);
+    staticBuffer = await r.arrayBuffer();
+  } else {
+    throw new Error("scene needs source.manifest or source.mesh");
+  }
+
+  const bb = manifest?.finalBBox;
+  const extent =
+    bb !== undefined
+      ? new THREE.Vector3(bb.xMax - bb.xMin, bb.yMax - bb.yMin, bb.zMax - bb.zMin)
+      : new THREE.Vector3(1, 1, 1);
+  const frameExtent = Number(param("frameExtent", String(script.frameExtent ?? 0)));
+  if (frameExtent > 0) {
+    extent.x = frameExtent;
+    extent.y = frameExtent;
+  }
+  const offset: readonly [number, number, number] =
+    bb !== undefined
+      ? [(bb.xMin + bb.xMax) / 2, (bb.yMin + bb.yMax) / 2, ((bb.zMin + bb.zMax) / 2) * zscale]
+      : [0, 0, 0];
+
+  const rig = buildRig(extent, true);
+  const baseDist = Math.max(extent.x, extent.y) * 2;
+
+  if (staticBuffer !== null) {
+    const geometry = buildGeometry(staticBuffer, [0, 0, 0]);
+    geometry.computeBoundingBox();
+    const center = new THREE.Vector3();
+    geometry.boundingBox!.getCenter(center);
+    geometry.translate(-center.x, -center.y, -center.z);
+    setRigGeometry(rig, geometry);
+  }
+
+  // Frame loader (manifest sources): same conventions as timelineMain, private cache.
+  const cache = new Map<number, THREE.BufferGeometry>();
+  const lru: number[] = [];
+  let shownFrame = -1;
+  const loadFrame = async (index: number): Promise<THREE.BufferGeometry> => {
+    const cached = cache.get(index);
+    if (cached !== undefined) return cached;
+    const frame = manifest!.frames[index];
+    if (frame === undefined) throw new Error(`no frame ${index}`);
+    const r = await fetch(new URL(frame.file, manifestBase!));
+    if (!r.ok) throw new Error(`frame fetch failed: ${r.status} ${frame.file}`);
+    const geometry = buildGeometry(await r.arrayBuffer(), offset);
+    cache.set(index, geometry);
+    lru.push(index);
+    while (lru.length > FRAME_CACHE_CAP) {
+      const evict = lru.shift();
+      if (evict !== undefined && evict !== shownFrame) {
+        cache.get(evict)?.dispose();
+        cache.delete(evict);
+      }
+    }
+    return geometry;
+  };
+
+  const frameAt = (t: number): number => {
+    if (manifest === null) return -1;
+    const track =
+      script.frames !== undefined && script.frames.length > 0
+        ? script.frames
+        : [
+            { t: 0, frame: 0 },
+            { t: duration, frame: manifest.frames.length - 1 },
+          ];
+    if (t <= track[0]!.t) return track[0]!.frame;
+    for (let i = 1; i < track.length; i++) {
+      const a = track[i - 1]!;
+      const b = track[i]!;
+      if (t <= b.t) {
+        const k = b.t === a.t ? 1 : (t - a.t) / (b.t - a.t);
+        return Math.round(a.frame + (b.frame - a.frame) * k);
+      }
+    }
+    return track[track.length - 1]!.frame;
+  };
+
+  const cameraAt = (t: number): { tilt: number; yaw: number; zoom: number } => {
+    const track = script.camera ?? [];
+    const fill = (k: SceneKeyframe | undefined): { tilt: number; yaw: number; zoom: number } => ({
+      tilt: k?.tilt ?? 0,
+      yaw: k?.yaw ?? 0,
+      zoom: k?.zoom ?? 1,
+    });
+    if (track.length === 0) return fill(undefined);
+    if (t <= track[0]!.t) return fill(track[0]);
+    for (let i = 1; i < track.length; i++) {
+      const a = track[i - 1]!;
+      const b = track[i]!;
+      if (t <= b.t) {
+        const raw = b.t === a.t ? 1 : (t - a.t) / (b.t - a.t);
+        const k = (b.ease ?? "inOutCubic") === "linear" ? raw : easeInOutCubic(raw);
+        const av = fill(a);
+        const bv = fill(b);
+        return {
+          tilt: av.tilt + (bv.tilt - av.tilt) * k,
+          yaw: av.yaw + (bv.yaw - av.yaw) * k,
+          zoom: av.zoom + (bv.zoom - av.zoom) * k,
+        };
+      }
+    }
+    return fill(track[track.length - 1]);
+  };
+
+  const caption = document.createElement("div");
+  caption.style.cssText =
+    "position:fixed;left:0;right:0;bottom:56px;text-align:center;color:#f3f6fc;" +
+    "font:20px/1.5 system-ui,sans-serif;text-shadow:0 1px 8px rgba(6,10,20,0.85);" +
+    "pointer-events:none;padding:0 10vw";
+  document.body.appendChild(caption);
+
+  let seeking = false;
+  const seek = async (tSeconds: number): Promise<void> => {
+    const t = Math.max(0, Math.min(duration, tSeconds));
+    if (manifest !== null) {
+      const index = frameAt(t);
+      if (index !== shownFrame) {
+        const geometry = await loadFrame(index);
+        shownFrame = index;
+        setRigGeometry(rig, geometry);
+      }
+    }
+    const cam = cameraAt(t);
+    const tiltRad = (cam.tilt * Math.PI) / 180;
+    const yawRad = (cam.yaw * Math.PI) / 180;
+    const arc = new THREE.Vector3(0, Math.sin(tiltRad) * baseDist, Math.cos(tiltRad) * baseDist);
+    arc.applyAxisAngle(new THREE.Vector3(0, 0, 1), yawRad);
+    rig.camera.position.copy(arc);
+    rig.camera.up.set(0, 1, 0).applyAxisAngle(new THREE.Vector3(0, 0, 1), yawRad);
+    rig.camera.lookAt(0, 0, 0);
+    (rig.camera as THREE.OrthographicCamera).zoom = cam.zoom;
+    (rig.camera as THREE.OrthographicCamera).updateProjectionMatrix();
+    const active = (script.captions ?? []).find((c) => t >= c.t0 && t < c.t1);
+    caption.textContent = active?.text ?? "";
+    rig.render();
+  };
+
+  const spikeWindow = window as unknown as SpikeWindow;
+  spikeWindow.__sceneDuration = duration;
+  spikeWindow.__sceneSeek = seek;
+
+  await seek(0);
+  if (!capture) {
+    const start = performance.now();
+    const animate = (): void => {
+      requestAnimationFrame(animate);
+      if (seeking) return;
+      seeking = true;
+      const t = ((performance.now() - start) / 1000) % duration;
+      void seek(t).finally(() => {
+        seeking = false;
+      });
+    };
+    requestAnimationFrame(animate);
+  }
+  spikeWindow.__spikeReady = true;
+}
+
 async function main(): Promise<void> {
+  const sceneUrl = query.get("scene");
+  if (sceneUrl !== null && sceneUrl !== "") {
+    await sceneMain(sceneUrl);
+    return;
+  }
   const manifestUrl = query.get("manifest");
   if (manifestUrl !== null && manifestUrl !== "") {
     await timelineMain(manifestUrl);

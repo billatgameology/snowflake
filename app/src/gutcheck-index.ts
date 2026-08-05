@@ -19,14 +19,29 @@ interface IndexData {
   sections: IndexSection[];
 }
 
-const INDEX_URL =
-  "/@fs/Users/clipper/github/snowflake-gutcheck-gg-realism/out/gutcheck-gg-realism/index.json";
+// Static-site bundles (scripts/gutcheck-build-site.ts) serve ./data/index.json next to the
+// page; the dev server falls back to the generated absolute-path index.
+const INDEX_URLS = [
+  "./data/index.json",
+  "/@fs/Users/clipper/github/snowflake-gutcheck-gg-realism/out/gutcheck-gg-realism/index.json",
+];
 
 async function main(): Promise<void> {
   const mainEl = document.getElementById("main");
   if (mainEl === null) return;
-  const response = await fetch(INDEX_URL);
-  if (!response.ok) {
+  let response: Response | null = null;
+  for (const url of INDEX_URLS) {
+    try {
+      const candidate = await fetch(url);
+      if (candidate.ok) {
+        response = candidate;
+        break;
+      }
+    } catch {
+      /* try the next location */
+    }
+  }
+  if (response === null) {
     mainEl.innerHTML =
       "<h1>GG gut check — output index</h1><p class='note'>index.json missing — run " +
       "<code>node scripts/gutcheck-build-index.ts</code> and reload.</p>";

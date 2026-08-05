@@ -1,0 +1,25 @@
+{
+ "format": "gutcheck-scene-v1",
+ "title": "Run B growth — intro flyaround",
+ "look": "footage-ice",
+ "frameExtent": 620,
+ "duration": 16,
+ "fps": 30,
+ "source": { "manifest": "../data/anim-B/manifest.json" },
+ "frames": [
+  { "t": 0, "frame": 0 },
+  { "t": 13, "frame": 700 },
+  { "t": 16, "frame": 700 }
+ ],
+ "camera": [
+  { "t": 0, "tilt": 0, "yaw": 0, "zoom": 1 },
+  { "t": 6, "tilt": 30, "yaw": 40, "zoom": 1.25 },
+  { "t": 11, "tilt": 55, "yaw": 95, "zoom": 1.1 },
+  { "t": 15.5, "tilt": 0, "yaw": 120, "zoom": 1.18 }
+ ],
+ "captions": [
+  { "t0": 0.5, "t1": 4.5, "text": "A Gravner–Griffeath model crystal, grown from a 19-cell seed" },
+  { "t0": 5.5, "t1": 9.5, "text": "70,000 growth steps — every 100th captured" },
+  { "t0": 12.5, "t1": 15.8, "text": "Replayed from the recorded run — model output, unvalidated" }
+ ]
+}

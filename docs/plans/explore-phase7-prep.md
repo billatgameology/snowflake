@@ -87,6 +87,50 @@ opportunistic as lanes/notifications allow. Every track: plan-step commits, exac
 `TMPDIR=/private/tmp npm test` before each code commit, adversarial review round (Rule 13
 proportionate) before the track is called done, artifacts + sha256 + commands recorded here.
 
+## Track A executed record (2026-08-05)
+
+Numbers copied from the named artifacts/logs at write time.
+
+- Quantizer `scripts/gutcheck-mesh-quantize.ts` (v1 -> v2q: u16 bbox positions, oct-snorm8
+  normals, u16 indices when vertexCount fits); decoder added to viewer `parseMesh`.
+- Measured ladder (`out/gutcheck-gg-realism/p7/`): hero plate 62.9 MB -> 41.9 MB raw
+  (66.7% — index data dominates after vertex payload shrinks 3x), and the wire size with
+  host gzip: 34.5 MB (raw v1 gz) -> **18.3 MB (v2q gz, 29% of raw v1)**. Full 701-frame
+  timeline: 9.99 GB -> 6.62 GB raw (66.3%), frames lazy-load individually (~4-5 MB gz
+  each). Visual A/B at 1200 px: PSNR 51.5 dB raw-vs-v2q (`p7/ab-raw.png`, `p7/ab-v2q.png`),
+  eyeballed clean — no faceting, cracking, or normal artifacts.
+- Static site `scripts/gutcheck-build-site.ts`: multi-page `vite build` (app pages now
+  enumerated in `app/vite.config.ts` rollup inputs) + curated hardlinked `data/` bundle
+  (6.3 GB, no extra disk) + relative-path `data/index.json`; `app/src/gutcheck-index.ts`
+  tries `./data/index.json` before the dev `/@fs` fallback. Curation is ours-only by
+  construction: composites, paper crops, and photos are never copied into the bundle.
+- End-to-end check over plain `python3 -m http.server` (`out/gutcheck-gg-realism/check-site.mjs`,
+  screenshots `site-check-{index,viewer,timeline}.png`): index galleries render, v2q hero
+  mesh reaches `__spikeReady`, timeline scrubs at frame 351/701 — no page errors.
+- Not in the v1 bundle (recorded gaps): cell-true ggview meshes (no v2q path for the edge
+  payload yet), per-figure interactive viewers (only two hero meshes staged so far),
+  frame-decimation presets (ladder rung not yet cut).
+
+## Track B executed record (2026-08-05)
+
+- Scene schema `gutcheck-scene-v1` (committed example `app/scenes/growth-B-intro.json`):
+  camera keyframes (tilt/yaw/zoom, eased), piecewise-linear frame track over the recorded
+  timeline, timed captions. Scenes reference recorded artifacts only — no solver access.
+- Viewer `?scene=` mode (`sceneMain` in `app/src/spike-gg-realism.ts`): virtual-clock
+  playback for humans; `?capture=1` disables the free clock and exposes deterministic
+  `window.__sceneSeek(t)`.
+- Capture runner `app/scripts/scene-capture.mjs`: serves the built site with plain
+  `python3 -m http.server`, seeks frame-by-frame, screenshots, encodes mp4
+  (`p7/growth-B-intro.mp4`, 480 frames @ 30 fps).
+- Determinism check (done-when): two full captures, aggregate sha256 over all 480 PNGs
+  identical both runs: `67dd656cbb5945b0bcfa1c23f19b91ca60fb654c44c80fcf88221e0c73539353`.
+- Caption wording carries the §1.5 label ("model output, unvalidated") — outward-facing
+  strings stay honest by construction.
+
 ## Tried and rejected
 
-(none yet)
+- **Betting on raw-byte shrink alone for the wire size** — quantization gives only 66.7%
+  raw because index data (u32, ~2 triangles/vertex) dominates once vertex data shrinks 3x;
+  the shippable number is v2q + host gzip at 29% of raw v1. Index reordering/delta coding
+  rejected for the spike: three.js wants flat typed arrays and the added decoder complexity
+  isn't justified at these sizes.
