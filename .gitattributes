@@ -34,3 +34,9 @@ research/rejected/phase6-wp1-v4x/phase6-source-currency-v4x-rejected.md -text
 research/rejected/phase6-wp1-v4x/phase6-wp1-independence-operands.json -text
 research/rejected/phase6-wp1-v4x/phase6-wp1-review-findings.json -text
 research/rejected/phase6-wp1-v4x/phase6-wp1-search-registry.json -text
+
+# The two pinned WP1 size-strata inputs: their LF-normalized identities are published inside the
+# hash-registered freeze artifact, so a fresh Windows checkout must reproduce those bytes directly
+# (WP1 non-author review hardening 3, 2026-08-06).
+research/phase6-heldout-candidate-lock.json -text
+research/nakaya-morphology-diagram.md -text

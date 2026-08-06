@@ -4,7 +4,7 @@
  "movedTo": "evidence/ (tracked)",
  "note": "Historical sweep digests were computed before their move and re-verified afterward. The arm64 fingerprint preserves the exact former docs/ Git blob (18398 bytes, SHA-256 d6686f8e...). The x64 fingerprint is the complete 2026-08-01 lightweight fixture re-execution backing the exact per-entry comparison; it reproduces registered digest 2a9f64b3. These are preserved claim-backing bytes, not regenerated production sweeps.",
  "fileCount": 20,
- "totalBytes": 992298,
+ "totalBytes": 996545,
  "files": {
   "phase6-crossplatform/arm64-libm-fingerprint.txt": {
    "bytes": 18398,
@@ -83,8 +83,8 @@
    "sha256": "b50f624a3532a9f56f8a4b2974a211f35fe3a7585e719fd4acd4a18d2e5fd406"
   },
   "phase6-size-strata/strata.json": {
-   "bytes": 14620,
-   "sha256": "b27ce3a07133957b070d6990d2f67315046e7f977e692323527595fd7ace266d"
+   "bytes": 18867,
+   "sha256": "aba93698ad6dcd72237a9c7ffa48588143533db315c059a29f6cd98c8d0288b6"
   }
  }
 }

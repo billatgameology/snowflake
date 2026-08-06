@@ -93,6 +93,18 @@ index, a plan, ADR, or audit links to historical detail.
   non-author review): all four pinned identities above recomputed and matched 4/4 (host
   observation, source-currency record, LF-normalized parameter table, progress-history body);
   worktree tracked-clean; education-drift and unpushed-range content checks passed.
+- **WP1 size strata are FROZEN (2026-08-06).** `evidence/phase6-size-strata/strata.json` is
+  18,867 bytes with SHA-256 `aba93698ad6dcd72237a9c7ffa48588143533db315c059a29f6cd98c8d0288b6`:
+  S1 observed initial radius `[5.8999999999999995, 12.1]` µm (15 uncontested Harrison traces;
+  `716d` echoed, flagged, excluded per the lock's unresolved-mismatch pin) and S2 grown
+  mass-equivalent radius at 300 s `[9.472732790460505, 20.459585775743665]` µm (declared
+  uniform-density closure; centrals are floors on half the true maximum dimension), plus warm
+  anchor W1 and seven refusals. Frozen after a three-round non-author review ending CONFIRMED
+  with 0 open blockers; provenance and limits (different-model status not established) are in
+  [the WP1 plan](plans/phase-6-wp1-size-strata.md)'s Review record. Exact `npm.cmd test` on the
+  frozen tree exited 0: Rule 7 clean over 436 files, both TypeScript projects, Vitest 82 files /
+  1,454 tests in 628.68 s. Whether WP2 uses Z = 2 or Z = 1 strata is a WP2/WP3 protocol
+  decision.
 - **Last updated:** 2026-08-06 by Claude Fable 5
 
 ## Phase gates
@@ -126,15 +138,18 @@ accepted WP3 protocol freeze, and an independently reviewed artifact-derived R15
 
 ## Next step
 
-### Current resume point — relaunch the WP1 non-author review of `afebde3`
+### Current resume point — pre-register WP2 reconnaissance over the frozen strata
 
-The WP1 operator, tests, and review-pending candidate freeze artifact are committed as `afebde3`
-(exact `npm.cmd test` exit 0 there: Rule 7 clean over 436 files, both TypeScript projects,
-Vitest 82 files / 1,453 tests in 689.04 s). The first reviewer process was stopped by a maker
-host restart before any verdict; relaunch the one proportionate non-author review per
-[the WP1 plan](plans/phase-6-wp1-size-strata.md) and [HANDOFF.md](HANDOFF.md) — a different
-model than the author (Claude Fable 5 authored), read-only, decision-0042 blocker scope. After
-a clean verdict: record provenance in the WP1 plan, mark the strata frozen, publish the WP2
-operands here. Then proceed in order: WP2 reconnaissance and ladder pre-registration →
-registered Ryzen 9 execution → WP3 freeze → WP4 R15 → WP6 three-arm campaign → WP8 gate. Do
-not resume education, V4/V4.x apparatus, held-out execution, or preview-GPU work.
+WP1 is complete; the frozen strata above are the exact WP2 operands. Next: write and commit the
+WP2 reconnaissance pre-registration per the [active plan](plans/phase-6-science-first-completion.md)
+— a non-transferable matrix spanning all three arms (CAK, M1, `M1_NO_DIP_ABLATION`), both habit
+axes, near-threshold and fast-growth cases, and the frozen physical sizes, with the physical→
+lattice mapping candidates named (registered historical mapping: `dxUm = 0.35`, extent =
+center-to-tip cells, seed radius 2 cells; the strata force registered seed-mapping and
+measurement-extent choices). Reconnaissance estimates feasibility and freezes candidate ladder
+axes only; it cannot select a production geometry. Then: reviewed control-ladder
+pre-registration → registered Ryzen 9 execution → WP3 freeze → WP4 R15 → WP6 three-arm
+campaign → WP8 gate. Traps: no registered domain rung currently passes the 0.5% criterion
+(ADR 0037 — the ladder may honestly no-pass); the 3-hour point budget cannot be reused; resume
+(ADR 0039) stays non-production until WP3. Do not resume education, V4/V4.x apparatus,
+held-out execution, or preview-GPU work.

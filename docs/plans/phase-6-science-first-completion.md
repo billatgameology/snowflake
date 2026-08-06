@@ -338,15 +338,34 @@ producer-supplied pass field is trusted.
   `research/tmp/recovery/wp1-v4x-root-apparatus-rejected-20260803/` and the isolated batch clone.
   Embedded future-tense instructions and open-finding states in those historical bytes have no
   current authority. No request, import, TAX2 measurement, publication, or solver row executed.
-- [ ] Write a new bounded plan for the narrowed task before implementation. It may consume only
+- [x] Write a new bounded plan for the narrowed task before implementation. It may consume only
   already-locked source observations and uncertainties, never model morphology output, a new
   literature search, or the rejected TAX2 apparatus. Freeze the simplest deterministic operator
   that maps the source record to one or more Nakaya-comparison physical-size strata plus explicit
   uncertainty/refusal outcomes; define how each stratum maps to physical seed size without choosing
-  a numerically or morphologically favorable result.
-- [ ] Obtain one proportionate non-author review of that operator and its source operands before
+  a numerically or morphologically favorable result. Completed 2026-08-06 under
+  [phase-6-wp1-size-strata.md](phase-6-wp1-size-strata.md): `runner/src/phase6-size-strata.ts`
+  consumes only the hash-pinned candidate lock and emits the frozen
+  `evidence/phase6-size-strata/strata.json` (18,867 bytes, SHA-256 `aba93698…d0288b6`) — stratum
+  S1 observed initial radius `[5.8999999999999995, 12.1]` µm over the 15 uncontested traces
+  (`716d` echoed, flagged, excluded per the lock's unresolved-mismatch pin), stratum S2 grown
+  mass-equivalent radius at 300 s `[9.472732790460505, 20.459585775743665]` µm under a declared
+  uniform-density closure whose central values are floors on half the true maximum dimension,
+  warm mass anchor W1 with a length-conversion refusal, seven refusals, and declared
+  condition-domain/size-scale extrapolations. S1 maps directly to physical seed size; S2 is a
+  grown measurement size seeded from the same trace family; the lattice mapping and Z choice
+  belong to WP2/WP3.
+- [x] Obtain one proportionate non-author review of that operator and its source operands before
   freezing any numeric stratum. If the unit fails twice, escalate options to the maker rather than
   rebuilding a third time. Publish only the reviewed freeze and exact operands needed by WP2.
+  Completed as a single three-round engagement (fresh-context non-author reviewer; read-only;
+  different-model status not established and recorded conservatively per Rule 10 in the WP1
+  plan's Review record): round 1 found two blockers (the contested `716d` radius set the S1
+  floor; an unsourced "~0.1–3 mm" Nakaya size claim), round 2 verified both repairs by
+  independent out-of-repo experiments and found one plan-text blocker plus a required Rule 10
+  provenance correction, round 3 CONFIRMED with 0 open blockers. 266 + 156 independently
+  recomputed values, all bit-exact. Exact `npm.cmd test` on the frozen tree exited 0 (Rule 7
+  clean over 436 files; both TypeScript projects; Vitest 82 files / 1,454 tests in 628.68 s).
 
 ### WP2 — numerical configuration campaign
 

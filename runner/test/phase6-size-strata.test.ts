@@ -37,6 +37,8 @@ interface PublishedTraceS1 {
   readonly tempC: number;
   readonly sigmaIcePercent: number;
   readonly pressurePa: number;
+  readonly radiusUnderUnresolvedMismatch: boolean;
+  readonly contributesToUnion: boolean;
 }
 
 interface PublishedTraceS2 {
@@ -44,7 +46,13 @@ interface PublishedTraceS2 {
   readonly initialRadiusUm: number;
   readonly massRatioAt300s: number;
   readonly centralEquivalentRadiusUm: number;
+  readonly radiusUnderUnresolvedMismatch: boolean;
+  readonly contributesToUnion: boolean;
 }
+
+// The lock pins 716d's stated radius in an unresolved mismatch; the operator must echo the
+// trace and exclude it from both stratum unions.
+const CONTESTED_ID = "716d";
 
 interface PublishedArtifact {
   readonly schema: string;
@@ -115,6 +123,7 @@ describe("phase6 size-strata freeze artifact", () => {
   it("independently recomputes every published S1 number from a fresh lock parse", () => {
     const traces = rawLock.harrisonCandidate.traces;
     expect(published.strata.s1ObservedInitialSize.perTrace).toHaveLength(traces.length);
+    expect(traces.filter((trace) => trace.id === CONTESTED_ID)).toHaveLength(1);
     // Reverse iteration order and reversed operand order versus the producer.
     let unionLow = Number.POSITIVE_INFINITY;
     let unionHigh = Number.NEGATIVE_INFINITY;
@@ -131,18 +140,28 @@ describe("phase6 size-strata freeze artifact", () => {
       expect(row.tempC).toBe(trace.tempC);
       expect(row.sigmaIcePercent).toBe(trace.sigmaIcePercent);
       expect(row.pressurePa).toBe(trace.pressurePa);
-      if (low < unionLow) unionLow = low;
-      if (high > unionHigh) unionHigh = high;
+      expect(row.radiusUnderUnresolvedMismatch).toBe(trace.id === CONTESTED_ID);
+      expect(row.contributesToUnion).toBe(trace.id !== CONTESTED_ID);
+      if (trace.id !== CONTESTED_ID) {
+        if (low < unionLow) unionLow = low;
+        if (high > unionHigh) unionHigh = high;
+      }
     }
     expect(published.strata.s1ObservedInitialSize.unionIntervalUm[0]).toBe(unionLow);
     expect(published.strata.s1ObservedInitialSize.unionIntervalUm[1]).toBe(unionHigh);
+    // The exclusion is non-vacuous: the contested trace's stated floor lies below the
+    // published union floor, so including it would have changed the published number.
+    const contested = traces.find((trace) => trace.id === CONTESTED_ID);
+    expect(contested).toBeDefined();
+    expect(contested!.initialRadiusUm - contested!.initialRadiusRangeUm).toBeLessThan(unionLow);
 
     const domain = published.strata.s1ObservedInitialSize.conditionDomain;
+    const contributing = traces.filter((trace) => trace.id !== CONTESTED_ID);
     const sorted = (values: readonly number[]): readonly number[] =>
       [...values].sort((a, b) => a - b);
-    const temps = sorted(traces.map((trace) => trace.tempC));
-    const sigmas = sorted(traces.map((trace) => trace.sigmaIcePercent));
-    const pressures = sorted(traces.map((trace) => trace.pressurePa));
+    const temps = sorted(contributing.map((trace) => trace.tempC));
+    const sigmas = sorted(contributing.map((trace) => trace.sigmaIcePercent));
+    const pressures = sorted(contributing.map((trace) => trace.pressurePa));
     expect(domain.tempC).toEqual([temps[0], temps[temps.length - 1]]);
     expect(domain.sigmaIcePercent).toEqual([sigmas[0], sigmas[sigmas.length - 1]]);
     expect(domain.pressurePa).toEqual([pressures[0], pressures[pressures.length - 1]]);
@@ -151,6 +170,9 @@ describe("phase6 size-strata freeze artifact", () => {
   it("independently recomputes every published S2 number from a fresh lock parse", () => {
     const traces = rawLock.harrisonCandidate.traces;
     expect(rawLock.harrisonCandidate.timesSeconds[4]).toBe(300);
+    expect(
+      rawLock.harrisonCandidate.timesSeconds[rawLock.harrisonCandidate.timesSeconds.length - 1],
+    ).toBe(300);
     expect(published.strata.s2GrownMassEquivalentSize300s.timeSeconds).toBe(300);
     const rows = published.strata.s2GrownMassEquivalentSize300s.perTrace;
     expect(rows).toHaveLength(traces.length);
@@ -164,8 +186,12 @@ describe("phase6 size-strata freeze artifact", () => {
       // Commuted multiplication order versus the producer; exact for binary64.
       const central = Math.cbrt(trace.massRatios[4]) * trace.initialRadiusUm;
       expect(row.centralEquivalentRadiusUm).toBe(central);
-      if (central < low) low = central;
-      if (central > high) high = central;
+      expect(row.radiusUnderUnresolvedMismatch).toBe(trace.id === CONTESTED_ID);
+      expect(row.contributesToUnion).toBe(trace.id !== CONTESTED_ID);
+      if (trace.id !== CONTESTED_ID) {
+        if (central < low) low = central;
+        if (central > high) high = central;
+      }
     }
     expect(published.strata.s2GrownMassEquivalentSize300s.unionCentralIntervalUm[0]).toBe(low);
     expect(published.strata.s2GrownMassEquivalentSize300s.unionCentralIntervalUm[1]).toBe(high);
@@ -212,6 +238,7 @@ describe("phase6 size-strata freeze artifact", () => {
     interface Mutable {
       harrisonCandidate: {
         timesSeconds: number[];
+        dataQualityPins: string[];
         traces: {
           id: string;
           initialRadiusUm: number;
@@ -273,17 +300,56 @@ describe("phase6 size-strata freeze artifact", () => {
       row.nonprobabilisticDiagnosticRangeGrams[1],
       row.nonprobabilisticDiagnosticRangeGrams[0],
     ];
+    expect(
+      row.nonprobabilisticDiagnosticRangeGrams[0],
+    ).toBeGreaterThan(row.nonprobabilisticDiagnosticRangeGrams[1]);
     expect(phase6SizeStrataOperandFailures(invertedWarmRange).join("\n")).toContain(
       "nonprobabilisticDiagnosticRangeGrams must bracket massGrams",
+    );
+
+    const droppedPin = clone();
+    const pinCountBefore = droppedPin.harrisonCandidate.dataQualityPins.length;
+    droppedPin.harrisonCandidate.dataQualityPins =
+      droppedPin.harrisonCandidate.dataQualityPins.filter(
+        (pin) => !pin.includes("716d"),
+      );
+    expect(droppedPin.harrisonCandidate.dataQualityPins.length).toBe(pinCountBefore - 1);
+    expect(phase6SizeStrataOperandFailures(droppedPin).join("\n")).toContain(
+      "716d radius exclusion is no longer justified",
     );
 
     expect(() => computePhase6SizeStrata(truncated)).toThrow(/trace count must be exactly 16/);
   });
 
+  it("a finite radius mutation changes the computed artifact (plan-promised control)", () => {
+    const baseline = phase6SizeStrataArtifactText(
+      computePhase6SizeStrata(JSON.parse(lockText)),
+    );
+    const mutated = JSON.parse(lockText) as {
+      harrisonCandidate: { traces: { id: string; initialRadiusUm: number }[] };
+    };
+    // Mutate an UNCONTESTED trace's radius so the change must flow into both strata.
+    const target = mutated.harrisonCandidate.traces.find((trace) => trace.id === "731a");
+    expect(target).toBeDefined();
+    target!.initialRadiusUm = target!.initialRadiusUm + 0.25;
+    expect(target!.initialRadiusUm).not.toBe(12.0);
+    const mutatedText = phase6SizeStrataArtifactText(computePhase6SizeStrata(mutated));
+    expect(mutatedText).not.toBe(baseline);
+  });
+
   it("refuses tampered input text by hash, for both pinned inputs", () => {
-    const tamperedLock = `${lockText} `;
-    expect(tamperedLock).not.toBe(lockText);
-    expect(() => buildPhase6SizeStrataArtifact(tamperedLock, nakayaText)).toThrow(/SHA-256/);
+    // A length-changing tamper is refused by the byte-length pin...
+    const lengthTamper = `${lockText} `;
+    expect(lengthTamper).not.toBe(lockText);
+    expect(() => buildPhase6SizeStrataArtifact(lengthTamper, nakayaText)).toThrow(
+      /normalized byte length/,
+    );
+    // ...and a length-preserving substitution is refused by the hash pin.
+    expect(lockText).toContain("11.7");
+    const valueTamper = lockText.replace("11.7", "11.8");
+    expect(valueTamper).not.toBe(lockText);
+    expect(valueTamper.length).toBe(lockText.length);
+    expect(() => buildPhase6SizeStrataArtifact(valueTamper, nakayaText)).toThrow(/SHA-256/);
 
     const tamperedNakaya = nakayaText.replace("−3.3", "−3.4");
     expect(tamperedNakaya).not.toBe(nakayaText);

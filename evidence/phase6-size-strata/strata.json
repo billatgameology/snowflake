@@ -1,9 +1,13 @@
 {
  "schema": "phase6-size-strata-freeze-v1",
  "purpose": "Nakaya-comparison physical-size strata frozen from already-locked source observations only. Nakaya's Figure 1 prints no crystal size, growth time, or scale bar, so no single 'correct Nakaya measurement size' exists; the honest outputs are source-anchored strata plus explicit refusals. The comparison itself stays ordinal (habit reversal sequence across the recorded boundary temperatures).",
- "quantityConvention": "All stratum values are RADII in micrometers (diameter = 2r). Binary64 values are serialized with shortest round-trip JSON numbers.",
+ "quantityConvention": "All stratum size values are RADII in micrometers (diameter = 2r). Binary64 values are serialized with shortest round-trip JSON numbers.",
+ "reproducibility": "S2 centrals use Math.cbrt, whose rounding is implementation-defined in ECMAScript and may differ by 1 ulp across engines. Byte-identical regeneration is claimed only on the repository's pinned Node/V8 engine; the registered values are the serialized decimals in this artifact.",
  "lockProvenance": {
   "relativePath": "research/phase6-heldout-candidate-lock.json",
+  "textSha256": "f245d9e6e4f899f1629c37376c2a4bf62475b5a705f9966aff816c36763f73a5",
+  "textBytes": 15148,
+  "normalization": "LF-normalized text (CRLF replaced by LF) before hashing and counting",
   "lockId": "PHASE6_HELDOUT_CANDIDATES_2026_08_01",
   "timesSeconds": [
    60,
@@ -43,7 +47,9 @@
      "tempRangeC": 0.1,
      "sigmaIcePercent": 11,
      "sigmaIceRangePercent": 0.9,
-     "pressurePa": 97233
+     "pressurePa": 97233,
+     "radiusUnderUnresolvedMismatch": false,
+     "contributesToUnion": true
     },
     {
      "id": "712k",
@@ -57,7 +63,9 @@
      "tempRangeC": 0.1,
      "sigmaIcePercent": 11,
      "sigmaIceRangePercent": 0.9,
-     "pressurePa": 97233
+     "pressurePa": 97233,
+     "radiusUnderUnresolvedMismatch": false,
+     "contributesToUnion": true
     },
     {
      "id": "716a",
@@ -71,7 +79,9 @@
      "tempRangeC": 0.1,
      "sigmaIcePercent": 10,
      "sigmaIceRangePercent": 1.1,
-     "pressurePa": 97999
+     "pressurePa": 97999,
+     "radiusUnderUnresolvedMismatch": false,
+     "contributesToUnion": true
     },
     {
      "id": "716d",
@@ -85,7 +95,9 @@
      "tempRangeC": 0.1,
      "sigmaIcePercent": 10,
      "sigmaIceRangePercent": 1.1,
-     "pressurePa": 97999
+     "pressurePa": 97999,
+     "radiusUnderUnresolvedMismatch": true,
+     "contributesToUnion": false
     },
     {
      "id": "716k",
@@ -99,7 +111,9 @@
      "tempRangeC": 0.1,
      "sigmaIcePercent": 10,
      "sigmaIceRangePercent": 1.1,
-     "pressurePa": 97999
+     "pressurePa": 97999,
+     "radiusUnderUnresolvedMismatch": false,
+     "contributesToUnion": true
     },
     {
      "id": "724b",
@@ -113,7 +127,9 @@
      "tempRangeC": 0.1,
      "sigmaIcePercent": 4,
      "sigmaIceRangePercent": 0.5,
-     "pressurePa": 96730
+     "pressurePa": 96730,
+     "radiusUnderUnresolvedMismatch": false,
+     "contributesToUnion": true
     },
     {
      "id": "724c",
@@ -127,7 +143,9 @@
      "tempRangeC": 0.1,
      "sigmaIcePercent": 4,
      "sigmaIceRangePercent": 0.5,
-     "pressurePa": 96730
+     "pressurePa": 96730,
+     "radiusUnderUnresolvedMismatch": false,
+     "contributesToUnion": true
     },
     {
      "id": "725c",
@@ -141,7 +159,9 @@
      "tempRangeC": 0.1,
      "sigmaIcePercent": 17,
      "sigmaIceRangePercent": 1.1,
-     "pressurePa": 97055
+     "pressurePa": 97055,
+     "radiusUnderUnresolvedMismatch": false,
+     "contributesToUnion": true
     },
     {
      "id": "725e",
@@ -155,7 +175,9 @@
      "tempRangeC": 0.1,
      "sigmaIcePercent": 17,
      "sigmaIceRangePercent": 1.1,
-     "pressurePa": 97055
+     "pressurePa": 97055,
+     "radiusUnderUnresolvedMismatch": false,
+     "contributesToUnion": true
     },
     {
      "id": "731a",
@@ -169,7 +191,9 @@
      "tempRangeC": 0.1,
      "sigmaIcePercent": 7.5,
      "sigmaIceRangePercent": 0.7,
-     "pressurePa": 97055
+     "pressurePa": 97055,
+     "radiusUnderUnresolvedMismatch": false,
+     "contributesToUnion": true
     },
     {
      "id": "731b",
@@ -183,7 +207,9 @@
      "tempRangeC": 0.1,
      "sigmaIcePercent": 7.5,
      "sigmaIceRangePercent": 0.7,
-     "pressurePa": 97055
+     "pressurePa": 97055,
+     "radiusUnderUnresolvedMismatch": false,
+     "contributesToUnion": true
     },
     {
      "id": "802d",
@@ -197,7 +223,9 @@
      "tempRangeC": 0.1,
      "sigmaIcePercent": 7.5,
      "sigmaIceRangePercent": 0.7,
-     "pressurePa": 96715
+     "pressurePa": 96715,
+     "radiusUnderUnresolvedMismatch": false,
+     "contributesToUnion": true
     },
     {
      "id": "805a",
@@ -211,7 +239,9 @@
      "tempRangeC": 0.1,
      "sigmaIcePercent": 28.6,
      "sigmaIceRangePercent": 2.1,
-     "pressurePa": 97020
+     "pressurePa": 97020,
+     "radiusUnderUnresolvedMismatch": false,
+     "contributesToUnion": true
     },
     {
      "id": "805b",
@@ -225,7 +255,9 @@
      "tempRangeC": 0.1,
      "sigmaIcePercent": 28.6,
      "sigmaIceRangePercent": 2.1,
-     "pressurePa": 97020
+     "pressurePa": 97020,
+     "radiusUnderUnresolvedMismatch": false,
+     "contributesToUnion": true
     },
     {
      "id": "805h",
@@ -239,7 +271,9 @@
      "tempRangeC": 0.1,
      "sigmaIcePercent": 28.6,
      "sigmaIceRangePercent": 2.1,
-     "pressurePa": 97020
+     "pressurePa": 97020,
+     "radiusUnderUnresolvedMismatch": false,
+     "contributesToUnion": true
     },
     {
      "id": "805l",
@@ -253,13 +287,16 @@
      "tempRangeC": 0.1,
      "sigmaIcePercent": 28.6,
      "sigmaIceRangePercent": 2.1,
-     "pressurePa": 97020
+     "pressurePa": 97020,
+     "radiusUnderUnresolvedMismatch": false,
+     "contributesToUnion": true
     }
    ],
    "unionIntervalUm": [
-    5.3999999999999995,
+    5.8999999999999995,
     12.1
    ],
+   "unionMembership": "the union spans the 15 traces whose stated radii are uncontested. Trace 716d is echoed but excluded: the lock pins its stated radius in an UNRESOLVED mismatch with its absolute initial mass, and an unresolved radius cannot enter an assumption-free stratum. Its excluded interval [5.3999999999999995, 6.2] um is visible in perTrace for any future resolution.",
    "uncertaintySemantics": "each per-trace interval is that trace's own stated corrected-table marginal range of a single quantity; the union combines nothing across quantities (combineByQuadrature=false, scoreableEnvelope=false are honored)",
    "conditionDomain": {
     "tempC": [
@@ -274,7 +311,7 @@
      96715,
      97999
     ],
-    "meaning": "envelope of the 16 traces' central condition values; per-trace marginal ranges are frozen independently in the lock and are not combined here"
+    "meaning": "envelope of the 15 union-contributing traces' central condition values; per-trace marginal ranges are frozen independently in the lock and are not combined here"
    },
    "mapsToPhysicalSeedSize": "directly: an observed initial-particle radius interval. WP2 registers the lattice mapping (radius to seed cells per candidate spacing) and its sensitivity runs; nothing here chooses a lattice value.",
    "caveats": [
@@ -287,7 +324,7 @@
    "kind": "declared-closure",
    "quantity": "grown mass-equivalent radius at 300 s",
    "unit": "micrometer",
-   "closure": "mass-equivalent radius under a compact-uniform-density closure: r0 * cbrt(m/m0). Density cancels in the ratio, so no density constant enters. Per-particle shape and crystallography were never observed; this is NOT an observed linear dimension.",
+   "closure": "mass-equivalent radius under a compact-uniform-density closure: r0 * cbrt(m/m0). Density cancels in the ratio, so no density constant enters. Per-particle shape and crystallography were never observed; this is NOT an observed linear dimension. Direction of bias: a compact equal-volume sphere minimises maximum dimension, and any density decrease on growth increases volume, so under this closure the central value is a floor on half the true maximum dimension, not an estimate of it; no upper bound is available because shape was never observed.",
    "timeSeconds": 300,
    "timeSelection": "forced, not chosen: the last entry of the locked timesSeconds common window",
    "perTrace": [
@@ -295,103 +332,136 @@
      "id": "712a",
      "initialRadiusUm": 11.7,
      "massRatioAt300s": 2.898340905,
-     "centralEquivalentRadiusUm": 16.681522431807064
+     "centralEquivalentRadiusUm": 16.681522431807064,
+     "radiusUnderUnresolvedMismatch": false,
+     "contributesToUnion": true
     },
     {
      "id": "712k",
      "initialRadiusUm": 10.44,
      "massRatioAt300s": 3.74,
-     "centralEquivalentRadiusUm": 16.205323287623767
+     "centralEquivalentRadiusUm": 16.205323287623767,
+     "radiusUnderUnresolvedMismatch": false,
+     "contributesToUnion": true
     },
     {
      "id": "716a",
      "initialRadiusUm": 7.6,
      "massRatioAt300s": 5.8050138,
-     "centralEquivalentRadiusUm": 13.658867049507554
+     "centralEquivalentRadiusUm": 13.658867049507554,
+     "radiusUnderUnresolvedMismatch": false,
+     "contributesToUnion": true
     },
     {
      "id": "716d",
      "initialRadiusUm": 5.8,
      "massRatioAt300s": 9.5957586,
-     "centralEquivalentRadiusUm": 12.32502375118837
+     "centralEquivalentRadiusUm": 12.32502375118837,
+     "radiusUnderUnresolvedMismatch": true,
+     "contributesToUnion": false
     },
     {
      "id": "716k",
      "initialRadiusUm": 8.7,
      "massRatioAt300s": 4.3905754,
-     "centralEquivalentRadiusUm": 14.246004128616
+     "centralEquivalentRadiusUm": 14.246004128616,
+     "radiusUnderUnresolvedMismatch": false,
+     "contributesToUnion": true
     },
     {
      "id": "724b",
      "initialRadiusUm": 7.7,
      "massRatioAt300s": 2.6437889,
-     "centralEquivalentRadiusUm": 10.647140460528904
+     "centralEquivalentRadiusUm": 10.647140460528904,
+     "radiusUnderUnresolvedMismatch": false,
+     "contributesToUnion": true
     },
     {
      "id": "724c",
      "initialRadiusUm": 8.2,
      "massRatioAt300s": 2.3285481,
-     "centralEquivalentRadiusUm": 10.868649666508883
+     "centralEquivalentRadiusUm": 10.868649666508883,
+     "radiusUnderUnresolvedMismatch": false,
+     "contributesToUnion": true
     },
     {
      "id": "725c",
      "initialRadiusUm": 8.9,
      "massRatioAt300s": 5.569838183,
-     "centralEquivalentRadiusUm": 15.776265242143634
+     "centralEquivalentRadiusUm": 15.776265242143634,
+     "radiusUnderUnresolvedMismatch": false,
+     "contributesToUnion": true
     },
     {
      "id": "725e",
      "initialRadiusUm": 9.86,
      "massRatioAt300s": 5.0594723,
-     "centralEquivalentRadiusUm": 16.926947834147935
+     "centralEquivalentRadiusUm": 16.926947834147935,
+     "radiusUnderUnresolvedMismatch": false,
+     "contributesToUnion": true
     },
     {
      "id": "731a",
      "initialRadiusUm": 12,
      "massRatioAt300s": 2.372899697,
-     "centralEquivalentRadiusUm": 16.00568896190895
+     "centralEquivalentRadiusUm": 16.00568896190895,
+     "radiusUnderUnresolvedMismatch": false,
+     "contributesToUnion": true
     },
     {
      "id": "731b",
      "initialRadiusUm": 6.3,
      "massRatioAt300s": 3.3994152,
-     "centralEquivalentRadiusUm": 9.472732790460505
+     "centralEquivalentRadiusUm": 9.472732790460505,
+     "radiusUnderUnresolvedMismatch": false,
+     "contributesToUnion": true
     },
     {
      "id": "802d",
      "initialRadiusUm": 9.6,
      "massRatioAt300s": 3.2992952,
-     "centralEquivalentRadiusUm": 14.291515723033116
+     "centralEquivalentRadiusUm": 14.291515723033116,
+     "radiusUnderUnresolvedMismatch": false,
+     "contributesToUnion": true
     },
     {
      "id": "805a",
      "initialRadiusUm": 10.3,
      "massRatioAt300s": 7.837523141,
-     "centralEquivalentRadiusUm": 20.459585775743665
+     "centralEquivalentRadiusUm": 20.459585775743665,
+     "radiusUnderUnresolvedMismatch": false,
+     "contributesToUnion": true
     },
     {
      "id": "805b",
      "initialRadiusUm": 9.2,
      "massRatioAt300s": 8.9797155,
-     "centralEquivalentRadiusUm": 19.12238332646889
+     "centralEquivalentRadiusUm": 19.12238332646889,
+     "radiusUnderUnresolvedMismatch": false,
+     "contributesToUnion": true
     },
     {
      "id": "805h",
      "initialRadiusUm": 8.2,
      "massRatioAt300s": 11.289581934,
-     "centralEquivalentRadiusUm": 18.39528294704846
+     "centralEquivalentRadiusUm": 18.39528294704846,
+     "radiusUnderUnresolvedMismatch": false,
+     "contributesToUnion": true
     },
     {
      "id": "805l",
      "initialRadiusUm": 8.9,
      "massRatioAt300s": 10.124304719,
-     "centralEquivalentRadiusUm": 19.2535910304715
+     "centralEquivalentRadiusUm": 19.2535910304715,
+     "radiusUnderUnresolvedMismatch": false,
+     "contributesToUnion": true
     }
    ],
    "unionCentralIntervalUm": [
     9.472732790460505,
     20.459585775743665
    ],
+   "unionMembership": "the union spans the 15 traces whose stated radii are uncontested; trace 716d is echoed but excluded because its central multiplier is the contested radius. Its excluded central (12.32502375118837 um) is visible in perTrace.",
    "uncertaintyOperatorsUncombined": {
     "initialRadius": "per-trace corrected-table marginal range, listed under s1 perTrace",
     "massRatio": "[0.95*y, 1.05*y] — source-stated maximum relative error; not a confidence interval, standard deviation, or probability distribution",
@@ -410,7 +480,7 @@
      96715,
      97999
     ],
-    "meaning": "envelope of the 16 traces' central condition values; per-trace marginal ranges are frozen independently in the lock and are not combined here"
+    "meaning": "envelope of the 15 union-contributing traces' central condition values; per-trace marginal ranges are frozen independently in the lock and are not combined here"
    },
    "mapsToPhysicalSize": "a grown measurement size whose seed is the same trace family's S1 radius; WP2 registers the stopping/measurement mapping and its sensitivities"
   }
@@ -468,12 +538,12 @@
   },
   {
    "name": "lock-data-pins-inherited",
-   "reason": "heticegrowth_625.dat stays excluded (homogeneous family); 716d contributes only direct m/m0; 805l uses the corrected 8.9 +/- 0.7 um radius; 712k's median coalescer stands behind the locked mass ratios"
+   "reason": "heticegrowth_625.dat stays excluded (homogeneous family); 805l uses the corrected 8.9 +/- 0.7 um radius; 712k's median coalescer stands behind the locked mass ratios; and 716d's 'only direct m/m0 is eligible' pin records an UNRESOLVED stated-radius versus absolute-initial-mass mismatch, so this operator refuses 716d's radius as a stratum-union operand (echoed, flagged, excluded)"
   }
  ],
  "declaredExtrapolations": [
   "S1 and S2 are sourced at -30.9 to -35.7 C only, and W1 at -5.3 C only, while the Nakaya comparison grid spans the whole diagram; applying the strata across all 204 sweep points is a declared extrapolation.",
-  "Both strata sit one to two orders of magnitude below the ~0.1-3 mm natural crystals from which Nakaya's diagram was drawn; a registered comparison at these strata is a statement about early growth at source-anchored sizes, not about millimetre-scale natural crystals."
+  "No pinned source states the physical size of the natural crystals underlying Nakaya's diagram — the tracked record notes the figure prints no crystal size, growth time, or scale bar. A registered comparison at these strata is therefore a statement about early growth at the recorded levitation-derived sizes; it licenses no claim about larger natural crystals."
  ],
  "downstream": {
   "numericStrataCount": 2,

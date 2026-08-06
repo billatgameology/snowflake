@@ -14,6 +14,7 @@ import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import {
   PHASE6_HELDOUT_LOCK_RELATIVE_PATH,
+  PHASE6_HELDOUT_LOCK_TEXT_SHA256,
   parsePhase6HeldoutCandidateLockText,
 } from "./phase6-heldout-source-lock.ts";
 
@@ -27,9 +28,22 @@ export const PHASE6_NAKAYA_RECORD_TEXT_SHA256 =
   "f8746a31cc183161c345ec0fe3c139a98d9c955874195576ade9b5cd40fb1769";
 export const PHASE6_NAKAYA_RECORD_TEXT_BYTES = 12_112;
 
+/** LF-normalized byte length of the pinned lock text; checked against the input at build time. */
+export const PHASE6_HELDOUT_LOCK_TEXT_BYTES = 15_148;
+
 /** The 300 s stratum time is forced by the lock: the last entry of the common window. */
 const S2_TIME_SECONDS = 300;
 const S2_TIME_INDEX = 4;
+
+/**
+ * The lock pins trace 716d's stated radius as sitting in an UNRESOLVED mismatch with its
+ * absolute initial mass ("only direct m/m0 is eligible"). An unresolved radius cannot enter an
+ * assumption-free size stratum, so 716d is echoed but excluded from both stratum unions
+ * (non-author review blocker 1, 2026-08-06). If a future lock revision resolves the mismatch
+ * and drops the pin, the operand guard fails loudly instead of silently keeping the exclusion.
+ */
+const CONTESTED_716D_PIN_PREFIX = "heticegrowth_716d.dat has an unresolved stated-radius";
+const CONTESTED_RADIUS_TRACE_ID = "716d";
 
 interface StrataTrace {
   readonly id: string;
@@ -89,6 +103,24 @@ export function phase6SizeStrataOperandFailures(value: unknown): readonly string
   if (!Array.isArray(times) || times[S2_TIME_INDEX] !== S2_TIME_SECONDS) {
     failures.push(
       `timesSeconds[${S2_TIME_INDEX}] must be the locked ${S2_TIME_SECONDS} s common-window end`,
+    );
+  }
+  if (Array.isArray(times) && times.length - 1 !== S2_TIME_INDEX) {
+    failures.push(
+      `timesSeconds[${S2_TIME_INDEX}] must be the LAST entry of the locked common window; ` +
+        `got ${times.length} entries`,
+    );
+  }
+  const pins = harrison.dataQualityPins;
+  if (
+    !Array.isArray(pins) ||
+    !pins.some(
+      (pin) => typeof pin === "string" && pin.startsWith(CONTESTED_716D_PIN_PREFIX),
+    )
+  ) {
+    failures.push(
+      "dataQualityPins no longer records the unresolved 716d stated-radius mismatch; the " +
+        "operator's 716d radius exclusion is no longer justified and must be revisited",
     );
   }
   const uncertainty = harrison.observationUncertainty;
@@ -232,6 +264,8 @@ export interface Phase6SizeStrataArtifact {
 /** Deterministic pure computation. No I/O, no clock, no configuration, no tunable value. */
 export function computePhase6SizeStrata(lockValue: unknown): Phase6SizeStrataArtifact {
   const operands = extractOperands(lockValue);
+  const contributes = (id: string): boolean => id !== CONTESTED_RADIUS_TRACE_ID;
+  const contributing = operands.traces.filter((trace) => contributes(trace.id));
   const s1PerTrace = operands.traces.map((trace) => ({
     id: trace.id,
     initialRadiusUm: trace.initialRadiusUm,
@@ -245,27 +279,30 @@ export function computePhase6SizeStrata(lockValue: unknown): Phase6SizeStrataArt
     sigmaIcePercent: trace.sigmaIcePercent,
     sigmaIceRangePercent: trace.sigmaIceRangePercent,
     pressurePa: trace.pressurePa,
+    radiusUnderUnresolvedMismatch: !contributes(trace.id),
+    contributesToUnion: contributes(trace.id),
   }));
+  const s1Contributing = s1PerTrace.filter((row) => row.contributesToUnion);
   const s1UnionUm = [
-    Math.min(...s1PerTrace.map((row) => row.intervalUm[0])),
-    Math.max(...s1PerTrace.map((row) => row.intervalUm[1])),
+    Math.min(...s1Contributing.map((row) => row.intervalUm[0])),
+    Math.max(...s1Contributing.map((row) => row.intervalUm[1])),
   ] as const;
   const conditionDomain = {
     tempC: [
-      Math.min(...operands.traces.map((trace) => trace.tempC)),
-      Math.max(...operands.traces.map((trace) => trace.tempC)),
+      Math.min(...contributing.map((trace) => trace.tempC)),
+      Math.max(...contributing.map((trace) => trace.tempC)),
     ],
     sigmaIcePercent: [
-      Math.min(...operands.traces.map((trace) => trace.sigmaIcePercent)),
-      Math.max(...operands.traces.map((trace) => trace.sigmaIcePercent)),
+      Math.min(...contributing.map((trace) => trace.sigmaIcePercent)),
+      Math.max(...contributing.map((trace) => trace.sigmaIcePercent)),
     ],
     pressurePa: [
-      Math.min(...operands.traces.map((trace) => trace.pressurePa)),
-      Math.max(...operands.traces.map((trace) => trace.pressurePa)),
+      Math.min(...contributing.map((trace) => trace.pressurePa)),
+      Math.max(...contributing.map((trace) => trace.pressurePa)),
     ],
     meaning:
-      "envelope of the 16 traces' central condition values; per-trace marginal ranges are " +
-      "frozen independently in the lock and are not combined here",
+      "envelope of the 15 union-contributing traces' central condition values; per-trace " +
+      "marginal ranges are frozen independently in the lock and are not combined here",
   };
   const s2PerTrace = operands.traces.map((trace) => ({
     id: trace.id,
@@ -273,11 +310,16 @@ export function computePhase6SizeStrata(lockValue: unknown): Phase6SizeStrataArt
     massRatioAt300s: trace.massRatios[S2_TIME_INDEX],
     centralEquivalentRadiusUm:
       trace.initialRadiusUm * Math.cbrt(trace.massRatios[S2_TIME_INDEX]),
+    radiusUnderUnresolvedMismatch: !contributes(trace.id),
+    contributesToUnion: contributes(trace.id),
   }));
+  const s2Contributing = s2PerTrace.filter((row) => row.contributesToUnion);
   const s2UnionCentralUm = [
-    Math.min(...s2PerTrace.map((row) => row.centralEquivalentRadiusUm)),
-    Math.max(...s2PerTrace.map((row) => row.centralEquivalentRadiusUm)),
+    Math.min(...s2Contributing.map((row) => row.centralEquivalentRadiusUm)),
+    Math.max(...s2Contributing.map((row) => row.centralEquivalentRadiusUm)),
   ] as const;
+  const s1Excluded = s1PerTrace.filter((row) => !row.contributesToUnion);
+  const s2Excluded = s2PerTrace.filter((row) => !row.contributesToUnion);
 
   return {
     schema: PHASE6_SIZE_STRATA_SCHEMA,
@@ -288,10 +330,18 @@ export function computePhase6SizeStrata(lockValue: unknown): Phase6SizeStrataArt
       "plus explicit refusals. The comparison itself stays ordinal (habit reversal sequence " +
       "across the recorded boundary temperatures).",
     quantityConvention:
-      "All stratum values are RADII in micrometers (diameter = 2r). Binary64 values are " +
+      "All stratum size values are RADII in micrometers (diameter = 2r). Binary64 values are " +
       "serialized with shortest round-trip JSON numbers.",
+    reproducibility:
+      "S2 centrals use Math.cbrt, whose rounding is implementation-defined in ECMAScript and " +
+      "may differ by 1 ulp across engines. Byte-identical regeneration is claimed only on the " +
+      "repository's pinned Node/V8 engine; the registered values are the serialized decimals " +
+      "in this artifact.",
     lockProvenance: {
       relativePath: PHASE6_HELDOUT_LOCK_RELATIVE_PATH,
+      textSha256: PHASE6_HELDOUT_LOCK_TEXT_SHA256,
+      textBytes: PHASE6_HELDOUT_LOCK_TEXT_BYTES,
+      normalization: "LF-normalized text (CRLF replaced by LF) before hashing and counting",
       lockId: operands.lockId,
       timesSeconds: operands.timesSeconds,
     },
@@ -312,6 +362,13 @@ export function computePhase6SizeStrata(lockValue: unknown): Phase6SizeStrataArt
         unit: "micrometer",
         perTrace: s1PerTrace,
         unionIntervalUm: s1UnionUm,
+        unionMembership:
+          `the union spans the ${s1Contributing.length} traces whose stated radii are ` +
+          "uncontested. Trace 716d is echoed but excluded: the lock pins its stated radius " +
+          "in an UNRESOLVED mismatch with its absolute initial mass, and an unresolved " +
+          "radius cannot enter an assumption-free stratum. Its excluded interval " +
+          `[${s1Excluded.map((row) => row.intervalUm.join(", ")).join("; ")}] um is visible ` +
+          "in perTrace for any future resolution.",
         uncertaintySemantics:
           "each per-trace interval is that trace's own stated corrected-table marginal range " +
           "of a single quantity; the union combines nothing across quantities " +
@@ -335,12 +392,22 @@ export function computePhase6SizeStrata(lockValue: unknown): Phase6SizeStrataArt
         closure:
           "mass-equivalent radius under a compact-uniform-density closure: r0 * cbrt(m/m0). " +
           "Density cancels in the ratio, so no density constant enters. Per-particle shape and " +
-          "crystallography were never observed; this is NOT an observed linear dimension.",
+          "crystallography were never observed; this is NOT an observed linear dimension. " +
+          "Direction of bias: a compact equal-volume sphere minimises maximum dimension, and " +
+          "any density decrease on growth increases volume, so under this closure the central " +
+          "value is a floor on half the true maximum dimension, not an estimate of it; no " +
+          "upper bound is available because shape was never observed.",
         timeSeconds: S2_TIME_SECONDS,
         timeSelection:
           "forced, not chosen: the last entry of the locked timesSeconds common window",
         perTrace: s2PerTrace,
         unionCentralIntervalUm: s2UnionCentralUm,
+        unionMembership:
+          `the union spans the ${s2Contributing.length} traces whose stated radii are ` +
+          "uncontested; trace 716d is echoed but excluded because its central multiplier is " +
+          "the contested radius. Its excluded central " +
+          `(${s2Excluded.map((row) => row.centralEquivalentRadiusUm).join("; ")} um) is ` +
+          "visible in perTrace.",
         uncertaintyOperatorsUncombined: {
           initialRadius: "per-trace corrected-table marginal range, listed under s1 perTrace",
           massRatio: `${operands.massRatioOperator} — source-stated maximum relative error; ` +
@@ -412,19 +479,22 @@ export function computePhase6SizeStrata(lockValue: unknown): Phase6SizeStrataArt
       {
         name: "lock-data-pins-inherited",
         reason:
-          "heticegrowth_625.dat stays excluded (homogeneous family); 716d contributes only " +
-          "direct m/m0; 805l uses the corrected 8.9 +/- 0.7 um radius; 712k's median " +
-          "coalescer stands behind the locked mass ratios",
+          "heticegrowth_625.dat stays excluded (homogeneous family); 805l uses the corrected " +
+          "8.9 +/- 0.7 um radius; 712k's median coalescer stands behind the locked mass " +
+          "ratios; and 716d's 'only direct m/m0 is eligible' pin records an UNRESOLVED " +
+          "stated-radius versus absolute-initial-mass mismatch, so this operator refuses " +
+          "716d's radius as a stratum-union operand (echoed, flagged, excluded)",
       },
     ],
     declaredExtrapolations: [
       "S1 and S2 are sourced at -30.9 to -35.7 C only, and W1 at -5.3 C only, while the " +
         "Nakaya comparison grid spans the whole diagram; applying the strata across all 204 " +
         "sweep points is a declared extrapolation.",
-      "Both strata sit one to two orders of magnitude below the ~0.1-3 mm natural crystals " +
-        "from which Nakaya's diagram was drawn; a registered comparison at these strata is a " +
-        "statement about early growth at source-anchored sizes, not about millimetre-scale " +
-        "natural crystals.",
+      "No pinned source states the physical size of the natural crystals underlying Nakaya's " +
+        "diagram — the tracked record notes the figure prints no crystal size, growth time, " +
+        "or scale bar. A registered comparison at these strata is therefore a statement " +
+        "about early growth at the recorded levitation-derived sizes; it licenses no claim " +
+        "about larger natural crystals.",
     ],
     downstream: {
       numericStrataCount: 2,
@@ -472,6 +542,15 @@ export function buildPhase6SizeStrataArtifact(
   if (nakayaFailures.length > 0) {
     throw new Error(`invalid Nakaya record input:\n- ${nakayaFailures.join("\n- ")}`);
   }
+  const normalizedLockBytes = new TextEncoder().encode(
+    lockText.replace(/\r\n/g, "\n"),
+  ).byteLength;
+  if (normalizedLockBytes !== PHASE6_HELDOUT_LOCK_TEXT_BYTES) {
+    throw new Error(
+      `candidate lock normalized byte length ${normalizedLockBytes} != ` +
+        `${PHASE6_HELDOUT_LOCK_TEXT_BYTES}`,
+    );
+  }
   const lock = parsePhase6HeldoutCandidateLockText(lockText);
   return computePhase6SizeStrata(lock);
 }
@@ -483,10 +562,9 @@ function emit(repoRoot: string): void {
     "utf8",
   );
   const text = phase6SizeStrataArtifactText(buildPhase6SizeStrataArtifact(lockText, nakayaText));
-  const artifactPath = resolve(repoRoot, PHASE6_SIZE_STRATA_ARTIFACT_RELATIVE_PATH);
-  mkdirSync(dirname(artifactPath), { recursive: true });
-  writeFileSync(artifactPath, text);
 
+  // Validate the manifest's format BEFORE writing the artifact, so a format refusal cannot
+  // leave a written-but-unregistered artifact behind.
   const manifestPath = resolve(repoRoot, "evidence/MANIFEST.json");
   const manifestText = readFileSync(manifestPath, "utf8");
   const manifest = JSON.parse(manifestText) as {
@@ -501,6 +579,10 @@ function emit(repoRoot: string): void {
         "refusing to rewrite it in a different format",
     );
   }
+
+  const artifactPath = resolve(repoRoot, PHASE6_SIZE_STRATA_ARTIFACT_RELATIVE_PATH);
+  mkdirSync(dirname(artifactPath), { recursive: true });
+  writeFileSync(artifactPath, text);
   const bytes = new TextEncoder().encode(text).byteLength;
   manifest.files["phase6-size-strata/strata.json"] = { bytes, sha256: sha256Hex(text) };
   manifest.fileCount = Object.keys(manifest.files).length;
