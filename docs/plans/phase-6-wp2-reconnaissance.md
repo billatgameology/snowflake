@@ -56,17 +56,23 @@ dip factors by one. Steps:
 All runs use the float64 CPU oracle, `aggregate-hv-g1h1-v6`, fixed-σ Dirichlet, noise off,
 from a tracked-clean committed snapshot, with per-run live/error/exit logs and recorded
 concurrency and commands. Physical→lattice mapping candidates (named here, registered properly
-in the ladder pre-registration): `seedCells = round(r_seed / dxUm)` with an isometric compact
-hex-prism seed; `targetExtentCells = round(r_meas / dxUm)` (extent is a center-to-tip cell
-radius); domain `N` obeying the 65% contact guard with headroom.
+in the ladder pre-registration; **corrected 2026-08-06 — see Tried and rejected**):
+`solver.largestExtent()` is the max per-axis index SPAN `(max − min + 1)` in cells
+(`solver-cpu/src/lk-solver.ts:2161`), so a physical radius r maps to
+`targetExtentCells ≈ round(2·r / dxUm)`; the seed is an isometric compact hex prism with
+`seedRadiusCells = round(r_seed / dxUm)` and thickness `2·seedRadiusCells + 1` layers (equal
+z-span and in-plane span); domain `N` obeys the 65% contact guard `extent ≤ 0.65·N` with
+headroom. The historical "extent 21" rows are 21-cell spans (7.35 µm across at 0.35 µm).
 
 **Stage A — cost probe (runs immediately after this plan commits; ≤ 12 runs).** Arm M1 only.
-Points: `(−15 °C, middle registered fraction)` and `(−5 °C, middle registered fraction)`.
-Configurations at `dxUm = 0.35`: seed 17 cells (S1 floor) growing to extent 27 (S2 floor) at
-`N = 64` and `N = 96`; seed 25 cells growing to extent 58 (S2 ceiling) at `N = 128` (and
-`N = 96` only if the 65% guard admits it: 58/96 = 0.604). One coarse replicate at
-`dxUm = 0.7` (seed 8, extent 14, N 48). Measured outputs: wall-clock, sweeps/cycle, peak RSS,
-stop reason. Purpose: calibrate Stage B and the ladder's cost model; nothing else.
+Points: `(−15 °C, f = 0.25)` and `(−5 °C, f = 0.25)` — 0.25 is the third of the six registered
+fractions, the deterministic "middle". Configurations (corrected to span semantics) at
+`dxUm = 0.35`: seed 17 cells (S1 floor) growing to extent 54 (S2 floor span) at `N = 96` and
+`N = 128`; seed 35 cells (S1 ceiling) growing to extent 117 (S2 ceiling span) at `N = 192` and
+`N = 256`. One coarse replicate at `dxUm = 0.7` (seed 8, extent 27, N 48). Per-row wall cap
+12 h; a capped row is recorded as infrastructure-terminated and is itself a decisive
+feasibility datum. Measured outputs: wall-clock, sweeps/cycle, peak RSS, attached count at the
+stop, stop reason. Purpose: calibrate Stage B and the ladder's cost model; nothing else.
 
 **Stage B — habit-axes and size probe (runs only after this unit's non-author review; ≤ 36
 runs).** All three arms. Points, all from the registered 204-point grid: one column-regime
@@ -108,6 +114,17 @@ limits of this harness.
 - Any change to the frozen WP1 artifact, the candidate lock, or historical manifests.
 
 ## Tried and rejected
+
+**Assume `largestExtent()` is a center-to-tip cell radius.** Refuted 2026-08-06 by the first
+two probe rows and then by the code: the A5 seed (radius 8, 17 layers) reported
+`attached = 3689` — exactly the seed's own site count — with `extent = 17`, and
+`lk-solver.ts:2161` computes the max per-axis index span. The original Stage A configurations
+(extent 27/58 at `dxUm = 0.35`) therefore targeted spans HALF the frozen S2 sizes, and the
+driver's contact guard double-counted the span and fired on the seed itself. Both affected
+rows executed zero growth cycles; they are preserved unlabeled-invalid at
+`out/phase6-wp2-recon/stage-a/rows-invalid-20260806-extent-semantics.jsonl` and excluded from
+all use. The span semantics also reconcile the historical records: extent 21 at `N = 48` is
+the recorded 0.4375 ratio, and ADR 0026's extent-42 rung sits in a 96³ box.
 
 (Append as they occur. Inherited: the extent-15 domain ladder and grid-spacing ladder
 non-transferability incidents (Rule 11) are why every output here is stamped at creation.)
