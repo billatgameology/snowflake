@@ -78,12 +78,22 @@ index, a plan, ADR, or audit links to historical detail.
   accepted v1.21 landing candidate, exact `npm.cmd test` exited 0 in 665.9 seconds: Rule 7 was clean
   over 428 files, both TypeScript projects passed, and Vitest passed 81 files / 1,446 tests in 657.56
   seconds. These are repository checks, not Phase 6 scientific evidence.
-- Education remains frozen at commit `60e3f3f` until Phase 6 closes. Preserve `research/tmp/` as
-  useful local research context; durable generated science belongs under tracked `evidence/`.
-- Branch `main` remains unpushed. The maker authorized the next push now that ADR 0041 is canonical,
-  exact repository verification is restored, and decisions 0042–0044/charter v1.21 are accepted.
-  Keep any stray root `=` artifact and local settings out of Phase 6 commits.
-- **Last updated:** 2026-08-03 by OpenAI Codex (`gpt-5.6-sol`, ultra reasoning)
+- Education is frozen for Phase 6 with one maker-directed exception already landed: commit
+  `af7463b` (2026-08-04, maker-approved mid-pause) added the independent-laboratory record to
+  chapters 4–13, `references.html`, and `FUTURE-ADDITIONS.md`. No other `docs/education/**` drift
+  exists since `60e3f3f` (verified by diff 2026-08-06), and no further education work runs until
+  Phase 6 closes. Commit `8acf9fe` (same session) added three **proposed, uncharted** Phase 8–10
+  plan drafts; they are not adopted phases and none may start before Phase 6 WP8.
+- The maker pushed `main` on 2026-08-06 (remote update 06:20:47 −0700); `origin/main` = `af7463b`.
+  Preserve `research/tmp/` as useful local research context; durable generated science belongs
+  under tracked `evidence/`.
+- 2026-08-06 resume baseline: exact `npm.cmd test` at `af7463b` exited 0 in 803.16 s of Vitest
+  (Rule 7 clean over 432 files; both TypeScript projects passed; 81 files / 1,446 tests). Same
+  session author-side verification (Claude Fable 5, shared context — working checks, not a
+  non-author review): all four pinned identities above recomputed and matched 4/4 (host
+  observation, source-currency record, LF-normalized parameter table, progress-history body);
+  worktree tracked-clean; education-drift and unpushed-range content checks passed.
+- **Last updated:** 2026-08-06 by Claude Fable 5
 
 ## Phase gates
 
@@ -116,11 +126,15 @@ accepted WP3 protocol freeze, and an independently reviewed artifact-derived R15
 
 ## Next step
 
-### Current resume point — push v1.21, then plan narrowed WP1
+### Current resume point — execute the narrowed WP1 unit
 
-The direction-amendment unit is accepted and has its one completed non-author review. After the
-maker-requested pause, push `main` (already authorized), then write the bounded narrowed-WP1 plan
-before implementation and freeze the simplest reviewable deterministic size-strata operator over
-already-locked observations. Proceed in order: WP2 ladder pre-registration → registered Ryzen 9
-execution → WP3 freeze → WP4 R15 → WP6 three-arm campaign → WP8 gate. Do not resume education,
-V4/V4.x apparatus, held-out execution, or preview-GPU work.
+The push is done (maker, 2026-08-06). The bounded narrowed-WP1 plan is
+[phase-6-wp1-size-strata.md](plans/phase-6-wp1-size-strata.md): implement the deterministic
+size-strata operator over the pinned candidate lock (15,148 bytes, SHA-256 `f245d9e6…3f73a5`),
+emit `evidence/phase6-size-strata/strata.json` with manifest entry, then its one proportionate
+non-author review before any numeric stratum freezes. Traps already known: the lock forbids
+combining marginal ranges (`combineByQuadrature=false`); S2 carries a mandatory closure label;
+the warm Takahashi anchor refuses length conversion; no stratum may reach 100 µm. Then proceed
+in order: WP2 ladder pre-registration → registered Ryzen 9 execution → WP3 freeze → WP4 R15 →
+WP6 three-arm campaign → WP8 gate. Do not resume education, V4/V4.x apparatus, held-out
+execution, or preview-GPU work.
