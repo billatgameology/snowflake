@@ -138,16 +138,14 @@ accepted WP3 protocol freeze, and an independently reviewed artifact-derived R15
 
 ## Next step
 
-### Current resume point — pre-register WP2 reconnaissance over the frozen strata
+### Current resume point — execute the WP2 reconnaissance plan
 
-WP1 is complete; the frozen strata above are the exact WP2 operands. Next: write and commit the
-WP2 reconnaissance pre-registration per the [active plan](plans/phase-6-science-first-completion.md)
-— a non-transferable matrix spanning all three arms (CAK, M1, `M1_NO_DIP_ABLATION`), both habit
-axes, near-threshold and fast-growth cases, and the frozen physical sizes, with the physical→
-lattice mapping candidates named (registered historical mapping: `dxUm = 0.35`, extent =
-center-to-tip cells, seed radius 2 cells; the strata force registered seed-mapping and
-measurement-extent choices). Reconnaissance estimates feasibility and freezes candidate ladder
-axes only; it cannot select a production geometry. Then: reviewed control-ladder
+WP1 is complete; the frozen strata above are the exact WP2 operands. The reconnaissance
+pre-registration is committed as
+[phase-6-wp2-reconnaissance.md](plans/phase-6-wp2-reconnaissance.md) (`d8c34c5`). Execute it in
+order: sub-unit A (make `M1_NO_DIP_ABLATION` runnable under the intended values, with the
+matched-pair differential tests) → Stage A cost probe (≤ 12 runs, M1 only) → the unit's one
+non-author review → Stage B (≤ 36 runs, three arms). Then: reviewed control-ladder
 pre-registration → registered Ryzen 9 execution → WP3 freeze → WP4 R15 → WP6 three-arm
 campaign → WP8 gate. Traps: no registered domain rung currently passes the 0.5% criterion
 (ADR 0037 — the ladder may honestly no-pass); the 3-hour point budget cannot be reused; resume
