@@ -138,16 +138,23 @@ accepted WP3 protocol freeze, and an independently reviewed artifact-derived R15
 
 ## Next step
 
-### Current resume point — execute the WP2 reconnaissance plan
+### Current resume point — build and run the WP2 Stage A cost probe
 
 WP1 is complete; the frozen strata above are the exact WP2 operands. The reconnaissance
-pre-registration is committed as
-[phase-6-wp2-reconnaissance.md](plans/phase-6-wp2-reconnaissance.md) (`d8c34c5`). Execute it in
-order: sub-unit A (make `M1_NO_DIP_ABLATION` runnable under the intended values, with the
-matched-pair differential tests) → Stage A cost probe (≤ 12 runs, M1 only) → the unit's one
-non-author review → Stage B (≤ 36 runs, three arms). Then: reviewed control-ladder
-pre-registration → registered Ryzen 9 execution → WP3 freeze → WP4 R15 → WP6 three-arm
-campaign → WP8 gate. Traps: no registered domain rung currently passes the 0.5% criterion
-(ADR 0037 — the ladder may honestly no-pass); the 3-hour point budget cannot be reused; resume
-(ADR 0039) stays non-production until WP3. Do not resume education, V4/V4.x apparatus,
-held-out execution, or preview-GPU work.
+pre-registration is [phase-6-wp2-reconnaissance.md](plans/phase-6-wp2-reconnaissance.md)
+(`d8c34c5`). Sub-unit A is DONE at `e913240`: `M1_NO_DIP_ABLATION` is runnable under the
+intended values with bit-exact matched-pair tests and a three-arm growth differential; exact
+`npm.cmd test` there exited 0 (Rule 7 clean over 438 files, both TypeScript projects, Vitest
+83 files / 1,467 tests). Next: the Stage A cost probe (≤ 12 runs, M1 only, per the plan's
+configs at the frozen sizes; use `phase6SigmaInf(tempC, 0.25)` — 0.25 is the third of the six
+registered fractions — as the deterministic "middle fraction"). Driver design questions to
+settle from the code, not invented: (1) the exact extent computation grow-lk's `size-target`
+stop uses, so recon extents are comparable to the historical extent-21 rows; (2) the
+isometric-seed thickness mapping in lattice layers for seed radii 17/25 cells; drive
+`LKSolver` directly from a script (do not extend `phase6-sweep.ts`; no CLI seed flag exists).
+Then the unit's one non-author review → Stage B (≤ 36 runs, three arms) → reviewed
+control-ladder pre-registration → registered Ryzen 9 execution → WP3 freeze → WP4 R15 → WP6
+three-arm campaign → WP8 gate. Traps: no registered domain rung currently passes the 0.5%
+criterion (ADR 0037 — the ladder may honestly no-pass); the 3-hour point budget cannot be
+reused; resume (ADR 0039) stays non-production until WP3. Do not resume education, V4/V4.x
+apparatus, held-out execution, or preview-GPU work.
