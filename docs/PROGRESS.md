@@ -16,9 +16,14 @@ index, a plan, ADR, or audit links to historical detail.
 ## Current state
 
 - **Phase 6 is ACTIVE AND INCOMPLETE.** The maker accepts the historical failure to reproduce the
-  Nakaya diagram and still requires the science-first core: source-derived physical-size strata,
-  the registered numerical-control ladder, ADR 0026's conservative-intersection headline, and the
-  full three-arm float64 campaign. Resources may shape scheduling, not scientific criteria.
+  Nakaya diagram. Accepted decision
+  [0045](decisions/0045-bound-phase6-closure-to-a-compute-week.md) and charter v1.22 (2026-08-06)
+  bound the remaining work to a seven-wall-clock-day compute envelope: the numerical-control
+  ladder executes budget-capped (no-pass first-class; a pass authorizes no production), ADR
+  0026's conservative-intersection headline, R15's production path, and the full three-arm
+  campaign close at measured-only grade (stated as not computed by decision 0045, never as
+  satisfied), and a 204-point measured-only `M1_NO_DIP_ABLATION` sweep — arm-2-identical except
+  `paramSet` — completes the three-arm baseline inside the envelope.
 - The maker's 2026-08-03 direction is recorded verbatim in the
   [active plan](plans/phase-6-science-first-completion.md) and enacted by accepted decisions
   [0042](decisions/0042-bound-phase6-evidence-integrity-scope.md),
@@ -121,7 +126,7 @@ and every superseded attempt live in the linked plans and historical progress sn
 | 3 | Complete, maker-asserted 2026-07-23 | `gate3` exit 0: depletion-ratio median `0.531454`, 90.2% below 1, radius 38, symmetry error 0. Repro: `node runner/src/main.ts gate3`. |
 | 4 | Complete 2026-07-18 | `gate4` at `70a2496`: 24/24 blocking G-G records and 12/12 diagnostic LK records executed; `gatePass=true`, `passBDiagnosticPass=false`. Repro: `node runner/src/main.ts gate4`. |
 | 5 | Complete, maker-asserted 2026-07-26 | Clean `c436df5`, observed Windows/Chromium/D3D12: 16/16 gate criteria, 560 bounded segments below 500 ms, zero device losses/errors/full-field display-frame reads, 16/16 negative controls rejected. Repro: `node runner/src/main.ts gate5-lane` and `node runner/src/main.ts gate5`. |
-| 6 | **Active and incomplete** | Historical CAK/M1 measurements are retained. Decisions 0042–0044 are accepted; size-strata freeze, numerical ladder, WP3/R15, three-arm production, and WP8 gate remain open. Held-out/GPU execution is deferred with no Phase 6 credit. |
+| 6 | **Active and incomplete** | Historical CAK/M1 measurements retained; WP1 strata frozen. Decision 0045 bounds closure: budget-capped ladder, third-arm measured-only sweep, and WP8 gate remain; headline/R15/campaign closed at measured-only grade. Held-out/GPU execution deferred with no Phase 6 credit. |
 | 7 | Not started | Begins only after Phase 6 closes; charter v1.21 assigns held-out validation and v6 WGSL/preview-GPU parity to `billatgameology` here. |
 
 ## Active plan
@@ -138,23 +143,19 @@ accepted WP3 protocol freeze, and an independently reviewed artifact-derived R15
 
 ## Next step
 
-### Current resume point — build and run the WP2 Stage A cost probe
+### Current resume point — decision-0045 bounded closure, in order
 
-WP1 is complete; the frozen strata above are the exact WP2 operands. The reconnaissance
-pre-registration is [phase-6-wp2-reconnaissance.md](plans/phase-6-wp2-reconnaissance.md)
-(`d8c34c5`). Sub-unit A is DONE at `e913240`: `M1_NO_DIP_ABLATION` is runnable under the
-intended values with bit-exact matched-pair tests and a three-arm growth differential; exact
-`npm.cmd test` there exited 0 (Rule 7 clean over 438 files, both TypeScript projects, Vitest
-83 files / 1,467 tests). Next: the Stage A cost probe (≤ 12 runs, M1 only, per the plan's
-configs at the frozen sizes; use `phase6SigmaInf(tempC, 0.25)` — 0.25 is the third of the six
-registered fractions — as the deterministic "middle fraction"). Driver design questions to
-settle from the code, not invented: (1) the exact extent computation grow-lk's `size-target`
-stop uses, so recon extents are comparable to the historical extent-21 rows; (2) the
-isometric-seed thickness mapping in lattice layers for seed radii 17/25 cells; drive
-`LKSolver` directly from a script (do not extend `phase6-sweep.ts`; no CLI seed flag exists).
-Then the unit's one non-author review → Stage B (≤ 36 runs, three arms) → reviewed
-control-ladder pre-registration → registered Ryzen 9 execution → WP3 freeze → WP4 R15 → WP6
-three-arm campaign → WP8 gate. Traps: no registered domain rung currently passes the 0.5%
-criterion (ADR 0037 — the ladder may honestly no-pass); the 3-hour point budget cannot be
-reused; resume (ADR 0039) stays non-production until WP3. Do not resume education, V4/V4.x
-apparatus, held-out execution, or preview-GPU work.
+Sub-unit A is DONE at `e913240` (`M1_NO_DIP_ABLATION` runnable; exact `npm.cmd test` exit 0,
+Rule 7 clean over 438 files, Vitest 83 files / 1,467 tests). The Stage A cost probe is RUNNING
+in the background (serial, span-corrected configs per `e261803`; live log
+`out/phase6-wp2-recon/stage-a/live.log`; 12 h per-row cap; check for an existing process
+before relaunching — the driver resumes by skipping recorded rows). Then, inside decision
+0045's seven-day envelope: (1) pre-register and execute the budget-capped ladder over the
+frozen strata (no-pass first-class; no production selection follows a pass); (2) run the
+204-point measured-only `M1_NO_DIP_ABLATION` sweep, arm-2-identical except `paramSet`, with
+the gated values-manifest registration mirroring arm 2's schema; (3) the WP2 unit's one
+non-author review (sub-unit A + Stage A + the 0045 rescope; Stage B is closed unexecuted);
+(4) WP8 gate re-deriving the amended obligations, exact `npm test`, reconciliation. Traps: no
+registered domain rung currently passes the 0.5% criterion (ADR 0037); the 3-hour point
+budget cannot be reused; resume (ADR 0039) stays non-production. Do not resume education,
+V4/V4.x apparatus, held-out execution, or preview-GPU work.

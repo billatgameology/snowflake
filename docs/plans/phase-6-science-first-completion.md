@@ -155,6 +155,32 @@ obligations — explicitly, by ADR and charter amendment, never silently. This p
 the 2026-08-01 rejection of "narrow O1b by ADR" recorded under Tried and rejected: that rejection
 remains in force for the headline and numerics, and is lifted for WP7 and WP5 only.
 
+**The maker's 2026-08-06 direction is binding and closes the campaign scope.** Recorded verbatim
+from an interactive maker session (Claude Fable 5 recording):
+
+> we already know the phase 6 run will not reproduce the nakaya diagram. are we doing all the
+> compute just for record and completeness? I am okay if it's less than a week, but if it's
+> more then we need to reevaluate
+
+After a written options review that included the proposed Phase 8/9 drafts, the maker selected
+the recommended bounded closure. Accepted decision
+[0045](../decisions/0045-bound-phase6-closure-to-a-compute-week.md) and charter v1.22 enact it:
+all remaining Phase 6 computation fits a seven-wall-clock-day envelope on the recorded host. The
+WP2 ladder executes budget-capped with its no-pass branch first-class, and **no production
+selection follows a pass** — stated in advance so the ladder's result cannot be outcome-shopped.
+ADR 0026's conservative-intersection headline, WP4's R15 production path, and WP6's three-arm
+campaign **close at measured-only grade**, stated in every report as *not computed by decision
+0045*, never as satisfied. One addition executes inside the envelope: a 204-point measured-only
+`M1_NO_DIP_ABLATION` sweep identical to the executed arm-2 configuration in every registered
+respect except `paramSet`, so the three arms are same-protocol comparable. WP2's reconnaissance
+Stage B (the ≤ 36-run three-arm matrix) is closed unexecuted — its purpose was ladder-axis
+freezing for a production campaign that no longer runs; Stage A completes as the ladder's cost
+input. WP3 shrinks to recording the closure in the gated values manifest (the arm-3 registration
+mirroring arm 2's schema; both historical manifests byte-identical). WP8's gate re-derives the
+amended obligation set per decision 0045. This supersedes the 2026-08-01 direction's remaining
+application to the headline and campaign; the strata freeze, the budget-capped ladder, honest
+labels, and every retained validity criterion stand.
+
 The maker's 2026-08-02 sequencing direction is also binding: **freeze all further education-site
 work until Phase 6 is complete.** The landing page carries a prominent warning that the course is
 not the authoritative status or validation record. Preserve the current `docs/education/**` work
@@ -633,7 +659,9 @@ source freezes, protocol manifests, raw result artifacts, and independently deri
 The 2026-08-03 direction partially supersedes that scheduling choice for two obligations only:
 decisions 0043 and 0044 defer scientifically incompatible held-out work and the non-parity GPU
 cohort. The conservative-intersection headline, numerical ladder, R15, and three-arm float64
-campaign remain in full.
+campaign remain in full. **Superseded further on 2026-08-06 by decision 0045:** the maker's
+bounded-closure direction closes the headline, R15 production path, and campaign at
+measured-only grade; the ladder still executes, budget-capped, with no-pass first-class.
 
 **Blindly execute the old N = 64 remediation.** Rejected by measurement: N = 64 fails against N =
 80 at three of four registered spot-check points. Spending a full sweep there would knowingly

@@ -74,8 +74,13 @@ fractions, the deterministic "middle". Configurations (corrected to span semanti
 feasibility datum. Measured outputs: wall-clock, sweeps/cycle, peak RSS, attached count at the
 stop, stop reason. Purpose: calibrate Stage B and the ladder's cost model; nothing else.
 
-**Stage B — habit-axes and size probe (runs only after this unit's non-author review; ≤ 36
-runs).** All three arms. Points, all from the registered 204-point grid: one column-regime
+**Stage B — CLOSED UNEXECUTED by decision 0045 (2026-08-06).** The maker's bounded-closure
+direction ends the production campaign this stage was meant to scope; Stage A completes as the
+ladder's cost input, and the unit's one non-author review covers sub-unit A, Stage A's results,
+and this rescope. The original registration is retained below as history only.
+
+**Stage B (historical registration) — habit-axes and size probe (runs only after this unit's
+non-author review; ≤ 36 runs).** All three arms. Points, all from the registered 204-point grid: one column-regime
 (−5 °C), one plate-regime (−15 °C), two near-boundary (−4 °C, −10 °C), one inside the strata
 condition domain (−33 °C), each at the middle fraction; plus near-threshold (lowest registered
 fraction) and fast-growth (highest registered fraction) at −5 °C and −15 °C. Sizes: S1
