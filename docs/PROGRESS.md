@@ -126,15 +126,15 @@ accepted WP3 protocol freeze, and an independently reviewed artifact-derived R15
 
 ## Next step
 
-### Current resume point — execute the narrowed WP1 unit
+### Current resume point — relaunch the WP1 non-author review of `afebde3`
 
-The push is done (maker, 2026-08-06). The bounded narrowed-WP1 plan is
-[phase-6-wp1-size-strata.md](plans/phase-6-wp1-size-strata.md): implement the deterministic
-size-strata operator over the pinned candidate lock (15,148 bytes, SHA-256 `f245d9e6…3f73a5`),
-emit `evidence/phase6-size-strata/strata.json` with manifest entry, then its one proportionate
-non-author review before any numeric stratum freezes. Traps already known: the lock forbids
-combining marginal ranges (`combineByQuadrature=false`); S2 carries a mandatory closure label;
-the warm Takahashi anchor refuses length conversion; no stratum may reach 100 µm. Then proceed
-in order: WP2 ladder pre-registration → registered Ryzen 9 execution → WP3 freeze → WP4 R15 →
-WP6 three-arm campaign → WP8 gate. Do not resume education, V4/V4.x apparatus, held-out
-execution, or preview-GPU work.
+The WP1 operator, tests, and review-pending candidate freeze artifact are committed as `afebde3`
+(exact `npm.cmd test` exit 0 there: Rule 7 clean over 436 files, both TypeScript projects,
+Vitest 82 files / 1,453 tests in 689.04 s). The first reviewer process was stopped by a maker
+host restart before any verdict; relaunch the one proportionate non-author review per
+[the WP1 plan](plans/phase-6-wp1-size-strata.md) and [HANDOFF.md](HANDOFF.md) — a different
+model than the author (Claude Fable 5 authored), read-only, decision-0042 blocker scope. After
+a clean verdict: record provenance in the WP1 plan, mark the strata frozen, publish the WP2
+operands here. Then proceed in order: WP2 reconnaissance and ladder pre-registration →
+registered Ryzen 9 execution → WP3 freeze → WP4 R15 → WP6 three-arm campaign → WP8 gate. Do
+not resume education, V4/V4.x apparatus, held-out execution, or preview-GPU work.

@@ -110,7 +110,7 @@ describe("compact progress index and byte-exact historical record", () => {
     // HANDOFF.md is the last maker-triggered stop snapshot and moves only on maker request;
     // PROGRESS.md advances with ordinary work, so the two dates are pinned independently.
     expect(progressDate).toBe("2026-08-06");
-    expect(handoffDate).toBe("2026-08-03");
+    expect(handoffDate).toBe("2026-08-06");
     expect(existsSync(ACTIVE_PLAN)).toBe(true);
     expect(existsSync(ARCHIVE)).toBe(true);
   });

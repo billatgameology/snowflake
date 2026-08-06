@@ -1,33 +1,34 @@
-# Handoff — Phase 6 charter v1.21 accepted; pause before push (2026-08-03)
+# Handoff — WP1 size-strata candidate awaiting its non-author review (2026-08-06)
 
-This is the maker-triggered stop snapshot. `docs/PROGRESS.md` is the compact live authority, and the
-maker's verbatim 2026-08-03 direction remains in the active plan's **Governing direction** section.
+This is the maker-triggered stop snapshot (host restart). `docs/PROGRESS.md` is the compact live
+authority; the bounded WP1 unit is governed by
+[phase-6-wp1-size-strata.md](plans/phase-6-wp1-size-strata.md).
 
 ## Resume point
 
-Decisions 0042–0044 and charter v1.21 are accepted. Their one proportionate read-only non-author
-review found one stale held-out instruction in `research/phase6-source-currency.md`; the bounded
-repair follow-up closed it with 0 blockers and 0 suggestions. Exact quote coverage was 6/6 charter
-deletions and 19/19 ADR quotation blocks. The final exact repository check and resume point are
-recorded in `docs/PROGRESS.md`.
+The maker pushed `main` on 2026-08-06 (`origin/main` = `af7463b`); two newer local commits are
+unpushed: `d338265` (resume baseline + bounded WP1 plan) and `afebde3` (the WP1 size-strata
+operator, tests, and the review-pending candidate freeze artifact
+`evidence/phase6-size-strata/strata.json`, 14,620 bytes, SHA-256 `b27ce3a0…ce266d`). Exact
+`npm.cmd` `test` on that candidate exited 0: Rule 7 clean over 436 files, both TypeScript
+projects, Vitest 82 files / 1,453 tests in 689.04 s.
 
-The next action is the maker-authorized push of `main`. After pushing, write a bounded plan for the
-narrowed WP1 task before implementation: freeze Nakaya-comparison physical-size strata from the
-already-locked observations and uncertainties through the simplest reviewable deterministic
-operator. Then continue WP2 ladder → WP3 freeze → WP4 R15 → WP6 three-arm campaign → WP8 gate.
+The next action is to relaunch the unit's one proportionate non-author review of commit `afebde3`
+(decision 0042 scope; a different model than the author per Rule 10). The first reviewer process
+(Claude Opus, fresh context, read-only) was stopped by this host restart before delivering any
+verdict — that interruption is not a failed review round and its partial notes carry no
+authority. After a clean verdict: record provenance in the WP1 plan, mark the strata frozen,
+publish the WP2 operands in `PROGRESS.md`, then proceed WP2 reconnaissance pre-registration →
+ladder pre-registration → registered execution → WP3 freeze → WP4 R15 → WP6 three-arm campaign →
+WP8 gate.
 
 ## State to preserve
 
-- Do not resume the WP1 V4/V4.x search register, publisher, schema migration, or eight-control
-  batch. Preserve `research/tmp/recovery/wp1-v42-control-execution-author/` exactly as rejected
-  history; do not open, repair, clean, or delete it.
-- Held-out execution and the v6 WGSL/preview-GPU cohort belong to the named Phase 7 work packages
-  owned by `billatgameology`; neither is Phase 6 gate evidence.
-- Phase 6 still requires CAK, M1, `M1_NO_DIP_ABLATION`, source-derived size strata, the registered
-  numerical ladder, R15, ADR 0026's conservative intersection, the full float64 campaign, and WP8.
-- Preserve `research/tmp/`; publish useful generated science through tracked `evidence/`. Keep any
-  stray root `=` artifact and local settings out of commits.
-- Education stays frozen at `60e3f3f` until Phase 6 closes. No long solver/evidence run is active.
-
-Normal development updates are welcome. Only reduce unsolicited status to at most hourly while an
-actual 2+ hour task is running.
+- No solver, evidence, or long campaign run is active. Nothing in `out/` is load-bearing for WP1.
+- The candidate strata are S1 observed initial radius `[5.3999999999999995, 12.1]` µm and S2
+  grown mass-equivalent radius at 300 s `[9.472732790460505, 20.459585775743665]` µm (quoted
+  from the tracked candidate artifact), plus warm anchor W1 and seven refusals. **No stratum is
+  frozen until the review closes.**
+- Do not resume education, the V4/V4.x apparatus, held-out execution, or preview-GPU work.
+  Phase 8–10 plan drafts remain uncharted proposals.
+- Pushes remain maker-triggered.
