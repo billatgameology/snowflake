@@ -943,16 +943,16 @@ function validateTopology(
     } else {
       activeCount++;
       if (shell) {
+        const di = i - ic;
+        const dj = j - jc;
+        const dk = k - kc;
+        const squared = di * di + di * dj + dj * dj + dk * dk;
+        const radiusM = Math.sqrt(squared) * dxM;
+        if (!Number.isFinite(radiusM) || !(radiusM > 0)) {
+          fail("monopole-matched shell requires every shell cell off-centre");
+        }
         if (dirichletCells !== null && shellRadiusM !== null) {
           dirichletCells[shellCount] = index;
-          const di = i - ic;
-          const dj = j - jc;
-          const dk = k - kc;
-          const squared = di * di + di * dj + dj * dj + dk * dk;
-          const radiusM = Math.sqrt(squared) * dxM;
-          if (!Number.isFinite(radiusM) || !(radiusM > 0)) {
-            fail("monopole-matched shell requires every shell cell off-centre");
-          }
           shellRadiusM[shellCount] = radiusM;
         }
         shellCount++;

@@ -5,6 +5,7 @@ import {
   cappedColumnProfile,
   cellCount,
   centerRimDepletion,
+  crystallographicSpans,
   coordsOf,
   crossSectionHollowness,
   domainCenter,
@@ -13,9 +14,12 @@ import {
   hexSeedSites,
   idx,
   latticeExtents,
+  mirror,
+  rot60,
   sealedVoidFraction,
   symmetryError,
   totalMass,
+  zmirror,
   type Dims,
 } from "@vcc/core";
 
@@ -103,6 +107,84 @@ describe("Phase 4 exact lattice extents", () => {
   it("returns null for no occupied cells and rejects a shifted array shape", () => {
     expect(latticeExtents(emptyA(dims), dims)).toBeNull();
     expect(() => latticeExtents(new Uint8Array(cellCount(dims) - 1), dims)).toThrow(
+      /occupancy length/,
+    );
+  });
+});
+
+describe("objective crystallographic spans", () => {
+  const dims: Dims = { nx: 31, ny: 31, nz: 15 };
+  const center = domainCenter(dims);
+
+  function occupancy(offsets: readonly (readonly [number, number, number])[]): Uint8Array {
+    const a = emptyA(dims);
+    for (const [di, dj, dk] of offsets) {
+      a[idx(dims, center[0] + di, center[1] + dj, center[2] + dk)] = 1;
+    }
+    return a;
+  }
+
+  function transform(
+    source: Uint8Array,
+    rotations: number,
+    reflected: boolean,
+    zReflected: boolean,
+  ): Uint8Array {
+    const result = emptyA(dims);
+    for (let index = 0; index < source.length; index++) {
+      if (source[index] === 0) continue;
+      let [i, j, k] = coordsOf(dims, index);
+      for (let turn = 0; turn < rotations; turn++) [i, j] = rot60(i, j, center[0], center[1]);
+      if (reflected) [i, j] = mirror(i, j, center[0], center[1]);
+      if (zReflected) k = zmirror(k, center[2]);
+      result[idx(dims, i, j, k)] = 1;
+    }
+    return result;
+  }
+
+  it("uses the exact full-span convention on canonical hexagonal prisms", () => {
+    const plate = emptyA(dims);
+    for (const site of hexSeedSites(dims, 2, 3)) plate[site] = 1;
+    expect(crystallographicSpans(plate, dims)).toEqual({
+      basalCaliper2: 10,
+      zLayers: 3,
+      attachedCount: 57,
+    });
+  });
+
+  it("is exactly invariant under every D6 planar transform and z reflection", () => {
+    const asymmetric = occupancy([
+      [0, 0, 0],
+      [1, 0, 0],
+      [1, 1, 1],
+      [-2, 1, -1],
+      [0, -1, 2],
+    ]);
+    const expected = crystallographicSpans(asymmetric, dims);
+    for (let turn = 0; turn < 6; turn++) {
+      for (const reflected of [false, true]) {
+        for (const zReflected of [false, true]) {
+          expect(crystallographicSpans(
+            transform(asymmetric, turn, reflected, zReflected),
+            dims,
+          )).toEqual(expected);
+        }
+      }
+    }
+  });
+
+  it("closes the asymmetric 2-to-3 trigger-span counterexample", () => {
+    const witness = occupancy([[0, 0, 0], [1, 0, 0], [1, 1, 0]]);
+    const rotated = transform(witness, 1, false, false);
+    expect(latticeExtents(witness, dims)?.tExtent).toBe(2);
+    expect(latticeExtents(rotated, dims)?.tExtent).toBe(3);
+    expect(crystallographicSpans(witness, dims)?.basalCaliper2).toBe(5);
+    expect(crystallographicSpans(rotated, dims)?.basalCaliper2).toBe(5);
+  });
+
+  it("returns null for no occupied cells and rejects a shifted array shape", () => {
+    expect(crystallographicSpans(emptyA(dims), dims)).toBeNull();
+    expect(() => crystallographicSpans(new Uint8Array(cellCount(dims) - 1), dims)).toThrow(
       /occupancy length/,
     );
   });
