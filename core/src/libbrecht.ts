@@ -116,8 +116,17 @@ const A_PRISM_CAK = [0.45, 0.28, 0.21, 0.18, 0.83, 1, 1, 1, 1];
  *              transcribed from a printed equation. Provenance is still P3 — the dip CENTRES were
  *              chosen by the author to impose agreement with the Nakaya diagram (charter §2.5), so
  *              agreement obtained under it is in-sample reproduction, never validation.
+ *
+ *   "M1_NO_DIP_ABLATION" — M1 with both dip factors replaced by one: the M2 broad-branch
+ *              closed forms (`sigma0BasalM2Broad`/`sigma0PrismM2Broad`) with A = 1 on both
+ *              facets, under the same registered 1…50 °C domain guard. Phase 6's matched
+ *              no-dip arm (active plan WP2 sub-unit A): every other implemented kinetic choice
+ *              is identical to M1, so only the matched M1-versus-no-dip pair may support an
+ *              implementation-level contrast about the implemented dip factors — never
+ *              physical SDAK causality in nature. These are the plan's INTENDED values; the
+ *              WP3 protocol freeze binds them with a manifest-level matched-pair proof.
  */
-export type NucleationParamSet = "CAK_A1" | "CAK" | "M1";
+export type NucleationParamSet = "CAK_A1" | "CAK" | "M1" | "M1_NO_DIP_ABLATION";
 
 /**
  * Every parameter set a run may use, and the ONE list that decides it.
@@ -127,7 +136,7 @@ export type NucleationParamSet = "CAK_A1" | "CAK" | "M1";
  * them rejecting it. Typecheck passed, 23 unit tests passed, and the first real child died on its
  * first line. A list repeated four times is a list that drifts, so there is now one.
  */
-export const NUCLEATION_PARAM_SETS = ["CAK_A1", "CAK", "M1"] as const;
+export const NUCLEATION_PARAM_SETS = ["CAK_A1", "CAK", "M1", "M1_NO_DIP_ABLATION"] as const;
 
 export function isNucleationParamSet(value: unknown): value is NucleationParamSet {
   return typeof value === "string" && (NUCLEATION_PARAM_SETS as readonly string[]).includes(value);
@@ -204,11 +213,12 @@ export function sigma0PrismM1(tempC: number): number {
 /**
  * The same forms with the dips removed — M2's BROAD-facet branch.
  *
- * Exported for contrast and for the planned M1/no-dip matched ablation, but deliberately
- * NOT reachable as a standalone `NucleationParamSet`. M2 is width-dependent; the source hypothesizes
- * that Edge-Sharpening Instability can drive some growing facets toward its narrow branch in air.
- * The project has not established that the broad branch is universally deleted, and ADR 0036 defers
- * the full width query/closure.
+ * Since 2026-08-06 (WP2 reconnaissance sub-unit A) these are reachable as the standalone
+ * `"M1_NO_DIP_ABLATION"` set — the matched no-dip arm, which implements ONLY the broad branch
+ * as a matched input and none of M2's width feedback. The caveat is unchanged: M2 proper is
+ * width-dependent; the source hypothesizes that Edge-Sharpening Instability can drive some
+ * growing facets toward its narrow branch in air, the project has not established that the
+ * broad branch is universally deleted, and ADR 0036 defers the full width query/closure.
  *
  * The matched no-dip helper intentionally uses the same source-displayed domain guard as M1, so
  * removing the dip factors does not silently add extrapolated temperature support.
@@ -231,10 +241,14 @@ export function sigma0PrismM2Broad(tempC: number): number {
  * same values, so adding M1 moves no existing number.
  */
 export function sigma0BasalFor(tempC: number, set: NucleationParamSet): number {
-  return set === "M1" ? sigma0BasalM1(tempC) : sigma0Basal(tempC);
+  if (set === "M1") return sigma0BasalM1(tempC);
+  if (set === "M1_NO_DIP_ABLATION") return sigma0BasalM2Broad(tempC);
+  return sigma0Basal(tempC);
 }
 export function sigma0PrismFor(tempC: number, set: NucleationParamSet): number {
-  return set === "M1" ? sigma0PrismM1(tempC) : sigma0Prism(tempC);
+  if (set === "M1") return sigma0PrismM1(tempC);
+  if (set === "M1_NO_DIP_ABLATION") return sigma0PrismM2Broad(tempC);
+  return sigma0Prism(tempC);
 }
 
 function interpIndex(x: number): number {
@@ -281,7 +295,7 @@ export function nucleationAPrism(tempC: number, set: NucleationParamSet): number
   // ordering independent of the chosen positive sigma_surf only when both facets are evaluated at
   // that same local field. It does not determine the coupled crystal habit. The 1 is a source-model
   // choice, not a placeholder; see accepted ADR 0040.
-  if (set === "CAK_A1" || set === "M1") return 1;
+  if (set === "CAK_A1" || set === "M1" || set === "M1_NO_DIP_ABLATION") return 1;
   return interpLinear(-tempC, A_PRISM_CAK);
 }
 

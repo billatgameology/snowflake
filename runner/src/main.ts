@@ -590,11 +590,12 @@ function parseLKArgs(argv: string[]): GrowLKOptions {
         break;
       case "--param-set": {
         const v = value();
-        // "M1" added for Phase 6 arm 2 (ADR 0036). Validated by an explicit allow-list rather than
-        // a cast, so a typo is a named error at the command line instead of a silent default —
-        // ADR 0031's defect was exactly a param set arriving unvalidated.
-        if (v !== "CAK_A1" && v !== "CAK" && v !== "M1") {
-          throw new Error(`--param-set wants CAK_A1, CAK or M1, got ${v}`);
+        // "M1" added for Phase 6 arm 2 (ADR 0036); "M1_NO_DIP_ABLATION" for the matched no-dip
+        // arm (WP2 sub-unit A). Validated by an explicit allow-list rather than a cast, so a typo
+        // is a named error at the command line instead of a silent default — ADR 0031's defect
+        // was exactly a param set arriving unvalidated.
+        if (v !== "CAK_A1" && v !== "CAK" && v !== "M1" && v !== "M1_NO_DIP_ABLATION") {
+          throw new Error(`--param-set wants CAK_A1, CAK, M1 or M1_NO_DIP_ABLATION, got ${v}`);
         }
         options.paramSet = v;
         break;
