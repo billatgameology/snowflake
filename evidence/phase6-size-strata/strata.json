@@ -1,0 +1,482 @@
+{
+ "schema": "phase6-size-strata-freeze-v1",
+ "purpose": "Nakaya-comparison physical-size strata frozen from already-locked source observations only. Nakaya's Figure 1 prints no crystal size, growth time, or scale bar, so no single 'correct Nakaya measurement size' exists; the honest outputs are source-anchored strata plus explicit refusals. The comparison itself stays ordinal (habit reversal sequence across the recorded boundary temperatures).",
+ "quantityConvention": "All stratum values are RADII in micrometers (diameter = 2r). Binary64 values are serialized with shortest round-trip JSON numbers.",
+ "lockProvenance": {
+  "relativePath": "research/phase6-heldout-candidate-lock.json",
+  "lockId": "PHASE6_HELDOUT_CANDIDATES_2026_08_01",
+  "timesSeconds": [
+   60,
+   120,
+   180,
+   240,
+   300
+  ]
+ },
+ "nakayaComparisonReference": {
+  "relativePath": "research/nakaya-morphology-diagram.md",
+  "textSha256": "f8746a31cc183161c345ec0fe3c139a98d9c955874195576ade9b5cd40fb1769",
+  "textBytes": 12112,
+  "boundariesC": [
+   -3.3,
+   -9.9,
+   -21.5
+  ],
+  "boundaryReadUncertaintyC": 0.5,
+  "contributesNoSizeOperand": "the figure defines habit regimes in temperature and supersaturation only; it reports no crystal size, growth time, scale bar, or size stratum"
+ },
+ "strata": {
+  "s1ObservedInitialSize": {
+   "kind": "assumption-free",
+   "quantity": "initial particle radius",
+   "unit": "micrometer",
+   "perTrace": [
+    {
+     "id": "712a",
+     "initialRadiusUm": 11.7,
+     "initialRadiusRangeUm": 0.2,
+     "intervalUm": [
+      11.5,
+      11.899999999999999
+     ],
+     "tempC": -32.6,
+     "tempRangeC": 0.1,
+     "sigmaIcePercent": 11,
+     "sigmaIceRangePercent": 0.9,
+     "pressurePa": 97233
+    },
+    {
+     "id": "712k",
+     "initialRadiusUm": 10.44,
+     "initialRadiusRangeUm": 0.15,
+     "intervalUm": [
+      10.29,
+      10.59
+     ],
+     "tempC": -32.6,
+     "tempRangeC": 0.1,
+     "sigmaIcePercent": 11,
+     "sigmaIceRangePercent": 0.9,
+     "pressurePa": 97233
+    },
+    {
+     "id": "716a",
+     "initialRadiusUm": 7.6,
+     "initialRadiusRangeUm": 0.3,
+     "intervalUm": [
+      7.3,
+      7.8999999999999995
+     ],
+     "tempC": -33,
+     "tempRangeC": 0.1,
+     "sigmaIcePercent": 10,
+     "sigmaIceRangePercent": 1.1,
+     "pressurePa": 97999
+    },
+    {
+     "id": "716d",
+     "initialRadiusUm": 5.8,
+     "initialRadiusRangeUm": 0.4,
+     "intervalUm": [
+      5.3999999999999995,
+      6.2
+     ],
+     "tempC": -33,
+     "tempRangeC": 0.1,
+     "sigmaIcePercent": 10,
+     "sigmaIceRangePercent": 1.1,
+     "pressurePa": 97999
+    },
+    {
+     "id": "716k",
+     "initialRadiusUm": 8.7,
+     "initialRadiusRangeUm": 0.3,
+     "intervalUm": [
+      8.399999999999999,
+      9
+     ],
+     "tempC": -33,
+     "tempRangeC": 0.1,
+     "sigmaIcePercent": 10,
+     "sigmaIceRangePercent": 1.1,
+     "pressurePa": 97999
+    },
+    {
+     "id": "724b",
+     "initialRadiusUm": 7.7,
+     "initialRadiusRangeUm": 0.3,
+     "intervalUm": [
+      7.4,
+      8
+     ],
+     "tempC": -30.9,
+     "tempRangeC": 0.1,
+     "sigmaIcePercent": 4,
+     "sigmaIceRangePercent": 0.5,
+     "pressurePa": 96730
+    },
+    {
+     "id": "724c",
+     "initialRadiusUm": 8.2,
+     "initialRadiusRangeUm": 0.4,
+     "intervalUm": [
+      7.799999999999999,
+      8.6
+     ],
+     "tempC": -30.9,
+     "tempRangeC": 0.1,
+     "sigmaIcePercent": 4,
+     "sigmaIceRangePercent": 0.5,
+     "pressurePa": 96730
+    },
+    {
+     "id": "725c",
+     "initialRadiusUm": 8.9,
+     "initialRadiusRangeUm": 0.2,
+     "intervalUm": [
+      8.700000000000001,
+      9.1
+     ],
+     "tempC": -33.8,
+     "tempRangeC": 0.1,
+     "sigmaIcePercent": 17,
+     "sigmaIceRangePercent": 1.1,
+     "pressurePa": 97055
+    },
+    {
+     "id": "725e",
+     "initialRadiusUm": 9.86,
+     "initialRadiusRangeUm": 0.25,
+     "intervalUm": [
+      9.61,
+      10.11
+     ],
+     "tempC": -33.8,
+     "tempRangeC": 0.1,
+     "sigmaIcePercent": 17,
+     "sigmaIceRangePercent": 1.1,
+     "pressurePa": 97055
+    },
+    {
+     "id": "731a",
+     "initialRadiusUm": 12,
+     "initialRadiusRangeUm": 0.1,
+     "intervalUm": [
+      11.9,
+      12.1
+     ],
+     "tempC": -31.7,
+     "tempRangeC": 0.1,
+     "sigmaIcePercent": 7.5,
+     "sigmaIceRangePercent": 0.7,
+     "pressurePa": 97055
+    },
+    {
+     "id": "731b",
+     "initialRadiusUm": 6.3,
+     "initialRadiusRangeUm": 0.4,
+     "intervalUm": [
+      5.8999999999999995,
+      6.7
+     ],
+     "tempC": -31.7,
+     "tempRangeC": 0.1,
+     "sigmaIcePercent": 7.5,
+     "sigmaIceRangePercent": 0.7,
+     "pressurePa": 97055
+    },
+    {
+     "id": "802d",
+     "initialRadiusUm": 9.6,
+     "initialRadiusRangeUm": 0.3,
+     "intervalUm": [
+      9.299999999999999,
+      9.9
+     ],
+     "tempC": -32,
+     "tempRangeC": 0.1,
+     "sigmaIcePercent": 7.5,
+     "sigmaIceRangePercent": 0.7,
+     "pressurePa": 96715
+    },
+    {
+     "id": "805a",
+     "initialRadiusUm": 10.3,
+     "initialRadiusRangeUm": 0.5,
+     "intervalUm": [
+      9.8,
+      10.8
+     ],
+     "tempC": -35.7,
+     "tempRangeC": 0.1,
+     "sigmaIcePercent": 28.6,
+     "sigmaIceRangePercent": 2.1,
+     "pressurePa": 97020
+    },
+    {
+     "id": "805b",
+     "initialRadiusUm": 9.2,
+     "initialRadiusRangeUm": 0.5,
+     "intervalUm": [
+      8.7,
+      9.7
+     ],
+     "tempC": -35.7,
+     "tempRangeC": 0.1,
+     "sigmaIcePercent": 28.6,
+     "sigmaIceRangePercent": 2.1,
+     "pressurePa": 97020
+    },
+    {
+     "id": "805h",
+     "initialRadiusUm": 8.2,
+     "initialRadiusRangeUm": 0.5,
+     "intervalUm": [
+      7.699999999999999,
+      8.7
+     ],
+     "tempC": -35.7,
+     "tempRangeC": 0.1,
+     "sigmaIcePercent": 28.6,
+     "sigmaIceRangePercent": 2.1,
+     "pressurePa": 97020
+    },
+    {
+     "id": "805l",
+     "initialRadiusUm": 8.9,
+     "initialRadiusRangeUm": 0.7,
+     "intervalUm": [
+      8.200000000000001,
+      9.6
+     ],
+     "tempC": -35.7,
+     "tempRangeC": 0.1,
+     "sigmaIcePercent": 28.6,
+     "sigmaIceRangePercent": 2.1,
+     "pressurePa": 97020
+    }
+   ],
+   "unionIntervalUm": [
+    5.3999999999999995,
+    12.1
+   ],
+   "uncertaintySemantics": "each per-trace interval is that trace's own stated corrected-table marginal range of a single quantity; the union combines nothing across quantities (combineByQuadrature=false, scoreableEnvelope=false are honored)",
+   "conditionDomain": {
+    "tempC": [
+     -35.7,
+     -30.9
+    ],
+    "sigmaIcePercent": [
+     4,
+     28.6
+    ],
+    "pressurePa": [
+     96715,
+     97999
+    ],
+    "meaning": "envelope of the 16 traces' central condition values; per-trace marginal ranges are frozen independently in the lock and are not combined here"
+   },
+   "mapsToPhysicalSeedSize": "directly: an observed initial-particle radius interval. WP2 registers the lattice mapping (radius to seed cells per candidate spacing) and its sensitivity runs; nothing here chooses a lattice value.",
+   "caveats": [
+    "per-particle crystallography was not observed",
+    "per-particle shape was not observed",
+    "a regular D6h seed of this radius would be a project-chosen sensitivity surrogate, not a source observation (recorded rejection: Harrison seed assignment)"
+   ]
+  },
+  "s2GrownMassEquivalentSize300s": {
+   "kind": "declared-closure",
+   "quantity": "grown mass-equivalent radius at 300 s",
+   "unit": "micrometer",
+   "closure": "mass-equivalent radius under a compact-uniform-density closure: r0 * cbrt(m/m0). Density cancels in the ratio, so no density constant enters. Per-particle shape and crystallography were never observed; this is NOT an observed linear dimension.",
+   "timeSeconds": 300,
+   "timeSelection": "forced, not chosen: the last entry of the locked timesSeconds common window",
+   "perTrace": [
+    {
+     "id": "712a",
+     "initialRadiusUm": 11.7,
+     "massRatioAt300s": 2.898340905,
+     "centralEquivalentRadiusUm": 16.681522431807064
+    },
+    {
+     "id": "712k",
+     "initialRadiusUm": 10.44,
+     "massRatioAt300s": 3.74,
+     "centralEquivalentRadiusUm": 16.205323287623767
+    },
+    {
+     "id": "716a",
+     "initialRadiusUm": 7.6,
+     "massRatioAt300s": 5.8050138,
+     "centralEquivalentRadiusUm": 13.658867049507554
+    },
+    {
+     "id": "716d",
+     "initialRadiusUm": 5.8,
+     "massRatioAt300s": 9.5957586,
+     "centralEquivalentRadiusUm": 12.32502375118837
+    },
+    {
+     "id": "716k",
+     "initialRadiusUm": 8.7,
+     "massRatioAt300s": 4.3905754,
+     "centralEquivalentRadiusUm": 14.246004128616
+    },
+    {
+     "id": "724b",
+     "initialRadiusUm": 7.7,
+     "massRatioAt300s": 2.6437889,
+     "centralEquivalentRadiusUm": 10.647140460528904
+    },
+    {
+     "id": "724c",
+     "initialRadiusUm": 8.2,
+     "massRatioAt300s": 2.3285481,
+     "centralEquivalentRadiusUm": 10.868649666508883
+    },
+    {
+     "id": "725c",
+     "initialRadiusUm": 8.9,
+     "massRatioAt300s": 5.569838183,
+     "centralEquivalentRadiusUm": 15.776265242143634
+    },
+    {
+     "id": "725e",
+     "initialRadiusUm": 9.86,
+     "massRatioAt300s": 5.0594723,
+     "centralEquivalentRadiusUm": 16.926947834147935
+    },
+    {
+     "id": "731a",
+     "initialRadiusUm": 12,
+     "massRatioAt300s": 2.372899697,
+     "centralEquivalentRadiusUm": 16.00568896190895
+    },
+    {
+     "id": "731b",
+     "initialRadiusUm": 6.3,
+     "massRatioAt300s": 3.3994152,
+     "centralEquivalentRadiusUm": 9.472732790460505
+    },
+    {
+     "id": "802d",
+     "initialRadiusUm": 9.6,
+     "massRatioAt300s": 3.2992952,
+     "centralEquivalentRadiusUm": 14.291515723033116
+    },
+    {
+     "id": "805a",
+     "initialRadiusUm": 10.3,
+     "massRatioAt300s": 7.837523141,
+     "centralEquivalentRadiusUm": 20.459585775743665
+    },
+    {
+     "id": "805b",
+     "initialRadiusUm": 9.2,
+     "massRatioAt300s": 8.9797155,
+     "centralEquivalentRadiusUm": 19.12238332646889
+    },
+    {
+     "id": "805h",
+     "initialRadiusUm": 8.2,
+     "massRatioAt300s": 11.289581934,
+     "centralEquivalentRadiusUm": 18.39528294704846
+    },
+    {
+     "id": "805l",
+     "initialRadiusUm": 8.9,
+     "massRatioAt300s": 10.124304719,
+     "centralEquivalentRadiusUm": 19.2535910304715
+    }
+   ],
+   "unionCentralIntervalUm": [
+    9.472732790460505,
+    20.459585775743665
+   ],
+   "uncertaintyOperatorsUncombined": {
+    "initialRadius": "per-trace corrected-table marginal range, listed under s1 perTrace",
+    "massRatio": "[0.95*y, 1.05*y] — source-stated maximum relative error; not a confidence interval, standard deviation, or probability distribution",
+    "combinedEnvelope": "refused: the lock freezes marginal ranges independently (combineByQuadrature=false) and declines to authorize a joint envelope; no cross-quantity corner is computed or scoreable"
+   },
+   "conditionDomain": {
+    "tempC": [
+     -35.7,
+     -30.9
+    ],
+    "sigmaIcePercent": [
+     4,
+     28.6
+    ],
+    "pressurePa": [
+     96715,
+     97999
+    ],
+    "meaning": "envelope of the 16 traces' central condition values; per-trace marginal ranges are frozen independently in the lock and are not combined here"
+   },
+   "mapsToPhysicalSize": "a grown measurement size whose seed is the same trace family's S1 radius; WP2 registers the stopping/measurement mapping and its sensitivities"
+  }
+ },
+ "warmAnchorW1": {
+  "kind": "mass-anchor-not-a-size-stratum",
+  "id": "TAKAHASHI91_WARM_EARLY_MASS_DIAGNOSTIC_V1",
+  "status": "source-locked-non-gating-diagnostic",
+  "tempC": -5.3,
+  "habitCode": "C1f hollow column before the six-minute sheath/needle regime",
+  "rows": [
+   {
+    "timeMinutes": 3,
+    "massGrams": 7.56e-8,
+    "nonprobabilisticDiagnosticRangeGrams": [
+     4.720333333e-8,
+     1.095033333e-7
+    ]
+   },
+   {
+    "timeMinutes": 5,
+    "massGrams": 2.1e-7,
+    "nonprobabilisticDiagnosticRangeGrams": [
+     1.373633333e-7,
+     2.915033333e-7
+    ]
+   }
+  ],
+  "lengthConversionRefusal": "converting these masses to any linear size requires an ice-density closure that is not a locked observation, and the observed habit is a hollow column whose rim width was never observed, so a mass-equivalent length would understate maximum dimension by an unobserved factor. Published so WP2/WP8 can see the only locked warm-temperature scale information and why it does not become a stratum."
+ },
+ "refusals": [
+  {
+   "name": "no-stratum-at-or-above-100um",
+   "reason": "no locked observation supports a stratum at or above 100 micrometers; the 100/150/200/300 um reconnaissance probes are non-transferable and their promotion is forbidden by name (research/phase6-source-currency.md section 9)"
+  },
+  {
+   "name": "no-aspect-ratio-stratum",
+   "reason": "Takahashi's a(t) and c(t) rows are unpaired ensemble data; pairing them into per-crystal aspect ratios would manufacture an observation"
+  },
+  {
+   "name": "no-pressure-stratum",
+   "reason": "TAKAHASHI91_PRESSURE_CONTEXT_V1 is source-locked-context-only; pressure is confounded and no pass interval may be derived"
+  },
+  {
+   "name": "no-growth-history-stratum",
+   "reason": "both history candidates are not scoreable (substrate support or figure-only schedule) and supply no free-crystal size observation"
+  },
+  {
+   "name": "no-field-of-view-stratum",
+   "reason": "borrowing a figure field-of-view width as crystal extent is forbidden (research/phase6-source-currency.md section 3)"
+  },
+  {
+   "name": "corrected-minus-31-5C-row-stays-absent",
+   "reason": "the corrected -31.5 C / 5% / 10.69 um Table 1 row has no matching archive member; synthesizing or substituting it is forbidden, and the operator refuses any trace matching it"
+  },
+  {
+   "name": "lock-data-pins-inherited",
+   "reason": "heticegrowth_625.dat stays excluded (homogeneous family); 716d contributes only direct m/m0; 805l uses the corrected 8.9 +/- 0.7 um radius; 712k's median coalescer stands behind the locked mass ratios"
+  }
+ ],
+ "declaredExtrapolations": [
+  "S1 and S2 are sourced at -30.9 to -35.7 C only, and W1 at -5.3 C only, while the Nakaya comparison grid spans the whole diagram; applying the strata across all 204 sweep points is a declared extrapolation.",
+  "Both strata sit one to two orders of magnitude below the ~0.1-3 mm natural crystals from which Nakaya's diagram was drawn; a registered comparison at these strata is a statement about early growth at source-anchored sizes, not about millimetre-scale natural crystals."
+ ],
+ "downstream": {
+  "numericStrataCount": 2,
+  "note": "whether WP2 treats S1 and S2 as two strata (Z = 2) or S1 only (Z = 1) is a WP2/WP3 protocol decision made before any production row; this artifact records the frozen candidates and presumes neither. The gated values-manifest binding is WP3's job."
+ }
+}
