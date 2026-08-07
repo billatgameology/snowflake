@@ -80,10 +80,21 @@ index, a plan, ADR, or audit links to historical detail.
   seconds. These are repository checks, not Phase 6 scientific evidence.
 - Education remains frozen at commit `60e3f3f` until Phase 6 closes. Preserve `research/tmp/` as
   useful local research context; durable generated science belongs under tracked `evidence/`.
-- Branch `main` remains unpushed. The maker authorized the next push now that ADR 0041 is canonical,
-  exact repository verification is restored, and decisions 0042–0044/charter v1.21 are accepted.
-  Keep any stray root `=` artifact and local settings out of Phase 6 commits.
-- **Last updated:** 2026-08-03 by OpenAI Codex (`gpt-5.6-sol`, ultra reasoning)
+- Branch `main` is pushed to `origin/main` (github.com/billatgameology/snowflake), including this
+  merge; the `origin/main` tip this section previously described as "remains unpushed" is by
+  definition now on origin, since this text is read from `origin/main` itself. Keep any stray root
+  `=` artifact and local settings out of Phase 6 commits.
+- Maker-directed pre-Phase-7 exploration branch `explore/gg-realism-gutcheck` (worktree
+  `../snowflake-gutcheck-gg-realism`; plan `docs/plans/explore-gg-realism-gutcheck.md` exists on
+  that branch only): grow a large noisy `GGThreshold` dendrite, extract a smooth level-set
+  surface, render the ADR 0029 ice look, and eyeball it against the J0521r2p footage. Eyeball-only
+  exploration — not evidence, no gate claim, touches no solver package, and may be discarded;
+  merging is a separate maker decision. It does not alter Phase 6 work or its "only active
+  implementation plan" status below.
+- **Last updated:** 2026-08-03 by OpenAI Codex (`gpt-5.6-sol`, ultra reasoning); gut-check
+  exploration-branch bullet reinstated 2026-08-06 by Claude Sonnet 5 while merging `main` into
+  `explore/social-content` — it was present on `main`'s local `3d8092a` but not carried into the
+  parallel `origin/main` history this section otherwise keeps.
 
 ## Phase gates
 
