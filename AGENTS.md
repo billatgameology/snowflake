@@ -1,10 +1,13 @@
 # Working rules — The Virtual Cloud Chamber
 
 This project is worked on by **multiple different LLMs across sessions**, with no shared memory
-between them. Any model may pick up work another left mid-flight. The markdown files described
-here are the authoritative handoff index; logs, checkpoints, and other artifacts are evidence
-only when the handoff points to them. Treat the handoff as part of the deliverable, not as
-bookkeeping.
+between them. Any model may pick up work another left mid-flight. `docs/PROGRESS.md` is the compact
+current-state index, and the active plan holds the detailed work record; logs, checkpoints, and
+other artifacts are evidence only when one of those current records points to them.
+
+`docs/HANDOFF.md` is a manually triggered stop/restart snapshot, not a second live progress log.
+Update it only when the maker explicitly says the session is stopping, restarting, or needs an
+immediate saved handoff. During ordinary work and long runs, leave it untouched.
 
 **`CLAUDE.md` is a symlink to this file.** Keep `AGENTS.md` canonical and never replace the
 symlink with a second copy; two instruction files will drift.
@@ -26,9 +29,8 @@ Templates live at `docs/plans/_TEMPLATE.md` and `docs/decisions/_TEMPLATE.md`.
 
 Read in this order on every cold start:
 
-0. **Read `docs/HANDOFF.md`.** It is the current resume point: what is done, what is open and ranked,
-   the standing constraints, and how to verify the whole evidence corpus from a clean clone. Then
-   read **`docs/phase6-lessons.md`** — every rule in it came from a real incident that cost time or
+0. **Read `docs/HANDOFF.md`.** It is the last explicitly requested stop/restart snapshot and may
+   predate ongoing work. Then read **`docs/phase6-lessons.md`** — every rule in it came from a real incident that cost time or
    nearly cost evidence, and several are enforced by `npm test`
    (`runner/test/evidence-integrity.test.ts`).
 1. Read `docs/PROGRESS.md` completely, including **Next step**.
@@ -226,13 +228,15 @@ Decision 0011 resolves the timeline seam left open by decision 0005 D5:
 
 ### Local execution host and operator preference
 
-- The primary Windows execution host has an AMD Ryzen 7 5700G (8 physical cores / 16 logical
+- The primary Windows execution host has an AMD Ryzen 9 5900XT (16 physical cores / 32 logical
   processors), 64 GB RAM (63.8 GB usable), an NVIDIA GeForce RTX 3080 with 10 GB dedicated VRAM,
   and multiple NVMe SSDs. Prefer an NVMe-backed workspace for long evidence runs.
 - Run independent cases, temperature points, sweeps, and other scientifically separable jobs in
   parallel processes whenever the registered protocol and available memory allow it. Preserve
   deterministic per-case semantics and never alter a pre-registered protocol merely to increase
   concurrency.
+- Every long evidence launch records the actual process concurrency and exact launch command and
+  flags in its bundle; the intended concurrency is not silently substituted for what executed.
 - The current float64 CPU oracle is effectively single-threaded per process, so exploit the host
   primarily by running independent cases as separate Node processes. Do not route solver work to
   the GPU before its charter phase and comparison gate authorize that implementation.

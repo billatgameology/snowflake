@@ -27,3 +27,10 @@ evidence/OUT-TREES-MANIFEST.json -text
 # checker otherwise treats each preserved CR byte as trailing whitespace, so disable that one check
 # only for this exact immutable archive path.
 docs/progress-history-through-2026-08-02.md -text whitespace=-trailing-space
+
+# The live source audit and exact rejected V4/V4.x history must survive Windows checkout byte-exact.
+research/phase6-source-currency.md -text
+research/rejected/phase6-wp1-v4x/phase6-source-currency-v4x-rejected.md -text
+research/rejected/phase6-wp1-v4x/phase6-wp1-independence-operands.json -text
+research/rejected/phase6-wp1-v4x/phase6-wp1-review-findings.json -text
+research/rejected/phase6-wp1-v4x/phase6-wp1-search-registry.json -text

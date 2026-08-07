@@ -178,6 +178,70 @@ export function latticeExtents(a: Uint8Array, dims: Dims): LatticeExtents | null
   };
 }
 
+/**
+ * Objective crystallographic full spans for external physical comparisons.
+ *
+ * The three in-plane coordinates are twice the signed distances along the three equivalent
+ * basal crystallographic caliper axes. A D6 planar transform only permutes them and/or changes
+ * their signs, so the maximum range is exactly invariant even for an asymmetric occupied set.
+ * The +2 is one cell across-flats in these half-cell units. Unlike `latticeExtents().tExtent`,
+ * this is a physical-observable convention rather than a Phase 4 integer trigger span.
+ *
+ * Returned values remain in exact integer lattice units. A caller with lattice spacing `dx`
+ * obtains basal full span `basalCaliper2 * dx / 2`, c-axis full span `zLayers * dx`, and
+ * c-over-basal ratio `2 * zLayers / basalCaliper2`.
+ */
+export interface CrystallographicSpans {
+  readonly basalCaliper2: number;
+  readonly zLayers: number;
+  readonly attachedCount: number;
+}
+
+export function crystallographicSpans(
+  a: Uint8Array,
+  dims: Dims,
+): CrystallographicSpans | null {
+  if (a.length !== cellCount(dims)) {
+    throw new Error(
+      `occupancy length ${a.length} does not match dimensions (${cellCount(dims)} cells)`,
+    );
+  }
+
+  let u0Min = Infinity, u0Max = -Infinity;
+  let u1Min = Infinity, u1Max = -Infinity;
+  let u2Min = Infinity, u2Max = -Infinity;
+  let kMin = Infinity, kMax = -Infinity;
+  let attachedCount = 0;
+  for (let index = 0; index < a.length; index++) {
+    if (a[index] === 0) continue;
+    attachedCount++;
+    const [i, j, k] = coordsOf(dims, index);
+    const u0 = 2 * i + j;
+    const u1 = i + 2 * j;
+    const u2 = i - j;
+    if (u0 < u0Min) u0Min = u0;
+    if (u0 > u0Max) u0Max = u0;
+    if (u1 < u1Min) u1Min = u1;
+    if (u1 > u1Max) u1Max = u1;
+    if (u2 < u2Min) u2Min = u2;
+    if (u2 > u2Max) u2Max = u2;
+    if (k < kMin) kMin = k;
+    if (k > kMax) kMax = k;
+  }
+  if (attachedCount === 0) return null;
+
+  const basalCaliper2 = Math.max(
+    u0Max - u0Min + 2,
+    u1Max - u1Min + 2,
+    u2Max - u2Min + 2,
+  );
+  return {
+    basalCaliper2,
+    zLayers: kMax - kMin + 1,
+    attachedCount,
+  };
+}
+
 /** Deterministic occupied-layer profile used by the capped-column criteria. */
 export interface CappedColumnProfile {
   /** Sorted physical z-layer coordinates, not ordinal ranks. */

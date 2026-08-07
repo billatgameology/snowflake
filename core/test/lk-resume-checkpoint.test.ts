@@ -284,6 +284,53 @@ function resumeState(tick = 0): LKResumeStateV3 {
   };
 }
 
+function allAttachedTopologyState(
+  dims: Dims,
+  center: readonly [number, number, number],
+): LKResumeStateV3 {
+  const n = dims.nx * dims.ny * dims.nz;
+  const radius = Math.min(
+    center[0],
+    dims.nx - 1 - center[0],
+    center[1],
+    dims.ny - 1 - center[1],
+  );
+  const halfZ = Math.min(center[2], dims.nz - 1 - center[2]);
+  const a = new Uint8Array(n);
+  const f = new Float64Array(n);
+  const sigma = new Float64Array(n);
+  let activeCellCount = 0;
+  let shellCellCount = 0;
+  for (let k = 0; k < dims.nz; k++) {
+    for (let j = 0; j < dims.ny; j++) {
+      for (let i = 0; i < dims.nx; i++) {
+        const distance = hexDistance(i - center[0], j - center[1]);
+        if (distance > radius || Math.abs(k - center[2]) > halfZ) continue;
+        const index = indexOf(dims, i, j, k);
+        a[index] = 1;
+        f[index] = 1;
+        activeCellCount++;
+        if (distance === radius || Math.abs(k - center[2]) === halfZ) shellCellCount++;
+      }
+    }
+  }
+  return {
+    ...resumeState(),
+    dims,
+    center,
+    activeCellCount,
+    shellCellCount,
+    hexRadius: radius,
+    zHalfExtent: halfZ,
+    attachedCount: activeCellCount,
+    a,
+    f,
+    sigma,
+    boundaryOrder: [],
+    lastAttached: [],
+  };
+}
+
 async function encodeToBytes(state: LKResumeStateV3): Promise<{
   readonly bytes: Uint8Array;
   readonly sink: TestSink;
@@ -676,6 +723,73 @@ describe("streamed LK resume checkpoint v3", () => {
     await expect(encodeLKResumeCheckpointV3(wrongCount, new TestSink())).rejects.toThrow(
       /counts or hex extents/,
     );
+  });
+
+  it("refuses every zero-radius monopole shell before writing any bytes", async () => {
+    const cases: Array<
+      readonly [string, Dims, readonly [number, number, number]]
+    > = [
+      ["zero radial and vertical extent", { nx: 1, ny: 1, nz: 1 }, [0, 0, 0]],
+      ["zero radial extent", { nx: 1, ny: 1, nz: 3 }, [0, 0, 1]],
+      ["zero vertical extent", { nx: 3, ny: 3, nz: 1 }, [1, 1, 0]],
+    ];
+    for (const [label, dims, center] of cases) {
+      const sink = new TestSink();
+      await expect(
+        encodeLKResumeCheckpointV3(allAttachedTopologyState(dims, center), sink),
+        label,
+      ).rejects.toThrow(/shell.*off-centre/);
+      expect(sink.calls, `${label}: sink calls`).toBe(0);
+      expect(sink.total, `${label}: sink bytes`).toBe(0);
+    }
+  });
+
+  it("rejects an independently framed zero-radius shell and admits the minimum valid shell", async () => {
+    const { bytes: ordinary } = await encodeToBytes(resumeState());
+    const hostileHeader = headerOf(ordinary);
+    hostileHeader.dims = { nx: 1, ny: 1, nz: 1 };
+    hostileHeader.center = [0, 0, 0];
+    hostileHeader.topology = {
+      activeCellCount: 1,
+      shellCellCount: 1,
+      hexRadius: 0,
+      zHalfExtent: 0,
+      attachedCount: 1,
+      boundaryCount: 0,
+      lastAttachedCount: 0,
+    };
+    hostileHeader.fields = [
+      { name: "a", dtype: "u8", length: 1 },
+      { name: "f", dtype: "f64", length: 1 },
+      { name: "sigma", dtype: "f64", length: 1 },
+      { name: "boundaryOrder", dtype: "u32", length: 0 },
+      { name: "lastAttached", dtype: "u32", length: 0 },
+      { name: "resumeScalars", dtype: "f64", length: 12 },
+    ];
+    const headerBytes = new TextEncoder().encode(JSON.stringify(hostileHeader));
+    const hostile = new Uint8Array(12 + headerBytes.length + 1 + 8 + 8 + 12 * 8);
+    hostile.set(ordinary.subarray(0, 8), 0);
+    const hostileView = new DataView(hostile.buffer);
+    hostileView.setUint32(8, headerBytes.length, true);
+    hostile.set(headerBytes, 12);
+    const payload = 12 + headerBytes.length;
+    hostile[payload] = 1;
+    hostileView.setFloat64(payload + 1, 1, true);
+    await expect(decodeLKResumeCheckpointV3(new TestSource(hostile))).rejects.toThrow(
+      /shell.*off-centre/,
+    );
+
+    const minimum = allAttachedTopologyState({ nx: 3, ny: 3, nz: 3 }, [1, 1, 1]);
+    const { bytes } = await encodeToBytes(minimum);
+    const adopted = takeDecodedLKResumeCheckpointV3(
+      await decodeLKResumeCheckpointV3(new TestSource(bytes)),
+    );
+    expect(adopted.topology.shellRadiusM).toHaveLength(minimum.shellCellCount);
+    expect(
+      adopted.topology.shellRadiusM.every(
+        (radiusM) => Number.isFinite(radiusM) && radiusM > 0,
+      ),
+    ).toBe(true);
   });
 
   it("witnesses every core field range and attached/wall canonical-zero rejection", async () => {

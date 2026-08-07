@@ -1,0 +1,2631 @@
+{
+  "arms": {
+    "CAK": [
+      "OP-SHARED-HK-LAW",
+      "OP-SHARED-CSAT-TEMPERATURE",
+      "OP-SHARED-VKIN-METROLOGY",
+      "OP-SHARED-DIFFUSION-PRESSURE",
+      "OP-SHARED-SIGMA-WATER",
+      "OP-SHARED-UNIT-CONVERSIONS",
+      "OP-SHARED-DERIVED-X0-MICE",
+      "OP-CAK-SIGMA0-BASAL",
+      "OP-CAK-SIGMA0-PRISM",
+      "OP-CAK-PREFACTOR-BASAL",
+      "OP-CAK-PREFACTOR-PRISM",
+      "OP-CAK-INTERPOLATION-DOMAIN"
+    ],
+    "M1": [
+      "OP-SHARED-HK-LAW",
+      "OP-SHARED-CSAT-TEMPERATURE",
+      "OP-SHARED-VKIN-METROLOGY",
+      "OP-SHARED-DIFFUSION-PRESSURE",
+      "OP-SHARED-SIGMA-WATER",
+      "OP-SHARED-UNIT-CONVERSIONS",
+      "OP-SHARED-DERIVED-X0-MICE",
+      "OP-M1-BROAD-BASAL",
+      "OP-M1-BROAD-PRISM",
+      "OP-M1-PREFACTORS",
+      "OP-M1-BASAL-DIP",
+      "OP-M1-PRISM-DIP",
+      "OP-M1-LOG10-INTERPRETATION",
+      "OP-M1-CONVERSION-DOMAIN"
+    ],
+    "M1_NO_DIP_ABLATION": [
+      "OP-SHARED-HK-LAW",
+      "OP-SHARED-CSAT-TEMPERATURE",
+      "OP-SHARED-VKIN-METROLOGY",
+      "OP-SHARED-DIFFUSION-PRESSURE",
+      "OP-SHARED-SIGMA-WATER",
+      "OP-SHARED-UNIT-CONVERSIONS",
+      "OP-SHARED-DERIVED-X0-MICE",
+      "OP-NODIP-BROAD-BASAL",
+      "OP-NODIP-BROAD-PRISM",
+      "OP-NODIP-PREFACTOR-CONVERSION-DOMAIN",
+      "OP-NODIP-BASAL-INTERVENTION",
+      "OP-NODIP-PRISM-INTERVENTION"
+    ]
+  },
+  "catalogId": "wp1-heldout-operands-2026-08-03-v4.1-author-candidate",
+  "candidateStatus": "unexecuted-unreviewed-author-candidate-not-accepted",
+  "basedOn": {
+    "byteLength": 23791,
+    "catalogId": "wp1-heldout-operands-2026-08-02-v1",
+    "role": "normative-registered-base",
+    "schema": "phase6-wp1-independence-operand-catalog-v1",
+    "sha256": "dc15d1808b5446eb80dc21c07165510e12ad3d89b41376c66924ffc775585963"
+  },
+  "changeRationale": "Retain v1 as the normative operand base and v2/v3 as rejected provenance; preserve v3's mapping-specific exact-definition separation; add closed empirical-publication, exact-authority, local-lineage, and project-selection universes; bind every active project selection/intervention record as inspectable arm support; restore the exact generatedFrom hash domain; and make all promotion clauses independently derived per arm.",
+  "edgeEvidenceClassRules": {
+    "disclosed-nonsupport": "A legacy rows[].sourceNodeIds union member that does not support this data family. It cannot satisfy, exempt, block, or otherwise alter an independence obligation.",
+    "inspectable-lineage-required": "This edge carries empirical, model, selection, local-derivation, or project-record lineage. Missing, unreadable, unreviewed, or hash-mismatched required bytes force the affected active arm's empirical-independence verdict to unresolved.",
+    "shared-exact-definition": "This edge carries only a universal exact definition. It does not count as empirical held-out overlap and does not require local bytes for empirical independence, but it must bind one or more authorityEvidenceDescriptorIds whose authority/provenance and currency obligations independently gate overall promotion."
+  },
+  "generatedFrom": [
+    {
+      "path": "core/src/libbrecht.ts",
+      "sha256": "580140cd8650f680693306547fd8c2ee18d1d8ca61e78743a62baf3c5c90f23d"
+    },
+    {
+      "path": "docs/decisions/0030-phase6-sdak-arm.md",
+      "sha256": "2872647a2ddd99651e073f0dd68616385cecced5a4505ec643d9e71f02f7ebd6"
+    },
+    {
+      "path": "docs/decisions/0036-phase6-sdak-arm-pre-registrations.md",
+      "sha256": "560d6686a1c31ea591579450c44f214d17f4e91c740ab9ffc78fb3af044af65f"
+    },
+    {
+      "path": "docs/decisions/0040-correct-phase6-coefficient-and-sdak-provenance.md",
+      "sha256": "18f6f6df82b29bac1895ed8de0a811d76d26e5aacf06f017539425cabf0f48a3"
+    },
+    {
+      "path": "docs/libbrecht-parameters.md",
+      "sha256": "c0b314b681146152207f061209a3097609e34a234b0027ed73faa427334c79e2"
+    },
+    {
+      "path": "runner/src/phase6-protocol.ts",
+      "sha256": "1e59a91bdf495b3113305e36691472ecbb5aba3bd7d34482bdb55260f01c6426"
+    }
+  ],
+  "rows": [
+    {
+      "active": true,
+      "arm": "ALL",
+      "authorityPath": "docs/libbrecht-parameters.md#2.1",
+      "dataFamilyIds": [
+        "DATA-HK-ATTACHMENT-LAW",
+        "DATA-SUPERSATURATION-DEFINITION"
+      ],
+      "operandId": "OP-SHARED-HK-LAW",
+      "overlapRule": "Reuse of the candidate data to infer or select the attachment-coefficient-HK law or supersaturation definition is overlap; a citation without data reuse is not.",
+      "provenanceClass": "P1-P2",
+      "sourceNodeIds": [
+        "SRC-1910.06389V2",
+        "SRC-1910.09067V2"
+      ],
+      "valueRole": "model-law"
+    },
+    {
+      "active": true,
+      "arm": "ALL",
+      "authorityPath": "docs/libbrecht-parameters.md#2.2",
+      "dataFamilyIds": [
+        "DATA-PICE-CSAT-EQ2.8",
+        "DATA-TEMPERATURE-MAPPING"
+      ],
+      "operandId": "OP-SHARED-CSAT-TEMPERATURE",
+      "overlapRule": "Reuse of candidate measurements to fit the saturation-density or temperature mapping is overlap; use of the published law as a common physical definition is disclosed but not by itself overlap.",
+      "provenanceClass": "P1-P2",
+      "sourceNodeIds": [
+        "SRC-1910.06389V2"
+      ],
+      "valueRole": "physical-conversion"
+    },
+    {
+      "active": true,
+      "arm": "ALL",
+      "authorityPath": "docs/libbrecht-parameters.md#2.3",
+      "dataFamilyIds": [
+        "DATA-VKIN-EQUATION",
+        "DATA-EXACT-K",
+        "DATA-CELSIUS-OFFSET",
+        "DATA-CICE-MMOL"
+      ],
+      "operandId": "OP-SHARED-VKIN-METROLOGY",
+      "overlapRule": "Candidate data used to fit kinetic-speed or ice-number-density inputs is overlap; shared authoritative exact definitions are disclosed shared inputs, not empirical-data overlap.",
+      "provenanceClass": "P1-P4",
+      "sourceNodeIds": [
+        "SRC-1910.06389V2",
+        "SRC-1910.09067V2",
+        "SRC-BIPM-SI"
+      ],
+      "valueRole": "physical-conversion"
+    },
+    {
+      "active": true,
+      "arm": "ALL",
+      "authorityPath": "docs/libbrecht-parameters.md#2.4",
+      "dataFamilyIds": [
+        "DATA-D-AIR",
+        "DATA-P-INVERSE-LAW",
+        "DATA-P-ATM"
+      ],
+      "operandId": "OP-SHARED-DIFFUSION-PRESSURE",
+      "overlapRule": "Candidate transport measurements used to fit D_air or its pressure scaling are overlap; the exact atmosphere definition is disclosed but not empirical-data overlap.",
+      "provenanceClass": "P1-P4",
+      "sourceNodeIds": [
+        "SRC-1910.06389V2",
+        "SRC-CGPM-ATM"
+      ],
+      "valueRole": "transport-input"
+    },
+    {
+      "active": true,
+      "arm": "ALL",
+      "authorityPath": "docs/libbrecht-parameters.md#2.5",
+      "dataFamilyIds": [
+        "DATA-SIGMA-WATER-ANCHORS",
+        "DATA-SIGMA-WATER-INTERPOLATION"
+      ],
+      "operandId": "OP-SHARED-SIGMA-WATER",
+      "overlapRule": "Candidate data used for any active water-supersaturation anchor or interpolation choice are overlap; if the eventual protocol does not use this quantity it requires a reviewed catalog revision marking the row inactive.",
+      "provenanceClass": "P2-P4",
+      "sourceNodeIds": [
+        "SRC-1910.06389V2"
+      ],
+      "valueRole": "environment-input"
+    },
+    {
+      "active": true,
+      "arm": "ALL",
+      "authorityPath": "docs/libbrecht-parameters.md#2",
+      "dataFamilyIds": [
+        "DATA-PERCENT-FRACTION",
+        "DATA-MBAR-PA"
+      ],
+      "operandId": "OP-SHARED-UNIT-CONVERSIONS",
+      "overlapRule": "Exact unit conversion is a disclosed shared definition; only candidate-derived calibration of a conversion or offset is overlap.",
+      "provenanceClass": "P4",
+      "sourceNodeIds": [
+        "SRC-BIPM-SI",
+        "SRC-CGPM-ATM"
+      ],
+      "valueRole": "unit-conversion"
+    },
+    {
+      "active": true,
+      "arm": "ALL",
+      "authorityPath": "docs/libbrecht-parameters.md#2",
+      "dataFamilyIds": [
+        "DATA-DERIVED-X0",
+        "DATA-DERIVED-MICE"
+      ],
+      "operandId": "OP-SHARED-DERIVED-X0-MICE",
+      "overlapRule": "These values inherit every source family of their operands; treating the derived values as new independent data is invalid.",
+      "provenanceClass": "P4-derived",
+      "sourceNodeIds": [
+        "SRC-1910.06389V2",
+        "SRC-1910.09067V2",
+        "SRC-BIPM-SI",
+        "SRC-CGPM-ATM"
+      ],
+      "valueRole": "derived-model-input"
+    },
+    {
+      "active": true,
+      "arm": "CAK",
+      "authorityPath": "docs/libbrecht-parameters.md#3",
+      "dataFamilyIds": [
+        "DATA-CAK-FIG4.5-SIGMA0-BASAL",
+        "DATA-CAK-TRANSITIVE-BROAD-FACET"
+      ],
+      "operandId": "OP-CAK-SIGMA0-BASAL",
+      "overlapRule": "Reuse of Figure 4.5 basal anchors, their underlying broad-facet measurements, or a candidate-derived selection among them is overlap. Unresolved transitive contributors force unresolved.",
+      "provenanceClass": "P3",
+      "sourceNodeIds": [
+        "SRC-1910.06389V2",
+        "SRC-CAK-DIGITIZATION-JSON",
+        "SRC-1208.5982V1-MISSING"
+      ],
+      "valueRole": "kinetic-input"
+    },
+    {
+      "active": true,
+      "arm": "CAK",
+      "authorityPath": "docs/libbrecht-parameters.md#3",
+      "dataFamilyIds": [
+        "DATA-CAK-FIG4.5-SIGMA0-PRISM",
+        "DATA-CAK-TRANSITIVE-BROAD-FACET"
+      ],
+      "operandId": "OP-CAK-SIGMA0-PRISM",
+      "overlapRule": "Reuse of Figure 4.5 prism anchors, their underlying broad-facet measurements, or a candidate-derived selection among them is overlap. Unresolved transitive contributors force unresolved.",
+      "provenanceClass": "P3",
+      "sourceNodeIds": [
+        "SRC-1910.06389V2",
+        "SRC-CAK-DIGITIZATION-JSON",
+        "SRC-1208.5982V1-MISSING"
+      ],
+      "valueRole": "kinetic-input"
+    },
+    {
+      "active": true,
+      "arm": "CAK",
+      "authorityPath": "docs/libbrecht-parameters.md#3",
+      "dataFamilyIds": [
+        "DATA-CAK-FIG4.5-PREFACTOR-BASAL",
+        "DATA-CAK-TRANSITIVE-BROAD-FACET"
+      ],
+      "operandId": "OP-CAK-PREFACTOR-BASAL",
+      "overlapRule": "Reuse of the basal prefactor anchors or their unresolved underlying measurement lineage is overlap or unresolved respectively.",
+      "provenanceClass": "P3",
+      "sourceNodeIds": [
+        "SRC-1910.06389V2",
+        "SRC-CAK-DIGITIZATION-JSON",
+        "SRC-1208.5982V1-MISSING"
+      ],
+      "valueRole": "kinetic-input"
+    },
+    {
+      "active": true,
+      "arm": "CAK",
+      "authorityPath": "docs/libbrecht-parameters.md#3",
+      "dataFamilyIds": [
+        "DATA-CAK-FIG4.5-PREFACTOR-PRISM",
+        "DATA-CAK-TRANSITIVE-BROAD-FACET"
+      ],
+      "operandId": "OP-CAK-PREFACTOR-PRISM",
+      "overlapRule": "Reuse of the prism prefactor anchors or their unresolved underlying measurement lineage is overlap or unresolved respectively.",
+      "provenanceClass": "P3",
+      "sourceNodeIds": [
+        "SRC-1910.06389V2",
+        "SRC-CAK-DIGITIZATION-JSON",
+        "SRC-1208.5982V1-MISSING"
+      ],
+      "valueRole": "kinetic-input"
+    },
+    {
+      "active": true,
+      "arm": "CAK",
+      "authorityPath": "docs/libbrecht-parameters.md#3",
+      "dataFamilyIds": [
+        "DATA-CAK-INTERPOLATION",
+        "DATA-CAK-EXTRAPOLATION-DOMAIN"
+      ],
+      "operandId": "OP-CAK-INTERPOLATION-DOMAIN",
+      "overlapRule": "Candidate data used to choose interpolation, extrapolation, or admissible temperature domain are overlap; project-only choices with no candidate use are disclosed but independent.",
+      "provenanceClass": "P4",
+      "sourceNodeIds": [
+        "SRC-1910.06389V2"
+      ],
+      "valueRole": "project-closure"
+    },
+    {
+      "active": true,
+      "arm": "M1",
+      "authorityPath": "docs/libbrecht-parameters.md#4",
+      "dataFamilyIds": [
+        "DATA-M1-BROAD-BASAL"
+      ],
+      "operandId": "OP-M1-BROAD-BASAL",
+      "overlapRule": "Reuse of the TAX2 broad-basal formula inputs or their measurement lineage is overlap.",
+      "provenanceClass": "P1-P2",
+      "sourceNodeIds": [
+        "SRC-2306.13087V1",
+        "SRC-1208.5982V1-MISSING"
+      ],
+      "valueRole": "kinetic-input"
+    },
+    {
+      "active": true,
+      "arm": "M1",
+      "authorityPath": "docs/libbrecht-parameters.md#4",
+      "dataFamilyIds": [
+        "DATA-M1-BROAD-PRISM"
+      ],
+      "operandId": "OP-M1-BROAD-PRISM",
+      "overlapRule": "Reuse of the TAX2 broad-prism formula inputs or their measurement lineage is overlap.",
+      "provenanceClass": "P1-P2",
+      "sourceNodeIds": [
+        "SRC-2306.13087V1",
+        "SRC-1208.5982V1-MISSING"
+      ],
+      "valueRole": "kinetic-input"
+    },
+    {
+      "active": true,
+      "arm": "M1",
+      "authorityPath": "docs/libbrecht-parameters.md#4",
+      "dataFamilyIds": [
+        "DATA-M1-PREFACTOR-UNITY",
+        "DATA-M1-PREFACTOR-RATIONALE"
+      ],
+      "operandId": "OP-M1-PREFACTORS",
+      "overlapRule": "Reuse of candidate data to choose unity prefactors is overlap; source-stated simplification without candidate reuse is not.",
+      "provenanceClass": "P2-P4",
+      "sourceNodeIds": [
+        "SRC-2306.13087V1",
+        "SRC-2004.06212V1"
+      ],
+      "valueRole": "kinetic-input"
+    },
+    {
+      "active": true,
+      "arm": "M1",
+      "authorityPath": "docs/libbrecht-parameters.md#4",
+      "dataFamilyIds": [
+        "DATA-M1-BASAL-DIP",
+        "DATA-NAKAYA-HABIT-TUNING"
+      ],
+      "operandId": "OP-M1-BASAL-DIP",
+      "overlapRule": "Any candidate data, habit category, apparatus series, or derived observable used to select basal dip depth, centre, width, or arm inclusion is overlap.",
+      "provenanceClass": "P1-P4",
+      "sourceNodeIds": [
+        "SRC-2306.13087V1",
+        "SRC-2011.02353V1",
+        "SRC-1211.5555V1",
+        "SRC-2109.00098V1-UNREADABLE"
+      ],
+      "valueRole": "kinetic-input-and-selection"
+    },
+    {
+      "active": true,
+      "arm": "M1",
+      "authorityPath": "docs/libbrecht-parameters.md#4",
+      "dataFamilyIds": [
+        "DATA-M1-PRISM-DIP",
+        "DATA-NAKAYA-HABIT-TUNING"
+      ],
+      "operandId": "OP-M1-PRISM-DIP",
+      "overlapRule": "Any candidate data, habit category, apparatus series, or derived observable used to select prism dip depth, centre, width, or arm inclusion is overlap.",
+      "provenanceClass": "P1-P4",
+      "sourceNodeIds": [
+        "SRC-2306.13087V1",
+        "SRC-2009.08404V2",
+        "SRC-1211.5555V1",
+        "SRC-2109.00098V1-UNREADABLE"
+      ],
+      "valueRole": "kinetic-input-and-selection"
+    },
+    {
+      "active": true,
+      "arm": "M1",
+      "authorityPath": "docs/decisions/0040-correct-phase6-coefficient-and-sdak-provenance.md",
+      "dataFamilyIds": [
+        "DATA-M1-LOG10-WIDTH-INTERPRETATION"
+      ],
+      "operandId": "OP-M1-LOG10-INTERPRETATION",
+      "overlapRule": "Candidate data used to choose the logarithm interpretation are overlap; the present source support is qualitative, so a claimed quantitative width validation remains unresolved.",
+      "provenanceClass": "P3-P4",
+      "sourceNodeIds": [
+        "SRC-2306.13087V1",
+        "SRC-M1-FIG1-CROP"
+      ],
+      "valueRole": "project-interpretation"
+    },
+    {
+      "active": true,
+      "arm": "M1",
+      "authorityPath": "docs/libbrecht-parameters.md#4",
+      "dataFamilyIds": [
+        "DATA-M1-PERCENT-FRACTION",
+        "DATA-M1-MAGNITUDE-DOMAIN"
+      ],
+      "operandId": "OP-M1-CONVERSION-DOMAIN",
+      "overlapRule": "Candidate data used to select the active magnitude/temperature domain are overlap; exact percent conversion alone is not.",
+      "provenanceClass": "P4",
+      "sourceNodeIds": [
+        "SRC-2306.13087V1"
+      ],
+      "valueRole": "project-closure"
+    },
+    {
+      "active": true,
+      "arm": "M1_NO_DIP_ABLATION",
+      "authorityPath": "docs/decisions/0040-correct-phase6-coefficient-and-sdak-provenance.md",
+      "dataFamilyIds": [
+        "DATA-M1-BROAD-BASAL"
+      ],
+      "operandId": "OP-NODIP-BROAD-BASAL",
+      "overlapRule": "The no-dip arm exactly inherits M1 broad-basal provenance; any overlap or unresolved lineage transfers unchanged.",
+      "provenanceClass": "P1-P2",
+      "sourceNodeIds": [
+        "SRC-2306.13087V1",
+        "SRC-1208.5982V1-MISSING"
+      ],
+      "valueRole": "kinetic-input"
+    },
+    {
+      "active": true,
+      "arm": "M1_NO_DIP_ABLATION",
+      "authorityPath": "docs/decisions/0040-correct-phase6-coefficient-and-sdak-provenance.md",
+      "dataFamilyIds": [
+        "DATA-M1-BROAD-PRISM"
+      ],
+      "operandId": "OP-NODIP-BROAD-PRISM",
+      "overlapRule": "The no-dip arm exactly inherits M1 broad-prism provenance; any overlap or unresolved lineage transfers unchanged.",
+      "provenanceClass": "P1-P2",
+      "sourceNodeIds": [
+        "SRC-2306.13087V1",
+        "SRC-1208.5982V1-MISSING"
+      ],
+      "valueRole": "kinetic-input"
+    },
+    {
+      "active": true,
+      "arm": "M1_NO_DIP_ABLATION",
+      "authorityPath": "docs/decisions/0040-correct-phase6-coefficient-and-sdak-provenance.md",
+      "dataFamilyIds": [
+        "DATA-M1-PREFACTOR-UNITY",
+        "DATA-M1-PERCENT-FRACTION",
+        "DATA-M1-MAGNITUDE-DOMAIN"
+      ],
+      "operandId": "OP-NODIP-PREFACTOR-CONVERSION-DOMAIN",
+      "overlapRule": "The no-dip arm inherits M1 prefactor and domain provenance; only the dip intervention changes.",
+      "provenanceClass": "P2-P4",
+      "sourceNodeIds": [
+        "SRC-2306.13087V1",
+        "SRC-2004.06212V1"
+      ],
+      "valueRole": "kinetic-input-and-project-closure"
+    },
+    {
+      "active": true,
+      "arm": "M1_NO_DIP_ABLATION",
+      "authorityPath": "docs/decisions/0040-correct-phase6-coefficient-and-sdak-provenance.md",
+      "dataFamilyIds": [
+        "DATA-NODIP-BASAL-INTERVENTION",
+        "DATA-M1-BASAL-DIP-SELECTION-HISTORY"
+      ],
+      "operandId": "OP-NODIP-BASAL-INTERVENTION",
+      "overlapRule": "The numerical multiplier is a project intervention equal to one, but M1 basal-dip and Nakaya data remain removed/counterfactual selection lineage; candidate reuse in arm selection is overlap and unresolved selection lineage is unresolved.",
+      "provenanceClass": "P4-intervention",
+      "sourceNodeIds": [
+        "SRC-2306.13087V1",
+        "SRC-2011.02353V1",
+        "SRC-1211.5555V1",
+        "SRC-2109.00098V1-UNREADABLE"
+      ],
+      "valueRole": "matched-intervention"
+    },
+    {
+      "active": true,
+      "arm": "M1_NO_DIP_ABLATION",
+      "authorityPath": "docs/decisions/0040-correct-phase6-coefficient-and-sdak-provenance.md",
+      "dataFamilyIds": [
+        "DATA-NODIP-PRISM-INTERVENTION",
+        "DATA-M1-PRISM-DIP-SELECTION-HISTORY"
+      ],
+      "operandId": "OP-NODIP-PRISM-INTERVENTION",
+      "overlapRule": "The numerical multiplier is a project intervention equal to one, but M1 prism-dip and Nakaya data remain removed/counterfactual selection lineage; candidate reuse in arm selection is overlap and unresolved selection lineage is unresolved.",
+      "provenanceClass": "P4-intervention",
+      "sourceNodeIds": [
+        "SRC-2306.13087V1",
+        "SRC-2009.08404V2",
+        "SRC-1211.5555V1",
+        "SRC-2109.00098V1-UNREADABLE"
+      ],
+      "valueRole": "matched-intervention"
+    },
+    {
+      "active": false,
+      "arm": "ALL",
+      "authorityPath": "docs/libbrecht-parameters.md#2",
+      "dataFamilyIds": [
+        "DATA-RHO-ICE",
+        "DATA-LATTICE-A",
+        "DATA-GAMMA-SV",
+        "DATA-DSV"
+      ],
+      "operandId": "OP-INACTIVE-ICE-MATERIAL-DIAGNOSTICS",
+      "overlapRule": "Inactive diagnostic/material quantities require a reviewed catalog revision before any validation protocol may consume them.",
+      "provenanceClass": "inactive",
+      "sourceNodeIds": [
+        "SRC-1910.06389V2"
+      ],
+      "valueRole": "inactive-diagnostic"
+    },
+    {
+      "active": false,
+      "arm": "ALL",
+      "authorityPath": "docs/libbrecht-parameters.md#2",
+      "dataFamilyIds": [
+        "DATA-PWATER-CLOSED-FORM",
+        "DATA-CHI0-LATENT-HEAT",
+        "DATA-SPHERICAL-ANALYTIC"
+      ],
+      "operandId": "OP-INACTIVE-THERMAL-ANALYTIC",
+      "overlapRule": "Closed-form water/thermal/spherical diagnostics are nonoperative; activation requires physics/specification review and a catalog revision.",
+      "provenanceClass": "inactive",
+      "sourceNodeIds": [
+        "SRC-1910.06389V2",
+        "SRC-1910.09067V2"
+      ],
+      "valueRole": "inactive-physics"
+    },
+    {
+      "active": false,
+      "arm": "ALL",
+      "authorityPath": "docs/libbrecht-parameters.md#5",
+      "dataFamilyIds": [
+        "DATA-SDAK2",
+        "DATA-W0",
+        "DATA-FACET-M2"
+      ],
+      "operandId": "OP-INACTIVE-FACET-M2",
+      "overlapRule": "FACET/M2 width feedback and related closures are not M1 or no-dip operands; activation requires a reviewed catalog revision.",
+      "provenanceClass": "inactive",
+      "sourceNodeIds": [
+        "SRC-2306.04042V1"
+      ],
+      "valueRole": "inactive-model-branch"
+    },
+    {
+      "active": false,
+      "arm": "ALL",
+      "authorityPath": "docs/decisions/0036-phase6-sdak-arm-pre-registrations.md",
+      "dataFamilyIds": [
+        "DATA-HISTORICAL-BISTABILITY-EXCLUSION",
+        "DATA-HISTORICAL-TEMPERATURE-BRACKETS"
+      ],
+      "operandId": "OP-INACTIVE-HISTORICAL-EVALUATION",
+      "overlapRule": "Historical scoring exclusions and brackets are not inherited into R15; a successor scoring freeze must activate separately cataloged rows if it uses them.",
+      "provenanceClass": "inactive-historical",
+      "sourceNodeIds": [
+        "SRC-ADR0036"
+      ],
+      "valueRole": "inactive-evaluation"
+    }
+  ],
+  "dataFamilySupport": [
+    {
+      "operandId": "OP-SHARED-HK-LAW",
+      "dataFamilyId": "DATA-HK-ATTACHMENT-LAW",
+      "sourceSupport": [
+        {
+          "sourceNodeId": "SRC-1910.06389V2",
+          "supportRole": "source-model-law",
+          "edgeEvidenceClass": "inspectable-lineage-required"
+        },
+        {
+          "sourceNodeId": "SRC-1910.09067V2",
+          "supportRole": "source-model-law",
+          "edgeEvidenceClass": "inspectable-lineage-required"
+        }
+      ]
+    },
+    {
+      "operandId": "OP-SHARED-HK-LAW",
+      "dataFamilyId": "DATA-SUPERSATURATION-DEFINITION",
+      "sourceSupport": [
+        {
+          "sourceNodeId": "SRC-1910.06389V2",
+          "supportRole": "source-physical-definition",
+          "edgeEvidenceClass": "inspectable-lineage-required"
+        },
+        {
+          "sourceNodeId": "SRC-1910.09067V2",
+          "supportRole": "source-physical-definition",
+          "edgeEvidenceClass": "inspectable-lineage-required"
+        }
+      ]
+    },
+    {
+      "operandId": "OP-SHARED-CSAT-TEMPERATURE",
+      "dataFamilyId": "DATA-PICE-CSAT-EQ2.8",
+      "sourceSupport": [
+        {
+          "sourceNodeId": "SRC-1910.06389V2",
+          "supportRole": "source-fit-and-conversion-law",
+          "edgeEvidenceClass": "inspectable-lineage-required"
+        }
+      ]
+    },
+    {
+      "operandId": "OP-SHARED-CSAT-TEMPERATURE",
+      "dataFamilyId": "DATA-TEMPERATURE-MAPPING",
+      "sourceSupport": [
+        {
+          "sourceNodeId": "SRC-1910.06389V2",
+          "supportRole": "source-temperature-domain-and-law",
+          "edgeEvidenceClass": "inspectable-lineage-required"
+        }
+      ]
+    },
+    {
+      "operandId": "OP-SHARED-VKIN-METROLOGY",
+      "dataFamilyId": "DATA-VKIN-EQUATION",
+      "sourceSupport": [
+        {
+          "sourceNodeId": "SRC-1910.06389V2",
+          "supportRole": "source-model-law",
+          "edgeEvidenceClass": "inspectable-lineage-required"
+        },
+        {
+          "sourceNodeId": "SRC-1910.09067V2",
+          "supportRole": "source-model-law",
+          "edgeEvidenceClass": "inspectable-lineage-required"
+        }
+      ]
+    },
+    {
+      "operandId": "OP-SHARED-VKIN-METROLOGY",
+      "dataFamilyId": "DATA-EXACT-K",
+      "sourceSupport": [
+        {
+          "sourceNodeId": "SRC-BIPM-SI",
+          "supportRole": "universal-exact-definition",
+          "edgeEvidenceClass": "shared-exact-definition",
+          "authorityEvidenceDescriptorIds": [
+            "AUTH-BIPM-K-2026"
+          ]
+        }
+      ]
+    },
+    {
+      "operandId": "OP-SHARED-VKIN-METROLOGY",
+      "dataFamilyId": "DATA-CELSIUS-OFFSET",
+      "sourceSupport": [
+        {
+          "sourceNodeId": "SRC-BIPM-SI",
+          "supportRole": "universal-exact-definition",
+          "edgeEvidenceClass": "shared-exact-definition",
+          "authorityEvidenceDescriptorIds": [
+            "AUTH-BIPM-CELSIUS-2026"
+          ]
+        }
+      ]
+    },
+    {
+      "operandId": "OP-SHARED-VKIN-METROLOGY",
+      "dataFamilyId": "DATA-CICE-MMOL",
+      "sourceSupport": [
+        {
+          "sourceNodeId": "SRC-1910.06389V2",
+          "supportRole": "source-empirical-constant",
+          "edgeEvidenceClass": "inspectable-lineage-required"
+        },
+        {
+          "sourceNodeId": "SRC-1910.09067V2",
+          "supportRole": "equation-context-for-constant",
+          "edgeEvidenceClass": "inspectable-lineage-required"
+        }
+      ]
+    },
+    {
+      "operandId": "OP-SHARED-DIFFUSION-PRESSURE",
+      "dataFamilyId": "DATA-D-AIR",
+      "sourceSupport": [
+        {
+          "sourceNodeId": "SRC-1910.06389V2",
+          "supportRole": "source-empirical-transport-input",
+          "edgeEvidenceClass": "inspectable-lineage-required"
+        }
+      ]
+    },
+    {
+      "operandId": "OP-SHARED-DIFFUSION-PRESSURE",
+      "dataFamilyId": "DATA-P-INVERSE-LAW",
+      "sourceSupport": [
+        {
+          "sourceNodeId": "SRC-1910.06389V2",
+          "supportRole": "source-transport-law",
+          "edgeEvidenceClass": "inspectable-lineage-required"
+        }
+      ]
+    },
+    {
+      "operandId": "OP-SHARED-DIFFUSION-PRESSURE",
+      "dataFamilyId": "DATA-P-ATM",
+      "sourceSupport": [
+        {
+          "sourceNodeId": "SRC-CGPM-ATM",
+          "supportRole": "universal-exact-definition",
+          "edgeEvidenceClass": "shared-exact-definition",
+          "authorityEvidenceDescriptorIds": [
+            "AUTH-CGPM-ATM-1954"
+          ]
+        }
+      ]
+    },
+    {
+      "operandId": "OP-SHARED-SIGMA-WATER",
+      "dataFamilyId": "DATA-SIGMA-WATER-ANCHORS",
+      "sourceSupport": [
+        {
+          "sourceNodeId": "SRC-1910.06389V2",
+          "supportRole": "source-empirical-anchors",
+          "edgeEvidenceClass": "inspectable-lineage-required"
+        }
+      ]
+    },
+    {
+      "operandId": "OP-SHARED-SIGMA-WATER",
+      "dataFamilyId": "DATA-SIGMA-WATER-INTERPOLATION",
+      "sourceSupport": [
+        {
+          "sourceNodeId": "SRC-1910.06389V2",
+          "supportRole": "source-law-and-project-closure-lineage",
+          "edgeEvidenceClass": "inspectable-lineage-required"
+        }
+      ]
+    },
+    {
+      "operandId": "OP-SHARED-UNIT-CONVERSIONS",
+      "dataFamilyId": "DATA-PERCENT-FRACTION",
+      "sourceSupport": [
+        {
+          "sourceNodeId": "SRC-BIPM-SI",
+          "supportRole": "universal-exact-unit-definition",
+          "edgeEvidenceClass": "shared-exact-definition",
+          "authorityEvidenceDescriptorIds": [
+            "AUTH-BIPM-UNIT-CONVERSIONS-2026"
+          ]
+        }
+      ]
+    },
+    {
+      "operandId": "OP-SHARED-UNIT-CONVERSIONS",
+      "dataFamilyId": "DATA-MBAR-PA",
+      "sourceSupport": [
+        {
+          "sourceNodeId": "SRC-BIPM-SI",
+          "supportRole": "universal-exact-unit-definition",
+          "edgeEvidenceClass": "shared-exact-definition",
+          "authorityEvidenceDescriptorIds": [
+            "AUTH-BIPM-UNIT-CONVERSIONS-2026"
+          ]
+        },
+        {
+          "sourceNodeId": "SRC-CGPM-ATM",
+          "supportRole": "legacy-row-union-only",
+          "edgeEvidenceClass": "disclosed-nonsupport"
+        }
+      ]
+    },
+    {
+      "operandId": "OP-SHARED-DERIVED-X0-MICE",
+      "dataFamilyId": "DATA-DERIVED-X0",
+      "sourceSupport": [
+        {
+          "sourceNodeId": "SRC-1910.06389V2",
+          "supportRole": "transitive-source-input-lineage",
+          "edgeEvidenceClass": "inspectable-lineage-required"
+        },
+        {
+          "sourceNodeId": "SRC-1910.09067V2",
+          "supportRole": "transitive-source-input-lineage",
+          "edgeEvidenceClass": "inspectable-lineage-required"
+        },
+        {
+          "sourceNodeId": "SRC-BIPM-SI",
+          "supportRole": "transitive-universal-exact-input",
+          "edgeEvidenceClass": "shared-exact-definition",
+          "authorityEvidenceDescriptorIds": [
+            "AUTH-BIPM-K-2026",
+            "AUTH-BIPM-CELSIUS-2026"
+          ]
+        },
+        {
+          "sourceNodeId": "SRC-CGPM-ATM",
+          "supportRole": "transitive-universal-exact-input",
+          "edgeEvidenceClass": "shared-exact-definition",
+          "authorityEvidenceDescriptorIds": [
+            "AUTH-CGPM-ATM-1954"
+          ]
+        }
+      ]
+    },
+    {
+      "operandId": "OP-SHARED-DERIVED-X0-MICE",
+      "dataFamilyId": "DATA-DERIVED-MICE",
+      "sourceSupport": [
+        {
+          "sourceNodeId": "SRC-1910.06389V2",
+          "supportRole": "transitive-source-input-lineage",
+          "edgeEvidenceClass": "inspectable-lineage-required"
+        },
+        {
+          "sourceNodeId": "SRC-1910.09067V2",
+          "supportRole": "transitive-source-input-lineage",
+          "edgeEvidenceClass": "inspectable-lineage-required"
+        },
+        {
+          "sourceNodeId": "SRC-BIPM-SI",
+          "supportRole": "transitive-universal-exact-input",
+          "edgeEvidenceClass": "shared-exact-definition",
+          "authorityEvidenceDescriptorIds": [
+            "AUTH-BIPM-K-2026",
+            "AUTH-BIPM-CELSIUS-2026"
+          ]
+        }
+      ]
+    },
+    {
+      "operandId": "OP-CAK-SIGMA0-BASAL",
+      "dataFamilyId": "DATA-CAK-FIG4.5-SIGMA0-BASAL",
+      "sourceSupport": [
+        {
+          "sourceNodeId": "SRC-1910.06389V2",
+          "supportRole": "source-empirical-curve",
+          "edgeEvidenceClass": "inspectable-lineage-required"
+        },
+        {
+          "sourceNodeId": "SRC-CAK-DIGITIZATION-JSON",
+          "supportRole": "local-digitization-of-source-curve",
+          "edgeEvidenceClass": "inspectable-lineage-required"
+        }
+      ]
+    },
+    {
+      "operandId": "OP-CAK-SIGMA0-BASAL",
+      "dataFamilyId": "DATA-CAK-TRANSITIVE-BROAD-FACET",
+      "sourceSupport": [
+        {
+          "sourceNodeId": "SRC-1910.06389V2",
+          "supportRole": "transitive-source-lineage",
+          "edgeEvidenceClass": "inspectable-lineage-required"
+        },
+        {
+          "sourceNodeId": "SRC-1208.5982V1-MISSING",
+          "supportRole": "unresolved-upstream-empirical-lineage",
+          "edgeEvidenceClass": "inspectable-lineage-required"
+        }
+      ]
+    },
+    {
+      "operandId": "OP-CAK-SIGMA0-PRISM",
+      "dataFamilyId": "DATA-CAK-FIG4.5-SIGMA0-PRISM",
+      "sourceSupport": [
+        {
+          "sourceNodeId": "SRC-1910.06389V2",
+          "supportRole": "source-empirical-curve",
+          "edgeEvidenceClass": "inspectable-lineage-required"
+        },
+        {
+          "sourceNodeId": "SRC-CAK-DIGITIZATION-JSON",
+          "supportRole": "local-digitization-of-source-curve",
+          "edgeEvidenceClass": "inspectable-lineage-required"
+        }
+      ]
+    },
+    {
+      "operandId": "OP-CAK-SIGMA0-PRISM",
+      "dataFamilyId": "DATA-CAK-TRANSITIVE-BROAD-FACET",
+      "sourceSupport": [
+        {
+          "sourceNodeId": "SRC-1910.06389V2",
+          "supportRole": "transitive-source-lineage",
+          "edgeEvidenceClass": "inspectable-lineage-required"
+        },
+        {
+          "sourceNodeId": "SRC-1208.5982V1-MISSING",
+          "supportRole": "unresolved-upstream-empirical-lineage",
+          "edgeEvidenceClass": "inspectable-lineage-required"
+        }
+      ]
+    },
+    {
+      "operandId": "OP-CAK-PREFACTOR-BASAL",
+      "dataFamilyId": "DATA-CAK-FIG4.5-PREFACTOR-BASAL",
+      "sourceSupport": [
+        {
+          "sourceNodeId": "SRC-1910.06389V2",
+          "supportRole": "source-empirical-curve",
+          "edgeEvidenceClass": "inspectable-lineage-required"
+        },
+        {
+          "sourceNodeId": "SRC-CAK-DIGITIZATION-JSON",
+          "supportRole": "local-digitization-of-source-curve",
+          "edgeEvidenceClass": "inspectable-lineage-required"
+        }
+      ]
+    },
+    {
+      "operandId": "OP-CAK-PREFACTOR-BASAL",
+      "dataFamilyId": "DATA-CAK-TRANSITIVE-BROAD-FACET",
+      "sourceSupport": [
+        {
+          "sourceNodeId": "SRC-1910.06389V2",
+          "supportRole": "transitive-source-lineage",
+          "edgeEvidenceClass": "inspectable-lineage-required"
+        },
+        {
+          "sourceNodeId": "SRC-1208.5982V1-MISSING",
+          "supportRole": "unresolved-upstream-empirical-lineage",
+          "edgeEvidenceClass": "inspectable-lineage-required"
+        }
+      ]
+    },
+    {
+      "operandId": "OP-CAK-PREFACTOR-PRISM",
+      "dataFamilyId": "DATA-CAK-FIG4.5-PREFACTOR-PRISM",
+      "sourceSupport": [
+        {
+          "sourceNodeId": "SRC-1910.06389V2",
+          "supportRole": "source-empirical-curve",
+          "edgeEvidenceClass": "inspectable-lineage-required"
+        },
+        {
+          "sourceNodeId": "SRC-CAK-DIGITIZATION-JSON",
+          "supportRole": "local-digitization-of-source-curve",
+          "edgeEvidenceClass": "inspectable-lineage-required"
+        }
+      ]
+    },
+    {
+      "operandId": "OP-CAK-PREFACTOR-PRISM",
+      "dataFamilyId": "DATA-CAK-TRANSITIVE-BROAD-FACET",
+      "sourceSupport": [
+        {
+          "sourceNodeId": "SRC-1910.06389V2",
+          "supportRole": "transitive-source-lineage",
+          "edgeEvidenceClass": "inspectable-lineage-required"
+        },
+        {
+          "sourceNodeId": "SRC-1208.5982V1-MISSING",
+          "supportRole": "unresolved-upstream-empirical-lineage",
+          "edgeEvidenceClass": "inspectable-lineage-required"
+        }
+      ]
+    },
+    {
+      "operandId": "OP-CAK-INTERPOLATION-DOMAIN",
+      "dataFamilyId": "DATA-CAK-INTERPOLATION",
+      "sourceSupport": [
+        {
+          "sourceNodeId": "SRC-1910.06389V2",
+          "supportRole": "source-range-and-project-interpolation-lineage",
+          "edgeEvidenceClass": "inspectable-lineage-required"
+        }
+      ]
+    },
+    {
+      "operandId": "OP-CAK-INTERPOLATION-DOMAIN",
+      "dataFamilyId": "DATA-CAK-EXTRAPOLATION-DOMAIN",
+      "sourceSupport": [
+        {
+          "sourceNodeId": "SRC-1910.06389V2",
+          "supportRole": "source-range-and-project-domain-lineage",
+          "edgeEvidenceClass": "inspectable-lineage-required"
+        }
+      ]
+    },
+    {
+      "operandId": "OP-M1-BROAD-BASAL",
+      "dataFamilyId": "DATA-M1-BROAD-BASAL",
+      "sourceSupport": [
+        {
+          "sourceNodeId": "SRC-2306.13087V1",
+          "supportRole": "source-closed-form",
+          "edgeEvidenceClass": "inspectable-lineage-required"
+        },
+        {
+          "sourceNodeId": "SRC-1208.5982V1-MISSING",
+          "supportRole": "unresolved-upstream-empirical-lineage",
+          "edgeEvidenceClass": "inspectable-lineage-required"
+        }
+      ]
+    },
+    {
+      "operandId": "OP-M1-BROAD-PRISM",
+      "dataFamilyId": "DATA-M1-BROAD-PRISM",
+      "sourceSupport": [
+        {
+          "sourceNodeId": "SRC-2306.13087V1",
+          "supportRole": "source-closed-form",
+          "edgeEvidenceClass": "inspectable-lineage-required"
+        },
+        {
+          "sourceNodeId": "SRC-1208.5982V1-MISSING",
+          "supportRole": "unresolved-upstream-empirical-lineage",
+          "edgeEvidenceClass": "inspectable-lineage-required"
+        }
+      ]
+    },
+    {
+      "operandId": "OP-M1-PREFACTORS",
+      "dataFamilyId": "DATA-M1-PREFACTOR-UNITY",
+      "sourceSupport": [
+        {
+          "sourceNodeId": "SRC-2306.13087V1",
+          "supportRole": "source-prescription",
+          "edgeEvidenceClass": "inspectable-lineage-required"
+        }
+      ]
+    },
+    {
+      "operandId": "OP-M1-PREFACTORS",
+      "dataFamilyId": "DATA-M1-PREFACTOR-RATIONALE",
+      "sourceSupport": [
+        {
+          "sourceNodeId": "SRC-2306.13087V1",
+          "supportRole": "source-rationale",
+          "edgeEvidenceClass": "inspectable-lineage-required"
+        },
+        {
+          "sourceNodeId": "SRC-2004.06212V1",
+          "supportRole": "upstream-source-rationale",
+          "edgeEvidenceClass": "inspectable-lineage-required"
+        }
+      ]
+    },
+    {
+      "operandId": "OP-M1-BASAL-DIP",
+      "dataFamilyId": "DATA-M1-BASAL-DIP",
+      "sourceSupport": [
+        {
+          "sourceNodeId": "SRC-2306.13087V1",
+          "supportRole": "source-closed-form-and-selection",
+          "edgeEvidenceClass": "inspectable-lineage-required"
+        },
+        {
+          "sourceNodeId": "SRC-2011.02353V1",
+          "supportRole": "upstream-mechanism-lineage",
+          "edgeEvidenceClass": "inspectable-lineage-required"
+        }
+      ]
+    },
+    {
+      "operandId": "OP-M1-BASAL-DIP",
+      "dataFamilyId": "DATA-NAKAYA-HABIT-TUNING",
+      "sourceSupport": [
+        {
+          "sourceNodeId": "SRC-2306.13087V1",
+          "supportRole": "source-selection-lineage",
+          "edgeEvidenceClass": "inspectable-lineage-required"
+        },
+        {
+          "sourceNodeId": "SRC-1211.5555V1",
+          "supportRole": "habit-data-selection-lineage",
+          "edgeEvidenceClass": "inspectable-lineage-required"
+        },
+        {
+          "sourceNodeId": "SRC-2109.00098V1-UNREADABLE",
+          "supportRole": "unresolved-habit-data-selection-lineage",
+          "edgeEvidenceClass": "inspectable-lineage-required"
+        }
+      ]
+    },
+    {
+      "operandId": "OP-M1-PRISM-DIP",
+      "dataFamilyId": "DATA-M1-PRISM-DIP",
+      "sourceSupport": [
+        {
+          "sourceNodeId": "SRC-2306.13087V1",
+          "supportRole": "source-closed-form-and-selection",
+          "edgeEvidenceClass": "inspectable-lineage-required"
+        },
+        {
+          "sourceNodeId": "SRC-2009.08404V2",
+          "supportRole": "upstream-mechanism-lineage",
+          "edgeEvidenceClass": "inspectable-lineage-required"
+        }
+      ]
+    },
+    {
+      "operandId": "OP-M1-PRISM-DIP",
+      "dataFamilyId": "DATA-NAKAYA-HABIT-TUNING",
+      "sourceSupport": [
+        {
+          "sourceNodeId": "SRC-2306.13087V1",
+          "supportRole": "source-selection-lineage",
+          "edgeEvidenceClass": "inspectable-lineage-required"
+        },
+        {
+          "sourceNodeId": "SRC-1211.5555V1",
+          "supportRole": "habit-data-selection-lineage",
+          "edgeEvidenceClass": "inspectable-lineage-required"
+        },
+        {
+          "sourceNodeId": "SRC-2109.00098V1-UNREADABLE",
+          "supportRole": "unresolved-habit-data-selection-lineage",
+          "edgeEvidenceClass": "inspectable-lineage-required"
+        }
+      ]
+    },
+    {
+      "operandId": "OP-M1-LOG10-INTERPRETATION",
+      "dataFamilyId": "DATA-M1-LOG10-WIDTH-INTERPRETATION",
+      "sourceSupport": [
+        {
+          "sourceNodeId": "SRC-2306.13087V1",
+          "supportRole": "source-formula-with-ambiguous-log-base",
+          "edgeEvidenceClass": "inspectable-lineage-required"
+        },
+        {
+          "sourceNodeId": "SRC-M1-FIG1-CROP",
+          "supportRole": "local-qualitative-interpretation-evidence",
+          "edgeEvidenceClass": "inspectable-lineage-required"
+        }
+      ]
+    },
+    {
+      "operandId": "OP-M1-CONVERSION-DOMAIN",
+      "dataFamilyId": "DATA-M1-PERCENT-FRACTION",
+      "sourceSupport": [
+        {
+          "sourceNodeId": "SRC-2306.13087V1",
+          "supportRole": "source-unit-notation-and-conversion-lineage",
+          "edgeEvidenceClass": "inspectable-lineage-required"
+        }
+      ]
+    },
+    {
+      "operandId": "OP-M1-CONVERSION-DOMAIN",
+      "dataFamilyId": "DATA-M1-MAGNITUDE-DOMAIN",
+      "sourceSupport": [
+        {
+          "sourceNodeId": "SRC-2306.13087V1",
+          "supportRole": "source-magnitude-and-temperature-domain",
+          "edgeEvidenceClass": "inspectable-lineage-required"
+        }
+      ]
+    },
+    {
+      "operandId": "OP-NODIP-BROAD-BASAL",
+      "dataFamilyId": "DATA-M1-BROAD-BASAL",
+      "sourceSupport": [
+        {
+          "sourceNodeId": "SRC-2306.13087V1",
+          "supportRole": "inherited-source-closed-form",
+          "edgeEvidenceClass": "inspectable-lineage-required"
+        },
+        {
+          "sourceNodeId": "SRC-1208.5982V1-MISSING",
+          "supportRole": "inherited-unresolved-upstream-empirical-lineage",
+          "edgeEvidenceClass": "inspectable-lineage-required"
+        }
+      ]
+    },
+    {
+      "operandId": "OP-NODIP-BROAD-PRISM",
+      "dataFamilyId": "DATA-M1-BROAD-PRISM",
+      "sourceSupport": [
+        {
+          "sourceNodeId": "SRC-2306.13087V1",
+          "supportRole": "inherited-source-closed-form",
+          "edgeEvidenceClass": "inspectable-lineage-required"
+        },
+        {
+          "sourceNodeId": "SRC-1208.5982V1-MISSING",
+          "supportRole": "inherited-unresolved-upstream-empirical-lineage",
+          "edgeEvidenceClass": "inspectable-lineage-required"
+        }
+      ]
+    },
+    {
+      "operandId": "OP-NODIP-PREFACTOR-CONVERSION-DOMAIN",
+      "dataFamilyId": "DATA-M1-PREFACTOR-UNITY",
+      "sourceSupport": [
+        {
+          "sourceNodeId": "SRC-2306.13087V1",
+          "supportRole": "inherited-source-prescription",
+          "edgeEvidenceClass": "inspectable-lineage-required"
+        },
+        {
+          "sourceNodeId": "SRC-2004.06212V1",
+          "supportRole": "inherited-upstream-rationale",
+          "edgeEvidenceClass": "inspectable-lineage-required"
+        }
+      ]
+    },
+    {
+      "operandId": "OP-NODIP-PREFACTOR-CONVERSION-DOMAIN",
+      "dataFamilyId": "DATA-M1-PERCENT-FRACTION",
+      "sourceSupport": [
+        {
+          "sourceNodeId": "SRC-2306.13087V1",
+          "supportRole": "inherited-source-unit-notation-and-conversion-lineage",
+          "edgeEvidenceClass": "inspectable-lineage-required"
+        }
+      ]
+    },
+    {
+      "operandId": "OP-NODIP-PREFACTOR-CONVERSION-DOMAIN",
+      "dataFamilyId": "DATA-M1-MAGNITUDE-DOMAIN",
+      "sourceSupport": [
+        {
+          "sourceNodeId": "SRC-2306.13087V1",
+          "supportRole": "inherited-source-magnitude-and-temperature-domain",
+          "edgeEvidenceClass": "inspectable-lineage-required"
+        }
+      ]
+    },
+    {
+      "operandId": "OP-NODIP-BASAL-INTERVENTION",
+      "dataFamilyId": "DATA-NODIP-BASAL-INTERVENTION",
+      "sourceSupport": [
+        {
+          "sourceNodeId": "SRC-2306.13087V1",
+          "supportRole": "counterfactual-intervention-target",
+          "edgeEvidenceClass": "inspectable-lineage-required"
+        }
+      ]
+    },
+    {
+      "operandId": "OP-NODIP-BASAL-INTERVENTION",
+      "dataFamilyId": "DATA-M1-BASAL-DIP-SELECTION-HISTORY",
+      "sourceSupport": [
+        {
+          "sourceNodeId": "SRC-2306.13087V1",
+          "supportRole": "removed-source-selection-lineage",
+          "edgeEvidenceClass": "inspectable-lineage-required"
+        },
+        {
+          "sourceNodeId": "SRC-2011.02353V1",
+          "supportRole": "removed-upstream-mechanism-lineage",
+          "edgeEvidenceClass": "inspectable-lineage-required"
+        },
+        {
+          "sourceNodeId": "SRC-1211.5555V1",
+          "supportRole": "removed-habit-data-selection-lineage",
+          "edgeEvidenceClass": "inspectable-lineage-required"
+        },
+        {
+          "sourceNodeId": "SRC-2109.00098V1-UNREADABLE",
+          "supportRole": "unresolved-removed-habit-data-selection-lineage",
+          "edgeEvidenceClass": "inspectable-lineage-required"
+        }
+      ]
+    },
+    {
+      "operandId": "OP-NODIP-PRISM-INTERVENTION",
+      "dataFamilyId": "DATA-NODIP-PRISM-INTERVENTION",
+      "sourceSupport": [
+        {
+          "sourceNodeId": "SRC-2306.13087V1",
+          "supportRole": "counterfactual-intervention-target",
+          "edgeEvidenceClass": "inspectable-lineage-required"
+        }
+      ]
+    },
+    {
+      "operandId": "OP-NODIP-PRISM-INTERVENTION",
+      "dataFamilyId": "DATA-M1-PRISM-DIP-SELECTION-HISTORY",
+      "sourceSupport": [
+        {
+          "sourceNodeId": "SRC-2306.13087V1",
+          "supportRole": "removed-source-selection-lineage",
+          "edgeEvidenceClass": "inspectable-lineage-required"
+        },
+        {
+          "sourceNodeId": "SRC-2009.08404V2",
+          "supportRole": "removed-upstream-mechanism-lineage",
+          "edgeEvidenceClass": "inspectable-lineage-required"
+        },
+        {
+          "sourceNodeId": "SRC-1211.5555V1",
+          "supportRole": "removed-habit-data-selection-lineage",
+          "edgeEvidenceClass": "inspectable-lineage-required"
+        },
+        {
+          "sourceNodeId": "SRC-2109.00098V1-UNREADABLE",
+          "supportRole": "unresolved-removed-habit-data-selection-lineage",
+          "edgeEvidenceClass": "inspectable-lineage-required"
+        }
+      ]
+    },
+    {
+      "operandId": "OP-INACTIVE-ICE-MATERIAL-DIAGNOSTICS",
+      "dataFamilyId": "DATA-RHO-ICE",
+      "sourceSupport": [
+        {
+          "sourceNodeId": "SRC-1910.06389V2",
+          "supportRole": "inactive-source-empirical-constant",
+          "edgeEvidenceClass": "inspectable-lineage-required"
+        }
+      ]
+    },
+    {
+      "operandId": "OP-INACTIVE-ICE-MATERIAL-DIAGNOSTICS",
+      "dataFamilyId": "DATA-LATTICE-A",
+      "sourceSupport": [
+        {
+          "sourceNodeId": "SRC-1910.06389V2",
+          "supportRole": "inactive-derived-source-input",
+          "edgeEvidenceClass": "inspectable-lineage-required"
+        }
+      ]
+    },
+    {
+      "operandId": "OP-INACTIVE-ICE-MATERIAL-DIAGNOSTICS",
+      "dataFamilyId": "DATA-GAMMA-SV",
+      "sourceSupport": [
+        {
+          "sourceNodeId": "SRC-1910.06389V2",
+          "supportRole": "inactive-source-empirical-constant",
+          "edgeEvidenceClass": "inspectable-lineage-required"
+        }
+      ]
+    },
+    {
+      "operandId": "OP-INACTIVE-ICE-MATERIAL-DIAGNOSTICS",
+      "dataFamilyId": "DATA-DSV",
+      "sourceSupport": [
+        {
+          "sourceNodeId": "SRC-1910.06389V2",
+          "supportRole": "inactive-derived-source-input",
+          "edgeEvidenceClass": "inspectable-lineage-required"
+        }
+      ]
+    },
+    {
+      "operandId": "OP-INACTIVE-THERMAL-ANALYTIC",
+      "dataFamilyId": "DATA-PWATER-CLOSED-FORM",
+      "sourceSupport": [
+        {
+          "sourceNodeId": "SRC-1910.06389V2",
+          "supportRole": "inactive-source-fit",
+          "edgeEvidenceClass": "inspectable-lineage-required"
+        }
+      ]
+    },
+    {
+      "operandId": "OP-INACTIVE-THERMAL-ANALYTIC",
+      "dataFamilyId": "DATA-CHI0-LATENT-HEAT",
+      "sourceSupport": [
+        {
+          "sourceNodeId": "SRC-1910.06389V2",
+          "supportRole": "inactive-source-analytic",
+          "edgeEvidenceClass": "inspectable-lineage-required"
+        }
+      ]
+    },
+    {
+      "operandId": "OP-INACTIVE-THERMAL-ANALYTIC",
+      "dataFamilyId": "DATA-SPHERICAL-ANALYTIC",
+      "sourceSupport": [
+        {
+          "sourceNodeId": "SRC-1910.06389V2",
+          "supportRole": "inactive-source-analytic",
+          "edgeEvidenceClass": "inspectable-lineage-required"
+        },
+        {
+          "sourceNodeId": "SRC-1910.09067V2",
+          "supportRole": "inactive-source-equation-context",
+          "edgeEvidenceClass": "inspectable-lineage-required"
+        }
+      ]
+    },
+    {
+      "operandId": "OP-INACTIVE-FACET-M2",
+      "dataFamilyId": "DATA-SDAK2",
+      "sourceSupport": [
+        {
+          "sourceNodeId": "SRC-2306.04042V1",
+          "supportRole": "inactive-source-model-branch",
+          "edgeEvidenceClass": "inspectable-lineage-required"
+        }
+      ]
+    },
+    {
+      "operandId": "OP-INACTIVE-FACET-M2",
+      "dataFamilyId": "DATA-W0",
+      "sourceSupport": [
+        {
+          "sourceNodeId": "SRC-2306.04042V1",
+          "supportRole": "inactive-source-model-branch",
+          "edgeEvidenceClass": "inspectable-lineage-required"
+        }
+      ]
+    },
+    {
+      "operandId": "OP-INACTIVE-FACET-M2",
+      "dataFamilyId": "DATA-FACET-M2",
+      "sourceSupport": [
+        {
+          "sourceNodeId": "SRC-2306.04042V1",
+          "supportRole": "inactive-source-model-branch",
+          "edgeEvidenceClass": "inspectable-lineage-required"
+        }
+      ]
+    },
+    {
+      "operandId": "OP-INACTIVE-HISTORICAL-EVALUATION",
+      "dataFamilyId": "DATA-HISTORICAL-BISTABILITY-EXCLUSION",
+      "sourceSupport": [
+        {
+          "sourceNodeId": "SRC-ADR0036",
+          "supportRole": "inactive-superseded-project-record",
+          "edgeEvidenceClass": "inspectable-lineage-required"
+        }
+      ]
+    },
+    {
+      "operandId": "OP-INACTIVE-HISTORICAL-EVALUATION",
+      "dataFamilyId": "DATA-HISTORICAL-TEMPERATURE-BRACKETS",
+      "sourceSupport": [
+        {
+          "sourceNodeId": "SRC-ADR0036",
+          "supportRole": "inactive-superseded-project-record",
+          "edgeEvidenceClass": "inspectable-lineage-required"
+        }
+      ]
+    }
+  ],
+  "schema": "phase6-wp1-independence-operand-catalog-v4.1-author-candidate",
+  "sharedExactDefinitionAuthorityEvidence": [
+    {
+      "authorityEvidenceDescriptorId": "AUTH-BIPM-K-2026",
+      "authorityKind": "international-metrology-defining-constant",
+      "authoritativeIdentifier": "doi:10.59161/AUEZ1291",
+      "authoritativeLocator": "BIPM SI Brochure, 9th edition, version 4.01 (June 2026), defining constants table",
+      "coveredSupportPairs": [
+        {
+          "operandId": "OP-SHARED-VKIN-METROLOGY",
+          "dataFamilyId": "DATA-EXACT-K"
+        },
+        {
+          "operandId": "OP-SHARED-DERIVED-X0-MICE",
+          "dataFamilyId": "DATA-DERIVED-X0"
+        },
+        {
+          "operandId": "OP-SHARED-DERIVED-X0-MICE",
+          "dataFamilyId": "DATA-DERIVED-MICE"
+        }
+      ],
+      "definitionClaim": "Boltzmann constant k is exactly 1.380649e-23 J K^-1.",
+      "empiricalIndependenceLocalBytesRequired": false,
+      "provenanceRecordPath": "docs/libbrecht-parameters.md#2",
+      "requiredAuthorityEvidence": [
+        "resolved-authoritative-origin",
+        "identifier-and-edition-match",
+        "definition-and-exact-status-transcription"
+      ],
+      "requiredCurrencyEvidence": "The registry's rule12-exact-definition-authority-v1 family must close this exact authorityCurrencySubjectId through the prospective cutoff; a generic primary-candidate currency result cannot satisfy it.",
+      "sourceNodeId": "SRC-BIPM-SI",
+      "authorityCurrencySubjectId": "AUTHORITY-SUBJECT-BIPM-SI-9E-V4.01"
+    },
+    {
+      "authorityEvidenceDescriptorId": "AUTH-BIPM-CELSIUS-2026",
+      "authorityKind": "international-metrology-exact-temperature-definition",
+      "authoritativeIdentifier": "doi:10.59161/AUEZ1291",
+      "authoritativeLocator": "BIPM SI Brochure, 9th edition, version 4.01 (June 2026), section 2.3.1",
+      "coveredSupportPairs": [
+        {
+          "operandId": "OP-SHARED-VKIN-METROLOGY",
+          "dataFamilyId": "DATA-CELSIUS-OFFSET"
+        },
+        {
+          "operandId": "OP-SHARED-DERIVED-X0-MICE",
+          "dataFamilyId": "DATA-DERIVED-X0"
+        },
+        {
+          "operandId": "OP-SHARED-DERIVED-X0-MICE",
+          "dataFamilyId": "DATA-DERIVED-MICE"
+        }
+      ],
+      "definitionClaim": "The Celsius-to-kelvin offset is exactly 273.15 K.",
+      "empiricalIndependenceLocalBytesRequired": false,
+      "provenanceRecordPath": "docs/libbrecht-parameters.md#2",
+      "requiredAuthorityEvidence": [
+        "resolved-authoritative-origin",
+        "identifier-and-edition-match",
+        "definition-and-exact-status-transcription"
+      ],
+      "requiredCurrencyEvidence": "The registry's rule12-exact-definition-authority-v1 family must close this exact authorityCurrencySubjectId through the prospective cutoff; a generic primary-candidate currency result cannot satisfy it.",
+      "sourceNodeId": "SRC-BIPM-SI",
+      "authorityCurrencySubjectId": "AUTHORITY-SUBJECT-BIPM-SI-9E-V4.01"
+    },
+    {
+      "authorityEvidenceDescriptorId": "AUTH-BIPM-UNIT-CONVERSIONS-2026",
+      "authorityKind": "international-metrology-exact-unit-definition",
+      "authoritativeIdentifier": "doi:10.59161/AUEZ1291",
+      "authoritativeLocator": "BIPM SI Brochure, 9th edition, version 4.01 (June 2026), SI and accepted non-SI unit definitions",
+      "coveredSupportPairs": [
+        {
+          "operandId": "OP-SHARED-UNIT-CONVERSIONS",
+          "dataFamilyId": "DATA-PERCENT-FRACTION"
+        },
+        {
+          "operandId": "OP-SHARED-UNIT-CONVERSIONS",
+          "dataFamilyId": "DATA-MBAR-PA"
+        }
+      ],
+      "definitionClaim": "Percent-to-fraction and millibar-to-pascal conversions are exact unit conversions.",
+      "empiricalIndependenceLocalBytesRequired": false,
+      "provenanceRecordPath": "docs/libbrecht-parameters.md#2",
+      "requiredAuthorityEvidence": [
+        "resolved-authoritative-origin",
+        "identifier-and-edition-match",
+        "unit-definition-and-exact-conversion-transcription"
+      ],
+      "requiredCurrencyEvidence": "The registry's rule12-exact-definition-authority-v1 family must close this exact authorityCurrencySubjectId through the prospective cutoff; a generic primary-candidate currency result cannot satisfy it.",
+      "sourceNodeId": "SRC-BIPM-SI",
+      "authorityCurrencySubjectId": "AUTHORITY-SUBJECT-BIPM-SI-9E-V4.01"
+    },
+    {
+      "authorityEvidenceDescriptorId": "AUTH-CGPM-ATM-1954",
+      "authorityKind": "international-metrology-exact-pressure-definition",
+      "authoritativeIdentifier": "doi:10.59161/CGPM1954RES4E",
+      "authoritativeLocator": "10th CGPM (1954), Resolution 4, Proceedings p. 79",
+      "coveredSupportPairs": [
+        {
+          "operandId": "OP-SHARED-DIFFUSION-PRESSURE",
+          "dataFamilyId": "DATA-P-ATM"
+        },
+        {
+          "operandId": "OP-SHARED-DERIVED-X0-MICE",
+          "dataFamilyId": "DATA-DERIVED-X0"
+        }
+      ],
+      "definitionClaim": "One standard atmosphere is exactly 101325 Pa.",
+      "empiricalIndependenceLocalBytesRequired": false,
+      "provenanceRecordPath": "docs/libbrecht-parameters.md#2",
+      "requiredAuthorityEvidence": [
+        "resolved-authoritative-origin",
+        "identifier-and-resolution-match",
+        "definition-and-exact-status-transcription"
+      ],
+      "requiredCurrencyEvidence": "The registry's rule12-exact-definition-authority-v1 family must close this exact authorityCurrencySubjectId through the prospective cutoff; a generic primary-candidate currency result cannot satisfy it.",
+      "sourceNodeId": "SRC-CGPM-ATM",
+      "authorityCurrencySubjectId": "AUTHORITY-SUBJECT-CGPM-ATM-1954"
+    }
+  ],
+  "catalogResultPromotionRule": {
+    "evaluationScope": "per-active-arm",
+    "empiricalIndependenceVerdictStates": [
+      "independent",
+      "overlap",
+      "unresolved"
+    ],
+    "projectSelectionLineageVerdictStates": [
+      "verified-no-candidate-reuse",
+      "overlap",
+      "unresolved"
+    ],
+    "sharedExactDefinitionAuthorityVerdictStates": [
+      "verified",
+      "unresolved",
+      "failed"
+    ],
+    "empiricalSourceCurrencyVerdictStates": [
+      "verified-current-through-cutoff",
+      "unresolved",
+      "failed"
+    ],
+    "exactDefinitionAuthorityCurrencyVerdictStates": [
+      "verified-current-through-cutoff",
+      "unresolved",
+      "failed"
+    ],
+    "localLineageIntegrityVerdictStates": [
+      "verified",
+      "unresolved",
+      "failed"
+    ],
+    "catalogIntegrityVerdictStates": [
+      "verified",
+      "failed"
+    ],
+    "overallPromotionEligibilityStates": [
+      "eligible",
+      "blocked"
+    ],
+    "armScopedOverlapRule": "Empirical or project-selection overlap affects only the arm whose operand/support record is implicated. Candidate-global source invalidity is evaluated separately by the search registry and cannot be inferred from another arm's overlap.",
+    "overallPromotionConjunction": {
+      "operator": "AND",
+      "clauses": [
+        {
+          "field": "empiricalIndependenceVerdict",
+          "equals": "independent"
+        },
+        {
+          "field": "projectSelectionLineageVerdict",
+          "equals": "verified-no-candidate-reuse"
+        },
+        {
+          "field": "sharedExactDefinitionAuthorityVerdict",
+          "equals": "verified"
+        },
+        {
+          "field": "empiricalSourceCurrencyVerdict",
+          "equals": "verified-current-through-cutoff"
+        },
+        {
+          "field": "exactDefinitionAuthorityCurrencyVerdict",
+          "equals": "verified-current-through-cutoff"
+        },
+        {
+          "field": "localLineageIntegrityVerdict",
+          "equals": "verified"
+        },
+        {
+          "field": "catalogIntegrityVerdict",
+          "equals": "verified"
+        }
+      ],
+      "trueResult": "eligible",
+      "falseResult": "blocked"
+    },
+    "separationInvariant": "Each component remains separately reportable. Exact-definition authority/currentness and local byte integrity never change empirical independence, while any unresolved or failed component blocks overall promotion."
+  },
+  "sourceNodeMemberships": [
+    {
+      "sourceNodeId": "SRC-1910.06389V2",
+      "proofMembership": "active-support",
+      "sourceNature": "empirical-and-model-publication"
+    },
+    {
+      "sourceNodeId": "SRC-1910.09067V2",
+      "proofMembership": "active-support",
+      "sourceNature": "empirical-and-model-publication"
+    },
+    {
+      "sourceNodeId": "SRC-1208.5982V1-MISSING",
+      "proofMembership": "active-support",
+      "sourceNature": "missing-empirical-publication"
+    },
+    {
+      "sourceNodeId": "SRC-1211.5555V1",
+      "proofMembership": "active-support",
+      "sourceNature": "empirical-and-model-publication"
+    },
+    {
+      "sourceNodeId": "SRC-2306.13087V1",
+      "proofMembership": "active-support",
+      "sourceNature": "empirical-and-model-publication"
+    },
+    {
+      "sourceNodeId": "SRC-2109.00098V1-UNREADABLE",
+      "proofMembership": "active-support",
+      "sourceNature": "unreadable-empirical-publication"
+    },
+    {
+      "sourceNodeId": "SRC-2004.06212V1",
+      "proofMembership": "active-support",
+      "sourceNature": "empirical-and-model-publication"
+    },
+    {
+      "sourceNodeId": "SRC-2009.08404V2",
+      "proofMembership": "active-support",
+      "sourceNature": "empirical-and-model-publication"
+    },
+    {
+      "sourceNodeId": "SRC-2011.02353V1",
+      "proofMembership": "active-support",
+      "sourceNature": "empirical-and-model-publication"
+    },
+    {
+      "sourceNodeId": "SRC-2012.12916V1",
+      "proofMembership": "unreferenced-context-only",
+      "sourceNature": "context-publication"
+    },
+    {
+      "sourceNodeId": "SRC-2106.09809V1",
+      "proofMembership": "unreferenced-context-only",
+      "sourceNature": "context-publication"
+    },
+    {
+      "sourceNodeId": "SRC-1912.03230V1",
+      "proofMembership": "unreferenced-context-only",
+      "sourceNature": "context-publication"
+    },
+    {
+      "sourceNodeId": "SRC-1912.09440V1",
+      "proofMembership": "unreferenced-context-only",
+      "sourceNature": "context-publication"
+    },
+    {
+      "sourceNodeId": "SRC-2306.04042V1",
+      "proofMembership": "inactive-only-support",
+      "sourceNature": "empirical-and-model-publication"
+    },
+    {
+      "sourceNodeId": "SRC-CAK-DIGITIZATION-JSON",
+      "proofMembership": "active-support",
+      "sourceNature": "local-derived-evidence"
+    },
+    {
+      "sourceNodeId": "SRC-M1-FIG1-CROP",
+      "proofMembership": "active-support",
+      "sourceNature": "local-derived-evidence"
+    },
+    {
+      "sourceNodeId": "SRC-BIPM-SI",
+      "proofMembership": "active-support",
+      "sourceNature": "shared-exact-definition-authority"
+    },
+    {
+      "sourceNodeId": "SRC-CGPM-ATM",
+      "proofMembership": "active-support",
+      "sourceNature": "shared-exact-definition-authority"
+    },
+    {
+      "sourceNodeId": "SRC-ADR0036",
+      "proofMembership": "inactive-only-support",
+      "sourceNature": "superseded-project-record"
+    },
+    {
+      "sourceNodeId": "SRC-2017LIB-MISSING",
+      "proofMembership": "unreferenced-context-only",
+      "sourceNature": "missing-context-publication"
+    }
+  ],
+  "catalogInvariants": {
+    "closedWorldSupportMapping": "Every rows[].operandId/dataFamilyIds[] pair occurs exactly once in dataFamilySupport. Only listed sourceSupport edges support that data family; no node-wide evidence class or exemption exists.",
+    "edgeClassClosure": "Every sourceSupport edge names a sourceNodes entry. shared-exact-definition edges must bind nonempty authorityEvidenceDescriptorIds whose descriptors name the same sourceNodeId and explicitly include that operandId/dataFamilyId in coveredSupportPairs; other edge classes must not bind authorityEvidenceDescriptorIds.",
+    "generatedFromCanonicalization": "For each generatedFrom path, enforce generatedFromHashDomain exactly: repository-root-relative regular file at that path; reject aliases, symlinks, junctions and reparse substitution; strict UTF-8 with no BOM, malformed bytes or lone carriage returns; convert only CRLF pairs to LF; perform no Unicode normalization; preserve terminal-LF presence; SHA-256 the resulting bytes.",
+    "legacyRowUnionRule": "For dataFamilySupport only, each row's mapped sourceNodeIds remains a subset of the unchanged v1 rows[].sourceNodeIds and disclosed-nonsupport has no evidentiary role. projectSelectionSupport is an explicitly separate successor provenance universe and must not be rejected by, merged into, or used to bypass this legacy source-node rule.",
+    "membershipRule": "sourceNodeMemberships is a disjoint exhaustive partition of sourceNodes. active-support means at least one non-disclosed edge on an active row; inactive-only-support means at least one non-disclosed edge and none on an active row; unreferenced-context-only means no non-disclosed edge and is forbidden from affecting an active proof.",
+    "sourceNatureRule": "A shared-exact-definition-authority node may have only shared-exact-definition or disclosed-nonsupport edges and every shared-exact-definition edge must satisfy edgeClassClosure. All empirical, model-publication, local-derived-evidence, and project-record natures are forbidden from conferring an exact-definition exemption; their supporting edges must be inspectable-lineage-required.",
+    "rowActivationRule": "Only rows with active=true participate in the current empirical-independence reduction. Activating any inactive row or any unreferenced-context-only node requires a reviewed successor catalog.",
+    "expectedCounts": {
+      "rows": 28,
+      "activeRows": 24,
+      "inactiveRows": 4,
+      "sourceNodes": 20,
+      "dataFamilyOccurrences": 59,
+      "uniqueDataFamilyIds": 50,
+      "dataFamilySupportRecords": 59,
+      "sourceSupportEdges": 97,
+      "inspectableLineageRequiredEdges": 88,
+      "sharedExactDefinitionEdges": 8,
+      "disclosedNonsupportEdges": 1,
+      "authorityEvidenceDescriptors": 4,
+      "sourceNodeMemberships": 20,
+      "negativeControlDetectorIds": 7,
+      "negativeControlIntents": 7,
+      "projectSelectionSupportRecords": 6,
+      "projectSelectionArmBindings": 17,
+      "projectSelectionOperandBindings": 118,
+      "empiricalPublicationCurrencySubjects": 9,
+      "exactDefinitionAuthorityDescriptors": 4,
+      "localLineageSourceNodes": 2
+    },
+    "projectSelectionClosure": "Every projectSelectionSupport path/hash exactly matches one generatedFrom member; IDs, paths, and hashes are unique; affected arms exist; affected operands are active members of every named arm or of ALL; affected data families occur on those operands; every active P3/P4, project-closure, selection, or intervention row is covered; each affected arm receives an independent candidate-comparison disposition for every required record.",
+    "currencyUniverseClosure": "Recompute all three currencySubjectUniverses from active mapping edges, authority descriptors, local nodes, and project-selection records. The universes are disjoint by role, exhaustive under their derivations, and feed different promotion fields.",
+    "reviewFindingClosure": "reviewFindingRegistry.requiredFindingIds is unique and sorted by UTF-16 code-unit order; every ID exists exactly once in the governed review-finding record and no producer-authored disposition can count as review acceptance."
+  },
+  "negativeControlDetectorIds": [
+    "CATV3_DETECT_SOURCE_NATURE_EDGE_CLOSURE",
+    "CATV3_DETECT_MEMBERSHIP_DERIVATION",
+    "CATV3_DETECT_AUTHORITY_DESCRIPTOR_CLOSURE",
+    "CATV3_DETECT_PROMOTION_CONJUNCTION",
+    "CATV4_DETECT_PROJECT_SELECTION_CLOSURE",
+    "CATV4_DETECT_CURRENCY_UNIVERSE_SEPARATION",
+    "CATV4_DETECT_GENERATEDFROM_HASH_DOMAIN"
+  ],
+  "negativeControlIntents": [
+    {
+      "controlId": "CATV3-NC01-EMPIRICAL-NODE-RELABEL",
+      "mutation": {
+        "operation": "replace",
+        "selector": {
+          "collection": "sourceNodeMemberships",
+          "sourceNodeId": "SRC-1910.06389V2"
+        },
+        "field": "sourceNature",
+        "from": "empirical-and-model-publication",
+        "to": "shared-exact-definition-authority"
+      },
+      "requiredMutationWitness": {
+        "beforeValue": "empirical-and-model-publication",
+        "afterValue": "shared-exact-definition-authority"
+      },
+      "expectedDetectorId": "CATV3_DETECT_SOURCE_NATURE_EDGE_CLOSURE",
+      "expectedDetector": "Reject because an authority-nature node must have authority descriptors for every shared-exact edge and cannot relabel its existing inspectable-lineage-required edges into exemptions; sourceNature never overrides edgeEvidenceClass."
+    },
+    {
+      "controlId": "CATV3-NC02-ACTIVE-NODE-CONTEXT-RELABEL",
+      "mutation": {
+        "operation": "replace",
+        "selector": {
+          "collection": "sourceNodeMemberships",
+          "sourceNodeId": "SRC-2306.13087V1"
+        },
+        "field": "proofMembership",
+        "from": "active-support",
+        "to": "unreferenced-context-only"
+      },
+      "requiredMutationWitness": {
+        "beforeValue": "active-support",
+        "afterValue": "unreferenced-context-only"
+      },
+      "expectedDetectorId": "CATV3_DETECT_MEMBERSHIP_DERIVATION",
+      "expectedDetector": "Reject because membershipRule independently derives active-support from non-disclosed mappings on active rows."
+    },
+    {
+      "controlId": "CATV3-NC03-MISSING-EXACT-DEFINITION-AUTHORITY",
+      "mutation": {
+        "operation": "remove",
+        "selector": {
+          "collection": "sharedExactDefinitionAuthorityEvidence",
+          "authorityEvidenceDescriptorId": "AUTH-BIPM-K-2026"
+        }
+      },
+      "requiredMutationWitness": {
+        "beforeCount": 4,
+        "afterCount": 3
+      },
+      "expectedDetectorId": "CATV3_DETECT_AUTHORITY_DESCRIPTOR_CLOSURE",
+      "expectedDetector": "Reject because DATA-EXACT-K and transitive exact-input edges retain a dangling AUTH-BIPM-K-2026 descriptor reference."
+    },
+    {
+      "controlId": "CATV3-NC04-BYPASS-FINAL-CONJUNCTION",
+      "mutation": {
+        "operation": "replace",
+        "syntheticResult": {
+          "empiricalIndependenceVerdict": "independent",
+          "sharedExactDefinitionAuthorityVerdict": "unresolved",
+          "sourceCurrencyVerdict": "verified-current-through-cutoff",
+          "catalogIntegrityVerdict": "verified"
+        },
+        "field": "overallPromotionEligibility",
+        "from": "blocked",
+        "to": "eligible"
+      },
+      "requiredMutationWitness": {
+        "beforeValue": "blocked",
+        "afterValue": "eligible"
+      },
+      "expectedDetectorId": "CATV3_DETECT_PROMOTION_CONJUNCTION",
+      "expectedDetector": "Reject by independently evaluating overallPromotionConjunction: one false clause requires blocked even though empirical independence is independent."
+    },
+    {
+      "controlId": "CATV4-NC01-OMIT-PROJECT-SELECTION-RECORD",
+      "mutation": {
+        "operation": "remove",
+        "selector": {
+          "collection": "projectSelectionSupport",
+          "projectSelectionRecordId": "PROJECT-SELECT-ADR0040-CORRECTION"
+        }
+      },
+      "requiredMutationWitness": {
+        "beforeCount": 6,
+        "afterCount": 5
+      },
+      "expectedDetectorId": "CATV4_DETECT_PROJECT_SELECTION_CLOSURE",
+      "expectedDetector": "Reject because active P3/P4 and no-dip intervention rows lose a mandatory inspectable current decision record."
+    },
+    {
+      "controlId": "CATV4-NC02-MERGE-AUTHORITY-INTO-EMPIRICAL-CURRENCY",
+      "mutation": {
+        "operation": "append-and-remove",
+        "sourceCollection": "currencySubjectUniverses.exactDefinitionAuthorityCurrency.sourceNodeIds",
+        "targetCollection": "currencySubjectUniverses.empiricalPublicationCurrency.subjectSourceNodeIds",
+        "value": "SRC-BIPM-SI"
+      },
+      "requiredMutationWitness": {
+        "sourceBeforeContains": true,
+        "sourceAfterContains": false,
+        "targetBeforeContains": false,
+        "targetAfterContains": true
+      },
+      "expectedDetectorId": "CATV4_DETECT_CURRENCY_UNIVERSE_SEPARATION",
+      "expectedDetector": "Reject because an exact-definition authority subject cannot be satisfied by or moved into empirical-publication currency."
+    },
+    {
+      "controlId": "CATV4-NC03-TERMINAL-NEWLINE-OR-SYMLINK-HASH-SUBSTITUTION",
+      "mutation": {
+        "operation": "synthetic-generatedFrom-read",
+        "path": "core/src/libbrecht.ts",
+        "substitutions": [
+          "toggle-terminal-LF",
+          "replace-exact-path-with-symlink-target"
+        ]
+      },
+      "requiredMutationWitness": {
+        "canonicalBytesDiffer": true,
+        "registeredPathUnchanged": true,
+        "registeredSha256Unchanged": true
+      },
+      "expectedDetectorId": "CATV4_DETECT_GENERATEDFROM_HASH_DOMAIN",
+      "expectedDetector": "Reject because generatedFromHashDomain preserves terminal-newline presence and requires the exact repository-root-relative regular file rather than a symlink or alias."
+    }
+  ],
+  "sourceNodes": [
+    {
+      "identifier": "arxiv:1910.06389v2",
+      "path": "research/1910.06389v2.pdf",
+      "sha256": "f6cd58ab841f841bcc310d2f722459122f7850cda9681ae0c7d1877bf21ef471",
+      "sourceNodeId": "SRC-1910.06389V2",
+      "status": "local-readable"
+    },
+    {
+      "identifier": "arxiv:1910.09067v2",
+      "path": "research/1910.09067v2.pdf",
+      "sha256": "89ef4d1e3ed1c9b41379fdb26482fee7c932078d23e608541f2a16b5a37a76d5",
+      "sourceNodeId": "SRC-1910.09067V2",
+      "status": "local-readable"
+    },
+    {
+      "identifier": "arxiv:1208.5982v1;doi:10.1016/j.jcrysgro.2013.04.037",
+      "path": null,
+      "sha256": null,
+      "sourceNodeId": "SRC-1208.5982V1-MISSING",
+      "status": "known-missing-local-bytes"
+    },
+    {
+      "identifier": "arxiv:1211.5555v1",
+      "path": "research/1211.5555v1.pdf",
+      "sha256": "56a1fe58167674455d776d63c04ddde5203c3776c168f44fd092b7cedf0b6d49",
+      "sourceNodeId": "SRC-1211.5555V1",
+      "status": "local-readable"
+    },
+    {
+      "identifier": "arxiv:2306.13087v1",
+      "path": "research/2306.13087v1.pdf",
+      "sha256": "20f579e01777d51b81b527751b32c3e44b1d8ebe9f1d09a7f15554c2445381af",
+      "sourceNodeId": "SRC-2306.13087V1",
+      "status": "local-readable"
+    },
+    {
+      "identifier": "arxiv:2109.00098v1",
+      "path": "research/2109.00098v1.pdf",
+      "sha256": "e382edbc61e706c4cdb88811bba2488f7d29baf8dd14d94b21e4a12f5d3fbbeb",
+      "sourceNodeId": "SRC-2109.00098V1-UNREADABLE",
+      "status": "local-present-currently-unreadable"
+    },
+    {
+      "identifier": "arxiv:2004.06212v1",
+      "path": "research/2004.06212v1.pdf",
+      "sha256": "6e450a1c2969e5cd074b2282ed727c25cb56858347246350c4e0e487b592f49e",
+      "sourceNodeId": "SRC-2004.06212V1",
+      "status": "local-readable"
+    },
+    {
+      "identifier": "arxiv:2009.08404v2",
+      "path": "research/2009.08404v2.pdf",
+      "sha256": "d1fe8cb5a88560aba7855b802cf335f1f03f7f802c2f208d3b5d69e6004336dd",
+      "sourceNodeId": "SRC-2009.08404V2",
+      "status": "local-readable"
+    },
+    {
+      "identifier": "arxiv:2011.02353v1",
+      "path": "research/2011.02353v1.pdf",
+      "sha256": "6bd9a8efff803a04d95a9a5046e91a5e7af5cf181b6a7dc41486b173af4f684c",
+      "sourceNodeId": "SRC-2011.02353V1",
+      "status": "local-readable"
+    },
+    {
+      "identifier": "arxiv:2012.12916v1",
+      "path": "research/2012.12916v1.pdf",
+      "sha256": "249d390ad509bd70f0fa3f4c0f242f2fd951a231d825741d77b3340236af82a2",
+      "sourceNodeId": "SRC-2012.12916V1",
+      "status": "local-readable-context-only"
+    },
+    {
+      "identifier": "arxiv:2106.09809v1",
+      "path": "research/2106.09809v1.pdf",
+      "sha256": "f53b9e64a1a6f149a06aba93474041335d8df0653c2615a1b8c90b6c8b1aaa87",
+      "sourceNodeId": "SRC-2106.09809V1",
+      "status": "local-readable-context-only"
+    },
+    {
+      "identifier": "arxiv:1912.03230v1",
+      "path": "research/1912.03230v1.pdf",
+      "sha256": "79abfe821a8437601f1b8ded23d533c2ec1be1589d871f1644e61dace90d7477",
+      "sourceNodeId": "SRC-1912.03230V1",
+      "status": "local-readable-context-only"
+    },
+    {
+      "identifier": "arxiv:1912.09440v1",
+      "path": "research/1912.09440v1.pdf",
+      "sha256": "c4e755c51dd913322954fc2f0e57410f2a6e6937ce3fe256d6b705aac41fc2bc",
+      "sourceNodeId": "SRC-1912.09440V1",
+      "status": "local-readable-context-only"
+    },
+    {
+      "identifier": "arxiv:2306.04042v1",
+      "path": "research/2306.04042v1.pdf",
+      "sha256": "1ff2c1f9699c2aefd26e5373f29c4fdd7a110620c136bd349d813947dacbcd1f",
+      "sourceNodeId": "SRC-2306.04042V1",
+      "status": "local-readable-inactive"
+    },
+    {
+      "identifier": "local:monograph-fig4.5-digitization-json",
+      "path": "research/1910.06389v2-llm/figures/fig-4.5/evidence.json",
+      "sha256": "20ceea9bc4c837757ab05bce164087f6f2c50d73db51e48febdca0e0c6bbdc91",
+      "sourceNodeId": "SRC-CAK-DIGITIZATION-JSON",
+      "status": "local-readable-newly-catalog-pinned"
+    },
+    {
+      "identifier": "local:m1-figure1-log10-crop",
+      "path": "research/figures/nakaya-bands-on-sigma0-M1.png",
+      "sha256": "fd25a2224cf931d4b88e15a3f7ad71985fd81b310fd2241c78840c28d94adc68",
+      "sourceNodeId": "SRC-M1-FIG1-CROP",
+      "status": "local-readable-qualitative"
+    },
+    {
+      "identifier": "doi:10.59161/AUEZ1291",
+      "path": null,
+      "sha256": null,
+      "sourceNodeId": "SRC-BIPM-SI",
+      "status": "authoritative-external-no-local-bytes"
+    },
+    {
+      "identifier": "doi:10.59161/CGPM1954RES4E",
+      "path": null,
+      "sha256": null,
+      "sourceNodeId": "SRC-CGPM-ATM",
+      "status": "authoritative-external-no-local-bytes"
+    },
+    {
+      "identifier": "repo:docs/decisions/0036-phase6-sdak-arm-pre-registrations.md",
+      "path": "docs/decisions/0036-phase6-sdak-arm-pre-registrations.md",
+      "sha256": "560d6686a1c31ea591579450c44f214d17f4e91c740ab9ffc78fb3af044af65f",
+      "sourceNodeId": "SRC-ADR0036",
+      "status": "tracked-historical-corrected-by-0040"
+    },
+    {
+      "identifier": "citation:TAX2-[2017Lib]-Physical-dynamics-of-ice-crystal-growth",
+      "path": null,
+      "sha256": null,
+      "sourceNodeId": "SRC-2017LIB-MISSING",
+      "status": "known-missing-local-bytes-context-only"
+    }
+  ],
+  "supersedesRejectedCandidates": [
+    {
+      "byteLength": 25430,
+      "catalogId": "wp1-heldout-operands-2026-08-02-v2",
+      "disposition": "rejected-unaccepted-author-candidate",
+      "rejectionFindingIdsAddressed": [
+        "CATV2-B01",
+        "CATV2-B02",
+        "CATV2-B03",
+        "CATV2-B04",
+        "CATV2-S01",
+        "CATV2-S02"
+      ],
+      "schema": "phase6-wp1-independence-operand-catalog-v2",
+      "sha256": "dd68ec83d8f5f0eaa799e7c636af8fd0da75e11ead961fab5145c0b42a10072e",
+      "relationToSuccessor": "historical rejected candidate retained byte-exact; no field is inherited by implication"
+    },
+    {
+      "byteLength": 59101,
+      "catalogId": "wp1-heldout-operands-2026-08-02-v3-author-candidate",
+      "disposition": "rejected-unaccepted-author-candidate",
+      "rejectionFindingIds": [
+        "WP1V4-SCI-B01",
+        "WP1V4-SCI-B02",
+        "WP1V4-SCI-B03",
+        "WP1V4-SCI-B04",
+        "WP1V4-SCI-B05",
+        "WP1V4-SCI-B06",
+        "WP1V4-SCI-B07",
+        "WP1V4-SCI-B08",
+        "WP1V4-SCI-B09",
+        "WP1V4-SCI-B10",
+        "WP1V4-SCI-B11",
+        "WP1V4-SCI-SF01",
+        "WP1V4-SCI-SF02",
+        "WP1V4-SCI-SF03",
+        "WP1V4-SCI-SF04",
+        "WP1V4-SCI-SF05",
+        "WP1V4-SCI-SF06"
+      ],
+      "reviewFindingRegistryPath": "research/phase6-wp1-review-findings.json",
+      "schema": "phase6-wp1-independence-operand-catalog-v3-author-candidate",
+      "sha256": "35f11b8ea65fd43ac8097cf2ddda1e26515ffc7377cab97f7682bdbfecf0506f"
+    }
+  ],
+  "reviewFindingRegistry": {
+    "path": "research/phase6-wp1-review-findings.json",
+    "requiredFindingIds": [
+      "CATV2-B01",
+      "CATV2-B02",
+      "CATV2-B03",
+      "CATV2-B04",
+      "CATV2-S01",
+      "CATV2-S02",
+      "WP1V4-SCI-B01",
+      "WP1V4-SCI-B02",
+      "WP1V4-SCI-B03",
+      "WP1V4-SCI-B04",
+      "WP1V4-SCI-B05",
+      "WP1V4-SCI-B06",
+      "WP1V4-SCI-B07",
+      "WP1V4-SCI-B08",
+      "WP1V4-SCI-B09",
+      "WP1V4-SCI-B10",
+      "WP1V4-SCI-B11",
+      "WP1V4-SCI-SF01",
+      "WP1V4-SCI-SF02",
+      "WP1V4-SCI-SF03",
+      "WP1V4-SCI-SF04",
+      "WP1V4-SCI-SF05",
+      "WP1V4-SCI-SF06"
+    ],
+    "statusRule": "This catalog is an author correction candidate. A finding record may describe the response, but only a later exact-byte non-author review can close it. Missing, duplicate, or noncanonical required IDs block catalog acceptance."
+  },
+  "generatedFromHashDomain": {
+    "pathDomain": "repository-root-relative path naming one regular file at that exact path",
+    "pathAliasRule": "reject a symlink, junction, reparse-point target substitution, case alias, alternate relative spelling, or any resolved-path substitution",
+    "decoding": "strict UTF-8; reject BOM, malformed UTF-8, and every lone carriage-return byte",
+    "lineEndings": "replace each exact CRLF byte pair with one LF byte",
+    "unicodeNormalization": "none",
+    "terminalNewline": "preserve exact presence or absence of the terminal LF after CRLF conversion",
+    "digest": "SHA-256 of the resulting bytes",
+    "freezeRule": "every path and digest must reopen and match at the combined committed freeze"
+  },
+  "projectSelectionSupport": [
+    {
+      "projectSelectionRecordId": "PROJECT-SELECT-ADR0030-M1-ARM",
+      "path": "docs/decisions/0030-phase6-sdak-arm.md",
+      "sha256": "2872647a2ddd99651e073f0dd68616385cecced5a4505ec643d9e71f02f7ebd6",
+      "hashDomain": "generatedFromHashDomain",
+      "affectedArms": [
+        "M1",
+        "M1_NO_DIP_ABLATION"
+      ],
+      "affectedOperandIds": [
+        "OP-M1-BASAL-DIP",
+        "OP-M1-PRISM-DIP",
+        "OP-NODIP-BASAL-INTERVENTION",
+        "OP-NODIP-PRISM-INTERVENTION"
+      ],
+      "affectedDataFamilyIds": [
+        "DATA-M1-BASAL-DIP",
+        "DATA-M1-BASAL-DIP-SELECTION-HISTORY",
+        "DATA-M1-PRISM-DIP",
+        "DATA-M1-PRISM-DIP-SELECTION-HISTORY",
+        "DATA-NAKAYA-HABIT-TUNING",
+        "DATA-NODIP-BASAL-INTERVENTION",
+        "DATA-NODIP-PRISM-INTERVENTION"
+      ],
+      "evidenceClass": "inspectable-project-selection-required",
+      "selectionRole": "historical M1 arm and Nakaya-informed dip-selection decision",
+      "candidateComparisonRule": "For each affected arm, reviewed evidence must compare the candidate's complete provenance and proposed claims with this exact record. Candidate data, apparatus, population, digitization, derived family, or outcome used to choose an affected input, interpretation, intervention, arm, domain, or scoring scope is overlap for that arm; missing review is unresolved.",
+      "scopeLimit": "Historical selection lineage only; later corrections remain separately required and this record cannot prove current implementation identity."
+    },
+    {
+      "projectSelectionRecordId": "PROJECT-SELECT-ADR0036-PREREGISTRATION",
+      "path": "docs/decisions/0036-phase6-sdak-arm-pre-registrations.md",
+      "sha256": "560d6686a1c31ea591579450c44f214d17f4e91c740ab9ffc78fb3af044af65f",
+      "hashDomain": "generatedFromHashDomain",
+      "affectedArms": [
+        "CAK",
+        "M1",
+        "M1_NO_DIP_ABLATION"
+      ],
+      "affectedOperandIds": [
+        "OP-SHARED-HK-LAW",
+        "OP-SHARED-CSAT-TEMPERATURE",
+        "OP-SHARED-VKIN-METROLOGY",
+        "OP-SHARED-DIFFUSION-PRESSURE",
+        "OP-SHARED-SIGMA-WATER",
+        "OP-SHARED-UNIT-CONVERSIONS",
+        "OP-SHARED-DERIVED-X0-MICE",
+        "OP-CAK-SIGMA0-BASAL",
+        "OP-CAK-SIGMA0-PRISM",
+        "OP-CAK-PREFACTOR-BASAL",
+        "OP-CAK-PREFACTOR-PRISM",
+        "OP-CAK-INTERPOLATION-DOMAIN",
+        "OP-M1-BROAD-BASAL",
+        "OP-M1-BROAD-PRISM",
+        "OP-M1-PREFACTORS",
+        "OP-M1-BASAL-DIP",
+        "OP-M1-PRISM-DIP",
+        "OP-M1-LOG10-INTERPRETATION",
+        "OP-M1-CONVERSION-DOMAIN",
+        "OP-NODIP-BROAD-BASAL",
+        "OP-NODIP-BROAD-PRISM",
+        "OP-NODIP-PREFACTOR-CONVERSION-DOMAIN",
+        "OP-NODIP-BASAL-INTERVENTION",
+        "OP-NODIP-PRISM-INTERVENTION"
+      ],
+      "affectedDataFamilyIds": [
+        "DATA-CAK-EXTRAPOLATION-DOMAIN",
+        "DATA-CAK-FIG4.5-PREFACTOR-BASAL",
+        "DATA-CAK-FIG4.5-PREFACTOR-PRISM",
+        "DATA-CAK-FIG4.5-SIGMA0-BASAL",
+        "DATA-CAK-FIG4.5-SIGMA0-PRISM",
+        "DATA-CAK-INTERPOLATION",
+        "DATA-CAK-TRANSITIVE-BROAD-FACET",
+        "DATA-CELSIUS-OFFSET",
+        "DATA-CICE-MMOL",
+        "DATA-D-AIR",
+        "DATA-DERIVED-MICE",
+        "DATA-DERIVED-X0",
+        "DATA-EXACT-K",
+        "DATA-HK-ATTACHMENT-LAW",
+        "DATA-M1-BASAL-DIP",
+        "DATA-M1-BASAL-DIP-SELECTION-HISTORY",
+        "DATA-M1-BROAD-BASAL",
+        "DATA-M1-BROAD-PRISM",
+        "DATA-M1-LOG10-WIDTH-INTERPRETATION",
+        "DATA-M1-MAGNITUDE-DOMAIN",
+        "DATA-M1-PERCENT-FRACTION",
+        "DATA-M1-PREFACTOR-RATIONALE",
+        "DATA-M1-PREFACTOR-UNITY",
+        "DATA-M1-PRISM-DIP",
+        "DATA-M1-PRISM-DIP-SELECTION-HISTORY",
+        "DATA-MBAR-PA",
+        "DATA-NAKAYA-HABIT-TUNING",
+        "DATA-NODIP-BASAL-INTERVENTION",
+        "DATA-NODIP-PRISM-INTERVENTION",
+        "DATA-P-ATM",
+        "DATA-P-INVERSE-LAW",
+        "DATA-PERCENT-FRACTION",
+        "DATA-PICE-CSAT-EQ2.8",
+        "DATA-SIGMA-WATER-ANCHORS",
+        "DATA-SIGMA-WATER-INTERPOLATION",
+        "DATA-SUPERSATURATION-DEFINITION",
+        "DATA-TEMPERATURE-MAPPING",
+        "DATA-VKIN-EQUATION"
+      ],
+      "evidenceClass": "inspectable-project-selection-required",
+      "selectionRole": "historical arm, regime, exclusion, and outcome-selection record",
+      "candidateComparisonRule": "For each affected arm, reviewed evidence must compare the candidate's complete provenance and proposed claims with this exact record. Candidate data, apparatus, population, digitization, derived family, or outcome used to choose an affected input, interpretation, intervention, arm, domain, or scoring scope is overlap for that arm; missing review is unresolved.",
+      "scopeLimit": "Superseded portions remain selection-history evidence; they cannot authorize historical scoring for R15."
+    },
+    {
+      "projectSelectionRecordId": "PROJECT-SELECT-ADR0040-CORRECTION",
+      "path": "docs/decisions/0040-correct-phase6-coefficient-and-sdak-provenance.md",
+      "sha256": "18f6f6df82b29bac1895ed8de0a811d76d26e5aacf06f017539425cabf0f48a3",
+      "hashDomain": "generatedFromHashDomain",
+      "affectedArms": [
+        "CAK",
+        "M1",
+        "M1_NO_DIP_ABLATION"
+      ],
+      "affectedOperandIds": [
+        "OP-SHARED-VKIN-METROLOGY",
+        "OP-SHARED-DIFFUSION-PRESSURE",
+        "OP-SHARED-SIGMA-WATER",
+        "OP-SHARED-UNIT-CONVERSIONS",
+        "OP-SHARED-DERIVED-X0-MICE",
+        "OP-CAK-SIGMA0-BASAL",
+        "OP-CAK-SIGMA0-PRISM",
+        "OP-CAK-PREFACTOR-BASAL",
+        "OP-CAK-PREFACTOR-PRISM",
+        "OP-CAK-INTERPOLATION-DOMAIN",
+        "OP-M1-PREFACTORS",
+        "OP-M1-BASAL-DIP",
+        "OP-M1-PRISM-DIP",
+        "OP-M1-LOG10-INTERPRETATION",
+        "OP-M1-CONVERSION-DOMAIN",
+        "OP-NODIP-PREFACTOR-CONVERSION-DOMAIN",
+        "OP-NODIP-BASAL-INTERVENTION",
+        "OP-NODIP-PRISM-INTERVENTION"
+      ],
+      "affectedDataFamilyIds": [
+        "DATA-CAK-EXTRAPOLATION-DOMAIN",
+        "DATA-CAK-FIG4.5-PREFACTOR-BASAL",
+        "DATA-CAK-FIG4.5-PREFACTOR-PRISM",
+        "DATA-CAK-FIG4.5-SIGMA0-BASAL",
+        "DATA-CAK-FIG4.5-SIGMA0-PRISM",
+        "DATA-CAK-INTERPOLATION",
+        "DATA-CAK-TRANSITIVE-BROAD-FACET",
+        "DATA-CELSIUS-OFFSET",
+        "DATA-CICE-MMOL",
+        "DATA-D-AIR",
+        "DATA-DERIVED-MICE",
+        "DATA-DERIVED-X0",
+        "DATA-EXACT-K",
+        "DATA-M1-BASAL-DIP",
+        "DATA-M1-BASAL-DIP-SELECTION-HISTORY",
+        "DATA-M1-LOG10-WIDTH-INTERPRETATION",
+        "DATA-M1-MAGNITUDE-DOMAIN",
+        "DATA-M1-PERCENT-FRACTION",
+        "DATA-M1-PREFACTOR-RATIONALE",
+        "DATA-M1-PREFACTOR-UNITY",
+        "DATA-M1-PRISM-DIP",
+        "DATA-M1-PRISM-DIP-SELECTION-HISTORY",
+        "DATA-MBAR-PA",
+        "DATA-NAKAYA-HABIT-TUNING",
+        "DATA-NODIP-BASAL-INTERVENTION",
+        "DATA-NODIP-PRISM-INTERVENTION",
+        "DATA-P-ATM",
+        "DATA-P-INVERSE-LAW",
+        "DATA-PERCENT-FRACTION",
+        "DATA-SIGMA-WATER-ANCHORS",
+        "DATA-SIGMA-WATER-INTERPOLATION",
+        "DATA-VKIN-EQUATION"
+      ],
+      "evidenceClass": "inspectable-project-selection-required",
+      "selectionRole": "current provenance, logarithm-base, domain, and matched no-dip intervention decision",
+      "candidateComparisonRule": "For each affected arm, reviewed evidence must compare the candidate's complete provenance and proposed claims with this exact record. Candidate data, apparatus, population, digitization, derived family, or outcome used to choose an affected input, interpretation, intervention, arm, domain, or scoring scope is overlap for that arm; missing review is unresolved.",
+      "scopeLimit": "Covers the decision record only; table, implementation, and protocol bytes are separate support records."
+    },
+    {
+      "projectSelectionRecordId": "PROJECT-SELECT-PARAMETER-TABLE",
+      "path": "docs/libbrecht-parameters.md",
+      "sha256": "c0b314b681146152207f061209a3097609e34a234b0027ed73faa427334c79e2",
+      "hashDomain": "generatedFromHashDomain",
+      "affectedArms": [
+        "CAK",
+        "M1",
+        "M1_NO_DIP_ABLATION"
+      ],
+      "affectedOperandIds": [
+        "OP-SHARED-HK-LAW",
+        "OP-SHARED-CSAT-TEMPERATURE",
+        "OP-SHARED-VKIN-METROLOGY",
+        "OP-SHARED-DIFFUSION-PRESSURE",
+        "OP-SHARED-SIGMA-WATER",
+        "OP-SHARED-UNIT-CONVERSIONS",
+        "OP-SHARED-DERIVED-X0-MICE",
+        "OP-CAK-SIGMA0-BASAL",
+        "OP-CAK-SIGMA0-PRISM",
+        "OP-CAK-PREFACTOR-BASAL",
+        "OP-CAK-PREFACTOR-PRISM",
+        "OP-CAK-INTERPOLATION-DOMAIN",
+        "OP-M1-BROAD-BASAL",
+        "OP-M1-BROAD-PRISM",
+        "OP-M1-PREFACTORS",
+        "OP-M1-BASAL-DIP",
+        "OP-M1-PRISM-DIP",
+        "OP-M1-LOG10-INTERPRETATION",
+        "OP-M1-CONVERSION-DOMAIN",
+        "OP-NODIP-BROAD-BASAL",
+        "OP-NODIP-BROAD-PRISM",
+        "OP-NODIP-PREFACTOR-CONVERSION-DOMAIN",
+        "OP-NODIP-BASAL-INTERVENTION",
+        "OP-NODIP-PRISM-INTERVENTION"
+      ],
+      "affectedDataFamilyIds": [
+        "DATA-CAK-EXTRAPOLATION-DOMAIN",
+        "DATA-CAK-FIG4.5-PREFACTOR-BASAL",
+        "DATA-CAK-FIG4.5-PREFACTOR-PRISM",
+        "DATA-CAK-FIG4.5-SIGMA0-BASAL",
+        "DATA-CAK-FIG4.5-SIGMA0-PRISM",
+        "DATA-CAK-INTERPOLATION",
+        "DATA-CAK-TRANSITIVE-BROAD-FACET",
+        "DATA-CELSIUS-OFFSET",
+        "DATA-CICE-MMOL",
+        "DATA-D-AIR",
+        "DATA-DERIVED-MICE",
+        "DATA-DERIVED-X0",
+        "DATA-EXACT-K",
+        "DATA-HK-ATTACHMENT-LAW",
+        "DATA-M1-BASAL-DIP",
+        "DATA-M1-BASAL-DIP-SELECTION-HISTORY",
+        "DATA-M1-BROAD-BASAL",
+        "DATA-M1-BROAD-PRISM",
+        "DATA-M1-LOG10-WIDTH-INTERPRETATION",
+        "DATA-M1-MAGNITUDE-DOMAIN",
+        "DATA-M1-PERCENT-FRACTION",
+        "DATA-M1-PREFACTOR-RATIONALE",
+        "DATA-M1-PREFACTOR-UNITY",
+        "DATA-M1-PRISM-DIP",
+        "DATA-M1-PRISM-DIP-SELECTION-HISTORY",
+        "DATA-MBAR-PA",
+        "DATA-NAKAYA-HABIT-TUNING",
+        "DATA-NODIP-BASAL-INTERVENTION",
+        "DATA-NODIP-PRISM-INTERVENTION",
+        "DATA-P-ATM",
+        "DATA-P-INVERSE-LAW",
+        "DATA-PERCENT-FRACTION",
+        "DATA-PICE-CSAT-EQ2.8",
+        "DATA-SIGMA-WATER-ANCHORS",
+        "DATA-SIGMA-WATER-INTERPOLATION",
+        "DATA-SUPERSATURATION-DEFINITION",
+        "DATA-TEMPERATURE-MAPPING",
+        "DATA-VKIN-EQUATION"
+      ],
+      "evidenceClass": "inspectable-project-selection-required",
+      "selectionRole": "current operand mapping, provenance classification, stated gaps, and project-choice record",
+      "candidateComparisonRule": "For each affected arm, reviewed evidence must compare the candidate's complete provenance and proposed claims with this exact record. Candidate data, apparatus, population, digitization, derived family, or outcome used to choose an affected input, interpretation, intervention, arm, domain, or scoring scope is overlap for that arm; missing review is unresolved.",
+      "scopeLimit": "The table maps and classifies inputs; it does not by itself prove source currency or candidate independence."
+    },
+    {
+      "projectSelectionRecordId": "PROJECT-SELECT-LIBBRECHT-IMPLEMENTATION",
+      "path": "core/src/libbrecht.ts",
+      "sha256": "580140cd8650f680693306547fd8c2ee18d1d8ca61e78743a62baf3c5c90f23d",
+      "hashDomain": "generatedFromHashDomain",
+      "affectedArms": [
+        "CAK",
+        "M1",
+        "M1_NO_DIP_ABLATION"
+      ],
+      "affectedOperandIds": [
+        "OP-SHARED-HK-LAW",
+        "OP-SHARED-CSAT-TEMPERATURE",
+        "OP-SHARED-VKIN-METROLOGY",
+        "OP-SHARED-DIFFUSION-PRESSURE",
+        "OP-SHARED-SIGMA-WATER",
+        "OP-SHARED-UNIT-CONVERSIONS",
+        "OP-SHARED-DERIVED-X0-MICE",
+        "OP-CAK-SIGMA0-BASAL",
+        "OP-CAK-SIGMA0-PRISM",
+        "OP-CAK-PREFACTOR-BASAL",
+        "OP-CAK-PREFACTOR-PRISM",
+        "OP-CAK-INTERPOLATION-DOMAIN",
+        "OP-M1-BROAD-BASAL",
+        "OP-M1-BROAD-PRISM",
+        "OP-M1-PREFACTORS",
+        "OP-M1-BASAL-DIP",
+        "OP-M1-PRISM-DIP",
+        "OP-M1-LOG10-INTERPRETATION",
+        "OP-M1-CONVERSION-DOMAIN",
+        "OP-NODIP-BROAD-BASAL",
+        "OP-NODIP-BROAD-PRISM",
+        "OP-NODIP-PREFACTOR-CONVERSION-DOMAIN",
+        "OP-NODIP-BASAL-INTERVENTION",
+        "OP-NODIP-PRISM-INTERVENTION"
+      ],
+      "affectedDataFamilyIds": [
+        "DATA-CAK-EXTRAPOLATION-DOMAIN",
+        "DATA-CAK-FIG4.5-PREFACTOR-BASAL",
+        "DATA-CAK-FIG4.5-PREFACTOR-PRISM",
+        "DATA-CAK-FIG4.5-SIGMA0-BASAL",
+        "DATA-CAK-FIG4.5-SIGMA0-PRISM",
+        "DATA-CAK-INTERPOLATION",
+        "DATA-CAK-TRANSITIVE-BROAD-FACET",
+        "DATA-CELSIUS-OFFSET",
+        "DATA-CICE-MMOL",
+        "DATA-D-AIR",
+        "DATA-DERIVED-MICE",
+        "DATA-DERIVED-X0",
+        "DATA-EXACT-K",
+        "DATA-HK-ATTACHMENT-LAW",
+        "DATA-M1-BASAL-DIP",
+        "DATA-M1-BASAL-DIP-SELECTION-HISTORY",
+        "DATA-M1-BROAD-BASAL",
+        "DATA-M1-BROAD-PRISM",
+        "DATA-M1-LOG10-WIDTH-INTERPRETATION",
+        "DATA-M1-MAGNITUDE-DOMAIN",
+        "DATA-M1-PERCENT-FRACTION",
+        "DATA-M1-PREFACTOR-RATIONALE",
+        "DATA-M1-PREFACTOR-UNITY",
+        "DATA-M1-PRISM-DIP",
+        "DATA-M1-PRISM-DIP-SELECTION-HISTORY",
+        "DATA-MBAR-PA",
+        "DATA-NAKAYA-HABIT-TUNING",
+        "DATA-NODIP-BASAL-INTERVENTION",
+        "DATA-NODIP-PRISM-INTERVENTION",
+        "DATA-P-ATM",
+        "DATA-P-INVERSE-LAW",
+        "DATA-PERCENT-FRACTION",
+        "DATA-PICE-CSAT-EQ2.8",
+        "DATA-SIGMA-WATER-ANCHORS",
+        "DATA-SIGMA-WATER-INTERPOLATION",
+        "DATA-SUPERSATURATION-DEFINITION",
+        "DATA-TEMPERATURE-MAPPING",
+        "DATA-VKIN-EQUATION"
+      ],
+      "evidenceClass": "inspectable-project-selection-required",
+      "selectionRole": "current executable parameter and intervention implementation",
+      "candidateComparisonRule": "For each affected arm, reviewed evidence must compare the candidate's complete provenance and proposed claims with this exact record. Candidate data, apparatus, population, digitization, derived family, or outcome used to choose an affected input, interpretation, intervention, arm, domain, or scoring scope is overlap for that arm; missing review is unresolved.",
+      "scopeLimit": "Executable identity only; source meaning and selection rationale must still be established by the other records."
+    },
+    {
+      "projectSelectionRecordId": "PROJECT-SELECT-PHASE6-PROTOCOL",
+      "path": "runner/src/phase6-protocol.ts",
+      "sha256": "1e59a91bdf495b3113305e36691472ecbb5aba3bd7d34482bdb55260f01c6426",
+      "hashDomain": "generatedFromHashDomain",
+      "affectedArms": [
+        "CAK",
+        "M1",
+        "M1_NO_DIP_ABLATION"
+      ],
+      "affectedOperandIds": [
+        "OP-SHARED-HK-LAW",
+        "OP-SHARED-CSAT-TEMPERATURE",
+        "OP-SHARED-VKIN-METROLOGY",
+        "OP-SHARED-DIFFUSION-PRESSURE",
+        "OP-SHARED-SIGMA-WATER",
+        "OP-SHARED-UNIT-CONVERSIONS",
+        "OP-SHARED-DERIVED-X0-MICE",
+        "OP-CAK-SIGMA0-BASAL",
+        "OP-CAK-SIGMA0-PRISM",
+        "OP-CAK-PREFACTOR-BASAL",
+        "OP-CAK-PREFACTOR-PRISM",
+        "OP-CAK-INTERPOLATION-DOMAIN",
+        "OP-M1-BROAD-BASAL",
+        "OP-M1-BROAD-PRISM",
+        "OP-M1-PREFACTORS",
+        "OP-M1-BASAL-DIP",
+        "OP-M1-PRISM-DIP",
+        "OP-M1-LOG10-INTERPRETATION",
+        "OP-M1-CONVERSION-DOMAIN",
+        "OP-NODIP-BROAD-BASAL",
+        "OP-NODIP-BROAD-PRISM",
+        "OP-NODIP-PREFACTOR-CONVERSION-DOMAIN",
+        "OP-NODIP-BASAL-INTERVENTION",
+        "OP-NODIP-PRISM-INTERVENTION"
+      ],
+      "affectedDataFamilyIds": [
+        "DATA-CAK-EXTRAPOLATION-DOMAIN",
+        "DATA-CAK-FIG4.5-PREFACTOR-BASAL",
+        "DATA-CAK-FIG4.5-PREFACTOR-PRISM",
+        "DATA-CAK-FIG4.5-SIGMA0-BASAL",
+        "DATA-CAK-FIG4.5-SIGMA0-PRISM",
+        "DATA-CAK-INTERPOLATION",
+        "DATA-CAK-TRANSITIVE-BROAD-FACET",
+        "DATA-CELSIUS-OFFSET",
+        "DATA-CICE-MMOL",
+        "DATA-D-AIR",
+        "DATA-DERIVED-MICE",
+        "DATA-DERIVED-X0",
+        "DATA-EXACT-K",
+        "DATA-HK-ATTACHMENT-LAW",
+        "DATA-M1-BASAL-DIP",
+        "DATA-M1-BASAL-DIP-SELECTION-HISTORY",
+        "DATA-M1-BROAD-BASAL",
+        "DATA-M1-BROAD-PRISM",
+        "DATA-M1-LOG10-WIDTH-INTERPRETATION",
+        "DATA-M1-MAGNITUDE-DOMAIN",
+        "DATA-M1-PERCENT-FRACTION",
+        "DATA-M1-PREFACTOR-RATIONALE",
+        "DATA-M1-PREFACTOR-UNITY",
+        "DATA-M1-PRISM-DIP",
+        "DATA-M1-PRISM-DIP-SELECTION-HISTORY",
+        "DATA-MBAR-PA",
+        "DATA-NAKAYA-HABIT-TUNING",
+        "DATA-NODIP-BASAL-INTERVENTION",
+        "DATA-NODIP-PRISM-INTERVENTION",
+        "DATA-P-ATM",
+        "DATA-P-INVERSE-LAW",
+        "DATA-PERCENT-FRACTION",
+        "DATA-PICE-CSAT-EQ2.8",
+        "DATA-SIGMA-WATER-ANCHORS",
+        "DATA-SIGMA-WATER-INTERPOLATION",
+        "DATA-SUPERSATURATION-DEFINITION",
+        "DATA-TEMPERATURE-MAPPING",
+        "DATA-VKIN-EQUATION"
+      ],
+      "evidenceClass": "inspectable-project-selection-required",
+      "selectionRole": "current protocol selections and explicit implementation-state boundary",
+      "candidateComparisonRule": "For each affected arm, reviewed evidence must compare the candidate's complete provenance and proposed claims with this exact record. Candidate data, apparatus, population, digitization, derived family, or outcome used to choose an affected input, interpretation, intervention, arm, domain, or scoring scope is overlap for that arm; missing review is unresolved.",
+      "scopeLimit": "The no-dip production path is not yet frozen; absence or incomplete coverage remains visible and cannot be upgraded by this catalog."
+    }
+  ],
+  "currencySubjectUniverses": {
+    "empiricalPublicationCurrency": {
+      "subjectSourceNodeIds": [
+        "SRC-1208.5982V1-MISSING",
+        "SRC-1211.5555V1",
+        "SRC-1910.06389V2",
+        "SRC-1910.09067V2",
+        "SRC-2004.06212V1",
+        "SRC-2009.08404V2",
+        "SRC-2011.02353V1",
+        "SRC-2109.00098V1-UNREADABLE",
+        "SRC-2306.13087V1"
+      ],
+      "derivation": "exact union of sourceNodeIds on inspectable-lineage-required edges for active arm operands whose governed identifier is an external publication identifier; derive each arm's required subset from its active operand edges",
+      "requiredRegistryFamilyId": "rule12-empirical-primary-source-v2",
+      "verdictStates": [
+        "verified-current-through-cutoff",
+        "unresolved",
+        "failed"
+      ],
+      "missingOrExtraSubjectEffect": "catalog-integrity-failed and empirical-source-currency-unresolved"
+    },
+    "exactDefinitionAuthorityCurrency": {
+      "authorityEvidenceDescriptorIds": [
+        "AUTH-BIPM-CELSIUS-2026",
+        "AUTH-BIPM-K-2026",
+        "AUTH-BIPM-UNIT-CONVERSIONS-2026",
+        "AUTH-CGPM-ATM-1954"
+      ],
+      "sourceNodeIds": [
+        "SRC-BIPM-SI",
+        "SRC-CGPM-ATM"
+      ],
+      "derivation": "exact descriptor and source-node sets named by every shared-exact-definition edge used by an active arm",
+      "requiredRegistryFamilyId": "rule12-exact-definition-authority-v1",
+      "verdictStates": [
+        "verified-current-through-cutoff",
+        "unresolved",
+        "failed"
+      ],
+      "missingOrExtraSubjectEffect": "catalog-integrity-failed and exact-definition-authority-currency-unresolved"
+    },
+    "localLineageIntegrity": {
+      "sourceNodeIds": [
+        "SRC-CAK-DIGITIZATION-JSON",
+        "SRC-M1-FIG1-CROP"
+      ],
+      "projectSelectionRecordIds": [
+        "PROJECT-SELECT-ADR0030-M1-ARM",
+        "PROJECT-SELECT-ADR0036-PREREGISTRATION",
+        "PROJECT-SELECT-ADR0040-CORRECTION",
+        "PROJECT-SELECT-PARAMETER-TABLE",
+        "PROJECT-SELECT-LIBBRECHT-IMPLEMENTATION",
+        "PROJECT-SELECT-PHASE6-PROTOCOL"
+      ],
+      "derivation": "local-derived active support nodes plus every projectSelectionSupport record; these are byte-integrity/review subjects, not external Rule 12 publication subjects",
+      "verdictStates": [
+        "verified",
+        "unresolved",
+        "failed"
+      ],
+      "missingOrExtraSubjectEffect": "catalog-integrity-failed and local-lineage-integrity-unresolved"
+    },
+    "separationInvariant": "No exact-definition authority subject or local project/derived record can satisfy an empirical-publication currency member. No empirical-publication result can satisfy authority provenance/currentness. Each universe is complete by its stated derivation and is reduced separately per active arm."
+  }
+}

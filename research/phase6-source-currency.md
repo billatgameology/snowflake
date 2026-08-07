@@ -317,17 +317,24 @@ current solver.
   Harrison archive members. The PDF checks are byte/hash checks; corrected conditions are a
   digest-pinned manual transcription, not a machine extraction from the PDF. It remains
   `passEligible=false`.
-- WP1's validation-target freeze remains open. No R15 or held-out production row may start from this
-  lock alone.
-- WP2's physical-size freeze is independently source-blocked for the current free-prism/classical-
-  Nakaya geometry; the reference supplies no maximum dimension or size stratum.
+- Decision 0043 records this lock's audited result as a Phase 6 finding, not a validation target or
+  pass. All four held-out families—growth rates, size-dependent habit, pressure dependence, and
+  growth-history responses—are deferred past Phase 6 with no validation credit. Their accountable
+  owner is project maker `billatgameology` through the named Phase 7 held-out-validation work
+  package; no Phase 6 held-out production row may start from this lock.
+- The narrowed WP1 task is separate: freeze Nakaya-comparison physical-size **strata** from the
+  already-locked observations and uncertainties through a new, simplest reviewable deterministic
+  operator. The classical reference supplies no single maximum dimension, so WP1 may not promote
+  one of the non-transferable 100/150/200/300 µm planning probes into a uniquely correct Nakaya
+  measurement size. R15 still waits for that strata freeze and WP2's registered numerical result.
 - A source-specifiable latent-heat arm can narrow the Harrison mismatch, but cannot infer the missing
   per-particle crystallography. Substrate or sublimation work similarly does not erase the other
   candidates' unobserved initial state.
-- The pressure and history obligations must be reported as scientifically blocked unless a matched
-  source or independently specified new geometry/physics is frozen before execution. They are not
-  resource-deferred and must not be marked passed.
-- Any new physics is an ADR/spec/implementation decision with its own numerical and evidence review.
+- The pressure/history gaps and the corresponding gaps in the other two families remain scientific
+  incompatibilities, not resource excuses. Phase 7 must make each comparison apples-to-apples or
+  retain the non-comparable finding; deferral must never be marked as execution or a pass.
+- Any post-Phase-6 new physics is an ADR/spec/implementation decision with its own numerical and
+  evidence review.
 
 ## 10. Review provenance and limits
 
@@ -352,3 +359,25 @@ their page counts, extracted the complete relevant text, visually reviewed metho
 tables/results, and inspected the Bailey–Hallett indexed publisher rendering. It did not digitize
 plots, recover unpublished/raw particle tables, contact authors, acquire the blocked 2004 journal
 PDF, run the solver, or implement thermal, sublimation, substrate, polycrystal or defect physics.
+
+## 11. Rejected WP1 V4/V4.x apparatus -- historical pointer
+
+Maker direction on 2026-08-03 closed the source-search register, publisher, and control-batch
+apparatus as rejected history. Nothing in the former Section 11 may be executed, repaired, repinned,
+reviewed toward acceptance, imported, published, or dispatched. Its exact last live-path candidate
+bytes are retained under [`research/rejected/phase6-wp1-v4x/`](rejected/phase6-wp1-v4x/):
+
+- `phase6-source-currency-v4x-rejected.md`: 65,588 bytes / SHA-256
+  `63f54e0a58ec515e54eb6b5c6e928a94a14956479c3a30c261f19aea97ec022d`;
+- `phase6-wp1-independence-operands.json`: 99,033 bytes / SHA-256
+  `9ffe4edf928bfa3416ecd064a594da259c0fcc24ad87b2cbc744906d3c2163cb`;
+- `phase6-wp1-review-findings.json`: 98,730 bytes / SHA-256
+  `8f08e251754f4e1e2833bd9555b47bdd15903d10b460698f41502eaccbc161b9`; and
+- `phase6-wp1-search-registry.json`: 112,565 bytes / SHA-256
+  `41a6d4cc3973ff92bd0ecd249cbb122bdf1a874b886f835f0ed1b21b6fc78f17`.
+
+Those bytes preserve findings and failed approaches only; their embedded candidate statuses and
+future-tense instructions have no current authority. The active parent plan now limits WP1 to one
+new, separately planned task: freeze Nakaya-comparison physical-size strata from already-locked
+sources through the simplest reviewable deterministic operator. No new literature search or TAX2
+execution is authorized.

@@ -42,6 +42,7 @@
       <li><a href="#triangular-test">A triangular stress test</a></li>
       <li><a href="#where-it-runs-out">Six places the account runs out</a></li>
       <li><a href="#a-field-of-a-handful">A field of a handful of people</a></li>
+      <li><a href="#the-other-laboratory">The other laboratory</a></li>
       <li><a href="#why-bother">Why bother</a></li>
     </ol>
   </nav>
@@ -78,6 +79,9 @@
             say for each one whether it is genuinely hard or has simply not been done.</li>
           <li>Explain why a field with almost nobody in it is a reason a problem stays open, not
             evidence that the problem is unimportant.</li>
+          <li>Name the second experimental school measuring ice attachment kinetics &mdash; its
+            instrument, its funding, its theoretical lineage &mdash; and say why its independent
+            convergence with the first school counts as evidence.</li>
           <li>Say what a scientist means by &ldquo;we do not know&rdquo; &mdash; and why it is a
             position rather than a failure.</li>
         </ul>
@@ -1041,6 +1045,122 @@
         technique, not by needing a machine the size of a city. A well-designed cold chamber, a
         microscope, patience, and honest error bars are the tools of this field. That is unusual,
         and it is the most encouraging fact in this chapter.
+      </p>
+
+      <p>
+        One amendment before that picture sets, because as stated it is one-sided. The
+        &ldquo;forbidden research&rdquo; and the credit card are true of <em>his</em> funding
+        &mdash; but they are not the whole field, and the handful of interested souls has a
+        second cluster in it that this chapter has so far kept off stage.
+      </p>
+
+      <h2 id="the-other-laboratory">The other laboratory</h2>
+
+      <p>
+        At Penn State there is an atmospheric-science group &mdash; Jerry Harrington, Gwenore
+        Pokrifka, Alfred Moyle, Alexander Harrison and colleagues &mdash; that has been
+        measuring how water vapour attaches to ice for a decade. They are not doing forbidden
+        research. Their 2020 paper acknowledges National Science Foundation grant AGS-1824243,
+        because their reason for asking is one a funding agency can recognize: cirrus clouds
+        are made of small ice crystals, climate and weather models must decide how fast those
+        crystals grow, and the number the models need &mdash; the deposition coefficient,
+        cloud physics&rsquo; name for the attachment coefficient of Chapter&nbsp;11 &mdash; is
+        exactly the quantity this site has been circling for three chapters. Same surface,
+        same question, entirely different reason for asking it.
+      </p>
+      <p>
+        Different instrument, too. Libbrecht images crystals &mdash; on substrates, on the
+        tips of electric needles &mdash; and reads growth off their changing outlines. The
+        Penn State group levitates them. A single frozen droplet hangs between charged plates
+        with nothing touching it, held against gravity by an electric field &mdash; and
+        because the voltage needed to hold it there scales with its weight, the crystal is
+        weighed continuously as it grows: the ratio of voltages is the ratio of masses. Where
+        one school photographs facets, the other weighs free-floating crystals too small to
+        image. Neither can see what the other sees.
+      </p>
+      <p>
+        The published chain runs like this. Harrison, Moyle, Hanson and Harrington
+        (<em>Journal of the Atmospheric Sciences</em> 73, 2743&ndash;2758, 2016) reported
+        mass-growth measurements at &minus;31 to &minus;42&nbsp;&deg;C &mdash; the cirrus
+        regime &mdash; at near-ambient pressure. Pokrifka, Moyle, Hanson and Harrington
+        followed in the same journal in 2020 with the result
+        <a href="./11-the-stickiness-of-ice.html">Chapter&nbsp;11</a> covers in detail: as
+        facets emerge from a frozen droplet, the attachment coefficient <em>falls</em>, by
+        roughly an order of magnitude, over the course of a single young crystal&rsquo;s
+        growth. The surface gets pickier as it organizes itself.
+      </p>
+      <p>
+        And a different theoretical ancestry. The parameterization the Penn State group works
+        within descends not from Libbrecht&rsquo;s CAK and SDAK curve family but from Jon
+        Nelson and Marcia Baker&rsquo;s layer-nucleation growth theory of the 1990s, and from
+        the geometric growth functions Wood and colleagues published in 2001 for hexagonal
+        prisms &mdash; a single composite functional form that spans growth from spiral
+        dislocations at one end to ledge nucleation at the other. It answers the same question
+        the two barrier curves of Chapter&nbsp;11 answer, in a different mathematical dialect.
+        There are, in other words, two living theoretical languages for the same surface
+        &mdash; and no agreed translation between them.
+      </p>
+      <p>
+        Nor is this a historical note; the second school is publishing into the present. This
+        project&rsquo;s research folder holds the data-and-code archive of Harrington and
+        Pokrifka&rsquo;s &ldquo;Revisiting Theories for the Growth of Single-Crystalline
+        Ice,&rdquo; prepared for the <em>Journal of the Atmospheric Sciences</em> (2026). One
+        honest caveat before describing it: the archive contains the paper&rsquo;s data and
+        code, not its text, so what follows is read from the supplement rather than from any
+        published conclusion. The code implements the Nelson&ndash;Baker and Wood machinery
+        for full hexagonal prisms. The validation targets include the classic free-fall
+        growth data of Takahashi and colleagues (1991), re-digitized axis by axis. And
+        alongside the old data sit brand-new measurements of their own.
+      </p>
+      <p>
+        Those measurements are the part worth sitting with. Libbrecht&rsquo;s data stop near
+        &minus;40&nbsp;&deg;C. The archive holds Penn State diffusion-chamber runs on single
+        crystals at &minus;50&nbsp;&deg;C &mdash; colder than anything in his corpus &mdash;
+        at 48&nbsp;% ice supersaturation and near-ambient pressure, with the a-axis and
+        c-axis tracked separately through time. In the first thirty-five minutes of one run a
+        crystal&rsquo;s a-dimension grew from 11 to 21&nbsp;micrometres while its c-dimension
+        grew from 35 to 109&nbsp;micrometres: strongly columnar growth at
+        &minus;50&nbsp;&deg;C, measured axis by axis. A second run steps the supersaturation
+        down mid-growth, from 48&nbsp;% to 20&nbsp;%, to watch the kinetics respond to the
+        change. That is the same instinct you saw in Chapter&nbsp;10 &mdash; do not just grow
+        a crystal, interrogate it &mdash; executed on different hardware, by people who have
+        never shared a laboratory with the rest of this site.
+      </p>
+      <p>
+        Now the convergence, because it is the most important sentence in this section. The
+        two schools share no apparatus, no funding stream, and no theoretical framework. And
+        they have independently arrived at the same structural conclusion: the attachment
+        coefficient is not a fixed property of ice at a given temperature. It depends on the
+        crystal&rsquo;s own structure and history &mdash; on Libbrecht&rsquo;s side, SDAK and
+        its narrow-facet story; on Penn State&rsquo;s, kinetics transitions in young crystals
+        and the defects a crystal inherits from its frozen-droplet birth. When two groups
+        with nothing in common both land on &ldquo;the surface remembers,&rdquo; the
+        agreement is not a coincidence to explain away. It is evidence.
+      </p>
+
+      <aside class="callout callout--open">
+        <p class="callout__label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <circle cx="12" cy="12" r="9.5"/><path d="M9.2 9.3a2.9 2.9 0 1 1 3.6 3.4v1.6M12.4 17.4v.2"/>
+          </svg>
+          Still unsettled
+        </p>
+        <p>
+          The two schools do not agree on everything, and their disagreements are the healthy
+          kind: which functional form best describes layer nucleation, whose supersaturation
+          calibration to trust, and what the young-crystal kinetics transition means for
+          SDAK&rsquo;s narrow-facet story. Each is a live, checkable dispute between people
+          who can run the experiment &mdash; and none of them is settled, which is this
+          chapter&rsquo;s whole point.
+        </p>
+      </aside>
+
+      <p>
+        So amend the arithmetic of the last section without discarding it. The funding quotes
+        are true &mdash; of his funding. The handful of interested souls is still a handful.
+        But the field is not one man and a credit card; it is two small schools and a theory
+        lineage, asking the same question in different languages for different reasons. That
+        is still tiny. Tiny is not solitary.
       </p>
 
       <h2 id="why-bother">Why bother</h2>
