@@ -1,6 +1,6 @@
 {
  "format": "gutcheck-large-inventory-v1",
- "generated": "2026-08-05T01:47:34.347Z",
+ "generated": "2026-08-07T00:28:27.307Z",
  "root": "out/gutcheck-gg-realism/large",
  "files": [
   {
@@ -5629,9 +5629,27 @@
    "totalBytes": 9986632571
   },
   {
+   "name": "gutcheck-large-anim-B-20260807.zip",
+   "group": "anim-B",
+   "createdAt": "2026-08-07T00:26:21.838Z",
+   "bytes": 5238008332,
+   "sha256": "a6c67cb24fcfa0b17043b71d2d2c7e5ba0595291aae8d9de9ca1b6a66bf66337",
+   "fileCount": 702,
+   "totalBytes": 9986632571
+  },
+  {
    "name": "gutcheck-large-anim-smoke-20260804.zip",
    "group": "anim-smoke",
    "createdAt": "2026-08-04T14:48:25.783Z",
+   "bytes": 8592946,
+   "sha256": "fb6803945f22754c2fbf0174b4ad193e9469f979b9a75eea64c29c94d96df038",
+   "fileCount": 21,
+   "totalBytes": 18771275
+  },
+  {
+   "name": "gutcheck-large-anim-smoke-20260807.zip",
+   "group": "anim-smoke",
+   "createdAt": "2026-08-07T00:26:22.062Z",
    "bytes": 8592946,
    "sha256": "fb6803945f22754c2fbf0174b4ad193e9469f979b9a75eea64c29c94d96df038",
    "fileCount": 21,
@@ -5647,6 +5665,15 @@
    "totalBytes": 4140115483
   },
   {
+   "name": "gutcheck-large-checkpoints-20260807.zip",
+   "group": "checkpoints",
+   "createdAt": "2026-08-07T00:26:46.140Z",
+   "bytes": 1012696447,
+   "sha256": "e4d28630f065577528d997d059cae4e592e97289a2390180a1606336f01832ac",
+   "fileCount": 7,
+   "totalBytes": 4140115483
+  },
+  {
    "name": "gutcheck-large-figs-20260804.zip",
    "group": "figs",
    "createdAt": "2026-08-04T14:14:29.667Z",
@@ -5656,9 +5683,27 @@
    "totalBytes": 11420240866
   },
   {
+   "name": "gutcheck-large-figs-20260807.zip",
+   "group": "figs",
+   "createdAt": "2026-08-07T00:28:19.007Z",
+   "bytes": 3882887661,
+   "sha256": "3177994cc617cb40ab52ebdb832de32a1d3a56b40717c7c2b739b99a7e7977be",
+   "fileCount": 61,
+   "totalBytes": 17352932978
+  },
+  {
    "name": "gutcheck-large-meshes-20260804.zip",
    "group": "meshes",
    "createdAt": "2026-08-04T14:14:38.117Z",
+   "bytes": 345924390,
+   "sha256": "c6baddf2fef62c0e3629921e39def22ec2f5a508d2d60a488a0f90935f067526",
+   "fileCount": 11,
+   "totalBytes": 645221016
+  },
+  {
+   "name": "gutcheck-large-meshes-20260807.zip",
+   "group": "meshes",
+   "createdAt": "2026-08-07T00:28:27.307Z",
    "bytes": 345924390,
    "sha256": "c6baddf2fef62c0e3629921e39def22ec2f5a508d2d60a488a0f90935f067526",
    "fileCount": 11,

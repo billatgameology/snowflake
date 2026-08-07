@@ -879,10 +879,29 @@ For the artifacts, copy the zips from `out/gutcheck-gg-realism/archives/` and ru
 `node scripts/gutcheck-archive-restore.ts <zip>` per group; each file is verified against
 the tracked inventory and the run exits nonzero on any mismatch.
 
-**Before copying, re-pack — the archives are stale.** They were built 2026-08-04 and
-predate the Figs. 17/19/32/33/37/38/44 checkpoints and meshes, which are in the inventory
-but in no zip. Run `node scripts/gutcheck-archive-pack.ts --pack figs` (and `--pack all`
-if the other groups also drifted) and copy the refreshed zips.
+**Archives refreshed 2026-08-07** (`out/gutcheck-gg-realism/repack.log`) — all five
+groups rebuilt from scratch after cleanup, 802 files / 30.0 GB inventoried, **9.8 GB of
+zips** to copy:
+
+| Archive | Size | sha256 |
+|---|---|---|
+| `gutcheck-large-anim-B-20260807.zip` | 4.9 GB | see `tracked/inventory.json` archives ledger |
+| `gutcheck-large-figs-20260807.zip` | 3.6 GB | (grew from 2.39 GB — now includes Figs. 17/19/32/33/37/38/44) |
+| `gutcheck-large-checkpoints-20260807.zip` | 966 MB | `e4d28630f065577528d997d059cae4e592e97289a2390180a1606336f01832ac` |
+| `gutcheck-large-meshes-20260807.zip` | 330 MB | `c6baddf2fef62c0e3629921e39def22ec2f5a508d2d60a488a0f90935f067526` |
+| `gutcheck-large-anim-smoke-20260807.zip` | 8.2 MB | `fb6803945f22754c2fbf0174b4ad193e9469f979b9a75eea64c29c94d96df038` |
+
+Round trip re-verified after the re-pack: anim-smoke restored 21/21 verified, 0 mismatched,
+archive hash checked against the ledger before extraction.
+
+**Cleanup performed the same day** (46 GB -> 39 GB local): removed the 0-byte
+`fig14v2-state.ckpt` left by the failed run (it would otherwise have been inventoried and
+packed as a real artifact), three scene-capture frame dumps (423 MB of PNGs whose only
+purpose was the determinism hash; the mp4 is the deliverable), and the two regenerable
+derived trees `site/` and `large/anim-B-v2q/` (12.5 GB, ~6.2 GB of it real after
+hardlink sharing). Regenerate those on the new machine with
+`node scripts/gutcheck-mesh-quantize.ts --manifest out/gutcheck-gg-realism/large/anim-B/manifest.json
+--out-dir out/gutcheck-gg-realism/large/anim-B-v2q` then `node scripts/gutcheck-build-site.ts`.
 
 **Do not bother copying derived data**: `large/anim-B-v2q/` (6.2 GB) regenerates from
 `large/anim-B/` with `gutcheck-mesh-quantize.ts --manifest`, and `site/` (6.3 GB)
