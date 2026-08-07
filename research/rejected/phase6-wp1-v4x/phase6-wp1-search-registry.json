@@ -1,0 +1,2545 @@
+{
+  "schema": "phase6-wp1-search-registry-v4.1-author-candidate",
+  "protocolId": "WP1-SOURCE-SEARCH-2026-08-03-V4.1",
+  "executionState": "unexecuted-offline-implementation-only-unaccepted-no-dispatch",
+  "historicalEligibilityCutoffUtc": "2026-08-02T23:59:59Z",
+  "currencyAsOfUtc": null,
+  "currencyAsOfRule": "prospectively observe the UTC clock, replace null with that exact search upper-bound instant before the final combined-freeze acceptance reviews, and review/freeze the changed protocol/code bytes before any request; design review may inspect null candidate bytes but cannot accept or authorize them; the field is a cutoff, never evidence that a route ran",
+  "currencyCoverageAsOfUtc": null,
+  "currencyCoverageRule": "result-side only and bounded to the registered providers/routes: after authorized execution, derive the minimum completed-through instant supported by every required currency subject/bound/family terminal result; null or less than currencyAsOfUtc makes the applicable currency component unresolved; equality is an observed registered-provider coverage claim, never an exhaustive past-or-future literature theorem",
+  "resultAuthority": "source-recovery-and-source-compatibility-only; never scoreable, passEligible, target-ready, solver-ready, or validation evidence without a separately reviewed source-to-argv-solver-checkpoint-observable bridge frozen before model output",
+  "priorFindingIds": [
+    "CATV2-B01",
+    "CATV2-B02",
+    "CATV2-B03",
+    "CATV2-B04",
+    "CATV2-S01",
+    "CATV2-S02",
+    "V2-PUBLICATION-B01",
+    "V2-PUBLICATION-B02",
+    "V2-PUBLICATION-B03",
+    "V2-PUBLICATION-B04",
+    "V2-PUBLICATION-B05",
+    "V2-PUBLICATION-B06",
+    "V2-PUBLICATION-B07",
+    "V2-PUBLICATION-B08",
+    "V2-PUBLICATION-SF01",
+    "V2-PUBLICATION-SF02",
+    "V2-PUBLICATION-SF03",
+    "V2-SCHEMA-B01",
+    "V2-SCHEMA-B02",
+    "V2-SCHEMA-B03",
+    "V2-SCHEMA-B04",
+    "V2-SCHEMA-B05",
+    "V2-SCHEMA-B06",
+    "V2-SCHEMA-B07",
+    "V2-SCHEMA-B08",
+    "V2-SCHEMA-B09",
+    "V2-SCHEMA-B10",
+    "V2-SCHEMA-B11",
+    "V2-SCHEMA-B12",
+    "V2-SCHEMA-B13",
+    "V2-SCHEMA-B14",
+    "V2-SCHEMA-B15",
+    "V2-SCHEMA-B16",
+    "V2-SCHEMA-B17",
+    "V2-SCHEMA-B18",
+    "V2-SCHEMA-SF01",
+    "V2-SCHEMA-SF02",
+    "V2-SCHEMA-SF03",
+    "V2-SCHEMA-SF04",
+    "V2-SCHEMA-SF05",
+    "V2-SCIENCE-B01",
+    "V2-SCIENCE-SF01",
+    "V3-PUBLICATION-B01",
+    "V3-PUBLICATION-B02",
+    "V3-PUBLICATION-B03",
+    "V3-PUBLICATION-B04",
+    "V3-PUBLICATION-B05",
+    "V3-PUBLICATION-B06",
+    "V3-PUBLICATION-B07",
+    "V3-PUBLICATION-SF01",
+    "V3-PUBLICATION-SF02",
+    "V3-SCHEMA-B01",
+    "V3-SCHEMA-B02",
+    "V3-SCHEMA-B03",
+    "V3-SCHEMA-B04",
+    "V3-SCHEMA-B05",
+    "V3-SCHEMA-B06",
+    "V3-SCHEMA-B07",
+    "V3-SCHEMA-B08",
+    "V3-SCHEMA-B09",
+    "V3-SCHEMA-B10",
+    "V3-SCHEMA-SF01",
+    "V3-SCHEMA-SF02",
+    "V3-SCHEMA-SF03",
+    "V3-SCIENCE-B01",
+    "V3-SCIENCE-B02",
+    "V3-SCIENCE-B03",
+    "V3-SCIENCE-B04",
+    "V3-SCIENCE-B05",
+    "V3-SCIENCE-SF01",
+    "V3-SCIENCE-SF02",
+    "V3R2-PUBLICATION-B01",
+    "V3R2-PUBLICATION-B02",
+    "V3R2-PUBLICATION-B03",
+    "V3R2-PUBLICATION-B04",
+    "V3R2-PUBLICATION-B05",
+    "V3R2-PUBLICATION-SF01",
+    "V3R2-SCHEMA-B01",
+    "V3R2-SCHEMA-B02",
+    "V3R2-SCHEMA-B03",
+    "V3R2-SCHEMA-B04",
+    "V3R2-SCHEMA-B05",
+    "V3R2-SCHEMA-B06",
+    "V3R2-SCHEMA-B07",
+    "V3R2-SCHEMA-B08",
+    "V3R2-SCHEMA-B09",
+    "V3R2-SCHEMA-B10",
+    "V3R2-SCHEMA-B11",
+    "V3R2-SCHEMA-B12",
+    "V3R2-SCHEMA-SF01",
+    "V3R2-SCHEMA-SF02",
+    "V3R2-SCIENCE-B01",
+    "V3R2-SCIENCE-B02",
+    "V3R2-SCIENCE-B03",
+    "V3R2-SCIENCE-B04",
+    "V3R2-SCIENCE-B05",
+    "V3R2-SCIENCE-SF01",
+    "V4AS-B01",
+    "V4AS-B02",
+    "V4AS-B03",
+    "V4AS-B04",
+    "V4AS-B05",
+    "V4AS-B06",
+    "V4AS-B07",
+    "V4AS-B08",
+    "V4AS-B09",
+    "V4AS-B10",
+    "V4AS-B11",
+    "V4AS-B12",
+    "V4AS-S01",
+    "V4AS-S02",
+    "V4AS-S03",
+    "V4CF-B01",
+    "V4CF-B02",
+    "V4CF-B03",
+    "V4CF-B04",
+    "V4CF-B05",
+    "V4CF-B06",
+    "V4CF-B07",
+    "V4CF-B08",
+    "V4CF-B09",
+    "V4CF-S01",
+    "WP1V4-ART-B01",
+    "WP1V4-ART-B02",
+    "WP1V4-ART-B03",
+    "WP1V4-ART-B04",
+    "WP1V4-ART-B05",
+    "WP1V4-ART-B06",
+    "WP1V4-ART-B07",
+    "WP1V4-ART-B08",
+    "WP1V4-ART-SF01",
+    "WP1V4-ART-SF02",
+    "WP1V4-ART-SF03",
+    "WP1V4-SCI-B01",
+    "WP1V4-SCI-B02",
+    "WP1V4-SCI-B03",
+    "WP1V4-SCI-B04",
+    "WP1V4-SCI-B05",
+    "WP1V4-SCI-B06",
+    "WP1V4-SCI-B07",
+    "WP1V4-SCI-B08",
+    "WP1V4-SCI-B09",
+    "WP1V4-SCI-B10",
+    "WP1V4-SCI-B11",
+    "WP1V4-SCI-SF01",
+    "WP1V4-SCI-SF02",
+    "WP1V4-SCI-SF03",
+    "WP1V4-SCI-SF04",
+    "WP1V4-SCI-SF05",
+    "WP1V4-SCI-SF06"
+  ],
+  "serialization": {
+    "textEncoding": "utf-8",
+    "unicodeNormalization": "NFC",
+    "json": "recursive-key-sort-no-insignificant-whitespace-terminal-lf",
+    "stringOrder": "utf16-code-unit",
+    "decimalGrammar": "^-?(0|[1-9][0-9]*)(?:\\.[0-9]+)?$",
+    "negativeZeroAllowed": false,
+    "rational": "reduced-signed-decimal-numerator-positive-decimal-denominator"
+  },
+  "transport": {
+    "authentication": "none",
+    "userAgent": "VirtualCloudChamber-Phase6-WP1/1.0",
+    "attemptsPerRequest": 4,
+    "retryableHttpStatuses": [
+      "429",
+      "500-599"
+    ],
+    "fallbackRetryWaitSeconds": [
+      5,
+      20,
+      60
+    ],
+    "retryAfterMaximumSeconds": 60,
+    "redirectPolicy": "GET-only; follow 301, 302, 303, 307, and 308; resolve Location against the parent final URL; require http or https, no credentials, and a route-allowed origin; record every status, raw Location, resolved URL, response-body hash, and final URL",
+    "redirectMaximumHops": 10,
+    "redirectCycleOrInvalidEffect": "access-incomplete",
+    "spaceEncoding": "%20",
+    "parameterEncoding": "substitute-decoded-values-then-utf8-percent-encode-once",
+    "repeatedGetAfterUnknownOutcome": "permitted-and-recorded"
+  },
+  "routes": [
+    {
+      "routeId": "crossref",
+      "kind": "http-json",
+      "accept": "application/json",
+      "requestTemplate": "GET https://api.crossref.org/works?query.bibliographic={Q}&filter=from-pub-date:{FROM},until-pub-date:{TO}&rows=100&offset={OFFSET}",
+      "pages": [
+        "offset=0",
+        "offset=100"
+      ],
+      "initialPageRequestCountPerQuery": 2,
+      "maximumPageRequestsPerQuery": 2,
+      "maximumRecords": 200,
+      "serverDateFilter": true,
+      "allowedOrigins": [
+        "https://api.crossref.org"
+      ],
+      "completionEvidence": "both fixed offsets have governing terminal attempts and parseable message.total-results; total-results greater than 200 is cap-incomplete"
+    },
+    {
+      "routeId": "openalex",
+      "kind": "http-json",
+      "accept": "application/json",
+      "requestTemplate": "GET https://api.openalex.org/works?search={Q}&filter=from_publication_date:{FROM},to_publication_date:{TO}&per-page=100&cursor={CURSOR}",
+      "pages": [
+        "cursor=*",
+        "cursor=parent-next-cursor"
+      ],
+      "initialPageRequestCountPerQuery": 1,
+      "maximumPageRequestsPerQuery": 2,
+      "maximumRecords": 200,
+      "serverDateFilter": true,
+      "allowedOrigins": [
+        "https://api.openalex.org"
+      ],
+      "completionEvidence": "start at literal cursor=*; schedule at most one continuation bound to the governing parent response; finish on empty items or null next_cursor; a missing, repeated, or malformed cursor is access-incomplete; a non-null continuation after 200 retained records or two pages is cap-incomplete"
+    },
+    {
+      "routeId": "cinii",
+      "kind": "http-json",
+      "accept": "application/json",
+      "requestTemplate": "GET https://cir.nii.ac.jp/opensearch/all?q={Q}&format=json&count=200&start=1",
+      "pages": [
+        "start=1"
+      ],
+      "initialPageRequestCountPerQuery": 1,
+      "maximumPageRequestsPerQuery": 1,
+      "maximumRecords": 200,
+      "serverDateFilter": false,
+      "allowedOrigins": [
+        "https://cir.nii.ac.jp"
+      ],
+      "completionEvidence": "the fixed page has a governing terminal attempt and parseable advertised total; a total greater than 200 is cap-incomplete"
+    },
+    {
+      "routeId": "ndl",
+      "kind": "http-xml",
+      "accept": "application/xml",
+      "requestTemplate": "GET https://ndlsearch.ndl.go.jp/api/sru?operation=searchRetrieve&version=1.2&recordSchema=dcndl&recordPacking=xml&query={CQL}&maximumRecords=200&startRecord=1",
+      "pages": [
+        "startRecord=1"
+      ],
+      "initialPageRequestCountPerQuery": 1,
+      "maximumPageRequestsPerQuery": 1,
+      "maximumRecords": 200,
+      "serverDateFilter": false,
+      "allowedOrigins": [
+        "https://ndlsearch.ndl.go.jp"
+      ],
+      "completionEvidence": "the fixed page has a governing terminal attempt and parseable numberOfRecords; a count greater than 200 is cap-incomplete",
+      "queryTransform": "Q_CQL replaces backslash with double-backslash and double-quote with backslash-quote; decoded CQL is anywhere=double-quote+Q_CQL+double-quote before whole-CQL parameter encoding"
+    },
+    {
+      "routeId": "jstage",
+      "kind": "manual-html",
+      "accept": "text/html",
+      "requestTemplate": "https://www.jstage.jst.go.jp/result/global/-char/en?globalSearchKey={Q}",
+      "pages": [
+        "first",
+        "server-displayed-next-through-cap"
+      ],
+      "initialPageRequestCountPerQuery": 1,
+      "maximumPageRequestsPerQuery": 200,
+      "maximumRecords": 200,
+      "serverDateFilter": false,
+      "allowedOrigins": [
+        "https://www.jstage.jst.go.jp"
+      ],
+      "completionEvidence": "import the first page and then each unique same-origin displayed next link in parent order; no next link is complete; a malformed, cross-origin, repeated, or cyclic link is access-incomplete; a next link or advertised excess after 200 records or 200 pages is cap-incomplete"
+    },
+    {
+      "routeId": "google-books",
+      "kind": "http-json",
+      "accept": "application/json",
+      "requestTemplate": "GET https://www.googleapis.com/books/v1/volumes?q={Q}&printType=books&orderBy=relevance&maxResults=40&startIndex={START}",
+      "pages": [
+        "startIndex=0",
+        "startIndex=40",
+        "startIndex=80",
+        "startIndex=120",
+        "startIndex=160"
+      ],
+      "initialPageRequestCountPerQuery": 5,
+      "maximumPageRequestsPerQuery": 5,
+      "maximumRecords": 200,
+      "serverDateFilter": false,
+      "allowedOrigins": [
+        "https://www.googleapis.com"
+      ],
+      "completionEvidence": "all five fixed starts have governing terminal attempts and parseable totalItems; totalItems greater than 200 is cap-incomplete"
+    },
+    {
+      "routeId": "internet-archive",
+      "kind": "http-json",
+      "accept": "application/json",
+      "requestTemplate": "GET https://archive.org/advancedsearch.php?q={Q}&fl[]=identifier&fl[]=title&fl[]=creator&fl[]=date&fl[]=description&fl[]=subject&fl[]=mediatype&rows=200&page=1&output=json",
+      "pages": [
+        "page=1"
+      ],
+      "initialPageRequestCountPerQuery": 1,
+      "maximumPageRequestsPerQuery": 1,
+      "maximumRecords": 200,
+      "serverDateFilter": false,
+      "allowedOrigins": [
+        "https://archive.org"
+      ],
+      "completionEvidence": "the fixed page has a governing terminal attempt and parseable response.numFound; numFound greater than 200 is cap-incomplete"
+    },
+    {
+      "routeId": "worldcat",
+      "kind": "manual-html",
+      "accept": "text/html",
+      "requestTemplate": "https://search.worldcat.org/search?q={Q}",
+      "pages": [
+        "first",
+        "server-displayed-next-through-cap"
+      ],
+      "initialPageRequestCountPerQuery": 1,
+      "maximumPageRequestsPerQuery": 100,
+      "maximumRecords": 100,
+      "serverDateFilter": false,
+      "allowedOrigins": [
+        "https://search.worldcat.org"
+      ],
+      "completionEvidence": "import the first page and then each unique same-origin displayed next link in parent order; no next link is complete; a malformed, cross-origin, repeated, or cyclic link is access-incomplete; a next link or advertised excess after 100 records or 100 pages is cap-incomplete"
+    },
+    {
+      "routeId": "supplemental-web",
+      "kind": "opaque-search",
+      "accept": null,
+      "requestTemplate": "search_query exact={Q} recency=omitted",
+      "pages": [
+        "one-call"
+      ],
+      "initialPageRequestCountPerQuery": 1,
+      "maximumPageRequestsPerQuery": 1,
+      "maximumRecords": 50,
+      "serverDateFilter": false,
+      "allowedOrigins": [],
+      "completionEvidence": "one canonical observable result plus provider continuation state; any unconsumed continuation or more than 50 ranked results is cap-incomplete; an unobservable continuation state is access-incomplete",
+      "quantitativeEvidenceAllowed": false
+    }
+  ],
+  "entries": [
+    {
+      "entryId": "YAMASHITA-FREEFALL-LINEAGE-01",
+      "fromDate": "1930-01-01",
+      "toDate": "1987-12-31",
+      "queries": [
+        "Yamashita snow crystal growth",
+        "A. Yamashita ice crystal growth",
+        "Akira Yamashita snow crystal",
+        "Yamashita snow crystal 200 seconds",
+        "Yamashita diameter thickness snow crystal",
+        "Yamashita free fall snow crystal",
+        "山下 雪結晶 成長",
+        "山下 雪結晶 200秒",
+        "山下 氷晶 成長",
+        "人工雪 結晶 山下",
+        "Snow Crystals Morphology of Crystals Part B Kobayashi Kuroda 1987",
+        "雪結晶 結晶成長 山下 明"
+      ],
+      "knownSeeds": [
+        "arxiv:1910.06389v2#figure-6.22",
+        "arxiv:1910.06389v2#figure-7.21",
+        "arxiv:1910.06389v2#bibliography-1987Kob",
+        "arxiv:2004.06212v1#figure-8"
+      ],
+      "basePlan": {
+        "routeIdsInOrder": [
+          "crossref",
+          "openalex",
+          "cinii",
+          "ndl",
+          "jstage",
+          "google-books",
+          "internet-archive",
+          "worldcat",
+          "supplemental-web"
+        ],
+        "queryCount": 12,
+        "routeCount": 9,
+        "baseCombinationCount": 108,
+        "initialPageRequestsPerQuery": 14,
+        "initialBasePageRequestCount": 168,
+        "seedResolutionInitialRequestCount": 0,
+        "initialPageRequestCount": 168
+      },
+      "citationRootPolicyId": "yamashita-byte-roots-plus-included-base-v1",
+      "backwardDepthMaximum": 3,
+      "forwardDepthMaximum": 2,
+      "screenPredicateId": "yamashita-crystal-or-200s-dimensions-v1",
+      "primaryAdmissionId": "yamashita-pre-1988-reviewed-root-lineage-v2",
+      "terminalOutcomes": [
+        "source-and-conditions-recovered-bridge-required",
+        "bounded-search-negative",
+        "access-incomplete",
+        "cap-incomplete",
+        "source-lineage-unresolved"
+      ],
+      "scientificAdmission": {
+        "candidatePublicationUpperBound": "1987-12-31",
+        "missingOrAmbiguousCandidateDateEffect": "unresolved; later or undated material remains a lead and cannot be admitted as the underlying primary source",
+        "qualifyingRoots": [
+          "arxiv:1910.06389v2#figure-6.22",
+          "arxiv:1910.06389v2#figure-7.21"
+        ],
+        "requiredIntermediateRoot": "arxiv:1910.06389v2#bibliography-1987Kob",
+        "requiredLineage": "one fully reviewed source-byte relation path must begin at a qualifying root, pass through the required intermediate root and its reviewed 1987 book subject, and then reach the candidate through reviewed book credit/caption/note/reference or publication citation relations; the later 2004 Figure 8 root is context-only and cannot qualify a candidate by itself",
+        "primarySourceRequirement": "inspectable author-controlled experiment/method/data or author-controlled dataset whose underlying experiment/publication is no later than 1987-12-31",
+        "admissionConjunction": [
+          "identity-pass",
+          "complete-readable-source-inventory",
+          "adequate-language-review",
+          "candidate-date-at-or-before-upper-bound",
+          "qualifying-reviewed-lineage",
+          "author-controlled-primary-experiment-or-data"
+        ],
+        "failureEffect": "missing date, broken lineage, secondary-only evidence, later-only evidence, or inaccessible load-bearing source is unresolved/source-limited, never silently admitted"
+      }
+    },
+    {
+      "entryId": "MATCHED-AIR-PRESSURE-01",
+      "fromDate": "1930-01-01",
+      "toDate": "2026-08-02",
+      "queries": [
+        "snow crystal growth pressure experiment air",
+        "ice crystal growth air pressure supersaturation experiment",
+        "snow crystals reduced pressure growth",
+        "ice crystals pressure dependence air temperature supersaturation",
+        "snow crystal low pressure air growth rate",
+        "artificial snow crystals pressure experiment",
+        "snow crystal growth different pressures same temperature",
+        "ice crystal growth pressure chamber morphology",
+        "雪結晶 成長 気圧 空気",
+        "氷晶 成長 圧力 空気",
+        "人工雪 結晶 気圧",
+        "Gonda snow crystal pressure growth",
+        "Takahashi Fukuta snow crystal pressure",
+        "Bailey Hallett ice crystal pressure growth",
+        "Yamashita snow crystal pressure"
+      ],
+      "knownSeeds": [
+        "doi:10.2151/jmsj1965.66.6_841",
+        "doi:10.2151/jmsj1965.69.1_15",
+        "doi:10.2151/jmsj1965.62.3_563",
+        "doi:10.2151/jmsj1965.54.4_233",
+        "doi:10.3189/1985AoG6-1-222-224",
+        "doi:10.1175/1520-0469(2004)061<0514:GRAHOI>2.0.CO;2"
+      ],
+      "basePlan": {
+        "routeIdsInOrder": [
+          "crossref",
+          "openalex",
+          "cinii",
+          "ndl",
+          "jstage",
+          "google-books",
+          "internet-archive",
+          "worldcat",
+          "supplemental-web"
+        ],
+        "queryCount": 15,
+        "routeCount": 9,
+        "baseCombinationCount": 135,
+        "initialPageRequestsPerQuery": 14,
+        "initialBasePageRequestCount": 210,
+        "seedResolution": {
+          "seedCount": 6,
+          "templateIdsPerSeed": [
+            "crossref-doi-record-v1",
+            "openalex-doi-resolve-v1"
+          ],
+          "requestsPerSeed": 2
+        },
+        "seedResolutionInitialRequestCount": 12,
+        "initialPageRequestCount": 222
+      },
+      "citationRootPolicyId": "pressure-six-seeds-plus-included-base-v1",
+      "backwardDepthMaximum": 2,
+      "forwardDepthMaximum": 2,
+      "screenPredicateId": "water-ice-deposition-growth-with-numeric-gas-pressure-v1",
+      "primaryAdmissionId": "matched-pressure-source-model-uncertainty-independence-v1",
+      "terminalOutcomes": [
+        "source-compatible-bridge-required",
+        "source-recovered-model-compatibility-unresolved",
+        "source-blocked",
+        "model-physics-blocked",
+        "independence-blocked",
+        "access-incomplete",
+        "cap-incomplete"
+      ]
+    }
+  ],
+  "screening": {
+    "normalization": "NFKC-case-fold-punctuation-to-space-collapse-unicode-whitespace",
+    "latinMatching": "complete-whitespace-token-or-complete-listed-phrase",
+    "cjkMatching": "substring",
+    "yamashitaTokens": [
+      "yamashita",
+      "山下"
+    ],
+    "crystalTokens": [
+      "snow",
+      "ice",
+      "crystal",
+      "雪",
+      "氷",
+      "結晶"
+    ],
+    "durationNumberTokens": [
+      "200"
+    ],
+    "durationUnitTokens": [
+      "second",
+      "seconds",
+      "sec",
+      "秒",
+      "s"
+    ],
+    "dimensionTokens": [
+      "diameter",
+      "thickness",
+      "dimension",
+      "直径",
+      "厚"
+    ],
+    "pressureTokens": [
+      "pressure",
+      "pressures",
+      "pa",
+      "kpa",
+      "hpa",
+      "mb",
+      "mbar",
+      "bar",
+      "atm",
+      "torr",
+      "mmhg",
+      "pascal",
+      "pascals",
+      "気圧",
+      "圧力"
+    ],
+    "pressureNumberPattern": "[+-]?(?:[0-9]+(?:\\.[0-9]*)?|\\.[0-9]+)(?:[eE][+-]?[0-9]+)?",
+    "numericPressureAdjacency": "a pressureNumberPattern token and either one mapped single-token pressure unit (pa|kpa|hpa|mb|mbar|bar|atm|torr|pascal|pascals), the recognized-unmapped single token mmhg, or the exact recognized-unmapped two-token phrase mm hg occur in either order with at most two other normalized tokens between the complete number and complete unit phrase; the two-token phrase is atomic for the distance count",
+    "primaryExperimentTokens": [
+      "experiment",
+      "experimental",
+      "measurement",
+      "measurements",
+      "observed",
+      "observation",
+      "growth rate",
+      "morphology",
+      "実験",
+      "測定",
+      "観測",
+      "形態"
+    ],
+    "predicates": {
+      "yamashita-crystal-or-200s-dimensions-v1": "(any yamashitaTokens AND any crystalTokens) OR (any durationNumberTokens AND any durationUnitTokens AND any dimensionTokens)",
+      "water-ice-deposition-growth-with-numeric-gas-pressure-v1": "any crystalTokens AND numericPressureAdjacency",
+      "primary-experiment-v1": "any primaryExperimentTokens"
+    },
+    "pressureExclusions": [
+      {
+        "category": "non-water-crystal",
+        "matchAnyPhrase": [
+          "non water crystal",
+          "sodium chloride crystal",
+          "ammonium crystal",
+          "carbon dioxide crystal"
+        ],
+        "unlessAny": []
+      },
+      {
+        "category": "sublimation-only",
+        "matchAnyPhrase": [
+          "sublimation",
+          "sublimate"
+        ],
+        "unlessAny": [
+          "deposition",
+          "growth",
+          "析出",
+          "成長"
+        ]
+      },
+      {
+        "category": "atmospheric-remote-sensing",
+        "matchAnyPhrase": [
+          "remote sensing",
+          "radar retrieval",
+          "satellite retrieval"
+        ],
+        "unlessAny": []
+      },
+      {
+        "category": "bulk-cloud-statistics",
+        "matchAnyPhrase": [
+          "cloud statistics",
+          "precipitation statistics"
+        ],
+        "unlessAny": []
+      },
+      {
+        "category": "theory-or-simulation",
+        "matchAnyPhrase": [
+          "theory",
+          "theoretical",
+          "simulation",
+          "numerical model"
+        ],
+        "unlessAny": [
+          "experiment",
+          "experimental",
+          "measurement",
+          "measurements",
+          "observed",
+          "observation",
+          "growth rate",
+          "morphology",
+          "実験",
+          "測定",
+          "観測",
+          "形態"
+        ]
+      }
+    ],
+    "dispositionRule": "if metadata is insufficient, or a pressure concept/unit is present without an observable numeric pressure, then include-citation-lead; else if the entry predicate and primary experiment predicate pass and no first-priority exclusion applies then include-acquire, including recognized-unmapped mmHg forms whose later quantitative conversion stays unresolved; else if the entry predicate passes then include-citation-lead; else exclude-out-of-scope",
+    "missingMetadataDisposition": "include-citation-lead",
+    "opaqueSearchDispositionCeiling": "include-citation-lead",
+    "pressureUnitTokenPhrases": [
+      [
+        "mm",
+        "hg"
+      ]
+    ],
+    "recognizedUnmappedPressureUnits": [
+      {
+        "normalizedTokenSequence": [
+          "mmhg"
+        ],
+        "reportedForms": [
+          "mmHg",
+          "MMHG"
+        ],
+        "reason": "recognized pressure notation but no governed exact conversion authority in this protocol"
+      },
+      {
+        "normalizedTokenSequence": [
+          "mm",
+          "hg"
+        ],
+        "reportedForms": [
+          "mm Hg",
+          "mm-Hg",
+          "MM HG"
+        ],
+        "reason": "recognized pressure notation after punctuation-to-space normalization but no governed exact conversion authority in this protocol"
+      }
+    ]
+  },
+  "identity": {
+    "strongNamespaces": [
+      "doi",
+      "arxiv-version",
+      "openalex-work",
+      "pubmed",
+      "pmc",
+      "jstage-article",
+      "cinii",
+      "ndl",
+      "isbn-volume",
+      "internet-archive",
+      "oclc"
+    ],
+    "fallbackFields": [
+      "nfkc-case-fold-title",
+      "first-author-family",
+      "four-digit-year"
+    ],
+    "fallbackStatus": "unresolved",
+    "conflictPolicy": "quarantine-every-occurrence-in-overfull-connected-component",
+    "componentAlgorithm": "complete-order-independent-strong-identifier-graph"
+  },
+  "citationTraversal": {
+    "rootPolicies": [
+      {
+        "policyId": "yamashita-byte-roots-plus-included-base-v1",
+        "roots": [
+          "arxiv:1910.06389v2#figure-6.22",
+          "arxiv:1910.06389v2#figure-7.21",
+          "arxiv:1910.06389v2#bibliography-1987Kob",
+          "arxiv:2004.06212v1#figure-8"
+        ],
+        "additionalRoots": "every identity-pass base-search occurrence whose effective screening disposition is include-acquire or include-citation-lead",
+        "knownRootRequirement": "the four named local segments must be inventoried and reviewed before traversal can be complete"
+      },
+      {
+        "policyId": "pressure-six-seeds-plus-included-base-v1",
+        "roots": [
+          "doi:10.2151/jmsj1965.66.6_841",
+          "doi:10.2151/jmsj1965.69.1_15",
+          "doi:10.2151/jmsj1965.62.3_563",
+          "doi:10.2151/jmsj1965.54.4_233",
+          "doi:10.3189/1985AoG6-1-222-224",
+          "doi:10.1175/1520-0469(2004)061<0514:GRAHOI>2.0.CO;2"
+        ],
+        "additionalRoots": "every identity-pass base-search occurrence whose effective screening disposition is include-acquire or include-citation-lead",
+        "knownRootRequirement": "each DOI receives both registered seed-resolution requests even if another occurrence already names it"
+      }
+    ],
+    "graphPolicy": "form two unmixed breadth-first graphs per entry: backward-only and forward-only; retain every root and relation occurrence, but schedule each canonical subject identity once at its globally lowest depth across all roots in that entry/direction; Rule-12-derived occurrences never enter either graph",
+    "backwardMemberRule": "union references from the governing Crossref and OpenAlex records by normalized strong subject ID, or by reviewed-title SHA-256 when no strong ID exists; sort strong-ID members first by namespace:value UTF-16 code-unit order, then title-only hashes; retain the first 200 union members and mark cap-incomplete if more exist; resolve a strong DOI/OpenAlex ID, otherwise dispatch the exact reviewed citation title through titleOnlyRoutes; an ID-less and title-less member is recorded unresolved and dispatches nothing; every retained member below the entry depth maximum is the next backward root regardless of screen disposition",
+    "forwardMemberRule": "resolve each globally deduplicated subject to exactly one OpenAlex work ID under openalex-subject-resolve-v1, query works that cite it in publication-date-ascending order, retain at most 200, screen every occurrence, and use only identity-pass include-acquire or include-citation-lead members as next forward subjects below the entry maximum; absent or ambiguous resolution is unresolved and dispatches no forward query",
+    "depthRule": "the named seed/base subject is depth 0; one retained relation is depth 1; no mixed backward-forward path is permitted",
+    "deduplicationRule": "within each entry and direction, compute the complete frontier at one depth before dispatch; for every canonical subject identity, firstDepth is the minimum depth across every registered root and relation; dispatch exactly once at firstDepth, never again at a greater depth, including title-only identities; retain every occurrence/relation and every same-depth parent",
+    "requestTemplates": [
+      {
+        "templateId": "crossref-doi-record-v1",
+        "request": "GET https://api.crossref.org/works/{DOI}",
+        "maximumRecords": 1
+      },
+      {
+        "templateId": "openalex-doi-resolve-v1",
+        "request": "GET https://api.openalex.org/works?filter=doi:https://doi.org/{DOI}&per-page=25",
+        "maximumRecords": 25
+      },
+      {
+        "templateId": "openalex-work-v1",
+        "request": "GET https://api.openalex.org/works/{WID}",
+        "maximumRecords": 1
+      },
+      {
+        "templateId": "openalex-forward-v1",
+        "request": "GET https://api.openalex.org/works?filter=cites:{WID},from_publication_date:{CANDIDATE_DATE},to_publication_date:{CURRENCY_TO_DATE}&sort=publication_date:asc&per-page=100&cursor={CURSOR}",
+        "maximumRecords": 200,
+        "maximumPageRequests": 2
+      },
+      {
+        "templateId": "openalex-same-author-v1",
+        "request": "GET https://api.openalex.org/works?filter=authorships.author.id:{AID},from_publication_date:{CANDIDATE_DATE},to_publication_date:{CURRENCY_TO_DATE}&sort=publication_date:asc&per-page=100&cursor={CURSOR}",
+        "maximumRecords": 200,
+        "maximumPageRequests": 2
+      },
+      {
+        "templateId": "crossref-same-author-v1",
+        "request": "GET https://api.crossref.org/works?query.author={EXACT_AUTHOR}&query.bibliographic={EXACT_TITLE}&filter=from-pub-date:{CANDIDATE_DATE},until-pub-date:{CURRENCY_TO_DATE}&rows=100&offset={OFFSET}",
+        "maximumRecords": 200,
+        "maximumPageRequests": 2
+      },
+      {
+        "templateId": "version-link-direct-v1",
+        "routeId": "version-link-direct",
+        "kind": "http-bytes",
+        "request": "GET {NORMALIZED_VERSION_URL}",
+        "accept": "application/pdf,text/html;q=0.9,application/xml;q=0.8,application/json;q=0.8,*/*;q=0.1",
+        "allowedOrigin": "the exact origin of NORMALIZED_VERSION_URL",
+        "maximumRecords": 1,
+        "maximumPageRequests": 1,
+        "continuation": "forbidden",
+        "completionEvidence": "one governing terminal attempt, complete same-origin redirect chain, final URL, raw Content-Type header or explicit absent marker, byte count and response SHA-256; absent/unsupported media remains acquired-unreadable until separately inventoried"
+      },
+      {
+        "templateId": "openalex-subject-resolve-v1",
+        "request": "GET https://api.openalex.org/works?search={EXACT_REVIEWED_TITLE}&per-page=25",
+        "maximumRecords": 25,
+        "maximumPageRequests": 1,
+        "selectionRule": "accept exactly one result connected to the subject's strong-identifier graph, or for title-only subjects exactly one reviewed title/author/date match; zero or multiple plausible matches is unresolved and no producer may choose"
+      },
+      {
+        "templateId": "openalex-author-resolve-v1",
+        "request": "GET https://api.openalex.org/authors?search={EXACT_AUTHOR}&per-page=25",
+        "maximumRecords": 25,
+        "maximumPageRequests": 1,
+        "selectionRule": "accept exactly one AID supported by the governing subject work authorship, reviewed ORCID, or reviewed source affiliation/name evidence; zero or multiple plausible AIDs is author-id-unresolved"
+      }
+    ],
+    "crossrefBackwardMaximum": 200,
+    "openalexBackwardMaximum": 200,
+    "openalexForwardMaximum": 200,
+    "openalexForwardOrder": "provider publication_date:asc, then local expanded publication date ascending, then normalized OpenAlex work ID UTF-16 code-unit order",
+    "continuationMustBind": [
+      "parentRequestId",
+      "parentResponseSha256",
+      "rawContinuationValueSha256",
+      "resolvedContinuation"
+    ],
+    "continuationCompletion": "a continuation is scheduled only from the governing lowest-ordinal terminal parent; missing or malformed required state is access-incomplete, repeated/cyclic state is access-incomplete, and remaining continuation after a request/record cap is cap-incomplete",
+    "redirectCompletion": "every root and continuation must have a terminal final URL and a complete redirect chain under transport.redirectPolicy; a failed chain is access-incomplete and cannot generate children",
+    "titleOnlyRoutes": [
+      "crossref",
+      "openalex",
+      "cinii",
+      "ndl",
+      "supplemental-web"
+    ],
+    "unresolvedCitationDispatch": false,
+    "canonicalSubjectIdentity": {
+      "strong": "strong:<normalized-namespace>:<normalized-value>",
+      "titleOnly": "title:<lowercase-sha256-of-reviewed-canonical-title-utf8-nfc-bytes>",
+      "localSegment": "local-segment:<exact-registered-root-id>",
+      "invalid": "a member with neither a usable nonconflicting strong ID nor a reviewed canonical title is unresolved and dispatches nothing",
+      "precedence": "use a usable nonconflicting strong identity; otherwise use the reviewed title hash; display/fallback identity never replaces these scheduling keys"
+    },
+    "firstDepthTieRule": "same-depth recurrence does not create another request; choose the scheduling parent by ascending tuple (canonical root identity, canonical parent identity, relation kind, relation member ordinal, relation evidence SHA-256) in UTF-16 code-unit order while retaining all tied relation evidence",
+    "localSegmentRoots": [
+      {
+        "rootId": "arxiv:1910.06389v2#figure-6.22",
+        "sourcePath": "research/1910.06389v2.pdf",
+        "sourceSha256": "f6cd58ab841f841bcc310d2f722459122f7850cda9681ae0c7d1877bf21ef471",
+        "locator": "printed p. 234 / PDF p. 235 / Figure 6.22",
+        "role": "yamashita-qualifying-root"
+      },
+      {
+        "rootId": "arxiv:1910.06389v2#figure-7.21",
+        "sourcePath": "research/1910.06389v2.pdf",
+        "sourceSha256": "f6cd58ab841f841bcc310d2f722459122f7850cda9681ae0c7d1877bf21ef471",
+        "locator": "printed p. 268 / PDF p. 269 / Figure 7.21",
+        "role": "yamashita-qualifying-root"
+      },
+      {
+        "rootId": "arxiv:1910.06389v2#bibliography-1987Kob",
+        "sourcePath": "research/1910.06389v2.pdf",
+        "sourceSha256": "f6cd58ab841f841bcc310d2f722459122f7850cda9681ae0c7d1877bf21ef471",
+        "locator": "PDF p. 508 / bibliography key 1987Kob",
+        "role": "yamashita-required-intermediate"
+      },
+      {
+        "rootId": "arxiv:2004.06212v1#figure-8",
+        "sourcePath": "research/2004.06212v1.pdf",
+        "sourceSha256": "6e450a1c2969e5cd074b2282ed727c25cb56858347246350c4e0e487b592f49e",
+        "locator": "Figure 8",
+        "role": "later-context-only"
+      }
+    ],
+    "localSegmentRelationExtraction": {
+      "stageId": "local-segment-relation-extraction-v1",
+      "executionKind": "offline-source-byte-review-before-network-traversal",
+      "subjectUniverse": "exactly citationTraversal.localSegmentRoots",
+      "maximumReviewedRelationsPerSegment": 200,
+      "requiredInputs": [
+        "exact sourcePath bytes and SHA-256",
+        "registered locator",
+        "reviewed evidence segment",
+        "relation kind",
+        "target strong identifier or reviewed canonical title and title SHA-256",
+        "reviewer/contributor/session provenance"
+      ],
+      "terminalStates": [
+        "complete",
+        "unreadable",
+        "segment-missing",
+        "relation-unresolved",
+        "cap-incomplete"
+      ],
+      "reduction": "sort reviewed relations by relation kind, strong subject identity before title identity, then target key and evidence SHA-256; feed target publication subjects into the global first-depth frontier; missing/unreviewed local relation evidence makes the affected Yamashita lineage unresolved",
+      "knownReviewedRelations": [
+        {
+          "fromRootId": "arxiv:1910.06389v2#figure-6.22",
+          "relation": "cites-local-bibliography-key",
+          "toRootId": "arxiv:1910.06389v2#bibliography-1987Kob"
+        },
+        {
+          "fromRootId": "arxiv:1910.06389v2#figure-7.21",
+          "relation": "cross-references-local-figure",
+          "toRootId": "arxiv:1910.06389v2#figure-6.22"
+        },
+        {
+          "fromRootId": "arxiv:1910.06389v2#bibliography-1987Kob",
+          "relation": "resolves-reviewed-title-only-subject",
+          "toSubject": {
+            "canonicalTitle": "Snow Crystals: Morphology of Crystals—Part B",
+            "reviewedTitleSha256": "5006ec796dcadf703d6aa500c0effd7a6030c9b12e1abf915027b456d71fe107",
+            "authorsInSourceOrder": [
+              "T. Kobayashi",
+              "T. Kuroda"
+            ],
+            "publicationDate": "1987"
+          }
+        }
+      ],
+      "depthSemantics": "local segment resolution is depth-zero preprocessing; the resolved 1987 book subject becomes a publication graph root, while qualifying lineage still retains the complete segment-to-book path"
+    }
+  },
+  "rule12": {
+    "correctionTerms": [
+      "erratum",
+      "corrigendum",
+      "correction",
+      "retraction",
+      "正誤",
+      "正誤表",
+      "訂正",
+      "撤回"
+    ],
+    "correctionRoutes": [
+      "crossref",
+      "openalex",
+      "cinii",
+      "ndl",
+      "jstage",
+      "supplemental-web"
+    ],
+    "versionLinks": "only source/provider-returned publisher or repository version URLs; dispatch exactly template version-link-direct-v1",
+    "versionLinkRedirectPolicy": "the normalized initial HTTP(S) URL has no credentials; redirects must remain on its captured exact origin and satisfy transport.redirectPolicy, otherwise currency is unresolved",
+    "currencyDerivedRecursion": "forbidden: correction, version, forward-currency, and same-author-currency results are reviewed for their relation to the originating candidate but never schedule entry citation traversal or a second Rule 12 family",
+    "subjectUniverse": "the disjoint union of rule12.subjectUniverses; candidate, catalog-empirical, and exact-authority members retain their universe and verdict field and may never satisfy one another",
+    "correctionQueryConstruction": "for every correctionTerm and correctionRoute, Q is the candidate's exact reviewed canonical title followed by one ASCII space and the exact term; the route's ordinary Q encoding and date policy apply",
+    "versionLinkMaximumPerSubject": 50,
+    "authorMaximumPerSubject": 50,
+    "authorSelection": "every source-listed author in source order; OpenAlex uses each evidenced AID and Crossref uses the exact reviewed display name plus the exact reviewed canonical title; more than 50 authors is cap-incomplete",
+    "sameAuthorRelevance": "review every retained result; it affects currency only when reviewed source evidence says it corrects, retracts, supersedes, reanalyses, reuses, or disputes the candidate experiment, data, method, or load-bearing claim; insufficient relation metadata is unresolved, not irrelevant",
+    "sameAuthorOpenAlexMaximum": 200,
+    "sameAuthorCrossrefMaximum": 200,
+    "publicationLowerBound": "run the complete family for every distinct source-supported published, issued, print, or online date: YYYY becomes YYYY-01-01, YYYY-MM becomes YYYY-MM-01, and YYYY-MM-DD is retained; seasons, quarters, ranges, malformed values, or absent dates use the entry fromDate and force currency unresolved",
+    "missingPublicationDate": "entry-from-date-fallback-and-currency-unresolved",
+    "currencyUpperBound": "UTC calendar date of the prospectively reviewed non-null currencyAsOfUtc; a result after that instant is retained as post-currency follow-up and cannot affect the reduction",
+    "currencyCoverage": "derive separate candidate-primary, catalog-empirical, and exact-authority coverage instants only from all required governing terminal subject/bound/family members; coverage at the cutoff means the registered provider observations closed through that instant, not that all publications worldwide were indexed or discovered",
+    "incompleteRouteEffect": "the affected universe/subject currency verdict is unresolved; another universe cannot substitute",
+    "sourceRelationEffects": {
+      "correction": "the original remains historical; the corrected successor becomes effective only after both sources and the relation are reviewed and all load-bearing values are re-extracted; until then unresolved",
+      "supersession": "the original remains historical; the latest authoritative reviewed successor is effective; an inaccessible, ambiguous, or unreviewed successor makes the candidate unresolved",
+      "retraction": "definitive-fail only for the fully inventoried immutable source candidate or exact authority subject to which the reviewed retraction applies; it does not classify another candidate, another arm, or undiscovered literature and does not stop discovery",
+      "no-relevant-relation": "no effect only after reviewed evidence establishes irrelevance"
+    },
+    "familyIds": [
+      "rule12-correction-search-v2",
+      "rule12-version-link-v2",
+      "rule12-openalex-forward-v2",
+      "rule12-same-author-v2",
+      "rule12-exact-definition-authority-v1"
+    ],
+    "subjectUniverses": {
+      "candidatePrimarySources": {
+        "derivation": "every unique identity-pass effective included primary-source candidate assessment tip",
+        "familyId": "rule12-empirical-primary-source-v2",
+        "missingOrExtraSubjectEffect": "currency-unresolved and catalog/review closure failure"
+      },
+      "catalogEmpiricalSources": {
+        "catalogPath": "research/phase6-wp1-independence-operands.json",
+        "catalogSha256": "9ffe4edf928bfa3416ecd064a594da259c0fcc24ad87b2cbc744906d3c2163cb",
+        "sourceNodeIds": [
+          "SRC-1208.5982V1-MISSING",
+          "SRC-1211.5555V1",
+          "SRC-1910.06389V2",
+          "SRC-1910.09067V2",
+          "SRC-2004.06212V1",
+          "SRC-2009.08404V2",
+          "SRC-2011.02353V1",
+          "SRC-2109.00098V1-UNREADABLE",
+          "SRC-2306.13087V1"
+        ],
+        "familyId": "rule12-empirical-primary-source-v2",
+        "missingOrExtraSubjectEffect": "catalog-integrity-failed and empirical-source-currency-unresolved"
+      },
+      "exactDefinitionAuthorities": {
+        "derivation": "exact authorityCurrencySubjectIds required by every shared exact-definition descriptor in the pinned catalog",
+        "familyId": "rule12-exact-definition-authority-v1",
+        "subjects": [
+          {
+            "authorityCurrencySubjectId": "AUTHORITY-SUBJECT-BIPM-SI-9E-V4.01",
+            "sourceNodeId": "SRC-BIPM-SI",
+            "authorityEvidenceDescriptorIds": [
+              "AUTH-BIPM-CELSIUS-2026",
+              "AUTH-BIPM-K-2026",
+              "AUTH-BIPM-UNIT-CONVERSIONS-2026"
+            ],
+            "canonicalTitle": "The International System of Units (SI Brochure), 9th edition, version 4.01",
+            "strongIdentifiers": [
+              "doi:10.59161/AUEZ1291"
+            ],
+            "sourceSupportedPublicationDates": [
+              "2026-06"
+            ],
+            "sourceListedAuthors": [
+              "Bureau International des Poids et Mesures"
+            ]
+          },
+          {
+            "authorityCurrencySubjectId": "AUTHORITY-SUBJECT-CGPM-ATM-1954",
+            "sourceNodeId": "SRC-CGPM-ATM",
+            "authorityEvidenceDescriptorIds": [
+              "AUTH-CGPM-ATM-1954"
+            ],
+            "canonicalTitle": "10th CGPM (1954), Resolution 4",
+            "strongIdentifiers": [
+              "doi:10.59161/CGPM1954RES4E"
+            ],
+            "sourceSupportedPublicationDates": [
+              "1954"
+            ],
+            "sourceListedAuthors": [
+              "General Conference on Weights and Measures"
+            ]
+          }
+        ],
+        "missingOrExtraSubjectEffect": "catalog-integrity-failed and exact-definition-authority-currency-unresolved"
+      }
+    },
+    "familyConstruction": {
+      "correction": "for each subject, each distinct expanded lower bound, each correctionTerms member, and each correctionRoutes member, schedule exactly one route first page plus only its registered continuations; key=(subjectKey,bound,term,route,page)",
+      "forward": "for each subject and lower bound, construct or reopen exactly one governing OpenAlex work resolution, then schedule openalex-forward-v1 cursor=* and at most one bound continuation; absent/ambiguous WID is a terminal unresolved family member, not an omitted request",
+      "author": "for each of at most 50 source-listed authors and each lower bound, schedule both Crossref exact-author-plus-title fixed offsets; obtain AID from the governing OpenAlex subject-work authorship or exactly one openalex-author-resolve-v1 result, then schedule openalex-same-author-v1 cursor=* and at most one continuation; absent/ambiguous AID is a terminal author-id-unresolved member and blocks currency",
+      "version": "deduplicate exact source/provider publisher or repository version URLs per subject and schedule version-link-direct-v1 once each through the cap; zero reviewed version links is a complete empty set only when the source/provider inventory itself is complete",
+      "authority": "apply correction, forward, author, and version construction independently to every exactDefinitionAuthorities subject; authority results feed only the exact-definition authority/currentness verdict"
+    },
+    "requestCardinality": "for B distinct lower bounds, A selected source-listed authors (0..50), and V reviewed version URLs (0..50): correction roots=B*|correctionTerms|*|correctionRoutes|; forward roots=B after one subject-WID construction; Crossref author fixed pages=B*A*2; OpenAlex author roots=B*A after A AID constructions; version roots=V; provider continuations add at most one per OpenAlex root and never exceed each template cap; every zero/ambiguous construction has a terminal unresolved record",
+    "authorIdConstruction": "match each exact source-listed author in source order to the governing OpenAlex subject-work authorships by reviewed ORCID first, otherwise exact NFC display name plus reviewed affiliation/source-order evidence; if absent, dispatch openalex-author-resolve-v1; accept exactly one evidenced AID; no fuzzy producer choice, name-only tie break, or dropped author is permitted",
+    "openalexForwardConstruction": "every subject/bound has one openalex-forward-v1 family member after an exact WID is established; the family exists even when WID resolution ends unresolved"
+  },
+  "conversions": [
+    {
+      "conversionId": "temperature-c-to-c-v1",
+      "inputUnit": "degC",
+      "outputUnit": "degC",
+      "scale": {
+        "numerator": "1",
+        "denominator": "1"
+      },
+      "offset": {
+        "numerator": "0",
+        "denominator": "1"
+      }
+    },
+    {
+      "conversionId": "temperature-k-to-c-v1",
+      "inputUnit": "K",
+      "outputUnit": "degC",
+      "scale": {
+        "numerator": "1",
+        "denominator": "1"
+      },
+      "offset": {
+        "numerator": "-5463",
+        "denominator": "20"
+      }
+    },
+    {
+      "conversionId": "pressure-pa-to-pa-v1",
+      "inputUnit": "Pa",
+      "outputUnit": "Pa",
+      "scale": {
+        "numerator": "1",
+        "denominator": "1"
+      },
+      "offset": {
+        "numerator": "0",
+        "denominator": "1"
+      }
+    },
+    {
+      "conversionId": "pressure-kpa-to-pa-v1",
+      "inputUnit": "kPa",
+      "outputUnit": "Pa",
+      "scale": {
+        "numerator": "1000",
+        "denominator": "1"
+      },
+      "offset": {
+        "numerator": "0",
+        "denominator": "1"
+      }
+    },
+    {
+      "conversionId": "pressure-hpa-to-pa-v1",
+      "inputUnit": "hPa",
+      "outputUnit": "Pa",
+      "scale": {
+        "numerator": "100",
+        "denominator": "1"
+      },
+      "offset": {
+        "numerator": "0",
+        "denominator": "1"
+      }
+    },
+    {
+      "conversionId": "pressure-mbar-to-pa-v1",
+      "inputUnit": "mbar",
+      "outputUnit": "Pa",
+      "scale": {
+        "numerator": "100",
+        "denominator": "1"
+      },
+      "offset": {
+        "numerator": "0",
+        "denominator": "1"
+      }
+    },
+    {
+      "conversionId": "pressure-bar-to-pa-v1",
+      "inputUnit": "bar",
+      "outputUnit": "Pa",
+      "scale": {
+        "numerator": "100000",
+        "denominator": "1"
+      },
+      "offset": {
+        "numerator": "0",
+        "denominator": "1"
+      }
+    },
+    {
+      "conversionId": "pressure-atm-to-pa-v1",
+      "inputUnit": "atm",
+      "outputUnit": "Pa",
+      "scale": {
+        "numerator": "101325",
+        "denominator": "1"
+      },
+      "offset": {
+        "numerator": "0",
+        "denominator": "1"
+      }
+    },
+    {
+      "conversionId": "pressure-torr-to-pa-v1",
+      "inputUnit": "Torr",
+      "outputUnit": "Pa",
+      "scale": {
+        "numerator": "20265",
+        "denominator": "152"
+      },
+      "offset": {
+        "numerator": "0",
+        "denominator": "1"
+      }
+    },
+    {
+      "conversionId": "sigma-fraction-to-fraction-v1",
+      "inputUnit": "fraction",
+      "outputUnit": "fraction",
+      "scale": {
+        "numerator": "1",
+        "denominator": "1"
+      },
+      "offset": {
+        "numerator": "0",
+        "denominator": "1"
+      }
+    },
+    {
+      "conversionId": "sigma-percent-to-fraction-v1",
+      "inputUnit": "percent",
+      "outputUnit": "fraction",
+      "scale": {
+        "numerator": "1",
+        "denominator": "100"
+      },
+      "offset": {
+        "numerator": "0",
+        "denominator": "1"
+      }
+    },
+    {
+      "conversionId": "time-ms-to-s-v1",
+      "inputUnit": "ms",
+      "outputUnit": "s",
+      "scale": {
+        "numerator": "1",
+        "denominator": "1000"
+      },
+      "offset": {
+        "numerator": "0",
+        "denominator": "1"
+      }
+    },
+    {
+      "conversionId": "time-s-to-s-v1",
+      "inputUnit": "s",
+      "outputUnit": "s",
+      "scale": {
+        "numerator": "1",
+        "denominator": "1"
+      },
+      "offset": {
+        "numerator": "0",
+        "denominator": "1"
+      }
+    },
+    {
+      "conversionId": "time-min-to-s-v1",
+      "inputUnit": "min",
+      "outputUnit": "s",
+      "scale": {
+        "numerator": "60",
+        "denominator": "1"
+      },
+      "offset": {
+        "numerator": "0",
+        "denominator": "1"
+      }
+    },
+    {
+      "conversionId": "time-h-to-s-v1",
+      "inputUnit": "h",
+      "outputUnit": "s",
+      "scale": {
+        "numerator": "3600",
+        "denominator": "1"
+      },
+      "offset": {
+        "numerator": "0",
+        "denominator": "1"
+      }
+    },
+    {
+      "conversionId": "length-um-to-m-v1",
+      "inputUnit": "um",
+      "outputUnit": "m",
+      "scale": {
+        "numerator": "1",
+        "denominator": "1000000"
+      },
+      "offset": {
+        "numerator": "0",
+        "denominator": "1"
+      }
+    },
+    {
+      "conversionId": "length-mm-to-m-v1",
+      "inputUnit": "mm",
+      "outputUnit": "m",
+      "scale": {
+        "numerator": "1",
+        "denominator": "1000"
+      },
+      "offset": {
+        "numerator": "0",
+        "denominator": "1"
+      }
+    },
+    {
+      "conversionId": "length-cm-to-m-v1",
+      "inputUnit": "cm",
+      "outputUnit": "m",
+      "scale": {
+        "numerator": "1",
+        "denominator": "100"
+      },
+      "offset": {
+        "numerator": "0",
+        "denominator": "1"
+      }
+    },
+    {
+      "conversionId": "length-m-to-m-v1",
+      "inputUnit": "m",
+      "outputUnit": "m",
+      "scale": {
+        "numerator": "1",
+        "denominator": "1"
+      },
+      "offset": {
+        "numerator": "0",
+        "denominator": "1"
+      }
+    },
+    {
+      "conversionId": "rate-um-per-s-to-m-per-s-v1",
+      "inputUnit": "um/s",
+      "outputUnit": "m/s",
+      "scale": {
+        "numerator": "1",
+        "denominator": "1000000"
+      },
+      "offset": {
+        "numerator": "0",
+        "denominator": "1"
+      }
+    },
+    {
+      "conversionId": "rate-um-per-min-to-m-per-s-v1",
+      "inputUnit": "um/min",
+      "outputUnit": "m/s",
+      "scale": {
+        "numerator": "1",
+        "denominator": "60000000"
+      },
+      "offset": {
+        "numerator": "0",
+        "denominator": "1"
+      }
+    },
+    {
+      "conversionId": "rate-mm-per-s-to-m-per-s-v1",
+      "inputUnit": "mm/s",
+      "outputUnit": "m/s",
+      "scale": {
+        "numerator": "1",
+        "denominator": "1000"
+      },
+      "offset": {
+        "numerator": "0",
+        "denominator": "1"
+      }
+    },
+    {
+      "conversionId": "rate-m-per-s-to-m-per-s-v1",
+      "inputUnit": "m/s",
+      "outputUnit": "m/s",
+      "scale": {
+        "numerator": "1",
+        "denominator": "1"
+      },
+      "offset": {
+        "numerator": "0",
+        "denominator": "1"
+      }
+    },
+    {
+      "conversionId": "dimensionless-identity-v1",
+      "inputUnit": "dimensionless",
+      "outputUnit": "dimensionless",
+      "scale": {
+        "numerator": "1",
+        "denominator": "1"
+      },
+      "offset": {
+        "numerator": "0",
+        "denominator": "1"
+      }
+    },
+    {
+      "conversionId": "count-identity-v1",
+      "inputUnit": "count",
+      "outputUnit": "count",
+      "scale": {
+        "numerator": "1",
+        "denominator": "1"
+      },
+      "offset": {
+        "numerator": "0",
+        "denominator": "1"
+      }
+    }
+  ],
+  "reportedUnitAliases": [
+    {
+      "reported": "°C",
+      "normalized": "degC"
+    },
+    {
+      "reported": "C",
+      "normalized": "degC"
+    },
+    {
+      "reported": "kelvin",
+      "normalized": "K"
+    },
+    {
+      "reported": "mb",
+      "normalized": "mbar"
+    },
+    {
+      "reported": "millibar",
+      "normalized": "mbar"
+    },
+    {
+      "reported": "pascal",
+      "normalized": "Pa"
+    },
+    {
+      "reported": "pascals",
+      "normalized": "Pa"
+    },
+    {
+      "reported": "torr",
+      "normalized": "Torr"
+    },
+    {
+      "reported": "mm Hg",
+      "normalized": "mmHg-recognized-unmapped"
+    },
+    {
+      "reported": "%",
+      "normalized": "percent"
+    },
+    {
+      "reported": "sec",
+      "normalized": "s"
+    },
+    {
+      "reported": "second",
+      "normalized": "s"
+    },
+    {
+      "reported": "seconds",
+      "normalized": "s"
+    },
+    {
+      "reported": "minute",
+      "normalized": "min"
+    },
+    {
+      "reported": "minutes",
+      "normalized": "min"
+    },
+    {
+      "reported": "hour",
+      "normalized": "h"
+    },
+    {
+      "reported": "hours",
+      "normalized": "h"
+    },
+    {
+      "reported": "µm",
+      "normalized": "um"
+    },
+    {
+      "reported": "μm",
+      "normalized": "um"
+    },
+    {
+      "reported": "µm/s",
+      "normalized": "um/s"
+    },
+    {
+      "reported": "μm/s",
+      "normalized": "um/s"
+    },
+    {
+      "reported": "µm/min",
+      "normalized": "um/min"
+    },
+    {
+      "reported": "μm/min",
+      "normalized": "um/min"
+    },
+    {
+      "reported": "mm-Hg",
+      "normalized": "mmHg-recognized-unmapped"
+    },
+    {
+      "reported": "mmHg",
+      "normalized": "mmHg-recognized-unmapped"
+    }
+  ],
+  "sourceNumericTranscription": {
+    "preserve": "exact printed lexeme, source segment, locale statement, and transcription reviewer",
+    "normalizedDecimalGrammar": "serialization.decimalGrammar",
+    "acceptedPrintedClasses": [
+      "signed integer or decimal",
+      "signed e/E scientific notation",
+      "signed coefficient times 10 to an integer power",
+      "source-explicit decimal-comma notation"
+    ],
+    "normalizationRule": "a governed parser in the combined code freeze emits a traceable normalizedDecimal and exact rational; Unicode minus, multiplication sign, superscript exponent, decimal comma, grouping, and exponent interpretation require reviewed source-locale evidence; ambiguity is unresolved and never guessed",
+    "unmappedUnitRule": "a recognized-unmapped unit preserves its exact lexeme and source evidence but cannot emit a canonical rational in the requested unit, participate in exact equality/distinctness, or satisfy LK compatibility; it remains unresolved pending a reviewed successor"
+  },
+  "sourceToModelBridge": {
+    "status": "unregistered-required-successor",
+    "registeredMappings": [],
+    "sourceSearchOutcomeCeiling": "source-compatible-bridge-required",
+    "currentCliBlocker": "grow-lk exposes no pressure argument and currently supplies 101325 Pa; varying-pressure comparison is impossible until a reviewed successor binds source pressure to CLI argv, solver state, checkpoint header, and verifier",
+    "requiredFutureFreeze": "before model output, freeze exact source observation IDs to CLI argv, parameter arm, far field, domain, seed/population representation, stop time, checkpoint identity, independently objective physical observable, aggregation, covariance, uncertainty and refusal rules",
+    "rejectedNonobjectiveMappings": [
+      {
+        "mappingId": "terminal-transverse-span-v1",
+        "reason": "latticeExtents.tExtent is an integer trigger span and is not invariant under a 60-degree rotation"
+      },
+      {
+        "mappingId": "terminal-c-axis-span-v1",
+        "reason": "lattice occupancy extent times dx has no frozen interface/partial-fill physical-span definition"
+      },
+      {
+        "mappingId": "terminal-aspect-ratio-v1",
+        "reason": "the current transverse denominator changed under the reviewer's 60-degree witness"
+      },
+      {
+        "mappingId": "transverse-span-rate-v1",
+        "reason": "inherits the nonobjective transverse span and lacks a frozen endpoint/interface operator"
+      },
+      {
+        "mappingId": "c-axis-span-rate-v1",
+        "reason": "inherits the unfrozen c-axis interface span and lacks a frozen endpoint operator"
+      }
+    ]
+  },
+  "lkSourceCompatibility": {
+    "status": "source-screen-only-until-sourceToModelBridge-is-frozen",
+    "gas": "background gas must be air with source-evidenced composition; another gas or unknown gas is model-physics-blocked",
+    "temperatureC": "finite and in the implemented closed interval [-50,-1]",
+    "sigmaInfinity": "finite, strictly positive ice supersaturation fraction with source-evidenced definition and conversion; water supersaturation alone requires a pre-frozen conversion and cannot be guessed",
+    "pressurePa": "finite and strictly positive, independently rederived through one governed mapped conversion; recognized-unmapped pressure notation cannot satisfy this field",
+    "durationSeconds": "finite and strictly positive with complete exposure/history definition",
+    "farField": "the future Phase 6 bridge must use monopole-matched; reflecting is diagnostic-only and fixed-sigma Dirichlet is not the Phase 6 registered condition; source chamber geometry cannot be asserted equivalent without the bridge",
+    "continuumTransport": "the represented regime is continuum Fickian diffusion in ordinary air; reviewed evidence of rarefaction/noncontinuum transport is model-physics-blocked, and missing gas-state/length evidence is unresolved; the future bridge must freeze a cited mean-free-path/Knudsen evaluator and numerical acceptance threshold before model output because this repository has none registered",
+    "quasiStaticTransport": "the represented regime requires v_n*L/D much less than one under attachment-kinetics section 4.3; the future bridge must freeze the exact source-bound operands, run-wide evaluator, numerical threshold and refusal rule before model output",
+    "diffusionDominance": "forced convection, ventilation, sublimation, substrate contact, liquid water/riming, latent-heat control, electric needle, filament, polycrystal, defect, step-source, or unobserved crystallography dependence is model-physics-blocked unless a separately reviewed physics extension exists",
+    "missingRequiredInputEffect": "source-recovered-model-compatibility-unresolved; no input may be fitted, imputed, or selected from model output"
+  },
+  "matchedPressure": {
+    "minimumDistinctPressureCount": 2,
+    "distinctRule": "at least two mapped canonical pressure rationals in one match set must be unequal; recognized-unmapped pressure units do not become canonical rationals and cannot satisfy this rule",
+    "allowedVariedField": "pressurePa only",
+    "requiredMatchedFields": [
+      "gas composition",
+      "temperature value and history",
+      "supersaturation definition, value, and history",
+      "duration and exposure history",
+      "apparatus and chamber geometry",
+      "initial particle/population/crystallography",
+      "support and ventilation",
+      "observable definition",
+      "sampling and censoring protocol"
+    ],
+    "matchRule": "each required field must have identical canonical values or an explicit source statement that it was held constant under one protocol; overlapping uncertainty intervals are not proof of equality, and a pressure-specific measured difference in any required field is a confound rather than an allowed match",
+    "pairingDesigns": [
+      {
+        "designId": "paired-same-unit",
+        "requirement": "every observation at each pressure names the same source-evidenced unit ID and complete pairing; missing pairs and order effects are retained"
+      },
+      {
+        "designId": "independent-populations",
+        "requirement": "source evidence establishes separate independently sampled populations and complete sample/censoring counts"
+      },
+      {
+        "designId": "shared-control-or-repeated-measures",
+        "requirement": "source evidence identifies every shared control/repeated unit and supplies raw values or a covariance sufficient for the stated comparison"
+      }
+    ],
+    "covarianceRule": "never assume zero covariance; derive it from complete paired raw values with a registered operator, retain a source-stated covariance with type/coverage, or mark comparison uncertainty unresolved; zero is permitted only when the source design explicitly establishes independence",
+    "outcome": "source-only; even a complete match set remains source-compatible-bridge-required",
+    "unitRule": "every quantitative pressure uses an exact registry conversionId; recognized-unmapped mmHg forms retain source meaning but make quantitative matching unresolved"
+  },
+  "uncertaintyOperators": [
+    {
+      "operatorId": "source-stated-interval-v1",
+      "minimumN": 1,
+      "formula": "retain exact stated lower/upper bounds, uncertainty type and coverage after governed unit conversion",
+      "denominator": "not-applicable",
+      "censoring": "source-stated-only"
+    },
+    {
+      "operatorId": "sample-mean-unbiased-sd-v1",
+      "minimumN": 2,
+      "formula": "mean=sum(x)/n; sampleVariance=sum((x-mean)^2)/(n-1); uncertainty is the exact symbolic nonnegative sqrt(sampleVariance)",
+      "denominator": "n-1",
+      "censoring": "no silent exclusions",
+      "exactOutputs": [
+        "mean-rational",
+        "sample-variance-rational"
+      ]
+    },
+    {
+      "operatorId": "sample-mean-standard-error-v1",
+      "minimumN": 2,
+      "formula": "mean=sum(x)/n; sampleVariance=sum((x-mean)^2)/(n-1); standardErrorSquared=sampleVariance/n; uncertainty is the exact symbolic nonnegative sqrt(standardErrorSquared)",
+      "denominator": "n-1 then n",
+      "censoring": "no silent exclusions",
+      "exactOutputs": [
+        "mean-rational",
+        "sample-variance-rational",
+        "standard-error-squared-rational"
+      ]
+    },
+    {
+      "operatorId": "paired-covariance-v1",
+      "minimumN": 2,
+      "formula": "covariance=sum((x-meanX)*(y-meanY))/(n-1) over complete source-evidenced pairs",
+      "denominator": "n-1",
+      "censoring": "no silent missing-pair deletion",
+      "exactOutputs": [
+        "mean-x-rational",
+        "mean-y-rational",
+        "covariance-rational"
+      ]
+    },
+    {
+      "operatorId": "paired-difference-mean-se-v1",
+      "minimumN": 2,
+      "formula": "d_i=y_i-x_i for each complete source-evidenced pair; meanDifference=sum(d)/n; differenceVariance=sum((d-meanDifference)^2)/(n-1); standardErrorSquared=differenceVariance/n",
+      "denominator": "n-1 then n",
+      "censoring": "no silent missing-pair deletion",
+      "exactOutputs": [
+        "mean-difference-rational",
+        "difference-variance-rational",
+        "standard-error-squared-rational"
+      ]
+    },
+    {
+      "operatorId": "independent-mean-difference-se-v1",
+      "minimumN": 2,
+      "formula": "difference=meanY-meanX; standardErrorSquared=sampleVarianceX/nX+sampleVarianceY/nY",
+      "denominator": "each sample variance uses n-1, then its own n",
+      "censoring": "no silent exclusions; allowed only with source-evidenced independent populations",
+      "exactOutputs": [
+        "mean-difference-rational",
+        "standard-error-squared-rational"
+      ]
+    },
+    {
+      "operatorId": "instrument-repeat-covariance-v2",
+      "minimumN": 2,
+      "formula": "combinedVariance=instrumentVariance+sampleVariance/n+2*instrumentSampleMeanCovariance; uncertainty is the exact symbolic nonnegative sqrt(combinedVariance)",
+      "denominator": "sample component uses n-1 then n; covariance uses its registered source/raw-data operator",
+      "covarianceRequirement": "instrumentSampleMeanCovariance is source-stated with type/coverage, derived from complete linked raw calibration/observation values, or exact zero only with reviewed design evidence establishing independence; otherwise unresolved",
+      "validity": "all component variances are nonnegative and the complete covariance matrix is positive semidefinite under the exact registered test; a negative combined variance or failed PSD test is invalid",
+      "censoring": "no silent exclusions; every component, observation, pairing, covariance and independence claim is source-bound",
+      "exactOutputs": [
+        "mean-rational",
+        "sample-variance-rational",
+        "instrument-variance-rational",
+        "instrument-sample-mean-covariance-rational",
+        "combined-variance-rational"
+      ]
+    }
+  ],
+  "languageReview": {
+    "loadBearingRule": "every non-English load-bearing segment, including numeric table headers, captions, footnotes, legends, apparatus descriptions, and exclusion context, requires review against inspectable original bytes",
+    "competence": "reviewer records exact BCP-47 language tags and a plain-language competence statement; unsupported competence is an attestation limit, not proof",
+    "separation": "the adequacy reviewer must have a different contributorId and sessionId from the extractor/OCR/translator and must not merely review the translated text",
+    "machineOutput": "OCR or machine translation may assist extraction but never supplies adequacy; reviewer checks the original rendering and records discrepancies",
+    "failureEffect": "unreadable or language-review-unavailable; the source and lead remain disclosed, load-bearing claims are unresolved, and the record cannot be excluded as irrelevant from untranslated metadata alone"
+  },
+  "assessmentScience": {
+    "effectiveTip": "exactly one immutable successor chain tip per candidate; a fork, cycle, gap, ambiguous merge, or missing predecessor makes the candidate unresolved; only the unique tip governs scheduling and science while all prior revisions remain historical",
+    "replacement": "a corrected, superseding, or retracting source is a new immutable source and relation, never an edit or deletion of the original; sourceRelationEffects governs which source is effective",
+    "definitiveFailScope": "candidate-global invalidity and arm-specific independence are separate: source-level triggers apply only to one fully inventoried immutable source candidate under one entry; empirical or project-selection reuse/fitting creates a disposition only for each affected catalog arm and does not fail another arm",
+    "definitiveFailTriggers": [
+      "reviewed retraction of this fully inventoried source candidate",
+      "reviewed positive evidence of wrong gas or non-deposition phenomenon for this candidate",
+      "complete reviewed experiment inventory establishes fewer than two distinct pressures for this matched-pressure candidate",
+      "reviewed positive evidence of a required-field confound for this candidate",
+      "reviewed positive evidence of physics outside lkSourceCompatibility without a frozen extension",
+      "reviewed fabricated or source-detached quantitative row",
+      "reviewed candidate-global outcome-fitted or imputed source input"
+    ],
+    "definitiveFailPersistence": "missing/inaccessible/incomplete evidence is unresolved, never definitive-fail; a later same-protocol assessment cannot rehabilitate a failed immutable candidate or affected arm by deleting/relabeling its trigger; corrected/superseding sources are distinct candidates, and changing scope requires a separately reviewed protocol successor",
+    "armScopedIndependenceTriggers": [
+      "reviewed candidate reuse in one arm operand, source node, data family, or project-selection record",
+      "reviewed candidate outcome used to choose an input, interpretation, intervention, arm inclusion, domain, or scoring scope for one or more named arms"
+    ],
+    "armScopedReduction": "derive CAK, M1, and M1_NO_DIP_ABLATION independently from the pinned catalog; an overlap changes only named affected arms, while missing evidence is unresolved only for arms requiring it"
+  },
+  "independence": {
+    "catalogPath": "research/phase6-wp1-independence-operands.json",
+    "catalogSha256": "9ffe4edf928bfa3416ecd064a594da259c0fcc24ad87b2cbc744906d3c2163cb",
+    "catalogSchema": "phase6-wp1-independence-operand-catalog-v4.1-author-candidate",
+    "catalogStatusRequiredForFreeze": "exact catalog bytes must receive mapping-by-mapping 0-blocker/0-should-fix non-author review; author-candidate status forbids execution",
+    "generatedFromHashDomain": "enforce the catalog generatedFromHashDomain verbatim: exact repository-root-relative regular file; reject path/symlink/junction/reparse/case aliases; strict UTF-8 without BOM, malformed bytes, or lone CR; convert only CRLF pairs to LF; no Unicode normalization; preserve terminal-LF presence; SHA-256 the result",
+    "candidateProvenanceUniverse": "complete reviewed candidate source IDs, authors, experiment/apparatus/population IDs, raw and derived data-family IDs, digitizations, transformations, selection history, and every claim proposed for validation",
+    "edgeUniverse": "per arm, every active operand/data-family/source-support edge plus every catalog projectSelectionSupport record affecting that arm; exact-definition authority/currentness and local-lineage integrity are separately reduced mandatory components",
+    "proofRule": "each arm has complete nonempty reviewed dispositions for its candidate provenance against empirical support and project selection; a row/global assertion cannot replace member evidence and one arm's overlap cannot classify another",
+    "overlapRule": "candidate empirical data, apparatus series, population, digitization, derived family, or outcome-based project selection reused by an affected arm is overlap for that arm only; shared exact definitions remain separately disclosed authority inputs",
+    "unresolvedEmpiricalNodesByArm": {
+      "CAK": [
+        "SRC-1208.5982V1-MISSING"
+      ],
+      "M1": [
+        "SRC-1208.5982V1-MISSING",
+        "SRC-2109.00098V1-UNREADABLE"
+      ],
+      "M1_NO_DIP_ABLATION": [
+        "SRC-1208.5982V1-MISSING",
+        "SRC-2109.00098V1-UNREADABLE"
+      ]
+    },
+    "separateKnownUnresolvedComponents": [
+      "catalog v4.1 author candidate has no accepting mapping-by-mapping review",
+      "Rule 12 empirical-publication currency has not executed",
+      "exact-definition authority provenance/currentness has not executed for BIPM/CGPM subjects",
+      "candidate-versus-project-selection evidence has not been reviewed",
+      "candidate-specific independence evidence does not yet exist"
+    ],
+    "promotionRule": "derive the catalog's seven-clause per-arm conjunction; every unresolved/failed clause blocks overall eligibility without rewriting a separately derived empirical-independence component"
+  },
+  "reviewChecks": [
+    "REV-PROTOCOL-IDENTITY",
+    "REV-ELIGIBILITY-CUTOFF-AND-CURRENCY-AS-OF",
+    "REV-ENTRY-COUNTS-ROOTS-PAGINATION-CAPS-STOPPING",
+    "REV-ATTEMPT-BYTE-INTEGRITY",
+    "REV-OCCURRENCE-AND-RELATION-COMPLETENESS",
+    "REV-SOURCE-INVENTORY-SEGMENTS-LANGUAGE",
+    "REV-IDENTITY-GRAPH",
+    "REV-RULE12-CURRENCY-NONRECURSION-REPLACEMENT",
+    "REV-EFFECTIVE-TIP-AND-DEFINITIVE-FAIL",
+    "REV-INDEPENDENCE-OPERANDS-SOURCES-DATA-FAMILIES",
+    "REV-CATALOG-GENERATEDFROM-HASH-DOMAIN",
+    "REV-YAMASHITA-SCIENCE",
+    "REV-PRESSURE-MATCH-PAIRING-COVARIANCE",
+    "REV-LK-SOURCE-COMPATIBILITY",
+    "REV-SOURCE-ONLY-BRIDGE-BOUNDARY",
+    "REV-PRODUCER-VERIFIER-SEPARATION",
+    "REV-NEGATIVE-CONTROLS",
+    "REV-PUBLICATION-BUNDLE",
+    "REV-PRIOR-FINDING-CLOSURE",
+    "REV-CLAIMS-AND-LIMITS",
+    "REV-GLOBAL-FIRST-DEPTH-AND-TITLE-DEDUPE",
+    "REV-LOCAL-SEGMENT-RELATION-EXTRACTION",
+    "REV-RULE12-FORWARD-AUTHOR-AUTHORITY-CONSTRUCTION",
+    "REV-SOURCE-ACQUISITION-CLOSURE",
+    "REV-YAMASHITA-PRE1988-LINEAGE",
+    "REV-RECOGNIZED-UNMAPPED-PRESSURE",
+    "REV-PROJECT-SELECTION-SUPPORT",
+    "REV-REVIEW-FINDING-REGISTRY"
+  ],
+  "negativeControlBinding": "each ID below owns exactly one scientific mutation intent; before execution the combined code freeze binds it to one exact fixture path/SHA-256, exact mutation patch and mutated-byte identity, independently executed witness, and named detector; the expected control set is derived from this registry and review-finding record, never caller-supplied; any missing, duplicate, unknown, or multiply bound ID forbids acceptance",
+  "negativeControls": [
+    {
+      "controlId": "NC01-UNREGISTERED-REQUEST",
+      "fixture": "passing-entry-bundle",
+      "mutation": "append one request whose route/query/root tuple is absent from this registry",
+      "mutationWitness": "request-set symmetric difference contains exactly the appended request ID",
+      "expectedDetector": "UNREGISTERED_REQUEST"
+    },
+    {
+      "controlId": "NC02-CONTINUATION-PARENT-HASH",
+      "fixture": "passing-cursor-chain",
+      "mutation": "change one continuation parentResponseSha256",
+      "mutationWitness": "before/after continuation differs only at parentResponseSha256",
+      "expectedDetector": "CONTINUATION_PARENT_MISMATCH"
+    },
+    {
+      "controlId": "NC03-HIDDEN-CAP",
+      "fixture": "passing-capped-route",
+      "mutation": "set capTruncated false while retained provider total is exactly one greater than maximumRecords",
+      "mutationWitness": "provider total stays unchanged and only capTruncated flips true to false",
+      "expectedDetector": "CAP_STATE_FALSE"
+    },
+    {
+      "controlId": "NC04-RESPONSE-BYTE-TAMPER",
+      "fixture": "passing-http-attempt",
+      "mutation": "flip one raw response byte without updating its descriptor",
+      "mutationWitness": "raw SHA-256 changes and descriptor does not",
+      "expectedDetector": "RAW_HASH_MISMATCH"
+    },
+    {
+      "controlId": "NC05-DETACHED-OCCURRENCE",
+      "fixture": "passing-occurrence-ledger",
+      "mutation": "remove the governing request ID from one occurrence",
+      "mutationWitness": "occurrence bytes otherwise unchanged",
+      "expectedDetector": "OCCURRENCE_REQUEST_MISSING"
+    },
+    {
+      "controlId": "NC06-DETACHED-CLAIM-SEGMENT",
+      "fixture": "passing-source-assessment",
+      "mutation": "replace one claim evidenceSegmentId with an absent ID",
+      "mutationWitness": "claim differs only at the referenced segment ID",
+      "expectedDetector": "CLAIM_SEGMENT_MISSING"
+    },
+    {
+      "controlId": "NC07-UNCHECKED-LANGUAGE-PROMOTION",
+      "fixture": "passing-non-english-source",
+      "mutation": "replace the adequacy reviewer sessionId with the extractor sessionId while retaining adequate disposition",
+      "mutationWitness": "only the adequacy reviewer sessionId changes",
+      "expectedDetector": "CLAIM_REVIEW_INADEQUATE"
+    },
+    {
+      "controlId": "NC08-OMITTED-CURRENCY-SUBJECT",
+      "fixture": "passing-rule12-closure",
+      "mutation": "remove one effective included-source subject from Rule 12 scheduling",
+      "mutationWitness": "effective assessment set stays unchanged and scheduled subject set loses exactly one ID",
+      "expectedDetector": "CURRENCY_SUBJECT_MISSING"
+    },
+    {
+      "controlId": "NC09-OMITTED-INDEPENDENCE-EDGE",
+      "fixture": "passing-independence-arm",
+      "mutation": "remove one operand disposition required by catalog.arms[arm]",
+      "mutationWitness": "catalog and candidate provenance stay unchanged and the proof loses exactly one operand ID",
+      "expectedDetector": "INDEPENDENCE_EDGE_MISSING"
+    },
+    {
+      "controlId": "NC10-EMPTY-INDEPENDENCE-PROOF",
+      "fixture": "passing-independence-arm",
+      "mutation": "replace candidateClaimIds, candidateSourceIds, and candidateDataFamilyIds with three empty arrays on one independent edge",
+      "mutationWitness": "only those three arrays become empty",
+      "expectedDetector": "INDEPENDENCE_PROOF_EMPTY"
+    },
+    {
+      "controlId": "NC11-FABRICATED-PRESSURE-ROW",
+      "fixture": "passing-pressure-candidate",
+      "mutation": "append one numeric output row not present in the transcription artifact",
+      "mutationWitness": "output row set gains one ID while transcription bytes remain unchanged",
+      "expectedDetector": "PRESSURE_ROW_NOT_TRANSCRIBED"
+    },
+    {
+      "controlId": "NC12-DETACHED-PRESSURE-ROW",
+      "fixture": "passing-pressure-candidate",
+      "mutation": "replace one output row's evidence segment with an absent ID",
+      "mutationWitness": "row differs only at evidenceSegmentIds",
+      "expectedDetector": "PRESSURE_ROW_SEGMENT_MISSING"
+    },
+    {
+      "controlId": "NC13-WRONG-OUTPUT-CONVERSION",
+      "fixture": "passing-pressure-candidate",
+      "mutation": "replace one output conversionId with pressure-atm-to-pa-v1 while retaining the source lexical value/unit and canonical value",
+      "mutationWitness": "only conversionId changes",
+      "expectedDetector": "OUTPUT_CONVERSION_MISMATCH"
+    },
+    {
+      "controlId": "NC14-WRONG-INPUT-CONVERSION",
+      "fixture": "passing-pressure-candidate",
+      "mutation": "replace one condition conversionId with pressure-atm-to-pa-v1 while retaining the source lexical value/unit and canonical value",
+      "mutationWitness": "only conversionId changes",
+      "expectedDetector": "INPUT_CONVERSION_MISMATCH"
+    },
+    {
+      "controlId": "NC15-UNREGISTERED-OBSERVABLE-BRIDGE",
+      "fixture": "passing-pressure-source-record",
+      "mutation": "add scoreable=true while sourceToModelBridge remains unregistered",
+      "mutationWitness": "only the forbidden scoreable member is added",
+      "expectedDetector": "SOURCE_ONLY_CEILING_VIOLATED"
+    },
+    {
+      "controlId": "NC16-CHANGED-REPEAT-REDUCTION",
+      "fixture": "passing-repeat-uncertainty",
+      "mutation": "remove the registered uncertainty operatorId",
+      "mutationWitness": "raw repeat values stay unchanged and only operatorId disappears",
+      "expectedDetector": "UNCERTAINTY_OPERATOR_MISMATCH"
+    },
+    {
+      "controlId": "NC17-FLIPPED-DISPOSITION",
+      "fixture": "definitive-fail-candidate",
+      "mutation": "change definitive-fail to a nonfail state in a later same-protocol assessment without changing the trigger",
+      "mutationWitness": "trigger evidence stays unchanged and only the effective disposition changes",
+      "expectedDetector": "DEFINITIVE_FAIL_REVERSED"
+    },
+    {
+      "controlId": "NC18-OMITTED-SEMANTIC-ARTIFACT",
+      "fixture": "passing-review-package",
+      "mutation": "remove the CLI path from reviewedArtifacts",
+      "mutationWitness": "computed import closure stays unchanged and reviewed set loses exactly the CLI path",
+      "expectedDetector": "REVIEW_ARTIFACT_MISSING"
+    },
+    {
+      "controlId": "NC19-OMITTED-PRIOR-FINDING",
+      "fixture": "passing-successor-review",
+      "mutation": "remove one prior finding ID and its closure row from the successor review",
+      "mutationWitness": "priorFindingIds stays unchanged and successor closure loses exactly one ID",
+      "expectedDetector": "PRIOR_FINDING_UNCLOSED"
+    },
+    {
+      "controlId": "NC20-TAMPERED-REVIEW-RUN",
+      "fixture": "passing-final-bundle",
+      "mutation": "replace one governed review stdout descriptor SHA-256 with 64 zeroes",
+      "mutationWitness": "only the stdout descriptor SHA-256 changes",
+      "expectedDetector": "REVIEW_RUN_HASH_MISMATCH"
+    },
+    {
+      "controlId": "NC21-CUTOFF-CONFLATION",
+      "fixture": "passing-currency-record",
+      "mutation": "replace the candidate-eligibility cutoff operand with currencyAsOfUtc",
+      "mutationWitness": "source dates and currency results stay unchanged and only the eligibility cutoff operand changes",
+      "expectedDetector": "ELIGIBILITY_CUTOFF_MISMATCH"
+    },
+    {
+      "controlId": "NC22-UNBOUND-CURRENCY-UPPER-CUTOFF",
+      "fixture": "passing-freeze-record",
+      "mutation": "replace the reviewed non-null currencyAsOfUtc with null",
+      "mutationWitness": "no route facts change and only the prospective cutoff becomes null",
+      "expectedDetector": "CURRENCY_ASOF_UNBOUND"
+    },
+    {
+      "controlId": "NC23-CURRENCY-RECURSION",
+      "fixture": "passing-rule12-closure",
+      "mutation": "schedule one entry-citation child from one currency-derived occurrence",
+      "mutationWitness": "exactly one citation request is added with the currency-derived parent",
+      "expectedDetector": "CURRENCY_DERIVED_RECURSION"
+    },
+    {
+      "controlId": "NC24-WRONG-INITIAL-REQUEST-COUNT",
+      "fixture": "passing-initial-plans",
+      "mutation": "remove one pressure DOI seed-resolution request",
+      "mutationWitness": "only the pressure initial request set changes from 222 to 221",
+      "expectedDetector": "INITIAL_PLAN_COUNT_MISMATCH"
+    },
+    {
+      "controlId": "NC25-CONTINUATION-PARENT-GAP",
+      "fixture": "passing-paginated-chain",
+      "mutation": "remove the governing continuation parent binding while retaining its child request",
+      "mutationWitness": "only the child parent binding is absent",
+      "expectedDetector": "CONTINUATION_PARENT_MISSING"
+    },
+    {
+      "controlId": "NC26-NONDISTINCT-PRESSURES",
+      "fixture": "passing-pressure-source-record",
+      "mutation": "replace the second canonical pressure rational with the first while retaining matched status",
+      "mutationWitness": "only the second pressure changes and the two exact rationals become equal",
+      "expectedDetector": "PRESSURE_NOT_DISTINCT"
+    },
+    {
+      "controlId": "NC27-NONAIR-GAS",
+      "fixture": "passing-pressure-source-record",
+      "mutation": "replace source-evidenced air with nitrogen while retaining compatible status",
+      "mutationWitness": "only the gas composition changes from air to nitrogen",
+      "expectedDetector": "LK_GAS_INCOMPATIBLE"
+    },
+    {
+      "controlId": "NC28-COVARIANCE-ASSUMED-ZERO",
+      "fixture": "passing-matched-pressure-uncertainty",
+      "mutation": "replace unresolved covariance with exact zero while independence evidence remains absent",
+      "mutationWitness": "raw observations/design stay unchanged and only covariance becomes zero",
+      "expectedDetector": "COVARIANCE_UNSUPPORTED"
+    },
+    {
+      "controlId": "NC29-GENERATEDFROM-BYTE-DRIFT",
+      "fixture": "passing-independence-arm",
+      "mutation": "change one canonical LF-normalized generatedFrom text byte without changing the catalog hash",
+      "mutationWitness": "canonical-text SHA-256 changes and catalog generatedFrom stays unchanged",
+      "expectedDetector": "CATALOG_GENERATEDFROM_MISMATCH"
+    },
+    {
+      "controlId": "NC30-UNRESOLVED-SOURCE-NODE-PROMOTION",
+      "fixture": "unresolved-independence-arm",
+      "mutation": "promote CAK while SRC-1208.5982V1-MISSING remains known-missing-local-bytes",
+      "mutationWitness": "catalog and node status stay unchanged while only CAK disposition strengthens",
+      "expectedDetector": "INDEPENDENCE_NODE_UNRESOLVED"
+    },
+    {
+      "controlId": "NC31-SOURCE-REPLACEMENT-ERASURE",
+      "fixture": "passing-corrected-source-chain",
+      "mutation": "delete the historical original source while retaining the corrected successor",
+      "mutationWitness": "only the original immutable source disappears",
+      "expectedDetector": "SOURCE_HISTORY_ERASED"
+    },
+    {
+      "controlId": "NC32-EFFECTIVE-TIP-FORK",
+      "fixture": "passing-assessment-chain",
+      "mutation": "append two successors with the same predecessor and schedule from one branch",
+      "mutationWitness": "the predecessor gains exactly two children while producer outcome stays non-unresolved",
+      "expectedDetector": "ASSESSMENT_FORK"
+    },
+    {
+      "controlId": "NC33-FALSE-CURRENCY-COVERAGE",
+      "fixture": "passing-rule12-closure",
+      "mutation": "remove one required governing currency terminal result while retaining currencyCoverageAsOfUtc at currencyAsOfUtc",
+      "mutationWitness": "exactly one required terminal result disappears and the claimed coverage stays unchanged",
+      "expectedDetector": "CURRENCY_COVERAGE_FALSE"
+    },
+    {
+      "controlId": "NC34-REDIRECT-HOP-GAP",
+      "fixture": "passing-redirect-chain",
+      "mutation": "remove one interior redirect hop while retaining its predecessor and successor",
+      "mutationWitness": "exactly one interior hop disappears and final URL stays unchanged",
+      "expectedDetector": "REDIRECT_HOP_MISSING"
+    },
+    {
+      "controlId": "NC35-FINAL-URL-GAP",
+      "fixture": "passing-redirect-chain",
+      "mutation": "remove the terminal final URL while retaining every redirect hop",
+      "mutationWitness": "only the terminal final URL disappears",
+      "expectedDetector": "FINAL_URL_MISSING"
+    },
+    {
+      "controlId": "NC36-MATCHED-FIELD-CONFOUND",
+      "fixture": "passing-pressure-source-record",
+      "mutation": "change the second condition temperature while retaining matched status",
+      "mutationWitness": "only the second canonical temperature changes",
+      "expectedDetector": "PRESSURE_MATCH_CONFOUNDED"
+    },
+    {
+      "controlId": "NC37-NONPOSITIVE-SIGMA",
+      "fixture": "passing-pressure-source-record",
+      "mutation": "replace one positive sigmaInfinity rational with exact zero while retaining compatible status",
+      "mutationWitness": "only sigmaInfinity changes to zero",
+      "expectedDetector": "LK_SIGMA_INCOMPATIBLE"
+    },
+    {
+      "controlId": "NC38-UNSUPPORTED-TEMPERATURE",
+      "fixture": "passing-pressure-source-record",
+      "mutation": "replace one in-domain temperatureC with exact zero while retaining compatible status",
+      "mutationWitness": "only temperatureC changes to zero",
+      "expectedDetector": "LK_TEMPERATURE_INCOMPATIBLE"
+    },
+    {
+      "controlId": "NC39-NONPOSITIVE-PRESSURE",
+      "fixture": "passing-pressure-source-record",
+      "mutation": "replace one positive pressurePa rational with exact zero while retaining compatible status",
+      "mutationWitness": "only pressurePa changes to zero",
+      "expectedDetector": "LK_PRESSURE_INCOMPATIBLE"
+    },
+    {
+      "controlId": "NC40-NONPOSITIVE-DURATION",
+      "fixture": "passing-pressure-source-record",
+      "mutation": "replace one positive durationSeconds rational with exact zero while retaining compatible status",
+      "mutationWitness": "only durationSeconds changes to zero",
+      "expectedDetector": "LK_DURATION_INCOMPATIBLE"
+    },
+    {
+      "controlId": "NC41-WRONG-FAR-FIELD",
+      "fixture": "passing-source-model-bridge",
+      "mutation": "replace monopole-matched with reflecting while retaining bridge-compatible status",
+      "mutationWitness": "only the far-field literal changes",
+      "expectedDetector": "LK_FAR_FIELD_INCOMPATIBLE"
+    },
+    {
+      "controlId": "NC42-NONCONTINUUM-TRANSPORT",
+      "fixture": "passing-source-model-bridge",
+      "mutation": "add reviewed evidence that the gas transport is rarefied while retaining bridge-compatible status",
+      "mutationWitness": "only the evidenced transport regime changes from continuum to rarefied",
+      "expectedDetector": "LK_TRANSPORT_NONCONTINUUM"
+    },
+    {
+      "controlId": "NC43-NONQUASISTATIC-TRANSPORT",
+      "fixture": "passing-source-model-bridge",
+      "mutation": "change the frozen run-wide quasi-static evaluator result from pass to fail while retaining bridge-compatible status",
+      "mutationWitness": "only the evaluator result changes",
+      "expectedDetector": "LK_TRANSPORT_NONQUASISTATIC"
+    },
+    {
+      "controlId": "NC44-FORCED-CONVECTION",
+      "fixture": "passing-pressure-source-record",
+      "mutation": "add source-evidenced forced convection while retaining compatible status",
+      "mutationWitness": "only forced-convection evidence is added",
+      "expectedDetector": "LK_PHYSICS_EXTENSION_REQUIRED"
+    },
+    {
+      "controlId": "NC45-MISSING-TRANSPORT-EVALUATOR",
+      "fixture": "passing-source-model-bridge",
+      "mutation": "remove the prospectively frozen continuum evaluator while retaining bridge-compatible status",
+      "mutationWitness": "only the continuum evaluator binding disappears",
+      "expectedDetector": "LK_TRANSPORT_EVALUATOR_MISSING"
+    },
+    {
+      "controlId": "NC46-UNREVIEWED-SUCCESSOR-EFFECTIVE",
+      "fixture": "passing-corrected-source-chain",
+      "mutation": "mark an unreviewed corrected successor effective while retaining the historical original",
+      "mutationWitness": "only successor review completeness changes from complete to incomplete",
+      "expectedDetector": "SOURCE_SUCCESSOR_UNREVIEWED"
+    },
+    {
+      "controlId": "NC47-EFFECTIVE-TIP-GAP",
+      "fixture": "passing-assessment-chain",
+      "mutation": "replace one successor predecessor ID with an absent assessment ID",
+      "mutationWitness": "only one predecessor ID changes to an absent value",
+      "expectedDetector": "ASSESSMENT_GAP"
+    },
+    {
+      "controlId": "NC48-EFFECTIVE-TIP-CYCLE",
+      "fixture": "passing-assessment-chain",
+      "mutation": "replace the first assessment's null predecessor with the final assessment ID",
+      "mutationWitness": "only the first predecessor changes and the chain becomes one cycle",
+      "expectedDetector": "ASSESSMENT_CYCLE"
+    },
+    {
+      "controlId": "NC49-EFFECTIVE-TIP-SECOND-TIP",
+      "fixture": "passing-assessment-chain",
+      "mutation": "remove one predecessor link so that two assessments have no successor",
+      "mutationWitness": "exactly one predecessor link disappears and the graph has two tips",
+      "expectedDetector": "ASSESSMENT_SECOND_TIP"
+    },
+    {
+      "controlId": "NC50-LANGUAGE-ORIGINAL-BYTES-UNCHECKED",
+      "fixture": "passing-non-english-source",
+      "mutation": "replace originalBytesCompared=true with false while retaining adequate disposition",
+      "mutationWitness": "only originalBytesCompared changes",
+      "expectedDetector": "CLAIM_REVIEW_INADEQUATE"
+    },
+    {
+      "controlId": "NC51-OMITTED-PUBLICATION-BOUND",
+      "fixture": "passing-rule12-closure",
+      "mutation": "remove one distinct source-supported publication lower bound from Rule 12 scheduling",
+      "mutationWitness": "source dates stay unchanged and scheduled bound set loses exactly one value",
+      "expectedDetector": "CURRENCY_BOUND_MISSING"
+    },
+    {
+      "controlId": "NC52-OMITTED-INDEPENDENCE-SOURCE-NODE",
+      "fixture": "passing-independence-arm",
+      "mutation": "remove one source-node disposition required by one arm operand row",
+      "mutationWitness": "catalog and candidate provenance stay unchanged and the proof loses exactly one sourceNodeId",
+      "expectedDetector": "INDEPENDENCE_SOURCE_NODE_MISSING"
+    },
+    {
+      "controlId": "NC53-OMITTED-INDEPENDENCE-DATA-FAMILY",
+      "fixture": "passing-independence-arm",
+      "mutation": "remove one data-family disposition required by one arm operand row",
+      "mutationWitness": "catalog and candidate provenance stay unchanged and the proof loses exactly one dataFamilyId",
+      "expectedDetector": "INDEPENDENCE_DATA_FAMILY_MISSING"
+    },
+    {
+      "controlId": "NC54-WRONG-OUTPUT-CANONICAL-VALUE",
+      "fixture": "passing-pressure-candidate",
+      "mutation": "add one to the output canonicalNumerator while retaining lexical value, unit and conversionId",
+      "mutationWitness": "only canonicalNumerator changes",
+      "expectedDetector": "OUTPUT_CANONICAL_VALUE_MISMATCH"
+    },
+    {
+      "controlId": "NC55-WRONG-INPUT-CANONICAL-VALUE",
+      "fixture": "passing-pressure-candidate",
+      "mutation": "add one to the condition canonicalNumerator while retaining lexical value, unit and conversionId",
+      "mutationWitness": "only canonicalNumerator changes",
+      "expectedDetector": "INPUT_CANONICAL_VALUE_MISMATCH"
+    },
+    {
+      "controlId": "NC56-UNREGISTERED-BRIDGE-MAPPING",
+      "fixture": "passing-pressure-source-record",
+      "mutation": "append one solver metric/argv/checkpoint mapping while sourceToModelBridge.registeredMappings is empty",
+      "mutationWitness": "only one forbidden mapping is added",
+      "expectedDetector": "SOURCE_MODEL_BRIDGE_UNREGISTERED"
+    },
+    {
+      "controlId": "NC57-OMITTED-TRANSITIVE-SEMANTIC-MODULE",
+      "fixture": "passing-review-package",
+      "mutation": "remove one computed transitive semantic module path from reviewedArtifacts",
+      "mutationWitness": "computed import closure stays unchanged and reviewed set loses exactly one transitive path",
+      "expectedDetector": "REVIEW_ARTIFACT_MISSING"
+    },
+    {
+      "controlId": "NC58-POSTCUTOFF-PRIMARY-ADMISSION",
+      "fixture": "passing-currency-record",
+      "mutation": "change one post-cutoff primary occurrence disposition from post-cutoff-follow-up to include-acquire",
+      "mutationWitness": "source publication instant stays unchanged and only disposition changes",
+      "expectedDetector": "POSTCUTOFF_PRIMARY_ADMITTED"
+    },
+    {
+      "controlId": "NC59-POSTREVIEW-CURRENCY-CUTOFF-MUTATION",
+      "fixture": "passing-freeze-record",
+      "mutation": "replace currencyAsOfUtc while retaining the prior reviewed protocol SHA-256",
+      "mutationWitness": "only currencyAsOfUtc changes and reviewed protocol SHA-256 does not",
+      "expectedDetector": "CURRENCY_ASOF_REVIEW_MISMATCH"
+    },
+    {
+      "controlId": "NC60-CURRENCY-RULE12-RECURSION",
+      "fixture": "passing-rule12-closure",
+      "mutation": "schedule one second Rule 12 correction family from one currency-derived occurrence",
+      "mutationWitness": "exactly one Rule 12 request is added with the currency-derived parent",
+      "expectedDetector": "CURRENCY_DERIVED_RECURSION"
+    },
+    {
+      "controlId": "NC61-WRONG-BASE-PAGE-REQUEST-COUNT",
+      "fixture": "passing-initial-plans",
+      "mutation": "remove the Yamashita Q01 Crossref offset=100 initial request",
+      "mutationWitness": "only the Yamashita initial request set changes from 168 to 167",
+      "expectedDetector": "INITIAL_PLAN_COUNT_MISMATCH"
+    },
+    {
+      "controlId": "NC62-UNREADABLE-SOURCE-NODE-PROMOTION",
+      "fixture": "unresolved-independence-arm",
+      "mutation": "promote M1 while SRC-2109.00098V1-UNREADABLE remains local-present-currently-unreadable",
+      "mutationWitness": "catalog and node status stay unchanged while only M1 disposition strengthens",
+      "expectedDetector": "INDEPENDENCE_NODE_UNRESOLVED"
+    },
+    {
+      "controlId": "NC63-EXTERNAL-NOBYTE-SOURCE-NODE-PROMOTION",
+      "fixture": "unresolved-authority-promotion-arm",
+      "mutation": "set CAK overallPromotionEligibility=eligible while the exact-definition authority provenance/currentness component for SRC-BIPM-SI remains unresolved",
+      "mutationWitness": "empirical independence and every other component stay unchanged while only overallPromotionEligibility strengthens",
+      "expectedDetector": "CATALOG_PROMOTION_CONJUNCTION_FALSE"
+    },
+    {
+      "controlId": "NC64-HIDDEN-CONTINUATION-CAP",
+      "fixture": "passing-capped-route",
+      "mutation": "set capTruncated=false while one non-null continuation remains after maximumRecords",
+      "mutationWitness": "continuation and retained record count stay unchanged and only capTruncated flips",
+      "expectedDetector": "CAP_STATE_FALSE"
+    },
+    {
+      "controlId": "NC65-HIDDEN-PAGE-CAP",
+      "fixture": "passing-capped-route",
+      "mutation": "set capTruncated=false while pageRequestCount is exactly one greater than maximumPageRequestsPerQuery",
+      "mutationWitness": "page count stays unchanged and only capTruncated flips",
+      "expectedDetector": "CAP_STATE_FALSE"
+    },
+    {
+      "controlId": "NC66-HIDDEN-AUTHOR-CAP",
+      "fixture": "passing-rule12-closure",
+      "mutation": "set capTruncated=false while one subject has exactly 51 source-listed authors",
+      "mutationWitness": "author list stays unchanged and only capTruncated flips",
+      "expectedDetector": "CAP_STATE_FALSE"
+    },
+    {
+      "controlId": "NC67-HIDDEN-VERSION-LINK-CAP",
+      "fixture": "passing-rule12-closure",
+      "mutation": "set capTruncated=false while one subject has exactly 51 source/provider version links",
+      "mutationWitness": "version-link set stays unchanged and only capTruncated flips",
+      "expectedDetector": "CAP_STATE_FALSE"
+    },
+    {
+      "controlId": "NC68-VERSION-LINK-CROSS-ORIGIN-REDIRECT",
+      "fixture": "passing-version-link-chain",
+      "mutation": "replace one same-origin redirect Location with an HTTPS URL on example.invalid",
+      "mutationWitness": "only one Location value and its resolved origin change",
+      "expectedDetector": "VERSION_LINK_REDIRECT_ORIGIN"
+    },
+    {
+      "controlId": "NC69-VERSION-LINK-CONTINUATION",
+      "fixture": "passing-version-link-chain",
+      "mutation": "append one continuation value to the terminal version-link result",
+      "mutationWitness": "only the forbidden continuation member is added",
+      "expectedDetector": "VERSION_LINK_CONTINUATION_FORBIDDEN"
+    },
+    {
+      "controlId": "NC70-DEEPER-GLOBAL-SUBJECT-RESCHEDULE",
+      "fixture": "passing-citation-graph",
+      "mutation": "append one request for a strong subject already scheduled at a lower depth from another root",
+      "mutationWitness": "only one deeper request is added while all relation evidence stays unchanged",
+      "expectedDetector": "CITATION_SUBJECT_NOT_FIRST_DEPTH"
+    },
+    {
+      "controlId": "NC71-TITLE-ONLY-CROSSROOT-DUPLICATE",
+      "fixture": "passing-citation-graph",
+      "mutation": "append a second request for the same reviewed-title SHA-256 at the same first depth under another root",
+      "mutationWitness": "only one duplicate title-key request is added",
+      "expectedDetector": "CITATION_SUBJECT_DUPLICATE"
+    },
+    {
+      "controlId": "NC72-LOCAL-SEGMENT-RELATION-OMITTED",
+      "fixture": "passing-yamashita-local-relations",
+      "mutation": "remove the bibliography-1987Kob to reviewed 1987 book relation while retaining a recovered candidate",
+      "mutationWitness": "only the required local intermediate relation disappears",
+      "expectedDetector": "YAMASHITA_LOCAL_RELATION_MISSING"
+    },
+    {
+      "controlId": "NC73-RULE12-FORWARD-FAMILY-OMITTED",
+      "fixture": "passing-rule12-closure",
+      "mutation": "remove one subject/bound OpenAlex forward family member",
+      "mutationWitness": "only one required forward family member disappears",
+      "expectedDetector": "RULE12_FORWARD_MEMBER_MISSING"
+    },
+    {
+      "controlId": "NC74-AMBIGUOUS-AID-CHOSEN",
+      "fixture": "passing-rule12-author-construction",
+      "mutation": "replace an author-id-unresolved terminal with one of two plausible AIDs and schedule same-author work",
+      "mutationWitness": "ambiguity evidence stays unchanged while one AID is producer-selected",
+      "expectedDetector": "RULE12_AUTHOR_ID_AMBIGUOUS"
+    },
+    {
+      "controlId": "NC75-AUTHORITY-SUBJECT-OMITTED",
+      "fixture": "passing-rule12-authority-closure",
+      "mutation": "remove AUTHORITY-SUBJECT-CGPM-ATM-1954 while retaining verified authority currency",
+      "mutationWitness": "only one closed authority subject disappears",
+      "expectedDetector": "RULE12_AUTHORITY_SUBJECT_MISSING"
+    },
+    {
+      "controlId": "NC76-HIDDEN-ACQUISITION-CHILD-CAP",
+      "fixture": "passing-source-acquisition",
+      "mutation": "set cap-incomplete false while a twenty-first reviewed depth-1 source link remains",
+      "mutationWitness": "link set stays unchanged and only cap state strengthens",
+      "expectedDetector": "SOURCE_ACQUISITION_CAP_FALSE"
+    },
+    {
+      "controlId": "NC77-OMITTED-ACQUISITION-TERMINAL",
+      "fixture": "passing-source-acquisition",
+      "mutation": "remove one retained locator terminal state while retaining source-negative completion",
+      "mutationWitness": "only one required acquisition terminal disappears",
+      "expectedDetector": "SOURCE_ACQUISITION_TERMINAL_MISSING"
+    },
+    {
+      "controlId": "NC78-POST1987-YAMASHITA-PRIMARY",
+      "fixture": "passing-yamashita-source-record",
+      "mutation": "change candidate publication date to 1988-01-01 while retaining primary admission",
+      "mutationWitness": "only the reviewed candidate date crosses the entry upper bound",
+      "expectedDetector": "YAMASHITA_DATE_OUT_OF_SCOPE"
+    },
+    {
+      "controlId": "NC79-YAMASHITA-LINEAGE-BYPASS",
+      "fixture": "passing-yamashita-source-record",
+      "mutation": "remove the path through bibliography-1987Kob while retaining primary admission",
+      "mutationWitness": "source bytes and candidate stay unchanged while qualifying lineage disappears",
+      "expectedDetector": "YAMASHITA_LINEAGE_MISSING"
+    },
+    {
+      "controlId": "NC80-SPACED-MMHG-FALSE-NEGATIVE",
+      "fixture": "passing-pressure-screen",
+      "mutation": "change the pressure unit lexeme from Torr to mm-Hg and exclude the occurrence",
+      "mutationWitness": "numeric value and pressure meaning stay present while only normalized unit tokens become mm hg",
+      "expectedDetector": "PRESSURE_SPACED_MMHG_MISSCREENED"
+    },
+    {
+      "controlId": "NC81-UNAUTHORIZED-MMHG-CONVERSION",
+      "fixture": "recognized-unmapped-pressure",
+      "mutation": "assign pressure-torr-to-pa-v1 and a canonical pressurePa to a mm Hg transcription",
+      "mutationWitness": "source lexeme/unit stay unchanged while forbidden conversion/canonical value are added",
+      "expectedDetector": "PRESSURE_UNIT_UNMAPPED"
+    },
+    {
+      "controlId": "NC82-INSTRUMENT-COVARIANCE-OMITTED",
+      "fixture": "passing-instrument-repeat-uncertainty",
+      "mutation": "remove covariance and independence evidence while retaining combined uncertainty",
+      "mutationWitness": "all variance operands stay unchanged and only covariance support disappears",
+      "expectedDetector": "COVARIANCE_UNSUPPORTED"
+    },
+    {
+      "controlId": "NC83-ARM-OVERLAP-LEAK",
+      "fixture": "passing-arm-specific-independence",
+      "mutation": "copy an M1-only overlap disposition into CAK without CAK evidence",
+      "mutationWitness": "only CAK strengthens from independent to overlap",
+      "expectedDetector": "INDEPENDENCE_ARM_SCOPE_VIOLATED"
+    },
+    {
+      "controlId": "NC84-PROJECT-SELECTION-EVIDENCE-OMITTED",
+      "fixture": "passing-independence-arm",
+      "mutation": "remove one required projectSelectionSupport disposition while retaining eligible status",
+      "mutationWitness": "catalog stays unchanged and one arm-selection review member disappears",
+      "expectedDetector": "PROJECT_SELECTION_SUPPORT_MISSING"
+    },
+    {
+      "controlId": "NC85-CURRENT-FINDING-OMITTED",
+      "fixture": "passing-successor-review",
+      "mutation": "remove WP1V4-SCI-B11 from the governed finding record and closure",
+      "mutationWitness": "registry expected IDs stay unchanged while one current finding disappears",
+      "expectedDetector": "PRIOR_FINDING_UNCLOSED"
+    },
+    {
+      "controlId": "NC86-EXHAUSTIVE-CURRENCY-OVERCLAIM",
+      "fixture": "passing-rule12-closure",
+      "mutation": "replace bounded registered-provider coverage language with exhaustive-literature=true",
+      "mutationWitness": "all route terminals stay unchanged and only theorem-strength claim is added",
+      "expectedDetector": "CURRENCY_SCOPE_OVERCLAIM"
+    }
+  ],
+  "reviewFindingRegistry": {
+    "path": "research/phase6-wp1-review-findings.json",
+    "expectedFindingCount": 150,
+    "expectedFindingIds": [
+      "CATV2-B01",
+      "CATV2-B02",
+      "CATV2-B03",
+      "CATV2-B04",
+      "CATV2-S01",
+      "CATV2-S02",
+      "V2-PUBLICATION-B01",
+      "V2-PUBLICATION-B02",
+      "V2-PUBLICATION-B03",
+      "V2-PUBLICATION-B04",
+      "V2-PUBLICATION-B05",
+      "V2-PUBLICATION-B06",
+      "V2-PUBLICATION-B07",
+      "V2-PUBLICATION-B08",
+      "V2-PUBLICATION-SF01",
+      "V2-PUBLICATION-SF02",
+      "V2-PUBLICATION-SF03",
+      "V2-SCHEMA-B01",
+      "V2-SCHEMA-B02",
+      "V2-SCHEMA-B03",
+      "V2-SCHEMA-B04",
+      "V2-SCHEMA-B05",
+      "V2-SCHEMA-B06",
+      "V2-SCHEMA-B07",
+      "V2-SCHEMA-B08",
+      "V2-SCHEMA-B09",
+      "V2-SCHEMA-B10",
+      "V2-SCHEMA-B11",
+      "V2-SCHEMA-B12",
+      "V2-SCHEMA-B13",
+      "V2-SCHEMA-B14",
+      "V2-SCHEMA-B15",
+      "V2-SCHEMA-B16",
+      "V2-SCHEMA-B17",
+      "V2-SCHEMA-B18",
+      "V2-SCHEMA-SF01",
+      "V2-SCHEMA-SF02",
+      "V2-SCHEMA-SF03",
+      "V2-SCHEMA-SF04",
+      "V2-SCHEMA-SF05",
+      "V2-SCIENCE-B01",
+      "V2-SCIENCE-SF01",
+      "V3-PUBLICATION-B01",
+      "V3-PUBLICATION-B02",
+      "V3-PUBLICATION-B03",
+      "V3-PUBLICATION-B04",
+      "V3-PUBLICATION-B05",
+      "V3-PUBLICATION-B06",
+      "V3-PUBLICATION-B07",
+      "V3-PUBLICATION-SF01",
+      "V3-PUBLICATION-SF02",
+      "V3-SCHEMA-B01",
+      "V3-SCHEMA-B02",
+      "V3-SCHEMA-B03",
+      "V3-SCHEMA-B04",
+      "V3-SCHEMA-B05",
+      "V3-SCHEMA-B06",
+      "V3-SCHEMA-B07",
+      "V3-SCHEMA-B08",
+      "V3-SCHEMA-B09",
+      "V3-SCHEMA-B10",
+      "V3-SCHEMA-SF01",
+      "V3-SCHEMA-SF02",
+      "V3-SCHEMA-SF03",
+      "V3-SCIENCE-B01",
+      "V3-SCIENCE-B02",
+      "V3-SCIENCE-B03",
+      "V3-SCIENCE-B04",
+      "V3-SCIENCE-B05",
+      "V3-SCIENCE-SF01",
+      "V3-SCIENCE-SF02",
+      "V3R2-PUBLICATION-B01",
+      "V3R2-PUBLICATION-B02",
+      "V3R2-PUBLICATION-B03",
+      "V3R2-PUBLICATION-B04",
+      "V3R2-PUBLICATION-B05",
+      "V3R2-PUBLICATION-SF01",
+      "V3R2-SCHEMA-B01",
+      "V3R2-SCHEMA-B02",
+      "V3R2-SCHEMA-B03",
+      "V3R2-SCHEMA-B04",
+      "V3R2-SCHEMA-B05",
+      "V3R2-SCHEMA-B06",
+      "V3R2-SCHEMA-B07",
+      "V3R2-SCHEMA-B08",
+      "V3R2-SCHEMA-B09",
+      "V3R2-SCHEMA-B10",
+      "V3R2-SCHEMA-B11",
+      "V3R2-SCHEMA-B12",
+      "V3R2-SCHEMA-SF01",
+      "V3R2-SCHEMA-SF02",
+      "V3R2-SCIENCE-B01",
+      "V3R2-SCIENCE-B02",
+      "V3R2-SCIENCE-B03",
+      "V3R2-SCIENCE-B04",
+      "V3R2-SCIENCE-B05",
+      "V3R2-SCIENCE-SF01",
+      "V4AS-B01",
+      "V4AS-B02",
+      "V4AS-B03",
+      "V4AS-B04",
+      "V4AS-B05",
+      "V4AS-B06",
+      "V4AS-B07",
+      "V4AS-B08",
+      "V4AS-B09",
+      "V4AS-B10",
+      "V4AS-B11",
+      "V4AS-B12",
+      "V4AS-S01",
+      "V4AS-S02",
+      "V4AS-S03",
+      "V4CF-B01",
+      "V4CF-B02",
+      "V4CF-B03",
+      "V4CF-B04",
+      "V4CF-B05",
+      "V4CF-B06",
+      "V4CF-B07",
+      "V4CF-B08",
+      "V4CF-B09",
+      "V4CF-S01",
+      "WP1V4-ART-B01",
+      "WP1V4-ART-B02",
+      "WP1V4-ART-B03",
+      "WP1V4-ART-B04",
+      "WP1V4-ART-B05",
+      "WP1V4-ART-B06",
+      "WP1V4-ART-B07",
+      "WP1V4-ART-B08",
+      "WP1V4-ART-SF01",
+      "WP1V4-ART-SF02",
+      "WP1V4-ART-SF03",
+      "WP1V4-SCI-B01",
+      "WP1V4-SCI-B02",
+      "WP1V4-SCI-B03",
+      "WP1V4-SCI-B04",
+      "WP1V4-SCI-B05",
+      "WP1V4-SCI-B06",
+      "WP1V4-SCI-B07",
+      "WP1V4-SCI-B08",
+      "WP1V4-SCI-B09",
+      "WP1V4-SCI-B10",
+      "WP1V4-SCI-B11",
+      "WP1V4-SCI-SF01",
+      "WP1V4-SCI-SF02",
+      "WP1V4-SCI-SF03",
+      "WP1V4-SCI-SF04",
+      "WP1V4-SCI-SF05",
+      "WP1V4-SCI-SF06"
+    ],
+    "derivation": "exact sorted findingId set in the governed record; callers may not supply or narrow this set",
+    "acceptanceRule": "every exact ID receives one successor-review disposition with evidence/rationale; author response is not reviewer closure; missing, duplicate, unknown, or review-scope-omitted IDs forbid acceptance"
+  },
+  "sourceAcquisition": {
+    "stageId": "source-acquisition-v1",
+    "authorization": "registered structure only; executionState and the combined-freeze gate forbid every request/import now",
+    "subjectUniverse": "each unique identity-pass effective assessment tip with disposition include-acquire; include-citation-lead is not a source-acquisition subject until a reviewed successor assessment promotes it",
+    "locatorDerivation": "union exact HTTP(S) full-text, repository, publisher, archive, and source links returned by governing provider records plus exact assessed stable-identifier landing links; normalize without changing origin/path/query meaning, deduplicate by normalized URL, sort by source occurrence rank then URL, retain the first 20",
+    "maximumInitialLocatorsPerSubject": 20,
+    "responseDerivedChildRule": "from each captured depth-0 landing body, a reviewed link extractor may emit exact HTTP(S) source/full-text links whose relation to the subject is evidenced; deduplicate globally for the subject, sort by parent request ID then document order then normalized URL, retain at most 20 total depth-1 children; depth greater than one is forbidden",
+    "maximumResponseDerivedChildrenPerSubject": 20,
+    "maximumLinkDepth": 1,
+    "requestTemplate": {
+      "templateId": "source-acquisition-direct-v1",
+      "request": "GET {NORMALIZED_SOURCE_URL}",
+      "accept": "application/pdf,text/html;q=0.9,application/xml;q=0.8,application/json;q=0.8,*/*;q=0.1",
+      "maximumRecords": 1,
+      "maximumPageRequests": 1,
+      "redirectPolicy": "transport.redirectPolicy with the source URL's captured origin added only when that exact locator is registered; credentials remain forbidden"
+    },
+    "manualImportSlotsPerSubject": 1,
+    "manualImportRule": "one immutable no-network slot may import bytes already obtained through a registered stable identifier or locator only; it records acquisition actor, UTC, original path/name, stable identifier/URL, media type, byte count and SHA-256; an empty slot must terminate as not-provided and cannot be silently omitted",
+    "terminalStates": [
+      "acquired-readable",
+      "acquired-unreadable",
+      "access-incomplete",
+      "cap-incomplete",
+      "not-provided",
+      "locator-unresolved"
+    ],
+    "completionRule": "every retained locator, derived child, and the one manual slot has exactly one terminal state; remaining links, excess locators, malformed/cross-policy redirects, or nonterminal members make acquisition incomplete; no metadata occurrence is primary-admissible until acquired readable bytes, complete inventory, evidence segments and language review close",
+    "searchNegativeRule": "a source-negative or bounded-search-negative result requires terminal closure of the full acquisition universe for every include-acquire subject; producer summaries cannot shrink it"
+  },
+  "recognizedUnmappedUnits": [
+    {
+      "unitFamily": "pressure",
+      "normalizedUnit": "mmHg-recognized-unmapped",
+      "reportedForms": [
+        "mmHg",
+        "mm Hg",
+        "mm-Hg",
+        "MMHG",
+        "MM HG"
+      ],
+      "screeningEffect": "numeric pressure recognition may pass",
+      "quantitativeEffect": "no canonical pressurePa may be emitted and matched-pressure/source-compatibility remains unresolved unless a separately reviewed protocol successor binds an applicable authority, definition, conversion and uncertainty",
+      "forbiddenConversionIds": [
+        "pressure-torr-to-pa-v1",
+        "pressure-mmhg-to-pa-v1"
+      ],
+      "rationale": "this candidate has no governed authority establishing that the source's applicable millimetres-of-mercury convention is exactly the registered Torr conversion"
+    }
+  ],
+  "rejectedUncertaintyOperators": [
+    {
+      "operatorId": "instrument-repeat-rss-v1",
+      "minimumN": 2,
+      "formula": "combinedVariance=instrumentStandardUncertaintySquared+sampleVariance/n; uncertainty is the exact symbolic nonnegative sqrt(combinedVariance)",
+      "denominator": "sample component uses n-1 then n",
+      "censoring": "no silent exclusions and both components source-bound",
+      "exactOutputs": [
+        "mean-rational",
+        "sample-variance-rational",
+        "instrument-variance-rational",
+        "combined-variance-rational"
+      ],
+      "disposition": "rejected-v4-science-finding-WP1V4-SCI-B08",
+      "reason": "its sum of instrument variance and repeat-mean variance silently sets their covariance to zero"
+    }
+  ]
+}

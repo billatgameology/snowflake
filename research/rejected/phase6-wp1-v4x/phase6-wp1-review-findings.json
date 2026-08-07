@@ -1,0 +1,2424 @@
+{
+  "schema": "phase6-wp1-review-findings-v1-author-candidate",
+  "recordId": "WP1-REVIEW-FINDINGS-2026-08-03-V1-AUTHOR-CANDIDATE",
+  "candidateStatus": "unexecuted-unreviewed-unaccepted-no-request-authorization",
+  "authority": {
+    "exactIdentityRule": "Each verdict applies only to the exact reviewed identities named by its round; changed bytes require a new review.",
+    "provenanceRule": "Each finding references one reviewRound containing model/context provenance, independently reexecuted work and explicit limits; unknown history is recorded as unknown.",
+    "closureRule": "Author response is not closure. All 150 findings remain open until an independent exact-combined-successor review dispositions every ID with evidence; missing, duplicate, unknown or omitted IDs fail.",
+    "universeRule": "The sorted unique expectedFindingIds must exactly equal both registry finding arrays and cannot be caller-narrowed.",
+    "excludedFindingFamilies": [
+      "PUB86-ROOT-* and later publisher-successor findings remain in the separate publisher successor record and are not part of these 150 IDs."
+    ]
+  },
+  "reviewedCandidateIdentities": [
+    {
+      "identityId": "v2-register",
+      "path": "research/phase6-source-currency.md",
+      "byteLength": 289935,
+      "sha256": "e4e89faaf8de93161a480065ebff50725b58e6c8bc4f9f182efd5b599fdb00e0"
+    },
+    {
+      "identityId": "catalog-v1",
+      "path": "research/phase6-wp1-independence-operands.json",
+      "byteLength": 23791,
+      "sha256": "dc15d1808b5446eb80dc21c07165510e12ad3d89b41376c66924ffc775585963"
+    },
+    {
+      "identityId": "v3-register",
+      "path": "research/phase6-source-currency.md",
+      "byteLength": 52764,
+      "sha256": "957216d13166140588e85bd684f6108c0da53a538e48571301012983610371a2"
+    },
+    {
+      "identityId": "v3-registry",
+      "path": "research/phase6-wp1-search-registry.json",
+      "byteLength": 28565,
+      "sha256": "81dbfd2b50535f956240712210cd0c0f331a9c6baf32841319603267a69f3733"
+    },
+    {
+      "identityId": "catalog-v2",
+      "path": "research/phase6-wp1-independence-operands.json",
+      "byteLength": 25430,
+      "sha256": "dd68ec83d8f5f0eaa799e7c636af8fd0da75e11ead961fab5145c0b42a10072e"
+    },
+    {
+      "identityId": "v4-register",
+      "path": "research/phase6-source-currency.md",
+      "byteLength": 58641,
+      "sha256": "f899590857a6f3c6ff2f1d2fe2563a1438a67d46fb209c476d1fdc9d34b18804"
+    },
+    {
+      "identityId": "v4-registry",
+      "path": "research/phase6-wp1-search-registry.json",
+      "byteLength": 70055,
+      "sha256": "a3f8ef568427b58ff0043065700a8ee4a3c8bb7b4d6fa7c91b112562753d2c18"
+    },
+    {
+      "identityId": "catalog-v3",
+      "path": "research/phase6-wp1-independence-operands.json",
+      "byteLength": 59101,
+      "sha256": "35f11b8ea65fd43ac8097cf2ddda1e26515ffc7377cab97f7682bdbfecf0506f"
+    },
+    {
+      "identityId": "v4-plan",
+      "path": "docs/plans/phase-6-wp1-source-lineage-and-tax2.md",
+      "byteLength": 50924,
+      "sha256": "98f82ba630fa4948e6ca9c55e8af258b974cde9664c6e6ddbc003d7ad53daa0f"
+    },
+    {
+      "identityId": "v4-artifact-module",
+      "path": "runner/src/phase6-wp1-artifacts.ts",
+      "byteLength": 150098,
+      "sha256": "07e327641a9ff6547dc1ccfad7c35e13875cc82f4c0ea95b91bdb7eb0401b8f7"
+    },
+    {
+      "identityId": "v4-artifact-test",
+      "path": "runner/test/phase6-wp1-artifacts.test.ts",
+      "byteLength": 35417,
+      "sha256": "aaf5456479e61020a115d962e124255bc959d7ff1c393ebb7b8e9b4142d795f4"
+    },
+    {
+      "identityId": "v4-artifact-bundle",
+      "path": "research/tmp/recovery/wp1-v4-artifacts-cc047e3.bundle",
+      "byteLength": 5551358,
+      "sha256": "efb2421a1e53fcc74a1c3a1d413e73d72bc70fa184dc718ac2edb064efbaf627"
+    },
+    {
+      "identityId": "v4-review-rejection-bundle",
+      "path": "research/tmp/recovery/wp1-v4-review-rejection-20260803T0440Z.tar",
+      "byteLength": 514048,
+      "sha256": "af1e8e889984bc044f87b379ffca57f3a3434cc28118af8dd86f98c4e203e0e2"
+    }
+  ],
+  "reviewRounds": [
+    {
+      "reviewId": "v2-schema",
+      "findingPrefixes": [
+        "V2-SCHEMA-"
+      ],
+      "reviewer": {
+        "model": "OpenAI gpt-5.6-sol",
+        "contextAndAuthorRelationship": "historical context details not individually recorded"
+      },
+      "reviewedCandidateIdentityIds": [
+        "v2-register",
+        "catalog-v1"
+      ],
+      "independentlyReexecuted": [
+        "Exact-byte binding and before/after drift check; schema/downstream inspection."
+      ],
+      "limits": [
+        "Exact commands, session identity and unexamined subsystems were not individually preserved in the historical plan."
+      ]
+    },
+    {
+      "reviewId": "v2-science",
+      "findingPrefixes": [
+        "V2-SCIENCE-"
+      ],
+      "reviewer": {
+        "model": "OpenAI gpt-5.6-terra",
+        "contextAndAuthorRelationship": "historical context details not individually recorded"
+      },
+      "reviewedCandidateIdentityIds": [
+        "v2-register",
+        "catalog-v1"
+      ],
+      "independentlyReexecuted": [
+        "Exact-byte binding; pressure, uncertainty and TAX2 science inspection."
+      ],
+      "limits": [
+        "Exact commands, session identity and unexamined subsystems were not individually preserved in the historical plan."
+      ]
+    },
+    {
+      "reviewId": "v2-publication",
+      "findingPrefixes": [
+        "V2-PUBLICATION-"
+      ],
+      "reviewer": {
+        "model": "OpenAI gpt-5.6-sol",
+        "contextAndAuthorRelationship": "historical context details not individually recorded"
+      },
+      "reviewedCandidateIdentityIds": [
+        "v2-register",
+        "catalog-v1"
+      ],
+      "independentlyReexecuted": [
+        "Exact-byte binding; publication/recovery inspection."
+      ],
+      "limits": [
+        "Exact commands, session identity and unexamined subsystems were not individually preserved in the historical plan."
+      ]
+    },
+    {
+      "reviewId": "v3-schema-r1",
+      "findingPrefixes": [
+        "V3-SCHEMA-"
+      ],
+      "reviewer": {
+        "model": "OpenAI gpt-5.6-sol ultra",
+        "contextAndAuthorRelationship": "read-only non-author; full inherited context"
+      },
+      "reviewedCandidateIdentityIds": [
+        "v3-register",
+        "v3-registry",
+        "catalog-v1"
+      ],
+      "independentlyReexecuted": [
+        "Parsed identities/counts, reconstructed 243 combinations, inspected schema/publisher/metrics."
+      ],
+      "limits": [
+        "No provider call or source acquisition/translation.",
+        "No exact npm test, TAX2 measurement, solver run or source-truth assessment beyond frozen records."
+      ]
+    },
+    {
+      "reviewId": "v3-science-r1",
+      "findingPrefixes": [
+        "V3-SCIENCE-"
+      ],
+      "reviewer": {
+        "model": "OpenAI gpt-5.6-sol ultra",
+        "contextAndAuthorRelationship": "read-only non-author separate science scope; full inherited context"
+      },
+      "reviewedCandidateIdentityIds": [
+        "v3-register",
+        "v3-registry",
+        "catalog-v1"
+      ],
+      "independentlyReexecuted": [
+        "Parsed identities/counts, reconstructed 243 combinations, inspected science/metrics."
+      ],
+      "limits": [
+        "No provider call or source acquisition/translation.",
+        "No exact npm test, TAX2 measurement, solver run or source-truth assessment beyond frozen records."
+      ]
+    },
+    {
+      "reviewId": "v3-publication-r1",
+      "findingPrefixes": [
+        "V3-PUBLICATION-"
+      ],
+      "reviewer": {
+        "model": "OpenAI gpt-5.6-sol ultra",
+        "contextAndAuthorRelationship": "read-only non-author; full inherited context"
+      },
+      "reviewedCandidateIdentityIds": [
+        "v3-register",
+        "v3-registry",
+        "catalog-v1"
+      ],
+      "independentlyReexecuted": [
+        "Parsed identities/counts and inspected shared publisher."
+      ],
+      "limits": [
+        "No provider call or source acquisition/translation.",
+        "No exact npm test, TAX2 measurement, solver run or source-truth assessment beyond frozen records."
+      ]
+    },
+    {
+      "reviewId": "v3-schema-r2",
+      "findingPrefixes": [
+        "V3R2-SCHEMA-"
+      ],
+      "reviewer": {
+        "model": "OpenAI gpt-5.6-sol ultra",
+        "contextAndAuthorRelationship": "read-only non-author separate schema scope; full inherited repository/task context"
+      },
+      "reviewedCandidateIdentityIds": [
+        "v3-register",
+        "v3-registry",
+        "catalog-v1"
+      ],
+      "independentlyReexecuted": [
+        "Parsed governed files, inspected runner/solver/publisher contracts, reran v3 consistency validator."
+      ],
+      "limits": [
+        "No provider call or source acquisition/translation.",
+        "No exact npm test, TAX2 measurement, solver run or source-truth assessment beyond frozen records."
+      ]
+    },
+    {
+      "reviewId": "v3-science-r2",
+      "findingPrefixes": [
+        "V3R2-SCIENCE-"
+      ],
+      "reviewer": {
+        "model": "OpenAI gpt-5.6-sol ultra",
+        "contextAndAuthorRelationship": "read-only non-author separate science scope; full inherited repository/task context"
+      },
+      "reviewedCandidateIdentityIds": [
+        "v3-register",
+        "v3-registry",
+        "catalog-v1"
+      ],
+      "independentlyReexecuted": [
+        "Parsed governed files, inspected runner/solver contracts, reran v3 consistency validator."
+      ],
+      "limits": [
+        "No provider call or source acquisition/translation.",
+        "No exact npm test, TAX2 measurement, solver run or source-truth assessment beyond frozen records."
+      ]
+    },
+    {
+      "reviewId": "v3-publication-r2",
+      "findingPrefixes": [
+        "V3R2-PUBLICATION-"
+      ],
+      "reviewer": {
+        "model": "OpenAI gpt-5.6-sol ultra",
+        "contextAndAuthorRelationship": "read-only non-author separate publication scope; full inherited repository/task context"
+      },
+      "reviewedCandidateIdentityIds": [
+        "v3-register",
+        "v3-registry",
+        "catalog-v1"
+      ],
+      "independentlyReexecuted": [
+        "Parsed governed files, reran v3 validator and Gate 4/evidence-integrity suites 51/51."
+      ],
+      "limits": [
+        "No provider call or source acquisition/translation.",
+        "No exact npm test, TAX2 measurement, solver run or source-truth assessment beyond frozen records."
+      ]
+    },
+    {
+      "reviewId": "catalog-v2",
+      "findingPrefixes": [
+        "CATV2-"
+      ],
+      "reviewer": {
+        "model": "not recorded",
+        "contextAndAuthorRelationship": "read-only non-author; model/context not recorded"
+      },
+      "reviewedCandidateIdentityIds": [
+        "catalog-v2"
+      ],
+      "independentlyReexecuted": [
+        "Historical plan records exact-candidate review and conservative per-arm consequence check."
+      ],
+      "limits": [
+        "Exact commands and reviewer model/context were not preserved; the compared still-v1 registry identity was not separately reported."
+      ]
+    },
+    {
+      "reviewId": "v4-science",
+      "findingPrefixes": [
+        "WP1V4-SCI-"
+      ],
+      "reviewer": {
+        "model": "OpenAI Codex gpt-5.6-sol ultra",
+        "contextAndAuthorRelationship": "fresh read-only non-author; shared repository/task context"
+      },
+      "reviewedCandidateIdentityIds": [
+        "v4-register",
+        "v4-registry",
+        "catalog-v3",
+        "v4-plan"
+      ],
+      "independentlyReexecuted": [
+        "Recomputed request arithmetic, registry closure, catalog edges/membership/hashes, cache accounting and no-execution state."
+      ],
+      "limits": [
+        "No edits, providers/network, source truth, exact npm test, TAX2, solver, R15 or GPU work."
+      ]
+    },
+    {
+      "reviewId": "v4-art-r1",
+      "findingPrefixes": [
+        "WP1V4-ART-"
+      ],
+      "reviewer": {
+        "model": "OpenAI Codex gpt-5.6-sol ultra",
+        "contextAndAuthorRelationship": "fresh read-only non-author; shared repository/task context"
+      },
+      "reviewedCandidateIdentityIds": [
+        "v4-artifact-module",
+        "v4-artifact-test"
+      ],
+      "independentlyReexecuted": [
+        "Focused suite 20/20; registry counts, ID preimages and adversarial runtime witnesses."
+      ],
+      "limits": [
+        "No exact npm test, providers/network/source acquisition, TAX2, solver, R15 or GPU work."
+      ]
+    },
+    {
+      "reviewId": "v4-art-r2",
+      "findingPrefixes": [
+        "V4AS-",
+        "V4CF-"
+      ],
+      "reviewer": {
+        "model": "OpenAI Codex gpt-5.6-sol ultra",
+        "contextAndAuthorRelationship": "read-only non-author; full inherited repository/task context"
+      },
+      "reviewedCandidateIdentityIds": [
+        "v4-artifact-module",
+        "v4-artifact-test"
+      ],
+      "independentlyReexecuted": [
+        "Verified recovery bundle and 91 inherited IDs; focused 20/20, both typechecks, Rule 7 over 429 files, diff checks and runtime witnesses."
+      ],
+      "limits": [
+        "Exact npm test did not complete and is not green; no provider/source, TAX2, solver, publication, R15 or GPU work."
+      ]
+    }
+  ],
+  "expectedFindingCount": 150,
+  "expectedFindingIds": [
+    "CATV2-B01",
+    "CATV2-B02",
+    "CATV2-B03",
+    "CATV2-B04",
+    "CATV2-S01",
+    "CATV2-S02",
+    "V2-PUBLICATION-B01",
+    "V2-PUBLICATION-B02",
+    "V2-PUBLICATION-B03",
+    "V2-PUBLICATION-B04",
+    "V2-PUBLICATION-B05",
+    "V2-PUBLICATION-B06",
+    "V2-PUBLICATION-B07",
+    "V2-PUBLICATION-B08",
+    "V2-PUBLICATION-SF01",
+    "V2-PUBLICATION-SF02",
+    "V2-PUBLICATION-SF03",
+    "V2-SCHEMA-B01",
+    "V2-SCHEMA-B02",
+    "V2-SCHEMA-B03",
+    "V2-SCHEMA-B04",
+    "V2-SCHEMA-B05",
+    "V2-SCHEMA-B06",
+    "V2-SCHEMA-B07",
+    "V2-SCHEMA-B08",
+    "V2-SCHEMA-B09",
+    "V2-SCHEMA-B10",
+    "V2-SCHEMA-B11",
+    "V2-SCHEMA-B12",
+    "V2-SCHEMA-B13",
+    "V2-SCHEMA-B14",
+    "V2-SCHEMA-B15",
+    "V2-SCHEMA-B16",
+    "V2-SCHEMA-B17",
+    "V2-SCHEMA-B18",
+    "V2-SCHEMA-SF01",
+    "V2-SCHEMA-SF02",
+    "V2-SCHEMA-SF03",
+    "V2-SCHEMA-SF04",
+    "V2-SCHEMA-SF05",
+    "V2-SCIENCE-B01",
+    "V2-SCIENCE-SF01",
+    "V3-PUBLICATION-B01",
+    "V3-PUBLICATION-B02",
+    "V3-PUBLICATION-B03",
+    "V3-PUBLICATION-B04",
+    "V3-PUBLICATION-B05",
+    "V3-PUBLICATION-B06",
+    "V3-PUBLICATION-B07",
+    "V3-PUBLICATION-SF01",
+    "V3-PUBLICATION-SF02",
+    "V3-SCHEMA-B01",
+    "V3-SCHEMA-B02",
+    "V3-SCHEMA-B03",
+    "V3-SCHEMA-B04",
+    "V3-SCHEMA-B05",
+    "V3-SCHEMA-B06",
+    "V3-SCHEMA-B07",
+    "V3-SCHEMA-B08",
+    "V3-SCHEMA-B09",
+    "V3-SCHEMA-B10",
+    "V3-SCHEMA-SF01",
+    "V3-SCHEMA-SF02",
+    "V3-SCHEMA-SF03",
+    "V3-SCIENCE-B01",
+    "V3-SCIENCE-B02",
+    "V3-SCIENCE-B03",
+    "V3-SCIENCE-B04",
+    "V3-SCIENCE-B05",
+    "V3-SCIENCE-SF01",
+    "V3-SCIENCE-SF02",
+    "V3R2-PUBLICATION-B01",
+    "V3R2-PUBLICATION-B02",
+    "V3R2-PUBLICATION-B03",
+    "V3R2-PUBLICATION-B04",
+    "V3R2-PUBLICATION-B05",
+    "V3R2-PUBLICATION-SF01",
+    "V3R2-SCHEMA-B01",
+    "V3R2-SCHEMA-B02",
+    "V3R2-SCHEMA-B03",
+    "V3R2-SCHEMA-B04",
+    "V3R2-SCHEMA-B05",
+    "V3R2-SCHEMA-B06",
+    "V3R2-SCHEMA-B07",
+    "V3R2-SCHEMA-B08",
+    "V3R2-SCHEMA-B09",
+    "V3R2-SCHEMA-B10",
+    "V3R2-SCHEMA-B11",
+    "V3R2-SCHEMA-B12",
+    "V3R2-SCHEMA-SF01",
+    "V3R2-SCHEMA-SF02",
+    "V3R2-SCIENCE-B01",
+    "V3R2-SCIENCE-B02",
+    "V3R2-SCIENCE-B03",
+    "V3R2-SCIENCE-B04",
+    "V3R2-SCIENCE-B05",
+    "V3R2-SCIENCE-SF01",
+    "V4AS-B01",
+    "V4AS-B02",
+    "V4AS-B03",
+    "V4AS-B04",
+    "V4AS-B05",
+    "V4AS-B06",
+    "V4AS-B07",
+    "V4AS-B08",
+    "V4AS-B09",
+    "V4AS-B10",
+    "V4AS-B11",
+    "V4AS-B12",
+    "V4AS-S01",
+    "V4AS-S02",
+    "V4AS-S03",
+    "V4CF-B01",
+    "V4CF-B02",
+    "V4CF-B03",
+    "V4CF-B04",
+    "V4CF-B05",
+    "V4CF-B06",
+    "V4CF-B07",
+    "V4CF-B08",
+    "V4CF-B09",
+    "V4CF-S01",
+    "WP1V4-ART-B01",
+    "WP1V4-ART-B02",
+    "WP1V4-ART-B03",
+    "WP1V4-ART-B04",
+    "WP1V4-ART-B05",
+    "WP1V4-ART-B06",
+    "WP1V4-ART-B07",
+    "WP1V4-ART-B08",
+    "WP1V4-ART-SF01",
+    "WP1V4-ART-SF02",
+    "WP1V4-ART-SF03",
+    "WP1V4-SCI-B01",
+    "WP1V4-SCI-B02",
+    "WP1V4-SCI-B03",
+    "WP1V4-SCI-B04",
+    "WP1V4-SCI-B05",
+    "WP1V4-SCI-B06",
+    "WP1V4-SCI-B07",
+    "WP1V4-SCI-B08",
+    "WP1V4-SCI-B09",
+    "WP1V4-SCI-B10",
+    "WP1V4-SCI-B11",
+    "WP1V4-SCI-SF01",
+    "WP1V4-SCI-SF02",
+    "WP1V4-SCI-SF03",
+    "WP1V4-SCI-SF04",
+    "WP1V4-SCI-SF05",
+    "WP1V4-SCI-SF06"
+  ],
+  "findings": [
+    {
+      "findingId": "CATV2-B01",
+      "severity": "should-fix",
+      "statement": "Catalog-v2 disagreed with the still-v1 registry.",
+      "originatingReviewId": "catalog-v2",
+      "reviewedCandidateIdentityIds": [
+        "catalog-v2"
+      ],
+      "authorResponseStatus": "response-recorded-but-finding-remains-open",
+      "successorDisposition": "open-pending-exact-combined-successor-independent-review"
+    },
+    {
+      "findingId": "CATV2-B02",
+      "severity": "should-fix",
+      "statement": "Catalog-v2 allowed a free-text exact-definition exemption without governed proof.",
+      "originatingReviewId": "catalog-v2",
+      "reviewedCandidateIdentityIds": [
+        "catalog-v2"
+      ],
+      "authorResponseStatus": "response-recorded-but-finding-remains-open",
+      "successorDisposition": "open-pending-exact-combined-successor-independent-review"
+    },
+    {
+      "findingId": "CATV2-B03",
+      "severity": "should-fix",
+      "statement": "Catalog-v2 assigned the exemption at source-node rather than source-node, operand and data-family support-edge granularity.",
+      "originatingReviewId": "catalog-v2",
+      "reviewedCandidateIdentityIds": [
+        "catalog-v2"
+      ],
+      "authorResponseStatus": "response-recorded-but-finding-remains-open",
+      "successorDisposition": "open-pending-exact-combined-successor-independent-review"
+    },
+    {
+      "findingId": "CATV2-B04",
+      "severity": "should-fix",
+      "statement": "Catalog-v2 did not enforce empirical independence, exact-definition provenance and currency as separate conjunctive requirements.",
+      "originatingReviewId": "catalog-v2",
+      "reviewedCandidateIdentityIds": [
+        "catalog-v2"
+      ],
+      "authorResponseStatus": "response-recorded-but-finding-remains-open",
+      "successorDisposition": "open-pending-exact-combined-successor-independent-review"
+    },
+    {
+      "findingId": "CATV2-S01",
+      "severity": "should-fix",
+      "statement": "Catalog-v2 lacked exact successor provenance.",
+      "originatingReviewId": "catalog-v2",
+      "reviewedCandidateIdentityIds": [
+        "catalog-v2"
+      ],
+      "authorResponseStatus": "response-recorded-but-finding-remains-open",
+      "successorDisposition": "open-pending-exact-combined-successor-independent-review"
+    },
+    {
+      "findingId": "CATV2-S02",
+      "severity": "should-fix",
+      "statement": "Catalog-v2 left SRC-ADR0036 role and membership ambiguous.",
+      "originatingReviewId": "catalog-v2",
+      "reviewedCandidateIdentityIds": [
+        "catalog-v2"
+      ],
+      "authorResponseStatus": "response-recorded-but-finding-remains-open",
+      "successorDisposition": "open-pending-exact-combined-successor-independent-review"
+    },
+    {
+      "findingId": "V2-PUBLICATION-B01",
+      "severity": "should-fix",
+      "statement": "mandatory review invoked a verifier mode forbidden by the verifier's closed mode set.",
+      "originatingReviewId": "v2-publication",
+      "reviewedCandidateIdentityIds": [
+        "v2-register",
+        "catalog-v1"
+      ],
+      "authorResponseStatus": "no-successor-response-in-this-science-catalog-correction",
+      "successorDisposition": "open-pending-exact-combined-successor-independent-review"
+    },
+    {
+      "findingId": "V2-PUBLICATION-B02",
+      "severity": "should-fix",
+      "statement": "negative controls lacked frozen IDs, mutations, witnesses and detectors.",
+      "originatingReviewId": "v2-publication",
+      "reviewedCandidateIdentityIds": [
+        "v2-register",
+        "catalog-v1"
+      ],
+      "authorResponseStatus": "no-successor-response-in-this-science-catalog-correction",
+      "successorDisposition": "open-pending-exact-combined-successor-independent-review"
+    },
+    {
+      "findingId": "V2-PUBLICATION-B03",
+      "severity": "should-fix",
+      "statement": "review runs were self-attested and their generated logs were not tracked.",
+      "originatingReviewId": "v2-publication",
+      "reviewedCandidateIdentityIds": [
+        "v2-register",
+        "catalog-v1"
+      ],
+      "authorResponseStatus": "no-successor-response-in-this-science-catalog-correction",
+      "successorDisposition": "open-pending-exact-combined-successor-independent-review"
+    },
+    {
+      "findingId": "V2-PUBLICATION-B04",
+      "severity": "should-fix",
+      "statement": "review closure omitted load-bearing dependencies and allowed a shared semantic-reducer attack.",
+      "originatingReviewId": "v2-publication",
+      "reviewedCandidateIdentityIds": [
+        "v2-register",
+        "catalog-v1"
+      ],
+      "authorResponseStatus": "no-successor-response-in-this-science-catalog-correction",
+      "successorDisposition": "open-pending-exact-combined-successor-independent-review"
+    },
+    {
+      "findingId": "V2-PUBLICATION-B05",
+      "severity": "should-fix",
+      "statement": "successor review could omit earlier rejected findings.",
+      "originatingReviewId": "v2-publication",
+      "reviewedCandidateIdentityIds": [
+        "v2-register",
+        "catalog-v1"
+      ],
+      "authorResponseStatus": "no-successor-response-in-this-science-catalog-correction",
+      "successorDisposition": "open-pending-exact-combined-successor-independent-review"
+    },
+    {
+      "findingId": "V2-PUBLICATION-B06",
+      "severity": "should-fix",
+      "statement": "heterogeneous publication-review rows had no deterministic total order.",
+      "originatingReviewId": "v2-publication",
+      "reviewedCandidateIdentityIds": [
+        "v2-register",
+        "catalog-v1"
+      ],
+      "authorResponseStatus": "no-successor-response-in-this-science-catalog-correction",
+      "successorDisposition": "open-pending-exact-combined-successor-independent-review"
+    },
+    {
+      "findingId": "V2-PUBLICATION-B07",
+      "severity": "should-fix",
+      "statement": "ignored recovery scratch under `evidence/` conflicted with the tracked evidence boundary and integrity test.",
+      "originatingReviewId": "v2-publication",
+      "reviewedCandidateIdentityIds": [
+        "v2-register",
+        "catalog-v1"
+      ],
+      "authorResponseStatus": "no-successor-response-in-this-science-catalog-correction",
+      "successorDisposition": "open-pending-exact-combined-successor-independent-review"
+    },
+    {
+      "findingId": "V2-PUBLICATION-B08",
+      "severity": "should-fix",
+      "statement": "the bespoke publisher/review/recovery stack duplicated the shared evidence seam without a justified new attack surface.",
+      "originatingReviewId": "v2-publication",
+      "reviewedCandidateIdentityIds": [
+        "v2-register",
+        "catalog-v1"
+      ],
+      "authorResponseStatus": "no-successor-response-in-this-science-catalog-correction",
+      "successorDisposition": "open-pending-exact-combined-successor-independent-review"
+    },
+    {
+      "findingId": "V2-PUBLICATION-SF01",
+      "severity": "should-fix",
+      "statement": "contributor/model disjointness was free-text and its attestation limit understated.",
+      "originatingReviewId": "v2-publication",
+      "reviewedCandidateIdentityIds": [
+        "v2-register",
+        "catalog-v1"
+      ],
+      "authorResponseStatus": "no-successor-response-in-this-science-catalog-correction",
+      "successorDisposition": "open-pending-exact-combined-successor-independent-review"
+    },
+    {
+      "findingId": "V2-PUBLICATION-SF02",
+      "severity": "should-fix",
+      "statement": "the active plan still carried stale “not integrated” prose.",
+      "originatingReviewId": "v2-publication",
+      "reviewedCandidateIdentityIds": [
+        "v2-register",
+        "catalog-v1"
+      ],
+      "authorResponseStatus": "no-successor-response-in-this-science-catalog-correction",
+      "successorDisposition": "open-pending-exact-combined-successor-independent-review"
+    },
+    {
+      "findingId": "V2-PUBLICATION-SF03",
+      "severity": "should-fix",
+      "statement": "durable publication lacked an explicit commit, clean-checkout verify and exact `npm test` boundary.",
+      "originatingReviewId": "v2-publication",
+      "reviewedCandidateIdentityIds": [
+        "v2-register",
+        "catalog-v1"
+      ],
+      "authorResponseStatus": "no-successor-response-in-this-science-catalog-correction",
+      "successorDisposition": "open-pending-exact-combined-successor-independent-review"
+    },
+    {
+      "findingId": "V2-SCHEMA-B01",
+      "severity": "should-fix",
+      "statement": "assessment `schedulingWitnesses` was mandatory but undefined.",
+      "originatingReviewId": "v2-schema",
+      "reviewedCandidateIdentityIds": [
+        "v2-register",
+        "catalog-v1"
+      ],
+      "authorResponseStatus": "no-successor-response-in-this-science-catalog-correction",
+      "successorDisposition": "open-pending-exact-combined-successor-independent-review"
+    },
+    {
+      "findingId": "V2-SCHEMA-B02",
+      "severity": "should-fix",
+      "statement": "both `entryEvidence.kind` discriminators lacked permitted literals.",
+      "originatingReviewId": "v2-schema",
+      "reviewedCandidateIdentityIds": [
+        "v2-register",
+        "catalog-v1"
+      ],
+      "authorResponseStatus": "no-successor-response-in-this-science-catalog-correction",
+      "successorDisposition": "open-pending-exact-combined-successor-independent-review"
+    },
+    {
+      "findingId": "V2-SCHEMA-B03",
+      "severity": "should-fix",
+      "statement": "citation evidence could support load-bearing claims without adequate review.",
+      "originatingReviewId": "v2-schema",
+      "reviewedCandidateIdentityIds": [
+        "v2-register",
+        "catalog-v1"
+      ],
+      "authorResponseStatus": "no-successor-response-in-this-science-catalog-correction",
+      "successorDisposition": "open-pending-exact-combined-successor-independent-review"
+    },
+    {
+      "findingId": "V2-SCHEMA-B04",
+      "severity": "should-fix",
+      "statement": "source-review provenance could not establish reviewer kind, context or disjointness.",
+      "originatingReviewId": "v2-schema",
+      "reviewedCandidateIdentityIds": [
+        "v2-register",
+        "catalog-v1"
+      ],
+      "authorResponseStatus": "no-successor-response-in-this-science-catalog-correction",
+      "successorDisposition": "open-pending-exact-combined-successor-independent-review"
+    },
+    {
+      "findingId": "V2-SCHEMA-B05",
+      "severity": "should-fix",
+      "statement": "the positive/nonzero decimal grammar could not encode ordinary negative or zero Celsius inputs and left conversions unstated.",
+      "originatingReviewId": "v2-schema",
+      "reviewedCandidateIdentityIds": [
+        "v2-register",
+        "catalog-v1"
+      ],
+      "authorResponseStatus": "no-successor-response-in-this-science-catalog-correction",
+      "successorDisposition": "open-pending-exact-combined-successor-independent-review"
+    },
+    {
+      "findingId": "V2-SCHEMA-B06",
+      "severity": "should-fix",
+      "statement": "pressure output conversion and uncertainty were author-selected rather than independently recomputable.",
+      "originatingReviewId": "v2-schema",
+      "reviewedCandidateIdentityIds": [
+        "v2-register",
+        "catalog-v1"
+      ],
+      "authorResponseStatus": "no-successor-response-in-this-science-catalog-correction",
+      "successorDisposition": "open-pending-exact-combined-successor-independent-review"
+    },
+    {
+      "findingId": "V2-SCHEMA-B07",
+      "severity": "should-fix",
+      "statement": "the independence edge universe contradicted the arm-specific catalog arrays.",
+      "originatingReviewId": "v2-schema",
+      "reviewedCandidateIdentityIds": [
+        "v2-register",
+        "catalog-v1"
+      ],
+      "authorResponseStatus": "no-successor-response-in-this-science-catalog-correction",
+      "successorDisposition": "open-pending-exact-combined-successor-independent-review"
+    },
+    {
+      "findingId": "V2-SCHEMA-B08",
+      "severity": "should-fix",
+      "statement": "an independence edge could pass with empty claim/segment evidence.",
+      "originatingReviewId": "v2-schema",
+      "reviewedCandidateIdentityIds": [
+        "v2-register",
+        "catalog-v1"
+      ],
+      "authorResponseStatus": "no-successor-response-in-this-science-catalog-correction",
+      "successorDisposition": "open-pending-exact-combined-successor-independent-review"
+    },
+    {
+      "findingId": "V2-SCHEMA-B09",
+      "severity": "should-fix",
+      "statement": "currency alternated between effective heads and every historical descriptor.",
+      "originatingReviewId": "v2-schema",
+      "reviewedCandidateIdentityIds": [
+        "v2-register",
+        "catalog-v1"
+      ],
+      "authorResponseStatus": "no-successor-response-in-this-science-catalog-correction",
+      "successorDisposition": "open-pending-exact-combined-successor-independent-review"
+    },
+    {
+      "findingId": "V2-SCHEMA-B10",
+      "severity": "should-fix",
+      "statement": "entry-specific scheduling used stale occurrence screen state.",
+      "originatingReviewId": "v2-schema",
+      "reviewedCandidateIdentityIds": [
+        "v2-register",
+        "catalog-v1"
+      ],
+      "authorResponseStatus": "no-successor-response-in-this-science-catalog-correction",
+      "successorDisposition": "open-pending-exact-combined-successor-independent-review"
+    },
+    {
+      "findingId": "V2-SCHEMA-B11",
+      "severity": "should-fix",
+      "statement": "source inputs omitted manual page-source bytes and had ambiguous path roots.",
+      "originatingReviewId": "v2-schema",
+      "reviewedCandidateIdentityIds": [
+        "v2-register",
+        "catalog-v1"
+      ],
+      "authorResponseStatus": "no-successor-response-in-this-science-catalog-correction",
+      "successorDisposition": "open-pending-exact-combined-successor-independent-review"
+    },
+    {
+      "findingId": "V2-SCHEMA-B12",
+      "severity": "should-fix",
+      "statement": "“active catalog source-node” had two incompatible derivations.",
+      "originatingReviewId": "v2-schema",
+      "reviewedCandidateIdentityIds": [
+        "v2-register",
+        "catalog-v1"
+      ],
+      "authorResponseStatus": "no-successor-response-in-this-science-catalog-correction",
+      "successorDisposition": "open-pending-exact-combined-successor-independent-review"
+    },
+    {
+      "findingId": "V2-SCHEMA-B13",
+      "severity": "should-fix",
+      "statement": "reviewer-assignment rows lacked the key required by heterogeneous ordering.",
+      "originatingReviewId": "v2-schema",
+      "reviewedCandidateIdentityIds": [
+        "v2-register",
+        "catalog-v1"
+      ],
+      "authorResponseStatus": "no-successor-response-in-this-science-catalog-correction",
+      "successorDisposition": "open-pending-exact-combined-successor-independent-review"
+    },
+    {
+      "findingId": "V2-SCHEMA-B14",
+      "severity": "should-fix",
+      "statement": "checkpoint review ordering was incomplete and contributor/provenance equality was contradictory.",
+      "originatingReviewId": "v2-schema",
+      "reviewedCandidateIdentityIds": [
+        "v2-register",
+        "catalog-v1"
+      ],
+      "authorResponseStatus": "no-successor-response-in-this-science-catalog-correction",
+      "successorDisposition": "open-pending-exact-combined-successor-independent-review"
+    },
+    {
+      "findingId": "V2-SCHEMA-B15",
+      "severity": "should-fix",
+      "statement": "`reviewedAssessmentRevisionIds` named a descriptor hash that did not exist.",
+      "originatingReviewId": "v2-schema",
+      "reviewedCandidateIdentityIds": [
+        "v2-register",
+        "catalog-v1"
+      ],
+      "authorResponseStatus": "no-successor-response-in-this-science-catalog-correction",
+      "successorDisposition": "open-pending-exact-combined-successor-independent-review"
+    },
+    {
+      "findingId": "V2-SCHEMA-B16",
+      "severity": "should-fix",
+      "statement": "mandatory reexecution was self-attested and required an impossible verifier mode.",
+      "originatingReviewId": "v2-schema",
+      "reviewedCandidateIdentityIds": [
+        "v2-register",
+        "catalog-v1"
+      ],
+      "authorResponseStatus": "no-successor-response-in-this-science-catalog-correction",
+      "successorDisposition": "open-pending-exact-combined-successor-independent-review"
+    },
+    {
+      "findingId": "V2-SCHEMA-B17",
+      "severity": "should-fix",
+      "statement": "the required review set omitted CLI, transitive code and other load-bearing bytes.",
+      "originatingReviewId": "v2-schema",
+      "reviewedCandidateIdentityIds": [
+        "v2-register",
+        "catalog-v1"
+      ],
+      "authorResponseStatus": "no-successor-response-in-this-science-catalog-correction",
+      "successorDisposition": "open-pending-exact-combined-successor-independent-review"
+    },
+    {
+      "findingId": "V2-SCHEMA-B18",
+      "severity": "should-fix",
+      "statement": "preparation/publication artifact sets, roots and verifier inputs were underdetermined.",
+      "originatingReviewId": "v2-schema",
+      "reviewedCandidateIdentityIds": [
+        "v2-register",
+        "catalog-v1"
+      ],
+      "authorResponseStatus": "no-successor-response-in-this-science-catalog-correction",
+      "successorDisposition": "open-pending-exact-combined-successor-independent-review"
+    },
+    {
+      "findingId": "V2-SCHEMA-SF01",
+      "severity": "should-fix",
+      "statement": "entry wording referenced a stale independence field.",
+      "originatingReviewId": "v2-schema",
+      "reviewedCandidateIdentityIds": [
+        "v2-register",
+        "catalog-v1"
+      ],
+      "authorResponseStatus": "no-successor-response-in-this-science-catalog-correction",
+      "successorDisposition": "open-pending-exact-combined-successor-independent-review"
+    },
+    {
+      "findingId": "V2-SCHEMA-SF02",
+      "severity": "should-fix",
+      "statement": "null-byte authoritative external nodes had no explicit fail-closed treatment.",
+      "originatingReviewId": "v2-schema",
+      "reviewedCandidateIdentityIds": [
+        "v2-register",
+        "catalog-v1"
+      ],
+      "authorResponseStatus": "no-successor-response-in-this-science-catalog-correction",
+      "successorDisposition": "open-pending-exact-combined-successor-independent-review"
+    },
+    {
+      "findingId": "V2-SCHEMA-SF03",
+      "severity": "should-fix",
+      "statement": "media-type inventory mapping and tool/version were not frozen.",
+      "originatingReviewId": "v2-schema",
+      "reviewedCandidateIdentityIds": [
+        "v2-register",
+        "catalog-v1"
+      ],
+      "authorResponseStatus": "no-successor-response-in-this-science-catalog-correction",
+      "successorDisposition": "open-pending-exact-combined-successor-independent-review"
+    },
+    {
+      "findingId": "V2-SCHEMA-SF04",
+      "severity": "should-fix",
+      "statement": "alias-history prose conflicted with final-state-only derivation.",
+      "originatingReviewId": "v2-schema",
+      "reviewedCandidateIdentityIds": [
+        "v2-register",
+        "catalog-v1"
+      ],
+      "authorResponseStatus": "no-successor-response-in-this-science-catalog-correction",
+      "successorDisposition": "open-pending-exact-combined-successor-independent-review"
+    },
+    {
+      "findingId": "V2-SCHEMA-SF05",
+      "severity": "should-fix",
+      "statement": "the location and immutability of the eventual 0/0 review record were unclear.",
+      "originatingReviewId": "v2-schema",
+      "reviewedCandidateIdentityIds": [
+        "v2-register",
+        "catalog-v1"
+      ],
+      "authorResponseStatus": "no-successor-response-in-this-science-catalog-correction",
+      "successorDisposition": "open-pending-exact-combined-successor-independent-review"
+    },
+    {
+      "findingId": "V2-SCIENCE-B01",
+      "severity": "should-fix",
+      "statement": "a fabricated or wrongly converted pressure output row could pass without source-segment, transcription, unit, solver-mapping or governed-repeat binding.",
+      "originatingReviewId": "v2-science",
+      "reviewedCandidateIdentityIds": [
+        "v2-register",
+        "catalog-v1"
+      ],
+      "authorResponseStatus": "no-successor-response-in-this-science-catalog-correction",
+      "successorDisposition": "open-pending-exact-combined-successor-independent-review"
+    },
+    {
+      "findingId": "V2-SCIENCE-SF01",
+      "severity": "should-fix",
+      "statement": "TAX2 said `REGISTERED` inside a globally unregistered candidate.",
+      "originatingReviewId": "v2-science",
+      "reviewedCandidateIdentityIds": [
+        "v2-register",
+        "catalog-v1"
+      ],
+      "authorResponseStatus": "no-successor-response-in-this-science-catalog-correction",
+      "successorDisposition": "open-pending-exact-combined-successor-independent-review"
+    },
+    {
+      "findingId": "V3-PUBLICATION-B01",
+      "severity": "should-fix",
+      "statement": "hard kills can orphan shared-publisher staging or leave a renamed bundle before `evidence/MANIFEST.json`; recovery authority was undefined.",
+      "originatingReviewId": "v3-publication-r1",
+      "reviewedCandidateIdentityIds": [
+        "v3-register",
+        "v3-registry",
+        "catalog-v1"
+      ],
+      "authorResponseStatus": "no-successor-response-in-this-science-catalog-correction",
+      "successorDisposition": "open-pending-exact-combined-successor-independent-review"
+    },
+    {
+      "findingId": "V3-PUBLICATION-B02",
+      "severity": "should-fix",
+      "statement": "the 20 symbolic fixtures and alternative-worded mutations were not exact, governed bytes.",
+      "originatingReviewId": "v3-publication-r1",
+      "reviewedCandidateIdentityIds": [
+        "v3-register",
+        "v3-registry",
+        "catalog-v1"
+      ],
+      "authorResponseStatus": "no-successor-response-in-this-science-catalog-correction",
+      "successorDisposition": "open-pending-exact-combined-successor-independent-review"
+    },
+    {
+      "findingId": "V3-PUBLICATION-B03",
+      "severity": "should-fix",
+      "statement": "the attacked verifier also executed and witnessed its mutations, violating independent negative-control proof.",
+      "originatingReviewId": "v3-publication-r1",
+      "reviewedCandidateIdentityIds": [
+        "v3-register",
+        "v3-registry",
+        "catalog-v1"
+      ],
+      "authorResponseStatus": "no-successor-response-in-this-science-catalog-correction",
+      "successorDisposition": "open-pending-exact-combined-successor-independent-review"
+    },
+    {
+      "findingId": "V3-PUBLICATION-B04",
+      "severity": "should-fix",
+      "statement": "published-byte rederivation was impossible without the ignored raw/source/ extraction bytes.",
+      "originatingReviewId": "v3-publication-r1",
+      "reviewedCandidateIdentityIds": [
+        "v3-register",
+        "v3-registry",
+        "catalog-v1"
+      ],
+      "authorResponseStatus": "no-successor-response-in-this-science-catalog-correction",
+      "successorDisposition": "open-pending-exact-combined-successor-independent-review"
+    },
+    {
+      "findingId": "V3-PUBLICATION-B05",
+      "severity": "should-fix",
+      "statement": "review payload schemas, ordering, required commands, logs and check-to- evidence mapping were underdetermined.",
+      "originatingReviewId": "v3-publication-r1",
+      "reviewedCandidateIdentityIds": [
+        "v3-register",
+        "v3-registry",
+        "catalog-v1"
+      ],
+      "authorResponseStatus": "no-successor-response-in-this-science-catalog-correction",
+      "successorDisposition": "open-pending-exact-combined-successor-independent-review"
+    },
+    {
+      "findingId": "V3-PUBLICATION-B06",
+      "severity": "should-fix",
+      "statement": "the 36 inherited findings existed only in mutable plan prose, not a governed machine registry bound into semantic closure.",
+      "originatingReviewId": "v3-publication-r1",
+      "reviewedCandidateIdentityIds": [
+        "v3-register",
+        "v3-registry",
+        "catalog-v1"
+      ],
+      "authorResponseStatus": "no-successor-response-in-this-science-catalog-correction",
+      "successorDisposition": "open-pending-exact-combined-successor-independent-review"
+    },
+    {
+      "findingId": "V3-PUBLICATION-B07",
+      "severity": "should-fix",
+      "statement": "contributor IDs hashed mutable/free-text attestations, allowing one session to appear disjoint by changing wording.",
+      "originatingReviewId": "v3-publication-r1",
+      "reviewedCandidateIdentityIds": [
+        "v3-register",
+        "v3-registry",
+        "catalog-v1"
+      ],
+      "authorResponseStatus": "no-successor-response-in-this-science-catalog-correction",
+      "successorDisposition": "open-pending-exact-combined-successor-independent-review"
+    },
+    {
+      "findingId": "V3-PUBLICATION-SF01",
+      "severity": "should-fix",
+      "statement": "the transitive import-resolution algorithm and permitted shared exports were not frozen.",
+      "originatingReviewId": "v3-publication-r1",
+      "reviewedCandidateIdentityIds": [
+        "v3-register",
+        "v3-registry",
+        "catalog-v1"
+      ],
+      "authorResponseStatus": "no-successor-response-in-this-science-catalog-correction",
+      "successorDisposition": "open-pending-exact-combined-successor-independent-review"
+    },
+    {
+      "findingId": "V3-PUBLICATION-SF02",
+      "severity": "should-fix",
+      "statement": "the durable post-commit clean-checkout result, tested commit, logs and acceptance verdict had no named record.",
+      "originatingReviewId": "v3-publication-r1",
+      "reviewedCandidateIdentityIds": [
+        "v3-register",
+        "v3-registry",
+        "catalog-v1"
+      ],
+      "authorResponseStatus": "no-successor-response-in-this-science-catalog-correction",
+      "successorDisposition": "open-pending-exact-combined-successor-independent-review"
+    },
+    {
+      "findingId": "V3-SCHEMA-B01",
+      "severity": "should-fix",
+      "statement": "request identities, initial ordinals and response-driven pagination DAG were not uniquely constructible.",
+      "originatingReviewId": "v3-schema-r1",
+      "reviewedCandidateIdentityIds": [
+        "v3-register",
+        "v3-registry",
+        "catalog-v1"
+      ],
+      "authorResponseStatus": "no-successor-response-in-this-science-catalog-correction",
+      "successorDisposition": "open-pending-exact-combined-successor-independent-review"
+    },
+    {
+      "findingId": "V3-SCHEMA-B02",
+      "severity": "should-fix",
+      "statement": "citation and Rule 12 expansion omitted exact truncation, query/author and partial-date rules.",
+      "originatingReviewId": "v3-schema-r1",
+      "reviewedCandidateIdentityIds": [
+        "v3-register",
+        "v3-registry",
+        "catalog-v1"
+      ],
+      "authorResponseStatus": "no-successor-response-in-this-science-catalog-correction",
+      "successorDisposition": "open-pending-exact-combined-successor-independent-review"
+    },
+    {
+      "findingId": "V3-SCHEMA-B03",
+      "severity": "should-fix",
+      "statement": "attempt/result/retry/crash schemas and concurrent reservation authority were incomplete and race-prone.",
+      "originatingReviewId": "v3-schema-r1",
+      "reviewedCandidateIdentityIds": [
+        "v3-register",
+        "v3-registry",
+        "catalog-v1"
+      ],
+      "authorResponseStatus": "no-successor-response-in-this-science-catalog-correction",
+      "successorDisposition": "open-pending-exact-combined-successor-independent-review"
+    },
+    {
+      "findingId": "V3-SCHEMA-B04",
+      "severity": "should-fix",
+      "statement": "provider projections/rank, screening normalization, identifier reduction and the opaque route contract were not reproducible.",
+      "originatingReviewId": "v3-schema-r1",
+      "reviewedCandidateIdentityIds": [
+        "v3-register",
+        "v3-registry",
+        "catalog-v1"
+      ],
+      "authorResponseStatus": "no-successor-response-in-this-science-catalog-correction",
+      "successorDisposition": "open-pending-exact-combined-successor-independent-review"
+    },
+    {
+      "findingId": "V3-SCHEMA-B05",
+      "severity": "should-fix",
+      "statement": "assessment/source/inventory/segment/relation/edge payloads remained prose-only; `assessmentId` was self-referential.",
+      "originatingReviewId": "v3-schema-r1",
+      "reviewedCandidateIdentityIds": [
+        "v3-register",
+        "v3-registry",
+        "catalog-v1"
+      ],
+      "authorResponseStatus": "no-successor-response-in-this-science-catalog-correction",
+      "successorDisposition": "open-pending-exact-combined-successor-independent-review"
+    },
+    {
+      "findingId": "V3-SCHEMA-B06",
+      "severity": "should-fix",
+      "statement": "the claimed clean-checkout semantic rederivation required ignored response, source and extraction bytes that the checkout did not contain.",
+      "originatingReviewId": "v3-schema-r1",
+      "reviewedCandidateIdentityIds": [
+        "v3-register",
+        "v3-registry",
+        "catalog-v1"
+      ],
+      "authorResponseStatus": "no-successor-response-in-this-science-catalog-correction",
+      "successorDisposition": "open-pending-exact-combined-successor-independent-review"
+    },
+    {
+      "findingId": "V3-SCHEMA-B07",
+      "severity": "should-fix",
+      "statement": "matched-pressure admission failed to require air, positive supersaturation, supported temperatures or a computable match/confound operator.",
+      "originatingReviewId": "v3-schema-r1",
+      "reviewedCandidateIdentityIds": [
+        "v3-register",
+        "v3-registry",
+        "catalog-v1"
+      ],
+      "authorResponseStatus": "no-successor-response-in-this-science-catalog-correction",
+      "successorDisposition": "open-pending-exact-combined-successor-independent-review"
+    },
+    {
+      "findingId": "V3-SCHEMA-B08",
+      "severity": "should-fix",
+      "statement": "controls, fixtures, review checks, prior findings and import closure could execute vacuously or could not be reconstructed.",
+      "originatingReviewId": "v3-schema-r1",
+      "reviewedCandidateIdentityIds": [
+        "v3-register",
+        "v3-registry",
+        "catalog-v1"
+      ],
+      "authorResponseStatus": "no-successor-response-in-this-science-catalog-correction",
+      "successorDisposition": "open-pending-exact-combined-successor-independent-review"
+    },
+    {
+      "findingId": "V3-SCHEMA-B09",
+      "severity": "should-fix",
+      "statement": "final payload schemas/order and shared-publisher wrapper inputs were not frozen.",
+      "originatingReviewId": "v3-schema-r1",
+      "reviewedCandidateIdentityIds": [
+        "v3-register",
+        "v3-registry",
+        "catalog-v1"
+      ],
+      "authorResponseStatus": "no-successor-response-in-this-science-catalog-correction",
+      "successorDisposition": "open-pending-exact-combined-successor-independent-review"
+    },
+    {
+      "findingId": "V3-SCHEMA-B10",
+      "severity": "should-fix",
+      "statement": "the no-scratch crash claim contradicted the shared publisher's possible orphaned staging directory.",
+      "originatingReviewId": "v3-schema-r1",
+      "reviewedCandidateIdentityIds": [
+        "v3-register",
+        "v3-registry",
+        "catalog-v1"
+      ],
+      "authorResponseStatus": "no-successor-response-in-this-science-catalog-correction",
+      "successorDisposition": "open-pending-exact-combined-successor-independent-review"
+    },
+    {
+      "findingId": "V3-SCHEMA-SF01",
+      "severity": "should-fix",
+      "statement": "active plans quoted charter v1.19 after charter v1.20 was accepted.",
+      "originatingReviewId": "v3-schema-r1",
+      "reviewedCandidateIdentityIds": [
+        "v3-register",
+        "v3-registry",
+        "catalog-v1"
+      ],
+      "authorResponseStatus": "no-successor-response-in-this-science-catalog-correction",
+      "successorDisposition": "open-pending-exact-combined-successor-independent-review"
+    },
+    {
+      "findingId": "V3-SCHEMA-SF02",
+      "severity": "should-fix",
+      "statement": "the stated unresolved source-node set omitted BIPM/CGPM no-local-byte nodes.",
+      "originatingReviewId": "v3-schema-r1",
+      "reviewedCandidateIdentityIds": [
+        "v3-register",
+        "v3-registry",
+        "catalog-v1"
+      ],
+      "authorResponseStatus": "no-successor-response-in-this-science-catalog-correction",
+      "successorDisposition": "open-pending-exact-combined-successor-independent-review"
+    },
+    {
+      "findingId": "V3-SCHEMA-SF03",
+      "severity": "should-fix",
+      "statement": "the immutable location/format of the eventual acceptance record was unnamed.",
+      "originatingReviewId": "v3-schema-r1",
+      "reviewedCandidateIdentityIds": [
+        "v3-register",
+        "v3-registry",
+        "catalog-v1"
+      ],
+      "authorResponseStatus": "no-successor-response-in-this-science-catalog-correction",
+      "successorDisposition": "open-pending-exact-combined-successor-independent-review"
+    },
+    {
+      "findingId": "V3-SCIENCE-B01",
+      "severity": "should-fix",
+      "statement": "backward/forward citation roots, qualifying roots and recursively expanded relation members were undefined, so conforming executors could search different graphs.",
+      "originatingReviewId": "v3-science-r1",
+      "reviewedCandidateIdentityIds": [
+        "v3-register",
+        "v3-registry",
+        "catalog-v1"
+      ],
+      "authorResponseStatus": "no-successor-response-in-this-science-catalog-correction",
+      "successorDisposition": "open-pending-exact-combined-successor-independent-review"
+    },
+    {
+      "findingId": "V3-SCIENCE-B02",
+      "severity": "should-fix",
+      "statement": "correction/version/same-author Rule 12 construction, authors, dates and derived pagination were underdetermined.",
+      "originatingReviewId": "v3-science-r1",
+      "reviewedCandidateIdentityIds": [
+        "v3-register",
+        "v3-registry",
+        "catalog-v1"
+      ],
+      "authorResponseStatus": "no-successor-response-in-this-science-catalog-correction",
+      "successorDisposition": "open-pending-exact-combined-successor-independent-review"
+    },
+    {
+      "findingId": "V3-SCIENCE-B03",
+      "severity": "should-fix",
+      "statement": "pressure values need not be distinct and load-bearing conditions could differ as unspecified “pressure-specific measured inputs,” admitting confounded comparisons.",
+      "originatingReviewId": "v3-science-r1",
+      "reviewedCandidateIdentityIds": [
+        "v3-register",
+        "v3-registry",
+        "catalog-v1"
+      ],
+      "authorResponseStatus": "no-successor-response-in-this-science-catalog-correction",
+      "successorDisposition": "open-pending-exact-combined-successor-independent-review"
+    },
+    {
+      "findingId": "V3-SCIENCE-B04",
+      "severity": "should-fix",
+      "statement": "pressure screening did not require a number and omitted common `Pa`, `kPa`, `Torr` and `mmHg` forms, creating systematic false-negative exclusions.",
+      "originatingReviewId": "v3-science-r1",
+      "reviewedCandidateIdentityIds": [
+        "v3-register",
+        "v3-registry",
+        "catalog-v1"
+      ],
+      "authorResponseStatus": "no-successor-response-in-this-science-catalog-correction",
+      "successorDisposition": "open-pending-exact-combined-successor-independent-review"
+    },
+    {
+      "findingId": "V3-SCIENCE-B05",
+      "severity": "should-fix",
+      "statement": "transverse-span mappings used `latticeExtents.tExtent`, a rotation-dependent trigger span rather than an objective Cartesian physical observable; the existing aspect-ratio denominator also changed under the reviewer's explicit 60-degree witness.",
+      "originatingReviewId": "v3-science-r1",
+      "reviewedCandidateIdentityIds": [
+        "v3-register",
+        "v3-registry",
+        "catalog-v1"
+      ],
+      "authorResponseStatus": "no-successor-response-in-this-science-catalog-correction",
+      "successorDisposition": "open-pending-exact-combined-successor-independent-review"
+    },
+    {
+      "findingId": "V3-SCIENCE-SF01",
+      "severity": "should-fix",
+      "statement": "all three arms also referenced BIPM/CGPM no-local-byte nodes, so the current unresolved-set prose was incomplete or the exact-definition policy needed correction.",
+      "originatingReviewId": "v3-science-r1",
+      "reviewedCandidateIdentityIds": [
+        "v3-register",
+        "v3-registry",
+        "catalog-v1"
+      ],
+      "authorResponseStatus": "no-successor-response-in-this-science-catalog-correction",
+      "successorDisposition": "open-pending-exact-combined-successor-independent-review"
+    },
+    {
+      "findingId": "V3-SCIENCE-SF02",
+      "severity": "should-fix",
+      "statement": "source decimal handling omitted common printed and scientific-notation forms or a traceable normalized-transcription field.",
+      "originatingReviewId": "v3-science-r1",
+      "reviewedCandidateIdentityIds": [
+        "v3-register",
+        "v3-registry",
+        "catalog-v1"
+      ],
+      "authorResponseStatus": "no-successor-response-in-this-science-catalog-correction",
+      "successorDisposition": "open-pending-exact-combined-successor-independent-review"
+    },
+    {
+      "findingId": "V3R2-PUBLICATION-B01",
+      "severity": "should-fix",
+      "statement": "the register's exact bytes were not stable under a clean Windows checkout; with `core.autocrlf=true`, the reviewed LF bytes would become a different registered object.",
+      "originatingReviewId": "v3-publication-r2",
+      "reviewedCandidateIdentityIds": [
+        "v3-register",
+        "v3-registry",
+        "catalog-v1"
+      ],
+      "authorResponseStatus": "no-successor-response-in-this-science-catalog-correction",
+      "successorDisposition": "open-pending-exact-combined-successor-independent-review"
+    },
+    {
+      "findingId": "V3R2-PUBLICATION-B02",
+      "severity": "should-fix",
+      "statement": "the global 243-stage claim contradicted the entry-specific 108/135 route- query roots and therefore could not drive one deterministic schedule.",
+      "originatingReviewId": "v3-publication-r2",
+      "reviewedCandidateIdentityIds": [
+        "v3-register",
+        "v3-registry",
+        "catalog-v1"
+      ],
+      "authorResponseStatus": "no-successor-response-in-this-science-catalog-correction",
+      "successorDisposition": "open-pending-exact-combined-successor-independent-review"
+    },
+    {
+      "findingId": "V3R2-PUBLICATION-B03",
+      "severity": "should-fix",
+      "statement": "recovery after a real process kill or a crash between bundle rename and manifest finalization had no authoritative, non-destructive reducer.",
+      "originatingReviewId": "v3-publication-r2",
+      "reviewedCandidateIdentityIds": [
+        "v3-register",
+        "v3-registry",
+        "catalog-v1"
+      ],
+      "authorResponseStatus": "no-successor-response-in-this-science-catalog-correction",
+      "successorDisposition": "open-pending-exact-combined-successor-independent-review"
+    },
+    {
+      "findingId": "V3R2-PUBLICATION-B04",
+      "severity": "should-fix",
+      "statement": "the acceptance-review verdict was not machine-closed over required checks, logs, prior findings, and the exact reviewed closure.",
+      "originatingReviewId": "v3-publication-r2",
+      "reviewedCandidateIdentityIds": [
+        "v3-register",
+        "v3-registry",
+        "catalog-v1"
+      ],
+      "authorResponseStatus": "no-successor-response-in-this-science-catalog-correction",
+      "successorDisposition": "open-pending-exact-combined-successor-independent-review"
+    },
+    {
+      "findingId": "V3R2-PUBLICATION-B05",
+      "severity": "should-fix",
+      "statement": "the final shared-publisher call, option set, schemas, fixtures, transitive imports, semantic independence, and future-behavior boundary remained underdefined.",
+      "originatingReviewId": "v3-publication-r2",
+      "reviewedCandidateIdentityIds": [
+        "v3-register",
+        "v3-registry",
+        "catalog-v1"
+      ],
+      "authorResponseStatus": "no-successor-response-in-this-science-catalog-correction",
+      "successorDisposition": "open-pending-exact-combined-successor-independent-review"
+    },
+    {
+      "findingId": "V3R2-PUBLICATION-SF01",
+      "severity": "should-fix",
+      "statement": "Section 11's statement that no reviewer had parsed the registry became false as soon as review occurred; reviewer observations belong in an append-only external review record rather than the frozen scientific protocol.",
+      "originatingReviewId": "v3-publication-r2",
+      "reviewedCandidateIdentityIds": [
+        "v3-register",
+        "v3-registry",
+        "catalog-v1"
+      ],
+      "authorResponseStatus": "no-successor-response-in-this-science-catalog-correction",
+      "successorDisposition": "open-pending-exact-combined-successor-independent-review"
+    },
+    {
+      "findingId": "V3R2-SCHEMA-B01",
+      "severity": "should-fix",
+      "statement": "the exact JSON schemas remained undefined and `assessmentId` depended on the object that was supposed to contain it.",
+      "originatingReviewId": "v3-schema-r2",
+      "reviewedCandidateIdentityIds": [
+        "v3-register",
+        "v3-registry",
+        "catalog-v1"
+      ],
+      "authorResponseStatus": "no-successor-response-in-this-science-catalog-correction",
+      "successorDisposition": "open-pending-exact-combined-successor-independent-review"
+    },
+    {
+      "findingId": "V3R2-SCHEMA-B02",
+      "severity": "should-fix",
+      "statement": "the global page schedule contradicted the entry-specific route/page counts.",
+      "originatingReviewId": "v3-schema-r2",
+      "reviewedCandidateIdentityIds": [
+        "v3-register",
+        "v3-registry",
+        "catalog-v1"
+      ],
+      "authorResponseStatus": "no-successor-response-in-this-science-catalog-correction",
+      "successorDisposition": "open-pending-exact-combined-successor-independent-review"
+    },
+    {
+      "findingId": "V3R2-SCHEMA-B03",
+      "severity": "should-fix",
+      "statement": "citation and Rule 12 expansion remained unbounded or non-unique.",
+      "originatingReviewId": "v3-schema-r2",
+      "reviewedCandidateIdentityIds": [
+        "v3-register",
+        "v3-registry",
+        "catalog-v1"
+      ],
+      "authorResponseStatus": "no-successor-response-in-this-science-catalog-correction",
+      "successorDisposition": "open-pending-exact-combined-successor-independent-review"
+    },
+    {
+      "findingId": "V3R2-SCHEMA-B04",
+      "severity": "should-fix",
+      "statement": "the immutable attempt state machine omitted reachable reservation, partial, retry, interruption, terminal, and concurrent-writer transitions.",
+      "originatingReviewId": "v3-schema-r2",
+      "reviewedCandidateIdentityIds": [
+        "v3-register",
+        "v3-registry",
+        "catalog-v1"
+      ],
+      "authorResponseStatus": "no-successor-response-in-this-science-catalog-correction",
+      "successorDisposition": "open-pending-exact-combined-successor-independent-review"
+    },
+    {
+      "findingId": "V3R2-SCHEMA-B05",
+      "severity": "should-fix",
+      "statement": "assessment revision and source-replacement rules could leave stale accepted heads or ambiguous authority.",
+      "originatingReviewId": "v3-schema-r2",
+      "reviewedCandidateIdentityIds": [
+        "v3-register",
+        "v3-registry",
+        "catalog-v1"
+      ],
+      "authorResponseStatus": "no-successor-response-in-this-science-catalog-correction",
+      "successorDisposition": "open-pending-exact-combined-successor-independent-review"
+    },
+    {
+      "findingId": "V3R2-SCHEMA-B06",
+      "severity": "should-fix",
+      "statement": "the reduction from attempts and assessments to success, unresolved, or definitive failure was not defined.",
+      "originatingReviewId": "v3-schema-r2",
+      "reviewedCandidateIdentityIds": [
+        "v3-register",
+        "v3-registry",
+        "catalog-v1"
+      ],
+      "authorResponseStatus": "no-successor-response-in-this-science-catalog-correction",
+      "successorDisposition": "open-pending-exact-combined-successor-independent-review"
+    },
+    {
+      "findingId": "V3R2-SCHEMA-B07",
+      "severity": "should-fix",
+      "statement": "independence could pass with a nonempty but scientifically vacuous edge set; it did not require coverage of the candidate and every active operand data family/source node.",
+      "originatingReviewId": "v3-schema-r2",
+      "reviewedCandidateIdentityIds": [
+        "v3-register",
+        "v3-registry",
+        "catalog-v1"
+      ],
+      "authorResponseStatus": "no-successor-response-in-this-science-catalog-correction",
+      "successorDisposition": "open-pending-exact-combined-successor-independent-review"
+    },
+    {
+      "findingId": "V3R2-SCHEMA-B08",
+      "severity": "should-fix",
+      "statement": "pressure transcription, conversion, covariance, uncertainty, and solver-output bindings remained underdetermined.",
+      "originatingReviewId": "v3-schema-r2",
+      "reviewedCandidateIdentityIds": [
+        "v3-register",
+        "v3-registry",
+        "catalog-v1"
+      ],
+      "authorResponseStatus": "no-successor-response-in-this-science-catalog-correction",
+      "successorDisposition": "open-pending-exact-combined-successor-independent-review"
+    },
+    {
+      "findingId": "V3R2-SCHEMA-B09",
+      "severity": "should-fix",
+      "statement": "review-result schemas, required commands, finding closure, and evidence mapping were not exact.",
+      "originatingReviewId": "v3-schema-r2",
+      "reviewedCandidateIdentityIds": [
+        "v3-register",
+        "v3-registry",
+        "catalog-v1"
+      ],
+      "authorResponseStatus": "no-successor-response-in-this-science-catalog-correction",
+      "successorDisposition": "open-pending-exact-combined-successor-independent-review"
+    },
+    {
+      "findingId": "V3R2-SCHEMA-B10",
+      "severity": "should-fix",
+      "statement": "registered controls were symbolic enough to execute vacuously or described mutations that the named witness could not independently prove.",
+      "originatingReviewId": "v3-schema-r2",
+      "reviewedCandidateIdentityIds": [
+        "v3-register",
+        "v3-registry",
+        "catalog-v1"
+      ],
+      "authorResponseStatus": "no-successor-response-in-this-science-catalog-correction",
+      "successorDisposition": "open-pending-exact-combined-successor-independent-review"
+    },
+    {
+      "findingId": "V3R2-SCHEMA-B11",
+      "severity": "should-fix",
+      "statement": "shared-publisher options, staging topology, recovery authority, and the clean- checkout boundary remained underdefined.",
+      "originatingReviewId": "v3-schema-r2",
+      "reviewedCandidateIdentityIds": [
+        "v3-register",
+        "v3-registry",
+        "catalog-v1"
+      ],
+      "authorResponseStatus": "no-successor-response-in-this-science-catalog-correction",
+      "successorDisposition": "open-pending-exact-combined-successor-independent-review"
+    },
+    {
+      "findingId": "V3R2-SCHEMA-B12",
+      "severity": "should-fix",
+      "statement": "the hash-registered prose register was not `-text`, while the catalog's `generatedFrom` hash domain did not say raw, LF-normalized, filtered, or Git-blob bytes.",
+      "originatingReviewId": "v3-schema-r2",
+      "reviewedCandidateIdentityIds": [
+        "v3-register",
+        "v3-registry",
+        "catalog-v1"
+      ],
+      "authorResponseStatus": "no-successor-response-in-this-science-catalog-correction",
+      "successorDisposition": "open-pending-exact-combined-successor-independent-review"
+    },
+    {
+      "findingId": "V3R2-SCHEMA-SF01",
+      "severity": "should-fix",
+      "statement": "the validator's claim that it checked all source hashes exceeded the set of source bytes it actually reopened.",
+      "originatingReviewId": "v3-schema-r2",
+      "reviewedCandidateIdentityIds": [
+        "v3-register",
+        "v3-registry",
+        "catalog-v1"
+      ],
+      "authorResponseStatus": "no-successor-response-in-this-science-catalog-correction",
+      "successorDisposition": "open-pending-exact-combined-successor-independent-review"
+    },
+    {
+      "findingId": "V3R2-SCHEMA-SF02",
+      "severity": "should-fix",
+      "statement": "closure prose omitted the BIPM/CGPM authoritative nodes that the governed operand catalog named.",
+      "originatingReviewId": "v3-schema-r2",
+      "reviewedCandidateIdentityIds": [
+        "v3-register",
+        "v3-registry",
+        "catalog-v1"
+      ],
+      "authorResponseStatus": "no-successor-response-in-this-science-catalog-correction",
+      "successorDisposition": "open-pending-exact-combined-successor-independent-review"
+    },
+    {
+      "findingId": "V3R2-SCIENCE-B01",
+      "severity": "should-fix",
+      "statement": "a historical eligibility cutoff was used as if it were an actual freeze-time source-currency observation; no final `currencyAsOfUtc` was bound.",
+      "originatingReviewId": "v3-science-r2",
+      "reviewedCandidateIdentityIds": [
+        "v3-register",
+        "v3-registry",
+        "catalog-v1"
+      ],
+      "authorResponseStatus": "no-successor-response-in-this-science-catalog-correction",
+      "successorDisposition": "open-pending-exact-combined-successor-independent-review"
+    },
+    {
+      "findingId": "V3R2-SCIENCE-B02",
+      "severity": "should-fix",
+      "statement": "243 route/query combinations were mislabeled as page requests; the frozen initial-page schedule was not uniquely derived and had no exact root/seed set.",
+      "originatingReviewId": "v3-science-r2",
+      "reviewedCandidateIdentityIds": [
+        "v3-register",
+        "v3-registry",
+        "catalog-v1"
+      ],
+      "authorResponseStatus": "no-successor-response-in-this-science-catalog-correction",
+      "successorDisposition": "open-pending-exact-combined-successor-independent-review"
+    },
+    {
+      "findingId": "V3R2-SCIENCE-B03",
+      "severity": "should-fix",
+      "statement": "source conditions were not bound to the LK solver's supported temperature, positive maintained supersaturation, pressure, duration, and checkpoint/output domain; current `grow-lk` also has no pressure argument and defaults to 101325 Pa.",
+      "originatingReviewId": "v3-science-r2",
+      "reviewedCandidateIdentityIds": [
+        "v3-register",
+        "v3-registry",
+        "catalog-v1"
+      ],
+      "authorResponseStatus": "no-successor-response-in-this-science-catalog-correction",
+      "successorDisposition": "open-pending-exact-combined-successor-independent-review"
+    },
+    {
+      "findingId": "V3R2-SCIENCE-B04",
+      "severity": "should-fix",
+      "statement": "proposed output mappings were not objective, physically comparable observables; lattice trigger span, projection/fill definitions, and the comparison endpoint remained unfrozen.",
+      "originatingReviewId": "v3-science-r2",
+      "reviewedCandidateIdentityIds": [
+        "v3-register",
+        "v3-registry",
+        "catalog-v1"
+      ],
+      "authorResponseStatus": "no-successor-response-in-this-science-catalog-correction",
+      "successorDisposition": "open-pending-exact-combined-successor-independent-review"
+    },
+    {
+      "findingId": "V3R2-SCIENCE-B05",
+      "severity": "should-fix",
+      "statement": "uncertainty pairing, covariance, repeated-measurement reduction, and contrast propagation were insufficient to define a quantitative pressure comparison.",
+      "originatingReviewId": "v3-science-r2",
+      "reviewedCandidateIdentityIds": [
+        "v3-register",
+        "v3-registry",
+        "catalog-v1"
+      ],
+      "authorResponseStatus": "no-successor-response-in-this-science-catalog-correction",
+      "successorDisposition": "open-pending-exact-combined-successor-independent-review"
+    },
+    {
+      "findingId": "V3R2-SCIENCE-SF01",
+      "severity": "should-fix",
+      "statement": "source language, translation/OCR competence, tool identity, and human-review adequacy should be machine-checkable where they support a load-bearing claim.",
+      "originatingReviewId": "v3-science-r2",
+      "reviewedCandidateIdentityIds": [
+        "v3-register",
+        "v3-registry",
+        "catalog-v1"
+      ],
+      "authorResponseStatus": "no-successor-response-in-this-science-catalog-correction",
+      "successorDisposition": "open-pending-exact-combined-successor-independent-review"
+    },
+    {
+      "findingId": "V4AS-B01",
+      "severity": "should-fix",
+      "statement": "SOURCE-GRAPH-CLOSURE ? a single acquired source need not equal its sole inventory member, and rationale segment IDs need not exist in the reviewed-segment universe.",
+      "originatingReviewId": "v4-art-r2",
+      "reviewedCandidateIdentityIds": [
+        "v4-artifact-module",
+        "v4-artifact-test"
+      ],
+      "authorResponseStatus": "no-successor-response-in-this-science-catalog-correction",
+      "successorDisposition": "open-pending-exact-combined-successor-independent-review"
+    },
+    {
+      "findingId": "V4AS-B02",
+      "severity": "should-fix",
+      "statement": "ZERO-BYTE-REVIEW ? zero-byte extraction and translation records can support adequate evidence.",
+      "originatingReviewId": "v4-art-r2",
+      "reviewedCandidateIdentityIds": [
+        "v4-artifact-module",
+        "v4-artifact-test"
+      ],
+      "authorResponseStatus": "no-successor-response-in-this-science-catalog-correction",
+      "successorDisposition": "open-pending-exact-combined-successor-independent-review"
+    },
+    {
+      "findingId": "V4AS-B03",
+      "severity": "should-fix",
+      "statement": "LANGUAGE-ROLE-SEPARATION ? a translation reviewer may be the original extractor.",
+      "originatingReviewId": "v4-art-r2",
+      "reviewedCandidateIdentityIds": [
+        "v4-artifact-module",
+        "v4-artifact-test"
+      ],
+      "authorResponseStatus": "no-successor-response-in-this-science-catalog-correction",
+      "successorDisposition": "open-pending-exact-combined-successor-independent-review"
+    },
+    {
+      "findingId": "V4AS-B04",
+      "severity": "should-fix",
+      "statement": "EXACT-DECIMAL-GRAMMAR ? `+1e0`, `-0`, and `.5` pass despite the registered decimal grammar and negative-zero ban.",
+      "originatingReviewId": "v4-art-r2",
+      "reviewedCandidateIdentityIds": [
+        "v4-artifact-module",
+        "v4-artifact-test"
+      ],
+      "authorResponseStatus": "no-successor-response-in-this-science-catalog-correction",
+      "successorDisposition": "open-pending-exact-combined-successor-independent-review"
+    },
+    {
+      "findingId": "V4AS-B05",
+      "severity": "should-fix",
+      "statement": "SOURCE-ONLY-STATE-SPACE ? honest zero-row search/access/cap outcomes are impossible, while exact positive `source-compatible-bridge-required` is unrepresentable.",
+      "originatingReviewId": "v4-art-r2",
+      "reviewedCandidateIdentityIds": [
+        "v4-artifact-module",
+        "v4-artifact-test"
+      ],
+      "authorResponseStatus": "no-successor-response-in-this-science-catalog-correction",
+      "successorDisposition": "open-pending-exact-combined-successor-independent-review"
+    },
+    {
+      "findingId": "V4AS-B06",
+      "severity": "should-fix",
+      "statement": "PRESSURE-EVIDENCE-CLOSURE ? unknown pairing/uncertainty evidence and ghost observation IDs pass without forward and reverse referential closure.",
+      "originatingReviewId": "v4-art-r2",
+      "reviewedCandidateIdentityIds": [
+        "v4-artifact-module",
+        "v4-artifact-test"
+      ],
+      "authorResponseStatus": "no-successor-response-in-this-science-catalog-correction",
+      "successorDisposition": "open-pending-exact-combined-successor-independent-review"
+    },
+    {
+      "findingId": "V4AS-B07",
+      "severity": "should-fix",
+      "statement": "PRESSURE-CONTRACT-UNDERDETERMINED ? gas-composition evidence, supersaturation-definition identity, pairing design/population/repeat identity, covariance type/coverage, and honest missing-uncertainty states are not representable.",
+      "originatingReviewId": "v4-art-r2",
+      "reviewedCandidateIdentityIds": [
+        "v4-artifact-module",
+        "v4-artifact-test"
+      ],
+      "authorResponseStatus": "no-successor-response-in-this-science-catalog-correction",
+      "successorDisposition": "open-pending-exact-combined-successor-independent-review"
+    },
+    {
+      "findingId": "V4AS-B08",
+      "severity": "should-fix",
+      "statement": "DEFINITIVE-FAIL-RESURRECTION ? an assessment revision can retract the only definitive solver-compatibility trigger without a reviewed successor.",
+      "originatingReviewId": "v4-art-r2",
+      "reviewedCandidateIdentityIds": [
+        "v4-artifact-module",
+        "v4-artifact-test"
+      ],
+      "authorResponseStatus": "no-successor-response-in-this-science-catalog-correction",
+      "successorDisposition": "open-pending-exact-combined-successor-independent-review"
+    },
+    {
+      "findingId": "V4AS-B09",
+      "severity": "should-fix",
+      "statement": "INDEPENDENCE-FALSE-POSITIVE ? caller-supplied row lists can declare independence while every required edge points to known-missing local bytes; the module also invents an evidence-class field absent from catalog v1.",
+      "originatingReviewId": "v4-art-r2",
+      "reviewedCandidateIdentityIds": [
+        "v4-artifact-module",
+        "v4-artifact-test"
+      ],
+      "authorResponseStatus": "no-successor-response-in-this-science-catalog-correction",
+      "successorDisposition": "open-pending-exact-combined-successor-independent-review"
+    },
+    {
+      "findingId": "V4AS-B10",
+      "severity": "should-fix",
+      "statement": "REVIEW-CLOSURE-VACUITY-AND-ORDER ? empty required/check/run/control/finding universes and reversed arrays pass; command, reviewer provenance/competence, and evidence-log closure are not independently derived.",
+      "originatingReviewId": "v4-art-r2",
+      "reviewedCandidateIdentityIds": [
+        "v4-artifact-module",
+        "v4-artifact-test"
+      ],
+      "authorResponseStatus": "no-successor-response-in-this-science-catalog-correction",
+      "successorDisposition": "open-pending-exact-combined-successor-independent-review"
+    },
+    {
+      "findingId": "V4AS-B11",
+      "severity": "should-fix",
+      "statement": "REDIRECT-VALIDITY ? redirect cycles and non-HTTP(S) `opaque:` targets pass.",
+      "originatingReviewId": "v4-art-r2",
+      "reviewedCandidateIdentityIds": [
+        "v4-artifact-module",
+        "v4-artifact-test"
+      ],
+      "authorResponseStatus": "no-successor-response-in-this-science-catalog-correction",
+      "successorDisposition": "open-pending-exact-combined-successor-independent-review"
+    },
+    {
+      "findingId": "V4AS-B12",
+      "severity": "should-fix",
+      "statement": "UNSTABLE-CANDIDATE-IDENTITY ? neither candidate file is `-text`; a clean `core.autocrlf=true` checkout changes both registered raw SHA-256 identities.",
+      "originatingReviewId": "v4-art-r2",
+      "reviewedCandidateIdentityIds": [
+        "v4-artifact-module",
+        "v4-artifact-test"
+      ],
+      "authorResponseStatus": "no-successor-response-in-this-science-catalog-correction",
+      "successorDisposition": "open-pending-exact-combined-successor-independent-review"
+    },
+    {
+      "findingId": "V4AS-S01",
+      "severity": "should-fix",
+      "statement": "BCP-47 case/alias variants have no canonicalization.",
+      "originatingReviewId": "v4-art-r2",
+      "reviewedCandidateIdentityIds": [
+        "v4-artifact-module",
+        "v4-artifact-test"
+      ],
+      "authorResponseStatus": "no-successor-response-in-this-science-catalog-correction",
+      "successorDisposition": "open-pending-exact-combined-successor-independent-review"
+    },
+    {
+      "findingId": "V4AS-S02",
+      "severity": "should-fix",
+      "statement": "unresolved candidate provenance discards honestly known partial IDs.",
+      "originatingReviewId": "v4-art-r2",
+      "reviewedCandidateIdentityIds": [
+        "v4-artifact-module",
+        "v4-artifact-test"
+      ],
+      "authorResponseStatus": "no-successor-response-in-this-science-catalog-correction",
+      "successorDisposition": "open-pending-exact-combined-successor-independent-review"
+    },
+    {
+      "findingId": "V4AS-S03",
+      "severity": "should-fix",
+      "statement": "governed request and retained response headers admit CR/LF.",
+      "originatingReviewId": "v4-art-r2",
+      "reviewedCandidateIdentityIds": [
+        "v4-artifact-module",
+        "v4-artifact-test"
+      ],
+      "authorResponseStatus": "no-successor-response-in-this-science-catalog-correction",
+      "successorDisposition": "open-pending-exact-combined-successor-independent-review"
+    },
+    {
+      "findingId": "V4CF-B01",
+      "severity": "should-fix",
+      "statement": "The combined freeze lacks exact request, cap and traversal construction.",
+      "originatingReviewId": "v4-art-r2",
+      "reviewedCandidateIdentityIds": [
+        "v4-artifact-module",
+        "v4-artifact-test"
+      ],
+      "authorResponseStatus": "no-successor-response-in-this-science-catalog-correction",
+      "successorDisposition": "open-pending-exact-combined-successor-independent-review"
+    },
+    {
+      "findingId": "V4CF-B02",
+      "severity": "should-fix",
+      "statement": "The combined freeze lacks scientific graph reducers.",
+      "originatingReviewId": "v4-art-r2",
+      "reviewedCandidateIdentityIds": [
+        "v4-artifact-module",
+        "v4-artifact-test"
+      ],
+      "authorResponseStatus": "no-successor-response-in-this-science-catalog-correction",
+      "successorDisposition": "open-pending-exact-combined-successor-independent-review"
+    },
+    {
+      "findingId": "V4CF-B03",
+      "severity": "should-fix",
+      "statement": "The combined freeze lacks independent numeric and compatibility recomputation.",
+      "originatingReviewId": "v4-art-r2",
+      "reviewedCandidateIdentityIds": [
+        "v4-artifact-module",
+        "v4-artifact-test"
+      ],
+      "authorResponseStatus": "no-successor-response-in-this-science-catalog-correction",
+      "successorDisposition": "open-pending-exact-combined-successor-independent-review"
+    },
+    {
+      "findingId": "V4CF-B04",
+      "severity": "should-fix",
+      "statement": "The combined freeze lacks frozen catalog integration.",
+      "originatingReviewId": "v4-art-r2",
+      "reviewedCandidateIdentityIds": [
+        "v4-artifact-module",
+        "v4-artifact-test"
+      ],
+      "authorResponseStatus": "response-recorded-but-finding-remains-open",
+      "successorDisposition": "open-pending-exact-combined-successor-independent-review"
+    },
+    {
+      "findingId": "V4CF-B05",
+      "severity": "should-fix",
+      "statement": "The combined freeze lacks governed review identity, command and log binding.",
+      "originatingReviewId": "v4-art-r2",
+      "reviewedCandidateIdentityIds": [
+        "v4-artifact-module",
+        "v4-artifact-test"
+      ],
+      "authorResponseStatus": "no-successor-response-in-this-science-catalog-correction",
+      "successorDisposition": "open-pending-exact-combined-successor-independent-review"
+    },
+    {
+      "findingId": "V4CF-B06",
+      "severity": "should-fix",
+      "statement": "The combined freeze lacks exact fixture, mutation and detector bytes.",
+      "originatingReviewId": "v4-art-r2",
+      "reviewedCandidateIdentityIds": [
+        "v4-artifact-module",
+        "v4-artifact-test"
+      ],
+      "authorResponseStatus": "no-successor-response-in-this-science-catalog-correction",
+      "successorDisposition": "open-pending-exact-combined-successor-independent-review"
+    },
+    {
+      "findingId": "V4CF-B07",
+      "severity": "should-fix",
+      "statement": "The combined freeze lacks top-level bundle and publisher-recovery authority.",
+      "originatingReviewId": "v4-art-r2",
+      "reviewedCandidateIdentityIds": [
+        "v4-artifact-module",
+        "v4-artifact-test"
+      ],
+      "authorResponseStatus": "no-successor-response-in-this-science-catalog-correction",
+      "successorDisposition": "open-pending-exact-combined-successor-independent-review"
+    },
+    {
+      "findingId": "V4CF-B08",
+      "severity": "should-fix",
+      "statement": "The combined freeze lacks raw-byte reopening and clean-checkout derivation.",
+      "originatingReviewId": "v4-art-r2",
+      "reviewedCandidateIdentityIds": [
+        "v4-artifact-module",
+        "v4-artifact-test"
+      ],
+      "authorResponseStatus": "no-successor-response-in-this-science-catalog-correction",
+      "successorDisposition": "open-pending-exact-combined-successor-independent-review"
+    },
+    {
+      "findingId": "V4CF-B09",
+      "severity": "should-fix",
+      "statement": "The combined freeze lacks final currency, review, freeze and dispatch identities.",
+      "originatingReviewId": "v4-art-r2",
+      "reviewedCandidateIdentityIds": [
+        "v4-artifact-module",
+        "v4-artifact-test"
+      ],
+      "authorResponseStatus": "no-successor-response-in-this-science-catalog-correction",
+      "successorDisposition": "open-pending-exact-combined-successor-independent-review"
+    },
+    {
+      "findingId": "V4CF-S01",
+      "severity": "should-fix",
+      "statement": "Frozen Section 11 contained a live no-review statement that self-invalidated when review occurred.",
+      "originatingReviewId": "v4-art-r2",
+      "reviewedCandidateIdentityIds": [
+        "v4-artifact-module",
+        "v4-artifact-test"
+      ],
+      "authorResponseStatus": "response-recorded-but-finding-remains-open",
+      "successorDisposition": "open-pending-exact-combined-successor-independent-review"
+    },
+    {
+      "findingId": "WP1V4-ART-B01",
+      "severity": "should-fix",
+      "statement": "language competence and full extractor/OCR/translator/reviewer role separation are unenforced; invalid language tags and cross-role self-review pass.",
+      "originatingReviewId": "v4-art-r1",
+      "reviewedCandidateIdentityIds": [
+        "v4-artifact-module",
+        "v4-artifact-test"
+      ],
+      "authorResponseStatus": "no-successor-response-in-this-science-catalog-correction",
+      "successorDisposition": "open-pending-exact-combined-successor-independent-review"
+    },
+    {
+      "findingId": "WP1V4-ART-B02",
+      "severity": "should-fix",
+      "statement": "source-review closure accepts rationale segment IDs absent from the reviewed segment universe.",
+      "originatingReviewId": "v4-art-r1",
+      "reviewedCandidateIdentityIds": [
+        "v4-artifact-module",
+        "v4-artifact-test"
+      ],
+      "authorResponseStatus": "no-successor-response-in-this-science-catalog-correction",
+      "successorDisposition": "open-pending-exact-combined-successor-independent-review"
+    },
+    {
+      "findingId": "WP1V4-ART-B03",
+      "severity": "should-fix",
+      "statement": "exact decimal normalization, rational/unit/conversion derivation and signed-zero rejection are fail-open, so the numeric controls cannot close.",
+      "originatingReviewId": "v4-art-r1",
+      "reviewedCandidateIdentityIds": [
+        "v4-artifact-module",
+        "v4-artifact-test"
+      ],
+      "authorResponseStatus": "no-successor-response-in-this-science-catalog-correction",
+      "successorDisposition": "open-pending-exact-combined-successor-independent-review"
+    },
+    {
+      "findingId": "WP1V4-ART-B04",
+      "severity": "should-fix",
+      "statement": "pairing, uncertainty and covariance records cannot represent or independently recompute the registered science; segment closure, nonnegative variance, PSD and complete-pressure coverage are unenforced.",
+      "originatingReviewId": "v4-art-r1",
+      "reviewedCandidateIdentityIds": [
+        "v4-artifact-module",
+        "v4-artifact-test"
+      ],
+      "authorResponseStatus": "no-successor-response-in-this-science-catalog-correction",
+      "successorDisposition": "open-pending-exact-combined-successor-independent-review"
+    },
+    {
+      "findingId": "WP1V4-ART-B05",
+      "severity": "should-fix",
+      "statement": "access/source-negative outcomes are unrepresentable, the registered bridge- required ceiling is rejected, and final status is producer-selected instead of artifact-derived.",
+      "originatingReviewId": "v4-art-r1",
+      "reviewedCandidateIdentityIds": [
+        "v4-artifact-module",
+        "v4-artifact-test"
+      ],
+      "authorResponseStatus": "no-successor-response-in-this-science-catalog-correction",
+      "successorDisposition": "open-pending-exact-combined-successor-independent-review"
+    },
+    {
+      "findingId": "WP1V4-ART-B06",
+      "severity": "should-fix",
+      "statement": "per-page caps permit `returnedCount > capMaximum`, and immutable recovery/orphan/ collision/concurrent-reservation states are absent.",
+      "originatingReviewId": "v4-art-r1",
+      "reviewedCandidateIdentityIds": [
+        "v4-artifact-module",
+        "v4-artifact-test"
+      ],
+      "authorResponseStatus": "no-successor-response-in-this-science-catalog-correction",
+      "successorDisposition": "open-pending-exact-combined-successor-independent-review"
+    },
+    {
+      "findingId": "WP1V4-ART-B07",
+      "severity": "should-fix",
+      "statement": "controls lack exact mutation-patch and mutated-byte identities; review runs omit model/context/session provenance and cannot truthfully encode repository-root `cwd=\".\"`; required sets are caller-supplied rather than registry-derived.",
+      "originatingReviewId": "v4-art-r1",
+      "reviewedCandidateIdentityIds": [
+        "v4-artifact-module",
+        "v4-artifact-test"
+      ],
+      "authorResponseStatus": "no-successor-response-in-this-science-catalog-correction",
+      "successorDisposition": "open-pending-exact-combined-successor-independent-review"
+    },
+    {
+      "findingId": "WP1V4-ART-B08",
+      "severity": "should-fix",
+      "statement": "Section 11's no-review claim is now false and `currencyAsOfUtc=null` still forbids candidate review/freeze.",
+      "originatingReviewId": "v4-art-r1",
+      "reviewedCandidateIdentityIds": [
+        "v4-artifact-module",
+        "v4-artifact-test"
+      ],
+      "authorResponseStatus": "response-recorded-but-finding-remains-open",
+      "successorDisposition": "open-pending-exact-combined-successor-independent-review"
+    },
+    {
+      "findingId": "WP1V4-ART-SF01",
+      "severity": "should-fix",
+      "statement": "canonical order is not enforced for covariance terms and other complex arrays.",
+      "originatingReviewId": "v4-art-r1",
+      "reviewedCandidateIdentityIds": [
+        "v4-artifact-module",
+        "v4-artifact-test"
+      ],
+      "authorResponseStatus": "no-successor-response-in-this-science-catalog-correction",
+      "successorDisposition": "open-pending-exact-combined-successor-independent-review"
+    },
+    {
+      "findingId": "WP1V4-ART-SF02",
+      "severity": "should-fix",
+      "statement": "20 positive tests do not exercise the exported surface or any of the 69 governed negative controls.",
+      "originatingReviewId": "v4-art-r1",
+      "reviewedCandidateIdentityIds": [
+        "v4-artifact-module",
+        "v4-artifact-test"
+      ],
+      "authorResponseStatus": "no-successor-response-in-this-science-catalog-correction",
+      "successorDisposition": "open-pending-exact-combined-successor-independent-review"
+    },
+    {
+      "findingId": "WP1V4-ART-SF03",
+      "severity": "should-fix",
+      "statement": "unresolved provenance categories discard honestly known partial identities.",
+      "originatingReviewId": "v4-art-r1",
+      "reviewedCandidateIdentityIds": [
+        "v4-artifact-module",
+        "v4-artifact-test"
+      ],
+      "authorResponseStatus": "no-successor-response-in-this-science-catalog-correction",
+      "successorDisposition": "open-pending-exact-combined-successor-independent-review"
+    },
+    {
+      "findingId": "WP1V4-SCI-B01",
+      "severity": "should-fix",
+      "statement": "the registry and Section 11 pin catalog v1 while the live successor has materially different mapping-level and exact-definition semantics.",
+      "originatingReviewId": "v4-science",
+      "reviewedCandidateIdentityIds": [
+        "v4-register",
+        "v4-registry",
+        "catalog-v3",
+        "v4-plan"
+      ],
+      "authorResponseStatus": "response-recorded-but-finding-remains-open",
+      "successorDisposition": "open-pending-exact-combined-successor-independent-review"
+    },
+    {
+      "findingId": "WP1V4-SCI-B02",
+      "severity": "should-fix",
+      "statement": "citation traversal is nonunique across roots/depths, title-only members lack a global first-depth identity rule, and local arXiv segment roots have no executable relation path.",
+      "originatingReviewId": "v4-science",
+      "reviewedCandidateIdentityIds": [
+        "v4-register",
+        "v4-registry",
+        "catalog-v3",
+        "v4-plan"
+      ],
+      "authorResponseStatus": "response-recorded-but-finding-remains-open",
+      "successorDisposition": "open-pending-exact-combined-successor-independent-review"
+    },
+    {
+      "findingId": "WP1V4-SCI-B03",
+      "severity": "should-fix",
+      "statement": "Rule 12 omits machine-scheduled OpenAlex forward/author-ID construction and has no governed authority-currency subject universe for BIPM/CGPM.",
+      "originatingReviewId": "v4-science",
+      "reviewedCandidateIdentityIds": [
+        "v4-register",
+        "v4-registry",
+        "catalog-v3",
+        "v4-plan"
+      ],
+      "authorResponseStatus": "response-recorded-but-finding-remains-open",
+      "successorDisposition": "open-pending-exact-combined-successor-independent-review"
+    },
+    {
+      "findingId": "WP1V4-SCI-B04",
+      "severity": "should-fix",
+      "statement": "`include-acquire` has no finite response-derived source acquisition/import request universe or terminal reducer, creating a metadata-to-bytes deadlock.",
+      "originatingReviewId": "v4-science",
+      "reviewedCandidateIdentityIds": [
+        "v4-register",
+        "v4-registry",
+        "catalog-v3",
+        "v4-plan"
+      ],
+      "authorResponseStatus": "response-recorded-but-finding-remains-open",
+      "successorDisposition": "open-pending-exact-combined-successor-independent-review"
+    },
+    {
+      "findingId": "WP1V4-SCI-B05",
+      "severity": "should-fix",
+      "statement": "Yamashita admission is not bound to a reviewed root-to-source lineage or the entry's 1987 upper date, so a later or unrelated primary can pass.",
+      "originatingReviewId": "v4-science",
+      "reviewedCandidateIdentityIds": [
+        "v4-register",
+        "v4-registry",
+        "catalog-v3",
+        "v4-plan"
+      ],
+      "authorResponseStatus": "response-recorded-but-finding-remains-open",
+      "successorDisposition": "open-pending-exact-combined-successor-independent-review"
+    },
+    {
+      "findingId": "WP1V4-SCI-B06",
+      "severity": "should-fix",
+      "statement": "pressure screening misses common two-token `mm Hg`/`mm-Hg` forms.",
+      "originatingReviewId": "v4-science",
+      "reviewedCandidateIdentityIds": [
+        "v4-register",
+        "v4-registry",
+        "catalog-v3",
+        "v4-plan"
+      ],
+      "authorResponseStatus": "response-recorded-but-finding-remains-open",
+      "successorDisposition": "open-pending-exact-combined-successor-independent-review"
+    },
+    {
+      "findingId": "WP1V4-SCI-B07",
+      "severity": "should-fix",
+      "statement": "the exact mmHg-to-Torr equality has no governed current authority; mmHg must stay recognized-unmapped unless a separately frozen authority proves the applicable definition.",
+      "originatingReviewId": "v4-science",
+      "reviewedCandidateIdentityIds": [
+        "v4-register",
+        "v4-registry",
+        "catalog-v3",
+        "v4-plan"
+      ],
+      "authorResponseStatus": "response-recorded-but-finding-remains-open",
+      "successorDisposition": "open-pending-exact-combined-successor-independent-review"
+    },
+    {
+      "findingId": "WP1V4-SCI-B08",
+      "severity": "should-fix",
+      "statement": "`instrument-repeat-rss-v1` assumes away covariance despite the registered never-assume-zero rule.",
+      "originatingReviewId": "v4-science",
+      "reviewedCandidateIdentityIds": [
+        "v4-register",
+        "v4-registry",
+        "catalog-v3",
+        "v4-plan"
+      ],
+      "authorResponseStatus": "response-recorded-but-finding-remains-open",
+      "successorDisposition": "open-pending-exact-combined-successor-independent-review"
+    },
+    {
+      "findingId": "WP1V4-SCI-B09",
+      "severity": "should-fix",
+      "statement": "reuse or fitting in one arm can incorrectly fail the whole candidate rather than the affected arm only.",
+      "originatingReviewId": "v4-science",
+      "reviewedCandidateIdentityIds": [
+        "v4-register",
+        "v4-registry",
+        "catalog-v3",
+        "v4-plan"
+      ],
+      "authorResponseStatus": "response-recorded-but-finding-remains-open",
+      "successorDisposition": "open-pending-exact-combined-successor-independent-review"
+    },
+    {
+      "findingId": "WP1V4-SCI-B10",
+      "severity": "should-fix",
+      "statement": "active project selection/intervention lineage is only hash-bound, not represented as inspectable arm-support evidence, so independence can omit the choices it must audit.",
+      "originatingReviewId": "v4-science",
+      "reviewedCandidateIdentityIds": [
+        "v4-register",
+        "v4-registry",
+        "catalog-v3",
+        "v4-plan"
+      ],
+      "authorResponseStatus": "response-recorded-but-finding-remains-open",
+      "successorDisposition": "open-pending-exact-combined-successor-independent-review"
+    },
+    {
+      "findingId": "WP1V4-SCI-B11",
+      "severity": "should-fix",
+      "statement": "the six `CATV2-*` findings lack individual text, review provenance, limits and exact-byte closure in the registry's prior-finding universe.",
+      "originatingReviewId": "v4-science",
+      "reviewedCandidateIdentityIds": [
+        "v4-register",
+        "v4-registry",
+        "catalog-v3",
+        "v4-plan"
+      ],
+      "authorResponseStatus": "response-recorded-but-finding-remains-open",
+      "successorDisposition": "open-pending-exact-combined-successor-independent-review"
+    },
+    {
+      "findingId": "WP1V4-SCI-SF01",
+      "severity": "should-fix",
+      "statement": "live review status inside frozen Section 11 self-invalidates when review occurs.",
+      "originatingReviewId": "v4-science",
+      "reviewedCandidateIdentityIds": [
+        "v4-register",
+        "v4-registry",
+        "catalog-v3",
+        "v4-plan"
+      ],
+      "authorResponseStatus": "response-recorded-but-finding-remains-open",
+      "successorDisposition": "open-pending-exact-combined-successor-independent-review"
+    },
+    {
+      "findingId": "WP1V4-SCI-SF02",
+      "severity": "should-fix",
+      "statement": "this plan's old “scoreable target” outcome exceeded WP1's source-only ceiling.",
+      "originatingReviewId": "v4-science",
+      "reviewedCandidateIdentityIds": [
+        "v4-register",
+        "v4-registry",
+        "catalog-v3",
+        "v4-plan"
+      ],
+      "authorResponseStatus": "response-recorded-but-finding-remains-open",
+      "successorDisposition": "open-pending-exact-combined-successor-independent-review"
+    },
+    {
+      "findingId": "WP1V4-SCI-SF03",
+      "severity": "should-fix",
+      "statement": "historical plan acceptance must remain scoped to its exact prior bytes.",
+      "originatingReviewId": "v4-science",
+      "reviewedCandidateIdentityIds": [
+        "v4-register",
+        "v4-registry",
+        "catalog-v3",
+        "v4-plan"
+      ],
+      "authorResponseStatus": "response-recorded-but-finding-remains-open",
+      "successorDisposition": "open-pending-exact-combined-successor-independent-review"
+    },
+    {
+      "findingId": "WP1V4-SCI-SF04",
+      "severity": "should-fix",
+      "statement": "catalog hashing dropped explicit repository-root regular-file, symlink, terminal-newline and lone-carriage-return rules.",
+      "originatingReviewId": "v4-science",
+      "reviewedCandidateIdentityIds": [
+        "v4-register",
+        "v4-registry",
+        "catalog-v3",
+        "v4-plan"
+      ],
+      "authorResponseStatus": "response-recorded-but-finding-remains-open",
+      "successorDisposition": "open-pending-exact-combined-successor-independent-review"
+    },
+    {
+      "findingId": "WP1V4-SCI-SF05",
+      "severity": "should-fix",
+      "statement": "retraction effects and bounded provider-observation currency need exact scope.",
+      "originatingReviewId": "v4-science",
+      "reviewedCandidateIdentityIds": [
+        "v4-register",
+        "v4-registry",
+        "catalog-v3",
+        "v4-plan"
+      ],
+      "authorResponseStatus": "response-recorded-but-finding-remains-open",
+      "successorDisposition": "open-pending-exact-combined-successor-independent-review"
+    },
+    {
+      "findingId": "WP1V4-SCI-SF06",
+      "severity": "should-fix",
+      "statement": "the Yamashita duration screen omitted the governed SI token `s`.",
+      "originatingReviewId": "v4-science",
+      "reviewedCandidateIdentityIds": [
+        "v4-register",
+        "v4-registry",
+        "catalog-v3",
+        "v4-plan"
+      ],
+      "authorResponseStatus": "response-recorded-but-finding-remains-open",
+      "successorDisposition": "open-pending-exact-combined-successor-independent-review"
+    }
+  ],
+  "successorCandidate": {
+    "paths": [
+      "research/phase6-source-currency.md",
+      "research/phase6-wp1-search-registry.json",
+      "research/phase6-wp1-independence-operands.json",
+      "research/phase6-wp1-review-findings.json"
+    ],
+    "exactIdentityStatus": "deferred to the combined committed freeze because this record cannot hash itself",
+    "executionState": "unexecuted",
+    "acceptanceState": "unaccepted",
+    "requestAuthorization": false,
+    "importAuthorization": false,
+    "sourceAcquisitionAuthorization": false,
+    "publicationAuthorization": false,
+    "tax2Authorization": false
+  }
+}

@@ -14,6 +14,14 @@ research/*
 !research/lab-validation-dataset.jsonl
 # Our own Phase 6 source-lock metadata and extracted observations; contains no third-party media.
 !research/phase6-heldout-candidate-lock.json
+# Exact maker-rejected WP1 V4/V4.x history; retained as records, never executable authority.
+!research/rejected/
+research/rejected/*
+!research/rejected/phase6-wp1-v4x/
+!research/rejected/phase6-wp1-v4x/phase6-source-currency-v4x-rejected.md
+!research/rejected/phase6-wp1-v4x/phase6-wp1-independence-operands.json
+!research/rejected/phase6-wp1-v4x/phase6-wp1-review-findings.json
+!research/rejected/phase6-wp1-v4x/phase6-wp1-search-registry.json
 
 # Workspace tooling (Phase 2 scaffold)
 node_modules/

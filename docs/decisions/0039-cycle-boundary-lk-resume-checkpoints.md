@@ -1097,10 +1097,32 @@ implementation, streaming/large-memory/crash/durability experiments, resumed dif
 production, GPU, held-out, or literature validation. This verdict clears only the
 protocol-independent core design. It does not accept the WP3-dependent runner layer.
 
-The decision therefore remains proposed. No v3 implementation, trace parser, streaming-throughput
-result, large-array restore, process-termination injection, resumed solver differential, R15
-production row, GPU comparison, held-out comparison, or repository-wide `npm test` exists for this
-unit. The corrected core design has satisfied its fresh non-author review condition; the active plan
-still sequences WP0 closure before implementation. Runner implementation additionally waits for the
-exact WP3 freeze above. Every named negative control requires a separate non-author code and
-execution review before this decision can authorize production use.
+The protocol-independent core implementation landed through commits `557d1de`, `c595b55`, and
+`a1d540c`. It provides the streamed v3 codec, exact structural/state validation, one-use decoded
+ownership, and field-adopting float64 CPU restore. Direct, checkpoint-every-cycle, and multiply
+resumed CAK/M1 executions now match in complete reports, state, topology/order, ledgers, and encoded
+bytes. The durable converged multi-sweep witness is deliberately test-only and non-transferable:
+12×12×9, −5 °C, 0.35 µm, nine cycles, 34–75 accepted sweeps/cycle, both sweep parities, noise,
+nonzero monopole lag, attachment, clipping, an M1 hole fill at cycle 8, and exact continuation after
+restoring that state through cycle 9. Exact `npm.cmd test` at `a1d540c` exited 0 in 735.3 seconds:
+Rule 7 clean over 419 files, both TypeScript projects green, and 81 Vitest files / 1,442 tests passed
+in 725.30 seconds.
+
+Two final read-only non-author implementation reviews used OpenAI `gpt-5.6-sol` at ultra reasoning
+with full shared context. The codec reviewer independently reproduced the pre-fix fact that
+zero-radius monopole states encoded successfully and then failed decode, checked the repair's call
+order, exhaustively classified 3,375 small domain/centre combinations, and ran the 22-test core
+suite, both typechecks, Rule 7, and diff checks; it reported 0 blockers and 0 should-fixes. The
+continuation reviewer independently ran the 16-test solver suite plus feature/noise probes and
+reported no blocker. Its one scope-label should-fix—replace “realistic” with “converged” and record
+the witness as non-transferable—is incorporated. Neither review tested production-size memory,
+hostile mutation beyond the registered trust boundary, runner crash recovery, R15, GPU, held-out
+science, or a clean clone.
+
+The decision therefore remains proposed. The core work above authorizes no Phase 6 production use.
+No trace parser, production streaming-throughput or large-array restore result, runner generation
+publisher, process-termination injection, R15 production row, GPU comparison, or held-out comparison
+exists for this unit. The exact runner run-spec, generation, publication, retry, cadence, retention,
+trace-replay, and crash-recovery contract remains deferred until WP3 freezes and independently
+reviews its scientific inputs. Every applicable named negative control still requires a separate
+non-author code and execution review before this decision can authorize production use.
