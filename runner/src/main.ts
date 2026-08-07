@@ -115,6 +115,7 @@ import { phase6RenderDiagram } from "./phase6-diagram.ts";
 import {
   PHASE6_ARM1,
   PHASE6_ARM2,
+  PHASE6_ARM3,
   phase6Aggregate,
   phase6RunSweep,
   phase6SweepPlan,
@@ -1365,14 +1366,23 @@ if (command === "__gate2b-worker") {
     console.error("GATE5 EXIT STATUS: 1");
     process.exitCode = 1;
   }
-} else if (command === "phase6-sweep" || command === "phase6-sweep-arm2") {
+} else if (
+  command === "phase6-sweep" || command === "phase6-sweep-arm2" || command === "phase6-sweep-arm3"
+) {
   // ADR 0036. One code path, one operand: the ARM. Everything downstream reads it from the single
-  // descriptor rather than re-deciding, so an arm-2 run cannot inherit an arm-1 scorer or write
-  // into arm 1's directory.
-  const arm = command === "phase6-sweep-arm2" ? PHASE6_ARM2 : PHASE6_ARM1;
+  // descriptor rather than re-deciding, so an arm-2 or arm-3 run cannot inherit an arm-1 scorer
+  // or write into arm 1's directory.
+  const arm =
+    command === "phase6-sweep-arm3"
+      ? PHASE6_ARM3
+      : command === "phase6-sweep-arm2"
+        ? PHASE6_ARM2
+        : PHASE6_ARM1;
   const concurrency = rest.length === 0 ? 7 : Number(rest[0]);
   if (!Number.isInteger(concurrency) || concurrency < 1 || concurrency > 64) {
-    console.error("usage: node runner/src/main.ts phase6-sweep [concurrency]");
+    console.error(
+      "usage: node runner/src/main.ts phase6-sweep|phase6-sweep-arm2|phase6-sweep-arm3 [concurrency]",
+    );
     process.exit(2);
   }
   const preflight = phase6SweepPreflight(process.cwd(), arm);
@@ -1470,7 +1480,8 @@ if (command === "__gate2b-worker") {
       "       node runner/src/main.ts gate5\n" +
       "       node runner/src/main.ts phase6-fixture\n" +
       "       node runner/src/main.ts phase6-sweep [concurrency]\n" +
-      "       node runner/src/main.ts phase6-sweep-arm2 [concurrency]",
+      "       node runner/src/main.ts phase6-sweep-arm2 [concurrency]\n" +
+      "       node runner/src/main.ts phase6-sweep-arm3 [concurrency]",
   );
   process.exit(2);
 }
