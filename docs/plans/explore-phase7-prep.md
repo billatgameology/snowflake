@@ -234,6 +234,16 @@ hand-editing the URL, so the profiles were effectively untestable. Fixed:
   364,585 attached cells at frame 351/701), the Designer notice renders, and the index
   lists exactly four profile links.
 
+## Handoff pointer (2026-08-05)
+
+Machine transfer, the Fig. 14 v2 tooling failure, and the consolidated not-started list
+live in `docs/plans/explore-gg-realism-gutcheck.md` (sections "Fig. 14 v2 failure",
+"Not started / not finished", "Moving this worktree to another machine"). The P7-specific
+open items are items 3 and 5 of that list: the scene- and site-track review lanes never
+completed, and the compression/profile gaps (no frame-decimation rung, no v2q for
+cell-true meshes, two hero meshes staged, Scientific profile has no live propensity
+coloring).
+
 ## Tried and rejected
 
 - **Betting on raw-byte shrink alone for the wire size** — quantization gives only 66.7%

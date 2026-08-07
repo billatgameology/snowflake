@@ -15,7 +15,7 @@
 //     "ggThreshTable": {"01":2.5,"10":2,"11":2,"20":2,"21":1,"30":1,"31":1},
 //     "kappa": {"default":0.1,"overrides":{}}, "mu": {"default":0.001,"overrides":{}} }
 
-import { readFileSync, writeFileSync, mkdirSync } from "node:fs";
+import { closeSync, openSync, readFileSync, writeFileSync, writeSync, mkdirSync } from "node:fs";
 import { dirname } from "node:path";
 import {
   encodeCheckpoint,
@@ -101,6 +101,32 @@ function buildParams(stage: StageVectors): GGParams {
 
 const sevenTuple = (values: Float64Array): GGTimelineEnvironment["kappa"] =>
   [values[1]!, values[2]!, values[3]!, values[4]!, values[5]!, values[6]!, values[7]!] as const;
+
+/**
+ * Write a payload of any size. `writeFileSync` validates the whole buffer against Node's
+ * single-write cap (2147483647 bytes) and throws BEFORE writing anything, leaving a
+ * zero-byte file — which is how the Fig. 14 v2 run lost 17 hours of compute at its final
+ * step (2.67 GB checkpoint at 1280,1280,96; see docs/plans/explore-gg-realism-gutcheck.md).
+ * Anything at or under 1 GiB takes the plain path; larger payloads are written in chunks.
+ */
+function writeLarge(path: string, bytes: Uint8Array): void {
+  const CHUNK = 1 << 30; // 1 GiB, comfortably under the 2 GiB single-write cap
+  if (bytes.byteLength <= CHUNK) {
+    writeFileSync(path, bytes);
+    return;
+  }
+  const fd = openSync(path, "w");
+  try {
+    let offset = 0;
+    while (offset < bytes.byteLength) {
+      const length = Math.min(CHUNK, bytes.byteLength - offset);
+      // writeSync may report a short write; advance by what it actually wrote.
+      offset += writeSync(fd, bytes, offset, length);
+    }
+  } finally {
+    closeSync(fd);
+  }
+}
 
 function environmentFromParams(params: GGParams): GGTimelineEnvironment {
   return {
@@ -313,7 +339,7 @@ function main(): void {
     // Full GG checkpoint (public codec) so partial verdicts can re-extract or resume
     // analysis without regrowing. Metrics block omitted (observational tooling).
     mkdirSync(dirname(cli.outState), { recursive: true });
-    writeFileSync(cli.outState, encodeCheckpoint(state, null));
+    writeLarge(cli.outState, encodeCheckpoint(state, null));
     console.log(`wrote state checkpoint ${cli.outState}`);
   }
   const mesh = extractMesh(state, {
@@ -335,7 +361,7 @@ function main(): void {
     log: (line) => console.log(line),
   });
   mkdirSync(dirname(cli.outMesh), { recursive: true });
-  writeFileSync(cli.outMesh, mesh.bytes);
+  writeLarge(cli.outMesh, mesh.bytes);
   mkdirSync(dirname(cli.record), { recursive: true });
   const record = {
     label: spec.label,

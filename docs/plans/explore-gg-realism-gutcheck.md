@@ -645,7 +645,7 @@ are Claude Fable 5's eyeballed comparisons of the named composites.
 |---|---|---|---|
 | Fig. 3 (failure control) | 600,600,48; cap 30k | domain-contact @ 15829, attached 224625 | **Reproduced.** The deliberately "failed" morphology matches: overdense parallel sidebranch thickets on six arms, high midline ridges (theirs oblique, ours face-on). Strong fidelity control — the implementation reproduces the paper's ugly crystal, not just its pretty ones. |
 | Fig. 4 (prototype) | Run B, 1200,1200,48, 70000 ticks exact | tick-cap @ 70000, r=294 | **Reproduced** (recorded above; `side-by-side-B-vs-fig4.png`). |
-| Fig. 14 (classic dendrite) | Run A, 1200,1200,48 | domain-contact @ 57834, r=390 | **Not reproduced at nz=48** — slab starvation (probe-confirmed z-reservoir effect, recorded above). Tall-domain rerun is the costed open item. |
+| Fig. 14 (classic dendrite) | Run A, 1200,1200,48 | domain-contact @ 57834, r=390 | **Not reproduced at nz=48** — slab starvation (probe-confirmed z-reservoir effect, recorded above). Tall-domain rerun ATTEMPTED 2026-08-05 and LOST to a tooling bug — see "Fig. 14 v2 failure" below. Still unresolved; it is the sweep's one open figure. |
 | Fig. 29 (needle) | 128,128,768; cap 30k | far-field @ 25075, attached 220173; bbox 404 long × 36 wide | **Reproduced.** Same needle class: segmented hexagonal shaft with stepped bands, tapered spear tips with fine spiky fringes. (Render note, also applied forward: side-view captures use the screen-fixed background — the static backdrop plane is edge-on at tilt 90.) |
 | Fig. 7 (ρ=0.15 ridged sidebranches) | 600,600,48; cap 40k | far-field @ 18150, attached 511993 | **Reproduced (class).** Six ridged arms, serrated sidebranches with their own ridges, detached leaf plates between arms — visibly sparser fill than the paper's larger crystal; consistent with our half-size domain/reservoir, not a morphology mismatch. |
 | Fig. 30 (hollow column) | 128,128,768; cap 30k | far-field @ 25000, attached 329133; 286 long × 48 wide | **Reproduced.** Hexagonal column of matching aspect with banded walls; end-on view (`fig30-endon.png`) confirms the defining feature — a genuinely hollow interior with terraced conical cavity walls, as in the paper's wireframe cutaway. |
@@ -794,6 +794,100 @@ sheaths) — effectively an experimental Nakaya diagram in open access with per-
 scale bars. That is exactly the photo corpus shape `LibbrechtKinetics` validation wants
 to compare against (LK predicts habit vs temperature); recorded here as a Phase 6 input
 pointer, nothing more claimed.
+
+## Fig. 14 v2 failure (2026-08-05) — 17 h of compute lost to a writer bug
+
+**What happened.** The tall-domain rerun that was to resolve the sweep's last
+"Not reproduced" grew correctly and then threw away its own result at the final step.
+
+- Command: `node --max-old-space-size=16384 scripts/gutcheck-grow-params.ts --spec-file
+  out/gutcheck-gg-realism/figs/spec-fig14v2.json --dims 1280,1280,96 --ticks 70000
+  --out-mesh out/gutcheck-gg-realism/large/figs/fig14v2-mesh.bin --out-state
+  out/gutcheck-gg-realism/large/figs/fig14v2-state.ckpt --record
+  out/gutcheck-gg-realism/figs/fig14v2-record.json --metrics-every 10000`
+- Growth succeeded: `stop reason=domain-contact tick=51796 attached=2489217` after
+  ~17 h (`figs/fig14v2.log`, last metrics line `tick=50000 attached=2306817
+  farField=0.0753421 elapsed=60367.1s`).
+- Then: `RangeError [ERR_OUT_OF_RANGE]: The value of "length" ... Received 2673869321`
+  at `gutcheck-grow-params.ts:316` (`figs/fig14v2.err`). `writeFileSync` validates the
+  whole buffer against Node's 2147483647-byte single-write cap and throws **before
+  writing any bytes**, so `large/figs/fig14v2-state.ckpt` exists at **0 bytes** and the
+  mesh/record steps never ran. Nothing is recoverable; no artifact of this run survives
+  beyond the log lines quoted above.
+- Scope of the bug: any run whose checkpoint exceeds ~2 GiB, i.e. roughly >126M cells at
+  this codec's ~17 bytes/cell. Every earlier lane was under it (largest previously
+  written checkpoint: 1.1 GB at 1200,1200,48), which is why it had not surfaced.
+
+**Fixed** in `gutcheck-grow-params.ts` (`writeLarge()`: chunked `writeSync` above 1 GiB,
+plain path below). **Not fixed, recorded as a known limitation:** the same bare
+`writeFileSync` on payload bytes remains in `gutcheck-extract-mesh.ts`,
+`gutcheck-extract-cellmesh.ts`, `gutcheck-mesh-quantize.ts`, and
+`gutcheck-animate-grow.ts`. Those write meshes, which run ~10x smaller than checkpoints
+(largest observed 188 MB), so none has approached the cap — but a large enough extraction
+would hit the identical failure.
+
+**To re-run on another machine** (the maker's stated plan): the spec, dims, and command
+above are complete and deterministic (seed 1, noise 0). Budget ~17 h wall clock and
+~16 GB RAM for the solver plus room for a 2.7 GB checkpoint. The fix must be present —
+verify `grep -c writeLarge scripts/gutcheck-grow-params.ts` returns 2 before launching,
+or the run will fail the same way at the end. Cheaper alternative if the checkpoint is not
+wanted: omit `--out-state` entirely and keep only the mesh.
+
+## Not started / not finished (state at 2026-08-05 handoff)
+
+Nothing below is blocked; all of it is unstarted or deliberately deferred.
+
+1. **Fig. 14 v2 re-run** — above. The sweep stands at 34 judged / 32 reproduced /
+   0 unexplained, with Fig. 14 the one open figure and Fig. 11 closed as a recorded
+   domain-infeasibility bound.
+2. **Sweep closing verdict** — the coverage table is complete but no summary paragraph
+   has been written. Deliberately deferred until Fig. 14 resolves, since it is the one
+   result that could change the summary.
+3. **Adversarial review, scene + site tracks** — 10 of 16 agents died on a rate limit
+   (recorded in `explore-phase7-prep.md`). Those tracks' fixes are author-verified only,
+   including the `scene-capture.mjs` destructive-path guard. Re-run before the P7 prep
+   work is treated as reviewed.
+4. **`docs/PROGRESS.md` on `main` has no entry for any of this.** Required before any
+   merge: without it a cold-start session finds ~13k lines of spike/P7 code with no way
+   to tell what is authoritative or that Phase 7 has not begun. Must land in the same
+   commit as the merge, and must say plainly that Phase 7 has not started.
+5. **Phase 7 prep gaps** — frame-decimation rung of the compression ladder not cut (the
+   site bundle is full-resolution 6.3 GB); no v2q path for cell-true ggview meshes
+   (their edge payload needs its own encoding); only two hero meshes staged into the
+   bundle; the Scientific profile reports recorded facts only, with no live
+   surface-propensity coloring (that needs the solver in the browser worker).
+6. **Archive re-pack is stale** — see the transfer note below.
+
+## Moving this worktree to another machine
+
+**No new branch is needed.** `explore/gg-realism-gutcheck` is already pushed to
+`origin` at `b76b494` and is unmerged; that is exactly the "not ready to merge" state.
+PR #2 was opened and closed (reasons recorded on it); reopen when the items above close.
+
+On the new machine:
+
+```
+git clone https://github.com/billatgameology/snowflake.git
+cd snowflake && git checkout explore/gg-realism-gutcheck && npm ci
+```
+
+That restores all code, both plans, the figure catalog, and
+`out/gutcheck-gg-realism/tracked/inventory.json` (the sha256 ledger). It does NOT restore
+the 46 GB of artifacts under `out/`, which are gitignored by design.
+
+For the artifacts, copy the zips from `out/gutcheck-gg-realism/archives/` and run
+`node scripts/gutcheck-archive-restore.ts <zip>` per group; each file is verified against
+the tracked inventory and the run exits nonzero on any mismatch.
+
+**Before copying, re-pack — the archives are stale.** They were built 2026-08-04 and
+predate the Figs. 17/19/32/33/37/38/44 checkpoints and meshes, which are in the inventory
+but in no zip. Run `node scripts/gutcheck-archive-pack.ts --pack figs` (and `--pack all`
+if the other groups also drifted) and copy the refreshed zips.
+
+**Do not bother copying derived data**: `large/anim-B-v2q/` (6.2 GB) regenerates from
+`large/anim-B/` with `gutcheck-mesh-quantize.ts --manifest`, and `site/` (6.3 GB)
+regenerates with `gutcheck-build-site.ts`. Moving the irreplaceable groups
+(checkpoints, figs, anim-B, meshes) is sufficient.
 
 ## Out of scope
 
