@@ -86,15 +86,19 @@ index, a plan, ADR, or audit links to historical detail.
   surface, render the ADR 0029 ice look, and eyeball it against the J0521r2p footage. Eyeball-only
   exploration — not evidence, no gate claim, touches no solver package, and may be discarded;
   merging is a separate maker decision. It does not alter Phase 6 work or its "only active
-  implementation plan" status below.
-- Branch `main` was reconciled 2026-08-06 by merging `origin/main` (through `af7463b`, education
-  chapters 4-13 independent-laboratory record and the drafted Phase 8-10 plans) with the local,
-  unpushed stale-unpushed-claim correction `3d8092a`; the only real conflict was this section. Push
-  to `origin/main` is pending maker confirmation. Keep any stray root `=` artifact and local
+  implementation plan" status below. The former gut-check worktree content (extraction/render
+  tooling, the paper-coverage sweep, the growth-timeline viewer, and `docs/social/`) landed on
+  `origin/main` 2026-08-06 via PR #1 from `explore/social-content`; that branch is otherwise
+  outside Phase 6 scope and this bullet's "not evidence, no gate claim" status is unchanged.
+- Branch `main` is reconciled 2026-08-06 by merging `origin/main` through `af7463b` (education
+  chapters 4-13, drafted Phase 8-10 plans) and then through `dd7a0bc` (PR #1 above) with the local
+  stale-unpushed-claim correction `3d8092a`; both merges' only real conflicts were in this section.
+  Push to `origin/main` is pending maker confirmation. Keep any stray root `=` artifact and local
   settings out of Phase 6 commits.
-- **Last updated:** 2026-08-03 by OpenAI Codex (`gpt-5.6-sol`, ultra reasoning); 2026-08-06,
-  Claude Sonnet 5 (`claude-sonnet-5`) merged local commit `3d8092a` into this content, resolving
-  the sole conflict in this section without introducing new current-state facts.
+- **Last updated:** 2026-08-03 by OpenAI Codex (`gpt-5.6-sol`, ultra reasoning); 2026-08-06, Claude
+  Sonnet 5 (`claude-sonnet-5`) merged local commit `3d8092a` through `origin/main` `af7463b` and
+  then `dd7a0bc`, resolving both merges' sole conflict in this section without introducing new
+  current-state facts.
 
 ## Phase gates
 

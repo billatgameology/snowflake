@@ -1,0 +1,1616 @@
+{
+ "format": "gutcheck-gg-figure-catalog-v1",
+ "source": "GravnerGriffeath_PhysRevE09.pdf (research/, sha per research index)",
+ "transcription": "two-pass: parallel section transcribers + independent adversarial verifiers, workflow wf_2aa1802a-4fe, 2026-08-03. 7/8 section verdicts CLEAN; one citation page-tag corrected (Fig. 28 first sourceQuote: p. 011601-12, not 11/12). Parameter values all verified against the paper text.",
+ "evidenceStatus": "transcribed reference data for an unvalidated eyeball exploration; not a gate input",
+ "entries": [
+  {
+   "figure": "Fig. 3",
+   "page": 5,
+   "caption": "FIG. 3. (Color online) A \"failed\" virtual snowflake.",
+   "rho": 0.1,
+   "phi": 0,
+   "kappa": {
+    "default": 0.1,
+    "overrides": {}
+   },
+   "mu": {
+    "default": 0.001,
+    "overrides": {}
+   },
+   "statedTime": null,
+   "statedRadius": null,
+   "crystalDescription": "A sixfold-symmetric stellar dendrite whose six main arms carry an excessively dense thicket of sidebranches and inordinately high ridges along the arm midlines — visually snowflake-like but physically implausible, which is why the authors label it a failure.",
+   "sourceQuotes": [
+    "The parameter set can be reduced, but some tuning will always be necessary, as illustrated by the \"random\" crystal in Fig. 3. This was obtained by choosing kappa ≡ 0.1, mu ≡ 0.001, rho = 0.1, phi = 0, and all beta's equal to 1 except beta_{01} = 1.73 and beta_{10} = beta_{20} = 1.34.",
+    "These values are in a sensible neighborhood of the parameter space, but the last attachment rates were selected by chance. The result has some physically reasonable features, but one immediately notices an excessive density of branches and inordinately high ridges.",
+    "In general, visual comparison with snow-crystal photographs is the only method we use to decide whether a virtual snowflake is a \"failure\" or a \"success.\"",
+    "FIG. 3. (Color online) A \"failed\" virtual snowflake."
+   ],
+   "special": "Explicitly a FAILURE case: the caption calls it a \"failed\" virtual snowflake and the text says the attachment rates beta_{01}=1.73, beta_{10}=beta_{20}=1.34 \"were selected by chance\", producing excessive branch density and inordinately high ridges. kappa ≡ 0.1 and mu ≡ 0.001 are stated with the identically-equal sign, i.e. uniform across all seven boundary arrangements — no per-slot overrides. phi = 0 (no drift; consistent with the section-wide assumption \"we assume that phi = 0 until the last paragraph of this section\"). No noise epsilon is mentioned for this run (presumed off; not stated). No capture time (step count) and no radius are stated — statedTime and statedRadius are null for that reason. No seed is stated for this figure; the paper's canonical initial state (Sec. II: \"a hexagon of radius 2 and thickness 1\", which the paper miscounts as \"20 sites\" — the project records 19 as the correct count) is presumed. No mid-run parameter changes / environment schedule mentioned.",
+   "ggThreshTable": {
+    "10": 1.34,
+    "11": 1,
+    "20": 1.34,
+    "21": 1,
+    "30": 1,
+    "31": 1,
+    "01": 1.73
+   }
+  },
+  {
+   "figure": "Fig. 4",
+   "page": 5,
+   "caption": "FIG. 4. (Color online) The oblique (MATLAB-rendered) and top (ray-traced) views of the crystal.",
+   "rho": 0.1,
+   "phi": 0,
+   "kappa": {
+    "default": 0.1,
+    "overrides": {}
+   },
+   "mu": {
+    "default": 0.001,
+    "overrides": {}
+   },
+   "statedTime": 70000,
+   "statedRadius": 350,
+   "crystalDescription": "A six-armed stellar dendrite combining regular faceted plates with extensive sidebranching, with prominent ridges (elevations) down the middle of each main branch and fainter ridges on the sidebranches.",
+   "sourceQuotes": [
+    "Our prototypical virtual snowflake has rho = 0.1 and the canonical initial state of radius 2 and thickness 1. Figure 4 depicts the crystal after 70 000 time steps, when its radius is about 350. Its parameters are beta_01 = 2.5, beta_10 = beta_20 = beta_11 = 2, beta_30 = beta_21 = beta_31 = 1, kappa ≡ 0.1, mu ≡ 0.001, and phi = 0.",
+    "These parameters reflect significant convexifying strength, pronounced, but weaker, preference for horizontal growth, and weak boundary effect.",
+    "Perhaps the most striking features shared by the virtual snowflake in Fig. 4 and physical ones are the ridges, elevations in the middle of each main branch, with less pronounced counterparts on the sidebranches."
+   ],
+   "special": "This is the Section VII base (\"prototypical\") vector that Figs. 5-12 are resolved against. Radius \"about 350\" (approximate, in lattice units; the authors read the fundamental prism width as ~1 micrometer). Deterministic: no noise epsilon (Sec. VI.C states all 3D virtual snowflakes to date are deterministic; epsilon is only a proposal). Canonical radius-2 thickness-1 hexagonal prism seed.",
+   "ggThreshTable": {
+    "10": 2,
+    "11": 2,
+    "20": 2,
+    "21": 1,
+    "30": 1,
+    "31": 1,
+    "01": 2.5
+   }
+  },
+  {
+   "figure": "Fig. 5",
+   "page": 6,
+   "caption": "FIG. 5. (Color online) The crystal at times 820, 863, 1600, 4044, 5500, 7099, and 9500.",
+   "rho": 0.1,
+   "phi": 0,
+   "kappa": {
+    "default": 0.1,
+    "overrides": {}
+   },
+   "mu": {
+    "default": 0.001,
+    "overrides": {}
+   },
+   "statedTime": null,
+   "statedRadius": null,
+   "crystalDescription": "A seven-frame time sequence of the Fig. 4 prototype growing from a tiny hexagonal plate through an indenting hexagon (branching instability at the prism-facet midpoints) into a six-armed ridged plate whose arm tips have taken their characteristic shape by the last frame.",
+   "sourceQuotes": [
+    "Our prototypical virtual snowflake has rho = 0.1 and the canonical initial state of radius 2 and thickness 1. ... Its parameters are beta_01 = 2.5, beta_10 = beta_20 = beta_11 = 2, beta_30 = beta_21 = beta_31 = 1, kappa ≡ 0.1, mu ≡ 0.001, and phi = 0.",
+    "FIG. 5. (Color online) The crystal at times 820, 863, 1600, 4044, 5500, 7099, and 9500.",
+    "As shown in Fig. 5, ridges are formed quite early in the evolution, by mesoscopic bumps known as macrosteps that are near the center of the plate.",
+    "The small indentation that emerges, due to lower vapor density, in the middle of each prism facet at time 5500, has appeared several times before. However, this is the first instance when the growth is unable to repair it.",
+    "The tip of each arm assumes its characteristic shape by the final frame of Fig. 5."
+   ],
+   "special": "Same run as Fig. 4 (identical configuration), shown at seven earlier times: 820, 863, 1600, 4044, 5500, 7099, 9500 — statedTime is null because the figure has multiple capture times, not one. No stated radius. Canonical seed; no noise; phi = 0.",
+   "ggThreshTable": {
+    "10": 2,
+    "11": 2,
+    "20": 2,
+    "21": 1,
+    "30": 1,
+    "31": 1,
+    "01": 2.5
+   }
+  },
+  {
+   "figure": "Fig. 6",
+   "page": 6,
+   "caption": "FIG. 6. (Color online) Oblique and side views of the crystal from a different initial state.",
+   "rho": 0.1,
+   "phi": 0,
+   "kappa": {
+    "default": 0.1,
+    "overrides": {}
+   },
+   "mu": {
+    "default": 0.001,
+    "overrides": {}
+   },
+   "statedTime": null,
+   "statedRadius": null,
+   "crystalDescription": "A growing double plate (split plate): the side view shows two parallel thin plates with inner ridges instead of the single ridged stellar crystal of Fig. 4.",
+   "sourceQuotes": [
+    "It is perhaps surprising how dramatically this scenario depends on the initial (micrometer-scale) state. Keeping everything else the same, we change the initial prism to one with radius 2 and thickness 3. The previous rather complex and aesthetically pleasing evolution is replaced by a growing double plate (Fig. 6). (Remarkably, even adding a small drift does not help matters much.)",
+    "This dichotomy arises frequently in our model—within a neighborhood of the parameter space that produces planar crystals there are two stable attractors: one with outside ridges and the other a split plate with ridges on the inside."
+   ],
+   "special": "NONSTANDARD SEED: initial prism of radius 2 and THICKNESS 3, not the canonical radius-2 thickness-1 prism. All dynamic parameters identical to the Fig. 4 prototype. No capture time and no radius stated (both null for that reason). The parenthetical drift remark describes an additional unshown experiment; the depicted crystal has phi = 0. No noise.",
+   "ggThreshTable": {
+    "10": 2,
+    "11": 2,
+    "20": 2,
+    "21": 1,
+    "30": 1,
+    "31": 1,
+    "01": 2.5
+   }
+  },
+  {
+   "figure": "Fig. 7",
+   "page": 7,
+   "caption": "FIG. 7. (Color online) At density rho=0.15, the sidebranches have particularly well-defined ridges.",
+   "rho": 0.15,
+   "phi": 0,
+   "kappa": {
+    "default": 0.1,
+    "overrides": {}
+   },
+   "mu": {
+    "default": 0.001,
+    "overrides": {}
+   },
+   "statedTime": null,
+   "statedRadius": null,
+   "crystalDescription": "A six-armed stellar dendrite with dense sidebranching and particularly sharp, well-defined ridges on the sidebranches (a side close-up of one branch is included in the figure).",
+   "sourceQuotes": [
+    "Finally, let us experiment with changing the density rho. We exhibit five crystals (Figs. 7–11), each with the canonical initial condition and all other parameters of the prototype unchanged, but at different densities and different final times.",
+    "FIG. 7. (Color online) At density rho=0.15, the sidebranches have particularly well-defined ridges.",
+    "Dramatically lower density does promote faceting [8,20], but a moderate perturbation seems to mainly promote slower growth, without a change in morphology."
+   ],
+   "special": "Only rho deviates from the Fig. 4 prototype (0.15 vs 0.1). Capture time is genuinely not stated (the text says only \"different final times\"), so statedTime is null; no radius stated. Canonical seed; phi = 0; no noise.",
+   "ggThreshTable": {
+    "10": 2,
+    "11": 2,
+    "20": 2,
+    "21": 1,
+    "30": 1,
+    "31": 1,
+    "01": 2.5
+   }
+  },
+  {
+   "figure": "Fig. 8",
+   "page": 7,
+   "caption": "FIG. 8. (Color online) At density rho=0.09, the flumes are well delineated.",
+   "rho": 0.09,
+   "phi": 0,
+   "kappa": {
+    "default": 0.1,
+    "overrides": {}
+   },
+   "mu": {
+    "default": 0.001,
+    "overrides": {}
+   },
+   "statedTime": null,
+   "statedRadius": null,
+   "crystalDescription": "A six-armed stellar crystal with broad ridged arms on which the flumes (grooves flanking each ridge) are especially well delineated; sidebranching is sparser than at rho=0.1 (a side close-up of a branch is included).",
+   "sourceQuotes": [
+    "Finally, let us experiment with changing the density rho. We exhibit five crystals (Figs. 7–11), each with the canonical initial condition and all other parameters of the prototype unchanged, but at different densities and different final times.",
+    "FIG. 8. (Color online) At density rho=0.09, the flumes are well delineated.",
+    "One can also observe the commonly observed flumes (called grooves in [8]) that form on both sides of a ridge."
+   ],
+   "special": "Only rho deviates from the Fig. 4 prototype (0.09 vs 0.1). Capture time not stated (\"different final times\"); no radius stated — both null for that reason. Canonical seed; phi = 0; no noise.",
+   "ggThreshTable": {
+    "10": 2,
+    "11": 2,
+    "20": 2,
+    "21": 1,
+    "30": 1,
+    "31": 1,
+    "01": 2.5
+   }
+  },
+  {
+   "figure": "Fig. 9",
+   "page": 7,
+   "caption": "FIG. 9. (Color online) Density rho=0.05 results in sectored plates.",
+   "rho": 0.05,
+   "phi": 0,
+   "kappa": {
+    "default": 0.1,
+    "overrides": {}
+   },
+   "mu": {
+    "default": 0.001,
+    "overrides": {}
+   },
+   "statedTime": null,
+   "statedRadius": null,
+   "crystalDescription": "A sectored plate: six broad faceted plate-like arms with straight ridge/rib markings dividing each plate into sectors, and essentially no dendritic sidebranching.",
+   "sourceQuotes": [
+    "Finally, let us experiment with changing the density rho. We exhibit five crystals (Figs. 7–11), each with the canonical initial condition and all other parameters of the prototype unchanged, but at different densities and different final times.",
+    "FIG. 9. (Color online) Density rho=0.05 results in sectored plates."
+   ],
+   "special": "Only rho deviates from the Fig. 4 prototype (0.05 vs 0.1). Capture time not stated (\"different final times\"); no radius stated — both null for that reason. Canonical seed; phi = 0; no noise.",
+   "ggThreshTable": {
+    "10": 2,
+    "11": 2,
+    "20": 2,
+    "21": 1,
+    "30": 1,
+    "31": 1,
+    "01": 2.5
+   }
+  },
+  {
+   "figure": "Fig. 10",
+   "page": 7,
+   "caption": "FIG. 10. (Color online) Density rho=0.045 results in sectored branches.",
+   "rho": 0.045,
+   "phi": 0,
+   "kappa": {
+    "default": 0.1,
+    "overrides": {}
+   },
+   "mu": {
+    "default": 0.001,
+    "overrides": {}
+   },
+   "statedTime": null,
+   "statedRadius": null,
+   "crystalDescription": "Sectored branches: six distinct broad plate-tipped branches with sector-plate markings, separated by deep notches; the crystal is undergoing the sandwich instability (tip thickening) at about the capture time.",
+   "sourceQuotes": [
+    "Finally, let us experiment with changing the density rho. We exhibit five crystals (Figs. 7–11), each with the canonical initial condition and all other parameters of the prototype unchanged, but at different densities and different final times.",
+    "FIG. 10. (Color online) Density rho=0.045 results in sectored branches.",
+    "Note that the virtual snowflake of Fig. 10 is also experiencing the sandwich instability at about the capture time. The difference in that case is that the growing crystal also experienced the branching instability earlier in its development."
+   ],
+   "special": "Only rho deviates from the Fig. 4 prototype (0.045 vs 0.1). Capture time not stated numerically (only that the sandwich instability occurs \"at about the capture time\"); no radius stated — both null for that reason. This crystal experienced the branching instability earlier and is entering the sandwich instability at capture. Canonical seed; phi = 0; no noise.",
+   "ggThreshTable": {
+    "10": 2,
+    "11": 2,
+    "20": 2,
+    "21": 1,
+    "30": 1,
+    "31": 1,
+    "01": 2.5
+   }
+  },
+  {
+   "figure": "Fig. 11",
+   "page": 8,
+   "caption": "FIG. 11. (Color online) Density rho=0.4 results in sandwich plates with inner ridges.",
+   "rho": 0.4,
+   "phi": 0,
+   "kappa": {
+    "default": 0.1,
+    "overrides": {}
+   },
+   "mu": {
+    "default": 0.001,
+    "overrides": {}
+   },
+   "statedTime": 120000,
+   "statedRadius": null,
+   "crystalDescription": "A compact, thick crystal with a hexagonal outline and six short broad arms that have thickened into sandwich plates with inner ridges; it never underwent the branching instability.",
+   "sourceQuotes": [
+    "Finally, let us experiment with changing the density rho. We exhibit five crystals (Figs. 7–11), each with the canonical initial condition and all other parameters of the prototype unchanged, but at different densities and different final times.",
+    "FIG. 11. (Color online) Density rho=0.4 results in sandwich plates with inner ridges.",
+    "The example in Fig. 11 (pictured at time 120 000) never undergoes the branching instability illustrated in Fig. 5, although it does develop fairly standard ridges that persist until about time 40 000.",
+    "We observe that a completely different sandwich instability takes place: first the tips and then the sides of the virtual snowflake thicken and develop sandwich plates.",
+    "Dramatically lower density does promote faceting [8,20], but a moderate perturbation seems to mainly promote slower growth, without a change in morphology."
+   ],
+   "special": "SUSPECTED CAPTION ERRATUM: the printed caption says rho = 0.4 (verified visually against the page image), but the surrounding text strongly indicates 0.04. Evidence: (1) the Figs. 7-11 series is framed by \"Dramatically lower density does promote faceting\", and the other densities run 0.15, 0.09, 0.05, 0.045 — 0.04 continues the decreasing sequence while 0.4 is 4x the prototype; (2) growth is far SLOWER than the rho=0.1 prototype (T-radius only 67 at t=40 000 and 87 at t=80 000 vs about 350 at t=70 000 for rho=0.1), impossible at 4x the prototype density in this monotone model; (3) Sec. V states densities are kept low to avoid the Packard regime. I transcribe the printed 0.4 as stated; do not treat it as reproduction-safe without resolving the erratum. Radius not stated for the t=120 000 capture itself (the 67-to-87 T-radius figures belong to the Fig. 12 depicted period, t=40 000 to 80 000); Z-radius grows only 6 to 7 in that period. Canonical seed; phi = 0; no noise; no mid-run parameter changes.",
+   "ggThreshTable": {
+    "10": 2,
+    "11": 2,
+    "20": 2,
+    "21": 1,
+    "30": 1,
+    "31": 1,
+    "01": 2.5
+   }
+  },
+  {
+   "figure": "Fig. 12",
+   "page": 8,
+   "caption": "FIG. 12. (Color online) The crystal of Fig. 11 at earlier times.",
+   "rho": 0.4,
+   "phi": 0,
+   "kappa": {
+    "default": 0.1,
+    "overrides": {}
+   },
+   "mu": {
+    "default": 0.001,
+    "overrides": {}
+   },
+   "statedTime": null,
+   "statedRadius": null,
+   "crystalDescription": "Five snapshots of the Fig. 11 crystal showing the sandwich instability in progress: a hexagonal ridged plate whose tips and then sides progressively thicken into sandwich plates while radial growth visibly slows.",
+   "sourceQuotes": [
+    "FIG. 12. (Color online) The crystal of Fig. 11 at earlier times.",
+    "...it does develop fairly standard ridges that persist until about time 40 000. This is the time shown in the first frame of Fig. 12; subsequent frames show the evolution in time increments of 10 000.",
+    "We should emphasize that this slowdown is not due to the depletion of mass on a finite system: much larger systems give rise to the same sandwich instability well before the edge density diminishes significantly.",
+    "Neither is this slowdown accompanied by a significant growth in the Z direction—in the period depicted, the radius in the Z direction increases from 6 to 7, whereas the radius in the T direction increases from 67 to 87."
+   ],
+   "special": "Same run and configuration as Fig. 11, including the SUSPECTED rho CAPTION ERRATUM (printed 0.4, internal evidence for 0.04 — see Fig. 11 entry). Multiple capture times, so statedTime is null: first frame at t=40 000, subsequent frames at increments of 10 000; the page image shows FIVE frames, i.e. t = 40 000, 50 000, 60 000, 70 000, 80 000 (frame count read from the figure image, not stated in text). Over the depicted period the T-direction radius grows 67 to 87 and the Z-direction radius 6 to 7 (single-number statedRadius therefore null). Canonical seed; phi = 0; no noise.",
+   "ggThreshTable": {
+    "10": 2,
+    "11": 2,
+    "20": 2,
+    "21": 1,
+    "30": 1,
+    "31": 1,
+    "01": 2.5
+   }
+  },
+  {
+   "figure": "Fig. 13",
+   "page": 9,
+   "caption": "FIG. 13. (Color online) ρ=0.105: a fern dendrite.",
+   "rho": 0.105,
+   "phi": 0,
+   "kappa": {
+    "default": 0.1,
+    "overrides": {}
+   },
+   "mu": {
+    "default": 0.008,
+    "overrides": {}
+   },
+   "statedTime": null,
+   "statedRadius": null,
+   "crystalDescription": "A six-armed fern dendrite whose arms are crowded with dense, closely spaced sidebranches that nearly fill the space between the main branches.",
+   "sourceQuotes": [
+    "For this series of virtual snowflakes, β_01 = 1.6, β_10 = β_20 = 1.5, β_11 = 1.4, β_30 = β_21 = β_31 = 1, κ ≡ 0.1, all μ ≡ 0.008, φ = 0, and growth starts from the canonical initial state.",
+    "The parameters reflect a very small preference for horizontal growth, a weak convexifying tendency, but a pronounced boundary layer.",
+    "When ρ = 0.105 (Fig. 13), the branches are so dense that the crystal is rightly called a fern, while the examples with ρ = 0.1 (Fig. 14) and 0.095 (Fig. 15) have the classic look of winter iconography.",
+    "These are our largest crystals, with radii around 400.",
+    "FIG. 13. (Color online) ρ=0.105: a fern dendrite."
+   ],
+   "special": "No capture time stated for this figure. statedRadius left null because the referent of 'These are our largest crystals, with radii around 400' is ambiguous: the nearest antecedent is 'the examples with ρ = 0.1 (Fig. 14) and 0.095 (Fig. 15)', though the sentence may plausibly include Fig. 13 as part of the series. No noise: Sec. VI.C (p. 9) states 'Our only three-dimensional virtual snowflakes to date are deterministic', so ε is not used. φ = 0, canonical radius-2 thickness-1 seed, no mid-run parameter changes.",
+   "ggThreshTable": {
+    "10": 1.5,
+    "11": 1.4,
+    "20": 1.5,
+    "21": 1,
+    "30": 1,
+    "31": 1,
+    "01": 1.6
+   }
+  },
+  {
+   "figure": "Fig. 14",
+   "page": 9,
+   "caption": "FIG. 14. (Color online) ρ=0.1: a classic dendrite.",
+   "rho": 0.1,
+   "phi": 0,
+   "kappa": {
+    "default": 0.1,
+    "overrides": {}
+   },
+   "mu": {
+    "default": 0.008,
+    "overrides": {}
+   },
+   "statedTime": null,
+   "statedRadius": 400,
+   "crystalDescription": "A classic six-armed stellar dendrite with regularly spaced sidebranches along each main arm and visible ridges down the branch centers — the iconic winter-imagery snowflake.",
+   "sourceQuotes": [
+    "For this series of virtual snowflakes, β_01 = 1.6, β_10 = β_20 = 1.5, β_11 = 1.4, β_30 = β_21 = β_31 = 1, κ ≡ 0.1, all μ ≡ 0.008, φ = 0, and growth starts from the canonical initial state.",
+    "When ρ = 0.105 (Fig. 13), the branches are so dense that the crystal is rightly called a fern, while the examples with ρ = 0.1 (Fig. 14) and 0.095 (Fig. 15) have the classic look of winter iconography.",
+    "These are our largest crystals, with radii around 400.",
+    "FIG. 14. (Color online) ρ=0.1: a classic dendrite."
+   ],
+   "special": "No capture time stated. Radius 'around 400' is approximate and stated jointly for the Fig. 14/15 examples ('These are our largest crystals, with radii around 400'), not per-figure. Deterministic (no ε per Sec. VI.C), φ = 0, canonical seed, no mid-run parameter changes. Note this Section VIII configuration is identical in rho (0.1) to the Section VII prototype but has its own distinct β/κ/μ vector.",
+   "ggThreshTable": {
+    "10": 1.5,
+    "11": 1.4,
+    "20": 1.5,
+    "21": 1,
+    "30": 1,
+    "31": 1,
+    "01": 1.6
+   }
+  },
+  {
+   "figure": "Fig. 15",
+   "page": 9,
+   "caption": "FIG. 15. (Color online) ρ=0.095: fewer sidebranches.",
+   "rho": 0.095,
+   "phi": 0,
+   "kappa": {
+    "default": 0.1,
+    "overrides": {}
+   },
+   "mu": {
+    "default": 0.008,
+    "overrides": {}
+   },
+   "statedTime": null,
+   "statedRadius": 400,
+   "crystalDescription": "A six-armed stellar dendrite of the same classic type as Fig. 14 but with noticeably sparser sidebranching, leaving longer stretches of bare ridge-bearing main arm between sidebranches.",
+   "sourceQuotes": [
+    "For this series of virtual snowflakes, β_01 = 1.6, β_10 = β_20 = 1.5, β_11 = 1.4, β_30 = β_21 = β_31 = 1, κ ≡ 0.1, all μ ≡ 0.008, φ = 0, and growth starts from the canonical initial state.",
+    "When ρ = 0.105 (Fig. 13), the branches are so dense that the crystal is rightly called a fern, while the examples with ρ = 0.1 (Fig. 14) and 0.095 (Fig. 15) have the classic look of winter iconography.",
+    "These are our largest crystals, with radii around 400.",
+    "FIG. 15. (Color online) ρ=0.095: fewer sidebranches."
+   ],
+   "special": "No capture time stated. Radius 'around 400' is approximate and stated jointly for the Fig. 14/15 examples, not per-figure. Deterministic (no ε per Sec. VI.C), φ = 0, canonical seed, no mid-run parameter changes.",
+   "ggThreshTable": {
+    "10": 1.5,
+    "11": 1.4,
+    "20": 1.5,
+    "21": 1,
+    "30": 1,
+    "31": 1,
+    "01": 1.6
+   }
+  },
+  {
+   "figure": "Fig. 16",
+   "page": 9,
+   "caption": "FIG. 16. (Color online) ρ=0.09: no significant sidebranches on this scale.",
+   "rho": 0.09,
+   "phi": 0,
+   "kappa": {
+    "default": 0.1,
+    "overrides": {}
+   },
+   "mu": {
+    "default": 0.008,
+    "overrides": {}
+   },
+   "statedTime": null,
+   "statedRadius": null,
+   "crystalDescription": "A simple six-pointed star: six slender, essentially sidebranch-free main arms with narrow ridges and slightly faceted tips, and open space between the arms.",
+   "sourceQuotes": [
+    "For this series of virtual snowflakes, β_01 = 1.6, β_10 = β_20 = 1.5, β_11 = 1.4, β_30 = β_21 = β_31 = 1, κ ≡ 0.1, all μ ≡ 0.008, φ = 0, and growth starts from the canonical initial state.",
+    "A more substantial decrease in ρ eliminates any significant sidebranching on this scale, resulting in a simple star for ρ = 0.09 (Fig. 16).",
+    "FIG. 16. (Color online) ρ=0.09: no significant sidebranches on this scale."
+   ],
+   "special": "Neither capture time nor radius is stated for this figure. Deterministic (no ε per Sec. VI.C), φ = 0, canonical seed, no mid-run parameter changes. The caption's 'on this scale' qualifier is the paper's own hedge that sidebranching is absent only at the simulated size.",
+   "ggThreshTable": {
+    "10": 1.5,
+    "11": 1.4,
+    "20": 1.5,
+    "21": 1,
+    "30": 1,
+    "31": 1,
+    "01": 1.6
+   }
+  },
+  {
+   "figure": "Fig. 17",
+   "page": 10,
+   "caption": "FIG. 17. (Color online) ρ=0.082: the tip undergoes a sandwich instability.",
+   "rho": 0.082,
+   "phi": 0,
+   "kappa": {
+    "default": 0.1,
+    "overrides": {}
+   },
+   "mu": {
+    "default": 0.008,
+    "overrides": {}
+   },
+   "statedTime": 60000,
+   "statedRadius": null,
+   "crystalDescription": "Six slender, nearly sidebranch-free arms whose tips have thickened into blocky, visibly three-dimensional double-plate (sandwich) structures.",
+   "sourceQuotes": [
+    "For this series of virtual snowflakes, β_01 = 1.6, β_10 = β_20 = 1.5, β_11 = 1.4, β_30 = β_21 = β_31 = 1, κ ≡ 0.1, all μ ≡ 0.008, φ = 0, and growth starts from the canonical initial state.",
+    "As should be expected from Sec. VII, further decrease finally produces a sandwich instability at the tips, resulting in thick double plates (Fig. 17). In this instance, slow growth at the branch tips is accompanied by significant fattening in the Z direction.",
+    "The crystal in Fig. 17 is captured at about time 60 000.",
+    "FIG. 17. (Color online) ρ=0.082: the tip undergoes a sandwich instability."
+   ],
+   "special": "Capture time is approximate: the paper says 'at about time 60 000'. No radius stated. rho = 0.082 comes from the figure caption; the body text identifies it only as a 'further decrease' below 0.09. Deterministic (no ε per Sec. VI.C), φ = 0, canonical seed, no mid-run parameter changes. Not called a failure, but a morphology change: sandwich instability at the tips, slow tip growth, significant fattening in the Z direction.",
+   "ggThreshTable": {
+    "10": 1.5,
+    "11": 1.4,
+    "20": 1.5,
+    "21": 1,
+    "30": 1,
+    "31": 1,
+    "01": 1.6
+   }
+  },
+  {
+   "figure": "Fig. 18",
+   "page": 10,
+   "caption": "FIG. 18. (Color online) Close-up of the sandwich instability at ρ=0.082.",
+   "rho": 0.082,
+   "phi": 0,
+   "kappa": {
+    "default": 0.1,
+    "overrides": {}
+   },
+   "mu": {
+    "default": 0.008,
+    "overrides": {}
+   },
+   "statedTime": null,
+   "statedRadius": null,
+   "crystalDescription": "A time series of close-up renderings of a single branch tip (six frames visible in the figure) showing the tip progressively thickening and developing blocky stacked sandwich-plate structure.",
+   "sourceQuotes": [
+    "For this series of virtual snowflakes, β_01 = 1.6, β_10 = β_20 = 1.5, β_11 = 1.4, β_30 = β_21 = β_31 = 1, κ ≡ 0.1, all μ ≡ 0.008, φ = 0, and growth starts from the canonical initial state.",
+    "The series of close-ups in Fig. 18 provides another illustration of the sandwich instability—snapshots of the same virtual snowflake are shown at time intervals of 1000, starting from time 37 000.",
+    "FIG. 18. (Color online) Close-up of the sandwich instability at ρ=0.082."
+   ],
+   "special": "Not a single capture: this is a snapshot series of THE SAME virtual snowflake as Fig. 17 (rho = 0.082), frames at intervals of 1000 time steps starting from time 37 000. statedTime is null because no single capture time applies; the figure image shows six frames, i.e. times 37 000 through 42 000 (frame count read from the figure image, not stated in text). No radius stated. Deterministic (no ε per Sec. VI.C), φ = 0, canonical seed, no mid-run parameter changes.",
+   "ggThreshTable": {
+    "10": 1.5,
+    "11": 1.4,
+    "20": 1.5,
+    "21": 1,
+    "30": 1,
+    "31": 1,
+    "01": 1.6
+   }
+  },
+  {
+   "figure": "Fig. 19",
+   "page": 11,
+   "caption": "FIG. 19. (Color online) Fattening from the tip inward at ρ=0.081.",
+   "rho": 0.081,
+   "phi": 0,
+   "kappa": {
+    "default": 0.1,
+    "overrides": {}
+   },
+   "mu": {
+    "default": 0.008,
+    "overrides": {}
+   },
+   "statedTime": null,
+   "statedRadius": null,
+   "crystalDescription": "Six arms terminating in large, blocky, strongly three-dimensional faceted tip assemblages with dark ridge/skeleton lines, the fattening extending from the tips inward so the crystal reads as thick and prism-like rather than planar.",
+   "sourceQuotes": [
+    "For this series of virtual snowflakes, β_01 = 1.6, β_10 = β_20 = 1.5, β_11 = 1.4, β_30 = β_21 = β_31 = 1, κ ≡ 0.1, all μ ≡ 0.008, φ = 0, and growth starts from the canonical initial state.",
+    "Our final example, with ρ = 0.081 (Fig. 19), demonstrates that a further decrease in density makes the crystal increasingly three dimensional.",
+    "FIG. 19. (Color online) Fattening from the tip inward at ρ=0.081."
+   ],
+   "special": "Neither capture time nor radius is stated for this figure. Deterministic (no ε per Sec. VI.C), φ = 0, canonical seed, no mid-run parameter changes. Presented as the section's endpoint illustration that decreasing rho drives the crystal increasingly three-dimensional (fattening from the tip inward), not as a validated planar habit.",
+   "ggThreshTable": {
+    "10": 1.5,
+    "11": 1.4,
+    "20": 1.5,
+    "21": 1,
+    "30": 1,
+    "31": 1,
+    "01": 1.6
+   }
+  },
+  {
+   "figure": "Fig. 20",
+   "page": 11,
+   "caption": "FIG. 20. (Color online) A sandwich plate.",
+   "rho": 0.08,
+   "phi": null,
+   "kappa": {
+    "default": 0.1,
+    "overrides": {
+     "01": 0.5
+    }
+   },
+   "mu": {
+    "default": 0.0001,
+    "overrides": {}
+   },
+   "statedTime": 100000,
+   "statedRadius": 150,
+   "crystalDescription": "A stellar sandwich-plate crystal: six broad platelike arms with nearly featureless outer surfaces, whose main inner ridge initially connects the two plates (appearing darker in the ray-traced top view) and later splits so each plate carries its own ridge.",
+   "sourceQuotes": [
+    "We now present two examples. Both start from the canonical seed and have very strong preference for horizontal growth, quite a strong convexifying tendency, and a very faint boundary layer presence.",
+    "In the first, depicted in Fig. 20, β01 = 6, β10 = β20 = 2.5, β11 = 2, and the remaining β’s are 1. All κ’s are 0.1, except that κ01 = 0.5, μ ≡ 0.0001, and ρ = 0.08.",
+    "The final radius of the crystal at the capture time 100 000 is about 150.",
+    "Note that the main ridge is interrupted: while initially it connects the two plates (and it has darker color in the ray-traced image as the background can be seen through it), it later splits and each plate has its own ridge. There is a suggestion of this phenomenon in real crystals (e.g., [8], p. 26)."
+   ],
+   "special": "Drift phi is NOT stated anywhere in Sec. IX (null, not guessed): Secs. VII, VIII, and XI state phi = 0 explicitly for their runs, but Sec. IX omits phi entirely. Context strongly implies phi = 0 (canonical symmetric seed; drift is introduced as the asymmetry mechanism only in Case Study 4, Sec. X; Sec. III notes the fully symmetric computation applies when phi = 0). No noise: epsilon randomness is only proposed in Sec. VI C, which states the paper's 3D virtual snowflakes to date are deterministic. Seed is the canonical radius-2 thickness-1 hexagonal prism ('Both start from the canonical seed'; the paper's '20 sites' count for this seed is a known erratum — it has 19). statedRadius 150 is approximate ('about 150'). Nonstandard kappa: per-slot override kappa_01 = 0.5 against the common 0.1, and mu ≡ 0.0001 is an order of magnitude smaller than typical (very faint boundary layer). No mid-run parameter changes; a successful example, not a failure case.",
+   "ggThreshTable": {
+    "10": 2.5,
+    "11": 2,
+    "20": 2.5,
+    "21": 1,
+    "30": 1,
+    "31": 1,
+    "01": 6
+   }
+  },
+  {
+   "figure": "Fig. 21",
+   "page": 12,
+   "caption": "FIG. 21. (Color online) Another sandwich plate.",
+   "rho": 0.15,
+   "phi": null,
+   "kappa": {
+    "default": 0.1,
+    "overrides": {
+     "01": 0.5
+    }
+   },
+   "mu": {
+    "default": 0.0001,
+    "overrides": {}
+   },
+   "statedTime": 36100,
+   "statedRadius": null,
+   "crystalDescription": "A broad sandwich plate with mostly featureless external surfaces, interrupted inner main ridges, a few ribs, and near-circular concentric markings around the center visible in both the oblique and ray-traced views.",
+   "sourceQuotes": [
+    "We now present two examples. Both start from the canonical seed and have very strong preference for horizontal growth, quite a strong convexifying tendency, and a very faint boundary layer presence.",
+    "In the first, depicted in Fig. 20, β01 = 6, β10 = β20 = 2.5, β11 = 2, and the remaining β’s are 1. All κ’s are 0.1, except that κ01 = 0.5, μ ≡ 0.0001, and ρ = 0.08.",
+    "Our second example (Figs. 21 and 22) has interrupted main ridges and a few ribs. The parameter set now has β01 = 6.5, β10 = β20 = 2.7, and ρ = 0.15. The remaining values are as before, and the final sizes (this one at t = 36 100) are comparable."
+   ],
+   "special": "Resolved by deviation: 'The remaining values are as before' refers to the Fig. 20 vector, so beta_11 = 2, beta_30 = beta_21 = beta_31 = 1, kappa ≡ 0.1 with kappa_01 = 0.5, and mu ≡ 0.0001 carry over; only beta_01, beta_10 = beta_20, and rho change. statedRadius is null because the paper states only that 'the final sizes ... are comparable' to Fig. 20's approximately 150 — no explicit number. Drift phi is NOT stated in Sec. IX (see Fig. 20 entry; context implies 0 but the text never says so). No noise (Sec. VI C: 3D virtual snowflakes are deterministic). Canonical radius-2 thickness-1 seed. No mid-run parameter changes; a successful example.",
+   "ggThreshTable": {
+    "10": 2.7,
+    "11": 2,
+    "20": 2.7,
+    "21": 1,
+    "30": 1,
+    "31": 1,
+    "01": 6.5
+   }
+  },
+  {
+   "figure": "Fig. 22",
+   "page": 12,
+   "caption": "FIG. 22. (Color online) The plate of Fig. 21 at t = 19 000, 25 883, 25 900, 25 950, 26 000, 31 671. The detail is from the first time, obtained by cutting the crystal along the plane z = 0 and zooming in on the bottom half of the upper portion.",
+   "rho": 0.15,
+   "phi": null,
+   "kappa": {
+    "default": 0.1,
+    "overrides": {
+     "01": 0.5
+    }
+   },
+   "mu": {
+    "default": 0.0001,
+    "overrides": {}
+   },
+   "statedTime": null,
+   "statedRadius": null,
+   "crystalDescription": "Six oblique snapshots of the Fig. 21 sandwich plate growing from a compact hexagonal plate, with macrostep buds appearing near the tips, plus a cutaway detail (crystal cut along the plane z = 0) exposing the inner ridges and ribs.",
+   "sourceQuotes": [
+    "Our second example (Figs. 21 and 22) has interrupted main ridges and a few ribs. The parameter set now has β01 = 6.5, β10 = β20 = 2.7, and ρ = 0.15. The remaining values are as before, and the final sizes (this one at t = 36 100) are comparable.",
+    "We provide a few intermediate stages and a detail of the inner structure. Observe the buds at times 25 883 and 31 671; also note that the outermost rib at time 19 000 later disappears.",
+    "FIG. 22. (Color online) The plate of Fig. 21 at t = 19 000, 25 883, 25 900, 25 950, 26 000, 31 671. The detail is from the first time, obtained by cutting the crystal along the plane z = 0 and zooming in on the bottom half of the upper portion."
+   ],
+   "special": "Same crystal and identical effective configuration as Fig. 21 (this is not a separate run). Multi-time figure: statedTime is null because six snapshot times are shown — t = 19000, 25883, 25900, 25950, 26000, 31671 — not one capture time; the parent run's final capture is t = 36100 (Fig. 21). The detail panel is from t = 19000, cut along the plane z = 0, zoomed on the bottom half of the upper portion. Text notes buds at times 25883 and 31671 and that the outermost rib present at time 19000 later disappears. Drift phi NOT stated in Sec. IX (context implies 0; see Fig. 20 entry). No noise; canonical seed; no mid-run parameter changes.",
+   "ggThreshTable": {
+    "10": 2.7,
+    "11": 2,
+    "20": 2.7,
+    "21": 1,
+    "30": 1,
+    "31": 1,
+    "01": 6.5
+   }
+  },
+  {
+   "figure": "Fig. 23",
+   "page": 13,
+   "caption": "FIG. 23. (Color online) A sectored plate with a stunted double, from the top (left) and side (right).",
+   "rho": 0.12,
+   "phi": 0.01,
+   "kappa": {
+    "default": 0.005,
+    "overrides": {}
+   },
+   "mu": {
+    "default": 0.0001,
+    "overrides": {
+     "10": 0.001,
+     "20": 0.001
+    }
+   },
+   "statedTime": null,
+   "statedRadius": null,
+   "crystalDescription": "A broad, thin sectored plate whose top face carries radiating ridge/sector-boundary markings around a small stunted hexagonal plate (the 'stunted double') at the center; the side view shows an essentially flat thin plate because growth of the lower basal facet stopped completely.",
+   "sourceQuotes": [
+    "[Sec. X, p. 011601-11] Consider first the virtual snowflake of Fig. 1 and the closely related sectored plate in Fig. 23. The former starts from our fundamental prism and never undergoes the sandwich instability, but develops ridges on the bottom side and an almost featureless top due to the presence of phi = 0.01.",
+    "[Sec. X, p. 011601-11] The dynamic parameters (which reflect a strong convexifying tendency and preference for horizontal growth, but a weak boundary layer) of the sectored plate below are identical, but growth starts from a mesoscopic prism that is 5 cells high, with radius 7 at the top and 3 at the bottom.",
+    "[Sec. I, p. 011601-1, stating the Fig. 1 parameters that Fig. 23 inherits] The parameters are beta_01 = 2.8, beta_10 = beta_20 = 2.2, beta_11 = beta_21 = 1.6, beta_30 = beta_31 = 1, kappa == 0.005, mu_10 = mu_20 = 0.001, mu = 0.0001 otherwise, phi = 0.01, and rho = 0.12.",
+    "[Sec. X, p. 011601-11] The idea here is to mimic the situation where the upper basal plate has established an advantage over the lower basal plate early in the evolution. As is clear from the side view, in contrast to Fig. 6, growth of the lower facet stops completely due to diffusion limitation even though the small drift offers a slight advantage in the early stages.",
+    "[Sec. X, p. 011601-12] (According to [22,23], falling snowflakes prefer the more aerodynamically stable orientation of Fig. 23.)"
+   ],
+   "special": "Nonzero drift phi = 0.01. Nonstandard, deliberately asymmetric seed: a mesoscopic prism 5 cells high with radius 7 at the top and radius 3 at the bottom (NOT the canonical radius-2 thickness-1 hexagon). The parameter vector is not printed in Sec. X; it is inherited verbatim from Fig. 1 via the sentence 'The dynamic parameters ... are identical' — the Fig. 1 vector from Sec. I is quoted above as the audit trail. mu default 0.0001 comes from Fig. 1's 'mu = 0.0001 otherwise'. No capture time and no radius are stated for Fig. 23 (the times 12000/15000/18000/21000 in Sec. I belong to Fig. 1's frames, not Fig. 23) — both null, not guessed. No noise epsilon is mentioned anywhere in Sec. X. Section text on PDF page 11 (011601-11); figure image and caption on PDF page 13 (011601-13). Greek letters in quotes transliterated (beta_ij, kappa, mu_ij, phi, rho); '==' renders the paper's 'kappa ≡ 0.005' (identically equal, i.e. all seven kappa slots).",
+   "ggThreshTable": {
+    "10": 2.2,
+    "11": 1.6,
+    "20": 2.2,
+    "21": 1.6,
+    "30": 1,
+    "31": 1,
+    "01": 2.8
+   }
+  },
+  {
+   "figure": "Fig. 24",
+   "page": 13,
+   "caption": "FIG. 24. (Color online) A fern dendrite for mu_10 = mu_20 = 0.005.",
+   "rho": 0.14,
+   "phi": 0.01,
+   "kappa": {
+    "default": 0.1,
+    "overrides": {}
+   },
+   "mu": {
+    "default": null,
+    "overrides": {
+     "10": 0.005,
+     "11": 0.001,
+     "20": 0.005,
+     "21": 0.001,
+     "30": 0.001,
+     "31": 0.001,
+     "01": 0.002
+    }
+   },
+   "statedTime": null,
+   "statedRadius": null,
+   "crystalDescription": "A classic six-armed fern dendrite: main arms densely packed with closely spaced ridged sidebranches filling most of the space between arms.",
+   "sourceQuotes": [
+    "[Sec. X, p. 011601-12] The remaining examples of this section also start from slightly asymmetric seeds, experience a small drift, and have almost all their external markings on one side. Our goal is to explore the role of the melting rate, in much the same way that we studied density dependence in Sec. VII, by varying mu in a series of virtual snowflakes with all other parameters held fixed. In each instance, the seed has height 3, lower radius 2, and upper radius 1.",
+    "[Sec. X, p. 011601-12] For the next four crystals, beta_01 = 3, beta_10 = beta_20 = beta_11 = 1.4, beta_30 = beta_21 = beta_31 = 1, kappa == 0.1, phi = 0.01, and rho = 0.14, so the convexifying force and the preference for horizontal growth are both moderate. Moreover, mu_01 = 0.002, mu_30 = mu_11 = mu_21 = mu_31 = 0.001 and we vary only the common value of mu_10 = mu_20.",
+    "[Sec. X, p. 011601-12] Starting with the classic fern of Fig. 24, the common prism facet melting threshold mu_10 = mu_20 is gradually increased to twice the original value in Figs. 25-27.",
+    "[Fig. 24 caption, p. 011601-13] A fern dendrite for mu_10 = mu_20 = 0.005."
+   ],
+   "special": "Nonzero drift phi = 0.01. Nonstandard asymmetric seed: height 3, lower radius 2, upper radius 1 (NOT the canonical radius-2 thickness-1 hexagon). mu has no uniform default in the paper, so mu.default is null and all seven slots are enumerated in overrides (mu_10 = mu_20 = 0.005 is this figure's varied value, from the caption). No capture time and no stated radius — both null, not guessed. No noise epsilon mentioned in Sec. X. Text on PDF page 12 (011601-12); figure image on PDF page 13. Greek transliterated; '==' renders 'kappa ≡ 0.1' (all seven kappa slots).",
+   "ggThreshTable": {
+    "10": 1.4,
+    "11": 1.4,
+    "20": 1.4,
+    "21": 1,
+    "30": 1,
+    "31": 1,
+    "01": 3
+   }
+  },
+  {
+   "figure": "Fig. 25",
+   "page": 13,
+   "caption": "FIG. 25. (Color online) Reduced sidebranching for mu_10 = mu_20 = 0.008.",
+   "rho": 0.14,
+   "phi": 0.01,
+   "kappa": {
+    "default": 0.1,
+    "overrides": {}
+   },
+   "mu": {
+    "default": null,
+    "overrides": {
+     "10": 0.008,
+     "11": 0.001,
+     "20": 0.008,
+     "21": 0.001,
+     "30": 0.001,
+     "31": 0.001,
+     "01": 0.002
+    }
+   },
+   "statedTime": null,
+   "statedRadius": null,
+   "crystalDescription": "A stellar dendrite with noticeably fewer, well-separated ridged sidebranches along each of the six main arms than the fern of Fig. 24.",
+   "sourceQuotes": [
+    "[Sec. X, p. 011601-12] The remaining examples of this section also start from slightly asymmetric seeds, experience a small drift, and have almost all their external markings on one side. ... In each instance, the seed has height 3, lower radius 2, and upper radius 1.",
+    "[Sec. X, p. 011601-12] For the next four crystals, beta_01 = 3, beta_10 = beta_20 = beta_11 = 1.4, beta_30 = beta_21 = beta_31 = 1, kappa == 0.1, phi = 0.01, and rho = 0.14, so the convexifying force and the preference for horizontal growth are both moderate. Moreover, mu_01 = 0.002, mu_30 = mu_11 = mu_21 = mu_31 = 0.001 and we vary only the common value of mu_10 = mu_20.",
+    "[Sec. X, p. 011601-12] Starting with the classic fern of Fig. 24, the common prism facet melting threshold mu_10 = mu_20 is gradually increased to twice the original value in Figs. 25-27. Stellar dendrites with fewer and fewer sidebranches result, until the final virtual snowflake has only a few short sandwich plates on the sides of each arm.",
+    "[Fig. 25 caption, p. 011601-13] Reduced sidebranching for mu_10 = mu_20 = 0.008."
+   ],
+   "special": "Nonzero drift phi = 0.01. Nonstandard asymmetric seed: height 3, lower radius 2, upper radius 1. Same fixed vector as Figs. 24/26/27; only mu_10 = mu_20 differs (0.008, from the caption). mu.default null because the paper states no uniform default; all seven slots enumerated. No capture time and no stated radius — both null. No noise epsilon mentioned in Sec. X. Text on PDF page 12; figure image on PDF page 13.",
+   "ggThreshTable": {
+    "10": 1.4,
+    "11": 1.4,
+    "20": 1.4,
+    "21": 1,
+    "30": 1,
+    "31": 1,
+    "01": 3
+   }
+  },
+  {
+   "figure": "Fig. 26",
+   "page": 13,
+   "caption": "FIG. 26. (Color online) Further reduction in the number of sidebranches for mu_10 = mu_20 = 0.009.",
+   "rho": 0.14,
+   "phi": 0.01,
+   "kappa": {
+    "default": 0.1,
+    "overrides": {}
+   },
+   "mu": {
+    "default": null,
+    "overrides": {
+     "10": 0.009,
+     "11": 0.001,
+     "20": 0.009,
+     "21": 0.001,
+     "30": 0.001,
+     "31": 0.001,
+     "01": 0.002
+    }
+   },
+   "statedTime": null,
+   "statedRadius": null,
+   "crystalDescription": "A stellar dendrite with sparse sidebranches — six ridged main arms carrying only scattered short branches, markedly fewer than Fig. 25.",
+   "sourceQuotes": [
+    "[Sec. X, p. 011601-12] The remaining examples of this section also start from slightly asymmetric seeds, experience a small drift, and have almost all their external markings on one side. ... In each instance, the seed has height 3, lower radius 2, and upper radius 1.",
+    "[Sec. X, p. 011601-12] For the next four crystals, beta_01 = 3, beta_10 = beta_20 = beta_11 = 1.4, beta_30 = beta_21 = beta_31 = 1, kappa == 0.1, phi = 0.01, and rho = 0.14, so the convexifying force and the preference for horizontal growth are both moderate. Moreover, mu_01 = 0.002, mu_30 = mu_11 = mu_21 = mu_31 = 0.001 and we vary only the common value of mu_10 = mu_20.",
+    "[Sec. X, p. 011601-12] Starting with the classic fern of Fig. 24, the common prism facet melting threshold mu_10 = mu_20 is gradually increased to twice the original value in Figs. 25-27. Stellar dendrites with fewer and fewer sidebranches result, until the final virtual snowflake has only a few short sandwich plates on the sides of each arm.",
+    "[Fig. 26 caption, p. 011601-13] Further reduction in the number of sidebranches for mu_10 = mu_20 = 0.009."
+   ],
+   "special": "Nonzero drift phi = 0.01. Nonstandard asymmetric seed: height 3, lower radius 2, upper radius 1. Same fixed vector as Figs. 24/25/27; only mu_10 = mu_20 differs (0.009, from the caption). mu.default null because the paper states no uniform default; all seven slots enumerated. No capture time and no stated radius — both null. No noise epsilon mentioned in Sec. X. Text on PDF page 12; figure image on PDF page 13.",
+   "ggThreshTable": {
+    "10": 1.4,
+    "11": 1.4,
+    "20": 1.4,
+    "21": 1,
+    "30": 1,
+    "31": 1,
+    "01": 3
+   }
+  },
+  {
+   "figure": "Fig. 27",
+   "page": 13,
+   "caption": "FIG. 27. (Color online) When mu_10 = mu_20 = 0.01, very few sidebranches remain.",
+   "rho": 0.14,
+   "phi": 0.01,
+   "kappa": {
+    "default": 0.1,
+    "overrides": {}
+   },
+   "mu": {
+    "default": null,
+    "overrides": {
+     "10": 0.01,
+     "11": 0.001,
+     "20": 0.01,
+     "21": 0.001,
+     "30": 0.001,
+     "31": 0.001,
+     "01": 0.002
+    }
+   },
+   "statedTime": null,
+   "statedRadius": null,
+   "crystalDescription": "Six slender, nearly bare ridged arms with only a few short sidebranches (described in the text as a few short sandwich plates) on the sides of each arm — the endpoint of the sidebranch-suppression series.",
+   "sourceQuotes": [
+    "[Sec. X, p. 011601-12] The remaining examples of this section also start from slightly asymmetric seeds, experience a small drift, and have almost all their external markings on one side. ... In each instance, the seed has height 3, lower radius 2, and upper radius 1.",
+    "[Sec. X, p. 011601-12] For the next four crystals, beta_01 = 3, beta_10 = beta_20 = beta_11 = 1.4, beta_30 = beta_21 = beta_31 = 1, kappa == 0.1, phi = 0.01, and rho = 0.14, so the convexifying force and the preference for horizontal growth are both moderate. Moreover, mu_01 = 0.002, mu_30 = mu_11 = mu_21 = mu_31 = 0.001 and we vary only the common value of mu_10 = mu_20.",
+    "[Sec. X, p. 011601-12] Starting with the classic fern of Fig. 24, the common prism facet melting threshold mu_10 = mu_20 is gradually increased to twice the original value in Figs. 25-27. Stellar dendrites with fewer and fewer sidebranches result, until the final virtual snowflake has only a few short sandwich plates on the sides of each arm.",
+    "[Fig. 27 caption, p. 011601-13] When mu_10 = mu_20 = 0.01, very few sidebranches remain."
+   ],
+   "special": "Nonzero drift phi = 0.01. Nonstandard asymmetric seed: height 3, lower radius 2, upper radius 1. Same fixed vector as Figs. 24-26; only mu_10 = mu_20 differs (0.01 = twice Fig. 24's 0.005, matching 'increased to twice the original value'). mu.default null because the paper states no uniform default; all seven slots enumerated. No capture time and no stated radius — both null. No noise epsilon mentioned in Sec. X. Text on PDF page 12; figure image on PDF page 13.",
+   "ggThreshTable": {
+    "10": 1.4,
+    "11": 1.4,
+    "20": 1.4,
+    "21": 1,
+    "30": 1,
+    "31": 1,
+    "01": 3
+   }
+  },
+  {
+   "figure": "Fig. 28",
+   "page": 13,
+   "caption": "FIG. 28. (Color online) A simple star.",
+   "rho": 0.16,
+   "phi": 0.005,
+   "kappa": {
+    "default": 0.01,
+    "overrides": {}
+   },
+   "mu": {
+    "default": null,
+    "overrides": {
+     "10": 0.03,
+     "11": 0.01,
+     "20": 0.03,
+     "21": 0.01,
+     "30": 0.01,
+     "31": 0.01,
+     "01": 0.01
+    }
+   },
+   "statedTime": null,
+   "statedRadius": null,
+   "crystalDescription": "A classic simple star: six slender, completely unbranched arms tapering to characteristic parabolic tips, with no sidebranches at all.",
+   "sourceQuotes": [
+    "[Sec. X, p. 011601-12] The remaining examples of this section also start from slightly asymmetric seeds, experience a small drift, and have almost all their external markings on one side. ... In each instance, the seed has height 3, lower radius 2, and upper radius 1.",
+    "[Sec. X, p. 011601-12] The final example of this section is a classic simple star (Fig. 28), a crystal with no side branches at all and a characteristic parabolic shape to its tips (cf. [8], p. 57 bottom).",
+    "[Sec. X, p. 011601-12] This elegant virtual snowflake required considerable tweaking of parameters; they are beta_01 = 3.1, beta_10 = 1.05, beta_20 = 1.03, beta_11 = 1.04, beta_30 = 1.02, beta_21 = 1.01, beta_31 = 1, kappa == 0.01, mu_01 = mu_30 = mu_11 = mu_21 = mu_31 = 0.01, mu_10 = mu_20 = 0.03, phi = 0.005, and rho = 0.16.",
+    "[Sec. X, p. 011601-12] Note that convexifying is very weak, but both the preference for horizontal direction and the boundary effect are strong."
+   ],
+   "special": "Nonzero drift phi = 0.005 (smaller than the 0.01 of Figs. 23-27). Text notes the parameter vector 'required considerable tweaking'. Seed: covered by the section's 'remaining examples ... start from slightly asymmetric seeds' sentence; SEED-GEOMETRY AMBIGUITY: the 'In each instance, the seed has height 3, lower radius 2, and upper radius 1' sentence sits in the setup for the mu-varying series and is immediately followed by 'For the next four crystals' (Figs. 24-27), so whether that exact geometry also applies to Fig. 28 is not explicitly restated — most plausibly it does (Fig. 28 is one of 'the remaining examples of this section'), but the paper does not say so verbatim; do not treat the height-3/2/1 seed as certain for this figure. mu.default null because the paper states no uniform default; all seven slots enumerated (mu_10 = mu_20 = 0.03, five other slots 0.01). No capture time and no stated radius — both null. No noise epsilon mentioned in Sec. X. Text on PDF page 12; figure image on PDF page 13. '==' renders 'kappa ≡ 0.01' (all seven kappa slots).",
+   "ggThreshTable": {
+    "10": 1.05,
+    "11": 1.04,
+    "20": 1.03,
+    "21": 1.01,
+    "30": 1.02,
+    "31": 1,
+    "01": 3.1
+   }
+  },
+  {
+   "figure": "Fig. 29",
+   "page": 12,
+   "caption": "FIG. 29. (Color online) A needle.",
+   "rho": 0.1,
+   "phi": 0,
+   "kappa": {
+    "default": 0.1,
+    "overrides": {}
+   },
+   "mu": {
+    "default": 0.001,
+    "overrides": {}
+   },
+   "statedTime": null,
+   "statedRadius": null,
+   "crystalDescription": "An extremely elongated, slender hexagonal needle (a hollow tube) with tapered, pointed ends and small segmented cable-like protuberances along its length and at the tips.",
+   "sourceQuotes": [
+    "We offer three virtual snowflakes that emulate their physical counterparts quite well. All start from the canonical seed.",
+    "Our first example, with a substantial bias toward attachment on the basal facets, is a (simple) needle. In Fig. 29, beta_01 = 2, beta_10 = beta_20 = beta_11 = 4, beta_30 = beta_21 = beta_31 = 1, kappa ≡ 0.1, mu ≡ 0.001, phi = 0, and rho = 0.1, so the convexifying force is very strong, but the boundary layer is weak.",
+    "This virtual snowflake reproduces structure observed in nature and the laboratory: slender hollow tubes, often with cablelike protuberances at the ends (cf. [13], Fig. 135, [8], pp. 67-68)."
+   ],
+   "special": "No capture time and no final radius are stated for this figure (both null). Noise epsilon is not mentioned anywhere in Sec. XI (no noise stated). phi = 0 explicitly. Seed is the canonical seed ('All start from the canonical seed'). kappa is uniform ('kappa ≡ 0.1', no per-slot overrides) and mu is uniform ('mu ≡ 0.001'). Paper characterizes the regime: convexifying force very strong, boundary layer weak; substantial bias toward attachment on basal facets (beta_01 = 2 vs beta_10 = beta_20 = beta_11 = 4). Greek symbols in sourceQuotes transcribed as beta_ij/kappa/mu/phi/rho; '≡' means the value holds for all slots. Config sentence is on printed page 011601-12 (PDF page 12); figure image is on PDF page 13.",
+   "ggThreshTable": {
+    "10": 4,
+    "11": 4,
+    "20": 4,
+    "21": 1,
+    "30": 1,
+    "31": 1,
+    "01": 2
+   }
+  },
+  {
+   "figure": "Fig. 30",
+   "page": 12,
+   "caption": "FIG. 30. (Color online) A hollow column.",
+   "rho": 0.1,
+   "phi": 0,
+   "kappa": {
+    "default": 0.1,
+    "overrides": {}
+   },
+   "mu": {
+    "default": 0.01,
+    "overrides": {}
+   },
+   "statedTime": null,
+   "statedRadius": null,
+   "crystalDescription": "A moderately elongated hexagonal column with flat prism sides and deep conical hollows opening inward from both basal ends, forming a nearly hourglass-shaped internal void visible in the wireframe rendering.",
+   "sourceQuotes": [
+    "We offer three virtual snowflakes that emulate their physical counterparts quite well. All start from the canonical seed.",
+    "Next, Fig. 30 simulates the common type of snow crystal known as a hollow column. Here the bias toward attachment on the basal facets is not as pronounced. The parameter set is beta_01 = 1, beta_10 = beta_20 = 2, beta_30 = beta_11 = beta_21 = 0.5, beta_31 = 1, kappa ≡ 0.1, mu ≡ 0.01, phi = 0, and rho = 0.1.",
+    "Evidently, the hole starts developing early on."
+   ],
+   "special": "No capture time and no final radius are stated for this figure (both null). Noise epsilon is not mentioned anywhere in Sec. XI (no noise stated). phi = 0 explicitly. Seed is the canonical seed. kappa uniform 0.1, mu uniform 0.01 (no per-slot overrides). Nonstandard: several attachment thresholds are below 1 (beta_30 = beta_11 = beta_21 = 0.5) and beta_01 = 1, i.e. a single boundary-mass unit suffices for basal-facet attachment. Greek symbols in sourceQuotes transcribed as beta_ij/kappa/mu/phi/rho; '≡' means the value holds for all slots. Config sentence is on printed page 011601-12 (PDF page 12); figure image is on PDF page 13.",
+   "ggThreshTable": {
+    "10": 2,
+    "11": 0.5,
+    "20": 2,
+    "21": 0.5,
+    "30": 0.5,
+    "31": 1,
+    "01": 1
+   }
+  },
+  {
+   "figure": "Fig. 31",
+   "page": 12,
+   "caption": "FIG. 31. (Color online) A column with hollow prism facets.",
+   "rho": 0.1,
+   "phi": 0,
+   "kappa": {
+    "default": 0.1,
+    "overrides": {}
+   },
+   "mu": {
+    "default": 0.015,
+    "overrides": {}
+   },
+   "statedTime": null,
+   "statedRadius": null,
+   "crystalDescription": "A short, stubby hexagonal column with aspect ratio near 1 whose basal ends are hollowed and whose six prism (side) facets each carry recessed hollow markings, giving every face a concave skeletal pattern.",
+   "sourceQuotes": [
+    "We offer three virtual snowflakes that emulate their physical counterparts quite well. All start from the canonical seed.",
+    "The final example of this section is a column whose facets are hollow as well. The morphology of Fig. 31 occurs when the rates of expansion in the two directions are not very different. Photos and a description of this sort of snowflake appear on pp. 35-37 of [8]. Here beta_01 = 1.5, beta_10 = beta_20 = 1.6, beta_11 = beta_30 = beta_21 = beta_31 = 1, kappa ≡ 0.1, mu ≡ 0.015, phi = 0, and rho = 0.1.",
+    "The convexifying tendency is weaker; instead, the boundary effect is more pronounced."
+   ],
+   "special": "No capture time and no final radius are stated for this figure (both null). Noise epsilon is not mentioned anywhere in Sec. XI (no noise stated). phi = 0 explicitly. Seed is the canonical seed. kappa uniform 0.1, mu uniform 0.015 (no per-slot overrides). Cross-referenced in Sec. X as a theoretically significant morphology: '...ridges are actually vestiges of the skeleton of hollow prisms such as Fig. 31 in Sec. XI (see Fig. 3 of [25]).' Greek symbols in sourceQuotes transcribed as beta_ij/kappa/mu/phi/rho; '≡' means the value holds for all slots. Config sentence is on printed page 011601-12 (PDF page 12); figure image is on PDF page 13.",
+   "ggThreshTable": {
+    "10": 1.6,
+    "11": 1,
+    "20": 1.6,
+    "21": 1,
+    "30": 1,
+    "31": 1,
+    "01": 1.5
+   }
+  },
+  {
+   "figure": "Fig. 32",
+   "page": 14,
+   "caption": "A plate with fern extensions.",
+   "rho": 0.12,
+   "phi": 0.01,
+   "kappa": {
+    "default": 0.005,
+    "overrides": {}
+   },
+   "mu": {
+    "default": 0.001,
+    "overrides": {
+     "10": 0.006,
+     "20": 0.006
+    }
+   },
+   "statedTime": null,
+   "statedRadius": 200,
+   "crystalDescription": "A sixfold plate with a hexagonal simple-plate core from which six fern-like dendritic arms extend, densely covered with sidebranches (more branching than Fig. 33).",
+   "sourceQuotes": [
+    "Let us begin with two examples of the type cited in the last paragraph: plates with dendritic extensions. Both start from a prism that is three cells high with radius 2 at the top and 1 at the bottom.",
+    "The first stage for both is a simple plate similar to the virtual snowflake of Fig. 1, but with a delayed branching instability. The initial parameters are beta_01 = 3.5, beta_10 = beta_20 = beta_11 = 2.25, beta_30 = beta_21 = beta_31 = 1, kappa === 0.005, mu === 0.001, phi = 0.01, and rho = 0.12.",
+    "The first stage runs until time 8000 in the first example, and until time 12 500 in the second. At that time most parameters remain the same, but in order to promote branching we change beta_10 = beta_20 = beta_11 to 1.15 (1.4) and mu_10 = mu_20 to 0.006 (0.004).",
+    "The results, once the two virtual snowflakes have reached a radius of 200 cells, are shown in Figs. 32 and 33. Predictably, the first example has more branching in its dendritic phase since the prism facet attachment threshold is lower."
+   ],
+   "special": "Two-stage environment schedule (Nakaya-style abrupt change). Stage 1 (t = 0 to 8000): beta_01 = 3.5, beta_10 = beta_20 = beta_11 = 2.25, beta_30 = beta_21 = beta_31 = 1, kappa === 0.005, mu === 0.001, phi = 0.01, rho = 0.12. At t = 8000, beta_10 = beta_20 = beta_11 changes to 1.15 and mu_10 = mu_20 changes to 0.006; all other parameters unchanged ('most parameters remain the same'). The top-level fields above give the resolved stage-2 (final) configuration. Nonstandard seed: prism 3 cells high, radius 2 at top and 1 at bottom (NOT the canonical seed; slightly asymmetric). Nonzero drift phi = 0.01. Final capture time is not stated as a step count — the run was stopped when the crystal reached radius 200 cells (hence statedTime = null, statedRadius = 200). Noise epsilon is never mentioned in Section XII; no noise stated for this run.",
+   "ggThreshTable": {
+    "10": 1.15,
+    "11": 1.15,
+    "20": 1.15,
+    "21": 1,
+    "30": 1,
+    "31": 1,
+    "01": 3.5
+   }
+  },
+  {
+   "figure": "Fig. 33",
+   "page": 14,
+   "caption": "A plate with dendrite extensions.",
+   "rho": 0.12,
+   "phi": 0.01,
+   "kappa": {
+    "default": 0.005,
+    "overrides": {}
+   },
+   "mu": {
+    "default": 0.001,
+    "overrides": {
+     "10": 0.004,
+     "20": 0.004
+    }
+   },
+   "statedTime": null,
+   "statedRadius": 200,
+   "crystalDescription": "A sixfold plate with a larger hexagonal central plate than Fig. 32 and six dendritic extensions carrying fewer sidebranches.",
+   "sourceQuotes": [
+    "Let us begin with two examples of the type cited in the last paragraph: plates with dendritic extensions. Both start from a prism that is three cells high with radius 2 at the top and 1 at the bottom.",
+    "The first stage for both is a simple plate similar to the virtual snowflake of Fig. 1, but with a delayed branching instability. The initial parameters are beta_01 = 3.5, beta_10 = beta_20 = beta_11 = 2.25, beta_30 = beta_21 = beta_31 = 1, kappa === 0.005, mu === 0.001, phi = 0.01, and rho = 0.12.",
+    "The first stage runs until time 8000 in the first example, and until time 12 500 in the second. At that time most parameters remain the same, but in order to promote branching we change beta_10 = beta_20 = beta_11 to 1.15 (1.4) and mu_10 = mu_20 to 0.006 (0.004).",
+    "The results, once the two virtual snowflakes have reached a radius of 200 cells, are shown in Figs. 32 and 33. Predictably, the first example has more branching in its dendritic phase since the prism facet attachment threshold is lower."
+   ],
+   "special": "Two-stage environment schedule; this is the second of the two plate-with-dendritic-extensions examples (parenthesized values in the shared sentence). Stage 1 (t = 0 to 12 500): beta_01 = 3.5, beta_10 = beta_20 = beta_11 = 2.25, beta_30 = beta_21 = beta_31 = 1, kappa === 0.005, mu === 0.001, phi = 0.01, rho = 0.12. At t = 12 500, beta_10 = beta_20 = beta_11 changes to 1.4 and mu_10 = mu_20 changes to 0.004; all other parameters unchanged. Top-level fields give the resolved stage-2 (final) configuration. Nonstandard seed: prism 3 cells high, radius 2 at top and 1 at bottom. Nonzero drift phi = 0.01. Final capture time not stated as a step count — stopped at radius 200 cells (statedTime = null). Noise epsilon never mentioned in Section XII.",
+   "ggThreshTable": {
+    "10": 1.4,
+    "11": 1.4,
+    "20": 1.4,
+    "21": 1,
+    "30": 1,
+    "31": 1,
+    "01": 3.5
+   }
+  },
+  {
+   "figure": "Fig. 34",
+   "page": 14,
+   "caption": "A broad-branched stellar crystal with sandwich-plate extensions.",
+   "rho": 0.16,
+   "phi": 0.005,
+   "kappa": {
+    "default": 0.1,
+    "overrides": {}
+   },
+   "mu": {
+    "default": 0.01,
+    "overrides": {}
+   },
+   "statedTime": 24000,
+   "statedRadius": null,
+   "crystalDescription": "A flower-like sixfold stellar crystal whose six arms broaden considerably into wide petal-shaped branches after the environment change, with the tips forming sandwich plates.",
+   "sourceQuotes": [
+    "In this vein, we present three virtual snowflakes that begin as stellar dendrites with minimal branching and later encounter an environment promoting plates. All start from a prism of height 5 with top radius 6 and bottom radius 2.",
+    "The first stage runs the simple star dynamics of Fig. 28 until time 4000, 3000, or 2000, respectively. Then new parameters for the three experiments with higher attachment thresholds are run until time, respectively, 24 000, 20 000, and close to 20 000. Common parameters are beta_30 = beta_31 = 1, kappa === 0.1, rho = 0.16.",
+    "In Fig. 34, the remaining parameters are beta_01 = 3.0, beta_10 = beta_20 = 2.2, beta_11 = 2.0, beta_21 = 1.1, mu === 0.01, phi = 0.005. Note that in this instance the branches of the star broaden considerably after the change of environment, and the tips form sandwich plates.",
+    "[Fig. 28 base vector, Sec. X, p. 011601-12] This elegant virtual snowflake required considerable tweaking of parameters; they are beta_01 = 3.1, beta_10 = 1.05, beta_20 = 1.03, beta_11 = 1.04, beta_30 = 1.02, beta_21 = 1.01, beta_31 = 1, kappa === 0.01, mu_01 = mu_30 = mu_11 = mu_21 = mu_31 = 0.01, mu_10 = mu_20 = 0.03, phi = 0.005, and rho = 0.16."
+   ],
+   "special": "Two-stage environment schedule. Stage 1 (t = 0 to 4000) runs the simple star dynamics of Fig. 28: beta_01 = 3.1, beta_10 = 1.05, beta_20 = 1.03, beta_11 = 1.04, beta_30 = 1.02, beta_21 = 1.01, beta_31 = 1, kappa === 0.01, mu_01 = mu_30 = mu_11 = mu_21 = mu_31 = 0.01, mu_10 = mu_20 = 0.03, phi = 0.005, rho = 0.16. Stage 2 (t = 4000 to 24 000) uses the top-level fields above (higher attachment thresholds promoting plates). Nonstandard seed: prism of height 5 with top radius 6 and bottom radius 2 (Section XII overrides the Fig. 28 original seed). Nonzero drift phi = 0.005 in both stages. Noise epsilon never mentioned in Section XII.",
+   "ggThreshTable": {
+    "10": 2.2,
+    "11": 2,
+    "20": 2.2,
+    "21": 1.1,
+    "30": 1,
+    "31": 1,
+    "01": 3
+   }
+  },
+  {
+   "figure": "Fig. 35",
+   "page": 14,
+   "caption": "A broad-branched stellar crystal with sectored-plate extensions.",
+   "rho": 0.16,
+   "phi": 0.015,
+   "kappa": {
+    "default": 0.1,
+    "overrides": {}
+   },
+   "mu": {
+    "default": 0.001,
+    "overrides": {
+     "10": 0.002,
+     "20": 0.002
+    }
+   },
+   "statedTime": 20000,
+   "statedRadius": null,
+   "crystalDescription": "A broad-branched stellar crystal whose six arms end in faceted sectored-plate extensions with outside ridges, avoiding the sandwich instability of Fig. 34.",
+   "sourceQuotes": [
+    "In this vein, we present three virtual snowflakes that begin as stellar dendrites with minimal branching and later encounter an environment promoting plates. All start from a prism of height 5 with top radius 6 and bottom radius 2.",
+    "The first stage runs the simple star dynamics of Fig. 28 until time 4000, 3000, or 2000, respectively. Then new parameters for the three experiments with higher attachment thresholds are run until time, respectively, 24 000, 20 000, and close to 20 000. Common parameters are beta_30 = beta_31 = 1, kappa === 0.1, rho = 0.16.",
+    "By raising the attachment thresholds somewhat we avoid the sandwich instability and obtain instead the sectored-plate extensions with outside ridges seen in Fig. 35. Here beta_01 = 3.5, beta_10 = beta_20 = 2.45, beta_11 = 2.25, beta_21 = 1.1, mu_10 = mu_20 = 0.002, mu = 0.001 otherwise, phi = 0.015.",
+    "[Fig. 28 base vector, Sec. X, p. 011601-12] This elegant virtual snowflake required considerable tweaking of parameters; they are beta_01 = 3.1, beta_10 = 1.05, beta_20 = 1.03, beta_11 = 1.04, beta_30 = 1.02, beta_21 = 1.01, beta_31 = 1, kappa === 0.01, mu_01 = mu_30 = mu_11 = mu_21 = mu_31 = 0.01, mu_10 = mu_20 = 0.03, phi = 0.005, and rho = 0.16."
+   ],
+   "special": "Two-stage environment schedule. Stage 1 (t = 0 to 3000) runs the simple star dynamics of Fig. 28 (full vector in sourceQuotes; includes phi = 0.005). Stage 2 (t = 3000 to 20 000) uses the top-level fields above. Note the drift changes mid-run: stage 1 phi = 0.005 (Fig. 28 dynamics), stage 2 phi = 0.015. Nonstandard seed: prism of height 5 with top radius 6 and bottom radius 2. Noise epsilon never mentioned in Section XII.",
+   "ggThreshTable": {
+    "10": 2.45,
+    "11": 2.25,
+    "20": 2.45,
+    "21": 1.1,
+    "30": 1,
+    "31": 1,
+    "01": 3.5
+   }
+  },
+  {
+   "figure": "Fig. 36",
+   "page": 15,
+   "caption": "Another broad-branched stellar crystal.",
+   "rho": 0.16,
+   "phi": 0.015,
+   "kappa": {
+    "default": 0.1,
+    "overrides": {}
+   },
+   "mu": {
+    "default": 0.001,
+    "overrides": {}
+   },
+   "statedTime": 20000,
+   "statedRadius": null,
+   "crystalDescription": "A broad-branched stellar crystal intermediate between Figs. 34 and 35, with intricate side-branched sectored-plate structure on its six broad extensions.",
+   "sourceQuotes": [
+    "In this vein, we present three virtual snowflakes that begin as stellar dendrites with minimal branching and later encounter an environment promoting plates. All start from a prism of height 5 with top radius 6 and bottom radius 2.",
+    "The first stage runs the simple star dynamics of Fig. 28 until time 4000, 3000, or 2000, respectively. Then new parameters for the three experiments with higher attachment thresholds are run until time, respectively, 24 000, 20 000, and close to 20 000. Common parameters are beta_30 = beta_31 = 1, kappa === 0.1, rho = 0.16.",
+    "Our final broad-branched example interpolates between the previous two Fig. 36. The values of beta are large enough to avoid the sandwich instability, but small enough that sidebranching leads to sectored-plate structure of the extensions. Here beta_01 = 3.0, beta_10 = beta_20 = 2.25, beta_11 = 2.05, beta_21 = 1.05, mu === 0.001, phi = 0.015.",
+    "[Fig. 28 base vector, Sec. X, p. 011601-12] This elegant virtual snowflake required considerable tweaking of parameters; they are beta_01 = 3.1, beta_10 = 1.05, beta_20 = 1.03, beta_11 = 1.04, beta_30 = 1.02, beta_21 = 1.01, beta_31 = 1, kappa === 0.01, mu_01 = mu_30 = mu_11 = mu_21 = mu_31 = 0.01, mu_10 = mu_20 = 0.03, phi = 0.005, and rho = 0.16."
+   ],
+   "special": "Two-stage environment schedule. Stage 1 (t = 0 to 2000) runs the simple star dynamics of Fig. 28 (full vector in sourceQuotes; includes phi = 0.005). Stage 2 (t = 2000 to about 20 000) uses the top-level fields above. statedTime = 20000 is APPROXIMATE: the paper says stage 2 runs 'until time, respectively, 24 000, 20 000, and close to 20 000', and this is the third experiment ('close to 20 000'). Drift changes mid-run: stage 1 phi = 0.005, stage 2 phi = 0.015. Nonstandard seed: prism of height 5 with top radius 6 and bottom radius 2. Noise epsilon never mentioned in Section XII.",
+   "ggThreshTable": {
+    "10": 2.25,
+    "11": 2.05,
+    "20": 2.25,
+    "21": 1.05,
+    "30": 1,
+    "31": 1,
+    "01": 3
+   }
+  },
+  {
+   "figure": "Fig. 37",
+   "page": 15,
+   "caption": "A column capped with hexagonal plates.",
+   "rho": 0.1,
+   "phi": 0,
+   "kappa": {
+    "default": 0.1,
+    "overrides": {}
+   },
+   "mu": {
+    "default": 0.001,
+    "overrides": {}
+   },
+   "statedTime": 80000,
+   "statedRadius": null,
+   "crystalDescription": "A tsuzumi (capped column): a hexagonal hollow column carrying a large simple hexagonal plate cap at each end.",
+   "sourceQuotes": [
+    "These are the tsuzumi, or capped columns, described on pp. 69-74 of [8]. They are thought to arise when crystals are transported to higher and colder regions of the atmosphere by a passing storm. Without a preferred orientation, it is most reasonable to model these as driftless.",
+    "Both our virtual snowflakes use the canonical seed and evolve with the parameters for the hollow column of Fig. 30 until time 20 000. Then they run with new parameters that promote planar growth, until time 80 000 for the first example, 60 000 for the second.",
+    "Common values for the two examples are beta_01 = 5, beta_30 = beta_21 = beta_31 = 1, kappa === 0.1, mu === 0.001, phi = 0, and rho = 0.1. The difference is the common value beta_10 = beta_20 = beta_11, which is 2.4 in Fig. 37 and 2.1 in Fig. 38. Higher attachment thresholds delay the branching instability in the first capped column so the caps are simple plates, as opposed to sectored plates in the second.",
+    "[Fig. 30 base vector, Sec. XI, p. 011601-12] The parameter set is beta_01 = 1, beta_10 = beta_20 = 2, beta_30 = beta_11 = beta_21 = 0.5, beta_31 = 1, kappa === 0.1, mu === 0.01, phi = 0, and rho = 0.1.",
+    "We remark that our virtual snowflake versions evolve in the same way. Namely, for a considerable time after the change of environment, outward growth occurs almost exclusively along the 18 edges of the hexagonal column. This is a diffusion-limited effect similar to the hollowing in Fig. 31. Then, rather suddenly, growth in the T direction takes over."
+   ],
+   "special": "Two-stage column-to-plate environment schedule (matches the project's Phase 4 column->plate contract). Stage 1 (t = 0 to 20 000) runs the hollow-column parameters of Fig. 30: beta_01 = 1, beta_10 = beta_20 = 2, beta_30 = beta_11 = beta_21 = 0.5, beta_31 = 1, kappa === 0.1, mu === 0.01, phi = 0, rho = 0.1. Stage 2 (t = 20 000 to 80 000) uses the top-level fields above (planar-growth-promoting; beta_10 = beta_20 = beta_11 = 2.4). Seed: the canonical seed (explicitly stated). Deliberately driftless (phi = 0, both stages). Noise epsilon never mentioned in Section XII.",
+   "ggThreshTable": {
+    "10": 2.4,
+    "11": 2.4,
+    "20": 2.4,
+    "21": 1,
+    "30": 1,
+    "31": 1,
+    "01": 5
+   }
+  },
+  {
+   "figure": "Fig. 38",
+   "page": 15,
+   "caption": "A column capped with sectored plates.",
+   "rho": 0.1,
+   "phi": 0,
+   "kappa": {
+    "default": 0.1,
+    "overrides": {}
+   },
+   "mu": {
+    "default": 0.001,
+    "overrides": {}
+   },
+   "statedTime": 60000,
+   "statedRadius": null,
+   "crystalDescription": "A capped column whose two end caps are broad sectored plates with visible ridge/sector structure rather than simple hexagons.",
+   "sourceQuotes": [
+    "These are the tsuzumi, or capped columns, described on pp. 69-74 of [8]. They are thought to arise when crystals are transported to higher and colder regions of the atmosphere by a passing storm. Without a preferred orientation, it is most reasonable to model these as driftless.",
+    "Both our virtual snowflakes use the canonical seed and evolve with the parameters for the hollow column of Fig. 30 until time 20 000. Then they run with new parameters that promote planar growth, until time 80 000 for the first example, 60 000 for the second.",
+    "Common values for the two examples are beta_01 = 5, beta_30 = beta_21 = beta_31 = 1, kappa === 0.1, mu === 0.001, phi = 0, and rho = 0.1. The difference is the common value beta_10 = beta_20 = beta_11, which is 2.4 in Fig. 37 and 2.1 in Fig. 38. Higher attachment thresholds delay the branching instability in the first capped column so the caps are simple plates, as opposed to sectored plates in the second.",
+    "[Fig. 30 base vector, Sec. XI, p. 011601-12] The parameter set is beta_01 = 1, beta_10 = beta_20 = 2, beta_30 = beta_11 = beta_21 = 0.5, beta_31 = 1, kappa === 0.1, mu === 0.01, phi = 0, and rho = 0.1.",
+    "We remark that our virtual snowflake versions evolve in the same way. Namely, for a considerable time after the change of environment, outward growth occurs almost exclusively along the 18 edges of the hexagonal column. This is a diffusion-limited effect similar to the hollowing in Fig. 31. Then, rather suddenly, growth in the T direction takes over."
+   ],
+   "special": "Two-stage column-to-plate environment schedule, second tsuzumi example. Stage 1 (t = 0 to 20 000) runs the hollow-column parameters of Fig. 30: beta_01 = 1, beta_10 = beta_20 = 2, beta_30 = beta_11 = beta_21 = 0.5, beta_31 = 1, kappa === 0.1, mu === 0.01, phi = 0, rho = 0.1. Stage 2 (t = 20 000 to 60 000) uses the top-level fields above with the lower beta_10 = beta_20 = beta_11 = 2.1, which lets the branching instability arrive earlier so the caps become sectored plates. Seed: the canonical seed (explicitly stated). Deliberately driftless (phi = 0, both stages). Noise epsilon never mentioned in Section XII.",
+   "ggThreshTable": {
+    "10": 2.1,
+    "11": 2.1,
+    "20": 2.1,
+    "21": 1,
+    "30": 1,
+    "31": 1,
+    "01": 5
+   }
+  },
+  {
+   "figure": "Fig. 39",
+   "page": 15,
+   "caption": "FIG. 39. (Color online) A stellar dendrite with stunted and nucleating needles.",
+   "rho": 0.1,
+   "phi": 0,
+   "kappa": {
+    "default": 0.1,
+    "overrides": {}
+   },
+   "mu": {
+    "default": 0.006,
+    "overrides": {}
+   },
+   "statedTime": null,
+   "statedRadius": null,
+   "crystalDescription": "A planar six-armed stellar dendrite whose surface is dotted with symmetric rings of small bump-like protrusions resembling rime: the bumps near the center and at the tips are stunted needles, while intermediate ones have nucleated into true needles rising out of the plane.",
+   "sourceQuotes": [
+    "All our final examples start from the canonical seed.",
+    "Figure 39 has features like a classic planar snowflake that has developed rime from attachment of surrounding water droplets. In fact these protrusions are potential needle instabilities—the two symmetric rings close to the center and the tips are stunted needles, whereas the intermediate needles have successfully nucleated.",
+    "The parameters of this virtual snowflake are beta_01 = 1.58, beta_10 = beta_20 = beta_11 = 1.5, beta_30 = beta_21 = beta_31 = 1, kappa == 0.1, mu == 0.006, phi = 0, and rho = 0.1.",
+    "FIG. 39. (Color online) A stellar dendrite with stunted and nucleating needles."
+   ],
+   "special": "Driftless (phi = 0 stated). No noise: the paper's 3D virtual snowflakes are deterministic (Sec. IV: 'Our only three-dimensional virtual snowflakes to date are deterministic'; epsilon is only proposed, never used). Canonical seed (hexagon of radius 2, thickness 1; the paper's '20 sites' is a known erratum — 19 sites). No capture time or radius is stated for this figure (statedTime/statedRadius null). Parameters are constant over time — the paper stresses that homogeneous conditions produce the needle-nucleation effect usually attributed to a sudden environment change. Section preamble: these crystals are near-critical (near the Z/T growth phase boundary) and quite sensitive to any parameter change.",
+   "ggThreshTable": {
+    "10": 1.5,
+    "11": 1.5,
+    "20": 1.5,
+    "21": 1,
+    "30": 1,
+    "31": 1,
+    "01": 1.58
+   }
+  },
+  {
+   "figure": "Fig. 40",
+   "page": 16,
+   "caption": "FIG. 40. (Color online) A simple star with needles.",
+   "rho": 0.06,
+   "phi": null,
+   "kappa": {
+    "default": null,
+    "overrides": {
+     "10": 0.1,
+     "11": 0.01,
+     "20": 0.1,
+     "21": 0.01,
+     "30": 0.05,
+     "31": 0.01,
+     "01": 0.11
+    }
+   },
+   "mu": {
+    "default": 0.03,
+    "overrides": {}
+   },
+   "statedTime": null,
+   "statedRadius": null,
+   "crystalDescription": "A thick but very narrow six-armed simple star (little planar breadth) whose arms bristle with numerous thin vertical needles protruding out of the growth plane, giving a jagged, comb-like silhouette.",
+   "sourceQuotes": [
+    "All our final examples start from the canonical seed.",
+    "The next three examples have beta == 1, mu == 0.03, kappa_10 = kappa_20 = 0.1, kappa_30 = 0.05, and kappa_11 = kappa_21 = kappa_31 = 0.01.",
+    "The remaining parameters for Fig. 40 are kappa_01 = 0.11 and rho = 0.06. This virtual snowflake is a rather extreme instance of a stellar crystal with needles in which the planar portion is a thick but very narrow simple star.",
+    "FIG. 40. (Color online) A simple star with needles."
+   ],
+   "special": "phi is genuinely not stated for the Figs. 40-42 group, hence null; the phrase 'The remaining parameters for Fig. 40 are kappa_01 = 0.11 and rho = 0.06' implies the listed set is complete (suggesting driftless), but phi = 0 is never written, so it is not asserted here. kappa has no stated blanket default; all seven slots are explicitly specified (listed as overrides). beta == 1 uniformly. No noise (deterministic 3D model). Canonical seed. No capture time or radius stated. A Magono-Lee 'stellar crystal with needles' analog; near-critical dynamics.",
+   "ggThreshTable": {
+    "10": 1,
+    "11": 1,
+    "20": 1,
+    "21": 1,
+    "30": 1,
+    "31": 1,
+    "01": 1
+   }
+  },
+  {
+   "figure": "Fig. 41",
+   "page": 16,
+   "caption": "FIG. 41. (Color online) A butterflake with wings in the directions of the main arms.",
+   "rho": 0.057,
+   "phi": null,
+   "kappa": {
+    "default": null,
+    "overrides": {
+     "10": 0.1,
+     "11": 0.01,
+     "20": 0.1,
+     "21": 0.01,
+     "30": 0.05,
+     "31": 0.01,
+     "01": 0.12
+    }
+   },
+   "mu": {
+    "default": 0.03,
+    "overrides": {}
+   },
+   "statedTime": null,
+   "statedRadius": null,
+   "crystalDescription": "A 'butterflake': after starting as a planar crystal it nucleated large thin plates extending into the third dimension, forming butterfly-wing-like vertical blades aligned with the directions of the main arms, so the crystal looks like intersecting translucent wings rather than a flat star.",
+   "sourceQuotes": [
+    "All our final examples start from the canonical seed.",
+    "The next three examples have beta == 1, mu == 0.03, kappa_10 = kappa_20 = 0.1, kappa_30 = 0.05, and kappa_11 = kappa_21 = kappa_31 = 0.01.",
+    "Our next two examples seem never to have been seen at all, and it is clear why: even if they managed to grow, their thin plates would be extremely brittle and susceptible to random fluctuations. They are characterized by very small differences in the growth rates. After starting as planar crystals, they suddenly nucleate thin structures extending into the third dimension. In Fig. 41 kappa_01 = 0.12 and rho = 0.057; in Fig. 42 kappa_01 = 0.116 and rho = 0.06.",
+    "For obvious reasons, we call these butterflakes. They are idealizations of the stellar crystals with spatial plates in [15]; chaotic snow crystals with thin plates growing every which way are relatively common.",
+    "FIG. 41. (Color online) A butterflake with wings in the directions of the main arms."
+   ],
+   "special": "phi not stated for this group (null); no explicit driftless statement, though the parameter lists are presented as complete. kappa has no blanket default; all seven slots explicitly specified. No noise (deterministic 3D model). Canonical seed. No capture time or radius stated. Explicitly flagged as a form 'never to have been seen at all' in nature (thin plates too brittle) — an idealization of Magono-Lee stellar crystals with spatial plates; near-critical, very small growth-rate differences.",
+   "ggThreshTable": {
+    "10": 1,
+    "11": 1,
+    "20": 1,
+    "21": 1,
+    "30": 1,
+    "31": 1,
+    "01": 1
+   }
+  },
+  {
+   "figure": "Fig. 42",
+   "page": 16,
+   "caption": "FIG. 42. (Color online) A butterflake with side wings.",
+   "rho": 0.06,
+   "phi": null,
+   "kappa": {
+    "default": null,
+    "overrides": {
+     "10": 0.1,
+     "11": 0.01,
+     "20": 0.1,
+     "21": 0.01,
+     "30": 0.05,
+     "31": 0.01,
+     "01": 0.116
+    }
+   },
+   "mu": {
+    "default": 0.03,
+    "overrides": {}
+   },
+   "statedTime": null,
+   "statedRadius": null,
+   "crystalDescription": "A 'butterflake' variant: a six-armed star with slender pointed arms from which thin plate 'wings' have nucleated to the sides of the arms (rather than along them), producing out-of-plane blades flanking each arm around a plated center.",
+   "sourceQuotes": [
+    "All our final examples start from the canonical seed.",
+    "The next three examples have beta == 1, mu == 0.03, kappa_10 = kappa_20 = 0.1, kappa_30 = 0.05, and kappa_11 = kappa_21 = kappa_31 = 0.01.",
+    "Our next two examples seem never to have been seen at all, and it is clear why: even if they managed to grow, their thin plates would be extremely brittle and susceptible to random fluctuations. They are characterized by very small differences in the growth rates. After starting as planar crystals, they suddenly nucleate thin structures extending into the third dimension. In Fig. 41 kappa_01 = 0.12 and rho = 0.057; in Fig. 42 kappa_01 = 0.116 and rho = 0.06.",
+    "For obvious reasons, we call these butterflakes. They are idealizations of the stellar crystals with spatial plates in [15]; chaotic snow crystals with thin plates growing every which way are relatively common.",
+    "FIG. 42. (Color online) A butterflake with side wings."
+   ],
+   "special": "phi not stated for this group (null); no explicit driftless statement. kappa has no blanket default; all seven slots explicitly specified. No noise (deterministic 3D model). Canonical seed. No capture time or radius stated. Explicitly flagged as a form 'never to have been seen at all' in nature (thin plates too brittle); near-critical, very small growth-rate differences.",
+   "ggThreshTable": {
+    "10": 1,
+    "11": 1,
+    "20": 1,
+    "21": 1,
+    "30": 1,
+    "31": 1,
+    "01": 1
+   }
+  },
+  {
+   "figure": "Fig. 43",
+   "page": 16,
+   "caption": "FIG. 43. (Color online) A sandwich plate with broad branches.",
+   "rho": 0.09,
+   "phi": 0,
+   "kappa": {
+    "default": 0.1,
+    "overrides": {}
+   },
+   "mu": {
+    "default": 0.025,
+    "overrides": {}
+   },
+   "statedTime": null,
+   "statedRadius": null,
+   "crystalDescription": "A flower-like planar sandwich plate with six broad, petal-shaped branches separated by narrow slits, each branch carrying delicate inner markings radiating from the center.",
+   "sourceQuotes": [
+    "All our final examples start from the canonical seed.",
+    "We conclude the paper with a family of five related examples. The first is a common sandwich plate (cf. [8], p. 44, lower right) with parameter values beta_01 = 1.41, beta_10 = beta_20 = 1.2, beta_11 = beta_30 = beta_21 = beta_31 = 1, kappa == 0.1, mu == 0.025, phi = 0, and rho = 0.09 (Fig. 43).",
+    "Usually this happens close to the beginning of the evolution (as, in fact, occurred in the dynamics leading to Fig. 43), so the virtual snowflake is unremarkable.",
+    "FIG. 43. (Color online) A sandwich plate with broad branches."
+   ],
+   "special": "Driftless (phi = 0 stated). No noise (deterministic 3D model). Canonical seed. No capture time or radius stated. Base configuration for the family of five (Figs. 43-47); in this crystal the sandwich instability (tip thickening/slowdown) occurred close to the beginning of the evolution, making it 'unremarkable' relative to the perturbed variants. Parameters constant over time.",
+   "ggThreshTable": {
+    "10": 1.2,
+    "11": 1,
+    "20": 1.2,
+    "21": 1,
+    "30": 1,
+    "31": 1,
+    "01": 1.41
+   }
+  },
+  {
+   "figure": "Fig. 44",
+   "page": 17,
+   "caption": "FIG. 44. (Color online) Perturbed parameters beta_01 = 1.25, rho = 0.091.",
+   "rho": 0.091,
+   "phi": 0,
+   "kappa": {
+    "default": 0.1,
+    "overrides": {}
+   },
+   "mu": {
+    "default": 0.025,
+    "overrides": {}
+   },
+   "statedTime": null,
+   "statedRadius": null,
+   "crystalDescription": "A stellar crystal whose six branches terminate in dramatically widened 'exploded' tips — broad blocky sectored-plate-like caps filled with intricate inner patterning, on comparatively narrow branch stems.",
+   "sourceQuotes": [
+    "All our final examples start from the canonical seed.",
+    "We conclude the paper with a family of five related examples. The first is a common sandwich plate (cf. [8], p. 44, lower right) with parameter values beta_01 = 1.41, beta_10 = beta_20 = 1.2, beta_11 = beta_30 = beta_21 = beta_31 = 1, kappa == 0.1, mu == 0.025, phi = 0, and rho = 0.09 (Fig. 43).",
+    "The remaining four are minor perturbations, which nevertheless look quite different (Figs. 44-47). Namely, even though their model parameters are constant over time, they undergo \"exploding tips\" quite similar to crystals such as the one in Fig. 35 that results from inhomogeneous environmental conditions.",
+    "Parameter values that differ from those of Fig. 43 are given in the captions.",
+    "FIG. 44. (Color online) Perturbed parameters beta_01 = 1.25, rho = 0.091."
+   ],
+   "special": "Resolved as Fig. 43's vector with caption perturbations beta_01 = 1.25 and rho = 0.091 (the only variant of the family that also perturbs rho). Driftless (phi = 0 inherited from the explicitly stated Fig. 43 base). No noise (deterministic 3D model). Canonical seed. No capture time or radius stated. Parameters constant over time yet the crystal undergoes 'exploding tips' via delayed onset of the sandwich instability — mimicking an environment change without one. Note Fig. 47 shares beta_01 = 1.25; Figs. 44 and 47 differ only in rho (0.091 vs 0.09).",
+   "ggThreshTable": {
+    "10": 1.2,
+    "11": 1,
+    "20": 1.2,
+    "21": 1,
+    "30": 1,
+    "31": 1,
+    "01": 1.25
+   }
+  },
+  {
+   "figure": "Fig. 45",
+   "page": 17,
+   "caption": "FIG. 45. (Color online) Perturbed parameter beta_01 = 1.5.",
+   "rho": 0.09,
+   "phi": 0,
+   "kappa": {
+    "default": 0.1,
+    "overrides": {}
+   },
+   "mu": {
+    "default": 0.025,
+    "overrides": {}
+   },
+   "statedTime": null,
+   "statedRadius": null,
+   "crystalDescription": "A six-armed crystal with narrow arm shafts that flare into broad, rounded hexagonal-plate tips like flower petals, surrounding a small patterned central rosette.",
+   "sourceQuotes": [
+    "All our final examples start from the canonical seed.",
+    "We conclude the paper with a family of five related examples. The first is a common sandwich plate (cf. [8], p. 44, lower right) with parameter values beta_01 = 1.41, beta_10 = beta_20 = 1.2, beta_11 = beta_30 = beta_21 = beta_31 = 1, kappa == 0.1, mu == 0.025, phi = 0, and rho = 0.09 (Fig. 43).",
+    "The remaining four are minor perturbations, which nevertheless look quite different (Figs. 44-47). Namely, even though their model parameters are constant over time, they undergo \"exploding tips\" quite similar to crystals such as the one in Fig. 35 that results from inhomogeneous environmental conditions.",
+    "Parameter values that differ from those of Fig. 43 are given in the captions.",
+    "FIG. 45. (Color online) Perturbed parameter beta_01 = 1.5."
+   ],
+   "special": "Resolved as Fig. 43's vector with the single caption perturbation beta_01 = 1.5 (raised above the base 1.41); rho stays 0.09. Driftless (phi = 0 inherited from the explicitly stated Fig. 43 base). No noise (deterministic 3D model). Canonical seed. No capture time or radius stated. Parameters constant over time yet the crystal undergoes 'exploding tips' via delayed sandwich instability.",
+   "ggThreshTable": {
+    "10": 1.2,
+    "11": 1,
+    "20": 1.2,
+    "21": 1,
+    "30": 1,
+    "31": 1,
+    "01": 1.5
+   }
+  },
+  {
+   "figure": "Fig. 46",
+   "page": 17,
+   "caption": "FIG. 46. (Color online) Perturbed parameter beta_01 = 1.19.",
+   "rho": 0.09,
+   "phi": 0,
+   "kappa": {
+    "default": 0.1,
+    "overrides": {}
+   },
+   "mu": {
+    "default": 0.025,
+    "overrides": {}
+   },
+   "statedTime": null,
+   "statedRadius": null,
+   "crystalDescription": "A broad-branched stellar crystal whose six branches end in wide, lace-like exploded tips with extraordinarily intricate inner patterning, denser and more filigreed than Figs. 44-45.",
+   "sourceQuotes": [
+    "All our final examples start from the canonical seed.",
+    "We conclude the paper with a family of five related examples. The first is a common sandwich plate (cf. [8], p. 44, lower right) with parameter values beta_01 = 1.41, beta_10 = beta_20 = 1.2, beta_11 = beta_30 = beta_21 = beta_31 = 1, kappa == 0.1, mu == 0.025, phi = 0, and rho = 0.09 (Fig. 43).",
+    "The remaining four are minor perturbations, which nevertheless look quite different (Figs. 44-47). Namely, even though their model parameters are constant over time, they undergo \"exploding tips\" quite similar to crystals such as the one in Fig. 35 that results from inhomogeneous environmental conditions.",
+    "Parameter values that differ from those of Fig. 43 are given in the captions.",
+    "FIG. 46. (Color online) Perturbed parameter beta_01 = 1.19."
+   ],
+   "special": "Resolved as Fig. 43's vector with the single caption perturbation beta_01 = 1.19 (note this puts beta_01 slightly below beta_10 = beta_20 = 1.2); rho stays 0.09. Driftless (phi = 0 inherited from the explicitly stated Fig. 43 base). No noise (deterministic 3D model). Canonical seed. No capture time or radius stated. Parameters constant over time yet the crystal undergoes 'exploding tips' via delayed sandwich instability; 'the complex inner patterns are the result of extraordinarily intricate dynamics.'",
+   "ggThreshTable": {
+    "10": 1.2,
+    "11": 1,
+    "20": 1.2,
+    "21": 1,
+    "30": 1,
+    "31": 1,
+    "01": 1.19
+   }
+  },
+  {
+   "figure": "Fig. 47",
+   "page": 17,
+   "caption": "FIG. 47. (Color online) Perturbed parameter beta_01 = 1.25.",
+   "rho": 0.09,
+   "phi": 0,
+   "kappa": {
+    "default": 0.1,
+    "overrides": {}
+   },
+   "mu": {
+    "default": 0.025,
+    "overrides": {}
+   },
+   "statedTime": null,
+   "statedRadius": null,
+   "crystalDescription": "A stellar crystal with six branches ending in widened, intricately structured tips carrying complex plate patterns and needle- or ridge-like protrusions, visibly different from Fig. 44 despite differing only in vapor density.",
+   "sourceQuotes": [
+    "All our final examples start from the canonical seed.",
+    "We conclude the paper with a family of five related examples. The first is a common sandwich plate (cf. [8], p. 44, lower right) with parameter values beta_01 = 1.41, beta_10 = beta_20 = 1.2, beta_11 = beta_30 = beta_21 = beta_31 = 1, kappa == 0.1, mu == 0.025, phi = 0, and rho = 0.09 (Fig. 43).",
+    "The remaining four are minor perturbations, which nevertheless look quite different (Figs. 44-47). Namely, even though their model parameters are constant over time, they undergo \"exploding tips\" quite similar to crystals such as the one in Fig. 35 that results from inhomogeneous environmental conditions.",
+    "Parameter values that differ from those of Fig. 43 are given in the captions.",
+    "FIG. 47. (Color online) Perturbed parameter beta_01 = 1.25."
+   ],
+   "special": "Resolved as Fig. 43's vector with the single caption perturbation beta_01 = 1.25; rho stays at the base 0.09. Identical to Fig. 44 except rho (0.09 here vs 0.091 there) — a deliberate sensitivity demonstration: a 0.001 density change yields a visibly different crystal. Driftless (phi = 0 inherited from the explicitly stated Fig. 43 base). No noise (deterministic 3D model). Canonical seed. No capture time or radius stated. Parameters constant over time yet the crystal undergoes 'exploding tips' via delayed sandwich instability.",
+   "ggThreshTable": {
+    "10": 1.2,
+    "11": 1,
+    "20": 1.2,
+    "21": 1,
+    "30": 1,
+    "31": 1,
+    "01": 1.25
+   }
+  }
+ ]
+}
