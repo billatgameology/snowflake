@@ -1,6 +1,6 @@
 {
  "format": "gutcheck-large-inventory-v1",
- "generated": "2026-08-07T00:46:53.709Z",
+ "generated": "2026-08-07T00:58:27.589Z",
  "root": "out/gutcheck-gg-realism/large",
  "files": [
   {
@@ -8490,6 +8490,14 @@
    "root": "out"
   },
   {
+   "relPath": "npm-test-extras.log",
+   "group": "extras",
+   "bytes": 29879,
+   "mtimeMs": 1786064029671.1108,
+   "sha256": "c71a5cbe06a19383003617b9d178d715eb217f27393b4036096722bda0e7313f",
+   "root": "out"
+  },
+  {
    "relPath": "npm-test-merge.log",
    "group": "extras",
    "bytes": 30330,
@@ -12372,11 +12380,11 @@
   {
    "name": "gutcheck-large-extras-20260807.zip",
    "group": "extras",
-   "createdAt": "2026-08-07T00:46:53.709Z",
-   "bytes": 233737262,
-   "sha256": "0ec2f7be64d45b46108edd59f3c05e6f3de7a768786f87ca3033e616e4acea0d",
-   "fileCount": 837,
-   "totalBytes": 833826074
+   "createdAt": "2026-08-07T00:58:27.589Z",
+   "bytes": 233745100,
+   "sha256": "36b2f28c1d05f2fbed2bde19928c7eac20d908f23380a99d22bacc5773e7f837",
+   "fileCount": 838,
+   "totalBytes": 833855953
   },
   {
    "name": "gutcheck-large-figs-20260804.zip",

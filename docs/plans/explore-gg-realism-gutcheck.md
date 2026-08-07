@@ -903,7 +903,7 @@ dumps, and the P7 artifacts including `growth-B-intro.mp4` — is gitignored AND
 zip, so a machine move would have carried the checkpoints and lost the evidence layer.
 It is not regenerable without re-running the sweep. `gutcheck-large-extras-20260807.zip`
 is 222.9 MB (795.2 MB / 837 files),
-sha256 `0ec2f7be64d45b46108edd59f3c05e6f3de7a768786f87ca3033e616e4acea0d`.
+sha256 `36b2f28c1d05f2fbed2bde19928c7eac20d908f23380a99d22bacc5773e7f837` (repacked at the session close to include the final test log; the current hash always lives in the inventory's `archives` ledger, which is the authority if this line drifts).
 
 Inventory entries now carry `root`: `"out"` for the extras layer (relPath relative to
 `out/gutcheck-gg-realism/`), absent or `"large"` for the binaries (relPath relative to
