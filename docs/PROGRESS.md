@@ -89,9 +89,25 @@ index, a plan, ADR, or audit links to historical detail.
   exists since `60e3f3f` (verified by diff 2026-08-06), and no further education work runs until
   Phase 6 closes. Commit `8acf9fe` (same session) added three **proposed, uncharted** Phase 8–10
   plan drafts; they are not adopted phases and none may start before Phase 6 WP8.
-- The maker pushed `main` on 2026-08-06 (remote update 06:20:47 −0700); `origin/main` = `af7463b`.
-  Preserve `research/tmp/` as useful local research context; durable generated science belongs
-  under tracked `evidence/`.
+- Maker-directed pre-Phase-7 exploration branch `explore/gg-realism-gutcheck` (worktree
+  `../snowflake-gutcheck-gg-realism`; plan `docs/plans/explore-gg-realism-gutcheck.md` exists on
+  that branch only): grow a large noisy `GGThreshold` dendrite, extract a smooth level-set
+  surface, render the ADR 0029 ice look, and eyeball it against the J0521r2p footage. Eyeball-only
+  exploration — not evidence, no gate claim, touches no solver package, and may be discarded;
+  merging is a separate maker decision. It does not alter Phase 6 work or its "only active
+  implementation plan" status below. The former gut-check worktree content (extraction/render
+  tooling, the paper-coverage sweep, the growth-timeline viewer, and `docs/social/`) landed on
+  `origin/main` 2026-08-06 via PR #1 from `explore/social-content`; that branch is otherwise
+  outside Phase 6 scope and this bullet's "not evidence, no gate claim" status is unchanged.
+- The maker pushed `main` on 2026-08-06 (remote update 06:20:47 −0700; then `origin/main` = `af7463b`).
+  On maker direction later that day, local `main` merged `origin/main` at `6599a2c` — the PR #1
+  gut-check/social content plus its reconciliation merges, performed by Claude Sonnet 5 per their
+  commit records — with one conflict, this section, resolved by keeping the newer Phase 6 state
+  and adopting the exploration-branch bullet above. The remote touched only `docs/`, `scripts/`,
+  and `app/` — no solver, evidence, `.gitattributes`, or charter files. The merged tree's exact
+  `npm.cmd test` result and the maker-directed push are recorded here before further evidence
+  runs. Preserve `research/tmp/` as useful local research context; durable generated science
+  belongs under tracked `evidence/`.
 - 2026-08-06 resume baseline: exact `npm.cmd test` at `af7463b` exited 0 in 803.16 s of Vitest
   (Rule 7 clean over 432 files; both TypeScript projects passed; 81 files / 1,446 tests). Same
   session author-side verification (Claude Fable 5, shared context — working checks, not a
@@ -146,10 +162,13 @@ accepted WP3 protocol freeze, and an independently reviewed artifact-derived R15
 ### Current resume point — decision-0045 bounded closure, in order
 
 Sub-unit A is DONE at `e913240` (`M1_NO_DIP_ABLATION` runnable; exact `npm.cmd test` exit 0,
-Rule 7 clean over 438 files, Vitest 83 files / 1,467 tests). The Stage A cost probe is RUNNING
-in the background (serial, span-corrected configs per `e261803`; live log
-`out/phase6-wp2-recon/stage-a/live.log`; 12 h per-row cap; check for an existing process
-before relaunching — the driver resumes by skipping recorded rows). Then, inside decision
+Rule 7 clean over 438 files, Vitest 83 files / 1,467 tests). The Stage A cost probe was STOPPED
+mid-row-3 on 2026-08-06 for the maker-directed merge (rows 1–2 recorded in
+`out/phase6-wp2-recon/stage-a/rows.jsonl`: A5-coarse@−15C 163.2 s and A1-floor-n96@−15C
+10,472.8 s, both size-target; the in-flight A2-floor-n128 row restarts from scratch). Relaunch
+`node app/scripts/phase6-wp2-recon-stage-a.mjs` after the merged tree is verified and pushed —
+the driver resumes by skipping recorded rows; check for an existing process first; 12 h
+per-row cap; live log `out/phase6-wp2-recon/stage-a/live.log`. Then, inside decision
 0045's seven-day envelope: (1) pre-register and execute the budget-capped ladder over the
 frozen strata (no-pass first-class; no production selection follows a pass); (2) run the
 204-point measured-only `M1_NO_DIP_ABLATION` sweep, arm-2-identical except `paramSet`, with
