@@ -150,6 +150,18 @@ function runRow(tempC, config) {
   };
 }
 
+// Pre-declared 2026-08-07, before any ceiling row had run (recon plan, Stage A): if BOTH
+// -15 C ceiling rows stopped at the wall cap, their -5 C twins are recorded as predictably
+// capped and skipped by name — a 12 h cap datum does not need a second 12 h confirmation
+// inside decision 0045's envelope.
+function bothMinus15CeilingRowsCapped() {
+  if (!existsSync(ROWS_PATH)) return false;
+  const rows = readFileSync(ROWS_PATH, "utf8").split("\n").filter(Boolean).map(JSON.parse);
+  const capped = (id) =>
+    rows.some((row) => row.rowId === `${id}@-15C` && row.stopReason === "wall-cap-infrastructure");
+  return capped("A4-ceiling-n192") && capped("A3-ceiling-n256");
+}
+
 mkdirSync(OUT_DIR, { recursive: true });
 log(`Stage A cost probe starting — node ${process.version}, pid ${process.pid}, serial rows`);
 const done = completedRowIds();
@@ -158,6 +170,14 @@ for (const tempC of TEMPS_C) {
     const rowId = `${config.id}@${tempC}C`;
     if (done.has(rowId)) {
       log(`skip ${rowId} (already recorded)`);
+      continue;
+    }
+    if (tempC === -5 && config.id.includes("ceiling") && bothMinus15CeilingRowsCapped()) {
+      appendFileSync(
+        ROWS_PATH,
+        `${JSON.stringify({ rowId, nonTransferable: true, stopReason: "skipped-predictably-capped", reason: "both -15C ceiling rows stopped at the 12 h wall cap; pre-declared skip rule 2026-08-07" })}\n`,
+      );
+      log(`skip ${rowId} (predictably capped; pre-declared rule)`);
       continue;
     }
     log(`start ${rowId}`);

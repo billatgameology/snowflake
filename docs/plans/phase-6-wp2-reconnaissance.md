@@ -71,8 +71,12 @@ fractions, the deterministic "middle". Configurations (corrected to span semanti
 `N = 128`; seed 35 cells (S1 ceiling) growing to extent 117 (S2 ceiling span) at `N = 192` and
 `N = 256`. One coarse replicate at `dxUm = 0.7` (seed 8, extent 27, N 48). Per-row wall cap
 12 h; a capped row is recorded as infrastructure-terminated and is itself a decisive
-feasibility datum. Measured outputs: wall-clock, sweeps/cycle, peak RSS, attached count at the
-stop, stop reason. Purpose: calibrate Stage B and the ladder's cost model; nothing else.
+feasibility datum. **Pre-declared 2026-08-07, before any ceiling row had run:** if both
+−15 °C ceiling rows stop at the wall cap, their −5 °C twins are recorded as
+`skipped-predictably-capped` by name — a cap datum does not need a second 12 h confirmation
+inside decision 0045's envelope. Measured outputs: wall-clock, sweeps/cycle, peak RSS,
+attached count at the stop, stop reason. Purpose: calibrate the ladder's cost model; nothing
+else.
 
 **Stage B — CLOSED UNEXECUTED by decision 0045 (2026-08-06).** The maker's bounded-closure
 direction ends the production campaign this stage was meant to scope; Stage A completes as the
