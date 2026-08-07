@@ -17,10 +17,61 @@
       h1 { font-size: 22px; }
       h2 { font-size: 17px; margin: 28px 0 6px; border-bottom: 1px solid #2a3a58; padding-bottom: 4px; }
       .note { color: #93a5c4; font-size: 13px; margin: 0 0 10px; }
-      .links a { display: inline-block; background: #1d2b47; border: 1px solid #33476e;
-        border-radius: 6px; padding: 8px 12px; margin: 4px 6px 4px 0; color: #cfe0ff;
-        text-decoration: none; }
+      /* Grid rather than inline-block: the two-line viewer links have very different widths,
+         and left to flow they wrapped into a ragged staircase. */
+      .links { display: grid; grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));
+        gap: 8px; margin: 8px 0; }
+      .links a { background: #1d2b47; border: 1px solid #33476e; border-radius: 6px;
+        padding: 8px 12px; color: #cfe0ff; text-decoration: none; }
       .links a:hover { background: #26375c; }
+      /* Second line on a viewer link: what the look actually shows, so the recipe names
+         (bold-ice, povray, ggview) are not the only thing to go on. Must be block wherever
+         a link button is used — inline, it runs straight on from the label. */
+      a .sub { display: block; margin-top: 2px; font-size: 12px; color: #8fa3c6; }
+      a:hover .sub { color: #a8bce0; }
+
+      /* Lightbox: click a gallery image to open, click again to close, arrows to page
+         through every image on the page in document order. */
+      .lightbox { position: fixed; inset: 0; z-index: 50; display: flex; align-items: center;
+        justify-content: center; flex-direction: column; gap: 12px; padding: 24px;
+        background: rgba(6, 10, 18, 0.94); cursor: zoom-out; }
+      .lightbox[hidden] { display: none; }
+      .lightbox img { max-width: 94vw; max-height: 82vh; object-fit: contain;
+        border-radius: 4px; background: #0a0f18; box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6); }
+      .lightbox .lb-cap { color: #cfe0ff; font-size: 13.5px; text-align: center;
+        max-width: 80vw; word-break: break-all; }
+      .lightbox .lb-count { color: #7f92b4; font-size: 12px; }
+      .lightbox .lb-nav { position: absolute; top: 50%; transform: translateY(-50%);
+        background: #1d2b47cc; border: 1px solid #33476e; color: #cfe0ff; cursor: pointer;
+        border-radius: 8px; font-size: 26px; line-height: 1; padding: 14px 18px; }
+      .lightbox .lb-nav:hover { background: #26375c; }
+      .lightbox .lb-prev { left: 18px; }
+      .lightbox .lb-next { right: 18px; }
+      .card a { cursor: zoom-in; }
+      /* Crystal-by-crystal table: comparison images | interactive | animation. Three columns
+         so the sparse ones read as a real inventory — most crystals are a still and nothing
+         else, three open interactively, one animates. */
+      .rows { display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 1.4fr) minmax(0, 1.1fr);
+        gap: 0 12px; align-items: start; }
+      .rows-head { position: sticky; top: 0; z-index: 1; background: #0d1420; color: #93a5c4;
+        font-size: 12px; text-transform: uppercase; letter-spacing: 0.04em;
+        padding: 6px 0; border-bottom: 1px solid #2a3a58; }
+      .cell { padding: 12px 0; border-top: 1px solid #1d2941; min-width: 0; }
+      .rows > .cell:nth-child(3n + 4),
+      .rows > .cell:nth-child(3n + 5),
+      .rows > .cell:nth-child(3n + 6) { border-top: 1px solid #1d2941; }
+      .crystal { font-size: 13.5px; color: #dfe7f4; margin-bottom: 6px; }
+      /* Comparisons for one crystal. Wrap rather than scroll: this view exists to show what
+         exists, and Run B's six comparisons must not hide behind a scrollbar. */
+      .strip { display: flex; flex-wrap: wrap; gap: 8px; }
+      .strip .card { flex: 0 0 205px; }
+      .strip .card img { height: 130px; }
+      .cell-links { display: flex; flex-direction: column; gap: 6px; }
+      .cell-links a { background: #1d2b47; border: 1px solid #33476e; border-radius: 6px;
+        padding: 7px 10px; color: #cfe0ff; text-decoration: none; font-size: 13px; }
+      .cell-links a:hover { background: #26375c; }
+      .cell-empty { color: #4d5c7a; font-size: 14px; padding: 4px 2px; }
+
       .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 12px; }
       .card { background: #131c2e; border: 1px solid #263450; border-radius: 8px; overflow: hidden; }
       .card img { width: 100%; height: 170px; object-fit: cover; display: block; background: #0a0f18; }

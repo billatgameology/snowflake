@@ -721,6 +721,20 @@ position). The four looks:
 | `bold-ice` | ice | High-visibility presentation ice — maker-preferred legibility recipe |
 | `povray` | povray | The G-G Fig. 4 ray-trace target: pale translucent body over backlit navy radial glow (locked 2026-08-03) |
 | `ggview` | ggview | Cell-true prisms + drawn structure edges over a pale wash (needs a `-cellmesh.bin`) |
+| `frost` | ice | Clean daylight ice: pale sky, crisp thin contours, low drama (added 2026-08-06) |
+| `aurora` | ice | Polar night: teal-to-violet sky, cyan rim light, heavy dispersion (added 2026-08-06) |
+| `ember` | ice | Low sun: amber-to-plum sky, warm gold rim, glassy body (added 2026-08-06) |
+| `graphite` | ice | Monochrome print: neutral grey, matte body, near-black contour (added 2026-08-06) |
+| `abyss` | povray | The povray treatment over a teal backlight instead of navy (added 2026-08-06) |
+| `glass` | ice | Clear glass: thin walls, double-sided, backdrop visible through the body (added 2026-08-06) |
+
+The first four are **targets** — `footage-ice` and `povray` are locked reproductions of specific
+reference images, `bold-ice` is the maker's legibility pick — and were not touched when the
+lower five were added. The lower five are **exploratory**: they reproduce nothing, and exist
+because one animation plus a look dropdown is a cheap way to see the same growth several ways
+(maker, 2026-08-06: "pretty cool that we can have 1 animation and just change to a different
+look"). All five are `ice` or `povray` so they work on the anim-B timeline; a `ggview` preset
+could not, since the timeline frames are surface meshes with no `-cellmesh.bin`.
 
 ### Maker gaps 1+2: cell-true "ggview" display mode (2026-08-04, commit `ab01e5e`)
 
@@ -1111,3 +1125,133 @@ Controls A–H all executed with observed mutations and expected outcomes (trans
 session; positive round trip re-verified after the rewrite: 21/21, exit 0). Required local
 check rerun after the fixes: exact `TMPDIR=/private/tmp npm test` — exit 0, Rule 7 clean
 (437 files), 81 test files, 1431 passed / 7 skipped (`out/gutcheck-gg-realism/npm-test-5.log`).
+
+### The machine transfer happened (2026-08-06) — restore's Windows gap closed
+
+The 2026-08-04 review left Windows execution unchecked. Executing it for the first time, on the
+Windows 11 target, broke restore twice before a single file was placed. Both were Windows-only
+and both are now fixed in `scripts/gutcheck-archive-restore.ts`:
+
+1. **Wrong tar.** `spawnSync("tar", ...)` takes whatever PATH offers. Under Git Bash / MSYS that
+   is GNU tar, which cannot read zip at all and reads the archive's drive letter as a remote host
+   (`tar -tf 'G:\...'` → "Cannot connect to G: resolve failed"). Restore now resolves
+   `%SystemRoot%\System32\tar.exe` — the bsdtar the script was always written against — explicitly
+   on win32, so it no longer depends on which shell invoked it.
+2. **CRLF listing output.** Windows bsdtar terminates listing lines with CRLF, so splitting on
+   `"\n"` left a trailing `\r` on every entry name. This failed *silently in the safe direction*
+   but totally: directory entries no longer ended in `/` and were classified as files, and every
+   extracted-path `lstat` missed. Symptom was all 22 entries of the 21-file anim-smoke group
+   reporting ERROR/ENOENT against paths that looked correct on screen (the CR is invisible).
+   Listing output is now split with a shared `splitLines` helper that strips the `\r`.
+
+Neither is a fail-open bug — the fail-closed design held, and the run exited 1 with nothing
+placed rather than placing anything unverified. `scripts/gutcheck-archive-pack.ts` is unaffected:
+it shells out to Info-ZIP `zip`, not tar.
+
+Full restore on the new machine after the fixes: all six groups, **1640/1640 files verified,
+30.71 GiB**, 0 mismatched / 0 unverified / 0 blocked / 0 errors, every archive hash checked
+against the ledger first, exit 0 for each group. Independent re-walk of the inventory confirms
+0 missing and 0 size mismatches. `npm ci` + `npm run typecheck` clean.
+
+One transfer-layout note: the zips arrived in `out/gutcheck-gg-realism/archive/` (singular).
+`EXTRAS_SKIP` in the pack script skips `archives/`, so a `--pack all` from that layout would have
+swept 10 GB of zips into the extras archive — the same trap recorded above for loose OUT-root
+bundles, through a different door. The directory was renamed to `archives/` to match.
+
+### The output index website was dead on the new machine too (2026-08-06)
+
+Restoring the artifacts was not enough to see them: `http://localhost:5173/gutcheck-index.html`
+rendered nothing here. Four separate hardcoded-POSIX/hardcoded-machine assumptions, none of
+which had ever been exercised off the author's Mac:
+
+1. **`name()` returned whole paths.** `gutcheck-build-index.ts` used `p.slice(p.lastIndexOf("/") + 1)`
+   over paths built with `node:path`'s `join()`. On Windows those are backslash-separated, so
+   `lastIndexOf("/")` was −1 and `name()` returned the entire path. Every `startsWith("side-by-side-")`
+   filter then matched nothing: sections 2–6 of the index would have been **empty**, silently.
+   All paths in the generator are now kept in forward-slash form.
+2. **`/@fs` URLs were malformed.** `FS = p => "/@fs" + p` concatenates correctly only because a
+   POSIX path starts with "/". On Windows it produced `/@fsG:\Code Files\...` — no separator,
+   backslashes, unencoded space. Now emits the real Vite form, `/@fs/G:/Code%20Files/...`, with
+   per-segment encoding (which also stops a `&`/`?`/`#` in a filename from splitting the query
+   string the viewer reads via `URLSearchParams`). Byte-identical output on POSIX paths.
+3. **The index page hardcoded the author's home directory.** `app/src/gutcheck-index.ts` fell back
+   to `/@fs/Users/clipper/github/snowflake-gutcheck-gg-realism/...` — the last `/Users/clipper`
+   reference in the repo, and unloadable in any other checkout. The dev server now mounts
+   `out/gutcheck-gg-realism/index.json` at a fixed `/gutcheck-index.json` (the `gutcheck-index-json`
+   plugin in `app/vite.config.ts`, `apply: "serve"`), so the page asks for a constant URL and the
+   repo location is resolved where it is actually known. Only the index needs this; the artifacts
+   it links stay on `/@fs`, whose handler already does mime and range (the mp4 needs range).
+4. **A 200 was treated as success.** The fallback chain tried `./data/index.json` first — which
+   exists only in a static bundle — and accepted it on `response.ok`. Under the dev server that
+   path hits the SPA fallback and returns **200 `text/html`**, so the loop stopped at the wrong
+   candidate and `response.json()` threw on HTML, leaving a blank page and never reaching the
+   second URL. Candidates are now also content-type checked. This one is platform-independent and
+   would have bitten a fresh macOS clone the same way.
+
+Verified end to end against a real dev server (Playwright, headless): index page renders all six
+sections, 191 cards, 9 viewer links, 0 page errors, 0 failed requests; the timeline viewer loads
+`manifest.json` plus frame binaries over the encoded `/@fs` path and draws frame 701/701 in
+`bold-ice`. `npm test` clean. The `site/` static bundle is still unbuilt here — it needs
+`large/anim-B-v2q/` regenerated first (see the cleanup note above).
+
+### Index usability pass (2026-08-06, maker-directed)
+
+Two maker asks once the index was reachable again.
+
+**Lightbox.** Gallery images used to be links to the raw file, so comparing figures meant
+open-tab / back / open-tab. A click now opens the image full-screen, any further click closes
+it, and ArrowLeft/ArrowRight page through *every* image on the page in document order (191 of
+them, wrapping at both ends) — Escape closes too. The `href` is left intact so ctrl/cmd/middle
+click still opens the raw file in a new tab, and neighbours are preloaded so paging these
+multi-MB renders does not flash. Behaviour is covered by a headless run: open, page forward and
+back, wrap past both ends, on-screen arrows that must *not* close, backdrop click, Escape,
+and a ctrl-click that must not open the lightbox or navigate.
+
+**Viewer link naming.** The eight interactive-viewer links were named look-first and the look
+names are internal recipe ids — "Run B — povray" tells you nothing about what opens, and the
+same crystal appeared as both "Run B (Fig. 4 plate)" and "Run B". They now read crystal-first
+with the look last (`Fig. 4 plate (Run B), final frame · povray`) and carry a visible second
+line glossing the look ("G-G Fig. 4 ray-trace target, backlit navy glow") plus the controls that
+apply. The `LOOKS` registry in `app/src/spike-gg-realism.ts` remains the source of truth for the
+recipes; the glosses are short restatements, as the mirror table above already is. The link row
+also became a grid — at two lines each, the old inline-block flow wrapped into a staircase.
+
+### "How many animations do I actually have?" — one (2026-08-06)
+
+The maker asked, looking at three "Growth timeline" entries. The answer is **one**: all three
+resolved to the same `large/anim-B/manifest.json` (701 frames, ticks 0→70,000, Run B) and
+differed only by `?look=`, which the viewer's own dropdown already switches in place.
+`large/anim-smoke/` is a 20-frame pipeline smoke test and was never linked; both mp4s are
+renders of that same Run B timeline. The naming pass above had made this *worse* — three rows
+that now differed only by a trailing look name read even more like three animations.
+
+Two corrections to record, because both were stated wrongly in session before being checked:
+
+- σ in `plate-1200-mesh-s045-h06.bin` / `-s0375-h06.bin` is the **mesh-extraction smoothing**,
+  not supersaturation, and both come from the same Run B checkpoint. They are not two runs.
+- The renamed labels had collapsed those two to the same text apart from the look, hiding the
+  σ difference the original labels at least gestured at. They now name σ explicitly.
+
+**Restructure — the index is now crystal-first.** The old shape (a viewer list, then a
+paper-figure gallery, then a photo gallery, with root composites repeated in a fourth section)
+answered "what images exist" but never "what do I actually have". Replaced by one
+**Crystal by crystal** table, three columns as the maker specified — *Comparison (ours vs
+target)*, *Interactive*, *Animation*.
+
+One row per crystal, not per image — grouping matters, because Run B alone has six comparisons
+and a row-per-image table would have shown the single animation six times over, recreating the
+exact illusion the question exposed. The header line counts it plainly: **36 crystals, 44
+side-by-side comparisons, 3 crystals that also open interactively, 1 with a growth animation.**
+Empty cells render as "—" so a gap reads as a real absence rather than a layout accident.
+
+Composites are grouped by a small ordered rule set (`crystalOf`) — `B-vs-*` and `style*-vs-*`
+are Run B, `fig4` maps onto Run B since Run B *is* the Fig. 4 plate, and anything with no cue
+groups under its own name so nothing is dropped for lacking a rule. A guard emits any
+interactive view whose crystal has no comparison image into its own section; empty today, it
+exists so a future mesh cannot silently vanish from the index. Rows sort richest-first, then by
+figure number, so the three crystals worth exploring sit at the top and the paper walkthrough
+order survives below.
+
+Verified headless: 36 rows, 44 thumbnails, 3 with interactive links, 1 with an animation link,
+column headings correct, lightbox still opens from inside a row, 0 page errors, 0 failed
+requests. `npm test` and `vite build` clean.

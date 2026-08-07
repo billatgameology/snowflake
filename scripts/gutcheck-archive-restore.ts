@@ -30,6 +30,7 @@ import { createHash } from "node:crypto";
 import {
   copyFileSync,
   createReadStream,
+  existsSync,
   lstatSync,
   mkdirSync,
   mkdtempSync,
@@ -43,6 +44,17 @@ import { spawnSync } from "node:child_process";
 
 const ROOT = resolve(import.meta.dirname, "..", "out/gutcheck-gg-realism");
 const INVENTORY = join(ROOT, "tracked", "inventory.json");
+
+// The zip reading below needs bsdtar. Windows ships it as System32\tar.exe, but a Git-Bash or
+// MSYS PATH puts GNU tar ahead of it, and GNU tar neither reads zip nor accepts a drive letter
+// (it reads "G:\..." as a remote host and fails with "Cannot connect to G:"). Found the first
+// time either script was run on Windows, 2026-08-06 — the plan had flagged Windows execution as
+// asserted-from-documentation-only. Resolve System32 explicitly there; elsewhere PATH tar is bsdtar.
+const TAR = ((): string => {
+  if (process.platform !== "win32") return "tar";
+  const system32 = join(process.env.SystemRoot ?? "C:\\Windows", "System32", "tar.exe");
+  return existsSync(system32) ? system32 : "tar";
+})();
 
 interface FileEntry {
   relPath: string;
@@ -119,13 +131,21 @@ function loadInventory(): Inventory {
 // The leading mode character is the entry type; the name is everything after the timestamp
 // columns. Parsing the name from -tv output is brittle across tar builds, so entry TYPES
 // come from -tv and entry NAMES from plain -t, and the counts must agree.
+// Windows bsdtar terminates its listing lines with CRLF. Splitting on "\n" alone leaves a
+// trailing "\r" on every name, which silently breaks BOTH the directory test ("large/x/\r" no
+// longer ends in "/", so a directory is treated as a file) and every lstat of an extracted
+// path — the 2026-08-06 first-run-on-Windows symptom was all-entries ENOENT.
+function splitLines(stdout: string): string[] {
+  return stdout.split("\n").map((line) => line.replace(/\r$/, "")).filter((line) => line.length > 0);
+}
+
 function listEntries(zipPath: string): { names: string[]; badTypes: string[] } {
-  const t = spawnSync("tar", ["-tf", zipPath], { encoding: "utf8", maxBuffer: 64 * 1024 * 1024 });
+  const t = spawnSync(TAR, ["-tf", zipPath], { encoding: "utf8", maxBuffer: 64 * 1024 * 1024 });
   if (t.status !== 0) throw new Error(`tar -tf failed: ${t.stderr}`);
-  const names = t.stdout.split("\n").filter((line) => line.length > 0);
-  const tv = spawnSync("tar", ["-tvf", zipPath], { encoding: "utf8", maxBuffer: 64 * 1024 * 1024 });
+  const names = splitLines(t.stdout);
+  const tv = spawnSync(TAR, ["-tvf", zipPath], { encoding: "utf8", maxBuffer: 64 * 1024 * 1024 });
   if (tv.status !== 0) throw new Error(`tar -tvf failed: ${tv.stderr}`);
-  const tvLines = tv.stdout.split("\n").filter((line) => line.length > 0);
+  const tvLines = splitLines(tv.stdout);
   if (tvLines.length !== names.length) {
     throw new Error(`tar -t and tar -tv disagree on entry count (${names.length} vs ${tvLines.length})`);
   }
@@ -209,7 +229,7 @@ async function main(): Promise<void> {
 
   const counts = { OK: 0, SKIP: 0, UNVERIFIED: 0, MISMATCH: 0, EXISTS: 0, ERROR: 0 };
   try {
-    const extract = spawnSync("tar", ["-xf", zipPath, "-C", tmp], { stdio: "inherit" });
+    const extract = spawnSync(TAR, ["-xf", zipPath, "-C", tmp], { stdio: "inherit" });
     if (extract.status !== 0) throw new Error(`tar -xf failed (status ${extract.status})`);
 
     for (const entry of fileEntries) {

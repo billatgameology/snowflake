@@ -98,6 +98,81 @@ const LOOKS: Readonly<Record<string, LookPreset>> = {
     note: "cell-true prisms + drawn structure edges (use a -cellmesh.bin)",
     params: {},
   },
+
+  // ── Exploratory looks (2026-08-06, maker-requested "a few more looks"). ──────────────
+  // The four above are targets: footage-ice and povray are locked reproductions of specific
+  // reference images and bold-ice is the maker's legibility pick. These five are not
+  // reproductions of anything — they exist because one animation plus a look dropdown is a
+  // cheap way to see the same growth several ways. All are `ice` or `povray` so they work on
+  // the anim-B timeline; a `ggview` preset would need a -cellmesh.bin the frames do not have.
+  frost: {
+    style: "ice",
+    note: "clean daylight ice: pale sky, crisp edges, low drama",
+    params: {
+      keyHex: "ffffff", keyI: "2.8", fillHex: "aec4e6", fillI: "1.5",
+      edge: "2.1", edgePow: "1.25", edgeLo: "0.12", edgeCool: "22304a", edgeWarm: "ffffff",
+      thick: "12", rough: "0.08", spec: "1.0",
+      bgTop: "eef4fb", bgBottom: "c6d4e8", exposure: "1.0", zscale: "2.4",
+    },
+  },
+  aurora: {
+    style: "ice",
+    note: "polar night: teal-to-violet sky, cyan rim light, heavy dispersion",
+    params: {
+      keyHex: "9ffbe0", keyI: "3.0", fillHex: "7a6cf0", fillI: "1.6",
+      edge: "2.0", edgePow: "1.1", edgeLo: "0.10", edgeCool: "06131f", edgeWarm: "b8ffe8",
+      dispersion: "0.25", thick: "16", rough: "0.04", spec: "1.1",
+      bgTop: "07373f", bgBottom: "141033", exposure: "1.05", zscale: "2.8",
+    },
+  },
+  ember: {
+    style: "ice",
+    note: "low sun: amber-to-plum sky, warm gold rim, glassy body",
+    params: {
+      keyHex: "ffd9a0", keyI: "3.4", fillHex: "e3739b", fillI: "1.7",
+      edge: "1.8", edgePow: "1.2", edgeLo: "0.10", edgeCool: "2b0f2a", edgeWarm: "ffe6bd",
+      dispersion: "0.12", thick: "15", rough: "0.06", spec: "1.0",
+      bgTop: "ff9d5c", bgBottom: "6c2f6b", exposure: "1.05", zscale: "2.6",
+    },
+  },
+  graphite: {
+    style: "ice",
+    note: "monochrome print: neutral grey, matte body, near-black contour",
+    params: {
+      keyHex: "ffffff", keyI: "2.6", fillHex: "b9bec7", fillI: "1.2",
+      edge: "2.6", edgePow: "1.5", edgeLo: "0.08", edgeCool: "15181c", edgeWarm: "6d747f",
+      tr: "0.85", thick: "8", rough: "0.22", spec: "0.4",
+      bgTop: "d8dade", bgBottom: "9ea3ab", exposure: "0.95", zscale: "2.2",
+    },
+  },
+  abyss: {
+    style: "povray",
+    note: "the povray ray-trace treatment over a teal backlight instead of navy",
+    params: {
+      tr: "0.7", body: "d8fbf5", edge: "1.3", edgeLo: "0.08", edgeCool: "eafffb",
+      spec: "1.4", keyHex: "e6fffb", keyI: "2.6",
+      bgInner: "2aa6a0", bgOuter: "02100f", exposure: "1.25",
+    },
+  },
+  // Genuinely see-through (maker, 2026-08-06). The material was always physically
+  // transmissive — what read as solid was `thick` 14 (long attenuation path tints the body
+  // opaque), FrontSide (back faces never drawn, so there is nothing to see through TO), and
+  // ior 1.31 (real ice, but it refracts the far side into an unreadable smear). Thin walls +
+  // double-sided + a gentler ior gives clear glass you can read the far arms through. Not
+  // physically faithful — `footage-ice` and `povray` remain the honest ones.
+  glass: {
+    style: "ice",
+    note: "clear glass: thin walls, double-sided, backdrop visible through the crystal",
+    params: {
+      tr: "1.0", thick: "2", rough: "0.02", ior: "1.12", side: "double",
+      body: "ffffff", spec: "0.8", cc: "0.35", env: "1.3",
+      // Light contour on a dark backdrop. A clear body over a pale backdrop is invisible —
+      // transparency only reads when there is something behind it to see through TO.
+      edge: "1.6", edgePow: "1.3", edgeLo: "0.12", edgeCool: "cfe8ff", edgeWarm: "ffffff",
+      keyHex: "ffffff", keyI: "2.8", fillHex: "8fb6e8", fillI: "1.2",
+      bgTop: "2e6fb5", bgBottom: "081428", exposure: "1.1", zscale: "2.4",
+    },
+  },
 };
 const activeLookName = query.get("look");
 const activeLook = activeLookName !== null ? LOOKS[activeLookName] : undefined;
