@@ -181,6 +181,12 @@ amended obligation set per decision 0045. This supersedes the 2026-08-01 directi
 application to the headline and campaign; the strata freeze, the budget-capped ladder, honest
 labels, and every retained validity criterion stand.
 
+**Maker clarification, 2026-08-07, verbatim:** "we have already committed to this plan, if
+it's not perfectly done is 7 days, it's fine. let's focus on getting it done as efficiently as
+possible while maintaining science, accuracy, and record keeping at highest priority." The
+envelope bounds scope, not correctness: a unit that needs an extra day to be done right takes
+the extra day; no validity criterion, label, or record is ever traded for the calendar.
+
 The maker's 2026-08-02 sequencing direction is also binding: **freeze all further education-site
 work until Phase 6 is complete.** The landing page carries a prominent warning that the course is
 not the authoritative status or validation record. Preserve the current `docs/education/**` work
