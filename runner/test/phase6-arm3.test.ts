@@ -276,13 +276,13 @@ describe("arm 3's two-hash scheme", () => {
     // replaces the values and protocol literals (the freeze commit sits inside both manifests)
     // and leaves the justification literal alone.
     expect(PHASE6_ARM3_VALUES_SHA256).toBe(
-      "399f264e2ccd71cbb622fe23000b098e63f106d5a99253ec9c43abc5e3069f3b",
+      "297927daeb2ef5a864162191444666c7fda5ced70e78312abbe28af1622db92e",
     );
     expect(PHASE6_ARM3_JUSTIFICATION_SHA256).toBe(
       "7d01d251c98d7663b215daeb47bb39baec1f070e4c7edd7eac86f4f9d63803a2",
     );
     expect(PHASE6_ARM3_PROTOCOL_SHA256).toBe(
-      "d9d02f32be20fc500aeffd74aaf05ecce85e2027cf0e90aa6e843fc87594ec90",
+      "79c71a54911360a799f2b85d64fd9ec9fb89e9c5f0f013e7a1aec12ded7cd231",
     );
     expect(PHASE6_ARM3_VALUES_REVISIONS.map(({ sha256 }) => sha256)).toEqual([
       PHASE6_ARM3_VALUES_SHA256,

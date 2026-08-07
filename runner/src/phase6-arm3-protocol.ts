@@ -69,7 +69,7 @@ import {
  *   3. update the literal hash pins in `runner/test/phase6-arm3.test.ts`.
  * `PHASE6_ARM3_JUSTIFICATION_SHA256` does not move: the justification manifest carries no commit.
  */
-export const PHASE6_ARM3_FREEZE_COMMIT = "pending-stage-2-landing";
+export const PHASE6_ARM3_FREEZE_COMMIT = "6d140bf7de3d3aba69631a407b6c064073e650b9";
 
 /** Arm 3's identity, recorded in its artifacts so an arm can never be mistaken for another. */
 export const PHASE6_ARM3_ID = "arm3-no-dip-ablation" as const;
@@ -315,7 +315,7 @@ export function phase6Arm3JustificationManifest(
  * The stage-1 hash gates nothing: preflight refuses the arm by name until the commit is 40-hex.
  */
 export const PHASE6_ARM3_VALUES_SHA256 =
-  "399f264e2ccd71cbb622fe23000b098e63f106d5a99253ec9c43abc5e3069f3b";
+  "297927daeb2ef5a864162191444666c7fda5ced70e78312abbe28af1622db92e";
 
 /** Arm 3's justification hash — reported, never gated. Stable across the stage-2 landing. */
 export const PHASE6_ARM3_JUSTIFICATION_SHA256 =
@@ -338,13 +338,13 @@ export const PHASE6_ARM3_JUSTIFICATION_REVISIONS: readonly {
 /** Values-hash revisions for arm 3, newest last. Stage 2 updates the single entry in place. */
 export const PHASE6_ARM3_VALUES_REVISIONS: readonly { sha256: string; note: string }[] = [
   {
-    sha256: "399f264e2ccd71cbb622fe23000b098e63f106d5a99253ec9c43abc5e3069f3b",
+    sha256: "297927daeb2ef5a864162191444666c7fda5ced70e78312abbe28af1622db92e",
     note:
       "arm-3 registration, decision 0045 item 4. 27 rows: arm 1's 25 with param-set, " +
       "parameter-interpolation and parameter-table overridden, plus bistable-band and " +
-      "ablation-identity. STAGE 1 of the two-commit landing: hashed with freezeCommit = " +
-      "\"pending-stage-2-landing\"; stage 2 lands the 40-hex freeze commit and recomputes this " +
-      "entry in place — the stage-1 hash gated no run, because preflight refuses a non-40-hex " +
+      "ablation-identity. Stage 2 of the two-commit landing: hashed with freezeCommit = " +
+      "6d140bf7 (the stage-1 registration commit). The superseded stage-1 hash 399f264e was " +
+      "computed with the pending marker and gated no run — preflight refuses a non-40-hex " +
       "freeze commit by name. Registered BEFORE any arm-3 point ran",
   },
 ];
@@ -368,14 +368,14 @@ export function phase6Arm3ProtocolManifest(
  * freeze commit sits inside this manifest too).
  */
 export const PHASE6_ARM3_PROTOCOL_SHA256 =
-  "d9d02f32be20fc500aeffd74aaf05ecce85e2027cf0e90aa6e843fc87594ec90";
+  "79c71a54911360a799f2b85d64fd9ec9fb89e9c5f0f013e7a1aec12ded7cd231";
 
 /** Combined-hash revisions for arm 3, newest last; combined hashes move on prose by design. */
 export const PHASE6_ARM3_PROTOCOL_REVISIONS: readonly { sha256: string; note: string }[] = [
   {
-    sha256: "d9d02f32be20fc500aeffd74aaf05ecce85e2027cf0e90aa6e843fc87594ec90",
+    sha256: "79c71a54911360a799f2b85d64fd9ec9fb89e9c5f0f013e7a1aec12ded7cd231",
     note:
-      "arm-3 registration combined manifest, stage 1 of the two-commit landing (freezeCommit " +
-      "still the pending marker); stage 2 recomputes this entry in place with the 40-hex commit",
+      "arm-3 registration combined manifest, stage 2 of the two-commit landing (freezeCommit = " +
+      "6d140bf7, the stage-1 registration commit; the superseded stage-1 hash was d9d02f32)",
   },
 ];
