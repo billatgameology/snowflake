@@ -864,6 +864,10 @@ Nothing below is blocked; all of it is unstarted or deliberately deferred.
 `origin` at `b76b494` and is unmerged; that is exactly the "not ready to merge" state.
 PR #2 was opened and closed (reasons recorded on it); reopen when the items above close.
 
+**Six archives to copy** (`archives/`, ~10.0 GB total): anim-B, figs, checkpoints, meshes,
+anim-smoke, extras. All six are needed for a clean resume — the first five are the binaries,
+`extras` is the evidence layer.
+
 On the new machine:
 
 ```
@@ -891,8 +895,31 @@ zips** to copy:
 | `gutcheck-large-meshes-20260807.zip` | 330 MB | `c6baddf2fef62c0e3629921e39def22ec2f5a508d2d60a488a0f90935f067526` |
 | `gutcheck-large-anim-smoke-20260807.zip` | 8.2 MB | `fb6803945f22754c2fbf0174b4ad193e9469f979b9a75eea64c29c94d96df038` |
 
-Round trip re-verified after the re-pack: anim-smoke restored 21/21 verified, 0 mismatched,
-archive hash checked against the ledger before extraction.
+**A sixth group, `extras`, was added 2026-08-07 after a gap check** showed the archives
+covered only `large/`. Everything else under `out/gutcheck-gg-realism/` — the 35
+`figN-record.json` files the coverage table cites, all 33 side-by-side composites and the
+renders behind them, `photos/`, the specs, the run logs, the PGM/cartesian diagnostic
+dumps, and the P7 artifacts including `growth-B-intro.mp4` — is gitignored AND was in no
+zip, so a machine move would have carried the checkpoints and lost the evidence layer.
+It is not regenerable without re-running the sweep. `gutcheck-large-extras-20260807.zip`
+is 222.9 MB (795.2 MB / 837 files),
+sha256 `0ec2f7be64d45b46108edd59f3c05e6f3de7a768786f87ca3033e616e4acea0d`.
+
+Inventory entries now carry `root`: `"out"` for the extras layer (relPath relative to
+`out/gutcheck-gg-realism/`), absent or `"large"` for the binaries (relPath relative to
+`large/`). Restore places both and validates entry paths against the never-packed
+locations (`archives/`, `site/`, `tracked/`) rather than requiring a `large/` prefix.
+
+Loose `.zip`/`.tar` files at the OUT root are skipped by the extras walk: a Finder
+"Compress" of `archives/` leaves a multi-GB bundle there, and the first extras pack swept
+one in and produced a 9.26 GB archive containing a copy of the archive set. Caught by
+checking the group's size against a prior measurement — a 9.8 GB "workspace layer" where
+~800 MB was expected.
+
+Round trips re-verified after the re-pack: anim-smoke 21/21 verified into `large/anim-smoke/`
+(the `large/` path is unregressed), extras 837/837 verified with records, composites and the
+mp4 landing at their real locations, 0 mismatched in both, archive hashes checked against the
+ledger before extraction.
 
 **Cleanup performed the same day** (46 GB -> 39 GB local): removed the 0-byte
 `fig14v2-state.ckpt` left by the failed run (it would otherwise have been inventoried and

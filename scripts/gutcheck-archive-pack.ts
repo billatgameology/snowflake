@@ -36,11 +36,14 @@ const INVENTORY = join(TRACKED_DIR, "inventory.json");
 const ARCHIVES = join(ROOT, "archives");
 
 interface FileEntry {
-  relPath: string; // posix-style, relative to large/
+  /** posix-style; relative to large/ when root is "large", else relative to OUT. */
+  relPath: string;
   group: string;
   bytes: number;
   mtimeMs: number;
   sha256: string;
+  /** Omitted (legacy) or "large" = under large/. "out" = the workspace evidence layer. */
+  root?: "large" | "out";
 }
 interface ArchiveEntry {
   name: string;
@@ -119,12 +122,31 @@ function formatBytes(n: number): string {
 async function main(): Promise<void> {
   const { pack, level } = parseArgs();
   const prior = loadPrior();
+  // Cache key namespaces the two roots so an "out"-rooted figs/x.png can never be matched
+  // against a "large"-rooted figs/x.png.
   const priorByPath = new Map<string, FileEntry>(
-    (prior?.files ?? []).map((f) => [f.relPath, f]),
+    (prior?.files ?? []).map((f) => [f.root === "out" ? `out:${f.relPath}` : f.relPath, f]),
   );
 
+  // Two roots. large/ holds the heavy binaries, grouped by kind. The workspace layer —
+  // run records the coverage table cites, renders, composites, specs, logs — lives beside
+  // it under OUT and is equally unrecoverable if lost (gitignored, and not regenerable
+  // without re-running the sweep), so it is inventoried and packed as the "extras" group.
+  const EXTRAS_SKIP = new Set(["large", "archives", "site", "tracked"]);
   const relPaths: string[] = [];
   walk(LARGE, "", relPaths);
+  const extraPaths: string[] = [];
+  for (const name of readdirSync(ROOT).sort()) {
+    if (name.startsWith(".") || EXTRAS_SKIP.has(name)) continue;
+    // Loose .zip/.tar files at OUT root are transfer bundles (Finder "Compress" on
+    // archives/ produces exactly this) — packing one into an archive would duplicate
+    // gigabytes and nest the archive set inside itself.
+    if (/\.(zip|tar|tar\.gz|tgz)$/i.test(name)) continue;
+    const full = join(ROOT, name);
+    if (statSync(full).isDirectory()) walk(full, name, extraPaths);
+    else extraPaths.push(name);
+  }
+
   const files: FileEntry[] = [];
   let hashed = 0;
   let reused = 0;
@@ -139,6 +161,20 @@ async function main(): Promise<void> {
     } else {
       const digest = await sha256File(full);
       files.push({ relPath, group, bytes: st.size, mtimeMs: st.mtimeMs, sha256: digest });
+      hashed++;
+    }
+  }
+
+  for (const relPath of extraPaths) {
+    const full = join(ROOT, relPath);
+    const st = statSync(full);
+    const cached = priorByPath.get(`out:${relPath}`);
+    if (cached !== undefined && cached.bytes === st.size && cached.mtimeMs === st.mtimeMs) {
+      files.push({ relPath, group: "extras", bytes: st.size, mtimeMs: st.mtimeMs, sha256: cached.sha256, root: "out" });
+      reused++;
+    } else {
+      const digest = await sha256File(full);
+      files.push({ relPath, group: "extras", bytes: st.size, mtimeMs: st.mtimeMs, sha256: digest, root: "out" });
       hashed++;
     }
   }
@@ -179,10 +215,16 @@ async function main(): Promise<void> {
     rmSync(zipPath, { force: true });
     console.log(`packing ${group} -> archives/${name} (deflate level ${level}) ...`);
     // -x '*/.*' keeps dot-prefixed names (.DS_Store etc.) out of the zip so the archive
-    // holds exactly the file set the inventory walk hashed.
+    // holds exactly the file set the inventory walk hashed. The extras group zips the
+    // workspace layer at OUT root (entries like "figs/fig38-record.json"); every other
+    // group zips its large/ subtree.
+    const targets =
+      group === "extras"
+        ? [...new Set(extraPaths.map((p) => p.split("/")[0]!))]
+        : [`large/${group}`];
     const result = spawnSync(
       "zip",
-      ["-r", "-q", `-${level}`, zipPath, `large/${group}`, "-x", "*/.*"],
+      ["-r", "-q", `-${level}`, zipPath, ...targets, "-x", "*/.*", "-x", "archives/*", "-x", "site/*", "-x", "large/*"],
       { cwd: ROOT, stdio: "inherit" },
     );
     if (result.status !== 0) throw new Error(`zip failed for group ${group} (status ${result.status})`);

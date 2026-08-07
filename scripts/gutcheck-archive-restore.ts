@@ -48,6 +48,8 @@ interface FileEntry {
   relPath: string;
   sha256: string;
   bytes: number;
+  /** "out" = workspace layer at OUT root; otherwise relative to large/. */
+  root?: "large" | "out";
 }
 interface ArchiveEntry {
   name: string;
@@ -141,7 +143,11 @@ async function main(): Promise<void> {
   const { zipPath, dest, force } = parseArgs();
   statSync(zipPath);
   const inventory = loadInventory();
-  const inventoryByPath = new Map(inventory.files.map((f) => [`large/${f.relPath}`, f]));
+  // Entry paths are relative to OUT: heavy binaries under "large/…", the workspace
+  // evidence layer (records, renders, composites, specs, logs) at the root.
+  const inventoryByPath = new Map(
+    inventory.files.map((f) => [f.root === "out" ? f.relPath : `large/${f.relPath}`, f]),
+  );
 
   // Verify the archive itself against the ledger before trusting its contents.
   const zipSha = await sha256File(zipPath);
@@ -179,8 +185,12 @@ async function main(): Promise<void> {
     if (entry.startsWith("/") || entry.includes("\\") || entry.split("/").includes("..")) {
       throw new Error(`unsafe entry path, refusing archive: ${entry}`);
     }
-    if (!entry.startsWith("large/")) {
-      throw new Error(`entry outside large/, not a gutcheck archive: ${entry}`);
+    // Refuse anything that would land outside the destination tree. Entries may sit under
+    // large/ (binaries) or at OUT root (the extras/workspace layer); archives/, site/ and
+    // tracked/ are never packed, so an entry claiming those is not one of ours.
+    const top = entry.split("/")[0]!;
+    if (top === "archives" || top === "site" || top === "tracked") {
+      throw new Error(`entry in a never-packed location, not a gutcheck archive: ${entry}`);
     }
     if (!entry.endsWith("/")) fileEntries.push(entry);
   }
@@ -270,10 +280,15 @@ async function main(): Promise<void> {
   }
 
   // Completeness note: inventory files in this archive's groups that the archive lacks.
-  const groupsInArchive = new Set(fileEntries.map((e) => e.split("/")[1]!));
-  const missing = inventory.files.filter(
-    (f) => groupsInArchive.has(f.relPath.split("/")[0]!) && !fileEntries.includes(`large/${f.relPath}`),
+  const entrySet = new Set(fileEntries);
+  const groupsInArchive = new Set(
+    fileEntries.map((e) => (e.startsWith("large/") ? e.split("/")[1]! : "extras")),
   );
+  const missing = inventory.files.filter((f) => {
+    const key = f.root === "out" ? f.relPath : `large/${f.relPath}`;
+    const group = f.root === "out" ? "extras" : f.relPath.split("/")[0]!;
+    return groupsInArchive.has(group) && !entrySet.has(key);
+  });
   if (missing.length > 0) {
     console.warn(
       `note: ${missing.length} inventory file(s) in group(s) ${[...groupsInArchive].join(", ")} ` +
