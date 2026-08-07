@@ -104,10 +104,11 @@ index, a plan, ADR, or audit links to historical detail.
   gut-check/social content plus its reconciliation merges, performed by Claude Sonnet 5 per their
   commit records — with one conflict, this section, resolved by keeping the newer Phase 6 state
   and adopting the exploration-branch bullet above. The remote touched only `docs/`, `scripts/`,
-  and `app/` — no solver, evidence, `.gitattributes`, or charter files. The merged tree's exact
-  `npm.cmd test` result and the maker-directed push are recorded here before further evidence
-  runs. Preserve `research/tmp/` as useful local research context; durable generated science
-  belongs under tracked `evidence/`.
+  and `app/` — no solver, evidence, `.gitattributes`, or charter files. On the merged tree (`4181724`), exact
+  `npm.cmd test` exited 0: Rule 7 clean over 475 files, both TypeScript projects passed, Vitest
+  83 files / 1,467 tests in 680.51 s; the maker-directed push of merged `main` executed
+  2026-08-06. Preserve `research/tmp/` as useful local research context; durable generated
+  science belongs under tracked `evidence/`.
 - 2026-08-06 resume baseline: exact `npm.cmd test` at `af7463b` exited 0 in 803.16 s of Vitest
   (Rule 7 clean over 432 files; both TypeScript projects passed; 81 files / 1,446 tests). Same
   session author-side verification (Claude Fable 5, shared context — working checks, not a
