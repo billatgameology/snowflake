@@ -16,6 +16,10 @@ import { phase6SigmaInf } from "../../runner/src/phase6-protocol.ts";
 
 // ── Frozen fixed configuration (plan: "Fixed run configuration, frozen") ────────────────────
 // Every row uses these; a rung or auxiliary control varies its own operand by named flag only.
+// runner/test/phase6-wp2-ladder-eval.test.ts (review H2) reads this object LITERALLY from the
+// source bytes and cross-checks it against the registered constants in
+// runner/src/phase6-crossplatform.ts and runner/src/phase6-protocol.ts — keep the
+// `const FIXED = { ... };` form (and the `const STEP_CAP = ...;` line below) intact.
 const FIXED = {
   surfacePolicy: "aggregate-hv-g1h1-v6",
   farField: "monopole-matched",
