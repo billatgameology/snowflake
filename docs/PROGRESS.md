@@ -144,7 +144,7 @@ index, a plan, ADR, or audit links to historical detail.
   frozen tree exited 0: Rule 7 clean over 436 files, both TypeScript projects, Vitest 82 files /
   1,454 tests in 628.68 s. Whether WP2 uses Z = 2 or Z = 1 strata is a WP2/WP3 protocol
   decision.
-- **Last updated:** 2026-08-06 by Claude Fable 5
+- **Last updated:** 2026-08-07 by Claude Fable 5
 
 ## Phase gates
 

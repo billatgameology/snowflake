@@ -31,7 +31,7 @@ function currentIndexErrors(text: string): string[] {
     "CAK 3/90, M1 54/90",
     "M1_NO_DIP_ABLATION",
     "cannot establish physical SDAK causality or necessity",
-    "- **Last updated:** 2026-08-06",
+    "- **Last updated:** 2026-08-07",
   ];
   for (const phrase of required) {
     if (!text.includes(phrase)) errors.push(`missing current-state phrase: ${phrase}`);
@@ -109,8 +109,8 @@ describe("compact progress index and byte-exact historical record", () => {
       .match(/^# Handoff .* \((\d{4}-\d{2}-\d{2})\)$/mu)?.[1];
     // HANDOFF.md is the last maker-triggered stop snapshot and moves only on maker request;
     // PROGRESS.md advances with ordinary work, so the two dates are pinned independently.
-    expect(progressDate).toBe("2026-08-06");
-    expect(handoffDate).toBe("2026-08-06");
+    expect(progressDate).toBe("2026-08-07");
+    expect(handoffDate).toBe("2026-08-07");
     expect(existsSync(ACTIVE_PLAN)).toBe(true);
     expect(existsSync(ARCHIVE)).toBe(true);
   });
