@@ -52,6 +52,10 @@ Deliverables live under `docs/video/` (new directory, long-form track), separate
 - [x] Write `docs/video/ch01-animation-prompts.md` — global style preamble plus one paste-ready
       prompt per animation, each naming the script rows and timestamps it feeds.
 - [x] Commit deliverables on this branch.
+- [x] Write `docs/video/ch01-video-gen-prompts.md` — Seedance-class text-to-video prompts
+      (V-series B-roll track): per-shot scene/setting/camera or elements/animation
+      descriptions, mapped to script rows, with the no-text rule, the six-fold geometry QC
+      gate, and the on-screen tag requirement (maker-requested addition, 2026-08-07).
 - [ ] Rule 13 adversarial fact-check audit by a non-author reviewer, against the script's
       fact-check table and the chapter, before any recording. Two VO glosses are pre-flagged
       for that audit inside the script ("picks the birthday", "a snowflake is a diary").
@@ -85,6 +89,11 @@ Deliverables live under `docs/video/` (new directory, long-form track), separate
 
 - Who performs the pre-recording adversarial audit (Rule 13)? The maker's standing workflow
   prefers a reviewer that did not share context with the author.
+- **On-screen tag for AI-generated footage.** The series bible's source-tag system is
+  three-state (PHOTO / MODEL / DIAGRAM) and generated video fits none of them. The V-series
+  file proposes **AI ILLUSTRATION** as a fourth state; ratifying (or renaming) that tag is a
+  maker decision that should also be reflected in the series bible if the social program ever
+  uses generated clips. Until decided, no generated clip ships.
 - Voice: the social program is voiceover-only with no on-camera face. This script assumes the
   same. If the maker wants an on-camera presenter, the ON SCREEN column needs a pass.
 - Whether the cold open should later be upgraded with a MODEL growth-timeline render once one

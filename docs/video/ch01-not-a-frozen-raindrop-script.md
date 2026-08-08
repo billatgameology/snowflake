@@ -4,10 +4,15 @@
   them at the recording session)
 - **Format:** Long-form chapter video, YouTube. Voiceover only, no on-camera presenter.
 - **Source chapter:** [Chapter 1 — Not a Frozen Raindrop](../education/chapters/01-not-a-frozen-raindrop.html)
-- **Visuals:** DIAGRAM-only. Every visual is an original animation (prompts in
-  [ch01-animation-prompts.md](ch01-animation-prompts.md), IDs `A1`–`A13`). No source figures, no
-  photographs, no simulation renders. If a MODEL render is ever cut in, the spoken three-second
-  disclosure from the series bible is mandatory.
+- **Visuals:** two tracks. The load-bearing track is DIAGRAM-only — original animations
+  (prompts in [ch01-animation-prompts.md](ch01-animation-prompts.md), IDs `A1`–`A13`) carrying
+  every quantitative and causal beat. An optional generated B-roll track
+  ([ch01-video-gen-prompts.md](ch01-video-gen-prompts.md), IDs `V1a`–`V13a`) may underlay or
+  intercut for atmosphere only: on-screen tag mandatory (proposed **AI ILLUSTRATION** —
+  pending maker ratification), six-fold geometry QC gate on any visible crystal, and never
+  the sole carrier of a fact. No source figures, no photographs, no simulation renders. If a
+  MODEL render is ever cut in, the spoken three-second disclosure from the series bible is
+  mandatory.
 - **Badge:** SETTLED (terminal beat), with the chapter's own "still unsettled" door named
   honestly in the outro.
 - **Status:** DRAFT — requires a Rule 13 adversarial fact-check audit by a non-author reviewer
@@ -98,6 +103,9 @@ fact-check comment.
 - **Everything must be built.** No existing renders are used; all thirteen animations are
   original DIAGRAM pieces generated from the prompts file. Longest poles: A5 (roulette +
   histogram), A8 (the relay), A12 (synchronised arms).
+- **Generated B-roll is optional and subordinate.** The V-series clips add texture, not
+  facts. Any generated clip showing a crystal passes the six-fold QC gate before the edit;
+  expect a high reject rate, and if no take passes, the A-animation carries the beat alone.
 - **Timestamps are elastic at the row level** — lock them against the recorded VO, keeping the
   answer-at-60 % placement of A8 and the badge inside the final 20 seconds.
 - **Spelling:** on-screen text uses the chapter's British spellings ("vapour").
