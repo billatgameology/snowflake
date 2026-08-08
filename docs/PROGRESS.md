@@ -49,14 +49,19 @@ index, a plan, ADR, or audit links to historical detail.
   configuration, exit 0, execution head `6340429`, from the two-stage freeze `6d140bf`/`e209d98`
   (values hash `297927da…2db92e` gated). Quoted from
   `evidence/phase6-sweep-arm3/report.json` (1,365 bytes, SHA-256 `32d18a1d…`): headline **5/78
-  arm-scope, 5/90 common denominator**, neutral 155, excluded 0, extent-fragile 24, bistable
-  band 11/18. Measured-only grade; the registered conservative-intersection headline is not
-  computed (decision 0045); numerical adequacy is per the pending ladder verdict. The matched
-  M1-versus-ablation pair shows agreement collapsing 54/90 → 5/90 when only the two dip factors
-  are replaced by one — an implementation-level contrast that cannot establish physical SDAK
-  causality or necessity in nature. Points/diagram are manifested (244,610 / 30,634 bytes);
-  the independent sibling verifier and the unit's non-author review are the remaining
-  publication steps.
+  arm-scope, 5/90 common denominator**, neutral 155, excluded 0, extent-fragile 24. All five
+  headline agreements sit in the single-temperature plates-warm regime (5/6 at −2 °C; 0/72
+  elsewhere in headline scope) — structurally like arm 1's 3/90. The bistable band records
+  11/18 non-neutral rows, all plates; in that band the registered rule accepts either pure
+  class, so any non-neutral row agrees by construction. Measured-only grade; the registered
+  conservative-intersection headline is not computed (decision 0045); numerical adequacy is per
+  the pending ladder verdict. The matched M1-versus-ablation pair shows agreement collapsing
+  54/90 → 5/90 when only the two dip factors are replaced by one — an implementation-level
+  contrast that cannot establish physical SDAK causality or necessity in nature. Points/diagram
+  are manifested (244,610 / 30,634 bytes). The Rule 9 sibling verifier passes and is
+  suite-pinned; the unit's non-author review returned **0 blockers** (its own 204-row
+  recomputation matched every published number; ten hardening items recorded in
+  [the arm-3 plan](plans/phase-6-arm3-sweep.md), four adopted).
 - CAK→M1 is a confounded parameter-family comparison. Only matched M1 versus
   `M1_NO_DIP_ABLATION` may isolate the implemented dip factors' effect on this solver under the
   frozen configuration; it **cannot establish physical SDAK causality or necessity** in nature.

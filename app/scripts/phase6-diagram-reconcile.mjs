@@ -17,7 +17,7 @@ import { createHash } from "node:crypto";
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import { phase6RenderDiagram } from "../../runner/src/phase6-diagram.ts";
-import { PHASE6_ARM1, PHASE6_ARM2 } from "../../runner/src/phase6-sweep.ts";
+import { PHASE6_ARM1, PHASE6_ARM2, PHASE6_ARM3 } from "../../runner/src/phase6-sweep.ts";
 
 const sha = (b) => createHash("sha256").update(b).digest("hex");
 
@@ -33,6 +33,7 @@ const sha = (b) => createHash("sha256").update(b).digest("hex");
 const TARGETS = [
   { arm: PHASE6_ARM1, dir: "phase6-sweep" },
   { arm: PHASE6_ARM2, dir: "phase6-sweep-arm2" },
+  { arm: PHASE6_ARM3, dir: "phase6-sweep-arm3" },
 ];
 
 /** The two chrome lines: the 16px title and the 11px grey provenance subtitle. */

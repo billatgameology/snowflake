@@ -95,6 +95,39 @@ implementation-level dip-factor contrast, never physical SDAK causality in natur
 Any edit to arm-1/arm-2 manifests, hashes, or historical artifacts; the ladder (separate
 plan); education; GPU; held-out.
 
+## Review record
+
+**2026-08-07, one engagement, verdict: 0 blockers.** Reviewer provenance, in its own words: its
+system prompt names "Opus 5 (1M context), exact ID `claude-opus-5[1m]`"; it noted the repo's
+commit-signature convention (Claude Fable 5) is the author's identity, not its own; fresh
+session, no shared context, strictly read-only. As with WP1, the different-model status versus
+the author is recorded conservatively as not independently provable from inside the harness.
+
+Independently re-executed: its own 204-row recomputation from the registered rules (importing
+nothing from `runner/src`, re-deriving classes from raw telemetry) — **0 mismatches** on every
+published number (5/78, 5/90, neutral 155, fragile 24, bistable 18/11/7, all per-regime rows);
+all three arms' independent verifiers (PASS); six focused suites; its own manifest walk (23
+entries byte-verified); a key-by-key values-manifest diff proving the identity claim; a
+204-point command-vector diff (exactly one token differs); bit-level solver-dispatch checks
+proving the ablation is exactly "dip → 1" (sub-1e-15); the freeze-ancestry check; a two-stage
+replay proving the superseded stage-1 hashes reproduce; and a timeline-coherence check (139.1
+core-hours across a 12.0 h wall window at concurrency 12). Stated limits: no solver re-run
+(spliced-row-with-forged-config undetectable from the artifact alone), no full suite, no
+arm-1/arm-2 merits audit, no source-algebra re-verification against the paper, no ladder
+evaluation.
+
+**Hardening (10 recorded).** Adopted same-session: H1 (the inherited bistable band pinned
+literally in `phase6-arm3.test.ts`), H2 (the sibling verifier's exit status and measured-only
+label sentence pinned in `phase6-independent-evidence-scripts.test.ts`), H3 (arm 3 added to
+`phase6-diagram-reconcile.mjs`, which re-renders the published SVG byte-for-byte), H4 (the
+three published hashes added to the `evidence-integrity` literal map), plus the H6/H7/H8
+wording repairs in PROGRESS (verifier status, the all-five-at-−2 °C framing clause, and the
+bistable agrees-by-construction qualifier). Declined, recorded: H5 (a regeneration-style
+source-graph sidecar — new machinery the decision 0042 threat model does not require; the
+complete-artifact-set-implies-drift-check-passed property and the clean-tree preflight cover
+the accidental-error class). Deferred to WP8 by the review's own suggestion: H10 (the
+narrative three-arm report). H9 records fail-closed scope choices needing no action.
+
 ## Tried and rejected
 
 (Append as they occur.)
