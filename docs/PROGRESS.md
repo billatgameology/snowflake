@@ -177,22 +177,20 @@ accepted WP3 protocol freeze, and an independently reviewed artifact-derived R15
 
 ## Next step
 
-### Current resume point — decision-0045 bounded closure, in order
+### Current resume point — fill and freeze the ladder from the closed Stage A data
 
-Sub-unit A is DONE at `e913240` (`M1_NO_DIP_ABLATION` runnable; exact `npm.cmd test` exit 0,
-Rule 7 clean over 438 files, Vitest 83 files / 1,467 tests). The Stage A cost probe was STOPPED
-mid-row-3 on 2026-08-06 for the maker-directed merge (rows 1–2 recorded in
-`out/phase6-wp2-recon/stage-a/rows.jsonl`: A5-coarse@−15C 163.2 s and A1-floor-n96@−15C
-10,472.8 s, both size-target; the in-flight A2-floor-n128 row restarts from scratch). Relaunch
-`node app/scripts/phase6-wp2-recon-stage-a.mjs` after the merged tree is verified and pushed —
-the driver resumes by skipping recorded rows; check for an existing process first; 12 h
-per-row cap; live log `out/phase6-wp2-recon/stage-a/live.log`. Then, inside decision
-0045's seven-day envelope: (1) pre-register and execute the budget-capped ladder over the
-frozen strata (no-pass first-class; no production selection follows a pass); (2) run the
-204-point measured-only `M1_NO_DIP_ABLATION` sweep, arm-2-identical except `paramSet`, with
-the gated values-manifest registration mirroring arm 2's schema; (3) the WP2 unit's one
-non-author review (sub-unit A + Stage A + the 0045 rescope; Stage B is closed unexecuted);
-(4) WP8 gate re-deriving the amended obligations, exact `npm test`, reconciliation. Traps: no
-registered domain rung currently passes the 0.5% criterion (ADR 0037); the 3-hour point
-budget cannot be reused; resume (ADR 0039) stays non-production. Do not resume education,
-V4/V4.x apparatus, held-out execution, or preview-GPU work.
+The arm-3 unit is COMPLETE (registered, executed 5/78 · 5/90, published, verified, reviewed
+0 blockers, hardened — `619249b`). Stage A is CLOSED by the 2026-08-07 amendment in
+[the recon plan](plans/phase-6-wp2-reconnaissance.md): two measured rows plus scaling
+observations; ceiling rows closed as measured-scaling-infeasible; the S2-ceiling stratum's
+numerics are UNVERIFIED and every report says so. Next, in order: (1) fill and freeze
+[phase-6-wp2-ladder.md](plans/phase-6-wp2-ladder.md) from the closed Stage A data — floor
+sizes only, per-rung caps ≤ 10 h (one host up-window), four check points by stated rule —
+then its pre-execution non-author review; (2) execute the ladder rungs (M1 + CAK; the
+ablation arm inherits M1's verdict as the recorded identity claim); (3) the WP2 unit's one
+non-author review (sub-unit A + Stage A closure + 0045 rescope); (4) WP8 gate re-deriving
+the amended obligations, the narrative three-arm report (review item H10), exact `npm test`,
+full reconciliation. Traps: no registered domain rung ever passed the 0.5% criterion at
+extent 21 (ADR 0037) — a floor-size no-pass is a publishable verdict; the probe driver must
+NOT be relaunched (Stage A is closed); resume (ADR 0039) stays non-production. Do not resume
+education, V4/V4.x apparatus, held-out execution, or preview-GPU work.
