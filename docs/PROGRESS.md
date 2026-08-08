@@ -45,6 +45,18 @@ index, a plan, ADR, or audit links to historical detail.
 - Historical extent-21 artifacts remain valid measured-only comparisons: **CAK 3/90, M1 54/90**
   over their named scopes. They are not the registered conservative-intersection verdict. R15 still
   has no production caller or complete artifact-derived gate, and numerical adequacy is unproved.
+- **The arm-3 sweep is EXECUTED and published (2026-08-07).** 204/204 points at the registered
+  configuration, exit 0, execution head `6340429`, from the two-stage freeze `6d140bf`/`e209d98`
+  (values hash `297927da…2db92e` gated). Quoted from
+  `evidence/phase6-sweep-arm3/report.json` (1,365 bytes, SHA-256 `32d18a1d…`): headline **5/78
+  arm-scope, 5/90 common denominator**, neutral 155, excluded 0, extent-fragile 24, bistable
+  band 11/18. Measured-only grade; the registered conservative-intersection headline is not
+  computed (decision 0045); numerical adequacy is per the pending ladder verdict. The matched
+  M1-versus-ablation pair shows agreement collapsing 54/90 → 5/90 when only the two dip factors
+  are replaced by one — an implementation-level contrast that cannot establish physical SDAK
+  causality or necessity in nature. Points/diagram are manifested (244,610 / 30,634 bytes);
+  the independent sibling verifier and the unit's non-author review are the remaining
+  publication steps.
 - CAK→M1 is a confounded parameter-family comparison. Only matched M1 versus
   `M1_NO_DIP_ABLATION` may isolate the implemented dip factors' effect on this solver under the
   frozen configuration; it **cannot establish physical SDAK causality or necessity** in nature.
