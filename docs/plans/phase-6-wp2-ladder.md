@@ -1,9 +1,9 @@
 # Plan — Phase 6 WP2 numerical-control ladder (decision-0045 bounded)
 
 - **Phase:** Phase 6 — Validation against the Nakaya diagram
-- **Status:** DRAFT — awaiting Stage A cost data; freezes (and is reviewed) before any rung runs
+- **Status:** FROZEN 2026-08-08 pending its pre-execution non-author review; no rung runs first
 - **Started:** 2026-08-07
-- **Last touched:** 2026-08-07 by Claude Fable 5
+- **Last touched:** 2026-08-08 by Claude Fable 5
 
 The budget-capped numerical-control ladder that decision 0045 retains. Its outcome — pass or
 no-pass — is the registered numerics verdict attached to every measured-only Phase 6 result.
@@ -42,22 +42,54 @@ is independently re-derived from the artifact bytes.
   verdict of its identical-but-paramSet configuration and is not separately laddered
   (decision 0045's sweep is arm-2-identical, so M1's rungs govern it; recorded as an explicit
   inheritance claim, not a measurement).
-- Check points: four registered grid points spanning both habit axes and both fraction
-  extremes — exact list TO BE FROZEN here before review, chosen from the registered 204-point
-  grid by a stated rule (not by outcome).
+- Check points, frozen by stated rule: **the four points the registered `domain-budgets` row
+  already designated for its spot-check, unchanged** — `(−31 °C, f = 0.60)`,
+  `(−13 °C, f = 0.15)`, `(−6 °C, f = 0.15)`, `(−27 °C, f = 0.15)`. The rule grants zero
+  selection freedom, spans both habit axes and both fraction extremes among historically
+  designated points, and makes every ladder comparison continuous with ADR 0037's measured
+  history. Both arms (M1 and CAK) run at all four points at every rung.
 
-## Budget and rungs (TO BE FILLED from the Stage A artifact before freeze)
+## Budget and rungs (frozen 2026-08-08 from the closed Stage A data)
 
-- Total ladder budget: ≤ N core-hours / ≤ M wall-clock days at recorded concurrency ≤ C,
-  derived from measured Stage A per-row costs and decision 0045's envelope; hard numbers
-  frozen here before review.
-- Domain rungs per size/spacing: starting N from the 65% guard with headroom; increments of
-  registered size; enumeration order and per-row wall caps frozen from Stage A data.
-- Deterministic drop order if the enumeration exceeds budget, and the rule that a dropped or
-  capped rung is an infrastructure fact, never a scientific exclusion.
-- The deterministic selection function: pass requires every retained criterion at two
-  successive domain rungs; anything else is no-pass. No author or reviewer choice among
-  passing rungs.
+- **Size configuration:** seed 17 cells growing to extent 54 at `dxUm = 0.35` (the S1-floor
+  seed with the S2-floor measurement span), and its coarse replicate seed 8 → extent 27 at
+  `dxUm = 0.7`. The S1-ceiling seed (35 cells) pairs coherently only with ceiling-scale
+  extents, which the Stage A closure records as measured-scaling-infeasible; the fine spacing
+  0.2333 µm at these sizes (seed 25 → extent 81, N ≥ 128) projects past the per-rung cap by
+  the same measured scaling. Both exclusions are cost facts recorded here, and the verdict's
+  scope statement names them: **the ladder verdict covers the floor sizes at spacings
+  0.7/0.35 µm only.**
+- **Domain rungs:** at 0.35 µm — `N = 96, 112, 128` (guard floor 54/0.65 = 83.1; increments
+  of 16, the historical convention); at 0.7 µm — `N = 48, 64, 80` (the historical rungs).
+  Enumeration order: coarse spacing fully first (cheapest, catches driver defects), then
+  0.35 µm rungs ascending. Pass at a spacing requires the registered criterion at BOTH
+  successive increments (96→112 and 112→128; 48→64 and 64→80).
+- **Auxiliary controls at the base rung** (0.35 µm, N = 96, all four points, both arms):
+  `cflFill` halved to 0.05; `relaxTol` tightened to 1e-10; seed radius ±1 cell (16 and 18).
+  Same 0.5%/class comparison against the base run.
+- **Row count and budget:** 24 domain rows per spacing × 2 spacings = 48, plus 32 auxiliary
+  rows = **80 rows total**. Measured anchor: 2.9 h at N = 96 (one point, M1); budget ≤ 3
+  wall-clock days at recorded concurrency ≤ 12, per-row wall cap **10 h** (one host
+  up-window). Rows are scientifically independent and may run concurrently; concurrency is
+  recorded execution provenance and no scheduling choice changes a case.
+- **Caps and drops:** a wall-capped row is recorded `wall-cap-infrastructure` and treated as
+  not-comparable — it can only produce no-pass, never a silent exclusion. If the enumeration
+  threatens the 3-day budget, rows drop in pre-declared reverse priority: auxiliary seed-±1
+  first, then relaxTol, then cfl, then the 0.7 µm spacing's N = 80 rung — every drop logged
+  by name, and any drop that removes a criterion's data forces no-pass for that criterion.
+- **Stop mapping, frozen:** rows stop on the existing `size-target` machinery at the mapped
+  extent span (54 or 27). Recorded reason: S2 centrals are floors on half the true maximum
+  dimension, and an extent-span stop measures habit at that observable scale with tested
+  machinery; an attached-count mass-equivalent stop would be new evidence-path code the
+  decision-0042 threat model does not require. Stage A recorded both quantities; the choice
+  was fixed here before any rung ran.
+- **The deterministic selection function:** a spacing PASSES iff, at all four points and both
+  arms, both successive domain increments satisfy the registered criterion (identical class
+  AND attached counts within 0.5%) AND every auxiliary control at the base rung satisfies the
+  same comparison. Anything else — any failed comparison, capped row, dropped row, or
+  unconverged run — is **no-pass for that spacing**. The published verdict is the per-spacing
+  pass/no-pass table plus the scope statement; nothing selects among passing rungs, and a
+  pass authorizes no production campaign (decision 0045, stated in advance).
 
 ## Out of scope
 
@@ -73,6 +105,6 @@ Rule 11. Append new entries as they occur.)
 
 ## Open questions
 
-- Whether the S2 measurement mapping stops on extent or attached-count mass-equivalent — to be
-  fixed here from Stage A's recorded per-cycle data before freeze.
-- The exact four check points and their stated selection rule.
+(Both prior open questions were fixed in the 2026-08-08 freeze above: the stop mapping is the
+extent-span `size-target` machinery with its recorded reason, and the four check points are
+the registered `domain-budgets` spot-check points, unchanged, by the zero-freedom rule.)
