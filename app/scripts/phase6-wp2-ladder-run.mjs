@@ -36,10 +36,12 @@ import {
   existsSync,
   mkdirSync,
   readFileSync,
+  renameSync,
   unlinkSync,
   writeFileSync,
 } from "node:fs";
 import { hostname } from "node:os";
+import { phase6SigmaInf } from "../../runner/src/phase6-protocol.ts";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
 
@@ -108,6 +110,7 @@ export function enumerateRows() {
             seedRadius: spacing.seedRadius,
             targetExtent: spacing.targetExtent,
             domainN,
+            sigmaInfinity: phase6SigmaInf(point.tempC, point.fraction),
             cflFill: BASE_CFL,
             relaxTol: BASE_RELAX_TOL,
           });
@@ -127,6 +130,7 @@ export function enumerateRows() {
           seedRadius: control.seedRadius ?? AUX_BASE.seedRadius,
           targetExtent: AUX_BASE.targetExtent,
           domainN: AUX_BASE.domainN,
+          sigmaInfinity: phase6SigmaInf(point.tempC, point.fraction),
           cflFill: control.cflFill ?? BASE_CFL,
           relaxTol: control.relaxTol ?? BASE_RELAX_TOL,
         });
@@ -159,7 +163,9 @@ export function quarantinePartialTrailingLine(rowsPath, log) {
   const kept = lastNewline === -1 ? "" : text.slice(0, lastNewline + 1);
   const quarantinePath = join(dirname(rowsPath), `rows-truncated-${fileStamp()}.log`);
   writeFileSync(quarantinePath, partial, "utf8");
-  writeFileSync(rowsPath, kept, "utf8");
+  const tmpPath = `${rowsPath}.tmp-rewrite`;
+  writeFileSync(tmpPath, kept, "utf8");
+  renameSync(tmpPath, rowsPath);
   log(
     `crash-safe append: ${rowsPath} ended in a partial line (interrupted append); ` +
       `quarantined ${partial.length} byte(s) to ${quarantinePath} and truncated the rows ` +
@@ -212,8 +218,9 @@ export function checkHeadContinuity(records, currentHead, acceptMixedHeads) {
       `HEAD continuity: ${offending.length} recorded row(s) carry a gitHead that differs ` +
         `from the current HEAD ${currentHead}: ${offending.join(", ")}. Refusing to mix ` +
         "commits inside one rows.jsonl. Re-run with --accept-mixed-heads to proceed; every " +
-        "new row will then record acceptedMixedHeads: true and the evaluator will report " +
-        "the mixture instead of failing closed on it.",
+        "new row will then record acceptedMixedHeads: true — but note the evaluator still " +
+        "fails closed unless EVERY row (including the already-recorded ones) carries the " +
+        "flag, so a mixed artifact whose older rows predate the flag stays no-pass.",
     );
   }
   return offending;

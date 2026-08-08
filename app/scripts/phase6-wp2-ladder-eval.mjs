@@ -74,11 +74,15 @@ const CLASS_MIXED = "mixed";
 //    the dispatcher — the producer must not supply both sides of the comparison it
 //    participates in). Review B1: the evaluator checks every row's ECHOED operands against
 //    this transcription, so a row that ran the wrong configuration cannot enter a comparison ─
+// sigmaInfinity transcribed from the registered phase6SigmaInf at each point, as the EXACT
+// binary64 serialization the function returns (review residual 1: the echo is checked against
+// these literals, not recomputed here — Rule 9; the -31/0.6 value carries the product's
+// last-ULP tail and must not be rounded to 0.21204).
 const CHECK_POINTS = [
-  { tempC: -31, fraction: 0.6 },
-  { tempC: -13, fraction: 0.15 },
-  { tempC: -6, fraction: 0.15 },
-  { tempC: -27, fraction: 0.15 },
+  { tempC: -31, fraction: 0.6, sigmaInfinity: 0.21204000000000003 },
+  { tempC: -13, fraction: 0.15, sigmaInfinity: 0.02025 },
+  { tempC: -6, fraction: 0.15, sigmaInfinity: 0.00906 },
+  { tempC: -27, fraction: 0.15, sigmaInfinity: 0.045375 },
 ];
 const ARMS = ["M1", "CAK"];
 const SPACINGS = [
@@ -110,6 +114,7 @@ const EXPECTED_FIXED = {
 const OPERAND_FIELDS = [
   "tempC",
   "fraction",
+  "sigmaInfinity",
   "paramSet",
   "dxUm",
   "seedRadius",
@@ -133,6 +138,7 @@ function expectedRowsById() {
           byId.set(domainRowId(spacing.dxUm, domainN, point, arm), {
             tempC: point.tempC,
             fraction: point.fraction,
+            sigmaInfinity: point.sigmaInfinity,
             paramSet: arm,
             dxUm: spacing.dxUm,
             seedRadius: spacing.seedRadius,
@@ -151,6 +157,7 @@ function expectedRowsById() {
         byId.set(auxRowId(control.name, point, arm), {
           tempC: point.tempC,
           fraction: point.fraction,
+          sigmaInfinity: point.sigmaInfinity,
           paramSet: arm,
           dxUm: AUX_BASE.dxUm,
           seedRadius: control.seedRadius ?? AUX_BASE.seedRadius,
@@ -237,6 +244,16 @@ const unexpectedRowIds = [...rowsById.keys()].filter((id) => !expectedSet.has(id
 const headOf = (row) =>
   typeof row.gitHead === "string" && row.gitHead.length > 0 ? row.gitHead : "(absent)";
 const presentRows = [...rowsById.values()];
+// Review residual 2: an ABSENT or MALFORMED gitHead is an artifact defect in its own right —
+// the sanctioned dispatcher always stamps a validated 40-hex head, so anything else is a
+// hand-assembled or pre-repair artifact and the evaluator fails closed on it.
+for (const row of presentRows) {
+  if (typeof row.gitHead !== "string" || !/^[0-9a-f]{40}$/.test(row.gitHead)) {
+    artifactDefects.push(
+      `row ${row.rowId}: gitHead is absent or not 40-hex (${JSON.stringify(row.gitHead ?? null)})`,
+    );
+  }
+}
 const distinctGitHeads = [...new Set(presentRows.map(headOf))].sort();
 const everyRowAcceptedMixedHeads =
   presentRows.length > 0 && presentRows.every((row) => row.acceptedMixedHeads === true);

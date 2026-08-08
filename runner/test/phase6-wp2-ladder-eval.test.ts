@@ -59,6 +59,7 @@ interface EnumeratedRow {
   rowId: string;
   tempC: number;
   fraction: number;
+  sigmaInfinity: number;
   paramSet: "M1" | "CAK";
   dxUm: number;
   seedRadius: number;
@@ -101,6 +102,7 @@ interface FixtureRow {
   rowId: string;
   tempC: number;
   fraction: number;
+  sigmaInfinity: number;
   paramSet: string;
   dxUm: number;
   seedRadius: number;
