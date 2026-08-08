@@ -18,6 +18,8 @@
 import * as THREE from "three";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 
+import { createSceneEditor } from "./scene-editor.ts";
+
 interface SpikeWindow {
   __spikeReady?: boolean;
   __spikeError?: string;
@@ -170,7 +172,8 @@ const LOOKS: Readonly<Record<string, LookPreset>> = {
       // transparency only reads when there is something behind it to see through TO.
       edge: "1.6", edgePow: "1.3", edgeLo: "0.12", edgeCool: "cfe8ff", edgeWarm: "ffffff",
       keyHex: "ffffff", keyI: "2.8", fillHex: "8fb6e8", fillI: "1.2",
-      bgTop: "2e6fb5", bgBottom: "081428", exposure: "1.1", zscale: "2.4",
+      // Maker-picked off the live bg swatches, 2026-08-06: steel blue over warm grey.
+      bgTop: "296bb3", bgBottom: "a6abb5", exposure: "1.1", zscale: "2.4",
     },
   },
 };
@@ -1183,6 +1186,42 @@ async function timelineMain(manifestUrl: string): Promise<void> {
   slider.addEventListener("input", () => void showFrame(Number(slider.value)));
 
   await showFrame(Number(param("frame", "0")));
+
+  // ?edit=1 — author a gutcheck-scene-v1 keyframe script from the live view. The editor
+  // drives the same camera and group the player does, so what is previewed is what
+  // app/scripts/scene-capture.mjs will render.
+  if (param("edit", "0") === "1") {
+    // The scene camera always looks at the origin, so a panned pose could not be recorded;
+    // disable panning rather than silently exporting a view the render will not reproduce.
+    controls.enablePan = false;
+    // Assigned from the return value below; the callbacks that read it only run later.
+    let panelEl: HTMLElement | null = null;
+    const panel = createSceneEditor({
+      camera: rig.camera as THREE.OrthographicCamera,
+      group: rig.group,
+      currentFrame: () => currentFrame,
+      showFrame,
+      frameCount: manifest.frames.length,
+      look: activeLookName ?? "footage-ice",
+      frameExtent: Number(param("frameExtent", "0")) || 620,
+      manifestUrl,
+      pausePlayback: () => {
+        playing = false;
+        playButton.textContent = "play";
+      },
+      render: () => rig.render(),
+      occludedBottom: () =>
+        (panelEl?.getBoundingClientRect().height ?? 0) + ui.getBoundingClientRect().height,
+    });
+    panelEl = panel;
+    // Both are fixed to the bottom edge; stack the viewer's bar on top of the editor rather
+    // than letting them overlap, and follow the panel as its height changes.
+    const lift = (): void => {
+      ui.style.bottom = `${String(panel.getBoundingClientRect().height)}px`;
+    };
+    lift();
+    new ResizeObserver(lift).observe(panel);
+  }
 
   const animate = (now: number): void => {
     requestAnimationFrame(animate);

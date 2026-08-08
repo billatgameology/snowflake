@@ -1,0 +1,91 @@
+{
+ "label": "Fig. 38 (tsuzumi, sectored-plate caps)",
+ "spec": {
+  "label": "Fig. 38 (tsuzumi, sectored-plate caps)",
+  "stages": [
+   {
+    "untilTick": 20000,
+    "rho": 0.1,
+    "phi": 0,
+    "ggThreshTable": {
+     "10": 2,
+     "11": 0.5,
+     "20": 2,
+     "21": 0.5,
+     "30": 0.5,
+     "31": 1,
+     "01": 1
+    },
+    "kappa": {
+     "default": 0.1,
+     "overrides": {}
+    },
+    "mu": {
+     "default": 0.01,
+     "overrides": {}
+    }
+   },
+   {
+    "untilTick": null,
+    "rho": 0.1,
+    "phi": 0,
+    "ggThreshTable": {
+     "10": 2.1,
+     "11": 2.1,
+     "20": 2.1,
+     "21": 1,
+     "30": 1,
+     "31": 1,
+     "01": 5
+    },
+    "kappa": {
+     "default": 0.1,
+     "overrides": {}
+    },
+    "mu": {
+     "default": 0.001,
+     "overrides": {}
+    }
+   }
+  ]
+ },
+ "stageTransitions": [
+  {
+   "tick": 20000,
+   "stage": 2
+  }
+ ],
+ "dims": {
+  "nx": 320,
+  "ny": 320,
+  "nz": 512
+ },
+ "domain": "hexPrism",
+ "seed": 1,
+ "noise": 0,
+ "tickCap": 60000,
+ "stopReason": "far-field",
+ "tick": 46225,
+ "attachedCount": 1250109,
+ "farFieldMean": 0.06663631959386632,
+ "mesh": {
+  "path": "out/gutcheck-gg-realism/large/figs/fig38-mesh.bin",
+  "vertexCount": 949410,
+  "triangleCount": 1899352,
+  "bboxCartesian": {
+   "xMin": 136,
+   "xMax": 344,
+   "yMin": 48.49742261192856,
+   "yMax": 228.63070659909178,
+   "zMin": 108,
+   "zMax": 404
+  },
+  "extraction": {
+   "spacing": 0.6,
+   "sigma": 0.45,
+   "normalDelta": 3
+  }
+ },
+ "elapsedSeconds": 19348,
+ "evidenceStatus": "unvalidated eyeball exploration; no gate semantics"
+}

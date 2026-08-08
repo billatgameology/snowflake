@@ -2,7 +2,7 @@
 // index page (app/gutcheck-index.html). Re-run any time to refresh:
 //   node scripts/gutcheck-build-index.ts
 
-import { readdirSync, statSync, writeFileSync } from "node:fs";
+import { readFileSync, readdirSync, statSync, writeFileSync } from "node:fs";
 import { resolve } from "node:path";
 
 // Every path below is kept in forward-slash form. node:path's join() emits backslashes on
@@ -123,16 +123,33 @@ const CRYSTALS: Record<string, Crystal> = {
     ],
     animation: { look: "bold-ice", manifest: timelineManifest, frames: 701 },
   },
-  fig9v2: {
-    viewers: [
-      { subject: "surface mesh", look: "footage-ice", mesh: join(figMeshes, "fig9v2-mesh.bin") },
-      { subject: "cell-true", look: "ggview", mesh: join(figMeshes, "fig9v2-cellmesh.bin") },
-    ],
-  },
-  fig16: {
-    viewers: [{ subject: "cell-true", look: "ggview", mesh: join(figMeshes, "fig16-cellmesh.bin") }],
-  },
 };
+
+// Every paper figure that was reproduced left the mesh its render was made from in
+// large/figs/ — 33 of them. Discover those rather than listing them: a hardcoded list is
+// what kept all but two figures out of the index even though their models were on disk, and
+// it would go stale again the next time a figure is harvested.
+//   fig9v2-mesh.bin     -> fig9v2, surface
+//   fig16-cellmesh.bin  -> fig16, cell-true (needs style=ggview; the surface looks cannot
+//                          draw the paper's own prism/edge display mode)
+for (const path of listFiles(figMeshes)) {
+  const match = /^(fig\d+(?:v\d+)?)-(cellmesh|mesh)\.bin$/.exec(name(path));
+  if (match === null) continue;
+  const key = match[1]!;
+  const cellTrue = match[2] === "cellmesh";
+  const crystal = (CRYSTALS[key] ??= { viewers: [] });
+  crystal.viewers.push({
+    subject: cellTrue ? "cell-true" : "surface mesh",
+    // glass is the maker's pick (2026-08-06); the viewer's look dropdown switches live, so
+    // this is a starting point rather than a fixed choice.
+    look: cellTrue ? "ggview" : "glass",
+    mesh: path,
+  });
+}
+// Surface before cell-true, so every figure row reads the same way.
+for (const crystal of Object.values(CRYSTALS)) {
+  crystal.viewers.sort((a, b) => Number(a.subject === "cell-true") - Number(b.subject === "cell-true"));
+}
 
 /**
  * Which crystal a composite belongs to. Rules are ordered, because several names contain
@@ -268,6 +285,93 @@ if (orphanViewers.length > 0) {
   });
 }
 
+// 3b. Generated crystals — the parameter sweep. These are grown from the tracked specs rather
+// than reproduced from the paper, so they have no side-by-side and do not belong in the
+// crystal-by-crystal table. Each row is one spec: its render, its final mesh in the viewer,
+// and its growth timeline when a COMPLETE one exists (a partial manifest means the run was
+// interrupted, and linking it would present a half-grown crystal as finished).
+const genRecords = join(ROOT, "gen");
+const genRenders = join(genRecords, "renders");
+const animRoot = join(ROOT, "large", "anim");
+const genRows: CompareRow[] = [];
+for (const path of listFiles(genRecords)) {
+  const file = name(path);
+  if (!file.endsWith("-record.json")) continue;
+  const id = file.replace(/-record\.json$/, "");
+  let record: {
+    label?: string;
+    tick?: number;
+    stopReason?: string;
+    unfiredTransitions?: number;
+    stageTransitions?: unknown[];
+    spec?: { stages?: unknown[] };
+  };
+  try {
+    record = JSON.parse(readFileSync(path, "utf8")) as typeof record;
+  } catch {
+    continue;
+  }
+  const viewers: Item[] = [];
+  const meshPath = join(ROOT, "large", "gen", `${id}-mesh.bin`);
+  if (exists(meshPath)) {
+    viewers.push({
+      label: "final mesh · glass",
+      href: meshHref("glass", meshPath),
+      note: `${record.stopReason ?? "?"} at tick ${String(record.tick ?? 0)}`,
+    });
+  }
+  let animation: Item | undefined;
+  const manifestPath = join(animRoot, id, "manifest.json");
+  if (exists(manifestPath)) {
+    try {
+      const manifest = JSON.parse(readFileSync(manifestPath, "utf8")) as {
+        complete?: boolean;
+        frames?: unknown[];
+      };
+      if (manifest.complete === true && (manifest.frames ?? []).length > 1) {
+        animation = {
+          label: `Growth timeline · ${String((manifest.frames ?? []).length)} frames`,
+          href: `${VIEWER}?look=glass&manifest=${FS(manifestPath)}&frameExtent=620`,
+          note: "play / scrub from seed to final · look switches in-page",
+        };
+      }
+    } catch {
+      /* unreadable manifest — treat as no timeline */
+    }
+  }
+  const render = join(genRenders, `${id}-render.png`);
+  const renderAlt = join(genRenders, `${id}.png`);
+  const image = exists(render) ? render : exists(renderAlt) ? renderAlt : null;
+  genRows.push({
+    // A schedule that never fired is a single-stage crystal wearing a staged name; say so here
+    // rather than letting the id imply something the run did not do.
+    // Records written before unfiredTransitions existed still need the flag, so derive it from
+    // the spec when the field is absent: stages-1 scheduled, minus the ones that actually fired.
+    label:
+      (record.label ?? id) +
+      ((record.unfiredTransitions ??
+        Math.max(0, (record.spec?.stages?.length ?? 1) - 1 - (record.stageTransitions?.length ?? 0))) > 0
+        ? "  [schedule never fired — single stage]"
+        : ""),
+    comparisons: image === null ? [] : [{ label: id, href: FS(image), image: FS(image) }],
+    viewers,
+    ...(animation && { animation }),
+  });
+}
+if (genRows.length > 0) {
+  genRows.sort((a, b) => Number(b.animation !== undefined) - Number(a.animation !== undefined));
+  sections.push({
+    title: "Generated crystals (parameter sweep)",
+    note:
+      `${genRows.length} grown from tracked specs in out/gutcheck-gg-realism/specs/. ` +
+      `${genRows.filter((r) => r.animation !== undefined).length} have a growth timeline. ` +
+      "Not paper reproductions and not photo matches — these exist to show the range a few " +
+      "parameters cover. Regrow any of them with scripts/gutcheck-grow-batch.mjs.",
+    items: [],
+    rows: genRows,
+  });
+}
+
 // 4. Style heroes at the root. side-by-side-* used to be listed here too; those are now rows
 // in "Crystal by crystal" above, and listing them twice was part of what made the page hard
 // to read as an inventory.
@@ -299,7 +403,10 @@ sections.push({
 const indexed = new Set(
   [
     ...sections.flatMap((s) => s.items.map((i) => i.image ?? "")),
-    ...sections.flatMap((s) => (s.rows ?? []).map((r) => r.image)),
+    // Every image in every row, not r.image — rows carry a list of comparisons. This read
+    // r.image until 2026-08-07, which after the row refactor was always undefined, so all 48
+    // comparisons were also re-listed below as unlabelled leftovers.
+    ...sections.flatMap((s) => (s.rows ?? []).flatMap((r) => r.comparisons.map((c) => c.image ?? ""))),
   ].filter(Boolean),
 );
 sections.push({

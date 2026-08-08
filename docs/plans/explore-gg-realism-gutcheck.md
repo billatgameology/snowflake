@@ -728,6 +728,85 @@ position). The four looks:
 | `abyss` | povray | The povray treatment over a teal backlight instead of navy (added 2026-08-06) |
 | `glass` | ice | Clear glass: thin walls, double-sided, backdrop visible through the body (added 2026-08-06) |
 
+### Scene keyframe editor (2026-08-06, maker-directed)
+
+Maker asked for Premiere-style authoring: "select a tick location ... pause, manually adjust to
+how i like it, you remember the position, rotation and other things", then build a video and
+maybe export mp4. **Most of that already existed** and was worth finding before writing anything:
+`gutcheck-scene-v1` (`app/scenes/growth-B-intro.json`) is already a keyframe format —
+`frames[{t,frame}]`, `camera[{t,tilt,yaw,zoom,ease}]`, `captions` — and
+`app/scripts/scene-capture.mjs` already drives `window.__sceneSeek(t)` frame by frame and
+encodes an mp4 with ffmpeg. The only missing piece was authoring: the JSON was hand-written.
+
+`?edit=1` in timeline mode now opens an editor that emits exactly that format — no new format,
+so its output drops straight into the existing capture runner. Scrub the strip to a time, pose
+the crystal with the normal orbit/zoom/upright/spin controls, then `+ camera`, `+ frame` or
+`+ crystal` records the current state at the playhead. Markers drag in time, Delete removes the
+selected one, `preview` plays the authored scene using the same interpolation the player uses,
+and export/copy/import round-trip the JSON.
+
+Details worth keeping:
+
+- **Pose capture is an inversion, not a matrix dump.** The player builds the camera from three
+  numbers — it places it at `(0, sin(tilt)·d, cos(tilt)·d)` rotated by `yaw` about Z — so the
+  editor recovers `tilt = acos(z/d)` and `yaw = atan2(−x, y)` from the live camera. Anything not
+  expressible in those three numbers would preview correctly and then render differently, so
+  **panning is disabled in edit mode** rather than silently exporting an unreproducible view.
+- **`crystal` is a new optional track** (roll about Z, the axis spin/upright already drive).
+  The scene format had no place for "is it spinning" — camera keys move the camera, not the
+  crystal. The field is additive: scenes without it behave exactly as before, and the capture
+  runner's `format === "gutcheck-scene-v1"` check still passes.
+- **The exported manifest path is site-relative by default** (`../data/anim-B/manifest.json`).
+  Authoring happens against a dev `/@fs/...` URL, but the capture runs against the built static
+  site; exporting the authoring URL would give a scene that previews here and 404s in the
+  render. Editable in the panel, since only the person capturing knows their layout.
+
+A fourth lane authors **captions**, which the format and player already supported: type text,
+`+ caption` lays a 3 s span at the playhead, `set out` ends the selected one at the playhead,
+and bars drag as a whole span. A preview overlay mirrors the player's own caption element so
+scrubbing shows the text where the render will put it (positioned from a measured
+`occludedBottom()`, after a hardcoded offset dropped it on top of the control bar).
+
+One bug worth recording because it was invisible until the round trip was checked: the caption
+text field edited *whichever caption was last added*, so typing the second caption's text
+silently overwrote the first — both came out identical. The field now distinguishes composing
+from editing (`captionEditIndex`, bound only by clicking an existing caption, cleared on add
+and on delete since indices shift).
+
+Verified headless: the editor loads, a canvas drag is captured as `tilt 53.177° yaw 63.851°`,
+keys land at exactly t=0 and t=duration at the strip edges, two captions round-trip with their
+own distinct text, and the export is valid `gutcheck-scene-v1`. 0 page errors. The exported
+scene then rendered through `scene-capture.mjs` to a 960×600 h264 mp4 with both captions burned
+in — editor to video, end to end.
+
+**mp4 export now works on Windows** (maker confirmed the project is PC-only, so the macOS path
+was dropped rather than branched on). Three fixes to `scene-capture.mjs`:
+
+- **Serves in-process** instead of spawning `python3 -m http.server` — the `python3` on PATH on
+  Windows is the Store alias stub. Removing the spawn also removed its two workarounds: draining
+  the log pipes to avoid a deadlock, and sniffing the `Server:` header to prove a stale process
+  was not holding the port. `listen()` fails loudly and the server dies with the script.
+- **`--use-angle=metal` replaced** with `--gl d3d11|swiftshader`.
+- The **site rebuild it depends on took 31 s**, not the multi-hour job the "12.5 GB" figure
+  suggests: `gutcheck-mesh-quantize.ts` 25 s (9.99 GB → 6.62 GB, 701 frames) plus
+  `gutcheck-build-site.ts` 4.9 s, the latter cheap because it hardlinks rather than copies.
+
+**Hardware rendering is not deterministic, and the default had to change.** The script's headline
+claim is that two runs on the same host produce the same aggregate sha256. Measured here: two
+D3D11 runs of one scene produced **different** hashes (`354e0acb…` vs `15b8620b…`); two
+swiftshader runs matched exactly (`3e490438…` twice). So `--gl` defaults to **swiftshader** — the
+mode that keeps the claim true — and `d3d11` is the opt-in for when the output is a video for
+people to watch and the hash is not evidence. Defaulting to the fast path would have left the
+determinism check silently checking nothing. Cost of the choice, 30 frames at 1280×720:
+
+| mode | per frame | 16 s @ 30 fps (480 frames) | deterministic |
+|---|---|---|---|
+| `d3d11` | 159 ms | ~1.3 min | no |
+| `swiftshader` (default) | 795 ms | ~6.4 min | yes |
+
+End-to-end smoke: a scene exported from the editor rendered to a valid h264 mp4
+(640×480, 30 frames, 2.0 s) in 4 s.
+
 The first four are **targets** — `footage-ice` and `povray` are locked reproductions of specific
 reference images, `bold-ice` is the maker's legibility pick — and were not touched when the
 lower five were added. The lower five are **exploratory**: they reproduce nothing, and exist
@@ -1194,6 +1273,75 @@ sections, 191 cards, 9 viewer links, 0 page errors, 0 failed requests; the timel
 `bold-ice`. `npm test` clean. The `site/` static bundle is still unbuilt here — it needs
 `large/anim-B-v2q/` regenerated first (see the cleanup note above).
 
+### Staged growth vs real crystals (2026-08-07) — the recorded blocker is gone
+
+The photo-target WP recorded Bentley 785 as **unmatchable**: "the photo's central sector
+medallion has no counterpart — it records a *changed-conditions* growth history (plate core,
+then branching), which constant-parameter G-G cannot produce. Matching such crystals properly
+needs the §XII schedule machinery (stage 2)." That machinery exists now (Figs. 17/32 use it),
+so the claim was testable.
+
+The mechanism is legible in Fig. 32's spec: the prism-slot `ggThresh` is the morphology dial —
+**2.25 attaches only on completed facets and grows flat plates; 1.15 attaches easily and
+branches.** Fig. 32 schedules plate→branch. Two attempts, same ρ/φ/κ throughout so only the
+schedule differs (`out/gutcheck-gg-realism/specs/bentley{785,872}.json`):
+
+| Attempt | Schedule | Result |
+|---|---|---|
+| `bentley785` | plate 2.25 until tick 14,000, then branch 1.15 | **Architecture reproduced.** A hexagonal plate core with six branching arms carrying leaf-shaped sidebranch plates — the medallion-plus-arms structure the plan called impossible. 500³, domain-contact at tick 24,338, 6.7 h. |
+| `bentley872` | inverted: branch 1.15 until 10,000, then plate 2.25 | **Directionally right, visually wrong.** Tips did facet into hexagonal plates (a constant-threshold fern never does), but they are ~10% of arm length against the photo's ~40%, and the arms are over-branched. 500³, domain-contact at 16,023, 2.9 h. |
+
+Honest limits on the 785 match: our plate core is smooth where Bentley's medallion carries
+radiating internal sector structure; our sidebranch leaves are narrower and the inter-arm space
+is emptier. Class and architecture match; fine detail does not. That is still a different
+verdict from the WP's original "no counterpart".
+
+Five 872 variants (`-v2`..`-v6`) walk switch time, arm threshold and plate threshold
+independently so the effect of each is attributable. Per maker direction every generation is
+kept whether or not it matches a photograph.
+
+### Sweep run 1 — halted, and what it taught (2026-08-07)
+
+The first animated sweep was stopped after ~6 h with **2 of 80** crystals finished. Four faults,
+all now fixed in the tooling rather than only written down.
+
+**1. Concurrency was sized off the wrong number, and the solver is bandwidth-bound.**
+`os.cpus()` reports 32 on this box; that is LOGICAL processors on a 16-core 5900XT. Running 23
+solvers against 16 physical cores measured:
+
+| concurrent | per run | aggregate |
+|---|---|---|
+| 2 | 1.55 ticks/s | 3.1 ticks/s |
+| 23 | 0.39 ticks/s | 9.9 ticks/s |
+
+12× the processes for 3.2× the throughput — the solver streams large 3-D arrays and saturates
+memory bandwidth well before it runs out of cores. The batch now defaults to `logical/4` and the
+measurement is in the comment so nobody "optimises" it back up. It also means the 2–3 h per
+crystal quoted earlier was a 2-concurrent figure applied to a 23-concurrent batch: the real
+number there was ~14 h, and the 80-crystal estimate should have been ~45 h, not 10–12.
+
+**2. There was no way to pause the queue without killing the work.** Asked to let in-flight runs
+finish and resume at lower occupancy, the scheduler was stopped by pid — and every solver died
+with it, losing 23 crystals at ~3.6 h each (~83 core-hours). The harness puts a background
+task's whole process tree in a job object, so both `TaskStop` and `Stop-Process` on the parent
+take the children. **Fix: a `STOP-BATCH` drain file.** Touch it and the scheduler stops starting
+new runs while in-flight ones finish, then exits clean.
+
+**3. A staged schedule that never fires produced a silent duplicate.** Both surviving crystals —
+`staged-branch1-to-plate3-at8000` and `-at12000` — stopped at **domain contact on tick 7438,
+before either switch**, so both are pure stage-1 branch-1.0 crystals with byte-identical
+geometry (343,045 verts, same bbox) and empty `stageTransitions`. Nothing in the output said so.
+`gutcheck-grow-params.ts` now warns loudly and records `unfiredTransitions`. Sweep design
+consequence: at threshold 1.0 and ρ 0.12 on a 500³ domain, contact arrives around tick 7.4k, so
+**switch ticks must sit below the contact tick for the parameters in play** — a third of the
+staged sweep as generated cannot fire.
+
+**4. `scripts/` is not typechecked.** The root tsconfig includes `core/`, `solver-*/`, `runner/`
+and `vitest.config.ts` — not `scripts/`. `npm run typecheck` has therefore never covered any of
+the growth or index tooling; a missing `join` import was caught only by running tsc against the
+file directly. Not changed here (it would surface findings across every script at once) but it
+should be.
+
 ### Index usability pass (2026-08-06, maker-directed)
 
 Two maker asks once the index was reachable again.
@@ -1243,6 +1391,21 @@ and a row-per-image table would have shown the single animation six times over, 
 exact illusion the question exposed. The header line counts it plainly: **36 crystals, 44
 side-by-side comparisons, 3 crystals that also open interactively, 1 with a growth animation.**
 Empty cells render as "—" so a gap reads as a real absence rather than a layout accident.
+
+**Every figure's model is now browsable (2026-08-06).** Maker asked whether a mesh exists per
+figure. It does — reproducing each paper figure left its mesh in `large/figs/`, 33 of them plus
+cell-true variants for Figs. 9-v2 and 16 — but the index exposed only **three**, because the
+viewer list was hardcoded from the era when three existed. The models had been sitting on disk
+unreachable from the site. The generator now **discovers** `fig<N>[-v<M>]-(mesh|cellmesh).bin`
+instead of listing them, so a newly harvested figure appears without editing code and the list
+cannot drift again. Interactive coverage went from 3 rows to **33 of 36**; the three without a
+model are Fig. 14 (a Run A comparison), Run C vs footage, and the 23.633 s frame grab.
+`-cellmesh` files open in `ggview` (only that style can draw the paper's prism/edge mode);
+surface meshes open in `glass`, switchable live from the look dropdown.
+
+The orphan guard added with the table earned itself immediately: **`fig20` has a mesh but no
+side-by-side** (only `fig20v2` was composited), so it lands in "Interactive views with no
+comparison image" rather than disappearing.
 
 Composites are grouped by a small ordered rule set (`crystalOf`) — `B-vs-*` and `style*-vs-*`
 are Run B, `fig4` maps onto Run B since Run B *is* the Fig. 4 plate, and anything with no cue
