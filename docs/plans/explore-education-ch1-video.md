@@ -47,11 +47,14 @@ Deliverables live under `docs/video/` (new directory, long-form track), separate
       built-from notes.
 - [x] Read `docs/social/` conventions (script format, series bible, rights rules).
 - [x] Commit this plan.
-- [ ] Write `docs/video/ch01-not-a-frozen-raindrop-script.md` — timestamped script with
-      fact-check table.
-- [ ] Write `docs/video/ch01-animation-prompts.md` — global style preamble plus one paste-ready
+- [x] Write `docs/video/ch01-not-a-frozen-raindrop-script.md` — timestamped script with
+      fact-check table (13 animations A1–A13, ~14:10 runtime, badge SETTLED).
+- [x] Write `docs/video/ch01-animation-prompts.md` — global style preamble plus one paste-ready
       prompt per animation, each naming the script rows and timestamps it feeds.
-- [ ] Commit deliverables on this branch.
+- [x] Commit deliverables on this branch.
+- [ ] Rule 13 adversarial fact-check audit by a non-author reviewer, against the script's
+      fact-check table and the chapter, before any recording. Two VO glosses are pre-flagged
+      for that audit inside the script ("picks the birthday", "a snowflake is a diary").
 
 ## Out of scope
 
