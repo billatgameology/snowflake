@@ -77,6 +77,13 @@ is independently re-derived from the artifact bytes.
   threatens the 3-day budget, rows drop in pre-declared reverse priority: auxiliary seed-±1
   first, then relaxTol, then cfl, then the 0.7 µm spacing's N = 80 rung — every drop logged
   by name, and any drop that removes a criterion's data forces no-pass for that criterion.
+- **Fixed run configuration, frozen:** every row uses the registered sweep configuration
+  except where a rung or control varies it by name — `aggregate-hv-g1h1-v6`,
+  `farField = monopole-matched` (the registered §2.4 condition the sweeps executed; the
+  Stage A probe's Dirichlet runs were non-transferable and are not comparable),
+  `pressurePa = 101325`, `noiseEpsilon = 0`, `rngSeed = 1`, `domain = hexPrism`,
+  `divTol = 1e-7`, `relaxMaxSweeps = 200000`, seed thickness `2·seedRadius + 1` (the
+  isometric mapping the strata freeze records).
 - **Stop mapping, frozen:** rows stop on the existing `size-target` machinery at the mapped
   extent span (54 or 27). Recorded reason: S2 centrals are floors on half the true maximum
   dimension, and an extent-span stop measures habit at that observable scale with tested
