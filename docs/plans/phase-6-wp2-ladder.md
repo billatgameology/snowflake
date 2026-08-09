@@ -119,6 +119,16 @@ is independently re-derived from the artifact bytes.
   relaunched at concurrency 6 — a scheduling choice inside the frozen 1..12 range, recorded
   per row in the artifact; no case's physics changes. The 3-day budget may stretch; the
   maker's 2026-08-07 clarification (envelope bounds scope, not correctness) governs.
+- 2026-08-08 (later): the concurrency-6 relaunch was itself refused by the B2 HEAD-continuity
+  guard — the scheduling-record commit had moved `main` past the freeze-era head the 24
+  recorded rows carry. Working as designed. Execution moved to the pinned worktree
+  `G:Code Filessnowflake-phase6-ladder` at detached HEAD `f59d187` (the arm-2 worktree
+  pattern), so the whole artifact stays single-head while `main` remains free for records;
+  `npm install` there dirtied `package-lock.json` and was restored before launch (the
+  dirty-tree refusal fired first, also as designed). The deeper contention source was also
+  identified: five maker gut-check solver runs (`dialin-b1p3-*`) share the memory bus from
+  the exploration worktree. Relaunched at concurrency 4 to co-exist with them; per-row
+  concurrency is recorded in the artifact.
 
 ## Out of scope
 
