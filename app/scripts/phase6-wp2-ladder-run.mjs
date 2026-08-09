@@ -219,9 +219,13 @@ export function readRecordedRows(rowsPath, log) {
  * Returns the offending rowIds (empty = clean resume). Throws the refusal when offenders
  * exist and acceptMixedHeads is false.
  */
+// The sanctioned pre-amendment phase (docs/plans/phase-6-wp2-ladder.md, 2026-08-09 two-phase
+// record): rows recorded at the freeze-era head are ALWAYS acceptable history — the evaluator
+// enforces the full two-phase shape fail-closed. Any other foreign head still refuses.
+export const LADDER_FREEZE_HEAD = "f59d18702301155c0c2e7eaecc3442e6cf117123";
 export function checkHeadContinuity(records, currentHead, acceptMixedHeads) {
   const offending = records
-    .filter((record) => record.gitHead !== currentHead)
+    .filter((record) => record.gitHead !== currentHead && record.gitHead !== LADDER_FREEZE_HEAD)
     .map((record) => record.rowId);
   if (offending.length > 0 && !acceptMixedHeads) {
     throw new Error(

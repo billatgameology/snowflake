@@ -462,6 +462,18 @@ describe("Phase 6 WP2 ladder dispatcher HEAD continuity (review B2)", () => {
       "row-other",
       "row-unstamped",
     ]);
+    // Rows at the sanctioned freeze-era head are always acceptable history (2026-08-09
+    // two-phase amendment) — no flag needed, and they are not listed as offending.
+    expect(
+      run.checkHeadContinuity(
+        [
+          { rowId: "row-freeze", gitHead: "f59d18702301155c0c2e7eaecc3442e6cf117123" },
+          { rowId: "row-same", gitHead: FIXTURE_GIT_HEAD },
+        ],
+        FIXTURE_GIT_HEAD,
+        false,
+      ),
+    ).toEqual([]);
     // ...and a single-head artifact resumes without any flag.
     expect(
       run.checkHeadContinuity(
