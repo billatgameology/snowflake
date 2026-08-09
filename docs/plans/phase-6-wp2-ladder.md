@@ -142,7 +142,9 @@ is independently re-derived from the artifact bytes.
   N=112/128 row must carry the amendment head (none ran before it). The evaluator enforces
   that shape fail-closed (a third head, or a heavy row at the freeze head, is an artifact
   defect forcing no-pass), reports both heads, and the unit review checks the amendment head
-  equals this amendment's landing commit.
+  equals this amendment's landing commit — operatively `aa81295`, the commit that also aligned
+  the dispatcher's continuity check with this sanction (the `a0c69fd` relaunch was refused by
+  the dispatcher's own guard, recorded in the launch logs).
 - 2026-08-09 (minutes later): the maker superseded the 16 h choice with the direction,
   verbatim: "we shouldn't stop anything with arbitrary timeliness, if it takes longer , it's
   okay." Every row now carries a uniform **48 h runaway-hang backstop** — a wedged-process
