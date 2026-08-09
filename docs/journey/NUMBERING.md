@@ -200,6 +200,26 @@ Rules:
   time without becoming a reusable approved release member, but its exact bytes, text, language,
   transformation, and digest are captured in the destination-publication record. If it becomes an
   approved reusable asset, include it in a new immutable release manifest.
+- A React-coded web experience keeps its own artifact identity. A faithful technical capture or
+  passive preview that adds no substantive claim, narration, or independent editorial structure may
+  remain a named derivative in that artifact's release, or a destination-only derivative when used
+  once. A separately scripted or narrated demonstration, frame-controlled animation, or hybrid
+  video that adds independent editorial structure or its own release/correction lifecycle receives
+  a new `A` suffix. The distinction follows independent editorial meaning and reuse, not duration
+  or file format; no separate capture-ID namespace is needed.
+- A capture packaged inside the coded experience's own release binds to the exact source-member
+  digests and recipe in that manifest. A separate capture artifact, later release, or
+  destination-only derivative records `derived from` against the exact source web release/member
+  digests and source entry snapshot. Its release or destination record retains the source
+  build/bundle, frozen state and inputs, viewport, browser or renderer and capture versions,
+  interaction/timeline/camera recipe, output settings, and member digests. A vertical and horizontal
+  rendition may share one video artifact when their sequence and meaning remain the same.
+- A mutable URL, branch name, or “latest” deployment is not a source identity. The coded-experience
+  release retains an immutable source snapshot or repository revision, any applicable dirty-state
+  archive, dependency lock/build configuration, built bundle, and every load-bearing data, font,
+  media asset, or archived external response. If a later Journey entry newly interprets an older
+  experience, its new video belongs to the later entry and references the older exact release; the
+  older artifact is not moved or reused.
 - Every localization binds to both the precise source release manifest and the immutable source
   entry snapshot event/digest from which it was translated.
 - A typo, caption-timing repair, or encoding fix may increment a release. A material scientific
@@ -308,7 +328,11 @@ Retain:
 - the ordered named-asset list, with each member's role, locale, filename/archive path, media type,
   byte size, digest algorithm/value, creation/export time, and derivation;
 - source artifact, run, checkpoint, specimen, dataset, or prior-release IDs;
-- transformation history; and
+- transformation history and, for a code-derived image or video, the exact source release/member
+  digests, route/component, initial state, props/parameters, archived inputs, interaction or
+  animation timeline, viewport/environment, simulated/playback timing, frame-sampling and encoder
+  settings, audio synchronization, output digest, known nondeterminism, and rerender-test result;
+  and
 - caption, transcript, alt-text, provenance, rights, privacy, and correction-record references.
 
 ### Destination-publication record
@@ -320,6 +344,8 @@ Retain:
 - destination, surface, account identity/handle at that time, locale, audience, and manual/API route;
 - exact title, body, description, tags, alt text, disclosures, and canonical link;
 - archive path and digest algorithm/value for every exact uploaded file;
+- for a destination-only code-derived image or video, the complete capture manifest, exact source
+  release/member digests and entry snapshot, output digest, and rerender-test result;
 - maker approval, scheduled time, attempt time, confirmed remote publication time, and expiry when
   applicable;
 - remote platform ID and URL;

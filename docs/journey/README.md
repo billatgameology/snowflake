@@ -40,6 +40,11 @@ need to produce all of these.
   it was made and links to its viewer, images, or growth video.
 - An interactive remains in the lab or education experience; its Journey entry records the question
   and the step it answered.
+- A React-coded page, interactive, model viewer, or educational scene can also be the visual source
+  for a guided website demonstration, scripted playback, direct-frame animation, hybrid video,
+  still, or preview loop. The implementation method is not a scientific-status label: the web
+  experience remains interactive, while each linear output states its capture method, retains its
+  underlying provenance, and points back to its exact source release, state, and capture recipe.
 - A video remains a video; its Journey entry provides its place in the larger sequence.
 - A research correction preserves the original entry, marks the affected claim or artifact, and
   links forward to the correction instead of rewriting the historical journey. The whole entry is

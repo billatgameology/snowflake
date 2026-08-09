@@ -1,7 +1,7 @@
 # Plan — React experience as a Journey media source
 
 - **Phase:** Maker-directed exploration, outside Phase 6 scope
-- **Status:** in progress
+- **Status:** done
 - **Started:** 2026-08-09
 - **Last touched:** 2026-08-09 by OpenAI Codex
 
@@ -37,11 +37,11 @@ becomes interactive merely because it came from the website.
 ## Steps
 
 - [x] Inspect the Journey overview, media, numbering, sample-week, and progress records.
-- [ ] Add the React-source and presentation/capture-mode rules to the media specification.
-- [ ] Add source/derived identity and reconstruction rules to the numbering specification.
-- [ ] Apply the rule to the overview and existing fictional sample week.
-- [ ] Perform a skeptical consistency review and repair any ambiguity.
-- [ ] Update `docs/PROGRESS.md` and run the documentation checks.
+- [x] Add the React-source and presentation/capture-mode rules to the media specification.
+- [x] Add source/derived identity and reconstruction rules to the numbering specification.
+- [x] Apply the rule to the overview and existing fictional sample week.
+- [x] Perform a skeptical consistency review and repair any ambiguity.
+- [x] Update `docs/PROGRESS.md` and run the documentation checks.
 
 ## Out of scope
 
@@ -50,6 +50,31 @@ becomes interactive merely because it came from the website.
 - Creating or rendering a real website, animation, still, or video.
 - Claiming pixel-identical output across browsers or machines without a future measured test.
 - Changing education, solver, evidence, charter, or active Phase 6 implementation records.
+
+## Review record
+
+- Two OpenAI Codex subagents reviewed the completed addition from schema/reconstruction and
+  editorial/accessibility roles. Both used the author's inherited model and full shared task
+  context, so they were non-author roles but neither blind nor model-diverse reviews.
+- The schema reviewer independently checked artifact/release identity, immutable source binding,
+  capture and rerender metadata, destination-only derivatives, and sample lineage. Its audit found
+  that a one-use destination capture had no defined home for its complete capture manifest because
+  it deliberately lacked an artifact/release ID. The media and numbering records were repaired so
+  the P record retains the exact source, recipe, output digest, and rerender result. Its narrow
+  follow-up reported clean.
+- The editorial reviewer independently checked capture-mode distinctions, aspect composition,
+  accessibility separation, presentation disclosure, epistemic labels, and the fictional sample.
+  Its audit found that the English **SCRIPTED PLAYBACK** disclosure was not explicitly bound into
+  the `zh-Hans` localization. The sample release and all three destination records now carry or
+  explain the complete localized capture/provenance/status label. Its narrow follow-up reported
+  clean.
+- Neither reviewer implemented or ran a React page, browser capture, renderer, animation, encoder,
+  or rerender comparison. They did not test real browsers, devices, GPU/OS combinations, platforms,
+  accessibility with users, or Chinese fluency. This remains a reviewed prose contract and
+  fictional worked example, not proof that the future capture path is deterministic or usable.
+- Author-side verification checked whitespace/conflict markers, the Rule 7 scan, and the staged
+  Markdown diff. Exact root `npm test` was not run because no runtime code or scientific behavior
+  changed.
 
 ## Tried and rejected
 

@@ -31,6 +31,8 @@ week.
 - A public viewer sees only the simple Journey identity and canonical navigation.
 - The archive distinguishes artifacts, immutable release manifests, destination placements, and
   append-only events.
+- The Tuesday interactive and Wednesday model viewer act as fictional React-coded visual sources
+  for separately archived guided videos, without treating those videos as interactive.
 - A timed-out upload is reconciled without a retry; one remote object is found in the named check.
 - Instagram and Facebook copies receive separate publication IDs before a known automatic fan-out.
 - A subtitle-timing repair receives a new release manifest without pretending the meaning changed.
@@ -249,14 +251,15 @@ After Thursday, the same page gains this banner without replacing the original t
 
 | Item | House decision |
 |---|---|
-| Primary artifact | Keyboard/touch-operable interactive `DEMO · DIAGRAM` |
-| Supporting artifacts | Seven-card carousel and 34-second vertical demo recording |
+| Primary artifact | Keyboard/touch-operable interactive `DIAGRAM` |
+| Supporting artifacts | Seven-card carousel and 34-second vertical demo recording generated from the React-coded A01 experience in presentation/capture mode |
+| Capture mode | Scripted browser capture of exact `SCJ-0043-A01-R01`; the video says `SCRIPTED PLAYBACK · DEMO · DIAGRAM` and that it is not interactive |
 | Voice budget | 69 words |
 | Music | Off |
 | Visible identity | `SCJ 0043` throughout; URL and full project name in surrounding page/end frame |
 | Accessibility | Play/pause/restart, keyboard/touch operation, reduced motion, captions, transcript, text alternative |
 | Text alternative | A center hexagon is surrounded by six repeated directions; pausing and rotating changes the view but not the sixfold arrangement |
-| Provenance | `DEMO · DIAGRAM`; no claim that the scaffold is physical ice |
+| Provenance | Interactive: `DIAGRAM`; video: `SCRIPTED PLAYBACK · DEMO · DIAGRAM`; neither claims that the scaffold is physical ice |
 
 Sample narration in the original release:
 
@@ -324,13 +327,14 @@ Canonical summary:
 | Item | House decision |
 |---|---|
 | Primary artifact | Rotatable `MODEL · NOT VALIDATED` viewer |
-| Supporting artifact | 42-second guided 9:16 model-viewing video |
+| Supporting artifact | 42-second guided 9:16 model-viewing video generated from the React-coded A01 viewer in presentation/capture mode |
+| Capture mode | Scripted browser capture of exact `SCJ-0044-A01-R01`; the video says `SCRIPTED PLAYBACK · DEMO · MODEL · NOT VALIDATED` and that it is not interactive |
 | Voice budget | 66 words plus about 10 seconds of silent model inspection |
 | Music | Off; a reveal does not override the explanatory status |
-| Visible identity | `SCJ 0044`, `MODEL · NOT VALIDATED`, project name, and sample URL |
+| Visible identity | `SCJ 0044`, `SCRIPTED PLAYBACK · DEMO · MODEL · NOT VALIDATED`, project name, and sample URL |
 | Accessibility | Keyboard/touch controls, reset view, reduced motion, descriptive text alternative, captions and transcript |
 | Visual description | A pale computer-generated sixfold object rotates slowly against a dark background; the persistent label identifies it as an unvalidated model |
-| Provenance | Fictional run ID `EXAMPLE-RUN-SCJ0044`; no real checkpoint, solver result, or measurement |
+| Provenance | `SCRIPTED PLAYBACK · DEMO · MODEL · NOT VALIDATED`; fictional run ID `EXAMPLE-RUN-SCJ0044`; no real checkpoint, solver result, or measurement |
 
 Sample narration:
 
@@ -347,21 +351,21 @@ The English source is `SCJ-0044-A02-R02` and the immutable source entry snapshot
 
 `SCJ-0044-P02` — Weixin Channels sample copy:
 
-> 雪晶探索之旅 0044：这是本周第一个可以旋转查看的模型晶体。它由计算机生成，不是冰晶照片，也不是验证结果。完整记录：
+> 雪晶探索之旅 0044：这是本周第一个可以旋转查看的模型晶体。视频为脚本化播放的界面演示；模型尚未验证。它由计算机生成，不是冰晶照片。完整记录：
 > https://snowcrystal.example/journey/0044
 
 `SCJ-0044-P03` — Weixin Official Account sample fields:
 
 > **Title:** 本周第一个可旋转模型｜雪晶探索之旅 0044
 >
-> **Summary:** 一个可旋转查看的计算机模型；不是实物冰晶影像，也不是验证结果。
+> **Summary:** 脚本化播放的界面演示；展示可旋转查看的计算机模型。模型尚未验证，也不是实物冰晶影像。
 >
 > **Body lead:** 本期记录从六重对称示意图到可旋转模型的下一步。英文来源版本固定为
 > `SCJ-0044-A02-R02`，模型状态为“尚未验证”。
 
 `SCJ-0044-P04` — WeChat Moments sample copy:
 
-> SCJ-0044：第一个可旋转模型。`模型 · 尚未验证`；不是实物冰晶照片。
+> SCJ-0044：第一个可旋转模型。`脚本化播放 · 界面演示 · 模型 · 尚未验证`；不是实物冰晶照片。
 > https://snowcrystal.example/journey/0044
 
 These Chinese drafts illustrate fields only. They are not asserted to be fluent, technically
@@ -507,7 +511,7 @@ correction relationship.
 | Live artifact | 25-minute archive/viewer walkthrough simulcast to two independent destinations |
 | Music | Off for recap and live session |
 | Visible identity | Persistent `SCJ 0046`; full project name and sample URL at least once |
-| Shot labels | `DIAGRAM`, `DEMO · DIAGRAM`, and `MODEL · NOT VALIDATED` remain visible on their respective source shots |
+| Shot labels | `DIAGRAM`, `SCRIPTED PLAYBACK · DEMO · DIAGRAM`, and `SCRIPTED PLAYBACK · DEMO · MODEL · NOT VALIDATED` remain visible on their respective source shots |
 | Access | Reviewed recap captions/transcript; live captions, moderator, post-event corrected transcript |
 | Descriptive support | Narration names the important visual changes; the Journey page also carries a shot-by-shot descriptive transcript |
 | Leading-image alt text | Five numbered Journey cards connect a diagram, interactive, model, correction, and recap; Journey 0045 points back to the corrected claim in 0043 |
@@ -593,9 +597,9 @@ manifest for that artifact, not “the second release of the week.”
 | `SCJ-0042-A02` narrated animation | `SCJ-0042-A02-R01` | Clean master, captioned master, VTT, transcript, poster, narration WAV |
 | `SCJ-0043-A01` interactive diagram | `SCJ-0043-A01-R01` | Immutable self-contained web bundle and source snapshot, dependency lock/build configuration, canonical URL record, interaction instructions, text alternative, reduced-motion capture, provenance |
 | `SCJ-0043-A02` carousel | `SCJ-0043-A02-R01` | Seven cards, 2:3 derivative, card alt text, source note |
-| `SCJ-0043-A03` demo recording | `SCJ-0043-A03-R01` | Clean/captioned masters, VTT, transcript, poster; contains the later-corrected phrase |
+| `SCJ-0043-A03` demo recording | `SCJ-0043-A03-R01` | Separately scripted video derived from `SCJ-0043-A01-R01`; capture recipe, clean/captioned masters, VTT, transcript, poster; contains the later-corrected phrase |
 | `SCJ-0044-A01` model/viewer | `SCJ-0044-A01-R01` | Fictional model file, immutable self-contained viewer bundle and source snapshot, dependency lock/build configuration, hero still, poster, instructions, run/provenance record |
-| `SCJ-0044-A02` model video | `SCJ-0044-A02-R01` | First approved English clean/captioned package |
+| `SCJ-0044-A02` model video | `SCJ-0044-A02-R01` | Separately scripted video derived from `SCJ-0044-A01-R01`; first approved English clean/captioned package and capture recipe |
 | `SCJ-0044-A02` model video | `SCJ-0044-A02-R02` | Technical caption-timing repair; meaning unchanged; R01 retained |
 | `SCJ-0044-A02` model video | `SCJ-0044-A02-R03` | R02 English members plus fictional reviewed `zh-Hans` localization members |
 | `SCJ-0045-A01` correction note | `SCJ-0045-A01-R01` | Correction text, comparison diagram, alt text, exact target tuple |
@@ -617,6 +621,24 @@ Every row's simulated manifest fields include:
 
 The invalid values ensure this paper exercise cannot pass as an archived release.
 
+### React capture lineage in the sample
+
+Tuesday's A01 interactive remains the operable web artifact; A03 is a linear, separately scripted
+video artifact derived from its exact R01 release. Wednesday follows the same pattern: A01 owns the
+rotatable model/viewer, while A02 owns the guided video derived from A01-R01. A02-R02 repairs that
+video's caption timing, and A02-R03 localizes the repaired release; neither change rewrites the
+source viewer.
+
+Both fictional videos use scripted browser capture rather than direct frame export. Each recipe
+names the source entry snapshot and web release, immutable web bundle or source snapshot, dependency
+lock/build configuration, route, frozen state and inputs, run/model ID, parameters and seed,
+starting camera, viewport, device-pixel ratio, locale/timezone, reduced-motion state,
+browser/capture/GPU/OS versions, ordered interaction and camera cues, simulated/playback time,
+frame-sampling policy, aspect ratio, frame rate, dropped-frame result, fonts/assets, encoder/audio
+settings, clean output digest, and a rerender result of `EXAMPLE-NOT-TESTED`. All values remain
+visibly invalid sample placeholders. No React page, capture mode, recording, or animation was
+actually built or run.
+
 ### Expanded localization manifest example
 
 `SCJ-0044-A02-R03` binds to English source manifest `SCJ-0044-A02-R02` and entry snapshot event
@@ -633,8 +655,15 @@ The invalid values ensure this paper exercise cannot pass as an archived release
 | `model-video-zh-Hans-captioned.mp4` | `zh-Hans` | Localized captioned rendition | R02 clean master + approved translation | `NOT-A-DIGEST:R03-ZH-VIDEO` |
 | `model-video-zh-Hans.vtt` | `zh-Hans` | Localized captions | R02 transcript + terminology review | `NOT-A-DIGEST:R03-ZH-VTT` |
 | `model-video-zh-Hans-transcript.txt` | `zh-Hans` | Localized transcript | R02 English transcript | `NOT-A-DIGEST:R03-ZH-TEXT` |
+| `model-video-zh-Hans-status-label.txt` | `zh-Hans` | Localized capture/provenance/status label | Canonical English label + terminology review | `NOT-A-DIGEST:R03-ZH-STATUS` |
 | `model-video-zh-Hans-visual-description.txt` | `zh-Hans` | Localized visual description and alt text | R02 visual description + approved translation | `NOT-A-DIGEST:R03-ZH-DESCRIPTION` |
-| `model-video-zh-Hans-poster.png` | `zh-Hans` | Localized poster | R02 poster + translated title/status | `NOT-A-DIGEST:R03-ZH-POSTER` |
+| `model-video-zh-Hans-poster.png` | `zh-Hans` | Localized poster | R02 poster + full translated capture/provenance/status label | `NOT-A-DIGEST:R03-ZH-POSTER` |
+
+The canonical English label `SCRIPTED PLAYBACK · DEMO · MODEL · NOT VALIDATED` binds to the
+fictional reviewed visible equivalent `脚本化播放 · 界面演示 · 模型 · 尚未验证` in the status-label
+member. The localized video, poster, transcript, visual description, and destination copy all carry
+or explain the full meaning; they do not translate only the model-status fragment. This remains an
+illustrative mapping, not a claim of Chinese fluency.
 
 The fictional localization record also names translator/system provenance, terminology version,
 human language reviewer, scientific reviewer, review events, and destination territory. A real
@@ -646,9 +675,9 @@ The three destination bindings are also explicit rather than implied by R03:
 
 | Publication | Entry snapshot binding | English source | Exact localized member/upload binding |
 |---|---|---|---|
-| `SCJ-0044-P02` Weixin Channels | `SCJ-E000164` + `NOT-A-DIGEST:ENTRY-0044-S1` | `SCJ-0044-A02-R02` | `model-video-zh-Hans-captioned.mp4` plus `model-video-zh-Hans-visual-description.txt`; route records a canonical localized-description link rather than assuming a native alt-text field; exact packet `NOT-A-DIGEST:P02-UPLOAD` |
-| `SCJ-0044-P03` Official Account | `SCJ-E000164` + `NOT-A-DIGEST:ENTRY-0044-S1` | `SCJ-0044-A02-R02` | Localized transcript, poster, and visual-description members; the body presents the description; exact body `NOT-A-DIGEST:P03-BODY`, with uploads individually digested |
-| `SCJ-0044-P04` WeChat Moments | `SCJ-E000164` + `NOT-A-DIGEST:ENTRY-0044-S1` | `SCJ-0044-A02-R02` | Destination derivative of the localized poster plus the localized visual-description member; route records the canonical accessible alternative; exact packet `NOT-A-DIGEST:P04-PACKET` |
+| `SCJ-0044-P02` Weixin Channels | `SCJ-E000164` + `NOT-A-DIGEST:ENTRY-0044-S1` | `SCJ-0044-A02-R02` | Localized captioned video, full status-label member, and visual description; route records a canonical localized-description link rather than assuming a native alt-text field; exact packet `NOT-A-DIGEST:P02-UPLOAD` |
+| `SCJ-0044-P03` Official Account | `SCJ-E000164` + `NOT-A-DIGEST:ENTRY-0044-S1` | `SCJ-0044-A02-R02` | Localized transcript, poster, full status-label, and visual-description members; the body presents the status and description; exact body `NOT-A-DIGEST:P03-BODY`, with uploads individually digested |
+| `SCJ-0044-P04` WeChat Moments | `SCJ-E000164` + `NOT-A-DIGEST:ENTRY-0044-S1` | `SCJ-0044-A02-R02` | Destination derivative of the localized poster plus full status-label and visual-description members; route records the canonical accessible alternative; exact packet `NOT-A-DIGEST:P04-PACKET` |
 
 Each row also carries the fictional translator/system provenance, terminology review, human
 language/scientific approval, route/account, and destination-specific bytes. Those fields cannot be
@@ -673,9 +702,9 @@ text after a semicolon is retained history or context, not a fourth state dimens
 | `SCJ-0043-P05` | X post | `SCJ-0043-A02-R01` lead-card derivative | confirmed / live / corrected | `https://x.example/EXAMPLE-SCJ-0043-P05` |
 | `SCJ-0043-P06` | Pinterest Pin | `SCJ-0043-A02-R01` 2:3 member | confirmed / live / current; correction context linked | `https://pinterest.example/EXAMPLE-SCJ-0043-P06` |
 | `SCJ-0044-P01` | Canonical website page | `SCJ-0044-A01-R01`; `SCJ-0044-A02-R01` changed to `SCJ-0044-A02-R02` by edit event | confirmed / live / current | `https://snowcrystal.example/journey/0044` |
-| `SCJ-0044-P02` | Weixin Channels | `SCJ-E000164`/snapshot digest + English R02 + R03 localized video/description + exact P02 packet digest | confirmed / live / current | `https://weixin.example/EXAMPLE-SCJ-0044-P02` |
-| `SCJ-0044-P03` | Weixin Official Account | `SCJ-E000164`/snapshot digest + English R02 + R03 localized transcript/poster/description + exact P03 body/upload digests | confirmed / live / current | `https://weixin.example/EXAMPLE-SCJ-0044-P03` |
-| `SCJ-0044-P04` | WeChat Moments | `SCJ-E000164`/snapshot digest + English R02 + R03 localized poster/description + exact destination packet digest | confirmed / live / current | `https://wechat.example/EXAMPLE-SCJ-0044-P04` |
+| `SCJ-0044-P02` | Weixin Channels | `SCJ-E000164`/snapshot digest + English R02 + R03 localized video/status/description + exact P02 packet digest | confirmed / live / current | `https://weixin.example/EXAMPLE-SCJ-0044-P02` |
+| `SCJ-0044-P03` | Weixin Official Account | `SCJ-E000164`/snapshot digest + English R02 + R03 localized transcript/poster/status/description + exact P03 body/upload digests | confirmed / live / current | `https://weixin.example/EXAMPLE-SCJ-0044-P03` |
+| `SCJ-0044-P04` | WeChat Moments | `SCJ-E000164`/snapshot digest + English R02 + R03 localized poster/status/description + exact destination packet digest | confirmed / live / current | `https://wechat.example/EXAMPLE-SCJ-0044-P04` |
 | `SCJ-0045-P01` | Canonical correction page | Entry snapshot; `SCJ-0045-A01-R01`, `SCJ-0045-A02-R01` | confirmed / live / current | `https://snowcrystal.example/journey/0045` |
 | `SCJ-0045-P02` | Threads correction | `SCJ-0045-A01-R01`, `SCJ-0045-A02-R01` | confirmed / live / current | `https://threads.example/EXAMPLE-SCJ-0045-P02` |
 | `SCJ-0045-P03` | X correction | `SCJ-0045-A01-R01`, `SCJ-0045-A02-R01` | confirmed / live / current | `https://x.example/EXAMPLE-SCJ-0045-P03` |
@@ -899,3 +928,6 @@ channels, localization, and live sessions should not exist merely to satisfy a c
    intentionally not the default cadence.
 7. The next sample round should remove most destinations and test whether the scheme still feels
    natural during an ordinary, low-output week.
+8. A React-coded experience can be both the public interactive source and a media-production source,
+   provided each linear output retains its exact build/state/capture lineage and stays visibly
+   distinct from the interactive.

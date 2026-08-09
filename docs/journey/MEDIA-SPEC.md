@@ -171,6 +171,69 @@ promise about every platform UI; preview the actual post before release.
 - A recording of an interactive is explicitly a **demo recording**, not a substitute for the linked
   interactive experience.
 
+### React-coded experiences as visual sources
+
+A React-coded page, Canvas/WebGL experience, model viewer, or educational scene may be the approved
+visual source for several media outputs. React is an implementation method, not an epistemic or
+provenance label: the underlying content is still a diagram, model, measured result, recreation, or
+other named origin. The maker selects only the outputs that serve the day's movement; this
+capability does not turn every web update into a requirement to make every format.
+
+| Output | What it shows | Audience treatment |
+|---|---|---|
+| **Guided browser capture** | A person operates the real page while recording | Label **DEMO** plus the origin |
+| **Scripted browser capture** | An archived control or camera sequence operates the real interface | Add **SCRIPTED PLAYBACK**; do not imply spontaneous interaction |
+| **Direct frame export** | Components render an image sequence without presenting an operable interface | Call it a diagram or model animation, not a screen recording or interactive demo |
+| **Hybrid or edited composite** | Explanation, real-interface capture, crops, annotations, or retiming are combined | Make the transitions and material edits clear, including any changed playback-to-model-time relationship |
+
+One approved experience can therefore supply its canonical interactive page, a 9:16 short, a 16:9
+walkthrough, an animation-only explanation, still or carousel frames, and a silent preview loop.
+These are related outputs, not evidence that one canvas can simply be cropped everywhere.
+
+Use a dedicated **presentation/capture mode** when recording or frame-rendering:
+
+- provide purpose-made 9:16 and 16:9 layouts when both are needed; keep controls, axes, units,
+  provenance, and scientific status readable rather than relying on a blind crop;
+- begin from an explicit state and use a recorded interaction, camera, and timeline recipe;
+- pin or archive the data, fonts, visual assets, dependency lock, and build configuration; do not let
+  live network content, wall-clock time, unseeded randomness, or late-loading fonts silently change
+  the capture;
+- enlarge labels, stage controls, and show pointer or touch intent when that helps comprehension.
+  Nonessential browser chrome may be removed, but interpretive context and status labels may not;
+- keep the website's keyboard, touch, reduced-motion, and text-alternative path. The linear output
+  separately receives captions, transcript, visual description, and any poster alt text; and
+- label the output by what it actually depicts, such as **DEMO · DIAGRAM** or **DEMO · MODEL**. A
+  model captured through a real interface remains model output and does not become observed ice. A
+  direct frame export keeps **DIAGRAM** or **MODEL** without gaining **DEMO** merely because React
+  produced the frames. Programmatic rendering alone also does not establish that an AI system made
+  the content; apply synthetic-media disclosure from the actual production inputs and current
+  destination rules.
+
+The capture record retains:
+
+- exact source Journey-entry snapshot, web artifact, approved release, route, self-contained bundle
+  or source snapshot, dependency lock/build configuration, and their digests;
+- exact dataset, run, model, checkpoint, parameters, named random seed, starting state, and camera
+  state when applicable;
+- viewport, device-pixel ratio, aspect ratio, locale, timezone when rendered, reduced-motion state,
+  browser or frame renderer, materially relevant GPU/OS, capture tool, relevant versions, frame
+  rate, color space, and capture time;
+- ordered interaction events or animation/camera cues with their timing, including intentional
+  pauses for reading or silent inspection;
+- simulated-time and playback-time ranges, fixed-step/frame-sampling policy, dropped-frame result,
+  resolution/crop, capture and encoder settings, and audio sources/synchronization;
+- archived fonts, visual assets, frozen external responses, narration/caption inputs, and the clean
+  output or source frames;
+- known nondeterminism and a rerender-test result of **exact-frame match**, **visual/tolerance match**
+  with the metric and threshold, or **not tested**; and
+- the derived output artifact/release ID, or destination-publication ID when the capture is used only
+  once, and its relationship to the exact source release/member digests.
+
+A pinned recipe supports reconstruction in its named environment; it does not justify a
+pixel-identical cross-browser or cross-machine claim until that claim is separately tested. Failed,
+manual, or nondeterministic steps remain recorded rather than being normalized away. The archived
+approved clean master remains authoritative even when a rerender is possible.
+
 ### Stills, diagrams, and carousels
 
 - Keep the original or highest-quality source.
@@ -376,12 +439,16 @@ text, destination caption, and publication URL.
 Required core:
 
 - canonical web URL and stable artifact or run identifier;
+- immutable source snapshot or repository revision, built bundle, dependency lock/build
+  configuration, and every load-bearing data, font, media asset, or archived external response;
 - parameters, current model status, provenance label, and context needed to understand the view;
 - accessible instructions or text alternative for the interactive; and
 - Journey entry linking it.
 
 Add only when selected: a readable 16:9 capture, guided recording, vertical short if it remains
 interpretable, poster and alt text, and the explicit statement that a recording is not interactive.
+For a React-derived capture, also retain the exact source release/entry snapshot and the complete
+presentation/capture record defined above.
 
 ### Audio-note packet
 
@@ -595,6 +662,8 @@ For every published artifact, retain the applicable items and mark the rest **N/
 - the artifact, approved-release, destination-publication, and global history-event identifiers
   required by `NUMBERING.md`;
 - the primary source artifact and clean approved master;
+- for web-derived media, the approved web bundle/build, presentation/capture recipe, clean output,
+  and rerender-test result or explicit **not tested** status;
 - the exact bytes uploaded to each destination;
 - scripts, captions, transcripts, alt text, and poster or thumbnail;
 - provenance, claim sources, scientific status, and rights evidence;

@@ -100,8 +100,12 @@ index, a plan, ADR, or audit links to historical detail.
   reconciliation, fan-out, a technical release repair, a material partial correction,
   localization lineage, an ordered recap, and reconstruction drills. It demonstrates internal
   coherence on paper, not platform behavior or a sustainable routine; the next sample should test
-  an ordinary low-output week. Plan commits `e2cfbb6` and `ef847ba` record the earlier scopes. This
-  is unmerged content planning only: it authorizes no publication or automated posting, changes no
+  an ordinary low-output week. The React-source extension planned at `00991ec` now treats an
+  approved coded experience as both an interactive and a source for separately identified demo,
+  animation, hybrid-video, still, and preview derivatives; reconstruction retains the exact web
+  build, state, inputs, viewport, capture environment, and interaction/timeline recipe. Plan
+  commits `e2cfbb6` and `ef847ba` record the earlier scopes. This is unmerged content planning only:
+  it implements no capture tooling, authorizes no publication or automated posting, changes no
   scientific status, and does not touch the education freeze or Phase 6 implementation plan.
 - Maker-directed pre-Phase-7 exploration branch `explore/gg-realism-gutcheck` (worktree
   `../snowflake-gutcheck-gg-realism`; plan `docs/plans/explore-gg-realism-gutcheck.md` exists on
