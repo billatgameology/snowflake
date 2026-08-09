@@ -94,10 +94,15 @@ index, a plan, ADR, or audit links to historical detail.
   specification under `docs/journey/`; the media spec fixes a sustainable 15–59 second daily-video
   band, no-music default for explanatory work, accessibility/provenance/rights requirements, and
   dated platform overrides, while the numbering spec separates public Journey order from artifacts,
-  approved releases, destination placements, and append-only history events. Plan commits
-  `e2cfbb6` and `ef847ba` record the two scopes. This is unmerged content planning only: it
-  authorizes no publication or automated posting, changes no scientific status, and does not touch
-  the education freeze or Phase 6 implementation plan.
+  approved releases, destination placements, and append-only history events. Fictional
+  [sample week 01](journey/SAMPLE-WEEK-01.md), preplanned at `1cbefd3`, now exercises that scheme
+  across five connected entries and every retained channel, including ambiguous-upload
+  reconciliation, fan-out, a technical release repair, a material partial correction,
+  localization lineage, an ordered recap, and reconstruction drills. It demonstrates internal
+  coherence on paper, not platform behavior or a sustainable routine; the next sample should test
+  an ordinary low-output week. Plan commits `e2cfbb6` and `ef847ba` record the earlier scopes. This
+  is unmerged content planning only: it authorizes no publication or automated posting, changes no
+  scientific status, and does not touch the education freeze or Phase 6 implementation plan.
 - Maker-directed pre-Phase-7 exploration branch `explore/gg-realism-gutcheck` (worktree
   `../snowflake-gutcheck-gg-realism`; plan `docs/plans/explore-gg-realism-gutcheck.md` exists on
   that branch only): grow a large noisy `GGThreshold` dendrite, extract a smooth level-set

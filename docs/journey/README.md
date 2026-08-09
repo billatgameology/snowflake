@@ -74,6 +74,9 @@ remains in force.
   provenance, music, rights, platform-override, and archive rules.
 - [Numbering and reconstruction](NUMBERING.md) defines stable Journey, artifact, release, and
   publication identities; audience navigation; and the append-only recovery record.
+- [Sample week 01](SAMPLE-WEEK-01.md) applies all three specifications to a fictional five-entry,
+  full-channel week, including a failed-looking upload, release repair, material correction,
+  localization, recap, and reconstruction drills.
 
 ## Original transcript for future reference
 

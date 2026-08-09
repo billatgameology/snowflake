@@ -1,7 +1,7 @@
 # Plan — Five-entry Journey sample week
 
 - **Phase:** Maker-directed exploration, outside Phase 6 scope
-- **Status:** in progress
+- **Status:** done
 - **Started:** 2026-08-09
 - **Last touched:** 2026-08-09 by OpenAI Codex
 
@@ -23,8 +23,9 @@ account, publication, scientific result, or remote response actually exists.
 - the audience-facing label, canonical URL, Previous/Next, topic, correction, and synthesis links;
 - complete illustrative artifact, release-manifest, destination-publication, and global-event IDs;
 - house media choices, sample destination copy, accessibility, provenance, and localization notes;
-- a known automatic cross-post, an ambiguous attempt reconciled without a duplicate, a technical
-  release repair, a material partial correction, and a recap with an explicit ordered source list;
+- a known automatic cross-post, an ambiguous attempt reconciled without retry and with no second
+  object found in the named check, a technical release repair, a material partial correction, and a
+  recap with an explicit ordered source list;
 - a channel-coverage audit, daily maker workload, and reconstruction walkthrough; and
 - conspicuous fictional-data boundaries, including reserved URLs and non-digest placeholders.
 
@@ -45,12 +46,12 @@ validated against measurement.
 
 - [x] Read the Journey overview, retained-channel plan, media specification, numbering contract,
       live progress record, governing Phase 6 plan, and relevant charter claim limits.
-- [ ] Design the five-entry editorial arc and channel calendar.
-- [ ] Allocate internally consistent entry, artifact, release, publication, and event examples.
-- [ ] Draft the full sample with copy, media packets, localization, correction, and recap records.
-- [ ] Walk an isolated viewer and a clean reconstruction through the sample.
-- [ ] Audit channel coverage, chronology, workload, scientific labels, and fictional boundaries.
-- [ ] Update the Journey index and `docs/PROGRESS.md`.
+- [x] Design the five-entry editorial arc and channel calendar.
+- [x] Allocate internally consistent entry, artifact, release, publication, and event examples.
+- [x] Draft the full sample with copy, media packets, localization, correction, and recap records.
+- [x] Walk an isolated viewer and a clean reconstruction through the sample.
+- [x] Audit channel coverage, chronology, workload, scientific labels, and fictional boundaries.
+- [x] Update the Journey index and `docs/PROGRESS.md`.
 
 ## Out of scope
 
@@ -59,6 +60,33 @@ validated against measurement.
 - Choosing the real owned domain, handles, account identities, or publication dates.
 - Editing `docs/education/**`, the charter, solver code, evidence, or Phase 6 records.
 - Claiming that this deliberately maximal coverage week is the sustainable default cadence.
+
+## Review record
+
+- Two OpenAI Codex subagents reviewed the completed sample from separate schema/reconstruction and
+  editorial/channel roles. Both used the author's inherited model and full shared task context, so
+  these were non-author roles but neither blind nor model-diverse reviews.
+- The schema reviewer independently checked identifier scoping, the continuous event allocation,
+  chronology, immutable release lineage, localization, correction targeting, derived states, recap
+  sources, and reconstruction claims. Its passes found a repair leaking into original narration,
+  incomplete interactive bundles, an overbroad correction scope, collapsed planned/confirmed
+  timing, incomplete localization and recap bindings, ambiguous state ordering, and platform-copy
+  recovery overclaims. Its final pass also caught an unjustified claim that no unseen duplicate
+  existed and the recap's omission of the localized release. Each was repaired; the narrow
+  follow-up reported clean.
+- The editorial reviewer independently checked every retained channel, exact sample copy, claims,
+  narration counts and pacing, house limits, accessibility, provenance, and fictional approval
+  boundaries. Its passes found an unperformed rotation-test claim, incomplete recap labels and
+  descriptive support, weak exact-copy recovery, a short email, incorrect voice budgets, missing
+  source/review gates, and missing localized visual description. Each was repaired; the narrow
+  follow-up reported clean. The final narration counts are 52, 69, 66, 63, and 114 words.
+- No reviewer tested a real registry, event replay, digest chain, restore, resolver, platform API,
+  account, upload, UI, moderation path, or cross-post. They did not render media, conduct an
+  accessibility user test, assess Chinese fluency, replace the fictional source, or perform real
+  scientific/editorial approval. The exercise establishes internal prose/schema coherence only.
+- Author-side verification checked text counts, destination-copy lengths, identifier sets,
+  whitespace/conflict markers, the Rule 7 scan, and the staged diff. It did not run `npm test`
+  because this exploration changes Markdown only and makes no runtime claim.
 
 ## Tried and rejected
 
