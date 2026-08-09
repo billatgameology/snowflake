@@ -89,6 +89,15 @@ index, a plan, ADR, or audit links to historical detail.
   exists since `60e3f3f` (verified by diff 2026-08-06), and no further education work runs until
   Phase 6 closes. Commit `8acf9fe` (same session) added three **proposed, uncharted** Phase 8–10
   plan drafts; they are not adopted phases and none may start before Phase 6 WP8.
+- Maker-directed local Snow Crystal Journey exploration now has a chronological concept,
+  retained-channel plan, draft house media specification, and stable numbering/reconstruction
+  specification under `docs/journey/`; the media spec fixes a sustainable 15–59 second daily-video
+  band, no-music default for explanatory work, accessibility/provenance/rights requirements, and
+  dated platform overrides, while the numbering spec separates public Journey order from artifacts,
+  approved releases, destination placements, and append-only history events. Plan commits
+  `e2cfbb6` and `ef847ba` record the two scopes. This is unmerged content planning only: it
+  authorizes no publication or automated posting, changes no scientific status, and does not touch
+  the education freeze or Phase 6 implementation plan.
 - Maker-directed pre-Phase-7 exploration branch `explore/gg-realism-gutcheck` (worktree
   `../snowflake-gutcheck-gg-realism`; plan `docs/plans/explore-gg-realism-gutcheck.md` exists on
   that branch only): grow a large noisy `GGThreshold` dendrite, extract a smooth level-set
@@ -127,7 +136,7 @@ index, a plan, ADR, or audit links to historical detail.
   frozen tree exited 0: Rule 7 clean over 436 files, both TypeScript projects, Vitest 82 files /
   1,454 tests in 628.68 s. Whether WP2 uses Z = 2 or Z = 1 strata is a WP2/WP3 protocol
   decision.
-- **Last updated:** 2026-08-06 by Claude Fable 5
+- **Last updated:** 2026-08-09 by OpenAI Codex
 
 ## Phase gates
 

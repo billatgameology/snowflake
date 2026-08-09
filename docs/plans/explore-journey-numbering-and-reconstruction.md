@@ -1,7 +1,7 @@
 # Plan — Journey numbering, navigation, and reconstruction
 
 - **Phase:** Maker-directed exploration, outside Phase 6 scope
-- **Status:** in progress
+- **Status:** complete
 - **Started:** 2026-08-09
 - **Last touched:** 2026-08-09 by OpenAI Codex
 
@@ -17,7 +17,7 @@ history even if platforms reorder, edit, remove, or lose posts.
 `docs/journey/NUMBERING.md` records:
 
 - the public Journey-entry number and permanent URL pattern;
-- the distinct identifiers for artifacts, approved revisions, and publication records;
+- the distinct identifiers for artifacts, approved release manifests, and publication records;
 - immutable assignment, no-reuse, gap, import, draft, failed-publication, withdrawal, correction,
   and supersession rules;
 - visible audience labeling and previous/next/current-context navigation;
@@ -31,24 +31,24 @@ history even if platforms reorder, edit, remove, or lose posts.
 ## Approach
 
 Keep meaning out of the stable number. Use one simple, visible sequence for canonical Journey
-entries and a separate append-only sequence for destination publication records. Scope artifact and
-revision identifiers beneath the Journey entry. Dates, formats, topics, platforms, languages, and
-statuses remain metadata so they can change without renumbering history.
+entries; scope artifact, approved-release-manifest, and destination-publication suffixes beneath
+each entry; and use a separate global append-only history-event sequence. Dates, formats, topics,
+platforms, languages, and statuses remain metadata so they can change without renumbering history.
 
 Every outward piece carries the human-facing Journey number and canonical URL or handle. The owned
 Journey page supplies explicit previous, next, correction, source-entry, and related-topic links.
-An append-only publication register preserves destination URLs, exact released revisions, attempts,
+An append-only publication register preserves destination URLs, exact release manifests, attempts,
 withdrawals, and corrections; deleted records receive a state change, never erasure or number reuse.
 
 ## Steps
 
 - [x] Read the Journey, channel, and media specifications.
-- [ ] Compare human-navigation and archive-reconstruction requirements.
-- [ ] Freeze the identifier grammar and assignment rules.
-- [ ] Specify the public label, canonical URL, and before/after navigation contract.
-- [ ] Specify the append-only publication register and recovery procedure.
-- [ ] Add representative examples and integration links.
-- [ ] Review for ambiguity, reconstruction loss, unnecessary daily burden, and future migration.
+- [x] Compare human-navigation and archive-reconstruction requirements.
+- [x] Freeze the identifier grammar and assignment rules.
+- [x] Specify the public label, canonical URL, and before/after navigation contract.
+- [x] Specify the append-only publication register and recovery procedure.
+- [x] Add representative examples and integration links.
+- [x] Review for ambiguity, reconstruction loss, unnecessary daily burden, and future migration.
 
 ## Out of scope
 
@@ -57,6 +57,30 @@ withdrawals, and corrections; deleted records receive a state change, never eras
 - Posting, editing, deleting, or importing real social-media publications.
 - Editing `docs/education/**`, solver code, evidence, the charter, or Phase 6 scientific records.
 - Choosing public branding beyond the functional Journey label and URL pattern.
+
+## Review record
+
+- Two design subagents independently examined the proposal from audience-navigation and
+  archive-reconstruction perspectives. Both were OpenAI Codex subagents using the author's
+  inherited model and full task context, so this was neither a blind nor a model-diverse review.
+  They separately exercised detached media, skipped days, multiple artifacts, late imports,
+  cross-posts, ambiguous uploads, corrections, recaps, removals, and platform loss.
+- A third OpenAI Codex subagent, again on the inherited model with full context, performed a
+  skeptical field-by-field audit. It did not rely on the authors' verdict: it reread the Journey and
+  media drafts and checked whether the proposed records could reconstruct the named cases. Its
+  first pass found ambiguous release packages, mixed publication states, incomplete retry evidence,
+  unsafe timestamp ordering, incomplete detached-media recovery, private-gap behavior, and a
+  contradiction in correction handling. A follow-up found entry-level correction scope,
+  destination-only localization binding, shared-event entities, and interim-record limits. The
+  specification was revised for each finding; its final narrow re-audit reported no material issue.
+- No runtime behavior was re-executed because this plan changes prose only. Author-side verification
+  checked repository whitespace/conflict markers and Rule 7 after the edits; the exact results are
+  recorded in the handoff response rather than treated as scientific evidence.
+- The reviews did **not** implement or test a registry, canonical serializer, digest chain, resolver,
+  redirect, backup, restore, CMS, or publisher. They did not test real platform APIs, accounts,
+  search discoverability, moderation behavior, legal retention, or privacy decisions. Those remain
+  explicit implementation and operational limits, and full reconstruction is not claimed until an
+  implemented pipeline passes a read-only restore.
 
 ## Tried and rejected
 
@@ -69,13 +93,14 @@ withdrawals, and corrections; deleted records receive a state change, never eras
   screenshots, files, and human memory would all become ambiguous.
 - **Encode platform, medium, language, date, topic, or claim status into the canonical entry ID.**
   Rejected: those attributes can multiply or change; stable IDs should not.
-- **Overwrite a released artifact while keeping the same revision identifier.** Rejected: exact
-  reconstruction requires immutable released revisions and explicit supersession.
+- **Overwrite a released artifact while keeping the same release identifier.** Rejected: exact
+  reconstruction requires immutable release manifests and explicit supersession.
 
 ## Open questions
 
-- Whether the visible label should be “Journey 0042,” “Snow Crystal Journey 0042,” or a shorter
-  `J0042` mark in constrained video frames.
-- Whether publication-record numbers should ever be visible publicly or remain archive-only.
-- Whether an existing external publication imported later keeps only its original timestamp or also
-  receives an explicit import-order record.
+- Which owned domain will carry `/journey/0042`, and whether `/j/0042` will be launched as a
+  permanent short resolver.
+- The eventual storage format, canonical serialization, digest algorithm, and central allocation
+  mechanism; these must be decided and restore-tested during implementation.
+- The public wording and privacy policy for safe tombstones. When existence itself is sensitive, a
+  sequential public ID can hide the metadata and reason but cannot conceal the visible number gap.

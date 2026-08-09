@@ -1,7 +1,7 @@
 # Plan — Snow Crystal Journey media content specification
 
 - **Phase:** Maker-directed exploration, outside Phase 6 scope
-- **Status:** in progress
+- **Status:** complete
 - **Started:** 2026-08-09
 - **Last touched:** 2026-08-09 by OpenAI Codex
 
@@ -42,12 +42,12 @@ to another destination.
 ## Steps
 
 - [x] Read the Journey concept and retained-channel plan.
-- [ ] Collect current official constraints for retained video, conversation, visual, community, and
+- [x] Collect current official constraints for retained video, conversation, visual, community, and
       direct-distribution channels.
-- [ ] Freeze the small set of cross-platform house defaults needed for ordinary daily production.
-- [ ] Record platform overrides and unknown/account-dependent limits without inventing precision.
-- [ ] Add the daily pre-publication and archive checklist.
-- [ ] Review the completed spec for sustainability, scientific-claim discipline, accessibility,
+- [x] Freeze the small set of cross-platform house defaults needed for ordinary daily production.
+- [x] Record platform overrides and unknown/account-dependent limits without inventing precision.
+- [x] Add the daily pre-publication and archive checklist.
+- [x] Review the completed spec for sustainability, scientific-claim discipline, accessibility,
       rights, and contradictions with the Journey concept.
 
 ## Out of scope
@@ -68,6 +68,21 @@ to another destination.
   earn its place and must have a cross-platform rights path.
 - **Copy music from a platform library into the master.** Rejected: an in-platform license is not
   presumed to authorize redistribution elsewhere.
+
+## Review record
+
+- **Reviewer:** OpenAI Codex sub-agent, same inherited model and full shared task context; this was
+  a non-author role but not a model-diverse or blind review.
+- **Independently checked:** the completed media spec against `README.md`, `SOCIAL-MEDIA.md`, the
+  retained channel list, and the cited platform constraints. The skeptical pass identified the
+  organic Pinterest/API distinction, X web dimensions, an overburdensome daily packet, overly
+  absolute accessibility language, ambiguous epistemic labels, the missing audio packet, thin
+  non-audio rights/privacy coverage, secondary-channel gaps, and text-budget ambiguity. The spec
+  was revised for each finding.
+- **Limits:** no real social account, live composer, upload, export, music-license purchase, legal
+  review, accessibility user test, Chinese-language editorial review, or Weixin primary-rule view
+  was performed. Platform constraints remain a dated research snapshot and every live route still
+  requires preflight.
 
 ## Open questions
 
