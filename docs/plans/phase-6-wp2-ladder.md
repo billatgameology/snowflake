@@ -108,6 +108,18 @@ is independently re-derived from the artifact bytes.
   pass/no-pass table plus the scope statement; nothing selects among passing rungs, and a
   pass authorizes no production campaign (decision 0045, stated in advance).
 
+## Execution scheduling record
+
+- 2026-08-08: launched at concurrency 12 from `f59d187`. The complete coarse spacing (24/24
+  rows, all `size-target`) measured ~10× per-process wall inflation at sustained 12-way (the
+  N = 80 coarse row: 24,228.3 s against a ~2,000–2,500 s serial expectation) — memory-bus
+  saturation on this dual-channel host. At that inflation every 0.35 µm row projects past its
+  10 h cap, which would convert the central domain comparisons into infrastructure cap rows.
+  The dispatcher was stopped (12 in-flight 0.35 µm rows discarded unrecorded, ~6.4 h each) and
+  relaunched at concurrency 6 — a scheduling choice inside the frozen 1..12 range, recorded
+  per row in the artifact; no case's physics changes. The 3-day budget may stretch; the
+  maker's 2026-08-07 clarification (envelope bounds scope, not correctness) governs.
+
 ## Out of scope
 
 - Any production-configuration selection or campaign authorization (decision 0045).
