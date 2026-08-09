@@ -166,7 +166,8 @@ interface LadderReport {
   unexpectedRowIds: string[];
   artifactDefects: string[];
   distinctGitHeads: string[];
-  everyRowAcceptedMixedHeads: boolean;
+  ladderFreezeHead: string;
+  amendmentHead: string | null;
   globalForcingReasons: string[];
   auxiliaryComparisons: LadderComparison[];
   spacings: LadderSpacing[];
@@ -550,9 +551,11 @@ describe("Phase 6 WP2 ladder evaluator", () => {
     expect(report.overallVerdict).toBe("pass");
     expect(report.overallNoPassClass).toBeNull();
     expect(report.rowsSha256).toBe(createHash("sha256").update(writtenBytes).digest("hex"));
-    // Review B2: provenance reported — one head, fail-closed default not triggered.
+    // Review B2 + 2026-08-09 two-phase amendment: provenance reported — one non-freeze head,
+    // which the sanctioned shape allows (a full single-head run at the amendment head).
     expect(report.distinctGitHeads).toEqual([FIXTURE_GIT_HEAD]);
-    expect(report.everyRowAcceptedMixedHeads).toBe(false);
+    expect(report.ladderFreezeHead).toBe("f59d18702301155c0c2e7eaecc3442e6cf117123");
+    expect(report.amendmentHead).toBe(FIXTURE_GIT_HEAD);
     // Review B4: the frozen scope statement, verbatim, in the report and the stderr summary.
     expect(report.scopeStatement).toBe(SCOPE_STATEMENT);
     expect(stderr).toContain(SCOPE_STATEMENT);
@@ -918,38 +921,50 @@ describe("Phase 6 WP2 ladder evaluator", () => {
     }
   });
 
-  it("fails closed on mixed gitHeads unless every row accepted them (review M10)", () => {
-    const mixed = passingRows().map((row, index) => ({
+  it("enforces the sanctioned two-phase head shape (review M10, amended 2026-08-09)", () => {
+    const LADDER_FREEZE_HEAD = "f59d18702301155c0c2e7eaecc3442e6cf117123";
+    const heavy = (rowId: string) => /^dom-0.35-n(112|128)@/.test(rowId);
+
+    // Sanctioned: pre-amendment rows at the freeze-era head, heavy rows at the amendment head.
+    const sanctioned = passingRows().map((row) => ({
       ...row,
-      gitHead: index % 2 === 0 ? FIXTURE_GIT_HEAD : OTHER_GIT_HEAD,
+      gitHead: heavy(row.rowId) ? FIXTURE_GIT_HEAD : LADDER_FREEZE_HEAD,
     }));
-    const mixedPath = writeFixture(mixed);
+    const sanctionedPath = writeFixture(sanctioned);
+    const writtenHeads = new Set(
+      [...readFixtureRows(sanctionedPath).values()].map((r) => r.gitHead),
+    );
+    expect(writtenHeads.size).toBe(2); // Rule 9: the mixture executed
+    const sanctionedRun = runEval(sanctionedPath);
+    expect(sanctionedRun.report.overallVerdict).toBe("pass");
+    expect(sanctionedRun.report.amendmentHead).toBe(FIXTURE_GIT_HEAD);
 
-    // Rule 9: the mutation executed — the written bytes really carry two distinct heads.
-    const writtenHeads = new Set([...readFixtureRows(mixedPath).values()].map((r) => r.gitHead));
-    expect(writtenHeads.size).toBe(2);
+    // Violation 1: a heavy row at the freeze-era head — no N=112/128 row ran pre-amendment.
+    const heavyAtFreeze = sanctioned.map((row) =>
+      row.rowId === "dom-0.35-n128@-6C-f0.15-M1" ? { ...row, gitHead: LADDER_FREEZE_HEAD } : row,
+    );
+    const heavyPath = writeFixture(heavyAtFreeze);
+    expect(readFixtureRows(heavyPath).get("dom-0.35-n128@-6C-f0.15-M1")?.gitHead).toBe(
+      LADDER_FREEZE_HEAD,
+    );
+    const heavyRun = runEval(heavyPath);
+    expect(heavyRun.report.overallVerdict).toBe("no-pass");
+    expect(heavyRun.report.overallNoPassClass).toBe("infrastructure");
+    expect(heavyRun.report.artifactDefects.join(String.fromCharCode(10))).toContain("not sanctioned");
 
-    const { report } = runEval(mixedPath);
-    expect(report.distinctGitHeads).toEqual([FIXTURE_GIT_HEAD, OTHER_GIT_HEAD].sort());
-    expect(report.everyRowAcceptedMixedHeads).toBe(false);
-    expect(report.overallVerdict).toBe("no-pass");
-    expect(report.overallNoPassClass).toBe("infrastructure");
-    for (const spacing of report.spacings) {
-      expect(spacing.verdict).toBe("no-pass");
-      expect(spacing.reasons.join("\n")).toContain("mixed gitHeads force no-pass");
-    }
-
-    // The SAME mixture with acceptedMixedHeads recorded on every row (the dispatcher's
-    // --accept-mixed-heads path) is reported, not failed — proving the default above is the
-    // fail-closed branch and the acceptance is the explicit, recorded exception.
-    const accepted = mixed.map((row) => ({ ...row, acceptedMixedHeads: true }));
-    const acceptedPath = writeFixture(accepted);
-    const acceptedBytes = [...readFixtureRows(acceptedPath).values()];
-    expect(acceptedBytes.every((row) => row.acceptedMixedHeads === true)).toBe(true);
-    const acceptedRun = runEval(acceptedPath);
-    expect(acceptedRun.report.distinctGitHeads).toHaveLength(2);
-    expect(acceptedRun.report.everyRowAcceptedMixedHeads).toBe(true);
-    expect(acceptedRun.report.overallVerdict).toBe("pass");
+    // Violation 2: a THIRD distinct head — outside the sanctioned pair.
+    const threeHeads = sanctioned.map((row) =>
+      row.rowId === "aux-seed18@-27C-f0.15-CAK" ? { ...row, gitHead: OTHER_GIT_HEAD } : row,
+    );
+    const threePath = writeFixture(threeHeads);
+    expect(
+      new Set([...readFixtureRows(threePath).values()].map((r) => r.gitHead)).size,
+    ).toBe(3);
+    const threeRun = runEval(threePath);
+    expect(threeRun.report.overallVerdict).toBe("no-pass");
+    expect(threeRun.report.artifactDefects.join(String.fromCharCode(10))).toContain(
+      "more than one non-freeze gitHead",
+    );
   });
 
   it("forces no-pass on a duplicated rowId with conflicting values (review M11)", () => {

@@ -130,6 +130,27 @@ is independently re-derived from the artifact bytes.
   the exploration worktree. Relaunched at concurrency 4 to co-exist with them; per-row
   concurrency is recorded in the artifact.
 
+- 2026-08-09: maker-directed cap amendment, selected in an interactive session from written
+  options ("Keep both; pre-declare 16 h caps") and pre-declared BEFORE any N=112/128 row ran:
+  the 0.35 µm class (domain rungs and the N=96-based auxiliary rows) carries a **16 h wall
+  cap**; the 0.7 µm rows keep 10 h. Basis, measured: the first N=96 row took 24,699.5 s at
+  concurrency 4 beside four maker gut-check runs (~2.4× its isolated anchor), and its sibling
+  rows then passed 9 h under the same load. This is an infrastructure parameter with a
+  recorded basis, never a criterion change. Implementing it requires a new commit, so the
+  execution becomes a sanctioned TWO-PHASE run: rows recorded before the amendment carry the
+  freeze-era head `f59d187`; all later rows carry exactly one amendment head; and every
+  N=112/128 row must carry the amendment head (none ran before it). The evaluator enforces
+  that shape fail-closed (a third head, or a heavy row at the freeze head, is an artifact
+  defect forcing no-pass), reports both heads, and the unit review checks the amendment head
+  equals this amendment's landing commit.
+- 2026-08-09 (minutes later): the maker superseded the 16 h choice with the direction,
+  verbatim: "we shouldn't stop anything with arbitrary timeliness, if it takes longer , it's
+  okay." Every row now carries a uniform **48 h runaway-hang backstop** — a wedged-process
+  protection, never a scheduling stop; slow rows are science and run to completion. The
+  two-phase head record above is unchanged. The four N=96 rows in flight under the old
+  10 h dispatcher finish or cap on their own; any capped row is retired by the sanctioned
+  `--retry-row` path and re-run to completion under the amendment head.
+
 ## Out of scope
 
 - Any production-configuration selection or campaign authorization (decision 0045).

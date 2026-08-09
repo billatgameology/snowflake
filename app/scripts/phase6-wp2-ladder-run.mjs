@@ -84,6 +84,16 @@ const AUX_CONTROLS = [
 // Per-row wall cap: 10 h (one host up-window). Enforced HERE by killing the child; the recorded
 // stopReason is wall-cap-infrastructure and the row is not-comparable (no-pass, never a drop).
 const WALL_CAP_SECONDS = 10 * 3600;
+// 2026-08-09 maker direction, verbatim: "we shouldn't stop anything with arbitrary
+// timeliness, if it takes longer , it's okay." Wall caps are therefore NOT scheduling limits:
+// every row gets a uniform 48 h runaway-hang backstop (a wedged process is infrastructure; a
+// slow row is science and runs to completion). This superseded a same-day 16 h class cap
+// minutes after it was drafted, on the maker's direct instruction; the recorded basis and
+// history are in docs/plans/phase-6-wp2-ladder.md, Execution scheduling record.
+const RUNAWAY_BACKSTOP_SECONDS = 48 * 3600;
+export function wallCapSecondsFor(_rowId) {
+  return RUNAWAY_BACKSTOP_SECONDS;
+}
 // Review H5: the plan records concurrency ≤ 12; the clamp matches the recorded ceiling.
 const DEFAULT_CONCURRENCY = 12;
 const MAX_CONCURRENCY = 12;
@@ -418,7 +428,7 @@ function main() {
   const host = hostname();
   log(
     `ladder dispatcher starting head=${head} node=${process.version} pid=${process.pid} ` +
-      `host=${host} concurrency=${concurrency} wallCapSeconds=${WALL_CAP_SECONDS} ` +
+      `host=${host} concurrency=${concurrency} wallCapSeconds=${RUNAWAY_BACKSTOP_SECONDS} (runaway backstop, not a scheduling cap) ` +
       `acceptMixedHeads=${acceptMixedHeads} command=${JSON.stringify(dispatcherCommand)}`,
   );
   if (acceptMixedHeads) {
@@ -538,7 +548,7 @@ function main() {
       capped = true;
       log(`wall-cap ${row.rowId}: killing child at the 10 h per-row cap`);
       child.kill();
-    }, WALL_CAP_SECONDS * 1000);
+    }, wallCapSecondsFor(row.rowId) * 1000);
     capTimer.unref();
 
     child.on("error", (error) => {

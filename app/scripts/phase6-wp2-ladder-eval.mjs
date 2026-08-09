@@ -255,9 +255,33 @@ for (const row of presentRows) {
   }
 }
 const distinctGitHeads = [...new Set(presentRows.map(headOf))].sort();
-const everyRowAcceptedMixedHeads =
-  presentRows.length > 0 && presentRows.every((row) => row.acceptedMixedHeads === true);
-const mixedHeadsNoPass = distinctGitHeads.length > 1 && !everyRowAcceptedMixedHeads;
+// 2026-08-09 maker-directed amendment (docs/plans/phase-6-wp2-ladder.md, Execution scheduling
+// record), pre-declared before any N=112/128 row ran: execution is a sanctioned TWO-PHASE run.
+// Rows recorded before the heavy-cap amendment carry the freeze-era head below; all later rows
+// carry exactly one other head (the amendment commit, checked against the plan by the unit
+// review); and every heavy row (dom-0.35-n112/n128) MUST carry the non-freeze head, because
+// none had run before the amendment. Anything outside that shape is an artifact defect.
+const LADDER_FREEZE_HEAD = "f59d18702301155c0c2e7eaecc3442e6cf117123";
+const HEAVY_ROW_ID_PATTERN = /^dom-0.35-n(112|128)@/;
+const nonFreezeHeads = distinctGitHeads.filter((head) => head !== LADDER_FREEZE_HEAD);
+let mixedHeadsNoPass = false;
+if (nonFreezeHeads.length > 1) {
+  mixedHeadsNoPass = true;
+  artifactDefects.push(
+    `more than one non-freeze gitHead present (${nonFreezeHeads.join(", ")}): the sanctioned ` +
+      "two-phase execution allows the freeze-era head plus exactly one amendment head",
+  );
+}
+for (const row of presentRows) {
+  if (HEAVY_ROW_ID_PATTERN.test(row.rowId) && row.gitHead === LADDER_FREEZE_HEAD) {
+    mixedHeadsNoPass = true;
+    artifactDefects.push(
+      `heavy row ${row.rowId} carries the freeze-era head ${LADDER_FREEZE_HEAD.slice(0, 8)} — ` +
+        "no N=112/128 row ran before the 16 h cap amendment, so this row is not sanctioned",
+    );
+  }
+}
+const amendmentHead = nonFreezeHeads.length === 1 ? nonFreezeHeads[0] : null;
 
 // Transcribed classifier (see the source comments above).
 function classifyHabit(aspectRatioValue) {
@@ -431,8 +455,8 @@ if (unexpectedRowIds.length > 0) {
 if (mixedHeadsNoPass) {
   globalForcings.push({
     reason:
-      `mixed gitHeads force no-pass: ${distinctGitHeads.length} distinct heads present ` +
-      `(${distinctGitHeads.join(", ")}) without every row carrying acceptedMixedHeads`,
+      `gitHead provenance forces no-pass: heads present (${distinctGitHeads.join(", ")}) ` +
+      "violate the sanctioned two-phase shape (see artifactDefects)",
     failureClass: CLASS_INFRASTRUCTURE,
   });
 }
@@ -528,7 +552,8 @@ const report = {
   unexpectedRowIds,
   artifactDefects,
   distinctGitHeads,
-  everyRowAcceptedMixedHeads,
+  ladderFreezeHead: LADDER_FREEZE_HEAD,
+  amendmentHead,
   globalForcingReasons,
   auxiliaryComparisons,
   spacings,
@@ -551,7 +576,7 @@ summary.push(
     `${artifactDefects.length} artifact defect(s), ` +
     `${distinctGitHeads.length} distinct gitHead(s)` +
     (distinctGitHeads.length > 1
-      ? ` [${distinctGitHeads.join(", ")}] everyRowAcceptedMixedHeads=${everyRowAcceptedMixedHeads}`
+      ? ` [${distinctGitHeads.join(", ")}] amendmentHead=${amendmentHead ?? "(violated)"}`
       : ""),
 );
 for (const forcing of globalForcingReasons) summary.push(`  FORCED: ${forcing}`);
