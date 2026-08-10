@@ -87,6 +87,8 @@ remains in force.
 
 ## Related planning
 
+- [Source transcript](TRANSCRIPT.md) preserves the maker's selected word-for-word recollections,
+  contemporaneous quotations, and separately labeled Git observations before any public scripting.
 - [Social media coverage](SOCIAL-MEDIA.md) records the retained destinations and their roles.
 - [Media specification](MEDIA-SPEC.md) defines the house duration, text, visual, accessibility,
   provenance, music, rights, platform-override, and archive rules.
@@ -95,18 +97,3 @@ remains in force.
 - [Sample week 01](SAMPLE-WEEK-01.md) applies all three specifications to a fictional five-entry,
   full-channel week, including a failed-looking upload, release repair, material correction,
   localization, recap, and reconstruction drills.
-
-## Original transcript for future reference
-
-i'm beginning to think i can combine education website, animation, social media post all together in one pipeline where I only need to create one full chapter of content first that is code based, include code generated images, animation, recorded audio, interactive demo (web use only but can show in video), ice crystal model viewing and video, group all all of these together into one connected, coherent content creation pipeline.
-This system will generate social post, video, website, education and demo all together so that, when I have a demo, i can post video about it. when a crystal is created, it gets uploaded to the website, and have a social post about it. when the research progresses and has new content, there can be immediate post about it with content, media, etc,
-
-research finding ─┐
-interactive demo ─┼─→ governed content package ─→ chapter / video / social / gallery
-crystal artifact ─┘
-
-run → checkpoint → mesh/timeline → interactive viewer
-                              ↘ hero still
-                              ↘ growth video
-                              ↘ gallery entry
-                              ↘ social-post draft

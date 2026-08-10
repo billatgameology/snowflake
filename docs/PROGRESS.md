@@ -109,7 +109,14 @@ index, a plan, ADR, or audit links to historical detail.
   `00991ec` treats an approved coded experience as both an interactive and a source for separately
   identified demo, animation, hybrid-video, still, and preview derivatives; reconstruction retains
   the exact web build, state, inputs, viewport, capture environment, and interaction/timeline recipe.
-  Plan commits `e2cfbb6` and `ef847ba` record the earlier scopes. This is unmerged content planning
+  The local [Journey source transcript](journey/TRANSCRIPT.md), planned at `4a0d3fa`, now preserves
+  the maker's selected current-conversation wording, the earliest tracked verbatim Phase 1 response,
+  and separately labeled Git observations through the archived Reiter journey-editor spike. It does
+  not convert commit order into private thought order, identify the remembered video, or claim a
+  validated history. It has no known Journey/audience release. This task does not push; because the
+  repository remote is public, any later push would expose its exact quotations and must be an
+  explicit maker decision. Plan commits `e2cfbb6` and `ef847ba` record the earlier scopes. This is
+  unmerged content planning
   only: it implements no allocator, publisher, capture tooling, or playlist; authorizes no
   publication or automated posting; changes no scientific status; and does not touch the education
   freeze or Phase 6 implementation plan.
