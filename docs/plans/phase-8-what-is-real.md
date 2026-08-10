@@ -1,19 +1,19 @@
 # Plan — Phase 8: What is real — the reconciled laboratory target book
 
 - **Phase:** Phase 8 (adoption candidate) — Cross-laboratory evidence reconciliation
-- **Status:** maker approved a parallel start on 2026-08-10; charter amendment and decision 0046
-  must land before S0 begins. Phase 8 may then run concurrently with Phase 6 in an isolated
-  worktree. Phase 7 and Phase 8 have no mutual gate dependency; neither phase may borrow the
-  other's claims, artifacts, or completion credit.
+- **Status:** maker approved the parallel start and completely standalone Phase 7 relationship on
+  2026-08-10. Candidate decision 0046 and charter v1.23 must land before S0 begins. Phase 8 then
+  runs concurrently with Phase 6 in an isolated worktree; Phase 7 has no Phase 6/8 completion
+  dependency but still requires its own plan before it starts.
 - **Started:** 2026-08-04 (drafted)
-- **Last touched:** 2026-08-10 by OpenAI Codex — parallel-start amendment planned
+- **Last touched:** 2026-08-10 by OpenAI Codex — literal Phase 7 independence planned
 
 ## Goal
 
 Phase 6 compared one model class against one ruler and both sides were weaker than assumed: the
 model was missing load-bearing physics, and the ruler — a single digitized morphology diagram
 scored by final aspect ratio — is contradicted between laboratories, protocol-dependent, and
-criticized as a habit metric by its own sources. Before any further modeling, this phase turns
+criticized as a habit metric by its own sources. Before Phase 9 modeling, this phase turns
 the full multi-laboratory record now in `research/` (Libbrecht corpus **plus** Takahashi/Fukuta
 free-fall, Nelson sublimation, Bacon–Baker–Swanson levitation, Bailey–Hallett cold-end,
 Harrison/Pokrifka/Harrington levitation-mass lineage) into a graded, protocol-tagged,
@@ -25,12 +25,9 @@ evidence chain.
 
 ## Done when
 
-Candidate charter milestone: done when every target in the book
-carries (a) a page-cited extraction line in a tracked research index, (b) protocol tags (seed,
-pressure, geometry, supersaturation semantics and uncertainty, growth history, ensemble
-semantics), (c) a robustness class where Class A requires at least two independent witnesses,
-(d) an inputs-vs-targets flag, and (e) membership in a pre-registered held-out split — and the
-frozen, hashed book passes one proportionate non-author review with zero unresolved blockers.
+Candidate charter v1.23 milestone, verbatim:
+
+> Done when every target in the book carries (a) a page-cited extraction line in a tracked research index, (b) protocol tags (seed, pressure, geometry, supersaturation semantics and uncertainty, growth history, ensemble semantics), (c) a robustness class where Class A requires at least two independent witnesses, (d) an inputs-vs-targets flag, and (e) membership in a pre-registered held-out split — and the frozen, hashed book passes one proportionate non-author review with zero unresolved blockers.
 
 ## Approach
 
@@ -45,30 +42,34 @@ index.
 ### Sequencing and isolation
 
 The maker directed on 2026-08-10 that Phase 8 proceed in parallel with Phase 6 and that Phase 7
-remain a standalone track. Decision 0046 and the matching charter amendment are S-1: until they
-land, this plan remains an adoption candidate and no extraction or target-book implementation
-begins. After they land:
+be completely standalone from both Phase 6 and Phase 8 completion. Candidate decision 0046 and the
+matching charter amendment are S-1; after they land, they authorize S0 under these boundaries:
 
 - Phase 8 runs in its own worktree and branch. Phase 6 worktrees, live processes, frozen protocol,
   `evidence/phase6-*`, plans, reports, and gate machinery are read-only to this phase.
-- Phase 8 performs no solver run and no CPU-heavy repository check while a timing-sensitive Phase 6
-  evidence row is active. Its normal verification is the planning/research-documentation exemption:
-  `git diff --check` plus `node scripts/lint-rule7.mjs`, until executable operators are added in S5.
+- Phase 8 performs no solver run and consumes no material CPU capacity on the Phase 6 evidence host
+  while a timing-sensitive row is active. No verification exemption is created: every non-exempt
+  Phase 8 change runs exact `npm test` on a separate host, plus the checks its scope requires.
 - Phase 8 may read already-published Phase 6 records only with their existing evidence labels and
   limits. It may not cite an incomplete Phase 6 result as established, change a Phase 6 obligation,
   or earn Phase 6 gate credit.
-- Phase 7 neither blocks nor supplies Phase 8. Phase 8 likewise supplies no Phase 7 gate input. The
-  existing Phase 7 relationship to Phase 6 is unchanged by this sequencing decision.
+- Phase 7 neither blocks nor supplies Phase 8. Decision 0046 also removes Phase 7's former
+  Phase 6 completion dependency, but does not start Phase 7; its own committed plan and isolated
+  worktree remain prerequisites.
 - Before the Phase 8 book freezes, changes on `main` that affect a cited source, provenance class,
   or shared research record are reconciled into this worktree and the affected extraction or class
   assignment is rechecked. Parallelism never licenses a stale freeze.
+- `docs/PROGRESS.md` remains one live index. Before every Phase 8 state-record commit, reconcile
+  its current `origin/main` version, preserve the Phase 6 lane, and apply only the Phase 8 delta;
+  never overwrite it wholesale from this branch's older snapshot.
 
 This exception authorizes Phase 8 only. It does not start Phase 9 or Phase 10 and does not create a
 general permission to overlap charter phases.
 
 Three organizing rules:
 
-1. **Inputs ≠ targets.** Libbrecht's α measurements are what the model's kinetics are fitted
+1. **Inputs ≠ targets.** Libbrecht's Hertz–Knudsen attachment-coefficient (`alphaHK`)
+   measurements are what the model's kinetics are fitted
    from; they can calibrate but never validate. The free-fall and levitation datasets are the
    candidate validation targets. TAX2's 206 needle panels stay in-sample for M1 (ADR 0005).
 2. **Prefer supersaturation-free observables.** The labs disagree most about σ calibration.
@@ -93,7 +94,8 @@ Three organizing rules:
 - **Class C — standing disagreements:** the cold end (Takahashi: columns below −22.4 °C at
   water saturation vs Bailey–Hallett: plates/polycrystals to −40 °C, mostly lower σ,
   filament-nucleated, with the classic cold-end columns attributed to nucleation artifacts);
-  α magnitudes across laboratories (~100× spread; Pokrifka's kinetics transition is the
+  Hertz–Knudsen attachment-coefficient (`alphaHK`) magnitudes across laboratories (~100× spread;
+  Pokrifka's kinetics transition is the
   candidate reconciliation and therefore also a Phase 9/10 test).
 
 ## Steps
@@ -101,8 +103,9 @@ Three organizing rules:
 - [ ] **S-1 — Charter and isolate the phase.** Accept decision 0046, amend the charter's sequential
   phase rule and add the Phase 8 milestone, update `docs/PROGRESS.md` to show the two independent
   active lanes, and record the isolated worktree/territory boundary above. Check: the authority
-  records agree; `git diff --check` and Rule 7 pass; no Phase 6 artifact, process, plan, report, or
-  gate file changed.
+  records agree; `git diff --check`, Rule 7, the focused progress test, and exact `npm test` pass;
+  no Phase 6 artifact, process, report, or gate file changed, and the Phase 6 plan diff is limited
+  to reconciling decision 0046's scheduling boundary.
 - [ ] **S0 — Extraction indexes for the non-Libbrecht corpus.** One tracked
   `research/<paper>.md` per source (takahashi-fukuta1988, takahashi1991 + corrigendum,
   nelson-1998, bailey-hallett-2002, bacon-baker-swanson-2003, harrison-2016, pokrifka-2020,
@@ -124,7 +127,8 @@ Three organizing rules:
   (different lab AND different method); Class C entries carry both positions verbatim plus the
   candidate reconciliation phrased as a testable hypothesis. Check: a reviewer can reconstruct
   every class assignment from the witness list alone.
-- [ ] **S4 — Inputs-vs-targets partition.** Explicit flag per entry; the Libbrecht α lineage
+- [ ] **S4 — Inputs-vs-targets partition.** Explicit flag per entry; the Libbrecht
+  attachment-coefficient (`alphaHK`) lineage
   marked input; ADR 0005 in-sample markings carried over; candidate held-out entries named.
   Check: no entry both input and target.
 - [ ] **S5 — Registered derived-observable operators.** Deterministic specs (with test
@@ -150,6 +154,16 @@ Three organizing rules:
 - Polycrystalline and rimed-crystal targets are recorded (they dominate parts of parameter
   space) but flagged out-of-model-class; the scope statement itself is Phase 10 work.
 
+## Open questions
+
+- Do the Takahashi image-only tables get digitized in S0 (adds read-uncertainty machinery) or
+  deferred until a Phase 9 arm actually needs a number from them?
+- Does Bacon's QJRMS licensing constrain how much verbatim extraction the tracked index may
+  carry? (Quotes with citation are presumably fine; check before S0 publishes.)
+- After Phase 6's education freeze ends, should the education site's new “Independent laboratory
+  work” references section mirror this book's source list or stay independent? Phase 8 does not
+  touch education while the freeze is active.
+
 ## Tried and rejected
 
 - **Scoring habit as a single final-aspect-ratio label against one diagram** (Phase 6): the
@@ -158,12 +172,3 @@ Three organizing rules:
 - **Counting σ₀ crossings as a habit bound** — retracted 2026-07-29/08-01; see the retraction
   notices in `research/libbrecht-figure-findings.md`. Nothing in this book may inherit it.
 - **Treating any single lab's diagram as ground truth** — the cold end proves the failure mode.
-
-## Open questions
-
-- Do the Takahashi image-only tables get digitized in S0 (adds read-uncertainty machinery) or
-  deferred until a Phase 9 arm actually needs a number from them?
-- Does Bacon's QJRMS licensing constrain how much verbatim extraction the tracked index may
-  carry? (Quotes with citation are presumably fine; check before S0 publishes.)
-- Should the education site's new "Independent laboratory work" references section be the
-  public mirror of this book's source list, or stay independent?
