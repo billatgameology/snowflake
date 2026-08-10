@@ -1,8 +1,10 @@
 # Sample week 01 — symmetry is a constraint, not validation
 
 **Status:** complete fictional paper exercise. Nothing described here was created, reviewed,
-published, uploaded, observed, or reserved. This file exercises the Journey specifications; it is
-not a production calendar, scientific claim, platform receipt, or Phase 6 artifact.
+published, uploaded, observed, or reserved. This file exercises the earlier allocation,
+release-history, and reconstruction record shape; it does not exercise every current editorial
+precondition. It is not a production calendar, scientific claim, platform receipt, or Phase 6
+artifact.
 
 ## Fictional-data boundary
 
@@ -26,6 +28,28 @@ The week runs Monday through Friday, 2026-08-10 through 2026-08-14. Displayed ti
 `America/Los_Angeles` (`UTC−07:00`); a real record would retain both the original offset and UTC.
 This is deliberately a full-coverage stress test. It is not the recommended burden for an ordinary
 week.
+
+## Editorial-strategy limit
+
+This sample was constructed to stress identity allocation, canonical release, fan-out,
+reconciliation, correction, localization lineage, and reconstruction. Its publication calendar
+retains the earlier reuse-heavy editorial assumption: some rows share one finished short, use a
+fixed compact field-note pattern, or automatically fan an Instagram edit into Facebook. Those rows
+show how to record such events if they occur; they are **not the current production model or a
+claim that the fictional edits fit their destinations**.
+
+Current production starts from a reusable source package and separately briefs each selected
+outlet and purpose. A short-feed edition needs its own honest hook and delivered payoff; a long
+explainer, carousel, X note, Threads conversation, Facebook treatment, and localized Weixin surface
+each need their native editorial decision. Identical finished bytes or automatic cross-posting are
+allowed only after an explicit native-fit review. This immutable example ledger is not being
+retrofit to pretend those reviews happened; a future sample should exercise the outlet-native
+strategy directly.
+
+The fixture also predates the immutable source-package manifest and native-fit decision fields now
+required by `NUMBERING.md`. Its entry snapshots and release manifests cannot reconstruct those
+missing records. They remain explicitly **not exercised**, not inferred from member digests or
+backfilled into old fictional events.
 
 ## What this sample illustrates
 
@@ -58,10 +82,13 @@ dispositions, and `scientific_review: EXAMPLE-SIMULATED-PASS` for outward interp
 means only “show the field and blocking transition in this example.” It is not a review verdict and
 cannot authorize publication.
 
-No candidate may reach canonical commit, and no external publication-attempt event may follow,
-unless the exact source/release has all applicable fields set. Monday's physical-world premise
-additionally points to `EXAMPLE-SOURCE-SYMMETRY-01`; because that placeholder is not a real reviewed
-source, these sample bytes remain unpublishable despite the simulated transition.
+Under the earlier record shape illustrated here, the simulated gate requires its enumerated
+source/release fields before a canonical commit or external attempt. It does not contain the current
+immutable source-package-manifest binding or outlet brief/native-fit decision. The later external
+attempt rows are therefore legacy record-shape examples, not valid executions of the current
+preconditions. Monday's physical-world premise additionally points to
+`EXAMPLE-SOURCE-SYMMETRY-01`; because that placeholder is not a real reviewed source, these sample
+bytes remain unpublishable despite the simulated transition.
 
 ## The public week at a glance
 
@@ -117,8 +144,9 @@ source entries and their exact snapshots/releases.
 
 ## Publication calendar
 
-One day can publish several renditions of one approved artifact packet. That is distribution work,
-not several new Journey steps.
+One Journey step can create several outlet artifacts, technical renditions, and destination
+placements without creating several Journey numbers. The reuse and fan-out rows below are retained
+under the editorial-strategy limit above.
 
 | Planned or confirmed local time | Destination | Publication identity | What appears |
 |---|---|---|---|
@@ -964,18 +992,25 @@ positions, recommendations, unarchived analytics, unregistered comments, or a li
 historical appearance. Fictional `.example` URLs and invalid digests restore nothing; they only show
 the record shape.
 
-## What the maker actually handles
+## Work assignment encoded by this legacy fixture
 
 This stress-test week looks busy because it deliberately touches every retained channel. The
-creative burden still centers on one primary movement per day.
+table records how the earlier fixture divided work; it is not the current outlet-native workload
+model. Under the current strategy, outlet selection and briefs, hooks and openings, edit and card
+structure, destination copy, accessibility decisions, maker approval, native-fit review, and human
+localization remain editorial work. A pipeline may handle approved mechanical operations such as
+encoding, identity insertion, upload execution, and record capture.
 
-| Day | Maker's primary work | Derived or pipeline-managed work |
+| Day | Human/editorial work represented in the fixture | Mechanical support represented in the fixture |
 |---|---|---|
 | Monday | Ask the question; approve diagram and 24-second narration | Encode renditions, captions, IDs, uploads, archive events |
-| Tuesday | Build/approve the interactive explanation and provisional wording | Carousel crops, fan-out records, channel copy, URL capture |
-| Wednesday | Approve the model/viewer, repair captions, review localization | Manifest replacement, destination files, localized archive fields |
-| Thursday | Write and record the correction | Link affected copies, create correction placements, update statuses |
-| Friday | Synthesize four entries and host the walkthrough | Digest formatting, stream records, retained recording, recap source expansion |
+| Tuesday | Build/approve the interactive explanation, provisional wording, carousel, and legacy shared-placement choice | Encode approved crops, capture fan-out records and URLs |
+| Wednesday | Approve the model/viewer and caption repair; perform human language, scientific, and destination review | Replace manifests, encode approved destination files, capture localized archive fields |
+| Thursday | Write and record the correction; approve affected destination copy and placements | Link affected copies and update recorded statuses |
+| Friday | Synthesize four entries, approve the digest/run-of-show, and host the walkthrough | Format approved digest, capture stream records, retain recording, expand recap sources |
+
+The fixture does not contain the additional native outlet briefs or fit reviews now required, so
+the table must not be used to estimate the current maker burden.
 
 Before final release, each day's scripts and candidate artifacts use its number-independent
 `SCJ-TMP-<unique-key>` identity and `JOURNEY-NEXT`; the maker does not manually renumber working
@@ -996,8 +1031,9 @@ channels, localization, and live sessions should not exist merely to satisfy a c
 4. Event history matters most on failure, fan-out, editing, correction, and live-archive days.
 5. A material correction can preserve a useful earlier artifact without preserving its outdated
    interpretation as current.
-6. Covering every retained channel in one five-entry week is operationally possible on paper but is
-   intentionally not the default cadence.
+6. The schema can represent a fictional full-channel week on paper; this does not establish
+   operational feasibility, sustainability, or outlet-native fit, and it is not the default
+   cadence.
 7. The next sample round should remove most destinations and test whether the scheme still feels
    natural during an ordinary, low-output week.
 8. A React-coded experience can be both the public interactive source and a media-production source,

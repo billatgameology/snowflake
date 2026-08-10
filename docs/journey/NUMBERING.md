@@ -51,6 +51,11 @@ still, audio recording, interactive, or other non-video form, but every committe
 with one lightweight watchable serial edition on its canonical page. A rich step with a model,
 diagram, video, and ten destination posts still receives one Journey number.
 
+That required serial edition is the owned site's gapless watch-in-order artifact, not a universal
+social edit. A destination short may also serve that role only when the same approved artifact
+genuinely satisfies both briefs. Long explainers, carousels, conversation posts, localized pieces,
+and other selected outlet editions remain attached to the same Journey number.
+
 The public sequence uses two high-water marks. `Hc` is the highest committed Journey number; `Hv` is
 the highest commit whose canonical route and serial edition were subsequently observed live by the
 independent release check. Every integer from 1 through `Hc` is permanently occupied and ordinarily
@@ -69,22 +74,24 @@ Allocation rules:
    may use `...-A01-RC01`; they are nonpublic, noncitable, do not resolve through `/journey/NNNN`,
    and consume no final `SCJ`, `A`, or `R` suffix.
 2. An entry becomes release-eligible only when its canonical page, primary artifact, watchable
-   serial edition, source/status, accessibility, rights/privacy, skeptical review when applicable,
-   and maker approval are ready under the temporary production record.
+   serial edition, initial reusable source-package manifest, source/status, accessibility,
+   rights/privacy, skeptical review when applicable, and maker approval are ready under the
+   temporary production record.
 3. When `Hc = Hv`, the sole registry authority opens one exclusive release transaction and reserves
    candidate value `Hc + 1` without advancing either mark. No second Journey reservation runs
    concurrently.
 4. Inside that transaction, the pipeline freezes the temporary-to-final `SCJ`/`A`/`R`/`P01`
-   mapping, renders or speaks the candidate number into final staged media, removes every temporary
+   mapping, freezes the initial source-package identity/version/manifest digest and ordered member
+   digests, renders or speaks the candidate number into final staged media, removes every temporary
    token, freezes member bytes and digests, and completes final preflight. The candidate mark is not
    yet an assigned public Journey identity, and no externally reachable preview or destination
    attempt is permitted.
 5. One atomic canonical-release commit verifies the reservation, assigns the final Journey and
-   included artifact/release identities, writes the immutable entry snapshot, creates canonical
-   publication `P01`, binds and publishes the assigned numeric route, appends the commit event, and
-   advances `Hc`. A separate immediate event independently observes the canonical route and serial
-   edition public, then advances `Hv`. External distribution and the next Journey reservation remain
-   blocked until `Hc = Hv` again.
+   included artifact/release identities, binds the initial source-package manifest, writes the
+   immutable entry snapshot, creates canonical publication `P01`, binds and publishes the assigned
+   numeric route, appends the commit event, and advances `Hc`. A separate immediate event
+   independently observes the canonical route and serial edition public, then advances `Hv`.
+   External distribution and the next Journey reservation remain blocked until `Hc = Hv` again.
 6. A failed or ambiguous preflight before canonical commit holds the reservation and blocks later
    Journey allocation. Reconcile or retry it; never skip forward. A reservation timeout fails closed:
    it cannot automatically free the candidate while numbered staged bytes may still exist. A
@@ -242,6 +249,16 @@ same artifact rather than receiving new artifact numbers.
 Rules:
 
 - Every artifact has one owning Journey entry and may be referenced by later entries.
+- The canonical entry snapshot binds a versioned reusable source-package manifest: the approved
+  facts, exact source media and editable assets, transcripts, provenance, access material, rights,
+  and correction state available to make its editions. Every derived artifact, approved release,
+  and destination publication records both the immutable internal manifest identity/version/digest
+  and the exact package-member digests it used. The internal identity is not another public ID
+  namespace. Package members record their role, origin, archive path, media type, byte size, digest,
+  rights/provenance/access state, and correction state. The package shares evidence and production
+  ingredients; it does not declare one finished edit authoritative for every destination. The
+  canonical commit binds the initial package version; later additions append an immutable version
+  and history event without rewriting an earlier artifact, release, or publication binding.
 - Preserve a solver run, checkpoint, specimen, dataset, demo, or research source's native identifier
   alongside the Journey artifact ID; the editorial ID does not replace scientific provenance.
 - Before canonical commit, draft artifacts and releases use temporary `A` and `RC` labels beneath
@@ -278,6 +295,12 @@ Rules:
   build/bundle, frozen state and inputs, viewport, browser or renderer and capture versions,
   interaction/timeline/camera recipe, output settings, and member digests. A vertical and horizontal
   rendition may share one video artifact when their sequence and meaning remain the same.
+- A hook-first short, long explainer, carousel, conversation piece, or localized edition receives a
+  separate artifact identity when its opening, selection, pacing, narration, structure, language,
+  meaning, or correction lifecycle is independently editorial. A mechanical crop, codec,
+  open-caption export, or platform transcode may remain a release member or destination rendition
+  when the editorial sequence and meaning do not change. Duration and outlet alone do not decide
+  the boundary.
 - A mutable URL, branch name, or “latest” deployment is not a source identity. The coded-experience
   release retains an immutable source snapshot or repository revision, any applicable dirty-state
   archive, dependency lock/build configuration, built bundle, and every load-bearing data, font,
@@ -321,6 +344,9 @@ commit or observation remains unresolved.
 - An Instagram-to-Facebook automatic cross-post creates two records because the destinations can
   diverge or disappear independently. When that fan-out is known, preallocate one publication ID
   per intended destination and link them through the same batch or cross-post attempt event.
+- These rules make a deliberate reuse or automatic cross-post reconstructable when it occurs; they
+  do not recommend either as an editorial strategy. Each selected outlet first receives its own
+  purpose and native-fit decision under `MEDIA-SPEC.md`.
 - A Story and Reel are separate records even if they use identical bytes.
 - A language edition published as a separate destination object receives its own publication ID and
   records the exact source release and locale.
@@ -379,8 +405,9 @@ Pre-commit work remains private but reconstructable. Retain:
   state, and the proposed artifact order;
 - exclusive reservation token, candidate numeric value, prior `Hc` and `Hv`, allocator/lock
   identity, opened time, deadline, and every renewal or manual intervention;
-- frozen temporary-to-final `SCJ`/`A`/`R`/`P01` mapping, staged page/media/member digests, placeholder
-  scan, accessibility/provenance/rights approvals, and final-preflight event;
+- frozen temporary-to-final `SCJ`/`A`/`R`/`P01` mapping; initial immutable source-package manifest
+  identity, version, digest, ordered member digests, and approval event; staged page/media/member
+  digests; placeholder scan; accessibility/provenance/rights approvals; and final-preflight event;
 - either non-exposure evidence showing that no candidate-numbered bytes or route were externally
   reachable before commit, or the exposure evidence and normal/emergency resolution bound to the
   same candidate; and
@@ -404,6 +431,7 @@ Retain:
 - canonical-page availability: live, tombstone, unavailable, or unknown;
 - editorial status: current, partially corrected, wholly corrected, superseded, or withdrawn;
 - artifact and current approved-release IDs;
+- current source-package manifest identity/version/digest and the event that approved that version;
 - ordered relationship IDs: continues, builds on, answers, corrects, supersedes, derived from,
   imported from, and summarized by;
 - topic or arc membership without encoding it into the ID;
@@ -422,6 +450,8 @@ Retain:
 
 - artifact/release-manifest ID, parent Journey ID, role, kind, state, approval time, manifest
   format/version, and manifest digest algorithm/value;
+- outlet-and-purpose editorial-brief reference when the artifact is an editorial edition;
+- exact source-package manifest identity/version/digest and ordered used-member digests;
 - source entry snapshot event/digest and, for localization, exact source release-manifest ID;
 - the ordered named-asset list, with each member's role, locale, filename/archive path, media type,
   byte size, digest algorithm/value, creation/export time, and derivation;
@@ -433,17 +463,41 @@ Retain:
   and
 - caption, transcript, alt-text, provenance, rights, privacy, and correction-record references.
 
+### Editorial-brief and native-fit records
+
+These are immutable internal records referenced by artifacts, publications, and events; they do not
+create another public ID namespace. Retain:
+
+- brief identity, version, digest, parent Journey ID, destination/surface, purpose, audience,
+  locale, content family, and exact source-package manifest identity/version/digest;
+- the selected opening, hook/promise/payoff for a short, or title/thumbnail promise and evidence arc
+  for a long piece, plus intended duration/layout, essential status/provenance, accessibility,
+  rights, correction path, and destination action;
+- maker/editorial approval, reviewer, approval event/digest, and any superseded brief; and
+- for a native-fit decision, its immutable decision snapshot/event, exact approved artifact release
+  and destination set, disposition, comparison of opening, selection, pacing, framing, labels,
+  copy, accessibility, payoff, rights, and correction lifecycle, reviewer, rationale, and outcome.
+
+An identical-byte decision is valid only for the exact releases and destinations reviewed. A later
+edit, new destination, changed rights path, or material platform treatment requires a new decision;
+it cannot inherit fit from a similar post.
+
 ### Destination-publication record
 
 Retain:
 
 - publication ID and primary Journey ID;
 - the ordered source Journey IDs and exact artifact-release IDs used;
+- destination purpose and exact outlet editorial-brief reference;
+- exact source-package manifest identity/version/digest and ordered used-member digests;
 - destination, surface, account identity/handle at that time, locale, audience, and manual/API route;
 - exact title, body, description, tags, alt text, disclosures, and canonical link;
 - archive path and digest algorithm/value for every exact uploaded file;
 - for a destination-only code-derived image or video, the complete capture manifest, exact source
   release/member digests and entry snapshot, output digest, and rerender-test result;
+- native-fit disposition—unique edition, deliberate identical reuse, technical rendition, or
+  **N/A**—plus reviewer, decision event, and rationale; reused or automatically fanned-out bytes
+  also name every reviewed destination and their shared attempt when applicable;
 - maker approval, scheduled time, attempt time, confirmed remote publication time, and expiry when
   applicable;
 - remote platform ID and URL;
@@ -470,6 +524,8 @@ Each `SCJ-E000127` event retains:
 - registry time and effective outside time, with precision/timezone;
 - actor or system, one primary affected entity ID, and any ordered related entity IDs;
 - event type and exact resulting immutable snapshot or release reference;
+- source-package manifest identity/version/digest, editorial-brief reference, or native-fit decision
+  reference when the event creates or approves one of them;
 - prior event/revision, reason, and related correction/retry/removal IDs;
 - remote response or independent observation; and
 - error and ambiguity details when an operation did not resolve cleanly.
@@ -479,7 +535,8 @@ account, idempotency/request key when one exists, request/response IDs, timestam
 objects, and reconciliation evidence. Several publication records may reference the same attempt
 when an automatic fan-out or ambiguous duplicate occurred.
 
-Useful event types include production opened, candidate reserved, reservation preflight passed,
+Useful event types include production opened, source package approved, source package revised,
+editorial brief approved, native fit reviewed, candidate reserved, reservation preflight passed,
 reservation aborted, candidate exposure detected, canonical release committed, canonical release
 observed, artifact revised, publication planned, attempt started, attempt failed, attempt ambiguous,
 publication confirmed, publication edited, correction linked, removal requested, publication
@@ -578,11 +635,16 @@ To rebuild the Journey from preserved records:
    the earlier observation. Report a current live page, neutral post-publication status shell,
    unresolved latest commit, or forced-availability exception without pretending those availability
    states are interchangeable.
-4. Replay entry events to derive each page's current state, relationships, and correction banner.
-5. Expand each entry's artifacts and approved release manifests; verify the manifest and every
-   member's archive path, byte size, and digest.
-6. Expand its destination publications; replay their events to recover attempts, exact copy/files,
-   remote IDs/URLs, edits, replacements, and final known state.
+4. Replay entry and source-package events to derive each page's current state, relationships,
+   correction banner, and immutable package versions. Verify every package manifest, ordered member
+   binding, member archive path, byte size, digest, approval, and supersession link.
+5. Expand each entry's artifacts, approved release manifests, and editorial briefs. Verify each
+   artifact's exact package version and used-member digests, then verify the release manifest and
+   every member's archive path, byte size, digest, brief approval, and derivation.
+6. Expand its destination publications and native-fit records. Verify each publication's package
+   and used-member bindings, exact brief, disposition, reviewer/event, rationale, and reviewed
+   destination set; then replay its events to recover attempts, exact copy/files, remote IDs/URLs,
+   edits, replacements, and final known state.
 7. Rebuild the externally supported portion of publication time from exact or non-overlapping
    effective-time intervals. Report overlapping, unknown, and ambiguous intervals as unordered;
    use event IDs only to show registry-knowledge order, never as outside-time evidence.
@@ -600,10 +662,12 @@ only.
 
 A recoverable archive periodically exports a self-contained bundle containing, to the extent
 retention remains permitted, the record-format definition, event register, derived current index,
-immutable entry snapshots, artifact releases, exact publication text/files, URL map, and checksum
-manifest. The bundle names every forced omission and does not call a legally reduced register
-complete. Store recoverable copies independently of the social platforms and periodically perform a
-read-only reconstruction using the steps above. A backup that has never been restored is only an
+immutable entry snapshots, source-package manifests and members, editorial briefs, artifact
+releases, native-fit decision snapshots/evidence, exact publication text/files, URL map, and
+checksum manifest. Every cross-record reference and digest needed to expand those records is in the
+bundle. The bundle names every forced omission and does not call a legally reduced register
+complete. Store recoverable copies independently of the social platforms and periodically perform
+a read-only reconstruction using the steps above. A backup that has never been restored is only an
 untested copy.
 
 ### Reconstruction boundary
@@ -617,18 +681,23 @@ Those limits are reported as recovery gaps, not filled with plausible substitute
 
 ## Daily burden
 
-The human workflow remains small even though allocation commits late:
+The human workflow remains bounded by the outlets actually selected, even though allocation commits
+late:
 
-1. write and produce under the temporary production identity and `JOURNEY-NEXT` placeholder;
-2. approve one primary artifact, the canonical entry, and the smallest honest watchable serial
-   edition;
+1. write and produce under the temporary production identity and `JOURNEY-NEXT` placeholder while
+   assembling the initial source package;
+2. approve the source-package manifest, one primary artifact, the canonical entry, and the smallest
+   honest watchable serial edition;
 3. let the exclusive release transaction materialize and commit the next public number;
 4. independently confirm the canonical route and serial edition; and
-5. register only the external destination publications actually selected.
+5. for each external destination actually selected, approve its outlet-and-purpose brief, exact
+   edition, and native-fit disposition before registering and attempting the publication.
 
 Artifact/release allocation, placeholder replacement, canonical commit, publication attempts, and
 global-event capture are pipeline-managed once the system exists; they are not a second hand-written
-daily essay. The solo-maker public minimum is the consecutive `SCJ` identity, canonical page,
+daily essay. Outlet choice, hooks and openings, edit structure, copy, accessibility judgment,
+native-fit review, maker approval, and human localization remain editorial work. The solo-maker
+public minimum is the consecutive `SCJ` identity, canonical page, approved initial source package,
 approved primary artifact, watchable serial edition, and applicable access/provenance/review work.
 An external destination not used that day remains **N/A**.
 
@@ -636,10 +705,12 @@ Before that pipeline and its first successful read-only restore exist, release o
 entry at a time. Keep one authoritative ledger for `Hc`, `Hv`, and the next candidate; do not begin
 another entry's final numbered render until the current canonical page is confirmed, and retain a
 small manual manifest
-with the Journey and release IDs, exact serial master and public copy, canonical confirmation,
-destination/account, remote ID/URL, confirmed time/precision, and evidence. Mark uncaptured request,
-response, edit, or platform details unknown. Do not claim full reconstruction for an interim
-publication.
+with the initial source-package identity/version/manifest and used-member digests; Journey and
+release IDs; exact serial master and public copy; canonical confirmation; and, for each selected
+external outlet, its brief/digest, artifact release, native-fit decision/event/rationale, exact
+payload, destination/account, remote ID/URL, confirmed time/precision, and evidence. Mark uncaptured
+request, response, edit, or platform details unknown. Do not claim full reconstruction for an
+interim publication.
 
 ## Failure modes this design prevents
 

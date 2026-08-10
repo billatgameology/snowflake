@@ -15,9 +15,9 @@ to one primary `SCJ-` entry.
 
 A day chooses **one primary artifact**: perhaps a video, image, diagram, research note, model,
 interactive, audio recording, correction, or failed experiment. It does not need to satisfy every
-section below. Apply only the packet for the artifact that actually exists, add the lightweight
-serial-edition packet required for a public `SCJ` entry, then prepare renditions only for
-destinations selected that day.
+section below. Preserve a reusable source package, apply only the packet for the artifact that
+actually exists, add the lightweight serial-edition packet required for a public `SCJ` entry, then
+select an outlet and purpose before making any destination edition.
 
 In this document:
 
@@ -29,16 +29,21 @@ The required public-entry minimum is the canonical Journey page, one approved pr
 approved watchable serial edition, and the accessibility, provenance, claim, rights, and privacy
 work applicable to both. A qualifying primary short may also be the serial edition. Everything else
 can be marked **N/A**. No social-platform derivative is required merely because the channel is on
-the retained list.
+the retained list. The serial edition is the owned chronological index, not a universal social
+master.
 
 ## Daily defaults at a glance
 
 | Decision | Default |
 |---|---|
 | Primary artifact | One; a journal note may be primary while a lightweight serial edition supplies the watchable index |
-| Ordinary video | 21–45 seconds; 15–59 seconds allowed |
+| Reusable source package | Approved facts, source media/components, editable assets, transcript, provenance, access, rights, and correction state |
+| Owned serial edition | 15–30 seconds preferred; 15–59 seconds allowed; scoped to watch-in-order navigation |
+| Selected short-feed edition | 21–45 seconds typical; an honest visual or spoken hook within the first two seconds |
+| Long explanation | 3–8 minute recap or 8–20 minute durable explainer/chapter when the story warrants it |
+| Visual edition | Deliberate still, 3–6-card sequence, or evergreen diagram rather than a forced video |
+| Conversation/direct edition | Written natively for the selected relationship and outlet, not copied from a universal caption |
 | Voice | Maker's voice, 120–140 spoken words per minute |
-| Visual master | 1080 × 1920, 9:16, 30 fps for a generated daily short |
 | Idea count | One principal question, movement, or result |
 | Speech access | Reviewed captions plus transcript |
 | Music | Off for explanations, research, corrections, and demos |
@@ -49,24 +54,46 @@ The decision order is:
 
 1. Preserve what actually happened and the confidence of the claim.
 2. Meet accessibility, disclosure, and rights requirements.
-3. Make one clean house master or source artifact.
-4. Make or designate the smallest honest watchable serial edition.
-5. Derive only the destination versions that are useful that day.
-6. Check each destination's live composer before posting.
+3. Assemble the reusable source package; do not presume a finished edit.
+4. Make or designate the smallest honest owned-page serial edition.
+5. Select an outlet, audience, and purpose, then brief and produce its editorial edition.
+6. Approve the exact edition and check that destination's live composer before posting.
 
 The website Journey entry is the chronological record. Social copies point back to it; they do not
 become a competing archive.
 
 ```text
-question or event -> primary artifact -> reviewed source or clean master -> selected renditions
-                           |                  |            |           |
-                           |                  |            |           +-> social publication URLs
-                           |                  |            +-> watchable serial edition
-                           |                  +-> archive files
-                           +-> Journey entry, sources, status, and next question
+question or event -> canonical entry -> reusable source package -> selected editorial editions
+                          |                        |                      |
+                          |                        |                      +-> exact destination publications
+                          |                        +-> owned serial index / short / long / visual / text / live
+                          +-> primary artifact, sources, status, corrections, and navigation
 ```
 
-## Gapless watchable serial edition
+## Reusable source package
+
+The package is the shared production layer, not a finished post. It contains only approved and
+traceable ingredients that later editions may select:
+
+- the question, movement, claim/status wording, sources, correction state, and exact entry snapshot;
+- code, model, run, data, specimen, or interactive identities and their reproducible states;
+- original or clean captures, renders, photographs, editable diagrams, animation frames, and
+  high-quality stills;
+- clean voice, ambience/effects stems when used, transcript, captions, visual description, fonts,
+  and other access assets; and
+- provenance, rights, privacy, consent, localization, and maker/review records.
+
+Each approved package version has an immutable internal manifest identity, version, manifest
+digest, ordered members, and member digests under `NUMBERING.md`. The initial version binds at the
+canonical commit. A later addition creates a new version and history event; it does not rewrite an
+edition already approved from an earlier version. Every artifact, release, brief, and destination
+publication names the exact package version and members it used.
+
+The package may contain reusable footage, a clean body sequence, or editable copy components. It
+does not pre-approve one opening, pacing, framing, language, card order, caption, music treatment,
+or call to action for every outlet.
+
+## Owned gapless watchable serial edition
 
 Every public `SCJ` entry is committed with one approved 15–59 second watchable serial edition. It
 initially lives on the owned Journey page in numeric order. A safe neutral unavailable card fills the
@@ -77,15 +104,21 @@ Crystal Journey, that playlist carries every independently observed number throu
 unavailable-entry notice when continued publication is permitted. A later binding removal may make
 the original media, the card, or even the route unavailable. The number is never reused; identity
 and removal records are retained only to the extent permitted, and the specification does not
-promise continuing access to forbidden bytes.
+promise continuing access to forbidden bytes. The serial edition is an owned navigation artifact;
+its edit is not the default TikTok, Reel, Short, Spotlight, or Channels upload.
 
 - **Length:** Prefer 15–30 seconds when the primary artifact is not naturally video; use the
   ordinary 15–59 second house band.
-- **Master:** 1080 × 1920, 9:16, 30 fps. A separate 16:9 walkthrough is optional.
-- **Identity:** Put `SCJ 0042` inside the safe area of the complete clean master. Show **Snow Crystal
+- **Owned master:** 1080 × 1920, 9:16, 30 fps by default for the watch-in-order page. When a long
+  explanation is selected, its 16:9 master is a first-class editorial edition, not an optional crop
+  of this file.
+- **Opening:** Except for the neutral emergency card, give even the owned short an honest visual or
+  spoken hook within two seconds and deliver that promise in the same edition.
+- **Identity:** Put `SCJ 0042` inside the safe area of the complete owned master. Show **Snow Crystal
   Journey 0042** and the stable locator at least once. Never bake in a guessed future Next ID.
-- **Reuse:** If the primary artifact is already a compliant short, designate it as the serial
-  edition instead of making another video.
+- **Reuse:** If a primary or outlet short satisfies both its native brief and the serial-navigation
+  brief, designate the same exact release for both after review. Do not assume that fit merely
+  because the duration and aspect ratio match.
 - **Accessibility:** Supply reviewed captions for speech, a transcript or equivalent page text,
   visual description when important imagery is not spoken, readable mobile-scale labels, adequate
   contrast, restrained motion, and enough time to read a silent edition.
@@ -97,7 +130,8 @@ promise continuing access to forbidden bytes.
 
 “Watchable” means understandable in sequence, not constantly moving. A near-static card is valid.
 The smallest script has four movements: the question, what changed or failed, the essential status
-or provenance qualifier, and the next honest question or canonical locator.
+or provenance qualifier, and the next honest question or canonical locator. This is the owned
+serial grammar, not a mandatory script order for every outlet edition.
 
 The emergency candidate-exposure card is the narrow exception: it shows only the `SCJ` identity, a
 neutral unavailable status, accessible equivalent text, and a safe locator when permitted. It does
@@ -105,7 +139,7 @@ not disclose a protected question or movement, invent a story beat, or promise a
 
 | Primary artifact | Lightweight serial treatment |
 |---|---|
-| Existing short video | Use it directly after identity and accessibility review |
+| Existing short video | Use it only after identity, accessibility, hook, and serial-navigation fit review |
 | Interactive or viewer | Guided or scripted capture with **DEMO** and the underlying origin |
 | Still, diagram, or crystal image | Two or three deliberately timed views; no invented camera drama |
 | Audio note | Voice plus a readable status card, transcript excerpt, or honest waveform |
@@ -113,30 +147,38 @@ not disclose a protected question or movement, invent a story beat, or promise a
 | Correction | Immediate correction card or short narration; polish must not delay a material correction |
 | Model animation | Preserve **MODEL · NOT VALIDATED** and distinguish playback time from simulated time |
 
-## House duration ladder
+## Content-family duration guidance
 
 Platform maximum durations are compatibility ceilings, not creative targets.
 
 | Piece | House duration | Use |
 |---|---:|---|
 | **Pulse** | 15–20 seconds | One striking observation, turn, failure, or crystal view |
-| **Daily short** | 21–45 seconds | Default: one question, one movement, one useful result |
-| **Full daily short** | 46–59 seconds | A step that genuinely needs context or demonstration |
+| **Short-feed edition** | 21–45 seconds | One hook, one question or movement, and one delivered payoff for a selected short outlet |
+| **Full short-feed edition** | 46–59 seconds | A step that genuinely needs context or demonstration |
 | **Extended update** | 60–180 seconds | A guided demo, correction, or explanation; not a universal daily asset |
 | **Arc recap** | 3–8 minutes | Several connected entries and what changed across them |
 | **Chapter video** | 8–20 minutes | A durable synthesis after the underlying work exists |
 | **Live session** | Event-specific | Specify separately when a real live session is planned |
 
-The ordinary daily-video boundary is **15–59 seconds**. This deliberately avoids an exact 60.0-second
-export that one encoder or upload route may round above a one-minute boundary. Do not pad a
-15-second result to make it look more substantial, and do not compress a real three-minute
-explanation until it becomes misleading. A text note or still image may be the entire primary
-artifact for a day; its serial edition may be a simple timed presentation of that same material.
+The owned serial edition and ordinary selected short-feed edition use the **15–59 second** band. This
+deliberately avoids an exact 60.0-second export that one encoder or upload route may round above a
+one-minute boundary. Do not pad a 15-second result to make it look more substantial, and do not
+compress a real three-minute explanation until it becomes misleading. A text note or still image
+may be the entire primary artifact for a day; its serial edition may be a simple timed presentation
+of that same material.
 
-For a short, show the meaningful object, question, or change within the first two seconds. Do not
-spend that time on a greeting or logo bumper. Deliver the principal result by roughly 60–75% of the
-runtime, then use the final seconds for the next honest question, a concise result, or at most one
-action. Do not manufacture a cliffhanger or withhold a result merely to create a second post.
+Every ordinary short-feed edition needs a first-frame or first-sentence hook: a meaningful visual
+anomaly, transformation, failure, question, contrast, or showcase within the first two seconds. Do
+not spend that time on a greeting, logo bumper, or series number. Deliver the promised movement or
+result in the same piece—usually by roughly 60–75% of runtime—then use the final seconds for the next
+honest question, a concise result, or at most one action. Do not manufacture a cliffhanger or
+withhold the answer merely to create a second post.
+
+A long explainer instead needs a truthful title/thumbnail promise and an opening that promptly
+establishes the question, stakes, and visual destination. It has room for evidence, context,
+qualification, demonstrations, and several connected steps; it is not a short stretched with
+filler or forced into two-second-feed pacing.
 
 ## Voice and spoken-word budget
 
@@ -176,9 +218,11 @@ These are house limits. A platform may allow more; extra capacity does not need 
 | Combined ordinary non-caption text visible at one time | 12 words |
 | Thumbnail or poster title | 6 words |
 | Durable title | 70 characters |
-| Universal short-video logline | 150 characters including tags |
-| Core conversational field note | 220 characters including tags, followed by at most one link |
-| General video caption or description | 500 characters; first 120 must make sense alone |
+| Selected short-feed caption opener | 150 characters including tags |
+| X technical field note | 220 characters including tags, followed by at most one link |
+| Threads conversational note | 400 characters before an optional link or attachment |
+| Facebook contextual post | 50–200 words when a Reel caption is not the right form |
+| Ordinary short/feed-video caption or description | 500 characters; first 120 must make sense alone |
 | Journey entry summary | 50–150 words, followed by sources and artifact links as needed |
 | Hashtags or topic tags | 0–3; normally 0 or 1 specific tag |
 | Call to action | 0 or 1, and specific to the work |
@@ -190,21 +234,28 @@ useful call to action is “rotate the model in the Journey entry” or “what 
 an automatic request to like, follow, and share.
 
 Character counting differs by destination, language, links, and emoji. The live composer is the
-final authority. The 220-character core exists so the same thought can fit a standard X post with
-room for a link, while Threads and other destinations can receive a more conversational addition.
+final authority. X receives a compact result-first note; Threads receives a conversational edition;
+Facebook may receive the context needed for a detached share; and Weixin copy is written and
+reviewed in its destination language. They may share a factual source, but there is no universal
+social sentence.
 
 ## Video and image masters
 
-### Short vertical video
+### Hook-first short-feed editions
+
+Every selected short outlet receives an editorial brief and an approved clean master. Multiple
+editions may share source footage, render sequences, voice stems, or a body edit; the first seconds,
+pacing, on-frame copy, cover, caption, safe area, payoff, and destination action are reviewed for
+each outlet. Identical finished bytes are allowed only after that native-fit review.
 
 - **Canvas:** 1080 × 1920 pixels, 9:16, progressive, Rec. 709 SDR. Still-image derivatives use
   sRGB.
 - **Frame rate:** 30 frames per second by default. Use 60 only when motion inspection materially
   benefits; do not synthesize extra frames merely to claim a higher rate.
 - **Delivery file:** MP4 with H.264 video and AAC-LC stereo audio at 48 kHz.
-- **Distribution target:** under 100 MB for an ordinary daily short.
-- **Master:** clean, without a platform watermark, platform UI, music-library sticker, or baked-in
-  destination branding.
+- **Distribution target:** under 100 MB for an ordinary selected short-feed edition.
+- **Master:** clean, without another platform's watermark, platform UI, music-library sticker, or
+  baked-in destination branding not intended for this edition.
 - **Cover:** compose at least one strong selectable frame inside the video, then export a separate
   poster for destinations that accept one. Keep its subject recognizable in a centered 4:5 crop.
 
@@ -288,7 +339,8 @@ approved clean master remains authoritative even when a rerender is possible.
 ### Stills, diagrams, and carousels
 
 - Keep the original or highest-quality source.
-- Use 1080 × 1350, 4:5 as the general social portrait derivative.
+- Use 1080 × 1350, 4:5 for a selected Instagram or Facebook portrait edition, while allowing each
+  outlet its own crop, card order, headline, and surrounding copy.
 - Use 1000 × 1500, 2:3 as the Pinterest derivative.
 - Prefer 3–6 carousel cards. Each card carries one claim or visual step, with no more than about
   25 body words.
@@ -300,7 +352,7 @@ approved clean master remains authoritative even when a rerender is possible.
 Every prerecorded video containing meaningful speech or sound has accurate captions. Automatic
 captions are a draft; a person checks scientific terms, names, units, punctuation, and timing.
 
-- Each short-platform rendition uses reviewed open captions **or** a dependable native caption
+- Each short-feed edition uses reviewed open captions **or** a dependable native caption
   track. Do not display both and create duplicate captions. Keep a captioned derivative available
   for destinations whose native presentation is unknown or unreliable.
 - Keep an SRT or VTT file and a plain transcript. On the website, provide a descriptive transcript
@@ -347,7 +399,7 @@ subordinate to the voice.
 
 ### Rights rule
 
-A cross-platform master may contain music only when it is:
+An edition intentionally reused at more than one destination may contain music only when it is:
 
 1. wholly original with documented ownership;
 2. confirmed public domain in the relevant territories; or
@@ -358,9 +410,10 @@ Where applicable, clear and record the rights in both the musical composition an
 sound recording.
 
 A song available in YouTube, TikTok, Meta, Snapchat, or another platform's music picker is treated
-as licensed **only for the rendition made and used under that platform's terms**. Do not download,
-rip, or carry it into the clean master or another destination. If the rights path is uncertain, use
-no music. Availability can depend on account type, territory, commercial or branded use, and the
+as licensed **only for the edition made and used under that platform's terms**. Do not download,
+rip, or carry it into the reusable source package or an edition for another destination. If the
+rights path is uncertain, use no music. Availability can depend on account type, territory,
+commercial or branded use, and the
 specific post; seeing a track in a picker is not proof that every intended use is permitted.
 
 Keep a voice-only mix and, for substantial pieces, separate voice, music, and effects stems. The
@@ -453,14 +506,16 @@ current confidence status.
 ## Artifact packets
 
 Use only the packet matching the day's primary artifact. Within it, make the required core first;
-add the serial-edition packet for a public entry, then add derivatives and copy only for
-destinations actually selected. A missing destination is **N/A**, not unfinished work.
+add the owned serial-edition packet for a public entry, then make separately briefed editorial
+editions only for destinations actually selected. A missing destination is **N/A**, not unfinished
+work.
 
-### Watchable serial-edition packet
+### Owned watchable serial-edition packet
 
 Required at every canonical public-entry commit:
 
-- one approved 15–59 second clean 9:16 master, which may be the primary short itself;
+- one approved 15–59 second clean 9:16 owned master, which may be an already approved outlet short
+  only after both editorial briefs pass;
 - the four-movement script or timed-card plan—question, movement, status/provenance, and next
   question or canonical locator—or the restricted emergency unavailable-card plan;
 - reviewed captions when speech exists, transcript or equivalent page text, visual description
@@ -468,31 +523,40 @@ Required at every canonical public-entry commit:
 - the visible compact identity, full searchable identity, stable locator, and a check that no
   `JOURNEY-NEXT` or temporary production token remains in public bytes or metadata; and
 - a conditionally approved release-candidate manifest containing the exact master, script, access
-  assets, provenance or capture recipe, and identity placement; its final `R01` identity
+  assets, provenance or capture recipe, identity placement, and source-package binding; its final
+  `R01` identity
   materializes only in the canonical commit.
 
 The primary artifact and serial edition may share one artifact/release when the same approved short
 serves both roles. Otherwise the serial edition is a separately identified derived artifact. It is
 embedded in the canonical Journey page at release; later-removal rules still apply. External
 destinations remain optional unless one is explicitly designated as the complete serial playlist.
+The owned serial release is not an implied upload candidate for any external feed.
 
 ### Short-video packet
 
 Required core:
 
-- approved clean vertical master;
+- an outlet-and-purpose brief naming the audience, honest hook, promised movement/payoff, desired
+  runtime, and relationship to the owned serial edition;
+- one or more approved clean native short masters for the selected outlets;
 - reviewed captions and transcript when speech or meaningful sound exists;
 - applicable provenance, claim, source, rights, and privacy record; and
 - Journey entry linking the approved artifact.
 
 Add only when selected:
 
-- captioned vertical rendition and SRT/VTT sidecars for the chosen destinations;
+- each chosen destination's opening, pacing, on-frame copy, cover, caption, safe-area review,
+  captioned rendition, and SRT/VTT sidecars;
 - clean voice track and music/effects stems when those elements exist;
 - poster image and alt text where a destination accepts or needs a poster;
-- the shortest copy that destination needs: 70-character title, 150-character logline,
-  220-character field note, or up-to-500-character description; and
+- the shortest native copy that destination needs: durable title, short-feed caption opener,
+  X field note, Threads note, Facebook context, or general description; and
 - destination URL and exact uploaded rendition after publication.
+
+If two destinations intentionally use identical finished bytes, record the shared artifact/release
+and the native-fit decision. If their hook, selected moments, pacing, narration, structure, language,
+or correction lifecycle differs, they are separate artifacts rather than cosmetic renditions.
 
 ### Still or carousel packet
 
@@ -502,8 +566,10 @@ Required core:
   record; and
 - Journey entry linking the artifact.
 
-Add only when selected: a 4:5 derivative, 2:3 Pinterest derivative, carousel card order and editable
-text, destination caption, and publication URL.
+Add only when selected: a 4:5 Instagram visual edition, a separately briefed 4:5 Facebook visual
+edition, a 2:3 Pinterest edition, and the outlet's deliberate crop, card order, editable text,
+headline, context, destination caption, and publication URL. A resize alone does not count as the
+editorial brief; identical card sequences remain possible only after the native-fit review.
 
 ### Model or interactive packet
 
@@ -537,26 +603,38 @@ the approved audio; do not manufacture a second decorative video.
 
 The required core is the Journey entry with the question, movement, source/status, underlying links,
 and next question. Its required serial edition may use two to four readable cards without voice or
-decorative motion. Add a 220-character conversational version and one useful visual only when a
-selected destination benefits; no separate social video, voiceover, or music is forced.
+decorative motion. When selected, write separate result-first X, conversational Threads,
+contextual Facebook, and human-localized Weixin editions as their destinations require. They may
+share the approved fact and visual; no separate social video, voiceover, or music is forced.
 
 ### Long-video or chapter packet
 
 Required core:
 
-- approved clean 16:9 master and source project;
-- reviewed captions, full transcript, descriptive support, sources, rights/privacy record, and
-  correction path; and
+- one outlet-and-purpose explanation brief per selected long-form edition, stating the audience,
+  truthful title/thumbnail promise, opening question and stakes, visual destination, evidence arc,
+  and relationship to its source Journey entries;
+- one or more approved clean long-form masters and their source projects, in the aspect and layout
+  selected for each exact placement;
+- reviewed captions, full transcripts, descriptive support, sources, rights/privacy records, and
+  correction paths for every selected edition; and
 - linked Journey entries showing where the synthesis came from.
 
-Add destination chapters, thumbnail, durable title, description, and short extracts only after the
-long piece is approved and their destinations are selected.
+For YouTube, add a searchable title, thumbnail, chapters, durable description, source links, and a
+clean 16:9 master by default. For a selected Facebook long placement, choose the aspect and layout
+its exact placement needs, then write the native opening/context, caption, cover, and any
+group-specific introduction separately. Each selected outlet receives its own explanation brief
+and approved clean long-form master. The same source package may support both; one identical master
+may serve both only after an explicit native-fit review. Make short extracts only after the long
+piece is approved and their short-feed briefs are separately approved. Long-form descriptions and
+context use the space their packet requires rather than the ordinary short/feed-video text budget.
 
 ## Platform compatibility snapshot
 
-The house short is deliberately narrower than most platform maxima. Numeric limits below are
-current public platform facts, not reasons to make longer content. Features can vary by region,
-account, device, subscription, and rollout; confirm them in the actual account before release.
+The owned serial band and ordinary short-feed guidance are deliberately narrower than most platform
+maxima. Numeric limits below are current public platform facts, not reasons to make every outlet
+short or to reuse one edit. Features can vary by region, account, device, subscription, and rollout;
+confirm them in the actual account before release.
 
 Consumer composers and publishing APIs are separate routes and sometimes have different limits.
 This specification does not authorize automated posting. A future destination adapter must name
@@ -569,16 +647,17 @@ fully frozen platform specifications. Ephemeral content never holds the only cop
 
 ### Video and visual destinations
 
-| Destination | Current public constraint | House rendition |
+| Destination | Current public constraint | House editorial edition |
 |---|---|---|
 | **Journey website** | No social-platform limit | Canonical artifact, transcript, provenance, sources, correction status, and selected media |
-| **YouTube Shorts** | Square or vertical videos up to 3 minutes; title up to 100 characters | 15–59 second 9:16 master; house title at most 70 characters. Use longer Shorts only for an intentional extended update |
-| **TikTok** | TikTok Studio web accepts MP4/WebM, at least 720 × 1280, up to 30 minutes and under 10 GB; app, account, and API routes can differ | 15–59 second 1080 × 1920 native upload; captioned and free of another platform's watermark |
-| **Instagram Reels** | Reels can be up to 20 minutes, but Reels over 3 minutes are not recommended to new audiences; 1.91:1–9:16, at least 720 pixels and 30 fps | 15–59 second 9:16 upload; separate 4:5 still/carousel when the visual deserves it |
-| **Facebook Reels/video** | Meta's current consumer help is transitional; the Page Reels publishing API is 3–90 seconds and the general video route is broader | Keep the shared discovery cut at 15–59 seconds so it fits the Page API and consumer state; preflight the Page/profile route |
-| **Weixin Channels / WeChat** | No dependable, universal public numeric limit was found for the intended organic account path | Localized 15–59 second 9:16 upload, manually reviewed and manually published; preflight the exact Weixin or WeChat account |
-| **Pinterest** | Organic Pin specs list video at 4 seconds–5 minutes, title up to 100 characters, and description up to 800; 2:3 is the preferred standard-Pin image ratio | 15–45 second vertical video or 1000 × 1500 still; use designed captions because generated video captions cannot currently be edited |
-| **Snapchat Spotlight** | Snap's Public Profile API accepts MP4 at 6–60 seconds, at least 540 × 960, with a description up to 160 characters including hashtags; other organic details remain route-dependent | Selected 15–59 second 9:16 cut and 150-character logline; verify acceptance, captions, and safety zones in the live app |
+| **YouTube Shorts** | Square or vertical videos up to 3 minutes; title up to 100 characters | Searchable 15–59 second hook-first explanation with a clear spoken/visual promise, series identity, and bridge to the entry or long video; house title at most 70 characters |
+| **TikTok** | TikTok Studio web accepts MP4/WebM, at least 720 × 1280, up to 30 minutes and under 10 GB; app, account, and API routes can differ | The strongest cold-start visual edition: motion or anomaly in frame one, one intelligible idea within two seconds, and a delivered experiment/failure/reveal payoff; native 9:16, captions, no foreign watermark |
+| **Instagram Reels** | Reels can be up to 20 minutes, but Reels over 3 minutes are not recommended to new audiences; 1.91:1–9:16, at least 720 pixels and 30 fps | Hook-first visually polished Reel with a strong cover; favor beauty, transformation, comparison, or reveal. A designed 4:5 still/carousel is a separate option, not a resize obligation |
+| **Facebook Reels** | Meta's current consumer help is transitional; the Page Reels publishing API is 3–90 seconds and the general video route is broader | Hook-first Reel with enough opening context to survive a detached share and calmer pacing when useful; preflight the Page/profile route rather than inheriting the Instagram edit automatically |
+| **Facebook long video** | The general video route is broader than the Page Reels API and remains route-dependent | Selected native explainer, human project story, or group-relevant edition with its own opening, context, cover, caption, and moderation/community fit; do not pad a Reel |
+| **Weixin Channels / WeChat** | No dependable, universal public numeric limit was found for the intended organic account path | Human-localized and culturally edited hook-first Channels video, manually reviewed and manually published; preflight the exact Weixin or WeChat account |
+| **Pinterest** | Organic Pin specs list video at 4 seconds–5 minutes, title up to 100 characters, and description up to 800; 2:3 is the preferred standard-Pin image ratio | Prefer an evergreen 1000 × 1500 diagram, educational card, or crystal image with searchable descriptive copy; use concise video only when motion adds durable value |
+| **Snapchat Spotlight** | Snap's Public Profile API accepts MP4 at 6–60 seconds, at least 540 × 960, with a description up to 160 characters including hashtags; other organic details remain route-dependent | Only a highly visual, self-contained reveal, transformation, or demo with surprise in frame one and legible scientific status; skip it if the qualifier cannot survive the tight treatment |
 
 Platform sources checked 2026-08-09:
 
@@ -590,7 +669,7 @@ Platform sources checked 2026-08-09:
   [Audio Library](https://support.google.com/youtube/answer/3376882), and
   [Creator Music restrictions](https://support.google.com/youtube/answer/11611019). A Short over one
   minute with an active Content ID claim is blocked globally; that is another reason not to place a
-  platform-library track in the reusable master.
+  platform-library track in the reusable source package or a cross-destination edition.
 - TikTok:
   [TikTok Studio upload requirements](https://support.tiktok.com/en/using-tiktok/creating-videos/creator-tools-on-tiktok) and
   [commercial use of music](https://support.tiktok.com/en/business-and-creator/creator-and-business-accounts/commercial-use-of-music-on-tiktok).
@@ -619,13 +698,14 @@ Platform sources checked 2026-08-09:
 
 ### Conversation, community, and direct distribution
 
-| Destination | Current public constraint or role | House rendition |
+| Destination | Current public constraint or role | Native editorial edition |
 |---|---|---|
-| **Threads** | Main post up to 500 characters and video up to 5 minutes; an optional text attachment can hold 10,000 characters | 220-character conversational thought plus one link or visual; up to 59-second clip. Use an attachment only when it is better than linking the canonical Journey note |
-| **X** | Standard post up to 280 characters; every URL consumes 23 characters; non-Premium video up to 140 seconds and 512 MB. Published web video bounds top out at 1200 × 1900 and 40 fps | 220-character field note plus one link. Use a 30 fps, 1062 × 1888 9:16 derivative when the route enforces the published bound; do not design around Premium capacity |
-| **YouTube long-form / Community** | Searchable chapter home and optional field-note surface; access and composer features vary by account | Use the long-video packet for 16:9 recaps/chapters and a short Journey-linked note for Community; neither is a daily requirement |
-| **Instagram / Facebook still posts and Stories** | Visual derivatives and ephemeral reminders, not additional canonical records | Use the 4:5 still/carousel or a selected short excerpt. Never place unique evidence, a correction, or the only useful link solely in a Story |
-| **Weixin Official Accounts / Moments** | The Official Account draft API lists title at 32 Chinese characters, author at 16, summary at 120, and body under 20,000 characters / 1 MB, but also contains a contradictory body-size clause. Channels and Moments have no dependable public universal limit | Fully localized, human-authored edition only when it is worth the editorial work. Prepare a draft, then require explicit human editorial control and approval; never unattended, bulk, or continuous publishing |
+| **Threads** | Main post up to 500 characters and video up to 5 minutes; an optional text attachment can hold 10,000 characters | Write a conversational observation, question, correction, or reflection in the space it needs. Pair it with a visual or link when useful; do not compress it to the X edition by default |
+| **X** | Standard post up to 280 characters; every URL consumes 23 characters; non-Premium video up to 140 seconds and 512 MB. Published web video bounds top out at 1200 × 1900 and 40 fps | Lead with the result, failure, uncertainty, metric, or build status, then use the remaining budget for context and one Journey link. If video is selected, make an X-fit technical clip rather than inheriting another feed's opening |
+| **YouTube long-form / Community** | Searchable chapter home and optional field-note surface; access and composer features vary by account | Use a searchable 16:9 recap or chapter with a durable title, thumbnail, structure, and Journey sources. Write Community notes for returning viewers; neither treatment is a daily requirement |
+| **Instagram still posts, carousels, and Stories** | Designed visual sequencing and ephemeral reminders, not additional canonical records | Build the 4:5 still or carousel around one visual idea and deliberate card order. Use Stories for selected reminders or process fragments, never the only copy of evidence, a correction, an artifact, or a useful link |
+| **Facebook posts, groups, and longer video** | Contextual storytelling and interest communities in addition to Reels | Write the native introduction or human story the selected audience needs. Adapt group posts to the group's rules and context; use a longer native explainer when the subject warrants it instead of forcing a Reel |
+| **Weixin Official Accounts / Moments** | The Official Account draft API lists title at 32 Chinese characters, author at 16, summary at 120, and body under 20,000 characters / 1 MB, but also contains a contradictory body-size clause. Channels and Moments have no dependable public universal limit | Treat an Official Account article and a Moments update as distinct, fully localized, human-authored editions. Prepare only the selected surface, require explicit human editorial control and approval, and never publish unattended, in bulk, or continuously |
 | **Discord** | Ordinary messages are up to 2,000 characters and free-account uploads up to 10 MB; API message content is also 2,000 characters, while upload capacity varies by route and tier | Up to 500 useful characters plus a Journey link and optional preview; do not make Discord the only copy of an artifact |
 | **Twitch / YouTube Live** | Event medium, not a daily distribution requirement | Write an event-specific run-of-show, moderation, music-rights, caption, archive, and failure plan before the first session |
 | **WhatsApp Channels** | No current official public hard character or media limit, or general-purpose Channel publishing API, was found; do not transfer ordinary chat or Status limits to Channels | Up to 500 characters plus a Journey link and native preview; publish manually or human-assisted until a supported route is confirmed |
@@ -668,12 +748,13 @@ Conversation-platform sources checked 2026-08-09:
 
 ## Localization
 
-Until deliberately changed, English is the canonical script and Simplified Chinese is the first
-Weixin localization.
+Until deliberately changed, English is the canonical source language and Simplified Chinese is the
+first Weixin localization.
 
 - Bind every localization to an exact source release manifest and immutable entry snapshot.
-- Translate the complete packet: narration, captions, on-frame copy, title, description, alt text,
-  provenance labels, sources, and correction status.
+- For every selected localized edition, localize its complete packet: narration, captions, on-frame
+  copy, title, description, alt text, provenance labels, sources, and correction status. Selection
+  of Channels, an Official Account article, or Moments does not automatically select the others.
 - Maintain a reviewed snow-crystal terminology list. Machine translation may assist a draft but is
   never the only language or scientific review.
 - Use a fluent human editorial review before publishing. Retime or recut for the language instead
@@ -687,15 +768,15 @@ Weixin localization.
 - Never silently rewrite the historical Journey.
 - A spelling, caption-timing, or encoding repair creates a recorded patch revision.
 - A material correction creates a dated correction entry that says what was wrong, what replaces
-  it, why it changed, and which published derivatives are affected.
+  it, why it changed, and which published editions and publications are affected.
 - Begin a material correction visibly—for example, “Correction to Journey 0042”—rather than hiding
   it at the bottom of a caption.
 - Edit the original destination copy where possible. Otherwise add a pinned correction reply or a
   new correction artifact proportionate to the original piece's reach and severity.
-- Preserve the original master beneath the original Journey artifact and release. A materially
-  corrected master belongs to the correction entry's new artifact and release; only a technical
-  repair uses a later release beneath the same Journey entry. Link the original and correction
-  entries both ways.
+- Preserve every affected original approved master beneath its original Journey artifact and
+  release. A materially corrected master belongs to the correction entry's new artifact and
+  release; only a technical repair uses a later release beneath the same Journey entry. Link the
+  original and correction entries both ways.
 - Delete a public artifact only for a legal, privacy, safety, rights, or serious-harm reason. Keep
   the minimal number identity and removal fact; retain manifest detail and private bytes only when
   permitted. Preserve the numbered canonical route and a neutral unavailable serial card when
@@ -708,14 +789,23 @@ A daily check should take minutes, not become a second production.
 Mark irrelevant lines **N/A**; do not manufacture an artifact to satisfy the checklist.
 
 - [ ] This piece advances one question, even if the movement is failure or correction.
+- [ ] The reusable source package binds the approved facts, exact source media, editable assets,
+      access material, provenance, rights, and correction state used by this entry.
 - [ ] The primary artifact and watchable serial edition are both approved; one qualifying short may
       fill both roles, as may the restricted unavailable card in the exceptional exposure path.
 - [ ] The exclusive release transaction has replaced `JOURNEY-NEXT` and every temporary production
-      token with its candidate visible/searchable `SCJ-` identity in the exact staged page, master,
-      access assets, and metadata.
+      token with its candidate visible/searchable `SCJ-` identity in the exact staged page, owned
+      serial master, access assets, and metadata.
 - [ ] Canonical commit will bind that number's stable page and serial edition; its independent live
       observation must pass before any external destination distribution or next-number reservation.
 - [ ] The Journey entry names what changed and the next question.
+- [ ] Each selected outlet and purpose has an editorial brief. No retained outlet is treated as a
+      mandatory destination.
+- [ ] Every short-feed edition opens with an honest visual or verbal hook within two seconds and
+      delivers its promised result in the same piece. The series identity is visible but is not the
+      hook, and no manufactured cliffhanger substitutes for the payoff.
+- [ ] Any identical finished edit reused across destinations passed an explicit native-fit review;
+      reuse is recorded as an editorial decision, not assumed from shared source material.
 - [ ] Every outward claim matches its source, model status, and present confidence.
 - [ ] Physical footage, measured data, model data, diagram, demo, recreation, and generated
       illustration are labeled without confusing their origin or current status.
@@ -728,9 +818,9 @@ Mark irrelevant lines **N/A**; do not manufacture an artifact to satisfy the che
 - [ ] Voice is intelligible; music is off unless it earned a place and has a recorded rights path.
 - [ ] Third-party media has a source, license or permission, attribution, and allowed-use record;
       privacy-sensitive capture and needed releases were checked.
-- [ ] The clean master contains no destination watermark or platform-library track.
-- [ ] The maker reviewed the exact rendition. Scientific interpretation received the required
-      skeptical review before outward publication.
+- [ ] Every approved editorial master contains no destination watermark or platform-library track.
+- [ ] The maker reviewed each exact approved edition and exact destination upload. Scientific
+      interpretation received the required skeptical review before outward publication.
 - [ ] When published, the URL, date, destination, and any later correction link return to the
       Journey entry.
 
@@ -744,7 +834,8 @@ unavailable rather than claiming a complete archive:
 - a stable Journey identifier and date;
 - the artifact, approved-release, destination-publication, and global history-event identifiers
   required by `NUMBERING.md`;
-- the primary source artifact and clean approved master;
+- the reusable source package and the exact source members used by each edition;
+- every approved editorial master and its outlet-and-purpose brief;
 - the watchable serial-edition master, script/timed-card plan, access assets, poster, identity
   placement, and exact canonical-page binding;
 - for web-derived media, the approved web bundle/build, presentation/capture recipe, clean output,
@@ -752,10 +843,10 @@ unavailable rather than claiming a complete archive:
 - the exact bytes uploaded to each destination;
 - scripts, captions, transcripts, alt text, and poster or thumbnail;
 - provenance, claim sources, scientific status, and rights evidence;
-- destination-specific renditions and their publication URLs;
+- destination-specific editions or technical renditions and their publication URLs;
 - maker approval and review state; and
 - supersession or correction links.
 
-Daily source recordings and project files may remain in working storage, but the clean master and
-the records needed to understand and reuse it must not depend on a social platform remaining
-available.
+Daily source recordings and project files may remain in working storage, but the reusable source
+package, approved editorial masters, and records needed to understand and reuse them must not
+depend on a social platform remaining available.

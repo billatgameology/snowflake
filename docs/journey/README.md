@@ -16,6 +16,15 @@ committed with one lightweight watchable serial edition so someone can follow th
 without a missing episode. That edition may be the primary video itself or a restrained derivative
 of a note, still, audio recording, interactive, model, or other artifact.
 
+The serial edition belongs to the owned watch-in-order Journey; it is not a universal social-media
+master. An entry instead preserves one reusable source package—approved facts, code or model state,
+clean captures, editable visuals, audio, transcript, provenance, rights, and correction state—and
+branches only into the outlet-and-purpose editions selected for that movement. Short feeds receive
+an honest immediate hook and delivered payoff. A YouTube or Facebook explainer receives the longer
+structure its subject needs. Threads, X, Instagram, Weixin, Pinterest, and the other retained
+outlets keep their own editorial jobs. Finished bytes are reused only after an explicit native-fit
+review; shared source material alone does not make two publications the same story edit.
+
 Public Journey numbers are consecutive. Drafts use temporary production identities and the
 `JOURNEY-NEXT` placeholder; abandoned, private, and embargoed work consumes no `SCJ` number. The
 next permanent identity, such as `SCJ-0042`, is assigned by the atomic release that publishes and
@@ -78,6 +87,8 @@ type, or as part of a chapter or larger story arc.
   review and maker approval before publication.
 - Rich days can produce several later pieces, but they do not raise the minimum burden for ordinary
   days.
+- Reuse research and source assets across editions; choose the opening, pacing, framing, copy, and
+  payoff for the selected outlet rather than assuming one finished piece fits every destination.
 
 ## Current boundary
 
@@ -94,6 +105,8 @@ remains in force.
   provenance, music, rights, platform-override, and archive rules.
 - [Numbering and reconstruction](NUMBERING.md) defines stable Journey, artifact, release, and
   publication identities; audience navigation; and the append-only recovery record.
-- [Sample week 01](SAMPLE-WEEK-01.md) applies all three specifications to a fictional five-entry,
-  full-channel week, including a failed-looking upload, release repair, material correction,
-  localization, recap, and reconstruction drills.
+- [Sample week 01](SAMPLE-WEEK-01.md) is a fictional full-channel numbering and reconstruction
+  stress test, including a failed-looking upload, release repair, material correction,
+  localization, recap, and reconstruction drills. Its outlet rows preserve an earlier reuse-heavy
+  assumption and do not demonstrate the current outlet-native editorial strategy or its newer
+  source-package/native-fit records.

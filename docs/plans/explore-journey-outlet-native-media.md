@@ -1,7 +1,7 @@
 # Plan — Make Snow Crystal Journey media outlet-native
 
 - **Phase:** Maker-directed Journey exploration, outside Phase 6 scope
-- **Status:** in progress
+- **Status:** done
 - **Started:** 2026-08-10
 - **Last touched:** 2026-08-10 by OpenAI Codex
 
@@ -64,15 +64,15 @@ promise and strong opening, but not the compressed two-second grammar of a short
 
 ## Steps
 
-- [ ] Audit current Journey authority and examples for universal-master assumptions.
-- [ ] Rewrite the channel strategy around outlet-native editorial families and a retained-channel
+- [x] Audit current Journey authority and examples for universal-master assumptions.
+- [x] Rewrite the channel strategy around outlet-native editorial families and a retained-channel
       matrix.
-- [ ] Amend the media specification's production flow, duration/hook rules, artifact packets,
-      platform renditions, and checklist.
-- [ ] Clarify numbering/reconstruction and mark the reuse-heavy fictional sample's editorial limits
+- [x] Amend the media specification's production flow, duration/hook rules, artifact packets,
+      platform editions, and checklist.
+- [x] Clarify numbering/reconstruction and mark the reuse-heavy fictional sample's editorial limits
       without rewriting its immutable example event ledger.
-- [ ] Update the overview and current-state index.
-- [ ] Run skeptical editorial and cross-document reviews, repair findings, and run the exempt
+- [x] Update the overview and current-state index.
+- [x] Run skeptical editorial and cross-document reviews, repair findings, and run the exempt
       planning-document checks.
 
 ## Out of scope
@@ -107,3 +107,42 @@ promise and strong opening, but not the compressed two-second grammar of a short
   natural story arc.
 - Which Facebook placements merit a long native explainer rather than a Reel, linked YouTube video,
   or group post.
+
+## Review and verification record
+
+### Round 1 — adversarial rewrite audit
+
+- **Reviewers/model/context:** OpenAI Codex (GPT-5) subagents Turing, Rawls, and Lagrange. Each
+  inherited the developer instructions and then received a bounded read-only audit assignment;
+  they shared project/conversation context with the editing agent but did not author these changes.
+- **Independently checked:** Turing traced reuse-first and universal-master clauses across
+  `SOCIAL-MEDIA.md` and `MEDIA-SPEC.md`; Rawls mapped every retained outlet to a native content role;
+  Lagrange checked `NUMBERING.md` and `SAMPLE-WEEK-01.md` for artifact/release/publication and replay
+  consequences.
+- **Limits:** text-only review. No platform fact or link was reverified, no account/composer was
+  inspected, no media was produced, and no allocator, publication, or reconstruction was executed.
+
+The round found the universal-master architecture, X-shaped Threads copy, combined
+Instagram/Facebook treatment, ambiguous long-form master, and missing replayable source-package and
+native-fit records. Those findings were repaired. The maker's retained owned serial requirement and
+the decision not to renumber the fictional ledger were treated as fixed constraints.
+
+### Round 2 — repaired-current-bytes audit
+
+- **Reviewers/model/context:** the same OpenAI Codex (GPT-5) subagents, with the same shared
+  developer/project context and targeted follow-up instructions.
+- **Independently checked:** Turing re-read the current social/media specifications and found no
+  remaining universal-master or long-form contradiction; Rawls re-read the current overview,
+  media, and sample workload/feasibility boundaries and found no material editorial inconsistency;
+  Lagrange re-read current numbering and found package, brief, native-fit, archive, replay, daily,
+  and interim-manifest records internally reconstructable. Rawls also reported a clean
+  `git diff --check`.
+- **Limits:** semantic Markdown review only. The reviewers did not test native fit, accessibility,
+  workload, platform behavior or policies, media output, implementation, publication, or restore.
+
+### Local checks
+
+- `git diff --check` — clean.
+- `node scripts/lint-rule7.mjs` — `rule7: clean (497 files scanned)`.
+- `npm test` — not run and not required: this change is limited to Journey/media planning Markdown
+  and its direct plan/index/current-state links under the explicit `AGENTS.md` planning exception.

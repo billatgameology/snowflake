@@ -118,13 +118,16 @@ index, a plan, ADR, or audit links to historical detail.
   explicit maker decision. `AGENTS.md` now exempts planning-only media/Journey Markdown and its
   direct plan/index/status links from the full software suite; those changes still require
   `git diff --check` and the Rule 7 scan, and the exception ends when implementation, science,
-  evidence, or executable pipeline contracts change. The outlet-native amendment is now planned in
-  [explore-journey-outlet-native-media.md](plans/explore-journey-outlet-native-media.md): reuse the
-  source package rather than presuming one finished edit fits every destination; require honest
-  hooks for shorts; reserve long explanation for suitable YouTube, Facebook, website, and localized
-  Weixin treatment; and keep the owned serial edition as a navigation artifact rather than a
-  universal social master. Plan commits `e2cfbb6` and `ef847ba` record the earlier scopes. This is
-  unmerged content planning
+  evidence, or executable pipeline contracts change. The outlet-native amendment planned at
+  `48f3f2c` now makes the reusable source package—not one finished edit—the shared production layer;
+  requires separately briefed, honest hook-and-payoff shorts; gives YouTube and selected Facebook
+  placements native long-explainer treatment; separates visual, conversational, localized, live,
+  community, and direct editions; and keeps the owned 15–59 second serial as the gapless navigation
+  artifact. Numbering now binds immutable source-package versions and outlet/native-fit decisions
+  to exact artifacts, releases, and publications. The reuse-heavy fictional sample remains an
+  allocation/reconstruction fixture and explicitly does not demonstrate current editorial fit or
+  feasibility. Plan commits `e2cfbb6` and `ef847ba` record the earlier scopes. This is unmerged
+  content planning
   only: it implements no allocator, publisher, capture tooling, or playlist; authorizes no
   publication or automated posting; changes no scientific status; and does not touch the education
   freeze or Phase 6 implementation plan.
