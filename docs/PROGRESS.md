@@ -177,20 +177,20 @@ accepted WP3 protocol freeze, and an independently reviewed artifact-derived R15
 
 ## Next step
 
-### Current resume point — fill and freeze the ladder from the closed Stage A data
+### Current resume point — the ladder is EXECUTING; evaluate and close when it lands
 
-The arm-3 unit is COMPLETE (registered, executed 5/78 · 5/90, published, verified, reviewed
-0 blockers, hardened — `619249b`). Stage A is CLOSED by the 2026-08-07 amendment in
-[the recon plan](plans/phase-6-wp2-reconnaissance.md): two measured rows plus scaling
-observations; ceiling rows closed as measured-scaling-infeasible; the S2-ceiling stratum's
-numerics are UNVERIFIED and every report says so. Next, in order: (1) fill and freeze
-[phase-6-wp2-ladder.md](plans/phase-6-wp2-ladder.md) from the closed Stage A data — floor
-sizes only, per-rung caps ≤ 10 h (one host up-window), four check points by stated rule —
-then its pre-execution non-author review; (2) execute the ladder rungs (M1 + CAK; the
-ablation arm inherits M1's verdict as the recorded identity claim); (3) the WP2 unit's one
-non-author review (sub-unit A + Stage A closure + 0045 rescope); (4) WP8 gate re-deriving
-the amended obligations, the narrative three-arm report (review item H10), exact `npm test`,
-full reconciliation. Traps: no registered domain rung ever passed the 0.5% criterion at
-extent 21 (ADR 0037) — a floor-size no-pass is a publishable verdict; the probe driver must
-NOT be relaunched (Stage A is closed); resume (ADR 0039) stays non-production. Do not resume
-education, V4/V4.x apparatus, held-out execution, or preview-GPU work.
+The 80-row ladder (frozen plan + three-round pre-execution review, all in
+[phase-6-wp2-ladder.md](plans/phase-6-wp2-ladder.md)) is running unattended from the pinned
+worktree `G:Code Filessnowflake-phase6-ladder` at the operative amendment head `aa81295`
+(two-phase heads sanctioned; 48 h runaway backstop only — the maker directed no arbitrary time
+stops). Resume after any interruption: from that worktree,
+`node app/scripts/phase6-wp2-ladder-run.mjs --concurrency 4` (recorded rows are skipped;
+in-flight rows re-run; do NOT run from this checkout — the freeze/amendment heads live in the
+worktree). When 80/80 rows are recorded: (1) run
+`node app/scripts/phase6-wp2-ladder-eval.mjs` on the complete artifact and publish rows +
+report under `evidence/phase6-wp2-ladder/` with manifest entries and the PROGRESS verdict
+record; (2) the WP2 unit's one non-author review (sub-unit A + Stage A closure + 0045 rescope
++ ladder verdict, independently re-derived); (3) WP8: flagless gate over the amended
+obligations, the narrative three-arm report, negative controls, exact `npm test`, full
+reconciliation — Phase 6 closes. Do not resume education, V4/V4.x apparatus, held-out
+execution, or preview-GPU work.
