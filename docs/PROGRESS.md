@@ -24,6 +24,15 @@ index, a plan, ADR, or audit links to historical detail.
   campaign close at measured-only grade (stated as not computed by decision 0045, never as
   satisfied), and a 204-point measured-only `M1_NO_DIP_ABLATION` sweep — arm-2-identical except
   `paramSet` — completes the three-arm baseline inside the envelope.
+- **Phase 8 is ACTIVE IN PARALLEL WITH PHASE 6.** Accepted decision
+  [0046](decisions/0046-run-phase8-source-reconciliation-in-parallel.md) and charter v1.23
+  authorize the [target-book plan](plans/phase-8-what-is-real.md) in isolated branch
+  `phase/8-what-is-real` and worktree `/Users/clipper/github/snowflake-phase8`. S-1 governance is
+  complete; S0 extraction has not started. Phase 8 runs no solver work, treats Phase 6 artifacts
+  and processes as read-only, borrows no incomplete claim, and earns no Phase 6 credit.
+  Phase 7 is completely standalone from the completion of Phases 6 and 8: it is not started and
+  still needs its own committed plan/worktree, but neither phase gates it. Its existing product,
+  held-out-validation, and GPU-parity scope remains. Phase 9 and Phase 10 remain uncharted.
 - The maker's 2026-08-03 direction is recorded verbatim in the
   [active plan](plans/phase-6-science-first-completion.md) and enacted by accepted decisions
   [0042](decisions/0042-bound-phase6-evidence-integrity-scope.md),
@@ -32,8 +41,9 @@ index, a plan, ADR, or audit links to historical detail.
   accidental error/crash/environment drift, with attacker-only local tamper closed as history; each
   unit gets one proportionate non-author review engagement. Held-out validation and the v6
   WGSL/preview-GPU cohort move to named Phase 7 work packages owned by `billatgameology`, with no
-  Phase 6 credit. CAK, M1, `M1_NO_DIP_ABLATION`, the numerical ladder, R15, and conservative
-  intersection remain in full.
+  Phase 6 credit. Decision 0045 later retained the three measured-only arms and budget-capped
+  numerical ladder, but closed R15, the conservative-intersection headline, and the full production
+  campaign as not computed.
 - [ADR 0041](decisions/0041-phase6-ryzen9-host.md) and charter v1.20 landed canonically in
   `1ff948c`. The manifest-covered [host observation](../evidence/phase6-host/observation-20260803T033028Z.json)
   is 3,051 bytes with SHA-256
@@ -104,15 +114,16 @@ index, a plan, ADR, or audit links to historical detail.
   `af7463b` (2026-08-04, maker-approved mid-pause) added the independent-laboratory record to
   chapters 4–13, `references.html`, and `FUTURE-ADDITIONS.md`. No other `docs/education/**` drift
   exists since `60e3f3f` (verified by diff 2026-08-06), and no further education work runs until
-  Phase 6 closes. Commit `8acf9fe` (same session) added three **proposed, uncharted** Phase 8–10
-  plan drafts; they are not adopted phases and none may start before Phase 6 WP8.
+  Phase 6 closes. Commit `8acf9fe` (same session) added three proposed Phase 8–10 plan drafts.
+  Decision 0046 now charters Phase 8's separate research-source/target-book work only; it does not
+  reopen education, and the Phase 9–10 drafts remain uncharted and inactive.
 - Maker-directed pre-Phase-7 exploration branch `explore/gg-realism-gutcheck` (worktree
   `../snowflake-gutcheck-gg-realism`; plan `docs/plans/explore-gg-realism-gutcheck.md` exists on
   that branch only): grow a large noisy `GGThreshold` dendrite, extract a smooth level-set
   surface, render the ADR 0029 ice look, and eyeball it against the J0521r2p footage. Eyeball-only
   exploration — not evidence, no gate claim, touches no solver package, and may be discarded;
-  merging is a separate maker decision. It does not alter Phase 6 work or its "only active
-  implementation plan" status below. The former gut-check worktree content (extraction/render
+  merging is a separate maker decision. It does not alter either chartered active plan below. The
+  former gut-check worktree content (extraction/render
   tooling, the paper-coverage sweep, the growth-timeline viewer, and `docs/social/`) landed on
   `origin/main` 2026-08-06 via PR #1 from `explore/social-content`; that branch is otherwise
   outside Phase 6 scope and this bullet's "not evidence, no gate claim" status is unchanged.
@@ -144,7 +155,7 @@ index, a plan, ADR, or audit links to historical detail.
   frozen tree exited 0: Rule 7 clean over 436 files, both TypeScript projects, Vitest 82 files /
   1,454 tests in 628.68 s. Whether WP2 uses Z = 2 or Z = 1 strata is a WP2/WP3 protocol
   decision.
-- **Last updated:** 2026-08-07 by Claude Fable 5
+- **Last updated:** 2026-08-10 by OpenAI Codex
 
 ## Phase gates
 
@@ -160,13 +171,17 @@ and every superseded attempt live in the linked plans and historical progress sn
 | 3 | Complete, maker-asserted 2026-07-23 | `gate3` exit 0: depletion-ratio median `0.531454`, 90.2% below 1, radius 38, symmetry error 0. Repro: `node runner/src/main.ts gate3`. |
 | 4 | Complete 2026-07-18 | `gate4` at `70a2496`: 24/24 blocking G-G records and 12/12 diagnostic LK records executed; `gatePass=true`, `passBDiagnosticPass=false`. Repro: `node runner/src/main.ts gate4`. |
 | 5 | Complete, maker-asserted 2026-07-26 | Clean `c436df5`, observed Windows/Chromium/D3D12: 16/16 gate criteria, 560 bounded segments below 500 ms, zero device losses/errors/full-field display-frame reads, 16/16 negative controls rejected. Repro: `node runner/src/main.ts gate5-lane` and `node runner/src/main.ts gate5`. |
-| 6 | **Active and incomplete** | Historical CAK/M1 measurements retained; WP1 strata frozen. Decision 0045 bounds closure: budget-capped ladder, third-arm measured-only sweep, and WP8 gate remain; headline/R15/campaign closed at measured-only grade. Held-out/GPU execution deferred with no Phase 6 credit. |
-| 7 | Not started | Begins only after Phase 6 closes; charter v1.21 assigns held-out validation and v6 WGSL/preview-GPU parity to `billatgameology` here. |
+| 6 | **Active and incomplete** | The three measured-only arms and WP1 strata are published. The budget-capped ladder is executing; its verdict and WP8 gate remain. Headline/R15/campaign closed at measured-only grade; held-out/GPU execution deferred with no Phase 6 credit. |
+| 7 | Not started; independently eligible | Charter v1.23 removes Phase 6/8 completion dependencies but does not start the phase. A committed Phase 7 plan and isolated worktree are required; product, held-out validation, and v6 WGSL/preview-GPU parity remain its scope. |
+| 8 | **Active; S0 not started** | Decision 0046 and charter v1.23 authorize source reconciliation alongside Phase 6 under the isolated, no-borrowed-claims boundary. [Plan](plans/phase-8-what-is-real.md). |
 
 ## Active plan
 
-[phase-6-science-first-completion.md](plans/phase-6-science-first-completion.md) is the only active
-implementation plan. The detailed V4/V4.x chronology remains in the closed
+[phase-6-science-first-completion.md](plans/phase-6-science-first-completion.md) remains the active
+Phase 6 implementation plan. [phase-8-what-is-real.md](plans/phase-8-what-is-real.md) is the
+independent active Phase 8 plan. Decision 0046 keeps their worktrees, processes, artifacts, claims,
+and completion credit isolated; cold starts read the plan for the workstream they will touch. The
+detailed V4/V4.x chronology remains in the closed
 [WP1 history](plans/phase-6-wp1-source-lineage-and-tax2.md) and recovery artifacts; it is not a live
 schedule.
 
@@ -192,5 +207,16 @@ report under `evidence/phase6-wp2-ladder/` with manifest entries and the PROGRES
 record; (2) the WP2 unit's one non-author review (sub-unit A + Stage A closure + 0045 rescope
 + ladder verdict, independently re-derived); (3) WP8: flagless gate over the amended
 obligations, the narrative three-arm report, negative controls, exact `npm test`, full
-reconciliation — Phase 6 closes. Do not resume education, V4/V4.x apparatus, held-out
-execution, or preview-GPU work.
+reconciliation — Phase 6 closes. Do not resume education or V4/V4.x apparatus. Held-out or
+preview-GPU work may begin only as separately planned Phase 7 work in its own worktree; never run
+it from the Phase 6 lane or count it toward Phase 6.
+
+### Phase 8 parallel lane — begin S0 source extraction
+
+From `/Users/clipper/github/snowflake-phase8`, open
+[phase-8-what-is-real.md](plans/phase-8-what-is-real.md) and inventory the exact local source,
+version, and page mapping for the eight named non-Libbrecht source families before writing their
+tracked extraction indexes. Start with source-currency and rights checks; do not invent plotted
+values, digitize image-only tables, alter the historical Libbrecht-scoped dataset, run a solver, or
+touch any Phase 6/7 artifact. Reconcile relevant `origin/main` source/provenance changes before the
+target-book freeze.

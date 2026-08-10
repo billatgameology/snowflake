@@ -3,23 +3,25 @@
 - **Phase:** Phase 6 — Validation against the Nakaya diagram
 - **Status:** in progress
 - **Started:** 2026-08-01
-- **Last touched:** 2026-08-03 by OpenAI Codex (maker redirect execution active)
+- **Last touched:** 2026-08-10 by OpenAI Codex (current authority summary reconciled)
 
 ## Goal
 
-Complete the Phase 6 scientific gate that the 2026-08-01 external review correctly found
-incomplete. The maker keeps the science-first core of open item O1b: execute the registered
-conservative-intersection headline, numerical-control ladder, R15 path, and complete three-arm
-float64 campaign. Decisions 0043 and 0044 move only the scientifically incompatible held-out
-families and the non-parity preview-GPU work past Phase 6; decision 0042 bounds evidence hardening to
-honest-execution failures. Resource cost may shape scheduling and concurrency, but it may not weaken
-a retained validity criterion, substitute an unregistered configuration, or turn a missing core
-comparison into prose.
+Complete the amended Phase 6 scientific gate under accepted decision 0045. The remaining compute
+obligation is the budget-capped numerical-control ladder, with pass and no-pass both publishable
+and neither authorizing a production campaign. The source-derived size strata remain frozen, and
+the three same-protocol 204-point arms remain at measured-only grade; the final narrative states
+their agreements, disagreements, numerical limits, and the accepted failure to reproduce the
+Nakaya diagram. ADR
+0026's conservative-intersection headline, R15 production path, and full production campaign are
+closed as **not computed by decision 0045**, never as satisfied.
 
-The existing two 204-row sweeps remain tracked measurements of the model at their executed
-configuration. They are not erased, upgraded, or silently pooled into the new result. The accepted
-failure to reproduce the Nakaya diagram also remains a valid measured-only result. This plan is
-about earning the registered verdict and the independent evidence that were not produced.
+Decisions 0043 and 0044 assign the scientifically incompatible held-out families and non-parity
+preview-GPU work to Phase 7, outside this gate; decision 0046 removes Phase 7's phase-completion
+dependency without returning either work package to Phase 6. Decision 0042 bounds evidence
+hardening to honest-execution failures. Resource cost may shape scheduling and concurrency, but it
+may not weaken a retained validity criterion, substitute an unregistered configuration, or turn a
+missing comparison into prose.
 
 The historical CAK→M1 comparison is also not a causal SDAK ablation. It simultaneously changes the
 broad σ₀ functions, the facet prefactors, and the M1 dip factors. A new, explicitly named
@@ -32,17 +34,16 @@ that clean intervention cannot establish physical SDAK causality or necessity in
 
 ## Done when
 
-Current accepted charter v1.21, verbatim:
+Current accepted charter v1.23, verbatim (the Phase 6 milestone text is unchanged):
 
 > Done when the model's temperature-vs-supersaturation morphology diagram is compared against Nakaya's, with the agreements and the disagreements both stated. A negative result is a result: if the model does not reproduce the flip, that is a finding about the model, it is reported as one, and GGThreshold still ships a beautiful crystal (Phase 2a). What is not permitted is quietly tuning until the diagram matches and calling it validation — the versioned protocol freeze (item 1) makes every authorized change auditable and invalidates prior sweep evidence for the replacement gate after a post-freeze edit.
 
-The quoted gate is reached only after all retained Phase 6 charter items that give it meaning are
-discharged: source-derived physical-size strata and the full protocol freeze before new evidence;
-grid, timestep, and domain controls at registered points; the R15 artifact path; the complete CAK,
-M1, and `M1_NO_DIP_ABLATION` float64 campaigns; ADR 0026's conservative-intersection headline; and
-separate no-SDAK/SDAK reports with evidence labels limited to executed comparisons. Decisions 0043
-and 0044 make the held-out incompatibility finding and GPU deferral explicit; neither earns Phase 6
-credit for work not executed.
+Decision 0045 defines how the unchanged milestone is discharged: the frozen size strata; the
+artifact-derived budget-capped ladder verdict; the three measured-only arm artifacts and narrative
+comparison; the decision 0043/0044 deferral records; the closure labels for the unexecuted headline,
+R15 path, and production campaign; and a flagless WP8 gate that independently re-derives those
+amended obligations. No Phase 6 label is upgraded to quantitatively validated, and neither Phase 7
+nor Phase 8 work earns Phase 6 credit.
 
 ## Governing direction
 
@@ -186,6 +187,14 @@ it's not perfectly done is 7 days, it's fine. let's focus on getting it done as 
 possible while maintaining science, accuracy, and record keeping at highest priority." The
 envelope bounds scope, not correctness: a unit that needs an extra day to be done right takes
 the extra day; no validity criterion, label, or record is ever traded for the calendar.
+
+**The maker's 2026-08-10 sequencing direction is binding:** Phase 8 runs alongside Phase 6 and
+Phase 7 is completely standalone. Accepted decision 0046 and charter v1.23 remove Phase 7's former
+Phase 6 completion dependency without changing this plan's gate, obligations, deferral records, or
+evidence labels. Phase 7 work still requires its own committed plan and isolated worktree; it never
+runs from the Phase 6 lane, consumes a timing-sensitive row's host resources, or earns Phase 6
+credit. This is a scheduling/ownership reconciliation, not a reopening of held-out or GPU work
+inside Phase 6.
 
 The maker's 2026-08-02 sequencing direction is also binding: **freeze all further education-site
 work until Phase 6 is complete.** The landing page carries a prominent warning that the course is
@@ -592,13 +601,14 @@ configuration or no-pass → WP3 production binding → fresh R15 production exe
 - [ ] Verify each completed cohort before allowing it into the aggregate, then generate the
   conservative-intersection diagrams and reports with both agreements and disagreements stated.
 
-### WP7 — held-out validation deferred past Phase 6
+### WP7 — held-out validation assigned outside Phase 6
 
 - [x] Decision 0043 and charter v1.21 accept the audited `passEligible=false` incompatibility as the
   Phase 6 finding and move growth-rate, size-dependent-habit, pressure-dependence, and
   growth-history execution to the named Phase 7 held-out-validation work package. Owner:
-  `billatgameology`.
-- [x] Preserve the four families as separate post-Phase-6 obligations. Each future freeze must make
+  `billatgameology`. Decision 0046 later removes the phase-completion timing while leaving the
+  assignment and no-Phase-6-credit boundary intact.
+- [x] Preserve the four families as separate Phase 7 obligations. Each future freeze must make
   geometry, conditions, transport physics, observable, uncertainty, and scoring apples-to-apples or
   record continued non-comparability. No near-match score, invented crystallography, P3-active
   Nakaya result, or absence of a target earns held-out validation credit.
@@ -657,7 +667,8 @@ source freezes, protocol manifests, raw result artifacts, and independently deri
 - Treating a diagnostic size ladder as registered validation evidence.
 - Claiming general WebGPU, Metal, or cross-architecture portability beyond executed configurations.
 - Deleting or rewriting superseded evidence. Historical artifacts remain tracked and labeled.
-- Beginning Phase 7 work while this gate completion is active.
+- Running Phase 7 work from the Phase 6 lane, mutating Phase 6 artifacts for it, or counting its
+  results toward this gate. Decision 0046 permits a separately planned and isolated Phase 7 start.
 
 ## Tried and rejected
 

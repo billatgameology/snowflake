@@ -9,10 +9,19 @@ const REPO = fileURLToPath(new URL("../..", import.meta.url));
 const PROGRESS = resolve(REPO, "docs", "PROGRESS.md");
 const HANDOFF = resolve(REPO, "docs", "HANDOFF.md");
 const ARCHIVE = resolve(REPO, "docs", "progress-history-through-2026-08-02.md");
-const ACTIVE_PLAN = resolve(REPO, "docs", "plans", "phase-6-science-first-completion.md");
+const ACTIVE_PLANS = [
+  resolve(REPO, "docs", "plans", "phase-6-science-first-completion.md"),
+  resolve(REPO, "docs", "plans", "phase-8-what-is-real.md"),
+];
 const ARCHIVE_MARKER = "<!-- BEGIN EXACT PRE-COMPACTION PROGRESS BODY -->\n";
 const ARCHIVED_BODY_BYTES = 191_859;
 const ARCHIVED_BODY_SHA256 = "2550319a3ac5d528c111875242419de91d2ed9b34f245f7a0364ede8b323f955";
+const FORBIDDEN_SEQUENCING = [
+  "Phase 7 waits for Phase 6",
+  "Begins only after Phase 6 closes",
+  "none may start before Phase 6 WP8",
+  "Phase 8 waits for Phase 6",
+];
 const ARCHIVED_BODY_LF_BYTES = 190_074;
 const ARCHIVED_BODY_LF_SHA256 = "9f7ee2ad0a7773740b8aff111b16aad236fb9555f7ae0cd861714681103b4a9d";
 
@@ -28,13 +37,20 @@ function currentIndexErrors(text: string): string[] {
   const errors: string[] = [];
   const required = [
     "Phase 6 is ACTIVE AND INCOMPLETE",
+    "Phase 8 is ACTIVE IN PARALLEL WITH PHASE 6",
+    "Phase 7 is completely standalone",
     "CAK 3/90, M1 54/90",
     "M1_NO_DIP_ABLATION",
     "cannot establish physical SDAK causality or necessity",
-    "- **Last updated:** 2026-08-07",
+    "(plans/phase-6-science-first-completion.md)",
+    "(plans/phase-8-what-is-real.md)",
+    "- **Last updated:** 2026-08-10",
   ];
   for (const phrase of required) {
     if (!text.includes(phrase)) errors.push(`missing current-state phrase: ${phrase}`);
+  }
+  for (const phrase of FORBIDDEN_SEQUENCING) {
+    if (text.includes(phrase)) errors.push(`stale sequencing phrase: ${phrase}`);
   }
   for (const heading of ["## Phase gates", "## Active plan", "## Next step"]) {
     if (countExactLine(text, heading) !== 1) errors.push(`expected exactly one ${heading}`);
@@ -109,9 +125,9 @@ describe("compact progress index and byte-exact historical record", () => {
       .match(/^# Handoff .* \((\d{4}-\d{2}-\d{2})\)$/mu)?.[1];
     // HANDOFF.md is the last maker-triggered stop snapshot and moves only on maker request;
     // PROGRESS.md advances with ordinary work, so the two dates are pinned independently.
-    expect(progressDate).toBe("2026-08-07");
+    expect(progressDate).toBe("2026-08-10");
     expect(handoffDate).toBe("2026-08-07");
-    expect(existsSync(ACTIVE_PLAN)).toBe(true);
+    for (const activePlan of ACTIVE_PLANS) expect(existsSync(activePlan)).toBe(true);
     expect(existsSync(ARCHIVE)).toBe(true);
   });
 
@@ -139,6 +155,33 @@ describe("compact progress index and byte-exact historical record", () => {
     const current = readFileSync(PROGRESS, "utf8");
     expect(currentIndexErrors(current.replace("Phase 6 is ACTIVE AND INCOMPLETE", "Phase 6 is complete")))
       .toContain("missing current-state phrase: Phase 6 is ACTIVE AND INCOMPLETE");
+    const phase8StatusMutation = current.replace(
+      "Phase 8 is ACTIVE IN PARALLEL WITH PHASE 6",
+      "Phase 8 is inactive",
+    );
+    expect(phase8StatusMutation).not.toBe(current);
+    expect(currentIndexErrors(phase8StatusMutation))
+      .toContain("missing current-state phrase: Phase 8 is ACTIVE IN PARALLEL WITH PHASE 6");
+
+    const phase7StatusMutation = current.replace(
+      "Phase 7 is completely standalone",
+      "Phase 7 waits for Phase 6",
+    );
+    expect(phase7StatusMutation).not.toBe(current);
+    expect(currentIndexErrors(phase7StatusMutation))
+      .toContain("missing current-state phrase: Phase 7 is completely standalone");
+    for (const phrase of FORBIDDEN_SEQUENCING) {
+      expect(currentIndexErrors(`${current}\n${phrase}\n`))
+        .toContain(`stale sequencing phrase: ${phrase}`);
+    }
+
+    const phase8LinkMutation = current.replaceAll(
+      "(plans/phase-8-what-is-real.md)",
+      "(plans/missing-phase-8-plan.md)",
+    );
+    expect(phase8LinkMutation).not.toBe(current);
+    expect(currentIndexErrors(phase8LinkMutation))
+      .toContain("missing current-state phrase: (plans/phase-8-what-is-real.md)");
     expect(currentIndexErrors(`${current}\n## Next step\n`))
       .toContain("expected exactly one ## Next step");
     expect(currentIndexErrors(`${current}\n${ARCHIVE_MARKER}`))

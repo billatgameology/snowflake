@@ -1,12 +1,11 @@
 # Plan — Phase 8: What is real — the reconciled laboratory target book
 
-- **Phase:** Phase 8 (adoption candidate) — Cross-laboratory evidence reconciliation
-- **Status:** maker approved the parallel start and completely standalone Phase 7 relationship on
-  2026-08-10. Candidate decision 0046 and charter v1.23 must land before S0 begins. Phase 8 then
-  runs concurrently with Phase 6 in an isolated worktree; Phase 7 has no Phase 6/8 completion
-  dependency but still requires its own plan before it starts.
+- **Phase:** Phase 8 — Cross-laboratory evidence reconciliation
+- **Status:** active under accepted decision 0046 and charter v1.23; S-1 governance is complete and
+  S0 has not started. Phase 8 runs concurrently with Phase 6 in an isolated worktree; Phase 7 has
+  no Phase 6/8 completion dependency but still requires its own plan before it starts.
 - **Started:** 2026-08-04 (drafted)
-- **Last touched:** 2026-08-10 by OpenAI Codex — literal Phase 7 independence planned
+- **Last touched:** 2026-08-10 by OpenAI Codex — Phase 8 chartered and activated
 
 ## Goal
 
@@ -25,7 +24,7 @@ evidence chain.
 
 ## Done when
 
-Candidate charter v1.23 milestone, verbatim:
+Charter v1.23 milestone, verbatim:
 
 > Done when every target in the book carries (a) a page-cited extraction line in a tracked research index, (b) protocol tags (seed, pressure, geometry, supersaturation semantics and uncertainty, growth history, ensemble semantics), (c) a robustness class where Class A requires at least two independent witnesses, (d) an inputs-vs-targets flag, and (e) membership in a pre-registered held-out split — and the frozen, hashed book passes one proportionate non-author review with zero unresolved blockers.
 
@@ -42,11 +41,13 @@ index.
 ### Sequencing and isolation
 
 The maker directed on 2026-08-10 that Phase 8 proceed in parallel with Phase 6 and that Phase 7
-be completely standalone from both Phase 6 and Phase 8 completion. Candidate decision 0046 and the
-matching charter amendment are S-1; after they land, they authorize S0 under these boundaries:
+be completely standalone from both Phase 6 and Phase 8 completion. Accepted decision 0046 and the
+matching charter v1.23 amendment complete S-1 and authorize S0 under these boundaries:
 
 - Phase 8 runs in its own worktree and branch. Phase 6 worktrees, live processes, frozen protocol,
-  `evidence/phase6-*`, plans, reports, and gate machinery are read-only to this phase.
+  `evidence/phase6-*`, plans, reports, and gate machinery are read-only to this phase. S-1 has one
+  bounded authority exception: reconcile the Phase 6 plan's superseded Phase 7 scheduling text and
+  its pre-decision-0045 Goal/Done-when summary; after adoption, that plan is read-only again.
 - Phase 8 performs no solver run and consumes no material CPU capacity on the Phase 6 evidence host
   while a timing-sensitive row is active. No verification exemption is created: every non-exempt
   Phase 8 change runs exact `npm test` on a separate host, plus the checks its scope requires.
@@ -100,12 +101,12 @@ Three organizing rules:
 
 ## Steps
 
-- [ ] **S-1 — Charter and isolate the phase.** Accept decision 0046, amend the charter's sequential
-  phase rule and add the Phase 8 milestone, update `docs/PROGRESS.md` to show the two independent
-  active lanes, and record the isolated worktree/territory boundary above. Check: the authority
+- [x] **S-1 — Charter and isolate the phase.** Accepted decision 0046, amended the charter's
+  sequential phase rule, added the Phase 8 milestone, updated `docs/PROGRESS.md` to show the two
+  independent active lanes, and recorded the isolated worktree/territory boundary above. Check: the authority
   records agree; `git diff --check`, Rule 7, the focused progress test, and exact `npm test` pass;
   no Phase 6 artifact, process, report, or gate file changed, and the Phase 6 plan diff is limited
-  to reconciling decision 0046's scheduling boundary.
+  to reconciling decision 0045's closure summary and decision 0046's scheduling boundary.
 - [ ] **S0 — Extraction indexes for the non-Libbrecht corpus.** One tracked
   `research/<paper>.md` per source (takahashi-fukuta1988, takahashi1991 + corrigendum,
   nelson-1998, bailey-hallett-2002, bacon-baker-swanson-2003, harrison-2016, pokrifka-2020,

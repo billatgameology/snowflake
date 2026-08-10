@@ -2,7 +2,7 @@
 
 This project is worked on by **multiple different LLMs across sessions**, with no shared memory
 between them. Any model may pick up work another left mid-flight. `docs/PROGRESS.md` is the compact
-current-state index, and the active plan holds the detailed work record; logs, checkpoints, and
+current-state index, and the active plans hold the detailed work records; logs, checkpoints, and
 other artifacts are evidence only when one of those current records points to them.
 
 `docs/HANDOFF.md` is a manually triggered stop/restart snapshot, not a second live progress log.
@@ -13,7 +13,7 @@ immediate saved handoff. During ordinary work and long runs, leave it untouched.
 symlink with a second copy; two instruction files will drift.
 
 The governing document is [project charter.md](project charter.md). It defines the goal, the
-science, the stack, and Phases 0–7. **The charter is the spec; these files are the state.**
+science, the stack, and Phases 0–8. **The charter is the spec; these files are the state.**
 
 ---
 
@@ -37,8 +37,9 @@ Read in this order on every cold start:
    It is deliberately a compact current-state index. Its linked pre-compaction archive is a frozen
    historical record, not current authority; open that archive only when a current record points to
    it or the task requires historical provenance.
-2. Read the active plan it names, including **Tried and rejected**. That section contains killed
-   protocols and measured failure modes that must not be rediscovered or restored.
+2. Read each active plan it names for the workstream you will touch, including **Tried and
+   rejected**. If a task crosses workstreams, read every affected active plan. Those sections
+   contain killed protocols and measured failure modes that must not be rediscovered or restored.
 3. Inspect `git status` and the relevant diff before editing. A dirty worktree is often a
    deliberate, reviewed handoff rather than disposable noise.
 4. Read the relevant charter clauses, accepted ADRs, and solver spec before changing behavior.
@@ -62,7 +63,7 @@ These files answer different questions; do not collapse them into one vague "sou
 | `project charter.md` | Governing product, science, phase, and gate contract. The current charter wins. |
 | Accepted ADRs in `docs/decisions/` | Why the charter changed and which tempting alternative was rejected. An ADR and the charter should already agree. |
 | Solver specs | Delegated technical ground truth for the implemented algorithms. |
-| Active plan | Current implementation approach, pre-registered protocols, evidence, and rejected attempts. |
+| Active plan for the affected workstream | Current implementation approach, pre-registered protocols, evidence, and rejected attempts. |
 | `docs/PROGRESS.md` | Live state: what is complete, what is in flight, and the next concrete action. |
 | Code, tests, logs, checkpoints | Implementation and evidence. They do not silently overrule the written contract. |
 
@@ -87,7 +88,9 @@ This is no longer a greenfield repository. The durable baseline is:
 The project is an interactive snow-crystal growth instrument, not merely a crystal generator.
 The product must expose the vapor field and surface propensity so a user can understand why a
 shape grew. Physical inputs make the model falsifiable; they do not make it validated. Only
-Phase 6 can earn a quantitative validation claim over a named domain.
+an executed, pre-registered chartered validation gate can earn a quantitative validation claim
+over its named domain: Phase 6 owns the Nakaya comparison, and Phase 7 may separately gate a
+held-out domain. Phase 8 source reconciliation cannot grant that label.
 
 ## Repository map
 
@@ -101,7 +104,7 @@ The root is a strict-TypeScript ESM npm workspace on Node 23.6 or newer.
 | `spike/` | Frozen Phase 1 Reiter prototype, deliberately outside the npm workspace. Do not evolve it into the product. |
 | `research/` | Tracked source indexes and citations; most downloaded media are local and gitignored. Never force-add copyrighted media. |
 | `app/` | Phase 3 Three.js development instrument: Web Worker CPU solver, overlays, vapor slice, picking/readouts, stop-rule parity, and deterministic visual harness. Phase 4 extends it without moving solver work onto the UI thread. |
-| `solver-gpu/` | Phase 5 WebGPU implementation and Windows/Chromium/D3D12 evidence path. Phase 6 GPU work must preserve the accepted Phase 5 protocols and remains downstream of its own freeze/comparison gate. |
+| `solver-gpu/` | Phase 5 WebGPU implementation and Windows/Chromium/D3D12 evidence path. Phase 7 GPU-parity work must preserve the accepted Phase 5 protocols and remains downstream of its own freeze/comparison gate. |
 
 Dependency direction is `core` → `solver-cpu` → `runner`. Keep solver code environment-neutral
 so the same oracle can later run in a Web Worker and serve as the GPU comparison target.
@@ -285,13 +288,13 @@ node runner/src/main.ts gate2b
   Cross-engine, float32, and GPU comparisons use stated tolerances.
 - Use the counter-based seeded PRNG and named streams. Never introduce `Math.random()`.
 - Keep unrelated dirty changes intact. Never “clean up” a handoff by reverting or absorbing it
-  without understanding the active plan.
+  without understanding the affected active plan.
 
 ---
 
 ## Rule 1 — Start every session by reading the state
 
-Before touching anything: read `docs/PROGRESS.md`, then the plan file it points at as active.
+Before touching anything: read `docs/PROGRESS.md`, then every active plan relevant to the work.
 Do not infer project state from the code, the file tree, or this charter alone — they tell you
 what exists, not what was *intended*, what was *tried and rejected*, or what the last model was
 halfway through. If `PROGRESS.md` disagrees with the code, say so explicitly rather than

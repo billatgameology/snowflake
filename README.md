@@ -62,7 +62,7 @@ process APIs.
 | `project charter.md` | Governing product, science, architecture, and phase specification. This is the highest-level source of truth. |
 | `AGENTS.md` | Working rules for humans and coding agents, including planning, evidence, and naming requirements. |
 | `docs/PROGRESS.md` | Current project state, accepted phase evidence, active work, and the exact next step. Read this before changing the project. |
-| `docs/plans/` | Implementation plans and their completed, pending, and rejected approaches. The active plan is linked from `PROGRESS.md`. |
+| `docs/plans/` | Implementation plans and their completed, pending, and rejected approaches. The active plans are linked from `PROGRESS.md`. |
 | `docs/decisions/` | Architecture decision records explaining choices that change or extend the charter. |
 | `docs/gg-machinery.md` | Technical specification for the shared lattice, state, diffusion, G-G update cycle, noise, and mass bookkeeping. |
 | `docs/attachment-kinetics.md` | Technical specification for the temperature-dependent coupled surface operator. |
@@ -80,8 +80,8 @@ process APIs.
 | `package.json` | npm workspace definition and the main lint, typecheck, test, and runner scripts. |
 | `tsconfig*.json`, `vitest.config.ts` | Strict TypeScript and test configuration shared by the workspace. |
 
-`app/` and `solver-gpu/` are implemented Phase 3–5 packages. Phase 6 must extend the GPU path to the
-registered v6/M1/no-dip comparison before its preview-budget cohort can run.
+`app/` and `solver-gpu/` are implemented Phase 3–5 packages. The registered v6/M1/no-dip GPU-parity
+work is deferred to Phase 7; Phase 8 performs no solver or GPU work.
 
 ## Source files and high-level functions
 
@@ -216,15 +216,19 @@ without the artifact is not a preserved result.
 - Phase 2a G-G machinery and CPU solver gate: complete.
 - Phase 2b temperature-dependent surface model and registered habit gate: complete.
 - Phases 3, 4, and 5: complete.
-- Phase 6: active and incomplete. Its historical CAK and M1 sweeps are measured-only results; the
-  registered R15 headline, transferable numerical controls, preview-budget GPU cohort, and held-out
-  validation families remain open.
-- Phase 7: not started.
+- Phase 6: active and incomplete. Its three measured-only arms are published; the registered
+  numerical-control ladder is executing, while the R15 headline/campaign are closed at
+  measured-only grade by decision 0045. Held-out validation and GPU parity are assigned outside
+  this gate to Phase 7.
+- Phase 7: not started, but independently eligible under decision 0046; neither Phase 6 nor Phase 8
+  gates it. Its own committed plan and isolated worktree are required before work begins.
+- Phase 8: active alongside Phase 6 under decision 0046's isolated source-reconciliation boundary;
+  S0 extraction has not started. Phase 9 and Phase 10 remain proposed and uncharted.
 
 For the live status, trust the compact `docs/PROGRESS.md` index over this summary. Its linked
 pre-compaction archive is historical, not current authority. For intended behavior, the authority
-order is: `project charter.md`, accepted decision records, the relevant solver spec, the active
-plan, and then implementation comments.
+order is: `project charter.md`, accepted decision records, the relevant solver spec, the affected
+active plan, and then implementation comments.
 
 ## Starting a work session
 
@@ -232,7 +236,7 @@ This README is only an orientation layer. Follow the authoritative cold-start or
 `AGENTS.md` before changing the repository:
 
 1. Read `docs/HANDOFF.md`, `docs/phase6-lessons.md`, and compact `docs/PROGRESS.md` completely.
-2. Read the active plan it links, including `Tried and rejected`.
+2. Read every active plan it links that is relevant to your work, including `Tried and rejected`.
 3. Inspect `git status` and the relevant diff.
 4. Read the relevant charter clauses, accepted decisions, and solver specification.
 5. Only then inspect implementation, tests, logs, checkpoints, or linked historical progress.
