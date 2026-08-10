@@ -252,7 +252,15 @@ node runner/src/main.ts gate2b
 ```
 
 - `npm test` runs the Rule 7 scan, strict typecheck, and all Vitest suites. It is the required
-  local check, but a green self-test is not sufficient evidence for a scientific gate.
+  local check for non-exempt changes, but a green self-test is not sufficient evidence for a
+  scientific gate.
+- **Planning-only media and Journey documentation is exempt from `npm test`.** When the entire
+  intended change is confined to non-executable media-content planning or the Snow Crystal Journey
+  source/planning record, plus its directly associated Markdown plan, index, and `docs/PROGRESS.md`
+  links or status summary, run `git diff --check` and `node scripts/lint-rule7.mjs`; do not run the
+  full software suite. The exemption ends if the diff touches source code, tests, package or build
+  configuration, the charter, an ADR, solver or scientific specifications, evidence machinery, or
+  an executable publication, capture, allocator, or automation contract.
 - `grow` is observational unless the appropriate enforcement flag is present. Printed metrics
   do not turn exit 0 into a gate result.
 - `grow-lk` is exploratory. `gate2b` is flagless because it encodes the pre-registered protocol;
@@ -358,10 +366,11 @@ Scientific milestones are **automated metrics, not screenshots** (§3.3). So:
   paragraph, and the `5463e76` retraction of the Phase 6 structural bound, whose script
   counted sigma_0 crossings while the claim governed habit — which depends on the full
   attachment coefficient alphaHK, a different quantity with a different crossing count.
-- **The required local check is exact `npm test`, and nothing else counts as it.** A green
-  `npx vitest run` omits the Rule 7 scan and both typechecks; quoting it as verification is
-  how 319 scan violations merged to `main` unnoticed on 2026-07-29. Name the exact command
-  beside any "suite green" claim.
+- **For every non-exempt change, the required local check is exact `npm test`, and nothing else
+  counts as it.** The planning-only media/Journey documentation exception is defined under
+  *Commands and evidence semantics* above. A green `npx vitest run` omits the Rule 7 scan and both
+  typechecks; quoting it as verification is how 319 scan violations merged to `main` unnoticed on
+  2026-07-29. Name the exact command beside any "suite green" claim.
 
 ## Rule 7 — A bare `alpha` is banned from this repository
 
