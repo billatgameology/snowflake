@@ -1,11 +1,12 @@
 # Plan — Phase 8: What is real — the reconciled laboratory target book
 
-- **Phase:** Phase 8 (proposed) — Cross-laboratory evidence reconciliation
-- **Status:** draft for maker review — not chartered; adopting it requires a charter amendment
-  (charter is at v1.21) and a logged ADR. Must not start before Phase 6 WP8 publishes its gate
-  and must not touch any Phase 6/7 frozen territory.
+- **Phase:** Phase 8 (adoption candidate) — Cross-laboratory evidence reconciliation
+- **Status:** maker approved a parallel start on 2026-08-10; charter amendment and decision 0046
+  must land before S0 begins. Phase 8 may then run concurrently with Phase 6 in an isolated
+  worktree. Phase 7 and Phase 8 have no mutual gate dependency; neither phase may borrow the
+  other's claims, artifacts, or completion credit.
 - **Started:** 2026-08-04 (drafted)
-- **Last touched:** 2026-08-04 by Claude Fable 5 — initial draft at the maker's direction
+- **Last touched:** 2026-08-10 by OpenAI Codex — parallel-start amendment planned
 
 ## Goal
 
@@ -18,11 +19,13 @@ free-fall, Nelson sublimation, Bacon–Baker–Swanson levitation, Bailey–Hall
 Harrison/Pokrifka/Harrington levitation-mass lineage) into a graded, protocol-tagged,
 machine-readable **target book**: what is established, by whom, under what protocol, with what
 uncertainty — and where the laboratories genuinely disagree. Phase 9 scores models against this
-book instead of against any single diagram.
+book instead of against any single diagram. This source-curation work does not depend on Phase 6
+closing or on Phase 7 executing; incomplete Phase 6 results and all Phase 7 work remain outside its
+evidence chain.
 
 ## Done when
 
-The charter has no Phase 8 milestone; proposed metric: done when every target in the book
+Candidate charter milestone: done when every target in the book
 carries (a) a page-cited extraction line in a tracked research index, (b) protocol tags (seed,
 pressure, geometry, supersaturation semantics and uncertainty, growth history, ensemble
 semantics), (c) a robustness class where Class A requires at least two independent witnesses,
@@ -38,6 +41,30 @@ operators for anything derived, content hashes, and in-sample classification per
 book extends — never replaces — `research/lab-validation-dataset.md`/`.jsonl` (122 entries,
 graded, `passEligible=false`), which stays byte-unchanged as the historical Libbrecht-scoped
 index.
+
+### Sequencing and isolation
+
+The maker directed on 2026-08-10 that Phase 8 proceed in parallel with Phase 6 and that Phase 7
+remain a standalone track. Decision 0046 and the matching charter amendment are S-1: until they
+land, this plan remains an adoption candidate and no extraction or target-book implementation
+begins. After they land:
+
+- Phase 8 runs in its own worktree and branch. Phase 6 worktrees, live processes, frozen protocol,
+  `evidence/phase6-*`, plans, reports, and gate machinery are read-only to this phase.
+- Phase 8 performs no solver run and no CPU-heavy repository check while a timing-sensitive Phase 6
+  evidence row is active. Its normal verification is the planning/research-documentation exemption:
+  `git diff --check` plus `node scripts/lint-rule7.mjs`, until executable operators are added in S5.
+- Phase 8 may read already-published Phase 6 records only with their existing evidence labels and
+  limits. It may not cite an incomplete Phase 6 result as established, change a Phase 6 obligation,
+  or earn Phase 6 gate credit.
+- Phase 7 neither blocks nor supplies Phase 8. Phase 8 likewise supplies no Phase 7 gate input. The
+  existing Phase 7 relationship to Phase 6 is unchanged by this sequencing decision.
+- Before the Phase 8 book freezes, changes on `main` that affect a cited source, provenance class,
+  or shared research record are reconciled into this worktree and the affected extraction or class
+  assignment is rechecked. Parallelism never licenses a stale freeze.
+
+This exception authorizes Phase 8 only. It does not start Phase 9 or Phase 10 and does not create a
+general permission to overlap charter phases.
 
 Three organizing rules:
 
@@ -71,6 +98,11 @@ Three organizing rules:
 
 ## Steps
 
+- [ ] **S-1 — Charter and isolate the phase.** Accept decision 0046, amend the charter's sequential
+  phase rule and add the Phase 8 milestone, update `docs/PROGRESS.md` to show the two independent
+  active lanes, and record the isolated worktree/territory boundary above. Check: the authority
+  records agree; `git diff --check` and Rule 7 pass; no Phase 6 artifact, process, plan, report, or
+  gate file changed.
 - [ ] **S0 — Extraction indexes for the non-Libbrecht corpus.** One tracked
   `research/<paper>.md` per source (takahashi-fukuta1988, takahashi1991 + corrigendum,
   nelson-1998, bailey-hallett-2002, bacon-baker-swanson-2003, harrison-2016, pokrifka-2020,
@@ -109,6 +141,7 @@ Three organizing rules:
 ## Out of scope
 
 - No solver runs, no model or parameter changes, no scoring of any model output.
+- No Phase 7 work, dependency, artifact, or completion credit; Phase 7 remains its own track.
 - No resolution of Class C disagreements by averaging, majority vote, or preference for any
   single laboratory.
 - No adoption of TAX2/TAX1 needle matrices as held-out validation (in-sample per ADR 0005;
@@ -128,8 +161,6 @@ Three organizing rules:
 
 ## Open questions
 
-- Charter amendment wording and phase numbering (maker decision; Phase 7 work packages are
-  already named and owned).
 - Do the Takahashi image-only tables get digitized in S0 (adds read-uncertainty machinery) or
   deferred until a Phase 9 arm actually needs a number from them?
 - Does Bacon's QJRMS licensing constrain how much verbatim extraction the tracked index may
