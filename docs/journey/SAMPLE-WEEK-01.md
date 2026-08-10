@@ -9,6 +9,10 @@ not a production calendar, scientific claim, platform receipt, or Phase 6 artifa
 - `SCJ-0042` through `SCJ-0046` are examples, not allocated production entries.
 - Every `.example` URL is deliberately non-operative and makes no owned-domain decision.
 - Every value beginning `EXAMPLE-` or `NOT-A-DIGEST` is deliberately invalid as real evidence.
+- The starting marks `Hc = Hv = 41` are a declared fictional fixture, not a demonstrated replay;
+  this file contains no entry, route, serial-edition, observation, or digest records for 1–41.
+- Temporary labels such as `SCJ-TMP-EX-ASTER` are conspicuously fictional aliases, not production
+  ULIDs, and are deliberately unrelated to their eventual candidate numbers.
 - Every approval, response, remote ID, timestamp, translation review, and publication confirmation
   is a simulated record showing where a real value would go.
 - The scripts and captions below are sample editorial copy. They have not received the skeptical
@@ -23,10 +27,15 @@ The week runs Monday through Friday, 2026-08-10 through 2026-08-14. Displayed ti
 This is deliberately a full-coverage stress test. It is not the recommended burden for an ordinary
 week.
 
-## What this sample demonstrates
+## What this sample illustrates
 
 - Five connected intellectual steps receive five Journey numbers, regardless of file or platform
   count.
+- The public sequence is gapless: each number commits only with its canonical `P01` page and
+  15–59 second watchable serial edition, then passes a distinct live observation before the next
+  number or any external destination can proceed.
+- Private temporary production records and candidate numbers precede each commit; none is an `SCJ`
+  identity or externally distributable until the canonical release succeeds.
 - Every retained channel appears at least once across the week, but no entry goes everywhere.
 - A public viewer sees only the simple Journey identity and canonical navigation.
 - The archive distinguishes artifacts, immutable release manifests, destination placements, and
@@ -42,16 +51,17 @@ week.
 
 ### Simulated approval gate
 
-The paper exercise includes the gate even though no real review occurred. Each release-approval
-event carries `maker_approval: EXAMPLE-SIMULATED`, the applicable accessibility/provenance/rights/
-privacy dispositions, and `scientific_review: EXAMPLE-SIMULATED-PASS` for outward interpretation.
-The value means only “show the field and blocking transition in this example.” It is not a review
-verdict and cannot authorize publication.
+The paper exercise includes the gate even though no real review occurred. Each temporary
+release-candidate approval, final preflight, and canonical commit carries
+`maker_approval: EXAMPLE-SIMULATED`, the applicable accessibility/provenance/rights/privacy
+dispositions, and `scientific_review: EXAMPLE-SIMULATED-PASS` for outward interpretation. The value
+means only “show the field and blocking transition in this example.” It is not a review verdict and
+cannot authorize publication.
 
-No publication-attempt event may follow unless the exact source/release has all applicable fields
-set. Monday's physical-world premise additionally points to `EXAMPLE-SOURCE-SYMMETRY-01`; because
-that placeholder is not a real reviewed source, these sample bytes remain unpublishable despite the
-simulated transition.
+No candidate may reach canonical commit, and no external publication-attempt event may follow,
+unless the exact source/release has all applicable fields set. Monday's physical-world premise
+additionally points to `EXAMPLE-SOURCE-SYMMETRY-01`; because that placeholder is not a real reviewed
+source, these sample bytes remain unpublishable despite the simulated transition.
 
 ## The public week at a glance
 
@@ -63,21 +73,36 @@ simulated transition.
 | Thursday | `SCJ-0045` | **Correction: is symmetry a realism test?** Replace that phrase with the narrower “internal consistency check” while preserving the useful demo | Correction note, comparison diagram, and 31-second correction video | Website, Threads, X, Instagram, Facebook, Discord, WhatsApp, Telegram |
 | Friday | `SCJ-0046` | **What did this week actually establish?** Synthesize the four prior entries, demonstrate recovery, and name the next question | 55-second recap, digest, and live archive walkthrough | Website, YouTube Short, email, RSS, Twitch Live, YouTube Live |
 
-### The three chronologies in the sample
+The owned Journey site—not the varying social feeds—provides the complete watch-in-order sequence:
+
+| Entry | Required watchable serial edition | Owned placement |
+|---|---|---|
+| `SCJ-0042` | `SCJ-0042-A02-R01`, 24-second diagram animation | `SCJ-0042-P01` |
+| `SCJ-0043` | `SCJ-0043-A03-R01`, 34-second scripted diagram demo | `SCJ-0043-P01` |
+| `SCJ-0044` | `SCJ-0044-A02-R01` at commit; current `R02` after the caption repair, 42-second scripted model demo | `SCJ-0044-P01` |
+| `SCJ-0045` | `SCJ-0045-A02-R01`, 31-second correction | `SCJ-0045-P01` |
+| `SCJ-0046` | `SCJ-0046-A01-R01`, 55-second recap | `SCJ-0046-P01` |
+
+A social destination may receive only selected entries; it is not presented as the complete serial
+playlist in this sample.
+
+### The three chronologies and release transaction in the sample
 
 `occurred_at` is a bounded content-time interval; it is not replaced by the registration or
 publication clock. All values below include the machine-readable `-07:00` offset.
 
-| Entry | Content occurred | Registered | Canonical page confirmed |
+| Entry | Content occurred | Temporary production opened | Canonical release committed |
 |---|---|---|---|
-| `SCJ-0042` | `2026-08-10T06:40:00-07:00` through `2026-08-10T07:15:00-07:00` | `07:30` at `SCJ-E000127` | `08:00`, `SCJ-0042-P01` |
-| `SCJ-0043` | `2026-08-11T06:30:00-07:00` through `2026-08-11T07:15:00-07:00` | `07:30` at `SCJ-E000143` | `08:00`, `SCJ-0043-P01` |
-| `SCJ-0044` | `2026-08-12T06:20:00-07:00` through `2026-08-12T07:10:00-07:00` | `07:30` at `SCJ-E000164` | `08:00`, `SCJ-0044-P01` |
-| `SCJ-0045` | `2026-08-13T06:45:00-07:00` through `2026-08-13T07:15:00-07:00` | `07:30` at `SCJ-E000183` | `08:00`, `SCJ-0045-P01` |
-| `SCJ-0046` | `2026-08-14T06:30:00-07:00` through `2026-08-14T07:15:00-07:00` | `07:30` at `SCJ-E000216` | `08:00`, `SCJ-0046-P01` |
+| `SCJ-0042` | `2026-08-10T06:40:00-07:00` through `2026-08-10T07:15:00-07:00` | `07:30`, `SCJ-TMP-EX-ASTER` at `SCJ-E000127` | `08:00` at `SCJ-E000132`; `SCJ-0042`, A/R mappings, entry snapshot, and `P01` become permanent together |
+| `SCJ-0043` | `2026-08-11T06:30:00-07:00` through `2026-08-11T07:15:00-07:00` | `07:30`, `SCJ-TMP-EX-BRUME` at `SCJ-E000143` | `08:00` at `SCJ-E000149`; `SCJ-0043`, A/R mappings, entry snapshot, and `P01` become permanent together |
+| `SCJ-0044` | `2026-08-12T06:20:00-07:00` through `2026-08-12T07:10:00-07:00` | `07:30`, `SCJ-TMP-EX-CIRRUS` at `SCJ-E000164` | `08:00` at `SCJ-E000169`; `SCJ-0044`, A/R mappings, entry snapshot, and `P01` become permanent together |
+| `SCJ-0045` | `2026-08-13T06:45:00-07:00` through `2026-08-13T07:15:00-07:00` | `07:30`, `SCJ-TMP-EX-DRIFT` at `SCJ-E000183` | `08:00` at `SCJ-E000188`; `SCJ-0045`, A/R mappings, entry snapshot, and `P01` become permanent together |
+| `SCJ-0046` | `2026-08-14T06:30:00-07:00` through `2026-08-14T07:15:00-07:00` | `07:30`, `SCJ-TMP-EX-ECHO` at `SCJ-E000216` | `08:00` at `SCJ-E000222`; `SCJ-0046`, A/R mappings, entry snapshot, and `P01` become permanent together |
 
-A real registry would also store the UTC endpoints. Publication events later in the day do not move
-an entry's content occurrence or canonical Journey position.
+A real registry would also store the UTC endpoints. Each temporary ID, candidate value, and staged
+mapping is private until its final event. The immutable source snapshots below therefore bind to
+events 132, 149, 169, 188, and 222—not the production-opening events. Publication events later in
+the day do not move an entry's content occurrence or canonical Journey position.
 
 The canonical sequence is:
 
@@ -346,7 +371,7 @@ Sample narration:
 ### Exact illustrative localized copy
 
 The English source is `SCJ-0044-A02-R02` and the immutable source entry snapshot is event
-`SCJ-E000164`. `R03` adds the fictional, human-reviewed localization packet. The Latin identity
+`SCJ-E000169`. `R03` adds the fictional, human-reviewed localization packet. The Latin identity
 `SCJ-0044` never changes.
 
 `SCJ-0044-P02` — Weixin Channels sample copy:
@@ -398,7 +423,7 @@ Canonical summary:
 
 | Field | Illustrative value |
 |---|---|
-| Source entry snapshot | `SCJ-E000143` with `NOT-A-DIGEST:ENTRY-0043-S1` |
+| Source entry snapshot | `SCJ-E000149` with `NOT-A-DIGEST:ENTRY-0043-S1` |
 | Affected claim | “I described that as my first realism check.” |
 | Affected artifact/member | `SCJ-0043-A03-R01`, captioned-video member, 00:12–00:15 |
 | Directly affected publications | `SCJ-0043-P01`, `SCJ-0043-P02`, `SCJ-0043-P03`, `SCJ-0043-P05` |
@@ -493,10 +518,10 @@ Canonical summary:
 
 | Order | Source entry snapshot | Illustrative snapshot digest | Load-bearing release/status |
 |---:|---|---|---|
-| 1 | `SCJ-0042` snapshot from `SCJ-E000127` | `NOT-A-DIGEST:ENTRY-0042-S1` | `SCJ-0042-A01-R01`, `SCJ-0042-A02-R01` |
-| 2 | `SCJ-0043` snapshot from `SCJ-E000143` | `NOT-A-DIGEST:ENTRY-0043-S1` | `SCJ-0043-A01-R01`, `SCJ-0043-A02-R01`, `SCJ-0043-A03-R01`; partial correction event `SCJ-E000189` + `NOT-A-DIGEST:EVENT-000189` |
-| 3 | `SCJ-0044` snapshot from `SCJ-E000164` | `NOT-A-DIGEST:ENTRY-0044-S1` | `SCJ-0044-A01-R01`; English source `SCJ-0044-A02-R02`; localized manifest `SCJ-0044-A02-R03` approved at `SCJ-E000173` |
-| 4 | `SCJ-0045` snapshot from `SCJ-E000183` | `NOT-A-DIGEST:ENTRY-0045-S1` | `SCJ-0045-A01-R01`, `SCJ-0045-A02-R01` |
+| 1 | `SCJ-0042` snapshot from commit `SCJ-E000132` | `NOT-A-DIGEST:ENTRY-0042-S1` | `SCJ-0042-A01-R01`, `SCJ-0042-A02-R01` |
+| 2 | `SCJ-0043` snapshot from commit `SCJ-E000149` | `NOT-A-DIGEST:ENTRY-0043-S1` | `SCJ-0043-A01-R01`, `SCJ-0043-A02-R01`, `SCJ-0043-A03-R01`; partial correction event `SCJ-E000190` + `NOT-A-DIGEST:EVENT-000190` |
+| 3 | `SCJ-0044` snapshot from commit `SCJ-E000169` | `NOT-A-DIGEST:ENTRY-0044-S1` | `SCJ-0044-A01-R01`; English source `SCJ-0044-A02-R02`; localized manifest `SCJ-0044-A02-R03` approved at `SCJ-E000174` |
+| 4 | `SCJ-0045` snapshot from commit `SCJ-E000188` | `NOT-A-DIGEST:ENTRY-0045-S1` | `SCJ-0045-A01-R01`, `SCJ-0045-A02-R01` |
 
 The archive does not store only “0042–0045.” It retains these four ordered rows and the exact
 correction relationship.
@@ -641,8 +666,8 @@ actually built or run.
 
 ### Expanded localization manifest example
 
-`SCJ-0044-A02-R03` binds to English source manifest `SCJ-0044-A02-R02` and entry snapshot event
-`SCJ-E000164` with `NOT-A-DIGEST:ENTRY-0044-S1`.
+`SCJ-0044-A02-R03` binds to English source manifest `SCJ-0044-A02-R02` and canonical-commit entry
+snapshot event `SCJ-E000169` with `NOT-A-DIGEST:ENTRY-0044-S1`.
 
 | Ordered member | Locale | Role | Derived from | Illustrative digest value |
 |---|---|---|---|---|
@@ -675,9 +700,9 @@ The three destination bindings are also explicit rather than implied by R03:
 
 | Publication | Entry snapshot binding | English source | Exact localized member/upload binding |
 |---|---|---|---|
-| `SCJ-0044-P02` Weixin Channels | `SCJ-E000164` + `NOT-A-DIGEST:ENTRY-0044-S1` | `SCJ-0044-A02-R02` | Localized captioned video, full status-label member, and visual description; route records a canonical localized-description link rather than assuming a native alt-text field; exact packet `NOT-A-DIGEST:P02-UPLOAD` |
-| `SCJ-0044-P03` Official Account | `SCJ-E000164` + `NOT-A-DIGEST:ENTRY-0044-S1` | `SCJ-0044-A02-R02` | Localized transcript, poster, full status-label, and visual-description members; the body presents the status and description; exact body `NOT-A-DIGEST:P03-BODY`, with uploads individually digested |
-| `SCJ-0044-P04` WeChat Moments | `SCJ-E000164` + `NOT-A-DIGEST:ENTRY-0044-S1` | `SCJ-0044-A02-R02` | Destination derivative of the localized poster plus full status-label and visual-description members; route records the canonical accessible alternative; exact packet `NOT-A-DIGEST:P04-PACKET` |
+| `SCJ-0044-P02` Weixin Channels | `SCJ-E000169` + `NOT-A-DIGEST:ENTRY-0044-S1` | `SCJ-0044-A02-R02` | Localized captioned video, full status-label member, and visual description; route records a canonical localized-description link rather than assuming a native alt-text field; exact packet `NOT-A-DIGEST:P02-UPLOAD` |
+| `SCJ-0044-P03` Official Account | `SCJ-E000169` + `NOT-A-DIGEST:ENTRY-0044-S1` | `SCJ-0044-A02-R02` | Localized transcript, poster, full status-label, and visual-description members; the body presents the status and description; exact body `NOT-A-DIGEST:P03-BODY`, with uploads individually digested |
+| `SCJ-0044-P04` WeChat Moments | `SCJ-E000169` + `NOT-A-DIGEST:ENTRY-0044-S1` | `SCJ-0044-A02-R02` | Destination derivative of the localized poster plus full status-label and visual-description members; route records the canonical accessible alternative; exact packet `NOT-A-DIGEST:P04-PACKET` |
 
 Each row also carries the fictional translator/system provenance, terminology review, human
 language/scientific approval, route/account, and destination-specific bytes. Those fields cannot be
@@ -702,9 +727,9 @@ text after a semicolon is retained history or context, not a fourth state dimens
 | `SCJ-0043-P05` | X post | `SCJ-0043-A02-R01` lead-card derivative | confirmed / live / corrected | `https://x.example/EXAMPLE-SCJ-0043-P05` |
 | `SCJ-0043-P06` | Pinterest Pin | `SCJ-0043-A02-R01` 2:3 member | confirmed / live / current; correction context linked | `https://pinterest.example/EXAMPLE-SCJ-0043-P06` |
 | `SCJ-0044-P01` | Canonical website page | `SCJ-0044-A01-R01`; `SCJ-0044-A02-R01` changed to `SCJ-0044-A02-R02` by edit event | confirmed / live / current | `https://snowcrystal.example/journey/0044` |
-| `SCJ-0044-P02` | Weixin Channels | `SCJ-E000164`/snapshot digest + English R02 + R03 localized video/status/description + exact P02 packet digest | confirmed / live / current | `https://weixin.example/EXAMPLE-SCJ-0044-P02` |
-| `SCJ-0044-P03` | Weixin Official Account | `SCJ-E000164`/snapshot digest + English R02 + R03 localized transcript/poster/status/description + exact P03 body/upload digests | confirmed / live / current | `https://weixin.example/EXAMPLE-SCJ-0044-P03` |
-| `SCJ-0044-P04` | WeChat Moments | `SCJ-E000164`/snapshot digest + English R02 + R03 localized poster/status/description + exact destination packet digest | confirmed / live / current | `https://wechat.example/EXAMPLE-SCJ-0044-P04` |
+| `SCJ-0044-P02` | Weixin Channels | `SCJ-E000169`/snapshot digest + English R02 + R03 localized video/status/description + exact P02 packet digest | confirmed / live / current | `https://weixin.example/EXAMPLE-SCJ-0044-P02` |
+| `SCJ-0044-P03` | Weixin Official Account | `SCJ-E000169`/snapshot digest + English R02 + R03 localized transcript/poster/status/description + exact P03 body/upload digests | confirmed / live / current | `https://weixin.example/EXAMPLE-SCJ-0044-P03` |
+| `SCJ-0044-P04` | WeChat Moments | `SCJ-E000169`/snapshot digest + English R02 + R03 localized poster/status/description + exact destination packet digest | confirmed / live / current | `https://wechat.example/EXAMPLE-SCJ-0044-P04` |
 | `SCJ-0045-P01` | Canonical correction page | Entry snapshot; `SCJ-0045-A01-R01`, `SCJ-0045-A02-R01` | confirmed / live / current | `https://snowcrystal.example/journey/0045` |
 | `SCJ-0045-P02` | Threads correction | `SCJ-0045-A01-R01`, `SCJ-0045-A02-R01` | confirmed / live / current | `https://threads.example/EXAMPLE-SCJ-0045-P02` |
 | `SCJ-0045-P03` | X correction | `SCJ-0045-A01-R01`, `SCJ-0045-A02-R01` | confirmed / live / current | `https://x.example/EXAMPLE-SCJ-0045-P03` |
@@ -735,14 +760,24 @@ Each simulated event would also carry format version, registry/effective time an
 primary and related entity IDs, resulting snapshot reference, preceding global event/digest,
 its own invalid sample digest, reason, and evidence/ambiguity fields.
 
+For each day, the opening and release-candidate events address its number-independent
+`SCJ-TMP-<unique-key>` alias and temporary `A`/`RC` labels. The candidate number is private and
+noncanonical. The commit event atomically
+assigns the permanent `SCJ`, A/R mappings, entry snapshot, route, and `P01`. The next event records
+the independent live observation; external distribution and the next day's transaction remain
+blocked until that observation passes.
+
 ### Monday — suffixes 127–142
 
 | Suffix | Time | Event and result |
 |---|---|---|
-| 127 | 07:30 | Register `SCJ-0042` and immutable entry snapshot |
-| 128 / 129 | 07:40 / 07:50 | Register and approve A01-R01 / A02-R01 |
-| 130 / 131 / 132 | 07:52 / 07:59 / 08:00 | Plan / attempt / independently confirm website P01 |
-| 133 / 134 / 135 | 08:30 / 08:59 / 09:00 | Plan / attempt / independently confirm YouTube P02 |
+| 127 | 07:30 | Open production record `SCJ-TMP-EX-ASTER`; no Journey number assigned |
+| 128 / 129 | 07:40 / 07:50 | Prepare and conditionally approve temporary A01-RC01 / A02-RC01 packets |
+| 130 | 07:52 | Exclusively reserve candidate value 42, freeze final mappings, and stage canonical P01 |
+| 131 | 07:59 | Pass final numbered-byte, placeholder, access, provenance, rights, and route preflight |
+| 132 | 08:00 | Atomically commit `SCJ-0042`, A01/A02-R01, entry snapshot, route, and P01 |
+| 133 | 08:01 | Independently observe canonical P01 and its serial edition live; unlock external distribution |
+| 134 / 135 | 08:59 / 09:00 | Allocate and attempt / independently confirm YouTube P02 |
 | 136 | 10:00 | Allocate and plan TikTok P03 |
 | 137 | 10:29 | Start P03 upload; retain payload, route, account, request key and response evidence |
 | 138 | 10:31 | Request times out without remote ID; P03 workflow becomes `ambiguous` |
@@ -756,10 +791,13 @@ ID is created.
 
 | Suffix | Time | Event and result |
 |---|---|---|
-| 143 | 07:30 | Register `SCJ-0043` and its original immutable entry snapshot |
-| 144 / 145 / 146 | 07:40 / 07:45 / 07:50 | Register and approve A01-R01 / A02-R01 / A03-R01 |
-| 147 / 148 / 149 | 07:52 / 07:59 / 08:00 | Plan / attempt / confirm canonical P01 |
-| 150 / 151 | 09:00 / 09:01 | Preallocate known Instagram P02 / Facebook P03 fan-out destinations |
+| 143 | 07:30 | Open production record `SCJ-TMP-EX-BRUME`; no Journey number assigned |
+| 144 / 145 / 146 | 07:40 / 07:45 / 07:50 | Prepare and conditionally approve temporary A01-RC01 / A02-RC01 / A03-RC01 packets |
+| 147 | 07:52 | Exclusively reserve candidate value 43, freeze final mappings, and stage canonical P01 |
+| 148 | 07:59 | Pass final numbered-byte, placeholder, access, provenance, rights, and route preflight |
+| 149 | 08:00 | Atomically commit `SCJ-0043`, A01/A02/A03-R01, entry snapshot, route, and P01 |
+| 150 | 08:01 | Independently observe canonical P01 and its serial edition live; unlock external distribution |
+| 151 | 09:01 | Atomically preallocate known Instagram P02 and Facebook P03 fan-out destinations as primary and related entities |
 | 152 | 09:59 | Shared Meta fan-out attempt; P02 primary, P03 ordered related entity |
 | 153 / 154 | 10:00 / 10:02 | Independently confirm Instagram P02 / Facebook P03 |
 | 155 / 156 / 157 | 10:30 / 10:59 / 11:00 | Plan / attempt / confirm Threads P04 |
@@ -770,14 +808,17 @@ ID is created.
 
 | Suffix | Time | Event and result |
 |---|---|---|
-| 164 | 07:30 | Register `SCJ-0044` and immutable source entry snapshot |
-| 165 / 166 | 07:40 / 07:50 | Register and approve A01-R01 / A02-R01 |
-| 167 / 168 / 169 | 07:52 / 07:59 / 08:00 | Plan / attempt / confirm canonical P01 using A02-R01 |
-| 170 | 10:00 | Observe one subtitle cue 320 ms late; scientific/editorial meaning unchanged |
-| 171 | 10:30 | Approve A02-R02 technical repair; R01 remains immutable and recoverable |
-| 172 | 10:35 | Edit the same website P01 to serve/reference repaired R02 |
-| 173 | 13:00 | Approve localized A02-R03 from R02 plus entry snapshot event 164 |
-| 174 / 175 / 176 | 14:00 / 15:29 / 15:30 | Plan / manual attempt / confirm Weixin Channels P02 |
+| 164 | 07:30 | Open production record `SCJ-TMP-EX-CIRRUS`; no Journey number assigned |
+| 165 / 166 | 07:40 / 07:50 | Prepare and conditionally approve temporary A01-RC01 / A02-RC01 packets |
+| 167 | 07:52 | Exclusively reserve candidate value 44, freeze final mappings, and stage canonical P01 |
+| 168 | 07:59 | Pass final numbered-byte, placeholder, access, provenance, rights, and route preflight |
+| 169 | 08:00 | Atomically commit `SCJ-0044`, A01/A02-R01, entry snapshot, route, and P01 |
+| 170 | 08:01 | Independently observe canonical P01 and its serial edition live; unlock external distribution |
+| 171 | 10:00 | Observe one subtitle cue 320 ms late; scientific/editorial meaning unchanged |
+| 172 | 10:30 | Approve A02-R02 technical repair; R01 remains immutable and recoverable |
+| 173 | 10:35 | Edit the same website P01 to serve/reference repaired R02 |
+| 174 | 13:00 | Approve localized A02-R03 from R02 plus canonical entry snapshot event 169 |
+| 175 / 176 | 15:29 / 15:30 | Allocate and manually attempt / independently confirm Weixin Channels P02 |
 | 177 / 178 / 179 | 15:31 / 15:59 / 16:00 | Plan / manual attempt / confirm Official Account P03 |
 | 180 / 181 / 182 | 16:30 / 16:59 / 17:00 | Plan / manual attempt / confirm Moments P04 |
 
@@ -788,12 +829,15 @@ manual confirmation; this sample does not authorize unattended publication.
 
 | Suffix | Time | Event and result |
 |---|---|---|
-| 183 | 07:30 | Register material correction entry `SCJ-0045` |
-| 184 / 185 | 07:40 / 07:50 | Register and approve A01-R01 / A02-R01 |
-| 186 / 187 / 188 | 07:52 / 07:59 / 08:00 | Plan / attempt / confirm correction page P01 |
-| 189 | 08:01 | Link 0045 to the exact 0043 target; mark 0043 `partially corrected`, not superseded |
-| 190 | 08:02 | Edit old canonical page `SCJ-0043-P01` with visible correction banner |
-| 191 / 192 / 193 | 08:30 / 08:59 / 09:00 | Plan / attempt / confirm Threads correction P02 |
+| 183 | 07:30 | Open correction production record `SCJ-TMP-EX-DRIFT`; no Journey number assigned |
+| 184 / 185 | 07:40 / 07:50 | Prepare and conditionally approve temporary A01-RC01 / A02-RC01 packets |
+| 186 | 07:52 | Exclusively reserve candidate value 45, freeze final mappings, and stage correction P01 |
+| 187 | 07:59 | Pass final numbered-byte, placeholder, access, provenance, rights, and route preflight |
+| 188 | 08:00 | Atomically commit `SCJ-0045`, A01/A02-R01, entry snapshot, route, and P01 |
+| 189 | 08:01 | Independently observe canonical P01 and its serial edition live; unlock external distribution |
+| 190 | 08:02 | Link 0045 to the exact 0043 target; mark 0043 `partially corrected`, not superseded |
+| 191 | 08:03 | Edit old canonical page `SCJ-0043-P01` with visible correction banner |
+| 192 / 193 | 08:59 / 09:00 | Allocate and attempt / independently confirm Threads correction P02 |
 | 194 | 09:01 | Link old Threads `SCJ-0043-P04` to correction P02 |
 | 195 / 196 / 197 | 09:02 / 09:29 / 09:30 | Plan / attempt / confirm X correction P03 |
 | 198 | 09:31 | Link old X `SCJ-0043-P05` to correction P03 |
@@ -810,10 +854,13 @@ manual confirmation; this sample does not authorize unattended publication.
 
 | Suffix | Time | Event and result |
 |---|---|---|
-| 216 | 07:30 | Register synthesis entry `SCJ-0046` with four explicit ordered sources |
-| 217 / 218 / 219 | 07:40 / 07:45 / 07:50 | Register and approve A01-R01 / A02-R01 / A03-R01 |
-| 220 / 221 / 222 | 07:52 / 07:59 / 08:00 | Plan / attempt / confirm canonical recap P01 |
-| 223 / 224 / 225 | 08:30 / 08:59 / 09:00 | Plan / attempt / confirm YouTube Short P02 |
+| 216 | 07:30 | Open synthesis production record `SCJ-TMP-EX-ECHO` with four ordered sources; no Journey number assigned |
+| 217 / 218 / 219 | 07:40 / 07:45 / 07:50 | Prepare and conditionally approve temporary A01-RC01 / A02-RC01 / A03-RC01 packets |
+| 220 | 07:52 | Exclusively reserve candidate value 46, freeze final mappings, and stage recap P01 |
+| 221 | 07:59 | Pass final numbered-byte, placeholder, access, provenance, rights, and route preflight |
+| 222 | 08:00 | Atomically commit `SCJ-0046`, A01/A02/A03-R01, entry snapshot, route, and P01 |
+| 223 | 08:01 | Independently observe canonical P01 and its serial edition live; unlock external distribution |
+| 224 / 225 | 08:59 / 09:00 | Allocate and attempt / independently confirm YouTube Short P02 |
 | 226 / 227 / 228 | 11:00 / 11:59 / 12:00 | Plan / send / independently observe email issue P03 |
 | 229 / 230 / 231 | 12:01 / 12:04 / 12:05 | Plan / emit / observe RSS item P04 |
 | 232 / 233 | 14:00 / 14:01 | Preallocate Twitch Live P05 / YouTube Live P06 |
@@ -849,7 +896,26 @@ The short resolver reaches `/journey/0044`. That page shows:
 
 The viewer does not need to infer chronology from a Weixin feed or filename.
 
-### 2. The maker reconstructs the ambiguous TikTok upload
+### 2. The maker verifies the gapless public commits
+
+The fictional initial fixture declares `Hc = Hv = 41` and assumes that integers 1–41 already passed
+the same contiguous-record and release-observation checks; this sample does not supply or verify
+those records. Events 127–131 affect only `SCJ-TMP-EX-ASTER` and candidate value 42; no `SCJ-0042`
+exists publicly. Event 132 commits the entry, artifacts/releases, snapshot, route, serial edition,
+and P01 together, advancing `Hc` to 42 while `Hv` remains 41. Event 133 records the independent live
+observation and advances `Hv` to 42. The same commit/observation pattern appears at events 149/150,
+169/170, 188/189, and 222/223. Conditional on the declared starting fixture, the fictional replay
+reaches `Hc = Hv = 46`. These invented records illustrate how sampled values 42–46 would remain
+consecutive and bind to canonical routes and serial editions; they do not demonstrate real behavior.
+
+If Monday's preflight had remained unresolved, the commit could not occur. A proven pre-commit abort
+would invalidate all candidate-42 staging and leave `Hc = Hv = 41`, so 42—not 43—would remain the
+next public value. If the post-commit canonical live observation had remained unresolved, the marks
+would remain `Hc = 42` and `Hv = 41` while Tuesday's reservation stayed blocked and the owned route
+was repaired. Candidate media escaping the controlled boundary before commit would block reuse
+until the same work completed a normal packet or a safe emergency unavailable packet.
+
+### 3. The maker reconstructs the ambiguous TikTok upload
 
 Replay shows:
 
@@ -863,13 +929,13 @@ The recorded result is one intended publication, no retry, and one remote object
 profile check. A naive retry would have risked a duplicate. This history does not exclude an
 unobserved platform-side object; it records only that this reconciliation found no second object.
 
-### 3. The maker separates a known automatic fan-out
+### 4. The maker separates a known automatic fan-out
 
-Events 150 and 151 allocate Instagram and Facebook records before event 152. The one batch attempt
-names both entities and exact destination routes. Events 153 and 154 independently confirm two
-remote objects. If Facebook later disappears, Instagram's history remains unchanged.
+Event 151 atomically preallocates the Instagram and Facebook records before event 152. The one batch
+attempt names both entities and exact destination routes. Events 153 and 154 independently confirm
+two remote objects. If Facebook later disappears, Instagram's history remains unchanged.
 
-### 4. The maker distinguishes repair from correction
+### 5. The maker distinguishes repair from correction
 
 - Wednesday's 320 ms subtitle timing defect changes A02-R01 to immutable A02-R02. Meaning is
   unchanged, so the artifact and Journey entry stay the same.
@@ -878,19 +944,19 @@ remote objects. If Facebook later disappears, Instagram's history remains unchan
 - Replay derives `SCJ-0043` as live and partially corrected—not deleted, wholly superseded, or
   silently rewritten.
 
-### 5. The maker reconstructs the localization
+### 6. The maker reconstructs the localization
 
 Weixin P02 does not point to “the current English video.” It points to A02-R03, whose Chinese members
-bind to A02-R02 and entry snapshot event 164. The record can therefore answer which English words,
+bind to A02-R02 and canonical entry snapshot event 169. The record can therefore answer which English words,
 caption timing, model-status label, and correction state were translated.
 
-### 6. The maker reconstructs the recap
+### 7. The maker reconstructs the recap
 
 Journey 0046 is a new synthesis. Its source list expands 0042, 0043, 0044, and 0045 individually.
 It retains Journey 0043 as historical context but uses Journey 0045's corrected understanding in the
 conclusion. It does not imply that the original wording disappeared.
 
-### 7. Recovery boundary
+### 8. Recovery boundary
 
 The sample scheme could restore owned pages, archived source/upload bytes, exact copy, known remote
 IDs/URLs, and recorded lifecycle. It could not recreate platform transcodes, interfaces, feed
@@ -910,6 +976,12 @@ creative burden still centers on one primary movement per day.
 | Wednesday | Approve the model/viewer, repair captions, review localization | Manifest replacement, destination files, localized archive fields |
 | Thursday | Write and record the correction | Link affected copies, create correction placements, update statuses |
 | Friday | Synthesize four entries and host the walkthrough | Digest formatting, stream records, retained recording, recap source expansion |
+
+Before final release, each day's scripts and candidate artifacts use its number-independent
+`SCJ-TMP-<unique-key>` identity and `JOURNEY-NEXT`; the maker does not manually renumber working
+files. The serialized release transaction inserts the candidate public identity, verifies every
+occurrence, and commits the canonical page and serial edition. Its separate live observation then
+unlocks external distribution.
 
 Before the pipeline exists, this volume requires the manual interim publication manifest defined in
 `NUMBERING.md`. A realistic early week would mark many destinations **N/A**. Discord, direct
@@ -931,3 +1003,6 @@ channels, localization, and live sessions should not exist merely to satisfy a c
 8. A React-coded experience can be both the public interactive source and a media-production source,
    provided each linear output retains its exact build/state/capture lineage and stays visibly
    distinct from the interactive.
+9. The public `SCJ` sequence cannot also be the draft queue: temporary production identities absorb
+   abandonment and delay, canonical commits create public identities, and their independent
+   observations advance the verified watch order.

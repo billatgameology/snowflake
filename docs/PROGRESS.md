@@ -90,23 +90,29 @@ index, a plan, ADR, or audit links to historical detail.
   Phase 6 closes. Commit `8acf9fe` (same session) added three **proposed, uncharted** Phase 8–10
   plan drafts; they are not adopted phases and none may start before Phase 6 WP8.
 - Maker-directed local Snow Crystal Journey exploration now has a chronological concept,
-  retained-channel plan, draft house media specification, and stable numbering/reconstruction
-  specification under `docs/journey/`; the media spec fixes a sustainable 15–59 second daily-video
-  band, no-music default for explanatory work, accessibility/provenance/rights requirements, and
-  dated platform overrides, while the numbering spec separates public Journey order from artifacts,
-  approved releases, destination placements, and append-only history events. Fictional
-  [sample week 01](journey/SAMPLE-WEEK-01.md), preplanned at `1cbefd3`, now exercises that scheme
-  across five connected entries and every retained channel, including ambiguous-upload
-  reconciliation, fan-out, a technical release repair, a material partial correction,
-  localization lineage, an ordered recap, and reconstruction drills. It demonstrates internal
-  coherence on paper, not platform behavior or a sustainable routine; the next sample should test
-  an ordinary low-output week. The React-source extension planned at `00991ec` now treats an
-  approved coded experience as both an interactive and a source for separately identified demo,
-  animation, hybrid-video, still, and preview derivatives; reconstruction retains the exact web
-  build, state, inputs, viewport, capture environment, and interaction/timeline recipe. Plan
-  commits `e2cfbb6` and `ef847ba` record the earlier scopes. This is unmerged content planning only:
-  it implements no capture tooling, authorizes no publication or automated posting, changes no
-  scientific status, and does not touch the education freeze or Phase 6 implementation plan.
+  retained-channel plan, house media specification, and numbering/reconstruction specification
+  under `docs/journey/`. The gapless-public-sequence amendment planned at `8ea9996` makes the visible
+  `SCJ` series consecutive: drafts use number-independent private identities and `JOURNEY-NEXT`;
+  `Hc` tracks committed occupation while `Hv` tracks the independently observed prefix; no later
+  reservation or social distribution proceeds while they differ; and a committed identity is never
+  reused. Every public entry is committed with a 15–59 second watchable serial edition on its owned
+  page, while its primary artifact and selected social destinations may vary. The media spec also
+  retains the no-music default for explanatory work, accessibility/provenance/rights requirements,
+  and dated platform overrides. Fictional [sample week 01](journey/SAMPLE-WEEK-01.md), preplanned at
+  `1cbefd3`, now lays out the temporary-ID/reservation/commit/observation lifecycle across five
+  consecutive entries and every retained channel, including ambiguous-upload reconciliation,
+  fan-out, a technical release repair,
+  a material partial correction, localization lineage, an ordered recap, and reconstruction drills.
+  It conditionally illustrates the intended record flow on paper; it is not evidence of platform
+  behavior, allocator correctness, or a sustainable routine. The next sample should test an ordinary
+  low-output week. The React-source extension planned at
+  `00991ec` treats an approved coded experience as both an interactive and a source for separately
+  identified demo, animation, hybrid-video, still, and preview derivatives; reconstruction retains
+  the exact web build, state, inputs, viewport, capture environment, and interaction/timeline recipe.
+  Plan commits `e2cfbb6` and `ef847ba` record the earlier scopes. This is unmerged content planning
+  only: it implements no allocator, publisher, capture tooling, or playlist; authorizes no
+  publication or automated posting; changes no scientific status; and does not touch the education
+  freeze or Phase 6 implementation plan.
 - Maker-directed pre-Phase-7 exploration branch `explore/gg-realism-gutcheck` (worktree
   `../snowflake-gutcheck-gg-realism`; plan `docs/plans/explore-gg-realism-gutcheck.md` exists on
   that branch only): grow a large noisy `GGThreshold` dendrite, extract a smooth level-set

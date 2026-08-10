@@ -15,8 +15,9 @@ to one primary `SCJ-` entry.
 
 A day chooses **one primary artifact**: perhaps a video, image, diagram, research note, model,
 interactive, audio recording, correction, or failed experiment. It does not need to satisfy every
-section below. Apply only the packet for the artifact that actually exists, then prepare renditions
-only for destinations selected that day.
+section below. Apply only the packet for the artifact that actually exists, add the lightweight
+serial-edition packet required for a public `SCJ` entry, then prepare renditions only for
+destinations selected that day.
 
 In this document:
 
@@ -24,16 +25,17 @@ In this document:
 - **Default** means use it unless the content gives a concrete reason to differ.
 - **Optional** means make it only for a selected destination or editorial purpose.
 
-The required daily minimum is the Journey entry, one approved primary artifact, and the
-accessibility, provenance, claim, rights, and privacy work applicable to that artifact. Everything
-else can be marked **N/A**. No platform derivative is required merely because the channel is on the
-retained list.
+The required public-entry minimum is the canonical Journey page, one approved primary artifact, one
+approved watchable serial edition, and the accessibility, provenance, claim, rights, and privacy
+work applicable to both. A qualifying primary short may also be the serial edition. Everything else
+can be marked **N/A**. No social-platform derivative is required merely because the channel is on
+the retained list.
 
 ## Daily defaults at a glance
 
 | Decision | Default |
 |---|---|
-| Primary artifact | One; a journal note alone is valid |
+| Primary artifact | One; a journal note may be primary while a lightweight serial edition supplies the watchable index |
 | Ordinary video | 21–45 seconds; 15–59 seconds allowed |
 | Voice | Maker's voice, 120–140 spoken words per minute |
 | Visual master | 1080 × 1920, 9:16, 30 fps for a generated daily short |
@@ -48,19 +50,68 @@ The decision order is:
 1. Preserve what actually happened and the confidence of the claim.
 2. Meet accessibility, disclosure, and rights requirements.
 3. Make one clean house master or source artifact.
-4. Derive only the destination versions that are useful that day.
-5. Check each destination's live composer before posting.
+4. Make or designate the smallest honest watchable serial edition.
+5. Derive only the destination versions that are useful that day.
+6. Check each destination's live composer before posting.
 
 The website Journey entry is the chronological record. Social copies point back to it; they do not
 become a competing archive.
 
 ```text
 question or event -> primary artifact -> reviewed source or clean master -> selected renditions
-                           |                       |                   |
-                           |                       |                   +-> social publication URLs
-                           |                       +-> archive files
+                           |                  |            |           |
+                           |                  |            |           +-> social publication URLs
+                           |                  |            +-> watchable serial edition
+                           |                  +-> archive files
                            +-> Journey entry, sources, status, and next question
 ```
+
+## Gapless watchable serial edition
+
+Every public `SCJ` entry is committed with one approved 15–59 second watchable serial edition. It
+initially lives on the owned Journey page in numeric order. A safe neutral unavailable card fills the
+same role only for the exceptional candidate-exposure path defined in `NUMBERING.md`. Social
+destinations remain selected per entry: a gapless Journey does not require every number on TikTok,
+Instagram, or any other platform feed. If an external playlist is presented as the complete Snow
+Crystal Journey, that playlist carries every independently observed number through `Hv` or an honest
+unavailable-entry notice when continued publication is permitted. A later binding removal may make
+the original media, the card, or even the route unavailable. The number is never reused; identity
+and removal records are retained only to the extent permitted, and the specification does not
+promise continuing access to forbidden bytes.
+
+- **Length:** Prefer 15–30 seconds when the primary artifact is not naturally video; use the
+  ordinary 15–59 second house band.
+- **Master:** 1080 × 1920, 9:16, 30 fps. A separate 16:9 walkthrough is optional.
+- **Identity:** Put `SCJ 0042` inside the safe area of the complete clean master. Show **Snow Crystal
+  Journey 0042** and the stable locator at least once. Never bake in a guessed future Next ID.
+- **Reuse:** If the primary artifact is already a compliant short, designate it as the serial
+  edition instead of making another video.
+- **Accessibility:** Supply reviewed captions for speech, a transcript or equivalent page text,
+  visual description when important imagery is not spoken, readable mobile-scale labels, adequate
+  contrast, restrained motion, and enough time to read a silent edition.
+- **Music:** Off by default. Music is not required to turn a note, still, or audio entry into a
+  serial edition.
+- **Release gate:** The next `SCJ` identity commits only with the approved canonical page, primary
+  artifact, serial edition, status/provenance, accessibility, rights/privacy, and maker approval
+  defined in `NUMBERING.md`.
+
+“Watchable” means understandable in sequence, not constantly moving. A near-static card is valid.
+The smallest script has four movements: the question, what changed or failed, the essential status
+or provenance qualifier, and the next honest question or canonical locator.
+
+The emergency candidate-exposure card is the narrow exception: it shows only the `SCJ` identity, a
+neutral unavailable status, accessible equivalent text, and a safe locator when permitted. It does
+not disclose a protected question or movement, invent a story beat, or promise a next entry.
+
+| Primary artifact | Lightweight serial treatment |
+|---|---|
+| Existing short video | Use it directly after identity and accessibility review |
+| Interactive or viewer | Guided or scripted capture with **DEMO** and the underlying origin |
+| Still, diagram, or crystal image | Two or three deliberately timed views; no invented camera drama |
+| Audio note | Voice plus a readable status card, transcript excerpt, or honest waveform |
+| Text or research note | Two to four restrained cards carrying question, movement, status, and next question |
+| Correction | Immediate correction card or short narration; polish must not delay a material correction |
+| Model animation | Preserve **MODEL · NOT VALIDATED** and distinguish playback time from simulated time |
 
 ## House duration ladder
 
@@ -79,8 +130,8 @@ Platform maximum durations are compatibility ceilings, not creative targets.
 The ordinary daily-video boundary is **15–59 seconds**. This deliberately avoids an exact 60.0-second
 export that one encoder or upload route may round above a one-minute boundary. Do not pad a
 15-second result to make it look more substantial, and do not compress a real three-minute
-explanation until it becomes misleading. A text note or still image may be the entire artifact for
-a day.
+explanation until it becomes misleading. A text note or still image may be the entire primary
+artifact for a day; its serial edition may be a simple timed presentation of that same material.
 
 For a short, show the meaningful object, question, or change within the first two seconds. Do not
 spend that time on a greeting or logo bumper. Deliver the principal result by roughly 60–75% of the
@@ -402,8 +453,28 @@ current confidence status.
 ## Artifact packets
 
 Use only the packet matching the day's primary artifact. Within it, make the required core first;
-add derivatives and copy only for destinations actually selected. A missing destination is **N/A**,
-not unfinished work.
+add the serial-edition packet for a public entry, then add derivatives and copy only for
+destinations actually selected. A missing destination is **N/A**, not unfinished work.
+
+### Watchable serial-edition packet
+
+Required at every canonical public-entry commit:
+
+- one approved 15–59 second clean 9:16 master, which may be the primary short itself;
+- the four-movement script or timed-card plan—question, movement, status/provenance, and next
+  question or canonical locator—or the restricted emergency unavailable-card plan;
+- reviewed captions when speech exists, transcript or equivalent page text, visual description
+  when needed, poster and alt text, and the applicable rights/privacy record;
+- the visible compact identity, full searchable identity, stable locator, and a check that no
+  `JOURNEY-NEXT` or temporary production token remains in public bytes or metadata; and
+- a conditionally approved release-candidate manifest containing the exact master, script, access
+  assets, provenance or capture recipe, and identity placement; its final `R01` identity
+  materializes only in the canonical commit.
+
+The primary artifact and serial edition may share one artifact/release when the same approved short
+serves both roles. Otherwise the serial edition is a separately identified derived artifact. It is
+embedded in the canonical Journey page at release; later-removal rules still apply. External
+destinations remain optional unless one is explicitly designated as the complete serial playlist.
 
 ### Short-video packet
 
@@ -459,13 +530,15 @@ Required core:
 - Journey entry with the audio player and download or listening link.
 
 Add a captioned audiogram, poster, waveform, or video rendition only when a selected visual
-destination makes it useful. Do not turn every audio note into a video by default.
+destination makes it useful. The required serial edition may remain a restrained status card with
+the approved audio; do not manufacture a second decorative video.
 
 ### Text or research-note packet
 
 The required core is the Journey entry with the question, movement, source/status, underlying links,
-and next question. Add a 220-character conversational version and one useful visual only when a
-selected destination benefits. There is no forced video, voiceover, or decorative music.
+and next question. Its required serial edition may use two to four readable cards without voice or
+decorative motion. Add a 220-character conversational version and one useful visual only when a
+selected destination benefits; no separate social video, voiceover, or music is forced.
 
 ### Long-video or chapter packet
 
@@ -623,8 +696,10 @@ Weixin localization.
   corrected master belongs to the correction entry's new artifact and release; only a technical
   repair uses a later release beneath the same Journey entry. Link the original and correction
   entries both ways.
-- Delete a public artifact only for a legal, privacy, safety, rights, or serious-harm reason. Keep a
-  private record and, when appropriate, a public tombstone explaining why it is unavailable.
+- Delete a public artifact only for a legal, privacy, safety, rights, or serious-harm reason. Keep
+  the minimal number identity and removal fact; retain manifest detail and private bytes only when
+  permitted. Preserve the numbered canonical route and a neutral unavailable serial card when
+  permitted. Never reuse the public number; `NUMBERING.md` governs forced-removal exceptions.
 
 ## Daily pre-publication check
 
@@ -633,8 +708,13 @@ A daily check should take minutes, not become a second production.
 Mark irrelevant lines **N/A**; do not manufacture an artifact to satisfy the checklist.
 
 - [ ] This piece advances one question, even if the movement is failure or correction.
-- [ ] It carries the visible and searchable `SCJ-` identity and resolves to the stable numbered
-      Journey page.
+- [ ] The primary artifact and watchable serial edition are both approved; one qualifying short may
+      fill both roles, as may the restricted unavailable card in the exceptional exposure path.
+- [ ] The exclusive release transaction has replaced `JOURNEY-NEXT` and every temporary production
+      token with its candidate visible/searchable `SCJ-` identity in the exact staged page, master,
+      access assets, and metadata.
+- [ ] Canonical commit will bind that number's stable page and serial edition; its independent live
+      observation must pass before any external destination distribution or next-number reservation.
 - [ ] The Journey entry names what changed and the next question.
 - [ ] Every outward claim matches its source, model status, and present confidence.
 - [ ] Physical footage, measured data, model data, diagram, demo, recreation, and generated
@@ -656,12 +736,17 @@ Mark irrelevant lines **N/A**; do not manufacture an artifact to satisfy the che
 
 ## Archive minimum
 
-For every published artifact, retain the applicable items and mark the rest **N/A**:
+For every published artifact, retain the applicable items and mark the rest **N/A**. If later law,
+privacy, safety, rights, or ethics forbids retaining bytes or manifest detail, preserve the minimal
+number identity and removal fact, retain only permitted non-sensitive fields, and record the rest as
+unavailable rather than claiming a complete archive:
 
 - a stable Journey identifier and date;
 - the artifact, approved-release, destination-publication, and global history-event identifiers
   required by `NUMBERING.md`;
 - the primary source artifact and clean approved master;
+- the watchable serial-edition master, script/timed-card plan, access assets, poster, identity
+  placement, and exact canonical-page binding;
 - for web-derived media, the approved web bundle/build, presentation/capture recipe, clean output,
   and rerender-test result or explicit **not tested** status;
 - the exact bytes uploaded to each destination;

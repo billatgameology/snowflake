@@ -43,31 +43,77 @@ visibility. Those are metadata and may multiply or change without changing ident
 
 ## What receives a Journey number
 
-Number one honest story step, not one day and not every file or cross-post.
+Number one committed public story step, not one day and not every file or cross-post.
 
 A Journey entry may be a discovery, question, failed attempt, correction, crystal, model result,
-demo, research note, reflection, or later synthesis. A journal-only step receives a number even when
-it produces no social derivative. A rich step with a model, diagram, video, and ten destination
-posts still receives one Journey number.
+demo, research note, reflection, or later synthesis. Its primary artifact may be a journal note,
+still, audio recording, interactive, or other non-video form, but every committed entry is released
+with one lightweight watchable serial edition on its canonical page. A rich step with a model,
+diagram, video, and ten destination posts still receives one Journey number.
+
+The public sequence uses two high-water marks. `Hc` is the highest committed Journey number; `Hv` is
+the highest commit whose canonical route and serial edition were subsequently observed live by the
+independent release check. Every integer from 1 through `Hc` is permanently occupied and ordinarily
+has a registry record and canonical-route binding; a forced erasure can reduce it only to the
+minimum unavailable position retention permits. `Hv` advances only when live-observation evidence
+exists. The allocator maintains `0 <= Hv <= Hc <= Hv + 1`, and it permits a new reservation only when
+`Hc = Hv`. Thus the ordinary stable state has `Hc = Hv`; the only allowed mismatch is one unresolved
+latest commit, never an intentionally skipped or abandoned interior integer. Continuing availability
+and evidence retention after a later forced removal are separate statuses, not something either
+high-water mark can guarantee.
 
 Allocation rules:
 
-1. Working drafts use temporary private names and do not consume Journey numbers.
-2. The central Journey registry assigns the next number when the maker approves the canonical entry,
-   before any outward distribution.
-3. An assigned number is permanent. It is never reused, recycled, or silently renumbered after a
-   failure, cancellation, withdrawal, deletion, or later import.
-4. No-work days consume no number. Multiple real steps on one day receive consecutive numbers.
-5. A late discovery or retrospective entry receives the next available number and explicit
-   relationship/date metadata; it is never inserted by renumbering history.
-6. If an assigned entry cannot be public, preserve its registry record and use a public tombstone
-   when legal, privacy, safety, or ethical constraints permit. A gap is not an invitation to reuse
-   the number. When even a tombstone would reveal protected information, public navigation skips
-   to the nearest public entry without confirming the hidden entry or exposing its metadata; strict
-   numeric adjacency remains available only in the private registry. A visible numeric gap may
-   still be inferable and is unavoidable when permanent public IDs surround it.
-7. A material change in meaning or scientific correction receives a new Journey number. A technical
-   repair can remain under the existing entry with a new artifact release or history event.
+1. Working concepts, scripts, and builds use a private temporary identity such as
+   `SCJ-TMP-<ULID>` and the pre-release media placeholder `JOURNEY-NEXT`. Temporary artifact candidates
+   may use `...-A01-RC01`; they are nonpublic, noncitable, do not resolve through `/journey/NNNN`,
+   and consume no final `SCJ`, `A`, or `R` suffix.
+2. An entry becomes release-eligible only when its canonical page, primary artifact, watchable
+   serial edition, source/status, accessibility, rights/privacy, skeptical review when applicable,
+   and maker approval are ready under the temporary production record.
+3. When `Hc = Hv`, the sole registry authority opens one exclusive release transaction and reserves
+   candidate value `Hc + 1` without advancing either mark. No second Journey reservation runs
+   concurrently.
+4. Inside that transaction, the pipeline freezes the temporary-to-final `SCJ`/`A`/`R`/`P01`
+   mapping, renders or speaks the candidate number into final staged media, removes every temporary
+   token, freezes member bytes and digests, and completes final preflight. The candidate mark is not
+   yet an assigned public Journey identity, and no externally reachable preview or destination
+   attempt is permitted.
+5. One atomic canonical-release commit verifies the reservation, assigns the final Journey and
+   included artifact/release identities, writes the immutable entry snapshot, creates canonical
+   publication `P01`, binds and publishes the assigned numeric route, appends the commit event, and
+   advances `Hc`. A separate immediate event independently observes the canonical route and serial
+   edition public, then advances `Hv`. External distribution and the next Journey reservation remain
+   blocked until `Hc = Hv` again.
+6. A failed or ambiguous preflight before canonical commit holds the reservation and blocks later
+   Journey allocation. Reconcile or retry it; never skip forward. A reservation timeout fails closed:
+   it cannot automatically free the candidate while numbered staged bytes may still exist. A
+   pre-commit abort revokes staging, proves candidate-numbered bytes did not cross the controlled
+   production boundary, records the temporary failure, and leaves both high-water marks unchanged.
+   The same integer remains next because it was never a public assignment. If candidate media
+   escaped, do not reuse the value for unrelated content. Complete the normal packet for the same
+   work or, when content safety prevents that, prepare a reviewed emergency packet whose neutral
+   15–59 second unavailable card serves as both primary artifact and serial edition beside a safe
+   canonical shell. If even that would be unsafe or forbidden, record and hold the referential
+   conflict; do not free the candidate or skip forward.
+7. After commit, never reuse or silently renumber the identity. Retain its minimal non-sensitive
+   registry history, route, artifact/release identity, manifest, event, and media records only to the
+   extent law, privacy, safety, rights, and ethics permit. Withdrawal or removal keeps a neutral
+   numbered shell, an unavailable serial card, and Previous/Next navigation whenever permitted. If
+   the immediate independent live observation fails after commit,
+   leave `Hc = Hv + 1`, block every external destination and later Journey commit, and repair the
+   route; do not roll back `Hc`. Successful observation appends its event and advances `Hv`. A binding
+   requirement that forbids even a number-only shell or unavailable card is recorded as an
+   exceptional forced-availability failure, not permission to reuse the identity.
+8. Private, embargoed, and abandoned work remains temporary and has no place in the public numeric
+   sequence. Reserve only in the short final release window, not for a future embargo date.
+9. No-work days consume no number. Multiple public steps on one day commit consecutive numbers. A
+   late discovery or retrospective entry receives `Hc + 1` through the ordinary commit/observation
+   gate and preserves its original occurrence/import metadata; history is never renumbered to insert
+   it.
+10. A material change in meaning or scientific correction receives the next committed Journey
+    number and its own serial edition. A technical repair can remain under the existing entry with a
+    new artifact release or history event.
 
 `SCJ-0000` is not a prologue or miscellaneous bucket. The Journey begins at `SCJ-0001`; background
 material is linked as context until it is deliberately curated into a numbered entry.
@@ -77,7 +123,9 @@ material is linked as context until it is deliberately curated into a numbered e
 ### 1. Canonical Journey sequence
 
 The numeric part of `SCJ-0042` records the order in which the Journey tells and preserves its steps.
-It is the sequence used by **Previous** and **Next** on the canonical site.
+It is the sequence used by **Previous** and **Next** on the canonical site. Only atomic public
+commits advance it; temporary production records and aborted reservations have no position in this
+sequence.
 
 ### 2. Content chronology
 
@@ -121,6 +169,15 @@ Every outward publication carries two independent recovery paths:
 1. a visible or spoken Journey identity that survives downloading or screenshotting; and
 2. searchable text and, where supported, the canonical link.
 
+The visible number is a serial promise at release. Once `SCJ 0042` is distributed beyond its
+canonical release, `/journey/0042` has passed independent observation, every earlier positive
+integer through 41 has its own release-observation record, and the owned Journey page contains the
+watchable edition for 0042. An external social feed may contain only selected entries; only a
+surface advertised as the complete Journey playlist must carry the independently observed public
+sequence through `Hv`.
+Later removal may replace an entry with a neutral unavailable position, or make even that position
+unavailable under a binding exception, but it never transfers the number to different content.
+
 | Medium | Required audience treatment |
 |---|---|
 | Short or long video | Show `SCJ 0042` as a quiet persistent mark or readable opening/end mark; put “Snow Crystal Journey 0042” and the canonical locator in searchable metadata |
@@ -158,17 +215,18 @@ and audit tools, not competing episode numbers.
 Every Journey page provides these distinct relationships rather than calling all of them “next”:
 
 - **Start:** `SCJ-0001` or a later curated starting guide.
-- **Previous in Journey / Next in Journey:** nearest public entries in numeric canonical sequence.
-  Show a safe tombstone when one is permitted; otherwise skip a private or embargoed gap without
-  confirming the entry or revealing its metadata. The visible number gap may remain inferable; the
-  private registry retains strict adjacency.
+- **Previous in Journey / Next in Journey:** immediately adjacent committed integers. Each uses its
+  assigned route binding and resolves to a live entry or neutral post-publication status shell when
+  permitted; a forced-availability exception remains an occupied but unavailable position. Private
+  and embargoed production work has no number and no position between them.
 - **Earlier in this topic / Later in this topic:** semantic topic or arc relationship, which may
   jump across the numeric sequence.
 - **Builds on / Answers:** specific non-adjacent prerequisites or questions.
 - **Current understanding:** the latest synthesis or correction that governs the topic now.
 - **Corrects / Corrected by:** explicit two-way material-correction relationship.
 - **Included in:** later recap, chapter, or collection entries that synthesize this step.
-- **Latest:** the newest public Journey entry.
+- **Latest:** the newest independently observed Journey entry at `Hv`; an unresolved `Hc` is not
+  promoted through discovery navigation.
 
 If the next entry does not exist yet, the page says so. Do not bake a guessed future “next” ID into
 permanent media, and do not require old social captions to be edited each time a new entry appears;
@@ -186,16 +244,22 @@ Rules:
 - Every artifact has one owning Journey entry and may be referenced by later entries.
 - Preserve a solver run, checkpoint, specimen, dataset, demo, or research source's native identifier
   alongside the Journey artifact ID; the editorial ID does not replace scientific provenance.
-- Assign `A01`, `A02`, and so on when an artifact is registered in the canonical entry. Never reuse
-  an assigned artifact suffix.
-- Assign `R01` to the first approved immutable **release manifest**. A release manifest may package
+- Before canonical commit, draft artifacts and releases use temporary `A` and `RC` labels beneath
+  the production identity; they consume no final suffix. The release transaction freezes the
+  source-before-derived graph and contiguous final mapping. At commit, included artifacts receive
+  `A01`, `A02`, and so on in registry order. A later artifact receives the next suffix only when its
+  record and first release are ready; an assigned artifact suffix is never reused.
+- Assign `R01` to the first approved immutable **release manifest** at commit. Aborted draft release
+  candidates consume no `R` suffix. A release manifest may package
   several named assets that belong together, such as a clean master, captioned master, transcript,
   subtitle file, poster, or reviewed localization. Each member records its role, locale, filename
   and archive path, media type, byte size, digest algorithm/value, and derivation. The manifest has
   its own version and digest.
-- Never replace a manifest or member bytes beneath an existing release ID. Any approved member,
-  membership, or release metadata changed after approval creates `R02`, `R03`, and so on, with a
-  reason and supersession link; the prior manifest remains recoverable.
+- Never replace a retained manifest or member bytes beneath an existing release ID. Any approved
+  member, membership, or release metadata changed after approval creates `R02`, `R03`, and so on,
+  with a reason and supersession link. Retain the prior identity, manifest, and member bytes to the
+  extent permitted by the later-removal rule; otherwise preserve only the allowed unavailable or
+  removal record.
 - A destination-only crop, captioned export, translation, or recompression may be created at publish
   time without becoming a reusable approved release member, but its exact bytes, text, language,
   transformation, and digest are captured in the destination-publication record. If it becomes an
@@ -248,6 +312,11 @@ Every publication has exactly one primary Journey entry so its public recovery p
 If it combines several entries, either create a new synthesis entry or retain an ordered explicit
 source-Journey list in addition to the primary ID.
 
+`P01` is reserved for the owned canonical Journey page and finalizes inside the atomic Journey
+commit. Its independent live observation is the gate for external distribution and the next Journey
+reservation. External destinations begin at `P02` and cannot be attempted while that canonical
+commit or observation remains unresolved.
+
 - The same approved video on six platforms creates six publication records, not six Journey entries.
 - An Instagram-to-Facebook automatic cross-post creates two records because the destinations can
   diverge or disappear independently. When that fan-out is known, preallocate one publication ID
@@ -262,7 +331,8 @@ source-Journey list in addition to the primary ID.
   creates a new remote object or URL.
 - Editing the same remote object retains its publication ID and appends a new global history event.
 
-Allocate a publication ID immediately before its first real destination attempt. Failed and
+For `P02` and later, allocate a publication ID immediately before its first real destination
+attempt. Failed and
 ambiguous attempts keep their ID. A retry aimed at completing the same intended remote object stays
 under that publication ID; an accidentally created duplicate or deliberate replacement receives a
 new one. An unexpected destination copy discovered after a fan-out receives a retrospective
@@ -290,10 +360,36 @@ The working site may maintain convenient current indexes, but no last-write-wins
 history. Every state change appends a globally numbered event. Current state is derived by replaying
 events, not by erasing the prior state.
 
+The fields below define the complete record at creation. Later retention remains subject to the
+withdrawal/forced-erasure rule: every lawful omission is named, and absent data is never inferred.
+
 Every exported record names its record-format version. Every global event stores its own digest and
 the preceding global event's ID and digest, so a recovery check can detect a missing, reordered, or
 changed record rather than silently accepting a broken history. The eventual implementation must
 define canonical serialization before those digests become meaningful; this document does not.
+
+### Temporary production and release-transaction record
+
+Pre-commit work remains private but reconstructable. Retain:
+
+- temporary production identity, working title, question, occurred/recorded times, and workflow
+  state such as concept, scripting, production, review, release-ready, reserved, committed, or
+  aborted;
+- temporary artifact and release-candidate identities, scripts, builds, source bindings, review
+  state, and the proposed artifact order;
+- exclusive reservation token, candidate numeric value, prior `Hc` and `Hv`, allocator/lock
+  identity, opened time, deadline, and every renewal or manual intervention;
+- frozen temporary-to-final `SCJ`/`A`/`R`/`P01` mapping, staged page/media/member digests, placeholder
+  scan, accessibility/provenance/rights approvals, and final-preflight event;
+- either non-exposure evidence showing that no candidate-numbered bytes or route were externally
+  reachable before commit, or the exposure evidence and normal/emergency resolution bound to the
+  same candidate; and
+- atomic commit event and final identity mapping, or abort reason, staging revocation, non-exposure
+  verification, and any candidate-exposure resolution.
+
+Temporary records never appear in public Previous/Next or the canonical `1..Hc` enumeration. They
+remain in the private event archive after commit or abort to the extent retention is permitted;
+forced omissions are recorded when doing so is allowed.
 
 ### Journey-entry record
 
@@ -301,8 +397,10 @@ Retain:
 
 - Journey ID, numeric sequence, title, entry kind, and stable canonical URL;
 - question, movement/result, artifact summary, and next question;
-- `registered_at`, `occurred_at`, precision/timezone, and canonical publication time;
-- visibility: public, unlisted, private, or embargoed;
+- `registered_at` at canonical commit, `occurred_at`, precision/timezone, canonical publication
+  time, release-transaction ID, and commit event/digest;
+- public canonical visibility and separately scoped detail/artifact restrictions; private,
+  embargoed, and unlisted pre-publication work belongs to the temporary production record instead;
 - canonical-page availability: live, tombstone, unavailable, or unknown;
 - editorial status: current, partially corrected, wholly corrected, superseded, or withdrawn;
 - artifact and current approved-release IDs;
@@ -361,8 +459,8 @@ and human language/scientific approval. This applies even when the localized byt
 the destination record and were never promoted to an approved reusable release member.
 
 An edit is an event, not a mutually exclusive state. The three state dimensions are derived from
-events, allowing a confirmed publication to be edited, corrected, and later removed without losing
-any of those facts.
+retained events, allowing a confirmed publication to be edited, corrected, and later removed
+without ordinary workflow overwriting those facts. Forced omissions remain explicit evidence gaps.
 
 ### Global history event
 
@@ -381,11 +479,12 @@ account, idempotency/request key when one exists, request/response IDs, timestam
 objects, and reconciliation evidence. Several publication records may reference the same attempt
 when an automatic fan-out or ambiguous duplicate occurred.
 
-Useful event types include entry registered, canonical published, artifact revised, publication
-planned, attempt started, attempt failed, attempt ambiguous, publication confirmed, publication
-edited, correction linked, removal requested, publication removed, link observed broken, and import
-recorded. The prose names may later become implementation constants, but this document does not
-define code or a storage schema.
+Useful event types include production opened, candidate reserved, reservation preflight passed,
+reservation aborted, candidate exposure detected, canonical release committed, canonical release
+observed, artifact revised, publication planned, attempt started, attempt failed, attempt ambiguous,
+publication confirmed, publication edited, correction linked, removal requested, publication
+removed, link observed broken, and import recorded. The prose names may later become implementation
+constants, but this document does not define code or a storage schema.
 
 ## Corrections, recaps, and imports
 
@@ -411,7 +510,7 @@ noncontiguous, corrected, or superseded sources would become invisible.
 
 If old material already belongs to an existing entry, attach it as an artifact or destination
 publication of that entry. If it represents a genuinely missing story step, give it the next
-available Journey number and record:
+public Journey number through the ordinary release transaction and record:
 
 - original owner, URL/ID, and timestamp with precision;
 - original bytes and digest when legitimately archived;
@@ -419,14 +518,20 @@ available Journey number and record:
 - `imported from`, `occurred at`, and chronology relationships; and
 - why it was recorded retrospectively.
 
-Never renumber earlier entries to insert it.
+Never renumber earlier entries to insert it. Its Journey number records when the retrospective step
+joined the public story; `occurred_at` preserves when the underlying work actually happened.
 
 ### Withdrawal or disappearance
 
 Record who requested removal, why, when it was attempted, and when remote absence was confirmed.
 Distinguish maker withdrawal, legal/privacy removal, moderation removal, ordinary expiry, account
-loss, and a merely broken link. Keep the ID and event record. Retain private bytes only when legally
-and ethically permitted, and use a public tombstone when appropriate.
+loss, and a merely broken link. Retain the minimal number identity, removal fact, route,
+artifact/release identity, manifest, event detail, and private bytes only when legally and ethically
+permitted. Keep the numeric route as a neutral unavailable/withdrawn shell and replace the serial
+with a neutral unavailable card, with Previous/Next navigation and no protected metadata, whenever
+permitted. If an external binding requirement forbids even that number-only shell or card, record the
+forced availability failure when allowed; never reuse, skip forward as if nothing happened, or
+renumber surrounding entries.
 
 ## Worked example
 
@@ -461,72 +566,91 @@ understanding rather than pretending the earlier record never existed.
 To rebuild the Journey from preserved records:
 
 1. Verify the append-only event register and immutable snapshot/release digests.
-2. Enumerate Journey entries by their numeric sequence, retaining private registry records and safe
-   public tombstones where permitted.
-3. Replay entry events to derive each page's current state, relationships, and correction banner.
-4. Expand each entry's artifacts and approved release manifests; verify the manifest and every
+2. Replay temporary production records and reservation/abort/commit/observation events separately.
+   Verify that only canonical-release commits advanced `Hc`, only successful independent canonical
+   observations advanced `Hv`, every commit used the then-current `Hc + 1`, and no new reservation
+   opened unless `Hc = Hv`.
+3. Verify `0 <= Hv <= Hc <= Hv + 1`. Enumerate every integer from 1 through `Hc`; fail by name if any
+   is not occupied. Require its Journey record and canonical-route binding unless a recorded forced
+   erasure limits retention. For every integer through `Hv`, require its original live-observation
+   evidence. If forced erasure removed that evidence, report the historical `Hv` claim as no longer
+   independently verifiable and name the evidence gap; a removal event is not substitute proof of
+   the earlier observation. Report a current live page, neutral post-publication status shell,
+   unresolved latest commit, or forced-availability exception without pretending those availability
+   states are interchangeable.
+4. Replay entry events to derive each page's current state, relationships, and correction banner.
+5. Expand each entry's artifacts and approved release manifests; verify the manifest and every
    member's archive path, byte size, and digest.
-5. Expand its destination publications; replay their events to recover attempts, exact copy/files,
+6. Expand its destination publications; replay their events to recover attempts, exact copy/files,
    remote IDs/URLs, edits, replacements, and final known state.
-6. Rebuild the externally supported portion of publication time from exact or non-overlapping
+7. Rebuild the externally supported portion of publication time from exact or non-overlapping
    effective-time intervals. Report overlapping, unknown, and ambiguous intervals as unordered;
    use event IDs only to show registry-knowledge order, never as outside-time evidence.
-7. Derive public Previous/Next navigation by nearest public entry, apply safe tombstones where
-   permitted, and separately derive private numeric adjacency and topic/correction/synthesis
-   navigation.
-8. Reverse-check every retained remote URL/platform ID to its publication record and Journey entry,
+8. Derive public Previous/Next from adjacent committed integers, treating a neutral status shell or
+   recorded forced-availability exception as an occupied position; derive
+   topic/correction/synthesis navigation separately.
+9. Reverse-check every retained remote URL/platform ID to its publication record and Journey entry,
    and every publication record to archived exact text and uploaded bytes.
-9. Report missing bytes, broken URLs, unknown times, conflicting remote state, or digest mismatch as
+10. Report missing bytes, broken URLs, unknown times, conflicting remote state, or digest mismatch as
    explicit recovery gaps. Never fill them by inference.
 
 The owned archive, event register, and digests are the reconstruction authority. Social feeds,
 platform analytics, filesystem modification times, filenames, and search results are discovery aids
 only.
 
-A recoverable archive periodically exports a self-contained bundle containing the record-format
-definition, complete event register, derived current index, immutable entry snapshots, artifact
-releases, exact publication text/files, URL map, and checksum manifest. Store recoverable copies
-independently of the social platforms and periodically perform a read-only reconstruction using the
-steps above. A backup that has never been restored is only an untested copy.
+A recoverable archive periodically exports a self-contained bundle containing, to the extent
+retention remains permitted, the record-format definition, event register, derived current index,
+immutable entry snapshots, artifact releases, exact publication text/files, URL map, and checksum
+manifest. The bundle names every forced omission and does not call a legally reduced register
+complete. Store recoverable copies independently of the social platforms and periodically perform a
+read-only reconstruction using the steps above. A backup that has never been restored is only an
+untested copy.
 
 ### Reconstruction boundary
 
-This record can restore the owned Journey entry state, archived source and uploaded bytes, known
-destination copy, intended relationships, and every remote lifecycle event that was actually
-recorded. It cannot recreate a platform's transcoding, interface, feed position, recommendation
+This record can restore the retained owned Journey entry state, archived source and uploaded bytes,
+known destination copy, intended relationships, and remote lifecycle events. It cannot recreate a
+platform's transcoding, interface, feed position, recommendation
 algorithm, unarchived analytics, ordinary unregistered replies or comments, bytes that could not
 legally or ethically be retained, or an exact external order when timestamps remain ambiguous.
 Those limits are reported as recovery gaps, not filled with plausible substitutes.
 
 ## Daily burden
 
-The numbering system adds only four actions to an ordinary entry:
+The human workflow remains small even though allocation commits late:
 
-1. receive the next approved Journey number;
-2. place `SCJ 0042` on the artifact and “Snow Crystal Journey 0042” in searchable copy;
-3. link the canonical entry; and
-4. register only the artifacts and destination publications that actually exist.
+1. write and produce under the temporary production identity and `JOURNEY-NEXT` placeholder;
+2. approve one primary artifact, the canonical entry, and the smallest honest watchable serial
+   edition;
+3. let the exclusive release transaction materialize and commit the next public number;
+4. independently confirm the canonical route and serial edition; and
+5. register only the external destination publications actually selected.
 
-Artifact-release-manifest, publication, attempt, and global-event capture is pipeline-managed once
-the system exists; it is not a second hand-written daily essay. The solo-maker minimum remains the
-public `SCJ` identity, canonical page, approved artifact, and destination URL or confirmation.
-A destination not used that day remains **N/A**.
+Artifact/release allocation, placeholder replacement, canonical commit, publication attempts, and
+global-event capture are pipeline-managed once the system exists; they are not a second hand-written
+daily essay. The solo-maker public minimum is the consecutive `SCJ` identity, canonical page,
+approved primary artifact, watchable serial edition, and applicable access/provenance/review work.
+An external destination not used that day remains **N/A**.
 
-Before that pipeline and its first successful read-only restore exist, the four-item minimum
-preserves identity and navigation but supports only partial reconstruction. If anything is
-published during this interim, keep one small manual publication manifest with the Journey and
-release IDs, exact uploaded file and public copy, destination/account, remote ID/URL, confirmed time
-and precision, and confirmation evidence. Mark uncaptured request, response, edit, or platform
-details unknown. Do not claim full reconstruction for an interim publication.
+Before that pipeline and its first successful read-only restore exist, release only one Journey
+entry at a time. Keep one authoritative ledger for `Hc`, `Hv`, and the next candidate; do not begin
+another entry's final numbered render until the current canonical page is confirmed, and retain a
+small manual manifest
+with the Journey and release IDs, exact serial master and public copy, canonical confirmation,
+destination/account, remote ID/URL, confirmed time/precision, and evidence. Mark uncaptured request,
+response, edit, or platform details unknown. Do not claim full reconstruction for an interim
+publication.
 
 ## Failure modes this design prevents
 
 - Dates, “Day 42,” missed days, timezones, multiple entries, and backfills becoming one confused ID.
+- A draft, embargo, cancellation, or abandoned experiment creating a missing public episode number.
 - Six platform copies acquiring six competing Journey numbers.
 - A title, topic, platform, format, language, or claim-status change making an ID false.
 - Renumbering old entries to insert a late discovery and breaking every citation, screenshot, and
   URL.
 - Reusing a withdrawn or failed number for unrelated content.
+- Publishing a later number while the preceding canonical release is unresolved.
 - Losing identity when media is downloaded or searchability when a mark exists only in pixels.
 - Calling numeric-next, topic-next, and scientific correction the same relationship.
 - Treating an accepted upload or timeout as confirmed publication and creating duplicates on retry.

@@ -104,5 +104,6 @@ validated against measurement.
 
 - Which parts of this deliberately full-coverage week should be removed or automated in the next,
   more sustainable sample round.
-- Whether a later round should show a week with missed days, a private entry, or an actual late
-  import rather than another five-consecutive-entry arc.
+- Whether a later round should show missed publication days, a private or abandoned temporary
+  production record that consumes no `SCJ` number, or an actual late import rather than another
+  five-consecutive-entry arc.

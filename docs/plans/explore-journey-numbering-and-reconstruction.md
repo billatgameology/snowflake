@@ -5,6 +5,13 @@
 - **Started:** 2026-08-09
 - **Last touched:** 2026-08-09 by OpenAI Codex
 
+**Amendment, 2026-08-09:** the maker rejected this plan's private-entry/visible-gap policy because
+the public number is a watch-in-order hook baked into media. The current allocation authority is
+[the gapless public sequence plan](explore-journey-gapless-public-sequence.md): private and
+embargoed work uses temporary production identities, and only a canonical public commit consumes
+the next consecutive `SCJ` number. This file remains provenance for the original design and review;
+its gap conclusion is not current policy.
+
 ## Goal
 
 Define a stable numbering and relationship system for the Snow Crystal Journey so that a person who
@@ -73,6 +80,8 @@ withdrawals, and corrections; deleted records receive a state change, never eras
   contradiction in correction handling. A follow-up found entry-level correction scope,
   destination-only localization binding, shared-event entities, and interim-record limits. The
   specification was revised for each finding; its final narrow re-audit reported no material issue.
+  The maker later rejected the resulting private-gap behavior on serial-viewing grounds; the
+  amendment above and its own reviewed plan supersede that conclusion.
 - No runtime behavior was re-executed because this plan changes prose only. Author-side verification
   checked repository whitespace/conflict markers and Rule 7 after the edits; the exact results are
   recorded in the handoff response rather than treated as scientific evidence.
@@ -102,5 +111,5 @@ withdrawals, and corrections; deleted records receive a state change, never eras
   permanent short resolver.
 - The eventual storage format, canonical serialization, digest algorithm, and central allocation
   mechanism; these must be decided and restore-tested during implementation.
-- The public wording and privacy policy for safe tombstones. When existence itself is sensitive, a
-  sequential public ID can hide the metadata and reason but cannot conceal the visible number gap.
+- The exact neutral wording for a post-publication unavailable shell remains open. Private or
+  embargoed pre-publication work no longer consumes a public number, so it creates no numeric gap.
