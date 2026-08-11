@@ -153,6 +153,17 @@ is independently re-derived from the artifact bytes.
   10 h dispatcher finish or cap on their own; any capped row is retired by the sanctioned
   `--retry-row` path and re-run to completion under the amendment head.
 
+- 2026-08-11: second amendment under the same maker direction. A legitimate, converged N=96
+  row measured **39.6 h** under co-tenant load — under the 48 h "runaway" backstop's regime —
+  so at N=112/128 the backstop would have killed honest science. The wall backstop is REMOVED
+  entirely: every row is already bounded by construction (registered step cap 100,000 cycles ×
+  relaxation cap 200,000 sweeps/cycle), so no wall guard is needed for termination, and an
+  OS-level hang is handled by the sanctioned `--retry-row` path. Cap history: 10 h (frozen)
+  → 16 h class (superseded in minutes) → 48 h backstop → none. The sanctioned head list
+  gains this amendment's landing commit as its third member (freeze `f59d187`, first
+  amendment `aa81295`, plus at most one later head), enforced fail-closed by the evaluator;
+  the swap happens at the next natural row boundary and in-flight rows re-run.
+
 ## Out of scope
 
 - Any production-configuration selection or campaign authorization (decision 0045).

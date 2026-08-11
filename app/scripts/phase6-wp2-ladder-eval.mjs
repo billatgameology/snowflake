@@ -262,8 +262,13 @@ const distinctGitHeads = [...new Set(presentRows.map(headOf))].sort();
 // review); and every heavy row (dom-0.35-n112/n128) MUST carry the non-freeze head, because
 // none had run before the amendment. Anything outside that shape is an artifact defect.
 const LADDER_FREEZE_HEAD = "f59d18702301155c0c2e7eaecc3442e6cf117123";
+// 2026-08-11 second amendment: the first-amendment head is also sanctioned literally, and at
+// most ONE later head (the second amendment's landing commit, checked by the unit review).
+const FIRST_AMENDMENT_HEAD = "aa812952efbf5c4ef7152cc7595342092a51b000";
 const HEAVY_ROW_ID_PATTERN = /^dom-0.35-n(112|128)@/;
-const nonFreezeHeads = distinctGitHeads.filter((head) => head !== LADDER_FREEZE_HEAD);
+const nonFreezeHeads = distinctGitHeads.filter(
+  (head) => head !== LADDER_FREEZE_HEAD && head !== FIRST_AMENDMENT_HEAD,
+);
 let mixedHeadsNoPass = false;
 if (nonFreezeHeads.length > 1) {
   mixedHeadsNoPass = true;
