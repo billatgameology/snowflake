@@ -67,9 +67,11 @@ than trusts completion:
    bibliographic identity and version; page/member extent; currency, correction, supplement, data,
    rights, and lineage status.
 2. `source-unit`: exactly one record per PDF page or archive member; an exact page/panel/table/cell
-   or full-member locator; content/render hashes where applicable; measurement IDs; and one of
-   `reviewed-measurement-linked`, `reviewed-no-measurement`, or the open state
-   `blocked-unreadable`.
+   or full-member locator; content/render hashes where applicable; measurement IDs; and one of the
+   open states `pending-classification` or `blocked-unreadable`, or the reviewed terminal states
+   `reviewed-measurement-linked` or `reviewed-no-measurement`. S0 creates only
+   `pending-classification` records. S3 must replace that state one-for-one after the two blind
+   classifications; it may never relabel a merely unreviewed unit as unreadable.
 3. `measurement-set`: one atomic homogeneous reported series or table/data block, one logical
    native-data series within an archive member, one prose numeric result, or one individually
    condition-labeled panel/matrix cell; when only an aggregate is reported, the aggregate is the
@@ -151,10 +153,11 @@ are reopened and re-derived from their published bytes.
 
 ## Registered work sequence
 
-- [ ] **S-1 — Adopt the continuation before implementation.** Commit decision 0047, charter
+- [x] **S-1 — Adopt the continuation before implementation.** Commit decision 0047, charter
   v1.24, this plan, the compact progress-state change, and its state-index tests. Confirm that the
   8A freeze is unchanged. Run the exact local suite and obtain a non-author governance review with
-  zero blockers.
+  zero blockers. Completed by commit `80395f2`; the final exact suite and review evidence are in
+  Governance review 2 below.
 - [ ] **S0 — Freeze the local source and unit denominator.** Independently enumerate all PDF and
   archive source containers, including excluded containers, plus every PDF page and archive member
   under the NAS logical root; record exact
@@ -230,6 +233,18 @@ time with its path or hash.
 
 ## Tried and rejected
 
+- **Treat only PDF and ZIP suffixes as the recursive S0 candidate denominator.** Rejected by the
+  first local-denominator audit: the exact cache manifest also contains 14 recovery TAR archives,
+  31 Git bundles, and 81 Git packfiles. The repaired registration counts all 218 candidates and
+  gives the VCS transports/object stores an explicit non-source disposition.
+- **Let an omitted measurement count imply zero at S0.** Rejected: `inventory-status` must state
+  and re-derive `measurementSetCount: 0`; absence is not evidence of zero.
+- **Pin only the new S0 source and test.** Rejected: the imported canonical JSON/SHA-256 operator
+  in `runner/src/gate4-evidence.ts` is load-bearing and must be pinned too.
+- **Issue a separate SMB metadata call for every live cache path.** Rejected after a five-minute
+  candidate attempt had not left the 76,688-path type-check loop. The repaired protocol uses `rg`
+  for global path reconciliation and fresh regular-file/type/hash checks for every evidence-bearing
+  candidate, page render, and external mirror.
 - **Use target-book v1 as the measurement denominator.** Rejected: its 18 records are a selected
   target/input layer, and known page/table/curve and governing-source omissions are explicitly
   outside that freeze.
@@ -290,3 +305,25 @@ the registered gate. Phase 9 scope decisions wait for S6.
 - **Not checked:** future S0-S7 source census, network-route execution, NAS-byte verification,
   rights determination, clean-checkout freeze verification, or scientific gate runs. These are
   future milestone obligations and are not claims of the governance candidate.
+
+### Local-denominator review 1 — rejected and repaired
+
+- **Reviewer:** independent OpenAI Codex reviewer from the GPT-5 family, no authoring/fork context.
+- **Re-executed:** the focused 21-control suite, Rule 7, both diff checks, Phase 8A verification,
+  exact candidate-A CLI replay, independent PDF page counts, ZIP CRC/member/mirror replay, all 92
+  then-listed candidate hashes, and candidate artifact/count/hash derivation.
+- **Verdict:** REJECT, three blockers — no explicit zero measurement count, omission of TAR and
+  VCS archive-like recovery candidates, and no pin for the imported canonical JSON/hash operator.
+  Candidate B repairs all three and its byte-only recount is clean.
+- **Not checked:** the exact full local suite, clean-checkout verification, scientific
+  classification, source currency, rights, or external search.
+
+### Local-denominator review 2 — replay blocked before verdict
+
+- **Reviewer:** the same independent no-fork reviewer, checking only candidate B and the three
+  repaired seams.
+- **Re-executed:** focused tests and candidate-byte/count/hash derivation passed. The exact NAS CLI
+  replay began and failed closed with `ENOTCONN` when `/Volumes/snowcrystal` disappeared.
+- **Verdict:** none. Candidate B remains unpublished and unaccepted until the share is remounted and
+  the exact review replay returns zero blockers.
+- **Not checked:** anything downstream of the interrupted NAS replay; S0 is still open.

@@ -198,10 +198,15 @@ it from the Phase 6 lane or count it toward Phase 6.
 
 ### Phase 8B lane — freeze the denominators before extraction
 
-Commit decision 0047, charter v1.24, the
-[measurement-corpus plan](plans/phase-8-measurement-corpus.md), and this state transition before
-inventory/search implementation. Then execute S0–S1: freeze the exact NAS container/page/member
-denominator and the exact external routes, queries, citation seeds, cutoff, inclusion, currency,
+Governance step S-1 is committed at `80395f2`: decision 0047, charter v1.24, the
+[measurement-corpus plan](plans/phase-8-measurement-corpus.md), and its state-index guards passed
+the exact local suite and an independent review with zero blockers. S0 candidate B at
+`tmp/phase8b-local-denominator-candidate-20260811b/` (artifact-index SHA-256
+`93c83a98ef053e4b22b24ce3c072f862b23d55a552df5da177f71f2d935bb8f2`) re-derives 218
+PDF/archive-like candidates into 23 sources, 195 explicit exclusions, 880 PDF pages, 34 regular
+ZIP members, and 914 still-pending source units. It is not published or accepted: the independent
+replay stopped fail-closed when `/Volumes/snowcrystal` disconnected, so remount and rerun that exact
+review before freezing S0. In parallel, prepare S1's exact external routes, queries, citation seeds, cutoff, inclusion, currency,
 acquisition, lineage, rights, digitization, and frontier-expansion stopping rules. Preliminary browsing is
 reconnaissance only. Preserve `evidence/phase8-target-book/` byte-for-byte; write all 8B evidence to
 separate paths. Phase 9 remains unchartered and cannot start from either milestone alone.
