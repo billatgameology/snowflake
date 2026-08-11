@@ -12,6 +12,7 @@ const ARCHIVE = resolve(REPO, "docs", "progress-history-through-2026-08-02.md");
 const STATE_PLANS = [
   resolve(REPO, "docs", "plans", "phase-6-science-first-completion.md"),
   resolve(REPO, "docs", "plans", "phase-8-what-is-real.md"),
+  resolve(REPO, "docs", "plans", "phase-8-measurement-corpus.md"),
 ];
 const ARCHIVE_MARKER = "<!-- BEGIN EXACT PRE-COMPACTION PROGRESS BODY -->\n";
 const ARCHIVED_BODY_BYTES = 191_859;
@@ -21,6 +22,19 @@ const FORBIDDEN_SEQUENCING = [
   "Begins only after Phase 6 closes",
   "none may start before Phase 6 WP8",
   "Phase 8 waits for Phase 6",
+  "No Phase 8 action remains",
+  "### Phase 8 lane — complete",
+];
+const PHASE8_STATUS_LINE =
+  "- **Phase 8A is COMPLETE (2026-08-10); Phase 8B is ACTIVE AND INCOMPLETE (2026-08-11).**";
+const PHASE8_GATE_PREFIX = "| 8 | **8A complete; 8B active and incomplete** |";
+const PHASE7_GATE_PREFIX = "| 7 | Not started; independently eligible |";
+const CONTRADICTORY_STATE_PATTERNS = [
+  /Phase 8B.*\b(?:complete|completed|done|closed)\b/iu,
+  /Phase 8B.*\b(?:may|can|will|must) (?:rewrite|mutate|replace|overwrite)\b.*\b(?:8A|v1|phase8-target-book)\b/iu,
+  /Phase 7 (?:is(?: now)?|becomes) (?:active|started|complete|completed|done|closed)\b/iu,
+  /Phase 9.*\b(?:chartered|active|started)\b/iu,
+  /Phase 9.*\b(?:may|can) start\b/iu,
 ];
 const ARCHIVED_BODY_LF_BYTES = 190_074;
 const ARCHIVED_BODY_LF_SHA256 = "9f7ee2ad0a7773740b8aff111b16aad236fb9555f7ae0cd861714681103b4a9d";
@@ -37,14 +51,19 @@ function currentIndexErrors(text: string): string[] {
   const errors: string[] = [];
   const required = [
     "Phase 6 is ACTIVE AND INCOMPLETE",
-    "Phase 8 is COMPLETE (2026-08-10)",
+    "Phase 8A is COMPLETE (2026-08-10); Phase 8B is ACTIVE AND INCOMPLETE (2026-08-11)",
+    "47a75f3fcc499d74d36cd08eeaed7f4e839bf991deb179fa19ce809d57e171ec",
+    "Phase 8B writes separate artifacts",
+    "Preserve `evidence/phase8-target-book/` byte-for-byte",
     "Phase 7 is completely standalone",
+    "Phase 9 remains unchartered",
     "CAK 3/90, M1 54/90",
     "M1_NO_DIP_ABLATION",
     "cannot establish physical SDAK causality or necessity",
     "(plans/phase-6-science-first-completion.md)",
     "(plans/phase-8-what-is-real.md)",
-    "- **Last updated:** 2026-08-10",
+    "(plans/phase-8-measurement-corpus.md)",
+    "- **Last updated:** 2026-08-11",
   ];
   for (const phrase of required) {
     if (!text.includes(phrase)) errors.push(`missing current-state phrase: ${phrase}`);
@@ -54,6 +73,26 @@ function currentIndexErrors(text: string): string[] {
   }
   for (const heading of ["## Phase gates", "## Active plan", "## Next step"]) {
     if (countExactLine(text, heading) !== 1) errors.push(`expected exactly one ${heading}`);
+  }
+  if (countExactLine(text, PHASE8_STATUS_LINE) !== 1) {
+    errors.push("expected exactly one structured Phase 8A/8B status line");
+  }
+  const lines = text.split(/\r?\n/u);
+  const phase8GateLines = lines.filter((line) => line.startsWith("| 8 |"));
+  if (phase8GateLines.length !== 1 || !phase8GateLines[0]?.startsWith(PHASE8_GATE_PREFIX)) {
+    errors.push("expected exactly one active-incomplete Phase 8 gate row");
+  }
+  const phase7GateLines = lines.filter((line) => line.startsWith("| 7 |"));
+  if (phase7GateLines.length !== 1 || !phase7GateLines[0]?.startsWith(PHASE7_GATE_PREFIX)) {
+    errors.push("expected exactly one not-started Phase 7 gate row");
+  }
+  if (text.split("Phase 9 remains unchartered").length - 1 !== 1) {
+    errors.push("expected exactly one unchartered Phase 9 status");
+  }
+  for (const line of lines) {
+    if (CONTRADICTORY_STATE_PATTERNS.some((pattern) => pattern.test(line))) {
+      errors.push(`contradictory current-state claim: ${line.trim()}`);
+    }
   }
   if (text.includes("### Archival material below")) errors.push("archival chronology remained live");
   if (text.includes("### Superseded Phase 6 closure")) errors.push("retracted closure remained live");
@@ -125,7 +164,7 @@ describe("compact progress index and byte-exact historical record", () => {
       .match(/^# Handoff .* \((\d{4}-\d{2}-\d{2})\)$/mu)?.[1];
     // HANDOFF.md is the last maker-triggered stop snapshot and moves only on maker request;
     // PROGRESS.md advances with ordinary work, so the two dates are pinned independently.
-    expect(progressDate).toBe("2026-08-10");
+    expect(progressDate).toBe("2026-08-11");
     expect(handoffDate).toBe("2026-08-07");
     for (const statePlan of STATE_PLANS) expect(existsSync(statePlan)).toBe(true);
     expect(existsSync(ARCHIVE)).toBe(true);
@@ -156,12 +195,38 @@ describe("compact progress index and byte-exact historical record", () => {
     expect(currentIndexErrors(current.replace("Phase 6 is ACTIVE AND INCOMPLETE", "Phase 6 is complete")))
       .toContain("missing current-state phrase: Phase 6 is ACTIVE AND INCOMPLETE");
     const phase8StatusMutation = current.replace(
-      "Phase 8 is COMPLETE (2026-08-10)",
+      "Phase 8A is COMPLETE (2026-08-10); Phase 8B is ACTIVE AND INCOMPLETE (2026-08-11)",
       "Phase 8 is inactive",
     );
     expect(phase8StatusMutation).not.toBe(current);
     expect(currentIndexErrors(phase8StatusMutation))
-      .toContain("missing current-state phrase: Phase 8 is COMPLETE (2026-08-10)");
+      .toContain(
+        "missing current-state phrase: "
+          + "Phase 8A is COMPLETE (2026-08-10); Phase 8B is ACTIVE AND INCOMPLETE (2026-08-11)",
+      );
+    const phase8IdentityMutation = current.replace(
+      "47a75f3fcc499d74d36cd08eeaed7f4e839bf991deb179fa19ce809d57e171ec",
+      "07a75f3fcc499d74d36cd08eeaed7f4e839bf991deb179fa19ce809d57e171ec",
+    );
+    expect(phase8IdentityMutation).not.toBe(current);
+    expect(currentIndexErrors(phase8IdentityMutation))
+      .toContain(
+        "missing current-state phrase: "
+          + "47a75f3fcc499d74d36cd08eeaed7f4e839bf991deb179fa19ce809d57e171ec",
+      );
+    const phase8BoundaryMutation = current
+      .replace("Phase 8B writes separate artifacts", "Phase 8B rewrites v1 artifacts")
+      .replace(
+        "Preserve `evidence/phase8-target-book/` byte-for-byte",
+        "Revise `evidence/phase8-target-book/` in place",
+      );
+    expect(phase8BoundaryMutation).not.toBe(current);
+    expect(currentIndexErrors(phase8BoundaryMutation))
+      .toContain("missing current-state phrase: Phase 8B writes separate artifacts");
+    expect(currentIndexErrors(phase8BoundaryMutation))
+      .toContain(
+        "missing current-state phrase: Preserve `evidence/phase8-target-book/` byte-for-byte",
+      );
 
     const phase7StatusMutation = current.replace(
       "Phase 7 is completely standalone",
@@ -170,18 +235,39 @@ describe("compact progress index and byte-exact historical record", () => {
     expect(phase7StatusMutation).not.toBe(current);
     expect(currentIndexErrors(phase7StatusMutation))
       .toContain("missing current-state phrase: Phase 7 is completely standalone");
+    const phase9StatusMutation = current.replace(
+      "Phase 9 remains unchartered",
+      "Phase 9 may start now",
+    );
+    expect(phase9StatusMutation).not.toBe(current);
+    expect(currentIndexErrors(phase9StatusMutation))
+      .toContain("missing current-state phrase: Phase 9 remains unchartered");
+    expect(currentIndexErrors(`${current}\nPhase 8B is COMPLETE.\n`))
+      .toContain("contradictory current-state claim: Phase 8B is COMPLETE.");
+    expect(currentIndexErrors(`${current}\nPhase 8B may rewrite target-book v1 artifacts in place.\n`))
+      .toContain(
+        "contradictory current-state claim: Phase 8B may rewrite target-book v1 artifacts in place.",
+      );
+    expect(currentIndexErrors(`${current}\nPhase 7 is ACTIVE.\n`))
+      .toContain("contradictory current-state claim: Phase 7 is ACTIVE.");
+    expect(currentIndexErrors(`${current}\nPhase 9 is now chartered.\n`))
+      .toContain("contradictory current-state claim: Phase 9 is now chartered.");
+    expect(currentIndexErrors(`${current}\n${PHASE8_STATUS_LINE}\n`))
+      .toContain("expected exactly one structured Phase 8A/8B status line");
+    expect(currentIndexErrors(`${current}\n${PHASE8_GATE_PREFIX} contradictory |\n`))
+      .toContain("expected exactly one active-incomplete Phase 8 gate row");
     for (const phrase of FORBIDDEN_SEQUENCING) {
       expect(currentIndexErrors(`${current}\n${phrase}\n`))
         .toContain(`stale sequencing phrase: ${phrase}`);
     }
 
     const phase8LinkMutation = current.replaceAll(
-      "(plans/phase-8-what-is-real.md)",
+      "(plans/phase-8-measurement-corpus.md)",
       "(plans/missing-phase-8-plan.md)",
     );
     expect(phase8LinkMutation).not.toBe(current);
     expect(currentIndexErrors(phase8LinkMutation))
-      .toContain("missing current-state phrase: (plans/phase-8-what-is-real.md)");
+      .toContain("missing current-state phrase: (plans/phase-8-measurement-corpus.md)");
     expect(currentIndexErrors(`${current}\n## Next step\n`))
       .toContain("expected exactly one ## Next step");
     expect(currentIndexErrors(`${current}\n${ARCHIVE_MARKER}`))

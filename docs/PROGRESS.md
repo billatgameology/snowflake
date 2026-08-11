@@ -24,18 +24,19 @@ index, a plan, ADR, or audit links to historical detail.
   campaign close at measured-only grade (stated as not computed by decision 0045, never as
   satisfied), and a 204-point measured-only `M1_NO_DIP_ABLATION` sweep — arm-2-identical except
   `paramSet` — completes the three-arm baseline inside the envelope.
-- **Phase 8 is COMPLETE (2026-08-10).** Accepted decision
-  [0046](decisions/0046-run-phase8-source-reconciliation-in-parallel.md) and charter v1.23
-  governed the completed [target-book plan](plans/phase-8-what-is-real.md). Quoted from
+- **Phase 8A is COMPLETE (2026-08-10); Phase 8B is ACTIVE AND INCOMPLETE (2026-08-11).**
+  Decision [0047](decisions/0047-expand-phase8-to-measurement-corpus-closure.md) and charter v1.24
+  preserve the completed [target-book v1 plan](plans/phase-8-what-is-real.md) while the new
+  [measurement-corpus plan](plans/phase-8-measurement-corpus.md) inventories and extracts all
+  eligible measurement units in a frozen local manifest plus a bounded registered external search.
+  Quoted from
   [`evidence/phase8-target-book/freeze.json`](../evidence/phase8-target-book/freeze.json) at this
   update: the canonical book is 59,019 bytes / SHA-256
   `47a75f3fcc499d74d36cd08eeaed7f4e839bf991deb179fa19ce809d57e171ec`, with 18 entries
   (16 targets / 2 inputs) split 7 held out / 5 model development / 4 out of model / 2 inputs. The
-  9,930-byte report is `02950ac0…0712`; the 4,434-byte freeze is `f9a5f4ee…b158`. It pins and
-  re-derives the book, report, sources/supporting records, data, operators, verifier, leakage guard,
-  split, and stage-0 byte equality. The required review and final report-only transfer both closed
-  with 0 blockers. No solver/model scoring ran, no validation label is granted, and no Phase 6
-  claim or credit is borrowed.
+  reviewed freeze closed with 0 blockers. Phase 8B writes separate artifacts and cannot mutate it,
+  score a model, implement Phase 9, grant a validation label, or borrow Phase 6 credit.
+  Reconnaissance is not search evidence; “complete” is bounded to registered routes and cutoff.
   Phase 7 is completely standalone from the completion of Phases 6 and 8: it is not started and
   still needs its own committed plan/worktree, but neither phase gates it. Its existing product,
   held-out-validation, and GPU-parity scope remains. Phase 9 and Phase 10 remain uncharted.
@@ -109,13 +110,6 @@ index, a plan, ADR, or audit links to historical detail.
 - The minimum current planning count remains `612 × S × D × Z` rows (three arms × 204 points ×
   spacings × domains × physical-size strata). The illustrative three-spacing, three-domain,
   one-size matrix is 5,508 CPU rows; it is a feasibility count, not a frozen protocol.
-- The redirected baseline's exact `npm.cmd test` exited 0 in 674.8 seconds (Rule 7: 425 files; both
-  TypeScript projects; Vitest: 81 files / 1,446 tests in 666.70 seconds). The direction-amendment
-  unit's single non-author review found one stale live held-out instruction; its bounded follow-up
-  closed it with 0 blockers / 0 suggestions after exact quote coverage and focused checks. On the
-  accepted v1.21 landing candidate, exact `npm.cmd test` exited 0 in 665.9 seconds: Rule 7 was clean
-  over 428 files, both TypeScript projects passed, and Vitest passed 81 files / 1,446 tests in 657.56
-  seconds. These are repository checks, not Phase 6 scientific evidence.
 - Education is frozen for Phase 6 with one maker-directed exception already landed: commit
   `af7463b` (2026-08-04, maker-approved mid-pause) added the independent-laboratory record to
   chapters 4–13, `references.html`, and `FUTURE-ADDITIONS.md`. No other `docs/education/**` drift
@@ -133,22 +127,6 @@ index, a plan, ADR, or audit links to historical detail.
   tooling, the paper-coverage sweep, the growth-timeline viewer, and `docs/social/`) landed on
   `origin/main` 2026-08-06 via PR #1 from `explore/social-content`; that branch is otherwise
   outside Phase 6 scope and this bullet's "not evidence, no gate claim" status is unchanged.
-- The maker pushed `main` on 2026-08-06 (remote update 06:20:47 −0700; then `origin/main` = `af7463b`).
-  On maker direction later that day, local `main` merged `origin/main` at `6599a2c` — the PR #1
-  gut-check/social content plus its reconciliation merges, performed by Claude Sonnet 5 per their
-  commit records — with one conflict, this section, resolved by keeping the newer Phase 6 state
-  and adopting the exploration-branch bullet above. The remote touched only `docs/`, `scripts/`,
-  and `app/` — no solver, evidence, `.gitattributes`, or charter files. On the merged tree (`4181724`), exact
-  `npm.cmd test` exited 0: Rule 7 clean over 475 files, both TypeScript projects passed, Vitest
-  83 files / 1,467 tests in 680.51 s; the maker-directed push of merged `main` executed
-  2026-08-06. Preserve `research/tmp/` as useful local research context; durable generated
-  science belongs under tracked `evidence/`.
-- 2026-08-06 resume baseline: exact `npm.cmd test` at `af7463b` exited 0 in 803.16 s of Vitest
-  (Rule 7 clean over 432 files; both TypeScript projects passed; 81 files / 1,446 tests). Same
-  session author-side verification (Claude Fable 5, shared context — working checks, not a
-  non-author review): all four pinned identities above recomputed and matched 4/4 (host
-  observation, source-currency record, LF-normalized parameter table, progress-history body);
-  worktree tracked-clean; education-drift and unpushed-range content checks passed.
 - **WP1 size strata are FROZEN (2026-08-06).** `evidence/phase6-size-strata/strata.json` is
   18,867 bytes with SHA-256 `aba93698ad6dcd72237a9c7ffa48588143533db315c059a29f6cd98c8d0288b6`:
   S1 observed initial radius `[5.8999999999999995, 12.1]` µm (15 uncontested Harrison traces;
@@ -161,7 +139,7 @@ index, a plan, ADR, or audit links to historical detail.
   frozen tree exited 0: Rule 7 clean over 436 files, both TypeScript projects, Vitest 82 files /
   1,454 tests in 628.68 s. Whether WP2 uses Z = 2 or Z = 1 strata is a WP2/WP3 protocol
   decision.
-- **Last updated:** 2026-08-10 by OpenAI Codex
+- **Last updated:** 2026-08-11 by OpenAI Codex
 
 ## Phase gates
 
@@ -178,14 +156,15 @@ and every superseded attempt live in the linked plans and historical progress sn
 | 4 | Complete 2026-07-18 | `gate4` at `70a2496`: 24/24 blocking G-G records and 12/12 diagnostic LK records executed; `gatePass=true`, `passBDiagnosticPass=false`. Repro: `node runner/src/main.ts gate4`. |
 | 5 | Complete, maker-asserted 2026-07-26 | Clean `c436df5`, observed Windows/Chromium/D3D12: 16/16 gate criteria, 560 bounded segments below 500 ms, zero device losses/errors/full-field display-frame reads, 16/16 negative controls rejected. Repro: `node runner/src/main.ts gate5-lane` and `node runner/src/main.ts gate5`. |
 | 6 | **Active and incomplete** | The three measured-only arms and WP1 strata are published. The budget-capped ladder is executing; its verdict and WP8 gate remain. Headline/R15/campaign closed at measured-only grade; held-out/GPU execution deferred with no Phase 6 credit. |
-| 7 | Not started; independently eligible | Charter v1.23 removes Phase 6/8 completion dependencies but does not start the phase. A committed Phase 7 plan and isolated worktree are required; product, held-out validation, and v6 WGSL/preview-GPU parity remain its scope. |
-| 8 | **Complete 2026-08-10** | S0-S6 complete. Frozen book: 18 entries / 59,019 bytes / SHA-256 `47a75f3f…71ec`; split 7 held out, 5 model development, 4 out of model, 2 inputs. Required non-author review and final status-transfer check: 0 unresolved blockers. No solver/scoring run and no validation claim. [Plan](plans/phase-8-what-is-real.md). |
+| 7 | Not started; independently eligible | Charter v1.24 preserves Phase 7's independence but does not start it. A committed Phase 7 plan and isolated worktree are required; product, held-out validation, and v6 WGSL/preview-GPU parity remain its scope. |
+| 8 | **8A complete; 8B active and incomplete** | The immutable v1 book is 18 entries / 59,019 bytes / SHA-256 `47a75f3f…71ec`. Decision 0047 now requires registered source/search closure and complete measurement-unit inventory/extraction in separate artifacts before a successor freeze. [Active plan](plans/phase-8-measurement-corpus.md). |
 
 ## Active plan
 
 [phase-6-science-first-completion.md](plans/phase-6-science-first-completion.md) remains the active
-Phase 6 implementation plan. [phase-8-what-is-real.md](plans/phase-8-what-is-real.md) is the
-completed Phase 8 record. Decision 0046 kept their worktrees, processes, artifacts, claims, and
+Phase 6 implementation plan. [phase-8-measurement-corpus.md](plans/phase-8-measurement-corpus.md)
+is the active Phase 8B plan; [phase-8-what-is-real.md](plans/phase-8-what-is-real.md) is the
+completed 8A record. Decisions 0046–0047 keep worktrees, processes, artifacts, claims, and
 completion credit isolated; cold starts read the plan for the workstream they will touch. The
 detailed V4/V4.x chronology remains in the closed
 [WP1 history](plans/phase-6-wp1-source-lineage-and-tax2.md) and recovery artifacts; it is not a live
@@ -217,11 +196,12 @@ reconciliation — Phase 6 closes. Do not resume education or V4/V4.x apparatus.
 preview-GPU work may begin only as separately planned Phase 7 work in its own worktree; never run
 it from the Phase 6 lane or count it toward Phase 6.
 
-### Phase 8 lane — complete
+### Phase 8B lane — freeze the denominators before extraction
 
-No Phase 8 action remains. The frozen book, split, operators, source/supporting indexes, verifier,
-review provenance, and explicit source gaps are recorded in
-[phase-8-what-is-real.md](plans/phase-8-what-is-real.md). Any later book revision requires a new
-registered scope, source-currency check, freeze, and non-author review; do not silently digitize
-the deferred tables/curves or promote the Bailey precursor. Phase 9 remains uncharted and may not
-start from this completion record alone.
+Commit decision 0047, charter v1.24, the
+[measurement-corpus plan](plans/phase-8-measurement-corpus.md), and this state transition before
+inventory/search implementation. Then execute S0–S1: freeze the exact NAS container/page/member
+denominator and the exact external routes, queries, citation seeds, cutoff, inclusion, currency,
+acquisition, lineage, rights, digitization, and frontier-expansion stopping rules. Preliminary browsing is
+reconnaissance only. Preserve `evidence/phase8-target-book/` byte-for-byte; write all 8B evidence to
+separate paths. Phase 9 remains unchartered and cannot start from either milestone alone.
