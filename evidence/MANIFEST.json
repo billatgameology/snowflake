@@ -3,8 +3,8 @@
  "movedFrom": "out/ (gitignored), plus the byte-identical tracked arm64 fingerprint formerly under docs/",
  "movedTo": "evidence/ (tracked)",
  "note": "Historical sweep digests were computed before their move and re-verified afterward. The arm64 fingerprint preserves the exact former docs/ Git blob (18398 bytes, SHA-256 d6686f8e...). The x64 fingerprint is the complete 2026-08-01 lightweight fixture re-execution backing the exact per-entry comparison; it reproduces registered digest 2a9f64b3. These are preserved claim-backing bytes, not regenerated production sweeps.",
- "fileCount": 23,
- "totalBytes": 1273154,
+ "fileCount": 24,
+ "totalBytes": 1277588,
  "files": {
   "phase6-crossplatform/arm64-libm-fingerprint.txt": {
    "bytes": 18398,
@@ -97,6 +97,10 @@
   "phase6-sweep-arm3/diagram.svg": {
    "bytes": 30634,
    "sha256": "bf229f942b043dc58b9bcca079516694fb1d824b2888c6a6191e09b372468709"
+  },
+  "phase8-target-book/freeze.json": {
+   "bytes": 4434,
+   "sha256": "f9a5f4ee1f75c3038c2c051fe27ea68ee3f11f38f14d6ac6770604dd65e3b158"
   }
  }
 }

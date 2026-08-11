@@ -32,6 +32,7 @@ limits contemporaneously.
 - `2011.02353v1` Figure 1 p2 and Figure 5 p7
 - `2306.04042v1` Table 1 p9 and Figures 2–3 p10
 - `1912.03230v1` p10 and p13 — the two statements §7B rests on, verified verbatim
+<a id="P8X-LIB-SIGMA-SEMANTICS"></a>
 - the supersaturation convention, verified in `1211.5555v1` p2 and `1910.06389v2` p59
 
 Everything else in this document carries the workflow's own verification and no more.
@@ -191,6 +192,8 @@ listed below by severity, grouped by theme within each severity band.
 ---
 
 ## 2. Attachment-kinetics parameters, assembled across papers
+
+<a id="P8X-LIB-KINETICS-INPUT"></a>
 
 Every sigma0 and A value printed as a number anywhere in the ten papers, keyed by temperature and
 facet. **47 numeric sigma0/A entries** and **7 printed closed-form expressions** were found. Values
@@ -444,6 +447,8 @@ The trigger is stated to be mesoscopic facet geometry, not temperature alone.
 
 ## 4. The c-axis needle seed and the 206-observation data set
 
+<a id="P8X-LIB-NEEDLE-MATRIX"></a>
+
 The project seeds with a small hexagonal plate. Every observation in the two Taxonomy papers, in CM8,
 CM9, and in TRIG was grown on the tip of a slender c-axis "electric" ice needle instead. This section
 collects the seed geometry and chamber conditions in full.
@@ -622,6 +627,7 @@ been read off any of them.
 | CM7 | 3 and 4 | 5, 6 | Two stacked panels each, x = sigma_surface (percent), log, 0.01 to ~3; y = alpha_basal (0.001-1) and alpha_prism (0.01-1) | Two pressure-condition point clouds from the same experimental/model-analysis lineage at -2 C, with error bars (0.03 and 0.06 bar). Digitizing both gives a within-study reproducibility envelope on the inferred attachment coefficients and the constrained A_prism = 1 mismatch; it is not an independent-source comparison. |
 | CM7 | 8 | 8 | x = TEMPERATURE C, 0 to about -35; y = size in mm, 0 to ~0.55 (reproduced from [1987Kob]) | A measured size-versus-temperature curve for BOTH diameter and thickness after 200 s at water saturation - an experimental aspect-ratio-versus-temperature trace spanning roughly 0 to -30 C. Only the (40, 180) nm/sec pair at -2 C is quoted numerically in the text. |
 | CM7 | 6 | 7 | Two stacked linear panels, x = growth time (s), 0 to ~450; y = diameter (um) 0-80+ and thickness (um) 0-~11 | Measured diameter AND thickness versus time for free-falling crystals at -2 C at two supersaturations in 1 bar air. Note the paper states these sigma_inf labels are too high by perhaps a factor of two. |
+<a id="P8X-LIB-TRAJECTORIES"></a>
 | APP | 6 | 12 | x = Time (s), 0 to 250; left y = R, H (microns), -2 to 10; right y = Supersaturation (percent), -0.1 to 0.5 | A full R(t) and H(t) growth-and-sublimation trajectory for a real faceted prism at -5 C and 0.08 bar, with sigma_subst,0(t), sigma_subst(t) and sigma_surf(t) traces. Gives a measured aspect-ratio history, the actual magnitude of the two diffusion corrections, and the data behind the sigma0,basal = 0.73% / sigma0,prism = 0.20% / A_prism = 0.25 fit. |
 | CM8 | 9 | 8 | Top: y = R_needle, R_plate, H (microns), 0 to ~60; x = Time (s), 0 to 100 | A diffusion-limited source-model comparison at -15 C with the prism nucleation parameter varied over a printed grid, against measured R(t) and H(t). It is an in-sample transcription/solver diagnostic, not an independent ready-made validation benchmark. |
 | CM8 | 11 | 10 | y = R, H (microns), 0 to ~160; x = Growth Time (s), 0 to ~220; note H is plotted as 10*H | The -14 C "exceptionally thin plate" (30:1 prism:basal) from the same source lineage that informed the SDAK model. It is an in-sample aspect-ratio history candidate, with seed/geometry mapping required. |
@@ -671,6 +677,8 @@ Every printed statement bearing on the open problem - the model produces no colu
 > 2306.13087v1, p.5)
 
 ### 7B. Statements that a plate is the CORRECT output of a broad-facet model at -5 C
+
+<a id="P8X-LIB-LOW-SIGMA-M5"></a>
 
 > "The model predicted that platelike morphologies at -5 C should appear both in vacuum and in air at
 > low supersaturations, provided the crystals exhibit relatively broad basal and prism facets. This
@@ -727,6 +735,7 @@ Every printed statement bearing on the open problem - the model produces no colu
 > roughly x_SD from the facet edge. This covers most of the surface on a thin-plate crystal, but only
 > a small fraction of the area on a large faceted surface." (CM10, p.11)
 
+<a id="P8X-LIB-HISTORY-M5"></a>
 **A fast-growth transient, i.e. history dependence.**
 
 > "the model predicts that we should be able to observe columnar growth on a substrate in air at -5
@@ -798,6 +807,7 @@ Every printed statement bearing on the open problem - the model produces no colu
 | Needle tip velocities at -5 C at high sigma_inf | (330, 50), (970, 190), (1950, 390), (3000, 1200), (6000, 4400) nm/sec | CM6 | 19 | "Measurements of these and other images yielded tip velocity measurements of (v_basal, v_prism) ~= (330, 50), (970, 190), (1950, 390), (3000, 1200), and (6000, 4400) nm/sec." |
 | Knight's needles at -5 C | ~2 um/sec tip velocity implying sigma_surf ~= 0.4% at the tip | CM6 | 20 | "With the reported needle tip velocities of about 2 um/sec, this implies sigma_surf ~= 0.4% at the needle tip, which is again illustrated in Figure 17." |
 | Columns grown on a substrate at -5 C by starting high | sigma_inf ~= 3% | CM6 | 16 | "I performed this experiment, and Figure 12 shows some example crystals using sigma_inf ~= 3% (the exact value was somewhat ill-determined, and sigma_inf rapidly decreased from diffusion effects as the deposited crystals grew larger)." |
+<a id="P8X-LIB-WARM-B8"></a>
 | Basal/prism growth-rate equality | -8 C | TAX1 | 21 | "The basal and prism growth rates are nearly identical at -8 C, yielding blocky forms and weak sidebranching at high supersaturations." |
 | Columnar morphology at -14 C at low sigma | at 4% and below | CM8 | 12 | "As sigma_far drops to 4% and below, the e-needle growth morphology changes to a long faceted columnar structure with nearly equal basal and prism growth rates." |
 | Columnar morphology at -14 C in TRIG | below sigma_inf = 6% | TRIG | 7 | "When sigma_inf was reduced below 6 percent, platelike crystals no longer grew from the ice needles, and the initially slender ice needles grew slowly into blocky forms or into simple columns." |

@@ -24,12 +24,18 @@ index, a plan, ADR, or audit links to historical detail.
   campaign close at measured-only grade (stated as not computed by decision 0045, never as
   satisfied), and a 204-point measured-only `M1_NO_DIP_ABLATION` sweep — arm-2-identical except
   `paramSet` — completes the three-arm baseline inside the envelope.
-- **Phase 8 is ACTIVE IN PARALLEL WITH PHASE 6.** Accepted decision
+- **Phase 8 is COMPLETE (2026-08-10).** Accepted decision
   [0046](decisions/0046-run-phase8-source-reconciliation-in-parallel.md) and charter v1.23
-  authorize the [target-book plan](plans/phase-8-what-is-real.md) in isolated branch
-  `phase/8-what-is-real` and worktree `/Users/clipper/github/snowflake-phase8`. S-1 governance is
-  complete; S0 extraction has not started. Phase 8 runs no solver work, treats Phase 6 artifacts
-  and processes as read-only, borrows no incomplete claim, and earns no Phase 6 credit.
+  governed the completed [target-book plan](plans/phase-8-what-is-real.md). Quoted from
+  [`evidence/phase8-target-book/freeze.json`](../evidence/phase8-target-book/freeze.json) at this
+  update: the canonical book is 59,019 bytes / SHA-256
+  `47a75f3fcc499d74d36cd08eeaed7f4e839bf991deb179fa19ce809d57e171ec`, with 18 entries
+  (16 targets / 2 inputs) split 7 held out / 5 model development / 4 out of model / 2 inputs. The
+  9,930-byte report is `02950ac0…0712`; the 4,434-byte freeze is `f9a5f4ee…b158`. It pins and
+  re-derives the book, report, sources/supporting records, data, operators, verifier, leakage guard,
+  split, and stage-0 byte equality. The required review and final report-only transfer both closed
+  with 0 blockers. No solver/model scoring ran, no validation label is granted, and no Phase 6
+  claim or credit is borrowed.
   Phase 7 is completely standalone from the completion of Phases 6 and 8: it is not started and
   still needs its own committed plan/worktree, but neither phase gates it. Its existing product,
   held-out-validation, and GPU-parity scope remains. Phase 9 and Phase 10 remain uncharted.
@@ -173,14 +179,14 @@ and every superseded attempt live in the linked plans and historical progress sn
 | 5 | Complete, maker-asserted 2026-07-26 | Clean `c436df5`, observed Windows/Chromium/D3D12: 16/16 gate criteria, 560 bounded segments below 500 ms, zero device losses/errors/full-field display-frame reads, 16/16 negative controls rejected. Repro: `node runner/src/main.ts gate5-lane` and `node runner/src/main.ts gate5`. |
 | 6 | **Active and incomplete** | The three measured-only arms and WP1 strata are published. The budget-capped ladder is executing; its verdict and WP8 gate remain. Headline/R15/campaign closed at measured-only grade; held-out/GPU execution deferred with no Phase 6 credit. |
 | 7 | Not started; independently eligible | Charter v1.23 removes Phase 6/8 completion dependencies but does not start the phase. A committed Phase 7 plan and isolated worktree are required; product, held-out validation, and v6 WGSL/preview-GPU parity remain its scope. |
-| 8 | **Active; S0 not started** | Decision 0046 and charter v1.23 authorize source reconciliation alongside Phase 6 under the isolated, no-borrowed-claims boundary. [Plan](plans/phase-8-what-is-real.md). |
+| 8 | **Complete 2026-08-10** | S0-S6 complete. Frozen book: 18 entries / 59,019 bytes / SHA-256 `47a75f3f…71ec`; split 7 held out, 5 model development, 4 out of model, 2 inputs. Required non-author review and final status-transfer check: 0 unresolved blockers. No solver/scoring run and no validation claim. [Plan](plans/phase-8-what-is-real.md). |
 
 ## Active plan
 
 [phase-6-science-first-completion.md](plans/phase-6-science-first-completion.md) remains the active
 Phase 6 implementation plan. [phase-8-what-is-real.md](plans/phase-8-what-is-real.md) is the
-independent active Phase 8 plan. Decision 0046 keeps their worktrees, processes, artifacts, claims,
-and completion credit isolated; cold starts read the plan for the workstream they will touch. The
+completed Phase 8 record. Decision 0046 kept their worktrees, processes, artifacts, claims, and
+completion credit isolated; cold starts read the plan for the workstream they will touch. The
 detailed V4/V4.x chronology remains in the closed
 [WP1 history](plans/phase-6-wp1-source-lineage-and-tax2.md) and recovery artifacts; it is not a live
 schedule.
@@ -211,12 +217,11 @@ reconciliation — Phase 6 closes. Do not resume education or V4/V4.x apparatus.
 preview-GPU work may begin only as separately planned Phase 7 work in its own worktree; never run
 it from the Phase 6 lane or count it toward Phase 6.
 
-### Phase 8 parallel lane — begin S0 source extraction
+### Phase 8 lane — complete
 
-From `/Users/clipper/github/snowflake-phase8`, open
-[phase-8-what-is-real.md](plans/phase-8-what-is-real.md) and inventory the exact local source,
-version, and page mapping for the eight named non-Libbrecht source families before writing their
-tracked extraction indexes. Start with source-currency and rights checks; do not invent plotted
-values, digitize image-only tables, alter the historical Libbrecht-scoped dataset, run a solver, or
-touch any Phase 6/7 artifact. Reconcile relevant `origin/main` source/provenance changes before the
-target-book freeze.
+No Phase 8 action remains. The frozen book, split, operators, source/supporting indexes, verifier,
+review provenance, and explicit source gaps are recorded in
+[phase-8-what-is-real.md](plans/phase-8-what-is-real.md). Any later book revision requires a new
+registered scope, source-currency check, freeze, and non-author review; do not silently digitize
+the deferred tables/curves or promote the Bailey precursor. Phase 9 remains uncharted and may not
+start from this completion record alone.

@@ -9,7 +9,7 @@ const REPO = fileURLToPath(new URL("../..", import.meta.url));
 const PROGRESS = resolve(REPO, "docs", "PROGRESS.md");
 const HANDOFF = resolve(REPO, "docs", "HANDOFF.md");
 const ARCHIVE = resolve(REPO, "docs", "progress-history-through-2026-08-02.md");
-const ACTIVE_PLANS = [
+const STATE_PLANS = [
   resolve(REPO, "docs", "plans", "phase-6-science-first-completion.md"),
   resolve(REPO, "docs", "plans", "phase-8-what-is-real.md"),
 ];
@@ -37,7 +37,7 @@ function currentIndexErrors(text: string): string[] {
   const errors: string[] = [];
   const required = [
     "Phase 6 is ACTIVE AND INCOMPLETE",
-    "Phase 8 is ACTIVE IN PARALLEL WITH PHASE 6",
+    "Phase 8 is COMPLETE (2026-08-10)",
     "Phase 7 is completely standalone",
     "CAK 3/90, M1 54/90",
     "M1_NO_DIP_ABLATION",
@@ -127,7 +127,7 @@ describe("compact progress index and byte-exact historical record", () => {
     // PROGRESS.md advances with ordinary work, so the two dates are pinned independently.
     expect(progressDate).toBe("2026-08-10");
     expect(handoffDate).toBe("2026-08-07");
-    for (const activePlan of ACTIVE_PLANS) expect(existsSync(activePlan)).toBe(true);
+    for (const statePlan of STATE_PLANS) expect(existsSync(statePlan)).toBe(true);
     expect(existsSync(ARCHIVE)).toBe(true);
   });
 
@@ -156,12 +156,12 @@ describe("compact progress index and byte-exact historical record", () => {
     expect(currentIndexErrors(current.replace("Phase 6 is ACTIVE AND INCOMPLETE", "Phase 6 is complete")))
       .toContain("missing current-state phrase: Phase 6 is ACTIVE AND INCOMPLETE");
     const phase8StatusMutation = current.replace(
-      "Phase 8 is ACTIVE IN PARALLEL WITH PHASE 6",
+      "Phase 8 is COMPLETE (2026-08-10)",
       "Phase 8 is inactive",
     );
     expect(phase8StatusMutation).not.toBe(current);
     expect(currentIndexErrors(phase8StatusMutation))
-      .toContain("missing current-state phrase: Phase 8 is ACTIVE IN PARALLEL WITH PHASE 6");
+      .toContain("missing current-state phrase: Phase 8 is COMPLETE (2026-08-10)");
 
     const phase7StatusMutation = current.replace(
       "Phase 7 is completely standalone",

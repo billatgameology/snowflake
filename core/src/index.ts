@@ -7,3 +7,4 @@ export * from "./checkpoint.ts";
 export * from "./lk-resume-checkpoint.ts";
 export * from "./prng.ts";
 export * from "./libbrecht.ts";
+export * from "./target-observables.ts";
