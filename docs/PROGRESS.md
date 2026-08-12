@@ -222,6 +222,8 @@ Acquisition and real source inspection have started: the NAS currently holds 23 
 connection-reset remnants are labeled `.partial-corrupt` and excluded from the usable set. Next:
 finish full-text scope screening and authoritative acquisition of eligible leads, freeze the
 cumulative included-source set, then run the required zero-addition rounds. Do not restore the
-rejected 256-cell broad pagination matrix. S4, not S2, owns target-coordinate extraction calibration.
+rejected 256-cell broad pagination matrix. Source acquisition is NAS-first and host-conservative:
+one request per source, no same-host parallelism or automatic retry loops; failures stay open for a
+later deliberate follow-up. S4, not S2, owns target-coordinate extraction calibration.
 Preserve `evidence/phase8-target-book/` byte-for-byte and keep all 8B evidence separate.
 Phase 9 remains unchartered and cannot start from either milestone alone.

@@ -659,3 +659,10 @@ the registered gate. Phase 9 scope decisions wait for S6.
   not finished. Full-text page inspection is underway for S2 eligibility screening; it does not
   count as either independent S3 classification pass. No target coordinate is being read and no S4
   extraction operator is implied.
+- **Acquisition pacing correction:** after repeated J-STAGE connection resets, the maker directed
+  the search not to spam download hosts. Reuse NAS bytes first; make at most one direct-PDF request
+  per source during a pass, never issue parallel requests to the same host, and do not run automatic
+  retry loops. A 403, reset or incomplete transfer becomes a terminal acquisition disposition for
+  the round and is revisited only through a later deliberate follow-up or a distinct authoritative
+  repository. This changes transport behavior only; it does not relax S2 coverage or acquisition
+  closure.
