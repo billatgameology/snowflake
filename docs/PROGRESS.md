@@ -28,6 +28,8 @@ index, a plan, ADR, or audit links to historical detail.
   Decision [0048](decisions/0048-focus-phase8b-on-phase9-ready-benchmarks.md) and charter v1.25
   preserve the completed [Phase 8A target book](plans/phase-8-what-is-real.md) byte-for-byte and
   focus the [Phase 8B corpus](plans/phase-8-measurement-corpus.md) on measurements Phase 9 can use.
+  The [plain-English baseline guide](phase8-baseline-guide.md) summarizes what was measured, what
+  each family can test, its limitations and where the underlying Git/NAS artifacts live.
   Phase 8B writes separate artifacts; the immutable Phase 8A book remains 59,019 bytes / SHA-256
   `47a75f3fcc499d74d36cd08eeaed7f4e839bf991deb179fa19ce809d57e171ec`.
   Quoted from [`evidence/phase8b-benchmark-final-v1/report.json`](../evidence/phase8b-benchmark-final-v1/report.json):
