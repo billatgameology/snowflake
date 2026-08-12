@@ -1,0 +1,95 @@
+{
+  "schema": "phase9-knowledge-search-report-v1",
+  "cutoffDate": "2026-08-12",
+  "scope": "bounded source-currency and named theory-gap pass; not a claim of exhaustive literature coverage",
+  "trafficPolicy": {
+    "sequentialRequests": true,
+    "automaticRetries": 0,
+    "paginationRequests": 0,
+    "ciniiRequests": 0,
+    "openAlexRequests": 3,
+    "openAlexRecordsInspected": 75,
+    "openAlexTotalCostUsd": 0.003
+  },
+  "queries": [
+    {
+      "family": "surface-models",
+      "query": "\"ice crystal\" vapor growth model surface kinetics step source",
+      "asOfFilter": "2026-08-12",
+      "page": 1,
+      "perPage": 25,
+      "resultCount": 2040,
+      "costUsd": 0.001,
+      "nasPath": "/Volumes/snowcrystal/research-cache/phase9-search/knowledge-baseline-20260812-v1/openalex/surface-models.json",
+      "sha256": "e380061dd5082e4fd4a92a977abf8ff2e330041511b1df76c913f20151bb2f3d",
+      "disposition": "useful lineage routing; no pagination because the named mechanism families were already covered"
+    },
+    {
+      "family": "transport-models",
+      "query": "\"ice crystal\" vapor growth diffusion thermal pressure ventilation model",
+      "asOfFilter": "2026-08-12",
+      "page": 1,
+      "perPage": 25,
+      "resultCount": 260,
+      "costUsd": 0.001,
+      "nasPath": "/Volumes/snowcrystal/research-cache/phase9-search/knowledge-baseline-20260812-v1/openalex/transport-models.json",
+      "sha256": "9153e6292d7ac8288b3091c861d457763fcf7cc7a61aa9bf4d87cb7245834b89",
+      "disposition": "useful currency check; retained Keller-Hallett as the named quantitative-source gap"
+    },
+    {
+      "family": "history-initiation-models",
+      "query": "\"ice crystal\" vapor growth initiation history transition hysteresis model",
+      "asOfFilter": "2026-08-12",
+      "page": 1,
+      "perPage": 25,
+      "resultCount": 51,
+      "costUsd": 0.001,
+      "nasPath": "/Volumes/snowcrystal/research-cache/phase9-search/knowledge-baseline-20260812-v1/openalex/history-initiation-models.json",
+      "sha256": "3751ee665666f7ed8febcbc538cdcfc80785c850ca561dffa5064ab6c8766c81",
+      "disposition": "low precision; existing Bacon, Libbrecht and Harrington-Pokrifka holdings already covered the usable decision space"
+    }
+  ],
+  "exactLeadAdjudications": [
+    {
+      "lead": "Discovering How Ice Crystals Grow Using Neural ODE's and Symbolic Regression",
+      "identity": "OpenAlex W4416054683; arXiv:2510.17935",
+      "decision": "promote as a bulk-transfer discriminator, not a local facet or morphology mechanism"
+    },
+    {
+      "lead": "Revisiting Theories for the Growth of Solid and Hollow Single Crystals: The Importance of Step-Source Location",
+      "identity": "doi:10.1175/JAS-D-26-0016.1",
+      "decision": "promote step-source location as a distinct hypothesis; exact implementation remains blocked on full article text"
+    },
+    {
+      "lead": "The quantitative growth law of ice crystals and its new model",
+      "identity": "OpenAlex W2322865507; doi:10.1007/BF02656742; published 1987",
+      "decision": "do not promote without authorized full text; the word new in the title does not make this a current model"
+    }
+  ],
+  "knownAccessEvents": [
+    {
+      "source": "Nelson and Baker 1996",
+      "attempts": 2,
+      "result": "initial HTTP 406; one deliberate user-agent retry succeeded; no further retry"
+    },
+    {
+      "source": "Harrington and Pokrifka 2026 publisher article",
+      "attempts": 2,
+      "result": "one publisher-PDF route and one DOI route returned HTTP 403; no retry; companion archive retained"
+    },
+    {
+      "source": "Keller and Hallett 1982",
+      "attempts": 1,
+      "result": "NASA NTRS metadata inspected; downloadsAvailable=false; no PDF download attempted"
+    }
+  ],
+  "promotedSourceCount": 18,
+  "promotedHypothesisCount": 15,
+  "stopReason": "Every proposed arm has a primary equation source or an explicit source-limited grade; the remaining uncertainty is model identifiability and source-to-measurement adaptation, not an unnamed mechanism family.",
+  "reopenOnlyFor": [
+    "Harrington-Pokrifka 2026 full article if M-SS is adopted",
+    "Keller-Hallett 1982 full article if quantitative M-V is adopted",
+    "Lamb cited training datasets for an experiment-ID overlap join",
+    "a new discrepancy exposed by an executed Phase 9 calculation"
+  ]
+}

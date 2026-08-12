@@ -45,6 +45,12 @@ index, a plan, ADR, or audit links to historical detail.
   Phase 7 is completely standalone from the completion of Phases 6 and 8: it is not started and
   still needs its own committed plan/worktree, but neither phase gates it. Its existing product,
   held-out-validation, and GPU-parity scope remains. Phase 9 and Phase 10 remain uncharted.
+- **The pre-adoption Phase 9 knowledge baseline is COMPLETE (research-only, 2026-08-12).** Its
+  [report](../research/phase9-knowledge-sources.md), [guide](phase9-knowledge-guide.md) and
+  [artifact](../evidence/phase9-knowledge-baseline-v1/report.json) (5,263 bytes; SHA-256
+  `37c7aadf18bce7420883930f66d6c6a473100dd27e1468dd8396a3c1214b1f96`) preserve 18 sources,
+  15 hypotheses, calculations and the bounded search. Exact `TMPDIR=/private/tmp npm test` passed
+  97/97 files (1,664 passed, 7 skipped; 377.65 s). No model ran; Phase 9 is unauthorized.
 - The maker's 2026-08-03 direction is recorded verbatim in the
   [active plan](plans/phase-6-science-first-completion.md) and enacted by accepted decisions
   [0042](decisions/0042-bound-phase6-evidence-integrity-scope.md),
@@ -219,11 +225,9 @@ residual backlog without a new named measurement gap. Phase 9 remains unchartere
 its proposed [consumer plan](plans/phase-9-modular-physics-arms.md) is ready for maker adoption review.
 All 51 Phase 8B records are development evidence and none may be relabeled held out.
 
-### Pre-adoption knowledge research — identify models before experiments
+### Pre-adoption Phase 9 knowledge research — closed; maker adoption decision next
 
-Follow [phase-9-knowledge-baseline.md](plans/phase-9-knowledge-baseline.md). First adjudicate the
-captured 1987 OpenAlex “new model” lead and the archived 2026 Harrington–Pokrifka step-source
-lineage, then inventory already-held theory sources before making any live request. External work
-is capped at three small query families plus justified exact-record/citation lookups; save acquired
-PDFs and rendered equation pages on the NAS. The output is a theory/equation/hypothesis baseline
-mapped to Phase 8 records, not solver work or a Phase 9 experiment.
+The [knowledge-baseline plan](plans/phase-9-knowledge-baseline.md) is complete; search stays stopped
+except for its named source prerequisites. Next, decide whether to adopt Phase 9 through an ADR and
+charter amendment. If adopted, start with S1 fixtures and S3's bounded D-BT scalar replay on the six
+205–240 K, 0–500 s histories, with a leave-one-history-out rescale rival, before any 3-D arm.

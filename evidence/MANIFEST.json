@@ -3,8 +3,8 @@
  "movedFrom": "out/ (gitignored), plus the byte-identical tracked arm64 fingerprint formerly under docs/",
  "movedTo": "evidence/ (tracked)",
  "note": "Historical sweep digests were computed before their move and re-verified afterward. The arm64 fingerprint preserves the exact former docs/ Git blob (18398 bytes, SHA-256 d6686f8e...). The x64 fingerprint is the complete 2026-08-01 lightweight fixture re-execution backing the exact per-entry comparison; it reproduces registered digest 2a9f64b3. These are preserved claim-backing bytes, not regenerated production sweeps.",
- "fileCount": 90,
- "totalBytes": 3102931,
+ "fileCount": 96,
+ "totalBytes": 3196381,
  "files": {
   "phase6-crossplatform/arm64-libm-fingerprint.txt": {
    "bytes": 18398,
@@ -365,6 +365,30 @@
   "phase8b-benchmark-final-v1/successor-target-book.jsonl": {
    "bytes": 36094,
    "sha256": "c54b89683eea1f064bd8e81d6e9e06b3b9bbc6c022168b981cbfa71e5fc3cdd3"
+  },
+  "phase9-knowledge-baseline-v1/artifact-index.json": {
+   "bytes": 1028,
+   "sha256": "c9a73f9464fc74be03cf805c617815f0a5ca3437b8fcf20e96c5e15bc6b77d96"
+  },
+  "phase9-knowledge-baseline-v1/calculations.json": {
+   "bytes": 36091,
+   "sha256": "71c3c15587f1a705dbfa6ac9dd7fcb74ef5141c7547d06214d4dd64e423efee5"
+  },
+  "phase9-knowledge-baseline-v1/hypotheses.jsonl": {
+   "bytes": 28878,
+   "sha256": "1c7d5ad2f4778b60240e83f150b237a33b12dd0bca388e319d203beb8d209b08"
+  },
+  "phase9-knowledge-baseline-v1/report.json": {
+   "bytes": 5263,
+   "sha256": "37c7aadf18bce7420883930f66d6c6a473100dd27e1468dd8396a3c1214b1f96"
+  },
+  "phase9-knowledge-baseline-v1/search-report.json": {
+   "bytes": 4363,
+   "sha256": "e6a92e020c7db0573f69eee0c841cba5483497f533ce5217d149067a944647c9"
+  },
+  "phase9-knowledge-baseline-v1/source-register.jsonl": {
+   "bytes": 17827,
+   "sha256": "e217861146b1a9456a2ce1464e263e00b88512011382e5da54e6dd03d5c105f7"
   }
  }
 }

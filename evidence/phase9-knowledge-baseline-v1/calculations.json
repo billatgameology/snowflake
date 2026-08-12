@@ -1,0 +1,910 @@
+{
+  "schema": "phase9-knowledge-calculations-v1",
+  "generatedDate": "2026-08-12",
+  "claimBoundary": {
+    "projectDerived": true,
+    "scoresModelAgainstMeasurements": false,
+    "authorizesPhase9Execution": false,
+    "grantsValidationClaim": false
+  },
+  "lambMassConditionedTransfer": {
+    "status": "project application of the paper equation at each measured Phase 8 pressure, transcribed from the commented released-code formula",
+    "sourceLocator": "Lamb et al. 2025 PDF p. 7 Eq. 6 and p. 19 Table S2 equation 8",
+    "releasedCodeLocator": "IceNODE Gfunctions.py commented lines 8-10 and evaluate.py mass/G scaling; the archive is not runnable end-to-end",
+    "coefficientUnitWarning": "The printed paper omits coefficient units. The numeric coefficients are valid only with mass in kg and both G and Gc in kg m^-1 s^-1; G/Gc is dimensionless. The scaled released-code form is the safest replay.",
+    "crossoverMassKg": 3.10818397095e-12,
+    "crossoverEquivalentSphereRadiusUmAt910KgM3": 9.34240961638,
+    "zeroMassLimitKgM1S1": 1.123054e-10,
+    "largeMassLimit": "G -> 688.267 * Gc^1.3153 / 0.85601 + 1.123e-10, not Gc; the symbolic law does not enforce its stated continuum asymptote.",
+    "phase8InitialConditions": [
+      {
+        "recordId": "P8B-NATIVE-MASS-712A",
+        "tempC": -32.6,
+        "tempK": 240.55,
+        "temperatureInPaperTrainingDomain": false,
+        "pressurePa": 97233,
+        "sigmaIcePercent": 11,
+        "initialRadiusUm": 11.7,
+        "initialRadiusRangeUm": 0.2,
+        "paperConventionInitialMassKg": 6.1050269701e-12,
+        "continuumTransferKgM1S1": 4.21827763233e-9,
+        "lambTransferKgM1S1": 5.25321886303e-9,
+        "lambToContinuumRatio": 1.24534687399,
+        "lambLargeMassLimitToContinuumRatio": 1.86582183858,
+        "releasedArchivePressurePa": 97190,
+        "releasedArchivePressureLambToMeasuredPressureRatio": 1.00053719236,
+        "projectKineticLengthUm": 0.157014283634,
+        "projectX0OverInitialRadius": 0.0134200242422,
+        "sphericalGibbsThomsonEquilibriumShiftFraction": 0.00017094017094
+      },
+      {
+        "recordId": "P8B-NATIVE-MASS-712K",
+        "tempC": -32.6,
+        "tempK": 240.55,
+        "temperatureInPaperTrainingDomain": false,
+        "pressurePa": 97233,
+        "sigmaIcePercent": 11,
+        "initialRadiusUm": 10.44,
+        "initialRadiusRangeUm": 0.15,
+        "paperConventionInitialMassKg": 4.33742019914e-12,
+        "continuumTransferKgM1S1": 4.21827763233e-9,
+        "lambTransferKgM1S1": 4.63185622586e-9,
+        "lambToContinuumRatio": 1.09804442229,
+        "lambLargeMassLimitToContinuumRatio": 1.86582183858,
+        "releasedArchivePressurePa": 97190,
+        "releasedArchivePressureLambToMeasuredPressureRatio": 1.00053561809,
+        "projectKineticLengthUm": 0.157014283634,
+        "projectX0OverInitialRadius": 0.0150396823404,
+        "sphericalGibbsThomsonEquilibriumShiftFraction": 0.000191570881226
+      },
+      {
+        "recordId": "P8B-NATIVE-MASS-716A",
+        "tempC": -33,
+        "tempK": 240.15,
+        "temperatureInPaperTrainingDomain": false,
+        "pressurePa": 97999,
+        "sigmaIcePercent": 10,
+        "initialRadiusUm": 7.6,
+        "initialRadiusRangeUm": 0.3,
+        "paperConventionInitialMassKg": 1.67328831573e-12,
+        "continuumTransferKgM1S1": 4.01504339157e-9,
+        "lambTransferKgM1S1": 2.65659312362e-9,
+        "lambToContinuumRatio": 0.661659878743,
+        "lambLargeMassLimitToContinuumRatio": 1.83875596912,
+        "releasedArchivePressurePa": 97190,
+        "releasedArchivePressureLambToMeasuredPressureRatio": 1.0099242964,
+        "projectKineticLengthUm": 0.155916683628,
+        "projectX0OverInitialRadius": 0.0205153531089,
+        "sphericalGibbsThomsonEquilibriumShiftFraction": 0.000263157894737
+      },
+      {
+        "recordId": "P8B-NATIVE-MASS-716D",
+        "tempC": -33,
+        "tempK": 240.15,
+        "temperatureInPaperTrainingDomain": false,
+        "pressurePa": 97999,
+        "sigmaIcePercent": 10,
+        "initialRadiusUm": 5.8,
+        "initialRadiusRangeUm": 0.4,
+        "paperConventionInitialMassKg": 7.43727743337e-13,
+        "continuumTransferKgM1S1": 4.01504339157e-9,
+        "lambTransferKgM1S1": 1.5160714819e-9,
+        "lambToContinuumRatio": 0.377597782649,
+        "lambLargeMassLimitToContinuumRatio": 1.83875596912,
+        "releasedArchivePressurePa": 97190,
+        "releasedArchivePressureLambToMeasuredPressureRatio": 1.00959474892,
+        "projectKineticLengthUm": 0.155916683628,
+        "projectX0OverInitialRadius": 0.0268821868324,
+        "sphericalGibbsThomsonEquilibriumShiftFraction": 0.000344827586207
+      },
+      {
+        "recordId": "P8B-NATIVE-MASS-716K",
+        "tempC": -33,
+        "tempK": 240.15,
+        "temperatureInPaperTrainingDomain": false,
+        "pressurePa": 97999,
+        "sigmaIcePercent": 10,
+        "initialRadiusUm": 8.7,
+        "initialRadiusRangeUm": 0.3,
+        "paperConventionInitialMassKg": 2.51008113376e-12,
+        "continuumTransferKgM1S1": 4.01504339157e-9,
+        "lambTransferKgM1S1": 3.36050432537e-9,
+        "lambToContinuumRatio": 0.836978333141,
+        "lambLargeMassLimitToContinuumRatio": 1.83875596912,
+        "releasedArchivePressurePa": 97190,
+        "releasedArchivePressureLambToMeasuredPressureRatio": 1.01001605516,
+        "projectKineticLengthUm": 0.155916683628,
+        "projectX0OverInitialRadius": 0.0179214578883,
+        "sphericalGibbsThomsonEquilibriumShiftFraction": 0.000229885057471
+      },
+      {
+        "recordId": "P8B-NATIVE-MASS-724B",
+        "tempC": -30.9,
+        "tempK": 242.25,
+        "temperatureInPaperTrainingDomain": false,
+        "pressurePa": 96730,
+        "sigmaIcePercent": 4,
+        "initialRadiusUm": 7.7,
+        "initialRadiusRangeUm": 0.3,
+        "paperConventionInitialMassKg": 1.74021207229e-12,
+        "continuumTransferKgM1S1": 5.05376225862e-9,
+        "lambTransferKgM1S1": 3.64407679952e-9,
+        "lambToContinuumRatio": 0.721062173692,
+        "lambLargeMassLimitToContinuumRatio": 1.96925682377,
+        "releasedArchivePressurePa": 97190,
+        "releasedArchivePressureLambToMeasuredPressureRatio": 0.994370816732,
+        "projectKineticLengthUm": 0.157275997257,
+        "projectX0OverInitialRadius": 0.0204254541892,
+        "sphericalGibbsThomsonEquilibriumShiftFraction": 0.00025974025974
+      },
+      {
+        "recordId": "P8B-NATIVE-MASS-724C",
+        "tempC": -30.9,
+        "tempK": 242.25,
+        "temperatureInPaperTrainingDomain": false,
+        "pressurePa": 96730,
+        "sigmaIcePercent": 4,
+        "initialRadiusUm": 8.2,
+        "initialRadiusRangeUm": 0.4,
+        "paperConventionInitialMassKg": 2.10170403865e-12,
+        "continuumTransferKgM1S1": 5.05376225862e-9,
+        "lambTransferKgM1S1": 4.08176756801e-9,
+        "lambToContinuumRatio": 0.807669090696,
+        "lambLargeMassLimitToContinuumRatio": 1.96925682377,
+        "releasedArchivePressurePa": 97190,
+        "releasedArchivePressureLambToMeasuredPressureRatio": 0.99435162242,
+        "projectKineticLengthUm": 0.157275997257,
+        "projectX0OverInitialRadius": 0.0191799996654,
+        "sphericalGibbsThomsonEquilibriumShiftFraction": 0.000243902439024
+      },
+      {
+        "recordId": "P8B-NATIVE-MASS-725C",
+        "tempC": -33.8,
+        "tempK": 239.35,
+        "temperatureInPaperTrainingDomain": true,
+        "pressurePa": 97055,
+        "sigmaIcePercent": 17,
+        "initialRadiusUm": 8.9,
+        "initialRadiusRangeUm": 0.2,
+        "paperConventionInitialMassKg": 2.68720019011e-12,
+        "continuumTransferKgM1S1": 3.72339800426e-9,
+        "lambTransferKgM1S1": 3.16509989362e-9,
+        "lambToContinuumRatio": 0.850056827125,
+        "lambLargeMassLimitToContinuumRatio": 1.79839842967,
+        "releasedArchivePressurePa": 97190,
+        "releasedArchivePressureLambToMeasuredPressureRatio": 0.998327597344,
+        "projectKineticLengthUm": 0.157696080234,
+        "projectX0OverInitialRadius": 0.0177186607004,
+        "sphericalGibbsThomsonEquilibriumShiftFraction": 0.000224719101124
+      },
+      {
+        "recordId": "P8B-NATIVE-MASS-725E",
+        "tempC": -33.8,
+        "tempK": 239.35,
+        "temperatureInPaperTrainingDomain": true,
+        "pressurePa": 97055,
+        "sigmaIcePercent": 17,
+        "initialRadiusUm": 9.86,
+        "initialRadiusRangeUm": 0.25,
+        "paperConventionInitialMassKg": 3.65393440301e-12,
+        "continuumTransferKgM1S1": 3.72339800426e-9,
+        "lambTransferKgM1S1": 3.6699106314e-9,
+        "lambToContinuumRatio": 0.985634795744,
+        "lambLargeMassLimitToContinuumRatio": 1.79839842967,
+        "releasedArchivePressurePa": 97190,
+        "releasedArchivePressureLambToMeasuredPressureRatio": 0.998319134487,
+        "projectKineticLengthUm": 0.157696080234,
+        "projectX0OverInitialRadius": 0.0159935172651,
+        "sphericalGibbsThomsonEquilibriumShiftFraction": 0.000202839756592
+      },
+      {
+        "recordId": "P8B-NATIVE-MASS-731A",
+        "tempC": -31.7,
+        "tempK": 241.45,
+        "temperatureInPaperTrainingDomain": false,
+        "pressurePa": 97055,
+        "sigmaIcePercent": 7.5,
+        "initialRadiusUm": 12,
+        "initialRadiusRangeUm": 0.1,
+        "paperConventionInitialMassKg": 6.58678882122e-12,
+        "continuumTransferKgM1S1": 4.64016911338e-9,
+        "lambTransferKgM1S1": 6.08737226965e-9,
+        "lambToContinuumRatio": 1.3118858647,
+        "lambLargeMassLimitToContinuumRatio": 1.9195196843,
+        "releasedArchivePressurePa": 97190,
+        "releasedArchivePressureLambToMeasuredPressureRatio": 0.99831768714,
+        "projectKineticLengthUm": 0.157008805471,
+        "projectX0OverInitialRadius": 0.0130840671226,
+        "sphericalGibbsThomsonEquilibriumShiftFraction": 0.000166666666667
+      },
+      {
+        "recordId": "P8B-NATIVE-MASS-731B",
+        "tempC": -31.7,
+        "tempK": 241.45,
+        "temperatureInPaperTrainingDomain": false,
+        "pressurePa": 97055,
+        "sigmaIcePercent": 7.5,
+        "initialRadiusUm": 6.3,
+        "initialRadiusRangeUm": 0.4,
+        "paperConventionInitialMassKg": 9.53128926146e-13,
+        "continuumTransferKgM1S1": 4.64016911338e-9,
+        "lambTransferKgM1S1": 2.17626325323e-9,
+        "lambToContinuumRatio": 0.46900515909,
+        "lambLargeMassLimitToContinuumRatio": 1.9195196843,
+        "releasedArchivePressurePa": 97190,
+        "releasedArchivePressureLambToMeasuredPressureRatio": 0.998374513931,
+        "projectKineticLengthUm": 0.157008805471,
+        "projectX0OverInitialRadius": 0.0249220326145,
+        "sphericalGibbsThomsonEquilibriumShiftFraction": 0.00031746031746
+      },
+      {
+        "recordId": "P8B-NATIVE-MASS-802D",
+        "tempC": -32,
+        "tempK": 241.15,
+        "temperatureInPaperTrainingDomain": false,
+        "pressurePa": 96715,
+        "sigmaIcePercent": 7.5,
+        "initialRadiusUm": 9.6,
+        "initialRadiusRangeUm": 0.3,
+        "paperConventionInitialMassKg": 3.37243587647e-12,
+        "continuumTransferKgM1S1": 4.51305655758e-9,
+        "lambTransferKgM1S1": 4.52471881257e-9,
+        "lambToContinuumRatio": 1.00258411452,
+        "lambLargeMassLimitToContinuumRatio": 1.90367466552,
+        "releasedArchivePressurePa": 97190,
+        "releasedArchivePressureLambToMeasuredPressureRatio": 0.994111728589,
+        "projectKineticLengthUm": 0.157658742764,
+        "projectX0OverInitialRadius": 0.0164227857046,
+        "sphericalGibbsThomsonEquilibriumShiftFraction": 0.000208333333333
+      },
+      {
+        "recordId": "P8B-NATIVE-MASS-805A",
+        "tempC": -35.7,
+        "tempK": 237.45,
+        "temperatureInPaperTrainingDomain": true,
+        "pressurePa": 97020,
+        "sigmaIcePercent": 28.6,
+        "initialRadiusUm": 10.3,
+        "initialRadiusRangeUm": 0.5,
+        "paperConventionInitialMassKg": 4.16525578024e-12,
+        "continuumTransferKgM1S1": 3.03651418193e-9,
+        "lambTransferKgM1S1": 2.9956239501e-9,
+        "lambToContinuumRatio": 0.986533824845,
+        "lambLargeMassLimitToContinuumRatio": 1.69510315926,
+        "releasedArchivePressurePa": 97190,
+        "releasedArchivePressureLambToMeasuredPressureRatio": 0.99787984789,
+        "projectKineticLengthUm": 0.158382856372,
+        "projectX0OverInitialRadius": 0.0153769763468,
+        "sphericalGibbsThomsonEquilibriumShiftFraction": 0.000194174757282
+      },
+      {
+        "recordId": "P8B-NATIVE-MASS-805B",
+        "tempC": -35.7,
+        "tempK": 237.45,
+        "temperatureInPaperTrainingDomain": true,
+        "pressurePa": 97020,
+        "sigmaIcePercent": 28.6,
+        "initialRadiusUm": 9.2,
+        "initialRadiusRangeUm": 0.5,
+        "paperConventionInitialMassKg": 2.96820220696e-12,
+        "continuumTransferKgM1S1": 3.03651418193e-9,
+        "lambTransferKgM1S1": 2.57176057988e-9,
+        "lambToContinuumRatio": 0.846945025049,
+        "lambLargeMassLimitToContinuumRatio": 1.69510315926,
+        "releasedArchivePressurePa": 97190,
+        "releasedArchivePressureLambToMeasuredPressureRatio": 0.997893458274,
+        "projectKineticLengthUm": 0.158382856372,
+        "projectX0OverInitialRadius": 0.0172155278665,
+        "sphericalGibbsThomsonEquilibriumShiftFraction": 0.000217391304348
+      },
+      {
+        "recordId": "P8B-NATIVE-MASS-805H",
+        "tempC": -35.7,
+        "tempK": 237.45,
+        "temperatureInPaperTrainingDomain": true,
+        "pressurePa": 97020,
+        "sigmaIcePercent": 28.6,
+        "initialRadiusUm": 8.2,
+        "initialRadiusRangeUm": 0.5,
+        "paperConventionInitialMassKg": 2.10170403865e-12,
+        "continuumTransferKgM1S1": 3.03651418193e-9,
+        "lambTransferKgM1S1": 2.14341784383e-9,
+        "lambToContinuumRatio": 0.705881058151,
+        "lambLargeMassLimitToContinuumRatio": 1.69510315926,
+        "releasedArchivePressurePa": 97190,
+        "releasedArchivePressureLambToMeasuredPressureRatio": 0.997912681061,
+        "projectKineticLengthUm": 0.158382856372,
+        "projectX0OverInitialRadius": 0.0193149824844,
+        "sphericalGibbsThomsonEquilibriumShiftFraction": 0.000243902439024
+      },
+      {
+        "recordId": "P8B-NATIVE-MASS-805L",
+        "tempC": -35.7,
+        "tempK": 237.45,
+        "temperatureInPaperTrainingDomain": true,
+        "pressurePa": 97020,
+        "sigmaIcePercent": 28.6,
+        "initialRadiusUm": 8.9,
+        "initialRadiusRangeUm": 0.7,
+        "paperConventionInitialMassKg": 2.68720019011e-12,
+        "continuumTransferKgM1S1": 3.03651418193e-9,
+        "lambTransferKgM1S1": 2.44688447241e-9,
+        "lambToContinuumRatio": 0.805820202312,
+        "lambLargeMassLimitToContinuumRatio": 1.69510315926,
+        "releasedArchivePressurePa": 97190,
+        "releasedArchivePressureLambToMeasuredPressureRatio": 0.997898367327,
+        "projectKineticLengthUm": 0.158382856372,
+        "projectX0OverInitialRadius": 0.0177958265586,
+        "sphericalGibbsThomsonEquilibriumShiftFraction": 0.000224719101124
+      }
+    ],
+    "proposedScoringDomain": {
+      "status": "pre-adoption recommendation; no score executed",
+      "paperTrainingTemperatureK": [
+        205,
+        240
+      ],
+      "primaryElapsedTimeS": [
+        0,
+        500
+      ],
+      "primaryPhase8RecordIds": [
+        "P8B-NATIVE-MASS-725C",
+        "P8B-NATIVE-MASS-725E",
+        "P8B-NATIVE-MASS-805A",
+        "P8B-NATIVE-MASS-805B",
+        "P8B-NATIVE-MASS-805H",
+        "P8B-NATIVE-MASS-805L"
+      ],
+      "extrapolationRule": "All hotter Phase 8 conditions and all observations after 500 s are reported separately as extrapolation.",
+      "constantRescaleRule": "For each primary-history fold, estimate one global Gc multiplier from the other primary histories and evaluate only on the held-out history."
+    },
+    "initialRatioRange": {
+      "minimum": 0.377597782649,
+      "maximum": 1.3118858647
+    },
+    "releasedArchivePressureComparison": {
+      "archivePressurePa": 97190,
+      "interpretation": "The public archive hard-codes this pressure. Phase 8 rows above instead use their measured record pressure; this field quantifies the resulting change rather than calling the rows exact condition replay.",
+      "maximumAbsoluteFractionalTransferDifference": 0.01001605516
+    },
+    "strongestSameConditionContrast": {
+      "recordA": "P8B-NATIVE-MASS-731A",
+      "recordB": "P8B-NATIVE-MASS-731B",
+      "sharedCondition": "-31.7 C, 97055 Pa, source ice supersaturation 7.5 percent",
+      "predictedInitialRatios": [
+        {
+          "recordId": "P8B-NATIVE-MASS-731A",
+          "initialRadiusUm": 12,
+          "lambToContinuumRatio": 1.3118858647
+        },
+        {
+          "recordId": "P8B-NATIVE-MASS-731B",
+          "initialRadiusUm": 6.3,
+          "lambToContinuumRatio": 0.46900515909
+        }
+      ]
+    }
+  },
+  "facetKineticsSensitivity": {
+    "status": "project calculation from printed M1 and broad-branch functions",
+    "sourceLocator": "Libbrecht 2023 arXiv:2306.13087v1 p. 6 Eq. 6 and p. 7 broad branch",
+    "interpretation": "These are idealized sigmaSurface diagnostics at the exact Phase 8 facet-test temperatures. The Phase 8 x coordinates are far-field/source supersaturations and must not be substituted for sigmaSurface without a transport adapter.",
+    "rows": [
+      {
+        "tempC": -7,
+        "facet": "basal",
+        "sigmaSurfacePercent": 0.5,
+        "m1BarrierPercent": 0.43848642742,
+        "broadBranchBarrierPercent": 0.902492389892,
+        "m1AttachmentCoefficient": 0.416040422138,
+        "broadBranchAttachmentCoefficient": 0.164476959933,
+        "m1ToBroadRatio": 2.52947538858
+      },
+      {
+        "tempC": -7,
+        "facet": "basal",
+        "sigmaSurfacePercent": 1,
+        "m1BarrierPercent": 0.43848642742,
+        "broadBranchBarrierPercent": 0.902492389892,
+        "m1AttachmentCoefficient": 0.645011955035,
+        "broadBranchAttachmentCoefficient": 0.405557591389,
+        "m1ToBroadRatio": 1.59043245332
+      },
+      {
+        "tempC": -7,
+        "facet": "basal",
+        "sigmaSurfacePercent": 3,
+        "m1BarrierPercent": 0.43848642742,
+        "broadBranchBarrierPercent": 0.902492389892,
+        "m1AttachmentCoefficient": 0.864017597876,
+        "broadBranchAttachmentCoefficient": 0.740203006994,
+        "m1ToBroadRatio": 1.16727112659
+      },
+      {
+        "tempC": -7,
+        "facet": "basal",
+        "sigmaSurfacePercent": 6,
+        "m1BarrierPercent": 0.43848642742,
+        "broadBranchBarrierPercent": 0.902492389892,
+        "m1AttachmentCoefficient": 0.929525469192,
+        "broadBranchAttachmentCoefficient": 0.860350514031,
+        "m1ToBroadRatio": 1.08040322407
+      },
+      {
+        "tempC": -7,
+        "facet": "prism",
+        "sigmaSurfacePercent": 0.5,
+        "m1BarrierPercent": 0.651336488781,
+        "broadBranchBarrierPercent": 0.799281916994,
+        "m1AttachmentCoefficient": 0.271804294393,
+        "broadBranchAttachmentCoefficient": 0.202186683224,
+        "m1ToBroadRatio": 1.34432342456
+      },
+      {
+        "tempC": -7,
+        "facet": "prism",
+        "sigmaSurfacePercent": 1,
+        "m1BarrierPercent": 0.651336488781,
+        "broadBranchBarrierPercent": 0.799281916994,
+        "m1AttachmentCoefficient": 0.521348534469,
+        "broadBranchAttachmentCoefficient": 0.449651735485,
+        "m1ToBroadRatio": 1.1594496214
+      },
+      {
+        "tempC": -7,
+        "facet": "prism",
+        "sigmaSurfacePercent": 3,
+        "m1BarrierPercent": 0.651336488781,
+        "broadBranchBarrierPercent": 0.799281916994,
+        "m1AttachmentCoefficient": 0.804839691067,
+        "broadBranchAttachmentCoefficient": 0.766111693682,
+        "m1ToBroadRatio": 1.05055137221
+      },
+      {
+        "tempC": -7,
+        "facet": "prism",
+        "sigmaSurfacePercent": 6,
+        "m1BarrierPercent": 0.651336488781,
+        "broadBranchBarrierPercent": 0.799281916994,
+        "m1AttachmentCoefficient": 0.897128581122,
+        "broadBranchAttachmentCoefficient": 0.875278066492,
+        "m1ToBroadRatio": 1.02496408338
+      },
+      {
+        "tempC": -15,
+        "facet": "basal",
+        "sigmaSurfacePercent": 0.5,
+        "m1BarrierPercent": 2.5413071517,
+        "broadBranchBarrierPercent": 2.5865973667,
+        "m1AttachmentCoefficient": 0.00620366952338,
+        "broadBranchAttachmentCoefficient": 0.0056664371158,
+        "m1ToBroadRatio": 1.09480955962
+      },
+      {
+        "tempC": -15,
+        "facet": "basal",
+        "sigmaSurfacePercent": 1,
+        "m1BarrierPercent": 2.5413071517,
+        "broadBranchBarrierPercent": 2.5865973667,
+        "m1AttachmentCoefficient": 0.0787633767901,
+        "broadBranchAttachmentCoefficient": 0.075275740553,
+        "m1ToBroadRatio": 1.04633147693
+      },
+      {
+        "tempC": -15,
+        "facet": "basal",
+        "sigmaSurfacePercent": 3,
+        "m1BarrierPercent": 2.5413071517,
+        "broadBranchBarrierPercent": 2.5865973667,
+        "m1AttachmentCoefficient": 0.428655212397,
+        "broadBranchAttachmentCoefficient": 0.42223251966,
+        "m1ToBroadRatio": 1.01521126971
+      },
+      {
+        "tempC": -15,
+        "facet": "basal",
+        "sigmaSurfacePercent": 6,
+        "m1BarrierPercent": 2.5413071517,
+        "broadBranchBarrierPercent": 2.5865973667,
+        "m1AttachmentCoefficient": 0.654717658535,
+        "broadBranchAttachmentCoefficient": 0.649794213317,
+        "m1ToBroadRatio": 1.00757692992
+      },
+      {
+        "tempC": -15,
+        "facet": "prism",
+        "sigmaSurfacePercent": 0.5,
+        "m1BarrierPercent": 0.191083591358,
+        "broadBranchBarrierPercent": 3.47655112784,
+        "m1AttachmentCoefficient": 0.682380961367,
+        "broadBranchAttachmentCoefficient": 0.000955665830525,
+        "m1ToBroadRatio": 714.037207956
+      },
+      {
+        "tempC": -15,
+        "facet": "prism",
+        "sigmaSurfacePercent": 1,
+        "m1BarrierPercent": 0.191083591358,
+        "broadBranchBarrierPercent": 3.47655112784,
+        "m1AttachmentCoefficient": 0.826063533493,
+        "broadBranchAttachmentCoefficient": 0.0309138452886,
+        "m1ToBroadRatio": 26.7214746591
+      },
+      {
+        "tempC": -15,
+        "facet": "prism",
+        "sigmaSurfacePercent": 3,
+        "m1BarrierPercent": 0.191083591358,
+        "broadBranchBarrierPercent": 3.47655112784,
+        "m1AttachmentCoefficient": 0.938291575261,
+        "broadBranchAttachmentCoefficient": 0.313846779373,
+        "m1ToBroadRatio": 2.98964857035
+      },
+      {
+        "tempC": -15,
+        "facet": "prism",
+        "sigmaSurfacePercent": 6,
+        "m1BarrierPercent": 0.191083591358,
+        "broadBranchBarrierPercent": 3.47655112784,
+        "m1AttachmentCoefficient": 0.96865451801,
+        "broadBranchAttachmentCoefficient": 0.560220295396,
+        "m1ToBroadRatio": 1.72906002509
+      },
+      {
+        "tempC": -30,
+        "facet": "basal",
+        "sigmaSurfacePercent": 0.5,
+        "m1BarrierPercent": 7.99073899025,
+        "broadBranchBarrierPercent": 7.99116611513,
+        "m1AttachmentCoefficient": 1.14638976604e-7,
+        "broadBranchAttachmentCoefficient": 1.14541088103e-7,
+        "m1ToBroadRatio": 1.00085461473
+      },
+      {
+        "tempC": -30,
+        "facet": "basal",
+        "sigmaSurfacePercent": 1,
+        "m1BarrierPercent": 7.99073899025,
+        "broadBranchBarrierPercent": 7.99116611513,
+        "m1AttachmentCoefficient": 0.000338583780775,
+        "broadBranchAttachmentCoefficient": 0.000338439194099,
+        "m1ToBroadRatio": 1.00042721611
+      },
+      {
+        "tempC": -30,
+        "facet": "basal",
+        "sigmaSurfacePercent": 3,
+        "m1BarrierPercent": 7.99073899025,
+        "broadBranchBarrierPercent": 7.99116611513,
+        "m1AttachmentCoefficient": 0.0696982782777,
+        "broadBranchAttachmentCoefficient": 0.0696883556946,
+        "m1ToBroadRatio": 1.00014238509
+      },
+      {
+        "tempC": -30,
+        "facet": "basal",
+        "sigmaSurfacePercent": 6,
+        "m1BarrierPercent": 7.99073899025,
+        "broadBranchBarrierPercent": 7.99116611513,
+        "m1AttachmentCoefficient": 0.264004314885,
+        "broadBranchAttachmentCoefficient": 0.263985521752,
+        "m1ToBroadRatio": 1.00007119001
+      },
+      {
+        "tempC": -30,
+        "facet": "prism",
+        "sigmaSurfacePercent": 0.5,
+        "m1BarrierPercent": 11.2687272401,
+        "broadBranchBarrierPercent": 13.6539227268,
+        "m1AttachmentCoefficient": 1.62970081628e-10,
+        "broadBranchAttachmentCoefficient": 1.38150800847e-12,
+        "m1ToBroadRatio": 117.965354257
+      },
+      {
+        "tempC": -30,
+        "facet": "prism",
+        "sigmaSurfacePercent": 1,
+        "m1BarrierPercent": 11.2687272401,
+        "broadBranchBarrierPercent": 13.6539227268,
+        "m1AttachmentCoefficient": 0.0000127659735872,
+        "broadBranchAttachmentCoefficient": 0.00000117537568822,
+        "m1ToBroadRatio": 10.8611856746
+      },
+      {
+        "tempC": -30,
+        "facet": "prism",
+        "sigmaSurfacePercent": 3,
+        "m1BarrierPercent": 11.2687272401,
+        "broadBranchBarrierPercent": 13.6539227268,
+        "m1AttachmentCoefficient": 0.0233713956292,
+        "broadBranchAttachmentCoefficient": 0.0105533959949,
+        "m1ToBroadRatio": 2.21458529941
+      },
+      {
+        "tempC": -30,
+        "facet": "prism",
+        "sigmaSurfacePercent": 6,
+        "m1BarrierPercent": 11.2687272401,
+        "broadBranchBarrierPercent": 13.6539227268,
+        "m1AttachmentCoefficient": 0.152877060507,
+        "broadBranchAttachmentCoefficient": 0.102729723035,
+        "m1ToBroadRatio": 1.48814827871
+      }
+    ]
+  },
+  "transportAndCurvatureRegimes": {
+    "sourceLocator": "docs/libbrecht-parameters.md: kinetic length X0; FACET Eq. 7 uses sigmaSurface - d_sv*kappa with kappa=2/R for a sphere",
+    "phase8InitialRows": [
+      {
+        "recordId": "P8B-NATIVE-MASS-712A",
+        "initialRadiusUm": 11.7,
+        "projectKineticLengthUm": 0.157014283634,
+        "projectX0OverInitialRadius": 0.0134200242422,
+        "sphericalGibbsThomsonEquilibriumShiftFraction": 0.00017094017094
+      },
+      {
+        "recordId": "P8B-NATIVE-MASS-712K",
+        "initialRadiusUm": 10.44,
+        "projectKineticLengthUm": 0.157014283634,
+        "projectX0OverInitialRadius": 0.0150396823404,
+        "sphericalGibbsThomsonEquilibriumShiftFraction": 0.000191570881226
+      },
+      {
+        "recordId": "P8B-NATIVE-MASS-716A",
+        "initialRadiusUm": 7.6,
+        "projectKineticLengthUm": 0.155916683628,
+        "projectX0OverInitialRadius": 0.0205153531089,
+        "sphericalGibbsThomsonEquilibriumShiftFraction": 0.000263157894737
+      },
+      {
+        "recordId": "P8B-NATIVE-MASS-716D",
+        "initialRadiusUm": 5.8,
+        "projectKineticLengthUm": 0.155916683628,
+        "projectX0OverInitialRadius": 0.0268821868324,
+        "sphericalGibbsThomsonEquilibriumShiftFraction": 0.000344827586207
+      },
+      {
+        "recordId": "P8B-NATIVE-MASS-716K",
+        "initialRadiusUm": 8.7,
+        "projectKineticLengthUm": 0.155916683628,
+        "projectX0OverInitialRadius": 0.0179214578883,
+        "sphericalGibbsThomsonEquilibriumShiftFraction": 0.000229885057471
+      },
+      {
+        "recordId": "P8B-NATIVE-MASS-724B",
+        "initialRadiusUm": 7.7,
+        "projectKineticLengthUm": 0.157275997257,
+        "projectX0OverInitialRadius": 0.0204254541892,
+        "sphericalGibbsThomsonEquilibriumShiftFraction": 0.00025974025974
+      },
+      {
+        "recordId": "P8B-NATIVE-MASS-724C",
+        "initialRadiusUm": 8.2,
+        "projectKineticLengthUm": 0.157275997257,
+        "projectX0OverInitialRadius": 0.0191799996654,
+        "sphericalGibbsThomsonEquilibriumShiftFraction": 0.000243902439024
+      },
+      {
+        "recordId": "P8B-NATIVE-MASS-725C",
+        "initialRadiusUm": 8.9,
+        "projectKineticLengthUm": 0.157696080234,
+        "projectX0OverInitialRadius": 0.0177186607004,
+        "sphericalGibbsThomsonEquilibriumShiftFraction": 0.000224719101124
+      },
+      {
+        "recordId": "P8B-NATIVE-MASS-725E",
+        "initialRadiusUm": 9.86,
+        "projectKineticLengthUm": 0.157696080234,
+        "projectX0OverInitialRadius": 0.0159935172651,
+        "sphericalGibbsThomsonEquilibriumShiftFraction": 0.000202839756592
+      },
+      {
+        "recordId": "P8B-NATIVE-MASS-731A",
+        "initialRadiusUm": 12,
+        "projectKineticLengthUm": 0.157008805471,
+        "projectX0OverInitialRadius": 0.0130840671226,
+        "sphericalGibbsThomsonEquilibriumShiftFraction": 0.000166666666667
+      },
+      {
+        "recordId": "P8B-NATIVE-MASS-731B",
+        "initialRadiusUm": 6.3,
+        "projectKineticLengthUm": 0.157008805471,
+        "projectX0OverInitialRadius": 0.0249220326145,
+        "sphericalGibbsThomsonEquilibriumShiftFraction": 0.00031746031746
+      },
+      {
+        "recordId": "P8B-NATIVE-MASS-802D",
+        "initialRadiusUm": 9.6,
+        "projectKineticLengthUm": 0.157658742764,
+        "projectX0OverInitialRadius": 0.0164227857046,
+        "sphericalGibbsThomsonEquilibriumShiftFraction": 0.000208333333333
+      },
+      {
+        "recordId": "P8B-NATIVE-MASS-805A",
+        "initialRadiusUm": 10.3,
+        "projectKineticLengthUm": 0.158382856372,
+        "projectX0OverInitialRadius": 0.0153769763468,
+        "sphericalGibbsThomsonEquilibriumShiftFraction": 0.000194174757282
+      },
+      {
+        "recordId": "P8B-NATIVE-MASS-805B",
+        "initialRadiusUm": 9.2,
+        "projectKineticLengthUm": 0.158382856372,
+        "projectX0OverInitialRadius": 0.0172155278665,
+        "sphericalGibbsThomsonEquilibriumShiftFraction": 0.000217391304348
+      },
+      {
+        "recordId": "P8B-NATIVE-MASS-805H",
+        "initialRadiusUm": 8.2,
+        "projectKineticLengthUm": 0.158382856372,
+        "projectX0OverInitialRadius": 0.0193149824844,
+        "sphericalGibbsThomsonEquilibriumShiftFraction": 0.000243902439024
+      },
+      {
+        "recordId": "P8B-NATIVE-MASS-805L",
+        "initialRadiusUm": 8.9,
+        "projectKineticLengthUm": 0.158382856372,
+        "projectX0OverInitialRadius": 0.0177958265586,
+        "sphericalGibbsThomsonEquilibriumShiftFraction": 0.000224719101124
+      }
+    ],
+    "interpretation": "The curvature term is small for the 5.8-12 um equivalent spheres but can become material at submicron tips. X0/R alone does not select the regime; it must be compared with the local facet attachment coefficient."
+  },
+  "widthConditionedBarrier": {
+    "sourceLocator": "Libbrecht monograph printed p. 157 / PDF p. 158",
+    "equation": "sigma0(w)/sigma0Infinity = 1 - exp(-w/w0)",
+    "status": "source-printed hypothesis with unfrozen adjustable w0",
+    "normalizedRows": [
+      {
+        "widthOverW0": 0.1,
+        "barrierFractionOfBroadFacet": 0.095162581964
+      },
+      {
+        "widthOverW0": 0.5,
+        "barrierFractionOfBroadFacet": 0.393469340287
+      },
+      {
+        "widthOverW0": 1,
+        "barrierFractionOfBroadFacet": 0.632120558829
+      },
+      {
+        "widthOverW0": 2,
+        "barrierFractionOfBroadFacet": 0.864664716763
+      },
+      {
+        "widthOverW0": 5,
+        "barrierFractionOfBroadFacet": 0.993262053001
+      }
+    ],
+    "limitation": "No numerical w0 or lattice-to-physical facet-width mapping is established, so this is a shape-of-hypothesis calculation, not an executable Phase 9 arm."
+  },
+  "latentHeatingAnchors": {
+    "sourceLocator": "Libbrecht monograph printed p. 98 / PDF p. 99",
+    "status": "source-stated approximate anchors; no interpolated curve",
+    "rows": [
+      {
+        "tempC": -1,
+        "chi0": 0.8,
+        "diffusionLimitedGrowthMultiplier": 0.555555555556,
+        "overestimateFractionIfIgnored": 0.8
+      },
+      {
+        "tempC": -10,
+        "chi0": 0.4,
+        "diffusionLimitedGrowthMultiplier": 0.714285714286,
+        "overestimateFractionIfIgnored": 0.4
+      }
+    ]
+  },
+  "stepSourceObservedGeometry": {
+    "status": "project-derived endpoint/event diagnostics; not a mechanism fit",
+    "sourceLocator": "Harrington-Pokrifka companion archive native dimension histories",
+    "histories": [
+      {
+        "path": "/Volumes/snowcrystal/research-cache/content/harrington-pokrifka-revisiting-theories-for-the-growth-of-single-crystalline-ice-2026/dimensions-20231128.dat",
+        "sha256": "c4b8d3d5c674898b8e5bfa761e95933b251d59daa833dbd5fb27483238c57c48",
+        "rowCount": 26,
+        "first": {
+          "timeS": 0,
+          "aUm": 11.14,
+          "cUm": 34.91,
+          "rimWidthUm": 6.75
+        },
+        "last": {
+          "timeS": 7502,
+          "aUm": 37.64,
+          "cUm": 221.01,
+          "rimWidthUm": 6.71
+        },
+        "endpointChange": {
+          "aFactor": 3.37881508079,
+          "cFactor": 6.33085075909,
+          "rimFactor": 0.994074074074,
+          "rimToAInitial": 0.60592459605,
+          "rimToAFinal": 0.178267800213
+        }
+      },
+      {
+        "path": "/Volumes/snowcrystal/research-cache/content/harrington-pokrifka-revisiting-theories-for-the-growth-of-single-crystalline-ice-2026/dimensions-20240814.dat",
+        "sha256": "8aff69945a47d383b708942bb0441768ddf2822f812495fea69e51aebf3f25e8",
+        "rowCount": 68,
+        "first": {
+          "timeS": 0,
+          "aUm": 14.13,
+          "cUm": 19.31,
+          "rimWidthUm": 5.53
+        },
+        "last": {
+          "timeS": 20106,
+          "aUm": 54.71,
+          "cUm": 194.95,
+          "rimWidthUm": 31.65
+        },
+        "endpointChange": {
+          "aFactor": 3.87190375088,
+          "cFactor": 10.0958052822,
+          "rimFactor": 5.72332730561,
+          "rimToAInitial": 0.391365888181,
+          "rimToAFinal": 0.578504843721
+        },
+        "event": {
+          "eventTimeS": 13800,
+          "observationAtEvent": false,
+          "before": {
+            "timeS": 13504,
+            "aUm": 51.5,
+            "cUm": 174.54,
+            "rimWidthUm": 6.37
+          },
+          "firstAfter": {
+            "timeS": 13804,
+            "aUm": 51.7,
+            "cUm": 176.07,
+            "rimWidthUm": 7.87
+          },
+          "secondAfter": {
+            "timeS": 14104,
+            "aUm": 51.33,
+            "cUm": 176.97,
+            "rimWidthUm": 13.81
+          },
+          "rimChangeFirstAfterFraction": 0.235478806907,
+          "rimChangeSecondAfterFraction": 1.16797488226
+        }
+      }
+    ],
+    "interpretation": "The histories make rim width a scoreable state. They do not distinguish SDAK from source-location/flux-gradient hollowing without a spatial growth-profile prediction."
+  },
+  "checks": {
+    "lambScaledAndPrintedAgreement": {
+      "phase8ConditionCount": 16,
+      "maxExactRelativeError": 4.09205942347e-16,
+      "maxPrintedRoundedRelativeError": 0.000127955921775,
+      "crossoverDenominatorTermsRelativeError": 0,
+      "assertionLimits": {
+        "exactRelativeErrorLessThan": 5e-15,
+        "printedRoundedRelativeErrorLessThan": 0.0002
+      }
+    },
+    "crossoverIdentity": "mStar = 2.6606467e-12 / 0.856013... kg = 2.6606467e-12 * 1.1682062 kg = a3/a2 in the printed form.",
+    "sourceArtifactsPresent": [
+      {
+        "path": "/Volumes/snowcrystal/research-cache/content/lamb-et-al-2025-neural-ode-symbolic-regression.pdf",
+        "sha256": "d1c9822c539365b9fc63203a85e0efab36d9c1508f6836724b8afe0b11e82364"
+      },
+      {
+        "path": "/Volumes/snowcrystal/research-cache/content/icenode-2025-code-63078e02.zip",
+        "sha256": "98ff103b4ce5b95851c093f3f6e7717ea923ba420758f36fa1dcdf338b5044d8"
+      },
+      {
+        "path": "/Volumes/snowcrystal/research-cache/content/harrington-pokrifka-revisiting-theories-for-the-growth-of-single-crystalline-ice-2026/dimensions-20231128.dat",
+        "sha256": "c4b8d3d5c674898b8e5bfa761e95933b251d59daa833dbd5fb27483238c57c48"
+      },
+      {
+        "path": "/Volumes/snowcrystal/research-cache/content/harrington-pokrifka-revisiting-theories-for-the-growth-of-single-crystalline-ice-2026/dimensions-20240814.dat",
+        "sha256": "8aff69945a47d383b708942bb0441768ddf2822f812495fea69e51aebf3f25e8"
+      }
+    ]
+  }
+}
