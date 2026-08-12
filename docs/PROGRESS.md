@@ -40,6 +40,10 @@ index, a plan, ADR, or audit links to historical detail.
   freezes P0 native histories, P1 direct module discriminators, and P2 interpretation-critical
   evidence; it independently verifies every included record and keeps the residual discovery
   universe as an explicit backlog rather than claiming exhaustive measurement or search closure.
+  S2 is now frozen in `evidence/phase8b-benchmark-selection-v1/`: 18 P0 / 26 P1 / 5 P2 records,
+  with 886 residual local units, 23 residual acquired sources and 1,545 residual exact discovery
+  identifiers retained by stable set-difference rules. The independent bounded review returned
+  `ACCEPT` with zero blockers. No measurement coordinates have yet been extracted.
   Phase 7 is completely standalone from the completion of Phases 6 and 8: it is not started and
   still needs its own committed plan/worktree, but neither phase gates it. Its existing product,
   held-out-validation, and GPU-parity scope remains. Phase 9 and Phase 10 remain uncharted.
@@ -199,7 +203,7 @@ reconciliation — Phase 6 closes. Do not resume education or V4/V4.x apparatus.
 preview-GPU work may begin only as separately planned Phase 7 work in its own worktree; never run
 it from the Phase 6 lane or count it toward Phase 6.
 
-### Phase 8B lane — priority benchmark extraction is next; broad acquisition is stopped
+### Phase 8B lane — native-history normalization is next; broad acquisition is stopped
 
 Decision 0048, charter v1.25 and the [benchmark-corpus plan](plans/phase-8-measurement-corpus.md)
 govern. Preserve `evidence/phase8-target-book/` byte-for-byte and every accepted S0-S2 bundle.
@@ -211,15 +215,14 @@ were acquired; all 49 local-plus-acquired PDFs / 1,242 pages were visually inspe
 numeric rows were extracted. The 470 retained identifiers remain a review backlog, not a download
 list. Never issue same-host parallel requests or automatic retries.
 
-Next: commit the decision-0048 authority/plan freeze, then freeze the exact P0/P1/P2 selection.
-Derived at this update from the per-member counts in the
-[local archive audit](../evidence/phase8b-s2-round0-reconnaissance/local-archive-audit.md), SHA-256
-`66ac1ae02cde2cfb2e486d0f5d67977fd43dd22179996803814e34138a676417`, the identified P0 candidates
-are 16 Harrison/Pokrifka mass histories totaling 252,040 raw rows (274,502 minus the excluded
-22,462-row `625`) and two Harrington–Pokrifka dimension histories totaling 94 rows (26 plus 68).
-Normalize their
-full raw histories to NAS-resident artifacts with tracked schema, source/member hashes, corrected
-conditions, uncertainty, rights, lineage, leakage, and an independent verifier. Keep `712k` raw
-duplicate timestamps; coalescing is a separate derived operator. Then extract the selected
-pressure/thermal, history/intervention, and facet-rate P1 series before one targeted gap/currency
-pass. Phase 9 remains unchartered.
+S2 selection is frozen at 18 P0 / 26 P1 / 5 P2; reproduce it with
+`node runner/src/phase8-benchmark-selection.ts verify --triage-root
+/Volumes/snowcrystal/research-cache/phase8b-search/offline-title-triage-20260811-v1 --bundle
+evidence/phase8b-benchmark-selection-v1`. Next freeze the S3 operator, then normalize the 16
+Harrison/Pokrifka mass histories totaling 252,040 raw rows and the two Harrington–Pokrifka
+dimension histories totaling 94 rows to
+`/Volumes/snowcrystal/research-cache/phase8b-derived/native-histories-20260812-v1/`, with tracked
+schema, source/member hashes, corrected conditions, uncertainty, rights, lineage, leakage, and an
+independent verifier. Keep `712k` raw duplicate timestamps; coalescing is a separate derived
+operator. Then extract only the frozen P1/P2 set before one targeted gap/currency pass.
+Phase 9 remains unchartered.

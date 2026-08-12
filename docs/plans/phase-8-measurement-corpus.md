@@ -225,7 +225,7 @@ classification. Freeze candidates are reopened and re-derived from their publish
   PDFs / 1,242 pages. It ended `BOUNDED_OPEN` with zero new numeric rows under decision 0047. The
   round is complete evidence of discovery and reconnaissance, not search saturation or corpus
   closure. Decision 0048 supersedes the two-zero-round continuation.
-- [ ] **S2 — Freeze benchmark selection and residual backlog.** Materialize exact P0/P1/P2 source
+- [x] **S2 — Freeze benchmark selection and residual backlog.** Materialize exact P0/P1/P2 source
   and measurement candidates from the existing round-0 records before reading target coordinates.
   P0 binds the 18 named native members. P1 initially binds the direct pressure/thermal,
   history/intervention, and empirical facet-rate displays named in the round-0 consumer audit. P2
@@ -775,9 +775,10 @@ acceptances are not retroactively represented as reviews of the focused contract
   source/version identity, uncertainty, rights, specimen/campaign lineage, development-versus-held-
   out leakage, independent verification of every selected numeric record, ambiguous-membership
   checks, a stratified residual audit, and one targeted gap/currency pass remain.
-- **First implementation tranche:** freeze the P0 native full-history operator, then normalize the
-  16 Harrison/Pokrifka mass histories and two Harrington–Pokrifka dimension histories to NAS-resident
-  row artifacts with Git-tracked schemas, provenance, conditions, hashes, and verifier.
+- **First implementation tranche:** freeze the exact P0/P1/P2 selection, then freeze the P0 native
+  full-history operator and normalize the 16 Harrison/Pokrifka mass histories and two
+  Harrington–Pokrifka dimension histories to NAS-resident row artifacts with Git-tracked schemas,
+  provenance, conditions, hashes, and verifier.
 
 ### Decision-0048 governance review — accepted
 
@@ -790,3 +791,23 @@ acceptances are not retroactively represented as reviews of the focused contract
 - **Limits:** the reviewer did not run exact full `npm test`, clean-checkout verification, live NAS
   rehashing, network checks, rights determinations, or scientific extraction. Exact full-suite
   publication verification remains a separate prerequisite for the amendment commit.
+
+### S2 benchmark selection and residual backlog — accepted
+
+- **Frozen selection:** `evidence/phase8b-benchmark-selection-v1/selection.jsonl` contains 49
+  outcome-neutral records: 18 P0 native histories, 26 P1 direct display series and 5 P2
+  interpretation dependencies. Every record is model-development evidence and states that numeric
+  target coordinates were not extracted before selection and no favorable outcome value was used
+  as a selection criterion. Selection SHA-256 is recorded in the published manifest.
+- **Residual accounting:** the derived backlog retains 886/914 local units, 20/23 local
+  containers, 23/28 acquired sources and 1,545/1,553 exact discovery identifiers through immutable
+  upstream locators plus deterministic reasons. It copies no paper or raw research corpus into
+  Git. The backlog SHA-256 is recorded in the published manifest.
+- **Independent review:** a bounded non-author Codex child review returned `ACCEPT` with zero
+  blockers after independently running the registered CLI verifier and focused 5/5 test suite,
+  resolving every selected source/unit/container/target-book ID, reconciling all four denominators,
+  and checking that the selection contains no numeric outcome coordinates.
+- **Review limits:** the bounded review did not re-inspect the papers, rerun exact full `npm test`,
+  independently reprioritize the science, or audit NAS source bytes beyond the registered CLI's
+  hash checks. Those are not S2 membership checks; exact full-suite publication verification is
+  recorded with the commit, while source semantics and row bytes remain S3/S4 work.
