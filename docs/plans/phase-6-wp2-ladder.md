@@ -167,6 +167,14 @@ is independently re-derived from the artifact bytes.
   after it refused the aa81295-era rows (launch logs record the refusal); no row ran at the
   intermediate `151d679`.
 
+- 2026-08-12: the maker's gut-check solver runs completed and the maker directed, verbatim:
+  "you may kill the 3 gutcheck dev server / the entire pc is yours, max out all cores." The
+  dev servers were stopped and the dispatcher restarted at concurrency 12 (the plan's recorded
+  ceiling) on the now-dedicated host, same head `3827b77`; the four in-flight N=112 rows
+  re-run among the 12 slots — total time-to-finish improves even counting the discarded
+  progress (measured aggregate throughput roughly doubles from 4-way to 8+-way on this
+  bandwidth-bound host). Scheduling only; no case's physics changes.
+
 ## Out of scope
 
 - Any production-configuration selection or campaign authorization (decision 0045).
