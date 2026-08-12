@@ -3,8 +3,8 @@
  "movedFrom": "out/ (gitignored), plus the byte-identical tracked arm64 fingerprint formerly under docs/",
  "movedTo": "evidence/ (tracked)",
  "note": "Historical sweep digests were computed before their move and re-verified afterward. The arm64 fingerprint preserves the exact former docs/ Git blob (18398 bytes, SHA-256 d6686f8e...). The x64 fingerprint is the complete 2026-08-01 lightweight fixture re-execution backing the exact per-entry comparison; it reproduces registered digest 2a9f64b3. These are preserved claim-backing bytes, not regenerated production sweeps.",
- "fileCount": 75,
- "totalBytes": 2962351,
+ "fileCount": 83,
+ "totalBytes": 3019098,
  "files": {
   "phase6-crossplatform/arm64-libm-fingerprint.txt": {
    "bytes": 18398,
@@ -277,6 +277,38 @@
   "phase8b-benchmark-selection-v1/selection.jsonl": {
    "bytes": 36171,
    "sha256": "d4d883b321949155e4ca462b594c6a443acd233719bc8f8c5ffc17e694516537"
+  },
+  "phase8b-benchmark-selection-v2/artifact-index.json": {
+   "bytes": 695,
+   "sha256": "2a186bf6b20cbe324109c125b53e231ef6bfa098282537c32e4561f5c1ad8464"
+  },
+  "phase8b-benchmark-selection-v2/backlog.json": {
+   "bytes": 3233,
+   "sha256": "c0555ba4d526c46b38388ac81b4156200ac12d8a4900ab7c6d91ad7cf89369f7"
+  },
+  "phase8b-benchmark-selection-v2/protocol.json": {
+   "bytes": 3792,
+   "sha256": "3794668a3a9b04f71f517d8d26968785a33063bcee5182266f8ba6bfe293c6e8"
+  },
+  "phase8b-benchmark-selection-v2/report.json": {
+   "bytes": 1304,
+   "sha256": "2f06650138ea8fe60360b5a9ad83f38a6f3c5829722e7591223d44ca90d001a2"
+  },
+  "phase8b-benchmark-selection-v2/selection.jsonl": {
+   "bytes": 38015,
+   "sha256": "e347fa7fea228856f075e33f6aab66763e916a8289daab6ca70b2b44e04c2b64"
+  },
+  "phase8b-bacon-seed-history-v1/artifact-index.json": {
+   "bytes": 402,
+   "sha256": "2cf6cdc81de5eb6a22e6d3ccab19f7d7317a68e903205435ee84531e829704a7"
+  },
+  "phase8b-bacon-seed-history-v1/records.jsonl": {
+   "bytes": 6199,
+   "sha256": "680ee6fc8f1459f2087988cc94f840a47f8be7a04b4d0381fc300721a5c62c2f"
+  },
+  "phase8b-bacon-seed-history-v1/report.json": {
+   "bytes": 3107,
+   "sha256": "73ca145532ce23373b2e7087d6023d0fc72ac269f25504c2b75bc17c1ecc0792"
   },
   "phase8b-native-histories-v1/artifact-index.json": {
    "bytes": 3488,

@@ -78,6 +78,8 @@ research/phase8b-targeted-gap-and-currency.md -text
 docs/plans/phase-9-modular-physics-arms.md -text
 runner/src/phase8-benchmark-selection.ts -text
 runner/test/phase8-benchmark-selection.test.ts -text
+runner/src/phase8-bacon-successor.ts -text
+runner/test/phase8-bacon-successor.test.ts -text
 runner/src/phase8-native-history.ts -text
 runner/src/phase8-native-history-verify.ts -text
 runner/test/phase8-native-history.test.ts -text
