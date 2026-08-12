@@ -17,6 +17,7 @@ research/*
 # Our own Phase 8B registered plot operators (metadata only; no source media or coordinates).
 !research/phase8b-plot-operator-v1.json
 !research/phase8b-plot-operator-v2.json
+!research/phase8b-plot-publication-v3.json
 # Our own Phase 6 source-lock metadata and extracted observations; contains no third-party media.
 !research/phase6-heldout-candidate-lock.json
 # Exact maker-rejected WP1 V4/V4.x history; retained as records, never executable authority.
