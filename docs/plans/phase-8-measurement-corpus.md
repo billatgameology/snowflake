@@ -209,7 +209,9 @@ are reopened and re-derived from their published bytes.
   forward citations plus the frozen named authors' later output, and run only these four
   high-precision searches: `"snow crystal growth" experiment`, `"ice crystal growth"
   supersaturation experiment`, `"ice crystal sublimation" experiment`, and `"artificial snow
-  crystal" growth`. Use anonymous CiNii only as a historical Japanese supplement with these three
+  crystal" growth`. A focused query reporting more than 500 records is a precision failure: retain
+  its first response as `BOUNDED_OPEN` and narrow it in a successor rather than paginating noise.
+  Use anonymous CiNii only as a historical Japanese supplement with these three
   same-field searches: `人工雪 雪結晶 成長 実験`, `氷晶 成長速度 過飽和度 測定`, and `雪結晶 晶癖 成長 実験`.
   Use Crossref, DataCite, NASA NTRS, NDL, Semantic Scholar and publisher routes only for exact
   identity, currency, citation, dataset or acquisition follow-up on leads actually encountered;
