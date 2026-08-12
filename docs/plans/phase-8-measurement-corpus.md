@@ -233,7 +233,7 @@ classification. Freeze candidates are reopened and re-derived from their publish
   them. Preserve every other discovered identifier/source/unit under a stable backlog locator and
   reason. Independently second-check ambiguous membership and verify selection did not use a
   favorable value.
-- [ ] **S3 — Freeze the native full-history operator and normalize P0.** Parse the 16 Harrison
+- [x] **S3 — Freeze the native full-history operator and normalize P0.** Parse the 16 Harrison
   members as full raw `sourceRowIndex,time_s,mass_ratio` histories; preserve all source rows and
   keep the undocumented sixth column excluded. Join the corrected Pokrifka conditions by run ID,
   keep `625` excluded, and preserve the unmatched corrected condition as an absence. Parse both
@@ -811,3 +811,24 @@ acceptances are not retroactively represented as reviews of the focused contract
   independently reprioritize the science, or audit NAS source bytes beyond the registered CLI's
   hash checks. Those are not S2 membership checks; exact full-suite publication verification is
   recorded with the commit, while source semantics and row bytes remain S3/S4 work.
+
+### S3 native full-history normalization — accepted
+
+- **Frozen operator:** commit `a051800` froze the producer, independent verifier and eight focused
+  negative/control tests before the production write. A bounded non-author re-review accepted the
+  repaired operator with zero blockers after it bound the exact S2 P0 roster, verified scientific
+  metadata, hashed the excluded `625` witness and enforced NAS-only row publication.
+- **Production result:** the atomic NAS publication at
+  `research-cache/phase8b-derived/native-histories-20260812-v1/` contains 16 mass-ratio histories
+  and two dimension histories: 252,134 source rows, 23,790,803 selected source-member bytes and
+  8,260,015 normalized TSV bytes. The independent verifier compared all 252,134 selected rows
+  lexeme-for-lexeme, hashed both ZIPs and all 19 required expanded mirrors, and returned `ok=true`.
+- **Preserved facts:** `712k` remains 10,445 raw rows / 1,595 unique times / 8,850 adjacent repeats
+  / maximum multiplicity 22; 12/16 mass histories contain measured decreases and `805a` has the
+  largest count at 57; `724b` reaches 3,610.676 s; the undocumented sixth mass column and `625`
+  remain excluded; and the 2024 forcing event remains exactly 13,800 s between observations at
+  13,504 and 13,804 s.
+- **Publication boundary:** Git tracks the four metadata/hash artifacts under
+  `evidence/phase8b-native-histories-v1/`. Substantial normalized rows remain only on the NAS
+  because redistribution rights are unresolved. The result is model-development evidence, grants
+  no validation claim and does not authorize Phase 9 execution.

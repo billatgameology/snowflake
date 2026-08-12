@@ -43,7 +43,9 @@ index, a plan, ADR, or audit links to historical detail.
   S2 is now frozen in `evidence/phase8b-benchmark-selection-v1/`: 18 P0 / 26 P1 / 5 P2 records,
   with 886 residual local units, 23 residual acquired sources and 1,545 residual exact discovery
   identifiers retained by stable set-difference rules. The independent bounded review returned
-  `ACCEPT` with zero blockers. No measurement coordinates have yet been extracted.
+  `ACCEPT` with zero blockers. S3 is also complete: all 18 P0 native histories are normalized on
+  the NAS as 252,134 exact source-lexeme rows / 8,260,015 TSV bytes and independently verified
+  against both archives and 19 expanded mirrors. Git retains only their metadata and hashes.
   Phase 7 is completely standalone from the completion of Phases 6 and 8: it is not started and
   still needs its own committed plan/worktree, but neither phase gates it. Its existing product,
   held-out-validation, and GPU-parity scope remains. Phase 9 and Phase 10 remain uncharted.
@@ -203,7 +205,7 @@ reconciliation — Phase 6 closes. Do not resume education or V4/V4.x apparatus.
 preview-GPU work may begin only as separately planned Phase 7 work in its own worktree; never run
 it from the Phase 6 lane or count it toward Phase 6.
 
-### Phase 8B lane — native-history normalization is next; broad acquisition is stopped
+### Phase 8B lane — selected P1/P2 extraction is next; broad acquisition is stopped
 
 Decision 0048, charter v1.25 and the [benchmark-corpus plan](plans/phase-8-measurement-corpus.md)
 govern. Preserve `evidence/phase8-target-book/` byte-for-byte and every accepted S0-S2 bundle.
@@ -218,11 +220,11 @@ list. Never issue same-host parallel requests or automatic retries.
 S2 selection is frozen at 18 P0 / 26 P1 / 5 P2; reproduce it with
 `node runner/src/phase8-benchmark-selection.ts verify --triage-root
 /Volumes/snowcrystal/research-cache/phase8b-search/offline-title-triage-20260811-v1 --bundle
-evidence/phase8b-benchmark-selection-v1`. Next freeze the S3 operator, then normalize the 16
-Harrison/Pokrifka mass histories totaling 252,040 raw rows and the two Harrington–Pokrifka
-dimension histories totaling 94 rows to
-`/Volumes/snowcrystal/research-cache/phase8b-derived/native-histories-20260812-v1/`, with tracked
-schema, source/member hashes, corrected conditions, uncertainty, rights, lineage, leakage, and an
-independent verifier. Keep `712k` raw duplicate timestamps; coalescing is a separate derived
-operator. Then extract only the frozen P1/P2 set before one targeted gap/currency pass.
-Phase 9 remains unchartered.
+evidence/phase8b-benchmark-selection-v1`. S3 is published at
+`/Volumes/snowcrystal/research-cache/phase8b-derived/native-histories-20260812-v1/`; verify it with
+`node runner/src/phase8-native-history-verify.ts verify --content-root
+/Volumes/snowcrystal/research-cache/content --bundle
+/Volumes/snowcrystal/research-cache/phase8b-derived/native-histories-20260812-v1`. Next freeze the
+plot/table operator and extract only the 26 selected P1 series plus five P2 interpretation records,
+then run one targeted gap/currency pass. Keep source renders and any rights-restricted digitized
+rows on the NAS. Phase 9 remains unchartered.
