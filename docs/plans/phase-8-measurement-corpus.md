@@ -187,7 +187,7 @@ are reopened and re-derived from their published bytes.
   candidate or start another full audit. Then freeze and publish. Focused checks are sufficient during development;
   run exact `TMPDIR=/private/tmp npm test` once at the freeze. S4, not S1, owns detailed
   extraction/digitization calibration before target coordinates are read.
-- [ ] **S1a — Freeze the maker-authorized route-readiness successor.** Before any counted S2
+- [x] **S1a — Freeze the maker-authorized route-readiness successor.** Before any counted S2
   request, preserve the accepted S1 bundle byte-for-byte and publish a separate versioned successor
   that makes only the route changes needed to use the access the maker actually supplied. Replace
   the credentialed CiNii OpenSearch recipe with the anonymous experimental CiNii Research Knowledge
@@ -263,6 +263,17 @@ time with its path or hash.
 
 ## Tried and rejected
 
+- **Generate one CiNii SPARQL `UNION` group per query token so terms may span metadata fields.**
+  Rejected by an uncounted live probe before the S1a freeze: the ordinary six-token English matrix
+  query returned HTTP 400 because Virtuoso's generated SQL exceeded 10,000 lines. The successor
+  uses one indexed full-text expression in each title/alternate-title/description/keyword branch,
+  records the resulting same-field recall limit, and keeps CiNii supplemental rather than silently
+  treating the smaller working probes as transferable.
+- **Keep treating a contact address as a credential for public metadata APIs.** Rejected by live
+  uncounted smokes: Crossref, DataCite, and NASA NTRS all served their public request shapes without
+  an email identity. Crossref did expose a real request defect instead—the registered vendor media
+  type returned HTTP 406 while `Accept: application/json` returned its documented `message.items`
+  shape—so S1a fixes that header and uses the observed one-request-per-second public-pool limit.
 - **Treat 26 bilingual query definitions as the executable query denominator.** Rejected by the
   first S1 audit: eight active free-text routes imply 208 route/query cells, and a list of route
   names beside each human query does not freeze encoded requests, headers, NASA POST bodies,
@@ -573,3 +584,32 @@ the registered gate. Phase 9 scope decisions wait for S6.
   bundle, its manifest entries, implementation, tests and current-state records.
 - **Not checked:** credentialed routes, counted search, acquisition, legal-rights determinations,
   measurement extraction, or S2-S4 behavior. Those open items are work, not S1 acceptance claims.
+
+### Route-readiness successor review — accepted
+
+- **Reviewer:** non-author OpenAI Codex based on GPT-5 with shared current task context. The
+  reviewer did not edit the successor implementation or candidate.
+- **Re-executed:** the strict successor verifier; the focused successor suite; all four pinned
+  official CiNii documents; reconstruction of every CiNii route/query request including its
+  ordering, keyset continuation and page cap; OpenAlex NAS-key handling and raw plus URL-encoded
+  secret-redaction probes; all changed route/smoke/report bytes; and byte identity between the
+  reviewed candidate and the published bundle.
+- **Verdict:** ACCEPT with zero unresolved S1a blockers. Published successor
+  `evidence/phase8b-search-protocol-v2/` has artifact-index SHA-256
+  `2ffc196ed74611d8dd34d7b69566c7209ad31edb27d7243e19db82a7cc119116` and report SHA-256
+  `5d73585a4cd37ebe776978cdc93e1390bef8b15d471f5a4675b72575d6661b9b`. The report re-derives 13
+  routes (10 active and 3 reviewed removals), 32 queries and 256 route/query cells. Fresh uncounted
+  smokes record 9 successes, 1 route blocker at the terminal DOI/publisher page, 3 removals and no
+  credential blockers. No counted search or coordinate read ran. CiNii remains explicitly
+  supplemental because its anonymous service is a fixed 2024-04-04 snapshot; the OpenAlex key was
+  read directly from `/Volumes/snowcrystal/openalex.txt` and is absent from candidate and source
+  bytes.
+- **Publication check:** the first exact `TMPDIR=/private/tmp npm test` correctly failed the
+  evidence-integrity boundary because the new evidence was present but not yet staged. After the
+  intended files were staged, the exact command passed, including Rule 7, both typechecks, and all
+  test suites.
+- **Not checked:** complete execution of the 256 counted route/query cells, pagination to
+  exhaustion, complete source acquisition, legal-rights determinations beyond the conservative
+  retention policy, measurement extraction, or downstream S2-S4 behavior. The DOI/publisher HTTP
+  403 and CiNii snapshot-currency limit remain `BOUNDED_OPEN`; acceptance authorizes starting S2
+  but cannot close it while either required coverage path remains unresolved.

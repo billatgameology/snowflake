@@ -198,33 +198,34 @@ it from the Phase 6 lane or count it toward Phase 6.
 
 ### Phase 8B lane — freeze the denominators before extraction
 
-Governance step S-1 is committed at `80395f2`: decision 0047, charter v1.24, the
-[measurement-corpus plan](plans/phase-8-measurement-corpus.md), and its state-index guards passed
-the exact local suite and an independent review with zero blockers. S0 is now accepted and
-published at `evidence/phase8b-local-denominator/` (artifact-index SHA-256
+Governance S-1 is committed at `80395f2`; decision 0047, charter v1.24 and the
+[measurement-corpus plan](plans/phase-8-measurement-corpus.md) govern this lane. S0 is accepted at
+`evidence/phase8b-local-denominator/` (artifact-index SHA-256
 `93c83a98ef053e4b22b24ce3c072f862b23d55a552df5da177f71f2d935bb8f2`). Its live-NAS replay and
-independent recount close 218 PDF/archive-like candidates into 23 sources plus 195 explicit
-exclusions: 21 PDFs contribute 880 pages and two ZIPs contribute 34 regular members, for 914 unique
-source units. All 914 are still `pending-classification`; the re-derived measurement-set count is
-zero. This freezes only the denominator and neither permits Phase 9 execution nor grants validation.
+recount close 218 PDF/archive-like candidates into 23 sources plus 195 exclusions: 21 PDFs supply
+880 pages and two ZIPs 34 regular members, for 914 unique source units. All remain
+`pending-classification`; the measurement-set count is zero.
 
-S1 is accepted and published at `evidence/phase8b-search-protocol/` (artifact-index SHA-256
+S1 is accepted at `evidence/phase8b-search-protocol/` (artifact-index SHA-256
 `8bc12ee92afdcfdf41148cde4ef89029f572007ba3bee338d1a62a38153dace7`). The lean seven-artifact
-bundle registers 13 routes (10 active, 3 reviewed removals), 32 bilingual queries and 256
-route/query cells. Its live uncounted smoke recorded 2 successes, 5 missing-credential dispositions,
-3 route-blocked dispositions and 3 removals; the independently derived readiness is
-`protocol-recorded-route-blockers-open`. The same non-author review engagement rejected two
-load-bearing request-provenance seams, accepted their bounded repair, then accepted candidate E's
-exact bytes with zero unresolved S1 blockers. Exact `TMPDIR=/private/tmp npm test` passed after the
-publication was staged. The interrupted 21,695-line proof system remains only
-as rejected WIP under `tmp/phase8b-overbuilt-s1-wip-20260811/` and must not be restored wholesale.
-The maker has now authorized the anonymous CiNii trial and supplied an OpenAlex key in an NAS-only
-file. Before counted search, freeze plan step S1a as a separate successor: keep accepted S1
-immutable, register CiNii's 2024-04-04 Knowledge Graph snapshot without claiming post-snapshot
-coverage, consume the OpenAlex key only at runtime without recording it, and remove the false
-`PHASE8_CONTACT_EMAIL` credential gate from the public Crossref, DataCite, and NASA NTRS reads.
-Then run uncounted route smokes and a bounded changed-byte review, clear or preserve the explicit
-live route blockers, and execute S2 only if the successor's registered closure conditions permit
-it. S4 owns extraction calibration. No counted search or coordinate read has run.
+bundle freezes 13 routes, 32 bilingual queries and 256 route/query cells. Its detailed review and
+old smoke state remain in the plan; rejected overbuilt WIP under
+`tmp/phase8b-overbuilt-s1-wip-20260811/` must not be restored wholesale.
+S1a is accepted and published separately at `evidence/phase8b-search-protocol-v2/`
+(artifact-index SHA-256
+`2ffc196ed74611d8dd34d7b69566c7209ad31edb27d7243e19db82a7cc119116`; report SHA-256
+`5d73585a4cd37ebe776978cdc93e1390bef8b15d471f5a4675b72575d6661b9b`). It preserves accepted S1
+byte-for-byte. Fresh uncounted smokes record 9 successes, 1 DOI/publisher HTTP 403 route
+blocker, 3 removals and no credential blockers. The anonymous CiNii route is explicitly a
+supplemental 2024-04-04 snapshot rather than current coverage; the OpenAlex key is read from the
+NAS only at runtime and is absent from evidence and source bytes. The bounded non-author review
+accepted the exact bytes, and exact `TMPDIR=/private/tmp npm test` passed. No counted search or
+coordinate read has run; neither S0, S1 nor S1a permits Phase 9 or grants validation.
+
+Phase 8B action: execute all 256 matrix cells and the follow-up priority queue, retaining raw
+responses on the NAS and hashes/dispositions in evidence. Preserve the DOI/publisher failure and
+CiNii snapshot-currency limit as `BOUNDED_OPEN`; they do not prevent useful search work, but S2
+cannot close until required acquisition/current-coverage paths are resolved. S4, not S2, owns
+coordinate reading and extraction calibration.
 Preserve `evidence/phase8-target-book/` byte-for-byte and keep all 8B evidence separate.
 Phase 9 remains unchartered and cannot start from either milestone alone.

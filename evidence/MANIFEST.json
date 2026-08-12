@@ -3,8 +3,8 @@
  "movedFrom": "out/ (gitignored), plus the byte-identical tracked arm64 fingerprint formerly under docs/",
  "movedTo": "evidence/ (tracked)",
  "note": "Historical sweep digests were computed before their move and re-verified afterward. The arm64 fingerprint preserves the exact former docs/ Git blob (18398 bytes, SHA-256 d6686f8e...). The x64 fingerprint is the complete 2026-08-01 lightweight fixture re-execution backing the exact per-entry comparison; it reproduces registered digest 2a9f64b3. These are preserved claim-backing bytes, not regenerated production sweeps.",
- "fileCount": 38,
- "totalBytes": 2123442,
+ "fileCount": 45,
+ "totalBytes": 2403221,
  "files": {
   "phase6-crossplatform/arm64-libm-fingerprint.txt": {
    "bytes": 18398,
@@ -157,6 +157,34 @@
   "phase8b-search-protocol/smoke-results.jsonl": {
    "bytes": 5297,
    "sha256": "acdc51a3c414fea9897f5a5f10dc24dcf8acf91fa51cc01480c0880820f941cb"
+  },
+  "phase8b-search-protocol-v2/artifact-index.json": {
+   "bytes": 1142,
+   "sha256": "2ffc196ed74611d8dd34d7b69566c7209ad31edb27d7243e19db82a7cc119116"
+  },
+  "phase8b-search-protocol-v2/protocol.json": {
+   "bytes": 10223,
+   "sha256": "ed015d3f5167f88497d9cfc3e1bb61269bc927649ddaf3b36f4d31b56bdb80bc"
+  },
+  "phase8b-search-protocol-v2/queries.jsonl": {
+   "bytes": 10118,
+   "sha256": "5780fcef8b7e474560fd9410dac0be1dfa5a2fe72cd42b0fca3617cfd833fbd7"
+  },
+  "phase8b-search-protocol-v2/report.json": {
+   "bytes": 1660,
+   "sha256": "5d73585a4cd37ebe776978cdc93e1390bef8b15d471f5a4675b72575d6661b9b"
+  },
+  "phase8b-search-protocol-v2/route-query-cells.jsonl": {
+   "bytes": 234772,
+   "sha256": "c432a1621c122e6534f6752d28dba72cd6b68ef7881ca26209932007662bda2d"
+  },
+  "phase8b-search-protocol-v2/routes.jsonl": {
+   "bytes": 15290,
+   "sha256": "73eab36ad06b59fa210e3491f3768c0d293a01b0b8384e42d368621fded0681f"
+  },
+  "phase8b-search-protocol-v2/smoke-results.jsonl": {
+   "bytes": 6574,
+   "sha256": "59732c2726eb5faf172c47968ff54e98659a7cc1fe03817fcfdbd3fe77214c62"
   }
  }
 }
