@@ -165,7 +165,7 @@ are reopened and re-derived from their published bytes.
   against the existing research-cache manifest and separately disposition any manifest-external
   files. Stage the schema, generator, verifier, counts, and negative controls; review their closure
   claims before freezing and publishing them or calling the local inventory complete.
-- [ ] **S1 — Freeze the lean external-search protocol.** Publish only the controls needed to make
+- [x] **S1 — Freeze the lean external-search protocol.** Publish only the controls needed to make
   the bounded search reproducible and fail closed: scope/cutoff/inclusion/exclusion/stopping rules;
   S0-bound source and citation/author seeds; an operational route registry with method, request
   recipe, credential placeholder, pacing, pagination/cap, supported operations and `BOUNDED_OPEN`
@@ -531,5 +531,29 @@ the registered gate. Phase 9 scope decisions wait for S6.
 - **Preservation:** the interrupted overbuilt producer/verifier/test bytes are retained only as
   rejected local WIP under `tmp/phase8b-overbuilt-s1-wip-20260811/`; they are not a candidate or
   evidence and must not be restored wholesale. Candidates A-D remain immutable rejected records.
-- **Next:** implement the lean S1 once, validate each route operationally, conduct one
-  proportionate review on immutable candidate bytes, freeze it, and begin counted search work.
+- **Outcome:** the lean implementation and accepted candidate E described below replace the
+  interrupted WIP. The superseded machinery remains preserved only to prevent accidental revival.
+
+### Search-protocol review 6 — accepted lean candidate E
+
+- **Reviewer:** non-author OpenAI Codex based on GPT-5 with shared current task context. The
+  reviewer did not edit the implementation or candidate. One review engagement found two
+  load-bearing seams; the same engagement performed only a bounded changed-byte follow-up and
+  exact-candidate closure after repair.
+- **Re-executed:** the focused 22-test suite; exact supported-operation, route-recipe,
+  route/query-cell and smoke-request reconstruction; the original OpenAlex-operation,
+  Crossref-page-size and forged-smoke-hash attacks; independent verification of all seven candidate
+  files and descriptors; and byte identity between the live smoke record and candidate payload.
+- **Verdict:** ACCEPT with zero unresolved blockers. Published candidate E at
+  `evidence/phase8b-search-protocol/` has artifact-index SHA-256
+  `8bc12ee92afdcfdf41148cde4ef89029f572007ba3bee338d1a62a38153dace7` and report SHA-256
+  `358c53de278fd296e7d414de7711917f0c86c4e9b4257e72c61f44ae9665b3c2`.
+  It registers 13 routes (10 active, 3 reviewed removals), 32 bilingual queries and 256
+  route/query cells. The uncounted smoke records 2 successes, 5 missing-credential dispositions,
+  3 route-blocked dispositions and 3 removals; readiness is therefore explicitly
+  `protocol-recorded-route-blockers-open`, with zero counted search requests and no Phase 9 or
+  validation permission.
+- **Publication check:** exact `TMPDIR=/private/tmp npm test` passed after staging the reviewed
+  bundle, its manifest entries, implementation, tests and current-state records.
+- **Not checked:** credentialed routes, counted search, acquisition, legal-rights determinations,
+  measurement extraction, or S2-S4 behavior. Those open items are work, not S1 acceptance claims.

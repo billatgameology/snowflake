@@ -208,16 +208,19 @@ exclusions: 21 PDFs contribute 880 pages and two ZIPs contribute 34 regular memb
 source units. All 914 are still `pending-classification`; the re-derived measurement-set count is
 zero. This freezes only the denominator and neither permits Phase 9 execution nor grants validation.
 
-S1 remains open and no candidate E has been generated. Candidates A-D are preserved rejected
-artifacts. After review 5, the maker stopped the expanding proof-system loop: its proposed
-41-document/143-atom proof, machine-enforced reviewer identity, 113 one-field controls, detailed
-downstream schemas and two pre-generation audits were plan/implementation ceremony rather than
-charter requirements. The interrupted 21,695-line version is preserved only as rejected local WIP
-under `tmp/phase8b-overbuilt-s1-wip-20260811/`. Implement the active plan's lean S1 instead: compact
-scope/seeds/routes/query matrix/minimal schemas/policies/index/report, one uncounted smoke request or
-explicit disposition per route, a small risk-class control set, and one proportionate non-author
-review engagement on immutable candidate bytes; any blocker gets a new immutable successor and a
-bounded changed-byte follow-up, never another full audit. Then freeze and begin counted S2 search; S4 owns detailed
-extraction calibration. No registered search or coordinate read has run.
+S1 is accepted and published at `evidence/phase8b-search-protocol/` (artifact-index SHA-256
+`8bc12ee92afdcfdf41148cde4ef89029f572007ba3bee338d1a62a38153dace7`). The lean seven-artifact
+bundle registers 13 routes (10 active, 3 reviewed removals), 32 bilingual queries and 256
+route/query cells. Its live uncounted smoke recorded 2 successes, 5 missing-credential dispositions,
+3 route-blocked dispositions and 3 removals; the independently derived readiness is
+`protocol-recorded-route-blockers-open`. The same non-author review engagement rejected two
+load-bearing request-provenance seams, accepted their bounded repair, then accepted candidate E's
+exact bytes with zero unresolved S1 blockers. Exact `TMPDIR=/private/tmp npm test` passed after the
+publication was staged. The interrupted 21,695-line proof system remains only
+as rejected WIP under `tmp/phase8b-overbuilt-s1-wip-20260811/` and must not be restored wholesale.
+Next, supply `PHASE8_CONTACT_EMAIL`, `CINII_APP_ID` and `OPENALEX_API_KEY`, clear or preserve the
+three explicit arXiv/DOI-publisher/Semantic-Scholar route blockers, and execute the registered S2
+search without changing its cells. S4 owns extraction calibration. No counted search or coordinate
+read has run.
 Preserve `evidence/phase8-target-book/` byte-for-byte and keep all 8B evidence separate.
 Phase 9 remains unchartered and cannot start from either milestone alone.

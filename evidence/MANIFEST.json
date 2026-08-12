@@ -3,8 +3,8 @@
  "movedFrom": "out/ (gitignored), plus the byte-identical tracked arm64 fingerprint formerly under docs/",
  "movedTo": "evidence/ (tracked)",
  "note": "Historical sweep digests were computed before their move and re-verified afterward. The arm64 fingerprint preserves the exact former docs/ Git blob (18398 bytes, SHA-256 d6686f8e...). The x64 fingerprint is the complete 2026-08-01 lightweight fixture re-execution backing the exact per-entry comparison; it reproduces registered digest 2a9f64b3. These are preserved claim-backing bytes, not regenerated production sweeps.",
- "fileCount": 31,
- "totalBytes": 1891696,
+ "fileCount": 38,
+ "totalBytes": 2123442,
  "files": {
   "phase6-crossplatform/arm64-libm-fingerprint.txt": {
    "bytes": 18398,
@@ -129,6 +129,34 @@
   "phase8b-local-denominator/source-units.jsonl": {
    "bytes": 481974,
    "sha256": "d806c220c6057eb0d80b44458c185acc61d25b9c7be6495e5c57f2a038a41178"
+  },
+  "phase8b-search-protocol/artifact-index.json": {
+   "bytes": 1131,
+   "sha256": "8bc12ee92afdcfdf41148cde4ef89029f572007ba3bee338d1a62a38153dace7"
+  },
+  "phase8b-search-protocol/protocol.json": {
+   "bytes": 8451,
+   "sha256": "eee8548f95c0cf68ca6717e3fdd52fb78d63e6c6a473396dc0ed5d230b05d76a"
+  },
+  "phase8b-search-protocol/queries.jsonl": {
+   "bytes": 10118,
+   "sha256": "5780fcef8b7e474560fd9410dac0be1dfa5a2fe72cd42b0fca3617cfd833fbd7"
+  },
+  "phase8b-search-protocol/report.json": {
+   "bytes": 1551,
+   "sha256": "358c53de278fd296e7d414de7711917f0c86c4e9b4257e72c61f44ae9665b3c2"
+  },
+  "phase8b-search-protocol/route-query-cells.jsonl": {
+   "bytes": 190768,
+   "sha256": "f9f80f0bf433b0a4366013cc799b26235ed6c96fdeb158fb11e13ec7593e33af"
+  },
+  "phase8b-search-protocol/routes.jsonl": {
+   "bytes": 14430,
+   "sha256": "3f48818c4269de1ce7167d9d793a8a7714cb8dfe40542193124b8add51c5371e"
+  },
+  "phase8b-search-protocol/smoke-results.jsonl": {
+   "bytes": 5297,
+   "sha256": "acdc51a3c414fea9897f5a5f10dc24dcf8acf91fa51cc01480c0880820f941cb"
   }
  }
 }
