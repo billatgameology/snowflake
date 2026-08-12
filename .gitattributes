@@ -67,30 +67,3 @@ runner/src/gate4-evidence.ts -text
 runner/src/phase8-freeze.ts -text
 runner/src/phase8-verify.ts -text
 runner/test/phase8-target-book.test.ts -text
-
-# Phase 8B's registered operators, terminal research records, successor plan, and implementation
-# are hash-bound inputs to the final benchmark. Preserve their exact bytes on Windows checkouts.
-research/phase8b-plot-operator-v1.json -text
-research/phase8b-plot-operator-v2.json -text
-research/phase8b-plot-publication-v3.json -text
-evidence/phase8b-plot-digitization-v3/*.json -text
-evidence/phase8b-plot-digitization-v3/*.jsonl -text
-evidence/phase8b-benchmark-final-v1/*.json -text
-evidence/phase8b-benchmark-final-v1/*.jsonl -text
-research/phase8b-residual-audit-registration.md -text
-research/phase8b-residual-audit-result.md -text
-research/phase8b-targeted-gap-and-currency.md -text
-docs/plans/phase-9-modular-physics-arms.md -text
-runner/src/phase8-benchmark-selection.ts -text
-runner/test/phase8-benchmark-selection.test.ts -text
-runner/src/phase8-bacon-successor.ts -text
-runner/test/phase8-bacon-successor.test.ts -text
-runner/src/phase8-native-history.ts -text
-runner/src/phase8-native-history-verify.ts -text
-runner/test/phase8-native-history.test.ts -text
-runner/src/phase8-plot-extraction.ts -text
-runner/src/phase8-plot-extraction-verify.ts -text
-runner/test/phase8-plot-extraction.test.ts -text
-runner/src/phase8-benchmark-final.ts -text
-runner/src/phase8-benchmark-final-verify.ts -text
-runner/test/phase8-benchmark-final.test.ts -text

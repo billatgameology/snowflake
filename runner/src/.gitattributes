@@ -1,0 +1,11 @@
+# Phase 8B's registered operators and final verifier must reproduce byte-exactly.
+phase8-bacon-successor.ts -text
+phase8-benchmark-final-verify.ts -text
+phase8-benchmark-final.ts -text
+phase8-benchmark-selection.ts -text
+phase8-native-history-verify.ts -text
+phase8-native-history.ts -text
+phase8-plot-extraction-v3-verify.ts -text
+phase8-plot-extraction-v3.ts -text
+phase8-plot-extraction-verify.ts -text
+phase8-plot-extraction.ts -text

@@ -1,0 +1,2 @@
+# Phase 8B's hash-bound research records must reproduce byte-exactly on Windows checkouts.
+phase8b-* -text

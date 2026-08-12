@@ -1,0 +1,7 @@
+# Phase 8B's operator fixtures must reproduce byte-exactly.
+phase8-bacon-successor.test.ts -text
+phase8-benchmark-final.test.ts -text
+phase8-benchmark-selection.test.ts -text
+phase8-native-history.test.ts -text
+phase8-plot-extraction-v3.test.ts -text
+phase8-plot-extraction.test.ts -text
