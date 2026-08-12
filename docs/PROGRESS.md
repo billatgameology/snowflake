@@ -222,10 +222,10 @@ NAS only at runtime and is absent from evidence and source bytes. The bounded no
 accepted the exact bytes, and exact `TMPDIR=/private/tmp npm test` passed. No counted search or
 coordinate read has run; neither S0, S1 nor S1a permits Phase 9 or grants validation.
 
-Phase 8B action: execute all 256 matrix cells and the follow-up priority queue, retaining raw
-responses on the NAS and hashes/dispositions in evidence. Preserve the DOI/publisher failure and
-CiNii snapshot-currency limit as `BOUNDED_OPEN`; they do not prevent useful search work, but S2
-cannot close until required acquisition/current-coverage paths are resolved. S4, not S2, owns
-coordinate reading and extraction calibration.
+Phase 8B action: execute S2's focused seed-resolution, citation, named-author and seven-query
+search, retaining raw responses on the NAS and hashes/dispositions in evidence. The maker rejected
+blind pagination of S1's 256-cell route-capability matrix after its first OpenAlex smoke reported
+258,216 mostly irrelevant matches. Preserve the DOI/publisher failure and CiNii snapshot-currency
+limit as `BOUNDED_OPEN`; S4 owns coordinate reading and extraction calibration.
 Preserve `evidence/phase8-target-book/` byte-for-byte and keep all 8B evidence separate.
 Phase 9 remains unchartered and cannot start from either milestone alone.
