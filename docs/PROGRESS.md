@@ -130,16 +130,9 @@ index, a plan, ADR, or audit links to historical detail.
   Phase 6 closes. Commit `8acf9fe` (same session) added three proposed Phase 8–10 plan drafts.
   Decision 0046 now charters Phase 8's separate research-source/target-book work only; it does not
   reopen education, and the Phase 9–10 drafts remain uncharted and inactive.
-- Maker-directed pre-Phase-7 exploration branch `explore/gg-realism-gutcheck` (worktree
-  `../snowflake-gutcheck-gg-realism`; plan `docs/plans/explore-gg-realism-gutcheck.md` exists on
-  that branch only): grow a large noisy `GGThreshold` dendrite, extract a smooth level-set
-  surface, render the ADR 0029 ice look, and eyeball it against the J0521r2p footage. Eyeball-only
-  exploration — not evidence, no gate claim, touches no solver package, and may be discarded;
-  merging is a separate maker decision. It does not alter either chartered active plan below. The
-  former gut-check worktree content (extraction/render
-  tooling, the paper-coverage sweep, the growth-timeline viewer, and `docs/social/`) landed on
-  `origin/main` 2026-08-06 via PR #1 from `explore/social-content`; that branch is otherwise
-  outside Phase 6 scope and this bullet's "not evidence, no gate claim" status is unchanged.
+- The gut-check exploration (`explore/gg-realism-gutcheck`: GG realism renders, 93-crystal
+  sweep ledger, tracked recipes) is MERGED to `main` (`98bc75d`, 2026-08-12, merged-tree suite
+  green). Eyeball-only exploration — not evidence, no gate claim, touches no solver package.
 - **WP1 size strata are FROZEN (2026-08-06).** `evidence/phase6-size-strata/strata.json` is
   18,867 bytes with SHA-256 `aba93698ad6dcd72237a9c7ffa48588143533db315c059a29f6cd98c8d0288b6`:
   S1 observed initial radius `[5.8999999999999995, 12.1]` µm (15 uncontested Harrison traces;
