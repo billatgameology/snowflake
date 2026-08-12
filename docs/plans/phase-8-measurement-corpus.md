@@ -649,17 +649,61 @@ the registered gate. Phase 9 scope decisions wait for S6.
   works in 21 requests. Marcus Hanson remains identity-unresolved; “Journal of the Meteorological
   Society of Japan” is recorded as a non-person seed error rather than queried as an author. Report
   SHA-256: `5acbfb6f98c3199d500ab89367c0f2940ceb64e53bed0afacb9e050ef89590fc`.
-- **Acquisition state:** immutable audit snapshot v1 binds 23 usable PDFs on the NAS. The
+- **Acquisition state:** immutable audit snapshot v2 binds 28 usable PDFs on the NAS. The
   mechanical audit re-opened all files with `pdfinfo` and rendered every first
-  page: 23/23 passed, spanning 271 pages and 143,808,779 bytes. Seven failed connection-reset
-  remnants are named `.partial-corrupt` and are not source PDFs. Five later high-priority
-  acquisitions are present but intentionally await the next immutable audit snapshot. Report SHA-256:
-  `060e19c0c0f0e93604f9359855c7258e633ca1dae9cc792903ca548df0c36aa1`.
+  page: 28/28 passed, spanning 362 pages and 161,704,803 bytes. Seven failed connection-reset
+  remnants are named `.partial-corrupt` and are not source PDFs. Report SHA-256:
+  `9209eea2ce4ead524264659e8b4c27105af308e3514dbd98bd5992435afd1bf3`.
+- **Acquired-set full-text reconnaissance:** all 362 pages of all 28 audited PDFs were rendered and
+  visually inspected offline, with text extraction used only as a reading aid. The 28-row source
+  register records 22 provisional sources with potentially eligible primary content, six
+  context/exclusion dispositions, and 13 filenames that do not match the verified article
+  citation. Four detailed records enumerate figure, table, panel/series and prose numerical leads,
+  conditions, source units, uncertainty limits, extraction families and lineage cautions. The
+  bundle is `evidence/phase8b-s2-round0-reconnaissance/`; artifact-index SHA-256:
+  `74e0b126e117bc66e22d6c8f04b01977a927b679f92885a8787860f375ac2a22`. Its report explicitly
+  records zero numeric extraction rows and zero formal S3 passes.
+- **Local/acquired reconciliation:** all 28 acquired PDFs and all 23 S0 source containers were
+  rehashed with zero mismatch. Exact-hash joins against the 23 containers and all 34 ZIP members,
+  plus identifier/title reconciliation, found zero exact duplicates and zero probable same-work
+  alternate versions. The sets are bibliographically disjoint, not thereby scientifically
+  independent. Record SHA-256:
+  `a097899a0570b495f0cf3badd95ffca29cee9e3e5de09db0bd059704c41cc858`.
+- **Existing-local-coverage map:** all 23 S0 containers were mapped exactly once. Twenty-two have
+  some detailed measurement/data extraction and one (Gravner–Griffeath) has context only, but the
+  prior inspection depth was uneven: six PDF indexes claimed all-page visual inspection, two ZIPs
+  had member/data coverage, twelve PDFs had source-wide text but incomplete visual inspection, and
+  two PDFs had targeted detailed extracts only. The current offline pass filled that discovery gap:
+  all 21 frozen-local PDFs / 880 pages now have page-complete visual reconnaissance, and with the
+  acquired set the combined visual coverage is 49 PDFs / 1,242 pages. Four new records preserve the
+  local candidate-unit and lineage findings. This is triage/S2 reconnaissance, not S3 credit.
+  Coverage-map SHA-256:
+  `baa945ba39e02f18de13a8b75ad04aeb96e948290d2b11f622b083bfad28e342`.
+- **Local visual discrepancies:** the page-complete pass records a CM7 filename/version prose
+  mismatch and clarifies that CM8 Figure 18 shows separate basal/prism series, not a quotient. It
+  also finds that Pokrifka Table 1 visibly prints 18 homogeneous condition rows while the analysis
+  repeatedly says 17 experiments and names no excluded row. These are open reconciliation items;
+  Phase 8A's freeze-pinned source index remains byte-unchanged.
+- **Local archive audit:** the two ZIPs contain 34 regular members, including 19 native primary
+  numeric measurement members. Eighteen are immediately usable after required condition/lineage
+  joins: 16 selected-particle mass histories and two crystal-dimension histories. Four Takahashi
+  digitization members reduce to two canonical blocks plus two strict subset views; model arrays
+  and code are excluded from measurements. Numeric redistribution rights and S4 normalization
+  operators remain open. Record SHA-256:
+  `66ac1ae02cde2cfb2e486d0f5d67977fd43dd22179996803814e34138a676417`.
+- **Preliminary Phase 9 consumer impact:** acquired direct measurements materially strengthen
+  pressure/thermal, history/schedule, two-branch-kinetics and behavioral confrontations, while
+  challenging a diffusion-only reading of pressure and assumed below-minus-10 C latent-heat
+  invariance. No clean matched direct evidence yet supports Gibbs–Thomson, seed geometry or
+  ventilation, and no new direct evidence supports mass-law or supersaturation-free exponent
+  scoring. This guides later S6 only; it does not redesign Phase 9. Record SHA-256:
+  `cbd1e1b4327f7456e7dd578f6eba07bfbdf9be5696b847612bb921074a8742a9`.
 - **Current verdict:** S2 remains `BOUNDED_OPEN`, not saturated. Full-text eligibility screening,
   authoritative acquisition follow-up, cumulative-set freezing and both zero-addition rounds have
-  not finished. Full-text page inspection is underway for S2 eligibility screening; it does not
-  count as either independent S3 classification pass. No target coordinate is being read and no S4
-  extraction operator is implied.
+  not finished across the cumulative local-plus-acquired universe. Page-complete S2 visual
+  reconnaissance now covers all 49 PDFs / 1,242 pages in the frozen local and acquired sets, but it
+  does not count as either independent S3 classification pass. No target coordinate has been read
+  and no S4 extraction operator is implied.
 - **Acquisition pacing correction:** after repeated J-STAGE connection resets, the maker directed
   the search not to spam download hosts. Reuse NAS bytes first; make at most one direct-PDF request
   per source during a pass, never issue parallel requests to the same host, and do not run automatic
@@ -667,5 +711,13 @@ the registered gate. Phase 9 scope decisions wait for S6.
   the round and is revisited only through a later deliberate follow-up or a distinct authoritative
   repository. This changes transport behavior only; it does not relax S2 coverage or acquisition
   closure.
+- **Captured-lead offline triage:** all 1,759 captured focused, author and citation rows were
+  screened without network access or downloads. Per-route deduplication yielded 1,657 records;
+  exact identifier reconciliation across routes yielded 1,553: 55 known locally/acquired, 88
+  likely primary, 382 needing metadata/full text and 1,028 clearly out of scope under a
+  conservative precedence. The 470 retained missing/review identifiers are a metadata queue, not
+  formal S3 dispositions or a download list. Three machine JSONLs are hash-bound on NAS and three
+  tracked reports preserve the route accounting. Next resolve DOI/version/work lineage and NAS
+  availability inside that queue before making any deliberate source request.
 - **Local verification:** exact `TMPDIR=/private/tmp npm test` passed after the focused S2 executor,
   its three high-value controls and the current state records landed.

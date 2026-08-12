@@ -3,8 +3,8 @@
  "movedFrom": "out/ (gitignored), plus the byte-identical tracked arm64 fingerprint formerly under docs/",
  "movedTo": "evidence/ (tracked)",
  "note": "Historical sweep digests were computed before their move and re-verified afterward. The arm64 fingerprint preserves the exact former docs/ Git blob (18398 bytes, SHA-256 d6686f8e...). The x64 fingerprint is the complete 2026-08-01 lightweight fixture re-execution backing the exact per-entry comparison; it reproduces registered digest 2a9f64b3. These are preserved claim-backing bytes, not regenerated production sweeps.",
- "fileCount": 45,
- "totalBytes": 2403221,
+ "fileCount": 63,
+ "totalBytes": 2846286,
  "files": {
   "phase6-crossplatform/arm64-libm-fingerprint.txt": {
    "bytes": 18398,
@@ -130,6 +130,66 @@
    "bytes": 481974,
    "sha256": "d806c220c6057eb0d80b44458c185acc61d25b9c7be6495e5c57f2a038a41178"
   },
+  "phase8b-s2-round0-reconnaissance/additional-priority-batch.md": {
+   "bytes": 15955,
+   "sha256": "90aef0eab334d713b7d61257b37ec734d61a1000e766930fb3c4c34a80e118b2"
+  },
+  "phase8b-s2-round0-reconnaissance/artifact-index.json": {
+   "bytes": 3141,
+   "sha256": "74e0b126e117bc66e22d6c8f04b01977a927b679f92885a8787860f375ac2a22"
+  },
+  "phase8b-s2-round0-reconnaissance/historical-batch-1.md": {
+   "bytes": 58339,
+   "sha256": "0793a57da394fc2f6da54c947f0ef2405743c89debbda25ffe2a24adca5714b6"
+  },
+  "phase8b-s2-round0-reconnaissance/historical-batch-2.md": {
+   "bytes": 46782,
+   "sha256": "dd7cb3621a816313dbcc65de59659cef89b0c9f926562933ba32ee43cbd403ed"
+  },
+  "phase8b-s2-round0-reconnaissance/local-archive-audit.md": {
+   "bytes": 18871,
+   "sha256": "66ac1ae02cde2cfb2e486d0f5d67977fd43dd22179996803814e34138a676417"
+  },
+  "phase8b-s2-round0-reconnaissance/local-existing-coverage.md": {
+   "bytes": 15059,
+   "sha256": "baa945ba39e02f18de13a8b75ad04aeb96e948290d2b11f622b083bfad28e342"
+  },
+  "phase8b-s2-round0-reconnaissance/modern-batch.md": {
+   "bytes": 42330,
+   "sha256": "2da939a1be314d109cf1205a758518a1b95577fed58b041bac33ad910841362b"
+  },
+  "phase8b-s2-round0-reconnaissance/local-acquired-reconciliation.md": {
+   "bytes": 16935,
+   "sha256": "a097899a0570b495f0cf3badd95ffca29cee9e3e5de09db0bd059704c41cc858"
+  },
+  "phase8b-s2-round0-reconnaissance/local-visual-libbrecht-a.md": {
+   "bytes": 13228,
+   "sha256": "436ad49b2bdb7ed0c0d8c14151b1fa87674a0f91a7f60895c3e580508ebfba1b"
+  },
+  "phase8b-s2-round0-reconnaissance/local-visual-libbrecht-b.md": {
+   "bytes": 16231,
+   "sha256": "b6912a18e26f173595a4dd4c9aaccaa55ede8907f41cf9bada7fd4f2fb8d2275"
+  },
+  "phase8b-s2-round0-reconnaissance/local-visual-monograph.md": {
+   "bytes": 31744,
+   "sha256": "2f4225fcfa0c40dccb522b14ef18580e69a51c4fd84084a42b8f7487ba955999"
+  },
+  "phase8b-s2-round0-reconnaissance/local-visual-remaining.md": {
+   "bytes": 28347,
+   "sha256": "c39cbf77ef3c5be4c12442589ec8cf4b4d6123c05df4a3cdb1446d609b5b6bc4"
+  },
+  "phase8b-s2-round0-reconnaissance/phase9-impact.md": {
+   "bytes": 20326,
+   "sha256": "cbd1e1b4327f7456e7dd578f6eba07bfbdf9be5696b847612bb921074a8742a9"
+  },
+  "phase8b-s2-round0-reconnaissance/report.json": {
+   "bytes": 11944,
+   "sha256": "149daa57ec6917883a4bdda04638a0a4531b107d53c37a8a5c1a20ebf67240ee"
+  },
+  "phase8b-s2-round0-reconnaissance/source-register.jsonl": {
+   "bytes": 42648,
+   "sha256": "3590804a3943bbe1594d6ec1feec58c45182d4f79cfc10b3c94d1f7ac068476f"
+  },
   "phase8b-search-protocol/artifact-index.json": {
    "bytes": 1131,
    "sha256": "8bc12ee92afdcfdf41148cde4ef89029f572007ba3bee338d1a62a38153dace7"
@@ -185,6 +245,18 @@
   "phase8b-search-protocol-v2/smoke-results.jsonl": {
    "bytes": 6574,
    "sha256": "59732c2726eb5faf172c47968ff54e98659a7cc1fe03817fcfdbd3fe77214c62"
+  },
+  "phase8b-s2-round0-reconnaissance/focused-title-triage.md": {
+   "bytes": 27959,
+   "sha256": "45306721fa25cd0c225bd20affea17719bc90a99e997ad7cf750ae9b3ab73bae"
+  },
+  "phase8b-s2-round0-reconnaissance/author-title-triage.md": {
+   "bytes": 15648,
+   "sha256": "3938d81ac42fb9b85f0f617344a851630b576fdbd38a642a1dbd6980cab12780"
+  },
+  "phase8b-s2-round0-reconnaissance/citation-title-triage.md": {
+   "bytes": 17578,
+   "sha256": "247a59134703dc3315ad4debced2d64defeb944fabf6c911f8bad30145756423"
   }
  }
 }
