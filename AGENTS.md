@@ -307,6 +307,10 @@ A plan is: the goal, the approach, the steps, the "done when", and the things de
 done. Charter phases already state their own **done when** — copy it into the plan verbatim and
 do not quietly soften it.
 
+A bounded single-source intake, a direct analysis requested by the maker, or a focused docs/rules
+correction with an obvious scope is not a build and does not need a new plan file. Do not create a
+plan merely to restate the request or to document that another process document will be changed.
+
 If the user approves a plan in chat, write it to the file anyway. The next model cannot read
 this conversation.
 
@@ -361,10 +365,13 @@ Scientific milestones are **automated metrics, not screenshots** (§3.3). So:
   paragraph, and the `5463e76` retraction of the Phase 6 structural bound, whose script
   counted sigma_0 crossings while the claim governed habit — which depends on the full
   attachment coefficient alphaHK, a different quantity with a different crossing count.
-- **The required local check is exact `npm test`, and nothing else counts as it.** A green
-  `npx vitest run` omits the Rule 7 scan and both typechecks; quoting it as verification is
-  how 319 scan violations merged to `main` unnoticed on 2026-07-29. Name the exact command
-  beside any "suite green" claim.
+- **For executable code, tests, build configuration, gate/evidence generation or verification,
+  or any change whose governing plan names the full suite, the required local check is exact
+  `npm test`, and nothing else counts as it.** A green `npx vitest run` omits the Rule 7 scan
+  and both typechecks; quoting it as verification is how 319 scan violations merged to `main`
+  unnoticed on 2026-07-29. Pure prose, source-index, and governance edits use the cheapest check
+  that covers their actual failure surfaces, including the Rule 7 scan when repository prose
+  changes, and are never described as "suite green." Name the exact command beside any claim.
 
 ## Rule 7 — A bare `alpha` is banned from this repository
 
@@ -444,8 +451,10 @@ An interpretive document — a sweep report, a scientific-claim section of an AD
 ledger entry, education content, anything outward-facing — receives an adversarial audit
 **before** it is published, merged, or propagated into other artifacts, not after. Scale the
 audit to the claim: anything carrying a theorem-strength claim (Rule 6's "cannot / every /
-independent of" class) or leaving the repository gets the full adversarial treatment;
-routine records get a proportionate skeptical pass. The audit that retracted the Phase 6
+independent of" class), a gate verdict, or a public scientific conclusion gets the full
+adversarial treatment. Routine source triage, internal working judgments, and non-load-bearing
+records get the author's proportionate skeptical pass; they do not require independent review
+merely because they are committed. The audit that retracted the Phase 6
 structural bound (`5463e76`) found exactly the attacks it was asked to try — meaning it
 would have caught the error pre-publication, and running it post-publication was purely a
 scheduling choice. By then the claim had already propagated into a memory entry, a findings
@@ -468,6 +477,28 @@ gate, attacks an out-of-scope adversary, or attempts to machine-prove social fac
 identity. Prior effort is not evidence of value, and accumulated ceremony is not rigor. When a
 review loop starts producing more review machinery instead of source coverage, measurements, or
 other named deliverables, escalate to the maker and fix the process before doing another rebuild.
+
+Use decision risk, not anxiety or the mere availability of another check, to set assurance depth:
+
+- **Routine source intake:** establish identity/version, preserve the original and hash when
+  applicable, record exact locators, and extract values with units, conditions, uncertainty, and a
+  measured/transcribed/derived distinction. Then stop; independent review is not the default.
+- **Load-bearing quantitative input:** do the routine work plus one independent transcription,
+  calculation, or semantic check targeted at the value the project will consume.
+- **Phase gate or strong public scientific claim:** use the pre-registered evaluator, independent
+  derivation, negative controls, and adversarial review required by the charter or accepted ADR.
+
+A proposed gate, check, review, registry, or verifier is admitted only when it names a plausible
+in-scope failure, explains how that failure could change a scientific decision or silently corrupt
+evidence, shows that existing controls do not already catch it, and costs less than the likely harm.
+If any part is missing, do not build it. Never add a review of a review or a validator whose main
+purpose is to validate another validator.
+
+Stop checking when another pass is unlikely to change inclusion, classification, extracted values,
+the next experiment, or a published claim. State the residual uncertainty and move on. As a judgment
+tripwire—not a tracked metric—if process consumes roughly one quarter of a work block without
+producing source coverage, measurements, calculations, code, experiments, or the requested
+decision, or if a second meta-validation layer appears, stop and simplify before continuing.
 
 ---
 

@@ -51,6 +51,13 @@ index, a plan, ADR, or audit links to historical detail.
   `37c7aadf18bce7420883930f66d6c6a473100dd27e1468dd8396a3c1214b1f96`) preserve 18 sources,
   15 hypotheses, calculations and the bounded search. Exact `TMPDIR=/private/tmp npm test` passed
   97/97 files (1,664 passed, 7 skipped; 377.65 s). No model ran; Phase 9 is unauthorized.
+- **Project assurance is now proportional to decision risk.** Accepted decision
+  [0049](decisions/0049-make-assurance-proportionate-to-decision-risk.md), charter v1.26, and
+  `AGENTS.md` distinguish routine source integrity, one targeted independent check for a
+  load-bearing quantitative input, and full named controls for phase gates or strong public
+  scientific claims. New process machinery requires an uncovered decision-relevant failure;
+  reviews do not recurse, and checking stops when it can no longer change the decision. This
+  changes process depth, not any accepted evidence bytes, phase verdict, or scientific criterion.
 - The maker's 2026-08-03 direction is recorded verbatim in the
   [active plan](plans/phase-6-science-first-completion.md) and enacted by accepted decisions
   [0042](decisions/0042-bound-phase6-evidence-integrity-scope.md),
