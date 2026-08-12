@@ -28,8 +28,8 @@ index, a plan, ADR, or audit links to historical detail.
   Decision [0048](decisions/0048-focus-phase8b-on-phase9-ready-benchmarks.md) and charter v1.25
   preserve the completed [Phase 8A target book](plans/phase-8-what-is-real.md) byte-for-byte and
   focus the [Phase 8B corpus](plans/phase-8-measurement-corpus.md) on measurements Phase 9 can use.
-  The [plain-English baseline guide](phase8-baseline-guide.md) summarizes what was measured, what
-  each family can test, its limitations and where the underlying Git/NAS artifacts live.
+  The [plain-English guide](phase8-baseline-guide.md) maps measured families to tests, limits and
+  Git/NAS artifacts.
   Phase 8B writes separate artifacts; the immutable Phase 8A book remains 59,019 bytes / SHA-256
   `47a75f3fcc499d74d36cd08eeaed7f4e839bf991deb179fa19ce809d57e171ec`.
   Quoted from [`evidence/phase8b-benchmark-final-v1/report.json`](../evidence/phase8b-benchmark-final-v1/report.json):
@@ -42,22 +42,17 @@ index, a plan, ADR, or audit links to historical detail.
   authorize Phase 9 or grant a validation label. The exact full suite passed 97/97 files; the
   detached clean-checkout verifier and 51 focused tests passed; and the final non-author audit
   returned zero blockers after its two bookkeeping findings were repaired.
-  Phase 7 is completely standalone from the completion of Phases 6 and 8: it is not started and
-  still needs its own committed plan/worktree, but neither phase gates it. Its existing product,
-  held-out-validation, and GPU-parity scope remains. Phase 9 and Phase 10 remain uncharted.
+  Phase 7 is completely standalone, unstarted and requires its own plan/worktree; Phases 9–10
+  remain uncharted.
 - **The pre-adoption Phase 9 knowledge baseline is COMPLETE (research-only, 2026-08-12).** Its
   [report](../research/phase9-knowledge-sources.md), [guide](phase9-knowledge-guide.md) and
   [artifact](../evidence/phase9-knowledge-baseline-v1/report.json) (5,263 bytes; SHA-256
-  `37c7aadf18bce7420883930f66d6c6a473100dd27e1468dd8396a3c1214b1f96`) preserve 18 sources,
-  15 hypotheses, calculations and the bounded search. Exact `TMPDIR=/private/tmp npm test` passed
-  97/97 files (1,664 passed, 7 skipped; 377.65 s). No model ran; Phase 9 is unauthorized.
-- **Project assurance is now proportional to decision risk.** Accepted decision
-  [0049](decisions/0049-make-assurance-proportionate-to-decision-risk.md), charter v1.26, and
-  `AGENTS.md` distinguish routine source integrity, one targeted independent check for a
-  load-bearing quantitative input, and full named controls for phase gates or strong public
-  scientific claims. New process machinery requires an uncovered decision-relevant failure;
-  reviews do not recurse, and checking stops when it can no longer change the decision. This
-  changes process depth, not any accepted evidence bytes, phase verdict, or scientific criterion.
+  `37c7aadf18bce7420883930f66d6c6a473100dd27e1468dd8396a3c1214b1f96`) preserve 18 sources and 15
+  hypotheses; no model ran and Phase 9 is unauthorized.
+- **Assurance is proportional to decision risk.** [Decision 0049](decisions/0049-make-assurance-proportionate-to-decision-risk.md),
+  charter v1.26 and `AGENTS.md` require integrity for routine sources, one targeted check for
+  load-bearing inputs, and full named controls for gates or strong public claims. No recursive
+  reviews; stop when another check cannot change the decision. No evidence or criteria changed.
 - The maker's 2026-08-03 direction is recorded verbatim in the
   [active plan](plans/phase-6-science-first-completion.md) and enacted by accepted decisions
   [0042](decisions/0042-bound-phase6-evidence-integrity-scope.md),
