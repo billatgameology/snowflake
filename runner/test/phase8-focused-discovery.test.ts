@@ -1,10 +1,13 @@
 import { mkdtempSync, readFileSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
+import { fileURLToPath } from "node:url";
 import { describe, expect, it } from "vitest";
 import { runFocusedDiscovery } from "../src/phase8-focused-discovery.ts";
 
-const REPOSITORY_ROOT = new URL("../..", import.meta.url).pathname;
+// fileURLToPath, not URL#pathname: the pathname form yields "/G:/Code%20Files/…" on Windows,
+// which resolve() then mangles into a doubled drive letter. Behavior-identical on POSIX.
+const REPOSITORY_ROOT = fileURLToPath(new URL("../..", import.meta.url));
 const KEY = "test-openalex-key-unsafe-to-retain";
 
 function response(value: unknown, contentType = "application/json"): Response {
