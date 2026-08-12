@@ -162,7 +162,10 @@ is independently re-derived from the artifact bytes.
   → 16 h class (superseded in minutes) → 48 h backstop → none. The sanctioned head list
   gains this amendment's landing commit as its third member (freeze `f59d187`, first
   amendment `aa81295`, plus at most one later head), enforced fail-closed by the evaluator;
-  the swap happens at the next natural row boundary and in-flight rows re-run.
+  the swap happened at the −27 °C row boundary. Operatively the third head is `3827b77` —
+  the commit that also taught the dispatcher's continuity allow-list the full sanctioned set
+  after it refused the aa81295-era rows (launch logs record the refusal); no row ran at the
+  intermediate `151d679`.
 
 ## Out of scope
 
