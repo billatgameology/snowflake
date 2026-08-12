@@ -667,3 +667,5 @@ the registered gate. Phase 9 scope decisions wait for S6.
   the round and is revisited only through a later deliberate follow-up or a distinct authoritative
   repository. This changes transport behavior only; it does not relax S2 coverage or acquisition
   closure.
+- **Local verification:** exact `TMPDIR=/private/tmp npm test` passed after the focused S2 executor,
+  its three high-value controls and the current state records landed.

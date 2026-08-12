@@ -226,5 +226,6 @@ cumulative included-source set, then run the required zero-addition rounds. Do n
 rejected 256-cell broad pagination matrix. Source acquisition is NAS-first and host-conservative:
 one request per source, no same-host parallelism or automatic retry loops; failures stay open for a
 later deliberate follow-up. S4, not S2, owns target-coordinate extraction calibration.
+Exact `TMPDIR=/private/tmp npm test` passes with the focused S2 executor and its three tests.
 Preserve `evidence/phase8-target-book/` byte-for-byte and keep all 8B evidence separate.
 Phase 9 remains unchartered and cannot start from either milestone alone.
