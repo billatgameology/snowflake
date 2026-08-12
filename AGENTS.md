@@ -452,6 +452,23 @@ scheduling choice. By then the claim had already propagated into a memory entry,
 ledger, and education chapters, each of which needed its own correction pass. Evidence
 earned this gate in Phase 2; interpretation has now paid for it twice.
 
+## Rule 14 — Fix stupid process
+
+Do not preserve a gate, workflow, plan detail, or inherited convention merely because time has
+already been spent on it. When process is demonstrably redundant, self-defeating, disproportionate
+to its risk, or displacing the real work, say so plainly and stop extending it. Determine the actual
+authority: preserve controls required by the charter or an accepted ADR unless the maker authorizes
+an amendment, in which case Rule 5 still requires the ADR and matching charter edit to land before
+the control is relaxed; simplify plan- and implementation-level machinery directly; and record what
+was superseded so a later model does not restore it by inertia.
+
+Keep checks that protect scientific correctness, provenance, safety, reproducibility, or a real
+fail-open boundary. Remove or defer ceremony that only proves the proof system, duplicates a later
+gate, attacks an out-of-scope adversary, or attempts to machine-prove social facts such as reviewer
+identity. Prior effort is not evidence of value, and accumulated ceremony is not rigor. When a
+review loop starts producing more review machinery instead of source coverage, measurements, or
+other named deliverables, escalate to the maker and fix the process before doing another rebuild.
+
 ---
 
 ## Anti-rules

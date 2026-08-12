@@ -209,13 +209,15 @@ source units. All 914 are still `pending-classification`; the re-derived measure
 zero. This freezes only the denominator and neither permits Phase 9 execution nor grants validation.
 
 S1 remains open and no candidate E has been generated. Candidates A-D are preserved rejected
-artifacts; review 5 then rejected the stable green implementation before generation because its
-41-document claim registry was cardinality-closed but did not prove coverage of every
-source-attributed contract atom. It also found vacuous non-author provenance, no executable path
-from unknown lineage to established independence, an unbound split/leakage witness, and incomplete
-Semantic Scholar and DOI response adapters. Repair must add an exact load-bearing atom registry,
-claim bindings with re-derived zero-gap coverage, byte-bound author/reviewer identity,
-source-subject-derived lineage and split witnesses, exact per-operation adapters, and named semantic
-controls; only then may two independent stable-byte audits authorize candidate E. No registered
-search or coordinate read has run. Preserve `evidence/phase8-target-book/` byte-for-byte and keep
-all 8B evidence separate. Phase 9 remains unchartered and cannot start from either milestone alone.
+artifacts. After review 5, the maker stopped the expanding proof-system loop: its proposed
+41-document/143-atom proof, machine-enforced reviewer identity, 113 one-field controls, detailed
+downstream schemas and two pre-generation audits were plan/implementation ceremony rather than
+charter requirements. The interrupted 21,695-line version is preserved only as rejected local WIP
+under `tmp/phase8b-overbuilt-s1-wip-20260811/`. Implement the active plan's lean S1 instead: compact
+scope/seeds/routes/query matrix/minimal schemas/policies/index/report, one uncounted smoke request or
+explicit disposition per route, a small risk-class control set, and one proportionate non-author
+review engagement on immutable candidate bytes; any blocker gets a new immutable successor and a
+bounded changed-byte follow-up, never another full audit. Then freeze and begin counted S2 search; S4 owns detailed
+extraction calibration. No registered search or coordinate read has run.
+Preserve `evidence/phase8-target-book/` byte-for-byte and keep all 8B evidence separate.
+Phase 9 remains unchartered and cannot start from either milestone alone.

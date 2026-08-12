@@ -165,14 +165,28 @@ are reopened and re-derived from their published bytes.
   against the existing research-cache manifest and separately disposition any manifest-external
   files. Stage the schema, generator, verifier, counts, and negative controls; review their closure
   claims before freezing and publishing them or calling the local inventory complete.
-- [ ] **S1 — Freeze search and extraction protocols.** Stage exact route/API templates, query
-  matrix, citation and author seeds, result caps/pagination rules, cutoff, inclusion/exclusion,
-  version/correction/data checks, acquisition/rights dispositions, lineage rules, stopping rule,
-  record schemas, and extraction/digitization operators. The registry must include Crossref,
+- [ ] **S1 — Freeze the lean external-search protocol.** Publish only the controls needed to make
+  the bounded search reproducible and fail closed: scope/cutoff/inclusion/exclusion/stopping rules;
+  S0-bound source and citation/author seeds; an operational route registry with method, request
+  recipe, credential placeholder, pacing, pagination/cap, supported operations and `BOUNDED_OPEN`
+  outcomes; version-of-record, correction, supplement, public-data and acquisition-disposition
+  checks; the generated and independently recounted query matrix; minimal search-result, lead,
+  source and measurement-record schemas; conservative rights, lineage/leakage, extraction-method
+  and uncertainty policies; and an artifact index/report. The registry must include Crossref,
   OpenAlex, Semantic Scholar, CiNii, J-STAGE, National Diet Library, DataCite, Zenodo, arXiv, NASA
   NTRS, Penn State Data Commons, DOI/publisher pages, and a capped supplemental-web route, or record
-  a reviewed reason for a route's removal before execution. Review the complete candidate registry
-  and operators, then freeze and publish them before any registered search or coordinate reading.
+  a reviewed reason for a route's removal before execution. Exercise one uncounted smoke request per
+  active route, or record its explicit blocked/removal disposition. Use a small class-level control
+  set covering omitted cells, false pagination closure, swallowed route failure, altered bytes,
+  default-allow rights, false independence/leakage and caller-supplied verdicts; do not create one
+  control per field or reproduce general HTTP standards. Generate an immutable candidate and run
+  one proportionate non-author review engagement on those exact bytes. If it finds a blocker that
+  could omit sources, falsely close search, corrupt measurements, misstate independence/leakage or
+  violate provenance/rights, repair the implementation, generate a new immutable successor and
+  perform only a bounded follow-up over the changed and load-bearing bytes; never mutate a
+  candidate or start another full audit. Then freeze and publish. Focused checks are sufficient during development;
+  run exact `TMPDIR=/private/tmp npm test` once at the freeze. S4, not S1, owns detailed
+  extraction/digitization calibration before target coordinates are read.
 - [ ] **S2 — Execute the bounded external search and acquire governing bytes.** Run the complete
   query matrix and priority queue, then exact DOI/title/author, backward/forward citation,
   later-author-output, correction, supplement, and dataset screens. Each round freezes the complete
@@ -498,3 +512,24 @@ the registered gate. Phase 9 scope decisions wait for S6.
 - **Not checked:** candidate bytes because none were permitted, live provider execution or
   credentials, registered search results, source acquisition, legal determinations, clean-checkout
   behavior, or the exact full suite.
+
+### Maker-directed S1 process correction — accepted
+
+- **Direction:** on 2026-08-11 the maker directed the project not to preserve wasteful process and
+  authorized the gate to be fixed. The authority/value audit found that S1 had grown to 21,695
+  TypeScript lines, 29 prospective artifacts, 20 schemas, 143 source-contract atoms and 113
+  one-field mutation controls before any registered search or measurement extraction ran.
+- **Decision:** review 5's atom-proof remedy and the proposed two-audit pre-generation loop are
+  superseded. They are plan/implementation machinery, not charter or decision 0047 requirements.
+  S1 now freezes the compact operational search contract stated in the registered sequence above;
+  general HTTP/RFC proofs, machine-enforced reviewer identity, duplicate static pins, detailed
+  downstream schemas and calibrated extraction operators are removed or deferred to their actual
+  S2-S4/S7 failure surfaces. The core charter gates remain unchanged: registered bounded search,
+  two complete zero-addition rounds, source currency/rights/lineage, dual source-unit
+  classification and reconciliation, uncertainty-bearing extraction, and one final full non-author
+  audit.
+- **Preservation:** the interrupted overbuilt producer/verifier/test bytes are retained only as
+  rejected local WIP under `tmp/phase8b-overbuilt-s1-wip-20260811/`; they are not a candidate or
+  evidence and must not be restored wholesale. Candidates A-D remain immutable rejected records.
+- **Next:** implement the lean S1 once, validate each route operationally, conduct one
+  proportionate review on immutable candidate bytes, freeze it, and begin counted search work.
