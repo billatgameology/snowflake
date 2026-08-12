@@ -1,0 +1,121 @@
+{
+ "label": "staged x3: plate 2.5 -> branch 1.15 -> plate 2.5 (switch 5000, 11000)",
+ "spec": {
+  "label": "staged x3: plate 2.5 -> branch 1.15 -> plate 2.5 (switch 5000, 11000)",
+  "stages": [
+   {
+    "untilTick": 5000,
+    "rho": 0.12,
+    "phi": 0.01,
+    "ggThreshTable": {
+     "10": 2.5,
+     "11": 2.5,
+     "20": 2.5,
+     "21": 1,
+     "30": 1,
+     "31": 1,
+     "01": 3.5
+    },
+    "kappa": {
+     "default": 0.005,
+     "overrides": {}
+    },
+    "mu": {
+     "default": 0.001,
+     "overrides": {}
+    }
+   },
+   {
+    "untilTick": 11000,
+    "rho": 0.12,
+    "phi": 0.01,
+    "ggThreshTable": {
+     "10": 1.15,
+     "11": 1.15,
+     "20": 1.15,
+     "21": 1,
+     "30": 1,
+     "31": 1,
+     "01": 3.5
+    },
+    "kappa": {
+     "default": 0.005,
+     "overrides": {}
+    },
+    "mu": {
+     "default": 0.001,
+     "overrides": {
+      "10": 0.006,
+      "20": 0.006
+     }
+    }
+   },
+   {
+    "untilTick": null,
+    "rho": 0.12,
+    "phi": 0.01,
+    "ggThreshTable": {
+     "10": 2.5,
+     "11": 2.5,
+     "20": 2.5,
+     "21": 1,
+     "30": 1,
+     "31": 1,
+     "01": 3.5
+    },
+    "kappa": {
+     "default": 0.005,
+     "overrides": {}
+    },
+    "mu": {
+     "default": 0.001,
+     "overrides": {}
+    }
+   }
+  ]
+ },
+ "stageTransitions": [
+  {
+   "tick": 5000,
+   "stage": 2
+  },
+  {
+   "tick": 11000,
+   "stage": 3
+  }
+ ],
+ "unfiredTransitions": 0,
+ "dims": {
+  "nx": 500,
+  "ny": 500,
+  "nz": 96
+ },
+ "domain": "hexPrism",
+ "seed": 1,
+ "noise": 0,
+ "tickCap": 30000,
+ "stopReason": "domain-contact",
+ "tick": 25988,
+ "attachedCount": 632669,
+ "farFieldMean": 0.12426677836345534,
+ "mesh": {
+  "path": "G:\\Code Files\\snowflake-gutcheck-gg-realism\\out\\gutcheck-gg-realism\\large\\gen\\staged3-plate-branch-plate-5000-11000-mesh.bin",
+  "vertexCount": 431324,
+  "triangleCount": 863748,
+  "bboxCartesian": {
+   "xMin": 212,
+   "xMax": 538,
+   "yMin": 75.34421012924616,
+   "yMax": 357.66849176297313,
+   "zMin": 8,
+   "zMax": 55
+  },
+  "extraction": {
+   "spacing": 0.8,
+   "sigma": 0.45,
+   "normalDelta": 3
+  }
+ },
+ "elapsedSeconds": 38669,
+ "evidenceStatus": "unvalidated eyeball exploration; no gate semantics"
+}

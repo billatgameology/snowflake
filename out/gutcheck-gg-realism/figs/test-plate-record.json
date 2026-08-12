@@ -1,0 +1,58 @@
+{
+ "label": "test plate prototype",
+ "spec": {
+  "label": "test plate prototype",
+  "rho": 0.1,
+  "phi": 0,
+  "betaTable": {
+   "10": 2,
+   "11": 2,
+   "20": 2,
+   "21": 1,
+   "30": 1,
+   "31": 1,
+   "01": 2.5
+  },
+  "kappa": {
+   "default": 0.1,
+   "overrides": {}
+  },
+  "mu": {
+   "default": 0.001,
+   "overrides": {}
+  }
+ },
+ "dims": {
+  "nx": 128,
+  "ny": 128,
+  "nz": 48
+ },
+ "domain": "hexPrism",
+ "seed": 1,
+ "noise": 0,
+ "tickCap": 4000,
+ "stopReason": "tick-cap",
+ "tick": 4000,
+ "attachedCount": 18057,
+ "farFieldMean": 0.06874220656969338,
+ "mesh": {
+  "path": "out/gutcheck-gg-realism/figs/test-plate-mesh.bin",
+  "vertexCount": 23656,
+  "triangleCount": 47308,
+  "bboxCartesian": {
+   "xMin": 63,
+   "xMax": 129,
+   "yMin": 26.846787517317598,
+   "yMax": 84.00446416709055,
+   "zMin": 18,
+   "zMax": 30
+  },
+  "extraction": {
+   "spacing": 0.6,
+   "sigma": 0.45,
+   "normalDelta": 3
+  }
+ },
+ "elapsedSeconds": 25,
+ "evidenceStatus": "unvalidated eyeball exploration; no gate semantics"
+}

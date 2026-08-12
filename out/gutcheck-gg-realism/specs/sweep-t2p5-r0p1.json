@@ -1,0 +1,27 @@
+{
+ "label": "single stage: thresh 2.5, rho 0.1",
+ "stages": [
+  {
+   "untilTick": null,
+   "rho": 0.1,
+   "phi": 0.01,
+   "ggThreshTable": {
+    "10": 2.5,
+    "11": 2.5,
+    "20": 2.5,
+    "21": 1,
+    "30": 1,
+    "31": 1,
+    "01": 3.5
+   },
+   "kappa": {
+    "default": 0.005,
+    "overrides": {}
+   },
+   "mu": {
+    "default": 0.001,
+    "overrides": {}
+   }
+  }
+ ]
+}

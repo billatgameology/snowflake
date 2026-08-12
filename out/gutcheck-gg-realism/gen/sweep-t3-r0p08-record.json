@@ -1,0 +1,65 @@
+{
+ "label": "single stage: thresh 3, rho 0.08",
+ "spec": {
+  "label": "single stage: thresh 3, rho 0.08",
+  "stages": [
+   {
+    "untilTick": null,
+    "rho": 0.08,
+    "phi": 0.01,
+    "ggThreshTable": {
+     "10": 3,
+     "11": 3,
+     "20": 3,
+     "21": 1,
+     "30": 1,
+     "31": 1,
+     "01": 3.5
+    },
+    "kappa": {
+     "default": 0.005,
+     "overrides": {}
+    },
+    "mu": {
+     "default": 0.001,
+     "overrides": {}
+    }
+   }
+  ]
+ },
+ "stageTransitions": [],
+ "unfiredTransitions": 0,
+ "dims": {
+  "nx": 500,
+  "ny": 500,
+  "nz": 96
+ },
+ "domain": "hexPrism",
+ "seed": 1,
+ "noise": 0,
+ "tickCap": 30000,
+ "stopReason": "tick-cap",
+ "tick": 30000,
+ "attachedCount": 99964,
+ "farFieldMean": 0.13451129905634274,
+ "mesh": {
+  "path": "G:\\Code Files\\snowflake-gutcheck-gg-realism\\out\\gutcheck-gg-realism\\large\\gen\\sweep-t3-r0p08-mesh.bin",
+  "vertexCount": 37993,
+  "triangleCount": 76080,
+  "bboxCartesian": {
+   "xMin": 328,
+   "xMax": 422,
+   "yMin": 175.80315696824104,
+   "yMax": 257.2095449239783,
+   "zMin": 28,
+   "zMax": 54
+  },
+  "extraction": {
+   "spacing": 0.8,
+   "sigma": 0.45,
+   "normalDelta": 3
+  }
+ },
+ "elapsedSeconds": 30526,
+ "evidenceStatus": "unvalidated eyeball exploration; no gate semantics"
+}

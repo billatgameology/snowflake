@@ -1,6 +1,5 @@
-// Gut-check spike index page renderer: fetches the generated index.json (absolute /@fs
-// path injected at generation time is not known here, so the page asks the dev server
-// for the conventional location) and renders section galleries.
+// Gut-check spike index page renderer: fetches the generated index.json from whichever of
+// the two known locations answers with JSON (see INDEX_URLS) and renders section galleries.
 
 interface IndexItem {
   label: string;
@@ -8,10 +7,18 @@ interface IndexItem {
   image?: string;
   note?: string;
 }
+/** One crystal: its comparison image(s), then whatever else exists for the same crystal. */
+interface CompareRow {
+  label: string;
+  comparisons: IndexItem[];
+  viewers: IndexItem[];
+  animation?: IndexItem;
+}
 interface IndexSection {
   title: string;
   note?: string;
   items: IndexItem[];
+  rows?: CompareRow[];
 }
 interface IndexData {
   generated: string;
@@ -19,14 +26,241 @@ interface IndexData {
   sections: IndexSection[];
 }
 
-const INDEX_URL =
-  "/@fs/Users/clipper/github/snowflake-gutcheck-gg-realism/out/gutcheck-gg-realism/index.json";
+// Static-site bundles (scripts/gutcheck-build-site.ts) serve ./data/index.json next to the
+// page; under the dev server, /gutcheck-index.json is out/gutcheck-gg-realism/index.json,
+// mounted by the gutcheck-index-json plugin in app/vite.config.ts. Both are machine-neutral:
+// this list used to end in the author's absolute macOS path, which no other checkout could
+// load (2026-08-06 machine transfer).
+const INDEX_URLS = ["./data/index.json", "/gutcheck-index.json"];
+
+interface Lightbox {
+  open: (index: number) => void;
+}
+
+/**
+ * Full-screen image viewer over the page's gallery: click an image to open, click again
+ * anywhere to close, ArrowLeft/ArrowRight (or the on-screen arrows) to page through the
+ * whole set, Escape to close. `shots` is filled in as the galleries render, so it is read
+ * at open time rather than captured here.
+ */
+function createLightbox(shots: ReadonlyArray<{ src: string; label: string }>): Lightbox {
+  const root = document.createElement("div");
+  root.className = "lightbox";
+  root.hidden = true;
+  root.setAttribute("role", "dialog");
+  root.setAttribute("aria-modal", "true");
+  root.setAttribute("aria-label", "image viewer");
+  // Focusable so the arrow keys work straight after opening, with no extra click. -1 keeps
+  // it out of the page's tab order while closed.
+  root.tabIndex = -1;
+
+  const img = document.createElement("img");
+  const cap = document.createElement("div");
+  cap.className = "lb-cap";
+  const count = document.createElement("div");
+  count.className = "lb-count";
+
+  let current = 0;
+  let opener: HTMLElement | null = null;
+
+  const show = (index: number): void => {
+    const shot = shots[index];
+    if (shot === undefined) return;
+    current = index;
+    img.src = shot.src;
+    img.alt = shot.label;
+    cap.textContent = shot.label;
+    count.textContent = `${index + 1} / ${shots.length}`;
+    // Warm the neighbours so paging does not flash on these multi-MB renders.
+    for (const near of [shots[index - 1], shots[index + 1]]) {
+      if (near !== undefined) new Image().src = near.src;
+    }
+  };
+
+  // Wraps at both ends: from the last image, "next" returns to the first.
+  const step = (delta: number): void => {
+    if (shots.length === 0) return;
+    show((current + delta + shots.length) % shots.length);
+  };
+
+  const close = (): void => {
+    root.hidden = true;
+    document.body.style.overflow = "";
+    // Drop the source so a huge image is not held decoded behind the closed overlay.
+    img.removeAttribute("src");
+    opener?.focus();
+    opener = null;
+  };
+
+  const arrow = (dir: "prev" | "next", glyph: string): HTMLButtonElement => {
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = `lb-nav lb-${dir}`;
+    button.textContent = glyph;
+    button.setAttribute("aria-label", dir === "prev" ? "previous image" : "next image");
+    // Without this the click bubbles to the backdrop handler and closes the lightbox.
+    button.addEventListener("click", (event) => {
+      event.stopPropagation();
+      step(dir === "prev" ? -1 : 1);
+    });
+    return button;
+  };
+
+  root.append(arrow("prev", "‹"), img, cap, count, arrow("next", "›"));
+  document.body.appendChild(root);
+
+  root.addEventListener("click", close);
+  root.addEventListener("keydown", (event) => {
+    if (event.key === "ArrowRight") step(1);
+    else if (event.key === "ArrowLeft") step(-1);
+    else if (event.key === "Escape") close();
+    else return;
+    event.preventDefault();
+  });
+
+  return {
+    open: (index: number): void => {
+      opener = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+      show(index);
+      root.hidden = false;
+      document.body.style.overflow = "hidden";
+      root.focus();
+    },
+  };
+}
+
+/** A link rendered as a button: bold label, plus a dim second line when there is a note. */
+function linkButton(item: IndexItem): HTMLAnchorElement {
+  const a = document.createElement("a");
+  a.href = item.href;
+  a.target = "_blank";
+  const main = document.createElement("span");
+  main.textContent = item.label;
+  a.appendChild(main);
+  if (item.note !== undefined) {
+    const sub = document.createElement("span");
+    sub.className = "sub";
+    sub.textContent = item.note;
+    a.appendChild(sub);
+    a.title = item.note;
+  }
+  return a;
+}
+
+/**
+ * A gallery thumbnail wired to the lightbox. The href stays the raw file so ctrl/cmd/middle
+ * click still opens it in a new tab; only a plain left click is intercepted. Registers the
+ * image in `shots` so the arrow keys page through the page in document order.
+ */
+function thumbnail(
+  item: IndexItem & { image: string },
+  shots: Array<{ src: string; label: string }>,
+  lightbox: Lightbox,
+): HTMLAnchorElement {
+  const a = document.createElement("a");
+  a.href = item.href;
+  a.target = "_blank";
+  const img = document.createElement("img");
+  img.loading = "lazy";
+  img.src = item.image;
+  img.alt = item.label;
+  a.appendChild(img);
+  const cap = document.createElement("div");
+  cap.className = "cap";
+  cap.textContent = item.label;
+  a.appendChild(cap);
+  const position = shots.length;
+  shots.push({ src: item.image, label: item.label });
+  a.addEventListener("click", (event) => {
+    if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey) return;
+    event.preventDefault();
+    lightbox.open(position);
+  });
+  return a;
+}
+
+/** Empty cell marker, so a missing interactive view or animation reads as a real absence. */
+function emptyCell(text: string): HTMLDivElement {
+  const div = document.createElement("div");
+  div.className = "cell-empty";
+  div.textContent = text;
+  return div;
+}
+
+/**
+ * The crystal-by-crystal table: comparison images, interactive views, animation. Built as a
+ * three-column grid with one row per crystal, so the columns that are mostly empty read as
+ * the inventory they are — three crystals open interactively, one has an animation.
+ */
+function renderRows(
+  rows: CompareRow[],
+  shots: Array<{ src: string; label: string }>,
+  lightbox: Lightbox,
+): HTMLDivElement {
+  const table = document.createElement("div");
+  table.className = "rows";
+
+  for (const heading of ["Comparison — ours vs target", "Interactive", "Animation"]) {
+    const head = document.createElement("div");
+    head.className = "rows-head";
+    head.textContent = heading;
+    table.appendChild(head);
+  }
+
+  for (const row of rows) {
+    const first = document.createElement("div");
+    first.className = "cell cell-compare";
+    const name = document.createElement("div");
+    name.className = "crystal";
+    name.textContent = row.label;
+    first.appendChild(name);
+    const strip = document.createElement("div");
+    strip.className = "strip";
+    for (const comparison of row.comparisons) {
+      if (comparison.image === undefined) continue;
+      // Same .card wrapper the plain galleries use, so both share the thumbnail styling.
+      const card = document.createElement("div");
+      card.className = "card";
+      card.appendChild(thumbnail({ ...comparison, image: comparison.image }, shots, lightbox));
+      strip.appendChild(card);
+    }
+    first.appendChild(strip);
+
+    const second = document.createElement("div");
+    second.className = "cell cell-links";
+    if (row.viewers.length === 0) second.appendChild(emptyCell("—"));
+    else for (const viewer of row.viewers) second.appendChild(linkButton(viewer));
+
+    const third = document.createElement("div");
+    third.className = "cell cell-links";
+    if (row.animation === undefined) third.appendChild(emptyCell("—"));
+    else third.appendChild(linkButton(row.animation));
+
+    table.append(first, second, third);
+  }
+  return table;
+}
 
 async function main(): Promise<void> {
   const mainEl = document.getElementById("main");
   if (mainEl === null) return;
-  const response = await fetch(INDEX_URL);
-  if (!response.ok) {
+  // A 200 is not enough to accept a candidate: the dev server answers unknown paths with an
+  // SPA fallback, so ./data/index.json (which only exists in a static bundle) comes back as
+  // 200 text/html. Taking that as the index made response.json() throw and left a blank page
+  // — the first location must be rejected on content type for the second to ever be tried.
+  let response: Response | null = null;
+  for (const url of INDEX_URLS) {
+    try {
+      const candidate = await fetch(url);
+      if (candidate.ok && (candidate.headers.get("content-type") ?? "").includes("json")) {
+        response = candidate;
+        break;
+      }
+    } catch {
+      /* try the next location */
+    }
+  }
+  if (response === null) {
     mainEl.innerHTML =
       "<h1>GG gut check — output index</h1><p class='note'>index.json missing — run " +
       "<code>node scripts/gutcheck-build-index.ts</code> and reload.</p>";
@@ -34,6 +268,11 @@ async function main(): Promise<void> {
   }
   const data = (await response.json()) as IndexData;
   mainEl.innerHTML = "<h1>GG gut check — output index</h1>";
+
+  // Every gallery image on the page, in document order — the lightbox pages through this
+  // one list rather than per section, so arrow keys run the whole set end to end.
+  const shots: Array<{ src: string; label: string }> = [];
+  const lightbox = createLightbox(shots);
 
   for (const section of data.sections) {
     const h2 = document.createElement("h2");
@@ -45,18 +284,15 @@ async function main(): Promise<void> {
       p.textContent = section.note;
       mainEl.appendChild(p);
     }
+    if (section.rows !== undefined && section.rows.length > 0) {
+      mainEl.appendChild(renderRows(section.rows, shots, lightbox));
+      continue;
+    }
     const hasImages = section.items.some((item) => item.image !== undefined);
     if (!hasImages) {
       const links = document.createElement("div");
       links.className = "links";
-      for (const item of section.items) {
-        const a = document.createElement("a");
-        a.href = item.href;
-        a.target = "_blank";
-        a.textContent = item.label;
-        if (item.note !== undefined) a.title = item.note;
-        links.appendChild(a);
-      }
+      for (const item of section.items) links.appendChild(linkButton(item));
       mainEl.appendChild(links);
       continue;
     }
@@ -65,21 +301,11 @@ async function main(): Promise<void> {
     for (const item of section.items) {
       const card = document.createElement("div");
       card.className = "card";
-      const a = document.createElement("a");
-      a.href = item.href;
-      a.target = "_blank";
-      if (item.image !== undefined) {
-        const img = document.createElement("img");
-        img.loading = "lazy";
-        img.src = item.image;
-        img.alt = item.label;
-        a.appendChild(img);
-      }
-      const cap = document.createElement("div");
-      cap.className = "cap";
-      cap.textContent = item.label;
-      a.appendChild(cap);
-      card.appendChild(a);
+      card.appendChild(
+        item.image === undefined
+          ? linkButton(item)
+          : thumbnail({ ...item, image: item.image }, shots, lightbox),
+      );
       grid.appendChild(card);
     }
     mainEl.appendChild(grid);

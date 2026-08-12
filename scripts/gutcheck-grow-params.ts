@@ -15,8 +15,8 @@
 //     "ggThreshTable": {"01":2.5,"10":2,"11":2,"20":2,"21":1,"30":1,"31":1},
 //     "kappa": {"default":0.1,"overrides":{}}, "mu": {"default":0.001,"overrides":{}} }
 
-import { readFileSync, writeFileSync, mkdirSync } from "node:fs";
-import { dirname } from "node:path";
+import { closeSync, openSync, readFileSync, writeFileSync, writeSync, mkdirSync } from "node:fs";
+import { dirname, join } from "node:path";
 import {
   encodeCheckpoint,
   paramVector,
@@ -102,6 +102,32 @@ function buildParams(stage: StageVectors): GGParams {
 const sevenTuple = (values: Float64Array): GGTimelineEnvironment["kappa"] =>
   [values[1]!, values[2]!, values[3]!, values[4]!, values[5]!, values[6]!, values[7]!] as const;
 
+/**
+ * Write a payload of any size. `writeFileSync` validates the whole buffer against Node's
+ * single-write cap (2147483647 bytes) and throws BEFORE writing anything, leaving a
+ * zero-byte file — which is how the Fig. 14 v2 run lost 17 hours of compute at its final
+ * step (2.67 GB checkpoint at 1280,1280,96; see docs/plans/explore-gg-realism-gutcheck.md).
+ * Anything at or under 1 GiB takes the plain path; larger payloads are written in chunks.
+ */
+function writeLarge(path: string, bytes: Uint8Array): void {
+  const CHUNK = 1 << 30; // 1 GiB, comfortably under the 2 GiB single-write cap
+  if (bytes.byteLength <= CHUNK) {
+    writeFileSync(path, bytes);
+    return;
+  }
+  const fd = openSync(path, "w");
+  try {
+    let offset = 0;
+    while (offset < bytes.byteLength) {
+      const length = Math.min(CHUNK, bytes.byteLength - offset);
+      // writeSync may report a short write; advance by what it actually wrote.
+      offset += writeSync(fd, bytes, offset, length);
+    }
+  } finally {
+    closeSync(fd);
+  }
+}
+
 function environmentFromParams(params: GGParams): GGTimelineEnvironment {
   return {
     rho: params.rho,
@@ -142,6 +168,9 @@ interface Cli {
   ticks: number;
   seed: number;
   noise: number;
+  /** When set, also dump a timeline of meshes here (gutcheck-anim-v1) for the viewer. */
+  framesDir: string;
+  framesEvery: number;
   outMesh: string;
   outState: string;
   seedThickness: number;
@@ -160,6 +189,8 @@ function parseCli(argv: string[]): Cli {
     ticks: 60000,
     seed: 1,
     noise: 0,
+    framesDir: "",
+    framesEvery: 100,
     outMesh: "",
     outState: "",
     seedThickness: 1,
@@ -202,6 +233,12 @@ function parseCli(argv: string[]): Cli {
         break;
       case "--noise":
         cli.noise = Number(next());
+        break;
+      case "--frames-dir":
+        cli.framesDir = next();
+        break;
+      case "--frames-every":
+        cli.framesEvery = Number(next());
         break;
       case "--out-mesh":
         cli.outMesh = next();
@@ -271,10 +308,88 @@ function main(): void {
       `domain=${cli.domain} ticks<=${cli.ticks} seed=${cli.seed} noise=${cli.noise}`,
   );
 
+  // Optional growth timeline. Emitting frames from HERE rather than from
+  // gutcheck-animate-grow.ts is deliberate: that script only knows the four built-in presets,
+  // so it cannot replay an arbitrary parameter vector or a staged schedule. This loop already
+  // has the spec, the stage transitions and the stopping rules, so the timeline it produces
+  // ends exactly where the plain run would rather than grinding on to the tick cap.
+  const frames: Array<{
+    file: string;
+    tick: number;
+    vertexCount: number;
+    triangleCount: number;
+    attachedCount: number;
+  }> = [];
+  let finalBBox: Record<string, number> | null = null;
+  const framesOn = cli.framesDir !== "";
+  if (framesOn) mkdirSync(cli.framesDir, { recursive: true });
+
+  const writeAnimManifest = (complete: boolean): void => {
+    writeFileSync(
+      join(cli.framesDir, "manifest.json"),
+      JSON.stringify(
+        {
+          format: "gutcheck-anim-v1",
+          complete,
+          config: {
+            // The viewer's science panel reads config.*; keep the preset-run shape and add
+            // the spec so a timeline can be traced back to the parameters that made it.
+            preset: spec.label,
+            spec,
+            dims: cli.dims,
+            domain: cli.domain,
+            ticks: cli.ticks,
+            every: cli.framesEvery,
+            seed: cli.seed,
+            noise: cli.noise,
+            extraction: {
+              spacing: cli.spacing,
+              sigma: cli.sigma,
+              iso: 0.5,
+              margin: 4,
+              normalDelta: cli.normalDelta,
+            },
+          },
+          frames,
+          finalBBox,
+          elapsedSeconds: Math.round((Date.now() - t0) / 1000),
+        },
+        null,
+        1,
+      ),
+    );
+  };
+
+  const snapshot = (): void => {
+    const snapState = solver.state();
+    const snapTick = snapState.tick;
+    const mesh = extractMesh(snapState, {
+      spacing: cli.spacing,
+      sigma: cli.sigma,
+      iso: 0.5,
+      margin: 4,
+      normalDelta: cli.normalDelta,
+      source: { figure: spec.label, tick: snapTick, seed: cli.seed, noiseEpsilon: cli.noise },
+    });
+    const file = `mesh-t${String(snapTick).padStart(6, "0")}.bin`;
+    writeLarge(join(cli.framesDir, file), mesh.bytes);
+    frames.push({
+      file,
+      tick: snapTick,
+      vertexCount: mesh.vertexCount,
+      triangleCount: mesh.triangleCount,
+      attachedCount: solver.attachedCount,
+    });
+    finalBBox = mesh.bboxCartesian;
+    // Rewritten every frame so a partially complete timeline is already viewable.
+    writeAnimManifest(false);
+  };
+
   let stopReason = "tick-cap";
   let tick = 0;
   let stageIndex = 0;
   const transitions: Array<{ tick: number; stage: number }> = [];
+  if (framesOn) snapshot(); // frame 0 is the seed itself
   let farFieldStop = FAR_FIELD_STOP_FRACTION * stages[0]!.rho;
   for (let t = 1; t <= cli.ticks; t++) {
     solver.step();
@@ -298,6 +413,7 @@ function main(): void {
       stopReason = "far-field";
       break;
     }
+    if (framesOn && t % cli.framesEvery === 0) snapshot();
     if (t % cli.metricsEvery === 0) {
       console.log(
         `tick=${t} attached=${solver.attachedCount} ` +
@@ -306,14 +422,34 @@ function main(): void {
       );
     }
   }
+  // The stopping rules break mid-interval, so the last grown state is usually not on a
+  // frame boundary; capture it or the timeline ends short of the crystal that was kept.
+  if (framesOn && (frames.length === 0 || frames[frames.length - 1]!.tick !== tick)) snapshot();
+  if (framesOn) {
+    writeAnimManifest(true);
+    console.log(`timeline: ${frames.length} frames -> ${cli.framesDir}`);
+  }
   console.log(`stop reason=${stopReason} tick=${tick} attached=${solver.attachedCount}`);
+  // A schedule that never fires is not a staged crystal, it is a single-stage one wearing a
+  // staged label. Two sweep entries (branch1 -> plate3 at 8000 and at 12000) hit domain
+  // contact at tick 7438 and produced byte-identical geometry to each other on 2026-08-07;
+  // nothing in the output said so. Say it loudly, and record it.
+  const unfired = stages.length - 1 - transitions.length;
+  if (unfired > 0) {
+    console.warn(
+      `WARNING: ${unfired} of ${stages.length - 1} stage transition(s) never fired — the run ` +
+        `ended at tick ${tick} (${stopReason}) before reaching ` +
+        `${stages.slice(transitions.length, stages.length - 1).map((s) => String(s.untilTick)).join(", ")}. ` +
+        `This crystal is effectively single-stage; raise the domain or lower the switch tick.`,
+    );
+  }
 
   const state = solver.state();
   if (cli.outState !== "") {
     // Full GG checkpoint (public codec) so partial verdicts can re-extract or resume
     // analysis without regrowing. Metrics block omitted (observational tooling).
     mkdirSync(dirname(cli.outState), { recursive: true });
-    writeFileSync(cli.outState, encodeCheckpoint(state, null));
+    writeLarge(cli.outState, encodeCheckpoint(state, null));
     console.log(`wrote state checkpoint ${cli.outState}`);
   }
   const mesh = extractMesh(state, {
@@ -335,12 +471,14 @@ function main(): void {
     log: (line) => console.log(line),
   });
   mkdirSync(dirname(cli.outMesh), { recursive: true });
-  writeFileSync(cli.outMesh, mesh.bytes);
+  writeLarge(cli.outMesh, mesh.bytes);
   mkdirSync(dirname(cli.record), { recursive: true });
   const record = {
     label: spec.label,
     spec,
     stageTransitions: transitions,
+    /** Scheduled transitions the run ended before reaching; >0 means effectively single-stage. */
+    unfiredTransitions: unfired,
     dims: cli.dims,
     domain: cli.domain,
     seed: cli.seed,

@@ -81,18 +81,17 @@ const AUX_CONTROLS = [
   { name: "seed16", seedRadius: 16 },
   { name: "seed18", seedRadius: 18 },
 ];
-// Per-row wall cap: 10 h (one host up-window). Enforced HERE by killing the child; the recorded
-// stopReason is wall-cap-infrastructure and the row is not-comparable (no-pass, never a drop).
-const WALL_CAP_SECONDS = 10 * 3600;
-// 2026-08-09 maker direction, verbatim: "we shouldn't stop anything with arbitrary
-// timeliness, if it takes longer , it's okay." Wall caps are therefore NOT scheduling limits:
-// every row gets a uniform 48 h runaway-hang backstop (a wedged process is infrastructure; a
-// slow row is science and runs to completion). This superseded a same-day 16 h class cap
-// minutes after it was drafted, on the maker's direct instruction; the recorded basis and
-// history are in docs/plans/phase-6-wp2-ladder.md, Execution scheduling record.
-const RUNAWAY_BACKSTOP_SECONDS = 48 * 3600;
+// 2026-08-11 second amendment (maker direction 2026-08-09, verbatim: "we shouldn't stop
+// anything with arbitrary timeliness, if it takes longer , it's okay"): the wall backstop is
+// REMOVED entirely. A legitimate N=96 row measured 39.6 h under co-tenant load, so the 48 h
+// "runaway" guard could have killed honest science at N=112/128. No wall guard is needed for
+// termination: every row is bounded BY CONSTRUCTION by the registered step cap (100,000
+// cycles) and relaxation cap (200,000 sweeps/cycle) — a wedged row is impossible in the
+// solver loop, and an OS-level hang is handled by the sanctioned --retry-row path.
+// History: 10 h caps (frozen plan) -> 16 h class caps (superseded in minutes) -> 48 h
+// backstop -> removed; all recorded in docs/plans/phase-6-wp2-ladder.md.
 export function wallCapSecondsFor(_rowId) {
-  return RUNAWAY_BACKSTOP_SECONDS;
+  return null; // no wall limit: rows run to their constructive termination
 }
 // Review H5: the plan records concurrency ≤ 12; the clamp matches the recorded ceiling.
 const DEFAULT_CONCURRENCY = 12;
@@ -223,9 +222,18 @@ export function readRecordedRows(rowsPath, log) {
 // record): rows recorded at the freeze-era head are ALWAYS acceptable history — the evaluator
 // enforces the full two-phase shape fail-closed. Any other foreign head still refuses.
 export const LADDER_FREEZE_HEAD = "f59d18702301155c0c2e7eaecc3442e6cf117123";
+// 2026-08-12: the full sanctioned-head history, matching the evaluator's rule — the freeze
+// head, the first-amendment head, and the current head. Rows at any of these resume freely.
+export const SANCTIONED_HISTORY_HEADS = [
+  LADDER_FREEZE_HEAD,
+  "aa812952efbf5c4ef7152cc7595342092a51b000",
+];
 export function checkHeadContinuity(records, currentHead, acceptMixedHeads) {
   const offending = records
-    .filter((record) => record.gitHead !== currentHead && record.gitHead !== LADDER_FREEZE_HEAD)
+    .filter(
+      (record) =>
+        record.gitHead !== currentHead && !SANCTIONED_HISTORY_HEADS.includes(record.gitHead),
+    )
     .map((record) => record.rowId);
   if (offending.length > 0 && !acceptMixedHeads) {
     throw new Error(
@@ -432,7 +440,7 @@ function main() {
   const host = hostname();
   log(
     `ladder dispatcher starting head=${head} node=${process.version} pid=${process.pid} ` +
-      `host=${host} concurrency=${concurrency} wallCapSeconds=${RUNAWAY_BACKSTOP_SECONDS} (runaway backstop, not a scheduling cap) ` +
+      `host=${host} concurrency=${concurrency} wallCap=none (rows bounded by registered step/sweep caps) ` +
       `acceptMixedHeads=${acceptMixedHeads} command=${JSON.stringify(dispatcherCommand)}`,
   );
   if (acceptMixedHeads) {
@@ -548,12 +556,18 @@ function main() {
     child.stderr.on("data", (chunk) => {
       stderrTail = (stderrTail + chunk).slice(-STDERR_TAIL_CHARS);
     });
-    const capTimer = setTimeout(() => {
-      capped = true;
-      log(`wall-cap ${row.rowId}: killing child at the 10 h per-row cap`);
-      child.kill();
-    }, wallCapSecondsFor(row.rowId) * 1000);
-    capTimer.unref();
+    // Second amendment (2026-08-11): no wall limit — capSeconds is null and no timer is set.
+    // Rows terminate by construction (registered step cap × relaxation cap).
+    const capSeconds = wallCapSecondsFor(row.rowId);
+    let capTimer = null;
+    if (capSeconds !== null) {
+      capTimer = setTimeout(() => {
+        capped = true;
+        log(`wall-cap ${row.rowId}: killing child at the per-row wall cap`);
+        child.kill();
+      }, capSeconds * 1000);
+      capTimer.unref();
+    }
 
     child.on("error", (error) => {
       clearTimeout(capTimer);
@@ -584,7 +598,7 @@ function main() {
           {
             ...row,
             stopReason: "wall-cap-infrastructure",
-            dispatcherNote: `child killed at the ${WALL_CAP_SECONDS} s per-row wall cap`,
+            dispatcherNote: `child killed at the ${capSeconds} s per-row wall cap`,
             wallSeconds,
           },
           startedIso,

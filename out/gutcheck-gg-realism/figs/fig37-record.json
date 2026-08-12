@@ -1,0 +1,91 @@
+{
+ "label": "Fig. 37 (tsuzumi capped column)",
+ "spec": {
+  "label": "Fig. 37 (tsuzumi capped column)",
+  "stages": [
+   {
+    "untilTick": 20000,
+    "rho": 0.1,
+    "phi": 0,
+    "ggThreshTable": {
+     "10": 2,
+     "11": 0.5,
+     "20": 2,
+     "21": 0.5,
+     "30": 0.5,
+     "31": 1,
+     "01": 1
+    },
+    "kappa": {
+     "default": 0.1,
+     "overrides": {}
+    },
+    "mu": {
+     "default": 0.01,
+     "overrides": {}
+    }
+   },
+   {
+    "untilTick": null,
+    "rho": 0.1,
+    "phi": 0,
+    "ggThreshTable": {
+     "10": 2.4,
+     "11": 2.4,
+     "20": 2.4,
+     "21": 1,
+     "30": 1,
+     "31": 1,
+     "01": 5
+    },
+    "kappa": {
+     "default": 0.1,
+     "overrides": {}
+    },
+    "mu": {
+     "default": 0.001,
+     "overrides": {}
+    }
+   }
+  ]
+ },
+ "stageTransitions": [
+  {
+   "tick": 20000,
+   "stage": 2
+  }
+ ],
+ "dims": {
+  "nx": 320,
+  "ny": 320,
+  "nz": 512
+ },
+ "domain": "hexPrism",
+ "seed": 1,
+ "noise": 0,
+ "tickCap": 80000,
+ "stopReason": "far-field",
+ "tick": 48350,
+ "attachedCount": 1219767,
+ "farFieldMean": 0.06665117749596157,
+ "mesh": {
+  "path": "out/gutcheck-gg-realism/figs/fig37-mesh.bin",
+  "vertexCount": 837050,
+  "triangleCount": 1673996,
+  "bboxCartesian": {
+   "xMin": 152,
+   "xMax": 328,
+   "yMin": 62.35382907247958,
+   "yMax": 214.77430013854078,
+   "zMin": 107,
+   "zMax": 405
+  },
+  "extraction": {
+   "spacing": 0.6,
+   "sigma": 0.45,
+   "normalDelta": 3
+  }
+ },
+ "elapsedSeconds": 20105,
+ "evidenceStatus": "unvalidated eyeball exploration; no gate semantics"
+}

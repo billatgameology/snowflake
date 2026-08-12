@@ -1,0 +1,95 @@
+{
+ "label": "dial-in: branch 1 until 8000, then plate 3 (800x800x96, frames every 20)",
+ "spec": {
+  "label": "dial-in: branch 1 until 8000, then plate 3 (800x800x96, frames every 20)",
+  "stages": [
+   {
+    "untilTick": 8000,
+    "rho": 0.12,
+    "phi": 0.01,
+    "ggThreshTable": {
+     "10": 1,
+     "11": 1,
+     "20": 1,
+     "21": 1,
+     "30": 1,
+     "31": 1,
+     "01": 3.5
+    },
+    "kappa": {
+     "default": 0.005,
+     "overrides": {}
+    },
+    "mu": {
+     "default": 0.001,
+     "overrides": {
+      "10": 0.006,
+      "20": 0.006
+     }
+    }
+   },
+   {
+    "untilTick": null,
+    "rho": 0.12,
+    "phi": 0.01,
+    "ggThreshTable": {
+     "10": 3,
+     "11": 3,
+     "20": 3,
+     "21": 1,
+     "30": 1,
+     "31": 1,
+     "01": 3.5
+    },
+    "kappa": {
+     "default": 0.005,
+     "overrides": {}
+    },
+    "mu": {
+     "default": 0.001,
+     "overrides": {}
+    }
+   }
+  ]
+ },
+ "stageTransitions": [
+  {
+   "tick": 8000,
+   "stage": 2
+  }
+ ],
+ "unfiredTransitions": 0,
+ "dims": {
+  "nx": 800,
+  "ny": 800,
+  "nz": 96
+ },
+ "domain": "hexPrism",
+ "seed": 1,
+ "noise": 0,
+ "tickCap": 40000,
+ "stopReason": "domain-contact",
+ "tick": 28473,
+ "attachedCount": 1339079,
+ "farFieldMean": 0.1370601031345463,
+ "mesh": {
+  "path": "out/gutcheck-gg-realism/large/gen/dialin-b1p3-800-mesh.bin",
+  "vertexCount": 1131518,
+  "triangleCount": 2267052,
+  "bboxCartesian": {
+   "xMin": 340,
+   "xMax": 860,
+   "yMin": 121.2435565298214,
+   "yMax": 571.5767664977295,
+   "zMin": 3,
+   "zMax": 58
+  },
+  "extraction": {
+   "spacing": 0.8,
+   "sigma": 0.45,
+   "normalDelta": 3
+  }
+ },
+ "elapsedSeconds": 69146,
+ "evidenceStatus": "unvalidated eyeball exploration; no gate semantics"
+}
