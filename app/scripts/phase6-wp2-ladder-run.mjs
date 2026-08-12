@@ -222,9 +222,18 @@ export function readRecordedRows(rowsPath, log) {
 // record): rows recorded at the freeze-era head are ALWAYS acceptable history — the evaluator
 // enforces the full two-phase shape fail-closed. Any other foreign head still refuses.
 export const LADDER_FREEZE_HEAD = "f59d18702301155c0c2e7eaecc3442e6cf117123";
+// 2026-08-12: the full sanctioned-head history, matching the evaluator's rule — the freeze
+// head, the first-amendment head, and the current head. Rows at any of these resume freely.
+export const SANCTIONED_HISTORY_HEADS = [
+  LADDER_FREEZE_HEAD,
+  "aa812952efbf5c4ef7152cc7595342092a51b000",
+];
 export function checkHeadContinuity(records, currentHead, acceptMixedHeads) {
   const offending = records
-    .filter((record) => record.gitHead !== currentHead && record.gitHead !== LADDER_FREEZE_HEAD)
+    .filter(
+      (record) =>
+        record.gitHead !== currentHead && !SANCTIONED_HISTORY_HEADS.includes(record.gitHead),
+    )
     .map((record) => record.rowId);
   if (offending.length > 0 && !acceptMixedHeads) {
     throw new Error(
