@@ -11,6 +11,23 @@ import { resolve } from "node:path";
 const ROOT = resolve("out/gutcheck-gg-realism").replace(/\\/g, "/");
 const join = (...parts: string[]): string => parts.join("/");
 
+// Large artifacts (large/** and gen/renders) moved to the NAS on 2026-08-12 — S: is
+// \\GameStation\snowcrystal, ledgered in docs/nas-ledger.md. Detect it rather than
+// configure it: with the NAS attached the index links there; without it, fall back to
+// local paths so a detached machine still builds a stills-less but honest index.
+// GUTCHECK_BULK_ROOT overrides both for unusual setups.
+const NAS_ROOT = "S:/out/gutcheck-gg-realism";
+const BULK_ROOT = (() => {
+  const forced = process.env.GUTCHECK_BULK_ROOT;
+  if (forced !== undefined && forced !== "") return forced.replace(/\\/g, "/");
+  try {
+    statSync(`${NAS_ROOT}/large`);
+    return NAS_ROOT;
+  } catch {
+    return ROOT;
+  }
+})();
+
 // Vite's dev-server escape hatch for files outside the app root. `/@fs` + the path works only
 // when the path starts with "/": on Windows the same concatenation produced "/@fsG:\Code
 // Files\..." — no separator, backslashes, unencoded space. The Windows form is
@@ -18,12 +35,23 @@ const join = (...parts: string[]): string => parts.join("/");
 // a filename from splitting the query string the viewer parses with URLSearchParams. A bare
 // drive-letter ":" is legal in a URL path and is what /@fs expects, so it is put back.
 // On POSIX paths without special characters this returns the original string unchanged.
-const FS = (p: string): string =>
-  `/@fs/${p
+const FS = (p: string): string => {
+  // NAS paths are served by the dev server's own /nas route (app/vite.config.ts): Vite's
+  // /@fs cannot serve a drive other than the workspace's on Windows — it silently falls
+  // through to the SPA page (found 2026-08-12 when the bulk artifacts moved to S:).
+  if (/^s:\//i.test(p)) {
+    return `/nas/${p
+      .slice(3)
+      .split("/")
+      .map((segment) => encodeURIComponent(segment))
+      .join("/")}`;
+  }
+  return `/@fs/${p
     .replace(/^\/+/, "")
     .split("/")
     .map((segment) => encodeURIComponent(segment).replace(/%3A/gi, ":"))
     .join("/")}`;
+};
 
 const VIEWER = "/spike-gg-realism.html";
 
@@ -92,9 +120,9 @@ const LOOK_BLURB: Record<string, string> = {
 // The label already ends in the look name, so the gloss does not repeat it.
 const lookNote = (look: string, controls: string): string => `${LOOK_BLURB[look]} · ${controls}`;
 
-const meshes = join(ROOT, "large", "meshes");
-const figMeshes = join(ROOT, "large", "figs");
-const timelineManifest = join(ROOT, "large", "anim-B", "manifest.json");
+const meshes = join(BULK_ROOT, "large", "meshes");
+const figMeshes = join(BULK_ROOT, "large", "figs");
+const timelineManifest = join(BULK_ROOT, "large", "anim-B", "manifest.json");
 
 const exists = (p: string): boolean => {
   try {
@@ -291,9 +319,112 @@ if (orphanViewers.length > 0) {
 // and its growth timeline when a COMPLETE one exists (a partial manifest means the run was
 // interrupted, and linking it would present a half-grown crystal as finished).
 const genRecords = join(ROOT, "gen");
-const genRenders = join(genRecords, "renders");
-const animRoot = join(ROOT, "large", "anim");
+const genRenders = join(BULK_ROOT, "gen", "renders");
+const animRoot = join(BULK_ROOT, "large", "anim");
 const genRows: CompareRow[] = [];
+
+// 3c. Animation dial-in (2026-08-08): the same branch 1 -> plate 3 recipe grown at three
+// domain sizes to pick the spec for smooth large-crystal animations (the 63-frame sweep
+// timelines scrub badly; anim-B's 701 frames are the bar). These rows are shown even while
+// a run is still growing — a mid-run manifest is exactly what ?frameExtent exists for, and
+// watching the timeline fill in is the point of the exercise — so, unlike the sweep rows
+// below, "incomplete" here is labelled rather than hidden.
+interface DialinRecord {
+  stopReason?: string;
+  tick?: number;
+  stageTransitions?: Array<{ tick?: number }>;
+}
+interface DialinManifest {
+  complete?: boolean;
+  frames?: Array<{ tick?: number; vertexCount?: number }>;
+  config?: {
+    dims?: { nx?: number; ny?: number; nz?: number };
+    every?: number;
+    extraction?: { spacing?: number };
+  };
+  finalBBox?: { xMin: number; xMax: number; yMin: number; yMax: number };
+  elapsedSeconds?: number;
+}
+const dialinRows: CompareRow[] = [];
+const dialinSeen = new Set<string>();
+// All three runs at one zoom, sized to the largest domain (1200 * 0.8 spacing * ~0.82
+// crystal-to-domain ratio measured on the staged 500 runs) — relative crystal size is real.
+const DIALIN_COMMON_EXTENT = 790;
+
+function dialinRow(id: string, record: DialinRecord | null): CompareRow | null {
+  const manifestPath = join(animRoot, id, "manifest.json");
+  let manifest: DialinManifest;
+  try {
+    manifest = JSON.parse(readFileSync(manifestPath, "utf8")) as DialinManifest;
+  } catch {
+    return null; // no frames yet (or a torn mid-run write) — nothing to show
+  }
+  const frames = manifest.frames ?? [];
+  if (frames.length === 0) return null;
+  const dims = manifest.config?.dims;
+  const nx = dims?.nx ?? 0;
+  const spacing = manifest.config?.extraction?.spacing ?? 0.8;
+  const complete = manifest.complete === true && record !== null;
+  const lastTick = frames[frames.length - 1]?.tick ?? 0;
+  const hours = ((manifest.elapsedSeconds ?? 0) / 3600).toFixed(1);
+  // Estimated from the manifest, not statted: the timelines live on the NAS since
+  // 2026-08-12, and one stat per frame file over SMB (13k files for f2) turned a
+  // sub-second rebuild into minutes. 48 B/vertex matches the mesh format (pos + normal
+  // + ~2 tris/vertex) within a few percent of measured directory sizes.
+  const gb = (frames.reduce((sum, f) => sum + (f.vertexCount ?? 0) * 48, 0) / 1e9).toFixed(1);
+  const bb = manifest.finalBBox;
+  // Pin framing to the expected final size while growing so early frames aren't magnified;
+  // once complete, frame the actual crystal.
+  const pinned = complete && bb !== undefined
+    ? Math.ceil(Math.max(bb.xMax - bb.xMin, bb.yMax - bb.yMin) * 1.05)
+    : Math.round(nx * spacing * 0.82);
+  const fired = (record?.stageTransitions?.length ?? 0) > 0
+    ? ` · switch fired t${String(record?.stageTransitions?.[0]?.tick ?? "?")}`
+    : "";
+  // A STOPPED marker in the frames dir means the run was killed on purpose (maker call,
+  // e.g. the 1200 at 75 h) — label it as a decision, not as a run that is still coming.
+  const stoppedEarly = exists(join(animRoot, id, "STOPPED"));
+  const status = complete
+    ? `${String(frames.length)} frames · ${record?.stopReason ?? "stopped"} t${String(lastTick)}`
+    : stoppedEarly
+      ? `stopped by choice at t${String(lastTick)} — ${String(frames.length)} frames kept`
+      : `growing — ${String(frames.length)} frames so far · t${String(lastTick)}`;
+  const label =
+    `${String(nx)}×${String(dims?.ny ?? "?")}×${String(dims?.nz ?? "?")} — ${status} · ` +
+    `every ${String(manifest.config?.every ?? "?")} ticks · spacing ${String(spacing)} · ` +
+    `${hours} h · ${gb} GB${fired}`;
+
+  const viewers: Item[] = [];
+  const meshPath = join(BULK_ROOT, "large", "gen", `${id}-mesh.bin`);
+  if (record !== null && exists(meshPath)) {
+    viewers.push({
+      label: "final mesh · glass",
+      href: meshHref("glass", meshPath),
+      note: `${record.stopReason ?? "?"} at tick ${String(record.tick ?? 0)}`,
+    });
+  }
+  viewers.push({
+    label: "timeline · same scale",
+    href: `${VIEWER}?look=glass&manifest=${FS(manifestPath)}&frameExtent=${String(DIALIN_COMMON_EXTENT)}`,
+    note: "all three sizes at one zoom — relative size is real",
+  });
+
+  const render = join(genRenders, `${id}-render.png`);
+  return {
+    label,
+    comparisons: exists(render) ? [{ label: id, href: FS(render), image: FS(render) }] : [],
+    viewers,
+    animation: {
+      label: `Growth timeline · ${String(frames.length)} frames${complete ? "" : " (so far)"}`,
+      href: `${VIEWER}?look=glass&manifest=${FS(manifestPath)}&frameExtent=${String(pinned)}`,
+      note: complete
+        ? "play / scrub from seed to final · look switches in-page"
+        : stoppedEarly
+          ? "partial timeline — plays up to where the run was stopped"
+          : "run in progress — reload to pick up new frames",
+    },
+  };
+}
 for (const path of listFiles(genRecords)) {
   const file = name(path);
   if (!file.endsWith("-record.json")) continue;
@@ -311,8 +442,16 @@ for (const path of listFiles(genRecords)) {
   } catch {
     continue;
   }
+  if (id.startsWith("dialin-")) {
+    // Not sweep entries (different dims, specs live in dialin/, not specs/) — they get the
+    // comparison section below instead of a row here.
+    dialinSeen.add(id);
+    const row = dialinRow(id, record as DialinRecord);
+    if (row !== null) dialinRows.push(row);
+    continue;
+  }
   const viewers: Item[] = [];
-  const meshPath = join(ROOT, "large", "gen", `${id}-mesh.bin`);
+  const meshPath = join(BULK_ROOT, "large", "gen", `${id}-mesh.bin`);
   if (exists(meshPath)) {
     viewers.push({
       label: "final mesh · glass",
@@ -356,6 +495,33 @@ for (const path of listFiles(genRecords)) {
     comparisons: image === null ? [] : [{ label: id, href: FS(image), image: FS(image) }],
     viewers,
     ...(animation && { animation }),
+  });
+}
+// Dial-in runs still growing have a timeline directory but no record yet — pick those up too.
+try {
+  for (const d of readdirSync(animRoot)) {
+    if (!d.startsWith("dialin-") || dialinSeen.has(d)) continue;
+    const row = dialinRow(d, null);
+    if (row !== null) dialinRows.push(row);
+  }
+} catch {
+  /* no anim directory yet */
+}
+if (dialinRows.length > 0) {
+  dialinRows.sort((a, b) => Number(a.label.split("×")[0]) - Number(b.label.split("×")[0]));
+  sections.push({
+    title: "Animation dial-in — one recipe at 500 / 800 / 1200",
+    note:
+      "The same branch 1 → plate 3 schedule grown at three domain sizes (switch tick scaled " +
+      "per size: 4000 / 8000 / 12000) to pick the generation spec for smooth large-crystal " +
+      "animations, plus two probes at 500 for the video deliverable (15 s–60 s, phone up to " +
+      "1080p): frames every 2 = one sim frame per video frame at 60 s × 30 fps or 30 s × " +
+      "60 fps, and spacing 0.6 = finer mesh for full-screen 1080p. The three 500-size rows " +
+      "are the same crystal (same seed), so they A/B cleanly. Judge: scrub smoothness, arm " +
+      "detail, crystal size, and the hours/GB in each row. Rows fill in live while runs are " +
+      "growing — reload for new frames.",
+    items: [],
+    rows: dialinRows,
   });
 }
 if (genRows.length > 0) {

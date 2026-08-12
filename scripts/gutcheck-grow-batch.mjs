@@ -133,7 +133,9 @@ function runOne(job) {
 // OR by Stop-Process on just its pid — takes every running solver with it. That cost 23
 // crystals at ~3.6 h each on 2026-08-07. Touch this file instead: in-flight runs finish, no new
 // ones start, and the batch exits clean.
-const stopFile = join(outRoot, "STOP-BATCH");
+// --stop-file gives a replacement batch its own flag, so it can start while its predecessor
+// is still draining on the default one (concurrency changes require a relaunch).
+const stopFile = join(outRoot, arg("stop-file", "STOP-BATCH"));
 let draining = false;
 
 async function worker() {

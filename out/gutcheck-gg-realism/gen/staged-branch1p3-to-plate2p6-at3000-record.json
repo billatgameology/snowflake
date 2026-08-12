@@ -1,0 +1,95 @@
+{
+ "label": "staged: branch 1.3 until 3000, then plate 2.6",
+ "spec": {
+  "label": "staged: branch 1.3 until 3000, then plate 2.6",
+  "stages": [
+   {
+    "untilTick": 3000,
+    "rho": 0.12,
+    "phi": 0.01,
+    "ggThreshTable": {
+     "10": 1.3,
+     "11": 1.3,
+     "20": 1.3,
+     "21": 1,
+     "30": 1,
+     "31": 1,
+     "01": 3.5
+    },
+    "kappa": {
+     "default": 0.005,
+     "overrides": {}
+    },
+    "mu": {
+     "default": 0.001,
+     "overrides": {
+      "10": 0.006,
+      "20": 0.006
+     }
+    }
+   },
+   {
+    "untilTick": null,
+    "rho": 0.12,
+    "phi": 0.01,
+    "ggThreshTable": {
+     "10": 2.6,
+     "11": 2.6,
+     "20": 2.6,
+     "21": 1,
+     "30": 1,
+     "31": 1,
+     "01": 3.5
+    },
+    "kappa": {
+     "default": 0.005,
+     "overrides": {}
+    },
+    "mu": {
+     "default": 0.001,
+     "overrides": {}
+    }
+   }
+  ]
+ },
+ "stageTransitions": [
+  {
+   "tick": 3000,
+   "stage": 2
+  }
+ ],
+ "unfiredTransitions": 0,
+ "dims": {
+  "nx": 500,
+  "ny": 500,
+  "nz": 96
+ },
+ "domain": "hexPrism",
+ "seed": 1,
+ "noise": 0,
+ "tickCap": 30000,
+ "stopReason": "tick-cap",
+ "tick": 30000,
+ "attachedCount": 576698,
+ "farFieldMean": 0.14294513012373344,
+ "mesh": {
+  "path": "G:\\Code Files\\snowflake-gutcheck-gg-realism\\out\\gutcheck-gg-realism\\large\\gen\\staged-branch1p3-to-plate2p6-at3000-mesh.bin",
+  "vertexCount": 294116,
+  "triangleCount": 589064,
+  "bboxCartesian": {
+   "xMin": 243,
+   "xMax": 507,
+   "yMin": 102.19099764656376,
+   "yMax": 330.82170424565555,
+   "zMin": 22,
+   "zMax": 53
+  },
+  "extraction": {
+   "spacing": 0.8,
+   "sigma": 0.45,
+   "normalDelta": 3
+  }
+ },
+ "elapsedSeconds": 64095,
+ "evidenceStatus": "unvalidated eyeball exploration; no gate semantics"
+}
