@@ -1,7 +1,7 @@
 # Plan — Phase 8B Phase-9-ready priority benchmark corpus
 
 - **Phase:** Phase 8 — What is real
-- **Status:** in progress
+- **Status:** complete
 - **Started:** 2026-08-11
 - **Last touched:** 2026-08-12 by OpenAI Codex
 
@@ -259,7 +259,7 @@ classification. Freeze candidates are reopened and re-derived from their publish
   and redesign the Phase 9 draft at the evidence level. Do not implement Phase 9 or score model
   output. Preserve disagreements, nonindependence, extrapolation limits, unsupported-module gaps,
   and out-of-model results.
-- [ ] **S7 — Freeze, verify, and close.** Stage the benchmark manifest and NAS data bindings,
+- [x] **S7 — Freeze, verify, and close.** Stage the benchmark manifest and NAS data bindings,
   residual backlog, targeted search/currency record, extraction operators, successor book/split,
   Phase 9 impact report, and artifact-derived status. Run named numeric/provenance/leakage negative
   controls, exact `TMPDIR=/private/tmp npm test`, clean-checkout verification, and one proportionate
@@ -940,3 +940,31 @@ acceptances are not retroactively represented as reviews of the focused contract
   each of the 51 records. Its independent verifier returned `ok=true`, re-verifying 252,134 native
   rows and 431 plot points; the target book is 36,094 bytes / SHA-256
   `c54b89683eea1f064bd8e81d6e9e06b3b9bbc6c022168b981cbfa71e5fc3cdd3`.
+
+### S7 final closure — accepted
+
+- **Artifact-derived result:** the exact command above returned `ok=true` with 51 selected and
+  development records (18 P0 / 28 P1 / 5 P2), zero held-out records, 252,134 native rows
+  reverified, 431 plot points reverified and zero P2 coordinate rows. The producer's immutable
+  report remains labelled as a candidate because it cannot attest its own independent verdict;
+  this separately executed verifier and review supply the closure decision.
+- **Clean checkout:** a detached clean checkout of the committed implementation re-ran the final
+  NAS-backed verifier and six focused integrity/Phase 8 suites: 51/51 tests passed and `git status`
+  was empty. The root worktree's maker-owned `.DS_Store` and `tmp/` remained untouched.
+- **Exact local suite:** `TMPDIR=/private/tmp npm test` exited 0 after the two real closure defects
+  below were repaired: Rule 7 clean over 972 files, both TypeScript projects passed, and Vitest
+  passed 97/97 files with 1,664 passed and 7 skipped tests in 372.73 s.
+- **Non-author audit:** an OpenAI Codex GPT-5-family child reviewer inherited shared context but was
+  read-only and did not author the final artifacts. It independently replayed the NAS-backed final
+  verifier and an eight-suite focused batch in which 60 tests passed and two stale progress-index
+  cases failed, checked the split/counts and source-hash bindings,
+  confirmed the rejected first plot adjudication and original Bacon audit miss remained preserved,
+  checked the gap/currency restrictions and Phase 9 consumer mapping, and found zero data or
+  scientific blockers. Its first pass found two closure defects: stale progress-index assertions
+  and the absence of the full reproduction command. Commit `c6b3793` repaired both; the bounded
+  follow-up replayed the documented command and progress test and returned zero remaining blockers.
+- **Review limits:** the reviewer did not browse, download, repeat both raw coordinate reads, rerun
+  the full suite, or reread every paper. Those limits do not replace the independently executed
+  row/source verifiers, root full-suite result or clean-checkout replay. The closure is benchmark
+  readiness for model development, not global literature saturation, quantitative validation, or
+  authorization to execute the unchartered Phase 9 draft.

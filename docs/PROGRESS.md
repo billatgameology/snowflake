@@ -24,7 +24,7 @@ index, a plan, ADR, or audit links to historical detail.
   campaign close at measured-only grade (stated as not computed by decision 0045, never as
   satisfied), and a 204-point measured-only `M1_NO_DIP_ABLATION` sweep — arm-2-identical except
   `paramSet` — completes the three-arm baseline inside the envelope.
-- **Phase 8A is COMPLETE (2026-08-10); Phase 8B has a verified closure candidate (2026-08-12).**
+- **Phase 8 is COMPLETE (Phase 8A 2026-08-10; Phase 8B 2026-08-12).**
   Decision [0048](decisions/0048-focus-phase8b-on-phase9-ready-benchmarks.md) and charter v1.25
   preserve the completed [Phase 8A target book](plans/phase-8-what-is-real.md) byte-for-byte and
   focus the [Phase 8B corpus](plans/phase-8-measurement-corpus.md) on measurements Phase 9 can use.
@@ -37,8 +37,9 @@ index, a plan, ADR, or audit links to historical detail.
   `c54b89683eea1f064bd8e81d6e9e06b3b9bbc6c022168b981cbfa71e5fc3cdd3`. The targeted pass is
   terminal and bounded, not global literature closure; the corrected residual sample is 0/9 misses
   after preserving and remediating its original Bacon miss. Phase 8B does not score a model,
-  authorize Phase 9 or grant a validation label. Only exact full-suite, clean-checkout and final
-  non-author closure verification remain before marking the phase complete.
+  authorize Phase 9 or grant a validation label. The exact full suite passed 97/97 files; the
+  detached clean-checkout verifier and 51 focused tests passed; and the final non-author audit
+  returned zero blockers after its two bookkeeping findings were repaired.
   Phase 7 is completely standalone from the completion of Phases 6 and 8: it is not started and
   still needs its own committed plan/worktree, but neither phase gates it. Its existing product,
   held-out-validation, and GPU-parity scope remains. Phase 9 and Phase 10 remain uncharted.
@@ -159,14 +160,14 @@ and every superseded attempt live in the linked plans and historical progress sn
 | 5 | Complete, maker-asserted 2026-07-26 | Clean `c436df5`, observed Windows/Chromium/D3D12: 16/16 gate criteria, 560 bounded segments below 500 ms, zero device losses/errors/full-field display-frame reads, 16/16 negative controls rejected. Repro: `node runner/src/main.ts gate5-lane` and `node runner/src/main.ts gate5`. |
 | 6 | **Active and incomplete** | The three measured-only arms and WP1 strata are published. The budget-capped ladder is executing; its verdict and WP8 gate remain. Headline/R15/campaign closed at measured-only grade; held-out/GPU execution deferred with no Phase 6 credit. |
 | 7 | Not started; independently eligible | Charter v1.25 preserves Phase 7's independence but does not start it. A committed Phase 7 plan and isolated worktree are required; product, held-out validation, and v6 WGSL/preview-GPU parity remain its scope. |
-| 8 | **8A complete; 8B active and incomplete** | The immutable v1 book is 18 entries / 59,019 bytes / SHA-256 `47a75f3f…71ec`. Decision 0048 requires a fully verified P0/P1/P2 benchmark, explicit residual backlog, one targeted gap/currency pass, and a successor freeze. [Active plan](plans/phase-8-measurement-corpus.md). |
+| 8 | **Complete (8A + 8B)** | The immutable 8A book remains 18 entries / 59,019 bytes / SHA-256 `47a75f3f…71ec`. The verified 8B successor is 51 development records, 252,134 native rows and 431 plot points; no row is held out. [Completed plan](plans/phase-8-measurement-corpus.md). |
 
 ## Active plan
 
 [phase-6-science-first-completion.md](plans/phase-6-science-first-completion.md) remains the active
 Phase 6 implementation plan. [phase-8-measurement-corpus.md](plans/phase-8-measurement-corpus.md)
-is the active Phase 8B plan; [phase-8-what-is-real.md](plans/phase-8-what-is-real.md) is the
-completed 8A record. Decisions 0046–0048 keep worktrees, processes, artifacts, claims, and
+and [phase-8-what-is-real.md](plans/phase-8-what-is-real.md) are the completed 8B and 8A records.
+Decisions 0046–0048 keep worktrees, processes, artifacts, claims, and
 completion credit isolated; cold starts read the plan for the workstream they will touch. The
 detailed V4/V4.x chronology remains in the closed
 [WP1 history](plans/phase-6-wp1-source-lineage-and-tax2.md) and recovery artifacts; it is not a live
@@ -198,17 +199,17 @@ reconciliation — Phase 6 closes. Do not resume education or V4/V4.x apparatus.
 preview-GPU work may begin only as separately planned Phase 7 work in its own worktree; never run
 it from the Phase 6 lane or count it toward Phase 6.
 
-### Phase 8B lane — closure verification only; external search is stopped
+### Phase 8B record — closed; external search remains stopped
 
 Decision 0048, charter v1.25 and the [benchmark-corpus plan](plans/phase-8-measurement-corpus.md)
 govern. Preserve Phase 8A and rejected plot-adjudication history byte-for-byte. The bounded targeted
 pass found no remaining load-bearing P0/P1 source gap, so do not resume broad discovery or download
 the residual backlog. Substantial source and normalized row bytes remain on the NAS.
 
-Reproduce the closure candidate with the exact command recorded in the active plan. Next run exact
-`TMPDIR=/private/tmp npm test`, verify from a clean detached checkout with the NAS mounted, and
-obtain one proportionate non-author audit over the committed final bytes; close S7 and the phase
-only if all return zero blockers. Preserve `evidence/phase8-target-book/` byte-for-byte.
-Phase 9 remains unchartered and unauthorized; its proposed
-[consumer plan](plans/phase-9-modular-physics-arms.md) does not alter that status. All 51 Phase 8B
-records are development evidence and none may be relabeled held out.
+S7 is complete: the exact full suite, clean detached-checkout replay and final non-author audit all
+returned zero blockers. Reproduce the NAS-backed corpus with the exact command in the completed
+plan. Preserve `evidence/phase8-target-book/` byte-for-byte, along with rejected plot-adjudication
+history and the failed original residual audit. Do not resume broad discovery or download the
+residual backlog without a new named measurement gap. Phase 9 remains unchartered and unauthorized;
+its proposed [consumer plan](plans/phase-9-modular-physics-arms.md) is ready for maker adoption review.
+All 51 Phase 8B records are development evidence and none may be relabeled held out.

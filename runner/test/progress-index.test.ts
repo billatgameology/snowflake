@@ -27,11 +27,11 @@ const FORBIDDEN_SEQUENCING = [
   "Then freeze the source set and run the two zero-addition rounds",
 ];
 const PHASE8_STATUS_LINE =
-  "- **Phase 8A is COMPLETE (2026-08-10); Phase 8B has a verified closure candidate (2026-08-12).**";
-const PHASE8_GATE_PREFIX = "| 8 | **8A complete; 8B active and incomplete** |";
+  "- **Phase 8 is COMPLETE (Phase 8A 2026-08-10; Phase 8B 2026-08-12).**";
+const PHASE8_GATE_PREFIX = "| 8 | **Complete (8A + 8B)** |";
 const PHASE7_GATE_PREFIX = "| 7 | Not started; independently eligible |";
 const CONTRADICTORY_STATE_PATTERNS = [
-  /Phase 8B.*\b(?:complete|completed|done|closed)\b/iu,
+  /Phase 8B.*\b(?:active|incomplete|pending)\b/iu,
   /Phase 8B.*\b(?:may|can|will|must) (?:rewrite|mutate|replace|overwrite)\b.*\b(?:8A|v1|phase8-target-book)\b/iu,
   /Phase 7 (?:is(?: now)?|becomes) (?:active|started|complete|completed|done|closed)\b/iu,
   /Phase 9.*\b(?:chartered|active|started)\b/iu,
@@ -52,7 +52,7 @@ function currentIndexErrors(text: string): string[] {
   const errors: string[] = [];
   const required = [
     "Phase 6 is ACTIVE AND INCOMPLETE",
-    "Phase 8A is COMPLETE (2026-08-10); Phase 8B has a verified closure candidate (2026-08-12)",
+    "Phase 8 is COMPLETE (Phase 8A 2026-08-10; Phase 8B 2026-08-12)",
     "47a75f3fcc499d74d36cd08eeaed7f4e839bf991deb179fa19ce809d57e171ec",
     "Phase 8B writes separate artifacts",
     "Decision [0048]",
@@ -60,7 +60,10 @@ function currentIndexErrors(text: string): string[] {
     "252,134 native history rows",
     "431 adjudicated plot points",
     "corrected residual sample is 0/9 misses",
-    "closure verification only; external search is stopped",
+    "exact full suite passed 97/97 files",
+    "detached clean-checkout verifier and 51 focused tests passed",
+    "final non-author audit",
+    "Phase 8B record — closed; external search remains stopped",
     "Preserve `evidence/phase8-target-book/` byte-for-byte",
     "Phase 7 is completely standalone",
     "Phase 9 remains unchartered",
@@ -87,7 +90,7 @@ function currentIndexErrors(text: string): string[] {
   const lines = text.split(/\r?\n/u);
   const phase8GateLines = lines.filter((line) => line.startsWith("| 8 |"));
   if (phase8GateLines.length !== 1 || !phase8GateLines[0]?.startsWith(PHASE8_GATE_PREFIX)) {
-    errors.push("expected exactly one active-incomplete Phase 8 gate row");
+    errors.push("expected exactly one completed Phase 8 gate row");
   }
   const phase7GateLines = lines.filter((line) => line.startsWith("| 7 |"));
   if (phase7GateLines.length !== 1 || !phase7GateLines[0]?.startsWith(PHASE7_GATE_PREFIX)) {
@@ -202,14 +205,14 @@ describe("compact progress index and byte-exact historical record", () => {
     expect(currentIndexErrors(current.replace("Phase 6 is ACTIVE AND INCOMPLETE", "Phase 6 is complete")))
       .toContain("missing current-state phrase: Phase 6 is ACTIVE AND INCOMPLETE");
     const phase8StatusMutation = current.replace(
-      "Phase 8A is COMPLETE (2026-08-10); Phase 8B has a verified closure candidate (2026-08-12)",
+      "Phase 8 is COMPLETE (Phase 8A 2026-08-10; Phase 8B 2026-08-12)",
       "Phase 8 is inactive",
     );
     expect(phase8StatusMutation).not.toBe(current);
     expect(currentIndexErrors(phase8StatusMutation))
       .toContain(
         "missing current-state phrase: "
-          + "Phase 8A is COMPLETE (2026-08-10); Phase 8B has a verified closure candidate (2026-08-12)",
+          + "Phase 8 is COMPLETE (Phase 8A 2026-08-10; Phase 8B 2026-08-12)",
       );
     const phase8IdentityMutation = current.replace(
       "47a75f3fcc499d74d36cd08eeaed7f4e839bf991deb179fa19ce809d57e171ec",
@@ -249,8 +252,8 @@ describe("compact progress index and byte-exact historical record", () => {
     expect(phase9StatusMutation).not.toBe(current);
     expect(currentIndexErrors(phase9StatusMutation))
       .toContain("missing current-state phrase: Phase 9 remains unchartered");
-    expect(currentIndexErrors(`${current}\nPhase 8B is COMPLETE.\n`))
-      .toContain("contradictory current-state claim: Phase 8B is COMPLETE.");
+    expect(currentIndexErrors(`${current}\nPhase 8B is ACTIVE AND INCOMPLETE.\n`))
+      .toContain("contradictory current-state claim: Phase 8B is ACTIVE AND INCOMPLETE.");
     expect(currentIndexErrors(`${current}\nPhase 8B may rewrite target-book v1 artifacts in place.\n`))
       .toContain(
         "contradictory current-state claim: Phase 8B may rewrite target-book v1 artifacts in place.",
@@ -262,7 +265,7 @@ describe("compact progress index and byte-exact historical record", () => {
     expect(currentIndexErrors(`${current}\n${PHASE8_STATUS_LINE}\n`))
       .toContain("expected exactly one structured Phase 8A/8B status line");
     expect(currentIndexErrors(`${current}\n${PHASE8_GATE_PREFIX} contradictory |\n`))
-      .toContain("expected exactly one active-incomplete Phase 8 gate row");
+      .toContain("expected exactly one completed Phase 8 gate row");
     for (const phrase of FORBIDDEN_SEQUENCING) {
       expect(currentIndexErrors(`${current}\n${phrase}\n`))
         .toContain(`stale sequencing phrase: ${phrase}`);
