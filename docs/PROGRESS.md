@@ -196,36 +196,32 @@ reconciliation — Phase 6 closes. Do not resume education or V4/V4.x apparatus.
 preview-GPU work may begin only as separately planned Phase 7 work in its own worktree; never run
 it from the Phase 6 lane or count it toward Phase 6.
 
-### Phase 8B lane — freeze the denominators before extraction
+### Phase 8B lane — focused search and source acquisition are active
 
 Governance S-1 is committed at `80395f2`; decision 0047, charter v1.24 and the
-[measurement-corpus plan](plans/phase-8-measurement-corpus.md) govern this lane. S0 is accepted at
-`evidence/phase8b-local-denominator/` (artifact-index SHA-256
-`93c83a98ef053e4b22b24ce3c072f862b23d55a552df5da177f71f2d935bb8f2`). Its live-NAS replay and
-recount close 218 PDF/archive-like candidates into 23 sources plus 195 exclusions: 21 PDFs supply
-880 pages and two ZIPs 34 regular members, for 914 unique source units. All remain
-`pending-classification`; the measurement-set count is zero.
+[measurement-corpus plan](plans/phase-8-measurement-corpus.md) govern this lane. S0's accepted
+artifact index (`93c83a98…bb8f2`) closes 218 local candidates into 23 sources plus 195 exclusions:
+21 PDFs / 880 pages and two ZIPs / 34 regular members, hence 914 source units still awaiting S3.
+S1/S1a's accepted indexes (`8bc12ee9…ce7` and `2ffc196e…9116`) register the search and runtime
+routes; CiNii remains a supplemental 2024-04-04 snapshot and the OpenAlex key remains NAS-only.
 
-S1 is accepted at `evidence/phase8b-search-protocol/` (artifact-index SHA-256
-`8bc12ee92afdcfdf41148cde4ef89029f572007ba3bee338d1a62a38153dace7`). The lean seven-artifact
-bundle freezes 13 routes, 32 bilingual queries and 256 route/query cells. Its detailed review and
-old smoke state remain in the plan; rejected overbuilt WIP under
-`tmp/phase8b-overbuilt-s1-wip-20260811/` must not be restored wholesale.
-S1a is accepted and published separately at `evidence/phase8b-search-protocol-v2/`
-(artifact-index SHA-256
-`2ffc196ed74611d8dd34d7b69566c7209ad31edb27d7243e19db82a7cc119116`; report SHA-256
-`5d73585a4cd37ebe776978cdc93e1390bef8b15d471f5a4675b72575d6661b9b`). It preserves accepted S1
-byte-for-byte. Fresh uncounted smokes record 9 successes, 1 DOI/publisher HTTP 403 route
-blocker, 3 removals and no credential blockers. The anonymous CiNii route is explicitly a
-supplemental 2024-04-04 snapshot rather than current coverage; the OpenAlex key is read from the
-NAS only at runtime and is absent from evidence and source bytes. The bounded non-author review
-accepted the exact bytes, and exact `TMPDIR=/private/tmp npm test` passed. No counted search or
-coordinate read has run; neither S0, S1 nor S1a permits Phase 9 or grants validation.
+S2 round 0 is now executing on the NAS. Exact seed resolution found 28 of 29 frozen seeds
+(`seed-resolution-20260811-v1/report.json`, SHA-256 `05ce5eb8…0c36`). Citation expansion retained
+301 resolved backward works plus 595 forward records, 896 lead rows total
+(`citation-expansion-20260811-round0-v1/report.json`, SHA-256 `798ddf69…a6b`). The focused four
+OpenAlex plus three CiNii run made 10 requests and retained 538 lead rows; six queries completed and
+the 582-result supersaturation query correctly stopped at its first 100 as `BOUNDED_OPEN`
+(`focused-discovery-20260811-v1/run-report.json`, SHA-256 `a8eb7db7…40988`). Exact later-output
+sweeps over 21 resolved author identities retained 325 rows / 292 unique works in 21 requests
+(`author-output-20260811-v1/report.json`, SHA-256 `5acbfb6f…90fc`). One named author identity remains
+unresolved and one frozen “author” is a journal metadata error.
 
-Phase 8B action: execute S2's focused seed-resolution, citation, named-author and seven-query
-search, retaining raw responses on the NAS and hashes/dispositions in evidence. The maker rejected
-blind pagination of S1's 256-cell route-capability matrix after its first OpenAlex smoke reported
-258,216 mostly irrelevant matches. Preserve the DOI/publisher failure and CiNii snapshot-currency
-limit as `BOUNDED_OPEN`; S4 owns coordinate reading and extraction calibration.
+Acquisition and real source inspection have started: the NAS currently holds 23 validated PDFs,
+271 pages and 143,808,779 bytes; all 23 pass `pdfinfo` and first-page rendering
+(`acquisition-audit-20260811-v1/report.json`, SHA-256 `060e19c0…6aa1`). Seven
+connection-reset remnants are labeled `.partial-corrupt` and excluded from the usable set. Next:
+finish full-text scope screening and authoritative acquisition of eligible leads, freeze the
+cumulative included-source set, then run the required zero-addition rounds. Do not restore the
+rejected 256-cell broad pagination matrix. S4, not S2, owns target-coordinate extraction calibration.
 Preserve `evidence/phase8-target-book/` byte-for-byte and keep all 8B evidence separate.
 Phase 9 remains unchartered and cannot start from either milestone alone.

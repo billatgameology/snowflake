@@ -629,3 +629,33 @@ the registered gate. Phase 9 scope decisions wait for S6.
   retention policy, measurement extraction, or downstream S2-S4 behavior. The DOI/publisher HTTP
   403 and CiNii snapshot-currency limit remain `BOUNDED_OPEN`; acceptance authorizes starting S2
   but cannot close it while either required coverage path remains unresolved.
+
+### S2 focused round 0 — active, not a closure candidate
+
+- **Exact frozen seeds:** the private NAS run `seed-resolution-20260811-v1/` resolved 28 of 29
+  seeds in three requests. The remaining title-hash seed is not DOI-resolvable. Report SHA-256:
+  `05ce5eb8b5e1e5bdd633f61971719f6bd40a966212a08ce3ef8452d8bf030c36`.
+- **Citation frontier:** `citation-expansion-20260811-round0-v1/` captured 309 unique backward
+  identifiers, resolved 301 of them, and retained 595 forward records: 896 private lead rows in ten
+  requests. Report SHA-256:
+  `798ddf69cb5df616805c847ca40472c07714f8ca0ca515b7d267820d59146a6b`.
+- **Focused discovery:** `focused-discovery-20260811-v1/` executed exactly the four OpenAlex and
+  three supplemental CiNii searches registered in S2. Six completed; the 582-result ice-growth /
+  supersaturation query exceeded the 500-record precision cap and retained only its first response
+  as `BOUNDED_OPEN`. Ten requests retained 538 lead rows. The key-absence scan passed. Report
+  SHA-256: `a8eb7db70b734a95f09106062bde02e51bd8eb506cf0b463f8cf05d85dd40988`.
+- **Named-author currency sweep:** `author-output-20260811-v1/` completed 21 exact OpenAlex author
+  identities from their latest frozen seed dates through the cutoff: 325 lead rows / 292 unique
+  works in 21 requests. Marcus Hanson remains identity-unresolved; “Journal of the Meteorological
+  Society of Japan” is recorded as a non-person seed error rather than queried as an author. Report
+  SHA-256: `5acbfb6f98c3199d500ab89367c0f2940ceb64e53bed0afacb9e050ef89590fc`.
+- **Acquisition state:** `acquired-sources-20260811-v1/` currently contains 23 usable PDFs on the
+  NAS. The mechanical audit re-opened all files with `pdfinfo` and rendered every first
+  page: 23/23 passed, spanning 271 pages and 143,808,779 bytes. Seven failed connection-reset
+  remnants are named `.partial-corrupt` and are not source PDFs. Audit report SHA-256:
+  `060e19c0c0f0e93604f9359855c7258e633ca1dae9cc792903ca548df0c36aa1`.
+- **Current verdict:** S2 remains `BOUNDED_OPEN`, not saturated. Full-text eligibility screening,
+  authoritative acquisition follow-up, cumulative-set freezing and both zero-addition rounds have
+  not finished. Full-text page inspection is underway for S2 eligibility screening; it does not
+  count as either independent S3 classification pass. No target coordinate is being read and no S4
+  extraction operator is implied.
