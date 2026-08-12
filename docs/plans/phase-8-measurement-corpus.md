@@ -1,77 +1,87 @@
-# Plan — Phase 8B measurement-corpus closure
+# Plan — Phase 8B Phase-9-ready priority benchmark corpus
 
 - **Phase:** Phase 8 — What is real
 - **Status:** in progress
 - **Started:** 2026-08-11
-- **Last touched:** 2026-08-11 by OpenAI Codex
+- **Last touched:** 2026-08-12 by OpenAI Codex
 
 ## Goal
 
-Build the target-neutral research foundation that Phase 9 can design against: a complete,
-machine-verifiable inventory of measurement-bearing material in the registered local and external
-source universe, with every recoverable measurement extracted and every limitation explicit. The
-accepted Phase 8A target book remains an immutable v1 selection. Phase 8B publishes a separate
-corpus and target-book successor only after source, measurement, uncertainty, lineage, rights, and
-leakage closure are independently re-derived from the artifacts.
+Build the smallest scientifically defensible experiment foundation that Phase 9 can design and run
+against: a frozen priority corpus of native longitudinal data, direct module-discriminating
+measurements, and interpretation-critical witnesses. The accepted Phase 8A target book and every
+accepted Phase 8B S0-S2 evidence bundle remain immutable. The completed discovery census becomes an
+explicit residual backlog rather than an exhaustive extraction denominator; every selected
+benchmark measurement still receives complete source, protocol, uncertainty, lineage, rights,
+leakage, and independent numeric verification.
 
 ## Done when
 
-Done when (a) the frozen local source manifest has 100% source-index coverage; (b) the registered external search has 100% query and citation-screen completion, two consecutive complete nonempty cumulative-source expansion rounds with zero additions, and zero unresolved source or acquisition leads; (c) every eligible source has 100% measurement-unit inventory coverage established by two independent complete source-unit and measurement-semantic classifications, at least one visually inspecting every PDF page, reconciled field-by-field with zero unresolved disagreement, and every unit carries its locator, observable, units, protocol and ensemble semantics, reported and extraction uncertainty, extraction status and data reference, provenance, role, split/leakage status, and disposition; (d) every numerical unit is native-imported, table-transcribed, prose-transcribed, plot-digitized with registered read uncertainty, image-measured under a registered calibration with read uncertainty, or explicitly marked not numerically recoverable with a recorded reason, with zero pending, unindexed, blocked-unreadable, or otherwise nonterminal source or measurement units; (e) target-book v1 remains byte-identical; and (f) the frozen, hashed source register, search log, measurement inventory and data, revised target book and split, report, and verifier pass a full non-author adversarial review with zero unresolved blockers.
+Done when (a) target-book v1 and every accepted Phase 8B S0-S2 evidence bundle remain byte-identical; (b) the frozen P0/P1/P2 selection has 100% terminal source and measurement coverage, while every residual source or unit has a stable backlog locator and defer/exclude reason; (c) exact identity, current version, corrections, supplements, native data, lineage, rights, and acquisition are terminal for every included source and load-bearing priority lead, one targeted post-extraction gap/currency pass is complete, and no load-bearing priority lead remains unresolved; (d) every selected recoverable numerical measurement is normalized with source locators, protocol, ensemble, uncertainty, lineage, rights, role, and split metadata, while every selected nonrecoverable or qualitative unit has a terminal reason; (e) every included record and numeric artifact passes independent semantic and numeric verification, every ambiguous inclusion decision receives a second check, and a registered stratified audit reports zero misses in its sample of clear deferrals/exclusions; and (f) the frozen, hashed benchmark manifest and data bindings, residual backlog, search/currency record, successor target book and split, Phase 9 impact report, and artifact-derived verifier pass exact `npm test`, clean-checkout verification, and one proportionate non-author audit with zero unresolved blockers.
 
 ## Authority and immutable baseline
 
-- [Decision 0047](../decisions/0047-expand-phase8-to-measurement-corpus-closure.md) and charter
-  v1.24 govern this continuation. Decision 0046's concurrent-work isolation still applies.
+- [Decision 0048](../decisions/0048-focus-phase8b-on-phase9-ready-benchmarks.md) and charter v1.25
+  govern the current scope. Decision 0047 and its S0-S2 evidence remain immutable historical
+  authority for what was registered and executed before the rescope. Decision 0046's
+  concurrent-work isolation still applies.
 - [phase-8-what-is-real.md](phase-8-what-is-real.md) is the completed 8A record. Its
   `evidence/phase8-target-book/` freeze remains byte-unchanged; Phase 8B writes to separate paths.
-- [phase-9-modular-physics-arms.md](phase-9-modular-physics-arms.md) is a draft consumer, not the
-  corpus scope. It may change after 8B, and it supplies no inclusion filter for the census.
-- Pre-decision browsing and paper triage are reconnaissance only. They can seed the registered
-  search but cannot satisfy a query, source, acquisition, extraction, or closure record.
+- [phase-9-modular-physics-arms.md](phase-9-modular-physics-arms.md) remains an unchartered draft
+  consumer. Its candidate modules identify discriminating experiment families, but its current
+  implementation order cannot silently select favorable outcomes or authorize Phase 9 work.
+- The accepted S0/S1/S1a bundles, round-0 captured responses and acquisitions, and page-complete
+  reconnaissance retain their stated evidence status. Decision 0048 reuses them without relabeling
+  decision 0047's `BOUNDED_OPEN` search or zero-extraction result as a pass.
 
 ## Approach
 
-### 1. Freeze denominators before claiming coverage
+### 1. Freeze the benchmark selection and residual backlog
 
-The local denominator is every page of every PDF and every regular member of every archive in an
-explicit, hashed source-container manifest. The external denominator is every focused
-seed-resolution, query, citation, author-output, currency and acquisition lead generated by the
-registered search through the 2026-08-11 cutoff. New local files or post-freeze source/search drift outside the registered
-algorithm do not slide silently into a claimed complete set: they invalidate the candidate or enter
-a separately frozen successor registry.
+The accepted local denominator and round-0 search universe remain immutable discovery evidence:
+23 local containers / 914 source units, 28 acquired PDFs, 49 combined PDFs / 1,242 visually
+inspected pages, and 1,553 exact captured identifiers. They are not the completion denominator for
+the focused milestone. Every discovered source or unit remains reachable through its existing
+identifier or locator and receives either benchmark membership or a backlog reason; Phase 8B makes
+no global search-saturation or every-measurement claim.
 
-The search records one of two artifact-derived outcomes:
+Freeze benchmark membership before target coordinates are extracted:
 
-- `SATURATED_AT_CUTOFF`: all registered cells and encountered leads are terminal, source currency
-  is closed, two consecutive complete nonempty cumulative-source rounds add no eligible source,
-  lineage, dataset, governing version, correction, or supplement, and no source or acquisition lead remains
-  unresolved.
-- `BOUNDED_OPEN`: a registered route or lead remains unresolved, the registry/cutoff is invalidated,
-  or an explicit pre-frozen resource cap is exhausted. Phase 8B stays incomplete until a separately
-  frozen successor registry resolves the open state.
+1. **P0 — native longitudinal data.** The 18 usable native members already identified in the two
+   frozen local ZIPs: 16 reconciled Harrison/Pokrifka `m/m0(t)` histories and two
+   Harrington–Pokrifka dimension histories.
+2. **P1 — direct module discriminators.** Direct numeric series, tables, or prose results that
+   discriminate a named candidate Phase 9 module or supply a condition-matched comparison. Round-0
+   identifies four initial families: Harrison/Pokrifka mass histories; controlled pressure/thermal
+   series; direct history/intervention trajectories; and empirical facet-rate series.
+3. **P2 — interpretation-critical evidence.** A unique independent laboratory/method witness,
+   standing discrepancy, or missing source-fitted input lineage required to interpret P0/P1.
 
-One citation-expansion round freezes the complete cumulative set of included sources at its start,
-then re-executes every registered backward/forward citation and currency screen over that nonempty
-set with fresh captured responses. Newly included sources enter the next cumulative set, and any
-eligible addition resets the consecutive-zero counter. Both zero-addition rounds therefore screen
-the full settled set and cannot pass through an empty frontier.
+Selection is by observable, protocol, and lineage, never by favorable value. Qualitative-only,
+context, duplicate, same-campaign re-expression, out-of-domain, and non-discriminating numeric
+material may be deferred with a stable locator and reason. A later promotion requires an explicit
+plan update before its values are used. Anything whose observed result shapes a Phase 9 module,
+probe, expected effect, threshold, or campaign design is development evidence.
 
-No result is described as universally exhaustive beyond the named routes and cutoff.
+After the selected measurements are extracted, run one targeted gap and currency pass. It covers
+the included-source lineages plus named unsupported candidate families, initially Gibbs–Thomson,
+matched seed geometry, and ventilation. A confirmed missing load-bearing priority source is open;
+a terminal non-load-bearing residual lead remains in the backlog. No broad query expansion,
+wholesale 470-title acquisition, repeated global zero-addition round, same-host parallel request,
+or automatic retry is authorized.
 
-### 2. Keep the inventory upstream of target selection
+### 2. Keep benchmark records upstream of target selection
 
-Use four canonical, exact-key JSONL record kinds, with schemas and a verifier that re-derives rather
+Use four canonical, exact-key record families with schemas and a verifier that re-derives rather
 than trusts completion:
 
 1. `source-container`: logical root and relative path; media type; bytes and SHA-256; official
    bibliographic identity and version; page/member extent; currency, correction, supplement, data,
    rights, and lineage status.
-2. `source-unit`: exactly one record per PDF page or archive member; an exact page/panel/table/cell
-   or full-member locator; content/render hashes where applicable; measurement IDs; and one of the
-   open states `pending-classification` or `blocked-unreadable`, or the reviewed terminal states
-   `reviewed-measurement-linked` or `reviewed-no-measurement`. S0 creates only
-   `pending-classification` records. S3 must replace that state one-for-one after the two blind
-   classifications; it may never relabel a merely unreviewed unit as unreadable.
+2. `source-unit`: reuse the accepted exact PDF-page and archive-member identities. Selected units
+   receive benchmark measurement links and complete semantic fields. Residual units retain stable
+   page/member locators and a benchmark defer/exclude reason; they are not falsely described as a
+   complete measurement census.
 3. `measurement-set`: one atomic homogeneous reported series or table/data block, one logical
    native-data series within an archive member, one prose numeric result, or one individually
    condition-labeled panel/matrix cell; when only an aggregate is reported, the aggregate is the
@@ -79,42 +89,45 @@ than trusts completion:
    Each unit carries its locators, evidence nature, observable, conditions, ensemble semantics,
    quantity schema, source/canonical units, data artifacts, extraction, uncertainty, rights,
    lineage, role, split/leakage, and disposition.
-4. `inventory-status`: expected and independently re-derived source/page/member/measurement/status
-   counts, source cutoff, open blockers, and the hashes of every inventory, data, operator, and
-   verifier artifact. A producer-supplied pass field is never a verdict input.
+4. `benchmark-status`: independently re-derived P0/P1/P2, residual-backlog, extraction, rights,
+   verification, targeted-search and blocker counts plus the hashes of every manifest, data
+   binding, operator, and verifier artifact. A producer-supplied pass field is never a verdict
+   input.
 
 Measurement records distinguish direct observations, source-derived observations, fitted
 quantities, model-conditioned inversions, calibration/protocol values, and qualitative images.
 Roles distinguish conditions, observations, source-reported uncertainty, calibration, and fits.
-Open states are distinct from terminal extraction and limitation states so “inventory complete”
-cannot be confused with “recoverable data extracted.” `blocked-unreadable` is always open; it can
-produce only `BOUNDED_OPEN`, never a successful inventory-closure verdict.
+Open states remain distinct from terminal extraction and limitation states so benchmark readiness
+cannot be confused with merely finding a source. An unreadable or missing load-bearing benchmark
+unit is open. An explicitly non-load-bearing residual unit may be terminally backlogged without
+being misrepresented as inspected or extracted.
 
-### 3. Register inclusion and exclusion independently of Phase 9
+### 3. Register benchmark inclusion without selecting on outcome
 
-Include primary measurements or raw data for laboratory or controlled natural-cloud observations
-of vapor-grown or sublimating individual atmospheric ice crystals when they report facet/linear
-growth, mass/dimension/area/volume/density/time trajectories, habit or transition distributions,
-critical supersaturation or facet thresholds, controlled pressure/background-gas effects,
-ventilation/thermal effects, seed/nucleation effects, or growth-history responses. Retain difficult,
-substrate-confounded, polycrystalline, or currently out-of-model observations with honest roles.
+Benchmark candidates are primary measurements or raw data for laboratory or controlled
+natural-cloud observations of vapor-grown or sublimating individual atmospheric ice crystals. P0
+is included by native-data status. P1 requires a direct numeric observable and a named
+module-discrimination or condition-matched comparison. P2 requires a named independent-witness,
+discrepancy, or input-lineage need. Substrate-confounded, polycrystalline, or currently out-of-model
+observations may remain useful, but their exact specimen and comparison limits travel with them.
 
 Theory, simulation, review, and parameterization papers without new measurements remain discovery
 maps. Reanalyses are not independent witnesses. Aggregation, riming, melting, nucleation-only, sea
 ice, frost engineering, bulk remote sensing without individual-crystal growth, conditionless
-images, metadata-only records, and secondary reproductions of an identifiable primary source are
-excluded from the quantitative target pool with a recorded reason. Non-English work remains
-eligible; original page evidence, OCR/translation tool and version, and review uncertainty remain
-attached.
+images, metadata-only records, secondary reproductions, and measurements that do not change a
+registered benchmark family are deferred or excluded with a recorded reason. Non-English work can
+be selected; original page evidence, OCR/translation tool and version, and review uncertainty then
+remain attached.
 
 ### 4. Prefer source data; quantify extraction uncertainty
 
-Extraction order is native data, printed table, plotted coordinates, calibrated image measurement,
-then prose value. Native archive values bind both container and full-member hashes. Tables retain an
-exact transcription artifact and an independent second read. Plot/image operators are registered
-before coordinates are read and record renderer/tool versions, source and crop hashes, resolution
-and resampling, axis transforms and anchors, series/point/censor/refusal rules, raw readings,
-calibration residual, repeated or perturbed reads, and the read-uncertainty composition rule.
+Extraction order for selected benchmarks is native data, printed table, plotted coordinates,
+calibrated image measurement, then prose value. Native archive values bind both container and
+full-member hashes. Tables retain an exact transcription artifact and an independent second read.
+Plot/image operators are registered before coordinates are read and record renderer/tool versions,
+source and crop hashes, resolution and resampling, axis transforms and anchors,
+series/point/censor/refusal rules, raw readings, calibration residual, repeated or perturbed reads,
+and the read-uncertainty composition rule.
 
 Source value text, units, precision, missingness, censoring, ensemble meaning, and reported
 uncertainty are preserved separately from normalized values and extraction uncertainty. A figure
@@ -123,13 +136,14 @@ estimate is promoted to a number.
 
 ### 5. Preserve source identity, rights, and witness lineage
 
-Every source is checked for version of record, corrections/retractions, supplements, public data,
-and later author output through the cutoff before freeze. Source bytes and page renders remain on
-the NAS. Git stores normalized numeric bytes only when recorded rights permit redistribution;
-otherwise it stores identity, hash, schema, locator, a NAS-local data reference, and verification
-metadata, and the verifier checks the local bytes without publishing them. This applies to source
-tables and public datasets alike. Rights are orthogonal to extraction and separately cover source
-bytes, figures/images, and derived numeric redistribution; unknown never defaults to permitted.
+Every included source and load-bearing priority lead is checked for version of record,
+corrections/retractions, supplements, public data, and later author output through the cutoff before
+freeze. Source bytes and page renders remain on the NAS. Git stores normalized numeric bytes only
+when recorded rights permit redistribution; otherwise it stores identity, hash, schema, locator, a
+NAS-local data reference, and verification metadata, and the verifier checks the local bytes
+without publishing them. This applies to source tables and public datasets alike. Rights are
+orthogonal to extraction and separately cover source bytes, figures/images, and derived numeric
+redistribution; unknown never defaults to permitted.
 
 Witness independence is assessed across raw data, campaign/apparatus, investigator/institution,
 and model calibration. Version, preprint, archive, reanalysis, and same-campaign relations cannot
@@ -145,11 +159,13 @@ file or accepted artifact path. Extend `runner/test/evidence-integrity.test.ts` 
 a parallel manifest authority. Preserve full archive-member paths rather than basename identity.
 Existing target-observable operators are downstream consumers only.
 
-The verifier must reject missing/extra/swapped containers; byte/hash/page/member drift; gaps and
-duplicates; stale counts; bad locators; unit/conversion changes; linear/log-axis changes;
-crop/render mutations; missing or changed numeric rows; false-independent lineage; lineage cycles;
-supersession drift; rights default-allow mutations; and caller-supplied verdicts. Freeze candidates
-are reopened and re-derived from their published bytes.
+The verifier must reject benchmark membership drift; missing/extra/swapped selected sources or
+units; byte/hash/page/member drift; selected-series gaps and duplicates; stale counts; bad locators;
+unit/conversion changes; linear/log-axis changes; crop/render mutations; missing or changed numeric
+rows; false-independent lineage; lineage cycles; supersession drift; rights default-allow
+mutations; leakage; and caller-supplied verdicts. Residual-backlog counts and locators are
+re-derived, but the verifier does not pretend every residual page received exhaustive semantic
+classification. Freeze candidates are reopened and re-derived from their published bytes.
 
 ## Registered work sequence
 
@@ -203,63 +219,61 @@ are reopened and re-derived from their published bytes.
   load-bearing request/response/provenance bytes plus exact `TMPDIR=/private/tmp npm test`. Do not
   reopen the accepted S1 review or build new proof machinery. Any unresolved live route, pagination,
   retention-rights, snapshot-currency, or acquisition failure remains `BOUNDED_OPEN` under S2.
-- [ ] **S2 — Execute the bounded external search and acquire governing bytes.** Treat S1/S1a's
-  route matrix as a route-capability record, not a mandate to paginate irrelevant broad results.
-  First resolve every frozen DOI/arXiv/local-source seed exactly. In OpenAlex, expand backward and
-  forward citations plus the frozen named authors' later output, and run only these four
-  high-precision searches: `"snow crystal growth" experiment`, `"ice crystal growth"
-  supersaturation experiment`, `"ice crystal sublimation" experiment`, and `"artificial snow
-  crystal" growth`. A focused query reporting more than 500 records is a precision failure: retain
-  its first response as `BOUNDED_OPEN` and narrow it in a successor rather than paginating noise.
-  Use anonymous CiNii only as a historical Japanese supplement with these three
-  same-field searches: `人工雪 雪結晶 成長 実験`, `氷晶 成長速度 過飽和度 測定`, and `雪結晶 晶癖 成長 実験`.
-  Use Crossref, DataCite, NASA NTRS, NDL, Semantic Scholar and publisher routes only for exact
-  identity, currency, citation, dataset or acquisition follow-up on leads actually encountered;
-  do not repeat the same broad free-text cross-product across every provider. Each round freezes the complete
-  cumulative included-source set, re-screens all of it with fresh captured responses, and folds any
-  eligible addition into the next set; an addition resets the zero-round counter. Store response
-  hashes and terminal dispositions; put lawful source bytes on the NAS and bind them by hash. Stop
-  only after two consecutive complete nonempty cumulative-source rounds with zero additions or at a
-  registered `BOUNDED_OPEN` condition; an open outcome leaves 8B incomplete.
-- [ ] **S3 — Complete the target-neutral measurement inventory.** Produce two independently frozen
-  complete classifications of every registered PDF page and archive member without exposing either
-  pass's labels to the other; at least one pass visually inspects every rendered PDF page. Each pass
-  also independently assigns or reviews every measurement unit's observable, source/canonical
-  units and quantity schema, protocol/ensemble semantics, reported and extraction uncertainty
-  presence/meaning, provenance/lineage, role, split/leakage status, extraction status/data reference,
-  and disposition. Reconcile both field-by-field into a machine-readable artifact with zero
-  unresolved disagreement. Enumerate numbered and unnumbered tables/figures, individual panel and
-  matrix cells, homogeneous data series/blocks, and prose numerical results. Reconcile versions and
-  dataset reuse before robustness or held-out classification. Require zero unit gaps/duplicates, no
-  unreadable source unit, and no unlinked eligible measurement.
-- [ ] **S4 — Pilot and freeze measurement operators.** For every extraction family, use known
-  fixtures and independent repeated/perturbed reads to establish calibration, refusal rules, read
-  uncertainty, exact transcription comparison, and visual QA. Review the frozen operator before it
-  touches target coordinates; changes require a new operator version and affected re-extraction.
-- [ ] **S5 — Extract and verify every recoverable measurement.** Produce normalized numeric rows
-  and qualitative indexes in the registered priority order, with complete source locators,
-  protocol, uncertainty, lineage, rights, role, and leakage metadata. Independently check table
-  transcriptions and digitizations. End with zero open extractable units; terminal unrecoverable
-  units remain counted and explained.
+- [x] **Historical S2 round 0 — execute focused discovery, acquisition, and complete visual
+  reconnaissance.** The accepted round resolved 28/29 seeds, captured 1,759 rows / 1,553 exact
+  identifiers, acquired 28 valid PDFs on the NAS, and visually inspected all 49 local-plus-acquired
+  PDFs / 1,242 pages. It ended `BOUNDED_OPEN` with zero new numeric rows under decision 0047. The
+  round is complete evidence of discovery and reconnaissance, not search saturation or corpus
+  closure. Decision 0048 supersedes the two-zero-round continuation.
+- [ ] **S2 — Freeze benchmark selection and residual backlog.** Materialize exact P0/P1/P2 source
+  and measurement candidates from the existing round-0 records before reading target coordinates.
+  P0 binds the 18 named native members. P1 initially binds the direct pressure/thermal,
+  history/intervention, and empirical facet-rate displays named in the round-0 consumer audit. P2
+  names only the independent witnesses, discrepancies, or input lineages required to interpret
+  them. Preserve every other discovered identifier/source/unit under a stable backlog locator and
+  reason. Independently second-check ambiguous membership and verify selection did not use a
+  favorable value.
+- [ ] **S3 — Freeze the native full-history operator and normalize P0.** Parse the 16 Harrison
+  members as full raw `sourceRowIndex,time_s,mass_ratio` histories; preserve all source rows and
+  keep the undocumented sixth column excluded. Join the corrected Pokrifka conditions by run ID,
+  keep `625` excluded, and preserve the unmatched corrected condition as an absence. Parse both
+  dimension members with all ten source columns and store the 2024 forcing event at exactly
+  13,800 s. Keep raw and derived views separate; duplicate-time coalescing for `712k` is a versioned
+  downstream operator. Keep substantial normalized row bodies on the NAS until rights permit Git
+  redistribution. Independently reparse, recount, rehash, and compare selected source lexemes.
+- [ ] **S4 — Calibrate and extract P1/P2 measurements.** Freeze one plot/table operator family at a
+  time using non-fit validation anchors, repeated/perturbed reads, explicit refusal rules and read
+  uncertainty before target coordinates are read. Extract the minimum pressure/thermal,
+  history/intervention, and facet-rate series with exact conditions, direct-versus-inferred status,
+  specimen/campaign lineage, and development status. Independently verify every included row and
+  source-to-row semantic mapping.
+- [ ] **S5 — Run one targeted gap and currency pass.** Check the exact versions, corrections,
+  supplements, native data, lineage, rights, and acquisition status of every included source and
+  load-bearing lead. Search only the named gaps exposed by extraction, initially matched
+  Gibbs–Thomson, seed-geometry, and ventilation evidence, plus included-source currency. Reuse NAS
+  bytes first; make deliberate authoritative requests only for confirmed priority gaps; never use
+  same-host parallelism or automatic retry. A missing load-bearing priority source stays open;
+  everything else receives a terminal backlog disposition.
 - [ ] **S6 — Build the successor selection and Phase 9 impact report.** Select a separate target
-  book and split from the closed inventory, flag every premise that shaped Phase 9 as development
-  evidence, and assess how the Phase 9 draft must change. Do not implement Phase 9 or score model
-  output. Preserve disagreements, nonindependence, extrapolation limits, and out-of-model results.
-- [ ] **S7 — Freeze, attack, and close.** Stage candidate canonical manifests,
-  source/search/inventory/data artifacts, operators, report, successor book/split, and
-  artifact-derived status. Run all named negative controls, exact `TMPDIR=/private/tmp npm test`, clean-checkout verification, and a full
-  non-author adversarial audit that re-derives dual source-unit and field-level measurement-semantic
-  reconciliation and counts, samples numeric accuracy, and independently repeats digitization calibration/read checks. Record
-  reviewer model/context, re-executed checks, and evidence limits. Publish, merge, or propagate the
-  interpretation and freeze only after the audit closes with zero blockers and the exact charter
-  counts.
+  book and split from the verified benchmark, force every premise-shaping source into development,
+  and redesign the Phase 9 draft at the evidence level. Do not implement Phase 9 or score model
+  output. Preserve disagreements, nonindependence, extrapolation limits, unsupported-module gaps,
+  and out-of-model results.
+- [ ] **S7 — Freeze, verify, and close.** Stage the benchmark manifest and NAS data bindings,
+  residual backlog, targeted search/currency record, extraction operators, successor book/split,
+  Phase 9 impact report, and artifact-derived status. Run named numeric/provenance/leakage negative
+  controls, exact `TMPDIR=/private/tmp npm test`, clean-checkout verification, and one proportionate
+  non-author audit. The audit independently re-derives every included semantic and numeric record,
+  second-checks ambiguous include/defer cases, and checks a registered stratified sample of clear
+  deferrals/exclusions for missed benchmark material. Close only with zero unresolved blockers and
+  the exact charter counts.
 
 ## Progress-update points
 
-Update `docs/PROGRESS.md` after S-1, the S0 denominator freeze, the S1 protocol freeze, each search
-round and its outcome, measurement-inventory closure, operator freeze, extraction closure, successor
-freeze, and final review. Every numerical progress claim is copied from a named artifact at update
-time with its path or hash.
+Update `docs/PROGRESS.md` after the decision-0048 plan freeze, benchmark-selection freeze, each
+native/direct extraction tranche, the targeted search/currency outcome, successor freeze, and final
+review. Every numerical progress claim is copied from a named artifact at update time with its path
+or hash.
 
 ## Out of scope
 
@@ -273,6 +287,15 @@ time with its path or hash.
 
 ## Tried and rejected
 
+- **Continue exhaustive corpus closure after round 0.** Superseded by maker direction and decision
+  0048. Round 0 completed the source census and exposed the actual bottleneck: 49 PDFs / 1,242 pages
+  inspected, 1,553 exact identifiers triaged, 18 usable native histories located, but zero newly
+  normalized rows. A second blind classification of every irrelevant page, full review of the
+  470-title queue, and two global zero-addition rounds protect an exhaustive-corpus claim that the
+  project no longer needs. They are replaced by complete verification of the selected benchmark,
+  ambiguous-case checks, a stratified residual audit, and one targeted post-extraction gap/currency
+  pass. Source identity, uncertainty, lineage, rights, leakage, and independent numeric checks are
+  retained.
 - **Paginate the 256-cell broad provider/query cross-product merely because S1 materialized it.**
   Rejected by the maker before S2 execution after the keyed OpenAlex smoke reported 258,216 matches
   for the first ordinary query, including an obviously unrelated 1786 museum catalogue in result
@@ -339,29 +362,45 @@ time with its path or hash.
   outside that freeze.
 - **Silently revise the accepted target book.** Rejected: it destroys the 8A evidence boundary and
   makes the previous review irreproducible.
-- **Let the current Phase 9 draft select what gets inventoried.** Rejected: this would hide evidence
-  capable of changing the draft and contaminate any later held-out claim.
-- **Count papers or figures as complete without page/member coverage.** Rejected: neither unit
-  forces prose results, multi-series panels, table cells, supplements, or archive data to receive a
-  disposition.
-- **Treat reconnaissance search as registered coverage.** Rejected: it lacked a frozen query
-  matrix, cursor/result closure, exact response capture, and stopping rule.
-- **Run an open-ended web search.** Rejected: it cannot yield a falsifiable completion claim. The
-  registered cumulative-set algorithm runs until two consecutive nonempty zero-addition rounds and may honestly
-  return `BOUNDED_OPEN` only under its named open conditions.
-- **Digitize first and search for source data later.** Rejected: VOR supplements or repositories may
-  contain native values that are more accurate and legally clearer than reverse-reading a plot.
+- **Let the Phase 9 draft select an exhaustive inventory (historical decision-0047 boundary).**
+  Rejected under the former census contract because it could hide evidence capable of changing the
+  draft. Decision 0048 instead selects outcome-neutral P1 experiment families that discriminate a
+  named candidate module, preserves everything else in a residual backlog, and forces every
+  premise-shaping measurement into development.
+- **Count papers or figures as selected numeric evidence.** Rejected: a benchmark still names the
+  exact series, table block, prose result, panel, or archive member it consumes. The completed page
+  census and residual locators prevent a paper-level count from standing in for source-to-row
+  provenance without requiring exhaustive semantic disposition of every residual page.
+- **Treat round-0 reconnaissance as global search saturation.** Rejected: its accepted captured
+  responses and page census support discovery and benchmark selection, while its historical
+  `BOUNDED_OPEN` result remains. Decision 0048 permits a narrower readiness claim only after one
+  targeted post-extraction gap/currency pass has no load-bearing priority lead open.
+- **Run an open-ended web search or restore the historical two-zero-round algorithm.** Rejected:
+  neither is necessary for a Phase-9-ready benchmark claim. The current plan runs one registered
+  targeted pass over named unsupported families and included-source currency, with a load-bearing
+  unresolved lead keeping the benchmark open.
+- **Digitize while ignoring known source data.** Rejected: native data remains first priority, and
+  included-source supplement/data checks can replace unnecessary plot reading. Decision 0048 does
+  not require a global search to finish before the already-located P0 native histories are
+  normalized.
 - **Reuse historical rejected Phase 6 inventory schemas as authority.** Rejected: their active plan
   records locator, lineage, digitization, and fail-open defects. Reuse maintained evidence seams,
   not rejected schemas.
 
 ## Open questions
 
-None requires maker input before S0–S1. Route access failures, source-byte availability, rights
-ambiguity, or a `BOUNDED_OPEN` search result are evidence outcomes to record, not reasons to weaken
-the registered gate. Phase 9 scope decisions wait for S6.
+No maker input is required for P0 normalization. Rights uncertainty keeps substantial normalized
+rows on the NAS while Git binds their schema and hashes. S2 must freeze the exact P1/P2 display set
+before target coordinates are read. S5 records unsupported Gibbs–Thomson, seed-geometry, and
+ventilation families as gaps unless the targeted pass finds a clean matched experiment; it does not
+invent an experiment merely to keep a proposed module.
 
 ## Review record
+
+The reviews below are immutable records of decision 0047's former exhaustive-corpus contract and
+its executed S0-S2 evidence. Decision 0048 supersedes only the remaining closure obligations. A new
+review record will cover the v1.25 authority/plan freeze and the final selected benchmark; prior
+acceptances are not retroactively represented as reviews of the focused contract.
 
 ### Governance review 1 — rejected and repaired
 
@@ -721,3 +760,33 @@ the registered gate. Phase 9 scope decisions wait for S6.
   availability inside that queue before making any deliberate source request.
 - **Local verification:** exact `TMPDIR=/private/tmp npm test` passed after the focused S2 executor,
   its three high-value controls and the current state records landed.
+
+### Maker-directed Phase 8B focus — decision 0048
+
+- **Direction:** on 2026-08-12 the maker accepted the recommendation to stop broad external
+  discovery, preserve the completed reconnaissance, and convert the highest-value known
+  measurements into a Phase-9-ready benchmark corpus.
+- **Authority change:** decision 0048 and charter v1.25 supersede decision 0047's remaining
+  exhaustive closure obligations. They do not alter the accepted target-book v1, S0/S1/S1a
+  bundles, round-0 responses or acquisitions, `BOUNDED_OPEN` result, page-coverage counts, or
+  zero-extraction record.
+- **Value boundary:** blanket dual classification of every source unit, wholesale review or
+  acquisition of the 470-title queue, and two global zero-addition rounds are removed. Exact
+  source/version identity, uncertainty, rights, specimen/campaign lineage, development-versus-held-
+  out leakage, independent verification of every selected numeric record, ambiguous-membership
+  checks, a stratified residual audit, and one targeted gap/currency pass remain.
+- **First implementation tranche:** freeze the P0 native full-history operator, then normalize the
+  16 Harrison/Pokrifka mass histories and two Harrington–Pokrifka dimension histories to NAS-resident
+  row artifacts with Git-tracked schemas, provenance, conditions, hashes, and verifier.
+
+### Decision-0048 governance review — accepted
+
+- **Reviewer:** OpenAI Codex GPT-5-based child agent with the developer context shared; read-only and
+  independent of the amendment edits.
+- **Re-executed:** exact old/new charter quote coverage, charter/plan Done-when byte equality,
+  PROGRESS evidence/count citations, supersession and immutability wording, stratified-audit scope,
+  `git diff --check`, the Rule 7 scan over 906 files, and the six focused Phase 8/progress suites
+  (86/86 tests). The reviewer returned `ACCEPT` with zero blockers.
+- **Limits:** the reviewer did not run exact full `npm test`, clean-checkout verification, live NAS
+  rehashing, network checks, rights determinations, or scientific extraction. Exact full-suite
+  publication verification remains a separate prerequisite for the amendment commit.

@@ -24,6 +24,7 @@ const FORBIDDEN_SEQUENCING = [
   "Phase 8 waits for Phase 6",
   "No Phase 8 action remains",
   "### Phase 8 lane — complete",
+  "Then freeze the source set and run the two zero-addition rounds",
 ];
 const PHASE8_STATUS_LINE =
   "- **Phase 8A is COMPLETE (2026-08-10); Phase 8B is ACTIVE AND INCOMPLETE (2026-08-11).**";
@@ -54,6 +55,9 @@ function currentIndexErrors(text: string): string[] {
     "Phase 8A is COMPLETE (2026-08-10); Phase 8B is ACTIVE AND INCOMPLETE (2026-08-11)",
     "47a75f3fcc499d74d36cd08eeaed7f4e839bf991deb179fa19ce809d57e171ec",
     "Phase 8B writes separate artifacts",
+    "Decision [0048]",
+    "priority benchmark extraction is next",
+    "The 470 retained identifiers remain a review backlog",
     "Preserve `evidence/phase8-target-book/` byte-for-byte",
     "Phase 7 is completely standalone",
     "Phase 9 remains unchartered",
@@ -63,7 +67,7 @@ function currentIndexErrors(text: string): string[] {
     "(plans/phase-6-science-first-completion.md)",
     "(plans/phase-8-what-is-real.md)",
     "(plans/phase-8-measurement-corpus.md)",
-    "- **Last updated:** 2026-08-11",
+    "- **Last updated:** 2026-08-12",
   ];
   for (const phrase of required) {
     if (!text.includes(phrase)) errors.push(`missing current-state phrase: ${phrase}`);
@@ -164,7 +168,7 @@ describe("compact progress index and byte-exact historical record", () => {
       .match(/^# Handoff .* \((\d{4}-\d{2}-\d{2})\)$/mu)?.[1];
     // HANDOFF.md is the last maker-triggered stop snapshot and moves only on maker request;
     // PROGRESS.md advances with ordinary work, so the two dates are pinned independently.
-    expect(progressDate).toBe("2026-08-11");
+    expect(progressDate).toBe("2026-08-12");
     expect(handoffDate).toBe("2026-08-07");
     for (const statePlan of STATE_PLANS) expect(existsSync(statePlan)).toBe(true);
     expect(existsSync(ARCHIVE)).toBe(true);

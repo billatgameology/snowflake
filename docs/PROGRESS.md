@@ -25,18 +25,21 @@ index, a plan, ADR, or audit links to historical detail.
   satisfied), and a 204-point measured-only `M1_NO_DIP_ABLATION` sweep — arm-2-identical except
   `paramSet` — completes the three-arm baseline inside the envelope.
 - **Phase 8A is COMPLETE (2026-08-10); Phase 8B is ACTIVE AND INCOMPLETE (2026-08-11).**
-  Decision [0047](decisions/0047-expand-phase8-to-measurement-corpus-closure.md) and charter v1.24
-  preserve the completed [target-book v1 plan](plans/phase-8-what-is-real.md) while the new
-  [measurement-corpus plan](plans/phase-8-measurement-corpus.md) inventories and extracts all
-  eligible measurement units in a frozen local manifest plus a bounded registered external search.
+  Decision [0048](decisions/0048-focus-phase8b-on-phase9-ready-benchmarks.md) and charter v1.25
+  preserve the completed [target-book v1 plan](plans/phase-8-what-is-real.md) and focus the active
+  [benchmark-corpus plan](plans/phase-8-measurement-corpus.md) on measurements Phase 9 can use.
+  Decision 0047's exhaustive dual-classification and two-global-zero-round obligations are
+  superseded; its accepted S0-S2 evidence and `BOUNDED_OPEN` search result remain immutable.
   Quoted from
   [`evidence/phase8-target-book/freeze.json`](../evidence/phase8-target-book/freeze.json) at this
   update: the canonical book is 59,019 bytes / SHA-256
   `47a75f3fcc499d74d36cd08eeaed7f4e839bf991deb179fa19ce809d57e171ec`, with 18 entries
   (16 targets / 2 inputs) split 7 held out / 5 model development / 4 out of model / 2 inputs. The
   reviewed freeze closed with 0 blockers. Phase 8B writes separate artifacts and cannot mutate it,
-  score a model, implement Phase 9, grant a validation label, or borrow Phase 6 credit.
-  Reconnaissance is not search evidence; “complete” is bounded to registered routes and cutoff.
+  score a model, implement Phase 9, grant a validation label, or borrow Phase 6 credit. Phase 8B
+  freezes P0 native histories, P1 direct module discriminators, and P2 interpretation-critical
+  evidence; it independently verifies every included record and keeps the residual discovery
+  universe as an explicit backlog rather than claiming exhaustive measurement or search closure.
   Phase 7 is completely standalone from the completion of Phases 6 and 8: it is not started and
   still needs its own committed plan/worktree, but neither phase gates it. Its existing product,
   held-out-validation, and GPU-parity scope remains. Phase 9 and Phase 10 remain uncharted.
@@ -139,7 +142,7 @@ index, a plan, ADR, or audit links to historical detail.
   frozen tree exited 0: Rule 7 clean over 436 files, both TypeScript projects, Vitest 82 files /
   1,454 tests in 628.68 s. Whether WP2 uses Z = 2 or Z = 1 strata is a WP2/WP3 protocol
   decision.
-- **Last updated:** 2026-08-11 by OpenAI Codex
+- **Last updated:** 2026-08-12 by OpenAI Codex
 
 ## Phase gates
 
@@ -156,15 +159,15 @@ and every superseded attempt live in the linked plans and historical progress sn
 | 4 | Complete 2026-07-18 | `gate4` at `70a2496`: 24/24 blocking G-G records and 12/12 diagnostic LK records executed; `gatePass=true`, `passBDiagnosticPass=false`. Repro: `node runner/src/main.ts gate4`. |
 | 5 | Complete, maker-asserted 2026-07-26 | Clean `c436df5`, observed Windows/Chromium/D3D12: 16/16 gate criteria, 560 bounded segments below 500 ms, zero device losses/errors/full-field display-frame reads, 16/16 negative controls rejected. Repro: `node runner/src/main.ts gate5-lane` and `node runner/src/main.ts gate5`. |
 | 6 | **Active and incomplete** | The three measured-only arms and WP1 strata are published. The budget-capped ladder is executing; its verdict and WP8 gate remain. Headline/R15/campaign closed at measured-only grade; held-out/GPU execution deferred with no Phase 6 credit. |
-| 7 | Not started; independently eligible | Charter v1.24 preserves Phase 7's independence but does not start it. A committed Phase 7 plan and isolated worktree are required; product, held-out validation, and v6 WGSL/preview-GPU parity remain its scope. |
-| 8 | **8A complete; 8B active and incomplete** | The immutable v1 book is 18 entries / 59,019 bytes / SHA-256 `47a75f3f…71ec`. Decision 0047 now requires registered source/search closure and complete measurement-unit inventory/extraction in separate artifacts before a successor freeze. [Active plan](plans/phase-8-measurement-corpus.md). |
+| 7 | Not started; independently eligible | Charter v1.25 preserves Phase 7's independence but does not start it. A committed Phase 7 plan and isolated worktree are required; product, held-out validation, and v6 WGSL/preview-GPU parity remain its scope. |
+| 8 | **8A complete; 8B active and incomplete** | The immutable v1 book is 18 entries / 59,019 bytes / SHA-256 `47a75f3f…71ec`. Decision 0048 requires a fully verified P0/P1/P2 benchmark, explicit residual backlog, one targeted gap/currency pass, and a successor freeze. [Active plan](plans/phase-8-measurement-corpus.md). |
 
 ## Active plan
 
 [phase-6-science-first-completion.md](plans/phase-6-science-first-completion.md) remains the active
 Phase 6 implementation plan. [phase-8-measurement-corpus.md](plans/phase-8-measurement-corpus.md)
 is the active Phase 8B plan; [phase-8-what-is-real.md](plans/phase-8-what-is-real.md) is the
-completed 8A record. Decisions 0046–0047 keep worktrees, processes, artifacts, claims, and
+completed 8A record. Decisions 0046–0048 keep worktrees, processes, artifacts, claims, and
 completion credit isolated; cold starts read the plan for the workstream they will touch. The
 detailed V4/V4.x chronology remains in the closed
 [WP1 history](plans/phase-6-wp1-source-lineage-and-tax2.md) and recovery artifacts; it is not a live
@@ -196,41 +199,27 @@ reconciliation — Phase 6 closes. Do not resume education or V4/V4.x apparatus.
 preview-GPU work may begin only as separately planned Phase 7 work in its own worktree; never run
 it from the Phase 6 lane or count it toward Phase 6.
 
-### Phase 8B lane — captured-lead reconciliation is active; acquisition is paused
+### Phase 8B lane — priority benchmark extraction is next; broad acquisition is stopped
 
-Decision 0047, charter v1.24 and the [measurement-corpus plan](plans/phase-8-measurement-corpus.md)
-govern. S0 freezes 23 local sources / 914 units (`93c83a98…bb8f2`); S1/S1a freeze the search routes
-(`8bc12ee9…ce7`, `2ffc196e…9116`). CiNii is only a 2024-04-04 historical supplement and the
-OpenAlex key remains NAS-only.
+Decision 0048, charter v1.25 and the [benchmark-corpus plan](plans/phase-8-measurement-corpus.md)
+govern. Preserve `evidence/phase8-target-book/` byte-for-byte and every accepted S0-S2 bundle.
+Quoted from the
+[round-0 report](../evidence/phase8b-s2-round0-reconnaissance/report.json), whose artifact index is
+SHA-256 `74e0b126e117bc66e22d6c8f04b01977a927b679f92885a8787860f375ac2a22`:
+round 0 remains `BOUNDED_OPEN`; 1,759 captured rows reduced to 1,553 identifiers; 28 valid NAS PDFs
+were acquired; all 49 local-plus-acquired PDFs / 1,242 pages were visually inspected; and zero new
+numeric rows were extracted. The 470 retained identifiers remain a review backlog, not a download
+list. Never issue same-host parallel requests or automatic retries.
 
-S2 round 0 resolved 28/29 seeds (`05ce5eb8…0c36`), captured 896 citation rows
-(`798ddf69…a6b`), 325 author-output rows / 292 works (`5acbfb6f…90fc`), and 538 focused-query
-rows. Six focused queries closed; the 582-result supersaturation query retained 100 under the
-precision cap and remains `BOUNDED_OPEN` (`a8eb7db7…40988`).
-
-NAS audit v2 binds 28 valid PDFs / 362 pages / 161,704,803 bytes (`9209eea2…1bf3`); seven reset
-remnants are excluded. Offline visual inspection covers all 49 PDFs / 1,242 pages across acquired
-and frozen-local sets. The acquired set has 22 provisional primary-content sources, six
-context/exclusions and 13 citation mismatches. Reconciliation against 23 S0 containers and 34
-archive members found no duplicates or live hash mismatch.
-
-Offline title triage made zero requests/downloads. The 1,759 captured rows reduce to 1,553 exact
-identifiers across routes: 55 known locally/acquired, 88
-likely primary, 382 needing metadata/full text, and 1,028 clearly out of scope under a conservative
-cross-route precedence. The 470 retained missing/review identifiers are a metadata queue, not a
-download list or formal S3 disposition. JSONL stays on NAS; the tracked bundle
-(`evidence/phase8b-s2-round0-reconnaissance/`, index `74e0b126…2a22`) extracts zero numeric rows and
-completes neither formal S3 pass.
-
-The two local ZIPs contain 18 native longitudinal numeric members usable after condition/lineage
-joins: 16 mass histories and two crystal-dimension histories.
-The Phase 9 consumer audit flags new pressure/thermal, history and kinetics
-confrontations, but no clean matched evidence yet for Gibbs–Thomson, seed geometry or ventilation
-(`cbd1e1b4…2a9`); Phase 9 is not yet redesigned.
-The local visual pass also exposed an unresolved Pokrifka denominator: Table 1 visibly prints 18
-homogeneous rows while the analysis repeatedly says 17 and names no exclusion. Next: resolve exact
-metadata/DOI/version lineage within the 470 retained identifiers, NAS-first; only a confirmed
-missing eligible lineage may receive one deliberate authoritative request. Never issue same-host
-parallel requests or automatic retries. Then freeze the source set and run the two zero-addition
-rounds. S4 owns target-coordinate extraction.
-Preserve `evidence/phase8-target-book/` byte-for-byte; Phase 9 remains unchartered.
+Next: commit the decision-0048 authority/plan freeze, then freeze the exact P0/P1/P2 selection.
+Derived at this update from the per-member counts in the
+[local archive audit](../evidence/phase8b-s2-round0-reconnaissance/local-archive-audit.md), SHA-256
+`66ac1ae02cde2cfb2e486d0f5d67977fd43dd22179996803814e34138a676417`, the identified P0 candidates
+are 16 Harrison/Pokrifka mass histories totaling 252,040 raw rows (274,502 minus the excluded
+22,462-row `625`) and two Harrington–Pokrifka dimension histories totaling 94 rows (26 plus 68).
+Normalize their
+full raw histories to NAS-resident artifacts with tracked schema, source/member hashes, corrected
+conditions, uncertainty, rights, lineage, leakage, and an independent verifier. Keep `712k` raw
+duplicate timestamps; coalescing is a separate derived operator. Then extract the selected
+pressure/thermal, history/intervention, and facet-rate P1 series before one targeted gap/currency
+pass. Phase 9 remains unchartered.
