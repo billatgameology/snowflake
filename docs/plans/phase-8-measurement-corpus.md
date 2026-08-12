@@ -649,10 +649,11 @@ the registered gate. Phase 9 scope decisions wait for S6.
   works in 21 requests. Marcus Hanson remains identity-unresolved; “Journal of the Meteorological
   Society of Japan” is recorded as a non-person seed error rather than queried as an author. Report
   SHA-256: `5acbfb6f98c3199d500ab89367c0f2940ceb64e53bed0afacb9e050ef89590fc`.
-- **Acquisition state:** `acquired-sources-20260811-v1/` currently contains 23 usable PDFs on the
-  NAS. The mechanical audit re-opened all files with `pdfinfo` and rendered every first
+- **Acquisition state:** immutable audit snapshot v1 binds 23 usable PDFs on the NAS. The
+  mechanical audit re-opened all files with `pdfinfo` and rendered every first
   page: 23/23 passed, spanning 271 pages and 143,808,779 bytes. Seven failed connection-reset
-  remnants are named `.partial-corrupt` and are not source PDFs. Audit report SHA-256:
+  remnants are named `.partial-corrupt` and are not source PDFs. Five later high-priority
+  acquisitions are present but intentionally await the next immutable audit snapshot. Report SHA-256:
   `060e19c0c0f0e93604f9359855c7258e633ca1dae9cc792903ca548df0c36aa1`.
 - **Current verdict:** S2 remains `BOUNDED_OPEN`, not saturated. Full-text eligibility screening,
   authoritative acquisition follow-up, cumulative-set freezing and both zero-addition rounds have

@@ -216,10 +216,11 @@ sweeps over 21 resolved author identities retained 325 rows / 292 unique works i
 (`author-output-20260811-v1/report.json`, SHA-256 `5acbfb6f…90fc`). One named author identity remains
 unresolved and one frozen “author” is a journal metadata error.
 
-Acquisition and real source inspection have started: the NAS currently holds 23 validated PDFs,
-271 pages and 143,808,779 bytes; all 23 pass `pdfinfo` and first-page rendering
-(`acquisition-audit-20260811-v1/report.json`, SHA-256 `060e19c0…6aa1`). Seven
-connection-reset remnants are labeled `.partial-corrupt` and excluded from the usable set. Next:
+Acquisition and real source inspection have started. Audit snapshot v1 binds 23 validated PDFs,
+271 pages and 143,808,779 bytes; all 23 passed `pdfinfo` and first-page rendering
+(`acquisition-audit-20260811-v1/report.json`, SHA-256 `060e19c0…6aa1`). Five later high-priority
+downloads are present but not yet in that immutable audit snapshot; seven connection-reset remnants
+are labeled `.partial-corrupt` and excluded from the usable set. Next:
 finish full-text scope screening and authoritative acquisition of eligible leads, freeze the
 cumulative included-source set, then run the required zero-addition rounds. Do not restore the
 rejected 256-cell broad pagination matrix. Source acquisition is NAS-first and host-conservative:
