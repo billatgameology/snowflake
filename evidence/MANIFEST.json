@@ -3,8 +3,8 @@
  "movedFrom": "out/ (gitignored), plus the byte-identical tracked arm64 fingerprint formerly under docs/",
  "movedTo": "evidence/ (tracked)",
  "note": "Historical sweep digests were computed before their move and re-verified afterward. The arm64 fingerprint preserves the exact former docs/ Git blob (18398 bytes, SHA-256 d6686f8e...). The x64 fingerprint is the complete 2026-08-01 lightweight fixture re-execution backing the exact per-entry comparison; it reproduces registered digest 2a9f64b3. These are preserved claim-backing bytes, not regenerated production sweeps.",
- "fileCount": 24,
- "totalBytes": 1277588,
+ "fileCount": 31,
+ "totalBytes": 1891696,
  "files": {
   "phase6-crossplatform/arm64-libm-fingerprint.txt": {
    "bytes": 18398,
@@ -101,6 +101,34 @@
   "phase8-target-book/freeze.json": {
    "bytes": 4434,
    "sha256": "f9a5f4ee1f75c3038c2c051fe27ea68ee3f11f38f14d6ac6770604dd65e3b158"
+  },
+  "phase8b-local-denominator/artifact-index.json": {
+   "bytes": 1158,
+   "sha256": "93c83a98ef053e4b22b24ce3c072f862b23d55a552df5da177f71f2d935bb8f2"
+  },
+  "phase8b-local-denominator/cache-reconciliation.json": {
+   "bytes": 103795,
+   "sha256": "7dcf70861df9f421ee856a06d02f1385dd2c8dfe401601c0ed4a70fcc855e494"
+  },
+  "phase8b-local-denominator/inventory-status.jsonl": {
+   "bytes": 2669,
+   "sha256": "dc8c4cb8e4fa89b2bbcf6ea41029e08e988bb15306e9861a55519323becd9f2b"
+  },
+  "phase8b-local-denominator/protocol.json": {
+   "bytes": 3896,
+   "sha256": "a41bc9fd2ff96cb0fcbee04bba97c8f76a929d0095a61f5250983e982557b8b9"
+  },
+  "phase8b-local-denominator/report.json": {
+   "bytes": 1928,
+   "sha256": "bf017534980b48db8b666c51190ef44f825e864f88046dfd826a2d7dc2f8bdeb"
+  },
+  "phase8b-local-denominator/source-containers.jsonl": {
+   "bytes": 18688,
+   "sha256": "3f12256918c845cdf2f44a9029dc01ab06c774f7ac1df11e33d3667f8ef23106"
+  },
+  "phase8b-local-denominator/source-units.jsonl": {
+   "bytes": 481974,
+   "sha256": "d806c220c6057eb0d80b44458c185acc61d25b9c7be6495e5c57f2a038a41178"
   }
  }
 }

@@ -200,13 +200,22 @@ it from the Phase 6 lane or count it toward Phase 6.
 
 Governance step S-1 is committed at `80395f2`: decision 0047, charter v1.24, the
 [measurement-corpus plan](plans/phase-8-measurement-corpus.md), and its state-index guards passed
-the exact local suite and an independent review with zero blockers. S0 candidate B at
-`tmp/phase8b-local-denominator-candidate-20260811b/` (artifact-index SHA-256
-`93c83a98ef053e4b22b24ce3c072f862b23d55a552df5da177f71f2d935bb8f2`) re-derives 218
-PDF/archive-like candidates into 23 sources, 195 explicit exclusions, 880 PDF pages, 34 regular
-ZIP members, and 914 still-pending source units. It is not published or accepted: the independent
-replay stopped fail-closed when `/Volumes/snowcrystal` disconnected, so remount and rerun that exact
-review before freezing S0. In parallel, prepare S1's exact external routes, queries, citation seeds, cutoff, inclusion, currency,
-acquisition, lineage, rights, digitization, and frontier-expansion stopping rules. Preliminary browsing is
-reconnaissance only. Preserve `evidence/phase8-target-book/` byte-for-byte; write all 8B evidence to
-separate paths. Phase 9 remains unchartered and cannot start from either milestone alone.
+the exact local suite and an independent review with zero blockers. S0 is now accepted and
+published at `evidence/phase8b-local-denominator/` (artifact-index SHA-256
+`93c83a98ef053e4b22b24ce3c072f862b23d55a552df5da177f71f2d935bb8f2`). Its live-NAS replay and
+independent recount close 218 PDF/archive-like candidates into 23 sources plus 195 explicit
+exclusions: 21 PDFs contribute 880 pages and two ZIPs contribute 34 regular members, for 914 unique
+source units. All 914 are still `pending-classification`; the re-derived measurement-set count is
+zero. This freezes only the denominator and neither permits Phase 9 execution nor grants validation.
+
+S1 remains open and no candidate E has been generated. Candidates A-D are preserved rejected
+artifacts; review 5 then rejected the stable green implementation before generation because its
+41-document claim registry was cardinality-closed but did not prove coverage of every
+source-attributed contract atom. It also found vacuous non-author provenance, no executable path
+from unknown lineage to established independence, an unbound split/leakage witness, and incomplete
+Semantic Scholar and DOI response adapters. Repair must add an exact load-bearing atom registry,
+claim bindings with re-derived zero-gap coverage, byte-bound author/reviewer identity,
+source-subject-derived lineage and split witnesses, exact per-operation adapters, and named semantic
+controls; only then may two independent stable-byte audits authorize candidate E. No registered
+search or coordinate read has run. Preserve `evidence/phase8-target-book/` byte-for-byte and keep
+all 8B evidence separate. Phase 9 remains unchartered and cannot start from either milestone alone.

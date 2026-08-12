@@ -158,7 +158,7 @@ are reopened and re-derived from their published bytes.
   8A freeze is unchanged. Run the exact local suite and obtain a non-author governance review with
   zero blockers. Completed by commit `80395f2`; the final exact suite and review evidence are in
   Governance review 2 below.
-- [ ] **S0 — Freeze the local source and unit denominator.** Independently enumerate all PDF and
+- [x] **S0 — Freeze the local source and unit denominator.** Independently enumerate all PDF and
   archive source containers, including excluded containers, plus every PDF page and archive member
   under the NAS logical root; record exact
   names, bytes, hashes, page/member counts, and the generated source-unit skeleton. Reconcile it
@@ -233,6 +233,38 @@ time with its path or hash.
 
 ## Tried and rejected
 
+- **Treat 26 bilingual query definitions as the executable query denominator.** Rejected by the
+  first S1 audit: eight active free-text routes imply 208 route/query cells, and a list of route
+  names beside each human query does not freeze encoded requests, headers, NASA POST bodies,
+  continuations, or route-specific materialization.
+- **Call a blocked, unpinned protocol candidate frozen.** Rejected: a candidate carrying unresolved
+  contracts, no implementation pins, and `publicationAllowed: false` cannot use the frozen-state
+  label. Contract completeness, execution prerequisites, review state, and search execution are
+  separate facts.
+- **Verify only route counts, pagination, and a few operator labels.** Rejected after canonically
+  rehashed mutations to endpoints, methods, seed identities, schema requirements, extraction
+  requirements, and removal evidence all passed candidate-A verification. The independent
+  verifier must pin every load-bearing semantic record, not merely its surrounding descriptor.
+- **Treat exact first-page request templates as an executable transport contract.** Rejected by
+  the candidate-B reviews: required environment substitutions were absent from the blocker set,
+  credential-bearing requests contradicted raw-request preservation, and retry, pacing, timeout,
+  byte-cap, redaction, and terminal-error rules were unspecified. A search protocol is not
+  executable until every placeholder and every transport outcome has one frozen disposition.
+- **Name partitioning or multi-step follow-up without freezing its algorithm.** Rejected:
+  candidate B advertised CiNii and NDL partition closure, a NASA fallback, and a Semantic Scholar
+  author sequence that its artifacts could not materialize. Cap-triggered partitions, continuations,
+  and multi-step operations must be explicit request graphs with irreducible cap hits mapped to
+  `BOUNDED_OPEN`.
+- **Fit and validate a plot axis from the same two anchors.** Rejected: two anchors make the fitted
+  residual vacuously zero, and an axis-span fraction cannot be combined with source-unit read
+  spread without an explicit dimensional conversion. Calibration needs a non-fit validation
+  anchor and uncertainty terms expressed in compatible units.
+- **Treat a route template as current merely because its documentation URL returns 200.** Rejected
+  by the candidate-C provider audit: the captured primary documents exposed wrong NASA request
+  shapes, NDL cutoff placement, DOI path encoding, OpenAlex sort/multi-ID syntax, CiNii response and
+  author parameters, unsupported Penn State follow-ups, an unsupported DataCite contact parameter,
+  and an omitted arXiv single-connection rule. Source currency is a semantic contract check over
+  the captured bytes, not an HTTP-status check.
 - **Treat only PDF and ZIP suffixes as the recursive S0 candidate denominator.** Rejected by the
   first local-denominator audit: the exact cache manifest also contains 14 recovery TAR archives,
   31 Git bundles, and 81 Git packfiles. The repaired registration counts all 218 candidates and
@@ -326,4 +358,143 @@ the registered gate. Phase 9 scope decisions wait for S6.
   replay began and failed closed with `ENOTCONN` when `/Volumes/snowcrystal` disappeared.
 - **Verdict:** none. Candidate B remains unpublished and unaccepted until the share is remounted and
   the exact review replay returns zero blockers.
+- **Outage policy:** the maker directed that work continue on local Mac storage while the NAS is
+  disconnected. Do not mount, authenticate, or repair the share; treat the outage as an S0 replay
+  blocker only and continue independent S1 work locally.
 - **Not checked:** anything downstream of the interrupted NAS replay; S0 is still open.
+
+### Local-denominator review 3 — accepted and published
+
+- **Reviewer:** OpenAI Codex GPT-5.4 with full shared task context; the reviewer did not author S0
+  and independently reran candidate B after the NAS reconnected.
+- **Re-executed:** the exact live-NAS CLI replay, focused 22-control suite, 76,653-file cache
+  manifest totals and hash, the full 218-candidate reconciliation, all 23 container and 914 unit
+  joins, 34 ZIP-member byte/hash reads plus both external `unzip -t` checks, canonical artifact
+  bytes and pins, and the untouched Phase 8A boundary. The published
+  `evidence/phase8b-local-denominator/` is byte-identical to reviewed candidate B and its
+  artifact-index SHA-256 is
+  `93c83a98ef053e4b22b24ce3c072f862b23d55a552df5da177f71f2d935bb8f2`.
+- **Verdict:** ACCEPT with zero blockers. The frozen denominator is 218 PDF/archive-like candidates:
+  23 source containers plus 195 explicit exclusions; 21 source PDFs contribute 880 pages and two
+  ZIPs contribute 34 regular members, for 914 unique source units. All 914 remain explicitly
+  `pending-classification`, the re-derived measurement-set count is zero, and this milestone neither
+  permits Phase 9 execution nor grants a validation claim.
+- **Not checked:** the exact full suite, scientific classification, source currency, rights,
+  external search, measurement extraction, or any downstream Phase 8B milestone.
+
+### Search/extraction-protocol review 1 — rejected
+
+- **Reviewer:** independent no-fork OpenAI Codex reviewer, with a second no-fork mutation probe;
+  neither authored candidate A.
+- **Re-executed:** exact CLI verification against S0 candidate B, focused 13-test suite, both
+  TypeScript checks, targeted Rule 7 scan, canonical artifact graph and S0-binding recount,
+  23-container/map/subject joins, the nominal 208 route/query cross-product, and rebuilt-graph
+  semantic mutations.
+- **Verdict:** REJECT, eight blockers — no materialized route/query denominator; premature frozen
+  state; incomplete DOI/redirect/robots contract; unsupported route-removal records; no executable
+  lineage/independence rules; descriptive rather than operational schemas and extraction operators;
+  fail-open semantic verification; and incomplete or mismatched negative controls.
+- **Not checked:** provider execution, live credentials/endpoints/robots, literature results, source
+  acquisition, coordinate reading, NAS replay, or the exact full local suite.
+
+### Search/extraction-protocol review 2 — rejected
+
+- **Reviewers:** two independent OpenAI Codex reviewers; neither authored candidate B. One received
+  no inherited task context and attacked the artifact/verifier boundary, while the other performed
+  a bounded current-provider contract check. Both shared only the live filesystem.
+- **Re-executed:** all 17 artifact descriptors and byte-for-byte producer regeneration; the
+  23-container/map/subject joins; all 32 bilingual query cells and 256 route/query plans; the
+  focused 35-control suite; rebuilt-graph fail-open mutations; exact environment-token versus
+  route-prerequisite reconciliation; and current official route documentation for the affected
+  provider contracts.
+- **Verdict:** REJECT. Candidate B still undercounted required runtime inputs; contradicted exact
+  request capture with credential exclusion; lacked a frozen materializer, redaction and transport
+  failure policy; advertised unmaterialized partitions and multi-step operations; contained wrong
+  or incomplete provider selectors; cited the wrong J-STAGE page for the 24-hour API rule; omitted
+  required record keys and numeric-output schemas; and used a vacuous two-anchor plot calibration.
+  Rebuilt graphs also passed extra-key, caller-verdict, blocker, report-operator, and status-binding
+  mutations. No registered literature search or coordinate read ran.
+- **Not checked:** live provider responses or credentials, literature recall, source acquisition,
+  NAS replay, clean-checkout behavior, the exact full local suite, or scientific measurements.
+
+### Search/extraction-protocol review 3 — rejected
+
+- **Reviewer:** OpenAI Codex, GPT-5-based child reviewer with full shared task context. The reviewer
+  did not author candidate C or edit files, but watched concurrent source repairs, so this is a
+  rejecting provider-contract audit rather than an independent acceptance review.
+- **Re-executed:** current route, partition, follow-up-operation, and transport contracts against the
+  captured official arXiv, CiNii, DataCite, DOI Foundation, NASA NTRS, NDL, OpenAlex, Penn State,
+  and Semantic Scholar bytes. Rejected candidate C remains at
+  `tmp/phase8b-s1-protocol-candidate-20260811c/`: its artifact index is SHA-256
+  `9d71d211e4b55109932f205a424cdc867dbb14d558d32df0aff0dd2f62f42077`; its report is SHA-256
+  `be983d389fe149ac2a1742b6ee2a4f98fb84e73129b22f1d7d7c0353794f4322`.
+- **Verdict:** REJECT. Candidate C had wrong or unsupported NASA search/supplement contracts; NDL
+  cutoff and version semantics; DOI encoding; OpenAlex sort, multi-ID, and obsolete parameters;
+  CiNii output and author parameters; Penn State version/cutoff semantics; DataCite contact,
+  operation, and rights claims; an omitted arXiv single-connection rule; and provider-attributed
+  NASA caps not supported by the captured OpenAPI. The detailed findings were fed back before any
+  registered search executed; candidate C remains unpublished and `passEligible=false`.
+- **Not checked:** Crossref (separately checked against its current filter and cursor pages), live
+  provider responses, credentials, registered search results, source acquisition, NAS replay,
+  legal determinations, tests, or verifier mutation resistance. A repaired candidate still needs
+  stable-byte semantic and artifact-boundary audits before S1 can freeze.
+
+### Search/extraction-protocol review 4 — rejected
+
+- **Reviewers:** root orchestration replay plus an OpenAI Codex GPT-5-based child reviewer with
+  inherited context. The child did not author D or edit files, but concurrent repair work was
+  visible, so this is a rejecting semantic audit rather than an independent acceptance review.
+- **Re-executed:** `npx vitest run runner/test/phase8-corpus-protocol.test.ts` against candidate D
+  (82 passed, 1 failed of 83); every indexed descriptor/hash/length; 32 query cells, 256 route/query
+  cells, 13 routes, 10 active routes, 3 removals, 16 schemas, 8 fixtures, 7 operators and 80
+  controls; all 26 provider and 4 then-required standards triplets for exit 0/final HTTP 200; and
+  the repaired Candidate-C provider contracts against their captured official bytes.
+- **Verdict:** REJECT before publication. Candidate D at
+  `tmp/phase8b-s1-protocol-candidate-20260811d/` has artifact-index SHA-256
+  `79a995d826f72a17968f126a9bed5c04b611e3538dc6c71cd2ce44bf8b398465` and report SHA-256
+  `ca2c12125ead1a2f48f580022ee71c8a54a2369ae9018b3ef72b6578774d1c3b`. Its exact replay failed
+  because `doi-http-contract.json` SHA-256
+  `222f6e5477fa7960d6f0f875aa5176142f30c511920da026f825fb61f2c99034` disagreed with verifier pin
+  `cb59291a8fa4a4de9aec03e9abc6cb92791ddeb4a67be47d2bad4f5b1d3ec453`.
+- **Semantic blockers:** page-one requests named but did not define response/continuation adapters;
+  a broad brace regex misclassified 28 static JSON values as placeholder substitutions; DERIVE
+  operations lacked exact child graphs; source-currency evidence lacked an exact schema/transition;
+  RFC 9110 and RFC 8288 were omitted despite load-bearing HTTP and Link use; transport outcomes
+  were incomplete; the robots rule selected one user-agent group instead of combining all matching
+  RFC 9309 groups and falling back to `*`; later-author coverage was not per author; lineage did not
+  derive independence groups; only 8/16 record schemas had executable fixtures; and plot records
+  could not independently re-derive reader pixels, conversion, or complete uncertainty. Candidate
+  status also conflated S1 protocol acceptance with S2 runtime credential readiness, contradicting
+  this plan's registered statement that no maker input is required before S0-S1.
+- **Not checked:** live provider execution or credentials, registered search results, source
+  acquisition, NAS replay, legal-rights determinations, clean-checkout behavior, or the exact full
+  suite. Successful triplet availability is not source-currency semantic acceptance.
+
+### Search/extraction-protocol review 5 — rejected before generation
+
+- **Reviewers:** two non-author OpenAI Codex GPT-5-based reviewers with shared task context; one
+  attacked the stable artifact/mutation boundary and the other independently audited claim and
+  lineage semantics. Neither generated a candidate or edited the implementation under review.
+- **Re-executed:** the stable source hashes, focused protocol suite (115 passed, 1 expected skip),
+  both TypeScript checks, Rule 7 scan, the 41-document source-currency denominator, exact claim
+  cardinality, and source-attributed route, operation, adapter, DOI, transport, rights, and lineage
+  contracts against the named official-byte locators.
+- **Verdict:** REJECT; no candidate E was generated. The one-claim-per-document rule was
+  cardinality-closed but semantic-coverage-open: it had no exact claim-to-contract-atom binding and
+  therefore could accept missing support for load-bearing arXiv, CiNii, Crossref, DataCite, DOI,
+  NASA NTRS, NDL, OpenAlex, Semantic Scholar, IANA, RFC 9309, RFC 9110, and RFC 3986 details. One
+  concrete contradiction named `page[number]` in the DataCite claim while the route executed
+  `page[cursor]`. Reopen only with an exact source-attributed atom registry, claim `coveredAtomIds`,
+  zero missing/extra/duplicate/unsupported coverage re-derived by the verifier, named semantic
+  negative controls, and a source-supported DataCite continuation or a fail-open removal. The
+  review-independence comparison was also vacuous because it compared the reviewer model with a
+  protocol-operator ID rather than an independently bound implementation/evidence-author model;
+  caller-supplied non-author booleans cannot establish that fact. The lineage contract also had no
+  executable transition from `unknown-open` to an established-independent singleton, while the
+  split/leakage witness was not bound to source-subject identity or re-derived lineage membership;
+  arbitrary group IDs and no-overlap attestations could therefore pass. The page-one adapter
+  contract remained incomplete for Semantic Scholar token/total selectors and DOI subrequest-
+  specific response media, parser, schema, and selectors.
+- **Not checked:** candidate bytes because none were permitted, live provider execution or
+  credentials, registered search results, source acquisition, legal determinations, clean-checkout
+  behavior, or the exact full suite.
