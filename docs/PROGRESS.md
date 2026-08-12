@@ -169,6 +169,9 @@ and every superseded attempt live in the linked plans and historical progress sn
 [phase-6-science-first-completion.md](plans/phase-6-science-first-completion.md) remains the active
 Phase 6 implementation plan. [phase-8-measurement-corpus.md](plans/phase-8-measurement-corpus.md)
 and [phase-8-what-is-real.md](plans/phase-8-what-is-real.md) are the completed 8B and 8A records.
+The maker-directed [Phase 9 knowledge-baseline plan](plans/phase-9-knowledge-baseline.md) governs a
+research-only preparation lane; it does not adopt the proposed phase, alter a solver, or authorize
+an experiment.
 Decisions 0046–0048 keep worktrees, processes, artifacts, claims, and
 completion credit isolated; cold starts read the plan for the workstream they will touch. The
 detailed V4/V4.x chronology remains in the closed
@@ -215,3 +218,12 @@ history and the failed original residual audit. Do not resume broad discovery or
 residual backlog without a new named measurement gap. Phase 9 remains unchartered and unauthorized;
 its proposed [consumer plan](plans/phase-9-modular-physics-arms.md) is ready for maker adoption review.
 All 51 Phase 8B records are development evidence and none may be relabeled held out.
+
+### Pre-adoption knowledge research — identify models before experiments
+
+Follow [phase-9-knowledge-baseline.md](plans/phase-9-knowledge-baseline.md). First adjudicate the
+captured 1987 OpenAlex “new model” lead and the archived 2026 Harrington–Pokrifka step-source
+lineage, then inventory already-held theory sources before making any live request. External work
+is capped at three small query families plus justified exact-record/citation lookups; save acquired
+PDFs and rendered equation pages on the NAS. The output is a theory/equation/hypothesis baseline
+mapped to Phase 8 records, not solver work or a Phase 9 experiment.
