@@ -1,7 +1,9 @@
 # Phase 8B residual-backlog audit correction registration
 
 **Registered:** 2026-08-12, after the original sample reported one miss and before the replacement
-record was inspected
+record was inspected. The Bacon priority label below was corrected from P2 to two direct P1
+aggregates before successor freeze; the replacement identity, digest, question, and fail condition
+did not change.
 
 **Purpose:** preserve the original failed audit, promote its Bacon finding into benchmark
 selection v2, and test the corrected local-container residual sample at the same fixed sample size
@@ -10,13 +12,15 @@ selection v2, and test the corrected local-container residual sample at the same
 
 The immutable registration in `research/phase8b-residual-audit-registration.md` sampled Bacon,
 `2109.00098v1.pdf`, and `takahashi-fukuta1988.pdf` from the 20 containers residual to selection v1.
-The independent audit found Bacon to be a genuine P2 miss. That result remains a failure; this
-correction does not relabel it.
+The independent audit found Bacon to be a genuine benchmark miss. Source semantics classify the
+miss as two direct P1 aggregates rather than a P2 interpretation dependency: Table 1's
+initiation/aspect summary and the separately reported mass-growth-factor contrast. That result
+remains a failure; this correction does not relabel it.
 
-Selection v2 promotes container `P8B-CONT-755B3746D3762F0BD610671A` and the Bacon seed/history
-dependency into model development. The corrected local-container residual population therefore
-has 19 containers. The other two original local-container sample records remain residual and keep
-their original reviewed dispositions.
+Selection v2 promotes container `P8B-CONT-755B3746D3762F0BD610671A` and those two Bacon P1
+measurement sets into model development. The corrected local-container residual population
+therefore has 19 containers. The other two original local-container sample records remain
+residual and keep their original reviewed dispositions.
 
 ## Frozen replacement rule and record
 
