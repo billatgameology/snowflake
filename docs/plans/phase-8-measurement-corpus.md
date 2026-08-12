@@ -538,8 +538,9 @@ acceptances are not retroactively represented as reviews of the focused contract
   rejecting provider-contract audit rather than an independent acceptance review.
 - **Re-executed:** current route, partition, follow-up-operation, and transport contracts against the
   captured official arXiv, CiNii, DataCite, DOI Foundation, NASA NTRS, NDL, OpenAlex, Penn State,
-  and Semantic Scholar bytes. Rejected candidate C remains at
-  `tmp/phase8b-s1-protocol-candidate-20260811c/`: its artifact index is SHA-256
+  and Semantic Scholar bytes. Rejected candidate C was staged temporarily under
+  `tmp/phase8b-s1-protocol-candidate-20260811c/`; those non-evidence scratch bytes were discarded
+  under decision 0049 after Phase 8 closed. Its former artifact index was SHA-256
   `9d71d211e4b55109932f205a424cdc867dbb14d558d32df0aff0dd2f62f42077`; its report is SHA-256
   `be983d389fe149ac2a1742b6ee2a4f98fb84e73129b22f1d7d7c0353794f4322`.
 - **Verdict:** REJECT. Candidate C had wrong or unsupported NASA search/supplement contracts; NDL
@@ -563,8 +564,9 @@ acceptances are not retroactively represented as reviews of the focused contract
   cells, 13 routes, 10 active routes, 3 removals, 16 schemas, 8 fixtures, 7 operators and 80
   controls; all 26 provider and 4 then-required standards triplets for exit 0/final HTTP 200; and
   the repaired Candidate-C provider contracts against their captured official bytes.
-- **Verdict:** REJECT before publication. Candidate D at
-  `tmp/phase8b-s1-protocol-candidate-20260811d/` has artifact-index SHA-256
+- **Verdict:** REJECT before publication. Candidate D was staged temporarily under
+  `tmp/phase8b-s1-protocol-candidate-20260811d/`; those non-evidence scratch bytes were discarded
+  under decision 0049 after Phase 8 closed. Its former artifact-index SHA-256 was
   `79a995d826f72a17968f126a9bed5c04b611e3538dc6c71cd2ce44bf8b398465` and report SHA-256
   `ca2c12125ead1a2f48f580022ee71c8a54a2369ae9018b3ef72b6578774d1c3b`. Its exact replay failed
   because `doi-http-contract.json` SHA-256
@@ -628,11 +630,13 @@ acceptances are not retroactively represented as reviews of the focused contract
   two complete zero-addition rounds, source currency/rights/lineage, dual source-unit
   classification and reconciliation, uncertainty-bearing extraction, and one final full non-author
   audit.
-- **Preservation:** the interrupted overbuilt producer/verifier/test bytes are retained only as
-  rejected local WIP under `tmp/phase8b-overbuilt-s1-wip-20260811/`; they are not a candidate or
-  evidence and must not be restored wholesale. Candidates A-D remain immutable rejected records.
+- **Disposition:** the interrupted overbuilt producer/verifier/test bytes were never a candidate or
+  evidence. They were discarded with the other repository-local Phase 8 scratch after closure
+  under decision 0049. This review record and the recorded candidate hashes preserve the rejected
+  history; the machinery must not be restored wholesale.
 - **Outcome:** the lean implementation and accepted candidate E described below replace the
-  interrupted WIP. The superseded machinery remains preserved only to prevent accidental revival.
+  interrupted WIP. The accepted successor and this rejection record, not the discarded machinery,
+  prevent accidental revival.
 
 ### Search-protocol review 6 — accepted lean candidate E
 
@@ -950,7 +954,8 @@ acceptances are not retroactively represented as reviews of the focused contract
   this separately executed verifier and review supply the closure decision.
 - **Clean checkout:** a detached clean checkout of the committed implementation re-ran the final
   NAS-backed verifier and six focused integrity/Phase 8 suites: 51/51 tests passed and `git status`
-  was empty. The root worktree's maker-owned `.DS_Store` and `tmp/` remained untouched.
+  was empty. The root worktree's then-untracked `.DS_Store` and `tmp/` remained untouched during
+  that verification and were discarded only after closure under decision 0049.
 - **Exact local suite:** `TMPDIR=/private/tmp npm test` exited 0 after the two real closure defects
   below were repaired: Rule 7 clean over 972 files, both TypeScript projects passed, and Vitest
   passed 97/97 files with 1,664 passed and 7 skipped tests in 372.73 s.

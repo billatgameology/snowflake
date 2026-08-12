@@ -32,6 +32,10 @@ research/rejected/*
 # Workspace tooling (Phase 2 scaffold)
 node_modules/
 
+# Host metadata and disposable repository-local scratch.
+.DS_Store
+/tmp/
+
 # In-repository scratch worktrees, isolated evidence repositories, and local debug logs.
 # Load-bearing evidence now lives in the TRACKED evidence/ tree (ADR 0038), not here.
 /.tmp-*/
