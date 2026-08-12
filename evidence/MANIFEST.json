@@ -3,8 +3,8 @@
  "movedFrom": "out/ (gitignored), plus the byte-identical tracked arm64 fingerprint formerly under docs/",
  "movedTo": "evidence/ (tracked)",
  "note": "Historical sweep digests were computed before their move and re-verified afterward. The arm64 fingerprint preserves the exact former docs/ Git blob (18398 bytes, SHA-256 d6686f8e...). The x64 fingerprint is the complete 2026-08-01 lightweight fixture re-execution backing the exact per-entry comparison; it reproduces registered digest 2a9f64b3. These are preserved claim-backing bytes, not regenerated production sweeps.",
- "fileCount": 83,
- "totalBytes": 3019098,
+ "fileCount": 90,
+ "totalBytes": 3102931,
  "files": {
   "phase6-crossplatform/arm64-libm-fingerprint.txt": {
    "bytes": 18398,
@@ -337,6 +337,34 @@
   "phase8b-p2-terminal-v1/report.json": {
    "bytes": 1250,
    "sha256": "0a54b351274e9f50ed8b2a893cef52c364786541038ff00fdce59270fd5fc07e"
+  },
+  "phase8b-plot-digitization-v3/artifact-index.json": {
+   "bytes": 4718,
+   "sha256": "53bf6e6dc53db9cd41638fff62b56b7dde85b478f5d7deb3e9a18edd43615195"
+  },
+  "phase8b-plot-digitization-v3/operator.json": {
+   "bytes": 1692,
+   "sha256": "b7f66ce980096759e9c86862e9a6bd7111a21382e364c28b39af614925619c13"
+  },
+  "phase8b-plot-digitization-v3/records.jsonl": {
+   "bytes": 32617,
+   "sha256": "3b22753b246e1ddd026daa8fe8eaab170971c71ef7d9fb63e0d25c8ad91547c8"
+  },
+  "phase8b-plot-digitization-v3/report.json": {
+   "bytes": 1774,
+   "sha256": "fdfe315a1fdc99e35d2d85e5fd079e871ba92416aa48c0a784589c7976afb811"
+  },
+  "phase8b-benchmark-final-v1/artifact-index.json": {
+   "bytes": 404,
+   "sha256": "f17b1db5b1b876f11d83fdbbd8cf85b7ba56f98d08122080965fa7ef00bb9722"
+  },
+  "phase8b-benchmark-final-v1/report.json": {
+   "bytes": 6534,
+   "sha256": "9078f71b118253292b8f3fbf286b23aeb2f8690c3f6115b96e4fd860c671253c"
+  },
+  "phase8b-benchmark-final-v1/successor-target-book.jsonl": {
+   "bytes": 36094,
+   "sha256": "c54b89683eea1f064bd8e81d6e9e06b3b9bbc6c022168b981cbfa71e5fc3cdd3"
   }
  }
 }

@@ -241,20 +241,20 @@ classification. Freeze candidates are reopened and re-derived from their publish
   13,800 s. Keep raw and derived views separate; duplicate-time coalescing for `712k` is a versioned
   downstream operator. Keep substantial normalized row bodies on the NAS until rights permit Git
   redistribution. Independently reparse, recount, rehash, and compare selected source lexemes.
-- [ ] **S4 — Calibrate and extract P1/P2 measurements.** Freeze one plot/table operator family at a
+- [x] **S4 — Calibrate and extract P1/P2 measurements.** Freeze one plot/table operator family at a
   time using non-fit validation anchors, repeated/perturbed reads, explicit refusal rules and read
   uncertainty before target coordinates are read. Extract the minimum pressure/thermal,
   history/intervention, and facet-rate series with exact conditions, direct-versus-inferred status,
   specimen/campaign lineage, and development status. Independently verify every included row and
   source-to-row semantic mapping.
-- [ ] **S5 — Run one targeted gap and currency pass.** Check the exact versions, corrections,
+- [x] **S5 — Run one targeted gap and currency pass.** Check the exact versions, corrections,
   supplements, native data, lineage, rights, and acquisition status of every included source and
   load-bearing lead. Search only the named gaps exposed by extraction, initially matched
   Gibbs–Thomson, seed-geometry, and ventilation evidence, plus included-source currency. Reuse NAS
   bytes first; make deliberate authoritative requests only for confirmed priority gaps; never use
   same-host parallelism or automatic retry. A missing load-bearing priority source stays open;
   everything else receives a terminal backlog disposition.
-- [ ] **S6 — Build the successor selection and Phase 9 impact report.** Select a separate target
+- [x] **S6 — Build the successor selection and Phase 9 impact report.** Select a separate target
   book and split from the verified benchmark, force every premise-shaping source into development,
   and redesign the Phase 9 draft at the evidence level. Do not implement Phase 9 or score model
   output. Preserve disagreements, nonindependence, extrapolation limits, unsupported-module gaps,
@@ -873,3 +873,52 @@ acceptances are not retroactively represented as reviews of the focused contract
   with zero blockers. Its bounded limit was no network replay of the four unarchived S5 metadata
   requests; that does not lift the explicit HP25 source restriction or make the missing Methods
   nonterminally load-bearing.
+
+### S4 P1 plot extraction — accepted after rejected adjudication
+
+- **Publication:** `evidence/phase8b-plot-digitization-v3/` binds 26 selected series and 431
+  unique physical targets. Numeric row bodies remain on the NAS under
+  `research-cache/phase8b-derived/plot-extraction-20260812-v3/`. The independent verifier rehashed
+  four PDFs, eight source renders, all 431 physical-target mappings and all 431 published rows and
+  returned `ok=true`; target-roster SHA-256 is
+  `f116e0725d989aabcc42feef43256433a2e117c960e97da5e2ad32d20f1d3c9f`.
+- **Rejected reading:** the first adjudication claimed complete coverage while retaining 45 null
+  targets, one duplicate physical identity and two wrong Gonda Figure 3 temperature assignments.
+  It remains immutable rejected history. The corrected NAS map is 221,651 bytes / SHA-256
+  `bd957da4f0b460fb322ff86609cb27cac9383e119e1875b4a2b30b9abb0b742b`: 431/431 accepted unique,
+  zero null or unresolved, with every unused raw click explicitly rejected. Accepted coordinates
+  are mechanically bound to read A, read B, their within-threshold mean or explicit third review.
+- **Uncertainty boundary:** digitization uncertainty conservatively includes marker half-width,
+  the full registered reader threshold and unused-anchor residual. Source sampling and reported
+  measurement uncertainty remain separate; no plotted fit or theory curve becomes an observation.
+
+### S5 targeted gap, currency and residual audit — accepted
+
+- **Bounded currency result:** `research/phase8b-targeted-gap-and-currency.md` closes the eight
+  included lineages and the three registered gaps. It used four sequential OpenAlex requests,
+  zero CiNii requests and two single-attempt source downloads, with no broad search or automatic
+  retry. No included P0/P1 numeric source remains unlocated or unverified. Gibbs--Thomson remains
+  unsupported by a matched measurement; seed/nucleation and ventilation can shape development
+  probes but do not supply matched effect sizes.
+- **Residual audit:** the registered nine-record sample truthfully failed with one missed Bacon
+  container. Selection v2 promotes its two direct P1 aggregates; the registered replacement paper
+  contains no new benchmark; the corrected fixed sample is zero misses in 9. The result is
+  `research/phase8b-residual-audit-result.md`, 9,616 bytes / SHA-256
+  `a98d407a88f907defccb76eb3083d86cc42975c61b306f2ec2d4bbec5f469284`. This sampled result and the
+  bounded search do not claim global literature saturation.
+
+### S6 successor selection and Phase 9 impact — accepted
+
+- **Successor:** `evidence/phase8b-benchmark-selection-v2/` contains 51 outcome-neutral records:
+  18 P0, 28 P1 and 5 P2. It preserves all 49 selection-v1 rows byte-for-byte and adds two Bacon
+  aggregate measurement sets. Residual accounting is 19 local containers, 883 local units and
+  1,544 exact discovery identifiers.
+- **Phase 9 impact:** `docs/plans/phase-9-modular-physics-arms.md` defines nine separable development
+  arms and five measurement adapters. All 51 records are development evidence and none is held
+  out. The draft is an evidence consumer plan only: Phase 9 remains unchartered and unauthorized,
+  and a future confirmatory split requires genuinely unused evidence frozen before values are
+  inspected.
+- **Final pointer book:** `evidence/phase8b-benchmark-final-v1/` binds one source-derived pointer to
+  each of the 51 records. Its independent verifier returned `ok=true`, re-verifying 252,134 native
+  rows and 431 plot points; the target book is 36,094 bytes / SHA-256
+  `c54b89683eea1f064bd8e81d6e9e06b3b9bbc6c022168b981cbfa71e5fc3cdd3`.

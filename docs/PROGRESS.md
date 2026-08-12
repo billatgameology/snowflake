@@ -24,31 +24,19 @@ index, a plan, ADR, or audit links to historical detail.
   campaign close at measured-only grade (stated as not computed by decision 0045, never as
   satisfied), and a 204-point measured-only `M1_NO_DIP_ABLATION` sweep — arm-2-identical except
   `paramSet` — completes the three-arm baseline inside the envelope.
-- **Phase 8A is COMPLETE (2026-08-10); Phase 8B is ACTIVE AND INCOMPLETE (2026-08-11).**
+- **Phase 8A is COMPLETE (2026-08-10); Phase 8B has a verified closure candidate (2026-08-12).**
   Decision [0048](decisions/0048-focus-phase8b-on-phase9-ready-benchmarks.md) and charter v1.25
-  preserve the completed [target-book v1 plan](plans/phase-8-what-is-real.md) and focus the active
-  [benchmark-corpus plan](plans/phase-8-measurement-corpus.md) on measurements Phase 9 can use.
-  Decision 0047's exhaustive dual-classification and two-global-zero-round obligations are
-  superseded; its accepted S0-S2 evidence and `BOUNDED_OPEN` search result remain immutable.
-  Quoted from
-  [`evidence/phase8-target-book/freeze.json`](../evidence/phase8-target-book/freeze.json) at this
-  update: the canonical book is 59,019 bytes / SHA-256
-  `47a75f3fcc499d74d36cd08eeaed7f4e839bf991deb179fa19ce809d57e171ec`, with 18 entries
-  (16 targets / 2 inputs) split 7 held out / 5 model development / 4 out of model / 2 inputs. The
-  reviewed freeze closed with 0 blockers. Phase 8B writes separate artifacts and cannot mutate it,
-  score a model, implement Phase 9, grant a validation label, or borrow Phase 6 credit. Phase 8B
-  freezes P0 native histories, P1 direct module discriminators, and P2 interpretation-critical
-  evidence; it independently verifies every included record and keeps the residual discovery
-  universe as an explicit backlog rather than claiming exhaustive measurement or search closure.
-  S2 is now frozen in `evidence/phase8b-benchmark-selection-v1/`: 18 P0 / 26 P1 / 5 P2 records,
-  with 886 residual local units, 23 residual acquired sources and 1,545 residual exact discovery
-  identifiers retained by stable set-difference rules. The independent bounded review returned
-  `ACCEPT` with zero blockers. S3 is also complete: all 18 P0 native histories are normalized on
-  the NAS as 252,134 exact source-lexeme rows / 8,260,015 TSV bytes and independently verified
-  against both archives and 19 expanded mirrors. Git retains only their metadata and hashes.
-  All five P2 records are terminal and independently audited (zero coordinate rows or blockers); the
-  two −50 °C histories permit only dimension/time and source-labelled change-point use until their
-  first-report Methods define the `48%`/`20%` forcing semantics.
+  preserve the completed [Phase 8A target book](plans/phase-8-what-is-real.md) byte-for-byte and
+  focus the [Phase 8B corpus](plans/phase-8-measurement-corpus.md) on measurements Phase 9 can use.
+  Quoted from [`evidence/phase8b-benchmark-final-v1/report.json`](../evidence/phase8b-benchmark-final-v1/report.json):
+  the successor contains 51 model-development records (18 P0 / 28 P1 / 5 P2), zero held-out rows,
+  252,134 native history rows, 431 adjudicated plot points and zero P2 coordinate rows. Its
+  independent verifier returned `ok=true`; successor-target-book SHA-256 is
+  `c54b89683eea1f064bd8e81d6e9e06b3b9bbc6c022168b981cbfa71e5fc3cdd3`. The targeted pass is
+  terminal and bounded, not global literature closure; the corrected residual sample is 0/9 misses
+  after preserving and remediating its original Bacon miss. Phase 8B does not score a model,
+  authorize Phase 9 or grant a validation label. Only exact full-suite, clean-checkout and final
+  non-author closure verification remain before marking the phase complete.
   Phase 7 is completely standalone from the completion of Phases 6 and 8: it is not started and
   still needs its own committed plan/worktree, but neither phase gates it. Its existing product,
   held-out-validation, and GPU-parity scope remains. Phase 9 and Phase 10 remain uncharted.
@@ -208,26 +196,16 @@ reconciliation — Phase 6 closes. Do not resume education or V4/V4.x apparatus.
 preview-GPU work may begin only as separately planned Phase 7 work in its own worktree; never run
 it from the Phase 6 lane or count it toward Phase 6.
 
-### Phase 8B lane — selected P1/P2 extraction is next; broad acquisition is stopped
+### Phase 8B lane — closure verification only; external search is stopped
 
 Decision 0048, charter v1.25 and the [benchmark-corpus plan](plans/phase-8-measurement-corpus.md)
-govern. Preserve `evidence/phase8-target-book/` byte-for-byte and every accepted S0-S2 bundle.
-Quoted from the
-[round-0 report](../evidence/phase8b-s2-round0-reconnaissance/report.json), whose artifact index is
-SHA-256 `74e0b126e117bc66e22d6c8f04b01977a927b679f92885a8787860f375ac2a22`:
-round 0 remains `BOUNDED_OPEN`; 1,759 captured rows reduced to 1,553 identifiers; 28 valid NAS PDFs
-were acquired; all 49 local-plus-acquired PDFs / 1,242 pages were visually inspected; and zero new
-numeric rows were extracted. The 470 retained identifiers remain a review backlog, not a download
-list. Never issue same-host parallel requests or automatic retries.
+govern. Preserve Phase 8A and rejected plot-adjudication history byte-for-byte. The bounded targeted
+pass found no remaining load-bearing P0/P1 source gap, so do not resume broad discovery or download
+the residual backlog. Substantial source and normalized row bytes remain on the NAS.
 
-S2 selection is frozen at 18 P0 / 26 P1 / 5 P2; reproduce it with
-`node runner/src/phase8-benchmark-selection.ts verify --triage-root
-/Volumes/snowcrystal/research-cache/phase8b-search/offline-title-triage-20260811-v1 --bundle
-evidence/phase8b-benchmark-selection-v1`. S3 is published at
-`/Volumes/snowcrystal/research-cache/phase8b-derived/native-histories-20260812-v1/`; verify it with
-`node runner/src/phase8-native-history-verify.ts verify --content-root
-/Volumes/snowcrystal/research-cache/content --bundle
-/Volumes/snowcrystal/research-cache/phase8b-derived/native-histories-20260812-v1`. The five P2
-interpretation records are terminal. Finish the frozen two-reader extraction of the 26 P1 series,
-publish its metadata/hash bundle, then bind the gap/currency result, residual audit and successor
-book. Keep source renders and rights-restricted rows on the NAS. Phase 9 remains unchartered.
+Reproduce the closure candidate with `node runner/src/phase8-benchmark-final-verify.ts verify` using
+the exact arguments recorded in the active plan. Next run exact `TMPDIR=/private/tmp npm test`,
+verify from a clean detached checkout with the NAS mounted, obtain one proportionate non-author
+audit over the committed final bytes, then mark S7 and Phase 8B complete only if all return zero
+blockers. The proposed [Phase 9 plan](plans/phase-9-modular-physics-arms.md) remains unchartered and
+unauthorized; all 51 Phase 8B records are development evidence and none may be relabeled held out.
