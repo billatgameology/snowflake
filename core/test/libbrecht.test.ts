@@ -17,6 +17,7 @@ import {
   K_BOLTZMANN,
   mIce,
   NUCLEATION_PARAM_SETS,
+  nucleationABasal,
   nucleationAPrism,
   pSatIce,
   P_ATM,
@@ -380,6 +381,74 @@ describe("the M1 parameter set (ADR 0036 — Phase 6 arm 2)", () => {
     const cak = sigma0BasalFor(-14, "CAK") / sigma0PrismFor(-14, "CAK");
     expect(m1).toBeGreaterThan(10);
     expect(cak).toBeLessThan(2);
+  });
+});
+
+describe("the M1_NO_DIP_ABLATION parameter set (WP2 sub-unit A — the matched no-dip arm)", () => {
+  // Intended values until the WP3 freeze: the M2 broad-branch closed forms with A = 1 on both
+  // facets, and every other implemented kinetic choice identical to M1. The matched-pair claim —
+  // the ONLY changed outputs versus M1 are the dip-bearing quantities — is asserted here at the
+  // dispatch and alphaHK levels, bit-exactly.
+  it("dispatches to the M2 broad branch bit-exactly, with A = 1 on both facets", () => {
+    for (let tempC = -1; tempC >= -35; tempC -= 0.5) {
+      expect(
+        Object.is(sigma0BasalFor(tempC, "M1_NO_DIP_ABLATION"), sigma0BasalM2Broad(tempC)),
+      ).toBe(true);
+      expect(
+        Object.is(sigma0PrismFor(tempC, "M1_NO_DIP_ABLATION"), sigma0PrismM2Broad(tempC)),
+      ).toBe(true);
+      expect(nucleationAPrism(tempC, "M1_NO_DIP_ABLATION")).toBe(1);
+      expect(nucleationABasal(tempC, "M1_NO_DIP_ABLATION")).toBe(1);
+    }
+  });
+
+  it("matches M1 in everything except the dip factors, at the alphaHK level", () => {
+    // Both arms have unit prefactors, so alphaHK reduces to exp(-sigma0/sigmaSurf) on each
+    // facet; the arms may differ only through the sigma0 branch — exactly the dip factor.
+    for (const tempC of [-2, -4.5, -8, -14, -14.4, -21, -30, -35]) {
+      for (const sigmaSurf of [1e-3, 1e-2, 0.1]) {
+        expect(
+          Object.is(
+            alphaHK("basal", tempC, sigmaSurf, "M1_NO_DIP_ABLATION"),
+            Math.exp(-sigma0BasalM2Broad(tempC) / sigmaSurf),
+          ),
+        ).toBe(true);
+        expect(
+          Object.is(
+            alphaHK("prism", tempC, sigmaSurf, "M1_NO_DIP_ABLATION"),
+            Math.exp(-sigma0PrismM2Broad(tempC) / sigmaSurf),
+          ),
+        ).toBe(true);
+        expect(
+          Object.is(
+            alphaHK("basal", tempC, sigmaSurf, "M1"),
+            Math.exp(-sigma0BasalM1(tempC) / sigmaSurf),
+          ),
+        ).toBe(true);
+      }
+    }
+    // Near the dip centres the two arms genuinely separate; far from both they nearly agree.
+    expect(sigma0BasalFor(-4.5, "M1") / sigma0BasalFor(-4.5, "M1_NO_DIP_ABLATION")).toBeCloseTo(
+      0.13,
+      2,
+    );
+    expect(
+      sigma0PrismFor(-14.4, "M1") / sigma0PrismFor(-14.4, "M1_NO_DIP_ABLATION"),
+    ).toBeCloseTo(0.05, 2);
+  });
+
+  it("moves nothing for the three pre-existing sets through the extended dispatch", () => {
+    for (let tempC = -1; tempC >= -35; tempC -= 1) {
+      expect(Object.is(sigma0BasalFor(tempC, "M1"), sigma0BasalM1(tempC))).toBe(true);
+      expect(Object.is(sigma0PrismFor(tempC, "M1"), sigma0PrismM1(tempC))).toBe(true);
+      expect(Object.is(sigma0BasalFor(tempC, "CAK"), sigma0Basal(tempC))).toBe(true);
+      expect(Object.is(sigma0BasalFor(tempC, "CAK_A1"), sigma0Basal(tempC))).toBe(true);
+    }
+  });
+
+  it("inherits M1's registered 1…50 C domain guard", () => {
+    expect(() => sigma0BasalFor(-0.5, "M1_NO_DIP_ABLATION")).toThrow(/registered domain/);
+    expect(() => sigma0PrismFor(-51, "M1_NO_DIP_ABLATION")).toThrow(/registered domain/);
   });
 });
 

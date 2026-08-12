@@ -172,6 +172,10 @@ describe("evidence integrity (Phase 6 lessons, enforced)", () => {
       "phase6-sweep/diagram.svg": "40458703061af5b54d6629484aa84762fb995a15f5443904c3462d2ff5939234",
       // evidence/phase6-sweep-arm2/regeneration.json sidecar (erratum E4)
       "phase6-sweep-arm2/points.json": "b3fb4616d6413520f6505bfb6e1e068544622fee76bbca743f2aa01a7549a520",
+      // docs/PROGRESS.md arm-3 publication bullet (decision 0045)
+      "phase6-sweep-arm3/points.json": "08ec59ee47965abab414d339f1c39ce53e5b0dbf01aa6859185a087b243b9d73",
+      "phase6-sweep-arm3/report.json": "32d18a1dc3b3b30d3b868b91125d2aa85e18b7e03319d9e9b60b66565c57740e",
+      "phase6-sweep-arm3/diagram.svg": "bf229f942b043dc58b9bcca079516694fb1d824b2888c6a6191e09b372468709",
     };
     for (const [rel, want] of Object.entries(registered)) {
       const p = join(EVIDENCE, rel);

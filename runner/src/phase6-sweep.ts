@@ -37,6 +37,18 @@ import {
   phase6Arm2ValuesManifest,
 } from "./phase6-arm2-protocol.ts";
 import {
+  PHASE6_ARM3_FREEZE_COMMIT,
+  PHASE6_ARM3_ID,
+  PHASE6_ARM3_PARAM_SET,
+  PHASE6_ARM3_VALUES_SHA256,
+  phase6Arm3InHeadlineScope,
+  phase6Arm3IsBistable,
+  phase6Arm3JustificationManifest,
+  phase6Arm3ProtocolManifest,
+  phase6Arm3ScoreHabit,
+  phase6Arm3ValuesManifest,
+} from "./phase6-arm3-protocol.ts";
+import {
   PHASE6_DOMAIN_SPOT_CHECK,
   PHASE6_PARAM_SET,
   PHASE6_PROTOCOL_FREEZE_COMMIT,
@@ -150,6 +162,28 @@ export const PHASE6_ARM2: Phase6Arm = {
 };
 
 /**
+ * Arm 3 — the matched no-dip ablation arm. Decision 0045 item 4.
+ *
+ * Scoring fields are arm 2's FUNCTION OBJECTS, re-exported through the arm-3 module: the pair is
+ * registered as identical in every respect except `paramSet`, and sharing the implementation is
+ * what makes that unable to drift. `freezeCommit` reads the stage-1 pending marker until the
+ * two-commit landing completes, and preflight refuses the arm by name until it is 40-hex.
+ */
+export const PHASE6_ARM3: Phase6Arm = {
+  id: PHASE6_ARM3_ID,
+  paramSet: PHASE6_ARM3_PARAM_SET,
+  outDirName: "phase6-sweep-arm3",
+  valuesSha256: () => canonicalJsonSha256(phase6Arm3ValuesManifest()),
+  justificationSha256: () => canonicalJsonSha256(phase6Arm3JustificationManifest()),
+  scoreHabit: phase6Arm3ScoreHabit,
+  inHeadlineScope: phase6Arm3InHeadlineScope,
+  isBistable: phase6Arm3IsBistable,
+  diagramLabel: "no-dip ablation (M2 broad, A=1)",
+  freezeCommit: PHASE6_ARM3_FREEZE_COMMIT,
+  protocolSha256: () => canonicalJsonSha256(phase6Arm3ProtocolManifest()),
+};
+
+/**
  * Every registered value that reaches a sweep run through a CLI DEFAULT rather than the command
  * line, paired with the registered value it must equal.
  *
@@ -258,6 +292,7 @@ export function phase6CommandFlagFailures(
 export const PHASE6_ARM_VALUES_SHA256: Readonly<Record<string, string>> = {
   "arm1-cak": PHASE6_VALUES_SHA256,
   [PHASE6_ARM2_ID]: PHASE6_ARM2_VALUES_SHA256,
+  [PHASE6_ARM3_ID]: PHASE6_ARM3_VALUES_SHA256,
 };
 
 export interface Phase6PreflightReport {

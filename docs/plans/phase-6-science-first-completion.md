@@ -155,6 +155,38 @@ obligations — explicitly, by ADR and charter amendment, never silently. This p
 the 2026-08-01 rejection of "narrow O1b by ADR" recorded under Tried and rejected: that rejection
 remains in force for the headline and numerics, and is lifted for WP7 and WP5 only.
 
+**The maker's 2026-08-06 direction is binding and closes the campaign scope.** Recorded verbatim
+from an interactive maker session (Claude Fable 5 recording):
+
+> we already know the phase 6 run will not reproduce the nakaya diagram. are we doing all the
+> compute just for record and completeness? I am okay if it's less than a week, but if it's
+> more then we need to reevaluate
+
+After a written options review that included the proposed Phase 8/9 drafts, the maker selected
+the recommended bounded closure. Accepted decision
+[0045](../decisions/0045-bound-phase6-closure-to-a-compute-week.md) and charter v1.22 enact it:
+all remaining Phase 6 computation fits a seven-wall-clock-day envelope on the recorded host. The
+WP2 ladder executes budget-capped with its no-pass branch first-class, and **no production
+selection follows a pass** — stated in advance so the ladder's result cannot be outcome-shopped.
+ADR 0026's conservative-intersection headline, WP4's R15 production path, and WP6's three-arm
+campaign **close at measured-only grade**, stated in every report as *not computed by decision
+0045*, never as satisfied. One addition executes inside the envelope: a 204-point measured-only
+`M1_NO_DIP_ABLATION` sweep identical to the executed arm-2 configuration in every registered
+respect except `paramSet`, so the three arms are same-protocol comparable. WP2's reconnaissance
+Stage B (the ≤ 36-run three-arm matrix) is closed unexecuted — its purpose was ladder-axis
+freezing for a production campaign that no longer runs; Stage A completes as the ladder's cost
+input. WP3 shrinks to recording the closure in the gated values manifest (the arm-3 registration
+mirroring arm 2's schema; both historical manifests byte-identical). WP8's gate re-derives the
+amended obligation set per decision 0045. This supersedes the 2026-08-01 direction's remaining
+application to the headline and campaign; the strata freeze, the budget-capped ladder, honest
+labels, and every retained validity criterion stand.
+
+**Maker clarification, 2026-08-07, verbatim:** "we have already committed to this plan, if
+it's not perfectly done is 7 days, it's fine. let's focus on getting it done as efficiently as
+possible while maintaining science, accuracy, and record keeping at highest priority." The
+envelope bounds scope, not correctness: a unit that needs an extra day to be done right takes
+the extra day; no validity criterion, label, or record is ever traded for the calendar.
+
 The maker's 2026-08-02 sequencing direction is also binding: **freeze all further education-site
 work until Phase 6 is complete.** The landing page carries a prominent warning that the course is
 not the authoritative status or validation record. Preserve the current `docs/education/**` work
@@ -338,15 +370,34 @@ producer-supplied pass field is trusted.
   `research/tmp/recovery/wp1-v4x-root-apparatus-rejected-20260803/` and the isolated batch clone.
   Embedded future-tense instructions and open-finding states in those historical bytes have no
   current authority. No request, import, TAX2 measurement, publication, or solver row executed.
-- [ ] Write a new bounded plan for the narrowed task before implementation. It may consume only
+- [x] Write a new bounded plan for the narrowed task before implementation. It may consume only
   already-locked source observations and uncertainties, never model morphology output, a new
   literature search, or the rejected TAX2 apparatus. Freeze the simplest deterministic operator
   that maps the source record to one or more Nakaya-comparison physical-size strata plus explicit
   uncertainty/refusal outcomes; define how each stratum maps to physical seed size without choosing
-  a numerically or morphologically favorable result.
-- [ ] Obtain one proportionate non-author review of that operator and its source operands before
+  a numerically or morphologically favorable result. Completed 2026-08-06 under
+  [phase-6-wp1-size-strata.md](phase-6-wp1-size-strata.md): `runner/src/phase6-size-strata.ts`
+  consumes only the hash-pinned candidate lock and emits the frozen
+  `evidence/phase6-size-strata/strata.json` (18,867 bytes, SHA-256 `aba93698…d0288b6`) — stratum
+  S1 observed initial radius `[5.8999999999999995, 12.1]` µm over the 15 uncontested traces
+  (`716d` echoed, flagged, excluded per the lock's unresolved-mismatch pin), stratum S2 grown
+  mass-equivalent radius at 300 s `[9.472732790460505, 20.459585775743665]` µm under a declared
+  uniform-density closure whose central values are floors on half the true maximum dimension,
+  warm mass anchor W1 with a length-conversion refusal, seven refusals, and declared
+  condition-domain/size-scale extrapolations. S1 maps directly to physical seed size; S2 is a
+  grown measurement size seeded from the same trace family; the lattice mapping and Z choice
+  belong to WP2/WP3.
+- [x] Obtain one proportionate non-author review of that operator and its source operands before
   freezing any numeric stratum. If the unit fails twice, escalate options to the maker rather than
   rebuilding a third time. Publish only the reviewed freeze and exact operands needed by WP2.
+  Completed as a single three-round engagement (fresh-context non-author reviewer; read-only;
+  different-model status not established and recorded conservatively per Rule 10 in the WP1
+  plan's Review record): round 1 found two blockers (the contested `716d` radius set the S1
+  floor; an unsourced "~0.1–3 mm" Nakaya size claim), round 2 verified both repairs by
+  independent out-of-repo experiments and found one plan-text blocker plus a required Rule 10
+  provenance correction, round 3 CONFIRMED with 0 open blockers. 266 + 156 independently
+  recomputed values, all bit-exact. Exact `npm.cmd test` on the frozen tree exited 0 (Rule 7
+  clean over 436 files; both TypeScript projects; Vitest 82 files / 1,454 tests in 628.68 s).
 
 ### WP2 — numerical configuration campaign
 
@@ -614,7 +665,9 @@ source freezes, protocol manifests, raw result artifacts, and independently deri
 The 2026-08-03 direction partially supersedes that scheduling choice for two obligations only:
 decisions 0043 and 0044 defer scientifically incompatible held-out work and the non-parity GPU
 cohort. The conservative-intersection headline, numerical ladder, R15, and three-arm float64
-campaign remain in full.
+campaign remain in full. **Superseded further on 2026-08-06 by decision 0045:** the maker's
+bounded-closure direction closes the headline, R15 production path, and campaign at
+measured-only grade; the ladder still executes, budget-capped, with no-pass first-class.
 
 **Blindly execute the old N = 64 remediation.** Rejected by measurement: N = 64 fails against N =
 80 at three of four registered spot-check points. Spending a full sweep there would knowingly
