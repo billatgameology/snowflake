@@ -832,3 +832,21 @@ acceptances are not retroactively represented as reviews of the focused contract
   `evidence/phase8b-native-histories-v1/`. Substantial normalized rows remain only on the NAS
   because redistribution rights are unresolved. The result is model-development evidence, grants
   no validation claim and does not authorize Phase 9 execution.
+
+### S4 plot-operator registration — v1 rejected, v2 successor frozen before publication
+
+- **Rejected v1:** commit `a129c40` registered 26 series / 419 expected points. During independent
+  source reading, both readers separately counted 37 markers rather than 33 in each of the three
+  selected Libbrecht 2011 Figure 2 series. The coordinator visually confirmed the repeated marker
+  set. Figure 6 remains 32 markers per selected series. No coordinate-derived physical value was
+  used to choose or alter this correction.
+- **Narrow successor:** `research/phase8b-plot-operator-v2.json` changes only the operator identity,
+  registered-successor scope, NAS output root, and those three counts from 33 to 37. The corrected
+  total is 431 points. Source/render pins, panels, axes, validation anchors, reader protocol,
+  series semantics, exclusions, refusal rules, and the 26-series selection remain byte-equivalent
+  to v1 after removing the four named successor fields.
+- **Review:** a non-author Codex child independently computed that exact semantic diff, confirmed
+  the producer and separate verifier both bind v2, and ran the 17 focused tests plus both
+  TypeScript checks. Its only first-pass blocker was that the new metadata file inherited the
+  broad `research/*` ignore rule; the explicit v2 exception repairs that publication seam. The two
+  readers resume only after this successor is committed.

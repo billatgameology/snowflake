@@ -21,8 +21,8 @@ import {
   type StrictJson,
 } from "./gate4-evidence.ts";
 
-const OPERATOR = "phase8b-two-reader-plot-digitization-v1";
-const OPERATOR_PATH = "research/phase8b-plot-operator-v1.json";
+const OPERATOR = "phase8b-two-reader-plot-digitization-v2";
+const OPERATOR_PATH = "research/phase8b-plot-operator-v2.json";
 const SELECTION_PATH = "evidence/phase8b-benchmark-selection-v1/selection.jsonl";
 const SELECTION_SHA256 = "d4d883b321949155e4ca462b594c6a443acd233719bc8f8c5ffc17e694516537";
 const METADATA_NAMES = ["artifact-index.json", "operator.json", "records.jsonl", "report.json"] as const;
@@ -35,7 +35,7 @@ const IMPLEMENTATION_PATHS = [
 ] as const;
 
 type JsonObject = { readonly [key: string]: StrictJson };
-type Scope = "registered-20260812" | "test-fixture";
+type Scope = "registered-successor-20260812" | "test-fixture";
 type AxisTransform = "linear" | "log10";
 type SourceStatus = "direct-observation" | "source-derived-ratio" | "imposed-forcing";
 type ReaderId = "read-a" | "read-b";
@@ -353,7 +353,7 @@ function parseRegistration(bytes: Uint8Array, label: string): Registration {
     throw new Error(`${label} identity differs`);
   }
   const scopeValue = string(root.scope, `${label}.scope`);
-  if (scopeValue !== "registered-20260812" && scopeValue !== "test-fixture") throw new Error(`${label}.scope is invalid`);
+  if (scopeValue !== "registered-successor-20260812" && scopeValue !== "test-fixture") throw new Error(`${label}.scope is invalid`);
   const selection = object(root.selection, `${label}.selection`);
   exactKeys(selection, ["path", "sha256", "p1SeriesCount"], `${label}.selection`);
   const selectionPath = string(selection.path, `${label}.selection.path`);
@@ -557,7 +557,7 @@ function validateRegistrationGraph(registration: Registration, label: string): v
   if (registration.series.length !== registration.selection.p1SeriesCount) {
     throw new Error(`${label} P1 series count differs from selection declaration`);
   }
-  if (registration.scope === "registered-20260812") {
+  if (registration.scope === "registered-successor-20260812") {
     if (registration.selection.path !== SELECTION_PATH || registration.selection.sha256 !== SELECTION_SHA256 ||
         registration.selection.p1SeriesCount !== 26 || registration.renderer.name !== "pdfimages" ||
         registration.roots.physicalStorageRoot !== "/Volumes/snowcrystal") {
@@ -588,7 +588,7 @@ function parseSelection(bytes: Uint8Array, registration: Registration): Readonly
     if (record.priorityClass !== "P1") continue;
     const id = string(record.id, `selection line ${index + 1}.id`);
     if (results.has(id)) throw new Error(`selection duplicates P1 ID ${id}`);
-    if (registration.scope === "registered-20260812") {
+    if (registration.scope === "registered-successor-20260812") {
       if (record.schema !== "phase8b-benchmark-selection-v1" || record.recordKind !== "benchmark-selection" ||
           record.phase9EvidenceRole !== "model-development" ||
           record.numericTargetCoordinatesExtractedBeforeSelection !== false ||
@@ -610,7 +610,7 @@ function parseSelection(bytes: Uint8Array, registration: Registration): Readonly
   }
   if (results.size !== registration.selection.p1SeriesCount) throw new Error("selection P1 count differs");
   exactSet(results.keys(), registration.series.map((series) => series.selectionId), "selection/registration P1 roster");
-  if (registration.scope === "registered-20260812") {
+  if (registration.scope === "registered-successor-20260812") {
     const plotById = new Map(registration.plots.map((plot) => [plot.plotId, plot]));
     const renderById = new Map(registration.renders.map((render) => [render.renderId, render]));
     for (const series of registration.series) {
@@ -904,7 +904,7 @@ export function verifyPhase8PlotPublication(inputs: Phase8PlotVerifyInputs): Pha
   parseSelection(inputs.selectionBytes, registration);
 
   exactSet(inputs.sourcePdfs.keys(), registration.sourcePdfs.map((item) => item.fileName), "source PDF input set");
-  if (registration.scope === "registered-20260812" && inputs.sourcePdfPageCounts === undefined) {
+  if (registration.scope === "registered-successor-20260812" && inputs.sourcePdfPageCounts === undefined) {
     throw new Error("registered verification lacks independent PDF page counts");
   }
   if (inputs.sourcePdfPageCounts !== undefined) {
@@ -913,7 +913,7 @@ export function verifyPhase8PlotPublication(inputs: Phase8PlotVerifyInputs): Pha
   for (const source of registration.sourcePdfs) {
     const bytes = inputs.sourcePdfs.get(source.fileName) as Uint8Array;
     assertPin(bytes, source, `source PDF ${source.fileName}`);
-    if (registration.scope === "registered-20260812") assertPdfEnvelope(bytes, `source PDF ${source.fileName}`);
+    if (registration.scope === "registered-successor-20260812") assertPdfEnvelope(bytes, `source PDF ${source.fileName}`);
     const independentPageCount = inputs.sourcePdfPageCounts?.get(source.fileName);
     if (independentPageCount !== undefined && independentPageCount !== source.pageCount) {
       throw new Error(`source PDF ${source.fileName} page count differs`);

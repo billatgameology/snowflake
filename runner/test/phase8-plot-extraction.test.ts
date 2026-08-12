@@ -70,7 +70,7 @@ function fixture(): Fixture {
   ]);
   const registration: Phase8PlotRegistration = {
     schema: "phase8b-plot-operator-registration-v1",
-    operator: "phase8b-two-reader-plot-digitization-v1",
+    operator: "phase8b-two-reader-plot-digitization-v2",
     scope: "test-fixture",
     selection: { path: "fixture-selection.jsonl", sha256: sha256Bytes(selectionBytes), p1SeriesCount: 2 },
     roots: {
@@ -178,9 +178,9 @@ function fixture(): Fixture {
 }
 
 describe("Phase 8B plot extraction", () => {
-  it("parses the frozen 26-series operator before target-coordinate reading", () => {
+  it("parses the registered 26-series successor after the source-count correction", () => {
     const selectionBytes = readFileSync("evidence/phase8b-benchmark-selection-v1/selection.jsonl");
-    const registration = parsePhase8PlotRegistration(readFileSync("research/phase8b-plot-operator-v1.json"));
+    const registration = parsePhase8PlotRegistration(readFileSync("research/phase8b-plot-operator-v2.json"));
     const selectedP1Ids = selectionBytes.toString("utf8").trimEnd().split("\n")
       .map((line) => JSON.parse(line) as { id: string; priorityClass: string })
       .filter((row) => row.priorityClass === "P1")
@@ -188,7 +188,10 @@ describe("Phase 8B plot extraction", () => {
       .sort();
     expect(registration.selection.sha256).toBe(sha256Bytes(selectionBytes));
     expect(registration.series.map((series) => series.selectionId).sort()).toEqual(selectedP1Ids);
-    expect(registration.series.reduce((sum, series) => sum + series.expectedPointCount, 0)).toBe(419);
+    expect(registration.series.reduce((sum, series) => sum + series.expectedPointCount, 0)).toBe(431);
+    expect(registration.series
+      .filter((series) => series.selectionId.startsWith("P8B-P1-L11-F2-C1-"))
+      .map((series) => series.expectedPointCount)).toEqual([37, 37, 37]);
     expect(registration.series.reduce((sum, series) => sum + series.preReadRefusal.candidateCount, 0)).toBe(8);
     expect(registration.plots).toHaveLength(18);
     expect(registration.renders).toHaveLength(8);

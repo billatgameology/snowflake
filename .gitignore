@@ -14,8 +14,9 @@ research/*
 !research/lab-validation-dataset.jsonl
 # Phase 8's own canonical target book (annotations and citations only, no source media).
 !research/phase8-target-book.jsonl
-# Our own Phase 8B preregistered plot operator (metadata only; no source media or coordinates).
+# Our own Phase 8B registered plot operators (metadata only; no source media or coordinates).
 !research/phase8b-plot-operator-v1.json
+!research/phase8b-plot-operator-v2.json
 # Our own Phase 6 source-lock metadata and extracted observations; contains no third-party media.
 !research/phase6-heldout-candidate-lock.json
 # Exact maker-rejected WP1 V4/V4.x history; retained as records, never executable authority.

@@ -1,8 +1,10 @@
-// Phase 8B S4 — preregistered two-reader plot digitization.
+// Phase 8B S4 — registered two-reader plot digitization.
 //
-// The registration fixes source/render identity, axes, series semantics, marker rules and
-// refusal thresholds before target point coordinates are supplied. The producer keeps raw reads
-// and normalized row bodies on the NAS; Git receives only schemas, provenance, counts and hashes.
+// Version 1 fixed source/render identity, axes, series semantics, marker rules and refusal
+// thresholds before target point coordinates were supplied. Version 2 is the narrow successor
+// that corrects three expected marker counts after both readers independently found the same
+// source-count mismatch. The producer keeps raw reads and normalized row bodies on the NAS; Git
+// receives only schemas, provenance, counts and hashes.
 
 import { randomUUID } from "node:crypto";
 import {
@@ -24,8 +26,8 @@ import {
   type StrictJson,
 } from "./gate4-evidence.ts";
 
-export const PHASE8_PLOT_OPERATOR = "phase8b-two-reader-plot-digitization-v1" as const;
-export const PHASE8_PLOT_OPERATOR_PATH = "research/phase8b-plot-operator-v1.json" as const;
+export const PHASE8_PLOT_OPERATOR = "phase8b-two-reader-plot-digitization-v2" as const;
+export const PHASE8_PLOT_OPERATOR_PATH = "research/phase8b-plot-operator-v2.json" as const;
 export const PHASE8_PLOT_SELECTION_PATH =
   "evidence/phase8b-benchmark-selection-v1/selection.jsonl" as const;
 export const PHASE8_PLOT_SELECTION_SHA256 =
@@ -121,7 +123,7 @@ export interface Phase8PlotSeriesSpec {
 export interface Phase8PlotRegistration {
   readonly schema: "phase8b-plot-operator-registration-v1";
   readonly operator: typeof PHASE8_PLOT_OPERATOR;
-  readonly scope: "registered-20260812" | "test-fixture";
+  readonly scope: "registered-successor-20260812" | "test-fixture";
   readonly selection: {
     readonly path: string;
     readonly sha256: string;
@@ -277,7 +279,7 @@ function parseRegistrationValue(value: StrictJson): Phase8PlotRegistration {
   if (root.schema !== "phase8b-plot-operator-registration-v1") throw new Error("operator registration schema mismatch");
   if (root.operator !== PHASE8_PLOT_OPERATOR) throw new Error("operator mismatch");
   const scope = string(root.scope, "scope");
-  if (scope !== "registered-20260812" && scope !== "test-fixture") throw new Error("scope is invalid");
+  if (scope !== "registered-successor-20260812" && scope !== "test-fixture") throw new Error("scope is invalid");
   const selection = object(root.selection as StrictJson, "selection");
   exactKeys(selection, ["path", "sha256", "p1SeriesCount"], "selection");
   const roots = object(root.roots as StrictJson, "roots");
@@ -481,7 +483,7 @@ function validateRegistrationGraph(registration: Phase8PlotRegistration): void {
     if (!plotIds.has(row.plotId)) throw new Error(`series ${row.selectionId} has an unknown plotId`);
   }
   if (registration.series.length !== registration.selection.p1SeriesCount) throw new Error("registered P1 series count mismatch");
-  if (registration.scope === "registered-20260812" && registration.renderer.name !== "pdfimages") {
+  if (registration.scope === "registered-successor-20260812" && registration.renderer.name !== "pdfimages") {
     throw new Error("registered operator must use pdfimages renders");
   }
   if (!isAbsolute(registration.roots.physicalStorageRoot)) throw new Error("physicalStorageRoot must be absolute");
@@ -495,7 +497,7 @@ function validateRegistrationGraph(registration: Phase8PlotRegistration): void {
       throw new Error(`${name} must be a safe relative path`);
     }
   }
-  if (registration.scope === "registered-20260812" && registration.roots.physicalStorageRoot !== "/Volumes/snowcrystal") {
+  if (registration.scope === "registered-successor-20260812" && registration.roots.physicalStorageRoot !== "/Volumes/snowcrystal") {
     throw new Error("registered operator must bind the snowcrystal NAS mount");
   }
 }
@@ -627,7 +629,7 @@ function assertExactMapKeys(actual: Iterable<string>, expected: readonly string[
 
 export function derivePhase8PlotBundle(inputs: Phase8PlotInputs): Phase8PlotBundle {
   const registration = parsePhase8PlotRegistration(inputs.registrationBytes);
-  if (registration.scope === "registered-20260812") {
+  if (registration.scope === "registered-successor-20260812") {
     if (registration.selection.path !== PHASE8_PLOT_SELECTION_PATH || registration.selection.sha256 !== PHASE8_PLOT_SELECTION_SHA256) {
       throw new Error("registered operator is not bound to the frozen S2 selection");
     }
