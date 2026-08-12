@@ -850,3 +850,26 @@ acceptances are not retroactively represented as reviews of the focused contract
   TypeScript checks. Its only first-pass blocker was that the new metadata file inherited the
   broad `research/*` ignore rule; the explicit v2 exception repairs that publication seam. The two
   readers resume only after this successor is committed.
+
+### S4 P2 terminal records — accepted
+
+- **Terminal coverage:** `evidence/phase8b-p2-terminal-v1/records.jsonl` is 15,900 bytes / SHA-256
+  `933c968420c54be134fcdc6f8b13d217e6c77700c9c3e580b4cadbafd04a7862` and binds exactly the five
+  selected P2 dependencies. All five are terminal, all remain model development, and they contain
+  zero target-coordinate rows.
+- **Source-limited history:** the two −50 °C dimension histories remain usable only for
+  dimension-versus-time and the source-labelled 13,800 s change point. The archive does not define
+  whether its `48%` and `20%` labels are ice-relative, water-relative, ambient, far-field,
+  witness-surface, or surface supersaturation. Conversion to solver `sigmaInfinity`, an inferred
+  forcing uncertainty, or an absolute forcing-response score is forbidden until the first-report
+  Methods are acquired.
+- **Preserved discrepancies:** the records retain the 2013→2016 Libbrecht interpretation
+  supersession without retracting raw observations, the 17 heterogeneous archive histories versus
+  17 table rows with only 16 defensible joins, the archive-only `625` and table-only −31.5 °C
+  required absences, the 18-row homogeneous table versus 17-experiment analysis denominator, and
+  the fitted-input/leakage guard.
+- **Independent audit:** a non-author Codex child resolved all 17 referenced IDs, re-read the
+  relevant PDF pages and archive headers, recomputed every report count/hash, and returned `PASS`
+  with zero blockers. Its bounded limit was no network replay of the four unarchived S5 metadata
+  requests; that does not lift the explicit HP25 source restriction or make the missing Methods
+  nonterminally load-bearing.

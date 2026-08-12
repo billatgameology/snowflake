@@ -1,0 +1,1 @@
+{"artifacts":[{"byteLength":15900,"format":"canonical-jsonl","path":"records.jsonl","sha256":"933c968420c54be134fcdc6f8b13d217e6c77700c9c3e580b4cadbafd04a7862"},{"byteLength":1250,"format":"canonical-json","path":"report.json","sha256":"0a54b351274e9f50ed8b2a893cef52c364786541038ff00fdce59270fd5fc07e"}],"schema":"phase8b-p2-terminal-index-v1"}

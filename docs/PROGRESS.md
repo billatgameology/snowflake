@@ -46,6 +46,9 @@ index, a plan, ADR, or audit links to historical detail.
   `ACCEPT` with zero blockers. S3 is also complete: all 18 P0 native histories are normalized on
   the NAS as 252,134 exact source-lexeme rows / 8,260,015 TSV bytes and independently verified
   against both archives and 19 expanded mirrors. Git retains only their metadata and hashes.
+  All five P2 records are terminal and independently audited (zero coordinate rows or blockers); the
+  two −50 °C histories permit only dimension/time and source-labelled change-point use until their
+  first-report Methods define the `48%`/`20%` forcing semantics.
   Phase 7 is completely standalone from the completion of Phases 6 and 8: it is not started and
   still needs its own committed plan/worktree, but neither phase gates it. Its existing product,
   held-out-validation, and GPU-parity scope remains. Phase 9 and Phase 10 remain uncharted.
@@ -224,7 +227,7 @@ evidence/phase8b-benchmark-selection-v1`. S3 is published at
 `/Volumes/snowcrystal/research-cache/phase8b-derived/native-histories-20260812-v1/`; verify it with
 `node runner/src/phase8-native-history-verify.ts verify --content-root
 /Volumes/snowcrystal/research-cache/content --bundle
-/Volumes/snowcrystal/research-cache/phase8b-derived/native-histories-20260812-v1`. Next freeze the
-plot/table operator and extract only the 26 selected P1 series plus five P2 interpretation records,
-then run one targeted gap/currency pass. Keep source renders and any rights-restricted digitized
-rows on the NAS. Phase 9 remains unchartered.
+/Volumes/snowcrystal/research-cache/phase8b-derived/native-histories-20260812-v1`. The five P2
+interpretation records are terminal. Finish the frozen two-reader extraction of the 26 P1 series,
+publish its metadata/hash bundle, then bind the gap/currency result, residual audit and successor
+book. Keep source renders and rights-restricted rows on the NAS. Phase 9 remains unchartered.
