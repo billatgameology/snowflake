@@ -187,6 +187,22 @@ are reopened and re-derived from their published bytes.
   candidate or start another full audit. Then freeze and publish. Focused checks are sufficient during development;
   run exact `TMPDIR=/private/tmp npm test` once at the freeze. S4, not S1, owns detailed
   extraction/digitization calibration before target coordinates are read.
+- [ ] **S1a — Freeze the maker-authorized route-readiness successor.** Before any counted S2
+  request, preserve the accepted S1 bundle byte-for-byte and publish a separate versioned successor
+  that makes only the route changes needed to use the access the maker actually supplied. Replace
+  the credentialed CiNii OpenSearch recipe with the anonymous experimental CiNii Research Knowledge
+  Graph endpoint, pin its exact SPARQL request and official service description, and state in both
+  the route and protocol that its data are a 2024-04-04 snapshot which cannot establish current
+  coverage through the 2026-08-11 project cutoff. Read the OpenAlex key directly from the maker's
+  NAS file at smoke/search runtime; never print, copy into the repository, or record it in evidence.
+  Stop treating `PHASE8_CONTACT_EMAIL` as a credential for public Crossref, DataCite, and NASA NTRS
+  reads: use truthful generic client identification and conservative pacing, and record a live
+  blocker if an endpoint actually requires contact rather than inventing an identity. Exercise
+  uncounted smoke requests for the changed/readied routes, reuse the existing small class-level
+  controls, and publish the successor only after a bounded non-author review of the changed and
+  load-bearing request/response/provenance bytes plus exact `TMPDIR=/private/tmp npm test`. Do not
+  reopen the accepted S1 review or build new proof machinery. Any unresolved live route, pagination,
+  retention-rights, snapshot-currency, or acquisition failure remains `BOUNDED_OPEN` under S2.
 - [ ] **S2 — Execute the bounded external search and acquire governing bytes.** Run the complete
   query matrix and priority queue, then exact DOI/title/author, backward/forward citation,
   later-author-output, correction, supplement, and dataset screens. Each round freezes the complete

@@ -218,9 +218,13 @@ load-bearing request-provenance seams, accepted their bounded repair, then accep
 exact bytes with zero unresolved S1 blockers. Exact `TMPDIR=/private/tmp npm test` passed after the
 publication was staged. The interrupted 21,695-line proof system remains only
 as rejected WIP under `tmp/phase8b-overbuilt-s1-wip-20260811/` and must not be restored wholesale.
-Next, supply `PHASE8_CONTACT_EMAIL`, `CINII_APP_ID` and `OPENALEX_API_KEY`, clear or preserve the
-three explicit arXiv/DOI-publisher/Semantic-Scholar route blockers, and execute the registered S2
-search without changing its cells. S4 owns extraction calibration. No counted search or coordinate
-read has run.
+The maker has now authorized the anonymous CiNii trial and supplied an OpenAlex key in an NAS-only
+file. Before counted search, freeze plan step S1a as a separate successor: keep accepted S1
+immutable, register CiNii's 2024-04-04 Knowledge Graph snapshot without claiming post-snapshot
+coverage, consume the OpenAlex key only at runtime without recording it, and remove the false
+`PHASE8_CONTACT_EMAIL` credential gate from the public Crossref, DataCite, and NASA NTRS reads.
+Then run uncounted route smokes and a bounded changed-byte review, clear or preserve the explicit
+live route blockers, and execute S2 only if the successor's registered closure conditions permit
+it. S4 owns extraction calibration. No counted search or coordinate read has run.
 Preserve `evidence/phase8-target-book/` byte-for-byte and keep all 8B evidence separate.
 Phase 9 remains unchartered and cannot start from either milestone alone.
