@@ -428,6 +428,14 @@ export function validatePhase8PlotAdjudicationReferences(
       const a = rawPixels(rawA);
       const b = rawPixels(rawB);
       if ((a.orderSpanTopPixelY === undefined) !== (b.orderSpanTopPixelY === undefined)) throw new Error(`reader-mean span presence differs: ${row.seriesId}/${row.physicalPointId}`);
+      const differences = [Math.abs(a.pixelX - b.pixelX), Math.abs(a.pixelY - b.pixelY)];
+      if (a.orderSpanTopPixelY !== undefined) {
+        differences.push(
+          Math.abs((a.orderSpanTopPixelY as number) - (b.orderSpanTopPixelY as number)),
+          Math.abs((a.orderSpanBottomPixelY as number) - (b.orderSpanBottomPixelY as number)),
+        );
+      }
+      if (Math.max(...differences) > row.thresholdPixels) throw new Error(`reader-mean source exceeds registered threshold: ${row.seriesId}/${row.physicalPointId}`);
       expected = {
         pixelX: (a.pixelX + b.pixelX) / 2,
         pixelY: (a.pixelY + b.pixelY) / 2,

@@ -417,6 +417,17 @@ export function verifyPhase8PlotV3Publication(repositoryRootInput: string, metad
       const a = rawPixels(rawA);
       const b = rawPixels(rawB);
       if ((a.orderSpanTopPixelY === undefined) !== (b.orderSpanTopPixelY === undefined)) throw new Error(`reader-mean span presence differs ${physicalKey}`);
+      const differences = [
+        Math.abs(number(a.pixelX, "A x") - number(b.pixelX, "B x")),
+        Math.abs(number(a.pixelY, "A y") - number(b.pixelY, "B y")),
+      ];
+      if (a.orderSpanTopPixelY !== undefined) {
+        differences.push(
+          Math.abs(number(a.orderSpanTopPixelY, "A top") - number(b.orderSpanTopPixelY, "B top")),
+          Math.abs(number(a.orderSpanBottomPixelY, "A bottom") - number(b.orderSpanBottomPixelY, "B bottom")),
+        );
+      }
+      if (Math.max(...differences) > row.thresholdPixels) throw new Error(`reader-mean source exceeds registered threshold ${physicalKey}`);
       expectedAccepted = {
         pixelX: (number(a.pixelX, "A x") + number(b.pixelX, "B x")) / 2,
         pixelY: (number(a.pixelY, "A y") + number(b.pixelY, "B y")) / 2,

@@ -73,6 +73,21 @@ describe("Phase 8B adjudicated plot publication", () => {
       .toThrow(/accepted pixels do not equal acceptedFrom source/);
   });
 
+  it("rejects a reader mean whose raw spread exceeds the registered threshold", () => {
+    const row = { ...accepted("series-a", "p001"), thresholdPixels: 5, accepted: { pixelX: 15, pixelY: 20 } };
+    const raw = (readerId: "read-a" | "read-b", pixelX: number) => ({
+      schema: "phase8b-plot-read-v1" as const,
+      readerId,
+      seriesId: "series-a",
+      pointId: "p001",
+      pixelX,
+      pixelY: 20,
+      markerStatus: "clear" as const,
+    });
+    expect(() => validatePhase8PlotAdjudicationReferences([row], [raw("read-a", 10)], [raw("read-b", 20)]))
+      .toThrow(/reader-mean source exceeds registered threshold/);
+  });
+
   it("builds all 431 registered rows from a complete adjudicated fixture", () => {
     const baseOperatorBytes = new Uint8Array(readFileSync("research/phase8b-plot-operator-v2.json"));
     const selectionBytes = new Uint8Array(readFileSync("evidence/phase8b-benchmark-selection-v1/selection.jsonl"));
