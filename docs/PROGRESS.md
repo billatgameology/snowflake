@@ -28,6 +28,8 @@ index, a plan, ADR, or audit links to historical detail.
   Decision [0048](decisions/0048-focus-phase8b-on-phase9-ready-benchmarks.md) and charter v1.25
   preserve the completed [Phase 8A target book](plans/phase-8-what-is-real.md) byte-for-byte and
   focus the [Phase 8B corpus](plans/phase-8-measurement-corpus.md) on measurements Phase 9 can use.
+  Phase 8B writes separate artifacts; the immutable Phase 8A book remains 59,019 bytes / SHA-256
+  `47a75f3fcc499d74d36cd08eeaed7f4e839bf991deb179fa19ce809d57e171ec`.
   Quoted from [`evidence/phase8b-benchmark-final-v1/report.json`](../evidence/phase8b-benchmark-final-v1/report.json):
   the successor contains 51 model-development records (18 P0 / 28 P1 / 5 P2), zero held-out rows,
   252,134 native history rows, 431 adjudicated plot points and zero P2 coordinate rows. Its
@@ -203,9 +205,10 @@ govern. Preserve Phase 8A and rejected plot-adjudication history byte-for-byte. 
 pass found no remaining load-bearing P0/P1 source gap, so do not resume broad discovery or download
 the residual backlog. Substantial source and normalized row bytes remain on the NAS.
 
-Reproduce the closure candidate with `node runner/src/phase8-benchmark-final-verify.ts verify` using
-the exact arguments recorded in the active plan. Next run exact `TMPDIR=/private/tmp npm test`,
-verify from a clean detached checkout with the NAS mounted, obtain one proportionate non-author
-audit over the committed final bytes, then mark S7 and Phase 8B complete only if all return zero
-blockers. The proposed [Phase 9 plan](plans/phase-9-modular-physics-arms.md) remains unchartered and
-unauthorized; all 51 Phase 8B records are development evidence and none may be relabeled held out.
+Reproduce the closure candidate with the exact command recorded in the active plan. Next run exact
+`TMPDIR=/private/tmp npm test`, verify from a clean detached checkout with the NAS mounted, and
+obtain one proportionate non-author audit over the committed final bytes; close S7 and the phase
+only if all return zero blockers. Preserve `evidence/phase8-target-book/` byte-for-byte.
+Phase 9 remains unchartered and unauthorized; its proposed
+[consumer plan](plans/phase-9-modular-physics-arms.md) does not alter that status. All 51 Phase 8B
+records are development evidence and none may be relabeled held out.

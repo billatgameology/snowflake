@@ -268,6 +268,24 @@ classification. Freeze candidates are reopened and re-derived from their publish
   deferrals/exclusions for missed benchmark material. Close only with zero unresolved blockers and
   the exact charter counts.
 
+### S7 exact reproduction command
+
+Run from the repository root with the NAS mounted. This is the complete final-verifier invocation;
+the acquired-source directory is deliberately distinct from the native-history content root.
+
+```sh
+node runner/src/phase8-benchmark-final-verify.ts verify \
+  --repository-root . \
+  --bundle evidence/phase8b-benchmark-final-v1 \
+  --content-root /Volumes/snowcrystal/research-cache/content \
+  --native-bundle /Volumes/snowcrystal/research-cache/phase8b-derived/native-histories-20260812-v1 \
+  --plot-metadata-root evidence/phase8b-plot-digitization-v3 \
+  --plot-verifier runner/src/phase8-plot-extraction-v3-verify.ts \
+  --plot-source-root /Volumes/snowcrystal/research-cache/phase8b-search/acquired-sources-20260811-v1 \
+  --plot-render-root /Volumes/snowcrystal/research-cache/phase8b-derived/plot-renders-20260812-v1 \
+  --plot-bundle /Volumes/snowcrystal/research-cache/phase8b-derived/plot-extraction-20260812-v3
+```
+
 ## Progress-update points
 
 Update `docs/PROGRESS.md` after the decision-0048 plan freeze, benchmark-selection freeze, each

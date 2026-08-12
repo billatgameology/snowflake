@@ -27,7 +27,7 @@ const FORBIDDEN_SEQUENCING = [
   "Then freeze the source set and run the two zero-addition rounds",
 ];
 const PHASE8_STATUS_LINE =
-  "- **Phase 8A is COMPLETE (2026-08-10); Phase 8B is ACTIVE AND INCOMPLETE (2026-08-11).**";
+  "- **Phase 8A is COMPLETE (2026-08-10); Phase 8B has a verified closure candidate (2026-08-12).**";
 const PHASE8_GATE_PREFIX = "| 8 | **8A complete; 8B active and incomplete** |";
 const PHASE7_GATE_PREFIX = "| 7 | Not started; independently eligible |";
 const CONTRADICTORY_STATE_PATTERNS = [
@@ -52,14 +52,15 @@ function currentIndexErrors(text: string): string[] {
   const errors: string[] = [];
   const required = [
     "Phase 6 is ACTIVE AND INCOMPLETE",
-    "Phase 8A is COMPLETE (2026-08-10); Phase 8B is ACTIVE AND INCOMPLETE (2026-08-11)",
+    "Phase 8A is COMPLETE (2026-08-10); Phase 8B has a verified closure candidate (2026-08-12)",
     "47a75f3fcc499d74d36cd08eeaed7f4e839bf991deb179fa19ce809d57e171ec",
     "Phase 8B writes separate artifacts",
     "Decision [0048]",
-    "selected P1/P2 extraction is next",
-    "S2 selection is frozen at 18 P0 / 26 P1 / 5 P2",
-    "all 18 P0 native histories are normalized",
-    "The 470 retained identifiers remain a review backlog",
+    "51 model-development records (18 P0 / 28 P1 / 5 P2)",
+    "252,134 native history rows",
+    "431 adjudicated plot points",
+    "corrected residual sample is 0/9 misses",
+    "closure verification only; external search is stopped",
     "Preserve `evidence/phase8-target-book/` byte-for-byte",
     "Phase 7 is completely standalone",
     "Phase 9 remains unchartered",
@@ -201,14 +202,14 @@ describe("compact progress index and byte-exact historical record", () => {
     expect(currentIndexErrors(current.replace("Phase 6 is ACTIVE AND INCOMPLETE", "Phase 6 is complete")))
       .toContain("missing current-state phrase: Phase 6 is ACTIVE AND INCOMPLETE");
     const phase8StatusMutation = current.replace(
-      "Phase 8A is COMPLETE (2026-08-10); Phase 8B is ACTIVE AND INCOMPLETE (2026-08-11)",
+      "Phase 8A is COMPLETE (2026-08-10); Phase 8B has a verified closure candidate (2026-08-12)",
       "Phase 8 is inactive",
     );
     expect(phase8StatusMutation).not.toBe(current);
     expect(currentIndexErrors(phase8StatusMutation))
       .toContain(
         "missing current-state phrase: "
-          + "Phase 8A is COMPLETE (2026-08-10); Phase 8B is ACTIVE AND INCOMPLETE (2026-08-11)",
+          + "Phase 8A is COMPLETE (2026-08-10); Phase 8B has a verified closure candidate (2026-08-12)",
       );
     const phase8IdentityMutation = current.replace(
       "47a75f3fcc499d74d36cd08eeaed7f4e839bf991deb179fa19ce809d57e171ec",
