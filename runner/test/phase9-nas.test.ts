@@ -1,56 +1,64 @@
-import { mkdirSync, mkdtempSync, symlinkSync, writeFileSync } from "node:fs";
+import { mkdirSync, mkdtempSync, realpathSync, symlinkSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { describe, expect, it } from "vitest";
 import {
-  configuredPhase9NasRoot,
-  defaultPhase9NasRoot,
-  phase9NasArtifactPath,
-  phase9NasRelativePath,
-  verifiedPhase9NasArtifactPath,
+  assertPhase9ShareRelativePath,
+  detectPhase9NasRoot,
+  normalizeFrozenKnowledgeNasPath,
+  resolvePhase9NasFile,
 } from "../src/phase9-nas.js";
 
-function makeTempDir(prefix: string): string {
-  return mkdtempSync(join(tmpdir(), prefix));
+function makeNasFixture(prefix = "phase9-nas-"): string {
+  const root = mkdtempSync(join(tmpdir(), prefix));
+  mkdirSync(join(root, "research-cache"));
+  return root;
 }
 
 describe("Phase 9 NAS resolver", () => {
-  it("uses the explicit absolute override and platform defaults", () => {
-    expect(configuredPhase9NasRoot({ VCC_NAS_ROOT: "/data/snow" }, "linux")).toBe(
-      "/data/snow",
+  it("uses an attached explicit override and detects either platform mount candidate", () => {
+    const macStyle = makeNasFixture("phase9-mac-mount-");
+    const windowsStyle = makeNasFixture("phase9-windows-mount-");
+    expect(detectPhase9NasRoot({ VCC_NAS_ROOT: macStyle })).toBe(`${macStyle}/`);
+    expect(detectPhase9NasRoot({}, ["/missing-phase9-mount", windowsStyle])).toBe(`${windowsStyle}/`);
+    expect(detectPhase9NasRoot({}, ["/missing-phase9-mount"])).toBeNull();
+    expect(() => detectPhase9NasRoot({ VCC_NAS_ROOT: "/missing-phase9-mount" })).toThrow(
+      /does not contain research-cache/u,
     );
-    expect(defaultPhase9NasRoot("darwin")).toBe("/Volumes/snowcrystal");
-    expect(defaultPhase9NasRoot("win32")).toBe("S:/");
-    expect(() => configuredPhase9NasRoot({ VCC_NAS_ROOT: "relative" }, "darwin")).toThrow(
-      /absolute/u,
-    );
-    expect(() => defaultPhase9NasRoot("linux")).toThrow(/VCC_NAS_ROOT/u);
   });
 
-  it("resolves only contained relative logical paths", () => {
-    expect(phase9NasArtifactPath("/data/snow", "research-cache/source.pdf")).toBe(
-      "/data/snow/research-cache/source.pdf",
+  it("accepts only normalized share-relative POSIX identities", () => {
+    expect(() => assertPhase9ShareRelativePath("research-cache/source.pdf")).not.toThrow();
+    for (const path of ["", "/absolute.pdf", "../escape.pdf", "a/../escape.pdf", "a\\b.pdf", "a//b.pdf"]) {
+      expect(() => assertPhase9ShareRelativePath(path), path).toThrow(/share-relative/u);
+    }
+    expect(normalizeFrozenKnowledgeNasPath("/Volumes/snowcrystal/research-cache/source.pdf")).toBe(
+      "research-cache/source.pdf",
     );
-    expect(() => phase9NasArtifactPath("/data/snow", "../escape.pdf")).toThrow(/escapes/u);
-    expect(() => phase9NasArtifactPath("/data/snow", "/absolute.pdf")).toThrow(/relative/u);
+    expect(() => normalizeFrozenKnowledgeNasPath("S:/research-cache/source.pdf")).toThrow(/registered/u);
   });
 
-  it("accepts a regular artifact and returns its portable logical path", () => {
-    const root = makeTempDir("phase9-nas-");
-    mkdirSync(join(root, "research-cache"));
+  it("resolves a contained regular artifact and reports its exact size", () => {
+    const root = makeNasFixture();
     const artifact = join(root, "research-cache", "source.pdf");
     writeFileSync(artifact, "source bytes");
-    expect(verifiedPhase9NasArtifactPath(root, "research-cache/source.pdf")).toBe(artifact);
-    expect(phase9NasRelativePath(root, artifact)).toBe("research-cache/source.pdf");
+    expect(resolvePhase9NasFile("research-cache/source.pdf", root)).toEqual({
+      kind: "ok",
+      path: realpathSync.native(artifact),
+      byteLength: 12,
+    });
   });
 
-  it("rejects directories and link-based redirection", () => {
-    const root = makeTempDir("phase9-nas-");
-    const outside = makeTempDir("phase9-outside-");
-    writeFileSync(join(outside, "source.pdf"), "outside bytes");
-    symlinkSync(join(outside, "source.pdf"), join(root, "redirect.pdf"));
-    expect(() => verifiedPhase9NasArtifactPath(root, ".")).toThrow(/regular/u);
-    expect(() => verifiedPhase9NasArtifactPath(root, "redirect.pdf")).toThrow(/symbolic/u);
-    expect(() => phase9NasRelativePath(root, join(outside, "source.pdf"))).toThrow(/outside/u);
+  it("refuses traversal, directories, missing files, and link-based escape", () => {
+    const root = makeNasFixture();
+    const outside = mkdtempSync(join(tmpdir(), "phase9-outside-"));
+    const outsideFile = join(outside, "source.pdf");
+    writeFileSync(outsideFile, "outside bytes");
+    symlinkSync(outsideFile, join(root, "research-cache", "redirect.pdf"));
+
+    expect(resolvePhase9NasFile("../escape.pdf", root).kind).toBe("forbidden");
+    expect(resolvePhase9NasFile("research-cache", root).kind).toBe("not-found");
+    expect(resolvePhase9NasFile("research-cache/missing.pdf", root).kind).toBe("not-found");
+    expect(resolvePhase9NasFile("research-cache/redirect.pdf", root).kind).toBe("forbidden");
   });
 });

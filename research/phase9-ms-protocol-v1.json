@@ -1,0 +1,265 @@
+{
+  "schema": "phase9-ms-prescore-protocol-v1",
+  "protocolId": "phase9-ms-prescore-protocol-v1",
+  "frozenDate": "2026-08-13",
+  "state": {
+    "protocol": "frozen-before-any-M-S-model-score-or-publication",
+    "descriptiveSourceDiagnosticsAuthorized": true,
+    "measurementScoresProduced": 0,
+    "causalEffectsEstimated": 0,
+    "publicationAuthorized": false,
+    "physicalPromotionAuthorized": false,
+    "grantsValidationClaim": false
+  },
+  "implementationArtifacts": {
+    "categoricalRegistry": {
+      "path": "research/phase9-ms-categorical-registry-v1.jsonl",
+      "byteLength": 4590,
+      "sha256": "a2e5d97681335c4b819b3b9e40a7ff7fa04d744a55d179018d1f019ce959623f"
+    },
+    "pureEvaluator": {
+      "path": "runner/src/phase9-ms-categorical.ts",
+      "byteLength": 23723,
+      "sha256": "ad93d57abea24d25a07bf541dea42826d8141018f624046c6702c2f117fdc016"
+    },
+    "focusedTest": {
+      "path": "runner/test/phase9-ms-categorical.test.ts",
+      "byteLength": 29400,
+      "sha256": "e4604a122bdd3851030cd703d98c99e334ff73007aa812a6ab840161507018b4"
+    }
+  },
+  "upstreamBindings": {
+    "sourceOverlay": {
+      "shelfFreeze": {
+        "path": "evidence/phase9-source-overlay-v1/shelf-freeze.json",
+        "byteLength": 63975,
+        "sha256": "b0bbab2e01eca61dfb2b807bda3614aaf803e5fd0457f2df02aa3e4b8c5d1a06"
+      },
+      "sourceOverlay": {
+        "path": "evidence/phase9-source-overlay-v1/source-overlay.jsonl",
+        "byteLength": 114408,
+        "sha256": "f79cfd5268524d9017439e7be3abfe8b1e5df13f4e909c5d62569b8cc59ed5f7"
+      },
+      "sourceAudits": {
+        "path": "evidence/phase9-source-overlay-v1/source-audits.jsonl",
+        "byteLength": 44355,
+        "sha256": "3255e66e29aca0f33e4fd8490f7c647ddc796a71206e764932fd2fe1d51d753a"
+      },
+      "report": {
+        "path": "evidence/phase9-source-overlay-v1/report.json",
+        "byteLength": 6530,
+        "sha256": "51e1fa2bf6a84beb94ffd442fd0d55df9017f7bb76e2b04d1e1f5fec38c63d8a"
+      },
+      "sourceDispositions": {
+        "path": "research/phase9-source-dispositions-v1.jsonl",
+        "byteLength": 86719,
+        "sha256": "598f75c28490ac6d50e1c4d1be443905f62f755caa1119757688cb71f492af21"
+      },
+      "satoCorrection": {
+        "path": "research/phase9-sato-source-correction.md",
+        "byteLength": 1811,
+        "sha256": "84364d678c835e7dbc23bec15ed96c433ce4a6aa767a29f7f4906e20b3d8f1ae"
+      },
+      "exactMsShelf": {
+        "blockerIdentities": [],
+        "completeArtifactCount": 4,
+        "completeArtifactSha256": [
+          "3b2003581d94e04c6d4e3d611d1c229e326df28a7d16997a1b09c2f561f68d4d",
+          "977fcc882ab454f18e288fb5e7ef95cabba44ae59344c63eb74d45417a1e7121",
+          "e382edbc61e706c4cdb88811bba2488f7d29baf8dd14d94b21e4a12f5d3fbbeb",
+          "f312a5a18889320c0be62d200c39db723bca2a1d68968b8ec308dc4789370530"
+        ],
+        "item": "M-S",
+        "protocolDispositionRequired": true,
+        "protocolDispositionState": "pending",
+        "protocolRestrictions": [
+          {
+            "artifactSha256": "3b2003581d94e04c6d4e3d611d1c229e326df28a7d16997a1b09c2f561f68d4d",
+            "id": "P9R-3B2003581D94E04C-EXTRACTION",
+            "kind": "extraction",
+            "text": "Use a predeclared categorical intervention codebook with denominators from the printed contrasts."
+          },
+          {
+            "artifactSha256": "977fcc882ab454f18e288fb5e7ef95cabba44ae59344c63eb74d45417a1e7121",
+            "id": "P9R-977FCC882AB454F1-EXTRACTION",
+            "kind": "extraction",
+            "text": "Do not count derivative classification rows as a second Bacon witness."
+          },
+          {
+            "artifactSha256": "e382edbc61e706c4cdb88811bba2488f7d29baf8dd14d94b21e4a12f5d3fbbeb",
+            "id": "P9R-E382EDBC61E706C4-EXTRACTION",
+            "kind": "extraction",
+            "text": "Predeclare a morphology-atlas codebook before any panel score."
+          },
+          {
+            "artifactSha256": "f312a5a18889320c0be62d200c39db723bca2a1d68968b8ec308dc4789370530",
+            "id": "P9R-F312A5A18889320C-EXTRACTION",
+            "kind": "extraction",
+            "text": "Use only the reported aggregates and retain the missing-denominator refusal."
+          }
+        ],
+        "sourceBlocked": false,
+        "sourceBlockerIds": [],
+        "sourceBlockerPresent": false,
+        "sourceBlockerStatuses": []
+      }
+    },
+    "sourcePdfs": {
+      "sato": {
+        "shareRelativePath": "research-cache/phase8b-search/targeted-sources-20260812-v1/sato-kikuchi-1988-nucleation.pdf",
+        "byteLength": 1656110,
+        "sha256": "3b2003581d94e04c6d4e3d611d1c229e326df28a7d16997a1b09c2f561f68d4d"
+      },
+      "bacon": {
+        "shareRelativePath": "research-cache/content/bacon-baker-swanson-2003.pdf",
+        "byteLength": 1270112,
+        "sha256": "f312a5a18889320c0be62d200c39db723bca2a1d68968b8ec308dc4789370530"
+      },
+      "runtimeReadsNas": false
+    },
+    "baconRecords": {
+      "artifactIndex": {
+        "path": "evidence/phase8b-bacon-seed-history-v1/artifact-index.json",
+        "byteLength": 402,
+        "sha256": "2cf6cdc81de5eb6a22e6d3ccab19f7d7317a68e903205435ee84531e829704a7"
+      },
+      "records": {
+        "path": "evidence/phase8b-bacon-seed-history-v1/records.jsonl",
+        "byteLength": 6199,
+        "sha256": "680ee6fc8f1459f2087988cc94f840a47f8be7a04b4d0381fc300721a5c62c2f"
+      },
+      "report": {
+        "path": "evidence/phase8b-bacon-seed-history-v1/report.json",
+        "byteLength": 3107,
+        "sha256": "73ca145532ce23373b2e7087d6023d0fc72ac269f25504c2b75bc17c1ecc0792"
+      },
+      "researchExtract": {
+        "path": "research/bacon-baker-swanson-2003.md",
+        "byteLength": 29658,
+        "sha256": "2e2b217dfb5de853209299507d9c520e9c2015e1d9b3f56dd7efac78a0ff21c1"
+      },
+      "successorTargetBook": {
+        "path": "evidence/phase8b-benchmark-final-v1/successor-target-book.jsonl",
+        "byteLength": 36094,
+        "sha256": "c54b89683eea1f064bd8e81d6e9e06b3b9bbc6c022168b981cbfa71e5fc3cdd3"
+      },
+      "selectionIds": [
+        "P8B-P1-BACON-INITIATION-ASPECT",
+        "P8B-P1-BACON-MASS-GROWTH-CONTRAST"
+      ]
+    },
+    "genericCategoricalAdapter": {
+      "registry": {
+        "path": "research/phase9-adapter-registry-v1.jsonl",
+        "byteLength": 48946,
+        "sha256": "498e85471766294d812b3ef9d747381e92eb476e8a9b40a3f34f855b53e46337"
+      },
+      "implementation": {
+        "path": "runner/src/phase9-measurement-adapters.ts",
+        "byteLength": 64710,
+        "sha256": "f3298052fdac1fac062fe789fc45fea7c886dfcf3c27bc0ba9166335a7f47f9b"
+      },
+      "binding": {
+        "adapterKind": "initiation-aggregate",
+        "postPhase8CategoricalParser": "phase9-categorical-intervention-row-v1",
+        "limitation": "generic parser alone grants no score; this protocol authorizes only the named descriptive diagnostics"
+      }
+    }
+  },
+  "pageAudit": {
+    "method": "pdf-skill-poppler-render-and-personal-visual-inspection",
+    "requiredLoadBearingPages": [6, 7, 15, 16, 17, 18],
+    "categoryLegendPages": [8, 9, 10],
+    "locators": [
+      "pdf-page:6;competitive-vapor-depletion;Figure-2",
+      "pdf-page:7;supersaturation-decrease;crystal-spacing-limit",
+      "pdf-page:15;Figure-14;temperature-exposure-history",
+      "pdf-page:16;Figure-15;initial-N-42;preactivation-N-36",
+      "pdf-page:17;Figure-16;small-N0-112-N-89;large-N0-49-N-48",
+      "pdf-page:18;Figure-17;frozen-droplet-N-20;peculiar-shape-35-percent"
+    ],
+    "limits": "Inspected the load-bearing pages and legend pages, not every page; no plotted bar height was converted into an unprinted count."
+  },
+  "registryPolicy": {
+    "schema": "phase9-ms-categorical-registry-v1",
+    "recordIds": [
+      "SK88-PREACTIVATION",
+      "SK88-MICROCLINE-SIZE",
+      "SK88-FROZEN-DROPLET"
+    ],
+    "categories": [
+      { "code": 1, "label": "column" },
+      { "code": 2, "label": "combination-of-columns" },
+      { "code": 3, "label": "combination-of-columns-and-plates" },
+      { "code": 4, "label": "radiating-assemblage-of-plates" },
+      { "code": 5, "label": "peculiar-shape" }
+    ],
+    "unprintedBarCounts": "null-and-not-estimated",
+    "denominatorPolicy": "only printed denominators; 7/20 is exact arithmetic from printed 35 percent and N=20"
+  },
+  "authorizedDiagnostics": [
+    {
+      "purpose": "preactivation-reported-directions",
+      "output": "printed directions and denominators only"
+    },
+    {
+      "purpose": "microcline-morphology-reported-directions",
+      "output": "printed directions and denominators only"
+    },
+    {
+      "purpose": "microcline-nucleation-proportion-contrast",
+      "output": "89/112 versus 48/49 plus descriptive two-by-two null diagnostic"
+    },
+    {
+      "purpose": "frozen-droplet-peculiar-proportion",
+      "output": "printed 35 percent at N=20, exactly derived as 7/20"
+    }
+  ],
+  "baconMissingDenominatorRefusal": {
+    "selectionIds": [
+      "P8B-P1-BACON-INITIATION-ASPECT",
+      "P8B-P1-BACON-MASS-GROWTH-CONTRAST"
+    ],
+    "allowedQuotation": "reported aggregate range or direction with limitations",
+    "computedFrequency": "refused",
+    "computedEffectSize": "refused",
+    "reasonCodes": [
+      "MISSING_DENOMINATOR_AND_EXPOSURE_CONFOUND",
+      "NO_DENOMINATOR_NO_INDIVIDUAL_ROWS"
+    ]
+  },
+  "confounds": [
+    "competitive vapor depletion varies with crystal spacing and time",
+    "preactivation includes prior growth, evaporation, and hold history",
+    "initial and preactivation exposure and supersaturation differ",
+    "microcline size groups have different initial size distributions and unmatched exposure",
+    "frozen droplets are not a matched mineral-substance control",
+    "Bacon reports unmatched seed and frozen-droplet histories without ensemble denominators"
+  ],
+  "claimBoundary": {
+    "phase9Role": "pre-score-descriptive-development-only",
+    "sourceDataScoreProduced": false,
+    "causalEffectEstimated": false,
+    "matchedExposureClaimAvailable": false,
+    "physicalPromotionEligible": false,
+    "grantsValidationClaim": false,
+    "publicationAuthorized": false,
+    "prohibited": [
+      "invented individual rows or unprinted category counts",
+      "causal seed-state or nucleant-size effect",
+      "matched-exposure claim",
+      "population effect size",
+      "model score, validation, or physical promotion"
+    ]
+  },
+  "negativeControls": [
+    "registry-byte-or-hash-mismatch",
+    "registry-roster-or-schema-mismatch",
+    "unknown-Sato-purpose",
+    "unknown-Bacon-selection",
+    "unknown-Bacon-purpose",
+    "unsafe-or-overflowing-contingency-count",
+    "zero-row-or-zero-column-contingency-table",
+    "protocol-semantic-mutation-suite"
+  ]
+}

@@ -1,0 +1,316 @@
+{
+  "schema": "phase9-mv-protocol-v1",
+  "protocolId": "phase9-mv-takahashi-low-re-compatibility-v1",
+  "frozenDate": "2026-08-13",
+  "adoptionCommit": "f936920",
+  "state": {
+    "protocol": "frozen-before-use",
+    "modelScoreProduced": false,
+    "phase9Role": "development-only-compatibility-and-refusal-gate",
+    "grantsValidationClaim": false
+  },
+  "question": "Which named free-fall uses pass a conservative, source-specific Takahashi-like low-Reynolds compatibility gate without pretending the unavailable Keller-Hallett controlled-velocity article was reproduced?",
+  "upstreamBindings": {
+    "sourceOverlay": {
+      "shelfFreeze": {
+        "path": "evidence/phase9-source-overlay-v1/shelf-freeze.json",
+        "byteLength": 63975,
+        "sha256": "b0bbab2e01eca61dfb2b807bda3614aaf803e5fd0457f2df02aa3e4b8c5d1a06"
+      },
+      "shelfItem": "M-V",
+      "exactShelf": {
+        "sourceBlocked": false,
+        "protocolDispositionRequired": true,
+        "protocolDispositionState": "pending",
+        "completeArtifactSha256": [
+          "13a1514ff5ee6f487c1f4788a7f853f719709cb3569ae10742555876549b5771",
+          "2e5c6b492fcab7d1b3958be5a4c859fcd31174a1ac4865588ca48820bd4cd8eb",
+          "5297d387ee1c0e33944d9bdb0f6bd68a70a251e64f1f4b5f8e367e7b4c5946bb",
+          "5b3d8f99ebfc602d7dbfdc8042198b6c368616f5f2d281f8a55e0389d557a7f6",
+          "871819b41478fccfffa2e52c0036ef57af7e9ae1ec8a83ab9fbe856cbc58fc1e",
+          "a4886bcc09ddfbc05d467a0b3ac5729e044723a2befcc05f20d5e77f18bc3659",
+          "b1741202d41a356ef2de0c376a65c3a474dbfae19323c185e93170c223244fe8",
+          "cffec6fc5dc76dd047d94df100e3d31c3c6b8dea8ae97edeb33eb6a8663ca929",
+          "fb6e5a2ee814f619e1431aad231ce5a037db632b03b8f4be0ac6803ae26699ec"
+        ],
+        "restrictionDispositions": [
+          {
+            "artifactSha256": "13a1514ff5ee6f487c1f4788a7f853f719709cb3569ae10742555876549b5771",
+            "id": "P9R-13A1514FF5EE6F48-CURRENCY_LATER_AUTHOR_OUTPUT",
+            "kind": "currency-later-author-output",
+            "text": "Unresolved for an affected arm freeze.",
+            "localDisposition": "retained-as-source-block",
+            "localHandling": "Bulk aircraft observations remain excluded; their unresolved currency cannot support an individual-crystal M-V score."
+          },
+          {
+            "artifactSha256": "13a1514ff5ee6f487c1f4788a7f853f719709cb3569ae10742555876549b5771",
+            "id": "P9R-13A1514FF5EE6F48-EXTRACTION",
+            "kind": "extraction",
+            "text": "No numeric Phase 9 score: bulk aircraft observations do not map to the present individual-crystal adapters.",
+            "localDisposition": "satisfied-for-conservative-bound",
+            "localHandling": "The runtime gate refuses bulk-cloud geometry and takes no numeric input from this source."
+          },
+          {
+            "artifactSha256": "2e5c6b492fcab7d1b3958be5a4c859fcd31174a1ac4865588ca48820bd4cd8eb",
+            "id": "P9R-2E5C6B492FCAB7D1-EXTRACTION",
+            "kind": "extraction",
+            "text": "Use integrated corrected transcription; predeclare categorical/continuous mapping.",
+            "localDisposition": "satisfied-for-conservative-bound",
+            "localHandling": "Only the corrected prose observations and protocol fields named below define the compatibility bound; no raster ordinate is scored."
+          },
+          {
+            "artifactSha256": "5297d387ee1c0e33944d9bdb0f6bd68a70a251e64f1f4b5f8e367e7b4c5946bb",
+            "id": "P9R-5297D387EE1C0E33-EXTRACTION",
+            "kind": "extraction",
+            "text": "Verifier must refuse the main source mapping if this correction alias is dropped.",
+            "localDisposition": "satisfied-for-conservative-bound",
+            "localHandling": "The main article and official correction are both exact source bindings and the preflight pins the final S0B shelf containing both."
+          },
+          {
+            "artifactSha256": "5b3d8f99ebfc602d7dbfdc8042198b6c368616f5f2d281f8a55e0389d557a7f6",
+            "id": "P9R-5B3D8F99EBFC602D-ACQUISITION",
+            "kind": "acquisition",
+            "text": "Acquire and inspect the official Zenodo dataset DOI 10.5281/zenodo.15804055 and scripts DOI 10.5281/zenodo.15804067 before freezing individual rows.",
+            "localDisposition": "retained-as-source-block",
+            "localHandling": "No Korolev individual row is frozen or used; acquisition remains required before any later use."
+          },
+          {
+            "artifactSha256": "5b3d8f99ebfc602d7dbfdc8042198b6c368616f5f2d281f8a55e0389d557a7f6",
+            "id": "P9R-5B3D8F99EBFC602D-EXTRACTION",
+            "kind": "extraction",
+            "text": "Ingest native CSV and code; do not digitize the aggregate PDF first.",
+            "localDisposition": "retained-as-source-block",
+            "localHandling": "The conservative design imports no aggregate-PDF values and authorizes no Korolev score."
+          },
+          {
+            "artifactSha256": "871819b41478fccfffa2e52c0036ef57af7e9ae1ec8a83ab9fbe856cbc58fc1e",
+            "id": "P9R-871819B41478FCCF-CURRENCY_LATER_AUTHOR_OUTPUT",
+            "kind": "currency-later-author-output",
+            "text": "Unresolved for a promoted arm.",
+            "localDisposition": "retained-as-source-block",
+            "localHandling": "Convection-chamber material is context only and is not promoted by this compatibility design."
+          },
+          {
+            "artifactSha256": "871819b41478fccfffa2e52c0036ef57af7e9ae1ec8a83ab9fbe856cbc58fc1e",
+            "id": "P9R-871819B41478FCCF-EXTRACTION",
+            "kind": "extraction",
+            "text": "Freeze chamber-gradient and exposure mapping before numeric use.",
+            "localDisposition": "retained-as-source-block",
+            "localHandling": "No convection-chamber number is used; non-Takahashi apparatus/forcing records fail the runtime gate."
+          },
+          {
+            "artifactSha256": "a4886bcc09ddfbc05d467a0b3ac5729e044723a2befcc05f20d5e77f18bc3659",
+            "id": "P9R-A4886BCC09DDFBC0-EXTRACTION",
+            "kind": "extraction",
+            "text": "Use only after a source-specific raster/table transcription and categorical codebook.",
+            "localDisposition": "retained-as-source-block",
+            "localHandling": "The earlier Takahashi-Fukuta article remains qualitative context; no raster/table value or cold-end row is scored."
+          },
+          {
+            "artifactSha256": "b1741202d41a356ef2de0c376a65c3a474dbfae19323c185e93170c223244fe8",
+            "id": "P9R-B1741202D41A356E-ACQUISITION",
+            "kind": "acquisition",
+            "text": "Acquire official native rows if an individual-crystal campaign is promoted.",
+            "localDisposition": "retained-as-source-block",
+            "localHandling": "No morphology-atlas campaign is promoted and no individual row is used."
+          },
+          {
+            "artifactSha256": "b1741202d41a356ef2de0c376a65c3a474dbfae19323c185e93170c223244fe8",
+            "id": "P9R-B1741202D41A356E-CURRENCY_LATER_AUTHOR_OUTPUT",
+            "kind": "currency-later-author-output",
+            "text": "Unresolved for a promoted campaign.",
+            "localDisposition": "retained-as-source-block",
+            "localHandling": "The atlas remains unpromoted qualitative context."
+          },
+          {
+            "artifactSha256": "b1741202d41a356ef2de0c376a65c3a474dbfae19323c185e93170c223244fe8",
+            "id": "P9R-B1741202D41A356E-EXTRACTION",
+            "kind": "extraction",
+            "text": "Predeclare habit categories, panel sampling, and denominators.",
+            "localDisposition": "retained-as-source-block",
+            "localHandling": "No atlas category, panel, or denominator enters the conservative bound."
+          },
+          {
+            "artifactSha256": "cffec6fc5dc76dd047d94df100e3d31c3c6b8dea8ae97edeb33eb6a8663ca929",
+            "id": "P9R-CFFEC6FC5DC76DD0-EXTRACTION",
+            "kind": "extraction",
+            "text": "Use measured sizes; do not inherit retracted surface inversion.",
+            "localDisposition": "retained-as-source-block",
+            "localHandling": "No free-fall size or surface inversion from this paper is used by v1; a later absolute row must supply its own registered size/time envelope."
+          },
+          {
+            "artifactSha256": "fb6e5a2ee814f619e1431aad231ce5a037db632b03b8f4be0ac6803ae26699ec",
+            "id": "P9R-FB6E5A2EE814F619-EXTRACTION",
+            "kind": "extraction",
+            "text": "Use a registered plot operator or acquire native dimensions; preserve per-crystal dispersion.",
+            "localDisposition": "retained-as-source-block",
+            "localHandling": "No Libbrecht free-fall dimension is used; a later mapping requires a registered operator and dispersion-preserving envelope."
+          }
+        ]
+      },
+      "missingSourceAlternative": {
+        "blockerId": "P9B-MISSING-KH82",
+        "identity": "Keller and Hallett 1982, DOI 10.1016/0022-0248(82)90176-2",
+        "status": "arm-freeze-blocked",
+        "localDisposition": "conservative-bound-only",
+        "clearedScope": "M-V compatibility design only",
+        "retainedBlocks": ["M-PT", "M-LH", "quantitative-velocity-response"]
+      }
+    },
+    "phase8bSuccessor": {
+      "path": "evidence/phase8b-benchmark-final-v1/successor-target-book.jsonl",
+      "byteLength": 36094,
+      "sha256": "c54b89683eea1f064bd8e81d6e9e06b3b9bbc6c022168b981cbfa71e5fc3cdd3"
+    },
+    "phase8bPlotMetadata": {
+      "path": "evidence/phase8b-plot-digitization-v3/records.jsonl",
+      "byteLength": 32617,
+      "sha256": "3b22753b246e1ddd026daa8fe8eaab170971c71ef7d9fb63e0d25c8ad91547c8"
+    }
+  },
+  "sourceBindings": [
+    {
+      "path": "research-cache/content/takahashi1991.pdf",
+      "byteLength": 8910942,
+      "sha256": "2e5c6b492fcab7d1b3958be5a4c859fcd31174a1ac4865588ca48820bd4cd8eb",
+      "role": "main corrected source"
+    },
+    {
+      "path": "research-cache/content/takahashi1991-corrigendum.pdf",
+      "byteLength": 1009054,
+      "sha256": "5297d387ee1c0e33944d9bdb0f6bd68a70a251e64f1f4b5f8e367e7b4c5946bb",
+      "role": "mandatory official correction"
+    },
+    {
+      "path": "research/takahashi-1991.md",
+      "byteLength": 23563,
+      "sha256": "3199b6b00db0be6492f7dc4e041feb9ace660cd49cbd8ad713058b2cc933d71e",
+      "role": "integrated corrected transcription and page-locator record"
+    }
+  ],
+  "sourceObservations": [
+    {"extractId":"P8X-T91-OBS-14","use":"The approximate source onset near Re 2 is retained only as a diagnostic strict bound; it does not open eligibility without byte-bound operands and protocol fields."},
+    {"extractId":"P8X-T91-OBS-15","use":"The no-effect observation at Re 7.5 prevents classifying an above-bound row as ventilated."},
+    {"extractId":"P8X-T91-DIG-09","use":"Any future interval-wide Reynolds record must use the source a-axis definition."},
+    {"extractId":"P8X-T91-PROT-01","use":"A future absolute record must byte-bind the vertical cloud-tunnel updraft/free-fall transport."},
+    {"extractId":"P8X-T91-PROT-02","use":"A future absolute record must preserve isolated single-crystal selection and polycrystal exclusion."},
+    {"extractId":"P8X-T91-PROT-03","use":"A future absolute record must represent the adiabatic-cooling seed protocol and its unreported individual seed details rather than inventing them."},
+    {"extractId":"P8X-T91-PROT-04","use":"A future absolute interval must lie within the source 180-1800 s range and retain its exact temperature-specific duration."},
+    {"extractId":"P8X-T91-PROT-05","use":"A future absolute record must represent the reported temperature uncertainty and its time-dependent history."},
+    {"extractId":"P8X-T91-PROT-06","use":"A future absolute record must preserve nominal liquid-water saturation without converting it to a numeric solver forcing."},
+    {"extractId":"P8X-T91-PROT-07","use":"A future absolute record must preserve the approximate 1010 mb categorical source regime without an invented tolerance."},
+    {"extractId":"P8X-T91-PROT-08","use":"A future absolute record must represent the about-8-um droplet population, 5-15-um majority range, and about-0.1-g-per-m3 liquid-water content."},
+    {"extractId":"P8X-T91-PROT-09","use":"A future absolute record must be unsupported during growth; post-collection oil holding is not a growth substrate."},
+    {"extractId":"P8X-T91-PROT-10","use":"A future absolute record must preserve the habit-specific measurement method and source a-axis semantics."},
+    {"extractId":"P8X-T91-PROT-11","use":"A future absolute record must bind the thermistor/hot-wire/strip-chart method and plus-or-minus 0.03 m/s fall-speed accuracy."},
+    {"extractId":"P8X-T91-PROT-12","use":"A future absolute record must preserve different-crystal-per-duration ensemble semantics."},
+    {"extractId":"P8X-T91-PROT-13","use":"A future absolute interval must remain inside the temperature-specific riming-free duration."}
+  ],
+  "decision": {
+    "bound": {
+      "quantity": "maximum a-axis Reynolds number over the declared scored interval",
+      "operator": "strictly-less-than",
+      "value": 2,
+      "meaning": "diagnostic threshold below the earliest approximate source-reported noticeable onset; currently not an eligibility rule because no frozen consuming-arm record supplies the complete byte-bound operands and protocol",
+      "notMeaning": [
+        "zero ventilation",
+        "a universal physical threshold",
+        "a classifier that declares Re greater than or equal to 2 ventilated",
+        "a reproduction of Keller and Hallett 1982"
+      ]
+    },
+    "derivation": "rho_air_upper * speed_upper * a_axis_length_upper / dynamic_viscosity_lower",
+    "derivationContract": "The helper performs dimensional arithmetic only. It emits no provenance or capability and is not consumed by the eligibility gate."
+  },
+  "absoluteEligibility": {
+    "state": "blocked-no-byte-bound-consuming-arm-record",
+    "eligibleCount": 0,
+    "analyticReynoldsHelperRole": "diagnostic-only",
+    "missingDimensions": [
+      "P8X-T91-PROT-04: source-scored time must be within 180-1800 s",
+      "P8X-T91-PROT-05: temperature uncertainty and interval history",
+      "P8X-T91-PROT-08: droplet-size distribution and liquid-water content",
+      "P8X-T91-PROT-09: unsupported during growth and oil-held only after collection",
+      "P8X-T91-PROT-10: habit-specific measurement and a-axis semantics",
+      "P8X-T91-PROT-11: hot-wire/strip-chart speed method and plus-or-minus 0.03 m/s accuracy",
+      "P8X-T91-PROT-13: temperature-specific riming-free duration",
+      "byte-bound interval-wide air-density upper bound",
+      "byte-bound interval-wide dynamic-viscosity lower bound",
+      "byte-bound interval-wide fall-speed upper envelope",
+      "byte-bound interval-wide a-axis upper envelope"
+    ]
+  },
+  "sourceRelativeRegistry": [
+    {"sourceRecordId":"P8B-P1-SD71-M11","rowArtifactIdentity":{"bytes":11924,"byteLength":11924,"path":"rows/P8B-P1-SD71-M11.jsonl","rowCount":5,"sha256":"bc09c0195851a59b4fc1ed4ebf0ba35bce6b475993cc50d0513b7efdcd4c9df5"},"interventionAxis":"carrier-gas-thermal-conductivity","orderSpanSemantics":"source-order-span-not-confidence-interval","ventilationConfoundLabel":"non-air-free-fall-transport-confounded"},
+    {"sourceRecordId":"P8B-P1-SD71-M12","rowArtifactIdentity":{"bytes":12224,"byteLength":12224,"path":"rows/P8B-P1-SD71-M12.jsonl","rowCount":5,"sha256":"07f2574296df8f650ce7de413cd5a19b7604914f2c93b46b5e93d3bc7b54ab5f"},"interventionAxis":"carrier-gas-thermal-conductivity","orderSpanSemantics":"source-order-span-not-confidence-interval","ventilationConfoundLabel":"non-air-free-fall-transport-confounded"},
+    {"sourceRecordId":"P8B-P1-SD71-M13","rowArtifactIdentity":{"bytes":11863,"byteLength":11863,"path":"rows/P8B-P1-SD71-M13.jsonl","rowCount":5,"sha256":"84c719ca6637fa954e43328295fd98ec68e2f1c8b05b763b55efbde6c65d0ea8"},"interventionAxis":"carrier-gas-thermal-conductivity","orderSpanSemantics":"source-order-span-not-confidence-interval","ventilationConfoundLabel":"non-air-free-fall-transport-confounded"},
+    {"sourceRecordId":"P8B-P1-SD71-M14","rowArtifactIdentity":{"bytes":11561,"byteLength":11561,"path":"rows/P8B-P1-SD71-M14.jsonl","rowCount":5,"sha256":"621220e1bb883836658fc6d235fab34f964622aba1a75edd4eafa936ebe6c12f"},"interventionAxis":"carrier-gas-thermal-conductivity","orderSpanSemantics":"source-order-span-not-confidence-interval","ventilationConfoundLabel":"non-air-free-fall-transport-confounded"},
+    {"sourceRecordId":"P8B-P1-SD71-M15","rowArtifactIdentity":{"bytes":11198,"byteLength":11198,"path":"rows/P8B-P1-SD71-M15.jsonl","rowCount":5,"sha256":"8e8fdc87daf0e5a78d6f18291b8931a760d402e368a1c48c58a06948c72df34f"},"interventionAxis":"carrier-gas-thermal-conductivity","orderSpanSemantics":"source-order-span-not-confidence-interval","ventilationConfoundLabel":"non-air-free-fall-transport-confounded"},
+    {"sourceRecordId":"P8B-P1-SD71-M16","rowArtifactIdentity":{"bytes":11190,"byteLength":11190,"path":"rows/P8B-P1-SD71-M16.jsonl","rowCount":5,"sha256":"d5755d31006f7c501e9c7857de6344f659af8a7f57d30744c37acd7b903e1206"},"interventionAxis":"carrier-gas-thermal-conductivity","orderSpanSemantics":"source-order-span-not-confidence-interval","ventilationConfoundLabel":"non-air-free-fall-transport-confounded"},
+    {"sourceRecordId":"P8B-P1-SD71-M23","rowArtifactIdentity":{"bytes":11967,"byteLength":11967,"path":"rows/P8B-P1-SD71-M23.jsonl","rowCount":5,"sha256":"58969c98fbc63aaa7018788712bf88ce8ce1d844dbda7b85dbab5689e424cfb8"},"interventionAxis":"reported-vapor-diffusivity","orderSpanSemantics":"source-order-span-not-confidence-interval","ventilationConfoundLabel":"non-air-free-fall-transport-confounded"},
+    {"sourceRecordId":"P8B-P1-SD71-M24","rowArtifactIdentity":{"bytes":11384,"byteLength":11384,"path":"rows/P8B-P1-SD71-M24.jsonl","rowCount":5,"sha256":"edd32181e07a0ff6bb8547f0505345ecb8c7522924da27e5bb07cfb1c64ecae2"},"interventionAxis":"reported-vapor-diffusivity","orderSpanSemantics":"source-order-span-not-confidence-interval","ventilationConfoundLabel":"non-air-free-fall-transport-confounded"},
+    {"sourceRecordId":"P8B-P1-SD71-M25","rowArtifactIdentity":{"bytes":11381,"byteLength":11381,"path":"rows/P8B-P1-SD71-M25.jsonl","rowCount":5,"sha256":"b62df64ddcf1e592b0d09227a41b767516ee6d180ec3acf7eecd9d10d43d895d"},"interventionAxis":"reported-vapor-diffusivity","orderSpanSemantics":"source-order-span-not-confidence-interval","ventilationConfoundLabel":"non-air-free-fall-transport-confounded"},
+    {"sourceRecordId":"P8B-P1-SD71-M26","rowArtifactIdentity":{"bytes":11341,"byteLength":11341,"path":"rows/P8B-P1-SD71-M26.jsonl","rowCount":5,"sha256":"e20ff50948de7c9fcd1a69314ee2e3a0eca13c71584bd2c4856654f59b8b04b3"},"interventionAxis":"reported-vapor-diffusivity","orderSpanSemantics":"source-order-span-not-confidence-interval","ventilationConfoundLabel":"non-air-free-fall-transport-confounded"}
+  ],
+  "purposeRules": [
+    {
+      "purpose": "absolute-score-under-low-re-approximation",
+      "rule": "No current frozen consuming-arm record binds every protocol dimension and interval-wide operand.",
+      "result": "ineligible"
+    },
+    {
+      "purpose": "relative-intervention-direction",
+      "rule": "No current frozen pair byte-binds every ventilation-relevant dimension; caller labels and cloned records are not evidence.",
+      "result": "ineligible"
+    },
+    {
+      "purpose": "source-reported-relative-order-span",
+      "rule": "Only an exact member of sourceRelativeRegistry may report its source order span; the required label is non-air-free-fall-transport-confounded and this is separate from absolute M-V compatibility.",
+      "result": "eligible-with-limitation"
+    },
+    {
+      "purpose": "unqualified-still-air-transfer",
+      "rule": "never",
+      "result": "ineligible"
+    }
+  ],
+  "sd71AbsoluteCensus": {
+    "expectedSelectionIds": [
+      "P8B-P1-SD71-M11",
+      "P8B-P1-SD71-M12",
+      "P8B-P1-SD71-M13",
+      "P8B-P1-SD71-M14",
+      "P8B-P1-SD71-M15",
+      "P8B-P1-SD71-M16",
+      "P8B-P1-SD71-M23",
+      "P8B-P1-SD71-M24",
+      "P8B-P1-SD71-M25",
+      "P8B-P1-SD71-M26"
+    ],
+    "expectedCarrierGasCounts": {
+      "heliumArgonMixture": 6,
+      "heliumAtReducedPressure": 4,
+      "air": 0
+    },
+    "expectedAbsoluteEligibleCount": 0,
+    "reason": "all-non-air-no-maximum-Re-and-no-complete-protocol-record"
+  },
+  "expectedEffect": "Absolute and model-relative eligibility remain blocked. The exact ten SD71 source records may report only their own source order spans with the frozen non-air ventilation-confound label.",
+  "noEffectOrFailureBranch": "All ten selected SD71 rows are absolute-ineligible; arbitrary source IDs, caller-supplied operands, matched flags, and cloned protocol records are refused.",
+  "implementation": {
+    "path": "runner/src/phase9-mv-eligibility.ts",
+    "byteLength": 16024,
+    "sha256": "c611737e36bf2f09de8da86d7a12271bcb1c96fb1737b01e5cb2a21554ac5416",
+    "preflightPath": "runner/src/phase9-mv-preflight.ts",
+    "preflightByteLength": 18901,
+    "preflightSha256": "4683b06f2a2261530391751431d99d490b38bb1ad5e8eb29412c379f60303e2f",
+    "scoreProducedByModule": false
+  },
+  "limits": [
+    "The onsets are approximate, habit-specific, and lack confidence intervals.",
+    "No frozen consuming-arm row byte-binds the complete Takahashi protocol and interval-wide Reynolds operands; absolute eligible count is zero.",
+    "Gas/pressure source directions do not isolate ventilation, thermal transport, or vapor transport.",
+    "The missing Keller-Hallett full text still blocks a quantitative velocity response and supplies no M-PT/M-LH credit.",
+    "This is a compatibility/refusal gate, not a ventilation model, and grants no validation status."
+  ]
+}

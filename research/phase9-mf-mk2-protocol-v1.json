@@ -1,0 +1,644 @@
+{
+  "schema": "phase9-mf-mk2-protocol-v1",
+  "protocolId": "phase9-sei-gonda-planar-facet-development-v1",
+  "frozenDate": "2026-08-12",
+  "adoptionCommit": "f936920edce283e90a947ee34846776da8b1859a",
+  "state": {
+    "protocol": "frozen-before-model-output",
+    "sourceDataScoreInspected": false,
+    "modelScoreProduced": false,
+    "absoluteSurfaceKineticsScore": "source-blocked",
+    "parameterSpaceScore": "not-run-in-this-change",
+    "phase9Role": "development-only-planar-cheapest-discriminator",
+    "grantsValidationClaim": false,
+    "morphologyPromotionAvailable": false
+  },
+  "claimBoundary": {
+    "allowed": [
+      "central-value source replay under each exact diagnostic mapping point",
+      "uncertainty-retaining interval-gap and central residual reports over the exact registered rows",
+      "matched M-K2 versus M-F prism comparison at minus seven and minus fifteen Celsius",
+      "an explicit source-blocked, protocol-ineligible, diagnostic-only, or measured no-effect outcome"
+    ],
+    "forbidden": [
+      "calling the plotted Sei-Gonda supersaturation a measured surface supersaturation",
+      "inventing a diffusion, substrate, or latent-heat correction",
+      "M-K2 extrapolation to minus thirty Celsius or to any unprinted temperature",
+      "changing the basal rule when applying the prism-only M-K2 annex",
+      "pooling all plot points so a longer series receives more family weight",
+      "treating digitization bounds as specimen dispersion or a confidence interval",
+      "morphology, habit, causal, held-out, or quantitative-validation promotion"
+    ],
+    "whyAbsoluteScoreIsBlocked": "The source plot provides an apparatus supersaturation coordinate, while both the inherited M-F control and M-K2 consume facet-local surface supersaturation. No source-identified conversion is frozen, and the represented geometry is insufficient to derive one without a new transport closure.",
+    "whyParameterSpaceIsDiagnostic": "The five proportional factors are pre-score construction points, not inferred physical corrections or bounds. Every point is reported; none may be selected after seeing residuals and presented as a measured conversion."
+  },
+  "entryArtifacts": [
+    {
+      "path": "evidence/phase8b-benchmark-final-v1/artifact-index.json",
+      "byteLength": 404,
+      "sha256": "f17b1db5b1b876f11d83fdbbd8cf85b7ba56f98d08122080965fa7ef00bb9722"
+    },
+    {
+      "path": "evidence/phase8b-benchmark-final-v1/successor-target-book.jsonl",
+      "byteLength": 36094,
+      "sha256": "c54b89683eea1f064bd8e81d6e9e06b3b9bbc6c022168b981cbfa71e5fc3cdd3"
+    },
+    {
+      "path": "evidence/phase8b-plot-digitization-v3/artifact-index.json",
+      "byteLength": 4718,
+      "sha256": "53bf6e6dc53db9cd41638fff62b56b7dde85b478f5d7deb3e9a18edd43615195"
+    },
+    {
+      "path": "evidence/phase8b-plot-digitization-v3/operator.json",
+      "byteLength": 1692,
+      "sha256": "b7f66ce980096759e9c86862e9a6bd7111a21382e364c28b39af614925619c13"
+    },
+    {
+      "path": "evidence/phase8b-plot-digitization-v3/records.jsonl",
+      "byteLength": 32617,
+      "sha256": "3b22753b246e1ddd026daa8fe8eaab170971c71ef7d9fb63e0d25c8ad91547c8"
+    },
+    {
+      "path": "evidence/phase9-knowledge-baseline-v1/artifact-index.json",
+      "byteLength": 1028,
+      "sha256": "c9a73f9464fc74be03cf805c617815f0a5ca3437b8fcf20e96c5e15bc6b77d96"
+    },
+    {
+      "path": "evidence/phase9-knowledge-baseline-v1/hypotheses.jsonl",
+      "byteLength": 28878,
+      "sha256": "1c7d5ad2f4778b60240e83f150b237a33b12dd0bca388e319d203beb8d209b08"
+    },
+    {
+      "path": "evidence/phase9-source-overlay-v1/artifact-index.json",
+      "byteLength": 844,
+      "sha256": "7a347d4616770bdf59ab5e29006659b269014d74ac3e93ba796dc444a5f40898"
+    },
+    {
+      "path": "evidence/phase9-source-overlay-v1/report.json",
+      "byteLength": 6530,
+      "sha256": "51e1fa2bf6a84beb94ffd442fd0d55df9017f7bb76e2b04d1e1f5fec38c63d8a"
+    },
+    {
+      "path": "evidence/phase9-source-overlay-v1/shelf-freeze.json",
+      "byteLength": 63975,
+      "sha256": "b0bbab2e01eca61dfb2b807bda3614aaf803e5fd0457f2df02aa3e4b8c5d1a06"
+    },
+    {
+      "path": "evidence/phase9-source-overlay-v1/source-audits.jsonl",
+      "byteLength": 44355,
+      "sha256": "3255e66e29aca0f33e4fd8490f7c647ddc796a71206e764932fd2fe1d51d753a"
+    },
+    {
+      "path": "evidence/phase9-source-overlay-v1/source-overlay.jsonl",
+      "byteLength": 114408,
+      "sha256": "f79cfd5268524d9017439e7be3abfe8b1e5df13f4e909c5d62569b8cc59ed5f7"
+    },
+    {
+      "path": "research/phase9-adapter-registry-v1.jsonl",
+      "byteLength": 48946,
+      "sha256": "498e85471766294d812b3ef9d747381e92eb476e8a9b40a3f34f855b53e46337"
+    },
+    {
+      "path": "docs/libbrecht-parameters.md",
+      "byteLength": 50464,
+      "sha256": "c0b314b681146152207f061209a3097609e34a234b0027ed73faa427334c79e2"
+    },
+    {
+      "path": "core/src/libbrecht.ts",
+      "byteLength": 23328,
+      "sha256": "d18d30868a20424cacc49f89e8a417583e2aa60e876c9bc775db66529bdacb38"
+    },
+    {
+      "path": "runner/src/phase9-mf-mk2-model.ts",
+      "byteLength": 28132,
+      "sha256": "c4a536664a809b282b92d567bfafed9ddef6dcb3a57d468b851c7d60df8b2f92"
+    }
+  ],
+  "expandedSourceCorpus": {
+    "boundedOverlay": {
+      "completeArtifacts": 59,
+      "pdfs": 55,
+      "zipArchives": 4,
+      "aliases": 70,
+      "literatureExhaustive": false,
+      "modelScoresProduced": 0
+    },
+    "mfShelfAtFreeze": {
+      "sourceBlocked": false,
+      "sourceBlockerPresent": false,
+      "sourceBlockerIds": [],
+      "sourceBlockerStatuses": [],
+      "protocolDispositionRequired": true,
+      "protocolDispositionState": "pending",
+      "completeArtifactCount": 7,
+      "completeArtifactSha256": [
+        "1ff2c1f9699c2aefd26e5373f29c4fdd7a110620c136bd349d813947dacbcd1f",
+        "414057e8a8fcbefc128f375e5c1a0d42dad531ac5a692173d8ce3dcf31ec395b",
+        "5ef679012e89a00b20aec8c7700952dade776b52ad517bb4bb250ea3c8a82a7d",
+        "732c8ee8f01dcd3c5770b9c09804f9a3c6e4128d0fbc303d86c2e032b2764f79",
+        "89ef4d1e3ed1c9b41379fdb26482fee7c932078d23e608541f2a16b5a37a76d5",
+        "8ad834c7263f5bcceaf63a27589b283e132b1c0c2a2ea5715b4cca8ff58b415b",
+        "f6cd58ab841f841bcc310d2f722459122f7850cda9681ae0c7d1877bf21ef471"
+      ],
+      "protocolRestrictions": [
+        {
+          "artifactSha256": "1ff2c1f9699c2aefd26e5373f29c4fdd7a110620c136bd349d813947dacbcd1f",
+          "id": "P9R-1FF2C1F9699C2AEF-EXTRACTION",
+          "kind": "extraction",
+          "text": "Use the printed annex for M-K2 replay; empirical observations stay lineage-labelled.",
+          "localDisposition": "satisfied",
+          "localHandling": "Use only the printed M-K2 annex; all empirical rows retain their Sei-Gonda lineage."
+        },
+        {
+          "artifactSha256": "414057e8a8fcbefc128f375e5c1a0d42dad531ac5a692173d8ce3dcf31ec395b",
+          "id": "P9R-414057E8A8FCBEFC-EXTRACTION",
+          "kind": "extraction",
+          "text": "No numeric target is authorized from theory curves alone.",
+          "localDisposition": "satisfied",
+          "localHandling": "Kuroda theory is context only; no curve or numeric target enters the evaluator."
+        },
+        {
+          "artifactSha256": "5ef679012e89a00b20aec8c7700952dade776b52ad517bb4bb250ea3c8a82a7d",
+          "id": "P9R-5EF679012E89A00B-EXTRACTION",
+          "kind": "extraction",
+          "text": "Use registered Phase 8 empirical-marker coordinates; keep BCF fits and kinetic limits separate.",
+          "localDisposition": "satisfied",
+          "localHandling": "Use only registered empirical-marker coordinates; source BCF fits and kinetic-limit lines stay excluded."
+        },
+        {
+          "artifactSha256": "732c8ee8f01dcd3c5770b9c09804f9a3c6e4128d0fbc303d86c2e032b2764f79",
+          "id": "P9R-732C8EE8F01DCD3C-EXTRACTION",
+          "kind": "extraction",
+          "text": "No direct attachment input; any comparison must preserve the liquid-like reservoir protocol.",
+          "localDisposition": "satisfied",
+          "localHandling": "Shi molecular-simulation results are context only and contribute no attachment input."
+        },
+        {
+          "artifactSha256": "89ef4d1e3ed1c9b41379fdb26482fee7c932078d23e608541f2a16b5a37a76d5",
+          "id": "P9R-89EF4D1E3ED1C9B4-EXTRACTION",
+          "kind": "extraction",
+          "text": "Treat broad-facet functions as calibration and narrow-facet curves as proposed inputs.",
+          "localDisposition": "satisfied",
+          "localHandling": "Retain the calibration/proposal distinction and forbid promotion from this diagnostic."
+        },
+        {
+          "artifactSha256": "8ad834c7263f5bcceaf63a27589b283e132b1c0c2a2ea5715b4cca8ff58b415b",
+          "id": "P9R-8AD834C7263F5BCC-EXTRACTION",
+          "kind": "extraction",
+          "text": "Transcribe measured critical supersaturation separately from theory closure.",
+          "localDisposition": "satisfied",
+          "localHandling": "No Nelson-Knight numeric target or theory closure enters this protocol."
+        },
+        {
+          "artifactSha256": "f6cd58ab841f841bcc310d2f722459122f7850cda9681ae0c7d1877bf21ef471",
+          "id": "P9R-F6CD58AB841F841B-ACQUISITION",
+          "kind": "acquisition",
+          "text": "Compare the published Princeton edition before freezing a monograph-only numeric input.",
+          "localDisposition": "retained-as-block",
+          "localHandling": "This is a bounded replay of the already accepted permanent CAK control; it does not treat the monograph digitizations as newly source-cleared or current, discharge the edition gap, or permit a physical score or promotion."
+        },
+        {
+          "artifactSha256": "f6cd58ab841f841bcc310d2f722459122f7850cda9681ae0c7d1877bf21ef471",
+          "id": "P9R-F6CD58AB841F841B-CURRENCY_CURRENT_VERSION",
+          "kind": "currency-current-version",
+          "text": "NAS holds arXiv 1910.06389v2; the published Princeton 2021/2022 edition, ISBN 9780691223629, has not been compared.",
+          "localDisposition": "retained-as-block",
+          "localHandling": "This is a bounded replay of the already accepted permanent CAK control; it does not treat the monograph digitizations as newly source-cleared or current, discharge the edition gap, or permit a physical score or promotion."
+        },
+        {
+          "artifactSha256": "f6cd58ab841f841bcc310d2f722459122f7850cda9681ae0c7d1877bf21ef471",
+          "id": "P9R-F6CD58AB841F841B-CURRENCY_SUPPLEMENT",
+          "kind": "currency-supplement",
+          "text": "Published-edition comparison is unresolved.",
+          "localDisposition": "retained-as-block",
+          "localHandling": "This is a bounded replay of the already accepted permanent CAK control; it does not treat the monograph digitizations as newly source-cleared or current, discharge the edition gap, or permit a physical score or promotion."
+        },
+        {
+          "artifactSha256": "f6cd58ab841f841bcc310d2f722459122f7850cda9681ae0c7d1877bf21ef471",
+          "id": "P9R-F6CD58AB841F841B-EXTRACTION",
+          "kind": "extraction",
+          "text": "Use primary papers for numeric inputs; any monograph-only value remains blocked.",
+          "localDisposition": "retained-as-block",
+          "localHandling": "This is a bounded replay of the already accepted permanent CAK control; it does not treat the monograph digitizations as newly source-cleared or current, discharge the edition gap, or permit a physical score or promotion."
+        }
+      ]
+    },
+    "mk2ShelfAtFreeze": {
+      "sourceBlocked": false,
+      "sourceBlockerPresent": false,
+      "sourceBlockerIds": [],
+      "sourceBlockerStatuses": [],
+      "protocolDispositionRequired": true,
+      "protocolDispositionState": "pending",
+      "completeArtifactCount": 5,
+      "completeArtifactSha256": [
+        "1ff2c1f9699c2aefd26e5373f29c4fdd7a110620c136bd349d813947dacbcd1f",
+        "414057e8a8fcbefc128f375e5c1a0d42dad531ac5a692173d8ce3dcf31ec395b",
+        "5ef679012e89a00b20aec8c7700952dade776b52ad517bb4bb250ea3c8a82a7d",
+        "732c8ee8f01dcd3c5770b9c09804f9a3c6e4128d0fbc303d86c2e032b2764f79",
+        "f6cd58ab841f841bcc310d2f722459122f7850cda9681ae0c7d1877bf21ef471"
+      ],
+      "protocolRestrictions": [
+        {
+          "artifactSha256": "1ff2c1f9699c2aefd26e5373f29c4fdd7a110620c136bd349d813947dacbcd1f",
+          "id": "P9R-1FF2C1F9699C2AEF-EXTRACTION",
+          "kind": "extraction",
+          "text": "Use the printed annex for M-K2 replay; empirical observations stay lineage-labelled.",
+          "localDisposition": "satisfied",
+          "localHandling": "Use only the printed M-K2 annex; all empirical rows retain their Sei-Gonda lineage."
+        },
+        {
+          "artifactSha256": "414057e8a8fcbefc128f375e5c1a0d42dad531ac5a692173d8ce3dcf31ec395b",
+          "id": "P9R-414057E8A8FCBEFC-EXTRACTION",
+          "kind": "extraction",
+          "text": "No numeric target is authorized from theory curves alone.",
+          "localDisposition": "satisfied",
+          "localHandling": "Kuroda theory is context only; no curve or numeric target enters the evaluator."
+        },
+        {
+          "artifactSha256": "5ef679012e89a00b20aec8c7700952dade776b52ad517bb4bb250ea3c8a82a7d",
+          "id": "P9R-5EF679012E89A00B-EXTRACTION",
+          "kind": "extraction",
+          "text": "Use registered Phase 8 empirical-marker coordinates; keep BCF fits and kinetic limits separate.",
+          "localDisposition": "satisfied",
+          "localHandling": "Use only registered empirical-marker coordinates; source BCF fits and kinetic-limit lines stay excluded."
+        },
+        {
+          "artifactSha256": "732c8ee8f01dcd3c5770b9c09804f9a3c6e4128d0fbc303d86c2e032b2764f79",
+          "id": "P9R-732C8EE8F01DCD3C-EXTRACTION",
+          "kind": "extraction",
+          "text": "No direct attachment input; any comparison must preserve the liquid-like reservoir protocol.",
+          "localDisposition": "satisfied",
+          "localHandling": "Shi molecular-simulation results are context only and contribute no attachment input."
+        },
+        {
+          "artifactSha256": "f6cd58ab841f841bcc310d2f722459122f7850cda9681ae0c7d1877bf21ef471",
+          "id": "P9R-F6CD58AB841F841B-ACQUISITION",
+          "kind": "acquisition",
+          "text": "Compare the published Princeton edition before freezing a monograph-only numeric input.",
+          "localDisposition": "retained-as-block",
+          "localHandling": "This is a bounded replay of the already accepted permanent CAK control; it does not treat the monograph digitizations as newly source-cleared or current, discharge the edition gap, or permit a physical score or promotion."
+        },
+        {
+          "artifactSha256": "f6cd58ab841f841bcc310d2f722459122f7850cda9681ae0c7d1877bf21ef471",
+          "id": "P9R-F6CD58AB841F841B-CURRENCY_CURRENT_VERSION",
+          "kind": "currency-current-version",
+          "text": "NAS holds arXiv 1910.06389v2; the published Princeton 2021/2022 edition, ISBN 9780691223629, has not been compared.",
+          "localDisposition": "retained-as-block",
+          "localHandling": "This is a bounded replay of the already accepted permanent CAK control; it does not treat the monograph digitizations as newly source-cleared or current, discharge the edition gap, or permit a physical score or promotion."
+        },
+        {
+          "artifactSha256": "f6cd58ab841f841bcc310d2f722459122f7850cda9681ae0c7d1877bf21ef471",
+          "id": "P9R-F6CD58AB841F841B-CURRENCY_SUPPLEMENT",
+          "kind": "currency-supplement",
+          "text": "Published-edition comparison is unresolved.",
+          "localDisposition": "retained-as-block",
+          "localHandling": "This is a bounded replay of the already accepted permanent CAK control; it does not treat the monograph digitizations as newly source-cleared or current, discharge the edition gap, or permit a physical score or promotion."
+        },
+        {
+          "artifactSha256": "f6cd58ab841f841bcc310d2f722459122f7850cda9681ae0c7d1877bf21ef471",
+          "id": "P9R-F6CD58AB841F841B-EXTRACTION",
+          "kind": "extraction",
+          "text": "Use primary papers for numeric inputs; any monograph-only value remains blocked.",
+          "localDisposition": "retained-as-block",
+          "localHandling": "This is a bounded replay of the already accepted permanent CAK control; it does not treat the monograph digitizations as newly source-cleared or current, discharge the edition gap, or permit a physical score or promotion."
+        }
+      ]
+    },
+    "sourceStatus": [
+      {
+        "sourceId": "P8B-S2R0-5EF679012E89A00B20AEC8C7",
+        "logicalPath": "research-cache/phase8b-search/acquired-sources-20260811-v1/sei-gonda-1989-polyhedral-growth.pdf",
+        "byteLength": 2608253,
+        "sha256": "5ef679012e89a00b20aec8c7700952dade776b52ad517bb4bb250ea3c8a82a7d",
+        "currentVersion": "complete primary article checked 2026-08-12",
+        "corrections": "no corrigendum or replacement dataset found",
+        "nativeData": "no public native series found",
+        "laterOutput": "Gonda and Sei 2001 retained as a same-lineage pressure backlog lead",
+        "use": "six empirical marker series only; source BCF curves, asymptotes, and Hertz-Knudsen limit lines remain excluded"
+      },
+      {
+        "sourceId": "P9K-LIB-FACET",
+        "logicalPath": "research-cache/content/2306.04042v1.pdf",
+        "byteLength": 1400163,
+        "sha256": "1ff2c1f9699c2aefd26e5373f29c4fdd7a110620c136bd349d813947dacbcd1f",
+        "currentVersion": "arXiv 2306.04042v1 captured; later author output checked through 2026-08-12",
+        "corrections": "none registered",
+        "nativeData": "no independent native benchmark admitted",
+        "use": "printed prism-only Eq. 32 annex at minus seven and minus fifteen Celsius"
+      },
+      {
+        "sourceId": "P9K-LIB-MONOGRAPH",
+        "logicalPath": "research-cache/content/1910.06389v2.pdf",
+        "byteLength": 25611913,
+        "sha256": "f6cd58ab841f841bcc310d2f722459122f7850cda9681ae0c7d1877bf21ef471",
+        "currentVersion": "arXiv draft captured; published Princeton 2021/2022 edition not compared",
+        "use": "the CAK values appear only through a bounded replay of the already accepted permanent LK control; the protocol does not treat the monograph digitizations as newly source-cleared or current, and the edition gap continues to block physical scoring and promotion"
+      },
+      {
+        "sourceId": "P9K-NK98",
+        "logicalPath": "research-cache/content/nelson-knight-1998-layer-nucleation.pdf",
+        "sha256": "8ad834c7263f5bcceaf63a27589b283e132b1c0c2a2ea5715b4cca8ff58b415b",
+        "use": "rival mechanism context; no numeric target is imported"
+      },
+      {
+        "sourceId": "P9K-KURODA82",
+        "logicalPath": "research-cache/phase8b-search/acquired-sources-20260811-v1/kuroda-1982-growth-kinetics.pdf",
+        "sha256": "414057e8a8fcbefc128f375e5c1a0d42dad531ac5a692173d8ce3dcf31ec395b",
+        "use": "theory context only; no historical model curve becomes a target"
+      },
+      {
+        "sourceId": "P9K-SHI25",
+        "logicalPath": "research-cache/content/shi-et-al-2024-face-dependent-ice-growth-kinetics.pdf",
+        "sha256": "732c8ee8f01dcd3c5770b9c09804f9a3c6e4128d0fbc303d86c2e032b2764f79",
+        "currentVersion": "arXiv 2410.07050v3 checked 2026-08-12",
+        "use": "protocol-ineligible molecular-simulation context; liquid-like-reservoir results are not transplanted"
+      },
+      {
+        "sourceId": "P9K-LIB-MORPH19",
+        "logicalPath": "research-cache/content/1910.09067v2.pdf",
+        "sha256": "89ef4d1e3ed1c9b41379fdb26482fee7c932078d23e608541f2a16b5a37a76d5",
+        "use": "calibration lineage and claim limit; not an independent witness"
+      }
+    ]
+  },
+  "sourceProtocol": {
+    "lineageId": "sei-gonda-1989-low-pressure-campaign",
+    "geometry": "polyhedral crystals smaller than 300 micrometres on a growth substrate; selected c-to-a ratio 0.6 to 3.0",
+    "support": "growth substrate",
+    "pressureGas": "40 Pa stagnant air",
+    "forcing": "fixed temperature and source-plotted apparatus supersaturation calibrated from each experiment's evaporation point; the paper does not identify this coordinate as facet-local surface supersaturation",
+    "transport": "the source treats vapor diffusion and latent-heat resistance as ignorable under its protocol; this Phase 9 protocol does not convert that source judgment into an exact surface-value identity",
+    "ensemble": "unreported per-series specimen count; one crystal in the microscope field during a measurement",
+    "observable": "facet-normal growth rate in micrometres per second",
+    "temperatureAccuracyC": 0.01,
+    "supersaturationAccuracyPercentAbsolute": 0.1,
+    "pointDispersion": "not reported",
+    "perSeriesDenominator": "not reported",
+    "rights": "source PDF remains NAS-local; tracked normalized rows are the already accepted Phase 8 digitization metadata and bindings"
+  },
+  "seriesRoster": [
+    {
+      "selectionId": "P8B-P1-S89-F3-BASAL",
+      "temperatureC": -7,
+      "facet": "basal",
+      "sourceLocator": "pdf-page:4;Figure 3;bottom panel",
+      "rowCount": 17,
+      "rowArtifact": {
+        "logicalRoot": "research-cache/phase8b-derived/plot-extraction-20260812-v3",
+        "path": "rows/P8B-P1-S89-F3-BASAL.jsonl",
+        "byteLength": 31924,
+        "sha256": "92dc2a29c92e9e5f8ffde2848c2caca20df0598c876c22b8d2421aaf98d3a975"
+      }
+    },
+    {
+      "selectionId": "P8B-P1-S89-F3-PRISM",
+      "temperatureC": -7,
+      "facet": "prism",
+      "sourceLocator": "pdf-page:4;Figure 3;top panel",
+      "rowCount": 17,
+      "rowArtifact": {
+        "logicalRoot": "research-cache/phase8b-derived/plot-extraction-20260812-v3",
+        "path": "rows/P8B-P1-S89-F3-PRISM.jsonl",
+        "byteLength": 31055,
+        "sha256": "d8f2d875f7cd24e0af428019085f8c7910a3fcd4851d7e819ef6ea2a92dd0bd4"
+      }
+    },
+    {
+      "selectionId": "P8B-P1-S89-F4-BASAL",
+      "temperatureC": -15,
+      "facet": "basal",
+      "sourceLocator": "pdf-page:4;Figure 4;bottom panel",
+      "rowCount": 19,
+      "rowArtifact": {
+        "logicalRoot": "research-cache/phase8b-derived/plot-extraction-20260812-v3",
+        "path": "rows/P8B-P1-S89-F4-BASAL.jsonl",
+        "byteLength": 35303,
+        "sha256": "8dff5fc6062dc6256f7af552d7b64d0fd88c61f9e146b081409cc3dfed0f6307"
+      }
+    },
+    {
+      "selectionId": "P8B-P1-S89-F4-PRISM",
+      "temperatureC": -15,
+      "facet": "prism",
+      "sourceLocator": "pdf-page:4;Figure 4;top panel",
+      "rowCount": 13,
+      "rowArtifact": {
+        "logicalRoot": "research-cache/phase8b-derived/plot-extraction-20260812-v3",
+        "path": "rows/P8B-P1-S89-F4-PRISM.jsonl",
+        "byteLength": 24568,
+        "sha256": "dbca0de2a05e3cc1abf5a53794369a9ae7e56f2737eac6eb07c9793c2e88da14"
+      }
+    },
+    {
+      "selectionId": "P8B-P1-S89-F5-BASAL",
+      "temperatureC": -30,
+      "facet": "basal",
+      "sourceLocator": "pdf-page:5;Figure 5;bottom panel",
+      "rowCount": 17,
+      "rowArtifact": {
+        "logicalRoot": "research-cache/phase8b-derived/plot-extraction-20260812-v3",
+        "path": "rows/P8B-P1-S89-F5-BASAL.jsonl",
+        "byteLength": 30994,
+        "sha256": "b26d4d426f984a24d6fad9fdf8650547ee7ade14acdcc792eff38e7ca608a34d"
+      }
+    },
+    {
+      "selectionId": "P8B-P1-S89-F5-PRISM",
+      "temperatureC": -30,
+      "facet": "prism",
+      "sourceLocator": "pdf-page:5;Figure 5;top panel",
+      "rowCount": 13,
+      "rowArtifact": {
+        "logicalRoot": "research-cache/phase8b-derived/plot-extraction-20260812-v3",
+        "path": "rows/P8B-P1-S89-F5-PRISM.jsonl",
+        "byteLength": 24344,
+        "sha256": "c956a03816ffc465de6492fda7489111a0482ef51160bfb88d16c8d6c57eada1"
+      }
+    }
+  ],
+  "mappingFamily": [
+    {
+      "id": "diagnostic-proportional-q0.125",
+      "status": "diagnostic-only",
+      "surfaceToPlottedRatio": 0.125
+    },
+    {
+      "id": "diagnostic-proportional-q0.25",
+      "status": "diagnostic-only",
+      "surfaceToPlottedRatio": 0.25
+    },
+    {
+      "id": "diagnostic-proportional-q0.5",
+      "status": "diagnostic-only",
+      "surfaceToPlottedRatio": 0.5
+    },
+    {
+      "id": "diagnostic-proportional-q0.75",
+      "status": "diagnostic-only",
+      "surfaceToPlottedRatio": 0.75
+    },
+    {
+      "id": "diagnostic-identity-q1",
+      "status": "diagnostic-only",
+      "surfaceToPlottedRatio": 1,
+      "limit": "identity endpoint only; not a physical identification or upper-bound claim"
+    },
+    {
+      "id": "source-identified-surface-map",
+      "status": "source-blocked",
+      "surfaceToPlottedRatio": null,
+      "prerequisite": "a source-identified local surface mapping with geometry and transport semantics"
+    },
+    {
+      "id": "invented-diffusion-correction",
+      "status": "refused",
+      "surfaceToPlottedRatio": null,
+      "reason": "the required source-specific geometry and transport closure is absent"
+    }
+  ],
+  "modelOperators": {
+    "sharedRateLaw": "normal rate equals the Hertz-Knudsen attachment coefficient times kinetic velocity times local surface supersaturation",
+    "kineticVelocity": "core/src/libbrecht.ts vKin central closed form, shared by M-F and M-K2 so the annex comparison changes no kinetic-velocity convention",
+    "mfBroadCak": {
+      "id": "mf-inherited-cak-control",
+      "facets": [
+        "basal",
+        "prism"
+      ],
+      "temperaturesC": [
+        -7,
+        -15,
+        -30
+      ],
+      "mapping": "bounded replay of the inherited permanent LibbrechtKinetics CAK control in core/src/libbrecht.ts; its monograph Figure 4.5 digitizations are not treated as newly source-cleared or current Phase 9 inputs",
+      "inputUncertainty": "the source mapping records plus or minus 25 percent relative barrier and plus or minus 0.03 absolute prism prefactor digitization uncertainty; the v1 point prediction interval propagates only plot-coordinate digitization and therefore remains explicitly incomplete"
+    },
+    "mk2PrismAnnex": {
+      "id": "mk2-prism-annex",
+      "facet": "prism-only",
+      "basalPolicy": "unchanged inherited CAK control at minus seven and minus fifteen Celsius",
+      "curvaturePolicy": "zero-curvature planar form only; the complete FACET curvature relation is not claimed",
+      "table": [
+        {
+          "temperatureC": -7,
+          "branches": [
+            {
+              "prefactor": 0.5,
+              "barrierFraction": 0.008
+            },
+            {
+              "prefactor": 0.5,
+              "barrierFraction": 0.01
+            }
+          ]
+        },
+        {
+          "temperatureC": -15,
+          "branches": [
+            {
+              "prefactor": 1,
+              "barrierFraction": 0.03
+            }
+          ],
+          "secondBranch": "absent in the printed table"
+        }
+      ],
+      "minusThirtyPolicy": "hard refusal: the annex prints no minus thirty Celsius row and no extrapolation is permitted",
+      "inputUncertainty": "the paper calls higher-temperature details uncertain but prints no numeric branch-parameter uncertainty; absence is retained rather than treated as zero"
+    },
+    "zeroGrowthControl": {
+      "id": "zero-growth-control",
+      "purpose": "type-appropriate nontriviality control for M-F; it is not a physical rival"
+    }
+  },
+  "rawToAlignedTransform": {
+    "rawRows": "remain in the six hash-pinned NAS JSONL artifacts",
+    "coordinateConversion": "retain source-plotted apparatus supersaturation percent, then divide by 100 and multiply by the exact registered diagnostic factor; none of the five points is an identified physical conversion",
+    "rateConversion": "none; rows and predictions are micrometres per second",
+    "coalescing": "none",
+    "interpolation": "none across observed rows; evaluate each model at each retained central coordinate and its digitization endpoints",
+    "duplicatePolicy": "point identifiers must be unique within a series; no row is dropped or averaged",
+    "negativeUncertaintyEndpoint": "retain the digitized endpoint; the no-sublimation rate law returns zero at nonpositive mapped drive rather than silently shifting the interval",
+    "differentiation": "none",
+    "fitting": "none; diagnostic factors are a fully reported pre-score construction grid and are never optimized"
+  },
+  "score": {
+    "pointCentralLoss": "squared residual in squared micrometres per squared second",
+    "pointIntervalLoss": "squared minimum gap between the coordinate-induced prediction interval and the retained digitized observation interval; zero means overlap, not agreement within statistical uncertainty",
+    "seriesLoss": "arithmetic mean over retained points within one series",
+    "familyLoss": "arithmetic mean of per-series losses; pooled point loss is forbidden",
+    "mfRoster": "all six series with equal series weight",
+    "mk2ExactDomainRoster": [
+      "P8B-P1-S89-F3-BASAL",
+      "P8B-P1-S89-F3-PRISM",
+      "P8B-P1-S89-F4-BASAL",
+      "P8B-P1-S89-F4-PRISM"
+    ],
+    "mk2MatchedAblationRoster": [
+      "P8B-P1-S89-F3-PRISM",
+      "P8B-P1-S89-F4-PRISM"
+    ],
+    "ablation": "inherited permanent CAK control on the exact two matched prism series",
+    "basalIdentityControl": "M-K2 basal predictions must be bit-identical to M-F at every evaluated mapped coordinate",
+    "mfNontrivialityControl": "zero-growth-control over the exact six M-F series",
+    "expectedMk2Effect": "strictly lower central MSE on both matched prism series, lower equal-series central MSE, and no higher equal-series interval-gap MSE than M-F under the same mapping",
+    "noEffectBranch": "any mapping that misses one of those conditions is a diagnostic no-pass at that mapping",
+    "parameterSpaceDecision": {
+      "zeroMappingsMeetEffect": "diagnostic-all-no-pass",
+      "someMappingsMeetEffect": "diagnostic-mapping-dependent",
+      "allMappingsMeetEffect": "diagnostic-robust-over-grid"
+    },
+    "physicalDecision": "always unavailable in v1 because the apparatus-to-surface mapping is source-blocked, model uncertainty is incomplete, and the inherited CAK monograph edition/extraction gap remains unresolved",
+    "stopRule": "stop morphology interpretation for every v1 outcome; a later physical score requires a new frozen mapping and uncertainty decision before its output is inspected"
+  },
+  "numericalControls": {
+    "arithmetic": "binary64 pure functions on the pinned Node runtime; no solver, iteration, interpolation fit, randomness, or 3-D field",
+    "exactChecks": [
+      "M-K2 at minus seven contains exactly two printed branches",
+      "M-K2 at minus fifteen contains exactly one printed branch",
+      "M-K2 refuses minus thirty before rate evaluation",
+      "M-K2 basal equals M-F bit-for-bit at minus seven and minus fifteen",
+      "nonpositive local drive produces zero rate",
+      "source-blocked and refused mappings cannot enter a score",
+      "equal-series aggregation rejects missing, duplicate, or ineligible series",
+      "parameter-space aggregation rejects a missing or duplicate mapping"
+    ],
+    "resourceCeiling": "pure unit tests and future evaluation over 96 rows by five diagnostic points and three model/control operators; no Phase 6 host use",
+    "host": "Mac isolated phase/9 worktree",
+    "runtime": "Node 23.6 or newer",
+    "runRoster": "finite exact six-series roster above; no additional source series enter without a protocol amendment"
+  },
+  "futureOutputContract": {
+    "required": [
+      "all five mapping identifiers",
+      "all eligible per-series central and interval-gap scores",
+      "explicit M-K2 minus-thirty refusal",
+      "matched prism ablation decision at each mapping",
+      "parameter-space diagnostic label",
+      "source-blocked physical-score status",
+      "model and observation uncertainty limitations",
+      "exact input and evaluator hashes"
+    ],
+    "independentDerivation": "a sibling reader must reparse the six row artifacts and recompute predictions, per-series losses, equal-series aggregation, refusals, and diagnostic labels from published bytes without importing the producer",
+    "negativeControls": [
+      "drop one registered series",
+      "duplicate a series under a second row",
+      "replace the absent minus-fifteen second branch with a fabricated branch",
+      "attempt an M-K2 minus-thirty score",
+      "change M-K2 basal away from M-F",
+      "supply the source-blocked or refused mapping to the scorer",
+      "pool points instead of equal-weighting series"
+    ]
+  },
+  "whatThisCannotEstablish": [
+    "an identified apparatus-to-surface supersaturation conversion",
+    "absolute physical accuracy of either attachment rule",
+    "statistical population agreement because specimen counts and dispersion are absent",
+    "transport, substrate, latent-heat, pressure, or ventilation adequacy",
+    "M-K2 behavior at minus thirty Celsius",
+    "whole-crystal morphology, habit, or causal mechanism",
+    "independent confirmation because the Phase 8 development rows and diagnostic mapping family were used to design this comparison and were not held out; distinct Sei-Gonda observation and Libbrecht control/input lineages do not make it confirmatory",
+    "held-out or quantitative-validation status"
+  ]
+}

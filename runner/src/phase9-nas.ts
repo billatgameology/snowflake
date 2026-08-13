@@ -1,69 +1,118 @@
-import { lstatSync, realpathSync, statSync } from "node:fs";
-import { isAbsolute, relative, resolve, sep } from "node:path";
+// Phase 9 portable NAS resolution.
+//
+// Git records paths relative to the snowcrystal share. The two execution hosts mount that same
+// share differently, so neither evidence nor source registries may persist a host mount prefix.
+// Resolution checks both the lexical path and the real filesystem target: a contained symlink
+// that points outside the share must not turn an apparently safe registry row into arbitrary file
+// access.
 
-const WINDOWS_NAS_ROOT = "S:/";
-const MAC_NAS_ROOT = "/Volumes/snowcrystal";
+import { realpathSync, statSync } from "node:fs";
+import { isAbsolute, resolve, sep } from "node:path";
 
-function isContained(root: string, candidate: string): boolean {
-  const offset = relative(root, candidate);
-  return offset === "" || (!offset.startsWith("..") && !isAbsolute(offset));
+const DEFAULT_NAS_CANDIDATES = ["S:/", "/Volumes/snowcrystal/"] as const;
+const NAS_MARKER = "research-cache";
+
+export type Phase9NasResolution =
+  | { readonly kind: "ok"; readonly path: string; readonly byteLength: number }
+  | { readonly kind: "forbidden"; readonly reason: string }
+  | { readonly kind: "not-found"; readonly reason: string };
+
+function normalizeMount(value: string): string {
+  return value.replace(/\\/g, "/").replace(/\/*$/, "/");
 }
 
-export function defaultPhase9NasRoot(platform: NodeJS.Platform = process.platform): string {
-  if (platform === "win32") return WINDOWS_NAS_ROOT;
-  if (platform === "darwin") return MAC_NAS_ROOT;
-  throw new Error(`no default Phase 9 NAS root for platform ${platform}; set VCC_NAS_ROOT`);
+function hasMarker(mount: string): boolean {
+  try {
+    return statSync(resolve(mount, NAS_MARKER)).isDirectory();
+  } catch {
+    return false;
+  }
 }
 
-export function configuredPhase9NasRoot(
-  environment: NodeJS.ProcessEnv = process.env,
-  platform: NodeJS.Platform = process.platform,
-): string {
-  const configured = environment.VCC_NAS_ROOT;
-  if (configured !== undefined) {
-    if (configured.trim() === "" || !isAbsolute(configured)) {
-      throw new Error("VCC_NAS_ROOT must be a non-empty absolute path");
+/**
+ * Locate the snowcrystal share on either supported host. `VCC_NAS_ROOT` is intentionally scoped
+ * to this project rather than reusing a shell or system option. An explicit but wrong override
+ * fails loudly; silently falling back would let a partial source census look complete.
+ */
+export function detectPhase9NasRoot(
+  environment: Readonly<Record<string, string | undefined>> = process.env,
+  candidates: readonly string[] = DEFAULT_NAS_CANDIDATES,
+): string | null {
+  const forced = environment.VCC_NAS_ROOT;
+  if (forced !== undefined && forced !== "") {
+    const normalized = normalizeMount(forced);
+    if (!hasMarker(normalized)) {
+      throw new Error(`VCC_NAS_ROOT=${forced} does not contain ${NAS_MARKER}`);
     }
-    return resolve(configured);
+    return normalized;
   }
-  return resolve(defaultPhase9NasRoot(platform));
+  for (const candidate of candidates) {
+    const normalized = normalizeMount(candidate);
+    if (hasMarker(normalized)) return normalized;
+  }
+  return null;
 }
 
-export function phase9NasArtifactPath(root: string, logicalPath: string): string {
-  if (logicalPath.trim() === "" || isAbsolute(logicalPath)) {
-    throw new Error("NAS logical path must be non-empty and relative");
+/** Validate the portable identity before touching the filesystem. */
+export function assertPhase9ShareRelativePath(value: string, label = "NAS path"): void {
+  if (
+    value.length === 0 ||
+    isAbsolute(value) ||
+    value.includes("\\") ||
+    value.includes("\0") ||
+    value.startsWith("/") ||
+    value.endsWith("/") ||
+    value.split("/").some((part) => part === "" || part === "." || part === "..")
+  ) {
+    throw new Error(`${label} must be a safe share-relative POSIX path`);
   }
-  const resolvedRoot = resolve(root);
-  const candidate = resolve(resolvedRoot, logicalPath);
-  if (!isContained(resolvedRoot, candidate)) {
-    throw new Error(`NAS logical path escapes its root: ${logicalPath}`);
-  }
-  return candidate;
 }
 
-export function verifiedPhase9NasArtifactPath(root: string, logicalPath: string): string {
-  const resolvedRoot = realpathSync(resolve(root));
-  const candidate = phase9NasArtifactPath(resolvedRoot, logicalPath);
-  const linkStats = lstatSync(candidate);
-  if (linkStats.isSymbolicLink()) {
-    throw new Error(`NAS artifact must not be a symbolic link: ${logicalPath}`);
+/**
+ * Resolve a registered share-relative path to a regular file while preserving containment across
+ * `..`, symlinks, junctions, and macOS's mount aliases.
+ */
+export function resolvePhase9NasFile(relativePath: string, nasRoot: string): Phase9NasResolution {
+  try {
+    assertPhase9ShareRelativePath(relativePath);
+  } catch (error) {
+    return { kind: "forbidden", reason: error instanceof Error ? error.message : "unsafe NAS path" };
   }
-  const physical = realpathSync(candidate);
-  if (!isContained(resolvedRoot, physical)) {
-    throw new Error(`NAS artifact resolves outside its root: ${logicalPath}`);
+
+  const lexicalRoot = resolve(nasRoot);
+  const lexicalTarget = resolve(lexicalRoot, relativePath);
+  if (lexicalTarget !== lexicalRoot && !lexicalTarget.startsWith(`${lexicalRoot}${sep}`)) {
+    return { kind: "forbidden", reason: "lexical NAS path escapes the share" };
   }
-  const stats = statSync(physical);
-  if (!stats.isFile() || !Number.isSafeInteger(stats.size) || stats.size < 0) {
-    throw new Error(`NAS artifact is not a regular finite-size file: ${logicalPath}`);
+
+  let realRoot: string;
+  let realTarget: string;
+  try {
+    realRoot = realpathSync.native(lexicalRoot);
+    realTarget = realpathSync.native(lexicalTarget);
+  } catch {
+    return { kind: "not-found", reason: "NAS path does not resolve" };
   }
-  return physical;
+  if (realTarget !== realRoot && !realTarget.startsWith(`${realRoot}${sep}`)) {
+    return { kind: "forbidden", reason: "real NAS target escapes the share" };
+  }
+
+  try {
+    const status = statSync(realTarget);
+    if (!status.isFile()) return { kind: "not-found", reason: "NAS target is not a regular file" };
+    return { kind: "ok", path: realTarget, byteLength: status.size };
+  } catch {
+    return { kind: "not-found", reason: "NAS target cannot be stated" };
+  }
 }
 
-export function phase9NasRelativePath(root: string, physicalPath: string): string {
-  const resolvedRoot = realpathSync(resolve(root));
-  const physical = realpathSync(resolve(physicalPath));
-  if (!isContained(resolvedRoot, physical)) {
-    throw new Error("physical artifact is outside the Phase 9 NAS root");
+/** Convert the exact legacy macOS prefix frozen in the Phase 9 knowledge register. */
+export function normalizeFrozenKnowledgeNasPath(value: string): string {
+  const prefix = "/Volumes/snowcrystal/";
+  if (!value.startsWith(prefix)) {
+    throw new Error(`frozen knowledge path does not use the registered ${prefix} prefix`);
   }
-  return relative(resolvedRoot, physical).split(sep).join("/");
+  const relativePath = value.slice(prefix.length);
+  assertPhase9ShareRelativePath(relativePath, "frozen knowledge path");
+  return relativePath;
 }

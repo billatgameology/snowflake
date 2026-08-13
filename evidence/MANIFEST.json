@@ -3,8 +3,8 @@
  "movedFrom": "out/ (gitignored), plus the byte-identical tracked arm64 fingerprint formerly under docs/",
  "movedTo": "evidence/ (tracked)",
  "note": "Historical sweep digests were computed before their move and re-verified afterward. The arm64 fingerprint preserves the exact former docs/ Git blob (18398 bytes, SHA-256 d6686f8e...). The x64 fingerprint is the complete 2026-08-01 lightweight fixture re-execution backing the exact per-entry comparison; it reproduces registered digest 2a9f64b3. These are preserved claim-backing bytes, not regenerated production sweeps.",
- "fileCount": 96,
- "totalBytes": 3196381,
+ "fileCount": 112,
+ "totalBytes": 3528026,
  "files": {
   "phase6-crossplatform/arm64-libm-fingerprint.txt": {
    "bytes": 18398,
@@ -366,6 +366,26 @@
    "bytes": 36094,
    "sha256": "c54b89683eea1f064bd8e81d6e9e06b3b9bbc6c022168b981cbfa71e5fc3cdd3"
   },
+  "phase9-dbt-six-history-development-v3/artifact-index.json": {
+   "bytes": 673,
+   "sha256": "ebc2a56624606842208ecb42af857c216584b926c5a96716ecebf1139f4b5184"
+  },
+  "phase9-dbt-six-history-development-v3/launch-manifest.json": {
+   "bytes": 17274,
+   "sha256": "d7d03b0396a29968de5db3db91b6ec53ea57fbf06bdb217e68dfc9689c88f297"
+  },
+  "phase9-dbt-six-history-development-v3/report.json": {
+   "bytes": 6870,
+   "sha256": "f7a84d7509460256d4e535516d7c0e69050e4621fc5357df59e314fc41379a41"
+  },
+  "phase9-dbt-six-history-development-v3/scores.jsonl": {
+   "bytes": 11691,
+   "sha256": "6e2af9268de8e73ed187d8663054874a9a761266fc234fcf1a05455652aa32ed"
+  },
+  "phase9-dbt-six-history-development-v3/source-diagnostics.jsonl": {
+   "bytes": 6205,
+   "sha256": "1eb8fb08fc35c271a360f84053c70bc3c1d7aec1bc749f680b22f452c12b3d56"
+  },
   "phase9-knowledge-baseline-v1/artifact-index.json": {
    "bytes": 1028,
    "sha256": "c9a73f9464fc74be03cf805c617815f0a5ca3437b8fcf20e96c5e15bc6b77d96"
@@ -389,6 +409,50 @@
   "phase9-knowledge-baseline-v1/source-register.jsonl": {
    "bytes": 17827,
    "sha256": "e217861146b1a9456a2ce1464e263e00b88512011382e5da54e6dd03d5c105f7"
+  },
+  "phase9-mf-mk2-planar-diagnostic-v1/artifact-index.json": {
+   "bytes": 627,
+   "sha256": "4dc80469b8f30e767bb581653444ec0b7548536caa1c29a1c25c697041cb2c8a"
+  },
+  "phase9-mf-mk2-planar-diagnostic-v1/launch-manifest.json": {
+   "bytes": 8942,
+   "sha256": "58585b83c5a8bef49468acdaa1c3702d86c8cc6e5c429b07522bc2e29e5c7ad0"
+  },
+  "phase9-mf-mk2-planar-diagnostic-v1/mapping-decisions.jsonl": {
+   "bytes": 13839,
+   "sha256": "af7900a979441ed42a9def1c55a9ed51ee5f2fc341038a27934ae3e161e6be04"
+  },
+  "phase9-mf-mk2-planar-diagnostic-v1/report.json": {
+   "bytes": 1441,
+   "sha256": "c938c02460402e19f41c62b975ac41b44861af4ee36c781dbb469c350288bdf7"
+  },
+  "phase9-mf-mk2-planar-diagnostic-v1/series-scores.jsonl": {
+   "bytes": 28679,
+   "sha256": "f7518ccf367d2de4382a443e9e0a7179595c97fd1fb12383cd3c2b41206d944c"
+  },
+  "phase9-source-overlay-v1/artifact-index.json": {
+   "bytes": 844,
+   "sha256": "7a347d4616770bdf59ab5e29006659b269014d74ac3e93ba796dc444a5f40898"
+  },
+  "phase9-source-overlay-v1/blockers.jsonl": {
+   "bytes": 5292,
+   "sha256": "57dd4d679cbc1edd38feeca7e678ff16e2051d0bcf77c26fa034cdffba76c7ea"
+  },
+  "phase9-source-overlay-v1/report.json": {
+   "bytes": 6530,
+   "sha256": "51e1fa2bf6a84beb94ffd442fd0d55df9017f7bb76e2b04d1e1f5fec38c63d8a"
+  },
+  "phase9-source-overlay-v1/shelf-freeze.json": {
+   "bytes": 63975,
+   "sha256": "b0bbab2e01eca61dfb2b807bda3614aaf803e5fd0457f2df02aa3e4b8c5d1a06"
+  },
+  "phase9-source-overlay-v1/source-audits.jsonl": {
+   "bytes": 44355,
+   "sha256": "3255e66e29aca0f33e4fd8490f7c647ddc796a71206e764932fd2fe1d51d753a"
+  },
+  "phase9-source-overlay-v1/source-overlay.jsonl": {
+   "bytes": 114408,
+   "sha256": "f79cfd5268524d9017439e7be3abfe8b1e5df13f4e909c5d62569b8cc59ed5f7"
   }
  }
 }

@@ -1,0 +1,388 @@
+{
+  "schema": "phase9-hollowing-rivals-protocol-v1",
+  "protocolId": "phase9-hollowing-rivals-prescore-v1",
+  "frozenDate": "2026-08-13",
+  "state": {
+    "role": "maximum-honest-prescore-foundation",
+    "sourceObservationsReadByRunner": 0,
+    "sourceDataScoresProduced": 0,
+    "mechanismRankingAuthorized": false,
+    "morphologyInferenceAuthorized": false,
+    "causalInferenceAuthorized": false,
+    "physicalPromotionAuthorized": false,
+    "validationClaimAuthorized": false,
+    "threeDimensionalCampaignAuthorized": false
+  },
+  "implementationArtifacts": {
+    "model": {
+      "path": "runner/src/phase9-hollowing-rivals.ts",
+      "byteLength": 19925,
+      "sha256": "b0ea2c148dff34a99c75839f6178b4e1bc41eba1b2f49b5b5b1a1f9f13ef7620"
+    },
+    "test": {
+      "path": "runner/test/phase9-hollowing-rivals.test.ts",
+      "byteLength": 21895,
+      "sha256": "9e2d0b068cf1c93a0170808d7b337bea489ce2951a5ff7f4cfc1546c42c4f836"
+    }
+  },
+  "authorityBindings": {
+    "s0b": {
+      "shelfFreeze": {
+        "path": "evidence/phase9-source-overlay-v1/shelf-freeze.json",
+        "byteLength": 63975,
+        "sha256": "b0bbab2e01eca61dfb2b807bda3614aaf803e5fd0457f2df02aa3e4b8c5d1a06"
+      },
+      "sourceOverlay": {
+        "path": "evidence/phase9-source-overlay-v1/source-overlay.jsonl",
+        "byteLength": 114408,
+        "sha256": "f79cfd5268524d9017439e7be3abfe8b1e5df13f4e909c5d62569b8cc59ed5f7"
+      },
+      "blockers": {
+        "path": "evidence/phase9-source-overlay-v1/blockers.jsonl",
+        "byteLength": 5292,
+        "sha256": "57dd4d679cbc1edd38feeca7e678ff16e2051d0bcf77c26fa034cdffba76c7ea"
+      },
+      "exactShelfRecords": [
+        {
+          "item": "M-W",
+          "canonicalJsonByteLength": 5146,
+          "canonicalJsonSha256": "d0d00d1478a0c791b4c10e8684b4b3c3d98f63615a6c29ec024cc8f50f1b7c62",
+          "completeArtifactCount": 12,
+          "sourceBlockerIds": [],
+          "protocolDispositionState": "pending",
+          "localHandling": "Every frozen restriction remains operative. Only the normalized law shape and a P4 manufactured estimator are admitted; physical w, w0, lattice mapping, source score, and promotion remain blocked."
+        },
+        {
+          "item": "M-SS",
+          "canonicalJsonByteLength": 3011,
+          "canonicalJsonSha256": "be2cba16a0f010538678e94cc4dd1f906fd3e2522c02a95df5e7883e19f63049",
+          "completeArtifactCount": 7,
+          "sourceBlockerIds": [
+            "P9B-MISSING-HP26"
+          ],
+          "protocolDispositionState": "pending",
+          "localHandling": "Exact M-SS equations, fit cases, integrator, kinetic closure, and hollowing update are not implemented or inferred. The arm remains source-blocked; only shared observed rim features may be replayed."
+        },
+        {
+          "item": "M-SR",
+          "canonicalJsonByteLength": 4449,
+          "canonicalJsonSha256": "9752b19314c25a571c8e1342c475ca4a1d9a3c19c516d3de5dae58c97904b87a",
+          "completeArtifactCount": 9,
+          "sourceBlockerIds": [],
+          "protocolDispositionState": "pending",
+          "localHandling": "The directly observed lateral-facet and roughness states remain a categorical third rival. Missing codebooks, native trajectories, calibration media, uncertainty, and matched transport forbid a numeric score or ranking."
+        }
+      ],
+      "exactSourceOverlayRecords": [
+        {
+          "role": "HP26 companion archive and missing-paper guard",
+          "artifactSha256": "3fa016d36ae11dad221b2c9b300a5fe928ed253ac92dd8acdb2887291f32bc36",
+          "canonicalJsonByteLength": 2537,
+          "canonicalJsonSha256": "70fd4c26771d7de88512719e1c11e02521431cd9adcdf92183ea8ca9dc1aa91b"
+        },
+        {
+          "role": "Nelson-Swanson 2019 lateral-facet observations",
+          "artifactSha256": "84bdc4f49db156160b52c6887e55080f547850e21c172b5794f47eeb34deac1f",
+          "canonicalJsonByteLength": 1915,
+          "canonicalJsonSha256": "a85dd3fcd6af527fef268c94d57533c5765c312ec06af9bdd3ad61ee1ccfda90"
+        },
+        {
+          "role": "Voigtlander et al. 2018 roughness cycles",
+          "artifactSha256": "8062802f15b237ed51d0abd9589a22963539f9a27ed2e5596f7932852c08133c",
+          "canonicalJsonByteLength": 2455,
+          "canonicalJsonSha256": "f88871989359167c4a73beee82b9432d79963765a23ef0dfe9001a81f88a79e0"
+        },
+        {
+          "role": "Magee et al. 2014 mesoscopic roughness",
+          "artifactSha256": "1a0709a42e70ad507e83239a92e29740b317755704f31076099a00aa8d643e41",
+          "canonicalJsonByteLength": 1956,
+          "canonicalJsonSha256": "c86aa0925306cd6b6b32ac39860f3ee1b05b466c3ac3777d529e77358aaeb94e"
+        },
+        {
+          "role": "captured Libbrecht monograph and Princeton-edition guard",
+          "artifactSha256": "f6cd58ab841f841bcc310d2f722459122f7850cda9681ae0c7d1877bf21ef471",
+          "canonicalJsonByteLength": 2482,
+          "canonicalJsonSha256": "939c2d5f57db93c2f2c9f6fe1482621f9cf68827fdb2316c120815f41bf7b126"
+        }
+      ],
+      "exactHp26Blocker": {
+        "affectedShelfItems": [
+          "M-SS"
+        ],
+        "blockerId": "P9B-MISSING-HP26",
+        "identity": "Harrington and Pokrifka 2026, DOI 10.1175/JAS-D-26-0016.1",
+        "kind": "missing-full-text",
+        "prerequisite": "Acquire and inspect the final article equations, fit cases, integrator, and hollowing update.",
+        "schema": "phase9-source-blocker-v1",
+        "sourceRecordId": "P9K-HP26",
+        "status": "arm-freeze-blocked"
+      }
+    },
+    "knowledge": {
+      "calculations": {
+        "path": "evidence/phase9-knowledge-baseline-v1/calculations.json",
+        "byteLength": 36091,
+        "sha256": "71c3c15587f1a705dbfa6ac9dd7fcb74ef5141c7547d06214d4dd64e423efee5"
+      },
+      "hypotheses": {
+        "path": "evidence/phase9-knowledge-baseline-v1/hypotheses.jsonl",
+        "byteLength": 28878,
+        "sha256": "1c7d5ad2f4778b60240e83f150b237a33b12dd0bca388e319d203beb8d209b08"
+      },
+      "sourceRegister": {
+        "path": "evidence/phase9-knowledge-baseline-v1/source-register.jsonl",
+        "byteLength": 17827,
+        "sha256": "e217861146b1a9456a2ce1464e263e00b88512011382e5da54e6dd03d5c105f7"
+      },
+      "exactSubrecords": [
+        {
+          "kind": "calculation",
+          "id": "widthConditionedBarrier",
+          "canonicalJsonByteLength": 692,
+          "canonicalJsonSha256": "551d0b9a2767298f8fa430ecff0e329d2c0ddc4f26c60c49d943be8b067a1da0"
+        },
+        {
+          "kind": "calculation",
+          "id": "stepSourceObservedGeometry",
+          "canonicalJsonByteLength": 1789,
+          "canonicalJsonSha256": "08be17a182cb00f6215fbccfeb81d331c023dc353106f64669854ed44baabc7a"
+        },
+        {
+          "kind": "hypothesis",
+          "id": "P9H-WIDTH-SDAK",
+          "canonicalJsonByteLength": 2103,
+          "canonicalJsonSha256": "a85d388285ed3fe891467695416e4b0a2ac249bdf8125bd01effa1341be0087b"
+        },
+        {
+          "kind": "hypothesis",
+          "id": "P9H-STEP-SOURCE",
+          "canonicalJsonByteLength": 2185,
+          "canonicalJsonSha256": "6b40d9cdc093c34f03d3805f652fd75d44f32829587dd922a4426b60f252f23f"
+        },
+        {
+          "kind": "hypothesis",
+          "id": "P9H-FORCING-PATH",
+          "canonicalJsonByteLength": 1855,
+          "canonicalJsonSha256": "ef85c21634c65bd1caf3c517932f17a31289cb247f90afbdffe9348e219b978f"
+        },
+        {
+          "kind": "hypothesis",
+          "id": "P9H-MEMORY-STATE",
+          "canonicalJsonByteLength": 1987,
+          "canonicalJsonSha256": "cc0f68bd985301aa63f905e36d6fb5fab83364b196da354f0468b8c223b8b33c"
+        },
+        {
+          "kind": "source",
+          "id": "P9K-LIB-MONOGRAPH",
+          "canonicalJsonByteLength": 1177,
+          "canonicalJsonSha256": "9913bafcfd49e8cf609695a1ed9b33a84ed69e263364e56aeb1d3eb407ef681f"
+        },
+        {
+          "kind": "source",
+          "id": "P9K-HP26",
+          "canonicalJsonByteLength": 1200,
+          "canonicalJsonSha256": "11c08e1a4e90228fc7bff10ac96e0ce104dc87dabff5ce84e382562ffd8b9df5"
+        },
+        {
+          "kind": "source",
+          "id": "P9K-NB96",
+          "canonicalJsonByteLength": 1013,
+          "canonicalJsonSha256": "f36446dc82d424802abb728c9901414cdd916f9d1b30cac32d1f064300540266"
+        }
+      ],
+      "mHInheritance": {
+        "implementationOrProtocolAvailable": false,
+        "inheritedOnlyAsKnowledge": [
+          "P9H-FORCING-PATH",
+          "P9H-MEMORY-STATE"
+        ],
+        "handling": "No hidden memory state is invented. The selected HP26 event remains a categorical observed change-point, and an event response does not identify memory."
+      }
+    },
+    "s1AndSelectedHistories": {
+      "adapterRegistry": {
+        "path": "research/phase9-adapter-registry-v1.jsonl",
+        "byteLength": 48946,
+        "sha256": "498e85471766294d812b3ef9d747381e92eb476e8a9b40a3f34f855b53e46337"
+      },
+      "successorTargetBook": {
+        "path": "evidence/phase8b-benchmark-final-v1/successor-target-book.jsonl",
+        "byteLength": 36094,
+        "sha256": "c54b89683eea1f064bd8e81d6e9e06b3b9bbc6c022168b981cbfa71e5fc3cdd3"
+      },
+      "nativeHistoryMetadata": {
+        "path": "evidence/phase8b-native-histories-v1/records.jsonl",
+        "byteLength": 43881,
+        "sha256": "0765fa74b0fca079a56b0bd30b02d03212ff49a9616034f9f31a196559c463ce"
+      },
+      "terminalRecords": {
+        "path": "evidence/phase8b-p2-terminal-v1/records.jsonl",
+        "byteLength": 15900,
+        "sha256": "933c968420c54be134fcdc6f8b13d217e6c77700c9c3e580b4cadbafd04a7862"
+      },
+      "exactAdapterRows": [
+        {
+          "selectionId": "P8B-P0-10C734F0C6C31B5904B10BE7",
+          "canonicalJsonByteLength": 998,
+          "canonicalJsonSha256": "946aae97017fcd8242a59fc00e63031d51e64ee04d3014da7ce68038d3d3d389"
+        },
+        {
+          "selectionId": "P8B-P0-2CF2C2C5B3A6900FC3F9CDDA",
+          "canonicalJsonByteLength": 998,
+          "canonicalJsonSha256": "ddd6cb0d4406c74b808c8b1f89713c5190e5872946853cddfba792d4c19e9d3f"
+        },
+        {
+          "selectionId": "P8B-P2-HP25-SOURCE-SEMANTICS",
+          "canonicalJsonByteLength": 714,
+          "canonicalJsonSha256": "fe0465e87fd1c04028f507fdefed05916a4a7fc8b8c0ecb201310e9fa8814728"
+        }
+      ],
+      "exactTargetRows": [
+        {
+          "selectionId": "P8B-P0-10C734F0C6C31B5904B10BE7",
+          "canonicalJsonByteLength": 765,
+          "canonicalJsonSha256": "62e4bc115b07ccdcc76fbe6bb226a0fac2ad7c086d1d0131b7f294c32d83734d"
+        },
+        {
+          "selectionId": "P8B-P0-2CF2C2C5B3A6900FC3F9CDDA",
+          "canonicalJsonByteLength": 765,
+          "canonicalJsonSha256": "d9c0f23f4a211f9b8dbde2fb48679314a20c0e4e8f614ffafbc5790da512b579"
+        },
+        {
+          "selectionId": "P8B-P2-HP25-SOURCE-SEMANTICS",
+          "canonicalJsonByteLength": 928,
+          "canonicalJsonSha256": "ad19e9989cd794c37ad0d2df955b29bda03a74b55acd53061a2c9e9f7a6533e9"
+        }
+      ],
+      "selectedRimHistories": [
+        {
+          "selectionId": "P8B-P0-10C734F0C6C31B5904B10BE7",
+          "metadataRecordId": "P8B-NATIVE-DIMENSIONS-20231128",
+          "normalizedRowCount": 26,
+          "normalizedRowSha256": "1dc1feee5049d107e312d10cd4f1d7435b50159cc6b212f57f740700971249ba",
+          "sourceMemberSha256": "c4b8d3d5c674898b8e5bfa761e95933b251d59daa833dbd5fb27483238c57c48"
+        },
+        {
+          "selectionId": "P8B-P0-2CF2C2C5B3A6900FC3F9CDDA",
+          "metadataRecordId": "P8B-NATIVE-DIMENSIONS-20240814",
+          "normalizedRowCount": 68,
+          "normalizedRowSha256": "99d534800b1ace8ccecd92dd2cddb0a286aeaf9cb9c295aa3ef589baa7bbe7de",
+          "sourceMemberSha256": "8aff69945a47d383b708942bb0441768ddf2822f812495fea69e51aebf3f25e8"
+        }
+      ],
+      "absoluteForcingRestriction": {
+        "allowed": "dimension-versus-time and source-labelled change-point development analysis",
+        "forbidden": "conversion of 48 or 20 percent to solver sigmaInfinity, inferred supersaturation uncertainty, or absolute forcing-response score",
+        "upgrade": "acquire and inspect the first-report Methods before lifting this restriction"
+      }
+    }
+  },
+  "pdfInspection": {
+    "method": "PDF skill: Poppler page rendering followed by complete visual contact-sheet inspection; text extraction used only as a locator aid",
+    "inspectionDate": "2026-08-13",
+    "records": [
+      {
+        "source": "Nelson and Swanson 2019, Lateral facet growth of ice and snow - Part 1",
+        "canonicalPath": "research-cache/phase8b-search/acquired-sources-20260811-v1/nelson-2019-lateral-facet-growth.pdf",
+        "byteLength": 15146764,
+        "sha256": "84bdc4f49db156160b52c6887e55080f547850e21c172b5794f47eeb34deac1f",
+        "pagesRenderedAndInspected": "1-36 of 36",
+        "boundedUse": "categorical lateral-facet spreading and pocket/regrowth feature vocabulary only"
+      },
+      {
+        "source": "Voigtlander et al. 2018, Surface roughness during depositional growth and sublimation of ice crystals",
+        "canonicalPath": "research-cache/phase8b-search/acquired-sources-20260811-v1/pfalzgraff-et-al-2018-growth-sublimation-roughness.pdf",
+        "byteLength": 1546665,
+        "sha256": "8062802f15b237ed51d0abd9589a22963539f9a27ed2e5596f7932852c08133c",
+        "pagesRenderedAndInspected": "1-16 of 16",
+        "boundedUse": "categorical roughness-cycle and later-cycle growth-response vocabulary only"
+      },
+      {
+        "source": "Magee et al. 2014, Mesoscopic surface roughness of ice crystals pervasive across a wide range of ice crystal conditions",
+        "canonicalPath": "research-cache/phase8b-search/acquired-sources-20260811-v1/neshyba-et-al-2014-mesoscopic-roughness.pdf",
+        "byteLength": 5071351,
+        "sha256": "1a0709a42e70ad507e83239a92e29740b317755704f31076099a00aa8d643e41",
+        "pagesRenderedAndInspected": "1-15 of 15",
+        "boundedUse": "categorical mesoscopic topography and stalled-growth vocabulary only"
+      },
+      {
+        "source": "Harrington and Pokrifka 2026",
+        "canonicalPath": null,
+        "pdfStatus": "absent; S0B and knowledge records bind the final DOI but only the companion archive is present",
+        "boundedUse": "no equation, integrator, fit case, kinetic closure, or hollowing update may be inferred from the archive"
+      }
+    ],
+    "limit": "The inspection adds no numeric coordinate extraction, codebook, uncertainty model, transport match, mechanism score, or causal interpretation."
+  },
+  "rivals": {
+    "M-W": {
+      "available": "normalized source-printed law shape sigma0(w)/sigma0Infinity = 1 - exp(-w/w0) over widthOverW0 [0.1, 5]",
+      "control": "broad-facet fraction tends toward one only as a dimensionless asymptotic shape statement",
+      "unavailable": [
+        "physical w",
+        "physical w0",
+        "lattice-to-width mapping",
+        "newer Princeton edition comparison",
+        "physical source score"
+      ]
+    },
+    "M-SS": {
+      "status": "source-blocked",
+      "reasonCode": "P9B-MISSING-HP26",
+      "available": "Nelson-Baker theory lineage and shared observed rim features",
+      "unavailable": "the exact HP26 equation set and executable model; no equation is invented"
+    },
+    "M-SR": {
+      "status": "categorical-observed-feature-comparator-only",
+      "available": "frozen categorical lateral-facet, roughness-cycle, and mesoscopic-surface feature vocabulary",
+      "unavailable": "common numeric codebook, matched transport, native trajectories, calibration media, quantitative score, or hidden state"
+    }
+  },
+  "manufacturedWidthFixture": {
+    "provenance": "P4-symmetric-piecewise-linear-half-maximum-fixture",
+    "coordinateUnit": "dimensionless-manufactured-coordinate",
+    "coordinates": [-1, -0.75, -0.5, -0.25, 0, 0.25, 0.5, 0.75, 1],
+    "profile": [0, 0.25, 0.5, 0.75, 1, 0.75, 0.5, 0.25, 0],
+    "thresholdFraction": 0.5,
+    "exactCrossings": [-0.5, 0.5],
+    "exactWidth": 1,
+    "physicalWidthMapping": "absent"
+  },
+  "allowedPurposes": [
+    "normalized-width-law-shape",
+    "manufactured-width-estimator",
+    "hp26-rim-feature-source-replay",
+    "observed-spatial-roughness-feature-comparison"
+  ],
+  "refusedPurposes": {
+    "physical-width-law": "Newer Princeton comparison, physical w0, and physical width mapping are unresolved.",
+    "mss-exact-equation-evaluation": "P9B-MISSING-HP26 blocks the exact model; companion files do not authorize invented equations.",
+    "absolute-forcing-response": "The source labels 48 and 20 are categorical and cannot become solver forcing.",
+    "mechanism-ranking": "Transport is unmatched, M-SS is source-blocked, and M-SR has no common numeric codebook.",
+    "morphology-or-causal-claim": "Endpoint shape and same-lineage features do not identify a mechanism or cause.",
+    "physical-module-promotion": "A pre-score diagnostic/source replay cannot promote a module.",
+    "quantitative-validation": "Phase 9 has no validation authority.",
+    "three-dimensional-campaign": "No 3-D protocol, implementation, cost probe, resource authorization, or numerical controls exist."
+  },
+  "claimBoundary": {
+    "allowed": [
+      "dimensionless normalized M-W law-shape arithmetic",
+      "exact P4 manufactured width-estimator identity",
+      "tracked endpoint and event-bracket arithmetic for two selected same-lineage HP26 rim histories",
+      "categorical observed-feature vocabulary from visually inspected sources",
+      "explicit source-blocked and ineligible outcomes"
+    ],
+    "forbidden": [
+      "physical w or w0 mapping",
+      "absolute conversion of the 48 or 20 source labels",
+      "invented M-SS equations or executable closure",
+      "numeric M-SR score without a frozen codebook and trajectory extraction",
+      "mechanism ranking under unmatched transport",
+      "hollowing morphology prediction",
+      "causal confirmation",
+      "physical promotion",
+      "quantitative validation",
+      "three-dimensional campaign authorization"
+    ]
+  }
+}

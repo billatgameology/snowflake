@@ -1,0 +1,727 @@
+{
+  "schema": "phase9-dbt-protocol-v1",
+  "protocolId": "phase9-dbt-six-history-development-v1",
+  "frozenDate": "2026-08-12",
+  "adoptionCommit": "f936920",
+  "state": {
+    "protocol": "frozen-before-model-output",
+    "modelScoreInspected": false,
+    "launch": {
+      "status": "blocked",
+      "scoreMayRun": false,
+      "remainingBlockers": [
+        "The source-data publisher and sibling byte-derived verifier are not implemented in this protocol-repair unit; they must hash the registered and observed launch manifests independently and execute every named mutation before scoring."
+      ],
+      "s0bPreflightState": "The final S0B identity is pinned. Its actual D-BT row remains protocolDispositionState=pending by design; launch preflight requires sourceBlocked=false, no blocker presence/IDs/identities, and exact local discharge of all nine structured restrictions."
+    },
+    "phase9Role": "development-only-cheapest-discriminator",
+    "grantsValidationClaim": false
+  },
+  "claimBoundary": {
+    "allowed": [
+      "within-apparatus development comparison of four bulk mass-transfer rules",
+      "source-replay and discrepancy diagnosis over the exact six registered histories",
+      "separate sensitivity reports for source-stated initial-radius ranges and maximum mass-ratio error"
+    ],
+    "forbidden": [
+      "held-out or quantitative-validation language",
+      "facet, habit, crystallography, initiation-state, or morphology prediction",
+      "unqualified transfer from electrodynamic levitation to freely falling particles",
+      "calling the Phase 8 Harrison records definitively absent from Lamb training",
+      "calling any comparator an exact reproduction of Lamb Table 1"
+    ],
+    "apparatusLimit": "The particles were selected Snomax-frozen products in a Button Electrode Levitation chamber; growth-time habit, grain count, and crystallography were not observed, and the applied electric field remains a transfer confound."
+  },
+  "entryArtifacts": [
+    {
+      "path": "evidence/phase8b-benchmark-final-v1/artifact-index.json",
+      "byteLength": 404,
+      "sha256": "f17b1db5b1b876f11d83fdbbd8cf85b7ba56f98d08122080965fa7ef00bb9722"
+    },
+    {
+      "path": "evidence/phase8b-benchmark-final-v1/successor-target-book.jsonl",
+      "byteLength": 36094,
+      "sha256": "c54b89683eea1f064bd8e81d6e9e06b3b9bbc6c022168b981cbfa71e5fc3cdd3"
+    },
+    {
+      "path": "evidence/phase8b-native-histories-v1/artifact-index.json",
+      "byteLength": 3488,
+      "sha256": "0d86eeff512a297d1d61096e4f67870234f00c61211e053fe2a334b4cd30b20e"
+    },
+    {
+      "path": "evidence/phase8b-native-histories-v1/records.jsonl",
+      "byteLength": 43881,
+      "sha256": "0765fa74b0fca079a56b0bd30b02d03212ff49a9616034f9f31a196559c463ce"
+    },
+    {
+      "path": "evidence/phase9-knowledge-baseline-v1/artifact-index.json",
+      "byteLength": 1028,
+      "sha256": "c9a73f9464fc74be03cf805c617815f0a5ca3437b8fcf20e96c5e15bc6b77d96"
+    },
+    {
+      "path": "evidence/phase9-knowledge-baseline-v1/source-register.jsonl",
+      "byteLength": 17827,
+      "sha256": "e217861146b1a9456a2ce1464e263e00b88512011382e5da54e6dd03d5c105f7"
+    },
+    {
+      "path": "evidence/phase9-knowledge-baseline-v1/hypotheses.jsonl",
+      "byteLength": 28878,
+      "sha256": "1c7d5ad2f4778b60240e83f150b237a33b12dd0bca388e319d203beb8d209b08"
+    },
+    {
+      "path": "evidence/phase9-knowledge-baseline-v1/calculations.json",
+      "byteLength": 36091,
+      "sha256": "71c3c15587f1a705dbfa6ac9dd7fcb74ef5141c7547d06214d4dd64e423efee5"
+    },
+    {
+      "path": "research/phase6-heldout-candidate-lock.json",
+      "byteLength": 15148,
+      "sha256": "f245d9e6e4f899f1629c37376c2a4bf62475b5a705f9966aff816c36763f73a5"
+    }
+  ],
+  "upstreamBindings": {
+    "sourceOverlay": {
+      "shelfFreezePath": "evidence/phase9-source-overlay-v1/shelf-freeze.json",
+      "identity": {
+        "path": "evidence/phase9-source-overlay-v1/shelf-freeze.json",
+        "byteLength": 63975,
+        "sha256": "b0bbab2e01eca61dfb2b807bda3614aaf803e5fd0457f2df02aa3e4b8c5d1a06"
+      },
+      "shelfFreezeSchema": "phase9-source-shelf-freeze-v1",
+      "shelfItem": "D-BT",
+      "freezeOrdering": "This D-BT protocol discharges S0B's actual pending restriction records locally. S0B need not bind or mark this later protocol complete, which removes the former circular wait.",
+      "requiredSourceBlocked": false,
+      "restrictionDischarges": {
+        "P9R-18BFF2FE4BBF2732-EXTRACTION": {
+          "artifactSha256": "18bff2fe4bbf27323d61a092db7bf36efa1e19424ea63ab098f193ffb325a1d8",
+          "id": "P9R-18BFF2FE4BBF2732-EXTRACTION",
+          "kind": "extraction",
+          "text": "Use as a comparator/manufactured check, not an experimental witness.",
+          "status": "discharged",
+          "localDischarge": "The Harrington-Sokolowsky-Morrison source is comparator context only and is not a scored observation."
+        },
+        "P9R-4901759B3F5F6D71-EXTRACTION": {
+          "artifactSha256": "4901759b3f5f6d71759b31286db6103d9f7d9b23512c01237067c11da3be815c",
+          "id": "P9R-4901759B3F5F6D71-EXTRACTION",
+          "kind": "extraction",
+          "text": "Use registered normalized rows and preserve duplicate time/decrease semantics.",
+          "status": "discharged",
+          "localDischarge": "The roster pins all six registered row identities; observationOperator preserves decreases and uses an explicit exact-time duplicate median."
+        },
+        "P9R-5010DED8EE7C1617-EXTRACTION": {
+          "artifactSha256": "5010ded8ee7c16178e5007c9228e2d0ab7785ec698ae77c2662cb3259b50fab1",
+          "id": "P9R-5010DED8EE7C1617-EXTRACTION",
+          "kind": "extraction",
+          "text": "Use corrected condition joins; fitted coefficients and transition labels remain derived.",
+          "status": "discharged",
+          "localDischarge": "Every roster row pins the corrected Pokrifka condition authority; no fitted transition label is a D-BT target."
+        },
+        "P9R-98FF103B4CE5B958-EXTRACTION": {
+          "artifactSha256": "98ff103b4ce5b95851c093f3f6e7717ea923ba420758f36fa1dcdf338b5044d8",
+          "id": "P9R-98FF103B4CE5B958-EXTRACTION",
+          "kind": "extraction",
+          "text": "Bind exact formula/preprocessing files in D-BT; do not claim training reproduction.",
+          "status": "discharged",
+          "localDischarge": "The IceNODE archive and six load-bearing member hashes are pinned under sourceBytes; the claim boundary and lineage section refuse training reproduction."
+        },
+        "P9R-D1C9822C539365B9-EXTRACTION": {
+          "artifactSha256": "d1c9822c539365b9fc63203a85e0efab36d9c1508f6836724b8afe0b11e82364",
+          "id": "P9R-D1C9822C539365B9-EXTRACTION",
+          "kind": "extraction",
+          "text": "Use printed equations and registered code only; do not infer a facet observable.",
+          "status": "discharged",
+          "localDischarge": "The protocol pins printed/released formula identities and explicitly forbids facet, habit, or morphology inference."
+        },
+        "P9R-DEE100AF051B8C6D-EXTRACTION": {
+          "artifactSha256": "dee100af051b8c6dacb3a8a0f0cc17f4dca26c29bc8f6c50963311dd3ce2fcbc",
+          "id": "P9R-DEE100AF051B8C6D-EXTRACTION",
+          "kind": "extraction",
+          "text": "Implement only equations and assumptions printed in the source; compare to matched development histories.",
+          "status": "discharged",
+          "localDischarge": "The source-lineage formula, project deviations, constants, and six exact matched histories are frozen in modelOperator and primaryRoster."
+        },
+        "P9R-F312A5A18889320C-EXTRACTION": {
+          "artifactSha256": "f312a5a18889320c0be62d200c39db723bca2a1d68968b8ec308dc4789370530",
+          "id": "P9R-F312A5A18889320C-EXTRACTION",
+          "kind": "extraction",
+          "text": "Use only the reported aggregates and retain the missing-denominator refusal.",
+          "status": "discharged",
+          "localDischarge": "Bacon aggregates are not among the six D-BT observations and contribute no D-BT quantitative score."
+        },
+        "P9R-F835471063BE51C5-CURRENCY_LATER_AUTHOR_OUTPUT": {
+          "artifactSha256": "f835471063be51c511ca3561026b170157e78ba1f4eaf849f507e4cb2ece011d",
+          "id": "P9R-F835471063BE51C5-CURRENCY_LATER_AUTHOR_OUTPUT",
+          "kind": "currency-later-author-output",
+          "text": "Unresolved for a promoted electric-field arm.",
+          "status": "discharged",
+          "localDischarge": "D-BT does not promote or execute an electric-field arm."
+        },
+        "P9R-F835471063BE51C5-EXTRACTION": {
+          "artifactSha256": "f835471063be51c511ca3561026b170157e78ba1f4eaf849f507e4cb2ece011d",
+          "id": "P9R-F835471063BE51C5-EXTRACTION",
+          "kind": "extraction",
+          "text": "No current extraction: the present shelf has no electric-field intervention.",
+          "status": "discharged",
+          "localDischarge": "No electric-field intervention or score is introduced; the apparatus field remains a transfer confound."
+        }
+      },
+      "identityRule": "The pre-score launch registration pins the final shelf-freeze byte length and SHA-256; an independent observation of those bytes must match exactly."
+    },
+    "measurementAdapters": {
+      "identity": {
+        "path": "research/phase9-adapter-registry-v1.jsonl",
+        "byteLength": 48946,
+        "sha256": "498e85471766294d812b3ef9d747381e92eb476e8a9b40a3f34f855b53e46337"
+      },
+      "requiredMappings": [
+        {
+          "selectionId": "P8B-P0-D6442E662770C35854FB2D8B",
+          "adapterKind": "free-particle-mass",
+          "bindingKind": "native-history",
+          "scalarMassHistoryDevelopmentStatus": "eligible-with-limitation",
+          "unqualifiedFreeParticleTransferStatus": "ineligible"
+        },
+        {
+          "selectionId": "P8B-P0-4CB1637CA175FA4D94EF6063",
+          "adapterKind": "free-particle-mass",
+          "bindingKind": "native-history",
+          "scalarMassHistoryDevelopmentStatus": "eligible-with-limitation",
+          "unqualifiedFreeParticleTransferStatus": "ineligible"
+        },
+        {
+          "selectionId": "P8B-P0-A6FA0826C9C2852672C2B87A",
+          "adapterKind": "free-particle-mass",
+          "bindingKind": "native-history",
+          "scalarMassHistoryDevelopmentStatus": "eligible-with-limitation",
+          "unqualifiedFreeParticleTransferStatus": "ineligible"
+        },
+        {
+          "selectionId": "P8B-P0-8376DA186B16D7C1C8F650BD",
+          "adapterKind": "free-particle-mass",
+          "bindingKind": "native-history",
+          "scalarMassHistoryDevelopmentStatus": "eligible-with-limitation",
+          "unqualifiedFreeParticleTransferStatus": "ineligible"
+        },
+        {
+          "selectionId": "P8B-P0-5C37491C76718529DA5A4C93",
+          "adapterKind": "free-particle-mass",
+          "bindingKind": "native-history",
+          "scalarMassHistoryDevelopmentStatus": "eligible-with-limitation",
+          "unqualifiedFreeParticleTransferStatus": "ineligible"
+        },
+        {
+          "selectionId": "P8B-P0-25FF44515D32E7473616AC2A",
+          "adapterKind": "free-particle-mass",
+          "bindingKind": "native-history",
+          "scalarMassHistoryDevelopmentStatus": "eligible-with-limitation",
+          "unqualifiedFreeParticleTransferStatus": "ineligible"
+        }
+      ]
+    }
+  },
+  "sourceBytes": {
+    "lambPaper": {
+      "logicalPath": "research-cache/content/lamb-et-al-2025-neural-ode-symbolic-regression.pdf",
+      "byteLength": 2013127,
+      "sha256": "d1c9822c539365b9fc63203a85e0efab36d9c1508f6836724b8afe0b11e82364",
+      "locators": [
+        "PDF page 5 Table 1",
+        "PDF page 7 Eq. 6",
+        "PDF page 8 Eqs. 7-12",
+        "PDF page 9 levitation data and interpolation description",
+        "PDF page 19 Table S2 equation 8"
+      ]
+    },
+    "iceNodeArchive": {
+      "logicalPath": "research-cache/content/icenode-2025-code-63078e02.zip",
+      "byteLength": 492600,
+      "sha256": "98ff103b4ce5b95851c093f3f6e7717ea923ba420758f36fa1dcdf338b5044d8",
+      "archiveCommit": "63078e02bdd54061040e0ea3a050d4fbed84832e",
+      "loadBearingMembers": [
+        {
+          "path": "README.md",
+          "sha256": "0bd1c93447f4c0d4a48d7d8ef97b801c3a5ac83d9d21b8eaccfcc49d14e596c7"
+        },
+        {
+          "path": "Gfunctions.py",
+          "sha256": "bb1c80d94d89547c8d5790599a769ef66dc132388a931bbc2b2b1eb3b541b1e5"
+        },
+        {
+          "path": "Data/preprocess.py",
+          "sha256": "f2dcbb5f558dfcf147fcc47e9d6355dc849851a359b4721408bcdd5bb330129f"
+        },
+        {
+          "path": "model_comparison.py",
+          "sha256": "63b1f310da1dd30ce0450b3bd47b8818694028aa6aa45d8353a927f35cc7aee9"
+        },
+        {
+          "path": "models.py",
+          "sha256": "f7b2485553c9422c95996d5a5e68c548ec36c72174d2528b8dd1a031e40981d0"
+        },
+        {
+          "path": "constants.py",
+          "sha256": "c8bf0b5d2fce645c8acdf5d30e8336eb47a87844f17ea0b8f2860338c35a42fc"
+        }
+      ],
+      "reproducibilityLimit": "The snapshot lacks the training data, loaders, checkpoints, chosen symbolic artifacts, dependency lock, and runnable paths needed for end-to-end reproduction."
+    },
+    "nelsonBakerPrimary": {
+      "sourceId": "P9K-NB96",
+      "logicalPath": "research-cache/content/nelson-baker-1996-theoretical-framework.pdf",
+      "sha256": "dee100af051b8c6dacb3a8a0f0cc17f4dca26c29bc8f6c50963311dd3ce2fcbc",
+      "use": "theory lineage; the executable comparator below follows the equations and constants printed and released with Lamb et al."
+    }
+  },
+  "lineage": {
+    "status": "code-indicated-nonoverlap-not-definitive",
+    "positiveEvidence": [
+      "The acquired IceNODE Data/preprocess.py constructs LevDataUncertainty_noHarrison.pth.",
+      "The same preprocessing file labels the combined arrays as no Harrison."
+    ],
+    "whyNotDefinitive": [
+      "The public snapshot omits the data bodies, serialized loader, training checkpoint, and experiment-ID bundle.",
+      "The paper cites Harrison 2016 as an apparatus/data source, so citation alone cannot establish row overlap or absence.",
+      "No published identifier join maps the 290 training histories to the 16 Phase 8 archive members."
+    ],
+    "requiredUpgrade": "Obtain a hash-bound training experiment-ID bundle or equivalent author record and join all 16 Harrison member identities before changing this status."
+  },
+  "primaryRoster": [
+    {
+      "selectionId": "P8B-P0-D6442E662770C35854FB2D8B",
+      "metadataRecordId": "P8B-NATIVE-MASS-725C",
+      "sourceUnitId": "P8B-UNIT-D6442E662770C35854FB2D8B",
+      "runId": "725c",
+      "conditions": {
+        "tempC": -33.8,
+        "tempRangeC": 0.1,
+        "pressurePa": 97055,
+        "pressureUncertainty": "not stated",
+        "sigmaIcePercent": 17,
+        "sigmaIceRangePercent": 1.1,
+        "initialRadiusUm": 8.9,
+        "initialRadiusRangeUm": 0.2
+      },
+      "rowArtifact": {
+        "logicalRoot": "research-cache/phase8b-derived/native-histories-20260812-v1",
+        "path": "data/mass-ratio-725c.tsv",
+        "byteLength": 401224,
+        "rowCount": 16694,
+        "sha256": "9c6f7dfb34ac493871aa2c943f3530bdaab1dbc8d069360f68bf754af086c35d",
+        "lastTimeS": 1036.7232
+      },
+      "scoreGrid": {
+        "firstSecond": 0,
+        "lastSecond": 499,
+        "sampleCount": 500
+      }
+    },
+    {
+      "selectionId": "P8B-P0-4CB1637CA175FA4D94EF6063",
+      "metadataRecordId": "P8B-NATIVE-MASS-725E",
+      "sourceUnitId": "P8B-UNIT-4CB1637CA175FA4D94EF6063",
+      "runId": "725e",
+      "conditions": {
+        "tempC": -33.8,
+        "tempRangeC": 0.1,
+        "pressurePa": 97055,
+        "pressureUncertainty": "not stated",
+        "sigmaIcePercent": 17,
+        "sigmaIceRangePercent": 1.1,
+        "initialRadiusUm": 9.86,
+        "initialRadiusRangeUm": 0.25
+      },
+      "rowArtifact": {
+        "logicalRoot": "research-cache/phase8b-derived/native-histories-20260812-v1",
+        "path": "data/mass-ratio-725e.tsv",
+        "byteLength": 500151,
+        "rowCount": 15036,
+        "sha256": "6d5088fcd69d75c2a4107a0aa49fb109ee205ea28c306dedaff64c7527b62f8e",
+        "lastTimeS": 920.70933
+      },
+      "scoreGrid": {
+        "firstSecond": 0,
+        "lastSecond": 499,
+        "sampleCount": 500
+      }
+    },
+    {
+      "selectionId": "P8B-P0-A6FA0826C9C2852672C2B87A",
+      "metadataRecordId": "P8B-NATIVE-MASS-805A",
+      "sourceUnitId": "P8B-UNIT-A6FA0826C9C2852672C2B87A",
+      "runId": "805a",
+      "conditions": {
+        "tempC": -35.7,
+        "tempRangeC": 0.1,
+        "pressurePa": 97020,
+        "pressureUncertainty": "not stated",
+        "sigmaIcePercent": 28.6,
+        "sigmaIceRangePercent": 2.1,
+        "initialRadiusUm": 10.3,
+        "initialRadiusRangeUm": 0.5
+      },
+      "rowArtifact": {
+        "logicalRoot": "research-cache/phase8b-derived/native-histories-20260812-v1",
+        "path": "data/mass-ratio-805a.tsv",
+        "byteLength": 241047,
+        "rowCount": 7337,
+        "sha256": "b839a5301c7059784f05ded5443ee2a813cf1af9884841bc52cfa3c85c72dcea",
+        "lastTimeS": 449.5908
+      },
+      "scoreGrid": {
+        "firstSecond": 0,
+        "lastSecond": 449,
+        "sampleCount": 450
+      }
+    },
+    {
+      "selectionId": "P8B-P0-8376DA186B16D7C1C8F650BD",
+      "metadataRecordId": "P8B-NATIVE-MASS-805B",
+      "sourceUnitId": "P8B-UNIT-8376DA186B16D7C1C8F650BD",
+      "runId": "805b",
+      "conditions": {
+        "tempC": -35.7,
+        "tempRangeC": 0.1,
+        "pressurePa": 97020,
+        "pressureUncertainty": "not stated",
+        "sigmaIcePercent": 28.6,
+        "sigmaIceRangePercent": 2.1,
+        "initialRadiusUm": 9.2,
+        "initialRadiusRangeUm": 0.5
+      },
+      "rowArtifact": {
+        "logicalRoot": "research-cache/phase8b-derived/native-histories-20260812-v1",
+        "path": "data/mass-ratio-805b.tsv",
+        "byteLength": 255237,
+        "rowCount": 7767,
+        "sha256": "dc2d020d3fcae39d5568e11ac40c998e6bb8cffc9dd31306b3d86d0797c414d6",
+        "lastTimeS": 463.6129
+      },
+      "scoreGrid": {
+        "firstSecond": 0,
+        "lastSecond": 463,
+        "sampleCount": 464
+      }
+    },
+    {
+      "selectionId": "P8B-P0-5C37491C76718529DA5A4C93",
+      "metadataRecordId": "P8B-NATIVE-MASS-805H",
+      "sourceUnitId": "P8B-UNIT-5C37491C76718529DA5A4C93",
+      "runId": "805h",
+      "conditions": {
+        "tempC": -35.7,
+        "tempRangeC": 0.1,
+        "pressurePa": 97020,
+        "pressureUncertainty": "not stated",
+        "sigmaIcePercent": 28.6,
+        "sigmaIceRangePercent": 2.1,
+        "initialRadiusUm": 8.2,
+        "initialRadiusRangeUm": 0.5
+      },
+      "rowArtifact": {
+        "logicalRoot": "research-cache/phase8b-derived/native-histories-20260812-v1",
+        "path": "data/mass-ratio-805h.tsv",
+        "byteLength": 172044,
+        "rowCount": 5246,
+        "sha256": "c587bfe396ac374093cb332581d0fa9c67b9db5d8e698679b61b1221ea24cb17",
+        "lastTimeS": 323.8091
+      },
+      "scoreGrid": {
+        "firstSecond": 0,
+        "lastSecond": 323,
+        "sampleCount": 324
+      }
+    },
+    {
+      "selectionId": "P8B-P0-25FF44515D32E7473616AC2A",
+      "metadataRecordId": "P8B-NATIVE-MASS-805L",
+      "sourceUnitId": "P8B-UNIT-25FF44515D32E7473616AC2A",
+      "runId": "805l",
+      "conditions": {
+        "tempC": -35.7,
+        "tempRangeC": 0.1,
+        "pressurePa": 97020,
+        "pressureUncertainty": "not stated",
+        "sigmaIcePercent": 28.6,
+        "sigmaIceRangePercent": 2.1,
+        "initialRadiusUm": 8.9,
+        "initialRadiusRangeUm": 0.7
+      },
+      "rowArtifact": {
+        "logicalRoot": "research-cache/phase8b-derived/native-histories-20260812-v1",
+        "path": "data/mass-ratio-805l.tsv",
+        "byteLength": 167853,
+        "rowCount": 5119,
+        "sha256": "f4cdaf3a956869e8b862fe94b7646e96b98bd0f06b5ba2845dae7f5367efcffd",
+        "lastTimeS": 311.3324
+      },
+      "scoreGrid": {
+        "firstSecond": 0,
+        "lastSecond": 311,
+        "sampleCount": 312
+      }
+    }
+  ],
+  "conditionMapping": {
+    "modelDomain": {
+      "temperatureK": {
+        "minimumInclusive": 205,
+        "maximumInclusive": 240
+      },
+      "scoreTimeS": {
+        "minimumInclusive": 0,
+        "maximumExclusive": 500,
+        "integerSecondsOnly": true
+      }
+    },
+    "temperature": "Use corrected Pokrifka 2020 central tempC plus 273.15 K; retain its marginal range but do not combine it with other ranges in this protocol.",
+    "pressure": "Use each registered measured pressurePa. The released IceNODE fixed 97190 Pa convention is a diagnostic only.",
+    "supersaturation": "Convert corrected ambient chamber sigmaIcePercent to excessIceSupersaturationFraction by division by 100. It is an ambient drive for this reduced comparator, not measured surface supersaturation.",
+    "initialMass": "Use a sphere of rhoIce=910 kg m^-3 at corrected initialRadiusUm. This is the Lamb/released-code mass convention and an analysis assumption because initial products may be polycrystalline.",
+    "forcing": "Treat each registered temperature, pressure, and ambient drive as constant during its history.",
+    "observable": "Direct positive mass ratio m/m0 only; never use the archive's undocumented sixth column."
+  },
+  "observationOperator": {
+    "rawRows": "Read all three-column NAS TSV rows after hash and byte-length verification; preserve observed decreases.",
+    "duplicates": "Group exact-equal source times, sort that group's mass-ratio values ascending, and use the ordinary median; do not smooth or force monotonicity.",
+    "timeZero": "If the first source time is positive and its mass ratio is exactly one, prepend the definitional project anchor (0 s, 1). Refuse a later-starting history whose first ratio is not one.",
+    "interpolation": "Linear interpolation between adjacent coalesced source times at integer seconds.",
+    "grid": "Use 0 through min(499, floor(last source time in seconds)), inclusive. The earlier phrase 0-500 s is shorthand for the paper's strict t < 500 s domain; no t=500 point is scored.",
+    "shortHistories": "Do not pad. Histories ending before 500 s stop at floor(last source time).",
+    "rights": "Normalized row bodies remain NAS-local; published evidence contains only derived scores, diagnostics, identities, and hashes permitted by the governing rights boundary."
+  },
+  "modelOperator": {
+    "state": "One positive mass in kg with spherical radius r=(3m/(4*pi*rhoIce))^(1/3).",
+    "growthEquation": "dm/dt = 4*pi*r*(S_i-1)*G.",
+    "integration": "Fixed-step classical RK4 with exactly one-second steps and output at every registered grid second; reject a nonconsecutive, shifted, negative, or post-499 grid.",
+    "constants": {
+      "rhoIceKgM3": 910,
+      "gasConstantJMolK": 8.3144521,
+      "waterMolarMassKgMol": 0.018,
+      "latentHeatSublimationJKg": 2837000,
+      "joulesPerCalorie": 4.187,
+      "standardPressurePa": 101325,
+      "vaporDiffusivityReferenceM2S": 0.0000211,
+      "vaporDiffusivityTemperatureExponent": 1.94,
+      "waterVaporGasConstantJKgK": 461.51,
+      "dryAirGasConstantJKgK": 287.05,
+      "dryAirSpecificHeatJKgK": 1005,
+      "vaporJumpDistanceM": 1.04e-7,
+      "thermalJumpDistanceM": 2.16e-7,
+      "thermalAccommodationCoefficient": 1
+    },
+    "comparators": [
+      {
+        "id": "continuum",
+        "definition": "Gc is the reciprocal sum of the printed vapor and thermal resistances, with Murphy-Koop ice vapor pressure, Dv=2.11e-5*(T/273.15)^1.94*(101325/P), and the released air-conductivity relation.",
+        "control": "Positive finite Gc and analytic spherical constant-G solution must agree with RK4 within the test-pinned numerical tolerance."
+      },
+      {
+        "id": "project-ambient-excess-hybrid",
+        "definition": "Project hybrid using the source-lineage critical-drive expression attachmentCoefficientNB=(s/scrit)*tanh(scrit/s), with scrit=9.6066e-5*abs(tempC)^1.9171, plus the released transitional vapor and heat corrections before the same resistance sum.",
+        "projectDeviations": [
+          "It supplies corrected ambient chamber excess S_i-1 where the Nelson-Baker theory requires local surface excess; no local-surface closure is implemented.",
+          "It retains the released thermal-jump correction even though the Nelson-Baker paper says to ignore the thermal jump in this treatment.",
+          "It uses each history's measured pressure rather than the released snapshot's fixed 97190 Pa."
+        ],
+        "releasedCodeDiscrepancy": "The released models.py supplies saturation ratio S_i rather than excess S_i-1 to this expression. Preserve that behavior only as a separately named discrepancy diagnostic; it is not this project hybrid.",
+        "claimLimit": "The three project deviations, missing released data/loader/checkpoint, and documented input seam forbid calling this a Nelson-Baker reproduction or an exact reproduction of Lamb Table 1."
+      },
+      {
+        "id": "lamb",
+        "definition": "G=1e-9*[((1e9*Gc)^1.3153063)/(1/1.1682062+2.6606467/(1e12*m))+0.1123054], using each registered measured pressure in Gc.",
+        "seams": [
+          "G tends to 1.123054e-10 kg m^-1 s^-1 rather than zero as mass tends to zero.",
+          "The large-mass expression does not tend to Gc.",
+          "It is a bulk surrogate with no facet, habit, support, ventilation, or initiation state."
+        ]
+      },
+      {
+        "id": "leave-one-history-out-continuum-rescale",
+        "definition": "For each held-out primary history, fit one multiplier q in q*Gc against the other five histories only, then evaluate that frozen q on the held-out history.",
+        "trainingLoss": "Arithmetic mean of the five per-history MSE values; never pool time points.",
+        "search": {
+          "minimum": 0,
+          "maximum": 2,
+          "basis": "same 0 <= G/Gc <= 2 range used by the weak IceNODE model",
+          "coarseIntervals": 256,
+          "refinement": "80 fixed golden-section iterations over the two coarse intervals neighboring the best coarse node",
+          "endpoints": "evaluate both endpoints explicitly",
+          "ties": "choose the smaller multiplier",
+          "boundaryHandling": "report a minimum or maximum boundary solution by name; do not silently widen after seeing it"
+        }
+      }
+    ]
+  },
+  "score": {
+    "perHistory": [
+      "MSE over that history's registered integer-second grid",
+      "mean signed predicted-minus-observed residual and its sign",
+      "endpoint predicted-minus-observed residual and its sign",
+      "negative, exact-zero, and positive residual counts"
+    ],
+    "family": "Arithmetic mean of the six per-history MSE values. A longer history receives no greater family weight.",
+    "primaryDecision": {
+      "expectedEffect": "On central inputs only, the Lamb comparator has strictly lower equal-history MSE than the leave-one-history-out rescale and strictly lower per-history MSE in at least four of six held-out histories.",
+      "operator": "Compute both arithmetic means over the exact six per-history MSE values. Family equality is failure. For each history, Lamb equality with the rescale is not a win. Survives only when Lamb family MSE is strictly lower and the strict Lamb win count is at least four; every other outcome is no-effect-or-failure.",
+      "survives": "Both strict parts of the expected effect occur on central inputs.",
+      "noEffectOrFailure": "Either strict part does not occur, including any relevant tie; publish the disagreement without changing the rule.",
+      "promotionLimit": "A surviving result promotes only a bounded bulk comparator. It does not identify a physical surface mechanism or validate a crystal model."
+    },
+    "otherComparisons": "Report continuum and the project ambient-excess hybrid beside both rivals without using them to weaken the precommitted Lamb-versus-rescale decision."
+  },
+  "sensitivity": {
+    "centralPrimary": "The primary decision is computed once from the six central condition/radius/observation cases. Sensitivities never replace or refit that primary result.",
+    "initialRadius": {
+      "cases": "For each history separately, vary only that held-out history to corrected central radius minus or plus its source-stated marginal range.",
+      "leaveOneHistoryOut": "Fit each fold multiplier once on the five central-radius, central-observation training histories. Never refit on a sensitivity. Evaluate that fixed multiplier only on its held-out history's lower or upper radius.",
+      "combinationRule": "Compare the strict Lamb-versus-rescale win for that one history with its central win. Do not compute a sensitivity family score, all-low/all-high envelope, Cartesian corner set, or probabilistic interval."
+    },
+    "massRatioMaximumError": {
+      "sourceStatement": "maximum relative error 5 percent; not a confidence interval, standard deviation, or probability distribution",
+      "heldoutOnly": "For each fold separately, leave its central five-history training fit unchanged and vary only the held-out observations by minus or plus five percent.",
+      "reports": [
+        "central MSE",
+        "MSE against the coherent diagnostic y*0.95 series",
+        "MSE against the coherent diagnostic y*1.05 series",
+        "counts below, inside, and above [0.95*y, 1.05*y]",
+        "mean squared distance outside that band"
+      ],
+      "limit": "Each shift applies only to one held-out history at a time. It is a sensitivity diagnostic, not a joint temporal or six-history uncertainty envelope. Do not combine it with radius cases."
+    },
+    "decisionLabel": "If any held-out history's strict Lamb-versus-rescale win flips under a named radius or mass-ratio case, label the result sensitivity-dependent. Temperature and supersaturation one-factor cases are not implemented, so promotion is unavailable even when the central result survives and no named win flips.",
+    "promotionAvailability": {
+      "temperatureOneFactorAvailable": false,
+      "supersaturationOneFactorAvailable": false,
+      "promotionAvailable": false,
+      "upgradeRule": "Promotion can become available only after frozen heldout-only temperature and supersaturation one-factor operators are added and executed without inspecting alternatives."
+    }
+  },
+  "launchPreflight": {
+    "status": "pure implementation and negative fixtures exist; source-data publisher and sibling verifier remain launch blockers",
+    "requiredIdentityPaths": {
+      "protocol": "research/phase9-dbt-protocol-v1.json",
+      "implementation": "runner/src/phase9-dbt-model.ts",
+      "test": "runner/test/phase9-dbt-model.test.ts",
+      "preflightImplementation": "runner/src/phase9-dbt-preflight.ts",
+      "preflightTest": "runner/test/phase9-dbt-preflight.test.ts"
+    },
+    "identityContract": "Before score execution, freeze one launch manifest with exact byte length and SHA-256 for the protocol, model implementation, tests, final S0B shelf freeze, and S1 adapter registry. Independently hash the bytes to an observed manifest and require semantic identity through phase9DbtRunLaunchPreflight. The six roster entries include every selection, metadata, source-unit, and run ID plus conditions, NAS row hash/bytes, and grid.",
+    "requiredOperatorPins": {
+      "observationDecreasePolicy": "preserve-decreases",
+      "projectAmbientExcessHybrid": {
+        "criticalScale": 0.000096066,
+        "temperatureExponent": 1.9171,
+        "drive": "ambient-excess-not-local-surface"
+      },
+      "lamb": {
+        "exponent": 1.3153063,
+        "massScaleCoefficient": 2.6606467,
+        "denominatorScale": 1.1682062,
+        "additiveScaled": 0.1123054
+      },
+      "rescaleBounds": {
+        "minimum": 0,
+        "maximum": 2
+      },
+      "verdict": {
+        "family": "strict-lamb-lower",
+        "requiredStrictPerHistoryWins": 4,
+        "ties": "fail"
+      }
+    },
+    "publisherContract": {
+      "name": "phase9-dbt-source-data-publisher",
+      "state": "not-implemented",
+      "mustDo": "Hash actual inputs, execute the frozen arithmetic without alternative inspection, publish derived outputs only, and record every mutation result."
+    },
+    "verifierContract": {
+      "name": "phase9-dbt-sibling-byte-verifier",
+      "state": "not-implemented",
+      "mustDo": "Independently hash source and code bytes, reparse observations, recompute model output and verdict, and execute the named mutations without inheriting producer verdict fields."
+    }
+  },
+  "preRunControls": [
+    {
+      "id": "source-overlay-blocked",
+      "mutation": "set sourceBlocked=true in the actual D-BT shelf row",
+      "requiredOutcome": "pure launch preflight refuses before source observation scoring"
+    },
+    {
+      "id": "source-overlay-blocker-present",
+      "mutation": "set sourceBlockerPresent=true and add an arm-freeze-blocking identity while leaving sourceBlocked=false",
+      "requiredOutcome": "pure launch preflight refuses before source observation scoring"
+    },
+    {
+      "id": "source-overlay-blocker-id-injected",
+      "mutation": "inject one sourceBlockerId into the otherwise unblocked D-BT row",
+      "requiredOutcome": "pure launch preflight refuses before source observation scoring"
+    },
+    {
+      "id": "source-overlay-restriction-change",
+      "mutation": "change, remove, add, or reassign one {artifactSha256,id,kind,text} restriction in the actual S0B D-BT row",
+      "requiredOutcome": "pure launch preflight refuses before source observation scoring"
+    },
+    {
+      "id": "local-discharge-missing",
+      "mutation": "remove or empty one keyed D-BT local restriction discharge",
+      "requiredOutcome": "pure launch preflight refuses before source observation scoring"
+    },
+    {
+      "id": "source-byte-change",
+      "mutation": "change one primary NAS TSV byte or descriptor hash",
+      "requiredOutcome": "refuse before interpolation"
+    },
+    {
+      "id": "roster-shift",
+      "mutation": "remove, add, duplicate, or relabel one primary history",
+      "requiredOutcome": "refuse the six-history leave-one-history-out operator"
+    },
+    {
+      "id": "heldout-leakage",
+      "mutation": "change only the held-out observations",
+      "requiredOutcome": "that fold's fitted multiplier and training loss remain unchanged"
+    },
+    {
+      "id": "pooled-point-loss",
+      "mutation": "replace equal-history loss with pooled point loss on unequal-length fixtures",
+      "requiredOutcome": "focused regression detects the changed family score"
+    },
+    {
+      "id": "time-endpoint-shift",
+      "mutation": "include t=500 or pad a short history",
+      "requiredOutcome": "grid validation refuses"
+    },
+    {
+      "id": "drive-semantics-swap",
+      "mutation": "feed saturation ratio S_i to the named project ambient-excess hybrid",
+      "requiredOutcome": "focused regression distinguishes it from the registered ambient-excess project value"
+    },
+    {
+      "id": "monotonic-observation-filter",
+      "mutation": "replace a measured decrease with a nondecreasing value",
+      "requiredOutcome": "derived observation identity or score changes and publication verification refuses"
+    },
+    {
+      "id": "coefficient-change",
+      "mutation": "change one registered project-hybrid, Lamb, or rescale coefficient after registration",
+      "requiredOutcome": "pure launch preflight refuses the operator pin; the sibling score verifier must also derive a different score or identity"
+    },
+    {
+      "id": "verdict-change",
+      "mutation": "change strict family comparison, four-of-six threshold, or tie handling, or flip the published verdict only",
+      "requiredOutcome": "pure launch preflight refuses an operator mutation and the sibling verifier independently derives the registered verdict"
+    },
+    {
+      "id": "protocol-code-or-test-byte-change",
+      "mutation": "change one independently observed protocol, implementation, or test identity after launch registration",
+      "requiredOutcome": "pure launch preflight refuses before source observation scoring"
+    }
+  ],
+  "publicationPrerequisites": [
+    "Bind the final independently verified phase9-source-shelf-freeze-v1 bytes and actual D-BT row; require sourceBlocked=false and exact identity of all nine structured restrictions against this protocol's keyed local discharge records. S0B's pending disposition is expected and S0B does not need to bind this protocol.",
+    "Bind exact implementation, test, protocol, six NAS TSV, Lamb PDF, and IceNODE archive bytes in a new evidence bundle.",
+    "Run all four comparators and all named controls without inspecting an unregistered alternative.",
+    "Have a sibling verifier reparse published bytes, recompute interpolation, integration, folds, sensitivities, and verdict, and execute every named mutation independently.",
+    "Publish source facts, model results, disagreements, lineage status, electric-field limit, and no-validation boundary together."
+  ]
+}

@@ -1,0 +1,451 @@
+{
+  "schema": "phase9-transport-analytic-protocol-v1",
+  "protocolId": "phase9-mpt-mlh-analytic-prescore-v1",
+  "frozenDate": "2026-08-13",
+  "adoptionCommit": "f936920",
+  "state": {
+    "protocol": "frozen-before-any-source-data-score",
+    "sourceDataScoreProduced": false,
+    "publicationAuthorized": false,
+    "phase9Role": "development-only-manufactured-analytic-and-refusal-foundation",
+    "grantsValidationClaim": false
+  },
+  "implementationArtifacts": {
+    "analyticModel": {
+      "path": "runner/src/phase9-transport-analytic.ts",
+      "byteLength": 14979,
+      "sha256": "c62c20b8e7db28fc6c828b85cbfc131f2660c729dea0be1c73a13247f89111f6"
+    },
+    "focusedTest": {
+      "path": "runner/test/phase9-transport-analytic.test.ts",
+      "byteLength": 43148,
+      "sha256": "cbbcf130d33dcd06d3dde7dacaf2279f5d3a6eb406b47d48f8c53e870761e80b"
+    }
+  },
+  "question": "Which vapor-resistance and latent-heat-resistance calculations are honest before the free-fall protocol is quantitatively representable?",
+  "upstreamBindings": {
+    "sourceOverlay": {
+      "shelfFreeze": {
+        "path": "evidence/phase9-source-overlay-v1/shelf-freeze.json",
+        "byteLength": 63975,
+        "sha256": "b0bbab2e01eca61dfb2b807bda3614aaf803e5fd0457f2df02aa3e4b8c5d1a06"
+      },
+      "sourceOverlay": {
+        "path": "evidence/phase9-source-overlay-v1/source-overlay.jsonl",
+        "byteLength": 114408,
+        "sha256": "f79cfd5268524d9017439e7be3abfe8b1e5df13f4e909c5d62569b8cc59ed5f7"
+      },
+      "sourceAudits": {
+        "path": "evidence/phase9-source-overlay-v1/source-audits.jsonl",
+        "byteLength": 44355,
+        "sha256": "3255e66e29aca0f33e4fd8490f7c647ddc796a71206e764932fd2fe1d51d753a"
+      },
+      "blockers": {
+        "path": "evidence/phase9-source-overlay-v1/blockers.jsonl",
+        "byteLength": 5292,
+        "sha256": "57dd4d679cbc1edd38feeca7e678ff16e2051d0bcf77c26fa034cdffba76c7ea"
+      },
+      "report": {
+        "path": "evidence/phase9-source-overlay-v1/report.json",
+        "byteLength": 6530,
+        "sha256": "51e1fa2bf6a84beb94ffd442fd0d55df9017f7bb76e2b04d1e1f5fec38c63d8a"
+      },
+      "sourceDispositions": {
+        "path": "research/phase9-source-dispositions-v1.jsonl",
+        "byteLength": 86719,
+        "sha256": "598f75c28490ac6d50e1c4d1be443905f62f755caa1119757688cb71f492af21"
+      },
+      "exactCommonShelf": {
+        "items": [
+          "M-PT",
+          "M-LH"
+        ],
+        "sourceBlocked": false,
+        "protocolDispositionRequired": true,
+        "protocolDispositionState": "pending",
+        "sourceBlockerPresent": true,
+        "sourceBlockerIds": [
+          "P9B-MISSING-KH82"
+        ],
+        "sourceBlockerStatuses": [
+          "arm-freeze-blocked"
+        ],
+        "blockerIdentities": [
+          "Keller and Hallett 1982, DOI 10.1016/0022-0248(82)90176-2"
+        ],
+        "completeArtifactCount": 10,
+        "completeArtifactSha256": [
+          "13a1514ff5ee6f487c1f4788a7f853f719709cb3569ae10742555876549b5771",
+          "18bff2fe4bbf27323d61a092db7bf36efa1e19424ea63ab098f193ffb325a1d8",
+          "2e5c6b492fcab7d1b3958be5a4c859fcd31174a1ac4865588ca48820bd4cd8eb",
+          "2ea39d1bd3d62f87101cf1041c43225e9bb24e3b0be25fc61df3228a7499dfd8",
+          "5297d387ee1c0e33944d9bdb0f6bd68a70a251e64f1f4b5f8e367e7b4c5946bb",
+          "5b3d8f99ebfc602d7dbfdc8042198b6c368616f5f2d281f8a55e0389d557a7f6",
+          "a4886bcc09ddfbc05d467a0b3ac5729e044723a2befcc05f20d5e77f18bc3659",
+          "cffec6fc5dc76dd047d94df100e3d31c3c6b8dea8ae97edeb33eb6a8663ca929",
+          "f6cd58ab841f841bcc310d2f722459122f7850cda9681ae0c7d1877bf21ef471",
+          "fb6e5a2ee814f619e1431aad231ce5a037db632b03b8f4be0ac6803ae26699ec"
+        ],
+        "protocolRestrictions": [
+          {
+            "artifactSha256": "13a1514ff5ee6f487c1f4788a7f853f719709cb3569ae10742555876549b5771",
+            "id": "P9R-13A1514FF5EE6F48-CURRENCY_LATER_AUTHOR_OUTPUT",
+            "kind": "currency-later-author-output",
+            "text": "Unresolved for an affected arm freeze."
+          },
+          {
+            "artifactSha256": "13a1514ff5ee6f487c1f4788a7f853f719709cb3569ae10742555876549b5771",
+            "id": "P9R-13A1514FF5EE6F48-EXTRACTION",
+            "kind": "extraction",
+            "text": "No numeric Phase 9 score: bulk aircraft observations do not map to the present individual-crystal adapters."
+          },
+          {
+            "artifactSha256": "18bff2fe4bbf27323d61a092db7bf36efa1e19424ea63ab098f193ffb325a1d8",
+            "id": "P9R-18BFF2FE4BBF2732-EXTRACTION",
+            "kind": "extraction",
+            "text": "Use as a comparator/manufactured check, not an experimental witness."
+          },
+          {
+            "artifactSha256": "2e5c6b492fcab7d1b3958be5a4c859fcd31174a1ac4865588ca48820bd4cd8eb",
+            "id": "P9R-2E5C6B492FCAB7D1-EXTRACTION",
+            "kind": "extraction",
+            "text": "Use integrated corrected transcription; predeclare categorical/continuous mapping."
+          },
+          {
+            "artifactSha256": "2ea39d1bd3d62f87101cf1041c43225e9bb24e3b0be25fc61df3228a7499dfd8",
+            "id": "P9R-2EA39D1BD3D62F87-EXTRACTION",
+            "kind": "extraction",
+            "text": "Use the already registered two-reader Phase 8 coordinates for selected rows; new rows require a frozen operator."
+          },
+          {
+            "artifactSha256": "5297d387ee1c0e33944d9bdb0f6bd68a70a251e64f1f4b5f8e367e7b4c5946bb",
+            "id": "P9R-5297D387EE1C0E33-EXTRACTION",
+            "kind": "extraction",
+            "text": "Verifier must refuse the main source mapping if this correction alias is dropped."
+          },
+          {
+            "artifactSha256": "5b3d8f99ebfc602d7dbfdc8042198b6c368616f5f2d281f8a55e0389d557a7f6",
+            "id": "P9R-5B3D8F99EBFC602D-ACQUISITION",
+            "kind": "acquisition",
+            "text": "Acquire and inspect the official Zenodo dataset DOI 10.5281/zenodo.15804055 and scripts DOI 10.5281/zenodo.15804067 before freezing individual rows."
+          },
+          {
+            "artifactSha256": "5b3d8f99ebfc602d7dbfdc8042198b6c368616f5f2d281f8a55e0389d557a7f6",
+            "id": "P9R-5B3D8F99EBFC602D-EXTRACTION",
+            "kind": "extraction",
+            "text": "Ingest native CSV and code; do not digitize the aggregate PDF first."
+          },
+          {
+            "artifactSha256": "a4886bcc09ddfbc05d467a0b3ac5729e044723a2befcc05f20d5e77f18bc3659",
+            "id": "P9R-A4886BCC09DDFBC0-EXTRACTION",
+            "kind": "extraction",
+            "text": "Use only after a source-specific raster/table transcription and categorical codebook."
+          },
+          {
+            "artifactSha256": "cffec6fc5dc76dd047d94df100e3d31c3c6b8dea8ae97edeb33eb6a8663ca929",
+            "id": "P9R-CFFEC6FC5DC76DD0-EXTRACTION",
+            "kind": "extraction",
+            "text": "Use measured sizes; do not inherit retracted surface inversion."
+          },
+          {
+            "artifactSha256": "f6cd58ab841f841bcc310d2f722459122f7850cda9681ae0c7d1877bf21ef471",
+            "id": "P9R-F6CD58AB841F841B-ACQUISITION",
+            "kind": "acquisition",
+            "text": "Compare the published Princeton edition before freezing a monograph-only numeric input."
+          },
+          {
+            "artifactSha256": "f6cd58ab841f841bcc310d2f722459122f7850cda9681ae0c7d1877bf21ef471",
+            "id": "P9R-F6CD58AB841F841B-CURRENCY_CURRENT_VERSION",
+            "kind": "currency-current-version",
+            "text": "NAS holds arXiv 1910.06389v2; the published Princeton 2021/2022 edition, ISBN 9780691223629, has not been compared."
+          },
+          {
+            "artifactSha256": "f6cd58ab841f841bcc310d2f722459122f7850cda9681ae0c7d1877bf21ef471",
+            "id": "P9R-F6CD58AB841F841B-CURRENCY_SUPPLEMENT",
+            "kind": "currency-supplement",
+            "text": "Published-edition comparison is unresolved."
+          },
+          {
+            "artifactSha256": "f6cd58ab841f841bcc310d2f722459122f7850cda9681ae0c7d1877bf21ef471",
+            "id": "P9R-F6CD58AB841F841B-EXTRACTION",
+            "kind": "extraction",
+            "text": "Use primary papers for numeric inputs; any monograph-only value remains blocked."
+          },
+          {
+            "artifactSha256": "fb6e5a2ee814f619e1431aad231ce5a037db632b03b8f4be0ac6803ae26699ec",
+            "id": "P9R-FB6E5A2EE814F619-EXTRACTION",
+            "kind": "extraction",
+            "text": "Use a registered plot operator or acquire native dimensions; preserve per-crystal dispersion."
+          }
+        ]
+      },
+      "restrictionHandling": {
+        "manufacturedComparatorOnly": [
+          "P9R-18BFF2FE4BBF2732-EXTRACTION"
+        ],
+        "retainedAsSourceScoreBlocks": [
+          "P9R-13A1514FF5EE6F48-CURRENCY_LATER_AUTHOR_OUTPUT",
+          "P9R-13A1514FF5EE6F48-EXTRACTION",
+          "P9R-2E5C6B492FCAB7D1-EXTRACTION",
+          "P9R-2EA39D1BD3D62F87-EXTRACTION",
+          "P9R-5297D387EE1C0E33-EXTRACTION",
+          "P9R-5B3D8F99EBFC602D-ACQUISITION",
+          "P9R-5B3D8F99EBFC602D-EXTRACTION",
+          "P9R-A4886BCC09DDFBC0-EXTRACTION",
+          "P9R-CFFEC6FC5DC76DD0-EXTRACTION",
+          "P9R-F6CD58AB841F841B-ACQUISITION",
+          "P9R-F6CD58AB841F841B-CURRENCY_CURRENT_VERSION",
+          "P9R-F6CD58AB841F841B-CURRENCY_SUPPLEMENT",
+          "P9R-F6CD58AB841F841B-EXTRACTION",
+          "P9R-FB6E5A2EE814F619-EXTRACTION"
+        ],
+        "rule": "The HSM21 relation may be exercised only by manufactured analytic checks. Every observation-consuming, monograph-input, target-temperature, free-fall, and cloud use stays blocked; no restriction is silently discharged."
+      }
+    },
+    "measurementAdapters": {
+      "identity": {
+        "path": "research/phase9-adapter-registry-v1.jsonl",
+        "byteLength": 48946,
+        "sha256": "498e85471766294d812b3ef9d747381e92eb476e8a9b40a3f34f855b53e46337"
+      },
+      "exactSelectionIds": [
+        "P8B-P1-SD71-M11",
+        "P8B-P1-SD71-M12",
+        "P8B-P1-SD71-M13",
+        "P8B-P1-SD71-M14",
+        "P8B-P1-SD71-M15",
+        "P8B-P1-SD71-M16",
+        "P8B-P1-SD71-M23",
+        "P8B-P1-SD71-M24",
+        "P8B-P1-SD71-M25",
+        "P8B-P1-SD71-M26"
+      ],
+      "requiredCommonMapping": {
+        "adapterKind": "gas-pressure-intervention",
+        "bindingKind": "digitized-plot-series",
+        "relativeInterventionOrderSpan": {
+          "status": "eligible-with-limitation",
+          "reasonCode": "MISSING_DENOMINATOR_ORDER_SPAN_NOT_CI"
+        },
+        "absoluteFreeFallScore": {
+          "status": "source-blocked",
+          "reasonCode": "VENTILATION_ELIGIBILITY_REQUIRED"
+        },
+        "transportInteractionEffect": {
+          "status": "ineligible",
+          "reasonCode": "UNCROSSED_DESIGN"
+        },
+        "restrictions": [
+          "development evidence only",
+          "relative intervention and source order spans only",
+          "keep gas, pressure, diffusivity, conductivity, ventilation, and history separate"
+        ]
+      },
+      "thermalFamily": {
+        "selectionIds": [
+          "P8B-P1-SD71-M11",
+          "P8B-P1-SD71-M12",
+          "P8B-P1-SD71-M13",
+          "P8B-P1-SD71-M14",
+          "P8B-P1-SD71-M15",
+          "P8B-P1-SD71-M16"
+        ],
+        "knowledgeHypothesisIds": [
+          "P9H-TRANSPORT-THERMAL",
+          "P9H-VENTILATION",
+          "P9H-LATENT-HEAT"
+        ]
+      },
+      "vaporFamily": {
+        "selectionIds": [
+          "P8B-P1-SD71-M23",
+          "P8B-P1-SD71-M24",
+          "P8B-P1-SD71-M25",
+          "P8B-P1-SD71-M26"
+        ],
+        "knowledgeHypothesisIds": [
+          "P9H-TRANSPORT-THERMAL",
+          "P9H-VENTILATION"
+        ]
+      }
+    },
+    "mvGate": {
+      "protocol": {
+        "path": "research/phase9-mv-protocol-v1.json",
+        "byteLength": 21974,
+        "sha256": "e590c363d2563dc94ec37b9c7bc01959f530a7e21876d615a949db622a94b74a"
+      },
+      "eligibilityModel": {
+        "path": "runner/src/phase9-mv-eligibility.ts",
+        "byteLength": 16024,
+        "sha256": "c611737e36bf2f09de8da86d7a12271bcb1c96fb1737b01e5cb2a21554ac5416"
+      },
+      "preflight": {
+        "path": "runner/src/phase9-mv-preflight.ts",
+        "byteLength": 18901,
+        "sha256": "4683b06f2a2261530391751431d99d490b38bb1ad5e8eb29412c379f60303e2f"
+      },
+      "reviewState": "independent-focused-review-no-blocker",
+      "absoluteEligibility": "blocked-no-byte-bound-consuming-arm-record",
+      "modelRelativeEligibility": "blocked-no-byte-bound-paired-record",
+      "analyticReynoldsRole": "diagnostic-only",
+      "exactSd71Census": {
+        "selectionCount": 10,
+        "heliumArgonMixtureCount": 6,
+        "heliumAtReducedPressureCount": 4,
+        "airCount": 0,
+        "absoluteEligibleCount": 0
+      },
+      "onlyPositiveUse": "exact source-reported order span with the non-air free-fall transport confound; it is not a quantitative M-PT or M-LH result",
+      "requiredEffectHere": "Every absolute, model-relative, axis-length, aspect-ratio, or interaction result for every exact SD71 selection remains source-blocked."
+    },
+    "phase8b": {
+      "successor": {
+        "path": "evidence/phase8b-benchmark-final-v1/successor-target-book.jsonl",
+        "byteLength": 36094,
+        "sha256": "c54b89683eea1f064bd8e81d6e9e06b3b9bbc6c022168b981cbfa71e5fc3cdd3"
+      },
+      "plotMetadata": {
+        "path": "evidence/phase8b-plot-digitization-v3/records.jsonl",
+        "byteLength": 32617,
+        "sha256": "3b22753b246e1ddd026daa8fe8eaab170971c71ef7d9fb63e0d25c8ad91547c8"
+      }
+    },
+    "knowledgeBaseline": {
+      "sourceRegister": {
+        "path": "evidence/phase9-knowledge-baseline-v1/source-register.jsonl",
+        "byteLength": 17827,
+        "sha256": "e217861146b1a9456a2ce1464e263e00b88512011382e5da54e6dd03d5c105f7"
+      },
+      "hypotheses": {
+        "path": "evidence/phase9-knowledge-baseline-v1/hypotheses.jsonl",
+        "byteLength": 28878,
+        "sha256": "1c7d5ad2f4778b60240e83f150b237a33b12dd0bca388e319d203beb8d209b08"
+      },
+      "requiredHypothesisIds": [
+        "P9H-TRANSPORT-THERMAL",
+        "P9H-VENTILATION",
+        "P9H-LATENT-HEAT"
+      ]
+    }
+  },
+  "sourceBindings": {
+    "gondaKomabayasi1971": {
+      "sourceId": "P8B-S2R0-2EA39D1BD3D62F87101CF104",
+      "logicalPath": "research-cache/phase8b-search/acquired-sources-20260811-v1/gonda-1971-skeletal-dendritic.pdf",
+      "byteLength": 4837155,
+      "sha256": "2ea39d1bd3d62f87101cf1041c43225e9bb24e3b0be25fc61df3228a7499dfd8",
+      "role": "condition and uncrossed-design boundary only; no row is consumed"
+    },
+    "harringtonSokolowskyMorrison2021": {
+      "sourceId": "P9K-HSM21",
+      "logicalPath": "research-cache/content/harrington-sokolowsky-morrison-2021-semianalytic-deposition.pdf",
+      "byteLength": 2138534,
+      "sha256": "18bff2fe4bbf27323d61a092db7bf36efa1e19424ea63ab098f193ffb325a1d8",
+      "role": "printed reduced vapor-plus-thermal resistance comparator used only in manufactured checks",
+      "locators": [
+        "PDF pages 6-7 equations 2-4",
+        "PDF pages 9-13 surface-supersaturation approximation and benchmark"
+      ]
+    },
+    "libbrechtMonographDraft": {
+      "sourceId": "P9K-LIB-MONOGRAPH",
+      "logicalPath": "research-cache/content/1910.06389v2.pdf",
+      "byteLength": 25611913,
+      "sha256": "f6cd58ab841f841bcc310d2f722459122f7850cda9681ae0c7d1877bf21ef471",
+      "role": "exact printed-anchor identity only; not an adopted numeric source input",
+      "locator": "PDF page 99",
+      "currencyLimit": "The published Princeton edition has not been compared, so every monograph-only numeric physical use remains blocked."
+    }
+  },
+  "rule12Currency": {
+    "basis": "Reuse the exact S0B current-version, correction, supplement, native-data, and later-author-output audit; no new source search or NAS observation is performed by this protocol.",
+    "status": "sufficient-for-manufactured-arithmetic-and-refusal-only",
+    "unresolved": [
+      "Keller-Hallett 1982 full controlled-velocity text is absent",
+      "the published Princeton monograph edition is not compared",
+      "the cloud-growth 2025 native dataset and scripts are absent",
+      "bulk-aircraft later-author output remains unresolved for an affected arm freeze"
+    ],
+    "effect": "No source-data score, physical parameter freeze, target-temperature multiplier, or promotion is eligible."
+  },
+  "analyticOperator": {
+    "scope": "manufactured-analytic-check only",
+    "geometry": "One shared-capacitance spherical bulk closure. No prism, plate, finite cylinder, facet, axis, aspect-ratio, support, or morphology mapping is implemented.",
+    "ventilation": "Not represented. A manufactured diagnostic cannot be transferred to free fall.",
+    "conductivity": "Thermal conductivity is an explicit positive caller operand. No gas/species/pressure/temperature mapping or default is inferred.",
+    "temperature": "Temperature is an explicit positive manufactured operand. It does not authorize a minus-seven or minus-fifteen Celsius source result.",
+    "vaporResistance": "R_v = R*T/(e_sat_ice*D_v*M_w)",
+    "latentHeatResistance": "R_h = [L_s/(k*T)]*[L_s*M_w/(R*T)-1]",
+    "combinedTransfer": "G = 1/(R_v + R_h)",
+    "separationRule": "Report R_v and R_h separately. A one-factor manufactured comparison may change D_v or k, never both; interactionEstimate is always null.",
+    "oneFactorExpectation": {
+      "lowerVaporDiffusivity": "raises R_v and lowers G while R_h remains bit-identical",
+      "lowerThermalConductivity": "raises R_h and lowers G while R_v remains bit-identical",
+      "simultaneousChange": "refused as UNCROSSED_DESIGN"
+    }
+  },
+  "printedLatentHeatingAnchors": {
+    "role": "non-consuming identity diagnostic only",
+    "relation": "diffusion-limited multiplier = 1/(1+chi0)",
+    "anchors": [
+      {
+        "temperatureC": -1,
+        "chi0": 0.8,
+        "multiplier": 0.5555555555555556
+      },
+      {
+        "temperatureC": -10,
+        "chi0": 0.4,
+        "multiplier": 0.7142857142857143
+      }
+    ],
+    "refusals": [
+      "No interpolation or extrapolation between or beyond the two anchors.",
+      "No minus-seven or minus-fifteen Celsius multiplier without a byte-bound exact-condition geometry and conductivity calculation.",
+      "No pressure scaling because the approximate proportionality supplies no exact reference-condition mapping here.",
+      "No anchor is an adopted source input while the published-edition comparison remains unresolved."
+    ]
+  },
+  "manufacturedControls": [
+    "independently recompute R_v, R_h, their sum, reciprocal transfer, and resistance fractions",
+    "halve D_v only and recover exactly doubled R_v with unchanged R_h and reduced G",
+    "halve k only and recover exactly doubled R_h with unchanged R_v and reduced G",
+    "refuse a simultaneous D_v and k change and emit no interaction estimate",
+    "refuse geometry, ventilation, temperature, vapor-pressure, or thermodynamic-constant drift inside a one-factor comparison",
+    "refuse every nonfinite, zero, underflowed, or overflowed derived resistance, sum, reciprocal, fraction, or ratio",
+    "reject a runtime quantitative purpose outside the exact five-purpose registry",
+    "mark every returned analytic result or refusal grantsValidationClaim false",
+    "recover the two exact printed anchor multipliers and refuse minus-seven and minus-fifteen Celsius",
+    "gate all five quantitative purposes for each of the exact ten SD71 records"
+  ],
+  "sourceDataExecution": {
+    "authorized": false,
+    "rowsRead": 0,
+    "scoresProduced": 0,
+    "publicationArtifacts": 0,
+    "unlockRequirements": [
+      "a new byte-bound consuming-arm record representing every ventilation-relevant protocol dimension",
+      "M-V absolute or model-relative eligibility for the exact requested use",
+      "exact source geometry, thermal conductivity, vapor diffusivity, gas, pressure, forcing, and temperature mapping",
+      "a separately reviewed source-score protocol and publisher/verifier"
+    ]
+  },
+  "claimBoundary": {
+    "allowed": [
+      "manufactured arithmetic for the printed scalar resistance sum",
+      "separate vapor- and latent-heat-resistance monotonic checks",
+      "identity checks for the two approximate printed heating anchors",
+      "machine-enforced refusal of every current SD71 quantitative transport result"
+    ],
+    "forbidden": [
+      "any source-data model score or residual",
+      "any axis-length, aspect-ratio, habit, facet, or morphology prediction",
+      "any free-fall, still-air, ventilation-negligible, gas-transfer, or pressure-transfer claim",
+      "any heat-vapor interaction estimate",
+      "any minus-seven or minus-fifteen Celsius heating multiplier derived from anchor interpolation",
+      "any parameter adoption or physical-source freeze from the unresolved monograph edition",
+      "held-out, validation, Phase 6, or Phase 7 credit"
+    ]
+  }
+}
