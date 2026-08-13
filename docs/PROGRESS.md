@@ -62,7 +62,8 @@ index, a plan, ADR, or audit links to historical detail.
   so combinations are a no-pass. Exact `TMPDIR=/private/tmp npm test` passed and the all-no-pass
   branch closed with zero promotions. Phase 9 cannot grant a quantitative-validation label or earn Phase 6/7 credit. The Mac
   lane ran only source/scalar/planar work; Phase 6's Windows evidence
-  host, processes, artifacts, and unpublished verdict remain isolated.
+  host, processes, artifacts, and unpublished verdict remain isolated. The
+  [maker guide](phase9-model-development-guide.md) explains the data, methods, results, and next evidence.
 - **The Phase 9 knowledge baseline is COMPLETE (research-only, 2026-08-12).** Its
   [report](../research/phase9-knowledge-sources.md), [guide](phase9-knowledge-guide.md), and
   [artifact](../evidence/phase9-knowledge-baseline-v1/report.json) (5,263 bytes; SHA-256

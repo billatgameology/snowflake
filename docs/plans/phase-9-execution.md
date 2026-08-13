@@ -59,6 +59,12 @@ transport is distinct from a pressure-conditioned surface-kinetics residual, and
 roughness/lateral-facet state is a third rival rather than evidence silently assigned to `M-W` or
 `M-SS`.
 
+The `FRONTIER-*` names in the S0B machine overlay are source-routing tags, not additional adopted
+candidate items. They preserve future atlas, cold-end, electric, geometry, instability, isotope,
+radiative, sublimation, threefold-symmetry, and unavailable Wang-1987 leads with unresolved
+prerequisites or missing source authority. The all-no-pass result below governs this candidate
+table; it does not claim that a frontier technique was executed or terminally resolved.
+
 | Order | Item | Cheapest intended discriminator |
 |---:|---|---|
 | 0 | `D-BT` — bulk-transfer comparator | Six primary in-domain levitated mass histories, with all 16 histories retained for sensitivity/extrapolation |
