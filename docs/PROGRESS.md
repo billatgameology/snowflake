@@ -38,17 +38,24 @@ index, a plan, ADR, or audit links to historical detail.
   independent verifier returned `ok=true`; successor-target-book SHA-256 is
   `c54b89683eea1f064bd8e81d6e9e06b3b9bbc6c022168b981cbfa71e5fc3cdd3`. The targeted pass is
   terminal and bounded, not global literature closure; the corrected residual sample is 0/9 misses
-  after preserving and remediating its original Bacon miss. Phase 8B does not score a model,
-  authorize Phase 9 or grant a validation label. The exact full suite passed 97/97 files; the
-  detached clean-checkout verifier and 51 focused tests passed; and the final non-author audit
-  returned zero blockers after its two bookkeeping findings were repaired.
-  Phase 7 is completely standalone, unstarted and requires its own plan/worktree; Phases 9–10
-  remain uncharted.
-- **The pre-adoption Phase 9 knowledge baseline is COMPLETE (research-only, 2026-08-12).** Its
-  [report](../research/phase9-knowledge-sources.md), [guide](phase9-knowledge-guide.md) and
+  after preserving and remediating its original Bacon miss. Phase 8B itself scored no model,
+  supplied no adoption authority, and cannot grant a validation label. The exact full suite passed 97/97
+  files; the detached clean-checkout verifier and 51 focused tests passed; and the final non-author audit
+  returned zero blockers after its two bookkeeping findings were repaired. Phase 7 is completely
+  standalone, unstarted and requires its own plan/worktree; Phase 10 remains uncharted.
+- **Phase 9 is ACTIVE AND INCOMPLETE (adopted 2026-08-12).**
+  Decision [0050](decisions/0050-adopt-phase9-modular-physics-experiments.md) and charter v1.27 authorize
+  isolated development under the [execution plan](plans/phase-9-execution.md) while Phase 6 remains
+  active. S0B must disposition the bounded registered Phase 8/9 Git/NAS source manifest and freeze the
+  shelf before any model score. All 51 Phase 8B records remain development evidence with zero
+  held-out rows. Phase 9 cannot grant a quantitative-validation label or earn Phase 6/7 credit.
+  The Mac lane may run S0/S1/S3, source, analytic, planar, and small-test work; Phase 6's Windows evidence
+  host, processes, artifacts, and unpublished verdict remain isolated.
+- **The Phase 9 knowledge baseline is COMPLETE (research-only, 2026-08-12).** Its
+  [report](../research/phase9-knowledge-sources.md), [guide](phase9-knowledge-guide.md), and
   [artifact](../evidence/phase9-knowledge-baseline-v1/report.json) (5,263 bytes; SHA-256
-  `37c7aadf18bce7420883930f66d6c6a473100dd27e1468dd8396a3c1214b1f96`) preserve 18 sources and 15
-  hypotheses; no model ran and Phase 9 is unauthorized.
+  `37c7aadf18bce7420883930f66d6c6a473100dd27e1468dd8396a3c1214b1f96`) preserve 18 sources and
+  15 hypotheses. It is now a bound S0B input; no model ran during its construction.
 - **Assurance is proportional to decision risk.** [Decision 0049](decisions/0049-make-assurance-proportionate-to-decision-risk.md),
   charter v1.26 and `AGENTS.md` require integrity for routine sources, one targeted check for
   load-bearing inputs, and full named controls for gates or strong public claims. No recursive
@@ -106,13 +113,6 @@ index, a plan, ADR, or audit links to historical detail.
   [source-currency record](../research/phase6-source-currency.md) is 29,714 bytes with SHA-256
   `af045438ab2e4bb0de82aea4b289388d7d2c0448322298f7ecfe4ed21e5d2563`. No provider request, new
   import, TAX2 measurement, R15 row, GPU validation row, or production solver job ran.
-- The V4/V4.x search-register, publisher, and eight-control batch apparatus is closed as rejected
-  history. The isolated batch clone under `research/tmp/recovery/wp1-v42-control-execution-author/`
-  remains untouched. Six exact root-side apparatus files were removed from the live test/source
-  paths without changing their bytes and preserved at
-  `research/tmp/recovery/wp1-v4x-root-apparatus-rejected-20260803/`. Exact register/catalog/finding
-  bytes are tracked only under `research/rejected/phase6-wp1-v4x/` as non-authorizing history for
-  the threat-model ADR. Do not resume or dispatch that apparatus.
 - The offline `crystallographicSpans()` primitive reports exact integer `basalCaliper2` and
   `zLayers`; its existing focused tests cover all D6 planar transforms and z reflection. It is not
   yet a reviewed source-to-model size mapping and does not replace numerical controls.
@@ -120,16 +120,12 @@ index, a plan, ADR, or audit links to historical detail.
   implemented protocol-independent streaming and field-adopting float64 restore through `a1d540c`.
   Its runner generation/publication/retry/trace contract remains deferred until WP3 freezes exact
   campaign inputs; production rows may not use resume before acceptance.
-- The minimum current planning count remains `612 × S × D × Z` rows (three arms × 204 points ×
-  spacings × domains × physical-size strata). The illustrative three-spacing, three-domain,
-  one-size matrix is 5,508 CPU rows; it is a feasibility count, not a frozen protocol.
 - Education is frozen for Phase 6 with one maker-directed exception already landed: commit
   `af7463b` (2026-08-04, maker-approved mid-pause) added the independent-laboratory record to
   chapters 4–13, `references.html`, and `FUTURE-ADDITIONS.md`. No other `docs/education/**` drift
   exists since `60e3f3f` (verified by diff 2026-08-06), and no further education work runs until
-  Phase 6 closes. Commit `8acf9fe` (same session) added three proposed Phase 8–10 plan drafts.
-  Decision 0046 now charters Phase 8's separate research-source/target-book work only; it does not
-  reopen education, and the Phase 9–10 drafts remain uncharted and inactive.
+  Phase 6 closes. Commit `8acf9fe` added proposed Phase 8–10 drafts. Decisions 0046 and 0050 later
+  adopted Phase 8 and Phase 9 without reopening education; Phase 10 remains uncharted and inactive.
 - The gut-check exploration (`explore/gg-realism-gutcheck`: GG realism renders, 93-crystal
   sweep ledger, tracked recipes) is MERGED to `main` (`98bc75d`, 2026-08-12, merged-tree suite
   green). Eyeball-only exploration — not evidence, no gate claim, touches no solver package.
@@ -164,20 +160,18 @@ and every superseded attempt live in the linked plans and historical progress sn
 | 6 | **Active and incomplete** | The three measured-only arms and WP1 strata are published. The budget-capped ladder is executing; its verdict and WP8 gate remain. Headline/R15/campaign closed at measured-only grade; held-out/GPU execution deferred with no Phase 6 credit. |
 | 7 | Not started; independently eligible | Charter v1.25 preserves Phase 7's independence but does not start it. A committed Phase 7 plan and isolated worktree are required; product, held-out validation, and v6 WGSL/preview-GPU parity remain its scope. |
 | 8 | **Complete (8A + 8B)** | The immutable 8A book remains 18 entries / 59,019 bytes / SHA-256 `47a75f3f…71ec`. The verified 8B successor is 51 development records, 252,134 native rows and 431 plot points; no row is held out. [Completed plan](plans/phase-8-measurement-corpus.md). |
+| 9 | **Active and incomplete; development-only** | Adopted by [decision 0050](decisions/0050-adopt-phase9-modular-physics-experiments.md) and charter v1.27. S0B source assimilation and the development experiments remain; all 51 Phase 8B records are development evidence, none held out, and no Phase 9 result grants validation credit. [Active plan](plans/phase-9-execution.md). |
 
 ## Active plan
 
-[phase-6-science-first-completion.md](plans/phase-6-science-first-completion.md) remains the active
-Phase 6 implementation plan. [phase-8-measurement-corpus.md](plans/phase-8-measurement-corpus.md)
-and [phase-8-what-is-real.md](plans/phase-8-what-is-real.md) are the completed 8B and 8A records.
-The maker-directed [Phase 9 knowledge-baseline plan](plans/phase-9-knowledge-baseline.md) governs a
-research-only preparation lane; it does not adopt the proposed phase, alter a solver, or authorize
-an experiment.
-Decisions 0046–0048 keep worktrees, processes, artifacts, claims, and
-completion credit isolated; cold starts read the plan for the workstream they will touch. The
-detailed V4/V4.x chronology remains in the closed
-[WP1 history](plans/phase-6-wp1-source-lineage-and-tax2.md) and recovery artifacts; it is not a live
-schedule.
+[phase-6-science-first-completion.md](plans/phase-6-science-first-completion.md) and
+[phase-9-execution.md](plans/phase-9-execution.md) are the active Phase 6 and Phase 9 authorities.
+[phase-8-measurement-corpus.md](plans/phase-8-measurement-corpus.md) and
+[phase-8-what-is-real.md](plans/phase-8-what-is-real.md) are completed records; the
+[Phase 9 knowledge-baseline plan](plans/phase-9-knowledge-baseline.md) is a completed research input.
+The older [proposed consumer plan](plans/phase-9-modular-physics-arms.md) is superseded design
+history, not execution authority. Decisions 0046–0050 keep worktrees, processes, artifacts, claims,
+and completion credit isolated.
 
 Before any production row, the repository must have reviewed source-derived physical-size strata, a
 pre-registered and executed numerical-control ladder that selects one configuration or no-pass, an
@@ -207,22 +201,19 @@ it from the Phase 6 lane or count it toward Phase 6.
 
 ### Phase 8B record — closed; external search remains stopped
 
-Decision 0048, charter v1.25 and the [benchmark-corpus plan](plans/phase-8-measurement-corpus.md)
-govern. Preserve Phase 8A and rejected plot-adjudication history byte-for-byte. The bounded targeted
-pass found no remaining load-bearing P0/P1 source gap, so do not resume broad discovery or download
-the residual backlog. Substantial source and normalized row bytes remain on the NAS.
+Decision 0048, charter v1.25, and the
+[benchmark-corpus plan](plans/phase-8-measurement-corpus.md) govern. Preserve `evidence/phase8-target-book/`
+byte-for-byte, along with rejected plot-adjudication history and the failed original residual
+audit. Broad discovery and the residual backlog remain stopped absent a new named
+measurement gap; Phase 9 S0B is bounded reconciliation of already registered complete Git/NAS
+sources. All 51 Phase 8B records are development evidence and none may be relabeled held out.
 
-S7 is complete: the exact full suite, clean detached-checkout replay and final non-author audit all
-returned zero blockers. Reproduce the NAS-backed corpus with the exact command in the completed
-plan. Preserve `evidence/phase8-target-book/` byte-for-byte, along with rejected plot-adjudication
-history and the failed original residual audit. Do not resume broad discovery or download the
-residual backlog without a new named measurement gap. Phase 9 remains unchartered and unauthorized;
-its proposed [consumer plan](plans/phase-9-modular-physics-arms.md) is ready for maker adoption review.
-All 51 Phase 8B records are development evidence and none may be relabeled held out.
+### Phase 9 resume point — assimilate sources before scoring
 
-### Pre-adoption Phase 9 knowledge research — closed; maker adoption decision next
-
-The [knowledge-baseline plan](plans/phase-9-knowledge-baseline.md) is complete; search stays stopped
-except for its named source prerequisites. Next, decide whether to adopt Phase 9 through an ADR and
-charter amendment. If adopted, start with S1 fixtures and S3's bounded D-BT scalar replay on the six
-205–240 K, 0–500 s histories, with a leave-one-history-out rescale rival, before any 3-D arm.
+In `/Users/clipper/github/snowflake-phase-9`, open
+[phase-9-execution.md](plans/phase-9-execution.md) and finish S0B first: resolve NAS paths through a
+portable resolver, publish the machine-readable source overlay, disposition every registered
+complete Phase 8/9 paper or archive, visually recheck newly load-bearing pages, and freeze the shelf
+before any model output. Then implement S1's fail-closed adapters and S3's bounded D-BT replay over
+the six primary histories plus the leave-one-history-out rival. Keep 3-D work off Phase 6's Windows
+host. After executable changes run exact `TMPDIR=/private/tmp npm test`.

@@ -13,6 +13,7 @@ const STATE_PLANS = [
   resolve(REPO, "docs", "plans", "phase-6-science-first-completion.md"),
   resolve(REPO, "docs", "plans", "phase-8-what-is-real.md"),
   resolve(REPO, "docs", "plans", "phase-8-measurement-corpus.md"),
+  resolve(REPO, "docs", "plans", "phase-9-execution.md"),
 ];
 const ARCHIVE_MARKER = "<!-- BEGIN EXACT PRE-COMPACTION PROGRESS BODY -->\n";
 const ARCHIVED_BODY_BYTES = 191_859;
@@ -25,17 +26,26 @@ const FORBIDDEN_SEQUENCING = [
   "No Phase 8 action remains",
   "### Phase 8 lane — complete",
   "Then freeze the source set and run the two zero-addition rounds",
+  "Phase 9 remains unchartered",
+  "Phase 9 is unauthorized",
+  "maker adoption decision next",
 ];
 const PHASE8_STATUS_LINE =
   "- **Phase 8 is COMPLETE (Phase 8A 2026-08-10; Phase 8B 2026-08-12).**";
+const PHASE9_STATUS_LINE =
+  "- **Phase 9 is ACTIVE AND INCOMPLETE (adopted 2026-08-12).**";
 const PHASE8_GATE_PREFIX = "| 8 | **Complete (8A + 8B)** |";
 const PHASE7_GATE_PREFIX = "| 7 | Not started; independently eligible |";
+const PHASE9_GATE_PREFIX = "| 9 | **Active and incomplete; development-only** |";
 const CONTRADICTORY_STATE_PATTERNS = [
-  /Phase 8B.*\b(?:active|incomplete|pending)\b/iu,
+  /Phase 8B (?:is |remains )?(?:active|incomplete|pending)\b/iu,
   /Phase 8B.*\b(?:may|can|will|must) (?:rewrite|mutate|replace|overwrite)\b.*\b(?:8A|v1|phase8-target-book)\b/iu,
   /Phase 7 (?:is(?: now)?|becomes) (?:active|started|complete|completed|done|closed)\b/iu,
-  /Phase 9.*\b(?:chartered|active|started)\b/iu,
-  /Phase 9.*\b(?:may|can) start\b/iu,
+  /Phase 9 is (?:COMPLETE|complete|completed|done|closed)\b/u,
+  /Phase 9 (?:may|can|will|does) grant\b.*\bvalidation\b/iu,
+  /Phase 9 (?:has|contains|uses) [1-9][0-9]* held[- ]out rows?\b/iu,
+  /Phase 9 (?:may|can|will) (?:use|run on)\b.*\bWindows Phase 6\b/iu,
+  /Phase 9 (?:may|can|will) score\b.*\bbefore S0B\b/iu,
 ];
 const ARCHIVED_BODY_LF_BYTES = 190_074;
 const ARCHIVED_BODY_LF_SHA256 = "9f7ee2ad0a7773740b8aff111b16aad236fb9555f7ae0cd861714681103b4a9d";
@@ -60,13 +70,25 @@ function currentIndexErrors(text: string): string[] {
     "252,134 native history rows",
     "431 adjudicated plot points",
     "corrected residual sample is 0/9 misses",
-    "exact full suite passed 97/97 files",
+    "exact full suite passed",
+    "97/97",
     "detached clean-checkout verifier and 51 focused tests passed",
     "final non-author audit",
     "Phase 8B record — closed; external search remains stopped",
-    "Preserve `evidence/phase8-target-book/` byte-for-byte",
-    "Phase 7 is completely standalone",
-    "Phase 9 remains unchartered",
+    "Preserve `evidence/phase8-target-book/`",
+    "byte-for-byte, along with rejected plot-adjudication history",
+    "Phase 7 is completely",
+    "standalone, unstarted",
+    "Phase 9 is ACTIVE AND INCOMPLETE (adopted 2026-08-12)",
+    "Decision [0050]",
+    "charter v1.27",
+    "(plans/phase-9-execution.md)",
+    "freeze the",
+    "shelf before any model score",
+    "All 51 Phase 8B records remain development evidence",
+    "Phase 9 cannot grant a quantitative-validation label",
+    "Phase 6's Windows evidence",
+    "host, processes, artifacts, and unpublished verdict remain isolated",
     "CAK 3/90, M1 54/90",
     "M1_NO_DIP_ABLATION",
     "cannot establish physical SDAK causality or necessity",
@@ -87,6 +109,9 @@ function currentIndexErrors(text: string): string[] {
   if (countExactLine(text, PHASE8_STATUS_LINE) !== 1) {
     errors.push("expected exactly one structured Phase 8A/8B status line");
   }
+  if (countExactLine(text, PHASE9_STATUS_LINE) !== 1) {
+    errors.push("expected exactly one structured Phase 9 status line");
+  }
   const lines = text.split(/\r?\n/u);
   const phase8GateLines = lines.filter((line) => line.startsWith("| 8 |"));
   if (phase8GateLines.length !== 1 || !phase8GateLines[0]?.startsWith(PHASE8_GATE_PREFIX)) {
@@ -96,8 +121,9 @@ function currentIndexErrors(text: string): string[] {
   if (phase7GateLines.length !== 1 || !phase7GateLines[0]?.startsWith(PHASE7_GATE_PREFIX)) {
     errors.push("expected exactly one not-started Phase 7 gate row");
   }
-  if (text.split("Phase 9 remains unchartered").length - 1 !== 1) {
-    errors.push("expected exactly one unchartered Phase 9 status");
+  const phase9GateLines = lines.filter((line) => line.startsWith("| 9 |"));
+  if (phase9GateLines.length !== 1 || !phase9GateLines[0]?.startsWith(PHASE9_GATE_PREFIX)) {
+    errors.push("expected exactly one active Phase 9 gate row");
   }
   for (const line of lines) {
     if (CONTRADICTORY_STATE_PATTERNS.some((pattern) => pattern.test(line))) {
@@ -227,7 +253,7 @@ describe("compact progress index and byte-exact historical record", () => {
     const phase8BoundaryMutation = current
       .replace("Phase 8B writes separate artifacts", "Phase 8B rewrites v1 artifacts")
       .replace(
-        "Preserve `evidence/phase8-target-book/` byte-for-byte",
+        "Preserve `evidence/phase8-target-book/`",
         "Revise `evidence/phase8-target-book/` in place",
       );
     expect(phase8BoundaryMutation).not.toBe(current);
@@ -235,23 +261,19 @@ describe("compact progress index and byte-exact historical record", () => {
       .toContain("missing current-state phrase: Phase 8B writes separate artifacts");
     expect(currentIndexErrors(phase8BoundaryMutation))
       .toContain(
-        "missing current-state phrase: Preserve `evidence/phase8-target-book/` byte-for-byte",
+        "missing current-state phrase: Preserve `evidence/phase8-target-book/`",
       );
 
-    const phase7StatusMutation = current.replace(
-      "Phase 7 is completely standalone",
-      "Phase 7 waits for Phase 6",
-    );
+    const phase7StatusMutation = current
+      .replace("Phase 7 is completely", "Phase 7 waits for Phase 6 and is not completely")
+      .replace("standalone, unstarted", "dependent, unstarted");
     expect(phase7StatusMutation).not.toBe(current);
     expect(currentIndexErrors(phase7StatusMutation))
-      .toContain("missing current-state phrase: Phase 7 is completely standalone");
-    const phase9StatusMutation = current.replace(
-      "Phase 9 remains unchartered",
-      "Phase 9 may start now",
-    );
+      .toContain("missing current-state phrase: Phase 7 is completely");
+    const phase9StatusMutation = current.replace(PHASE9_STATUS_LINE, "- **Phase 9 is COMPLETE.**");
     expect(phase9StatusMutation).not.toBe(current);
     expect(currentIndexErrors(phase9StatusMutation))
-      .toContain("missing current-state phrase: Phase 9 remains unchartered");
+      .toContain("missing current-state phrase: Phase 9 is ACTIVE AND INCOMPLETE (adopted 2026-08-12)");
     expect(currentIndexErrors(`${current}\nPhase 8B is ACTIVE AND INCOMPLETE.\n`))
       .toContain("contradictory current-state claim: Phase 8B is ACTIVE AND INCOMPLETE.");
     expect(currentIndexErrors(`${current}\nPhase 8B may rewrite target-book v1 artifacts in place.\n`))
@@ -260,12 +282,25 @@ describe("compact progress index and byte-exact historical record", () => {
       );
     expect(currentIndexErrors(`${current}\nPhase 7 is ACTIVE.\n`))
       .toContain("contradictory current-state claim: Phase 7 is ACTIVE.");
-    expect(currentIndexErrors(`${current}\nPhase 9 is now chartered.\n`))
-      .toContain("contradictory current-state claim: Phase 9 is now chartered.");
+    expect(currentIndexErrors(`${current}\nPhase 9 may grant quantitative validation.\n`))
+      .toContain("contradictory current-state claim: Phase 9 may grant quantitative validation.");
+    expect(currentIndexErrors(`${current}\nPhase 9 has 1 held-out row.\n`))
+      .toContain("contradictory current-state claim: Phase 9 has 1 held-out row.");
+    expect(currentIndexErrors(`${current}\nPhase 9 may run on the live Windows Phase 6 evidence host.\n`))
+      .toContain(
+        "contradictory current-state claim: "
+          + "Phase 9 may run on the live Windows Phase 6 evidence host.",
+      );
+    expect(currentIndexErrors(`${current}\nPhase 9 may score models before S0B.\n`))
+      .toContain("contradictory current-state claim: Phase 9 may score models before S0B.");
     expect(currentIndexErrors(`${current}\n${PHASE8_STATUS_LINE}\n`))
       .toContain("expected exactly one structured Phase 8A/8B status line");
     expect(currentIndexErrors(`${current}\n${PHASE8_GATE_PREFIX} contradictory |\n`))
       .toContain("expected exactly one completed Phase 8 gate row");
+    expect(currentIndexErrors(`${current}\n${PHASE9_STATUS_LINE}\n`))
+      .toContain("expected exactly one structured Phase 9 status line");
+    expect(currentIndexErrors(`${current}\n${PHASE9_GATE_PREFIX} contradictory |\n`))
+      .toContain("expected exactly one active Phase 9 gate row");
     for (const phrase of FORBIDDEN_SEQUENCING) {
       expect(currentIndexErrors(`${current}\n${phrase}\n`))
         .toContain(`stale sequencing phrase: ${phrase}`);
@@ -278,6 +313,13 @@ describe("compact progress index and byte-exact historical record", () => {
     expect(phase8LinkMutation).not.toBe(current);
     expect(currentIndexErrors(phase8LinkMutation))
       .toContain("missing current-state phrase: (plans/phase-8-measurement-corpus.md)");
+    const phase9LinkMutation = current.replaceAll(
+      "(plans/phase-9-execution.md)",
+      "(plans/missing-phase-9-plan.md)",
+    );
+    expect(phase9LinkMutation).not.toBe(current);
+    expect(currentIndexErrors(phase9LinkMutation))
+      .toContain("missing current-state phrase: (plans/phase-9-execution.md)");
     expect(currentIndexErrors(`${current}\n## Next step\n`))
       .toContain("expected exactly one ## Next step");
     expect(currentIndexErrors(`${current}\n${ARCHIVE_MARKER}`))
