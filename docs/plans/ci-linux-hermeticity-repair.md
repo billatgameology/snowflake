@@ -21,18 +21,19 @@ and only then are the repair and pending cleanup PRs merged in that order.
 
 ## Approach
 
-Use a small platform-specific ZIP listing/extraction adapter in the restore script: the existing
-bsdtar path on macOS/Windows and Info-ZIP on Linux, while retaining the same name, type, collision,
+Use a small platform-specific ZIP listing/extraction adapter in the restore script: Info-ZIP on
+macOS/Linux and the explicit System32 bsdtar path on Windows, while retaining the same name, type, collision,
 membership, and digest checks. Replace the BSD-only duplicate-member test setup with a deterministic
 ZIP fixture writer. Give Phase 9's pure validator deterministic row-envelope fixtures, and keep a
 separate conditional integration test that rehashes the rights-bound rows when the NAS is attached.
 
 ## Steps
 
-- [x] Confirm that `main` and the cleanup PR fail the same eleven tests.
-- [ ] Implement and focus-test portable ZIP restore coverage.
-- [ ] Make Phase 9 validator tests hermetic and retain attached-NAS byte verification.
-- [ ] Run exact `TMPDIR=/private/tmp npm test` and record the result.
+- [x] Confirm that `main` and the cleanup PR fail the same test set.
+- [x] Implement and focus-test portable ZIP restore coverage.
+- [x] Make Phase 9 validator tests hermetic and retain attached-NAS byte verification.
+- [x] Run exact `TMPDIR=/private/tmp npm test`: 117/117 files and 1,985 passed / 7 skipped
+  (`out/checks/npm-test-ci-linux-hermeticity.log`, SHA-256 `2e3891a1…31ea`).
 - [ ] Open, obtain green CI for, and merge the repair PR.
 - [ ] Update the cleanup branch from repaired `main`, obtain green CI, and merge it.
 
@@ -53,3 +54,10 @@ separate conditional integration test that rehashes the rights-bound rows when t
 ## Open questions
 
 None.
+
+## Review record
+
+OpenAI Codex GPT-5, non-author with shared parent context, reviewed the ZIP adapter and fixtures plus
+the hermetic/NAS test split. It independently ran the focused tests and typecheck and found no code
+or test-semantic blockers. Limits: no independent full-suite, Ubuntu, or Windows execution; macOS
+Info-ZIP and attached-NAS paths were executed.

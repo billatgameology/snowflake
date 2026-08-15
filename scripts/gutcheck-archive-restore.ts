@@ -12,14 +12,14 @@
 //   same-named ledger entry with a different hash (corrupted/partial download) aborts;
 // - archive entries are vetted by NAME (forward-slash relative paths under `large/**` or the
 //   root workspace layer; never absolute, backslash-containing, `..`, `archives/`, `site/`,
-//   or `tracked/`) and by TYPE (`tar -tvf`; only regular files and directories pass —
+//   or `tracked/`) and by TYPE (archive listing; only regular files and directories pass —
 //   symlinks/FIFOs/devices abort before extraction);
 // - ledgered archives must match their declared group and count before extraction; newly
 //   packed archives also bind the exact sorted member-name set, while legacy entries without
 //   that field warn and retain archive-hash/group/count/per-file-digest enforcement;
-// - extraction uses bsdtar (`tar -xf`, reads zip; ships with macOS and Windows 10+) into a
-//   temp dir under --dest; placement renames per file (copy fallback across volumes) and a
-//   SIGINT/SIGTERM mid-run removes the temp dir.
+// - extraction uses Info-ZIP on macOS/Linux and bsdtar on Windows into a temp dir under --dest;
+//   placement renames per file (copy fallback across volumes) and a SIGINT/SIGTERM mid-run
+//   removes the temp dir.
 // Per-file statuses:
 //   OK          sha256 matches the tracked inventory
 //   SKIP        an identical file (same hash) is already in place
@@ -65,16 +65,18 @@ const INVENTORY = resolve(
     resolve(import.meta.dirname, "..", "evidence/gutcheck-gg-realism/large-artifact-inventory.json"),
 );
 
-// The zip reading below needs bsdtar. Windows ships it as System32\tar.exe, but a Git-Bash or
+// The Windows zip reader below needs bsdtar. Windows ships it as System32\tar.exe, but a Git-Bash or
 // MSYS PATH puts GNU tar ahead of it, and GNU tar neither reads zip nor accepts a drive letter
 // (it reads "G:\..." as a remote host and fails with "Cannot connect to G:"). Found the first
 // time either script was run on Windows, 2026-08-06 — the plan had flagged Windows execution as
-// asserted-from-documentation-only. Resolve System32 explicitly there; elsewhere PATH tar is bsdtar.
+// asserted-from-documentation-only. Resolve System32 explicitly there. macOS and GitHub's Ubuntu
+// runner use Info-ZIP `unzip`; Ubuntu's GNU tar cannot read ZIP.
 const TAR = ((): string => {
   if (process.platform !== "win32") return "tar";
   const system32 = join(process.env.SystemRoot ?? "C:\\Windows", "System32", "tar.exe");
   return existsSync(system32) ? system32 : "tar";
 })();
+const USE_INFOZIP = process.platform !== "win32";
 
 interface FileEntry {
   relPath: string;
@@ -151,10 +153,9 @@ function loadInventory(): Inventory {
   return parsed;
 }
 
-// `tar -tvf` lines look like "-rw-r--r--  0 clipper staff  123 Jan  1 00:00 large/x/y.bin".
-// The leading mode character is the entry type; the name is everything after the timestamp
-// columns. Parsing the name from -tv output is brittle across tar builds, so entry TYPES
-// come from -tv and entry NAMES from plain -t, and the counts must agree.
+// bsdtar `-tvf` and Info-ZIP `unzip -Z -s` both put a Unix-like mode at the start of each member
+// detail line. Parsing the name from those detail lines is brittle, so entry TYPES come from the
+// detail listing and entry NAMES from the corresponding names-only listing; the counts must agree.
 // Windows bsdtar terminates its listing lines with CRLF. Splitting on "\n" alone leaves a
 // trailing "\r" on every name, which silently breaks BOTH the directory test ("large/x/\r" no
 // longer ends in "/", so a directory is treated as a file) and every lstat of an extracted
@@ -164,18 +165,42 @@ function splitLines(stdout: string): string[] {
 }
 
 function listEntries(zipPath: string): { names: string[]; badTypes: string[] } {
-  const t = spawnSync(TAR, ["-tf", zipPath], { encoding: "utf8", maxBuffer: 64 * 1024 * 1024 });
-  if (t.status !== 0) throw new Error(`tar -tf failed: ${t.stderr}`);
-  const names = splitLines(t.stdout);
-  const tv = spawnSync(TAR, ["-tvf", zipPath], { encoding: "utf8", maxBuffer: 64 * 1024 * 1024 });
-  if (tv.status !== 0) throw new Error(`tar -tvf failed: ${tv.stderr}`);
-  const tvLines = splitLines(tv.stdout);
-  if (tvLines.length !== names.length) {
-    throw new Error(`tar -t and tar -tv disagree on entry count (${names.length} vs ${tvLines.length})`);
+  const namesCommand = USE_INFOZIP ? "unzip" : TAR;
+  const namesArgs = USE_INFOZIP ? ["-Z1", zipPath] : ["-tf", zipPath];
+  const detailsCommand = USE_INFOZIP ? "unzip" : TAR;
+  const detailsArgs = USE_INFOZIP ? ["-Z", "-s", zipPath] : ["-tvf", zipPath];
+  const namesResult = spawnSync(namesCommand, namesArgs, {
+    encoding: "utf8",
+    maxBuffer: 64 * 1024 * 1024,
+  });
+  if (namesResult.status !== 0) {
+    throw new Error(
+      `${namesCommand} ${namesArgs[0]} failed: ${namesResult.error?.message ?? namesResult.stderr}`,
+    );
+  }
+  const names = splitLines(namesResult.stdout);
+  const detailsResult = spawnSync(detailsCommand, detailsArgs, {
+    encoding: "utf8",
+    maxBuffer: 64 * 1024 * 1024,
+  });
+  if (detailsResult.status !== 0) {
+    throw new Error(
+      `${detailsCommand} ${detailsArgs[0]} failed: ` +
+        `${detailsResult.error?.message ?? detailsResult.stderr}`,
+    );
+  }
+  const detailLines = USE_INFOZIP
+    ? splitLines(detailsResult.stdout).filter((line) => /^[-bcdlps]/u.test(line))
+    : splitLines(detailsResult.stdout);
+  if (detailLines.length !== names.length) {
+    throw new Error(
+      `archive name and type listings disagree on entry count ` +
+        `(${names.length} vs ${detailLines.length})`,
+    );
   }
   const badTypes: string[] = [];
-  for (let i = 0; i < tvLines.length; i++) {
-    const typeChar = tvLines[i]![0];
+  for (let i = 0; i < detailLines.length; i++) {
+    const typeChar = detailLines[i]![0];
     if (typeChar !== "-" && typeChar !== "d") {
       badTypes.push(`${names[i]} (type '${typeChar}')`);
     }
@@ -312,8 +337,17 @@ async function main(): Promise<void> {
 
   const counts = { OK: 0, SKIP: 0, UNVERIFIED: 0, MISMATCH: 0, EXISTS: 0, ERROR: 0 };
   try {
-    const extract = spawnSync(TAR, ["-xf", zipPath, "-C", tmp], { stdio: "inherit" });
-    if (extract.status !== 0) throw new Error(`tar -xf failed (status ${extract.status})`);
+    const extractCommand = USE_INFOZIP ? "unzip" : TAR;
+    const extractArgs = USE_INFOZIP
+      ? ["-qq", "-o", zipPath, "-d", tmp]
+      : ["-xf", zipPath, "-C", tmp];
+    const extract = spawnSync(extractCommand, extractArgs, { stdio: "inherit" });
+    if (extract.status !== 0) {
+      throw new Error(
+        `${extractCommand} extraction failed ` +
+          `(${extract.error?.message ?? `status ${String(extract.status)}`})`,
+      );
+    }
 
     for (const entry of fileEntries) {
       try {
