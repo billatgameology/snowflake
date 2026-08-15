@@ -79,9 +79,12 @@ export function resolvePhase9NasFile(relativePath: string, nasRoot: string): Pha
     return { kind: "forbidden", reason: error instanceof Error ? error.message : "unsafe NAS path" };
   }
 
+  // A Windows drive root keeps its trailing separator through resolve()/realpath ("S:/" -> "S:\"),
+  // so blindly appending `sep` builds "S:\\" and rejects every child of the share as an escape.
+  const childPrefix = (root: string): string => (root.endsWith(sep) ? root : `${root}${sep}`);
   const lexicalRoot = resolve(nasRoot);
   const lexicalTarget = resolve(lexicalRoot, relativePath);
-  if (lexicalTarget !== lexicalRoot && !lexicalTarget.startsWith(`${lexicalRoot}${sep}`)) {
+  if (lexicalTarget !== lexicalRoot && !lexicalTarget.startsWith(childPrefix(lexicalRoot))) {
     return { kind: "forbidden", reason: "lexical NAS path escapes the share" };
   }
 
@@ -93,7 +96,7 @@ export function resolvePhase9NasFile(relativePath: string, nasRoot: string): Pha
   } catch {
     return { kind: "not-found", reason: "NAS path does not resolve" };
   }
-  if (realTarget !== realRoot && !realTarget.startsWith(`${realRoot}${sep}`)) {
+  if (realTarget !== realRoot && !realTarget.startsWith(childPrefix(realRoot))) {
     return { kind: "forbidden", reason: "real NAS target escapes the share" };
   }
 

@@ -15,12 +15,30 @@ function makeNasFixture(prefix = "phase9-nas-"): string {
   return root;
 }
 
+// detectPhase9NasRoot returns the forward-slash normalized mount by contract; a native Windows
+// fixture path must be normalized the same way before comparison.
+function mountForm(root: string): string {
+  return `${root.replace(/\\/g, "/")}/`;
+}
+
+// File symlink creation on Windows needs SeCreateSymbolicLinkPrivilege (admin or Developer
+// Mode); without it the escape fixture cannot be built and would misreport the guard as broken.
+const CAN_SYMLINK = (() => {
+  const probe = join(mkdtempSync(join(tmpdir(), "phase9-symlink-probe-")), "link");
+  try {
+    symlinkSync(join(probe, "..", "missing-target"), probe);
+    return true;
+  } catch {
+    return false;
+  }
+})();
+
 describe("Phase 9 NAS resolver", () => {
   it("uses an attached explicit override and detects either platform mount candidate", () => {
     const macStyle = makeNasFixture("phase9-mac-mount-");
     const windowsStyle = makeNasFixture("phase9-windows-mount-");
-    expect(detectPhase9NasRoot({ VCC_NAS_ROOT: macStyle })).toBe(`${macStyle}/`);
-    expect(detectPhase9NasRoot({}, ["/missing-phase9-mount", windowsStyle])).toBe(`${windowsStyle}/`);
+    expect(detectPhase9NasRoot({ VCC_NAS_ROOT: macStyle })).toBe(mountForm(macStyle));
+    expect(detectPhase9NasRoot({}, ["/missing-phase9-mount", windowsStyle])).toBe(mountForm(windowsStyle));
     expect(detectPhase9NasRoot({}, ["/missing-phase9-mount"])).toBeNull();
     expect(() => detectPhase9NasRoot({ VCC_NAS_ROOT: "/missing-phase9-mount" })).toThrow(
       /does not contain research-cache/u,
@@ -49,16 +67,19 @@ describe("Phase 9 NAS resolver", () => {
     });
   });
 
-  it("refuses traversal, directories, missing files, and link-based escape", () => {
+  it("refuses traversal, directories, and missing files", () => {
+    const root = makeNasFixture();
+    expect(resolvePhase9NasFile("../escape.pdf", root).kind).toBe("forbidden");
+    expect(resolvePhase9NasFile("research-cache", root).kind).toBe("not-found");
+    expect(resolvePhase9NasFile("research-cache/missing.pdf", root).kind).toBe("not-found");
+  });
+
+  it.skipIf(!CAN_SYMLINK)("refuses link-based escape", () => {
     const root = makeNasFixture();
     const outside = mkdtempSync(join(tmpdir(), "phase9-outside-"));
     const outsideFile = join(outside, "source.pdf");
     writeFileSync(outsideFile, "outside bytes");
     symlinkSync(outsideFile, join(root, "research-cache", "redirect.pdf"));
-
-    expect(resolvePhase9NasFile("../escape.pdf", root).kind).toBe("forbidden");
-    expect(resolvePhase9NasFile("research-cache", root).kind).toBe("not-found");
-    expect(resolvePhase9NasFile("research-cache/missing.pdf", root).kind).toBe("not-found");
     expect(resolvePhase9NasFile("research-cache/redirect.pdf", root).kind).toBe("forbidden");
   });
 });

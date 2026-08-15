@@ -67,3 +67,19 @@ runner/src/gate4-evidence.ts -text
 runner/src/phase8-freeze.ts -text
 runner/src/phase8-verify.ts -text
 runner/test/phase8-target-book.test.ts -text
+
+# Phase 9 pins raw-byte identities (byteLength + SHA-256) for its protocols, registries, source
+# records, implementation and cross-pinned spec/test files. Found 2026-08-14 when the merged tree
+# failed 57 tests on this Windows host: every pinned file checked out CRLF-inflated by exactly its
+# line count. Whole-prefix patterns so a Phase 9 file added later must not have to remember this.
+research/phase9-* -text
+runner/src/phase9-* -text
+runner/test/phase9-* -text
+docs/attachment-kinetics.md -text
+docs/gg-machinery.md -text
+research/phase8b-targeted-gap-and-currency.md -text
+solver-cpu/src/gg-solver.ts -text
+solver-cpu/src/lk-solver.ts -text
+core/src/lattice.ts -text
+core/src/libbrecht.ts -text
+core/src/metrics.ts -text

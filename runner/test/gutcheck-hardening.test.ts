@@ -49,6 +49,22 @@ import {
 } from "../../scripts/gutcheck-evidence-lib.ts";
 
 const REPO = resolve(import.meta.dirname, "..", "..");
+// Creating file symlinks on Windows needs SeCreateSymbolicLinkPrivilege (admin or Developer
+// Mode). Without it, every symlinkSync below throws EPERM during test SETUP, reporting the
+// guards themselves as broken when they were never exercised. Probe once; hosts that can
+// create symlinks (macOS/Linux, Developer-Mode Windows) still run every guard.
+const CAN_SYMLINK = (() => {
+  const probe = join(mkdtempSync(join(tmpdir(), "gutcheck-symlink-probe-")), "link");
+  try {
+    symlinkSync(join(dirname(probe), "missing-target"), probe);
+    rmSync(probe);
+    return true;
+  } catch {
+    return false;
+  } finally {
+    rmSync(dirname(probe), { recursive: true, force: true });
+  }
+})();
 const tempRoots: string[] = [];
 const makeTemp = (label: string): string => {
   const dir = mkdtempSync(join(tmpdir(), `gutcheck-${label}-`));
@@ -157,7 +173,7 @@ describe("resolveNasRequest containment", () => {
     expect(resolveNasRequest("/%2e%2e/%2e%2e/etc/hosts", root).kind).toBe("forbidden");
   });
 
-  it("refuses a symlink inside the share that points outside it", () => {
+  it.skipIf(!CAN_SYMLINK)("refuses a symlink inside the share that points outside it", () => {
     const root = share();
     const outside = makeTemp("outside");
     writeFileSync(join(outside, "secret.txt"), "secret");
@@ -165,7 +181,7 @@ describe("resolveNasRequest containment", () => {
     expect(resolveNasRequest("/sub/leak.bin", root).kind).toBe("forbidden");
   });
 
-  it("refuses traversal through a symlinked directory", () => {
+  it.skipIf(!CAN_SYMLINK)("refuses traversal through a symlinked directory", () => {
     const root = share();
     const outside = makeTemp("outside-dir");
     writeFileSync(join(outside, "hosts"), "x");
@@ -173,13 +189,13 @@ describe("resolveNasRequest containment", () => {
     expect(resolveNasRequest("/sub/door/hosts", root).kind).toBe("forbidden");
   });
 
-  it("still serves a symlink that stays inside the share", () => {
+  it.skipIf(!CAN_SYMLINK)("still serves a symlink that stays inside the share", () => {
     const root = share();
     symlinkSync(join(root, "sub", "file.bin"), join(root, "alias.bin"));
     expect(resolveNasRequest("/alias.bin", root).kind).toBe("ok");
   });
 
-  it("404s directories, missing files, dangling links, and malformed encoding", () => {
+  it.skipIf(!CAN_SYMLINK)("404s directories, missing files, dangling links, and malformed encoding", () => {
     const root = share();
     symlinkSync(join(root, "gone"), join(root, "dangling.bin"));
     expect(resolveNasRequest("/sub", root).kind).toBe("notfound");
@@ -188,7 +204,7 @@ describe("resolveNasRequest containment", () => {
     expect(resolveNasRequest("/%zz", root).kind).toBe("notfound");
   });
 
-  it("refuses a persistent ancestor swap between containment and open", () => {
+  it.skipIf(!CAN_SYMLINK)("refuses a persistent ancestor swap between containment and open", () => {
     const root = share();
     const resolution = resolveNasRequest("/sub/file.bin", root);
     expect(resolution.kind).toBe("ok");
@@ -273,7 +289,7 @@ describe("NAS mount detection", () => {
     }
   });
 
-  it("rejects an override whose marker symlinks outside the share", () => {
+  it.skipIf(!CAN_SYMLINK)("rejects an override whose marker symlinks outside the share", () => {
     const root = makeTemp("nas-marker-escape");
     const outside = makeTemp("nas-marker-outside");
     mkdirSync(join(root, "out", "gutcheck-gg-realism"), { recursive: true });
@@ -288,7 +304,7 @@ describe("NAS mount detection", () => {
     }
   });
 
-  it("accepts a marker symlink whose target remains inside the share", () => {
+  it.skipIf(!CAN_SYMLINK)("accepts a marker symlink whose target remains inside the share", () => {
     const root = makeTemp("nas-marker-contained");
     const actual = join(root, "actual-large");
     mkdirSync(actual);
@@ -315,7 +331,7 @@ describe("prepareSafePlacement destination guard", () => {
     expect(existsSync(join(dest, "figs", "deep"))).toBe(true);
   });
 
-  it("refuses the reviewed control: dest/figs symlinked elsewhere", () => {
+  it.skipIf(!CAN_SYMLINK)("refuses the reviewed control: dest/figs symlinked elsewhere", () => {
     const dest = makeTemp("dest");
     const elsewhere = makeTemp("elsewhere");
     symlinkSync(elsewhere, join(dest, "figs"), "dir");
@@ -323,7 +339,7 @@ describe("prepareSafePlacement destination guard", () => {
     expect(existsSync(join(elsewhere, "fig10.err"))).toBe(false);
   });
 
-  it("refuses a symlinked final target and a file where a directory is needed", () => {
+  it.skipIf(!CAN_SYMLINK)("refuses a symlinked final target and a file where a directory is needed", () => {
     const dest = makeTemp("dest");
     const outside = makeTemp("outside");
     writeFileSync(join(outside, "victim"), "x");
@@ -614,7 +630,7 @@ describe("evidence manifest pinning", () => {
     }
   });
 
-  it("requires a safe, nonempty regular frame file for every canonical timeline tick", () => {
+  it.skipIf(!CAN_SYMLINK)("requires a safe, nonempty regular frame file for every canonical timeline tick", () => {
     const dir = makeTemp("timeline-files");
     const recordPath = join(dir, "t1-record.json");
     const timelinePath = join(dir, "manifest.json");
@@ -946,7 +962,7 @@ describe("archive-pack ledger semantics", () => {
     expect(inventory.files.map((f) => f.relPath)).toEqual(["meshes/present.bin"]);
   });
 
-  it("refuses to inventory a symlink in the archive tree (round-2)", () => {
+  it.skipIf(!CAN_SYMLINK)("refuses to inventory a symlink in the archive tree (round-2)", () => {
     const { outRoot, inventoryPath } = fixture();
     const outside = makeTemp("outside");
     writeFileSync(join(outside, "secret.txt"), "secret");
@@ -956,7 +972,7 @@ describe("archive-pack ledger semantics", () => {
     expect(String(result.stderr)).toMatch(/symlink/);
   });
 
-  it("refuses a symlink used as the large-tree root", () => {
+  it.skipIf(!CAN_SYMLINK)("refuses a symlink used as the large-tree root", () => {
     const { outRoot, inventoryPath } = fixture({ withAbsent: false });
     const outside = makeTemp("large-root-outside");
     mkdirSync(join(outside, "meshes"));
