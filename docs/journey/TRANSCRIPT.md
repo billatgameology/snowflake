@@ -27,8 +27,8 @@ added and linked to the earlier record instead of silently editing the quoted wo
 
 Date fields are deliberately distinct:
 
-- **Captured** means when this source file could place a conversation record: 2026-08-09, at day
-  precision only. Exact chat timestamps are not available here.
+- **Captured** means the day this source file could place a conversation record, at day precision
+  only. Exact chat timestamps are not available here; each record carries its own captured date.
 - **Remembered occurrence** means when the event in a recollection happened. It remains unknown
   unless the maker supplies it.
 - **Git author time** and **Git committer time** are metadata recorded by Git. Neither is treated as
@@ -117,6 +117,45 @@ nobody watches” is the maker's rationale, not a measured audience result.
 ```text
 Let's focus on documenting my journey, with actual word for word transcript in md file. then we'll add on to this. based on git history, and my recount of what actually happened.
 ```
+
+### JTS-M006 — Long documentary and manga-inspired scroll story
+
+- **Selection:** complete maker turn.
+- **Captured:** 2026-08-15, day precision.
+- **Remembered occurrence:** not applicable; this is current media intent and an audience/design
+  hypothesis drawn from the maker's observation of their daughter.
+- **Repository exposure at capture:** local working tree; this task does not push.
+- **Journey publication:** no known release.
+
+```text
+i had a new idea for how to go about doing this media. I think i want to make one long documentary like video that is long form (as long as it needs to cover the entire project), then smaller pieces of media gets generated off that one long video. This is pretty common work flow now that there are many long form video on youtube.
+
+another separate idea is that in order to generate that long video, I want to make the website like a scrollable story, the experience is like a video, as user scrolls, new content emerge like voice over, new material, animation, user just keeps scrolling down for the entire story, from beginning to end. I got this idea from my daughter who reads online manga. All she does is scrolling up up up up endlessly. She's my audience and i thought this would be an interesting new design pattern. What are your thoughts on this? Once the website is made, then the video is simply an "autoplay" of the website
+```
+
+“Common work flow” and the daughter's reading behavior are preserved as the maker's rationale, not
+as a platform census or completed audience test. The planning interpretation keeps the creative
+unity but places a versioned narrative score beneath both website and film, so a final movie file
+does not become the only editable or reconstructable source.
+
+### JTS-M007 — Continue through Phase 10; make media in parallel
+
+- **Selection:** complete maker turn and explicit recordkeeping direction.
+- **Captured:** 2026-08-15, day precision.
+- **Remembered occurrence:** not applicable; this is current programme and media intent.
+- **Repository exposure at capture:** local working tree; this task does not push.
+- **Journey publication:** no known release.
+
+```text
+please record this in journey doc, we won't stop at phase 6. we are continuing on to phase 10 as soon as phase 6 closes. but media creation is happening in parallel
+```
+
+This establishes the maker's intended Phase 10 story/programme horizon: Phase 6 is not the ending,
+and media creation is a parallel workstream. At capture, Phases 8 and 9 are already chartered and
+complete, Phase 7 is independently eligible but unstarted, Phase 6 remains active, and Phase 10 is
+uncharted and inactive. The maker's words are preserved without using them to reorder or undo those
+records. They do not by themselves start Phase 7, charter or start Phase 10, reopen the frozen
+education site, authorize publication, or change Phase 6's active protocol.
 
 ## Contemporaneous maker quotation
 

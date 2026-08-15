@@ -30,7 +30,7 @@ and removal separately.
 | Channel | Native editorial job | Typical edition |
 |---|---|---|
 | **Journey website** | Complete owned chronology and correction record | Canonical entry, primary artifact, serial edition, sources, interactive/model, Previous/Next, and current status |
-| **YouTube** | Searchable video learning and durable story arcs | Hook-first Shorts; 3–8 minute recaps; 8–20 minute explainers, chapters, and documentaries; occasional live sessions |
+| **YouTube** | Searchable video learning and durable story arcs | Hook-first Shorts; 3–8 minute recaps; 8–20 minute explainers/chapters; modular feature documentaries with story-earned length; occasional live sessions |
 | **TikTok** | Cold-audience visual discovery | Hook-first native vertical experiment, failure, reversal, demo moment, or crystal reveal with one delivered payoff |
 | **Instagram** | Visual identity, discovery, and designed visual explanation | Hook-first Reels, strong crystal images, 3–6-card carousels, and temporary Story reminders |
 | **Facebook** | Broad contextual storytelling and interest communities | Selected hook-first Reels, longer native explainers or human stories, contextual image/video posts, and separately adapted group posts |
@@ -79,6 +79,19 @@ Long-form needs a truthful title/thumbnail promise and a strong opening that pro
 the question, stakes, and visual destination. It does not use the compressed two-second grammar of
 a feed short, and a short is never padded into a chapter.
 
+The living scroll documentary is the programme's richest long-horizon synthesis. It is intended to
+continue through Phase 10 rather than treating Phase 6 as the finale, and its chapters, scenes,
+visuals, narration, transcript, and clean assets may be produced while the scientific programme is
+still advancing. Each documentary release names the exact horizon it actually covers; Phase 7 is
+independently eligible but unstarted, Phases 8 and 9 are chartered and complete, Phase 6 remains
+active, and Phase 10 is uncharted and inactive.
+
+That documentary is a source reservoir, not a universal social edit. A selected chapter, scene, or
+time range becomes an outlet edition only after a brief supplies the destination's honest opening,
+context, payoff, aspect composition, scientific qualifier, accessibility treatment, and action.
+The long-form conclusion may depend on setup or caveats outside an excerpt, so a derivative records
+its exact source scenes and restores every qualifier needed to stand alone.
+
 ### Visual sequencing and evergreen discovery
 
 Instagram carousels explain one idea through a deliberate card sequence. Pinterest receives a
@@ -121,6 +134,10 @@ An entry's shared package may contain:
 - clean voice, ambience and effects stems when they exist, transcript, captions, and visual
   description; and
 - rights, privacy, provenance, accessibility, localization, and maker-review records.
+
+A documentary synthesis package may additionally carry the exact narrative-score version, stable
+act/scene keys, source-entry and release bindings, page anchors, film timecodes, deterministic cue
+records, and correction map. These make reuse traceable; they do not waive the outlet brief.
 
 Each outlet edition names the exact source members it used. An editorially distinct script,
 opening, selection, pacing, language, framing, meaning, or correction lifecycle receives its own

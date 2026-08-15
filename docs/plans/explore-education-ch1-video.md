@@ -14,6 +14,16 @@ animation as a single-file HTML/canvas piece for screen capture. The video is th
 companion to the short-form program in `docs/social/`; it reuses that program's editorial
 guardrails (source tags, fact-check discipline, rights rules, honesty badge).
 
+**Maker direction and adopted planning interpretation, 2026-08-15.** This Chapter 1 package is now
+the bounded pilot input for the planned living scroll documentary: a chaptered vertical reader,
+narrated playback, and deterministic long-video export are intended to share one narrative score,
+while the scientific story continues through Phase 10 and media creation proceeds in parallel.
+This note does not expand the current deliverables to Chapters 2–10, implement the website or
+renderer, bypass the pending Rule 13 audit, reopen `docs/education/**`, start independently
+eligible Phase 7, reopen completed Phases 8 or 9, or charter/start Phase 10. The
+cross-Journey architecture is governed by
+[the living scroll-documentary plan](explore-journey-scroll-documentary.md).
+
 ## Done when
 
 There is no charter clause for this work; the charter does not govern video production. Done means:
@@ -72,6 +82,8 @@ Deliverables live under `docs/video/` (new directory, long-form track), separate
   three-second spoken disclosure rule applies ("these are renders; a computer model, not
   photographs") and the PHOTO/MODEL/DIAGRAM tag discipline extends to it.
 - Chapters 2+. One chapter, end to end, so the pipeline can be judged before it is scaled.
+- Building the scroll-story runtime or treating this script package as proof that the through-Phase-10
+  documentary workflow is usable; those are separate implementation and audience tests.
 
 ## Tried and rejected
 

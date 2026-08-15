@@ -73,6 +73,54 @@ requirement for a second elaborate production.
 The same entry can later be discovered chronologically, through a topic thread, through its media
 type, or as part of a chapter or larger story arc.
 
+## The living scroll documentary
+
+The Journey also builds toward one long, chaptered documentary covering the project through its
+intended Phase 10 horizon. Phase 6 is a major act with a published measured-only negative result,
+while its gate remains active and incomplete; it is not the end of the story. The scientific
+programme has already advanced in parallel: Phases 8 and 9 are chartered and complete, Phase 7 is
+independently eligible but unstarted, and Phase 10 remains uncharted and inactive. The maker intends
+the programme and story to continue toward Phase 10 after Phase 6 closes. Media creation proceeds
+in parallel and does not wait for the final phase before the first chapter, scene, animation,
+narration, or edition is made.
+
+The documentary and its manga-inspired website are two performances of one approved, versioned
+**narrative score**, backed by the Journey entries and their reusable source packages. The score
+orders acts and scenes and binds their narration, readable text, visual state, sources, scientific
+status, corrections, timing, and capture inputs. It is the shared authored layer; the final movie
+bytes are not a universal production master.
+
+“Manga-inspired” names only the continuous vertical-reading convention that prompted the idea. One
+daughter's observed reading behavior is an audience hypothesis to test, not evidence about young
+people or manga readers generally.
+
+The experience has three related modes:
+
+- **Scroll/read:** the audience moves naturally through a continuous vertical story; scenes reveal
+  at the reader's pace and remain reversible and addressable.
+- **Watch/listen:** an intentional start lets narration and scene timing drive guided playback;
+  manual navigation can pause or leave that performance.
+- **Deterministic export:** a fixed frame clock renders the same approved scene states in a
+  purpose-made video composition for the long documentary.
+
+The continuous experience retains real chapter headings, stable anchors, progress/resume, sources,
+captions or equivalent text, a reduced-motion path, and correction/current-understanding links. A
+named documentary release covers a stated story and scientific horizon; later work creates a new
+versioned synthesis or correction relationship instead of silently changing an already released
+film.
+
+The gapless `SCJ` chronology remains the source and correction spine beneath this synthesis. A long
+documentary, chapter cut, or scroll experience may gather many entries, but it records every
+load-bearing source rather than replacing their pages or identities. Smaller media may reuse its
+scenes, clean assets, narration, and transcript, while each selected outlet still receives its own
+honest hook, payoff, framing, accessibility treatment, scientific qualifier, and native-fit review.
+
+The existing Chapter 1 long-form package is the bounded first pilot input for this architecture. It
+does not silently expand to later chapters, implement the story runtime, or satisfy an audience
+test. The current education-site freeze remains in force until Phase 6 closes; parallel media work
+uses source material without editing the frozen education implementation unless the maker
+separately changes that boundary.
+
 ## Working principles
 
 - One honest step is enough for a day.
@@ -89,6 +137,8 @@ type, or as part of a chapter or larger story arc.
   days.
 - Reuse research and source assets across editions; choose the opening, pacing, framing, copy, and
   payoff for the selected outlet rather than assuming one finished piece fits every destination.
+- Treat Phase 6 as an act, not a finale: media can be produced while the scientific programme
+  continues, and the long documentary names the horizon its exact release actually covers.
 
 ## Current boundary
 
@@ -100,6 +150,9 @@ remains in force.
 
 - [Source transcript](TRANSCRIPT.md) preserves the maker's selected word-for-word recollections,
   contemporaneous quotations, and separately labeled Git observations before any public scripting.
+- [Living scroll-documentary plan](../plans/explore-journey-scroll-documentary.md) records the
+  through-Phase-10 horizon, parallel-media direction, narrative-score architecture, and current
+  implementation boundary.
 - [Social media coverage](SOCIAL-MEDIA.md) records the retained destinations and their roles.
 - [Media specification](MEDIA-SPEC.md) defines the house duration, text, visual, accessibility,
   provenance, music, rights, platform-override, and archive rules.

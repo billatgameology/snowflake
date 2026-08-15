@@ -301,6 +301,17 @@ Rules:
   open-caption export, or platform transcode may remain a release member or destination rendition
   when the editorial sequence and meaning do not change. Duration and outlet alone do not decide
   the boundary.
+- A living scroll documentary's narrative score is an immutable, digested manifest member of the
+  synthesis entry's versioned source package, not a second public episode-number namespace or an
+  unowned side record. It carries its own schema version. Internal act and scene keys remain stable
+  within the named score member/version and bind page anchors, film timecodes, narration/caption
+  regions, exact source snapshots or releases, status, and correction state. They do not look like
+  `SCJ-` entry IDs and never reserve one.
+- The feature scroll experience and timed documentary always receive separate artifact identities;
+  watch/listen remains a mode of the web artifact unless separately approved and released. A
+  genuinely non-editorial passive preview may remain a derivative. Each web/film artifact binds the
+  exact source-package identity/version/digest and narrative-score member path, schema version, and
+  member digest. Neither artifact is declared the source of all future outlet editions.
 - A mutable URL, branch name, or “latest” deployment is not a source identity. The coded-experience
   release retains an immutable source snapshot or repository revision, any applicable dirty-state
   archive, dependency lock/build configuration, built bundle, and every load-bearing data, font,
@@ -432,6 +443,8 @@ Retain:
 - editorial status: current, partially corrected, wholly corrected, superseded, or withdrawn;
 - artifact and current approved-release IDs;
 - current source-package manifest identity/version/digest and the event that approved that version;
+- for a documentary synthesis, named story/scientific horizon, narrative-score member path/schema
+  version/digest, ordered scene keys, and the complete scene-to-source/page/time/correction map;
 - ordered relationship IDs: continues, builds on, answers, corrects, supersedes, derived from,
   imported from, and summarized by;
 - topic or arc membership without encoding it into the ID;
@@ -452,6 +465,8 @@ Retain:
   format/version, and manifest digest algorithm/value;
 - outlet-and-purpose editorial-brief reference when the artifact is an editorial edition;
 - exact source-package manifest identity/version/digest and ordered used-member digests;
+- exact narrative-score member path/schema version/digest and ordered used scene keys when the
+  artifact renders or edits a documentary synthesis;
 - source entry snapshot event/digest and, for localization, exact source release-manifest ID;
 - the ordered named-asset list, with each member's role, locale, filename/archive path, media type,
   byte size, digest algorithm/value, creation/export time, and derivation;
@@ -563,6 +578,47 @@ list of every source Journey ID and exact load-bearing release/snapshot used. A 
 “Entries 0081–0099,” but the reconstruction record may not store only a range: omitted,
 noncontiguous, corrected, or superseded sources would become invisible.
 
+### Living scroll documentary
+
+A project-length scroll story or documentary is a versioned synthesis governed by the recap rule,
+even when its web presentation appears to be one continuous page. It keeps the existing `SCJ`
+chronology and source pages beneath it rather than renumbering or absorbing them.
+
+The synthesis-specific fields above extend its ordinary Journey-entry record; they are not a new
+record class. Its immutable narrative-score manifest is a member of that entry's source package,
+and every scroll, film, chapter, or derivative artifact binds the exact package and score member it
+used.
+
+Before public allocation, decide whether the release is one synthesis entry with stable internal
+act/chapter anchors or several separately releasable synthesis entries. That choice is editorial
+and reconstruction-significant, so it freezes before final numbers or artifacts are assigned. One
+feature entry may, for example, own a scroll artifact and a separately narrated film artifact; an
+act that makes its own new movement or claim may instead warrant its own synthesis entry. Internal
+scene keys never become competing public Journey numbers.
+
+The synthesis record retains:
+
+- its exact narrative-score identity/version/digest and named story/scientific horizon;
+- the ordered source Journey IDs plus exact load-bearing entry snapshots, artifact releases, and
+  package-member digests for every act and scene;
+- the stable page route or fragment, film time range, caption/transcript range, visual status, and
+  correction state associated with each scene key;
+- the scroll/read, watch/listen, and fixed-frame-export artifact/release relationships, including
+  explicit absent or untested modes; and
+- every derivative's exact used scene/source set and its separate editorial brief, release, and
+  destination record when applicable.
+
+Extending the story from an earlier horizon—such as through Phase 6—to a later one—such as through
+Phase 10—does not mutate an immutable approved film or conceal its old ending. Publish a new
+synthesis entry or a new artifact owned by a later synthesis entry, preserve the earlier release,
+and link it by **Included in** and **Current understanding** by default. Use **Supersedes** or the
+material-correction relationship only when the later work actually replaces or corrects the earlier
+meaning. A technical encoding or caption repair may still increment a release.
+
+One endless route does not replace `/journey/NNNN` recovery. It exposes stable chapter anchors and
+links to every source entry, while those entries link forward through **Included in**, **Current
+understanding**, and correction relationships as appropriate.
+
 ### Late import
 
 If old material already belongs to an existing entry, attach it as an artifact or destination
@@ -637,7 +693,10 @@ To rebuild the Journey from preserved records:
    states are interchangeable.
 4. Replay entry and source-package events to derive each page's current state, relationships,
    correction banner, and immutable package versions. Verify every package manifest, ordered member
-   binding, member archive path, byte size, digest, approval, and supersession link.
+   binding, member archive path, byte size, digest, approval, and supersession link. For every
+   documentary synthesis, also verify the narrative-score member's schema/version/digest, ordered
+   scene keys, complete scene-to-source/page/time/correction map, and the score binding claimed by
+   every web, film, chapter, or derivative artifact.
 5. Expand each entry's artifacts, approved release manifests, and editorial briefs. Verify each
    artifact's exact package version and used-member digests, then verify the release manifest and
    every member's archive path, byte size, digest, brief approval, and derivation.
@@ -664,11 +723,12 @@ A recoverable archive periodically exports a self-contained bundle containing, t
 retention remains permitted, the record-format definition, event register, derived current index,
 immutable entry snapshots, source-package manifests and members, editorial briefs, artifact
 releases, native-fit decision snapshots/evidence, exact publication text/files, URL map, and
-checksum manifest. Every cross-record reference and digest needed to expand those records is in the
-bundle. The bundle names every forced omission and does not call a legally reduced register
-complete. Store recoverable copies independently of the social platforms and periodically perform
-a read-only reconstruction using the steps above. A backup that has never been restored is only an
-untested copy.
+checksum manifest. For a documentary synthesis it also contains the narrative-score manifest member
+and complete scene/source/correction map. Every cross-record reference and digest needed to expand
+those records is in the bundle. The bundle names every forced omission and does not call a legally
+reduced register complete. Store recoverable copies independently of the social platforms and
+periodically perform a read-only reconstruction using the steps above. A backup that has never been
+restored is only an untested copy.
 
 ### Reconstruction boundary
 

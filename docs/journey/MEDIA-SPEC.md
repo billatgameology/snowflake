@@ -40,7 +40,7 @@ master.
 | Reusable source package | Approved facts, source media/components, editable assets, transcript, provenance, access, rights, and correction state |
 | Owned serial edition | 15–30 seconds preferred; 15–59 seconds allowed; scoped to watch-in-order navigation |
 | Selected short-feed edition | 21–45 seconds typical; an honest visual or spoken hook within the first two seconds |
-| Long explanation | 3–8 minute recap or 8–20 minute durable explainer/chapter when the story warrants it |
+| Long explanation | 3–8 minute recap, 8–20 minute durable chapter, or modular feature documentary with no fixed ceiling when the story warrants it |
 | Visual edition | Deliberate still, 3–6-card sequence, or evergreen diagram rather than a forced video |
 | Conversation/direct edition | Written natively for the selected relationship and outlet, not copied from a universal caption |
 | Voice | Maker's voice, 120–140 spoken words per minute |
@@ -92,6 +92,68 @@ publication names the exact package version and members it used.
 The package may contain reusable footage, a clean body sequence, or editable copy components. It
 does not pre-approve one opening, pacing, framing, language, card order, caption, music treatment,
 or call to action for every outlet.
+
+## Living scroll documentary and narrative score
+
+The long-horizon synthesis is a continuous, chaptered scroll story and a documentary generated from
+the same approved **narrative score**. It is intended to follow the programme through Phase 10;
+Phase 6 is one major act, not the terminal chapter. Media work may proceed in parallel with the
+scientific roadmap, but every release names the exact story and scientific horizon its sources
+actually cover. Phases 8 and 9 are chartered and complete, Phase 7 is independently eligible but
+unstarted, Phase 6 remains active, and Phase 10 is uncharted and inactive. This media record does
+not start or reopen a phase or promote any scientific claim.
+
+The narrative score is an immutable, digested manifest member of the synthesis entry's versioned
+source package, not a finished edit or a parallel unowned record. Its own schema version and member
+digest are bound by that package manifest. For every act and scene it binds:
+
+- a stable internal scene key and chapter anchor;
+- ordered source Journey entries and exact load-bearing artifact releases or entry snapshots;
+- narration, readable page text, captions, visual description, and pronunciation or localization
+  notes where applicable;
+- the visual component and its origin/status label, deterministic state, interaction or animation
+  cues, and model-time versus playback-time meaning;
+- intended reader movement, narrated duration, deliberate pauses, and fixed-frame export cues;
+- rights, accessibility, review, scientific-status, and correction/current-understanding state; and
+- candidate derivative moments as editorial leads only, never as pre-approved outlet edits.
+
+One score supports three performances without pretending their controls are interchangeable:
+
+| Performance | Driver | Required behavior |
+|---|---|---|
+| **Scroll/read** | Natural page position | Reader-paced, reversible, no mandatory scroll trapping and no audible media started by scrolling; semantic text and chapter anchors remain usable without animation or sound |
+| **Watch/listen** | Narration and approved cue time after an intentional start | Play, pause, seek, mute, resume, captions, and a defined response to manual scrolling; no overlapping viewport-triggered narration and no movement that steals keyboard focus |
+| **Deterministic export** | Exact frame number at a fixed rate | Purpose-made aspect composition, frozen inputs, no network or wall-clock dependence, exact audio alignment, and a recorded rerender result |
+
+The modes share content and scene state, not necessarily layout. Watch/listen is a mode of the
+scroll web artifact unless separately approved and released as its own artifact. The scroll
+experience may be mobile-first while the long film uses a 16:9 composition; both retain load-bearing
+labels, sources, units, and status. A literal wheel-scroll screen recording is reserved for a
+genuine interface demonstration. The preferred documentary path renders scene states directly or
+through a dedicated capture presentation so browser chrome, scroll jitter, dropped frames, and
+responsive reflow do not become the film's pacing system.
+
+The apparently continuous page remains modular: each chapter has a stable route or fragment,
+heading structure, source list, resume point, capture boundary, and correction map. Load and activate
+heavy media near the current scene rather than treating the whole programme as one simultaneous
+canvas. Honor `prefers-reduced-motion` on first load and provide a persistent audience override. In
+reduced-motion mode, disable automatic scrolling, parallax, continuous scroll-linked motion, and
+nonessential transitions; use static or discrete scene changes while preserving the complete
+semantic reading order, chapter navigation, argument, and sources. Playback and chapter controls
+remain keyboard accessible, and guided movement never moves keyboard focus without an explicit
+audience action. Transcript/static paths preserve the complete argument rather than offering a
+diminished summary.
+
+The gapless public Journey remains the chronological source spine. A scroll documentary is a later
+synthesis over exact entries and releases, not a replacement for their stable pages. Expanding the
+story through a later phase creates a new versioned synthesis relationship; it never rewrites the
+meaning of an immutable released film. Material corrections identify affected page anchors,
+timecodes, subtitles, source snapshots, and derivatives, then follow the correction rules below.
+
+The documentary is also a rich source reservoir, not a universal outlet master. A chapter cut may
+retain its sequence when independently approved, but a short-feed edition still receives its own
+hook, selection, payoff, pacing, aspect composition, qualifier, and native-fit review. Reusing a
+scene or transcript does not pre-approve the finished excerpt.
 
 ## Owned gapless watchable serial edition
 
@@ -159,6 +221,7 @@ Platform maximum durations are compatibility ceilings, not creative targets.
 | **Extended update** | 60–180 seconds | A guided demo, correction, or explanation; not a universal daily asset |
 | **Arc recap** | 3–8 minutes | Several connected entries and what changed across them |
 | **Chapter video** | 8–20 minutes | A durable synthesis after the underlying work exists |
+| **Feature documentary** | Story-earned; no fixed house ceiling | A named, multi-act synthesis through an explicit programme horizon, assembled from modular chapters |
 | **Live session** | Event-specific | Specify separately when a real live session is planned |
 
 The owned serial edition and ordinary selected short-feed edition use the **15–59 second** band. This
@@ -620,6 +683,20 @@ Required core:
   correction paths for every selected edition; and
 - linked Journey entries showing where the synthesis came from.
 
+For a living scroll documentary or feature-length synthesis, also require:
+
+- the exact narrative-score version and story/scientific horizon named by the release;
+- stable act/scene anchors, ordered source-entry and release bindings, resume behavior, and a
+  correction map from page regions and film timecodes back to those sources;
+- separately verified scroll/read, watch/listen, and fixed-frame export dispositions, including an
+  explicit **not implemented** or **not tested** state for any mode that does not yet exist;
+- purpose-made responsive and film compositions, with semantic reading, reduced-motion, captions,
+  transcript, and visual-description paths carrying the same argument;
+- a fixed-frame chapter render and audio-assembly record rather than an unexamined real-time screen
+  recording, unless the depicted subject is specifically the interface in use; and
+- a source-to-derived index for any chapter cut, short, still, carousel, or localized edition, while
+  retaining a separate editorial brief and approval for each selected use.
+
 For YouTube, add a searchable title, thumbnail, chapters, durable description, source links, and a
 clean 16:9 master by default. For a selected Facebook long placement, choose the aspect and layout
 its exact placement needs, then write the native opening/context, caption, cover, and any
@@ -835,6 +912,8 @@ unavailable rather than claiming a complete archive:
 - the artifact, approved-release, destination-publication, and global history-event identifiers
   required by `NUMBERING.md`;
 - the reusable source package and the exact source members used by each edition;
+- for a scroll documentary or feature synthesis, the narrative-score manifest member, its schema
+  version/digest, complete scene/source/correction map, and every artifact's exact score binding;
 - every approved editorial master and its outlet-and-purpose brief;
 - the watchable serial-edition master, script/timed-card plan, access assets, poster, identity
   placement, and exact canonical-page binding;
