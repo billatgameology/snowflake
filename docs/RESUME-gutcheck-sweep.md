@@ -245,9 +245,9 @@ memory permitting: ~1 GB per run).
   recorded as impossible for constant-parameter G-G. Its core is smooth where the real
   medallion has radiating sector structure. No timeline yet — the record is from a frames-off
   run.
-- **Photo catalogue** — `figures.jsonl` in the main worktree lists 376 monograph figures, 139 of
-  them photographs; 4 have been matched against existing models so far. See
-  `docs/local-assets.md` for where that media lives.
+- **Photo catalogue** — `figures.jsonl` in the private NAS cache or a staged extraction lists 376
+  monograph figures, 139 of them photographs; 4 have been matched against existing models so far.
+  See `docs/local-assets.md` for the cache root and verification boundary.
 - **`scripts/` is not typechecked.** The root tsconfig omits it. Running tsc directly against
   `gutcheck-build-index.ts` found a real bug the same day (a stale `r.image` that made all 48
   comparison images reappear as leftovers). Adding `scripts/**/*.ts` to the include is worth

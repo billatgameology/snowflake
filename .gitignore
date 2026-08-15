@@ -4,9 +4,9 @@
 # snowcrystals.com videos and excludes internet publication without permission. Committing it
 # would publish it on the first push to any remote, and git history would make that permanent.
 #
-# The .md indexes stay tracked, and they are the artifact that matters: they carry every source
-# URL, byte size, and SHA-256, so the local copies are re-downloadable and re-verifiable from
-# them. The bytes are a cache; the provenance is the record.
+# The source indexes and media inventory stay tracked: together they carry citations plus the
+# registered cache paths, byte sizes, and SHA-256 values. The bytes are a private cache; the
+# provenance and inventory are the record.
 research/*
 !research/*.md
 # Per-file manifest of the media cache (paths, sizes, sha256 only — no third-party content).

@@ -151,7 +151,7 @@ index, a plan, ADR, or audit links to historical detail.
   frozen tree exited 0: Rule 7 clean over 436 files, both TypeScript projects, Vitest 82 files /
   1,454 tests in 628.68 s. Whether WP2 uses Z = 2 or Z = 1 strata is a WP2/WP3 protocol
   decision.
-- **Last updated:** 2026-08-14 by OpenAI Codex
+- **Last updated:** 2026-08-15 by OpenAI Codex
 
 ## Phase gates
 
@@ -224,11 +224,10 @@ audit. Broad discovery and the residual backlog remain stopped absent a new name
 measurement gap; Phase 9 S0B is bounded reconciliation of already registered complete Git/NAS
 sources. All 51 Phase 8B records are development evidence and none may be relabeled held out.
 
-### Phase 9 closeout — complete
+### Phase 9/local-asset closeout — complete
 
-`phase/9` and gutcheck merged 2026-08-14. Closeout preserved two rejected D-BT candidates
-(10 files / 85,153 bytes) on NAS and logged 14 post-freeze payloads in
-[`phase9-post-freeze-source-intake-v1.json`](../research/phase9-post-freeze-source-intake-v1.json).
-Unregistered future inputs; not evidence. [CI repair](https://github.com/billatgameology/snowflake/pull/6)
-merged green on Ubuntu; this cleanup followed `main` through its required gate.
-Phase 9 was not reopened; Phase 10 is uncharted.
+Phase 9/gutcheck are merged; Phase 10 is uncharted. On 2026-08-15 local research and scratch moved
+to the verified NAS archives in [local-assets.md](local-assets.md). Both were rehashed after rename
+and passed extracted `diff -qr` before deletion. The primary has no ordinary untracked or ignored
+paths. `explore/education-ch1-video` has its own worktree without an upstream or local payload;
+preserve its concurrent tracked education edits and private transcript.

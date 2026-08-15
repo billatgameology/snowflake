@@ -1,27 +1,22 @@
-// Make the .gitignore's promise about research/ true.
+// Inventory private research media without tracking the third-party bytes themselves.
 //
-// That file says the tracked indexes "carry every source URL, byte size, and SHA-256, so the
-// local copies are re-downloadable and re-verifiable from them. The bytes are a cache; the
-// provenance is the record." In practice the tracked .md files are prose summaries — 71 to
-// 142 lines against a 2,600-file cache — so most of the tree was neither enumerated nor
-// verifiable. This writes the per-file manifest that closes that gap.
+// The tracked prose indexes preserve source context but do not enumerate the cache. This writes
+// the per-file path/size/hash manifest that makes the named media scope auditable and restorable.
 //
 //   node scripts/gutcheck-research-inventory.mjs --root <path/to/research> [--out <file>]
 //        [--all]   include every file, not just media
 //
-// Scope is MEDIA by default. The tree is ~3.9 GB across ~77,000 files, but only ~2,600 of
-// those are images/video/PDF — the rest is text we derived from them (page markdown, figure
-// JSON) which regenerates from the sources. Hashing everything produced an ~11 MB manifest
-// mostly describing our own derived output, which is neither the copyright risk nor the
-// irreplaceable part. The media is what cannot be re-derived, so the media is what is listed.
+// Scope is MEDIA by default. Derived text can greatly outnumber the images, video, and PDFs;
+// hashing all of it mostly describes our own extraction output rather than the copyright risk or
+// irreplaceable inputs. The media is what cannot be re-derived, so the media is what is listed.
 //
 // The manifest carries paths, sizes and hashes ONLY. No media, no captions, no extracted
 // text — nothing third-party — so it is safe to track even though everything it describes is
 // deliberately untracked.
 //
-// The media lives in the main worktree (G:/Code Files/snowflake/research); sibling worktrees
-// carry only the .md/.jsonl indexes. Run with --root pointed at whichever checkout actually
-// holds the bytes. See docs/local-assets.md.
+// The private loose cache lives under NAS share-relative `research-cache/content/`; a worktree
+// normally carries only tracked indexes. Run with --root pointed at that cache or a staged
+// extraction. See docs/local-assets.md.
 
 import { createHash } from "node:crypto";
 import { createReadStream, readdirSync, statSync, writeFileSync } from "node:fs";

@@ -1,17 +1,17 @@
 // Gut-check spike, "beyond the paper" WP: build ours-left / real-crystal-right composites
 // against real captured photographs, using models we already grew.
 //
-//   node scripts/gutcheck-photo-match.mjs [--only <id>]
+//   node scripts/gutcheck-photo-match.mjs --root <research-directory> [--only <id>]
 //
 // Method is the one the WP registered: no new solver runs, pick the nearest verified model
 // from the catalogue we already have and composite it against the photo. What that tests is
 // whether G-G's morphology classes actually occur in nature, not whether a specific crystal
 // can be dialled in.
 //
-// Source media lives in the MAIN worktree (G:/Code Files/snowflake/research), which holds the
-// third-party image cache; this worktree carries only the .md/.jsonl indexes. Media in
-// research/ is unversioned by decision 0004, so — exactly like app/scripts/phase6-crop-figures.mjs —
-// the crop rectangles here are fractions of the source image and are the reproducible record.
+// Source media is private NAS/cache material, not worktree state. Point --root at the loose
+// `research-cache/content/` tree or at a staged archive extraction. Media in research/ is
+// unversioned by decision 0004, so — exactly like app/scripts/phase6-crop-figures.mjs — the crop
+// rectangles here are fractions of the source image and are the reproducible record.
 //
 // RIGHTS: Libbrecht holds copyright on the monograph figures and snowcrystals.com media.
 // Every output lands in gitignored out/gutcheck-gg-realism/photos/ and must not be published.
@@ -26,8 +26,31 @@ const REPO = resolve(import.meta.dirname, "..");
 const OUT = join(REPO, "out/gutcheck-gg-realism");
 const PHOTOS = join(OUT, "photos");
 const FIGS = join(OUT, "figs");
-// The image cache is not in this worktree; it is in the main one alongside it.
-const RESEARCH = resolve(REPO, "..", "snowflake", "research");
+
+if (process.argv.includes("--help")) {
+  console.log(
+    [
+      "Usage: node scripts/gutcheck-photo-match.mjs [options]",
+      "",
+      "  --root <research-directory>  private cache root (default: <repo>/research)",
+      "  --only <id>                  build only one registered comparison",
+      "  --print-inputs               print resolved inputs as JSON without writing output",
+    ].join("\n"),
+  );
+  process.exit(0);
+}
+
+const argValue = (name, fallback) => {
+  const index = process.argv.indexOf(name);
+  if (index < 0) return fallback;
+  const value = process.argv[index + 1];
+  if (value === undefined || value.startsWith("--")) {
+    throw new Error(`${name} requires a value`);
+  }
+  return value;
+};
+
+const RESEARCH = resolve(argValue("--root", join(REPO, "research")));
 const MONO = join(RESEARCH, "1910.06389v2-llm", "figures");
 
 /**
@@ -84,7 +107,22 @@ const TARGETS = [
   },
 ];
 
-const only = process.argv.indexOf("--only") >= 0 ? process.argv[process.argv.indexOf("--only") + 1] : null;
+const only = argValue("--only", null);
+
+if (process.argv.includes("--print-inputs")) {
+  console.log(
+    JSON.stringify(
+      TARGETS.filter((target) => only === null || target.id === only).map(({ id, ours, real }) => ({
+        id,
+        ours,
+        real,
+      })),
+      null,
+      2,
+    ),
+  );
+  process.exit(0);
+}
 
 function ffprobeSize(path) {
   const r = spawnSync(

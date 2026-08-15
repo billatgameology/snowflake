@@ -430,19 +430,57 @@ describe("evidence manifest pinning", () => {
 
   it("pins the subtree, preserves other trees' entries, and leaves no residue", () => {
     const { manifestPath, subtreeDir } = fixture();
-    writeFileSync(join(subtreeDir, "a-record.json"), "{}");
+    writeFileSync(join(subtreeDir, "README.md"), "read me");
+    mkdirSync(join(subtreeDir, "dialin"));
+    writeFileSync(join(subtreeDir, "dialin", "a-record.json"), "{}");
     writeFileSync(join(subtreeDir, ".hidden.tmp"), "in-flight"); // must never be pinned
     const { pinned } = updateGutcheckEvidenceManifest({ manifestPath, subtreeDir, subtreePrefix: "sub" });
-    expect(pinned).toBe(1);
+    expect(pinned).toBe(2);
     const manifest = JSON.parse(readFileSync(manifestPath, "utf8")) as {
       fileCount: number;
       files: Record<string, { bytes: number }>;
     };
-    expect(manifest.files["sub/a-record.json"]).toBeDefined();
+    expect(manifest.files["sub/dialin/a-record.json"]).toBeDefined();
+    expect(manifest.files["sub/README.md"]).toBeDefined();
     expect(manifest.files["other/tree.json"]).toBeDefined();
-    expect(manifest.fileCount).toBe(2);
+    expect(manifest.fileCount).toBe(3);
+    expect(Object.keys(manifest.files)).toEqual([
+      "other/tree.json",
+      "sub/dialin/a-record.json",
+      "sub/README.md",
+    ]);
     expect(existsSync(`${manifestPath}.lock`)).toBe(false);
     expect(Object.keys(manifest.files).some((k) => k.includes(".tmp"))).toBe(false);
+  });
+
+  it("does not mistake an eval import with the library at argv[1] for direct CLI execution", () => {
+    const root = makeTemp("eval-import");
+    const scriptDir = join(root, "scripts");
+    const evidenceDir = join(root, "evidence");
+    const subtreeDir = join(evidenceDir, "gutcheck-gg-realism");
+    mkdirSync(scriptDir, { recursive: true });
+    mkdirSync(subtreeDir, { recursive: true });
+    const lib = join(scriptDir, "gutcheck-evidence-lib.ts");
+    cpSync(join(REPO, "scripts", "gutcheck-evidence-lib.ts"), lib);
+    const manifestPath = join(evidenceDir, "MANIFEST.json");
+    writeFileSync(manifestPath, JSON.stringify({ fileCount: 0, totalBytes: 0, files: {} }, null, 1));
+    writeFileSync(join(subtreeDir, "would-be-pinned.json"), "{}");
+    const before = readFileSync(manifestPath, "utf8");
+
+    const imported = spawnSync(
+      process.execPath,
+      [
+        "--input-type=module",
+        "-e",
+        'const { pathToFileURL } = await import("node:url"); await import(pathToFileURL(process.argv[1]).href);',
+        lib,
+      ],
+      { encoding: "utf8" },
+    );
+
+    expect(imported.status, String(imported.stderr)).toBe(0);
+    expect(imported.stdout).toBe("");
+    expect(readFileSync(manifestPath, "utf8")).toBe(before);
   });
 
   const startLockChild = (manifestPath: string, attempted: string, acquired: string, release: string) => {

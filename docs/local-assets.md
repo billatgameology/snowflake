@@ -13,8 +13,9 @@ Read this before concluding that something is lost.
 
 | Tree | Size | In git? | Where it comes from |
 |---|---|---|---|
-| `node_modules/` | ~300 MB | no | `npm ci` |
-| `research/` | 3.9 GB · 21,245 files · **2,477 media (2.01 GB)** | **no** — indexes only | **Main worktree only:** `G:/Code Files/snowflake/research`. Verify the media with `research/media-inventory.json`; the remaining ~18,800 files are text derived from those sources and regenerate from them. |
+| `node_modules/` | grows | no | `npm ci`; the primary macOS copy was removed 2026-08-15. |
+| Full research media cache | 2,477 registered media · 2,013,534,785 bytes | **no** — hashes/indexes only | Private loose NAS tree `research-cache/content/`; all registered paths and sizes were observed there 2026-08-15. |
+| 2026-08-15 Mac-local research snapshot | 2,974 files · 1,166,728,510 logical bytes | no | Private NAS tar `research-cache/local-worktree-archives/snowflake-main-ignored-research-20260815.tar`; complete for the former Mac subset, not the full media inventory. |
 | `out/gutcheck-gg-realism/large/` | ~446 GB | no | Loose NAS mirror since 2026-08-12 (`docs/nas-ledger.json`, per-file SHA-256); the dev server streams it, so restore locally only when a workflow needs local bytes (e.g. the static bundle). End-to-end streaming was measured on macOS; the current Windows `S:/` path remains unexecuted. Older archive zips remain on the share. |
 | `out/gutcheck-gg-realism/` workspace layer | ~800 MB | no | Loose NAS mirror since 2026-08-12 (extras pack unpacked; zip retained). **The macOS-measured index needs no local restore** — `scripts/gutcheck-build-index.ts` scans local + share merged. Restore locally only for authoring workflows (photo matching, archive packing). |
 | `out/gutcheck-gg-realism/site/` | ~6 GB | no | Regenerate: `node scripts/gutcheck-build-site.ts` (~5 s). |
@@ -22,6 +23,7 @@ Read this before concluding that something is lost.
 | `out/gutcheck-gg-realism/large/gen/`, `large/anim/` | grows | no | Regenerate from the **tracked** specs: `node scripts/gutcheck-grow-batch.mjs`. |
 | `out/gutcheck-gg-realism/photos/` | ~25 MB | no | Public-domain plates re-downloadable; monograph crops come from the `research/` cache. |
 | Post-Phase-9 source intake | 165,706,780 recorded bytes · 24 source/raw/provenance files | no media; tracked hashes only | Private NAS: `research-cache/post-phase9-intake/20260813-unregistered-v1/`; verify with `research/phase9-post-freeze-source-intake-v1.json`. Unregistered future material, not Phase 9 evidence. |
+| 2026-08-15 macOS session scratch | 348,672-byte tar · 17 members | no | Private NAS archive `out/archives/snowflake-main-local-scratch-20260815.tar`; contains the former `.claude/`, `out/`, and `tmp/` trees. |
 
 Calling `out/` disposable does not promise that every transient byte is backed up. Durable
 provenance is tracked under `evidence/`; ledgered bulk and archives are recoverable from the
@@ -46,22 +48,43 @@ NAS; session logs and other scratch are regenerated or discarded.
   hashes only, no third-party content.
 - **`research/*.md`** — the provenance prose: sources, licences, crop rectangles.
 
-## The research/ media is in the main worktree, not here
+## The research/ cache is on the NAS, not in a worktree
 
-`research/*` is gitignored except the `.md` indexes, `lab-validation-dataset.jsonl` and the
-inventory. **The image bytes exist only in `G:/Code Files/snowflake/research`.** Sibling
-worktrees — this one included — carry the indexes and nothing else.
+`research/*` is gitignored except the tracked indexes, datasets, inventories, and source records.
+The loose private tree at share-relative `research-cache/content/` is the restore source for the
+full scope registered in `research/media-inventory.json`: 2,477 media paths totaling
+2,013,534,785 bytes. A 2026-08-15 read-only audit found all registered paths there at their exact
+recorded sizes; it did not rehash all loose NAS bytes, so the tracked SHA-256 values remain the
+verification authority rather than a newly claimed hash pass.
+
+On the same date, the complete primary-macOS `research/` subset was separately written to
+`research-cache/local-worktree-archives/snowflake-main-ignored-research-20260815.tar` before the
+ignored local copies were removed. The complete-tree archive intentionally includes tracked
+metadata as duplicate recovery context; Git remains authoritative for those tracked paths.
+
+The archive is 1,172,661,248 bytes with SHA-256
+`535648aa42e6748853f4ac808b837f571a24a1a630f4ce6948100a0c407cde94`. Its 3,363 members are all
+under `research/`, and none is an AppleDouble entry. Verification listed the final archive,
+rehashed it after the `.partial` rename, extracted it into a fresh `/private/tmp` directory, and
+ran `diff -qr` against the live 2,974-file / 1,166,728,510-logical-byte source tree with no
+difference before deletion. This is a durable private copy on the project NAS, not an independent
+off-site backup. It contains every byte that was local on this Mac, but only 1,626 of the 2,477
+registered media paths (1,159,779,039 bytes); 851 registered paths / 853,755,746 bytes were absent
+from the Mac before cleanup. Restoring this tar alone therefore must not be reported as a complete
+media-inventory restore. It also retains the source `research/.DS_Store` member because the exact
+snapshot preceded local metadata cleanup.
 
 Consequences worth knowing before you go looking:
 
 - `lab-validation-dataset.jsonl` records `assets.local_render` paths relative to the repo root.
-  They resolve only in the main worktree, and the specific
+  They resolve only after restoring the cache, and the specific
   `1910.06389v2-llm/page-images-extra/` path is **stale even there** — that directory holds 5
   files, not the page renders the dataset expects. The usable catalogue is
   `1910.06389v2-llm/figures.jsonl` (376 figures, 139 of them photographs) with crops under
   `figures/fig-<n>/visual.png`.
-- Scripts that read this media take a `--root` so they can be pointed at whichever checkout has
-  the bytes — see `gutcheck-photo-match.mjs` and `gutcheck-research-inventory.mjs`.
+- Scripts that read this media take a `--root` so they can be pointed at a staged archive
+  extraction instead of repopulating a worktree — see `gutcheck-photo-match.mjs` and
+  `gutcheck-research-inventory.mjs`.
 
 ## Rights
 
@@ -78,9 +101,27 @@ Phase 9 result; see the tracked intake record for exact hashes and repair detail
 ## Verifying and refreshing
 
 ```bash
-# What research/ media should be present, and whether it is
-node scripts/gutcheck-research-inventory.mjs --root <path/to/research> --out /tmp/check.json
-# ...then diff /tmp/check.json against research/media-inventory.json
+# Resolve this host's attached share; never bake S:/ or /Volumes into consumers
+snowflake_nas_root=$(node --input-type=module -e 'import { detectNasMount } from "./scripts/nas-root.ts"; const mount = detectNasMount(); if (mount === null) throw new Error("NAS detached"); process.stdout.write(mount)')
+
+# Restore the full registered loose cache without overwriting tracked worktree files
+rsync -a --ignore-existing "${snowflake_nas_root}research-cache/content/" research/
+node scripts/gutcheck-research-inventory.mjs --root research --out /tmp/check.json
+jq -S '.files' /tmp/check.json >/tmp/check-files.json
+jq -S '.files' research/media-inventory.json >/tmp/registered-files.json
+diff /tmp/check-files.json /tmp/registered-files.json
+
+# Verify or stage only the historical Mac-local snapshot
+research_snapshot="${snowflake_nas_root}research-cache/local-worktree-archives/snowflake-main-ignored-research-20260815.tar"
+shasum -a 256 "$research_snapshot"
+tar -tf "$research_snapshot" >/dev/null
+research_stage=$(mktemp -d /private/tmp/snowflake-research-restore.XXXXXX)
+tar -xf "$research_snapshot" -C "$research_stage"
+rsync -a --ignore-existing "$research_stage/research/" research/
+
+# Inspect the archived session scratch without writing it over a live checkout
+scratch_stage=$(mktemp -d /private/tmp/snowflake-scratch-restore.XXXXXX)
+tar -xf "${snowflake_nas_root}out/archives/snowflake-main-local-scratch-20260815.tar" -C "$scratch_stage"
 
 # Restore the large out/ binaries from archives
 node scripts/gutcheck-archive-restore.ts <archives>/gutcheck-large-<group>-<date>-<archive-sha256>.zip
@@ -93,4 +134,13 @@ New packs use immutable content-addressed names; restore also accepts the 11 leg
 date-only names already pinned in the archive ledger.
 
 Regenerate `research/media-inventory.json` whenever the cache changes; it is cheap and it is
-the only thing that makes the cache's absence detectable.
+the tracked record that makes its named media scope's absence detectable. It does not cover every
+derived extraction file; the complete-tree archive preserves those additional private bytes.
+
+The scratch archive is 348,672 bytes with SHA-256
+`99dbedbe56138a775ca7c3366974459af96296d852354f98a808145f9ea44130`. Its 17 members were likewise
+listed, rehashed after rename, extracted, and byte-compared before local deletion. Restore it to
+an empty staging directory and select only the historical log or local setting required. The
+deleted dependency trees and `app/dist/` were not archived; regenerate them with `npm ci` and the
+normal build commands. Finder metadata was removed from the worktrees; the exact scratch snapshot
+retains its former `out/.DS_Store` member.

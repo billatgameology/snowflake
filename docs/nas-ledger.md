@@ -1,9 +1,10 @@
 # NAS ledger — where the big outputs live
 
 This ledger covers generated outputs moved to the NAS share `\\GameStation\snowcrystal`; it is
-not an inventory of every untracked local asset (the `research/` cache remains in the main
-worktree; see `docs/local-assets.md`). The NAS copy mirrors repo-relative paths under the share
-root — e.g.
+not an inventory of every untracked asset. The separate private research cache is under
+share-relative `research-cache/content/`, with its Mac-local snapshot under
+`research-cache/local-worktree-archives/`; see `docs/local-assets.md`. This ledger's generated
+output copy mirrors repo-relative paths under the share root — e.g.
 `out/gutcheck-gg-realism/large/gen/sweep-t1-r0p1-mesh.bin` lives at
 `<share>/out/gutcheck-gg-realism/large/gen/sweep-t1-r0p1-mesh.bin`.
 

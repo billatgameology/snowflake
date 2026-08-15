@@ -244,8 +244,16 @@ export const withExclusivePublicationLockAsync = async <T>(
   }
 };
 
+const canonicalEntryOrder = (left: string, right: string): number => {
+  const foldedLeft = left.toLowerCase();
+  const foldedRight = right.toLowerCase();
+  if (foldedLeft < foldedRight) return -1;
+  if (foldedLeft > foldedRight) return 1;
+  return left < right ? -1 : left > right ? 1 : 0;
+};
+
 const walk = (dir: string): string[] =>
-  readdirSync(dir).flatMap((entry) => {
+  readdirSync(dir).sort(canonicalEntryOrder).flatMap((entry) => {
     const path = `${dir}/${entry}`;
     return statSync(path).isDirectory() ? walk(path) : [path];
   });
@@ -559,7 +567,22 @@ export const isCompleteTimeline = (
 };
 
 // `node scripts/gutcheck-evidence-lib.ts` (or `npm run evidence:pin`) re-pins the real tree.
-if (process.argv[1] !== undefined && resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
+// Under `node -e`, argv[1] is merely the first positional argument; an eval importer can pass
+// this library there without executing it as the entry module. Do not mistake that for the CLI.
+const evalOrPrintInvocation = process.execArgv.some(
+  (argument) =>
+    argument === "-e" ||
+    argument === "--eval" ||
+    argument.startsWith("--eval=") ||
+    argument === "-p" ||
+    argument === "--print" ||
+    argument.startsWith("--print="),
+);
+if (
+  !evalOrPrintInvocation &&
+  process.argv[1] !== undefined &&
+  resolve(process.argv[1]) === fileURLToPath(import.meta.url)
+) {
   const { pinned } = updateGutcheckEvidenceManifest();
   console.log(`evidence-pin: ${String(pinned)} files pinned under ${DEFAULT_PREFIX}/ in evidence/MANIFEST.json`);
 }
