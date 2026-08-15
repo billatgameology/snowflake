@@ -9,3 +9,7 @@ phase8-plot-extraction-v3-verify.ts -text
 phase8-plot-extraction-v3.ts -text
 phase8-plot-extraction-verify.ts -text
 phase8-plot-extraction.ts -text
+
+# Phase 9 pins the raw bytes of its implementation modules (see research/.gitattributes for why
+# these rules cannot live in the root file: the Phase 8 freeze pins the root file's exact bytes).
+phase9-* -text

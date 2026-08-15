@@ -5,3 +5,7 @@ phase8-benchmark-selection.test.ts -text
 phase8-native-history.test.ts -text
 phase8-plot-extraction-v3.test.ts -text
 phase8-plot-extraction.test.ts -text
+
+# Phase 9 cross-pins its own test files' raw bytes (see research/.gitattributes for why these
+# rules cannot live in the root file: the Phase 8 freeze pins the root file's exact bytes).
+phase9-* -text

@@ -1,2 +1,13 @@
 # Phase 8B's hash-bound research records must reproduce byte-exactly on Windows checkouts.
 phase8b-* -text
+
+# Phase 9 pins raw-byte identities (byteLength + SHA-256) for its protocols, registries, and
+# source records. Found 2026-08-14 when the merged tree failed 57 tests on the Windows host:
+# every pinned file checked out CRLF-inflated by exactly its line count.
+#
+# These rules live HERE, not in the root .gitattributes, because the published Phase 8 freeze
+# pins the root file's exact bytes (PHASE8_VERIFIER_PATHS in runner/src/phase8-freeze.ts) —
+# editing the root file breaks Phase 8's re-derivation from published bytes. Per-directory
+# attribute files are outside that pin set, match Phase 8B's own precedent above, and are
+# equally durable for new files.
+phase9-* -text

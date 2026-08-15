@@ -1,0 +1,6 @@
+# Phase 9's M-GT frozen foundation pins the raw bytes of these modules (see
+# research/.gitattributes for why these rules cannot live in the root file: the Phase 8 freeze
+# pins the root file's exact bytes).
+lattice.ts -text
+libbrecht.ts -text
+metrics.ts -text
