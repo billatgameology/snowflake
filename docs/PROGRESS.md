@@ -228,7 +228,7 @@ sources. All 51 Phase 8B records are development evidence and none may be relabe
 
 ### NAS asset governance — active; share still read-only
 
-After the verified [local cleanup](local-assets.md), the
-[opening NAS audit](nas-inventory-audit-20260815.md) found fragmented manifest ownership,
-over-broad serving, and seven historical roots without an observed loose NAS location. Next: land
-ADR 0051 and catalogue/resolver controls before migration. Preserve Phase 6 and education work.
+The [opening audit](nas-inventory-audit-20260815.md), proposed ADR 0051, catalogue/schema, and
+safety primitives landed through `4c87061`; no NAS payload changed. Next: finish marker/resolver,
+catalogue-only loopback serving, and index enforcement, then review before any migration. Preserve
+Phase 6 and education work.

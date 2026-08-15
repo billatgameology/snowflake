@@ -184,3 +184,12 @@ the generated-output ledger is internally consistent but not share-wide; the med
 research manifests describe different selections and dates; private/derived/search/archive roots
 lack one owner catalogue; and seven of the eight historical `OUT-TREES-MANIFEST` roots have no
 observed loose NAS location. The audit changed no share bytes and grants no deletion authority.
+
+## Implementation record
+
+Commit `4c87061` adds the federated catalogue, strict schema, portable-path and collision checks,
+catalogue serve decisions, descriptor-bound regular-file access, stable tree inventory, and atomic
+JSON publication primitives. The focused command
+`TMPDIR=/private/tmp npx vitest run runner/test/nas-asset-lib.test.ts runner/test/nas-assets-catalog.test.ts`,
+followed by `npm run typecheck` and `npm run lint:rule7`, passed on that commit. This checkpoint does
+not create the physical share marker, change a consumer, move a NAS byte, or authorize pruning.
