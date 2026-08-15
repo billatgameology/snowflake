@@ -1,10 +1,15 @@
 # Plan — GG realism gut check (eyeball-only exploration)
 
 - **Phase:** Pre-Phase 7 exploration, maker-directed 2026-08-02. Not a charter phase gate.
-- **Status:** complete — deliverables produced, agent eyeball verdict recorded below;
-  the maker's own sentence of judgment is the one open slot
+- **Status:** complete — deliverables produced, agent eyeball verdict recorded below, and
+  the maker's verdict is recorded in its slot (2026-08-04, after the full sweep)
 - **Started:** 2026-08-02
-- **Last touched:** 2026-08-02 by Claude Fable 5 (`claude-fable-5`)
+- **Last touched:** 2026-08-12 by Claude Fable 5 (`claude-fable-5[1m]`) — provenance
+  relocation entry at the end of this file
+- **Path note (2026-08-12):** earlier sections reference the spike's tracked files at
+  `out/gutcheck-gg-realism/{specs,dialin,gen,figs,tracked}` — those paths are historical.
+  The tracked set lives at `evidence/gutcheck-gg-realism/` since the relocation recorded in
+  the dated entry at the end of this file; executed records are otherwise left as written.
 
 ## Goal
 
@@ -951,7 +956,11 @@ Nothing below is blocked; all of it is unstarted or deliberately deferred.
    surface-propensity coloring (that needs the solver in the browser worker).
 6. **Archive re-pack is stale** — see the transfer note below.
 
-## Moving this worktree to another machine
+## Historical machine-transfer procedure — executed 2026-08-06, superseded 2026-08-12
+
+This block preserves the paths and commands used for that transfer; it is not a current
+operational procedure. Tracked provenance now lives under `evidence/gutcheck-gg-realism/`,
+and `docs/nas-ledger.md` governs current NAS restore and streaming work.
 
 **No new branch is needed.** `explore/gg-realism-gutcheck` is already pushed to
 `origin` at `b76b494` and is unmerged; that is exactly the "not ready to merge" state.
@@ -1104,8 +1113,9 @@ and "copy to another computer" should be cheap and verifiable.
   `large/anim-B/` (the 701-frame timeline; internal manifest paths are relative, verified
   against the viewer's `new URL(frame.file, manifestAbsolute)` resolution).
   Rule going forward: new lane outputs write here (`--out-state`/`--out-mesh` paths).
-- `archives/` — pack output staging (`gutcheck-large-<group>-<yyyymmdd>.zip`), gitignored,
-  excluded from the inventory scan.
+- `archives/` — pack output staging (new writes:
+  `gutcheck-large-<group>-<yyyymmdd>-<archive-sha256>.zip`; the 11 ledgered date-only names
+  are legacy), gitignored and excluded from the inventory scan.
 - Renders, composites, PGM dumps, logs, records, specs stay where they were. Copyrighted
   media (paper crops, photos, and every composite embedding them) is NEVER tracked and
   NEVER placed in `tracked/`; it may ride in private Dropbox archives only.
@@ -1125,12 +1135,13 @@ and "copy to another computer" should be cheap and verifiable.
 scratch dest with every hash verified; index page regenerated against the new paths;
 exact `TMPDIR=/private/tmp npm test` green.
 
-**Path migration note**: artifact paths recorded earlier in this plan predate this layout;
-from 2026-08-04 the same files live under `large/<group>/` with unchanged basenames.
-`tracked/inventory.json` is the authoritative current location + hash list. Ad-hoc probe
-files `check-index.mjs`/`check-motion.mjs` may reference stale paths (throwaway probes,
-not maintained). Evidence status of everything inventoried remains: unvalidated,
-eyeball-only, this branch only.
+**Historical path note**: this block records the 2026-08-04 layout. Since 2026-08-12 the
+authoritative inventory is `evidence/gutcheck-gg-realism/large-artifact-inventory.json`, and
+the recipes/run records moved under the same evidence subtree. Earlier `out/` paths remain
+here as execution history, not current instructions. Ad-hoc probe files
+`check-index.mjs`/`check-motion.mjs` may also reference stale paths (throwaway probes, not
+maintained). Evidence status of everything inventoried remains: unvalidated, eyeball-only,
+this branch only.
 
 ### Executed record (2026-08-04) — inventory WP done-when met
 
@@ -1284,7 +1295,7 @@ so the claim was testable.
 The mechanism is legible in Fig. 32's spec: the prism-slot `ggThresh` is the morphology dial —
 **2.25 attaches only on completed facets and grows flat plates; 1.15 attaches easily and
 branches.** Fig. 32 schedules plate→branch. Two attempts, same ρ/φ/κ throughout so only the
-schedule differs (`out/gutcheck-gg-realism/specs/bentley{785,872}.json`):
+schedule differs (`evidence/gutcheck-gg-realism/specs/bentley{785,872}.json`):
 
 | Attempt | Schedule | Result |
 |---|---|---|
@@ -1418,3 +1429,104 @@ order survives below.
 Verified headless: 36 rows, 44 thumbnails, 3 with interactive links, 1 with an animation link,
 column headings correct, lightbox still opens from inside a row, 0 page errors, 0 failed
 requests. `npm test` and `vite build` clean.
+
+### Tracked provenance relocated to evidence/; out/ is now fully disposable (2026-08-12)
+
+Maker directive during the mac-host cleanup: nothing tracked may live under `out/`. The 228
+tracked files (README, `specs/`, `dialin/`, the 93 gen + 35 fig `*-record.json`, and
+`tracked/inventory.json`) moved by `git mv` to **`evidence/gutcheck-gg-realism/`** —
+`gen-records/`, `fig-records/`, and `large-artifact-inventory.json` are the renamed forms —
+and are now pinned in `evidence/MANIFEST.json` like every other evidence artifact; the two
+root control manifests are intentionally not self-pinned (the no-stray test enforces this).
+`scripts/gutcheck-evidence-lib.ts` re-pins the gut-check subtree; the high-level writers
+(`gutcheck-grow-batch.mjs` per record, `gutcheck-sweep-specs.mjs` per new spec,
+`gutcheck-archive-pack.ts` per inventory rewrite) call it so an operator never has to
+remember in those workflows. Direct or hand writes require `npm run evidence:pin`. The
+`.gitignore` negation block is retired: bare `out/**`, no exceptions.
+
+In the same session the macOS path became NAS-served: the extras pack was unpacked loose on
+the share (composites/style heroes/videos/photos stream via `/nas/`; ledgered per-file), the
+index builder scans local + share merged (local wins), and the mac's local copies plus the
+pre-Phase-6 `out/` scratch were verified against the share and deleted (`docs/nas-ledger.md`
+moves rows, 2026-08-12). A real macOS empty-`out/` worktree built the complete index with
+`node scripts/gutcheck-build-index.ts` — records from git, bulk from the share — with the
+measured result 7 sections / 149 items, all bulk URLs `/nas/`, zero `/@fs`. The emitted URL
+is mount-agnostic by construction, but the current Windows `S:/` path has not been executed;
+do not treat the macOS measurement as a Windows streaming result.
+
+Not done here: `scripts/gutcheck-build-site.ts` still reads the local tree only and silently
+omits the growth timeline when `large/anim-B-v2q/` is not restored locally (recorded in
+`docs/nas-ledger.md`; restore the mirror before building a timeline-bearing bundle).
+
+**Process deviation (Rules 2/3), recorded rather than repaired:** this relocation was
+executed directly on a mid-session maker directive; the plan entry above and the PROGRESS
+section were written AFTER implementation, not committed first. Retroactive plan-writing
+cannot be undone — it is named here as a deviation so it does not read as the process
+working.
+
+### Review record for the relocation (Rule 10) — opened 2026-08-12
+
+- **Original developer:** Claude Fable 5 (`claude-fable-5[1m]`). **Pre-repair reviewers:**
+  OpenAI Codex GPT-5 subagents, non-authors of the original implementation but forked from
+  and sharing the coordinator task context. This was independent code/fixture execution,
+  not a context-blind review; the earlier “model undisclosed / no shared context” statement
+  was false and is superseded by this record.
+- **Rounds 1–2:** reviewers reproduced the workpack import failure, sparse-ledger erasure,
+  `/nas` and restore symlink escapes, broken `--pack meshes`, malformed-ledger overwrite,
+  resume-on-completion-only behavior, and serial-not-concurrent lock test. The original
+  developer's subsequent full-suite logs were inspected; they were producer-owned runs,
+  not reviewer reruns.
+- **Round 3 (changes requested):** exact run/timeline identity was still filename-only;
+  zero-job startup pin repair was unreachable; same-size/same-mtime bytes and new local
+  files were silently adopted; restore authenticated only member count; lock release could
+  delete an ownerless replacement and its overlap test remained vacuous. The Rule 10 record
+  also misattributed producer suite runs and fixture reproductions to the reviewer.
+- **Independently re-executed before the Round 3 repair:** Rule 7; focused hardening,
+  evidence-integrity and PROGRESS tests; manifest and NAS-ledger recomputation; isolated
+  workpack/archive/resume/lock attack fixtures; and a macOS live `/nas` route/browser check.
+  No reviewer ran exact full `npm test`; the 1,679/7 and 1,687/7 full-suite artifacts were
+  inspected developer outputs.
+- **Limits of the pre-repair review:** no Windows `S:/` execution, Windows suite, full
+  22,498-file NAS content re-hash, scratch-zip replay, semantic audit of all 227 moved JSON
+  blobs, or commit. `gutcheck-build-site.ts` remains local-only; the portable restore's final
+  validation-to-rename window remains within the documented trusted single-user boundary.
+
+### Round 3 repair plan — 2026-08-13
+
+- **Status:** implementation and producer verification complete; a different-session closing
+  review remains before commit.
+- **Round-3 developer:** OpenAI Codex GPT-5 coordinator. Forked, shared-context Codex subagents
+  performed adversarial audits; scoped documentation and regression-test edits from two of
+  them were incorporated. This is not a context-blind or different-session review.
+- **Goal:** make archive verification byte-authentic, bind archive restore and grow resume
+  to their declared identities, close the manifest-lock ownership/recovery seams, and make
+  the operational prose match the measured platform and artifact boundaries.
+- **Approach:** first add adversarial controls that reproduce the accepted findings, then
+  repair the smallest shared primitives and their callers; re-pin evidence after the final
+  prose/code state; run focused tests followed by exact `TMPDIR=/private/tmp npm test`.
+- **Implemented controls:** workpacks carry their helper and keep results local; resume binds
+  record plus timeline/frame bytes to a canonical full invocation; manifest and archive-ledger
+  publication are locked and atomic; pack hashes both sources and ZIP payloads, preserves sparse
+  ledgers, rejects unsafe roots/portable aliases, and never clobbers a content-addressed archive;
+  restore authenticates group/count/member identity before safe placement; `/nas` uses realpath
+  plus descriptor identity, closes aborted/HEAD reads, and the Vite `/@fs` NAS bypass is removed.
+- **Implementation audit:** a shared-context non-author Codex subagent independently ran the
+  58-test hardening file, typecheck, Rule 7 and diff checks; reproduced the root-symlink and
+  no-clobber controls; exercised two-process locking; and live-checked macOS `/nas`, `/@fs`,
+  HEAD and range behavior. It found no remaining actionable archive/NAS defect. This does not
+  replace the different-session closing review below.
+- **Producer verification:** the Codex coordinator ran exact
+  `TMPDIR=/private/tmp npm test` on the fully staged implementation bytes: exit 0, 98/98 test
+  files, 1,722 passed / 7 skipped, 407.08 s. Producer-owned log:
+  `out/checks/npm-test-round3-codex.log`, SHA-256
+  `55157d065f5a3c42ee085c110131bd5e5c7478ed8a83057d4e2f0e0146dedb07`. This result is not
+  attributed to a reviewer; this prose-only record was added afterward and receives Rule 7
+  plus the focused PROGRESS/evidence checks.
+- **Done when:** same-size/same-mtime corruption and unledgered files fail verification;
+  archive member substitution fails before extraction; stale run/timeline configurations
+  do not resume as complete; a zero-job batch repairs missing pins; lock tests fail without
+  serialization and no holder removes a replacement lock; Rule 7, evidence integrity, and
+  the exact full suite pass on the final staged bytes.
+- **Deliberately not done:** hostile concurrent filesystem mutation remains outside the
+  documented single-user TOCTOU threat boundary; Windows `S:/` execution and the static
+  bundle's local-only bulk reads remain measured limits, not silently upgraded claims.

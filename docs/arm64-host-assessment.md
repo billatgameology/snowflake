@@ -64,7 +64,8 @@ collapse under sweep-like load, and that per-core latency did not transfer to th
 first half of that was wrong and the probe says so.**
 
 All figures below are the four registered control points, same configuration, on the M4.
-Logs in `out/phase6-arm64/concurrent/` (gitignored).
+Logs mirrored to the NAS share at `out/phase6-arm64/concurrent/` on 2026-08-12
+(per-file SHA-256 in `docs/nas-ledger.json`; the gitignored local copy was removed).
 
 | regime | aggregate wall | work delivered | throughput vs serial | worst per-process penalty |
 |---|---|---|---|---|

@@ -1,6 +1,6 @@
 // Generate the G-G parameter sweep: the spec files that gutcheck-grow-batch.mjs grows.
 //
-//   node scripts/gutcheck-sweep-specs.mjs [--out-dir out/gutcheck-gg-realism/specs] [--list]
+//   node scripts/gutcheck-sweep-specs.mjs [--out-dir evidence/gutcheck-gg-realism/specs] [--list]
 //
 // The point of the sweep is range, not fit — "hundreds of these generated snowflakes to show
 // the vast possibilities by just a few parameters" (maker, 2026-08-07). Photo matches are a
@@ -19,14 +19,18 @@
 // Staged pairs schedule two of those in sequence, which is the only way to reach the
 // conditions-history morphologies (plate core then branches, branches then end plates).
 
-import { mkdirSync, writeFileSync, readdirSync } from "node:fs";
+import { mkdirSync, renameSync, writeFileSync, readdirSync } from "node:fs";
 import { join, resolve } from "node:path";
+
+import { updateGutcheckEvidenceManifest } from "./gutcheck-evidence-lib.ts";
 
 const arg = (n, d) => {
   const i = process.argv.indexOf(`--${n}`);
   return i >= 0 && process.argv[i + 1] !== undefined ? process.argv[i + 1] : d;
 };
-const outDir = resolve(arg("out-dir", "out/gutcheck-gg-realism/specs"));
+// Specs are tracked provenance (evidence tree since 2026-08-12); writing one obliges a
+// MANIFEST.json re-pin, done below after the writes.
+const outDir = resolve(arg("out-dir", "evidence/gutcheck-gg-realism/specs"));
 const listOnly = process.argv.includes("--list");
 mkdirSync(outDir, { recursive: true });
 
@@ -129,7 +133,13 @@ for (const [id, spec] of specs) {
   // Never clobber a hand-written or already-grown spec: the record next to it may already
   // describe a crystal grown from the old contents.
   if (existing.has(id)) continue;
-  writeFileSync(join(outDir, `${id}.json`), JSON.stringify(spec, null, 1));
+  // Temp + rename so a killed run never leaves a truncated spec for the batch to grow.
+  const tmp = join(outDir, `.${id}.json.tmp`);
+  writeFileSync(tmp, JSON.stringify(spec, null, 1));
+  renameSync(tmp, join(outDir, `${id}.json`));
   written++;
 }
+// Unconditionally, not only when written > 0: a previous run that wrote specs and died
+// before pinning leaves the manifest stale, and the rerun writes nothing (review 2026-08-12).
+updateGutcheckEvidenceManifest();
 console.log(`${specs.size} specs in sweep, ${written} newly written to ${outDir}`);

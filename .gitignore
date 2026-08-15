@@ -46,29 +46,14 @@ node_modules/
 /.tmp-*/
 /debug.log
 
-# Run outputs: checkpoints, PGM dumps and scratch land in out/ by convention. Anything that BACKS
-# A PUBLISHED CLAIM belongs in evidence/ instead - see ADR 0038. What stays here is reproducible.
-#
-# Exception: out/gutcheck-gg-realism/tracked/ holds the gut-check spike's large-artifact
-# inventory (relpaths + sha256 of the gitignored binaries; no media, no third-party content) —
-# see docs/plans/explore-gg-realism-gutcheck.md, "large-artifact inventory" WP. A bare `out/`
-# directory pattern would make re-inclusion impossible, hence the `out/**` form.
+# Run outputs: checkpoints, PGM dumps and scratch land in out/ by convention, and NOTHING in it
+# is tracked. Treat it as disposable workspace, not a byte-for-byte backup set: durable
+# provenance belongs in evidence/, ledgered bulk and archived scratch can be restored from the
+# NAS, and transient logs/checks are regenerated or discarded. Anything that BACKS A PUBLISHED
+# CLAIM belongs in evidence/ instead (ADR 0038), and the
+# gut-check spike's tracked recipes/records/inventory moved to evidence/gutcheck-gg-realism/
+# on 2026-08-12 (maker directive: out/ fully temporary), retiring the negation block that
+# used to live here. High-level grow-batch, sweep-specs, and archive-pack workflows re-pin that
+# subtree; direct or hand writes require `npm run evidence:pin`. Do not reintroduce tracked files
+# under out/.
 out/**
-!out/gutcheck-gg-realism/
-!out/gutcheck-gg-realism/tracked/
-!out/gutcheck-gg-realism/tracked/**
-#
-# Second exception: the RECIPES. Every crystal in the spike is defined by a small JSON — the
-# spec it was grown from, and the record of what that run did (parameters, stage transitions,
-# dims, seed, stop reason, mesh stats). Roughly 90 KB describing ~150 crystals, all of it our
-# own numbers with no media and no third-party text.
-#
-# The meshes are regenerable FROM these files; these files are regenerable from nothing. They
-# were the one thing in out/ with real loss exposure, so they are tracked. Note the parent
-# directories have to be re-included before a pattern inside them can match.
-!out/gutcheck-gg-realism/specs/
-!out/gutcheck-gg-realism/specs/**
-!out/gutcheck-gg-realism/figs/
-!out/gutcheck-gg-realism/figs/*-record.json
-!out/gutcheck-gg-realism/gen/
-!out/gutcheck-gg-realism/gen/*-record.json

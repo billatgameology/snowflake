@@ -22,7 +22,7 @@ Open `http://localhost:<port>/gutcheck-index.html`. Two sections matter:
 | --- | --- |
 | Completed sweep crystals | **2** (both `staged-branch1-to-plate3-*`) |
 | Bentley staged attempts | 2 (`bentley785`, `bentley872`) — final mesh only, no timeline |
-| Specs written and tracked | 81 in `out/gutcheck-gg-realism/specs/` |
+| Specs written and tracked | 81 in `evidence/gutcheck-gg-realism/specs/` (relocated from `out/` 2026-08-12) |
 | Still to grow | 79 |
 | Disk free | ~187 GB |
 
@@ -99,8 +99,10 @@ time. That fixes two budgets:
   (`scripts/gutcheck-mesh-quantize.ts`, the anim-B-v2q treatment, −33%) after video
   capture.
 
-- Specs: `out/gutcheck-gg-realism/dialin/` — deliberately NOT in `specs/`, so a sweep
-  resume can't pick them up. Logs: `gen/dialin-*.log`. Frames: `large/anim/dialin-*/`.
+- Specs: `evidence/gutcheck-gg-realism/dialin/` (relocated from `out/` 2026-08-12) —
+  deliberately NOT in `specs/`, so a sweep resume can't pick them up. Logs stay in
+  `out/gutcheck-gg-realism/gen/dialin-*.log`; records land in
+  `evidence/gutcheck-gg-realism/gen-records/`. Frames: `large/anim/dialin-*/`.
 - The index has a new section, "Animation dial-in — one recipe at 500 / 800 / 1200",
   which lists these rows even while incomplete (partial timelines are viewable; the row
   says "growing"). Re-run `node scripts/gutcheck-build-index.ts` to refresh the stats.

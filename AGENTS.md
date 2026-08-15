@@ -103,6 +103,7 @@ The root is a strict-TypeScript ESM npm workspace on Node 23.6 or newer.
 | `runner/` | Node-only CLI and evidence boundary: argument validation, runs, stopping rules, metrics, PGM dumps, checkpoint I/O and round-trip checks, and enforced gates. |
 | `spike/` | Frozen Phase 1 Reiter prototype, deliberately outside the npm workspace. Do not evolve it into the product. |
 | `research/` | Tracked source indexes and citations; most downloaded media are local and gitignored. Never force-add copyrighted media. |
+| `evidence/` | Tracked, digest-pinned artifacts: evidence backing published claims (ADR 0038) plus the gut-check spike's recipes and run records (`gutcheck-gg-realism/`, relocated out of `out/` 2026-08-12). Every artifact file below it, except the two root control manifests `evidence/MANIFEST.json` and `evidence/OUT-TREES-MANIFEST.json`, must be tracked and pinned in `evidence/MANIFEST.json`; `npm test` enforces file mode, presence, byte length, and SHA-256. |
 | `app/` | Phase 3 Three.js development instrument: Web Worker CPU solver, overlays, vapor slice, picking/readouts, stop-rule parity, and deterministic visual harness. Phase 4 extends it without moving solver work onto the UI thread. |
 | `solver-gpu/` | Phase 5 WebGPU implementation and Windows/Chromium/D3D12 evidence path. Phase 7 GPU-parity work must preserve the accepted Phase 5 protocols and remains downstream of its own freeze/comparison gate. |
 
@@ -287,6 +288,27 @@ node runner/src/main.ts gate2b
 - Bitwise reproducibility is claimed only for the float64 oracle on the pinned Node/V8 engine.
   Cross-engine, float32, and GPU comparisons use stated tolerances.
 - Use the counter-based seeded PRNG and named streams. Never introduce `Math.random()`.
+- On macOS the required local check is `TMPDIR=/private/tmp npm test`. A bare `npm test` fails
+  31 Phase 5 gate tests ("publication parent resolves through an alias or junction"):
+  `os.tmpdir()` returns `/var/folders/…`, which `realpathSync.native` resolves through the
+  macOS `/var` → `/private/var` symlink, tripping the evidence guard in
+  `runner/src/gate5-evidence.ts`. The guard is correct; set `TMPDIR`, never relax it.
+- The NAS share `\\GameStation\snowcrystal` is mounted `S:` on Windows and
+  `/Volumes/snowcrystal` on macOS. Never hardcode a mount: resolve it via
+  `scripts/nas-root.ts` and address share files by share-relative path (the dev server's
+  `/nas/<path>` route). The emitted URL is mount-agnostic by construction; end-to-end index
+  and streaming behavior was measured on macOS, while the current Windows `S:/` path remains
+  unexecuted. Paid for twice: the 2026-08-06 and 2026-08-12 machine transfers each broke the
+  same tooling.
+- Nothing under `out/` is tracked. Treat it as disposable workspace, not a byte-for-byte
+  backup set: durable provenance lives under `evidence/`; ledgered bulk and archived scratch
+  can be restored from the NAS through `docs/nas-ledger.json`; transient logs and checks are
+  regenerated or discarded. `scripts/gutcheck-grow-batch.mjs`,
+  `scripts/gutcheck-sweep-specs.mjs`, and `scripts/gutcheck-archive-pack.ts` re-pin the
+  gut-check evidence subtree automatically. After a direct writer invocation or hand edit
+  under `evidence/gutcheck-gg-realism/`, run `npm run evidence:pin`; it re-pins that subtree
+  ONLY. A new file elsewhere under `evidence/` needs its own MANIFEST entry or `npm test`
+  fails on the stray.
 - Keep unrelated dirty changes intact. Never “clean up” a handoff by reverting or absorbing it
   without understanding the affected active plan.
 

@@ -6,16 +6,19 @@
 // plus a JSON run record. Observational tooling; no gate semantics.
 //
 //   node scripts/gutcheck-grow-params.ts --spec-file fig21.json \
-//        --dims 1200,1200,48 --ticks 60000 --out-mesh out/.../fig21-mesh.bin \
-//        --record out/.../fig21-record.json [--seed 1] [--noise 0] [--domain hexPrism]
+//        --dims 1200,1200,48 --ticks 60000 \
+//        --out-mesh out/gutcheck-gg-realism/large/figs/fig21-mesh.bin \
+//        --record evidence/gutcheck-gg-realism/fig-records/fig21-record.json \
+//        [--seed 1] [--noise 0] [--domain hexPrism]
 //        [--spacing 0.6] [--sigma 0.45] [--normal-delta 3] [--metrics-every 1000]
+// Direct record writes do not update evidence/MANIFEST.json; run `npm run evidence:pin` after.
 //
 // Spec file shape (keys "01".."31" index the G-G attachment thresholds by (nT, nZ); kappa/mu default + overrides):
 //   { "label": "Fig. 21", "rho": 0.1, "phi": 0,
 //     "ggThreshTable": {"01":2.5,"10":2,"11":2,"20":2,"21":1,"30":1,"31":1},
 //     "kappa": {"default":0.1,"overrides":{}}, "mu": {"default":0.001,"overrides":{}} }
 
-import { closeSync, openSync, readFileSync, writeFileSync, writeSync, mkdirSync } from "node:fs";
+import { closeSync, mkdirSync, openSync, readFileSync, renameSync, writeFileSync, writeSync } from "node:fs";
 import { dirname, join } from "node:path";
 import {
   encodeCheckpoint,
@@ -27,6 +30,7 @@ import {
   type GGTimelineEnvironment,
 } from "@vcc/core";
 import { GGSolver, FAR_FIELD_STOP_FRACTION } from "@vcc/solver-cpu";
+import { buildGutcheckRunIdentity } from "./gutcheck-evidence-lib.ts";
 import { extractMesh } from "./gutcheck-mesh-lib.ts";
 
 const SLOT_KEYS = ["01", "10", "11", "20", "21", "30", "31"] as const;
@@ -278,6 +282,22 @@ function main(): void {
   const cli = parseCli(process.argv.slice(2));
   const t0 = Date.now();
   const spec = JSON.parse(readFileSync(cli.specFile, "utf8")) as FigureSpec;
+  const runIdentity = buildGutcheckRunIdentity({
+    spec,
+    dims: cli.dims,
+    domain: cli.domain,
+    tickCap: cli.ticks,
+    rngSeed: cli.seed,
+    noiseEpsilon: cli.noise,
+    seedThickness: cli.seedThickness,
+    extraction: {
+      spacing: cli.spacing,
+      sigma: cli.sigma,
+      iso: 0.5,
+      margin: 4,
+      normalDelta: cli.normalDelta,
+    },
+  });
   const stages = resolveStages(spec);
   const stageParams = stages.map((stage, index) => {
     const params = buildParams(stage);
@@ -342,6 +362,8 @@ function main(): void {
             every: cli.framesEvery,
             seed: cli.seed,
             noise: cli.noise,
+            seedThickness: cli.seedThickness,
+            runIdentity,
             extraction: {
               spacing: cli.spacing,
               sigma: cli.sigma,
@@ -425,10 +447,11 @@ function main(): void {
   // The stopping rules break mid-interval, so the last grown state is usually not on a
   // frame boundary; capture it or the timeline ends short of the crystal that was kept.
   if (framesOn && (frames.length === 0 || frames[frames.length - 1]!.tick !== tick)) snapshot();
-  if (framesOn) {
-    writeAnimManifest(true);
-    console.log(`timeline: ${frames.length} frames -> ${cli.framesDir}`);
-  }
+  // `complete: true` is deliberately NOT written here. Timeline completion is the LAST thing
+  // published, after the mesh and the record: a crash between a complete-marked manifest and
+  // the record used to leave a crystal that every resume skipped forever, with no provenance
+  // (round-2 review, 2026-08-12). The batch predicate requires record AND timeline; ordering
+  // completion last means any crash leaves a state the resume regrows.
   console.log(`stop reason=${stopReason} tick=${tick} attached=${solver.attachedCount}`);
   // A schedule that never fires is not a staged crystal, it is a single-stage one wearing a
   // staged label. Two sweep entries (branch1 -> plate3 at 8000 and at 12000) hit domain
@@ -483,7 +506,9 @@ function main(): void {
     domain: cli.domain,
     seed: cli.seed,
     noise: cli.noise,
+    seedThickness: cli.seedThickness,
     tickCap: cli.ticks,
+    runIdentity,
     stopReason,
     tick,
     attachedCount: solver.attachedCount,
@@ -493,12 +518,26 @@ function main(): void {
       vertexCount: mesh.vertexCount,
       triangleCount: mesh.triangleCount,
       bboxCartesian: mesh.bboxCartesian,
-      extraction: { spacing: cli.spacing, sigma: cli.sigma, normalDelta: cli.normalDelta },
+      extraction: {
+        spacing: cli.spacing,
+        sigma: cli.sigma,
+        iso: 0.5,
+        margin: 4,
+        normalDelta: cli.normalDelta,
+      },
     },
     elapsedSeconds: Math.round((Date.now() - t0) / 1000),
     evidenceStatus: "unvalidated eyeball exploration; no gate semantics",
   };
-  writeFileSync(cli.record, JSON.stringify(record, null, 1));
+  // Temp + rename: a record either exists complete or not at all. A killed writer used to
+  // leave truncated JSON that grow-batch's existence check treated as "grown" forever.
+  const recordTmp = `${cli.record}.${String(process.pid)}.tmp`;
+  writeFileSync(recordTmp, JSON.stringify(record, null, 1));
+  renameSync(recordTmp, cli.record);
+  if (framesOn) {
+    writeAnimManifest(true); // only now that mesh + record are both published
+    console.log(`timeline: ${frames.length} frames -> ${cli.framesDir}`);
+  }
   console.log(
     `wrote ${cli.outMesh} (${mesh.bytes.length} bytes) and ${cli.record} in ` +
       `${((Date.now() - t0) / 1000).toFixed(1)}s`,

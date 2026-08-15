@@ -205,6 +205,14 @@ reconciliation — Phase 6 closes. Do not resume education or V4/V4.x apparatus.
 preview-GPU work may begin only as separately planned Phase 7 work in its own worktree; never run
 it from the Phase 6 lane or count it toward Phase 6.
 
+### Gutcheck/NAS relocation (2026-08-13) — awaiting different-session review
+
+The staged 254-path unit moves unvalidated exploration provenance from disposable `out/` to
+MANIFEST-pinned evidence and hardens archive/resume/lock/restore/NAS paths. Producer exact
+`TMPDIR=/private/tmp npm test`: exit 0, 98 files, 1,722 passed / 7 skipped, 407.08 s
+(`out/checks/npm-test-round3-codex.log`, SHA-256 `55157d06…db07`). Next: review the staged
+diff in a different session before commit; Windows `S:/` remains unexecuted.
+
 ### Phase 8B record — closed; external search remains stopped
 
 Decision 0048, charter v1.25 and the [benchmark-corpus plan](plans/phase-8-measurement-corpus.md)

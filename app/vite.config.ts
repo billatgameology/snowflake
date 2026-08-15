@@ -1,6 +1,8 @@
-import { createReadStream, readFileSync, statSync } from "node:fs";
+import { closeSync, createReadStream, readFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { defineConfig, type Plugin } from "vite";
+
+import { detectNasMount, openNasResolution, resolveNasRequest } from "../scripts/nas-root.ts";
 
 // The gut-check index page reads out/gutcheck-gg-realism/index.json, which lives outside the
 // Vite root. The page cannot know where the repo is, and the previous answer was to hardcode
@@ -36,60 +38,120 @@ const gutcheckIndexJson: Plugin = {
 };
 
 // Bulk artifacts (meshes, growth timelines, renders) moved to the NAS on 2026-08-12
-// (S: = \\GameStation\snowcrystal; docs/nas-ledger.md). Vite's /@fs cannot serve a drive
-// other than the workspace's on Windows — it falls through to the SPA page — so the NAS
-// gets its own route: /nas/<path> streams S:\<path>. Range requests are honored because
-// the viewer's mp4 and large .bin fetches need them. index.json points here via
-// scripts/gutcheck-build-index.ts (its FS() emits /nas/ URLs for S: paths).
+// (\\GameStation\snowcrystal; docs/nas-ledger.md). Vite's /@fs cannot serve a drive other
+// than the workspace's on Windows — it falls through to the SPA page — so the NAS gets its
+// own route: /nas/<share-relative path> streams from wherever this host has the share
+// attached (S:\ on Windows, /Volumes/snowcrystal on macOS — scripts/nas-root.ts decides,
+// GUTCHECK_NAS_ROOT overrides). The URL carries no mount prefix, making the construction
+// mount-agnostic; end-to-end behavior was measured on macOS, while the current Windows S:/
+// path remains unexecuted. Range requests are honored because the viewer's mp4 and large
+// .bin fetches need them. index.json points here via
+// scripts/gutcheck-build-index.ts (its FS() emits /nas/ URLs for paths under the mount).
+const NAS_MOUNT = detectNasMount();
+// resolve() gives the platform-native root ("S:\" or "/Volumes/snowcrystal") to join against
+// and to bound the request path with.
+const NAS_BASE = NAS_MOUNT === null ? null : resolve(NAS_MOUNT);
 const NAS_TYPES: Record<string, string> = {
   ".png": "image/png",
   ".json": "application/json",
   ".bin": "application/octet-stream",
   ".mp4": "video/mp4",
 };
+
+export const pipeNasFile = (
+  res: import("node:http").ServerResponse,
+  path: string,
+  fd: number,
+  options?: { start: number; end: number },
+): void => {
+  const stream = createReadStream(path, { ...options, fd, autoClose: true });
+  // The share can fail after the descriptor is safely opened. Handle that ordinary I/O error
+  // on the response instead of emitting an unhandled stream error that can take down the dev
+  // server.
+  stream.on("error", () => {
+    if (res.headersSent) {
+      res.destroy();
+      return;
+    }
+    res.removeHeader("content-length");
+    res.removeHeader("content-range");
+    res.statusCode = 503;
+    res.end("NAS read failed (share detached?)");
+  });
+  // If the browser abandons a large/rate-limited response, pipe() does not automatically
+  // destroy the source. Explicitly do so or its NAS descriptor can remain open indefinitely.
+  const onResponseClose = (): void => {
+    if (!res.writableFinished) stream.destroy();
+  };
+  res.once("close", onResponseClose);
+  stream.once("close", () => res.off("close", onResponseClose));
+  stream.pipe(res);
+};
 const nasStatic: Plugin = {
   name: "gutcheck-nas-static",
   apply: "serve",
   configureServer(server) {
     server.middlewares.use("/nas", (req, res) => {
-      const rel = decodeURIComponent((req.url ?? "").split("?")[0] ?? "").replace(/^\/+/, "");
-      // resolve() collapses any ../ so a crafted URL cannot escape the drive.
-      const path = resolve("S:\\", rel);
-      if (!path.toLowerCase().startsWith("s:\\")) {
+      const method = req.method ?? "GET";
+      if (method !== "GET" && method !== "HEAD") {
+        res.statusCode = 405;
+        res.setHeader("allow", "GET, HEAD");
+        res.end();
+        return;
+      }
+      if (NAS_BASE === null) {
+        res.statusCode = 404;
+        res.end("no NAS share attached (see docs/nas-ledger.md)");
+        return;
+      }
+      // Path resolution and BOTH containment checks (lexical dot-dot + realpath symlink
+      // escape) live in scripts/nas-root.ts so the adversarial tests exercise exactly the
+      // code that serves.
+      const resolution = openNasResolution(resolveNasRequest(req.url ?? "", NAS_BASE));
+      if (resolution.kind === "forbidden") {
         res.statusCode = 403;
         res.end();
         return;
       }
-      let stat;
-      try {
-        stat = statSync(path);
-        if (!stat.isFile()) throw new Error("not a file");
-      } catch {
+      if (resolution.kind === "notfound") {
         res.statusCode = 404;
         res.end("not found (NAS attached?)");
         return;
       }
+      const { path, size } = resolution;
       const ext = path.slice(path.lastIndexOf(".")).toLowerCase();
       res.setHeader("content-type", NAS_TYPES[ext] ?? "application/octet-stream");
       res.setHeader("accept-ranges", "bytes");
       const range = /^bytes=(\d*)-(\d*)$/.exec(req.headers.range ?? "");
       if (range && (range[1] !== "" || range[2] !== "")) {
-        const start = range[1] === "" ? stat.size - Number(range[2]) : Number(range[1]);
-        const end = range[1] !== "" && range[2] !== "" ? Math.min(Number(range[2]), stat.size - 1) : stat.size - 1;
-        if (start > end || start < 0 || start >= stat.size) {
+        // RFC 7233: a suffix longer than the file means "the whole file", not 416.
+        const start = range[1] === "" ? Math.max(0, size - Number(range[2])) : Number(range[1]);
+        const end = range[1] !== "" && range[2] !== "" ? Math.min(Number(range[2]), size - 1) : size - 1;
+        if (start > end || start < 0 || start >= size) {
+          closeSync(resolution.fd);
           res.statusCode = 416;
-          res.setHeader("content-range", `bytes */${stat.size}`);
+          res.setHeader("content-range", `bytes */${size}`);
           res.end();
           return;
         }
         res.statusCode = 206;
-        res.setHeader("content-range", `bytes ${start}-${end}/${stat.size}`);
+        res.setHeader("content-range", `bytes ${start}-${end}/${size}`);
         res.setHeader("content-length", end - start + 1);
-        createReadStream(path, { start, end }).pipe(res);
+        if (method === "HEAD") {
+          closeSync(resolution.fd);
+          res.end();
+          return;
+        }
+        pipeNasFile(res, path, resolution.fd, { start, end });
         return;
       }
-      res.setHeader("content-length", stat.size);
-      createReadStream(path).pipe(res);
+      res.setHeader("content-length", size);
+      if (method === "HEAD") {
+        closeSync(resolution.fd);
+        res.end();
+        return;
+      }
+      pipeNasFile(res, path, resolution.fd);
     });
   },
 };
@@ -118,10 +180,11 @@ export default defineConfig({
     port: 5173,
     strictPort: false,
     // Large artifacts (meshes, growth timelines, renders) live on the NAS as of 2026-08-12
-    // (S: = \\GameStation\snowcrystal; see docs/nas-ledger.md), and index.json points /@fs
-    // URLs at them. Listing fs.allow replaces Vite's default, so the repo root must be
-    // restated alongside the NAS drive or every local /@fs asset 403s.
-    fs: { allow: [resolve(import.meta.dirname, ".."), "S:/"] },
+    // (\\GameStation\snowcrystal; see docs/nas-ledger.md). Those are served by the /nas
+    // route above. Do NOT add the NAS mount to Vite's lexical /@fs allow-list: an in-share
+    // symlink would then bypass /nas's realpath containment and expose its outside target.
+    // Rebuild stale indexes so NAS URLs use /nas; only the repo itself belongs in /@fs.
+    fs: { allow: [resolve(import.meta.dirname, "..")] },
   },
   preview: { port: 4173, strictPort: false },
 });
