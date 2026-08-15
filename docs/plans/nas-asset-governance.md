@@ -74,8 +74,9 @@ The policy classes are:
 1. **Tracked evidence:** project-owned, claim-bearing bytes that reasonably fit Git; permanent in
    `evidence/` and pinned by its existing manifest.
 2. **External evidence:** claim-bearing bytes that are too large or cannot legally be redistributed;
-   immutable NAS collection plus complete tracked binding and an explicit charter/plan exception.
-   It is never automatic garbage-collection material.
+   immutable NAS collection plus complete tracked binding, an explicit charter or accepted-ADR
+   exception, and a governing plan that records the binding. It is never automatic
+   garbage-collection material.
 3. **Private source:** copyrighted, privacy-limited, or otherwise restricted input; private NAS
    collection plus sanitized tracked provenance and byte binding, never dev-server content.
 4. **Irreplaceable master:** recordings, editable production sources, and other originals; NAS is
@@ -91,7 +92,7 @@ They belong in a credential manager or runtime environment and outside every ser
 
 ## Steps
 
-- [ ] Freeze a read-only census of live roots, owner manifests, aliases, recycle/quarantine
+- [x] Freeze a read-only census of live roots, owner manifests, aliases, recycle/quarantine
       material, credentials, partials, and unmatched paths. Record commands, time, host, and scope;
       do not use an unbounded scan whose cost cannot be observed.
 - [ ] Reconcile the manifest scopes and locate the legacy `OUT-TREES-MANIFEST` bytes without
@@ -173,3 +174,13 @@ They belong in a credential manager or runtime environment and outside every ser
 - Windows `S:/` SMB locking, atomic rename, case/Unicode behavior, restore, and serving need an
   executed host check before cross-platform durability is claimed; macOS construction alone is not
   that check.
+
+## Audit result
+
+The bounded opening census is recorded in
+[`docs/nas-inventory-audit-20260815.md`](../nas-inventory-audit-20260815.md). It keeps live
+filesystem observations separate from manifest-derived totals and records the precise scope gaps:
+the generated-output ledger is internally consistent but not share-wide; the media and full-cache
+research manifests describe different selections and dates; private/derived/search/archive roots
+lack one owner catalogue; and seven of the eight historical `OUT-TREES-MANIFEST` roots have no
+observed loose NAS location. The audit changed no share bytes and grants no deletion authority.

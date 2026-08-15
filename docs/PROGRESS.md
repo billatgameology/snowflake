@@ -182,6 +182,8 @@ and every superseded attempt live in the linked plans and historical progress sn
 The older [proposed consumer plan](plans/phase-9-modular-physics-arms.md) is superseded design
 history, not execution authority. Decisions 0046–0050 keep worktrees, processes, artifacts, claims,
 and completion credit isolated.
+[nas-asset-governance.md](plans/nas-asset-governance.md) is active storage maintenance and changes
+no phase claim or credit.
 
 Before any production row, the repository must have reviewed source-derived physical-size strata, a
 pre-registered and executed numerical-control ladder that selects one configuration or no-pass, an
@@ -224,10 +226,9 @@ audit. Broad discovery and the residual backlog remain stopped absent a new name
 measurement gap; Phase 9 S0B is bounded reconciliation of already registered complete Git/NAS
 sources. All 51 Phase 8B records are development evidence and none may be relabeled held out.
 
-### Phase 9/local-asset closeout — complete
+### NAS asset governance — active; share still read-only
 
-Phase 9/gutcheck are merged; Phase 10 is uncharted. On 2026-08-15 local research and scratch moved
-to the verified NAS archives in [local-assets.md](local-assets.md). Both were rehashed after rename
-and passed extracted `diff -qr` before deletion. The primary has no ordinary untracked or ignored
-paths. `explore/education-ch1-video` has its own worktree without an upstream or local payload;
-preserve its concurrent tracked education edits and private transcript.
+After the verified [local cleanup](local-assets.md), the
+[opening NAS audit](nas-inventory-audit-20260815.md) found fragmented manifest ownership,
+over-broad serving, and seven historical roots without an observed loose NAS location. Next: land
+ADR 0051 and catalogue/resolver controls before migration. Preserve Phase 6 and education work.
