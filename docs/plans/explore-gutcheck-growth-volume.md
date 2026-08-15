@@ -57,38 +57,97 @@ the final axial crop without scanning the full lattice every frame. The baker li
 and consumes `GGSolver`; it does not change `core/`, `solver-cpu/`, `runner/`, checkpoints, or
 evidence machinery.
 
-The browser validates and expands the sparse records into a cropped uint16 normalized arrival-time
-volume, reserving the maximum value for never attached. The crop retains empty padding on every
-face so texture-edge clamping cannot falsely seal the surface. A WebGL2 2D texture array and custom
-ray-marched iso-surface shader make time continuous, allow topology to split and branch, and retain
-orbit-camera control. The array layout is deliberate: WebGL2 guarantees only a 256-sample minimum
-3D texture edge, while its guaranteed 2D edge and array-layer limits cover Run B's wide, shallow
-crop. Exact uint32 ticks remain in the source asset; normalization and surface smoothing are
-presentation operations. The old high-resolution mesh may remain available as an optional paused
-hero view, but the growth mode itself must not depend on legacy frame fetches.
+The browser validates and expands the sparse records into a cropped exact uint32 attachment-tick
+volume, reserving uint32 maximum for never attached and therefore capping v1 ticks at one less than
+that sentinel. The crop retains empty padding on every face so texture-edge clamping cannot falsely
+seal the surface. A WebGL2 R32UI 2D texture array and custom ray-marched iso-surface shader make
+display time continuous, allow topology to split and branch, and retain orbit-camera control. The
+array layout is deliberate: WebGL2 guarantees only a 256-sample minimum 3D texture edge, while its
+guaranteed 2D edge and array-layer limits cover Run B's wide, shallow crop. Triangular-prism
+interpolation uses the lattice-compatible simplicial decomposition; the CPU shadow's registered
+60-degree rotation samples stayed below their stated tolerance, while GPU D6h error remains
+unmeasured. Temporal and surface smoothing remain presentation operations. The old high-resolution
+mesh may remain available as an optional paused hero view, but the growth mode itself must not
+depend on legacy frame fetches.
 
-The same live NAS manifest reports Run B ending at 961,597 attached cells and a Cartesian
-`finalBBox` spanning approximately 591 × 511 × 15 world units. A conservative planning proxy of
-591 × 591 × 15 lattice samples would make the decoded uint16 volume roughly 10.5 MB before padding,
-versus the recorded 6.62 GB quantized sequence. The crop and volume bytes are estimates, not
-measurements, and must not be promoted to result numbers until the actual asset reports them.
+The pinned Run B checkpoint reports 961,597 attached cells. A 2026-08-15 read-only stream of its
+full `a` field measured tight axial bounds `[306,306,18]` through `[894,894,30]`; the registered
+two-cell halo is therefore 593 × 593 × 17 = 5,978,033 samples and 23,912,132 nominal R32UI bytes,
+versus the recorded 6.62 GB quantized sequence. The checkpoint measurement is named in
+`docs/PROGRESS.md`; actual browser allocation and performance still require the smoke record.
 
 ## Steps
 
 - [x] Inspect the current 701-frame manifest, raw and quantized mesh formats, viewer cache/playback,
       Run B dimensions, solver attachment observation, and existing scene/capture tooling.
 - [x] Record this implementation plan and commit it before executable work.
-- [ ] Add the strict `gutcheck-growth-v1` codec and focused adversarial tests.
-- [ ] Add a deterministic baker/smoke command using `GGSolver.lastAttached`, with seed handling,
+- [x] Add the strict `gutcheck-growth-v1` codec and focused adversarial tests.
+- [x] Add a deterministic baker/smoke command using `GGSolver.lastAttached`, with seed handling,
       crop accumulation, exact run identity, and atomic output publication.
-- [ ] Add a smooth `?growth=` viewer mode, arrival-volume reconstruction, quality tiers,
+- [x] Add a smooth `?growth=` viewer mode, arrival-volume reconstruction, quality tiers,
       playback/scrub controls, reduced-motion behavior, and an explicit MODEL/unvalidated label.
-- [ ] Produce the small smoke asset and run start/middle/end plus reverse-scrub browser checks.
-- [ ] Record measured smoke size/performance/limits in this plan and `docs/PROGRESS.md`.
-- [ ] Obtain one proportionate non-author review, repair blockers, and run exact
+- [x] Produce the small smoke asset and run start/middle/end plus reverse-scrub browser checks.
+- [x] Record measured smoke size/performance/limits in this plan and `docs/PROGRESS.md`.
+- [x] Obtain one proportionate non-author review, repair blockers, and run exact
       `TMPDIR=/private/tmp npm test`.
 - [ ] Commit the reviewed implementation, then launch the full Run B bake only if the smoke result
-      supports it; record its resumable command, logs, output, digest, and next action.
+      supports it; record its restart-only command, logs, output, digest, and next action.
+
+## Implementation record
+
+The first deterministic smoke bake used:
+
+```text
+node scripts/gutcheck-bake-growth.ts --preset plate --dims 20,20,12 --ticks 200 --out out/gutcheck-growth-smoke/growth.bin --domain hexPrism --seed 1 --noise 0 --padding 2 --progress 50 --expected-attached-count 61
+```
+
+It completed at tick 200 with 61 attached cells (19 seed plus 42 later events), a 2,588-byte
+asset, full-lattice occupancy SHA-256
+`840c2a6cc9f46ae8978137735d78f30995a132d1144d3b723ef7b87f6b080796`, and asset SHA-256
+`28e9bb62f3c9d073adbe9b134790e568e99dc372476af2aa8416d2f22f0fc233`. The asset is disposable
+workspace output, not evidence. Exact
+`TMPDIR=/private/tmp npx vitest run runner/test/gutcheck-growth-baker.test.ts app/test/gutcheck-growth-format.test.ts`
+passed 34/34 focused tests after the exact-R32UI/uint-playhead revision; `npm run typecheck` and
+`npm run build --workspace app` passed. The
+codec tests include a hand-authored wire fixture and fail-closed mutations; the baker test grows an
+independent 20×20×12 solver trace and matches every decoded index/tick plus occupancy snapshots.
+
+The final non-author browser run used:
+
+```text
+/Users/clipper/.nvm/versions/node/v24.19.0/bin/node /Users/clipper/github/snowflake-education-ch1-video/app/scripts/growth-capture.mjs --growth out/gutcheck-growth-smoke/growth.bin --out-dir out/gutcheck-growth-smoke/browser-r32-runb-probe-v6 --quality low --port 4330 --params probeVolume=593,593,17
+```
+
+Its 8,418-byte record at
+`out/gutcheck-growth-smoke/browser-r32-runb-probe-v6/record.json` has SHA-256
+`c9e3250179a10ce334a61a5e6c49f7f6bcfc90988ef62c34f63d5e51fbbed17b`. Chromium 149 over
+ANGLE SwiftShader WebGL2 uploaded the measured 593×593×17 R32UI allocation (23,912,132 nominal
+bytes). Start/middle/final raw images differed, the forward and reverse tick-167 PNG hashes were
+identical, portrait proxy bounds remained inside clip space, reduced motion stopped requested
+autoplay, real controls paused/rewound and completed the tick-200→display-204 visual tail, one
+growth request and zero legacy mesh requests occurred, malformed bytes failed with a specific
+codec error, and both valid pages retained ready/no-error state before the record published. The
+two raw control-canvas PNGs are retained beside the record and their independently recomputed
+SHA-256 values match its fields.
+
+This probe expands only the allocation around the tiny 61-event smoke. Its timing and image
+complexity are explicitly stamped **NON-TRANSFERABLE** to Run B in the record. It does not measure
+hardware-GPU performance, full Run B occupancy, OOM/context-loss recovery, GPU D6h error, mobile or
+cross-browser behavior, or accessibility. The non-author reviewer was OpenAI Codex, GPT-5 family,
+with inherited developer/repository context; it independently executed the browser captures,
+34/34 focused tests, app typecheck, Rule 7, and diff checks, edited no tracked files, and approved
+the implementation with no remaining blocker/high code findings. Exact root `npm test` and the full
+Run B bake were explicitly outside that review. After the repairs and PROGRESS compaction, exact
+`TMPDIR=/private/tmp npm test` passed; it covered Rule 7, both TypeScript projects and the complete
+Vitest suite. The docs-only status update after that run is covered by the focused progress-index,
+Rule 7 and diff checks before commit. The full Run B bake remains below.
+
+The v1 baker has no mid-run restore path: it retains events in memory and publishes only after the
+70,000th tick and all endpoint/legacy checks pass. A terminated run therefore restarts from tick
+zero. Adding resumability would require a separately versioned solver-state/event checkpoint, not
+an undocumented append mode. The reviewed launch must write its complete asset to local APFS first;
+only after hashing it will a no-clobber verified copy be published to the SMB NAS. This avoids
+discovering unsupported hard-link publication on SMB after roughly ten hours of computation.
 
 ## Out of scope
 
@@ -116,6 +175,10 @@ measurements, and must not be promoted to result numbers until the actual asset 
   surfaces exposed early and buried later do not exist in the final exterior topology.
 - **One full signed-distance volume per timeline frame.** Rejected because it recreates a 4D
   multi-gigabyte payload. The monotone arrival-time field is the compact representation.
+- **Normalize Run B ticks into uint16 texture values.** Rejected after review because floor
+  quantization could reveal a cell before its exact attachment tick and made the CPU shadow differ
+  from the shader contract. Exact R32UI ticks cost 23,912,132 nominal bytes for the measured crop,
+  still tiny relative to the legacy sequence, and reserve one explicit never-attached sentinel.
 - **One transmissive prism instance per attached cell.** Retained only as a fallback diagnostic:
   roughly 962,000 instances expose internal faces and change the smooth Surface Nets aesthetic.
 

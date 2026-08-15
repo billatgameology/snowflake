@@ -1,6 +1,7 @@
 // Gut-check spike renderer (docs/plans/explore-gg-realism-gutcheck.md): renders
 // gutcheck-mesh-v1 binaries (scripts/gutcheck-mesh-lib.ts) in two maker-directed styles,
-// as a single static frame, an orbitable viewer, or a growth timeline.
+// as a single static frame, an orbitable viewer, a mesh-frame timeline, or one compact
+// attachment-time volume.
 //
 //   ?style=ice     (default) the ADR 0029 Realistic look aimed at the J0521r2p footage.
 //   ?style=povray  the G-G paper's Fig. 4 ray-trace look.
@@ -9,6 +10,8 @@
 //                  slider + play/pause scrub through frame meshes, orbit controls always
 //                  on, "face-on" resets the camera. ?frame=N picks the initial frame
 //                  (default 0, the seed). ?fps=N sets playback rate (default 5).
+//   ?growth=<url>  smooth implicit-surface replay of one gutcheck-growth-v1 asset. Exact
+//                  attachment ticks remain in the asset; the displayed shell is interpolated.
 //
 // Static captures stay bit-stable for the recorded recipes: fixed backdrop plane, pixel
 // ratio 1, single render. Interactive/timeline modes use a screen-fixed background and
@@ -19,6 +22,7 @@ import * as THREE from "three";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 
 import { createSceneEditor } from "./scene-editor.ts";
+import { runGutcheckGrowthView } from "./gutcheck-growth-view.ts";
 
 interface SpikeWindow {
   __spikeReady?: boolean;
@@ -1472,6 +1476,19 @@ async function sceneMain(sceneUrl: string): Promise<void> {
 }
 
 async function main(): Promise<void> {
+  const growthUrl = query.get("growth");
+  if (growthUrl !== null && growthUrl !== "") {
+    const backdrop = backdropDefaults();
+    await runGutcheckGrowthView(growthUrl, {
+      query,
+      backdropTop: backdrop.a,
+      backdropBottom: backdrop.b,
+      bodyColor: "#" + param("body", "f4f8ff", "cfe2f8"),
+      edgeColor: "#" + param("edgeCool", "c9dcff", "edf6ff"),
+      zScale: zscale,
+    });
+    return;
+  }
   const sceneUrl = query.get("scene");
   if (sceneUrl !== null && sceneUrl !== "") {
     await sceneMain(sceneUrl);
@@ -1488,5 +1505,12 @@ async function main(): Promise<void> {
 main().catch((err: unknown) => {
   const message = err instanceof Error ? (err.stack ?? err.message) : String(err);
   (window as unknown as SpikeWindow).__spikeError = message;
+  const card = document.createElement("div");
+  card.style.cssText =
+    "position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);max-width:680px;" +
+    "padding:16px 18px;border:1px solid #6f3e4d;border-radius:7px;background:#160d14;" +
+    "color:#ffdce6;font:13px/1.5 ui-monospace,monospace;white-space:pre-wrap;z-index:30";
+  card.textContent = `Replay unavailable\n${message}`;
+  document.body.appendChild(card);
   console.error("spike render failed:", message);
 });

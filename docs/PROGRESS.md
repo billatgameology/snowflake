@@ -68,90 +68,32 @@ index, a plan, ADR, or audit links to historical detail.
   [artifact](../evidence/phase9-knowledge-baseline-v1/report.json) (5,263 bytes; SHA-256
   `37c7aadf18bce7420883930f66d6c6a473100dd27e1468dd8396a3c1214b1f96`) preserve 18 sources and
   15 hypotheses. It is now a bound S0B input; no model ran during its construction.
-- **Assurance is proportional to decision risk.** [Decision 0049](decisions/0049-make-assurance-proportionate-to-decision-risk.md),
-  charter v1.26 and `AGENTS.md` require integrity for routine sources, one targeted check for
-  load-bearing inputs, and full named controls for gates or strong public claims. No recursive
-  reviews; stop when another check cannot change the decision. No evidence or criteria changed.
-- The maker's 2026-08-03 direction is recorded verbatim in the
-  [active plan](plans/phase-6-science-first-completion.md) and enacted by accepted decisions
-  [0042](decisions/0042-bound-phase6-evidence-integrity-scope.md),
-  [0043](decisions/0043-defer-incompatible-heldout-families.md), and
-  [0044](decisions/0044-defer-phase6-preview-gpu-cohort.md) plus charter v1.21. The threat model is
-  accidental error/crash/environment drift, with attacker-only local tamper closed as history; each
-  unit gets one proportionate non-author review engagement. Held-out validation and the v6
-  WGSL/preview-GPU cohort move to named Phase 7 work packages owned by `billatgameology`, with no
-  Phase 6 credit. Decision 0045 later retained the three measured-only arms and budget-capped
-  numerical ladder, but closed R15, the conservative-intersection headline, and the full production
-  campaign as not computed.
-- [ADR 0041](decisions/0041-phase6-ryzen9-host.md) and charter v1.20 landed canonically in
-  `1ff948c`. The manifest-covered [host observation](../evidence/phase6-host/observation-20260803T033028Z.json)
-  is 3,051 bytes with SHA-256
-  `a21e93a7433666981b1b347f5b88a03e8d4e75658e4e9c25a360aae120a055dd`: Node reports an AMD
-  Ryzen 9 5900XT, 32 logical processors, and 68,603,244,544 physical-memory bytes; `nvidia-smi`
-  reports the RTX 3080, 10,240 MiB, and driver 591.86. Historical Phase 5 and pre-upgrade Phase 6
-  evidence keeps its Ryzen 7 provenance and stated host-binding limits. New evidence records actual
-  host, runtime, process concurrency, command, and flags.
-- Historical extent-21 artifacts remain valid measured-only comparisons: **CAK 3/90, M1 54/90**
-  over their named scopes. They are not the registered conservative-intersection verdict. R15 still
-  has no production caller or complete artifact-derived gate, and numerical adequacy is unproved.
-- **The arm-3 sweep is EXECUTED and published (2026-08-07).** 204/204 points at the registered
-  configuration, exit 0, execution head `6340429`, from the two-stage freeze `6d140bf`/`e209d98`
-  (values hash `297927da…2db92e` gated). Quoted from
-  `evidence/phase6-sweep-arm3/report.json` (1,365 bytes, SHA-256 `32d18a1d…`): headline **5/78
-  arm-scope, 5/90 common denominator**, neutral 155, excluded 0, extent-fragile 24. All five
-  headline agreements sit in the single-temperature plates-warm regime (5/6 at −2 °C; 0/72
-  elsewhere in headline scope) — structurally like arm 1's 3/90. The bistable band records
-  11/18 non-neutral rows, all plates; in that band the registered rule accepts either pure
-  class, so any non-neutral row agrees by construction. Measured-only grade; the registered
-  conservative-intersection headline is not computed (decision 0045); numerical adequacy is per
-  the pending ladder verdict. The matched M1-versus-ablation pair shows agreement collapsing
-  54/90 → 5/90 when only the two dip factors are replaced by one — an implementation-level
-  contrast that cannot establish physical SDAK causality or necessity in nature. Points/diagram
-  are manifested (244,610 / 30,634 bytes). The Rule 9 sibling verifier passes and is
-  suite-pinned; the unit's non-author review returned **0 blockers** (its own 204-row
-  recomputation matched every published number; ten hardening items recorded in
-  [the arm-3 plan](plans/phase-6-arm3-sweep.md), four adopted).
-- CAK→M1 is a confounded parameter-family comparison. Only matched M1 versus
-  `M1_NO_DIP_ABLATION` may isolate the implemented dip factors' effect on this solver under the
-  frozen configuration; it **cannot establish physical SDAK causality or necessity** in nature.
-- [ADR 0040](decisions/0040-correct-phase6-coefficient-and-sdak-provenance.md) and charter v1.19
-  govern the coefficient/provenance correction. The current LF-normalized parameter table is 50,464
-  bytes with SHA-256 `c0b314b681146152207f061209a3097609e34a234b0027ed73faa427334c79e2`.
-  Historical parameter/protocol hashes and both legacy manifest schemas remain untouched.
-- The candidate source lock covers five files, 21 Harrison archive members, and all 16 reconciled
-  levitation traces but remains `passEligible=false`. The audited incompatibility finding is that no
-  current held-out family is apples-to-apples with the implemented geometry and transport physics;
-  decision 0043 defers all four without calling that a pass. The amended
-  [source-currency record](../research/phase6-source-currency.md) is 29,714 bytes with SHA-256
-  `af045438ab2e4bb0de82aea4b289388d7d2c0448322298f7ecfe4ed21e5d2563`. No provider request, new
-  import, TAX2 measurement, R15 row, GPU validation row, or production solver job ran.
-- `crystallographicSpans()` reports exact integer `basalCaliper2`/`zLayers` (focused tests cover
-  all D6 planar transforms and z reflection); not yet a reviewed source-to-model size mapping and
-  no substitute for numerical controls.
-- Proposed [ADR 0039](decisions/0039-cycle-boundary-lk-resume-checkpoints.md): reviewed streaming
-  and field-adopting float64 restore landed through `a1d540c`; the runner contract stays deferred
-  until WP3 freezes exact campaign inputs. Production rows may not use resume before acceptance.
-- Education is frozen for Phase 6; the one maker-approved exception (`af7463b`, 2026-08-04) added
-  the independent-laboratory record to chapters 4–13, `references.html`, and
-  `FUTURE-ADDITIONS.md`. No other `docs/education/**` drift since `60e3f3f` (diff-verified
-  2026-08-06); `8acf9fe` added proposed Phase 8–10 drafts. Decisions 0046/0050 adopted Phases 8–9
-  without reopening education; Phase 10 remains uncharted and inactive.
-- Maker-directed Snow Crystal Journey media proceeds as a parallel workstream. The local
-  [source transcript](journey/TRANSCRIPT.md) preserves the maker's 2026-08-15 turns verbatim as
-  `JTS-M006` (one long documentary plus a manga-inspired scroll story whose autoplay becomes the
-  film) and `JTS-M007` (the programme will not stop at Phase 6, intends to continue through Phase
-  10, and creates media in parallel). The adopted planning interpretation uses one versioned
-  narrative score for scroll/read, deliberately started watch/listen, and deterministic
-  fixed-frame export; the film is a source reservoir, while selected outlet editions retain
-  separate briefs, hooks, payoff, framing and scientific qualifiers. The gapless `SCJ` chronology
-  remains the source/correction spine. Current scientific authority is preserved: Phase 6 remains
-  active; Phase 7 is independently eligible but unstarted; Phases 8 and 9 are chartered and
-  complete; Phase 10 is the intended horizon but remains uncharted and inactive. The existing
-  Chapter 1 package is the bounded pilot input, with its two-to-three-minute versus full
-  14-minute implementation choice still open after the required fact-check audit. Plan commit
-  `86fe656` records the scope. This branch adds planning and source content only: no story runtime,
-  capture renderer, publication, automated posting, scientific-status change, or frozen
-  education-site edit.
+- Phase 6's scoped decisions, host evidence, source lock, parameter correction, deferred resume,
+  and review records live in the [active plan](plans/phase-6-science-first-completion.md) and its
+  linked ADRs. Held-out and preview-GPU work remains Phase 7-only; R15, the headline, and production
+  campaign remain not computed. Historical measured-only comparisons are **CAK 3/90, M1 54/90**;
+  arm 3 is 5/90. Only matched M1 versus `M1_NO_DIP_ABLATION` isolates the implemented dip-factor
+  change, and that contrast **cannot establish physical SDAK causality or necessity** in nature.
+- Education remains frozen. Phase 6's Windows evidence host, processes, artifacts, and unpublished
+  verdict remain isolated; Phases 8–9 did not reopen education, and Phase 10 remains uncharted.
+- Snow Crystal Journey media proceeds in parallel. Transcript entries `JTS-M006`/`JTS-M007` record
+  the one-long-documentary source, manga-like scroll story/autoplay export, and intent to continue
+  through Phase 10. The versioned narrative score and fixed-frame export interpretation is recorded
+  by plan commit `86fe656`; Chapter 1 remains the bounded pilot and scientific authority is unchanged.
+- The maker-directed compact G-G growth replay is **IN PROGRESS** under
+  [explore-gutcheck-growth-volume.md](plans/explore-gutcheck-growth-volume.md), committed before
+  implementation as `7c60760`. It records exact attachment index/tick events in one sparse asset
+  and renders a separately labeled smoothed implicit surface; it changes no solver or phase
+  authority or replace the immutable 701-mesh timeline. The pinned endpoint is 961,597 cells,
+  occupancy SHA-256 `9c98fe41e5ea2f6b2020063218b37255877548bdeb49dadf4235a4cf039cf9f7`, with a measured
+  593×593×17 / 23,912,132-byte R32UI crop. Codec, baker and viewer focused tests pass 34/34.
+  Non-author Chromium/SwiftShader smoke passed exact seek/reverse pixels, raw-canvas playback,
+  controls, framing, reduced motion, errors/requests and full allocation. Its 8,418-byte record is
+  `out/gutcheck-growth-smoke/browser-r32-runb-probe-v6/record.json`, SHA-256
+  `c9e3250179a10ce334a61a5e6c49f7f6bcfc90988ef62c34f63d5e51fbbed17b`. The record stamps its
+  61-event timing/image complexity NON-TRANSFERABLE to Run B. Review closed with no blocker/high
+  code findings; exact `TMPDIR=/private/tmp npm test` passed. A clean commit and the restart-only
+  full replay remain.
 - The gut-check exploration (`explore/gg-realism-gutcheck`) is MERGED to `main` (`98bc75d`,
   2026-08-12, merged-tree suite green). Eyeball-only — not evidence, no gate claim, no solver
   code touched.
@@ -199,6 +141,9 @@ The older [proposed consumer plan](plans/phase-9-modular-physics-arms.md) is sup
 history, not execution authority. Decisions 0046–0050 keep worktrees, processes, artifacts, claims,
 and completion credit isolated.
 
+The [compact gutcheck growth-replay plan](plans/explore-gutcheck-growth-volume.md) is the active
+Journey/media implementation record. It is parallel to, and cannot change, the Phase 6 lane.
+
 Before any production row, the repository must have reviewed source-derived physical-size strata, a
 pre-registered and executed numerical-control ladder that selects one configuration or no-pass, an
 accepted WP3 protocol freeze, and an independently reviewed artifact-derived R15 path. Decisions
@@ -230,6 +175,16 @@ it from the Phase 6 lane or count it toward Phase 6.
 blockers after 72/72 focused tests and reviewer exact `TMPDIR=/private/tmp npm test`: 1,722
 passed / 7 skipped (`out/checks/npm-test-round3-review.log`, SHA-256 `2a90d0d5…b11d`). Windows
 `S:/` and full NAS replay remain unexecuted; two deferred low findings are recorded in the plan.
+
+### Journey compact growth replay — implementation in progress (2026-08-15)
+
+Open [explore-gutcheck-growth-volume.md](plans/explore-gutcheck-growth-volume.md). The strict format,
+baker, viewer, small asset, browser smoke, full allocation probe, and non-author review are complete.
+Exact `TMPDIR=/private/tmp npm test` passed. Next commit the reviewed implementation, resolve the
+NAS mount through `scripts/nas-root.ts`, and launch the restart-only 70,000-tick replay locally with
+the original Run B Node v24.13.1/V8 engine and endpoint/legacy checks. Do not delete or relabel the
+legacy meshes, do not publish to SMB until the local asset is complete and rehashed, and do not count
+this media work toward any phase gate.
 
 ### Phase 8B record — closed; external search remains stopped
 
