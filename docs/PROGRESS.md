@@ -224,11 +224,11 @@ audit. Broad discovery and the residual backlog remain stopped absent a new name
 measurement gap; Phase 9 S0B is bounded reconciliation of already registered complete Git/NAS
 sources. All 51 Phase 8B records are development evidence and none may be relabeled held out.
 
-### Phase 9 closeout — cleanup PR pending
+### Phase 9 closeout — complete
 
 `phase/9` and gutcheck merged 2026-08-14. Closeout preserved two rejected D-BT candidates
 (10 files / 85,153 bytes) on NAS and logged 14 post-freeze payloads in
 [`phase9-post-freeze-source-intake-v1.json`](../research/phase9-post-freeze-source-intake-v1.json).
 Unregistered future inputs; not evidence. [CI repair](https://github.com/billatgameology/snowflake/pull/6)
-merged green on Ubuntu. Next: require the cleanup PR green, then merge. Phase 9 was not reopened;
-Phase 10 is uncharted.
+merged green on Ubuntu; this cleanup followed `main` through its required gate.
+Phase 9 was not reopened; Phase 10 is uncharted.
