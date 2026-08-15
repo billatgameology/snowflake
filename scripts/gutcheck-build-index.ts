@@ -2,59 +2,75 @@
 // out/gutcheck-gg-realism/index.json for the browsable index page
 // (app/gutcheck-index.html). Re-run any time to refresh:
 //   node scripts/gutcheck-build-index.ts
+// Use `--detached` for an explicit metadata-only index without probing a mounted share.
 
 import { mkdirSync, readFileSync, readdirSync, statSync, writeFileSync } from "node:fs";
 import { resolve } from "node:path";
 
-import { detectNasMount } from "./nas-root.ts";
+import {
+  decideNasCatalogServePath,
+  parseNasAssetCatalogV1,
+} from "./nas-asset-lib.ts";
 
 // Every path below is kept in forward-slash form. node:path's join() emits backslashes on
 // Windows, which broke name() (it splits on "/", so it returned the whole path and every
 // startsWith filter below matched nothing) as well as the URLs — 2026-08-06 machine transfer.
 const ROOT = resolve("out/gutcheck-gg-realism").replace(/\\/g, "/");
+const LOGICAL_ROOT = "out/gutcheck-gg-realism";
 const join = (...parts: string[]): string => parts.join("/");
+const CATALOGUE = parseNasAssetCatalogV1(
+  readFileSync(resolve(import.meta.dirname, "..", "docs/nas-assets.json"), "utf8"),
+);
+const arguments_ = process.argv.slice(2);
+if (arguments_.some((argument) => argument !== "--detached") || arguments_.length > 1) {
+  throw new Error("usage: node scripts/gutcheck-build-index.ts [--detached]");
+}
+const DETACHED = arguments_[0] === "--detached";
 
 // Large artifacts (large/** and gen/renders) moved to the NAS on 2026-08-12 —
 // \\GameStation\snowcrystal, ledgered in docs/nas-ledger.md, mounted as S: on Windows and
-// under /Volumes on macOS (scripts/nas-root.ts resolves which). Detect it rather than
-// configure it: with the NAS attached the index links there; without it, fall back to
-// local paths so a detached machine still builds a stills-less but honest index.
-// GUTCHECK_BULK_ROOT overrides both for unusual setups.
-const NAS_MOUNT = detectNasMount();
+// under /Volumes on macOS (scripts/nas-root.ts resolves which). Only a validated marked share
+// supplies browsable bytes. Local out/ remains staging: detached builds keep tracked run metadata
+// but do not emit dead /nas links or revive the retired /@fs local-file path.
+const NAS_MOUNT = DETACHED ? null : (await import("./nas-root.ts")).detectNasMount();
 const NAS_ROOT = NAS_MOUNT === null ? null : `${NAS_MOUNT}out/gutcheck-gg-realism`;
-const BULK_ROOT = (() => {
-  const forced = process.env.GUTCHECK_BULK_ROOT;
-  if (forced !== undefined && forced !== "") return forced.replace(/\\/g, "/");
-  return NAS_ROOT ?? ROOT;
-})();
+const BULK_ROOT = NAS_ROOT ?? ROOT;
+const BULK_AVAILABLE = NAS_ROOT !== null;
 
-// Vite's dev-server escape hatch for files outside the app root. `/@fs` + the path works only
-// when the path starts with "/": on Windows the same concatenation produced "/@fsG:\Code
-// Files\..." — no separator, backslashes, unencoded space. The Windows form is
-// "/@fs/G:/Code%20Files/...", and percent-encoding per segment also keeps "&", "?" and "#" in
-// a filename from splitting the query string the viewer parses with URLSearchParams. A bare
-// drive-letter ":" is legal in a URL path and is what /@fs expects, so it is put back.
-// On POSIX paths without special characters this returns the original string unchanged.
-const FS = (p: string): string => {
-  // NAS paths are served by the dev server's own /nas route (app/vite.config.ts): Vite's
-  // /@fs cannot serve a drive other than the workspace's on Windows — it silently falls
-  // through to the SPA page (found 2026-08-12 when the bulk artifacts moved to S:). The URL
-  // carries the share-relative path only, and the dev server re-attaches the serving host's
-  // mount prefix. That construction is mount-agnostic; end-to-end behavior was measured on
-  // macOS, while the current Windows S:/ path remains unexecuted.
-  if (NAS_MOUNT !== null && p.toLowerCase().startsWith(NAS_MOUNT.toLowerCase())) {
-    return `/nas/${p
-      .slice(NAS_MOUNT.length)
-      .split("/")
-      .map((segment) => encodeURIComponent(segment))
-      .join("/")}`;
-  }
-  return `/@fs/${p
-    .replace(/^\/+/, "")
-    .split("/")
-    .map((segment) => encodeURIComponent(segment).replace(/%3A/gi, ":"))
-    .join("/")}`;
+// Index URLs are logical NAS identities, never checkout paths. Every emitted path must match an
+// explicit catalogue serve prefix. This also keeps private reference images from leaking through
+// Vite's /@fs escape hatch.
+const relativeToPhysicalRoot = (path: string, root: string): string | null => {
+  const normalizedPath = path.replace(/\\/g, "/").replace(/\/+$/u, "");
+  const normalizedRoot = root.replace(/\\/g, "/").replace(/\/+$/u, "");
+  if (normalizedPath === normalizedRoot) return "";
+  return normalizedPath.startsWith(`${normalizedRoot}/`)
+    ? normalizedPath.slice(normalizedRoot.length + 1)
+    : null;
 };
+
+const logicalPath = (path: string): string => {
+  const relativePath = relativeToPhysicalRoot(path, BULK_ROOT);
+  if (relativePath === null || relativePath === "") {
+    throw new Error(`gutcheck asset is outside the configured staging roots: ${path}`);
+  }
+  return `${LOGICAL_ROOT}/${relativePath}`;
+};
+
+const maybeFS = (path: string): string | null => {
+  const logical = logicalPath(path);
+  const decision = decideNasCatalogServePath(CATALOGUE, logical);
+  if (decision.kind !== "allow") return null;
+  return `/nas/${logical.split("/").map((segment) => encodeURIComponent(segment)).join("/")}`;
+};
+
+const FS = (path: string): string => {
+  const href = maybeFS(path);
+  if (href === null) throw new Error(`gutcheck asset is not authorized for /nas serving: ${logicalPath(path)}`);
+  return href;
+};
+
+const served = (path: string): boolean => maybeFS(path) !== null;
 
 const VIEWER = "/spike-gg-realism.html";
 
@@ -97,23 +113,12 @@ const listFiles = (dir: string): string[] => {
 const png = (p: string): boolean => p.endsWith(".png");
 const name = (p: string): string => p.slice(p.lastIndexOf("/") + 1);
 
-// Scan a directory that may exist locally, on the NAS mirror, or both, merged with the
-// LOCAL copy winning a filename collision: new outputs land locally before they are moved
-// to the share (docs/nas-ledger.md), so a working checkout's copy is the one being iterated
-// on. A fresh worktree gets recipes and authoritative records from tracked evidence, and
-// bulk/media from the loose share mirror, so no archive restore is needed. Legacy
-// gen/*-record.json copies remain on the share as fallbacks; the tracked copies win.
-const scanMerged = (rel?: string): string[] => {
-  const local = listFiles(rel === undefined ? ROOT : join(ROOT, rel));
-  if (BULK_ROOT === ROOT) return local;
-  const have = new Set(local.map(name));
-  const remote = listFiles(rel === undefined ? BULK_ROOT : join(BULK_ROOT, rel));
-  return [...local, ...remote.filter((p) => !have.has(name(p)))];
-};
-
-const rootFiles = scanMerged();
-const figFiles = scanMerged("figs");
-const photoFiles = scanMerged("photos");
+// The root, figs, and photos directories mix private/restricted reference media with generated
+// presentation outputs. They are intentionally not scanned or indexed. A later collection split
+// may restore a generated subset, but directory presence alone can never authorize it.
+const rootFiles: string[] = [];
+const figFiles: string[] = [];
+const photoFiles: string[] = [];
 
 const meshHref = (look: string, meshPath: string, extra = ""): string =>
   `${VIEWER}?look=${look}&interactive=1&mesh=${FS(meshPath)}${extra}`;
@@ -153,6 +158,7 @@ const figMeshes = join(BULK_ROOT, "large", "figs");
 const timelineManifest = join(BULK_ROOT, "large", "anim-B", "manifest.json");
 
 const exists = (p: string): boolean => {
+  if (!BULK_AVAILABLE) return false;
   try {
     statSync(p);
     return true;
@@ -188,7 +194,7 @@ const CRYSTALS: Record<string, Crystal> = {
 //   fig9v2-mesh.bin     -> fig9v2, surface
 //   fig16-cellmesh.bin  -> fig16, cell-true (needs style=ggview; the surface looks cannot
 //                          draw the paper's own prism/edge display mode)
-for (const path of listFiles(figMeshes)) {
+for (const path of BULK_AVAILABLE ? listFiles(figMeshes) : []) {
   const match = /^(fig\d+(?:v\d+)?)-(cellmesh|mesh)\.bin$/.exec(name(path));
   if (match === null) continue;
   const key = match[1]!;
@@ -253,7 +259,7 @@ const crystalLabel = (key: string, firstBase: string): string => {
 // exists for it. Composites with no crystal cue group under their own name, so nothing is
 // dropped for lacking a rule.
 const compositePaths = [...figFiles, ...photoFiles, ...rootFiles].filter(
-  (p) => png(p) && name(p).startsWith("side-by-side-"),
+  (p) => png(p) && name(p).startsWith("side-by-side-") && served(p),
 );
 const compositeImages = new Set(compositePaths.map((p) => FS(p)));
 
@@ -379,6 +385,7 @@ const dialinSeen = new Set<string>();
 const DIALIN_COMMON_EXTENT = 790;
 
 function dialinRow(id: string, record: DialinRecord | null): CompareRow | null {
+  if (!BULK_AVAILABLE) return null;
   const manifestPath = join(animRoot, id, "manifest.json");
   let manifest: DialinManifest;
   try {
@@ -453,15 +460,10 @@ function dialinRow(id: string, record: DialinRecord | null): CompareRow | null {
   };
 }
 // Records are git-tracked provenance (evidence/gutcheck-gg-realism/gen-records/ since
-// 2026-08-12), so every worktree has them with no share attached. The merge keeps reading
-// legacy locations too — NAS gen/ copies and any out/gen leftovers — tracked copy winning,
-// so an index built anywhere sees each record exactly once.
+// 2026-08-12), so every worktree has them with no share attached. Obsolete NAS/local record
+// copies are not fallback authority: only these manifest-pinned tracked records describe runs.
 const RECORDS = resolve(import.meta.dirname, "..", "evidence/gutcheck-gg-realism/gen-records").replace(/\\/g, "/");
-const recordFiles = ((): string[] => {
-  const tracked = listFiles(RECORDS);
-  const have = new Set(tracked.map(name));
-  return [...tracked, ...scanMerged("gen").filter((p) => !have.has(name(p)))];
-})();
+const recordFiles = listFiles(RECORDS);
 for (const path of recordFiles) {
   const file = name(path);
   if (!file.endsWith("-record.json")) continue;
@@ -535,14 +537,16 @@ for (const path of recordFiles) {
   });
 }
 // Dial-in runs still growing have a timeline directory but no record yet — pick those up too.
-try {
-  for (const d of readdirSync(animRoot)) {
-    if (!d.startsWith("dialin-") || dialinSeen.has(d)) continue;
-    const row = dialinRow(d, null);
-    if (row !== null) dialinRows.push(row);
+if (BULK_AVAILABLE) {
+  try {
+    for (const d of readdirSync(animRoot)) {
+      if (!d.startsWith("dialin-") || dialinSeen.has(d)) continue;
+      const row = dialinRow(d, null);
+      if (row !== null) dialinRows.push(row);
+    }
+  } catch {
+    /* no anim directory yet */
   }
-} catch {
-  /* no anim directory yet */
 }
 if (dialinRows.length > 0) {
   dialinRows.sort((a, b) => Number(a.label.split("×")[0]) - Number(b.label.split("×")[0]));
@@ -583,6 +587,7 @@ sections.push({
   items: rootFiles
     .filter(
       (p) =>
+        served(p) &&
         png(p) &&
         !compositeImages.has(FS(p)) &&
         (name(p).startsWith("style-") ||
@@ -597,7 +602,7 @@ sections.push({
 sections.push({
   title: "Videos",
   items: rootFiles
-    .filter((p) => p.endsWith(".mp4"))
+    .filter((p) => p.endsWith(".mp4") && served(p))
     .map((p) => ({ label: name(p), href: FS(p), note: "video" })),
 });
 
@@ -615,14 +620,14 @@ const indexed = new Set(
 sections.push({
   title: "All remaining renders",
   items: [...rootFiles, ...figFiles, ...photoFiles]
-    .filter((p) => png(p) && !indexed.has(FS(p)))
+    .filter((p) => png(p) && served(p) && !indexed.has(FS(p)))
     .sort()
     .map((p) => ({ label: name(p).replace(".png", ""), href: FS(p), image: FS(p) })),
 });
 
 const out = {
   generated: new Date().toISOString(),
-  root: ROOT,
+  root: LOGICAL_ROOT,
   sections: sections.filter((s) => s.items.length > 0 || (s.rows ?? []).length > 0),
 };
 // A fresh worktree has no out/ tree at all; the index is the first thing written into it.
