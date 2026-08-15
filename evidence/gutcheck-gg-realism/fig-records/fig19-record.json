@@ -1,0 +1,59 @@
+{
+ "label": "Fig. 19 (rho=0.081, blocky faceted tip assemblages)",
+ "spec": {
+  "label": "Fig. 19 (rho=0.081, blocky faceted tip assemblages)",
+  "rho": 0.081,
+  "phi": 0,
+  "ggThreshTable": {
+   "10": 1.5,
+   "11": 1.4,
+   "20": 1.5,
+   "21": 1,
+   "30": 1,
+   "31": 1,
+   "01": 1.6
+  },
+  "kappa": {
+   "default": 0.1,
+   "overrides": {}
+  },
+  "mu": {
+   "default": 0.008,
+   "overrides": {}
+  }
+ },
+ "stageTransitions": [],
+ "dims": {
+  "nx": 800,
+  "ny": 800,
+  "nz": 96
+ },
+ "domain": "hexPrism",
+ "seed": 1,
+ "noise": 0,
+ "tickCap": 60000,
+ "stopReason": "tick-cap",
+ "tick": 60000,
+ "attachedCount": 732887,
+ "farFieldMean": 0.061215801309616076,
+ "mesh": {
+  "path": "out/gutcheck-gg-realism/large/figs/fig19-mesh.bin",
+  "vertexCount": 827586,
+  "triangleCount": 1656648,
+  "bboxCartesian": {
+   "xMin": 445,
+   "xMax": 755,
+   "yMin": 212.17622392718746,
+   "yMax": 480.6440991003634,
+   "zMin": 28,
+   "zMax": 68
+  },
+  "extraction": {
+   "spacing": 0.6,
+   "sigma": 0.45,
+   "normalDelta": 3
+  }
+ },
+ "elapsedSeconds": 28559,
+ "evidenceStatus": "unvalidated eyeball exploration; no gate semantics"
+}

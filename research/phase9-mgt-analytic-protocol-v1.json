@@ -1,0 +1,490 @@
+{
+  "schema": "phase9-mgt-analytic-protocol-v1",
+  "protocolId": "phase9-mgt-manufactured-diagnostic-v1",
+  "frozenDate": "2026-08-13",
+  "adoptionCommit": "f936920edce283e90a947ee34846776da8b1859a",
+  "state": {
+    "protocol": "frozen-before-any-three-dimensional-or-source-data-output",
+    "sourceObservationsRead": 0,
+    "measurementScoresProduced": 0,
+    "publicationAuthorized": false,
+    "physicalPromotionAuthorized": false,
+    "threeDimensionalCampaignAuthorized": false,
+    "phase9Role": "development-only-numerical-diagnostic-foundation",
+    "grantsValidationClaim": false
+  },
+  "question": "Does a bounded spherical Gibbs-Thomson identity and a deterministic manufactured second-order ladder provide an internally consistent future curvature-estimator target without being relabeled as a source-data result?",
+  "implementationArtifacts": {
+    "analyticModel": {
+      "path": "runner/src/phase9-mgt-analytic.ts",
+      "byteLength": 27137,
+      "sha256": "6b121bb564b08fcc93109449300cc6603a19122a327a714eab7f7fefef450b2e"
+    },
+    "focusedTest": {
+      "path": "runner/test/phase9-mgt-analytic.test.ts",
+      "byteLength": 47037,
+      "sha256": "85a2cc0736b5976463c43f34e1a3558df3285f0f75baf81f9c2369f25094618e"
+    }
+  },
+  "upstreamBindings": {
+    "sourceOverlay": {
+      "artifactIndex": {
+        "path": "evidence/phase9-source-overlay-v1/artifact-index.json",
+        "byteLength": 844,
+        "sha256": "7a347d4616770bdf59ab5e29006659b269014d74ac3e93ba796dc444a5f40898"
+      },
+      "report": {
+        "path": "evidence/phase9-source-overlay-v1/report.json",
+        "byteLength": 6530,
+        "sha256": "51e1fa2bf6a84beb94ffd442fd0d55df9017f7bb76e2b04d1e1f5fec38c63d8a"
+      },
+      "shelfFreeze": {
+        "path": "evidence/phase9-source-overlay-v1/shelf-freeze.json",
+        "byteLength": 63975,
+        "sha256": "b0bbab2e01eca61dfb2b807bda3614aaf803e5fd0457f2df02aa3e4b8c5d1a06"
+      },
+      "sourceOverlay": {
+        "path": "evidence/phase9-source-overlay-v1/source-overlay.jsonl",
+        "byteLength": 114408,
+        "sha256": "f79cfd5268524d9017439e7be3abfe8b1e5df13f4e909c5d62569b8cc59ed5f7"
+      },
+      "sourceAudits": {
+        "path": "evidence/phase9-source-overlay-v1/source-audits.jsonl",
+        "byteLength": 44355,
+        "sha256": "3255e66e29aca0f33e4fd8490f7c647ddc796a71206e764932fd2fe1d51d753a"
+      },
+      "blockers": {
+        "path": "evidence/phase9-source-overlay-v1/blockers.jsonl",
+        "byteLength": 5292,
+        "sha256": "57dd4d679cbc1edd38feeca7e678ff16e2051d0bcf77c26fa034cdffba76c7ea"
+      },
+      "sourceDispositions": {
+        "path": "research/phase9-source-dispositions-v1.jsonl",
+        "byteLength": 86719,
+        "sha256": "598f75c28490ac6d50e1c4d1be443905f62f755caa1119757688cb71f492af21"
+      },
+      "exactMgtShelf": {
+        "blockerIdentities": [],
+        "completeArtifactCount": 1,
+        "completeArtifactSha256": [
+          "f6cd58ab841f841bcc310d2f722459122f7850cda9681ae0c7d1877bf21ef471"
+        ],
+        "item": "M-GT",
+        "protocolDispositionRequired": true,
+        "protocolDispositionState": "pending",
+        "protocolRestrictions": [
+          {
+            "artifactSha256": "f6cd58ab841f841bcc310d2f722459122f7850cda9681ae0c7d1877bf21ef471",
+            "id": "P9R-F6CD58AB841F841B-ACQUISITION",
+            "kind": "acquisition",
+            "text": "Compare the published Princeton edition before freezing a monograph-only numeric input.",
+            "localDisposition": "retained-as-physical-score-block",
+            "localHandling": "No monograph-only numeric input is adopted for a physical score. The rounded 1 nm value is a P4 manufactured fixture seeded by the P2 scale context; a physical arm stays blocked."
+          },
+          {
+            "artifactSha256": "f6cd58ab841f841bcc310d2f722459122f7850cda9681ae0c7d1877bf21ef471",
+            "id": "P9R-F6CD58AB841F841B-CURRENCY_CURRENT_VERSION",
+            "kind": "currency-current-version",
+            "text": "NAS holds arXiv 1910.06389v2; the published Princeton 2021/2022 edition, ISBN 9780691223629, has not been compared.",
+            "localDisposition": "retained-as-physical-score-block",
+            "localHandling": "The unpublished edition comparison prevents a physical-input freeze and promotion. It does not prevent a manufactured identity that cannot score observations."
+          },
+          {
+            "artifactSha256": "f6cd58ab841f841bcc310d2f722459122f7850cda9681ae0c7d1877bf21ef471",
+            "id": "P9R-F6CD58AB841F841B-CURRENCY_SUPPLEMENT",
+            "kind": "currency-supplement",
+            "text": "Published-edition comparison is unresolved.",
+            "localDisposition": "retained-as-physical-score-block",
+            "localHandling": "No physical score, lattice coupling, or campaign can use this unresolved monograph lineage."
+          },
+          {
+            "artifactSha256": "f6cd58ab841f841bcc310d2f722459122f7850cda9681ae0c7d1877bf21ef471",
+            "id": "P9R-F6CD58AB841F841B-EXTRACTION",
+            "kind": "extraction",
+            "text": "Use primary papers for numeric inputs; any monograph-only value remains blocked.",
+            "localDisposition": "retained-as-physical-score-block",
+            "localHandling": "FACET supplies the separately bound printed spherical relation. The rounded 1 nm value is a P4 manufactured fixture, not a new P1 extraction, fitted physical value, or exact P2 input."
+          }
+        ],
+        "sourceBlocked": false,
+        "sourceBlockerIds": [],
+        "sourceBlockerPresent": false,
+        "sourceBlockerStatuses": []
+      },
+      "monographOverlayIdentity": {
+        "canonicalPath": "research-cache/content/1910.06389v2.pdf",
+        "byteLength": 25611913,
+        "sha256": "f6cd58ab841f841bcc310d2f722459122f7850cda9681ae0c7d1877bf21ef471",
+        "sourceIds": [
+          "P8B-CONT-877187D621A5797051F759A6",
+          "P9K-LIB-MONOGRAPH"
+        ]
+      },
+      "facetOverlayIdentity": {
+        "canonicalPath": "research-cache/content/2306.04042v1.pdf",
+        "byteLength": 1400163,
+        "sha256": "1ff2c1f9699c2aefd26e5373f29c4fdd7a110620c136bd349d813947dacbcd1f",
+        "sourceIds": [
+          "P8B-CONT-3953FE9A14DC13EC535C9FA7",
+          "P9K-LIB-FACET"
+        ],
+        "declaredShelfItems": [
+          "M-K2",
+          "M-F"
+        ],
+        "protocolRestrictions": [
+          {
+            "id": "P9R-1FF2C1F9699C2AEF-EXTRACTION",
+            "kind": "extraction",
+            "text": "Use the printed annex for M-K2 replay; empirical observations stay lineage-labelled."
+          }
+        ]
+      },
+      "facetEquationReconciliation": {
+        "equationLocator": "FACET PDF p. 4 Eq. 7: sigmaEffective = sigmaSurface - dSv*kappa; kappa = 2/R for a sphere",
+        "knowledgeRole": "The adopted knowledge baseline binds FACET for the manufactured M-GT equation identity only; it supplies no matched observation and no physical 1 nm input.",
+        "s0bShelfRule": "S0B remains byte-frozen and maps FACET only to M-K2/M-F. This protocol does not add FACET to S0B's one-artifact M-GT shelf or redisposition its annex restriction.",
+        "physicalUse": "blocked until a physical-input source/currency disposition, uncertainty treatment, discrete estimator, coupling policy, and matched experiment are separately frozen"
+      }
+    },
+    "knowledgeBaseline": {
+      "artifactIndex": {
+        "path": "evidence/phase9-knowledge-baseline-v1/artifact-index.json",
+        "byteLength": 1028,
+        "sha256": "c9a73f9464fc74be03cf805c617815f0a5ca3437b8fcf20e96c5e15bc6b77d96"
+      },
+      "report": {
+        "path": "evidence/phase9-knowledge-baseline-v1/report.json",
+        "byteLength": 5263,
+        "sha256": "37c7aadf18bce7420883930f66d6c6a473100dd27e1468dd8396a3c1214b1f96"
+      },
+      "sourceRegister": {
+        "path": "evidence/phase9-knowledge-baseline-v1/source-register.jsonl",
+        "byteLength": 17827,
+        "sha256": "e217861146b1a9456a2ce1464e263e00b88512011382e5da54e6dd03d5c105f7"
+      },
+      "hypotheses": {
+        "path": "evidence/phase9-knowledge-baseline-v1/hypotheses.jsonl",
+        "byteLength": 28878,
+        "sha256": "1c7d5ad2f4778b60240e83f150b237a33b12dd0bca388e319d203beb8d209b08"
+      },
+      "calculations": {
+        "path": "evidence/phase9-knowledge-baseline-v1/calculations.json",
+        "byteLength": 36091,
+        "sha256": "71c3c15587f1a705dbfa6ac9dd7fcb74ef5141c7547d06214d4dd64e423efee5"
+      },
+      "searchReport": {
+        "path": "evidence/phase9-knowledge-baseline-v1/search-report.json",
+        "byteLength": 4363,
+        "sha256": "e6a92e020c7db0573f69eee0c841cba5483497f533ce5217d149067a944647c9"
+      },
+      "researchReport": {
+        "path": "research/phase9-knowledge-sources.md",
+        "byteLength": 19366,
+        "sha256": "065e3771c85894c364bb4262a540809510fb7e87550afa3c0582c96d6c3d5ff7"
+      },
+      "exactSources": [
+        {
+          "schema": "phase9-knowledge-source-v1",
+          "sourceId": "P9K-LIB-MONOGRAPH",
+          "identity": {
+            "authors": [
+              "Kenneth G. Libbrecht"
+            ],
+            "title": "Snow Crystals",
+            "year": 2021,
+            "identifier": "arXiv:1910.06389v2"
+          },
+          "versionStatus": "latest captured arXiv revision; PDF notes a newer Princeton University Press edition that has not been compared; later author output checked through 2026-08-12",
+          "local": {
+            "path": "/Volumes/snowcrystal/research-cache/content/1910.06389v2.pdf",
+            "sha256": "f6cd58ab841f841bcc310d2f722459122f7850cda9681ae0c7d1877bf21ef471",
+            "retention": "NAS-only"
+          },
+          "theoryFamilies": [
+            "facet kinetics",
+            "diffusion",
+            "latent heat",
+            "Gibbs-Thomson",
+            "SDAK",
+            "surface diffusion"
+          ],
+          "loadBearingLocators": [
+            "PDF pp. 94-101: Hertz-Knudsen and Robin coupling",
+            "PDF pp. 145-158: broad- and narrow-facet hypotheses",
+            "PDF p. 99: latent-heating anchors",
+            "PDF pp. 501-502: constants"
+          ],
+          "evidenceStatus": "provisional primary synthesis with empirical fits, derivations, and explicit working hypotheses",
+          "limits": [
+            "compare the newer press edition before freezing any monograph-only Phase 9 input",
+            "many attachment inputs are source fits or inversions rather than direct measurements",
+            "printed width law has no frozen w0"
+          ]
+        },
+        {
+          "schema": "phase9-knowledge-source-v1",
+          "sourceId": "P9K-LIB-FACET",
+          "identity": {
+            "authors": [
+              "Kenneth G. Libbrecht",
+              "James Walkling"
+            ],
+            "title": "A Comprehensive Model of Snow Crystal Faceting",
+            "year": 2023,
+            "identifier": "arXiv:2306.04042v1"
+          },
+          "versionStatus": "current captured revision; later author output checked through 2026-08-12",
+          "local": {
+            "path": "/Volumes/snowcrystal/research-cache/content/2306.04042v1.pdf",
+            "sha256": "1ff2c1f9699c2aefd26e5373f29c4fdd7a110620c136bd349d813947dacbcd1f",
+            "retention": "NAS-only"
+          },
+          "theoryFamilies": [
+            "two-branch prism kinetics",
+            "Gibbs-Thomson",
+            "latent heat",
+            "particle diffusion",
+            "shape dynamics"
+          ],
+          "loadBearingLocators": [
+            "PDF pp. 3-4 Eqs. 1-12",
+            "PDF pp. 5-9 Eqs. 13-34 and Table 1",
+            "PDF p. 11 Eqs. 35-37"
+          ],
+          "evidenceStatus": "primary quantitative model paper",
+          "limits": [
+            "two-branch annex is source-fitted and not an independent measurement",
+            "shape closure remains reduced"
+          ]
+        }
+      ],
+      "exactHypothesis": {
+        "schema": "phase9-hypothesis-v1",
+        "hypothesisId": "P9H-GIBBS-THOMSON",
+        "name": "Curvature equilibrium correction",
+        "phase9Role": "numerical diagnostic; proposed M-GT",
+        "status": "established interfacial thermodynamics without matched Phase 8 validation target",
+        "proposition": "High positive curvature raises local equilibrium vapor pressure and suppresses growth at small tips.",
+        "governingRelation": "sigmaEffective = sigmaSurface - d_sv*kappa; kappa = 2/R for a sphere",
+        "variableStatus": {
+          "d_sv": "source-calculated capillary length",
+          "kappa": "geometry calculation",
+          "tipRadius": "not directly measured in Phase 8"
+        },
+        "assumptions": [
+          "continuum curvature is meaningful at the grid scale",
+          "surface energy is isotropic or its anisotropy is specified",
+          "curvature estimator is numerically stable"
+        ],
+        "predicts": [
+          "suppression scales inversely with radius",
+          "effect is small for 5.8-12 um equivalent spheres but potentially material near submicron tips"
+        ],
+        "phase8Targets": [],
+        "strongestRivals": [
+          "lattice-resolution artifact",
+          "surface-diffusion regularization"
+        ],
+        "cheapestDiscriminator": "Use manufactured curved interfaces and grid-convergence tests; do not claim source validation from Phase 8.",
+        "weakensOrRejects": [
+          "term fails its analytic spherical limit",
+          "apparent benefit disappears with grid refinement",
+          "no matched measurement is acquired for physical promotion"
+        ],
+        "sources": [
+          "P9K-LIB-MONOGRAPH",
+          "P9K-LIB-FACET"
+        ],
+        "claimBoundary": "can improve numerical physics without earning a Phase 8 measurement agreement"
+      },
+      "existingCalculationReference": {
+        "recordCount": 16,
+        "radiusRangeUm": [
+          5.8,
+          12
+        ],
+        "sphericalShiftFractionRange": [
+          0.000166666666667,
+          0.000344827586207
+        ],
+        "use": "Existing project calculation is a scale reference only. The Phase 8 rows are not matched curvature interventions and are never scored by M-GT."
+      }
+    },
+    "machinery": {
+      "attachmentKinetics": {
+        "path": "docs/attachment-kinetics.md",
+        "byteLength": 56814,
+        "sha256": "e245a7355aef6926a0228e69d4dedfc9c68ae311d4d04a210cace33bdf1e1900"
+      },
+      "parameterTable": {
+        "path": "docs/libbrecht-parameters.md",
+        "byteLength": 50464,
+        "sha256": "c0b314b681146152207f061209a3097609e34a234b0027ed73faa427334c79e2"
+      },
+      "ggMachinery": {
+        "path": "docs/gg-machinery.md",
+        "byteLength": 24718,
+        "sha256": "9d7f64f92c986e036830fd4f2850a4c87a11668d01d14e5f63a666995d5c9943"
+      },
+      "lattice": {
+        "path": "core/src/lattice.ts",
+        "byteLength": 5311,
+        "sha256": "fe654c30be71e0f26cf27d52b14f38f6c9496dea538dafc945c8229f33776fdb"
+      },
+      "metrics": {
+        "path": "core/src/metrics.ts",
+        "byteLength": 30010,
+        "sha256": "51d51d6bad0c177514292f3a46e7f03efbff63cb5b7d9f2fd54dde7e09e78080"
+      }
+    }
+  },
+  "analyticOperator": {
+    "geometry": "sphere only",
+    "curvatureConvention": "positive convex ice; kappa = 2/R",
+    "relation": "sigmaEffective = sigmaSurface - dSv*kappa",
+    "units": {
+      "radius": "m",
+      "gibbsThomsonLength": "m",
+      "meanCurvature": "m^-1",
+      "sigmaSurface": "dimensionless fraction, never percent",
+      "equilibriumShift": "dimensionless fraction",
+      "sigmaEffective": "dimensionless fraction"
+    },
+    "manufacturedGibbsThomsonLengthM": 1e-9,
+    "canonicalOperandStatus": "P4 manufactured fixture seeded by the P2 temperature-dependent uncertain derived scale; exact only as a diagnostic fixture operand, never a physical input, P1 measurement, fit, or metrological constant",
+    "p2ScaleContext": {
+      "provenanceClass": "P2-temperature-dependent-uncertain-derived-scale",
+      "formula": "dSv = gammaSv / (cIce * kBoltzmann * temperatureK)",
+      "gammaSvCentralJPerM2": 0.106,
+      "gammaSvReportedUncertaintyJPerM2": 0.015,
+      "cIceApproximateM3": 3.1e28,
+      "cIceUncertaintyStatus": "unreported-in-bound-table",
+      "kBoltzmannJPerK": 1.380649e-23,
+      "examples": [
+        {
+          "temperatureK": 233.15,
+          "centralM": 1.0622468917286136e-9,
+          "gammaOnlyLowerM": 9.119289353519229e-10,
+          "gammaOnlyUpperM": 1.2125648481053042e-9
+        },
+        {
+          "temperatureK": 258.15,
+          "centralM": 9.593758001414925e-10,
+          "gammaOnlyLowerM": 8.236150737063756e-10,
+          "gammaOnlyUpperM": 1.0951365265766093e-9
+        },
+        {
+          "temperatureK": 273.15,
+          "centralM": 9.066917913473414e-10,
+          "gammaOnlyLowerM": 7.783863491755478e-10,
+          "gammaOnlyUpperM": 1.034997233519135e-9
+        }
+      ],
+      "exampleStatus": "scale examples only; gamma-only intervals omit unreported cIce uncertainty and do not define a physical-use domain",
+      "physicalUse": "blocked"
+    },
+    "radiusDomainM": [
+      1e-7,
+      1e-4
+    ],
+    "sigmaSurfaceDomainFraction": [
+      0,
+      0.3
+    ],
+    "nonpositiveEffectiveDrive": "Report the threshold or negative diagnostic value and refuse a deposition update. Sublimation is absent from the permanent solver."
+  },
+  "oneFactorControl": {
+    "baseline": "Set dSv exactly to zero under mode zero-gibbs-thomson-term-control while retaining the same nonzero spherical curvature.",
+    "intervention": "Set dSv exactly to 1e-9 m under mode gibbs-thomson-intervention.",
+    "heldBitIdentical": [
+      "purpose",
+      "sphere geometry",
+      "positive-convex curvature convention",
+      "radiusM",
+      "sigmaSurfaceFraction"
+    ],
+    "forbiddenChanges": [
+      "radius",
+      "surface supersaturation",
+      "geometry",
+      "curvature sign",
+      "any solver or attachment parameter"
+    ],
+    "binary64Residual": {
+      "field": "binary64OneFactorIdentityResidual",
+      "definition": "The binary64-evaluated sum of effectiveSupersaturationChangeFraction and equilibriumShiftIncreaseFraction; it is a floating-point diagnostic, not an exact-arithmetic residual.",
+      "boundUlps": 8,
+      "absoluteBoundFormula": "8 * Number.EPSILON * max(abs(baseline sigmaEffective), abs(candidate sigmaEffective), abs(equilibriumShiftIncrease), Number.MIN_VALUE)",
+      "maximumAbsoluteBoundOverRegisteredDomain": 5.329070518200751e-16,
+      "reviewObservedMagnitude": 2.7755575615628914e-17,
+      "justification": "The reported identity is assembled through several binary64 multiply, subtract, and add operations; an eight-epsilon scale factor conservatively exceeds the observed 2.7755575615628914e-17 witness while remaining proportional to the registered operands."
+    }
+  },
+  "manufacturedGrid": {
+    "provenance": "registered-second-order-manufactured-sphere-fixture",
+    "cellsPerRadius": [
+      8,
+      16,
+      32,
+      64
+    ],
+    "coarseRelativeError": 0.08,
+    "identityToleranceUlps": 8,
+    "exactFixture": "kappa_h = (2/R) * [1 + 0.08 * (8/N)^2], where N is cells per radius",
+    "expectedRelativeErrors": [
+      0.08,
+      0.02,
+      0.005,
+      0.00125
+    ],
+    "expectedPairwiseOrders": [
+      2,
+      2,
+      2
+    ],
+    "actualLatticeUse": "None. This deterministic fixture verifies convergence arithmetic and defines a future target; it is not evidence that a discrete stacked-triangular-lattice curvature estimator exists or converges.",
+    "eligibilityRule": "Eligibility requires every input estimate to be within eight binary64 ULPs of its exact manufactured fixture and the independently derived relative-error and pairwise-order identities to pass their bounds; any derived identity failure is refused."
+  },
+  "eligibility": {
+    "allowedPurposes": [
+      "manufactured-spherical-correction",
+      "manufactured-grid-convergence"
+    ],
+    "refusedPurposes": {
+      "phase8-measurement-score": "No matched Phase 8 curvature intervention exists.",
+      "phase9-source-data-score": "No source-data scoring protocol or matched observation exists.",
+      "physical-module-promotion": "A manufactured result cannot promote physical support.",
+      "three-dimensional-campaign": "The discrete estimator, solver coupling, nonpositive-drive update, anisotropy policy, resource authorization, and actual grid/domain controls are absent."
+    }
+  },
+  "futureThreeDimensionalBlockers": [
+    "NO_MATCHED_CURVATURE_INTERVENTION",
+    "MONOGRAPH_ONLY_NUMERIC_INPUT_RESTRICTIONS_UNRESOLVED",
+    "DISCRETE_CURVATURE_ESTIMATOR_NOT_IMPLEMENTED_OR_REGISTERED",
+    "CURVATURE_TO_SURFACE_OPERATOR_COUPLING_NOT_SPECIFIED",
+    "NONPOSITIVE_EFFECTIVE_DRIVE_UPDATE_NOT_SUPPORTED",
+    "ANISOTROPIC_SURFACE_ENERGY_POLICY_NOT_SPECIFIED",
+    "ACTUAL_SOLVER_GRID_AND_DOMAIN_CONVERGENCE_NOT_RUN",
+    "THREE_DIMENSIONAL_RESOURCE_PROBE_OR_HOST_RELEASE_NOT_AVAILABLE"
+  ],
+  "claimBoundary": {
+    "allowed": [
+      "Spherical algebraic relation evaluated in binary64 in the registered P4 calculation domain, with the one-factor residual checked against its registered bound",
+      "Type-appropriate zero-term one-factor control",
+      "Deterministic manufactured second-order convergence arithmetic",
+      "Explicit refusal states and a concrete future 3-D prerequisite list"
+    ],
+    "forbidden": [
+      "Measured curvature agreement",
+      "Phase 8 or Phase 9 source-data score",
+      "Validation or quantitative-validation label",
+      "Physical M-GT promotion",
+      "Claim that an actual lattice curvature estimator converges",
+      "Solver coupling, morphology improvement, or one-pixel-plate suppression claim",
+      "Three-dimensional campaign authorization",
+      "Claim that 1 nm is a physical input, exact metrological constant, P1 value, or new direct measurement",
+      "Physical use of the P2 scale examples or their gamma-only uncertainty intervals"
+    ]
+  }
+}

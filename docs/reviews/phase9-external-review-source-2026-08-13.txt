@@ -1,0 +1,52 @@
+Verdict up front
+The work is numerically correct and directionally sound — every headline number survived independent recomputation, including full reimplementations of both scoring pipelines. Four confirmed major findings survived adversarial verification; none invalidates a result, but all four are record-keeping/provenance gaps that cut against the project's own rules and are worth fixing before merge. Nothing rose to blocker.
+
+1. Is the work correct?
+Yes, to the extent bytes can show it. Highlights of what was independently reproduced:
+
+D-BT: one reviewer reimplemented the entire scoring path in Python from the NAS TSV bytes (preparation, RK4 integration, all four comparators, leave-one-out evaluation) and reproduced every claimed number exactly — 57,199 rows, 2,550 samples, 141 decreases, MSEs 87.45272 / 86.8825 / 431.3416 / 0.6578183, 0/6 wins, 24 no-flip sensitivities, and the 140.224156 minimum margin. The repo's own byte verifier was re-run: ok=true, all 15 negative controls execute their named mutations. The Lamb coefficient pins match the hash-bound IceNODE source byte-for-byte.
+M-F/M-K2: full pipeline rebuilt independently; all 90 series records, the 2/5 mapping result, and the label reproduced to better than 1e-12. The −30 °C refusal is an executed code path, not prose. The repo verifier re-ran ok with all nine mutations rejected.
+Adapters: the 51/41/20 = 112 census was derived three independent ways, including actually running the adapter module against all 44 real NAS row artifacts — preservation (row order, lexemes, decreases, uncertainty) genuinely holds on real bytes.
+Arithmetic spot checks: Pearson chi-square recomputed as 9.192043 on [[89,23],[48,1]] with no continuity correction and a byte-level null p-value; the Gibbs–Thomson form is dimensionally sound; the transport resistances match the standard Rogers & Yau / Lamb–Verlinde Fd/Fk forms exactly; the convergence ladder's pairwise orders are exactly 2, 2, 2.
+My own suite re-run: TMPDIR=/private/tmp npm test → rule7: clean (955 files scanned), both typechecks passed, 115/115 files, 1,912 passed, 7 skipped, exit 0 — byte-identical to the claimed result.
+2. Did it follow good science and quality? Four confirmed majors
+(a) D-BT "precommitted" decision rule is self-attested, not demonstrable from git. The protocol, all code, and the results bundle first enter git in the same commit (1efe127). The plan committed 5.3 hours earlier precommits the comparator design and the 0–500 s domain but not the 4-of-6 strict-wins rule, tie handling, rescale bounds, or operator pins. The protocol says "frozen-before-model-output" and names adoption commit f936920 — which contains no protocol file. The skeptic confirmed this from bytes. The result is almost certainly unaffected (the margin is enormous), but the word "precommitted" is a stronger claim than the repository can support — a Rule 6 problem in a project that just paid for exactly this class of error twice. The same single-mega-commit pattern also undermines M-F/M-K2's predeclaration (noted, relies on internal hash chain).
+
+(b) The three registered-corpus row parsers have zero test coverage. Every corpus test passes rowArtifacts: new Map() (phase9-measurement-adapters.test.ts:71), so all 44 row-bearing selections resolve source-blocked in tests and parseNativeMass, parseNativeDimensions, and parsePlotSeries are never executed by the suite. Their fail-closed rejections (header mutation, decreasing time, nonpositive mass, duplicate pointId, …) are pinned by no negative control. The behavior was verified correct on real NAS bytes by the reviewer — but per Rule 9, vigilance doesn't survive a handoff; a failing build does. Two families (supported-dimension-rim, non-planar plot series) additionally have no production consumer or verifier at all.
+
+(c) Same-model review, undisclosed (Rule 10). The author of record is OpenAI Codex and both gate-adjacent reviews were also OpenAI Codex with shared context. That's disclosed as shared-context — but same-model status is not stated as a limit in either review, while the project's own WP1 precedent recorded exactly that limit. Rule 10 exists because same-model reviewers miss the author's seams. (This review partially discharges the gap: I'm a different model family, no shared context with the developer, and I re-executed the suite and both verifiers.)
+
+(d) The completion test counts had no repo record. "115/115 files, 1,912 tests, 7 skipped" appears nowhere in any committed document or artifact — the record says only "exited 0". The counts were quoted from session memory, which Rule 6 forbids. My re-run confirms the numbers were true, so the skeptic downgraded severity — but the record gap is real and this is the exact failure mode Rule 6's "copied at write time" clause targets.
+
+A recurring theme across three reviewers: the published D-BT and M-F/M-K2 report bytes still self-label candidate-awaiting-independent-byte-verification, while PROGRESS.md:54 calls the D-BT result "verified". The verifier's successful v3 run has no committed execution record (no command, output, or verdict artifact). Also, the "verifier rejected two earlier candidates" claim slightly overstates v2: its science bytes are byte-identical to published v3 — the v2 defect was in the verification harness (the vacuous control), not the science.
+
+3. Directionally correct?
+Yes. The all-no-pass discipline, refusal-first eligibility, equal-history loss, and reserving unseen evidence for a future chartered gate are all faithful to the charter's identity, and the recommended next directions are the right ones (local surface supersaturation, matched cross-pressure trajectories, a real lattice curvature estimator before coupling). Two scientific reading notes for you:
+
+The LOHO rescale comparator carries a condition-sibling advantage (each training fold contains same-condition siblings of the held-out run), so the bar for any unfitted law was very high. "Central-no-effect-or-failure" for Lamb is honest, but read it as "Lamb loses to a condition-matched fitted rescale on this apparatus," not "Lamb is wrong."
+The bundle's own bytes show the inherited M-F control loses to the zero-growth control at q=0.75 and q=1 — published but never narrated. Worth a sentence somewhere; it's a useful humility datum about the inherited comparator.
+4. What I'd press, change, or remove
+In priority order (all are small; none reopens science):
+
+Reconcile the verification-state contradiction: either commit a verifier execution record (command, output hash, verdict) for D-BT v3 and M-F/M-K2 v1, or soften PROGRESS/plan prose from "verified" to match the artifacts' candidate state. Cheapest load-bearing fix.
+Fix the completion-result record: replace "exited 0" with the counted result copied from an artifact (my re-run output can serve, or re-record on the next run).
+Amend the D-BT/M-F-M-K2 precommitment wording to the measured claim: "frozen in-session, attested by internal hash chain and pre-run review; not demonstrable from git ordering because protocol and results landed in one commit." And adopt as process: commit protocol freezes before scoring runs in future arms — the single 81-file, 29,448-insertion commit is what made freeze-before-output undemonstrable everywhere.
+Add a one-line same-model limit to both review docs, and prefer a different-model reviewer for anything gate-adjacent going forward.
+Pin the row parsers with tests: fixture row artifacts plus negative controls that execute the named mutations. This is the only finding that's a genuine latent-defect risk rather than a record gap.
+Minor: PROGRESS "Next step" says nothing about landing the unmerged phase/9 branch (Rule 8); the guide review cites an audit-version hash (cc228d49…) whose bytes were never preserved; the heldout* field naming collides with the project's reserved held-out vocabulary (disclaimed in prose, but avoid in future bundle schemas — existing bytes stay frozen).
+I'd remove nothing. The nine pending FRONTIER shelf entries are a disclosed carve-out from "every registered shelf item," which is fine as long as it stays visible.
+
+5. Other feedback, including on the summary you were handed
+The summary is a substantially faithful account — every number in it matches artifact bytes. It dropped a few caveats you'd want: the completion reviewer's independently re-derived scores differ in trailing digits from published values (rounding contract, no verdict change); several acquisition filenames misidentify their contents (identity follows the digest); the Sato source-correction record is load-bearing for the initiation numbers; and the completion reviewer did not rerun the full suite for the completion commit either (only a 20-file focused run).
+
+Things done genuinely well, verified from bytes: plan committed before adoption before implementation; ADR 0050's 27 charter blockquotes all verbatim; zero diffs under core/, solver-cpu/, solver-gpu/, app/ across the entire phase; HANDOFF.md and all Phase 6/8 artifacts untouched; claim boundaries (grantsValidationClaim=false, heldoutEvidence=false) present in every report; and the "unavailable, not measured-zero" distinction for the permanent controls is real at the data level, not just prose.
+
+Checks you can run yourself (non-LLM ground truth):
+
+
+TMPDIR=/private/tmp npm test                                        # 115/115, 1912 passed, 7 skipped
+git diff --stat 7cbdbf2..8a1d051 -- core/ solver-cpu/ solver-gpu/ app/   # empty = no solver change
+git log --oneline -- research/phase9-dbt-protocol-v1.json           # one commit = the precommitment gap
+grep -n '"state"' evidence/phase9-dbt-six-history-development-v3/report.json   # candidate-awaiting…
+grep -n 'rowArtifacts' runner/test/phase9-measurement-adapters.test.ts         # all empty Maps
+Limits of this review (Rule 10): I am Claude (Fable 5), a different model family from the author, no shared context with the developing session. Independently re-executed: the full suite, both in-repo byte verifiers, both scoring pipelines (reimplemented), all hash pins, and the census/arithmetic claims. Not checked: visual audit of the 59 source PDFs/archives, source rights/currency, the NAS bytes beyond their hash pins, and no solver was run. If you want, I can apply the record fixes above (items 1–4 are small doc/test edits) — say the word and I'll do them as a follow-up.

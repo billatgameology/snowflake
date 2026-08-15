@@ -1,10 +1,15 @@
 # Plan — GG realism gut check (eyeball-only exploration)
 
 - **Phase:** Pre-Phase 7 exploration, maker-directed 2026-08-02. Not a charter phase gate.
-- **Status:** complete — deliverables produced, agent eyeball verdict recorded below;
-  the maker's own sentence of judgment is the one open slot
+- **Status:** complete — deliverables produced, agent eyeball verdict recorded below, and
+  the maker's verdict is recorded in its slot (2026-08-04, after the full sweep)
 - **Started:** 2026-08-02
-- **Last touched:** 2026-08-02 by Claude Fable 5 (`claude-fable-5`)
+- **Last touched:** 2026-08-12 by Claude Fable 5 (`claude-fable-5[1m]`) — provenance
+  relocation entry at the end of this file
+- **Path note (2026-08-12):** earlier sections reference the spike's tracked files at
+  `out/gutcheck-gg-realism/{specs,dialin,gen,figs,tracked}` — those paths are historical.
+  The tracked set lives at `evidence/gutcheck-gg-realism/` since the relocation recorded in
+  the dated entry at the end of this file; executed records are otherwise left as written.
 
 ## Goal
 
@@ -147,9 +152,10 @@ Everything below is **Evidence = unvalidated** (charter §1.5); nothing here sup
 Reproduction from the checkpoint (or regrow with the registered command above):
 
 ```
-node scripts/gutcheck-extract-mesh.ts out/gutcheck-gg-realism/dendrite-384x384x48-seed20260802.ckpt \
-  out/gutcheck-gg-realism/dendrite-384-mesh.bin --sigma 0.45 --spacing 0.4
-node app/scripts/spike-capture.mjs --mesh out/gutcheck-gg-realism/dendrite-384-mesh.bin \
+# paths current as of the 2026-08-04 large/ migration (see the inventory WP)
+node scripts/gutcheck-extract-mesh.ts out/gutcheck-gg-realism/large/checkpoints/dendrite-384x384x48-seed20260802.ckpt \
+  out/gutcheck-gg-realism/large/meshes/dendrite-384-mesh.bin --sigma 0.45 --spacing 0.4
+node app/scripts/spike-capture.mjs --mesh out/gutcheck-gg-realism/large/meshes/dendrite-384-mesh.bin \
   --out out/gutcheck-gg-realism/render-384-final.png --size 1600 \
   --params "keyI=2.4&fillI=0.9&thick=12&edge=1.1&edgePow=1.9&rough=0.045&zscale=2.5&bgTop=eeca7a&bgBottom=c3c9ee"
 ffmpeg -y -i out/gutcheck-gg-realism/render-384-final.png -i out/gutcheck-gg-realism/target-frame-23.633s.png \
@@ -644,7 +650,7 @@ are Claude Fable 5's eyeballed comparisons of the named composites.
 |---|---|---|---|
 | Fig. 3 (failure control) | 600,600,48; cap 30k | domain-contact @ 15829, attached 224625 | **Reproduced.** The deliberately "failed" morphology matches: overdense parallel sidebranch thickets on six arms, high midline ridges (theirs oblique, ours face-on). Strong fidelity control — the implementation reproduces the paper's ugly crystal, not just its pretty ones. |
 | Fig. 4 (prototype) | Run B, 1200,1200,48, 70000 ticks exact | tick-cap @ 70000, r=294 | **Reproduced** (recorded above; `side-by-side-B-vs-fig4.png`). |
-| Fig. 14 (classic dendrite) | Run A, 1200,1200,48 | domain-contact @ 57834, r=390 | **Not reproduced at nz=48** — slab starvation (probe-confirmed z-reservoir effect, recorded above). Tall-domain rerun is the costed open item. |
+| Fig. 14 (classic dendrite) | Run A, 1200,1200,48 | domain-contact @ 57834, r=390 | **Not reproduced at nz=48** — slab starvation (probe-confirmed z-reservoir effect, recorded above). Tall-domain rerun ATTEMPTED 2026-08-05 and LOST to a tooling bug — see "Fig. 14 v2 failure" below. Still unresolved; it is the sweep's one open figure. |
 | Fig. 29 (needle) | 128,128,768; cap 30k | far-field @ 25075, attached 220173; bbox 404 long × 36 wide | **Reproduced.** Same needle class: segmented hexagonal shaft with stepped bands, tapered spear tips with fine spiky fringes. (Render note, also applied forward: side-view captures use the screen-fixed background — the static backdrop plane is edge-on at tilt 90.) |
 | Fig. 7 (ρ=0.15 ridged sidebranches) | 600,600,48; cap 40k | far-field @ 18150, attached 511993 | **Reproduced (class).** Six ridged arms, serrated sidebranches with their own ridges, detached leaf plates between arms — visibly sparser fill than the paper's larger crystal; consistent with our half-size domain/reservoir, not a morphology mismatch. |
 | Fig. 30 (hollow column) | 128,128,768; cap 30k | far-field @ 25000, attached 329133; 286 long × 48 wide | **Reproduced.** Hexagonal column of matching aspect with banded walls; end-on view (`fig30-endon.png`) confirms the defining feature — a genuinely hollow interior with terraced conical cavity walls, as in the paper's wireframe cutaway. |
@@ -664,6 +670,21 @@ are Claude Fable 5's eyeballed comparisons of the named composites.
 | Fig. 21 (ρ=0.15 sandwich plate) | 500,500,96; cap 36100 (paper-exact) | far-field @ 30475, r≈133 (paper ≈150) | **Reproduced.** Silhouette with notched hexagonal lobes matches, and the §IX signature — the nearly circular macrostep ring near center — is plainly present. The paper's glowing ribs are interior structure shown by their transparency ray-trace; our exterior render shows the near-featureless outside the text describes. |
 | Fig. 20 (ρ=0.08 sandwich plate) | 400,400,96; cap 100k | far-field @ 34475, r≈88 (paper: r=150 @ t=100000) | **Under-grown — our domain too small, not a divergence.** The 400-planar reservoir depleted at a third of the paper's stated time and ~60% of its radius. Re-queued at 700,700,96 with the paper's 100k cap (runs when a lane frees). **RESOLVED → Reproduced by v2** (far-field @ 77600, attached 479323, r≈145 vs paper ≈150; `side-by-side-fig20v2.png`): notched hexagonal plate lobes and the §IX circular reverse-shape ring both present; the paper's dark interior star is sandwich-interior structure of the kind our cutaways show. Second confirmation that the earlier shortfall was reservoir size, not model. |
 | Fig. 9 (ρ=0.05 sectored plates) | 600,600,48; cap 60k | tick-cap @ 60000, attached 131173 (farField 0.041, stop 0.033 not reached) | **Partial — under investigation.** Silhouette class reproduces (six broad sectored plates with narrow notches) but the paper's radiating interior ridge line-work is absent. Discriminated against a rendering artifact: 5× relief amplification (`fig9-render-z5.png`) shows the mesh interior is genuinely flat. Remaining suspects, in order: run length (paper time unstated; ρ=0.05 is the slow regime and our cap fired before far-field), z-starvation muting thickness relief, then model divergence. Rerun queued: 600,600,96, cap 200k, with `--out-state` checkpoint capture (`fig9v2-*`). *Cutaway addendum (`fig9-cutaway.png`): the v1 interior carries pocked texture but not the paper's radial sector-ridges.* **RESOLVED → Reproduced by v2** (600,600,96; far-field @ 67200, attached 362809; `side-by-side-fig9v2.png`): with doubled z the full radial ridge system appears — six midline ridges, sectored lobes with internal ridge lines, ribs, open hexagonal center — matching the paper's figure element for element. The v1 flatness was thin-slab z-starvation suppressing thickness relief: the same mechanism as Fig. 14, now confirmed on a second morphology class. *Maker question, center circle (answered with probes, 2026-08-04): not a hole and not an artifact — the state checkpoint shows the center solid and uniformly 19 layers thick at every sampled radius with no partial-layer ring in `b` (probe scripts `probe-center.ts`/`probe-ring.ts` under `out/.../figs/`); it is the shallow surface demarcation where the six midline ridges terminate at the early smooth-plate core, visible but subtle at `zscale=1` (`fig9v2-z1.png`) and amplified by the 2.5× relief stylization. The paper documents circular surface markings as characteristic of exactly this family (§IX's near-circular layer hole; §XIV(d) "sole surface markings of sandwich plates are circular reverse shapes"), and its own Fig. 9 shows a central demarcation — hexagonal there; our σ0.45 level-set smoothing rounds ours toward circular.* |
+| Fig. 37 (tsuzumi capped column, §XII schedule) | 320,320,512; cap 80k; two-stage spec `figs/spec-fig37.json` (stage 2 @ 20000 via public `applyTimelineEnvironment`) | far-field @ 48350, attached 1219767, stage transition executed @ 20000 (`fig37-record.json`) | **Reproduced (class + schedule mechanism)** (`side-by-side-fig37.png`): hexagonal column with fluted walls carrying a simple hexagonal plate cap at each end — the defining tsuzumi architecture — grown by the paper's own column→plate environment switch, first harvested use of the Phase 4 timeline API in this sweep. Ours stopped on reservoir depletion so the caps are younger/plainer than the paper's richly marked ones, and σ0.45/spacing-0.6 extraction softens cap hieroglyphs. Capture recipe for columns: `interactive=1&tilt=55&zscale=1&zoom=2.0&ui=0` (new `?ui=0` suppresses the control bar in headless captures). |
+| Fig. 44 (exploded tips, β01=1.25 + ρ=0.091, §XIII) | 600,600,96; cap 60k | tick-cap @ 60000, attached 461845, farField 0.068 (`fig44-record.json`) | **Reproduced (class + interior mechanism)** (`side-by-side-fig44.png`): six narrow stems flaring into dramatically widened blocky hexagonal tip caps around a small central star — the caption's exploding-tip silhouette — and the mid-plane cutaway (`fig44-cutaway.png`) reveals dense radiating dendritic veins inside each cap, the "intricate inner patterning" the paper displays through transparency. *Correction (Rule 6): the Fig. 47 row's "Closes §XIII: all nine (39–47) judged" was premature at its write time — Fig. 44 was then still queued (its earlier flag was a triage false positive, not a judgment). With this row the §XIII closure claim is now actually true: nine of nine judged, nine reproduced.* |
+| Fig. 17 (ρ=0.082 tip sandwich instability, §VIII ladder) | 800,800,96; cap 60k (paper: "about time 60 000") | domain-contact @ 49695, attached 878981 (`fig17-record.json`) | **Reproduced** (`side-by-side-fig17.png`): six slender arms with dense short serrated sidebranching and midline ridges match the page pair closely; the defining tip feature — blocky double-plate caps from the sandwich instability — is present at reduced size, consistent with the 65% guard firing ~10k ticks before the paper's capture. |
+| Fig. 19 (ρ=0.081 fattening from the tip, §VIII endpoint) | 800,800,96; cap 60k | tick-cap @ 60000, attached 732887 (`fig19-record.json`) | **Reproduced** (`side-by-side-fig19.png`): stubby six-armed star whose arms end in large blocky faceted hexagonal tip assemblages, the fattening extending from the tips inward exactly as captioned — the §VIII series' increasingly-three-dimensional endpoint, closing the dendrite ladder (13, 14→v2 pending, 15, 16, 17, 19 all judged). |
+| Fig. 38 (tsuzumi, sectored caps, §XII schedule) | 320,320,512; cap 60k; two-stage spec `figs/spec-fig38.json` (Fig. 30 stage 1; thresholds-2.1 stage 2 @ 20000) | far-field @ 46225, attached 1250109, transition @ 20000 (`fig38-record.json`) | **Reproduced** (`side-by-side-fig38.png`): column with sectored-plate caps — lobed, notched cap outlines with six-fold sector structure on both ends, clearly distinct from Fig. 37's simple hexagonal caps. The pair discrimination is the strong result: identical schedules except the shared threshold (2.4 vs 2.1) produce simple vs sectored caps in ours exactly as the paper describes ("higher attachment thresholds delay the branching instability"). |
+| Fig. 32 (plate w/ fern extensions, §X schedule; labeled canonical-seed approximation) | 600,600,96; cap 60k; spec `figs/spec-fig32.json` (stage 2 @ 8000: thresholds→1.15, boundary-layer mu 10/20→0.006; φ=0.01 both stages) | domain-contact @ 23007, attached 572595 (`fig32-record.json`); paper captures at r=200 ≈ our 65% guard radius | **Reproduced (class, as labeled approximation)** (`side-by-side-fig32.png`): hexagonal plate core with six fern-like dendritic extensions densely covered in feathery sidebranches; core-to-arm proportion similar. Paper seeds a 3-cell tapered prism (r2 top/r1 bottom) — ours is the canonical seed, so center detail differs (ours shows an open ring where theirs is smooth). Numerical note: far-field mean at stop 0.178 > initial ρ=0.12 — the φ=0.01 drift piles vapor against the reflecting walls of the finite hexPrism reservoir, so the depletion stop cannot fire; observational only, no physical claim. |
+| Fig. 33 (plate w/ dendrite extensions, §X schedule; labeled canonical-seed approximation) | 600,600,96; cap 60k; spec `figs/spec-fig33.json` (stage 2 @ 12500: thresholds→1.4, mu 10/20→0.004; φ=0.01) | domain-contact @ 33358, attached 702740, farField 0.163 (`fig33-record.json`) | **Reproduced (class, as labeled approximation)** (`side-by-side-fig33.png`): larger hexagonal central plate than Fig. 32 with six sparser dendritic extensions — the 32↔33 pair discrimination (later switch + higher thresholds → bigger core, fewer sidebranches) reproduces in the same direction as the paper's pair. Same canonical-seed and drift-accumulation caveats as Fig. 32. |
+| Fig. 13 (ρ=0.105 fern dendrite) | 800,800,96; cap 45k | domain-contact @ 28512, attached 1022565 (`fig13-record.json`) | **Reproduced** (`side-by-side-fig13.png`): six-armed fern with dense closely spaced sidebranches nearly filling the interarm space, midline ridges on arms and sidebranches — the caption's defining crowding is plainly present. Contact-stopped at 63% of cap, so ours is somewhat smaller than the page crystal; texture class matches at scale. |
+| Fig. 15 (ρ=0.095 fewer sidebranches) | 800,800,96; cap 45k | domain-contact @ 34502, attached 856789 (`fig15-record.json`) | **Reproduced** (`side-by-side-fig15.png`): classic stellar dendrite with visibly sparser sidebranching and long bare stretches of main arm between plate-tipped sidebranch clusters — the stated contrast against Figs. 13–14 reads correctly in the pair. |
+| Fig. 11 (ρ=0.4 sandwich plates, inner ridges) | 400,400,160; cap 120k (paper t=120000) | domain-contact @ 1706 — z-axis 65% guard, z-extent 104/160, attached 350941 (`fig11-record.json`) | **Reproduced in character; stated endpoint unreachable here** (`side-by-side-fig11.png`): hexagonal outline, six short broad corner arms, sandwich-plate decks with radiating inner ridges — Fig. 11's labeled features are all present, and our early state is consistent with Fig. 12 ("the crystal of Fig. 11 at earlier times"). At ρ=0.4 the crystal thickens ~0.03 cells/tick in z, so the paper's t=120000 endpoint cannot fit any feasible nz on this host; recorded as a domain-infeasibility bound, not a morphology divergence. |
+
+Harvest render recipe for these three (2026-08-04, from the relocated meshes):
+`node app/scripts/spike-capture.mjs --mesh out/gutcheck-gg-realism/large/figs/figN-mesh.bin --out out/gutcheck-gg-realism/figs/figN-render.png --size 1200 --params "look=bold-ice"`;
+paper panels cropped from pages 8–9 of the local PDF via `pdftoppm -r 150` (crops and
+composites stay gitignored — third-party figures).
 
 Host note: the charter prefers the Windows box for long
 evidence runs; these are eyeball runs and the Mac is acceptable, but the
@@ -705,6 +726,99 @@ position). The four looks:
 | `bold-ice` | ice | High-visibility presentation ice — maker-preferred legibility recipe |
 | `povray` | povray | The G-G Fig. 4 ray-trace target: pale translucent body over backlit navy radial glow (locked 2026-08-03) |
 | `ggview` | ggview | Cell-true prisms + drawn structure edges over a pale wash (needs a `-cellmesh.bin`) |
+| `frost` | ice | Clean daylight ice: pale sky, crisp thin contours, low drama (added 2026-08-06) |
+| `aurora` | ice | Polar night: teal-to-violet sky, cyan rim light, heavy dispersion (added 2026-08-06) |
+| `ember` | ice | Low sun: amber-to-plum sky, warm gold rim, glassy body (added 2026-08-06) |
+| `graphite` | ice | Monochrome print: neutral grey, matte body, near-black contour (added 2026-08-06) |
+| `abyss` | povray | The povray treatment over a teal backlight instead of navy (added 2026-08-06) |
+| `glass` | ice | Clear glass: thin walls, double-sided, backdrop visible through the body (added 2026-08-06) |
+
+### Scene keyframe editor (2026-08-06, maker-directed)
+
+Maker asked for Premiere-style authoring: "select a tick location ... pause, manually adjust to
+how i like it, you remember the position, rotation and other things", then build a video and
+maybe export mp4. **Most of that already existed** and was worth finding before writing anything:
+`gutcheck-scene-v1` (`app/scenes/growth-B-intro.json`) is already a keyframe format —
+`frames[{t,frame}]`, `camera[{t,tilt,yaw,zoom,ease}]`, `captions` — and
+`app/scripts/scene-capture.mjs` already drives `window.__sceneSeek(t)` frame by frame and
+encodes an mp4 with ffmpeg. The only missing piece was authoring: the JSON was hand-written.
+
+`?edit=1` in timeline mode now opens an editor that emits exactly that format — no new format,
+so its output drops straight into the existing capture runner. Scrub the strip to a time, pose
+the crystal with the normal orbit/zoom/upright/spin controls, then `+ camera`, `+ frame` or
+`+ crystal` records the current state at the playhead. Markers drag in time, Delete removes the
+selected one, `preview` plays the authored scene using the same interpolation the player uses,
+and export/copy/import round-trip the JSON.
+
+Details worth keeping:
+
+- **Pose capture is an inversion, not a matrix dump.** The player builds the camera from three
+  numbers — it places it at `(0, sin(tilt)·d, cos(tilt)·d)` rotated by `yaw` about Z — so the
+  editor recovers `tilt = acos(z/d)` and `yaw = atan2(−x, y)` from the live camera. Anything not
+  expressible in those three numbers would preview correctly and then render differently, so
+  **panning is disabled in edit mode** rather than silently exporting an unreproducible view.
+- **`crystal` is a new optional track** (roll about Z, the axis spin/upright already drive).
+  The scene format had no place for "is it spinning" — camera keys move the camera, not the
+  crystal. The field is additive: scenes without it behave exactly as before, and the capture
+  runner's `format === "gutcheck-scene-v1"` check still passes.
+- **The exported manifest path is site-relative by default** (`../data/anim-B/manifest.json`).
+  Authoring happens against a dev `/@fs/...` URL, but the capture runs against the built static
+  site; exporting the authoring URL would give a scene that previews here and 404s in the
+  render. Editable in the panel, since only the person capturing knows their layout.
+
+A fourth lane authors **captions**, which the format and player already supported: type text,
+`+ caption` lays a 3 s span at the playhead, `set out` ends the selected one at the playhead,
+and bars drag as a whole span. A preview overlay mirrors the player's own caption element so
+scrubbing shows the text where the render will put it (positioned from a measured
+`occludedBottom()`, after a hardcoded offset dropped it on top of the control bar).
+
+One bug worth recording because it was invisible until the round trip was checked: the caption
+text field edited *whichever caption was last added*, so typing the second caption's text
+silently overwrote the first — both came out identical. The field now distinguishes composing
+from editing (`captionEditIndex`, bound only by clicking an existing caption, cleared on add
+and on delete since indices shift).
+
+Verified headless: the editor loads, a canvas drag is captured as `tilt 53.177° yaw 63.851°`,
+keys land at exactly t=0 and t=duration at the strip edges, two captions round-trip with their
+own distinct text, and the export is valid `gutcheck-scene-v1`. 0 page errors. The exported
+scene then rendered through `scene-capture.mjs` to a 960×600 h264 mp4 with both captions burned
+in — editor to video, end to end.
+
+**mp4 export now works on Windows** (maker confirmed the project is PC-only, so the macOS path
+was dropped rather than branched on). Three fixes to `scene-capture.mjs`:
+
+- **Serves in-process** instead of spawning `python3 -m http.server` — the `python3` on PATH on
+  Windows is the Store alias stub. Removing the spawn also removed its two workarounds: draining
+  the log pipes to avoid a deadlock, and sniffing the `Server:` header to prove a stale process
+  was not holding the port. `listen()` fails loudly and the server dies with the script.
+- **`--use-angle=metal` replaced** with `--gl d3d11|swiftshader`.
+- The **site rebuild it depends on took 31 s**, not the multi-hour job the "12.5 GB" figure
+  suggests: `gutcheck-mesh-quantize.ts` 25 s (9.99 GB → 6.62 GB, 701 frames) plus
+  `gutcheck-build-site.ts` 4.9 s, the latter cheap because it hardlinks rather than copies.
+
+**Hardware rendering is not deterministic, and the default had to change.** The script's headline
+claim is that two runs on the same host produce the same aggregate sha256. Measured here: two
+D3D11 runs of one scene produced **different** hashes (`354e0acb…` vs `15b8620b…`); two
+swiftshader runs matched exactly (`3e490438…` twice). So `--gl` defaults to **swiftshader** — the
+mode that keeps the claim true — and `d3d11` is the opt-in for when the output is a video for
+people to watch and the hash is not evidence. Defaulting to the fast path would have left the
+determinism check silently checking nothing. Cost of the choice, 30 frames at 1280×720:
+
+| mode | per frame | 16 s @ 30 fps (480 frames) | deterministic |
+|---|---|---|---|
+| `d3d11` | 159 ms | ~1.3 min | no |
+| `swiftshader` (default) | 795 ms | ~6.4 min | yes |
+
+End-to-end smoke: a scene exported from the editor rendered to a valid h264 mp4
+(640×480, 30 frames, 2.0 s) in 4 s.
+
+The first four are **targets** — `footage-ice` and `povray` are locked reproductions of specific
+reference images, `bold-ice` is the maker's legibility pick — and were not touched when the
+lower five were added. The lower five are **exploratory**: they reproduce nothing, and exist
+because one animation plus a look dropdown is a cheap way to see the same growth several ways
+(maker, 2026-08-06: "pretty cool that we can have 1 animation and just change to a different
+look"). All five are `ice` or `povray` so they work on the anim-B timeline; a `ggview` preset
+could not, since the timeline frames are surface meshes with no `-cellmesh.bin`.
 
 ### Maker gaps 1+2: cell-true "ggview" display mode (2026-08-04, commit `ab01e5e`)
 
@@ -778,6 +892,150 @@ sheaths) — effectively an experimental Nakaya diagram in open access with per-
 scale bars. That is exactly the photo corpus shape `LibbrechtKinetics` validation wants
 to compare against (LK predicts habit vs temperature); recorded here as a Phase 6 input
 pointer, nothing more claimed.
+
+## Fig. 14 v2 failure (2026-08-05) — 17 h of compute lost to a writer bug
+
+**What happened.** The tall-domain rerun that was to resolve the sweep's last
+"Not reproduced" grew correctly and then threw away its own result at the final step.
+
+- Command: `node --max-old-space-size=16384 scripts/gutcheck-grow-params.ts --spec-file
+  out/gutcheck-gg-realism/figs/spec-fig14v2.json --dims 1280,1280,96 --ticks 70000
+  --out-mesh out/gutcheck-gg-realism/large/figs/fig14v2-mesh.bin --out-state
+  out/gutcheck-gg-realism/large/figs/fig14v2-state.ckpt --record
+  out/gutcheck-gg-realism/figs/fig14v2-record.json --metrics-every 10000`
+- Growth succeeded: `stop reason=domain-contact tick=51796 attached=2489217` after
+  ~17 h (`figs/fig14v2.log`, last metrics line `tick=50000 attached=2306817
+  farField=0.0753421 elapsed=60367.1s`).
+- Then: `RangeError [ERR_OUT_OF_RANGE]: The value of "length" ... Received 2673869321`
+  at `gutcheck-grow-params.ts:316` (`figs/fig14v2.err`). `writeFileSync` validates the
+  whole buffer against Node's 2147483647-byte single-write cap and throws **before
+  writing any bytes**, so `large/figs/fig14v2-state.ckpt` exists at **0 bytes** and the
+  mesh/record steps never ran. Nothing is recoverable; no artifact of this run survives
+  beyond the log lines quoted above.
+- Scope of the bug: any run whose checkpoint exceeds ~2 GiB, i.e. roughly >126M cells at
+  this codec's ~17 bytes/cell. Every earlier lane was under it (largest previously
+  written checkpoint: 1.1 GB at 1200,1200,48), which is why it had not surfaced.
+
+**Fixed** in `gutcheck-grow-params.ts` (`writeLarge()`: chunked `writeSync` above 1 GiB,
+plain path below). **Not fixed, recorded as a known limitation:** the same bare
+`writeFileSync` on payload bytes remains in `gutcheck-extract-mesh.ts`,
+`gutcheck-extract-cellmesh.ts`, `gutcheck-mesh-quantize.ts`, and
+`gutcheck-animate-grow.ts`. Those write meshes, which run ~10x smaller than checkpoints
+(largest observed 188 MB), so none has approached the cap — but a large enough extraction
+would hit the identical failure.
+
+**To re-run on another machine** (the maker's stated plan): the spec, dims, and command
+above are complete and deterministic (seed 1, noise 0). Budget ~17 h wall clock and
+~16 GB RAM for the solver plus room for a 2.7 GB checkpoint. The fix must be present —
+verify `grep -c writeLarge scripts/gutcheck-grow-params.ts` returns 2 before launching,
+or the run will fail the same way at the end. Cheaper alternative if the checkpoint is not
+wanted: omit `--out-state` entirely and keep only the mesh.
+
+## Not started / not finished (state at 2026-08-05 handoff)
+
+Nothing below is blocked; all of it is unstarted or deliberately deferred.
+
+1. **Fig. 14 v2 re-run** — above. The sweep stands at 34 judged / 32 reproduced /
+   0 unexplained, with Fig. 14 the one open figure and Fig. 11 closed as a recorded
+   domain-infeasibility bound.
+2. **Sweep closing verdict** — the coverage table is complete but no summary paragraph
+   has been written. Deliberately deferred until Fig. 14 resolves, since it is the one
+   result that could change the summary.
+3. **Adversarial review, scene + site tracks** — 10 of 16 agents died on a rate limit
+   (recorded in `explore-phase7-prep.md`). Those tracks' fixes are author-verified only,
+   including the `scene-capture.mjs` destructive-path guard. Re-run before the P7 prep
+   work is treated as reviewed.
+4. **`docs/PROGRESS.md` on `main` has no entry for any of this.** Required before any
+   merge: without it a cold-start session finds ~13k lines of spike/P7 code with no way
+   to tell what is authoritative or that Phase 7 has not begun. Must land in the same
+   commit as the merge, and must say plainly that Phase 7 has not started.
+5. **Phase 7 prep gaps** — frame-decimation rung of the compression ladder not cut (the
+   site bundle is full-resolution 6.3 GB); no v2q path for cell-true ggview meshes
+   (their edge payload needs its own encoding); only two hero meshes staged into the
+   bundle; the Scientific profile reports recorded facts only, with no live
+   surface-propensity coloring (that needs the solver in the browser worker).
+6. **Archive re-pack is stale** — see the transfer note below.
+
+## Historical machine-transfer procedure — executed 2026-08-06, superseded 2026-08-12
+
+This block preserves the paths and commands used for that transfer; it is not a current
+operational procedure. Tracked provenance now lives under `evidence/gutcheck-gg-realism/`,
+and `docs/nas-ledger.md` governs current NAS restore and streaming work.
+
+**No new branch is needed.** `explore/gg-realism-gutcheck` is already pushed to
+`origin` at `b76b494` and is unmerged; that is exactly the "not ready to merge" state.
+PR #2 was opened and closed (reasons recorded on it); reopen when the items above close.
+
+**Six archives to copy** (`archives/`, ~10.0 GB total): anim-B, figs, checkpoints, meshes,
+anim-smoke, extras. All six are needed for a clean resume — the first five are the binaries,
+`extras` is the evidence layer.
+
+On the new machine:
+
+```
+git clone https://github.com/billatgameology/snowflake.git
+cd snowflake && git checkout explore/gg-realism-gutcheck && npm ci
+```
+
+That restores all code, both plans, the figure catalog, and
+`out/gutcheck-gg-realism/tracked/inventory.json` (the sha256 ledger). It does NOT restore
+the 46 GB of artifacts under `out/`, which are gitignored by design.
+
+For the artifacts, copy the zips from `out/gutcheck-gg-realism/archives/` and run
+`node scripts/gutcheck-archive-restore.ts <zip>` per group; each file is verified against
+the tracked inventory and the run exits nonzero on any mismatch.
+
+**Archives refreshed 2026-08-07** (`out/gutcheck-gg-realism/repack.log`) — all five
+groups rebuilt from scratch after cleanup, 802 files / 30.0 GB inventoried, **9.8 GB of
+zips** to copy:
+
+| Archive | Size | sha256 |
+|---|---|---|
+| `gutcheck-large-anim-B-20260807.zip` | 4.9 GB | see `tracked/inventory.json` archives ledger |
+| `gutcheck-large-figs-20260807.zip` | 3.6 GB | (grew from 2.39 GB — now includes Figs. 17/19/32/33/37/38/44) |
+| `gutcheck-large-checkpoints-20260807.zip` | 966 MB | `e4d28630f065577528d997d059cae4e592e97289a2390180a1606336f01832ac` |
+| `gutcheck-large-meshes-20260807.zip` | 330 MB | `c6baddf2fef62c0e3629921e39def22ec2f5a508d2d60a488a0f90935f067526` |
+| `gutcheck-large-anim-smoke-20260807.zip` | 8.2 MB | `fb6803945f22754c2fbf0174b4ad193e9469f979b9a75eea64c29c94d96df038` |
+
+**A sixth group, `extras`, was added 2026-08-07 after a gap check** showed the archives
+covered only `large/`. Everything else under `out/gutcheck-gg-realism/` — the 35
+`figN-record.json` files the coverage table cites, all 33 side-by-side composites and the
+renders behind them, `photos/`, the specs, the run logs, the PGM/cartesian diagnostic
+dumps, and the P7 artifacts including `growth-B-intro.mp4` — is gitignored AND was in no
+zip, so a machine move would have carried the checkpoints and lost the evidence layer.
+It is not regenerable without re-running the sweep. `gutcheck-large-extras-20260807.zip`
+is 222.9 MB (795.2 MB / 837 files),
+sha256 `36b2f28c1d05f2fbed2bde19928c7eac20d908f23380a99d22bacc5773e7f837` (repacked at the session close to include the final test log; the current hash always lives in the inventory's `archives` ledger, which is the authority if this line drifts).
+
+Inventory entries now carry `root`: `"out"` for the extras layer (relPath relative to
+`out/gutcheck-gg-realism/`), absent or `"large"` for the binaries (relPath relative to
+`large/`). Restore places both and validates entry paths against the never-packed
+locations (`archives/`, `site/`, `tracked/`) rather than requiring a `large/` prefix.
+
+Loose `.zip`/`.tar` files at the OUT root are skipped by the extras walk: a Finder
+"Compress" of `archives/` leaves a multi-GB bundle there, and the first extras pack swept
+one in and produced a 9.26 GB archive containing a copy of the archive set. Caught by
+checking the group's size against a prior measurement — a 9.8 GB "workspace layer" where
+~800 MB was expected.
+
+Round trips re-verified after the re-pack: anim-smoke 21/21 verified into `large/anim-smoke/`
+(the `large/` path is unregressed), extras 837/837 verified with records, composites and the
+mp4 landing at their real locations, 0 mismatched in both, archive hashes checked against the
+ledger before extraction.
+
+**Cleanup performed the same day** (46 GB -> 39 GB local): removed the 0-byte
+`fig14v2-state.ckpt` left by the failed run (it would otherwise have been inventoried and
+packed as a real artifact), three scene-capture frame dumps (423 MB of PNGs whose only
+purpose was the determinism hash; the mp4 is the deliverable), and the two regenerable
+derived trees `site/` and `large/anim-B-v2q/` (12.5 GB, ~6.2 GB of it real after
+hardlink sharing). Regenerate those on the new machine with
+`node scripts/gutcheck-mesh-quantize.ts --manifest out/gutcheck-gg-realism/large/anim-B/manifest.json
+--out-dir out/gutcheck-gg-realism/large/anim-B-v2q` then `node scripts/gutcheck-build-site.ts`.
+
+**Do not bother copying derived data**: `large/anim-B-v2q/` (6.2 GB) regenerates from
+`large/anim-B/` with `gutcheck-mesh-quantize.ts --manifest`, and `site/` (6.3 GB)
+regenerates with `gutcheck-build-site.ts`. Moving the irreplaceable groups
+(checkpoints, figs, anim-B, meshes) is sufficient.
 
 ## Out of scope
 
@@ -855,8 +1113,9 @@ and "copy to another computer" should be cheap and verifiable.
   `large/anim-B/` (the 701-frame timeline; internal manifest paths are relative, verified
   against the viewer's `new URL(frame.file, manifestAbsolute)` resolution).
   Rule going forward: new lane outputs write here (`--out-state`/`--out-mesh` paths).
-- `archives/` — pack output staging (`gutcheck-large-<group>-<yyyymmdd>.zip`), gitignored,
-  excluded from the inventory scan.
+- `archives/` — pack output staging (new writes:
+  `gutcheck-large-<group>-<yyyymmdd>-<archive-sha256>.zip`; the 11 ledgered date-only names
+  are legacy), gitignored and excluded from the inventory scan.
 - Renders, composites, PGM dumps, logs, records, specs stay where they were. Copyrighted
   media (paper crops, photos, and every composite embedding them) is NEVER tracked and
   NEVER placed in `tracked/`; it may ride in private Dropbox archives only.
@@ -876,9 +1135,429 @@ and "copy to another computer" should be cheap and verifiable.
 scratch dest with every hash verified; index page regenerated against the new paths;
 exact `TMPDIR=/private/tmp npm test` green.
 
-**Path migration note**: artifact paths recorded earlier in this plan predate this layout;
-from 2026-08-04 the same files live under `large/<group>/` with unchanged basenames.
-`tracked/inventory.json` is the authoritative current location + hash list. Ad-hoc probe
-files `check-index.mjs`/`check-motion.mjs` may reference stale paths (throwaway probes,
-not maintained). Evidence status of everything inventoried remains: unvalidated,
-eyeball-only, this branch only.
+**Historical path note**: this block records the 2026-08-04 layout. Since 2026-08-12 the
+authoritative inventory is `evidence/gutcheck-gg-realism/large-artifact-inventory.json`, and
+the recipes/run records moved under the same evidence subtree. Earlier `out/` paths remain
+here as execution history, not current instructions. Ad-hoc probe files
+`check-index.mjs`/`check-motion.mjs` may also reference stale paths (throwaway probes, not
+maintained). Evidence status of everything inventoried remains: unvalidated, eyeball-only,
+this branch only.
+
+### Executed record (2026-08-04) — inventory WP done-when met
+
+Numbers below are copied from `out/gutcheck-gg-realism/archive-pack.log` and the named
+artifacts at write time.
+
+- Inventory: 788 files, 24.4 GB, 5 groups — anim-B 702 files / 9.30 GB, anim-smoke 21 /
+  17.9 MB, checkpoints 7 / 3.86 GB, figs 47 / 10.64 GB, meshes 11 / 615.3 MB. Committed as
+  `out/gutcheck-gg-realism/tracked/inventory.json`. Refresh with all hashes cached: 0.07 s.
+- Archives (deflate level 1, in gitignored `archives/`; total ≈ 8.5 GB):
+  - `gutcheck-large-anim-B-20260804.zip` 4.88 GB `a6c67cb24fcfa0b17043b71d2d2c7e5ba0595291aae8d9de9ca1b6a66bf66337`
+  - `gutcheck-large-anim-smoke-20260804.zip` 8.2 MB `d9552dc8d1a8ac8efdd65196c45ac1d096e9b0c3ccd16b74eed76574cd7283cd`
+  - `gutcheck-large-checkpoints-20260804.zip` 965.8 MB `e4d28630f065577528d997d059cae4e592e97289a2390180a1606336f01832ac`
+  - `gutcheck-large-figs-20260804.zip` 2.39 GB `44e71fcbc4547828c13af42411bf862205f05e211f4f0e7389e7417149f4eb0e`
+  - `gutcheck-large-meshes-20260804.zip` 329.9 MB `c6baddf2fef62c0e3629921e39def22ec2f5a508d2d60a488a0f90935f067526`
+- Round trip: anim-smoke zip restored into a scratch dest — 21/21 verified; idempotent rerun
+  21 already-present; spot byte-compare identical.
+- Negative control (executed and observed, per Rule 9): one inventory sha256 mutated →
+  restore reported MISMATCH with both hashes, withheld the file, exit 1; inventory then
+  restored from backup and re-verified against a recomputed hash. First attempt at this
+  control silently never ran (a failed `cp` short-circuited the `&&` chain and supplied the
+  exit 1 itself) — caught by noticing the missing MISMATCH output; lesson re-learned:
+  verify the mutation executed, not just the exit code.
+- Viewer integrity after the move: index page headless-checks clean, and two real loads
+  (hero mesh from `large/meshes/`, 701-frame timeline from `large/anim-B/`) reached
+  `__spikeReady` with no page errors (`out/gutcheck-gg-realism/check-moved-paths.mjs`).
+- Required local check: exact `TMPDIR=/private/tmp npm test` — exit 0, Rule 7 clean
+  (437 files), 81 test files, 1431 passed / 7 skipped (`out/gutcheck-gg-realism/npm-test-4.log`).
+
+Lanes in flight (registered 2026-08-04, after 11/13/15 harvested): Fig. 17 (800,800,96,
+cap 60k), Fig. 19 (800,800,96, cap 60k), Fig. 44 (600,600,96, cap 60k) — specs at
+`figs/spec-fig{17,19,44}.json`, logs `figs/fig{17,19,44}.log`, meshes/states writing to
+`large/figs/` per the inventory WP rule; Fig. 37 capped-column schedule still running.
+Remaining queue: none — final three lanes launched 2026-08-04 after the 17/19/44
+harvests: Fig. 14 v2 (1280,1280,96, cap 70k — the tall-domain rerun closing the last
+"Not reproduced"; planar sized past Run A's r=390 contact), and Figs. 32/33
+(600,600,96, cap 60k, two-stage drift schedules `figs/spec-fig{32,33}.json`, recorded
+as labeled canonical-seed approximations of the paper's tapered-seed runs). Fig. 38 launched
+2026-08-04 after the Fig. 37 harvest (320,320,512, cap 60k, two-stage spec
+`figs/spec-fig38.json` — Fig. 30 stage 1, thresholds-2.1 stage 2; same stage-1
+non-monotone `ggThreshBeta` warnings as Figs. 30/37, expected per the paper's vector).
+
+### Adversarial review round (2026-08-04) — pack/restore hardened
+
+Review provenance (Rule 10): a 21-agent workflow (Claude Fable 5 subagents, fresh contexts,
+no shared session with the author) reviewed both scripts and swept the repo for stale paths;
+each non-nit finding went to an independent refutation agent. Several verifiers re-executed
+the claims empirically on this host (Info-ZIP update-in-place, dotfile inclusion, symlink
+placement through the old restore). Not checked: Windows execution of either script (bsdtar
+semantics there are asserted from documentation only); pack/restore behavior under a
+concurrently mutating large/ tree (refuted as a practical concern for this workflow, still
+unguarded by design).
+
+Outcome: 14 findings confirmed, 4 refuted. All 14 fixed in the same session:
+
+- pack: fresh-archive rule (`rmSync` before `zip -r` — same-day re-pack can no longer
+  resurrect deleted files; control A), dotfile exclusion `-x '*/.*'` so zip contents equal
+  the hashed file set (control B), group validation before work, atomic temp+rename
+  inventory writes after hashing and after every archive, script-location-relative ROOT.
+- restore: fail-closed everywhere — missing/malformed inventory hard-aborts (control E);
+  the zip itself is hash-verified against the archives ledger before extraction (control D);
+  entry TYPES vetted via `tar -tvf`, non-regular entries (symlinks/FIFOs/devices) abort
+  before extraction (control C); destination read errors are ERROR, never treated as
+  absent (control G); UNVERIFIED now exits 1 (control H); per-entry error containment so
+  the summary always prints; EXDEV copy fallback; SIGINT/SIGTERM temp-dir cleanup;
+  completeness note listing inventory files missing from the archive (fires in control H).
+- docs: the dendrite-384 reproduction recipe and the animate-grow usage header now name
+  the post-migration `large/` paths.
+
+Controls A–H all executed with observed mutations and expected outcomes (transcript in the
+session; positive round trip re-verified after the rewrite: 21/21, exit 0). Required local
+check rerun after the fixes: exact `TMPDIR=/private/tmp npm test` — exit 0, Rule 7 clean
+(437 files), 81 test files, 1431 passed / 7 skipped (`out/gutcheck-gg-realism/npm-test-5.log`).
+
+### The machine transfer happened (2026-08-06) — restore's Windows gap closed
+
+The 2026-08-04 review left Windows execution unchecked. Executing it for the first time, on the
+Windows 11 target, broke restore twice before a single file was placed. Both were Windows-only
+and both are now fixed in `scripts/gutcheck-archive-restore.ts`:
+
+1. **Wrong tar.** `spawnSync("tar", ...)` takes whatever PATH offers. Under Git Bash / MSYS that
+   is GNU tar, which cannot read zip at all and reads the archive's drive letter as a remote host
+   (`tar -tf 'G:\...'` → "Cannot connect to G: resolve failed"). Restore now resolves
+   `%SystemRoot%\System32\tar.exe` — the bsdtar the script was always written against — explicitly
+   on win32, so it no longer depends on which shell invoked it.
+2. **CRLF listing output.** Windows bsdtar terminates listing lines with CRLF, so splitting on
+   `"\n"` left a trailing `\r` on every entry name. This failed *silently in the safe direction*
+   but totally: directory entries no longer ended in `/` and were classified as files, and every
+   extracted-path `lstat` missed. Symptom was all 22 entries of the 21-file anim-smoke group
+   reporting ERROR/ENOENT against paths that looked correct on screen (the CR is invisible).
+   Listing output is now split with a shared `splitLines` helper that strips the `\r`.
+
+Neither is a fail-open bug — the fail-closed design held, and the run exited 1 with nothing
+placed rather than placing anything unverified. `scripts/gutcheck-archive-pack.ts` is unaffected:
+it shells out to Info-ZIP `zip`, not tar.
+
+Full restore on the new machine after the fixes: all six groups, **1640/1640 files verified,
+30.71 GiB**, 0 mismatched / 0 unverified / 0 blocked / 0 errors, every archive hash checked
+against the ledger first, exit 0 for each group. Independent re-walk of the inventory confirms
+0 missing and 0 size mismatches. `npm ci` + `npm run typecheck` clean.
+
+One transfer-layout note: the zips arrived in `out/gutcheck-gg-realism/archive/` (singular).
+`EXTRAS_SKIP` in the pack script skips `archives/`, so a `--pack all` from that layout would have
+swept 10 GB of zips into the extras archive — the same trap recorded above for loose OUT-root
+bundles, through a different door. The directory was renamed to `archives/` to match.
+
+### The output index website was dead on the new machine too (2026-08-06)
+
+Restoring the artifacts was not enough to see them: `http://localhost:5173/gutcheck-index.html`
+rendered nothing here. Four separate hardcoded-POSIX/hardcoded-machine assumptions, none of
+which had ever been exercised off the author's Mac:
+
+1. **`name()` returned whole paths.** `gutcheck-build-index.ts` used `p.slice(p.lastIndexOf("/") + 1)`
+   over paths built with `node:path`'s `join()`. On Windows those are backslash-separated, so
+   `lastIndexOf("/")` was −1 and `name()` returned the entire path. Every `startsWith("side-by-side-")`
+   filter then matched nothing: sections 2–6 of the index would have been **empty**, silently.
+   All paths in the generator are now kept in forward-slash form.
+2. **`/@fs` URLs were malformed.** `FS = p => "/@fs" + p` concatenates correctly only because a
+   POSIX path starts with "/". On Windows it produced `/@fsG:\Code Files\...` — no separator,
+   backslashes, unencoded space. Now emits the real Vite form, `/@fs/G:/Code%20Files/...`, with
+   per-segment encoding (which also stops a `&`/`?`/`#` in a filename from splitting the query
+   string the viewer reads via `URLSearchParams`). Byte-identical output on POSIX paths.
+3. **The index page hardcoded the author's home directory.** `app/src/gutcheck-index.ts` fell back
+   to `/@fs/Users/clipper/github/snowflake-gutcheck-gg-realism/...` — the last `/Users/clipper`
+   reference in the repo, and unloadable in any other checkout. The dev server now mounts
+   `out/gutcheck-gg-realism/index.json` at a fixed `/gutcheck-index.json` (the `gutcheck-index-json`
+   plugin in `app/vite.config.ts`, `apply: "serve"`), so the page asks for a constant URL and the
+   repo location is resolved where it is actually known. Only the index needs this; the artifacts
+   it links stay on `/@fs`, whose handler already does mime and range (the mp4 needs range).
+4. **A 200 was treated as success.** The fallback chain tried `./data/index.json` first — which
+   exists only in a static bundle — and accepted it on `response.ok`. Under the dev server that
+   path hits the SPA fallback and returns **200 `text/html`**, so the loop stopped at the wrong
+   candidate and `response.json()` threw on HTML, leaving a blank page and never reaching the
+   second URL. Candidates are now also content-type checked. This one is platform-independent and
+   would have bitten a fresh macOS clone the same way.
+
+Verified end to end against a real dev server (Playwright, headless): index page renders all six
+sections, 191 cards, 9 viewer links, 0 page errors, 0 failed requests; the timeline viewer loads
+`manifest.json` plus frame binaries over the encoded `/@fs` path and draws frame 701/701 in
+`bold-ice`. `npm test` clean. The `site/` static bundle is still unbuilt here — it needs
+`large/anim-B-v2q/` regenerated first (see the cleanup note above).
+
+### Staged growth vs real crystals (2026-08-07) — the recorded blocker is gone
+
+The photo-target WP recorded Bentley 785 as **unmatchable**: "the photo's central sector
+medallion has no counterpart — it records a *changed-conditions* growth history (plate core,
+then branching), which constant-parameter G-G cannot produce. Matching such crystals properly
+needs the §XII schedule machinery (stage 2)." That machinery exists now (Figs. 17/32 use it),
+so the claim was testable.
+
+The mechanism is legible in Fig. 32's spec: the prism-slot `ggThresh` is the morphology dial —
+**2.25 attaches only on completed facets and grows flat plates; 1.15 attaches easily and
+branches.** Fig. 32 schedules plate→branch. Two attempts, same ρ/φ/κ throughout so only the
+schedule differs (`evidence/gutcheck-gg-realism/specs/bentley{785,872}.json`):
+
+| Attempt | Schedule | Result |
+|---|---|---|
+| `bentley785` | plate 2.25 until tick 14,000, then branch 1.15 | **Architecture reproduced.** A hexagonal plate core with six branching arms carrying leaf-shaped sidebranch plates — the medallion-plus-arms structure the plan called impossible. 500³, domain-contact at tick 24,338, 6.7 h. |
+| `bentley872` | inverted: branch 1.15 until 10,000, then plate 2.25 | **Directionally right, visually wrong.** Tips did facet into hexagonal plates (a constant-threshold fern never does), but they are ~10% of arm length against the photo's ~40%, and the arms are over-branched. 500³, domain-contact at 16,023, 2.9 h. |
+
+Honest limits on the 785 match: our plate core is smooth where Bentley's medallion carries
+radiating internal sector structure; our sidebranch leaves are narrower and the inter-arm space
+is emptier. Class and architecture match; fine detail does not. That is still a different
+verdict from the WP's original "no counterpart".
+
+Five 872 variants (`-v2`..`-v6`) walk switch time, arm threshold and plate threshold
+independently so the effect of each is attributable. Per maker direction every generation is
+kept whether or not it matches a photograph.
+
+### Sweep run 1 — halted, and what it taught (2026-08-07)
+
+The first animated sweep was stopped after ~6 h with **2 of 80** crystals finished. Four faults,
+all now fixed in the tooling rather than only written down.
+
+**1. Concurrency was sized off the wrong number, and the solver is bandwidth-bound.**
+`os.cpus()` reports 32 on this box; that is LOGICAL processors on a 16-core 5900XT. Running 23
+solvers against 16 physical cores measured:
+
+| concurrent | per run | aggregate |
+|---|---|---|
+| 2 | 1.55 ticks/s | 3.1 ticks/s |
+| 23 | 0.39 ticks/s | 9.9 ticks/s |
+
+12× the processes for 3.2× the throughput — the solver streams large 3-D arrays and saturates
+memory bandwidth well before it runs out of cores. The batch now defaults to `logical/4` and the
+measurement is in the comment so nobody "optimises" it back up. It also means the 2–3 h per
+crystal quoted earlier was a 2-concurrent figure applied to a 23-concurrent batch: the real
+number there was ~14 h, and the 80-crystal estimate should have been ~45 h, not 10–12.
+
+**2. There was no way to pause the queue without killing the work.** Asked to let in-flight runs
+finish and resume at lower occupancy, the scheduler was stopped by pid — and every solver died
+with it, losing 23 crystals at ~3.6 h each (~83 core-hours). The harness puts a background
+task's whole process tree in a job object, so both `TaskStop` and `Stop-Process` on the parent
+take the children. **Fix: a `STOP-BATCH` drain file.** Touch it and the scheduler stops starting
+new runs while in-flight ones finish, then exits clean.
+
+**3. A staged schedule that never fires produced a silent duplicate.** Both surviving crystals —
+`staged-branch1-to-plate3-at8000` and `-at12000` — stopped at **domain contact on tick 7438,
+before either switch**, so both are pure stage-1 branch-1.0 crystals with byte-identical
+geometry (343,045 verts, same bbox) and empty `stageTransitions`. Nothing in the output said so.
+`gutcheck-grow-params.ts` now warns loudly and records `unfiredTransitions`. Sweep design
+consequence: at threshold 1.0 and ρ 0.12 on a 500³ domain, contact arrives around tick 7.4k, so
+**switch ticks must sit below the contact tick for the parameters in play** — a third of the
+staged sweep as generated cannot fire.
+
+**4. `scripts/` is not typechecked.** The root tsconfig includes `core/`, `solver-*/`, `runner/`
+and `vitest.config.ts` — not `scripts/`. `npm run typecheck` has therefore never covered any of
+the growth or index tooling; a missing `join` import was caught only by running tsc against the
+file directly. Not changed here (it would surface findings across every script at once) but it
+should be.
+
+### Index usability pass (2026-08-06, maker-directed)
+
+Two maker asks once the index was reachable again.
+
+**Lightbox.** Gallery images used to be links to the raw file, so comparing figures meant
+open-tab / back / open-tab. A click now opens the image full-screen, any further click closes
+it, and ArrowLeft/ArrowRight page through *every* image on the page in document order (191 of
+them, wrapping at both ends) — Escape closes too. The `href` is left intact so ctrl/cmd/middle
+click still opens the raw file in a new tab, and neighbours are preloaded so paging these
+multi-MB renders does not flash. Behaviour is covered by a headless run: open, page forward and
+back, wrap past both ends, on-screen arrows that must *not* close, backdrop click, Escape,
+and a ctrl-click that must not open the lightbox or navigate.
+
+**Viewer link naming.** The eight interactive-viewer links were named look-first and the look
+names are internal recipe ids — "Run B — povray" tells you nothing about what opens, and the
+same crystal appeared as both "Run B (Fig. 4 plate)" and "Run B". They now read crystal-first
+with the look last (`Fig. 4 plate (Run B), final frame · povray`) and carry a visible second
+line glossing the look ("G-G Fig. 4 ray-trace target, backlit navy glow") plus the controls that
+apply. The `LOOKS` registry in `app/src/spike-gg-realism.ts` remains the source of truth for the
+recipes; the glosses are short restatements, as the mirror table above already is. The link row
+also became a grid — at two lines each, the old inline-block flow wrapped into a staircase.
+
+### "How many animations do I actually have?" — one (2026-08-06)
+
+The maker asked, looking at three "Growth timeline" entries. The answer is **one**: all three
+resolved to the same `large/anim-B/manifest.json` (701 frames, ticks 0→70,000, Run B) and
+differed only by `?look=`, which the viewer's own dropdown already switches in place.
+`large/anim-smoke/` is a 20-frame pipeline smoke test and was never linked; both mp4s are
+renders of that same Run B timeline. The naming pass above had made this *worse* — three rows
+that now differed only by a trailing look name read even more like three animations.
+
+Two corrections to record, because both were stated wrongly in session before being checked:
+
+- σ in `plate-1200-mesh-s045-h06.bin` / `-s0375-h06.bin` is the **mesh-extraction smoothing**,
+  not supersaturation, and both come from the same Run B checkpoint. They are not two runs.
+- The renamed labels had collapsed those two to the same text apart from the look, hiding the
+  σ difference the original labels at least gestured at. They now name σ explicitly.
+
+**Restructure — the index is now crystal-first.** The old shape (a viewer list, then a
+paper-figure gallery, then a photo gallery, with root composites repeated in a fourth section)
+answered "what images exist" but never "what do I actually have". Replaced by one
+**Crystal by crystal** table, three columns as the maker specified — *Comparison (ours vs
+target)*, *Interactive*, *Animation*.
+
+One row per crystal, not per image — grouping matters, because Run B alone has six comparisons
+and a row-per-image table would have shown the single animation six times over, recreating the
+exact illusion the question exposed. The header line counts it plainly: **36 crystals, 44
+side-by-side comparisons, 3 crystals that also open interactively, 1 with a growth animation.**
+Empty cells render as "—" so a gap reads as a real absence rather than a layout accident.
+
+**Every figure's model is now browsable (2026-08-06).** Maker asked whether a mesh exists per
+figure. It does — reproducing each paper figure left its mesh in `large/figs/`, 33 of them plus
+cell-true variants for Figs. 9-v2 and 16 — but the index exposed only **three**, because the
+viewer list was hardcoded from the era when three existed. The models had been sitting on disk
+unreachable from the site. The generator now **discovers** `fig<N>[-v<M>]-(mesh|cellmesh).bin`
+instead of listing them, so a newly harvested figure appears without editing code and the list
+cannot drift again. Interactive coverage went from 3 rows to **33 of 36**; the three without a
+model are Fig. 14 (a Run A comparison), Run C vs footage, and the 23.633 s frame grab.
+`-cellmesh` files open in `ggview` (only that style can draw the paper's prism/edge mode);
+surface meshes open in `glass`, switchable live from the look dropdown.
+
+The orphan guard added with the table earned itself immediately: **`fig20` has a mesh but no
+side-by-side** (only `fig20v2` was composited), so it lands in "Interactive views with no
+comparison image" rather than disappearing.
+
+Composites are grouped by a small ordered rule set (`crystalOf`) — `B-vs-*` and `style*-vs-*`
+are Run B, `fig4` maps onto Run B since Run B *is* the Fig. 4 plate, and anything with no cue
+groups under its own name so nothing is dropped for lacking a rule. A guard emits any
+interactive view whose crystal has no comparison image into its own section; empty today, it
+exists so a future mesh cannot silently vanish from the index. Rows sort richest-first, then by
+figure number, so the three crystals worth exploring sit at the top and the paper walkthrough
+order survives below.
+
+Verified headless: 36 rows, 44 thumbnails, 3 with interactive links, 1 with an animation link,
+column headings correct, lightbox still opens from inside a row, 0 page errors, 0 failed
+requests. `npm test` and `vite build` clean.
+
+### Tracked provenance relocated to evidence/; out/ is now fully disposable (2026-08-12)
+
+Maker directive during the mac-host cleanup: nothing tracked may live under `out/`. The 228
+tracked files (README, `specs/`, `dialin/`, the 93 gen + 35 fig `*-record.json`, and
+`tracked/inventory.json`) moved by `git mv` to **`evidence/gutcheck-gg-realism/`** —
+`gen-records/`, `fig-records/`, and `large-artifact-inventory.json` are the renamed forms —
+and are now pinned in `evidence/MANIFEST.json` like every other evidence artifact; the two
+root control manifests are intentionally not self-pinned (the no-stray test enforces this).
+`scripts/gutcheck-evidence-lib.ts` re-pins the gut-check subtree; the high-level writers
+(`gutcheck-grow-batch.mjs` per record, `gutcheck-sweep-specs.mjs` per new spec,
+`gutcheck-archive-pack.ts` per inventory rewrite) call it so an operator never has to
+remember in those workflows. Direct or hand writes require `npm run evidence:pin`. The
+`.gitignore` negation block is retired: bare `out/**`, no exceptions.
+
+In the same session the macOS path became NAS-served: the extras pack was unpacked loose on
+the share (composites/style heroes/videos/photos stream via `/nas/`; ledgered per-file), the
+index builder scans local + share merged (local wins), and the mac's local copies plus the
+pre-Phase-6 `out/` scratch were verified against the share and deleted (`docs/nas-ledger.md`
+moves rows, 2026-08-12). A real macOS empty-`out/` worktree built the complete index with
+`node scripts/gutcheck-build-index.ts` — records from git, bulk from the share — with the
+measured result 7 sections / 149 items, all bulk URLs `/nas/`, zero `/@fs`. The emitted URL
+is mount-agnostic by construction, but the current Windows `S:/` path has not been executed;
+do not treat the macOS measurement as a Windows streaming result.
+
+Not done here: `scripts/gutcheck-build-site.ts` still reads the local tree only and silently
+omits the growth timeline when `large/anim-B-v2q/` is not restored locally (recorded in
+`docs/nas-ledger.md`; restore the mirror before building a timeline-bearing bundle).
+
+**Process deviation (Rules 2/3), recorded rather than repaired:** this relocation was
+executed directly on a mid-session maker directive; the plan entry above and the PROGRESS
+section were written AFTER implementation, not committed first. Retroactive plan-writing
+cannot be undone — it is named here as a deviation so it does not read as the process
+working.
+
+### Review record for the relocation (Rule 10) — opened 2026-08-12
+
+- **Original developer:** Claude Fable 5 (`claude-fable-5[1m]`). **Pre-repair reviewers:**
+  OpenAI Codex GPT-5 subagents, non-authors of the original implementation but forked from
+  and sharing the coordinator task context. This was independent code/fixture execution,
+  not a context-blind review; the earlier “model undisclosed / no shared context” statement
+  was false and is superseded by this record.
+- **Rounds 1–2:** reviewers reproduced the workpack import failure, sparse-ledger erasure,
+  `/nas` and restore symlink escapes, broken `--pack meshes`, malformed-ledger overwrite,
+  resume-on-completion-only behavior, and serial-not-concurrent lock test. The original
+  developer's subsequent full-suite logs were inspected; they were producer-owned runs,
+  not reviewer reruns.
+- **Round 3 (changes requested):** exact run/timeline identity was still filename-only;
+  zero-job startup pin repair was unreachable; same-size/same-mtime bytes and new local
+  files were silently adopted; restore authenticated only member count; lock release could
+  delete an ownerless replacement and its overlap test remained vacuous. The Rule 10 record
+  also misattributed producer suite runs and fixture reproductions to the reviewer.
+- **Independently re-executed before the Round 3 repair:** Rule 7; focused hardening,
+  evidence-integrity and PROGRESS tests; manifest and NAS-ledger recomputation; isolated
+  workpack/archive/resume/lock attack fixtures; and a macOS live `/nas` route/browser check.
+  No reviewer ran exact full `npm test`; the 1,679/7 and 1,687/7 full-suite artifacts were
+  inspected developer outputs.
+- **Limits of the pre-repair review:** no Windows `S:/` execution, Windows suite, full
+  22,498-file NAS content re-hash, scratch-zip replay, semantic audit of all 227 moved JSON
+  blobs, or commit. `gutcheck-build-site.ts` remains local-only; the portable restore's final
+  validation-to-rename window remains within the documented trusted single-user boundary.
+
+### Round 3 repair plan — 2026-08-13
+
+- **Status:** implementation, producer verification, and closing review complete; the exact
+  reviewed implementation landed as `ffb3a5e` on 2026-08-14.
+- **Round-3 developer:** OpenAI Codex GPT-5 coordinator. Forked, shared-context Codex subagents
+  performed adversarial audits; scoped documentation and regression-test edits from two of
+  them were incorporated. This is not a context-blind or different-session review.
+- **Goal:** make archive verification byte-authentic, bind archive restore and grow resume
+  to their declared identities, close the manifest-lock ownership/recovery seams, and make
+  the operational prose match the measured platform and artifact boundaries.
+- **Approach:** first add adversarial controls that reproduce the accepted findings, then
+  repair the smallest shared primitives and their callers; re-pin evidence after the final
+  prose/code state; run focused tests followed by exact `TMPDIR=/private/tmp npm test`.
+- **Implemented controls:** workpacks carry their helper and keep results local; resume binds
+  record plus timeline/frame bytes to a canonical full invocation; manifest and archive-ledger
+  publication are locked and atomic; pack hashes both sources and ZIP payloads, preserves sparse
+  ledgers, rejects unsafe roots/portable aliases, and never clobbers a content-addressed archive;
+  restore authenticates group/count/member identity before safe placement; `/nas` uses realpath
+  plus descriptor identity, closes aborted/HEAD reads, and the Vite `/@fs` NAS bypass is removed.
+- **Implementation audit:** a shared-context non-author Codex subagent independently ran the
+  58-test hardening file, typecheck, Rule 7 and diff checks; reproduced the root-symlink and
+  no-clobber controls; exercised two-process locking; and live-checked macOS `/nas`, `/@fs`,
+  HEAD and range behavior. It found no remaining actionable archive/NAS defect. This does not
+  replace the different-session closing review below.
+- **Producer verification:** the Codex coordinator ran exact
+  `TMPDIR=/private/tmp npm test` on the fully staged implementation bytes: exit 0, 98/98 test
+  files, 1,722 passed / 7 skipped, 407.08 s. Producer-owned log:
+  `out/checks/npm-test-round3-codex.log`, SHA-256
+  `55157d065f5a3c42ee085c110131bd5e5c7478ed8a83057d4e2f0e0146dedb07`. This result is not
+  attributed to a reviewer; this prose-only record was added afterward and receives Rule 7
+  plus the focused PROGRESS/evidence checks.
+- **Done when:** same-size/same-mtime corruption and unledgered files fail verification;
+  archive member substitution fails before extraction; stale run/timeline configurations
+  do not resume as complete; a zero-job batch repairs missing pins; lock tests fail without
+  serialization and no holder removes a replacement lock; Rule 7, evidence integrity, and
+  the exact full suite pass on the final staged bytes.
+- **Deliberately not done:** hostile concurrent filesystem mutation remains outside the
+  documented single-user TOCTOU threat boundary; Windows `S:/` execution and the static
+  bundle's local-only bulk reads remain measured limits, not silently upgraded claims.
+
+### Closing review — APPROVED 2026-08-14
+
+- **Verdict and frozen boundary:** APPROVED with zero blockers. Claude Fable 5 reviewed the
+  exact 254-path staged snapshot at `eab93fb`; its binary-diff SHA-256 was
+  `559d8d4c603b44746cdb228f768aa78db1bab77db79d6896876bce8dd56d4ae3` before and after
+  review. Those bytes then landed unchanged as implementation commit `ffb3a5e`; this closing
+  record is a separate prose-only change.
+- **Reviewer provenance (Rule 10):** Claude Fable 5 (`claude-fable-5[1m]`, Anthropic) ran in
+  the same session that authored the original relocation and Round 1/2 fixes. It was a
+  different-model, different-author reviewer of the Round 3 repair layer authored by OpenAI
+  Codex GPT-5, with no shared Round 3 implementation context beyond repository bytes. Surviving
+  Round 1/2 layers retain the explicitly acknowledged partial self-review taint.
+- **Independently re-executed:** frozen diff/status/HANDOFF checks; the hardening,
+  evidence-integrity, and PROGRESS tests (72/72); resume identity probes; workpack, archive,
+  restore, and lock controls; and live macOS `/nas` GET, HEAD, range, escape, method, and
+  `/@fs`-bypass probes. The reviewer also ran exact `TMPDIR=/private/tmp npm test`: exit 0,
+  Rule 7 clean over 878 files, 98/98 test files, 1,722 passed / 7 skipped, 403.01 s.
+  Reviewer-owned log: `out/checks/npm-test-round3-review.log`, SHA-256
+  `2a90d0d5dcd1f76bbd76acaeda52d6810f8f0b693e4cec77b1a47c78c1db11d3`.
+- **Evidence limits:** no Windows `S:/` execution, Windows suite, or Windows lock-semantics
+  run; no SMB-detachment probe, full 22,498-file NAS content re-hash, multi-gigabyte archive
+  replay, or semantic audit of the 227 moved JSON payloads. The static bundle remains
+  local-only, and hostile concurrent filesystem mutation remains outside the documented
+  trusted single-user TOCTOU boundary.
+- **Deferred low findings (do not reopen `ffb3a5e`):** `app/vite.config.ts` retains a stale
+  header comment describing artifact URLs as `/@fs` instead of `/nas`; and bare
+  `gutcheck-grow-batch.mjs --dry-run` defaults to extraction spacing 0.6, so it reports 93
+  jobs against the spacing-0.8 published corpus (explicit `--spacing 0.8` reports six genuine
+  invocation mismatches). On the next relevant touch, correct the comment and add safe resume
+  guidance or a diagnostic; dry-run's three empty ignored directories are cosmetic.

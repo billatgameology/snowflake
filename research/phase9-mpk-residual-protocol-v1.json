@@ -1,0 +1,141 @@
+{
+  "schema": "phase9-mpk-residual-protocol-v1",
+  "protocolId": "phase9-mpk-residual-source-replay-foundation-v1",
+  "state": {
+    "protocol": "pre-score-eligibility-and-refusal-only",
+    "developmentOnly": true,
+    "sourceDataScoreProduced": false,
+    "modelScoreProduced": false,
+    "surfaceKineticsResidualProduced": false,
+    "threeDimensionalReplayExecuted": false,
+    "promotionAuthorized": false,
+    "grantsValidationClaim": false
+  },
+  "question": "Can the exact four Libbrecht 2016 one-bar supported dimension series be prepared for later source replay without inventing the transport-separated surface residual that the current evidence and implementation do not identify?",
+  "upstreamBindings": {
+    "s0bShelfFreeze": {
+      "path": "evidence/phase9-source-overlay-v1/shelf-freeze.json",
+      "byteLength": 63975,
+      "sha256": "b0bbab2e01eca61dfb2b807bda3614aaf803e5fd0457f2df02aa3e4b8c5d1a06"
+    },
+    "s1AdapterRegistry": {
+      "path": "research/phase9-adapter-registry-v1.jsonl",
+      "byteLength": 48946,
+      "sha256": "498e85471766294d812b3ef9d747381e92eb476e8a9b40a3f34f855b53e46337"
+    },
+    "phase8Successor": {
+      "path": "evidence/phase8b-benchmark-final-v1/successor-target-book.jsonl",
+      "byteLength": 36094,
+      "sha256": "c54b89683eea1f064bd8e81d6e9e06b3b9bbc6c022168b981cbfa71e5fc3cdd3"
+    },
+    "phase8PlotMetadata": {
+      "path": "evidence/phase8b-plot-digitization-v3/records.jsonl",
+      "byteLength": 32617,
+      "sha256": "3b22753b246e1ddd026daa8fe8eaab170971c71ef7d9fb63e0d25c8ad91547c8"
+    },
+    "mgpProtocol": {
+      "path": "research/phase9-mgp-intake-protocol-v1.json",
+      "byteLength": 13701,
+      "sha256": "9a9c654e0d6ab776620d058e5a060203141038938ed560ad1caf62c23545a3f6"
+    },
+    "mgpRegistry": {
+      "path": "research/phase9-mgp-development-registry-v1.jsonl",
+      "byteLength": 40805,
+      "sha256": "4332a287a003dc587d7380ad59245d9927d89a98e4108af71700f8192167ed9a"
+    },
+    "mfProtocol": {
+      "path": "research/phase9-mf-mk2-protocol-v1.json",
+      "byteLength": 33473,
+      "sha256": "e061d63974b68a5df0e371569cde00dfe482be5949f6d277a34199647c392dcc"
+    }
+  },
+  "sourceBinding": {
+    "sourceRecordId": "P8B-S2R0-909CDB8504D9CFC72F703634",
+    "citation": "Kenneth G. Libbrecht (2016), The Effect of Background Gas on Snow Crystal Growth Dynamics: Observations and Theory, arXiv:1602.08528v1",
+    "shareRelativePath": "research-cache/phase8b-search/acquired-sources-20260811-v1/libbrecht-2016-background-gas.pdf",
+    "byteLength": 615251,
+    "pageCount": 14,
+    "sha256": "909cdb8504d9cfc72f70363436e5c796b99c7e107cab4331051e446255fc8ed4",
+    "loadBearingPages": [5, 7],
+    "visualAudit": {
+      "method": "reused Phase 8B page-complete visual audit",
+      "auditPath": "evidence/phase8b-s2-round0-reconnaissance/modern-batch.md",
+      "auditSha256": "2da939a1be314d109cf1205a758518a1b95577fed58b041bac33ad910841362b",
+      "inspectedPages": 14,
+      "finding": "Figures 3 and 4 provide two supported one-bar specimens with separate height and radius series; height uses source-subtracted arbitrary constants, and model curves are excluded."
+    },
+    "currency": {
+      "currentVersion": "arXiv 1602.08528v1 captured",
+      "correction": "supersedes the 2013 pressure-invariant surface-kinetics interpretation without retracting the raw observations",
+      "laterAuthorOutput": "checked through 2026-08-12",
+      "nativeData": "no public native trajectory data found",
+      "supplement": "no supplement found"
+    }
+  },
+  "seriesRoster": [
+    {
+      "selectionId": "P8B-P1-L16-F3-H",
+      "axis": "height",
+      "sourceLocator": "pdf-page:5;Figure 3",
+      "airPressureBar": 1,
+      "temperatureC": -5,
+      "support": "substrate-grown needle",
+      "rowCount": 18,
+      "rowArtifact": {"path": "rows/P8B-P1-L16-F3-H.jsonl", "byteLength": 28912, "sha256": "7e13eccd708eac7355b3d06ab0990915517fb85d2a9b7d3da11badbdcd00b221"},
+      "heightOffsetPolicy": "source-subtracted-arbitrary-constant-preserved"
+    },
+    {
+      "selectionId": "P8B-P1-L16-F3-R",
+      "axis": "radius",
+      "sourceLocator": "pdf-page:5;Figure 3",
+      "airPressureBar": 1,
+      "temperatureC": -5,
+      "support": "substrate-grown needle",
+      "rowCount": 18,
+      "rowArtifact": {"path": "rows/P8B-P1-L16-F3-R.jsonl", "byteLength": 29598, "sha256": "35b3393f05dcea6ff3a17b214c0a6c3218417496294d0f3aa4fc20da7408b0de"},
+      "heightOffsetPolicy": "not-applicable"
+    },
+    {
+      "selectionId": "P8B-P1-L16-F4-H",
+      "axis": "height",
+      "sourceLocator": "pdf-page:7;Figure 4;top panel",
+      "airPressureBar": 1,
+      "temperatureC": -5,
+      "support": "substrate-grown needle",
+      "rowCount": 21,
+      "rowArtifact": {"path": "rows/P8B-P1-L16-F4-H.jsonl", "byteLength": 34175, "sha256": "e59bd13c4738795b164609d5d5fd7cc3e8fd00589f54337758f0777f9ad51c52"},
+      "heightOffsetPolicy": "source-subtracted-arbitrary-constant-preserved"
+    },
+    {
+      "selectionId": "P8B-P1-L16-F4-R",
+      "axis": "radius",
+      "sourceLocator": "pdf-page:7;Figure 4;bottom panel",
+      "airPressureBar": 1,
+      "temperatureC": -5,
+      "support": "substrate-grown needle",
+      "rowCount": 21,
+      "rowArtifact": {"path": "rows/P8B-P1-L16-F4-R.jsonl", "byteLength": 34952, "sha256": "d07c1de41c54209890cbbbf5c722e0ec293dd32627972800fc0f2f7676887221"},
+      "heightOffsetPolicy": "not-applicable"
+    }
+  ],
+  "mgpConstraint": {
+    "recordCount": 26,
+    "registryClasses": {"numericDigitizationCandidates": 14, "categoricalImageConstraints": 7, "printedNumericTranscriptions": 2, "numericExtractionRefusals": 1, "sourceDerivedExclusions": 2},
+    "coordinatesAuthorized": 0,
+    "meaning": "Every frozen gas/pressure observation remains an aggregate transport-confounded development constraint; none identifies a surface-kinetics residual or authorizes cross-pressure numeric scoring."
+  },
+  "conditionMapping": {
+    "represented": ["exact source row identity", "one-bar air", "minus five Celsius", "individual supported needle", "source plot time", "separate plotted height or radius", "digitization intervals"],
+    "unrepresented": ["substrate boundary transfer", "needle support heat path", "asymmetric vapor transfer", "facet-local supersaturation history", "surface temperature history", "three-dimensional evolving geometry", "matched cross-pressure intervention"]
+  },
+  "refusals": [
+    {"code": "SURFACE_KINETICS_RESIDUAL_NOT_IDENTIFIED", "meaning": "No residual is computed because transport, support, geometry, and source inversion are not separated."},
+    {"code": "ARBITRARY_HEIGHT_OFFSET_MUST_BE_PRESERVED", "meaning": "Height ordinates retain the source-subtracted arbitrary constants; no absolute height, re-zeroing, or fitted offset is authorized."},
+    {"code": "SUBSTRATE_ASYMMETRIC_TRANSFER_NOT_IMPLEMENTED", "meaning": "The present solver foundation does not represent the source support and asymmetric transfer."},
+    {"code": "CROSS_PRESSURE_NUMERIC_SCORE_FORBIDDEN", "meaning": "One-bar Libbrecht rows and unmatched M-GP gas/pressure observations are not pooled into a numeric pressure score."},
+    {"code": "THREE_DIMENSIONAL_REPLAY_NOT_AUTHORIZED", "meaning": "No solver-heavy 3-D replay runs on the Mac or Phase 6 host."},
+    {"code": "PROMOTION_NOT_AUTHORIZED", "meaning": "Preparation cannot promote M-PK; a separate transport-separated protocol and clean source are required."},
+    {"code": "VALIDATION_NOT_AUTHORIZED", "meaning": "All inputs and outputs are model-development evidence and grant no validation claim."}
+  ],
+  "stopRule": "Stop after exact source-row verification and preparation summaries for all four series. Produce no residual, source-data score, model score, fitted offset, 3-D replay, ranking, or evidence publication."
+}

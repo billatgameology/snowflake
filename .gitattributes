@@ -30,6 +30,7 @@ docs/progress-history-through-2026-08-02.md -text whitespace=-trailing-space
 
 # The live source audit and exact rejected V4/V4.x history must survive Windows checkout byte-exact.
 research/phase6-source-currency.md -text
+docs/libbrecht-parameters.md -text
 research/rejected/phase6-wp1-v4x/phase6-source-currency-v4x-rejected.md -text
 research/rejected/phase6-wp1-v4x/phase6-wp1-independence-operands.json -text
 research/rejected/phase6-wp1-v4x/phase6-wp1-review-findings.json -text
@@ -40,3 +41,29 @@ research/rejected/phase6-wp1-v4x/phase6-wp1-search-registry.json -text
 # (WP1 non-author review hardening 3, 2026-08-06).
 research/phase6-heldout-candidate-lock.json -text
 research/nakaya-morphology-diagram.md -text
+
+# Phase 8 freezes raw-byte identities for the target book, its report, every cited extraction
+# index, the extended historical dataset, and the registered derived-observable implementation.
+# Keep those exact bytes reproducible on Windows checkouts as well as this macOS review host.
+.gitattributes -text
+research/phase8-target-book.jsonl -text
+research/phase8-target-book.md -text
+research/lab-validation-dataset.jsonl -text
+research/libbrecht-papers-extracts.md -text
+research/takahashi-fukuta-1988.md -text
+research/takahashi-1991.md -text
+research/nelson-1998.md -text
+research/bailey-hallett-2002.md -text
+research/bacon-baker-swanson-2003.md -text
+research/harrison-2016.md -text
+research/pokrifka-2020.md -text
+research/harrington-pokrifka-2026.md -text
+core/src/target-observables.ts -text
+core/src/index.ts -text
+core/test/target-observables.test.ts -text
+docs/target-book-observables.md -text
+runner/src/phase8-target-book.ts -text
+runner/src/gate4-evidence.ts -text
+runner/src/phase8-freeze.ts -text
+runner/src/phase8-verify.ts -text
+runner/test/phase8-target-book.test.ts -text

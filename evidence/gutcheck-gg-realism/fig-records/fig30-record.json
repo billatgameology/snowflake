@@ -1,0 +1,58 @@
+{
+ "label": "Fig. 30",
+ "spec": {
+  "label": "Fig. 30",
+  "rho": 0.1,
+  "phi": 0,
+  "ggThreshTable": {
+   "10": 2,
+   "11": 0.5,
+   "20": 2,
+   "21": 0.5,
+   "30": 0.5,
+   "31": 1,
+   "01": 1
+  },
+  "kappa": {
+   "default": 0.1,
+   "overrides": {}
+  },
+  "mu": {
+   "default": 0.01,
+   "overrides": {}
+  }
+ },
+ "dims": {
+  "nx": 128,
+  "ny": 128,
+  "nz": 768
+ },
+ "domain": "hexPrism",
+ "seed": 1,
+ "noise": 0,
+ "tickCap": 30000,
+ "stopReason": "far-field",
+ "tick": 25000,
+ "attachedCount": 329133,
+ "farFieldMean": 0.06663896024085719,
+ "mesh": {
+  "path": "out/gutcheck-gg-realism/figs/fig30-mesh.bin",
+  "vertexCount": 252754,
+  "triangleCount": 505756,
+  "bboxCartesian": {
+   "xMin": 72,
+   "xMax": 120,
+   "yMin": 34.64101615137754,
+   "yMax": 76.2102355330306,
+   "zMin": 241,
+   "zMax": 527
+  },
+  "extraction": {
+   "spacing": 0.6,
+   "sigma": 0.45,
+   "normalDelta": 3
+  }
+ },
+ "elapsedSeconds": 2560,
+ "evidenceStatus": "unvalidated eyeball exploration; no gate semantics"
+}

@@ -60,6 +60,7 @@ import {
   phase6Arm2ProtocolManifest,
   phase6Arm2ScoreHabit,
   phase6Arm2ValuesManifest,
+  PHASE6_ARM2_BISTABLE_TEMPERATURES_C,
 } from "../src/phase6-arm2-protocol.ts";
 import {
   PHASE6_FREEZE_LIST,
@@ -464,5 +465,11 @@ describe("preflight refuses arm 3 by name until the stage-2 freeze commit lands"
     expect(PHASE6_ARM2_FREEZE_COMMIT).toMatch(/^[0-9a-f]{40}$/);
     expect(PHASE6_ARM3_FREEZE_COMMIT).not.toBe(PHASE6_ARM1.freezeCommit);
     expect(PHASE6_ARM3_FREEZE_COMMIT).not.toBe(PHASE6_ARM2_FREEZE_COMMIT);
+  });
+  it("pins the bistable band arm 3 inherits through the shared scorers (review H1)", () => {
+    // Arm 3's gated manifest deliberately omits bistableTemperaturesC (the ablation removes the
+    // dips those temperatures bracket), so its headlineTotal scope rides on arm 2's constant.
+    // Pin the value literally so an edit to it cannot move arm-3 scope without failing here.
+    expect([...PHASE6_ARM2_BISTABLE_TEMPERATURES_C]).toEqual([-4, -5, -6]);
   });
 });

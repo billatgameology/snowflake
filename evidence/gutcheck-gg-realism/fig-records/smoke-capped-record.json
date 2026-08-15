@@ -1,0 +1,91 @@
+{
+ "label": "smoke capped column (Fig. 37 schedule, small)",
+ "spec": {
+  "label": "smoke capped column (Fig. 37 schedule, small)",
+  "stages": [
+   {
+    "untilTick": 4000,
+    "rho": 0.1,
+    "phi": 0,
+    "ggThreshTable": {
+     "10": 2,
+     "11": 0.5,
+     "20": 2,
+     "21": 0.5,
+     "30": 0.5,
+     "31": 1,
+     "01": 1
+    },
+    "kappa": {
+     "default": 0.1,
+     "overrides": {}
+    },
+    "mu": {
+     "default": 0.01,
+     "overrides": {}
+    }
+   },
+   {
+    "untilTick": null,
+    "rho": 0.1,
+    "phi": 0,
+    "ggThreshTable": {
+     "10": 2.4,
+     "11": 2.4,
+     "20": 2.4,
+     "21": 1,
+     "30": 1,
+     "31": 1,
+     "01": 5
+    },
+    "kappa": {
+     "default": 0.1,
+     "overrides": {}
+    },
+    "mu": {
+     "default": 0.001,
+     "overrides": {}
+    }
+   }
+  ]
+ },
+ "stageTransitions": [
+  {
+   "tick": 4000,
+   "stage": 2
+  }
+ ],
+ "dims": {
+  "nx": 80,
+  "ny": 80,
+  "nz": 160
+ },
+ "domain": "hexPrism",
+ "seed": 1,
+ "noise": 0,
+ "tickCap": 12000,
+ "stopReason": "far-field",
+ "tick": 5075,
+ "attachedCount": 23349,
+ "farFieldMean": 0.06639594866898582,
+ "mesh": {
+  "path": "out/gutcheck-gg-realism/figs/smoke-capped-mesh.bin",
+  "vertexCount": 28208,
+  "triangleCount": 56412,
+  "bboxCartesian": {
+   "xMin": 47,
+   "xMax": 73,
+   "yMin": 23.38268590217984,
+   "yMax": 45.89934640057525,
+   "zMin": 42,
+   "zMax": 118
+  },
+  "extraction": {
+   "spacing": 0.6,
+   "sigma": 0.45,
+   "normalDelta": 3
+  }
+ },
+ "elapsedSeconds": 38,
+ "evidenceStatus": "unvalidated eyeball exploration; no gate semantics"
+}

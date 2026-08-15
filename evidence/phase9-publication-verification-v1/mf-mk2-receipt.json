@@ -1,0 +1,126 @@
+{
+  "schema": "phase9-independent-verification-receipt-v1",
+  "receiptId": "phase9-mf-mk2-v1-independent-verification-2026-08-13",
+  "subject": {
+    "kind": "phase9-mf-mk2-planar-diagnostic",
+    "bundlePath": "evidence/phase9-mf-mk2-planar-diagnostic-v1",
+    "artifactIndex": {
+      "bytes": 627,
+      "sha256": "4dc80469b8f30e767bb581653444ec0b7548536caa1c29a1c25c697041cb2c8a"
+    },
+    "report": {
+      "bytes": 1441,
+      "sha256": "c938c02460402e19f41c62b975ac41b44861af4ee36c781dbb469c350288bdf7"
+    },
+    "bundleFiles": {
+      "launch-manifest.json": {
+        "bytes": 8942,
+        "sha256": "58585b83c5a8bef49468acdaa1c3702d86c8cc6e5c429b07522bc2e29e5c7ad0"
+      },
+      "mapping-decisions.jsonl": {
+        "bytes": 13839,
+        "sha256": "af7900a979441ed42a9def1c55a9ed51ee5f2fc341038a27934ae3e161e6be04"
+      },
+      "series-scores.jsonl": {
+        "bytes": 28679,
+        "sha256": "f7518ccf367d2de4382a443e9e0a7179595c97fd1fb12383cd3c2b41206d944c"
+      }
+    },
+    "immutableProducerState": {
+      "field": "status",
+      "value": "candidate-awaiting-independent-verification",
+      "meaning": "The producer does not self-attest. The field remains immutable after a sibling verifier pass."
+    }
+  },
+  "execution": {
+    "executedOnLocalDate": "2026-08-13",
+    "exactTimestampStatus": "not-captured",
+    "timezone": "America/Los_Angeles",
+    "repositoryHead": "8a1d0519160d34eef4634d7c3306cf34e1b62de0",
+    "trackedStatusAtLaunch": "clean",
+    "argv": [
+      "node",
+      "runner/src/phase9-mf-mk2-publication-verify.ts",
+      "--input",
+      "evidence/phase9-mf-mk2-planar-diagnostic-v1",
+      "--repo-root",
+      "."
+    ],
+    "displayCommand": "node runner/src/phase9-mf-mk2-publication-verify.ts --input evidence/phase9-mf-mk2-planar-diagnostic-v1 --repo-root .",
+    "runtime": {
+      "node": "v24.13.1",
+      "v8": "13.6.233.17-node.40",
+      "platform": "darwin",
+      "architecture": "arm64"
+    },
+    "exitCode": 0,
+    "signal": null,
+    "stdout": {
+      "path": "mf-mk2-verifier-stdout.json",
+      "bytes": 1522,
+      "sha256": "76b43692fa1f9076ef6c4bd64883ec3c0b274c86363f8ae6c20fd48b8f60b856"
+    },
+    "stderr": {
+      "preservedPath": null,
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  },
+  "boundVerifierInputs": {
+    "verifier": {
+      "path": "runner/src/phase9-mf-mk2-publication-verify.ts",
+      "bytes": 52009,
+      "sha256": "ae04dc7db30d5987b68c9b69a2cb44d5231b3e8e99550be4472565c1f2b4f3af"
+    },
+    "launchAuthorization": {
+      "path": "research/phase9-mf-mk2-launch-v1.json",
+      "bytes": 3306,
+      "sha256": "91306a29d3f6b04cd25f7daed3983fd2c1400db5b44a0827fb8dc381b1789707"
+    },
+    "nasResolver": {
+      "path": "runner/src/phase9-nas.ts",
+      "bytes": 4500,
+      "sha256": "98e3fb5e36f684c51712b04cac7022f81074ab55ca912e35e3af9171a15f563c"
+    }
+  },
+  "verificationResult": {
+    "ok": true,
+    "checkedArtifacts": 5,
+    "sourceSeries": 6,
+    "sourcePoints": 96,
+    "diagnosticMappings": 5,
+    "seriesScoreRecords": 90,
+    "scoredDiagnosticRecords": 80,
+    "explicitMinusThirtyRefusals": 10,
+    "mappingsMeetingDiagnosticEffect": 2,
+    "verdict": "diagnostic-mapping-dependent",
+    "physicalScore": "unavailable",
+    "promotionAvailable": false,
+    "grantsValidationClaim": false,
+    "negativeControls": {
+      "expected": 9,
+      "mutationExecuted": 9,
+      "rejected": 9
+    }
+  },
+  "compositeState": {
+    "value": "independently-verified-development-result",
+    "derivation": "immutable producer candidate plus this exact-byte sibling-verifier pass",
+    "rewritesProducerBytes": false,
+    "transferRule": "Any subject, verifier, launch-authorization, or NAS-resolver identity change makes this receipt non-transferable."
+  },
+  "reviewProvenance": {
+    "executor": "OpenAI Codex, GPT-5 family; exact serving snapshot not exposed",
+    "sharedContextWithDeveloper": true,
+    "role": "non-author read-only verifier re-executor",
+    "independentlyReexecuted": "The sibling verifier reconstructed all five artifacts from the bound source rows and executed all nine named controls."
+  },
+  "limits": [
+    "development evidence only; this receipt grants no validation label",
+    "the physical apparatus-to-surface forcing map remains source-blocked",
+    "the prediction uncertainty remains incomplete",
+    "no morphology interpretation or promotion follows",
+    "the source PDFs were not visually re-audited in this re-execution",
+    "the exact full repository suite was not part of this verifier command"
+  ]
+}

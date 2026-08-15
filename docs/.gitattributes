@@ -1,0 +1,5 @@
+# Phase 9's permanent-control readiness protocol pins the raw bytes of these two specs (see
+# research/.gitattributes for why these rules cannot live in the root file: the Phase 8 freeze
+# pins the root file's exact bytes).
+attachment-kinetics.md -text
+gg-machinery.md -text

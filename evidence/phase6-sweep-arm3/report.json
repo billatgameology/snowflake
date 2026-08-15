@@ -1,0 +1,64 @@
+{
+ "arm": "arm3-no-dip-ablation",
+ "paramSet": "M1_NO_DIP_ABLATION",
+ "valuesSha256": "297927daeb2ef5a864162191444666c7fda5ced70e78312abbe28af1622db92e",
+ "justificationSha256": "7d01d251c98d7663b215daeb47bb39baec1f070e4c7edd7eac86f4f9d63803a2",
+ "protocolSha256": "79c71a54911360a799f2b85d64fd9ec9fb89e9c5f0f013e7a1aec12ded7cd231",
+ "head": "6340429f750f2f619383233d063e36998440e209",
+ "headlineAgree": 5,
+ "headlineTotal": 78,
+ "headlineAgreeCommonDenominator": 5,
+ "headlineTotalCommonDenominator": 90,
+ "neutralCount": 155,
+ "excludedCount": 0,
+ "extentFragileCount": 24,
+ "perRegime": [
+  {
+   "regime": "plates-warm",
+   "inHeadline": true,
+   "agree": 5,
+   "disagree": 1,
+   "excluded": 0,
+   "neutralCount": 1,
+   "extentFragile": 1
+  },
+  {
+   "regime": "columns",
+   "inHeadline": true,
+   "agree": 0,
+   "disagree": 12,
+   "excluded": 0,
+   "neutralCount": 12,
+   "extentFragile": 0
+  },
+  {
+   "regime": "plates-cold",
+   "inHeadline": true,
+   "agree": 0,
+   "disagree": 60,
+   "excluded": 0,
+   "neutralCount": 58,
+   "extentFragile": 2
+  },
+  {
+   "regime": "columns-and-plates",
+   "inHeadline": false,
+   "agree": 24,
+   "disagree": 54,
+   "excluded": 0,
+   "neutralCount": 54,
+   "extentFragile": 9
+  }
+ ],
+ "bistable": {
+  "temperaturesC": [
+   -4,
+   -5,
+   -6
+  ],
+  "points": 18,
+  "agree": 11,
+  "neutralCount": 7
+ },
+ "excludedPoints": []
+}

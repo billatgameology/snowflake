@@ -1,0 +1,105 @@
+{
+  "schema": "phase9-mh-msr-protocol-v1",
+  "protocolId": "phase9-mh-msr-prescore-foundation-v1",
+  "state": {
+    "status": "bounded-draft-foundation",
+    "developmentOnly": true,
+    "threeDimensionalWorkAuthorized": false,
+    "modelScoreProduced": false,
+    "sourceDataScoreProduced": false,
+    "physicalPromotionEligible": false,
+    "hiddenMemoryInferenceAuthorized": false,
+    "grantsValidationClaim": false
+  },
+  "implementationArtifacts": {
+    "model": {
+      "path": "runner/src/phase9-mh-msr-foundation.ts",
+      "byteLength": 17315,
+      "sha256": "270ce697410da001fbd2496893e992b00431ce92a289a14fc7a211e8dbe6d944"
+    },
+    "test": {
+      "path": "runner/test/phase9-mh-msr-foundation.test.ts",
+      "byteLength": 41535,
+      "sha256": "e5c7e875c78a28dd29625211fb1b34c0e2ae8b82793f1bdd041a42acaba50451"
+    },
+    "registry": {
+      "path": "research/phase9-mh-msr-registry-v1.jsonl",
+      "byteLength": 11725,
+      "sha256": "0651a991e2c6433c617c16b7f952616c664933addb4295dd2c1b9396fc9b07c3"
+    }
+  },
+  "question": "What exact registered forcing-path and explicitly observable surface-state features can be represented before any M-H or M-SR model score, without treating endpoints as paths or observations as invisible state?",
+  "scope": {
+    "included": [
+      "Isono 1957 printed air-hydrogen same-crystal timelines",
+      "Kobayashi 1958 registered but undigitized condition histories",
+      "Libbrecht 2011 C1 and C2 registered forcing/dimension series identities",
+      "Harrington-Pokrifka 2026 companion-history identities and categorical 48-to-20 label event",
+      "Voigtlaender 2018 growth-sublimation-regrowth roughness categories",
+      "Nelson-Swanson 2019 lateral-facet, pocket, terrace, and regrowth categories",
+      "Magee 2014 observed roughness, ridge, scallop, stall, and phase categories"
+    ],
+    "excluded": [
+      "model execution, source score, model score, fitting, ranking, promotion, or validation",
+      "three-dimensional geometry or simulation",
+      "new plot digitization or copying NAS-only row bodies",
+      "conversion of source-relative 48 or 20 percent labels to physical forcing",
+      "causal gas, pressure, lateral-growth, roughness, or memory effect",
+      "unobserved state, relaxation timescale, or mechanism inference"
+    ]
+  },
+  "upstreamBindings": {
+    "shelfFreeze": {"path":"evidence/phase9-source-overlay-v1/shelf-freeze.json","byteLength":63975,"sha256":"b0bbab2e01eca61dfb2b807bda3614aaf803e5fd0457f2df02aa3e4b8c5d1a06"},
+    "sourceOverlay": {"path":"evidence/phase9-source-overlay-v1/source-overlay.jsonl","byteLength":114408,"sha256":"f79cfd5268524d9017439e7be3abfe8b1e5df13f4e909c5d62569b8cc59ed5f7"},
+    "sourceDispositions": {"path":"research/phase9-source-dispositions-v1.jsonl","byteLength":86719,"sha256":"598f75c28490ac6d50e1c4d1be443905f62f755caa1119757688cb71f492af21"},
+    "mgpProtocol": {"path":"research/phase9-mgp-intake-protocol-v1.json","byteLength":13701,"sha256":"9a9c654e0d6ab776620d058e5a060203141038938ed560ad1caf62c23545a3f6"},
+    "mgpRegistry": {"path":"research/phase9-mgp-development-registry-v1.jsonl","byteLength":40805,"sha256":"4332a287a003dc587d7380ad59245d9927d89a98e4108af71700f8192167ed9a"},
+    "adapterRegistry": {"path":"research/phase9-adapter-registry-v1.jsonl","byteLength":48946,"sha256":"498e85471766294d812b3ef9d747381e92eb476e8a9b40a3f34f855b53e46337"},
+    "hypotheses": {"path":"evidence/phase9-knowledge-baseline-v1/hypotheses.jsonl","byteLength":28878,"sha256":"1c7d5ad2f4778b60240e83f150b237a33b12dd0bca388e319d203beb8d209b08"},
+    "l11Records": {"path":"evidence/phase8b-plot-digitization-v3/records.jsonl","byteLength":32617,"sha256":"3b22753b246e1ddd026daa8fe8eaab170971c71ef7d9fb63e0d25c8ad91547c8"},
+    "hp26Records": {"path":"evidence/phase8b-native-histories-v1/records.jsonl","byteLength":43881,"sha256":"0765fa74b0fca079a56b0bd30b02d03212ff49a9616034f9f31a196559c463ce"}
+  },
+  "sourceBindings": [
+    {"sourceRecordId":"P8B-S2R0-8062802F15B237ED51D0ABD9","shareRelativePath":"research-cache/phase8b-search/acquired-sources-20260811-v1/pfalzgraff-et-al-2018-growth-sublimation-roughness.pdf","byteLength":1546665,"pageCount":16,"sha256":"8062802f15b237ed51d0abd9589a22963539f9a27ed2e5596f7932852c08133c","loadBearingPages":[9,10]},
+    {"sourceRecordId":"P8B-S2R0-84BDC4F49DB156160B52C688","shareRelativePath":"research-cache/phase8b-search/acquired-sources-20260811-v1/nelson-2019-lateral-facet-growth.pdf","byteLength":15146764,"pageCount":36,"sha256":"84bdc4f49db156160b52c6887e55080f547850e21c172b5794f47eeb34deac1f","loadBearingPages":[6,14]},
+    {"sourceRecordId":"P8B-S2R0-1A0709A42E70AD507E83239A","shareRelativePath":"research-cache/phase8b-search/acquired-sources-20260811-v1/neshyba-et-al-2014-mesoscopic-roughness.pdf","byteLength":5071351,"pageCount":15,"sha256":"1a0709a42e70ad507e83239a92e29740b317755704f31076099a00aa8d643e41","loadBearingPages":[4,5,6,7,12]},
+    {"sourceRecordId":"P8B-S2R0-2E44238CA51A5DEC2FB1D048","shareRelativePath":"research-cache/phase8b-search/acquired-sources-20260811-v1/gonda-1957-hydrogen-carbon-dioxide.pdf","byteLength":6306927,"pageCount":12,"sha256":"2e44238ca51a5dec2fb1d04871477cd42303dd38440928daf3f51160d86f9589","loadBearingPages":[6,7,8,9,10],"filenameCitationMismatch":true},
+    {"sourceRecordId":"P8B-S2R0-6A121A2582ADC93B0F160AC7","shareRelativePath":"research-cache/phase8b-search/acquired-sources-20260811-v1/gonda-1958-low-pressure-habit.pdf","byteLength":7882926,"pageCount":16,"sha256":"6a121a2582adc93b0f160ac7d1b799b483ad8335ab333bfb1b03e30be6e8a6b4","loadBearingPages":[5,6,7],"filenameCitationMismatch":true},
+    {"sourceRecordId":"P8B-S2R0-7100720EAA6B8458FB4BBDD2","shareRelativePath":"research-cache/phase8b-search/acquired-sources-20260811-v1/libbrecht-2011-edge-instability-minus15.pdf","byteLength":571790,"pageCount":14,"sha256":"7100720eaa6b8458fb4bbdd2f961ddbe42b5f191a8055b84c83f165a9cacc00a","loadBearingPages":[5,9]},
+    {"sourceRecordId":"P9K-HP26","shareRelativePath":"research-cache/content/harrington-pokrifka-2026.zip","byteLength":104949,"sha256":"3fa016d36ae11dad221b2c9b300a5fe928ed253ac92dd8acdb2887291f32bc36","articleAvailable":false,"loadBearingPages":[]}
+  ],
+  "visualAudit": {
+    "method": "PDF skill: Poppler 160 dpi page rendering plus original-resolution visual inspection",
+    "inspectedPages": {
+      "Voigtlaender2018": [9,10],
+      "NelsonSwanson2019": [6,14],
+      "Magee2014": [4,5,6,7,12],
+      "Isono1957": [6,7,8,9,10],
+      "Kobayashi1958": [5,6,7],
+      "Libbrecht2011": [5,9]
+    },
+    "limits": "Only named load-bearing pages were inspected. HP26 has no registered article PDF, and NAS-only numeric row bodies were not available for copying; their identities and registered locators are bound while numeric use is refused."
+  },
+  "featureContract": {
+    "path": "Accept only the exact registered Isono categorical timelines and exact HP26 source-label event fixture. Endpoint summaries never substitute for an event sequence.",
+    "resolvedPhysicalForcing": "Refused: the locally tracked package has no byte-bound physical forcing row fixture available to this pure runner.",
+    "surface": "Return only exact source-bound categorical codebooks. No caller-produced transition is an observation, and no numeric trajectory or coordinate mapping is registered.",
+    "memory": "Fail closed unless exact booleans establish forcing, endpoints, relaxation, transport, geometry, and a non-whitespace named observable state; even then require a separate registered stateful comparison.",
+    "runtime": "Require exact outer and nested schemas, registered source/selection/provenance identities, exact units and coordinate status, and exact categorical fixtures. Reject all extra or altered fields."
+  },
+  "runtimeFixtures": {
+    "registeredPathRecords": [
+      "MH-I57-F09-EXTERNAL-GAS-PATH",
+      "MH-I57-F10-EXTERNAL-GAS-PATH",
+      "MH-HP26-20240814-LABEL-PATH"
+    ],
+    "registeredCodebookRecords": [
+      "MSR-V18-CYCLE-CATEGORIES",
+      "MSR-NS19-LATERAL-CATEGORIES",
+      "MSR-M14-SURFACE-CATEGORIES"
+    ],
+    "resolvedPhysicalForcingRuntimeStatus": "refused-no-byte-bound-fixture",
+    "callerProducedPathOrObservationStatus": "refused"
+  },
+  "registry": {"path":"research/phase9-mh-msr-registry-v1.jsonl","byteLength":11725,"sha256":"0651a991e2c6433c617c16b7f952616c664933addb4295dd2c1b9396fc9b07c3","schema":"phase9-mh-msr-development-record-v1","recordCount":11}
+}

@@ -1,0 +1,59 @@
+{
+ "label": "Fig. 17 (rho=0.082, sandwich-tip arms)",
+ "spec": {
+  "label": "Fig. 17 (rho=0.082, sandwich-tip arms)",
+  "rho": 0.082,
+  "phi": 0,
+  "ggThreshTable": {
+   "10": 1.5,
+   "11": 1.4,
+   "20": 1.5,
+   "21": 1,
+   "30": 1,
+   "31": 1,
+   "01": 1.6
+  },
+  "kappa": {
+   "default": 0.1,
+   "overrides": {}
+  },
+  "mu": {
+   "default": 0.008,
+   "overrides": {}
+  }
+ },
+ "stageTransitions": [],
+ "dims": {
+  "nx": 800,
+  "ny": 800,
+  "nz": 96
+ },
+ "domain": "hexPrism",
+ "seed": 1,
+ "noise": 0,
+ "tickCap": 60000,
+ "stopReason": "domain-contact",
+ "tick": 49695,
+ "attachedCount": 878981,
+ "farFieldMean": 0.05878025483738699,
+ "mesh": {
+  "path": "out/gutcheck-gg-realism/large/figs/fig17-mesh.bin",
+  "vertexCount": 1118311,
+  "triangleCount": 2238348,
+  "bboxCartesian": {
+   "xMin": 340,
+   "xMax": 860,
+   "yMin": 121.2435565298214,
+   "yMax": 571.5767664977295,
+   "zMin": 38,
+   "zMax": 58
+  },
+  "extraction": {
+   "spacing": 0.6,
+   "sigma": 0.45,
+   "normalDelta": 3
+  }
+ },
+ "elapsedSeconds": 23784,
+ "evidenceStatus": "unvalidated eyeball exploration; no gate semantics"
+}

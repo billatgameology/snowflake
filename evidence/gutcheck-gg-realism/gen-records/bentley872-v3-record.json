@@ -1,0 +1,95 @@
+{
+ "label": "bentley872-v3 — 872 terminal-plate search",
+ "spec": {
+  "label": "bentley872-v3 — 872 terminal-plate search",
+  "stages": [
+   {
+    "untilTick": 6000,
+    "rho": 0.12,
+    "phi": 0.01,
+    "ggThreshTable": {
+     "10": 1.4,
+     "11": 1.4,
+     "20": 1.4,
+     "21": 1,
+     "30": 1,
+     "31": 1,
+     "01": 3.5
+    },
+    "kappa": {
+     "default": 0.005,
+     "overrides": {}
+    },
+    "mu": {
+     "default": 0.001,
+     "overrides": {
+      "10": 0.006,
+      "20": 0.006
+     }
+    }
+   },
+   {
+    "untilTick": null,
+    "rho": 0.12,
+    "phi": 0.01,
+    "ggThreshTable": {
+     "10": 2.6,
+     "11": 2.6,
+     "20": 2.6,
+     "21": 1,
+     "30": 1,
+     "31": 1,
+     "01": 3.5
+    },
+    "kappa": {
+     "default": 0.005,
+     "overrides": {}
+    },
+    "mu": {
+     "default": 0.001,
+     "overrides": {}
+    }
+   }
+  ]
+ },
+ "stageTransitions": [
+  {
+   "tick": 6000,
+   "stage": 2
+  }
+ ],
+ "unfiredTransitions": 0,
+ "dims": {
+  "nx": 500,
+  "ny": 500,
+  "nz": 96
+ },
+ "domain": "hexPrism",
+ "seed": 1,
+ "noise": 0,
+ "tickCap": 30000,
+ "stopReason": "tick-cap",
+ "tick": 30000,
+ "attachedCount": 614223,
+ "farFieldMean": 0.1351821609396979,
+ "mesh": {
+  "path": "G:\\Code Files\\snowflake-gutcheck-gg-realism\\out\\gutcheck-gg-realism\\large\\gen\\bentley872-v3-mesh.bin",
+  "vertexCount": 319780,
+  "triangleCount": 641144,
+  "bboxCartesian": {
+   "xMin": 231,
+   "xMax": 519,
+   "yMin": 91.7986928011505,
+   "yMax": 341.2140090910688,
+   "zMin": 21,
+   "zMax": 52
+  },
+  "extraction": {
+   "spacing": 0.8,
+   "sigma": 0.45,
+   "normalDelta": 3
+  }
+ },
+ "elapsedSeconds": 63977,
+ "evidenceStatus": "unvalidated eyeball exploration; no gate semantics"
+}

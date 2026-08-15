@@ -5,7 +5,7 @@
 // rewritten after every frame, so a partially complete replay is already viewable.
 //
 //   node scripts/gutcheck-animate-grow.ts --preset plate --dims 1200,1200,48 \
-//        --ticks 70000 --every 500 --out-dir out/gutcheck-gg-realism/anim-B \
+//        --ticks 70000 --every 500 --out-dir out/gutcheck-gg-realism/large/anim-B \
 //        [--spacing 0.8] [--sigma 0.45] [--normal-delta 3] [--iso 0.5] [--margin 4] \
 //        [--seed 1] [--noise 0] [--domain hexPrism]
 

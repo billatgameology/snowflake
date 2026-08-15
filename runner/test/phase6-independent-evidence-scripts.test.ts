@@ -60,6 +60,15 @@ describe("Phase 6 independent evidence script labels", () => {
     expect(text).not.toMatch(/^\s*HEADLINE\s/m);
   });
 
+  it("labels both arm-3 denominators as measured-only", () => {
+    const result = runScript("phase6-arm3-independent.mjs");
+    const text = output(result);
+    expect(result.status).toBe(0);
+    expect(text).toContain("MEASURED-ONLY AGREEMENT: 5/78 in arm scope; 5/90 in the arm-1 common scope");
+    expect(text).toContain("not the registered ADR 0026 conservative-intersection headline");
+    expect(text).not.toMatch(/^\s*HEADLINE\s/m);
+  });
+
   it("evaluates TAX2 M2 with its own unit prefactors, not CAK's A_prism curve", () => {
     const result = runScript("phase6-libbrecht-closed-forms.mjs");
     const text = output(result);

@@ -1,0 +1,94 @@
+{
+ "label": "Bentley 785 attempt — extended plate core, then branching (Fig. 32 schedule, longer stage 1)",
+ "spec": {
+  "label": "Bentley 785 attempt — extended plate core, then branching (Fig. 32 schedule, longer stage 1)",
+  "stages": [
+   {
+    "untilTick": 14000,
+    "rho": 0.12,
+    "phi": 0.01,
+    "ggThreshTable": {
+     "10": 2.25,
+     "11": 2.25,
+     "20": 2.25,
+     "21": 1,
+     "30": 1,
+     "31": 1,
+     "01": 3.5
+    },
+    "kappa": {
+     "default": 0.005,
+     "overrides": {}
+    },
+    "mu": {
+     "default": 0.001,
+     "overrides": {}
+    }
+   },
+   {
+    "untilTick": null,
+    "rho": 0.12,
+    "phi": 0.01,
+    "ggThreshTable": {
+     "10": 1.15,
+     "11": 1.15,
+     "20": 1.15,
+     "21": 1,
+     "30": 1,
+     "31": 1,
+     "01": 3.5
+    },
+    "kappa": {
+     "default": 0.005,
+     "overrides": {}
+    },
+    "mu": {
+     "default": 0.001,
+     "overrides": {
+      "10": 0.006,
+      "20": 0.006
+     }
+    }
+   }
+  ]
+ },
+ "stageTransitions": [
+  {
+   "tick": 14000,
+   "stage": 2
+  }
+ ],
+ "dims": {
+  "nx": 500,
+  "ny": 500,
+  "nz": 96
+ },
+ "domain": "hexPrism",
+ "seed": 1,
+ "noise": 0,
+ "tickCap": 40000,
+ "stopReason": "domain-contact",
+ "tick": 24338,
+ "attachedCount": 395280,
+ "farFieldMean": 0.17787919238165148,
+ "mesh": {
+  "path": "out/gutcheck-gg-realism/large/gen/bentley785-mesh.bin",
+  "vertexCount": 476703,
+  "triangleCount": 954728,
+  "bboxCartesian": {
+   "xMin": 212,
+   "xMax": 538,
+   "yMin": 75.34421012924616,
+   "yMax": 357.66849176297313,
+   "zMin": 28,
+   "zMax": 53
+  },
+  "extraction": {
+   "spacing": 0.6,
+   "sigma": 0.45,
+   "normalDelta": 3
+  }
+ },
+ "elapsedSeconds": 24155,
+ "evidenceStatus": "unvalidated eyeball exploration; no gate semantics"
+}

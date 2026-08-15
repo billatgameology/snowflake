@@ -1,0 +1,109 @@
+{
+  "schema": "phase9-knowledge-baseline-report-v1",
+  "state": "published-development-baseline",
+  "cutoffDate": "2026-08-12",
+  "claimBoundary": {
+    "adoptsPhase9": false,
+    "authorizesExperimentExecution": false,
+    "changesSolver": false,
+    "scoresModelAgainstMeasurements": false,
+    "grantsValidationClaim": false,
+    "claimsExhaustiveLiteratureCoverage": false
+  },
+  "counts": {
+    "sourceRecords": 18,
+    "sourceRecordsWithLocalBytes": 16,
+    "hashedNasArtifacts": 17,
+    "hypothesisRecords": 15,
+    "openAlexRequests": 3,
+    "openAlexFirstPageRecordsInspected": 75,
+    "openAlexCostUsd": 0.003,
+    "phase8DevelopmentRecordsMapped": 51,
+    "phase8HeldOutRecords": 0
+  },
+  "openAlexLeadAdjudication": [
+    {
+      "identity": "Lamb et al. 2025; OpenAlex W4416054683; arXiv:2510.17935",
+      "result": "promoted as D-BT, a bulk mass-transfer discriminator outside the local facet solver",
+      "primaryDomain": "205-240 K and 0-500 s",
+      "limit": "empirical surrogate with no facet or morphology state; training lineage must be joined before any non-training transfer description"
+    },
+    {
+      "identity": "Harrington and Pokrifka 2026; doi:10.1175/JAS-D-26-0016.1",
+      "result": "promoted step-source location as M-SS, a distinct rival to width-conditioned SDAK",
+      "limit": "full article absent; companion histories are same-lineage source replay and cannot independently confirm causality"
+    },
+    {
+      "identity": "Wang Angsheng 1987; OpenAlex W2322865507; doi:10.1007/BF02656742",
+      "result": "not promoted",
+      "limit": "no authorized full text; the word new in the title is not evidence of a recent model"
+    }
+  ],
+  "calculationHeadlines": {
+    "lambCrossoverMassKg": 3.10818397095e-12,
+    "lambCrossoverEquivalentSphereRadiusUm": 9.34240961638,
+    "phase8InitialLambToContinuumRatioRange": [
+      0.377597782649,
+      1.3118858647
+    ],
+    "lambExactExpansionMaximumRelativeError": 4.09205942347e-16,
+    "lambRoundedPaperMaximumRelativeError": 0.000127955921775,
+    "primaryLambPhase8RecordIds": [
+      "P8B-NATIVE-MASS-725C",
+      "P8B-NATIVE-MASS-725E",
+      "P8B-NATIVE-MASS-805A",
+      "P8B-NATIVE-MASS-805B",
+      "P8B-NATIVE-MASS-805H",
+      "P8B-NATIVE-MASS-805L"
+    ],
+    "primaryLambElapsedTimeS": [
+      0,
+      500
+    ],
+    "scoringStatus": "not executed"
+  },
+  "phase9PlanImpact": [
+    "Add D-BT before any 3-D mechanism arm and compare Lamb against continuum, Nelson-Baker, and a leave-one-history-out global rescale.",
+    "Separate M-W width-conditioned SDAK from M-SS step-source location; final aspect ratio is ineligible to rank them.",
+    "Run the M-V ventilation eligibility decision before quantitative M-PT free-fall scoring.",
+    "Treat the selected one-bar M-PK rows as source replay, not identification of pressure dependence.",
+    "Separate exact forcing-path fidelity from a genuine memory-state test.",
+    "Keep M-LH direction-only until the exact-condition resistance is calculated and M-GT as a numerical diagnostic without matched Phase 8 evidence."
+  ],
+  "futurePrerequisites": [
+    "Acquire the full Harrington-Pokrifka 2026 article before implementing exact M-SS equations.",
+    "Acquire Keller-Hallett 1982 or freeze a conservative ventilation bound before quantitative free-fall scoring.",
+    "Join Lamb's cited training experiment IDs before describing Phase 8 Harrison histories as non-training transfer evidence.",
+    "Compare the newer Princeton edition before freezing any input found only in the captured Libbrecht monograph.",
+    "Freeze a cross-pressure trajectory before claiming M-PK identifies pressure dependence.",
+    "Calculate the exact-condition vapor-plus-thermal resistance before quantitative -7 or -15 C M-LH scoring.",
+    "Obtain matched-state or post-event relaxation evidence before fitting a memory state.",
+    "Freeze genuinely unseen evidence before any independent-validation claim."
+  ],
+  "audit": {
+    "reviewer": "separate OpenAI Codex subagent; model identifier not exposed",
+    "sharedDeveloperContext": true,
+    "independentlyChecked": [
+      "JSON and JSONL parsing, counts, identifier joins, and tracked relative links",
+      "all declared NAS and OpenAlex artifact hashes",
+      "Lamb scaling, crossover, asymptotic limits, and reported headline calculations",
+      "search request counts and result counts",
+      "circularity, observable mismatch, false controls, and rejection criteria"
+    ],
+    "initialFindings": 8,
+    "unresolvedPublicationBlockersAfterRepair": 0,
+    "notChecked": [
+      "inaccessible full article text",
+      "end-to-end IceNODE training reproduction",
+      "any Phase 9 model execution or score",
+      "newer Princeton monograph edition",
+      "independent validation data"
+    ]
+  },
+  "reproduction": {
+    "calculationCommand": "node scripts/phase9-knowledge-calculations.mjs --out evidence/phase9-knowledge-baseline-v1/calculations.json",
+    "calculationDeterministicReplay": true,
+    "requiredRepositoryCheck": "TMPDIR=/private/tmp npm test"
+  },
+  "nextDecision": "Maker adoption review. If Phase 9 is adopted by ADR plus matching charter amendment, begin with adapters and bounded D-BT rather than a 3-D mechanism implementation."
+}

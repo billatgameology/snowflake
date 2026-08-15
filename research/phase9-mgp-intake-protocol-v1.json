@@ -1,0 +1,272 @@
+{
+  "schema": "phase9-mgp-intake-protocol-v1",
+  "protocolId": "phase9-mgp-four-source-development-intake-v1",
+  "frozenDate": "2026-08-13",
+  "state": {
+    "protocol": "pre-score-development-intake",
+    "phase9Role": "source-only-M-GP-development-registry",
+    "developmentOnly": true,
+    "allRecordsConfounded": true,
+    "modelScoreProduced": false,
+    "sourceDataScoreProduced": false,
+    "surfaceKineticsInferenceAuthorized": false,
+    "grantsValidationClaim": false
+  },
+  "question": "Which printed and image-level gas/pressure observations from the four named historical sources can be frozen as bounded M-GP development inputs without inventing coordinates, collapsing conditions, or treating jointly varied transport as surface kinetics?",
+  "scope": {
+    "includedSources": [
+      "Isono et al. 1957 air-hydrogen same-crystal histories",
+      "Kobayashi 1958 low-pressure air radius-squared/time and pressure/temperature histories",
+      "Gonda and Komabayasi 1970 helium-argon size, axis, branch, hollowing, and habit observations",
+      "Gonda 1976 helium/argon pressure matrices, dimensions, and aspect ratio"
+    ],
+    "excludedUses": [
+      "model execution or scoring",
+      "source-data validation",
+      "absolute or causal pressure effect",
+      "surface-kinetics residual or coefficient",
+      "interaction inference between vapor diffusivity and thermal conductivity",
+      "coordinates from plots before a separately frozen two-reader operator",
+      "physical dimensions from magnification without a scale bar",
+      "author-derived schematics as independent observations"
+    ]
+  },
+  "upstreamBindings": {
+    "sourceShelfFreeze": {
+      "path": "evidence/phase9-source-overlay-v1/shelf-freeze.json",
+      "byteLength": 63975,
+      "sha256": "b0bbab2e01eca61dfb2b807bda3614aaf803e5fd0457f2df02aa3e4b8c5d1a06"
+    },
+    "sourceOverlay": {
+      "path": "evidence/phase9-source-overlay-v1/source-overlay.jsonl",
+      "byteLength": 114408,
+      "sha256": "f79cfd5268524d9017439e7be3abfe8b1e5df13f4e909c5d62569b8cc59ed5f7"
+    },
+    "sourceDispositions": {
+      "path": "research/phase9-source-dispositions-v1.jsonl",
+      "byteLength": 86719,
+      "sha256": "598f75c28490ac6d50e1c4d1be443905f62f755caa1119757688cb71f492af21"
+    },
+    "sourceAudits": {
+      "path": "research/phase9-source-audits-v1.jsonl",
+      "byteLength": 44355,
+      "sha256": "3255e66e29aca0f33e4fd8490f7c647ddc796a71206e764932fd2fe1d51d753a"
+    },
+    "reconSourceRegister": {
+      "path": "evidence/phase8b-s2-round0-reconnaissance/source-register.jsonl",
+      "byteLength": 42648,
+      "sha256": "3590804a3943bbe1594d6ec1feec58c45182d4f79cfc10b3c94d1f7ac068476f"
+    },
+    "historicalAuditBatch1": {
+      "path": "evidence/phase8b-s2-round0-reconnaissance/historical-batch-1.md",
+      "byteLength": 58339,
+      "sha256": "0793a57da394fc2f6da54c947f0ef2405743c89debbda25ffe2a24adca5714b6"
+    },
+    "historicalAuditBatch2": {
+      "path": "evidence/phase8b-s2-round0-reconnaissance/historical-batch-2.md",
+      "byteLength": 46782,
+      "sha256": "dd7cb3621a816313dbcc65de59659cef89b0c9f926562933ba32ee43cbd403ed"
+    }
+  },
+  "exactShelfBindings": {
+    "mgp": {
+      "item": "M-GP",
+      "sourceBlocked": false,
+      "protocolDispositionRequired": true,
+      "protocolDispositionState": "pending",
+      "completeArtifactSha256": [
+        "08c32270d74949c84ec9111a0deedb7c6395e6ceec4a445da2271bb07a05ad4c",
+        "2a20058fb79de5f0c854f010b91663168c1590acf3c5145a50284245c4286e1f",
+        "2e44238ca51a5dec2fb1d04871477cd42303dd38440928daf3f51160d86f9589",
+        "2ea39d1bd3d62f87101cf1041c43225e9bb24e3b0be25fc61df3228a7499dfd8",
+        "6a121a2582adc93b0f160ac7d1b799b483ad8335ab333bfb1b03e30be6e8a6b4",
+        "909cdb8504d9cfc72f70363436e5c796b99c7e107cab4331051e446255fc8ed4"
+      ]
+    },
+    "mpk": {
+      "item": "M-PK",
+      "sourceBlocked": false,
+      "protocolDispositionRequired": true,
+      "protocolDispositionState": "pending",
+      "meaning": "M-PK remains undischarged and blocked from causal promotion; this M-GP intake cannot alter it.",
+      "requiredRestrictionCount": 11
+    }
+  },
+  "sourceBindings": [
+    {
+      "sourceRecordId": "P8B-S2R0-2E44238CA51A5DEC2FB1D048",
+      "citation": "K. Isono et al. (1957), On the Habit of Ice-Crystals Grown in the Atmospheres of Hydrogen and Carbon Dioxide",
+      "shareRelativePath": "research-cache/phase8b-search/acquired-sources-20260811-v1/gonda-1957-hydrogen-carbon-dioxide.pdf",
+      "filenameCitationMismatch": true,
+      "byteLength": 6306927,
+      "pageCount": 12,
+      "sha256": "2e44238ca51a5dec2fb1d04871477cd42303dd38440928daf3f51160d86f9589",
+      "loadBearingPages": [6, 7, 8, 9, 10],
+      "auditEvidence": {
+        "path": "evidence/phase8b-s2-round0-reconnaissance/historical-batch-1.md",
+        "sha256": "0793a57da394fc2f6da54c947f0ef2405743c89debbda25ffe2a24adca5714b6",
+        "registeredLocator": "pdf-pages:1-12"
+      },
+      "currency": {
+        "currentVersion": "Complete historical article captured; targeted currency remains unresolved.",
+        "laterAuthorOutput": "Later gas and pressure work is present in the bounded S0B set.",
+        "nativeData": "No native numeric supplement registered.",
+        "supplement": "No supplement registered.",
+        "freezeEffect": "Development intake allowed; promoted quantitative freeze remains blocked by unresolved targeted currency."
+      }
+    },
+    {
+      "sourceRecordId": "P8B-S2R0-6A121A2582ADC93B0F160AC7",
+      "citation": "T. Kobayashi (1958), On the Habit of Snow Crystals Artificially Produced at Low Pressures",
+      "shareRelativePath": "research-cache/phase8b-search/acquired-sources-20260811-v1/gonda-1958-low-pressure-habit.pdf",
+      "filenameCitationMismatch": true,
+      "byteLength": 7882926,
+      "pageCount": 16,
+      "sha256": "6a121a2582adc93b0f160ac7d1b799b483ad8335ab333bfb1b03e30be6e8a6b4",
+      "loadBearingPages": [5, 6, 7, 13, 14, 15, 16],
+      "auditEvidence": {
+        "path": "evidence/phase8b-s2-round0-reconnaissance/historical-batch-1.md",
+        "sha256": "0793a57da394fc2f6da54c947f0ef2405743c89debbda25ffe2a24adca5714b6",
+        "registeredLocator": "pdf-pages:1-16"
+      },
+      "currency": {
+        "currentVersion": "Complete historical article captured; filename identity corrected by the Phase 8 register.",
+        "laterAuthorOutput": "Later Gonda pressure and gas work is present in the bounded S0B set.",
+        "nativeData": "No native supplement registered.",
+        "supplement": "No supplement registered.",
+        "freezeEffect": "Development candidates only; a plot operator is required before numeric coordinates."
+      }
+    },
+    {
+      "sourceRecordId": "P8B-S2R0-2A20058FB79DE5F0C854F010",
+      "citation": "T. Gonda and M. Komabayasi (1970), Growth of Ice Crystals in the Atmospheres of Helium-Argon Mixture",
+      "shareRelativePath": "research-cache/phase8b-search/acquired-sources-20260811-v1/gonda-1970-helium-argon.pdf",
+      "filenameCitationMismatch": false,
+      "byteLength": 3531960,
+      "pageCount": 12,
+      "sha256": "2a20058fb79de5f0c854f010b91663168c1590acf3c5145a50284245c4286e1f",
+      "loadBearingPages": [3, 4, 5, 6, 7, 8, 9],
+      "auditEvidence": {
+        "path": "evidence/phase8b-s2-round0-reconnaissance/historical-batch-1.md",
+        "sha256": "0793a57da394fc2f6da54c947f0ef2405743c89debbda25ffe2a24adca5714b6",
+        "registeredLocator": "pdf-pages:1-12"
+      },
+      "currency": {
+        "currentVersion": "Complete historical article captured.",
+        "laterAuthorOutput": "Later Gonda gas and pressure work is present in the bounded S0B set.",
+        "nativeData": "No native supplement registered.",
+        "supplement": "No supplement registered.",
+        "freezeEffect": "Development candidates only; gas composition and every largest/mean/order-statistic semantic must remain explicit."
+      }
+    },
+    {
+      "sourceRecordId": "P8B-S2R0-08C32270D74949C84EC9111A",
+      "citation": "Takehiko Gonda (1976), The Growth of Small Ice Crystals in Gases of High and Low Pressures",
+      "shareRelativePath": "research-cache/phase8b-search/acquired-sources-20260811-v1/keller-hallett-1976-high-low-pressure.pdf",
+      "filenameCitationMismatch": true,
+      "byteLength": 1469961,
+      "pageCount": 8,
+      "sha256": "08c32270d74949c84ec9111a0deedb7c6395e6ceec4a445da2271bb07a05ad4c",
+      "loadBearingPages": [2, 3, 4, 5, 6],
+      "auditEvidence": {
+        "path": "evidence/phase8b-s2-round0-reconnaissance/historical-batch-2.md",
+        "sha256": "dd7cb3621a816313dbcc65de59659cef89b0c9f926562933ba32ee43cbd403ed",
+        "registeredLocator": "pdf-pages:1-8"
+      },
+      "currency": {
+        "currentVersion": "Complete Gonda 1976 article captured; misleading filename corrected by source identity.",
+        "laterAuthorOutput": "Later gas and pressure lineage is bounded by the 2026 S0B sweep.",
+        "nativeData": "No native supplement registered.",
+        "supplement": "No supplement registered.",
+        "freezeEffect": "Development candidates only; Figure 3 remains hard-refused until its source condition conflict is resolved."
+      }
+    }
+  ],
+  "restrictionDispositions": [
+    {
+      "id": "P9R-08C32270D74949C8-EXTRACTION",
+      "localDisposition": "satisfied-for-bounded-intake-only",
+      "handling": "Pressure, gas, temperature, size/aspect, geometry, support, time, and ventilation remain separate fields; Figure 3 is refused and no coordinate is present."
+    },
+    {
+      "id": "P9R-2A20058FB79DE5F0-EXTRACTION",
+      "localDisposition": "satisfied-for-bounded-intake-only",
+      "handling": "Size, branch, hollowing, largest/mean/order-statistic semantics, and helium-argon composition are separately registered; coordinates remain pending."
+    },
+    {
+      "id": "P9R-2E44238CA51A5DEC-CURRENCY_CURRENT_VERSION",
+      "localDisposition": "retained-as-promotion-block",
+      "handling": "The direct article supports development intake, but unresolved targeted currency forbids promotion."
+    },
+    {
+      "id": "P9R-2E44238CA51A5DEC-EXTRACTION",
+      "localDisposition": "satisfied-for-printed-timeline-only",
+      "handling": "Figure 9 and Figure 10 panel order, carrier gas, and printed elapsed minutes are transcribed; image dimensions and rates remain forbidden."
+    },
+    {
+      "id": "P9R-2EA39D1BD3D62F87-EXTRACTION",
+      "localDisposition": "retained-outside-four-source-v1",
+      "handling": "No new Gonda-Komabayasi 1971 row is created; existing Phase 8 coordinates remain the only authorized selected rows."
+    },
+    {
+      "id": "P9R-6A121A2582ADC93B-EXTRACTION",
+      "localDisposition": "satisfied-for-candidate-registration-only",
+      "handling": "The r-squared/time series identities and separate temperature/pressure history figures are frozen as candidates with null coordinates."
+    },
+    {
+      "id": "P9R-909CDB8504D9CFC7-EXTRACTION",
+      "localDisposition": "retained-as-M-PK-block",
+      "handling": "No Libbrecht replay or surface result is produced; transport-confounded historical observations cannot discharge M-PK."
+    }
+  ],
+  "visualAudit": {
+    "tooling": "Poppler rendering at 200 dpi plus original-resolution page-image inspection",
+    "renderDirectoryPolicy": "tmp/pdfs only; renders are disposable and not evidence",
+    "newlyInspectedLoadBearingPagesBySource": {
+      "P8B-S2R0-2E44238CA51A5DEC2FB1D048": [3, 4, 5, 6, 7, 8, 9, 10],
+      "P8B-S2R0-6A121A2582ADC93B0F160AC7": [5, 6, 7, 13, 14, 15, 16],
+      "P8B-S2R0-2A20058FB79DE5F0C854F010": [3, 4, 5, 6, 7, 8, 9],
+      "P8B-S2R0-08C32270D74949C84EC9111A": [2, 3, 4, 5, 6]
+    },
+    "resolvedFindings": [
+      "Isono Figures 9 and 10 print minutes; the reconnaissance phrase apparently seconds is not adopted.",
+      "Image magnification without a physical scale bar does not authorize physical coordinates.",
+      "Gonda 1976 Figure 3 has an unresolved caption-prose temperature conflict and is hard-refused.",
+      "Gonda 1976 Tables 1-2 are secondary Hirschfelder constants and Figures 7-8 are author-derived schematics."
+    ]
+  },
+  "registry": {
+    "path": "research/phase9-mgp-development-registry-v1.jsonl",
+    "byteLength": 40805,
+    "sha256": "4332a287a003dc587d7380ad59245d9927d89a98e4108af71700f8192167ed9a",
+    "schema": "phase9-mgp-development-record-v1",
+    "recordCount": 26,
+    "classCounts": {
+      "categorical-image-constraint": 7,
+      "numeric-digitization-candidate": 14,
+      "numeric-extraction-refused": 1,
+      "printed-numeric-transcription": 2,
+      "source-derived-excluded": 2
+    },
+    "requiredConditionFields": [
+      "temperatureC",
+      "pressure",
+      "carrierGas",
+      "waterCondition",
+      "elapsedTime",
+      "ensemble",
+      "geometry",
+      "support",
+      "ventilation"
+    ],
+    "coordinatePolicy": "Every digitization coordinates field is null in v1.",
+    "timelinePolicy": "Only directly printed Isono panel labels are numerically transcribed; their unit is minutes."
+  },
+  "nextRunnableActions": [
+    "Resolve Isono targeted currency before any promoted freeze.",
+    "Freeze a source-specific two-reader plot operator, point identity, uncertainty, and lineage before digitizing any numeric candidate.",
+    "Adjudicate Gonda 1976 Figure 3's temperature conflict from an authoritative correction or independent source evidence; otherwise keep it refused.",
+    "Run a separate adversarial review before publishing any interpretation or source-data comparison.",
+    "Keep M-PK pending until a separately registered transport-separated surface protocol clears all eleven M-PK restrictions."
+  ]
+}

@@ -1,0 +1,59 @@
+{
+ "label": "Fig. 44 (exploded tips, rho=0.091, beta01=1.25 on Fig. 43 base)",
+ "spec": {
+  "label": "Fig. 44 (exploded tips, rho=0.091, beta01=1.25 on Fig. 43 base)",
+  "rho": 0.091,
+  "phi": 0,
+  "ggThreshTable": {
+   "10": 1.2,
+   "11": 1,
+   "20": 1.2,
+   "21": 1,
+   "30": 1,
+   "31": 1,
+   "01": 1.25
+  },
+  "kappa": {
+   "default": 0.1,
+   "overrides": {}
+  },
+  "mu": {
+   "default": 0.025,
+   "overrides": {}
+  }
+ },
+ "stageTransitions": [],
+ "dims": {
+  "nx": 600,
+  "ny": 600,
+  "nz": 96
+ },
+ "domain": "hexPrism",
+ "seed": 1,
+ "noise": 0,
+ "tickCap": 60000,
+ "stopReason": "tick-cap",
+ "tick": 60000,
+ "attachedCount": 461845,
+ "farFieldMean": 0.06818139541836703,
+ "mesh": {
+  "path": "out/gutcheck-gg-realism/large/figs/fig44-mesh.bin",
+  "vertexCount": 672342,
+  "triangleCount": 1345128,
+  "bboxCartesian": {
+   "xMin": 335,
+   "xMax": 565,
+   "yMin": 160.21469970012114,
+   "yMax": 359.40054257054203,
+   "zMin": 28,
+   "zMax": 68
+  },
+  "extraction": {
+   "spacing": 0.6,
+   "sigma": 0.45,
+   "normalDelta": 3
+  }
+ },
+ "elapsedSeconds": 16234,
+ "evidenceStatus": "unvalidated eyeball exploration; no gate semantics"
+}

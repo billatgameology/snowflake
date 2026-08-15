@@ -78,6 +78,25 @@ inside decision 0045's envelope. Measured outputs: wall-clock, sweeps/cycle, pea
 attached count at the stop, stop reason. Purpose: calibrate the ladder's cost model; nothing
 else.
 
+**Stage A closure amendment (2026-08-07, recorded before the ladder freeze consumes it).**
+Stage A closes with two completed rows plus measured scaling observations, under the maker's
+efficiency-with-integrity direction and the host's overnight-shutdown pattern (a 6–12 h serial
+row cannot survive the up-window; the in-flight `A2-floor-n128@-15C` row was lost to
+interruptions three times — merge, shutdown, shutdown — without ever completing). Measured, all
+NON-TRANSFERABLE: `A5-coarse@-15C` 163.2 s (size-target, extent 27, AR 0.8930);
+`A1-floor-n96@-15C` 10,472.8 s / 154 cycles / 587,206 sweeps (size-target, extent 55,
+AR 0.8367, RSS 0.30 GB); `A2-floor-n128` first-relaxation cost measured three times at
+546–561 s versus A1's 119 s (a ×4.6 per-cycle domain ratio at ×2.37 cell count), projecting
+6–12 h serial for the full row. The ceiling rows (extent 117 at N = 192/256) are closed
+unexecuted as measured-scaling-infeasible: ≥ ×2.2 cycles at ≥ ×3.4–8 per-cycle cost over A1
+projects ≥ day-scale per row, unaffordable inside the envelope; the pre-declared −5 °C twin
+rule generalizes to them. Consequences for the ladder, recorded here so the freeze cannot
+soften them silently: (1) the ladder registers domain rungs at the S1/S2-floor sizes only,
+with per-rung wall caps ≤ 10 h so a rung fits one host up-window; (2) the S2-ceiling stratum's
+numerics are UNVERIFIED and every report says so — the ladder verdict is scoped to the sizes
+it affords; (3) the twin-skip rule and this closure are cost decisions under decision 0045
+that never touch a validity criterion.
+
 **Stage B — CLOSED UNEXECUTED by decision 0045 (2026-08-06).** The maker's bounded-closure
 direction ends the production campaign this stage was meant to scope; Stage A completes as the
 ladder's cost input, and the unit's one non-author review covers sub-unit A, Stage A's results,

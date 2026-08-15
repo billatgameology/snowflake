@@ -2,7 +2,7 @@
 
 This project is worked on by **multiple different LLMs across sessions**, with no shared memory
 between them. Any model may pick up work another left mid-flight. `docs/PROGRESS.md` is the compact
-current-state index, and the active plan holds the detailed work record; logs, checkpoints, and
+current-state index, and the active plans hold the detailed work records; logs, checkpoints, and
 other artifacts are evidence only when one of those current records points to them.
 
 `docs/HANDOFF.md` is a manually triggered stop/restart snapshot, not a second live progress log.
@@ -13,7 +13,7 @@ immediate saved handoff. During ordinary work and long runs, leave it untouched.
 symlink with a second copy; two instruction files will drift.
 
 The governing document is [project charter.md](project charter.md). It defines the goal, the
-science, the stack, and Phases 0–7. **The charter is the spec; these files are the state.**
+science, the stack, and Phases 0–8. **The charter is the spec; these files are the state.**
 
 ---
 
@@ -37,8 +37,9 @@ Read in this order on every cold start:
    It is deliberately a compact current-state index. Its linked pre-compaction archive is a frozen
    historical record, not current authority; open that archive only when a current record points to
    it or the task requires historical provenance.
-2. Read the active plan it names, including **Tried and rejected**. That section contains killed
-   protocols and measured failure modes that must not be rediscovered or restored.
+2. Read each active plan it names for the workstream you will touch, including **Tried and
+   rejected**. If a task crosses workstreams, read every affected active plan. Those sections
+   contain killed protocols and measured failure modes that must not be rediscovered or restored.
 3. Inspect `git status` and the relevant diff before editing. A dirty worktree is often a
    deliberate, reviewed handoff rather than disposable noise.
 4. Read the relevant charter clauses, accepted ADRs, and solver spec before changing behavior.
@@ -62,7 +63,7 @@ These files answer different questions; do not collapse them into one vague "sou
 | `project charter.md` | Governing product, science, phase, and gate contract. The current charter wins. |
 | Accepted ADRs in `docs/decisions/` | Why the charter changed and which tempting alternative was rejected. An ADR and the charter should already agree. |
 | Solver specs | Delegated technical ground truth for the implemented algorithms. |
-| Active plan | Current implementation approach, pre-registered protocols, evidence, and rejected attempts. |
+| Active plan for the affected workstream | Current implementation approach, pre-registered protocols, evidence, and rejected attempts. |
 | `docs/PROGRESS.md` | Live state: what is complete, what is in flight, and the next concrete action. |
 | Code, tests, logs, checkpoints | Implementation and evidence. They do not silently overrule the written contract. |
 
@@ -87,7 +88,9 @@ This is no longer a greenfield repository. The durable baseline is:
 The project is an interactive snow-crystal growth instrument, not merely a crystal generator.
 The product must expose the vapor field and surface propensity so a user can understand why a
 shape grew. Physical inputs make the model falsifiable; they do not make it validated. Only
-Phase 6 can earn a quantitative validation claim over a named domain.
+an executed, pre-registered chartered validation gate can earn a quantitative validation claim
+over its named domain: Phase 6 owns the Nakaya comparison, and Phase 7 may separately gate a
+held-out domain. Phase 8 source reconciliation cannot grant that label.
 
 ## Repository map
 
@@ -100,8 +103,9 @@ The root is a strict-TypeScript ESM npm workspace on Node 23.6 or newer.
 | `runner/` | Node-only CLI and evidence boundary: argument validation, runs, stopping rules, metrics, PGM dumps, checkpoint I/O and round-trip checks, and enforced gates. |
 | `spike/` | Frozen Phase 1 Reiter prototype, deliberately outside the npm workspace. Do not evolve it into the product. |
 | `research/` | Tracked source indexes and citations; most downloaded media are local and gitignored. Never force-add copyrighted media. |
+| `evidence/` | Tracked, digest-pinned artifacts: evidence backing published claims (ADR 0038) plus the gut-check spike's recipes and run records (`gutcheck-gg-realism/`, relocated out of `out/` 2026-08-12). Every artifact file below it, except the two root control manifests `evidence/MANIFEST.json` and `evidence/OUT-TREES-MANIFEST.json`, must be tracked and pinned in `evidence/MANIFEST.json`; `npm test` enforces file mode, presence, byte length, and SHA-256. |
 | `app/` | Phase 3 Three.js development instrument: Web Worker CPU solver, overlays, vapor slice, picking/readouts, stop-rule parity, and deterministic visual harness. Phase 4 extends it without moving solver work onto the UI thread. |
-| `solver-gpu/` | Phase 5 WebGPU implementation and Windows/Chromium/D3D12 evidence path. Phase 6 GPU work must preserve the accepted Phase 5 protocols and remains downstream of its own freeze/comparison gate. |
+| `solver-gpu/` | Phase 5 WebGPU implementation and Windows/Chromium/D3D12 evidence path. Phase 7 GPU-parity work must preserve the accepted Phase 5 protocols and remains downstream of its own freeze/comparison gate. |
 
 Dependency direction is `core` → `solver-cpu` → `runner`. Keep solver code environment-neutral
 so the same oracle can later run in a Web Worker and serve as the GPU comparison target.
@@ -252,15 +256,7 @@ node runner/src/main.ts gate2b
 ```
 
 - `npm test` runs the Rule 7 scan, strict typecheck, and all Vitest suites. It is the required
-  local check for non-exempt changes, but a green self-test is not sufficient evidence for a
-  scientific gate.
-- **Planning-only media and Journey documentation is exempt from `npm test`.** When the entire
-  intended change is confined to non-executable media-content planning or the Snow Crystal Journey
-  source/planning record, plus its directly associated Markdown plan, index, and `docs/PROGRESS.md`
-  links or status summary, run `git diff --check` and `node scripts/lint-rule7.mjs`; do not run the
-  full software suite. The exemption ends if the diff touches source code, tests, package or build
-  configuration, the charter, an ADR, solver or scientific specifications, evidence machinery, or
-  an executable publication, capture, allocator, or automation contract.
+  local check, but a green self-test is not sufficient evidence for a scientific gate.
 - `grow` is observational unless the appropriate enforcement flag is present. Printed metrics
   do not turn exit 0 into a gate result.
 - `grow-lk` is exploratory. `gate2b` is flagless because it encodes the pre-registered protocol;
@@ -292,14 +288,35 @@ node runner/src/main.ts gate2b
 - Bitwise reproducibility is claimed only for the float64 oracle on the pinned Node/V8 engine.
   Cross-engine, float32, and GPU comparisons use stated tolerances.
 - Use the counter-based seeded PRNG and named streams. Never introduce `Math.random()`.
+- On macOS the required local check is `TMPDIR=/private/tmp npm test`. A bare `npm test` fails
+  31 Phase 5 gate tests ("publication parent resolves through an alias or junction"):
+  `os.tmpdir()` returns `/var/folders/…`, which `realpathSync.native` resolves through the
+  macOS `/var` → `/private/var` symlink, tripping the evidence guard in
+  `runner/src/gate5-evidence.ts`. The guard is correct; set `TMPDIR`, never relax it.
+- The NAS share `\\GameStation\snowcrystal` is mounted `S:` on Windows and
+  `/Volumes/snowcrystal` on macOS. Never hardcode a mount: resolve it via
+  `scripts/nas-root.ts` and address share files by share-relative path (the dev server's
+  `/nas/<path>` route). The emitted URL is mount-agnostic by construction; end-to-end index
+  and streaming behavior was measured on macOS, while the current Windows `S:/` path remains
+  unexecuted. Paid for twice: the 2026-08-06 and 2026-08-12 machine transfers each broke the
+  same tooling.
+- Nothing under `out/` is tracked. Treat it as disposable workspace, not a byte-for-byte
+  backup set: durable provenance lives under `evidence/`; ledgered bulk and archived scratch
+  can be restored from the NAS through `docs/nas-ledger.json`; transient logs and checks are
+  regenerated or discarded. `scripts/gutcheck-grow-batch.mjs`,
+  `scripts/gutcheck-sweep-specs.mjs`, and `scripts/gutcheck-archive-pack.ts` re-pin the
+  gut-check evidence subtree automatically. After a direct writer invocation or hand edit
+  under `evidence/gutcheck-gg-realism/`, run `npm run evidence:pin`; it re-pins that subtree
+  ONLY. A new file elsewhere under `evidence/` needs its own MANIFEST entry or `npm test`
+  fails on the stray.
 - Keep unrelated dirty changes intact. Never “clean up” a handoff by reverting or absorbing it
-  without understanding the active plan.
+  without understanding the affected active plan.
 
 ---
 
 ## Rule 1 — Start every session by reading the state
 
-Before touching anything: read `docs/PROGRESS.md`, then the plan file it points at as active.
+Before touching anything: read `docs/PROGRESS.md`, then every active plan relevant to the work.
 Do not infer project state from the code, the file tree, or this charter alone — they tell you
 what exists, not what was *intended*, what was *tried and rejected*, or what the last model was
 halfway through. If `PROGRESS.md` disagrees with the code, say so explicitly rather than
@@ -311,6 +328,10 @@ Any work beyond a trivial fix gets a plan file *first*, committed before impleme
 A plan is: the goal, the approach, the steps, the "done when", and the things deliberately not
 done. Charter phases already state their own **done when** — copy it into the plan verbatim and
 do not quietly soften it.
+
+A bounded single-source intake, a direct analysis requested by the maker, or a focused docs/rules
+correction with an obvious scope is not a build and does not need a new plan file. Do not create a
+plan merely to restate the request or to document that another process document will be changed.
 
 If the user approves a plan in chat, write it to the file anyway. The next model cannot read
 this conversation.
@@ -366,11 +387,13 @@ Scientific milestones are **automated metrics, not screenshots** (§3.3). So:
   paragraph, and the `5463e76` retraction of the Phase 6 structural bound, whose script
   counted sigma_0 crossings while the claim governed habit — which depends on the full
   attachment coefficient alphaHK, a different quantity with a different crossing count.
-- **For every non-exempt change, the required local check is exact `npm test`, and nothing else
-  counts as it.** The planning-only media/Journey documentation exception is defined under
-  *Commands and evidence semantics* above. A green `npx vitest run` omits the Rule 7 scan and both
-  typechecks; quoting it as verification is how 319 scan violations merged to `main` unnoticed on
-  2026-07-29. Name the exact command beside any "suite green" claim.
+- **For executable code, tests, build configuration, gate/evidence generation or verification,
+  or any change whose governing plan names the full suite, the required local check is exact
+  `npm test`, and nothing else counts as it.** A green `npx vitest run` omits the Rule 7 scan
+  and both typechecks; quoting it as verification is how 319 scan violations merged to `main`
+  unnoticed on 2026-07-29. Pure prose, source-index, and governance edits use the cheapest check
+  that covers their actual failure surfaces, including the Rule 7 scan when repository prose
+  changes, and are never described as "suite green." Name the exact command beside any claim.
 
 ## Rule 7 — A bare `alpha` is banned from this repository
 
@@ -450,13 +473,54 @@ An interpretive document — a sweep report, a scientific-claim section of an AD
 ledger entry, education content, anything outward-facing — receives an adversarial audit
 **before** it is published, merged, or propagated into other artifacts, not after. Scale the
 audit to the claim: anything carrying a theorem-strength claim (Rule 6's "cannot / every /
-independent of" class) or leaving the repository gets the full adversarial treatment;
-routine records get a proportionate skeptical pass. The audit that retracted the Phase 6
+independent of" class), a gate verdict, or a public scientific conclusion gets the full
+adversarial treatment. Routine source triage, internal working judgments, and non-load-bearing
+records get the author's proportionate skeptical pass; they do not require independent review
+merely because they are committed. The audit that retracted the Phase 6
 structural bound (`5463e76`) found exactly the attacks it was asked to try — meaning it
 would have caught the error pre-publication, and running it post-publication was purely a
 scheduling choice. By then the claim had already propagated into a memory entry, a findings
 ledger, and education chapters, each of which needed its own correction pass. Evidence
 earned this gate in Phase 2; interpretation has now paid for it twice.
+
+## Rule 14 — Fix stupid process
+
+Do not preserve a gate, workflow, plan detail, or inherited convention merely because time has
+already been spent on it. When process is demonstrably redundant, self-defeating, disproportionate
+to its risk, or displacing the real work, say so plainly and stop extending it. Determine the actual
+authority: preserve controls required by the charter or an accepted ADR unless the maker authorizes
+an amendment, in which case Rule 5 still requires the ADR and matching charter edit to land before
+the control is relaxed; simplify plan- and implementation-level machinery directly; and record what
+was superseded so a later model does not restore it by inertia.
+
+Keep checks that protect scientific correctness, provenance, safety, reproducibility, or a real
+fail-open boundary. Remove or defer ceremony that only proves the proof system, duplicates a later
+gate, attacks an out-of-scope adversary, or attempts to machine-prove social facts such as reviewer
+identity. Prior effort is not evidence of value, and accumulated ceremony is not rigor. When a
+review loop starts producing more review machinery instead of source coverage, measurements, or
+other named deliverables, escalate to the maker and fix the process before doing another rebuild.
+
+Use decision risk, not anxiety or the mere availability of another check, to set assurance depth:
+
+- **Routine source intake:** establish identity/version, preserve the original and hash when
+  applicable, record exact locators, and extract values with units, conditions, uncertainty, and a
+  measured/transcribed/derived distinction. Then stop; independent review is not the default.
+- **Load-bearing quantitative input:** do the routine work plus one independent transcription,
+  calculation, or semantic check targeted at the value the project will consume.
+- **Phase gate or strong public scientific claim:** use the pre-registered evaluator, independent
+  derivation, negative controls, and adversarial review required by the charter or accepted ADR.
+
+A proposed gate, check, review, registry, or verifier is admitted only when it names a plausible
+in-scope failure, explains how that failure could change a scientific decision or silently corrupt
+evidence, shows that existing controls do not already catch it, and costs less than the likely harm.
+If any part is missing, do not build it. Never add a review of a review or a validator whose main
+purpose is to validate another validator.
+
+Stop checking when another pass is unlikely to change inclusion, classification, extracted values,
+the next experiment, or a published claim. State the residual uncertainty and move on. As a judgment
+tripwire—not a tracked metric—if process consumes roughly one quarter of a work block without
+producing source coverage, measurements, calculations, code, experiments, or the requested
+decision, or if a second meta-validation layer appears, stop and simplify before continuing.
 
 ---
 

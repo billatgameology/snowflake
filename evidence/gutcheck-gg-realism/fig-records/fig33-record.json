@@ -1,0 +1,94 @@
+{
+ "label": "Fig. 33 (plate w/ dendritic extensions v2; canonical-seed approximation)",
+ "spec": {
+  "label": "Fig. 33 (plate w/ dendritic extensions v2; canonical-seed approximation)",
+  "stages": [
+   {
+    "untilTick": 12500,
+    "rho": 0.12,
+    "phi": 0.01,
+    "ggThreshTable": {
+     "10": 2.25,
+     "11": 2.25,
+     "20": 2.25,
+     "21": 1,
+     "30": 1,
+     "31": 1,
+     "01": 3.5
+    },
+    "kappa": {
+     "default": 0.005,
+     "overrides": {}
+    },
+    "mu": {
+     "default": 0.001,
+     "overrides": {}
+    }
+   },
+   {
+    "untilTick": null,
+    "rho": 0.12,
+    "phi": 0.01,
+    "ggThreshTable": {
+     "10": 1.4,
+     "11": 1.4,
+     "20": 1.4,
+     "21": 1,
+     "30": 1,
+     "31": 1,
+     "01": 3.5
+    },
+    "kappa": {
+     "default": 0.005,
+     "overrides": {}
+    },
+    "mu": {
+     "default": 0.001,
+     "overrides": {
+      "10": 0.004,
+      "20": 0.004
+     }
+    }
+   }
+  ]
+ },
+ "stageTransitions": [
+  {
+   "tick": 12500,
+   "stage": 2
+  }
+ ],
+ "dims": {
+  "nx": 600,
+  "ny": 600,
+  "nz": 96
+ },
+ "domain": "hexPrism",
+ "seed": 1,
+ "noise": 0,
+ "tickCap": 60000,
+ "stopReason": "domain-contact",
+ "tick": 33358,
+ "attachedCount": 702740,
+ "farFieldMean": 0.16345985618191913,
+ "mesh": {
+  "path": "out/gutcheck-gg-realism/large/figs/fig33-mesh.bin",
+  "vertexCount": 819230,
+  "triangleCount": 1640228,
+  "bboxCartesian": {
+   "xMin": 255,
+   "xMax": 645,
+   "yMin": 90.93266739736605,
+   "yMax": 428.6825748732971,
+   "zMin": 27,
+   "zMax": 53
+  },
+  "extraction": {
+   "spacing": 0.6,
+   "sigma": 0.45,
+   "normalDelta": 3
+  }
+ },
+ "elapsedSeconds": 12258,
+ "evidenceStatus": "unvalidated eyeball exploration; no gate semantics"
+}

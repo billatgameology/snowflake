@@ -1,0 +1,36 @@
+{
+  "schema": "phase9-knowledge-baseline-index-v1",
+  "operator": "phase9-knowledge-baseline-v1",
+  "artifacts": [
+    {
+      "path": "report.json",
+      "format": "json",
+      "byteLength": 5263,
+      "sha256": "37c7aadf18bce7420883930f66d6c6a473100dd27e1468dd8396a3c1214b1f96"
+    },
+    {
+      "path": "source-register.jsonl",
+      "format": "jsonl",
+      "byteLength": 17827,
+      "sha256": "e217861146b1a9456a2ce1464e263e00b88512011382e5da54e6dd03d5c105f7"
+    },
+    {
+      "path": "hypotheses.jsonl",
+      "format": "jsonl",
+      "byteLength": 28878,
+      "sha256": "1c7d5ad2f4778b60240e83f150b237a33b12dd0bca388e319d203beb8d209b08"
+    },
+    {
+      "path": "calculations.json",
+      "format": "json",
+      "byteLength": 36091,
+      "sha256": "71c3c15587f1a705dbfa6ac9dd7fcb74ef5141c7547d06214d4dd64e423efee5"
+    },
+    {
+      "path": "search-report.json",
+      "format": "json",
+      "byteLength": 4363,
+      "sha256": "e6a92e020c7db0573f69eee0c841cba5483497f533ce5217d149067a944647c9"
+    }
+  ]
+}

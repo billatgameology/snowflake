@@ -1,0 +1,130 @@
+{
+  "schema": "phase9-independent-verification-receipt-v1",
+  "receiptId": "phase9-dbt-v3-independent-verification-2026-08-13",
+  "subject": {
+    "kind": "phase9-dbt-six-history-development",
+    "bundlePath": "evidence/phase9-dbt-six-history-development-v3",
+    "artifactIndex": {
+      "bytes": 673,
+      "sha256": "ebc2a56624606842208ecb42af857c216584b926c5a96716ecebf1139f4b5184"
+    },
+    "report": {
+      "bytes": 6870,
+      "sha256": "f7a84d7509460256d4e535516d7c0e69050e4621fc5357df59e314fc41379a41"
+    },
+    "bundleFiles": {
+      "launch-manifest.json": {
+        "bytes": 17274,
+        "sha256": "d7d03b0396a29968de5db3db91b6ec53ea57fbf06bdb217e68dfc9689c88f297"
+      },
+      "scores.jsonl": {
+        "bytes": 11691,
+        "sha256": "6e2af9268de8e73ed187d8663054874a9a761266fc234fcf1a05455652aa32ed"
+      },
+      "source-diagnostics.jsonl": {
+        "bytes": 6205,
+        "sha256": "1eb8fb08fc35c271a360f84053c70bc3c1d7aec1bc749f680b22f452c12b3d56"
+      }
+    },
+    "immutableProducerState": {
+      "field": "state",
+      "value": "candidate-awaiting-independent-byte-verification",
+      "meaning": "The producer does not self-attest. The field remains immutable after a sibling verifier pass."
+    }
+  },
+  "execution": {
+    "executedOnLocalDate": "2026-08-13",
+    "exactTimestampStatus": "not-captured",
+    "timezone": "America/Los_Angeles",
+    "repositoryHead": "8a1d0519160d34eef4634d7c3306cf34e1b62de0",
+    "trackedStatusAtLaunch": "clean",
+    "argv": [
+      "node",
+      "runner/src/phase9-dbt-publication-verify.ts",
+      "verify",
+      "--repository-root",
+      ".",
+      "--launch-manifest",
+      "research/phase9-dbt-launch-v1.json",
+      "--bundle",
+      "evidence/phase9-dbt-six-history-development-v3"
+    ],
+    "displayCommand": "node runner/src/phase9-dbt-publication-verify.ts verify --repository-root . --launch-manifest research/phase9-dbt-launch-v1.json --bundle evidence/phase9-dbt-six-history-development-v3",
+    "runtime": {
+      "node": "v24.13.1",
+      "v8": "13.6.233.17-node.40",
+      "platform": "darwin",
+      "architecture": "arm64"
+    },
+    "exitCode": 0,
+    "signal": null,
+    "stdout": {
+      "path": "dbt-verifier-stdout.json",
+      "bytes": 1669,
+      "sha256": "92bbc839d2aae4ed3224fbef309c44a3b699d2bc33a2c59da7de0d3b7e7f2354"
+    },
+    "stderr": {
+      "preservedPath": null,
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  },
+  "boundVerifierInputs": {
+    "verifier": {
+      "path": "runner/src/phase9-dbt-publication-verify.ts",
+      "bytes": 100080,
+      "sha256": "308dc7fed1636a517118e3091c558572e2f2b9811167e7147091bc3c5318b016"
+    },
+    "launchAuthorization": {
+      "path": "research/phase9-dbt-launch-v1.json",
+      "bytes": 3550,
+      "sha256": "a30a272dcdedfba5ed33a746d01806e968f81cca92b31810d7b880354002b4ba"
+    },
+    "nasResolver": {
+      "path": "runner/src/phase9-nas.ts",
+      "bytes": 4500,
+      "sha256": "98e3fb5e36f684c51712b04cac7022f81074ab55ca912e35e3af9171a15f563c"
+    }
+  },
+  "verificationResult": {
+    "ok": true,
+    "artifactCount": 5,
+    "historyCount": 6,
+    "rawRowsReparsed": 57199,
+    "preparedSamples": 2550,
+    "adjacentMassDecreases": 141,
+    "duplicateExtraRows": 0,
+    "verdict": "central-no-effect-or-failure",
+    "strictLambWins": 0,
+    "requiredStrictLambWins": 4,
+    "sensitivityCases": 24,
+    "sensitivityWinFlips": 0,
+    "promotionAvailable": false,
+    "grantsValidationClaim": false,
+    "negativeControls": {
+      "expected": 15,
+      "mutationObserved": 15,
+      "rejectedOrDistinguished": 15
+    }
+  },
+  "compositeState": {
+    "value": "independently-verified-development-result",
+    "derivation": "immutable producer candidate plus this exact-byte sibling-verifier pass",
+    "rewritesProducerBytes": false,
+    "transferRule": "Any subject, verifier, launch-authorization, or NAS-resolver identity change makes this receipt non-transferable."
+  },
+  "reviewProvenance": {
+    "executor": "OpenAI Codex, GPT-5 family; exact serving snapshot not exposed",
+    "sharedContextWithDeveloper": true,
+    "role": "non-author read-only verifier re-executor",
+    "independentlyReexecuted": "The sibling verifier reparsed the registered NAS rows, reconstructed all five artifacts, and executed all 15 named controls."
+  },
+  "limits": [
+    "development evidence only; this receipt grants no validation label",
+    "no three-dimensional solver was executed",
+    "the source PDFs and archives were not visually re-audited in this re-execution",
+    "the receipt does not establish unqualified transfer outside electrodynamic levitation",
+    "the public IceNODE snapshot still does not establish a definitive training-history identity join",
+    "the exact full repository suite was not part of this verifier command"
+  ]
+}
