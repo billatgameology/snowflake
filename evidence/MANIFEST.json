@@ -3,8 +3,8 @@
  "movedFrom": "out/ (gitignored), plus the byte-identical tracked arm64 fingerprint formerly under docs/",
  "movedTo": "evidence/ (tracked)",
  "note": "Historical sweep digests were computed before their move and re-verified afterward. The arm64 fingerprint preserves the exact former docs/ Git blob (18398 bytes, SHA-256 d6686f8e...). The x64 fingerprint is the complete 2026-08-01 lightweight fixture re-execution backing the exact per-entry comparison; it reproduces registered digest 2a9f64b3. These are preserved claim-backing bytes, not regenerated production sweeps.",
- "fileCount": 112,
- "totalBytes": 3528026,
+ "fileCount": 119,
+ "totalBytes": 3588037,
  "files": {
   "phase6-crossplatform/arm64-libm-fingerprint.txt": {
    "bytes": 18398,
@@ -429,6 +429,34 @@
   "phase9-mf-mk2-planar-diagnostic-v1/series-scores.jsonl": {
    "bytes": 28679,
    "sha256": "f7518ccf367d2de4382a443e9e0a7179595c97fd1fb12383cd3c2b41206d944c"
+  },
+  "phase9-publication-verification-v1/artifact-index.json": {
+   "bytes": 1080,
+   "sha256": "c90abc88da66e3e70e0d3e47a8cd171484178385a1034d447924d20d3f1e4d92"
+  },
+  "phase9-publication-verification-v1/dbt-receipt.json": {
+   "bytes": 4863,
+   "sha256": "6425e8790cf4d72c124efebb351b445db359d37e633dd6edaa2842ed0b30567c"
+  },
+  "phase9-publication-verification-v1/dbt-verifier-stdout.json": {
+   "bytes": 1669,
+   "sha256": "92bbc839d2aae4ed3224fbef309c44a3b699d2bc33a2c59da7de0d3b7e7f2354"
+  },
+  "phase9-publication-verification-v1/mf-mk2-receipt.json": {
+   "bytes": 4613,
+   "sha256": "f92a6c1e117b365f9a852579d59caa89fb14d1b7e5afd3dac8dd774f675ab1fc"
+  },
+  "phase9-publication-verification-v1/mf-mk2-verifier-stdout.json": {
+   "bytes": 1522,
+   "sha256": "76b43692fa1f9076ef6c4bd64883ec3c0b274c86363f8ae6c20fd48b8f60b856"
+  },
+  "phase9-publication-verification-v1/post-review-suite-receipt.json": {
+   "bytes": 3407,
+   "sha256": "68cfe6f08387dfdf0053dfe355bec5ee5343b6ed99896fe3e92250aa21692cd1"
+  },
+  "phase9-publication-verification-v1/post-review-suite-output.txt.base64": {
+   "bytes": 42857,
+   "sha256": "8a372d797b12b108b99041efff2d4f126fc00affb454e4db209f5b4bed8695eb"
   },
   "phase9-source-overlay-v1/artifact-index.json": {
    "bytes": 844,

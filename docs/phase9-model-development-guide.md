@@ -108,8 +108,10 @@ This heterogeneity is why the records cannot be pooled into one universal score.
 
 ## What the expanded NAS material changed
 
-The original Phase 9 proposal predated the final Phase 8 search. Before freezing any evaluation,
-Phase 9 reconciled the broader registered source collection. The
+The original Phase 9 proposal predated the final Phase 8 search. The files record an in-session
+reconciliation of the broader registered source collection before evaluation froze. The detailed
+overlay and scored-output bytes first entered Git together in `1efe127`, so repository ordering
+does not independently establish that chronology. The
 [source-overlay report](../evidence/phase9-source-overlay-v1/report.json) records 59 complete
 artifacts and their dispositions; the bounded set is substantial but is not a claim of complete
 global literature coverage. Three named full texts remained missing—the complete HP26 article,
@@ -187,8 +189,8 @@ agreement.
 | **Cheapest discriminator first** | Try a scalar or planar calculation before building a 3-D mechanism | Weak or unidentifiable ideas stop early and cheaply |
 | **Protocol-aware comparison** | Compare only experiments and models that represent the same support, geometry, forcing, gas, ensemble, and observable | Prevents plausible but physically mismatched scores |
 | **Equal-history loss** | Compute the mean error inside each history, then average the histories | A densely sampled history does not gain extra scientific weight |
-| **Leave-one-history-out rival** | Fit a simple multiplier on five histories and test only the sixth | Avoids evaluating that multiplier on a history used to fit it; this is cross-fitting within development data, not held-out validation |
-| **Heldout-only sensitivity** | Perturb only the omitted leave-one-history-out fold and do not refit on that perturbation | Checks cross-fit robustness without leaking the answer into the fit; the fold remains development evidence, not held-out validation |
+| **Leave-one-history-out rival** | Fit a simple multiplier on five histories and test only the sixth | Avoids evaluating that multiplier on a history used to fit it; this is cross-fitting within development data, not held-out validation. |
+| **Omitted-fold-only sensitivity** | Perturb only the omitted leave-one-history-out fold and do not refit on that perturbation | Checks cross-fit robustness without leaking the answer into the fit; the fold remains development evidence, not held-out validation |
 | **Digitization-interval gap** | Measure separation between graph-reading intervals | Preserves coordinate-reading uncertainty without calling it a confidence interval |
 | **Mapping-family diagnostic** | Predeclare several possible apparatus-to-surface conversions | Reveals when the unknown mapping, rather than the candidate law, controls the conclusion |
 | **One-factor intervention** | Change vapor diffusivity or thermal conductivity, never both | Separates mechanisms and refuses an interaction the experiment did not cross |
@@ -226,7 +228,7 @@ Protocol: [`phase9-permanent-control-readiness-protocol-v1.json`](../research/ph
 
 #### The question
 
-Does the Lamb learned bulk-transfer formula beat the precommitted leave-one-history-out continuum
+Does the Lamb learned bulk-transfer formula beat the internally frozen leave-one-history-out continuum
 rescale on the six registered histories? Ordinary continuum and the project hybrid are reported
 alongside them but do not enter the survival verdict.
 
@@ -287,6 +289,16 @@ the training-history identity join is not definitive. The project hybrid is also
 named diagnostic with three departures from the printed Nelson–Baker relation, not an exact
 Nelson–Baker reproduction.
 
+Every rescale training fold retained at least one history at the omitted run's recorded temperature,
+supersaturation, and pressure, although initial radius differed. That makes it a strong
+condition-matched fitted comparator; interpret the result as Lamb losing to that rival on this
+apparatus, not as a universal rejection of mass-conditioned transfer. The detailed rule was frozen
+and reviewed within the execution session, but protocol and result bytes first entered Git together
+in `1efe127`, so repository ordering does not independently demonstrate a pre-output commit.
+
+Immutable evidence and code identifiers beginning with `heldout` mean only an omitted cross-fit
+fold. They grant no held-out evidence status and will not be reused in future schemas.
+
 Evidence: [`phase9-dbt-six-history-development-v3`](../evidence/phase9-dbt-six-history-development-v3/).
 
 ### 3. M-F versus M-K2: planar-facet kinetics
@@ -316,12 +328,16 @@ Phase 9 refused that extrapolation. Its basal comparator remains unchanged.
 
 The six Sei–Gonda series contain 96 direct face-growth observations, but the plotted apparatus
 supersaturation is not proven to be the supersaturation at the growing facet. Phase 9 therefore
-predeclared five diagnostic constructions:
+registered five diagnostic constructions in the in-session protocol:
 
 ```text
 sigmaSurface = q * sigmaPlotted
 q in {0.125, 0.25, 0.5, 0.75, 1}
 ```
+
+The five constructions were frozen and reviewed within the execution session. Their detailed
+protocol and result bytes first entered Git together in `1efe127`, so Git ordering does not
+independently demonstrate a pre-output commit.
 
 #### The result
 
@@ -340,6 +356,11 @@ no morphology inference or promotion follows. The central MSE values here have u
 also required strict wins on both matched prism series and interval-gap MSE no worse than M-F.
 Digitization intervals represent graph-reading uncertainty, not specimen dispersion or confidence
 intervals, and the candidate prediction uncertainty remains incomplete.
+
+As a separate humility control, the inherited M-F comparator's six-series equal-series central MSE
+is worse than the zero-growth control (`0.402880`) at `q=0.75` (`1.365946`) and `q=1`
+(`4.327380`). This is another sign that the unresolved forcing map dominates the interpretation;
+it is not evidence that crystals physically do not grow.
 
 Evidence: [`phase9-mf-mk2-planar-diagnostic-v1`](../evidence/phase9-mf-mk2-planar-diagnostic-v1/).
 
@@ -700,11 +721,14 @@ This is a scientific priority order, not an already authorized new phase.
 | Adapter policies | [`phase9-adapter-registry-v1.jsonl`](../research/phase9-adapter-registry-v1.jsonl) |
 | D-BT quantitative result | [`phase9-dbt-six-history-development-v3`](../evidence/phase9-dbt-six-history-development-v3/) |
 | Planar-facet diagnostic | [`phase9-mf-mk2-planar-diagnostic-v1`](../evidence/phase9-mf-mk2-planar-diagnostic-v1/) |
+| Independent verifier executions | [`phase9-publication-verification-v1`](../evidence/phase9-publication-verification-v1/) |
 | Gas/pressure intake | [`phase9-mgp-development-registry-v1.jsonl`](../research/phase9-mgp-development-registry-v1.jsonl) |
 | Path and surface-state registry | [`phase9-mh-msr-registry-v1.jsonl`](../research/phase9-mh-msr-registry-v1.jsonl) |
 | Initiation registry | [`phase9-ms-categorical-registry-v1.jsonl`](../research/phase9-ms-categorical-registry-v1.jsonl) |
 | Review of the completed result | [Phase 9 completion review](reviews/phase9-completion-review-2026-08-13.md) |
 | Adversarial review of this guide | [Phase 9 guide review](reviews/phase9-model-development-guide-review-2026-08-13.md) |
+| Different-model post-completion review | [Phase 9 external review](reviews/phase9-external-review-2026-08-13.md) |
+| Disposition of external-review findings | [Phase 9 external-review repairs](reviews/phase9-external-review-repairs-2026-08-13.md) |
 
 ## Final perspective
 

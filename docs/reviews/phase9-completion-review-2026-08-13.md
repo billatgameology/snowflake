@@ -2,9 +2,11 @@
 
 ## Review provenance
 
-- **Reviewer:** OpenAI Codex; the exact serving snapshot is not exposed.
+- **Reviewer:** OpenAI Codex; the exact serving model and snapshot were not exposed.
 - **Context:** the reviewer shared the developer's repository and conversation context but did not
   author or edit the reviewed completion commit.
+- **Independence limit:** author and reviewer were both OpenAI Codex, so different-model
+  independence is not established. This was a shared-context, non-author review.
 - **Reviewed commit:** `1efe127` (`Complete Phase 9 bounded development tranche`).
 - **Worktree behavior:** read-only and clean throughout the review.
 
@@ -64,3 +66,9 @@ The reviewer did not:
 - review the educational guide, which was written after this completion review.
 
 The educational guide therefore receives its own subsequent adversarial review before publication.
+
+## Subsequent assurance
+
+A later [different-model external review](phase9-external-review-2026-08-13.md) independently
+re-executed the exact full suite and both quantitative pipelines. Its accepted record and test gaps
+are repaired separately; they do not retroactively change this review's scope or provenance.

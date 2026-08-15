@@ -44,23 +44,22 @@ index, a plan, ADR, or audit links to historical detail.
   returned zero blockers after its two bookkeeping findings were repaired. Phase 7 is completely
   standalone, unstarted and requires its own plan/worktree; Phase 10 remains uncharted.
 - **Phase 9 is COMPLETE (development-only, 2026-08-13).**
-  Decision [0050](decisions/0050-adopt-phase9-modular-physics-experiments.md) and charter v1.27 authorize
-  isolated development under the [execution plan](plans/phase-9-execution.md) while Phase 6 remains
-  active. S0B did disposition the bounded registered Phase 8/9 Git/NAS manifest and freeze the
-  shelf before any model score: its [report](../evidence/phase9-source-overlay-v1/report.json)
-  (6,530 bytes; SHA-256 `51e1fa2bf6a84beb94ffd442fd0d55df9017f7bb76e2b04d1e1f5fec38c63d8a`)
-  verifies 70 aliases as 59 complete artifacts (55 PDFs/four archives). S1 maps all 51 rows through
-  fail-closed adapters. All 51 Phase 8B records remain development evidence with zero held-out rows.
-  The verified D-BT result is `central-no-effect-or-failure`: Lamb MSE `431.3416` versus
-  leave-one-history-out rescale `0.6578183`, 0/6 strict wins, and no flip in 24 sensitivities
-  ([v3 report](../evidence/phase9-dbt-six-history-development-v3/report.json), 6,870 bytes,
-  SHA-256 `f7a84d7509460256d4e535516d7c0e69050e4621fc5357df59e314fc41379a41`).
-  M-F/M-K2 is `diagnostic-mapping-dependent`: 2/5 mappings met the effect, with no physical score
-  ([report](../evidence/phase9-mf-mk2-planar-diagnostic-v1/report.json), 1,441 bytes,
-  SHA-256 `c938c02460402e19f41c62b975ac41b44861af4ee36c781dbb469c350288bdf7`).
-  Other arms are bounded to reviewed source/analytic/refusal foundations; no item earned promotion,
-  so combinations are a no-pass. Exact `TMPDIR=/private/tmp npm test` passed and the all-no-pass
-  branch closed with zero promotions. Phase 9 cannot grant a quantitative-validation label or earn Phase 6/7 credit. The Mac
+  Decision [0050](decisions/0050-adopt-phase9-modular-physics-experiments.md), charter v1.27 and the
+  [execution plan](plans/phase-9-execution.md) authorized isolated Mac development. S0B's
+  [report](../evidence/phase9-source-overlay-v1/report.json) (6,530 bytes; SHA-256 `51e1fa2b…63d8a`)
+  resolves 70 aliases to 59 complete artifacts. The files record an in-session shelf freeze before
+  scoring; detailed S0B and scored-result bytes first entered Git together in `1efe127`, so
+  Git ordering cannot independently prove that sequence. S1 maps all 51 rows through fail-closed adapters. All 51 Phase 8B records remain development evidence.
+  Separate [verification receipts](../evidence/phase9-publication-verification-v1/) bind the clean-head
+  commands and stdout for D-BT (`central-no-effect-or-failure`, Lamb `431.3416` versus rescale
+  `0.6578183`, 0/6 wins, 24 no-flip sensitivities) and M-F/M-K2
+  (`diagnostic-mapping-dependent`, 2/5, physical score unavailable). Other arms stop at reviewed
+  source/analytic/refusal foundations; the all-no-pass branch closed:
+  zero promotions and no combination campaign. Exact `TMPDIR=/private/tmp npm test` passed at
+  completion; a later [different-model external review](reviews/phase9-external-review-2026-08-13.md)
+  re-ran it as 115/115 files, 1,912 passed and seven skipped; the
+  [post-review repair run](reviews/phase9-external-review-repairs-2026-08-13.md) passed 116/116 and
+  1,924. Phase 9 cannot grant a quantitative-validation label or earn Phase 6/7 credit. The Mac
   lane ran only source/scalar/planar work; Phase 6's Windows evidence
   host, processes, artifacts, and unpublished verdict remain isolated. The
   [maker guide](phase9-model-development-guide.md) explains the data, methods, results, and next evidence.
@@ -154,7 +153,7 @@ index, a plan, ADR, or audit links to historical detail.
   frozen tree exited 0: Rule 7 clean over 436 files, both TypeScript projects, Vitest 82 files /
   1,454 tests in 628.68 s. Whether WP2 uses Z = 2 or Z = 1 strata is a WP2/WP3 protocol
   decision.
-- **Last updated:** 2026-08-13 by OpenAI Codex
+- **Last updated:** 2026-08-14 by OpenAI Codex
 
 ## Phase gates
 
@@ -220,3 +219,10 @@ byte-for-byte, along with rejected plot-adjudication history and the failed orig
 audit. Broad discovery and the residual backlog remain stopped absent a new named
 measurement gap; Phase 9 S0B is bounded reconciliation of already registered complete Git/NAS
 sources. All 51 Phase 8B records are development evidence and none may be relabeled held out.
+
+### Phase 9 branch integration — post-review
+
+Commit the external-review repairs and verification receipts, wait for unrelated `main` work to
+land, then reconcile `docs/PROGRESS.md` and `evidence/MANIFEST.json` additively, run exact
+`TMPDIR=/private/tmp npm test`, and integrate `phase/9`. Do not reopen Phase 9 or start uncharted
+Phase 10 during that merge.

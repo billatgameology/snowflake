@@ -87,8 +87,8 @@ function currentIndexErrors(text: string): string[] {
     "Decision [0050]",
     "charter v1.27",
     "(plans/phase-9-execution.md)",
-    "freeze the",
-    "shelf before any model score",
+    "detailed S0B and scored-result bytes first entered Git together",
+    "Git ordering cannot independently prove that sequence",
     "All 51 Phase 8B records remain development evidence",
     "Phase 9 cannot grant a quantitative-validation label",
     "Phase 6's Windows evidence",
@@ -99,7 +99,7 @@ function currentIndexErrors(text: string): string[] {
     "(plans/phase-6-science-first-completion.md)",
     "(plans/phase-8-what-is-real.md)",
     "(plans/phase-8-measurement-corpus.md)",
-    "- **Last updated:** 2026-08-13",
+    "- **Last updated:** 2026-08-14",
   ];
   for (const phrase of required) {
     if (!text.includes(phrase)) errors.push(`missing current-state phrase: ${phrase}`);
@@ -204,7 +204,7 @@ describe("compact progress index and byte-exact historical record", () => {
       .match(/^# Handoff .* \((\d{4}-\d{2}-\d{2})\)$/mu)?.[1];
     // HANDOFF.md is the last maker-triggered stop snapshot and moves only on maker request;
     // PROGRESS.md advances with ordinary work, so the two dates are pinned independently.
-    expect(progressDate).toBe("2026-08-13");
+    expect(progressDate).toBe("2026-08-14");
     expect(handoffDate).toBe("2026-08-07");
     for (const statePlan of STATE_PLANS) expect(existsSync(statePlan)).toBe(true);
     expect(existsSync(ARCHIVE)).toBe(true);

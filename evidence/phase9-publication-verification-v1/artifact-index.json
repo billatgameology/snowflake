@@ -1,0 +1,32 @@
+{
+  "schema": "phase9-publication-verification-artifact-index-v1",
+  "scope": "independent-verifier-and-post-review-suite-execution-receipts",
+  "fileCount": 6,
+  "totalBytes": 58931,
+  "files": {
+    "dbt-receipt.json": {
+      "bytes": 4863,
+      "sha256": "6425e8790cf4d72c124efebb351b445db359d37e633dd6edaa2842ed0b30567c"
+    },
+    "dbt-verifier-stdout.json": {
+      "bytes": 1669,
+      "sha256": "92bbc839d2aae4ed3224fbef309c44a3b699d2bc33a2c59da7de0d3b7e7f2354"
+    },
+    "mf-mk2-receipt.json": {
+      "bytes": 4613,
+      "sha256": "f92a6c1e117b365f9a852579d59caa89fb14d1b7e5afd3dac8dd774f675ab1fc"
+    },
+    "mf-mk2-verifier-stdout.json": {
+      "bytes": 1522,
+      "sha256": "76b43692fa1f9076ef6c4bd64883ec3c0b274c86363f8ae6c20fd48b8f60b856"
+    },
+    "post-review-suite-receipt.json": {
+      "bytes": 3407,
+      "sha256": "68cfe6f08387dfdf0053dfe355bec5ee5343b6ed99896fe3e92250aa21692cd1"
+    },
+    "post-review-suite-output.txt.base64": {
+      "bytes": 42857,
+      "sha256": "8a372d797b12b108b99041efff2d4f126fc00affb454e4db209f5b4bed8695eb"
+    }
+  }
+}

@@ -5,10 +5,16 @@
 - **Reviewer:** OpenAI Codex, GPT-5 family; exact serving snapshot not exposed.
 - **Context:** shared repository and author-conversation context; the reviewer did not author or
   edit the guide.
-- **Reviewed guide:** numerical/scientific audit at 43,526 bytes / SHA-256
-  `cc228d49b82e62e3f370ad9f1bfa21e2db3d36e04f8bc101291da2d95e313ddc`; final
-  terminology-and-governance-link delta at 43,835 bytes / SHA-256
-  `b8c05771e09e0fa170010ff8385fae78549ff3a710b47baa48dbf45e0e4ee67f`.
+- **Independence limit:** reviewer and author used the same model family. This was a
+  shared-context, non-author audit, not a different-model review.
+- **Reviewed guide:** the numerical/scientific audit covered an intermediate 43,526-byte working
+  copy reported as SHA-256
+  `cc228d49b82e62e3f370ad9f1bfa21e2db3d36e04f8bc101291da2d95e313ddc`.
+  Those bytes were not committed or otherwise preserved and are not independently addressable; the
+  hash is retained as historical review provenance, not a reproducible current artifact. The reviewer
+  then checked the bounded terminology/governance delta to the final committed guide at `8a1d051`
+  (43,835 bytes; SHA-256
+  `b8c05771e09e0fa170010ff8385fae78549ff3a710b47baa48dbf45e0e4ee67f`).
 - **Behavior:** read-only review.
 
 ## Verdict
@@ -27,10 +33,10 @@ The guide correctly separates:
 It makes no solver-change, promotion, combination, validation, causal-effect, or universal
 physical-rejection claim.
 
-The final delta replaces ambiguous source-provenance shorthand near the curvature fixture,
-explicitly distinguishes it from Phase 8 measurement grades, says “64-bit floating-point” in the
-maker-facing explanation, and links this review from the guide. It changes no number, equation,
-result, or scientific claim.
+The final delta reviewed at that commit replaced ambiguous source-provenance shorthand near the
+curvature fixture, explicitly distinguished it from Phase 8 measurement grades, said “64-bit
+floating-point” in the maker-facing explanation, and linked this review from the guide. It changed
+no number, equation, result, or scientific claim.
 
 ## Independent checks
 

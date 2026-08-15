@@ -1,0 +1,93 @@
+{
+  "schema": "phase9-post-review-suite-receipt-v1",
+  "receiptId": "phase9-external-review-repair-suite-2026-08-14",
+  "execution": {
+    "executedOnLocalDate": "2026-08-14",
+    "vitestStartedAtLocalTime": "17:36:24",
+    "timestampLimit": "The npm-wrapper start time was not separately captured.",
+    "timezone": "America/Los_Angeles",
+    "repositoryHead": "8a1d0519160d34eef4634d7c3306cf34e1b62de0",
+    "worktreeState": "expected external-review repair changes present",
+    "exactCommand": "TMPDIR=/private/tmp npm test",
+    "runtime": {
+      "node": "v24.13.1",
+      "v8": "13.6.233.17-node.40",
+      "platform": "darwin",
+      "architecture": "arm64"
+    },
+    "exitCode": 0,
+    "signal": null,
+    "durationSeconds": 387.15,
+    "terminalOutput": {
+      "path": "post-review-suite-output.txt.base64",
+      "encoding": "base64",
+      "encodedBytes": 42857,
+      "encodedSha256": "8a372d797b12b108b99041efff2d4f126fc00affb454e4db209f5b4bed8695eb",
+      "decodedBytes": 31725,
+      "decodedSha256": "78922a71648fee82480480dd17c6b2979918785b26dde7cf442003637074d421"
+    }
+  },
+  "testedInputs": {
+    "evidenceManifest": {
+      "path": "evidence/MANIFEST.json",
+      "bytes": 19190,
+      "sha256": "5bb77528bd41e787390e73743b194860d301d9316096bdabccf1729256fb55e3",
+      "note": "This is the manifest identity tested before this updated receipt, terminal output and index were added."
+    },
+    "progressIndexTest": {
+      "path": "runner/test/progress-index.test.ts",
+      "bytes": 17852,
+      "sha256": "caee020c43975d457474000e4c92aa58794db6a1ae94942c3e1f36603fc70b3a"
+    },
+    "newParserTest": {
+      "path": "runner/test/phase9-measurement-adapters-row-parsers.test.ts",
+      "bytes": 13947,
+      "sha256": "dc45b3f7010c89fe7bfdf55887eba61140dcc272f845604abb3dd1cf6d4a57d5"
+    },
+    "launchBoundAdapterSource": {
+      "path": "runner/src/phase9-measurement-adapters.ts",
+      "bytes": 64710,
+      "sha256": "f3298052fdac1fac062fe789fc45fea7c886dfcf3c27bc0ba9166335a7f47f9b"
+    },
+    "launchBoundAdapterTest": {
+      "path": "runner/test/phase9-measurement-adapters.test.ts",
+      "bytes": 15607,
+      "sha256": "58a99b8cd92104af366076670b4f28459822d54364a43b58ed710e40437ea289"
+    }
+  },
+  "result": {
+    "rule7": {
+      "status": "passed",
+      "filesScanned": 965
+    },
+    "typecheck": {
+      "root": "passed",
+      "app": "passed"
+    },
+    "vitest": {
+      "filesPassed": 116,
+      "filesTotal": 116,
+      "testsPassed": 1924,
+      "testsSkipped": 7,
+      "testsTotal": 1931,
+      "durationSeconds": 387.15,
+      "timingBreakdownSeconds": {
+        "transform": 1.12,
+        "collect": 2.3,
+        "tests": 378.05,
+        "environment": 0.008,
+        "prepare": 2.19
+      }
+    }
+  },
+  "interpretation": {
+    "value": "external-review repairs passed the required local suite",
+    "grantsScientificValidation": false,
+    "changesPublishedPhase9Results": false
+  },
+  "limits": [
+    "The run used a repair worktree rather than a clean committed head; the tested load-bearing parser and manifest inputs are identified above.",
+    "Adding the terminal output and updating this receipt, the evidence index and manifest occurred after the run and was checked with focused integrity tests, not by repeating the full suite.",
+    "This software-assurance run did not execute a physical solver or create new scientific evidence."
+  ]
+}

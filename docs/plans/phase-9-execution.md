@@ -51,7 +51,8 @@ Done when every registered shelf item is either (a) terminally source-blocked, p
 
 ## Candidate shelf
 
-S0 reconciled every source against this registered shelf before the bounded S0B freeze. It could
+The execution record says S0 reconciled every source against this registered shelf before the
+bounded S0B freeze; Git ordering cannot independently establish that internal sequence. It could
 split an item or add a new item only before that item's deciding output and with a recorded plan
 amendment. The 2026-08-12
 NAS reconciliation already forced two such corrections to the older proposed plan: gas/pressure
@@ -110,6 +111,8 @@ output. A long series cannot dominate a family score merely because it contains 
   Check current versions, corrections, supplements, public native data, and cited-author later
   output; visually inspect every newly load-bearing figure/table/equation page. Freeze the resulting
   shelf before any model score.
+  The files record that order in-session, but detailed S0B and scored-result bytes first entered Git
+  together in `1efe127`; Git ordering does not independently demonstrate it.
 - [x] **S1 — protocol-compatibility and measurement adapters.** Implement separate planar-facet,
   supported-dimension, free-particle mass, free-fall ensemble, and initiation-aggregate adapters.
   Fixture-test valid mappings and fail-closed ineligible outcomes. Do not rank a module yet.
@@ -132,15 +135,21 @@ output. A long series cannot dominate a family score merely because it contains 
   leave-one-history-out fitting, and one-factor sensitivity operators are frozen and tested. The
   final publisher, sibling verifier, and launch authorization were reviewed before the registered
   Mac/NAS run. Two failed candidates were preserved outside evidence after the verifier exposed an
-  independent numeric-serialization seam and then a vacuous real-data decrease mutation; neither
-  entered the manifest. The repaired v3 verifier reparsed 57,199 raw rows and all six registered
+  independent numeric-serialization seam and then a vacuous real-data decrease mutation. The v2
+  scores, source diagnostics, and `report.result` were byte-identical to v3; v2 was rejected as an
+  assurance candidate because its verifier control was vacuous, not because its scientific result
+  differed. Neither failed candidate entered the manifest. The repaired v3 verifier reparsed
+  57,199 raw rows and all six registered
   histories, reconstructed five evidence artifacts byte-for-byte, and executed all 15 named
   mutations. Lamb's family MSE was `431.3416` versus `0.6578183` for the leave-one-history-out
-  continuum rescale; Lamb won 0/6 histories with four required. None of 24 held-out-only radius or
+  continuum rescale; Lamb won 0/6 histories with four required. None of 24 omitted-fold-only radius or
   observation sensitivities flipped that comparison (minimum published margin `140.224156`). The
   result is `central-no-effect-or-failure`, not a mechanism, transfer, morphology, validation, or
   promotion claim; temperature and supersaturation sensitivities remain unavailable. Evidence:
   `evidence/phase9-dbt-six-history-development-v3/`.
+  The detailed protocol and result bytes first entered Git together in `1efe127`. Internal hashes
+  and pre-run review record an in-session freeze, but Git ordering does not independently
+  demonstrate a pre-output commitment.
 - [x] **S4 — M-F plus M-K2 planar-facet probe.** Record the apparatus-to-surface mapping as
   source-blocked and fully report the five frozen diagnostic construction points; none is a fitted
   or identified physical conversion. Replay the inherited M-F control over all six −7, −15, and
@@ -156,6 +165,8 @@ output. A long series cannot dominate a family score merely because it contains 
   morphology interpretation stops. A post-run adversarial audit independently recovered the 2/5
   result from the published score bytes and rejected forged mapping, physical-status, morphology,
   and validation claims. Evidence: `evidence/phase9-mf-mk2-planar-diagnostic-v1/`.
+  This detailed protocol and its result bytes also first entered Git together in `1efe127`; its
+  timing has the same in-session-freeze, not Git-order-demonstrable, limit as S3.
 - [x] **S5 — M-V compatibility decision.** Acquire and inspect the full controlled-velocity source
   or derive a documented eligibility bound. Without one, mark absolute free-fall scores ineligible.
   The complete Takahashi article and correction support an analytic Reynolds-number diagnostic but
@@ -220,7 +231,7 @@ output. A long series cannot dominate a family score merely because it contains 
   operand is a P4 fixture seeded by an uncertain, temperature-dependent P2 scale, not a physical
   input. Neither probe produced a causal, population, measurement-score, morphology, promotion, or
   validation result.
-- [x] **S11 — one-factor promotions.** Promote only items that met their precommitted effect and
+- [x] **S11 — one-factor promotions.** Promote only items that met their registered effect and
   preserve every source replay, same-lineage, protocol, and non-identifiability limit. No item in
   the executed tranche qualified: D-BT failed, M-F/M-K2 remained mapping-dependent, and every other
   completed probe is compatibility-, source-, or diagnostic-limited. The promotion roster is empty.
@@ -236,6 +247,17 @@ output. A long series cannot dominate a family score merely because it contains 
   closure audit returned no unresolved blockers. Exact `TMPDIR=/private/tmp npm test` exited 0,
   the manifest and complete diff were reconciled, and this completion commit closes Phase 9 with
   zero promotions and no validation credit.
+
+## Post-completion external review and record repairs
+
+A different-model, no-shared-context review independently reproduced the two quantitative
+pipelines and exact full suite. It found no numerical or result-invalidating defect. The accepted
+repairs add hermetic success and fail-closed tests for all three registered row-parser families,
+state the same-model limits of the earlier reviews, preserve the later suite counts in
+`docs/reviews/phase9-external-review-2026-08-13.md`, and publish separate exact-byte verifier
+receipts under `evidence/phase9-publication-verification-v1/`. The immutable producer bundles keep
+their candidate states; the separate receipts establish the composite independently verified
+development status. Future deciding protocols must enter Git before their outputs are inspected.
 
 ## Completed Mac tranche and terminal 3-D disposition
 
