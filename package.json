@@ -14,6 +14,8 @@
   "scripts": {
     "lint:rule7": "node scripts/lint-rule7.mjs",
     "evidence:pin": "node scripts/gutcheck-evidence-lib.ts",
+    "assets:audit": "node scripts/nas-assets.ts audit",
+    "assets:verify": "node scripts/nas-assets.ts verify",
     "typecheck": "tsc --noEmit && tsc -p app --noEmit",
     "test": "npm run lint:rule7 && npm run typecheck && vitest run",
     "education:verify": "node docs/education/tools/verify.mjs",
