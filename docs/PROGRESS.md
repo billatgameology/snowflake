@@ -128,9 +128,8 @@ index, a plan, ADR, or audit links to historical detail.
 - `crystallographicSpans()` reports exact integer `basalCaliper2`/`zLayers` (focused tests cover
   all D6 planar transforms and z reflection); not yet a reviewed source-to-model size mapping and
   no substitute for numerical controls.
-- Proposed [ADR 0039](decisions/0039-cycle-boundary-lk-resume-checkpoints.md): reviewed streaming
-  and field-adopting float64 restore landed through `a1d540c`; the runner contract stays deferred
-  until WP3 freezes exact campaign inputs. Production rows may not use resume before acceptance.
+- Proposed [ADR 0039](decisions/0039-cycle-boundary-lk-resume-checkpoints.md) keeps runner resume
+  deferred until WP3 freezes it; production rows may not resume before acceptance.
 - Education is frozen for Phase 6; the one maker-approved exception (`af7463b`, 2026-08-04) added
   the independent-laboratory record to chapters 4–13, `references.html`, and
   `FUTURE-ADDITIONS.md`. No other `docs/education/**` drift since `60e3f3f` (diff-verified
@@ -228,7 +227,7 @@ sources. All 51 Phase 8B records are development evidence and none may be relabe
 
 ### NAS asset governance — active; share still read-only
 
-The [opening audit](nas-inventory-audit-20260815.md), proposed ADR 0051, catalogue/schema, and
-safety primitives landed through `4c87061`; no NAS payload changed. Next: finish marker/resolver,
-catalogue-only loopback serving, and index enforcement, then review before any migration. Preserve
-Phase 6 and education work.
+The [opening audit](nas-inventory-audit-20260815.md), proposed ADR 0051, catalogue, resolver,
+read-only tools and governed index/serving landed through `ae4aad4`; no NAS byte changed. Next:
+transaction fixtures, then reviewed marker/control installation and live audit. No migration/prune;
+credential action remains maker-owned.

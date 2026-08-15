@@ -18,9 +18,11 @@ below it is identical.
 | Windows | `S:\` | persistent drive mapping to `\\GameStation\snowcrystal` |
 | macOS | `/Volumes/snowcrystal` | SMB — Finder ⌘K `smb://GameStation/snowcrystal`, or `mount_smbfs //<user>@GameStation/snowcrystal /Volumes/snowcrystal` after `mkdir`ing the mount point |
 
-`scripts/nas-root.ts` resolves which of those is attached (probing for
-`<mount>/out/gutcheck-gg-realism/large`), and `GUTCHECK_NAS_ROOT` overrides it for any other
-mount point. Both the index builder and the dev server ask it, so neither hardcodes a drive.
+`scripts/nas-root.ts` accepts a root only when its ordinary, non-linked
+`.snowflake-nas.json` marker has the exact project identity. `VCC_NAS_ROOT` is canonical;
+`GUTCHECK_NAS_ROOT` is a temporary compatibility alias and is accepted alongside it only when
+both resolve to the same validated share. The index builder, read-only asset tools and dev server
+use that resolver, so none hardcodes a drive or guesses identity from a familiar directory.
 
 The machine-readable twin, **`docs/nas-ledger.json`**, lists every moved file with its
 byte size and pre-move **SHA-256** — the bytes are a cache, the provenance is the record
@@ -50,17 +52,16 @@ the historical shelf, scores, evidence, promotions, or validation status.
 
 ## How the site uses this
 
-**Measured on macOS (2026-08-12): the full index builds and streams end-to-end.** The
-Windows `S:/` path is preserved by construction — the emitted URL rule was byte-compared
-against the pre-change implementation — but has not been independently re-run on that host.
-Mechanism: `scripts/gutcheck-build-index.ts` auto-detects `<mount>/out/gutcheck-gg-realism`
-and links all bulk artifacts there (`GUTCHECK_BULK_ROOT` overrides), writing
-`/nas/<share-relative path>` URLs that carry **no** mount prefix; the dev server's `/nas`
-route (`app/vite.config.ts`) re-attaches whatever prefix the serving host has. That
-construction is mount-agnostic, but only the macOS path has been exercised end-to-end. With
-the NAS attached on that measured path, stills, 3D viewers and growth timelines work;
-detached, the index falls back to local paths (which are empty for bulk) — rebuild after
-re-attaching. Do not upgrade this to a Windows claim until the current `S:/` path is executed.
+**Historical measurement on macOS (2026-08-12): the pre-governance full index built and streamed
+end-to-end.** The current governed contract is narrower and has fixture coverage but has not yet
+been exercised against the physical marker: `scripts/gutcheck-build-index.ts` reads only a
+validated share and emits URLs under the catalogue-approved `out/gutcheck-gg-realism/large` and
+`out/gutcheck-gg-realism/gen/renders` prefixes. The dev server authorizes that same logical path,
+then attaches the host mount and opens the file without following links. Private/mixed roots,
+including `photos/`, `figs/` and workspace-root media, are not indexed or served. `--detached`
+produces an explicit metadata-only index; it never falls back to local `out/` bytes. Windows
+`S:/` remains construction-tested only and needs an executed host check before a cross-host
+durability claim.
 
 The static Track A bundle (`scripts/gutcheck-build-site.ts`) is a different consumer: a
 shippable bundle must carry real bytes, so it hardlinks from the **local** tree only and is
@@ -71,19 +72,17 @@ growth timeline and no view-profiles section, and that omission does **not** app
 skipped-sources report. Restore that directory to its mirrored local path before building a
 timeline-bearing bundle.
 
-**A fresh macOS worktree needed no archive restore for the index** (measured 2026-08-12). The builder scans
-each artifact directory locally *and* on the share, merged with the local copy winning a
-filename collision, so the composites, style heroes, videos and photos (unpacked loose from
-the extras pack — see the moves row) stream like everything else, and the recipes/records
-come with git (`evidence/gutcheck-gg-realism/`, pinned in `evidence/MANIFEST.json`). On the
-measured macOS path with the share attached:
+The tracked recipes/records come with every worktree
+(`evidence/gutcheck-gg-realism/`, pinned in `evidence/MANIFEST.json`). A normal index build needs
+the validated share for asset rows; a deliberately detached metadata-only build does not:
 
 ```bash
 node scripts/gutcheck-build-index.ts && npm run dev   # then open /gutcheck-index.html
+node scripts/gutcheck-build-index.ts --detached       # metadata only; no /nas asset links
 ```
 
-Local copies of the extras remain optional — authoring workflows (photo matching, the static
-bundle, archive packing) still read the local tree.
+Local copies remain explicit authoring inputs only — photo matching, the static bundle and archive
+packing may read a restored staging tree, but the served index never merges or prefers it.
 
 ## Restoring / adding
 
@@ -99,23 +98,24 @@ rsync -a "/Volumes/snowcrystal/out/gutcheck-gg-realism/large/anim/dialin-b1p3-80
          "$REPO/out/gutcheck-gg-realism/large/anim/dialin-b1p3-800/"
 ```
 
-The retained extras zip is a historical private backup; the normal index reads the loose share
-mirror and needs no archive restore. When an authoring workflow needs local workspace bytes,
+The retained extras zip is a historical private backup. When an authoring workflow needs local workspace bytes,
 use the verified restore command rather than raw `unzip`, which bypasses the archive ledger and
 member checks. The zip also contains legacy recipe/record copies under `out/`; the tracked
-copies under `evidence/gutcheck-gg-realism/` remain authoritative and win index collisions.
+copies under `evidence/gutcheck-gg-realism/` remain authoritative, and the index ignores the
+legacy copies.
 
 ```bash
+snowflake_nas_root=$(node --input-type=module -e 'import { detectNasMount } from "./scripts/nas-root.ts"; const mount = detectNasMount(); if (mount === null) throw new Error("NAS detached"); process.stdout.write(mount)')
 node scripts/gutcheck-archive-restore.ts \
-  /Volumes/snowcrystal/out/gutcheck-gg-realism/archives/gutcheck-large-extras-20260807.zip \
-  && node scripts/gutcheck-build-index.ts
+  "${snowflake_nas_root}out/gutcheck-gg-realism/archives/gutcheck-large-extras-20260807.zip"
 ```
 
 New bulk grow outputs land locally under `out/`; `gutcheck-grow-batch.mjs` writes the tracked
-record under `evidence/gutcheck-gg-realism/gen-records/` and re-pins that subtree. After
-rendering, move the bulk outputs to the share (mirrored path), append them to
-`docs/nas-ledger.json` (path/bytes/sha256), and rebuild the index. A direct
-`gutcheck-grow-params.ts` invocation needs `npm run evidence:pin` after its record write.
+record under `evidence/gutcheck-gg-realism/gen-records/` and re-pins that subtree. While NAS
+transaction tooling is being completed, keep new bulk output in local staging rather than
+manually copying it and editing the legacy ledger. Publication will require a declared collection,
+stable source/stage/final verification and a tracked receipt. A direct `gutcheck-grow-params.ts`
+invocation still needs `npm run evidence:pin` after its record write.
 
 Historical note: the first moves were ledgered in `out/gutcheck-gg-realism/MOVED-TO-NAS.md`
 (untracked); this document supersedes it.

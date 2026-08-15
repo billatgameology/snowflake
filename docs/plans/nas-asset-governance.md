@@ -45,8 +45,8 @@ evidence remain readable; no bulk rename is allowed to rewrite their meaning.
   credentials, quarantined material, and other share paths return a refusal in fixture tests even
   when the caller knows their exact path.
 - Existing consumers stop scanning sibling worktrees or silently preferring stale local bytes.
-  Active authoring can request an explicit local override, while ordinary reads use a verified NAS
-  collection or fail loudly on a differing collision.
+  Writer-specific authoring flows may take an explicit local staging input, but a served index
+  never relabels that input as NAS content; ordinary reads use a verified NAS collection or fail.
 - A reviewed old-to-new migration manifest covers every physical move. Each moved object matches
   its pre-move byte length and SHA-256 at the final path, current consumers pass against the final
   layout, rollback remains possible until review closes, and deletion uses a separate exact target
@@ -103,10 +103,11 @@ They belong in a credential manager or runtime environment and outside every ser
 - [ ] Add the root marker, canonical resolver, collection catalogue/schema, static verifier, and
       fixture tests. Preserve `VCC_NAS_ROOT` as canonical; temporarily accept the older
       `GUTCHECK_NAS_ROOT` only when it resolves to the same share.
-- [ ] Add read-only `assets:audit` and `assets:verify`, then transactional `assets:publish`,
-      `assets:restore`, and local `assets:prune`. The first release produces a garbage-collection
-      plan only; it does not automatically delete NAS bytes.
-- [ ] Restrict `/nas` to explicitly serveable catalogue collections and refuse non-loopback
+- [x] Add bounded read-only `assets:audit` and `assets:verify`; neither command can mutate the
+      share, and explicit full verification remains one registered collection at a time.
+- [ ] Add transactional `assets:publish`, `assets:restore`, and local `assets:prune`. The first
+      release produces a garbage-collection plan only; it does not automatically delete NAS bytes.
+- [x] Restrict `/nas` to explicitly serveable catalogue collections and refuse non-loopback
       exposure unless a later reviewed requirement authorizes it.
 - [ ] Adapt gutcheck publication/index/site/workpack flows, research inventory tooling, education
       media discovery, and future gate finalization in bounded slices with exact tests after each
@@ -148,6 +149,9 @@ They belong in a credential manager or runtime environment and outside every ser
 - **Whole-share `/nas` serving:** rejected because the current share contains private sources and a
   root-level credential-like file. Filesystem containment prevents escape from the share, not
   disclosure within it.
+- **Local-wins index merge or a generic authoring override:** rejected because a checkout path is
+  not a share identity. Writer-specific tools may consume explicit staging, but the served index
+  reads only catalogue-approved bytes from a validated share or emits metadata-only detached output.
 - **Credentials in the public asset catalogue:** rejected because even locators/digests can leak
   operational security information. Credentials use a separate secret-management path.
 - **Automatic garbage collection in the first version:** rejected until manifest reachability,
@@ -193,3 +197,32 @@ JSON publication primitives. The focused command
 `TMPDIR=/private/tmp npx vitest run runner/test/nas-asset-lib.test.ts runner/test/nas-assets-catalog.test.ts`,
 followed by `npm run typecheck` and `npm run lint:rule7`, passed on that commit. This checkpoint does
 not create the physical share marker, change a consumer, move a NAS byte, or authorize pruning.
+
+Commits `33fc666`, `6b75502`, and `ae4aad4` add the shared marker/resolver contract, Phase 9
+delegation, catalogue-only gutcheck index, bounded read-only audit/verification CLI, and
+catalogue-only loopback development serving. The current focused command is:
+
+```text
+TMPDIR=/private/tmp npx vitest run runner/test/nas-asset-lib.test.ts runner/test/nas-assets-catalog.test.ts runner/test/nas-assets.test.ts runner/test/nas-mount-identity.test.ts runner/test/phase9-nas.test.ts runner/test/gutcheck-build-index-catalog.test.ts runner/test/gutcheck-hardening.test.ts runner/test/vite-nas-serving.test.ts
+npm run typecheck
+npm run lint:rule7
+git diff --check
+```
+
+It passed after the final marker, selector, index and Vite repairs. This checkpoint still creates no
+physical marker/control directory, moves no NAS payload, executes no Windows host check and grants
+no publication or prune authority.
+
+### Review record — resolver, index, serving and read-only tools
+
+- **Reviewers/context:** three non-author OpenAI Codex GPT-5-family subagents, each sharing the
+  coordinator's repository/development context. The mount/index reviewer also produced the bounded
+  transactional design but did not author this checkpoint.
+- **Independently re-executed:** mount/index and Phase 9 fixture suites plus direct symlink/hard-link
+  exploit reproductions; Vite fixture suites plus live dev/preview persistent-link refusals; CLI,
+  catalogue and path-library fixtures plus direct bounded-read, selector, empty-root, single-file
+  and detached-overlay reproductions; relevant typechecks and diff checks.
+- **Limits:** no reviewer ran exact `TMPDIR=/private/tmp npm test`, Windows `S:/`, a physical marked
+  NAS audit, a real collection-wide payload hash, SMB contention/rename, credential handling,
+  publication, restore or prune. Full read-only verification checks registered rows but does not
+  discover undeclared extras; transactional final/restore verification must enumerate exact trees.
