@@ -12,6 +12,10 @@ import {
 function makeNasFixture(prefix = "phase9-nas-"): string {
   const root = mkdtempSync(join(tmpdir(), prefix));
   mkdirSync(join(root, "research-cache"));
+  writeFileSync(
+    join(root, ".snowflake-nas.json"),
+    `${JSON.stringify({ format: "snowflake-nas-share-v1", projectId: "virtual-cloud-chamber" })}\n`,
+  );
   return root;
 }
 
@@ -41,7 +45,7 @@ describe("Phase 9 NAS resolver", () => {
     expect(detectPhase9NasRoot({}, ["/missing-phase9-mount", windowsStyle])).toBe(mountForm(windowsStyle));
     expect(detectPhase9NasRoot({}, ["/missing-phase9-mount"])).toBeNull();
     expect(() => detectPhase9NasRoot({ VCC_NAS_ROOT: "/missing-phase9-mount" })).toThrow(
-      /does not contain research-cache/u,
+      /not the marked snowcrystal share/u,
     );
   });
 

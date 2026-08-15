@@ -2,111 +2,53 @@
 //
 // Git records paths relative to the snowcrystal share. The two execution hosts mount that same
 // share differently, so neither evidence nor source registries may persist a host mount prefix.
-// Resolution checks both the lexical path and the real filesystem target: a contained symlink
-// that points outside the share must not turn an apparently safe registry row into arbitrary file
-// access.
+// Mount identity and file containment delegate to the shared asset-governance boundary so this
+// completed phase cannot drift back to a workflow-specific marker or weaker path interpretation.
 
-import { realpathSync, statSync } from "node:fs";
-import { isAbsolute, resolve, sep } from "node:path";
-
-const DEFAULT_NAS_CANDIDATES = ["S:/", "/Volumes/snowcrystal/"] as const;
-const NAS_MARKER = "research-cache";
+import {
+  assertPortableShareRelativePath,
+  resolveContainedRegularFile,
+} from "../../scripts/nas-asset-lib.ts";
+import { detectNasMount } from "../../scripts/nas-root.ts";
 
 export type Phase9NasResolution =
   | { readonly kind: "ok"; readonly path: string; readonly byteLength: number }
   | { readonly kind: "forbidden"; readonly reason: string }
   | { readonly kind: "not-found"; readonly reason: string };
 
-function normalizeMount(value: string): string {
-  return value.replace(/\\/g, "/").replace(/\/*$/, "/");
-}
-
-function hasMarker(mount: string): boolean {
-  try {
-    return statSync(resolve(mount, NAS_MARKER)).isDirectory();
-  } catch {
-    return false;
-  }
-}
-
 /**
- * Locate the snowcrystal share on either supported host. `VCC_NAS_ROOT` is intentionally scoped
- * to this project rather than reusing a shell or system option. An explicit but wrong override
- * fails loudly; silently falling back would let a partial source census look complete.
+ * Locate the marked snowcrystal share. VCC_NAS_ROOT is canonical; the compatibility environment
+ * and automatic S:/ or /Volumes/snowcrystal candidates are interpreted by the shared resolver.
  */
 export function detectPhase9NasRoot(
   environment: Readonly<Record<string, string | undefined>> = process.env,
-  candidates: readonly string[] = DEFAULT_NAS_CANDIDATES,
+  candidates?: readonly string[],
 ): string | null {
-  const forced = environment.VCC_NAS_ROOT;
-  if (forced !== undefined && forced !== "") {
-    const normalized = normalizeMount(forced);
-    if (!hasMarker(normalized)) {
-      throw new Error(`VCC_NAS_ROOT=${forced} does not contain ${NAS_MARKER}`);
-    }
-    return normalized;
-  }
-  for (const candidate of candidates) {
-    const normalized = normalizeMount(candidate);
-    if (hasMarker(normalized)) return normalized;
-  }
-  return null;
+  return candidates === undefined
+    ? detectNasMount(environment)
+    : detectNasMount(environment, candidates);
 }
 
 /** Validate the portable identity before touching the filesystem. */
 export function assertPhase9ShareRelativePath(value: string, label = "NAS path"): void {
-  if (
-    value.length === 0 ||
-    isAbsolute(value) ||
-    value.includes("\\") ||
-    value.includes("\0") ||
-    value.startsWith("/") ||
-    value.endsWith("/") ||
-    value.split("/").some((part) => part === "" || part === "." || part === "..")
-  ) {
+  try {
+    assertPortableShareRelativePath(value, label);
+  } catch {
     throw new Error(`${label} must be a safe share-relative POSIX path`);
   }
 }
 
 /**
- * Resolve a registered share-relative path to a regular file while preserving containment across
- * `..`, symlinks, junctions, and macOS's mount aliases.
+ * Resolve a registered share-relative path to an ordinary non-symlink file. The shared primitive
+ * keeps the same lexical/real containment boundary used by governed consumers and closes its
+ * verified descriptor before returning this legacy Phase 9 result shape.
  */
 export function resolvePhase9NasFile(relativePath: string, nasRoot: string): Phase9NasResolution {
-  try {
-    assertPhase9ShareRelativePath(relativePath);
-  } catch (error) {
-    return { kind: "forbidden", reason: error instanceof Error ? error.message : "unsafe NAS path" };
+  const resolution = resolveContainedRegularFile(nasRoot, relativePath);
+  if (resolution.kind === "ok") {
+    return { kind: "ok", path: resolution.path, byteLength: resolution.byteLength };
   }
-
-  // A Windows drive root keeps its trailing separator through resolve()/realpath ("S:/" -> "S:\"),
-  // so blindly appending `sep` builds "S:\\" and rejects every child of the share as an escape.
-  const childPrefix = (root: string): string => (root.endsWith(sep) ? root : `${root}${sep}`);
-  const lexicalRoot = resolve(nasRoot);
-  const lexicalTarget = resolve(lexicalRoot, relativePath);
-  if (lexicalTarget !== lexicalRoot && !lexicalTarget.startsWith(childPrefix(lexicalRoot))) {
-    return { kind: "forbidden", reason: "lexical NAS path escapes the share" };
-  }
-
-  let realRoot: string;
-  let realTarget: string;
-  try {
-    realRoot = realpathSync.native(lexicalRoot);
-    realTarget = realpathSync.native(lexicalTarget);
-  } catch {
-    return { kind: "not-found", reason: "NAS path does not resolve" };
-  }
-  if (realTarget !== realRoot && !realTarget.startsWith(childPrefix(realRoot))) {
-    return { kind: "forbidden", reason: "real NAS target escapes the share" };
-  }
-
-  try {
-    const status = statSync(realTarget);
-    if (!status.isFile()) return { kind: "not-found", reason: "NAS target is not a regular file" };
-    return { kind: "ok", path: realTarget, byteLength: status.size };
-  } catch {
-    return { kind: "not-found", reason: "NAS target cannot be stated" };
-  }
+  return resolution;
 }
 
 /** Convert the exact legacy macOS prefix frozen in the Phase 9 knowledge register. */

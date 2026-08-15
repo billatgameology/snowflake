@@ -4,11 +4,12 @@
 //   node scripts/gutcheck-build-index.ts
 // Use `--detached` for an explicit metadata-only index without probing a mounted share.
 
-import { mkdirSync, readFileSync, readdirSync, statSync, writeFileSync } from "node:fs";
+import { closeSync, mkdirSync, readFileSync, readdirSync, statSync, writeFileSync } from "node:fs";
 import { resolve } from "node:path";
 
 import {
   decideNasCatalogServePath,
+  openContainedRegularFile,
   parseNasAssetCatalogV1,
 } from "./nas-asset-lib.ts";
 
@@ -72,6 +73,37 @@ const FS = (path: string): string => {
 
 const served = (path: string): boolean => maybeFS(path) !== null;
 
+/**
+ * Open one catalogue-authorized NAS file without following any path-component symlink.
+ * The index is a metadata publication boundary too: it must not read private bytes through an
+ * allowed lexical prefix and leave the stricter /nas route to reject the resulting dead URL.
+ */
+const openServedFile = (path: string) => {
+  if (NAS_MOUNT === null) return null;
+  const logical = logicalPath(path);
+  const decision = decideNasCatalogServePath(CATALOGUE, logical);
+  if (decision.kind !== "allow") return null;
+  const opened = openContainedRegularFile(NAS_MOUNT, logical, decision.matchedPrefix);
+  return opened.kind === "ok" ? opened : null;
+};
+
+const servedFileExists = (path: string): boolean => {
+  const opened = openServedFile(path);
+  if (opened === null) return false;
+  closeSync(opened.fd);
+  return true;
+};
+
+const readServedText = (path: string): string | null => {
+  const opened = openServedFile(path);
+  if (opened === null) return null;
+  try {
+    return readFileSync(opened.fd, "utf8");
+  } finally {
+    closeSync(opened.fd);
+  }
+};
+
 const VIEWER = "/spike-gg-realism.html";
 
 interface Item {
@@ -105,6 +137,18 @@ const listFiles = (dir: string): string[] => {
       .filter((f) => !f.startsWith("."))
       .map((f) => join(dir, f))
       .filter((p) => statSync(p).isFile());
+  } catch {
+    return [];
+  }
+};
+
+const listServedFiles = (dir: string): string[] => {
+  if (!BULK_AVAILABLE) return [];
+  try {
+    return readdirSync(dir)
+      .filter((f) => !f.startsWith("."))
+      .map((f) => join(dir, f))
+      .filter(servedFileExists);
   } catch {
     return [];
   }
@@ -158,13 +202,7 @@ const figMeshes = join(BULK_ROOT, "large", "figs");
 const timelineManifest = join(BULK_ROOT, "large", "anim-B", "manifest.json");
 
 const exists = (p: string): boolean => {
-  if (!BULK_AVAILABLE) return false;
-  try {
-    statSync(p);
-    return true;
-  } catch {
-    return false;
-  }
+  return BULK_AVAILABLE && servedFileExists(p);
 };
 
 // What exists per crystal, beyond the still comparison. Keyed by the id the composite
@@ -194,7 +232,7 @@ const CRYSTALS: Record<string, Crystal> = {
 //   fig9v2-mesh.bin     -> fig9v2, surface
 //   fig16-cellmesh.bin  -> fig16, cell-true (needs style=ggview; the surface looks cannot
 //                          draw the paper's own prism/edge display mode)
-for (const path of BULK_AVAILABLE ? listFiles(figMeshes) : []) {
+for (const path of listServedFiles(figMeshes)) {
   const match = /^(fig\d+(?:v\d+)?)-(cellmesh|mesh)\.bin$/.exec(name(path));
   if (match === null) continue;
   const key = match[1]!;
@@ -389,7 +427,9 @@ function dialinRow(id: string, record: DialinRecord | null): CompareRow | null {
   const manifestPath = join(animRoot, id, "manifest.json");
   let manifest: DialinManifest;
   try {
-    manifest = JSON.parse(readFileSync(manifestPath, "utf8")) as DialinManifest;
+    const source = readServedText(manifestPath);
+    if (source === null) return null;
+    manifest = JSON.parse(source) as DialinManifest;
   } catch {
     return null; // no frames yet (or a torn mid-run write) — nothing to show
   }
@@ -502,7 +542,9 @@ for (const path of recordFiles) {
   const manifestPath = join(animRoot, id, "manifest.json");
   if (exists(manifestPath)) {
     try {
-      const manifest = JSON.parse(readFileSync(manifestPath, "utf8")) as {
+      const source = readServedText(manifestPath);
+      if (source === null) throw new Error("manifest is not an authorized ordinary NAS file");
+      const manifest = JSON.parse(source) as {
         complete?: boolean;
         frames?: unknown[];
       };

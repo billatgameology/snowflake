@@ -1,4 +1,4 @@
-import { mkdtempSync, mkdirSync, readFileSync, readdirSync, rmSync, writeFileSync } from "node:fs";
+import { mkdtempSync, mkdirSync, readFileSync, readdirSync, rmSync, symlinkSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
 import { spawnSync } from "node:child_process";
@@ -39,7 +39,7 @@ afterEach(() => {
 });
 
 describe("gutcheck index catalogue boundary", () => {
-  it("emits only catalogue-authorized logical NAS URLs from local or NAS staging", () => {
+  it("emits only catalogue-authorized logical NAS URLs from a marked share", () => {
     const working = temporaryRoot();
     const share = join(working, "share");
     const bulk = join(share, "out/gutcheck-gg-realism");
@@ -149,4 +149,64 @@ describe("gutcheck index catalogue boundary", () => {
     expect(source).not.toContain(`${dialinId as string}/manifest.json`);
     expect(source).not.toContain("/nas/");
   });
+
+  it.skipIf(process.platform === "win32")(
+    "does not discover private manifests or meshes through symlinks beneath served prefixes",
+    () => {
+      const working = temporaryRoot();
+      const share = join(working, "share");
+      const bulk = join(share, "out/gutcheck-gg-realism");
+      const dialinId = readdirSync(join(REPO, "evidence/gutcheck-gg-realism/gen-records"))
+        .map((name) => name.replace(/-record\.json$/u, ""))
+        .find((id) => id.startsWith("dialin-"));
+      expect(dialinId).toBeDefined();
+
+      put(
+        join(share, ".snowflake-nas.json"),
+        `${JSON.stringify({ format: "snowflake-nas-share-v1", projectId: "virtual-cloud-chamber" })}\n`,
+      );
+      const privateManifest = join(share, "research-cache/private-manifest.json");
+      put(
+        privateManifest,
+        JSON.stringify({
+          complete: true,
+          frames: [{ tick: 0, vertexCount: 1 }, { tick: 2, vertexCount: 1 }],
+          config: { dims: { nx: 987, ny: 654, nz: 321 }, every: 2, extraction: { spacing: 0.8 } },
+        }),
+      );
+      const manifestPath = join(bulk, "large/anim", dialinId as string, "manifest.json");
+      mkdirSync(resolve(manifestPath, ".."), { recursive: true });
+      symlinkSync(privateManifest, manifestPath);
+
+      const privateFigures = join(share, "research-cache/private-figures");
+      put(join(privateFigures, "fig987-mesh.bin"), "private mesh bytes");
+      mkdirSync(resolve(join(bulk, "large/figs"), ".."), { recursive: true });
+      symlinkSync(privateFigures, join(bulk, "large/figs"));
+
+      const generatedId = readdirSync(join(REPO, "evidence/gutcheck-gg-realism/gen-records"))
+        .map((name) => name.replace(/-record\.json$/u, ""))
+        .find((id) => !id.startsWith("dialin-"));
+      expect(generatedId).toBeDefined();
+      const privateMesh = join(share, "research-cache/private-generated-mesh.bin");
+      put(privateMesh, "other private mesh bytes");
+      mkdirSync(join(bulk, "large/gen"), { recursive: true });
+      symlinkSync(privateMesh, join(bulk, "large/gen", `${generatedId as string}-mesh.bin`));
+
+      const result = spawnSync(process.execPath, [SCRIPT], {
+        cwd: working,
+        encoding: "utf8",
+        env: {
+          ...process.env,
+          VCC_NAS_ROOT: share,
+          GUTCHECK_NAS_ROOT: share,
+        },
+      });
+      expect(result.status, result.stderr).toBe(0);
+      const source = readFileSync(join(working, "out/gutcheck-gg-realism/index.json"), "utf8");
+      expect(source).not.toContain("987×654×321");
+      expect(source).not.toContain(`${dialinId as string}/manifest.json`);
+      expect(source).not.toContain("fig987");
+      expect(source).not.toContain(`${generatedId as string}-mesh.bin`);
+    },
+  );
 });

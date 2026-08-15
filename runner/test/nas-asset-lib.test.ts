@@ -1,5 +1,6 @@
 import {
   mkdirSync,
+  linkSync,
   mkdtempSync,
   readFileSync,
   readdirSync,
@@ -21,6 +22,7 @@ import {
   openContainedRegularFile,
   parseNasAssetCatalogV1,
   portableSharePathCollisionKey,
+  resolveContainedDirectory,
   resolveContainedRegularFile,
   resolveNasRootEnvironment,
   validateNasAssetCatalogV1,
@@ -40,6 +42,17 @@ const CAN_SYMLINK = (() => {
   try {
     symlinkSync(join(root, "missing"), join(root, "link"));
     rmSync(join(root, "link"));
+    return true;
+  } catch {
+    return false;
+  }
+})();
+
+const CAN_HARDLINK = (() => {
+  const root = temporaryRoot("hardlink-probe");
+  try {
+    writeFileSync(join(root, "source"), "probe");
+    linkSync(join(root, "source"), join(root, "alias"));
     return true;
   } catch {
     return false;
@@ -261,7 +274,7 @@ describe("federated catalogue validation", () => {
       serve: { policy: "deny", prefixes: [] },
       ownerManifest: {
         ...manifest(),
-        selector: { kind: "path-prefixes", include: ["research-cache"], exclude: [] },
+        selector: { kind: "path-prefixes", include: ["research-cache/public"], exclude: [] },
       },
     });
     expect(() => validateNasAssetCatalogV1(catalogValue(parent, child))).toThrow(/non-disjoint/u);
@@ -288,6 +301,46 @@ describe("federated catalogue validation", () => {
         selector: { kind: "path-prefixes", include: ["out/gutcheck/large"], exclude: [] },
       },
     })))).toThrow(/not wholly owned/u);
+  });
+
+  it("rejects an owner selector that reaches above or outside its locator", () => {
+    expect(() => validateNasAssetCatalogV1(catalogValue(collection({
+      locator: "payload/public",
+      legacyAliases: [],
+      serve: { policy: "deny", prefixes: [] },
+      ownerManifest: {
+        ...manifest(),
+        selector: { kind: "path-prefixes", include: ["payload"], exclude: [] },
+      },
+    })))).toThrow(/outside its locator/u);
+
+    expect(() => validateNasAssetCatalogV1(catalogValue(collection({
+      locator: "payload/public",
+      legacyAliases: [],
+      serve: { policy: "deny", prefixes: [] },
+      ownerManifest: {
+        ...manifest(),
+        selector: { kind: "json-tree-key", key: "payload" },
+      },
+    })))).toThrow(/tree selector is outside/u);
+  });
+
+  it("pins the catalogue and resolver to one share marker identity", () => {
+    const differentPath = catalogValue(collection()) as Record<string, unknown>;
+    differentPath.shareMarker = {
+      path: "different-marker.json",
+      format: "snowflake-nas-share-v1",
+      projectId: "virtual-cloud-chamber",
+    };
+    expect(() => validateNasAssetCatalogV1(differentPath)).toThrow(/shareMarker\.path/u);
+
+    const differentFormat = catalogValue(collection()) as Record<string, unknown>;
+    differentFormat.shareMarker = {
+      path: ".snowflake-nas.json",
+      format: "different-share-v9",
+      projectId: "virtual-cloud-chamber",
+    };
+    expect(() => validateNasAssetCatalogV1(differentFormat)).toThrow(/shareMarker\.format/u);
   });
 
   it("allows serving only project-owned generated-cache collections", () => {
@@ -466,6 +519,37 @@ describe("contained regular-file resolution", () => {
     symlinkSync(join(root, "private"), join(root, "public", "linked-private"), "dir");
     expect(openContainedRegularFile(root, "public/linked-private/secret.bin", "public").kind).toBe("forbidden");
   });
+
+  it.skipIf(!CAN_HARDLINK)("refuses a public hard link to a private in-share file", () => {
+    const root = temporaryRoot("cross-collection-hardlink");
+    mkdirSync(join(root, "public"));
+    mkdirSync(join(root, "private"));
+    writeFileSync(join(root, "private", "secret.bin"), "secret");
+    linkSync(join(root, "private", "secret.bin"), join(root, "public", "exposed.bin"));
+    expect(openContainedRegularFile(root, "public/exposed.bin", "public")).toMatchObject({
+      kind: "forbidden",
+      reason: "hard-linked files are forbidden",
+    });
+  });
+});
+
+describe("contained directory resolution", () => {
+  it("resolves an ordinary directory and rejects absence or a regular file", () => {
+    const root = temporaryRoot("resolve-directory");
+    mkdirSync(join(root, "collection"));
+    writeFileSync(join(root, "file.bin"), "payload");
+    expect(resolveContainedDirectory(root, "collection").kind).toBe("ok");
+    expect(resolveContainedDirectory(root, "missing").kind).toBe("not-found");
+    expect(resolveContainedDirectory(root, "file.bin").kind).toBe("not-found");
+  });
+
+  it.skipIf(!CAN_SYMLINK)("rejects an intermediate directory symlink", () => {
+    const root = temporaryRoot("resolve-directory-link");
+    const outside = temporaryRoot("resolve-directory-outside");
+    mkdirSync(join(outside, "payload"));
+    symlinkSync(outside, join(root, "linked"), "dir");
+    expect(resolveContainedDirectory(root, "linked/payload").kind).toBe("forbidden");
+  });
 });
 
 describe("stable hashing and inventory", () => {
@@ -518,6 +602,13 @@ describe("stable hashing and inventory", () => {
     writeFileSync(join(root, "target"), "target");
     symlinkSync(join(root, "target"), join(root, "alias"));
     expect(() => inventoryStableTree(root)).toThrow(/symbolic/u);
+  });
+
+  it.skipIf(!CAN_HARDLINK)("refuses hard links as inventory members", () => {
+    const root = temporaryRoot("inventory-hardlink");
+    writeFileSync(join(root, "source"), "source");
+    linkSync(join(root, "source"), join(root, "alias"));
+    expect(() => inventoryStableTree(root)).toThrow(/hard-linked/u);
   });
 });
 

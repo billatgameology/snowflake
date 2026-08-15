@@ -24,6 +24,9 @@ import { basename, dirname, isAbsolute, posix, relative, resolve, sep, win32 } f
 
 export const NAS_ASSET_CATALOG_FORMAT = "snowflake-nas-asset-catalog-v1" as const;
 export const NAS_TREE_INVENTORY_FORMAT = "snowflake-nas-tree-inventory-v1" as const;
+export const NAS_SHARE_MARKER_PATH = ".snowflake-nas.json" as const;
+export const NAS_SHARE_MARKER_FORMAT = "snowflake-nas-share-v1" as const;
+export const NAS_SHARE_PROJECT_ID = "virtual-cloud-chamber" as const;
 
 export const NAS_STORAGE_CLASSES = [
   "tracked-evidence",
@@ -646,12 +649,23 @@ function parseCollection(value: unknown, index: number): NasAssetCollectionV1 {
   if (collection.state === "unavailable" && (collection.locator !== null || collection.historicalRepoPath === null || collection.unresolved.length === 0)) {
     fail(`${label} unavailable collections require no locator, a historical path, and an unresolved item`);
   }
+  const ownershipRoot = collection.locator ?? collection.historicalRepoPath;
   if (
-    collection.locator !== null &&
+    ownershipRoot !== null &&
     collection.ownerManifest?.selector.kind === "path-prefixes" &&
-    !collection.ownerManifest.selector.include.some((include) => pathPrefixesOverlap(include, collection.locator as string))
+    collection.ownerManifest.selector.include.some(
+      (include) => include !== ownershipRoot && !include.startsWith(`${ownershipRoot}/`),
+    )
   ) {
-    fail(`${label} manifest selector does not cover its locator`);
+    fail(`${label} manifest selector includes bytes outside its locator`);
+  }
+  if (
+    ownershipRoot !== null &&
+    collection.ownerManifest?.selector.kind === "json-tree-key" &&
+    collection.ownerManifest.selector.key !== ownershipRoot &&
+    !collection.ownerManifest.selector.key.startsWith(`${ownershipRoot}/`)
+  ) {
+    fail(`${label} tree selector is outside its locator`);
   }
   if (collection.storageClass === "external-evidence") {
     const authority = collection.externalEvidenceAuthority;
@@ -818,6 +832,7 @@ export function validateNasAssetCatalogV1(value: unknown): NasAssetCatalogV1 {
   ], "catalog");
   if (record.format !== NAS_ASSET_CATALOG_FORMAT) fail(`catalog.format must be ${NAS_ASSET_CATALOG_FORMAT}`);
   const projectId = nonEmptyString(record.projectId, "catalog.projectId");
+  if (projectId !== NAS_SHARE_PROJECT_ID) fail(`catalog.projectId must be ${NAS_SHARE_PROJECT_ID}`);
   const markerRecord = object(record.shareMarker, "catalog.shareMarker");
   exactKeys(markerRecord, ["format", "path", "projectId"], "catalog.shareMarker");
   const shareMarker: NasShareMarkerV1 = {
@@ -826,6 +841,12 @@ export function validateNasAssetCatalogV1(value: unknown): NasAssetCatalogV1 {
     projectId: nonEmptyString(markerRecord.projectId, "catalog.shareMarker.projectId"),
   };
   if (shareMarker.projectId !== projectId) fail("catalog.shareMarker.projectId must match catalog.projectId");
+  if (shareMarker.path !== NAS_SHARE_MARKER_PATH) {
+    fail(`catalog.shareMarker.path must be ${NAS_SHARE_MARKER_PATH}`);
+  }
+  if (shareMarker.format !== NAS_SHARE_MARKER_FORMAT) {
+    fail(`catalog.shareMarker.format must be ${NAS_SHARE_MARKER_FORMAT}`);
+  }
   if (record.canonicalEnvironmentVariable !== "VCC_NAS_ROOT") fail("catalog canonical environment must be VCC_NAS_ROOT");
   if (record.compatibilityEnvironmentVariable !== "GUTCHECK_NAS_ROOT") fail("catalog compatibility environment must be GUTCHECK_NAS_ROOT");
   if (record.controlRoot !== "_control") fail("catalog.controlRoot must be _control");
@@ -1048,9 +1069,70 @@ export type OpenedContainedRegularFileResolution =
   | { readonly kind: "forbidden"; readonly reason: string }
   | { readonly kind: "not-found"; readonly reason: string };
 
+export type ContainedDirectoryResolution =
+  | { readonly kind: "ok"; readonly path: string; readonly dev: number; readonly ino: number }
+  | { readonly kind: "forbidden"; readonly reason: string }
+  | { readonly kind: "not-found"; readonly reason: string };
+
 function nativePathIsWithin(root: string, candidate: string): boolean {
   const rel = relative(root, candidate);
   return rel === "" || (!rel.startsWith(`..${sep}`) && rel !== ".." && !isAbsolute(rel));
+}
+
+/** Resolve one ordinary directory beneath an authorized prefix without following links. */
+export function resolveContainedDirectory(
+  root: string,
+  relativePath: string,
+  allowedPrefix: string = relativePath,
+): ContainedDirectoryResolution {
+  try {
+    assertPortableShareRelativePath(relativePath);
+    assertPortableShareRelativePath(allowedPrefix, "allowed NAS prefix");
+  } catch (error) {
+    return { kind: "forbidden", reason: error instanceof Error ? error.message : "unsafe path" };
+  }
+  if (relativePath !== allowedPrefix && !relativePath.startsWith(`${allowedPrefix}/`)) {
+    return { kind: "forbidden", reason: "path is outside the authorized collection prefix" };
+  }
+  const lexicalRoot = resolve(root);
+  const lexicalTarget = resolve(lexicalRoot, relativePath);
+  const lexicalAllowed = resolve(lexicalRoot, allowedPrefix);
+  if (!nativePathIsWithin(lexicalRoot, lexicalTarget) || !nativePathIsWithin(lexicalAllowed, lexicalTarget)) {
+    return { kind: "forbidden", reason: "lexical path escapes the root" };
+  }
+  let realRoot: string;
+  try {
+    realRoot = realpathSync.native(lexicalRoot);
+    const status = lstatSync(realRoot);
+    if (!status.isDirectory() || status.isSymbolicLink()) {
+      return { kind: "forbidden", reason: "resolved root is not an ordinary directory" };
+    }
+  } catch {
+    return { kind: "not-found", reason: "root does not resolve" };
+  }
+  let current = realRoot;
+  try {
+    for (const part of relativePath.split("/")) {
+      current = resolve(current, part);
+      const status = lstatSync(current);
+      if (status.isSymbolicLink()) return { kind: "forbidden", reason: "symbolic links are forbidden" };
+      if (!status.isDirectory()) return { kind: "not-found", reason: "path is not an ordinary directory" };
+    }
+    const realAllowed = resolve(realRoot, allowedPrefix);
+    const currentReal = realpathSync.native(current);
+    if (currentReal !== current || !nativePathIsWithin(realAllowed, currentReal)) {
+      return { kind: "forbidden", reason: "directory escapes the authorized prefix" };
+    }
+    const final = lstatSync(currentReal);
+    if (!final.isDirectory() || final.isSymbolicLink()) {
+      return { kind: "forbidden", reason: "directory changed while resolving" };
+    }
+    return { kind: "ok", path: currentReal, dev: final.dev, ino: final.ino };
+  } catch (error) {
+    return (error as NodeJS.ErrnoException).code === "ELOOP"
+      ? { kind: "forbidden", reason: "symbolic-link loop" }
+      : { kind: "not-found", reason: "directory does not resolve" };
+  }
 }
 
 /**
@@ -1102,8 +1184,9 @@ export function openContainedRegularFile(
       if (index < parts.length - 1 && !status.isDirectory()) {
         return { kind: "not-found", reason: "intermediate path is not a directory" };
       }
-      if (index === parts.length - 1 && !status.isFile()) {
-        return { kind: "not-found", reason: "target is not an ordinary file" };
+      if (index === parts.length - 1) {
+        if (!status.isFile()) return { kind: "not-found", reason: "target is not an ordinary file" };
+        if (status.nlink !== 1) return { kind: "forbidden", reason: "hard-linked files are forbidden" };
       }
     }
   } catch (error) {
@@ -1133,6 +1216,8 @@ export function openContainedRegularFile(
     if (
       !opened.isFile() ||
       currentStatus.isSymbolicLink() ||
+      opened.nlink !== 1 ||
+      currentStatus.nlink !== 1 ||
       opened.dev !== currentStatus.dev ||
       opened.ino !== currentStatus.ino ||
       currentReal !== current ||
@@ -1195,6 +1280,7 @@ const comparePortableNames = (left: string, right: string): number =>
 export function hashStableRegularFile(filePath: string, options: StableHashOptions = {}): StableFileHash {
   const initialPathStatus = lstatSync(filePath);
   if (!initialPathStatus.isFile() || initialPathStatus.isSymbolicLink()) fail(`source is not an ordinary file: ${filePath}`);
+  if (initialPathStatus.nlink !== 1) fail(`source is hard-linked: ${filePath}`);
   const chunkBytes = options.chunkBytes ?? 1024 * 1024;
   if (!Number.isSafeInteger(chunkBytes) || chunkBytes <= 0 || chunkBytes > 64 * 1024 * 1024) {
     fail("chunkBytes must be an integer between 1 and 67108864");
@@ -1205,7 +1291,12 @@ export function hashStableRegularFile(filePath: string, options: StableHashOptio
   );
   try {
     const before = fstatSync(fd);
-    if (!before.isFile() || before.dev !== initialPathStatus.dev || before.ino !== initialPathStatus.ino) {
+    if (
+      !before.isFile() ||
+      before.nlink !== 1 ||
+      before.dev !== initialPathStatus.dev ||
+      before.ino !== initialPathStatus.ino
+    ) {
       fail(`source changed before hashing: ${filePath}`);
     }
     const digest = createHash("sha256");
@@ -1229,6 +1320,8 @@ export function hashStableRegularFile(filePath: string, options: StableHashOptio
     if (
       statIdentity(before) !== statIdentity(after) ||
       statIdentity(initialPathStatus) !== statIdentity(finalPathStatus) ||
+      after.nlink !== 1 ||
+      finalPathStatus.nlink !== 1 ||
       after.dev !== finalPathStatus.dev ||
       after.ino !== finalPathStatus.ino ||
       byteLength !== after.size
@@ -1317,14 +1410,16 @@ export function inventoryStableTree(
   }
   for (const file of files) {
     const absolute = resolve(root, file.path);
-    let finalIdentity: string;
+    let status: Stats;
     try {
-      const status = lstatSync(absolute);
-      if (!status.isFile() || status.isSymbolicLink()) fail(`tree file type changed after verification: ${file.path}`);
-      finalIdentity = statIdentity(status);
+      status = lstatSync(absolute);
     } catch {
       return fail(`tree file disappeared after verification: ${file.path}`);
     }
+    if (!status.isFile() || status.isSymbolicLink() || status.nlink !== 1) {
+      fail(`tree file type changed after verification: ${file.path}`);
+    }
+    const finalIdentity = statIdentity(status);
     if (finalIdentity !== verifiedIdentities.get(file.path)) {
       fail(`tree file mutated after verification: ${file.path}`);
     }
