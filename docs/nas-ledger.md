@@ -35,6 +35,17 @@ byte size and pre-move **SHA-256** — the bytes are a cache, the provenance is 
 | 2026-08-12 | extras pack **unpacked loose** at mirrored paths (zip retained; composites, style heroes, videos, photos, working artifacts) + legacy `gen/*-record.json` copies (the authoritative tracked copies now live under `evidence/gutcheck-gg-realism/gen-records/`) | 931 | 0.83 GB | every loose file re-hashed from the NAS after placement |
 | 2026-08-12 | mac `out/` cleanup 1/2: `phase3-visual`, `wp3-review-phase4`, `phase6-arm64` mirrored loose at repo-relative paths (mac-local copies removed after verification) | 86 | 3.6 MB | per-file SHA-256 re-hash from the share; `phase3-visual` also re-verified against `evidence/OUT-TREES-MANIFEST.json` (10/10) |
 | 2026-08-12 | mac `out/` cleanup 2/2: superseded phase 2a/2b/3 root scratch + session check dir → `out/archives/out-root-scratch-mac-20260812.zip` (disposable class per ADR 0038) | 1 | 41.7 MB | zip SHA-256 match local vs share + `unzip -t` CRC pass |
+| 2026-08-15 | two rejected D-BT independent-verification candidates mirrored loose under `out/debug/` (historical assurance-debug material, **not evidence**) | 10 | 85,153 B | source/staging inventories matched; every final file re-hashed against `docs/nas-ledger.json` |
+
+## Separate post-Phase-9 research intake
+
+Third-party source bytes are outside this generated-output ledger. A closeout audit found fourteen
+unique payloads acquired only after Phase 9 froze, including the previously absent Voigtländer S1/S2
+supplement. They are privately archived at
+`research-cache/post-phase9-intake/20260813-unregistered-v1/` and hash-bound by
+[`research/phase9-post-freeze-source-intake-v1.json`](../research/phase9-post-freeze-source-intake-v1.json).
+Their status is **unregistered post-Phase-9 intake**: they changed future source availability, not
+the historical shelf, scores, evidence, promotions, or validation status.
 
 ## How the site uses this
 

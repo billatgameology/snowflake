@@ -55,11 +55,19 @@
    "bytes": 41650947,
    "method": "zip locally, copied to share",
    "verification": "zip SHA-256 match local vs share + unzip -t CRC pass"
+  },
+  {
+   "date": "2026-08-15",
+   "group": "Phase 9 closeout: two rejected D-BT independent-verification candidates mirrored loose under out/debug; historical assurance-debug material, not evidence",
+   "files": 10,
+   "bytes": 85153,
+   "method": "copy through same-share staging directories, then atomic rename",
+   "verification": "source-versus-staging relative-path, byte-count, and SHA-256 inventories matched; every final NAS file re-hashed against files[]"
   }
  ],
- "generated": "2026-08-13T03:36:30.511Z",
- "fileCount": 22498,
- "totalBytes": 447138061592,
+ "generated": "2026-08-15T15:24:34.000Z",
+ "fileCount": 22508,
+ "totalBytes": 447138146745,
  "files": [
   {
    "path": "out/gutcheck-gg-realism/large/anim/dialin-b1p3-1200/manifest.json",
@@ -112550,6 +112558,56 @@
    "path": "out/archives/out-root-scratch-mac-20260812.zip",
    "bytes": 41650947,
    "sha256": "8bfa9a3e40c8daf409c0d3b0909b16ac35476e3733ef886cf9e66d27ca4bc3b8"
+  },
+  {
+   "path": "out/debug/phase9-dbt-six-history-development-v1-failed-independent-verification-20260813/artifact-index.json",
+   "bytes": 673,
+   "sha256": "6e0ff15bf12c5df0a68fe9d9cb5e6e615f8131be0f71d806135d53068413f14c"
+  },
+  {
+   "path": "out/debug/phase9-dbt-six-history-development-v1-failed-independent-verification-20260813/launch-manifest.json",
+   "bytes": 16851,
+   "sha256": "9765e36b38f4f662ece1568d851be7fff25029775ea15c6c9e463ff06a21b4e5"
+  },
+  {
+   "path": "out/debug/phase9-dbt-six-history-development-v1-failed-independent-verification-20260813/report.json",
+   "bytes": 6877,
+   "sha256": "1fa64e8e6d69c4ba80c8b74bf3dd0ba193f93e973e949953db9e9a2276ee13d6"
+  },
+  {
+   "path": "out/debug/phase9-dbt-six-history-development-v1-failed-independent-verification-20260813/scores.jsonl",
+   "bytes": 11839,
+   "sha256": "8604db35be45f1b6089f21f59e28b267a2b2c2b83a30882e21a224f29f1d5622"
+  },
+  {
+   "path": "out/debug/phase9-dbt-six-history-development-v1-failed-independent-verification-20260813/source-diagnostics.jsonl",
+   "bytes": 6205,
+   "sha256": "1eb8fb08fc35c271a360f84053c70bc3c1d7aec1bc749f680b22f452c12b3d56"
+  },
+  {
+   "path": "out/debug/phase9-dbt-six-history-development-v2-failed-independent-verification-20260813/artifact-index.json",
+   "bytes": 673,
+   "sha256": "dcb4175a4ee85df135df8703ac22027de5734f6adb9aa5555aedb6ff4695f143"
+  },
+  {
+   "path": "out/debug/phase9-dbt-six-history-development-v2-failed-independent-verification-20260813/launch-manifest.json",
+   "bytes": 17269,
+   "sha256": "38c3d24da9a61a7118246315462e04142198382be9704f4c3cc25df4ca443cba"
+  },
+  {
+   "path": "out/debug/phase9-dbt-six-history-development-v2-failed-independent-verification-20260813/report.json",
+   "bytes": 6870,
+   "sha256": "271f8d97cd7834aeecdc270845551843f2e17a743352832e6877ab09626793e5"
+  },
+  {
+   "path": "out/debug/phase9-dbt-six-history-development-v2-failed-independent-verification-20260813/scores.jsonl",
+   "bytes": 11691,
+   "sha256": "6e2af9268de8e73ed187d8663054874a9a761266fc234fcf1a05455652aa32ed"
+  },
+  {
+   "path": "out/debug/phase9-dbt-six-history-development-v2-failed-independent-verification-20260813/source-diagnostics.jsonl",
+   "bytes": 6205,
+   "sha256": "1eb8fb08fc35c271a360f84053c70bc3c1d7aec1bc749f680b22f452c12b3d56"
   }
  ]
 }

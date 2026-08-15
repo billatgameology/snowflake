@@ -147,6 +147,9 @@ output. A long series cannot dominate a family score merely because it contains 
   result is `central-no-effect-or-failure`, not a mechanism, transfer, morphology, validation, or
   promotion claim; temperature and supersaturation sensitivities remain unavailable. Evidence:
   `evidence/phase9-dbt-six-history-development-v3/`.
+  Closeout custody: the two rejected candidates are mirrored privately at their repo-relative
+  `out/debug/phase9-dbt-six-history-development-v{1,2}-failed-independent-verification-20260813/`
+  NAS paths and hash-bound by `docs/nas-ledger.json`; they remain historical debug, not evidence.
   The detailed protocol and result bytes first entered Git together in `1efe127`. Internal hashes
   and pre-run review record an in-session freeze, but Git ordering does not independently
   demonstrate a pre-output commitment.

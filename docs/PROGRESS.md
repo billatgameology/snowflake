@@ -224,8 +224,11 @@ audit. Broad discovery and the residual backlog remain stopped absent a new name
 measurement gap; Phase 9 S0B is bounded reconciliation of already registered complete Git/NAS
 sources. All 51 Phase 8B records are development evidence and none may be relabeled held out.
 
-### Phase 9 branch integration — complete
+### Phase 9 branch integration and closeout — complete
 
-`phase/9` and the gutcheck relocation merged to `main` additively 2026-08-14; `docs/PROGRESS.md`
-and `evidence/MANIFEST.json` (347 pinned files) reconciled structurally, merged-tree suite gating
-the push. Phase 9 was not reopened; Phase 10 remains uncharted.
+`phase/9` and the gutcheck relocation merged 2026-08-14. Closeout preserved two rejected D-BT
+candidates (10 files / 85,153 bytes) on the NAS and recorded 14 post-freeze
+source payloads in
+[`phase9-post-freeze-source-intake-v1.json`](../research/phase9-post-freeze-source-intake-v1.json).
+Those are unregistered future inputs, not Phase 9 evidence. Old worktree/local branch retired;
+remote retained. Phase 9 was not reopened; Phase 10 is uncharted.

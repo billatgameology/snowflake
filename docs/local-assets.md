@@ -21,6 +21,7 @@ Read this before concluding that something is lost.
 | `out/gutcheck-gg-realism/large/anim-B-v2q/` | ~6.6 GB | no | Regenerate: `gutcheck-mesh-quantize.ts --manifest .../anim-B/manifest.json` (~25 s). |
 | `out/gutcheck-gg-realism/large/gen/`, `large/anim/` | grows | no | Regenerate from the **tracked** specs: `node scripts/gutcheck-grow-batch.mjs`. |
 | `out/gutcheck-gg-realism/photos/` | ~25 MB | no | Public-domain plates re-downloadable; monograph crops come from the `research/` cache. |
+| Post-Phase-9 source intake | 165,706,780 recorded bytes · 24 source/raw/provenance files | no media; tracked hashes only | Private NAS: `research-cache/post-phase9-intake/20260813-unregistered-v1/`; verify with `research/phase9-post-freeze-source-intake-v1.json`. Unregistered future material, not Phase 9 evidence. |
 
 Calling `out/` disposable does not promise that every transient byte is backed up. Durable
 provenance is tracked under `evidence/`; ledgered bulk and archives are recoverable from the
@@ -68,6 +69,11 @@ Consequences worth knowing before you go looking:
 snowcrystals.com material; the videos exclude internet publication without permission). Bentley
 plates are public domain. **Regardless of status, media and any composite built from it stays in
 gitignored `out/` and is never published** — that rule predates this file and still holds.
+
+The post-Phase-9 intake follows the same private-cache rule. In particular, the Voigtländer
+supplement became available only after the Phase 9 freeze, and the retained malformed Magee
+download is acquisition history rather than a valid ZIP. Neither may be inferred into a completed
+Phase 9 result; see the tracked intake record for exact hashes and repair details.
 
 ## Verifying and refreshing
 
