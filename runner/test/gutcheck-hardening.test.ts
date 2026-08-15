@@ -79,6 +79,69 @@ const waitFor = async (predicate: () => boolean, label: string, timeoutMs = 10_0
   }
 };
 
+function crc32(value: Uint8Array): number {
+  let crc = 0xffffffff;
+  for (const byte of value) {
+    crc ^= byte;
+    for (let bit = 0; bit < 8; bit++) {
+      crc = (crc >>> 1) ^ ((crc & 1) === 1 ? 0xedb88320 : 0);
+    }
+  }
+  return (crc ^ 0xffffffff) >>> 0;
+}
+
+interface StoredZipEntry {
+  readonly name: string;
+  readonly value: Uint8Array;
+  readonly externalAttributes?: number;
+}
+
+/** A deterministic store-mode ZIP fixture writer; duplicate central-directory names are allowed. */
+function storedZip(entries: readonly StoredZipEntry[]): Uint8Array {
+  const localParts: Buffer[] = [];
+  const centralParts: Buffer[] = [];
+  let localOffset = 0;
+  for (const entry of entries) {
+    const name = Buffer.from(entry.name, "utf8");
+    const value = Buffer.from(entry.value);
+    const declaredCrc = crc32(value);
+    const local = Buffer.alloc(30);
+    local.writeUInt32LE(0x04034b50, 0);
+    local.writeUInt16LE(20, 4);
+    local.writeUInt16LE(0x0800, 6);
+    local.writeUInt16LE(0, 8);
+    local.writeUInt32LE(declaredCrc, 14);
+    local.writeUInt32LE(value.length, 18);
+    local.writeUInt32LE(value.length, 22);
+    local.writeUInt16LE(name.length, 26);
+    localParts.push(local, name, value);
+
+    const central = Buffer.alloc(46);
+    central.writeUInt32LE(0x02014b50, 0);
+    central.writeUInt16LE((3 << 8) | 20, 4);
+    central.writeUInt16LE(20, 6);
+    central.writeUInt16LE(0x0800, 8);
+    central.writeUInt16LE(0, 10);
+    central.writeUInt32LE(declaredCrc, 16);
+    central.writeUInt32LE(value.length, 20);
+    central.writeUInt32LE(value.length, 24);
+    central.writeUInt16LE(name.length, 28);
+    central.writeUInt32LE(entry.externalAttributes ?? 0x81a40000, 38);
+    central.writeUInt32LE(localOffset, 42);
+    centralParts.push(central, name);
+    localOffset += local.length + name.length + value.length;
+  }
+  const localBytes = Buffer.concat(localParts);
+  const centralBytes = Buffer.concat(centralParts);
+  const end = Buffer.alloc(22);
+  end.writeUInt32LE(0x06054b50, 0);
+  end.writeUInt16LE(entries.length, 8);
+  end.writeUInt16LE(entries.length, 10);
+  end.writeUInt32LE(centralBytes.length, 12);
+  end.writeUInt32LE(localBytes.length, 16);
+  return new Uint8Array(Buffer.concat([localBytes, centralBytes, end]));
+}
+
 const FIXTURE_SPEC = { label: "identity fixture", stages: [{ untilTick: 100, rho: 0.5 }] };
 const FIXTURE_DIMS = { nx: 500, ny: 500, nz: 96 };
 const fixtureExpected = (framesEvery = 10) => ({
@@ -1327,9 +1390,11 @@ describe("archive-restore authenticated membership and placement", () => {
 
   it.skipIf(process.platform === "win32")("rejects duplicate archive members before extraction", () => {
     const root = makeTemp("restore-duplicates");
-    writeFileSync(join(root, "x.bin"), "x");
     const zipPath = join(root, "duplicates.zip");
-    execFileSync("tar", ["--format", "zip", "-cf", zipPath, "x.bin", "x.bin"], { cwd: root });
+    writeFileSync(zipPath, storedZip([
+      { name: "x.bin", value: Buffer.from("x") },
+      { name: "x.bin", value: Buffer.from("x") },
+    ]));
     const zipBytes = readFileSync(zipPath);
     const inventoryPath = join(root, "inventory.json");
     writeFileSync(
@@ -1364,6 +1429,40 @@ describe("archive-restore authenticated membership and placement", () => {
     });
     expect(result.status).not.toBe(0);
     expect(`${result.stdout}${result.stderr}`).toMatch(/duplicate file entries/);
+    expect(existsSync(dest)).toBe(false);
+  });
+
+  it.skipIf(process.platform === "win32")("rejects symlink archive members before extraction", () => {
+    const root = makeTemp("restore-symlink-member");
+    const zipPath = join(root, "symlink.zip");
+    writeFileSync(zipPath, storedZip([
+      { name: "link.bin", value: Buffer.from("outside"), externalAttributes: 0xa1ff0000 },
+    ]));
+    const zipBytes = readFileSync(zipPath);
+    const inventoryPath = join(root, "inventory.json");
+    writeFileSync(
+      inventoryPath,
+      JSON.stringify({
+        format: "gutcheck-large-inventory-v1",
+        files: [],
+        archives: [{
+          name: basename(zipPath),
+          group: "extras",
+          sha256: createHash("sha256").update(zipBytes).digest("hex"),
+          bytes: zipBytes.length,
+          fileCount: 1,
+          totalBytes: 7,
+          memberListSha256: archiveMemberListSha256(["link.bin"]),
+        }],
+      }),
+    );
+    const dest = join(root, "dest");
+    const result = spawnSync(process.execPath, [RESTORE, zipPath, "--dest", dest], {
+      encoding: "utf8",
+      env: { ...process.env, GUTCHECK_INVENTORY: inventoryPath },
+    });
+    expect(result.status).not.toBe(0);
+    expect(`${result.stdout}${result.stderr}`).toMatch(/non-regular entries/);
     expect(existsSync(dest)).toBe(false);
   });
 

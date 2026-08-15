@@ -27,7 +27,7 @@ const paths = {
   mgpRegistry: "research/phase9-mgp-development-registry-v1.jsonl",
   mfProtocol: "research/phase9-mf-mk2-protocol-v1.json",
 } as const;
-const rowRoot = "research-cache/phase8b-derived/plot-extraction-20260812-v3";
+const phase9NasRoot = detectPhase9NasRoot();
 
 function bytes(path: string): Uint8Array {
   return new Uint8Array(readFileSync(path));
@@ -74,18 +74,66 @@ function coherentlyRepin(
   return { ...value, protocolBytes: protocolBytes(changed) };
 }
 
-function sourceRows(selectionId: Phase9MpkSeriesId): Phase9MpkSourceRow[] {
-  const nasRoot = detectPhase9NasRoot();
-  if (nasRoot === null) throw new Error("Phase 9 NAS is not attached");
-  const resolution = resolvePhase9NasFile(`${rowRoot}/rows/${selectionId}.jsonl`, nasRoot);
+function registration(selectionId: Phase9MpkSeriesId) {
+  const value = PHASE9_MPK_SERIES.find((row) => row.selectionId === selectionId);
+  if (value === undefined) throw new Error("missing test registration");
+  return value;
+}
+
+function fixtureRows(selectionId: Phase9MpkSeriesId): Phase9MpkSourceRow[] {
+  const registered = registration(selectionId);
+  return Array.from({ length: registered.rowCount }, (_unused, index) => {
+    const time = index * 10;
+    const measured = index + 1;
+    return {
+      schema: "phase8b-plot-point-v1",
+      selectionId,
+      pointId: `p${String(index + 1).padStart(3, "0")}`,
+      sourceLocator: registered.sourceLocator,
+      sourceStatus: "direct-observation",
+      phase9EvidenceRole: "model-development",
+      expectedPointCount: registered.rowCount,
+      operator: "phase8b-adjudicated-plot-digitization-v3",
+      adjudicationStatus: "synthetic-fixture",
+      adjudication: {},
+      digitizationUncertainty: {},
+      preReadRefusal: {},
+      sourceUncertainty: {},
+      x: {
+        digitizationLower: time - 0.25,
+        digitizationUpper: time + 0.25,
+        unit: "s",
+        value: time,
+        variable: "growth_time",
+      },
+      y: {
+        digitizationLower: measured - 0.25,
+        digitizationUpper: measured + 0.25,
+        unit: "um",
+        value: measured,
+        variable: registered.plottedVariable,
+      },
+    };
+  });
+}
+
+function verifiedNasRows(selectionId: Phase9MpkSeriesId, nasRoot: string): Phase9MpkSourceRow[] {
+  const registered = registration(selectionId);
+  const logicalPath = `${registered.rowArtifact.logicalRoot}/${registered.rowArtifact.path}`;
+  const resolution = resolvePhase9NasFile(logicalPath, nasRoot);
   if (resolution.kind !== "ok") throw new Error(`source row artifact ${resolution.kind}`);
-  return readFileSync(resolution.path, "utf8").trimEnd().split("\n")
+  const artifact = readFileSync(resolution.path);
+  expect(artifact.byteLength).toBe(registered.rowArtifact.byteLength);
+  expect(createHash("sha256").update(artifact).digest("hex")).toBe(registered.rowArtifact.sha256);
+  return artifact.toString("utf8").trimEnd().split("\n")
     .map((line) => JSON.parse(line) as Phase9MpkSourceRow);
 }
 
-function replayInput(selectionId: Phase9MpkSeriesId): Phase9MpkReplayPreparationInput {
-  const registration = PHASE9_MPK_SERIES.find((row) => row.selectionId === selectionId);
-  if (registration === undefined) throw new Error("missing test registration");
+function replayInput(
+  selectionId: Phase9MpkSeriesId,
+  rows: Phase9MpkSourceRow[] = fixtureRows(selectionId),
+): Phase9MpkReplayPreparationInput {
+  const registered = registration(selectionId);
   return {
     purpose: "exact-one-bar-source-replay-preparation",
     selectionId,
@@ -94,8 +142,8 @@ function replayInput(selectionId: Phase9MpkSeriesId): Phase9MpkReplayPreparation
     support: "substrate-grown-needle",
     geometry: "supported-individual-needle",
     transferModel: "unavailable",
-    arbitraryHeightOffsetPolicy: registration.heightOffsetPolicy,
-    rows: sourceRows(selectionId),
+    arbitraryHeightOffsetPolicy: registered.heightOffsetPolicy,
+    rows,
   };
 }
 
@@ -116,10 +164,10 @@ describe("Phase 9 M-PK residual eligibility/refusal foundation", () => {
     });
   });
 
-  it("prepares all four exact one-bar series while refusing every stronger use", () => {
-    for (const registration of PHASE9_MPK_SERIES) {
-      const result = phase9MpkPrepareSourceReplay(replayInput(registration.selectionId));
-      expect(result.sourceRowCount).toBe(registration.rowCount);
+  it("prepares all four registered row-envelope fixtures while refusing every stronger use", () => {
+    for (const registered of PHASE9_MPK_SERIES) {
+      const result = phase9MpkPrepareSourceReplay(replayInput(registered.selectionId));
+      expect(result.sourceRowCount).toBe(registered.rowCount);
       expect(result.refusalCodes).toEqual(PHASE9_MPK_REFUSAL_CODES);
       expect(result).toMatchObject({
         status: "source-replay-prepared-residual-refused",
@@ -134,6 +182,19 @@ describe("Phase 9 M-PK residual eligibility/refusal foundation", () => {
       });
     }
   });
+
+  it.skipIf(phase9NasRoot === null)(
+    "rehashes and accepts the frozen NAS row artifacts when the share is attached",
+    () => {
+      if (phase9NasRoot === null) throw new Error("Phase 9 NAS is not attached");
+      for (const registered of PHASE9_MPK_SERIES) {
+        const rows = verifiedNasRows(registered.selectionId, phase9NasRoot);
+        const result = phase9MpkPrepareSourceReplay(replayInput(registered.selectionId, rows));
+        expect(result.sourceRowCount).toBe(registered.rowCount);
+        expect(result.refusalCodes).toEqual(PHASE9_MPK_REFUSAL_CODES);
+      }
+    },
+  );
 
   it("rejects offset invention, sparse rows, row substitution, and unknown claim fields", () => {
     const base = replayInput("P8B-P1-L16-F4-H");
