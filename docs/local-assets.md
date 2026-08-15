@@ -15,22 +15,32 @@ Read this before concluding that something is lost.
 |---|---|---|---|
 | `node_modules/` | ~300 MB | no | `npm ci` |
 | `research/` | 3.9 GB · 21,245 files · **2,477 media (2.01 GB)** | **no** — indexes only | **Main worktree only:** `G:/Code Files/snowflake/research`. Verify the media with `research/media-inventory.json`; the remaining ~18,800 files are text derived from those sources and regenerate from them. |
-| `out/gutcheck-gg-realism/large/` | ~30 GB | no | Archive zips + `gutcheck-archive-restore.ts`. Verify with `out/gutcheck-gg-realism/tracked/inventory.json`. |
-| `out/gutcheck-gg-realism/` workspace layer | ~800 MB | no | Same archives (the `extras` group). |
+| `out/gutcheck-gg-realism/large/` | ~446 GB | no | Loose NAS mirror since 2026-08-12 (`docs/nas-ledger.json`, per-file SHA-256); the dev server streams it, so restore locally only when a workflow needs local bytes (e.g. the static bundle). End-to-end streaming was measured on macOS; the current Windows `S:/` path remains unexecuted. Older archive zips remain on the share. |
+| `out/gutcheck-gg-realism/` workspace layer | ~800 MB | no | Loose NAS mirror since 2026-08-12 (extras pack unpacked; zip retained). **The macOS-measured index needs no local restore** — `scripts/gutcheck-build-index.ts` scans local + share merged. Restore locally only for authoring workflows (photo matching, archive packing). |
 | `out/gutcheck-gg-realism/site/` | ~6 GB | no | Regenerate: `node scripts/gutcheck-build-site.ts` (~5 s). |
 | `out/gutcheck-gg-realism/large/anim-B-v2q/` | ~6.6 GB | no | Regenerate: `gutcheck-mesh-quantize.ts --manifest .../anim-B/manifest.json` (~25 s). |
 | `out/gutcheck-gg-realism/large/gen/`, `large/anim/` | grows | no | Regenerate from the **tracked** specs: `node scripts/gutcheck-grow-batch.mjs`. |
 | `out/gutcheck-gg-realism/photos/` | ~25 MB | no | Public-domain plates re-downloadable; monograph crops come from the `research/` cache. |
 
+Calling `out/` disposable does not promise that every transient byte is backed up. Durable
+provenance is tracked under `evidence/`; ledgered bulk and archives are recoverable from the
+NAS; session logs and other scratch are regenerated or discarded.
+
 ## What *is* tracked, and why
 
-- **`out/gutcheck-gg-realism/tracked/inventory.json`** — relpath + sha256 + bytes for every
-  large binary, plus the archive ledger. This is what made the machine transfer verifiable:
-  1,640 files restored, every hash checked.
-- **`out/gutcheck-gg-realism/specs/**`** and **`*-record.json`** — the recipes. ~90 KB defining
-  ~150 crystals: parameters, stage schedules, dims, seed, stop reason, mesh stats. The meshes
-  regenerate from these; these regenerate from nothing, so they are the one part of `out/` with
-  real loss exposure.
+- **`evidence/gutcheck-gg-realism/large-artifact-inventory.json`** — the archive-pack
+  ledger: relpath + sha256 + bytes for the binaries and zip packs it has inventoried (1,640
+  files at last rebuild; the live census of everything on the share is
+  `docs/nas-ledger.json`). This is what made the machine transfer verifiable: 1,640 files
+  restored, every hash checked.
+- **`evidence/gutcheck-gg-realism/{specs,dialin,gen-records,fig-records}/`** — the recipes
+  and run records: 226 files / ~222 KiB (measured 2026-08-12) defining ~150 crystals.
+  Nothing else can regenerate them — 74 of the 93 sweep specs come from the generator but
+  19 are hand-authored, and records capture runtime facts (stop reason, tick, mesh stats)
+  no rerun is guaranteed to reproduce bit-for-bit. Every mesh, render and timeline
+  regenerates FROM them. They lived in gitignored `out/` (force-added) until 2026-08-12;
+  nothing under `out/` is tracked anymore, making ADR 0038's "out/ may be deleted at any
+  time" literally true.
 - **`research/media-inventory.json`** — per-file manifest of the media cache. Paths, sizes and
   hashes only, no third-party content.
 - **`research/*.md`** — the provenance prose: sources, licences, crop rectangles.
@@ -67,11 +77,14 @@ node scripts/gutcheck-research-inventory.mjs --root <path/to/research> --out /tm
 # ...then diff /tmp/check.json against research/media-inventory.json
 
 # Restore the large out/ binaries from archives
-node scripts/gutcheck-archive-restore.ts <archives>/gutcheck-large-<group>-<date>.zip
+node scripts/gutcheck-archive-restore.ts <archives>/gutcheck-large-<group>-<date>-<archive-sha256>.zip
 
 # Re-verify the large-artifact inventory after any restore
 node scripts/gutcheck-archive-pack.ts        # inventory only, no --pack
 ```
+
+New packs use immutable content-addressed names; restore also accepts the 11 legacy
+date-only names already pinned in the archive ledger.
 
 Regenerate `research/media-inventory.json` whenever the cache changes; it is cheap and it is
 the only thing that makes the cache's absence detectable.

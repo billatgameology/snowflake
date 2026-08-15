@@ -7,23 +7,29 @@
 //   node scripts/gutcheck-archive-restore.ts <zip> --force            # overwrite differing files
 //
 // Fail-closed by design (2026-08-04 adversarial review, recorded in the plan):
-// - tracked/inventory.json missing or unreadable is a hard abort, never a warning;
+// - the tracked inventory missing or unreadable is a hard abort, never a warning;
 // - the zip's own sha256 is checked against the inventory's archives ledger first — a
 //   same-named ledger entry with a different hash (corrupted/partial download) aborts;
-// - archive entries are vetted by NAME (must sit under "large/", no absolute or ".."
-//   or backslash components) and by TYPE (`tar -tvf`; only regular files and directories
-//   pass — symlinks/FIFOs/devices abort before extraction);
+// - archive entries are vetted by NAME (forward-slash relative paths under `large/**` or the
+//   root workspace layer; never absolute, backslash-containing, `..`, `archives/`, `site/`,
+//   or `tracked/`) and by TYPE (`tar -tvf`; only regular files and directories pass —
+//   symlinks/FIFOs/devices abort before extraction);
+// - ledgered archives must match their declared group and count before extraction; newly
+//   packed archives also bind the exact sorted member-name set, while legacy entries without
+//   that field warn and retain archive-hash/group/count/per-file-digest enforcement;
 // - extraction uses bsdtar (`tar -xf`, reads zip; ships with macOS and Windows 10+) into a
 //   temp dir under --dest; placement renames per file (copy fallback across volumes) and a
 //   SIGINT/SIGTERM mid-run removes the temp dir.
 // Per-file statuses:
-//   OK          sha256 matches tracked/inventory.json
+//   OK          sha256 matches the tracked inventory
 //   SKIP        an identical file (same hash) is already in place
 //   UNVERIFIED  placed, but the relpath is not in the inventory — exit 1 (investigate)
 //   MISMATCH    hash differs from inventory — file is NOT placed; exit 1
 //   EXISTS      destination file exists with different content and no --force; NOT placed; exit 1
 //   ERROR       this entry failed (unreadable destination, extraction gap, ...); exit 1
-// The inventory read is always the repo's tracked/inventory.json (resolved relative to this
+// An archive absent from the archive ledger may still place individually verified files, but
+// the overall command exits 1: per-file authenticity does not prove group completeness.
+// The inventory read is always the repo's tracked inventory (resolved relative to this
 // script, not the CWD), so a fresh clone verifies a Dropbox download against git history.
 
 import { createHash } from "node:crypto";
@@ -39,11 +45,25 @@ import {
   rmSync,
   statSync,
 } from "node:fs";
-import { basename, dirname, join, resolve } from "node:path";
+import { basename, join, resolve } from "node:path";
 import { spawnSync } from "node:child_process";
 
+import { prepareSafePlacement } from "./gutcheck-restore-lib.ts";
+import {
+  archiveEntryPathIsSafe,
+  archiveEntryPortableKey,
+  archiveGroupForEntry,
+  archiveMemberListSha256,
+} from "./gutcheck-archive-lib.ts";
+
 const ROOT = resolve(import.meta.dirname, "..", "out/gutcheck-gg-realism");
-const INVENTORY = join(ROOT, "tracked", "inventory.json");
+// Tracked inventory relocated to the evidence tree 2026-08-12 (out/ is fully disposable).
+// GUTCHECK_INVENTORY exists for the regression tests, which run this script against fixture
+// ledgers without touching the real one.
+const INVENTORY = resolve(
+  process.env.GUTCHECK_INVENTORY ??
+    resolve(import.meta.dirname, "..", "evidence/gutcheck-gg-realism/large-artifact-inventory.json"),
+);
 
 // The zip reading below needs bsdtar. Windows ships it as System32\tar.exe, but a Git-Bash or
 // MSYS PATH puts GNU tar ahead of it, and GNU tar neither reads zip nor accepts a drive letter
@@ -68,6 +88,10 @@ interface ArchiveEntry {
   group: string;
   sha256: string;
   bytes: number;
+  fileCount: number;
+  totalBytes: number;
+  /** SHA-256 of JSON.stringify(sorted archive member paths); absent on legacy entries. */
+  memberListSha256?: string;
 }
 interface Inventory {
   format: string;
@@ -202,19 +226,78 @@ async function main(): Promise<void> {
   }
   const fileEntries: string[] = [];
   for (const entry of names) {
-    if (entry.startsWith("/") || entry.includes("\\") || entry.split("/").includes("..")) {
+    if (!archiveEntryPathIsSafe(entry)) {
       throw new Error(`unsafe entry path, refusing archive: ${entry}`);
     }
     // Refuse anything that would land outside the destination tree. Entries may sit under
     // large/ (binaries) or at OUT root (the extras/workspace layer); archives/, site/ and
     // tracked/ are never packed, so an entry claiming those is not one of ours.
     const top = entry.split("/")[0]!;
-    if (top === "archives" || top === "site" || top === "tracked") {
+    const foldedTop = top.toLowerCase();
+    if (foldedTop === "archives" || foldedTop === "site" || foldedTop === "tracked") {
       throw new Error(`entry in a never-packed location, not a gutcheck archive: ${entry}`);
+    }
+    if (foldedTop === "large" && top !== "large") {
+      throw new Error(`entry aliases the canonical large/ root on a case-insensitive host: ${entry}`);
     }
     if (!entry.endsWith("/")) fileEntries.push(entry);
   }
   if (fileEntries.length === 0) throw new Error("archive contains no files");
+  if (new Set(fileEntries).size !== fileEntries.length) {
+    throw new Error(`archive ${zipName} contains duplicate file entries — refusing ambiguous extraction`);
+  }
+  const portableNames = new Map<string, string>();
+  for (const entry of fileEntries) {
+    const key = archiveEntryPortableKey(entry);
+    const priorEntry = portableNames.get(key);
+    if (priorEntry !== undefined && priorEntry !== entry) {
+      throw new Error(
+        `archive ${zipName} contains paths that collide on a supported host: ${priorEntry} and ${entry}`,
+      );
+    }
+    portableNames.set(key, entry);
+  }
+  // A ledgered archive declares its group, count and (for newly packed archives) exact member
+  // identity. Check all of that BEFORE extraction: count alone allowed a same-count member
+  // substitution to place a wrong-group file and merely warn about the omitted member.
+  const declaredBy = byName ?? ledger.find((a) => a.sha256 === zipSha);
+  const archiveUnverified = declaredBy === undefined;
+  if (declaredBy !== undefined && fileEntries.length !== declaredBy.fileCount) {
+    throw new Error(
+      `archive ${zipName} holds ${String(fileEntries.length)} files but the ledger declares ` +
+        `${String(declaredBy.fileCount)} — refusing a partial or altered archive`,
+    );
+  }
+  if (declaredBy !== undefined) {
+    const wrongGroup = fileEntries.filter((entry) => archiveGroupForEntry(entry) !== declaredBy.group);
+    if (wrongGroup.length > 0) {
+      throw new Error(
+        `archive ${zipName} is ledgered as group "${declaredBy.group}" but contains ` +
+          `${wrongGroup.slice(0, 3).join(", ")}${wrongGroup.length > 3 ? ", …" : ""}`,
+      );
+    }
+    const unledgered = fileEntries.filter((entry) => !inventoryByPath.has(entry));
+    if (unledgered.length > 0) {
+      throw new Error(
+        `ledgered archive ${zipName} contains ${String(unledgered.length)} unledgered member(s): ` +
+          `${unledgered.slice(0, 3).join(", ")}${unledgered.length > 3 ? ", …" : ""}`,
+      );
+    }
+    if (declaredBy.memberListSha256 !== undefined) {
+      const actualMembers = archiveMemberListSha256(fileEntries);
+      if (actualMembers !== declaredBy.memberListSha256) {
+        throw new Error(
+          `archive member-list mismatch for ${zipName}:\n  ledger  ${declaredBy.memberListSha256}\n` +
+            `  actual  ${actualMembers}\nRefusing same-count member substitution.`,
+        );
+      }
+    } else {
+      console.warn(
+        `warning: ${zipName} is a legacy ledger entry without memberListSha256; ` +
+          `archive hash, group, count, and per-file digests are enforced, but historical exact membership is not asserted`,
+      );
+    }
+  }
 
   mkdirSync(dest, { recursive: true });
   const tmp = mkdtempSync(join(dest, ".restore-tmp-"));
@@ -235,7 +318,6 @@ async function main(): Promise<void> {
     for (const entry of fileEntries) {
       try {
         const extracted = join(tmp, entry);
-        const target = join(dest, entry);
         if (!lstatSync(extracted).isFile()) {
           console.error(`ERROR      ${entry} extracted as a non-regular file`);
           counts.ERROR++;
@@ -250,12 +332,24 @@ async function main(): Promise<void> {
           continue;
         }
 
+        // Validate the destination chain BEFORE even accepting an identical existing target.
+        // The old SKIP path hashed through dest/large -> outside and exited 0 without ever
+        // calling the placement guard (round-3 review, 2026-08-13).
+        let inspectedTarget: string;
+        try {
+          inspectedTarget = prepareSafePlacement(dest, entry);
+        } catch (error) {
+          console.error(`ERROR      ${entry} ${error instanceof Error ? error.message : String(error)}`);
+          counts.ERROR++;
+          continue;
+        }
+
         // Distinguish "target absent" (restore proceeds) from "target unreadable"
         // (refuse — an EACCES/EIO must never be treated as an empty slot).
         let existingSha: string | null = null;
         try {
-          statSync(target);
-          existingSha = await sha256File(target);
+          statSync(inspectedTarget);
+          existingSha = await sha256File(inspectedTarget);
         } catch (error) {
           const code = (error as NodeJS.ErrnoException).code;
           if (code !== "ENOENT") {
@@ -265,7 +359,12 @@ async function main(): Promise<void> {
           }
         }
         if (existingSha === digest) {
-          counts.SKIP++;
+          if (expected === undefined) {
+            console.warn(`UNVERIFIED ${entry} (already present; not in tracked inventory)`);
+            counts.UNVERIFIED++;
+          } else {
+            counts.SKIP++;
+          }
           continue;
         }
         if (existingSha !== null && !force) {
@@ -274,12 +373,23 @@ async function main(): Promise<void> {
           continue;
         }
 
-        mkdirSync(dirname(target), { recursive: true });
+        // Destination-side guard, immediately before placement: a symlinked ancestor under
+        // --dest (dest/figs -> elsewhere) passed every entry-NAME check and wrote outside
+        // the tree (adversarial review 2026-08-12). The reads above may have gone through
+        // such a link harmlessly; the WRITE must not.
+        let safeTarget: string;
         try {
-          renameSync(extracted, target);
+          safeTarget = prepareSafePlacement(dest, entry);
+        } catch (error) {
+          console.error(`ERROR      ${entry} ${error instanceof Error ? error.message : String(error)}`);
+          counts.ERROR++;
+          continue;
+        }
+        try {
+          renameSync(extracted, safeTarget);
         } catch (error) {
           if ((error as NodeJS.ErrnoException).code !== "EXDEV") throw error;
-          copyFileSync(extracted, target);
+          copyFileSync(extracted, safeTarget);
           rmSync(extracted, { force: true });
         }
         if (expected === undefined) {
@@ -321,7 +431,16 @@ async function main(): Promise<void> {
       `${counts.UNVERIFIED} unverified, ${counts.MISMATCH} mismatched, ${counts.EXISTS} blocked, ` +
       `${counts.ERROR} errors`,
   );
-  if (counts.MISMATCH > 0 || counts.EXISTS > 0 || counts.ERROR > 0 || counts.UNVERIFIED > 0) {
+  if (archiveUnverified) {
+    console.warn("archive-level UNVERIFIED: no archive-ledger entry authenticated this member set");
+  }
+  if (
+    archiveUnverified ||
+    counts.MISMATCH > 0 ||
+    counts.EXISTS > 0 ||
+    counts.ERROR > 0 ||
+    counts.UNVERIFIED > 0
+  ) {
     process.exitCode = 1;
   }
 }

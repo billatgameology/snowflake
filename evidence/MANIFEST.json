@@ -3,8 +3,8 @@
  "movedFrom": "out/ (gitignored), plus the byte-identical tracked arm64 fingerprint formerly under docs/",
  "movedTo": "evidence/ (tracked)",
  "note": "Historical sweep digests were computed before their move and re-verified afterward. The arm64 fingerprint preserves the exact former docs/ Git blob (18398 bytes, SHA-256 d6686f8e...). The x64 fingerprint is the complete 2026-08-01 lightweight fixture re-execution backing the exact per-entry comparison; it reproduces registered digest 2a9f64b3. These are preserved claim-backing bytes, not regenerated production sweeps.",
- "fileCount": 119,
- "totalBytes": 3588037,
+ "fileCount": 347,
+ "totalBytes": 4177119,
  "files": {
   "phase6-crossplatform/arm64-libm-fingerprint.txt": {
    "bytes": 18398,
@@ -366,26 +366,6 @@
    "bytes": 36094,
    "sha256": "c54b89683eea1f064bd8e81d6e9e06b3b9bbc6c022168b981cbfa71e5fc3cdd3"
   },
-  "phase9-dbt-six-history-development-v3/artifact-index.json": {
-   "bytes": 673,
-   "sha256": "ebc2a56624606842208ecb42af857c216584b926c5a96716ecebf1139f4b5184"
-  },
-  "phase9-dbt-six-history-development-v3/launch-manifest.json": {
-   "bytes": 17274,
-   "sha256": "d7d03b0396a29968de5db3db91b6ec53ea57fbf06bdb217e68dfc9689c88f297"
-  },
-  "phase9-dbt-six-history-development-v3/report.json": {
-   "bytes": 6870,
-   "sha256": "f7a84d7509460256d4e535516d7c0e69050e4621fc5357df59e314fc41379a41"
-  },
-  "phase9-dbt-six-history-development-v3/scores.jsonl": {
-   "bytes": 11691,
-   "sha256": "6e2af9268de8e73ed187d8663054874a9a761266fc234fcf1a05455652aa32ed"
-  },
-  "phase9-dbt-six-history-development-v3/source-diagnostics.jsonl": {
-   "bytes": 6205,
-   "sha256": "1eb8fb08fc35c271a360f84053c70bc3c1d7aec1bc749f680b22f452c12b3d56"
-  },
   "phase9-knowledge-baseline-v1/artifact-index.json": {
    "bytes": 1028,
    "sha256": "c9a73f9464fc74be03cf805c617815f0a5ca3437b8fcf20e96c5e15bc6b77d96"
@@ -409,6 +389,938 @@
   "phase9-knowledge-baseline-v1/source-register.jsonl": {
    "bytes": 17827,
    "sha256": "e217861146b1a9456a2ce1464e263e00b88512011382e5da54e6dd03d5c105f7"
+  },
+  "gutcheck-gg-realism/README.md": {
+   "bytes": 3014,
+   "sha256": "68e39748815a102b00ab055c8adb36e9c7608ea9d21daab7c211baf93d6c49c4"
+  },
+  "gutcheck-gg-realism/dialin/dialin-b1p3-1200.json": {
+   "bytes": 635,
+   "sha256": "372368efb6a70064687720f2706bcd0169d7dca93d2353e8dee4cd1a613492a0"
+  },
+  "gutcheck-gg-realism/dialin/dialin-b1p3-500-f2.json": {
+   "bytes": 658,
+   "sha256": "4681b0b27eb93793187d73aa3b7cb77fbd0aabe18ec0686e0ecf239aad83687b"
+  },
+  "gutcheck-gg-realism/dialin/dialin-b1p3-500-s06.json": {
+   "bytes": 655,
+   "sha256": "fdec91c081bcf0b4b9806b2d4e89d8962fef4af06ef3270030c9e33b3f6980f4"
+  },
+  "gutcheck-gg-realism/dialin/dialin-b1p3-500.json": {
+   "bytes": 631,
+   "sha256": "2a68ecd9bac86fb577ddd3b0e71f479630a2b71126b35d4da05951ae36cb8175"
+  },
+  "gutcheck-gg-realism/dialin/dialin-b1p3-800.json": {
+   "bytes": 631,
+   "sha256": "c319b535b8fedd22b3a2fff7304360b95f32fcf9ed921340d612f83318af1f20"
+  },
+  "gutcheck-gg-realism/fig-records/fig10-record.json": {
+   "bytes": 984,
+   "sha256": "19033b39fa7fc82fe32b5f4eeb561980b233cbb1b314a78604de40de891e11a0"
+  },
+  "gutcheck-gg-realism/fig-records/fig11-record.json": {
+   "bytes": 987,
+   "sha256": "229f5e541d06ab121d0533afc37afd68f3002d5afc33453ae6287069768f2788"
+  },
+  "gutcheck-gg-realism/fig-records/fig13-record.json": {
+   "bytes": 998,
+   "sha256": "95e0fef13a7bc5ef49288c5cec5fa2c42afcf41da23818670ad30849dcb19f67"
+  },
+  "gutcheck-gg-realism/fig-records/fig15-record.json": {
+   "bytes": 998,
+   "sha256": "567a944aa2d3cdefcf32e444482ec0367b8b5bf1969c68372df5f878491a88aa"
+  },
+  "gutcheck-gg-realism/fig-records/fig16-record.json": {
+   "bytes": 997,
+   "sha256": "995284d5cead8637e2939292cc8a737a814547544b65a8cd58bab1f3d0bfbb0c"
+  },
+  "gutcheck-gg-realism/fig-records/fig17-record.json": {
+   "bytes": 1091,
+   "sha256": "1edf945ca16ddadcae046af5c857ff39cc042b961cbc9d87ec0dcc5c7b2e716f"
+  },
+  "gutcheck-gg-realism/fig-records/fig19-record.json": {
+   "bytes": 1112,
+   "sha256": "51a22772eae730323c3c707e8a017bc00a3810c752985a8feb3e8de0b621fcf3"
+  },
+  "gutcheck-gg-realism/fig-records/fig20-record.json": {
+   "bytes": 1005,
+   "sha256": "4f79ddb52d09d34881503fffea256334ad6f30e59447ba9f33a2849eb97a2af1"
+  },
+  "gutcheck-gg-realism/fig-records/fig20v2-record.json": {
+   "bytes": 1009,
+   "sha256": "64eae1ac904d31c3668e39a011bcd28fa5cc615fb4c753480b9acf2f37b5a9ad"
+  },
+  "gutcheck-gg-realism/fig-records/fig21-record.json": {
+   "bytes": 1006,
+   "sha256": "67abd9b1d4e42d1cf4025812cb4b7fa9c16d0c8f391e4ac9e7333d0b5e5a858a"
+  },
+  "gutcheck-gg-realism/fig-records/fig29-record.json": {
+   "bytes": 983,
+   "sha256": "119d894b1185feec21f331b7b7fcc7d678dea37f71046b078987f35200826a98"
+  },
+  "gutcheck-gg-realism/fig-records/fig3-record.json": {
+   "bytes": 992,
+   "sha256": "6e3548c595a1cd2101bf8f294d2a231efc894722637123cef26dee63ca9fabd9"
+  },
+  "gutcheck-gg-realism/fig-records/fig30-record.json": {
+   "bytes": 986,
+   "sha256": "02dcf6ba8025356714e5f642560470be2e5d9fce1057e9f7ac610360f7a505d5"
+  },
+  "gutcheck-gg-realism/fig-records/fig31-record.json": {
+   "bytes": 988,
+   "sha256": "63f5bfd75a525d549a96604be991591f259e522213e25753f23127f8c5ccda02"
+  },
+  "gutcheck-gg-realism/fig-records/fig32-record.json": {
+   "bytes": 1665,
+   "sha256": "b3d6e39ba8bcd5fa6d2e62551dcc9d509f9f636d8b8a7d0ee432a2ecf1d79441"
+  },
+  "gutcheck-gg-realism/fig-records/fig33-record.json": {
+   "bytes": 1671,
+   "sha256": "1e25e9b32e6ee80f0743c4bed875192aaa5b6ae78239518ca7223aca0ec76068"
+  },
+  "gutcheck-gg-realism/fig-records/fig37-record.json": {
+   "bytes": 1520,
+   "sha256": "617bb00b783e0cdc2afba7bc2abeba46e1ec79448129c2508ff5f53f0bb40ce8"
+  },
+  "gutcheck-gg-realism/fig-records/fig38-record.json": {
+   "bytes": 1540,
+   "sha256": "2aa5feb9ff36a17b632e71a97fba7cf0f94590f07269b2e9723f1c8830e744b3"
+  },
+  "gutcheck-gg-realism/fig-records/fig39-record.json": {
+   "bytes": 998,
+   "sha256": "8d215c30fa6dab33e13fa974fa3939d14b32c17e8f0a997488dcb75f7c7d23fd"
+  },
+  "gutcheck-gg-realism/fig-records/fig40-record.json": {
+   "bytes": 1101,
+   "sha256": "03372d039c67fb2206a310cdaba4eec8dc60f6ecf94ce5ff803347d92dfc3fa0"
+  },
+  "gutcheck-gg-realism/fig-records/fig41-record.json": {
+   "bytes": 1102,
+   "sha256": "26fb36a99cc00eca98df1ceb6fea1209a15418b096313a072ec2b2741432f6c9"
+  },
+  "gutcheck-gg-realism/fig-records/fig42-record.json": {
+   "bytes": 1101,
+   "sha256": "ca77631d13dc0058deff1f9bbafff21cfff20765f560cf00a9f3892dc32ed8bc"
+  },
+  "gutcheck-gg-realism/fig-records/fig42v2-record.json": {
+   "bytes": 1104,
+   "sha256": "74a35e344125da79d02082bcc493cc9b66d8650ce3d515ad2b076665df62419d"
+  },
+  "gutcheck-gg-realism/fig-records/fig43-record.json": {
+   "bytes": 993,
+   "sha256": "a2b8c978af8343817233a911634cb03fa7be8fc6e91d31c9f5de3005190e6da8"
+  },
+  "gutcheck-gg-realism/fig-records/fig44-record.json": {
+   "bytes": 1135,
+   "sha256": "5226258524f3398e80e965575d849ac628d270ff23796a206356e0ddb5d33159"
+  },
+  "gutcheck-gg-realism/fig-records/fig45-record.json": {
+   "bytes": 994,
+   "sha256": "09bde677cfef9b503503b6084dae669c4e613fa53c088f3ed883e513cf1e098e"
+  },
+  "gutcheck-gg-realism/fig-records/fig46-record.json": {
+   "bytes": 997,
+   "sha256": "b4224728e6b6bdd97a494ddcb238b0e774ce62155b83dc0060b94044aa81dfdc"
+  },
+  "gutcheck-gg-realism/fig-records/fig47-record.json": {
+   "bytes": 990,
+   "sha256": "26a28ba0341cc8b7830a7da1887a04d4269207cd6c9b6e1c773bc35972170371"
+  },
+  "gutcheck-gg-realism/fig-records/fig6-record.json": {
+   "bytes": 988,
+   "sha256": "8a2bdeefc50c7999b36439d79db268d2261a30c520d6717286fa0504792d6710"
+  },
+  "gutcheck-gg-realism/fig-records/fig7-record.json": {
+   "bytes": 980,
+   "sha256": "dd2dfb6e277411cb92e90a30fb1a45d5649ebea6476515ebd0c8d3803ce9436d"
+  },
+  "gutcheck-gg-realism/fig-records/fig8-record.json": {
+   "bytes": 983,
+   "sha256": "01d0eedd9a820313959d3b6732b2bebb2f68bf9df65f47bc22650dceb780afee"
+  },
+  "gutcheck-gg-realism/fig-records/fig9-record.json": {
+   "bytes": 980,
+   "sha256": "7609a7bb6b581a9a6bc6532592aa9fe1a8e4b6f809091a7fce0bce8e96e10499"
+  },
+  "gutcheck-gg-realism/fig-records/fig9v2-record.json": {
+   "bytes": 985,
+   "sha256": "5b5a514c72a41675deeaf9f91f0fa6c68ee59fe2039093e7f4f350784cb56ad9"
+  },
+  "gutcheck-gg-realism/fig-records/smoke-capped-record.json": {
+   "bytes": 1538,
+   "sha256": "d9d5abacd0a6ec97400dbd5d3c3564f88f81cbe7da773d48876bda79f1e5221b"
+  },
+  "gutcheck-gg-realism/fig-records/test-plate-record.json": {
+   "bytes": 1001,
+   "sha256": "93e65cedbdc0945fe2396e3765f824699ba20b4d36465efc2f64d476904bd288"
+  },
+  "gutcheck-gg-realism/gen-records/bentley785-record.json": {
+   "bytes": 1722,
+   "sha256": "a674f1e6b44fac08f175f68813a4cce86d874d78fb845d3112253baa1d56bf24"
+  },
+  "gutcheck-gg-realism/gen-records/bentley872-record.json": {
+   "bytes": 1706,
+   "sha256": "a361f19c8acef6f580e7a6a4db6e1a0617181851efb15df2686b9b932efc2e93"
+  },
+  "gutcheck-gg-realism/gen-records/bentley872-v2-record.json": {
+   "bytes": 1699,
+   "sha256": "9fdf68e67ef6d582eeda4e57851d0030f58ed5e0180792ea47bf6be348170797"
+  },
+  "gutcheck-gg-realism/gen-records/bentley872-v3-record.json": {
+   "bytes": 1683,
+   "sha256": "64620d66041774e6be1316fffeff20c96feb6b3b8fd1639aaebf576270fcf4d0"
+  },
+  "gutcheck-gg-realism/gen-records/bentley872-v4-record.json": {
+   "bytes": 1638,
+   "sha256": "cc3a6ee47ef5d128c2015a37ec7026d643b5cfcd580575ee551a3e4552d40201"
+  },
+  "gutcheck-gg-realism/gen-records/bentley872-v5-record.json": {
+   "bytes": 1697,
+   "sha256": "2e34064296c501e993cf603ed11e9762d80ab99c7203fe89dcd4bf4ef3448906"
+  },
+  "gutcheck-gg-realism/gen-records/bentley872-v6-record.json": {
+   "bytes": 1699,
+   "sha256": "53ea748b2616d0f5a6dc3cda60952daf27827944b76b6fc8a36afdbee7bbf8ae"
+  },
+  "gutcheck-gg-realism/gen-records/dialin-b1p3-500-f2-record.json": {
+   "bytes": 1751,
+   "sha256": "3a8588d40dbab487a8e2729a54f7ff4b856a228d47d2c63de069c415a78ad17c"
+  },
+  "gutcheck-gg-realism/gen-records/dialin-b1p3-500-record.json": {
+   "bytes": 1693,
+   "sha256": "61cee17900b3782e8f485cf39be81bd9a01b27d0ce260b332767f4d610fadd9f"
+  },
+  "gutcheck-gg-realism/gen-records/dialin-b1p3-500-s06-record.json": {
+   "bytes": 1746,
+   "sha256": "1708ecb9e10f209254d90dbcdfb4e7944c47c2d122602c76bd6a71ab343445a0"
+  },
+  "gutcheck-gg-realism/gen-records/dialin-b1p3-800-record.json": {
+   "bytes": 1689,
+   "sha256": "707e1e0140f1578aacce52d4062bcec63bd1c4eeaa2f3fc8ffe7eb0c86fe9129"
+  },
+  "gutcheck-gg-realism/gen-records/staged-branch1-to-plate3-at12000-record.json": {
+   "bytes": 1629,
+   "sha256": "a6c5700a4178e791ee644941bae1ce5dac62f5699b8ebd8c909d9fdaf18424a2"
+  },
+  "gutcheck-gg-realism/gen-records/staged-branch1-to-plate3-at3000-record.json": {
+   "bytes": 1694,
+   "sha256": "b5915f61b9fb4a2c74604689a6a827dcb6cd5640361c537ffdc638cdfd983fa5"
+  },
+  "gutcheck-gg-realism/gen-records/staged-branch1-to-plate3-at4000-record.json": {
+   "bytes": 1698,
+   "sha256": "2d0ba5c6b24b84d45ea3648831b89863cd1e527ba2a974013121312fb9133760"
+  },
+  "gutcheck-gg-realism/gen-records/staged-branch1-to-plate3-at6000-record.json": {
+   "bytes": 1695,
+   "sha256": "2d09facb4b15db185be6ece181110f792e776b3e9511dc3b4941698aac7162e0"
+  },
+  "gutcheck-gg-realism/gen-records/staged-branch1-to-plate3-at8000-record.json": {
+   "bytes": 1625,
+   "sha256": "a396d13205d66b3b70ceb711eaa592fc7f8e16046e0c047f5cd6c0d1655af4a5"
+  },
+  "gutcheck-gg-realism/gen-records/staged-branch1p15-to-plate2p25-at3000-record.json": {
+   "bytes": 1724,
+   "sha256": "28a67fd63f878995457510c1f9802394c6c6ad1d9b22c9c5909c76fb9c74d224"
+  },
+  "gutcheck-gg-realism/gen-records/staged-branch1p15-to-plate2p25-at4000-record.json": {
+   "bytes": 1722,
+   "sha256": "b5fe112605f998d519294484eb52a96ea6d1803de688003c886e98b856ea0a0b"
+  },
+  "gutcheck-gg-realism/gen-records/staged-branch1p15-to-plate2p25-at6000-record.json": {
+   "bytes": 1731,
+   "sha256": "dd2eb2c6ed6b306ea7f0973f7a38a532e9f5edf9d361dbdc6e124fac61cfdfa9"
+  },
+  "gutcheck-gg-realism/gen-records/staged-branch1p3-to-plate2p6-at3000-record.json": {
+   "bytes": 1713,
+   "sha256": "5e894c47adc365559525d93e9827f397226966be44178291234c839d9990b1cc"
+  },
+  "gutcheck-gg-realism/gen-records/staged-branch1p3-to-plate2p6-at4000-record.json": {
+   "bytes": 1711,
+   "sha256": "9371a4906066d93ac4a80e6af041a25521b933d6cd8d81de4a028d4be0db2f40"
+  },
+  "gutcheck-gg-realism/gen-records/staged-branch1p3-to-plate2p6-at6000-record.json": {
+   "bytes": 1711,
+   "sha256": "6553545045dfb2d2063ea28f7aa8941d820b5bf76c9433e9c3321f4ff00234a5"
+  },
+  "gutcheck-gg-realism/gen-records/staged-plate2p25-to-branch1p15-at12000-record.json": {
+   "bytes": 1735,
+   "sha256": "ebc399ef6c434f122c14b90934513786704652515fe9d77a2c6330145bd09348"
+  },
+  "gutcheck-gg-realism/gen-records/staged-plate2p25-to-branch1p15-at3000-record.json": {
+   "bytes": 1730,
+   "sha256": "ffa105efe29c1b919ed77b99053d611333b0eeb5e28c212ec63039b4a590ceb0"
+  },
+  "gutcheck-gg-realism/gen-records/staged-plate2p25-to-branch1p15-at4000-record.json": {
+   "bytes": 1730,
+   "sha256": "d122334a83dbbabc6b31f595715f87fc25b79faf3d4bf705fecd2db0a82d6a61"
+  },
+  "gutcheck-gg-realism/gen-records/staged-plate2p25-to-branch1p15-at6000-record.json": {
+   "bytes": 1729,
+   "sha256": "367060511cae6a88da2838549bf963b2dfee2f5ee197c45611cbfff7048045d6"
+  },
+  "gutcheck-gg-realism/gen-records/staged-plate2p25-to-branch1p15-at8000-record.json": {
+   "bytes": 1730,
+   "sha256": "0859bf550503d8a88c407d25e7dad1202448e6573a027d313dbc5ec73cf4791c"
+  },
+  "gutcheck-gg-realism/gen-records/staged-plate2p6-to-branch1p3-at12000-record.json": {
+   "bytes": 1723,
+   "sha256": "8e0f9a570727a1ef7b3c31aea5ae5719f2d947754ef25db3d97ec05eacaeab04"
+  },
+  "gutcheck-gg-realism/gen-records/staged-plate2p6-to-branch1p3-at3000-record.json": {
+   "bytes": 1718,
+   "sha256": "820f4aa7968c7e18952138e3860688652e76659d16ad37423ad6c2b71c769cab"
+  },
+  "gutcheck-gg-realism/gen-records/staged-plate2p6-to-branch1p3-at4000-record.json": {
+   "bytes": 1718,
+   "sha256": "55991771c9e0df4db5433881e619252979bd43c7375b933aaeb8bb763b0d7270"
+  },
+  "gutcheck-gg-realism/gen-records/staged-plate2p6-to-branch1p3-at6000-record.json": {
+   "bytes": 1717,
+   "sha256": "5dc5667068fd75d998c230663dd71a88feb7b0d363d400c03b29d7ec465d799e"
+  },
+  "gutcheck-gg-realism/gen-records/staged-plate2p6-to-branch1p3-at8000-record.json": {
+   "bytes": 1717,
+   "sha256": "dd6f1159f913e365594d783de5fefdbbe9bf006778bdf1260b0dcebd9c4a7852"
+  },
+  "gutcheck-gg-realism/gen-records/staged-plate3-to-branch1-at12000-record.json": {
+   "bytes": 1698,
+   "sha256": "f76b603f41551be67552af1cd705c14d9cc2cf81ba0fd3fa4eae4a6368182eec"
+  },
+  "gutcheck-gg-realism/gen-records/staged-plate3-to-branch1-at3000-record.json": {
+   "bytes": 1694,
+   "sha256": "acbcd434d649c653ad2d74eb6ab7ae442523eaa01c5328fc3a006c49876178a5"
+  },
+  "gutcheck-gg-realism/gen-records/staged-plate3-to-branch1-at4000-record.json": {
+   "bytes": 1694,
+   "sha256": "0b6287d845429d03b189c27a22f0209c2fd56aaac9e3ee34f0dfb1a711322c0e"
+  },
+  "gutcheck-gg-realism/gen-records/staged-plate3-to-branch1-at6000-record.json": {
+   "bytes": 1694,
+   "sha256": "b12f0f08b9a68e692beac192923011d21cc4253d26e2122d9aeaceececfd0cdf"
+  },
+  "gutcheck-gg-realism/gen-records/staged-plate3-to-branch1-at8000-record.json": {
+   "bytes": 1694,
+   "sha256": "e87f5e803dae2876cc24df3d7c2f139f0460adb44d93530614187988f764eb8b"
+  },
+  "gutcheck-gg-realism/gen-records/staged3-plate-branch-plate-5000-11000-record.json": {
+   "bytes": 2143,
+   "sha256": "1c0d41de96f6c67b2c6d26c8df4c6cc3ee52c139f7bf4ed5c7f0e9a620089ca3"
+  },
+  "gutcheck-gg-realism/gen-records/staged3-plate-branch-plate-7000-15000-record.json": {
+   "bytes": 2144,
+   "sha256": "d85ad482a928b480c3c44eb88a42906f3985aa00e2d0145c71857aef48676b21"
+  },
+  "gutcheck-gg-realism/gen-records/sweep-t1-r0p08-record.json": {
+   "bytes": 1250,
+   "sha256": "f7debf40767c119533f475e5ddf3c304fcdecd824007542da3846b2efe1a0ee2"
+  },
+  "gutcheck-gg-realism/gen-records/sweep-t1-r0p1-record.json": {
+   "bytes": 1245,
+   "sha256": "ee8b6aaeb08e6dec22b01d05ec530281c5ebdc815d91c3f99ae784ba617b4f62"
+  },
+  "gutcheck-gg-realism/gen-records/sweep-t1-r0p12-record.json": {
+   "bytes": 1248,
+   "sha256": "861bc4f1d3e6585576777809bca94d840817fbfb984763466d21976b43dab4b8"
+  },
+  "gutcheck-gg-realism/gen-records/sweep-t1-r0p16-record.json": {
+   "bytes": 1247,
+   "sha256": "9d2a13135a13ce5ee7db13e2bbb05e66032f2fcf9cdd43e18c64d9c47e9faf00"
+  },
+  "gutcheck-gg-realism/gen-records/sweep-t1-sharp-record.json": {
+   "bytes": 1303,
+   "sha256": "04ba5fe0602c8487ae0cf7faff3d5eba8f38ee2bb1dff8f3c392b8b294b5b871"
+  },
+  "gutcheck-gg-realism/gen-records/sweep-t1p15-k0p001-m0p001-record.json": {
+   "bytes": 1301,
+   "sha256": "842c682af8e4f34a603b098f14f2442594d1b62c9473c15269401de71be78291"
+  },
+  "gutcheck-gg-realism/gen-records/sweep-t1p15-k0p001-m0p006-record.json": {
+   "bytes": 1302,
+   "sha256": "1e00361fdccd53547a8a27099a990fba921e02eb0cbcaef5f4f60af45501a93c"
+  },
+  "gutcheck-gg-realism/gen-records/sweep-t1p15-k0p02-m0p001-record.json": {
+   "bytes": 1297,
+   "sha256": "66f7d33e89f89d1795a1cfa5e15df0169f34f5c37376d3209921ac05950b5d77"
+  },
+  "gutcheck-gg-realism/gen-records/sweep-t1p15-k0p02-m0p006-record.json": {
+   "bytes": 1298,
+   "sha256": "11721532f77c5a6319900931c917c737a97943e61565d5a465e4fca15607a622"
+  },
+  "gutcheck-gg-realism/gen-records/sweep-t1p15-k0p1-m0p001-record.json": {
+   "bytes": 1294,
+   "sha256": "ab7346a6a55db4698eb3c28da9130d81d6dbd7f8c49c12023a627a28247369af"
+  },
+  "gutcheck-gg-realism/gen-records/sweep-t1p15-k0p1-m0p006-record.json": {
+   "bytes": 1294,
+   "sha256": "d16eede06d1a2aea2500bf738b5930e3f89dbc63b8aa2f530a87e131d99b9162"
+  },
+  "gutcheck-gg-realism/gen-records/sweep-t1p15-r0p08-record.json": {
+   "bytes": 1268,
+   "sha256": "b66674af3bf0cd4d695de43471f91cef4fb2824b96c31dedcd75febc11a5dc2f"
+  },
+  "gutcheck-gg-realism/gen-records/sweep-t1p15-r0p1-record.json": {
+   "bytes": 1264,
+   "sha256": "47bd6563914b1dee9de96711c6934362cab7b2dd376be5eddd598cfe815d6f04"
+  },
+  "gutcheck-gg-realism/gen-records/sweep-t1p15-r0p12-record.json": {
+   "bytes": 1267,
+   "sha256": "3f9d3f943bc11bddbfdfb8413064f97b073149b6d8192f866456fa6b3de72233"
+  },
+  "gutcheck-gg-realism/gen-records/sweep-t1p15-r0p16-record.json": {
+   "bytes": 1265,
+   "sha256": "e866182fb25b963b370ca267ee8a720751a2bc616f52c6758923c10698502ff6"
+  },
+  "gutcheck-gg-realism/gen-records/sweep-t1p15-sharp-record.json": {
+   "bytes": 1323,
+   "sha256": "5329e1ff37d073b26fb47679dfc7c039b9d0c0f6f4bbb62c003057d237acd1f0"
+  },
+  "gutcheck-gg-realism/gen-records/sweep-t1p3-r0p08-record.json": {
+   "bytes": 1262,
+   "sha256": "a281ee8cc83621192d32a4791134be657fcced63d7dc00a41d809edb0cf96a77"
+  },
+  "gutcheck-gg-realism/gen-records/sweep-t1p3-r0p1-record.json": {
+   "bytes": 1257,
+   "sha256": "d84d4c7ac93d9661b822672fa58165b1a0aef0ad08ba17d6fda45933cf628411"
+  },
+  "gutcheck-gg-realism/gen-records/sweep-t1p3-r0p12-record.json": {
+   "bytes": 1262,
+   "sha256": "01438e2ada9d2bf29d6d84ea198d385dec5ef98e7f566fecca102b6932096659"
+  },
+  "gutcheck-gg-realism/gen-records/sweep-t1p3-r0p16-record.json": {
+   "bytes": 1260,
+   "sha256": "d120148543f820d0c52e2629a546f9a7729fabbebaf44724103d3812e75cfc4c"
+  },
+  "gutcheck-gg-realism/gen-records/sweep-t1p3-sharp-record.json": {
+   "bytes": 1317,
+   "sha256": "74ed6e98048c5f9629689ba67f10c96cf9554674fdf8d9f48a3afadcc97159ee"
+  },
+  "gutcheck-gg-realism/gen-records/sweep-t1p5-r0p08-record.json": {
+   "bytes": 1257,
+   "sha256": "6615f342ef61071f43ba7935f85bffa3bdaf4c7d925b0531e7c6eb281d158f97"
+  },
+  "gutcheck-gg-realism/gen-records/sweep-t1p5-r0p1-record.json": {
+   "bytes": 1258,
+   "sha256": "52225b1e020921ecb4e45542fb97c5fc9a16b0201b1a5d69908e7d534c5dacf3"
+  },
+  "gutcheck-gg-realism/gen-records/sweep-t1p5-r0p12-record.json": {
+   "bytes": 1262,
+   "sha256": "a7ee7abd2a3270672961a5680287f244afbb12f2b5f95cf5e4fa2aadc7cfed56"
+  },
+  "gutcheck-gg-realism/gen-records/sweep-t1p5-r0p16-record.json": {
+   "bytes": 1262,
+   "sha256": "508437da01dc8fee16a06a1f1c0dd5436abe784457c99883d8e8fff850f73a00"
+  },
+  "gutcheck-gg-realism/gen-records/sweep-t1p5-sharp-record.json": {
+   "bytes": 1316,
+   "sha256": "cf68b75c2def2cf4d407d000b1f176d5fd6c8b515f73b377e5ef78f2cfc89f72"
+  },
+  "gutcheck-gg-realism/gen-records/sweep-t1p75-k0p001-m0p001-record.json": {
+   "bytes": 1302,
+   "sha256": "342b25b748aa301d9ecb694a5ca285d6db4b509cc815123caef7045da4a40744"
+  },
+  "gutcheck-gg-realism/gen-records/sweep-t1p75-k0p001-m0p006-record.json": {
+   "bytes": 1296,
+   "sha256": "140f713d9648fcadb910cd0dbb507d2ee70f69e241b2ccf37117e0b469088381"
+  },
+  "gutcheck-gg-realism/gen-records/sweep-t1p75-k0p02-m0p001-record.json": {
+   "bytes": 1289,
+   "sha256": "a7f3d70cbfd464b191499d3867f04043645e86e48659ec6a79ee760a30c72dc0"
+  },
+  "gutcheck-gg-realism/gen-records/sweep-t1p75-k0p02-m0p006-record.json": {
+   "bytes": 1292,
+   "sha256": "c9cdd4558ae35fe9b8f7049c5e452f2e93eacd2653500181cc2da3e06c033f77"
+  },
+  "gutcheck-gg-realism/gen-records/sweep-t1p75-k0p1-m0p001-record.json": {
+   "bytes": 1286,
+   "sha256": "5b7d7b9500c12c9434968ea4344633f35a143525f1c1afaa861065c9ed9e6e12"
+  },
+  "gutcheck-gg-realism/gen-records/sweep-t1p75-k0p1-m0p006-record.json": {
+   "bytes": 1288,
+   "sha256": "b32659fc0f4ffaaeee0ffc97882027a501e3f3142eaecb66b4a236f0a7d835a6"
+  },
+  "gutcheck-gg-realism/gen-records/sweep-t1p75-r0p08-record.json": {
+   "bytes": 1261,
+   "sha256": "683a7a6c122107741746352a6f0e342fda55ad57b4af463e82a61a322b605bc3"
+  },
+  "gutcheck-gg-realism/gen-records/sweep-t1p75-r0p1-record.json": {
+   "bytes": 1259,
+   "sha256": "26ed35d1a0a7d5dc757fb20805728a6b2f23a09d8888ffe762e622dc831e8d0f"
+  },
+  "gutcheck-gg-realism/gen-records/sweep-t1p75-r0p12-record.json": {
+   "bytes": 1262,
+   "sha256": "717e4f7cd4928054d6205e0077683c05745209772b715d8ca5596a1fc3ec680f"
+  },
+  "gutcheck-gg-realism/gen-records/sweep-t1p75-r0p16-record.json": {
+   "bytes": 1268,
+   "sha256": "7171e27b69c6cb177ec168142bba96383efb4a82b207e3db174de49f75e28f4d"
+  },
+  "gutcheck-gg-realism/gen-records/sweep-t2-r0p08-record.json": {
+   "bytes": 1243,
+   "sha256": "49539ec3e5fda138696755fe929a8524b6fff77ba38ec7ad4a20c162ea17346f"
+  },
+  "gutcheck-gg-realism/gen-records/sweep-t2-r0p1-record.json": {
+   "bytes": 1238,
+   "sha256": "20bc3cb4d6454bf961dfd97cbd1709504f5091b6c72de01cf1e078f3b3b249f0"
+  },
+  "gutcheck-gg-realism/gen-records/sweep-t2-r0p12-record.json": {
+   "bytes": 1244,
+   "sha256": "03184703aabf88e4d7b7fa901fffc7ece29d072a29dddedbc5e07ceb8a24341a"
+  },
+  "gutcheck-gg-realism/gen-records/sweep-t2-r0p16-record.json": {
+   "bytes": 1249,
+   "sha256": "0ffc46d6d97ef8e92db8dbb7e71bd0b372e75def2a09bb407a96ed883dac11f9"
+  },
+  "gutcheck-gg-realism/gen-records/sweep-t2p5-k0p001-m0p001-record.json": {
+   "bytes": 1290,
+   "sha256": "8b5b2e0b85d37a289649a37b7f9f02e68417a01881efffcdc57e1e3abbb971dd"
+  },
+  "gutcheck-gg-realism/gen-records/sweep-t2p5-k0p001-m0p006-record.json": {
+   "bytes": 1287,
+   "sha256": "797e58137e4d573a724f7e2a5e51a1990c334024bfd46bca571a6d614eb491d1"
+  },
+  "gutcheck-gg-realism/gen-records/sweep-t2p5-k0p02-m0p001-record.json": {
+   "bytes": 1284,
+   "sha256": "8cfd1227a1f1cf949e143f3821a6af431dcad59447c5227645f459ef8f347c03"
+  },
+  "gutcheck-gg-realism/gen-records/sweep-t2p5-k0p02-m0p006-record.json": {
+   "bytes": 1283,
+   "sha256": "bcdf3c659ecb1b36c0a7e03fbc7cf1231a9342aa4e119d94b7d98ba8f4b83b43"
+  },
+  "gutcheck-gg-realism/gen-records/sweep-t2p5-k0p1-m0p001-record.json": {
+   "bytes": 1281,
+   "sha256": "6f274dc8b9f867177e67193634a75597679ec1e67c87d2764691d34019a5f2ca"
+  },
+  "gutcheck-gg-realism/gen-records/sweep-t2p5-k0p1-m0p006-record.json": {
+   "bytes": 1280,
+   "sha256": "17124d3a90f2a5e5ae9c7edaa99aa3558bb5be1ab9d1075f850d926054e831ef"
+  },
+  "gutcheck-gg-realism/gen-records/sweep-t2p5-r0p08-record.json": {
+   "bytes": 1253,
+   "sha256": "57290eccb617d33b1f8d95dfcb310c597c3267d4b3105cd6ab2b479ff79fe5cb"
+  },
+  "gutcheck-gg-realism/gen-records/sweep-t2p5-r0p1-record.json": {
+   "bytes": 1249,
+   "sha256": "848173c1f65a2faf915aafd941233b33b3a4de90db6b16462a2d9a5c1c101f54"
+  },
+  "gutcheck-gg-realism/gen-records/sweep-t2p5-r0p12-record.json": {
+   "bytes": 1257,
+   "sha256": "4395a7e382ab70d7e7fdcc0fe901a34577a56361883668841377d3ffa2c66c72"
+  },
+  "gutcheck-gg-realism/gen-records/sweep-t2p5-r0p16-record.json": {
+   "bytes": 1259,
+   "sha256": "6f6a2b37cd57f7f17f614edcedc8b632ac2bb160a1dd5226c31ee03dbba61be1"
+  },
+  "gutcheck-gg-realism/gen-records/sweep-t3-r0p08-record.json": {
+   "bytes": 1241,
+   "sha256": "07e7bd6cc556a6110d1b244570cf0bd5701ad670810a3f3ab26417174b7dde0e"
+  },
+  "gutcheck-gg-realism/gen-records/sweep-t3-r0p1-record.json": {
+   "bytes": 1240,
+   "sha256": "9639a4f6bcca539ea051650c80798514a603acf130fddee25d8ec15f4ac6c9bb"
+  },
+  "gutcheck-gg-realism/gen-records/sweep-t3-r0p12-record.json": {
+   "bytes": 1242,
+   "sha256": "42f0688b7d299aa25da04f00cca276f9bfaf72ec0c769d31c2cb88867a17d689"
+  },
+  "gutcheck-gg-realism/gen-records/sweep-t3-r0p16-record.json": {
+   "bytes": 1249,
+   "sha256": "81fb0b3bad0ffa47fe7a5177eb6fd237f0fefa55f3fdd85f721fb7f92ef613a3"
+  },
+  "gutcheck-gg-realism/large-artifact-inventory.json": {
+   "bytes": 358626,
+   "sha256": "9888b9f69cdb1139bb9ff179c7643610e8a4cc62c6fb9c2840b860ce42320edc"
+  },
+  "gutcheck-gg-realism/specs/bentley785.json": {
+   "bytes": 672,
+   "sha256": "f6de0715cf13e0ba6934df390b4ffc917213f36ab6c7a54c816e1075f818784d"
+  },
+  "gutcheck-gg-realism/specs/bentley872-v2.json": {
+   "bytes": 739,
+   "sha256": "114b25ab354ec3e0f3d39cdee6c2050a4865e111436242b35d4325656c501d88"
+  },
+  "gutcheck-gg-realism/specs/bentley872-v3.json": {
+   "bytes": 733,
+   "sha256": "fb3fa6ff00fcf3bfdf01c949f1a7e4c942e487a1a60fa495c4c1529a05ff4d75"
+  },
+  "gutcheck-gg-realism/specs/bentley872-v4.json": {
+   "bytes": 687,
+   "sha256": "3e9800d5a6e0c6eb244964016805175d7f6c9275122b924b3d7ec1e05970d983"
+  },
+  "gutcheck-gg-realism/specs/bentley872-v5.json": {
+   "bytes": 739,
+   "sha256": "30882d10ed263350d23938111470134ce2131125c18555dbbe80507f04ce0f94"
+  },
+  "gutcheck-gg-realism/specs/bentley872-v6.json": {
+   "bytes": 739,
+   "sha256": "62b9d15eae3fb4debd42a5b034453b288e51aef3942bde2d06fb564d109462fe"
+  },
+  "gutcheck-gg-realism/specs/bentley872.json": {
+   "bytes": 664,
+   "sha256": "0dd239ad06843c60ecbf8bca2d7a6557b116376494c095fffff26e63500d96c1"
+  },
+  "gutcheck-gg-realism/specs/staged-branch1-to-plate3-at12000.json": {
+   "bytes": 721,
+   "sha256": "bc55a8c33e1157d5d27e04ffb0be920f4dec384605d07bd3f9b8e5e018e7480c"
+  },
+  "gutcheck-gg-realism/specs/staged-branch1-to-plate3-at3000.json": {
+   "bytes": 719,
+   "sha256": "93fd641c8ae4aac45d1f1ada427289cf77c426343c0f0cbea741616883436b00"
+  },
+  "gutcheck-gg-realism/specs/staged-branch1-to-plate3-at4000.json": {
+   "bytes": 719,
+   "sha256": "571a136e7d224200e6949e176f25124da92c259c4234908221f4829717ef8c21"
+  },
+  "gutcheck-gg-realism/specs/staged-branch1-to-plate3-at6000.json": {
+   "bytes": 719,
+   "sha256": "d1fd63506f4c0b710791ee9ff5dd0ff6e21b83f96cbef2c7d5ac512d52568ab9"
+  },
+  "gutcheck-gg-realism/specs/staged-branch1-to-plate3-at8000.json": {
+   "bytes": 719,
+   "sha256": "b1d7b4a9b93b7b6ad4ca7debe8ebc2a42bb30309caef53857af8a883a74b0320"
+  },
+  "gutcheck-gg-realism/specs/staged-branch1p15-to-plate2p25-at12000.json": {
+   "bytes": 745,
+   "sha256": "012a1a19912380e6af12c1648c95f9e08f92e6604e7929b340bce1666faaf22a"
+  },
+  "gutcheck-gg-realism/specs/staged-branch1p15-to-plate2p25-at3000.json": {
+   "bytes": 743,
+   "sha256": "4e6351656ce18032111c23570aa58e159c01a58b161f27a02e6d0bfff4a1b48c"
+  },
+  "gutcheck-gg-realism/specs/staged-branch1p15-to-plate2p25-at4000.json": {
+   "bytes": 743,
+   "sha256": "24f899a3992937fc004f25614076b5787ed87540e52f636e90a465431175cd8e"
+  },
+  "gutcheck-gg-realism/specs/staged-branch1p15-to-plate2p25-at6000.json": {
+   "bytes": 743,
+   "sha256": "83823c52ac2a13545bc791206a034e82ddcf2a32e70cd60b5970a8acc730b643"
+  },
+  "gutcheck-gg-realism/specs/staged-branch1p15-to-plate2p25-at8000.json": {
+   "bytes": 743,
+   "sha256": "c3e08a697bb1082a2c244eb9dc1d79cd083656e27b36157c0be069a39b726f70"
+  },
+  "gutcheck-gg-realism/specs/staged-branch1p3-to-plate2p6-at12000.json": {
+   "bytes": 737,
+   "sha256": "9b00b77ff73ebdec2ce14a9a319f0c41ca07ea3f9ff8b4b886d434e48ea0eb36"
+  },
+  "gutcheck-gg-realism/specs/staged-branch1p3-to-plate2p6-at3000.json": {
+   "bytes": 735,
+   "sha256": "a14ed431ec34bbaa61cbe1cfab711e12fb978147c619efff80afec6fe76b5e6d"
+  },
+  "gutcheck-gg-realism/specs/staged-branch1p3-to-plate2p6-at4000.json": {
+   "bytes": 735,
+   "sha256": "577b7af5948d21e880102fe534fc83d5ff7f811d61361ca9e3b240b8c97f6c5c"
+  },
+  "gutcheck-gg-realism/specs/staged-branch1p3-to-plate2p6-at6000.json": {
+   "bytes": 735,
+   "sha256": "dd133c4c6a19cfbd564409b788bb1fcd948de858a82ef4d37d0c66a507979ef2"
+  },
+  "gutcheck-gg-realism/specs/staged-branch1p3-to-plate2p6-at8000.json": {
+   "bytes": 735,
+   "sha256": "a47361775c5288493eb1ad2e771070246b3af1cfcc12752ca649d479d4557960"
+  },
+  "gutcheck-gg-realism/specs/staged-plate2p25-to-branch1p15-at12000.json": {
+   "bytes": 745,
+   "sha256": "e6b3628a760552689bf75548ef7477733672c499ee44533ce6ddf46c27b73e9b"
+  },
+  "gutcheck-gg-realism/specs/staged-plate2p25-to-branch1p15-at3000.json": {
+   "bytes": 743,
+   "sha256": "3f8d3cc6244b9d1b75ae09b59151b44c6a0a4085c582940e4e059ea19ff692d9"
+  },
+  "gutcheck-gg-realism/specs/staged-plate2p25-to-branch1p15-at4000.json": {
+   "bytes": 743,
+   "sha256": "4dfdcd24e6dccff293ea68f1a58d986a85fc94f5af81759559a695bd975ff042"
+  },
+  "gutcheck-gg-realism/specs/staged-plate2p25-to-branch1p15-at6000.json": {
+   "bytes": 743,
+   "sha256": "10604f1589613da911f430a9dc374ac48c451891c71e3759fb6bac56bb1c6c1a"
+  },
+  "gutcheck-gg-realism/specs/staged-plate2p25-to-branch1p15-at8000.json": {
+   "bytes": 743,
+   "sha256": "71351212449c1d8c2a684c894906c6816a0971f2877c34daf0c90570ab4d4b1b"
+  },
+  "gutcheck-gg-realism/specs/staged-plate2p6-to-branch1p3-at12000.json": {
+   "bytes": 737,
+   "sha256": "c8bc01551052237637b99cf1a8eb2a77c210f65d99b86a5d20331164c288a329"
+  },
+  "gutcheck-gg-realism/specs/staged-plate2p6-to-branch1p3-at3000.json": {
+   "bytes": 735,
+   "sha256": "7d5325a1a264c96d8ccf8d7724347f86016b538e1163e9889fd486c564d552de"
+  },
+  "gutcheck-gg-realism/specs/staged-plate2p6-to-branch1p3-at4000.json": {
+   "bytes": 735,
+   "sha256": "2c10d5ba196c65841ad06e987fc25648a1cd185c6027c1fe2b5c33662b1b7160"
+  },
+  "gutcheck-gg-realism/specs/staged-plate2p6-to-branch1p3-at6000.json": {
+   "bytes": 735,
+   "sha256": "ef52d0bce66e6433fdc98b4a6e83ed31e829a18feda505b433edfb8ad53d72ad"
+  },
+  "gutcheck-gg-realism/specs/staged-plate2p6-to-branch1p3-at8000.json": {
+   "bytes": 735,
+   "sha256": "f779b2c931dd111901e16d1f3ded6990e3e963d7430bcae60c15a103867440c1"
+  },
+  "gutcheck-gg-realism/specs/staged-plate3-to-branch1-at12000.json": {
+   "bytes": 721,
+   "sha256": "29bf87c537f4dbfbe1780ac688246413a844c0f1a83dd8930e83972e65776b3c"
+  },
+  "gutcheck-gg-realism/specs/staged-plate3-to-branch1-at3000.json": {
+   "bytes": 719,
+   "sha256": "9381fcbd5da55d20103f47689536395867846c124c93fa78c84ed65917fdddec"
+  },
+  "gutcheck-gg-realism/specs/staged-plate3-to-branch1-at4000.json": {
+   "bytes": 719,
+   "sha256": "f72779f74836ce3ea12eb3902bb87c5e7c1acd6e91d6c8ae4ff059ffc96f3d86"
+  },
+  "gutcheck-gg-realism/specs/staged-plate3-to-branch1-at6000.json": {
+   "bytes": 719,
+   "sha256": "1a0170df22ba2abc3068ca8d8598cad0d0e88025caf99b0240b9912926f16f01"
+  },
+  "gutcheck-gg-realism/specs/staged-plate3-to-branch1-at8000.json": {
+   "bytes": 719,
+   "sha256": "13479ec2da687e4a301c186315aa9507c27b27240787f1d90ff48984670a4d49"
+  },
+  "gutcheck-gg-realism/specs/staged3-plate-branch-plate-5000-11000.json": {
+   "bytes": 1072,
+   "sha256": "1f45266069ed3b7ce59336ca5aa4510bc35fe913d869e39228ccf437d84b5951"
+  },
+  "gutcheck-gg-realism/specs/staged3-plate-branch-plate-7000-15000.json": {
+   "bytes": 1072,
+   "sha256": "4e0c68cef476c9372c8f5fefd22704b05637ab7646b74546204dfaf57f4972c5"
+  },
+  "gutcheck-gg-realism/specs/sweep-t1-r0p08.json": {
+   "bytes": 367,
+   "sha256": "9496c75a1bf8bab5400910805dedd09138dcb55188534df42280c1683f1aa329"
+  },
+  "gutcheck-gg-realism/specs/sweep-t1-r0p1.json": {
+   "bytes": 365,
+   "sha256": "50f29e43fdf71c8020335f72c80f7ffa0aedf11c549d0a2b15e5b70a041c0e48"
+  },
+  "gutcheck-gg-realism/specs/sweep-t1-r0p12.json": {
+   "bytes": 367,
+   "sha256": "767a26dca964c997677f6f314d17c63536a3e2cc4b7ba3e1572a6ba0195c9e27"
+  },
+  "gutcheck-gg-realism/specs/sweep-t1-r0p16.json": {
+   "bytes": 367,
+   "sha256": "343496bdf231a0122a8fc886e8d5f8b0bcdd1fc11456ac52fcb458735d73298c"
+  },
+  "gutcheck-gg-realism/specs/sweep-t1-sharp.json": {
+   "bytes": 413,
+   "sha256": "7b9a4bb3cf51e1d33dd18aadd90a19cbad40f87fcdb4dc7e55059e33a022d91a"
+  },
+  "gutcheck-gg-realism/specs/sweep-t1p15-k0p001-m0p001.json": {
+   "bytes": 392,
+   "sha256": "1a62d41250c46df4dfd0f54523cde6871bd53e636d0c05ed4323dec01bab3ef6"
+  },
+  "gutcheck-gg-realism/specs/sweep-t1p15-k0p001-m0p006.json": {
+   "bytes": 392,
+   "sha256": "79eefc61d86fa281e9182b68b49f9a2e080ec23c15090013ef578a77d00340fe"
+  },
+  "gutcheck-gg-realism/specs/sweep-t1p15-k0p02-m0p001.json": {
+   "bytes": 390,
+   "sha256": "2d2a87e9872eacdb10a8dff162f6ecb65e62670cf884331852263c46d791e4d1"
+  },
+  "gutcheck-gg-realism/specs/sweep-t1p15-k0p02-m0p006.json": {
+   "bytes": 390,
+   "sha256": "c6e253bf19bc03a1471cb0a69dac7e78eb3aee5820c84f112457f45ac297158c"
+  },
+  "gutcheck-gg-realism/specs/sweep-t1p15-k0p1-m0p001.json": {
+   "bytes": 388,
+   "sha256": "0acec9a388685eb80120e13fa582ae8a1f1f3fe69b0c09295ea1cee29f4cc220"
+  },
+  "gutcheck-gg-realism/specs/sweep-t1p15-k0p1-m0p006.json": {
+   "bytes": 388,
+   "sha256": "d4218db64173555cd739551310a7563d40b387b0c9224f255a5ef792d5a6d2d4"
+  },
+  "gutcheck-gg-realism/specs/sweep-t1p15-r0p08.json": {
+   "bytes": 379,
+   "sha256": "1b3eb39b8f0e843cac06863c26b0c32e95d4ad11c25257a042447cde72b0c863"
+  },
+  "gutcheck-gg-realism/specs/sweep-t1p15-r0p1.json": {
+   "bytes": 377,
+   "sha256": "113ecfab0aaed58e20d685cdd6d71c9fb73e6872584acd3fb85453903aa16dba"
+  },
+  "gutcheck-gg-realism/specs/sweep-t1p15-r0p12.json": {
+   "bytes": 379,
+   "sha256": "5615200dcd8e14db1958319d2dc498910c5cfe241af4d9803d9ee3074dce5d21"
+  },
+  "gutcheck-gg-realism/specs/sweep-t1p15-r0p16.json": {
+   "bytes": 379,
+   "sha256": "fce1ff4001c994b738fe3b9ec525fb23790deefab94bab0dfdf07bd714f41368"
+  },
+  "gutcheck-gg-realism/specs/sweep-t1p15-sharp.json": {
+   "bytes": 425,
+   "sha256": "7325463fea20e6443989fe20446be448d37327e88d49328a6f0561486dad0a23"
+  },
+  "gutcheck-gg-realism/specs/sweep-t1p3-r0p08.json": {
+   "bytes": 375,
+   "sha256": "6f2a8b1cf676292ead104713468661e57a965fe94f87a16b2bf522b10c49d6ab"
+  },
+  "gutcheck-gg-realism/specs/sweep-t1p3-r0p1.json": {
+   "bytes": 373,
+   "sha256": "0aeb15feee9d121f66fc9432569b108ee98bb5995c44e65fbeb6c78911e0c464"
+  },
+  "gutcheck-gg-realism/specs/sweep-t1p3-r0p12.json": {
+   "bytes": 375,
+   "sha256": "5e8a2ded347fffbf1c0ec43bc162fffa1292fedd305d90954ad4d50efd0b1d24"
+  },
+  "gutcheck-gg-realism/specs/sweep-t1p3-r0p16.json": {
+   "bytes": 375,
+   "sha256": "5a189cf7b9faa88c049deaa8b6dfbdc1d576400c579e63494061bf081d681fe8"
+  },
+  "gutcheck-gg-realism/specs/sweep-t1p3-sharp.json": {
+   "bytes": 421,
+   "sha256": "22ef9ac086a2d3baf490d60ff2ea5f1b0caf52eb2f06e662b71d8da0aadd7eb4"
+  },
+  "gutcheck-gg-realism/specs/sweep-t1p5-r0p08.json": {
+   "bytes": 375,
+   "sha256": "e5f5e12419a44e158d2b0b570284ec318744644c3fe4ee7112c61cb7117d64ed"
+  },
+  "gutcheck-gg-realism/specs/sweep-t1p5-r0p1.json": {
+   "bytes": 373,
+   "sha256": "0c50696b498a005f5b588db019c7ee3323836c4739e1ffab46ad41e2700136f1"
+  },
+  "gutcheck-gg-realism/specs/sweep-t1p5-r0p12.json": {
+   "bytes": 375,
+   "sha256": "04e878fc5a194e2682687ef4e5382baa2bf787b80b664507fdbe304f84f5a4d8"
+  },
+  "gutcheck-gg-realism/specs/sweep-t1p5-r0p16.json": {
+   "bytes": 375,
+   "sha256": "b25067b794c2453f2ea026bead189ffad904bc2b2e59785848a9d19566fa539e"
+  },
+  "gutcheck-gg-realism/specs/sweep-t1p5-sharp.json": {
+   "bytes": 421,
+   "sha256": "2a7b197bcc9fbe9f8fbc1f0aa3e5ea5cfcf77c017942dd9c250a13193aa4c1a4"
+  },
+  "gutcheck-gg-realism/specs/sweep-t1p75-k0p001-m0p001.json": {
+   "bytes": 392,
+   "sha256": "32336165dfe2dd977a92b4f8cdfbbcd4af581e5fe3ae2e2b05c1b0a20601fe9c"
+  },
+  "gutcheck-gg-realism/specs/sweep-t1p75-k0p001-m0p006.json": {
+   "bytes": 392,
+   "sha256": "f19b2e90ca2ed4b3676a5856601b847d51f871aa2b340eaf4d67175ff2b41b47"
+  },
+  "gutcheck-gg-realism/specs/sweep-t1p75-k0p02-m0p001.json": {
+   "bytes": 390,
+   "sha256": "5c27366ebd065afbe07b22f79ac027b20619d41b13796bc0739255ec311a9001"
+  },
+  "gutcheck-gg-realism/specs/sweep-t1p75-k0p02-m0p006.json": {
+   "bytes": 390,
+   "sha256": "a3df09c22d1dedfe0231aa31255f19fc39048fbc7c51374b62b9545627a4ddf6"
+  },
+  "gutcheck-gg-realism/specs/sweep-t1p75-k0p1-m0p001.json": {
+   "bytes": 388,
+   "sha256": "02f086c8466cf19351ce4fb1bdf3c79ea013b0099d5f7b30e20ce7b0b4a00b8b"
+  },
+  "gutcheck-gg-realism/specs/sweep-t1p75-k0p1-m0p006.json": {
+   "bytes": 388,
+   "sha256": "5af67e6e24074cf493cba3a12a320e8d7b30c972be8d0bd30986590456e54b18"
+  },
+  "gutcheck-gg-realism/specs/sweep-t1p75-r0p08.json": {
+   "bytes": 379,
+   "sha256": "9619eb92d659a78305a1b7806b4f2da742a145a33350398cb48d090aa112710b"
+  },
+  "gutcheck-gg-realism/specs/sweep-t1p75-r0p1.json": {
+   "bytes": 377,
+   "sha256": "ea569b15a6d04ea2b58fdb9e40164f9be85c65f8b2b907d523ff10cfabb35f9c"
+  },
+  "gutcheck-gg-realism/specs/sweep-t1p75-r0p12.json": {
+   "bytes": 379,
+   "sha256": "1d309bf1c842211376add188e48c83c9bde58a4e8756cae4b33f9c8c555c2ee0"
+  },
+  "gutcheck-gg-realism/specs/sweep-t1p75-r0p16.json": {
+   "bytes": 379,
+   "sha256": "0fe3ac131b9dbff2dda85a1eaa76f07caf708378b2e57b55d3843d80127b433d"
+  },
+  "gutcheck-gg-realism/specs/sweep-t2-r0p08.json": {
+   "bytes": 367,
+   "sha256": "9765d5e4f3195f53f266d5b0cede3a7f4f7069de91f30696228a2de569ae5a16"
+  },
+  "gutcheck-gg-realism/specs/sweep-t2-r0p1.json": {
+   "bytes": 365,
+   "sha256": "5e6035b5d11d2aa0dbae860568aced305f4050a73e159e2a2e7bee866d25d106"
+  },
+  "gutcheck-gg-realism/specs/sweep-t2-r0p12.json": {
+   "bytes": 367,
+   "sha256": "aed786053a31032bc42d1b666f04084688023f4fdfdb870ee7af818f6bc1e141"
+  },
+  "gutcheck-gg-realism/specs/sweep-t2-r0p16.json": {
+   "bytes": 367,
+   "sha256": "27a4ecd32d72fa2af2a5cff5fcad9c58ce47cf41afe499b14036368e3579340f"
+  },
+  "gutcheck-gg-realism/specs/sweep-t2p5-k0p001-m0p001.json": {
+   "bytes": 388,
+   "sha256": "3dceacf79d870974ca144a18cc78482f21e39734a8954f0c5c4bc7d3e855b147"
+  },
+  "gutcheck-gg-realism/specs/sweep-t2p5-k0p001-m0p006.json": {
+   "bytes": 388,
+   "sha256": "be302aa8e7ba497dfe6f967acd21620293337d949a102111b1e28f325750c790"
+  },
+  "gutcheck-gg-realism/specs/sweep-t2p5-k0p02-m0p001.json": {
+   "bytes": 386,
+   "sha256": "ea0d8cc62ffb90cc709c92fbb1a6b3edd4355a4934af3f0dba779e060990c0a9"
+  },
+  "gutcheck-gg-realism/specs/sweep-t2p5-k0p02-m0p006.json": {
+   "bytes": 386,
+   "sha256": "328487190806de11557a8fea1a50d52718a5f7a87b58dc98050e25bc99bdb8b3"
+  },
+  "gutcheck-gg-realism/specs/sweep-t2p5-k0p1-m0p001.json": {
+   "bytes": 384,
+   "sha256": "91c9f7eb07a1824dc491abdc1454fa3f5a707eedbc6227d9fc94d58eea17cd10"
+  },
+  "gutcheck-gg-realism/specs/sweep-t2p5-k0p1-m0p006.json": {
+   "bytes": 384,
+   "sha256": "58986b404f07cbe536e7817167dc301cb0da9e2b3bc73d29468bce4028b9c718"
+  },
+  "gutcheck-gg-realism/specs/sweep-t2p5-r0p08.json": {
+   "bytes": 375,
+   "sha256": "fa30408d4c57a919b76cfed93f64634531f8ef2197cc5992466918fe7f202bb0"
+  },
+  "gutcheck-gg-realism/specs/sweep-t2p5-r0p1.json": {
+   "bytes": 373,
+   "sha256": "982a6c484b376443cc009874c3cb1acaca6a9274f15810ce2e395fc6a00923f1"
+  },
+  "gutcheck-gg-realism/specs/sweep-t2p5-r0p12.json": {
+   "bytes": 375,
+   "sha256": "fb21b0e9890881d6abd5d4e719b8c89c7adc11f311181a88f89c1b22c52bd3ee"
+  },
+  "gutcheck-gg-realism/specs/sweep-t2p5-r0p16.json": {
+   "bytes": 375,
+   "sha256": "fd90ddbf15c4f5901cacb11ad1fffec3864f186b55b7d1b453bb34baec89c2b4"
+  },
+  "gutcheck-gg-realism/specs/sweep-t3-r0p08.json": {
+   "bytes": 367,
+   "sha256": "3b30e324899456f611161be0996f4cf009e1115917b0d9db89fe5f4085d69da1"
+  },
+  "gutcheck-gg-realism/specs/sweep-t3-r0p1.json": {
+   "bytes": 365,
+   "sha256": "19fefd639b21e74455e19d33e8ef1fc414ff488d35f38115cb08d35d70abbc03"
+  },
+  "gutcheck-gg-realism/specs/sweep-t3-r0p12.json": {
+   "bytes": 367,
+   "sha256": "62f562c1e09738d410ddfd66da44bb3a768f61ef172bb72a3d4293bf2afc0c25"
+  },
+  "gutcheck-gg-realism/specs/sweep-t3-r0p16.json": {
+   "bytes": 367,
+   "sha256": "ea3dd7975b0f47016c5c67faf09b48897971ec2432adc1e653db1cd39129fc56"
+  },
+  "phase9-dbt-six-history-development-v3/artifact-index.json": {
+   "bytes": 673,
+   "sha256": "ebc2a56624606842208ecb42af857c216584b926c5a96716ecebf1139f4b5184"
+  },
+  "phase9-dbt-six-history-development-v3/launch-manifest.json": {
+   "bytes": 17274,
+   "sha256": "d7d03b0396a29968de5db3db91b6ec53ea57fbf06bdb217e68dfc9689c88f297"
+  },
+  "phase9-dbt-six-history-development-v3/report.json": {
+   "bytes": 6870,
+   "sha256": "f7a84d7509460256d4e535516d7c0e69050e4621fc5357df59e314fc41379a41"
+  },
+  "phase9-dbt-six-history-development-v3/scores.jsonl": {
+   "bytes": 11691,
+   "sha256": "6e2af9268de8e73ed187d8663054874a9a761266fc234fcf1a05455652aa32ed"
+  },
+  "phase9-dbt-six-history-development-v3/source-diagnostics.jsonl": {
+   "bytes": 6205,
+   "sha256": "1eb8fb08fc35c271a360f84053c70bc3c1d7aec1bc749f680b22f452c12b3d56"
   },
   "phase9-mf-mk2-planar-diagnostic-v1/artifact-index.json": {
    "bytes": 627,

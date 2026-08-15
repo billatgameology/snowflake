@@ -125,22 +125,20 @@ index, a plan, ADR, or audit links to historical detail.
   [source-currency record](../research/phase6-source-currency.md) is 29,714 bytes with SHA-256
   `af045438ab2e4bb0de82aea4b289388d7d2c0448322298f7ecfe4ed21e5d2563`. No provider request, new
   import, TAX2 measurement, R15 row, GPU validation row, or production solver job ran.
-- The offline `crystallographicSpans()` primitive reports exact integer `basalCaliper2` and
-  `zLayers`; its existing focused tests cover all D6 planar transforms and z reflection. It is not
-  yet a reviewed source-to-model size mapping and does not replace numerical controls.
-- Proposed [ADR 0039](decisions/0039-cycle-boundary-lk-resume-checkpoints.md) has reviewed,
-  implemented protocol-independent streaming and field-adopting float64 restore through `a1d540c`.
-  Its runner generation/publication/retry/trace contract remains deferred until WP3 freezes exact
-  campaign inputs; production rows may not use resume before acceptance.
-- Education is frozen for Phase 6 with one maker-directed exception already landed: commit
-  `af7463b` (2026-08-04, maker-approved mid-pause) added the independent-laboratory record to
-  chapters 4–13, `references.html`, and `FUTURE-ADDITIONS.md`. No other `docs/education/**` drift
-  exists since `60e3f3f` (verified by diff 2026-08-06), and no further education work runs until
-  Phase 6 closes. Commit `8acf9fe` added proposed Phase 8–10 drafts. Decisions 0046 and 0050 later
-  adopted Phase 8 and Phase 9 without reopening education; Phase 10 remains uncharted and inactive.
-- The gut-check exploration (`explore/gg-realism-gutcheck`: GG realism renders, 93-crystal
-  sweep ledger, tracked recipes) is MERGED to `main` (`98bc75d`, 2026-08-12, merged-tree suite
-  green). Eyeball-only exploration — not evidence, no gate claim, touches no solver package.
+- `crystallographicSpans()` reports exact integer `basalCaliper2`/`zLayers` (focused tests cover
+  all D6 planar transforms and z reflection); not yet a reviewed source-to-model size mapping and
+  no substitute for numerical controls.
+- Proposed [ADR 0039](decisions/0039-cycle-boundary-lk-resume-checkpoints.md): reviewed streaming
+  and field-adopting float64 restore landed through `a1d540c`; the runner contract stays deferred
+  until WP3 freezes exact campaign inputs. Production rows may not use resume before acceptance.
+- Education is frozen for Phase 6; the one maker-approved exception (`af7463b`, 2026-08-04) added
+  the independent-laboratory record to chapters 4–13, `references.html`, and
+  `FUTURE-ADDITIONS.md`. No other `docs/education/**` drift since `60e3f3f` (diff-verified
+  2026-08-06); `8acf9fe` added proposed Phase 8–10 drafts. Decisions 0046/0050 adopted Phases 8–9
+  without reopening education; Phase 10 remains uncharted and inactive.
+- The gut-check exploration (`explore/gg-realism-gutcheck`) is MERGED to `main` (`98bc75d`,
+  2026-08-12, merged-tree suite green). Eyeball-only — not evidence, no gate claim, no solver
+  code touched.
 - **WP1 size strata are FROZEN (2026-08-06).** `evidence/phase6-size-strata/strata.json` is
   18,867 bytes with SHA-256 `aba93698ad6dcd72237a9c7ffa48588143533db315c059a29f6cd98c8d0288b6`:
   S1 observed initial radius `[5.8999999999999995, 12.1]` µm (15 uncontested Harrison traces;
@@ -196,12 +194,11 @@ accepted WP3 protocol freeze, and an independently reviewed artifact-derived R15
 
 The 80-row ladder (frozen plan + three-round pre-execution review, all in
 [phase-6-wp2-ladder.md](plans/phase-6-wp2-ladder.md)) is running unattended from the pinned
-worktree `G:Code Filessnowflake-phase6-ladder` at the operative amendment head `aa81295`
-(two-phase heads sanctioned; 48 h runaway backstop only — the maker directed no arbitrary time
-stops). Resume after any interruption: from that worktree,
-`node app/scripts/phase6-wp2-ladder-run.mjs --concurrency 4` (recorded rows are skipped;
-in-flight rows re-run; do NOT run from this checkout — the freeze/amendment heads live in the
-worktree). When 80/80 rows are recorded: (1) run
+worktree `G:\Code Files\snowflake-phase6-ladder` at operative head `3827b77` (three sanctioned
+heads `f59d187`/`aa81295`/`3827b77`; no wall caps — the maker directed no arbitrary time stops).
+Resume after any interruption from that worktree ONLY, never this checkout:
+`node app/scripts/phase6-wp2-ladder-run.mjs --concurrency 12` (recorded rows are skipped;
+in-flight rows re-run). When 80/80 rows are recorded: (1) run
 `node app/scripts/phase6-wp2-ladder-eval.mjs` on the complete artifact and publish rows +
 report under `evidence/phase6-wp2-ladder/` with manifest entries and the PROGRESS verdict
 record; (2) the WP2 unit's one non-author review (sub-unit A + Stage A closure + 0045 rescope
@@ -210,6 +207,13 @@ obligations, the narrative three-arm report, negative controls, exact `npm test`
 reconciliation — Phase 6 closes. Do not resume education or V4/V4.x apparatus. Held-out or
 preview-GPU work may begin only as separately planned Phase 7 work in its own worktree; never run
 it from the Phase 6 lane or count it toward Phase 6.
+
+### Gutcheck/NAS relocation — landed and approved (2026-08-14)
+
+`ffb3a5e` lands the 254-path relocation/hardening unit. Claude Fable 5 approved it with zero
+blockers after 72/72 focused tests and reviewer exact `TMPDIR=/private/tmp npm test`: 1,722
+passed / 7 skipped (`out/checks/npm-test-round3-review.log`, SHA-256 `2a90d0d5…b11d`). Windows
+`S:/` and full NAS replay remain unexecuted; two deferred low findings are recorded in the plan.
 
 ### Phase 8B record — closed; external search remains stopped
 
@@ -220,9 +224,8 @@ audit. Broad discovery and the residual backlog remain stopped absent a new name
 measurement gap; Phase 9 S0B is bounded reconciliation of already registered complete Git/NAS
 sources. All 51 Phase 8B records are development evidence and none may be relabeled held out.
 
-### Phase 9 branch integration — post-review
+### Phase 9 branch integration — complete
 
-Commit the external-review repairs and verification receipts, wait for unrelated `main` work to
-land, then reconcile `docs/PROGRESS.md` and `evidence/MANIFEST.json` additively, run exact
-`TMPDIR=/private/tmp npm test`, and integrate `phase/9`. Do not reopen Phase 9 or start uncharted
-Phase 10 during that merge.
+`phase/9` and the gutcheck relocation merged to `main` additively 2026-08-14; `docs/PROGRESS.md`
+and `evidence/MANIFEST.json` (347 pinned files) reconciled structurally, merged-tree suite gating
+the push. Phase 9 was not reopened; Phase 10 remains uncharted.

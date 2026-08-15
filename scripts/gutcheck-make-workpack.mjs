@@ -11,10 +11,17 @@
 // strips the TypeScript types at run time.
 //
 // What comes back: results/gen/*-record.json (+ logs), results/large/gen/*-mesh.bin, and
-// results/large/anim/<id>/ timelines. Those drop straight into out/gutcheck-gg-realism/.
+// results/large/anim/<id>/ timelines. Bulk drops into out/gutcheck-gg-realism/; the records
+// merge into evidence/gutcheck-gg-realism/gen-records/ (tracked; re-pin the MANIFEST after).
 
-import { cpSync, existsSync, mkdirSync, readFileSync, readdirSync, rmSync, writeFileSync } from "node:fs";
+import { cpSync, mkdirSync, readFileSync, readdirSync, rmSync, writeFileSync } from "node:fs";
 import { join, resolve } from "node:path";
+
+import {
+  buildGutcheckRunIdentity,
+  isCompleteRecord,
+  isCompleteTimeline,
+} from "./gutcheck-evidence-lib.ts";
 
 const arg = (n, d) => {
   const i = process.argv.indexOf(`--${n}`);
@@ -29,6 +36,20 @@ const ticks = arg("ticks", "30000");
 const framesEvery = arg("frames-every", "120");
 const spacing = arg("spacing", "0.8");
 const only = arg("only", null);
+
+const dimsParts = dims.split(",").map(Number);
+if (dimsParts.length !== 3 || dimsParts.some((part) => !Number.isInteger(part) || part < 8)) {
+  throw new Error("--dims wants nx,ny,nz integers >= 8");
+}
+const dimsIdentity = { nx: dimsParts[0], ny: dimsParts[1], nz: dimsParts[2] };
+const tickCap = Number(ticks);
+const framesEveryNumber = Number(framesEvery);
+const spacingValue = Number(spacing);
+if (!Number.isInteger(tickCap) || tickCap < 1) throw new Error("--ticks must be a positive integer");
+if (!Number.isInteger(framesEveryNumber) || framesEveryNumber < 0) {
+  throw new Error("--frames-every must be a non-negative integer");
+}
+if (!Number.isFinite(spacingValue) || spacingValue <= 0) throw new Error("--spacing must be positive");
 
 rmSync(out, { recursive: true, force: true });
 mkdirSync(out, { recursive: true });
@@ -47,7 +68,11 @@ for (const pkg of ["core", "solver-cpu"]) {
 
 // 2. The scripts that actually do the work.
 mkdirSync(join(out, "scripts"), { recursive: true });
-for (const f of ["gutcheck-grow-params.ts", "gutcheck-mesh-lib.ts", "gutcheck-grow-batch.mjs"]) {
+// gutcheck-evidence-lib.ts ships because grow-batch imports it unconditionally — the import
+// must resolve even though a pack never re-pins (its records stay under results/gen, outside
+// any evidence tree). Omitting it was ERR_MODULE_NOT_FOUND on the exec host (review
+// 2026-08-12).
+for (const f of ["gutcheck-grow-params.ts", "gutcheck-mesh-lib.ts", "gutcheck-grow-batch.mjs", "gutcheck-evidence-lib.ts"]) {
   cpSync(join(REPO, "scripts", f), join(out, "scripts", f));
 }
 
@@ -83,7 +108,7 @@ for (const { dir } of REWRITES) {
 
 // 4. The specs to grow. Anything already finished here is excluded so the remote machine does
 //    not redo work — pass --only to narrow further.
-const specsSrc = join(REPO, "out/gutcheck-gg-realism/specs");
+const specsSrc = join(REPO, "evidence/gutcheck-gg-realism/specs");
 const genDir = join(REPO, "out/gutcheck-gg-realism/gen");
 const animDir = join(REPO, "out/gutcheck-gg-realism/large/anim");
 mkdirSync(join(out, "specs"), { recursive: true });
@@ -93,19 +118,36 @@ for (const f of readdirSync(specsSrc).sort()) {
   if (!f.endsWith(".json")) continue;
   const id = f.replace(/\.json$/, "");
   if (only !== null && !id.includes(only)) continue;
-  // Skip anything whose timeline is already complete locally.
+  const specPath = join(specsSrc, f);
+  const spec = JSON.parse(readFileSync(specPath, "utf8"));
+  const expected = {
+    id,
+    framesEvery: framesEveryNumber,
+    run: buildGutcheckRunIdentity({
+      spec,
+      dims: dimsIdentity,
+      domain: "hexPrism",
+      tickCap,
+      rngSeed: 1,
+      noiseEpsilon: 0,
+      seedThickness: 1,
+      extraction: { spacing: spacingValue, sigma: 0.45, iso: 0.5, margin: 4, normalDelta: 3 },
+    }),
+  };
+  // Use the same full invocation predicate as grow-batch. Frame-enabled packs require both
+  // a complete artifact-checked timeline and its identity-matched record; final-mesh-only
+  // packs require the record. A complete marker or matching basename alone is not identity.
   const manifest = join(animDir, id, "manifest.json");
-  if (existsSync(manifest)) {
-    try {
-      if (JSON.parse(readFileSync(manifest, "utf8")).complete === true) {
-        skipped.push(id);
-        continue;
-      }
-    } catch {
-      /* partial — let the remote machine redo it */
-    }
+  const record = join(REPO, "evidence/gutcheck-gg-realism/gen-records", `${id}-record.json`);
+  const complete =
+    framesEveryNumber > 0
+      ? isCompleteTimeline(manifest, record, expected)
+      : isCompleteRecord(record, expected);
+  if (complete) {
+    skipped.push(id);
+    continue;
   }
-  cpSync(join(specsSrc, f), join(out, "specs", f));
+  cpSync(specPath, join(out, "specs", f));
   packed++;
 }
 // 5. Package marker so Node treats .ts/.mjs here as ESM.
@@ -116,8 +158,8 @@ writeFileSync(
 
 // 6. The one thing to run. Batch writes into results/ so the whole folder is the deliverable.
 const args =
-  `--specs-dir specs --out-root results --concurrency ${concurrency} --dims ${dims} ` +
-  `--ticks ${ticks} --frames-every ${framesEvery} --spacing ${spacing}`;
+  `--specs-dir specs --out-root results --records-dir results/gen --concurrency ${concurrency} ` +
+  `--dims ${dims} --ticks ${ticks} --frames-every ${framesEvery} --spacing ${spacing}`;
 
 writeFileSync(
   join(out, "RUN.cmd"),

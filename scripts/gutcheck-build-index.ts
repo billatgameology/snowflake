@@ -1,9 +1,12 @@
-// Gut-check spike: scan out/gutcheck-gg-realism and write index.json for the browsable
-// index page (app/gutcheck-index.html). Re-run any time to refresh:
+// Gut-check spike: scan tracked provenance plus the local/NAS gut-check workspace and write
+// out/gutcheck-gg-realism/index.json for the browsable index page
+// (app/gutcheck-index.html). Re-run any time to refresh:
 //   node scripts/gutcheck-build-index.ts
 
-import { readFileSync, readdirSync, statSync, writeFileSync } from "node:fs";
+import { mkdirSync, readFileSync, readdirSync, statSync, writeFileSync } from "node:fs";
 import { resolve } from "node:path";
+
+import { detectNasMount } from "./nas-root.ts";
 
 // Every path below is kept in forward-slash form. node:path's join() emits backslashes on
 // Windows, which broke name() (it splits on "/", so it returned the whole path and every
@@ -11,21 +14,18 @@ import { resolve } from "node:path";
 const ROOT = resolve("out/gutcheck-gg-realism").replace(/\\/g, "/");
 const join = (...parts: string[]): string => parts.join("/");
 
-// Large artifacts (large/** and gen/renders) moved to the NAS on 2026-08-12 — S: is
-// \\GameStation\snowcrystal, ledgered in docs/nas-ledger.md. Detect it rather than
+// Large artifacts (large/** and gen/renders) moved to the NAS on 2026-08-12 —
+// \\GameStation\snowcrystal, ledgered in docs/nas-ledger.md, mounted as S: on Windows and
+// under /Volumes on macOS (scripts/nas-root.ts resolves which). Detect it rather than
 // configure it: with the NAS attached the index links there; without it, fall back to
 // local paths so a detached machine still builds a stills-less but honest index.
 // GUTCHECK_BULK_ROOT overrides both for unusual setups.
-const NAS_ROOT = "S:/out/gutcheck-gg-realism";
+const NAS_MOUNT = detectNasMount();
+const NAS_ROOT = NAS_MOUNT === null ? null : `${NAS_MOUNT}out/gutcheck-gg-realism`;
 const BULK_ROOT = (() => {
   const forced = process.env.GUTCHECK_BULK_ROOT;
   if (forced !== undefined && forced !== "") return forced.replace(/\\/g, "/");
-  try {
-    statSync(`${NAS_ROOT}/large`);
-    return NAS_ROOT;
-  } catch {
-    return ROOT;
-  }
+  return NAS_ROOT ?? ROOT;
 })();
 
 // Vite's dev-server escape hatch for files outside the app root. `/@fs` + the path works only
@@ -38,10 +38,13 @@ const BULK_ROOT = (() => {
 const FS = (p: string): string => {
   // NAS paths are served by the dev server's own /nas route (app/vite.config.ts): Vite's
   // /@fs cannot serve a drive other than the workspace's on Windows — it silently falls
-  // through to the SPA page (found 2026-08-12 when the bulk artifacts moved to S:).
-  if (/^s:\//i.test(p)) {
+  // through to the SPA page (found 2026-08-12 when the bulk artifacts moved to S:). The URL
+  // carries the share-relative path only, and the dev server re-attaches the serving host's
+  // mount prefix. That construction is mount-agnostic; end-to-end behavior was measured on
+  // macOS, while the current Windows S:/ path remains unexecuted.
+  if (NAS_MOUNT !== null && p.toLowerCase().startsWith(NAS_MOUNT.toLowerCase())) {
     return `/nas/${p
-      .slice(3)
+      .slice(NAS_MOUNT.length)
       .split("/")
       .map((segment) => encodeURIComponent(segment))
       .join("/")}`;
@@ -94,9 +97,23 @@ const listFiles = (dir: string): string[] => {
 const png = (p: string): boolean => p.endsWith(".png");
 const name = (p: string): string => p.slice(p.lastIndexOf("/") + 1);
 
-const rootFiles = listFiles(ROOT);
-const figFiles = listFiles(join(ROOT, "figs"));
-const photoFiles = listFiles(join(ROOT, "photos"));
+// Scan a directory that may exist locally, on the NAS mirror, or both, merged with the
+// LOCAL copy winning a filename collision: new outputs land locally before they are moved
+// to the share (docs/nas-ledger.md), so a working checkout's copy is the one being iterated
+// on. A fresh worktree gets recipes and authoritative records from tracked evidence, and
+// bulk/media from the loose share mirror, so no archive restore is needed. Legacy
+// gen/*-record.json copies remain on the share as fallbacks; the tracked copies win.
+const scanMerged = (rel?: string): string[] => {
+  const local = listFiles(rel === undefined ? ROOT : join(ROOT, rel));
+  if (BULK_ROOT === ROOT) return local;
+  const have = new Set(local.map(name));
+  const remote = listFiles(rel === undefined ? BULK_ROOT : join(BULK_ROOT, rel));
+  return [...local, ...remote.filter((p) => !have.has(name(p)))];
+};
+
+const rootFiles = scanMerged();
+const figFiles = scanMerged("figs");
+const photoFiles = scanMerged("photos");
 
 const meshHref = (look: string, meshPath: string, extra = ""): string =>
   `${VIEWER}?look=${look}&interactive=1&mesh=${FS(meshPath)}${extra}`;
@@ -116,9 +133,20 @@ const LOOK_BLURB: Record<string, string> = {
   "footage-ice": "J0521r2p microscopy footage target",
   povray: "G-G Fig. 4 ray-trace target, backlit navy glow",
   ggview: "the paper's own display mode: cell-true prisms + drawn structure edges",
+  glass: "clear glass: thin walls, double-sided, backdrop visible through the crystal",
 };
-// The label already ends in the look name, so the gloss does not repeat it.
-const lookNote = (look: string, controls: string): string => `${LOOK_BLURB[look]} · ${controls}`;
+// The label already ends in the look name, so the gloss does not repeat it. A look present in
+// LOOKS but missing here used to render the literal string "undefined" on every card using it
+// — which is how `glass`, the default for all 30-odd figure meshes, shipped as "undefined ·
+// no side-by-side comparison for this crystal". Fail the build instead: this is a generator,
+// and a named stop costs one line where a silent template hole costs a page of nonsense.
+const lookNote = (look: string, controls: string): string => {
+  const blurb = LOOK_BLURB[look];
+  if (blurb === undefined) {
+    throw new Error(`look "${look}" has no LOOK_BLURB entry (add one restating its LOOKS note)`);
+  }
+  return `${blurb} · ${controls}`;
+};
 
 const meshes = join(BULK_ROOT, "large", "meshes");
 const figMeshes = join(BULK_ROOT, "large", "figs");
@@ -318,7 +346,6 @@ if (orphanViewers.length > 0) {
 // crystal-by-crystal table. Each row is one spec: its render, its final mesh in the viewer,
 // and its growth timeline when a COMPLETE one exists (a partial manifest means the run was
 // interrupted, and linking it would present a half-grown crystal as finished).
-const genRecords = join(ROOT, "gen");
 const genRenders = join(BULK_ROOT, "gen", "renders");
 const animRoot = join(BULK_ROOT, "large", "anim");
 const genRows: CompareRow[] = [];
@@ -425,7 +452,17 @@ function dialinRow(id: string, record: DialinRecord | null): CompareRow | null {
     },
   };
 }
-for (const path of listFiles(genRecords)) {
+// Records are git-tracked provenance (evidence/gutcheck-gg-realism/gen-records/ since
+// 2026-08-12), so every worktree has them with no share attached. The merge keeps reading
+// legacy locations too — NAS gen/ copies and any out/gen leftovers — tracked copy winning,
+// so an index built anywhere sees each record exactly once.
+const RECORDS = resolve(import.meta.dirname, "..", "evidence/gutcheck-gg-realism/gen-records").replace(/\\/g, "/");
+const recordFiles = ((): string[] => {
+  const tracked = listFiles(RECORDS);
+  const have = new Set(tracked.map(name));
+  return [...tracked, ...scanMerged("gen").filter((p) => !have.has(name(p)))];
+})();
+for (const path of recordFiles) {
   const file = name(path);
   if (!file.endsWith("-record.json")) continue;
   const id = file.replace(/-record\.json$/, "");
@@ -529,7 +566,7 @@ if (genRows.length > 0) {
   sections.push({
     title: "Generated crystals (parameter sweep)",
     note:
-      `${genRows.length} grown from tracked specs in out/gutcheck-gg-realism/specs/. ` +
+      `${genRows.length} grown from tracked specs in evidence/gutcheck-gg-realism/specs/. ` +
       `${genRows.filter((r) => r.animation !== undefined).length} have a growth timeline. ` +
       "Not paper reproductions and not photo matches — these exist to show the range a few " +
       "parameters cover. Regrow any of them with scripts/gutcheck-grow-batch.mjs.",
@@ -588,6 +625,8 @@ const out = {
   root: ROOT,
   sections: sections.filter((s) => s.items.length > 0 || (s.rows ?? []).length > 0),
 };
+// A fresh worktree has no out/ tree at all; the index is the first thing written into it.
+mkdirSync(ROOT, { recursive: true });
 writeFileSync(join(ROOT, "index.json"), JSON.stringify(out, null, 1));
 console.log(
   `index.json: ${out.sections.length} sections, ` +

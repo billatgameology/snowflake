@@ -1,7 +1,8 @@
 # Crystal catalogue — every generated crystal and its parameters
 
-Generated 2026-08-12 from `out/gutcheck-gg-realism/gen/*-record.json`
-(the git-tracked provenance records; regenerate with the script noted in docs/nas-ledger.md).
+Generated 2026-08-12 from the git-tracked provenance records, since relocated to
+`evidence/gutcheck-gg-realism/gen-records/` (regenerate with the script noted in
+docs/nas-ledger.md).
 θ notation: value on the in-plane attachment slots. All runs hexPrism domain, seed 1, noise 0.
 Meshes and growth timelines live on the NAS (see docs/nas-ledger.md); stills and viewers on
 the site index.
