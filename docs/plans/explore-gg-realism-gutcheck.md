@@ -1493,8 +1493,8 @@ working.
 
 ### Round 3 repair plan — 2026-08-13
 
-- **Status:** implementation and producer verification complete; a different-session closing
-  review remains before commit.
+- **Status:** implementation, producer verification, and closing review complete; the exact
+  reviewed implementation landed as `ffb3a5e` on 2026-08-14.
 - **Round-3 developer:** OpenAI Codex GPT-5 coordinator. Forked, shared-context Codex subagents
   performed adversarial audits; scoped documentation and regression-test edits from two of
   them were incorporated. This is not a context-blind or different-session review.
@@ -1530,3 +1530,34 @@ working.
 - **Deliberately not done:** hostile concurrent filesystem mutation remains outside the
   documented single-user TOCTOU threat boundary; Windows `S:/` execution and the static
   bundle's local-only bulk reads remain measured limits, not silently upgraded claims.
+
+### Closing review — APPROVED 2026-08-14
+
+- **Verdict and frozen boundary:** APPROVED with zero blockers. Claude Fable 5 reviewed the
+  exact 254-path staged snapshot at `eab93fb`; its binary-diff SHA-256 was
+  `559d8d4c603b44746cdb228f768aa78db1bab77db79d6896876bce8dd56d4ae3` before and after
+  review. Those bytes then landed unchanged as implementation commit `ffb3a5e`; this closing
+  record is a separate prose-only change.
+- **Reviewer provenance (Rule 10):** Claude Fable 5 (`claude-fable-5[1m]`, Anthropic) ran in
+  the same session that authored the original relocation and Round 1/2 fixes. It was a
+  different-model, different-author reviewer of the Round 3 repair layer authored by OpenAI
+  Codex GPT-5, with no shared Round 3 implementation context beyond repository bytes. Surviving
+  Round 1/2 layers retain the explicitly acknowledged partial self-review taint.
+- **Independently re-executed:** frozen diff/status/HANDOFF checks; the hardening,
+  evidence-integrity, and PROGRESS tests (72/72); resume identity probes; workpack, archive,
+  restore, and lock controls; and live macOS `/nas` GET, HEAD, range, escape, method, and
+  `/@fs`-bypass probes. The reviewer also ran exact `TMPDIR=/private/tmp npm test`: exit 0,
+  Rule 7 clean over 878 files, 98/98 test files, 1,722 passed / 7 skipped, 403.01 s.
+  Reviewer-owned log: `out/checks/npm-test-round3-review.log`, SHA-256
+  `2a90d0d5dcd1f76bbd76acaeda52d6810f8f0b693e4cec77b1a47c78c1db11d3`.
+- **Evidence limits:** no Windows `S:/` execution, Windows suite, or Windows lock-semantics
+  run; no SMB-detachment probe, full 22,498-file NAS content re-hash, multi-gigabyte archive
+  replay, or semantic audit of the 227 moved JSON payloads. The static bundle remains
+  local-only, and hostile concurrent filesystem mutation remains outside the documented
+  trusted single-user TOCTOU boundary.
+- **Deferred low findings (do not reopen `ffb3a5e`):** `app/vite.config.ts` retains a stale
+  header comment describing artifact URLs as `/@fs` instead of `/nas`; and bare
+  `gutcheck-grow-batch.mjs --dry-run` defaults to extraction spacing 0.6, so it reports 93
+  jobs against the spacing-0.8 published corpus (explicit `--spacing 0.8` reports six genuine
+  invocation mismatches). On the next relevant touch, correct the comment and add safe resume
+  guidance or a diagnostic; dry-run's three empty ignored directories are cosmetic.

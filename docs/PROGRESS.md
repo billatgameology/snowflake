@@ -205,13 +205,12 @@ reconciliation — Phase 6 closes. Do not resume education or V4/V4.x apparatus.
 preview-GPU work may begin only as separately planned Phase 7 work in its own worktree; never run
 it from the Phase 6 lane or count it toward Phase 6.
 
-### Gutcheck/NAS relocation (2026-08-13) — awaiting different-session review
+### Gutcheck/NAS relocation — landed and approved (2026-08-14)
 
-The staged 254-path unit moves unvalidated exploration provenance from disposable `out/` to
-MANIFEST-pinned evidence and hardens archive/resume/lock/restore/NAS paths. Producer exact
-`TMPDIR=/private/tmp npm test`: exit 0, 98 files, 1,722 passed / 7 skipped, 407.08 s
-(`out/checks/npm-test-round3-codex.log`, SHA-256 `55157d06…db07`). Next: review the staged
-diff in a different session before commit; Windows `S:/` remains unexecuted.
+`ffb3a5e` lands the 254-path relocation/hardening unit. Claude Fable 5 approved it with zero
+blockers after 72/72 focused tests and reviewer exact `TMPDIR=/private/tmp npm test`: 1,722
+passed / 7 skipped (`out/checks/npm-test-round3-review.log`, SHA-256 `2a90d0d5…b11d`). Windows
+`S:/` and full NAS replay remain unexecuted; two deferred low findings are recorded in the plan.
 
 ### Phase 8B record — closed; external search remains stopped
 
