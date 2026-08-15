@@ -1,0 +1,260 @@
+{
+  "schema": "phase9-post-freeze-source-intake-v1",
+  "createdOn": "2026-08-15",
+  "acquisitionWindow": "2026-08-13 through 2026-08-15",
+  "state": {
+    "status": "unregistered-post-phase9-intake",
+    "phase9Evidence": false,
+    "phase9ProtocolInput": false,
+    "phase9ResultChanged": false,
+    "promotionOrValidationCredit": false,
+    "futureUseRequirement": "Any scientific use requires a new, committed protocol and a fresh source-eligibility decision."
+  },
+  "nas": {
+    "root": "research-cache/post-phase9-intake/20260813-unregistered-v1",
+    "manifestCopy": "research-cache/post-phase9-intake/20260813-unregistered-v1/MANIFEST.json",
+    "readmeCopy": "research-cache/post-phase9-intake/20260813-unregistered-v1/README.md",
+    "recordedFileCount": 24,
+    "recordedTotalBytes": 165706780,
+    "note": "Counts cover source, raw-acquisition, and provenance files below; the two tracked sidecar copies are not included."
+  },
+  "rights": {
+    "distribution": "research-cache-only",
+    "assessment": "Third-party redistribution rights were not established during this cleanup.",
+    "constraint": "Keep source bytes on the private NAS; Git carries provenance and hashes only."
+  },
+  "files": [
+    {
+      "path": "sources/voigtlaender-2018-supplement.zip",
+      "bytes": 21926638,
+      "sha256": "54b99bcc1f7b98d66f16e76d9842f8153d096983d78bb7209daaf90967944713",
+      "role": "source-supplement",
+      "source": "https://acp.copernicus.org/articles/18/13687/2018/acp-18-13687-2018-supplement.zip",
+      "note": "Acquired after the Phase 9 freeze; supplies the S1/S2 calibration videos that were absent from the frozen shelf."
+    },
+    {
+      "path": "sources/magee-2014-supplement.zip",
+      "bytes": 36242429,
+      "sha256": "33de9df94fcc2de051fcc9cbd03a0ff724ec1f4a1119af42464ffc427590f444",
+      "role": "source-supplement-canonical-clean-copy",
+      "source": "https://acp.copernicus.org/articles/14/12357/2014/acp-14-12357-2014-supplement.zip",
+      "note": "Fresh publisher download; structurally clean and member-equivalent to the recoverable portion of the malformed acquisition."
+    },
+    {
+      "path": "sources/gonda-namba-sei-2001-carrier-gas.pdf",
+      "bytes": 9372269,
+      "sha256": "0644b998dc6d074a12a0cd0fc8baf098428bce7417e80556b9152db2a1904b5a",
+      "role": "source-paper",
+      "source": "doi:10.5331/seppyo.63.501",
+      "note": "Potential future M-PK/M-GP carrier-gas input; not scored in Phase 9."
+    },
+    {
+      "path": "sources/libbrecht-snow-crystals-preview.pdf",
+      "bytes": 17251147,
+      "sha256": "6e8cfb40e7f30a248199a41cfd311f33bcce6d87707e505580426f9a45f1983a",
+      "role": "source-book-preview",
+      "source": "Rakuten Kobo preview; acquisition endpoint not retained",
+      "note": "Low-priority 46-page preview. It lacks Chapters 4 and 7 and cannot resolve the frozen monograph-edition comparison."
+    },
+    {
+      "path": "sources/swanson-nelson-2019-cryostat.pdf",
+      "bytes": 14974396,
+      "sha256": "d2ebde07cfe72c53ed17c2e9154180f3b61e4a89b9e376a266b872f3076a796e",
+      "role": "source-paper",
+      "source": "doi:10.5194/amt-12-6143-2019"
+    },
+    {
+      "path": "sources/nelson-1993-heat-conduction.pdf",
+      "bytes": 1066816,
+      "sha256": "174beee9c01c9b1602a64951247a0935ad81cb55873ddefd2ee2f81f08a15472",
+      "role": "source-paper",
+      "source": "doi:10.1016/0022-0248(93)90082-8"
+    },
+    {
+      "path": "sources/libbrecht-2012-managing-systematic-errors.pdf",
+      "bytes": 490430,
+      "sha256": "301e5340d0f4dda2927427a94a08c956354518ce6c920a65cb6b4700f11238ea",
+      "role": "source-paper",
+      "source": "arXiv:1208.5064v1"
+    },
+    {
+      "path": "sources/libbrecht-2011-improved-apparatus.pdf",
+      "bytes": 716180,
+      "sha256": "98d09700a5fc15fa7c0a220e2b7d20ea8ab1cd5b00dc5becd2d40f7f21da4ddf",
+      "role": "source-paper",
+      "source": "arXiv:1109.1511v1"
+    },
+    {
+      "path": "sources/libbrecht-rickerby-2012-surface-melting-growth.pdf",
+      "bytes": 833011,
+      "sha256": "eddeefa9900d19906e4345f414803f64ff84a79b8eb7c03b27dd9730f642a5b0",
+      "role": "source-paper",
+      "source": "arXiv:1208.5982v1"
+    },
+    {
+      "path": "sources/gonda-sei-1988-growth-mechanism.pdf",
+      "bytes": 2037226,
+      "sha256": "c24c9c23cf026aafc268e43cfdfd0534ec04888326c44cf3923bb7707a009a48",
+      "role": "source-paper",
+      "source": "doi:10.1016/0022-0248(89)90094-8"
+    },
+    {
+      "path": "sources/lamb-etal-2025-arxiv-source.tar",
+      "bytes": 1918358,
+      "sha256": "5d4d7cb8597e15bc2fbe38a706acfa9eb696cf9a2a80c2181d1d134540f3c294",
+      "role": "source-manuscript-container",
+      "source": "arXiv:2510.17935 source export",
+      "note": "Distinct from the already archived IceNODE code snapshot at commit 63078e02bdd54061040e0ea3a050d4fbed84832e."
+    },
+    {
+      "path": "sources/zhao-etal-2026-supporting-information.pdf",
+      "bytes": 969600,
+      "sha256": "5db8b3d38bf9da22b954d2964e33cce8344f5a52752ce8d612e168ed1052cb61",
+      "role": "source-supplement",
+      "source": "doi:10.1021/acs.cgd.5c01481.s001",
+      "note": "Potential future pressure-conditioned surface-kinetics input. Companion video S2 was identified but not downloaded."
+    },
+    {
+      "path": "sources/pokrifka-etal-2018-dataset.zip",
+      "bytes": 5063958,
+      "sha256": "455a241eaac8aa18a44dca36c12cc77867e77c45b0bd93626b1e6ac0803ac5ba",
+      "role": "source-dataset",
+      "source": "doi:10.26208/z7bf-nq20"
+    },
+    {
+      "path": "sources/pokrifka-etal-2023-dataset.zip",
+      "bytes": 15669394,
+      "sha256": "9333debf6dea9be75695a7dc759e5776312697378c3f0fe3c1b35719975121e3",
+      "role": "source-dataset",
+      "source": "doi:10.26208/htw5-q166"
+    },
+    {
+      "path": "raw-acquisition/magee-2014-supplement-malformed-download.bin",
+      "bytes": 37037053,
+      "sha256": "b1cdec2f6a1da63206fb513db3ea4b5c23b8a26d254b3fb02572fe294a6ae7eb",
+      "role": "raw-acquisition-history",
+      "source": "https://acp.copernicus.org/articles/14/12357/2014/acp-14-12357-2014-supplement.zip",
+      "note": "Not a valid clean ZIP: a valid 36,242,429-byte publisher archive is followed by a duplicate of its final 794,624 bytes. Retained only to preserve acquisition and repair provenance."
+    },
+    {
+      "path": "provenance/voigtlaender-2018-http-headers.txt",
+      "bytes": 1193,
+      "sha256": "cf1b5fc2dc5bcdaf8d165fbabac7ad67e6190655963f8db41bb95e7f8061d6a2",
+      "role": "acquisition-metadata"
+    },
+    {
+      "path": "provenance/gonda-namba-sei-2001-article.html",
+      "bytes": 71082,
+      "sha256": "32d2b98fe2750ba37e29f8dc0920494bd32303092562755b28fcede373083911",
+      "role": "acquisition-metadata"
+    },
+    {
+      "path": "provenance/zhao-crossref.json",
+      "bytes": 6060,
+      "sha256": "d5983da1b405abf95f278875f14aae2066afa0a2d10add2954fd6c02ea88e079",
+      "role": "acquisition-metadata"
+    },
+    {
+      "path": "provenance/zhao-openalex.json",
+      "bytes": 17068,
+      "sha256": "4135b9486c20bf0e6864c0adeaeacfaca868f551e1e699895f0c6e2c2a9c041b",
+      "role": "acquisition-metadata"
+    },
+    {
+      "path": "provenance/zhao-figshare-search.json",
+      "bytes": 2672,
+      "sha256": "7a9fe27b75969973712678e84a2753476f988fab73ddf03f61893c4d85ef8454",
+      "role": "acquisition-metadata"
+    },
+    {
+      "path": "provenance/zhao-figshare-31079161.json",
+      "bytes": 7376,
+      "sha256": "f6e556a312458da518b8e8f5bb8196884c1a72fcdb5755f19668be387d346ddd",
+      "role": "acquisition-metadata"
+    },
+    {
+      "path": "provenance/zhao-figshare-31079164.json",
+      "bytes": 7312,
+      "sha256": "e6ea30b1e376159b84379541b963e29f6cc228a8e220de3e5023ada52c6346f9",
+      "role": "acquisition-metadata",
+      "note": "Records the undownloaded 9,040,679-byte companion video with MD5 d443f6b7a7a86b54fa1ae89b495680be."
+    },
+    {
+      "path": "provenance/psu-6185.html",
+      "bytes": 11582,
+      "sha256": "6c12128175ae4b4cf08e11051116b7e79a3bcdf0409b1f48e1bb227fca96446a",
+      "role": "acquisition-metadata"
+    },
+    {
+      "path": "provenance/psu-6339.html",
+      "bytes": 13530,
+      "sha256": "3b50ded3068bef73310e4b7c33037b368244844f0d542765f0fc9ba1494cd3b8",
+      "role": "acquisition-metadata"
+    }
+  ],
+  "containerChecks": [
+    {
+      "path": "sources/voigtlaender-2018-supplement.zip",
+      "test": "unzip -t",
+      "result": "passed",
+      "members": [
+        {"bytes": 9033891, "sha256": "648f60652186dd01791776f80e8be84e62195b4dfa5ee2b26fc89bca2092d0e7", "label": "S1 video"},
+        {"bytes": 1131548, "sha256": "d76e193384aec4cfa2054bcb8e0b069e5b44f20ba312f648c385457fbbc1fc73", "label": "supplement figures PDF"},
+        {"bytes": 14687382, "sha256": "47c8e90b7dc9faeff8527e821417d786b1edfabd2e0589653e6717dc536dbcea", "label": "S2 video"},
+        {"bytes": 54029, "sha256": "f74c58d0e768491e28b06399a8d3bcbc0d53a5b8b27bd2cdb5547088f9a76ce8", "label": "title PDF"}
+      ]
+    },
+    {
+      "path": "sources/magee-2014-supplement.zip",
+      "test": "unzip -t",
+      "result": "passed",
+      "repair": {
+        "rawPath": "raw-acquisition/magee-2014-supplement-malformed-download.bin",
+        "canonicalPrefixBytes": 36242429,
+        "canonicalPrefixSha256": "33de9df94fcc2de051fcc9cbd03a0ff724ec1f4a1119af42464ffc427590f444",
+        "duplicatedTailBytes": 794624,
+        "method": "A fresh publisher download matched the valid prefix and all eight recovered member hashes. The malformed raw acquisition is retained but is not represented as a valid ZIP."
+      },
+      "members": [
+        {"bytes": 16550352, "sha256": "2c283ba27d32f12bb96f7869b6cf8d51fd89c7f0943cc676705221935eee2114", "label": "GrowAndSublime"},
+        {"bytes": 17151, "sha256": "f6059c7d041669d4e430de05bab7951c186360f8caf2fbb1778d7336eac374ff", "label": "cover PDF"},
+        {"bytes": 6514497, "sha256": "14c246334262c6d4cbbc72d5cafb5a2f12588a2b98d29da4733998a2af69c93b", "label": "Inhibited1"},
+        {"bytes": 2568692, "sha256": "23d64d08ae067c0611d845e4eee35b620c2428bdffbddedc8ca7d6c0eafaf925", "label": "Inhibited3"},
+        {"bytes": 3932637, "sha256": "0a9a82f38c078a8e1567fcde1c6a5fa3e0cf45b23fe02c9374215319f7784f5d", "label": "Basal roughness layers"},
+        {"bytes": 5573018, "sha256": "4bed2f4e534d112bd5b445077140ddfb267901c2b540c56a4ff6b2d6ce8b8865", "label": "ImpactWave"},
+        {"bytes": 983422, "sha256": "d665febcc993c2ffb4311d31f83323af4b64447406f78498c0a9bff43c8ea944", "label": "Inhibited2"},
+        {"bytes": 4138370, "sha256": "5874fbd2edd4a3d093e6e64858a1a47a4f2787017615c7fafe87076fecd077b1", "label": "SingleCrystal"}
+      ]
+    },
+    {
+      "path": "sources/lamb-etal-2025-arxiv-source.tar",
+      "test": "tar list/read",
+      "result": "passed; 16 regular files"
+    },
+    {
+      "path": "sources/pokrifka-etal-2018-dataset.zip",
+      "test": "unzip -t plus canonical member inventory",
+      "result": "passed; 22 files; 48,655,314 uncompressed bytes",
+      "memberInventorySerialization": "ZIP central-directory order; skip directory entries; one UTF-8 line per file: lowercase SHA-256<TAB>decimal uncompressed bytes<TAB>exact member name<LF>; no header, sorting, blank line, or BOM",
+      "memberInventorySha256": "d298ed6a585ffc83c688e92ea221a3f3b3f862aae065d8000756582db2381251"
+    },
+    {
+      "path": "sources/pokrifka-etal-2023-dataset.zip",
+      "test": "unzip -t plus canonical member inventory",
+      "result": "passed; 272 files; 64,409,753 uncompressed bytes",
+      "memberInventorySerialization": "ZIP central-directory order; skip directory entries; one UTF-8 line per file: lowercase SHA-256<TAB>decimal uncompressed bytes<TAB>exact member name<LF>; no header, sorting, blank line, or BOM",
+      "memberInventorySha256": "4109422565bcab8617b7b99790c881eb2df26587277f6b9d67691e34f7a926f7"
+    }
+  ],
+  "historicalBoundary": {
+    "frozenShelfStatement": "The Phase 9 shelf correctly recorded the Voigtlaender supplements as absent at freeze time.",
+    "postFreezeChange": "The supplements were acquired only after Phase 9 had completed.",
+    "interpretation": "Availability changed for future research; the historical shelf and all Phase 9 results remain immutable."
+  },
+  "duplicatesAndScratchNotArchived": [
+    "Exact local duplicates of Gonda/Namba/Sei 2001 and Gonda/Sei 1988 were omitted.",
+    "Libbrecht arXiv 2306.04042, arXiv 2306.13087, arXiv 2009.08404, Sei/Gonda 1989, and Gonda 1971 bytes already present on the NAS were not copied again.",
+    "The IceNODE GitHub code snapshot was already archived at frozen commit 63078e02bdd54061040e0ea3a050d4fbed84832e; only the distinct arXiv manuscript source container was retained.",
+    "Extracted videos, images, PDF renders, text conversions, failed 404 pages, discovery tables, and temporary logs were omitted when a verified source container or durable metadata record made them reproducible or irrelevant."
+  ]
+}

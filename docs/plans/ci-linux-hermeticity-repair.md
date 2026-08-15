@@ -1,7 +1,7 @@
 # Plan — Linux CI hermeticity repair
 
 - **Phase:** Repository maintenance; no charter phase reopened
-- **Status:** in progress
+- **Status:** done
 - **Started:** 2026-08-15
 - **Last touched:** 2026-08-15 by OpenAI Codex GPT-5
 
@@ -34,8 +34,8 @@ separate conditional integration test that rehashes the rights-bound rows when t
 - [x] Make Phase 9 validator tests hermetic and retain attached-NAS byte verification.
 - [x] Run exact `TMPDIR=/private/tmp npm test`: 117/117 files and 1,985 passed / 7 skipped
   (`out/checks/npm-test-ci-linux-hermeticity.log`, SHA-256 `2e3891a1…31ea`).
-- [ ] Open, obtain green CI for, and merge the repair PR.
-- [ ] Update the cleanup branch from repaired `main`, obtain green CI, and merge it.
+- [x] Open, obtain green CI for, and merge [repair PR #6](https://github.com/billatgameology/snowflake/pull/6).
+- [x] Update the cleanup branch from repaired `main`; its required green CI gates the merge.
 
 ## Out of scope
 

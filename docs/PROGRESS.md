@@ -224,10 +224,11 @@ audit. Broad discovery and the residual backlog remain stopped absent a new name
 measurement gap; Phase 9 S0B is bounded reconciliation of already registered complete Git/NAS
 sources. All 51 Phase 8B records are development evidence and none may be relabeled held out.
 
-### Linux CI repair — locally green (2026-08-15)
+### Phase 9 closeout — complete
 
-`main` and the Phase 9 closeout PR share Ubuntu-only GNU-tar and missing-NAS failures. The
-[repair plan](plans/ci-linux-hermeticity-repair.md) keeps the cleanup separate. Exact
-`TMPDIR=/private/tmp npm test` passed 117/117 files, 1,985 tests / 7 skipped
-(`out/checks/npm-test-ci-linux-hermeticity.log`, SHA-256 `2e3891a1…31ea`). Next: open the repair
-PR, require green CI, merge it, update the cleanup branch, then require green CI and merge that PR.
+`phase/9` and gutcheck merged 2026-08-14. Closeout preserved two rejected D-BT candidates
+(10 files / 85,153 bytes) on NAS and logged 14 post-freeze payloads in
+[`phase9-post-freeze-source-intake-v1.json`](../research/phase9-post-freeze-source-intake-v1.json).
+Unregistered future inputs; not evidence. [CI repair](https://github.com/billatgameology/snowflake/pull/6)
+merged green on Ubuntu; this cleanup followed `main` through its required gate.
+Phase 9 was not reopened; Phase 10 is uncharted.
