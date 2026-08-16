@@ -149,6 +149,25 @@ an undocumented append mode. The reviewed launch must write its complete asset t
 only after hashing it will a no-clobber verified copy be published to the SMB NAS. This avoids
 discovering unsupported hard-link publication on SMB after roughly ten hours of computation.
 
+## Full Run B bake — running
+
+The reviewed implementation committed as `44fd4b6`. Immediately before launch,
+`detectNasMount()` resolved `/Volumes/snowcrystal/`; the 97,503-byte legacy manifest at the derived
+share-relative path had SHA-256
+`a06bf93000ab948cd72617649530bcf96d39dbcd01badb22d5617a1b73d17c4d`. One process (actual
+concurrency 1) launched locally under the original Run B executable
+`/Users/clipper/.nvm/versions/node/v24.13.1/bin/node` (V8 `13.6.233.17-node.40`) with:
+
+```text
+scripts/gutcheck-bake-growth.ts --preset plate --dims 1200,1200,48 --ticks 70000 --out out/gutcheck-growth-runB/gutcheck-growth-v1.bin --domain hexPrism --seed 1 --noise 0 --padding 2 --progress 100 --legacy-manifest /Volumes/snowcrystal/out/gutcheck-gg-realism/large/anim-B/manifest.json --expected-attached-count 961597 --expected-occupancy-sha256 9c98fe41e5ea2f6b2020063218b37255877548bdeb49dadf4235a4cf039cf9f7
+```
+
+`out/gutcheck-growth-runB/live.log` is stdout, `error.log` is stderr, and the wrapper writes
+`exit-status` only when the process terminates. The first measured line in `live.log` was tick
+100/70,000, 37 attached/events, elapsed 55.0 seconds; `error.log` was empty. Do not start a second
+copy. On exit 0, decode and re-derive asset/count/tick/crop/endpoints before a no-clobber NAS copy;
+on interruption or nonzero exit, preserve the logs and restart from tick zero only after diagnosis.
+
 ## Out of scope
 
 - Modifying `GGSolver`, either permanent surface operator, checkpoint meaning, scientific

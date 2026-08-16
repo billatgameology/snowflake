@@ -92,8 +92,9 @@ index, a plan, ADR, or audit links to historical detail.
   `out/gutcheck-growth-smoke/browser-r32-runb-probe-v6/record.json`, SHA-256
   `c9e3250179a10ce334a61a5e6c49f7f6bcfc90988ef62c34f63d5e51fbbed17b`. The record stamps its
   61-event timing/image complexity NON-TRANSFERABLE to Run B. Review closed with no blocker/high
-  code findings; exact `TMPDIR=/private/tmp npm test` passed. A clean commit and the restart-only
-  full replay remain.
+  code findings; exact `TMPDIR=/private/tmp npm test` passed and implementation commit `44fd4b6`
+  landed. The restart-only full replay is running locally with the original Node v24.13.1 engine;
+  its first `live.log` line measured tick 100/70,000, 37 events, elapsed 55.0 seconds.
 - The gut-check exploration (`explore/gg-realism-gutcheck`) is MERGED to `main` (`98bc75d`,
   2026-08-12, merged-tree suite green). Eyeball-only — not evidence, no gate claim, no solver
   code touched.
@@ -180,11 +181,11 @@ passed / 7 skipped (`out/checks/npm-test-round3-review.log`, SHA-256 `2a90d0d5�
 
 Open [explore-gutcheck-growth-volume.md](plans/explore-gutcheck-growth-volume.md). The strict format,
 baker, viewer, small asset, browser smoke, full allocation probe, and non-author review are complete.
-Exact `TMPDIR=/private/tmp npm test` passed. Next commit the reviewed implementation, resolve the
-NAS mount through `scripts/nas-root.ts`, and launch the restart-only 70,000-tick replay locally with
-the original Run B Node v24.13.1/V8 engine and endpoint/legacy checks. Do not delete or relabel the
-legacy meshes, do not publish to SMB until the local asset is complete and rehashed, and do not count
-this media work toward any phase gate.
+Exact `TMPDIR=/private/tmp npm test` passed and `44fd4b6` committed the implementation. The one-
+process, restart-only 70,000-tick bake is running under the original Run B Node v24.13.1/V8 engine.
+Monitor `out/gutcheck-growth-runB/live.log`, `error.log`, and eventual `exit-status`; do not launch a
+duplicate. On exit 0, independently decode/rehash/check endpoints, then make and rehash a no-clobber
+NAS copy. Preserve the legacy meshes and do not count this media work toward any phase gate.
 
 ### Phase 8B record — closed; external search remains stopped
 
