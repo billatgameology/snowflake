@@ -30,9 +30,9 @@ import viteConfig, {
 import { openContainedRegularFile } from "../../scripts/nas-asset-lib.ts";
 
 const REPOSITORY_ROOT = resolve(import.meta.dirname, "../..");
-const SERVED_PREFIX = "out/gutcheck-gg-realism/large";
+const SERVED_PREFIX = "collections/gutcheck-generated-public/2026-08-15/payload/large";
 const SERVED_FILE = `${SERVED_PREFIX}/fixture.bin`;
-const PRIVATE_PREFIX = "research-cache/content";
+const PRIVATE_PREFIX = "collections/research-private-freeze/2026-08-11/payload";
 const roots: string[] = [];
 const paths: string[] = [];
 
@@ -187,13 +187,13 @@ describe("Vite gutcheck index boundary", () => {
 
     const privateHref = structuredClone(safeGutcheckIndex());
     ((privateHref.sections as Array<Record<string, unknown>>)[0]!.items as Array<Record<string, unknown>>)[0]!.href =
-      "/nas/research-cache/content/private.png";
+      `/nas/${PRIVATE_PREFIX}/private.png`;
     unsafe.push(privateHref);
 
     const privateViewerAsset = structuredClone(safeGutcheckIndex());
     const row = (((privateViewerAsset.sections as Array<Record<string, unknown>>)[0]!.rows as Array<Record<string, unknown>>)[0]);
     (row.viewers as Array<Record<string, unknown>>)[0]!.href =
-      "/spike-gg-realism.html?look=glass&mesh=/nas/research-cache/content/private.bin";
+      `/spike-gg-realism.html?look=glass&mesh=/nas/${PRIVATE_PREFIX}/private.bin`;
     unsafe.push(privateViewerAsset);
 
     for (const value of unsafe) {
@@ -273,10 +273,10 @@ describe("Vite /nas catalogue and filesystem boundary", () => {
       `/${PRIVATE_PREFIX}/missing.bin`,
       "/unknown/existing.bin",
       "/unknown/missing.bin",
-      "/out/gutcheck-gg-realism/LARGE/fixture.bin",
+      "/collections/gutcheck-generated-public/2026-08-15/payload/LARGE/fixture.bin",
       `/${SERVED_PREFIX}/cafe%CC%81.bin`,
-      "/%256fut/gutcheck-gg-realism/large/fixture.bin",
-      "/%252e%252e/out/gutcheck-gg-realism/large/fixture.bin",
+      "/%2563ollections/gutcheck-generated-public/2026-08-15/payload/large/fixture.bin",
+      "/%252e%252e/collections/gutcheck-generated-public/2026-08-15/payload/large/fixture.bin",
     ];
     await withServer(handler, async (port) => {
       const results = await Promise.all(denied.map((path) => fetchFixture(port, path)));

@@ -49,8 +49,6 @@ function makeAuditShare(): string {
   const root = temporaryRoot("audit-share");
   writeMarker(root);
   mkdirSync(join(root, "collections"));
-  mkdirSync(join(root, "out"));
-  mkdirSync(join(root, "research-cache"));
   mkdirSync(join(root, "_control"));
   return root;
 }
@@ -250,7 +248,7 @@ describe("bounded top-level NAS audit", () => {
     ]);
     expect(counts.caseOrNfcAliasEntries).toBe(4);
     expect(counts.unsafeEntries).toBe(2);
-    expect(counts.unclassifiedEntries).toBe(3);
+    expect(counts.unclassifiedEntries).toBe(4);
   });
 
   it("distinguishes a detached share from an explicitly wrong marker", () => {
@@ -282,13 +280,7 @@ describe("bounded owner-manifest verification", () => {
     ]);
   });
 
-  it("preserves documented-only and unavailable limits instead of upgrading them", () => {
-    const documented = run(["verify", "--collection", "research-mac-snapshot"]);
-    expect(documented.code).toBe(0);
-    expect(documented.report.collections).toEqual([
-      expect.objectContaining({ manifest: "verified", aggregate: "unsupported", payload: "not-run" }),
-    ]);
-
+  it("preserves unavailable limits instead of upgrading them", () => {
     const unavailable = run(["verify", "--collection", "earlier-phase2b"]);
     expect(unavailable.code).toBe(0);
     expect(unavailable.report.collections).toEqual([

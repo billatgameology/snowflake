@@ -38,13 +38,42 @@ export function assertPhase9ShareRelativePath(value: string, label = "NAS path")
   }
 }
 
+const MIGRATED_PHASE9_PREFIXES = [
+  ["research-cache/content", "collections/research-private-freeze/2026-08-11/payload"],
+  ["research-cache/local-worktree-archives", "collections/research-mac-snapshot/2026-08-15/payload"],
+  ["research-cache/phase8b-derived", "collections/phase8b-derived/2026-08-15/payload"],
+  ["research-cache/phase8b-search", "collections/phase8b-search/2026-08-15/payload"],
+  ["research-cache/phase9-search", "collections/phase9-search/2026-08-15/payload"],
+  [
+    "research-cache/post-phase9-intake/20260813-unregistered-v1",
+    "collections/post-phase9-intake/2026-08-13/payload",
+  ],
+] as const;
+
+/** Map producer-era Phase 8/9 identities onto their current governed collection locators. */
+export function currentResearchSharePath(relativePath: string): string {
+  assertPhase9ShareRelativePath(relativePath);
+  for (const [historicalRoot, currentRoot] of MIGRATED_PHASE9_PREFIXES) {
+    if (relativePath === historicalRoot || relativePath.startsWith(`${historicalRoot}/`)) {
+      return `${currentRoot}${relativePath.slice(historicalRoot.length)}`;
+    }
+  }
+  return relativePath;
+}
+
 /**
  * Resolve a registered share-relative path to an ordinary non-symlink file. The shared primitive
  * keeps the same lexical/real containment boundary used by governed consumers and closes its
  * verified descriptor before returning this legacy Phase 9 result shape.
  */
 export function resolvePhase9NasFile(relativePath: string, nasRoot: string): Phase9NasResolution {
-  const resolution = resolveContainedRegularFile(nasRoot, relativePath);
+  let currentPath: string;
+  try {
+    currentPath = currentResearchSharePath(relativePath);
+  } catch {
+    return { kind: "forbidden", reason: "invalid share-relative path" };
+  }
+  const resolution = resolveContainedRegularFile(nasRoot, currentPath);
   if (resolution.kind === "ok") {
     return { kind: "ok", path: resolution.path, byteLength: resolution.byteLength };
   }

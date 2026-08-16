@@ -25,6 +25,7 @@ import {
   sha256Bytes,
   type StrictJson,
 } from "./gate4-evidence.ts";
+import { currentResearchSharePath } from "./phase9-nas.ts";
 
 export const PHASE8_PLOT_OPERATOR = "phase8b-two-reader-plot-digitization-v2" as const;
 export const PHASE8_PLOT_OPERATOR_PATH = "research/phase8b-plot-operator-v2.json" as const;
@@ -866,7 +867,7 @@ function ensureInside(root: string, candidate: string, label: string): void {
 
 function expectedPhysicalPath(registration: Phase8PlotRegistration, logicalRoot: string, label: string): string {
   const physicalRoot = realpathSync(registration.roots.physicalStorageRoot);
-  const expected = resolve(physicalRoot, logicalRoot);
+  const expected = resolve(physicalRoot, currentResearchSharePath(logicalRoot));
   ensureInside(physicalRoot, expected, label);
   return expected;
 }

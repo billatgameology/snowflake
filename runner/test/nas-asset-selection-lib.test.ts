@@ -223,15 +223,33 @@ describe("exact catalogue-bound owner-manifest selection", () => {
   });
 
   it("refuses documented-only and missing owner manifests", () => {
+    const template = REAL_CATALOGUE.collections.find((entry) => entry.assetId === "earlier-phase3-visual");
+    if (template?.ownerManifest === null || template?.ownerManifest === undefined) {
+      throw new Error("missing selection refusal template");
+    }
+    const documentedCatalogue = {
+      ...REAL_CATALOGUE,
+      collections: [{
+        ...template,
+        ownerManifest: {
+          ...template.ownerManifest,
+          selector: { kind: "documented-only", record: "docs/local-assets.md" },
+        },
+      }],
+    } as NasAssetCatalogV1;
     expect(() => loadBoundCollectionSelection({
-      catalogue: REAL_CATALOGUE,
-      collection: "research-mac-snapshot@2026-08-15",
+      catalogue: documentedCatalogue,
+      collection: "earlier-phase3-visual@2026-08-01",
       repoRoot: REPOSITORY_ROOT,
       shareRoot: null,
     })).toThrow(/documented-only/u);
+    const missingCatalogue = {
+      ...REAL_CATALOGUE,
+      collections: [{ ...template, state: "provisional", ownerManifest: null }],
+    } as NasAssetCatalogV1;
     expect(() => loadBoundCollectionSelection({
-      catalogue: REAL_CATALOGUE,
-      collection: "phase8b-derived@2026-08-15",
+      catalogue: missingCatalogue,
+      collection: "earlier-phase3-visual@2026-08-01",
       repoRoot: REPOSITORY_ROOT,
       shareRoot: null,
     })).toThrow(/no owner manifest/u);

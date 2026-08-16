@@ -1,12 +1,9 @@
 # NAS ledger — where the big outputs live
 
-This ledger covers generated outputs moved to the NAS share `\\GameStation\snowcrystal`; it is
-not an inventory of every untracked asset. The separate private research cache is under
-share-relative `research-cache/content/`, with its Mac-local snapshot under
-`research-cache/local-worktree-archives/`; see `docs/local-assets.md`. This ledger's generated
-output copy mirrors repo-relative paths under the share root — e.g.
-`out/gutcheck-gg-realism/large/gen/sweep-t1-r0p1-mesh.bin` lives at
-`<share>/out/gutcheck-gg-realism/large/gen/sweep-t1-r0p1-mesh.bin`.
+This ledger owns generated outputs on the NAS share `\\GameStation\snowcrystal`; it is not an
+inventory of every untracked asset. Its live rows use canonical
+`collections/<asset-id>/<version>/payload/` locators. Private collections and private manifests
+are bound separately by `docs/nas-assets.json`; see `docs/local-assets.md`.
 
 ## Attaching the share
 
@@ -25,11 +22,11 @@ ACL, and restore behavior remains unverified.
 both resolve to the same validated share. The index builder, read-only asset tools and dev server
 use that resolver, so none hardcodes a drive or guesses identity from a familiar directory.
 
-The machine-readable twin, **`docs/nas-ledger.json`**, is a frozen generated-output ledger with
-each recorded file's byte size and **SHA-256**. Legacy `out/**` rows mirror repository staging;
-governed `collections/**` rows use their catalogue locator. Per-collection class, retention,
-recovery, and serving authority come only from `docs/nas-assets.json`; a hash detects loss but
-cannot restore it.
+The machine-readable twin, **`docs/nas-ledger.json`**, is the generated-output owner manifest with
+each recorded file's byte size and **SHA-256**. Current rows use governed `collections/**`
+locators; producer-era `out/**` paths remain only in historical records and catalogue aliases.
+Per-collection class, retention, recovery, and serving authority come only from
+`docs/nas-assets.json`; a hash detects loss but cannot restore it.
 
 ## Moves
 
@@ -43,19 +40,27 @@ cannot restore it.
 | 2026-08-12 | mac `out/` cleanup 2/2: superseded phase 2a/2b/3 root scratch + session check dir → `out/archives/out-root-scratch-mac-20260812.zip` (disposable class per ADR 0038) | 1 | 41.7 MB | zip SHA-256 match local vs share + `unzip -t` CRC pass |
 | 2026-08-15 | two rejected D-BT independent-verification candidates mirrored loose under `out/debug/` (historical assurance-debug material, **not evidence**) | 10 | 85,153 B | source/staging inventories matched; every final file re-hashed against `docs/nas-ledger.json` |
 | 2026-08-15 | Phase 3 visual collection → `collections/earlier-phase3-visual/2026-08-01/payload/` | 10 | 984,164 B | source, target, quarantine and fresh restored staging matched tree SHA-256 `73a9f672…3faf`; legacy root moved into `_control/quarantine/relocations/` |
+| 2026-08-16 | remaining live generated `out/**` payloads → seven versioned `collections/**` payloads | 23,215 | 469,029,676,843 B | exact pre-move census; 710 omitted generated files fully hashed; absent-target same-share renames; exact final path/count/size checks |
 
-The 2026-08-16 ledger revision also registered seven already-retained files that earlier ledger
-snapshots omitted: six gutcheck ZIPs and the 2026-08-15 scratch tar. This was a bookkeeping repair,
-not a new payload move. The current `docs/nas-ledger.json` is the named artifact for its exact
-22,515-file / 457,860,350,293-byte scope; the provisional archive collections in
-`docs/nas-assets.json` still grant no retention or prune authority.
+The 2026-08-16 ledger revision registered 710 documented generated rows omitted by earlier
+snapshots and rewrote every live row to its canonical collection locator. Together with the Phase
+3 collection, its exact scope is 23,225 files / 469,030,661,007 bytes. Provisional collection state
+still grants no retention or prune authority. The new rows were fully hashed; the already-registered
+rows retained their existing digests across absent-target same-share renames and were checked for
+their exact final paths and byte sizes, not all rehashed again.
+
+The separate 2026-08-16 research pass moved six retained selections into versioned private
+collections and placed unresolved or redundant material in private quarantine. It did not add
+those third-party bytes to this generated-output ledger. Exact collection manifests, aggregates,
+receipts, compatibility changes, and limits are in the
+[layout migration record](nas-layout-migration-20260816.md).
 
 ## Separate post-Phase-9 research intake
 
 Third-party source bytes are outside this generated-output ledger. A closeout audit found fourteen
 unique payloads acquired only after Phase 9 froze, including the previously absent Voigtländer S1/S2
 supplement. They are privately archived at
-`research-cache/post-phase9-intake/20260813-unregistered-v1/` and hash-bound by
+`collections/post-phase9-intake/2026-08-13/payload/` and hash-bound by
 [`research/phase9-post-freeze-source-intake-v1.json`](../research/phase9-post-freeze-source-intake-v1.json).
 Their status is **unregistered post-Phase-9 intake**: they changed future source availability, not
 the historical shelf, scores, evidence, promotions, or validation status.
@@ -66,7 +71,8 @@ the historical shelf, scores, evidence, promotions, or validation status.
 `node scripts/gutcheck-build-index.ts` built 3 sections / 37 items from the validated share. A live
 loopback Vite check returned 200 for a 339-byte catalogue-approved file, 206 for a ten-byte range,
 and 403 for both a private root and an unknown root. The index emits URLs only under the approved
-`out/gutcheck-gg-realism/large` and `out/gutcheck-gg-realism/gen/renders` prefixes; the server then
+`collections/gutcheck-generated-public/2026-08-15/payload/large` and
+`collections/gutcheck-generated-public/2026-08-15/payload/gen/renders` prefixes; the server then
 attaches the host mount and opens without following links. Private/mixed roots, including
 `photos/`, `figs/` and workspace-root media, are not indexed or served. `--detached` emits explicit
 metadata-only output and never falls back to local `out/` bytes. Windows `S:/` remains unexecuted
@@ -124,12 +130,14 @@ The retained extras zip is a historical same-NAS recovery copy, not an independe
 contains legacy recipe/record copies under `out/`; the tracked copies under
 `evidence/gutcheck-gg-realism/` remain authoritative, and the index ignores the legacy copies.
 
-New bulk grow outputs land locally under `out/`; `gutcheck-grow-batch.mjs` writes the tracked
-record under `evidence/gutcheck-gg-realism/gen-records/` and re-pins that subtree. While NAS
-transaction tooling is being completed, keep new bulk output in local staging rather than
-manually copying it and editing the legacy ledger. Publication will require a declared collection,
-stable source/stage/final verification and a tracked receipt. A direct `gutcheck-grow-params.ts`
-invocation still needs `npm run evidence:pin` after its record write.
+New bulk outputs land locally under `out/`; ignored `research/` is likewise acquisition staging.
+If bytes should be retained, assign one asset ID and immutable version, place the payload at
+`collections/<asset-id>/<version>/payload/`, bind it in `docs/nas-assets.json`, and write exactly
+one owner manifest: public-safe rows at `docs/nas-assets/manifests/<asset-id>/<version>.json`, or
+private-name rows at `collections/<asset-id>/<version>/manifest.private.jsonl`. Verify the final
+exact set before removing local staging. Material that cannot yet be assigned to one collection
+goes to dated `_control/quarantine/unresolved/` custody, never a new top-level root. A direct
+`gutcheck-grow-params.ts` invocation still needs `npm run evidence:pin` after its record write.
 
 Historical note: the first moves were ledgered in `out/gutcheck-gg-realism/MOVED-TO-NAS.md`
 (untracked); this document supersedes it.

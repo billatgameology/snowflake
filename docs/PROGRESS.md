@@ -150,7 +150,7 @@ index, a plan, ADR, or audit links to historical detail.
   frozen tree exited 0: Rule 7 clean over 436 files, both TypeScript projects, Vitest 82 files /
   1,454 tests in 628.68 s. Whether WP2 uses Z = 2 or Z = 1 strata is a WP2/WP3 protocol
   decision.
-- **Last updated:** 2026-08-15 by OpenAI Codex
+- **Last updated:** 2026-08-16 by OpenAI Codex
 
 ## Phase gates
 
@@ -225,10 +225,9 @@ audit. Broad discovery and the residual backlog remain stopped absent a new name
 measurement gap; Phase 9 S0B is bounded reconciliation of already registered complete Git/NAS
 sources. All 51 Phase 8B records are development evidence and none may be relabeled held out.
 
-### NAS asset governance — active
+### NAS asset governance — organized; custody decision open
 
-ADR 0051/Rule 15 govern staging. Phase 3 moved to `collections/**`: 10 files / 984,164 B,
-SHA-256 `73a9f672…3faf`; its old copy is quarantined ([record](nas-bootstrap-audit-20260815.md#first-governed-collection-move)).
-Next: classify `phase9-failed-debug@2026-08-13` in [the catalogue](nas-assets.json), then run
-`npm run assets:verify -- --collection phase9-failed-debug@2026-08-13`. Audit still has one custody
-item; Windows and independent backup remain open.
+All retained project payloads now live under `collections/**`; unresolved research is under
+`_control/quarantine/**`. Top-level `out/` and `research-cache/` are absent. See the
+[migration record](nas-layout-migration-20260816.md). Next: review that record and decide the one
+unnamed custody item, then run `npm run assets:audit`. Windows and independent backup remain open.

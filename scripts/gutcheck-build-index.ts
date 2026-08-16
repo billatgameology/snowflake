@@ -17,7 +17,8 @@ import {
 // Windows, which broke name() (it splits on "/", so it returned the whole path and every
 // startsWith filter below matched nothing) as well as the URLs — 2026-08-06 machine transfer.
 const ROOT = resolve("out/gutcheck-gg-realism").replace(/\\/g, "/");
-const LOGICAL_ROOT = "out/gutcheck-gg-realism";
+const INDEX_ROOT = "out/gutcheck-gg-realism";
+const NAS_LOGICAL_ROOT = "collections/gutcheck-generated-public/2026-08-15/payload";
 const join = (...parts: string[]): string => parts.join("/");
 const CATALOGUE = parseNasAssetCatalogV1(
   readFileSync(resolve(import.meta.dirname, "..", "docs/nas-assets.json"), "utf8"),
@@ -34,7 +35,7 @@ const DETACHED = arguments_[0] === "--detached";
 // supplies browsable bytes. Local out/ remains staging: detached builds keep tracked run metadata
 // but do not emit dead /nas links or revive the retired /@fs local-file path.
 const NAS_MOUNT = DETACHED ? null : (await import("./nas-root.ts")).detectNasMount();
-const NAS_ROOT = NAS_MOUNT === null ? null : `${NAS_MOUNT}out/gutcheck-gg-realism`;
+const NAS_ROOT = NAS_MOUNT === null ? null : `${NAS_MOUNT}${NAS_LOGICAL_ROOT}`;
 const BULK_ROOT = NAS_ROOT ?? ROOT;
 const BULK_AVAILABLE = NAS_ROOT !== null;
 
@@ -55,7 +56,7 @@ const logicalPath = (path: string): string => {
   if (relativePath === null || relativePath === "") {
     throw new Error(`gutcheck asset is outside the configured staging roots: ${path}`);
   }
-  return `${LOGICAL_ROOT}/${relativePath}`;
+  return `${NAS_LOGICAL_ROOT}/${relativePath}`;
 };
 
 const maybeFS = (path: string): string | null => {
@@ -669,7 +670,7 @@ sections.push({
 
 const out = {
   generated: new Date().toISOString(),
-  root: LOGICAL_ROOT,
+  root: INDEX_ROOT,
   sections: sections.filter((s) => s.items.length > 0 || (s.rows ?? []).length > 0),
 };
 // A fresh worktree has no out/ tree at all; the index is the first thing written into it.

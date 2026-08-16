@@ -236,6 +236,8 @@ Each of those narrows the model honestly and prevents an unnecessary implementat
 - [Proposed Phase 9 experiment plan](plans/phase-9-modular-physics-arms.md)
 - [Plain-English Phase 8 data guide](phase8-baseline-guide.md)
 
-The PDFs, code archives, rendered pages and raw OpenAlex responses live on the NAS under
-`/Volumes/snowcrystal/research-cache/`. Git contains only the smaller provenance, calculations,
-hypotheses and readable guides.
+The PDFs, code archives, rendered pages and raw OpenAlex responses live in private NAS collections
+under `collections/research-private-freeze/2026-08-11/payload/`,
+`collections/phase8b-search/2026-08-15/payload/`, and
+`collections/phase9-search/2026-08-15/payload/`. Git contains only the smaller provenance,
+calculations, hypotheses and readable guides.

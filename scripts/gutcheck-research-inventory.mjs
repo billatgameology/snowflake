@@ -14,9 +14,10 @@
 // text — nothing third-party — so it is safe to track even though everything it describes is
 // deliberately untracked.
 //
-// The private loose cache lives under NAS share-relative `research-cache/content/`; a worktree
-// normally carries only tracked indexes. Run with --root pointed at that cache or a staged
-// extraction. See docs/local-assets.md.
+// The private loose cache lives under share-relative
+// `collections/research-private-freeze/2026-08-11/payload/`; a worktree normally carries only
+// tracked indexes. Run with --root pointed at that collection or a staged extraction. See
+// docs/local-assets.md.
 
 import { createHash } from "node:crypto";
 import { createReadStream, readdirSync, statSync, writeFileSync } from "node:fs";

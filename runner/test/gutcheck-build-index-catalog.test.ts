@@ -11,6 +11,7 @@ import {
 
 const REPO = resolve(import.meta.dirname, "../..");
 const SCRIPT = join(REPO, "scripts/gutcheck-build-index.ts");
+const NAS_BULK_ROOT = "collections/gutcheck-generated-public/2026-08-15/payload";
 const CATALOGUE = parseNasAssetCatalogV1(readFileSync(join(REPO, "docs/nas-assets.json"), "utf8"));
 const temporaryRoots: string[] = [];
 
@@ -42,7 +43,7 @@ describe("gutcheck index catalogue boundary", () => {
   it("emits only catalogue-authorized logical NAS URLs from a marked share", () => {
     const working = temporaryRoot();
     const share = join(working, "share");
-    const bulk = join(share, "out/gutcheck-gg-realism");
+    const bulk = join(share, NAS_BULK_ROOT);
     const recordName = readdirSync(join(REPO, "evidence/gutcheck-gg-realism/gen-records"))
       .find((name) => name.endsWith("-record.json"));
     expect(recordName).toBeDefined();
@@ -82,9 +83,9 @@ describe("gutcheck index catalogue boundary", () => {
     expect(source).not.toContain("style-private.png");
 
     const urls = collectStrings(index).filter((value) => value.includes("/nas/"));
-    expect(urls.some((url) => url.includes(`/nas/out/gutcheck-gg-realism/large/gen/${id}-mesh.bin`))).toBe(true);
-    expect(urls.some((url) => url.includes(`/nas/out/gutcheck-gg-realism/large/anim/${id}/manifest.json`))).toBe(true);
-    expect(urls.some((url) => url.includes(`/nas/out/gutcheck-gg-realism/gen/renders/${id}-render.png`))).toBe(true);
+    expect(urls.some((url) => url.includes(`/nas/${NAS_BULK_ROOT}/large/gen/${id}-mesh.bin`))).toBe(true);
+    expect(urls.some((url) => url.includes(`/nas/${NAS_BULK_ROOT}/large/anim/${id}/manifest.json`))).toBe(true);
+    expect(urls.some((url) => url.includes(`/nas/${NAS_BULK_ROOT}/gen/renders/${id}-render.png`))).toBe(true);
     expect(urls.length).toBeGreaterThan(0);
     for (const url of urls) {
       const encoded = url.slice(url.indexOf("/nas/") + "/nas/".length).split(/[?&]/u, 1)[0] as string;
@@ -155,7 +156,7 @@ describe("gutcheck index catalogue boundary", () => {
     () => {
       const working = temporaryRoot();
       const share = join(working, "share");
-      const bulk = join(share, "out/gutcheck-gg-realism");
+      const bulk = join(share, NAS_BULK_ROOT);
       const dialinId = readdirSync(join(REPO, "evidence/gutcheck-gg-realism/gen-records"))
         .map((name) => name.replace(/-record\.json$/u, ""))
         .find((id) => id.startsWith("dialin-"));

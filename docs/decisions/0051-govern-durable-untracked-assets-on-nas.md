@@ -22,7 +22,8 @@ governed state. Existing records have deliberately different scopes:
 - `research/media-inventory.json` owns the research-media inventory;
 - `evidence/gutcheck-gg-realism/large-artifact-inventory.json` owns the gut-check bulk products;
 - `evidence/OUT-TREES-MANIFEST.json` records a historical ignored-evidence exception; and
-- the share-local research-cache manifest owns private acquired bytes.
+- the historical share-local research-cache manifest owned private acquired bytes at intake and is
+  preserved as migration provenance while canonical private manifests own retained collections.
 
 Combining their file rows into another super-ledger would duplicate ownership and create several
 writers for the same facts. Leaving the records unrelated, however, cannot answer which share
@@ -133,6 +134,12 @@ of copying their rows. Sensitive collections may expose an opaque asset ID and a
 in Git while a private manifest supplies filenames; the public record must still bind the private
 manifest's exact bytes without revealing restricted metadata.
 
+The forward location is exact. Public-safe owner manifests live at
+`docs/nas-assets/manifests/<asset-id>/<version>.json`. Private-name owner manifests live at
+`collections/<asset-id>/<version>/manifest.private.jsonl`, beside but outside `payload/` and every
+served prefix. Existing complete tracked manifests may remain authoritative when moving their rows
+would only duplicate ownership; the catalogue still binds their exact bytes and selector.
+
 An owner manifest states which bytes belong to a collection and how to identify them. A final
 verification receipt separately records that those bytes were observed at the published locator
 and that a fresh restore passed. Neither record substitutes for the other. Registering a legacy
@@ -143,7 +150,7 @@ The version-one catalogue's `verification.receipt` key is a historical name for 
 level-qualified observation record: `manifest-only`, `sampled-size`, and `full-hash` state exactly
 what that record established. It is not a transactional publication or fresh-restore receipt.
 Forward publication must bind distinct publication and restore receipts before it may become
-transaction-certified or authorize pruning. Grandfathered entries remain read/restore-only until
+transaction-certified or authorize pruning. Migrated legacy entries remain read/restore-only until
 those separate records exist.
 
 All durable locators are POSIX-style paths relative to the detected share root. Absolute paths,
@@ -152,12 +159,13 @@ Windows-reserved names, special files, and case-fold or Unicode-normalization al
 The common resolver uses the project share marker and canonical `VCC_NAS_ROOT`; a compatibility
 alias is accepted only when both values resolve to the same share.
 
-Forward-published collections use stable collection IDs plus immutable version- or digest-bearing
-directories. `_control/` is reserved for non-served staging, locks, receipts, quarantine, and
-trash plans. Existing `out/`, `research-cache/`, and frozen evidence locators are registered in
-place as legacy roots when their current records bind them. Organization alone does not justify a
-bulk rename, and compatibility readers preserve historical locators. `docs/nas-ledger.json`
-remains a frozen-scope generated-output ledger rather than becoming the global catalogue.
+Durable collection payloads use `collections/<asset-id>/<version>/payload/`. `_control/` is
+reserved for non-served staging, locks, receipts, quarantine, and trash plans. Apart from the root
+identity marker, these are the only two project-owned top-level namespaces. Existing `out/` and
+`research-cache/` paths are migration inputs, not permanent share roots. Their producer-era names
+remain in immutable evidence and catalogue history while compatibility readers translate them to
+current collection locators. `docs/nas-ledger.json` remains a generated-output owner manifest
+rather than becoming the global catalogue.
 
 ### 3. Publish and migrate transactionally
 
@@ -181,9 +189,12 @@ Publication follows one fail-closed lifecycle:
 
 A completed NAS placement followed by a failed Git update leaves a visible orphan for audit; it
 never authorizes source deletion. Any interrupted copy, changed source, collision, missing final byte,
-failed verifier, lost share, or conflicting publisher also fails closed. Migration uses the same
-copy-first lifecycle and a reviewed old-to-new manifest. It retains rollback until final readers
-and review pass, and its deletion list is separate from its copy list.
+failed verifier, lost share, or conflicting publisher also fails closed. New publication uses that
+copy-first lifecycle. The one-time organization of already manifest-bound trees may instead use an
+absent-target same-share rename under a quiescent single-operator boundary, with exact pre-move
+ownership, final set/size/hash verification, and a recorded reverse map. Interleaved roots move
+only the manifest-selected rows. Unmatched or not-yet-owned material moves to dated private
+quarantine rather than being silently adopted or deleted.
 
 Restore targets a fresh staging directory, validates archive member names and types before
 extraction, checks the manifest after extraction, and places the verified tree without silently
@@ -306,9 +317,10 @@ sources, large reproducible output is inappropriate repository history, and the 
 requires NAS-local bindings for restricted Phase 8B material. Project-owned claim evidence that
 reasonably fits Git remains tracked.
 
-**Move all existing bytes into a clean new directory tree.** Rejected because historical records,
-URLs, and manifests freeze current locators. Registering legacy roots in place preserves meaning
-and avoids a high-risk, low-value bulk copy.
+**Blindly rewrite every historical path while moving the bytes.** Rejected because producer-era
+records and manifests must retain their original meaning. The adopted physical migration is
+collection-mapped: live bytes and current locators move, while immutable historical paths remain
+provenance and compatibility input.
 
 **Use Git LFS as the universal external store.** Rejected for this decision. LFS does not solve
 rights or privacy, is not yet an accepted project dependency, and does not remove the need for

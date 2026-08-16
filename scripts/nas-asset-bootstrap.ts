@@ -1,6 +1,6 @@
 // Bounded bootstrap for an already-populated physical snowcrystal share.
 //
-// This command deliberately inspects only the two known identity roots, the canonical marker,
+// This command deliberately inspects only the known collection root, the canonical marker,
 // the fixed control directories, and (before first marker creation) one catalog-bound private
 // manifest witness. It never enumerates a share root or opens collection payload bytes.
 
@@ -37,13 +37,13 @@ import { NAS_SHARE_MARKER, NAS_SHARE_MARKER_PATH } from "./nas-root.ts";
 const PROJECT_ROOT = resolve(import.meta.dirname, "..");
 const DEFAULT_CATALOG_PATH = resolve(PROJECT_ROOT, "docs/nas-assets.json");
 const REPORT_FORMAT = "snowflake-nas-asset-bootstrap-report-v1" as const;
-const IDENTITY_ROOTS = ["out", "research-cache"] as const;
+const IDENTITY_ROOTS = ["collections"] as const;
 const CONTROL_CHILDREN = ["staging", "locks", "receipts", "quarantine", "trash"] as const;
 const EXACT_MARKER_BYTES = Buffer.from(`${JSON.stringify(NAS_SHARE_MARKER)}\n`, "utf8");
 const IDENTITY_WITNESS_ASSET_ID = "research-private-freeze" as const;
-const IDENTITY_WITNESS_PREFIX = "research-cache" as const;
-const IDENTITY_WITNESS_PATH = "research-cache/RESEARCH-CACHE-MANIFEST.jsonl" as const;
-const IDENTITY_WITNESS_FORMAT = "vcc-research-cache-jsonl-v1" as const;
+const IDENTITY_WITNESS_PREFIX = "collections/research-private-freeze/2026-08-11" as const;
+const IDENTITY_WITNESS_PATH = "collections/research-private-freeze/2026-08-11/manifest.private.jsonl" as const;
+const IDENTITY_WITNESS_FORMAT = "snowflake-nas-private-owner-jsonl-v1" as const;
 const MAX_IDENTITY_WITNESS_BYTES = 64 * 1024 * 1024;
 
 type BootstrapMode = "dry-run" | "apply";
@@ -201,8 +201,8 @@ const identityWitness = (catalogue: NasAssetCatalogV1): NasOwnerManifestV1 => {
     manifest.format !== IDENTITY_WITNESS_FORMAT ||
     manifest.selector.kind !== "jsonl-field-equals" ||
     manifest.selector.recordType !== "file" ||
-    manifest.selector.field !== "storageClass" ||
-    manifest.selector.equals !== "ignored-research-cache" ||
+    manifest.selector.field !== "collection" ||
+    manifest.selector.equals !== "research-private-freeze@2026-08-11" ||
     !Number.isSafeInteger(manifest.bytes) ||
     manifest.bytes <= 0 ||
     manifest.bytes > MAX_IDENTITY_WITNESS_BYTES ||
@@ -541,7 +541,7 @@ export interface NasAssetBootstrapReport {
   readonly ok: true;
   readonly mode: BootstrapMode;
   readonly state: BootstrapState;
-  readonly identityRootsValidated: 2;
+  readonly identityRootsValidated: 1;
   readonly controlDirectories: {
     readonly required: 6;
     readonly presentBefore: number;
@@ -565,7 +565,7 @@ const successReport = (
   ok: true,
   mode,
   state,
-  identityRootsValidated: 2,
+  identityRootsValidated: 1,
   controlDirectories: {
     required: 6,
     presentBefore,
@@ -574,7 +574,7 @@ const successReport = (
   },
   marker,
   limits: [
-    "Only the canonical marker, two identity roots, six fixed control directories, and the catalog-bound identity witness required before first marker creation were eligible for inspection.",
+    "Only the canonical marker, the collections root, six fixed control directories, and the catalog-bound identity witness required before first marker creation were eligible for inspection.",
     "Unknown root entries were not enumerated or emitted.",
     "No collection payload was opened; the identity witness was the only eligible non-control file. No payload was moved, modified, or deleted.",
     "Directory identity checks bound the deterministic swap fixtures; Node does not provide descriptor-relative mkdir on every supported host.",

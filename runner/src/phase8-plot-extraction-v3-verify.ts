@@ -24,6 +24,7 @@ import {
   type Phase8PlotRead,
   type Phase8PlotRegistration,
 } from "./phase8-plot-extraction.ts";
+import { currentResearchSharePath } from "./phase9-nas.ts";
 
 const OPERATOR = "phase8b-adjudicated-plot-digitization-v3";
 const REGISTRATION_PATH = "research/phase8b-plot-publication-v3.json";
@@ -164,7 +165,10 @@ function descendant(root: string, logicalPath: string, label: string): string {
 }
 
 function pinnedNas(registration: PublicationRegistration, pin: Pin, label: string): Uint8Array {
-  const bytes = readRegular(descendant(registration.physicalStorageRoot, pin.path, label), label);
+  const bytes = readRegular(
+    descendant(registration.physicalStorageRoot, currentResearchSharePath(pin.path), label),
+    label,
+  );
   if (sha256Bytes(bytes) !== pin.sha256) throw new Error(`${label} hash differs`);
   return bytes;
 }
@@ -322,8 +326,16 @@ function pngDimensions(bytes: Uint8Array, label: string): { readonly width: numb
 }
 
 function verifySourceAndRenderPins(base: Phase8PlotRegistration): void {
-  const sourceRoot = descendant(base.roots.physicalStorageRoot, base.roots.sourcePdfLogicalRoot, "source root");
-  const renderRoot = descendant(base.roots.physicalStorageRoot, base.roots.renderLogicalRoot, "render root");
+  const sourceRoot = descendant(
+    base.roots.physicalStorageRoot,
+    currentResearchSharePath(base.roots.sourcePdfLogicalRoot),
+    "source root",
+  );
+  const renderRoot = descendant(
+    base.roots.physicalStorageRoot,
+    currentResearchSharePath(base.roots.renderLogicalRoot),
+    "render root",
+  );
   for (const source of base.sourcePdfs) {
     const path = descendant(sourceRoot, source.fileName, source.fileName);
     const bytes = readRegular(path, source.fileName);
@@ -481,7 +493,11 @@ export function verifyPhase8PlotV3Publication(repositoryRootInput: string, metad
     const plot = plotById.get(series.plotId) as Phase8PlotRegistration["plots"][number];
     expectedBySeries.get(series.selectionId)?.push(expectedRow(series, plot, row, xMaps.get(plot.plotId) as AxisMap, yMaps.get(plot.plotId) as AxisMap));
   }
-  const dataRoot = descendant(publication.physicalStorageRoot, publication.dataLogicalRoot, "data root");
+  const dataRoot = descendant(
+    publication.physicalStorageRoot,
+    currentResearchSharePath(publication.dataLogicalRoot),
+    "data root",
+  );
   const dataEntries = readdirSync(dataRoot, { withFileTypes: true });
   exactSet(dataEntries.map((entry) => entry.name), ["rows"], "data root entries");
   const rowRoot = join(dataRoot, "rows");
@@ -588,9 +604,21 @@ function main(argv: readonly string[]): void {
   const repositoryRoot = resolve(values.get("--repository-root") as string);
   const registration = parseRegistration(readRegular(descendant(repositoryRoot, REGISTRATION_PATH, "v3 registration"), "v3 registration"));
   const base = parsePhase8PlotRegistration(readRegular(descendant(repositoryRoot, registration.baseOperator.path, "base operator"), "base operator"));
-  const expectedSourceRoot = descendant(base.roots.physicalStorageRoot, base.roots.sourcePdfLogicalRoot, "expected source root");
-  const expectedRenderRoot = descendant(base.roots.physicalStorageRoot, base.roots.renderLogicalRoot, "expected render root");
-  const expectedBundle = descendant(registration.physicalStorageRoot, registration.dataLogicalRoot, "expected plot bundle");
+  const expectedSourceRoot = descendant(
+    base.roots.physicalStorageRoot,
+    currentResearchSharePath(base.roots.sourcePdfLogicalRoot),
+    "expected source root",
+  );
+  const expectedRenderRoot = descendant(
+    base.roots.physicalStorageRoot,
+    currentResearchSharePath(base.roots.renderLogicalRoot),
+    "expected render root",
+  );
+  const expectedBundle = descendant(
+    registration.physicalStorageRoot,
+    currentResearchSharePath(registration.dataLogicalRoot),
+    "expected plot bundle",
+  );
   if (resolve(values.get("--source-root") as string) !== resolve(expectedSourceRoot) ||
       resolve(values.get("--render-root") as string) !== resolve(expectedRenderRoot) ||
       resolve(values.get("--bundle") as string) !== resolve(expectedBundle)) {

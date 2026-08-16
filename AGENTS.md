@@ -532,10 +532,18 @@ to tracked `evidence/` under decision 0038 or classify and publish the collectio
 0051 to the governed NAS. Scratch is explicitly declared and discarded. An ignore rule, pathname,
 digest, raw copy, or current NAS presence alone grants neither preservation nor deletion authority.
 
+On the NAS, durable payloads live only at `collections/<asset-id>/<version>/payload/`; `_control/`
+is temporary non-served operational custody. Apart from the share identity marker, those are the
+only project-owned top-level namespaces. Public-safe owner manifests live at
+`docs/nas-assets/manifests/<asset-id>/<version>.json`; manifests containing private filenames live
+at `collections/<asset-id>/<version>/manifest.private.jsonl`, and Git binds only their digest and
+aggregate. Do not recreate top-level NAS `out/` or `research-cache/`; producer-era paths are
+historical identities translated by catalogue-aware readers, not current storage destinations.
+
 Governed publication requires a catalogue entry, one owner manifest, final byte verification, a
 publication receipt, an executable restore procedure, and a successful fresh-stage restore. Local
 pruning is a separate reviewed decision derived from those committed records; no publish or restore
-command silently deletes its source. Grandfathered legacy registrations may carry only a
+command silently deletes its source. Migrated pre-transaction registrations may carry only a
 level-qualified historical verification record; that makes them discoverable and restorable, not
 transaction-certified or prune-authorizing. A detached, unmarked, or conflicting share fails
 closed and never falls back to a local worktree. Use exact reviewed targets, never a broad

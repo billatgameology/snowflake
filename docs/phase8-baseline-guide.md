@@ -284,17 +284,18 @@ The Git repository contains the small metadata, hashes, restrictions and pointer
 - [Proposed Phase 9 consumer plan](plans/phase-9-modular-physics-arms.md)
 
 The substantial data and source material remain on the NAS because broad redistribution rights were
-not established:
+not established. These are canonical share-relative locations; resolve the host mount with
+`scripts/nas-root.ts`:
 
 ```text
-/Volumes/snowcrystal/research-cache/content/
-/Volumes/snowcrystal/research-cache/phase8b-search/acquired-sources-20260811-v1/
-/Volumes/snowcrystal/research-cache/phase8b-search/targeted-sources-20260812-v1/
-/Volumes/snowcrystal/research-cache/phase8b-derived/native-histories-20260812-v1/
-/Volumes/snowcrystal/research-cache/phase8b-derived/plot-extraction-20260812-v3/
-/Volumes/snowcrystal/research-cache/phase8b-derived/plot-renders-20260812-v1/
-/Volumes/snowcrystal/research-cache/phase8b-derived/plot-reads-20260812-v2/
-/Volumes/snowcrystal/research-cache/phase8b-derived/bacon-20260812-v1/
+collections/research-private-freeze/2026-08-11/payload/
+collections/phase8b-search/2026-08-15/payload/acquired-sources-20260811-v1/
+collections/phase8b-search/2026-08-15/payload/targeted-sources-20260812-v1/
+collections/phase8b-derived/2026-08-15/payload/native-histories-20260812-v1/
+collections/phase8b-derived/2026-08-15/payload/plot-extraction-20260812-v3/
+collections/phase8b-derived/2026-08-15/payload/plot-renders-20260812-v1/
+collections/phase8b-derived/2026-08-15/payload/plot-reads-20260812-v2/
+collections/phase8b-derived/2026-08-15/payload/bacon-20260812-v1/
 ```
 
 The NAS is required to reproduce or run experiments against the complete baseline. Git alone is

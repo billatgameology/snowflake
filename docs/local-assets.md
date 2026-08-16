@@ -14,21 +14,28 @@ Read this before concluding that something is lost.
 | Tree | Size | In git? | Where it comes from |
 |---|---|---|---|
 | `node_modules/` | grows | no | `npm ci`; the primary macOS copy was removed 2026-08-15. |
-| Full research media cache | 2,477 registered media · 2,013,534,785 bytes | **no** — hashes/indexes only | The manifest scopes the private loose NAS tree `research-cache/content/`; a 2026-08-15 attached audit sampled 65 entries and found 65/65 present at the registered size. |
-| 2026-08-15 Mac-local research snapshot | 2,974 files · 1,166,728,510 logical bytes | no | Private NAS tar `research-cache/local-worktree-archives/snowflake-main-ignored-research-20260815.tar`; complete for the former Mac subset, not the full media inventory. |
-| `out/gutcheck-gg-realism/large/` | ~446 GB | no | Loose NAS mirror since 2026-08-12 (`docs/nas-ledger.json`, per-file SHA-256). Governed marker/index/streaming was executed on macOS 2026-08-15; Windows `S:/` remains unexecuted. Restore locally only for an explicit workflow. Older archive zips remain on the share. |
-| `out/gutcheck-gg-realism/` workspace layer | ~800 MB | no | Loose NAS mirror since 2026-08-12 (extras pack unpacked; zip retained). The governed index reads only catalogue-approved `large/` and `gen/renders/` bytes from a validated marked share; `--detached` emits metadata without asset links. Local staging never overrides or impersonates NAS content. Restore locally only for explicit authoring workflows (photo matching, archive packing). |
+| Full research media cache | 2,477 registered media · 2,013,534,785 bytes | **no** — hashes/indexes only | Private collection `collections/research-private-freeze/2026-08-11/payload/`; all media-inventory rows are within its 3,778-file owner manifest. |
+| 2026-08-15 Mac-local research snapshot | 2,974 files · 1,166,728,510 logical bytes | no | Private collection `collections/research-mac-snapshot/2026-08-15/payload/`; complete for the former Mac subset, not the full media inventory. |
+| Gut-check generated assets | 22,190 files · 457,429,171,007 bytes | no | Public generated collection `collections/gutcheck-generated-public/2026-08-15/payload/`, owned by `docs/nas-ledger.json`. Only `large/` and `gen/renders/` are served. |
+| Gut-check retained workspace layer | 931 files · 833,991,988 bytes | no | Non-served provisional collection `collections/gutcheck-workspace-remainder/2026-08-15/payload/`; retain for classification, never infer serving or pruning from its old `out/` shape. |
 | `out/gutcheck-gg-realism/site/` | ~6 GB | no | Regenerate: `node scripts/gutcheck-build-site.ts` (~5 s). |
 | `out/gutcheck-gg-realism/large/anim-B-v2q/` | ~6.6 GB | no | Regenerate: `gutcheck-mesh-quantize.ts --manifest .../anim-B/manifest.json` (~25 s). |
 | `out/gutcheck-gg-realism/large/gen/`, `large/anim/` | grows | no | Regenerate from the **tracked** specs: `node scripts/gutcheck-grow-batch.mjs`. |
 | `out/gutcheck-gg-realism/photos/` | ~25 MB | no | Public-domain plates re-downloadable; monograph crops come from the `research/` cache. |
-| Post-Phase-9 source intake | 165,706,780 recorded bytes · 24 source/raw/provenance files | no media; tracked hashes only | Private NAS: `research-cache/post-phase9-intake/20260813-unregistered-v1/`; verify with `research/phase9-post-freeze-source-intake-v1.json`. Unregistered future material, not Phase 9 evidence. |
-| 2026-08-15 macOS session scratch | 348,672-byte tar · 17 members | no | Private NAS archive `out/archives/snowflake-main-local-scratch-20260815.tar`; contains the former `.claude/`, `out/`, and `tmp/` trees. |
+| Post-Phase-9 source intake | 26 files · 165,722,101 bytes | no media; tracked hashes only | Private provisional collection `collections/post-phase9-intake/2026-08-13/payload/`. Unregistered future material, not Phase 9 evidence. |
+| 2026-08-15 macOS session scratch | 348,672-byte tar · 17 members | no | Non-served collection `collections/out-legacy-scratch-archives/2026-08-15/payload/`; contains the former `.claude/`, `out/`, and `tmp/` trees. |
 
 `out/` and ignored `research/` payloads are local staging, not retention classes. Before cleanup,
 claim evidence moves to tracked `evidence/`, another useful collection publishes through decision
 0051, or scratch is explicitly discarded. A legacy ledger or same-NAS archive detects or supplies
 some historical bytes but does not retroactively certify the whole staging tree as preserved.
+
+The NAS layout has one rule for future work: durable bytes go to
+`collections/<asset-id>/<version>/payload/`; unresolved bytes awaiting a decision go to a dated
+`_control/quarantine/unresolved/<batch-id>/` batch. Public-safe owner manifests go to
+`docs/nas-assets/manifests/<asset-id>/<version>.json`; private-name manifests go to
+`collections/<asset-id>/<version>/manifest.private.jsonl`. Every collection is registered in
+`docs/nas-assets.json`. Do not create another top-level project data root.
 
 ## What *is* tracked, and why
 
@@ -52,21 +59,22 @@ some historical bytes but does not retroactively certify the whole staging tree 
 ## The research/ cache is on the NAS, not in a worktree
 
 `research/*` is gitignored except the tracked indexes, datasets, inventories, and source records.
-`research/media-inventory.json` registers 2,477 media paths / 2,013,534,785 bytes under the loose
-private share-relative tree `research-cache/content/`. The 2026-08-15 read-only audit checked an
+`research/media-inventory.json` registers 2,477 media paths / 2,013,534,785 bytes now held within
+`collections/research-private-freeze/2026-08-11/payload/`. The 2026-08-15 read-only audit checked an
 evenly spaced sample plus its last row: 65/65 were present regular files at the registered size
 ([audit](nas-inventory-audit-20260815.md)). It did not establish current all-path presence or rehash
 payloads, so the tracked SHA-256 values remain expected identities rather than a new physical-tree
 verification result.
 
-The catalogue does not falsely assign that whole media overlay to one retention class. The
-private owner manifest places 2,356 registered media files / 1,585,094,867 bytes in the active
-private-source selector and 121 files / 428,439,918 bytes in a provisional mixed recovery selector.
-The latter remains unclassified and maker-delete-only until it is split; its directory label does
-not make those useful media bytes scratch.
+The 2026-08-16 organization pass separated the historical mixed selector. All 2,477 registered
+media paths are now within the active private-source collection; its owner manifest contains 3,778
+files / 2,024,519,833 bytes. That scope includes 15 previously unmanifested inputs directly used
+by the tracked Phase 9 replay. The remaining 72,870 recovery-or-scratch rows, 20 redundant tracked
+records, 179 formerly unmanifested content files, and bounded residue moved to private quarantine.
+Quarantine is custody pending classification or maker-approved disposal, not a durable collection.
 
 On the same date, the complete primary-macOS `research/` subset was separately written to
-`research-cache/local-worktree-archives/snowflake-main-ignored-research-20260815.tar` before the
+`collections/research-mac-snapshot/2026-08-15/payload/snowflake-main-ignored-research-20260815.tar` before the
 ignored local copies were removed. The complete-tree archive intentionally includes tracked
 metadata as duplicate recovery context; Git remains authoritative for those tracked paths.
 

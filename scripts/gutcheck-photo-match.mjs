@@ -8,8 +8,8 @@
 // whether G-G's morphology classes actually occur in nature, not whether a specific crystal
 // can be dialled in.
 //
-// Source media is private NAS/cache material, not worktree state. Point --root at the loose
-// `research-cache/content/` tree or at a staged archive extraction. Media in research/ is
+// Source media is private NAS/cache material, not worktree state. Point --root at
+// `collections/research-private-freeze/2026-08-11/payload/` or a staged archive extraction. Media in research/ is
 // unversioned by decision 0004, so — exactly like app/scripts/phase6-crop-figures.mjs — the crop
 // rectangles here are fractions of the source image and are the reproducible record.
 //

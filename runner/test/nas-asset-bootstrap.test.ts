@@ -70,12 +70,12 @@ const temporaryRoot = (label: string): string => {
 
 const makeCandidateShare = (label: string): string => {
   const root = temporaryRoot(label);
-  mkdirSync(join(root, "out"));
-  mkdirSync(join(root, "research-cache"));
+  mkdirSync(join(root, "collections"));
   const witness = CATALOGUE.collections.find(
     (collection) => collection.assetId === "research-private-freeze",
   )?.ownerManifest;
   if (witness === null || witness === undefined) throw new Error("fixture witness is absent");
+  mkdirSync(resolve(join(root, witness.path), ".."), { recursive: true });
   writeFileSync(join(root, witness.path), IDENTITY_WITNESS_BYTES);
   return root;
 };
@@ -178,10 +178,9 @@ describe("bounded NAS share bootstrap", () => {
     expect(existsSync(join(root, NAS_SHARE_MARKER_PATH))).toBe(false);
   });
 
-  it("refuses an arbitrary two-directory decoy and a corrupted catalog-bound witness", () => {
+  it("refuses an arbitrary collection-root decoy and a corrupted catalog-bound witness", () => {
     const decoy = temporaryRoot("identity-decoy");
-    mkdirSync(join(decoy, "out"));
-    mkdirSync(join(decoy, "research-cache"));
+    mkdirSync(join(decoy, "collections"));
 
     const missing = run(["--nas-root", decoy, "--apply"]);
     expect(missing.code).toBe(1);
@@ -193,6 +192,7 @@ describe("bounded NAS share bootstrap", () => {
       (collection) => collection.assetId === "research-private-freeze",
     )?.ownerManifest;
     if (witness === null || witness === undefined) throw new Error("fixture witness is absent");
+    mkdirSync(resolve(join(decoy, witness.path), ".."), { recursive: true });
     writeFileSync(join(decoy, witness.path), Buffer.alloc(IDENTITY_WITNESS_BYTES.byteLength, 0x78));
 
     const corrupted = run(["--nas-root", decoy]);
@@ -252,7 +252,7 @@ describe("bounded NAS share bootstrap", () => {
   it("is a deterministic no-write dry run and never emits unknown root names", () => {
     const root = makeCandidateShare("dry-run");
     const unknownName = "private-customer-name-that-must-not-be-emitted.bin";
-    const payload = join(root, "out", "payload.bin");
+    const payload = join(root, "collections", "payload.bin");
     writeFileSync(join(root, unknownName), "unknown-root-byte");
     writeFileSync(payload, "payload-must-remain");
     const before = readdirSync(root).sort();
@@ -266,7 +266,7 @@ describe("bounded NAS share bootstrap", () => {
       ok: true,
       mode: "dry-run",
       state: "would-bootstrap",
-      identityRootsValidated: 2,
+      identityRootsValidated: 1,
       controlDirectories: {
         required: 6,
         presentBefore: 0,
@@ -285,7 +285,7 @@ describe("bounded NAS share bootstrap", () => {
 
   it("creates only the fixed control tree and writes the exact marker last", () => {
     const root = makeCandidateShare("apply");
-    const payload = join(root, "research-cache", "private-source.bin");
+    const payload = join(root, "collections", "private-source.bin");
     writeFileSync(payload, "private-payload-is-untouched");
     let observedPreMarkerState = false;
 
@@ -325,8 +325,7 @@ describe("bounded NAS share bootstrap", () => {
     expect(readdirSync(root).sort()).toEqual([
       CATALOGUE.controlRoot,
       NAS_SHARE_MARKER_PATH,
-      "out",
-      "research-cache",
+      "collections",
     ].sort());
   });
 
@@ -364,7 +363,7 @@ describe("bounded NAS share bootstrap", () => {
 
   it("refuses missing identity roots, non-directory roots, and a partial initialized state", () => {
     const missingIdentity = temporaryRoot("missing-identity");
-    mkdirSync(join(missingIdentity, "out"));
+    mkdirSync(join(missingIdentity, "unrelated"));
     const missing = run(["--nas-root", missingIdentity, "--apply"]);
     expect(missing.code).toBe(1);
     expect(missing.raw).toContain("identity-root-invalid");
@@ -415,10 +414,10 @@ describe("bounded NAS share bootstrap", () => {
     expect(existsSync(join(actual, CATALOGUE.controlRoot))).toBe(false);
 
     const linkedIdentity = makeCandidateShare("linked-identity");
-    const originalOut = join(linkedIdentity, "out");
-    rmSync(originalOut, { recursive: true });
-    const outsideOut = temporaryRoot("outside-identity");
-    symlinkSync(outsideOut, originalOut, "dir");
+    const originalCollections = join(linkedIdentity, "collections");
+    rmSync(originalCollections, { recursive: true });
+    const outsideCollections = temporaryRoot("outside-identity");
+    symlinkSync(outsideCollections, originalCollections, "dir");
     const linkedIdentityResult = run(["--nas-root", linkedIdentity, "--apply"]);
     expect(linkedIdentityResult.code).toBe(1);
     expect(linkedIdentityResult.raw).toContain("identity-root-invalid");
@@ -457,7 +456,7 @@ describe("bounded NAS share bootstrap", () => {
     const root = makeCandidateShare("marker-race");
     const markerPath = join(root, NAS_SHARE_MARKER_PATH);
     const racingBytes = "RACING-MARKER-MUST-NOT-BE-CLOBBERED\n";
-    const payload = join(root, "out", "payload.bin");
+    const payload = join(root, "collections", "payload.bin");
     writeFileSync(payload, "payload-before-race");
 
     const result = run(["--nas-root", root, "--apply"], {
@@ -497,7 +496,7 @@ describe("bounded NAS share bootstrap", () => {
 
   it("emits deterministic generic failures without absolute or unknown names", () => {
     const root = temporaryRoot("generic-failure");
-    mkdirSync(join(root, "out"));
+    mkdirSync(join(root, "unrelated"));
     const unknownName = "named-private-root-entry";
     writeFileSync(join(root, unknownName), "private");
 

@@ -4,6 +4,7 @@ import { join } from "node:path";
 import { describe, expect, it } from "vitest";
 import {
   assertPhase9ShareRelativePath,
+  currentResearchSharePath,
   detectPhase9NasRoot,
   normalizeFrozenKnowledgeNasPath,
   resolvePhase9NasFile,
@@ -11,7 +12,7 @@ import {
 
 function makeNasFixture(prefix = "phase9-nas-"): string {
   const root = mkdtempSync(join(tmpdir(), prefix));
-  mkdirSync(join(root, "research-cache"));
+  mkdirSync(join(root, "collections", "research-private-freeze", "2026-08-11", "payload"), { recursive: true });
   writeFileSync(
     join(root, ".snowflake-nas.json"),
     `${JSON.stringify({ format: "snowflake-nas-share-v1", projectId: "virtual-cloud-chamber" })}\n`,
@@ -60,11 +61,32 @@ describe("Phase 9 NAS resolver", () => {
     expect(() => normalizeFrozenKnowledgeNasPath("S:/research-cache/source.pdf")).toThrow(/registered/u);
   });
 
+  it("maps producer-era research identities to governed collection locators", () => {
+    expect(currentResearchSharePath("research-cache/content/source.pdf")).toBe(
+      "collections/research-private-freeze/2026-08-11/payload/source.pdf",
+    );
+    expect(currentResearchSharePath("research-cache/local-worktree-archives/snapshot.tar")).toBe(
+      "collections/research-mac-snapshot/2026-08-15/payload/snapshot.tar",
+    );
+    expect(currentResearchSharePath("research-cache/phase8b-derived/data.json")).toBe(
+      "collections/phase8b-derived/2026-08-15/payload/data.json",
+    );
+    expect(currentResearchSharePath("research-cache/phase8b-search/source.pdf")).toBe(
+      "collections/phase8b-search/2026-08-15/payload/source.pdf",
+    );
+    expect(currentResearchSharePath("research-cache/phase9-search/result.json")).toBe(
+      "collections/phase9-search/2026-08-15/payload/result.json",
+    );
+    expect(currentResearchSharePath("research-cache/post-phase9-intake/20260813-unregistered-v1/source.pdf")).toBe(
+      "collections/post-phase9-intake/2026-08-13/payload/source.pdf",
+    );
+  });
+
   it("resolves a contained regular artifact and reports its exact size", () => {
     const root = makeNasFixture();
-    const artifact = join(root, "research-cache", "source.pdf");
+    const artifact = join(root, "collections", "research-private-freeze", "2026-08-11", "payload", "source.pdf");
     writeFileSync(artifact, "source bytes");
-    expect(resolvePhase9NasFile("research-cache/source.pdf", root)).toEqual({
+    expect(resolvePhase9NasFile("research-cache/content/source.pdf", root)).toEqual({
       kind: "ok",
       path: realpathSync.native(artifact),
       byteLength: 12,
@@ -74,8 +96,8 @@ describe("Phase 9 NAS resolver", () => {
   it("refuses traversal, directories, and missing files", () => {
     const root = makeNasFixture();
     expect(resolvePhase9NasFile("../escape.pdf", root).kind).toBe("forbidden");
-    expect(resolvePhase9NasFile("research-cache", root).kind).toBe("not-found");
-    expect(resolvePhase9NasFile("research-cache/missing.pdf", root).kind).toBe("not-found");
+    expect(resolvePhase9NasFile("research-cache/content", root).kind).toBe("not-found");
+    expect(resolvePhase9NasFile("research-cache/content/missing.pdf", root).kind).toBe("not-found");
   });
 
   it.skipIf(!CAN_SYMLINK)("refuses link-based escape", () => {
@@ -83,7 +105,10 @@ describe("Phase 9 NAS resolver", () => {
     const outside = mkdtempSync(join(tmpdir(), "phase9-outside-"));
     const outsideFile = join(outside, "source.pdf");
     writeFileSync(outsideFile, "outside bytes");
-    symlinkSync(outsideFile, join(root, "research-cache", "redirect.pdf"));
-    expect(resolvePhase9NasFile("research-cache/redirect.pdf", root).kind).toBe("forbidden");
+    symlinkSync(
+      outsideFile,
+      join(root, "collections", "research-private-freeze", "2026-08-11", "payload", "redirect.pdf"),
+    );
+    expect(resolvePhase9NasFile("research-cache/content/redirect.pdf", root).kind).toBe("forbidden");
   });
 });

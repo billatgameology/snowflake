@@ -144,23 +144,23 @@ const collectionByReference = (
 describe("tracked NAS asset catalogue", () => {
   it("loads the strict real catalogue and pins the read-only census dispositions", () => {
     const expected = {
-      "gutcheck-generated-public@2026-08-15": ["active", 21480, 446258860293],
+      "gutcheck-generated-public@2026-08-15": ["active", 22190, 457429171007],
       "earlier-phase3-visual@2026-08-01": ["active", 10, 984164],
-      "research-private-freeze@2026-08-11": ["active", 3642, 1593265642],
-      "research-tracked-record-mirror@2026-08-11": ["active", 20, 948955],
+      "research-private-freeze@2026-08-11": ["active", 3778, 2024519833],
+      "research-tracked-record-mirror@2026-08-11": ["unavailable", 20, 948955],
       "gutcheck-workspace-remainder@2026-08-15": ["provisional", 931, 833991988],
       "gutcheck-retained-archives@2026-08-07": ["provisional", 6, 10721854876],
       "out-legacy-scratch-archives@2026-08-15": ["provisional", 2, 41999619],
       "phase9-failed-debug@2026-08-13": ["provisional", 10, 85153],
       "phase6-arm64-host-record@2026-08-12": ["provisional", 55, 43644],
       "wp3-phase4-review@2026-08-12": ["provisional", 21, 2530556],
-      "research-recovery-scratch@2026-08-11": ["provisional", 72991, 2401810560],
+      "research-recovery-scratch@2026-08-11": ["unavailable", 72870, 1973370642],
       "research-mac-snapshot@2026-08-15": ["provisional", 1, 1172661248],
       "phase8b-derived@2026-08-15": ["provisional", 66, 11636810],
       "phase8b-search@2026-08-15": ["provisional", 115, 232427655],
       "phase9-search@2026-08-15": ["provisional", 3, 631494],
-      "post-phase9-intake@2026-08-13": ["provisional", 27, 165728249],
-      "research-copy-verification-residue@2026-08-10": ["provisional", 24, 110412535],
+      "post-phase9-intake@2026-08-13": ["provisional", 26, 165722101],
+      "research-copy-verification-residue@2026-08-10": ["unavailable", 24, 110412535],
       "earlier-phase2b@2026-08-01": ["unavailable", 11, 60438811],
       "earlier-phase4@2026-08-01": ["unavailable", 125, 519684864],
       "earlier-phase4-visual@2026-08-01": ["unavailable", 21, 1924721],
@@ -263,27 +263,46 @@ describe("tracked NAS asset catalogue", () => {
     );
   });
 
-  it("binds the private whole-cache manifest without publishing a sensitive root name", () => {
+  it("binds each retained private collection to its standard private owner manifest", () => {
     const privateSelections = CATALOG.collections.filter(
-      (collection) => collection.ownerManifest?.format === "vcc-research-cache-jsonl-v1",
+      (collection) => collection.ownerManifest?.storage === "nas-private",
     );
-    expect(privateSelections.map((collection) => [
-      collection.ownerManifest?.selector.kind === "jsonl-field-equals"
-        ? collection.ownerManifest.selector.equals
-        : null,
-      collection.aggregate,
-    ])).toEqual([
-      ["ignored-research-cache", { files: 3642, bytes: 1593265642 }],
-      ["tracked-project-record", { files: 20, bytes: 948955 }],
-      ["recovery-or-scratch", { files: 72991, bytes: 2401810560 }],
+    expect(privateSelections.map((collection) => `${collection.assetId}@${collection.version}`)).toEqual([
+      "research-private-freeze@2026-08-11",
+      "research-mac-snapshot@2026-08-15",
+      "phase8b-derived@2026-08-15",
+      "phase8b-search@2026-08-15",
+      "phase9-search@2026-08-15",
+      "post-phase9-intake@2026-08-13",
     ]);
     for (const collection of privateSelections) {
+      const identity = `${collection.assetId}@${collection.version}`;
       expect(collection.ownerManifest).toMatchObject({
         storage: "nas-private",
-        path: "research-cache/RESEARCH-CACHE-MANIFEST.jsonl",
-        bytes: 20531852,
-        sha256: "3f5b2cd66f653a75f7ed91d769e35b97194e8ffe16901a1a3267d1bf497b6846",
+        path: `collections/${collection.assetId}/${collection.version}/manifest.private.jsonl`,
+        format: "snowflake-nas-private-owner-jsonl-v1",
+        selector: {
+          kind: "jsonl-field-equals",
+          recordType: "file",
+          field: "collection",
+          equals: identity,
+        },
       });
+    }
+
+    for (const assetId of [
+      "research-recovery-scratch",
+      "research-tracked-record-mirror",
+      "research-copy-verification-residue",
+    ]) {
+      const collection = CATALOG.collections.find((entry) => entry.assetId === assetId);
+      expect(collection).toMatchObject({
+        state: "unavailable",
+        locator: null,
+        ownerManifest: null,
+        serve: { policy: "deny", prefixes: [] },
+      });
+      expect(collection?.historicalRepoPath).not.toBeNull();
     }
 
     const serialized = CATALOG_SOURCE.toLowerCase();

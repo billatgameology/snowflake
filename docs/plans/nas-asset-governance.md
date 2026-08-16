@@ -3,7 +3,7 @@
 - **Phase:** repository infrastructure; no charter phase is reopened
 - **Status:** in progress
 - **Started:** 2026-08-15
-- **Last touched:** 2026-08-15 by OpenAI Codex GPT-5
+- **Last touched:** 2026-08-16 by OpenAI Codex GPT-5
 
 ## Goal
 
@@ -28,14 +28,14 @@ in evidence remain as provenance and catalogue aliases; they do not require the 
   and binds each durable collection to an owner manifest, storage class, rights/serve policy,
   retention policy, restore procedure, level-qualified verification record, and share-relative
   locator. Forward-published collections additionally bind separate publication and fresh-restore
-  receipts; a grandfathered legacy registration without those records remains explicitly
+  receipts; a migrated pre-transaction registration without those records remains explicitly
   non-prune-authorizing. An attached-share audit reports
   no unclassified durable collection, conflicting owner, case-fold collision, unsafe path, or
   unexplained publication staging residue.
 - The existing inventories are reconciled without pretending they have the same scope:
   `docs/nas-ledger.json`, `research/media-inventory.json`,
-  `evidence/gutcheck-gg-realism/large-artifact-inventory.json`, and share-relative
-  `research-cache/RESEARCH-CACHE-MANIFEST.jsonl`. Every file named by
+  `evidence/gutcheck-gg-realism/large-artifact-inventory.json`, and the historical private-cache
+  manifest preserved under `_control/receipts/migrations/`. Every file named by
   `evidence/OUT-TREES-MANIFEST.json` is either located in verified durable storage or receives an
   explicit unavailable/superseded disposition; hash-only history is not called preservation.
 - A new accepted ADR, `AGENTS.md`, `.gitignore`, and the operational asset documentation state the
@@ -137,7 +137,7 @@ They belong in a credential manager or runtime environment and outside every ser
       media discovery, and future gate finalization in bounded slices with exact tests after each
       changed contract. Frozen Phase 8 absolute-path identities get compatibility readers, not
       rewritten evidence.
-- [ ] Generate the exact migration map; inventory and move every retained `out/` and
+- [x] Generate the exact migration map; inventory and move every retained `out/` and
       `research-cache/` selection to its canonical collection; quarantine unresolved material;
       update owner manifests, catalogue paths and readers; then verify that both legacy top-level
       roots are absent. Do focused checks during the batches and one exact full suite/review after
@@ -186,6 +186,10 @@ They belong in a credential manager or runtime environment and outside every ser
 - **Recursive `du` as the opening census:** rejected after the read-only SMB walk produced no
   observable result within the work block and was interrupted with exit 130. It changed nothing;
   manifest-driven totals plus bounded metadata scans are the auditable approach.
+- **Full 469 GB reread after same-share renames:** stopped as disproportionate before it produced a
+  receipt. It would have re-read previously registered bytes without changing the organization
+  decision. The pass instead hashed all 710 newly registered rows and checked the exact final path,
+  count and byte-size sets; existing rows retain their prior ledger digests.
 
 ## Open questions
 
@@ -332,7 +336,59 @@ The old exact copy remains quarantined, not deleted. Historical payload bytes an
 paths were not rewritten. This proves the bounded layout move, not independent backup, Windows/SMB
 behavior, or readiness to migrate mixed and provisional roots.
 
-The final combined boundary and exact repository suite are recorded in
+### Complete two-root organization
+
+The maker then directed the physical organization to completion without adding more speculative
+publication machinery. The 2026-08-16 pass moved every retained payload from the legacy top-level
+`out/` and `research-cache/` roots into versioned `collections/**` payloads, generated the six
+required private owner manifests, moved unresolved research into dated `_control/quarantine/**`
+custody, and removed both now-empty legacy roots. No payload was permanently deleted. Current
+readers translate producer-era logical paths; frozen evidence and source records remain unchanged.
+
+The exact collection, manifest, quarantine and migration-receipt aggregates are recorded in
+[`docs/nas-layout-migration-20260816.md`](../nas-layout-migration-20260816.md). The generated-output
+ledger now binds 23,225 files / 469,030,661,007 bytes at canonical collection paths. Six retained
+research selections bind 3,989 files / 3,607,599,141 bytes; final unresolved research custody binds
+73,095 files / 2,166,064,630 bytes in a private manifest. The Phase 9 knowledge calculation ran
+against the new private locator and produced bytes identical to the tracked evidence artifact.
+
+The attached read-only verifier accepts every declared owner-manifest selection. The bounded audit
+sees six top-level entries, classifies five, and continues to refuse the one unnamed credential-
+custody item without exposing it. That item, Windows execution, independent backup, and any later
+quarantine disposal remain maker-owned follow-up decisions; none prevents the completed physical
+layout from being the standard for future retained files.
+
+### Final repository verification
+
+The focused migration boundary passed 9 files / 123 tests, both TypeScript projects, Rule 7 over
+1,007 files, and `git diff --check`. The first exact suite then correctly found two stale repository
+pins: the current PROGRESS date and an edit to a hash-frozen Phase 9 source record. The source record
+was restored byte-for-byte and the current-date regression was updated; the two focused tests then
+passed 25/25.
+
+The final exact `TMPDIR=/private/tmp npm test` exited 0: 129/129 test files, 2,210 passed and seven
+skipped in 401.14 seconds. The named run artifact was
+`/private/tmp/npm-test-nas-layout-20260816-final.log`, 33,731 bytes, SHA-256
+`0a90511eaedbe9b2514d8767d22d5acdafd93469198bc6300762d77d9ce30bd2` at record time. This is
+repository verification, not a Windows, backup, credential-custody, or whole-payload audit.
+
+### Closing review — complete two-root organization
+
+- **Verdict/binding:** PASS with zero blockers on staged tree
+  `5a00991eac12baac7532d4516323b5ac0d77eb65`.
+- **Reviewer/context:** non-author OpenAI Codex GPT-5-family subagent sharing the coordinator's
+  repository and development context.
+- **Independently re-executed:** index/tree binding, Rule 7, `git diff --check`, the nine-file
+  migration compatibility suite, read-only `assets:verify` and aggregate-only `assets:audit`, known
+  legacy-root absence, live collection and private-manifest bindings, quarantine aggregate,
+  generated-ledger aggregate/digest and one-owner partition, migration receipt pins, all registered
+  media-overlay row bindings, the physical Phase 8 v3 verifier, and byte-identical Phase 9 knowledge
+  calculation from canonical paths.
+- **Limits:** the reviewer did not run exact full `npm test`, Windows `S:/`, SMB ACL checks,
+  independent-backup recovery, credential handling, a full payload rehash, or any NAS write. The
+  unnamed custody item remains a maker/provider decision.
+
+The pre-organization implementation boundary and its exact repository suite are recorded in
 [`docs/reviews/nas-asset-governance-validation-20260815.md`](../reviews/nas-asset-governance-validation-20260815.md).
 That exact suite was coordinator-run after the reviewed code and catalogue repairs; the non-author
 reviewer independently ran the focused legacy-restore boundary but did not rerun the full suite.
