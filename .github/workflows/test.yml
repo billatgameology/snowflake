@@ -1,7 +1,9 @@
 # Run the repository's exact check on every push and pull request.
 #
 # WHY THIS EXISTS. Until now this repository had no CI: `.github/workflows/` contained one workflow and
-# it deploys `docs/education` to Pages. Every test, every hash pin, every preflight check and every
+# it deployed `docs/education` to Pages (that deploy workflow was removed 2026-08-16 by maker
+# direction — GitHub Pages is disabled and the education content stays in the repo, unpublished).
+# Every test, every hash pin, every preflight check and every
 # freeze assertion was therefore HUMAN-TRIGGERED — the evidence pin register records this as R32,
 # because it means "the suite is green" has always meant "green on whatever the operator happened to
 # run". Two concrete consequences already happened:
@@ -20,7 +22,7 @@
 # `npm test` FAILS on 319 Rule 7 violations in `docs/education/chapters/*.html` and `glossary.html`.
 # That work is delegated to a separate session and is deliberately not fixed here. A CI that is red
 # for a known, named, owned reason is doing its job; making it green by narrowing what it runs is the
-# exact failure this workflow exists to prevent. Nothing deploys to Pages until it is green.
+# exact failure this workflow exists to prevent.
 
 name: Tests
 

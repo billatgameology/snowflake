@@ -9,8 +9,8 @@ maker-triggered stop/restart snapshot and may predate this live index.
 
 The complete pre-compaction state and chronology through 2026-08-02 are preserved byte-for-byte in
 [progress-history-through-2026-08-02.md](progress-history-through-2026-08-02.md). That snapshot is
-historical, not current authority. Its original body is 191,859 bytes with SHA-256
-`2550319a3ac5d528c111875242419de91d2ed9b34f245f7a0364ede8b323f955`. Open it only when this
+historical, not current authority (its body is byte- and SHA-256-pinned by
+`runner/test/progress-index.test.ts`). Open it only when this
 index, a plan, ADR, or audit links to historical detail.
 
 ## Current state
@@ -134,10 +134,11 @@ index, a plan, ADR, or audit links to historical detail.
   the independent-laboratory record to chapters 4–13, `references.html`, and
   `FUTURE-ADDITIONS.md`. No other `docs/education/**` drift since `60e3f3f` (diff-verified
   2026-08-06); `8acf9fe` added proposed Phase 8–10 drafts. Decisions 0046/0050 adopted Phases 8–9
-  without reopening education; Phase 10 remains uncharted and inactive.
+  without reopening education; Phase 10 remains uncharted and inactive. **Pages deploy retired
+  2026-08-16 (maker direction):** `pages.yml` deleted, GitHub Pages disabled, content stays
+  in-repo unpublished; `test.yml` CI unaffected.
 - The gut-check exploration (`explore/gg-realism-gutcheck`) is MERGED to `main` (`98bc75d`,
-  2026-08-12, merged-tree suite green). Eyeball-only — not evidence, no gate claim, no solver
-  code touched.
+  2026-08-12, merged-tree suite green); eyeball-only, not evidence, no solver code touched.
 - **WP1 size strata are FROZEN (2026-08-06).** `evidence/phase6-size-strata/strata.json` is
   18,867 bytes with SHA-256 `aba93698ad6dcd72237a9c7ffa48588143533db315c059a29f6cd98c8d0288b6`:
   S1 observed initial radius `[5.8999999999999995, 12.1]` µm (15 uncontested Harrison traces;
@@ -150,7 +151,7 @@ index, a plan, ADR, or audit links to historical detail.
   frozen tree exited 0: Rule 7 clean over 436 files, both TypeScript projects, Vitest 82 files /
   1,454 tests in 628.68 s. Whether WP2 uses Z = 2 or Z = 1 strata is a WP2/WP3 protocol
   decision.
-- **Last updated:** 2026-08-16 by OpenAI Codex
+- **Last updated:** 2026-08-16 by OpenAI Codex; merge reconciled by Claude Fable 5
 
 ## Phase gates
 
@@ -214,7 +215,7 @@ it from the Phase 6 lane or count it toward Phase 6.
 `ffb3a5e` lands the 254-path relocation/hardening unit. Claude Fable 5 approved it with zero
 blockers after 72/72 focused tests and reviewer exact `TMPDIR=/private/tmp npm test`: 1,722
 passed / 7 skipped (`out/checks/npm-test-round3-review.log`, SHA-256 `2a90d0d5…b11d`). Windows
-`S:/` and full NAS replay remain unexecuted; two deferred low findings are recorded in the plan.
+`S:/` and full NAS replay remain unexecuted; two deferred low findings are in the plan.
 
 ### Phase 8B record — closed; external search remains stopped
 
@@ -238,3 +239,9 @@ then rerun its zero-write preflight before applying. Do not call the workstream 
 new receipt, catalogue/ledger bindings, full collection verification, fresh restore, closing
 review, and exact suite pass. Credential custody, Windows `S:/`, and independent backup remain
 external follow-ups; the root audit remains nonzero.
+
+Related record: two rejected D-BT candidates (10 files / 85,153 bytes) are preserved on NAS;
+14 post-freeze payloads are logged in
+[`phase9-post-freeze-source-intake-v1.json`](../research/phase9-post-freeze-source-intake-v1.json)
+(unregistered, not evidence). The [CI repair](https://github.com/billatgameology/snowflake/pull/6)
+merged green on Ubuntu. Phase 9 was not reopened.

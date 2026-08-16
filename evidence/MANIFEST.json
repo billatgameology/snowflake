@@ -482,6 +482,10 @@
    "bytes": 114408,
    "sha256": "f79cfd5268524d9017439e7be3abfe8b1e5df13f4e909c5d62569b8cc59ed5f7"
   },
+  "gutcheck-gg-realism/README.md": {
+   "bytes": 3014,
+   "sha256": "68e39748815a102b00ab055c8adb36e9c7608ea9d21daab7c211baf93d6c49c4"
+  },
   "gutcheck-gg-realism/dialin/dialin-b1p3-1200.json": {
    "bytes": 635,
    "sha256": "372368efb6a70064687720f2706bcd0169d7dca93d2353e8dee4cd1a613492a0"
@@ -1017,10 +1021,6 @@
   "gutcheck-gg-realism/large-artifact-inventory.json": {
    "bytes": 358626,
    "sha256": "9888b9f69cdb1139bb9ff179c7643610e8a4cc62c6fb9c2840b860ce42320edc"
-  },
-  "gutcheck-gg-realism/README.md": {
-   "bytes": 3014,
-   "sha256": "68e39748815a102b00ab055c8adb36e9c7608ea9d21daab7c211baf93d6c49c4"
   },
   "gutcheck-gg-realism/specs/bentley785.json": {
    "bytes": 672,
