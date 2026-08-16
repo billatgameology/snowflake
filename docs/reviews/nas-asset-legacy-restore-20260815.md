@@ -67,3 +67,26 @@ durable publication receipt, or prune authority. It is accepted only for the fou
 locators in the 2026-08-15 catalogue. A forward-layout collection requires explicit
 legacy/transaction dispatch before it may become active. This review shared the developer's
 context and is not a different-model or context-independent audit.
+
+## 2026-08-16 correction addendum
+
+The stable-byte table and quadratic comparison counts above remain the historical 2026-08-15
+review. Commit `d92f39a` superseded that implementation limit by taking stable directory-level
+namespace snapshots and revalidating them a bounded number of times independent of flat-file
+count. The current restore library is SHA-256
+`7fc8613c5c3fffd1bf2e74d3090bdbd79a5425187e8e61e6cb791f37a60b5453`; its adversarial test is
+SHA-256 `2dc5baaa84d04550c72c58b0962fd04a3079407328cda4a8d82e7c697c763ef3`.
+
+The addendum reviewer was OpenAI Codex, model GPT-5: a non-author subagent with the coordinator's
+full shared repository/development context. The reviewer authored or changed no reviewed byte. It
+independently ran the eight-file NAS/Phase 9 boundary (150/150 tests) and the physical restored-tree
+verifier over the fresh diagnostic staging. That verifier matched 434 files / 666,233,360 bytes /
+tree SHA-256 `d223ded77137f5fb2bd0bdb73d40def04d2ec6df8aa3000d87ecd034774e572b`.
+The coordinator, not the reviewer, created that fresh staging with `assets:restore`.
+
+This physical result covers only the corrected diagnostic collection on macOS. It does not cover
+Windows `S:/`, effective SMB ACLs, concurrent mutation/crash behavior, independent backup, the
+22,190-file / 457,429,171,007-byte generated-public restore, or any pruning/deletion. The command
+still writes no durable restore receipt and grants no prune authority. The complete correction
+review and its additional recomputations are recorded in
+[`nas-gutcheck-remainder-correction-20260816.md`](nas-gutcheck-remainder-correction-20260816.md).

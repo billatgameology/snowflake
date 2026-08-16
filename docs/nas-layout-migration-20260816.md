@@ -34,26 +34,42 @@ to the current physical collection without rewriting historical bytes.
 
 ## Generated-output collections
 
-The earlier governed Phase 3 move and this pass leave the generated-output ledger with 23,225
-files / 469,030,661,007 bytes. The exact tracked artifact is `docs/nas-ledger.json`: 5,263,948 bytes,
-SHA-256 `76d8c54f20e75913dda3e621dd67a45321cab130559a7956a6cb8ccc1e53a6b4`.
+The earlier governed Phase 3 move, the initial organization pass, and the row-level correction
+leave the generated-output ledger with 22,728 files / 468,862,902,379 bytes. The exact tracked
+artifact is `docs/nas-ledger.json`: 5,165,509 bytes, SHA-256
+`aedde64bb1d01632d790fbf0d3a5ca7a3b3a594b90f3714033b48b1cfeccee05`.
 
 | Collection | State | Files | Bytes | Historical root |
 | --- | --- | ---: | ---: | --- |
 | `gutcheck-generated-public@2026-08-15` | active | 22,190 | 457,429,171,007 | `out/gutcheck-gg-realism` selected generated prefixes |
 | `earlier-phase3-visual@2026-08-01` | active | 10 | 984,164 | `out/phase3-visual` |
-| `gutcheck-workspace-remainder@2026-08-15` | provisional | 931 | 833,991,988 | remaining `out/gutcheck-gg-realism` selection |
+| `gutcheck-generated-diagnostic-frames@2026-08-15` | active | 434 | 666,233,360 | generated diagnostic-frame selection from the former remainder |
+| `gutcheck-git-record-mirrors@2026-08-15` | unavailable | 128 | 174,537 | redundant mirrors now in unresolved quarantine; tracked Git records remain authoritative |
+| `gutcheck-workspace-remainder@2026-08-15` | unavailable | 369 | 167,584,091 | still-mixed material now in unresolved quarantine |
 | `gutcheck-retained-archives@2026-08-07` | provisional | 6 | 10,721,854,876 | gut-check archive selection |
 | `out-legacy-scratch-archives@2026-08-15` | provisional | 2 | 41,999,619 | `out/archives` |
 | `phase9-failed-debug@2026-08-13` | provisional | 10 | 85,153 | `out/debug` |
 | `phase6-arm64-host-record@2026-08-12` | provisional | 55 | 43,644 | `out/phase6-arm64` |
 | `wp3-phase4-review@2026-08-12` | provisional | 21 | 2,530,556 | `out/wp3-review-phase4` |
 
+The two unavailable rows are catalogue history and quarantine dispositions; their 497 files are
+not part of the current 22,728-row generated-output owner ledger. The current catalogue has 26
+entries (4 active / 10 provisional / 12 unavailable) and is 70,891 bytes with SHA-256
+`b7dffe7817b1fec7cfc0ac61b77c2c20bf7cfd329bae037ffb597d60553fb31c`.
+
 The 2026-08-16 `out/` batch moved 23,215 files / 469,029,676,843 bytes into seven collections by
 absent-target same-share directory rename. Its receipt is 1,117 bytes, SHA-256
 `729a8c94de837b23acd44d68153c84b2f1a20c5847bc162a2ac0fdb8ff7194b3`. Before the move, 710
 documented generated files / 11,170,310,714 bytes omitted by the older ledger were fully hashed
 and added. Final path, count, and byte totals matched the prepared collection sets.
+
+A subsequent row-level review found that the 931-file remainder violated ADR 0051's single-class
+rule. The bounded correction moved all 931 files / 833,991,988 bytes without deletion: 434
+generated diagnostic files / 666,233,360 bytes became the active diagnostic collection, while 128
+redundant Git-record mirrors / 174,537 bytes and 369 still-mixed files / 167,584,091 bytes moved to
+one dated unresolved-quarantine batch. The 1,547-byte correction receipt has SHA-256
+`7de6caa21b04862069addc4bbd6476ba87aa8c83f42f4bd1deb697e5681ae220`; it binds the exact
+apply program, selector bundle, new ledger, diagnostic tree, and quarantine manifest.
 
 ## Private research collections
 
@@ -84,13 +100,19 @@ after its absent-target same-share move, and each revised private manifest was b
 
 ## Quarantine
 
-The final unresolved research batch contains 73,095 files / 2,166,064,630 bytes. Its private
+The unresolved research batch contains 73,095 files / 2,166,064,630 bytes. Its private
 manifest is 24,068,458 bytes with SHA-256
 `2bc0aaafbf428efe211bc4ecefd334293b34cfd1a2ca5cc21985ac43d7ac6dfa`. It contains the remaining
 historical recovery-or-scratch selection, redundant tracked-record mirrors, 179 previously
 unmanifested content files, bounded copy-verification residue, and local metadata. These bytes are
 preserved pending classification or an explicit maker-approved disposal plan; quarantine does not
 make them a durable collection or authorize deletion.
+
+The gutcheck correction is a separate unresolved batch containing 497 files / 167,758,628 bytes.
+Its private manifest is 119,048 bytes with SHA-256
+`ac1a27c3d30c4b1f69b2e01f3c2476d225121c3026ca904df1c28738dc24a957`. Across those two
+distinct batches and manifests, unresolved custody totals 73,592 files / 2,333,823,258 bytes; the
+aggregate does not turn them into one collection or one owner manifest.
 
 The verified legacy Phase 3 copy remains separately quarantined from its earlier governed move.
 No quarantine payload was deleted in this pass.
@@ -109,20 +131,30 @@ No quarantine payload was deleted in this pass.
 - The Phase 9 knowledge calculation completed from the canonical private collection and its output
   was byte-identical to the tracked evidence artifact.
 - `npm run assets:verify -- --nas-root /Volumes/snowcrystal` returned `ok=true` for catalogue and
-  owner-manifest bindings. It reported three unavailable no-manifest limits and fourteen
+  owner-manifest bindings. It reported five `owner-manifest-not-declared` limits and fourteen
   payload-not-read limits; it did not claim a whole-share payload rehash.
+- Full verification of `gutcheck-generated-diagnostic-frames@2026-08-15` rehashed 434 NAS files /
+  666,233,360 bytes and matched tree SHA-256
+  `d223ded77137f5fb2bd0bdb73d40def04d2ec6df8aa3000d87ecd034774e572b`. A fresh restore into
+  ignored `out/restores/` and its independent restored-tree verifier matched the same exact set,
+  byte total, and digest. Those receipt-free commands grant no prune authority.
 - `npm run assets:audit -- --nas-root /Volumes/snowcrystal` intentionally returned nonzero with six
   bounded top-level entries: five classified and one unnamed custody item. Unsafe paths, aliases,
   links, special files, wrong kinds, and missing required roots were all zero.
 - Compatibility readers map producer-era research and generated-output locators to canonical
   collection roots. Frozen evidence and source records were not rewritten.
+- After the distinct zero-blocker correction review, exact `TMPDIR=/private/tmp npm test` exited 0:
+  130/130 test files, 2,224 passed / 7 skipped in 398.57 seconds. The 34,802-byte log SHA-256 was
+  `8a9b445af3c0db040b57ef9d7eba27e90d9d13b14812cc65e3583f961866e708`.
 
 ## Limits and remaining decisions
 
 This pass did not execute Windows `S:/`, inspect SMB ACL behavior, establish an independent backup,
 rotate or relocate the unnamed credential-custody item, or authorize quarantine deletion. It did
 not freshly rehash every large historical research payload or every previously registered
-generated row: the 710 new generated rows were hashed, while existing ledger rows retained their
-registered hashes across same-share renames. Catalogue states remain provisional where rights,
-retention, recovery, or evidence authority is unresolved; physical organization is not a
-scientific or retention verdict.
+generated row: the 710 new generated rows and all 931 correction-source rows were hashed, while
+other existing ledger rows retained their registered hashes across same-share renames. On this
+macOS SMB mount, requested owner-only control-file permissions were reported with executable owner
+bits while still excluding group/other access; effective SMB ACL semantics remain unverified.
+Catalogue states remain provisional or unavailable where rights, retention, recovery, or evidence
+authority is unresolved; physical organization is not a scientific or retention verdict.

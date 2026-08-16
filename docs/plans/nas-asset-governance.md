@@ -1,7 +1,7 @@
 # Plan — durable untracked assets and NAS governance
 
 - **Phase:** repository infrastructure; no charter phase is reopened
-- **Status:** in progress — post-close mixed-collection correction
+- **Status:** complete — post-close correction verified; maker cleanup decision pending
 - **Started:** 2026-08-15
 - **Last touched:** 2026-08-16 by OpenAI Codex GPT-5
 
@@ -279,8 +279,8 @@ The non-author review is recorded in
 [`docs/reviews/nas-asset-transaction-bootstrap-20260815.md`](../reviews/nas-asset-transaction-bootstrap-20260815.md).
 It accepted the fixture behavior but reproduced a same-credential ancestor-swap escape in the
 portable JSON writer. Bootstrap, publish, prune, and the transaction core's receipt-writing restore
-therefore remain unregistered. The separately reviewed receipt-free legacy restore is registered
-only for the four current active legacy collections and grants no production certification or
+therefore remain unregistered. At that checkpoint, the separately reviewed receipt-free legacy
+restore was registered only for the four then-active legacy collections and granted no production certification or
 deletion authority. The next forward implementation slice may expose only a workflow whose threat
 boundary, crash durability, forward/legacy dispatch, and receipt placement are explicitly reviewed.
 
@@ -293,9 +293,12 @@ descriptors, and independently re-inventory the destination's exact files, lengt
 The command emits path-free reports and says explicitly that it writes no durable receipt and grants
 no prune authority. Its non-author review is recorded in
 [`docs/reviews/nas-asset-legacy-restore-20260815.md`](../reviews/nas-asset-legacy-restore-20260815.md).
-That review also records a non-blocking scalability limit: sibling-alias checks are structurally
-quadratic for large flat directories. The large gut-check restore remains operationally unmeasured
-and must not be described as practical until it is optimized or timed on the NAS.
+That review also records the original non-blocking scalability limit: sibling-alias checks were
+structurally quadratic for large flat directories. Commit `d92f39a` replaced that scan with stable
+per-directory snapshots and revalidation whose work is independent of the flat-file count. The
+correction checkpoint physically restored the 434-file / 666,233,360-byte diagnostic collection;
+that result does not transfer to the 22,190-file / 457,429,171,007-byte generated-public collection
+or Windows `S:/`.
 
 ### Physical bootstrap and first attached audit
 
@@ -325,10 +328,10 @@ the deviation is recorded rather than treated as precedent.
 After the reviewed implementation landed as commit `b9b7b40`, the small Phase 3 compatibility
 restore and destination verifier both exited 0: 10 files / 984,164 bytes, tree SHA-256
 `73a9f672d9e803854ec8c82a2a0e0192f448989984ce30772e768b20644d3faf`
-([attached record](../nas-bootstrap-audit-20260815.md#first-physical-compatibility-restore)). The
-fresh ignored staging tree remains available for inspection. This closes only the bounded legacy
-compatibility check; it writes no durable receipt, grants no prune authority, and does not transfer
-to the operationally unmeasured large gut-check restore.
+([attached record](../nas-bootstrap-audit-20260815.md#first-physical-compatibility-restore)). That
+fresh ignored staging was disposable and is no longer present. The historical result closes only
+the bounded legacy compatibility check; it writes no durable receipt, grants no prune authority,
+and does not transfer to the operationally unmeasured generated-public restore.
 
 ### First governed collection migration
 
@@ -351,11 +354,12 @@ custody, and removed both now-empty legacy roots. No payload was permanently del
 readers translate producer-era logical paths; frozen evidence and source records remain unchanged.
 
 The exact collection, manifest, quarantine and migration-receipt aggregates are recorded in
-[`docs/nas-layout-migration-20260816.md`](../nas-layout-migration-20260816.md). The generated-output
-ledger now binds 23,225 files / 469,030,661,007 bytes at canonical collection paths. Six retained
-research selections bind 3,989 files / 3,607,599,141 bytes; final unresolved research custody binds
-73,095 files / 2,166,064,630 bytes in a private manifest. The Phase 9 knowledge calculation ran
-against the new private locator and produced bytes identical to the tracked evidence artifact.
+[`docs/nas-layout-migration-20260816.md`](../nas-layout-migration-20260816.md). At the original close,
+the generated-output ledger bound 23,225 files / 469,030,661,007 bytes at canonical collection
+paths. Six retained research selections bound 3,989 files / 3,607,599,141 bytes; unresolved research
+custody bound 73,095 files / 2,166,064,630 bytes in one private manifest. The later gutcheck
+correction and its separate quarantine batch are recorded below. The Phase 9 knowledge calculation
+ran against the new private locator and produced bytes identical to the tracked evidence artifact.
 
 The attached read-only verifier accepts every declared owner-manifest selection. The bounded audit
 sees six top-level entries, classifies five, and continues to refuse the one unnamed credential-
@@ -400,6 +404,18 @@ reviewer independently ran the focused legacy-restore boundary but did not rerun
 
 ### Post-close correction — mixed gutcheck remainder
 
+- [x] Reclassify the exact 931-row source into a disjoint and exhaustive 434/128/369 partition.
+- [x] Commit the reviewed one-time program and recovery-path hardening before physical apply.
+- [x] Apply without deletion; publish and verify the exact receipt, program, selectors, ledger,
+      catalogue, diagnostic tree, and private quarantine manifest.
+- [x] Run full physical diagnostic verification, a fresh restore, the restored-tree verifier,
+      aggregate audit, Phase 9 replay, focused tests, both typechecks, Rule 7, and diff check.
+- [x] Obtain the distinct non-author correction review required by Rule 10; record it in
+      [`nas-gutcheck-remainder-correction-20260816.md`](../reviews/nas-gutcheck-remainder-correction-20260816.md).
+- [x] Run exact `TMPDIR=/private/tmp npm test` after the correction review.
+- [ ] Ask the maker to approve or reject the exact redundant local-staging deletion list; never
+      infer that permission from NAS placement or quarantine custody.
+
 The closing claim above was reopened after an independent row-level review found that
 `gutcheck-workspace-remainder@2026-08-15` still combined generated diagnostics, redundant Git
 mirrors, and unresolved mixed/private material under one null storage class. That is physical
@@ -409,12 +425,36 @@ non-deleting: 434 files / 666,233,360 bytes move to the active generated-diagnos
 one dated private quarantine batch. The source remains 931 files / 833,991,988 bytes with tree
 SHA-256 `63e32a8ab0e3025cbba22ba8e789e65be0c283fbc8595247b21fb65b34ea7ddd`.
 
-Three reviewed apply attempts have not published a receipt. The first found a self-lock
+The first three reviewed apply attempts published no receipt. The first found a self-lock
 post-acquisition check and completed exact rollback. The second stopped before payload movement
 when macOS SMB reported timestamp-incoherent metadata for the new lock-owner file. The third
 completed its payload checks but refused `candidate-ledger-changed` after another session removed
-the active worktree during the run; exact rollback completed. These are recorded failures, not
-migration evidence. The task worktree is now registered and locked against ordinary removal.
-Next: reconstruct and commit the reviewed program and hardening unit, repeat the zero-write full
-preflight, execute the correction, then install the receipt-bound catalogue/ledger update and run
-physical restore plus the exact repository suite.
+the active worktree during the run; exact rollback completed. Those attempts are recorded failures,
+not migration evidence. The task worktree was reconstructed, registered, and locked against
+ordinary removal; commit `d92f39a` preserves the reviewed correction program and recovery-path
+hardening before physical execution.
+
+The fourth apply passed from that committed checkpoint. It moved all 931 files / 833,991,988 bytes
+without deleting payload: 434 files / 666,233,360 bytes became
+`gutcheck-generated-diagnostic-frames@2026-08-15`, and the remaining 497 files / 167,758,628 bytes
+moved to dated private quarantine. The 1,547-byte receipt has SHA-256
+`7de6caa21b04862069addc4bbd6476ba87aa8c83f42f4bd1deb697e5681ae220`; the superseded source,
+transaction staging, and lock are absent. The installed ledger is 5,165,509 bytes / SHA-256
+`aedde64bb1d01632d790fbf0d3a5ca7a3b3a594b90f3714033b48b1cfeccee05` and owns 22,728 files /
+468,862,902,379 bytes; the installed 26-collection catalogue is 70,891 bytes / SHA-256
+`b7dffe7817b1fec7cfc0ac61b77c2c20bf7cfd329bae037ffb597d60553fb31c`.
+
+Attached verification now passes for every declared owner binding. Full physical verification and
+a fresh ignored restore both matched the diagnostic collection's 434 files / 666,233,360 bytes /
+tree SHA-256 `d223ded77137f5fb2bd0bdb73d40def04d2ec6df8aa3000d87ecd034774e572b`.
+The Phase 9 calculation replay remained byte-identical at SHA-256
+`71c3c15587f1a705dbfa6ac9dd7fcb74ef5141c7547d06214d4dd64e423efee5`. The eight-file focused
+boundary passed 150/150 tests, both TypeScript projects passed, Rule 7 was clean over 1,010 files,
+and `git diff --check` passed. The bounded root audit remains intentionally nonzero solely for one
+unnamed custody entry (six entries: five classified, one unclassified; every unsafe-kind count
+zero). The distinct Rule 10 review returned zero blockers. The final exact
+`TMPDIR=/private/tmp npm test` then exited 0: 130/130 test files, 2,224 passed / 7 skipped in
+398.57 seconds. Its log is `/private/tmp/npm-test-nas-remainder-correction-20260816.log`, 34,802
+bytes, SHA-256 `8a9b445af3c0db040b57ef9d7eba27e90d9d13b14812cc65e3583f961866e708`.
+The repository correction is complete; request approval before removing the exact redundant local
+staging paths. No NAS or quarantine deletion is authorized.

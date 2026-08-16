@@ -17,7 +17,9 @@ Read this before concluding that something is lost.
 | Full research media cache | 2,477 registered media · 2,013,534,785 bytes | **no** — hashes/indexes only | Private collection `collections/research-private-freeze/2026-08-11/payload/`; all media-inventory rows are within its 3,778-file owner manifest. |
 | 2026-08-15 Mac-local research snapshot | 2,974 files · 1,166,728,510 logical bytes | no | Private collection `collections/research-mac-snapshot/2026-08-15/payload/`; complete for the former Mac subset, not the full media inventory. |
 | Gut-check generated assets | 22,190 files · 457,429,171,007 bytes | no | Public generated collection `collections/gutcheck-generated-public/2026-08-15/payload/`, owned by `docs/nas-ledger.json`. Only `large/` and `gen/renders/` are served. |
-| Gut-check retained workspace layer | 931 files · 833,991,988 bytes | no | Non-served provisional collection `collections/gutcheck-workspace-remainder/2026-08-15/payload/`; retain for classification, never infer serving or pruning from its old `out/` shape. |
+| Gut-check generated diagnostic frames | 434 files · 666,233,360 bytes | no | Active non-served generated-cache collection `collections/gutcheck-generated-diagnostic-frames/2026-08-15/payload/`, owned by `docs/nas-ledger.json`. |
+| Gut-check redundant Git-record mirrors | 128 files · 174,537 bytes | no | Catalogue disposition `gutcheck-git-record-mirrors@2026-08-15` is unavailable; bytes are preserved in the dated private gutcheck quarantine batch, while tracked Git records remain authoritative. |
+| Gut-check unresolved remainder | 369 files · 167,584,091 bytes | no | Catalogue disposition `gutcheck-workspace-remainder@2026-08-15` is unavailable; mixed/private bytes are preserved in the same dated quarantine batch pending classification or maker-approved disposal. |
 | `out/gutcheck-gg-realism/site/` | ~6 GB | no | Regenerate: `node scripts/gutcheck-build-site.ts` (~5 s). |
 | `out/gutcheck-gg-realism/large/anim-B-v2q/` | ~6.6 GB | no | Regenerate: `gutcheck-mesh-quantize.ts --manifest .../anim-B/manifest.json` (~25 s). |
 | `out/gutcheck-gg-realism/large/gen/`, `large/anim/` | grows | no | Regenerate from the **tracked** specs: `node scripts/gutcheck-grow-batch.mjs`. |
@@ -176,14 +178,22 @@ payload hash of one registered NAS collection; it can be expensive and verifies 
 not a restored destination. Restore one active legacy collection only into a fresh path below
 `out/restores/`, then independently verify that destination:
 
-The reviewed `.snowflake-nas.json` marker and empty `_control/` skeleton are installed on the
-physical share, and attached owner-manifest verification passed. After commit `b9b7b40`, the first
-physical compatibility restore and destination verification both passed for the registered Phase 3
+The reviewed `.snowflake-nas.json` marker and `_control/` skeleton are installed on the physical
+share, and attached owner-manifest verification passed. After commit `b9b7b40`, the first physical
+compatibility restore and destination verification both passed for the registered Phase 3
 collection: 10 files / 984,164 bytes, tree SHA-256
 `73a9f672d9e803854ec8c82a2a0e0192f448989984ce30772e768b20644d3faf`
-([record](nas-bootstrap-audit-20260815.md#first-physical-compatibility-restore)). Its fresh ignored
-staging tree remains available for inspection. This small result does not make the operationally
-unmeasured large gut-check restore practical.
+([record](nas-bootstrap-audit-20260815.md#first-physical-compatibility-restore)).
+
+The restore implementation now snapshots and revalidates each sibling namespace a bounded number
+of times per directory, independent of the flat-file count.
+After the gutcheck remainder correction, a fresh physical macOS restore and independent
+destination verification passed for `gutcheck-generated-diagnostic-frames@2026-08-15`: 434 files /
+666,233,360 bytes, tree SHA-256
+`d223ded77137f5fb2bd0bdb73d40def04d2ec6df8aa3000d87ecd034774e572b`. The diagnostic staging
+tree remains at `out/restores/gutcheck-generated-diagnostic-frames-2026-08-15-correction` until
+its exact cleanup is separately approved; the historical Phase 3 staging is absent. This
+demonstrates the corrected 666 MB collection, not the 457 GB generated-public collection.
 
 ```bash
 npm run assets:restore -- \
@@ -192,6 +202,14 @@ npm run assets:restore -- \
 npm run assets:verify-restored -- \
   --collection earlier-phase3-visual@2026-08-01 \
   --from out/restores/earlier-phase3-visual-2026-08-01
+
+# Exact path used for the 2026-08-16 diagnostic recovery proof:
+npm run assets:restore -- \
+  --collection gutcheck-generated-diagnostic-frames@2026-08-15 \
+  --to out/restores/gutcheck-generated-diagnostic-frames-2026-08-15-correction
+npm run assets:verify-restored -- \
+  --collection gutcheck-generated-diagnostic-frames@2026-08-15 \
+  --from out/restores/gutcheck-generated-diagnostic-frames-2026-08-15-correction
 ```
 
 Both commands bind the exact catalogue version and owner-manifest selection. Restore refuses an
@@ -204,10 +222,9 @@ paths. This legacy compatibility path writes no durable publication/restore rece
 prune authority. Raw `rsync --ignore-existing` and raw archive extraction remain ungoverned because
 they can merge stale and new trees and skip exact-set validation.
 
-The current alias checks rescan sibling names and are structurally quadratic for a large flat
-directory. The small first restore is reviewed, but a large gut-check restore has not been timed on
-the NAS and must not be treated as an operationally practical recovery path until that scan is
-optimized or measured. Exact reviewer measurements and limits are recorded in
+The former structurally quadratic alias scan and its synthetic measurements remain useful history;
+the implementation has since been replaced with directory-level namespace scans and adversarial
+coverage. The exact reviewer record and its post-correction addendum are in
 [`docs/reviews/nas-asset-legacy-restore-20260815.md`](reviews/nas-asset-legacy-restore-20260815.md).
 
 New packs use immutable content-addressed names; restore also accepts the 11 legacy

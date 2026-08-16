@@ -182,8 +182,8 @@ and every superseded attempt live in the linked plans and historical progress sn
 The older [proposed consumer plan](plans/phase-9-modular-physics-arms.md) is superseded design
 history, not execution authority. Decisions 0046–0050 keep worktrees, processes, artifacts, claims,
 and completion credit isolated.
-[nas-asset-governance.md](plans/nas-asset-governance.md) is active again for the exact post-close
-gutcheck mixed-collection correction; it changes no phase claim or credit.
+[nas-asset-governance.md](plans/nas-asset-governance.md) is a completed infrastructure record; its
+correction changes no phase claim or credit.
 
 Before any production row, the repository must have reviewed source-derived physical-size strata, a
 pre-registered and executed numerical-control ladder that selects one configuration or no-pass, an
@@ -226,19 +226,13 @@ audit. Broad discovery and the residual backlog remain stopped absent a new name
 measurement gap; Phase 9 S0B is bounded reconciliation of already registered complete Git/NAS
 sources. All 51 Phase 8B records are development evidence and none may be relabeled held out.
 
-### NAS asset governance — post-close correction active
+### NAS asset governance — correction complete; cleanup approval pending
 
-The standard layout is live and legacy top-level roots remain absent, but row-level review found
-the 931-file `gutcheck-workspace-remainder@2026-08-15` collection still mixes generated,
-Git-redundant, and unresolved material contrary to ADR 0051. Three correction attempts published no
-receipt and left the exact original source restored; the latest refusal occurred because a
-concurrent session removed its worktree. Resume only from the locked
-`/private/tmp/snowflake-nas-close.pDab87` worktree and
-[active plan](plans/nas-asset-governance.md): reconstruct and commit the reviewed correction,
-then rerun its zero-write preflight before applying. Do not call the workstream closed until the
-new receipt, catalogue/ledger bindings, full collection verification, fresh restore, closing
-review, and exact suite pass. Credential custody, Windows `S:/`, and independent backup remain
-external follow-ups; the root audit remains nonzero.
+`d92f39a` applied without deletion: diagnostics are 434 files / 666,233,360 bytes; quarantine holds
+497 / 167,758,628; receipt is `7de6caa2…220`. Full hash, fresh restore, and Rule 10 review passed.
+`TMPDIR=/private/tmp npm test` passed 130 files / 2,224 passed / 7 skipped in
+398.57 s (log `8a9b445a…e708`). Publish, then request exact cleanup approval. Windows/SMB, backup,
+custody, and disposal remain out of scope.
 
 Related record: two rejected D-BT candidates (10 files / 85,153 bytes) are preserved on NAS;
 14 post-freeze payloads are logged in
