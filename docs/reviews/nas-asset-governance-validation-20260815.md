@@ -2,7 +2,8 @@
 
 - **Date:** 2026-08-15
 - **Runner:** coordinator/developer session on macOS
-- **Scope:** final pre-commit code, catalogue, policy, bootstrap, and legacy-restore unit
+- **Scope:** final pre-commit code, catalogue, policy, bootstrap, legacy-restore unit, and first
+  physical compatibility-restore record
 
 ## Combined governance boundary
 
@@ -19,19 +20,19 @@ Rule 7 was clean over 1,006 scanned files.
 
 ## Exact repository suite
 
-The required macOS command ran after the final executable, test, catalogue, and operational-doc
-repairs:
+The required macOS command ran again after the physical compatibility-restore record, catalogue
+re-pin, and independent review:
 
 ```text
 TMPDIR=/private/tmp npm test
 ```
 
 It exited 0. Rule 7 was clean over 1,006 files; both typechecks passed; Vitest reported 129 test
-files passed, 2,209 tests passed, 7 skipped, and duration 415.63 seconds. The process started at
-17:44:55 local time. No suite result was inferred from a focused command. An earlier green run
-predated the final ledger/catalogue corrections, and another attempt was stopped after concurrent
-working-tree edits were detected; neither superseded run supplies this result. The cited run used
-the isolated immutable governance worktree.
+files passed, 2,209 tests passed, 7 skipped, and duration 419.73 seconds. The process started at
+18:03:51 local time. No suite result was inferred from a focused command. The earlier 415.63-second
+green run established the implementation baseline but preceded the compatibility-restore record;
+other earlier or interrupted runs do not supply this final result. The cited run used the isolated
+governance worktree.
 
 ## Closing review provenance and limits
 

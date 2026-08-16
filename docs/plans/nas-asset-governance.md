@@ -296,10 +296,13 @@ committed, although the code bytes and focused controls had completed review. Th
 planned clean-commit sequencing precondition. The post-apply checks found no payload mutation, but
 the deviation is recorded rather than treated as precedent.
 
-The planned small Phase 3 compatibility restore has not run: final pre-commit inspection found no
-staging tree in any registered worktree, and `assets:verify-restored` failed closed with
-`destination-invalid`. Commit this reviewed implementation unit before running that restore, and
-retain the resulting ignored staging tree for inspection.
+After the reviewed implementation landed as commit `b9b7b40`, the small Phase 3 compatibility
+restore and destination verifier both exited 0: 10 files / 984,164 bytes, tree SHA-256
+`73a9f672d9e803854ec8c82a2a0e0192f448989984ce30772e768b20644d3faf`
+([attached record](../nas-bootstrap-audit-20260815.md#first-physical-compatibility-restore)). The
+fresh ignored staging tree remains available for inspection. This closes only the bounded legacy
+compatibility check; it writes no durable receipt, grants no prune authority, and does not transfer
+to the operationally unmeasured large gut-check restore.
 
 The final combined boundary and exact repository suite are recorded in
 [`docs/reviews/nas-asset-governance-validation-20260815.md`](../reviews/nas-asset-governance-validation-20260815.md).

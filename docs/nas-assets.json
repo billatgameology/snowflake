@@ -954,8 +954,8 @@
         "storage": "tracked",
         "path": "docs/local-assets.md",
         "format": "local-assets-documentation-v1",
-        "bytes": 12657,
-        "sha256": "f9300d232a19c10eb4403fc5bf0c0fbc6352cbc37a1fd2734fe6fee3115bf970",
+        "bytes": 12912,
+        "sha256": "d43877209f24f91944cc42a0a8edb43278405b1fe684adb02d858685b70c88e7",
         "selector": {
           "kind": "documented-only",
           "record": "docs/local-assets.md"

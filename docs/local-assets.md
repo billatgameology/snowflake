@@ -124,10 +124,13 @@ not a restored destination. Restore one active legacy collection only into a fre
 `out/restores/`, then independently verify that destination:
 
 The reviewed `.snowflake-nas.json` marker and empty `_control/` skeleton are installed on the
-physical share, and attached owner-manifest verification passed. The first physical compatibility
-restore remains pending until this implementation unit is committed; run the small registered
-Phase 3 collection first, retain its staging tree, and record the result before attempting a larger
-collection.
+physical share, and attached owner-manifest verification passed. After commit `b9b7b40`, the first
+physical compatibility restore and destination verification both passed for the registered Phase 3
+collection: 10 files / 984,164 bytes, tree SHA-256
+`73a9f672d9e803854ec8c82a2a0e0192f448989984ce30772e768b20644d3faf`
+([record](nas-bootstrap-audit-20260815.md#first-physical-compatibility-restore)). Its fresh ignored
+staging tree remains available for inspection. This small result does not make the operationally
+unmeasured large gut-check restore practical.
 
 ```bash
 npm run assets:restore -- \

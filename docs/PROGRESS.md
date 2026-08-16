@@ -227,9 +227,9 @@ sources. All 51 Phase 8B records are development evidence and none may be relabe
 
 ### NAS asset governance — active
 
-ADR 0051/Rule 15 govern ignored `research/`/`out/` staging. Marker/controls are installed; manifest
-checks pass; audit has one unnamed custody item. Receipt-free legacy restore is reviewed. Exact
-`TMPDIR=/private/tmp npm test` passed
-([record](reviews/nas-asset-governance-validation-20260815.md)). Next: commit, then
-[restore Phase 3](local-assets.md#verifying-restoring-and-updating). Open: provisional scopes,
-transactions, Windows/ACL, backup, and custody.
+ADR 0051/Rule 15 govern staging. Marker/manifests pass; one custody item keeps audit red.
+[Review and suite](reviews/nas-asset-governance-validation-20260815.md) pass. Phase 3 restored and
+verified 10 files / 984,164 B
+([record](nas-bootstrap-audit-20260815.md#first-physical-compatibility-restore)). Next: optimize
+[alias scans](../scripts/nas-asset-legacy-restore-lib.ts), then run
+`TMPDIR=/private/tmp npx vitest run runner/test/nas-asset-legacy-restore.test.ts`.

@@ -100,10 +100,12 @@ active catalogue version, copies only owner-manifest rows into a fresh destinati
 `out/restores/`, and verifies the restored set, lengths, and digests:
 
 The reviewed `.snowflake-nas.json` marker and empty `_control/` skeleton are installed on the
-physical share, and attached owner-manifest verification passed. The first physical compatibility
-restore remains pending until this implementation unit is committed; the registered Phase 3
-collection below is the bounded first target, and its local staging tree must be retained for
-inspection.
+physical share, and attached owner-manifest verification passed. After commit `b9b7b40`, the
+registered Phase 3 collection below restored and independently verified 10 files / 984,164 bytes
+with tree SHA-256
+`73a9f672d9e803854ec8c82a2a0e0192f448989984ce30772e768b20644d3faf`;
+the fresh ignored staging tree remains available for inspection. This is a bounded compatibility
+result, not a durable receipt, prune authorization, or large-restore performance result.
 
 ```bash
 npm run assets:restore -- \

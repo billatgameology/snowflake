@@ -41,9 +41,37 @@ for one catalogue-approved generated file, 206 and 10 bytes for its requested ra
 zero response bytes for both a private collection root and an unknown root. The server was then
 stopped; no payload was modified.
 
+## First physical compatibility restore
+
+After the reviewed implementation landed as commit `b9b7b40`, the coordinator ran the exact
+operator commands from `docs/local-assets.md` against the marked macOS share:
+
+```text
+npm run assets:restore -- --collection earlier-phase3-visual@2026-08-01 --to out/restores/earlier-phase3-visual-2026-08-01
+npm run assets:verify-restored -- --collection earlier-phase3-visual@2026-08-01 --from out/restores/earlier-phase3-visual-2026-08-01
+```
+
+Both exited 0 and independently reported 10 files / 984,164 bytes with tree SHA-256
+`73a9f672d9e803854ec8c82a2a0e0192f448989984ce30772e768b20644d3faf`.
+The fresh ignored staging tree was retained for inspection. Both reports explicitly state
+`durableReceiptWritten: false` and `pruneAuthorized: false`; the result verifies only this local
+compatibility staging tree. The commands read selected NAS payloads but wrote, moved, and deleted
+nothing on the share.
+
 ## Limits
 
-The manifest/audit commands did not hash collection payloads, and the first physical compatibility
-restore remains pending. No NAS payload was moved, mutated, or deleted. No command inspected
-effective server ACLs, executed Windows `S:/`, validated an independent backup, rotated a
-credential, or authorized publication, garbage collection, or pruning.
+The manifest/audit commands did not hash collection payloads, and the compatibility restore hashed
+only its ten selected Phase 3 files. No NAS payload was moved, mutated, or deleted. No command
+inspected effective server ACLs, executed Windows `S:/`, validated an independent backup, rotated
+a credential, or authorized publication, garbage collection, or pruning.
+
+## Compatibility-restore review
+
+OpenAI Codex GPT-5 reviewed the retained Phase 3 staging tree as a non-author agent with shared
+coordinator/developer context. The reviewer independently re-derived the committed owner selection,
+recomputed the exact 10-file / 984,164-byte inventory and tree SHA-256
+`73a9f672d9e803854ec8c82a2a0e0192f448989984ce30772e768b20644d3faf`, and found no symlinks,
+special files, hard links, or case/Unicode aliases. Rule 7, focused catalogue/progress tests, and the
+staged diff check also passed. The reviewer did not access the NAS or observe the original command
+exits, run the full suite, inspect Windows/SMB/ACL behavior, validate backups or credential custody,
+or authorize any receipt or prune operation.
