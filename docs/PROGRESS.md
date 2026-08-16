@@ -181,8 +181,8 @@ and every superseded attempt live in the linked plans and historical progress sn
 The older [proposed consumer plan](plans/phase-9-modular-physics-arms.md) is superseded design
 history, not execution authority. Decisions 0046–0050 keep worktrees, processes, artifacts, claims,
 and completion credit isolated.
-[nas-asset-governance.md](plans/nas-asset-governance.md) is a completed storage-maintenance record;
-it changed no phase claim or credit.
+[nas-asset-governance.md](plans/nas-asset-governance.md) is active again for the exact post-close
+gutcheck mixed-collection correction; it changes no phase claim or credit.
 
 Before any production row, the repository must have reviewed source-derived physical-size strata, a
 pre-registered and executed numerical-control ladder that selects one configuration or no-pass, an
@@ -225,9 +225,16 @@ audit. Broad discovery and the residual backlog remain stopped absent a new name
 measurement gap; Phase 9 S0B is bounded reconciliation of already registered complete Git/NAS
 sources. All 51 Phase 8B records are development evidence and none may be relabeled held out.
 
-### NAS asset governance — complete (macOS layout)
+### NAS asset governance — post-close correction active
 
-All retained project payloads live under `collections/**`; unresolved research is under `_control/**`;
-legacy roots are absent. The [migration record](nas-layout-migration-20260816.md) and `AGENTS.md`
-Rules 15–16 bind retention and one-task worktree cleanup. Credential custody, Windows `S:/`, and
-independent backup remain external follow-ups; the root audit remains nonzero.
+The standard layout is live and legacy top-level roots remain absent, but row-level review found
+the 931-file `gutcheck-workspace-remainder@2026-08-15` collection still mixes generated,
+Git-redundant, and unresolved material contrary to ADR 0051. Three correction attempts published no
+receipt and left the exact original source restored; the latest refusal occurred because a
+concurrent session removed its worktree. Resume only from the locked
+`/private/tmp/snowflake-nas-close.pDab87` worktree and
+[active plan](plans/nas-asset-governance.md): reconstruct and commit the reviewed correction,
+then rerun its zero-write preflight before applying. Do not call the workstream closed until the
+new receipt, catalogue/ledger bindings, full collection verification, fresh restore, closing
+review, and exact suite pass. Credential custody, Windows `S:/`, and independent backup remain
+external follow-ups; the root audit remains nonzero.

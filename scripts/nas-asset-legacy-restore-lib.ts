@@ -92,6 +92,11 @@ export interface NasLegacyRestoreHooks {
     readonly relativePath: string;
     readonly fileIndex: number;
   }) => void;
+  /** Test/instrumentation hook. Counts every namespace read performed directly by this module. */
+  readonly afterDirectoryAliasScan?: (context: {
+    readonly scope: "source" | "destination";
+    readonly phase: "sibling-check" | "capture" | "revalidate" | "shape";
+  }) => void;
   /** Test/fault hook. Production callers leave this unset. */
   readonly beforeDestinationVerification?: (destinationPath: string) => void;
 }
@@ -114,7 +119,10 @@ export interface NasLegacyVerifyOptions {
   readonly repoRoot: string;
   readonly shareRoot: string;
   readonly destinationPath: string;
-  readonly hooks?: Pick<NasLegacyRestoreHooks, "beforeDestinationVerification">;
+  readonly hooks?: Pick<
+    NasLegacyRestoreHooks,
+    "beforeDestinationVerification" | "afterDirectoryAliasScan"
+  >;
 }
 
 export interface NasLegacyRestoreSuccessReport {
@@ -145,6 +153,18 @@ interface RestoreContext {
   readonly selection: BoundCollectionSelectionV1;
   readonly destination: string;
   readonly destinationRelative: string;
+}
+
+interface AliasDirectorySnapshot {
+  readonly binding: DirectoryBinding;
+  readonly objectIdentity: string;
+  readonly names: readonly string[];
+  readonly namesByCollisionKey: ReadonlyMap<string, string | null>;
+}
+
+interface OwnedDestinationDirectory {
+  readonly binding: DirectoryBinding;
+  readonly namesByCollisionKey: Map<string, string>;
 }
 
 const fail = (
@@ -237,6 +257,7 @@ const exactSiblingState = (
   name: string,
   code: NasLegacyRestoreErrorCode,
   destinationReserved = false,
+  hooks: Pick<NasLegacyRestoreHooks, "afterDirectoryAliasScan"> | undefined,
 ): "absent" | "exact" => {
   const key = portableSharePathCollisionKey(name);
   let matches: string[];
@@ -245,12 +266,173 @@ const exactSiblingState = (
   } catch {
     return fail(code, "directory contents cannot be read safely", destinationReserved);
   }
+  hooks?.afterDirectoryAliasScan?.({ scope: "destination", phase: "sibling-check" });
   if (matches.length === 0) return "absent";
   if (matches.length !== 1 || matches[0] !== name) {
     return fail(code, "a case or Unicode path alias exists", destinationReserved);
   }
   return "exact";
 };
+
+const readAliasDirectoryNames = (
+  directory: string,
+  scope: "source" | "destination",
+  phase: "capture" | "revalidate",
+  hooks: Pick<NasLegacyRestoreHooks, "afterDirectoryAliasScan"> | undefined,
+  code: NasLegacyRestoreErrorCode,
+  destinationReserved: boolean,
+): readonly string[] => {
+  let names: string[];
+  try {
+    names = readdirSync(directory).sort();
+  } catch {
+    return fail(code, "directory contents cannot be snapshotted safely", destinationReserved);
+  }
+  hooks?.afterDirectoryAliasScan?.({ scope, phase });
+  return names;
+};
+
+const aliasNameMap = (names: readonly string[]): ReadonlyMap<string, string | null> => {
+  const result = new Map<string, string | null>();
+  for (const name of names) {
+    const key = portableSharePathCollisionKey(name);
+    const prior = result.get(key);
+    if (prior === undefined) result.set(key, name);
+    else if (prior !== name) result.set(key, null);
+  }
+  return result;
+};
+
+const sameNames = (left: readonly string[], right: readonly string[]): boolean =>
+  left.length === right.length && left.every((name, index) => name === right[index]);
+
+const stableAliasDirectorySnapshot = (
+  root: DirectoryBinding,
+  directory: string,
+  scope: "source" | "destination",
+  phase: "capture" | "revalidate",
+  hooks: Pick<NasLegacyRestoreHooks, "afterDirectoryAliasScan"> | undefined,
+  code: NasLegacyRestoreErrorCode,
+  destinationReserved: boolean,
+): AliasDirectorySnapshot => {
+  assertDirectoryBinding(root, code, "bound root", destinationReserved);
+  let before: Stats;
+  let real: string;
+  try {
+    before = lstatSync(directory);
+    real = realpathSync.native(directory);
+  } catch {
+    return fail(code, "directory cannot be snapshotted safely", destinationReserved);
+  }
+  if (
+    !before.isDirectory() ||
+    before.isSymbolicLink() ||
+    real !== directory ||
+    !pathIsWithin(root.path, real)
+  ) {
+    return fail(code, "directory snapshot escapes its bound root", destinationReserved);
+  }
+  const firstNames = readAliasDirectoryNames(directory, scope, phase, hooks, code, destinationReserved);
+  const finalNames = readAliasDirectoryNames(directory, scope, phase, hooks, code, destinationReserved);
+  let after: Stats;
+  try {
+    after = lstatSync(directory);
+  } catch {
+    return fail(code, "directory disappeared during snapshot", destinationReserved);
+  }
+  if (
+    statObjectIdentity(before) !== statObjectIdentity(after) ||
+    !sameNames(firstNames, finalNames)
+  ) {
+    return fail(code, "directory mutated during alias snapshot", destinationReserved);
+  }
+  return {
+    binding: { path: directory, dev: after.dev, ino: after.ino, mode: after.mode },
+    objectIdentity: statObjectIdentity(after),
+    names: finalNames,
+    namesByCollisionKey: aliasNameMap(finalNames),
+  };
+};
+
+class SourceAliasSnapshots {
+  readonly #share: DirectoryBinding;
+  readonly #hooks: NasLegacyRestoreHooks | undefined;
+  readonly #byDirectory = new Map<string, AliasDirectorySnapshot>();
+
+  constructor(share: DirectoryBinding, hooks: NasLegacyRestoreHooks | undefined) {
+    this.#share = share;
+    this.#hooks = hooks;
+  }
+
+  #snapshot(directory: string): AliasDirectorySnapshot {
+    const cached = this.#byDirectory.get(directory);
+    if (cached !== undefined) {
+      assertDirectoryBinding(cached.binding, "source-missing-or-unsafe", "selected source directory", true);
+      return cached;
+    }
+    const captured = stableAliasDirectorySnapshot(
+      this.#share,
+      directory,
+      "source",
+      "capture",
+      this.#hooks,
+      "source-missing-or-unsafe",
+      true,
+    );
+    this.#byDirectory.set(directory, captured);
+    return captured;
+  }
+
+  assertExactFile(sharePath: string): void {
+    let current = this.#share.path;
+    const parts = sharePath.split("/");
+    for (let index = 0; index < parts.length; index += 1) {
+      assertDirectoryBinding(this.#share, "share-invalid", "marked project share", true);
+      const part = parts[index] as string;
+      const snapshot = this.#snapshot(current);
+      const match = snapshot.namesByCollisionKey.get(portableSharePathCollisionKey(part));
+      if (match === undefined) {
+        return fail("source-missing-or-unsafe", "selected source path is absent", true);
+      }
+      if (match === null || match !== part) {
+        return fail("source-missing-or-unsafe", "selected source path has a case or Unicode alias", true);
+      }
+      current = resolve(current, part);
+      let status: Stats;
+      try {
+        status = lstatSync(current);
+      } catch {
+        return fail("source-missing-or-unsafe", "selected source path disappeared", true);
+      }
+      if (status.isSymbolicLink()) {
+        return fail("source-missing-or-unsafe", "selected source path contains a symbolic link", true);
+      }
+      if (index < parts.length - 1 && !status.isDirectory()) {
+        return fail("source-missing-or-unsafe", "selected source ancestor is not a directory", true);
+      }
+      if (index === parts.length - 1 && (!status.isFile() || status.nlink !== 1)) {
+        return fail("source-missing-or-unsafe", "selected source is not one ordinary unlinked file", true);
+      }
+    }
+  }
+
+  revalidate(): void {
+    for (const [directory, captured] of this.#byDirectory) {
+      const current = stableAliasDirectorySnapshot(
+        this.#share,
+        directory,
+        "source",
+        "revalidate",
+        this.#hooks,
+        "source-missing-or-unsafe",
+        true,
+      );
+      if (current.objectIdentity !== captured.objectIdentity || !sameNames(current.names, captured.names)) {
+        return fail("source-missing-or-unsafe", "selected source namespace changed during restore", true);
+      }
+    }
+  }
+}
 
 const destinationRelativePath = (repoRoot: string, destinationPath: string): string => {
   const absolute = resolve(destinationPath);
@@ -278,12 +460,13 @@ const destinationRelativePath = (repoRoot: string, destinationPath: string): str
 const createOrValidateParent = (
   repo: DirectoryBinding,
   destinationRelative: string,
+  hooks: Pick<NasLegacyRestoreHooks, "afterDirectoryAliasScan"> | undefined,
 ): DirectoryBinding => {
   const parts = destinationRelative.split("/");
   let current = repo.path;
   for (const part of parts.slice(0, -1)) {
     assertDirectoryBinding(repo, "destination-unsafe", "repository root");
-    const state = exactSiblingState(current, part, "destination-unsafe");
+    const state = exactSiblingState(current, part, "destination-unsafe", false, hooks);
     const child = resolve(current, part);
     if (state === "absent") {
       try {
@@ -311,11 +494,12 @@ const assertExactExistingRelativeDirectory = (
   relativePath: string,
   code: NasLegacyRestoreErrorCode,
   destinationReserved = false,
+  hooks: Pick<NasLegacyRestoreHooks, "afterDirectoryAliasScan"> | undefined,
 ): DirectoryBinding => {
   let current = root.path;
   for (const part of relativePath.split("/").filter((entry) => entry !== "")) {
     assertDirectoryBinding(root, code, "bound root", destinationReserved);
-    if (exactSiblingState(current, part, code, destinationReserved) !== "exact") {
+    if (exactSiblingState(current, part, code, destinationReserved, hooks) !== "exact") {
       return fail(code, "required directory is absent", destinationReserved);
     }
     current = resolve(current, part);
@@ -338,9 +522,9 @@ const reserveDestination = (
   destinationRelative: string,
   hooks: NasLegacyRestoreHooks | undefined,
 ): DirectoryBinding => {
-  const parent = createOrValidateParent(repo, destinationRelative);
+  const parent = createOrValidateParent(repo, destinationRelative, hooks);
   const name = destinationRelative.split("/").at(-1) as string;
-  if (exactSiblingState(parent.path, name, "destination-collision") !== "absent") {
+  if (exactSiblingState(parent.path, name, "destination-collision", false, hooks) !== "absent") {
     return fail("destination-collision", "restore destination already exists");
   }
   hooks?.beforeDestinationReservation?.();
@@ -350,6 +534,8 @@ const reserveDestination = (
     repo,
     parentRelative === "." ? "" : parentRelative,
     "destination-unsafe",
+    false,
+    hooks,
   );
   if (
     reboundParent.dev !== parent.dev ||
@@ -358,7 +544,7 @@ const reserveDestination = (
   ) {
     return fail("destination-unsafe", "restore destination parent changed before reservation");
   }
-  if (exactSiblingState(parent.path, name, "destination-collision") !== "absent") {
+  if (exactSiblingState(parent.path, name, "destination-collision", false, hooks) !== "absent") {
     return fail("destination-collision", "restore destination appeared before reservation");
   }
   try {
@@ -440,68 +626,131 @@ const prepareContext = (
   return { repo, share, selection, destination, destinationRelative };
 };
 
-const assertExactSourcePath = (
-  share: DirectoryBinding,
-  sharePath: string,
-): void => {
-  let current = share.path;
-  const parts = sharePath.split("/");
-  for (let index = 0; index < parts.length; index += 1) {
-    assertDirectoryBinding(share, "share-invalid", "marked project share", true);
-    const part = parts[index] as string;
-    if (exactSiblingState(current, part, "source-missing-or-unsafe", true) !== "exact") {
-      return fail("source-missing-or-unsafe", "selected source path is absent", true);
-    }
-    current = resolve(current, part);
-    const status = lstatSync(current);
-    if (status.isSymbolicLink()) {
-      return fail("source-missing-or-unsafe", "selected source path contains a symbolic link", true);
-    }
-    if (index < parts.length - 1 && !status.isDirectory()) {
-      return fail("source-missing-or-unsafe", "selected source ancestor is not a directory", true);
-    }
-    if (index === parts.length - 1 && (!status.isFile() || status.nlink !== 1)) {
-      return fail("source-missing-or-unsafe", "selected source is not one ordinary unlinked file", true);
-    }
-  }
-};
+class OwnedDestinationNamespace {
+  readonly #root: DirectoryBinding;
+  readonly #hooks: NasLegacyRestoreHooks | undefined;
+  readonly #directories = new Map<string, OwnedDestinationDirectory>();
 
-const ensureOwnedDestinationParent = (
-  destinationRoot: DirectoryBinding,
-  relativePath: string,
-): string => {
-  const parentPortable = dirname(relativePath).split(sep).join("/");
-  if (parentPortable === ".") return destinationRoot.path;
-  let current = destinationRoot.path;
-  for (const part of parentPortable.split("/")) {
-    assertDirectoryBinding(destinationRoot, "destination-unsafe", "reserved destination", true);
-    const state = exactSiblingState(current, part, "destination-unsafe", true);
-    const child = resolve(current, part);
-    if (state === "absent") {
-      try {
-        mkdirSync(child, { mode: 0o700 });
-      } catch {
-        return fail("destination-unsafe", "destination subdirectory could not be created", true);
-      }
+  constructor(root: DirectoryBinding, hooks: NasLegacyRestoreHooks | undefined) {
+    this.#root = root;
+    this.#hooks = hooks;
+    const initial = stableAliasDirectorySnapshot(
+      root,
+      root.path,
+      "destination",
+      "capture",
+      hooks,
+      "destination-unsafe",
+      true,
+    );
+    if (initial.names.length !== 0) {
+      fail("destination-collision", "fresh restore destination was populated before copy", true);
     }
-    const status = lstatSync(child);
-    if (!status.isDirectory() || status.isSymbolicLink() || realpathSync.native(child) !== child) {
-      return fail("destination-unsafe", "destination subdirectory is unsafe", true);
-    }
-    current = child;
+    this.#directories.set("", { binding: initial.binding, namesByCollisionKey: new Map() });
   }
-  return current;
-};
+
+  #ensureParent(relativePath: string): OwnedDestinationDirectory {
+    const parentPortable = dirname(relativePath).split(sep).join("/");
+    if (parentPortable === ".") return this.#directories.get("") as OwnedDestinationDirectory;
+    let currentPortable = "";
+    let current = this.#directories.get("") as OwnedDestinationDirectory;
+    for (const part of parentPortable.split("/")) {
+      assertDirectoryBinding(this.#root, "destination-unsafe", "reserved destination", true);
+      assertDirectoryBinding(current.binding, "destination-unsafe", "owned destination directory", true);
+      const key = portableSharePathCollisionKey(part);
+      const prior = current.namesByCollisionKey.get(key);
+      if (prior !== undefined && prior !== part) {
+        return fail("destination-unsafe", "destination subdirectory has a case or Unicode alias", true);
+      }
+      const childPortable = currentPortable === "" ? part : `${currentPortable}/${part}`;
+      let child = this.#directories.get(childPortable);
+      if (child === undefined) {
+        if (prior !== undefined) {
+          return fail("destination-unsafe", "destination namespace ownership is inconsistent", true);
+        }
+        const childPath = resolve(current.binding.path, part);
+        if (!pathIsWithin(this.#root.path, childPath)) {
+          return fail("destination-unsafe", "destination subdirectory escapes the reserved root", true);
+        }
+        try {
+          mkdirSync(childPath, { mode: 0o700 });
+        } catch {
+          return fail("destination-unsafe", "destination subdirectory could not be created exclusively", true);
+        }
+        const captured = stableAliasDirectorySnapshot(
+          this.#root,
+          childPath,
+          "destination",
+          "capture",
+          this.#hooks,
+          "destination-unsafe",
+          true,
+        );
+        if (captured.names.length !== 0) {
+          return fail("destination-unsafe", "new destination subdirectory was populated during creation", true);
+        }
+        child = { binding: captured.binding, namesByCollisionKey: new Map() };
+        current.namesByCollisionKey.set(key, part);
+        this.#directories.set(childPortable, child);
+      }
+      currentPortable = childPortable;
+      current = child;
+    }
+    return current;
+  }
+
+  createFile(relativePath: string): { readonly fd: number; readonly target: string } {
+    const parent = this.#ensureParent(relativePath);
+    assertDirectoryBinding(this.#root, "destination-unsafe", "reserved destination", true);
+    assertDirectoryBinding(parent.binding, "destination-unsafe", "owned destination directory", true);
+    const name = relativePath.split("/").at(-1) as string;
+    const key = portableSharePathCollisionKey(name);
+    const prior = parent.namesByCollisionKey.get(key);
+    if (prior !== undefined) {
+      return fail(
+        prior === name ? "destination-collision" : "destination-unsafe",
+        "destination file name is already owned or aliased",
+        true,
+      );
+    }
+    const target = resolve(parent.binding.path, name);
+    if (!pathIsWithin(this.#root.path, target)) {
+      return fail("destination-unsafe", "destination file escapes the reserved root", true);
+    }
+    let fd: number;
+    try {
+      fd = openSync(
+        target,
+        constants.O_CREAT |
+          constants.O_EXCL |
+          constants.O_WRONLY |
+          (typeof constants.O_NOFOLLOW === "number" ? constants.O_NOFOLLOW : 0),
+        0o600,
+      );
+    } catch {
+      return fail("destination-collision", "destination file could not be created without replacement", true);
+    }
+    parent.namesByCollisionKey.set(key, name);
+    return { fd, target };
+  }
+
+  revalidateBindings(): void {
+    for (const directory of this.#directories.values()) {
+      assertDirectoryBinding(directory.binding, "destination-unsafe", "owned destination directory", true);
+    }
+  }
+}
 
 const copyExpectedFile = (
   share: DirectoryBinding,
-  destination: DirectoryBinding,
+  sourceAliases: SourceAliasSnapshots,
+  destinationNamespace: OwnedDestinationNamespace,
   locator: string,
   expected: BoundCollectionFileV1,
   fileIndex: number,
   hooks: NasLegacyRestoreHooks | undefined,
 ): void => {
-  assertExactSourcePath(share, expected.sharePath);
+  sourceAliases.assertExactFile(expected.sharePath);
   const opened = openContainedRegularFile(share.path, expected.sharePath, locator);
   if (opened.kind !== "ok") {
     return fail("source-missing-or-unsafe", "selected source cannot be opened safely", true);
@@ -520,27 +769,9 @@ const copyExpectedFile = (
     ) {
       return fail("source-byte-mismatch", "selected source disagrees with its owner row", true);
     }
-    const parent = ensureOwnedDestinationParent(destination, expected.relativePath);
-    const name = expected.relativePath.split("/").at(-1) as string;
-    if (exactSiblingState(parent, name, "destination-collision", true) !== "absent") {
-      return fail("destination-collision", "destination file already exists", true);
-    }
-    const target = resolve(destination.path, ...expected.relativePath.split("/"));
-    if (!pathIsWithin(destination.path, target)) {
-      return fail("destination-unsafe", "destination file escapes the reserved root", true);
-    }
-    try {
-      destinationFd = openSync(
-        target,
-        constants.O_CREAT |
-          constants.O_EXCL |
-          constants.O_WRONLY |
-          (typeof constants.O_NOFOLLOW === "number" ? constants.O_NOFOLLOW : 0),
-        0o600,
-      );
-    } catch {
-      return fail("destination-collision", "destination file could not be created without replacement", true);
-    }
+    const created = destinationNamespace.createFile(expected.relativePath);
+    destinationFd = created.fd;
+    const target = created.target;
     const digest = createHash("sha256");
     const buffer = Buffer.allocUnsafe(COPY_BUFFER_BYTES);
     let total = 0;
@@ -610,7 +841,10 @@ const expectedDirectories = (selection: BoundCollectionSelectionV1): readonly st
   return [...directories].sort();
 };
 
-const inventoryDirectoryShape = (root: DirectoryBinding): readonly string[] => {
+const inventoryDirectoryShape = (
+  root: DirectoryBinding,
+  hooks: Pick<NasLegacyRestoreHooks, "afterDirectoryAliasScan"> | undefined,
+): readonly string[] => {
   const directories: string[] = [];
   const names = new Set<string>();
   const walk = (directory: string, prefix: string): void => {
@@ -618,6 +852,7 @@ const inventoryDirectoryShape = (root: DirectoryBinding): readonly string[] => {
     const before = lstatSync(directory);
     const entries = readdirSync(directory, { withFileTypes: true })
       .sort((left, right) => left.name < right.name ? -1 : left.name > right.name ? 1 : 0);
+    hooks?.afterDirectoryAliasScan?.({ scope: "destination", phase: "shape" });
     for (const entry of entries) {
       const relativePath = prefix === "" ? entry.name : `${prefix}/${entry.name}`;
       try {
@@ -643,6 +878,7 @@ const inventoryDirectoryShape = (root: DirectoryBinding): readonly string[] => {
       }
     }
     const finalNames = readdirSync(directory).sort();
+    hooks?.afterDirectoryAliasScan?.({ scope: "destination", phase: "shape" });
     const after = lstatSync(directory);
     if (
       before.dev !== after.dev ||
@@ -663,7 +899,10 @@ const inventoryDirectoryShape = (root: DirectoryBinding): readonly string[] => {
 const verifyDestination = (
   destination: DirectoryBinding,
   selection: BoundCollectionSelectionV1,
-  hooks: Pick<NasLegacyRestoreHooks, "beforeDestinationVerification"> | undefined,
+  hooks: Pick<
+    NasLegacyRestoreHooks,
+    "beforeDestinationVerification" | "afterDirectoryAliasScan"
+  > | undefined,
 ): void => {
   hooks?.beforeDestinationVerification?.(destination.path);
   assertDirectoryBinding(destination, "destination-unsafe", "restored destination", true);
@@ -687,7 +926,7 @@ const verifyDestination = (
   ) {
     return fail("destination-byte-mismatch", "restored tree differs from its exact owner rows", true);
   }
-  const actualDirectories = inventoryDirectoryShape(destination);
+  const actualDirectories = inventoryDirectoryShape(destination, hooks);
   const wantedDirectories = expectedDirectories(selection);
   if (
     actualDirectories.length !== wantedDirectories.length ||
@@ -730,16 +969,21 @@ export function restoreLegacyNasCollection(
   );
   try {
     assertDirectoryBinding(destination, "destination-unsafe", "reserved destination", true);
+    const sourceAliases = new SourceAliasSnapshots(context.share, options.hooks);
+    const destinationNamespace = new OwnedDestinationNamespace(destination, options.hooks);
     for (let index = 0; index < context.selection.files.length; index += 1) {
       copyExpectedFile(
         context.share,
-        destination,
+        sourceAliases,
+        destinationNamespace,
         context.selection.locator as string,
         context.selection.files[index] as BoundCollectionFileV1,
         index,
         options.hooks,
       );
     }
+    sourceAliases.revalidate();
+    destinationNamespace.revalidateBindings();
     revalidateMarkedShare(context.share);
     verifyDestination(destination, context.selection, options.hooks);
     revalidateMarkedShare(context.share);
@@ -763,6 +1007,8 @@ export function verifyLegacyNasRestore(
     context.repo,
     destinationRelative,
     "destination-invalid",
+    false,
+    options.hooks,
   );
   verifyDestination(destination, context.selection, options.hooks);
   revalidateMarkedShare(context.share);

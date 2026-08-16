@@ -1,7 +1,7 @@
 # Plan — durable untracked assets and NAS governance
 
 - **Phase:** repository infrastructure; no charter phase is reopened
-- **Status:** complete
+- **Status:** in progress — post-close mixed-collection correction
 - **Started:** 2026-08-15
 - **Last touched:** 2026-08-16 by OpenAI Codex GPT-5
 
@@ -397,3 +397,24 @@ The pre-organization implementation boundary and its exact repository suite are 
 [`docs/reviews/nas-asset-governance-validation-20260815.md`](../reviews/nas-asset-governance-validation-20260815.md).
 That exact suite was coordinator-run after the reviewed code and catalogue repairs; the non-author
 reviewer independently ran the focused legacy-restore boundary but did not rerun the full suite.
+
+### Post-close correction — mixed gutcheck remainder
+
+The closing claim above was reopened after an independent row-level review found that
+`gutcheck-workspace-remainder@2026-08-15` still combined generated diagnostics, redundant Git
+mirrors, and unresolved mixed/private material under one null storage class. That is physical
+organization but not the single-class ownership required by ADR 0051. The correction is exact and
+non-deleting: 434 files / 666,233,360 bytes move to the active generated-diagnostic collection;
+128 redundant record mirrors / 174,537 bytes and 369 still-mixed files / 167,584,091 bytes move to
+one dated private quarantine batch. The source remains 931 files / 833,991,988 bytes with tree
+SHA-256 `63e32a8ab0e3025cbba22ba8e789e65be0c283fbc8595247b21fb65b34ea7ddd`.
+
+Three reviewed apply attempts have not published a receipt. The first found a self-lock
+post-acquisition check and completed exact rollback. The second stopped before payload movement
+when macOS SMB reported timestamp-incoherent metadata for the new lock-owner file. The third
+completed its payload checks but refused `candidate-ledger-changed` after another session removed
+the active worktree during the run; exact rollback completed. These are recorded failures, not
+migration evidence. The task worktree is now registered and locked against ordinary removal.
+Next: reconstruct and commit the reviewed program and hardening unit, repeat the zero-write full
+preflight, execute the correction, then install the receipt-bound catalogue/ledger update and run
+physical restore plus the exact repository suite.

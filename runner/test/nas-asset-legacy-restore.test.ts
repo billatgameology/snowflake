@@ -6,6 +6,7 @@ import {
   mkdtempSync,
   readFileSync,
   readdirSync,
+  renameSync,
   rmSync,
   symlinkSync,
   truncateSync,
@@ -428,6 +429,104 @@ describe("legacy NAS restore and restored-tree verifier", () => {
       })).toThrowError(expect.objectContaining({ code: "source-byte-mismatch", destinationReserved: true }));
       expect(changed).toBe(true);
     }
+  });
+
+  it("revalidates a cached source alias snapshot before reporting success", () => {
+    const fixture = makeFixture("source-alias-after-snapshot", {
+      files: [
+        { relativePath: "a.bin", bytes: Buffer.from("one") },
+        { relativePath: "b.bin", bytes: Buffer.from("two") },
+      ],
+    });
+    let renamed = false;
+    expect(() => restoreLegacyNasCollection({
+      catalogue: fixture.catalogue,
+      collection: fixture.identity,
+      repoRoot: fixture.repo,
+      shareRoot: fixture.share,
+      destinationPath: fixture.destination,
+      hooks: {
+        afterFileCopied: ({ fileIndex }) => {
+          if (fileIndex !== 0 || renamed) return;
+          renameSync(
+            join(fixture.share, "payload", "a.bin"),
+            join(fixture.share, "payload", "A.BIN"),
+          );
+          renamed = true;
+        },
+      },
+    })).toThrowError(expect.objectContaining({
+      code: "source-missing-or-unsafe",
+      destinationReserved: true,
+    }));
+    expect(renamed).toBe(true);
+    expect(readdirSync(join(fixture.share, "payload"))).toContain("A.BIN");
+  });
+
+  it("final verification catches a destination alias introduced after namespace capture", () => {
+    const fixture = makeFixture("destination-alias-after-snapshot", {
+      files: [
+        { relativePath: "a.bin", bytes: Buffer.from("one") },
+        { relativePath: "b.bin", bytes: Buffer.from("two") },
+      ],
+    });
+    let renamed = false;
+    expect(() => restoreLegacyNasCollection({
+      catalogue: fixture.catalogue,
+      collection: fixture.identity,
+      repoRoot: fixture.repo,
+      shareRoot: fixture.share,
+      destinationPath: fixture.destination,
+      hooks: {
+        afterFileCopied: ({ destinationPath, fileIndex }) => {
+          if (fileIndex !== 0 || renamed) return;
+          renameSync(destinationPath, join(dirname(destinationPath), "A.BIN"));
+          renamed = true;
+        },
+      },
+    })).toThrowError(expect.objectContaining({
+      code: "destination-byte-mismatch",
+      destinationReserved: true,
+    }));
+    expect(renamed).toBe(true);
+    expect(readdirSync(fixture.destination)).toContain("A.BIN");
+  });
+
+  it("scans alias namespaces by directory rather than once per flat file", () => {
+    const runFlatRestore = (label: string, fileCount: number): Readonly<Record<string, number>> => {
+      const files = Array.from({ length: fileCount }, (_, index) => ({
+        relativePath: `flat-${String(index).padStart(4, "0")}.bin`,
+        bytes: Buffer.from(`value-${index}`),
+      }));
+      const fixture = makeFixture(label, { files });
+      const reads: Record<string, number> = {};
+      const result = restoreLegacyNasCollection({
+        catalogue: fixture.catalogue,
+        collection: fixture.identity,
+        repoRoot: fixture.repo,
+        shareRoot: fixture.share,
+        destinationPath: fixture.destination,
+        hooks: {
+          afterDirectoryAliasScan: ({ scope, phase }) => {
+            const key = `${scope}:${phase}`;
+            reads[key] = (reads[key] ?? 0) + 1;
+          },
+        },
+      });
+      expect(result.fileCount).toBe(fileCount);
+      return reads;
+    };
+
+    const oneFile = runFlatRestore("alias-scan-one", 1);
+    const manyFiles = runFlatRestore("alias-scan-many", 128);
+    expect(manyFiles).toEqual(oneFile);
+    expect(manyFiles).toEqual({
+      "destination:capture": 2,
+      "destination:shape": 2,
+      "destination:sibling-check": 6,
+      "source:capture": 4,
+      "source:revalidate": 4,
+    });
   });
 
   it("rejects extra files, empty directories, symlinks, and hard links before success", () => {

@@ -1,25 +1,26 @@
 #!/usr/bin/env node
 
-import { createHash } from "node:crypto";
 import assert from "node:assert/strict";
 import { readFileSync, writeFileSync } from "node:fs";
 import { resolve } from "node:path";
 
+import { parseNasAssetCatalogV1 } from "./nas-asset-lib.ts";
 import { detectNasMount } from "./nas-root.ts";
+import { loadPhase9KnowledgeSources } from "./phase9-knowledge-source-lib.ts";
 
 const ROOT = resolve(import.meta.dirname, "..");
-const PRODUCER_NAS_ROOT = "/Volumes/snowcrystal/research-cache";
-const NAS_MOUNT = detectNasMount();
-if (NAS_MOUNT === null) throw new Error("the marked snowcrystal share is not attached");
-const PRIVATE_SOURCE_ROOT = resolve(
-  NAS_MOUNT,
-  "collections/research-private-freeze/2026-08-11/payload",
+const mountedShare = detectNasMount();
+if (mountedShare === null) {
+  throw new Error("the marked project NAS share is detached");
+}
+const CATALOGUE = parseNasAssetCatalogV1(
+  readFileSync(resolve(ROOT, "docs/nas-assets.json"), "utf8"),
 );
-const HP26_ROOT = resolve(
-  PRIVATE_SOURCE_ROOT,
-  "harrington-pokrifka-revisiting-theories-for-the-growth-of-single-crystalline-ice-2026",
-);
-const PRODUCER_HP26_ROOT = `${PRODUCER_NAS_ROOT}/content/harrington-pokrifka-revisiting-theories-for-the-growth-of-single-crystalline-ice-2026`;
+const KNOWLEDGE_SOURCES = loadPhase9KnowledgeSources({
+  catalogue: CATALOGUE,
+  repoRoot: ROOT,
+  shareRoot: mountedShare,
+});
 
 const K_BOLTZMANN = 1.380649e-23;
 const CELSIUS_ZERO_K = 273.15;
@@ -54,10 +55,6 @@ function parseArgs(argv) {
     }
   }
   return args;
-}
-
-function sha256(path) {
-  return createHash("sha256").update(readFileSync(path)).digest("hex");
 }
 
 function round(value, digits = 12) {
@@ -152,8 +149,8 @@ function attachmentCoefficient(barrierPercent, surfaceSupersaturationPercent) {
   return Math.exp(-barrierPercent / surfaceSupersaturationPercent);
 }
 
-function parseDimensionHistory(path) {
-  return readFileSync(path, "utf8")
+function parseDimensionHistory(source) {
+  return source.data.toString("utf8")
     .split(/\r?\n/u)
     .filter((line) => /^\d/u.test(line.trim()))
     .map((line) => {
@@ -167,13 +164,13 @@ function parseDimensionHistory(path) {
     });
 }
 
-function describeHistory(path, eventTimeS = null, recordedPath = path) {
-  const rows = parseDimensionHistory(path);
+function describeHistory(source, eventTimeS = null) {
+  const rows = parseDimensionHistory(source);
   const first = rows[0];
   const last = rows.at(-1);
   const result = {
-    path: recordedPath,
-    sha256: sha256(path),
+    path: source.recordedPath,
+    sha256: source.sha256,
     rowCount: rows.length,
     first,
     last,
@@ -442,16 +439,8 @@ function makeOutput() {
       status: "project-derived endpoint/event diagnostics; not a mechanism fit",
       sourceLocator: "Harrington-Pokrifka companion archive native dimension histories",
       histories: [
-        describeHistory(
-          resolve(HP26_ROOT, "dimensions-20231128.dat"),
-          null,
-          `${PRODUCER_HP26_ROOT}/dimensions-20231128.dat`,
-        ),
-        describeHistory(
-          resolve(HP26_ROOT, "dimensions-20240814.dat"),
-          13800,
-          `${PRODUCER_HP26_ROOT}/dimensions-20240814.dat`,
-        ),
+        describeHistory(KNOWLEDGE_SOURCES.dimensions20231128),
+        describeHistory(KNOWLEDGE_SOURCES.dimensions20240814, 13800),
       ],
       interpretation:
         "The histories make rim width a scoreable state. They do not distinguish SDAK from source-location/flux-gradient hollowing without a spatial growth-profile prediction.",
@@ -461,23 +450,14 @@ function makeOutput() {
       crossoverIdentity:
         "mStar = 2.6606467e-12 / 0.856013... kg = 2.6606467e-12 * 1.1682062 kg = a3/a2 in the printed form.",
       sourceArtifactsPresent: [
-        {
-          path: `${PRODUCER_NAS_ROOT}/content/lamb-et-al-2025-neural-ode-symbolic-regression.pdf`,
-          currentPath: resolve(PRIVATE_SOURCE_ROOT, "lamb-et-al-2025-neural-ode-symbolic-regression.pdf"),
-        },
-        {
-          path: `${PRODUCER_NAS_ROOT}/content/icenode-2025-code-63078e02.zip`,
-          currentPath: resolve(PRIVATE_SOURCE_ROOT, "icenode-2025-code-63078e02.zip"),
-        },
-        {
-          path: `${PRODUCER_HP26_ROOT}/dimensions-20231128.dat`,
-          currentPath: resolve(HP26_ROOT, "dimensions-20231128.dat"),
-        },
-        {
-          path: `${PRODUCER_HP26_ROOT}/dimensions-20240814.dat`,
-          currentPath: resolve(HP26_ROOT, "dimensions-20240814.dat"),
-        },
-      ].map(({ path, currentPath }) => ({ path, sha256: sha256(currentPath) })),
+        KNOWLEDGE_SOURCES.lambPdf,
+        KNOWLEDGE_SOURCES.iceNodeArchive,
+        KNOWLEDGE_SOURCES.dimensions20231128,
+        KNOWLEDGE_SOURCES.dimensions20240814,
+      ].map((source) => ({
+        path: source.recordedPath,
+        sha256: source.sha256,
+      })),
     },
   };
 }
