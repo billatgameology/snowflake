@@ -102,13 +102,16 @@ versus the recorded 6.62 GB quantized sequence. The checkpoint measurement is na
       `TMPDIR=/private/tmp npm test`.
 - [x] Commit the reviewed implementation, then launch the full Run B bake only if the smoke result
       supports it; record its restart-only command, logs, output, digest, and next action.
-- [ ] Monitor the restart-only Run B bake to atomic publication, then independently decode and
+- [x] Monitor the restart-only Run B bake to atomic publication, then independently decode and
       re-derive its identity, event count, tick range, crop, endpoints, occupancy digest, byte size,
-      and elapsed runtime before making the verified NAS copy.
+      and elapsed runtime before any comparison uses it.
 - [ ] Add a side-by-side browser comparison of the legacy per-frame workflow and compact replay,
       using measured Run B values and clearly labeled unknown or non-transferable quantities.
 - [ ] Run real-browser visual/interaction checks plus the governing repository checks, obtain a
       proportionate non-author review, update `docs/PROGRESS.md`, and commit the comparison.
+- [ ] Publish the finished comparison bundle only after the parallel NAS-governance workstream
+      freezes a forward collection/receipt contract; do not recreate the retired top-level `out/`
+      layout or execute the legacy-path publisher against `collections/**`.
 
 ## Implementation record
 
@@ -166,7 +169,7 @@ an undocumented append mode. The reviewed launch must write its complete asset t
 only after hashing it will a no-clobber verified copy be published to the SMB NAS. This avoids
 discovering unsupported hard-link publication on SMB after roughly ten hours of computation.
 
-## Full Run B bake — running
+## Full Run B bake — complete and independently validated
 
 The reviewed implementation committed as `44fd4b6`. Immediately before launch,
 `detectNasMount()` resolved `/Volumes/snowcrystal/`; the 97,503-byte legacy manifest at the derived
@@ -187,6 +190,69 @@ on interruption or nonzero exit, preserve the logs and restart from tick zero on
 The maker requested the measured per-frame-versus-compact comparison webpage as the immediate
 post-validation deliverable; it is deliberately gated on this run rather than populated from size
 or performance estimates.
+
+The wrapper exited zero after the tick-70,000 line. `out/gutcheck-growth-runB/live.log` records
+36,348.1 solver seconds and one final completion line; `error.log` is empty. The atomic asset is
+7,695,060 bytes with SHA-256
+`475c1f7c227c45b005bfdb8691b1250599b405fa59902462110312a4f26ceb7d`.
+A non-author read-only monitor first ran the strict project decoder and then a separate handwritten
+raw-byte parser. It independently confirmed the 2,280-byte padded header and exact byte formula,
+961,597 unique tick/index-ordered events over ticks 0 through 70,000, the canonical 19-site seed,
+active-domain membership, 24 final-tick events, tight bounds `[306,306,18]` through
+`[894,894,30]`, the padded 593 x 593 x 17 crop, and a reconstructed 69,120,000-byte full-lattice
+occupancy SHA-256 of
+`9c98fe41e5ea2f6b2020063218b37255877548bdeb49dadf4235a4cf039cf9f7`.
+It also bound the clean `44fd4b6` source/runtime identity and embedded 701-frame manifest digest.
+The comparison coordinator separately repeated strict decode, crop reconstruction, occupancy
+derivation, terminal-log reconciliation, and manifest-byte verification after locating the same
+manifest in its governed collection. Neither validation mutated the asset or NAS.
+
+### Concurrent NAS-governance seam
+
+While this restart-only bake was running, a separate active worktree physically moved the shared
+NAS payloads from the legacy top-level `out/` mirror into governed `collections/**` roots. The new
+marker is present and the Run B inputs remain readable, but that workstream's catalogue and reader
+adaptations are not yet frozen or merged here. Consequently `detectNasMount()` now correctly fails
+the old marker path, and the reviewed comparison publisher's fixed legacy destination is no longer
+an authorized forward publication target.
+
+The immediate webpage will therefore be produced as a **local verified candidate**. Its bounded
+reader may recognize only the exact marker-backed `gutcheck-generated-public@2026-08-15` Run B
+manifest locations in addition to the frozen legacy locations, while retaining every digest,
+count, frame, and source hard lock. The real-browser capture must start Vite with no repository
+config and fail any unfulfilled NAS request, so Chromium can consume only the six explicitly
+verified local inputs. No alias, symlink, top-level `out/` recreation, arbitrary-root bypass, NAS
+write, or hand-authored measurement record is permitted. Final NAS publication remains pending the
+governance workstream's forward collection/receipt contract; that storage handoff does not prevent
+the maker from reviewing the measured local webpage now.
+
+### Post-launch decoder and observation hardening
+
+A second adversarial review after launch found three seams in the reusable implementation, not in
+the already running solver process: file-controlled seed radii could reach an expansion loop before
+a closed-form size bound; the baker compared `lastAttached` event count but did not rebuild the
+event-derived final occupancy; and the focused exact-tick test used `lastAttached` on both sides of
+its comparison. The repair preflights seed fit and exact closed-form count before enumeration,
+requires every event batch length to equal the solver attached-count delta, rebuilds the full binary
+occupancy from serialized event indices and binds its digest to `solver.a` plus the optional expected
+digest, and derives the test oracle solely from before/after `solver.a` differences.
+
+Exact focused verification
+`TMPDIR=/private/tmp npx vitest run app/test/gutcheck-growth-format.test.ts runner/test/gutcheck-growth-baker.test.ts`
+passed 37/37. Its 377-byte console record is
+`out/checks/gutcheck-growth-hardening-focused.log`, SHA-256
+`11eb968783ab0f38b0c0fbde71e8fbee79c4ef60b6c909dd161381e187a9b554`.
+The follow-up non-author reviewer was OpenAI Codex (GPT-5 family), with inherited/shared full
+developer and repository context; it inspected the four-file patch and safe-arithmetic order,
+event/solver binding, per-tick delta, and independent oracle, reran `git diff --check`, made no edits,
+and found no remaining blocker/high issue. It did not run the browser, full suite, or the private
+Run B replay.
+
+The live Run B process loaded committed baker `44fd4b6` before this repair, so these in-process
+checks govern future bakes rather than retroactively changing that process. The final comparison
+builder and flagless publisher independently reconstruct event-derived occupancy from the finished
+bytes and require the pinned Run B digest; that planned post-run validation remains mandatory before
+acceptance or publication.
 
 ## Comparison prebuild — awaiting measured Run B asset
 

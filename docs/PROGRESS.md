@@ -81,33 +81,25 @@ index, a plan, ADR, or audit links to historical detail.
   through Phase 10. The versioned narrative score and fixed-frame export interpretation is recorded
   by plan commit `86fe656`; Chapter 1 remains the bounded pilot and scientific authority is unchanged.
 - The maker-directed compact G-G growth replay is **IN PROGRESS** under
-  [explore-gutcheck-growth-volume.md](plans/explore-gutcheck-growth-volume.md), committed before
-  implementation as `7c60760`. It records exact attachment index/tick events in one sparse asset
-  and renders a separately labeled smoothed implicit surface; it changes no solver or phase
-  authority or replace the immutable 701-mesh timeline. The pinned endpoint is 961,597 cells,
-  occupancy SHA-256 `9c98fe41e5ea2f6b2020063218b37255877548bdeb49dadf4235a4cf039cf9f7`, with a measured
-  593×593×17 / 23,912,132-byte R32UI crop. Codec, baker and viewer focused tests pass 34/34.
-  Non-author Chromium/SwiftShader smoke passed exact seek/reverse pixels, raw-canvas playback,
-  controls, framing, reduced motion, errors/requests and full allocation. Its 8,418-byte record is
-  `out/gutcheck-growth-smoke/browser-r32-runb-probe-v6/record.json`, SHA-256
-  `c9e3250179a10ce334a61a5e6c49f7f6bcfc90988ef62c34f63d5e51fbbed17b`. The record stamps its
-  61-event timing/image complexity NON-TRANSFERABLE to Run B. Review closed with no blocker/high
-  code findings; exact `TMPDIR=/private/tmp npm test` passed and implementation commit `44fd4b6`
-  landed. The restart-only full replay is running locally with the original Node v24.13.1 engine;
-  its first `live.log` line measured tick 100/70,000, 37 events, elapsed 55.0 seconds. After atomic
-  publication and independent validation, the next media deliverable is a real-browser comparison
-  page contrasting the legacy per-frame workflow with the compact replay using measured Run B
-  bytes/runtime and explicitly labeled unavailable or non-transferable quantities. Its strict
-  record schema, independently recomputing builder, responsive side-by-side page, integrity-checked
-  compact loader, adversarial browser harness, and fixed-roster no-clobber NAS publisher are now
-  prebuilt while the bake runs. The publisher independently re-derives event occupancy, browser
-  request/mutation witnesses, source/staging/final hashes, and the referenced MP4; it never deletes
-  failed staging. Its frozen file hashes and accepted final-lstat-to-rename concurrency boundary are
-  recorded in the active plan. Exact `TMPDIR=/private/tmp npm test` passes this prebuilt tree, and a
-  non-author OpenAI Codex (GPT-5 family) closing review found no blocker/high issue within its stated
-  no-final-Chromium, no-live/NAS, and no-Windows/SMB limits. The builder has not yet issued a Run B
-  record, the final browser capture has not run, and the publisher has not executed; none may be
-  substituted with an estimated artifact.
+  [explore-gutcheck-growth-volume.md](plans/explore-gutcheck-growth-volume.md). Commit `44fd4b6`
+  records exact attachment index/tick events and renders a separately labeled smoothed surface;
+  it changes no solver/phase authority and does not replace the immutable 701 meshes. The reviewed
+  Chromium smoke passed exact seek/reverse, controls, reduced motion, error lanes and the full
+  593×593×17 R32UI allocation; its 61-event timing remains NON-TRANSFERABLE to Run B. Exact
+  `TMPDIR=/private/tmp npm test` passed that implementation. The restart-only Run B replay then
+  exited zero under its original Node v24.13.1 engine. `out/gutcheck-growth-runB/live.log` records
+  tick 70,000 after 36,348.1 solver seconds; the atomic asset is 7,695,060 bytes, SHA-256
+  `475c1f7c227c45b005bfdb8691b1250599b405fa59902462110312a4f26ceb7d`, and `error.log` is empty.
+  A non-author strict decode plus handwritten raw parser independently confirmed 961,597 unique
+  ordered events, the canonical seed, ticks 0–70,000, 593×593×17 crop, source/runtime identity and
+  reconstructed 69,120,000-cell occupancy SHA-256
+  `9c98fe41e5ea2f6b2020063218b37255877548bdeb49dadf4235a4cf039cf9f7`. The measured comparison
+  builder/page/capture and reviewed publisher are prebuilt; post-launch decoder/event hardening is
+  detailed in the plan. A parallel NAS-governance worktree moved the legacy `out/` payloads into
+  `collections/**` during the run, before its reader/publication handoff froze here. The page will
+  therefore finish as a no-NAS-write local verified candidate with capture-time NAS fallback
+  disabled. Do not run the legacy-path publisher or recreate aliases; forward NAS publication waits
+  for the governance collection/receipt contract.
 - The gut-check exploration (`explore/gg-realism-gutcheck`) is MERGED to `main` (`98bc75d`,
   2026-08-12, merged-tree suite green). Eyeball-only — not evidence, no gate claim, no solver
   code touched.
@@ -194,16 +186,16 @@ passed / 7 skipped (`out/checks/npm-test-round3-review.log`, SHA-256 `2a90d0d5�
 
 Open [explore-gutcheck-growth-volume.md](plans/explore-gutcheck-growth-volume.md). The strict format,
 baker, viewer, small asset, browser smoke, full allocation probe, and non-author review are complete.
-Exact `TMPDIR=/private/tmp npm test` passed and `44fd4b6` committed the implementation. The one-
-process, restart-only 70,000-tick bake is running under the original Run B Node v24.13.1/V8 engine.
-Monitor `out/gutcheck-growth-runB/live.log`, `error.log`, and eventual `exit-status`; do not launch a
-duplicate. On exit 0, independently decode/rehash/check endpoints, then make and rehash a no-clobber
-NAS copy. The comparison implementation is already prebuilt; next run its strict 701-frame builder
-against the completed asset, then execute and visually inspect its final browser capture before
-publishing it. Only after those checks pass, run the flagless
-`node scripts/gutcheck-publish-growth-comparison.ts`; it must find the canonical NAS directory
-absent, and any reported failed staging path is preserved for diagnosis rather than deleted.
-Preserve the legacy meshes and do not count this media work toward any phase gate.
+Exact `TMPDIR=/private/tmp npm test` passed and `44fd4b6` committed the implementation. Run B has
+exited zero and independently validated. Next adapt only the strict comparison reader to the exact
+marker-backed governed Run B collection paths, retain every digest/frame/source hard lock, and build
+the measured record into `out/gutcheck-growth-runB/`. Run the Chromium capture with Vite's repository
+config and NAS fallback disabled, inspect every desktop/portrait/timeline screenshot, then run the
+governing checks and bounded closing review. Do not run
+`scripts/gutcheck-publish-growth-comparison.ts`, recreate the retired NAS `out/` tree, or append the
+old ledger: forward publication waits for the parallel NAS-governance workstream to freeze its
+collection/receipt contract. Preserve the legacy meshes and do not count this media work toward any
+phase gate.
 
 ### Phase 8B record — closed; external search remains stopped
 
