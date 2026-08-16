@@ -283,8 +283,8 @@ Independent review found no blocker/high issue in the prebuild. Exact
 checks preceded the real Run B compact artifact and therefore did not validate it. Final measured
 validation and browser evidence are recorded below.
 
-The final post-review strict builder reopened and validated all 701 raw frames and all 701
-quantized frames in the marker-backed governed collection, then atomically wrote
+The second strict builder process reopened and validated all 701 raw frames and all 701 quantized
+frames at the exact collection paths, then atomically wrote
 `out/gutcheck-growth-runB/comparison-record-v2.json` (3,002 bytes, SHA-256
 `5488f738f3068e74cfdbc38e07c35c1a30e21fe73f891a22ab1e8d50399086f8`, timestamp
 `2026-08-16T11:11:13.634Z`). The record derives
@@ -296,6 +296,19 @@ separate observed executions rather than a controlled performance benchmark. Rem
 A concurrent strict builder reached atomic publication with the same inputs and correctly refused
 to replace that already-existing first record; its 280-byte no-clobber log has SHA-256
 `194503fa7776cbb46bc49469c138f40af0a64caf35d6132f50ef2d0fba9c170b`.
+
+The v2 process began before the closing copied-marker/foreign-root repair and therefore did not
+execute the final centralized root detector. That repair changes source-root authorization, not
+frame decoding, sizes or record derivation; v2 used the actual canonical collection paths and its
+non-timestamp bytes match the first strict record. After repair, a separate current-source root
+binding check executed `detectGovernedVccNasMount()` and
+`assertRunBManifestPairOnGovernedShare()` against those same physical paths. Its 2,084-byte receipt
+is `out/checks/gutcheck-growth-current-root-binding.json`, SHA-256
+`4c6f78f23b76dfcfa80f9409665f4391aeee2d636abf33777692d0f9b218d520`; it binds the exact 72-byte
+share marker, both byte-identical 97,503-byte manifests, their real paths/device identities and the
+current two source-file digests. This lightweight check did not repeat the 16.6 GB frame scan. The
+record therefore combines a pre-final-hardening strict frame scan with a later current-source root
+binding receipt; no claim is made that one process executed both.
 
 The accepted real-browser run is
 `out/gutcheck-growth-runB/comparison-browser-v5/record.json` (48,961 bytes, SHA-256
@@ -321,8 +334,8 @@ The closing artifact/visual reviewer was OpenAI Codex (GPT-5 family), a non-auth
 shared full developer and repository context. It independently rehashed the local record, compact
 asset, three posters and eight screenshots; hand-parsed all events and occupancy; rederived request,
 interaction, reduced-motion and five negative-control witnesses; and visually inspected every v5
-image. An earlier pass rejected an unpinned exact frame-size literal and unsupported repetition
-quantifier; both are absent from v5. Its final verdict had no blocker/high finding. The 390 x 844
+image. Closing claim hardening removed an unpinned exact frame-size literal and unsupported
+repetition quantifier; both are absent from v5. Its final verdict had no blocker/high finding. The 390 x 844
 portrait is a scrolled partial view whose legacy badge and transient MP4 crystal are clipped, a
 minor capture/polish limit; document-width and compact-camera bounds pass. The reviewer did not
 reopen the NAS MP4 or legacy sequences, rerun Chromium, query hardware GPU/VRAM/performance, or
