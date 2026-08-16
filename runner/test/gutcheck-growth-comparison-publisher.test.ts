@@ -652,9 +652,9 @@ function makeFixture(): Fixture {
       },
       noWebgl: {
         label: "WebGL2 unavailable",
-        error: "WebGL2 is required",
+        error: "Error: WebGL2 is required\n    at fixture player",
         ready: false,
-        bodyText: "Interactive replay unavailable\nWebGL2 is required",
+        bodyText: "Interactive replay unavailable\nError: WebGL2 is required at fixture player",
         iframeReady: false,
         iframeSrc: playerUrl,
         requests: [
@@ -975,7 +975,7 @@ describe("Run B comparison NAS publisher", () => {
         (value) => {
           const errors = value["errors"] as Record<string, unknown>;
           const missing = errors["missing"] as Record<string, unknown>;
-          missing["bodyText"] = "An unrelated page body";
+          missing["bodyText"] = "Comparison replay unavailable";
         },
         /visible scoped failure before readiness/u,
       ],

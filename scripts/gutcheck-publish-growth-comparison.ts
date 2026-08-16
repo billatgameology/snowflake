@@ -648,6 +648,10 @@ function sha256Bytes(bytes: Uint8Array): string {
   return createHash("sha256").update(bytes).digest("hex");
 }
 
+function normalizeBrowserRenderedWhitespace(value: string): string {
+  return value.replace(/\s+/gu, " ").trim();
+}
+
 interface ExpectedBrowserOverride {
   readonly pathname: string;
   readonly status: number;
@@ -688,10 +692,12 @@ function assertBrowserErrorLane(
     fail(`${label} does not carry its lane-specific visible error`);
   }
   const bodyText = stringValue(object["bodyText"], `${label}.bodyText`);
+  const displayedBody = normalizeBrowserRenderedWhitespace(bodyText);
+  const displayedError = normalizeBrowserRenderedWhitespace(error);
   if (
     booleanValue(object["ready"], `${label}.ready`) !== false ||
-    !/comparison|replay|unavailable/iu.test(bodyText) ||
-    !bodyText.includes(error) ||
+    displayedError === "" ||
+    !displayedBody.includes(displayedError) ||
     object["iframeReady"] === true ||
     !(
       object["iframeReady"] === false ||

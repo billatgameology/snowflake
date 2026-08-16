@@ -57,7 +57,12 @@ import {
   type GrowthComparisonPosterReferences,
   type GrowthComparisonRecord,
 } from "../app/src/gutcheck-growth-comparison-record.ts";
-import { detectNasMount, resolveNasRequest } from "./nas-root.ts";
+import {
+  detectGovernedVccNasMount,
+  detectNasMount,
+  resolveNasRequest,
+  VCC_NAS_MARKER_TEXT,
+} from "./nas-root.ts";
 
 const UINT32_MAX = 0xffff_ffff;
 const READ_CHUNK_BYTES = 1024 * 1024;
@@ -83,8 +88,6 @@ const RUN_B_COLLECTION_RAW_SHARE_RELATIVE =
   "collections/gutcheck-generated-public/2026-08-15/payload/large/anim-B/manifest.json";
 const RUN_B_COLLECTION_V2Q_SHARE_RELATIVE =
   "collections/gutcheck-generated-public/2026-08-15/payload/large/anim-B-v2q/manifest.json";
-const VCC_NAS_MARKER =
-  '{"format":"snowflake-nas-share-v1","projectId":"virtual-cloud-chamber"}\n';
 const RUN_B_GIT_HEAD = "44fd4b604cddf1c1c30ed4aec2afba5bdc18be5c";
 const expectedRunBBakeArgv = (legacyManifestPath: string): readonly string[] => [
   "--preset", "plate",
@@ -535,18 +538,31 @@ function collectionRunBManifestBinding(
   assertNoCollectionSymlinks(root, shareRelativePath, label);
   assertNoCollectionSymlinks(root, ".snowflake-nas.json", `${label} marker`);
   const marker = captureRegularFile(resolve(root, ".snowflake-nas.json"), `${label} VCC NAS marker`);
-  if (!Buffer.from(marker.contents).equals(Buffer.from(VCC_NAS_MARKER, "utf8"))) {
+  if (!Buffer.from(marker.contents).equals(Buffer.from(VCC_NAS_MARKER_TEXT, "utf8"))) {
     fail(`${label} share .snowflake-nas.json is not exactly the VCC marker`);
   }
 
   const absolutePath = resolve(path);
   const realRoot = realpathSync.native(root);
+  const governedMount = detectGovernedVccNasMount();
+  if (governedMount === null) {
+    fail(`governed VCC NAS share is not attached; cannot bind the ${label} collection manifest`);
+  }
+  const governedRoot = realpathSync.native(resolve(governedMount));
+  const governedStat = statSync(governedRoot);
+  const rootStat = statSync(realRoot);
+  if (
+    realRoot !== governedRoot ||
+    rootStat.dev !== governedStat.dev ||
+    rootStat.ino !== governedStat.ino
+  ) {
+    fail(`${label} collection root is not the detected governed VCC NAS share`);
+  }
   const realManifest = realpathSync.native(absolutePath);
   const realDisplacement = relative(realRoot, realManifest).split(sep).join("/");
   if (realDisplacement !== shareRelativePath) {
     fail(`${label} canonical collection manifest resolves outside its exact share-relative path`);
   }
-  const rootStat = statSync(realRoot);
   return { layout: "collection", realRoot, dev: rootStat.dev, ino: rootStat.ino };
 }
 

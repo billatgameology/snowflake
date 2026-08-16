@@ -80,26 +80,32 @@ index, a plan, ADR, or audit links to historical detail.
   the one-long-documentary source, manga-like scroll story/autoplay export, and intent to continue
   through Phase 10. The versioned narrative score and fixed-frame export interpretation is recorded
   by plan commit `86fe656`; Chapter 1 remains the bounded pilot and scientific authority is unchanged.
-- The maker-directed compact G-G growth replay is **IN PROGRESS** under
-  [explore-gutcheck-growth-volume.md](plans/explore-gutcheck-growth-volume.md). Commit `44fd4b6`
-  records exact attachment index/tick events and renders a separately labeled smoothed surface;
-  it changes no solver/phase authority and does not replace the immutable 701 meshes. The reviewed
-  Chromium smoke passed exact seek/reverse, controls, reduced motion, error lanes and the full
-  593×593×17 R32UI allocation; its 61-event timing remains NON-TRANSFERABLE to Run B. Exact
-  `TMPDIR=/private/tmp npm test` passed that implementation. The restart-only Run B replay then
-  exited zero under its original Node v24.13.1 engine. `out/gutcheck-growth-runB/live.log` records
-  tick 70,000 after 36,348.1 solver seconds; the atomic asset is 7,695,060 bytes, SHA-256
-  `475c1f7c227c45b005bfdb8691b1250599b405fa59902462110312a4f26ceb7d`, and `error.log` is empty.
-  A non-author strict decode plus handwritten raw parser independently confirmed 961,597 unique
-  ordered events, the canonical seed, ticks 0–70,000, 593×593×17 crop, source/runtime identity and
-  reconstructed 69,120,000-cell occupancy SHA-256
-  `9c98fe41e5ea2f6b2020063218b37255877548bdeb49dadf4235a4cf039cf9f7`. The measured comparison
-  builder/page/capture and reviewed publisher are prebuilt; post-launch decoder/event hardening is
-  detailed in the plan. A parallel NAS-governance worktree moved the legacy `out/` payloads into
-  `collections/**` during the run, before its reader/publication handoff froze here. The page will
-  therefore finish as a no-NAS-write local verified candidate with capture-time NAS fallback
-  disabled. Do not run the legacy-path publisher or recreate aliases; forward NAS publication waits
-  for the governance collection/receipt contract.
+- The maker-directed compact G-G growth replay is **COMPLETE AS A LOCAL VERIFIED CANDIDATE** under
+  [explore-gutcheck-growth-volume.md](plans/explore-gutcheck-growth-volume.md); governed NAS
+  publication is deferred. Commit `44fd4b6` records exact attachment index/tick events and renders a
+  separately labeled smoothed surface without changing solver/phase authority or replacing the
+  immutable 701 meshes. `out/gutcheck-growth-runB/live.log` records the restart-only Run B exit at
+  tick 70,000 after 36,348.1 solver seconds under its original Node v24.13.1 engine. The asset is
+  7,695,060 bytes, SHA-256
+  `475c1f7c227c45b005bfdb8691b1250599b405fa59902462110312a4f26ceb7d`; strict validation plus a
+  separate handwritten parser are bound by the 618-byte and 1,234-byte records named in the plan.
+  They confirmed 961,597 unique ordered events, the canonical seed, ticks 0–70,000, the
+  593×593×17 crop, source/runtime identity and reconstructed 69,120,000-cell occupancy SHA-256
+  `9c98fe41e5ea2f6b2020063218b37255877548bdeb49dadf4235a4cf039cf9f7`.
+  `out/gutcheck-growth-runB/comparison-record-v2.json` (3,002 bytes, SHA-256
+  `5488f738f3068e74cfdbc38e07c35c1a30e21fe73f891a22ab1e8d50399086f8`) derives the measured
+  6,622,194,703-byte quantized sequence versus the 7,695,060-byte compact asset: 861x smaller after
+  rounding. The accepted Chromium/SwiftShader v5 browser record is 48,961 bytes, SHA-256
+  `ea194edc23dd583d9591c5009449c96d45f515291664b1baf76f8d508a3f2cb1`; it passed play/pause,
+  exact seek/reverse, orbit, keyboard, reduced motion, portrait/desktop containment and five scoped
+  failure lanes while fetching one compact asset and zero legacy meshes. The non-author closing
+  reviews found no blocker/high issue. Final exact `TMPDIR=/private/tmp npm test` passed 123/123
+  files, 2,091 tests with 8 skipped; its 33,723-byte log is
+  `out/checks/gutcheck-growth-final-npm-test-v3.log`, SHA-256
+  `8750759f51abe23f45e72dc1bac1424b7417c94f8330b4ae67a026a01bc67fe4`. The parallel NAS migration
+  retired the old top-level `out/` destination; do not run or retarget the legacy publisher, recreate
+  aliases, or claim public availability. Forward publication waits for the governed catalogue,
+  owner-manifest, receipt and fresh-restore contract.
 - The gut-check exploration (`explore/gg-realism-gutcheck`) is MERGED to `main` (`98bc75d`,
   2026-08-12, merged-tree suite green). Eyeball-only — not evidence, no gate claim, no solver
   code touched.
@@ -115,7 +121,7 @@ index, a plan, ADR, or audit links to historical detail.
   frozen tree exited 0: Rule 7 clean over 436 files, both TypeScript projects, Vitest 82 files /
   1,454 tests in 628.68 s. Whether WP2 uses Z = 2 or Z = 1 strata is a WP2/WP3 protocol
   decision.
-- **Last updated:** 2026-08-15 by OpenAI Codex
+- **Last updated:** 2026-08-16 by OpenAI Codex
 
 ## Phase gates
 
@@ -147,8 +153,9 @@ The older [proposed consumer plan](plans/phase-9-modular-physics-arms.md) is sup
 history, not execution authority. Decisions 0046–0050 keep worktrees, processes, artifacts, claims,
 and completion credit isolated.
 
-The [compact gutcheck growth-replay plan](plans/explore-gutcheck-growth-volume.md) is the active
-Journey/media implementation record. It is parallel to, and cannot change, the Phase 6 lane.
+The [compact gutcheck growth-replay plan](plans/explore-gutcheck-growth-volume.md) is the completed
+local Journey/media implementation record; only governed NAS publication remains deferred. It is
+parallel to, and cannot change, the Phase 6 lane.
 
 Before any production row, the repository must have reviewed source-derived physical-size strata, a
 pre-registered and executed numerical-control ladder that selects one configuration or no-pass, an
@@ -182,20 +189,17 @@ blockers after 72/72 focused tests and reviewer exact `TMPDIR=/private/tmp npm t
 passed / 7 skipped (`out/checks/npm-test-round3-review.log`, SHA-256 `2a90d0d5…b11d`). Windows
 `S:/` and full NAS replay remain unexecuted; two deferred low findings are recorded in the plan.
 
-### Journey compact growth replay — implementation in progress (2026-08-15)
+### Journey compact growth replay — local candidate complete; NAS publication deferred (2026-08-16)
 
 Open [explore-gutcheck-growth-volume.md](plans/explore-gutcheck-growth-volume.md). The strict format,
-baker, viewer, small asset, browser smoke, full allocation probe, and non-author review are complete.
-Exact `TMPDIR=/private/tmp npm test` passed and `44fd4b6` committed the implementation. Run B has
-exited zero and independently validated. Next adapt only the strict comparison reader to the exact
-marker-backed governed Run B collection paths, retain every digest/frame/source hard lock, and build
-the measured record into `out/gutcheck-growth-runB/`. Run the Chromium capture with Vite's repository
-config and NAS fallback disabled, inspect every desktop/portrait/timeline screenshot, then run the
-governing checks and bounded closing review. Do not run
-`scripts/gutcheck-publish-growth-comparison.ts`, recreate the retired NAS `out/` tree, or append the
-old ledger: forward publication waits for the parallel NAS-governance workstream to freeze its
-collection/receipt contract. Preserve the legacy meshes and do not count this media work toward any
-phase gate.
+baker, full Run B asset, smooth viewer, measured comparison page, strict v5 Chromium record, visual
+inspection, adversarial reviews and final full suite are complete locally. No Journey/media action is
+required before the parallel NAS-governance workstream freezes its forward collection publication
+command and catalogue/owner-manifest/receipt/fresh-restore contract. At that point, replace the
+retired-path writer with the governed lifecycle and revalidate from the published bytes; do not run
+or retarget `scripts/gutcheck-publish-growth-comparison.ts`, recreate the retired NAS `out/` tree, or
+append the old ledger. Preserve the legacy meshes and do not count this media work toward any phase
+gate.
 
 ### Phase 8B record — closed; external search remains stopped
 

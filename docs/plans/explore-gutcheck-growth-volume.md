@@ -1,9 +1,9 @@
 # Plan — Compact smooth 3D replay for the G-G gutcheck
 
 - **Phase:** Maker-directed Journey/media exploration; not a charter phase gate
-- **Status:** in progress
+- **Status:** local implementation complete; governed NAS publication deferred
 - **Started:** 2026-08-15
-- **Last touched:** 2026-08-15 by OpenAI Codex
+- **Last touched:** 2026-08-16 by OpenAI Codex
 
 ## Goal
 
@@ -105,9 +105,9 @@ versus the recorded 6.62 GB quantized sequence. The checkpoint measurement is na
 - [x] Monitor the restart-only Run B bake to atomic publication, then independently decode and
       re-derive its identity, event count, tick range, crop, endpoints, occupancy digest, byte size,
       and elapsed runtime before any comparison uses it.
-- [ ] Add a side-by-side browser comparison of the legacy per-frame workflow and compact replay,
+- [x] Add a side-by-side browser comparison of the legacy per-frame workflow and compact replay,
       using measured Run B values and clearly labeled unknown or non-transferable quantities.
-- [ ] Run real-browser visual/interaction checks plus the governing repository checks, obtain a
+- [x] Run real-browser visual/interaction checks plus the governing repository checks, obtain a
       proportionate non-author review, update `docs/PROGRESS.md`, and commit the comparison.
 - [ ] Publish the finished comparison bundle only after the parallel NAS-governance workstream
       freezes a forward collection/receipt contract; do not recreate the retired top-level `out/`
@@ -195,8 +195,13 @@ The wrapper exited zero after the tick-70,000 line. `out/gutcheck-growth-runB/li
 36,348.1 solver seconds and one final completion line; `error.log` is empty. The atomic asset is
 7,695,060 bytes with SHA-256
 `475c1f7c227c45b005bfdb8691b1250599b405fa59902462110312a4f26ceb7d`.
-A non-author read-only monitor first ran the strict project decoder and then a separate handwritten
-raw-byte parser. It independently confirmed the 2,280-byte padded header and exact byte formula,
+A coordinator-side strict validation wrote
+`out/checks/gutcheck-growth-runB-independent-validation.json` (618 bytes, SHA-256
+`ba02326e943b6d6f6a535381d3b55ce6f1ca8eaf5fb38813a1701e7e137bc205`), and a separate
+handwritten raw-byte parser wrote
+`out/checks/gutcheck-growth-runB-independent-raw.json` (1,234 bytes, SHA-256
+`53a50ce4a0e2617c09e124d2901569dbd233ee97f825091b7cf786dcac39ed42`). Together they confirmed
+the 2,280-byte padded header and exact byte formula,
 961,597 unique tick/index-ordered events over ticks 0 through 70,000, the canonical 19-site seed,
 active-domain membership, 24 final-tick events, tight bounds `[306,306,18]` through
 `[894,894,30]`, the padded 593 x 593 x 17 crop, and a reconstructed 69,120,000-byte full-lattice
@@ -205,7 +210,9 @@ occupancy SHA-256 of
 It also bound the clean `44fd4b6` source/runtime identity and embedded 701-frame manifest digest.
 The comparison coordinator separately repeated strict decode, crop reconstruction, occupancy
 derivation, terminal-log reconciliation, and manifest-byte verification after locating the same
-manifest in its governed collection. Neither validation mutated the asset or NAS.
+manifest in its governed collection. The read-only process monitor observed liveness, milestones,
+exit status, stderr and the published local file; it did not perform either validation. None of
+these checks mutated the asset or NAS.
 
 ### Concurrent NAS-governance seam
 
@@ -254,7 +261,7 @@ builder and flagless publisher independently reconstruct event-derived occupancy
 bytes and require the pinned Run B digest; that planned post-run validation remains mandatory before
 acceptance or publication.
 
-## Comparison prebuild — awaiting measured Run B asset
+## Comparison implementation — local Run B candidate complete
 
 While the deterministic bake runs, the comparison implementation was prepared without issuing a
 final record. `scripts/gutcheck-build-growth-comparison.ts` reopens the compact asset, re-derives its
@@ -273,13 +280,66 @@ manual seeking available while explaining disabled playback under reduced-motion
 
 Independent review found no blocker/high issue in the prebuild. Exact
 `TMPDIR=/private/tmp npm test`, `npm run build --workspace app`, and `git diff --check` passed. Those
-checks do not validate a not-yet-existing Run B compact artifact: the two remaining checklist items
-stay open until the bake exits zero, the builder processes the real 701-frame inputs, and the final
-Chromium capture is executed and visually inspected.
+checks preceded the real Run B compact artifact and therefore did not validate it. Final measured
+validation and browser evidence are recorded below.
 
-## Final comparison publisher prebuild — frozen, not executed
+The final post-review strict builder reopened and validated all 701 raw frames and all 701
+quantized frames in the marker-backed governed collection, then atomically wrote
+`out/gutcheck-growth-runB/comparison-record-v2.json` (3,002 bytes, SHA-256
+`5488f738f3068e74cfdbc38e07c35c1a30e21fe73f891a22ab1e8d50399086f8`, timestamp
+`2026-08-16T11:11:13.634Z`). The record derives
+9,986,632,571 bytes for the raw sequence, 6,622,194,703 bytes for the quantized web sequence,
+7,695,060 bytes for the compact asset, and an 861x rounded size comparison. It names the same
+legacy-manifest and final-occupancy digests on both sides. The generation times are explicitly
+separate observed executions rather than a controlled performance benchmark. Removing only
+`recordedAt` makes v2 byte-identical to the first record, which remains preserved but superseded.
+A concurrent strict builder reached atomic publication with the same inputs and correctly refused
+to replace that already-existing first record; its 280-byte no-clobber log has SHA-256
+`194503fa7776cbb46bc49469c138f40af0a64caf35d6132f50ef2d0fba9c170b`.
 
-The flagless `scripts/gutcheck-publish-growth-comparison.ts` now defines the final publication
+The accepted real-browser run is
+`out/gutcheck-growth-runB/comparison-browser-v5/record.json` (48,961 bytes, SHA-256
+`ea194edc23dd583d9591c5009449c96d45f515291664b1baf76f8d508a3f2cb1`). Chromium 149 over
+ANGLE SwiftShader loaded one comparison record and one compact asset, fetched zero legacy manifests
+and zero legacy meshes, and reported no page errors. Play, pause, hold, keyboard seek, exact
+start/middle/final seek, reverse reconstruction, orbit, reduced-motion manual control, landscape
+and portrait containment all passed. Its start, middle, final and orbit screenshots are distinct;
+the reverse screenshot exactly matches the middle screenshot. Malformed record, truncated asset,
+same-size payload mutation, missing asset and exercised WebGL2-context-null lanes each stayed
+not-ready and displayed its full lane-specific error after browser whitespace normalization.
+
+The closing code reviewer was OpenAI Codex (GPT-5 family), a non-author with inherited/shared full
+developer, repository and conversation context. It found and then verified the repair of copied-
+marker and foreign-host-relative-root bypasses: collection input now requires the exact marker, an
+absolute configured root or host-native candidate, and matching realpath/device/inode identity. It
+independently passed 84 focused decoder/baker/builder/publisher tests, both TypeScript projects,
+Rule 7 over 1,014 files, the capture parser and diff checks, and returned no blocker/high finding.
+It did not rerun Chromium, read the NAS, exercise Windows/SMB, repeat the 16.6 GB builder or restart
+the bake.
+
+The closing artifact/visual reviewer was OpenAI Codex (GPT-5 family), a non-author with inherited/
+shared full developer and repository context. It independently rehashed the local record, compact
+asset, three posters and eight screenshots; hand-parsed all events and occupancy; rederived request,
+interaction, reduced-motion and five negative-control witnesses; and visually inspected every v5
+image. An earlier pass rejected an unpinned exact frame-size literal and unsupported repetition
+quantifier; both are absent from v5. Its final verdict had no blocker/high finding. The 390 x 844
+portrait is a scrolled partial view whose legacy badge and transient MP4 crystal are clipped, a
+minor capture/polish limit; document-width and compact-camera bounds pass. The reviewer did not
+reopen the NAS MP4 or legacy sequences, rerun Chromium, query hardware GPU/VRAM/performance, or
+establish production compression, real-mobile, cross-browser or accessibility behavior.
+
+After all tracked source, test, claim and detector repairs, exact
+`TMPDIR=/private/tmp npm test` passed 123/123 test files with 2,091 tests passed and 8 skipped in
+405.62 seconds. Its 33,723-byte console record is
+`out/checks/gutcheck-growth-final-npm-test-v3.log`, SHA-256
+`8750759f51abe23f45e72dc1bac1424b7417c94f8330b4ae67a026a01bc67fe4`; the two-byte zero-exit
+record has SHA-256 `9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa`.
+The command includes the Rule 7 scan over 1,014 files, both TypeScript projects and the complete
+Vitest suite.
+
+## Retired-path comparison publisher — frozen historical prebuild, do not execute
+
+The flagless `scripts/gutcheck-publish-growth-comparison.ts` defined the pre-relocation publication
 boundary without touching the live bake or NAS. It accepts only the fixed comparison bundle roster,
 requires the successful wrapper/log records, strictly decodes the compact asset, independently
 re-derives its full-lattice occupancy digest from event indices, and reopens the referenced NAS MP4.
@@ -313,7 +373,10 @@ typecheck`, capture-script `node --check`, and `git diff --check`, matched the f
 and after review, and found no remaining blocker/high issue. Its limits are explicit: it did not
 rerun full `npm test`, execute the final Chromium capture or visually inspect real Run B screenshots,
 touch the live bake or NAS, or exercise Windows/SMB. This closes only the publisher prebuild review;
-neither remaining checklist item is complete and no final measured comparison has been published.
+the NAS governance workstream later retired its fixed top-level `out/` destination before this
+publisher ran. It must not be executed, retargeted ad hoc, or treated as forward publication
+authority. The local measured comparison is complete; governed NAS publication remains pending a
+frozen catalogue/owner-manifest/receipt/fresh-restore contract and is deliberately not claimed here.
 
 ## Out of scope
 
@@ -330,6 +393,32 @@ neither remaining checklist item is complete and no final measured comparison ha
 
 ## Tried and rejected
 
+- **Treat the first two screenshot directories as accepted browser evidence.** Rejected because
+  `comparison-browser-v1/` and `comparison-browser-v2/` contain partial images but no terminal pass
+  record. The harness first called a serialized request URL as though it were a Playwright request,
+  then assumed the malformed-record lane had rendered an iframe. Both defects were repaired; v3
+  preceded the closing claim review, and v4 still named the superseded first record. Only v5 is
+  accepted.
+- **Accept generic error-page words as proof that the named failure was visible.** Rejected after
+  adversarial review: a page containing only “comparison/replay/unavailable” could pass without
+  displaying the scoped failure. Capture and independent verification now require the complete
+  lane-specific error after normalizing only browser-collapsed whitespace; v5 reran every lane.
+- **Trust a copied public marker or another host's mount syntax.** Rejected after closing review.
+  The builder now binds collection inputs to the exact marker plus an absolute configured or
+  host-native detected root and matches realpath/device/inode identity; adversarial tests execute
+  both copied-marker and relative-root attempts.
+- **Publish exact frame-size extrema or a repetition quantifier as UI literals.** Rejected after
+  artifact review because neither claim was carried by the strict record. V5 removes both; it says
+  only that later frames re-encode the crystal grown by then and that an uncached state needs a fetch
+  and decode.
+- **Finish the first closing full-suite process after a new blocker was found.** Rejected: it was
+  deliberately interrupted before completion because its source tree no longer represented the
+  accepted implementation. Its partial log is not evidence. The named v3 log above is the fresh
+  complete v3 run after every source, test and record repair.
+- **Run or retarget the pre-relocation NAS publisher.** Rejected because its fixed top-level
+  `out/` destination was retired during the parallel governance migration, and it cannot create the
+  required catalogue, owner manifest, publication receipt or fresh-restore evidence. Local output
+  is retained until the governed forward publication command is frozen.
 - **Direct glTF morph targets or an ordinary vertex-animation texture.** Rejected because all 700
   adjacent legacy frame pairs change topology and have no stable vertex/index correspondence.
 - **Bundle the 701 meshes into one larger file.** Rejected because it changes request count, not

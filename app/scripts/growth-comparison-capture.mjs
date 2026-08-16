@@ -80,6 +80,10 @@ function sha256(bytes) {
   return createHash("sha256").update(bytes).digest("hex");
 }
 
+function normalizeBrowserRenderedWhitespace(value) {
+  return value.replace(/\s+/gu, " ").trim();
+}
+
 function readJson(bytes, label) {
   try {
     return JSON.parse(bytes.toString("utf8"));
@@ -217,7 +221,7 @@ async function installRoutes(
 
 function assertNoUnmappedNasRequests(requests, map, label) {
   const unexpected = requests
-    .map((request) => new URL(request.url()).pathname)
+    .map((request) => new URL(request.url).pathname)
     .filter((pathname) =>
       (pathname === "/nas" || pathname.startsWith("/nas/")) && !map.has(pathname));
   if (unexpected.length > 0) {
@@ -505,7 +509,10 @@ async function runErrorLane(
   if (expectedError !== null && !expectedError.test(state.error)) {
     fail(`${label} published the wrong error: ${state.error}`);
   }
-  const iframeSrc = await page.locator('[data-role="compact-frame"]').getAttribute("src");
+  const iframe = page.locator('[data-role="compact-frame"]');
+  const iframeCount = await iframe.count();
+  if (iframeCount > 1) fail(`${label} rendered more than one compact iframe`);
+  const iframeSrc = iframeCount === 0 ? null : await iframe.getAttribute("src");
   const iframeReady = state.debug?.iframeReady ?? null;
   if (expectIframeNotLoaded) {
     if (state.ready || state.debug?.iframeReady !== false || iframeSrc !== null) {
@@ -513,8 +520,11 @@ async function runErrorLane(
     }
   }
   const bodyText = await page.locator("body").innerText();
-  const visible = /comparison|replay|unavailable/iu.test(bodyText);
-  if (!visible) fail(`${label} error is not visible on the page`);
+  const displayedBody = normalizeBrowserRenderedWhitespace(bodyText);
+  const displayedError = normalizeBrowserRenderedWhitespace(state.error);
+  if (displayedError === "" || !displayedBody.includes(displayedError)) {
+    fail(`${label} scoped error is not visible on the page`);
+  }
   let contextNullWitness = null;
   if (collectContextNullWitness) {
     const playerFrame = page.frames().find((candidate) => {

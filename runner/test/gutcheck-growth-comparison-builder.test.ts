@@ -9,7 +9,7 @@ import {
   writeFileSync,
 } from "node:fs";
 import { tmpdir } from "node:os";
-import { join, resolve } from "node:path";
+import { isAbsolute, join, resolve } from "node:path";
 
 import { GG_PRESETS, domainCenter, hexSeedSites } from "@vcc/core";
 import { afterAll, describe, expect, it } from "vitest";
@@ -44,6 +44,10 @@ import {
   validateLegacyFrameFile,
   type GrowthComparisonBuildOptions,
 } from "../../scripts/gutcheck-build-growth-comparison.ts";
+import {
+  detectGovernedVccNasMount,
+  vccNasCandidateMounts,
+} from "../../scripts/nas-root.ts";
 
 const DIMS = { nx: 20, ny: 20, nz: 12 } as const;
 const FINAL_TICK = 200;
@@ -58,6 +62,17 @@ function temporaryRoot(label: string): string {
   const root = mkdtempSync(join(tmpdir(), `gutcheck-comparison-${label}-`));
   temporaryRoots.push(root);
   return root;
+}
+
+function withGutcheckNasRoot<T>(root: string, action: () => T): T {
+  const previous = process.env.GUTCHECK_NAS_ROOT;
+  process.env.GUTCHECK_NAS_ROOT = root;
+  try {
+    return action();
+  } finally {
+    if (previous === undefined) delete process.env.GUTCHECK_NAS_ROOT;
+    else process.env.GUTCHECK_NAS_ROOT = previous;
+  }
 }
 
 function digest(value: Uint8Array | string): string {
@@ -483,37 +498,67 @@ function exactRunBIdentityFrom(growth: DecodedGrowthAsset): DecodedGrowthAsset {
 }
 
 describe("comparison record derivation", () => {
-  it("accepts only the exact canonical collection pair under the exact VCC share marker", () => {
+  it("accepts a custom collection mount through the documented NAS override only with the exact marker", () => {
     const fixture = collectionManifestPair("collection-layout");
-    expect(() => assertRunBManifestPairOnGovernedShare(fixture.raw, fixture.v2q)).not.toThrow();
+    withGutcheckNasRoot(fixture.share, () => {
+      expect(detectGovernedVccNasMount()).toBe(
+        fixture.share.replace(/\\/gu, "/").replace(/\/*$/u, "/"),
+      );
+      expect(() => assertRunBManifestPairOnGovernedShare(fixture.raw, fixture.v2q)).not.toThrow();
+    });
 
     writeFileSync(
       join(fixture.share, ".snowflake-nas.json"),
       '{"projectId":"virtual-cloud-chamber","format":"snowflake-nas-share-v1"}\n',
     );
-    expect(() => assertRunBManifestPairOnGovernedShare(fixture.raw, fixture.v2q)).toThrow(
-      /not exactly the VCC marker/,
-    );
+    withGutcheckNasRoot(fixture.share, () => {
+      expect(() => detectGovernedVccNasMount()).toThrow(/does not carry the exact VCC NAS marker/);
+      expect(() => assertRunBManifestPairOnGovernedShare(fixture.raw, fixture.v2q)).toThrow(
+        /not exactly the VCC marker|does not carry the exact VCC NAS marker/,
+      );
+    });
+  });
+
+  it("rejects an arbitrary collection root that merely copies the exact public marker", () => {
+    const governed = collectionManifestPair("collection-governed");
+    const impostor = collectionManifestPair("collection-impostor");
+    withGutcheckNasRoot(governed.share, () => {
+      expect(() => assertRunBManifestPairOnGovernedShare(impostor.raw, impostor.v2q)).toThrow(
+        /not the detected governed VCC NAS share/,
+      );
+    });
+  });
+
+  it("never treats another host's mount syntax as a cwd-relative auto-detection root", () => {
+    expect(vccNasCandidateMounts("darwin")).toEqual(["/Volumes/snowcrystal/"]);
+    expect(vccNasCandidateMounts("win32")).toEqual(["S:/"]);
+    expect(vccNasCandidateMounts("linux")).toEqual([]);
+
+    const fixture = collectionManifestPair("collection-relative-override");
+    const relativeRoot = "relative-vcc-nas-root";
+    expect(isAbsolute(relativeRoot)).toBe(false);
+    withGutcheckNasRoot(relativeRoot, () => {
+      expect(() => assertRunBManifestPairOnGovernedShare(fixture.raw, fixture.v2q)).toThrow(
+        /must be an absolute path/,
+      );
+    });
   });
 
   it("preserves the registered legacy out-path layout", () => {
     const fixture = legacyManifestPair("legacy-layout");
-    const previous = process.env.GUTCHECK_NAS_ROOT;
-    process.env.GUTCHECK_NAS_ROOT = fixture.share;
-    try {
+    withGutcheckNasRoot(fixture.share, () => {
       expect(() => assertRunBManifestPairOnGovernedShare(fixture.raw, fixture.v2q)).not.toThrow();
-    } finally {
-      if (previous === undefined) delete process.env.GUTCHECK_NAS_ROOT;
-      else process.env.GUTCHECK_NAS_ROOT = previous;
-    }
+    });
   });
 
   it("requires collection manifests to share one real root and contain no symlink", () => {
     const first = collectionManifestPair("collection-first");
     const second = collectionManifestPair("collection-second");
-    expect(() => assertRunBManifestPairOnGovernedShare(first.raw, second.v2q)).toThrow(
-      /same governed snowcrystal NAS share/,
-    );
+    withGutcheckNasRoot(first.share, () => {
+      expect(() => assertRunBManifestPairOnGovernedShare(first.raw, second.v2q)).toThrow(
+        /not the detected governed VCC NAS share|same governed snowcrystal NAS share/,
+      );
+    });
 
     const linked = collectionManifestPair("collection-link");
     const rawDirectory = join(
@@ -529,9 +574,11 @@ describe("comparison record derivation", () => {
     writeFileSync(join(outside, "manifest.json"), "raw-manifest");
     rmSync(rawDirectory, { recursive: true });
     symlinkSync(outside, rawDirectory, "dir");
-    expect(() => assertRunBManifestPairOnGovernedShare(linked.raw, linked.v2q)).toThrow(
-      /must not contain a symbolic link/,
-    );
+    withGutcheckNasRoot(linked.share, () => {
+      expect(() => assertRunBManifestPairOnGovernedShare(linked.raw, linked.v2q)).toThrow(
+        /must not contain a symbolic link/,
+      );
+    });
   });
 
   it("derives manifest identity, exact attachment counts, occupancy, runtime, and binary frame headers", () => {

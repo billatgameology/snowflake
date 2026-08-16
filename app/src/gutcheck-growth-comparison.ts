@@ -171,7 +171,7 @@ function comparisonMarkup(): string {
             <div class="seek-row" data-role="poster-controls" aria-label="Compare recorded ticks"></div>
             <p class="panel-copy" id="legacy-media-description">
               <strong>What it keeps:</strong> a fully extracted surface at each sampled tick. Any sampled
-              state can stand alone, but almost all geometry is repeated from one frame to the next.
+              state can stand alone, while every later frame re-encodes the crystal grown by then.
             </p>
           </figure>
 
@@ -438,7 +438,7 @@ async function render(record: GrowthComparisonRecord, recordUrl: URL): Promise<v
   );
   appendComparisonRow(
     "Web interaction",
-    "Orbit and scrub are possible, but each uncached state requires another frame fetch and decode. Quantized frames range from 2,144 bytes to 23,310,604 bytes.",
+    "Orbit and scrub are possible, but each uncached state requires another frame fetch and decode.",
     "One fetch supports continuous play, pause, exact-tick scrub, reverse, and a free 3D camera.",
   );
   appendComparisonRow(
