@@ -1,7 +1,7 @@
 # Plan — Glass look and legacy-camera parity for compact Run B
 
 - **Phase:** Maker-directed Journey/media exploration; not a charter phase gate
-- **Status:** in progress
+- **Status:** implementation candidate complete; fresh browser/visual acceptance pending
 - **Started:** 2026-08-16
 - **Last touched:** 2026-08-16 by OpenAI Codex
 
@@ -9,10 +9,10 @@
 
 Make the compact Run B attachment-time replay use the existing named `glass` presentation and
 follow the exact camera choreography authored for the legacy `growth-B-intro` video. The two sides
-of the comparison should therefore carry the same growth timing and camera movement while the
-compact side retains exact-tick seeking and a user-controlled orbit override. This changes only the
-media presentation; exact attachment events, evidence labels, source identity and phase authority
-remain unchanged.
+should therefore sample the same authored growth and camera tracks, although their playback
+controls remain independent rather than transport-locked. The compact side retains exact-tick
+seeking and a user-controlled orbit override. This changes only the media presentation; exact
+attachment events, evidence labels, source identity and phase authority remain unchanged.
 
 ## Done when
 
@@ -45,14 +45,16 @@ This follow-up has no charter milestone. It is done when all of the following ar
 
 Treat `app/scenes/growth-B-intro.json` as the one camera/timing authority. Add a small browser-safe
 scene-track parser and sampler, then use that same sampler in both the legacy scene player and the
-compact arrival-volume player. The comparison page passes the committed scene asset to the compact
-iframe; it does not duplicate the four camera poses in query parameters or prose.
+compact arrival-volume player. Compile-time source binding keeps the exact committed scene bytes in
+the production build; the comparison iframe does not perform an unauthenticated runtime scene fetch
+or duplicate the four camera poses in query parameters or prose.
 
 The compact renderer cannot reuse `MeshPhysicalMaterial` directly because its surface exists only
 inside the ray-marching shader. Give that shader a named glass presentation branch: preserve the
-exact first-hit geometry and depth, but use a low-opacity body with stronger Fresnel rim/specular
-response over the existing glass backdrop. This is a presentation approximation, not physical
-refraction, and remains covered by the existing unvalidated label.
+exact first-hit geometry and depth, keep the proxy material opaque for correct depth and sorting,
+and precompose a normal/IOR-offset sample of the same backdrop with Fresnel rim/specular response.
+This cannot reveal or refract far arms like a two-surface optical renderer; it is a nonphysical
+glass-styled presentation approximation and remains covered by the existing unvalidated label.
 
 The scene clock owns automatic playback. The scene frame track maps seconds to exact growth ticks;
 the scene camera track maps the same seconds to tilt/yaw/zoom. Manual seeking applies both tracks.
@@ -64,15 +66,18 @@ scene pose.
 
 - [x] Audit the legacy scene, current look registry, compact shader/player and comparison harness.
 - [x] Record and commit this bounded plan before executable changes.
-- [ ] Add and independently test the shared strict scene-track sampler.
-- [ ] Add the compact glass shader branch and expose its presentation identity in debug state.
-- [ ] Drive compact growth, camera, seeking and pause from the legacy scene clock with manual orbit
+- [x] Add and independently test the shared strict scene-track sampler.
+- [x] Add the compact glass shader branch and expose its presentation identity in debug state.
+- [x] Drive compact growth, camera, seeking and pause from the legacy scene clock with manual orbit
       override and reduced-motion handling.
-- [ ] Wire the exact committed scene into the comparison page and extend browser/publisher checks.
-- [ ] Run focused checks, exact `TMPDIR=/private/tmp npm test`, production build and a fresh browser
-      capture; visually inspect the accepted views and repair blockers.
-- [ ] Update this plan and `docs/PROGRESS.md`, replace the local review bundle, obtain one
-      proportionate non-author review and commit the completed follow-up.
+- [x] Wire the exact committed scene into the comparison page without executing or retargeting the
+      retired publisher.
+- [x] Run focused checks, exact `TMPDIR=/private/tmp npm test`, the production build and one
+      proportionate non-author source audit; repair every blocker/high finding.
+- [ ] Supersede the local browser-capture contract, run a fresh browser capture and visually inspect
+      the accepted views before calling the new appearance accepted evidence.
+- [ ] Close this plan only after that browser/visual boundary is satisfied; keep the historical v5
+      record and its screenshots unchanged meanwhile.
 
 ## Out of scope
 
@@ -81,6 +86,7 @@ scene pose.
   identity between two different surface representations.
 - Removing free orbit, forcing camera motion under reduced-motion preferences, or making the camera
   track a second source of growth truth.
+- Making the independently controlled legacy and compact panes share a live transport clock.
 - Governed NAS publication, public hosting, mobile/hardware-GPU/cross-browser performance acceptance
   or accessibility certification beyond the existing bounded checks.
 
@@ -96,8 +102,43 @@ scene pose.
 - **Let scripted camera updates and `OrbitControls` run simultaneously.** Rejected because the
   authored track would continually overwrite user input and the advertised free camera would be
   misleading.
+- **Use transparent proxy-box blending for the glass body.** Rejected because the implicit surface
+  needs its refined first-hit depth; proxy transparency would introduce sorting errors without
+  revealing the crystal's true far surface.
 
 ## Open questions
 
 - Whether a later renderer should add true two-surface thickness/refraction. This follow-up first
-  measures the cheaper transparent Fresnel treatment; no optical-fidelity claim depends on it.
+  measures the cheaper backdrop-precomposited Fresnel treatment; no optical-fidelity claim depends
+  on it.
+
+## Implementation record — 2026-08-16
+
+The executable candidate now compile-time binds the exact UTF-8 bytes of
+`app/scenes/growth-B-intro.json` under presentation id `run-b-intro-v1`; its source SHA-256 is
+checked by `app/src/gutcheck-scene-motion.ts`, and `app/scenes/.gitattributes` prevents Windows
+checkout conversion from changing those bytes. The legacy scene player, scene editor and compact
+player use the same strict camera/frame sampler. The compact player continuously samples the
+authored frame coordinate for smooth motion while its integer-tick seek path retains the exact
+requested tick, including values whose time round-trip lands on an adjacent binary float.
+
+The compact shader keeps its first implicit hit, opaque depth write and front-face proxy, then
+precomposes a normal/IOR-offset sample of the same backdrop with Fresnel, roughness, specular and
+clearcoat-inspired terms. Its UI says `GLASS-STYLED`, `MODEL / UNVALIDATED` and nonphysical; it does
+not claim true far-surface refraction. The comparison page binds poster times 0, 6.5 and 13 seconds,
+requires matching appearance/presentation debug identity and explicitly says the panes are not
+transport-locked.
+
+Exact `TMPDIR=/private/tmp npm test` exited 0 on the repaired tree, and
+`npm run build --workspace app` exited 0. A non-author OpenAI Codex audit with inherited full
+context independently ran the app typecheck and focused tests, found the camera-damping,
+manual-seek, Windows-EOL and exact-tick seams, then reported no remaining blocker/high finding after
+their repairs. Its limits were no browser/WebGL execution, screenshots, NAS access or publication.
+
+The generated local review site was refreshed as an **unaccepted candidate** at
+`out/gutcheck-growth-runB/review-site-v1`; the unchanged local URL is
+`http://127.0.0.1:4177/gutcheck-growth-comparison.html?record=%2Fcomparison-record.json`. Browser
+selection returned no available session, so no fresh WebGL capture or visual inspection exists in
+this record. The historical v5 browser record remains the latest accepted visual evidence, but it
+validates the prior bold-ice/stationary-camera presentation only and must not be cited for this
+candidate.

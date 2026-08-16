@@ -106,11 +106,13 @@ index, a plan, ADR, or audit links to historical detail.
   retired the old top-level `out/` destination; do not run or retarget the legacy publisher, recreate
   aliases, or claim public availability. Forward publication waits for the governed catalogue,
   owner-manifest, receipt and fresh-restore contract.
-- A bounded presentation follow-up is **IN PROGRESS** under
-  [explore-gutcheck-growth-glass-camera.md](plans/explore-gutcheck-growth-glass-camera.md): use the
-  named glass look for the compact arrival-volume renderer and drive it from the exact committed
-  `growth-B-intro` scene clock/camera track while retaining reduced-motion and manual-orbit paths.
-  The plan is committed before executable changes; no new renderer/browser claim exists yet.
+- The [glass/camera follow-up](plans/explore-gutcheck-growth-glass-camera.md) is **IMPLEMENTED AS A
+  LOCAL CANDIDATE; BROWSER/VISUAL ACCEPTANCE IS PENDING**. It binds the compact replay to the exact
+  `growth-B-intro` clock/camera track, retains exact-tick/manual-orbit/reduced-motion paths, and labels
+  the shader `GLASS-STYLED · MODEL / UNVALIDATED`; the panes are not live-transport-locked. Exact
+  `TMPDIR=/private/tmp npm test`, the app build and non-author source audit passed after four named
+  repairs recorded in the plan. No browser session was available, so there is no fresh WebGL visual
+  verdict; v5 remains evidence only for the prior bold-ice/stationary-camera version.
 - The gut-check exploration (`explore/gg-realism-gutcheck`) is MERGED to `main` (`98bc75d`,
   2026-08-12, merged-tree suite green). Eyeball-only — not evidence, no gate claim, no solver
   code touched.
@@ -200,10 +202,12 @@ Open [explore-gutcheck-growth-glass-camera.md](plans/explore-gutcheck-growth-gla
 [explore-gutcheck-growth-volume.md](plans/explore-gutcheck-growth-volume.md). The strict format,
 baker, full Run B asset, smooth viewer, measured comparison page, strict v5 Chromium record, visual
 inspection, adversarial reviews and final full suite are complete locally. No Journey/media action is
-required for those accepted v5 bytes. The active follow-up first reuses the exact committed legacy
-scene timing/camera track in the compact player, adds an explicit glass shader branch, retains manual
-orbit/reduced-motion behavior, and produces a fresh browser record before replacing the local review
-bundle. Governed publication still waits for the parallel NAS-governance workstream's forward
+required for those accepted v5 bytes. Hard-refresh
+`http://127.0.0.1:4177/gutcheck-growth-comparison.html?record=%2Fcomparison-record.json` and inspect
+poster views, final-state camera hold, orbit and `follow tour`. When Browser is available, add
+presentation/camera/manual-hold witnesses to `app/scripts/growth-comparison-capture.mjs`, capture to
+a new no-clobber directory, inspect the screenshots, then close the follow-up plan. Do not cite v5
+for this look. Governed publication still waits for the parallel NAS-governance workstream's forward
 collection command and catalogue/owner-manifest/receipt/fresh-restore contract. Do not run or
 retarget `scripts/gutcheck-publish-growth-comparison.ts`, recreate the retired NAS `out/` tree, or
 append the old ledger. Preserve the legacy meshes and do not count this media work toward any phase

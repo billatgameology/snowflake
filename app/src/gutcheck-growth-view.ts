@@ -10,8 +10,10 @@ import {
   buildDenseExactTickVolume,
   decodeGrowthAsset,
   growthCropSize,
+  growthLatticeCoordinates,
   latticeToGrowthWorld,
   splitGrowthPlayhead,
+  type DecodedGrowthAsset,
   type DenseExactGrowthVolume,
   type GrowthCrop,
   type GrowthReplayConfig,
@@ -19,6 +21,15 @@ import {
   type GrowthTerminationReason,
   type GrowthVec3,
 } from "./gutcheck-growth-format.ts";
+import {
+  RUN_B_GROWTH_PRESENTATION,
+  sampleSceneCamera,
+  sampleSceneFrameCoordinate,
+  sceneCameraPoseFromPosition,
+  sceneTickDrivenSample,
+  sceneTimeAtFrameCoordinate,
+  type SceneCameraPose,
+} from "./gutcheck-scene-motion.ts";
 
 export interface GutcheckGrowthViewOptions {
   readonly query: URLSearchParams;
@@ -27,6 +38,47 @@ export interface GutcheckGrowthViewOptions {
   readonly bodyColor: string;
   readonly edgeColor: string;
   readonly zScale: number;
+  readonly presentation: typeof RUN_B_GROWTH_PRESENTATION | null;
+  readonly appearance: {
+    readonly name: string;
+    readonly style: "solid" | "glass";
+    readonly ior: number;
+    readonly roughness: number;
+    readonly specular: number;
+    readonly clearcoat: number;
+  };
+}
+
+function validatedAppearance(
+  candidate: GutcheckGrowthViewOptions["appearance"],
+): GutcheckGrowthViewOptions["appearance"] {
+  if (candidate.name.trim() === "" || candidate.name.length > 80) {
+    throw new Error("growth appearance name must contain 1 to 80 characters");
+  }
+  if (candidate.style !== "solid" && candidate.style !== "glass") {
+    throw new Error(`growth appearance style is unsupported: ${String(candidate.style)}`);
+  }
+  const bounded = (
+    name: string,
+    value: number,
+    minimum: number,
+    maximum: number,
+  ): number => {
+    if (!Number.isFinite(value) || value < minimum || value > maximum) {
+      throw new Error(
+        `growth appearance ${name} must be finite and in [${minimum}, ${maximum}], got ${String(value)}`,
+      );
+    }
+    return value;
+  };
+  return {
+    name: candidate.name,
+    style: candidate.style,
+    ior: bounded("ior", candidate.ior, 1.0001, 3),
+    roughness: bounded("roughness", candidate.roughness, 0, 1),
+    specular: bounded("specular", candidate.specular, 0, 2),
+    clearcoat: bounded("clearcoat", candidate.clearcoat, 0, 1),
+  };
 }
 
 interface GrowthQuality {
@@ -46,6 +98,19 @@ interface GrowthDebugState {
   playing: boolean;
   reducedMotion: boolean;
   quality: GrowthQuality["name"];
+  appearance: GutcheckGrowthViewOptions["appearance"];
+  presentation: null | {
+    id: string;
+    sourceSha256: string;
+    durationSeconds: number;
+    sceneSeconds: number;
+    sampledFrame: number;
+    legacyFrame: number;
+    tickInterval: number;
+    growthSampling: "continuous-frame-coordinate";
+    cameraMode: "scripted" | "manualHold";
+    camera: { tiltDegrees: number; yawDegrees: number; zoom: number };
+  };
   viewport: { width: number; height: number; pixelRatio: number };
   capabilities: {
     webgl2: boolean;
@@ -83,7 +148,9 @@ interface GrowthWindow {
   __spikeError?: string;
   __growthDebug?: GrowthDebugState;
   __growthSeek?: (tick: number) => Promise<void>;
-  __growthSetView?: (tiltDegrees: number, yawDegrees: number) => Promise<void>;
+  __growthSeekTime?: (seconds: number) => Promise<void>;
+  __growthSetView?: (tiltDegrees: number, yawDegrees: number, zoom?: number) => Promise<void>;
+  __growthFollowCamera?: () => Promise<void>;
   __growthBenchmark?: (samples: number) => Promise<number[]>;
 }
 
@@ -129,7 +196,10 @@ function makeBackdrop(top: string, bottom: string): THREE.CanvasTexture {
   return texture;
 }
 
-function makeStatusLabel(): HTMLDivElement {
+function makeStatusLabel(
+  appearance: GutcheckGrowthViewOptions["appearance"],
+  presentationId: string | null,
+): HTMLDivElement {
   const label = document.createElement("div");
   label.setAttribute("role", "status");
   label.style.cssText =
@@ -137,10 +207,16 @@ function makeStatusLabel(): HTMLDivElement {
     "border:1px solid rgba(210,228,255,.32);border-radius:7px;background:rgba(7,13,25,.72);" +
     "color:#e8f1ff;font:12px/1.45 ui-monospace,monospace;pointer-events:none";
   const title = document.createElement("div");
-  title.textContent = "MODEL · SMOOTH ATTACHMENT REPLAY · UNVALIDATED";
+  title.textContent = appearance.style === "glass"
+    ? "MODEL · GLASS-STYLED REPLAY · UNVALIDATED"
+    : "MODEL · SMOOTH ATTACHMENT REPLAY · UNVALIDATED";
   title.style.cssText = "font-weight:700;letter-spacing:.04em";
   const note = document.createElement("div");
-  note.textContent = "Exact recorded attachment ticks; interpolated display surface. G-G ticks are not physical time.";
+  note.textContent =
+    "Exact recorded attachment ticks; interpolated display surface. " +
+    (appearance.style === "glass" ? "Nonphysical glass approximation. " : "") +
+    (presentationId === null ? "" : "Authored camera tour; manual orbit pauses camera following. ") +
+    "G-G ticks are not physical time.";
   note.style.cssText = "color:#b9c9df;margin-top:3px";
   label.append(title, note);
   return label;
@@ -161,6 +237,8 @@ function growthShaderMaterial(
   quality: GrowthQuality,
   bodyColor: string,
   edgeColor: string,
+  backdrop: THREE.Texture,
+  appearance: GutcheckGrowthViewOptions["appearance"],
 ): THREE.ShaderMaterial {
   return new THREE.ShaderMaterial({
     glslVersion: THREE.GLSL3,
@@ -182,6 +260,13 @@ function growthShaderMaterial(
       uSamplesPerCell: { value: quality.samplesPerCell },
       uBodyColor: { value: new THREE.Color(bodyColor) },
       uEdgeColor: { value: new THREE.Color(edgeColor) },
+      uBackdrop: { value: backdrop },
+      uViewport: { value: new THREE.Vector2(1, 1) },
+      uGlass: { value: appearance.style === "glass" ? 1 : 0 },
+      uIor: { value: appearance.ior },
+      uRoughness: { value: appearance.roughness },
+      uSpecular: { value: appearance.specular },
+      uClearcoat: { value: appearance.clearcoat },
     },
     vertexShader: /* glsl */ `
       out vec3 vLocalPosition;
@@ -208,6 +293,13 @@ function growthShaderMaterial(
       uniform float uSamplesPerCell;
       uniform vec3 uBodyColor;
       uniform vec3 uEdgeColor;
+      uniform sampler2D uBackdrop;
+      uniform vec2 uViewport;
+      uniform float uGlass;
+      uniform float uIor;
+      uniform float uRoughness;
+      uniform float uSpecular;
+      uniform float uClearcoat;
       in vec3 vLocalPosition;
       out vec4 outColor;
 
@@ -312,9 +404,42 @@ function growthShaderMaterial(
         float facing = max(dot(viewNormal, viewDirection), 0.0);
         float rim = pow(1.0 - facing, 2.15);
         float sparkle = pow(max(dot(reflect(-lightDirection, viewNormal), viewDirection), 0.0), 48.0);
-        vec3 color = uBodyColor * (0.42 + 0.50 * diffuse);
-        color += uEdgeColor * (0.72 * rim + 0.35 * sparkle);
-        color += vec3(0.10, 0.16, 0.24) * pow(1.0 - facing, 4.0);
+        vec3 color;
+        if (uGlass > 0.5) {
+          // The implicit surface has no MeshPhysicalMaterial geometry to hand to Three's
+          // transmission pass. Preserve the exact first-hit depth, then precompose the same
+          // backdrop through a small normal/IOR offset with a Schlick-Fresnel reflection.
+          // This is an explicitly nonphysical glass-styled presentation, not optical evidence.
+          vec2 screenUv = gl_FragCoord.xy / max(uViewport, vec2(1.0));
+          float eta = 1.0 / max(uIor, 1.0001);
+          vec2 refractedUv = clamp(
+            screenUv + viewNormal.xy * (1.0 - eta) * (0.08 + 0.10 * (1.0 - facing)),
+            vec2(0.002),
+            vec2(0.998)
+          );
+          vec3 throughColor = texture(uBackdrop, refractedUv).rgb;
+          throughColor *= mix(vec3(1.0), uBodyColor, 0.08);
+          float f0 = pow((uIor - 1.0) / (uIor + 1.0), 2.0);
+          float fresnel = f0 + (1.0 - f0) * pow(1.0 - facing, 5.0);
+          float highlightPower = mix(96.0, 24.0, clamp(uRoughness, 0.0, 1.0));
+          float glassHighlight = pow(
+            max(dot(reflect(-lightDirection, viewNormal), viewDirection), 0.0),
+            highlightPower
+          );
+          vec3 reflected = uEdgeColor * (0.18 + 0.42 * diffuse);
+          reflected += vec3(1.0) * glassHighlight * (0.35 + 0.45 * uSpecular);
+          float reflectionWeight = clamp(
+            fresnel * (1.0 + 0.65 * uClearcoat) + 0.16 * rim + 0.18 * glassHighlight,
+            0.04,
+            0.92
+          );
+          color = mix(throughColor, reflected, reflectionWeight);
+          color += uEdgeColor * (0.32 * rim + 0.12 * sparkle);
+        } else {
+          color = uBodyColor * (0.42 + 0.50 * diffuse);
+          color += uEdgeColor * (0.72 * rim + 0.35 * sparkle);
+          color += vec3(0.10, 0.16, 0.24) * pow(1.0 - facing, 4.0);
+        }
         vec4 hitClip = uLocalToClip * vec4(hit, 1.0);
         gl_FragDepth = 0.5 * (hitClip.z / hitClip.w) + 0.5;
         outColor = linearToOutputTexel(vec4(toneMapping(color), 1.0));
@@ -349,6 +474,44 @@ function extentForCrop(crop: GrowthCrop, zScale: number): THREE.Vector3 {
   const jSpan = size[1] - 1;
   const kSpan = size[2] - 1;
   return new THREE.Vector3(iSpan + jSpan / 2, jSpan * SQRT3_OVER_2, kSpan * zScale);
+}
+
+interface GrowthWorldBounds {
+  readonly min: THREE.Vector3;
+  readonly max: THREE.Vector3;
+}
+
+function occupiedSampleWorldBounds(
+  asset: DecodedGrowthAsset,
+  crop: GrowthCrop,
+  zScale: number,
+): GrowthWorldBounds {
+  const centerWorld = latticeToGrowthWorld([
+    (crop.iMin + crop.iMax) / 2,
+    (crop.jMin + crop.jMax) / 2,
+    (crop.kMin + crop.kMax) / 2,
+  ]);
+  const min = new THREE.Vector3(
+    Number.POSITIVE_INFINITY,
+    Number.POSITIVE_INFINITY,
+    Number.POSITIVE_INFINITY,
+  );
+  const max = new THREE.Vector3(
+    Number.NEGATIVE_INFINITY,
+    Number.NEGATIVE_INFINITY,
+    Number.NEGATIVE_INFINITY,
+  );
+  for (let event = 0; event < asset.flatIndices.length; event++) {
+    const lattice = growthLatticeCoordinates(asset.header.config.dims, asset.flatIndices[event]!);
+    const world = latticeToGrowthWorld(lattice);
+    min.x = Math.min(min.x, world[0] - centerWorld[0]);
+    min.y = Math.min(min.y, world[1] - centerWorld[1]);
+    min.z = Math.min(min.z, (world[2] - centerWorld[2]) * zScale);
+    max.x = Math.max(max.x, world[0] - centerWorld[0]);
+    max.y = Math.max(max.y, world[1] - centerWorld[1]);
+    max.z = Math.max(max.z, (world[2] - centerWorld[2]) * zScale);
+  }
+  return { min, max };
 }
 
 /** Capture-only allocation probe: center the real decoded volume inside a larger empty field. */
@@ -407,11 +570,26 @@ export async function runGutcheckGrowthView(
   assetUrl: string,
   options: GutcheckGrowthViewOptions,
 ): Promise<void> {
+  const appearance = validatedAppearance(options.appearance);
   const absoluteUrl = new URL(assetUrl, window.location.href);
   const response = await fetch(absoluteUrl);
   if (!response.ok) throw new Error(`growth asset fetch failed: ${response.status} ${assetUrl}`);
   const sourceBuffer = await response.arrayBuffer();
   const asset = decodeGrowthAsset(sourceBuffer);
+  const presentation = options.presentation;
+  if (presentation !== null) {
+    if (
+      presentation.firstTick !== 0 ||
+      presentation.finalTick !== asset.header.finalTick
+    ) {
+      throw new Error(
+        `growth presentation ${presentation.id} is incompatible with the decoded Run B tick envelope`,
+      );
+    }
+    if (options.query.has("duration")) {
+      throw new Error("growth duration cannot override a named presentation clock");
+    }
+  }
   let volume = buildDenseExactTickVolume(asset);
   let syntheticProbe: GrowthVec3 | null = null;
   const probeRaw = options.query.get("probeVolume");
@@ -484,7 +662,8 @@ export async function runGutcheckGrowthView(
   texture.needsUpdate = true;
 
   const scene = new THREE.Scene();
-  scene.background = makeBackdrop(options.backdropTop, options.backdropBottom);
+  const backdrop = makeBackdrop(options.backdropTop, options.backdropBottom);
+  scene.background = backdrop;
   const group = new THREE.Group();
   scene.add(group);
   const geometry = new THREE.BoxGeometry(1, 1, 1);
@@ -495,23 +674,31 @@ export async function runGutcheckGrowthView(
     quality,
     options.bodyColor,
     options.edgeColor,
+    backdrop,
+    appearance,
   );
   const crystal = new THREE.Mesh(geometry, material);
   crystal.matrixAutoUpdate = false;
   crystal.matrix.copy(cropModelMatrix(volume.crop, zScale));
   group.add(crystal);
+  const occupiedBounds = occupiedSampleWorldBounds(asset, volume.crop, zScale);
 
   const extent = extentForCrop(volume.crop, zScale);
-  const framingRadius = Math.max(extent.length() / 2, 1);
+  const cropRadius = Math.max(extent.length() / 2, 1);
+  const framingRadius = presentation?.frameExtent === undefined
+    ? cropRadius
+    : presentation.frameExtent / 2;
   const framingSpan = framingRadius * 1.12;
-  const cameraDistance = framingRadius * 3;
+  const cameraDistance = presentation?.frameExtent === undefined
+    ? cropRadius * 3
+    : presentation.frameExtent * 2;
   const camera = new THREE.OrthographicCamera(
     -framingSpan,
     framingSpan,
     framingSpan,
     -framingSpan,
     0.01,
-    cameraDistance + framingRadius * 3,
+    cameraDistance + cropRadius * 3,
   );
   camera.position.set(0, 0, cameraDistance);
   camera.lookAt(0, 0, 0);
@@ -525,7 +712,7 @@ export async function runGutcheckGrowthView(
   const reducedMotion =
     window.matchMedia("(prefers-reduced-motion: reduce)").matches ||
     options.query.get("reduceMotion") === "1";
-  const durationSeconds = finitePositiveParam(options.query, "duration", 18);
+  const durationSeconds = presentation?.duration ?? finitePositiveParam(options.query, "duration", 18);
   const transitionTicks = finitePositiveParam(
     options.query,
     "transitionTicks",
@@ -533,17 +720,46 @@ export async function runGutcheckGrowthView(
   );
   material.uniforms["uTransition"]!.value = transitionTicks;
 
+  const sceneFrameAt = (seconds: number): number => {
+    if (presentation === null) {
+      return (Math.max(0, Math.min(durationSeconds, seconds)) / durationSeconds) *
+        (asset.header.finalTick / 100);
+    }
+    return sampleSceneFrameCoordinate(presentation.motion.frames, seconds);
+  };
+  const tickAtSceneTime = (seconds: number): number => {
+    if (presentation === null) {
+      return Math.max(0, Math.min(asset.header.finalTick, (seconds / durationSeconds) * asset.header.finalTick));
+    }
+    return Math.max(
+      presentation.firstTick,
+      Math.min(presentation.finalTick, sceneFrameAt(seconds) * presentation.tickInterval),
+    );
+  };
+  const sceneTimeAtTick = (tick: number): number => {
+    const bounded = Math.max(0, Math.min(asset.header.finalTick, tick));
+    if (presentation === null) return (bounded / asset.header.finalTick) * durationSeconds;
+    return sceneTimeAtFrameCoordinate(presentation.motion.frames, bounded / presentation.tickInterval);
+  };
+
   let currentTick = Math.max(
     0,
     Math.min(asset.header.finalTick, Number(options.query.get("tick") ?? 0)),
   );
   if (!Number.isFinite(currentTick)) currentTick = 0;
+  let sceneSeconds = sceneTimeAtTick(currentTick);
   let displayTick = currentTick >= asset.header.finalTick
     ? asset.header.finalTick + transitionTicks
     : currentTick;
   let playing = options.query.get("autoplay") === "1" && !reducedMotion;
   let playbackStart = 0;
+  let playbackStartSceneSeconds = sceneSeconds;
   let playbackStartDisplayTick = displayTick;
+  let cameraMode: "scripted" | "manualHold" = presentation === null ? "manualHold" : "scripted";
+  let sampledFrame = sceneFrameAt(sceneSeconds);
+  let sampledCamera: SceneCameraPose = presentation === null
+    ? { tilt: 0, yaw: 0, zoom: 1 }
+    : sampleSceneCamera(presentation.motion.camera, sceneSeconds);
 
   let representativeGrowthTick: number | null = null;
   let lastPreFinal = asset.attachTicks.length - 1;
@@ -576,8 +792,8 @@ export async function runGutcheckGrowthView(
     playButton.style.cursor = "not-allowed";
     playButton.style.opacity = "0.68";
   }
-  const faceButton = styledButton("face-on");
-  faceButton.dataset.growthControl = "face-on";
+  const faceButton = styledButton(presentation === null ? "face-on" : "follow tour");
+  faceButton.dataset.growthControl = presentation === null ? "face-on" : "follow-tour";
   const bar = document.createElement("div");
   bar.style.cssText =
     "position:fixed;left:0;right:0;bottom:0;display:flex;gap:10px;align-items:center;" +
@@ -585,7 +801,7 @@ export async function runGutcheckGrowthView(
     "font:13px/1.4 ui-monospace,monospace;z-index:10";
   bar.append(playButton, slider, tickLabel, faceButton);
   if (options.query.get("ui") !== "0") {
-    document.body.append(makeStatusLabel(), bar);
+    document.body.append(makeStatusLabel(appearance, presentation?.id ?? null), bar);
   }
 
   const debugState: GrowthDebugState = {
@@ -598,6 +814,25 @@ export async function runGutcheckGrowthView(
     playing,
     reducedMotion,
     quality: quality.name,
+    appearance,
+    presentation: presentation === null
+      ? null
+      : {
+          id: presentation.id,
+          sourceSha256: presentation.sha256,
+          durationSeconds,
+          sceneSeconds,
+          sampledFrame,
+          legacyFrame: Math.round(sampledFrame),
+          tickInterval: presentation.tickInterval,
+          growthSampling: "continuous-frame-coordinate",
+          cameraMode,
+          camera: {
+            tiltDegrees: sampledCamera.tilt,
+            yawDegrees: sampledCamera.yaw,
+            zoom: sampledCamera.zoom,
+          },
+        },
     viewport: { width: window.innerWidth, height: window.innerHeight, pixelRatio: 1 },
     capabilities: {
       webgl2: true,
@@ -633,16 +868,16 @@ export async function runGutcheckGrowthView(
 
   const projectedBounds = (): GrowthDebugState["framing"]["projectedBounds"] => {
     camera.updateMatrixWorld(true);
-    crystal.updateMatrixWorld(true);
+    group.updateMatrixWorld(true);
     const point = new THREE.Vector3();
     let xMin = Number.POSITIVE_INFINITY;
     let xMax = Number.NEGATIVE_INFINITY;
     let yMin = Number.POSITIVE_INFINITY;
     let yMax = Number.NEGATIVE_INFINITY;
-    for (const x of [0, 1]) {
-      for (const y of [0, 1]) {
-        for (const z of [0, 1]) {
-          point.set(x, y, z).applyMatrix4(crystal.matrixWorld).project(camera);
+    for (const x of [occupiedBounds.min.x, occupiedBounds.max.x]) {
+      for (const y of [occupiedBounds.min.y, occupiedBounds.max.y]) {
+        for (const z of [occupiedBounds.min.z, occupiedBounds.max.z]) {
+          point.set(x, y, z).applyMatrix4(group.matrixWorld).project(camera);
           xMin = Math.min(xMin, point.x);
           xMax = Math.max(xMax, point.x);
           yMin = Math.min(yMin, point.y);
@@ -659,6 +894,10 @@ export async function runGutcheckGrowthView(
     const pixelRatio = Math.min(window.devicePixelRatio || 1, quality.dprCap);
     renderer.setPixelRatio(pixelRatio);
     renderer.setSize(width, height);
+    (material.uniforms["uViewport"]!.value as THREE.Vector2).set(
+      renderer.domElement.width,
+      renderer.domElement.height,
+    );
     const aspect = width / Math.max(height, 1);
     const halfWidth = framingSpan * Math.max(1, aspect);
     const halfHeight = framingSpan * Math.max(1, 1 / aspect);
@@ -683,14 +922,31 @@ export async function runGutcheckGrowthView(
     material.uniforms["uPlayheadTick"]!.value = playhead.wholeTick;
     material.uniforms["uPlayheadOffset"]!.value = playhead.offsetTicks;
     slider.value = String(Math.round(currentTick));
-    const settling = playing && currentTick >= asset.header.finalTick && displayTick < asset.header.finalTick + transitionTicks;
+    const settling = presentation === null && playing &&
+      currentTick >= asset.header.finalTick && displayTick < asset.header.finalTick + transitionTicks;
     tickLabel.textContent =
       `tick ${Math.round(currentTick).toLocaleString()} / ${asset.header.finalTick.toLocaleString()}` +
-      (settling ? " · settling surface" : "");
+      (presentation === null
+        ? (settling ? " · settling surface" : "")
+        : ` · ${sceneSeconds.toFixed(2)} / ${durationSeconds.toFixed(0)} s`);
     debugState.tick = currentTick;
     debugState.displayTick = displayTick;
     debugState.normalizedTime = asset.header.finalTick === 0 ? 0 : currentTick / asset.header.finalTick;
     debugState.playing = playing;
+    if (debugState.presentation !== null) {
+      debugState.presentation = {
+        ...debugState.presentation,
+        sceneSeconds,
+        sampledFrame,
+        legacyFrame: Math.round(sampledFrame),
+        cameraMode,
+        camera: {
+          tiltDegrees: sampledCamera.tilt,
+          yawDegrees: sampledCamera.yaw,
+          zoom: sampledCamera.zoom,
+        },
+      };
+    }
   };
 
   const inverseModelScratch = new THREE.Matrix4();
@@ -718,6 +974,60 @@ export async function runGutcheckGrowthView(
   const settle = (): Promise<void> =>
     new Promise((resolveSettle) => requestAnimationFrame(() => requestAnimationFrame(() => resolveSettle())));
 
+  const applyCameraPose = (pose: SceneCameraPose): void => {
+    // OrbitControls keeps private damping deltas after pointer release. Drain them before
+    // applying an authored pose so a follow/seek cannot be nudged off-track on the next RAF.
+    const dampingWasEnabled = controls.enableDamping;
+    controls.enableDamping = false;
+    controls.update();
+    controls.enableDamping = dampingWasEnabled;
+    const tilt = (pose.tilt * Math.PI) / 180;
+    const yaw = (pose.yaw * Math.PI) / 180;
+    const position = new THREE.Vector3(0, Math.sin(tilt) * cameraDistance, Math.cos(tilt) * cameraDistance);
+    position.applyAxisAngle(new THREE.Vector3(0, 0, 1), yaw);
+    camera.position.copy(position);
+    camera.up.set(0, 1, 0).applyAxisAngle(new THREE.Vector3(0, 0, 1), yaw);
+    controls.target.set(0, 0, 0);
+    camera.zoom = pose.zoom;
+    camera.updateProjectionMatrix();
+    camera.lookAt(controls.target);
+    controls.update();
+    sampledCamera = pose;
+    debugState.framing = {
+      ...debugState.framing,
+      projectedBounds: projectedBounds(),
+    };
+  };
+
+  const samplePresentationClock = (seconds: number): void => {
+    sceneSeconds = Math.max(0, Math.min(durationSeconds, seconds));
+    sampledFrame = sceneFrameAt(sceneSeconds);
+    currentTick = tickAtSceneTime(sceneSeconds);
+    displayTick = currentTick >= asset.header.finalTick
+      ? asset.header.finalTick + transitionTicks
+      : currentTick;
+    if (presentation !== null) {
+      const scriptedPose = sampleSceneCamera(presentation.motion.camera, sceneSeconds);
+      if (cameraMode === "scripted") {
+        sampledCamera = scriptedPose;
+        applyCameraPose(scriptedPose);
+      }
+    }
+  };
+
+  const seekTime = async (seconds: number): Promise<void> => {
+    if (!Number.isFinite(seconds)) {
+      throw new Error(`growth scene seek time must be finite, got ${String(seconds)}`);
+    }
+    playing = false;
+    playButton.textContent = "play";
+    if (presentation !== null) cameraMode = "scripted";
+    samplePresentationClock(seconds);
+    updatePresentation();
+    render();
+    await settle();
+  };
+
   const seek = async (tick: number): Promise<void> => {
     if (!Number.isFinite(tick)) throw new Error(`growth seek tick must be finite, got ${String(tick)}`);
     playing = false;
@@ -726,31 +1036,56 @@ export async function runGutcheckGrowthView(
     displayTick = currentTick >= asset.header.finalTick
       ? asset.header.finalTick + transitionTicks
       : currentTick;
+    if (presentation === null) {
+      sceneSeconds = sceneTimeAtTick(currentTick);
+      sampledFrame = sceneFrameAt(sceneSeconds);
+    } else {
+      const tickSample = sceneTickDrivenSample(
+        presentation.motion.frames,
+        currentTick,
+        presentation.tickInterval,
+      );
+      sceneSeconds = tickSample.timeSeconds;
+      sampledFrame = tickSample.frameCoordinate;
+      cameraMode = "scripted";
+      sampledCamera = sampleSceneCamera(presentation.motion.camera, sceneSeconds);
+      applyCameraPose(sampledCamera);
+    }
     updatePresentation();
     render();
     await settle();
   };
 
-  const setView = async (tiltDegrees: number, yawDegrees: number): Promise<void> => {
-    if (!Number.isFinite(tiltDegrees) || !Number.isFinite(yawDegrees)) {
-      throw new Error("growth view angles must be finite");
+  const setView = async (
+    tiltDegrees: number,
+    yawDegrees: number,
+    zoom = 1,
+  ): Promise<void> => {
+    if (!Number.isFinite(tiltDegrees) || !Number.isFinite(yawDegrees) || !Number.isFinite(zoom)) {
+      throw new Error("growth view angles and zoom must be finite");
     }
-    const boundedTilt = Math.max(-89, Math.min(89, tiltDegrees));
-    const tilt = (boundedTilt * Math.PI) / 180;
-    const yaw = (yawDegrees * Math.PI) / 180;
-    const position = new THREE.Vector3(0, Math.sin(tilt) * cameraDistance, Math.cos(tilt) * cameraDistance);
-    position.applyAxisAngle(new THREE.Vector3(0, 0, 1), yaw);
-    camera.position.copy(position);
-    camera.up.set(0, 1, 0).applyAxisAngle(new THREE.Vector3(0, 0, 1), yaw);
-    controls.target.set(0, 0, 0);
-    camera.zoom = 1;
-    camera.updateProjectionMatrix();
-    camera.lookAt(controls.target);
-    controls.update();
-    debugState.framing = {
-      ...debugState.framing,
-      projectedBounds: projectedBounds(),
+    if (zoom <= 0 || zoom > 8) throw new Error(`growth view zoom must be in (0, 8], got ${zoom}`);
+    cameraMode = "manualHold";
+    const manualPose = {
+      tilt: Math.max(-89, Math.min(89, tiltDegrees)),
+      yaw: yawDegrees,
+      zoom,
     };
+    applyCameraPose(manualPose);
+    updatePresentation();
+    render();
+    await settle();
+  };
+
+  const followCamera = async (): Promise<void> => {
+    if (presentation === null) {
+      await setView(0, 0, 1);
+      return;
+    }
+    cameraMode = "scripted";
+    sampledCamera = sampleSceneCamera(presentation.motion.camera, sceneSeconds);
+    applyCameraPose(sampledCamera);
+    updatePresentation();
     render();
     await settle();
   };
@@ -780,34 +1115,47 @@ export async function runGutcheckGrowthView(
   };
 
   spikeWindow.__growthSeek = seek;
+  spikeWindow.__growthSeekTime = seekTime;
   spikeWindow.__growthSetView = setView;
+  spikeWindow.__growthFollowCamera = followCamera;
   spikeWindow.__growthBenchmark = benchmark;
 
-  slider.addEventListener("input", () => {
-    playing = false;
-    playButton.textContent = "play";
-    currentTick = Number(slider.value);
-    displayTick = currentTick >= asset.header.finalTick
-      ? asset.header.finalTick + transitionTicks
-      : currentTick;
+  controls.addEventListener("start", () => {
+    if (presentation === null) return;
+    cameraMode = "manualHold";
+    sampledCamera = sceneCameraPoseFromPosition(camera.position, camera.zoom);
     updatePresentation();
+  });
+
+  slider.addEventListener("input", () => {
+    void seek(Number(slider.value));
   });
   playButton.addEventListener("click", () => {
     if (reducedMotion) return;
     if (!playing) {
-      if (displayTick >= asset.header.finalTick + transitionTicks) {
-        currentTick = 0;
-        displayTick = 0;
+      if (presentation !== null) {
+        if (sceneSeconds >= durationSeconds) samplePresentationClock(0);
+        playbackStartSceneSeconds = sceneSeconds;
+      } else {
+        if (displayTick >= asset.header.finalTick + transitionTicks) {
+          currentTick = 0;
+          displayTick = 0;
+          sceneSeconds = 0;
+        }
+        playbackStartDisplayTick = displayTick;
       }
-      playbackStartDisplayTick = displayTick;
       playbackStart = performance.now();
     }
     playing = !playing;
     playButton.textContent = playing ? "pause" : "play";
     updatePresentation();
   });
-  faceButton.addEventListener("click", () => void setView(0, 0));
+  faceButton.addEventListener("click", () => {
+    if (presentation === null) void setView(0, 0, 1);
+    else void followCamera();
+  });
 
+  if (presentation !== null) applyCameraPose(sampledCamera);
   updatePresentation();
   render(); // Forces texture allocation and GLSL compilation before readiness is published.
   context.finish();
@@ -831,25 +1179,46 @@ export async function runGutcheckGrowthView(
     requestAnimationFrame(animate);
     if (playing) {
       const elapsed = Math.max(0, (now - playbackStart) / 1000);
-      displayTick = Math.max(
-        0,
-        playbackStartDisplayTick + (elapsed / durationSeconds) * asset.header.finalTick,
-      );
-      currentTick = Math.max(0, Math.min(asset.header.finalTick, displayTick));
-      if (displayTick >= asset.header.finalTick + transitionTicks) {
-        displayTick = asset.header.finalTick + transitionTicks;
-        currentTick = asset.header.finalTick;
-        playing = false;
-        playButton.textContent = "play";
+      if (presentation !== null) {
+        samplePresentationClock(playbackStartSceneSeconds + elapsed);
+        if (sceneSeconds >= durationSeconds) {
+          playing = false;
+          playButton.textContent = "play";
+        }
+      } else {
+        displayTick = Math.max(
+          0,
+          playbackStartDisplayTick + (elapsed / durationSeconds) * asset.header.finalTick,
+        );
+        currentTick = Math.max(0, Math.min(asset.header.finalTick, displayTick));
+        sceneSeconds = Math.min(durationSeconds, (currentTick / asset.header.finalTick) * durationSeconds);
+        if (displayTick >= asset.header.finalTick + transitionTicks) {
+          displayTick = asset.header.finalTick + transitionTicks;
+          currentTick = asset.header.finalTick;
+          sceneSeconds = durationSeconds;
+          playing = false;
+          playButton.textContent = "play";
+        }
       }
       updatePresentation();
     }
     if (!benchmarkRunning) {
-      controls.update();
+      if (presentation === null || cameraMode === "manualHold") controls.update();
+      if (presentation !== null && cameraMode === "manualHold") {
+        sampledCamera = sceneCameraPoseFromPosition(camera.position, camera.zoom);
+        debugState.framing = {
+          ...debugState.framing,
+          projectedBounds: projectedBounds(),
+        };
+        updatePresentation();
+      }
       render();
     }
   };
-  if (playing) playbackStart = performance.now();
+  if (playing) {
+    playbackStart = performance.now();
+    playbackStartSceneSeconds = sceneSeconds;
+  }
   requestAnimationFrame(animate);
   spikeWindow.__spikeReady = true;
 }

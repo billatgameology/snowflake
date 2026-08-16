@@ -10,9 +10,28 @@ import {
 } from "./gutcheck-growth-comparison-record.ts";
 import { decodeGrowthAsset, growthCropSize, type DecodedGrowthAsset } from "./gutcheck-growth-format.ts";
 import { sha256Hex } from "./sha256.ts";
+import { RUN_B_GROWTH_PRESENTATION } from "./gutcheck-scene-motion.ts";
 
 interface EmbeddedGrowthDebug {
   readonly finalTick: number;
+  readonly appearance?: {
+    readonly name: string;
+    readonly style: "solid" | "glass";
+  };
+  readonly presentation?: {
+    readonly id: string;
+    readonly sourceSha256: string;
+    readonly durationSeconds: number;
+    readonly sceneSeconds: number;
+    readonly sampledFrame: number;
+    readonly tickInterval: number;
+    readonly cameraMode: "scripted" | "manualHold";
+    readonly camera: {
+      readonly tiltDegrees: number;
+      readonly yawDegrees: number;
+      readonly zoom: number;
+    };
+  } | null;
   readonly asset: {
     readonly config: {
       readonly preset: string;
@@ -38,7 +57,7 @@ interface EmbeddedGrowthWindow extends Window {
   readonly __spikeReady?: boolean;
   readonly __spikeError?: string;
   readonly __growthDebug?: EmbeddedGrowthDebug;
-  readonly __growthSeek?: (tick: number) => Promise<void>;
+  readonly __growthSeekTime?: (seconds: number) => Promise<void>;
 }
 
 interface ComparisonDebugState {
@@ -57,6 +76,13 @@ interface ComparisonWindow extends Window {
 }
 
 const comparisonWindow = window as ComparisonWindow;
+const RUN_B_PRESENTATION_ID = RUN_B_GROWTH_PRESENTATION.id;
+const RUN_B_PRESENTATION_SHA256 = RUN_B_GROWTH_PRESENTATION.sha256;
+const RUN_B_PRESENTATION_DURATION_SECONDS = RUN_B_GROWTH_PRESENTATION.duration;
+const RUN_B_PRESENTATION_TICK_INTERVAL = RUN_B_GROWTH_PRESENTATION.tickInterval;
+const RUN_B_PRESENTATION_POSTER_SECONDS = [0, 6.5, 13] as const;
+
+type ComparisonPoster = GrowthComparisonRecord["legacy"]["lightweightMedia"]["posters"][number];
 
 function comparisonMain(): HTMLElement {
   const element = document.querySelector("#comparison-main");
@@ -147,7 +173,9 @@ function comparisonMarkup(): string {
           <p class="section-intro">
             The left video is a lightweight viewing derivative of the legacy mesh timeline—not the
             multi-gigabyte sequence itself. The right side is the actual compact Run B asset rendered
-            live. Drag, orbit, pause, and reverse it in the browser.
+            live with a nonphysical glass-styled treatment. It replays the same committed authored
+            camera tour on its own scene clock; the two panes do not share a live transport. Drag,
+            orbit, pause, and reverse the compact replay in the browser.
           </p>
         </div>
 
@@ -168,7 +196,8 @@ function comparisonMarkup(): string {
                 <p><strong>Legacy viewing proxy unavailable</strong><span data-role="legacy-error-text"></span></p>
               </div>
             </div>
-            <div class="seek-row" data-role="poster-controls" aria-label="Compare recorded ticks"></div>
+            <div class="seek-row" data-role="poster-controls"
+              aria-label="Compare recorded scene times and ticks"></div>
             <p class="panel-copy" id="legacy-media-description">
               <strong>What it keeps:</strong> a fully extracted surface at each sampled tick. Any sampled
               state can stand alone, while every later frame re-encodes the crystal grown by then.
@@ -178,12 +207,13 @@ function comparisonMarkup(): string {
           <figure class="media-panel">
             <figcaption class="panel-heading">
               <div>
-                <span class="panel-tag">Compact representation</span>
+                <span class="panel-tag">Compact representation · glass-styled</span>
                 <h3>One attachment-time volume</h3>
               </div>
-              <span class="status-pill" data-role="compact-status" role="status" aria-live="polite">loading</span>
+              <span class="status-pill" data-role="compact-status" role="status" aria-live="polite">loading · model</span>
             </figcaption>
             <div class="media-shell">
+              <span class="media-badge">Glass-styled · authored camera tour · model / unvalidated</span>
               <iframe data-role="compact-frame" title="Interactive compact Run B growth replay"></iframe>
               <div class="media-error" data-role="compact-error" role="status" hidden>
                 <p>
@@ -200,7 +230,9 @@ function comparisonMarkup(): string {
             </div>
             <p class="panel-copy">
               <strong>What it keeps:</strong> the exact lattice index and attachment tick for every ultimately
-              attached cell. The continuous shell between those events is an explicitly labeled visual interpolation.
+              attached cell. The compact player follows the legacy video's committed camera choreography,
+              but not its live playback position. Its glass-styled body is a nonphysical presentation
+              approximation, and the continuous shell between events is a visual interpolation.
             </p>
           </figure>
         </div>
@@ -358,12 +390,71 @@ function assertEmbeddedIdentity(record: GrowthComparisonRecord, debug: EmbeddedG
     sourceDigest(debug.asset.source.legacyComparison, "sha256") !==
     record.compact.sourceIdentity.manifestSha256
   ) mismatches.push("legacy manifest SHA-256");
+  if (debug.appearance?.name !== "glass" || debug.appearance.style !== "glass") {
+    mismatches.push("glass appearance");
+  }
+  const presentation = debug.presentation;
+  if (presentation === undefined || presentation === null) {
+    mismatches.push("presentation identity");
+  } else {
+    if (presentation.id !== RUN_B_PRESENTATION_ID) mismatches.push("presentation id");
+    if (presentation.sourceSha256 !== RUN_B_PRESENTATION_SHA256) {
+      mismatches.push("presentation SHA-256");
+    }
+    if (presentation.durationSeconds !== RUN_B_PRESENTATION_DURATION_SECONDS) {
+      mismatches.push("presentation duration");
+    }
+    if (
+      presentation.tickInterval !== RUN_B_PRESENTATION_TICK_INTERVAL ||
+      presentation.tickInterval !== record.run.tickInterval
+    ) mismatches.push("presentation tick interval");
+    if (
+      !Number.isFinite(presentation.sceneSeconds) ||
+      presentation.sceneSeconds < 0 ||
+      presentation.sceneSeconds > presentation.durationSeconds
+    ) mismatches.push("presentation scene time");
+    if (
+      !Number.isFinite(presentation.sampledFrame) ||
+      presentation.sampledFrame < 0 ||
+      presentation.sampledFrame > record.compact.finalTick / RUN_B_PRESENTATION_TICK_INTERVAL
+    ) {
+      mismatches.push("presentation sampled frame");
+    }
+    if (presentation.cameraMode !== "scripted" && presentation.cameraMode !== "manualHold") {
+      mismatches.push("presentation camera mode");
+    }
+    if (
+      !Number.isFinite(presentation.camera.tiltDegrees) ||
+      !Number.isFinite(presentation.camera.yawDegrees) ||
+      !Number.isFinite(presentation.camera.zoom) ||
+      presentation.camera.zoom <= 0
+    ) mismatches.push("presentation camera pose");
+  }
   if (mismatches.length > 0) {
     throw new Error(`embedded replay differs from the comparison record: ${mismatches.join(", ")}`);
   }
 }
 
+async function seekEmbeddedSceneTime(embedded: EmbeddedGrowthWindow, seconds: number): Promise<void> {
+  if (typeof embedded.__growthSeekTime !== "function") {
+    throw new Error("The compact replay is missing the required scene-time seek control.");
+  }
+  await embedded.__growthSeekTime(seconds);
+}
+
+function assertRunBPresentationPosterBindings(record: GrowthComparisonRecord): void {
+  record.legacy.lightweightMedia.posters.forEach((poster, index) => {
+    if (poster.videoTimeSeconds !== RUN_B_PRESENTATION_POSTER_SECONDS[index]) {
+      throw new Error(
+        `comparison poster ${String(index)} must bind to Run B scene time ` +
+          `${String(RUN_B_PRESENTATION_POSTER_SECONDS[index])} seconds`,
+      );
+    }
+  });
+}
+
 async function render(record: GrowthComparisonRecord, recordUrl: URL): Promise<void> {
+  assertRunBPresentationPosterBindings(record);
   main.innerHTML = comparisonMarkup();
   const ratio = record.legacy.v2qSequence.totalBytes / record.compact.asset.bytes;
   setText('[data-value="ratio"]', `${formatInteger(Math.round(ratio))}× smaller`);
@@ -442,6 +533,11 @@ async function render(record: GrowthComparisonRecord, recordUrl: URL): Promise<v
     "One fetch supports continuous play, pause, exact-tick scrub, reverse, and a free 3D camera.",
   );
   appendComparisonRow(
+    "Camera presentation",
+    "The lightweight viewing proxy contains the committed growth-B-intro camera choreography.",
+    "The compact player replays that same authored camera track from its own scene clock. The two panes are not transport-locked.",
+  );
+  appendComparisonRow(
     "Decoded/device memory",
     "Not measured for the complete sequence; the legacy viewer keeps a bounded frame cache rather than all 701 decoded meshes.",
     `${exactBytes(record.compact.crop.r32uiBytes)} is the exact nominal decoded R32UI tick field; actual browser overhead and VRAM were not measured.`,
@@ -454,7 +550,7 @@ async function render(record: GrowthComparisonRecord, recordUrl: URL): Promise<v
   appendComparisonRow(
     "Scientific meaning",
     "A sampled visualization artifact derived from model state; not scientific gate evidence.",
-    "Exact attachment timing with an interpolated display shell; MODEL / UNVALIDATED and not scientific gate evidence.",
+    "Exact attachment timing with an interpolated display shell and nonphysical glass-styled treatment; MODEL / UNVALIDATED and not scientific gate evidence.",
   );
 
   const resolveRecordMedia = (reference: string, label: string): URL =>
@@ -478,9 +574,9 @@ async function render(record: GrowthComparisonRecord, recordUrl: URL): Promise<v
   const makePlayerUrl = (growthUrl: string, attempt?: number): URL => {
     const player = new URL("spike-gg-realism.html", window.location.href);
     player.searchParams.set("growth", growthUrl);
-    player.searchParams.set("look", "bold-ice");
+    player.searchParams.set("look", "glass");
     player.searchParams.set("quality", "medium");
-    player.searchParams.set("duration", "18");
+    player.searchParams.set("presentation", RUN_B_PRESENTATION_ID);
     player.searchParams.set("autoplay", reducedMotion ? "0" : "1");
     if (attempt !== undefined) player.searchParams.set("comparisonAttempt", String(attempt));
     return player;
@@ -502,6 +598,7 @@ async function render(record: GrowthComparisonRecord, recordUrl: URL): Promise<v
   const showIframeError = (message: string): void => {
     debugState.iframeReady = false;
     debugState.iframeError = message;
+    comparisonWindow.__growthComparisonReady = false;
     comparisonWindow.__growthComparisonError = message;
     iframeStatus.textContent = "unavailable";
     iframeError.hidden = false;
@@ -510,6 +607,7 @@ async function render(record: GrowthComparisonRecord, recordUrl: URL): Promise<v
 
   let monitorGeneration = 0;
   let blobUrl: string | null = null;
+  let selectedPosterTimeSeconds: number | null = null;
   const monitorIframe = async (generation: number): Promise<void> => {
     const started = performance.now();
     while (generation === monitorGeneration && performance.now() - started < 120_000) {
@@ -521,22 +619,28 @@ async function render(record: GrowthComparisonRecord, recordUrl: URL): Promise<v
       if (embedded?.__spikeReady === true && embedded.__growthDebug !== undefined) {
         try {
           assertEmbeddedIdentity(record, embedded.__growthDebug);
+          if (typeof embedded.__growthSeekTime !== "function") {
+            throw new Error("The compact replay is missing the required scene-time seek control.");
+          }
+          if (selectedPosterTimeSeconds !== null) {
+            await seekEmbeddedSceneTime(embedded, selectedPosterTimeSeconds);
+          }
         } catch (error) {
-          showIframeError(error instanceof Error ? error.message : String(error));
+          if (generation === monitorGeneration) {
+            showIframeError(error instanceof Error ? error.message : String(error));
+          }
           return;
         }
+        if (generation !== monitorGeneration) return;
         debugState.iframeReady = true;
         debugState.iframeError = null;
         comparisonWindow.__growthComparisonError = undefined;
         comparisonWindow.__growthComparisonReady = true;
-        iframeStatus.textContent = "live · one asset";
+        iframeStatus.textContent = "live · glass-styled model";
         iframeError.hidden = true;
         if (blobUrl !== null) {
           URL.revokeObjectURL(blobUrl);
           blobUrl = null;
-        }
-        if (debugState.selectedTick !== record.run.firstTick) {
-          await embedded.__growthSeek?.(debugState.selectedTick);
         }
         return;
       }
@@ -551,7 +655,7 @@ async function render(record: GrowthComparisonRecord, recordUrl: URL): Promise<v
     comparisonWindow.__growthComparisonError = undefined;
     debugState.iframeReady = false;
     debugState.iframeError = null;
-    iframeStatus.textContent = "loading";
+    iframeStatus.textContent = "loading · model";
     iframeError.hidden = true;
     let verifiedBuffer: ArrayBuffer;
     try {
@@ -585,21 +689,26 @@ async function render(record: GrowthComparisonRecord, recordUrl: URL): Promise<v
   requiredElement('[data-role="retry"]', HTMLButtonElement).addEventListener("click", () => void loadIframe());
 
   const posterControls = requiredElement('[data-role="poster-controls"]', HTMLDivElement);
-  const selectTick = async (tick: number, button: HTMLButtonElement): Promise<void> => {
-    debugState.selectedTick = tick;
+  const selectPoster = async (poster: ComparisonPoster, button: HTMLButtonElement): Promise<void> => {
+    debugState.selectedTick = poster.tick;
+    selectedPosterTimeSeconds = poster.videoTimeSeconds;
     for (const candidate of posterControls.querySelectorAll("button")) {
       candidate.setAttribute("aria-pressed", String(candidate === button));
     }
     video.pause();
     const seekVideo = (): void => {
-      const poster = record.legacy.lightweightMedia.posters.find((candidate) => candidate.tick === tick);
-      if (poster === undefined) throw new Error(`comparison tick ${tick} has no legacy poster binding`);
       video.currentTime = poster.videoTimeSeconds;
     };
     if (video.readyState >= HTMLMediaElement.HAVE_METADATA) seekVideo();
     else video.addEventListener("loadedmetadata", seekVideo, { once: true });
+    if (!debugState.iframeReady) return;
     const embedded = iframe.contentWindow as EmbeddedGrowthWindow | null;
-    await embedded?.__growthSeek?.(tick);
+    try {
+      if (embedded === null) throw new Error("The compact replay window is unavailable.");
+      await seekEmbeddedSceneTime(embedded, poster.videoTimeSeconds);
+    } catch (error) {
+      showIframeError(error instanceof Error ? error.message : String(error));
+    }
   };
   const labels = ["start", "middle", "final"] as const;
   record.legacy.lightweightMedia.posters.forEach((poster, index) => {
@@ -609,7 +718,7 @@ async function render(record: GrowthComparisonRecord, recordUrl: URL): Promise<v
     button.setAttribute("aria-pressed", String(index === 0));
     button.textContent = `${labels[index]} · tick ${formatInteger(poster.tick)}`;
     button.title = poster.alt;
-    button.addEventListener("click", () => void selectTick(poster.tick, button));
+    button.addEventListener("click", () => void selectPoster(poster, button));
     posterControls.append(button);
   });
 
