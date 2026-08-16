@@ -88,6 +88,27 @@ const writeFixtureManifest = (root: string, bytes: Buffer): void => {
 };
 
 describe("exact catalogue-bound owner-manifest selection", () => {
+  it("loads the classified gutcheck diagnostic selection from its governed locator", () => {
+    const selection = loadBoundCollectionSelection({
+      catalogue: REAL_CATALOGUE,
+      collection: "gutcheck-generated-diagnostic-frames@2026-08-15",
+      repoRoot: REPOSITORY_ROOT,
+      shareRoot: null,
+    });
+    expect(selection).toMatchObject({
+      identity: "gutcheck-generated-diagnostic-frames@2026-08-15",
+      state: "active",
+      locator: "collections/gutcheck-generated-diagnostic-frames/2026-08-15/payload",
+      ownershipRoot: "collections/gutcheck-generated-diagnostic-frames/2026-08-15/payload",
+      fileCount: 434,
+      totalBytes: 666_233_360,
+    });
+    expect(selection.files.every((file) =>
+      file.sharePath.startsWith("collections/gutcheck-generated-diagnostic-frames/2026-08-15/payload/") &&
+      !file.relativePath.startsWith("collections/"))).toBe(true);
+    expect(selection.treeSha256).toBe("d223ded77137f5fb2bd0bdb73d40def04d2ec6df8aa3000d87ecd034774e572b");
+  });
+
   it("loads the migrated Phase 3 ledger selection from its governed locator", () => {
     const selection = loadBoundCollectionSelection({
       catalogue: REAL_CATALOGUE,

@@ -54,6 +54,13 @@ const sumRows = (rows: readonly unknown[], label: string): Aggregate => ({
 const pathMatches = (path: string, prefix: string): boolean =>
   path === prefix || path.startsWith(`${prefix}/`);
 
+const selectorMatchesPath = (
+  path: string,
+  selector: Extract<NasManifestSelectorV1, { readonly kind: "path-prefixes" }>,
+): boolean =>
+  selector.include.some((prefix) => pathMatches(path, prefix)) &&
+  !selector.exclude.some((prefix) => pathMatches(path, prefix));
+
 const selectPathRows = (
   rows: readonly unknown[],
   selector: Extract<NasManifestSelectorV1, { readonly kind: "path-prefixes" }>,
@@ -61,10 +68,7 @@ const selectPathRows = (
 ): Aggregate => {
   const selected = rows.filter((row, index) => {
     const path = asString(asRecord(row, `${label}[${index}]`).path, `${label}[${index}].path`);
-    return (
-      selector.include.some((prefix) => pathMatches(path, prefix)) &&
-      !selector.exclude.some((prefix) => pathMatches(path, prefix))
-    );
+    return selectorMatchesPath(path, selector);
   });
   return sumRows(selected, `${label}.selected`);
 };
@@ -148,7 +152,9 @@ describe("tracked NAS asset catalogue", () => {
       "earlier-phase3-visual@2026-08-01": ["active", 10, 984164],
       "research-private-freeze@2026-08-11": ["active", 3778, 2024519833],
       "research-tracked-record-mirror@2026-08-11": ["unavailable", 20, 948955],
-      "gutcheck-workspace-remainder@2026-08-15": ["provisional", 931, 833991988],
+      "gutcheck-git-record-mirrors@2026-08-15": ["unavailable", 128, 174537],
+      "gutcheck-generated-diagnostic-frames@2026-08-15": ["active", 434, 666233360],
+      "gutcheck-workspace-remainder@2026-08-15": ["unavailable", 369, 167584091],
       "gutcheck-retained-archives@2026-08-07": ["provisional", 6, 10721854876],
       "out-legacy-scratch-archives@2026-08-15": ["provisional", 2, 41999619],
       "phase9-failed-debug@2026-08-13": ["provisional", 10, 85153],
@@ -246,6 +252,45 @@ describe("tracked NAS asset catalogue", () => {
     }
   });
 
+  it("assigns every live ledger row to exactly one collection owner", () => {
+    const ledgerPath = `${REPOSITORY_ROOT}docs/nas-ledger.json`;
+    const ledger = asRecord(JSON.parse(readFileSync(ledgerPath, "utf8")) as unknown, ledgerPath);
+    const rows = asArray(ledger.files, `${ledgerPath}.files`);
+    const ledgerBackedCollections = CATALOG.collections.filter(
+      (collection) => collection.ownerManifest?.path === "docs/nas-ledger.json",
+    );
+    const owners = ledgerBackedCollections.map((collection) => {
+      const manifest = collection.ownerManifest!;
+      if (
+        manifest.storage !== "tracked" ||
+        manifest.format !== "snowflake-nas-ledger-v1" ||
+        manifest.selector.kind !== "path-prefixes"
+      ) {
+        throw new Error(`${collection.assetId}@${collection.version} has an unsupported ledger owner binding`);
+      }
+      return {
+        identity: `${collection.assetId}@${collection.version}`,
+        selector: manifest.selector,
+      };
+    });
+    expect(owners.length).toBeGreaterThan(0);
+
+    for (const [index, row] of rows.entries()) {
+      const path = asString(asRecord(row, `${ledgerPath}.files[${index}]`).path, `${ledgerPath}.files[${index}].path`);
+      expect(path.startsWith("collections/"), path).toBe(true);
+      expect(pathMatches(path, "_control"), path).toBe(false);
+      expect(
+        pathMatches(path, "collections/gutcheck-workspace-remainder/2026-08-15/payload"),
+        path,
+      ).toBe(false);
+
+      const matchingOwners = owners
+        .filter(({ selector }) => selectorMatchesPath(path, selector))
+        .map(({ identity }) => identity);
+      expect(matchingOwners, path).toHaveLength(1);
+    }
+  });
+
   it("checks machine-readable overlay scopes without turning them into competing owners", () => {
     const overlays = Object.fromEntries(CATALOG.overlays.map((overlay) => [overlay.overlayId, overlay]));
     expect(aggregateTrackedSelector(overlays["research-media-subset"]!.manifest)).toEqual({
@@ -291,6 +336,8 @@ describe("tracked NAS asset catalogue", () => {
     }
 
     for (const assetId of [
+      "gutcheck-git-record-mirrors",
+      "gutcheck-workspace-remainder",
       "research-recovery-scratch",
       "research-tracked-record-mirror",
       "research-copy-verification-residue",

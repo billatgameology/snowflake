@@ -41,13 +41,18 @@ Per-collection class, retention, recovery, and serving authority come only from
 | 2026-08-15 | two rejected D-BT independent-verification candidates mirrored loose under `out/debug/` (historical assurance-debug material, **not evidence**) | 10 | 85,153 B | source/staging inventories matched; every final file re-hashed against `docs/nas-ledger.json` |
 | 2026-08-15 | Phase 3 visual collection → `collections/earlier-phase3-visual/2026-08-01/payload/` | 10 | 984,164 B | source, target, quarantine and fresh restored staging matched tree SHA-256 `73a9f672…3faf`; legacy root moved into `_control/quarantine/relocations/` |
 | 2026-08-16 | remaining live generated `out/**` payloads → seven versioned `collections/**` payloads | 23,215 | 469,029,676,843 B | exact pre-move census; 710 omitted generated files fully hashed; absent-target same-share renames; exact final path/count/size checks |
+| 2026-08-16 | mixed gutcheck remainder corrected: generated diagnostics → active collection; Git mirrors and unresolved material → private quarantine | 931 | 833,991,988 B | every source and final row descriptor-hashed; disjoint 434/128/369 partition; receipt 1,547 B / SHA-256 `7de6caa2…220`; no payload deleted |
 
-The 2026-08-16 ledger revision registered 710 documented generated rows omitted by earlier
-snapshots and rewrote every live row to its canonical collection locator. Together with the Phase
-3 collection, its exact scope is 23,225 files / 469,030,661,007 bytes. Provisional collection state
-still grants no retention or prune authority. The new rows were fully hashed; the already-registered
-rows retained their existing digests across absent-target same-share renames and were checked for
-their exact final paths and byte sizes, not all rehashed again.
+The first 2026-08-16 ledger revision registered 710 documented generated rows omitted by earlier
+snapshots and rewrote every live row to its canonical collection locator. The row-level correction
+then retained 434 generated diagnostic rows and removed 497 quarantined rows from generated-output
+ownership. The current exact scope is 22,728 files / 468,862,902,379 bytes; the tracked ledger is
+5,165,509 bytes with SHA-256
+`aedde64bb1d01632d790fbf0d3a5ca7a3b3a594b90f3714033b48b1cfeccee05`. Provisional collection
+state still grants no retention or prune authority. The 710 initially added rows and every one of
+the 931 correction-source rows were fully hashed; other already-registered rows retained their
+existing digests across absent-target same-share renames and were checked for exact final paths and
+byte sizes, not all rehashed again.
 
 The separate 2026-08-16 research pass moved six retained selections into versioned private
 collections and placed unresolved or redundant material in private quarantine. It did not add
@@ -111,8 +116,9 @@ The marker/control skeleton is installed, and attached owner-manifest verificati
 Phase 3 collection below restored before and after its move to the governed `collections/**`
 layout, each time as 10 files / 984,164 bytes with tree SHA-256
 `73a9f672d9e803854ec8c82a2a0e0192f448989984ce30772e768b20644d3faf`.
-Both ignored staging trees remain available. This is a bounded compatibility result, not a durable
-receipt, prune authorization, independent backup, or large-restore performance result.
+Those Phase 3 staging trees were disposable and are no longer present. This remains a bounded
+historical compatibility result, not a durable receipt, prune authorization, independent backup,
+or large-restore performance result.
 
 ```bash
 npm run assets:restore -- \

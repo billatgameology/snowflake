@@ -27,8 +27,8 @@
         "storage": "tracked",
         "path": "docs/nas-ledger.json",
         "format": "snowflake-nas-ledger-v1",
-        "bytes": 5263948,
-        "sha256": "76d8c54f20e75913dda3e621dd67a45321cab130559a7956a6cb8ccc1e53a6b4",
+        "bytes": 5165509,
+        "sha256": "aedde64bb1d01632d790fbf0d3a5ca7a3b3a594b90f3714033b48b1cfeccee05",
         "selector": {
           "kind": "path-prefixes",
           "include": [
@@ -116,8 +116,8 @@
         "storage": "tracked",
         "path": "docs/nas-ledger.json",
         "format": "snowflake-nas-ledger-v1",
-        "bytes": 5263948,
-        "sha256": "76d8c54f20e75913dda3e621dd67a45321cab130559a7956a6cb8ccc1e53a6b4",
+        "bytes": 5165509,
+        "sha256": "aedde64bb1d01632d790fbf0d3a5ca7a3b3a594b90f3714033b48b1cfeccee05",
         "selector": {
           "kind": "path-prefixes",
           "include": [
@@ -350,32 +350,173 @@
       ]
     },
     {
-      "assetId": "gutcheck-workspace-remainder",
+      "assetId": "gutcheck-git-record-mirrors",
       "version": "2026-08-15",
-      "state": "provisional",
+      "state": "unavailable",
       "ownerWorkstream": "gutcheck-gg-realism",
-      "locator": "collections/gutcheck-workspace-remainder/2026-08-15/payload",
+      "locator": null,
       "historicalRepoPath": "out/gutcheck-gg-realism",
       "legacyAliases": [],
-      "storageClass": null,
+      "storageClass": "scratch",
       "aggregate": {
-        "files": 931,
-        "bytes": 833991988
+        "files": 128,
+        "bytes": 174537
+      },
+      "ownerManifest": null,
+      "rights": {
+        "kind": "project-owned",
+        "redistribution": "allowed"
+      },
+      "privacy": "public",
+      "serve": {
+        "policy": "deny",
+        "prefixes": []
+      },
+      "retention": {
+        "policy": "temporary",
+        "garbageCollection": {
+          "policy": "plan-only",
+          "graceDays": null,
+          "approver": "maker"
+        }
+      },
+      "mutability": "immutable",
+      "externalEvidenceAuthority": null,
+      "provenance": {
+        "record": "evidence/gutcheck-gg-realism/README.md",
+        "producerCommit": null,
+        "command": null
+      },
+      "reproducibility": {
+        "kind": "git",
+        "record": "evidence/MANIFEST.json"
+      },
+      "restore": {
+        "status": "unavailable",
+        "command": null,
+        "verifyCommand": null,
+        "record": "docs/nas-layout-migration-20260816.md"
+      },
+      "verification": {
+        "status": "unavailable",
+        "at": "2026-08-16",
+        "host": "macOS",
+        "receipt": "docs/nas-layout-migration-20260816.md",
+        "limits": [
+          "The 128 redundant Git-record mirrors moved to private quarantine; tracked evidence remains authoritative.",
+          "Quarantine is same-NAS custody, not a durable collection, backup, or prune authority."
+        ]
+      },
+      "storageDomains": [
+        "snowcrystal-nas-quarantine"
+      ],
+      "backup": {
+        "status": "not-required",
+        "independentDomains": [],
+        "receipts": []
+      },
+      "supersedes": [],
+      "unresolved": [
+        "The redundant mirror bytes remain quarantined pending maker-approved disposition; Git is the recovery authority."
+      ]
+    },
+    {
+      "assetId": "gutcheck-generated-diagnostic-frames",
+      "version": "2026-08-15",
+      "state": "active",
+      "ownerWorkstream": "gutcheck-gg-realism",
+      "locator": "collections/gutcheck-generated-diagnostic-frames/2026-08-15/payload",
+      "historicalRepoPath": "out/gutcheck-gg-realism",
+      "legacyAliases": [],
+      "storageClass": "generated-cache",
+      "aggregate": {
+        "files": 434,
+        "bytes": 666233360
       },
       "ownerManifest": {
         "storage": "tracked",
         "path": "docs/nas-ledger.json",
         "format": "snowflake-nas-ledger-v1",
-        "bytes": 5263948,
-        "sha256": "76d8c54f20e75913dda3e621dd67a45321cab130559a7956a6cb8ccc1e53a6b4",
+        "bytes": 5165509,
+        "sha256": "aedde64bb1d01632d790fbf0d3a5ca7a3b3a594b90f3714033b48b1cfeccee05",
         "selector": {
           "kind": "path-prefixes",
           "include": [
-            "collections/gutcheck-workspace-remainder/2026-08-15/payload"
+            "collections/gutcheck-generated-diagnostic-frames/2026-08-15/payload"
           ],
           "exclude": []
         }
       },
+      "rights": {
+        "kind": "project-owned",
+        "redistribution": "allowed"
+      },
+      "privacy": "public",
+      "serve": {
+        "policy": "deny",
+        "prefixes": []
+      },
+      "retention": {
+        "policy": "maker-approved-delete-only",
+        "garbageCollection": {
+          "policy": "plan-only",
+          "graceDays": null,
+          "approver": "maker"
+        }
+      },
+      "mutability": "immutable",
+      "externalEvidenceAuthority": null,
+      "provenance": {
+        "record": "docs/plans/explore-gg-realism-gutcheck.md",
+        "producerCommit": null,
+        "command": null
+      },
+      "reproducibility": {
+        "kind": "exact-recipe",
+        "record": "docs/plans/explore-gg-realism-gutcheck.md"
+      },
+      "restore": {
+        "status": "documented",
+        "command": "npm run assets:restore -- --collection gutcheck-generated-diagnostic-frames@2026-08-15 --to out/restores/gutcheck-generated-diagnostic-frames-2026-08-15",
+        "verifyCommand": "npm run assets:verify-restored -- --collection gutcheck-generated-diagnostic-frames@2026-08-15 --from out/restores/gutcheck-generated-diagnostic-frames-2026-08-15",
+        "record": "docs/local-assets.md"
+      },
+      "verification": {
+        "status": "full-hash",
+        "at": "2026-08-16",
+        "host": "macOS",
+        "receipt": "docs/nas-layout-migration-20260816.md",
+        "limits": [
+          "The exact 434-row diagnostic selection was fully re-hashed before and after its absent-target same-share placement.",
+          "The frames were not regenerated or visually reinterpreted during the classification correction.",
+          "Windows S drive restoration was not executed."
+        ]
+      },
+      "storageDomains": [
+        "snowcrystal-nas"
+      ],
+      "backup": {
+        "status": "not-required",
+        "independentDomains": [],
+        "receipts": []
+      },
+      "supersedes": [],
+      "unresolved": []
+    },
+    {
+      "assetId": "gutcheck-workspace-remainder",
+      "version": "2026-08-15",
+      "state": "unavailable",
+      "ownerWorkstream": "gutcheck-gg-realism",
+      "locator": null,
+      "historicalRepoPath": "out/gutcheck-gg-realism",
+      "legacyAliases": [],
+      "storageClass": null,
+      "aggregate": {
+        "files": 369,
+        "bytes": 167584091
+      },
+      "ownerManifest": null,
       "rights": {
         "kind": "mixed",
         "redistribution": "unknown"
@@ -393,7 +534,7 @@
           "approver": "maker"
         }
       },
-      "mutability": "working",
+      "mutability": "immutable",
       "externalEvidenceAuthority": null,
       "provenance": {
         "record": "docs/plans/explore-gg-realism-gutcheck.md",
@@ -405,22 +546,23 @@
         "record": "docs/plans/explore-gg-realism-gutcheck.md"
       },
       "restore": {
-        "status": "pending",
+        "status": "unavailable",
         "command": null,
         "verifyCommand": null,
-        "record": "docs/local-assets.md"
+        "record": "docs/nas-layout-migration-20260816.md"
       },
       "verification": {
-        "status": "full-hash",
-        "at": "2026-08-12",
+        "status": "unavailable",
+        "at": "2026-08-16",
         "host": "macOS",
-        "receipt": "docs/nas-ledger.md",
+        "receipt": "docs/nas-layout-migration-20260816.md",
         "limits": [
-          "The selection is ledger-bound, but its mixed storage, rights, and retention classes are not resolved."
+          "The residual 369-row mixed selection moved to private quarantine pending classification or maker-approved disposal.",
+          "Quarantine is same-NAS custody, not a durable collection or independent backup."
         ]
       },
       "storageDomains": [
-        "snowcrystal-nas"
+        "snowcrystal-nas-quarantine"
       ],
       "backup": {
         "status": "required-missing",
@@ -429,8 +571,8 @@
       },
       "supersedes": [],
       "unresolved": [
-        "Split the generated, private-composite, log, and scratch descendants before activation.",
-        "Assign class-specific restore and retention procedures."
+        "Classify the remaining private-reference, composite, log, script, and root-image descendants before any activation or disposal.",
+        "Assign any retained subset a class-specific restore and retention procedure."
       ]
     },
     {
@@ -450,8 +592,8 @@
         "storage": "tracked",
         "path": "docs/nas-ledger.json",
         "format": "snowflake-nas-ledger-v1",
-        "bytes": 5263948,
-        "sha256": "76d8c54f20e75913dda3e621dd67a45321cab130559a7956a6cb8ccc1e53a6b4",
+        "bytes": 5165509,
+        "sha256": "aedde64bb1d01632d790fbf0d3a5ca7a3b3a594b90f3714033b48b1cfeccee05",
         "selector": {
           "kind": "path-prefixes",
           "include": [
@@ -534,8 +676,8 @@
         "storage": "tracked",
         "path": "docs/nas-ledger.json",
         "format": "snowflake-nas-ledger-v1",
-        "bytes": 5263948,
-        "sha256": "76d8c54f20e75913dda3e621dd67a45321cab130559a7956a6cb8ccc1e53a6b4",
+        "bytes": 5165509,
+        "sha256": "aedde64bb1d01632d790fbf0d3a5ca7a3b3a594b90f3714033b48b1cfeccee05",
         "selector": {
           "kind": "path-prefixes",
           "include": [
@@ -617,8 +759,8 @@
         "storage": "tracked",
         "path": "docs/nas-ledger.json",
         "format": "snowflake-nas-ledger-v1",
-        "bytes": 5263948,
-        "sha256": "76d8c54f20e75913dda3e621dd67a45321cab130559a7956a6cb8ccc1e53a6b4",
+        "bytes": 5165509,
+        "sha256": "aedde64bb1d01632d790fbf0d3a5ca7a3b3a594b90f3714033b48b1cfeccee05",
         "selector": {
           "kind": "path-prefixes",
           "include": [
@@ -700,8 +842,8 @@
         "storage": "tracked",
         "path": "docs/nas-ledger.json",
         "format": "snowflake-nas-ledger-v1",
-        "bytes": 5263948,
-        "sha256": "76d8c54f20e75913dda3e621dd67a45321cab130559a7956a6cb8ccc1e53a6b4",
+        "bytes": 5165509,
+        "sha256": "aedde64bb1d01632d790fbf0d3a5ca7a3b3a594b90f3714033b48b1cfeccee05",
         "selector": {
           "kind": "path-prefixes",
           "include": [
@@ -783,8 +925,8 @@
         "storage": "tracked",
         "path": "docs/nas-ledger.json",
         "format": "snowflake-nas-ledger-v1",
-        "bytes": 5263948,
-        "sha256": "76d8c54f20e75913dda3e621dd67a45321cab130559a7956a6cb8ccc1e53a6b4",
+        "bytes": 5165509,
+        "sha256": "aedde64bb1d01632d790fbf0d3a5ca7a3b3a594b90f3714033b48b1cfeccee05",
         "selector": {
           "kind": "path-prefixes",
           "include": [
@@ -2079,6 +2221,8 @@
       },
       "appliesTo": [
         "gutcheck-generated-public@2026-08-15",
+        "gutcheck-generated-diagnostic-frames@2026-08-15",
+        "gutcheck-git-record-mirrors@2026-08-15",
         "gutcheck-workspace-remainder@2026-08-15",
         "gutcheck-retained-archives@2026-08-07"
       ],
