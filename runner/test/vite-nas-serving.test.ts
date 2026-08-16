@@ -457,13 +457,18 @@ describe("Vite loopback and /@fs boundary", () => {
       root: join(REPOSITORY_ROOT, "app"),
       configFile: join(REPOSITORY_ROOT, "app", "vite.config.ts"),
     }, "serve");
-    const privateUrl = `/@fs/${encodeURI(privateFile.replaceAll("\\", "/"))}`;
+    // No encodeURI: Vite's middlewares decode request URLs BEFORE consulting
+    // isFileServingAllowed, so the API receives the decoded form. Encoding here made every
+    // check false on a checkout whose path contains a space ("Code%20Files" never prefix-
+    // matches the allow-list) - the deny assertions then passed for the wrong reason and the
+    // allow assertion failed. Only reproducible on a repo path with URI-special characters.
+    const privateUrl = `/@fs/${privateFile.replaceAll("\\", "/")}`;
     expect(isFileServingAllowed(resolved, privateUrl)).toBe(false);
-    const outUrl = `/@fs/${encodeURI(join(REPOSITORY_ROOT, "out", "private.bin").replaceAll("\\", "/"))}`;
+    const outUrl = `/@fs/${join(REPOSITORY_ROOT, "out", "private.bin").replaceAll("\\", "/")}`;
     expect(isFileServingAllowed(resolved, outUrl)).toBe(false);
 
     const coreModule = join(REPOSITORY_ROOT, "core", "src", "index.ts");
-    const coreUrl = `/@fs/${encodeURI(coreModule.replaceAll("\\", "/"))}`;
+    const coreUrl = `/@fs/${coreModule.replaceAll("\\", "/")}`;
     expect(isFileServingAllowed(resolved, coreUrl)).toBe(true);
   });
 
