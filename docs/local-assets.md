@@ -37,6 +37,51 @@ The NAS layout has one rule for future work: durable bytes go to
 `collections/<asset-id>/<version>/manifest.private.jsonl`. Every collection is registered in
 `docs/nas-assets.json`. Do not create another top-level project data root.
 
+## Standard procedure for a new retained collection
+
+1. **Classify before copying.** Inventory the staging tree, decide its single storage class,
+   rights/privacy/serve policy, retention, reproducibility, restore requirement, and backup
+   requirement. Claim-bearing project-owned bytes that fit Git go to `evidence/`; declared scratch
+   is discarded; only the remaining durable large/private bytes use a NAS collection.
+2. **Register the intent.** Choose `<asset-id>@<version>` and add a provisional
+   `docs/nas-assets.json` entry before durable placement. The version is immutable; changed bytes
+   require a new version rather than an in-place refresh.
+3. **Use the standard paths.** Payload:
+   `collections/<asset-id>/<version>/payload/`. Public manifest:
+   `docs/nas-assets/manifests/<asset-id>/<version>.json`. Private manifest:
+   `collections/<asset-id>/<version>/manifest.private.jsonl`. Unresolved material:
+   `_control/quarantine/unresolved/<batch-id>/`. No other project top-level NAS root is allowed.
+4. **Publish copy-first.** Scan stable regular files, copy into unique same-share `_control/`
+   staging, compare source and stage by path/length/SHA-256, place into an absent final envelope,
+   re-hash the final bytes, and write the publication record. Never merge into an existing target.
+5. **Bind and verify.** Bind the exact owner-manifest bytes/digest/aggregate in the catalogue and
+   run `npm run assets:verify -- --collection <asset-id>@<version> --full`.
+6. **Prove recovery.** Restore into a fresh `out/restores/` target and run
+   `npm run assets:verify-restored`. Commit the catalogue, public manifest or private binding,
+   provenance/recipe, verification result, and restore procedure as one coherent Git unit.
+7. **Prune separately.** Local deletion requires a reviewed exact file list, committed bindings,
+   successful restore, and every class-specific independent-backup requirement. Without that, the
+   source stays in staging or moves to quarantine.
+
+Generic forward publication/pruning is intentionally not exposed as an npm command. Until a real
+use justifies that interface, the collection's bounded plan records the exact copy, hash, receipt,
+restore, and verification commands. Raw copy commands can transport bytes, but cannot by themselves
+earn a preservation or deletion claim.
+
+### Enforcement
+
+- `AGENTS.md` Rule 15 makes the lifecycle mandatory for every coding agent; Rule 16 prevents task
+  worktrees and branches from accumulating without a pre-PR disposition audit.
+- `docs/nas-assets.json` is parsed fail-closed. Its tests reject unsafe paths, aliases, ownership
+  overlap, missing policy fields, invalid private/public serving, and broken manifest bindings.
+- `assets:audit` checks bounded share layout and classification; `assets:verify` binds catalogue and
+  owner-manifest aggregates and can explicitly hash one collection's payload.
+- The marked-share resolver refuses detached, conflicting, aliased, symlinked, or hard-linked
+  paths. The development server serves only catalogue-approved generated prefixes.
+- `npm test` runs Rule 7, both typechecks, and the catalogue/resolver/audit/restore/serving tests.
+- No generic prune command exists. Existing legacy restore emits no durable receipt and therefore
+  cannot authorize deletion; missing records fail closed rather than becoming an informal bypass.
+
 ## What *is* tracked, and why
 
 - **`evidence/gutcheck-gg-realism/large-artifact-inventory.json`** — the archive-pack

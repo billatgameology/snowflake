@@ -227,7 +227,7 @@ sources. All 51 Phase 8B records are development evidence and none may be relabe
 
 ### NAS asset governance — complete (macOS layout)
 
-All retained project payloads live under `collections/**`; unresolved research is quarantined
-under `_control/**`; legacy roots are absent. The [migration record](nas-layout-migration-20260816.md)
-and closing review bind the final layout. The unnamed non-asset custody item, Windows `S:/`, and
-independent backup are separate maker/external follow-ups; the generic root audit remains nonzero.
+All retained project payloads live under `collections/**`; unresolved research is under `_control/**`;
+legacy roots are absent. The [migration record](nas-layout-migration-20260816.md) and `AGENTS.md`
+Rules 15–16 bind retention and one-task worktree cleanup. Credential custody, Windows `S:/`, and
+independent backup remain external follow-ups; the root audit remains nonzero.

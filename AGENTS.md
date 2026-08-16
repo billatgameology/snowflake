@@ -556,6 +556,70 @@ entries on the same NAS are one failure domain, not an independent backup. Exter
 unique private sources, and irreplaceable masters require their class-specific independent recovery
 domain before the last workstation copy may be pruned.
 
+For every new retained untracked collection, execute this order:
+
+1. Inventory the local staging bytes and classify them as tracked evidence, external evidence,
+   private source, irreplaceable master, generated cache, or scratch. Do not mix classes, rights,
+   privacy, serving, or retention policies in one collection.
+2. Before writing a durable NAS path, choose one stable `<asset-id>` and immutable `<version>` and
+   add a provisional entry to `docs/nas-assets.json` with its owner workstream, class, rights,
+   privacy, serving, retention, recovery, and backup requirements.
+3. Use only `collections/<asset-id>/<version>/payload/`. Write exactly one owner manifest at the
+   public or private standard path above and bind its exact bytes, SHA-256, file count, and byte
+   count in the catalogue. Unknown or mixed material goes to a dated
+   `_control/quarantine/unresolved/<batch-id>/` inventory instead of being guessed into a class.
+4. Follow decision 0051's copy-first publication order: stable regular-file inventory; uniquely
+   named same-share `_control/` staging; source/stage hash comparison; absent immutable final
+   placement; final re-hash; publication receipt; catalogue update; then fresh restore and exact
+   restored-tree verification. Never publish with raw `rsync --ignore-existing`, merge into an
+   existing target, or make an in-place cache mutation look like a new version.
+5. Run `npm run assets:verify -- --collection <asset-id>@<version> --full`, restore to a fresh
+   `out/restores/` path, and run `npm run assets:verify-restored`. Record the exact commands and
+   results. A legacy or collection-specific procedure that cannot emit the required receipts is
+   explicitly non-prune-authorizing.
+6. Commit the catalogue, public manifest or private-manifest binding, provenance, recipe where
+   applicable, verification record, and restore procedure together. Only then may documentation
+   call the NAS copy durable.
+7. Delete local staging only through a separately reviewed exact prune list after every class-
+   specific backup requirement passes. Otherwise retain it or quarantine it. Never use broad
+   `git clean`, recursive deletion, or directory-wide globbing as the retention decision.
+
+There is intentionally no registered generic forward `assets:publish` or `assets:prune` command
+yet. Until a concrete use justifies one, a new publication uses a bounded plan that spells out the
+same steps and exact commands; the missing convenience command is never permission to skip them.
+
+## Rule 16 — One task, one branch and one worktree; reconcile before PR
+
+Default to one implementation branch in one worktree for an active task. Before creating either,
+run `git worktree list --porcelain` and `git branch -vv`; reuse the existing task worktree when it
+exists. Subagents share that worktree and do not create branches, backup refs, or additional
+worktrees unless the coordinator assigns an isolation need that cannot be met safely in place.
+
+At most one temporary detached review worktree may accompany the implementation worktree. Record
+its path, exact commit/tree, purpose, owner, and removal condition in the active plan or progress
+record when it is created. Remove it immediately when that review ends. Do not create chains named
+`backup`, `finalize`, `close`, or similar as a substitute for committing coherent checkpoints on
+the task branch. An emergency recovery ref must name what it protects and must be reconciled or
+deleted before publication.
+
+Before pushing or opening a PR, the owning agent must:
+
+1. list every registered worktree and local branch;
+2. inspect staged, unstaged, untracked, and ignored task-relevant state in each;
+3. classify every delta as included, independently owned, or verified superseded—never silently
+   discard another workstream such as education;
+4. remove temporary worktrees, then delete redundant task and backup branches only after their
+   unique changes are committed, moved to their owning worktree, or explicitly approved for
+   deletion;
+5. verify `git worktree list --porcelain` and `git branch -vv` show the primary worktree, named
+   unrelated ongoing worktrees, and exactly one branch for the PR; and
+6. record the surviving branch, head commit, checks, and PR URL in the active plan/PROGRESS and PR
+   description. Update `HANDOFF.md` only when the maker separately requests a stop/restart snapshot.
+
+`git worktree remove --force` and `git branch -D` are destructive cleanup tools, not ordinary
+workflow. Use them only after exact path/ref resolution and the disposition audit above; a dirty
+worktree by itself is never evidence that its contents are disposable.
+
 ---
 
 ## Anti-rules
