@@ -299,6 +299,26 @@ describe("strict header and event validation", () => {
     );
   });
 
+  it("preflights hostile seed bounds and counts before expanding seed indices", () => {
+    expect(() =>
+      decodeGrowthAsset(rawWith((header) => {
+        header.config.seedRadius = 0xffff_ffff;
+      })),
+    ).toThrow(/configured seed does not fit the xy domain/);
+
+    expect(() =>
+      decodeGrowthAsset(rawWith((header) => {
+        header.config.seedThickness = 0xffff_ffff;
+      })),
+    ).toThrow(/configured seed does not fit the z domain/);
+
+    expect(() =>
+      decodeGrowthAsset(rawWith((header) => {
+        header.config.seedRadius = 2;
+      })),
+    ).toThrow(/configured seed site count exceeds seedCount/);
+  });
+
   it("rejects count, termination, crop, lattice, parameter, and source inconsistencies", () => {
     expect(() => decodeGrowthAsset(rawWith((header) => (header.attachedCount--)))).toThrow(
       /attachedCount must equal/,

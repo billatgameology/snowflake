@@ -16,11 +16,13 @@ import { afterAll, describe, expect, it } from "vitest";
 
 import { decodeGrowthAsset, type GrowthSourceProvenance } from "../../app/src/gutcheck-growth-format.ts";
 import {
+  assertGrowthAttachmentBatch,
   collectGrowthReplay,
   parseGrowthBakeCli,
   parseLegacyGrowthManifest,
   publishGrowthAssetNoClobber,
   sha256Hex,
+  verifyGrowthEventOccupancy,
   type GrowthReplaySpec,
   type LegacyGrowthChecks,
 } from "../../scripts/gutcheck-bake-growth.ts";
@@ -52,7 +54,7 @@ interface IndependentTrace {
 
 let cachedTrace: IndependentTrace | null = null;
 
-/** Independent event reconstruction from final/public solver state, not the baker. */
+/** Independent event reconstruction by diffing a before/after a-field, not lastAttached. */
 function independentTrace(): IndependentTrace {
   if (cachedTrace !== null) return cachedTrace;
   const solver = new GGSolver({
@@ -74,11 +76,25 @@ function independentTrace(): IndependentTrace {
   const snapshots = new Map<number, Uint8Array>([[0, solver.a.slice()]]);
   const frameCounts = new Map<number, number>([[0, solver.attachedCount]]);
   for (let tick = 1; tick <= TICK_CAP; tick++) {
+    const before = solver.a.slice();
+    const attachedBefore = solver.attachedCount;
     solver.step();
-    for (const index of solver.lastAttached) {
+    let attachedDelta = 0;
+    for (let index = 0; index < solver.a.length; index++) {
+      const prior = before[index]!;
+      const current = solver.a[index]!;
+      if ((prior !== 0 && prior !== 1) || (current !== 0 && current !== 1)) {
+        throw new Error(`a-field left binary state at tick ${tick}, index ${index}: ${prior}->${current}`);
+      }
+      if (prior === current) continue;
+      if (prior !== 0 || current !== 1) {
+        throw new Error(`a-field changed other than 0->1 at tick ${tick}, index ${index}: ${prior}->${current}`);
+      }
       expect(arrivalTick[index]).toBe(-1);
       arrivalTick[index] = tick;
+      attachedDelta++;
     }
+    expect(attachedDelta).toBe(solver.attachedCount - attachedBefore);
     if ((SNAPSHOT_TICKS as readonly number[]).includes(tick)) {
       snapshots.set(tick, solver.a.slice());
       frameCounts.set(tick, solver.attachedCount);
@@ -218,6 +234,23 @@ describe("exact G-G attachment replay", () => {
     expect(() =>
       collectGrowthReplay(replaySpec({ expectedOccupancySha256: wrongSha256 })),
     ).toThrow(/final occupancy SHA-256 mismatch/);
+  });
+
+  it("rejects a same-count event set that reconstructs the wrong final occupancy", () => {
+    const solverOccupancy = Uint8Array.from([0, 1, 0, 1, 0]);
+    expect(() => verifyGrowthEventOccupancy(solverOccupancy, Uint32Array.from([1, 2]))).toThrow(
+      /event-derived final occupancy SHA-256.*differs from solver/,
+    );
+  });
+
+  it("requires every lastAttached batch length to equal the attached-count delta", () => {
+    expect(() => assertGrowthAttachmentBatch(7, 10, 12, Uint32Array.of(4))).toThrow(
+      /lastAttached length 1 differs from attached-count delta 2 at tick 7/,
+    );
+    expect(() => assertGrowthAttachmentBatch(7, 12, 11, Uint32Array.of())).toThrow(
+      /attached count decreased/,
+    );
+    expect(() => assertGrowthAttachmentBatch(7, 10, 12, Uint32Array.of(4, 9))).not.toThrow();
   });
 });
 

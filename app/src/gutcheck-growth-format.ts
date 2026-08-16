@@ -272,6 +272,47 @@ function validateConfig(value: unknown): GrowthReplayConfig {
   };
 }
 
+/**
+ * Reject impossible or hostile seed declarations before expectedSeedIndices enters loops whose
+ * bounds come from the file. The exact radius-r hex count is 1 + 3r(r + 1), repeated through the
+ * odd seed thickness. Every multiplication is guarded by the already bounded declared count, so
+ * a uint32-scale radius cannot overflow Number arithmetic or turn decoding into an enormous loop.
+ */
+function preflightConfiguredSeed(config: GrowthReplayConfig, declaredSeedCount: number): void {
+  const [ic, jc, kc] = config.center;
+  const radius = config.seedRadius;
+  const halfThickness = (config.seedThickness - 1) / 2;
+  const xyRoom = Math.min(
+    ic,
+    config.dims.nx - 1 - ic,
+    jc,
+    config.dims.ny - 1 - jc,
+  );
+  if (radius > xyRoom) fail("configured seed does not fit the xy domain");
+  const zRoom = Math.min(kc, config.dims.nz - 1 - kc);
+  if (halfThickness > zRoom) fail("configured seed does not fit the z domain");
+
+  // Work backwards from the declared count. This bounds r(r + 1) before it is evaluated.
+  const maximumPlaneCount = Math.floor(declaredSeedCount / config.seedThickness);
+  if (maximumPlaneCount < 1) {
+    fail("seedCount differs: configured seed site count exceeds seedCount");
+  }
+  const maximumRingProduct = Math.floor((maximumPlaneCount - 1) / 3);
+  const radiusPlusOne = radius + 1;
+  if (radius !== 0 && radius > Math.floor(maximumRingProduct / radiusPlusOne)) {
+    fail("seedCount differs: configured seed site count exceeds seedCount");
+  }
+  const planeCount = 1 + 3 * radius * radiusPlusOne;
+  const expectedCount = checkedProduct(
+    [planeCount, config.seedThickness],
+    declaredSeedCount,
+    "configured seed site count",
+  );
+  if (expectedCount !== declaredSeedCount) {
+    fail("seedCount differs from the configured canonical seed");
+  }
+}
+
 function validateCrop(value: unknown, dims: GrowthDims): GrowthCrop {
   if (!isRecord(value)) fail("crop must be an object");
   exactKeys(value, ["iMin", "iMax", "jMin", "jMax", "kMin", "kMax", "padding"], "crop");
@@ -347,6 +388,7 @@ function validateHeader(value: unknown): GrowthHeaderV1 {
     fail("terminationReason is not recognized");
   }
   const config = validateConfig(value["config"]);
+  preflightConfiguredSeed(config, seedCount);
   if (finalTick > config.tickCap) fail("finalTick exceeds config.tickCap");
   if (terminationReason === "tick-cap" && finalTick !== config.tickCap) {
     fail("tick-cap termination requires finalTick to equal config.tickCap");

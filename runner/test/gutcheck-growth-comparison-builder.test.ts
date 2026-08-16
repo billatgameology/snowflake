@@ -30,6 +30,7 @@ import {
 } from "../../app/src/gutcheck-growth-comparison-record.ts";
 import {
   assertExactRunBGrowth,
+  assertRunBManifestPairOnGovernedShare,
   buildGrowthComparisonRecord,
   deriveGrowthOccupancySha256,
   deriveGrowthSourceIdentity,
@@ -61,6 +62,49 @@ function temporaryRoot(label: string): string {
 
 function digest(value: Uint8Array | string): string {
   return createHash("sha256").update(value).digest("hex");
+}
+
+const VCC_NAS_MARKER_FIXTURE =
+  '{"format":"snowflake-nas-share-v1","projectId":"virtual-cloud-chamber"}\n';
+
+function collectionManifestPair(label: string): {
+  readonly share: string;
+  readonly raw: string;
+  readonly v2q: string;
+} {
+  const share = temporaryRoot(label);
+  writeFileSync(join(share, ".snowflake-nas.json"), VCC_NAS_MARKER_FIXTURE);
+  const base = join(
+    share,
+    "collections",
+    "gutcheck-generated-public",
+    "2026-08-15",
+    "payload",
+    "large",
+  );
+  const raw = join(base, "anim-B", "manifest.json");
+  const v2q = join(base, "anim-B-v2q", "manifest.json");
+  mkdirSync(join(base, "anim-B"), { recursive: true });
+  mkdirSync(join(base, "anim-B-v2q"), { recursive: true });
+  writeFileSync(raw, "raw-manifest");
+  writeFileSync(v2q, "v2q-manifest");
+  return { share, raw, v2q };
+}
+
+function legacyManifestPair(label: string): {
+  readonly share: string;
+  readonly raw: string;
+  readonly v2q: string;
+} {
+  const share = temporaryRoot(label);
+  const base = join(share, "out", "gutcheck-gg-realism", "large");
+  const raw = join(base, "anim-B", "manifest.json");
+  const v2q = join(base, "anim-B-v2q", "manifest.json");
+  mkdirSync(join(base, "anim-B"), { recursive: true });
+  mkdirSync(join(base, "anim-B-v2q"), { recursive: true });
+  writeFileSync(raw, "raw-manifest");
+  writeFileSync(v2q, "v2q-manifest");
+  return { share, raw, v2q };
 }
 
 function paddedJsonHeader(value: Record<string, unknown>): Buffer {
@@ -439,6 +483,57 @@ function exactRunBIdentityFrom(growth: DecodedGrowthAsset): DecodedGrowthAsset {
 }
 
 describe("comparison record derivation", () => {
+  it("accepts only the exact canonical collection pair under the exact VCC share marker", () => {
+    const fixture = collectionManifestPair("collection-layout");
+    expect(() => assertRunBManifestPairOnGovernedShare(fixture.raw, fixture.v2q)).not.toThrow();
+
+    writeFileSync(
+      join(fixture.share, ".snowflake-nas.json"),
+      '{"projectId":"virtual-cloud-chamber","format":"snowflake-nas-share-v1"}\n',
+    );
+    expect(() => assertRunBManifestPairOnGovernedShare(fixture.raw, fixture.v2q)).toThrow(
+      /not exactly the VCC marker/,
+    );
+  });
+
+  it("preserves the registered legacy out-path layout", () => {
+    const fixture = legacyManifestPair("legacy-layout");
+    const previous = process.env.GUTCHECK_NAS_ROOT;
+    process.env.GUTCHECK_NAS_ROOT = fixture.share;
+    try {
+      expect(() => assertRunBManifestPairOnGovernedShare(fixture.raw, fixture.v2q)).not.toThrow();
+    } finally {
+      if (previous === undefined) delete process.env.GUTCHECK_NAS_ROOT;
+      else process.env.GUTCHECK_NAS_ROOT = previous;
+    }
+  });
+
+  it("requires collection manifests to share one real root and contain no symlink", () => {
+    const first = collectionManifestPair("collection-first");
+    const second = collectionManifestPair("collection-second");
+    expect(() => assertRunBManifestPairOnGovernedShare(first.raw, second.v2q)).toThrow(
+      /same governed snowcrystal NAS share/,
+    );
+
+    const linked = collectionManifestPair("collection-link");
+    const rawDirectory = join(
+      linked.share,
+      "collections",
+      "gutcheck-generated-public",
+      "2026-08-15",
+      "payload",
+      "large",
+      "anim-B",
+    );
+    const outside = temporaryRoot("collection-link-target");
+    writeFileSync(join(outside, "manifest.json"), "raw-manifest");
+    rmSync(rawDirectory, { recursive: true });
+    symlinkSync(outside, rawDirectory, "dir");
+    expect(() => assertRunBManifestPairOnGovernedShare(linked.raw, linked.v2q)).toThrow(
+      /must not contain a symbolic link/,
+    );
+  });
+
   it("derives manifest identity, exact attachment counts, occupancy, runtime, and binary frame headers", () => {
     const fixture = makeFixture("derive");
     const growth = decodeGrowthAsset(readFileSync(fixture.growthAsset));

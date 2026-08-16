@@ -2,7 +2,9 @@
 //
 // This is deliberately a replay of the permanent float64 CPU oracle, not a second growth
 // implementation. Tick-zero records are the canonical G-G seed; every later record comes from
-// GGSolver.lastAttached at its completed tick. The browser-safe codec in app/ owns the bytes.
+// GGSolver.lastAttached at its completed tick. Per-tick count deltas and an independently rebuilt
+// final occupancy close that observation seam before publication. The browser-safe codec in app/
+// owns the bytes.
 //
 //   node scripts/gutcheck-bake-growth.ts --preset plate --dims 1200,1200,48 \
 //     --ticks 70000 --out out/gutcheck-growth/plate-70000.bin \
@@ -392,6 +394,67 @@ export function sha256Hex(value: Uint8Array | string): string {
   return createHash("sha256").update(value).digest("hex");
 }
 
+export function assertGrowthAttachmentBatch(
+  tick: number,
+  attachedBefore: number,
+  attachedAfter: number,
+  attachedThisTick: ArrayLike<number>,
+): void {
+  safeInteger(tick, 1, GUTCHECK_GROWTH_MAX_TICK, "attachment batch tick");
+  safeInteger(attachedBefore, 0, UINT32_MAX, "attachment count before tick");
+  safeInteger(attachedAfter, 0, UINT32_MAX, "attachment count after tick");
+  if (!Number.isSafeInteger(attachedThisTick.length) || attachedThisTick.length < 0) {
+    fail("attachment batch length must be a non-negative safe integer");
+  }
+  const delta = attachedAfter - attachedBefore;
+  if (delta < 0) fail(`solver attached count decreased at tick ${tick}`);
+  if (attachedThisTick.length !== delta) {
+    fail(
+      `lastAttached length ${attachedThisTick.length} differs from attached-count delta ${delta} ` +
+        `at tick ${tick}`,
+    );
+  }
+}
+
+/** Rebuild the final binary a-field from events and bind it to both solver and expected bytes. */
+export function verifyGrowthEventOccupancy(
+  solverOccupancy: Uint8Array,
+  flatIndices: ArrayLike<number>,
+  expectedOccupancySha256?: string | null,
+): string {
+  if (!(solverOccupancy instanceof Uint8Array) || solverOccupancy.length < 1) {
+    fail("solver occupancy must be a non-empty Uint8Array");
+  }
+  if (!Number.isSafeInteger(flatIndices.length) || flatIndices.length < 1) {
+    fail("event indices must have a positive safe-integer length");
+  }
+  const eventOccupancy = new Uint8Array(solverOccupancy.length);
+  for (let event = 0; event < flatIndices.length; event++) {
+    const index = safeInteger(
+      flatIndices[event],
+      0,
+      solverOccupancy.length - 1,
+      `event occupancy index ${event}`,
+    );
+    if (eventOccupancy[index] !== 0) {
+      fail(`event occupancy contains duplicate index ${index}`);
+    }
+    eventOccupancy[index] = 1;
+  }
+  const eventSha256 = sha256Hex(eventOccupancy);
+  const solverSha256 = sha256Hex(solverOccupancy);
+  if (eventSha256 !== solverSha256) {
+    fail(
+      `event-derived final occupancy SHA-256 ${eventSha256} differs from solver ${solverSha256}`,
+    );
+  }
+  const expectedSha256 = normalizedExpectedSha256(expectedOccupancySha256);
+  if (expectedSha256 !== null && eventSha256 !== expectedSha256) {
+    fail(`final occupancy SHA-256 mismatch: expected ${expectedSha256}, got ${eventSha256}`);
+  }
+  return eventSha256;
+}
+
 function loadLegacyGrowthManifest(path: string, expected: LegacyManifestConfig): LoadedLegacyManifest {
   const absolutePath = resolve(path);
   const bytes = readFileSync(absolutePath);
@@ -497,9 +560,11 @@ export function collectGrowthReplay(spec: GrowthReplaySpec): GrowthReplayResult 
   const started = Date.now();
 
   for (let tick = 1; tick <= spec.tickCap; tick++) {
+    const attachedBefore = solver.attachedCount;
     solver.step();
     if (solver.tick !== tick) fail(`solver tick mismatch after requested tick ${tick}`);
     const attachedThisTick = [...solver.lastAttached].sort((left, right) => left - right);
+    assertGrowthAttachmentBatch(tick, attachedBefore, solver.attachedCount, attachedThisTick);
     for (let batchIndex = 0; batchIndex < attachedThisTick.length; batchIndex++) {
       const index = attachedThisTick[batchIndex]!;
       if (batchIndex > 0 && index === attachedThisTick[batchIndex - 1]) {
@@ -532,13 +597,14 @@ export function collectGrowthReplay(spec: GrowthReplaySpec): GrowthReplayResult 
       `event count ${flatIndices.length} differs from solver attached count ${solver.attachedCount}`,
     );
   }
-  const finalOccupancySha256 = sha256Hex(solver.a);
   if (expectedCount !== null && solver.attachedCount !== expectedCount) {
     fail(`final attached-count mismatch: expected ${expectedCount}, got ${solver.attachedCount}`);
   }
-  if (expectedSha256 !== null && finalOccupancySha256 !== expectedSha256) {
-    fail(`final occupancy SHA-256 mismatch: expected ${expectedSha256}, got ${finalOccupancySha256}`);
-  }
+  const finalOccupancySha256 = verifyGrowthEventOccupancy(
+    solver.a,
+    flatIndices,
+    expectedSha256,
+  );
 
   const flatIndexColumn = Uint32Array.from(flatIndices);
   const attachTickColumn = Uint32Array.from(attachTicks);

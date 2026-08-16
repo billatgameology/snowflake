@@ -79,6 +79,12 @@ const RUN_B_VIDEO_SECONDS = 16;
 const RUN_B_VIDEO_FRAMES = 480;
 const RUN_B_LEGACY_SHARE_RELATIVE = "out/gutcheck-gg-realism/large/anim-B/manifest.json";
 const RUN_B_V2Q_SHARE_RELATIVE = "out/gutcheck-gg-realism/large/anim-B-v2q/manifest.json";
+const RUN_B_COLLECTION_RAW_SHARE_RELATIVE =
+  "collections/gutcheck-generated-public/2026-08-15/payload/large/anim-B/manifest.json";
+const RUN_B_COLLECTION_V2Q_SHARE_RELATIVE =
+  "collections/gutcheck-generated-public/2026-08-15/payload/large/anim-B-v2q/manifest.json";
+const VCC_NAS_MARKER =
+  '{"format":"snowflake-nas-share-v1","projectId":"virtual-cloud-chamber"}\n';
 const RUN_B_GIT_HEAD = "44fd4b604cddf1c1c30ed4aec2afba5bdc18be5c";
 const expectedRunBBakeArgv = (legacyManifestPath: string): readonly string[] => [
   "--preset", "plate",
@@ -455,13 +461,122 @@ function loadLegacyManifest(path: string, label: string, growth: DecodedGrowthAs
   return { descriptor, parsed: parseLegacyComparisonManifest(parseJson(descriptor.contents, `${label} manifest`), growth) };
 }
 
-function assertMeasuredRunBManifestOnDetectedShare(path: string, shareRelativePath: string, label: string): void {
+interface RunBShareBinding {
+  readonly layout: "legacy" | "collection";
+  readonly realRoot: string;
+  readonly dev: number;
+  readonly ino: number;
+}
+
+function legacyRunBManifestBinding(
+  path: string,
+  shareRelativePath: string,
+  label: string,
+): RunBShareBinding {
   const mount = detectNasMount();
   if (mount === null) fail(`snowcrystal NAS share is not attached; cannot bind the ${label} manifest path`);
   const expected = resolveNasRequest(shareRelativePath, mount);
   if (expected.kind !== "ok") fail(`registered ${label} share-relative manifest cannot be resolved safely`);
   if (realpathSync.native(resolve(path)) !== expected.path) {
     fail(`supplied ${label} manifest is not the registered Run B share-relative NAS file`);
+  }
+  const realRoot = realpathSync.native(resolve(mount));
+  const rootStat = statSync(realRoot);
+  return { layout: "legacy", realRoot, dev: rootStat.dev, ino: rootStat.ino };
+}
+
+function exactCollectionRoot(path: string, shareRelativePath: string): string | null {
+  const absolutePath = resolve(path);
+  const segments = shareRelativePath.split("/");
+  let root = absolutePath;
+  for (let index = 0; index < segments.length; index++) root = dirname(root);
+  const displacement = relative(root, absolutePath).split(sep).join("/");
+  return displacement === shareRelativePath ? root : null;
+}
+
+function assertNoCollectionSymlinks(root: string, shareRelativePath: string, label: string): void {
+  let current = root;
+  let item: ReturnType<typeof lstatSync>;
+  try {
+    item = lstatSync(current);
+  } catch (error) {
+    fail(`${label} share root cannot be statted: ${(error as Error).message}`);
+  }
+  if (item.isSymbolicLink() || !item.isDirectory()) {
+    fail(`${label} share root must be a real directory, not a symbolic link`);
+  }
+  const segments = shareRelativePath.split("/");
+  for (let index = 0; index < segments.length; index++) {
+    current = resolve(current, segments[index]!);
+    try {
+      item = lstatSync(current);
+    } catch (error) {
+      fail(`${label} canonical collection path cannot be statted: ${(error as Error).message}`);
+    }
+    if (item.isSymbolicLink()) fail(`${label} canonical collection path must not contain a symbolic link`);
+    const final = index === segments.length - 1;
+    if ((!final && !item.isDirectory()) || (final && !item.isFile())) {
+      fail(`${label} canonical collection path has the wrong filesystem type`);
+    }
+  }
+}
+
+function collectionRunBManifestBinding(
+  path: string,
+  shareRelativePath: string,
+  label: string,
+): RunBShareBinding | null {
+  const root = exactCollectionRoot(path, shareRelativePath);
+  if (root === null) return null;
+  const inputSegments = path.replace(/\\/gu, "/").split("/");
+  if (inputSegments.some((segment) => segment === "." || segment === "..")) {
+    fail(`${label} canonical collection path contains a traversal segment`);
+  }
+  assertNoCollectionSymlinks(root, shareRelativePath, label);
+  assertNoCollectionSymlinks(root, ".snowflake-nas.json", `${label} marker`);
+  const marker = captureRegularFile(resolve(root, ".snowflake-nas.json"), `${label} VCC NAS marker`);
+  if (!Buffer.from(marker.contents).equals(Buffer.from(VCC_NAS_MARKER, "utf8"))) {
+    fail(`${label} share .snowflake-nas.json is not exactly the VCC marker`);
+  }
+
+  const absolutePath = resolve(path);
+  const realRoot = realpathSync.native(root);
+  const realManifest = realpathSync.native(absolutePath);
+  const realDisplacement = relative(realRoot, realManifest).split(sep).join("/");
+  if (realDisplacement !== shareRelativePath) {
+    fail(`${label} canonical collection manifest resolves outside its exact share-relative path`);
+  }
+  const rootStat = statSync(realRoot);
+  return { layout: "collection", realRoot, dev: rootStat.dev, ino: rootStat.ino };
+}
+
+/** Bind the raw/v2q pair to one detected legacy share or one exact governed collection root. */
+export function assertRunBManifestPairOnGovernedShare(
+  rawPath: string,
+  v2qPath: string,
+): void {
+  const rawCollection = collectionRunBManifestBinding(
+    rawPath,
+    RUN_B_COLLECTION_RAW_SHARE_RELATIVE,
+    "raw",
+  );
+  const v2qCollection = collectionRunBManifestBinding(
+    v2qPath,
+    RUN_B_COLLECTION_V2Q_SHARE_RELATIVE,
+    "v2q",
+  );
+  if ((rawCollection === null) !== (v2qCollection === null)) {
+    fail("raw and v2q manifests must use the same registered NAS layout");
+  }
+  const raw = rawCollection ?? legacyRunBManifestBinding(rawPath, RUN_B_LEGACY_SHARE_RELATIVE, "raw");
+  const v2q = v2qCollection ?? legacyRunBManifestBinding(v2qPath, RUN_B_V2Q_SHARE_RELATIVE, "v2q");
+  if (
+    raw.layout !== v2q.layout ||
+    raw.realRoot !== v2q.realRoot ||
+    raw.dev !== v2q.dev ||
+    raw.ino !== v2q.ino
+  ) {
+    fail("raw and v2q manifests must belong to the same governed snowcrystal NAS share");
   }
 }
 
@@ -1068,10 +1183,9 @@ export async function buildGrowthComparisonRecord(
   const growthFile = captureRegularFile(options.growthAssetPath, "compact growth asset");
   const growth = decodeGrowthAsset(growthFile.contents);
   assertExactRunBGrowth(growth);
+  assertRunBManifestPairOnGovernedShare(options.rawManifestPath, options.v2qManifestPath);
   const raw = loadLegacyManifest(options.rawManifestPath, "raw legacy", growth);
   const v2q = loadLegacyManifest(options.v2qManifestPath, "v2q legacy", growth);
-  assertMeasuredRunBManifestOnDetectedShare(raw.descriptor.path, RUN_B_LEGACY_SHARE_RELATIVE, "raw");
-  assertMeasuredRunBManifestOnDetectedShare(v2q.descriptor.path, RUN_B_V2Q_SHARE_RELATIVE, "v2q");
   if (
     raw.descriptor.sha256 !== RUN_B_MANIFEST_SHA256 ||
     raw.descriptor.bytes !== RUN_B_MANIFEST_BYTES ||

@@ -201,8 +201,28 @@ async function installRoutes(
       });
       return;
     }
+    // Capture is a closed six-byte-source environment. Never fall through to a repository /nas
+    // plugin if a record or page unexpectedly asks for another share path.
+    if (pathname === "/nas" || pathname.startsWith("/nas/")) {
+      await route.fulfill({
+        status: 404,
+        body: "unregistered NAS request refused by local comparison capture",
+        contentType: "text/plain",
+      });
+      return;
+    }
     await route.continue();
   });
+}
+
+function assertNoUnmappedNasRequests(requests, map, label) {
+  const unexpected = requests
+    .map((request) => new URL(request.url()).pathname)
+    .filter((pathname) =>
+      (pathname === "/nas" || pathname.startsWith("/nas/")) && !map.has(pathname));
+  if (unexpected.length > 0) {
+    fail(`${label} made unregistered NAS requests: ${[...new Set(unexpected)].join(", ")}`);
+  }
 }
 
 function pageUrl(base) {
@@ -382,6 +402,7 @@ async function runValidLane(browser, base, map, record, outDir, viewport) {
   if (legacyMeshRequests.length !== 0 || legacyManifestRequests.length !== 0) {
     fail(`comparison fetched legacy source bytes: meshes=${legacyMeshRequests.length}, manifests=${legacyManifestRequests.length}`);
   }
+  assertNoUnmappedNasRequests(requests, map, "valid comparison");
   await context.close();
   return {
     viewport,
@@ -450,6 +471,7 @@ async function runReducedMotionLane(browser, base, map, record) {
     record.legacy.lightweightMedia.posters[1].tick,
   );
   const manualTick = await frame.evaluate(() => window.__growthDebug.tick);
+  assertNoUnmappedNasRequests(requests, map, "reduced-motion comparison");
   await context.close();
   return {
     requested: true,
@@ -514,6 +536,7 @@ async function runErrorLane(
     }
     contextNullWitness = { ...marker, frameUrl: playerFrame.url() };
   }
+  assertNoUnmappedNasRequests(requests, map, label);
   await context.close();
   return {
     label,
@@ -551,6 +574,7 @@ async function main() {
   const map = mediaMap(recordBytes, record, growthBytes, videoBytes, posterBytes);
 
   const dev = await createServer({
+    configFile: false,
     root: appDir,
     logLevel: "error",
     server: { host: "127.0.0.1", port: options.port, strictPort: true },
