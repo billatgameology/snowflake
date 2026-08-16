@@ -285,8 +285,9 @@ reviewed target list.
 - Existing manifests retain their scopes and writers, while the catalogue adds a new consistency
   boundary. Catalogue and owner-manifest updates therefore need locking, atomic publication, and
   explicit recovery from a split NAS/Git transaction.
-- Legacy roots remain less tidy, and compatibility readers remain necessary. This avoids changing
-  frozen evidence meaning or copying hundreds of gigabytes merely for cosmetic uniformity.
+- Legacy producer-path identities remain in frozen records, so compatibility readers remain
+  necessary. Physical project payloads no longer remain in legacy top-level roots; this preserves
+  frozen evidence meaning while completing the collection-oriented layout.
 - The NAS remains a single point of loss until the maker designates an independent storage domain.
   Irreplaceable masters and unique sources cannot be pruned in the meantime.
 - Private metadata becomes less convenient to inspect from a public clone, and the development

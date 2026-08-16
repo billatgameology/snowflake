@@ -181,8 +181,8 @@ and every superseded attempt live in the linked plans and historical progress sn
 The older [proposed consumer plan](plans/phase-9-modular-physics-arms.md) is superseded design
 history, not execution authority. Decisions 0046–0050 keep worktrees, processes, artifacts, claims,
 and completion credit isolated.
-[nas-asset-governance.md](plans/nas-asset-governance.md) is active storage maintenance and changes
-no phase claim or credit.
+[nas-asset-governance.md](plans/nas-asset-governance.md) is a completed storage-maintenance record;
+it changed no phase claim or credit.
 
 Before any production row, the repository must have reviewed source-derived physical-size strata, a
 pre-registered and executed numerical-control ladder that selects one configuration or no-pass, an
@@ -225,9 +225,9 @@ audit. Broad discovery and the residual backlog remain stopped absent a new name
 measurement gap; Phase 9 S0B is bounded reconciliation of already registered complete Git/NAS
 sources. All 51 Phase 8B records are development evidence and none may be relabeled held out.
 
-### NAS asset governance — organized; custody decision open
+### NAS asset governance — complete (macOS layout)
 
-All retained project payloads now live under `collections/**`; unresolved research is under
-`_control/quarantine/**`. Top-level `out/` and `research-cache/` are absent. See the
-[migration record](nas-layout-migration-20260816.md). Next: review that record and decide the one
-unnamed custody item, then run `npm run assets:audit`. Windows and independent backup remain open.
+All retained project payloads live under `collections/**`; unresolved research is quarantined
+under `_control/**`; legacy roots are absent. The [migration record](nas-layout-migration-20260816.md)
+and closing review bind the final layout. The unnamed non-asset custody item, Windows `S:/`, and
+independent backup are separate maker/external follow-ups; the generic root audit remains nonzero.

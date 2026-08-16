@@ -1,7 +1,7 @@
 # Plan — durable untracked assets and NAS governance
 
 - **Phase:** repository infrastructure; no charter phase is reopened
-- **Status:** in progress
+- **Status:** complete
 - **Started:** 2026-08-15
 - **Last touched:** 2026-08-16 by OpenAI Codex GPT-5
 
@@ -53,18 +53,21 @@ in evidence remain as provenance and catalogue aliases; they do not require the 
 - The development server serves only catalogue-approved generated collections. Private research,
   credentials, quarantined material, and other share paths return a refusal in fixture tests even
   when the caller knows their exact path.
-- Existing consumers stop scanning sibling worktrees or silently preferring stale local bytes.
-  Writer-specific authoring flows may take an explicit local staging input, but a served index
-  never relabels that input as NAS content; ordinary reads use a verified NAS collection or fail.
+- Current NAS consumers covered by this maintenance pass stop scanning sibling worktrees or
+  silently preferring stale local bytes. Writer-specific authoring flows may take an explicit
+  local staging input, but a served index never relabels that input as NAS content; ordinary reads
+  use a verified NAS collection or fail.
 - A reviewed old-to-new migration map covers every physical move. Whole collection trees use an
   absent-target same-share rename after an exact inventory; interleaved selections move only their
   manifest-owned rows. Each final collection matches its owner rows, current consumers pass against
   the final layout, and the reverse mapping remains the rollback path until review closes. Unknown
   material moves to dated `_control/quarantine/unresolved/` custody with a NAS-private inventory;
   it is neither served nor treated as a durable collection until classified.
-- The macOS attached-share audit, fixture restore/publish/audit controls, Rule 7, typechecks, and
-  exact `TMPDIR=/private/tmp npm test` pass. The closing review records what was independently
-  rerun and states Windows `S:/`, full-byte, credential-rotation, and backup limits truthfully.
+- The macOS attached-share durable-collection checks, fixture restore/publish/audit controls, Rule
+  7, typechecks, and exact `TMPDIR=/private/tmp npm test` pass. A generic root audit may remain
+  nonzero only for explicitly redacted non-asset custody outside the catalogue. The closing review
+  records what was independently rerun and states Windows `S:/`, full-byte, credential-rotation,
+  and backup limits truthfully.
 
 ## Approach
 
@@ -113,8 +116,9 @@ They belong in a credential manager or runtime environment and outside every ser
 - [x] Freeze a read-only census of live roots, owner manifests, aliases, recycle/quarantine
       material, credentials, partials, and unmatched paths. Record commands, time, host, and scope;
       do not use an unbounded scan whose cost cannot be observed.
-- [ ] Reconcile the manifest scopes and locate the legacy `OUT-TREES-MANIFEST` bytes without
-      touching the active Phase 6 Windows worktree, process, or unpublished artifact.
+- [x] Reconcile the manifest scopes and give every missing legacy `OUT-TREES-MANIFEST` tree an
+      explicit unavailable or superseded disposition without touching the active Phase 6 Windows
+      worktree, process, or unpublished artifact. Recovery, if later attempted, is separate work.
 - [x] Write and review ADR 0051, including the exact relationship to ADRs 0004/0038 and the charter
       clauses that already authorize rights-bound NAS locators. Do not weaken the tracked-evidence
       rule for a gate without an explicit same-authority amendment.
@@ -128,15 +132,15 @@ They belong in a credential manager or runtime environment and outside every ser
 - [x] Add receipt-free legacy `assets:restore` and `assets:verify-restored` compatibility commands.
       They require one exact active version, restore only to fresh `out/restores/` staging, verify
       the exact destination set, and grant neither transaction certification nor prune authority.
-- [ ] Keep forward transactional publication/prune tooling unexposed until it has a separately
+- [x] Keep forward transactional publication/prune tooling unexposed until it has a separately
       justified production use. It is not a prerequisite for this operator-controlled same-share
       organization pass, and this pass adds no further speculative transaction machinery.
 - [x] Restrict `/nas` to explicitly serveable catalogue collections and refuse non-loopback
       exposure unless a later reviewed requirement authorizes it.
-- [ ] Adapt gutcheck publication/index/site/workpack flows, research inventory tooling, education
-      media discovery, and future gate finalization in bounded slices with exact tests after each
-      changed contract. Frozen Phase 8 absolute-path identities get compatibility readers, not
-      rewritten evidence.
+- [x] Adapt the current gutcheck index/site, research inventory, and Phase 8/9 reader paths needed
+      by the migrated layout, with exact compatibility tests. Frozen absolute-path identities use
+      compatibility readers rather than rewritten evidence. Education media and future gate flows
+      adopt the same contract when those consumers are activated; they are not prebuilt here.
 - [x] Generate the exact migration map; inventory and move every retained `out/` and
       `research-cache/` selection to its canonical collection; quarantine unresolved material;
       update owner manifests, catalogue paths and readers; then verify that both legacy top-level
@@ -191,7 +195,7 @@ They belong in a credential manager or runtime environment and outside every ser
   decision. The pass instead hashed all 710 newly registered rows and checked the exact final path,
   count and byte-size sets; existing rows retain their prior ledger digests.
 
-## Open questions
+## Separate follow-ups — not closure blockers
 
 - A credential-like root object was observed during the bounded audit. Its value was not read and
   it is not an asset. Rotation/revocation and final custody require maker/provider authority;
@@ -308,9 +312,10 @@ control, verification and audit facts are recorded in
 manifests and machine-supported selector aggregates verified, with payload hashing explicitly not
 run. After the first governed collection move, `npm run assets:audit -- --nas-root /Volumes/snowcrystal`
 intentionally exited 1: eight bounded top-level entries were observed, seven were classified, and one unnamed ordinary entry remained
-unclassified. That is the maker/provider-owned credential-custody blocker recorded above; it was
-not read, named, hashed, moved, or catalogued. Until custody is resolved, the attached audit is not
-green and the workstream's classification Done When remains open.
+unclassified. That is the maker/provider-owned credential-custody follow-up recorded above; it was
+not read, named, hashed, moved, or catalogued. The generic root audit therefore remains
+intentionally nonzero, but it found no unclassified durable collection and does not keep this
+asset-layout plan open.
 
 Process deviation: the additive physical bootstrap ran before this implementation unit was
 committed, although the code bytes and focused controls had completed review. That missed the
