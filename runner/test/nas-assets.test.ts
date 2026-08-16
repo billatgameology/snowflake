@@ -174,11 +174,13 @@ describe("NAS asset CLI argument boundary", () => {
     expect(result.raw.trim().startsWith("{")).toBe(true);
   });
 
-  it("registers only the two read-only package commands", () => {
+  it("registers read-only checks and legacy restore without exposing publish or prune", () => {
     const pkg = JSON.parse(readFileSync(join(REPO, "package.json"), "utf8")) as { scripts: Record<string, string> };
     expect(pkg.scripts["assets:audit"]).toBe("node scripts/nas-assets.ts audit");
     expect(pkg.scripts["assets:verify"]).toBe("node scripts/nas-assets.ts verify");
-    expect(Object.keys(pkg.scripts).some((name) => /^assets:(?:publish|prune|restore)$/u.test(name))).toBe(false);
+    expect(pkg.scripts["assets:restore"]).toBe("node scripts/nas-asset-restore.ts restore");
+    expect(pkg.scripts["assets:verify-restored"]).toBe("node scripts/nas-asset-restore.ts verify");
+    expect(Object.keys(pkg.scripts).some((name) => /^assets:(?:publish|prune)$/u.test(name))).toBe(false);
   });
 
   it("caps a descriptor read even when the file grows after the first chunk", () => {
@@ -496,7 +498,7 @@ describe("explicit full verification", () => {
     ]);
   });
 
-  it("requires an ordinary collection root even when the selected manifest has zero rows", () => {
+  it("refuses an empty owner-manifest selection before inspecting a collection root", () => {
     const root = temporaryRoot("empty-all-root");
     writeMarker(root);
     mkdirSync(join(root, "private"));
@@ -519,9 +521,10 @@ describe("explicit full verification", () => {
       "--collection", "fixture-private", "--full",
     ]);
     expect(result.code).toBe(1);
-    expect(result.raw).toContain("collection-root-missing-or-unsafe");
+    expect(result.raw).toContain("owner-manifest-selector-invalid");
+    expect(result.raw).not.toContain("collection-root-missing-or-unsafe");
     expect(result.report.collections).toEqual([
-      expect.objectContaining({ aggregate: "verified", payload: "mismatch" }),
+      expect.objectContaining({ aggregate: "mismatch", payload: "mismatch" }),
     ]);
   });
 

@@ -26,16 +26,24 @@ import {
   resolveContainedDirectory,
   type NasAssetCatalogV1,
   type NasAssetCollectionV1,
-  type NasManifestSelectorV1,
   type NasOwnerManifestV1,
 } from "./nas-asset-lib.ts";
+import {
+  bindCollectionSelection,
+  MAX_NAS_OWNER_MANIFEST_BYTES,
+  NasAssetSelectionError,
+  readBoundOwnerManifest,
+  readDescriptorCapped,
+  type BoundCollectionSelectionV1,
+  type BoundOwnerManifestReadV1,
+} from "./nas-asset-selection-lib.ts";
 import { detectNasMount } from "./nas-root.ts";
 
 const PROJECT_ROOT = resolve(import.meta.dirname, "..");
 const DEFAULT_CATALOG_PATH = resolve(PROJECT_ROOT, "docs/nas-assets.json");
 const REPORT_FORMAT = "snowflake-nas-assets-readonly-report-v1" as const;
 const MAX_CATALOG_BYTES = 4 * 1024 * 1024;
-const MAX_OWNER_MANIFEST_BYTES = 32 * 1024 * 1024;
+const MAX_OWNER_MANIFEST_BYTES = MAX_NAS_OWNER_MANIFEST_BYTES;
 const MAX_TOP_LEVEL_ENTRIES = 4_096;
 
 type EntryKind = "directory" | "file" | "symlink" | "special" | "unstatable";
@@ -255,35 +263,7 @@ function parseArguments(argv: readonly string[], cwd: string): CommonOptions {
 }
 
 /** Read at most maximumBytes plus one sentinel byte, even if the file grows while open. */
-export function readFileDescriptorCapped(
-  fd: number,
-  maximumBytes: number,
-  label: string,
-  afterChunk?: (bytesRead: number) => void,
-): Buffer {
-  if (!Number.isSafeInteger(maximumBytes) || maximumBytes < 0) {
-    throw new Error(`${label} has an invalid bounded read limit`);
-  }
-  const chunks: Buffer[] = [];
-  let total = 0;
-  while (true) {
-    const remainingExpected = maximumBytes - total;
-    const requested = remainingExpected >= 1024 * 1024
-      ? 1024 * 1024
-      : remainingExpected >= 0
-        ? remainingExpected + 1
-        : 0;
-    if (requested === 0) throw new Error(`${label} exceeds its bounded read limit`);
-    const chunk = Buffer.allocUnsafe(requested);
-    const count = readSync(fd, chunk, 0, chunk.length, null);
-    if (count === 0) break;
-    chunks.push(chunk.subarray(0, count));
-    total += count;
-    afterChunk?.(total);
-    if (total > maximumBytes) throw new Error(`${label} exceeds its bounded read limit`);
-  }
-  return Buffer.concat(chunks, total);
-}
+export const readFileDescriptorCapped = readDescriptorCapped;
 
 function readBoundedLocalFile(path: string, maximumBytes: number, label: string): Buffer {
   const status = lstatSync(path);
@@ -458,209 +438,6 @@ export function auditNasAssets(
   };
 }
 
-interface ManifestRow {
-  readonly path: string;
-  readonly bytes: number;
-  readonly sha256: string;
-}
-
-interface SelectedRows {
-  readonly rows: readonly ManifestRow[];
-  readonly files: number;
-  readonly bytes: number;
-}
-
-function record(value: unknown, label: string): Record<string, unknown> {
-  if (value === null || typeof value !== "object" || Array.isArray(value)) {
-    throw new Error(`${label} must be an object`);
-  }
-  return value as Record<string, unknown>;
-}
-
-function safeInteger(value: unknown, label: string): number {
-  if (typeof value !== "number" || !Number.isSafeInteger(value) || value < 0) {
-    throw new Error(`${label} must be a non-negative safe integer`);
-  }
-  return value;
-}
-
-function manifestRow(value: unknown, pathValue: string, label: string): ManifestRow {
-  const row = record(value, label);
-  assertPortableShareRelativePath(pathValue, `${label}.path`);
-  const bytes = safeInteger(row.bytes, `${label}.bytes`);
-  if (typeof row.sha256 !== "string" || !/^[0-9a-f]{64}$/u.test(row.sha256)) {
-    throw new Error(`${label}.sha256 must be lowercase SHA-256 hex`);
-  }
-  return { path: pathValue, bytes, sha256: row.sha256 };
-}
-
-function pathContains(prefix: string, candidate: string): boolean {
-  return candidate === prefix || candidate.startsWith(`${prefix}/`);
-}
-
-function finalizeRows(rows: readonly ManifestRow[]): SelectedRows {
-  const seen = new Set<string>();
-  let bytes = 0;
-  for (const row of rows) {
-    const key = portableSharePathCollisionKey(row.path);
-    if (seen.has(key)) throw new Error("selected manifest rows contain a case/Unicode path alias");
-    seen.add(key);
-    bytes += row.bytes;
-    if (!Number.isSafeInteger(bytes)) throw new Error("selected manifest bytes exceed the safe-integer range");
-  }
-  return { rows, files: rows.length, bytes };
-}
-
-function parseJsonManifest(bytes: Buffer, label: string): Record<string, unknown> {
-  let parsed: unknown;
-  try {
-    parsed = JSON.parse(bytes.toString("utf8")) as unknown;
-  } catch {
-    throw new Error(`${label} is malformed JSON`);
-  }
-  return record(parsed, label);
-}
-
-function rowsForPathPrefixes(bytes: Buffer, selector: Extract<NasManifestSelectorV1, { readonly kind: "path-prefixes" }>): SelectedRows {
-  const manifest = parseJsonManifest(bytes, "path-prefix owner manifest");
-  if (!Array.isArray(manifest.files)) throw new Error("path-prefix owner manifest files must be an array");
-  const rows: ManifestRow[] = [];
-  for (let index = 0; index < manifest.files.length; index += 1) {
-    const value = record(manifest.files[index], `manifest.files[${index}]`);
-    if (typeof value.path !== "string") throw new Error(`manifest.files[${index}].path must be a string`);
-    const included = selector.include.some((prefix) => pathContains(prefix, value.path as string));
-    const excluded = selector.exclude.some((prefix) => pathContains(prefix, value.path as string));
-    if (included && !excluded) rows.push(manifestRow(value, value.path, `manifest.files[${index}]`));
-  }
-  return finalizeRows(rows);
-}
-
-function rowsForJsonTree(bytes: Buffer, selector: Extract<NasManifestSelectorV1, { readonly kind: "json-tree-key" }>): SelectedRows {
-  const manifest = parseJsonManifest(bytes, "tree owner manifest");
-  const trees = record(manifest.trees, "tree owner manifest.trees");
-  const tree = record(trees[selector.key], "selected tree");
-  const files = record(tree.files, "selected tree.files");
-  const rows = Object.entries(files).map(([relativePath, value]) =>
-    manifestRow(value, `${selector.key}/${relativePath}`, `selected tree.files row`));
-  const selected = finalizeRows(rows);
-  if (safeInteger(tree.fileCount, "selected tree.fileCount") !== selected.files) {
-    throw new Error("selected tree fileCount disagrees with its rows");
-  }
-  if (safeInteger(tree.bytes, "selected tree.bytes") !== selected.bytes) {
-    throw new Error("selected tree bytes disagree with its rows");
-  }
-  return selected;
-}
-
-function rowsForJsonlField(
-  bytes: Buffer,
-  selector: Extract<NasManifestSelectorV1, { readonly kind: "jsonl-field-equals" }>,
-  locator: string | null,
-): SelectedRows {
-  if (locator === null) throw new Error("JSONL-selected collection has no physical locator");
-  const lines = bytes.toString("utf8").split("\n");
-  const rows: ManifestRow[] = [];
-  for (let index = 0; index < lines.length; index += 1) {
-    const line = lines[index] as string;
-    if (line === "") continue;
-    let value: unknown;
-    try {
-      value = JSON.parse(line) as unknown;
-    } catch {
-      throw new Error(`owner JSONL line ${index + 1} is malformed`);
-    }
-    const row = record(value, `owner JSONL line ${index + 1}`);
-    if (row.recordType !== selector.recordType || row[selector.field] !== selector.equals) continue;
-    if (typeof row.path !== "string") throw new Error(`owner JSONL line ${index + 1} path must be a string`);
-    rows.push(manifestRow(row, `${locator}/${row.path}`, `owner JSONL line ${index + 1}`));
-  }
-  return finalizeRows(rows);
-}
-
-function rowsForAll(bytes: Buffer, locator: string | null): SelectedRows {
-  const manifest = parseJsonManifest(bytes, "all-rows owner manifest");
-  if (!Array.isArray(manifest.files)) throw new Error("all-rows owner manifest files must be an array");
-  const rows: ManifestRow[] = [];
-  for (let index = 0; index < manifest.files.length; index += 1) {
-    const value = record(manifest.files[index], `manifest.files[${index}]`);
-    if (typeof value.path !== "string") throw new Error(`manifest.files[${index}].path must be a string`);
-    if (locator !== null && !pathContains(locator, value.path)) {
-      throw new Error(`manifest.files[${index}].path is outside the collection locator`);
-    }
-    rows.push(manifestRow(value, value.path, `manifest.files[${index}]`));
-  }
-  return finalizeRows(rows);
-}
-
-function selectManifestRows(
-  bytes: Buffer,
-  selector: NasManifestSelectorV1,
-  locator: string | null,
-): SelectedRows | null {
-  if (selector.kind === "path-prefixes") return rowsForPathPrefixes(bytes, selector);
-  if (selector.kind === "json-tree-key") return rowsForJsonTree(bytes, selector);
-  if (selector.kind === "jsonl-field-equals") return rowsForJsonlField(bytes, selector, locator);
-  if (selector.kind === "all") return rowsForAll(bytes, locator);
-  return null;
-}
-
-interface ReadManifest {
-  readonly bytes: Buffer;
-  readonly byteLength: number;
-  readonly sha256: string;
-}
-
-function readBoundedContainedManifest(root: string, binding: NasOwnerManifestV1): ReadManifest {
-  const opened = openContainedRegularFile(root, binding.path);
-  if (opened.kind !== "ok") throw new Error("owner manifest is missing, unsafe, or not an ordinary file");
-  try {
-    if (opened.byteLength > MAX_OWNER_MANIFEST_BYTES) throw new Error("owner manifest exceeds its bounded read limit");
-    const before = fstatSync(opened.fd);
-    const bytes = readFileDescriptorCapped(opened.fd, MAX_OWNER_MANIFEST_BYTES, "owner manifest");
-    const after = fstatSync(opened.fd);
-    let currentPath;
-    try {
-      currentPath = lstatSync(opened.path);
-    } catch {
-      throw new Error("owner manifest changed while reading");
-    }
-    if (
-      !before.isFile() ||
-      before.nlink !== 1 ||
-      !after.isFile() ||
-      after.nlink !== 1 ||
-      after.dev !== before.dev ||
-      after.ino !== before.ino ||
-      after.mode !== before.mode ||
-      after.size !== before.size ||
-      after.mtimeMs !== before.mtimeMs ||
-      after.ctimeMs !== before.ctimeMs ||
-      after.dev !== opened.dev ||
-      after.ino !== opened.ino ||
-      after.size !== opened.byteLength ||
-      currentPath.isSymbolicLink() ||
-      !currentPath.isFile() ||
-      currentPath.nlink !== 1 ||
-      currentPath.dev !== after.dev ||
-      currentPath.ino !== after.ino ||
-      currentPath.mode !== after.mode ||
-      currentPath.size !== after.size ||
-      currentPath.mtimeMs !== after.mtimeMs ||
-      currentPath.ctimeMs !== after.ctimeMs ||
-      bytes.byteLength !== opened.byteLength
-    ) {
-      throw new Error("owner manifest changed while reading");
-    }
-    return {
-      bytes,
-      byteLength: bytes.byteLength,
-      sha256: createHash("sha256").update(bytes).digest("hex"),
-    };
-  } finally {
-    closeSync(opened.fd);
-  }
-}
-
 interface CollectionVerifyResult {
   readonly identity: string;
   readonly state: NasAssetCollectionV1["state"];
@@ -711,9 +488,9 @@ function selectCollections(catalogue: NasAssetCatalogV1, selectors: readonly str
 function hashOpenedPayload(
   nasRoot: string,
   allowedPrefix: string,
-  row: ManifestRow,
+  row: BoundCollectionSelectionV1["files"][number],
 ): "verified" | "mismatch" {
-  const opened = openContainedRegularFile(nasRoot, row.path, allowedPrefix);
+  const opened = openContainedRegularFile(nasRoot, row.sharePath, allowedPrefix);
   if (opened.kind !== "ok") return "mismatch";
   try {
     const before = fstatSync(opened.fd);
@@ -796,14 +573,13 @@ export function verifyNasAssets(
     }
   }
 
-  const cache = new Map<string, ReadManifest>();
-  const readManifest = (binding: NasOwnerManifestV1): ReadManifest | null => {
-    const key = `${binding.storage}\0${binding.path}`;
+  const cache = new Map<string, BoundOwnerManifestReadV1>();
+  const readManifest = (binding: NasOwnerManifestV1): BoundOwnerManifestReadV1 | null => {
+    const key = `${binding.storage}\0${binding.path}\0${binding.bytes}\0${binding.sha256}`;
     const cached = cache.get(key);
     if (cached !== undefined) return cached;
-    const root = binding.storage === "tracked" ? repoRoot : mount;
-    if (root === null) return null;
-    const read = readBoundedContainedManifest(root, binding);
+    if (binding.storage === "nas-private" && mount === null) return null;
+    const read = readBoundOwnerManifest({ binding, repoRoot, shareRoot: mount });
     cache.set(key, read);
     return read;
   };
@@ -823,10 +599,24 @@ export function verifyNasAssets(
       });
       continue;
     }
-    let read: ReadManifest | null = null;
+    let read: BoundOwnerManifestReadV1 | null = null;
     try {
       read = readManifest(collection.ownerManifest);
-    } catch {
+    } catch (error) {
+      if (
+        error instanceof NasAssetSelectionError &&
+        error.code === "owner-manifest-byte-or-digest-mismatch"
+      ) {
+        defects.add("owner-manifest-byte-or-digest-mismatch");
+        collectionResults.push({
+          identity,
+          state: collection.state,
+          manifest: "mismatch",
+          aggregate: "not-checked",
+          payload: collection.state === "unavailable" ? "catalogued-unavailable" : "not-run",
+        });
+        continue;
+      }
       defects.add("owner-manifest-read-failed");
     }
     if (read === null) {
@@ -840,66 +630,53 @@ export function verifyNasAssets(
       });
       continue;
     }
-    if (read.byteLength !== collection.ownerManifest.bytes || read.sha256 !== collection.ownerManifest.sha256) {
-      defects.add("owner-manifest-byte-or-digest-mismatch");
-      collectionResults.push({
-        identity,
-        state: collection.state,
-        manifest: "mismatch",
-        aggregate: "not-checked",
-        payload: collection.state === "unavailable" ? "catalogued-unavailable" : "not-run",
-      });
-      continue;
-    }
-    let selectedRows: SelectedRows | null = null;
+    let selection: BoundCollectionSelectionV1 | null = null;
     let aggregate: CollectionVerifyResult["aggregate"] = "not-checked";
-    try {
-      const ownershipRoot = collection.locator ?? collection.historicalRepoPath;
-      selectedRows = selectManifestRows(read.bytes, collection.ownerManifest.selector, ownershipRoot);
-      if (selectedRows === null) {
-        aggregate = "unsupported";
-        limitations.add("documented-only-selector-has-no-machine-aggregate");
-      } else if (
-        ownershipRoot !== null &&
-        selectedRows.rows.some((row) => !pathContains(ownershipRoot, row.path))
-      ) {
-        throw new Error("selected manifest row is outside the collection locator");
-      } else if (
-        selectedRows.files === collection.aggregate.files &&
-        selectedRows.bytes === collection.aggregate.bytes
-      ) {
+    if (collection.ownerManifest.selector.kind === "documented-only") {
+      aggregate = "unsupported";
+      limitations.add("documented-only-selector-has-no-machine-aggregate");
+    } else {
+      try {
+        selection = bindCollectionSelection({
+          catalogue,
+          collection: identity,
+          ownerManifestBytes: read.bytes,
+        });
         aggregate = "verified";
-      } else {
+      } catch (error) {
         aggregate = "mismatch";
-        defects.add("collection-aggregate-mismatch");
+        if (
+          error instanceof NasAssetSelectionError &&
+          error.code === "collection-aggregate-mismatch"
+        ) {
+          defects.add("collection-aggregate-mismatch");
+        } else {
+          defects.add("owner-manifest-selector-invalid");
+        }
       }
-    } catch {
-      aggregate = "mismatch";
-      defects.add("owner-manifest-selector-invalid");
     }
 
     let payload: CollectionVerifyResult["payload"] = collection.state === "unavailable"
       ? "catalogued-unavailable"
       : "not-run";
     if (full) {
-      if (mount === null || collection.locator === null || selectedRows === null || aggregate !== "verified") {
+      if (mount === null || collection.locator === null || selection === null || aggregate !== "verified") {
         payload = "mismatch";
         defects.add("full-verification-precondition-failed");
       } else {
-        const singleFileCollection =
-          selectedRows.rows.length === 1 && selectedRows.rows[0]?.path === collection.locator;
+        const singleFileCollection = selection.files.length === 1 && selection.files[0]?.relativePath === "";
         if (!singleFileCollection && resolveContainedDirectory(mount, collection.locator).kind !== "ok") {
           payload = "mismatch";
           defects.add("collection-root-missing-or-unsafe");
-          fullPayloadTotals = { files: selectedRows.files, bytes: selectedRows.bytes };
+          fullPayloadTotals = { files: selection.fileCount, bytes: selection.totalBytes };
           collectionResults.push({ identity, state: collection.state, manifest: "verified", aggregate, payload });
           continue;
         }
         let mismatches = 0;
-        for (const row of selectedRows.rows) {
+        for (const row of selection.files) {
           if (hashOpenedPayload(mount, collection.locator, row) !== "verified") mismatches += 1;
         }
-        fullPayloadTotals = { files: selectedRows.files, bytes: selectedRows.bytes };
+        fullPayloadTotals = { files: selection.fileCount, bytes: selection.totalBytes };
         if (mismatches === 0) payload = "verified-full";
         else {
           payload = "mismatch";
@@ -915,18 +692,23 @@ export function verifyNasAssets(
   const overlayResults: OverlayVerifyResult[] = [];
   if (verifyOverlays) {
     for (const overlay of catalogue.overlays) {
-      let read: ReadManifest | null = null;
+      let read: BoundOwnerManifestReadV1 | null = null;
       try {
         read = readManifest(overlay.manifest);
-      } catch {
+      } catch (error) {
+        if (
+          error instanceof NasAssetSelectionError &&
+          error.code === "owner-manifest-byte-or-digest-mismatch"
+        ) {
+          defects.add("overlay-manifest-byte-or-digest-mismatch");
+          overlayResults.push({ overlayId: overlay.overlayId, manifest: "mismatch" });
+          continue;
+        }
         defects.add("overlay-manifest-read-failed");
       }
       if (read === null) {
         defects.add("overlay-manifest-unavailable");
         overlayResults.push({ overlayId: overlay.overlayId, manifest: "unavailable" });
-      } else if (read.byteLength !== overlay.manifest.bytes || read.sha256 !== overlay.manifest.sha256) {
-        defects.add("overlay-manifest-byte-or-digest-mismatch");
-        overlayResults.push({ overlayId: overlay.overlayId, manifest: "mismatch" });
       } else {
         overlayResults.push({ overlayId: overlay.overlayId, manifest: "verified" });
       }

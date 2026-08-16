@@ -211,6 +211,25 @@ describe("tracked NAS asset catalogue", () => {
     }
   });
 
+  it("binds every active restore declaration to the real destination-aware commands", () => {
+    const pkg = JSON.parse(readFileSync(`${REPOSITORY_ROOT}package.json`, "utf8")) as {
+      readonly scripts: Readonly<Record<string, string>>;
+    };
+    expect(pkg.scripts["assets:restore"]).toBe("node scripts/nas-asset-restore.ts restore");
+    expect(pkg.scripts["assets:verify-restored"]).toBe("node scripts/nas-asset-restore.ts verify");
+
+    for (const collection of CATALOG.collections.filter(({ state }) => state === "active")) {
+      const identity = `${collection.assetId}@${collection.version}`;
+      const destination = `out/restores/${collection.assetId}-${collection.version}`;
+      expect(collection.restore.command, identity).toBe(
+        `npm run assets:restore -- --collection ${identity} --to ${destination}`,
+      );
+      expect(collection.restore.verifyCommand, identity).toBe(
+        `npm run assets:verify-restored -- --collection ${identity} --from ${destination}`,
+      );
+    }
+  });
+
   it("re-derives every machine-readable tracked owner selection", () => {
     for (const collection of CATALOG.collections) {
       const manifest = collection.ownerManifest;

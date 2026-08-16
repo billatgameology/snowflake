@@ -10,8 +10,9 @@ output copy mirrors repo-relative paths under the share root — e.g.
 
 ## Attaching the share
 
-Only the local mount prefix differs between the two hosts this repo is worked from; everything
-below it is identical.
+Both host mount names address the same configured share, and canonical catalogue locators do not
+embed either prefix. The governed flow was executed on macOS; Windows `S:/` path, case, Unicode,
+ACL, and restore behavior remains unverified.
 
 | host | mount | how |
 | --- | --- | --- |
@@ -24,9 +25,10 @@ below it is identical.
 both resolve to the same validated share. The index builder, read-only asset tools and dev server
 use that resolver, so none hardcodes a drive or guesses identity from a familiar directory.
 
-The machine-readable twin, **`docs/nas-ledger.json`**, lists every moved file with its
-byte size and pre-move **SHA-256** — the bytes are a cache, the provenance is the record
-(same doctrine as `research/media-inventory.json`). Verify or re-fetch any file against it.
+The machine-readable twin, **`docs/nas-ledger.json`**, is a frozen generated-output ledger with
+each recorded file's byte size and pre-move **SHA-256**. Per-collection class, retention, recovery,
+and serving authority come only from `docs/nas-assets.json`; a hash detects loss but cannot restore
+it.
 
 ## Moves
 
@@ -40,6 +42,12 @@ byte size and pre-move **SHA-256** — the bytes are a cache, the provenance is 
 | 2026-08-12 | mac `out/` cleanup 2/2: superseded phase 2a/2b/3 root scratch + session check dir → `out/archives/out-root-scratch-mac-20260812.zip` (disposable class per ADR 0038) | 1 | 41.7 MB | zip SHA-256 match local vs share + `unzip -t` CRC pass |
 | 2026-08-15 | two rejected D-BT independent-verification candidates mirrored loose under `out/debug/` (historical assurance-debug material, **not evidence**) | 10 | 85,153 B | source/staging inventories matched; every final file re-hashed against `docs/nas-ledger.json` |
 
+The 2026-08-16 ledger revision also registered seven already-retained files that earlier ledger
+snapshots omitted: six gutcheck ZIPs and the 2026-08-15 scratch tar. This was a bookkeeping repair,
+not a new payload move. The current `docs/nas-ledger.json` is the named artifact for its exact
+22,515-file / 457,860,350,293-byte scope; the provisional archive collections in
+`docs/nas-assets.json` still grant no retention or prune authority.
+
 ## Separate post-Phase-9 research intake
 
 Third-party source bytes are outside this generated-output ledger. A closeout audit found fourteen
@@ -52,16 +60,15 @@ the historical shelf, scores, evidence, promotions, or validation status.
 
 ## How the site uses this
 
-**Historical measurement on macOS (2026-08-12): the pre-governance full index built and streamed
-end-to-end.** The current governed contract is narrower and has fixture coverage but has not yet
-been exercised against the physical marker: `scripts/gutcheck-build-index.ts` reads only a
-validated share and emits URLs under the catalogue-approved `out/gutcheck-gg-realism/large` and
-`out/gutcheck-gg-realism/gen/renders` prefixes. The dev server authorizes that same logical path,
-then attaches the host mount and opens the file without following links. Private/mixed roots,
-including `photos/`, `figs/` and workspace-root media, are not indexed or served. `--detached`
-produces an explicit metadata-only index; it never falls back to local `out/` bytes. Windows
-`S:/` remains construction-tested only and needs an executed host check before a cross-host
-durability claim.
+**Executed on macOS with the governed marker (2026-08-15):**
+`node scripts/gutcheck-build-index.ts` built 3 sections / 37 items from the validated share. A live
+loopback Vite check returned 200 for a 339-byte catalogue-approved file, 206 for a ten-byte range,
+and 403 for both a private root and an unknown root. The index emits URLs only under the approved
+`out/gutcheck-gg-realism/large` and `out/gutcheck-gg-realism/gen/renders` prefixes; the server then
+attaches the host mount and opens without following links. Private/mixed roots, including
+`photos/`, `figs/` and workspace-root media, are not indexed or served. `--detached` emits explicit
+metadata-only output and never falls back to local `out/` bytes. Windows `S:/` remains unexecuted
+and needs a host check before a cross-host durability claim.
 
 The static Track A bundle (`scripts/gutcheck-build-site.ts`) is a different consumer: a
 shippable bundle must carry real bytes, so it hardlinks from the **local** tree only and is
@@ -86,29 +93,33 @@ packing may read a restored staging tree, but the served index never merges or p
 
 ## Restoring / adding
 
-Restore any directory by mirroring the path back:
+Do not mirror a NAS path directly into a live worktree with `robocopy`, `rsync --ignore-existing`,
+or raw archive extraction. Those operations can merge trees and do not establish an exact-set,
+fresh-stage restore. The legacy compatibility command resolves the marked share, selects one exact
+active catalogue version, copies only owner-manifest rows into a fresh destination below
+`out/restores/`, and verifies the restored set, lengths, and digests:
 
-```powershell
-robocopy "S:\out\gutcheck-gg-realism\large\anim\dialin-b1p3-800" `
-         "G:\Code Files\snowflake-gutcheck-gg-realism\out\gutcheck-gg-realism\large\anim\dialin-b1p3-800" /E
-```
-
-```bash
-rsync -a "/Volumes/snowcrystal/out/gutcheck-gg-realism/large/anim/dialin-b1p3-800/" \
-         "$REPO/out/gutcheck-gg-realism/large/anim/dialin-b1p3-800/"
-```
-
-The retained extras zip is a historical private backup. When an authoring workflow needs local workspace bytes,
-use the verified restore command rather than raw `unzip`, which bypasses the archive ledger and
-member checks. The zip also contains legacy recipe/record copies under `out/`; the tracked
-copies under `evidence/gutcheck-gg-realism/` remain authoritative, and the index ignores the
-legacy copies.
+The reviewed `.snowflake-nas.json` marker and empty `_control/` skeleton are installed on the
+physical share, and attached owner-manifest verification passed. The first physical compatibility
+restore remains pending until this implementation unit is committed; the registered Phase 3
+collection below is the bounded first target, and its local staging tree must be retained for
+inspection.
 
 ```bash
-snowflake_nas_root=$(node --input-type=module -e 'import { detectNasMount } from "./scripts/nas-root.ts"; const mount = detectNasMount(); if (mount === null) throw new Error("NAS detached"); process.stdout.write(mount)')
-node scripts/gutcheck-archive-restore.ts \
-  "${snowflake_nas_root}out/gutcheck-gg-realism/archives/gutcheck-large-extras-20260807.zip"
+npm run assets:restore -- \
+  --collection earlier-phase3-visual@2026-08-01 \
+  --to out/restores/earlier-phase3-visual-2026-08-01
+npm run assets:verify-restored -- \
+  --collection earlier-phase3-visual@2026-08-01 \
+  --from out/restores/earlier-phase3-visual-2026-08-01
 ```
+
+That path does not emit a durable publication/restore receipt and never authorizes pruning. Legacy
+manual copying grants no prune or exact-restore claim.
+
+The retained extras zip is a historical same-NAS recovery copy, not an independent backup. It also
+contains legacy recipe/record copies under `out/`; the tracked copies under
+`evidence/gutcheck-gg-realism/` remain authoritative, and the index ignores the legacy copies.
 
 New bulk grow outputs land locally under `out/`; `gutcheck-grow-batch.mjs` writes the tracked
 record under `evidence/gutcheck-gg-realism/gen-records/` and re-pins that subtree. While NAS

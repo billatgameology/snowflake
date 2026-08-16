@@ -27,8 +27,8 @@
         "storage": "tracked",
         "path": "docs/nas-ledger.json",
         "format": "snowflake-nas-ledger-v1",
-        "bytes": 4361847,
-        "sha256": "0f68d9682c4b27f3101597c745c2fb02a6e55917a1f7d1e9f36575e40021f6e8",
+        "bytes": 4363612,
+        "sha256": "fd4f95c709202cb9e0ff835339c560a121f38a4f61aca09330f1d562e70332a8",
         "selector": {
           "kind": "path-prefixes",
           "include": [
@@ -71,16 +71,17 @@
       },
       "restore": {
         "status": "documented",
-        "command": "npm run assets:restore -- --collection gutcheck-generated-public --to out/gutcheck-gg-realism",
-        "verifyCommand": "npm run assets:verify -- --collection gutcheck-generated-public",
+        "command": "npm run assets:restore -- --collection gutcheck-generated-public@2026-08-15 --to out/restores/gutcheck-generated-public-2026-08-15",
+        "verifyCommand": "npm run assets:verify-restored -- --collection gutcheck-generated-public@2026-08-15 --from out/restores/gutcheck-generated-public-2026-08-15",
         "record": "docs/local-assets.md"
       },
       "verification": {
-        "status": "full-hash",
+        "status": "sampled-size",
         "at": "2026-08-12",
         "host": "macOS",
         "receipt": "docs/nas-ledger.md",
         "limits": [
+          "The destination was spot-rehashed for 35 of 21,480 files; no complete final-NAS hash pass was executed.",
           "The 2026-08-15 opening audit sampled sizes rather than rehashing the 446 GB selection.",
           "Windows S drive serving and restoration were not executed."
         ]
@@ -162,8 +163,8 @@
       },
       "restore": {
         "status": "documented",
-        "command": "npm run assets:restore -- --collection earlier-phase3-visual --to out/phase3-visual",
-        "verifyCommand": "npm run assets:verify -- --collection earlier-phase3-visual",
+        "command": "npm run assets:restore -- --collection earlier-phase3-visual@2026-08-01 --to out/restores/earlier-phase3-visual-2026-08-01",
+        "verifyCommand": "npm run assets:verify-restored -- --collection earlier-phase3-visual@2026-08-01 --from out/restores/earlier-phase3-visual-2026-08-01",
         "record": "docs/nas-ledger.md"
       },
       "verification": {
@@ -243,17 +244,17 @@
       },
       "restore": {
         "status": "documented",
-        "command": "npm run assets:restore -- --collection research-private-freeze --to research",
-        "verifyCommand": "npm run assets:verify -- --collection research-private-freeze",
+        "command": "npm run assets:restore -- --collection research-private-freeze@2026-08-11 --to out/restores/research-private-freeze-2026-08-11",
+        "verifyCommand": "npm run assets:verify-restored -- --collection research-private-freeze@2026-08-11 --from out/restores/research-private-freeze-2026-08-11",
         "record": "docs/local-assets.md"
       },
       "verification": {
-        "status": "full-hash",
-        "at": "2026-08-11",
-        "host": "Windows",
-        "receipt": "research-cache/RESEARCH-CACHE-MANIFEST.jsonl",
+        "status": "manifest-only",
+        "at": "2026-08-15",
+        "host": "macOS",
+        "receipt": "docs/nas-inventory-audit-20260815.md",
         "limits": [
-          "The owner manifest is private on the NAS and is not independently available to detached CI.",
+          "The private owner manifest's publication-time hashes are ownership input, not a separate final or restore receipt.",
           "The 2026-08-15 macOS audit checked only a deterministic size sample."
         ]
       },
@@ -324,16 +325,17 @@
       },
       "restore": {
         "status": "documented",
-        "command": "npm run assets:restore -- --collection research-tracked-record-mirror --to out/research-tracked-record-mirror",
-        "verifyCommand": "npm run assets:verify -- --collection research-tracked-record-mirror",
+        "command": "npm run assets:restore -- --collection research-tracked-record-mirror@2026-08-11 --to out/restores/research-tracked-record-mirror-2026-08-11",
+        "verifyCommand": "npm run assets:verify-restored -- --collection research-tracked-record-mirror@2026-08-11 --from out/restores/research-tracked-record-mirror-2026-08-11",
         "record": "docs/nas-inventory-audit-20260815.md"
       },
       "verification": {
-        "status": "full-hash",
-        "at": "2026-08-11",
-        "host": "Windows",
-        "receipt": "research-cache/RESEARCH-CACHE-MANIFEST.jsonl",
+        "status": "manifest-only",
+        "at": "2026-08-15",
+        "host": "macOS",
+        "receipt": "docs/nas-inventory-audit-20260815.md",
         "limits": [
+          "The private owner manifest's publication-time hashes are ownership input, not a separate final or restore receipt.",
           "These are redundant copies of Git records and are not a second authority."
         ]
       },
@@ -365,8 +367,8 @@
         "storage": "tracked",
         "path": "docs/nas-ledger.json",
         "format": "snowflake-nas-ledger-v1",
-        "bytes": 4361847,
-        "sha256": "0f68d9682c4b27f3101597c745c2fb02a6e55917a1f7d1e9f36575e40021f6e8",
+        "bytes": 4363612,
+        "sha256": "fd4f95c709202cb9e0ff835339c560a121f38a4f61aca09330f1d562e70332a8",
         "selector": {
           "kind": "path-prefixes",
           "include": [
@@ -451,13 +453,16 @@
       },
       "ownerManifest": {
         "storage": "tracked",
-        "path": "evidence/gutcheck-gg-realism/large-artifact-inventory.json",
-        "format": "gutcheck-large-inventory-v1",
-        "bytes": 358626,
-        "sha256": "9888b9f69cdb1139bb9ff179c7643610e8a4cc62c6fb9c2840b860ce42320edc",
+        "path": "docs/nas-ledger.json",
+        "format": "snowflake-nas-ledger-v1",
+        "bytes": 4363612,
+        "sha256": "fd4f95c709202cb9e0ff835339c560a121f38a4f61aca09330f1d562e70332a8",
         "selector": {
-          "kind": "documented-only",
-          "record": "docs/nas-inventory-audit-20260815.md"
+          "kind": "path-prefixes",
+          "include": [
+            "out/gutcheck-gg-realism/archives"
+          ],
+          "exclude": []
         }
       },
       "rights": {
@@ -500,8 +505,8 @@
         "host": "macOS",
         "receipt": "docs/nas-inventory-audit-20260815.md",
         "limits": [
-          "All six live archive lengths matched records, but payload hashes and archive members were not recomputed.",
-          "The owner inventory also retains five absent historical archive rows."
+          "The ledger now binds the six live archive paths, lengths, and recorded SHA-256 values, but the 2026-08-15 audit did not recompute payload hashes or archive members.",
+          "The large-artifact inventory remains a provenance overlay with five additional absent historical archive rows."
         ]
       },
       "storageDomains": [
@@ -514,7 +519,6 @@
       },
       "supersedes": [],
       "unresolved": [
-        "Replace the documented live-archive selection with a machine-readable owner selector.",
         "Decide retention for redundant same-domain archive copies."
       ]
     },
@@ -531,7 +535,20 @@
         "files": 2,
         "bytes": 41999619
       },
-      "ownerManifest": null,
+      "ownerManifest": {
+        "storage": "tracked",
+        "path": "docs/nas-ledger.json",
+        "format": "snowflake-nas-ledger-v1",
+        "bytes": 4363612,
+        "sha256": "fd4f95c709202cb9e0ff835339c560a121f38a4f61aca09330f1d562e70332a8",
+        "selector": {
+          "kind": "path-prefixes",
+          "include": [
+            "out/archives"
+          ],
+          "exclude": []
+        }
+      },
       "rights": {
         "kind": "project-owned",
         "redistribution": "restricted"
@@ -572,7 +589,7 @@
         "host": "macOS",
         "receipt": "docs/nas-inventory-audit-20260815.md",
         "limits": [
-          "The two files have separate records; no complete owner manifest covers the directory."
+          "The ledger now binds both archive paths, lengths, and recorded SHA-256 values; no complete current payload rehash was executed during this governance pass."
         ]
       },
       "storageDomains": [
@@ -585,7 +602,6 @@
       },
       "supersedes": [],
       "unresolved": [
-        "Create one complete owner manifest before activation.",
         "Select a retention period for the two scratch archives."
       ]
     },
@@ -606,8 +622,8 @@
         "storage": "tracked",
         "path": "docs/nas-ledger.json",
         "format": "snowflake-nas-ledger-v1",
-        "bytes": 4361847,
-        "sha256": "0f68d9682c4b27f3101597c745c2fb02a6e55917a1f7d1e9f36575e40021f6e8",
+        "bytes": 4363612,
+        "sha256": "fd4f95c709202cb9e0ff835339c560a121f38a4f61aca09330f1d562e70332a8",
         "selector": {
           "kind": "path-prefixes",
           "include": [
@@ -689,8 +705,8 @@
         "storage": "tracked",
         "path": "docs/nas-ledger.json",
         "format": "snowflake-nas-ledger-v1",
-        "bytes": 4361847,
-        "sha256": "0f68d9682c4b27f3101597c745c2fb02a6e55917a1f7d1e9f36575e40021f6e8",
+        "bytes": 4363612,
+        "sha256": "fd4f95c709202cb9e0ff835339c560a121f38a4f61aca09330f1d562e70332a8",
         "selector": {
           "kind": "path-prefixes",
           "include": [
@@ -772,8 +788,8 @@
         "storage": "tracked",
         "path": "docs/nas-ledger.json",
         "format": "snowflake-nas-ledger-v1",
-        "bytes": 4361847,
-        "sha256": "0f68d9682c4b27f3101597c745c2fb02a6e55917a1f7d1e9f36575e40021f6e8",
+        "bytes": 4363612,
+        "sha256": "fd4f95c709202cb9e0ff835339c560a121f38a4f61aca09330f1d562e70332a8",
         "selector": {
           "kind": "path-prefixes",
           "include": [
@@ -846,7 +862,7 @@
       "locator": "research-cache/content",
       "historicalRepoPath": "research/tmp",
       "legacyAliases": [],
-      "storageClass": "scratch",
+      "storageClass": null,
       "aggregate": {
         "files": 72991,
         "bytes": 2401810560
@@ -874,7 +890,7 @@
         "prefixes": []
       },
       "retention": {
-        "policy": "temporary",
+        "policy": "maker-approved-delete-only",
         "garbageCollection": {
           "policy": "plan-only",
           "graceDays": null,
@@ -899,25 +915,26 @@
         "record": "docs/nas-inventory-audit-20260815.md"
       },
       "verification": {
-        "status": "full-hash",
-        "at": "2026-08-11",
-        "host": "Windows",
-        "receipt": "research-cache/RESEARCH-CACHE-MANIFEST.jsonl",
+        "status": "manifest-only",
+        "at": "2026-08-15",
+        "host": "macOS",
+        "receipt": "docs/nas-inventory-audit-20260815.md",
         "limits": [
-          "The manifest verifies copied bytes but does not decide which recovery or scratch rows remain useful."
+          "The private owner manifest's publication-time hashes are ownership input, not a separate final or restore receipt.",
+          "The manifest does not decide which mixed recovery rows remain useful."
         ]
       },
       "storageDomains": [
         "snowcrystal-nas"
       ],
       "backup": {
-        "status": "not-required",
+        "status": "required-missing",
         "independentDomains": [],
         "receipts": []
       },
       "supersedes": [],
       "unresolved": [
-        "Classify reachability and retention for the 72,991 recovery or scratch rows before any quarantine proposal."
+        "Split and classify the 72,991 mixed recovery-or-scratch rows before any quarantine proposal; 121 rows are registered media, so the whole selector is not scratch."
       ]
     },
     {
@@ -937,8 +954,8 @@
         "storage": "tracked",
         "path": "docs/local-assets.md",
         "format": "local-assets-documentation-v1",
-        "bytes": 10804,
-        "sha256": "7133d82159c73fb2571dc94356963c93a5a927b13e700b4aadce1f63e08f53c0",
+        "bytes": 12657,
+        "sha256": "f9300d232a19c10eb4403fc5bf0c0fbc6352cbc37a1fd2734fe6fee3115bf970",
         "selector": {
           "kind": "documented-only",
           "record": "docs/local-assets.md"
@@ -2012,7 +2029,7 @@
         "research-private-freeze@2026-08-11",
         "research-recovery-scratch@2026-08-11"
       ],
-      "relationship": "The tracked media inventory is a 2,477-file media subset of the broader private whole-cache freeze; its filesInTree count observes a wider source tree and is not a second owner count."
+      "relationship": "The tracked 2,477-file media inventory spans two disjoint private-manifest selectors: 2,356 files / 1,585,094,867 bytes in research-private-freeze and 121 files / 428,439,918 bytes in the still-unclassified research-recovery-scratch collection. It is a cross-collection provenance overlay, not an owner or retention rule."
     },
     {
       "overlayId": "gutcheck-large-products-and-archives",
@@ -2039,8 +2056,8 @@
         "storage": "tracked",
         "path": "docs/nas-ledger.json",
         "format": "snowflake-nas-ledger-v1",
-        "bytes": 4361847,
-        "sha256": "0f68d9682c4b27f3101597c745c2fb02a6e55917a1f7d1e9f36575e40021f6e8",
+        "bytes": 4363612,
+        "sha256": "fd4f95c709202cb9e0ff835339c560a121f38a4f61aca09330f1d562e70332a8",
         "selector": {
           "kind": "path-prefixes",
           "include": [

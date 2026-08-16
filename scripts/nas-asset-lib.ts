@@ -1351,6 +1351,8 @@ export interface NasTreeInventoryV1 {
 export interface StableTreeInventoryOptions {
   /** Test/progress hook; any mutation it performs must be caught by the verification pass. */
   readonly afterFirstPassFile?: (relativePath: string, filesHashed: number) => void;
+  /** Test/fault hook at the late boundary; production callers leave this unset. */
+  readonly beforeFinalShapePass?: () => void;
 }
 
 /** Deterministically inventory and then fully re-verify an ordinary-file tree. */
@@ -1423,6 +1425,56 @@ export function inventoryStableTree(
     if (finalIdentity !== verifiedIdentities.get(file.path)) {
       fail(`tree file mutated after verification: ${file.path}`);
     }
+  }
+  options.beforeFinalShapePass?.();
+  const finalPortableNames = new Set<string>();
+  const finalFilePaths: string[] = [];
+  const verifyFinalShape = (directory: string, prefix: string): void => {
+    const before = lstatSync(directory);
+    if (!before.isDirectory() || before.isSymbolicLink()) {
+      fail(`tree directory changed before final shape verification: ${directory}`);
+    }
+    const entries = readdirSync(directory, { withFileTypes: true }).sort((left, right) =>
+      comparePortableNames(left.name, right.name),
+    );
+    for (const entry of entries) {
+      const relativeEntry = prefix === "" ? entry.name : `${prefix}/${entry.name}`;
+      assertPortableShareRelativePath(relativeEntry, "final inventory path");
+      const key = portableSharePathCollisionKey(relativeEntry);
+      if (finalPortableNames.has(key)) fail(`final inventory contains a case/Unicode collision: ${relativeEntry}`);
+      finalPortableNames.add(key);
+      const absoluteEntry = resolve(directory, entry.name);
+      const status = lstatSync(absoluteEntry);
+      if (status.isSymbolicLink()) fail(`final inventory refuses symbolic links: ${relativeEntry}`);
+      if (status.isDirectory()) {
+        verifyFinalShape(absoluteEntry, relativeEntry);
+      } else if (status.isFile()) {
+        if (status.nlink !== 1) fail(`final inventory refuses hard-linked files: ${relativeEntry}`);
+        if (statIdentity(status) !== verifiedIdentities.get(relativeEntry)) {
+          fail(`tree file set or identity changed during final shape verification: ${relativeEntry}`);
+        }
+        finalFilePaths.push(relativeEntry);
+      } else {
+        fail(`final inventory refuses special files: ${relativeEntry}`);
+      }
+    }
+    const finalNames = readdirSync(directory).sort(comparePortableNames);
+    const after = lstatSync(directory);
+    if (
+      statIdentity(before) !== statIdentity(after) ||
+      finalNames.length !== entries.length ||
+      finalNames.some((name, index) => name !== entries[index]?.name)
+    ) {
+      fail(`directory mutated during final shape verification: ${directory}`);
+    }
+  };
+  verifyFinalShape(resolve(root), "");
+  finalFilePaths.sort(comparePortableNames);
+  if (
+    finalFilePaths.length !== files.length ||
+    finalFilePaths.some((path, index) => path !== files[index]?.path)
+  ) {
+    fail("tree file set changed before inventory publication");
   }
   const totalBytes = files.reduce((sum, file) => sum + file.byteLength, 0);
   if (!Number.isSafeInteger(totalBytes)) fail("inventory total exceeds the JSON safe-integer range");

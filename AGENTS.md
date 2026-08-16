@@ -102,7 +102,7 @@ The root is a strict-TypeScript ESM npm workspace on Node 23.6 or newer.
 | `solver-cpu/` | Permanent float64 oracle. Exports `GGSolver`, `LKSolver`, and their shared `SurfaceOperator` contract. No Node APIs or file I/O. |
 | `runner/` | Node-only CLI and evidence boundary: argument validation, runs, stopping rules, metrics, PGM dumps, checkpoint I/O and round-trip checks, and enforced gates. |
 | `spike/` | Frozen Phase 1 Reiter prototype, deliberately outside the npm workspace. Do not evolve it into the product. |
-| `research/` | Tracked source indexes and citations; most downloaded media are local and gitignored. Never force-add copyrighted media. |
+| `research/` | Tracked source indexes and citations plus temporary, ignored local input staging. Durable private source bytes belong in governed, non-served NAS collections; never force-add copyrighted or private media. |
 | `evidence/` | Tracked, digest-pinned artifacts: evidence backing published claims (ADR 0038) plus the gut-check spike's recipes and run records (`gutcheck-gg-realism/`, relocated out of `out/` 2026-08-12). Every artifact file below it, except the two root control manifests `evidence/MANIFEST.json` and `evidence/OUT-TREES-MANIFEST.json`, must be tracked and pinned in `evidence/MANIFEST.json`; `npm test` enforces file mode, presence, byte length, and SHA-256. |
 | `app/` | Phase 3 Three.js development instrument: Web Worker CPU solver, overlays, vapor slice, picking/readouts, stop-rule parity, and deterministic visual harness. Phase 4 extends it without moving solver work onto the UI thread. |
 | `solver-gpu/` | Phase 5 WebGPU implementation and Windows/Chromium/D3D12 evidence path. Phase 7 GPU-parity work must preserve the accepted Phase 5 protocols and remains downstream of its own freeze/comparison gate. |
@@ -296,14 +296,15 @@ node runner/src/main.ts gate2b
 - The NAS share `\\GameStation\snowcrystal` is mounted `S:` on Windows and
   `/Volumes/snowcrystal` on macOS. Never hardcode a mount: resolve it via
   `scripts/nas-root.ts` and address share files by share-relative path (the dev server's
-  `/nas/<path>` route). The emitted URL is mount-agnostic by construction; end-to-end index
-  and streaming behavior was measured on macOS, while the current Windows `S:/` path remains
-  unexecuted. Paid for twice: the 2026-08-06 and 2026-08-12 machine transfers each broke the
-  same tooling.
-- Nothing under `out/` is tracked. Treat it as disposable workspace, not a byte-for-byte
-  backup set: durable provenance lives under `evidence/`; ledgered bulk and archived scratch
-  can be restored from the NAS through `docs/nas-ledger.json`; transient logs and checks are
-  regenerated or discarded. `scripts/gutcheck-grow-batch.mjs`,
+  `/nas/<path>` route). That route authorizes only the exact public generated prefixes in
+  `docs/nas-assets.json`; share containment alone is not permission to serve a file. Emitted URLs
+  are mount-agnostic by construction. After the physical marker was installed on 2026-08-15, the
+  governed index rebuilt on macOS and a live loopback check returned 200 for a catalogued file,
+  206 for its byte range, and 403 for private and unknown roots. Windows `S:/` remains unexecuted.
+  Paid for twice: the 2026-08-06 and 2026-08-12 machine transfers each broke the same tooling.
+- Nothing under `out/` is tracked. It and ignored payloads under `research/` are local staging,
+  not evidence of either preservation or disposability; Rule 15 governs retention and cleanup.
+  `scripts/gutcheck-grow-batch.mjs`,
   `scripts/gutcheck-sweep-specs.mjs`, and `scripts/gutcheck-archive-pack.ts` re-pin the
   gut-check evidence subtree automatically. After a direct writer invocation or hand edit
   under `evidence/gutcheck-gg-realism/`, run `npm run evidence:pin`; it re-pins that subtree
@@ -521,6 +522,31 @@ the next experiment, or a published claim. State the residual uncertainty and mo
 tripwire—not a tracked metric—if process consumes roughly one quarter of a work block without
 producing source coverage, measurements, calculations, code, experiments, or the requested
 decision, or if a second meta-validation layer appears, stop and simplify before continuing.
+
+## Rule 15 — Ignored is neither preserved nor disposable
+
+Tracked source records under `research/` remain Git authority; ignored payloads staged under
+`research/` and every byte under `out/` are temporary worktree bytes. Before a useful untracked
+byte outlives its immediate task or any local source is pruned, either promote claim-bearing bytes
+to tracked `evidence/` under decision 0038 or classify and publish the collection under decision
+0051 to the governed NAS. Scratch is explicitly declared and discarded. An ignore rule, pathname,
+digest, raw copy, or current NAS presence alone grants neither preservation nor deletion authority.
+
+Governed publication requires a catalogue entry, one owner manifest, final byte verification, a
+publication receipt, an executable restore procedure, and a successful fresh-stage restore. Local
+pruning is a separate reviewed decision derived from those committed records; no publish or restore
+command silently deletes its source. Grandfathered legacy registrations may carry only a
+level-qualified historical verification record; that makes them discoverable and restorable, not
+transaction-certified or prune-authorizing. A detached, unmarked, or conflicting share fails
+closed and never falls back to a local worktree. Use exact reviewed targets, never a broad
+repository clean.
+
+Credentials are not assets. They never enter Git, asset collections, manifests, receipts,
+archives, or `/nas`; use the approved credential manager or runtime environment. Only catalogue-
+approved public generated prefixes may be served. Loose copies, archives, snapshots, and recycle
+entries on the same NAS are one failure domain, not an independent backup. External evidence,
+unique private sources, and irreplaceable masters require their class-specific independent recovery
+domain before the last workstation copy may be pruned.
 
 ---
 

@@ -63,11 +63,19 @@
    "bytes": 85153,
    "method": "copy through same-share staging directories, then atomic rename",
    "verification": "source-versus-staging relative-path, byte-count, and SHA-256 inventories matched; every final NAS file re-hashed against files[]"
+  },
+  {
+   "date": "2026-08-15",
+   "group": "macOS session scratch snapshot retained under out/archives; local scratch removed only after final NAS verification",
+   "files": 1,
+   "bytes": 348672,
+   "method": "tar locally, copied through same-share staging, then renamed to the unique final path",
+   "verification": "matching SHA-256 before and after final rename + tar member listing + fresh extraction diff"
   }
  ],
- "generated": "2026-08-15T15:24:34.000Z",
- "fileCount": 22508,
- "totalBytes": 447138146745,
+ "generated": "2026-08-16T00:18:55.000Z",
+ "fileCount": 22515,
+ "totalBytes": 457860350293,
  "files": [
   {
    "path": "out/gutcheck-gg-realism/large/anim/dialin-b1p3-1200/manifest.json",
@@ -112608,6 +112616,41 @@
    "path": "out/debug/phase9-dbt-six-history-development-v2-failed-independent-verification-20260813/source-diagnostics.jsonl",
    "bytes": 6205,
    "sha256": "1eb8fb08fc35c271a360f84053c70bc3c1d7aec1bc749f680b22f452c12b3d56"
+  },
+  {
+   "path": "out/gutcheck-gg-realism/archives/gutcheck-large-anim-B-20260807.zip",
+   "bytes": 5238008332,
+   "sha256": "a6c67cb24fcfa0b17043b71d2d2c7e5ba0595291aae8d9de9ca1b6a66bf66337"
+  },
+  {
+   "path": "out/gutcheck-gg-realism/archives/gutcheck-large-anim-smoke-20260807.zip",
+   "bytes": 8592946,
+   "sha256": "fb6803945f22754c2fbf0174b4ad193e9469f979b9a75eea64c29c94d96df038"
+  },
+  {
+   "path": "out/gutcheck-gg-realism/archives/gutcheck-large-checkpoints-20260807.zip",
+   "bytes": 1012696447,
+   "sha256": "e4d28630f065577528d997d059cae4e592e97289a2390180a1606336f01832ac"
+  },
+  {
+   "path": "out/gutcheck-gg-realism/archives/gutcheck-large-extras-20260807.zip",
+   "bytes": 233745100,
+   "sha256": "36b2f28c1d05f2fbed2bde19928c7eac20d908f23380a99d22bacc5773e7f837"
+  },
+  {
+   "path": "out/gutcheck-gg-realism/archives/gutcheck-large-figs-20260807.zip",
+   "bytes": 3882887661,
+   "sha256": "3177994cc617cb40ab52ebdb832de32a1d3a56b40717c7c2b739b99a7e7977be"
+  },
+  {
+   "path": "out/gutcheck-gg-realism/archives/gutcheck-large-meshes-20260807.zip",
+   "bytes": 345924390,
+   "sha256": "c6baddf2fef62c0e3629921e39def22ec2f5a508d2d60a488a0f90935f067526"
+  },
+  {
+   "path": "out/archives/snowflake-main-local-scratch-20260815.tar",
+   "bytes": 348672,
+   "sha256": "99dbedbe56138a775ca7c3366974459af96296d852354f98a808145f9ea44130"
   }
  ]
 }

@@ -21,7 +21,10 @@ evidence remain readable; no bulk rename is allowed to rewrite their meaning.
 
 - A tracked collection catalogue accounts for every non-system live root on the snowcrystal share
   and binds each durable collection to an owner manifest, storage class, rights/serve policy,
-  retention policy, restore procedure, and share-relative locator. An attached-share audit reports
+  retention policy, restore procedure, level-qualified verification record, and share-relative
+  locator. Forward-published collections additionally bind separate publication and fresh-restore
+  receipts; a grandfathered legacy registration without those records remains explicitly
+  non-prune-authorizing. An attached-share audit reports
   no unclassified durable collection, conflicting owner, case-fold collision, unsafe path, or
   unexplained publication staging residue.
 - The existing inventories are reconciled without pretending they have the same scope:
@@ -97,16 +100,23 @@ They belong in a credential manager or runtime environment and outside every ser
       do not use an unbounded scan whose cost cannot be observed.
 - [ ] Reconcile the manifest scopes and locate the legacy `OUT-TREES-MANIFEST` bytes without
       touching the active Phase 6 Windows worktree, process, or unpublished artifact.
-- [ ] Write and review ADR 0051, including the exact relationship to ADRs 0004/0038 and the charter
+- [x] Write and review ADR 0051, including the exact relationship to ADRs 0004/0038 and the charter
       clauses that already authorize rights-bound NAS locators. Do not weaken the tracked-evidence
       rule for a gate without an explicit same-authority amendment.
-- [ ] Add the root marker, canonical resolver, collection catalogue/schema, static verifier, and
-      fixture tests. Preserve `VCC_NAS_ROOT` as canonical; temporarily accept the older
+- [x] Add the canonical resolver, collection catalogue/schema, static verifier, and fixture tests.
+      Preserve `VCC_NAS_ROOT` as canonical; temporarily accept the older
       `GUTCHECK_NAS_ROOT` only when it resolves to the same share.
+- [x] Install the reviewed root marker and fixed `_control/` directories, without moving payloads,
+      then run the first bounded attached-share audit.
 - [x] Add bounded read-only `assets:audit` and `assets:verify`; neither command can mutate the
       share, and explicit full verification remains one registered collection at a time.
+- [x] Add receipt-free legacy `assets:restore` and `assets:verify-restored` compatibility commands.
+      They require one exact active version, restore only to fresh `out/restores/` staging, verify
+      the exact destination set, and grant neither transaction certification nor prune authority.
 - [ ] Add transactional `assets:publish`, `assets:restore`, and local `assets:prune`. The first
       release produces a garbage-collection plan only; it does not automatically delete NAS bytes.
+      Before any forward-layout collection becomes active, distinguish transaction-certified
+      publication from legacy registration so the compatibility restore cannot handle it.
 - [x] Restrict `/nas` to explicitly serveable catalogue collections and refuse non-loopback
       exposure unless a later reviewed requirement authorizes it.
 - [ ] Adapt gutcheck publication/index/site/workpack flows, research inventory tooling, education
@@ -116,7 +126,7 @@ They belong in a credential manager or runtime environment and outside every ser
 - [ ] Generate and review the exact migration manifest. Register frozen roots in place; copy first
       for any path that truly moves; verify final readers; quarantine obsolete duplicates and
       partials; prune old paths only after the rollback and review conditions pass.
-- [ ] Update `docs/PROGRESS.md` as each slice lands, run the required final checks, obtain one
+- [x] Update `docs/PROGRESS.md` as each slice lands, run the required final checks, obtain one
       proportionate non-author closing review, and leave an exact next action if any maker-owned
       credential, backup, Windows, or legacy-artifact decision remains.
 
@@ -162,9 +172,9 @@ They belong in a credential manager or runtime environment and outside every ser
 
 ## Open questions
 
-- The existing root `openalex.txt` is credential-like and reachable by the current broad `/nas`
-  route. Its value was not read. Rotation/revocation and final custody require maker/provider
-  authority; the code can close serving and prevent recurrence first.
+- A credential-like root object was observed during the bounded audit. Its value was not read and
+  it is not an asset. Rotation/revocation and final custody require maker/provider authority;
+  historical records that already name it do not make it catalogue material.
 - Which independent storage domain, encryption policy, and key custody should protect future
   irreplaceable masters? Until decided, such masters may be copied to NAS but not deleted locally.
 - What threshold makes project-owned evidence too large for ordinary Git, and is Git LFS ever
@@ -175,7 +185,8 @@ They belong in a credential manager or runtime environment and outside every ser
   catalogue, or should some collections expose only opaque IDs and aggregate metadata?
 - Can the missing legacy `OUT-TREES-MANIFEST` bytes be recovered from the Windows host, and if so
   are they historical evidence, generated cache, or superseded scratch?
-- Windows `S:/` SMB locking, atomic rename, case/Unicode behavior, restore, and serving need an
+- Windows `S:/` SMB locking, no-replace placement, effective ACLs, case/Unicode behavior, restore,
+  and serving need an
   executed host check before cross-platform durability is claimed; macOS construction alone is not
   that check.
 
@@ -226,3 +237,71 @@ no publication or prune authority.
   NAS audit, a real collection-wide payload hash, SMB contention/rename, credential handling,
   publication, restore or prune. Full read-only verification checks registered rows but does not
   discover undeclared extras; transactional final/restore verification must enumerate exact trees.
+
+### Transaction and bootstrap checkpoint
+
+The unexposed transaction fixture core now binds source, stage, final, lock-owner and receipt
+identities; inventories exact file sets; refuses overlaps and replacement; restores through an
+atomically reserved absent destination; and emits computation-only prune plans. The bootstrap
+entry point requires an explicit absolute root, verifies the registered private-manifest witness,
+refuses pre-marker control state, creates only the fixed control skeleton, and writes the marker
+last. The physical command
+`node scripts/nas-asset-bootstrap.ts --nas-root /Volumes/snowcrystal` ran in default dry-run mode
+and returned `would-bootstrap`; a subsequent read-only check found both marker and `_control`
+absent. No share byte changed.
+
+The non-author review is recorded in
+[`docs/reviews/nas-asset-transaction-bootstrap-20260815.md`](../reviews/nas-asset-transaction-bootstrap-20260815.md).
+It accepted the fixture behavior but reproduced a same-credential ancestor-swap escape in the
+portable JSON writer. Bootstrap, publish, prune, and the transaction core's receipt-writing restore
+therefore remain unregistered. The separately reviewed receipt-free legacy restore is registered
+only for the four current active legacy collections and grants no production certification or
+deletion authority. The next forward implementation slice may expose only a workflow whose threat
+boundary, crash durability, forward/legacy dispatch, and receipt placement are explicitly reviewed.
+
+### Legacy restore compatibility checkpoint
+
+`scripts/nas-asset-selection-lib.ts`, `scripts/nas-asset-legacy-restore-lib.ts`, and
+`scripts/nas-asset-restore.ts` bind an exact catalogue version and owner-manifest selection, require
+the marked share, reserve a fresh destination below `out/restores/`, copy through bounded file
+descriptors, and independently re-inventory the destination's exact files, lengths, and hashes.
+The command emits path-free reports and says explicitly that it writes no durable receipt and grants
+no prune authority. Its non-author review is recorded in
+[`docs/reviews/nas-asset-legacy-restore-20260815.md`](../reviews/nas-asset-legacy-restore-20260815.md).
+That review also records a non-blocking scalability limit: sibling-alias checks are structurally
+quadratic for large flat directories. The large gut-check restore remains operationally unmeasured
+and must not be described as practical until it is optimized or timed on the NAS.
+
+### Physical bootstrap and first attached audit
+
+After ADR acceptance and the focused boundary checks listed above passed, the reviewed bootstrap
+ran against `/Volumes/snowcrystal`. Default dry-run returned `would-bootstrap`; `--apply` created
+the fixed `_control/` skeleton and `.snowflake-nas.json`; a second default run returned
+`already-bootstrapped`. The command validated the identity roots and fully re-hashed the
+catalogue-bound private-manifest witness before and after marker publication. It did not enumerate
+unknown root names or open, move, replace, or delete any collection payload. Current marker,
+control, verification and audit facts are recorded in
+[`docs/nas-bootstrap-audit-20260815.md`](../nas-bootstrap-audit-20260815.md).
+
+`npm run assets:verify -- --nas-root /Volumes/snowcrystal` then exited 0: all declared owner
+manifests and machine-supported selector aggregates verified, with payload hashing explicitly not
+run. `npm run assets:audit -- --nas-root /Volumes/snowcrystal` intentionally exited 1: seven bounded
+top-level entries were observed, six were classified, and one unnamed ordinary entry remained
+unclassified. That is the maker/provider-owned credential-custody blocker recorded above; it was
+not read, named, hashed, moved, or catalogued. Until custody is resolved, the attached audit is not
+green and the workstream's classification Done When remains open.
+
+Process deviation: the additive physical bootstrap ran before this implementation unit was
+committed, although the code bytes and focused controls had completed review. That missed the
+planned clean-commit sequencing precondition. The post-apply checks found no payload mutation, but
+the deviation is recorded rather than treated as precedent.
+
+The planned small Phase 3 compatibility restore has not run: final pre-commit inspection found no
+staging tree in any registered worktree, and `assets:verify-restored` failed closed with
+`destination-invalid`. Commit this reviewed implementation unit before running that restore, and
+retain the resulting ignored staging tree for inspection.
+
+The final combined boundary and exact repository suite are recorded in
+[`docs/reviews/nas-asset-governance-validation-20260815.md`](../reviews/nas-asset-governance-validation-20260815.md).
+That exact suite was coordinator-run after the reviewed code and catalogue repairs; the non-author
+reviewer independently ran the focused legacy-restore boundary but did not rerun the full suite.

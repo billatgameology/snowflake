@@ -4,9 +4,9 @@
 # snowcrystals.com videos and excludes internet publication without permission. Committing it
 # would publish it on the first push to any remote, and git history would make that permanent.
 #
-# The source indexes and media inventory stay tracked: together they carry citations plus the
-# registered cache paths, byte sizes, and SHA-256 values. The bytes are a private cache; the
-# provenance and inventory are the record.
+# Ignore rules control Git visibility only. Source indexes and inventories stay tracked; ignored
+# research payloads are local staging. Useful durable restricted bytes require a non-served,
+# governed NAS collection under decision 0051. Never force-add copyrighted or private bytes.
 research/*
 !research/*.md
 # Per-file manifest of the media cache (paths, sizes, sha256 only — no third-party content).
@@ -47,10 +47,9 @@ node_modules/
 /debug.log
 
 # Run outputs: checkpoints, PGM dumps and scratch land in out/ by convention, and NOTHING in it
-# is tracked. Treat it as disposable workspace, not a byte-for-byte backup set: durable
-# provenance belongs in evidence/, ledgered bulk and archived scratch can be restored from the
-# NAS, and transient logs/checks are regenerated or discarded. Anything that BACKS A PUBLISHED
-# CLAIM belongs in evidence/ instead (ADR 0038), and the
+# is tracked. `out/` is temporary local staging. Before retention or cleanup, move claim evidence
+# to tracked evidence/, publish other useful durable bytes through decision 0051, or classify them
+# as scratch and discard them. Ignored does not itself mean disposable or preserved. The
 # gut-check spike's tracked recipes/records/inventory moved to evidence/gutcheck-gg-realism/
 # on 2026-08-12 (maker directive: out/ fully temporary), retiring the negation block that
 # used to live here. High-level grow-batch, sweep-specs, and archive-pack workflows re-pin that

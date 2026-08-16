@@ -582,6 +582,20 @@ describe("stable hashing and inventory", () => {
     })).toThrow(/between inventory passes/u);
   });
 
+  it("rejects an extra file introduced after byte re-verification but before publication", () => {
+    const root = temporaryRoot("tree-late-extra");
+    writeFileSync(join(root, "registered.bin"), "registered");
+    let mutationRan = false;
+    expect(() => inventoryStableTree(root, {
+      beforeFinalShapePass: () => {
+        writeFileSync(join(root, "late-extra.bin"), "late");
+        mutationRan = true;
+      },
+    })).toThrow(/file set|identity changed/u);
+    expect(mutationRan).toBe(true);
+    expect(readFileSync(join(root, "late-extra.bin"), "utf8")).toBe("late");
+  });
+
   it("detects a source mutation during hashing", () => {
     const root = temporaryRoot("mutation");
     const file = join(root, "source.bin");

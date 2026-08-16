@@ -225,9 +225,11 @@ audit. Broad discovery and the residual backlog remain stopped absent a new name
 measurement gap; Phase 9 S0B is bounded reconciliation of already registered complete Git/NAS
 sources. All 51 Phase 8B records are development evidence and none may be relabeled held out.
 
-### NAS asset governance — active; share still read-only
+### NAS asset governance — active
 
-The [opening audit](nas-inventory-audit-20260815.md), proposed ADR 0051, catalogue, resolver,
-read-only tools and governed index/serving landed through `ae4aad4`; no NAS byte changed. Next:
-transaction fixtures, then reviewed marker/control installation and live audit. No migration/prune;
-credential action remains maker-owned.
+ADR 0051/Rule 15 govern ignored `research/`/`out/` staging. Marker/controls are installed; manifest
+checks pass; audit has one unnamed custody item. Receipt-free legacy restore is reviewed. Exact
+`TMPDIR=/private/tmp npm test` passed
+([record](reviews/nas-asset-governance-validation-20260815.md)). Next: commit, then
+[restore Phase 3](local-assets.md#verifying-restoring-and-updating). Open: provisional scopes,
+transactions, Windows/ACL, backup, and custody.

@@ -42,7 +42,7 @@ The bounded depth-two listing found these top-level entries:
 | `research-cache/` | directory | Private sources, derived material, searches, intakes, archives, and verification residue. |
 | `#recycle/` | directory | Synology recycle namespace; recovery convenience, not durable preservation. |
 | `.DS_Store` | regular file, 12,292 bytes | Finder metadata; not a durable project asset. |
-| `openalex.txt` | regular file, 22 bytes | Credential-like root file; see the security finding below. |
+| `[redacted credential-like root]` | regular file, 22 bytes | Live share-root object; see the security finding below. |
 
 The share reported 63 TiB capacity, 19 TiB used and 44 TiB available through `df -h` at audit
 time. Those filesystem-wide values are capacity context, not a project logical-byte total.
@@ -81,8 +81,8 @@ copies of some loose payloads.
 
 ### Generated-output ledger
 
-`docs/nas-ledger.json`, generated `2026-08-15T15:24:34.000Z`, records 22,508 files and
-447,138,146,745 bytes. Its path prefixes are:
+The opening snapshot of `docs/nas-ledger.json`, generated `2026-08-15T15:24:34.000Z`, recorded
+22,508 files and 447,138,146,745 bytes. Its path prefixes were:
 
 | Prefix | Files | Bytes |
 |---|---:|---:|
@@ -93,10 +93,19 @@ copies of some loose payloads.
 | `out/phase6-arm64/` | 55 | 43,644 |
 | `out/wp3-review-phase4/` | 21 | 2,530,556 |
 
-The ledger has no duplicate exact paths, no differing paths with the same NFC case-folded key,
+That opening snapshot had no duplicate exact paths, no differing paths with the same NFC
+case-folded key,
 and no absolute, backslash-bearing, or `..`-bearing path (`R`). It does **not** purport to cover
 the whole share: private research, the six retained gutcheck ZIPs, recycle material, and the newer
 2026-08-15 scratch tar are outside its `files[]` scope.
+
+Later in this same governance work, the tracked ledger was extended rather than reinterpreted: the
+six already-present retained gutcheck ZIPs and the verified 2026-08-15 scratch tar were added as
+seven explicit rows. The current `docs/nas-ledger.json`, generated
+`2026-08-16T00:18:55.000Z`, records 22,515 files / 457,860,350,293 bytes and has SHA-256
+`fd4f95c709202cb9e0ff835339c560a121f38a4f61aca09330f1d562e70332a8`; the catalogue pins that
+current byte set. The opening counts above remain the dated input to this audit, not a claim about
+the later ledger revision.
 
 ### Gutcheck large-artifact inventory
 
@@ -197,12 +206,12 @@ bounded listing includes:
 Recycle is neither an independent storage domain nor an archive. These paths should enter a
 future quarantine/retention review; this record does not authorize their removal.
 
-The live share-root `openalex.txt` is a 22-byte credential-like value, and the Phase 8 plan names
-that path as the key source used by an earlier search. No value or digest is reproduced in this
-record. Credentials are not project assets: the final policy should prevent serving and catalogue
-ingestion, while rotation/revocation, secret-manager custody, and recycle purging require maker or
-provider authority. The current broad `/nas` route makes this a disclosure concern independent of
-filesystem containment.
+The live share-root credential-like object is 22 bytes, and a historical Phase 8 plan records its
+earlier use without making it an asset. No locator, value, or digest is reproduced here.
+Credentials are not project assets: the final policy prevents serving and catalogue ingestion,
+while rotation/revocation, secret-manager custody, and recycle purging require maker or provider
+authority. The broad pre-governance `/nas` route made this a disclosure concern independent of
+filesystem containment at audit time.
 
 ## Type, containment, permission, and sample checks
 
@@ -241,16 +250,14 @@ snowflake_nas_audit_root=$(node --input-type=module -e '
   process.stdout.write(mount.replace(/[\\/]+$/, ""));
 ')
 
-find "$snowflake_nas_audit_root" -mindepth 1 -maxdepth 2 -print | LC_ALL=C sort
+# The opening audit's raw whole-root name enumeration is retired because it emitted private and
+# credential-like names. Current bounded audit reports unknown entries only as aggregate counts.
+npm run assets:audit -- --nas-root "$snowflake_nas_audit_root"
 df -h "$snowflake_nas_audit_root"
 stat -f 'root mode=%Sp uid=%u gid=%g type=%HT' "$snowflake_nas_audit_root"
 
-# Bounded link/special/type and permission checks; these do not follow deep trees.
-find "$snowflake_nas_audit_root" -mindepth 1 -maxdepth 3 -type l -print
-find "$snowflake_nas_audit_root" -mindepth 1 -maxdepth 2 \
-  ! -type f ! -type d ! -type l -print
-find "$snowflake_nas_audit_root" -mindepth 1 -maxdepth 2 \
-  -exec stat -f '%Sp %u:%g %HT %N' {} +
+# Raw whole-root `find`, `stat %N`, link, and special-file listings are retired: they print private
+# names. `assets:audit` performs the bounded metadata/type checks and emits only aggregate counts.
 ```
 
 The manifest totals and main prefix breakdown are reproducible without touching NAS payloads:
@@ -348,6 +355,6 @@ complete verifier.
   recovery/scratch collections should be retained. Those are inputs to the catalogue, ADR, and
   reviewed migration plan.
 
-The next governance step may use this record to define collection ownership and reconcile gaps,
-but every physical move, quarantine, secret rotation, or deletion still requires its own reviewed
-authority and exact target list.
+This record supplied the opening input to `docs/nas-assets.json` and ADR 0051. Remaining ownership
+gaps still require reconciliation, and every physical move, quarantine, secret rotation, or
+deletion requires its own reviewed authority and exact target list.

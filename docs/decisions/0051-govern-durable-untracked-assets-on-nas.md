@@ -1,7 +1,7 @@
 # 0051 — Govern durable untracked assets on the NAS
 
 - **Date:** 2026-08-15
-- **Status:** proposed
+- **Status:** accepted by maker direction
 - **Charter impact:** none. This decision supplies an operational storage lifecycle for bytes that
   the charter or an affected plan already permits outside Git. It changes no phase gate, evidence
   label, scientific claim, or existing exception.
@@ -54,7 +54,15 @@ records that binding. In
 particular, this decision does not retroactively externalize Phase 6 evidence or weaken an active
 plan's committed-artifact requirement.
 
-The current whole-share `/nas/<path>` development route creates a separate disclosure problem.
+Decision 0004 also said, “The files stay on disk, untouched, at their existing paths. Nothing about
+how a session *uses* them changes.” This decision supersedes that workstation-local disposition:
+the no-Git rights rule and tracked provenance remain, but an ignored worktree path is now staging,
+not durable custody. Useful retained private bytes publish to a governed, non-served NAS collection;
+scratch is discarded. It also narrows “The provenance is the record; the bytes are a cache”: the
+provenance is Git authority, while a digest alone neither preserves nor authorizes deletion of the
+bytes it names.
+
+The pre-decision whole-share `/nas/<path>` development route created a separate disclosure problem.
 Filesystem containment prevents escape from the share, but it does not prevent a caller who knows
 a path from requesting a private source, credential, quarantine item, or unrelated archive inside
 the share. Finally, several copies, archives, or recycle entries on the same NAS remain one
@@ -66,6 +74,11 @@ hardware and administrative failure domain. They are not independent backups.
 
 Every durable or cleanup-candidate collection has exactly one of these storage classes. Ignore
 rules are discovery aids, not a retention policy.
+
+Tracked research records remain in Git; ignored payloads under `research/` and all bytes under
+`out/` are local staging only. A provisional census placeholder may remain unclassified only as a
+fail-closed blocker: until it is split and classified it is not preserved, serveable, or capable of
+authorizing prune.
 
 1. **Tracked evidence.** Project-owned, claim-bearing bytes that reasonably fit ordinary Git stay
    under tracked `evidence/`, pinned by `evidence/MANIFEST.json`, and are retained permanently.
@@ -120,6 +133,19 @@ of copying their rows. Sensitive collections may expose an opaque asset ID and a
 in Git while a private manifest supplies filenames; the public record must still bind the private
 manifest's exact bytes without revealing restricted metadata.
 
+An owner manifest states which bytes belong to a collection and how to identify them. A final
+verification receipt separately records that those bytes were observed at the published locator
+and that a fresh restore passed. Neither record substitutes for the other. Registering a legacy
+locator and its historical manifest makes it discoverable and fail-closed; it does not retroactively
+certify a transactional publication, successful restore, independent backup, or prune authority.
+
+The version-one catalogue's `verification.receipt` key is a historical name for its
+level-qualified observation record: `manifest-only`, `sampled-size`, and `full-hash` state exactly
+what that record established. It is not a transactional publication or fresh-restore receipt.
+Forward publication must bind distinct publication and restore receipts before it may become
+transaction-certified or authorize pruning. Grandfathered entries remain read/restore-only until
+those separate records exist.
+
 All durable locators are POSIX-style paths relative to the detected share root. Absolute paths,
 drive letters, backslashes, `.` and `..` components, control characters, trailing spaces or dots,
 Windows-reserved names, special files, and case-fold or Unicode-normalization aliases are refused.
@@ -143,8 +169,8 @@ Publication follows one fail-closed lifecycle:
    symlinks, special files, unsafe names, aliases, and mutation during the scan;
 3. copy into a uniquely named same-share `_control/` staging directory, then compare every source
    and staged byte by length and SHA-256;
-4. generate the owner manifest and publish into an absent immutable destination by a same-share
-   rename;
+4. generate the owner manifest, atomically reserve an absent immutable envelope without replacing
+   any existing object, and place only the verified, identity-bound staging tree inside it;
 5. reopen and re-hash the final bytes, then write a publication receipt;
 6. update the tracked catalogue and receipt through its own lock, temporary file, validation, and
    rename sequence;
@@ -153,8 +179,8 @@ Publication follows one fail-closed lifecycle:
 8. only after every applicable backup requirement passes, authorize a separately explicit local
    prune list.
 
-A completed NAS rename followed by a failed Git update leaves a visible orphan for audit; it never
-authorizes source deletion. Any interrupted copy, changed source, collision, missing final byte,
+A completed NAS placement followed by a failed Git update leaves a visible orphan for audit; it
+never authorizes source deletion. Any interrupted copy, changed source, collision, missing final byte,
 failed verifier, lost share, or conflicting publisher also fails closed. Migration uses the same
 copy-first lifecycle and a reviewed old-to-new manifest. It retains rollback until final readers
 and review pass, and its deletion list is separate from its copy list.
@@ -164,9 +190,15 @@ extraction, checks the manifest after extraction, and places the verified tree w
 overwriting an existing destination. Force replacement may be offered only for generated cache;
 evidence, sources, and masters require quarantine and an explicit rollback path.
 
-The implementation may describe SMB locking and same-share rename as preserved by construction on
-macOS, but it cannot claim executed Windows behavior until `S:/` publication, contention, restore,
-case/Unicode, and interruption fixtures have run successfully on the Windows host.
+The first portable implementation uses atomic directory creation as a no-replace reservation;
+plain directory rename is not a no-clobber primitive because it can replace an existing empty
+directory. It binds the selected root, staging tree, lock owner, and placement parents by identity
+at each cooperative handoff. Node does not expose portable descriptor-relative directory creation,
+so protection from a hostile unsynchronized process swapping an ancestor between the final identity
+check and the filesystem call is outside this loopback, single-operator boundary and must not be
+claimed. Likewise, requested `0700`/`0600` modes do not establish SMB ACL privacy until the attached
+host verifies effective permissions. Windows `S:/` publication, contention, placement, restore,
+case/Unicode, ACL, and interruption behavior remain unexecuted until run on that host.
 
 ### 4. Keep rights, privacy, secrets, and serving separate
 
@@ -216,14 +248,19 @@ manifest presence, and explicit external-evidence authority. It rejects raw moun
 staging/trash locators, private collections marked serveable, and unowned durable roots represented
 in fixtures.
 
-Attached-share commands separate read-only `assets:audit` and `assets:verify` from transactional
-`assets:publish`, `assets:restore`, and explicit local `assets:prune`. Garbage collection initially
-has a plan-only command. Tests cover truncated or sparse manifests, undeclared extra and missing
-files, concurrent publishers, source mutation, partial publication, symlinks and special files,
-path traversal, case/Unicode collisions, same-name different-byte collisions, failed catalogue
-updates, failed restoration, and refusal to serve private or unknown paths. Repository cleanup
-must inventory both ordinary and ignored files and may not substitute an unbounded
-repository-wide clean for a reviewed target list.
+Attached-share tooling shall keep read-only `assets:audit` and `assets:verify` separate from the
+legacy local-staging restore and from future forward transactional publication. The legacy
+`assets:restore` command may read one exact active catalogue version into a fresh local
+`out/restores/` path and verify that destination, but it emits no durable receipt and grants no
+prune authority. Forward transactional `assets:publish`, transaction-certified restore, and
+explicit local `assets:prune` remain a separate lifecycle; garbage collection initially has a
+plan-only command. Before those forward transactional commands are considered complete, tests
+must cover truncated or sparse manifests, undeclared extra and missing files, concurrent
+publishers, source mutation, partial publication, symlinks and special files, path traversal,
+case/Unicode collisions, same-name different-byte collisions, failed catalogue updates, failed
+restoration, and refusal to serve private or unknown paths. Repository cleanup must inventory both
+ordinary and ignored files and may not substitute an unbounded repository-wide clean for a
+reviewed target list.
 
 ## Consequences
 
