@@ -20,10 +20,12 @@ function makeNasFixture(prefix = "phase9-nas-"): string {
   return root;
 }
 
-// detectPhase9NasRoot returns the forward-slash normalized mount by contract; a native Windows
-// fixture path must be normalized the same way before comparison.
+// detectPhase9NasRoot returns the forward-slash normalized mount by contract, folded to
+// lowercase on win32 (normalizeEnvironmentRoot); a native Windows fixture path must be
+// normalized the same way before comparison.
 function mountForm(root: string): string {
-  return `${root.replace(/\\/g, "/")}/`;
+  const normalized = `${root.replace(/\\/g, "/")}/`;
+  return process.platform === "win32" ? normalized.toLowerCase() : normalized;
 }
 
 // File symlink creation on Windows needs SeCreateSymbolicLinkPrivilege (admin or Developer

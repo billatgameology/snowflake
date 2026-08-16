@@ -11,3 +11,6 @@ phase8b-* -text
 # attribute files are outside that pin set, match Phase 8B's own precedent above, and are
 # equally durable for new files.
 phase9-* -text
+
+# The NAS asset catalogue byte-pins this tracked owner manifest (docs/nas-assets.json).
+media-inventory.json -text

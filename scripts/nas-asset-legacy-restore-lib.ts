@@ -225,8 +225,13 @@ const bindStrictDirectory = (
       return fail(code, `${label} contains a link or non-directory component`);
     }
   }
-  const status = lstatSync(absolute);
-  return { path: absolute, dev: status.dev, ino: status.ino, mode: status.mode };
+  // Bind to the filesystem's real spelling: callers may hand in the folded win32-lowercase
+  // mount identity (normalizeEnvironmentRoot), while every later realpath-equality and
+  // containment check compares against paths the filesystem reports. Components were just
+  // verified link-free, so this changes case/short-name spelling only, never structure.
+  const nativePath = realpathSync.native(absolute);
+  const status = lstatSync(nativePath);
+  return { path: nativePath, dev: status.dev, ino: status.ino, mode: status.mode };
 };
 
 const assertDirectoryBinding = (

@@ -61,7 +61,10 @@ describe("shared NAS mount identity", () => {
   it("uses the exact marker for canonical, compatibility, shared, and candidate resolution", () => {
     const root = fixture("valid");
     writeMarker(root);
-    const expected = `${root.replace(/\\/gu, "/")}/`;
+    // normalizeEnvironmentRoot folds the mount identity to lowercase on win32 by contract;
+    // the fixture path must be folded the same way before comparison.
+    const normalized = `${root.replace(/\\/gu, "/")}/`;
+    const expected = process.platform === "win32" ? normalized.toLowerCase() : normalized;
 
     expect(detectNasMount({ VCC_NAS_ROOT: root })).toBe(expected);
     expect(detectNasMount({ GUTCHECK_NAS_ROOT: root })).toBe(expected);

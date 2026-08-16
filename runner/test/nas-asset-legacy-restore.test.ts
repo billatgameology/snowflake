@@ -43,6 +43,20 @@ const temporaryRoot = (label: string): string => {
   return root;
 };
 
+// Creating symlinks on Windows needs SeCreateSymbolicLinkPrivilege (admin or Developer Mode);
+// without it the escape fixtures below throw EPERM during setup, misreporting the guards as
+// broken. Same probe as nas-asset-lib.test.ts; capable hosts still run every guard.
+const CAN_SYMLINK = (() => {
+  const root = temporaryRoot("symlink-probe");
+  try {
+    symlinkSync(join(root, "missing"), join(root, "link"));
+    rmSync(join(root, "link"));
+    return true;
+  } catch {
+    return false;
+  }
+})();
+
 afterAll(() => {
   for (const root of temporaryRoots) rmSync(root, { recursive: true, force: true });
 });
@@ -340,7 +354,7 @@ describe("legacy NAS restore and restored-tree verifier", () => {
     expect(() => restore(aliasFixture)).toThrowError(expect.objectContaining({ code: "destination-collision" }));
   });
 
-  it("refuses a symlinked destination ancestor and places nothing through it", () => {
+  it.skipIf(!CAN_SYMLINK)("refuses a symlinked destination ancestor and places nothing through it", () => {
     const fixture = makeFixture("destination-symlink");
     const outside = temporaryRoot("destination-symlink-outside");
     symlinkSync(outside, join(fixture.repo, "out"), "dir");
@@ -348,7 +362,7 @@ describe("legacy NAS restore and restored-tree verifier", () => {
     expect(readdirSync(outside)).toEqual([]);
   });
 
-  it("refuses a parent swapped after validation and does not place outside", () => {
+  it.skipIf(!CAN_SYMLINK)("refuses a parent swapped after validation and does not place outside", () => {
     const fixture = makeFixture("destination-parent-swap");
     const outside = temporaryRoot("destination-parent-swap-outside");
     let attacked = false;
@@ -371,7 +385,7 @@ describe("legacy NAS restore and restored-tree verifier", () => {
     expect(readdirSync(outside)).toEqual([]);
   });
 
-  it("refuses missing, symlinked, hard-linked, or case-aliased source files", () => {
+  it.skipIf(!CAN_SYMLINK)("refuses missing, symlinked, hard-linked, or case-aliased source files", () => {
     const missing = makeFixture("source-missing");
     rmSync(join(missing.share, "payload", "a.bin"));
     expect(() => restore(missing)).toThrowError(expect.objectContaining({ code: "source-missing-or-unsafe" }));
@@ -529,7 +543,7 @@ describe("legacy NAS restore and restored-tree verifier", () => {
     });
   });
 
-  it("rejects extra files, empty directories, symlinks, and hard links before success", () => {
+  it.skipIf(!CAN_SYMLINK)("rejects extra files, empty directories, symlinks, and hard links before success", () => {
     const attacks: readonly ((destination: string) => void)[] = [
       (destination) => writeFileSync(join(destination, "extra-private-name.bin"), "extra"),
       (destination) => mkdirSync(join(destination, "empty-extra")),
