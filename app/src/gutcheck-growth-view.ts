@@ -564,10 +564,18 @@ export async function runGutcheckGrowthView(
   slider.value = String(Math.round(currentTick));
   slider.style.cssText = "flex:1;min-width:180px";
   slider.dataset.growthControl = "timeline";
+  slider.setAttribute("aria-label", "Growth replay tick");
   const tickLabel = document.createElement("span");
   tickLabel.style.cssText = "min-width:205px;text-align:right";
   const playButton = styledButton(playing ? "pause" : "play");
   playButton.dataset.growthControl = "play";
+  if (reducedMotion) {
+    playButton.disabled = true;
+    playButton.textContent = "play disabled";
+    playButton.title = "Playback is disabled because reduced motion is enabled; use the timeline to seek.";
+    playButton.style.cursor = "not-allowed";
+    playButton.style.opacity = "0.68";
+  }
   const faceButton = styledButton("face-on");
   faceButton.dataset.growthControl = "face-on";
   const bar = document.createElement("div");

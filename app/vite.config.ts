@@ -173,6 +173,7 @@ export default defineConfig({
         main: resolve(import.meta.dirname, "index.html"),
         gutcheckIndex: resolve(import.meta.dirname, "gutcheck-index.html"),
         spike: resolve(import.meta.dirname, "spike-gg-realism.html"),
+        growthComparison: resolve(import.meta.dirname, "gutcheck-growth-comparison.html"),
       },
     },
   },

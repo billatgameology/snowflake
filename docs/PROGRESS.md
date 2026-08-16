@@ -97,7 +97,11 @@ index, a plan, ADR, or audit links to historical detail.
   its first `live.log` line measured tick 100/70,000, 37 events, elapsed 55.0 seconds. After atomic
   publication and independent validation, the next media deliverable is a real-browser comparison
   page contrasting the legacy per-frame workflow with the compact replay using measured Run B
-  bytes/runtime and explicitly labeled unavailable or non-transferable quantities.
+  bytes/runtime and explicitly labeled unavailable or non-transferable quantities. Its strict
+  record schema, independently recomputing builder, responsive side-by-side page, integrity-checked
+  compact loader, and adversarial browser harness are now prebuilt while the bake runs. Exact
+  `TMPDIR=/private/tmp npm test` passes this prebuilt tree. The builder has not yet issued a Run B
+  record and the final browser capture has not run; neither may happen from an estimated asset.
 - The gut-check exploration (`explore/gg-realism-gutcheck`) is MERGED to `main` (`98bc75d`,
   2026-08-12, merged-tree suite green). Eyeball-only — not evidence, no gate claim, no solver
   code touched.
@@ -188,8 +192,9 @@ Exact `TMPDIR=/private/tmp npm test` passed and `44fd4b6` committed the implemen
 process, restart-only 70,000-tick bake is running under the original Run B Node v24.13.1/V8 engine.
 Monitor `out/gutcheck-growth-runB/live.log`, `error.log`, and eventual `exit-status`; do not launch a
 duplicate. On exit 0, independently decode/rehash/check endpoints, then make and rehash a no-clobber
-NAS copy. Then build and browser-verify the measured per-frame-versus-compact comparison page named
-in the active plan. Preserve the legacy meshes and do not count this media work toward any phase gate.
+NAS copy. The comparison implementation is already prebuilt; next run its strict 701-frame builder
+against the completed asset, then execute and visually inspect its final browser capture before
+publishing it. Preserve the legacy meshes and do not count this media work toward any phase gate.
 
 ### Phase 8B record — closed; external search remains stopped
 

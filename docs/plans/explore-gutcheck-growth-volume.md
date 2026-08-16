@@ -188,6 +188,29 @@ The maker requested the measured per-frame-versus-compact comparison webpage as 
 post-validation deliverable; it is deliberately gated on this run rather than populated from size
 or performance estimates.
 
+## Comparison prebuild — awaiting measured Run B asset
+
+While the deterministic bake runs, the comparison implementation was prepared without issuing a
+final record. `scripts/gutcheck-build-growth-comparison.ts` reopens the compact asset, re-derives its
+full-lattice occupancy digest, hard-locks the Run B solver and executable identity, validates every
+one of the 701 raw and quantized legacy frames, derives retained runtime measurements, and verifies
+three MP4 posters against freshly decoded frames. It resolves NAS inputs through share-relative
+paths and publishes the strict `gutcheck-growth-comparison-v1` record atomically without clobbering.
+
+The responsive page at `app/gutcheck-growth-comparison.html` contrasts the legacy per-frame
+workflow with the compact interactive replay, distinguishes retained measurements from unavailable
+quantities, verifies compact bytes and SHA-256 before decoding, and makes the smooth surface's
+interpolated status explicit. Its browser harness includes normal, reduced-motion, malformed-record,
+same-size payload mutation, truncated-asset, missing-asset, and no-WebGL lanes. The standalone-player
+link visibly states that it leaves the comparison page's integrity check; the embedded player keeps
+manual seeking available while explaining disabled playback under reduced-motion preferences.
+
+Independent review found no blocker/high issue in the prebuild. Exact
+`TMPDIR=/private/tmp npm test`, `npm run build --workspace app`, and `git diff --check` passed. Those
+checks do not validate a not-yet-existing Run B compact artifact: the two remaining checklist items
+stay open until the bake exits zero, the builder processes the real 701-frame inputs, and the final
+Chromium capture is executed and visually inspected.
+
 ## Out of scope
 
 - Modifying `GGSolver`, either permanent surface operator, checkpoint meaning, scientific
