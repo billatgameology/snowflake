@@ -106,6 +106,11 @@ index, a plan, ADR, or audit links to historical detail.
   retired the old top-level `out/` destination; do not run or retarget the legacy publisher, recreate
   aliases, or claim public availability. Forward publication waits for the governed catalogue,
   owner-manifest, receipt and fresh-restore contract.
+- A bounded presentation follow-up is **IN PROGRESS** under
+  [explore-gutcheck-growth-glass-camera.md](plans/explore-gutcheck-growth-glass-camera.md): use the
+  named glass look for the compact arrival-volume renderer and drive it from the exact committed
+  `growth-B-intro` scene clock/camera track while retaining reduced-motion and manual-orbit paths.
+  The plan is committed before executable changes; no new renderer/browser claim exists yet.
 - The gut-check exploration (`explore/gg-realism-gutcheck`) is MERGED to `main` (`98bc75d`,
   2026-08-12, merged-tree suite green). Eyeball-only — not evidence, no gate claim, no solver
   code touched.
@@ -189,15 +194,18 @@ blockers after 72/72 focused tests and reviewer exact `TMPDIR=/private/tmp npm t
 passed / 7 skipped (`out/checks/npm-test-round3-review.log`, SHA-256 `2a90d0d5…b11d`). Windows
 `S:/` and full NAS replay remain unexecuted; two deferred low findings are recorded in the plan.
 
-### Journey compact growth replay — local candidate complete; NAS publication deferred (2026-08-16)
+### Journey compact growth replay — glass/camera parity follow-up active (2026-08-16)
 
-Open [explore-gutcheck-growth-volume.md](plans/explore-gutcheck-growth-volume.md). The strict format,
+Open [explore-gutcheck-growth-glass-camera.md](plans/explore-gutcheck-growth-glass-camera.md), then
+[explore-gutcheck-growth-volume.md](plans/explore-gutcheck-growth-volume.md). The strict format,
 baker, full Run B asset, smooth viewer, measured comparison page, strict v5 Chromium record, visual
 inspection, adversarial reviews and final full suite are complete locally. No Journey/media action is
-required before the parallel NAS-governance workstream freezes its forward collection publication
-command and catalogue/owner-manifest/receipt/fresh-restore contract. At that point, replace the
-retired-path writer with the governed lifecycle and revalidate from the published bytes; do not run
-or retarget `scripts/gutcheck-publish-growth-comparison.ts`, recreate the retired NAS `out/` tree, or
+required for those accepted v5 bytes. The active follow-up first reuses the exact committed legacy
+scene timing/camera track in the compact player, adds an explicit glass shader branch, retains manual
+orbit/reduced-motion behavior, and produces a fresh browser record before replacing the local review
+bundle. Governed publication still waits for the parallel NAS-governance workstream's forward
+collection command and catalogue/owner-manifest/receipt/fresh-restore contract. Do not run or
+retarget `scripts/gutcheck-publish-growth-comparison.ts`, recreate the retired NAS `out/` tree, or
 append the old ledger. Preserve the legacy meshes and do not count this media work toward any phase
 gate.
 
