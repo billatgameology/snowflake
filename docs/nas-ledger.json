@@ -5,7 +5,7 @@
    "win32": "S:/",
    "darwin": "/Volumes/snowcrystal/"
   },
-  "note": "paths in files[] are repo-relative and mount-independent; the NAS copy mirrors them under the share root, whose local prefix is in mounts[] (scripts/nas-root.ts resolves it)"
+  "note": "paths in files[] are share-relative and mount-independent; legacy out/** rows mirror repository-relative staging paths, while governed collections/** rows use their catalogued locator (scripts/nas-root.ts resolves the host mount prefix)"
  },
  "moves": [
   {
@@ -71,9 +71,17 @@
    "bytes": 348672,
    "method": "tar locally, copied through same-share staging, then renamed to the unique final path",
    "verification": "matching SHA-256 before and after final rename + tar member listing + fresh extraction diff"
+  },
+  {
+   "date": "2026-08-15",
+   "group": "NAS governance layout migration: Phase 3 visual collection moved from the legacy out mirror to collections/earlier-phase3-visual/2026-08-01/payload; verified legacy copy retained in _control/quarantine pending explicit retirement",
+   "files": 10,
+   "bytes": 984164,
+   "method": "copy to absent governed locator, full-hash switch, then same-share rename of the legacy root into quarantine",
+   "verification": "source, target, quarantine, and fresh restored staging each matched 10 files / 984,164 bytes / tree SHA-256 73a9f672d9e803854ec8c82a2a0e0192f448989984ce30772e768b20644d3faf"
   }
  ],
- "generated": "2026-08-16T00:18:55.000Z",
+ "generated": "2026-08-16T04:45:59.000Z",
  "fileCount": 22515,
  "totalBytes": 457860350293,
  "files": [
@@ -112133,52 +112141,52 @@
    "sha256": "81fb0b3bad0ffa47fe7a5177eb6fd237f0fefa55f3fdd85f721fb7f92ef613a3"
   },
   {
-   "path": "out/phase3-visual/fallback-webgl2.png",
+   "path": "collections/earlier-phase3-visual/2026-08-01/payload/fallback-webgl2.png",
    "bytes": 134851,
    "sha256": "fad6b3bbf9df70e2e90a4d0579fa51311c84e41ba56f1dd996fbbd88e987b054"
   },
   {
-   "path": "out/phase3-visual/hud-depletion.png",
+   "path": "collections/earlier-phase3-visual/2026-08-01/payload/hud-depletion.png",
    "bytes": 79011,
    "sha256": "6a96940e2d7947d73d2eacef0d0a279833f2fe9443243a659ebb7cdf10383c1c"
   },
   {
-   "path": "out/phase3-visual/manifest.json",
+   "path": "collections/earlier-phase3-visual/2026-08-01/payload/manifest.json",
    "bytes": 7047,
    "sha256": "71b248e712855682b97c90adab81f90afbb3a5eafc607c0565c41a9b1850bb6b"
   },
   {
-   "path": "out/phase3-visual/overlay-vapor.png",
+   "path": "collections/earlier-phase3-visual/2026-08-01/payload/overlay-vapor.png",
    "bytes": 144792,
    "sha256": "7079d9be25651dcaa9e4f27727edfff671b43ca39ce74f1510b544c9c04d012c"
   },
   {
-   "path": "out/phase3-visual/picking-rim.png",
+   "path": "collections/earlier-phase3-visual/2026-08-01/payload/picking-rim.png",
    "bytes": 193597,
    "sha256": "8d71d14cfbc2cdb1a0c402419c22d388655433093b1722282cc14c5f65d0fa7e"
   },
   {
-   "path": "out/phase3-visual/plate-early.png",
+   "path": "collections/earlier-phase3-visual/2026-08-01/payload/plate-early.png",
    "bytes": 111260,
    "sha256": "8dcc58b4682372dc0fa57df5488b8bfe92a156fd9671a3d70442547d1b3ae014"
   },
   {
-   "path": "out/phase3-visual/plate-mid-orbit.png",
+   "path": "collections/earlier-phase3-visual/2026-08-01/payload/plate-mid-orbit.png",
    "bytes": 117553,
    "sha256": "d5d3a21598022aadfc8733c2e0c8109e503ec5ed00e87762080710ad5d86cf3e"
   },
   {
-   "path": "out/phase3-visual/plate-mid.png",
+   "path": "collections/earlier-phase3-visual/2026-08-01/payload/plate-mid.png",
    "bytes": 116003,
    "sha256": "2eba1779b87a884ad2b5baf3f0f40450afb1671f638d50fb3e94b16a04fb1982"
   },
   {
-   "path": "out/phase3-visual/slice-vertical-mid.png",
+   "path": "collections/earlier-phase3-visual/2026-08-01/payload/slice-vertical-mid.png",
    "bytes": 28556,
    "sha256": "42f9211eb7c7b6fc764dc48d8b41d81fbb5a53118d57d721eb44e2c51357de0b"
   },
   {
-   "path": "out/phase3-visual/slice-vertical.png",
+   "path": "collections/earlier-phase3-visual/2026-08-01/payload/slice-vertical.png",
    "bytes": 51494,
    "sha256": "196f5ecc6223e3640b740e7b35de06ae6de1f1f154f27dcb359566849ca6d6e7"
   },

@@ -26,8 +26,8 @@ report recorded two documented-only selectors, four collections without declared
 manifests, and thirteen attached collections whose payload bytes were not read. Those limitations
 are not failures of the bounded manifest check and do not assert payload presence.
 
-`npm run assets:audit -- --nas-root /Volumes/snowcrystal` intentionally exited 1. Its bounded
-top-level metadata scan observed seven entries: six classified and one unclassified; unsafe,
+`npm run assets:audit -- --nas-root /Volumes/snowcrystal` intentionally exited 1. After the first
+governed collection move, its bounded top-level scan observed eight entries: seven classified and one unclassified; unsafe,
 case/NFC-alias, symlink, special/unstatable, wrong-kind, and missing-required-root counts were all
 zero. The remaining entry was reported only as an aggregate unclassified count. It is the open
 credential-custody item and keeps the catalogue Done When open.
@@ -58,10 +58,25 @@ The fresh ignored staging tree was retained for inspection. Both reports explici
 compatibility staging tree. The commands read selected NAS payloads but wrote, moved, and deleted
 nothing on the share.
 
+## First governed collection move
+
+The coordinator copied the exact Phase 3 selection into the absent share-relative locator
+`collections/earlier-phase3-visual/2026-08-01/payload`, switched the catalogue and ledger, and then
+moved the verified legacy root into `_control/quarantine/relocations/`. No payload was deleted.
+`inventoryStableTree()` independently enumerated and re-hashed source, target, quarantine, and a
+fresh restored staging tree; all four were exactly 10 files / 984,164 bytes with tree SHA-256
+`73a9f672d9e803854ec8c82a2a0e0192f448989984ce30772e768b20644d3faf`.
+
+The final `npm run assets:verify -- --collection earlier-phase3-visual@2026-08-01 --full`, fresh
+`assets:restore`, and `assets:verify-restored` commands exited 0 from the new locator. The immutable
+payload was not rewritten: its embedded `out/phase3-visual/**` names remain producer-era provenance.
+The quarantined copy is rollback material in the same failure domain, not an independent backup.
+
 ## Limits
 
-The manifest/audit commands did not hash collection payloads, and the compatibility restore hashed
-only its ten selected Phase 3 files. No NAS payload was moved, mutated, or deleted. No command
+The default manifest/audit command did not hash collection payloads; the explicit full check and
+restore hashed only the ten selected Phase 3 files. The migration copied and moved those files but
+did not mutate or delete payload bytes. No command
 inspected effective server ACLs, executed Windows `S:/`, validated an independent backup, rotated
 a credential, or authorized publication, garbage collection, or pruning.
 
@@ -75,3 +90,16 @@ special files, hard links, or case/Unicode aliases. Rule 7, focused catalogue/pr
 staged diff check also passed. The reviewer did not access the NAS or observe the original command
 exits, run the full suite, inspect Windows/SMB/ACL behavior, validate backups or credential custody,
 or authorize any receipt or prune operation.
+
+## Collection-move review
+
+An OpenAI Codex GPT-5-family non-author reviewer with shared development context independently
+re-inventoried the canonical target, quarantine copy and fresh restore. Each matched 10 files /
+984,164 bytes and tree SHA-256
+`73a9f672d9e803854ec8c82a2a0e0192f448989984ce30772e768b20644d3faf`; the legacy source was
+absent. The reviewer also matched physical tuples to current ledger and historical OUT-TREES rows,
+verified the ledger totals and eight catalogue pins, reran 85 focused tests, the full
+collection/restored-tree checks, Rule 7 and diff checks, and confirmed the expected eight-entry /
+seven-classified / one-unnamed audit result. It did not run full `npm test`, observe the original
+copy, audit all payloads, inspect the unnamed item, or test Windows, ACLs, independent backup,
+rollback or quarantine retirement. The reviewer made no writes. Verdict: **PASS**.

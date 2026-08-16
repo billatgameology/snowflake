@@ -177,7 +177,7 @@ describe("tracked NAS asset catalogue", () => {
     expect(CATALOG.overlays.map((overlay) => overlay.overlayId)).toEqual([
       "research-media-subset",
       "gutcheck-large-products-and-archives",
-      "phase3-visual-nas-presence",
+      "phase3-visual-historical-owner",
     ]);
     expect(CATALOG.systemExclusions.map((exclusion) => exclusion.path)).toEqual([
       "#recycle",
@@ -257,7 +257,7 @@ describe("tracked NAS asset catalogue", () => {
       bytes: 52869829197,
     });
 
-    const phase3Overlay = aggregateTrackedSelector(overlays["phase3-visual-nas-presence"]!.manifest);
+    const phase3Overlay = aggregateTrackedSelector(overlays["phase3-visual-historical-owner"]!.manifest);
     expect(phase3Overlay).toEqual(
       collectionByReference(CATALOG, "earlier-phase3-visual@2026-08-01")?.aggregate,
     );

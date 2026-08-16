@@ -285,8 +285,8 @@ control, verification and audit facts are recorded in
 
 `npm run assets:verify -- --nas-root /Volumes/snowcrystal` then exited 0: all declared owner
 manifests and machine-supported selector aggregates verified, with payload hashing explicitly not
-run. `npm run assets:audit -- --nas-root /Volumes/snowcrystal` intentionally exited 1: seven bounded
-top-level entries were observed, six were classified, and one unnamed ordinary entry remained
+run. After the first governed collection move, `npm run assets:audit -- --nas-root /Volumes/snowcrystal`
+intentionally exited 1: eight bounded top-level entries were observed, seven were classified, and one unnamed ordinary entry remained
 unclassified. That is the maker/provider-owned credential-custody blocker recorded above; it was
 not read, named, hashed, moved, or catalogued. Until custody is resolved, the attached audit is not
 green and the workstream's classification Done When remains open.
@@ -303,6 +303,17 @@ restore and destination verifier both exited 0: 10 files / 984,164 bytes, tree S
 fresh ignored staging tree remains available for inspection. This closes only the bounded legacy
 compatibility check; it writes no durable receipt, grants no prune authority, and does not transfer
 to the operationally unmeasured large gut-check restore.
+
+### First governed collection migration
+
+The fully classified Phase 3 visual collection moved from the legacy `out/phase3-visual` mirror to
+`collections/earlier-phase3-visual/2026-08-01/payload`. The move reused the existing ledger,
+catalogue, exact inventory, restore and quarantine boundaries; it added no publication framework.
+Source, target, quarantine and fresh restored staging each matched 10 files / 984,164 bytes and tree
+SHA-256 `73a9f672d9e803854ec8c82a2a0e0192f448989984ce30772e768b20644d3faf`.
+The old exact copy remains quarantined, not deleted. Historical payload bytes and embedded producer
+paths were not rewritten. This proves the bounded layout move, not independent backup, Windows/SMB
+behavior, or readiness to migrate mixed and provisional roots.
 
 The final combined boundary and exact repository suite are recorded in
 [`docs/reviews/nas-asset-governance-validation-20260815.md`](../reviews/nas-asset-governance-validation-20260815.md).

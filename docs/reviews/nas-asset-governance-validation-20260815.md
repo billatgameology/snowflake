@@ -2,8 +2,8 @@
 
 - **Date:** 2026-08-15
 - **Runner:** coordinator/developer session on macOS
-- **Scope:** final pre-commit code, catalogue, policy, bootstrap, legacy-restore unit, and first
-  physical compatibility-restore record
+- **Scope:** governance implementation, first physical compatibility restore, and first governed
+  collection migration
 
 ## Combined governance boundary
 
@@ -20,19 +20,18 @@ Rule 7 was clean over 1,006 scanned files.
 
 ## Exact repository suite
 
-The required macOS command ran again after the physical compatibility-restore record, catalogue
-re-pin, and independent review:
+The required macOS command ran again after the Phase 3 physical move, final catalogue/ledger
+re-pin, focused checks, and independent move review:
 
 ```text
 TMPDIR=/private/tmp npm test
 ```
 
 It exited 0. Rule 7 was clean over 1,006 files; both typechecks passed; Vitest reported 129 test
-files passed, 2,209 tests passed, 7 skipped, and duration 419.73 seconds. The process started at
-18:03:51 local time. No suite result was inferred from a focused command. The earlier 415.63-second
-green run established the implementation baseline but preceded the compatibility-restore record;
-other earlier or interrupted runs do not supply this final result. The cited run used the isolated
-governance worktree.
+files passed, 2,209 tests passed, 7 skipped, and duration 439.62 seconds. The process started at
+21:53:21 local time. No suite result was inferred from a focused command. The earlier 419.73-second
+green run established the pre-migration baseline but does not supply this final result. The cited
+run used the isolated governance worktree.
 
 ## Closing review provenance and limits
 
@@ -42,10 +41,12 @@ test boundary, both typechecks, Rule 7, and diff checks; recomputed the catalogu
 manifest bindings; and ran attached read-only owner-manifest verification plus bootstrap dry-run.
 A separate non-author legacy-restore reviewer replayed the forged-catalogue exploit recorded in
 [`nas-asset-legacy-restore-20260815.md`](nas-asset-legacy-restore-20260815.md).
+The bounded move's non-author reviewer independently re-inventoried the canonical, quarantine and
+restored trees and rechecked the ledger/catalogue bindings as recorded in
+[`nas-bootstrap-audit-20260815.md`](../nas-bootstrap-audit-20260815.md#collection-move-review).
 
-The exact full-suite run above was performed by the coordinator/developer session, not by the
-reviewer. The review did not rerun that full suite, enumerate the attached share, hash or restore
-payloads, write the NAS, execute Windows `S:/` or SMB/ACL behavior, verify an independent backup,
-handle credential custody, publish a forward transaction, or execute a prune. Five unrelated
-education/Phase-9 working-tree files were outside the immutable reviewed tree. Closing verdict:
-**PASS — zero blockers**.
+The exact full-suite run above was performed by the coordinator/developer session, not by either
+reviewer. The move reviewer did not observe the original copy, audit all payloads, inspect the
+unnamed custody item, write the NAS, execute Windows `S:/` or SMB/ACL behavior, verify an independent
+backup, or test rollback/quarantine retirement. Unrelated worktree files were outside the reviewed
+tree. Closing verdict: **PASS — zero blockers**.

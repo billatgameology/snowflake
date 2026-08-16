@@ -88,7 +88,7 @@ const writeFixtureManifest = (root: string, bytes: Buffer): void => {
 };
 
 describe("exact catalogue-bound owner-manifest selection", () => {
-  it("loads an active tracked json-tree-key selection with locator-stripped paths", () => {
+  it("loads the migrated Phase 3 ledger selection from its governed locator", () => {
     const selection = loadBoundCollectionSelection({
       catalogue: REAL_CATALOGUE,
       collection: "earlier-phase3-visual@2026-08-01",
@@ -98,13 +98,13 @@ describe("exact catalogue-bound owner-manifest selection", () => {
     expect(selection).toMatchObject({
       identity: "earlier-phase3-visual@2026-08-01",
       state: "active",
-      locator: "out/phase3-visual",
-      ownershipRoot: "out/phase3-visual",
+      locator: "collections/earlier-phase3-visual/2026-08-01/payload",
+      ownershipRoot: "collections/earlier-phase3-visual/2026-08-01/payload",
       fileCount: 10,
       totalBytes: 984_164,
     });
     expect(selection.files[0]).toEqual({
-      sharePath: "out/phase3-visual/fallback-webgl2.png",
+      sharePath: "collections/earlier-phase3-visual/2026-08-01/payload/fallback-webgl2.png",
       relativePath: "fallback-webgl2.png",
       bytes: 134_851,
       sha256: "fad6b3bbf9df70e2e90a4d0579fa51311c84e41ba56f1dd996fbbd88e987b054",

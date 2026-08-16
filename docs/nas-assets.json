@@ -27,8 +27,8 @@
         "storage": "tracked",
         "path": "docs/nas-ledger.json",
         "format": "snowflake-nas-ledger-v1",
-        "bytes": 4363612,
-        "sha256": "fd4f95c709202cb9e0ff835339c560a121f38a4f61aca09330f1d562e70332a8",
+        "bytes": 4364659,
+        "sha256": "4dbf83320f4e58296b08bca00894a5a04ab6e720b34685132acff944505e2879",
         "selector": {
           "kind": "path-prefixes",
           "include": [
@@ -102,9 +102,11 @@
       "version": "2026-08-01",
       "state": "active",
       "ownerWorkstream": "phase-3-development-instrument",
-      "locator": "out/phase3-visual",
+      "locator": "collections/earlier-phase3-visual/2026-08-01/payload",
       "historicalRepoPath": "out/phase3-visual",
-      "legacyAliases": [],
+      "legacyAliases": [
+        "out/phase3-visual"
+      ],
       "storageClass": "external-evidence",
       "aggregate": {
         "files": 10,
@@ -112,13 +114,16 @@
       },
       "ownerManifest": {
         "storage": "tracked",
-        "path": "evidence/OUT-TREES-MANIFEST.json",
-        "format": "out-tree-digest-manifest-v1",
-        "bytes": 85811,
-        "sha256": "42b1dee5adc2907a167da43945eeb8286af90b576f63d740c0bf6946e612a43d",
+        "path": "docs/nas-ledger.json",
+        "format": "snowflake-nas-ledger-v1",
+        "bytes": 4364659,
+        "sha256": "4dbf83320f4e58296b08bca00894a5a04ab6e720b34685132acff944505e2879",
         "selector": {
-          "kind": "json-tree-key",
-          "key": "out/phase3-visual"
+          "kind": "path-prefixes",
+          "include": [
+            "collections/earlier-phase3-visual/2026-08-01/payload"
+          ],
+          "exclude": []
         }
       },
       "rights": {
@@ -169,12 +174,14 @@
       },
       "verification": {
         "status": "full-hash",
-        "at": "2026-08-12",
+        "at": "2026-08-15",
         "host": "macOS",
-        "receipt": "docs/nas-ledger.md",
+        "receipt": "docs/nas-bootstrap-audit-20260815.md",
         "limits": [
-          "The historical producer and visual interpretation were not rerun during the storage audit.",
-          "Windows S drive restoration was not executed."
+          "The historical producer and visual interpretation were not rerun during the storage migration.",
+          "Producer-era out/phase3-visual paths embedded in immutable manifest bytes remain historical provenance, not current NAS locators.",
+          "Windows S drive restoration was not executed.",
+          "The verified legacy copy remains in NAS quarantine until explicit retirement; it is not an independent backup."
         ]
       },
       "storageDomains": [
@@ -367,8 +374,8 @@
         "storage": "tracked",
         "path": "docs/nas-ledger.json",
         "format": "snowflake-nas-ledger-v1",
-        "bytes": 4363612,
-        "sha256": "fd4f95c709202cb9e0ff835339c560a121f38a4f61aca09330f1d562e70332a8",
+        "bytes": 4364659,
+        "sha256": "4dbf83320f4e58296b08bca00894a5a04ab6e720b34685132acff944505e2879",
         "selector": {
           "kind": "path-prefixes",
           "include": [
@@ -455,8 +462,8 @@
         "storage": "tracked",
         "path": "docs/nas-ledger.json",
         "format": "snowflake-nas-ledger-v1",
-        "bytes": 4363612,
-        "sha256": "fd4f95c709202cb9e0ff835339c560a121f38a4f61aca09330f1d562e70332a8",
+        "bytes": 4364659,
+        "sha256": "4dbf83320f4e58296b08bca00894a5a04ab6e720b34685132acff944505e2879",
         "selector": {
           "kind": "path-prefixes",
           "include": [
@@ -539,8 +546,8 @@
         "storage": "tracked",
         "path": "docs/nas-ledger.json",
         "format": "snowflake-nas-ledger-v1",
-        "bytes": 4363612,
-        "sha256": "fd4f95c709202cb9e0ff835339c560a121f38a4f61aca09330f1d562e70332a8",
+        "bytes": 4364659,
+        "sha256": "4dbf83320f4e58296b08bca00894a5a04ab6e720b34685132acff944505e2879",
         "selector": {
           "kind": "path-prefixes",
           "include": [
@@ -622,8 +629,8 @@
         "storage": "tracked",
         "path": "docs/nas-ledger.json",
         "format": "snowflake-nas-ledger-v1",
-        "bytes": 4363612,
-        "sha256": "fd4f95c709202cb9e0ff835339c560a121f38a4f61aca09330f1d562e70332a8",
+        "bytes": 4364659,
+        "sha256": "4dbf83320f4e58296b08bca00894a5a04ab6e720b34685132acff944505e2879",
         "selector": {
           "kind": "path-prefixes",
           "include": [
@@ -705,8 +712,8 @@
         "storage": "tracked",
         "path": "docs/nas-ledger.json",
         "format": "snowflake-nas-ledger-v1",
-        "bytes": 4363612,
-        "sha256": "fd4f95c709202cb9e0ff835339c560a121f38a4f61aca09330f1d562e70332a8",
+        "bytes": 4364659,
+        "sha256": "4dbf83320f4e58296b08bca00894a5a04ab6e720b34685132acff944505e2879",
         "selector": {
           "kind": "path-prefixes",
           "include": [
@@ -788,8 +795,8 @@
         "storage": "tracked",
         "path": "docs/nas-ledger.json",
         "format": "snowflake-nas-ledger-v1",
-        "bytes": 4363612,
-        "sha256": "fd4f95c709202cb9e0ff835339c560a121f38a4f61aca09330f1d562e70332a8",
+        "bytes": 4364659,
+        "sha256": "4dbf83320f4e58296b08bca00894a5a04ab6e720b34685132acff944505e2879",
         "selector": {
           "kind": "path-prefixes",
           "include": [
@@ -2051,25 +2058,22 @@
       "relationship": "The inventory overlays 1,640 selected loose products plus 11 historical archive rows; it neither replaces the 22,411-row live ledger selection nor claims all historical archive names remain live."
     },
     {
-      "overlayId": "phase3-visual-nas-presence",
+      "overlayId": "phase3-visual-historical-owner",
       "manifest": {
         "storage": "tracked",
-        "path": "docs/nas-ledger.json",
-        "format": "snowflake-nas-ledger-v1",
-        "bytes": 4363612,
-        "sha256": "fd4f95c709202cb9e0ff835339c560a121f38a4f61aca09330f1d562e70332a8",
+        "path": "evidence/OUT-TREES-MANIFEST.json",
+        "format": "out-tree-digest-manifest-v1",
+        "bytes": 85811,
+        "sha256": "42b1dee5adc2907a167da43945eeb8286af90b576f63d740c0bf6946e612a43d",
         "selector": {
-          "kind": "path-prefixes",
-          "include": [
-            "out/phase3-visual"
-          ],
-          "exclude": []
+          "kind": "json-tree-key",
+          "key": "out/phase3-visual"
         }
       },
       "appliesTo": [
         "earlier-phase3-visual@2026-08-01"
       ],
-      "relationship": "The ledger independently records the current loose NAS presence of the ten files owned by the historical OUT-TREES manifest."
+      "relationship": "The immutable OUT-TREES manifest owns the producer-era out/phase3-visual tree and its ten exact file digests. The active ledger maps those same bytes to the governed collections locator; this overlay preserves historical provenance without defining current physical placement."
     }
   ],
   "systemExclusions": [

@@ -26,9 +26,10 @@ both resolve to the same validated share. The index builder, read-only asset too
 use that resolver, so none hardcodes a drive or guesses identity from a familiar directory.
 
 The machine-readable twin, **`docs/nas-ledger.json`**, is a frozen generated-output ledger with
-each recorded file's byte size and pre-move **SHA-256**. Per-collection class, retention, recovery,
-and serving authority come only from `docs/nas-assets.json`; a hash detects loss but cannot restore
-it.
+each recorded file's byte size and **SHA-256**. Legacy `out/**` rows mirror repository staging;
+governed `collections/**` rows use their catalogue locator. Per-collection class, retention,
+recovery, and serving authority come only from `docs/nas-assets.json`; a hash detects loss but
+cannot restore it.
 
 ## Moves
 
@@ -41,6 +42,7 @@ it.
 | 2026-08-12 | mac `out/` cleanup 1/2: `phase3-visual`, `wp3-review-phase4`, `phase6-arm64` mirrored loose at repo-relative paths (mac-local copies removed after verification) | 86 | 3.6 MB | per-file SHA-256 re-hash from the share; `phase3-visual` also re-verified against `evidence/OUT-TREES-MANIFEST.json` (10/10) |
 | 2026-08-12 | mac `out/` cleanup 2/2: superseded phase 2a/2b/3 root scratch + session check dir → `out/archives/out-root-scratch-mac-20260812.zip` (disposable class per ADR 0038) | 1 | 41.7 MB | zip SHA-256 match local vs share + `unzip -t` CRC pass |
 | 2026-08-15 | two rejected D-BT independent-verification candidates mirrored loose under `out/debug/` (historical assurance-debug material, **not evidence**) | 10 | 85,153 B | source/staging inventories matched; every final file re-hashed against `docs/nas-ledger.json` |
+| 2026-08-15 | Phase 3 visual collection → `collections/earlier-phase3-visual/2026-08-01/payload/` | 10 | 984,164 B | source, target, quarantine and fresh restored staging matched tree SHA-256 `73a9f672…3faf`; legacy root moved into `_control/quarantine/relocations/` |
 
 The 2026-08-16 ledger revision also registered seven already-retained files that earlier ledger
 snapshots omitted: six gutcheck ZIPs and the 2026-08-15 scratch tar. This was a bookkeeping repair,
@@ -99,13 +101,12 @@ fresh-stage restore. The legacy compatibility command resolves the marked share,
 active catalogue version, copies only owner-manifest rows into a fresh destination below
 `out/restores/`, and verifies the restored set, lengths, and digests:
 
-The reviewed `.snowflake-nas.json` marker and empty `_control/` skeleton are installed on the
-physical share, and attached owner-manifest verification passed. After commit `b9b7b40`, the
-registered Phase 3 collection below restored and independently verified 10 files / 984,164 bytes
-with tree SHA-256
-`73a9f672d9e803854ec8c82a2a0e0192f448989984ce30772e768b20644d3faf`;
-the fresh ignored staging tree remains available for inspection. This is a bounded compatibility
-result, not a durable receipt, prune authorization, or large-restore performance result.
+The marker/control skeleton is installed, and attached owner-manifest verification passed. The
+Phase 3 collection below restored before and after its move to the governed `collections/**`
+layout, each time as 10 files / 984,164 bytes with tree SHA-256
+`73a9f672d9e803854ec8c82a2a0e0192f448989984ce30772e768b20644d3faf`.
+Both ignored staging trees remain available. This is a bounded compatibility result, not a durable
+receipt, prune authorization, independent backup, or large-restore performance result.
 
 ```bash
 npm run assets:restore -- \

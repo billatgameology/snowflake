@@ -48,6 +48,7 @@ function writeMarker(root: string, marker: unknown = NAS_SHARE_MARKER): void {
 function makeAuditShare(): string {
   const root = temporaryRoot("audit-share");
   writeMarker(root);
+  mkdirSync(join(root, "collections"));
   mkdirSync(join(root, "out"));
   mkdirSync(join(root, "research-cache"));
   mkdirSync(join(root, "_control"));
