@@ -13,13 +13,18 @@ authority: provenance, rights, recipes, manifests, receipts, and verification lo
 large, private, expensive, or non-redistributable bytes. A file is never considered preserved
 merely because it is ignored, hashed, or currently present on one workstation.
 
-This work first inventories and classifies the existing share, then introduces the governance and
-tooling, and only then performs a reviewed copy/verify/switch migration. Historical paths frozen in
-evidence remain readable; no bulk rename is allowed to rewrite their meaning.
+This work first inventories and classifies the existing share, then physically organizes every
+project payload under one of two project-owned top-level namespaces: durable versioned collections
+under `collections/`, and temporary operational custody under `_control/`. Historical paths frozen
+in evidence remain as provenance and catalogue aliases; they do not require the old physical
+`out/` or `research-cache/` roots to remain on the share.
 
 ## Done when
 
-- A tracked collection catalogue accounts for every non-system live root on the snowcrystal share
+- Apart from the root identity marker, every project-owned live share object is below
+  `collections/` or `_control/`; provider recycle data and credential custody are outside the asset
+  layout. No project payload remains loose under top-level `out/` or `research-cache/`.
+- A tracked collection catalogue accounts for every durable collection on the snowcrystal share
   and binds each durable collection to an owner manifest, storage class, rights/serve policy,
   retention policy, restore procedure, level-qualified verification record, and share-relative
   locator. Forward-published collections additionally bind separate publication and fresh-restore
@@ -40,20 +45,23 @@ evidence remain readable; no bulk rename is allowed to rewrite their meaning.
   share-relative POSIX paths, and compatibility aliases that fail on conflicting configuration.
   Fixture tests cover macOS and Windows path rules, containment, symlinks, case/Unicode aliases,
   reserved names, special files, and wrong or detached shares.
-- Publication is transactional: stable-source scan, same-share staging, source/staged hash match,
-  absent-destination publish, final re-hash, tracked receipt/catalogue update, fresh restore check,
-  and only then an explicit local prune. Tests prove interruption, collision, source mutation,
-  concurrent publication, NAS loss, and Git-update failure cannot silently authorize deletion.
+- Public-safe owner manifests use the tracked forward path
+  `docs/nas-assets/manifests/<asset-id>/<version>.json`; private owner manifests use the non-served
+  NAS path `collections/<asset-id>/<version>/manifest.private.jsonl`. The tracked catalogue binds
+  either manifest's exact bytes, digest, format and selected aggregate. Existing complete owner
+  manifests may remain authoritative while their rows are updated to canonical collection paths.
 - The development server serves only catalogue-approved generated collections. Private research,
   credentials, quarantined material, and other share paths return a refusal in fixture tests even
   when the caller knows their exact path.
 - Existing consumers stop scanning sibling worktrees or silently preferring stale local bytes.
   Writer-specific authoring flows may take an explicit local staging input, but a served index
   never relabels that input as NAS content; ordinary reads use a verified NAS collection or fail.
-- A reviewed old-to-new migration manifest covers every physical move. Each moved object matches
-  its pre-move byte length and SHA-256 at the final path, current consumers pass against the final
-  layout, rollback remains possible until review closes, and deletion uses a separate exact target
-  list. Frozen historical locators and the live Phase 6 ladder are not mutated.
+- A reviewed old-to-new migration map covers every physical move. Whole collection trees use an
+  absent-target same-share rename after an exact inventory; interleaved selections move only their
+  manifest-owned rows. Each final collection matches its owner rows, current consumers pass against
+  the final layout, and the reverse mapping remains the rollback path until review closes. Unknown
+  material moves to dated `_control/quarantine/unresolved/` custody with a NAS-private inventory;
+  it is neither served nor treated as a durable collection until classified.
 - The macOS attached-share audit, fixture restore/publish/audit controls, Rule 7, typechecks, and
   exact `TMPDIR=/private/tmp npm test` pass. The closing review records what was independently
   rerun and states Windows `S:/`, full-byte, credential-rotation, and backup limits truthfully.
@@ -66,11 +74,18 @@ aggregate counts/digest, provenance, rights/privacy/serve policy, retention, res
 legacy aliases. Existing complete manifests remain their collection's byte inventory; the catalogue
 binds them rather than copying tens of thousands of rows into a fourth schema.
 
-The forward layout is collection-oriented and versioned. Control state is isolated under a
-non-served `_control/` namespace for staging, locks, receipts, quarantine, and trash plans. New
-durable objects publish to immutable version- or digest-bearing paths. Existing `out/` and
-`research-cache/` roots are grandfathered in place when a tracked record freezes their locator;
-organization does not justify rewriting evidence history or copying roughly the whole share.
+The share layout is collection-oriented and versioned. Durable bytes live at
+`collections/<asset-id>/<version>/payload/`. A public-safe owner manifest lives in Git at
+`docs/nas-assets/manifests/<asset-id>/<version>.json`; a private-name owner manifest lives beside
+the collection at `collections/<asset-id>/<version>/manifest.private.jsonl`, outside every served
+prefix, while Git binds only its digest and aggregate. Control state is isolated under the
+non-served `_control/` namespace for staging, locks, receipts, quarantine, and trash plans.
+
+The old top-level `out/` and `research-cache/` roots are migration inputs, not permanent aliases.
+Their historical paths remain in immutable evidence, provenance fields and `legacyAliases`, while
+the physical bytes move to canonical collection paths. Provisional state limits claims, serving,
+retention and deletion; it does not justify leaving a known collection loose. Material that cannot
+yet be assigned to one collection moves to dated quarantine with a private inventory.
 
 The policy classes are:
 
@@ -113,19 +128,20 @@ They belong in a credential manager or runtime environment and outside every ser
 - [x] Add receipt-free legacy `assets:restore` and `assets:verify-restored` compatibility commands.
       They require one exact active version, restore only to fresh `out/restores/` staging, verify
       the exact destination set, and grant neither transaction certification nor prune authority.
-- [ ] Add transactional `assets:publish`, `assets:restore`, and local `assets:prune`. The first
-      release produces a garbage-collection plan only; it does not automatically delete NAS bytes.
-      Before any forward-layout collection becomes active, distinguish transaction-certified
-      publication from legacy registration so the compatibility restore cannot handle it.
+- [ ] Keep forward transactional publication/prune tooling unexposed until it has a separately
+      justified production use. It is not a prerequisite for this operator-controlled same-share
+      organization pass, and this pass adds no further speculative transaction machinery.
 - [x] Restrict `/nas` to explicitly serveable catalogue collections and refuse non-loopback
       exposure unless a later reviewed requirement authorizes it.
 - [ ] Adapt gutcheck publication/index/site/workpack flows, research inventory tooling, education
       media discovery, and future gate finalization in bounded slices with exact tests after each
       changed contract. Frozen Phase 8 absolute-path identities get compatibility readers, not
       rewritten evidence.
-- [ ] Generate and review the exact migration manifest. Register frozen roots in place; copy first
-      for any path that truly moves; verify final readers; quarantine obsolete duplicates and
-      partials; prune old paths only after the rollback and review conditions pass.
+- [ ] Generate the exact migration map; inventory and move every retained `out/` and
+      `research-cache/` selection to its canonical collection; quarantine unresolved material;
+      update owner manifests, catalogue paths and readers; then verify that both legacy top-level
+      roots are absent. Do focused checks during the batches and one exact full suite/review after
+      the final metadata update.
 - [x] Update `docs/PROGRESS.md` as each slice lands, run the required final checks, obtain one
       proportionate non-author closing review, and leave an exact next action if any maker-owned
       credential, backup, Windows, or legacy-artifact decision remains.
@@ -139,16 +155,17 @@ They belong in a credential manager or runtime environment and outside every ser
   any credential value/digest to Git.
 - Enabling Git LFS or moving small project-owned evidence out of Git merely to make one policy look
   uniform.
-- A big-bang copy or rename of the ledgered gutcheck tree when registration in place preserves the
-  same safety with less risk.
+- New publication/prune machinery, storage redesign beyond the two-root layout, or repeated full
+  suite/review cycles for each moved directory.
 - Automatic permanent deletion. The initial tooling may produce quarantine and garbage-collection
   plans; destructive execution remains a separately reviewed operation.
 
 ## Tried and rejected
 
-- **Blanket rename into a cosmetically cleaner tree:** rejected because many Phase 8/9 records and
-  gutcheck URLs freeze current share-relative paths. Byte preservation would not preserve their
-  meaning, and copying the ledgered bulk would add risk without adding durability.
+- **Blind path replacement without a collection map:** rejected because historical Phase 8/9
+  records freeze producer-era paths and mixed roots contain different rights and retention classes.
+  The adopted migration moves physical bytes by manifest-owned collection while preserving old
+  paths as provenance/aliases; it does not rewrite immutable historical evidence.
 - **One flat per-file ledger for the whole share:** rejected because it would duplicate three
   detailed owner manifests, create conflicting refresh paths, and make unrelated collections
   rewrite one large file. A small federated catalogue keeps ownership explicit.
