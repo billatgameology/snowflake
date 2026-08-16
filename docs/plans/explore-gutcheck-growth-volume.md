@@ -13,6 +13,11 @@ free 3D camera on the web. Preserve the executed G-G cell-attachment order witho
 behavior, and state plainly that the continuous surface between discrete attachment events is a
 visual interpolation, Evidence = unvalidated.
 
+After the full Run B asset validates, add a measured comparison webpage that places the legacy
+per-frame workflow and compact growth replay side by side. The page must distinguish network bytes,
+decoded/runtime memory, generation cost, interaction capability, and what each representation does
+or does not preserve; estimates must not be presented as Run B measurements.
+
 This is a new media/replay experiment alongside the immutable 701-frame `gutcheck-anim-v1`
 timeline. It does not start Phase 7, alter any phase gate or scientific result, edit the permanent
 solver, or replace the recorded source artifacts before the new representation is measured and
@@ -38,7 +43,12 @@ There is no charter milestone for this exploration. This unit is done when:
   modes, claims, and destructive-path handling; every blocker is repaired; and
 - exact `TMPDIR=/private/tmp npm test` passes before the code commit. Only after those checks may
   the roughly ten-hour deterministic Run B replay recorded in
-  `docs/plans/explore-gg-realism-gutcheck.md` be launched to produce the full private asset.
+  `docs/plans/explore-gg-realism-gutcheck.md` be launched to produce the full private asset;
+- the full private asset independently passes count, tick, crop, endpoint, occupancy-hash, and
+  source-identity checks before any comparison claims use its measurements; and
+- a real-browser comparison page presents both approaches, plays the compact Run B replay, makes
+  the unavailable/non-comparable measurements explicit, and passes visual, interaction, resize,
+  reduced-motion, and error-state checks without loading the multi-gigabyte legacy sequence.
 
 ## Approach
 
@@ -90,8 +100,15 @@ versus the recorded 6.62 GB quantized sequence. The checkpoint measurement is na
 - [x] Record measured smoke size/performance/limits in this plan and `docs/PROGRESS.md`.
 - [x] Obtain one proportionate non-author review, repair blockers, and run exact
       `TMPDIR=/private/tmp npm test`.
-- [ ] Commit the reviewed implementation, then launch the full Run B bake only if the smoke result
+- [x] Commit the reviewed implementation, then launch the full Run B bake only if the smoke result
       supports it; record its restart-only command, logs, output, digest, and next action.
+- [ ] Monitor the restart-only Run B bake to atomic publication, then independently decode and
+      re-derive its identity, event count, tick range, crop, endpoints, occupancy digest, byte size,
+      and elapsed runtime before making the verified NAS copy.
+- [ ] Add a side-by-side browser comparison of the legacy per-frame workflow and compact replay,
+      using measured Run B values and clearly labeled unknown or non-transferable quantities.
+- [ ] Run real-browser visual/interaction checks plus the governing repository checks, obtain a
+      proportionate non-author review, update `docs/PROGRESS.md`, and commit the comparison.
 
 ## Implementation record
 
@@ -167,6 +184,9 @@ scripts/gutcheck-bake-growth.ts --preset plate --dims 1200,1200,48 --ticks 70000
 100/70,000, 37 attached/events, elapsed 55.0 seconds; `error.log` was empty. Do not start a second
 copy. On exit 0, decode and re-derive asset/count/tick/crop/endpoints before a no-clobber NAS copy;
 on interruption or nonzero exit, preserve the logs and restart from tick zero only after diagnosis.
+The maker requested the measured per-frame-versus-compact comparison webpage as the immediate
+post-validation deliverable; it is deliberately gated on this run rather than populated from size
+or performance estimates.
 
 ## Out of scope
 

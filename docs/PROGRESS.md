@@ -94,7 +94,10 @@ index, a plan, ADR, or audit links to historical detail.
   61-event timing/image complexity NON-TRANSFERABLE to Run B. Review closed with no blocker/high
   code findings; exact `TMPDIR=/private/tmp npm test` passed and implementation commit `44fd4b6`
   landed. The restart-only full replay is running locally with the original Node v24.13.1 engine;
-  its first `live.log` line measured tick 100/70,000, 37 events, elapsed 55.0 seconds.
+  its first `live.log` line measured tick 100/70,000, 37 events, elapsed 55.0 seconds. After atomic
+  publication and independent validation, the next media deliverable is a real-browser comparison
+  page contrasting the legacy per-frame workflow with the compact replay using measured Run B
+  bytes/runtime and explicitly labeled unavailable or non-transferable quantities.
 - The gut-check exploration (`explore/gg-realism-gutcheck`) is MERGED to `main` (`98bc75d`,
   2026-08-12, merged-tree suite green). Eyeball-only — not evidence, no gate claim, no solver
   code touched.
@@ -185,7 +188,8 @@ Exact `TMPDIR=/private/tmp npm test` passed and `44fd4b6` committed the implemen
 process, restart-only 70,000-tick bake is running under the original Run B Node v24.13.1/V8 engine.
 Monitor `out/gutcheck-growth-runB/live.log`, `error.log`, and eventual `exit-status`; do not launch a
 duplicate. On exit 0, independently decode/rehash/check endpoints, then make and rehash a no-clobber
-NAS copy. Preserve the legacy meshes and do not count this media work toward any phase gate.
+NAS copy. Then build and browser-verify the measured per-frame-versus-compact comparison page named
+in the active plan. Preserve the legacy meshes and do not count this media work toward any phase gate.
 
 ### Phase 8B record — closed; external search remains stopped
 
