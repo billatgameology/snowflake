@@ -192,11 +192,10 @@ describe("compact progress index and byte-exact historical record", () => {
     expect(cleanObject).toBe(rawObject);
   });
 
-  it("keeps the live authority compact, complete, and unambiguous", () => {
-    const bytes = readFileSync(PROGRESS);
-    const text = bytes.toString("utf8");
-    expect(bytes.byteLength).toBeLessThanOrEqual(20_000);
-    expect(text.split(/\r?\n/u).length).toBeLessThanOrEqual(250);
+  it("keeps the live authority complete and unambiguous", () => {
+    // Compactness is a manual prune discipline (maker direction 2026-08-16), not an enforced
+    // ceiling: prune stale entries as work lands; do not reintroduce a byte or line cap here.
+    const text = readFileSync(PROGRESS, "utf8");
     expect(currentIndexErrors(text)).toEqual([]);
 
     const progressDate = text.match(/^- \*\*Last updated:\*\* (\d{4}-\d{2}-\d{2})/mu)?.[1];
