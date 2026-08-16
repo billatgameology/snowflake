@@ -99,9 +99,15 @@ index, a plan, ADR, or audit links to historical detail.
   page contrasting the legacy per-frame workflow with the compact replay using measured Run B
   bytes/runtime and explicitly labeled unavailable or non-transferable quantities. Its strict
   record schema, independently recomputing builder, responsive side-by-side page, integrity-checked
-  compact loader, and adversarial browser harness are now prebuilt while the bake runs. Exact
-  `TMPDIR=/private/tmp npm test` passes this prebuilt tree. The builder has not yet issued a Run B
-  record and the final browser capture has not run; neither may happen from an estimated asset.
+  compact loader, adversarial browser harness, and fixed-roster no-clobber NAS publisher are now
+  prebuilt while the bake runs. The publisher independently re-derives event occupancy, browser
+  request/mutation witnesses, source/staging/final hashes, and the referenced MP4; it never deletes
+  failed staging. Its frozen file hashes and accepted final-lstat-to-rename concurrency boundary are
+  recorded in the active plan. Exact `TMPDIR=/private/tmp npm test` passes this prebuilt tree, and a
+  non-author OpenAI Codex (GPT-5 family) closing review found no blocker/high issue within its stated
+  no-final-Chromium, no-live/NAS, and no-Windows/SMB limits. The builder has not yet issued a Run B
+  record, the final browser capture has not run, and the publisher has not executed; none may be
+  substituted with an estimated artifact.
 - The gut-check exploration (`explore/gg-realism-gutcheck`) is MERGED to `main` (`98bc75d`,
   2026-08-12, merged-tree suite green). Eyeball-only — not evidence, no gate claim, no solver
   code touched.
@@ -194,7 +200,10 @@ Monitor `out/gutcheck-growth-runB/live.log`, `error.log`, and eventual `exit-sta
 duplicate. On exit 0, independently decode/rehash/check endpoints, then make and rehash a no-clobber
 NAS copy. The comparison implementation is already prebuilt; next run its strict 701-frame builder
 against the completed asset, then execute and visually inspect its final browser capture before
-publishing it. Preserve the legacy meshes and do not count this media work toward any phase gate.
+publishing it. Only after those checks pass, run the flagless
+`node scripts/gutcheck-publish-growth-comparison.ts`; it must find the canonical NAS directory
+absent, and any reported failed staging path is preserved for diagnosis rather than deleted.
+Preserve the legacy meshes and do not count this media work toward any phase gate.
 
 ### Phase 8B record — closed; external search remains stopped
 

@@ -161,14 +161,34 @@ function mediaMap(recordBytes, record, growthBytes, videoBytes, posterBytes) {
   return map;
 }
 
-async function installRoutes(context, map, requests, overrides = new Map()) {
+function responseBodyBytes(response) {
+  if (typeof response.body === "string") return Buffer.from(response.body, "utf8");
+  if (response.body instanceof Uint8Array) return Buffer.from(response.body);
+  fail("capture override must carry a string or byte body");
+}
+
+async function installRoutes(
+  context,
+  map,
+  requests,
+  overrides = new Map(),
+  overrideApplications = [],
+) {
   await context.route("**/*", async (route) => {
     const request = route.request();
     const pathname = new URL(request.url()).pathname;
     requests.push({ url: request.url(), method: request.method(), resourceType: request.resourceType() });
     const override = overrides.get(pathname);
     if (override !== undefined) {
+      const body = responseBodyBytes(override);
       await route.fulfill(override);
+      overrideApplications.push({
+        pathname,
+        status: override.status ?? 200,
+        contentType: override.contentType ?? "",
+        bytes: body.byteLength,
+        sha256: sha256(body),
+      });
       return;
     }
     const media = map.get(pathname);
@@ -244,14 +264,16 @@ async function runValidLane(browser, base, map, record, outDir, viewport) {
   if (initial.debug.reducedMotion || !initialGrowth.playing) {
     fail("normal-motion comparison did not start compact autoplay");
   }
-  if (!/^One crystal\.\s*Two timelines\.$/u.test((await page.locator("h1").textContent()) ?? "")) {
+  const headline = (await page.locator("h1").textContent()) ?? "";
+  if (!/^One crystal\.\s*Two timelines\.$/u.test(headline)) {
     fail("comparison headline is missing");
   }
-  if (await page.locator("table").count() !== 1) fail("semantic comparison table is missing");
+  const tableCount = await page.locator("table").count();
+  if (tableCount !== 1) fail("semantic comparison table is missing");
   const iframeTitle = await page.locator('[data-role="compact-frame"]').getAttribute("title");
   if (iframeTitle !== "Interactive compact Run B growth replay") fail("compact iframe title is missing");
-  const displayedLegacy = await page.locator('[data-value="legacy-size-note"]').textContent();
-  const displayedCompact = await page.locator('[data-value="compact-size-note"]').textContent();
+  const displayedLegacy = (await page.locator('[data-value="legacy-size-note"]').textContent()) ?? "";
+  const displayedCompact = (await page.locator('[data-value="compact-size-note"]').textContent()) ?? "";
   if (!displayedLegacy?.includes(record.legacy.v2qSequence.totalBytes.toLocaleString("en-US"))) {
     fail("legacy exact byte count is not rendered");
   }
@@ -259,7 +281,8 @@ async function runValidLane(browser, base, map, record, outDir, viewport) {
     fail("compact exact byte count is not rendered");
   }
   const ratio = Math.round(record.legacy.v2qSequence.totalBytes / record.compact.asset.bytes);
-  if ((await page.locator('[data-value="ratio"]').textContent()) !== `${ratio.toLocaleString("en-US")}× smaller`) {
+  const displayedRatio = (await page.locator('[data-value="ratio"]').textContent()) ?? "";
+  if (displayedRatio !== `${ratio.toLocaleString("en-US")}× smaller`) {
     fail("displayed size ratio differs from the record");
   }
 
@@ -272,8 +295,10 @@ async function runValidLane(browser, base, map, record, outDir, viewport) {
   });
   screenshots.fullPage = sha256(fullPagePng);
   const buttons = page.locator('[data-role="poster-controls"] button');
-  if (await buttons.count() !== 3) fail("comparison does not expose three exact-tick controls");
+  const buttonCount = await buttons.count();
+  if (buttonCount !== 3) fail("comparison does not expose three exact-tick controls");
   const compactCanvas = page.locator('[data-role="compact-frame"]').contentFrame().locator("canvas");
+  const posterSeeks = [];
   for (const [index, label] of ["start", "middle", "final"].entries()) {
     await buttons.nth(index).click();
     const tick = record.legacy.lightweightMedia.posters[index].tick;
@@ -283,6 +308,8 @@ async function runValidLane(browser, base, map, record, outDir, viewport) {
     if (Math.abs(videoTime - expectedTime) > 0.08) {
       fail(`${label} video seek landed at ${videoTime}, expected ${expectedTime}`);
     }
+    const reachedTick = await frame.evaluate(() => window.__growthDebug.tick);
+    posterSeeks.push({ label, tick: reachedTick, videoTimeSeconds: videoTime });
     screenshots[label] = await pngHash(compactCanvas, join(outDir, `compact-${label}.png`));
   }
   await buttons.nth(1).click();
@@ -311,6 +338,7 @@ async function runValidLane(browser, base, map, record, outDir, viewport) {
   });
   await play.click();
   await frame.waitForFunction(() => window.__growthDebug?.playing === true && window.__growthDebug.tick > 0);
+  const started = await frame.evaluate(() => window.__growthDebug);
   await play.click();
   const paused = await frame.evaluate(() => window.__growthDebug);
   await page.waitForTimeout(120);
@@ -358,6 +386,22 @@ async function runValidLane(browser, base, map, record, outDir, viewport) {
   return {
     viewport,
     initialTick: initialGrowth.tick,
+    readiness: {
+      comparisonReady: initial.ready,
+      comparisonError: initial.error,
+      comparisonDebugPresent: initial.debug !== null,
+      comparisonReducedMotion: initial.debug.reducedMotion,
+      compactDebugPresent: initialGrowth !== undefined,
+      compactPlaying: initialGrowth.playing,
+    },
+    content: {
+      headline,
+      tableCount,
+      iframeTitle,
+      legacySizeNote: displayedLegacy,
+      compactSizeNote: displayedCompact,
+      ratio: displayedRatio,
+    },
     screenshots,
     layout: { landscape: landscapeLayout, portrait: portraitLayout },
     requests: {
@@ -366,8 +410,20 @@ async function runValidLane(browser, base, map, record, outDir, viewport) {
       compactAsset: growthRequests.length,
       legacyManifest: legacyManifestRequests.length,
       legacyMeshes: legacyMeshRequests.length,
+      entries: requests,
+    },
+    controls: { buttonCount, posterSeeks },
+    playback: {
+      startedPlaying: started.playing,
+      startedTick: started.tick,
+      pausedPlaying: paused.playing,
+      pausedTick: paused.tick,
+      pausedDisplayTick: paused.displayTick,
+      heldTick: pausedLater.tick,
+      heldDisplayTick: pausedLater.displayTick,
     },
     keyboard: { beforeArrow, afterArrow },
+    portraitFraming: bounds,
     errors,
   };
 }
@@ -395,7 +451,13 @@ async function runReducedMotionLane(browser, base, map, record) {
   );
   const manualTick = await frame.evaluate(() => window.__growthDebug.tick);
   await context.close();
-  return { requested: true, playing: growth.playing, manualTick };
+  return {
+    requested: true,
+    comparisonReducedMotion: state.debug.reducedMotion,
+    compactReducedMotion: growth.reducedMotion,
+    playing: growth.playing,
+    manualTick,
+  };
 }
 
 async function runErrorLane(
@@ -407,11 +469,13 @@ async function runErrorLane(
   initScript = null,
   expectedError = null,
   expectIframeNotLoaded = false,
+  collectContextNullWitness = false,
 ) {
   const context = await browser.newContext({ viewport: { width: 720, height: 560 }, deviceScaleFactor: 1 });
   if (initScript !== null) await context.addInitScript(initScript);
   const requests = [];
-  await installRoutes(context, map, requests, overrides);
+  const overrideApplications = [];
+  await installRoutes(context, map, requests, overrides, overrideApplications);
   const page = await context.newPage();
   await page.goto(pageUrl(base), { waitUntil: "domcontentloaded" });
   const state = await waitForComparison(page, true);
@@ -419,16 +483,49 @@ async function runErrorLane(
   if (expectedError !== null && !expectedError.test(state.error)) {
     fail(`${label} published the wrong error: ${state.error}`);
   }
+  const iframeSrc = await page.locator('[data-role="compact-frame"]').getAttribute("src");
+  const iframeReady = state.debug?.iframeReady ?? null;
   if (expectIframeNotLoaded) {
-    const iframeSrc = await page.locator('[data-role="compact-frame"]').getAttribute("src");
     if (state.ready || state.debug?.iframeReady !== false || iframeSrc !== null) {
       fail(`${label} reached the embedded replay before rejecting the asset`);
     }
   }
   const bodyText = await page.locator("body").innerText();
-  if (!/comparison|replay|unavailable/iu.test(bodyText)) fail(`${label} error is not visible on the page`);
+  const visible = /comparison|replay|unavailable/iu.test(bodyText);
+  if (!visible) fail(`${label} error is not visible on the page`);
+  let contextNullWitness = null;
+  if (collectContextNullWitness) {
+    const playerFrame = page.frames().find((candidate) => {
+      try {
+        return new URL(candidate.url()).pathname === "/spike-gg-realism.html";
+      } catch {
+        return false;
+      }
+    });
+    if (playerFrame === undefined) fail(`${label} did not exercise the embedded player frame`);
+    const marker = await playerFrame.evaluate(() => window.__growthNoWebglWitness ?? null);
+    if (
+      marker === null ||
+      marker.installed !== true ||
+      marker.returnedNull !== true ||
+      !(marker.webgl2Calls >= 1)
+    ) {
+      fail(`${label} did not exercise the installed WebGL2 context-null mutation`);
+    }
+    contextNullWitness = { ...marker, frameUrl: playerFrame.url() };
+  }
   await context.close();
-  return { label, error: state.error };
+  return {
+    label,
+    error: state.error,
+    ready: state.ready,
+    bodyText,
+    iframeReady,
+    iframeSrc,
+    requests,
+    overrideApplications,
+    contextNullWitness,
+  };
 }
 
 async function main() {
@@ -530,12 +627,24 @@ async function main() {
       "WebGL2 unavailable",
       new Map(),
       () => {
+        window.__growthNoWebglWitness = {
+          installed: true,
+          webgl2Calls: 0,
+          returnedNull: false,
+        };
         const original = HTMLCanvasElement.prototype.getContext;
         HTMLCanvasElement.prototype.getContext = function patched(type, ...args) {
-          if (type === "webgl2") return null;
+          if (type === "webgl2") {
+            window.__growthNoWebglWitness.webgl2Calls++;
+            window.__growthNoWebglWitness.returnedNull = true;
+            return null;
+          }
           return original.call(this, type, ...args);
         };
       },
+      null,
+      false,
+      true,
     );
     const browserVersion = await browser.version();
     const report = {

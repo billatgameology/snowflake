@@ -211,6 +211,44 @@ checks do not validate a not-yet-existing Run B compact artifact: the two remain
 stay open until the bake exits zero, the builder processes the real 701-frame inputs, and the final
 Chromium capture is executed and visually inspected.
 
+## Final comparison publisher prebuild — frozen, not executed
+
+The flagless `scripts/gutcheck-publish-growth-comparison.ts` now defines the final publication
+boundary without touching the live bake or NAS. It accepts only the fixed comparison bundle roster,
+requires the successful wrapper/log records, strictly decodes the compact asset, independently
+re-derives its full-lattice occupancy digest from event indices, and reopens the referenced NAS MP4.
+The capture record is not inherited as a producer verdict: the publisher re-derives acceptance from
+raw request entries, displayed text and layout measurements, tick/seek/playback witnesses, screenshot
+digests, reduced-motion observations, exact applied negative-control bytes, visible error body text,
+and the exercised WebGL2 context-null witness.
+
+Publication copies exclusive fresh files into a private directory on the detected share, requires
+one hard link per staged/final file, reopens and hashes the source, staging, final canonical bundle,
+and referenced MP4 around the final same-share rename, and never deletes a failed attempt. Any
+pre-rename failure leaves the exact private staging path intact and reports it for diagnosis; any
+post-rename failure preserves the canonical path. Node exposes no portable directory
+`RENAME_NOREPLACE`, so the final canonical absence check and rename carry the explicit
+no-concurrent-local-mutator boundary already stated in the publisher. No broader destructive-cleanup
+boundary is accepted.
+
+The frozen files and SHA-256 digests at review were
+`app/scripts/growth-comparison-capture.mjs`
+`a3c3f7f5289b31ddf26a9f04b07ff687fff977fdd2366dc67083da7f36cd7a74`,
+`scripts/gutcheck-publish-growth-comparison.ts`
+`f072f03cb3363d4a93368112d09589f85a9d18d938ed0934b254cd8195115fff`, and
+`runner/test/gutcheck-growth-comparison-publisher.test.ts`
+`56c52424201ce20113447e85d9a1e7abf02c29f5652601de85d5fd21d2315422`.
+Exact `TMPDIR=/private/tmp npm test`, capture-script `node --check`, and `git diff --check` passed on
+that frozen implementation.
+
+The closing non-author, read-only review was OpenAI Codex (GPT-5 family), with inherited/shared full
+developer and repository context. It independently reran the focused publisher test, `npm run
+typecheck`, capture-script `node --check`, and `git diff --check`, matched the frozen hashes before
+and after review, and found no remaining blocker/high issue. Its limits are explicit: it did not
+rerun full `npm test`, execute the final Chromium capture or visually inspect real Run B screenshots,
+touch the live bake or NAS, or exercise Windows/SMB. This closes only the publisher prebuild review;
+neither remaining checklist item is complete and no final measured comparison has been published.
+
 ## Out of scope
 
 - Modifying `GGSolver`, either permanent surface operator, checkpoint meaning, scientific
