@@ -211,7 +211,9 @@ export function collectGate6Evidence(repoRoot: string, options: CollectGate6Opti
 
   const ladderRowsBytes = read("evidence/phase6-wp2-ladder/rows.jsonl");
   const heldoutLockBytes = read("research/phase6-heldout-candidate-lock.json");
-  const heldoutLock = JSON.parse(heldoutLockBytes.toString("utf8")) as Record<string, unknown>;
+  const heldoutLock = JSON.parse(heldoutLockBytes.toString("utf8")) as {
+    readonly gateMeaning?: { readonly passEligible?: unknown };
+  };
 
   const parameterTableLf = readText("docs/libbrecht-parameters.md").replace(/\r\n/g, "\n");
 
@@ -245,7 +247,7 @@ export function collectGate6Evidence(repoRoot: string, options: CollectGate6Opti
     decision0045: readText("docs/decisions/0045-bound-phase6-closure-to-a-compute-week.md"),
     progress: readText("docs/PROGRESS.md"),
     charter: readText("project charter.md"),
-    heldoutLock: { sha256: sha256Bytes(heldoutLockBytes), passEligible: heldoutLock.passEligible },
+    heldoutLock: { sha256: sha256Bytes(heldoutLockBytes), passEligible: heldoutLock.gateMeaning?.passEligible },
     sourceCurrencySha256: sha256Bytes(read("research/phase6-source-currency.md")),
     parameterTableLfSha256: sha256Bytes(Buffer.from(parameterTableLf, "utf8")),
     supersededCakA1PointsSha256: sha256Bytes(read("evidence/phase6-sweep-6995868-cak-a1-superseded/points.json")),
