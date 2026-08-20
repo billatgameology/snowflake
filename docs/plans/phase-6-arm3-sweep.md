@@ -1,7 +1,9 @@
 # Plan — Phase 6 arm-3 sweep: `M1_NO_DIP_ABLATION` at measured-only grade
 
 - **Phase:** Phase 6 — Validation against the Nakaya diagram
-- **Status:** in progress
+- **Status:** COMPLETE — executed and published 2026-08-07 (5/78 arm scope, 5/90 common
+  denominator), unit review closed with 0 blockers; H10 (the narrative three-arm report)
+  discharged 2026-08-20 by `evidence/phase6-three-arm-report/report.md`
 - **Started:** 2026-08-07
 - **Last touched:** 2026-08-07 by Claude Fable 5
 

@@ -1,5 +1,12 @@
 # Phase 6 evidence pin register
 
+> **Closure superseded 2026-08-20.** Decision 0045 closed R15, the conservative-intersection
+> headline, and the production campaign as **not computed** — never as satisfied — and the
+> amended Phase 6 gate was discharged by the flagless `gate6` (exit 0, 13/13 criteria;
+> `runner/src/gate6-aggregate.ts`), an artifact-derived gate of exactly the shape the
+> 2026-08-01 correction below called for. Phase 6 is complete; the R15 "open blocker"
+> language below is the historical state as of its own dates and is preserved as written.
+
 **Status:** audit output, 2026-07-29. HEAD `5af860e`, tracked tree clean at the time of writing.
 All three published artifacts verified at rest against `research/phase6-sweep-report.md:56-60`:
 `points.json` 0ed613bce61e4482…, `report.json` 71ae094c38778b0d…, `diagram.svg` 40458703061af5b5…

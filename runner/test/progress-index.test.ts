@@ -47,6 +47,9 @@ const CONTRADICTORY_STATE_PATTERNS = [
   /Phase 9 (?:has|contains|uses) [1-9][0-9]* held[- ]out rows?\b/iu,
   /Phase 9 (?:may|can|will) (?:use|run on)\b.*\bWindows Phase 6\b/iu,
   /Phase 9 (?:may|can|will) score\b.*\bbefore S0B\b/iu,
+  /Phase 6 (?:is|remains) (?:active|incomplete|pending)\b/iu,
+  /ladder is executing\b/iu,
+  /pending ladder verdict\b/iu,
 ];
 const ARCHIVED_BODY_LF_BYTES = 190_074;
 const ARCHIVED_BODY_LF_SHA256 = "9f7ee2ad0a7773740b8aff111b16aad236fb9555f7ae0cd861714681103b4a9d";
@@ -94,7 +97,7 @@ function currentIndexErrors(text: string): string[] {
     "All 51 Phase 8B records remain development evidence",
     "Phase 9 cannot grant a quantitative-validation label",
     "Phase 6's Windows evidence",
-    "host, processes, artifacts, and unpublished verdict remain isolated",
+    "host, processes, artifacts, and then-unpublished verdict remained isolated",
     "CAK 3/90, M1 54/90",
     "M1_NO_DIP_ABLATION",
     "cannot establish physical SDAK causality or necessity",

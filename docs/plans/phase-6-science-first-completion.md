@@ -1,7 +1,8 @@
 # Plan — Phase 6 science-first gate completion
 
 - **Phase:** Phase 6 — Validation against the Nakaya diagram
-- **Status:** in progress
+- **Status:** COMPLETE 2026-08-20 — `gate6` exit 0 discharged the decision-0045-amended Done
+  when; see the Completion record below
 - **Started:** 2026-08-01
 - **Last touched:** 2026-08-10 by OpenAI Codex (current authority summary reconciled)
 
@@ -663,6 +664,51 @@ never as satisfied, and checking them would misstate history. No Phase 6 label w
 the phase closes with zero quantitative-validation claims. The gate unit's non-author review
 and the exact `npm test` run that gated the closure push are recorded in the review record
 appended below and in PROGRESS.
+
+## Gate unit review record (post-execution, 2026-08-20)
+
+**Engagement.** The WP8 gate unit's one proportionate non-author review under decision 0042
+(adversarial, per decision 0049's phase-gate tier). Provenance (Rule 10): nine independent
+Claude Fable 5 (`claude-fable-5`) agent contexts orchestrated from the authoring session but
+sharing no conversation state with it — four reviewers (adversarial code review with executed
+novel mutations; a firewalled independent re-execution of every criterion from the obligations
+documents; a full-number accuracy audit of the narrative; a repo-wide reconciliation sweep)
+plus adversarial verification of every claimed blocker. Different-model status is NOT
+established (the same limitation every prior unit review recorded).
+
+**Confirmed blockers, all remediated same-session.** (1) The gate was fail-open to additive
+contradictions in manifest-pinned prose: the reviewer EXECUTED an end-to-end escape —
+a merged-tally "quantitatively validating" sentence committed into the narrative with a
+self-consistently refreshed manifest pin passed every criterion. Fix: a code-frozen identity
+register (`GATE6_FROZEN_EVIDENCE`) now pins the exact bytes of all 13 closure-evidence files
+in gate source, so any edit requires a gate code change; the executed attack is a suite-pinned
+negative control (`NC-ADDITIVE-CONTRADICTION`). (2–5) Four stale-status documents contradicted
+the completion: PROGRESS's "active Phase 6 authority" line, this plan's own status header,
+README's project-status list ("Phase 6: active", "ladder is executing"), and the WP2 ladder
+plan's pre-execution FROZEN header — all reconciled, and the progress-index guard gained
+Phase 6 contradiction patterns so the stale forms can never return silently.
+
+**Concerns adopted.** Manifest criterion upgraded from a count floor to the exact
+26-path set (executed entry-swap escape now a control, `NC-MANIFEST-ENTRY-SWAP`); row-honesty
+made bidirectional (an excluded score on a valid run is a defect; executed laundering escape
+now `NC-EXCLUDED-LAUNDERING`); arm 2's gated values hash now verified like arms 1 and 3
+(`NC-ARM2-PROVENANCE-FORGE`); the pin register, Phase 6 conclusion record, arm-3 and
+reconnaissance plan headers, and the Phase 9 bullet's "unpublished verdict" phrasing all
+carry dated corrections. The narrative-vs-arm-tally cross-check concern is closed by the
+frozen-identity register (the narrative can no longer drift from the reports it quotes,
+because neither can change without a gate code change).
+
+**Accepted limitations, recorded.** The charter's decision-0046/0050 sequencing clauses still
+say "while Phase 6 remains active" — they are permission grants that are now moot, and
+retiring them is charter-amendment territory for the maker's next ADR, not a WP8 edit.
+Deferred hardening (non-blocking, recorded): the gut-check Designer-unavailable reason string
+(`app/src/spike-gg-realism.ts`) and the two social-exploration rationale lines still cite an
+active Phase 6; their functional conclusions remain correct. The independent re-execution and
+narrative-accuracy reviewers returned zero blockers: every recomputed tally, per-regime count,
+bistable figure, ladder number, and hash abbreviation verified against the artifact bytes.
+
+**Verdict: CONFIRMED after remediation — 0 open blockers.** The gate's negative-control suite
+grew 14 → 18, all executed. The closure push is gated on exact `npm.cmd test` exit 0.
 
 ## Evidence topology
 

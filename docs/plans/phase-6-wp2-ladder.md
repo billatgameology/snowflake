@@ -1,7 +1,9 @@
 # Plan — Phase 6 WP2 numerical-control ladder (decision-0045 bounded)
 
 - **Phase:** Phase 6 — Validation against the Nakaya diagram
-- **Status:** FROZEN 2026-08-08 pending its pre-execution non-author review; no rung runs first
+- **Status:** COMPLETE 2026-08-20 — frozen 2026-08-08, reviewed pre-execution, executed 80/80
+  (2026-08-08 → 2026-08-20), verdict NO-PASS (criterion) published at
+  `evidence/phase6-wp2-ladder/`, post-execution review CONFIRMED with 0 blockers
 - **Started:** 2026-08-07
 - **Last touched:** 2026-08-08 by Claude Fable 5
 

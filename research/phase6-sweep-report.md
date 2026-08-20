@@ -1,5 +1,7 @@
 # Phase 6 — the historical CAK measured sweep (arm 1 of 2)
 
+> **Phase 6 completed 2026-08-20.** The amended gate (decision 0045) was discharged by the flagless gate6 at exit 0; the WP5 preview-GPU cohort moved to Phase 7 by decision 0044. Statements of an active plan or open gate below are historical as of their own dates. See docs/PROGRESS.md and evidence/phase6-three-arm-report/report.md.
+
 > **ARM 2 HAS RUN. Read [phase6-two-arm-report.md](phase6-two-arm-report.md) instead, or first.**
 > This document is arm 1 alone and was written when arm 2 was still hypothetical; its "the Phase 6
 > conclusion is deliberately not drawn here" is now discharged there. Everything measured below

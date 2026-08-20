@@ -1,5 +1,15 @@
 # Phase 6 — conclusion
 
+> ## PHASE 6 COMPLETED 2026-08-20
+>
+> The amended gate (decision 0045) was discharged by the flagless `gate6` at exit 0. The
+> scientific finding is negative and published at measured-only grade: no arm reproduces
+> Nakaya's column regime (0/24, 0/12, 0/12 per arm), the numerical-control ladder published
+> **NO-PASS (criterion)**, and no evidence label was upgraded. The authoritative closure
+> narrative is `evidence/phase6-three-arm-report/report.md`; the live index is
+> `docs/PROGRESS.md`. The 2026-08-01 correction below is preserved as written; its
+> "ACTIVE AND INCOMPLETE" status was true on its date and is superseded by this banner.
+
 > ## ⚠ STATUS CORRECTED BY EXTERNAL REVIEW (2026-08-01)
 >
 > **The historical measured-only Nakaya comparison failed. THE PHASE 6 SCIENTIFIC GATE IS ACTIVE

@@ -29,7 +29,7 @@ import {
   PHASE6_PROTOCOL_FREEZE_COMMIT,
   PHASE6_PROTOCOL_SHA256_AT_ARM1_EVIDENCE,
 } from "./phase6-protocol.ts";
-import { PHASE6_ARM2_FREEZE_COMMIT } from "./phase6-arm2-protocol.ts";
+import { PHASE6_ARM2_FREEZE_COMMIT, PHASE6_ARM2_VALUES_SHA256 } from "./phase6-arm2-protocol.ts";
 import { PHASE6_ARM3_FREEZE_COMMIT, PHASE6_ARM3_VALUES_SHA256 } from "./phase6-arm3-protocol.ts";
 
 export const GATE6_REPORT_PATH = "out/phase6/gate6-report.json";
@@ -46,6 +46,62 @@ const LADDER_SANCTIONED_HEADS = [
   "3827b7763e870da6a81f8dc3430cfc4be5ab3ec6",
 ] as const;
 const CLOSURE_LABEL = "not computed by decision 0045";
+/**
+ * The exact phase6-* manifest path set: an entry swap (delete one, add a dummy) must fail, not
+ * merely a count change (gate unit review 2026-08-20, concern 2).
+ */
+const REQUIRED_MANIFEST_PATHS = [
+  "phase6-columns-ladder/ladder-BACKUP-20260731-162007.json",
+  "phase6-columns-ladder/ladder.json",
+  "phase6-crossplatform/arm64-libm-fingerprint.txt",
+  "phase6-crossplatform/x64-libm-fingerprint.txt",
+  "phase6-domain-escalation/escalation-n80.json",
+  "phase6-domain-spot-check/spot-check.json",
+  "phase6-host/observation-20260803T033028Z.json",
+  "phase6-size-strata/strata.json",
+  "phase6-sweep-6995868-cak-a1-superseded/diagram.svg",
+  "phase6-sweep-6995868-cak-a1-superseded/points.json",
+  "phase6-sweep-6995868-cak-a1-superseded/report.json",
+  "phase6-sweep-arm2-STRANDED-8c781b1/points.json",
+  "phase6-sweep-arm2/diagram.svg",
+  "phase6-sweep-arm2/points.json",
+  "phase6-sweep-arm2/regeneration.json",
+  "phase6-sweep-arm2/report.json",
+  "phase6-sweep-arm3/diagram.svg",
+  "phase6-sweep-arm3/points.json",
+  "phase6-sweep-arm3/report.json",
+  "phase6-sweep/diagram.svg",
+  "phase6-sweep/points.json",
+  "phase6-sweep/report.json",
+  "phase6-three-arm-report/report.md",
+  "phase6-throughput-probe/probe.json",
+  "phase6-wp2-ladder/report.json",
+  "phase6-wp2-ladder/rows.jsonl",
+] as const;
+/**
+ * Code-frozen byte identities for every closure-evidence file whose CONTENT the gate reasons
+ * about. The gate unit review (2026-08-20, blocker 1) executed an end-to-end escape: an
+ * additive contradiction committed into the manifest-pinned narrative with a self-consistently
+ * refreshed pin passed every criterion, because prose checks are presence-only and the pin was
+ * attacker-refreshable. Freezing the hash in gate SOURCE means any narrative or arm-artifact
+ * edit — legitimate or not — requires a gate code change, which is exactly the auditability the
+ * closure demands: this evidence is complete and immutable.
+ */
+const GATE6_FROZEN_EVIDENCE: Readonly<Record<string, string>> = {
+  "phase6-size-strata/strata.json": STRATA_SHA256,
+  "phase6-sweep/points.json": "0ed613bce61e44829f722e069a818e0da4981ecd34829b0b49eaba15e11cf89a",
+  "phase6-sweep/report.json": "71ae094c38778b0d2c62f3952e4ca641c0bc8f5d91b350248c5c78800830f2a9",
+  "phase6-sweep/diagram.svg": "40458703061af5b54d6629484aa84762fb995a15f5443904c3462d2ff5939234",
+  "phase6-sweep-arm2/points.json": "b3fb4616d6413520f6505bfb6e1e068544622fee76bbca743f2aa01a7549a520",
+  "phase6-sweep-arm2/report.json": "8d02741da298781b0675e1b75dc0b26ccb46a54e65d831ae9117f7f6633a9d42",
+  "phase6-sweep-arm2/diagram.svg": "9de7a43ac024f11684ce5cd37a3abe86f0ba9116e2a348630030c9f458dbc7a2",
+  "phase6-sweep-arm3/points.json": "08ec59ee47965abab414d339f1c39ce53e5b0dbf01aa6859185a087b243b9d73",
+  "phase6-sweep-arm3/report.json": "32d18a1dc3b3b30d3b868b91125d2aa85e18b7e03319d9e9b60b66565c57740e",
+  "phase6-sweep-arm3/diagram.svg": "bf229f942b043dc58b9bcca079516694fb1d824b2888c6a6191e09b372468709",
+  "phase6-three-arm-report/report.md": "8834cf3745e6eaa642f2a963cfc76cf00a70ba1bc6071d4d2b81e10b29cca8cf",
+  "phase6-wp2-ladder/report.json": "fd20f7018dbe2e4a09634c076ff274a017dafe6600321a983836bb8ab1b1ebb7",
+  "phase6-wp2-ladder/rows.jsonl": LADDER_ROWS_SHA256,
+};
 const NARRATIVE_REQUIRED_SENTENCES = [
   "The three arms are reported separately throughout; no-SDAK and SDAK results are never merged.",
   "not computed by\n  decision 0045",
@@ -286,6 +342,16 @@ function recomputeArmTallies(capture: Gate6ArmCapture, arm: Phase6Arm) {
         defects.push(`row ${index}: stored class ${s.modelClass} does not re-derive from aspectRatio ${s.result.aspectRatio}`);
       if ((s.result.domainContact || s.result.largestExtent < 21 || !s.result.allConverged) && s.score !== "excluded")
         defects.push(`row ${index}: invalid run (contact/extent/convergence) carries score ${s.score}`);
+      // Bidirectional (review concern 4): an excluded score on a VALID run would launder a
+      // scored disagreement out of the denominator.
+      if (
+        s.score === "excluded" &&
+        !s.result.domainContact &&
+        s.result.largestExtent >= 21 &&
+        s.result.allConverged &&
+        phase6ClassifyHabit(s.result.aspectRatio) !== "invalid"
+      )
+        defects.push(`row ${index}: valid run carries score excluded`);
       if (s.inHeadlineScope !== arm.inHeadlineScope(s.point.tempC))
         defects.push(`row ${index}: stored inHeadlineScope disagrees with the registered scope rule`);
       if (s.score !== "excluded" && s.score !== arm.scoreHabit(s.point.tempC, s.modelClass as never))
@@ -326,10 +392,14 @@ export function evaluateGate6(capture: Gate6EvidenceCapture): readonly Gate6Crit
     "G6-FREEZE-ANCESTRY",
     capture.freezeAncestryOk.map((entry) => [`freeze commit ${entry.commit.slice(0, 7)} must be an ancestor of HEAD`, entry.ancestor] as const),
   );
+  const presentPaths = capture.manifestPhase6.map((entry) => entry.path).sort();
   simple(
     "G6-MANIFEST-PHASE6",
     [
-      ["at least 26 phase6-* manifest entries", capture.manifestPhase6.length >= 26],
+      [
+        "phase6-* manifest paths are exactly the required set",
+        JSON.stringify(presentPaths) === JSON.stringify([...REQUIRED_MANIFEST_PATHS]),
+      ],
       ...capture.manifestPhase6.map(
         (entry) =>
           [
@@ -337,6 +407,19 @@ export function evaluateGate6(capture: Gate6EvidenceCapture): readonly Gate6Crit
             entry.tracked && entry.actualBytes === entry.pinnedBytes && entry.actualSha256 === entry.pinnedSha256,
           ] as const,
       ),
+      ...capture.manifestPhase6
+        .filter((entry) => entry.path in GATE6_FROZEN_EVIDENCE)
+        .map(
+          (entry) =>
+            [
+              `${entry.path}: bytes match the gate's code-frozen identity`,
+              entry.actualSha256 === GATE6_FROZEN_EVIDENCE[entry.path],
+            ] as const,
+        ),
+      [
+        "every code-frozen identity is present in the manifest capture",
+        Object.keys(GATE6_FROZEN_EVIDENCE).every((path) => presentPaths.includes(path)),
+      ],
     ],
   );
 
@@ -359,6 +442,7 @@ export function evaluateGate6(capture: Gate6EvidenceCapture): readonly Gate6Crit
     armCriterion("G6-ARM2-M1", capture.arms.arm2, PHASE6_ARM2, cdFields, [
       ["arm-2 report names its arm", capture.arms.arm2.report.arm === "arm2-sdak-m1"],
       ["arm-2 report names paramSet M1", capture.arms.arm2.report.paramSet === "M1"],
+      ["arm-2 report carries the gated values hash", capture.arms.arm2.report.valuesSha256 === PHASE6_ARM2_VALUES_SHA256],
     ]),
     armCriterion("G6-ARM3-ABLATION", capture.arms.arm3, PHASE6_ARM3, cdFields, [
       ["arm-3 report names its arm", capture.arms.arm3.report.arm === "arm3-no-dip-ablation"],

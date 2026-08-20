@@ -138,6 +138,63 @@ const CONTROLS: readonly Gate6NegativeControl[] = [
     witness: (c) => c.supersededCakA1PointsSha256 === c.liveArm1PointsSha256,
   },
   {
+    // Review blocker 1 (2026-08-20): an additive contradiction committed into the narrative
+    // with a self-consistently refreshed manifest pin escaped the presence-only checks. The
+    // code-frozen identity now catches it: the refreshed pin cannot match the gate source.
+    id: "NC-ADDITIVE-CONTRADICTION",
+    attacks: "G6-MANIFEST-PHASE6",
+    mutate: (c) => {
+      c.narrative += "\nAcross all arms combined, agreement reaches 62/90, quantitatively validating Nakaya.\n";
+      const entry = c.manifestPhase6.find((e) => e.path === "phase6-three-arm-report/report.md");
+      if (entry === undefined) throw new Error("narrative manifest entry absent");
+      (entry as { actualSha256: string; pinnedSha256: string }).actualSha256 = "2".repeat(64);
+      (entry as { actualSha256: string; pinnedSha256: string }).pinnedSha256 = "2".repeat(64);
+      c.narrativeSha256Pinned = true;
+    },
+    witness: (c) => c.narrative.length,
+  },
+  {
+    // Review concern 2: entry swap kept the count at the floor and escaped; the exact
+    // required path set now refuses it.
+    id: "NC-MANIFEST-ENTRY-SWAP",
+    attacks: "G6-MANIFEST-PHASE6",
+    mutate: (c) => {
+      const entries = c.manifestPhase6 as unknown as {
+        path: string; pinnedBytes: number; pinnedSha256: string; actualBytes: number; actualSha256: string; tracked: boolean;
+      }[];
+      const index = entries.findIndex((e) => e.path === "phase6-sweep-arm2/report.json");
+      entries.splice(index, 1, {
+        path: "phase6-decoy/decoy.json", pinnedBytes: 2, pinnedSha256: "3".repeat(64),
+        actualBytes: 2, actualSha256: "3".repeat(64), tracked: true,
+      });
+    },
+    witness: (c) => c.manifestPhase6.map((e) => e.path).join(","),
+  },
+  {
+    // Review concern 4: a valid, converged, in-scope disagree row laundered to "excluded"
+    // (with tallies co-edited) escaped the one-directional honesty check.
+    id: "NC-EXCLUDED-LAUNDERING",
+    attacks: "G6-ARM1-CAK",
+    mutate: (c) => {
+      const row = c.arms.arm1.points.find((p) => p.inHeadlineScope && p.score === "disagree");
+      if (row === undefined) throw new Error("no in-scope disagreeing arm-1 row");
+      (row as { score: string }).score = "excluded";
+      const report = c.arms.arm1.report as { headlineTotal: number; excludedCount: number };
+      report.headlineTotal -= 1;
+      report.excludedCount += 1;
+    },
+    witness: (c) => c.arms.arm1.points.filter((p) => p.score === "excluded").length,
+  },
+  {
+    // Review concern 5: arm 2 was the only arm whose gated values hash went unverified.
+    id: "NC-ARM2-PROVENANCE-FORGE",
+    attacks: "G6-ARM2-M1",
+    mutate: (c) => {
+      (c.arms.arm2.report as Record<string, unknown>).valuesSha256 = "4".repeat(64);
+    },
+    witness: (c) => c.arms.arm2.report.valuesSha256,
+  },
+  {
     id: "NC-DIRTY-TREE",
     attacks: "G6-TREE-CLEAN",
     mutate: (c) => {

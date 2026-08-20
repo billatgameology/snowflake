@@ -67,7 +67,7 @@ index, a plan, ADR, or audit links to historical detail.
   [post-review repair run](reviews/phase9-external-review-repairs-2026-08-13.md) passed 116/116 and
   1,924. Phase 9 cannot grant a quantitative-validation label or earn Phase 6/7 credit. The Mac
   lane ran only source/scalar/planar work; Phase 6's Windows evidence
-  host, processes, artifacts, and unpublished verdict remain isolated. The
+  host, processes, artifacts, and then-unpublished verdict remained isolated throughout. The
   [maker guide](phase9-model-development-guide.md) explains the data, methods, results, and next evidence.
 - **The Phase 9 knowledge baseline is COMPLETE (research-only, 2026-08-12).** Its
   [report](../research/phase9-knowledge-sources.md), [guide](phase9-knowledge-guide.md), and
@@ -79,7 +79,7 @@ index, a plan, ADR, or audit links to historical detail.
   load-bearing inputs, and full named controls for gates or strong public claims. No recursive
   reviews; stop when another check cannot change the decision. No evidence or criteria changed.
 - The maker's 2026-08-03 direction is recorded verbatim in the
-  [active plan](plans/phase-6-science-first-completion.md) and enacted by accepted decisions
+  [completed Phase 6 plan](plans/phase-6-science-first-completion.md) and enacted by accepted decisions
   [0042](decisions/0042-bound-phase6-evidence-integrity-scope.md),
   [0043](decisions/0043-defer-incompatible-heldout-families.md), and
   [0044](decisions/0044-defer-phase6-preview-gpu-cohort.md) plus charter v1.21. The threat model is
@@ -180,7 +180,7 @@ and every superseded attempt live in the linked plans and historical progress sn
 
 ## Active plan
 
-[phase-6-science-first-completion.md](plans/phase-6-science-first-completion.md) is the active Phase 6 authority.
+[phase-6-science-first-completion.md](plans/phase-6-science-first-completion.md) is the completed Phase 6 record (see its Completion record).
 [phase-8-measurement-corpus.md](plans/phase-8-measurement-corpus.md) and
 [phase-8-what-is-real.md](plans/phase-8-what-is-real.md) are completed records; the
 [Phase 9 execution plan](plans/phase-9-execution.md) is complete and its

@@ -71,7 +71,7 @@ process APIs.
 | `solver-cpu/` | Float64 TypeScript CPU reference implementations of both surface models. |
 | `runner/` | Headless Node command-line interface, gate enforcement, file output, and PGM diagnostic generation. |
 | `app/` | Phase 3–4 Three.js instrument, browser-worker CPU solver, scientific overlays, timeline UI, and deterministic visual harness. |
-| `solver-gpu/` | Phase 5 WebGPU compute implementation and CPU-comparison machinery; Phase 6 v6/M1 support remains open. |
+| `solver-gpu/` | Phase 5 WebGPU compute implementation and CPU-comparison machinery; v6/M1 GPU support is Phase 7 property (decision 0044). |
 | `spike/` | Frozen Phase 1 2D UX prototype. It tested the editable journey/timeline idea and must not become the production architecture. |
 | `scripts/` | Repository linting plus research-PDF bundle generation and integrity verification tools. |
 | `research/` | Source indexes and local scientific source material. Large third-party media is intentionally ignored by Git; tracked indexes preserve URLs and hashes. |
@@ -216,14 +216,16 @@ without the artifact is not a preserved result.
 - Phase 2a G-G machinery and CPU solver gate: complete.
 - Phase 2b temperature-dependent surface model and registered habit gate: complete.
 - Phases 3, 4, and 5: complete.
-- Phase 6: active and incomplete. Its three measured-only arms are published; the registered
-  numerical-control ladder is executing, while the R15 headline/campaign are closed at
-  measured-only grade by decision 0045. Held-out validation and GPU parity are assigned outside
-  this gate to Phase 7.
-- Phase 7: not started, but independently eligible under decision 0046; neither Phase 6 nor Phase 8
-  gates it. Its own committed plan and isolated worktree are required before work begins.
-- Phase 8: active alongside Phase 6 under decision 0046's isolated source-reconciliation boundary;
-  S0 extraction has not started. Phase 9 and Phase 10 remain proposed and uncharted.
+- Phase 6: complete (2026-08-20). The flagless `gate6` re-derived every decision-0045-amended
+  obligation from committed evidence and exited 0. The scientific finding is negative and
+  reported as such: no arm reproduces Nakaya's column regime, the numerical-control ladder
+  published NO-PASS, and every result stays at measured-only grade — the R15
+  headline/campaign closed as not computed by decision 0045. Held-out validation and GPU
+  parity are assigned outside this gate to Phase 7.
+- Phase 7: not started, but independently eligible under decision 0046; its own committed plan
+  and isolated worktree are required before work begins.
+- Phase 8: complete (Phase 8A 2026-08-10; Phase 8B 2026-08-12). Phase 9: complete
+  (development-only, 2026-08-13). Phase 10 remains proposed and uncharted.
 
 For the live status, trust the compact `docs/PROGRESS.md` index over this summary. Its linked
 pre-compaction archive is historical, not current authority. For intended behavior, the authority
