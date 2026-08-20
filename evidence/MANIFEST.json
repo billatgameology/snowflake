@@ -3,8 +3,8 @@
  "movedFrom": "out/ (gitignored), plus the byte-identical tracked arm64 fingerprint formerly under docs/",
  "movedTo": "evidence/ (tracked)",
  "note": "Historical sweep digests were computed before their move and re-verified afterward. The arm64 fingerprint preserves the exact former docs/ Git blob (18398 bytes, SHA-256 d6686f8e...). The x64 fingerprint is the complete 2026-08-01 lightweight fixture re-execution backing the exact per-entry comparison; it reproduces registered digest 2a9f64b3. These are preserved claim-backing bytes, not regenerated production sweeps.",
- "fileCount": 347,
- "totalBytes": 4177119,
+ "fileCount": 349,
+ "totalBytes": 4294855,
  "files": {
   "phase6-crossplatform/arm64-libm-fingerprint.txt": {
    "bytes": 18398,
@@ -482,9 +482,13 @@
    "bytes": 114408,
    "sha256": "f79cfd5268524d9017439e7be3abfe8b1e5df13f4e909c5d62569b8cc59ed5f7"
   },
-  "gutcheck-gg-realism/README.md": {
-   "bytes": 3014,
-   "sha256": "68e39748815a102b00ab055c8adb36e9c7608ea9d21daab7c211baf93d6c49c4"
+  "phase6-wp2-ladder/report.json": {
+   "bytes": 43863,
+   "sha256": "fd20f7018dbe2e4a09634c076ff274a017dafe6600321a983836bb8ab1b1ebb7"
+  },
+  "phase6-wp2-ladder/rows.jsonl": {
+   "bytes": 73873,
+   "sha256": "c4fa70f7d8351f998f4800ff580ddaad0eb09fd2e2f2df7f606ca717e789cd14"
   },
   "gutcheck-gg-realism/dialin/dialin-b1p3-1200.json": {
    "bytes": 635,
@@ -1021,6 +1025,10 @@
   "gutcheck-gg-realism/large-artifact-inventory.json": {
    "bytes": 358626,
    "sha256": "9888b9f69cdb1139bb9ff179c7643610e8a4cc62c6fb9c2840b860ce42320edc"
+  },
+  "gutcheck-gg-realism/README.md": {
+   "bytes": 3014,
+   "sha256": "68e39748815a102b00ab055c8adb36e9c7608ea9d21daab7c211baf93d6c49c4"
   },
   "gutcheck-gg-realism/specs/bentley785.json": {
    "bytes": 672,

@@ -151,7 +151,7 @@ index, a plan, ADR, or audit links to historical detail.
   frozen tree exited 0: Rule 7 clean over 436 files, both TypeScript projects, Vitest 82 files /
   1,454 tests in 628.68 s. Whether WP2 uses Z = 2 or Z = 1 strata is a WP2/WP3 protocol
   decision.
-- **Last updated:** 2026-08-16 by OpenAI Codex; merge reconciled by Claude Fable 5
+- **Last updated:** 2026-08-20 by Claude Fable 5 (ladder verdict publication)
 
 ## Phase gates
 
@@ -167,7 +167,7 @@ and every superseded attempt live in the linked plans and historical progress sn
 | 3 | Complete, maker-asserted 2026-07-23 | `gate3` exit 0: depletion-ratio median `0.531454`, 90.2% below 1, radius 38, symmetry error 0. Repro: `node runner/src/main.ts gate3`. |
 | 4 | Complete 2026-07-18 | `gate4` at `70a2496`: 24/24 blocking G-G records and 12/12 diagnostic LK records executed; `gatePass=true`, `passBDiagnosticPass=false`. Repro: `node runner/src/main.ts gate4`. |
 | 5 | Complete, maker-asserted 2026-07-26 | Clean `c436df5`, observed Windows/Chromium/D3D12: 16/16 gate criteria, 560 bounded segments below 500 ms, zero device losses/errors/full-field display-frame reads, 16/16 negative controls rejected. Repro: `node runner/src/main.ts gate5-lane` and `node runner/src/main.ts gate5`. |
-| 6 | **Active and incomplete** | The three measured-only arms and WP1 strata are published. The budget-capped ladder is executing; its verdict and WP8 gate remain. Headline/R15/campaign closed at measured-only grade; held-out/GPU execution deferred with no Phase 6 credit. |
+| 6 | **Active and incomplete** | The three measured-only arms, WP1 strata, and the executed 80/80 ladder with its published **NO-PASS (criterion)** verdict are in `evidence/`. The WP2 non-author review and WP8 gate remain. Headline/R15/campaign closed at measured-only grade; held-out/GPU execution deferred with no Phase 6 credit. |
 | 7 | Not started; independently eligible | Charter v1.25 preserves Phase 7's independence but does not start it. A committed Phase 7 plan and isolated worktree are required; product, held-out validation, and v6 WGSL/preview-GPU parity remain its scope. |
 | 8 | **Complete (8A + 8B)** | The immutable 8A book remains 18 entries / 59,019 bytes / SHA-256 `47a75f3f…71ec`. The verified 8B successor is 51 development records, 252,134 native rows and 431 plot points; no row is held out. [Completed plan](plans/phase-8-measurement-corpus.md). |
 | 9 | **Complete (development-only)** | The all-no-pass branch closed: D-BT failed, M-F/M-K2 stayed mapping-dependent, controls/path-state/M-PK are unavailable or non-identifiable, and zero items promoted. Exact `TMPDIR=/private/tmp npm test` passed; no result grants validation credit. [Completed plan](plans/phase-9-execution.md). |
@@ -192,23 +192,33 @@ accepted WP3 protocol freeze, and an independently reviewed artifact-derived R15
 
 ## Next step
 
-### Current resume point — the ladder is EXECUTING; evaluate and close when it lands
+### Current resume point — ladder COMPLETE and NO-PASS published; WP2 review, then WP8
 
-The 80-row ladder (frozen plan + three-round pre-execution review, all in
-[phase-6-wp2-ladder.md](plans/phase-6-wp2-ladder.md)) is running unattended from the pinned
-worktree `G:\Code Files\snowflake-phase6-ladder` at operative head `3827b77` (three sanctioned
-heads `f59d187`/`aa81295`/`3827b77`; no wall caps — the maker directed no arbitrary time stops).
-Resume after any interruption from that worktree ONLY, never this checkout:
-`node app/scripts/phase6-wp2-ladder-run.mjs --concurrency 12` (recorded rows are skipped;
-in-flight rows re-run). When 80/80 rows are recorded: (1) run
-`node app/scripts/phase6-wp2-ladder-eval.mjs` on the complete artifact and publish rows +
-report under `evidence/phase6-wp2-ladder/` with manifest entries and the PROGRESS verdict
-record; (2) the WP2 unit's one non-author review (sub-unit A + Stage A closure + 0045 rescope
-+ ladder verdict, independently re-derived); (3) WP8: flagless gate over the amended
-obligations, the narrative three-arm report, negative controls, exact `npm test`, full
-reconciliation — Phase 6 closes. Do not resume education or V4/V4.x apparatus. Held-out or
-preview-GPU work may begin only as separately planned Phase 7 work in its own worktree; never run
-it from the Phase 6 lane or count it toward Phase 6.
+The 80-row ladder (frozen plan + three-round pre-execution review + execution scheduling
+record, all in [phase-6-wp2-ladder.md](plans/phase-6-wp2-ladder.md)) ran to completion
+2026-08-08 → 2026-08-20 from the pinned worktree at operative head `3827b77`. Quoted from
+[`evidence/phase6-wp2-ladder/report.json`](../evidence/phase6-wp2-ladder/report.json)
+(43,863 bytes, SHA-256 `fd20f701…ebb7`): **overall NO-PASS, class `criterion`, both
+spacings** — every one of the 80 rows stopped `size-target` at its target extent and every
+habit class agreed, but attached-cell counts exceeded the registered 0.5% agreement at too
+many check points (dx 0.7: domain 11/16, auxiliary 15/32; dx 0.35: domain 10/16, auxiliary
+15/32; seed-perturbation deltas reach 9.285%). Infrastructure was clean: 80/80 expected rows,
+0 missing/unexpected/defects, exactly the three sanctioned heads
+`f59d187`/`aa81295`/`3827b77`. The bound rows artifact
+[`rows.jsonl`](../evidence/phase6-wp2-ladder/rows.jsonl) is 73,873 bytes, SHA-256
+`c4fa70f7…8d14` (echoed inside the report). Scope per the report's verbatim statement: floor
+sizes at the four registered check points only; the S2-ceiling stratum's numerics are
+UNVERIFIED; a pass would have authorized no production (decision 0045); the ablation arm
+inherits M1's rung verdict as an untested transfer assumption. No-pass is the registered
+first-class outcome: the numerics are published as NOT converged at these resolutions, and
+the attached-count observable carries multi-percent seed sensitivity.
+
+Remaining: (1) the WP2 unit's one non-author review (sub-unit A + Stage A closure + 0045
+rescope + ladder verdict, independently re-derived from the published bytes); (2) WP8:
+flagless gate over the amended obligations, the narrative three-arm report, negative
+controls, exact `npm test`, full reconciliation — Phase 6 closes. Do not resume education or
+V4/V4.x apparatus. Held-out or preview-GPU work may begin only as separately planned Phase 7
+work in its own worktree; never run it from the Phase 6 lane or count it toward Phase 6.
 
 ### Gutcheck/NAS relocation — landed and approved (2026-08-14)
 
