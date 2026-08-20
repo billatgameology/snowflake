@@ -192,33 +192,42 @@ accepted WP3 protocol freeze, and an independently reviewed artifact-derived R15
 
 ## Next step
 
-### Current resume point — ladder COMPLETE and NO-PASS published; WP2 review, then WP8
+### Current resume point — ladder NO-PASS published and review-CONFIRMED; WP8 closes Phase 6
 
 The 80-row ladder (frozen plan + three-round pre-execution review + execution scheduling
-record, all in [phase-6-wp2-ladder.md](plans/phase-6-wp2-ladder.md)) ran to completion
-2026-08-08 → 2026-08-20 from the pinned worktree at operative head `3827b77`. Quoted from
+record + post-execution review record, all in
+[phase-6-wp2-ladder.md](plans/phase-6-wp2-ladder.md)) ran to completion 2026-08-08 →
+2026-08-20 from the pinned worktree at operative head `3827b77`. Quoted from
 [`evidence/phase6-wp2-ladder/report.json`](../evidence/phase6-wp2-ladder/report.json)
 (43,863 bytes, SHA-256 `fd20f701…ebb7`): **overall NO-PASS, class `criterion`, both
-spacings** — every one of the 80 rows stopped `size-target` at its target extent and every
-habit class agreed, but attached-cell counts exceeded the registered 0.5% agreement at too
-many check points (dx 0.7: domain 11/16, auxiliary 15/32; dx 0.35: domain 10/16, auxiliary
-15/32; seed-perturbation deltas reach 9.285%). Infrastructure was clean: 80/80 expected rows,
-0 missing/unexpected/defects, exactly the three sanctioned heads
+spacings** — all 80 rows stopped `size-target` (coarse rows exactly at extent 27; every
+0.35 µm row at extent 55, the first reachable extent ≥ the mapped target 54 on the
+odd-extent lattice, uniform on both sides of every comparison) and every habit class agreed,
+but attached-cell counts exceeded the registered 0.5% agreement at 5/16 coarse-domain,
+6/16 fine-domain, and 17/32 auxiliary check points (passing: dx 0.7 domain 11/16, dx 0.35
+domain 10/16, auxiliary 15/32; seed-perturbation deltas reach 9.285%). Infrastructure was
+clean: 80/80 expected rows, 0 missing/unexpected/defects, exactly the three sanctioned heads
 `f59d187`/`aa81295`/`3827b77`. The bound rows artifact
 [`rows.jsonl`](../evidence/phase6-wp2-ladder/rows.jsonl) is 73,873 bytes, SHA-256
-`c4fa70f7…8d14` (echoed inside the report). Scope per the report's verbatim statement: floor
+`c4fa70f7…cd14` (echoed inside the report). Scope per the report's verbatim statement: floor
 sizes at the four registered check points only; the S2-ceiling stratum's numerics are
 UNVERIFIED; a pass would have authorized no production (decision 0045); the ablation arm
 inherits M1's rung verdict as an untested transfer assumption. No-pass is the registered
 first-class outcome: the numerics are published as NOT converged at these resolutions, and
 the attached-count observable carries multi-percent seed sensitivity.
 
-Remaining: (1) the WP2 unit's one non-author review (sub-unit A + Stage A closure + 0045
-rescope + ladder verdict, independently re-derived from the published bytes); (2) WP8:
-flagless gate over the amended obligations, the narrative three-arm report, negative
-controls, exact `npm test`, full reconciliation — Phase 6 closes. Do not resume education or
-V4/V4.x apparatus. Held-out or preview-GPU work may begin only as separately planned Phase 7
-work in its own worktree; never run it from the Phase 6 lane or count it toward Phase 6.
+The WP2 unit's non-author review is COMPLETE (2026-08-20, 0 blockers): the published verdict
+was independently re-derived from the plan and artifact bytes alone, firewalled from the
+author evaluator, with complete agreement on all 28 failing comparisons to three decimals;
+six named Rule 9 mutation controls all fired; the verifier is suite-pinned
+(`app/scripts/phase6-wp2-ladder-independent.mjs`). Findings and remediations are in
+[the plan](plans/phase-6-wp2-ladder.md)'s Review record.
+
+Remaining: WP8 — flagless gate over the amended obligations, the narrative three-arm report,
+negative controls, exact `npm test`, full reconciliation — Phase 6 closes. Do not resume
+education or V4/V4.x apparatus. Held-out or preview-GPU work may begin only as separately
+planned Phase 7 work in its own worktree; never run it from the Phase 6 lane or count it
+toward Phase 6.
 
 ### Gutcheck/NAS relocation — landed and approved (2026-08-14)
 

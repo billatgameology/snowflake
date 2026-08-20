@@ -175,6 +175,25 @@ is independently re-derived from the artifact bytes.
   progress (measured aggregate throughput roughly doubles from 4-way to 8+-way on this
   bandwidth-bound host). Scheduling only; no case's physics changes.
 
+- 2026-08-20 (post-execution review corrections, appended — the entries above are preserved
+  as written): the review's millisecond slot-chain reconstruction of the artifact found two
+  omissions in this record. (1) The 2026-08-09 account "the four N=96 rows in flight under
+  the old 10 h dispatcher finish or cap on their own" is contradicted by the artifact: the
+  aa81295-era re-runs of those four rows started 13:30:25Z, ~61 minutes before the earliest
+  possible 10 h self-cap of siblings launched 04:31:44Z, so the amendment relaunch discarded
+  roughly 27–29 h of aggregate in-flight compute unrecorded (only
+  `dom-0.35-n96@-13C-f0.15-M1` survived to record under the freeze head). (2) Slot-chain
+  accounting implies an unrecorded ~48 h aa-era attempt of `dom-0.35-n96@-27C-f0.15-M1`: the
+  slot freed at 08-10T08:16:29.902Z has no recorded backfill while every other slot-free
+  event backfills within 10 ms, and a row started then would hit the 48 h backstop at exactly
+  08-12T08:16:29.9Z — i.e. the backstop DID kill one legitimate in-flight N=96 row before the
+  2026-08-11 amendment removed it; the row's only recorded run is the first slot of the
+  08-12T21:48:07Z concurrency-12 batch (36.85 h, `size-target`). Neither affects any recorded
+  row's physics, the artifact's completeness, or the sanctioned head shape. Also recorded:
+  the wall values quoted in the 2026-08-08/-09 entries above (24,228.3 s; 24,699.5 s) are
+  dispatcher-log spans ~0.5 s above the rows' self-recorded `wallSeconds` (24,227.8;
+  24,699.0) — the artifact's numbers are authoritative.
+
 ## Out of scope
 
 - Any production-configuration selection or campaign authorization (decision 0045).
@@ -192,3 +211,57 @@ Rule 11. Append new entries as they occur.)
 (Both prior open questions were fixed in the 2026-08-08 freeze above: the stop mapping is the
 extent-span `size-target` machinery with its recorded reason, and the four check points are
 the registered `domain-budgets` spot-check points, unchanged, by the zero-freedom rule.)
+
+## Review record (post-execution, 2026-08-20)
+
+**Engagement.** The unit's one post-execution non-author review, discharging the "Done when"
+requirement that the published result be independently re-derived from the artifact bytes.
+Provenance (Rule 10): performed 2026-08-20 by six independent Claude Fable 5
+(`claude-fable-5`) agent contexts orchestrated from the authoring session but sharing no
+conversation state with it; different-model status is NOT established (same limitation the
+WP1 review recorded). Review inputs: the frozen plan, `evidence/phase6-wp2-ladder/`
+(`rows.jsonl` SHA-256 `c4fa70f7…cd14`, `report.json` `fd20f701…ebb7`), the strata freeze,
+decision 0045, and repository history at `c459933`.
+
+**Method and outcome.** (1) A firewalled reviewer — barred from the author evaluator, its
+tests, and the report — re-implemented the selection function from this plan plus the
+registered `phase6DomainSpotCheckPasses`/`phase6ClassifyHabit` operators and recomputed the
+verdict from `rows.jsonl`: **complete agreement** — overall no-pass, both spacings no-pass,
+the identical 28 distinct failing comparisons (5 coarse-domain, 6 fine-domain, 17 auxiliary)
+with every percentage matching to three decimals, pass counts 11/16, 10/16, 15/32, and the
+same three-head census. The convention that the coarse/base run is the 0.5% denominator was
+confirmed against the registered operator and shown not outcome-determining (0 of 64
+comparisons flip under the alternative). (2) Integrity: recomputed hashes match the report
+binding and MANIFEST pins; all 80 rows carry the frozen configuration; heads are exactly the
+sanctioned three with no heavy row at the freeze head and no row at `151d679`. (3) Documents:
+the strata hash, the four check points' pre-plan registration (`a1cb4bb`/ADR 0037,
+2026-07-31), decision-0045 obligations in the scope statement, the seed/extent mapping, and
+zero extrapolation/R15 references all verify. (4) Scheduling: the artifact's concurrency,
+head-era, and stop-reason shape matches this record; per-tier wall statistics published in
+the review transcript. (5) Rule 9: six named mutation controls (count +0.6% / −0.4% at the
+boundary, deleted row, unsanctioned head, `step-cap` stop, habit-class flip) each produced
+exactly the expected detection; the real evidence bytes were hash-verified untouched after
+the runs. **Verdict: CONFIRMED, 0 blockers.**
+
+**Findings adopted and remediated (same day).** (a) Rule 6 transcription defect in
+PROGRESS.md's abbreviated rows hash (`…8d14` → `…cd14`) — corrected. (b) Extent parity: all
+56 fine-spacing rows stop at extent 55, the first reachable extent ≥ the mapped target 54 on
+the odd-extent lattice (coarse rows hit 27 exactly); uniform on both sides of every
+comparison so the like-for-like property holds; PROGRESS wording corrected and the fact
+recorded here — the report's "to extent 54" scope phrasing describes the mapped target, and
+the artifact's `finalExtent` fields are authoritative. (c) Two scheduling-record omissions —
+corrected by the dated append above; the original entries are preserved as written.
+(d) Notes recorded without action: the report's singular `amendmentHead` field names the
+operative third head while `aa81295` appears in `distinctGitHeads` (the full sanctioned set
+is recoverable from the artifact); `rowsPath` names the ephemeral worktree path (the hash
+binding carries provenance); the spacing-sensitivity criterion is discharged implicitly by
+the published per-spacing rows rather than as a named report section; the guard value 0.65
+and step-cap are not echoed as row fields (verified indirectly). The reviewer's own notes
+contained one internal typo (seed18 breakdown 2/8 vs the correct 1/8), caught by the
+cross-comparison agent; no table or verdict was affected.
+
+**Suite pinning.** The reviewer's verifier is committed as
+`app/scripts/phase6-wp2-ladder-independent.mjs` (changes from the reviewed original: portable
+path resolution and an explicit rows-path argument only) with
+`runner/test/phase6-wp2-ladder-independent.test.ts` re-asserting the re-derived verdict,
+the report agreement, and four of the mutation controls on every suite run.
