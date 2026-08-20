@@ -478,7 +478,9 @@ producer-supplied pass field is trusted.
 - [ ] Use reconnaissance only to estimate feasibility and freeze candidate axes plus deterministic
   escalation rules. It cannot select or certify a production geometry, discharge domain/grid/time
   adequacy, or enter the gate result.
-- [ ] **Pre-register the deterministic numerical-control ladder.** After WP1 freezes exact
+- [x] (0045-amended form: docs/plans/phase-6-wp2-ladder.md, frozen 2026-08-08 after a
+  three-round pre-execution review) **Pre-register the deterministic numerical-control
+  ladder.** After WP1 freezes exact
   source-derived physical-size strata, commit and independently review the control protocol before
   any transferable row runs. Freeze the exact arms/points, rational spacing rungs, domain
   increments, timestep halvings, relaxation controls, physical-seed mappings and sensitivities,
@@ -486,7 +488,9 @@ producer-supplied pass field is trusted.
   set, binary64 schema, immutable execution provenance, and the deterministic function that selects
   one production configuration or returns no-pass. Reconnaissance may inform the candidate ladder
   but cannot satisfy it.
-- [ ] **Execute the registered numerical-control ladder.** At each physical size and spacing,
+- [x] (0045-amended form executed 2026-08-08 → 2026-08-20: 80/80 rows, budget-capped scope
+  per the frozen ladder plan) **Execute the registered numerical-control ladder.** At each
+  physical size and spacing,
   expand the far boundary until two successive registered increments pass; execute the whole
   204-point domain matrix for every arm/spacing/size unless an independently reviewed bound covers
   omissions; use at least three spacings plus ADR 0026's conditional fourth; halve the interface
@@ -494,7 +498,9 @@ producer-supplied pass field is trusted.
   Preserve every rung under `evidence/` and apply only the pre-registered numerical criteria and
   selection function. Morphology agreement may not choose a rung. If the ladder exhausts, publish
   that numerical blocker; any extension requires a new reviewed pre-registration.
-- [ ] **Publish the artifact-derived numerical-control result.** Independent recomputation derives
+- [x] (published 2026-08-20: evidence/phase6-wp2-ladder/, NO-PASS class criterion,
+  review-confirmed independent re-derivation, suite-pinned verifier) **Publish the
+  artifact-derived numerical-control result.** Independent recomputation derives
   either the exact selected spacing/domain/timestep/relaxation/seed configuration or no-pass from
   the registered bytes. These rows are numerical-control evidence only and are not recycled into
   R15 production morphology evidence.
@@ -615,20 +621,48 @@ configuration or no-pass → WP3 production binding → fresh R15 production exe
 
 ### WP8 — gate, publication, and handoff
 
-- [ ] Build one flagless Phase 6 gate whose preflight and evaluator re-derive every obligation from
+- [x] (2026-08-20: `runner/src/gate6-aggregate.ts`, `node runner/src/main.ts gate6`, exit 0 at
+  `44488ab`, 13/13 criteria; under decision 0045 the R15 conservative intersection is
+  re-derived as its closure label — not computed — never as a computed verdict) Build one
+  flagless Phase 6 gate whose preflight and evaluator re-derive every obligation from
   committed evidence: freeze identity, source-derived size strata, numerical controls, R15
   conservative intersection, all three separate float64 arms, diagrams, reports, evidence labels,
   and the decision-0043/0044 deferral records. It verifies the deferrals without pretending the
   deferred executions are gate evidence.
-- [ ] Execute all registered negative controls and prove each named mutation occurred independently
-  of the verifier it attacks.
-- [ ] Run exact `npm test`; no substitute command counts as the required local check.
-- [ ] Obtain the gate unit's one proportionate non-author review under decision 0042. It states
+- [x] (2026-08-20: 14 controls in `runner/test/gate6-aggregate.test.ts` covering all 13
+  criteria and the six registered names plus the 0045-converted closure-label swap; each
+  mutation is a plain-data edit on a cloned capture, executed and witnessed independently of
+  the evaluator) Execute all registered negative controls and prove each named mutation
+  occurred independently of the verifier it attacks.
+- [x] (2026-08-20, recorded in the completion record below) Run exact `npm test`; no
+  substitute command counts as the required local check.
+- [x] (2026-08-20, recorded in the completion record below) Obtain the gate unit's one
+  proportionate non-author review under decision 0042. It states
   model/context provenance, independently re-executed checks, explicit limits, and separates
   blockers from non-blocking hardening suggestions.
-- [ ] Reconcile the charter, ADRs, solver specs, plan, `docs/PROGRESS.md`, reports, and user-facing
+- [x] (2026-08-20: PROGRESS carries the completion record and gate-table row; the closure
+  labels and deferral language verify by gate criterion; education prose stays frozen as
+  post-Phase-6 maker-directed territory; HANDOFF untouched — no stop/restart was requested)
+  Reconcile the charter, ADRs, solver specs, plan, `docs/PROGRESS.md`, reports, and user-facing
   evidence labels. Reconcile `docs/HANDOFF.md` only if the maker requests a stop/restart handoff.
   Phase 6 changes to complete only if the artifact-derived gate exits zero.
+
+## Completion record (2026-08-20)
+
+Phase 6 changed to complete on `gate6`'s exit 0 (13/13 criteria at `44488ab`), per WP8's rule.
+The discharge is decision 0045's amended Done-when: frozen WP1 strata; the executed 80/80
+numerical-control ladder with its published, review-confirmed **NO-PASS (criterion)** verdict;
+the three measured-only arms (CAK 3/90; M1 54/78 arm scope, 54/90 common denominator;
+`M1_NO_DIP_ABLATION` 5/78, 5/90); the pinned three-arm narrative
+(`evidence/phase6-three-arm-report/report.md`) stating agreements, disagreements, numerical
+limits, and the accepted failure to reproduce the Nakaya diagram; the 0043/0044 deferral
+records verified as unexecuted Phase 7 property; and the closure labels everywhere the gate
+checks. The unchecked boxes remaining in WP2 (reconnaissance items), WP3, WP4, and WP6 above
+are intentionally unexecuted: decision 0045 closed those obligations as **not computed**,
+never as satisfied, and checking them would misstate history. No Phase 6 label was upgraded;
+the phase closes with zero quantitative-validation claims. The gate unit's non-author review
+and the exact `npm test` run that gated the closure push are recorded in the review record
+appended below and in PROGRESS.
 
 ## Evidence topology
 

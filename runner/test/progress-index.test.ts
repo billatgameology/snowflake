@@ -62,7 +62,9 @@ function countExactLine(text: string, heading: string): number {
 function currentIndexErrors(text: string): string[] {
   const errors: string[] = [];
   const required = [
-    "Phase 6 is ACTIVE AND INCOMPLETE",
+    "Phase 6 is COMPLETE (2026-08-20)",
+    "gate6` exit 0 at `44488ab",
+    "NO-PASS (criterion)",
     "Phase 8 is COMPLETE (Phase 8A 2026-08-10; Phase 8B 2026-08-12)",
     "47a75f3fcc499d74d36cd08eeaed7f4e839bf991deb179fa19ce809d57e171ec",
     "Phase 8B writes separate artifacts",
@@ -231,8 +233,8 @@ describe("compact progress index and byte-exact historical record", () => {
 
   it("rejects named current-index state-loss mutations", () => {
     const current = readFileSync(PROGRESS, "utf8");
-    expect(currentIndexErrors(current.replace("Phase 6 is ACTIVE AND INCOMPLETE", "Phase 6 is complete")))
-      .toContain("missing current-state phrase: Phase 6 is ACTIVE AND INCOMPLETE");
+    expect(currentIndexErrors(current.replace("Phase 6 is COMPLETE (2026-08-20)", "Phase 6 is ACTIVE AND INCOMPLETE")))
+      .toContain("missing current-state phrase: Phase 6 is COMPLETE (2026-08-20)");
     const phase8StatusMutation = current.replace(
       "Phase 8 is COMPLETE (Phase 8A 2026-08-10; Phase 8B 2026-08-12)",
       "Phase 8 is inactive",

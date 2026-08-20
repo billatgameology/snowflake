@@ -15,15 +15,21 @@ index, a plan, ADR, or audit links to historical detail.
 
 ## Current state
 
-- **Phase 6 is ACTIVE AND INCOMPLETE.** The maker accepts the historical failure to reproduce the
-  Nakaya diagram. Accepted decision
-  [0045](decisions/0045-bound-phase6-closure-to-a-compute-week.md) and charter v1.22 (2026-08-06)
-  bound the remaining work to a seven-wall-clock-day compute envelope: the numerical-control
-  ladder executes budget-capped (no-pass first-class; a pass authorizes no production), ADR
-  0026's conservative-intersection headline, R15's production path, and the full three-arm
-  campaign close at measured-only grade (stated as not computed by decision 0045, never as
-  satisfied), and a 204-point measured-only `M1_NO_DIP_ABLATION` sweep — arm-2-identical except
-  `paramSet` — completes the three-arm baseline inside the envelope.
+- **Phase 6 is COMPLETE (2026-08-20).** The maker accepts the recorded failure to reproduce the
+  Nakaya diagram as the phase's scientific finding. Decision
+  [0045](decisions/0045-bound-phase6-closure-to-a-compute-week.md) and charter v1.22 defined the
+  discharge and every element executed: the frozen WP1 strata; the three measured-only arms
+  (CAK 3/90; M1 54/78 arm scope, 54/90 common denominator; `M1_NO_DIP_ABLATION` 5/78, 5/90); the
+  80/80 numerical-control ladder with its published **NO-PASS (criterion)** verdict and
+  review-confirmed re-derivation; the pinned
+  [three-arm narrative](../evidence/phase6-three-arm-report/report.md) stating agreements,
+  disagreements, numerical limits, and the accepted failure; and the flagless `gate6`, which
+  re-derives all of it from committed evidence and exited 0 (13/13 criteria; repro:
+  `node runner/src/main.ts gate6`). ADR 0026's conservative-intersection headline, R15's
+  production path, and the full three-arm campaign closed at measured-only grade — stated as
+  not computed by decision 0045, never as satisfied. No Phase 6 label was upgraded; the phase
+  closes with zero quantitative-validation claims, and the 0043/0044 deferrals stay Phase 7
+  property with no Phase 6 credit.
 - **Phase 8 is COMPLETE (Phase 8A 2026-08-10; Phase 8B 2026-08-12).**
   Decision [0048](decisions/0048-focus-phase8b-on-phase9-ready-benchmarks.md) and charter v1.25
   preserve the completed [Phase 8A target book](plans/phase-8-what-is-real.md) byte-for-byte and
@@ -104,7 +110,7 @@ index, a plan, ADR, or audit links to historical detail.
   11/18 non-neutral rows, all plates; in that band the registered rule accepts either pure
   class, so any non-neutral row agrees by construction. Measured-only grade; the registered
   conservative-intersection headline is not computed (decision 0045); numerical adequacy is per
-  the pending ladder verdict. The matched M1-versus-ablation pair shows agreement collapsing
+  the published NO-PASS ladder verdict. The matched M1-versus-ablation pair shows agreement collapsing
   54/90 → 5/90 when only the two dip factors are replaced by one — an implementation-level
   contrast that cannot establish physical SDAK causality or necessity in nature. Points/diagram
   are manifested (244,610 / 30,634 bytes). The Rule 9 sibling verifier passes and is
@@ -167,7 +173,7 @@ and every superseded attempt live in the linked plans and historical progress sn
 | 3 | Complete, maker-asserted 2026-07-23 | `gate3` exit 0: depletion-ratio median `0.531454`, 90.2% below 1, radius 38, symmetry error 0. Repro: `node runner/src/main.ts gate3`. |
 | 4 | Complete 2026-07-18 | `gate4` at `70a2496`: 24/24 blocking G-G records and 12/12 diagnostic LK records executed; `gatePass=true`, `passBDiagnosticPass=false`. Repro: `node runner/src/main.ts gate4`. |
 | 5 | Complete, maker-asserted 2026-07-26 | Clean `c436df5`, observed Windows/Chromium/D3D12: 16/16 gate criteria, 560 bounded segments below 500 ms, zero device losses/errors/full-field display-frame reads, 16/16 negative controls rejected. Repro: `node runner/src/main.ts gate5-lane` and `node runner/src/main.ts gate5`. |
-| 6 | **Active and incomplete** | The three measured-only arms, WP1 strata, and the executed 80/80 ladder with its published **NO-PASS (criterion)** verdict are in `evidence/`. The WP2 non-author review and WP8 gate remain. Headline/R15/campaign closed at measured-only grade; held-out/GPU execution deferred with no Phase 6 credit. |
+| 6 | **Complete 2026-08-20** | `gate6` exit 0 at `44488ab`: 13/13 criteria re-derive the amended obligations from committed evidence — strata freeze, three measured-only arms (3/90; 54/78·54/90; 5/78·5/90), ladder NO-PASS (criterion), narrative report, closure labels, 0043/0044 deferrals. Negative result accepted as the finding; no label upgraded. Repro: `node runner/src/main.ts gate6`. |
 | 7 | Not started; independently eligible | Charter v1.25 preserves Phase 7's independence but does not start it. A committed Phase 7 plan and isolated worktree are required; product, held-out validation, and v6 WGSL/preview-GPU parity remain its scope. |
 | 8 | **Complete (8A + 8B)** | The immutable 8A book remains 18 entries / 59,019 bytes / SHA-256 `47a75f3f…71ec`. The verified 8B successor is 51 development records, 252,134 native rows and 431 plot points; no row is held out. [Completed plan](plans/phase-8-measurement-corpus.md). |
 | 9 | **Complete (development-only)** | The all-no-pass branch closed: D-BT failed, M-F/M-K2 stayed mapping-dependent, controls/path-state/M-PK are unavailable or non-identifiable, and zero items promoted. Exact `TMPDIR=/private/tmp npm test` passed; no result grants validation credit. [Completed plan](plans/phase-9-execution.md). |
@@ -192,7 +198,7 @@ accepted WP3 protocol freeze, and an independently reviewed artifact-derived R15
 
 ## Next step
 
-### Current resume point — ladder NO-PASS published and review-CONFIRMED; WP8 closes Phase 6
+### Current resume point — Phase 6 is CLOSED; no Phase 6 work remains
 
 The 80-row ladder (frozen plan + three-round pre-execution review + execution scheduling
 record + post-execution review record, all in
@@ -223,11 +229,17 @@ six named Rule 9 mutation controls all fired; the verifier is suite-pinned
 (`app/scripts/phase6-wp2-ladder-independent.mjs`). Findings and remediations are in
 [the plan](plans/phase-6-wp2-ladder.md)'s Review record.
 
-Remaining: WP8 — flagless gate over the amended obligations, the narrative three-arm report,
-negative controls, exact `npm test`, full reconciliation — Phase 6 closes. Do not resume
-education or V4/V4.x apparatus. Held-out or preview-GPU work may begin only as separately
-planned Phase 7 work in its own worktree; never run it from the Phase 6 lane or count it
-toward Phase 6.
+WP8 executed same-day: the pinned
+[three-arm narrative](../evidence/phase6-three-arm-report/report.md) (H10); the flagless
+`gate6` (`runner/src/gate6-aggregate.ts`) re-deriving all 13 amended-obligation criteria from
+committed evidence, exit 0 at `44488ab`; 14 negative controls including the six registered
+names, suite-pinned in `runner/test/gate6-aggregate.test.ts`; the gate unit's non-author
+review; exact `npm test`; and this reconciliation. Phase 6 changed to complete on the gate's
+exit 0, per the plan's WP8 rule. Post-Phase-6 notes: education reconciliation (frozen stale
+prose) is now reachable but remains maker-directed; the pinned ladder worktree
+`G:\Code Files\snowflake-phase6-ladder` may be retired; V4/V4.x apparatus stays retired.
+Held-out and preview-GPU work remain Phase 7 property in their own future plan and worktree,
+with no Phase 6 credit; Phase 7 still requires its own committed plan before any work starts.
 
 ### Gutcheck/NAS relocation — landed and approved (2026-08-14)
 
