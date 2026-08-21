@@ -2318,9 +2318,13 @@
         "snowcrystal-nas"
       ],
       "backup": {
-        "status": "required-missing",
-        "independentDomains": [],
-        "receipts": []
+        "status": "verified",
+        "independentDomains": [
+          "workstation C: drive (physical disk independent of the NAS and of G:): C:/Users/biao3/snowflake-nas-backup/collections/"
+        ],
+        "receipts": [
+          "docs/plans/nas-asset-governance.md"
+        ]
       },
       "supersedes": [],
       "unresolved": []
@@ -2579,9 +2583,13 @@
         "snowcrystal-nas"
       ],
       "backup": {
-        "status": "required-missing",
-        "independentDomains": [],
-        "receipts": []
+        "status": "verified",
+        "independentDomains": [
+          "workstation C: drive (physical disk independent of the NAS and of G:): C:/Users/biao3/snowflake-nas-backup/collections/"
+        ],
+        "receipts": [
+          "docs/plans/nas-asset-governance.md"
+        ]
       },
       "supersedes": [],
       "unresolved": []

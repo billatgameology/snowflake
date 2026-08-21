@@ -626,3 +626,17 @@ prune decision remains separate and future.
 - [x] Catalogue, owner manifests, ledger additions, and this record committed as one unit;
       exact `npm.cmd test` gates the push.
 - [x] Nothing deleted anywhere; the maker's prune approval remains a separate future decision.
+
+### Windows lane backup addendum (2026-08-20)
+
+Maker-directed copy-first before worktree retirement. The two external-evidence collections
+were copied from the share to an independent domain — the workstation C: drive (a physical
+disk independent of both the NAS and the G: working drive) at
+`C:/Users/biao3/snowflake-nas-backup/collections/` — with every file verified against its
+`docs/nas-ledger.json` pin twice (share-read before copy, backup-read after): 37 files /
+137,211,035 bytes, 0 problems (`windows-phase6-ladder-workspace@2026-08-20` 9 files;
+`windows-out-gate-artifacts@2026-08-20` 28 files). Both catalogue entries now carry
+`backup.status: verified` with the domain and this record named. Rule 15's
+independent-recovery-domain requirement for external evidence is satisfied; retirement of the
+workstation source copies (the ladder worktree and, later, the main checkout's archived
+`out/` trees) may proceed on the maker's explicit approval, as separate exact deletions.
