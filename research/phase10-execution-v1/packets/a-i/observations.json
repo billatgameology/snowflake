@@ -1,0 +1,492 @@
+{
+  "schema": "phase10-intake-observations-v1",
+  "observationId": "phase10-a-i-observations-20260821-v1",
+  "observedOn": "2026-08-21",
+  "queryExecutions": [
+    {
+      "queryId": "q-gonda-namba-sei-2001-doi",
+      "requestMethod": "GET",
+      "requestBody": null,
+      "endpoint": "https://api.crossref.org/works/10.5331%2Fseppyo.63.501",
+      "query": "GET exact DOI work record",
+      "startedOn": "2026-08-21T22:58:49.609Z",
+      "endedOn": "2026-08-21T22:58:49.928Z",
+      "terminalState": "http-response",
+      "httpStatus": 200,
+      "responseUrl": "https://api.crossref.org/works/10.5331%2Fseppyo.63.501",
+      "contentType": "application/json",
+      "rawResponse": {
+        "path": "out/phase10-execution-v1/attempts/a-i/observe-20260821-v1/raw/q-gonda-namba-sei-2001-doi.body",
+        "byteLength": 1991,
+        "sha256": "dbfb8864d3b37924fd39cc0a826871249ba7134f481acf8581cb7a3f09327c88"
+      },
+      "error": null
+    },
+    {
+      "queryId": "q-gonda-namba-sei-2001-search",
+      "requestMethod": "GET",
+      "requestBody": null,
+      "endpoint": "https://api.crossref.org/works",
+      "query": "query.bibliographic=Gonda Namba Sei 2001 carrier gas ice crystal growth&filter=until-pub-date:2026-08-21&rows=50",
+      "startedOn": "2026-08-21T22:58:49.946Z",
+      "endedOn": "2026-08-21T22:58:50.236Z",
+      "terminalState": "http-response",
+      "httpStatus": 200,
+      "responseUrl": "https://api.crossref.org/works?query.bibliographic=Gonda%20Namba%20Sei%202001%20carrier%20gas%20ice%20crystal%20growth&filter=until-pub-date:2026-08-21&rows=50",
+      "contentType": "application/json",
+      "rawResponse": {
+        "path": "out/phase10-execution-v1/attempts/a-i/observe-20260821-v1/raw/q-gonda-namba-sei-2001-search.body",
+        "byteLength": 259959,
+        "sha256": "8fe9e04b3ba5981a0fe055fc070723504cb1193bc6407ce7d2ddf36e32e68c51"
+      },
+      "error": null
+    },
+    {
+      "queryId": "q-gonda-sei-1988-doi",
+      "requestMethod": "GET",
+      "requestBody": null,
+      "endpoint": "https://api.crossref.org/works/10.1016%2F0022-0248(89)90094-8",
+      "query": "GET exact DOI work record",
+      "startedOn": "2026-08-21T22:58:50.262Z",
+      "endedOn": "2026-08-21T22:58:50.350Z",
+      "terminalState": "http-response",
+      "httpStatus": 200,
+      "responseUrl": "https://api.crossref.org/works/10.1016%2F0022-0248(89)90094-8",
+      "contentType": "application/json",
+      "rawResponse": {
+        "path": "out/phase10-execution-v1/attempts/a-i/observe-20260821-v1/raw/q-gonda-sei-1988-doi.body",
+        "byteLength": 5916,
+        "sha256": "50cc2e174ca7a3ef5a168699ce58f57695d758017dbd14104f7fa58c562375b9"
+      },
+      "error": null
+    },
+    {
+      "queryId": "q-gonda-sei-1988-search",
+      "requestMethod": "GET",
+      "requestBody": null,
+      "endpoint": "https://api.crossref.org/works",
+      "query": "query.bibliographic=Gonda Sei 1988 growth mechanism ice crystals&filter=until-pub-date:2026-08-21&rows=50",
+      "startedOn": "2026-08-21T22:58:50.368Z",
+      "endedOn": "2026-08-21T22:58:50.608Z",
+      "terminalState": "http-response",
+      "httpStatus": 200,
+      "responseUrl": "https://api.crossref.org/works?query.bibliographic=Gonda%20Sei%201988%20growth%20mechanism%20ice%20crystals&filter=until-pub-date:2026-08-21&rows=50",
+      "contentType": "application/json",
+      "rawResponse": {
+        "path": "out/phase10-execution-v1/attempts/a-i/observe-20260821-v1/raw/q-gonda-sei-1988-search.body",
+        "byteLength": 233434,
+        "sha256": "b2c6f6a4bd00caaf522eeb3a9b03e539d7ac96f5d694adf1a0be1fe1e9b1da20"
+      },
+      "error": null
+    },
+    {
+      "queryId": "q-libbrecht-2011-arxiv",
+      "requestMethod": "GET",
+      "requestBody": null,
+      "endpoint": "https://export.arxiv.org/api/query",
+      "query": "search_query=id:1109.1511&start=0&max_results=10",
+      "startedOn": "2026-08-21T22:58:50.632Z",
+      "endedOn": "2026-08-21T22:58:51.276Z",
+      "terminalState": "http-response",
+      "httpStatus": 200,
+      "responseUrl": "https://export.arxiv.org/api/query?search_query=id:1109.1511&start=0&max_results=10",
+      "contentType": "application/atom+xml; charset=utf-8",
+      "rawResponse": {
+        "path": "out/phase10-execution-v1/attempts/a-i/observe-20260821-v1/raw/q-libbrecht-2011-arxiv.body",
+        "byteLength": 2033,
+        "sha256": "73283c4b90d43cf92426808295fa4ee20fafdac6d4a42e7d0db35c9e6d71d65e"
+      },
+      "error": null
+    },
+    {
+      "queryId": "q-libbrecht-2011-search",
+      "requestMethod": "GET",
+      "requestBody": null,
+      "endpoint": "https://api.crossref.org/works",
+      "query": "query.bibliographic=Libbrecht 2011 improved apparatus snow crystals&filter=until-pub-date:2026-08-21&rows=50",
+      "startedOn": "2026-08-21T22:58:51.296Z",
+      "endedOn": "2026-08-21T22:58:51.590Z",
+      "terminalState": "http-response",
+      "httpStatus": 200,
+      "responseUrl": "https://api.crossref.org/works?query.bibliographic=Libbrecht%202011%20improved%20apparatus%20snow%20crystals&filter=until-pub-date:2026-08-21&rows=50",
+      "contentType": "application/json",
+      "rawResponse": {
+        "path": "out/phase10-execution-v1/attempts/a-i/observe-20260821-v1/raw/q-libbrecht-2011-search.body",
+        "byteLength": 165693,
+        "sha256": "06ee37d5f32df719b2bada6881997570f8c679e84c7d88a4d616ab4a28c3a9e0"
+      },
+      "error": null
+    },
+    {
+      "queryId": "q-libbrecht-2012-systematics-arxiv",
+      "requestMethod": "GET",
+      "requestBody": null,
+      "endpoint": "https://export.arxiv.org/api/query",
+      "query": "search_query=id:1208.5064&start=0&max_results=10",
+      "startedOn": "2026-08-21T22:58:51.613Z",
+      "endedOn": "2026-08-21T22:58:51.953Z",
+      "terminalState": "http-response",
+      "httpStatus": 200,
+      "responseUrl": "https://export.arxiv.org/api/query?search_query=id:1208.5064&start=0&max_results=10",
+      "contentType": "application/atom+xml; charset=utf-8",
+      "rawResponse": {
+        "path": "out/phase10-execution-v1/attempts/a-i/observe-20260821-v1/raw/q-libbrecht-2012-systematics-arxiv.body",
+        "byteLength": 2007,
+        "sha256": "4fabfd0c909fe502e0d6df9cfefe2ef47860fac1adf03b6e019af9d894aebdfd"
+      },
+      "error": null
+    },
+    {
+      "queryId": "q-libbrecht-2012-systematics-search",
+      "requestMethod": "GET",
+      "requestBody": null,
+      "endpoint": "https://api.crossref.org/works",
+      "query": "query.bibliographic=Libbrecht 2012 managing systematic errors ice crystal growth&filter=until-pub-date:2026-08-21&rows=50",
+      "startedOn": "2026-08-21T22:58:51.972Z",
+      "endedOn": "2026-08-21T22:58:52.050Z",
+      "terminalState": "http-response",
+      "httpStatus": 429,
+      "responseUrl": "https://api.crossref.org/works?query.bibliographic=Libbrecht%202012%20managing%20systematic%20errors%20ice%20crystal%20growth&filter=until-pub-date:2026-08-21&rows=50",
+      "contentType": null,
+      "rawResponse": {
+        "path": "out/phase10-execution-v1/attempts/a-i/observe-20260821-v1/raw/q-libbrecht-2012-systematics-search.body",
+        "byteLength": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "error": null
+    },
+    {
+      "queryId": "q-libbrecht-rickerby-2012-arxiv",
+      "requestMethod": "GET",
+      "requestBody": null,
+      "endpoint": "https://export.arxiv.org/api/query",
+      "query": "search_query=id:1208.5982&start=0&max_results=10",
+      "startedOn": "2026-08-21T22:58:52.060Z",
+      "endedOn": "2026-08-21T22:58:52.296Z",
+      "terminalState": "http-response",
+      "httpStatus": 200,
+      "responseUrl": "https://export.arxiv.org/api/query?search_query=id:1208.5982&start=0&max_results=10",
+      "contentType": "application/atom+xml; charset=utf-8",
+      "rawResponse": {
+        "path": "out/phase10-execution-v1/attempts/a-i/observe-20260821-v1/raw/q-libbrecht-rickerby-2012-arxiv.body",
+        "byteLength": 2499,
+        "sha256": "8ff9f919a94c9a52709db14c2fcc14f01d6c5b3b82c47a60a636d7529cf2a192"
+      },
+      "error": null
+    },
+    {
+      "queryId": "q-libbrecht-rickerby-2012-search",
+      "requestMethod": "GET",
+      "requestBody": null,
+      "endpoint": "https://api.crossref.org/works",
+      "query": "query.bibliographic=Libbrecht Rickerby 2012 surface melting ice crystal growth&filter=until-pub-date:2026-08-21&rows=50",
+      "startedOn": "2026-08-21T22:58:52.315Z",
+      "endedOn": "2026-08-21T22:58:52.827Z",
+      "terminalState": "http-response",
+      "httpStatus": 200,
+      "responseUrl": "https://api.crossref.org/works?query.bibliographic=Libbrecht%20Rickerby%202012%20surface%20melting%20ice%20crystal%20growth&filter=until-pub-date:2026-08-21&rows=50",
+      "contentType": "application/json",
+      "rawResponse": {
+        "path": "out/phase10-execution-v1/attempts/a-i/observe-20260821-v1/raw/q-libbrecht-rickerby-2012-search.body",
+        "byteLength": 363121,
+        "sha256": "f0966dbcdf313b50579e2c7f0db81778e6453bdc713675d69e4d2822c9802d46"
+      },
+      "error": null
+    },
+    {
+      "queryId": "q-magee-2014-doi",
+      "requestMethod": "GET",
+      "requestBody": null,
+      "endpoint": "https://api.crossref.org/works/10.5194%2Facp-14-12357-2014",
+      "query": "GET exact DOI work record",
+      "startedOn": "2026-08-21T22:58:52.857Z",
+      "endedOn": "2026-08-21T22:58:52.947Z",
+      "terminalState": "http-response",
+      "httpStatus": 200,
+      "responseUrl": "https://api.crossref.org/works/10.5194%2Facp-14-12357-2014",
+      "contentType": "application/json",
+      "rawResponse": {
+        "path": "out/phase10-execution-v1/attempts/a-i/observe-20260821-v1/raw/q-magee-2014-doi.body",
+        "byteLength": 23593,
+        "sha256": "a62b619ea41263bb0b5c3051b8368464cf2319fb40b73135d73d05a602021218"
+      },
+      "error": null
+    },
+    {
+      "queryId": "q-magee-2014-lineage-search",
+      "requestMethod": "GET",
+      "requestBody": null,
+      "endpoint": "https://api.crossref.org/works",
+      "query": "query.bibliographic=Magee 2014 ice crystal surface roughening sublimation growth&filter=until-pub-date:2026-08-21&rows=50",
+      "startedOn": "2026-08-21T22:58:52.965Z",
+      "endedOn": "2026-08-21T22:58:53.284Z",
+      "terminalState": "http-response",
+      "httpStatus": 200,
+      "responseUrl": "https://api.crossref.org/works?query.bibliographic=Magee%202014%20ice%20crystal%20surface%20roughening%20sublimation%20growth&filter=until-pub-date:2026-08-21&rows=50",
+      "contentType": "application/json",
+      "rawResponse": {
+        "path": "out/phase10-execution-v1/attempts/a-i/observe-20260821-v1/raw/q-magee-2014-lineage-search.body",
+        "byteLength": 419724,
+        "sha256": "8c6d5cbcec5140712b860cf73d3eea90c3255a9bfde3c85a5a32998f6975fea1"
+      },
+      "error": null
+    },
+    {
+      "queryId": "q-nelson-1993-doi",
+      "requestMethod": "GET",
+      "requestBody": null,
+      "endpoint": "https://api.crossref.org/works/10.1016%2F0022-0248(93)90082-8",
+      "query": "GET exact DOI work record",
+      "startedOn": "2026-08-21T22:58:53.313Z",
+      "endedOn": "2026-08-21T22:58:53.408Z",
+      "terminalState": "http-response",
+      "httpStatus": 200,
+      "responseUrl": "https://api.crossref.org/works/10.1016%2F0022-0248(93)90082-8",
+      "contentType": "application/json",
+      "rawResponse": {
+        "path": "out/phase10-execution-v1/attempts/a-i/observe-20260821-v1/raw/q-nelson-1993-doi.body",
+        "byteLength": 18332,
+        "sha256": "77a82e69a7687894a09e31c989931f88615c46c5334ea83496b052534b277f08"
+      },
+      "error": null
+    },
+    {
+      "queryId": "q-nelson-1993-search",
+      "requestMethod": "GET",
+      "requestBody": null,
+      "endpoint": "https://api.crossref.org/works",
+      "query": "query.bibliographic=Nelson 1993 heat conduction ice crystal growth&filter=until-pub-date:2026-08-21&rows=50",
+      "startedOn": "2026-08-21T22:58:53.426Z",
+      "endedOn": "2026-08-21T22:58:53.666Z",
+      "terminalState": "http-response",
+      "httpStatus": 200,
+      "responseUrl": "https://api.crossref.org/works?query.bibliographic=Nelson%201993%20heat%20conduction%20ice%20crystal%20growth&filter=until-pub-date:2026-08-21&rows=50",
+      "contentType": "application/json",
+      "rawResponse": {
+        "path": "out/phase10-execution-v1/attempts/a-i/observe-20260821-v1/raw/q-nelson-1993-search.body",
+        "byteLength": 332702,
+        "sha256": "0350b576e9380da5a5ff3b7f78efc9956410c15e5af612de7ba8ed08c7072233"
+      },
+      "error": null
+    },
+    {
+      "queryId": "q-pokrifka-2018-datacite",
+      "requestMethod": "GET",
+      "requestBody": null,
+      "endpoint": "https://api.datacite.org/dois/10.26208%2Fz7bf-nq20",
+      "query": "GET exact DOI dataset record",
+      "startedOn": "2026-08-21T22:58:53.692Z",
+      "endedOn": "2026-08-21T22:58:54.801Z",
+      "terminalState": "http-response",
+      "httpStatus": 200,
+      "responseUrl": "https://api.datacite.org/dois/10.26208%2Fz7bf-nq20",
+      "contentType": "application/json; charset=utf-8",
+      "rawResponse": {
+        "path": "out/phase10-execution-v1/attempts/a-i/observe-20260821-v1/raw/q-pokrifka-2018-datacite.body",
+        "byteLength": 6863,
+        "sha256": "a8c3500eebacbe54b50368dfc7c1416d37cc54188d8c1ade63607841666906ea"
+      },
+      "error": null
+    },
+    {
+      "queryId": "q-pokrifka-2018-search",
+      "requestMethod": "GET",
+      "requestBody": null,
+      "endpoint": "https://api.crossref.org/works",
+      "query": "query.bibliographic=Pokrifka Moyle Harrington 2018 ice crystal dataset&filter=until-pub-date:2026-08-21&rows=50",
+      "startedOn": "2026-08-21T22:58:54.819Z",
+      "endedOn": "2026-08-21T22:58:55.140Z",
+      "terminalState": "http-response",
+      "httpStatus": 200,
+      "responseUrl": "https://api.crossref.org/works?query.bibliographic=Pokrifka%20Moyle%20Harrington%202018%20ice%20crystal%20dataset&filter=until-pub-date:2026-08-21&rows=50",
+      "contentType": "application/json",
+      "rawResponse": {
+        "path": "out/phase10-execution-v1/attempts/a-i/observe-20260821-v1/raw/q-pokrifka-2018-search.body",
+        "byteLength": 479153,
+        "sha256": "23a0452524cc4dde12ad16e85201aec15e29d73d69f7bed0258a36080af5b32a"
+      },
+      "error": null
+    },
+    {
+      "queryId": "q-pokrifka-2023-datacite",
+      "requestMethod": "GET",
+      "requestBody": null,
+      "endpoint": "https://api.datacite.org/dois/10.26208%2Fhtw5-q166",
+      "query": "GET exact DOI dataset record",
+      "startedOn": "2026-08-21T22:58:55.172Z",
+      "endedOn": "2026-08-21T22:58:55.489Z",
+      "terminalState": "http-response",
+      "httpStatus": 200,
+      "responseUrl": "https://api.datacite.org/dois/10.26208%2Fhtw5-q166",
+      "contentType": "application/json; charset=utf-8",
+      "rawResponse": {
+        "path": "out/phase10-execution-v1/attempts/a-i/observe-20260821-v1/raw/q-pokrifka-2023-datacite.body",
+        "byteLength": 7481,
+        "sha256": "a69d2cfef746f1adb65bd5a557c19c4ed5db053efa81f0764d53f4009c1cf53e"
+      },
+      "error": null
+    },
+    {
+      "queryId": "q-pokrifka-2023-search",
+      "requestMethod": "GET",
+      "requestBody": null,
+      "endpoint": "https://api.crossref.org/works",
+      "query": "query.bibliographic=Pokrifka Moyle Harrington 2023 ice crystal dataset&filter=until-pub-date:2026-08-21&rows=50",
+      "startedOn": "2026-08-21T22:58:55.508Z",
+      "endedOn": "2026-08-21T22:58:55.584Z",
+      "terminalState": "http-response",
+      "httpStatus": 429,
+      "responseUrl": "https://api.crossref.org/works?query.bibliographic=Pokrifka%20Moyle%20Harrington%202023%20ice%20crystal%20dataset&filter=until-pub-date:2026-08-21&rows=50",
+      "contentType": null,
+      "rawResponse": {
+        "path": "out/phase10-execution-v1/attempts/a-i/observe-20260821-v1/raw/q-pokrifka-2023-search.body",
+        "byteLength": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "error": null
+    },
+    {
+      "queryId": "q-swanson-nelson-2019-doi",
+      "requestMethod": "GET",
+      "requestBody": null,
+      "endpoint": "https://api.crossref.org/works/10.5194%2Famt-12-6143-2019",
+      "query": "GET exact DOI work record",
+      "startedOn": "2026-08-21T22:58:55.593Z",
+      "endedOn": "2026-08-21T22:58:55.837Z",
+      "terminalState": "http-response",
+      "httpStatus": 200,
+      "responseUrl": "https://api.crossref.org/works/10.5194%2Famt-12-6143-2019",
+      "contentType": "application/json",
+      "rawResponse": {
+        "path": "out/phase10-execution-v1/attempts/a-i/observe-20260821-v1/raw/q-swanson-nelson-2019-doi.body",
+        "byteLength": 15904,
+        "sha256": "e2aeae79fd24b97ac28f25585003f418f8c2507e0fd6fd67aa176b865bc1b0f2"
+      },
+      "error": null
+    },
+    {
+      "queryId": "q-swanson-nelson-2019-search",
+      "requestMethod": "GET",
+      "requestBody": null,
+      "endpoint": "https://api.crossref.org/works",
+      "query": "query.bibliographic=Swanson Nelson 2019 cryostat ice crystal growth&filter=until-pub-date:2026-08-21&rows=50",
+      "startedOn": "2026-08-21T22:58:55.855Z",
+      "endedOn": "2026-08-21T22:58:56.122Z",
+      "terminalState": "http-response",
+      "httpStatus": 200,
+      "responseUrl": "https://api.crossref.org/works?query.bibliographic=Swanson%20Nelson%202019%20cryostat%20ice%20crystal%20growth&filter=until-pub-date:2026-08-21&rows=50",
+      "contentType": "application/json",
+      "rawResponse": {
+        "path": "out/phase10-execution-v1/attempts/a-i/observe-20260821-v1/raw/q-swanson-nelson-2019-search.body",
+        "byteLength": 420105,
+        "sha256": "ee2bc9f650d7bf1ce37bad87047c89805b48b037acad42c115bb39b2ff7d1108"
+      },
+      "error": null
+    },
+    {
+      "queryId": "q-voigtlaender-2018-doi",
+      "requestMethod": "GET",
+      "requestBody": null,
+      "endpoint": "https://api.crossref.org/works/10.5194%2Facp-18-13687-2018",
+      "query": "GET exact DOI work record",
+      "startedOn": "2026-08-21T22:58:56.152Z",
+      "endedOn": "2026-08-21T22:58:56.247Z",
+      "terminalState": "http-response",
+      "httpStatus": 200,
+      "responseUrl": "https://api.crossref.org/works/10.5194%2Facp-18-13687-2018",
+      "contentType": "application/json",
+      "rawResponse": {
+        "path": "out/phase10-execution-v1/attempts/a-i/observe-20260821-v1/raw/q-voigtlaender-2018-doi.body",
+        "byteLength": 38736,
+        "sha256": "e6878870761aa7c697cfb4c4f9126afcf31b71700ae283870a397f5084634603"
+      },
+      "error": null
+    },
+    {
+      "queryId": "q-voigtlaender-2018-search",
+      "requestMethod": "GET",
+      "requestBody": null,
+      "endpoint": "https://api.crossref.org/works",
+      "query": "query.bibliographic=Voigtlaender 2018 ice crystal surface roughness growth sublimation&filter=until-pub-date:2026-08-21&rows=50",
+      "startedOn": "2026-08-21T22:58:56.266Z",
+      "endedOn": "2026-08-21T22:58:56.541Z",
+      "terminalState": "http-response",
+      "httpStatus": 200,
+      "responseUrl": "https://api.crossref.org/works?query.bibliographic=Voigtlaender%202018%20ice%20crystal%20surface%20roughness%20growth%20sublimation&filter=until-pub-date:2026-08-21&rows=50",
+      "contentType": "application/json",
+      "rawResponse": {
+        "path": "out/phase10-execution-v1/attempts/a-i/observe-20260821-v1/raw/q-voigtlaender-2018-search.body",
+        "byteLength": 425866,
+        "sha256": "6501d18f4694e8abc038468444fe102a06a919fac93bc6a21da8ecad412293c3"
+      },
+      "error": null
+    },
+    {
+      "queryId": "q-zhao-2026-crossref",
+      "requestMethod": "GET",
+      "requestBody": null,
+      "endpoint": "https://api.crossref.org/works/10.1021%2Facs.cgd.5c01481",
+      "query": "GET exact DOI work record",
+      "startedOn": "2026-08-21T22:58:56.569Z",
+      "endedOn": "2026-08-21T22:58:56.660Z",
+      "terminalState": "http-response",
+      "httpStatus": 200,
+      "responseUrl": "https://api.crossref.org/works/10.1021%2Facs.cgd.5c01481",
+      "contentType": "application/json",
+      "rawResponse": {
+        "path": "out/phase10-execution-v1/attempts/a-i/observe-20260821-v1/raw/q-zhao-2026-crossref.body",
+        "byteLength": 6060,
+        "sha256": "d5983da1b405abf95f278875f14aae2066afa0a2d10add2954fd6c02ea88e079"
+      },
+      "error": null
+    },
+    {
+      "queryId": "q-zhao-2026-figshare",
+      "requestMethod": "POST",
+      "requestBody": "{\"limit\":100,\"order\":\"published_date\",\"order_direction\":\"desc\",\"search_for\":\"10.1021/acs.cgd.5c01481\"}",
+      "endpoint": "https://api.figshare.com/v2/articles/search",
+      "query": "POST exact DOI article search",
+      "startedOn": "2026-08-21T22:58:56.677Z",
+      "endedOn": "2026-08-21T22:58:57.381Z",
+      "terminalState": "http-response",
+      "httpStatus": 200,
+      "responseUrl": "https://api.figshare.com/v2/articles/search",
+      "contentType": "application/json",
+      "rawResponse": {
+        "path": "out/phase10-execution-v1/attempts/a-i/observe-20260821-v1/raw/q-zhao-2026-figshare.body",
+        "byteLength": 2672,
+        "sha256": "7a9fe27b75969973712678e84a2753476f988fab73ddf03f61893c4d85ef8454"
+      },
+      "error": null
+    }
+  ],
+  "existingNasVerification": {
+    "state": "unavailable-refusal",
+    "checkedOn": "2026-08-21",
+    "collectionId": "post-phase9-intake@2026-08-13",
+    "aggregateFiles": 26,
+    "aggregateBytes": 165722101,
+    "ownerManifest": {
+      "path": "collections/post-phase9-intake/2026-08-13/manifest.private.jsonl",
+      "byteLength": 6335,
+      "sha256": "9d839913d4f078a912e302194e34d718e470f91244f6cf81e4c6b627e7dd90db"
+    },
+    "matchedTrackedTupleCount": null,
+    "privateOnlyTupleCount": null,
+    "attemptReport": {
+      "path": "out/phase10-execution-v1/attempts/a-i/observe-20260821-v1/raw/nas-verification.json",
+      "byteLength": 157,
+      "sha256": "7b5f244c7bd921fb0e1640a66b52f4799a427bb777d9f260dc27d750396ba5bd"
+    },
+    "verificationReceipt": null,
+    "refusalReason": "The exact bounded NAS verification or 24-of-26 tuple-subset check did not pass; no storage claim was inherited.",
+    "restoreStatus": "pending",
+    "backupStatus": "required-missing"
+  },
+  "newNasCollection": {
+    "state": "not-applicable-no-new-bytes",
+    "collectionId": "phase10-source-intake@2026-08-21-v1",
+    "receipt": null,
+    "sourcePruneAuthorized": false
+  }
+}

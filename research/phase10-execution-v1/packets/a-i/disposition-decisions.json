@@ -1,0 +1,1489 @@
+{
+  "schema": "phase10-intake-disposition-decisions-v1",
+  "decisionId": "phase10-a-i-disposition-decisions-20260821-v1",
+  "decidedOn": "2026-08-21",
+  "dispositions": [
+    {
+      "payloadId": "P10-AI-GONDA-NAMBA-SEI-2001",
+      "identity": {
+        "status": "verified",
+        "canonicalCitation": "Takehiko Gonda, Junichi Namba, and Tadanori Sei, Influence of the pressure of carrier gas on the morphology of snow crystals, Journal of the Japanese Society of Snow and Ice 63(6), 501-509 (2001).",
+        "persistentIds": [
+          {
+            "scheme": "doi",
+            "value": "10.5331/seppyo.63.501"
+          }
+        ]
+      },
+      "version": {
+        "status": "current-checked",
+        "editionOrRelease": "Journal of the Japanese Society of Snow and Ice 63(6), 501-509 (2001)",
+        "correctionStatus": "checked-none-found",
+        "supplementStatus": "checked-none-found",
+        "currentnessSnapshotId": "snapshot-lineage-gonda-namba-sei-2001"
+      },
+      "rights": {
+        "status": "restricted-third-party",
+        "redistribution": "restricted",
+        "trackedDerivativePolicy": "metadata-only",
+        "nasStorageRequired": true
+      },
+      "lineage": {
+        "lineageId": "lineage-gonda-namba-sei-2001",
+        "laboratoryOrProjectId": null,
+        "methodId": null,
+        "campaignId": null,
+        "relatedPayloadIds": [
+          "P10-AI-GONDA-NAMBA-SEI-2001"
+        ]
+      },
+      "duplicate": {
+        "status": "canonical",
+        "canonicalPayloadId": null,
+        "basis": "digest"
+      },
+      "purpose": {
+        "candidateBranches": [
+          "B3"
+        ],
+        "role": "observation",
+        "reason": "Carrier-gas pressure morphology evidence is a B3 candidate, but routing is refused because the governed private source bytes were not verified as available in the frozen observation.",
+        "routingState": "refused"
+      },
+      "eligibility": {
+        "status": "refused",
+        "blockingOperandIds": [
+          "A-I-GOVERNED-NAS-VERIFICATION"
+        ],
+        "reason": "Bibliographic identity and currentness are terminal, but the exact private collection verification did not pass, so this payload is unavailable for source consumption."
+      },
+      "openedByPhase10": false,
+      "terminal": true,
+      "basisRefs": [
+        {
+          "basisId": "basis-p10-ai-gonda-namba-sei-2001-analyst",
+          "kind": "paraphrased-analyst-judgment",
+          "locator": "analyst-judgment:P10-AI-GONDA-NAMBA-SEI-2001",
+          "reason": "Metadata-only review confirms the B3 candidate role while preserving the failed NAS observation as a source-use refusal."
+        },
+        {
+          "basisId": "basis-p10-ai-gonda-namba-sei-2001-foundation",
+          "kind": "frozen-foundation",
+          "locator": "research/phase10-foundation-freeze-v1.json#intakeRoster/sourcePayloads[payloadId=P10-AI-GONDA-NAMBA-SEI-2001]",
+          "reason": "The frozen roster binds the payload ID, retained path, byte length, digest, and source-paper role."
+        },
+        {
+          "basisId": "basis-p10-ai-gonda-namba-sei-2001-metadata",
+          "kind": "frozen-tracked-metadata",
+          "locator": "research/phase9-post-freeze-source-intake-v1.json#files[source-payload-for=P10-AI-GONDA-NAMBA-SEI-2001]",
+          "reason": "The tracked intake supplies the DOI, future carrier-gas purpose, custody context, and conservative rights boundary."
+        },
+        {
+          "basisId": "basis-p10-ai-gonda-namba-sei-2001-query-q-gonda-namba-sei-2001-doi",
+          "kind": "normalized-current-observation",
+          "locator": "research/phase10-execution-v1/packets/a-i/observations.json#queryExecutions[queryId=q-gonda-namba-sei-2001-doi]",
+          "reason": "The retained exact-DOI execution returned HTTP 200 and binds the current identity observation."
+        },
+        {
+          "basisId": "basis-p10-ai-gonda-namba-sei-2001-query-q-gonda-namba-sei-2001-search",
+          "kind": "normalized-current-observation",
+          "locator": "research/phase10-execution-v1/packets/a-i/observations.json#queryExecutions[queryId=q-gonda-namba-sei-2001-search]",
+          "reason": "The retained bounded bibliographic search returned HTTP 200 and supports the terminal no-change disposition."
+        }
+      ]
+    },
+    {
+      "payloadId": "P10-AI-GONDA-SEI-1988",
+      "identity": {
+        "status": "verified",
+        "canonicalCitation": "Tadanori Sei and Takehiko Gonda, The growth mechanism and the habit change of ice crystals growing from the vapor phase, Journal of Crystal Growth 94(3), 697-707 (1989).",
+        "persistentIds": [
+          {
+            "scheme": "doi",
+            "value": "10.1016/0022-0248(89)90094-8"
+          }
+        ]
+      },
+      "version": {
+        "status": "current-checked",
+        "editionOrRelease": "Journal of Crystal Growth 94(3), 697-707 (1989)",
+        "correctionStatus": "checked-none-found",
+        "supplementStatus": "checked-none-found",
+        "currentnessSnapshotId": "snapshot-lineage-gonda-sei-1988"
+      },
+      "rights": {
+        "status": "restricted-third-party",
+        "redistribution": "restricted",
+        "trackedDerivativePolicy": "metadata-only",
+        "nasStorageRequired": true
+      },
+      "lineage": {
+        "lineageId": "lineage-gonda-sei-1988",
+        "laboratoryOrProjectId": null,
+        "methodId": null,
+        "campaignId": null,
+        "relatedPayloadIds": [
+          "P10-AI-GONDA-SEI-1988"
+        ]
+      },
+      "duplicate": {
+        "status": "canonical",
+        "canonicalPayloadId": null,
+        "basis": "digest"
+      },
+      "purpose": {
+        "candidateBranches": [
+          "B3"
+        ],
+        "role": "mapping",
+        "reason": "The vapor-growth habit-change work is a B3 mapping candidate, but routing is refused because the governed private source bytes were not verified as available.",
+        "routingState": "refused"
+      },
+      "eligibility": {
+        "status": "refused",
+        "blockingOperandIds": [
+          "A-I-GOVERNED-NAS-VERIFICATION"
+        ],
+        "reason": "The work identity is verified and the filename-year discrepancy is resolved to the 1989 journal publication, but the private payload remains unavailable for inspection."
+      },
+      "openedByPhase10": false,
+      "terminal": true,
+      "basisRefs": [
+        {
+          "basisId": "basis-p10-ai-gonda-sei-1988-analyst",
+          "kind": "paraphrased-analyst-judgment",
+          "locator": "analyst-judgment:P10-AI-GONDA-SEI-1988",
+          "reason": "Metadata-only review resolves the publication identity and preserves the current custody refusal."
+        },
+        {
+          "basisId": "basis-p10-ai-gonda-sei-1988-foundation",
+          "kind": "frozen-foundation",
+          "locator": "research/phase10-foundation-freeze-v1.json#intakeRoster/sourcePayloads[payloadId=P10-AI-GONDA-SEI-1988]",
+          "reason": "The frozen roster binds the payload ID, retained path, byte length, digest, and source-paper role."
+        },
+        {
+          "basisId": "basis-p10-ai-gonda-sei-1988-metadata",
+          "kind": "frozen-tracked-metadata",
+          "locator": "research/phase9-post-freeze-source-intake-v1.json#files[source-payload-for=P10-AI-GONDA-SEI-1988]",
+          "reason": "The tracked intake supplies the DOI, custody context, and conservative rights boundary."
+        },
+        {
+          "basisId": "basis-p10-ai-gonda-sei-1988-query-q-gonda-sei-1988-doi",
+          "kind": "normalized-current-observation",
+          "locator": "research/phase10-execution-v1/packets/a-i/observations.json#queryExecutions[queryId=q-gonda-sei-1988-doi]",
+          "reason": "The retained exact-DOI execution returned HTTP 200 and binds the journal identity."
+        },
+        {
+          "basisId": "basis-p10-ai-gonda-sei-1988-query-q-gonda-sei-1988-search",
+          "kind": "normalized-current-observation",
+          "locator": "research/phase10-execution-v1/packets/a-i/observations.json#queryExecutions[queryId=q-gonda-sei-1988-search]",
+          "reason": "The retained bounded bibliographic search returned HTTP 200 and exposed a later same-author synthesis without replacing this work."
+        }
+      ]
+    },
+    {
+      "payloadId": "P10-AI-LAMB-ETAL-2025-SOURCE",
+      "identity": {
+        "status": "verified",
+        "canonicalCitation": "Lamb et al., arXiv:2510.17935 source export (2025).",
+        "persistentIds": [
+          {
+            "scheme": "arxiv",
+            "value": "2510.17935"
+          }
+        ]
+      },
+      "version": {
+        "status": "not-applicable",
+        "editionOrRelease": "arXiv:2510.17935 source export",
+        "correctionStatus": "not-applicable",
+        "supplementStatus": "not-applicable",
+        "currentnessSnapshotId": null
+      },
+      "rights": {
+        "status": "restricted-third-party",
+        "redistribution": "restricted",
+        "trackedDerivativePolicy": "metadata-only",
+        "nasStorageRequired": true
+      },
+      "lineage": {
+        "lineageId": "lineage-lamb-2025-source",
+        "laboratoryOrProjectId": null,
+        "methodId": null,
+        "campaignId": null,
+        "relatedPayloadIds": [
+          "P10-AI-LAMB-ETAL-2025-SOURCE"
+        ]
+      },
+      "duplicate": {
+        "status": "distinct",
+        "canonicalPayloadId": null,
+        "basis": "manual-audit"
+      },
+      "purpose": {
+        "candidateBranches": [],
+        "role": "reproducibility-only",
+        "reason": "The manuscript source container is distinct from the archived IceNODE code snapshot, but the frozen package selects no B route for it and does not reopen D-BT.",
+        "routingState": "refused"
+      },
+      "eligibility": {
+        "status": "refused",
+        "blockingOperandIds": [
+          "A-I-PAYLOAD-NOT-SELECTED"
+        ],
+        "reason": "The frozen lineage plan explicitly leaves this reproducibility side material unselected for B; no scientific-use route is authorized in A-I."
+      },
+      "openedByPhase10": false,
+      "terminal": true,
+      "basisRefs": [
+        {
+          "basisId": "basis-p10-ai-lamb-etal-2025-source-analyst",
+          "kind": "paraphrased-analyst-judgment",
+          "locator": "analyst-judgment:P10-AI-LAMB-ETAL-2025-SOURCE",
+          "reason": "The source container is retained for reproducibility provenance and is not evidence that reopens the completed D-BT branch."
+        },
+        {
+          "basisId": "basis-p10-ai-lamb-etal-2025-source-foundation",
+          "kind": "frozen-foundation",
+          "locator": "research/phase10-foundation-freeze-v1.json#intakeRoster/sourcePayloads[payloadId=P10-AI-LAMB-ETAL-2025-SOURCE]",
+          "reason": "The frozen roster binds the source-container payload, retained path, byte length, digest, and intake role."
+        },
+        {
+          "basisId": "basis-p10-ai-lamb-etal-2025-source-metadata",
+          "kind": "frozen-tracked-metadata",
+          "locator": "research/phase9-post-freeze-source-intake-v1.json#files[source-payload-for=P10-AI-LAMB-ETAL-2025-SOURCE]",
+          "reason": "The tracked intake identifies the arXiv source export and records that it is distinct from the already archived code snapshot."
+        }
+      ]
+    },
+    {
+      "payloadId": "P10-AI-LIBBRECHT-2011-APPARATUS",
+      "identity": {
+        "status": "verified",
+        "canonicalCitation": "Kenneth G. Libbrecht, An Improved Apparatus For Measuring the Growth of Ice Crystals from Water Vapor, arXiv:1109.1511v1 (2011).",
+        "persistentIds": [
+          {
+            "scheme": "arxiv",
+            "value": "1109.1511v1"
+          }
+        ]
+      },
+      "version": {
+        "status": "current-checked",
+        "editionOrRelease": "arXiv:1109.1511v1",
+        "correctionStatus": "checked-none-found",
+        "supplementStatus": "checked-none-found",
+        "currentnessSnapshotId": "snapshot-lineage-libbrecht-2011-apparatus"
+      },
+      "rights": {
+        "status": "restricted-third-party",
+        "redistribution": "restricted",
+        "trackedDerivativePolicy": "metadata-only",
+        "nasStorageRequired": true
+      },
+      "lineage": {
+        "lineageId": "lineage-libbrecht-2011-apparatus",
+        "laboratoryOrProjectId": null,
+        "methodId": null,
+        "campaignId": null,
+        "relatedPayloadIds": [
+          "P10-AI-LIBBRECHT-2011-APPARATUS"
+        ]
+      },
+      "duplicate": {
+        "status": "distinct",
+        "canonicalPayloadId": null,
+        "basis": "identity-version"
+      },
+      "purpose": {
+        "candidateBranches": [
+          "B1b"
+        ],
+        "role": "apparatus",
+        "reason": "The apparatus paper is a B1b candidate for support and forcing constraints, but routing is refused because its governed private payload was not verified as available.",
+        "routingState": "refused"
+      },
+      "eligibility": {
+        "status": "refused",
+        "blockingOperandIds": [
+          "A-I-GOVERNED-NAS-VERIFICATION"
+        ],
+        "reason": "The arXiv identity is current under the executed snapshot, but the private payload cannot be consumed until its governed collection is verified."
+      },
+      "openedByPhase10": false,
+      "terminal": true,
+      "basisRefs": [
+        {
+          "basisId": "basis-p10-ai-libbrecht-2011-apparatus-analyst",
+          "kind": "paraphrased-analyst-judgment",
+          "locator": "analyst-judgment:P10-AI-LIBBRECHT-2011-APPARATUS",
+          "reason": "Metadata-only review confirms the apparatus role and preserves the current custody refusal."
+        },
+        {
+          "basisId": "basis-p10-ai-libbrecht-2011-apparatus-foundation",
+          "kind": "frozen-foundation",
+          "locator": "research/phase10-foundation-freeze-v1.json#intakeRoster/sourcePayloads[payloadId=P10-AI-LIBBRECHT-2011-APPARATUS]",
+          "reason": "The frozen roster binds the payload ID, retained path, byte length, digest, and source-paper role."
+        },
+        {
+          "basisId": "basis-p10-ai-libbrecht-2011-apparatus-metadata",
+          "kind": "frozen-tracked-metadata",
+          "locator": "research/phase9-post-freeze-source-intake-v1.json#files[source-payload-for=P10-AI-LIBBRECHT-2011-APPARATUS]",
+          "reason": "The tracked intake binds arXiv:1109.1511v1 and the conservative private-source rights boundary."
+        },
+        {
+          "basisId": "basis-p10-ai-libbrecht-2011-apparatus-query-q-libbrecht-2011-arxiv",
+          "kind": "normalized-current-observation",
+          "locator": "research/phase10-execution-v1/packets/a-i/observations.json#queryExecutions[queryId=q-libbrecht-2011-arxiv]",
+          "reason": "The retained exact arXiv execution returned HTTP 200 and binds version v1."
+        },
+        {
+          "basisId": "basis-p10-ai-libbrecht-2011-apparatus-query-q-libbrecht-2011-search",
+          "kind": "normalized-current-observation",
+          "locator": "research/phase10-execution-v1/packets/a-i/observations.json#queryExecutions[queryId=q-libbrecht-2011-search]",
+          "reason": "The retained bounded search returned HTTP 200 and exposes the later monograph as a separate no-change lead."
+        }
+      ]
+    },
+    {
+      "payloadId": "P10-AI-LIBBRECHT-2012-SYSTEMATICS",
+      "identity": {
+        "status": "verified",
+        "canonicalCitation": "Kenneth G. Libbrecht, Managing Systematic Errors in Ice Crystal Growth Experiments, arXiv:1208.5064v1 (2012).",
+        "persistentIds": [
+          {
+            "scheme": "arxiv",
+            "value": "1208.5064v1"
+          }
+        ]
+      },
+      "version": {
+        "status": "uncertain",
+        "editionOrRelease": "arXiv:1208.5064v1",
+        "correctionStatus": "not-applicable",
+        "supplementStatus": "not-applicable",
+        "currentnessSnapshotId": "snapshot-lineage-libbrecht-2012-systematics"
+      },
+      "rights": {
+        "status": "restricted-third-party",
+        "redistribution": "restricted",
+        "trackedDerivativePolicy": "metadata-only",
+        "nasStorageRequired": true
+      },
+      "lineage": {
+        "lineageId": "lineage-libbrecht-2012-systematics",
+        "laboratoryOrProjectId": null,
+        "methodId": null,
+        "campaignId": null,
+        "relatedPayloadIds": [
+          "P10-AI-LIBBRECHT-2012-SYSTEMATICS"
+        ]
+      },
+      "duplicate": {
+        "status": "distinct",
+        "canonicalPayloadId": null,
+        "basis": "identity-version"
+      },
+      "purpose": {
+        "candidateBranches": [
+          "B1b"
+        ],
+        "role": "method",
+        "reason": "The systematic-error paper is a B1b methods candidate, but routing is refused because the complete currency request roster did not succeed and private custody was not verified.",
+        "routingState": "refused"
+      },
+      "eligibility": {
+        "status": "refused",
+        "blockingOperandIds": [
+          "A-I-CURRENCY-REQUEST-ROSTER",
+          "A-I-GOVERNED-NAS-VERIFICATION"
+        ],
+        "reason": "The exact arXiv record is identified, but the companion search returned HTTP 429 and the private collection check refused, so current source eligibility is not established."
+      },
+      "openedByPhase10": false,
+      "terminal": true,
+      "basisRefs": [
+        {
+          "basisId": "basis-p10-ai-libbrecht-2012-systematics-analyst",
+          "kind": "paraphrased-analyst-judgment",
+          "locator": "analyst-judgment:P10-AI-LIBBRECHT-2012-SYSTEMATICS",
+          "reason": "The metadata supports identity only; the failed request roster and failed custody observation require a source-use refusal."
+        },
+        {
+          "basisId": "basis-p10-ai-libbrecht-2012-systematics-foundation",
+          "kind": "frozen-foundation",
+          "locator": "research/phase10-foundation-freeze-v1.json#intakeRoster/sourcePayloads[payloadId=P10-AI-LIBBRECHT-2012-SYSTEMATICS]",
+          "reason": "The frozen roster binds the payload ID, retained path, byte length, digest, and source-paper role."
+        },
+        {
+          "basisId": "basis-p10-ai-libbrecht-2012-systematics-metadata",
+          "kind": "frozen-tracked-metadata",
+          "locator": "research/phase9-post-freeze-source-intake-v1.json#files[source-payload-for=P10-AI-LIBBRECHT-2012-SYSTEMATICS]",
+          "reason": "The tracked intake binds arXiv:1208.5064v1 and the conservative private-source rights boundary."
+        },
+        {
+          "basisId": "basis-p10-ai-libbrecht-2012-systematics-query-q-libbrecht-2012-systematics-arxiv",
+          "kind": "normalized-current-observation",
+          "locator": "research/phase10-execution-v1/packets/a-i/observations.json#queryExecutions[queryId=q-libbrecht-2012-systematics-arxiv]",
+          "reason": "The retained exact arXiv execution returned HTTP 200 and identifies version v1."
+        },
+        {
+          "basisId": "basis-p10-ai-libbrecht-2012-systematics-query-q-libbrecht-2012-systematics-search",
+          "kind": "normalized-current-observation",
+          "locator": "research/phase10-execution-v1/packets/a-i/observations.json#queryExecutions[queryId=q-libbrecht-2012-systematics-search]",
+          "reason": "The retained bounded search returned HTTP 429, forcing a terminal source-refusal currency row."
+        }
+      ]
+    },
+    {
+      "payloadId": "P10-AI-LIBBRECHT-RICKERBY-2012",
+      "identity": {
+        "status": "verified",
+        "canonicalCitation": "Kenneth G. Libbrecht and Mark E. Rickerby, Crystal Growth in the Presence of Surface Melting: Novel Behavior of the Principal Facets of Ice, arXiv:1208.5982v1 (2012).",
+        "persistentIds": [
+          {
+            "scheme": "arxiv",
+            "value": "1208.5982v1"
+          },
+          {
+            "scheme": "doi",
+            "value": "10.1016/j.jcrysgro.2013.04.037"
+          }
+        ]
+      },
+      "version": {
+        "status": "superseded",
+        "editionOrRelease": "arXiv:1208.5982v1; journal version in Journal of Crystal Growth 377, 1-8 (2013)",
+        "correctionStatus": "checked-none-found",
+        "supplementStatus": "checked-none-found",
+        "currentnessSnapshotId": "snapshot-lineage-libbrecht-rickerby-2012"
+      },
+      "rights": {
+        "status": "restricted-third-party",
+        "redistribution": "restricted",
+        "trackedDerivativePolicy": "metadata-only",
+        "nasStorageRequired": true
+      },
+      "lineage": {
+        "lineageId": "lineage-libbrecht-rickerby-2012",
+        "laboratoryOrProjectId": null,
+        "methodId": null,
+        "campaignId": null,
+        "relatedPayloadIds": [
+          "P10-AI-LIBBRECHT-RICKERBY-2012"
+        ]
+      },
+      "duplicate": {
+        "status": "distinct",
+        "canonicalPayloadId": null,
+        "basis": "identity-version"
+      },
+      "purpose": {
+        "candidateBranches": [
+          "B1b"
+        ],
+        "role": "observation",
+        "reason": "The surface-attachment measurement lineage is a B1b candidate, but routing is refused because the retained arXiv payload was not verified as available in governed custody.",
+        "routingState": "refused"
+      },
+      "eligibility": {
+        "status": "refused",
+        "blockingOperandIds": [
+          "A-I-GOVERNED-NAS-VERIFICATION"
+        ],
+        "reason": "The journal version is bound by the currency snapshot, but the retained source bytes remain unavailable under the failed NAS observation."
+      },
+      "openedByPhase10": false,
+      "terminal": true,
+      "basisRefs": [
+        {
+          "basisId": "basis-p10-ai-libbrecht-rickerby-2012-analyst",
+          "kind": "paraphrased-analyst-judgment",
+          "locator": "analyst-judgment:P10-AI-LIBBRECHT-RICKERBY-2012",
+          "reason": "Metadata-only review binds the journal-version relationship without treating an unavailable private payload as consumable."
+        },
+        {
+          "basisId": "basis-p10-ai-libbrecht-rickerby-2012-foundation",
+          "kind": "frozen-foundation",
+          "locator": "research/phase10-foundation-freeze-v1.json#intakeRoster/sourcePayloads[payloadId=P10-AI-LIBBRECHT-RICKERBY-2012]",
+          "reason": "The frozen roster binds the payload ID, retained path, byte length, digest, and source-paper role."
+        },
+        {
+          "basisId": "basis-p10-ai-libbrecht-rickerby-2012-metadata",
+          "kind": "frozen-tracked-metadata",
+          "locator": "research/phase9-post-freeze-source-intake-v1.json#files[source-payload-for=P10-AI-LIBBRECHT-RICKERBY-2012]",
+          "reason": "The tracked intake binds arXiv:1208.5982v1 and the conservative private-source rights boundary."
+        },
+        {
+          "basisId": "basis-p10-ai-libbrecht-rickerby-2012-query-q-libbrecht-rickerby-2012-arxiv",
+          "kind": "normalized-current-observation",
+          "locator": "research/phase10-execution-v1/packets/a-i/observations.json#queryExecutions[queryId=q-libbrecht-rickerby-2012-arxiv]",
+          "reason": "The retained exact arXiv execution returned HTTP 200 and names Journal of Crystal Growth 377, 1-8 as the journal reference."
+        },
+        {
+          "basisId": "basis-p10-ai-libbrecht-rickerby-2012-query-q-libbrecht-rickerby-2012-search",
+          "kind": "normalized-current-observation",
+          "locator": "research/phase10-execution-v1/packets/a-i/observations.json#queryExecutions[queryId=q-libbrecht-rickerby-2012-search]",
+          "reason": "The retained bounded search returned HTTP 200 and binds the matching 2013 journal DOI and pagination."
+        }
+      ]
+    },
+    {
+      "payloadId": "P10-AI-LIBBRECHT-SNOW-CRYSTALS-PREVIEW",
+      "identity": {
+        "status": "ambiguous",
+        "canonicalCitation": null,
+        "persistentIds": []
+      },
+      "version": {
+        "status": "partial",
+        "editionOrRelease": "46-page Rakuten Kobo preview; exact edition not established",
+        "correctionStatus": "not-applicable",
+        "supplementStatus": "not-applicable",
+        "currentnessSnapshotId": null
+      },
+      "rights": {
+        "status": "restricted-third-party",
+        "redistribution": "restricted",
+        "trackedDerivativePolicy": "metadata-only",
+        "nasStorageRequired": true
+      },
+      "lineage": {
+        "lineageId": "lineage-libbrecht-snow-crystals-preview",
+        "laboratoryOrProjectId": null,
+        "methodId": null,
+        "campaignId": null,
+        "relatedPayloadIds": [
+          "P10-AI-LIBBRECHT-SNOW-CRYSTALS-PREVIEW"
+        ]
+      },
+      "duplicate": {
+        "status": "distinct",
+        "canonicalPayloadId": null,
+        "basis": "manual-audit"
+      },
+      "purpose": {
+        "candidateBranches": [],
+        "role": "provenance-only",
+        "reason": "The incomplete preview has no selected B route and cannot substitute for the current complete Princeton monograph required by B1a.",
+        "routingState": "refused"
+      },
+      "eligibility": {
+        "status": "refused",
+        "blockingOperandIds": [
+          "A-I-PAYLOAD-NOT-SELECTED",
+          "B1A-CURRENT-PRINCETON-EDITION"
+        ],
+        "reason": "The retained preview lacks Chapters 4 and 7, has no preserved acquisition endpoint or exact edition binding, and is explicitly unselected by the lineage plan."
+      },
+      "openedByPhase10": false,
+      "terminal": true,
+      "basisRefs": [
+        {
+          "basisId": "basis-p10-ai-libbrecht-snow-crystals-preview-analyst",
+          "kind": "paraphrased-analyst-judgment",
+          "locator": "analyst-judgment:P10-AI-LIBBRECHT-SNOW-CRYSTALS-PREVIEW",
+          "reason": "The partial preview is retained as provenance but cannot discharge the complete-current-edition operand."
+        },
+        {
+          "basisId": "basis-p10-ai-libbrecht-snow-crystals-preview-foundation",
+          "kind": "frozen-foundation",
+          "locator": "research/phase10-foundation-freeze-v1.json#intakeRoster/sourcePayloads[payloadId=P10-AI-LIBBRECHT-SNOW-CRYSTALS-PREVIEW]",
+          "reason": "The frozen roster binds the preview payload, retained path, byte length, digest, and source-book-preview role."
+        },
+        {
+          "basisId": "basis-p10-ai-libbrecht-snow-crystals-preview-metadata",
+          "kind": "frozen-tracked-metadata",
+          "locator": "research/phase9-post-freeze-source-intake-v1.json#files[source-payload-for=P10-AI-LIBBRECHT-SNOW-CRYSTALS-PREVIEW]",
+          "reason": "The tracked intake records the 46-page limit, missing chapters, absent acquisition endpoint, and inability to resolve the edition comparison."
+        }
+      ]
+    },
+    {
+      "payloadId": "P10-AI-MAGEE-2014-SUPPLEMENT",
+      "identity": {
+        "status": "verified",
+        "canonicalCitation": "Supplementary material for Magee et al., Mesoscopic surface roughness of ice crystals pervasive across a wide range of ice crystal conditions, Atmospheric Chemistry and Physics 14, 12357-12371 (2014).",
+        "persistentIds": [
+          {
+            "scheme": "doi",
+            "value": "10.5194/acp-14-12357-2014"
+          }
+        ]
+      },
+      "version": {
+        "status": "current-checked",
+        "editionOrRelease": "Clean publisher supplement for ACP 14, 12357-12371 (2014)",
+        "correctionStatus": "checked-none-found",
+        "supplementStatus": "checked-none-found",
+        "currentnessSnapshotId": "snapshot-lineage-magee-2014"
+      },
+      "rights": {
+        "status": "restricted-third-party",
+        "redistribution": "restricted",
+        "trackedDerivativePolicy": "metadata-only",
+        "nasStorageRequired": true
+      },
+      "lineage": {
+        "lineageId": "lineage-magee-2014",
+        "laboratoryOrProjectId": null,
+        "methodId": null,
+        "campaignId": null,
+        "relatedPayloadIds": [
+          "P10-AI-MAGEE-2014-SUPPLEMENT"
+        ]
+      },
+      "duplicate": {
+        "status": "canonical",
+        "canonicalPayloadId": null,
+        "basis": "digest"
+      },
+      "purpose": {
+        "candidateBranches": [
+          "B5"
+        ],
+        "role": "calibration-media",
+        "reason": "The clean supplement is a B5 calibration-media candidate, but routing is refused because the governed private source bytes were not verified as available.",
+        "routingState": "refused"
+      },
+      "eligibility": {
+        "status": "refused",
+        "blockingOperandIds": [
+          "A-I-GOVERNED-NAS-VERIFICATION"
+        ],
+        "reason": "The clean archive is provenance-bound and distinct from the malformed acquisition history, but it remains unavailable under the failed NAS observation."
+      },
+      "openedByPhase10": false,
+      "terminal": true,
+      "basisRefs": [
+        {
+          "basisId": "basis-p10-ai-magee-2014-supplement-analyst",
+          "kind": "paraphrased-analyst-judgment",
+          "locator": "analyst-judgment:P10-AI-MAGEE-2014-SUPPLEMENT",
+          "reason": "The clean archive is the canonical retained supplement, while the malformed acquisition remains provenance only."
+        },
+        {
+          "basisId": "basis-p10-ai-magee-2014-supplement-foundation",
+          "kind": "frozen-foundation",
+          "locator": "research/phase10-foundation-freeze-v1.json#intakeRoster/sourcePayloads[payloadId=P10-AI-MAGEE-2014-SUPPLEMENT]",
+          "reason": "The frozen roster binds the clean supplement payload, retained path, byte length, digest, and canonical-clean-copy role."
+        },
+        {
+          "basisId": "basis-p10-ai-magee-2014-supplement-metadata",
+          "kind": "frozen-tracked-metadata",
+          "locator": "research/phase9-post-freeze-source-intake-v1.json#files[source-payload-for=P10-AI-MAGEE-2014-SUPPLEMENT]",
+          "reason": "The tracked intake records the publisher locator, clean archive identity, member-equivalent repair provenance, and rights boundary."
+        },
+        {
+          "basisId": "basis-p10-ai-magee-2014-supplement-query-q-magee-2014-doi",
+          "kind": "normalized-current-observation",
+          "locator": "research/phase10-execution-v1/packets/a-i/observations.json#queryExecutions[queryId=q-magee-2014-doi]",
+          "reason": "The retained exact-DOI execution returned HTTP 200 and binds the final article identity."
+        },
+        {
+          "basisId": "basis-p10-ai-magee-2014-supplement-query-q-magee-2014-lineage-search",
+          "kind": "normalized-current-observation",
+          "locator": "research/phase10-execution-v1/packets/a-i/observations.json#queryExecutions[queryId=q-magee-2014-lineage-search]",
+          "reason": "The retained bounded search returned HTTP 200 and identifies the discussion supplement as an earlier no-change record."
+        }
+      ]
+    },
+    {
+      "payloadId": "P10-AI-NELSON-1993",
+      "identity": {
+        "status": "verified",
+        "canonicalCitation": "Jon Nelson, Heat conduction problems in crystal growth from the vapor, Journal of Crystal Growth 132(3-4), 538-550 (1993).",
+        "persistentIds": [
+          {
+            "scheme": "doi",
+            "value": "10.1016/0022-0248(93)90082-8"
+          }
+        ]
+      },
+      "version": {
+        "status": "current-checked",
+        "editionOrRelease": "Journal of Crystal Growth 132(3-4), 538-550 (1993)",
+        "correctionStatus": "checked-none-found",
+        "supplementStatus": "checked-none-found",
+        "currentnessSnapshotId": "snapshot-lineage-nelson-1993"
+      },
+      "rights": {
+        "status": "restricted-third-party",
+        "redistribution": "restricted",
+        "trackedDerivativePolicy": "metadata-only",
+        "nasStorageRequired": true
+      },
+      "lineage": {
+        "lineageId": "lineage-nelson-1993",
+        "laboratoryOrProjectId": null,
+        "methodId": null,
+        "campaignId": null,
+        "relatedPayloadIds": [
+          "P10-AI-NELSON-1993"
+        ]
+      },
+      "duplicate": {
+        "status": "distinct",
+        "canonicalPayloadId": null,
+        "basis": "identity-version"
+      },
+      "purpose": {
+        "candidateBranches": [
+          "B1b"
+        ],
+        "role": "transport",
+        "reason": "The heat-conduction work is a B1b transport candidate, but routing is refused because the governed private source bytes were not verified as available.",
+        "routingState": "refused"
+      },
+      "eligibility": {
+        "status": "refused",
+        "blockingOperandIds": [
+          "A-I-GOVERNED-NAS-VERIFICATION"
+        ],
+        "reason": "The article identity and currency snapshot are terminal, but no scientific transfer argument may be read from an unavailable private payload."
+      },
+      "openedByPhase10": false,
+      "terminal": true,
+      "basisRefs": [
+        {
+          "basisId": "basis-p10-ai-nelson-1993-analyst",
+          "kind": "paraphrased-analyst-judgment",
+          "locator": "analyst-judgment:P10-AI-NELSON-1993",
+          "reason": "Metadata-only review confirms a transport role without claiming apparatus transfer or source availability."
+        },
+        {
+          "basisId": "basis-p10-ai-nelson-1993-foundation",
+          "kind": "frozen-foundation",
+          "locator": "research/phase10-foundation-freeze-v1.json#intakeRoster/sourcePayloads[payloadId=P10-AI-NELSON-1993]",
+          "reason": "The frozen roster binds the payload ID, retained path, byte length, digest, and source-paper role."
+        },
+        {
+          "basisId": "basis-p10-ai-nelson-1993-metadata",
+          "kind": "frozen-tracked-metadata",
+          "locator": "research/phase9-post-freeze-source-intake-v1.json#files[source-payload-for=P10-AI-NELSON-1993]",
+          "reason": "The tracked intake supplies the DOI, custody context, and conservative private-source rights boundary."
+        },
+        {
+          "basisId": "basis-p10-ai-nelson-1993-query-q-nelson-1993-doi",
+          "kind": "normalized-current-observation",
+          "locator": "research/phase10-execution-v1/packets/a-i/observations.json#queryExecutions[queryId=q-nelson-1993-doi]",
+          "reason": "The retained exact-DOI execution returned HTTP 200 and binds the journal identity."
+        },
+        {
+          "basisId": "basis-p10-ai-nelson-1993-query-q-nelson-1993-search",
+          "kind": "normalized-current-observation",
+          "locator": "research/phase10-execution-v1/packets/a-i/observations.json#queryExecutions[queryId=q-nelson-1993-search]",
+          "reason": "The retained bounded search returned HTTP 200 and exposes the later cryostat work as a separate no-change output."
+        }
+      ]
+    },
+    {
+      "payloadId": "P10-AI-POKRIFKA-ETAL-2018-DATASET",
+      "identity": {
+        "status": "verified",
+        "canonicalCitation": "Pokrifka, Moyle, and Harrington, Electrodynamic Levitation Diffusion Chamber Measurements of the Mass Growth of Homogeneously-Nucleated Ice Crystals Grown from the Vapor, Penn State Data Commons dataset, DOI 10.26208/z7bf-nq20.",
+        "persistentIds": [
+          {
+            "scheme": "doi",
+            "value": "10.26208/z7bf-nq20"
+          }
+        ]
+      },
+      "version": {
+        "status": "current-checked",
+        "editionOrRelease": "Penn State Data Commons dataset, publication year 2019",
+        "correctionStatus": "checked-none-found",
+        "supplementStatus": "checked-none-found",
+        "currentnessSnapshotId": "snapshot-lineage-pokrifka-2018-dataset"
+      },
+      "rights": {
+        "status": "restricted-third-party",
+        "redistribution": "restricted",
+        "trackedDerivativePolicy": "metadata-only",
+        "nasStorageRequired": true
+      },
+      "lineage": {
+        "lineageId": "lineage-pokrifka-2018-dataset",
+        "laboratoryOrProjectId": null,
+        "methodId": null,
+        "campaignId": null,
+        "relatedPayloadIds": [
+          "P10-AI-POKRIFKA-ETAL-2018-DATASET"
+        ]
+      },
+      "duplicate": {
+        "status": "distinct",
+        "canonicalPayloadId": null,
+        "basis": "identity-version"
+      },
+      "purpose": {
+        "candidateBranches": [
+          "B4",
+          "B5"
+        ],
+        "role": "observation",
+        "reason": "The levitation dataset is a B4/B5 observation candidate, but routing is refused because its governed private archive was not verified as available for schema and forcing inspection.",
+        "routingState": "refused"
+      },
+      "eligibility": {
+        "status": "refused",
+        "blockingOperandIds": [
+          "A-I-GOVERNED-NAS-VERIFICATION"
+        ],
+        "reason": "The dataset DOI and retained archive identity are terminal, but schema, method, lineage, and forcing semantics cannot be inspected while private custody is unavailable."
+      },
+      "openedByPhase10": false,
+      "terminal": true,
+      "basisRefs": [
+        {
+          "basisId": "basis-p10-ai-pokrifka-etal-2018-dataset-analyst",
+          "kind": "paraphrased-analyst-judgment",
+          "locator": "analyst-judgment:P10-AI-POKRIFKA-ETAL-2018-DATASET",
+          "reason": "Metadata-only review confirms a candidate observation archive but does not invent the missing method or forcing semantics."
+        },
+        {
+          "basisId": "basis-p10-ai-pokrifka-etal-2018-dataset-foundation",
+          "kind": "frozen-foundation",
+          "locator": "research/phase10-foundation-freeze-v1.json#intakeRoster/sourcePayloads[payloadId=P10-AI-POKRIFKA-ETAL-2018-DATASET]",
+          "reason": "The frozen roster binds the dataset payload, retained path, byte length, digest, and source-dataset role."
+        },
+        {
+          "basisId": "basis-p10-ai-pokrifka-etal-2018-dataset-metadata",
+          "kind": "frozen-tracked-metadata",
+          "locator": "research/phase9-post-freeze-source-intake-v1.json#files[source-payload-for=P10-AI-POKRIFKA-ETAL-2018-DATASET]",
+          "reason": "The tracked intake supplies the dataset DOI, verified archive inventory summary, custody context, and conservative rights boundary."
+        },
+        {
+          "basisId": "basis-p10-ai-pokrifka-etal-2018-dataset-query-q-pokrifka-2018-datacite",
+          "kind": "normalized-current-observation",
+          "locator": "research/phase10-execution-v1/packets/a-i/observations.json#queryExecutions[queryId=q-pokrifka-2018-datacite]",
+          "reason": "The retained exact DataCite execution returned HTTP 200 and binds the dataset identity."
+        },
+        {
+          "basisId": "basis-p10-ai-pokrifka-etal-2018-dataset-query-q-pokrifka-2018-search",
+          "kind": "normalized-current-observation",
+          "locator": "research/phase10-execution-v1/packets/a-i/observations.json#queryExecutions[queryId=q-pokrifka-2018-search]",
+          "reason": "The retained bounded search returned HTTP 200 and exposes a later same-project analysis without replacing the dataset."
+        }
+      ]
+    },
+    {
+      "payloadId": "P10-AI-POKRIFKA-ETAL-2023-DATASET",
+      "identity": {
+        "status": "verified",
+        "canonicalCitation": "Pokrifka, Moyle, and Harrington, Electrodynamic Levitation Diffusion Chamber Measurements of the Mass Growth of Ice Crystals Grown from the Vapor at -65 to -40 C, Penn State Data Commons dataset, DOI 10.26208/htw5-q166.",
+        "persistentIds": [
+          {
+            "scheme": "doi",
+            "value": "10.26208/htw5-q166"
+          }
+        ]
+      },
+      "version": {
+        "status": "uncertain",
+        "editionOrRelease": "Penn State Data Commons dataset, publication year 2022",
+        "correctionStatus": "not-applicable",
+        "supplementStatus": "not-applicable",
+        "currentnessSnapshotId": "snapshot-lineage-pokrifka-2023-dataset"
+      },
+      "rights": {
+        "status": "restricted-third-party",
+        "redistribution": "restricted",
+        "trackedDerivativePolicy": "metadata-only",
+        "nasStorageRequired": true
+      },
+      "lineage": {
+        "lineageId": "lineage-pokrifka-2023-dataset",
+        "laboratoryOrProjectId": null,
+        "methodId": null,
+        "campaignId": null,
+        "relatedPayloadIds": [
+          "P10-AI-POKRIFKA-ETAL-2023-DATASET"
+        ]
+      },
+      "duplicate": {
+        "status": "distinct",
+        "canonicalPayloadId": null,
+        "basis": "identity-version"
+      },
+      "purpose": {
+        "candidateBranches": [
+          "B4",
+          "B5"
+        ],
+        "role": "observation",
+        "reason": "The low-temperature levitation dataset is a B4/B5 candidate, but routing is refused because the complete currency request roster failed and private custody was not verified.",
+        "routingState": "refused"
+      },
+      "eligibility": {
+        "status": "refused",
+        "blockingOperandIds": [
+          "A-I-CURRENCY-REQUEST-ROSTER",
+          "A-I-GOVERNED-NAS-VERIFICATION"
+        ],
+        "reason": "The exact DataCite record identifies the dataset, but the companion search returned HTTP 429 and the governed private archive remains unavailable."
+      },
+      "openedByPhase10": false,
+      "terminal": true,
+      "basisRefs": [
+        {
+          "basisId": "basis-p10-ai-pokrifka-etal-2023-dataset-analyst",
+          "kind": "paraphrased-analyst-judgment",
+          "locator": "analyst-judgment:P10-AI-POKRIFKA-ETAL-2023-DATASET",
+          "reason": "The metadata supports identity only; currentness and source-use eligibility are refused under the failed query and custody observations."
+        },
+        {
+          "basisId": "basis-p10-ai-pokrifka-etal-2023-dataset-foundation",
+          "kind": "frozen-foundation",
+          "locator": "research/phase10-foundation-freeze-v1.json#intakeRoster/sourcePayloads[payloadId=P10-AI-POKRIFKA-ETAL-2023-DATASET]",
+          "reason": "The frozen roster binds the dataset payload, retained path, byte length, digest, and source-dataset role."
+        },
+        {
+          "basisId": "basis-p10-ai-pokrifka-etal-2023-dataset-metadata",
+          "kind": "frozen-tracked-metadata",
+          "locator": "research/phase9-post-freeze-source-intake-v1.json#files[source-payload-for=P10-AI-POKRIFKA-ETAL-2023-DATASET]",
+          "reason": "The tracked intake supplies the dataset DOI, archive inventory summary, custody context, and conservative rights boundary."
+        },
+        {
+          "basisId": "basis-p10-ai-pokrifka-etal-2023-dataset-query-q-pokrifka-2023-datacite",
+          "kind": "normalized-current-observation",
+          "locator": "research/phase10-execution-v1/packets/a-i/observations.json#queryExecutions[queryId=q-pokrifka-2023-datacite]",
+          "reason": "The retained exact DataCite execution returned HTTP 200 and identifies the dataset."
+        },
+        {
+          "basisId": "basis-p10-ai-pokrifka-etal-2023-dataset-query-q-pokrifka-2023-search",
+          "kind": "normalized-current-observation",
+          "locator": "research/phase10-execution-v1/packets/a-i/observations.json#queryExecutions[queryId=q-pokrifka-2023-search]",
+          "reason": "The retained bounded search returned HTTP 429, forcing a terminal source-refusal currency row."
+        }
+      ]
+    },
+    {
+      "payloadId": "P10-AI-SWANSON-NELSON-2019",
+      "identity": {
+        "status": "verified",
+        "canonicalCitation": "Brian D. Swanson and Jon Nelson, Low-temperature triple-capillary cryostat for ice crystal growth studies, Atmospheric Measurement Techniques 12(11), 6143-6152 (2019).",
+        "persistentIds": [
+          {
+            "scheme": "doi",
+            "value": "10.5194/amt-12-6143-2019"
+          }
+        ]
+      },
+      "version": {
+        "status": "current-checked",
+        "editionOrRelease": "Atmospheric Measurement Techniques 12(11), 6143-6152 (2019)",
+        "correctionStatus": "checked-none-found",
+        "supplementStatus": "checked-none-found",
+        "currentnessSnapshotId": "snapshot-lineage-swanson-nelson-2019"
+      },
+      "rights": {
+        "status": "restricted-third-party",
+        "redistribution": "restricted",
+        "trackedDerivativePolicy": "metadata-only",
+        "nasStorageRequired": true
+      },
+      "lineage": {
+        "lineageId": "lineage-swanson-nelson-2019",
+        "laboratoryOrProjectId": null,
+        "methodId": null,
+        "campaignId": null,
+        "relatedPayloadIds": [
+          "P10-AI-SWANSON-NELSON-2019"
+        ]
+      },
+      "duplicate": {
+        "status": "distinct",
+        "canonicalPayloadId": null,
+        "basis": "identity-version"
+      },
+      "purpose": {
+        "candidateBranches": [
+          "B1b"
+        ],
+        "role": "apparatus",
+        "reason": "The cryostat paper is a B1b apparatus candidate, but routing is refused because the governed private source bytes were not verified as available.",
+        "routingState": "refused"
+      },
+      "eligibility": {
+        "status": "refused",
+        "blockingOperandIds": [
+          "A-I-GOVERNED-NAS-VERIFICATION"
+        ],
+        "reason": "The final article identity and currency snapshot are terminal, but the apparatus details cannot be consumed from an unavailable private payload."
+      },
+      "openedByPhase10": false,
+      "terminal": true,
+      "basisRefs": [
+        {
+          "basisId": "basis-p10-ai-swanson-nelson-2019-analyst",
+          "kind": "paraphrased-analyst-judgment",
+          "locator": "analyst-judgment:P10-AI-SWANSON-NELSON-2019",
+          "reason": "Metadata-only review confirms the apparatus role without claiming that its conditions already map to the solver."
+        },
+        {
+          "basisId": "basis-p10-ai-swanson-nelson-2019-foundation",
+          "kind": "frozen-foundation",
+          "locator": "research/phase10-foundation-freeze-v1.json#intakeRoster/sourcePayloads[payloadId=P10-AI-SWANSON-NELSON-2019]",
+          "reason": "The frozen roster binds the payload ID, retained path, byte length, digest, and source-paper role."
+        },
+        {
+          "basisId": "basis-p10-ai-swanson-nelson-2019-metadata",
+          "kind": "frozen-tracked-metadata",
+          "locator": "research/phase9-post-freeze-source-intake-v1.json#files[source-payload-for=P10-AI-SWANSON-NELSON-2019]",
+          "reason": "The tracked intake supplies the DOI, custody context, and conservative private-source rights boundary."
+        },
+        {
+          "basisId": "basis-p10-ai-swanson-nelson-2019-query-q-swanson-nelson-2019-doi",
+          "kind": "normalized-current-observation",
+          "locator": "research/phase10-execution-v1/packets/a-i/observations.json#queryExecutions[queryId=q-swanson-nelson-2019-doi]",
+          "reason": "The retained exact-DOI execution returned HTTP 200 and binds the final article identity."
+        },
+        {
+          "basisId": "basis-p10-ai-swanson-nelson-2019-query-q-swanson-nelson-2019-search",
+          "kind": "normalized-current-observation",
+          "locator": "research/phase10-execution-v1/packets/a-i/observations.json#queryExecutions[queryId=q-swanson-nelson-2019-search]",
+          "reason": "The retained bounded search returned HTTP 200 and exposes a separate lateral-facet output without changing the apparatus record."
+        }
+      ]
+    },
+    {
+      "payloadId": "P10-AI-VOIGTLAENDER-2018-SUPPLEMENT",
+      "identity": {
+        "status": "verified",
+        "canonicalCitation": "Supplementary material for Voigtlaender et al., Surface roughness during depositional growth and sublimation of ice crystals, Atmospheric Chemistry and Physics 18, 13687-13702 (2018).",
+        "persistentIds": [
+          {
+            "scheme": "doi",
+            "value": "10.5194/acp-18-13687-2018"
+          }
+        ]
+      },
+      "version": {
+        "status": "current-checked",
+        "editionOrRelease": "Publisher supplement for ACP 18, 13687-13702 (2018)",
+        "correctionStatus": "checked-none-found",
+        "supplementStatus": "checked-none-found",
+        "currentnessSnapshotId": "snapshot-lineage-voigtlaender-2018"
+      },
+      "rights": {
+        "status": "restricted-third-party",
+        "redistribution": "restricted",
+        "trackedDerivativePolicy": "metadata-only",
+        "nasStorageRequired": true
+      },
+      "lineage": {
+        "lineageId": "lineage-voigtlaender-2018",
+        "laboratoryOrProjectId": null,
+        "methodId": null,
+        "campaignId": null,
+        "relatedPayloadIds": [
+          "P10-AI-VOIGTLAENDER-2018-SUPPLEMENT"
+        ]
+      },
+      "duplicate": {
+        "status": "distinct",
+        "canonicalPayloadId": null,
+        "basis": "identity-version"
+      },
+      "purpose": {
+        "candidateBranches": [
+          "B5"
+        ],
+        "role": "calibration-media",
+        "reason": "The S1/S2 supplement is a B5 calibration-media candidate, but routing is refused because its governed private archive was not verified as available.",
+        "routingState": "refused"
+      },
+      "eligibility": {
+        "status": "refused",
+        "blockingOperandIds": [
+          "A-I-GOVERNED-NAS-VERIFICATION"
+        ],
+        "reason": "Tracked metadata confirms the archive and members, but media values and calibration semantics cannot be inspected while private custody is unavailable."
+      },
+      "openedByPhase10": false,
+      "terminal": true,
+      "basisRefs": [
+        {
+          "basisId": "basis-p10-ai-voigtlaender-2018-supplement-analyst",
+          "kind": "paraphrased-analyst-judgment",
+          "locator": "analyst-judgment:P10-AI-VOIGTLAENDER-2018-SUPPLEMENT",
+          "reason": "The archive is a surface-state media candidate, not a calibrated observable until B5 freezes and applies its operator."
+        },
+        {
+          "basisId": "basis-p10-ai-voigtlaender-2018-supplement-foundation",
+          "kind": "frozen-foundation",
+          "locator": "research/phase10-foundation-freeze-v1.json#intakeRoster/sourcePayloads[payloadId=P10-AI-VOIGTLAENDER-2018-SUPPLEMENT]",
+          "reason": "The frozen roster binds the supplement payload, retained path, byte length, digest, and source-supplement role."
+        },
+        {
+          "basisId": "basis-p10-ai-voigtlaender-2018-supplement-metadata",
+          "kind": "frozen-tracked-metadata",
+          "locator": "research/phase9-post-freeze-source-intake-v1.json#files[source-payload-for=P10-AI-VOIGTLAENDER-2018-SUPPLEMENT]",
+          "reason": "The tracked intake supplies the publisher locator, verified member summary, acquisition timing, and conservative rights boundary."
+        },
+        {
+          "basisId": "basis-p10-ai-voigtlaender-2018-supplement-query-q-voigtlaender-2018-doi",
+          "kind": "normalized-current-observation",
+          "locator": "research/phase10-execution-v1/packets/a-i/observations.json#queryExecutions[queryId=q-voigtlaender-2018-doi]",
+          "reason": "The retained exact-DOI execution returned HTTP 200 and binds the final article identity."
+        },
+        {
+          "basisId": "basis-p10-ai-voigtlaender-2018-supplement-query-q-voigtlaender-2018-search",
+          "kind": "normalized-current-observation",
+          "locator": "research/phase10-execution-v1/packets/a-i/observations.json#queryExecutions[queryId=q-voigtlaender-2018-search]",
+          "reason": "The retained bounded search returned HTTP 200 and identifies the discussion supplement as an earlier no-change record."
+        }
+      ]
+    },
+    {
+      "payloadId": "P10-AI-ZHAO-ETAL-2026-SI",
+      "identity": {
+        "status": "verified",
+        "canonicalCitation": "Supporting Information for Zhao et al., Nonreactive Ambient Nitrogen Gas Significantly Suppresses the Growth Kinetics of Elementary Spiral Steps on Prism Faces of Ice Crystals, Crystal Growth and Design 26(3), 1309-1314 (2026).",
+        "persistentIds": [
+          {
+            "scheme": "doi",
+            "value": "10.1021/acs.cgd.5c01481"
+          },
+          {
+            "scheme": "doi",
+            "value": "10.1021/acs.cgd.5c01481.s001"
+          }
+        ]
+      },
+      "version": {
+        "status": "partial",
+        "editionOrRelease": "Supporting Information item s001; companion item s002 identified but unavailable",
+        "correctionStatus": "checked-none-found",
+        "supplementStatus": "checked-none-found",
+        "currentnessSnapshotId": "snapshot-lineage-zhao-2026"
+      },
+      "rights": {
+        "status": "restricted-third-party",
+        "redistribution": "restricted",
+        "trackedDerivativePolicy": "metadata-only",
+        "nasStorageRequired": true
+      },
+      "lineage": {
+        "lineageId": "lineage-zhao-2026",
+        "laboratoryOrProjectId": null,
+        "methodId": null,
+        "campaignId": null,
+        "relatedPayloadIds": [
+          "P10-AI-ZHAO-ETAL-2026-SI"
+        ]
+      },
+      "duplicate": {
+        "status": "distinct",
+        "canonicalPayloadId": null,
+        "basis": "identity-version"
+      },
+      "purpose": {
+        "candidateBranches": [
+          "B3"
+        ],
+        "role": "method",
+        "reason": "The s001 supporting information is a B3 condition-and-role audit candidate, but routing is refused because private custody was not verified and the required s002 companion remains unavailable.",
+        "routingState": "refused"
+      },
+      "eligibility": {
+        "status": "refused",
+        "blockingOperandIds": [
+          "A-I-GOVERNED-NAS-VERIFICATION",
+          "B3-ZHAO-ROLE-AUDIT"
+        ],
+        "reason": "The parent article and s001 identity are verified, but s002 is an unavailable priority lead and the retained s001 bytes were not verified as accessible."
+      },
+      "openedByPhase10": false,
+      "terminal": true,
+      "basisRefs": [
+        {
+          "basisId": "basis-p10-ai-zhao-etal-2026-si-analyst",
+          "kind": "paraphrased-analyst-judgment",
+          "locator": "analyst-judgment:P10-AI-ZHAO-ETAL-2026-SI",
+          "reason": "The metadata distinguishes the parent article, retained s001, and unavailable s002 without treating one source role as another."
+        },
+        {
+          "basisId": "basis-p10-ai-zhao-etal-2026-si-foundation",
+          "kind": "frozen-foundation",
+          "locator": "research/phase10-foundation-freeze-v1.json#intakeRoster/sourcePayloads[payloadId=P10-AI-ZHAO-ETAL-2026-SI]",
+          "reason": "The frozen roster binds the supporting-information payload, retained path, byte length, digest, and source-supplement role."
+        },
+        {
+          "basisId": "basis-p10-ai-zhao-etal-2026-si-metadata",
+          "kind": "frozen-tracked-metadata",
+          "locator": "research/phase9-post-freeze-source-intake-v1.json#files[source-payload-for=P10-AI-ZHAO-ETAL-2026-SI]",
+          "reason": "The tracked intake binds s001, records s002 as identified but not downloaded, and preserves the private-source rights boundary."
+        },
+        {
+          "basisId": "basis-p10-ai-zhao-etal-2026-si-query-q-zhao-2026-crossref",
+          "kind": "normalized-current-observation",
+          "locator": "research/phase10-execution-v1/packets/a-i/observations.json#queryExecutions[queryId=q-zhao-2026-crossref]",
+          "reason": "The retained exact Crossref execution returned HTTP 200 and binds the 2026 parent article identity."
+        },
+        {
+          "basisId": "basis-p10-ai-zhao-etal-2026-si-query-q-zhao-2026-figshare",
+          "kind": "normalized-current-observation",
+          "locator": "research/phase10-execution-v1/packets/a-i/observations.json#queryExecutions[queryId=q-zhao-2026-figshare]",
+          "reason": "The retained exact-DOI Figshare search returned HTTP 200 and distinguishes s001 from the unavailable s002 companion."
+        }
+      ]
+    }
+  ],
+  "currencyDecisions": [
+    {
+      "snapshotId": "snapshot-lineage-gonda-namba-sei-2001",
+      "lineageId": "lineage-gonda-namba-sei-2001",
+      "candidates": [],
+      "correctionStatus": "checked-none-found",
+      "versionStatus": "checked-none-found",
+      "supplementStatus": "checked-none-found",
+      "nativeDataStatus": "checked-none-found",
+      "laterOutputStatus": "checked-none-found",
+      "terminalDisposition": "current-no-change",
+      "basisQueryIds": [
+        "q-gonda-namba-sei-2001-doi",
+        "q-gonda-namba-sei-2001-search"
+      ]
+    },
+    {
+      "snapshotId": "snapshot-lineage-gonda-sei-1988",
+      "lineageId": "lineage-gonda-sei-1988",
+      "candidates": [
+        {
+          "candidateId": "candidate-gonda-sei-2002-later-synthesis",
+          "identity": "Formation mechanism of ice crystal habit and side branches of dendritic ice crystals growing from the vapor phase.",
+          "locator": "seppyo.64.269",
+          "relation": "later-output",
+          "disposition": "no-change"
+        }
+      ],
+      "correctionStatus": "checked-none-found",
+      "versionStatus": "checked-none-found",
+      "supplementStatus": "checked-none-found",
+      "nativeDataStatus": "checked-none-found",
+      "laterOutputStatus": "checked-none-found",
+      "terminalDisposition": "current-no-change",
+      "basisQueryIds": [
+        "q-gonda-sei-1988-doi",
+        "q-gonda-sei-1988-search"
+      ]
+    },
+    {
+      "snapshotId": "snapshot-lineage-libbrecht-2011-apparatus",
+      "lineageId": "lineage-libbrecht-2011-apparatus",
+      "candidates": [
+        {
+          "candidateId": "candidate-libbrecht-2021-snow-crystals-monograph",
+          "identity": "Snow Crystals",
+          "locator": "j.ctv1qdqztv",
+          "relation": "later-output",
+          "disposition": "no-change"
+        }
+      ],
+      "correctionStatus": "checked-none-found",
+      "versionStatus": "checked-none-found",
+      "supplementStatus": "checked-none-found",
+      "nativeDataStatus": "checked-none-found",
+      "laterOutputStatus": "checked-none-found",
+      "terminalDisposition": "current-no-change",
+      "basisQueryIds": [
+        "q-libbrecht-2011-arxiv",
+        "q-libbrecht-2011-search"
+      ]
+    },
+    {
+      "snapshotId": "snapshot-lineage-libbrecht-2012-systematics",
+      "lineageId": "lineage-libbrecht-2012-systematics",
+      "candidates": [],
+      "correctionStatus": "not-applicable",
+      "versionStatus": "not-applicable",
+      "supplementStatus": "not-applicable",
+      "nativeDataStatus": "not-applicable",
+      "laterOutputStatus": "not-applicable",
+      "terminalDisposition": "source-refusal",
+      "basisQueryIds": [
+        "q-libbrecht-2012-systematics-arxiv",
+        "q-libbrecht-2012-systematics-search"
+      ]
+    },
+    {
+      "snapshotId": "snapshot-lineage-libbrecht-rickerby-2012",
+      "lineageId": "lineage-libbrecht-rickerby-2012",
+      "candidates": [
+        {
+          "candidateId": "candidate-libbrecht-rickerby-2013-journal-version",
+          "identity": "Measurements of surface attachment kinetics for faceted ice crystal growth",
+          "locator": "S0022024813002868",
+          "relation": "version",
+          "disposition": "bound"
+        }
+      ],
+      "correctionStatus": "checked-none-found",
+      "versionStatus": "checked-bound",
+      "supplementStatus": "checked-none-found",
+      "nativeDataStatus": "checked-none-found",
+      "laterOutputStatus": "checked-none-found",
+      "terminalDisposition": "version-bound",
+      "basisQueryIds": [
+        "q-libbrecht-rickerby-2012-arxiv",
+        "q-libbrecht-rickerby-2012-search"
+      ]
+    },
+    {
+      "snapshotId": "snapshot-lineage-magee-2014",
+      "lineageId": "lineage-magee-2014",
+      "candidates": [
+        {
+          "candidateId": "candidate-magee-2014-discussion-supplement",
+          "identity": "Mesoscopic surface roughness of ice crystals pervasive across a wide range of ice crystal conditions",
+          "locator": "acpd-14-8393-2014-supplement.zip",
+          "relation": "supplement",
+          "disposition": "no-change"
+        }
+      ],
+      "correctionStatus": "checked-none-found",
+      "versionStatus": "checked-none-found",
+      "supplementStatus": "checked-none-found",
+      "nativeDataStatus": "checked-none-found",
+      "laterOutputStatus": "checked-none-found",
+      "terminalDisposition": "current-no-change",
+      "basisQueryIds": [
+        "q-magee-2014-doi",
+        "q-magee-2014-lineage-search"
+      ]
+    },
+    {
+      "snapshotId": "snapshot-lineage-nelson-1993",
+      "lineageId": "lineage-nelson-1993",
+      "candidates": [
+        {
+          "candidateId": "candidate-nelson-2019-cryostat-preprint",
+          "identity": "Low-Temperature Triple-Capillary Cryostat for Ice Crystal Growth",
+          "locator": "amt-2019-137",
+          "relation": "later-output",
+          "disposition": "no-change"
+        }
+      ],
+      "correctionStatus": "checked-none-found",
+      "versionStatus": "checked-none-found",
+      "supplementStatus": "checked-none-found",
+      "nativeDataStatus": "checked-none-found",
+      "laterOutputStatus": "checked-none-found",
+      "terminalDisposition": "current-no-change",
+      "basisQueryIds": [
+        "q-nelson-1993-doi",
+        "q-nelson-1993-search"
+      ]
+    },
+    {
+      "snapshotId": "snapshot-lineage-pokrifka-2018-dataset",
+      "lineageId": "lineage-pokrifka-2018-dataset",
+      "candidates": [
+        {
+          "candidateId": "candidate-pokrifka-2020-later-analysis",
+          "identity": "10.1175/jas-d-19-0303.1",
+          "locator": "jas-d-19-0303.1",
+          "relation": "later-output",
+          "disposition": "no-change"
+        }
+      ],
+      "correctionStatus": "checked-none-found",
+      "versionStatus": "checked-none-found",
+      "supplementStatus": "checked-none-found",
+      "nativeDataStatus": "checked-none-found",
+      "laterOutputStatus": "checked-none-found",
+      "terminalDisposition": "current-no-change",
+      "basisQueryIds": [
+        "q-pokrifka-2018-datacite",
+        "q-pokrifka-2018-search"
+      ]
+    },
+    {
+      "snapshotId": "snapshot-lineage-pokrifka-2023-dataset",
+      "lineageId": "lineage-pokrifka-2023-dataset",
+      "candidates": [],
+      "correctionStatus": "not-applicable",
+      "versionStatus": "not-applicable",
+      "supplementStatus": "not-applicable",
+      "nativeDataStatus": "not-applicable",
+      "laterOutputStatus": "not-applicable",
+      "terminalDisposition": "source-refusal",
+      "basisQueryIds": [
+        "q-pokrifka-2023-datacite",
+        "q-pokrifka-2023-search"
+      ]
+    },
+    {
+      "snapshotId": "snapshot-lineage-swanson-nelson-2019",
+      "lineageId": "lineage-swanson-nelson-2019",
+      "candidates": [
+        {
+          "candidateId": "candidate-swanson-nelson-2019-lateral-facet-output",
+          "identity": "Lateral facet growth of ice and snow",
+          "locator": "acp-19-15285-2019",
+          "relation": "later-output",
+          "disposition": "no-change"
+        }
+      ],
+      "correctionStatus": "checked-none-found",
+      "versionStatus": "checked-none-found",
+      "supplementStatus": "checked-none-found",
+      "nativeDataStatus": "checked-none-found",
+      "laterOutputStatus": "checked-none-found",
+      "terminalDisposition": "current-no-change",
+      "basisQueryIds": [
+        "q-swanson-nelson-2019-doi",
+        "q-swanson-nelson-2019-search"
+      ]
+    },
+    {
+      "snapshotId": "snapshot-lineage-voigtlaender-2018",
+      "lineageId": "lineage-voigtlaender-2018",
+      "candidates": [
+        {
+          "candidateId": "candidate-voigtlaender-2018-discussion-supplement",
+          "identity": "Surface roughness during depositional growth and sublimation of ice crystals",
+          "locator": "acp-2018-254-supplement.zip",
+          "relation": "supplement",
+          "disposition": "no-change"
+        }
+      ],
+      "correctionStatus": "checked-none-found",
+      "versionStatus": "checked-none-found",
+      "supplementStatus": "checked-none-found",
+      "nativeDataStatus": "checked-none-found",
+      "laterOutputStatus": "checked-none-found",
+      "terminalDisposition": "current-no-change",
+      "basisQueryIds": [
+        "q-voigtlaender-2018-doi",
+        "q-voigtlaender-2018-search"
+      ]
+    },
+    {
+      "snapshotId": "snapshot-lineage-zhao-2026",
+      "lineageId": "lineage-zhao-2026",
+      "candidates": [
+        {
+          "candidateId": "candidate-zhao-2026-s002-video",
+          "identity": "10.1021/acs.cgd.5c01481.s002",
+          "locator": "https://api.figshare.com/v2/articles/31079164",
+          "relation": "supplement",
+          "disposition": "unavailable"
+        }
+      ],
+      "correctionStatus": "checked-none-found",
+      "versionStatus": "checked-none-found",
+      "supplementStatus": "checked-none-found",
+      "nativeDataStatus": "checked-none-found",
+      "laterOutputStatus": "checked-none-found",
+      "terminalDisposition": "priority-lead-unavailable",
+      "basisQueryIds": [
+        "q-zhao-2026-crossref",
+        "q-zhao-2026-figshare"
+      ]
+    }
+  ],
+  "semanticReviewRequired": true
+}

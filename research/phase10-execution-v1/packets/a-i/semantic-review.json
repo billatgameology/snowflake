@@ -1,0 +1,180 @@
+{
+  "schema": "phase10-intake-semantic-review-v1",
+  "reviewId": "phase10-a-i-semantic-review-20260821-v1",
+  "reviewedOn": "2026-08-21",
+  "reviewer": {
+    "model": "OpenAI Codex (GPT-5)",
+    "role": "non-author-semantic-reviewer",
+    "sharedContextWithDeveloper": true,
+    "authoredDecisionInput": false
+  },
+  "protocol": {
+    "path": "research/phase10-execution-v1/packets/a-i/intake-protocol.json",
+    "byteLength": 26443,
+    "sha256": "6adffffdbd02b7e023072f2e096909f43ee557b1fcd45e7a0d7f52107f36fe78"
+  },
+  "decisions": {
+    "path": "research/phase10-execution-v1/packets/a-i/disposition-decisions.json",
+    "byteLength": 64867,
+    "sha256": "03c90782ab855841f64820c47b2a120a79ea872b7f759dd5c045cd05f09bb22d"
+  },
+  "observations": {
+    "path": "research/phase10-execution-v1/packets/a-i/observations.json",
+    "byteLength": 22441,
+    "sha256": "6d8fb807c359187f8448e787da925501dc77b60d13a149eba54e064c8a79de56"
+  },
+  "observationValidationReceipt": {
+    "path": "out/phase10-execution-v1/attempts/a-i/observe-20260821-v1/validation.json",
+    "byteLength": 6790,
+    "sha256": "689db18f9ea1c713f6a900f38bd0853b6515d27a39ac3543e0db59390ee6956f"
+  },
+  "decisionValidationReceipt": {
+    "path": "out/phase10-execution-v1/attempts/a-i/observe-20260821-v1/decision-validation.json",
+    "byteLength": 1208,
+    "sha256": "87a0a2ed4b02ad3ab26f068851bc1e15c1a519500023850c8e31faf56f4caa9d"
+  },
+  "rawArtifacts": [
+    {
+      "path": "out/phase10-execution-v1/attempts/a-i/observe-20260821-v1/raw/nas-verification.json",
+      "byteLength": 157,
+      "sha256": "7b5f244c7bd921fb0e1640a66b52f4799a427bb777d9f260dc27d750396ba5bd"
+    },
+    {
+      "path": "out/phase10-execution-v1/attempts/a-i/observe-20260821-v1/raw/q-gonda-namba-sei-2001-doi.body",
+      "byteLength": 1991,
+      "sha256": "dbfb8864d3b37924fd39cc0a826871249ba7134f481acf8581cb7a3f09327c88"
+    },
+    {
+      "path": "out/phase10-execution-v1/attempts/a-i/observe-20260821-v1/raw/q-gonda-namba-sei-2001-search.body",
+      "byteLength": 259959,
+      "sha256": "8fe9e04b3ba5981a0fe055fc070723504cb1193bc6407ce7d2ddf36e32e68c51"
+    },
+    {
+      "path": "out/phase10-execution-v1/attempts/a-i/observe-20260821-v1/raw/q-gonda-sei-1988-doi.body",
+      "byteLength": 5916,
+      "sha256": "50cc2e174ca7a3ef5a168699ce58f57695d758017dbd14104f7fa58c562375b9"
+    },
+    {
+      "path": "out/phase10-execution-v1/attempts/a-i/observe-20260821-v1/raw/q-gonda-sei-1988-search.body",
+      "byteLength": 233434,
+      "sha256": "b2c6f6a4bd00caaf522eeb3a9b03e539d7ac96f5d694adf1a0be1fe1e9b1da20"
+    },
+    {
+      "path": "out/phase10-execution-v1/attempts/a-i/observe-20260821-v1/raw/q-libbrecht-2011-arxiv.body",
+      "byteLength": 2033,
+      "sha256": "73283c4b90d43cf92426808295fa4ee20fafdac6d4a42e7d0db35c9e6d71d65e"
+    },
+    {
+      "path": "out/phase10-execution-v1/attempts/a-i/observe-20260821-v1/raw/q-libbrecht-2011-search.body",
+      "byteLength": 165693,
+      "sha256": "06ee37d5f32df719b2bada6881997570f8c679e84c7d88a4d616ab4a28c3a9e0"
+    },
+    {
+      "path": "out/phase10-execution-v1/attempts/a-i/observe-20260821-v1/raw/q-libbrecht-2012-systematics-arxiv.body",
+      "byteLength": 2007,
+      "sha256": "4fabfd0c909fe502e0d6df9cfefe2ef47860fac1adf03b6e019af9d894aebdfd"
+    },
+    {
+      "path": "out/phase10-execution-v1/attempts/a-i/observe-20260821-v1/raw/q-libbrecht-2012-systematics-search.body",
+      "byteLength": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "out/phase10-execution-v1/attempts/a-i/observe-20260821-v1/raw/q-libbrecht-rickerby-2012-arxiv.body",
+      "byteLength": 2499,
+      "sha256": "8ff9f919a94c9a52709db14c2fcc14f01d6c5b3b82c47a60a636d7529cf2a192"
+    },
+    {
+      "path": "out/phase10-execution-v1/attempts/a-i/observe-20260821-v1/raw/q-libbrecht-rickerby-2012-search.body",
+      "byteLength": 363121,
+      "sha256": "f0966dbcdf313b50579e2c7f0db81778e6453bdc713675d69e4d2822c9802d46"
+    },
+    {
+      "path": "out/phase10-execution-v1/attempts/a-i/observe-20260821-v1/raw/q-magee-2014-doi.body",
+      "byteLength": 23593,
+      "sha256": "a62b619ea41263bb0b5c3051b8368464cf2319fb40b73135d73d05a602021218"
+    },
+    {
+      "path": "out/phase10-execution-v1/attempts/a-i/observe-20260821-v1/raw/q-magee-2014-lineage-search.body",
+      "byteLength": 419724,
+      "sha256": "8c6d5cbcec5140712b860cf73d3eea90c3255a9bfde3c85a5a32998f6975fea1"
+    },
+    {
+      "path": "out/phase10-execution-v1/attempts/a-i/observe-20260821-v1/raw/q-nelson-1993-doi.body",
+      "byteLength": 18332,
+      "sha256": "77a82e69a7687894a09e31c989931f88615c46c5334ea83496b052534b277f08"
+    },
+    {
+      "path": "out/phase10-execution-v1/attempts/a-i/observe-20260821-v1/raw/q-nelson-1993-search.body",
+      "byteLength": 332702,
+      "sha256": "0350b576e9380da5a5ff3b7f78efc9956410c15e5af612de7ba8ed08c7072233"
+    },
+    {
+      "path": "out/phase10-execution-v1/attempts/a-i/observe-20260821-v1/raw/q-pokrifka-2018-datacite.body",
+      "byteLength": 6863,
+      "sha256": "a8c3500eebacbe54b50368dfc7c1416d37cc54188d8c1ade63607841666906ea"
+    },
+    {
+      "path": "out/phase10-execution-v1/attempts/a-i/observe-20260821-v1/raw/q-pokrifka-2018-search.body",
+      "byteLength": 479153,
+      "sha256": "23a0452524cc4dde12ad16e85201aec15e29d73d69f7bed0258a36080af5b32a"
+    },
+    {
+      "path": "out/phase10-execution-v1/attempts/a-i/observe-20260821-v1/raw/q-pokrifka-2023-datacite.body",
+      "byteLength": 7481,
+      "sha256": "a69d2cfef746f1adb65bd5a557c19c4ed5db053efa81f0764d53f4009c1cf53e"
+    },
+    {
+      "path": "out/phase10-execution-v1/attempts/a-i/observe-20260821-v1/raw/q-pokrifka-2023-search.body",
+      "byteLength": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "out/phase10-execution-v1/attempts/a-i/observe-20260821-v1/raw/q-swanson-nelson-2019-doi.body",
+      "byteLength": 15904,
+      "sha256": "e2aeae79fd24b97ac28f25585003f418f8c2507e0fd6fd67aa176b865bc1b0f2"
+    },
+    {
+      "path": "out/phase10-execution-v1/attempts/a-i/observe-20260821-v1/raw/q-swanson-nelson-2019-search.body",
+      "byteLength": 420105,
+      "sha256": "ee2bc9f650d7bf1ce37bad87047c89805b48b037acad42c115bb39b2ff7d1108"
+    },
+    {
+      "path": "out/phase10-execution-v1/attempts/a-i/observe-20260821-v1/raw/q-voigtlaender-2018-doi.body",
+      "byteLength": 38736,
+      "sha256": "e6878870761aa7c697cfb4c4f9126afcf31b71700ae283870a397f5084634603"
+    },
+    {
+      "path": "out/phase10-execution-v1/attempts/a-i/observe-20260821-v1/raw/q-voigtlaender-2018-search.body",
+      "byteLength": 425866,
+      "sha256": "6501d18f4694e8abc038468444fe102a06a919fac93bc6a21da8ecad412293c3"
+    },
+    {
+      "path": "out/phase10-execution-v1/attempts/a-i/observe-20260821-v1/raw/q-zhao-2026-crossref.body",
+      "byteLength": 6060,
+      "sha256": "d5983da1b405abf95f278875f14aae2066afa0a2d10add2954fd6c02ea88e079"
+    },
+    {
+      "path": "out/phase10-execution-v1/attempts/a-i/observe-20260821-v1/raw/q-zhao-2026-figshare.body",
+      "byteLength": 2672,
+      "sha256": "7a9fe27b75969973712678e84a2753476f988fab73ddf03f61893c4d85ef8454"
+    }
+  ],
+  "reexecuted": [
+    "Compared all 14 payload dispositions against the frozen foundation, protocol, governed tracked metadata, and rights, duplicate, purpose, routing, and eligibility rules.",
+    "Independently rehashed all 25 retained raw artifacts against the observation validation receipt and found zero mismatches.",
+    "Parsed all 24 retained query outcomes and confirmed 22 HTTP 200 responses plus two HTTP 429 empty-body refusals.",
+    "Rechecked all 12 lineage terminal decisions and nine candidate rows against the retained public response bodies, including the normalized candidate fields and removal of the Zhao parent article from candidates.",
+    "Verified both structural PASS receipts bind the current protocol, observations, decisions, and retained raw-artifact roster.",
+    "Verified the retained NAS observation is an unavailable-refusal with no receipt, count, or storage claim inherited."
+  ],
+  "unresolvedBlockers": [],
+  "limits": [
+    "No external endpoints or NAS paths were contacted during this review.",
+    "No restricted payload bytes, source numeric row bodies, or future held-out values were inspected.",
+    "Rights classifications were reviewed only against the frozen rights policy and governed tracked metadata; this is not an external legal opinion.",
+    "The review did not inspect the underlying scientific full texts or media and is limited to retained public metadata, governed private-safe projections, and frozen decision rules.",
+    "The reviewer used the same GPT-5 model family and shared developer context; this review does not provide different-model or context-isolated independence."
+  ],
+  "verdict": "pass"
+}
