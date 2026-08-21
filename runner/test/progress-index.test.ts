@@ -31,6 +31,7 @@ const FORBIDDEN_SEQUENCING = [
   "Phase 9 is unauthorized",
   "maker adoption decision next",
   "### Phase 9 resume point — integrate the bounded all-no-pass tranche",
+  "maker selected Options A + B (2026-08-20)",
 ];
 const PHASE8_STATUS_LINE =
   "- **Phase 8 is COMPLETE (Phase 8A 2026-08-10; Phase 8B 2026-08-12).**";
@@ -106,7 +107,7 @@ function currentIndexErrors(text: string): string[] {
     "(plans/phase-8-what-is-real.md)",
     "(plans/phase-8-measurement-corpus.md)",
     "(progress-history-phases-6-8-9.md)",
-    "maker selected Options A + B (2026-08-20)",
+    "selected no Phase 10 package (2026-08-20)",
     "- **Last updated:** 2026-08-20",
   ];
   for (const phrase of required) {
@@ -353,12 +354,12 @@ describe("compact progress index and byte-exact historical record", () => {
     expect(currentIndexErrors(phase9LinkMutation))
       .toContain("missing current-state phrase: (plans/phase-9-execution.md)");
     const phase10DecisionMutation = current.replace(
+      "selected no Phase 10 package (2026-08-20)",
       "maker selected Options A + B (2026-08-20)",
-      "Phase 10 options remain undecided",
     );
     expect(phase10DecisionMutation).not.toBe(current);
     expect(currentIndexErrors(phase10DecisionMutation))
-      .toContain("missing current-state phrase: maker selected Options A + B (2026-08-20)");
+      .toContain("missing current-state phrase: selected no Phase 10 package (2026-08-20)");
     expect(currentIndexErrors(`${current}\n## Next step\n`))
       .toContain("expected exactly one ## Next step");
     expect(currentIndexErrors(`${current}\n${ARCHIVE_MARKER}`))

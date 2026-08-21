@@ -82,9 +82,12 @@ detail.
   product/engineering track beside the science workstream (charter v1.23 already makes it
   standalone; this adds no new authority and starts nothing). The handoff mechanism is retired:
   [HANDOFF.md](HANDOFF.md) is a tombstone kept only for the byte-frozen archive's links, and its
-  test pin now enforces the tombstone. For Phase 10 the maker selected Options A + B from the
-  [Phase 10 draft](plans/phase-10-closures-and-frontier.md)'s 2026-08-20 reassessment (see
-  **Next step**); chartering has not landed yet, so no Phase 10 work has started.
+  test pin now enforces the tombstone. The maker clarified that the Phase 10 A+B text was
+  brainstorming and **selected no Phase 10 package (2026-08-20)**. Commit `f51f58e` recorded that
+  brainstorm as a selection before the correction arrived; this live index and the
+  [decision-ready candidate plan](plans/phase-10-closures-and-frontier.md) supersede that status
+  statement. Phase 10 remains uncharted, no execution plan is active, and no scientific PC run is
+  authorized.
 - **Assurance is proportional to decision risk.** [Decision 0049](decisions/0049-make-assurance-proportionate-to-decision-risk.md),
   charter v1.26 and `AGENTS.md` require integrity for routine sources, one targeted check for
   load-bearing inputs, and full named controls for gates or strong public claims. No recursive
@@ -99,8 +102,8 @@ detail.
   direction) and content stays in-repo unpublished, `test.yml` CI unaffected. Reconciliation is
   a live decision point under **Next step**. Full freeze history:
   [the history file](progress-history-phases-6-8-9.md).
-- **Last updated:** 2026-08-20 by Claude Fable 5 (index compaction into the Phase 6/8/9
-  history file; recorded the maker's Phase 10 Option A + B selection)
+- **Last updated:** 2026-08-20 (preserved the Phase 6/8/9 index compaction; corrected Phase 10 to
+  no package selected and completed decision-ready option planning)
 
 ## Phase gates
 
@@ -134,61 +137,42 @@ and completion credit isolated.
 [nas-asset-governance.md](plans/nas-asset-governance.md) is a completed infrastructure record; its
 correction changes no phase claim or credit.
 
-No execution plan is currently active. The next one to create is the Phase 10 execution plan
-scoped to the maker's Option A + B selection (see **Next step**); the
-[Phase 10 draft](plans/phase-10-closures-and-frontier.md) is reviewed design history, not
-execution authority.
+No execution plan is currently active. The
+[Phase 10 candidate plan](plans/phase-10-closures-and-frontier.md) is decision support, not
+execution authority; no A–H package is selected.
 
-Before any production row, the repository must have reviewed source-derived physical-size strata, a
-pre-registered and executed numerical-control ladder that selects one configuration or no-pass, an
-accepted WP3 protocol freeze, and an independently reviewed artifact-derived R15 path. Decisions
-0043–0044's deferrals are authoritative; they are verified records at WP8, not production inputs.
+The old source-strata/ladder/WP3/R15 prerequisite sentence governed the now-closed Phase 6
+production path. WP3 and R15 closed as not computed under decision 0045; that sentence does not
+govern a future Phase 10 diagnostic. Any selected Phase 10 execution must instead freeze and pass
+the package-specific prerequisites in its charter amendment and execution plan. Decisions
+0043–0044's Phase 7 deferrals remain authoritative and cannot be discharged by Phase 10.
 
 ## Next step
 
-### Phase 10 — maker selected Options A + B (2026-08-20); charter it, then execute A
+### Phase 10 — planning complete; maker package selection pending
 
-The maker's decision, recorded from the 2026-08-20 session: Phase 10 proceeds as **Option A
-(scope boundary and housekeeping) followed by Option B (observation mapping and evidence
-acquisition)**, per the dated reassessment in the
-[Phase 10 draft](plans/phase-10-closures-and-frontier.md). Options C (numerical convergence)
-and D (closures) are NOT adopted: C stays available as future work, D stays deferred until
-its prerequisites exist; do not restore either by inertia. No Phase 10 work starts before
-the chartering below lands.
+The [candidate plan](plans/phase-10-closures-and-frontier.md) replaces the original A–D shorthand
+with composable A–H packages and explicit return gates. Nothing is selected. Its recommended
+default is **A-S + A-I + B, alongside no-solver C0 and verification-first C0V with its
+packet-specific A-P preflight**, with no PC habit run. A separate opt-in early numerical-risk
+probe is **C0 + A-P + C1–C2**: fresh N80 replay, N96
+sentinel, then N112 only if N96 passes, with a three-row/72-process-hour maximum. It is diagnostic
+at one neutral attached-count consumer and does not qualify a future B target. D remains deferred.
 
-Next concrete actions, in order (none started):
+The next action is the maker's package choice or a decision to stop at G. After a choice—and not
+before—the repository actions are:
 
-1. **Worktree first.** `git worktree list --porcelain` and `git branch -vv`, then create the
-   Phase 10 branch and isolated worktree (Rule 16). No Phase 10 work on the main checkout.
-2. **Write the execution plan** as a new file (suggested:
-   `docs/plans/phase-10-execution.md`), leaving the draft body as preserved design history —
-   the same pattern Phase 9 used (`phase-9-modular-physics-arms.md` superseded by
-   `phase-9-execution.md`). Scope it to A + B only. A = the draft's WD5 (in/out-of-scope flag
-   with reason for every Phase 8 record; charter scope statement; report templates state
-   in-scope coverage), WD6 (standing source watch: Penn State/HP26 lineage, CM10 MD program,
-   Rule 12 currency), and the phase6-lessons B2 preflight apparatus ("every registered output
-   produced, every registered check executed" — see `docs/phase6-lessons.md` §B2 and its
-   closing section). B = the [Phase 9 guide](phase9-model-development-guide.md)'s
-   "Evidence-gated route" steps 1–5: the apparatus-to-surface forcing map,
-   substrate/support transport representation, the complete controlled-velocity ventilation
-   source, the complete HP26 model, and calibrated surface-state observables (HP26 full
-   article, Keller–Hallett 1982, and Wang 1987 were still missing at Phase 9 close — their
-   acquisition is in scope). B items are evidence acquisition and analysis, not solver
-   mechanism work; fail-closed refusals stay first-class outcomes, and Phase 9's adapter
-   registry and refusal rules remain authoritative.
-3. **Charter it (Rule 5), in the same session as the plan:** an ADR (next free number after
-   0051) adopting Phase 10 scoped to A + B, quoting every charter clause it touches — the
-   "Phase 10 remains uncharted / outside this charter" clauses and the milestone list — plus
-   the matching charter amendment adding the Phase 10 milestone with its done-when copied
-   into the plan verbatim. Record C/D non-adoption in the ADR so no later model restores
-   them silently.
-4. **Execute A before B.** A's deliverables are cheap and every B item depends on the scope
-   boundary existing.
-5. **Standing constraints:** no development record may be relabeled held out; genuinely
-   unseen confirmation evidence must be frozen before its values are inspected; the permanent
-   `GGThreshold`/`LibbrechtKinetics` operators stay unchanged; production-row prerequisites
-   in **Active plan** above are unchanged by any of this; Rule 7 provenance naming applies to
-   all new prose and code.
+1. write a package-scoped execution plan and ADR/charter amendment with the chosen done/stop rules,
+   authority boundaries, resource budget, and complete charter-clause audit;
+2. correct `AGENTS.md`'s stale “Phases 0–8” sentence during that reconciliation; and
+3. for any executable/PC package, implement A-P's obligation matrix, producer, independent
+   evaluator, negative controls required by the protocol, and exact launch README; pass exact
+   `npm test` and packet preflight before moving the run to the PC.
+
+Standing constraints: no Phase 8 record may be relabeled unseen; Phase 7 retains held-out,
+product, and GPU obligations; B outcomes do not automatically authorize E/F/H; the permanent
+`GGThreshold`/`LibbrechtKinetics` operators remain unchanged unless a separately adopted package
+explicitly amends their contract; and no Phase 6 evidence artifact is rewritten.
 
 ### Other live decision points
 

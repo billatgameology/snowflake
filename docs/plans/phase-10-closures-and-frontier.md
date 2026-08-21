@@ -119,7 +119,8 @@ These packages refine the original A–D list. In particular:
 1. For the evidence route, adopt A-S + A-I, triage the already-held post-freeze tranche, then run
    B1–B5 in the Phase 9 guide's order.
 2. In parallel, C0 may re-derive persisted numerical diagnostics and C0V may design/execute its
-   verification controls without a PC habit run.
+   verification controls without a PC habit run; executing C0V also adopts its packet-specific
+   A-P preflight.
 3. Freeze one target and observation operator before a target-facing C campaign. The early C1–C2
    attached-count probe is a separate opt-in if the maker wants to prioritize numerical-risk
    information before B selects that consumer.
@@ -147,8 +148,10 @@ corpus as separate denominators, and give each record these independent fields:
 3. **current representability blockers:** zero or more of missing physical operator, missing
    forcing map, missing observation operator, numerical inadequacy, or other named blocker;
 4. **specimen/apparatus compatibility:** direct, adapter-required, source-blocked, or incompatible;
-5. **immutable evidence role:** Phase 8B development, Phase 8A historical-held-out with no current
-   gate effect, input, or descriptive-only—never newly unseen;
+5. **immutable evidence role:** Phase 8B development; Phase 8A historical-held-out with no current
+   gate effect, historical model-development, historical input, or historical out-of-model; or a
+   separately identified descriptive-only role—never newly unseen and never a rewrite of the
+   frozen split;
 6. **phase ownership:** Phase 7 held-out/product/GPU obligation, Phase 10 development, shared
    read-only input, or out of either phase; and
 7. **current decision eligibility:** quantitative, diagnostic-only, categorical-only, or refused,
@@ -214,7 +217,9 @@ identified missing S2 companion video. For each still-missing operand, it then p
 pre-registered targeted search packet with frozen services/endpoints, queries, date window, result
 cap, and terminal dispositions. No broad discovery or recursive citation chase is authorized; new
 leads go to a backlog unless a maker-approved plan amendment names them. Thus every B branch can
-end in success or a finite source-blocked refusal.
+end in success or a finite source-blocked refusal. Every source or result whose values B opens or
+uses becomes Phase 10 development evidence. A candidate for a future Phase 7 denominator must stay
+sealed and value-blind; if preserving that role matters, it leaves B rather than being inspected.
 
 ### B1 — two independent apparatus-forcing branches
 
@@ -228,11 +233,12 @@ For the Sei–Gonda planar family, mapping alone is insufficient. A physical sco
 complete observation/model-input uncertainty and comparison against the complete current Princeton
 edition for the inherited CAK control. The retained 46-page preview lacks the needed chapters.
 
-**Stop/done B1a:** either freeze a bounded source-backed mapping plus complete input/observation
-uncertainty and the current-edition comparison; freeze a predeclared model-uncertainty sensitivity
-envelope that explicitly cannot be called a statistical uncertainty; or record a terminal
-mapping/uncertainty/edition refusal and route the missing operand to F. Do not declare the planar
-branch complete from a map alone.
+**Stop/done B1a:** either (1) freeze a bounded source-backed mapping and the current-edition
+comparison, plus either complete input/observation uncertainty or a predeclared non-statistical
+sensitivity envelope; or (2) record a terminal mapping, uncertainty, or edition refusal and
+propose the exact missing-operand scope for a separately selected F branch. The sensitivity
+envelope cannot be called a statistical uncertainty and cannot substitute for the forcing map or
+current-edition comparison. Do not declare the planar branch complete from a map alone.
 
 #### B1b — supported pressure/residual apparatus
 
@@ -243,8 +249,10 @@ heat, or vapor boundary absent from the current model, route that work to H; do 
 map an implemented transport representation.
 
 **Stop/done B1b:** either freeze the source-backed apparatus/transport specification and its
-observation domain, followed by the required E/H route, or issue F's operand-level request/refusal.
-B1 is terminal only when B1a and B1b each have an independent disposition.
+observation domain and propose the exact candidate E/H scope for maker return, or record an
+operand-level refusal and propose the exact candidate F request for maker return. B does not
+execute E/H or write/send F's request. B1 is terminal only when B1a and B1b each have an independent
+disposition.
 
 ### B2 — controlled-velocity ventilation evidence
 
@@ -257,8 +265,9 @@ Finding Keller–Hallett could create a standalone controlled-velocity dataset. 
 retrofit eligibility into the ten Gonda–Komabayasi rows or unlock pressure/latent-heat scores
 without ventilation-complete target rows and a crossed design.
 
-**Stop/done:** freeze one complete controlled-velocity dataset/protocol, or issue F's exact data
-request and retain ventilation as source-blocked.
+**Stop/done:** freeze one complete controlled-velocity dataset/protocol, or retain ventilation as
+source-blocked and propose F's exact candidate data request for maker return. B does not write or
+send that request.
 
 ### B3 — same-geometry cross-pressure separation
 
@@ -272,7 +281,8 @@ materials and both Zhao article/supplement roles before claiming they meet this 
 **Stop/done:** freeze an eligible one-factor/crossed design, or a source-validated transport
 adjustment that identifies gas transport separately from surface response. Merely listing
 controlled and confounded axes is not eligibility. Otherwise record that the historical
-comparisons remain non-identifying and route the minimum missing design to F.
+comparisons remain non-identifying and propose the minimum missing design as a candidate F scope
+for maker return; B does not write or send the request.
 
 ### B4 — complete HP26 semantics
 
@@ -310,9 +320,10 @@ meets its predeclared observation/forcing/transport eligibility, or the complete
 recorded categorical-only/refusal reasons.
 
 **B done when:** B1a, B1b, and B2–B5 each have either a frozen eligible bridge/dataset or a terminal,
-operand-level refusal that can be handed to F; every allowed acquisition/search packet is terminal;
-and no unbounded source chase remains. B does not promote a mechanism, implement missing transport,
-or earn a 3-D score.
+operand-level refusal that can become candidate scope for a separately selected F package; every
+allowed acquisition/search packet is terminal; and no unbounded source chase remains. B does not
+promote a mechanism, implement missing transport, write or send an external request, or earn a 3-D
+score.
 
 ## C — numerical adequacy, staged by information per PC-hour
 
@@ -404,8 +415,10 @@ Retain each cycle's new-attachment coordinates (or an equivalently complete witn
 independent evaluator—not a producer boolean—can recompute D6h orbit closure at every cycle plus
 periodic/final full-state symmetry. The evaluator also recomputes relative differences from row
 bytes. Missing, capped, malformed, unconverged, contact-stopped, or otherwise
-solver-integrity-invalid rows stop the packet with an
-infrastructure/artifact **no-decision**; they are not numerical evidence that the domain failed.
+invalid rows stop the domain comparison with **no-decision**. Classify the cause separately as
+infrastructure, artifact, solver-integrity, or mixed: residual/divergence, smoother-drift, ledger,
+or symmetry violations are solver-integrity failures, not infrastructure facts and not evidence
+that the domain-size criterion failed.
 Only a comparison between two admissible rows that violates class/count tolerance earns a
 domain-criterion no-pass and stops the fan-out. If both sentinel increments pass, the next optional
 tranche is the same two new rungs at the remaining seven Phase 6 check-point/arm combinations
@@ -453,8 +466,9 @@ radius 16/17/18 auxiliary is evidence of initialization sensitivity, not a grid-
 After B/E name the target and observation operator, freeze the minimum domain, timestep, grid, and
 initialization envelope plus the `relaxTol`, `divTol`, and sweep-cap controls that can change that
 target's decision. Phase 6's 0/8 relaxation-tolerance failures do not transfer to new domains,
-spacings, targets, or operators. Preserve separate criterion, infrastructure, artifact, and mixed
-outcomes; invalid rows yield no numerical decision. A pass is scoped to that target and observable.
+spacings, targets, or operators. Preserve separate criterion, infrastructure, artifact,
+solver-integrity, and mixed outcomes; invalid rows yield no target numerical decision even when
+they independently establish a solver-integrity failure. A pass is scoped to that target and observable.
 If a target enables nonzero `noiseEpsilon`, add a frozen stochastic ensemble, uncertainty
 estimator, and seed-count adequacy check; the deterministic rasterized-seed result supplies no
 stochastic qualification.
@@ -466,8 +480,9 @@ converged” label transfers to another family.
 predeclared successive increments or a criterion no-pass; initialization sampling has a declared
 envelope whose variation cannot change the target decision or a criterion no-pass; solve tolerances
 pass their own residual/divergence/cap criteria; the selected observable's decision is stable over
-the full declared envelope and critical crossed corners; every invalid/infrastructure result stays
-no-decision; and an independent evaluator re-derives the verdict from artifact bytes.
+the full declared envelope and critical crossed corners; every inadmissible result stays no-decision
+for the target criterion while retaining any separate solver-integrity failure; and an independent
+evaluator re-derives the verdict from artifact bytes.
 
 ## E — observation-operator implementation
 
@@ -586,8 +601,9 @@ decision record before the scripts exist.
 
 - **Scope only:** A-S, then return to the maker with the two immutable overlays.
 - **Evidence plus verification (recommended default):** A-S + A-I + B, alongside read-only C0 and
-  C0V. B outcomes identify candidate E/F/H branches but do not authorize them; return to the maker
-  with their exact scope and budget. No scientific PC habit row runs in this package.
+  executable C0V with its packet-specific A-P preflight. B outcomes identify candidate E/F/H
+  branches but do not authorize them; return to the maker with their exact scope and budget. No
+  scientific PC habit row runs in this package.
 - **Early numerical-risk probe (explicit opt-in):** C0 + A-P + C1–C2, with C0V allowed in
   parallel. This answers only the neutral attached-count/domain sentinel and may be selected before
   B if the maker values early numerical-risk information despite its non-transfer to a future B
