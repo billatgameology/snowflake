@@ -5,9 +5,10 @@ between them. Any model may pick up work another left mid-flight. `docs/PROGRESS
 current-state index, and the active plans hold the detailed work records; logs, checkpoints, and
 other artifacts are evidence only when one of those current records points to them.
 
-`docs/HANDOFF.md` is a manually triggered stop/restart snapshot, not a second live progress log.
-Update it only when the maker explicitly says the session is stopping, restarting, or needs an
-immediate saved handoff. During ordinary work and long runs, leave it untouched.
+The handoff mechanism is retired (maker direction, 2026-08-20). There is no live handoff
+document: `docs/PROGRESS.md` and the active plans are the sole live state, and work proceeds in
+isolated worktrees per Rule 16. `docs/HANDOFF.md` remains only as a tombstone because the
+byte-frozen progress archive links to it; never revive it as a snapshot.
 
 **`CLAUDE.md` is a symlink to this file.** Keep `AGENTS.md` canonical and never replace the
 symlink with a second copy; two instruction files will drift.
@@ -29,8 +30,7 @@ Templates live at `docs/plans/_TEMPLATE.md` and `docs/decisions/_TEMPLATE.md`.
 
 Read in this order on every cold start:
 
-0. **Read `docs/HANDOFF.md`.** It is the last explicitly requested stop/restart snapshot and may
-   predate ongoing work. Then read **`docs/phase6-lessons.md`** — every rule in it came from a real incident that cost time or
+0. **Read `docs/phase6-lessons.md`** — every rule in it came from a real incident that cost time or
    nearly cost evidence, and several are enforced by `npm test`
    (`runner/test/evidence-integrity.test.ts`).
 1. Read `docs/PROGRESS.md` completely, including **Next step**.
@@ -617,7 +617,7 @@ Before pushing or opening a PR, the owning agent must:
 5. verify `git worktree list --porcelain` and `git branch -vv` show the primary worktree, named
    unrelated ongoing worktrees, and exactly one branch for the PR; and
 6. record the surviving branch, head commit, checks, and PR URL in the active plan/PROGRESS and PR
-   description. Update `HANDOFF.md` only when the maker separately requests a stop/restart snapshot.
+   description.
 
 `git worktree remove --force` and `git branch -D` are destructive cleanup tools, not ordinary
 workflow. Use them only after exact path/ref resolution and the disposition audit above; a dirty

@@ -240,7 +240,8 @@ acceptance; that is not an exhaustive certification of Phase 6.
 byte, or validate the later O1b repairs. Its accepted findings and the resulting gate reopening are
 propagated through [the corrected conclusion](../research/phase6-conclusion.md), the active
 [science-first completion plan](plans/phase-6-science-first-completion.md), and
-[the current handoff](HANDOFF.md). Subsequent non-author review found additional propagation and
+the then-current handoff (`docs/HANDOFF.md`, retired to a tombstone 2026-08-20; its snapshots
+are in Git history). Subsequent non-author review found additional propagation and
 protocol defects, so only the latest dated review state may support a clean-review claim.
 
 ### E2 — a true endpoint silently became a false range summary

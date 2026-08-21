@@ -2,8 +2,9 @@
 
 **This file is the compact, authoritative current-state index. Read it completely and leave it
 true after every session that changes anything.** Rules: [AGENTS.md](../AGENTS.md). Governing spec:
-[project charter.md](../project%20charter.md). [HANDOFF.md](HANDOFF.md) is only the last
-maker-triggered stop/restart snapshot and may predate this live index.
+[project charter.md](../project%20charter.md). The handoff mechanism is retired (maker direction
+2026-08-20): this index plus the active plans are the sole live state, and work proceeds in
+isolated worktrees per Rule 16.
 
 ## Historical record
 
@@ -74,6 +75,14 @@ index, a plan, ADR, or audit links to historical detail.
   [artifact](../evidence/phase9-knowledge-baseline-v1/report.json) (5,263 bytes; SHA-256
   `37c7aadf18bce7420883930f66d6c6a473100dd27e1468dd8396a3c1214b1f96`) preserve 18 sources and
   15 hypotheses. It is now a bound S0B input; no model ran during its construction.
+- **Maker directions (2026-08-20).** Phase 7 is on hold and, when resumed, runs as a parallel
+  product/engineering track beside the science workstream (charter v1.23 already makes it
+  standalone; this adds no new authority and starts nothing). The handoff mechanism is retired:
+  [HANDOFF.md](HANDOFF.md) is a tombstone kept only for the byte-frozen archive's links, and its
+  test pin now enforces the tombstone. Phase 10 remains uncharted; the
+  [Phase 10 draft](plans/phase-10-closures-and-frontier.md) carries a dated 2026-08-20
+  reassessment against the landed Phase 6/8B/9 outcomes and awaits the maker's chartering
+  decision (adoption requires an ADR plus charter amendment per Rule 5).
 - **Assurance is proportional to decision risk.** [Decision 0049](decisions/0049-make-assurance-proportionate-to-decision-risk.md),
   charter v1.26 and `AGENTS.md` require integrity for routine sources, one targeted check for
   load-bearing inputs, and full named controls for gates or strong public claims. No recursive
@@ -157,7 +166,8 @@ index, a plan, ADR, or audit links to historical detail.
   frozen tree exited 0: Rule 7 clean over 436 files, both TypeScript projects, Vitest 82 files /
   1,454 tests in 628.68 s. Whether WP2 uses Z = 2 or Z = 1 strata is a WP2/WP3 protocol
   decision.
-- **Last updated:** 2026-08-20 by Claude Fable 5 (ladder verdict publication)
+- **Last updated:** 2026-08-20 by Claude Fable 5 (post-closure reconciliation: handoff
+  retirement, NAS write-lane fold-in, Phase 10 draft reassessment)
 
 ## Phase gates
 
@@ -198,55 +208,48 @@ accepted WP3 protocol freeze, and an independently reviewed artifact-derived R15
 
 ## Next step
 
-### Current resume point — Phase 6 is CLOSED; no Phase 6 work remains
+### Live decision points (2026-08-20)
 
-The 80-row ladder (frozen plan + three-round pre-execution review + execution scheduling
-record + post-execution review record, all in
-[phase-6-wp2-ladder.md](plans/phase-6-wp2-ladder.md)) ran to completion 2026-08-08 →
-2026-08-20 from the pinned worktree at operative head `3827b77`. Quoted from
+1. **Phase 10 chartering** — maker review of the
+   [Phase 10 draft](plans/phase-10-closures-and-frontier.md), whose 2026-08-20 reassessment
+   re-derives the options against the landed outcomes (scope-boundary-first; the Phase 9
+   guide's observation-mapping/evidence-acquisition route; numerical convergence; closures
+   deferred until their prerequisites exist). Until an ADR and charter amendment land,
+   Phase 10 stays uncharted and no Phase 10 work starts.
+2. **NAS prune approval** — the exact workstation-source prune list (pinned ladder worktree
+   `G:\Code Files\snowflake-phase6-ladder`, archived `out/` trees) is now unblocked by the
+   verified external-evidence backups; it remains a separate reviewed maker decision. Nothing
+   has been deleted.
+3. **Education reconciliation** — maker-directed, not started. The frozen education verifier
+   oracles (`docs/education/tools/part-two-oracles.mjs`) pin superseded state-document
+   content, including the retired handoff, so they are part of that reconciliation's scope.
+
+Phase 7 stays on hold as a parallel product/engineering track; it still requires its own
+committed plan and isolated worktree before any work starts, and V4/V4.x apparatus stays
+retired.
+
+### Phase 6 closure record — no Phase 6 work remains
+
+The 80-row ladder (frozen plan, three-round pre-execution review, execution and
+post-execution review records, all in [phase-6-wp2-ladder.md](plans/phase-6-wp2-ladder.md))
+completed 2026-08-20 with **overall NO-PASS, class `criterion`, both spacings**. Quoted from
 [`evidence/phase6-wp2-ladder/report.json`](../evidence/phase6-wp2-ladder/report.json)
-(43,863 bytes, SHA-256 `fd20f701…ebb7`): **overall NO-PASS, class `criterion`, both
-spacings** — all 80 rows stopped `size-target` (coarse rows exactly at extent 27; every
-0.35 µm row at extent 55, the first reachable extent ≥ the mapped target 54 on the
-odd-extent lattice, uniform on both sides of every comparison) and every habit class agreed,
-but attached-cell counts exceeded the registered 0.5% agreement at 5/16 coarse-domain,
-6/16 fine-domain, and 17/32 auxiliary check points (passing: dx 0.7 domain 11/16, dx 0.35
-domain 10/16, auxiliary 15/32; seed-perturbation deltas reach 9.285%). Infrastructure was
-clean: 80/80 expected rows, 0 missing/unexpected/defects, exactly the three sanctioned heads
-`f59d187`/`aa81295`/`3827b77`. The bound rows artifact
-[`rows.jsonl`](../evidence/phase6-wp2-ladder/rows.jsonl) is 73,873 bytes, SHA-256
-`c4fa70f7…cd14` (echoed inside the report). Scope per the report's verbatim statement: floor
-sizes at the four registered check points only; the S2-ceiling stratum's numerics are
-UNVERIFIED; a pass would have authorized no production (decision 0045); the ablation arm
-inherits M1's rung verdict as an untested transfer assumption. No-pass is the registered
-first-class outcome: the numerics are published as NOT converged at these resolutions, and
-the attached-count observable carries multi-percent seed sensitivity.
-
-The WP2 unit's non-author review is COMPLETE (2026-08-20, 0 blockers): the published verdict
-was independently re-derived from the plan and artifact bytes alone, firewalled from the
-author evaluator, with complete agreement on all 28 failing comparisons to three decimals;
-six named Rule 9 mutation controls all fired; the verifier is suite-pinned
-(`app/scripts/phase6-wp2-ladder-independent.mjs`). Findings and remediations are in
-[the plan](plans/phase-6-wp2-ladder.md)'s Review record.
-
-WP8 executed same-day: the pinned
-[three-arm narrative](../evidence/phase6-three-arm-report/report.md) (H10); the flagless
-`gate6` (`runner/src/gate6-aggregate.ts`) re-deriving all 13 amended-obligation criteria from
-committed evidence, exit 0 at `44488ab`; 14 negative controls including the six registered
-names, suite-pinned in `runner/test/gate6-aggregate.test.ts`; the gate unit's non-author
-review; exact `npm test`; and this reconciliation. Phase 6 changed to complete on the gate's
-exit 0, per the plan's WP8 rule. Post-Phase-6 notes: education reconciliation (frozen stale
-prose) is now reachable but remains maker-directed; the pinned ladder worktree
-`G:\Code Files\snowflake-phase6-ladder` may be retired; V4/V4.x apparatus stays retired.
-Held-out and preview-GPU work remain Phase 7 property in their own future plan and worktree,
-with no Phase 6 credit; Phase 7 still requires its own committed plan before any work starts.
-
-### Gutcheck/NAS relocation — landed and approved (2026-08-14)
-
-`ffb3a5e` lands the 254-path relocation/hardening unit. Claude Fable 5 approved it with zero
-blockers after 72/72 focused tests and reviewer exact `TMPDIR=/private/tmp npm test`: 1,722
-passed / 7 skipped (`out/checks/npm-test-round3-review.log`, SHA-256 `2a90d0d5…b11d`). Windows
-`S:/` and full NAS replay remain unexecuted; two deferred low findings are in the plan.
+(43,863 bytes, SHA-256 `fd20f701…ebb7`; bound [`rows.jsonl`](../evidence/phase6-wp2-ladder/rows.jsonl)
+73,873 bytes, `c4fa70f7…cd14`): attached-cell counts exceeded the registered 0.5% agreement
+at 5/16 coarse-domain, 6/16 fine-domain, and 17/32 auxiliary check points, with
+seed-perturbation deltas reaching 9.285%; all 80 rows stopped `size-target` with 0
+missing/unexpected/defects and exactly the three sanctioned heads. The numerics are published
+as NOT converged at these resolutions; the S2-ceiling stratum stays UNVERIFIED; a pass would
+have authorized no production (decision 0045). The WP2 non-author review confirmed the
+verdict (0 blockers; all 28 failing comparisons re-derived to three decimals; verifier
+suite-pinned at `app/scripts/phase6-wp2-ladder-independent.mjs`). WP8 executed same day: the
+pinned [three-arm narrative](../evidence/phase6-three-arm-report/report.md), the flagless
+`gate6` (`runner/src/gate6-aggregate.ts`) with 14 suite-pinned negative controls, the gate
+unit's non-author review, exact `npm test`, and reconciliation; Phase 6 changed to complete
+on the gate's exit 0, per the plan's WP8 rule. A same-day macOS re-derivation at `9e64ef7`
+(clean tree) reproduced gate6 13/13 / exit 0 and exact `TMPDIR=/private/tmp npm test` green:
+132 files, 2,250 passed / 7 skipped in 403.61 s. Held-out and preview-GPU work remain
+Phase 7 property with no Phase 6 credit.
 
 ### Phase 8B record — closed; external search remains stopped
 
@@ -257,13 +260,21 @@ audit. Broad discovery and the residual backlog remain stopped absent a new name
 measurement gap; Phase 9 S0B is bounded reconciliation of already registered complete Git/NAS
 sources. All 51 Phase 8B records are development evidence and none may be relabeled held out.
 
-### NAS asset governance — correction complete; cleanup approval pending
+### NAS asset governance — complete through the Windows write lane; prune approval pending
 
-`d92f39a` applied without deletion: diagnostics are 434 files / 666,233,360 bytes; quarantine holds
-497 / 167,758,628; receipt is `7de6caa2…220`. Full hash, fresh restore, and Rule 10 review passed.
-`TMPDIR=/private/tmp npm test` passed 130 files / 2,224 passed / 7 skipped in
-398.57 s (log `8a9b445a…e708`). Publish, then request exact cleanup approval. Windows/SMB, backup,
-custody, and disposal remain out of scope.
+The [governance plan](plans/nas-asset-governance.md) holds the full record. `d92f39a` applied
+the macOS correction without deletion (diagnostics 434 files / 666,233,360 bytes; quarantine
+497 / 167,758,628; receipt `7de6caa2…220`). The Windows write lane executed 2026-08-20
+(`0b34ee9`), quoted from the plan's apply record: 11 collections, 8,362 files, 2,774,126,334
+bytes staged and promoted with three-way hash identity; receipt
+`_control/receipts/migrations/windows-workspace-2026-08-20/result.json` (465,124 bytes,
+SHA-256 `254d5b70…5c0f`); 11/11 fresh-process full verifies and a green restore round-trip;
+the ledger owns 31,090 files / 471,637,028,713 bytes. The external-evidence backup gap closed
+same day (`9e64ef7`): both external-evidence collections copied to an independent domain
+(workstation C: drive), 37 files / 137,211,035 bytes verified twice against ledger pins, and
+both catalogue entries now carry `backup.status: verified`. SMB rename crash-durability stays
+verification-based (win32 cannot fsync a directory handle). Remaining: the maker's exact
+prune approval (decision point 2 above).
 
 Related record: two rejected D-BT candidates (10 files / 85,153 bytes) are preserved on NAS;
 14 post-freeze payloads are logged in

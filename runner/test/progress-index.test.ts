@@ -204,12 +204,13 @@ describe("compact progress index and byte-exact historical record", () => {
     expect(currentIndexErrors(text)).toEqual([]);
 
     const progressDate = text.match(/^- \*\*Last updated:\*\* (\d{4}-\d{2}-\d{2})/mu)?.[1];
-    const handoffDate = readFileSync(HANDOFF, "utf8")
-      .match(/^# Handoff .* \((\d{4}-\d{2}-\d{2})\)$/mu)?.[1];
-    // HANDOFF.md is the last maker-triggered stop snapshot and moves only on maker request;
-    // PROGRESS.md advances with ordinary work, so the two dates are pinned independently.
     expect(progressDate).toBe("2026-08-20");
-    expect(handoffDate).toBe("2026-08-07");
+    // The handoff mechanism is retired (maker direction 2026-08-20). docs/HANDOFF.md remains
+    // only as a tombstone so the byte-frozen archive's HANDOFF.md links keep resolving; it
+    // must never carry a live dated snapshot heading again.
+    const handoff = readFileSync(HANDOFF, "utf8");
+    expect(handoff).toContain("retired");
+    expect(handoff).not.toMatch(/^# Handoff .* \(\d{4}-\d{2}-\d{2}\)$/mu);
     for (const statePlan of STATE_PLANS) expect(existsSync(statePlan)).toBe(true);
     expect(existsSync(ARCHIVE)).toBe(true);
   });

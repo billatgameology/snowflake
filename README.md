@@ -237,7 +237,7 @@ active plan, and then implementation comments.
 This README is only an orientation layer. Follow the authoritative cold-start order in
 `AGENTS.md` before changing the repository:
 
-1. Read `docs/HANDOFF.md`, `docs/phase6-lessons.md`, and compact `docs/PROGRESS.md` completely.
+1. Read `docs/phase6-lessons.md` and compact `docs/PROGRESS.md` completely.
 2. Read every active plan it links that is relevant to your work, including `Tried and rejected`.
 3. Inspect `git status` and the relevant diff.
 4. Read the relevant charter clauses, accepted decisions, and solver specification.
