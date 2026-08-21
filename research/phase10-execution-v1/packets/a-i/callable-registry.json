@@ -1,0 +1,93 @@
+{
+  "schema": "phase10-callable-registry-v1",
+  "registryId": "phase10-a-i-resolved-callables-v1",
+  "matrixId": "phase10-selected-package-obligations-v1",
+  "protocolId": "phase10-a-i-intake-v1",
+  "packetId": "a-i",
+  "callables": [
+    {
+      "callableId": "phase10-a-i-check-caller",
+      "role": "check-caller",
+      "resolution": "resolved",
+      "modulePath": "runner/src/phase10-intake-checks.ts",
+      "exportName": "phase10AICheckCaller",
+      "identity": {
+        "byteLength": 377,
+        "sha256": "68710f970aa11295792c27948ff58449379b5a44e434175224393e67e1b7633a"
+      },
+      "producedOutputIds": [],
+      "invokedCheckIds": [
+        "chk-ai-currency-closed-once",
+        "chk-ai-development-evidence-label",
+        "chk-ai-exact-14-payloads",
+        "chk-ai-exact-24-files",
+        "chk-ai-rights-safe-projection",
+        "chk-ai-terminal-dimensions",
+        "chk-ai-three-denominators"
+      ],
+      "evaluatedCheckIds": [],
+      "executedNegativeControlIds": []
+    },
+    {
+      "callableId": "phase10-a-i-producer",
+      "role": "producer",
+      "resolution": "resolved",
+      "modulePath": "runner/src/phase10-intake.ts",
+      "exportName": "producePhase10IntakeArtifacts",
+      "identity": {
+        "byteLength": 32170,
+        "sha256": "5b4f891596ab8142254cc315a5d4d33c6a88d48b31fcefc6496933287c4ef337"
+      },
+      "producedOutputIds": [
+        "out-ai-artifact-index",
+        "out-ai-currency",
+        "out-ai-dispositions",
+        "out-ai-file-custody",
+        "out-ai-report"
+      ],
+      "invokedCheckIds": [],
+      "evaluatedCheckIds": [],
+      "executedNegativeControlIds": []
+    },
+    {
+      "callableId": "phase10-a-i-verification-receipt-writer",
+      "role": "producer",
+      "resolution": "resolved",
+      "modulePath": "runner/src/phase10-intake-verification-receipt.ts",
+      "exportName": "writePhase10IntakeVerificationReceipt",
+      "identity": {
+        "byteLength": 16832,
+        "sha256": "26e39b42550f7ccc2abe7a5648f2eefa0dd3c9afb9659884bc63c723cbe700d0"
+      },
+      "producedOutputIds": [
+        "out-ai-verification"
+      ],
+      "invokedCheckIds": [],
+      "evaluatedCheckIds": [],
+      "executedNegativeControlIds": []
+    },
+    {
+      "callableId": "phase10-ai-verifier",
+      "role": "independent-evaluator",
+      "resolution": "resolved",
+      "modulePath": "runner/src/phase10-intake-verify.ts",
+      "exportName": "phase10IntakeVerify",
+      "identity": {
+        "byteLength": 26105,
+        "sha256": "0dd0a295f84fafb461aa3fd3dbfa77ec7f0f1831b43803c70185b8190882d157"
+      },
+      "producedOutputIds": [],
+      "invokedCheckIds": [],
+      "evaluatedCheckIds": [
+        "chk-ai-currency-closed-once",
+        "chk-ai-development-evidence-label",
+        "chk-ai-exact-14-payloads",
+        "chk-ai-exact-24-files",
+        "chk-ai-rights-safe-projection",
+        "chk-ai-terminal-dimensions",
+        "chk-ai-three-denominators"
+      ],
+      "executedNegativeControlIds": []
+    }
+  ]
+}

@@ -102,6 +102,7 @@ interface StaticPacketOptions {
   readonly candidateDirectory: string;
   readonly command: string;
   readonly repositoryBundleRoot: ".";
+  readonly allowValidatedResume?: boolean;
 }
 
 interface StaticTerminalOptions extends StaticPacketOptions {
@@ -1252,7 +1253,6 @@ export function writePhase10StaticPreflightReceipt(options: StaticPacketOptions)
   const row = catalogueRow(repositoryRoot, options.packetId);
   const candidateDirectory = safePath(repositoryRoot, options.candidateDirectory, "candidate directory");
   assertSafeExistingParent(repositoryRoot, candidateDirectory, "static candidate");
-  if (existsSync(candidateDirectory)) fail(`candidate directory already exists: ${options.candidateDirectory}`);
   const branch = git(repositoryRoot, ["branch", "--show-current"]);
   if (branch !== EXPECTED_BRANCH) fail(`branch ${branch} is not ${EXPECTED_BRANCH}`);
   assertCleanRepository(repositoryRoot, "before static preflight");
@@ -1260,6 +1260,36 @@ export function writePhase10StaticPreflightReceipt(options: StaticPacketOptions)
   const loaded = loadPacket(repositoryRoot, row);
   if (loaded.preflight.packetId !== options.packetId || loaded.preflight.stage !== "run") {
     fail("obligation run preflight returned the wrong packet or stage");
+  }
+  if (existsSync(candidateDirectory)) {
+    if (options.allowValidatedResume !== true || options.packetId !== "a-i") {
+      fail(`candidate directory already exists: ${options.candidateDirectory}`);
+    }
+    assertSafeExistingDirectory(repositoryRoot, candidateDirectory, "static resume candidate");
+    const preflightPath = resolve(candidateDirectory, "preflight.json");
+    if (!existsSync(preflightPath)) fail("static resume candidate has no retained preflight");
+    const preflightStat = lstatSync(preflightPath);
+    if (!preflightStat.isFile() || preflightStat.isSymbolicLink() || preflightStat.nlink !== 1) {
+      fail("static resume preflight is not a regular non-symlink single-link file");
+    }
+    const existing = parseReceiptBytes(new Uint8Array(readFileSync(preflightPath)), "static resume preflight");
+    validateStaticPreflightReceipt(
+      existing,
+      options,
+      loaded.preflight,
+      repositoryRoot,
+      row,
+      loaded.packetProtocol.boundDependencyPacketIds,
+    );
+    const terminalPath = resolve(candidateDirectory, "terminal-receipt.json");
+    if (existsSync(terminalPath)) {
+      const terminalStat = lstatSync(terminalPath);
+      if (!terminalStat.isFile() || terminalStat.isSymbolicLink() || terminalStat.nlink !== 1) fail("static resume terminal is not a regular non-symlink single-link file");
+      const terminal = parsePhase10ExecutionReceipt(parseReceiptBytes(new Uint8Array(readFileSync(terminalPath)), "static resume terminal"));
+      if (terminal.receiptId !== `phase10-${options.packetId}-${options.attemptId}-terminal-v1`) fail("static resume terminal belongs to another attempt");
+      phase10ObligationReceiptPreflight(loaded.matrix, loaded.protocol, loaded.registry, terminal, repositoryRoot);
+    }
+    return existing as unknown as StaticPreflightReceipt;
   }
 
   const observed = strictJsonSnapshot({

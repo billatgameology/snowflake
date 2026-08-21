@@ -409,6 +409,58 @@ receipt rosters, dependency bytes, and callable/input identities, and reported z
 did not edit, stage, manifest, republish, authenticate wall-clock timestamps, assess scientific
 correctness, inspect NAS/private material, or inspect future held-out source values.
 
+### S3/S4 pre-execution implementation freeze — 2026-08-21
+
+This checkpoint freezes the A-I observation/disposition lifecycle and the C0 derive/publish
+executor before either packet opens its governed value-bearing input. The A-I supplement is exact
+pretty-2 JSON plus LF, 26,443 bytes / SHA-256
+`6adffffdbd02b7e023072f2e096909f43ee557b1fcd45e7a0d7f52107f36fe78`. It registers 12 distinct
+work/version lineages, 24 finite GET-or-POST currency requests, the 14-payload / 24-tracked-file /
+26-private-file denominators, exact rights-safe projection, fixed raw-attempt retention, and the
+separate non-author semantic-review obligation. `observations.json`,
+`disposition-decisions.json`, and `semantic-review.json` are absent at this freeze. After the
+commit, the exact clean freeze head must run observe and observation validation; a human-authored
+rights-safe decision file and non-author semantic review then enter Git together as the only three
+post-freeze paths before A-I production. No endpoint, NAS, observation, disposition, production,
+or publication was executed while this implementation was built.
+
+The C0 derive protocol/registry are 1,154 bytes / SHA-256
+`29c1cabef149fde31e2000fcf2e2f69351f6bb19904649b466caa58d70c771ef` and 7,005 bytes / SHA-256
+`c6c9c9bd1d878e25d718300a86e412b1430d0c18e6a9d806d044c452915312c2`; the publish
+protocol/registry are 842 bytes / SHA-256
+`83cf4197d01b4376014da24e5c99ea29d35c4039c76c283c5098d2bcbdc35f27` and 2,882 bytes / SHA-256
+`dc23907bf397c7f3c2209126f8cfa7ea79755d4d0ee606c6955858c70aa14ffa`. The executor binds their
+same-commit transitive code closure, exact clean branch/head/runtime, A-P and C0 dependency bytes,
+safe unique attempt paths, one live writer, a 300-second timeout, 16 MiB scratch, 4 MiB output,
+64 MiB minimum free space, concurrency one, and zero solver/scientific process-hours. Its evaluator
+independently enumerates all 80 rows and 64 registered pairings, freezes the all-spacings rule,
+proves each of seven named mutations, and makes artifact-derived verification—not subprocess exit
+or producer status—the only route to publication.
+
+The combined synthetic integration suite passes 80/80 across obligation, A-P, A-S, A-I, C0, and
+executor tests. The A-I-focused suite passes 12/12; its A-P/A-S regressions pass 39/39. The C0 plus
+executor suites pass 27/27, and direct packet preflight resolves C0 derive as 5 outputs / 8 checks /
+7 controls / 11 callables and C0 publish as 3 outputs / 5 checks / 0 controls / 4 callables. Exact
+`npm test` is the final checkpoint check; this freeze commit lands only after it passes on the
+reconciled bytes.
+
+One non-author OpenAI Codex GPT-5 reviewer with full shared context re-executed A-I's 12 focused
+tests, direct 6-output/7-check/zero-control/4-callable preflight, exact serialization and Git
+attribute checks, and future-input absence, and reported zero blockers. It did not execute or
+inspect endpoints, NAS, future input values, private bytes, production, or publication. A second
+non-author OpenAI Codex GPT-5 reviewer with full shared context re-executed the 27 C0/executor
+tests, typecheck, Rule 7, direct preflights, serialization, attributes, identities, and diff checks
+and reported zero blockers. It deliberately did not open or search the real Phase 6 report/rows,
+run a solver, execute C0, mutate evidence, or run the full suite.
+
+During implementation, the C0 author accidentally ran
+`rg -n "phase10-resource-ledger-v1|peakRssBytes|observedFinalRssBytes" .` from the worktree root.
+That overly broad read printed matching lines from the real Phase 6 ladder rows to tool stdout;
+nothing was redirected or written, and no value was analyzed or used to choose a protocol,
+implementation, classification, or result. This is an ordering/boundary incident, not C0
+execution or evidence, and the author cannot serve as the unopened-input independent scientific
+reviewer. The separate non-author reviewer preserved the unopened-input boundary.
+
 ## Return and stop rules
 
 - Return to the maker, without continuing, for any E/F/H candidate, any C1–C5 or target-facing

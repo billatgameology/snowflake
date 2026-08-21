@@ -1,0 +1,29 @@
+{
+  "schema": "phase10-packet-protocol-v1",
+  "protocolId": "phase10-c0-publish-existing-byte-v1",
+  "matrixId": "phase10-selected-package-obligations-v1",
+  "packetId": "c0-publish",
+  "artifactSchemaRegistry": {
+    "path": "research/phase10-artifact-schema-registry-v1.json",
+    "byteLength": 114255,
+    "sha256": "c89463c37384d5652b57c039e26f0c612b08a2d9bb5994482bbf750eae121c70"
+  },
+  "selectedBranches": [],
+  "registeredOutputIds": [
+    "out-c0-artifact-index",
+    "out-c0-report",
+    "out-c0-verification-receipt"
+  ],
+  "registeredCheckIds": [
+    "chk-c0-publish-artifact-graph",
+    "chk-c0-publish-breakdown",
+    "chk-c0-publish-gap-list",
+    "chk-c0-publish-historical-limit",
+    "chk-c0-publish-no-habit-claim"
+  ],
+  "registeredNegativeControlIds": [],
+  "boundDependencyPacketIds": [
+    "a-p",
+    "c0-derive"
+  ]
+}

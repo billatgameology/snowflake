@@ -1,0 +1,41 @@
+{
+  "schema": "phase10-packet-protocol-v1",
+  "protocolId": "phase10-c0-derive-existing-byte-v1",
+  "matrixId": "phase10-selected-package-obligations-v1",
+  "packetId": "c0-derive",
+  "artifactSchemaRegistry": {
+    "path": "research/phase10-artifact-schema-registry-v1.json",
+    "byteLength": 114255,
+    "sha256": "c89463c37384d5652b57c039e26f0c612b08a2d9bb5994482bbf750eae121c70"
+  },
+  "selectedBranches": [],
+  "registeredOutputIds": [
+    "out-c0-analysis",
+    "out-c0-comparisons",
+    "out-c0-derive-verification",
+    "out-c0-gaps",
+    "out-c0-historical-limit"
+  ],
+  "registeredCheckIds": [
+    "chk-c0-all-spacings",
+    "chk-c0-comparison-roster",
+    "chk-c0-cost-separation",
+    "chk-c0-field-allowlist",
+    "chk-c0-independent-rederivation",
+    "chk-c0-no-solver",
+    "chk-c0-operand-echo",
+    "chk-c0-row-roster"
+  ],
+  "registeredNegativeControlIds": [
+    "nc-c0-coarse-fail-fine-pass",
+    "nc-c0-duplicate-or-truncated",
+    "nc-c0-fine-fail-coarse-pass",
+    "nc-c0-forbidden-field",
+    "nc-c0-forged-producer-verdict",
+    "nc-c0-missing-row",
+    "nc-c0-operand-echo"
+  ],
+  "boundDependencyPacketIds": [
+    "a-p"
+  ]
+}

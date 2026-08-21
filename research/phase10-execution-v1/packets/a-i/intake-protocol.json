@@ -1,0 +1,789 @@
+{
+  "schema": "phase10-intake-protocol-v1",
+  "protocolId": "phase10-a-i-source-intake-v1",
+  "createdOn": "2026-08-21",
+  "foundationFreeze": {
+    "path": "research/phase10-foundation-freeze-v1.json",
+    "byteLength": 32327,
+    "sha256": "7847f26a24d1a09eefc6b15ed07baf1d007782fdd58c3301e3f926e4c8805871"
+  },
+  "obligationMatrix": {
+    "path": "research/phase10-obligation-matrix-v1.json",
+    "byteLength": 125508,
+    "sha256": "8f85e6febad1ec7568b2a7a47dd764c260cc1f602da08c7dd27d5ee1a6c1bab3"
+  },
+  "artifactSchemaRegistry": {
+    "path": "research/phase10-artifact-schema-registry-v1.json",
+    "byteLength": 114255,
+    "sha256": "c89463c37384d5652b57c039e26f0c612b08a2d9bb5994482bbf750eae121c70"
+  },
+  "trackedIntake": {
+    "path": "research/phase9-post-freeze-source-intake-v1.json",
+    "byteLength": 12925,
+    "sha256": "1a9a8fdb24fcd230d377297a268694727e27baccbe3a8ba807857b5a611afc48"
+  },
+  "decisionInput": {
+    "path": "research/phase10-execution-v1/packets/a-i/disposition-decisions.json",
+    "schema": "phase10-intake-disposition-decisions-v1",
+    "mustBeAbsentAtProtocolFreeze": true,
+    "mustBeCommittedBeforeProduction": true,
+    "rightsSafeMetadataOnly": true,
+    "semanticReviewRequired": true,
+    "basisKinds": [
+      "frozen-foundation",
+      "frozen-tracked-metadata",
+      "normalized-current-observation",
+      "paraphrased-analyst-judgment"
+    ],
+    "basisLocatorTemplates": {
+      "frozenFoundation": "research/phase10-foundation-freeze-v1.json#intakeRoster/sourcePayloads[payloadId={payloadId}]",
+      "frozenTrackedMetadata": "research/phase9-post-freeze-source-intake-v1.json#files[source-payload-for={payloadId}]",
+      "normalizedCurrentObservation": "research/phase10-execution-v1/packets/a-i/observations.json#queryExecutions[queryId={queryId}]",
+      "paraphrasedAnalystJudgment": "analyst-judgment:{payloadId}"
+    }
+  },
+  "observationInput": {
+    "path": "research/phase10-execution-v1/packets/a-i/observations.json",
+    "schema": "phase10-intake-observations-v1",
+    "mustBeAbsentAtProtocolFreeze": true,
+    "mustBeCommittedBeforeProduction": true,
+    "rightsSafeMetadataOnly": true
+  },
+  "semanticReviewInput": {
+    "path": "research/phase10-execution-v1/packets/a-i/semantic-review.json",
+    "schema": "phase10-intake-semantic-review-v1",
+    "mustBeAbsentAtProtocolFreeze": true,
+    "mustBeCommittedBeforeProduction": true,
+    "reviewerMustBeNonAuthor": true,
+    "zeroUnresolvedBlockersRequired": true
+  },
+  "observationExecution": {
+    "attemptDirectory": "out/phase10-execution-v1/attempts/a-i/observe-20260821-v1",
+    "rawDirectory": "out/phase10-execution-v1/attempts/a-i/observe-20260821-v1/raw",
+    "validationReceiptPath": "out/phase10-execution-v1/attempts/a-i/observe-20260821-v1/validation.json",
+    "decisionValidationReceiptPath": "out/phase10-execution-v1/attempts/a-i/observe-20260821-v1/decision-validation.json",
+    "processConcurrency": 1,
+    "httpPolicy": {
+      "timeoutMs": 30000,
+      "maxResponseBytes": 8388608,
+      "redirect": "follow",
+      "userAgent": "snowflake-phase10-a-i/1.0 (finite source-currency observation)"
+    },
+    "rawBodiesTracked": false,
+    "rawBodiesRetainedThroughIndependentEvaluation": true,
+    "responseProjection": [
+      "queryId",
+      "requestMethod",
+      "requestBody",
+      "endpoint",
+      "query",
+      "startedOn",
+      "endedOn",
+      "httpStatus",
+      "responseUrl",
+      "contentType",
+      "rawResponse"
+    ],
+    "nasCommand": "npm run assets:verify -- --collection post-phase9-intake@2026-08-13 --full"
+  },
+  "observationRequestPolicies": {
+    "arxiv-api": {
+      "requestMethod": "GET",
+      "accept": "application/atom+xml",
+      "contentType": null
+    },
+    "crossref-rest": {
+      "requestMethod": "GET",
+      "accept": "application/json",
+      "contentType": null
+    },
+    "datacite-rest": {
+      "requestMethod": "GET",
+      "accept": "application/json",
+      "contentType": null
+    },
+    "figshare-api": {
+      "requestMethod": "POST",
+      "accept": "application/json",
+      "contentType": "application/json"
+    }
+  },
+  "decisionSchema": {
+    "exactFields": [
+      "schema",
+      "decisionId",
+      "decidedOn",
+      "dispositions",
+      "currencyDecisions",
+      "semanticReviewRequired"
+    ],
+    "dispositionExactFields": [
+      "payloadId",
+      "identity",
+      "version",
+      "rights",
+      "lineage",
+      "duplicate",
+      "purpose",
+      "eligibility",
+      "openedByPhase10",
+      "terminal",
+      "basisRefs"
+    ],
+    "currencyDecisionExactFields": [
+      "snapshotId",
+      "lineageId",
+      "candidates",
+      "correctionStatus",
+      "versionStatus",
+      "supplementStatus",
+      "nativeDataStatus",
+      "laterOutputStatus",
+      "terminalDisposition",
+      "basisQueryIds"
+    ],
+    "basisRefExactFields": [
+      "basisId",
+      "kind",
+      "locator",
+      "reason"
+    ]
+  },
+  "observationSchema": {
+    "exactFields": [
+      "schema",
+      "observationId",
+      "observedOn",
+      "queryExecutions",
+      "existingNasVerification",
+      "newNasCollection"
+    ],
+    "queryExecutionExactFields": [
+      "queryId",
+      "requestMethod",
+      "requestBody",
+      "endpoint",
+      "query",
+      "startedOn",
+      "endedOn",
+      "terminalState",
+      "httpStatus",
+      "responseUrl",
+      "contentType",
+      "rawResponse",
+      "error"
+    ],
+    "nasVerificationExactFields": [
+      "state",
+      "checkedOn",
+      "collectionId",
+      "aggregateFiles",
+      "aggregateBytes",
+      "ownerManifest",
+      "matchedTrackedTupleCount",
+      "privateOnlyTupleCount",
+      "attemptReport",
+      "verificationReceipt",
+      "refusalReason",
+      "restoreStatus",
+      "backupStatus"
+    ],
+    "newNasCollectionExactFields": [
+      "state",
+      "collectionId",
+      "receipt",
+      "sourcePruneAuthorized"
+    ],
+    "queryTerminalStates": [
+      "http-response",
+      "network-refusal"
+    ],
+    "nasTerminalStates": [
+      "receipt-verified",
+      "unavailable-refusal"
+    ]
+  },
+  "semanticReviewSchema": {
+    "exactFields": [
+      "schema",
+      "reviewId",
+      "reviewedOn",
+      "reviewer",
+      "protocol",
+      "decisions",
+      "observations",
+      "observationValidationReceipt",
+      "decisionValidationReceipt",
+      "rawArtifacts",
+      "reexecuted",
+      "unresolvedBlockers",
+      "limits",
+      "verdict"
+    ],
+    "reviewerExactFields": [
+      "model",
+      "role",
+      "sharedContextWithDeveloper",
+      "authoredDecisionInput"
+    ],
+    "requiredBindings": [
+      "protocol",
+      "decisions",
+      "observations",
+      "observationValidationReceipt",
+      "decisionValidationReceipt",
+      "rawArtifacts"
+    ],
+    "minimumReexecutedCount": 1,
+    "minimumLimitCount": 1
+  },
+  "custody": {
+    "trackedFileCount": 24,
+    "sourcePayloadCount": 14,
+    "rawAcquisitionHistoryCount": 1,
+    "acquisitionMetadataCount": 9,
+    "nasAggregateFileCount": 26,
+    "custodyTupleRosterSha256": "a124d44e5d3b39f63774a5d7eced46cb628ede78bb2a4f112404eabe983d550f",
+    "sourcePayloadTupleRosterSha256": "ed68ba1a4410ed6af0098c9dac5b8f1a37b30f62ad14771a1cb4445f3c113592"
+  },
+  "existingNasCollection": {
+    "collectionId": "post-phase9-intake@2026-08-13",
+    "state": "provisional",
+    "locator": "collections/post-phase9-intake/2026-08-13/payload",
+    "storageClass": "private-source",
+    "aggregateFiles": 26,
+    "aggregateBytes": 165722101,
+    "ownerManifest": {
+      "path": "collections/post-phase9-intake/2026-08-13/manifest.private.jsonl",
+      "byteLength": 6335,
+      "sha256": "9d839913d4f078a912e302194e34d718e470f91244f6cf81e4c6b627e7dd90db"
+    },
+    "rights": "restricted-third-party",
+    "privacy": "private",
+    "servePolicy": "deny",
+    "mutability": "immutable",
+    "retentionPolicy": "maker-approved-delete-only",
+    "restoreStatus": "pending",
+    "backupStatus": "required-missing"
+  },
+  "newNasCollection": {
+    "collectionId": "phase10-source-intake@2026-08-21-v1",
+    "aIAction": "not-applicable-no-new-bytes",
+    "receipt": null,
+    "sourcePruneAuthorized": false
+  },
+  "currency": {
+    "selectedBranchIds": [
+      "B1a",
+      "B1b",
+      "B2",
+      "B3",
+      "B4",
+      "B5"
+    ],
+    "snapshotCountPerSelectedLineage": 1,
+    "standingWatchAuthorized": false,
+    "reopenTriggers": [
+      "correction or version change to a consumed source",
+      "maker-scheduled refresh",
+      "newly selected load-bearing family",
+      "unavailable priority lead becomes available"
+    ]
+  },
+  "lineagePlan": [
+    {
+      "lineageId": "lineage-gonda-namba-sei-2001",
+      "selectedByBranches": [
+        "B3"
+      ],
+      "seedPayloadIds": [
+        "P10-AI-GONDA-NAMBA-SEI-2001"
+      ],
+      "cutoffDate": "2026-08-21",
+      "dateWindow": {
+        "from": "2026-08-15",
+        "through": "2026-08-21"
+      },
+      "queries": [
+        {
+          "queryId": "q-gonda-namba-sei-2001-doi",
+          "serviceId": "crossref-rest",
+          "requestMethod": "GET",
+          "requestBody": null,
+          "endpoint": "https://api.crossref.org/works/10.5331%2Fseppyo.63.501",
+          "query": "GET exact DOI work record"
+        },
+        {
+          "queryId": "q-gonda-namba-sei-2001-search",
+          "serviceId": "crossref-rest",
+          "requestMethod": "GET",
+          "requestBody": null,
+          "endpoint": "https://api.crossref.org/works",
+          "query": "query.bibliographic=Gonda Namba Sei 2001 carrier gas ice crystal growth&filter=until-pub-date:2026-08-21&rows=50"
+        }
+      ]
+    },
+    {
+      "lineageId": "lineage-gonda-sei-1988",
+      "selectedByBranches": [
+        "B3"
+      ],
+      "seedPayloadIds": [
+        "P10-AI-GONDA-SEI-1988"
+      ],
+      "cutoffDate": "2026-08-21",
+      "dateWindow": {
+        "from": "2026-08-15",
+        "through": "2026-08-21"
+      },
+      "queries": [
+        {
+          "queryId": "q-gonda-sei-1988-doi",
+          "serviceId": "crossref-rest",
+          "requestMethod": "GET",
+          "requestBody": null,
+          "endpoint": "https://api.crossref.org/works/10.1016%2F0022-0248(89)90094-8",
+          "query": "GET exact DOI work record"
+        },
+        {
+          "queryId": "q-gonda-sei-1988-search",
+          "serviceId": "crossref-rest",
+          "requestMethod": "GET",
+          "requestBody": null,
+          "endpoint": "https://api.crossref.org/works",
+          "query": "query.bibliographic=Gonda Sei 1988 growth mechanism ice crystals&filter=until-pub-date:2026-08-21&rows=50"
+        }
+      ]
+    },
+    {
+      "lineageId": "lineage-libbrecht-2011-apparatus",
+      "selectedByBranches": [
+        "B1b"
+      ],
+      "seedPayloadIds": [
+        "P10-AI-LIBBRECHT-2011-APPARATUS"
+      ],
+      "cutoffDate": "2026-08-21",
+      "dateWindow": {
+        "from": "2026-08-15",
+        "through": "2026-08-21"
+      },
+      "queries": [
+        {
+          "queryId": "q-libbrecht-2011-arxiv",
+          "serviceId": "arxiv-api",
+          "requestMethod": "GET",
+          "requestBody": null,
+          "endpoint": "https://export.arxiv.org/api/query",
+          "query": "search_query=id:1109.1511&start=0&max_results=10"
+        },
+        {
+          "queryId": "q-libbrecht-2011-search",
+          "serviceId": "crossref-rest",
+          "requestMethod": "GET",
+          "requestBody": null,
+          "endpoint": "https://api.crossref.org/works",
+          "query": "query.bibliographic=Libbrecht 2011 improved apparatus snow crystals&filter=until-pub-date:2026-08-21&rows=50"
+        }
+      ]
+    },
+    {
+      "lineageId": "lineage-libbrecht-2012-systematics",
+      "selectedByBranches": [
+        "B1b"
+      ],
+      "seedPayloadIds": [
+        "P10-AI-LIBBRECHT-2012-SYSTEMATICS"
+      ],
+      "cutoffDate": "2026-08-21",
+      "dateWindow": {
+        "from": "2026-08-15",
+        "through": "2026-08-21"
+      },
+      "queries": [
+        {
+          "queryId": "q-libbrecht-2012-systematics-arxiv",
+          "serviceId": "arxiv-api",
+          "requestMethod": "GET",
+          "requestBody": null,
+          "endpoint": "https://export.arxiv.org/api/query",
+          "query": "search_query=id:1208.5064&start=0&max_results=10"
+        },
+        {
+          "queryId": "q-libbrecht-2012-systematics-search",
+          "serviceId": "crossref-rest",
+          "requestMethod": "GET",
+          "requestBody": null,
+          "endpoint": "https://api.crossref.org/works",
+          "query": "query.bibliographic=Libbrecht 2012 managing systematic errors ice crystal growth&filter=until-pub-date:2026-08-21&rows=50"
+        }
+      ]
+    },
+    {
+      "lineageId": "lineage-libbrecht-rickerby-2012",
+      "selectedByBranches": [
+        "B1b"
+      ],
+      "seedPayloadIds": [
+        "P10-AI-LIBBRECHT-RICKERBY-2012"
+      ],
+      "cutoffDate": "2026-08-21",
+      "dateWindow": {
+        "from": "2026-08-15",
+        "through": "2026-08-21"
+      },
+      "queries": [
+        {
+          "queryId": "q-libbrecht-rickerby-2012-arxiv",
+          "serviceId": "arxiv-api",
+          "requestMethod": "GET",
+          "requestBody": null,
+          "endpoint": "https://export.arxiv.org/api/query",
+          "query": "search_query=id:1208.5982&start=0&max_results=10"
+        },
+        {
+          "queryId": "q-libbrecht-rickerby-2012-search",
+          "serviceId": "crossref-rest",
+          "requestMethod": "GET",
+          "requestBody": null,
+          "endpoint": "https://api.crossref.org/works",
+          "query": "query.bibliographic=Libbrecht Rickerby 2012 surface melting ice crystal growth&filter=until-pub-date:2026-08-21&rows=50"
+        }
+      ]
+    },
+    {
+      "lineageId": "lineage-magee-2014",
+      "selectedByBranches": [
+        "B5"
+      ],
+      "seedPayloadIds": [
+        "P10-AI-MAGEE-2014-SUPPLEMENT"
+      ],
+      "cutoffDate": "2026-08-21",
+      "dateWindow": {
+        "from": "2026-08-15",
+        "through": "2026-08-21"
+      },
+      "queries": [
+        {
+          "queryId": "q-magee-2014-doi",
+          "serviceId": "crossref-rest",
+          "requestMethod": "GET",
+          "requestBody": null,
+          "endpoint": "https://api.crossref.org/works/10.5194%2Facp-14-12357-2014",
+          "query": "GET exact DOI work record"
+        },
+        {
+          "queryId": "q-magee-2014-lineage-search",
+          "serviceId": "crossref-rest",
+          "requestMethod": "GET",
+          "requestBody": null,
+          "endpoint": "https://api.crossref.org/works",
+          "query": "query.bibliographic=Magee 2014 ice crystal surface roughening sublimation growth&filter=until-pub-date:2026-08-21&rows=50"
+        }
+      ]
+    },
+    {
+      "lineageId": "lineage-nelson-1993",
+      "selectedByBranches": [
+        "B1b"
+      ],
+      "seedPayloadIds": [
+        "P10-AI-NELSON-1993"
+      ],
+      "cutoffDate": "2026-08-21",
+      "dateWindow": {
+        "from": "2026-08-15",
+        "through": "2026-08-21"
+      },
+      "queries": [
+        {
+          "queryId": "q-nelson-1993-doi",
+          "serviceId": "crossref-rest",
+          "requestMethod": "GET",
+          "requestBody": null,
+          "endpoint": "https://api.crossref.org/works/10.1016%2F0022-0248(93)90082-8",
+          "query": "GET exact DOI work record"
+        },
+        {
+          "queryId": "q-nelson-1993-search",
+          "serviceId": "crossref-rest",
+          "requestMethod": "GET",
+          "requestBody": null,
+          "endpoint": "https://api.crossref.org/works",
+          "query": "query.bibliographic=Nelson 1993 heat conduction ice crystal growth&filter=until-pub-date:2026-08-21&rows=50"
+        }
+      ]
+    },
+    {
+      "lineageId": "lineage-pokrifka-2018-dataset",
+      "selectedByBranches": [
+        "B4",
+        "B5"
+      ],
+      "seedPayloadIds": [
+        "P10-AI-POKRIFKA-ETAL-2018-DATASET"
+      ],
+      "cutoffDate": "2026-08-21",
+      "dateWindow": {
+        "from": "2026-08-15",
+        "through": "2026-08-21"
+      },
+      "queries": [
+        {
+          "queryId": "q-pokrifka-2018-datacite",
+          "serviceId": "datacite-rest",
+          "requestMethod": "GET",
+          "requestBody": null,
+          "endpoint": "https://api.datacite.org/dois/10.26208%2Fz7bf-nq20",
+          "query": "GET exact DOI dataset record"
+        },
+        {
+          "queryId": "q-pokrifka-2018-search",
+          "serviceId": "crossref-rest",
+          "requestMethod": "GET",
+          "requestBody": null,
+          "endpoint": "https://api.crossref.org/works",
+          "query": "query.bibliographic=Pokrifka Moyle Harrington 2018 ice crystal dataset&filter=until-pub-date:2026-08-21&rows=50"
+        }
+      ]
+    },
+    {
+      "lineageId": "lineage-pokrifka-2023-dataset",
+      "selectedByBranches": [
+        "B4",
+        "B5"
+      ],
+      "seedPayloadIds": [
+        "P10-AI-POKRIFKA-ETAL-2023-DATASET"
+      ],
+      "cutoffDate": "2026-08-21",
+      "dateWindow": {
+        "from": "2026-08-15",
+        "through": "2026-08-21"
+      },
+      "queries": [
+        {
+          "queryId": "q-pokrifka-2023-datacite",
+          "serviceId": "datacite-rest",
+          "requestMethod": "GET",
+          "requestBody": null,
+          "endpoint": "https://api.datacite.org/dois/10.26208%2Fhtw5-q166",
+          "query": "GET exact DOI dataset record"
+        },
+        {
+          "queryId": "q-pokrifka-2023-search",
+          "serviceId": "crossref-rest",
+          "requestMethod": "GET",
+          "requestBody": null,
+          "endpoint": "https://api.crossref.org/works",
+          "query": "query.bibliographic=Pokrifka Moyle Harrington 2023 ice crystal dataset&filter=until-pub-date:2026-08-21&rows=50"
+        }
+      ]
+    },
+    {
+      "lineageId": "lineage-swanson-nelson-2019",
+      "selectedByBranches": [
+        "B1b"
+      ],
+      "seedPayloadIds": [
+        "P10-AI-SWANSON-NELSON-2019"
+      ],
+      "cutoffDate": "2026-08-21",
+      "dateWindow": {
+        "from": "2026-08-15",
+        "through": "2026-08-21"
+      },
+      "queries": [
+        {
+          "queryId": "q-swanson-nelson-2019-doi",
+          "serviceId": "crossref-rest",
+          "requestMethod": "GET",
+          "requestBody": null,
+          "endpoint": "https://api.crossref.org/works/10.5194%2Famt-12-6143-2019",
+          "query": "GET exact DOI work record"
+        },
+        {
+          "queryId": "q-swanson-nelson-2019-search",
+          "serviceId": "crossref-rest",
+          "requestMethod": "GET",
+          "requestBody": null,
+          "endpoint": "https://api.crossref.org/works",
+          "query": "query.bibliographic=Swanson Nelson 2019 cryostat ice crystal growth&filter=until-pub-date:2026-08-21&rows=50"
+        }
+      ]
+    },
+    {
+      "lineageId": "lineage-voigtlaender-2018",
+      "selectedByBranches": [
+        "B5"
+      ],
+      "seedPayloadIds": [
+        "P10-AI-VOIGTLAENDER-2018-SUPPLEMENT"
+      ],
+      "cutoffDate": "2026-08-21",
+      "dateWindow": {
+        "from": "2026-08-15",
+        "through": "2026-08-21"
+      },
+      "queries": [
+        {
+          "queryId": "q-voigtlaender-2018-doi",
+          "serviceId": "crossref-rest",
+          "requestMethod": "GET",
+          "requestBody": null,
+          "endpoint": "https://api.crossref.org/works/10.5194%2Facp-18-13687-2018",
+          "query": "GET exact DOI work record"
+        },
+        {
+          "queryId": "q-voigtlaender-2018-search",
+          "serviceId": "crossref-rest",
+          "requestMethod": "GET",
+          "requestBody": null,
+          "endpoint": "https://api.crossref.org/works",
+          "query": "query.bibliographic=Voigtlaender 2018 ice crystal surface roughness growth sublimation&filter=until-pub-date:2026-08-21&rows=50"
+        }
+      ]
+    },
+    {
+      "lineageId": "lineage-zhao-2026",
+      "selectedByBranches": [
+        "B3"
+      ],
+      "seedPayloadIds": [
+        "P10-AI-ZHAO-ETAL-2026-SI"
+      ],
+      "cutoffDate": "2026-08-21",
+      "dateWindow": {
+        "from": "2026-08-15",
+        "through": "2026-08-21"
+      },
+      "queries": [
+        {
+          "queryId": "q-zhao-2026-crossref",
+          "serviceId": "crossref-rest",
+          "requestMethod": "GET",
+          "requestBody": null,
+          "endpoint": "https://api.crossref.org/works/10.1021%2Facs.cgd.5c01481",
+          "query": "GET exact DOI work record"
+        },
+        {
+          "queryId": "q-zhao-2026-figshare",
+          "serviceId": "figshare-api",
+          "requestMethod": "POST",
+          "requestBody": "{\"limit\":100,\"order\":\"published_date\",\"order_direction\":\"desc\",\"search_for\":\"10.1021/acs.cgd.5c01481\"}",
+          "endpoint": "https://api.figshare.com/v2/articles/search",
+          "query": "POST exact DOI article search"
+        }
+      ]
+    }
+  ],
+  "unselectedPayloadPlan": [
+    {
+      "payloadId": "P10-AI-LAMB-ETAL-2025-SOURCE",
+      "lineageId": "lineage-lamb-2025-source",
+      "candidateBranches": [],
+      "requiredRoutingState": "refused"
+    },
+    {
+      "payloadId": "P10-AI-LIBBRECHT-SNOW-CRYSTALS-PREVIEW",
+      "lineageId": "lineage-libbrecht-snow-crystals-preview",
+      "candidateBranches": [],
+      "requiredRoutingState": "refused"
+    }
+  ],
+  "rightsSafeProjection": {
+    "allowed": [
+      "artifact identities",
+      "citations and persistent locators",
+      "dates, endpoint identities, and query text",
+      "byte lengths and SHA-256 digests",
+      "NAS-relative bindings",
+      "rights, lineage, purpose, and eligibility dispositions",
+      "paraphrased reasons",
+      "schemas and protocol definitions",
+      "explicitly authorized project-derived summaries"
+    ],
+    "forbidden": [
+      "restricted source payload bytes",
+      "restricted PDFs, archives, datasets, or video",
+      "frames or copied tables",
+      "long source excerpts",
+      "unapproved numeric row bodies"
+    ],
+    "defaultRestrictedOrUnknownDerivativePolicy": "metadata-only"
+  },
+  "scopeDependency": {
+    "packetId": "a-s",
+    "preflightReceiptPath": "evidence/phase10-obligation-preflight-v1/packets/a-s/preflight.json",
+    "terminalReceiptPath": "evidence/phase10-obligation-preflight-v1/packets/a-s/terminal-receipt.json",
+    "verificationPath": "evidence/phase10-scope-intake-v1/scope-verification.json",
+    "requiredTerminalState": "pass",
+    "requiredAggregateVerdict": "pass"
+  },
+  "outputArtifacts": [
+    {
+      "outputId": "out-ai-artifact-index",
+      "path": "evidence/phase10-scope-intake-v1/intake-artifact-index.json",
+      "candidateName": "intake-artifact-index.json",
+      "mediaType": "application/json"
+    },
+    {
+      "outputId": "out-ai-currency",
+      "path": "evidence/phase10-scope-intake-v1/currency.jsonl",
+      "candidateName": "currency.jsonl",
+      "mediaType": "application/x-ndjson"
+    },
+    {
+      "outputId": "out-ai-dispositions",
+      "path": "evidence/phase10-scope-intake-v1/post-freeze-dispositions.jsonl",
+      "candidateName": "post-freeze-dispositions.jsonl",
+      "mediaType": "application/x-ndjson"
+    },
+    {
+      "outputId": "out-ai-file-custody",
+      "path": "evidence/phase10-scope-intake-v1/file-custody.jsonl",
+      "candidateName": "file-custody.jsonl",
+      "mediaType": "application/x-ndjson"
+    },
+    {
+      "outputId": "out-ai-report",
+      "path": "evidence/phase10-scope-intake-v1/intake-report.json",
+      "candidateName": "intake-report.json",
+      "mediaType": "application/json"
+    },
+    {
+      "outputId": "out-ai-verification",
+      "path": "evidence/phase10-scope-intake-v1/intake-verification.json",
+      "candidateName": "intake-verification.json",
+      "mediaType": "application/json"
+    }
+  ],
+  "commands": {
+    "observe": "node runner/src/phase10-intake-observe.ts observe --repository-root . --protocol research/phase10-execution-v1/packets/a-i/protocol.json --raw-out out/phase10-execution-v1/attempts/a-i/observe-20260821-v1 --out research/phase10-execution-v1/packets/a-i/observations.json",
+    "validateObservation": "node runner/src/phase10-intake-observe-verify.ts validate-observations --repository-root . --protocol research/phase10-execution-v1/packets/a-i/protocol.json --observations research/phase10-execution-v1/packets/a-i/observations.json --raw out/phase10-execution-v1/attempts/a-i/observe-20260821-v1 --receipt out/phase10-execution-v1/attempts/a-i/observe-20260821-v1/validation.json",
+    "validateDecisions": "node runner/src/phase10-intake-observe-verify.ts validate-decisions --repository-root . --protocol research/phase10-execution-v1/packets/a-i/protocol.json --decisions research/phase10-execution-v1/packets/a-i/disposition-decisions.json --observations research/phase10-execution-v1/packets/a-i/observations.json --receipt out/phase10-execution-v1/attempts/a-i/observe-20260821-v1/decision-validation.json",
+    "validateSemanticReview": "node runner/src/phase10-intake-observe-verify.ts validate-semantic-review --repository-root . --protocol research/phase10-execution-v1/packets/a-i/protocol.json --review research/phase10-execution-v1/packets/a-i/semantic-review.json",
+    "produce": "node runner/src/phase10-intake.ts produce --repository-root . --protocol research/phase10-execution-v1/packets/a-i/protocol.json --out out/phase10-scope-intake-v1-a-i-candidate",
+    "verify": "node runner/src/phase10-intake-verify.ts verify --repository-root . --protocol research/phase10-execution-v1/packets/a-i/protocol.json --bundle out/phase10-scope-intake-v1-a-i-candidate --receipt out/phase10-scope-intake-v1-a-i-candidate/intake-verification.json",
+    "publish": "node runner/src/phase10-intake.ts publish --repository-root . --candidate out/phase10-scope-intake-v1-a-i-candidate --out evidence/phase10-scope-intake-v1"
+  },
+  "claimBoundary": {
+    "scopeCensusOnlyForAS": true,
+    "allOpenedSourceValuesArePhase10DevelopmentEvidence": true,
+    "quantitativeValidationEarned": false,
+    "phase7CreditEarned": false,
+    "phase8CreditEarned": false,
+    "phase9CreditEarned": false,
+    "heldOutComparisonExecuted": false,
+    "targetScoreProduced": false,
+    "solverPhysicsChanged": false,
+    "c1ThroughC5RowsProduced": false,
+    "habitRowsProduced": false,
+    "eObservationOperatorImplemented": false,
+    "fExternalRequestWrittenOrSent": false,
+    "hTransportImplemented": false,
+    "downstreamExecutionAuthorized": false,
+    "priorPhaseLabelsAndArtifactsPreserved": true
+  }
+}

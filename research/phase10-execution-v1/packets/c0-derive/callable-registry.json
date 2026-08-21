@@ -1,0 +1,213 @@
+{
+  "schema": "phase10-callable-registry-v1",
+  "registryId": "phase10-c0-derive-resolved-callables-v1",
+  "matrixId": "phase10-selected-package-obligations-v1",
+  "protocolId": "phase10-c0-derive-existing-byte-v1",
+  "packetId": "c0-derive",
+  "callables": [
+    {
+      "callableId": "phase10-c0-derive-check-caller",
+      "role": "check-caller",
+      "resolution": "resolved",
+      "modulePath": "runner/src/phase10-c0-checks.ts",
+      "exportName": "phase10C0DeriveCheckCaller",
+      "identity": {
+        "byteLength": 779,
+        "sha256": "15c84b2dcc89eea16b8a4d91e249a72c34394fa2d9186f998d36c1ae60503311"
+      },
+      "producedOutputIds": [],
+      "invokedCheckIds": [
+        "chk-c0-all-spacings",
+        "chk-c0-comparison-roster",
+        "chk-c0-cost-separation",
+        "chk-c0-field-allowlist",
+        "chk-c0-independent-rederivation",
+        "chk-c0-no-solver",
+        "chk-c0-operand-echo",
+        "chk-c0-row-roster"
+      ],
+      "evaluatedCheckIds": [],
+      "executedNegativeControlIds": []
+    },
+    {
+      "callableId": "phase10-c0-derive-producer",
+      "role": "producer",
+      "resolution": "resolved",
+      "modulePath": "runner/src/phase10-c0-derive.ts",
+      "exportName": "producePhase10C0DeriveArtifacts",
+      "identity": {
+        "byteLength": 24173,
+        "sha256": "9ac3826c31160d5426d4e737744c4481d2a07adb80f9192664154f13caaafe06"
+      },
+      "producedOutputIds": [
+        "out-c0-analysis",
+        "out-c0-comparisons",
+        "out-c0-gaps",
+        "out-c0-historical-limit"
+      ],
+      "invokedCheckIds": [],
+      "evaluatedCheckIds": [],
+      "executedNegativeControlIds": []
+    },
+    {
+      "callableId": "phase10-c0-derive-verification-receipt-writer",
+      "role": "producer",
+      "resolution": "resolved",
+      "modulePath": "runner/src/phase10-c0-derive-verification-receipt.ts",
+      "exportName": "writePhase10C0DeriveVerificationReceipt",
+      "identity": {
+        "byteLength": 12457,
+        "sha256": "071533eff5201d9d767f27851c2f8cc592c6af9ce8c7b80af8c53d426ac0f654"
+      },
+      "producedOutputIds": [
+        "out-c0-derive-verification"
+      ],
+      "invokedCheckIds": [],
+      "evaluatedCheckIds": [],
+      "executedNegativeControlIds": []
+    },
+    {
+      "callableId": "phase10-c0-evaluator",
+      "role": "independent-evaluator",
+      "resolution": "resolved",
+      "modulePath": "runner/src/phase10-c0-independent.ts",
+      "exportName": "independentlyEvaluatePhase10C0Derive",
+      "identity": {
+        "byteLength": 74796,
+        "sha256": "05ff60d94b4e8327c6a63d8ae25ccd5448631cd028526fe679c4a8c454cbe7d6"
+      },
+      "producedOutputIds": [],
+      "invokedCheckIds": [],
+      "evaluatedCheckIds": [
+        "chk-c0-all-spacings",
+        "chk-c0-comparison-roster",
+        "chk-c0-cost-separation",
+        "chk-c0-field-allowlist",
+        "chk-c0-independent-rederivation",
+        "chk-c0-no-solver",
+        "chk-c0-operand-echo",
+        "chk-c0-row-roster"
+      ],
+      "executedNegativeControlIds": []
+    },
+    {
+      "callableId": "phase10-nc-c0-coarse-fail-fine-pass",
+      "role": "negative-control",
+      "resolution": "resolved",
+      "modulePath": "runner/src/phase10-c0-negative-controls.ts",
+      "exportName": "phase10C0CoarseFailFinePass",
+      "identity": {
+        "byteLength": 8934,
+        "sha256": "4f9a8a8c88e21117affc404ac2e20d36772dc8c4b0c2f4d8f38801a5f199bb5a"
+      },
+      "producedOutputIds": [],
+      "invokedCheckIds": [],
+      "evaluatedCheckIds": [],
+      "executedNegativeControlIds": [
+        "nc-c0-coarse-fail-fine-pass"
+      ]
+    },
+    {
+      "callableId": "phase10-nc-c0-duplicate-or-truncated",
+      "role": "negative-control",
+      "resolution": "resolved",
+      "modulePath": "runner/src/phase10-c0-negative-controls.ts",
+      "exportName": "phase10C0DuplicateOrTruncatedRow",
+      "identity": {
+        "byteLength": 8934,
+        "sha256": "4f9a8a8c88e21117affc404ac2e20d36772dc8c4b0c2f4d8f38801a5f199bb5a"
+      },
+      "producedOutputIds": [],
+      "invokedCheckIds": [],
+      "evaluatedCheckIds": [],
+      "executedNegativeControlIds": [
+        "nc-c0-duplicate-or-truncated"
+      ]
+    },
+    {
+      "callableId": "phase10-nc-c0-fine-fail-coarse-pass",
+      "role": "negative-control",
+      "resolution": "resolved",
+      "modulePath": "runner/src/phase10-c0-negative-controls.ts",
+      "exportName": "phase10C0FineFailCoarsePass",
+      "identity": {
+        "byteLength": 8934,
+        "sha256": "4f9a8a8c88e21117affc404ac2e20d36772dc8c4b0c2f4d8f38801a5f199bb5a"
+      },
+      "producedOutputIds": [],
+      "invokedCheckIds": [],
+      "evaluatedCheckIds": [],
+      "executedNegativeControlIds": [
+        "nc-c0-fine-fail-coarse-pass"
+      ]
+    },
+    {
+      "callableId": "phase10-nc-c0-forbidden-field",
+      "role": "negative-control",
+      "resolution": "resolved",
+      "modulePath": "runner/src/phase10-c0-negative-controls.ts",
+      "exportName": "phase10C0ForbiddenField",
+      "identity": {
+        "byteLength": 8934,
+        "sha256": "4f9a8a8c88e21117affc404ac2e20d36772dc8c4b0c2f4d8f38801a5f199bb5a"
+      },
+      "producedOutputIds": [],
+      "invokedCheckIds": [],
+      "evaluatedCheckIds": [],
+      "executedNegativeControlIds": [
+        "nc-c0-forbidden-field"
+      ]
+    },
+    {
+      "callableId": "phase10-nc-c0-forged-producer-verdict",
+      "role": "negative-control",
+      "resolution": "resolved",
+      "modulePath": "runner/src/phase10-c0-negative-controls.ts",
+      "exportName": "phase10C0ForgedProducerVerdict",
+      "identity": {
+        "byteLength": 8934,
+        "sha256": "4f9a8a8c88e21117affc404ac2e20d36772dc8c4b0c2f4d8f38801a5f199bb5a"
+      },
+      "producedOutputIds": [],
+      "invokedCheckIds": [],
+      "evaluatedCheckIds": [],
+      "executedNegativeControlIds": [
+        "nc-c0-forged-producer-verdict"
+      ]
+    },
+    {
+      "callableId": "phase10-nc-c0-missing-row",
+      "role": "negative-control",
+      "resolution": "resolved",
+      "modulePath": "runner/src/phase10-c0-negative-controls.ts",
+      "exportName": "phase10C0MissingRow",
+      "identity": {
+        "byteLength": 8934,
+        "sha256": "4f9a8a8c88e21117affc404ac2e20d36772dc8c4b0c2f4d8f38801a5f199bb5a"
+      },
+      "producedOutputIds": [],
+      "invokedCheckIds": [],
+      "evaluatedCheckIds": [],
+      "executedNegativeControlIds": [
+        "nc-c0-missing-row"
+      ]
+    },
+    {
+      "callableId": "phase10-nc-c0-operand-echo",
+      "role": "negative-control",
+      "resolution": "resolved",
+      "modulePath": "runner/src/phase10-c0-negative-controls.ts",
+      "exportName": "phase10C0OperandEcho",
+      "identity": {
+        "byteLength": 8934,
+        "sha256": "4f9a8a8c88e21117affc404ac2e20d36772dc8c4b0c2f4d8f38801a5f199bb5a"
+      },
+      "producedOutputIds": [],
+      "invokedCheckIds": [],
+      "evaluatedCheckIds": [],
+      "executedNegativeControlIds": [
+        "nc-c0-operand-echo"
+      ]
+    }
+  ]
+}

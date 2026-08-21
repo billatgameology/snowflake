@@ -1,0 +1,33 @@
+{
+  "schema": "phase10-packet-protocol-v1",
+  "protocolId": "phase10-a-i-intake-v1",
+  "matrixId": "phase10-selected-package-obligations-v1",
+  "packetId": "a-i",
+  "artifactSchemaRegistry": {
+    "path": "research/phase10-artifact-schema-registry-v1.json",
+    "byteLength": 114255,
+    "sha256": "c89463c37384d5652b57c039e26f0c612b08a2d9bb5994482bbf750eae121c70"
+  },
+  "selectedBranches": [],
+  "registeredOutputIds": [
+    "out-ai-artifact-index",
+    "out-ai-currency",
+    "out-ai-dispositions",
+    "out-ai-file-custody",
+    "out-ai-report",
+    "out-ai-verification"
+  ],
+  "registeredCheckIds": [
+    "chk-ai-currency-closed-once",
+    "chk-ai-development-evidence-label",
+    "chk-ai-exact-14-payloads",
+    "chk-ai-exact-24-files",
+    "chk-ai-rights-safe-projection",
+    "chk-ai-terminal-dimensions",
+    "chk-ai-three-denominators"
+  ],
+  "registeredNegativeControlIds": [],
+  "boundDependencyPacketIds": [
+    "a-p"
+  ]
+}

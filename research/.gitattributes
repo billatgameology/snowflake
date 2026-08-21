@@ -36,3 +36,7 @@ phase10-execution-v1/README.md -text
 phase10-execution-v1/packet-catalogue.json -text
 phase10-execution-v1/packets/*/protocol.json -text
 phase10-execution-v1/packets/*/callable-registry.json -text
+phase10-execution-v1/packets/a-i/intake-protocol.json -text
+phase10-execution-v1/packets/a-i/disposition-decisions.json -text
+phase10-execution-v1/packets/a-i/observations.json -text
+phase10-execution-v1/packets/a-i/semantic-review.json -text
