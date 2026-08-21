@@ -1,0 +1,2455 @@
+{
+  "schema": "phase10-as-verification-v1",
+  "verificationId": "phase10-as-verification-v1",
+  "packetId": "a-s",
+  "obligationMatrix": {
+    "path": "research/phase10-obligation-matrix-v1.json",
+    "byteLength": 125508,
+    "sha256": "8f85e6febad1ec7568b2a7a47dd764c260cc1f602da08c7dd27d5ee1a6c1bab3"
+  },
+  "classificationProtocol": {
+    "path": "research/phase10-scope-classification-protocol-v1.json",
+    "byteLength": 477980,
+    "sha256": "e5a7196f9a1cefc2bb6548887b76d70d5633d7bb0b43ffd96c94c6ac74a76c39"
+  },
+  "callableRegistry": {
+    "path": "research/phase10-execution-v1/packets/a-s/callable-registry.json",
+    "byteLength": 6252,
+    "sha256": "2ca1a8e0e124bc54a4445aaa787315b8fb05bf028009503833c952c5fae4727e"
+  },
+  "evaluator": {
+    "callableId": "phase10-as-verifier",
+    "modulePath": "runner/src/phase10-scope-overlay-verify.ts",
+    "exportName": "phase10ScopeOverlayVerify",
+    "byteLength": 66121,
+    "sha256": "aef207fdb2be938e858b3dbc548909d3dda7916c94d0d895fcbe1101cfae3a23"
+  },
+  "inputArtifacts": [
+    {
+      "path": "evidence/phase8-target-book/freeze.json",
+      "byteLength": 4434,
+      "sha256": "f9a5f4ee1f75c3038c2c051fe27ea68ee3f11f38f14d6ac6770604dd65e3b158"
+    },
+    {
+      "path": "evidence/phase8b-benchmark-final-v1/successor-target-book.jsonl",
+      "byteLength": 36094,
+      "sha256": "c54b89683eea1f064bd8e81d6e9e06b3b9bbc6c022168b981cbfa71e5fc3cdd3"
+    },
+    {
+      "path": "research/phase8-target-book.jsonl",
+      "byteLength": 59019,
+      "sha256": "47a75f3fcc499d74d36cd08eeaed7f4e839bf991deb179fa19ce809d57e171ec"
+    }
+  ],
+  "evaluatedArtifacts": [
+    {
+      "outputId": "out-as-artifact-index",
+      "path": "evidence/phase10-scope-intake-v1/scope-artifact-index.json",
+      "byteLength": 1066,
+      "sha256": "c98399b2fb78970c89e73940aee9acfbbd759a9b40b3f5583319ca5af8d1fc48"
+    },
+    {
+      "outputId": "out-as-phase8a-overlay",
+      "path": "evidence/phase10-scope-intake-v1/phase8a-overlay.jsonl",
+      "byteLength": 77762,
+      "sha256": "6c9b293c5348f415ece03f88e9ac803c54812a51c6c1a9fe013b80fb6930239c"
+    },
+    {
+      "outputId": "out-as-phase8b-overlay",
+      "path": "evidence/phase10-scope-intake-v1/phase8b-overlay.jsonl",
+      "byteLength": 357138,
+      "sha256": "954f777092c1e6ba34f85e0d92236d7c534376b94d239b32304a9ca9fcbcfa11"
+    },
+    {
+      "outputId": "out-as-report",
+      "path": "evidence/phase10-scope-intake-v1/scope-report.json",
+      "byteLength": 5177,
+      "sha256": "d210803c6cf6a36931fba1b00b5745bd64e785f037db5a463e7487aa1b59d14b"
+    }
+  ],
+  "executedCheckIds": [
+    "chk-as-artifact-index-integrity",
+    "chk-as-cited-classifications",
+    "chk-as-exact-rosters",
+    "chk-as-frozen-input-joins",
+    "chk-as-immutable-roles",
+    "chk-as-modelclass-blocker-separation",
+    "chk-as-multiblocker-support",
+    "chk-as-phase-ownership",
+    "chk-as-protocol-before-classification",
+    "chk-as-separate-corpus-totals",
+    "chk-as-zero-validation-credit"
+  ],
+  "checkResults": [
+    {
+      "checkId": "chk-as-artifact-index-integrity",
+      "verdict": "pass",
+      "detail": {
+        "errors": [],
+        "witnessOutputIds": [
+          "out-as-artifact-index",
+          "out-as-phase8a-overlay",
+          "out-as-phase8b-overlay",
+          "out-as-report"
+        ]
+      }
+    },
+    {
+      "checkId": "chk-as-cited-classifications",
+      "verdict": "pass",
+      "detail": {
+        "errors": [],
+        "witnessOutputIds": [
+          "out-as-phase8a-overlay",
+          "out-as-phase8b-overlay"
+        ]
+      }
+    },
+    {
+      "checkId": "chk-as-exact-rosters",
+      "verdict": "pass",
+      "detail": {
+        "errors": [],
+        "witnessOutputIds": [
+          "out-as-phase8a-overlay",
+          "out-as-phase8b-overlay"
+        ]
+      }
+    },
+    {
+      "checkId": "chk-as-frozen-input-joins",
+      "verdict": "pass",
+      "detail": {
+        "errors": [],
+        "witnessOutputIds": [
+          "out-as-phase8a-overlay",
+          "out-as-phase8b-overlay"
+        ]
+      }
+    },
+    {
+      "checkId": "chk-as-immutable-roles",
+      "verdict": "pass",
+      "detail": {
+        "errors": [],
+        "witnessOutputIds": [
+          "out-as-phase8a-overlay",
+          "out-as-phase8b-overlay"
+        ]
+      }
+    },
+    {
+      "checkId": "chk-as-modelclass-blocker-separation",
+      "verdict": "pass",
+      "detail": {
+        "errors": [],
+        "witnessOutputIds": [
+          "out-as-phase8a-overlay",
+          "out-as-phase8b-overlay"
+        ]
+      }
+    },
+    {
+      "checkId": "chk-as-multiblocker-support",
+      "verdict": "pass",
+      "detail": {
+        "errors": [],
+        "witnessOutputIds": [
+          "out-as-phase8a-overlay",
+          "out-as-phase8b-overlay"
+        ]
+      }
+    },
+    {
+      "checkId": "chk-as-phase-ownership",
+      "verdict": "pass",
+      "detail": {
+        "errors": [],
+        "witnessOutputIds": [
+          "out-as-phase8a-overlay",
+          "out-as-phase8b-overlay"
+        ]
+      }
+    },
+    {
+      "checkId": "chk-as-protocol-before-classification",
+      "verdict": "pass",
+      "detail": {
+        "errors": [],
+        "witnessOutputIds": [
+          "out-as-classification-protocol",
+          "out-as-phase8a-overlay",
+          "out-as-phase8b-overlay"
+        ]
+      }
+    },
+    {
+      "checkId": "chk-as-separate-corpus-totals",
+      "verdict": "pass",
+      "detail": {
+        "errors": [],
+        "witnessOutputIds": [
+          "out-as-report"
+        ]
+      }
+    },
+    {
+      "checkId": "chk-as-zero-validation-credit",
+      "verdict": "pass",
+      "detail": {
+        "errors": [],
+        "witnessOutputIds": [
+          "out-as-report"
+        ]
+      }
+    }
+  ],
+  "executedNegativeControlIds": [
+    "nc-as-collapse-multiple-blockers",
+    "nc-as-drop-one-overlay-row",
+    "nc-as-rewrite-frozen-role",
+    "nc-as-upgrade-validation-credit"
+  ],
+  "negativeControlResults": [
+    {
+      "negativeControlId": "nc-as-collapse-multiple-blockers",
+      "mutationExecuted": true,
+      "rejected": true,
+      "beforeWitness": {
+        "artifactId": "out-as-phase8a-overlay",
+        "path": "evidence/phase10-scope-intake-v1/phase8a-overlay.jsonl",
+        "byteLength": 77762,
+        "sha256": "6c9b293c5348f415ece03f88e9ac803c54812a51c6c1a9fe013b80fb6930239c",
+        "semanticFingerprint": {
+          "projection": [
+            {
+              "overlayId": "as-p8a-p8-i-alphahk-cross-lab",
+              "operandIds": [
+                "op-p8-i-alphahk-cross-lab-forcing",
+                "op-p8-i-alphahk-cross-lab-observation"
+              ]
+            },
+            {
+              "overlayId": "as-p8a-p8-i-libbrecht-kinetics",
+              "operandIds": []
+            },
+            {
+              "overlayId": "as-p8a-p8-t-bacon-diffusion-scaling",
+              "operandIds": [
+                "op-p8-t-bacon-diffusion-scaling-observation",
+                "op-p8-t-bacon-diffusion-scaling-physics"
+              ]
+            },
+            {
+              "overlayId": "as-p8a-p8-t-bacon-seed-history",
+              "operandIds": []
+            },
+            {
+              "overlayId": "as-p8a-p8-t-habit-boundary-m4",
+              "operandIds": [
+                "op-p8-t-habit-boundary-m4-forcing",
+                "op-p8-t-habit-boundary-m4-numerics",
+                "op-p8-t-habit-boundary-m4-observation",
+                "op-p8-t-habit-boundary-m4-physics"
+              ]
+            },
+            {
+              "overlayId": "as-p8a-p8-t-habit-boundary-m8",
+              "operandIds": [
+                "op-p8-t-habit-boundary-m8-forcing",
+                "op-p8-t-habit-boundary-m8-numerics",
+                "op-p8-t-habit-boundary-m8-observation",
+                "op-p8-t-habit-boundary-m8-physics"
+              ]
+            },
+            {
+              "overlayId": "as-p8a-p8-t-hp26-rim-history",
+              "operandIds": [
+                "op-p8-t-hp26-rim-history-forcing",
+                "op-p8-t-hp26-rim-history-observation",
+                "op-p8-t-hp26-rim-history-physics"
+              ]
+            },
+            {
+              "overlayId": "as-p8a-p8-t-levitation-mass-ratio",
+              "operandIds": [
+                "op-p8-t-levitation-mass-ratio-forcing",
+                "op-p8-t-levitation-mass-ratio-observation",
+                "op-p8-t-levitation-mass-ratio-physics"
+              ]
+            },
+            {
+              "overlayId": "as-p8a-p8-t-levitation-power",
+              "operandIds": [
+                "op-p8-t-levitation-power-observation",
+                "op-p8-t-levitation-power-physics"
+              ]
+            },
+            {
+              "overlayId": "as-p8a-p8-t-levitation-scaled",
+              "operandIds": [
+                "op-p8-t-levitation-scaled-observation",
+                "op-p8-t-levitation-scaled-physics"
+              ]
+            },
+            {
+              "overlayId": "as-p8a-p8-t-libbrecht-low-sigma-m5",
+              "operandIds": [
+                "op-p8-t-libbrecht-low-sigma-m5-forcing",
+                "op-p8-t-libbrecht-low-sigma-m5-observation",
+                "op-p8-t-libbrecht-low-sigma-m5-physics"
+              ]
+            },
+            {
+              "overlayId": "as-p8a-p8-t-libbrecht-needle-matrix",
+              "operandIds": [
+                "op-p8-t-libbrecht-needle-matrix-forcing",
+                "op-p8-t-libbrecht-needle-matrix-observation",
+                "op-p8-t-libbrecht-needle-matrix-physics"
+              ]
+            },
+            {
+              "overlayId": "as-p8a-p8-t-libbrecht-trajectories",
+              "operandIds": [
+                "op-p8-t-libbrecht-trajectories-forcing",
+                "op-p8-t-libbrecht-trajectories-observation",
+                "op-p8-t-libbrecht-trajectories-physics"
+              ]
+            },
+            {
+              "overlayId": "as-p8a-p8-t-nelson-sublimation",
+              "operandIds": []
+            },
+            {
+              "overlayId": "as-p8a-p8-t-pressure-context",
+              "operandIds": [
+                "op-p8-t-pressure-context-forcing",
+                "op-p8-t-pressure-context-observation",
+                "op-p8-t-pressure-context-physics"
+              ]
+            },
+            {
+              "overlayId": "as-p8a-p8-t-riming-regimes",
+              "operandIds": []
+            },
+            {
+              "overlayId": "as-p8a-p8-t-shape-enhanced-mass",
+              "operandIds": [
+                "op-p8-t-shape-enhanced-mass-forcing",
+                "op-p8-t-shape-enhanced-mass-observation",
+                "op-p8-t-shape-enhanced-mass-physics"
+              ]
+            },
+            {
+              "overlayId": "as-p8a-p8-t-ventilation-onset",
+              "operandIds": [
+                "op-p8-t-ventilation-onset-observation",
+                "op-p8-t-ventilation-onset-physics"
+              ]
+            },
+            {
+              "overlayId": "as-p8b-p8b-p0-10c734f0c6c31b5904b10be7",
+              "operandIds": [
+                "op-p8b-p0-10c734f0c6c31b5904b10be7-forcing",
+                "op-p8b-p0-10c734f0c6c31b5904b10be7-observation",
+                "op-p8b-p0-10c734f0c6c31b5904b10be7-physics"
+              ]
+            },
+            {
+              "overlayId": "as-p8b-p8b-p0-20d9f95fe223a7ab67209a30",
+              "operandIds": [
+                "op-p8b-p0-20d9f95fe223a7ab67209a30-forcing",
+                "op-p8b-p0-20d9f95fe223a7ab67209a30-observation",
+                "op-p8b-p0-20d9f95fe223a7ab67209a30-physics"
+              ]
+            },
+            {
+              "overlayId": "as-p8b-p8b-p0-25ff44515d32e7473616ac2a",
+              "operandIds": [
+                "op-p8b-p0-25ff44515d32e7473616ac2a-forcing",
+                "op-p8b-p0-25ff44515d32e7473616ac2a-observation",
+                "op-p8b-p0-25ff44515d32e7473616ac2a-physics"
+              ]
+            },
+            {
+              "overlayId": "as-p8b-p8b-p0-2cee953bbc0243f9a214005f",
+              "operandIds": [
+                "op-p8b-p0-2cee953bbc0243f9a214005f-forcing",
+                "op-p8b-p0-2cee953bbc0243f9a214005f-observation",
+                "op-p8b-p0-2cee953bbc0243f9a214005f-physics"
+              ]
+            },
+            {
+              "overlayId": "as-p8b-p8b-p0-2cf2c2c5b3a6900fc3f9cdda",
+              "operandIds": [
+                "op-p8b-p0-2cf2c2c5b3a6900fc3f9cdda-forcing",
+                "op-p8b-p0-2cf2c2c5b3a6900fc3f9cdda-observation",
+                "op-p8b-p0-2cf2c2c5b3a6900fc3f9cdda-physics"
+              ]
+            },
+            {
+              "overlayId": "as-p8b-p8b-p0-3bbe89e3d3b1429a8dc127e0",
+              "operandIds": [
+                "op-p8b-p0-3bbe89e3d3b1429a8dc127e0-forcing",
+                "op-p8b-p0-3bbe89e3d3b1429a8dc127e0-observation",
+                "op-p8b-p0-3bbe89e3d3b1429a8dc127e0-physics"
+              ]
+            },
+            {
+              "overlayId": "as-p8b-p8b-p0-4cb1637ca175fa4d94ef6063",
+              "operandIds": [
+                "op-p8b-p0-4cb1637ca175fa4d94ef6063-forcing",
+                "op-p8b-p0-4cb1637ca175fa4d94ef6063-observation",
+                "op-p8b-p0-4cb1637ca175fa4d94ef6063-physics"
+              ]
+            },
+            {
+              "overlayId": "as-p8b-p8b-p0-5c37491c76718529da5a4c93",
+              "operandIds": [
+                "op-p8b-p0-5c37491c76718529da5a4c93-forcing",
+                "op-p8b-p0-5c37491c76718529da5a4c93-observation",
+                "op-p8b-p0-5c37491c76718529da5a4c93-physics"
+              ]
+            },
+            {
+              "overlayId": "as-p8b-p8b-p0-831531ae323523a95d510307",
+              "operandIds": [
+                "op-p8b-p0-831531ae323523a95d510307-forcing",
+                "op-p8b-p0-831531ae323523a95d510307-observation",
+                "op-p8b-p0-831531ae323523a95d510307-physics"
+              ]
+            },
+            {
+              "overlayId": "as-p8b-p8b-p0-8376da186b16d7c1c8f650bd",
+              "operandIds": [
+                "op-p8b-p0-8376da186b16d7c1c8f650bd-forcing",
+                "op-p8b-p0-8376da186b16d7c1c8f650bd-observation",
+                "op-p8b-p0-8376da186b16d7c1c8f650bd-physics"
+              ]
+            },
+            {
+              "overlayId": "as-p8b-p8b-p0-85e829413c55abde9fa35b1c",
+              "operandIds": [
+                "op-p8b-p0-85e829413c55abde9fa35b1c-forcing",
+                "op-p8b-p0-85e829413c55abde9fa35b1c-observation",
+                "op-p8b-p0-85e829413c55abde9fa35b1c-physics"
+              ]
+            },
+            {
+              "overlayId": "as-p8b-p8b-p0-a6fa0826c9c2852672c2b87a",
+              "operandIds": [
+                "op-p8b-p0-a6fa0826c9c2852672c2b87a-forcing",
+                "op-p8b-p0-a6fa0826c9c2852672c2b87a-observation",
+                "op-p8b-p0-a6fa0826c9c2852672c2b87a-physics"
+              ]
+            },
+            {
+              "overlayId": "as-p8b-p8b-p0-c8d909e75461aeeefbf0b365",
+              "operandIds": [
+                "op-p8b-p0-c8d909e75461aeeefbf0b365-forcing",
+                "op-p8b-p0-c8d909e75461aeeefbf0b365-observation",
+                "op-p8b-p0-c8d909e75461aeeefbf0b365-physics"
+              ]
+            },
+            {
+              "overlayId": "as-p8b-p8b-p0-d35be7104f02e7551cfedc0c",
+              "operandIds": [
+                "op-p8b-p0-d35be7104f02e7551cfedc0c-forcing",
+                "op-p8b-p0-d35be7104f02e7551cfedc0c-observation",
+                "op-p8b-p0-d35be7104f02e7551cfedc0c-physics"
+              ]
+            },
+            {
+              "overlayId": "as-p8b-p8b-p0-d37e50ba5b73c60418ac7078",
+              "operandIds": [
+                "op-p8b-p0-d37e50ba5b73c60418ac7078-forcing",
+                "op-p8b-p0-d37e50ba5b73c60418ac7078-observation",
+                "op-p8b-p0-d37e50ba5b73c60418ac7078-physics"
+              ]
+            },
+            {
+              "overlayId": "as-p8b-p8b-p0-d6442e662770c35854fb2d8b",
+              "operandIds": [
+                "op-p8b-p0-d6442e662770c35854fb2d8b-forcing",
+                "op-p8b-p0-d6442e662770c35854fb2d8b-observation",
+                "op-p8b-p0-d6442e662770c35854fb2d8b-physics"
+              ]
+            },
+            {
+              "overlayId": "as-p8b-p8b-p0-dbec7a33dfccd81a3e66906a",
+              "operandIds": [
+                "op-p8b-p0-dbec7a33dfccd81a3e66906a-forcing",
+                "op-p8b-p0-dbec7a33dfccd81a3e66906a-observation",
+                "op-p8b-p0-dbec7a33dfccd81a3e66906a-physics"
+              ]
+            },
+            {
+              "overlayId": "as-p8b-p8b-p0-f3e2ff9c322c58220a773d99",
+              "operandIds": [
+                "op-p8b-p0-f3e2ff9c322c58220a773d99-forcing",
+                "op-p8b-p0-f3e2ff9c322c58220a773d99-observation",
+                "op-p8b-p0-f3e2ff9c322c58220a773d99-physics"
+              ]
+            },
+            {
+              "overlayId": "as-p8b-p8b-p1-bacon-initiation-aspect",
+              "operandIds": []
+            },
+            {
+              "overlayId": "as-p8b-p8b-p1-bacon-mass-growth-contrast",
+              "operandIds": []
+            },
+            {
+              "overlayId": "as-p8b-p8b-p1-l11-f2-c1-h",
+              "operandIds": [
+                "op-p8b-p1-l11-f2-c1-h-forcing",
+                "op-p8b-p1-l11-f2-c1-h-observation",
+                "op-p8b-p1-l11-f2-c1-h-physics"
+              ]
+            },
+            {
+              "overlayId": "as-p8b-p8b-p1-l11-f2-c1-r",
+              "operandIds": [
+                "op-p8b-p1-l11-f2-c1-r-forcing",
+                "op-p8b-p1-l11-f2-c1-r-observation",
+                "op-p8b-p1-l11-f2-c1-r-physics"
+              ]
+            },
+            {
+              "overlayId": "as-p8b-p8b-p1-l11-f2-c1-sigma-inf",
+              "operandIds": [
+                "op-p8b-p1-l11-f2-c1-sigma-inf-forcing",
+                "op-p8b-p1-l11-f2-c1-sigma-inf-physics"
+              ]
+            },
+            {
+              "overlayId": "as-p8b-p8b-p1-l11-f6-c2-h",
+              "operandIds": [
+                "op-p8b-p1-l11-f6-c2-h-forcing",
+                "op-p8b-p1-l11-f6-c2-h-observation",
+                "op-p8b-p1-l11-f6-c2-h-physics"
+              ]
+            },
+            {
+              "overlayId": "as-p8b-p8b-p1-l11-f6-c2-r",
+              "operandIds": [
+                "op-p8b-p1-l11-f6-c2-r-forcing",
+                "op-p8b-p1-l11-f6-c2-r-observation",
+                "op-p8b-p1-l11-f6-c2-r-physics"
+              ]
+            },
+            {
+              "overlayId": "as-p8b-p8b-p1-l11-f6-c2-sigma-inf",
+              "operandIds": [
+                "op-p8b-p1-l11-f6-c2-sigma-inf-forcing",
+                "op-p8b-p1-l11-f6-c2-sigma-inf-physics"
+              ]
+            },
+            {
+              "overlayId": "as-p8b-p8b-p1-l16-f3-h",
+              "operandIds": [
+                "op-p8b-p1-l16-f3-h-forcing",
+                "op-p8b-p1-l16-f3-h-observation",
+                "op-p8b-p1-l16-f3-h-physics"
+              ]
+            },
+            {
+              "overlayId": "as-p8b-p8b-p1-l16-f3-r",
+              "operandIds": [
+                "op-p8b-p1-l16-f3-r-forcing",
+                "op-p8b-p1-l16-f3-r-observation",
+                "op-p8b-p1-l16-f3-r-physics"
+              ]
+            },
+            {
+              "overlayId": "as-p8b-p8b-p1-l16-f4-h",
+              "operandIds": [
+                "op-p8b-p1-l16-f4-h-forcing",
+                "op-p8b-p1-l16-f4-h-observation",
+                "op-p8b-p1-l16-f4-h-physics"
+              ]
+            },
+            {
+              "overlayId": "as-p8b-p8b-p1-l16-f4-r",
+              "operandIds": [
+                "op-p8b-p1-l16-f4-r-forcing",
+                "op-p8b-p1-l16-f4-r-observation",
+                "op-p8b-p1-l16-f4-r-physics"
+              ]
+            },
+            {
+              "overlayId": "as-p8b-p8b-p1-s89-f3-basal",
+              "operandIds": [
+                "op-p8b-p1-s89-f3-basal-forcing",
+                "op-p8b-p1-s89-f3-basal-observation",
+                "op-p8b-p1-s89-f3-basal-physics"
+              ]
+            },
+            {
+              "overlayId": "as-p8b-p8b-p1-s89-f3-prism",
+              "operandIds": [
+                "op-p8b-p1-s89-f3-prism-forcing",
+                "op-p8b-p1-s89-f3-prism-observation",
+                "op-p8b-p1-s89-f3-prism-physics"
+              ]
+            },
+            {
+              "overlayId": "as-p8b-p8b-p1-s89-f4-basal",
+              "operandIds": [
+                "op-p8b-p1-s89-f4-basal-forcing",
+                "op-p8b-p1-s89-f4-basal-observation",
+                "op-p8b-p1-s89-f4-basal-physics"
+              ]
+            },
+            {
+              "overlayId": "as-p8b-p8b-p1-s89-f4-prism",
+              "operandIds": [
+                "op-p8b-p1-s89-f4-prism-forcing",
+                "op-p8b-p1-s89-f4-prism-observation",
+                "op-p8b-p1-s89-f4-prism-physics"
+              ]
+            },
+            {
+              "overlayId": "as-p8b-p8b-p1-s89-f5-basal",
+              "operandIds": [
+                "op-p8b-p1-s89-f5-basal-forcing",
+                "op-p8b-p1-s89-f5-basal-observation",
+                "op-p8b-p1-s89-f5-basal-physics"
+              ]
+            },
+            {
+              "overlayId": "as-p8b-p8b-p1-s89-f5-prism",
+              "operandIds": [
+                "op-p8b-p1-s89-f5-prism-forcing",
+                "op-p8b-p1-s89-f5-prism-observation",
+                "op-p8b-p1-s89-f5-prism-physics"
+              ]
+            },
+            {
+              "overlayId": "as-p8b-p8b-p1-sd71-m11",
+              "operandIds": [
+                "op-p8b-p1-sd71-m11-forcing",
+                "op-p8b-p1-sd71-m11-observation",
+                "op-p8b-p1-sd71-m11-physics"
+              ]
+            },
+            {
+              "overlayId": "as-p8b-p8b-p1-sd71-m12",
+              "operandIds": [
+                "op-p8b-p1-sd71-m12-forcing",
+                "op-p8b-p1-sd71-m12-observation",
+                "op-p8b-p1-sd71-m12-physics"
+              ]
+            },
+            {
+              "overlayId": "as-p8b-p8b-p1-sd71-m13",
+              "operandIds": [
+                "op-p8b-p1-sd71-m13-forcing",
+                "op-p8b-p1-sd71-m13-observation",
+                "op-p8b-p1-sd71-m13-physics"
+              ]
+            },
+            {
+              "overlayId": "as-p8b-p8b-p1-sd71-m14",
+              "operandIds": [
+                "op-p8b-p1-sd71-m14-forcing",
+                "op-p8b-p1-sd71-m14-observation",
+                "op-p8b-p1-sd71-m14-physics"
+              ]
+            },
+            {
+              "overlayId": "as-p8b-p8b-p1-sd71-m15",
+              "operandIds": [
+                "op-p8b-p1-sd71-m15-forcing",
+                "op-p8b-p1-sd71-m15-observation",
+                "op-p8b-p1-sd71-m15-physics"
+              ]
+            },
+            {
+              "overlayId": "as-p8b-p8b-p1-sd71-m16",
+              "operandIds": [
+                "op-p8b-p1-sd71-m16-forcing",
+                "op-p8b-p1-sd71-m16-observation",
+                "op-p8b-p1-sd71-m16-physics"
+              ]
+            },
+            {
+              "overlayId": "as-p8b-p8b-p1-sd71-m23",
+              "operandIds": [
+                "op-p8b-p1-sd71-m23-forcing",
+                "op-p8b-p1-sd71-m23-observation",
+                "op-p8b-p1-sd71-m23-physics"
+              ]
+            },
+            {
+              "overlayId": "as-p8b-p8b-p1-sd71-m24",
+              "operandIds": [
+                "op-p8b-p1-sd71-m24-forcing",
+                "op-p8b-p1-sd71-m24-observation",
+                "op-p8b-p1-sd71-m24-physics"
+              ]
+            },
+            {
+              "overlayId": "as-p8b-p8b-p1-sd71-m25",
+              "operandIds": [
+                "op-p8b-p1-sd71-m25-forcing",
+                "op-p8b-p1-sd71-m25-observation",
+                "op-p8b-p1-sd71-m25-physics"
+              ]
+            },
+            {
+              "overlayId": "as-p8b-p8b-p1-sd71-m26",
+              "operandIds": [
+                "op-p8b-p1-sd71-m26-forcing",
+                "op-p8b-p1-sd71-m26-observation",
+                "op-p8b-p1-sd71-m26-physics"
+              ]
+            },
+            {
+              "overlayId": "as-p8b-p8b-p2-hp25-source-semantics",
+              "operandIds": [
+                "op-p8b-p2-hp25-source-semantics-forcing"
+              ]
+            },
+            {
+              "overlayId": "as-p8b-p8b-p2-input-lineage",
+              "operandIds": [
+                "op-p8b-p2-input-lineage-forcing",
+                "op-p8b-p2-input-lineage-observation"
+              ]
+            },
+            {
+              "overlayId": "as-p8b-p8b-p2-l13-l16-supersession",
+              "operandIds": []
+            },
+            {
+              "overlayId": "as-p8b-p8b-p2-pk20-hetero-join",
+              "operandIds": [
+                "op-p8b-p2-pk20-hetero-join-source"
+              ]
+            },
+            {
+              "overlayId": "as-p8b-p8b-p2-pk20-homo-denom",
+              "operandIds": [
+                "op-p8b-p2-pk20-homo-denom-source"
+              ]
+            }
+          ],
+          "sha256": "b75c810bb51b77b793c11c828f4f154009a44f9329cffae4447637510db7c07e"
+        }
+      },
+      "afterWitness": {
+        "artifactId": "out-as-phase8a-overlay",
+        "path": "out/phase10-scope-negative-controls/nc-as-collapse-multiple-blockers/phase8a-overlay.jsonl",
+        "byteLength": 77149,
+        "sha256": "a508b32251aa30c42944024f77888d777dce7daab116be085a862159c3bac91d",
+        "semanticFingerprint": {
+          "projection": [
+            {
+              "overlayId": "as-p8a-p8-i-alphahk-cross-lab",
+              "operandIds": [
+                "op-p8-i-alphahk-cross-lab-forcing"
+              ]
+            },
+            {
+              "overlayId": "as-p8a-p8-i-libbrecht-kinetics",
+              "operandIds": []
+            },
+            {
+              "overlayId": "as-p8a-p8-t-bacon-diffusion-scaling",
+              "operandIds": [
+                "op-p8-t-bacon-diffusion-scaling-observation",
+                "op-p8-t-bacon-diffusion-scaling-physics"
+              ]
+            },
+            {
+              "overlayId": "as-p8a-p8-t-bacon-seed-history",
+              "operandIds": []
+            },
+            {
+              "overlayId": "as-p8a-p8-t-habit-boundary-m4",
+              "operandIds": [
+                "op-p8-t-habit-boundary-m4-forcing",
+                "op-p8-t-habit-boundary-m4-numerics",
+                "op-p8-t-habit-boundary-m4-observation",
+                "op-p8-t-habit-boundary-m4-physics"
+              ]
+            },
+            {
+              "overlayId": "as-p8a-p8-t-habit-boundary-m8",
+              "operandIds": [
+                "op-p8-t-habit-boundary-m8-forcing",
+                "op-p8-t-habit-boundary-m8-numerics",
+                "op-p8-t-habit-boundary-m8-observation",
+                "op-p8-t-habit-boundary-m8-physics"
+              ]
+            },
+            {
+              "overlayId": "as-p8a-p8-t-hp26-rim-history",
+              "operandIds": [
+                "op-p8-t-hp26-rim-history-forcing",
+                "op-p8-t-hp26-rim-history-observation",
+                "op-p8-t-hp26-rim-history-physics"
+              ]
+            },
+            {
+              "overlayId": "as-p8a-p8-t-levitation-mass-ratio",
+              "operandIds": [
+                "op-p8-t-levitation-mass-ratio-forcing",
+                "op-p8-t-levitation-mass-ratio-observation",
+                "op-p8-t-levitation-mass-ratio-physics"
+              ]
+            },
+            {
+              "overlayId": "as-p8a-p8-t-levitation-power",
+              "operandIds": [
+                "op-p8-t-levitation-power-observation",
+                "op-p8-t-levitation-power-physics"
+              ]
+            },
+            {
+              "overlayId": "as-p8a-p8-t-levitation-scaled",
+              "operandIds": [
+                "op-p8-t-levitation-scaled-observation",
+                "op-p8-t-levitation-scaled-physics"
+              ]
+            },
+            {
+              "overlayId": "as-p8a-p8-t-libbrecht-low-sigma-m5",
+              "operandIds": [
+                "op-p8-t-libbrecht-low-sigma-m5-forcing",
+                "op-p8-t-libbrecht-low-sigma-m5-observation",
+                "op-p8-t-libbrecht-low-sigma-m5-physics"
+              ]
+            },
+            {
+              "overlayId": "as-p8a-p8-t-libbrecht-needle-matrix",
+              "operandIds": [
+                "op-p8-t-libbrecht-needle-matrix-forcing",
+                "op-p8-t-libbrecht-needle-matrix-observation",
+                "op-p8-t-libbrecht-needle-matrix-physics"
+              ]
+            },
+            {
+              "overlayId": "as-p8a-p8-t-libbrecht-trajectories",
+              "operandIds": [
+                "op-p8-t-libbrecht-trajectories-forcing",
+                "op-p8-t-libbrecht-trajectories-observation",
+                "op-p8-t-libbrecht-trajectories-physics"
+              ]
+            },
+            {
+              "overlayId": "as-p8a-p8-t-nelson-sublimation",
+              "operandIds": []
+            },
+            {
+              "overlayId": "as-p8a-p8-t-pressure-context",
+              "operandIds": [
+                "op-p8-t-pressure-context-forcing",
+                "op-p8-t-pressure-context-observation",
+                "op-p8-t-pressure-context-physics"
+              ]
+            },
+            {
+              "overlayId": "as-p8a-p8-t-riming-regimes",
+              "operandIds": []
+            },
+            {
+              "overlayId": "as-p8a-p8-t-shape-enhanced-mass",
+              "operandIds": [
+                "op-p8-t-shape-enhanced-mass-forcing",
+                "op-p8-t-shape-enhanced-mass-observation",
+                "op-p8-t-shape-enhanced-mass-physics"
+              ]
+            },
+            {
+              "overlayId": "as-p8a-p8-t-ventilation-onset",
+              "operandIds": [
+                "op-p8-t-ventilation-onset-observation",
+                "op-p8-t-ventilation-onset-physics"
+              ]
+            },
+            {
+              "overlayId": "as-p8b-p8b-p0-10c734f0c6c31b5904b10be7",
+              "operandIds": [
+                "op-p8b-p0-10c734f0c6c31b5904b10be7-forcing",
+                "op-p8b-p0-10c734f0c6c31b5904b10be7-observation",
+                "op-p8b-p0-10c734f0c6c31b5904b10be7-physics"
+              ]
+            },
+            {
+              "overlayId": "as-p8b-p8b-p0-20d9f95fe223a7ab67209a30",
+              "operandIds": [
+                "op-p8b-p0-20d9f95fe223a7ab67209a30-forcing",
+                "op-p8b-p0-20d9f95fe223a7ab67209a30-observation",
+                "op-p8b-p0-20d9f95fe223a7ab67209a30-physics"
+              ]
+            },
+            {
+              "overlayId": "as-p8b-p8b-p0-25ff44515d32e7473616ac2a",
+              "operandIds": [
+                "op-p8b-p0-25ff44515d32e7473616ac2a-forcing",
+                "op-p8b-p0-25ff44515d32e7473616ac2a-observation",
+                "op-p8b-p0-25ff44515d32e7473616ac2a-physics"
+              ]
+            },
+            {
+              "overlayId": "as-p8b-p8b-p0-2cee953bbc0243f9a214005f",
+              "operandIds": [
+                "op-p8b-p0-2cee953bbc0243f9a214005f-forcing",
+                "op-p8b-p0-2cee953bbc0243f9a214005f-observation",
+                "op-p8b-p0-2cee953bbc0243f9a214005f-physics"
+              ]
+            },
+            {
+              "overlayId": "as-p8b-p8b-p0-2cf2c2c5b3a6900fc3f9cdda",
+              "operandIds": [
+                "op-p8b-p0-2cf2c2c5b3a6900fc3f9cdda-forcing",
+                "op-p8b-p0-2cf2c2c5b3a6900fc3f9cdda-observation",
+                "op-p8b-p0-2cf2c2c5b3a6900fc3f9cdda-physics"
+              ]
+            },
+            {
+              "overlayId": "as-p8b-p8b-p0-3bbe89e3d3b1429a8dc127e0",
+              "operandIds": [
+                "op-p8b-p0-3bbe89e3d3b1429a8dc127e0-forcing",
+                "op-p8b-p0-3bbe89e3d3b1429a8dc127e0-observation",
+                "op-p8b-p0-3bbe89e3d3b1429a8dc127e0-physics"
+              ]
+            },
+            {
+              "overlayId": "as-p8b-p8b-p0-4cb1637ca175fa4d94ef6063",
+              "operandIds": [
+                "op-p8b-p0-4cb1637ca175fa4d94ef6063-forcing",
+                "op-p8b-p0-4cb1637ca175fa4d94ef6063-observation",
+                "op-p8b-p0-4cb1637ca175fa4d94ef6063-physics"
+              ]
+            },
+            {
+              "overlayId": "as-p8b-p8b-p0-5c37491c76718529da5a4c93",
+              "operandIds": [
+                "op-p8b-p0-5c37491c76718529da5a4c93-forcing",
+                "op-p8b-p0-5c37491c76718529da5a4c93-observation",
+                "op-p8b-p0-5c37491c76718529da5a4c93-physics"
+              ]
+            },
+            {
+              "overlayId": "as-p8b-p8b-p0-831531ae323523a95d510307",
+              "operandIds": [
+                "op-p8b-p0-831531ae323523a95d510307-forcing",
+                "op-p8b-p0-831531ae323523a95d510307-observation",
+                "op-p8b-p0-831531ae323523a95d510307-physics"
+              ]
+            },
+            {
+              "overlayId": "as-p8b-p8b-p0-8376da186b16d7c1c8f650bd",
+              "operandIds": [
+                "op-p8b-p0-8376da186b16d7c1c8f650bd-forcing",
+                "op-p8b-p0-8376da186b16d7c1c8f650bd-observation",
+                "op-p8b-p0-8376da186b16d7c1c8f650bd-physics"
+              ]
+            },
+            {
+              "overlayId": "as-p8b-p8b-p0-85e829413c55abde9fa35b1c",
+              "operandIds": [
+                "op-p8b-p0-85e829413c55abde9fa35b1c-forcing",
+                "op-p8b-p0-85e829413c55abde9fa35b1c-observation",
+                "op-p8b-p0-85e829413c55abde9fa35b1c-physics"
+              ]
+            },
+            {
+              "overlayId": "as-p8b-p8b-p0-a6fa0826c9c2852672c2b87a",
+              "operandIds": [
+                "op-p8b-p0-a6fa0826c9c2852672c2b87a-forcing",
+                "op-p8b-p0-a6fa0826c9c2852672c2b87a-observation",
+                "op-p8b-p0-a6fa0826c9c2852672c2b87a-physics"
+              ]
+            },
+            {
+              "overlayId": "as-p8b-p8b-p0-c8d909e75461aeeefbf0b365",
+              "operandIds": [
+                "op-p8b-p0-c8d909e75461aeeefbf0b365-forcing",
+                "op-p8b-p0-c8d909e75461aeeefbf0b365-observation",
+                "op-p8b-p0-c8d909e75461aeeefbf0b365-physics"
+              ]
+            },
+            {
+              "overlayId": "as-p8b-p8b-p0-d35be7104f02e7551cfedc0c",
+              "operandIds": [
+                "op-p8b-p0-d35be7104f02e7551cfedc0c-forcing",
+                "op-p8b-p0-d35be7104f02e7551cfedc0c-observation",
+                "op-p8b-p0-d35be7104f02e7551cfedc0c-physics"
+              ]
+            },
+            {
+              "overlayId": "as-p8b-p8b-p0-d37e50ba5b73c60418ac7078",
+              "operandIds": [
+                "op-p8b-p0-d37e50ba5b73c60418ac7078-forcing",
+                "op-p8b-p0-d37e50ba5b73c60418ac7078-observation",
+                "op-p8b-p0-d37e50ba5b73c60418ac7078-physics"
+              ]
+            },
+            {
+              "overlayId": "as-p8b-p8b-p0-d6442e662770c35854fb2d8b",
+              "operandIds": [
+                "op-p8b-p0-d6442e662770c35854fb2d8b-forcing",
+                "op-p8b-p0-d6442e662770c35854fb2d8b-observation",
+                "op-p8b-p0-d6442e662770c35854fb2d8b-physics"
+              ]
+            },
+            {
+              "overlayId": "as-p8b-p8b-p0-dbec7a33dfccd81a3e66906a",
+              "operandIds": [
+                "op-p8b-p0-dbec7a33dfccd81a3e66906a-forcing",
+                "op-p8b-p0-dbec7a33dfccd81a3e66906a-observation",
+                "op-p8b-p0-dbec7a33dfccd81a3e66906a-physics"
+              ]
+            },
+            {
+              "overlayId": "as-p8b-p8b-p0-f3e2ff9c322c58220a773d99",
+              "operandIds": [
+                "op-p8b-p0-f3e2ff9c322c58220a773d99-forcing",
+                "op-p8b-p0-f3e2ff9c322c58220a773d99-observation",
+                "op-p8b-p0-f3e2ff9c322c58220a773d99-physics"
+              ]
+            },
+            {
+              "overlayId": "as-p8b-p8b-p1-bacon-initiation-aspect",
+              "operandIds": []
+            },
+            {
+              "overlayId": "as-p8b-p8b-p1-bacon-mass-growth-contrast",
+              "operandIds": []
+            },
+            {
+              "overlayId": "as-p8b-p8b-p1-l11-f2-c1-h",
+              "operandIds": [
+                "op-p8b-p1-l11-f2-c1-h-forcing",
+                "op-p8b-p1-l11-f2-c1-h-observation",
+                "op-p8b-p1-l11-f2-c1-h-physics"
+              ]
+            },
+            {
+              "overlayId": "as-p8b-p8b-p1-l11-f2-c1-r",
+              "operandIds": [
+                "op-p8b-p1-l11-f2-c1-r-forcing",
+                "op-p8b-p1-l11-f2-c1-r-observation",
+                "op-p8b-p1-l11-f2-c1-r-physics"
+              ]
+            },
+            {
+              "overlayId": "as-p8b-p8b-p1-l11-f2-c1-sigma-inf",
+              "operandIds": [
+                "op-p8b-p1-l11-f2-c1-sigma-inf-forcing",
+                "op-p8b-p1-l11-f2-c1-sigma-inf-physics"
+              ]
+            },
+            {
+              "overlayId": "as-p8b-p8b-p1-l11-f6-c2-h",
+              "operandIds": [
+                "op-p8b-p1-l11-f6-c2-h-forcing",
+                "op-p8b-p1-l11-f6-c2-h-observation",
+                "op-p8b-p1-l11-f6-c2-h-physics"
+              ]
+            },
+            {
+              "overlayId": "as-p8b-p8b-p1-l11-f6-c2-r",
+              "operandIds": [
+                "op-p8b-p1-l11-f6-c2-r-forcing",
+                "op-p8b-p1-l11-f6-c2-r-observation",
+                "op-p8b-p1-l11-f6-c2-r-physics"
+              ]
+            },
+            {
+              "overlayId": "as-p8b-p8b-p1-l11-f6-c2-sigma-inf",
+              "operandIds": [
+                "op-p8b-p1-l11-f6-c2-sigma-inf-forcing",
+                "op-p8b-p1-l11-f6-c2-sigma-inf-physics"
+              ]
+            },
+            {
+              "overlayId": "as-p8b-p8b-p1-l16-f3-h",
+              "operandIds": [
+                "op-p8b-p1-l16-f3-h-forcing",
+                "op-p8b-p1-l16-f3-h-observation",
+                "op-p8b-p1-l16-f3-h-physics"
+              ]
+            },
+            {
+              "overlayId": "as-p8b-p8b-p1-l16-f3-r",
+              "operandIds": [
+                "op-p8b-p1-l16-f3-r-forcing",
+                "op-p8b-p1-l16-f3-r-observation",
+                "op-p8b-p1-l16-f3-r-physics"
+              ]
+            },
+            {
+              "overlayId": "as-p8b-p8b-p1-l16-f4-h",
+              "operandIds": [
+                "op-p8b-p1-l16-f4-h-forcing",
+                "op-p8b-p1-l16-f4-h-observation",
+                "op-p8b-p1-l16-f4-h-physics"
+              ]
+            },
+            {
+              "overlayId": "as-p8b-p8b-p1-l16-f4-r",
+              "operandIds": [
+                "op-p8b-p1-l16-f4-r-forcing",
+                "op-p8b-p1-l16-f4-r-observation",
+                "op-p8b-p1-l16-f4-r-physics"
+              ]
+            },
+            {
+              "overlayId": "as-p8b-p8b-p1-s89-f3-basal",
+              "operandIds": [
+                "op-p8b-p1-s89-f3-basal-forcing",
+                "op-p8b-p1-s89-f3-basal-observation",
+                "op-p8b-p1-s89-f3-basal-physics"
+              ]
+            },
+            {
+              "overlayId": "as-p8b-p8b-p1-s89-f3-prism",
+              "operandIds": [
+                "op-p8b-p1-s89-f3-prism-forcing",
+                "op-p8b-p1-s89-f3-prism-observation",
+                "op-p8b-p1-s89-f3-prism-physics"
+              ]
+            },
+            {
+              "overlayId": "as-p8b-p8b-p1-s89-f4-basal",
+              "operandIds": [
+                "op-p8b-p1-s89-f4-basal-forcing",
+                "op-p8b-p1-s89-f4-basal-observation",
+                "op-p8b-p1-s89-f4-basal-physics"
+              ]
+            },
+            {
+              "overlayId": "as-p8b-p8b-p1-s89-f4-prism",
+              "operandIds": [
+                "op-p8b-p1-s89-f4-prism-forcing",
+                "op-p8b-p1-s89-f4-prism-observation",
+                "op-p8b-p1-s89-f4-prism-physics"
+              ]
+            },
+            {
+              "overlayId": "as-p8b-p8b-p1-s89-f5-basal",
+              "operandIds": [
+                "op-p8b-p1-s89-f5-basal-forcing",
+                "op-p8b-p1-s89-f5-basal-observation",
+                "op-p8b-p1-s89-f5-basal-physics"
+              ]
+            },
+            {
+              "overlayId": "as-p8b-p8b-p1-s89-f5-prism",
+              "operandIds": [
+                "op-p8b-p1-s89-f5-prism-forcing",
+                "op-p8b-p1-s89-f5-prism-observation",
+                "op-p8b-p1-s89-f5-prism-physics"
+              ]
+            },
+            {
+              "overlayId": "as-p8b-p8b-p1-sd71-m11",
+              "operandIds": [
+                "op-p8b-p1-sd71-m11-forcing",
+                "op-p8b-p1-sd71-m11-observation",
+                "op-p8b-p1-sd71-m11-physics"
+              ]
+            },
+            {
+              "overlayId": "as-p8b-p8b-p1-sd71-m12",
+              "operandIds": [
+                "op-p8b-p1-sd71-m12-forcing",
+                "op-p8b-p1-sd71-m12-observation",
+                "op-p8b-p1-sd71-m12-physics"
+              ]
+            },
+            {
+              "overlayId": "as-p8b-p8b-p1-sd71-m13",
+              "operandIds": [
+                "op-p8b-p1-sd71-m13-forcing",
+                "op-p8b-p1-sd71-m13-observation",
+                "op-p8b-p1-sd71-m13-physics"
+              ]
+            },
+            {
+              "overlayId": "as-p8b-p8b-p1-sd71-m14",
+              "operandIds": [
+                "op-p8b-p1-sd71-m14-forcing",
+                "op-p8b-p1-sd71-m14-observation",
+                "op-p8b-p1-sd71-m14-physics"
+              ]
+            },
+            {
+              "overlayId": "as-p8b-p8b-p1-sd71-m15",
+              "operandIds": [
+                "op-p8b-p1-sd71-m15-forcing",
+                "op-p8b-p1-sd71-m15-observation",
+                "op-p8b-p1-sd71-m15-physics"
+              ]
+            },
+            {
+              "overlayId": "as-p8b-p8b-p1-sd71-m16",
+              "operandIds": [
+                "op-p8b-p1-sd71-m16-forcing",
+                "op-p8b-p1-sd71-m16-observation",
+                "op-p8b-p1-sd71-m16-physics"
+              ]
+            },
+            {
+              "overlayId": "as-p8b-p8b-p1-sd71-m23",
+              "operandIds": [
+                "op-p8b-p1-sd71-m23-forcing",
+                "op-p8b-p1-sd71-m23-observation",
+                "op-p8b-p1-sd71-m23-physics"
+              ]
+            },
+            {
+              "overlayId": "as-p8b-p8b-p1-sd71-m24",
+              "operandIds": [
+                "op-p8b-p1-sd71-m24-forcing",
+                "op-p8b-p1-sd71-m24-observation",
+                "op-p8b-p1-sd71-m24-physics"
+              ]
+            },
+            {
+              "overlayId": "as-p8b-p8b-p1-sd71-m25",
+              "operandIds": [
+                "op-p8b-p1-sd71-m25-forcing",
+                "op-p8b-p1-sd71-m25-observation",
+                "op-p8b-p1-sd71-m25-physics"
+              ]
+            },
+            {
+              "overlayId": "as-p8b-p8b-p1-sd71-m26",
+              "operandIds": [
+                "op-p8b-p1-sd71-m26-forcing",
+                "op-p8b-p1-sd71-m26-observation",
+                "op-p8b-p1-sd71-m26-physics"
+              ]
+            },
+            {
+              "overlayId": "as-p8b-p8b-p2-hp25-source-semantics",
+              "operandIds": [
+                "op-p8b-p2-hp25-source-semantics-forcing"
+              ]
+            },
+            {
+              "overlayId": "as-p8b-p8b-p2-input-lineage",
+              "operandIds": [
+                "op-p8b-p2-input-lineage-forcing",
+                "op-p8b-p2-input-lineage-observation"
+              ]
+            },
+            {
+              "overlayId": "as-p8b-p8b-p2-l13-l16-supersession",
+              "operandIds": []
+            },
+            {
+              "overlayId": "as-p8b-p8b-p2-pk20-hetero-join",
+              "operandIds": [
+                "op-p8b-p2-pk20-hetero-join-source"
+              ]
+            },
+            {
+              "overlayId": "as-p8b-p8b-p2-pk20-homo-denom",
+              "operandIds": [
+                "op-p8b-p2-pk20-homo-denom-source"
+              ]
+            }
+          ],
+          "sha256": "efec3e417da23732541807458649f341c440796167278287f0324004e88afb7b"
+        }
+      },
+      "errors": []
+    },
+    {
+      "negativeControlId": "nc-as-drop-one-overlay-row",
+      "mutationExecuted": true,
+      "rejected": true,
+      "beforeWitness": {
+        "artifactId": "out-as-phase8a-overlay",
+        "path": "evidence/phase10-scope-intake-v1/phase8a-overlay.jsonl",
+        "byteLength": 77762,
+        "sha256": "6c9b293c5348f415ece03f88e9ac803c54812a51c6c1a9fe013b80fb6930239c",
+        "semanticFingerprint": {
+          "projection": [
+            {
+              "overlayId": "as-p8a-p8-i-alphahk-cross-lab",
+              "sourceRecordId": "P8-I-ALPHAHK-CROSS-LAB"
+            },
+            {
+              "overlayId": "as-p8a-p8-i-libbrecht-kinetics",
+              "sourceRecordId": "P8-I-LIBBRECHT-KINETICS"
+            },
+            {
+              "overlayId": "as-p8a-p8-t-bacon-diffusion-scaling",
+              "sourceRecordId": "P8-T-BACON-DIFFUSION-SCALING"
+            },
+            {
+              "overlayId": "as-p8a-p8-t-bacon-seed-history",
+              "sourceRecordId": "P8-T-BACON-SEED-HISTORY"
+            },
+            {
+              "overlayId": "as-p8a-p8-t-habit-boundary-m4",
+              "sourceRecordId": "P8-T-HABIT-BOUNDARY-M4"
+            },
+            {
+              "overlayId": "as-p8a-p8-t-habit-boundary-m8",
+              "sourceRecordId": "P8-T-HABIT-BOUNDARY-M8"
+            },
+            {
+              "overlayId": "as-p8a-p8-t-hp26-rim-history",
+              "sourceRecordId": "P8-T-HP26-RIM-HISTORY"
+            },
+            {
+              "overlayId": "as-p8a-p8-t-levitation-mass-ratio",
+              "sourceRecordId": "P8-T-LEVITATION-MASS-RATIO"
+            },
+            {
+              "overlayId": "as-p8a-p8-t-levitation-power",
+              "sourceRecordId": "P8-T-LEVITATION-POWER"
+            },
+            {
+              "overlayId": "as-p8a-p8-t-levitation-scaled",
+              "sourceRecordId": "P8-T-LEVITATION-SCALED"
+            },
+            {
+              "overlayId": "as-p8a-p8-t-libbrecht-low-sigma-m5",
+              "sourceRecordId": "P8-T-LIBBRECHT-LOW-SIGMA-M5"
+            },
+            {
+              "overlayId": "as-p8a-p8-t-libbrecht-needle-matrix",
+              "sourceRecordId": "P8-T-LIBBRECHT-NEEDLE-MATRIX"
+            },
+            {
+              "overlayId": "as-p8a-p8-t-libbrecht-trajectories",
+              "sourceRecordId": "P8-T-LIBBRECHT-TRAJECTORIES"
+            },
+            {
+              "overlayId": "as-p8a-p8-t-nelson-sublimation",
+              "sourceRecordId": "P8-T-NELSON-SUBLIMATION"
+            },
+            {
+              "overlayId": "as-p8a-p8-t-pressure-context",
+              "sourceRecordId": "P8-T-PRESSURE-CONTEXT"
+            },
+            {
+              "overlayId": "as-p8a-p8-t-riming-regimes",
+              "sourceRecordId": "P8-T-RIMING-REGIMES"
+            },
+            {
+              "overlayId": "as-p8a-p8-t-shape-enhanced-mass",
+              "sourceRecordId": "P8-T-SHAPE-ENHANCED-MASS"
+            },
+            {
+              "overlayId": "as-p8a-p8-t-ventilation-onset",
+              "sourceRecordId": "P8-T-VENTILATION-ONSET"
+            },
+            {
+              "overlayId": "as-p8b-p8b-p0-10c734f0c6c31b5904b10be7",
+              "sourceRecordId": "P8B-P0-10C734F0C6C31B5904B10BE7"
+            },
+            {
+              "overlayId": "as-p8b-p8b-p0-20d9f95fe223a7ab67209a30",
+              "sourceRecordId": "P8B-P0-20D9F95FE223A7AB67209A30"
+            },
+            {
+              "overlayId": "as-p8b-p8b-p0-25ff44515d32e7473616ac2a",
+              "sourceRecordId": "P8B-P0-25FF44515D32E7473616AC2A"
+            },
+            {
+              "overlayId": "as-p8b-p8b-p0-2cee953bbc0243f9a214005f",
+              "sourceRecordId": "P8B-P0-2CEE953BBC0243F9A214005F"
+            },
+            {
+              "overlayId": "as-p8b-p8b-p0-2cf2c2c5b3a6900fc3f9cdda",
+              "sourceRecordId": "P8B-P0-2CF2C2C5B3A6900FC3F9CDDA"
+            },
+            {
+              "overlayId": "as-p8b-p8b-p0-3bbe89e3d3b1429a8dc127e0",
+              "sourceRecordId": "P8B-P0-3BBE89E3D3B1429A8DC127E0"
+            },
+            {
+              "overlayId": "as-p8b-p8b-p0-4cb1637ca175fa4d94ef6063",
+              "sourceRecordId": "P8B-P0-4CB1637CA175FA4D94EF6063"
+            },
+            {
+              "overlayId": "as-p8b-p8b-p0-5c37491c76718529da5a4c93",
+              "sourceRecordId": "P8B-P0-5C37491C76718529DA5A4C93"
+            },
+            {
+              "overlayId": "as-p8b-p8b-p0-831531ae323523a95d510307",
+              "sourceRecordId": "P8B-P0-831531AE323523A95D510307"
+            },
+            {
+              "overlayId": "as-p8b-p8b-p0-8376da186b16d7c1c8f650bd",
+              "sourceRecordId": "P8B-P0-8376DA186B16D7C1C8F650BD"
+            },
+            {
+              "overlayId": "as-p8b-p8b-p0-85e829413c55abde9fa35b1c",
+              "sourceRecordId": "P8B-P0-85E829413C55ABDE9FA35B1C"
+            },
+            {
+              "overlayId": "as-p8b-p8b-p0-a6fa0826c9c2852672c2b87a",
+              "sourceRecordId": "P8B-P0-A6FA0826C9C2852672C2B87A"
+            },
+            {
+              "overlayId": "as-p8b-p8b-p0-c8d909e75461aeeefbf0b365",
+              "sourceRecordId": "P8B-P0-C8D909E75461AEEEFBF0B365"
+            },
+            {
+              "overlayId": "as-p8b-p8b-p0-d35be7104f02e7551cfedc0c",
+              "sourceRecordId": "P8B-P0-D35BE7104F02E7551CFEDC0C"
+            },
+            {
+              "overlayId": "as-p8b-p8b-p0-d37e50ba5b73c60418ac7078",
+              "sourceRecordId": "P8B-P0-D37E50BA5B73C60418AC7078"
+            },
+            {
+              "overlayId": "as-p8b-p8b-p0-d6442e662770c35854fb2d8b",
+              "sourceRecordId": "P8B-P0-D6442E662770C35854FB2D8B"
+            },
+            {
+              "overlayId": "as-p8b-p8b-p0-dbec7a33dfccd81a3e66906a",
+              "sourceRecordId": "P8B-P0-DBEC7A33DFCCD81A3E66906A"
+            },
+            {
+              "overlayId": "as-p8b-p8b-p0-f3e2ff9c322c58220a773d99",
+              "sourceRecordId": "P8B-P0-F3E2FF9C322C58220A773D99"
+            },
+            {
+              "overlayId": "as-p8b-p8b-p1-bacon-initiation-aspect",
+              "sourceRecordId": "P8B-P1-BACON-INITIATION-ASPECT"
+            },
+            {
+              "overlayId": "as-p8b-p8b-p1-bacon-mass-growth-contrast",
+              "sourceRecordId": "P8B-P1-BACON-MASS-GROWTH-CONTRAST"
+            },
+            {
+              "overlayId": "as-p8b-p8b-p1-l11-f2-c1-h",
+              "sourceRecordId": "P8B-P1-L11-F2-C1-H"
+            },
+            {
+              "overlayId": "as-p8b-p8b-p1-l11-f2-c1-r",
+              "sourceRecordId": "P8B-P1-L11-F2-C1-R"
+            },
+            {
+              "overlayId": "as-p8b-p8b-p1-l11-f2-c1-sigma-inf",
+              "sourceRecordId": "P8B-P1-L11-F2-C1-SIGMA-INF"
+            },
+            {
+              "overlayId": "as-p8b-p8b-p1-l11-f6-c2-h",
+              "sourceRecordId": "P8B-P1-L11-F6-C2-H"
+            },
+            {
+              "overlayId": "as-p8b-p8b-p1-l11-f6-c2-r",
+              "sourceRecordId": "P8B-P1-L11-F6-C2-R"
+            },
+            {
+              "overlayId": "as-p8b-p8b-p1-l11-f6-c2-sigma-inf",
+              "sourceRecordId": "P8B-P1-L11-F6-C2-SIGMA-INF"
+            },
+            {
+              "overlayId": "as-p8b-p8b-p1-l16-f3-h",
+              "sourceRecordId": "P8B-P1-L16-F3-H"
+            },
+            {
+              "overlayId": "as-p8b-p8b-p1-l16-f3-r",
+              "sourceRecordId": "P8B-P1-L16-F3-R"
+            },
+            {
+              "overlayId": "as-p8b-p8b-p1-l16-f4-h",
+              "sourceRecordId": "P8B-P1-L16-F4-H"
+            },
+            {
+              "overlayId": "as-p8b-p8b-p1-l16-f4-r",
+              "sourceRecordId": "P8B-P1-L16-F4-R"
+            },
+            {
+              "overlayId": "as-p8b-p8b-p1-s89-f3-basal",
+              "sourceRecordId": "P8B-P1-S89-F3-BASAL"
+            },
+            {
+              "overlayId": "as-p8b-p8b-p1-s89-f3-prism",
+              "sourceRecordId": "P8B-P1-S89-F3-PRISM"
+            },
+            {
+              "overlayId": "as-p8b-p8b-p1-s89-f4-basal",
+              "sourceRecordId": "P8B-P1-S89-F4-BASAL"
+            },
+            {
+              "overlayId": "as-p8b-p8b-p1-s89-f4-prism",
+              "sourceRecordId": "P8B-P1-S89-F4-PRISM"
+            },
+            {
+              "overlayId": "as-p8b-p8b-p1-s89-f5-basal",
+              "sourceRecordId": "P8B-P1-S89-F5-BASAL"
+            },
+            {
+              "overlayId": "as-p8b-p8b-p1-s89-f5-prism",
+              "sourceRecordId": "P8B-P1-S89-F5-PRISM"
+            },
+            {
+              "overlayId": "as-p8b-p8b-p1-sd71-m11",
+              "sourceRecordId": "P8B-P1-SD71-M11"
+            },
+            {
+              "overlayId": "as-p8b-p8b-p1-sd71-m12",
+              "sourceRecordId": "P8B-P1-SD71-M12"
+            },
+            {
+              "overlayId": "as-p8b-p8b-p1-sd71-m13",
+              "sourceRecordId": "P8B-P1-SD71-M13"
+            },
+            {
+              "overlayId": "as-p8b-p8b-p1-sd71-m14",
+              "sourceRecordId": "P8B-P1-SD71-M14"
+            },
+            {
+              "overlayId": "as-p8b-p8b-p1-sd71-m15",
+              "sourceRecordId": "P8B-P1-SD71-M15"
+            },
+            {
+              "overlayId": "as-p8b-p8b-p1-sd71-m16",
+              "sourceRecordId": "P8B-P1-SD71-M16"
+            },
+            {
+              "overlayId": "as-p8b-p8b-p1-sd71-m23",
+              "sourceRecordId": "P8B-P1-SD71-M23"
+            },
+            {
+              "overlayId": "as-p8b-p8b-p1-sd71-m24",
+              "sourceRecordId": "P8B-P1-SD71-M24"
+            },
+            {
+              "overlayId": "as-p8b-p8b-p1-sd71-m25",
+              "sourceRecordId": "P8B-P1-SD71-M25"
+            },
+            {
+              "overlayId": "as-p8b-p8b-p1-sd71-m26",
+              "sourceRecordId": "P8B-P1-SD71-M26"
+            },
+            {
+              "overlayId": "as-p8b-p8b-p2-hp25-source-semantics",
+              "sourceRecordId": "P8B-P2-HP25-SOURCE-SEMANTICS"
+            },
+            {
+              "overlayId": "as-p8b-p8b-p2-input-lineage",
+              "sourceRecordId": "P8B-P2-INPUT-LINEAGE"
+            },
+            {
+              "overlayId": "as-p8b-p8b-p2-l13-l16-supersession",
+              "sourceRecordId": "P8B-P2-L13-L16-SUPERSESSION"
+            },
+            {
+              "overlayId": "as-p8b-p8b-p2-pk20-hetero-join",
+              "sourceRecordId": "P8B-P2-PK20-HETERO-JOIN"
+            },
+            {
+              "overlayId": "as-p8b-p8b-p2-pk20-homo-denom",
+              "sourceRecordId": "P8B-P2-PK20-HOMO-DENOM"
+            }
+          ],
+          "sha256": "01b0754819cacec4bba2ea316e29e2d48a1a05a9fbf06f02900e71850896056c"
+        }
+      },
+      "afterWitness": {
+        "artifactId": "out-as-phase8a-overlay",
+        "path": "out/phase10-scope-negative-controls/nc-as-drop-one-overlay-row/phase8a-overlay.jsonl",
+        "byteLength": 73533,
+        "sha256": "6384e54b6a8e2826bd60e3418fe646e53e13d8158aeb1d49dde8ea520747c4f0",
+        "semanticFingerprint": {
+          "projection": [
+            {
+              "overlayId": "as-p8a-p8-i-libbrecht-kinetics",
+              "sourceRecordId": "P8-I-LIBBRECHT-KINETICS"
+            },
+            {
+              "overlayId": "as-p8a-p8-t-bacon-diffusion-scaling",
+              "sourceRecordId": "P8-T-BACON-DIFFUSION-SCALING"
+            },
+            {
+              "overlayId": "as-p8a-p8-t-bacon-seed-history",
+              "sourceRecordId": "P8-T-BACON-SEED-HISTORY"
+            },
+            {
+              "overlayId": "as-p8a-p8-t-habit-boundary-m4",
+              "sourceRecordId": "P8-T-HABIT-BOUNDARY-M4"
+            },
+            {
+              "overlayId": "as-p8a-p8-t-habit-boundary-m8",
+              "sourceRecordId": "P8-T-HABIT-BOUNDARY-M8"
+            },
+            {
+              "overlayId": "as-p8a-p8-t-hp26-rim-history",
+              "sourceRecordId": "P8-T-HP26-RIM-HISTORY"
+            },
+            {
+              "overlayId": "as-p8a-p8-t-levitation-mass-ratio",
+              "sourceRecordId": "P8-T-LEVITATION-MASS-RATIO"
+            },
+            {
+              "overlayId": "as-p8a-p8-t-levitation-power",
+              "sourceRecordId": "P8-T-LEVITATION-POWER"
+            },
+            {
+              "overlayId": "as-p8a-p8-t-levitation-scaled",
+              "sourceRecordId": "P8-T-LEVITATION-SCALED"
+            },
+            {
+              "overlayId": "as-p8a-p8-t-libbrecht-low-sigma-m5",
+              "sourceRecordId": "P8-T-LIBBRECHT-LOW-SIGMA-M5"
+            },
+            {
+              "overlayId": "as-p8a-p8-t-libbrecht-needle-matrix",
+              "sourceRecordId": "P8-T-LIBBRECHT-NEEDLE-MATRIX"
+            },
+            {
+              "overlayId": "as-p8a-p8-t-libbrecht-trajectories",
+              "sourceRecordId": "P8-T-LIBBRECHT-TRAJECTORIES"
+            },
+            {
+              "overlayId": "as-p8a-p8-t-nelson-sublimation",
+              "sourceRecordId": "P8-T-NELSON-SUBLIMATION"
+            },
+            {
+              "overlayId": "as-p8a-p8-t-pressure-context",
+              "sourceRecordId": "P8-T-PRESSURE-CONTEXT"
+            },
+            {
+              "overlayId": "as-p8a-p8-t-riming-regimes",
+              "sourceRecordId": "P8-T-RIMING-REGIMES"
+            },
+            {
+              "overlayId": "as-p8a-p8-t-shape-enhanced-mass",
+              "sourceRecordId": "P8-T-SHAPE-ENHANCED-MASS"
+            },
+            {
+              "overlayId": "as-p8a-p8-t-ventilation-onset",
+              "sourceRecordId": "P8-T-VENTILATION-ONSET"
+            },
+            {
+              "overlayId": "as-p8b-p8b-p0-10c734f0c6c31b5904b10be7",
+              "sourceRecordId": "P8B-P0-10C734F0C6C31B5904B10BE7"
+            },
+            {
+              "overlayId": "as-p8b-p8b-p0-20d9f95fe223a7ab67209a30",
+              "sourceRecordId": "P8B-P0-20D9F95FE223A7AB67209A30"
+            },
+            {
+              "overlayId": "as-p8b-p8b-p0-25ff44515d32e7473616ac2a",
+              "sourceRecordId": "P8B-P0-25FF44515D32E7473616AC2A"
+            },
+            {
+              "overlayId": "as-p8b-p8b-p0-2cee953bbc0243f9a214005f",
+              "sourceRecordId": "P8B-P0-2CEE953BBC0243F9A214005F"
+            },
+            {
+              "overlayId": "as-p8b-p8b-p0-2cf2c2c5b3a6900fc3f9cdda",
+              "sourceRecordId": "P8B-P0-2CF2C2C5B3A6900FC3F9CDDA"
+            },
+            {
+              "overlayId": "as-p8b-p8b-p0-3bbe89e3d3b1429a8dc127e0",
+              "sourceRecordId": "P8B-P0-3BBE89E3D3B1429A8DC127E0"
+            },
+            {
+              "overlayId": "as-p8b-p8b-p0-4cb1637ca175fa4d94ef6063",
+              "sourceRecordId": "P8B-P0-4CB1637CA175FA4D94EF6063"
+            },
+            {
+              "overlayId": "as-p8b-p8b-p0-5c37491c76718529da5a4c93",
+              "sourceRecordId": "P8B-P0-5C37491C76718529DA5A4C93"
+            },
+            {
+              "overlayId": "as-p8b-p8b-p0-831531ae323523a95d510307",
+              "sourceRecordId": "P8B-P0-831531AE323523A95D510307"
+            },
+            {
+              "overlayId": "as-p8b-p8b-p0-8376da186b16d7c1c8f650bd",
+              "sourceRecordId": "P8B-P0-8376DA186B16D7C1C8F650BD"
+            },
+            {
+              "overlayId": "as-p8b-p8b-p0-85e829413c55abde9fa35b1c",
+              "sourceRecordId": "P8B-P0-85E829413C55ABDE9FA35B1C"
+            },
+            {
+              "overlayId": "as-p8b-p8b-p0-a6fa0826c9c2852672c2b87a",
+              "sourceRecordId": "P8B-P0-A6FA0826C9C2852672C2B87A"
+            },
+            {
+              "overlayId": "as-p8b-p8b-p0-c8d909e75461aeeefbf0b365",
+              "sourceRecordId": "P8B-P0-C8D909E75461AEEEFBF0B365"
+            },
+            {
+              "overlayId": "as-p8b-p8b-p0-d35be7104f02e7551cfedc0c",
+              "sourceRecordId": "P8B-P0-D35BE7104F02E7551CFEDC0C"
+            },
+            {
+              "overlayId": "as-p8b-p8b-p0-d37e50ba5b73c60418ac7078",
+              "sourceRecordId": "P8B-P0-D37E50BA5B73C60418AC7078"
+            },
+            {
+              "overlayId": "as-p8b-p8b-p0-d6442e662770c35854fb2d8b",
+              "sourceRecordId": "P8B-P0-D6442E662770C35854FB2D8B"
+            },
+            {
+              "overlayId": "as-p8b-p8b-p0-dbec7a33dfccd81a3e66906a",
+              "sourceRecordId": "P8B-P0-DBEC7A33DFCCD81A3E66906A"
+            },
+            {
+              "overlayId": "as-p8b-p8b-p0-f3e2ff9c322c58220a773d99",
+              "sourceRecordId": "P8B-P0-F3E2FF9C322C58220A773D99"
+            },
+            {
+              "overlayId": "as-p8b-p8b-p1-bacon-initiation-aspect",
+              "sourceRecordId": "P8B-P1-BACON-INITIATION-ASPECT"
+            },
+            {
+              "overlayId": "as-p8b-p8b-p1-bacon-mass-growth-contrast",
+              "sourceRecordId": "P8B-P1-BACON-MASS-GROWTH-CONTRAST"
+            },
+            {
+              "overlayId": "as-p8b-p8b-p1-l11-f2-c1-h",
+              "sourceRecordId": "P8B-P1-L11-F2-C1-H"
+            },
+            {
+              "overlayId": "as-p8b-p8b-p1-l11-f2-c1-r",
+              "sourceRecordId": "P8B-P1-L11-F2-C1-R"
+            },
+            {
+              "overlayId": "as-p8b-p8b-p1-l11-f2-c1-sigma-inf",
+              "sourceRecordId": "P8B-P1-L11-F2-C1-SIGMA-INF"
+            },
+            {
+              "overlayId": "as-p8b-p8b-p1-l11-f6-c2-h",
+              "sourceRecordId": "P8B-P1-L11-F6-C2-H"
+            },
+            {
+              "overlayId": "as-p8b-p8b-p1-l11-f6-c2-r",
+              "sourceRecordId": "P8B-P1-L11-F6-C2-R"
+            },
+            {
+              "overlayId": "as-p8b-p8b-p1-l11-f6-c2-sigma-inf",
+              "sourceRecordId": "P8B-P1-L11-F6-C2-SIGMA-INF"
+            },
+            {
+              "overlayId": "as-p8b-p8b-p1-l16-f3-h",
+              "sourceRecordId": "P8B-P1-L16-F3-H"
+            },
+            {
+              "overlayId": "as-p8b-p8b-p1-l16-f3-r",
+              "sourceRecordId": "P8B-P1-L16-F3-R"
+            },
+            {
+              "overlayId": "as-p8b-p8b-p1-l16-f4-h",
+              "sourceRecordId": "P8B-P1-L16-F4-H"
+            },
+            {
+              "overlayId": "as-p8b-p8b-p1-l16-f4-r",
+              "sourceRecordId": "P8B-P1-L16-F4-R"
+            },
+            {
+              "overlayId": "as-p8b-p8b-p1-s89-f3-basal",
+              "sourceRecordId": "P8B-P1-S89-F3-BASAL"
+            },
+            {
+              "overlayId": "as-p8b-p8b-p1-s89-f3-prism",
+              "sourceRecordId": "P8B-P1-S89-F3-PRISM"
+            },
+            {
+              "overlayId": "as-p8b-p8b-p1-s89-f4-basal",
+              "sourceRecordId": "P8B-P1-S89-F4-BASAL"
+            },
+            {
+              "overlayId": "as-p8b-p8b-p1-s89-f4-prism",
+              "sourceRecordId": "P8B-P1-S89-F4-PRISM"
+            },
+            {
+              "overlayId": "as-p8b-p8b-p1-s89-f5-basal",
+              "sourceRecordId": "P8B-P1-S89-F5-BASAL"
+            },
+            {
+              "overlayId": "as-p8b-p8b-p1-s89-f5-prism",
+              "sourceRecordId": "P8B-P1-S89-F5-PRISM"
+            },
+            {
+              "overlayId": "as-p8b-p8b-p1-sd71-m11",
+              "sourceRecordId": "P8B-P1-SD71-M11"
+            },
+            {
+              "overlayId": "as-p8b-p8b-p1-sd71-m12",
+              "sourceRecordId": "P8B-P1-SD71-M12"
+            },
+            {
+              "overlayId": "as-p8b-p8b-p1-sd71-m13",
+              "sourceRecordId": "P8B-P1-SD71-M13"
+            },
+            {
+              "overlayId": "as-p8b-p8b-p1-sd71-m14",
+              "sourceRecordId": "P8B-P1-SD71-M14"
+            },
+            {
+              "overlayId": "as-p8b-p8b-p1-sd71-m15",
+              "sourceRecordId": "P8B-P1-SD71-M15"
+            },
+            {
+              "overlayId": "as-p8b-p8b-p1-sd71-m16",
+              "sourceRecordId": "P8B-P1-SD71-M16"
+            },
+            {
+              "overlayId": "as-p8b-p8b-p1-sd71-m23",
+              "sourceRecordId": "P8B-P1-SD71-M23"
+            },
+            {
+              "overlayId": "as-p8b-p8b-p1-sd71-m24",
+              "sourceRecordId": "P8B-P1-SD71-M24"
+            },
+            {
+              "overlayId": "as-p8b-p8b-p1-sd71-m25",
+              "sourceRecordId": "P8B-P1-SD71-M25"
+            },
+            {
+              "overlayId": "as-p8b-p8b-p1-sd71-m26",
+              "sourceRecordId": "P8B-P1-SD71-M26"
+            },
+            {
+              "overlayId": "as-p8b-p8b-p2-hp25-source-semantics",
+              "sourceRecordId": "P8B-P2-HP25-SOURCE-SEMANTICS"
+            },
+            {
+              "overlayId": "as-p8b-p8b-p2-input-lineage",
+              "sourceRecordId": "P8B-P2-INPUT-LINEAGE"
+            },
+            {
+              "overlayId": "as-p8b-p8b-p2-l13-l16-supersession",
+              "sourceRecordId": "P8B-P2-L13-L16-SUPERSESSION"
+            },
+            {
+              "overlayId": "as-p8b-p8b-p2-pk20-hetero-join",
+              "sourceRecordId": "P8B-P2-PK20-HETERO-JOIN"
+            },
+            {
+              "overlayId": "as-p8b-p8b-p2-pk20-homo-denom",
+              "sourceRecordId": "P8B-P2-PK20-HOMO-DENOM"
+            }
+          ],
+          "sha256": "97c97a1893ac8f70b8c83d0e320c1787c092e1e76b54bd3725dbd13ad1acfc56"
+        }
+      },
+      "errors": []
+    },
+    {
+      "negativeControlId": "nc-as-rewrite-frozen-role",
+      "mutationExecuted": true,
+      "rejected": true,
+      "beforeWitness": {
+        "artifactId": "out-as-phase8a-overlay",
+        "path": "evidence/phase10-scope-intake-v1/phase8a-overlay.jsonl",
+        "byteLength": 77762,
+        "sha256": "6c9b293c5348f415ece03f88e9ac803c54812a51c6c1a9fe013b80fb6930239c",
+        "semanticFingerprint": {
+          "projection": [
+            {
+              "overlayId": "as-p8a-p8-i-alphahk-cross-lab",
+              "immutableEvidenceRole": "phase8a-historical-input"
+            },
+            {
+              "overlayId": "as-p8a-p8-i-libbrecht-kinetics",
+              "immutableEvidenceRole": "phase8a-historical-input"
+            },
+            {
+              "overlayId": "as-p8a-p8-t-bacon-diffusion-scaling",
+              "immutableEvidenceRole": "phase8a-historical-held-out-no-current-gate-effect"
+            },
+            {
+              "overlayId": "as-p8a-p8-t-bacon-seed-history",
+              "immutableEvidenceRole": "phase8a-historical-held-out-no-current-gate-effect"
+            },
+            {
+              "overlayId": "as-p8a-p8-t-habit-boundary-m4",
+              "immutableEvidenceRole": "phase8a-historical-model-development"
+            },
+            {
+              "overlayId": "as-p8a-p8-t-habit-boundary-m8",
+              "immutableEvidenceRole": "phase8a-historical-model-development"
+            },
+            {
+              "overlayId": "as-p8a-p8-t-hp26-rim-history",
+              "immutableEvidenceRole": "phase8a-historical-out-of-model"
+            },
+            {
+              "overlayId": "as-p8a-p8-t-levitation-mass-ratio",
+              "immutableEvidenceRole": "phase8a-historical-held-out-no-current-gate-effect"
+            },
+            {
+              "overlayId": "as-p8a-p8-t-levitation-power",
+              "immutableEvidenceRole": "phase8a-historical-held-out-no-current-gate-effect"
+            },
+            {
+              "overlayId": "as-p8a-p8-t-levitation-scaled",
+              "immutableEvidenceRole": "phase8a-historical-held-out-no-current-gate-effect"
+            },
+            {
+              "overlayId": "as-p8a-p8-t-libbrecht-low-sigma-m5",
+              "immutableEvidenceRole": "phase8a-historical-model-development"
+            },
+            {
+              "overlayId": "as-p8a-p8-t-libbrecht-needle-matrix",
+              "immutableEvidenceRole": "phase8a-historical-model-development"
+            },
+            {
+              "overlayId": "as-p8a-p8-t-libbrecht-trajectories",
+              "immutableEvidenceRole": "phase8a-historical-model-development"
+            },
+            {
+              "overlayId": "as-p8a-p8-t-nelson-sublimation",
+              "immutableEvidenceRole": "phase8a-historical-out-of-model"
+            },
+            {
+              "overlayId": "as-p8a-p8-t-pressure-context",
+              "immutableEvidenceRole": "phase8a-historical-out-of-model"
+            },
+            {
+              "overlayId": "as-p8a-p8-t-riming-regimes",
+              "immutableEvidenceRole": "phase8a-historical-out-of-model"
+            },
+            {
+              "overlayId": "as-p8a-p8-t-shape-enhanced-mass",
+              "immutableEvidenceRole": "phase8a-historical-held-out-no-current-gate-effect"
+            },
+            {
+              "overlayId": "as-p8a-p8-t-ventilation-onset",
+              "immutableEvidenceRole": "phase8a-historical-held-out-no-current-gate-effect"
+            },
+            {
+              "overlayId": "as-p8b-p8b-p0-10c734f0c6c31b5904b10be7",
+              "immutableEvidenceRole": "phase8b-development"
+            },
+            {
+              "overlayId": "as-p8b-p8b-p0-20d9f95fe223a7ab67209a30",
+              "immutableEvidenceRole": "phase8b-development"
+            },
+            {
+              "overlayId": "as-p8b-p8b-p0-25ff44515d32e7473616ac2a",
+              "immutableEvidenceRole": "phase8b-development"
+            },
+            {
+              "overlayId": "as-p8b-p8b-p0-2cee953bbc0243f9a214005f",
+              "immutableEvidenceRole": "phase8b-development"
+            },
+            {
+              "overlayId": "as-p8b-p8b-p0-2cf2c2c5b3a6900fc3f9cdda",
+              "immutableEvidenceRole": "phase8b-development"
+            },
+            {
+              "overlayId": "as-p8b-p8b-p0-3bbe89e3d3b1429a8dc127e0",
+              "immutableEvidenceRole": "phase8b-development"
+            },
+            {
+              "overlayId": "as-p8b-p8b-p0-4cb1637ca175fa4d94ef6063",
+              "immutableEvidenceRole": "phase8b-development"
+            },
+            {
+              "overlayId": "as-p8b-p8b-p0-5c37491c76718529da5a4c93",
+              "immutableEvidenceRole": "phase8b-development"
+            },
+            {
+              "overlayId": "as-p8b-p8b-p0-831531ae323523a95d510307",
+              "immutableEvidenceRole": "phase8b-development"
+            },
+            {
+              "overlayId": "as-p8b-p8b-p0-8376da186b16d7c1c8f650bd",
+              "immutableEvidenceRole": "phase8b-development"
+            },
+            {
+              "overlayId": "as-p8b-p8b-p0-85e829413c55abde9fa35b1c",
+              "immutableEvidenceRole": "phase8b-development"
+            },
+            {
+              "overlayId": "as-p8b-p8b-p0-a6fa0826c9c2852672c2b87a",
+              "immutableEvidenceRole": "phase8b-development"
+            },
+            {
+              "overlayId": "as-p8b-p8b-p0-c8d909e75461aeeefbf0b365",
+              "immutableEvidenceRole": "phase8b-development"
+            },
+            {
+              "overlayId": "as-p8b-p8b-p0-d35be7104f02e7551cfedc0c",
+              "immutableEvidenceRole": "phase8b-development"
+            },
+            {
+              "overlayId": "as-p8b-p8b-p0-d37e50ba5b73c60418ac7078",
+              "immutableEvidenceRole": "phase8b-development"
+            },
+            {
+              "overlayId": "as-p8b-p8b-p0-d6442e662770c35854fb2d8b",
+              "immutableEvidenceRole": "phase8b-development"
+            },
+            {
+              "overlayId": "as-p8b-p8b-p0-dbec7a33dfccd81a3e66906a",
+              "immutableEvidenceRole": "phase8b-development"
+            },
+            {
+              "overlayId": "as-p8b-p8b-p0-f3e2ff9c322c58220a773d99",
+              "immutableEvidenceRole": "phase8b-development"
+            },
+            {
+              "overlayId": "as-p8b-p8b-p1-bacon-initiation-aspect",
+              "immutableEvidenceRole": "phase8b-development"
+            },
+            {
+              "overlayId": "as-p8b-p8b-p1-bacon-mass-growth-contrast",
+              "immutableEvidenceRole": "phase8b-development"
+            },
+            {
+              "overlayId": "as-p8b-p8b-p1-l11-f2-c1-h",
+              "immutableEvidenceRole": "phase8b-development"
+            },
+            {
+              "overlayId": "as-p8b-p8b-p1-l11-f2-c1-r",
+              "immutableEvidenceRole": "phase8b-development"
+            },
+            {
+              "overlayId": "as-p8b-p8b-p1-l11-f2-c1-sigma-inf",
+              "immutableEvidenceRole": "phase8b-development"
+            },
+            {
+              "overlayId": "as-p8b-p8b-p1-l11-f6-c2-h",
+              "immutableEvidenceRole": "phase8b-development"
+            },
+            {
+              "overlayId": "as-p8b-p8b-p1-l11-f6-c2-r",
+              "immutableEvidenceRole": "phase8b-development"
+            },
+            {
+              "overlayId": "as-p8b-p8b-p1-l11-f6-c2-sigma-inf",
+              "immutableEvidenceRole": "phase8b-development"
+            },
+            {
+              "overlayId": "as-p8b-p8b-p1-l16-f3-h",
+              "immutableEvidenceRole": "phase8b-development"
+            },
+            {
+              "overlayId": "as-p8b-p8b-p1-l16-f3-r",
+              "immutableEvidenceRole": "phase8b-development"
+            },
+            {
+              "overlayId": "as-p8b-p8b-p1-l16-f4-h",
+              "immutableEvidenceRole": "phase8b-development"
+            },
+            {
+              "overlayId": "as-p8b-p8b-p1-l16-f4-r",
+              "immutableEvidenceRole": "phase8b-development"
+            },
+            {
+              "overlayId": "as-p8b-p8b-p1-s89-f3-basal",
+              "immutableEvidenceRole": "phase8b-development"
+            },
+            {
+              "overlayId": "as-p8b-p8b-p1-s89-f3-prism",
+              "immutableEvidenceRole": "phase8b-development"
+            },
+            {
+              "overlayId": "as-p8b-p8b-p1-s89-f4-basal",
+              "immutableEvidenceRole": "phase8b-development"
+            },
+            {
+              "overlayId": "as-p8b-p8b-p1-s89-f4-prism",
+              "immutableEvidenceRole": "phase8b-development"
+            },
+            {
+              "overlayId": "as-p8b-p8b-p1-s89-f5-basal",
+              "immutableEvidenceRole": "phase8b-development"
+            },
+            {
+              "overlayId": "as-p8b-p8b-p1-s89-f5-prism",
+              "immutableEvidenceRole": "phase8b-development"
+            },
+            {
+              "overlayId": "as-p8b-p8b-p1-sd71-m11",
+              "immutableEvidenceRole": "phase8b-development"
+            },
+            {
+              "overlayId": "as-p8b-p8b-p1-sd71-m12",
+              "immutableEvidenceRole": "phase8b-development"
+            },
+            {
+              "overlayId": "as-p8b-p8b-p1-sd71-m13",
+              "immutableEvidenceRole": "phase8b-development"
+            },
+            {
+              "overlayId": "as-p8b-p8b-p1-sd71-m14",
+              "immutableEvidenceRole": "phase8b-development"
+            },
+            {
+              "overlayId": "as-p8b-p8b-p1-sd71-m15",
+              "immutableEvidenceRole": "phase8b-development"
+            },
+            {
+              "overlayId": "as-p8b-p8b-p1-sd71-m16",
+              "immutableEvidenceRole": "phase8b-development"
+            },
+            {
+              "overlayId": "as-p8b-p8b-p1-sd71-m23",
+              "immutableEvidenceRole": "phase8b-development"
+            },
+            {
+              "overlayId": "as-p8b-p8b-p1-sd71-m24",
+              "immutableEvidenceRole": "phase8b-development"
+            },
+            {
+              "overlayId": "as-p8b-p8b-p1-sd71-m25",
+              "immutableEvidenceRole": "phase8b-development"
+            },
+            {
+              "overlayId": "as-p8b-p8b-p1-sd71-m26",
+              "immutableEvidenceRole": "phase8b-development"
+            },
+            {
+              "overlayId": "as-p8b-p8b-p2-hp25-source-semantics",
+              "immutableEvidenceRole": "phase8b-development"
+            },
+            {
+              "overlayId": "as-p8b-p8b-p2-input-lineage",
+              "immutableEvidenceRole": "phase8b-development"
+            },
+            {
+              "overlayId": "as-p8b-p8b-p2-l13-l16-supersession",
+              "immutableEvidenceRole": "phase8b-development"
+            },
+            {
+              "overlayId": "as-p8b-p8b-p2-pk20-hetero-join",
+              "immutableEvidenceRole": "phase8b-development"
+            },
+            {
+              "overlayId": "as-p8b-p8b-p2-pk20-homo-denom",
+              "immutableEvidenceRole": "phase8b-development"
+            }
+          ],
+          "sha256": "264020cbc21dd58c1ca6c2877bf27e895fe09af18b667491f73b51f71183bca8"
+        }
+      },
+      "afterWitness": {
+        "artifactId": "out-as-phase8a-overlay",
+        "path": "out/phase10-scope-negative-controls/nc-as-rewrite-frozen-role/phase8a-overlay.jsonl",
+        "byteLength": 77754,
+        "sha256": "042090c1f30d537fb8679989f02353355b196d15ca97a7b6d61b0582a4eda4b6",
+        "semanticFingerprint": {
+          "projection": [
+            {
+              "overlayId": "as-p8a-p8-i-alphahk-cross-lab",
+              "immutableEvidenceRole": "descriptive-only"
+            },
+            {
+              "overlayId": "as-p8a-p8-i-libbrecht-kinetics",
+              "immutableEvidenceRole": "phase8a-historical-input"
+            },
+            {
+              "overlayId": "as-p8a-p8-t-bacon-diffusion-scaling",
+              "immutableEvidenceRole": "phase8a-historical-held-out-no-current-gate-effect"
+            },
+            {
+              "overlayId": "as-p8a-p8-t-bacon-seed-history",
+              "immutableEvidenceRole": "phase8a-historical-held-out-no-current-gate-effect"
+            },
+            {
+              "overlayId": "as-p8a-p8-t-habit-boundary-m4",
+              "immutableEvidenceRole": "phase8a-historical-model-development"
+            },
+            {
+              "overlayId": "as-p8a-p8-t-habit-boundary-m8",
+              "immutableEvidenceRole": "phase8a-historical-model-development"
+            },
+            {
+              "overlayId": "as-p8a-p8-t-hp26-rim-history",
+              "immutableEvidenceRole": "phase8a-historical-out-of-model"
+            },
+            {
+              "overlayId": "as-p8a-p8-t-levitation-mass-ratio",
+              "immutableEvidenceRole": "phase8a-historical-held-out-no-current-gate-effect"
+            },
+            {
+              "overlayId": "as-p8a-p8-t-levitation-power",
+              "immutableEvidenceRole": "phase8a-historical-held-out-no-current-gate-effect"
+            },
+            {
+              "overlayId": "as-p8a-p8-t-levitation-scaled",
+              "immutableEvidenceRole": "phase8a-historical-held-out-no-current-gate-effect"
+            },
+            {
+              "overlayId": "as-p8a-p8-t-libbrecht-low-sigma-m5",
+              "immutableEvidenceRole": "phase8a-historical-model-development"
+            },
+            {
+              "overlayId": "as-p8a-p8-t-libbrecht-needle-matrix",
+              "immutableEvidenceRole": "phase8a-historical-model-development"
+            },
+            {
+              "overlayId": "as-p8a-p8-t-libbrecht-trajectories",
+              "immutableEvidenceRole": "phase8a-historical-model-development"
+            },
+            {
+              "overlayId": "as-p8a-p8-t-nelson-sublimation",
+              "immutableEvidenceRole": "phase8a-historical-out-of-model"
+            },
+            {
+              "overlayId": "as-p8a-p8-t-pressure-context",
+              "immutableEvidenceRole": "phase8a-historical-out-of-model"
+            },
+            {
+              "overlayId": "as-p8a-p8-t-riming-regimes",
+              "immutableEvidenceRole": "phase8a-historical-out-of-model"
+            },
+            {
+              "overlayId": "as-p8a-p8-t-shape-enhanced-mass",
+              "immutableEvidenceRole": "phase8a-historical-held-out-no-current-gate-effect"
+            },
+            {
+              "overlayId": "as-p8a-p8-t-ventilation-onset",
+              "immutableEvidenceRole": "phase8a-historical-held-out-no-current-gate-effect"
+            },
+            {
+              "overlayId": "as-p8b-p8b-p0-10c734f0c6c31b5904b10be7",
+              "immutableEvidenceRole": "phase8b-development"
+            },
+            {
+              "overlayId": "as-p8b-p8b-p0-20d9f95fe223a7ab67209a30",
+              "immutableEvidenceRole": "phase8b-development"
+            },
+            {
+              "overlayId": "as-p8b-p8b-p0-25ff44515d32e7473616ac2a",
+              "immutableEvidenceRole": "phase8b-development"
+            },
+            {
+              "overlayId": "as-p8b-p8b-p0-2cee953bbc0243f9a214005f",
+              "immutableEvidenceRole": "phase8b-development"
+            },
+            {
+              "overlayId": "as-p8b-p8b-p0-2cf2c2c5b3a6900fc3f9cdda",
+              "immutableEvidenceRole": "phase8b-development"
+            },
+            {
+              "overlayId": "as-p8b-p8b-p0-3bbe89e3d3b1429a8dc127e0",
+              "immutableEvidenceRole": "phase8b-development"
+            },
+            {
+              "overlayId": "as-p8b-p8b-p0-4cb1637ca175fa4d94ef6063",
+              "immutableEvidenceRole": "phase8b-development"
+            },
+            {
+              "overlayId": "as-p8b-p8b-p0-5c37491c76718529da5a4c93",
+              "immutableEvidenceRole": "phase8b-development"
+            },
+            {
+              "overlayId": "as-p8b-p8b-p0-831531ae323523a95d510307",
+              "immutableEvidenceRole": "phase8b-development"
+            },
+            {
+              "overlayId": "as-p8b-p8b-p0-8376da186b16d7c1c8f650bd",
+              "immutableEvidenceRole": "phase8b-development"
+            },
+            {
+              "overlayId": "as-p8b-p8b-p0-85e829413c55abde9fa35b1c",
+              "immutableEvidenceRole": "phase8b-development"
+            },
+            {
+              "overlayId": "as-p8b-p8b-p0-a6fa0826c9c2852672c2b87a",
+              "immutableEvidenceRole": "phase8b-development"
+            },
+            {
+              "overlayId": "as-p8b-p8b-p0-c8d909e75461aeeefbf0b365",
+              "immutableEvidenceRole": "phase8b-development"
+            },
+            {
+              "overlayId": "as-p8b-p8b-p0-d35be7104f02e7551cfedc0c",
+              "immutableEvidenceRole": "phase8b-development"
+            },
+            {
+              "overlayId": "as-p8b-p8b-p0-d37e50ba5b73c60418ac7078",
+              "immutableEvidenceRole": "phase8b-development"
+            },
+            {
+              "overlayId": "as-p8b-p8b-p0-d6442e662770c35854fb2d8b",
+              "immutableEvidenceRole": "phase8b-development"
+            },
+            {
+              "overlayId": "as-p8b-p8b-p0-dbec7a33dfccd81a3e66906a",
+              "immutableEvidenceRole": "phase8b-development"
+            },
+            {
+              "overlayId": "as-p8b-p8b-p0-f3e2ff9c322c58220a773d99",
+              "immutableEvidenceRole": "phase8b-development"
+            },
+            {
+              "overlayId": "as-p8b-p8b-p1-bacon-initiation-aspect",
+              "immutableEvidenceRole": "phase8b-development"
+            },
+            {
+              "overlayId": "as-p8b-p8b-p1-bacon-mass-growth-contrast",
+              "immutableEvidenceRole": "phase8b-development"
+            },
+            {
+              "overlayId": "as-p8b-p8b-p1-l11-f2-c1-h",
+              "immutableEvidenceRole": "phase8b-development"
+            },
+            {
+              "overlayId": "as-p8b-p8b-p1-l11-f2-c1-r",
+              "immutableEvidenceRole": "phase8b-development"
+            },
+            {
+              "overlayId": "as-p8b-p8b-p1-l11-f2-c1-sigma-inf",
+              "immutableEvidenceRole": "phase8b-development"
+            },
+            {
+              "overlayId": "as-p8b-p8b-p1-l11-f6-c2-h",
+              "immutableEvidenceRole": "phase8b-development"
+            },
+            {
+              "overlayId": "as-p8b-p8b-p1-l11-f6-c2-r",
+              "immutableEvidenceRole": "phase8b-development"
+            },
+            {
+              "overlayId": "as-p8b-p8b-p1-l11-f6-c2-sigma-inf",
+              "immutableEvidenceRole": "phase8b-development"
+            },
+            {
+              "overlayId": "as-p8b-p8b-p1-l16-f3-h",
+              "immutableEvidenceRole": "phase8b-development"
+            },
+            {
+              "overlayId": "as-p8b-p8b-p1-l16-f3-r",
+              "immutableEvidenceRole": "phase8b-development"
+            },
+            {
+              "overlayId": "as-p8b-p8b-p1-l16-f4-h",
+              "immutableEvidenceRole": "phase8b-development"
+            },
+            {
+              "overlayId": "as-p8b-p8b-p1-l16-f4-r",
+              "immutableEvidenceRole": "phase8b-development"
+            },
+            {
+              "overlayId": "as-p8b-p8b-p1-s89-f3-basal",
+              "immutableEvidenceRole": "phase8b-development"
+            },
+            {
+              "overlayId": "as-p8b-p8b-p1-s89-f3-prism",
+              "immutableEvidenceRole": "phase8b-development"
+            },
+            {
+              "overlayId": "as-p8b-p8b-p1-s89-f4-basal",
+              "immutableEvidenceRole": "phase8b-development"
+            },
+            {
+              "overlayId": "as-p8b-p8b-p1-s89-f4-prism",
+              "immutableEvidenceRole": "phase8b-development"
+            },
+            {
+              "overlayId": "as-p8b-p8b-p1-s89-f5-basal",
+              "immutableEvidenceRole": "phase8b-development"
+            },
+            {
+              "overlayId": "as-p8b-p8b-p1-s89-f5-prism",
+              "immutableEvidenceRole": "phase8b-development"
+            },
+            {
+              "overlayId": "as-p8b-p8b-p1-sd71-m11",
+              "immutableEvidenceRole": "phase8b-development"
+            },
+            {
+              "overlayId": "as-p8b-p8b-p1-sd71-m12",
+              "immutableEvidenceRole": "phase8b-development"
+            },
+            {
+              "overlayId": "as-p8b-p8b-p1-sd71-m13",
+              "immutableEvidenceRole": "phase8b-development"
+            },
+            {
+              "overlayId": "as-p8b-p8b-p1-sd71-m14",
+              "immutableEvidenceRole": "phase8b-development"
+            },
+            {
+              "overlayId": "as-p8b-p8b-p1-sd71-m15",
+              "immutableEvidenceRole": "phase8b-development"
+            },
+            {
+              "overlayId": "as-p8b-p8b-p1-sd71-m16",
+              "immutableEvidenceRole": "phase8b-development"
+            },
+            {
+              "overlayId": "as-p8b-p8b-p1-sd71-m23",
+              "immutableEvidenceRole": "phase8b-development"
+            },
+            {
+              "overlayId": "as-p8b-p8b-p1-sd71-m24",
+              "immutableEvidenceRole": "phase8b-development"
+            },
+            {
+              "overlayId": "as-p8b-p8b-p1-sd71-m25",
+              "immutableEvidenceRole": "phase8b-development"
+            },
+            {
+              "overlayId": "as-p8b-p8b-p1-sd71-m26",
+              "immutableEvidenceRole": "phase8b-development"
+            },
+            {
+              "overlayId": "as-p8b-p8b-p2-hp25-source-semantics",
+              "immutableEvidenceRole": "phase8b-development"
+            },
+            {
+              "overlayId": "as-p8b-p8b-p2-input-lineage",
+              "immutableEvidenceRole": "phase8b-development"
+            },
+            {
+              "overlayId": "as-p8b-p8b-p2-l13-l16-supersession",
+              "immutableEvidenceRole": "phase8b-development"
+            },
+            {
+              "overlayId": "as-p8b-p8b-p2-pk20-hetero-join",
+              "immutableEvidenceRole": "phase8b-development"
+            },
+            {
+              "overlayId": "as-p8b-p8b-p2-pk20-homo-denom",
+              "immutableEvidenceRole": "phase8b-development"
+            }
+          ],
+          "sha256": "219adcb7b24e926ce3b4354754cdc619361f0850779ae5a3f2352ff4a5d37518"
+        }
+      },
+      "errors": []
+    },
+    {
+      "negativeControlId": "nc-as-upgrade-validation-credit",
+      "mutationExecuted": true,
+      "rejected": true,
+      "beforeWitness": {
+        "artifactId": "out-as-report",
+        "path": "evidence/phase10-scope-intake-v1/scope-report.json",
+        "byteLength": 5177,
+        "sha256": "d210803c6cf6a36931fba1b00b5745bd64e785f037db5a463e7487aa1b59d14b",
+        "semanticFingerprint": {
+          "projection": {
+            "quantitativeValidationEarned": false
+          },
+          "sha256": "a7a22b869faf5de13098a72d8bd533572de2ebe1b621357b0be16d2a55eb3f84"
+        }
+      },
+      "afterWitness": {
+        "artifactId": "out-as-report",
+        "path": "out/phase10-scope-negative-controls/nc-as-upgrade-validation-credit/scope-report.json",
+        "byteLength": 5176,
+        "sha256": "d6688ef88d75bfd7b0a6d36cd132a1908e7c8a1d35b729ba2e75af0a948ec3a2",
+        "semanticFingerprint": {
+          "projection": {
+            "quantitativeValidationEarned": true
+          },
+          "sha256": "a17e7f7c98b4b629bd415ba05076312e5f799bb3f0ae22f96ea4932974a0e616"
+        }
+      },
+      "errors": []
+    }
+  ],
+  "startedOn": "2026-08-21T19:44:14.053Z",
+  "endedOn": "2026-08-21T19:44:14.903Z",
+  "verdict": "pass"
+}

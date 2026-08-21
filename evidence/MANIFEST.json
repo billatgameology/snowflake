@@ -3,8 +3,8 @@
  "movedFrom": "out/ (gitignored), plus the byte-identical tracked arm64 fingerprint formerly under docs/",
  "movedTo": "evidence/ (tracked)",
  "note": "Historical sweep digests were computed before their move and re-verified afterward. The arm64 fingerprint preserves the exact former docs/ Git blob (18398 bytes, SHA-256 d6686f8e...). The x64 fingerprint is the complete 2026-08-01 lightweight fixture re-execution backing the exact per-entry comparison; it reproduces registered digest 2a9f64b3. These are preserved claim-backing bytes, not regenerated production sweeps.",
- "fileCount": 356,
- "totalBytes": 4337469,
+ "fileCount": 363,
+ "totalBytes": 4874715,
  "files": {
   "phase6-crossplatform/arm64-libm-fingerprint.txt": {
    "bytes": 18398,
@@ -498,6 +498,14 @@
    "bytes": 1681,
    "sha256": "c84e269f521f7b2fb680fa1000dfc3837893f2baa88fc46402a6303e24b076c4"
   },
+  "phase10-obligation-preflight-v1/packets/a-s/preflight.json": {
+   "bytes": 4487,
+   "sha256": "334a8ec38c580b4e88959c1cee2170986d4fef1026d2fe5efbe0138508f7b3a5"
+  },
+  "phase10-obligation-preflight-v1/packets/a-s/terminal-receipt.json": {
+   "bytes": 1605,
+   "sha256": "99e6ced9e48d41113ac8d433649e43d9d5ec5e36c6fe799f808b4005e27b55de"
+  },
   "phase10-obligation-preflight-v1/uncalled-check.json": {
    "bytes": 5207,
    "sha256": "983b6be3285e2eac6bbc941e828976edc752ec2224ee6097795ab0ca3ac52ec0"
@@ -505,6 +513,26 @@
   "phase10-obligation-preflight-v1/verification.json": {
    "bytes": 16938,
    "sha256": "6b39cf5b7f663c5518f5dd0745e92d59aae3dc21ac7dcf94ece72603fc96eaec"
+  },
+  "phase10-scope-intake-v1/phase8a-overlay.jsonl": {
+   "bytes": 77762,
+   "sha256": "6c9b293c5348f415ece03f88e9ac803c54812a51c6c1a9fe013b80fb6930239c"
+  },
+  "phase10-scope-intake-v1/phase8b-overlay.jsonl": {
+   "bytes": 357138,
+   "sha256": "954f777092c1e6ba34f85e0d92236d7c534376b94d239b32304a9ca9fcbcfa11"
+  },
+  "phase10-scope-intake-v1/scope-artifact-index.json": {
+   "bytes": 1066,
+   "sha256": "c98399b2fb78970c89e73940aee9acfbbd759a9b40b3f5583319ca5af8d1fc48"
+  },
+  "phase10-scope-intake-v1/scope-report.json": {
+   "bytes": 5177,
+   "sha256": "d210803c6cf6a36931fba1b00b5745bd64e785f037db5a463e7487aa1b59d14b"
+  },
+  "phase10-scope-intake-v1/scope-verification.json": {
+   "bytes": 90011,
+   "sha256": "1507546a91a60b6ad1b7d1afd62b1b69aee18549d465c78d4f97ddc254e1704c"
   },
   "phase6-wp2-ladder/report.json": {
    "bytes": 43863,

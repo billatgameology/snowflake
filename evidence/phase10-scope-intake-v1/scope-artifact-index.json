@@ -1,0 +1,33 @@
+{
+  "schema": "phase10-artifact-index-v1",
+  "bundleId": "phase10-scope-intake-v1",
+  "artifacts": [
+    {
+      "artifactId": "out-as-phase8a-overlay",
+      "path": "phase8a-overlay.jsonl",
+      "mediaType": "application/x-ndjson",
+      "byteLength": 77762,
+      "sha256": "6c9b293c5348f415ece03f88e9ac803c54812a51c6c1a9fe013b80fb6930239c",
+      "role": "scope-overlay",
+      "producedBy": "phase10-a-s-producer"
+    },
+    {
+      "artifactId": "out-as-phase8b-overlay",
+      "path": "phase8b-overlay.jsonl",
+      "mediaType": "application/x-ndjson",
+      "byteLength": 357138,
+      "sha256": "954f777092c1e6ba34f85e0d92236d7c534376b94d239b32304a9ca9fcbcfa11",
+      "role": "scope-overlay",
+      "producedBy": "phase10-a-s-producer"
+    },
+    {
+      "artifactId": "out-as-report",
+      "path": "scope-report.json",
+      "mediaType": "application/json",
+      "byteLength": 5177,
+      "sha256": "d210803c6cf6a36931fba1b00b5745bd64e785f037db5a463e7487aa1b59d14b",
+      "role": "scope-report",
+      "producedBy": "phase10-a-s-producer"
+    }
+  ]
+}

@@ -211,7 +211,7 @@ collection.
 - [x] **S1 — freeze the package obligation matrix and schemas.** Register every A-S/A-I/B/C0/C0V
   output and check, define rights-safe tracked/NAS boundaries, add the missing-producer and
   uncalled-check fixtures, and prove preflight refuses them.
-- [ ] **S2 — execute A-S.** Publish and verify separate 18-entry and 51-record overlays with the
+- [x] **S2 — execute A-S.** Publish and verify separate 18-entry and 51-record overlays with the
   complete field set, cited reasons, immutable roles, phase ownership, multi-blocker support, and
   totals independently re-derived from the overlay bytes.
 - [ ] **S3 — execute A-I.** Verify the governed private-NAS bindings, terminally disposition all 14
@@ -360,6 +360,54 @@ artifact identity, check verdict, mutation receipt/witness, attempt/head/runtime
 callable identity, and reported zero blockers. It did not invoke a producer or publisher, mutate
 the manifest, test crash/concurrent-writer behavior, authenticate wall-clock timestamps beyond
 syntax/order, inspect NAS/private/held-out material, or assess scientific correctness.
+
+### S2 A-S evidence checkpoint — 2026-08-21
+
+From clean A-P evidence head `63ca13c0de16f01f224c60e7fe29405b2798cf0e`, the exact README
+sequence published separate 18-entry Phase 8A and 51-record Phase 8B overlays and an independent
+PASS receipt. All 11 registered checks passed with empty errors; all four registered mutations
+executed, changed their named semantic projection, and were rejected with empty errors. The
+terminal receipt binds six outputs, 11 executed/evaluated checks, four controls, the committed A-P
+dependency, attempt `s2-static-20260821-v1`, Node v24.13.1, and the clean head.
+
+The measured, separate scope totals are:
+
+| Classification | Phase 8A (18) | Phase 8B (51) |
+|---|---|---|
+| Model-class scope | in 9; mixed 1; out 3; unresolved 5 | in 31; out 2; unresolved 18 |
+| Blocker cardinality | zero 4; one 0; multiple 14 | zero 3; one 3; multiple 45 |
+| Apparatus | adapter 14; direct 1; incompatible 3 | adapter 45; direct 1; incompatible 2; source-blocked 3 |
+| Eligibility | categorical 3; diagnostic 15; quantitative 0; refused 0 | categorical 3; diagnostic 45; quantitative 0; refused 3 |
+
+Phase 8A retains seven historical held-out/no-current-gate-effect roles and seven Phase 7
+held-out/product/GPU obligations. All 51 Phase 8B rows remain Phase 8B development evidence owned
+by Phase 10 for this analysis. The claim boundary records zero quantitative validation, held-out
+comparison, prior-phase credit, target score, solver change, C1–C5/habit output, E/F/H completion,
+or downstream authorization. These are a scope census and representability dispositions, not a
+combined success percentage or a physical validation result.
+
+The seven published identities are:
+
+| File | Bytes | SHA-256 |
+|---|---:|---|
+| `evidence/phase10-scope-intake-v1/phase8a-overlay.jsonl` | 77,762 | `6c9b293c5348f415ece03f88e9ac803c54812a51c6c1a9fe013b80fb6930239c` |
+| `evidence/phase10-scope-intake-v1/phase8b-overlay.jsonl` | 357,138 | `954f777092c1e6ba34f85e0d92236d7c534376b94d239b32304a9ca9fcbcfa11` |
+| `evidence/phase10-scope-intake-v1/scope-artifact-index.json` | 1,066 | `c98399b2fb78970c89e73940aee9acfbbd759a9b40b3f5583319ca5af8d1fc48` |
+| `evidence/phase10-scope-intake-v1/scope-report.json` | 5,177 | `d210803c6cf6a36931fba1b00b5745bd64e785f037db5a463e7487aa1b59d14b` |
+| `evidence/phase10-scope-intake-v1/scope-verification.json` | 90,011 | `1507546a91a60b6ad1b7d1afd62b1b69aee18549d465c78d4f97ddc254e1704c` |
+| `evidence/phase10-obligation-preflight-v1/packets/a-s/preflight.json` | 4,487 | `334a8ec38c580b4e88959c1cee2170986d4fef1026d2fe5efbe0138508f7b3a5` |
+| `evidence/phase10-obligation-preflight-v1/packets/a-s/terminal-receipt.json` | 1,605 | `99e6ced9e48d41113ac8d433649e43d9d5ec5e36c6fe799f808b4005e27b55de` |
+
+The manifest is updated to 363 files / 4,874,715 bytes, the staged evidence-integrity plus A-S
+lifecycle check passes 29/29, and exact post-publication `npm test` passes 135/135 files and 2,250
+tests with 49 skipped. The S2 evidence commit is the only remaining checkpoint action.
+
+The non-author OpenAI Codex GPT-5 reviewer with full shared context independently proved the
+published and retained-candidate bytes identical, reran the committed evaluator, rederived every
+row/count/role/ownership/eligibility/claim-boundary field, all 11 checks, four mutations, run and
+receipt rosters, dependency bytes, and callable/input identities, and reported zero blockers. It
+did not edit, stage, manifest, republish, authenticate wall-clock timestamps, assess scientific
+correctness, inspect NAS/private material, or inspect future held-out source values.
 
 ## Return and stop rules
 

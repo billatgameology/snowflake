@@ -1,0 +1,170 @@
+{
+  "schema": "phase10-scope-report-v1",
+  "bundleId": "phase10-scope-intake-v1",
+  "foundationFreeze": {
+    "path": "research/phase10-foundation-freeze-v1.json",
+    "byteLength": 32327,
+    "sha256": "7847f26a24d1a09eefc6b15ed07baf1d007782fdd58c3301e3f926e4c8805871"
+  },
+  "protocolBinding": {
+    "path": "research/phase10-scope-classification-protocol-v1.json",
+    "byteLength": 477980,
+    "sha256": "e5a7196f9a1cefc2bb6548887b76d70d5633d7bb0b43ffd96c94c6ac74a76c39",
+    "commit": "63ca13c0de16f01f224c60e7fe29405b2798cf0e"
+  },
+  "inputArtifacts": [
+    {
+      "path": "evidence/phase8-target-book/freeze.json",
+      "byteLength": 4434,
+      "sha256": "f9a5f4ee1f75c3038c2c051fe27ea68ee3f11f38f14d6ac6770604dd65e3b158"
+    },
+    {
+      "path": "evidence/phase8b-benchmark-final-v1/successor-target-book.jsonl",
+      "byteLength": 36094,
+      "sha256": "c54b89683eea1f064bd8e81d6e9e06b3b9bbc6c022168b981cbfa71e5fc3cdd3"
+    },
+    {
+      "path": "research/phase8-target-book.jsonl",
+      "byteLength": 59019,
+      "sha256": "47a75f3fcc499d74d36cd08eeaed7f4e839bf991deb179fa19ce809d57e171ec"
+    }
+  ],
+  "phase8aCounts": {
+    "totalRows": 18,
+    "phenomenonClass": {
+      "aggregation": 0,
+      "impurity-or-chemistry": 0,
+      "mixed-or-uncertain": 6,
+      "nucleation": 1,
+      "polycrystal-or-twin": 0,
+      "riming-or-graupel": 1,
+      "single-crystal": 10
+    },
+    "modelClassScope": {
+      "in": 9,
+      "mixed": 1,
+      "out": 3,
+      "unresolved": 5
+    },
+    "representabilityBlockerCardinality": {
+      "zero": 4,
+      "one": 0,
+      "multiple": 14
+    },
+    "representabilityBlockerKindOccurrences": {
+      "missing-forcing-map": 10,
+      "missing-observation-operator": 14,
+      "missing-physical-operator": 13,
+      "numerical-inadequacy": 2,
+      "other": 0
+    },
+    "specimenApparatusCompatibility": {
+      "adapter-required": 14,
+      "direct": 1,
+      "incompatible": 3,
+      "source-blocked": 0
+    },
+    "immutableEvidenceRole": {
+      "descriptive-only": 0,
+      "phase8a-historical-held-out-no-current-gate-effect": 7,
+      "phase8a-historical-input": 2,
+      "phase8a-historical-model-development": 5,
+      "phase8a-historical-out-of-model": 4,
+      "phase8b-development": 0
+    },
+    "phaseOwnership": {
+      "outside-phase7-and-phase10": 2,
+      "phase10-development": 2,
+      "phase7-held-out-product-gpu-obligation": 7,
+      "shared-read-only-input": 7
+    },
+    "currentDecisionEligibility": {
+      "categorical-only": 3,
+      "diagnostic-only": 15,
+      "quantitative": 0,
+      "refused": 0
+    }
+  },
+  "phase8bCounts": {
+    "totalRows": 51,
+    "phenomenonClass": {
+      "aggregation": 0,
+      "impurity-or-chemistry": 0,
+      "mixed-or-uncertain": 18,
+      "nucleation": 2,
+      "polycrystal-or-twin": 0,
+      "riming-or-graupel": 0,
+      "single-crystal": 31
+    },
+    "modelClassScope": {
+      "in": 31,
+      "mixed": 0,
+      "out": 2,
+      "unresolved": 18
+    },
+    "representabilityBlockerCardinality": {
+      "zero": 3,
+      "one": 3,
+      "multiple": 45
+    },
+    "representabilityBlockerKindOccurrences": {
+      "missing-forcing-map": 46,
+      "missing-observation-operator": 43,
+      "missing-physical-operator": 44,
+      "numerical-inadequacy": 0,
+      "other": 2
+    },
+    "specimenApparatusCompatibility": {
+      "adapter-required": 45,
+      "direct": 1,
+      "incompatible": 2,
+      "source-blocked": 3
+    },
+    "immutableEvidenceRole": {
+      "descriptive-only": 0,
+      "phase8a-historical-held-out-no-current-gate-effect": 0,
+      "phase8a-historical-input": 0,
+      "phase8a-historical-model-development": 0,
+      "phase8a-historical-out-of-model": 0,
+      "phase8b-development": 51
+    },
+    "phaseOwnership": {
+      "outside-phase7-and-phase10": 0,
+      "phase10-development": 51,
+      "phase7-held-out-product-gpu-obligation": 0,
+      "shared-read-only-input": 0
+    },
+    "currentDecisionEligibility": {
+      "categorical-only": 3,
+      "diagnostic-only": 45,
+      "quantitative": 0,
+      "refused": 3
+    }
+  },
+  "claimBoundary": {
+    "scopeCensusOnlyForAS": true,
+    "allOpenedSourceValuesArePhase10DevelopmentEvidence": true,
+    "quantitativeValidationEarned": false,
+    "phase7CreditEarned": false,
+    "phase8CreditEarned": false,
+    "phase9CreditEarned": false,
+    "heldOutComparisonExecuted": false,
+    "targetScoreProduced": false,
+    "solverPhysicsChanged": false,
+    "c1ThroughC5RowsProduced": false,
+    "habitRowsProduced": false,
+    "eObservationOperatorImplemented": false,
+    "fExternalRequestWrittenOrSent": false,
+    "hTransportImplemented": false,
+    "downstreamExecutionAuthorized": false,
+    "priorPhaseLabelsAndArtifactsPreserved": true
+  },
+  "producer": {
+    "producerId": "phase10-a-s-producer",
+    "commit": "63ca13c0de16f01f224c60e7fe29405b2798cf0e",
+    "command": "node runner/src/phase10-scope-overlay.ts produce --repository-root . --protocol research/phase10-scope-classification-protocol-v1.json --out out/phase10-scope-intake-v1-candidate",
+    "startedOn": "2026-08-21T19:44:07.840Z",
+    "endedOn": "2026-08-21T19:44:07.998Z",
+    "actualConcurrency": 1
+  }
+}

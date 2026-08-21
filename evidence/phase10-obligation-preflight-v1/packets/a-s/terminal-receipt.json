@@ -1,0 +1,52 @@
+{
+  "schema": "phase10-execution-receipt-v1",
+  "receiptId": "phase10-a-s-s2-static-20260821-v1-terminal-v1",
+  "matrixId": "phase10-selected-package-obligations-v1",
+  "protocolId": "phase10-a-s-scope-overlay-v1",
+  "registryId": "phase10-a-s-resolved-callables-v1",
+  "packetId": "a-s",
+  "terminalState": "pass",
+  "producedOutputIds": [
+    "out-as-artifact-index",
+    "out-as-classification-protocol",
+    "out-as-phase8a-overlay",
+    "out-as-phase8b-overlay",
+    "out-as-report",
+    "out-as-verification-receipt"
+  ],
+  "executedCheckIds": [
+    "chk-as-artifact-index-integrity",
+    "chk-as-cited-classifications",
+    "chk-as-exact-rosters",
+    "chk-as-frozen-input-joins",
+    "chk-as-immutable-roles",
+    "chk-as-modelclass-blocker-separation",
+    "chk-as-multiblocker-support",
+    "chk-as-phase-ownership",
+    "chk-as-protocol-before-classification",
+    "chk-as-separate-corpus-totals",
+    "chk-as-zero-validation-credit"
+  ],
+  "evaluatedCheckIds": [
+    "chk-as-artifact-index-integrity",
+    "chk-as-cited-classifications",
+    "chk-as-exact-rosters",
+    "chk-as-frozen-input-joins",
+    "chk-as-immutable-roles",
+    "chk-as-modelclass-blocker-separation",
+    "chk-as-multiblocker-support",
+    "chk-as-phase-ownership",
+    "chk-as-protocol-before-classification",
+    "chk-as-separate-corpus-totals",
+    "chk-as-zero-validation-credit"
+  ],
+  "executedNegativeControlIds": [
+    "nc-as-collapse-multiple-blockers",
+    "nc-as-drop-one-overlay-row",
+    "nc-as-rewrite-frozen-role",
+    "nc-as-upgrade-validation-credit"
+  ],
+  "boundDependencyPacketIds": [
+    "a-p"
+  ]
+}

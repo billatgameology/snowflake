@@ -115,11 +115,15 @@ detail.
   independently reviewed static lifecycles; its exact `npm test` passed 135/135 files and 2,250
   tests with 49 skipped. From clean head `ce2d9e62c17336060381d9bc806e4379f744070d`, A-P then
   published a six-file PASS bundle: 12 artifacts reopened, 11/11 checks passed, and both mandatory
-  missing-producer and uncalled-check mutations executed and were rejected. A non-author evidence
-  review rederived the same result with zero blockers. The six files total 35,605 bytes and are
-  pinned in the 356-file / 4,337,469-byte evidence manifest. Exact post-publication `npm test`
-  passes 135/135 files and 2,250 tests with 49 skipped. No solver row or scientific result exists;
-  A-S stays blocked only until the A-P evidence commit lands.
+  missing-producer and uncalled-check mutations executed and were rejected. Its independently
+  rederived evidence landed at `63ca13c0de16f01f224c60e7fe29405b2798cf0e`. From that clean
+  head, A-S published separate 18-entry Phase 8A and 51-record Phase 8B overlays: all 11 checks pass
+  and all four named mutations execute and are rejected. A non-author evidence review rederived
+  every row, count, role, ownership, eligibility, claim boundary, and dependency with zero
+  blockers. A-S reports scope in/mixed/out/unresolved = 9/1/3/5 for Phase 8A and 31/0/2/18 for
+  Phase 8B, with quantitative eligibility 0 in both. Its seven files total 537,246 bytes and are
+  pinned in the 363-file / 4,874,715-byte evidence manifest. Exact post-publication `npm test`
+  passes 135/135 files and 2,250 tests with 49 skipped. No solver row or scientific result occurred.
 - **Phase 10 C0 implementation trap (found 2026-08-21).** The frozen WP2 plan, primary evaluator,
   its mixed pass/fail controls, and `gate6` require every spacing to pass before the top-level result
   can pass. The later post-execution independent script uses `some` instead of `every`. Both
@@ -140,8 +144,8 @@ detail.
   direction) and content stays in-repo unpublished, `test.yml` CI unaffected. Reconciliation is
   a live decision point under **Next step**. Full freeze history:
   [the history file](progress-history-phases-6-8-9.md).
-- **Last updated:** 2026-08-21 (published, pinned, independently rederived, and exact-suite checked
-  the A-P PASS bundle; left its evidence commit before A-S)
+- **Last updated:** 2026-08-21 (committed A-P PASS; published, pinned, independently rederived, and
+  exact-suite checked A-S PASS; left the S2 evidence commit)
 
 ## Phase gates
 
@@ -161,7 +165,7 @@ and every superseded attempt live in the linked plans and historical progress sn
 | 7 | Not started; independently eligible | Charter v1.25 preserves Phase 7's independence but does not start it. A committed Phase 7 plan and isolated worktree are required; product, held-out validation, and v6 WGSL/preview-GPU parity remain its scope. |
 | 8 | **Complete (8A + 8B)** | The immutable 8A book remains 18 entries / 59,019 bytes / SHA-256 `47a75f3f…71ec`. The verified 8B successor is 51 development records, 252,134 native rows and 431 plot points; no row is held out. [Completed plan](plans/phase-8-measurement-corpus.md). |
 | 9 | **Complete (development-only)** | The all-no-pass branch closed: D-BT failed, M-F/M-K2 stayed mapping-dependent, controls/path-state/M-PK are unavailable or non-identifiable, and zero items promoted. Exact `TMPDIR=/private/tmp npm test` passed; no result grants validation credit. [Completed plan](plans/phase-9-execution.md). |
-| 10 | **In progress — A-P PASS staged; A-S blocked until commit** | At clean head `ce2d9e6`, the structural A-P bundle independently rederived 12 artifacts, 11/11 passing checks, and two executed/rejected controls; six files are manifest-pinned, the non-author evidence review reports zero blockers, and exact post-publication `npm test` passes 135/135 files. Only the evidence commit remains before A-S. Selection still includes no C1–C5 or habit rows; no solver row or scientific result occurred. |
+| 10 | **In progress — A-S PASS staged; commit pending** | A-P PASS is committed. At clean head `63ca13c`, A-S published 18/18 and 51/51 overlays, passed 11/11 checks, executed/rejected four controls, and received a zero-blocker non-author evidence review. Seven files are manifest-pinned and exact post-publication `npm test` passes 135/135 files; only the S2 commit remains. Selection still includes no C1–C5 or habit rows; no solver row or scientific result occurred. |
 
 ## Active plan
 
@@ -179,9 +183,9 @@ correction changes no phase claim or credit.
 The [Phase 10 execution plan](plans/phase-10-evidence-verification-execution.md) is active in its
 isolated worktree. Its S0 governance checkpoint, S1 contract freeze, and S2 A-S classification
 freeze are complete; the A-P bootstrap and A-S static lifecycle are implemented and independently
-reviewed. The six-file terminal A-P PASS dependency is published, independently rederived, and
-manifest-pinned, and exact post-publication `npm test` passes. Its commit is the active bounded work
-before A-S production may start. A-I, B, C0, and C0V remain unstarted. The
+reviewed. The six-file terminal A-P PASS dependency is committed. A-S is published, independently
+rederived, manifest-pinned, and exact-suite checked; the S2 evidence commit is the active bounded
+work. A-I, B, C0, and C0V remain unstarted. The
 [Phase 10 candidate plan](plans/phase-10-closures-and-frontier.md) is completed decision support
 and superseded for execution. It remains the design history for the selected and rejected packages,
 not execution authority.
@@ -194,7 +198,7 @@ the package-specific prerequisites in its charter amendment and execution plan. 
 
 ## Next step
 
-### Phase 10 — commit A-P PASS, then execute A-S
+### Phase 10 — commit A-S PASS, then start A-I and C0
 
 The maker selected **A-S + A-I + B + C0 + C0V with packet-specific A-P** on 2026-08-21. No
 C1–C5 numerical-qualification or scientific habit row is part of this execution. The
@@ -210,20 +214,23 @@ rights/resource boundaries, and fail-closed callable/receipt contracts. The inde
 static lifecycles now have resolved callable identities, focused tests, exact full-suite coverage,
 and zero-blocker non-author reviews.
 
-The exact A-P sequence at clean head `ce2d9e6` published six manifest-pinned files totaling 35,605
-bytes. The artifact-derived receipt reports PASS after reopening 12 registered artifacts, passing
-11/11 checks, and executing and rejecting both mandatory controls; the independent evidence review
-reports zero blockers, and exact post-publication `npm test` passes 135/135 files and 2,250 tests
-with 49 skipped. Commit that dependency, then run A-S's exact focused-test,
-produce/independent-verify/publish sequence from the new clean head. Pre-commit or uncommitted A-S
-runs do not count.
+The A-P PASS dependency is committed at `63ca13c`. From that clean head, the exact A-S sequence
+published separate 18-entry and 51-record overlays, passed all 11 checks, executed and rejected all
+four controls, and received a zero-blocker non-author evidence review. The seven files are pinned
+in the 363-file / 4,874,715-byte manifest, and exact post-publication `npm test` passes 135/135 files
+and 2,250 tests with 49 skipped. Commit S2.
 
-A-S must publish separate overlays for exactly 18 Phase 8A entries and 51 Phase 8B records. It must
-preserve the Phase 8A status row/filter rule, immutable evidence roles, phase ownership, Phase 8B's
-development/zero-held-out labels, cited classification reasons, and multiple simultaneous blockers.
-The independent evaluator re-derives every roster and total from the overlay bytes and executes the
-registered drop-row, role-rewrite, blocker-collapse, and validation-credit mutations. Do not begin
-A-I, B, C0, or C0V until the A-S checkpoint lands.
+After the clean S2 evidence head exists, begin S3 A-I and S4 C0 as separate bounded lanes. A-I may
+inspect only the governed 14-payload/24-file intake and the frozen finite currency roster; it does
+not execute `b-acquisition`. C0 reads only the committed Phase 6 ladder report and transitively
+bound 80-row file, runs no solver, freezes the all-spacings rule, and records the historical
+`some`/`every` verifier mismatch without rewriting Phase 6 evidence.
+
+The A-S evidence preserves the Phase 8A status row/filter rule, immutable evidence roles, phase
+ownership, Phase 8B's development/zero-held-out labels, cited classification reasons, and multiple
+simultaneous blockers. It grants no quantitative eligibility, validation, held-out comparison, or
+prior-phase credit. Do not begin A-I or C0 until the exact S2 check and evidence commit land; B and
+C0V retain their later protocol/reference freezes.
 
 Standing constraints: no Phase 8 record may be relabeled unseen; Phase 7 retains held-out,
 product, and GPU obligations; B outcomes do not automatically authorize E/F/H; the permanent
