@@ -1,0 +1,88 @@
+{
+  "schema": "phase10-preflight-receipt-v1",
+  "receiptId": "phase10-a-p-s1-static-20260821-v1-preflight-v1",
+  "matrixId": "phase10-selected-package-obligations-v1",
+  "protocolId": "phase10-a-p-s1-freeze-v1",
+  "registryId": "phase10-a-p-s1-planned-callables-v1",
+  "packetId": "a-p",
+  "attemptId": "s1-static-20260821-v1",
+  "stage": "run",
+  "observed": {
+    "launchClass": "static-contract",
+    "machineLaunchChecks": "not-applicable",
+    "branch": "phase10/evidence-verification",
+    "head": "ce2d9e62c17336060381d9bc806e4379f744070d",
+    "runtime": "v24.13.1",
+    "command": "node runner/src/phase10-ap-publish.ts produce --repository-root . --out out/phase10-obligation-preflight-v1-candidate",
+    "repositoryBundleRoot": ".",
+    "matrix": {
+      "path": "research/phase10-obligation-matrix-v1.json",
+      "byteLength": 125508,
+      "sha256": "8f85e6febad1ec7568b2a7a47dd764c260cc1f602da08c7dd27d5ee1a6c1bab3"
+    },
+    "protocol": {
+      "path": "research/phase10-execution-v1/packets/a-p/protocol.json",
+      "byteLength": 1393,
+      "sha256": "515752d73dd31032736e6ccebd21c935a9672ac4ba546f30955c3bc9efe5e0f7"
+    },
+    "callableRegistry": {
+      "path": "research/phase10-execution-v1/packets/a-p/callable-registry.json",
+      "byteLength": 5263,
+      "sha256": "d859a7ae0692e6e77c33160470d39a8c5f8d60bf29a1a5d8ee86108af695c991"
+    },
+    "candidateDirectory": "out/phase10-obligation-preflight-v1-candidate",
+    "registeredAttemptRoot": "out/phase10-execution-v1/attempts/a-p",
+    "finalPreflightReceiptPath": "evidence/phase10-obligation-preflight-v1/packets/a-p/preflight.json",
+    "finalTerminalReceiptPath": "evidence/phase10-obligation-preflight-v1/packets/a-p/terminal-receipt.json",
+    "verificationPaths": [
+      "evidence/phase10-obligation-preflight-v1/verification.json"
+    ],
+    "dependencyPacketIds": [],
+    "dependencyArtifacts": []
+  },
+  "outputIds": [
+    "out-ap-artifact-index",
+    "out-ap-artifact-schema-registry",
+    "out-ap-c0-protocol",
+    "out-ap-c0v-foundation",
+    "out-ap-execution-readme",
+    "out-ap-foundation-freeze",
+    "out-ap-matrix",
+    "out-ap-missing-producer-receipt",
+    "out-ap-packet-catalogue",
+    "out-ap-self-callable-registry",
+    "out-ap-self-execution-receipt",
+    "out-ap-self-packet-protocol",
+    "out-ap-uncalled-check-receipt",
+    "out-ap-verification"
+  ],
+  "checkIds": [
+    "chk-ap-called-checks",
+    "chk-ap-command-boundary",
+    "chk-ap-conditional-groups",
+    "chk-ap-global-coverage",
+    "chk-ap-output-producers",
+    "chk-ap-packet-catalogue",
+    "chk-ap-packet-set-equality",
+    "chk-ap-rights-resource-claim-boundary",
+    "chk-ap-schema-coverage",
+    "chk-ap-schema-promotion",
+    "chk-ap-self-freeze"
+  ],
+  "negativeControlIds": [
+    "nc-ap-missing-producer",
+    "nc-ap-uncalled-check"
+  ],
+  "callableIds": [
+    "phase10-a-p-check-caller",
+    "phase10-a-p-producer",
+    "phase10-a-p-terminal-receipt-writer",
+    "phase10-a-p-verification-receipt-writer",
+    "phase10-ap-evaluator",
+    "phase10-nc-ap-missing-producer",
+    "phase10-nc-ap-uncalled-check"
+  ],
+  "selectedBranches": {},
+  "verdict": "pass",
+  "reasons": []
+}

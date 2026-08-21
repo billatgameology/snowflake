@@ -1,0 +1,105 @@
+{
+  "schema": "phase10-artifact-index-v1",
+  "bundleId": "phase10-obligation-preflight-v1",
+  "artifacts": [
+    {
+      "artifactId": "out-ap-artifact-schema-registry",
+      "path": "research/phase10-artifact-schema-registry-v1.json",
+      "mediaType": "application/json",
+      "byteLength": 114255,
+      "sha256": "c89463c37384d5652b57c039e26f0c612b08a2d9bb5994482bbf750eae121c70",
+      "role": "obligation-preflight",
+      "producedBy": "phase10-a-p-producer"
+    },
+    {
+      "artifactId": "out-ap-c0-protocol",
+      "path": "research/phase10-c0-protocol-v1.json",
+      "mediaType": "application/json",
+      "byteLength": 56718,
+      "sha256": "bf07738663fb12afc35b4f40db66608cf6a1927322261701df8fb8e917cb6ff4",
+      "role": "obligation-preflight",
+      "producedBy": "phase10-a-p-producer"
+    },
+    {
+      "artifactId": "out-ap-c0v-foundation",
+      "path": "research/phase10-c0v-foundation-v1.json",
+      "mediaType": "application/json",
+      "byteLength": 19412,
+      "sha256": "ddb842588fea19898f9f71a02ce461d5d32ec102b140798e5c62d175521157e8",
+      "role": "obligation-preflight",
+      "producedBy": "phase10-a-p-producer"
+    },
+    {
+      "artifactId": "out-ap-execution-readme",
+      "path": "research/phase10-execution-v1/README.md",
+      "mediaType": "text/markdown; charset=utf-8",
+      "byteLength": 12312,
+      "sha256": "785d59785d4dea30cb1ab219f0471d2862891e9e3707ba55926670b3fc0123b1",
+      "role": "obligation-preflight",
+      "producedBy": "phase10-a-p-producer"
+    },
+    {
+      "artifactId": "out-ap-foundation-freeze",
+      "path": "research/phase10-foundation-freeze-v1.json",
+      "mediaType": "application/json",
+      "byteLength": 32327,
+      "sha256": "7847f26a24d1a09eefc6b15ed07baf1d007782fdd58c3301e3f926e4c8805871",
+      "role": "obligation-preflight",
+      "producedBy": "phase10-a-p-producer"
+    },
+    {
+      "artifactId": "out-ap-matrix",
+      "path": "research/phase10-obligation-matrix-v1.json",
+      "mediaType": "application/json",
+      "byteLength": 125508,
+      "sha256": "8f85e6febad1ec7568b2a7a47dd764c260cc1f602da08c7dd27d5ee1a6c1bab3",
+      "role": "obligation-preflight",
+      "producedBy": "phase10-a-p-producer"
+    },
+    {
+      "artifactId": "out-ap-missing-producer-receipt",
+      "path": "evidence/phase10-obligation-preflight-v1/missing-producer.json",
+      "mediaType": "application/json",
+      "byteLength": 4537,
+      "sha256": "35e5b2d42b8a18ea0933a52e9d138bcb5fd3237390a2204082a28f753f01ad8e",
+      "role": "obligation-preflight",
+      "producedBy": "phase10-a-p-producer"
+    },
+    {
+      "artifactId": "out-ap-packet-catalogue",
+      "path": "research/phase10-execution-v1/packet-catalogue.json",
+      "mediaType": "application/json",
+      "byteLength": 14645,
+      "sha256": "b72911dd7e78b4ef9df683a3006c19c40a8642e4c51ac056bb90390bd5c3a102",
+      "role": "obligation-preflight",
+      "producedBy": "phase10-a-p-producer"
+    },
+    {
+      "artifactId": "out-ap-self-callable-registry",
+      "path": "research/phase10-execution-v1/packets/a-p/callable-registry.json",
+      "mediaType": "application/json",
+      "byteLength": 5263,
+      "sha256": "d859a7ae0692e6e77c33160470d39a8c5f8d60bf29a1a5d8ee86108af695c991",
+      "role": "obligation-preflight",
+      "producedBy": "phase10-a-p-producer"
+    },
+    {
+      "artifactId": "out-ap-self-packet-protocol",
+      "path": "research/phase10-execution-v1/packets/a-p/protocol.json",
+      "mediaType": "application/json",
+      "byteLength": 1393,
+      "sha256": "515752d73dd31032736e6ccebd21c935a9672ac4ba546f30955c3bc9efe5e0f7",
+      "role": "obligation-preflight",
+      "producedBy": "phase10-a-p-producer"
+    },
+    {
+      "artifactId": "out-ap-uncalled-check-receipt",
+      "path": "evidence/phase10-obligation-preflight-v1/uncalled-check.json",
+      "mediaType": "application/json",
+      "byteLength": 5207,
+      "sha256": "983b6be3285e2eac6bbc941e828976edc752ec2224ee6097795ab0ca3ac52ec0",
+      "role": "obligation-preflight",
+      "producedBy": "phase10-a-p-producer"
+    }
+  ]
+}

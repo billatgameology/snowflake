@@ -1,0 +1,151 @@
+{
+  "schema": "phase10-ap-negative-control-v1",
+  "fixtureId": "uncalled-check",
+  "mutation": {
+    "kind": "remove-invoked-check",
+    "callableId": "phase10-a-p-check-caller",
+    "checkId": "chk-ap-called-checks"
+  },
+  "beforeWitness": {
+    "artifactId": "out-ap-self-callable-registry",
+    "path": "research/phase10-execution-v1/packets/a-p/callable-registry.json",
+    "byteLength": 5263,
+    "sha256": "d859a7ae0692e6e77c33160470d39a8c5f8d60bf29a1a5d8ee86108af695c991",
+    "semanticFingerprint": {
+      "projection": {
+        "callableIds": [
+          "phase10-a-p-check-caller",
+          "phase10-a-p-producer",
+          "phase10-a-p-terminal-receipt-writer",
+          "phase10-a-p-verification-receipt-writer",
+          "phase10-ap-evaluator",
+          "phase10-nc-ap-missing-producer",
+          "phase10-nc-ap-uncalled-check"
+        ],
+        "producerBindings": [
+          {
+            "callableId": "phase10-a-p-producer",
+            "producedOutputIds": [
+              "out-ap-artifact-index",
+              "out-ap-artifact-schema-registry",
+              "out-ap-c0-protocol",
+              "out-ap-c0v-foundation",
+              "out-ap-execution-readme",
+              "out-ap-foundation-freeze",
+              "out-ap-matrix",
+              "out-ap-missing-producer-receipt",
+              "out-ap-packet-catalogue",
+              "out-ap-self-callable-registry",
+              "out-ap-self-packet-protocol",
+              "out-ap-uncalled-check-receipt"
+            ]
+          },
+          {
+            "callableId": "phase10-a-p-terminal-receipt-writer",
+            "producedOutputIds": [
+              "out-ap-self-execution-receipt"
+            ]
+          },
+          {
+            "callableId": "phase10-a-p-verification-receipt-writer",
+            "producedOutputIds": [
+              "out-ap-verification"
+            ]
+          }
+        ],
+        "checkCallerBindings": [
+          {
+            "callableId": "phase10-a-p-check-caller",
+            "invokedCheckIds": [
+              "chk-ap-called-checks",
+              "chk-ap-command-boundary",
+              "chk-ap-conditional-groups",
+              "chk-ap-global-coverage",
+              "chk-ap-output-producers",
+              "chk-ap-packet-catalogue",
+              "chk-ap-packet-set-equality",
+              "chk-ap-rights-resource-claim-boundary",
+              "chk-ap-schema-coverage",
+              "chk-ap-schema-promotion",
+              "chk-ap-self-freeze"
+            ]
+          }
+        ]
+      },
+      "sha256": "7397e8e4687d0dfb77cde2c1b959b1a7a28e829e6a51639211634802b694b918"
+    }
+  },
+  "afterWitness": {
+    "artifactId": "out-ap-self-callable-registry",
+    "path": "out/phase10-execution-v1/attempts/a-p/negative-controls/uncalled-check/callable-registry.json",
+    "byteLength": 5231,
+    "sha256": "1c4e338aae4e4fb11f5ce9f9b875646e747e09d0e03beef9c28c0219433492d8",
+    "semanticFingerprint": {
+      "projection": {
+        "callableIds": [
+          "phase10-a-p-check-caller",
+          "phase10-a-p-producer",
+          "phase10-a-p-terminal-receipt-writer",
+          "phase10-a-p-verification-receipt-writer",
+          "phase10-ap-evaluator",
+          "phase10-nc-ap-missing-producer",
+          "phase10-nc-ap-uncalled-check"
+        ],
+        "producerBindings": [
+          {
+            "callableId": "phase10-a-p-producer",
+            "producedOutputIds": [
+              "out-ap-artifact-index",
+              "out-ap-artifact-schema-registry",
+              "out-ap-c0-protocol",
+              "out-ap-c0v-foundation",
+              "out-ap-execution-readme",
+              "out-ap-foundation-freeze",
+              "out-ap-matrix",
+              "out-ap-missing-producer-receipt",
+              "out-ap-packet-catalogue",
+              "out-ap-self-callable-registry",
+              "out-ap-self-packet-protocol",
+              "out-ap-uncalled-check-receipt"
+            ]
+          },
+          {
+            "callableId": "phase10-a-p-terminal-receipt-writer",
+            "producedOutputIds": [
+              "out-ap-self-execution-receipt"
+            ]
+          },
+          {
+            "callableId": "phase10-a-p-verification-receipt-writer",
+            "producedOutputIds": [
+              "out-ap-verification"
+            ]
+          }
+        ],
+        "checkCallerBindings": [
+          {
+            "callableId": "phase10-a-p-check-caller",
+            "invokedCheckIds": [
+              "chk-ap-command-boundary",
+              "chk-ap-conditional-groups",
+              "chk-ap-global-coverage",
+              "chk-ap-output-producers",
+              "chk-ap-packet-catalogue",
+              "chk-ap-packet-set-equality",
+              "chk-ap-rights-resource-claim-boundary",
+              "chk-ap-schema-coverage",
+              "chk-ap-schema-promotion",
+              "chk-ap-self-freeze"
+            ]
+          }
+        ]
+      },
+      "sha256": "05c3e3ae8a7abf00d6bf93555e714d803ad8edfb911c5a6596b3ead453fdbdd1"
+    }
+  },
+  "refused": true,
+  "error": {
+    "refusalClass": "uncalled-check",
+    "message": "Phase 10 A-P refused: registered check chk-ap-called-checks is uncalled by phase10-a-p-check-caller"
+  }
+}

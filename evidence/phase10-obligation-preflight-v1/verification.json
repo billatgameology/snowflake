@@ -1,0 +1,479 @@
+{
+  "schema": "phase10-packet-verification-v1",
+  "verificationId": "phase10-a-p-verification-v1",
+  "matrixId": "phase10-selected-package-obligations-v1",
+  "protocolId": "phase10-a-p-s1-freeze-v1",
+  "registryId": "phase10-a-p-s1-planned-callables-v1",
+  "packetId": "a-p",
+  "terminalState": "pass",
+  "verifiedArtifacts": [
+    {
+      "outputId": "out-ap-artifact-index",
+      "path": "evidence/phase10-obligation-preflight-v1/artifact-index.json",
+      "byteLength": 4078,
+      "sha256": "cccd2a66a1b07ec1ab7bad2f2b3c491fdec7d2caa3e0d80f23191de2d619be69"
+    },
+    {
+      "outputId": "out-ap-artifact-schema-registry",
+      "path": "research/phase10-artifact-schema-registry-v1.json",
+      "byteLength": 114255,
+      "sha256": "c89463c37384d5652b57c039e26f0c612b08a2d9bb5994482bbf750eae121c70"
+    },
+    {
+      "outputId": "out-ap-c0-protocol",
+      "path": "research/phase10-c0-protocol-v1.json",
+      "byteLength": 56718,
+      "sha256": "bf07738663fb12afc35b4f40db66608cf6a1927322261701df8fb8e917cb6ff4"
+    },
+    {
+      "outputId": "out-ap-c0v-foundation",
+      "path": "research/phase10-c0v-foundation-v1.json",
+      "byteLength": 19412,
+      "sha256": "ddb842588fea19898f9f71a02ce461d5d32ec102b140798e5c62d175521157e8"
+    },
+    {
+      "outputId": "out-ap-execution-readme",
+      "path": "research/phase10-execution-v1/README.md",
+      "byteLength": 12312,
+      "sha256": "785d59785d4dea30cb1ab219f0471d2862891e9e3707ba55926670b3fc0123b1"
+    },
+    {
+      "outputId": "out-ap-foundation-freeze",
+      "path": "research/phase10-foundation-freeze-v1.json",
+      "byteLength": 32327,
+      "sha256": "7847f26a24d1a09eefc6b15ed07baf1d007782fdd58c3301e3f926e4c8805871"
+    },
+    {
+      "outputId": "out-ap-matrix",
+      "path": "research/phase10-obligation-matrix-v1.json",
+      "byteLength": 125508,
+      "sha256": "8f85e6febad1ec7568b2a7a47dd764c260cc1f602da08c7dd27d5ee1a6c1bab3"
+    },
+    {
+      "outputId": "out-ap-missing-producer-receipt",
+      "path": "evidence/phase10-obligation-preflight-v1/missing-producer.json",
+      "byteLength": 4537,
+      "sha256": "35e5b2d42b8a18ea0933a52e9d138bcb5fd3237390a2204082a28f753f01ad8e"
+    },
+    {
+      "outputId": "out-ap-packet-catalogue",
+      "path": "research/phase10-execution-v1/packet-catalogue.json",
+      "byteLength": 14645,
+      "sha256": "b72911dd7e78b4ef9df683a3006c19c40a8642e4c51ac056bb90390bd5c3a102"
+    },
+    {
+      "outputId": "out-ap-self-callable-registry",
+      "path": "research/phase10-execution-v1/packets/a-p/callable-registry.json",
+      "byteLength": 5263,
+      "sha256": "d859a7ae0692e6e77c33160470d39a8c5f8d60bf29a1a5d8ee86108af695c991"
+    },
+    {
+      "outputId": "out-ap-self-packet-protocol",
+      "path": "research/phase10-execution-v1/packets/a-p/protocol.json",
+      "byteLength": 1393,
+      "sha256": "515752d73dd31032736e6ccebd21c935a9672ac4ba546f30955c3bc9efe5e0f7"
+    },
+    {
+      "outputId": "out-ap-uncalled-check-receipt",
+      "path": "evidence/phase10-obligation-preflight-v1/uncalled-check.json",
+      "byteLength": 5207,
+      "sha256": "983b6be3285e2eac6bbc941e828976edc752ec2224ee6097795ab0ca3ac52ec0"
+    }
+  ],
+  "checkResults": [
+    {
+      "checkId": "chk-ap-called-checks",
+      "verdict": "pass",
+      "reasons": [],
+      "witnessOutputIds": [
+        "out-ap-matrix",
+        "out-ap-self-callable-registry"
+      ]
+    },
+    {
+      "checkId": "chk-ap-command-boundary",
+      "verdict": "pass",
+      "reasons": [],
+      "witnessOutputIds": [
+        "out-ap-execution-readme"
+      ]
+    },
+    {
+      "checkId": "chk-ap-conditional-groups",
+      "verdict": "pass",
+      "reasons": [],
+      "witnessOutputIds": [
+        "out-ap-matrix"
+      ]
+    },
+    {
+      "checkId": "chk-ap-global-coverage",
+      "verdict": "pass",
+      "reasons": [],
+      "witnessOutputIds": [
+        "out-ap-artifact-index",
+        "out-ap-matrix"
+      ]
+    },
+    {
+      "checkId": "chk-ap-output-producers",
+      "verdict": "pass",
+      "reasons": [],
+      "witnessOutputIds": [
+        "out-ap-matrix",
+        "out-ap-self-callable-registry"
+      ]
+    },
+    {
+      "checkId": "chk-ap-packet-catalogue",
+      "verdict": "pass",
+      "reasons": [],
+      "witnessOutputIds": [
+        "out-ap-matrix",
+        "out-ap-packet-catalogue"
+      ]
+    },
+    {
+      "checkId": "chk-ap-packet-set-equality",
+      "verdict": "pass",
+      "reasons": [],
+      "witnessOutputIds": [
+        "out-ap-matrix",
+        "out-ap-packet-catalogue",
+        "out-ap-self-packet-protocol"
+      ]
+    },
+    {
+      "checkId": "chk-ap-rights-resource-claim-boundary",
+      "verdict": "pass",
+      "reasons": [],
+      "witnessOutputIds": [
+        "out-ap-foundation-freeze"
+      ]
+    },
+    {
+      "checkId": "chk-ap-schema-coverage",
+      "verdict": "pass",
+      "reasons": [],
+      "witnessOutputIds": [
+        "out-ap-artifact-schema-registry",
+        "out-ap-matrix"
+      ]
+    },
+    {
+      "checkId": "chk-ap-schema-promotion",
+      "verdict": "pass",
+      "reasons": [],
+      "witnessOutputIds": [
+        "out-ap-artifact-schema-registry",
+        "out-ap-matrix"
+      ]
+    },
+    {
+      "checkId": "chk-ap-self-freeze",
+      "verdict": "pass",
+      "reasons": [],
+      "witnessOutputIds": [
+        "out-ap-matrix",
+        "out-ap-missing-producer-receipt",
+        "out-ap-self-callable-registry",
+        "out-ap-self-packet-protocol",
+        "out-ap-uncalled-check-receipt"
+      ]
+    }
+  ],
+  "executedNegativeControlIds": [
+    "nc-ap-missing-producer",
+    "nc-ap-uncalled-check"
+  ],
+  "negativeControlResults": [
+    {
+      "negativeControlId": "nc-ap-missing-producer",
+      "mutationExecuted": true,
+      "rejected": true,
+      "beforeWitness": {
+        "artifactId": "out-ap-self-callable-registry",
+        "path": "research/phase10-execution-v1/packets/a-p/callable-registry.json",
+        "byteLength": 5263,
+        "sha256": "d859a7ae0692e6e77c33160470d39a8c5f8d60bf29a1a5d8ee86108af695c991",
+        "semanticFingerprint": {
+          "projection": {
+            "callableIds": [
+              "phase10-a-p-check-caller",
+              "phase10-a-p-producer",
+              "phase10-a-p-terminal-receipt-writer",
+              "phase10-a-p-verification-receipt-writer",
+              "phase10-ap-evaluator",
+              "phase10-nc-ap-missing-producer",
+              "phase10-nc-ap-uncalled-check"
+            ],
+            "producerBindings": [
+              {
+                "callableId": "phase10-a-p-producer",
+                "producedOutputIds": [
+                  "out-ap-artifact-index",
+                  "out-ap-artifact-schema-registry",
+                  "out-ap-c0-protocol",
+                  "out-ap-c0v-foundation",
+                  "out-ap-execution-readme",
+                  "out-ap-foundation-freeze",
+                  "out-ap-matrix",
+                  "out-ap-missing-producer-receipt",
+                  "out-ap-packet-catalogue",
+                  "out-ap-self-callable-registry",
+                  "out-ap-self-packet-protocol",
+                  "out-ap-uncalled-check-receipt"
+                ]
+              },
+              {
+                "callableId": "phase10-a-p-terminal-receipt-writer",
+                "producedOutputIds": [
+                  "out-ap-self-execution-receipt"
+                ]
+              },
+              {
+                "callableId": "phase10-a-p-verification-receipt-writer",
+                "producedOutputIds": [
+                  "out-ap-verification"
+                ]
+              }
+            ],
+            "checkCallerBindings": [
+              {
+                "callableId": "phase10-a-p-check-caller",
+                "invokedCheckIds": [
+                  "chk-ap-called-checks",
+                  "chk-ap-command-boundary",
+                  "chk-ap-conditional-groups",
+                  "chk-ap-global-coverage",
+                  "chk-ap-output-producers",
+                  "chk-ap-packet-catalogue",
+                  "chk-ap-packet-set-equality",
+                  "chk-ap-rights-resource-claim-boundary",
+                  "chk-ap-schema-coverage",
+                  "chk-ap-schema-promotion",
+                  "chk-ap-self-freeze"
+                ]
+              }
+            ]
+          },
+          "sha256": "7397e8e4687d0dfb77cde2c1b959b1a7a28e829e6a51639211634802b694b918"
+        }
+      },
+      "afterWitness": {
+        "artifactId": "out-ap-self-callable-registry",
+        "path": "out/phase10-execution-v1/attempts/a-p/negative-controls/missing-producer/callable-registry.json",
+        "byteLength": 4330,
+        "sha256": "58208e34eed5ec1cc484bca6cff6d7ba668ba4b865ff27f556fd65d003dc109c",
+        "semanticFingerprint": {
+          "projection": {
+            "callableIds": [
+              "phase10-a-p-check-caller",
+              "phase10-a-p-terminal-receipt-writer",
+              "phase10-a-p-verification-receipt-writer",
+              "phase10-ap-evaluator",
+              "phase10-nc-ap-missing-producer",
+              "phase10-nc-ap-uncalled-check"
+            ],
+            "producerBindings": [
+              {
+                "callableId": "phase10-a-p-terminal-receipt-writer",
+                "producedOutputIds": [
+                  "out-ap-self-execution-receipt"
+                ]
+              },
+              {
+                "callableId": "phase10-a-p-verification-receipt-writer",
+                "producedOutputIds": [
+                  "out-ap-verification"
+                ]
+              }
+            ],
+            "checkCallerBindings": [
+              {
+                "callableId": "phase10-a-p-check-caller",
+                "invokedCheckIds": [
+                  "chk-ap-called-checks",
+                  "chk-ap-command-boundary",
+                  "chk-ap-conditional-groups",
+                  "chk-ap-global-coverage",
+                  "chk-ap-output-producers",
+                  "chk-ap-packet-catalogue",
+                  "chk-ap-packet-set-equality",
+                  "chk-ap-rights-resource-claim-boundary",
+                  "chk-ap-schema-coverage",
+                  "chk-ap-schema-promotion",
+                  "chk-ap-self-freeze"
+                ]
+              }
+            ]
+          },
+          "sha256": "fe3275570561e36e6b4031bd033ef59f27ed01e677274c59ca2068a3ef87b427"
+        }
+      },
+      "errors": []
+    },
+    {
+      "negativeControlId": "nc-ap-uncalled-check",
+      "mutationExecuted": true,
+      "rejected": true,
+      "beforeWitness": {
+        "artifactId": "out-ap-self-callable-registry",
+        "path": "research/phase10-execution-v1/packets/a-p/callable-registry.json",
+        "byteLength": 5263,
+        "sha256": "d859a7ae0692e6e77c33160470d39a8c5f8d60bf29a1a5d8ee86108af695c991",
+        "semanticFingerprint": {
+          "projection": {
+            "callableIds": [
+              "phase10-a-p-check-caller",
+              "phase10-a-p-producer",
+              "phase10-a-p-terminal-receipt-writer",
+              "phase10-a-p-verification-receipt-writer",
+              "phase10-ap-evaluator",
+              "phase10-nc-ap-missing-producer",
+              "phase10-nc-ap-uncalled-check"
+            ],
+            "producerBindings": [
+              {
+                "callableId": "phase10-a-p-producer",
+                "producedOutputIds": [
+                  "out-ap-artifact-index",
+                  "out-ap-artifact-schema-registry",
+                  "out-ap-c0-protocol",
+                  "out-ap-c0v-foundation",
+                  "out-ap-execution-readme",
+                  "out-ap-foundation-freeze",
+                  "out-ap-matrix",
+                  "out-ap-missing-producer-receipt",
+                  "out-ap-packet-catalogue",
+                  "out-ap-self-callable-registry",
+                  "out-ap-self-packet-protocol",
+                  "out-ap-uncalled-check-receipt"
+                ]
+              },
+              {
+                "callableId": "phase10-a-p-terminal-receipt-writer",
+                "producedOutputIds": [
+                  "out-ap-self-execution-receipt"
+                ]
+              },
+              {
+                "callableId": "phase10-a-p-verification-receipt-writer",
+                "producedOutputIds": [
+                  "out-ap-verification"
+                ]
+              }
+            ],
+            "checkCallerBindings": [
+              {
+                "callableId": "phase10-a-p-check-caller",
+                "invokedCheckIds": [
+                  "chk-ap-called-checks",
+                  "chk-ap-command-boundary",
+                  "chk-ap-conditional-groups",
+                  "chk-ap-global-coverage",
+                  "chk-ap-output-producers",
+                  "chk-ap-packet-catalogue",
+                  "chk-ap-packet-set-equality",
+                  "chk-ap-rights-resource-claim-boundary",
+                  "chk-ap-schema-coverage",
+                  "chk-ap-schema-promotion",
+                  "chk-ap-self-freeze"
+                ]
+              }
+            ]
+          },
+          "sha256": "7397e8e4687d0dfb77cde2c1b959b1a7a28e829e6a51639211634802b694b918"
+        }
+      },
+      "afterWitness": {
+        "artifactId": "out-ap-self-callable-registry",
+        "path": "out/phase10-execution-v1/attempts/a-p/negative-controls/uncalled-check/callable-registry.json",
+        "byteLength": 5231,
+        "sha256": "1c4e338aae4e4fb11f5ce9f9b875646e747e09d0e03beef9c28c0219433492d8",
+        "semanticFingerprint": {
+          "projection": {
+            "callableIds": [
+              "phase10-a-p-check-caller",
+              "phase10-a-p-producer",
+              "phase10-a-p-terminal-receipt-writer",
+              "phase10-a-p-verification-receipt-writer",
+              "phase10-ap-evaluator",
+              "phase10-nc-ap-missing-producer",
+              "phase10-nc-ap-uncalled-check"
+            ],
+            "producerBindings": [
+              {
+                "callableId": "phase10-a-p-producer",
+                "producedOutputIds": [
+                  "out-ap-artifact-index",
+                  "out-ap-artifact-schema-registry",
+                  "out-ap-c0-protocol",
+                  "out-ap-c0v-foundation",
+                  "out-ap-execution-readme",
+                  "out-ap-foundation-freeze",
+                  "out-ap-matrix",
+                  "out-ap-missing-producer-receipt",
+                  "out-ap-packet-catalogue",
+                  "out-ap-self-callable-registry",
+                  "out-ap-self-packet-protocol",
+                  "out-ap-uncalled-check-receipt"
+                ]
+              },
+              {
+                "callableId": "phase10-a-p-terminal-receipt-writer",
+                "producedOutputIds": [
+                  "out-ap-self-execution-receipt"
+                ]
+              },
+              {
+                "callableId": "phase10-a-p-verification-receipt-writer",
+                "producedOutputIds": [
+                  "out-ap-verification"
+                ]
+              }
+            ],
+            "checkCallerBindings": [
+              {
+                "callableId": "phase10-a-p-check-caller",
+                "invokedCheckIds": [
+                  "chk-ap-command-boundary",
+                  "chk-ap-conditional-groups",
+                  "chk-ap-global-coverage",
+                  "chk-ap-output-producers",
+                  "chk-ap-packet-catalogue",
+                  "chk-ap-packet-set-equality",
+                  "chk-ap-rights-resource-claim-boundary",
+                  "chk-ap-schema-coverage",
+                  "chk-ap-schema-promotion",
+                  "chk-ap-self-freeze"
+                ]
+              }
+            ]
+          },
+          "sha256": "05c3e3ae8a7abf00d6bf93555e714d803ad8edfb911c5a6596b3ead453fdbdd1"
+        }
+      },
+      "errors": []
+    }
+  ],
+  "boundDependencyPacketIds": [],
+  "execution": {
+    "evaluatorCallableId": "phase10-ap-evaluator",
+    "modulePath": "runner/src/phase10-ap-independent.ts",
+    "exportName": "independentlyVerifyPhase10ApArtifacts",
+    "byteLength": 39667,
+    "sha256": "b8c7ecbd88be28849d20d5679022f9881dc48c20c21a65ade4b9315ac3340c0c",
+    "runtime": "v24.13.1",
+    "command": "node runner/src/phase10-ap-independent.ts verify --repository-root . --bundle out/phase10-obligation-preflight-v1-candidate --receipt out/phase10-obligation-preflight-v1-candidate/verification.json",
+    "gitHead": "ce2d9e62c17336060381d9bc806e4379f744070d",
+    "startedOn": "2026-08-21T19:24:13.186Z",
+    "endedOn": "2026-08-21T19:24:13.480Z",
+    "processConcurrency": 1
+  },
+  "aggregateVerdict": "pass",
+  "limits": [
+    "A-P establishes registered-obligation completeness only; it does not establish scientific correctness.",
+    "The verification excludes the later A-P terminal receipt by the frozen acyclic output DAG; that receipt binds this verification."
+  ]
+}

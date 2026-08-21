@@ -329,6 +329,38 @@ inspect private NAS or future held-out sources. The next authorized action is th
 A-P produce/independent-verify/publish sequence; A-S remains blocked until that passing dependency
 is published, pinned, tested, and committed.
 
+### A-P bootstrap evidence checkpoint — 2026-08-21
+
+From clean implementation head `ce2d9e62c17336060381d9bc806e4379f744070d`, the exact README
+sequence produced, independently verified, published, and idempotently reopened the A-P bootstrap.
+The artifact-derived verification is PASS: 12 indexed/reopened artifacts, 11/11 registered checks,
+both mandatory controls executed and rejected with empty errors, and a terminal receipt binding all
+14 outputs, 11 executed/evaluated checks, two controls, zero dependencies, attempt
+`s1-static-20260821-v1`, Node v24.13.1, and the exact clean head. This is obligation-completeness
+evidence only; it is not a scientific result.
+
+The six published identities are:
+
+| File below `evidence/phase10-obligation-preflight-v1/` | Bytes | SHA-256 |
+|---|---:|---|
+| `artifact-index.json` | 4,078 | `cccd2a66a1b07ec1ab7bad2f2b3c491fdec7d2caa3e0d80f23191de2d619be69` |
+| `missing-producer.json` | 4,537 | `35e5b2d42b8a18ea0933a52e9d138bcb5fd3237390a2204082a28f753f01ad8e` |
+| `packets/a-p/preflight.json` | 3,164 | `3badfa9686ee098eecd0b15f99815ede5749d4550f9497ef44f3550025ff402c` |
+| `packets/a-p/terminal-receipt.json` | 1,681 | `c84e269f521f7b2fb680fa1000dfc3837893f2baa88fc46402a6303e24b076c4` |
+| `uncalled-check.json` | 5,207 | `983b6be3285e2eac6bbc941e828976edc752ec2224ee6097795ab0ca3ac52ec0` |
+| `verification.json` | 16,938 | `6b39cf5b7f663c5518f5dd0745e92d59aae3dc21ac7dcf94ece72603fc96eaec` |
+
+The manifest is updated to 356 files / 4,337,469 bytes, the staged evidence-integrity plus A-P
+lifecycle check passes 12/12, and exact post-publication `npm test` passes 135/135 files and 2,250
+tests with 49 skipped. The evidence commit is the only remaining checkpoint action.
+
+The non-author OpenAI Codex GPT-5 reviewer with full shared context independently reopened all six
+files, re-executed the committed evaluator, run and receipt preflights, rederived every roster,
+artifact identity, check verdict, mutation receipt/witness, attempt/head/runtime binding, and
+callable identity, and reported zero blockers. It did not invoke a producer or publisher, mutate
+the manifest, test crash/concurrent-writer behavior, authenticate wall-clock timestamps beyond
+syntax/order, inspect NAS/private/held-out material, or assess scientific correctness.
+
 ## Return and stop rules
 
 - Return to the maker, without continuing, for any E/F/H candidate, any C1–C5 or target-facing

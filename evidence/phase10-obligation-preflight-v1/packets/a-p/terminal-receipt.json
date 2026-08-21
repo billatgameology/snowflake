@@ -1,0 +1,56 @@
+{
+  "schema": "phase10-execution-receipt-v1",
+  "receiptId": "phase10-a-p-s1-static-20260821-v1-terminal-v1",
+  "matrixId": "phase10-selected-package-obligations-v1",
+  "protocolId": "phase10-a-p-s1-freeze-v1",
+  "registryId": "phase10-a-p-s1-planned-callables-v1",
+  "packetId": "a-p",
+  "terminalState": "pass",
+  "producedOutputIds": [
+    "out-ap-artifact-index",
+    "out-ap-artifact-schema-registry",
+    "out-ap-c0-protocol",
+    "out-ap-c0v-foundation",
+    "out-ap-execution-readme",
+    "out-ap-foundation-freeze",
+    "out-ap-matrix",
+    "out-ap-missing-producer-receipt",
+    "out-ap-packet-catalogue",
+    "out-ap-self-callable-registry",
+    "out-ap-self-execution-receipt",
+    "out-ap-self-packet-protocol",
+    "out-ap-uncalled-check-receipt",
+    "out-ap-verification"
+  ],
+  "executedCheckIds": [
+    "chk-ap-called-checks",
+    "chk-ap-command-boundary",
+    "chk-ap-conditional-groups",
+    "chk-ap-global-coverage",
+    "chk-ap-output-producers",
+    "chk-ap-packet-catalogue",
+    "chk-ap-packet-set-equality",
+    "chk-ap-rights-resource-claim-boundary",
+    "chk-ap-schema-coverage",
+    "chk-ap-schema-promotion",
+    "chk-ap-self-freeze"
+  ],
+  "evaluatedCheckIds": [
+    "chk-ap-called-checks",
+    "chk-ap-command-boundary",
+    "chk-ap-conditional-groups",
+    "chk-ap-global-coverage",
+    "chk-ap-output-producers",
+    "chk-ap-packet-catalogue",
+    "chk-ap-packet-set-equality",
+    "chk-ap-rights-resource-claim-boundary",
+    "chk-ap-schema-coverage",
+    "chk-ap-schema-promotion",
+    "chk-ap-self-freeze"
+  ],
+  "executedNegativeControlIds": [
+    "nc-ap-missing-producer",
+    "nc-ap-uncalled-check"
+  ],
+  "boundDependencyPacketIds": []
+}

@@ -3,8 +3,8 @@
  "movedFrom": "out/ (gitignored), plus the byte-identical tracked arm64 fingerprint formerly under docs/",
  "movedTo": "evidence/ (tracked)",
  "note": "Historical sweep digests were computed before their move and re-verified afterward. The arm64 fingerprint preserves the exact former docs/ Git blob (18398 bytes, SHA-256 d6686f8e...). The x64 fingerprint is the complete 2026-08-01 lightweight fixture re-execution backing the exact per-entry comparison; it reproduces registered digest 2a9f64b3. These are preserved claim-backing bytes, not regenerated production sweeps.",
- "fileCount": 350,
- "totalBytes": 4301864,
+ "fileCount": 356,
+ "totalBytes": 4337469,
  "files": {
   "phase6-crossplatform/arm64-libm-fingerprint.txt": {
    "bytes": 18398,
@@ -481,6 +481,30 @@
   "phase9-source-overlay-v1/source-overlay.jsonl": {
    "bytes": 114408,
    "sha256": "f79cfd5268524d9017439e7be3abfe8b1e5df13f4e909c5d62569b8cc59ed5f7"
+  },
+  "phase10-obligation-preflight-v1/artifact-index.json": {
+   "bytes": 4078,
+   "sha256": "cccd2a66a1b07ec1ab7bad2f2b3c491fdec7d2caa3e0d80f23191de2d619be69"
+  },
+  "phase10-obligation-preflight-v1/missing-producer.json": {
+   "bytes": 4537,
+   "sha256": "35e5b2d42b8a18ea0933a52e9d138bcb5fd3237390a2204082a28f753f01ad8e"
+  },
+  "phase10-obligation-preflight-v1/packets/a-p/preflight.json": {
+   "bytes": 3164,
+   "sha256": "3badfa9686ee098eecd0b15f99815ede5749d4550f9497ef44f3550025ff402c"
+  },
+  "phase10-obligation-preflight-v1/packets/a-p/terminal-receipt.json": {
+   "bytes": 1681,
+   "sha256": "c84e269f521f7b2fb680fa1000dfc3837893f2baa88fc46402a6303e24b076c4"
+  },
+  "phase10-obligation-preflight-v1/uncalled-check.json": {
+   "bytes": 5207,
+   "sha256": "983b6be3285e2eac6bbc941e828976edc752ec2224ee6097795ab0ca3ac52ec0"
+  },
+  "phase10-obligation-preflight-v1/verification.json": {
+   "bytes": 16938,
+   "sha256": "6b39cf5b7f663c5518f5dd0745e92d59aae3dc21ac7dcf94ece72603fc96eaec"
   },
   "phase6-wp2-ladder/report.json": {
    "bytes": 43863,
