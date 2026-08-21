@@ -277,6 +277,26 @@ zero unresolved blockers. It did not inspect restricted sources or NAS payloads,
 or S2+ packet, run `gate10`, or independently run the full `npm test`; later planned callables and
 reserved schemas remain deliberately unresolved until their registered packet freezes.
 
+### S2 classification freeze checkpoint — 2026-08-21
+
+The committed A-S classification protocol freezes 69 decisions as two separate rosters: 18 Phase
+8A entries and 51 Phase 8B records. Its strict contract is 51,753 bytes / SHA-256
+`599499bdc2794d9ba189879f52c8a21d1fcd93608f971ddb248daa5d2009f69f`; the protocol is
+477,980 bytes / SHA-256
+`e5a7196f9a1cefc2bb6548887b76d70d5633d7bb0b43ffd96c94c6ac74a76c39`. A non-author
+semantic audit joined every row back to the frozen Phase 8 metadata and charter v1.28 and reported
+zero blockers. It specifically confirmed the nucleation and sublimation process boundaries, the
+unresolved levitation grain-state classifications, and continued Phase 7 ownership of all seven
+historical Phase 8A held-out rows.
+
+Before this freeze commit, two focused-test invocations incorrectly exercised the real frozen
+corpus in temporary repositories and mechanically derived throwaway candidate bytes. Those
+attempts are invalid ordering evidence: no candidate or evidence byte was retained or published,
+no classification or protocol semantic was changed from their output, and neither run may be
+cited as S2 verification. They exposed only structural implementation defects in JSON formatting
+and citation projection. Valid A-S derivation and verification start after this checkpoint from a
+clean committed head.
+
 ## Return and stop rules
 
 - Return to the maker, without continuing, for any E/F/H candidate, any C1–C5 or target-facing
@@ -319,6 +339,11 @@ reserved schemas remain deliberately unresolved until their registered packet fr
   map or boundary.** Rejected: model-class scope and current representability are separate fields.
 - **Use self-convergence as C0V's static accuracy proof.** Rejected: consistency with the production
   operator is not an independent reference.
+- **Exercise the real A-S corpus in a pre-commit focused test.** Rejected as invalid ordering
+  evidence after two temporary-repository invocations mechanically derived throwaway candidates
+  before the classification protocol was committed. No bytes were retained or published and no
+  classification changed, but neither run counts; valid derivation starts only after the S2
+  classification-freeze checkpoint.
 - **Reuse the post-execution Phase 6 independent script's top-level `some` aggregation in C0.**
   Rejected during the 2026-08-21 code audit. The frozen WP2 plan defines a pass independently at
   each spacing, the primary evaluator and its two mixed pass/fail controls require all spacings to
