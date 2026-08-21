@@ -1,0 +1,262 @@
+{
+  "schema": "phase10-packet-catalogue-v1",
+  "catalogueId": "phase10-selected-package-packet-paths-v1",
+  "matrixId": "phase10-selected-package-obligations-v1",
+  "packets": [
+    {
+      "packetId": "a-i",
+      "launchClass": "static-contract",
+      "protocolPath": "research/phase10-execution-v1/packets/a-i/protocol.json",
+      "callableRegistryPath": "research/phase10-execution-v1/packets/a-i/callable-registry.json",
+      "attemptRoot": "out/phase10-execution-v1/attempts/a-i",
+      "preflightReceiptPath": "evidence/phase10-obligation-preflight-v1/packets/a-i/preflight.json",
+      "terminalReceiptPath": "evidence/phase10-obligation-preflight-v1/packets/a-i/terminal-receipt.json",
+      "verificationPaths": [
+        "evidence/phase10-scope-intake-v1/intake-verification.json"
+      ]
+    },
+    {
+      "packetId": "a-p",
+      "launchClass": "static-contract",
+      "protocolPath": "research/phase10-execution-v1/packets/a-p/protocol.json",
+      "callableRegistryPath": "research/phase10-execution-v1/packets/a-p/callable-registry.json",
+      "attemptRoot": "out/phase10-execution-v1/attempts/a-p",
+      "preflightReceiptPath": "evidence/phase10-obligation-preflight-v1/packets/a-p/preflight.json",
+      "terminalReceiptPath": "evidence/phase10-obligation-preflight-v1/packets/a-p/terminal-receipt.json",
+      "verificationPaths": [
+        "evidence/phase10-obligation-preflight-v1/verification.json"
+      ]
+    },
+    {
+      "packetId": "a-s",
+      "launchClass": "static-contract",
+      "protocolPath": "research/phase10-execution-v1/packets/a-s/protocol.json",
+      "callableRegistryPath": "research/phase10-execution-v1/packets/a-s/callable-registry.json",
+      "attemptRoot": "out/phase10-execution-v1/attempts/a-s",
+      "preflightReceiptPath": "evidence/phase10-obligation-preflight-v1/packets/a-s/preflight.json",
+      "terminalReceiptPath": "evidence/phase10-obligation-preflight-v1/packets/a-s/terminal-receipt.json",
+      "verificationPaths": [
+        "evidence/phase10-scope-intake-v1/scope-verification.json"
+      ]
+    },
+    {
+      "packetId": "b-acquisition",
+      "launchClass": "deciding-extraction",
+      "protocolPath": "research/phase10-execution-v1/packets/b-acquisition/protocol.json",
+      "callableRegistryPath": "research/phase10-execution-v1/packets/b-acquisition/callable-registry.json",
+      "attemptRoot": "out/phase10-execution-v1/attempts/b-acquisition",
+      "preflightReceiptPath": "evidence/phase10-obligation-preflight-v1/packets/b-acquisition/preflight.json",
+      "terminalReceiptPath": "evidence/phase10-obligation-preflight-v1/packets/b-acquisition/terminal-receipt.json",
+      "verificationPaths": [
+        "evidence/phase10-observation-bridges-v1/acquisition-verification.json"
+      ]
+    },
+    {
+      "packetId": "b-aggregate",
+      "launchClass": "non-solver",
+      "protocolPath": "research/phase10-execution-v1/packets/b-aggregate/protocol.json",
+      "callableRegistryPath": "research/phase10-execution-v1/packets/b-aggregate/callable-registry.json",
+      "attemptRoot": "out/phase10-execution-v1/attempts/b-aggregate",
+      "preflightReceiptPath": "evidence/phase10-obligation-preflight-v1/packets/b-aggregate/preflight.json",
+      "terminalReceiptPath": "evidence/phase10-obligation-preflight-v1/packets/b-aggregate/terminal-receipt.json",
+      "verificationPaths": [
+        "evidence/phase10-observation-bridges-v1/verification.json"
+      ]
+    },
+    {
+      "packetId": "b1a",
+      "launchClass": "deciding-extraction",
+      "protocolPath": "research/phase10-execution-v1/packets/b1a/protocol.json",
+      "callableRegistryPath": "research/phase10-execution-v1/packets/b1a/callable-registry.json",
+      "attemptRoot": "out/phase10-execution-v1/attempts/b1a",
+      "preflightReceiptPath": "evidence/phase10-obligation-preflight-v1/packets/b1a/preflight.json",
+      "terminalReceiptPath": "evidence/phase10-obligation-preflight-v1/packets/b1a/terminal-receipt.json",
+      "verificationPaths": [
+        "evidence/phase10-observation-bridges-v1/b1a-verification.json"
+      ]
+    },
+    {
+      "packetId": "b1b",
+      "launchClass": "deciding-extraction",
+      "protocolPath": "research/phase10-execution-v1/packets/b1b/protocol.json",
+      "callableRegistryPath": "research/phase10-execution-v1/packets/b1b/callable-registry.json",
+      "attemptRoot": "out/phase10-execution-v1/attempts/b1b",
+      "preflightReceiptPath": "evidence/phase10-obligation-preflight-v1/packets/b1b/preflight.json",
+      "terminalReceiptPath": "evidence/phase10-obligation-preflight-v1/packets/b1b/terminal-receipt.json",
+      "verificationPaths": [
+        "evidence/phase10-observation-bridges-v1/b1b-verification.json"
+      ]
+    },
+    {
+      "packetId": "b2",
+      "launchClass": "deciding-extraction",
+      "protocolPath": "research/phase10-execution-v1/packets/b2/protocol.json",
+      "callableRegistryPath": "research/phase10-execution-v1/packets/b2/callable-registry.json",
+      "attemptRoot": "out/phase10-execution-v1/attempts/b2",
+      "preflightReceiptPath": "evidence/phase10-obligation-preflight-v1/packets/b2/preflight.json",
+      "terminalReceiptPath": "evidence/phase10-obligation-preflight-v1/packets/b2/terminal-receipt.json",
+      "verificationPaths": [
+        "evidence/phase10-observation-bridges-v1/b2-verification.json"
+      ]
+    },
+    {
+      "packetId": "b3",
+      "launchClass": "deciding-extraction",
+      "protocolPath": "research/phase10-execution-v1/packets/b3/protocol.json",
+      "callableRegistryPath": "research/phase10-execution-v1/packets/b3/callable-registry.json",
+      "attemptRoot": "out/phase10-execution-v1/attempts/b3",
+      "preflightReceiptPath": "evidence/phase10-obligation-preflight-v1/packets/b3/preflight.json",
+      "terminalReceiptPath": "evidence/phase10-obligation-preflight-v1/packets/b3/terminal-receipt.json",
+      "verificationPaths": [
+        "evidence/phase10-observation-bridges-v1/b3-verification.json"
+      ]
+    },
+    {
+      "packetId": "b4",
+      "launchClass": "deciding-extraction",
+      "protocolPath": "research/phase10-execution-v1/packets/b4/protocol.json",
+      "callableRegistryPath": "research/phase10-execution-v1/packets/b4/callable-registry.json",
+      "attemptRoot": "out/phase10-execution-v1/attempts/b4",
+      "preflightReceiptPath": "evidence/phase10-obligation-preflight-v1/packets/b4/preflight.json",
+      "terminalReceiptPath": "evidence/phase10-obligation-preflight-v1/packets/b4/terminal-receipt.json",
+      "verificationPaths": [
+        "evidence/phase10-observation-bridges-v1/b4-verification.json"
+      ]
+    },
+    {
+      "packetId": "b5",
+      "launchClass": "deciding-extraction",
+      "protocolPath": "research/phase10-execution-v1/packets/b5/protocol.json",
+      "callableRegistryPath": "research/phase10-execution-v1/packets/b5/callable-registry.json",
+      "attemptRoot": "out/phase10-execution-v1/attempts/b5",
+      "preflightReceiptPath": "evidence/phase10-obligation-preflight-v1/packets/b5/preflight.json",
+      "terminalReceiptPath": "evidence/phase10-obligation-preflight-v1/packets/b5/terminal-receipt.json",
+      "verificationPaths": [
+        "evidence/phase10-observation-bridges-v1/b5-verification.json"
+      ]
+    },
+    {
+      "packetId": "c0-derive",
+      "launchClass": "non-solver",
+      "protocolPath": "research/phase10-execution-v1/packets/c0-derive/protocol.json",
+      "callableRegistryPath": "research/phase10-execution-v1/packets/c0-derive/callable-registry.json",
+      "attemptRoot": "out/phase10-execution-v1/attempts/c0-derive",
+      "preflightReceiptPath": "evidence/phase10-obligation-preflight-v1/packets/c0-derive/preflight.json",
+      "terminalReceiptPath": "evidence/phase10-obligation-preflight-v1/packets/c0-derive/terminal-receipt.json",
+      "verificationPaths": [
+        "evidence/phase10-numerical-verification-v1/c0-derive-verification.json"
+      ]
+    },
+    {
+      "packetId": "c0-publish",
+      "launchClass": "non-solver",
+      "protocolPath": "research/phase10-execution-v1/packets/c0-publish/protocol.json",
+      "callableRegistryPath": "research/phase10-execution-v1/packets/c0-publish/callable-registry.json",
+      "attemptRoot": "out/phase10-execution-v1/attempts/c0-publish",
+      "preflightReceiptPath": "evidence/phase10-obligation-preflight-v1/packets/c0-publish/preflight.json",
+      "terminalReceiptPath": "evidence/phase10-obligation-preflight-v1/packets/c0-publish/terminal-receipt.json",
+      "verificationPaths": [
+        "evidence/phase10-numerical-verification-v1/c0-verification.json"
+      ]
+    },
+    {
+      "packetId": "c0v-aggregate",
+      "launchClass": "non-solver",
+      "protocolPath": "research/phase10-execution-v1/packets/c0v-aggregate/protocol.json",
+      "callableRegistryPath": "research/phase10-execution-v1/packets/c0v-aggregate/callable-registry.json",
+      "attemptRoot": "out/phase10-execution-v1/attempts/c0v-aggregate",
+      "preflightReceiptPath": "evidence/phase10-obligation-preflight-v1/packets/c0v-aggregate/preflight.json",
+      "terminalReceiptPath": "evidence/phase10-obligation-preflight-v1/packets/c0v-aggregate/terminal-receipt.json",
+      "verificationPaths": [
+        "evidence/phase10-numerical-verification-v1/c0v-aggregate-verification.json"
+      ]
+    },
+    {
+      "packetId": "c0v-moving-produce",
+      "launchClass": "solver-control",
+      "protocolPath": "research/phase10-execution-v1/packets/c0v-moving-produce/protocol.json",
+      "callableRegistryPath": "research/phase10-execution-v1/packets/c0v-moving-produce/callable-registry.json",
+      "attemptRoot": "out/phase10-execution-v1/attempts/c0v-moving-produce",
+      "preflightReceiptPath": "evidence/phase10-obligation-preflight-v1/packets/c0v-moving-produce/preflight.json",
+      "terminalReceiptPath": "evidence/phase10-obligation-preflight-v1/packets/c0v-moving-produce/terminal-receipt.json",
+      "verificationPaths": [
+        "evidence/phase10-numerical-verification-v1/c0v-moving-evaluation.json",
+        "evidence/phase10-numerical-verification-v1/c0v-moving-reference-refusal.json"
+      ]
+    },
+    {
+      "packetId": "c0v-moving-publish",
+      "launchClass": "non-solver",
+      "protocolPath": "research/phase10-execution-v1/packets/c0v-moving-publish/protocol.json",
+      "callableRegistryPath": "research/phase10-execution-v1/packets/c0v-moving-publish/callable-registry.json",
+      "attemptRoot": "out/phase10-execution-v1/attempts/c0v-moving-publish",
+      "preflightReceiptPath": "evidence/phase10-obligation-preflight-v1/packets/c0v-moving-publish/preflight.json",
+      "terminalReceiptPath": "evidence/phase10-obligation-preflight-v1/packets/c0v-moving-publish/terminal-receipt.json",
+      "verificationPaths": [
+        "evidence/phase10-numerical-verification-v1/c0v-moving-publish-verification.json"
+      ]
+    },
+    {
+      "packetId": "c0v-radial-produce",
+      "launchClass": "solver-control",
+      "protocolPath": "research/phase10-execution-v1/packets/c0v-radial-produce/protocol.json",
+      "callableRegistryPath": "research/phase10-execution-v1/packets/c0v-radial-produce/callable-registry.json",
+      "attemptRoot": "out/phase10-execution-v1/attempts/c0v-radial-produce",
+      "preflightReceiptPath": "evidence/phase10-obligation-preflight-v1/packets/c0v-radial-produce/preflight.json",
+      "terminalReceiptPath": "evidence/phase10-obligation-preflight-v1/packets/c0v-radial-produce/terminal-receipt.json",
+      "verificationPaths": [
+        "evidence/phase10-numerical-verification-v1/c0v-radial-evaluation.json",
+        "evidence/phase10-numerical-verification-v1/c0v-radial-reference-refusal.json"
+      ]
+    },
+    {
+      "packetId": "c0v-radial-publish",
+      "launchClass": "non-solver",
+      "protocolPath": "research/phase10-execution-v1/packets/c0v-radial-publish/protocol.json",
+      "callableRegistryPath": "research/phase10-execution-v1/packets/c0v-radial-publish/callable-registry.json",
+      "attemptRoot": "out/phase10-execution-v1/attempts/c0v-radial-publish",
+      "preflightReceiptPath": "evidence/phase10-obligation-preflight-v1/packets/c0v-radial-publish/preflight.json",
+      "terminalReceiptPath": "evidence/phase10-obligation-preflight-v1/packets/c0v-radial-publish/terminal-receipt.json",
+      "verificationPaths": [
+        "evidence/phase10-numerical-verification-v1/c0v-radial-publish-verification.json"
+      ]
+    },
+    {
+      "packetId": "c0v-static-produce",
+      "launchClass": "solver-control",
+      "protocolPath": "research/phase10-execution-v1/packets/c0v-static-produce/protocol.json",
+      "callableRegistryPath": "research/phase10-execution-v1/packets/c0v-static-produce/callable-registry.json",
+      "attemptRoot": "out/phase10-execution-v1/attempts/c0v-static-produce",
+      "preflightReceiptPath": "evidence/phase10-obligation-preflight-v1/packets/c0v-static-produce/preflight.json",
+      "terminalReceiptPath": "evidence/phase10-obligation-preflight-v1/packets/c0v-static-produce/terminal-receipt.json",
+      "verificationPaths": [
+        "evidence/phase10-numerical-verification-v1/c0v-static-evaluation.json",
+        "evidence/phase10-numerical-verification-v1/c0v-static-reference-refusal.json"
+      ]
+    },
+    {
+      "packetId": "c0v-static-publish",
+      "launchClass": "non-solver",
+      "protocolPath": "research/phase10-execution-v1/packets/c0v-static-publish/protocol.json",
+      "callableRegistryPath": "research/phase10-execution-v1/packets/c0v-static-publish/callable-registry.json",
+      "attemptRoot": "out/phase10-execution-v1/attempts/c0v-static-publish",
+      "preflightReceiptPath": "evidence/phase10-obligation-preflight-v1/packets/c0v-static-publish/preflight.json",
+      "terminalReceiptPath": "evidence/phase10-obligation-preflight-v1/packets/c0v-static-publish/terminal-receipt.json",
+      "verificationPaths": [
+        "evidence/phase10-numerical-verification-v1/c0v-static-publish-verification.json"
+      ]
+    },
+    {
+      "packetId": "closure",
+      "launchClass": "closure",
+      "protocolPath": "research/phase10-execution-v1/packets/closure/protocol.json",
+      "callableRegistryPath": "research/phase10-execution-v1/packets/closure/callable-registry.json",
+      "attemptRoot": "out/phase10-execution-v1/attempts/closure",
+      "preflightReceiptPath": "evidence/phase10-obligation-preflight-v1/packets/closure/preflight.json",
+      "terminalReceiptPath": "evidence/phase10-obligation-preflight-v1/packets/closure/terminal-receipt.json",
+      "verificationPaths": [
+        "evidence/phase10-closure-v1/verification.json"
+      ]
+    }
+  ]
+}

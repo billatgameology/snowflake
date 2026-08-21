@@ -1,0 +1,946 @@
+{
+  "schema": "phase10-foundation-freeze-v1",
+  "createdOn": "2026-08-21",
+  "entryCommit": "0c889c3423d87f9062555a058a320c4a5cce2bc5",
+  "branch": "phase10/evidence-verification",
+  "selectedPackage": {
+    "included": [
+      "A-S",
+      "A-I",
+      "B",
+      "C0",
+      "C0V",
+      "packet-specific A-P"
+    ],
+    "excluded": [
+      "C1",
+      "C2",
+      "C3",
+      "C4",
+      "C5",
+      "habit rows"
+    ],
+    "makerSelectedOn": "2026-08-21"
+  },
+  "rosterDigestProtocol": {
+    "algorithm": "sha256-utf8-json-stringify-no-newline-v1",
+    "arrayOrder": "ascending Unicode code-unit order",
+    "objectKeyOrder": "the key order named beside each roster",
+    "terminalNewline": false
+  },
+  "frozenInputs": [
+    {
+      "artifactId": "P10-IN-CANDIDATE-PLAN",
+      "path": "bc75831c8af0c587c60b1aad64051c307f875a52:docs/plans/phase-10-closures-and-frontier.md",
+      "byteLength": 53308,
+      "sha256": "67d47deb64b111e2bc3f4552e72ec6bb6a37754eb99608d27e74d6a2e141dd99",
+      "binding": "raw-git-blob",
+      "role": "selected-package design authority before S0 status reconciliation"
+    },
+    {
+      "artifactId": "P10-IN-PHASE8A-FREEZE",
+      "path": "evidence/phase8-target-book/freeze.json",
+      "byteLength": 4434,
+      "sha256": "f9a5f4ee1f75c3038c2c051fe27ea68ee3f11f38f14d6ac6770604dd65e3b158",
+      "binding": "direct-file-bytes",
+      "role": "immutable Phase 8A identity"
+    },
+    {
+      "artifactId": "P10-IN-PHASE8A-TARGET-BOOK",
+      "path": "research/phase8-target-book.jsonl",
+      "byteLength": 59019,
+      "sha256": "47a75f3fcc499d74d36cd08eeaed7f4e839bf991deb179fa19ce809d57e171ec",
+      "binding": "transitive-through-P10-IN-PHASE8A-FREEZE",
+      "role": "immutable Phase 8A JSONL corpus containing exactly 18 entry rows plus one book-status row"
+    },
+    {
+      "artifactId": "P10-IN-PHASE8B-SUCCESSOR",
+      "path": "evidence/phase8b-benchmark-final-v1/successor-target-book.jsonl",
+      "byteLength": 36094,
+      "sha256": "c54b89683eea1f064bd8e81d6e9e06b3b9bbc6c022168b981cbfa71e5fc3cdd3",
+      "binding": "direct-file-bytes",
+      "role": "immutable 51-record Phase 8B corpus"
+    },
+    {
+      "artifactId": "P10-IN-PHASE9-SOURCE-OVERLAY",
+      "path": "evidence/phase9-source-overlay-v1/report.json",
+      "byteLength": 6530,
+      "sha256": "51e1fa2bf6a84beb94ffd442fd0d55df9017f7bb76e2b04d1e1f5fec38c63d8a",
+      "binding": "direct-file-bytes",
+      "role": "completed Phase 9 source dispositions"
+    },
+    {
+      "artifactId": "P10-IN-POSTFREEZE-INTAKE",
+      "path": "research/phase9-post-freeze-source-intake-v1.json",
+      "byteLength": 12925,
+      "sha256": "1a9a8fdb24fcd230d377297a268694727e27baccbe3a8ba807857b5a611afc48",
+      "binding": "direct-file-bytes",
+      "role": "14-payload and 24-file intake with private-NAS bindings"
+    },
+    {
+      "artifactId": "P10-IN-PHASE6-LADDER",
+      "path": "evidence/phase6-wp2-ladder/report.json",
+      "byteLength": 43863,
+      "sha256": "fd20f7018dbe2e4a09634c076ff274a017dafe6600321a983836bb8ab1b1ebb7",
+      "binding": "direct-file-bytes",
+      "role": "C0 historical report cross-check only; no comparison value or verdict is inherited"
+    },
+    {
+      "artifactId": "P10-IN-PHASE6-LADDER-ROWS",
+      "path": "evidence/phase6-wp2-ladder/rows.jsonl",
+      "byteLength": 73873,
+      "sha256": "c4fa70f7d8351f998f4800ff580ddaad0eb09fd2e2f2df7f606ca717e789cd14",
+      "binding": "direct-file-bytes",
+      "role": "sole C0 scientific-data input for independent re-derivation from committed bytes"
+    }
+  ],
+  "scopeRosters": {
+    "phase8a": {
+      "inputArtifactId": "P10-IN-PHASE8A-TARGET-BOOK",
+      "recordIdField": "id",
+      "expectedCount": 18,
+      "expectedJsonlRowCount": 19,
+      "rowClassification": {
+        "entryFilter": "include in the 18-entry overlay roster if and only if recordKind is exactly entry and id is a non-empty string",
+        "bookStatusFilter": "classify separately as the one status row if and only if recordKind is exactly book-status; the status row has no id and is never passed through the entry id filter",
+        "unknownRecordKind": "reject",
+        "cardinalityRule": "exactly 19 parsed non-empty JSONL rows = exactly 18 entry rows + exactly one book-status row; missing, duplicated, silently included, or silently excluded status rows are defects",
+        "overlayRule": "produce overlay entries for the 18 entry rows only, while independently validating and binding the one book-status row"
+      },
+      "bookStatusRow": {
+        "expectedCount": 1,
+        "expectedLineNumber": 19,
+        "recordKind": "book-status",
+        "schema": "phase8-target-book-v1",
+        "entryCount": 18,
+        "inputCount": 2,
+        "targetCount": 16,
+        "idFieldPresent": false,
+        "exactFields": [
+          "book",
+          "entryCount",
+          "extends",
+          "inputCount",
+          "leakageGuards",
+          "recordKind",
+          "schema",
+          "sourceIndexes",
+          "targetCount"
+        ],
+        "lfTerminatedByteLength": 1026,
+        "lfTerminatedSha256": "1fb5bac41af937153e2bf2d5c2930ba7d9265e38014cdf0cd9945b75ebc0a5d5"
+      },
+      "expectedIds": [
+        "P8-I-ALPHAHK-CROSS-LAB",
+        "P8-I-LIBBRECHT-KINETICS",
+        "P8-T-BACON-DIFFUSION-SCALING",
+        "P8-T-BACON-SEED-HISTORY",
+        "P8-T-HABIT-BOUNDARY-M4",
+        "P8-T-HABIT-BOUNDARY-M8",
+        "P8-T-HP26-RIM-HISTORY",
+        "P8-T-LEVITATION-MASS-RATIO",
+        "P8-T-LEVITATION-POWER",
+        "P8-T-LEVITATION-SCALED",
+        "P8-T-LIBBRECHT-LOW-SIGMA-M5",
+        "P8-T-LIBBRECHT-NEEDLE-MATRIX",
+        "P8-T-LIBBRECHT-TRAJECTORIES",
+        "P8-T-NELSON-SUBLIMATION",
+        "P8-T-PRESSURE-CONTEXT",
+        "P8-T-RIMING-REGIMES",
+        "P8-T-SHAPE-ENHANCED-MASS",
+        "P8-T-VENTILATION-ONSET"
+      ],
+      "expectedIdsSha256": "a1b2f5a98ff8625dde069342b3a8d88ce1760e742241714bb2e9f67924c95f16",
+      "immutableRoleSourceFields": [
+        "role",
+        "partition"
+      ]
+    },
+    "phase8b": {
+      "inputArtifactId": "P10-IN-PHASE8B-SUCCESSOR",
+      "recordIdField": "selectionId",
+      "expectedCount": 51,
+      "expectedIds": [
+        "P8B-P0-10C734F0C6C31B5904B10BE7",
+        "P8B-P0-20D9F95FE223A7AB67209A30",
+        "P8B-P0-25FF44515D32E7473616AC2A",
+        "P8B-P0-2CEE953BBC0243F9A214005F",
+        "P8B-P0-2CF2C2C5B3A6900FC3F9CDDA",
+        "P8B-P0-3BBE89E3D3B1429A8DC127E0",
+        "P8B-P0-4CB1637CA175FA4D94EF6063",
+        "P8B-P0-5C37491C76718529DA5A4C93",
+        "P8B-P0-831531AE323523A95D510307",
+        "P8B-P0-8376DA186B16D7C1C8F650BD",
+        "P8B-P0-85E829413C55ABDE9FA35B1C",
+        "P8B-P0-A6FA0826C9C2852672C2B87A",
+        "P8B-P0-C8D909E75461AEEEFBF0B365",
+        "P8B-P0-D35BE7104F02E7551CFEDC0C",
+        "P8B-P0-D37E50BA5B73C60418AC7078",
+        "P8B-P0-D6442E662770C35854FB2D8B",
+        "P8B-P0-DBEC7A33DFCCD81A3E66906A",
+        "P8B-P0-F3E2FF9C322C58220A773D99",
+        "P8B-P1-BACON-INITIATION-ASPECT",
+        "P8B-P1-BACON-MASS-GROWTH-CONTRAST",
+        "P8B-P1-L11-F2-C1-H",
+        "P8B-P1-L11-F2-C1-R",
+        "P8B-P1-L11-F2-C1-SIGMA-INF",
+        "P8B-P1-L11-F6-C2-H",
+        "P8B-P1-L11-F6-C2-R",
+        "P8B-P1-L11-F6-C2-SIGMA-INF",
+        "P8B-P1-L16-F3-H",
+        "P8B-P1-L16-F3-R",
+        "P8B-P1-L16-F4-H",
+        "P8B-P1-L16-F4-R",
+        "P8B-P1-S89-F3-BASAL",
+        "P8B-P1-S89-F3-PRISM",
+        "P8B-P1-S89-F4-BASAL",
+        "P8B-P1-S89-F4-PRISM",
+        "P8B-P1-S89-F5-BASAL",
+        "P8B-P1-S89-F5-PRISM",
+        "P8B-P1-SD71-M11",
+        "P8B-P1-SD71-M12",
+        "P8B-P1-SD71-M13",
+        "P8B-P1-SD71-M14",
+        "P8B-P1-SD71-M15",
+        "P8B-P1-SD71-M16",
+        "P8B-P1-SD71-M23",
+        "P8B-P1-SD71-M24",
+        "P8B-P1-SD71-M25",
+        "P8B-P1-SD71-M26",
+        "P8B-P2-HP25-SOURCE-SEMANTICS",
+        "P8B-P2-INPUT-LINEAGE",
+        "P8B-P2-L13-L16-SUPERSESSION",
+        "P8B-P2-PK20-HETERO-JOIN",
+        "P8B-P2-PK20-HOMO-DENOM"
+      ],
+      "expectedIdsSha256": "5228e9dc0a690f4f720cd88757a411706f64e92b24b344c6a8cbd962a459c121",
+      "immutableRoleSourceFields": [
+        "split",
+        "phase9EvidenceRole"
+      ],
+      "immutableBindingField": "binding"
+    }
+  },
+  "intakeRoster": {
+    "inputArtifactId": "P10-IN-POSTFREEZE-INTAKE",
+    "custodyFileCount": 24,
+    "sourcePayloadCount": 14,
+    "rawAcquisitionHistoryCount": 1,
+    "acquisitionMetadataCount": 9,
+    "custodyFilePaths": [
+      "provenance/gonda-namba-sei-2001-article.html",
+      "provenance/psu-6185.html",
+      "provenance/psu-6339.html",
+      "provenance/voigtlaender-2018-http-headers.txt",
+      "provenance/zhao-crossref.json",
+      "provenance/zhao-figshare-31079161.json",
+      "provenance/zhao-figshare-31079164.json",
+      "provenance/zhao-figshare-search.json",
+      "provenance/zhao-openalex.json",
+      "raw-acquisition/magee-2014-supplement-malformed-download.bin",
+      "sources/gonda-namba-sei-2001-carrier-gas.pdf",
+      "sources/gonda-sei-1988-growth-mechanism.pdf",
+      "sources/lamb-etal-2025-arxiv-source.tar",
+      "sources/libbrecht-2011-improved-apparatus.pdf",
+      "sources/libbrecht-2012-managing-systematic-errors.pdf",
+      "sources/libbrecht-rickerby-2012-surface-melting-growth.pdf",
+      "sources/libbrecht-snow-crystals-preview.pdf",
+      "sources/magee-2014-supplement.zip",
+      "sources/nelson-1993-heat-conduction.pdf",
+      "sources/pokrifka-etal-2018-dataset.zip",
+      "sources/pokrifka-etal-2023-dataset.zip",
+      "sources/swanson-nelson-2019-cryostat.pdf",
+      "sources/voigtlaender-2018-supplement.zip",
+      "sources/zhao-etal-2026-supporting-information.pdf"
+    ],
+    "custodyTupleRoster": {
+      "objectKeyOrder": [
+        "path",
+        "role",
+        "byteLength",
+        "sha256"
+      ],
+      "sortKey": "path",
+      "sha256": "a124d44e5d3b39f63774a5d7eced46cb628ede78bb2a4f112404eabe983d550f"
+    },
+    "sourcePayloads": [
+      {
+        "payloadId": "P10-AI-GONDA-NAMBA-SEI-2001",
+        "path": "sources/gonda-namba-sei-2001-carrier-gas.pdf",
+        "byteLength": 9372269,
+        "sha256": "0644b998dc6d074a12a0cd0fc8baf098428bce7417e80556b9152db2a1904b5a",
+        "intakeRole": "source-paper"
+      },
+      {
+        "payloadId": "P10-AI-GONDA-SEI-1988",
+        "path": "sources/gonda-sei-1988-growth-mechanism.pdf",
+        "byteLength": 2037226,
+        "sha256": "c24c9c23cf026aafc268e43cfdfd0534ec04888326c44cf3923bb7707a009a48",
+        "intakeRole": "source-paper"
+      },
+      {
+        "payloadId": "P10-AI-LAMB-ETAL-2025-SOURCE",
+        "path": "sources/lamb-etal-2025-arxiv-source.tar",
+        "byteLength": 1918358,
+        "sha256": "5d4d7cb8597e15bc2fbe38a706acfa9eb696cf9a2a80c2181d1d134540f3c294",
+        "intakeRole": "source-manuscript-container"
+      },
+      {
+        "payloadId": "P10-AI-LIBBRECHT-2011-APPARATUS",
+        "path": "sources/libbrecht-2011-improved-apparatus.pdf",
+        "byteLength": 716180,
+        "sha256": "98d09700a5fc15fa7c0a220e2b7d20ea8ab1cd5b00dc5becd2d40f7f21da4ddf",
+        "intakeRole": "source-paper"
+      },
+      {
+        "payloadId": "P10-AI-LIBBRECHT-2012-SYSTEMATICS",
+        "path": "sources/libbrecht-2012-managing-systematic-errors.pdf",
+        "byteLength": 490430,
+        "sha256": "301e5340d0f4dda2927427a94a08c956354518ce6c920a65cb6b4700f11238ea",
+        "intakeRole": "source-paper"
+      },
+      {
+        "payloadId": "P10-AI-LIBBRECHT-RICKERBY-2012",
+        "path": "sources/libbrecht-rickerby-2012-surface-melting-growth.pdf",
+        "byteLength": 833011,
+        "sha256": "eddeefa9900d19906e4345f414803f64ff84a79b8eb7c03b27dd9730f642a5b0",
+        "intakeRole": "source-paper"
+      },
+      {
+        "payloadId": "P10-AI-LIBBRECHT-SNOW-CRYSTALS-PREVIEW",
+        "path": "sources/libbrecht-snow-crystals-preview.pdf",
+        "byteLength": 17251147,
+        "sha256": "6e8cfb40e7f30a248199a41cfd311f33bcce6d87707e505580426f9a45f1983a",
+        "intakeRole": "source-book-preview"
+      },
+      {
+        "payloadId": "P10-AI-MAGEE-2014-SUPPLEMENT",
+        "path": "sources/magee-2014-supplement.zip",
+        "byteLength": 36242429,
+        "sha256": "33de9df94fcc2de051fcc9cbd03a0ff724ec1f4a1119af42464ffc427590f444",
+        "intakeRole": "source-supplement-canonical-clean-copy"
+      },
+      {
+        "payloadId": "P10-AI-NELSON-1993",
+        "path": "sources/nelson-1993-heat-conduction.pdf",
+        "byteLength": 1066816,
+        "sha256": "174beee9c01c9b1602a64951247a0935ad81cb55873ddefd2ee2f81f08a15472",
+        "intakeRole": "source-paper"
+      },
+      {
+        "payloadId": "P10-AI-POKRIFKA-ETAL-2018-DATASET",
+        "path": "sources/pokrifka-etal-2018-dataset.zip",
+        "byteLength": 5063958,
+        "sha256": "455a241eaac8aa18a44dca36c12cc77867e77c45b0bd93626b1e6ac0803ac5ba",
+        "intakeRole": "source-dataset"
+      },
+      {
+        "payloadId": "P10-AI-POKRIFKA-ETAL-2023-DATASET",
+        "path": "sources/pokrifka-etal-2023-dataset.zip",
+        "byteLength": 15669394,
+        "sha256": "9333debf6dea9be75695a7dc759e5776312697378c3f0fe3c1b35719975121e3",
+        "intakeRole": "source-dataset"
+      },
+      {
+        "payloadId": "P10-AI-SWANSON-NELSON-2019",
+        "path": "sources/swanson-nelson-2019-cryostat.pdf",
+        "byteLength": 14974396,
+        "sha256": "d2ebde07cfe72c53ed17c2e9154180f3b61e4a89b9e376a266b872f3076a796e",
+        "intakeRole": "source-paper"
+      },
+      {
+        "payloadId": "P10-AI-VOIGTLAENDER-2018-SUPPLEMENT",
+        "path": "sources/voigtlaender-2018-supplement.zip",
+        "byteLength": 21926638,
+        "sha256": "54b99bcc1f7b98d66f16e76d9842f8153d096983d78bb7209daaf90967944713",
+        "intakeRole": "source-supplement"
+      },
+      {
+        "payloadId": "P10-AI-ZHAO-ETAL-2026-SI",
+        "path": "sources/zhao-etal-2026-supporting-information.pdf",
+        "byteLength": 969600,
+        "sha256": "5db8b3d38bf9da22b954d2964e33cce8344f5a52752ce8d612e168ed1052cb61",
+        "intakeRole": "source-supplement"
+      }
+    ],
+    "sourcePayloadTupleRoster": {
+      "objectKeyOrder": [
+        "payloadId",
+        "path",
+        "byteLength",
+        "sha256"
+      ],
+      "sortKey": "payloadId",
+      "sha256": "ed68ba1a4410ed6af0098c9dac5b8f1a37b30f62ad14771a1cb4445f3c113592"
+    }
+  },
+  "nasBoundary": {
+    "existingCollection": {
+      "collectionId": "post-phase9-intake@2026-08-13",
+      "state": "provisional",
+      "locator": "collections/post-phase9-intake/2026-08-13/payload",
+      "storageClass": "private-source",
+      "aggregateFiles": 26,
+      "aggregateBytes": 165722101,
+      "ownerManifest": {
+        "path": "collections/post-phase9-intake/2026-08-13/manifest.private.jsonl",
+        "byteLength": 6335,
+        "sha256": "9d839913d4f078a912e302194e34d718e470f91244f6cf81e4c6b627e7dd90db"
+      },
+      "rights": "restricted-third-party",
+      "privacy": "private",
+      "servePolicy": "deny",
+      "mutability": "immutable",
+      "retentionPolicy": "maker-approved-delete-only",
+      "restoreStatus": "pending",
+      "backupStatus": "required-missing",
+      "scopeRelationship": "The 24-file tracked intake and 26-file NAS aggregate are distinct governed scopes and must each be verified against its own digest authority."
+    },
+    "newCollection": {
+      "collectionId": "phase10-source-intake@2026-08-21-v1",
+      "createOnlyIfNewLawfulBytesExist": true,
+      "maximumCombinedStagingAndPublicationBytes": 10737418240,
+      "paidAcquisitionAuthorized": false,
+      "sourcePruneAuthorized": false,
+      "requiredPublicationProtocol": "active Phase 10 execution plan Resource and execution boundary"
+    },
+    "trackedGit": {
+      "allowed": [
+        "artifact identities",
+        "citations and persistent locators",
+        "dates, endpoint identities, and query text",
+        "byte lengths and SHA-256 digests",
+        "NAS-relative bindings",
+        "rights, lineage, purpose, and eligibility dispositions",
+        "paraphrased reasons",
+        "schemas and protocol definitions",
+        "explicitly authorized project-derived summaries"
+      ],
+      "forbidden": [
+        "restricted source payload bytes",
+        "restricted PDFs, archives, datasets, or video",
+        "frames or copied tables",
+        "long source excerpts",
+        "unapproved numeric row bodies"
+      ],
+      "defaultRestrictedOrUnknownDerivativePolicy": "metadata-only"
+    }
+  },
+  "currencyPolicy": {
+    "scope": "source lineages selected by B",
+    "snapshotCountPerSelectedLineage": 1,
+    "freezeBeforeConsumption": true,
+    "requiresExactQueriesDatesEndpointsAndTerminalOutcomes": true,
+    "standingWatchAuthorized": false,
+    "reopenTriggers": [
+      "correction or version change to a consumed source",
+      "newly selected load-bearing family",
+      "unavailable priority lead becomes available",
+      "maker-scheduled refresh"
+    ]
+  },
+  "acquisitionRoster": {
+    "roundId": "P10-ACQUISITION-ROUND-01",
+    "expectedCount": 6,
+    "expectedTargetIdsSha256": "d8746dfe257e5709d3f37dc352dcecfed69cba177f5adc8e7b9e545c25471945",
+    "targets": [
+      {
+        "targetId": "P10-ACQ-HP26-FINAL-ARTICLE",
+        "identity": "complete HP26 final article",
+        "authorizedBranches": [
+          "B4"
+        ],
+        "initialState": "not-attempted"
+      },
+      {
+        "targetId": "P10-ACQ-KELLER-HALLETT-1982",
+        "identity": "Keller-Hallett 1982",
+        "authorizedBranches": [
+          "B2"
+        ],
+        "initialState": "not-attempted"
+      },
+      {
+        "targetId": "P10-ACQ-PMH2025-METHODS",
+        "identity": "Pokrifka-Moyle-Harrington 2025 Methods",
+        "authorizedBranches": [
+          "B4"
+        ],
+        "initialState": "not-attempted"
+      },
+      {
+        "targetId": "P10-ACQ-PRINCETON-MONOGRAPH-CURRENT",
+        "identity": "complete current Princeton monograph",
+        "authorizedBranches": [
+          "B1a",
+          "B4"
+        ],
+        "initialState": "not-attempted"
+      },
+      {
+        "targetId": "P10-ACQ-ZHAO-2026-MAIN-ARTICLE",
+        "identity": "Zhao main article",
+        "authorizedBranches": [
+          "B3"
+        ],
+        "initialState": "not-attempted"
+      },
+      {
+        "targetId": "P10-ACQ-ZHAO-2026-S2-VIDEO",
+        "identity": "Zhao identified S2 companion video",
+        "authorizedBranches": [
+          "B3",
+          "B5"
+        ],
+        "initialState": "not-attempted"
+      }
+    ]
+  },
+  "searchPolicy": {
+    "authorizationUnit": "one pre-registered packet per still-missing registered search operand group",
+    "maximumPacketsPerOperandGroup": 1,
+    "maximumServicesOrEndpointsPerPacket": 3,
+    "maximumQueriesPerPacket": 4,
+    "maximumUniqueCandidatesAfterDeduplicationPerPacket": 25,
+    "frozenDateWindowRequired": true,
+    "terminalDispositionRequired": true,
+    "broadDiscoveryAuthorized": false,
+    "recursiveCitationChaseAuthorized": false,
+    "purchaseAuthorized": false,
+    "providerContactAuthorized": false,
+    "experimentAuthorized": false,
+    "credentialUseAuthorized": false,
+    "newLeadDisposition": "backlog pending maker-approved plan amendment",
+    "heldOutCandidateRule": "A candidate intended for a future Phase 7 denominator remains sealed and leaves B; every value opened by B is Phase 10 development evidence."
+  },
+  "branchRoster": {
+    "expectedCount": 6,
+    "expectedBranchIds": [
+      "B1a",
+      "B1b",
+      "B2",
+      "B3",
+      "B4",
+      "B5"
+    ],
+    "expectedBranchIdsSha256": "e2bfe161c6d91fe95b81abad67a99027e42d3862af02c6494d972af469fed661"
+  },
+  "branchRegistrations": [
+    {
+      "branchId": "B1a",
+      "required": true,
+      "candidatePayloadIds": [],
+      "candidateRoutingState": "candidate-uninspected",
+      "acquisitionTargetIds": [
+        "P10-ACQ-PRINCETON-MONOGRAPH-CURRENT"
+      ],
+      "requiredOperandIds": [
+        "B1A-COMPARISON-DOMAIN",
+        "B1A-CURRENT-PRINCETON-EDITION",
+        "B1A-PLANAR-FORCING-MAP",
+        "B1A-UNCERTAINTY-TREATMENT"
+      ],
+      "searchOperandGroups": [
+        {
+          "groupId": "B1A-SEARCH-CURRENT-MONOGRAPH",
+          "coversOperandIds": [
+            "B1A-CURRENT-PRINCETON-EDITION"
+          ],
+          "maximumPackets": 1
+        },
+        {
+          "groupId": "B1A-SEARCH-FORCING-MAP",
+          "coversOperandIds": [
+            "B1A-PLANAR-FORCING-MAP"
+          ],
+          "maximumPackets": 1
+        },
+        {
+          "groupId": "B1A-SEARCH-UNCERTAINTY",
+          "coversOperandIds": [
+            "B1A-UNCERTAINTY-TREATMENT"
+          ],
+          "maximumPackets": 1
+        }
+      ],
+      "maximumSearchPackets": 3,
+      "decidingProtocolPath": "research/phase10-b1a-protocol-v1.json",
+      "resultBundle": "evidence/phase10-b1a-v1",
+      "allowedTerminalOutcomes": [
+        "eligible-bridge",
+        "terminal-refusal"
+      ],
+      "downstreamCandidateKinds": [
+        "F"
+      ]
+    },
+    {
+      "branchId": "B1b",
+      "required": true,
+      "candidatePayloadIds": [
+        "P10-AI-LIBBRECHT-2011-APPARATUS",
+        "P10-AI-LIBBRECHT-2012-SYSTEMATICS",
+        "P10-AI-LIBBRECHT-RICKERBY-2012",
+        "P10-AI-NELSON-1993",
+        "P10-AI-SWANSON-NELSON-2019"
+      ],
+      "candidateRoutingState": "candidate-uninspected",
+      "acquisitionTargetIds": [],
+      "requiredOperandIds": [
+        "B1B-ASYMMETRIC-VAPOR-TRANSFER",
+        "B1B-EVOLVING-GEOMETRY",
+        "B1B-LOCAL-TEMPERATURE-FORCING",
+        "B1B-LOCAL-VAPOR-FORCING",
+        "B1B-MATCHED-CROSS-PRESSURE-OBSERVATION",
+        "B1B-OBSERVATION-DOMAIN",
+        "B1B-SUPPORT-HEAT-PATH"
+      ],
+      "searchOperandGroups": [
+        {
+          "groupId": "B1B-SEARCH-ASYMMETRIC-TRANSFER",
+          "coversOperandIds": [
+            "B1B-ASYMMETRIC-VAPOR-TRANSFER"
+          ],
+          "maximumPackets": 1
+        },
+        {
+          "groupId": "B1B-SEARCH-CROSS-PRESSURE-OBSERVATION",
+          "coversOperandIds": [
+            "B1B-MATCHED-CROSS-PRESSURE-OBSERVATION"
+          ],
+          "maximumPackets": 1
+        },
+        {
+          "groupId": "B1B-SEARCH-EVOLVING-GEOMETRY",
+          "coversOperandIds": [
+            "B1B-EVOLVING-GEOMETRY"
+          ],
+          "maximumPackets": 1
+        },
+        {
+          "groupId": "B1B-SEARCH-LOCAL-FORCING",
+          "coversOperandIds": [
+            "B1B-LOCAL-TEMPERATURE-FORCING",
+            "B1B-LOCAL-VAPOR-FORCING"
+          ],
+          "maximumPackets": 1
+        },
+        {
+          "groupId": "B1B-SEARCH-SUPPORT-HEAT-PATH",
+          "coversOperandIds": [
+            "B1B-SUPPORT-HEAT-PATH"
+          ],
+          "maximumPackets": 1
+        }
+      ],
+      "maximumSearchPackets": 5,
+      "decidingProtocolPath": "research/phase10-b1b-protocol-v1.json",
+      "resultBundle": "evidence/phase10-b1b-v1",
+      "allowedTerminalOutcomes": [
+        "eligible-bridge",
+        "terminal-refusal"
+      ],
+      "downstreamCandidateKinds": [
+        "E",
+        "F",
+        "H"
+      ]
+    },
+    {
+      "branchId": "B2",
+      "required": true,
+      "candidatePayloadIds": [],
+      "candidateRoutingState": "candidate-uninspected",
+      "acquisitionTargetIds": [
+        "P10-ACQ-KELLER-HALLETT-1982"
+      ],
+      "requiredOperandIds": [
+        "B2-CHARACTERISTIC-SIZE-COVERAGE",
+        "B2-CONTROLLED-VELOCITY-DATASET",
+        "B2-DENSITY-COVERAGE",
+        "B2-DROPLET-STATE-COVERAGE",
+        "B2-METHOD-COVERAGE",
+        "B2-SPEED-COVERAGE",
+        "B2-SUPPORT-STATE-COVERAGE",
+        "B2-TEMPERATURE-COVERAGE",
+        "B2-TIME-COVERAGE",
+        "B2-VISCOSITY-COVERAGE"
+      ],
+      "searchOperandGroups": [
+        {
+          "groupId": "B2-SEARCH-CONTROLLED-VELOCITY-DATASET",
+          "coversOperandIds": [
+            "B2-CHARACTERISTIC-SIZE-COVERAGE",
+            "B2-CONTROLLED-VELOCITY-DATASET",
+            "B2-DENSITY-COVERAGE",
+            "B2-DROPLET-STATE-COVERAGE",
+            "B2-METHOD-COVERAGE",
+            "B2-SPEED-COVERAGE",
+            "B2-SUPPORT-STATE-COVERAGE",
+            "B2-TEMPERATURE-COVERAGE",
+            "B2-TIME-COVERAGE",
+            "B2-VISCOSITY-COVERAGE"
+          ],
+          "maximumPackets": 1
+        }
+      ],
+      "maximumSearchPackets": 1,
+      "decidingProtocolPath": "research/phase10-b2-protocol-v1.json",
+      "resultBundle": "evidence/phase10-b2-v1",
+      "allowedTerminalOutcomes": [
+        "eligible-dataset",
+        "terminal-refusal"
+      ],
+      "downstreamCandidateKinds": [
+        "F"
+      ]
+    },
+    {
+      "branchId": "B3",
+      "required": true,
+      "candidatePayloadIds": [
+        "P10-AI-GONDA-NAMBA-SEI-2001",
+        "P10-AI-GONDA-SEI-1988",
+        "P10-AI-ZHAO-ETAL-2026-SI"
+      ],
+      "candidateRoutingState": "candidate-uninspected",
+      "acquisitionTargetIds": [
+        "P10-ACQ-ZHAO-2026-MAIN-ARTICLE",
+        "P10-ACQ-ZHAO-2026-S2-VIDEO"
+      ],
+      "requiredOperandIds": [
+        "B3-CARRIER-GAS-AUDIT",
+        "B3-GEOMETRY-CONTROL",
+        "B3-HISTORY-CONTROL",
+        "B3-ISONO-CURRENCY",
+        "B3-LINEAGE",
+        "B3-MATCHED-OBSERVATION",
+        "B3-POINT-IDENTITY",
+        "B3-PRESSURE-OR-GAS-INTERVENTION",
+        "B3-SUPPORT-CONTROL",
+        "B3-TEMPERATURE-CONFLICT-DISPOSITION",
+        "B3-TEMPERATURE-CONTROL",
+        "B3-TWO-READER-OPERATOR",
+        "B3-UNCERTAINTY",
+        "B3-VENTILATION-CONTROL",
+        "B3-ZHAO-ROLE-AUDIT"
+      ],
+      "searchOperandGroups": [
+        {
+          "groupId": "B3-SEARCH-CARRIER-GAS-MATERIALS",
+          "coversOperandIds": [
+            "B3-CARRIER-GAS-AUDIT"
+          ],
+          "maximumPackets": 1
+        },
+        {
+          "groupId": "B3-SEARCH-CROSSED-DESIGN",
+          "coversOperandIds": [
+            "B3-GEOMETRY-CONTROL",
+            "B3-HISTORY-CONTROL",
+            "B3-MATCHED-OBSERVATION",
+            "B3-PRESSURE-OR-GAS-INTERVENTION",
+            "B3-SUPPORT-CONTROL",
+            "B3-TEMPERATURE-CONTROL",
+            "B3-VENTILATION-CONTROL"
+          ],
+          "maximumPackets": 1
+        },
+        {
+          "groupId": "B3-SEARCH-ISONO-CURRENCY",
+          "coversOperandIds": [
+            "B3-ISONO-CURRENCY"
+          ],
+          "maximumPackets": 1
+        },
+        {
+          "groupId": "B3-SEARCH-TEMPERATURE-CONFLICT",
+          "coversOperandIds": [
+            "B3-TEMPERATURE-CONFLICT-DISPOSITION"
+          ],
+          "maximumPackets": 1
+        },
+        {
+          "groupId": "B3-SEARCH-ZHAO-MAIN",
+          "coversOperandIds": [
+            "B3-ZHAO-ROLE-AUDIT"
+          ],
+          "maximumPackets": 1
+        },
+        {
+          "groupId": "B3-SEARCH-ZHAO-S2",
+          "coversOperandIds": [
+            "B3-ZHAO-ROLE-AUDIT"
+          ],
+          "maximumPackets": 1
+        }
+      ],
+      "maximumSearchPackets": 6,
+      "decidingProtocolPath": "research/phase10-b3-protocol-v1.json",
+      "resultBundle": "evidence/phase10-b3-v1",
+      "allowedTerminalOutcomes": [
+        "eligible-bridge",
+        "terminal-non-identification",
+        "terminal-refusal"
+      ],
+      "downstreamCandidateKinds": [
+        "F",
+        "H"
+      ]
+    },
+    {
+      "branchId": "B4",
+      "required": true,
+      "candidatePayloadIds": [
+        "P10-AI-POKRIFKA-ETAL-2018-DATASET",
+        "P10-AI-POKRIFKA-ETAL-2023-DATASET"
+      ],
+      "candidateRoutingState": "candidate-uninspected",
+      "acquisitionTargetIds": [
+        "P10-ACQ-HP26-FINAL-ARTICLE",
+        "P10-ACQ-PMH2025-METHODS",
+        "P10-ACQ-PRINCETON-MONOGRAPH-CURRENT"
+      ],
+      "requiredOperandIds": [
+        "B4-FINAL-THEORY-ARTICLE",
+        "B4-FORCING-SEMANTICS",
+        "B4-MEASUREMENT-METHODS",
+        "B4-ROLE-SEPARATION",
+        "B4-SAME-LINEAGE-LINK"
+      ],
+      "mechanismRankingPrerequisiteIds": [
+        "B4-CURRENT-MONOGRAPH-COMPARISON",
+        "B4-LATTICE-TO-WIDTH-MAP",
+        "B4-MATCHED-TRANSPORT",
+        "B4-NUMERIC-SPATIAL-OR-RIM-TRAJECTORIES",
+        "B4-PHYSICAL-WIDTH"
+      ],
+      "searchOperandGroups": [
+        {
+          "groupId": "B4-SEARCH-FINAL-THEORY",
+          "coversOperandIds": [
+            "B4-FINAL-THEORY-ARTICLE"
+          ],
+          "maximumPackets": 1
+        },
+        {
+          "groupId": "B4-SEARCH-MEASUREMENT-METHODS",
+          "coversOperandIds": [
+            "B4-FORCING-SEMANTICS",
+            "B4-MEASUREMENT-METHODS"
+          ],
+          "maximumPackets": 1
+        }
+      ],
+      "maximumSearchPackets": 2,
+      "decidingProtocolPath": "research/phase10-b4-protocol-v1.json",
+      "resultBundle": "evidence/phase10-b4-v1",
+      "allowedTerminalOutcomes": [
+        "eligible-bridge",
+        "terminal-refusal"
+      ],
+      "downstreamCandidateKinds": [
+        "E",
+        "F",
+        "H"
+      ]
+    },
+    {
+      "branchId": "B5",
+      "required": true,
+      "candidatePayloadIds": [
+        "P10-AI-MAGEE-2014-SUPPLEMENT",
+        "P10-AI-POKRIFKA-ETAL-2018-DATASET",
+        "P10-AI-POKRIFKA-ETAL-2023-DATASET",
+        "P10-AI-VOIGTLAENDER-2018-SUPPLEMENT"
+      ],
+      "candidateRoutingState": "candidate-uninspected",
+      "acquisitionTargetIds": [
+        "P10-ACQ-ZHAO-2026-S2-VIDEO"
+      ],
+      "requiredOperandIds": [
+        "B5-ALL-ATTEMPTS-REPORTED",
+        "B5-ELIGIBILITY-THRESHOLDS",
+        "B5-FEATURE-ROSTER",
+        "B5-LOCAL-FORCING",
+        "B5-MATCHED-TRANSPORT",
+        "B5-MEDIA-ROSTER",
+        "B5-OBSERVATION-OPERATOR",
+        "B5-REPEATABILITY-AND-UNCERTAINTY",
+        "B5-SCALE-CALIBRATION",
+        "B5-TIME-CALIBRATION"
+      ],
+      "searchOperandGroups": [
+        {
+          "groupId": "B5-SEARCH-CALIBRATION-METADATA",
+          "coversOperandIds": [
+            "B5-SCALE-CALIBRATION",
+            "B5-TIME-CALIBRATION"
+          ],
+          "maximumPackets": 1
+        },
+        {
+          "groupId": "B5-SEARCH-FORCING-METADATA",
+          "coversOperandIds": [
+            "B5-LOCAL-FORCING"
+          ],
+          "maximumPackets": 1
+        },
+        {
+          "groupId": "B5-SEARCH-MEDIA-COMPANION",
+          "coversOperandIds": [
+            "B5-MEDIA-ROSTER"
+          ],
+          "maximumPackets": 1
+        },
+        {
+          "groupId": "B5-SEARCH-TRANSPORT-METADATA",
+          "coversOperandIds": [
+            "B5-MATCHED-TRANSPORT"
+          ],
+          "maximumPackets": 1
+        }
+      ],
+      "maximumSearchPackets": 4,
+      "decidingProtocolPath": "research/phase10-b5-protocol-v1.json",
+      "resultBundle": "evidence/phase10-b5-v1",
+      "allowedTerminalOutcomes": [
+        "eligible-observable",
+        "terminal-categorical-only",
+        "terminal-refusal"
+      ],
+      "downstreamCandidateKinds": [
+        "E",
+        "F",
+        "H"
+      ]
+    }
+  ],
+  "terminalityRules": [
+    "A B branch is terminal only when every required operand has a terminal status, every authorized acquisition or search packet used by the branch is terminal, and no unbounded continuation remains.",
+    "An eligible result must satisfy the branch deciding protocol's complete conjunction; a producer assertion is not sufficient.",
+    "A refusal names at least one exact blocking operand and its refusal class.",
+    "A non-identification finding is distinct from a missing-source refusal.",
+    "Artifact-invalid, missing-evaluator, or uncalled-check states yield package no-decision and leave the affected branch incomplete.",
+    "Infrastructure or resource failure is never relabeled as a numerical, scientific, or source result.",
+    "E, F, or H scope and budget may be returned as a candidate only; execution, authorization, provider contact, and an external request are outside this package."
+  ],
+  "claimBoundary": {
+    "scopeCensusOnlyForAS": true,
+    "allOpenedSourceValuesArePhase10DevelopmentEvidence": true,
+    "quantitativeValidationEarned": false,
+    "phase7CreditEarned": false,
+    "phase8CreditEarned": false,
+    "phase9CreditEarned": false,
+    "heldOutComparisonExecuted": false,
+    "targetScoreProduced": false,
+    "solverPhysicsChanged": false,
+    "c1ThroughC5RowsProduced": false,
+    "habitRowsProduced": false,
+    "eObservationOperatorImplemented": false,
+    "fExternalRequestWrittenOrSent": false,
+    "hTransportImplemented": false,
+    "downstreamExecutionAuthorized": false,
+    "priorPhaseLabelsAndArtifactsPreserved": true
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "schema": "phase10-ap-negative-fixture-v1",
+  "fixtureId": "uncalled-check",
+  "mutation": {
+    "kind": "remove-invoked-check",
+    "callableId": "caller.reference",
+    "checkId": "check.reference"
+  }
+}

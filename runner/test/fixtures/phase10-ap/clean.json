@@ -1,0 +1,221 @@
+{
+  "schema": "phase10-ap-test-fixture-v1",
+  "matrix": {
+    "schema": "phase10-obligation-matrix-v1",
+    "matrixId": "phase10-test-matrix-v1",
+    "packets": [
+      {
+        "packetId": "c0v-static-produce",
+        "launchClass": "solver-control",
+        "baseOutputIds": ["output.base"],
+        "baseCheckIds": ["check.base"],
+        "dependencyPacketIds": []
+      }
+    ],
+    "outputs": [
+      {
+        "outputId": "output.base",
+        "packetId": "c0v-static-produce",
+        "producerCallableId": "producer.base",
+        "artifact": {
+          "path": "out/phase10-test/base.json",
+          "field": null,
+          "schemaId": "phase10-packet-protocol-v1"
+        },
+        "terminalStates": ["fail", "pass", "refusal"],
+        "dependsOnOutputIds": []
+      },
+      {
+        "outputId": "output.reference",
+        "packetId": "c0v-static-produce",
+        "producerCallableId": "producer.reference",
+        "artifact": {
+          "path": "out/phase10-test/reference.json",
+          "field": null,
+          "schemaId": "phase10-callable-registry-v1"
+        },
+        "terminalStates": ["fail", "pass"],
+        "dependsOnOutputIds": ["output.base"]
+      },
+      {
+        "outputId": "output.refusal",
+        "packetId": "c0v-static-produce",
+        "producerCallableId": "producer.refusal",
+        "artifact": {
+          "path": "out/phase10-test/refusal.json",
+          "field": null,
+          "schemaId": "phase10-execution-receipt-v1"
+        },
+        "terminalStates": ["refusal"],
+        "dependsOnOutputIds": ["output.base"]
+      }
+    ],
+    "checks": [
+      {
+        "checkId": "check.base",
+        "packetId": "c0v-static-produce",
+        "callerCallableId": "caller.base",
+        "independentEvaluatorCallableId": null,
+        "negativeControlIds": [],
+        "dependsOnOutputIds": ["output.base"],
+        "dependsOnCheckIds": []
+      },
+      {
+        "checkId": "check.reference",
+        "packetId": "c0v-static-produce",
+        "callerCallableId": "caller.reference",
+        "independentEvaluatorCallableId": "evaluator.reference",
+        "negativeControlIds": ["negative.reference"],
+        "dependsOnOutputIds": ["output.reference"],
+        "dependsOnCheckIds": ["check.base"]
+      },
+      {
+        "checkId": "check.refusal",
+        "packetId": "c0v-static-produce",
+        "callerCallableId": "caller.refusal",
+        "independentEvaluatorCallableId": null,
+        "negativeControlIds": [],
+        "dependsOnOutputIds": ["output.refusal"],
+        "dependsOnCheckIds": ["check.base"]
+      }
+    ],
+    "negativeControls": [
+      {
+        "negativeControlId": "negative.reference",
+        "packetId": "c0v-static-produce",
+        "ownerCheckId": "check.reference",
+        "callableId": "negative.reference"
+      }
+    ],
+    "conditionalGroups": [
+      {
+        "groupId": "static.reference",
+        "packetId": "c0v-static-produce",
+        "independentReference": {
+          "outputIds": ["output.reference"],
+          "checkIds": ["check.reference"]
+        },
+        "referenceRefusal": {
+          "outputIds": ["output.refusal"],
+          "checkIds": ["check.refusal"]
+        }
+      }
+    ]
+  },
+  "protocol": {
+    "schema": "phase10-packet-protocol-v1",
+    "protocolId": "phase10-test-static-v1",
+    "matrixId": "phase10-test-matrix-v1",
+    "packetId": "c0v-static-produce",
+    "artifactSchemaRegistry": {
+      "path": "runner/test/fixtures/phase10-ap/schema-registry.json",
+      "byteLength": 1,
+      "sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+    },
+    "selectedBranches": [
+      {
+        "groupId": "static.reference",
+        "branch": "independent-reference"
+      }
+    ],
+    "registeredOutputIds": ["output.base", "output.reference"],
+    "registeredCheckIds": ["check.base", "check.reference"],
+    "registeredNegativeControlIds": ["negative.reference"],
+    "boundDependencyPacketIds": []
+  },
+  "registry": {
+    "schema": "phase10-callable-registry-v1",
+    "registryId": "phase10-test-static-callables-v1",
+    "matrixId": "phase10-test-matrix-v1",
+    "protocolId": "phase10-test-static-v1",
+    "packetId": "c0v-static-produce",
+    "callables": [
+      {
+        "callableId": "caller.base",
+        "role": "check-caller",
+        "resolution": "planned",
+        "modulePath": "runner/src/phase10-obligation-preflight.ts",
+        "exportName": "phase10ObligationRunPreflight",
+        "identity": null,
+        "producedOutputIds": [],
+        "invokedCheckIds": ["check.base"],
+        "evaluatedCheckIds": [],
+        "executedNegativeControlIds": []
+      },
+      {
+        "callableId": "caller.reference",
+        "role": "check-caller",
+        "resolution": "planned",
+        "modulePath": "runner/src/phase10-obligation-preflight.ts",
+        "exportName": "phase10ObligationReceiptPreflight",
+        "identity": null,
+        "producedOutputIds": [],
+        "invokedCheckIds": ["check.reference"],
+        "evaluatedCheckIds": [],
+        "executedNegativeControlIds": []
+      },
+      {
+        "callableId": "evaluator.reference",
+        "role": "independent-evaluator",
+        "resolution": "planned",
+        "modulePath": "runner/src/phase9-mf-mk2-publication-verify.ts",
+        "exportName": "verifyPhase9MfMk2Publication",
+        "identity": null,
+        "producedOutputIds": [],
+        "invokedCheckIds": [],
+        "evaluatedCheckIds": ["check.reference"],
+        "executedNegativeControlIds": []
+      },
+      {
+        "callableId": "negative.reference",
+        "role": "negative-control",
+        "resolution": "planned",
+        "modulePath": "runner/src/gate5-negative-controls.ts",
+        "exportName": "applyPhase5NegativeControlMutation",
+        "identity": null,
+        "producedOutputIds": [],
+        "invokedCheckIds": [],
+        "evaluatedCheckIds": [],
+        "executedNegativeControlIds": ["negative.reference"]
+      },
+      {
+        "callableId": "producer.base",
+        "role": "producer",
+        "resolution": "planned",
+        "modulePath": "runner/src/phase9-dbt-publication.ts",
+        "exportName": "derivePhase9DbtPublication",
+        "identity": null,
+        "producedOutputIds": ["output.base"],
+        "invokedCheckIds": [],
+        "evaluatedCheckIds": [],
+        "executedNegativeControlIds": []
+      },
+      {
+        "callableId": "producer.reference",
+        "role": "producer",
+        "resolution": "planned",
+        "modulePath": "runner/src/phase9-mf-mk2-publication.ts",
+        "exportName": "derivePhase9MfMk2Publication",
+        "identity": null,
+        "producedOutputIds": ["output.reference"],
+        "invokedCheckIds": [],
+        "evaluatedCheckIds": [],
+        "executedNegativeControlIds": []
+      }
+    ]
+  },
+  "receipt": {
+    "schema": "phase10-execution-receipt-v1",
+    "receiptId": "phase10-test-static-receipt-v1",
+    "matrixId": "phase10-test-matrix-v1",
+    "protocolId": "phase10-test-static-v1",
+    "registryId": "phase10-test-static-callables-v1",
+    "packetId": "c0v-static-produce",
+    "terminalState": "pass",
+    "producedOutputIds": ["output.base", "output.reference"],
+    "executedCheckIds": ["check.base", "check.reference"],
+    "evaluatedCheckIds": ["check.reference"],
+    "executedNegativeControlIds": ["negative.reference"],
+    "boundDependencyPacketIds": []
+  }
+}

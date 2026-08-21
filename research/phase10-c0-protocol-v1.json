@@ -1,0 +1,1436 @@
+{
+  "schema": "phase10-c0-protocol-v1",
+  "protocolId": "phase10-c0-existing-byte-diagnostic-v1",
+  "frozenDate": "2026-08-21",
+  "adoptionCommit": "0c889c3423d87f9062555a058a320c4a5cce2bc5",
+  "state": {
+    "protocol": "frozen-before-phase10-c0-value-analysis",
+    "historicalPhase6PublishedResultsAlreadyKnown": true,
+    "phase10RankingRulesChosenFromValues": false,
+    "solverExecutionAuthorized": false,
+    "phase6EvidenceMutationAuthorized": false
+  },
+  "claimBoundary": {
+    "allowed": [
+      "independent re-derivation of the registered Phase 6 WP2 ladder comparisons from committed row bytes",
+      "a diagnostic ranking of persisted observable and error-source pairs under the rules frozen here",
+      "an explicit inventory of fields unavailable for a future target-specific observation operator"
+    ],
+    "forbidden": [
+      "a new solver run or replay",
+      "a numerical-convergence or accuracy claim beyond the registered ladder scope",
+      "a robust-habit claim from the all-neutral historical comparison sides",
+      "a target-facing laboratory score or quantitative-validation claim",
+      "rewriting, relabeling, or inheriting a verdict from Phase 6 evidence"
+    ]
+  },
+  "inputArtifacts": {
+    "rows": {
+      "path": "evidence/phase6-wp2-ladder/rows.jsonl",
+      "byteLength": 73873,
+      "sha256": "c4fa70f7d8351f998f4800ff580ddaad0eb09fd2e2f2df7f606ca717e789cd14",
+      "gitTextAttribute": "unset",
+      "role": "sole scientific-data input for independent re-derivation"
+    },
+    "historicalReport": {
+      "path": "evidence/phase6-wp2-ladder/report.json",
+      "byteLength": 43863,
+      "sha256": "fd20f7018dbe2e4a09634c076ff274a017dafe6600321a983836bb8ab1b1ebb7",
+      "gitTextAttribute": "unset",
+      "role": "cross-check only; no verdict or comparison value is inherited"
+    },
+    "authorities": [
+      "docs/plans/phase-6-wp2-ladder.md",
+      "app/scripts/phase6-wp2-ladder-eval.mjs",
+      "runner/test/phase6-wp2-ladder-eval.test.ts"
+    ],
+    "disallowedAuthority": {
+      "path": "app/scripts/phase6-wp2-ladder-independent.mjs",
+      "reason": "its post-execution top-level some aggregation is weaker than the registered all-spacings rule"
+    }
+  },
+  "rowSchema": {
+    "format": "UTF-8 JSON Lines with one object per non-empty line and a required terminal newline",
+    "unknownFields": "reject",
+    "missingFields": "reject",
+    "exactKeySetSortedLfSha256": "649cc1dadc340eebf11f413b9ff88be5b61b36fab59fa4c7d800f5fe121d1af1",
+    "fields": {
+      "rowId": "non-empty string",
+      "tempC": "finite number",
+      "fraction": "finite number",
+      "paramSet": "non-empty string",
+      "dxUm": "finite positive number",
+      "seedRadius": "positive safe integer",
+      "targetExtent": "positive safe integer",
+      "domainN": "positive safe integer",
+      "cflFill": "finite positive number",
+      "relaxTol": "finite positive number",
+      "surfacePolicy": "non-empty string",
+      "farField": "non-empty string",
+      "pressurePa": "finite positive number",
+      "noiseEpsilon": "finite non-negative number",
+      "rngSeed": "safe integer",
+      "domain": "non-empty string",
+      "divTol": "finite positive number",
+      "relaxMaxSweeps": "positive safe integer",
+      "seedThickness": "positive safe integer",
+      "sigmaInfinity": "finite number",
+      "stopReason": "non-empty string",
+      "cycles": "non-negative safe integer",
+      "totalSweeps": "non-negative safe integer",
+      "wallSeconds": "finite non-negative number",
+      "attachedCount": "non-negative safe integer",
+      "finalExtent": "non-negative safe integer",
+      "aspectRatio": "finite positive number",
+      "symmetryError": "finite non-negative number",
+      "engine": "non-empty string",
+      "peakRssBytes": "non-negative safe integer",
+      "gitHead": "lower-case 40-hex string present in provenanceRules.sanctionedHeads",
+      "startedIso": "non-empty ISO-8601 string",
+      "finishedIso": "non-empty ISO-8601 string",
+      "concurrency": "positive safe integer",
+      "host": "non-empty string",
+      "dispatcherCommand": "non-empty string"
+    },
+    "duplicateRowId": "artifact defect",
+    "malformedLine": "artifact defect",
+    "missingTerminalNewline": "artifact defect",
+    "nonFiniteNumber": "artifact defect"
+  },
+  "roster": {
+    "expectedRowCount": 80,
+    "expectedRowIds": {
+      "encoding": "rowId values sorted by Unicode code point, UTF-8 encoded, one per line, terminal LF",
+      "byteLength": 2152,
+      "sha256": "560b19895d883e77dee2a3ea889d45684aa9188ba247fc1f2fcbbb8a0c537593"
+    },
+    "expectedEnumeration": {
+      "checkPoints": [
+        {
+          "tempC": -31,
+          "fraction": 0.6,
+          "sigmaInfinity": 0.21204000000000003
+        },
+        {
+          "tempC": -13,
+          "fraction": 0.15,
+          "sigmaInfinity": 0.02025
+        },
+        {
+          "tempC": -6,
+          "fraction": 0.15,
+          "sigmaInfinity": 0.00906
+        },
+        {
+          "tempC": -27,
+          "fraction": 0.15,
+          "sigmaInfinity": 0.045375
+        }
+      ],
+      "armsAndParamSets": [
+        "M1",
+        "CAK"
+      ],
+      "domainSpacingGroups": [
+        {
+          "dxUm": 0.7,
+          "seedRadius": 8,
+          "targetExtent": 27,
+          "domainNs": [
+            48,
+            64,
+            80
+          ]
+        },
+        {
+          "dxUm": 0.35,
+          "seedRadius": 17,
+          "targetExtent": 54,
+          "domainNs": [
+            96,
+            112,
+            128
+          ]
+        }
+      ],
+      "domainDefaults": {
+        "cflFill": 0.1,
+        "relaxTol": 1e-9
+      },
+      "auxiliaryBase": {
+        "dxUm": 0.35,
+        "seedRadius": 17,
+        "targetExtent": 54,
+        "domainN": 96,
+        "cflFill": 0.1,
+        "relaxTol": 1e-9
+      },
+      "auxiliaryControls": [
+        {
+          "name": "cfl0.05",
+          "overrides": {
+            "cflFill": 0.05
+          }
+        },
+        {
+          "name": "relaxTol1e-10",
+          "overrides": {
+            "relaxTol": 1e-10
+          }
+        },
+        {
+          "name": "seed16",
+          "overrides": {
+            "seedRadius": 16
+          }
+        },
+        {
+          "name": "seed18",
+          "overrides": {
+            "seedRadius": 18
+          }
+        }
+      ],
+      "fixedEveryRow": {
+        "farField": "monopole-matched",
+        "surfacePolicy": "aggregate-hv-g1h1-v6",
+        "pressurePa": 101325,
+        "noiseEpsilon": 0,
+        "rngSeed": 1,
+        "domain": "hexPrism",
+        "divTol": 1e-7,
+        "relaxMaxSweeps": 200000
+      },
+      "derivedEveryRow": {
+        "seedThickness": "exact integer expression 2 * seedRadius + 1"
+      },
+      "rowIdTemplates": {
+        "domain": "dom-{dxUm}-n{domainN}@{tempC}C-f{fraction}-{arm}",
+        "auxiliary": "aux-{controlName}@{tempC}C-f{fraction}-{arm}"
+      },
+      "enumerationOrder": "domain spacing group, domainN, check point, arm; then auxiliary control, check point, arm",
+      "operandEchoRule": "each row must equal its independently enumerated tempC, fraction, sigmaInfinity, paramSet, dxUm, seedRadius, targetExtent, domainN, cflFill, relaxTol, fixedEveryRow block, and derived seedThickness exactly"
+    },
+    "domainRows": {
+      "count": 48,
+      "construction": "two registered spacing groups times three registered domain rungs times four registered check points times two registered arms"
+    },
+    "auxiliaryRows": {
+      "count": 32,
+      "construction": "four registered controls times four registered check points times two registered arms"
+    },
+    "unexpectedRow": "artifact defect",
+    "missingRow": "artifact defect"
+  },
+  "pairingGraph": {
+    "expectedPairingCount": 64,
+    "identity": {
+      "encoding": "kind|rowIdA|rowIdB values sorted by Unicode code point, UTF-8 encoded, one per line, terminal LF",
+      "byteLength": 3992,
+      "sha256": "90016bf4f3d3268f83409a760146ece6110626042c83e4e33a980b44d2a52216"
+    },
+    "domainComparisons": {
+      "count": 32,
+      "construction": "within each domainSpacingGroup, compare each domainN with the next domainN in listed order at every check point and arm; this yields sixteen comparisons per spacing and both successive increments"
+    },
+    "auxiliaryComparisons": {
+      "count": 32,
+      "construction": "each auxiliary row is compared with dom-0.35-n96 at the same check point and arm",
+      "gatesBothSpacings": true
+    },
+    "orientation": {
+      "rowIdA": "registered reference row: lower domain rung or base auxiliary row",
+      "rowIdB": "registered comparison row: next domain rung or varied auxiliary row"
+    }
+  },
+  "fieldPolicy": {
+    "identityFields": [
+      "rowId"
+    ],
+    "rankedNumericalObservables": [
+      "attachedCount",
+      "aspectRatio",
+      "finalExtent",
+      "symmetryError",
+      "cycles",
+      "totalSweeps"
+    ],
+    "separateCostDiagnostics": [
+      "wallSeconds",
+      "peakRssBytes"
+    ],
+    "categoricalDiagnostics": [
+      "stopReason"
+    ],
+    "registeredInputsForEchoAndGroupingOnly": [
+      "tempC",
+      "fraction",
+      "paramSet",
+      "dxUm",
+      "seedRadius",
+      "targetExtent",
+      "domainN",
+      "cflFill",
+      "relaxTol",
+      "surfacePolicy",
+      "farField",
+      "pressurePa",
+      "noiseEpsilon",
+      "rngSeed",
+      "domain",
+      "divTol",
+      "relaxMaxSweeps",
+      "seedThickness",
+      "sigmaInfinity"
+    ],
+    "provenanceOnly": [
+      "engine",
+      "gitHead",
+      "startedIso",
+      "finishedIso",
+      "concurrency",
+      "host",
+      "dispatcherCommand"
+    ],
+    "explicitlyForbidden": [
+      "occupancy or attached-cell masks",
+      "checkpoint or resume-state bytes",
+      "exact crystallographic spans or axis calipers",
+      "per-cycle or continuous trajectories",
+      "per-cycle attachment coordinates or orbit witnesses",
+      "vapor-field or surface-propensity arrays",
+      "physical-time history",
+      "kinetic, clipping, hole-fill, or vapor ledgers",
+      "relaxation residual, divergence, or smoother-drift histories",
+      "any future B-defined observation operator not independently derivable from the allowed fields"
+    ],
+    "forbiddenFieldHandling": "emit an explicit unavailable-field refusal; never estimate, impute, or infer it"
+  },
+  "comparisonRules": {
+    "registeredHabitClassifier": {
+      "invalid": "aspectRatio is not a finite number or is less than or equal to zero",
+      "plate": "valid aspectRatio less than or equal to the binary64 result of 1 / 1.5, which is 0.6666666666666666",
+      "column": "valid aspectRatio greater than or equal to 1.5",
+      "neutral": "valid aspectRatio strictly between 0.6666666666666666 and 1.5",
+      "invalidEffect": "criterion no-pass"
+    },
+    "registeredAttachedCountRule": {
+      "formula": "abs(rowIdB.attachedCount - rowIdA.attachedCount) / rowIdA.attachedCount",
+      "denominator": "rowIdA attachedCount",
+      "zeroDenominator": "artifact defect because a comparable reference attachedCount must be a positive safe integer",
+      "maximumInclusive": 0.005,
+      "passOperator": "relative difference less than or equal to maximumInclusive"
+    },
+    "comparability": {
+      "requiredStopReason": "size-target",
+      "attachedCount": "positive safe integer for both rows",
+      "operandEcho": "exact match to roster.expectedEnumeration",
+      "nonComparableEffect": "infrastructure no-pass"
+    },
+    "comparisonPass": "both rows are comparable, their registered habit classes are identical, and the registered attached-count rule passes",
+    "failureClasses": [
+      "criterion",
+      "infrastructure",
+      "mixed"
+    ],
+    "failureClassFold": "no failures yields null; one distinct class yields that class; more than one distinct class or any mixed input yields mixed",
+    "artifactDefectEffect": "forces every spacing and the overall verdict to no-pass"
+  },
+  "provenanceRules": {
+    "gitHeadFormat": "exactly forty lower-case hexadecimal characters",
+    "sanctionedHeads": [
+      "f59d18702301155c0c2e7eaecc3442e6cf117123",
+      "aa812952efbf5c4ef7152cc7595342092a51b000",
+      "3827b7763e870da6a81f8dc3430cfc4be5ab3ec6"
+    ],
+    "heavyRowIdPattern": "^dom-0\\.35-n(112|128)@",
+    "heavyRowRule": "a heavy row must not carry f59d18702301155c0c2e7eaecc3442e6cf117123",
+    "unexpectedOrMalformedHead": "artifact defect that forces every spacing and the overall verdict to no-pass"
+  },
+  "aggregationRules": {
+    "domainWithinSpacing": "every registered successive-domain comparison for that spacing passes",
+    "auxiliaryWithinSpacing": "every registered auxiliary comparison passes",
+    "spacingPass": "domainWithinSpacing and auxiliaryWithinSpacing and no artifact defect",
+    "overallPass": "every registered spacing passes",
+    "implementationRequirement": "use an all-spacings/every reduction; any-spacing/some aggregation is forbidden",
+    "mixedFixtures": [
+      {
+        "id": "nc-c0-fine-fail-coarse-pass",
+        "fineSpacing": "no-pass",
+        "coarseSpacing": "pass",
+        "expectedOverall": "no-pass"
+      },
+      {
+        "id": "nc-c0-coarse-fail-fine-pass",
+        "coarseSpacing": "no-pass",
+        "fineSpacing": "pass",
+        "expectedOverall": "no-pass"
+      }
+    ]
+  },
+  "diagnosticNormalization": {
+    "appliesTo": "ranked numerical observables and separate cost diagnostics only",
+    "formula": "scale = max(abs(rowIdA value), abs(rowIdB value)); normalizedAbsoluteDelta = scale === 0 ? 0 : abs(rowIdB value - rowIdA value) / scale",
+    "zeroDenominator": "both values zero yields exactly 0; one zero and one nonzero yields exactly 1",
+    "nonFiniteValue": "artifact defect; the pair receives no rank and the omission is reported",
+    "rounding": "no rounding before aggregation or ordering; display formatting is non-authoritative",
+    "stopReason": "categorical disagreement is 0 for equality and 1 for inequality and is reported outside the numerical ranking"
+  },
+  "errorSourceGroups": [
+    {
+      "id": "domain-coarse-spacing",
+      "pairingCount": 16
+    },
+    {
+      "id": "domain-fine-spacing",
+      "pairingCount": 16
+    },
+    {
+      "id": "cflFill",
+      "pairingCount": 8
+    },
+    {
+      "id": "relaxTol",
+      "pairingCount": 8
+    },
+    {
+      "id": "seedRadius",
+      "pairingCount": 16
+    }
+  ],
+  "pairingToErrorSourceMap": {
+    "authority": "normative and exhaustive for all 64 registered pairings",
+    "derivationBasis": "derive kind, control name, spacing, domain step, and varied operands independently from pairingGraph plus roster.expectedEnumeration; never trust a producer-emitted errorSourceId or a mutated row operand",
+    "matchCardinality": "exactly one rule must match each registered pairing",
+    "rules": [
+      {
+        "errorSourceId": "domain-coarse-spacing",
+        "pairingCount": 16,
+        "match": {
+          "kind": "domain",
+          "expectedDxUmA": 0.7,
+          "expectedDxUmB": 0.7,
+          "allowedDomainSteps": [
+            "48->64",
+            "64->80"
+          ]
+        }
+      },
+      {
+        "errorSourceId": "domain-fine-spacing",
+        "pairingCount": 16,
+        "match": {
+          "kind": "domain",
+          "expectedDxUmA": 0.35,
+          "expectedDxUmB": 0.35,
+          "allowedDomainSteps": [
+            "96->112",
+            "112->128"
+          ]
+        }
+      },
+      {
+        "errorSourceId": "cflFill",
+        "pairingCount": 8,
+        "match": {
+          "kind": "auxiliary",
+          "controlName": "cfl0.05",
+          "rowAExpectedCflFill": 0.1,
+          "rowBExpectedCflFill": 0.05,
+          "allOtherIndependentRosterOperands": "equal except derived values that depend on the varied operand"
+        }
+      },
+      {
+        "errorSourceId": "relaxTol",
+        "pairingCount": 8,
+        "match": {
+          "kind": "auxiliary",
+          "controlName": "relaxTol1e-10",
+          "rowAExpectedRelaxTol": 1e-9,
+          "rowBExpectedRelaxTol": 1e-10,
+          "allOtherIndependentRosterOperands": "equal except derived values that depend on the varied operand"
+        }
+      },
+      {
+        "errorSourceId": "seedRadius",
+        "pairingCount": 16,
+        "match": {
+          "kind": "auxiliary",
+          "rowAExpectedSeedRadius": 17,
+          "variants": [
+            {
+              "controlName": "seed16",
+              "rowBExpectedSeedRadius": 16,
+              "rowBExpectedSeedThickness": 33
+            },
+            {
+              "controlName": "seed18",
+              "rowBExpectedSeedRadius": 18,
+              "rowBExpectedSeedThickness": 37
+            }
+          ],
+          "allOtherIndependentRosterOperands": "equal; seedThickness is the registered derived value 2 * seedRadius + 1 and is not a second error source"
+        }
+      }
+    ],
+    "matchSemantics": "all fields in one rule's match object are conjunctive; variants are an exact disjunction of their complete objects; substring, prefix-only, producer-field, or first-match classification is forbidden",
+    "countInvariant": "the five disjoint buckets contain exactly 16, 16, 8, 8, and 16 pairings respectively and their union is exactly pairingGraph.identity",
+    "producerRequirement": "derive and emit errorSourceId using this map and refuse analysis if a pairing has zero or more than one match",
+    "independentEvaluatorRequirement": "ignore every emitted errorSourceId, independently reconstruct the registered pairing and expected operands, reapply all five rules, require exactly one match, and compare the derived ID with the emitted ID",
+    "rejection": "an unmapped pairing, multiply mapped pairing, bucket-count mismatch, or emitted/derived ID mismatch is an artifact defect; it forces every spacing and overall to no-pass and excludes that pairing from every numerical and cost rank"
+  },
+  "rankingRules": {
+    "unit": "one allowed numerical observable crossed with one errorSourceGroup",
+    "requiredFields": [
+      "observableId",
+      "errorSourceId",
+      "comparisonCount",
+      "definedCount",
+      "nonZeroComparisonCount",
+      "maxNormalizedAbsoluteDelta",
+      "maxWitnessPairId"
+    ],
+    "noDefinedComparisons": "when definedCount is zero, maxNormalizedAbsoluteDelta and maxWitnessPairId are null and the unit sorts after every unit with a finite maximum",
+    "maxWitnessTie": "choose the pairing identity that sorts first by Unicode code point among equal raw binary64 maxima",
+    "order": [
+      "units with finite maxNormalizedAbsoluteDelta before units with null maxNormalizedAbsoluteDelta",
+      "descending maxNormalizedAbsoluteDelta",
+      "descending nonZeroComparisonCount",
+      "ascending observableId by Unicode code point",
+      "ascending errorSourceId by Unicode code point"
+    ],
+    "ties": "the complete order above is authoritative; no wall time, report order, or rounded display value breaks a tie",
+    "costSeparation": "wallSeconds and peakRssBytes use the same normalization and order in a separately labeled execution-cost table and never enter the numerical-observable rank",
+    "costLimit": "cost diagnostics retain host, engine, gitHead, and concurrency and cannot establish numerical convergence",
+    "habitLimit": "habit-class mismatch counts are reported only as the historical registered criterion; neutral-only sides do not become a robust-habit rank"
+  },
+  "artifactSchemaContracts": {
+    "conformance": {
+      "unknownFields": "reject at every object depth",
+      "optionalFields": false,
+      "numbers": "finite JSON numbers only; integer contracts additionally require safe integers",
+      "jsonEncoding": "UTF-8, two-space canonical JSON, terminal LF",
+      "jsonlEncoding": "one compact exact-key JSON object per LF-terminated line; blank lines and CR bytes reject",
+      "arrayRule": "arrays described as sorted unique are ordered by Unicode code point and contain no duplicates",
+      "nullRule": "null is forbidden except where the applicable schema names it explicitly"
+    },
+    "definitions": {
+      "artifactIdentity": {
+        "exactFields": [
+          "path",
+          "byteLength",
+          "sha256"
+        ],
+        "fieldContracts": {
+          "path": "non-empty normalized repository-relative path",
+          "byteLength": "non-negative safe integer",
+          "sha256": "lower-case 64-hex SHA-256 of the exact bytes"
+        }
+      },
+      "rowSnapshot": {
+        "exactFields": [
+          "rowId",
+          "tempC",
+          "fraction",
+          "paramSet",
+          "dxUm",
+          "seedRadius",
+          "targetExtent",
+          "domainN",
+          "cflFill",
+          "relaxTol",
+          "surfacePolicy",
+          "farField",
+          "pressurePa",
+          "noiseEpsilon",
+          "rngSeed",
+          "domain",
+          "divTol",
+          "relaxMaxSweeps",
+          "seedThickness",
+          "sigmaInfinity",
+          "stopReason",
+          "cycles",
+          "totalSweeps",
+          "wallSeconds",
+          "attachedCount",
+          "finalExtent",
+          "aspectRatio",
+          "symmetryError",
+          "engine",
+          "peakRssBytes",
+          "gitHead",
+          "startedIso",
+          "finishedIso",
+          "concurrency",
+          "host",
+          "dispatcherCommand"
+        ],
+        "fieldContracts": "exactly rowSchema.fields; values are copied without rounding, coercion, defaulting, or omission",
+        "invariants": [
+          "rowId equals the enclosing rowIdA or rowIdB as applicable",
+          "the snapshot contains no field from fieldPolicy.explicitlyForbidden"
+        ]
+      },
+      "failureReason": {
+        "exactFields": [
+          "code",
+          "failureClass",
+          "detail"
+        ],
+        "fieldContracts": {
+          "code": "non-empty stable machine identifier",
+          "failureClass": "criterion | infrastructure | mixed",
+          "detail": "non-empty human-readable explanation"
+        }
+      },
+      "normalizedDiagnostic": {
+        "exactFields": [
+          "category",
+          "fieldId",
+          "valueA",
+          "valueB",
+          "normalizedAbsoluteDelta",
+          "availability",
+          "unavailableReason"
+        ],
+        "fieldContracts": {
+          "category": "numerical-observable | execution-cost",
+          "fieldId": "a field registered for the named category",
+          "valueA": "finite number or null",
+          "valueB": "finite number or null",
+          "normalizedAbsoluteDelta": "finite non-negative number or null",
+          "availability": "defined | unavailable",
+          "unavailableReason": "non-empty string or null"
+        },
+        "invariants": [
+          "defined requires non-null valueA, valueB, and normalizedAbsoluteDelta and null unavailableReason",
+          "unavailable requires null normalizedAbsoluteDelta and non-null unavailableReason",
+          "a defined delta is computed exactly by diagnosticNormalization.formula"
+        ]
+      },
+      "categoricalDiagnostic": {
+        "exactFields": [
+          "fieldId",
+          "valueA",
+          "valueB",
+          "disagreement",
+          "availability",
+          "unavailableReason"
+        ],
+        "fieldContracts": {
+          "fieldId": "stopReason",
+          "valueA": "string or null",
+          "valueB": "string or null",
+          "disagreement": "0 | 1 | null",
+          "availability": "defined | unavailable",
+          "unavailableReason": "non-empty string or null"
+        },
+        "invariants": [
+          "defined requires both values and disagreement and null unavailableReason",
+          "unavailable requires null disagreement and non-null unavailableReason",
+          "defined disagreement is 0 exactly when valueA equals valueB and 1 otherwise"
+        ]
+      },
+      "rankingEntry": {
+        "exactFields": [
+          "rank",
+          "observableId",
+          "errorSourceId",
+          "comparisonCount",
+          "definedCount",
+          "nonZeroComparisonCount",
+          "maxNormalizedAbsoluteDelta",
+          "maxWitnessPairId"
+        ],
+        "fieldContracts": {
+          "rank": "positive safe integer",
+          "observableId": "registered numerical-observable or execution-cost field ID",
+          "errorSourceId": "registered error-source group ID",
+          "comparisonCount": "non-negative safe integer",
+          "definedCount": "non-negative safe integer",
+          "nonZeroComparisonCount": "non-negative safe integer",
+          "maxNormalizedAbsoluteDelta": "finite non-negative number or null",
+          "maxWitnessPairId": "pairing identity string or null"
+        },
+        "invariants": [
+          "definedCount and nonZeroComparisonCount do not exceed comparisonCount",
+          "both nullable maximum fields are null exactly when definedCount is zero",
+          "rank and witness selection follow rankingRules without display rounding"
+        ]
+      },
+      "spacingResult": {
+        "exactFields": [
+          "dxUm",
+          "domainComparisonCount",
+          "domainPass",
+          "auxiliaryComparisonCount",
+          "auxiliaryPass",
+          "verdict",
+          "noPassClass",
+          "reasons"
+        ],
+        "fieldContracts": {
+          "dxUm": "0.7 | 0.35",
+          "domainComparisonCount": "safe integer equal to 16",
+          "domainPass": "boolean",
+          "auxiliaryComparisonCount": "safe integer equal to 32",
+          "auxiliaryPass": "boolean",
+          "verdict": "pass | no-pass",
+          "noPassClass": "criterion | infrastructure | mixed | null",
+          "reasons": "string array"
+        },
+        "invariants": [
+          "verdict is pass exactly when domainPass and auxiliaryPass are true and no artifact defect exists",
+          "noPassClass is null and reasons is empty exactly when verdict is pass"
+        ]
+      },
+      "executionProvenance": {
+        "exactFields": [
+          "runtime",
+          "command",
+          "cwd",
+          "gitHead",
+          "startedIso",
+          "finishedIso",
+          "processConcurrency"
+        ],
+        "fieldContracts": {
+          "runtime": "Node v24.13.1",
+          "command": "non-empty exact argv rendering",
+          "cwd": "non-empty normalized absolute path",
+          "gitHead": "lower-case 40-hex commit",
+          "startedIso": "ISO-8601 string",
+          "finishedIso": "ISO-8601 string",
+          "processConcurrency": "positive safe integer"
+        }
+      }
+    },
+    "schemas": {
+      "phase10-c0-comparison-row-v1": {
+        "format": "jsonl-row",
+        "exactTopLevelFields": [
+          "schema",
+          "comparisonId",
+          "kind",
+          "errorSourceId",
+          "domainSpacingDxUm",
+          "rowIdA",
+          "rowIdB",
+          "rowA",
+          "rowB",
+          "habitClassA",
+          "habitClassB",
+          "attachedCountRelativeDifference",
+          "habitCriterionPass",
+          "attachedCountCriterionPass",
+          "comparisonVerdict",
+          "failureClass",
+          "failureReasons",
+          "normalizedDiagnostics",
+          "categoricalDiagnostics"
+        ],
+        "fieldContracts": {
+          "schema": "fixed enum discriminator",
+          "comparisonId": "non-empty pairing identity string",
+          "kind": "registered enum",
+          "errorSourceId": "registered enum",
+          "domainSpacingDxUm": "registered finite spacing or null",
+          "rowIdA": "non-empty expected row ID",
+          "rowIdB": "non-empty expected row ID",
+          "rowA": "definitions.rowSnapshot or null",
+          "rowB": "definitions.rowSnapshot or null",
+          "habitClassA": "registered habit-class enum or null",
+          "habitClassB": "registered habit-class enum or null",
+          "attachedCountRelativeDifference": "finite non-negative number or null",
+          "habitCriterionPass": "boolean or null",
+          "attachedCountCriterionPass": "boolean or null",
+          "comparisonVerdict": "registered enum",
+          "failureClass": "registered enum or null",
+          "failureReasons": "definitions.failureReason array",
+          "normalizedDiagnostics": "definitions.normalizedDiagnostic array",
+          "categoricalDiagnostics": "definitions.categoricalDiagnostic array"
+        },
+        "nestedContracts": {
+          "rowA": "definitions.rowSnapshot or null",
+          "rowB": "definitions.rowSnapshot or null",
+          "failureReasonsItems": "definitions.failureReason",
+          "normalizedDiagnosticsItems": "definitions.normalizedDiagnostic",
+          "categoricalDiagnosticsItems": "definitions.categoricalDiagnostic"
+        },
+        "enums": {
+          "schema": [
+            "phase10-c0-comparison-row-v1"
+          ],
+          "kind": [
+            "domain",
+            "auxiliary"
+          ],
+          "errorSourceId": [
+            "domain-coarse-spacing",
+            "domain-fine-spacing",
+            "cflFill",
+            "relaxTol",
+            "seedRadius"
+          ],
+          "domainSpacingDxUm": [
+            0.7,
+            0.35,
+            null
+          ],
+          "habitClassAAndB": [
+            "plate",
+            "neutral",
+            "column",
+            "invalid",
+            null
+          ],
+          "comparisonVerdict": [
+            "pass",
+            "no-pass"
+          ],
+          "failureClass": [
+            "criterion",
+            "infrastructure",
+            "mixed",
+            null
+          ]
+        },
+        "nullRules": [
+          "domainSpacingDxUm is null exactly for auxiliary comparisons",
+          "rowA or rowB is null only when the named input row is absent, duplicated, malformed, or violates the exact row schema",
+          "a habit class is null exactly when its row snapshot is null; a present non-classifiable aspectRatio uses invalid",
+          "attachedCountRelativeDifference and either criterion boolean are null exactly when infrastructure prevents evaluation",
+          "failureClass is null exactly for pass",
+          "diagnostic-item nulls obey their nested availability contract"
+        ],
+        "invariants": [
+          "exactly 64 records exist and their sorted comparisonId roster matches pairingGraph.identity",
+          "comparisonId is kind|rowIdA|rowIdB",
+          "errorSourceId equals the unique independently derived pairingToErrorSourceMap match; zero matches, multiple matches, or disagreement rejects the artifact",
+          "rowIdA and rowIdB match pairingGraph.orientation and their non-null snapshots",
+          "domain rows use their registered dxUm and auxiliary rows use null domainSpacingDxUm because they gate both spacings",
+          "normalizedDiagnostics contains exactly the six ranked numerical observables and two execution-cost fields, each once",
+          "categoricalDiagnostics contains exactly one stopReason item",
+          "comparisonVerdict and failureClass are recomputed under comparisonRules and no producer-supplied verdict is authority",
+          "any global artifact defect forces no-pass and contributes an infrastructure or folded mixed failure"
+        ]
+      },
+      "phase10-c0-analysis-v1": {
+        "format": "json",
+        "exactTopLevelFields": [
+          "schema",
+          "protocolId",
+          "rowsArtifact",
+          "historicalReportArtifact",
+          "comparisonsArtifact",
+          "roster",
+          "artifactDefects",
+          "spacingResults",
+          "overallVerdict",
+          "overallNoPassClass",
+          "numericalRanking",
+          "costRanking",
+          "categoricalDiagnostics",
+          "unavailableGapIds",
+          "historicalReportCrossCheck",
+          "solverExecuted",
+          "execution"
+        ],
+        "fieldContracts": {
+          "schema": "fixed enum discriminator",
+          "protocolId": "phase10-c0-existing-byte-diagnostic-v1",
+          "rowsArtifact": "definitions.artifactIdentity",
+          "historicalReportArtifact": "definitions.artifactIdentity",
+          "comparisonsArtifact": "definitions.artifactIdentity",
+          "roster": "exact roster object",
+          "artifactDefects": "artifact-defect object array",
+          "spacingResults": "definitions.spacingResult array",
+          "overallVerdict": "registered enum",
+          "overallNoPassClass": "registered enum or null",
+          "numericalRanking": "definitions.rankingEntry array",
+          "costRanking": "definitions.rankingEntry array",
+          "categoricalDiagnostics": "categorical-summary object array",
+          "unavailableGapIds": "sorted unique string array",
+          "historicalReportCrossCheck": "exact cross-check object",
+          "solverExecuted": "boolean fixed false",
+          "execution": "definitions.executionProvenance"
+        },
+        "nestedContracts": {
+          "rowsArtifact": "definitions.artifactIdentity",
+          "historicalReportArtifact": "definitions.artifactIdentity",
+          "comparisonsArtifact": "definitions.artifactIdentity",
+          "roster": {
+            "exactFields": [
+              "expectedRowCount",
+              "presentExpectedRowCount",
+              "missingRowIds",
+              "unexpectedRowIds",
+              "duplicateRowIds",
+              "expectedPairingCount",
+              "emittedPairingCount",
+              "rowIdRosterSha256",
+              "pairingRosterSha256"
+            ],
+            "fieldContracts": {
+              "expectedRowCount": "safe integer equal to 80",
+              "presentExpectedRowCount": "non-negative safe integer not exceeding 80",
+              "missingRowIds": "sorted unique expected row ID array",
+              "unexpectedRowIds": "sorted unique unexpected row ID array",
+              "duplicateRowIds": "sorted unique duplicated row ID array",
+              "expectedPairingCount": "safe integer equal to 64",
+              "emittedPairingCount": "non-negative safe integer not exceeding 64",
+              "rowIdRosterSha256": "lower-case 64-hex digest",
+              "pairingRosterSha256": "lower-case 64-hex digest"
+            }
+          },
+          "artifactDefectItems": {
+            "exactFields": [
+              "code",
+              "scope",
+              "rowId",
+              "lineNumber",
+              "detail"
+            ],
+            "fieldContracts": {
+              "code": "non-empty stable machine identifier",
+              "scope": "registered enum",
+              "rowId": "string or null",
+              "lineNumber": "positive safe integer or null",
+              "detail": "non-empty string"
+            }
+          },
+          "spacingResultsItems": "definitions.spacingResult",
+          "numericalRankingItems": "definitions.rankingEntry",
+          "costRankingItems": "definitions.rankingEntry",
+          "categoricalDiagnosticsItems": {
+            "exactFields": [
+              "fieldId",
+              "comparisonCount",
+              "definedCount",
+              "disagreementCount",
+              "maxDisagreement",
+              "witnessPairId"
+            ],
+            "fieldContracts": {
+              "fieldId": "stopReason",
+              "comparisonCount": "safe integer equal to 64",
+              "definedCount": "non-negative safe integer not exceeding 64",
+              "disagreementCount": "non-negative safe integer not exceeding definedCount",
+              "maxDisagreement": "0 | 1 | null",
+              "witnessPairId": "pairing identity string or null"
+            }
+          },
+          "historicalReportCrossCheck": {
+            "exactFields": [
+              "status",
+              "differences"
+            ],
+            "fieldContracts": {
+              "status": "registered enum",
+              "differences": "string array"
+            }
+          },
+          "execution": "definitions.executionProvenance"
+        },
+        "enums": {
+          "schema": [
+            "phase10-c0-analysis-v1"
+          ],
+          "overallVerdict": [
+            "pass",
+            "no-pass"
+          ],
+          "overallNoPassClass": [
+            "criterion",
+            "infrastructure",
+            "mixed",
+            null
+          ],
+          "artifactDefectScope": [
+            "input",
+            "row",
+            "pairing",
+            "provenance",
+            "output"
+          ],
+          "historicalReportCrossCheckStatus": [
+            "agree",
+            "disagree",
+            "unavailable"
+          ]
+        },
+        "nullRules": [
+          "overallNoPassClass is null exactly when overallVerdict is pass",
+          "artifactDefect rowId and lineNumber are null only when the defect is not row- or line-specific",
+          "categorical witnessPairId is null exactly when definedCount is zero or disagreementCount is zero",
+          "ranking-entry nulls obey definitions.rankingEntry"
+        ],
+        "invariants": [
+          "rowsArtifact and historicalReportArtifact equal inputArtifacts byte identities",
+          "roster expected counts are 80 and 64 and roster hashes equal the frozen roster and pairing hashes",
+          "comparisonsArtifact validates as exactly 64 phase10-c0-comparison-row-v1 records",
+          "spacingResults contains exactly dxUm 0.7 then 0.35 and overallVerdict uses every-spacing aggregation",
+          "numericalRanking contains exactly six observables crossed with five error-source groups",
+          "costRanking contains exactly two cost fields crossed with five error-source groups and never affects numericalRanking",
+          "both rankings use only independently re-derived unique pairingToErrorSourceMap assignments and reject any bucket-count mismatch",
+          "categoricalDiagnostics contains exactly stopReason",
+          "unavailableGapIds equals the gap IDs in phase10-c0-gap-report-v1",
+          "solverExecuted is false",
+          "historicalReportCrossCheck never supplies the authoritative verdict"
+        ]
+      },
+      "phase10-c0-gap-report-v1": {
+        "format": "json",
+        "exactTopLevelFields": [
+          "schema",
+          "protocolId",
+          "rowsArtifact",
+          "persistedFieldIds",
+          "independentlyDerivableFieldIds",
+          "gaps",
+          "targetObservationOperatorStatus",
+          "claimBoundary"
+        ],
+        "fieldContracts": {
+          "schema": "fixed enum discriminator",
+          "protocolId": "phase10-c0-existing-byte-diagnostic-v1",
+          "rowsArtifact": "definitions.artifactIdentity",
+          "persistedFieldIds": "sorted unique string array",
+          "independentlyDerivableFieldIds": "sorted unique string array",
+          "gaps": "gap-item object array",
+          "targetObservationOperatorStatus": "registered enum",
+          "claimBoundary": "registered enum"
+        },
+        "nestedContracts": {
+          "rowsArtifact": "definitions.artifactIdentity",
+          "gapItems": {
+            "exactFields": [
+              "gapId",
+              "fieldDescription",
+              "availability",
+              "reasonCode",
+              "requiredSource",
+              "disposition"
+            ],
+            "fieldContracts": {
+              "gapId": "non-empty stable identifier",
+              "fieldDescription": "non-empty string",
+              "availability": "registered enum",
+              "reasonCode": "registered enum",
+              "requiredSource": "non-empty description of absent source bytes or future operator",
+              "disposition": "registered enum"
+            }
+          }
+        },
+        "enums": {
+          "schema": [
+            "phase10-c0-gap-report-v1"
+          ],
+          "gapAvailability": [
+            "unavailable"
+          ],
+          "gapReasonCode": [
+            "absent-from-persisted-rows",
+            "forbidden-inference",
+            "requires-future-observation-operator"
+          ],
+          "gapDisposition": [
+            "explicit-refusal"
+          ],
+          "targetObservationOperatorStatus": [
+            "not-defined-in-selected-package"
+          ],
+          "claimBoundary": [
+            "inventory-only"
+          ]
+        },
+        "nullRules": [
+          "no field is nullable"
+        ],
+        "invariants": [
+          "persistedFieldIds is the sorted exact 36-key rowSchema.fields roster",
+          "independentlyDerivableFieldIds is the sorted unique roster attachedCountCriterionPass, attachedCountRelativeDifference, comparisonVerdict, failureClass, habitClass, habitCriterionPass, normalizedAbsoluteDelta, stopReasonDisagreement",
+          "gaps is sorted by gapId and contains exactly attachment-event-orbit, checkpoint-state, crystallographic-calipers, future-target-observation, kinetic-ledgers, occupancy-mask, physical-time-history, relaxation-histories, trajectory, vapor-surface-fields",
+          "each gap corresponds one-to-one with fieldPolicy.explicitlyForbidden and supplies no estimate, imputation, inferred value, or target score"
+        ]
+      },
+      "phase10-c0-historical-limit-v1": {
+        "format": "json",
+        "exactTopLevelFields": [
+          "schema",
+          "protocolId",
+          "historicalReportArtifact",
+          "historicalScript",
+          "issue",
+          "disposition",
+          "historicalReportUse",
+          "phase6EvidenceMutationAuthorized",
+          "claimLimits"
+        ],
+        "fieldContracts": {
+          "schema": "fixed enum discriminator",
+          "protocolId": "phase10-c0-existing-byte-diagnostic-v1",
+          "historicalReportArtifact": "definitions.artifactIdentity",
+          "historicalScript": "exact historical-script identity object",
+          "issue": "exact aggregation-issue object",
+          "disposition": "registered enum",
+          "historicalReportUse": "registered enum",
+          "phase6EvidenceMutationAuthorized": "boolean fixed false",
+          "claimLimits": "non-empty string array"
+        },
+        "nestedContracts": {
+          "historicalReportArtifact": "definitions.artifactIdentity",
+          "historicalScript": {
+            "exactFields": [
+              "path",
+              "gitCommit",
+              "byteLength",
+              "sha256"
+            ],
+            "fieldContracts": {
+              "path": "app/scripts/phase6-wp2-ladder-independent.mjs",
+              "gitCommit": "adoptionCommit",
+              "byteLength": "non-negative safe integer",
+              "sha256": "lower-case 64-hex SHA-256 of exact committed bytes"
+            }
+          },
+          "issue": {
+            "exactFields": [
+              "issueId",
+              "location",
+              "observedReduction",
+              "authoritativeReduction",
+              "consequence"
+            ],
+            "fieldContracts": {
+              "issueId": "c0-historical-any-spacing-aggregation",
+              "location": "non-empty source location",
+              "observedReduction": "registered enum",
+              "authoritativeReduction": "registered enum",
+              "consequence": "non-empty string"
+            }
+          }
+        },
+        "enums": {
+          "schema": [
+            "phase10-c0-historical-limit-v1"
+          ],
+          "observedReduction": [
+            "any-spacing-some"
+          ],
+          "authoritativeReduction": [
+            "all-spacings-every"
+          ],
+          "disposition": [
+            "excluded-as-authority"
+          ],
+          "historicalReportUse": [
+            "cross-check-only"
+          ]
+        },
+        "nullRules": [
+          "no field is nullable"
+        ],
+        "invariants": [
+          "historicalScript.path is app/scripts/phase6-wp2-ladder-independent.mjs at adoptionCommit",
+          "issue identifies its post-execution top-level some reduction and the registered every-spacing replacement",
+          "phase6EvidenceMutationAuthorized is false",
+          "claimLimits states that neither the historical script nor report can supply a Phase 10 verdict, accuracy claim, habit claim, or validation claim"
+        ]
+      },
+      "phase10-c0-report-v1": {
+        "format": "json",
+        "exactTopLevelFields": [
+          "schema",
+          "protocolId",
+          "analysisArtifact",
+          "comparisonsArtifact",
+          "gapArtifact",
+          "historicalLimitArtifact",
+          "comparisonBreakdown",
+          "gapSummary",
+          "historicalLimitSummary",
+          "scientificDisposition",
+          "claimLimits",
+          "publishedIso"
+        ],
+        "fieldContracts": {
+          "schema": "fixed enum discriminator",
+          "protocolId": "phase10-c0-existing-byte-diagnostic-v1",
+          "analysisArtifact": "definitions.artifactIdentity",
+          "comparisonsArtifact": "definitions.artifactIdentity",
+          "gapArtifact": "definitions.artifactIdentity",
+          "historicalLimitArtifact": "definitions.artifactIdentity",
+          "comparisonBreakdown": "exact comparison-breakdown object",
+          "gapSummary": "exact gap-summary object",
+          "historicalLimitSummary": "exact historical-limit-summary object",
+          "scientificDisposition": "exact scientific-disposition object",
+          "claimLimits": "non-empty string array",
+          "publishedIso": "ISO-8601 string"
+        },
+        "nestedContracts": {
+          "analysisArtifact": "definitions.artifactIdentity",
+          "comparisonsArtifact": "definitions.artifactIdentity",
+          "gapArtifact": "definitions.artifactIdentity",
+          "historicalLimitArtifact": "definitions.artifactIdentity",
+          "comparisonBreakdown": {
+            "exactFields": [
+              "expectedRowCount",
+              "presentExpectedRowCount",
+              "expectedPairingCount",
+              "emittedPairingCount",
+              "spacingResults",
+              "overallVerdict",
+              "overallNoPassClass"
+            ],
+            "fieldContracts": {
+              "expectedRowCount": "safe integer equal to 80",
+              "presentExpectedRowCount": "non-negative safe integer not exceeding 80",
+              "expectedPairingCount": "safe integer equal to 64",
+              "emittedPairingCount": "non-negative safe integer not exceeding 64",
+              "spacingResults": "definitions.spacingResult array",
+              "overallVerdict": "registered enum",
+              "overallNoPassClass": "registered enum or null"
+            },
+            "spacingResultsItems": "definitions.spacingResult"
+          },
+          "gapSummary": {
+            "exactFields": [
+              "gapCount",
+              "gapIds",
+              "targetObservationOperatorStatus"
+            ],
+            "fieldContracts": {
+              "gapCount": "safe integer equal to 10",
+              "gapIds": "sorted unique gap ID array",
+              "targetObservationOperatorStatus": "not-defined-in-selected-package"
+            }
+          },
+          "historicalLimitSummary": {
+            "exactFields": [
+              "disposition",
+              "historicalReportUse",
+              "observedReduction",
+              "authoritativeReduction"
+            ],
+            "fieldContracts": {
+              "disposition": "excluded-as-authority",
+              "historicalReportUse": "cross-check-only",
+              "observedReduction": "any-spacing-some",
+              "authoritativeReduction": "all-spacings-every"
+            }
+          },
+          "scientificDisposition": {
+            "exactFields": [
+              "status",
+              "solverExecuted",
+              "solverAccuracyPass",
+              "robustHabitClaim",
+              "targetScoreProduced",
+              "quantitativeValidationClaim"
+            ],
+            "fieldContracts": {
+              "status": "registered enum",
+              "solverExecuted": "boolean fixed false",
+              "solverAccuracyPass": "boolean fixed false",
+              "robustHabitClaim": "boolean fixed false",
+              "targetScoreProduced": "boolean fixed false",
+              "quantitativeValidationClaim": "boolean fixed false"
+            }
+          }
+        },
+        "enums": {
+          "schema": [
+            "phase10-c0-report-v1"
+          ],
+          "overallVerdict": [
+            "pass",
+            "no-pass"
+          ],
+          "overallNoPassClass": [
+            "criterion",
+            "infrastructure",
+            "mixed",
+            null
+          ],
+          "scientificDispositionStatus": [
+            "diagnostic-complete",
+            "artifact-failure"
+          ]
+        },
+        "nullRules": [
+          "comparisonBreakdown.overallNoPassClass is null exactly when overallVerdict is pass",
+          "no other field is nullable"
+        ],
+        "invariants": [
+          "all artifact identities match the exact published bytes and validate under their named C0 schemas",
+          "comparisonBreakdown is copied from and independently checked against analysisArtifact and comparisonsArtifact",
+          "gapSummary is copied from and independently checked against gapArtifact",
+          "historicalLimitSummary is copied from and independently checked against historicalLimitArtifact",
+          "scientificDisposition solverExecuted, solverAccuracyPass, robustHabitClaim, targetScoreProduced, and quantitativeValidationClaim are all false",
+          "the report never labels C0 itself PASS and never upgrades the historical ladder verdict into numerical accuracy or validation"
+        ]
+      }
+    },
+    "independentVerificationSchema": {
+      "schemaId": "phase10-independent-verification-v1",
+      "format": "json",
+      "exactTopLevelFields": [
+        "schema",
+        "verificationId",
+        "matrixId",
+        "protocolId",
+        "registryId",
+        "packetId",
+        "terminalState",
+        "verifiedArtifacts",
+        "checkResults",
+        "executedNegativeControlIds",
+        "boundDependencyPacketIds",
+        "execution",
+        "aggregateVerdict",
+        "limits"
+      ],
+      "fieldContracts": {
+        "schema": "phase10-independent-verification-v1",
+        "verificationId": "stable unique non-empty verification ID",
+        "matrixId": "bound obligation matrix ID",
+        "protocolId": "bound c0-publish packet protocol ID",
+        "registryId": "bound callable registry ID",
+        "packetId": "registered enum fixed c0-publish",
+        "terminalState": "registered enum fixed complete",
+        "verifiedArtifacts": "verified-artifact object array",
+        "checkResults": "check-result object array",
+        "executedNegativeControlIds": "sorted unique negative-control ID array",
+        "boundDependencyPacketIds": "sorted unique dependency packet ID array",
+        "execution": "definitions.executionProvenance",
+        "aggregateVerdict": "registered enum",
+        "limits": "non-empty string array"
+      },
+      "nestedContracts": {
+        "verifiedArtifactItems": {
+          "exactFields": [
+            "outputId",
+            "path",
+            "byteLength",
+            "sha256"
+          ],
+          "fieldContracts": {
+            "outputId": "registered output ID",
+            "path": "non-empty normalized repository-relative path",
+            "byteLength": "non-negative safe integer",
+            "sha256": "lower-case 64-hex SHA-256 of exact bytes"
+          }
+        },
+        "checkResultItems": {
+          "exactFields": [
+            "checkId",
+            "verdict",
+            "reasons",
+            "witnessOutputIds"
+          ],
+          "fieldContracts": {
+            "checkId": "registered c0-publish check ID",
+            "verdict": "pass | fail | refusal",
+            "reasons": "string array",
+            "witnessOutputIds": "sorted unique registered output ID array"
+          }
+        },
+        "execution": "definitions.executionProvenance"
+      },
+      "enums": {
+        "schema": [
+          "phase10-independent-verification-v1"
+        ],
+        "packetId": [
+          "c0-publish"
+        ],
+        "terminalState": [
+          "complete"
+        ],
+        "checkVerdictAndAggregateVerdict": [
+          "pass",
+          "fail",
+          "refusal"
+        ]
+      },
+      "nullRules": [
+        "no field is nullable"
+      ],
+      "invariants": [
+        "verifiedArtifacts is sorted by outputId and contains exactly out-c0-analysis, out-c0-artifact-index, out-c0-comparisons, out-c0-gaps, out-c0-historical-limit, and out-c0-report; the verification artifact does not hash itself",
+        "out-c0-artifact-index indexes the five C0 content outputs and excludes itself and out-c0-verification-receipt, avoiding a reciprocal hash cycle; repository evidence integrity separately pins the completed index and verification receipt",
+        "checkResults is sorted by checkId and contains exactly chk-c0-publish-artifact-graph, chk-c0-publish-breakdown, chk-c0-publish-gap-list, chk-c0-publish-historical-limit, and chk-c0-publish-no-habit-claim",
+        "aggregateVerdict is pass exactly when every check verdict is pass; any fail or refusal prevents pass",
+        "executedNegativeControlIds is the empty array because c0-publish registers none; C0 derive controls remain bound in its own execution receipt",
+        "boundDependencyPacketIds is exactly the sorted array a-p, c0-derive",
+        "matrixId, protocolId, registryId, packetId, check IDs, output IDs, and dependency IDs are rechecked against committed registration bytes",
+        "the evaluator ignores producer verdict fields and re-derives all five checks from the verified artifact bytes",
+        "limits explicitly records that no solver execution, absolute-accuracy reference, target score, or validation claim was checked"
+      ]
+    }
+  },
+  "requiredOutputs": {
+    "producerReport": [
+      "protocol and input byte identities",
+      "row and pairing inventories",
+      "all artifact defects",
+      "all 64 comparison records",
+      "per-spacing and overall verdicts with failure classes",
+      "numerical-observable ranking",
+      "separate execution-cost ranking",
+      "categorical diagnostics",
+      "explicit unavailable-field refusals and target-field gaps",
+      "execution provenance"
+    ],
+    "independentVerification": "reparse the exact committed rows, ignore producer verdict and errorSourceId fields, independently recompute inventories, the unique pairing-to-error-source mapping, comparisons, aggregation, normalization, ranking, and refusals, reject unmapped or multiply mapped pairings, and publish pass, fail, or artifact refusal",
+    "scientificDisposition": "C0 is diagnostic only and has no solver-accuracy PASS label"
+  },
+  "negativeControls": [
+    {
+      "id": "nc-c0-missing-row",
+      "attack": "remove one expected row",
+      "expected": "named missing-row defect and overall no-pass"
+    },
+    {
+      "id": "nc-c0-duplicate-or-truncated",
+      "attack": "duplicate one rowId or remove the terminal newline/complete final object",
+      "expected": "named artifact defect and overall no-pass"
+    },
+    {
+      "id": "nc-c0-operand-echo",
+      "attack": "change one frozen operand without changing rowId",
+      "expected": "named echo defect and overall no-pass"
+    },
+    {
+      "id": "nc-c0-fine-fail-coarse-pass",
+      "attack": "make only the fine-spacing verdict no-pass",
+      "expected": "overall no-pass"
+    },
+    {
+      "id": "nc-c0-coarse-fail-fine-pass",
+      "attack": "make only the coarse-spacing verdict no-pass",
+      "expected": "overall no-pass"
+    },
+    {
+      "id": "nc-c0-forbidden-field",
+      "attack": "request or claim one field absent from committed rows",
+      "expected": "explicit unavailable-field refusal"
+    },
+    {
+      "id": "nc-c0-forged-producer-verdict",
+      "attack": "change a producer verdict or rank without changing raw rows",
+      "expected": "independent evaluator disagreement"
+    }
+  ],
+  "negativeControlExecutionRule": "each control must execute its named mutation, move an independently observed witness or byte hash, leave the clean capture unchanged, and fail the attacked check",
+  "commandSeparation": {
+    "requiredExecutionRuntime": "Node v24.13.1",
+    "preflight": "read-only packet readiness and obligation/caller verification",
+    "producer": "reads committed rows and emits raw analysis; it does not produce the independent verdict",
+    "independentEvaluator": "runs as a separate command/module and re-derives from row and producer artifact bytes",
+    "publisher": "publishes only after producer and evaluator artifacts are complete and pins every claim-bearing byte",
+    "gate10": "later re-derives package completion without inheriting producer status"
+  }
+}

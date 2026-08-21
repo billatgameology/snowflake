@@ -14,3 +14,25 @@ phase9-* -text
 
 # The NAS asset catalogue byte-pins this tracked owner manifest (docs/nas-assets.json).
 media-inventory.json -text
+
+# Phase 10 freezes these protocol and obligation bytes before deciding extraction or numerical
+# execution. Keep their identities stable on Windows as well as other execution/review hosts.
+phase10-foundation-freeze-v1.json -text
+phase10-artifact-schema-registry-v1.json -text
+phase10-c0-protocol-v1.json -text
+phase10-c0v-foundation-v1.json -text
+phase10-obligation-matrix-v1.json -text
+phase10-scope-classification-protocol-v1.json -text
+phase10-b1a-protocol-v1.json -text
+phase10-b1b-protocol-v1.json -text
+phase10-b2-protocol-v1.json -text
+phase10-b3-protocol-v1.json -text
+phase10-b4-protocol-v1.json -text
+phase10-b5-protocol-v1.json -text
+phase10-c0v-moving-protocol-v1.json -text
+phase10-c0v-radial-protocol-v1.json -text
+phase10-c0v-static-protocol-v1.json -text
+phase10-execution-v1/README.md -text
+phase10-execution-v1/packet-catalogue.json -text
+phase10-execution-v1/packets/*/protocol.json -text
+phase10-execution-v1/packets/*/callable-registry.json -text

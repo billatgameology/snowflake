@@ -1,0 +1,4280 @@
+{
+  "schema": "phase10-obligation-matrix-v1",
+  "matrixId": "phase10-selected-package-obligations-v1",
+  "packets": [
+    {
+      "packetId": "a-i",
+      "launchClass": "static-contract",
+      "baseOutputIds": [
+        "out-ai-artifact-index",
+        "out-ai-currency",
+        "out-ai-dispositions",
+        "out-ai-file-custody",
+        "out-ai-report",
+        "out-ai-verification"
+      ],
+      "baseCheckIds": [
+        "chk-ai-currency-closed-once",
+        "chk-ai-development-evidence-label",
+        "chk-ai-exact-14-payloads",
+        "chk-ai-exact-24-files",
+        "chk-ai-rights-safe-projection",
+        "chk-ai-terminal-dimensions",
+        "chk-ai-three-denominators"
+      ],
+      "dependencyPacketIds": [
+        "a-p"
+      ]
+    },
+    {
+      "packetId": "a-p",
+      "launchClass": "static-contract",
+      "baseOutputIds": [
+        "out-ap-artifact-index",
+        "out-ap-artifact-schema-registry",
+        "out-ap-c0-protocol",
+        "out-ap-c0v-foundation",
+        "out-ap-execution-readme",
+        "out-ap-foundation-freeze",
+        "out-ap-matrix",
+        "out-ap-missing-producer-receipt",
+        "out-ap-packet-catalogue",
+        "out-ap-self-callable-registry",
+        "out-ap-self-execution-receipt",
+        "out-ap-self-packet-protocol",
+        "out-ap-uncalled-check-receipt",
+        "out-ap-verification"
+      ],
+      "baseCheckIds": [
+        "chk-ap-called-checks",
+        "chk-ap-command-boundary",
+        "chk-ap-conditional-groups",
+        "chk-ap-global-coverage",
+        "chk-ap-output-producers",
+        "chk-ap-packet-catalogue",
+        "chk-ap-packet-set-equality",
+        "chk-ap-rights-resource-claim-boundary",
+        "chk-ap-schema-coverage",
+        "chk-ap-schema-promotion",
+        "chk-ap-self-freeze"
+      ],
+      "dependencyPacketIds": []
+    },
+    {
+      "packetId": "a-s",
+      "launchClass": "static-contract",
+      "baseOutputIds": [
+        "out-as-artifact-index",
+        "out-as-classification-protocol",
+        "out-as-phase8a-overlay",
+        "out-as-phase8b-overlay",
+        "out-as-report",
+        "out-as-verification-receipt"
+      ],
+      "baseCheckIds": [
+        "chk-as-artifact-index-integrity",
+        "chk-as-cited-classifications",
+        "chk-as-exact-rosters",
+        "chk-as-frozen-input-joins",
+        "chk-as-immutable-roles",
+        "chk-as-modelclass-blocker-separation",
+        "chk-as-multiblocker-support",
+        "chk-as-phase-ownership",
+        "chk-as-protocol-before-classification",
+        "chk-as-separate-corpus-totals",
+        "chk-as-zero-validation-credit"
+      ],
+      "dependencyPacketIds": [
+        "a-p"
+      ]
+    },
+    {
+      "packetId": "b-acquisition",
+      "launchClass": "deciding-extraction",
+      "baseOutputIds": [
+        "out-b-acquisition-nas-publication",
+        "out-b-acquisition-round",
+        "out-b-acquisition-verification"
+      ],
+      "baseCheckIds": [
+        "chk-b-acquisition-nas-receipt-or-na",
+        "chk-b-acquisition-six-targets"
+      ],
+      "dependencyPacketIds": [
+        "a-i",
+        "a-p",
+        "a-s"
+      ]
+    },
+    {
+      "packetId": "b-aggregate",
+      "launchClass": "non-solver",
+      "baseOutputIds": [
+        "out-b-artifact-index",
+        "out-b-report",
+        "out-b-return-proposals",
+        "out-b-verification"
+      ],
+      "baseCheckIds": [
+        "chk-b-all-searches-terminal",
+        "chk-b-all-six-terminal",
+        "chk-b-development-evidence-only",
+        "chk-b-no-efh-execution",
+        "chk-b-no-provider-contact-purchase",
+        "chk-b-report-rederived"
+      ],
+      "dependencyPacketIds": [
+        "a-p",
+        "b-acquisition",
+        "b1a",
+        "b1b",
+        "b2",
+        "b3",
+        "b4",
+        "b5"
+      ]
+    },
+    {
+      "packetId": "b1a",
+      "launchClass": "deciding-extraction",
+      "baseOutputIds": [
+        "out-b1a-protocol",
+        "out-b1a-result",
+        "out-b1a-return",
+        "out-b1a-search",
+        "out-b1a-verification"
+      ],
+      "baseCheckIds": [
+        "chk-b1a-apparatus-surface-forcing",
+        "chk-b1a-current-monograph",
+        "chk-b1a-development-label",
+        "chk-b1a-operand-refusal",
+        "chk-b1a-protocol-before-values",
+        "chk-b1a-return-only",
+        "chk-b1a-search-bounds",
+        "chk-b1a-uncertainty-or-envelope"
+      ],
+      "dependencyPacketIds": [
+        "a-i",
+        "a-p",
+        "a-s",
+        "b-acquisition"
+      ]
+    },
+    {
+      "packetId": "b1b",
+      "launchClass": "deciding-extraction",
+      "baseOutputIds": [
+        "out-b1b-protocol",
+        "out-b1b-result",
+        "out-b1b-return",
+        "out-b1b-search",
+        "out-b1b-verification"
+      ],
+      "baseCheckIds": [
+        "chk-b1b-asymmetric-transfer",
+        "chk-b1b-evolving-geometry",
+        "chk-b1b-local-forcing",
+        "chk-b1b-matched-cross-pressure",
+        "chk-b1b-no-implemented-transport-claim",
+        "chk-b1b-operand-refusal",
+        "chk-b1b-protocol-before-values",
+        "chk-b1b-return-only",
+        "chk-b1b-search-bounds",
+        "chk-b1b-support-heat"
+      ],
+      "dependencyPacketIds": [
+        "a-i",
+        "a-p",
+        "a-s",
+        "b-acquisition"
+      ]
+    },
+    {
+      "packetId": "b2",
+      "launchClass": "deciding-extraction",
+      "baseOutputIds": [
+        "out-b2-protocol",
+        "out-b2-result",
+        "out-b2-return",
+        "out-b2-search",
+        "out-b2-verification"
+      ],
+      "baseCheckIds": [
+        "chk-b2-complete-method-operands",
+        "chk-b2-controlled-velocity-dataset",
+        "chk-b2-development-label",
+        "chk-b2-operand-refusal",
+        "chk-b2-protocol-before-values",
+        "chk-b2-return-only",
+        "chk-b2-reynolds-diagnostic-only",
+        "chk-b2-search-bounds"
+      ],
+      "dependencyPacketIds": [
+        "a-i",
+        "a-p",
+        "a-s",
+        "b-acquisition"
+      ]
+    },
+    {
+      "packetId": "b3",
+      "launchClass": "deciding-extraction",
+      "baseOutputIds": [
+        "out-b3-protocol",
+        "out-b3-result",
+        "out-b3-return",
+        "out-b3-search",
+        "out-b3-verification"
+      ],
+      "baseCheckIds": [
+        "chk-b3-carrier-gas-audit",
+        "chk-b3-currency",
+        "chk-b3-one-factor-or-crossed-identification",
+        "chk-b3-protocol-before-values",
+        "chk-b3-return-only",
+        "chk-b3-search-bounds",
+        "chk-b3-temperature-conflict",
+        "chk-b3-terminal-nonidentification",
+        "chk-b3-two-reader-operator",
+        "chk-b3-zhao-role-audit"
+      ],
+      "dependencyPacketIds": [
+        "a-i",
+        "a-p",
+        "a-s",
+        "b-acquisition"
+      ]
+    },
+    {
+      "packetId": "b4",
+      "launchClass": "deciding-extraction",
+      "baseOutputIds": [
+        "out-b4-protocol",
+        "out-b4-result",
+        "out-b4-return",
+        "out-b4-search",
+        "out-b4-verification"
+      ],
+      "baseCheckIds": [
+        "chk-b4-forcing-semantics",
+        "chk-b4-no-mechanism-rank",
+        "chk-b4-protocol-before-values",
+        "chk-b4-return-only",
+        "chk-b4-rival-fit-or-refusal",
+        "chk-b4-same-lineage-limit",
+        "chk-b4-search-bounds",
+        "chk-b4-theory-methods-separate"
+      ],
+      "dependencyPacketIds": [
+        "a-i",
+        "a-p",
+        "a-s",
+        "b-acquisition"
+      ]
+    },
+    {
+      "packetId": "b5",
+      "launchClass": "deciding-extraction",
+      "baseOutputIds": [
+        "out-b5-protocol",
+        "out-b5-result",
+        "out-b5-return",
+        "out-b5-search",
+        "out-b5-verification"
+      ],
+      "baseCheckIds": [
+        "chk-b5-all-attempts-published",
+        "chk-b5-calibration-operator-uncertainty",
+        "chk-b5-media-feature-roster-frozen",
+        "chk-b5-operand-refusal",
+        "chk-b5-protocol-before-values",
+        "chk-b5-return-only",
+        "chk-b5-search-bounds",
+        "chk-b5-trajectory-or-categorical-closure"
+      ],
+      "dependencyPacketIds": [
+        "a-i",
+        "a-p",
+        "a-s",
+        "b-acquisition"
+      ]
+    },
+    {
+      "packetId": "c0-derive",
+      "launchClass": "non-solver",
+      "baseOutputIds": [
+        "out-c0-analysis",
+        "out-c0-comparisons",
+        "out-c0-derive-verification",
+        "out-c0-gaps",
+        "out-c0-historical-limit"
+      ],
+      "baseCheckIds": [
+        "chk-c0-all-spacings",
+        "chk-c0-comparison-roster",
+        "chk-c0-cost-separation",
+        "chk-c0-field-allowlist",
+        "chk-c0-independent-rederivation",
+        "chk-c0-no-solver",
+        "chk-c0-operand-echo",
+        "chk-c0-row-roster"
+      ],
+      "dependencyPacketIds": [
+        "a-p"
+      ]
+    },
+    {
+      "packetId": "c0-publish",
+      "launchClass": "non-solver",
+      "baseOutputIds": [
+        "out-c0-artifact-index",
+        "out-c0-report",
+        "out-c0-verification-receipt"
+      ],
+      "baseCheckIds": [
+        "chk-c0-publish-artifact-graph",
+        "chk-c0-publish-breakdown",
+        "chk-c0-publish-gap-list",
+        "chk-c0-publish-historical-limit",
+        "chk-c0-publish-no-habit-claim"
+      ],
+      "dependencyPacketIds": [
+        "a-p",
+        "c0-derive"
+      ]
+    },
+    {
+      "packetId": "c0v-aggregate",
+      "launchClass": "non-solver",
+      "baseOutputIds": [
+        "out-c0v-aggregate",
+        "out-c0v-aggregate-verification",
+        "out-c0v-artifact-index",
+        "out-c0v-resource-ledger",
+        "out-c0v-terminal-table"
+      ],
+      "baseCheckIds": [
+        "chk-c0v-all-three-terminal",
+        "chk-c0v-any-layer-nonpass",
+        "chk-c0v-resource-ledger",
+        "chk-c0v-verdict-rederived"
+      ],
+      "dependencyPacketIds": [
+        "a-p",
+        "c0v-moving-publish",
+        "c0v-radial-publish",
+        "c0v-static-publish"
+      ]
+    },
+    {
+      "packetId": "c0v-moving-produce",
+      "launchClass": "solver-control",
+      "baseOutputIds": [
+        "out-c0v-moving-attempt-ledger",
+        "out-c0v-moving-protocol"
+      ],
+      "baseCheckIds": [
+        "chk-c0v-moving-freeze-ancestry",
+        "chk-c0v-moving-resource-boundary"
+      ],
+      "dependencyPacketIds": [
+        "a-p"
+      ]
+    },
+    {
+      "packetId": "c0v-moving-publish",
+      "launchClass": "non-solver",
+      "baseOutputIds": [
+        "out-c0v-moving-artifact-index",
+        "out-c0v-moving-publish-verification",
+        "out-c0v-moving-result"
+      ],
+      "baseCheckIds": [
+        "chk-c0v-moving-artifact-graph",
+        "chk-c0v-moving-terminal-disposition",
+        "chk-c0v-moving-verdict-rederived"
+      ],
+      "dependencyPacketIds": [
+        "a-p",
+        "c0v-moving-produce"
+      ]
+    },
+    {
+      "packetId": "c0v-radial-produce",
+      "launchClass": "solver-control",
+      "baseOutputIds": [
+        "out-c0v-radial-attempt-ledger",
+        "out-c0v-radial-protocol"
+      ],
+      "baseCheckIds": [
+        "chk-c0v-radial-freeze-ancestry",
+        "chk-c0v-radial-resource-boundary"
+      ],
+      "dependencyPacketIds": [
+        "a-p"
+      ]
+    },
+    {
+      "packetId": "c0v-radial-publish",
+      "launchClass": "non-solver",
+      "baseOutputIds": [
+        "out-c0v-radial-artifact-index",
+        "out-c0v-radial-publish-verification",
+        "out-c0v-radial-result"
+      ],
+      "baseCheckIds": [
+        "chk-c0v-radial-artifact-graph",
+        "chk-c0v-radial-terminal-disposition",
+        "chk-c0v-radial-verdict-rederived"
+      ],
+      "dependencyPacketIds": [
+        "a-p",
+        "c0v-radial-produce"
+      ]
+    },
+    {
+      "packetId": "c0v-static-produce",
+      "launchClass": "solver-control",
+      "baseOutputIds": [
+        "out-c0v-static-attempt-ledger",
+        "out-c0v-static-protocol"
+      ],
+      "baseCheckIds": [
+        "chk-c0v-static-freeze-ancestry",
+        "chk-c0v-static-resource-boundary"
+      ],
+      "dependencyPacketIds": [
+        "a-p"
+      ]
+    },
+    {
+      "packetId": "c0v-static-publish",
+      "launchClass": "non-solver",
+      "baseOutputIds": [
+        "out-c0v-static-artifact-index",
+        "out-c0v-static-publish-verification",
+        "out-c0v-static-result"
+      ],
+      "baseCheckIds": [
+        "chk-c0v-static-artifact-graph",
+        "chk-c0v-static-terminal-disposition",
+        "chk-c0v-static-verdict-rederived"
+      ],
+      "dependencyPacketIds": [
+        "a-p",
+        "c0v-static-produce"
+      ]
+    },
+    {
+      "packetId": "closure",
+      "launchClass": "closure",
+      "baseOutputIds": [
+        "out-closure-artifact-index",
+        "out-closure-claim-map",
+        "out-closure-gate10",
+        "out-closure-obligation-report",
+        "out-closure-package-report",
+        "out-closure-receipt-index",
+        "out-closure-review",
+        "out-closure-suite-receipt",
+        "out-closure-verification"
+      ],
+      "baseCheckIds": [
+        "chk-closure-all-obligations-terminal",
+        "chk-closure-claim-map",
+        "chk-closure-completion-disposition-separation",
+        "chk-closure-exact-npm-test",
+        "chk-closure-flagless-gate10",
+        "chk-closure-no-validation-credit",
+        "chk-closure-non-author-review",
+        "chk-closure-obligation-report-rederived",
+        "chk-closure-prior-artifacts-labels",
+        "chk-closure-receipt-retention"
+      ],
+      "dependencyPacketIds": [
+        "a-i",
+        "a-p",
+        "a-s",
+        "b-aggregate",
+        "c0-publish",
+        "c0v-aggregate"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "outputId": "out-ai-artifact-index",
+      "packetId": "a-i",
+      "producerCallableId": "phase10-a-i-producer",
+      "artifact": {
+        "path": "evidence/phase10-scope-intake-v1/intake-artifact-index.json",
+        "field": null,
+        "schemaId": "phase10-artifact-index-v1"
+      },
+      "terminalStates": [
+        "complete"
+      ],
+      "dependsOnOutputIds": [
+        "out-ai-currency",
+        "out-ai-dispositions",
+        "out-ai-file-custody",
+        "out-ai-report"
+      ]
+    },
+    {
+      "outputId": "out-ai-currency",
+      "packetId": "a-i",
+      "producerCallableId": "phase10-a-i-producer",
+      "artifact": {
+        "path": "evidence/phase10-scope-intake-v1/currency.jsonl",
+        "field": null,
+        "schemaId": "phase10-currency-snapshot-row-v1"
+      },
+      "terminalStates": [
+        "complete"
+      ],
+      "dependsOnOutputIds": []
+    },
+    {
+      "outputId": "out-ai-dispositions",
+      "packetId": "a-i",
+      "producerCallableId": "phase10-a-i-producer",
+      "artifact": {
+        "path": "evidence/phase10-scope-intake-v1/post-freeze-dispositions.jsonl",
+        "field": null,
+        "schemaId": "phase10-intake-disposition-row-v1"
+      },
+      "terminalStates": [
+        "complete"
+      ],
+      "dependsOnOutputIds": []
+    },
+    {
+      "outputId": "out-ai-file-custody",
+      "packetId": "a-i",
+      "producerCallableId": "phase10-a-i-producer",
+      "artifact": {
+        "path": "evidence/phase10-scope-intake-v1/file-custody.jsonl",
+        "field": null,
+        "schemaId": "phase10-file-custody-row-v1"
+      },
+      "terminalStates": [
+        "complete"
+      ],
+      "dependsOnOutputIds": []
+    },
+    {
+      "outputId": "out-ai-report",
+      "packetId": "a-i",
+      "producerCallableId": "phase10-a-i-producer",
+      "artifact": {
+        "path": "evidence/phase10-scope-intake-v1/intake-report.json",
+        "field": null,
+        "schemaId": "phase10-intake-report-v1"
+      },
+      "terminalStates": [
+        "complete"
+      ],
+      "dependsOnOutputIds": [
+        "out-ai-currency",
+        "out-ai-dispositions",
+        "out-ai-file-custody"
+      ]
+    },
+    {
+      "outputId": "out-ai-verification",
+      "packetId": "a-i",
+      "producerCallableId": "phase10-a-i-verification-receipt-writer",
+      "artifact": {
+        "path": "evidence/phase10-scope-intake-v1/intake-verification.json",
+        "field": null,
+        "schemaId": "phase10-packet-verification-v1"
+      },
+      "terminalStates": [
+        "complete"
+      ],
+      "dependsOnOutputIds": [
+        "out-ai-artifact-index",
+        "out-ai-currency",
+        "out-ai-dispositions",
+        "out-ai-file-custody",
+        "out-ai-report"
+      ]
+    },
+    {
+      "outputId": "out-ap-artifact-index",
+      "packetId": "a-p",
+      "producerCallableId": "phase10-a-p-producer",
+      "artifact": {
+        "path": "evidence/phase10-obligation-preflight-v1/artifact-index.json",
+        "field": null,
+        "schemaId": "phase10-artifact-index-v1"
+      },
+      "terminalStates": [
+        "pass"
+      ],
+      "dependsOnOutputIds": [
+        "out-ap-artifact-schema-registry",
+        "out-ap-c0-protocol",
+        "out-ap-c0v-foundation",
+        "out-ap-execution-readme",
+        "out-ap-foundation-freeze",
+        "out-ap-matrix",
+        "out-ap-missing-producer-receipt",
+        "out-ap-packet-catalogue",
+        "out-ap-self-callable-registry",
+        "out-ap-self-packet-protocol",
+        "out-ap-uncalled-check-receipt"
+      ]
+    },
+    {
+      "outputId": "out-ap-artifact-schema-registry",
+      "packetId": "a-p",
+      "producerCallableId": "phase10-a-p-producer",
+      "artifact": {
+        "path": "research/phase10-artifact-schema-registry-v1.json",
+        "field": null,
+        "schemaId": "phase10-artifact-schema-registry-v1"
+      },
+      "terminalStates": [
+        "pass"
+      ],
+      "dependsOnOutputIds": [
+        "out-ap-c0-protocol",
+        "out-ap-c0v-foundation",
+        "out-ap-foundation-freeze",
+        "out-ap-matrix"
+      ]
+    },
+    {
+      "outputId": "out-ap-c0-protocol",
+      "packetId": "a-p",
+      "producerCallableId": "phase10-a-p-producer",
+      "artifact": {
+        "path": "research/phase10-c0-protocol-v1.json",
+        "field": null,
+        "schemaId": "phase10-c0-protocol-v1"
+      },
+      "terminalStates": [
+        "pass"
+      ],
+      "dependsOnOutputIds": [
+        "out-ap-foundation-freeze",
+        "out-ap-matrix"
+      ]
+    },
+    {
+      "outputId": "out-ap-c0v-foundation",
+      "packetId": "a-p",
+      "producerCallableId": "phase10-a-p-producer",
+      "artifact": {
+        "path": "research/phase10-c0v-foundation-v1.json",
+        "field": null,
+        "schemaId": "phase10-c0v-foundation-v1"
+      },
+      "terminalStates": [
+        "pass"
+      ],
+      "dependsOnOutputIds": [
+        "out-ap-foundation-freeze",
+        "out-ap-matrix"
+      ]
+    },
+    {
+      "outputId": "out-ap-execution-readme",
+      "packetId": "a-p",
+      "producerCallableId": "phase10-a-p-producer",
+      "artifact": {
+        "path": "research/phase10-execution-v1/README.md",
+        "field": null,
+        "schemaId": "phase10-execution-readme-v1"
+      },
+      "terminalStates": [
+        "pass"
+      ],
+      "dependsOnOutputIds": [
+        "out-ap-artifact-schema-registry",
+        "out-ap-foundation-freeze",
+        "out-ap-matrix"
+      ]
+    },
+    {
+      "outputId": "out-ap-foundation-freeze",
+      "packetId": "a-p",
+      "producerCallableId": "phase10-a-p-producer",
+      "artifact": {
+        "path": "research/phase10-foundation-freeze-v1.json",
+        "field": null,
+        "schemaId": "phase10-foundation-freeze-v1"
+      },
+      "terminalStates": [
+        "pass"
+      ],
+      "dependsOnOutputIds": []
+    },
+    {
+      "outputId": "out-ap-matrix",
+      "packetId": "a-p",
+      "producerCallableId": "phase10-a-p-producer",
+      "artifact": {
+        "path": "research/phase10-obligation-matrix-v1.json",
+        "field": null,
+        "schemaId": "phase10-obligation-matrix-v1"
+      },
+      "terminalStates": [
+        "pass"
+      ],
+      "dependsOnOutputIds": []
+    },
+    {
+      "outputId": "out-ap-missing-producer-receipt",
+      "packetId": "a-p",
+      "producerCallableId": "phase10-a-p-producer",
+      "artifact": {
+        "path": "evidence/phase10-obligation-preflight-v1/missing-producer.json",
+        "field": null,
+        "schemaId": "phase10-ap-negative-control-v1"
+      },
+      "terminalStates": [
+        "pass"
+      ],
+      "dependsOnOutputIds": [
+        "out-ap-matrix",
+        "out-ap-self-callable-registry",
+        "out-ap-self-packet-protocol"
+      ]
+    },
+    {
+      "outputId": "out-ap-packet-catalogue",
+      "packetId": "a-p",
+      "producerCallableId": "phase10-a-p-producer",
+      "artifact": {
+        "path": "research/phase10-execution-v1/packet-catalogue.json",
+        "field": null,
+        "schemaId": "phase10-packet-catalogue-v1"
+      },
+      "terminalStates": [
+        "pass"
+      ],
+      "dependsOnOutputIds": [
+        "out-ap-artifact-schema-registry",
+        "out-ap-execution-readme",
+        "out-ap-matrix"
+      ]
+    },
+    {
+      "outputId": "out-ap-self-callable-registry",
+      "packetId": "a-p",
+      "producerCallableId": "phase10-a-p-producer",
+      "artifact": {
+        "path": "research/phase10-execution-v1/packets/a-p/callable-registry.json",
+        "field": null,
+        "schemaId": "phase10-callable-registry-v1"
+      },
+      "terminalStates": [
+        "pass"
+      ],
+      "dependsOnOutputIds": [
+        "out-ap-self-packet-protocol"
+      ]
+    },
+    {
+      "outputId": "out-ap-self-execution-receipt",
+      "packetId": "a-p",
+      "producerCallableId": "phase10-a-p-terminal-receipt-writer",
+      "artifact": {
+        "path": "evidence/phase10-obligation-preflight-v1/packets/a-p/terminal-receipt.json",
+        "field": null,
+        "schemaId": "phase10-execution-receipt-v1"
+      },
+      "terminalStates": [
+        "pass"
+      ],
+      "dependsOnOutputIds": [
+        "out-ap-artifact-index",
+        "out-ap-missing-producer-receipt",
+        "out-ap-self-callable-registry",
+        "out-ap-self-packet-protocol",
+        "out-ap-uncalled-check-receipt",
+        "out-ap-verification"
+      ]
+    },
+    {
+      "outputId": "out-ap-self-packet-protocol",
+      "packetId": "a-p",
+      "producerCallableId": "phase10-a-p-producer",
+      "artifact": {
+        "path": "research/phase10-execution-v1/packets/a-p/protocol.json",
+        "field": null,
+        "schemaId": "phase10-packet-protocol-v1"
+      },
+      "terminalStates": [
+        "pass"
+      ],
+      "dependsOnOutputIds": [
+        "out-ap-artifact-schema-registry",
+        "out-ap-matrix"
+      ]
+    },
+    {
+      "outputId": "out-ap-uncalled-check-receipt",
+      "packetId": "a-p",
+      "producerCallableId": "phase10-a-p-producer",
+      "artifact": {
+        "path": "evidence/phase10-obligation-preflight-v1/uncalled-check.json",
+        "field": null,
+        "schemaId": "phase10-ap-negative-control-v1"
+      },
+      "terminalStates": [
+        "pass"
+      ],
+      "dependsOnOutputIds": [
+        "out-ap-matrix",
+        "out-ap-self-callable-registry",
+        "out-ap-self-packet-protocol"
+      ]
+    },
+    {
+      "outputId": "out-ap-verification",
+      "packetId": "a-p",
+      "producerCallableId": "phase10-a-p-verification-receipt-writer",
+      "artifact": {
+        "path": "evidence/phase10-obligation-preflight-v1/verification.json",
+        "field": null,
+        "schemaId": "phase10-packet-verification-v1"
+      },
+      "terminalStates": [
+        "pass"
+      ],
+      "dependsOnOutputIds": [
+        "out-ap-artifact-index",
+        "out-ap-missing-producer-receipt",
+        "out-ap-self-callable-registry",
+        "out-ap-self-packet-protocol",
+        "out-ap-uncalled-check-receipt"
+      ]
+    },
+    {
+      "outputId": "out-as-artifact-index",
+      "packetId": "a-s",
+      "producerCallableId": "phase10-a-s-producer",
+      "artifact": {
+        "path": "evidence/phase10-scope-intake-v1/scope-artifact-index.json",
+        "field": null,
+        "schemaId": "phase10-artifact-index-v1"
+      },
+      "terminalStates": [
+        "pass"
+      ],
+      "dependsOnOutputIds": [
+        "out-as-phase8a-overlay",
+        "out-as-phase8b-overlay",
+        "out-as-report"
+      ]
+    },
+    {
+      "outputId": "out-as-classification-protocol",
+      "packetId": "a-s",
+      "producerCallableId": "phase10-a-s-protocol-producer",
+      "artifact": {
+        "path": "research/phase10-scope-classification-protocol-v1.json",
+        "field": null,
+        "schemaId": "phase10-scope-classification-protocol-v1"
+      },
+      "terminalStates": [
+        "pass"
+      ],
+      "dependsOnOutputIds": []
+    },
+    {
+      "outputId": "out-as-phase8a-overlay",
+      "packetId": "a-s",
+      "producerCallableId": "phase10-a-s-producer",
+      "artifact": {
+        "path": "evidence/phase10-scope-intake-v1/phase8a-overlay.jsonl",
+        "field": null,
+        "schemaId": "phase10-scope-overlay-row-v1"
+      },
+      "terminalStates": [
+        "pass"
+      ],
+      "dependsOnOutputIds": [
+        "out-as-classification-protocol"
+      ]
+    },
+    {
+      "outputId": "out-as-phase8b-overlay",
+      "packetId": "a-s",
+      "producerCallableId": "phase10-a-s-producer",
+      "artifact": {
+        "path": "evidence/phase10-scope-intake-v1/phase8b-overlay.jsonl",
+        "field": null,
+        "schemaId": "phase10-scope-overlay-row-v1"
+      },
+      "terminalStates": [
+        "pass"
+      ],
+      "dependsOnOutputIds": [
+        "out-as-classification-protocol"
+      ]
+    },
+    {
+      "outputId": "out-as-report",
+      "packetId": "a-s",
+      "producerCallableId": "phase10-a-s-producer",
+      "artifact": {
+        "path": "evidence/phase10-scope-intake-v1/scope-report.json",
+        "field": null,
+        "schemaId": "phase10-scope-report-v1"
+      },
+      "terminalStates": [
+        "pass"
+      ],
+      "dependsOnOutputIds": [
+        "out-as-classification-protocol",
+        "out-as-phase8a-overlay",
+        "out-as-phase8b-overlay"
+      ]
+    },
+    {
+      "outputId": "out-as-verification-receipt",
+      "packetId": "a-s",
+      "producerCallableId": "phase10-as-verification-receipt-writer",
+      "artifact": {
+        "path": "evidence/phase10-scope-intake-v1/scope-verification.json",
+        "field": null,
+        "schemaId": "phase10-as-verification-v1"
+      },
+      "terminalStates": [
+        "pass"
+      ],
+      "dependsOnOutputIds": [
+        "out-as-artifact-index",
+        "out-as-classification-protocol",
+        "out-as-phase8a-overlay",
+        "out-as-phase8b-overlay",
+        "out-as-report"
+      ]
+    },
+    {
+      "outputId": "out-b-acquisition-nas-publication",
+      "packetId": "b-acquisition",
+      "producerCallableId": "phase10-b-acquisition-producer",
+      "artifact": {
+        "path": "evidence/phase10-observation-bridges-v1/acquisition-nas-publication.json",
+        "field": null,
+        "schemaId": "phase10-nas-publication-disposition-v1"
+      },
+      "terminalStates": [
+        "complete",
+        "refusal"
+      ],
+      "dependsOnOutputIds": [
+        "out-b-acquisition-round"
+      ]
+    },
+    {
+      "outputId": "out-b-acquisition-round",
+      "packetId": "b-acquisition",
+      "producerCallableId": "phase10-b-acquisition-producer",
+      "artifact": {
+        "path": "evidence/phase10-observation-bridges-v1/acquisition-round.json",
+        "field": null,
+        "schemaId": "phase10-acquisition-round-v1"
+      },
+      "terminalStates": [
+        "complete",
+        "refusal"
+      ],
+      "dependsOnOutputIds": []
+    },
+    {
+      "outputId": "out-b-acquisition-verification",
+      "packetId": "b-acquisition",
+      "producerCallableId": "phase10-b-acquisition-verification-receipt-writer",
+      "artifact": {
+        "path": "evidence/phase10-observation-bridges-v1/acquisition-verification.json",
+        "field": null,
+        "schemaId": "phase10-packet-verification-v1"
+      },
+      "terminalStates": [
+        "complete",
+        "refusal"
+      ],
+      "dependsOnOutputIds": [
+        "out-b-acquisition-nas-publication",
+        "out-b-acquisition-round"
+      ]
+    },
+    {
+      "outputId": "out-b-artifact-index",
+      "packetId": "b-aggregate",
+      "producerCallableId": "phase10-b-aggregate-producer",
+      "artifact": {
+        "path": "evidence/phase10-observation-bridges-v1/artifact-index.json",
+        "field": null,
+        "schemaId": "phase10-artifact-index-v1"
+      },
+      "terminalStates": [
+        "complete",
+        "refusal"
+      ],
+      "dependsOnOutputIds": [
+        "out-b-report",
+        "out-b-return-proposals"
+      ]
+    },
+    {
+      "outputId": "out-b-report",
+      "packetId": "b-aggregate",
+      "producerCallableId": "phase10-b-aggregate-producer",
+      "artifact": {
+        "path": "evidence/phase10-observation-bridges-v1/report.json",
+        "field": null,
+        "schemaId": "phase10-observation-bridge-report-v1"
+      },
+      "terminalStates": [
+        "complete",
+        "refusal"
+      ],
+      "dependsOnOutputIds": [
+        "out-b-return-proposals"
+      ]
+    },
+    {
+      "outputId": "out-b-return-proposals",
+      "packetId": "b-aggregate",
+      "producerCallableId": "phase10-b-aggregate-producer",
+      "artifact": {
+        "path": "evidence/phase10-observation-bridges-v1/return-proposals.json",
+        "field": null,
+        "schemaId": "phase10-return-proposals-v1"
+      },
+      "terminalStates": [
+        "complete",
+        "refusal"
+      ],
+      "dependsOnOutputIds": []
+    },
+    {
+      "outputId": "out-b-verification",
+      "packetId": "b-aggregate",
+      "producerCallableId": "phase10-b-aggregate-verification-receipt-writer",
+      "artifact": {
+        "path": "evidence/phase10-observation-bridges-v1/verification.json",
+        "field": null,
+        "schemaId": "phase10-packet-verification-v1"
+      },
+      "terminalStates": [
+        "complete",
+        "refusal"
+      ],
+      "dependsOnOutputIds": [
+        "out-b-artifact-index",
+        "out-b-report",
+        "out-b-return-proposals"
+      ]
+    },
+    {
+      "outputId": "out-b1a-protocol",
+      "packetId": "b1a",
+      "producerCallableId": "phase10-b1a-protocol-producer",
+      "artifact": {
+        "path": "research/phase10-b1a-protocol-v1.json",
+        "field": null,
+        "schemaId": "phase10-b1a-protocol-v1"
+      },
+      "terminalStates": [
+        "complete",
+        "refusal"
+      ],
+      "dependsOnOutputIds": []
+    },
+    {
+      "outputId": "out-b1a-result",
+      "packetId": "b1a",
+      "producerCallableId": "phase10-b1a-result-producer",
+      "artifact": {
+        "path": "evidence/phase10-observation-bridges-v1/b1a-result.json",
+        "field": null,
+        "schemaId": "phase10-b1a-result-v1"
+      },
+      "terminalStates": [
+        "complete",
+        "refusal"
+      ],
+      "dependsOnOutputIds": [
+        "out-b1a-protocol",
+        "out-b1a-search"
+      ]
+    },
+    {
+      "outputId": "out-b1a-return",
+      "packetId": "b1a",
+      "producerCallableId": "phase10-b1a-result-producer",
+      "artifact": {
+        "path": "evidence/phase10-observation-bridges-v1/b1a-return.json",
+        "field": null,
+        "schemaId": "phase10-return-proposal-v1"
+      },
+      "terminalStates": [
+        "complete",
+        "refusal"
+      ],
+      "dependsOnOutputIds": [
+        "out-b1a-result"
+      ]
+    },
+    {
+      "outputId": "out-b1a-search",
+      "packetId": "b1a",
+      "producerCallableId": "phase10-b1a-result-producer",
+      "artifact": {
+        "path": "evidence/phase10-observation-bridges-v1/b1a-search.json",
+        "field": null,
+        "schemaId": "phase10-search-disposition-set-v1"
+      },
+      "terminalStates": [
+        "complete",
+        "refusal"
+      ],
+      "dependsOnOutputIds": [
+        "out-b1a-protocol"
+      ]
+    },
+    {
+      "outputId": "out-b1a-verification",
+      "packetId": "b1a",
+      "producerCallableId": "phase10-b1a-verification-receipt-writer",
+      "artifact": {
+        "path": "evidence/phase10-observation-bridges-v1/b1a-verification.json",
+        "field": null,
+        "schemaId": "phase10-packet-verification-v1"
+      },
+      "terminalStates": [
+        "complete",
+        "refusal"
+      ],
+      "dependsOnOutputIds": [
+        "out-b1a-protocol",
+        "out-b1a-result",
+        "out-b1a-return",
+        "out-b1a-search"
+      ]
+    },
+    {
+      "outputId": "out-b1b-protocol",
+      "packetId": "b1b",
+      "producerCallableId": "phase10-b1b-protocol-producer",
+      "artifact": {
+        "path": "research/phase10-b1b-protocol-v1.json",
+        "field": null,
+        "schemaId": "phase10-b1b-protocol-v1"
+      },
+      "terminalStates": [
+        "complete",
+        "refusal"
+      ],
+      "dependsOnOutputIds": []
+    },
+    {
+      "outputId": "out-b1b-result",
+      "packetId": "b1b",
+      "producerCallableId": "phase10-b1b-result-producer",
+      "artifact": {
+        "path": "evidence/phase10-observation-bridges-v1/b1b-result.json",
+        "field": null,
+        "schemaId": "phase10-b1b-result-v1"
+      },
+      "terminalStates": [
+        "complete",
+        "refusal"
+      ],
+      "dependsOnOutputIds": [
+        "out-b1b-protocol",
+        "out-b1b-search"
+      ]
+    },
+    {
+      "outputId": "out-b1b-return",
+      "packetId": "b1b",
+      "producerCallableId": "phase10-b1b-result-producer",
+      "artifact": {
+        "path": "evidence/phase10-observation-bridges-v1/b1b-return.json",
+        "field": null,
+        "schemaId": "phase10-return-proposal-v1"
+      },
+      "terminalStates": [
+        "complete",
+        "refusal"
+      ],
+      "dependsOnOutputIds": [
+        "out-b1b-result"
+      ]
+    },
+    {
+      "outputId": "out-b1b-search",
+      "packetId": "b1b",
+      "producerCallableId": "phase10-b1b-result-producer",
+      "artifact": {
+        "path": "evidence/phase10-observation-bridges-v1/b1b-search.json",
+        "field": null,
+        "schemaId": "phase10-search-disposition-set-v1"
+      },
+      "terminalStates": [
+        "complete",
+        "refusal"
+      ],
+      "dependsOnOutputIds": [
+        "out-b1b-protocol"
+      ]
+    },
+    {
+      "outputId": "out-b1b-verification",
+      "packetId": "b1b",
+      "producerCallableId": "phase10-b1b-verification-receipt-writer",
+      "artifact": {
+        "path": "evidence/phase10-observation-bridges-v1/b1b-verification.json",
+        "field": null,
+        "schemaId": "phase10-packet-verification-v1"
+      },
+      "terminalStates": [
+        "complete",
+        "refusal"
+      ],
+      "dependsOnOutputIds": [
+        "out-b1b-protocol",
+        "out-b1b-result",
+        "out-b1b-return",
+        "out-b1b-search"
+      ]
+    },
+    {
+      "outputId": "out-b2-protocol",
+      "packetId": "b2",
+      "producerCallableId": "phase10-b2-protocol-producer",
+      "artifact": {
+        "path": "research/phase10-b2-protocol-v1.json",
+        "field": null,
+        "schemaId": "phase10-b2-protocol-v1"
+      },
+      "terminalStates": [
+        "complete",
+        "refusal"
+      ],
+      "dependsOnOutputIds": []
+    },
+    {
+      "outputId": "out-b2-result",
+      "packetId": "b2",
+      "producerCallableId": "phase10-b2-result-producer",
+      "artifact": {
+        "path": "evidence/phase10-observation-bridges-v1/b2-result.json",
+        "field": null,
+        "schemaId": "phase10-b2-result-v1"
+      },
+      "terminalStates": [
+        "complete",
+        "refusal"
+      ],
+      "dependsOnOutputIds": [
+        "out-b2-protocol",
+        "out-b2-search"
+      ]
+    },
+    {
+      "outputId": "out-b2-return",
+      "packetId": "b2",
+      "producerCallableId": "phase10-b2-result-producer",
+      "artifact": {
+        "path": "evidence/phase10-observation-bridges-v1/b2-return.json",
+        "field": null,
+        "schemaId": "phase10-return-proposal-v1"
+      },
+      "terminalStates": [
+        "complete",
+        "refusal"
+      ],
+      "dependsOnOutputIds": [
+        "out-b2-result"
+      ]
+    },
+    {
+      "outputId": "out-b2-search",
+      "packetId": "b2",
+      "producerCallableId": "phase10-b2-result-producer",
+      "artifact": {
+        "path": "evidence/phase10-observation-bridges-v1/b2-search.json",
+        "field": null,
+        "schemaId": "phase10-search-disposition-set-v1"
+      },
+      "terminalStates": [
+        "complete",
+        "refusal"
+      ],
+      "dependsOnOutputIds": [
+        "out-b2-protocol"
+      ]
+    },
+    {
+      "outputId": "out-b2-verification",
+      "packetId": "b2",
+      "producerCallableId": "phase10-b2-verification-receipt-writer",
+      "artifact": {
+        "path": "evidence/phase10-observation-bridges-v1/b2-verification.json",
+        "field": null,
+        "schemaId": "phase10-packet-verification-v1"
+      },
+      "terminalStates": [
+        "complete",
+        "refusal"
+      ],
+      "dependsOnOutputIds": [
+        "out-b2-protocol",
+        "out-b2-result",
+        "out-b2-return",
+        "out-b2-search"
+      ]
+    },
+    {
+      "outputId": "out-b3-protocol",
+      "packetId": "b3",
+      "producerCallableId": "phase10-b3-protocol-producer",
+      "artifact": {
+        "path": "research/phase10-b3-protocol-v1.json",
+        "field": null,
+        "schemaId": "phase10-b3-protocol-v1"
+      },
+      "terminalStates": [
+        "complete",
+        "refusal"
+      ],
+      "dependsOnOutputIds": []
+    },
+    {
+      "outputId": "out-b3-result",
+      "packetId": "b3",
+      "producerCallableId": "phase10-b3-result-producer",
+      "artifact": {
+        "path": "evidence/phase10-observation-bridges-v1/b3-result.json",
+        "field": null,
+        "schemaId": "phase10-b3-result-v1"
+      },
+      "terminalStates": [
+        "complete",
+        "refusal"
+      ],
+      "dependsOnOutputIds": [
+        "out-b3-protocol",
+        "out-b3-search"
+      ]
+    },
+    {
+      "outputId": "out-b3-return",
+      "packetId": "b3",
+      "producerCallableId": "phase10-b3-result-producer",
+      "artifact": {
+        "path": "evidence/phase10-observation-bridges-v1/b3-return.json",
+        "field": null,
+        "schemaId": "phase10-return-proposal-v1"
+      },
+      "terminalStates": [
+        "complete",
+        "refusal"
+      ],
+      "dependsOnOutputIds": [
+        "out-b3-result"
+      ]
+    },
+    {
+      "outputId": "out-b3-search",
+      "packetId": "b3",
+      "producerCallableId": "phase10-b3-result-producer",
+      "artifact": {
+        "path": "evidence/phase10-observation-bridges-v1/b3-search.json",
+        "field": null,
+        "schemaId": "phase10-search-disposition-set-v1"
+      },
+      "terminalStates": [
+        "complete",
+        "refusal"
+      ],
+      "dependsOnOutputIds": [
+        "out-b3-protocol"
+      ]
+    },
+    {
+      "outputId": "out-b3-verification",
+      "packetId": "b3",
+      "producerCallableId": "phase10-b3-verification-receipt-writer",
+      "artifact": {
+        "path": "evidence/phase10-observation-bridges-v1/b3-verification.json",
+        "field": null,
+        "schemaId": "phase10-packet-verification-v1"
+      },
+      "terminalStates": [
+        "complete",
+        "refusal"
+      ],
+      "dependsOnOutputIds": [
+        "out-b3-protocol",
+        "out-b3-result",
+        "out-b3-return",
+        "out-b3-search"
+      ]
+    },
+    {
+      "outputId": "out-b4-protocol",
+      "packetId": "b4",
+      "producerCallableId": "phase10-b4-protocol-producer",
+      "artifact": {
+        "path": "research/phase10-b4-protocol-v1.json",
+        "field": null,
+        "schemaId": "phase10-b4-protocol-v1"
+      },
+      "terminalStates": [
+        "complete",
+        "refusal"
+      ],
+      "dependsOnOutputIds": []
+    },
+    {
+      "outputId": "out-b4-result",
+      "packetId": "b4",
+      "producerCallableId": "phase10-b4-result-producer",
+      "artifact": {
+        "path": "evidence/phase10-observation-bridges-v1/b4-result.json",
+        "field": null,
+        "schemaId": "phase10-b4-result-v1"
+      },
+      "terminalStates": [
+        "complete",
+        "refusal"
+      ],
+      "dependsOnOutputIds": [
+        "out-b4-protocol",
+        "out-b4-search"
+      ]
+    },
+    {
+      "outputId": "out-b4-return",
+      "packetId": "b4",
+      "producerCallableId": "phase10-b4-result-producer",
+      "artifact": {
+        "path": "evidence/phase10-observation-bridges-v1/b4-return.json",
+        "field": null,
+        "schemaId": "phase10-return-proposal-v1"
+      },
+      "terminalStates": [
+        "complete",
+        "refusal"
+      ],
+      "dependsOnOutputIds": [
+        "out-b4-result"
+      ]
+    },
+    {
+      "outputId": "out-b4-search",
+      "packetId": "b4",
+      "producerCallableId": "phase10-b4-result-producer",
+      "artifact": {
+        "path": "evidence/phase10-observation-bridges-v1/b4-search.json",
+        "field": null,
+        "schemaId": "phase10-search-disposition-set-v1"
+      },
+      "terminalStates": [
+        "complete",
+        "refusal"
+      ],
+      "dependsOnOutputIds": [
+        "out-b4-protocol"
+      ]
+    },
+    {
+      "outputId": "out-b4-verification",
+      "packetId": "b4",
+      "producerCallableId": "phase10-b4-verification-receipt-writer",
+      "artifact": {
+        "path": "evidence/phase10-observation-bridges-v1/b4-verification.json",
+        "field": null,
+        "schemaId": "phase10-packet-verification-v1"
+      },
+      "terminalStates": [
+        "complete",
+        "refusal"
+      ],
+      "dependsOnOutputIds": [
+        "out-b4-protocol",
+        "out-b4-result",
+        "out-b4-return",
+        "out-b4-search"
+      ]
+    },
+    {
+      "outputId": "out-b5-protocol",
+      "packetId": "b5",
+      "producerCallableId": "phase10-b5-protocol-producer",
+      "artifact": {
+        "path": "research/phase10-b5-protocol-v1.json",
+        "field": null,
+        "schemaId": "phase10-b5-protocol-v1"
+      },
+      "terminalStates": [
+        "complete",
+        "refusal"
+      ],
+      "dependsOnOutputIds": []
+    },
+    {
+      "outputId": "out-b5-result",
+      "packetId": "b5",
+      "producerCallableId": "phase10-b5-result-producer",
+      "artifact": {
+        "path": "evidence/phase10-observation-bridges-v1/b5-result.json",
+        "field": null,
+        "schemaId": "phase10-b5-result-v1"
+      },
+      "terminalStates": [
+        "complete",
+        "refusal"
+      ],
+      "dependsOnOutputIds": [
+        "out-b5-protocol",
+        "out-b5-search"
+      ]
+    },
+    {
+      "outputId": "out-b5-return",
+      "packetId": "b5",
+      "producerCallableId": "phase10-b5-result-producer",
+      "artifact": {
+        "path": "evidence/phase10-observation-bridges-v1/b5-return.json",
+        "field": null,
+        "schemaId": "phase10-return-proposal-v1"
+      },
+      "terminalStates": [
+        "complete",
+        "refusal"
+      ],
+      "dependsOnOutputIds": [
+        "out-b5-result"
+      ]
+    },
+    {
+      "outputId": "out-b5-search",
+      "packetId": "b5",
+      "producerCallableId": "phase10-b5-result-producer",
+      "artifact": {
+        "path": "evidence/phase10-observation-bridges-v1/b5-search.json",
+        "field": null,
+        "schemaId": "phase10-search-disposition-set-v1"
+      },
+      "terminalStates": [
+        "complete",
+        "refusal"
+      ],
+      "dependsOnOutputIds": [
+        "out-b5-protocol"
+      ]
+    },
+    {
+      "outputId": "out-b5-verification",
+      "packetId": "b5",
+      "producerCallableId": "phase10-b5-verification-receipt-writer",
+      "artifact": {
+        "path": "evidence/phase10-observation-bridges-v1/b5-verification.json",
+        "field": null,
+        "schemaId": "phase10-packet-verification-v1"
+      },
+      "terminalStates": [
+        "complete",
+        "refusal"
+      ],
+      "dependsOnOutputIds": [
+        "out-b5-protocol",
+        "out-b5-result",
+        "out-b5-return",
+        "out-b5-search"
+      ]
+    },
+    {
+      "outputId": "out-c0-analysis",
+      "packetId": "c0-derive",
+      "producerCallableId": "phase10-c0-derive-producer",
+      "artifact": {
+        "path": "evidence/phase10-numerical-verification-v1/c0-analysis.json",
+        "field": null,
+        "schemaId": "phase10-c0-analysis-v1"
+      },
+      "terminalStates": [
+        "complete",
+        "fail"
+      ],
+      "dependsOnOutputIds": [
+        "out-c0-comparisons",
+        "out-c0-gaps",
+        "out-c0-historical-limit"
+      ]
+    },
+    {
+      "outputId": "out-c0-artifact-index",
+      "packetId": "c0-publish",
+      "producerCallableId": "phase10-c0-publish-producer",
+      "artifact": {
+        "path": "evidence/phase10-numerical-verification-v1/c0-artifact-index.json",
+        "field": null,
+        "schemaId": "phase10-artifact-index-v1"
+      },
+      "terminalStates": [
+        "complete"
+      ],
+      "dependsOnOutputIds": [
+        "out-c0-report"
+      ]
+    },
+    {
+      "outputId": "out-c0-comparisons",
+      "packetId": "c0-derive",
+      "producerCallableId": "phase10-c0-derive-producer",
+      "artifact": {
+        "path": "evidence/phase10-numerical-verification-v1/c0-comparisons.jsonl",
+        "field": null,
+        "schemaId": "phase10-c0-comparison-row-v1"
+      },
+      "terminalStates": [
+        "complete",
+        "fail"
+      ],
+      "dependsOnOutputIds": []
+    },
+    {
+      "outputId": "out-c0-derive-verification",
+      "packetId": "c0-derive",
+      "producerCallableId": "phase10-c0-derive-verification-receipt-writer",
+      "artifact": {
+        "path": "evidence/phase10-numerical-verification-v1/c0-derive-verification.json",
+        "field": null,
+        "schemaId": "phase10-packet-verification-v1"
+      },
+      "terminalStates": [
+        "complete",
+        "fail"
+      ],
+      "dependsOnOutputIds": [
+        "out-c0-analysis",
+        "out-c0-comparisons",
+        "out-c0-gaps",
+        "out-c0-historical-limit"
+      ]
+    },
+    {
+      "outputId": "out-c0-gaps",
+      "packetId": "c0-derive",
+      "producerCallableId": "phase10-c0-derive-producer",
+      "artifact": {
+        "path": "evidence/phase10-numerical-verification-v1/c0-target-field-gaps.json",
+        "field": null,
+        "schemaId": "phase10-c0-gap-report-v1"
+      },
+      "terminalStates": [
+        "complete",
+        "fail"
+      ],
+      "dependsOnOutputIds": []
+    },
+    {
+      "outputId": "out-c0-historical-limit",
+      "packetId": "c0-derive",
+      "producerCallableId": "phase10-c0-derive-producer",
+      "artifact": {
+        "path": "evidence/phase10-numerical-verification-v1/c0-historical-verifier-limit.json",
+        "field": null,
+        "schemaId": "phase10-c0-historical-limit-v1"
+      },
+      "terminalStates": [
+        "complete",
+        "fail"
+      ],
+      "dependsOnOutputIds": []
+    },
+    {
+      "outputId": "out-c0-report",
+      "packetId": "c0-publish",
+      "producerCallableId": "phase10-c0-publish-producer",
+      "artifact": {
+        "path": "evidence/phase10-numerical-verification-v1/c0-report.json",
+        "field": null,
+        "schemaId": "phase10-c0-report-v1"
+      },
+      "terminalStates": [
+        "complete"
+      ],
+      "dependsOnOutputIds": []
+    },
+    {
+      "outputId": "out-c0-verification-receipt",
+      "packetId": "c0-publish",
+      "producerCallableId": "phase10-c0-publish-verification-receipt-writer",
+      "artifact": {
+        "path": "evidence/phase10-numerical-verification-v1/c0-verification.json",
+        "field": null,
+        "schemaId": "phase10-independent-verification-v1"
+      },
+      "terminalStates": [
+        "complete"
+      ],
+      "dependsOnOutputIds": [
+        "out-c0-artifact-index",
+        "out-c0-report"
+      ]
+    },
+    {
+      "outputId": "out-c0v-aggregate",
+      "packetId": "c0v-aggregate",
+      "producerCallableId": "phase10-c0v-aggregate-producer",
+      "artifact": {
+        "path": "evidence/phase10-numerical-verification-v1/c0v-aggregate.json",
+        "field": null,
+        "schemaId": "phase10-c0v-aggregate-v1"
+      },
+      "terminalStates": [
+        "fail",
+        "pass",
+        "refusal"
+      ],
+      "dependsOnOutputIds": [
+        "out-c0v-resource-ledger",
+        "out-c0v-terminal-table"
+      ]
+    },
+    {
+      "outputId": "out-c0v-aggregate-verification",
+      "packetId": "c0v-aggregate",
+      "producerCallableId": "phase10-c0v-aggregate-verification-receipt-writer",
+      "artifact": {
+        "path": "evidence/phase10-numerical-verification-v1/c0v-aggregate-verification.json",
+        "field": null,
+        "schemaId": "phase10-packet-verification-v1"
+      },
+      "terminalStates": [
+        "fail",
+        "pass",
+        "refusal"
+      ],
+      "dependsOnOutputIds": [
+        "out-c0v-aggregate",
+        "out-c0v-artifact-index",
+        "out-c0v-resource-ledger",
+        "out-c0v-terminal-table"
+      ]
+    },
+    {
+      "outputId": "out-c0v-artifact-index",
+      "packetId": "c0v-aggregate",
+      "producerCallableId": "phase10-c0v-aggregate-producer",
+      "artifact": {
+        "path": "evidence/phase10-numerical-verification-v1/c0v-artifact-index.json",
+        "field": null,
+        "schemaId": "phase10-artifact-index-v1"
+      },
+      "terminalStates": [
+        "fail",
+        "pass",
+        "refusal"
+      ],
+      "dependsOnOutputIds": [
+        "out-c0v-aggregate",
+        "out-c0v-resource-ledger",
+        "out-c0v-terminal-table"
+      ]
+    },
+    {
+      "outputId": "out-c0v-moving-artifact-index",
+      "packetId": "c0v-moving-publish",
+      "producerCallableId": "phase10-c0v-moving-publish-producer",
+      "artifact": {
+        "path": "evidence/phase10-numerical-verification-v1/c0v-moving-artifact-index.json",
+        "field": null,
+        "schemaId": "phase10-artifact-index-v1"
+      },
+      "terminalStates": [
+        "fail",
+        "pass",
+        "refusal"
+      ],
+      "dependsOnOutputIds": [
+        "out-c0v-moving-result"
+      ]
+    },
+    {
+      "outputId": "out-c0v-moving-attempt-ledger",
+      "packetId": "c0v-moving-produce",
+      "producerCallableId": "phase10-c0v-moving-attempt-receipt-writer",
+      "artifact": {
+        "path": "evidence/phase10-numerical-verification-v1/c0v-moving-attempts.jsonl",
+        "field": null,
+        "schemaId": "phase10-c0v-attempt-row-v1"
+      },
+      "terminalStates": [
+        "fail",
+        "pass",
+        "refusal"
+      ],
+      "dependsOnOutputIds": [
+        "out-c0v-moving-protocol"
+      ]
+    },
+    {
+      "outputId": "out-c0v-moving-evaluation",
+      "packetId": "c0v-moving-produce",
+      "producerCallableId": "phase10-c0v-moving-evaluation-receipt-writer",
+      "artifact": {
+        "path": "evidence/phase10-numerical-verification-v1/c0v-moving-evaluation.json",
+        "field": null,
+        "schemaId": "phase10-c0v-moving-evaluation-v1"
+      },
+      "terminalStates": [
+        "fail",
+        "pass"
+      ],
+      "dependsOnOutputIds": [
+        "out-c0v-moving-reference",
+        "out-c0v-moving-witness"
+      ]
+    },
+    {
+      "outputId": "out-c0v-moving-protocol",
+      "packetId": "c0v-moving-produce",
+      "producerCallableId": "phase10-c0v-moving-protocol-producer",
+      "artifact": {
+        "path": "research/phase10-c0v-moving-protocol-v1.json",
+        "field": null,
+        "schemaId": "phase10-c0v-moving-protocol-v1"
+      },
+      "terminalStates": [
+        "fail",
+        "pass",
+        "refusal"
+      ],
+      "dependsOnOutputIds": []
+    },
+    {
+      "outputId": "out-c0v-moving-publish-verification",
+      "packetId": "c0v-moving-publish",
+      "producerCallableId": "phase10-c0v-moving-publish-verification-receipt-writer",
+      "artifact": {
+        "path": "evidence/phase10-numerical-verification-v1/c0v-moving-publish-verification.json",
+        "field": null,
+        "schemaId": "phase10-packet-verification-v1"
+      },
+      "terminalStates": [
+        "fail",
+        "pass",
+        "refusal"
+      ],
+      "dependsOnOutputIds": [
+        "out-c0v-moving-artifact-index",
+        "out-c0v-moving-result"
+      ]
+    },
+    {
+      "outputId": "out-c0v-moving-reference",
+      "packetId": "c0v-moving-produce",
+      "producerCallableId": "phase10-c0v-moving-reference-producer",
+      "artifact": {
+        "path": "evidence/phase10-numerical-verification-v1/c0v-moving-reference.json",
+        "field": null,
+        "schemaId": "phase10-c0v-moving-reference-v1"
+      },
+      "terminalStates": [
+        "fail",
+        "pass"
+      ],
+      "dependsOnOutputIds": [
+        "out-c0v-moving-protocol"
+      ]
+    },
+    {
+      "outputId": "out-c0v-moving-reference-refusal",
+      "packetId": "c0v-moving-produce",
+      "producerCallableId": "phase10-c0v-moving-refusal-receipt-writer",
+      "artifact": {
+        "path": "evidence/phase10-numerical-verification-v1/c0v-moving-reference-refusal.json",
+        "field": null,
+        "schemaId": "phase10-c0v-reference-refusal-v1"
+      },
+      "terminalStates": [
+        "refusal"
+      ],
+      "dependsOnOutputIds": [
+        "out-c0v-moving-protocol"
+      ]
+    },
+    {
+      "outputId": "out-c0v-moving-result",
+      "packetId": "c0v-moving-publish",
+      "producerCallableId": "phase10-c0v-moving-publish-producer",
+      "artifact": {
+        "path": "evidence/phase10-numerical-verification-v1/c0v-moving-result.json",
+        "field": null,
+        "schemaId": "phase10-c0v-moving-result-v1"
+      },
+      "terminalStates": [
+        "fail",
+        "pass",
+        "refusal"
+      ],
+      "dependsOnOutputIds": []
+    },
+    {
+      "outputId": "out-c0v-moving-witness",
+      "packetId": "c0v-moving-produce",
+      "producerCallableId": "phase10-c0v-moving-production-producer",
+      "artifact": {
+        "path": "evidence/phase10-numerical-verification-v1/c0v-moving-witness.bin",
+        "field": null,
+        "schemaId": "phase10-c0v-moving-witness-v1"
+      },
+      "terminalStates": [
+        "fail",
+        "pass"
+      ],
+      "dependsOnOutputIds": [
+        "out-c0v-moving-protocol",
+        "out-c0v-moving-reference"
+      ]
+    },
+    {
+      "outputId": "out-c0v-radial-artifact-index",
+      "packetId": "c0v-radial-publish",
+      "producerCallableId": "phase10-c0v-radial-publish-producer",
+      "artifact": {
+        "path": "evidence/phase10-numerical-verification-v1/c0v-radial-artifact-index.json",
+        "field": null,
+        "schemaId": "phase10-artifact-index-v1"
+      },
+      "terminalStates": [
+        "fail",
+        "pass",
+        "refusal"
+      ],
+      "dependsOnOutputIds": [
+        "out-c0v-radial-result"
+      ]
+    },
+    {
+      "outputId": "out-c0v-radial-attempt-ledger",
+      "packetId": "c0v-radial-produce",
+      "producerCallableId": "phase10-c0v-radial-attempt-receipt-writer",
+      "artifact": {
+        "path": "evidence/phase10-numerical-verification-v1/c0v-radial-attempts.jsonl",
+        "field": null,
+        "schemaId": "phase10-c0v-attempt-row-v1"
+      },
+      "terminalStates": [
+        "fail",
+        "pass",
+        "refusal"
+      ],
+      "dependsOnOutputIds": [
+        "out-c0v-radial-protocol"
+      ]
+    },
+    {
+      "outputId": "out-c0v-radial-evaluation",
+      "packetId": "c0v-radial-produce",
+      "producerCallableId": "phase10-c0v-radial-evaluation-receipt-writer",
+      "artifact": {
+        "path": "evidence/phase10-numerical-verification-v1/c0v-radial-evaluation.json",
+        "field": null,
+        "schemaId": "phase10-c0v-radial-evaluation-v1"
+      },
+      "terminalStates": [
+        "fail",
+        "pass"
+      ],
+      "dependsOnOutputIds": [
+        "out-c0v-radial-reference",
+        "out-c0v-radial-witness"
+      ]
+    },
+    {
+      "outputId": "out-c0v-radial-protocol",
+      "packetId": "c0v-radial-produce",
+      "producerCallableId": "phase10-c0v-radial-protocol-producer",
+      "artifact": {
+        "path": "research/phase10-c0v-radial-protocol-v1.json",
+        "field": null,
+        "schemaId": "phase10-c0v-radial-protocol-v1"
+      },
+      "terminalStates": [
+        "fail",
+        "pass",
+        "refusal"
+      ],
+      "dependsOnOutputIds": []
+    },
+    {
+      "outputId": "out-c0v-radial-publish-verification",
+      "packetId": "c0v-radial-publish",
+      "producerCallableId": "phase10-c0v-radial-publish-verification-receipt-writer",
+      "artifact": {
+        "path": "evidence/phase10-numerical-verification-v1/c0v-radial-publish-verification.json",
+        "field": null,
+        "schemaId": "phase10-packet-verification-v1"
+      },
+      "terminalStates": [
+        "fail",
+        "pass",
+        "refusal"
+      ],
+      "dependsOnOutputIds": [
+        "out-c0v-radial-artifact-index",
+        "out-c0v-radial-result"
+      ]
+    },
+    {
+      "outputId": "out-c0v-radial-reference",
+      "packetId": "c0v-radial-produce",
+      "producerCallableId": "phase10-c0v-radial-reference-producer",
+      "artifact": {
+        "path": "evidence/phase10-numerical-verification-v1/c0v-radial-reference.json",
+        "field": null,
+        "schemaId": "phase10-c0v-radial-reference-v1"
+      },
+      "terminalStates": [
+        "fail",
+        "pass"
+      ],
+      "dependsOnOutputIds": [
+        "out-c0v-radial-protocol"
+      ]
+    },
+    {
+      "outputId": "out-c0v-radial-reference-refusal",
+      "packetId": "c0v-radial-produce",
+      "producerCallableId": "phase10-c0v-radial-refusal-receipt-writer",
+      "artifact": {
+        "path": "evidence/phase10-numerical-verification-v1/c0v-radial-reference-refusal.json",
+        "field": null,
+        "schemaId": "phase10-c0v-reference-refusal-v1"
+      },
+      "terminalStates": [
+        "refusal"
+      ],
+      "dependsOnOutputIds": [
+        "out-c0v-radial-protocol"
+      ]
+    },
+    {
+      "outputId": "out-c0v-radial-result",
+      "packetId": "c0v-radial-publish",
+      "producerCallableId": "phase10-c0v-radial-publish-producer",
+      "artifact": {
+        "path": "evidence/phase10-numerical-verification-v1/c0v-radial-result.json",
+        "field": null,
+        "schemaId": "phase10-c0v-radial-result-v1"
+      },
+      "terminalStates": [
+        "fail",
+        "pass",
+        "refusal"
+      ],
+      "dependsOnOutputIds": []
+    },
+    {
+      "outputId": "out-c0v-radial-witness",
+      "packetId": "c0v-radial-produce",
+      "producerCallableId": "phase10-c0v-radial-production-producer",
+      "artifact": {
+        "path": "evidence/phase10-numerical-verification-v1/c0v-radial-witness.bin",
+        "field": null,
+        "schemaId": "phase10-c0v-radial-witness-v1"
+      },
+      "terminalStates": [
+        "fail",
+        "pass"
+      ],
+      "dependsOnOutputIds": [
+        "out-c0v-radial-protocol",
+        "out-c0v-radial-reference"
+      ]
+    },
+    {
+      "outputId": "out-c0v-resource-ledger",
+      "packetId": "c0v-aggregate",
+      "producerCallableId": "phase10-c0v-aggregate-producer",
+      "artifact": {
+        "path": "evidence/phase10-numerical-verification-v1/c0v-resource-ledger.json",
+        "field": null,
+        "schemaId": "phase10-c0v-resource-ledger-v1"
+      },
+      "terminalStates": [
+        "fail",
+        "pass",
+        "refusal"
+      ],
+      "dependsOnOutputIds": []
+    },
+    {
+      "outputId": "out-c0v-static-artifact-index",
+      "packetId": "c0v-static-publish",
+      "producerCallableId": "phase10-c0v-static-publish-producer",
+      "artifact": {
+        "path": "evidence/phase10-numerical-verification-v1/c0v-static-artifact-index.json",
+        "field": null,
+        "schemaId": "phase10-artifact-index-v1"
+      },
+      "terminalStates": [
+        "fail",
+        "pass",
+        "refusal"
+      ],
+      "dependsOnOutputIds": [
+        "out-c0v-static-result"
+      ]
+    },
+    {
+      "outputId": "out-c0v-static-attempt-ledger",
+      "packetId": "c0v-static-produce",
+      "producerCallableId": "phase10-c0v-static-attempt-receipt-writer",
+      "artifact": {
+        "path": "evidence/phase10-numerical-verification-v1/c0v-static-attempts.jsonl",
+        "field": null,
+        "schemaId": "phase10-c0v-attempt-row-v1"
+      },
+      "terminalStates": [
+        "fail",
+        "pass",
+        "refusal"
+      ],
+      "dependsOnOutputIds": [
+        "out-c0v-static-protocol"
+      ]
+    },
+    {
+      "outputId": "out-c0v-static-evaluation",
+      "packetId": "c0v-static-produce",
+      "producerCallableId": "phase10-c0v-static-evaluation-receipt-writer",
+      "artifact": {
+        "path": "evidence/phase10-numerical-verification-v1/c0v-static-evaluation.json",
+        "field": null,
+        "schemaId": "phase10-c0v-static-evaluation-v1"
+      },
+      "terminalStates": [
+        "fail",
+        "pass"
+      ],
+      "dependsOnOutputIds": [
+        "out-c0v-static-reference",
+        "out-c0v-static-witness"
+      ]
+    },
+    {
+      "outputId": "out-c0v-static-protocol",
+      "packetId": "c0v-static-produce",
+      "producerCallableId": "phase10-c0v-static-protocol-producer",
+      "artifact": {
+        "path": "research/phase10-c0v-static-protocol-v1.json",
+        "field": null,
+        "schemaId": "phase10-c0v-static-protocol-v1"
+      },
+      "terminalStates": [
+        "fail",
+        "pass",
+        "refusal"
+      ],
+      "dependsOnOutputIds": []
+    },
+    {
+      "outputId": "out-c0v-static-publish-verification",
+      "packetId": "c0v-static-publish",
+      "producerCallableId": "phase10-c0v-static-publish-verification-receipt-writer",
+      "artifact": {
+        "path": "evidence/phase10-numerical-verification-v1/c0v-static-publish-verification.json",
+        "field": null,
+        "schemaId": "phase10-packet-verification-v1"
+      },
+      "terminalStates": [
+        "fail",
+        "pass",
+        "refusal"
+      ],
+      "dependsOnOutputIds": [
+        "out-c0v-static-artifact-index",
+        "out-c0v-static-result"
+      ]
+    },
+    {
+      "outputId": "out-c0v-static-reference",
+      "packetId": "c0v-static-produce",
+      "producerCallableId": "phase10-c0v-static-reference-producer",
+      "artifact": {
+        "path": "evidence/phase10-numerical-verification-v1/c0v-static-reference.json",
+        "field": null,
+        "schemaId": "phase10-c0v-static-reference-v1"
+      },
+      "terminalStates": [
+        "fail",
+        "pass"
+      ],
+      "dependsOnOutputIds": [
+        "out-c0v-static-protocol"
+      ]
+    },
+    {
+      "outputId": "out-c0v-static-reference-refusal",
+      "packetId": "c0v-static-produce",
+      "producerCallableId": "phase10-c0v-static-refusal-receipt-writer",
+      "artifact": {
+        "path": "evidence/phase10-numerical-verification-v1/c0v-static-reference-refusal.json",
+        "field": null,
+        "schemaId": "phase10-c0v-reference-refusal-v1"
+      },
+      "terminalStates": [
+        "refusal"
+      ],
+      "dependsOnOutputIds": [
+        "out-c0v-static-protocol"
+      ]
+    },
+    {
+      "outputId": "out-c0v-static-result",
+      "packetId": "c0v-static-publish",
+      "producerCallableId": "phase10-c0v-static-publish-producer",
+      "artifact": {
+        "path": "evidence/phase10-numerical-verification-v1/c0v-static-result.json",
+        "field": null,
+        "schemaId": "phase10-c0v-static-result-v1"
+      },
+      "terminalStates": [
+        "fail",
+        "pass",
+        "refusal"
+      ],
+      "dependsOnOutputIds": []
+    },
+    {
+      "outputId": "out-c0v-static-witness",
+      "packetId": "c0v-static-produce",
+      "producerCallableId": "phase10-c0v-static-production-producer",
+      "artifact": {
+        "path": "evidence/phase10-numerical-verification-v1/c0v-static-witness.bin",
+        "field": null,
+        "schemaId": "phase10-c0v-static-witness-v1"
+      },
+      "terminalStates": [
+        "fail",
+        "pass"
+      ],
+      "dependsOnOutputIds": [
+        "out-c0v-static-protocol",
+        "out-c0v-static-reference"
+      ]
+    },
+    {
+      "outputId": "out-c0v-terminal-table",
+      "packetId": "c0v-aggregate",
+      "producerCallableId": "phase10-c0v-aggregate-producer",
+      "artifact": {
+        "path": "evidence/phase10-numerical-verification-v1/c0v-terminal-table.json",
+        "field": null,
+        "schemaId": "phase10-c0v-terminal-table-v1"
+      },
+      "terminalStates": [
+        "fail",
+        "pass",
+        "refusal"
+      ],
+      "dependsOnOutputIds": []
+    },
+    {
+      "outputId": "out-closure-artifact-index",
+      "packetId": "closure",
+      "producerCallableId": "phase10-closure-producer",
+      "artifact": {
+        "path": "evidence/phase10-closure-v1/artifact-index.json",
+        "field": null,
+        "schemaId": "phase10-artifact-index-v1"
+      },
+      "terminalStates": [
+        "pass"
+      ],
+      "dependsOnOutputIds": [
+        "out-closure-claim-map",
+        "out-closure-obligation-report",
+        "out-closure-package-report",
+        "out-closure-receipt-index"
+      ]
+    },
+    {
+      "outputId": "out-closure-claim-map",
+      "packetId": "closure",
+      "producerCallableId": "phase10-closure-producer",
+      "artifact": {
+        "path": "evidence/phase10-closure-v1/claim-to-artifact.json",
+        "field": null,
+        "schemaId": "phase10-claim-map-v1"
+      },
+      "terminalStates": [
+        "pass"
+      ],
+      "dependsOnOutputIds": []
+    },
+    {
+      "outputId": "out-closure-gate10",
+      "packetId": "closure",
+      "producerCallableId": "phase10-gate10-receipt-writer",
+      "artifact": {
+        "path": "evidence/phase10-closure-v1/gate10-report.json",
+        "field": null,
+        "schemaId": "phase10-gate10-report-v1"
+      },
+      "terminalStates": [
+        "pass"
+      ],
+      "dependsOnOutputIds": [
+        "out-closure-artifact-index",
+        "out-closure-claim-map",
+        "out-closure-obligation-report",
+        "out-closure-package-report",
+        "out-closure-receipt-index",
+        "out-closure-suite-receipt"
+      ]
+    },
+    {
+      "outputId": "out-closure-obligation-report",
+      "packetId": "closure",
+      "producerCallableId": "phase10-closure-producer",
+      "artifact": {
+        "path": "evidence/phase10-closure-v1/obligation-report.json",
+        "field": null,
+        "schemaId": "phase10-ap-report-v1"
+      },
+      "terminalStates": [
+        "pass"
+      ],
+      "dependsOnOutputIds": [
+        "out-closure-claim-map",
+        "out-closure-receipt-index"
+      ]
+    },
+    {
+      "outputId": "out-closure-package-report",
+      "packetId": "closure",
+      "producerCallableId": "phase10-closure-producer",
+      "artifact": {
+        "path": "evidence/phase10-closure-v1/report.json",
+        "field": null,
+        "schemaId": "phase10-package-report-v1"
+      },
+      "terminalStates": [
+        "pass"
+      ],
+      "dependsOnOutputIds": [
+        "out-closure-claim-map",
+        "out-closure-obligation-report"
+      ]
+    },
+    {
+      "outputId": "out-closure-receipt-index",
+      "packetId": "closure",
+      "producerCallableId": "phase10-closure-producer",
+      "artifact": {
+        "path": "evidence/phase10-closure-v1/receipt-index.json",
+        "field": null,
+        "schemaId": "phase10-ap-receipt-index-v1"
+      },
+      "terminalStates": [
+        "pass"
+      ],
+      "dependsOnOutputIds": []
+    },
+    {
+      "outputId": "out-closure-review",
+      "packetId": "closure",
+      "producerCallableId": "phase10-review-receipt-writer",
+      "artifact": {
+        "path": "evidence/phase10-closure-v1/review.json",
+        "field": null,
+        "schemaId": "phase10-review-v1"
+      },
+      "terminalStates": [
+        "pass"
+      ],
+      "dependsOnOutputIds": [
+        "out-closure-gate10",
+        "out-closure-obligation-report",
+        "out-closure-package-report",
+        "out-closure-receipt-index",
+        "out-closure-suite-receipt"
+      ]
+    },
+    {
+      "outputId": "out-closure-suite-receipt",
+      "packetId": "closure",
+      "producerCallableId": "phase10-suite-receipt-writer",
+      "artifact": {
+        "path": "evidence/phase10-closure-v1/npm-test.json",
+        "field": null,
+        "schemaId": "phase10-suite-receipt-v1"
+      },
+      "terminalStates": [
+        "pass"
+      ],
+      "dependsOnOutputIds": []
+    },
+    {
+      "outputId": "out-closure-verification",
+      "packetId": "closure",
+      "producerCallableId": "phase10-closure-verification-receipt-writer",
+      "artifact": {
+        "path": "evidence/phase10-closure-v1/verification.json",
+        "field": null,
+        "schemaId": "phase10-packet-verification-v1"
+      },
+      "terminalStates": [
+        "pass"
+      ],
+      "dependsOnOutputIds": [
+        "out-closure-artifact-index",
+        "out-closure-claim-map",
+        "out-closure-gate10",
+        "out-closure-obligation-report",
+        "out-closure-package-report",
+        "out-closure-receipt-index",
+        "out-closure-review",
+        "out-closure-suite-receipt"
+      ]
+    }
+  ],
+  "checks": [
+    {
+      "checkId": "chk-ai-currency-closed-once",
+      "packetId": "a-i",
+      "callerCallableId": "phase10-a-i-check-caller",
+      "independentEvaluatorCallableId": "phase10-ai-verifier",
+      "negativeControlIds": [],
+      "dependsOnOutputIds": [
+        "out-ai-currency"
+      ],
+      "dependsOnCheckIds": []
+    },
+    {
+      "checkId": "chk-ai-development-evidence-label",
+      "packetId": "a-i",
+      "callerCallableId": "phase10-a-i-check-caller",
+      "independentEvaluatorCallableId": "phase10-ai-verifier",
+      "negativeControlIds": [],
+      "dependsOnOutputIds": [
+        "out-ai-currency",
+        "out-ai-dispositions"
+      ],
+      "dependsOnCheckIds": []
+    },
+    {
+      "checkId": "chk-ai-exact-14-payloads",
+      "packetId": "a-i",
+      "callerCallableId": "phase10-a-i-check-caller",
+      "independentEvaluatorCallableId": "phase10-ai-verifier",
+      "negativeControlIds": [],
+      "dependsOnOutputIds": [
+        "out-ai-dispositions"
+      ],
+      "dependsOnCheckIds": []
+    },
+    {
+      "checkId": "chk-ai-exact-24-files",
+      "packetId": "a-i",
+      "callerCallableId": "phase10-a-i-check-caller",
+      "independentEvaluatorCallableId": "phase10-ai-verifier",
+      "negativeControlIds": [],
+      "dependsOnOutputIds": [
+        "out-ai-file-custody"
+      ],
+      "dependsOnCheckIds": []
+    },
+    {
+      "checkId": "chk-ai-rights-safe-projection",
+      "packetId": "a-i",
+      "callerCallableId": "phase10-a-i-check-caller",
+      "independentEvaluatorCallableId": "phase10-ai-verifier",
+      "negativeControlIds": [],
+      "dependsOnOutputIds": [
+        "out-ai-dispositions",
+        "out-ai-file-custody"
+      ],
+      "dependsOnCheckIds": []
+    },
+    {
+      "checkId": "chk-ai-terminal-dimensions",
+      "packetId": "a-i",
+      "callerCallableId": "phase10-a-i-check-caller",
+      "independentEvaluatorCallableId": "phase10-ai-verifier",
+      "negativeControlIds": [],
+      "dependsOnOutputIds": [
+        "out-ai-dispositions"
+      ],
+      "dependsOnCheckIds": []
+    },
+    {
+      "checkId": "chk-ai-three-denominators",
+      "packetId": "a-i",
+      "callerCallableId": "phase10-a-i-check-caller",
+      "independentEvaluatorCallableId": "phase10-ai-verifier",
+      "negativeControlIds": [],
+      "dependsOnOutputIds": [
+        "out-ai-report"
+      ],
+      "dependsOnCheckIds": []
+    },
+    {
+      "checkId": "chk-ap-called-checks",
+      "packetId": "a-p",
+      "callerCallableId": "phase10-a-p-check-caller",
+      "independentEvaluatorCallableId": "phase10-ap-evaluator",
+      "negativeControlIds": [
+        "nc-ap-uncalled-check"
+      ],
+      "dependsOnOutputIds": [
+        "out-ap-matrix"
+      ],
+      "dependsOnCheckIds": []
+    },
+    {
+      "checkId": "chk-ap-command-boundary",
+      "packetId": "a-p",
+      "callerCallableId": "phase10-a-p-check-caller",
+      "independentEvaluatorCallableId": "phase10-ap-evaluator",
+      "negativeControlIds": [],
+      "dependsOnOutputIds": [
+        "out-ap-execution-readme"
+      ],
+      "dependsOnCheckIds": []
+    },
+    {
+      "checkId": "chk-ap-conditional-groups",
+      "packetId": "a-p",
+      "callerCallableId": "phase10-a-p-check-caller",
+      "independentEvaluatorCallableId": "phase10-ap-evaluator",
+      "negativeControlIds": [],
+      "dependsOnOutputIds": [
+        "out-ap-matrix"
+      ],
+      "dependsOnCheckIds": []
+    },
+    {
+      "checkId": "chk-ap-global-coverage",
+      "packetId": "a-p",
+      "callerCallableId": "phase10-a-p-check-caller",
+      "independentEvaluatorCallableId": "phase10-ap-evaluator",
+      "negativeControlIds": [],
+      "dependsOnOutputIds": [
+        "out-ap-matrix"
+      ],
+      "dependsOnCheckIds": []
+    },
+    {
+      "checkId": "chk-ap-output-producers",
+      "packetId": "a-p",
+      "callerCallableId": "phase10-a-p-check-caller",
+      "independentEvaluatorCallableId": "phase10-ap-evaluator",
+      "negativeControlIds": [
+        "nc-ap-missing-producer"
+      ],
+      "dependsOnOutputIds": [
+        "out-ap-matrix"
+      ],
+      "dependsOnCheckIds": []
+    },
+    {
+      "checkId": "chk-ap-packet-catalogue",
+      "packetId": "a-p",
+      "callerCallableId": "phase10-a-p-check-caller",
+      "independentEvaluatorCallableId": "phase10-ap-evaluator",
+      "negativeControlIds": [],
+      "dependsOnOutputIds": [
+        "out-ap-packet-catalogue"
+      ],
+      "dependsOnCheckIds": []
+    },
+    {
+      "checkId": "chk-ap-packet-set-equality",
+      "packetId": "a-p",
+      "callerCallableId": "phase10-a-p-check-caller",
+      "independentEvaluatorCallableId": "phase10-ap-evaluator",
+      "negativeControlIds": [],
+      "dependsOnOutputIds": [
+        "out-ap-matrix"
+      ],
+      "dependsOnCheckIds": []
+    },
+    {
+      "checkId": "chk-ap-rights-resource-claim-boundary",
+      "packetId": "a-p",
+      "callerCallableId": "phase10-a-p-check-caller",
+      "independentEvaluatorCallableId": "phase10-ap-evaluator",
+      "negativeControlIds": [],
+      "dependsOnOutputIds": [
+        "out-ap-foundation-freeze"
+      ],
+      "dependsOnCheckIds": []
+    },
+    {
+      "checkId": "chk-ap-schema-coverage",
+      "packetId": "a-p",
+      "callerCallableId": "phase10-a-p-check-caller",
+      "independentEvaluatorCallableId": "phase10-ap-evaluator",
+      "negativeControlIds": [],
+      "dependsOnOutputIds": [
+        "out-ap-artifact-schema-registry"
+      ],
+      "dependsOnCheckIds": []
+    },
+    {
+      "checkId": "chk-ap-schema-promotion",
+      "packetId": "a-p",
+      "callerCallableId": "phase10-a-p-check-caller",
+      "independentEvaluatorCallableId": "phase10-ap-evaluator",
+      "negativeControlIds": [],
+      "dependsOnOutputIds": [
+        "out-ap-artifact-schema-registry",
+        "out-ap-matrix"
+      ],
+      "dependsOnCheckIds": []
+    },
+    {
+      "checkId": "chk-ap-self-freeze",
+      "packetId": "a-p",
+      "callerCallableId": "phase10-a-p-check-caller",
+      "independentEvaluatorCallableId": "phase10-ap-evaluator",
+      "negativeControlIds": [],
+      "dependsOnOutputIds": [
+        "out-ap-matrix",
+        "out-ap-self-callable-registry",
+        "out-ap-self-packet-protocol"
+      ],
+      "dependsOnCheckIds": []
+    },
+    {
+      "checkId": "chk-as-artifact-index-integrity",
+      "packetId": "a-s",
+      "callerCallableId": "phase10-a-s-check-caller",
+      "independentEvaluatorCallableId": "phase10-as-verifier",
+      "negativeControlIds": [],
+      "dependsOnOutputIds": [
+        "out-as-artifact-index",
+        "out-as-phase8a-overlay",
+        "out-as-phase8b-overlay",
+        "out-as-report"
+      ],
+      "dependsOnCheckIds": []
+    },
+    {
+      "checkId": "chk-as-cited-classifications",
+      "packetId": "a-s",
+      "callerCallableId": "phase10-a-s-check-caller",
+      "independentEvaluatorCallableId": "phase10-as-verifier",
+      "negativeControlIds": [],
+      "dependsOnOutputIds": [
+        "out-as-phase8a-overlay",
+        "out-as-phase8b-overlay"
+      ],
+      "dependsOnCheckIds": []
+    },
+    {
+      "checkId": "chk-as-exact-rosters",
+      "packetId": "a-s",
+      "callerCallableId": "phase10-a-s-check-caller",
+      "independentEvaluatorCallableId": "phase10-as-verifier",
+      "negativeControlIds": [
+        "nc-as-drop-one-overlay-row"
+      ],
+      "dependsOnOutputIds": [
+        "out-as-phase8a-overlay",
+        "out-as-phase8b-overlay"
+      ],
+      "dependsOnCheckIds": []
+    },
+    {
+      "checkId": "chk-as-frozen-input-joins",
+      "packetId": "a-s",
+      "callerCallableId": "phase10-a-s-check-caller",
+      "independentEvaluatorCallableId": "phase10-as-verifier",
+      "negativeControlIds": [],
+      "dependsOnOutputIds": [
+        "out-as-phase8a-overlay",
+        "out-as-phase8b-overlay"
+      ],
+      "dependsOnCheckIds": []
+    },
+    {
+      "checkId": "chk-as-immutable-roles",
+      "packetId": "a-s",
+      "callerCallableId": "phase10-a-s-check-caller",
+      "independentEvaluatorCallableId": "phase10-as-verifier",
+      "negativeControlIds": [
+        "nc-as-rewrite-frozen-role"
+      ],
+      "dependsOnOutputIds": [
+        "out-as-phase8a-overlay",
+        "out-as-phase8b-overlay"
+      ],
+      "dependsOnCheckIds": []
+    },
+    {
+      "checkId": "chk-as-modelclass-blocker-separation",
+      "packetId": "a-s",
+      "callerCallableId": "phase10-a-s-check-caller",
+      "independentEvaluatorCallableId": "phase10-as-verifier",
+      "negativeControlIds": [],
+      "dependsOnOutputIds": [
+        "out-as-phase8a-overlay",
+        "out-as-phase8b-overlay"
+      ],
+      "dependsOnCheckIds": []
+    },
+    {
+      "checkId": "chk-as-multiblocker-support",
+      "packetId": "a-s",
+      "callerCallableId": "phase10-a-s-check-caller",
+      "independentEvaluatorCallableId": "phase10-as-verifier",
+      "negativeControlIds": [
+        "nc-as-collapse-multiple-blockers"
+      ],
+      "dependsOnOutputIds": [
+        "out-as-phase8a-overlay",
+        "out-as-phase8b-overlay"
+      ],
+      "dependsOnCheckIds": []
+    },
+    {
+      "checkId": "chk-as-phase-ownership",
+      "packetId": "a-s",
+      "callerCallableId": "phase10-a-s-check-caller",
+      "independentEvaluatorCallableId": "phase10-as-verifier",
+      "negativeControlIds": [],
+      "dependsOnOutputIds": [
+        "out-as-phase8a-overlay",
+        "out-as-phase8b-overlay"
+      ],
+      "dependsOnCheckIds": []
+    },
+    {
+      "checkId": "chk-as-protocol-before-classification",
+      "packetId": "a-s",
+      "callerCallableId": "phase10-a-s-check-caller",
+      "independentEvaluatorCallableId": "phase10-as-verifier",
+      "negativeControlIds": [],
+      "dependsOnOutputIds": [
+        "out-as-classification-protocol",
+        "out-as-phase8a-overlay",
+        "out-as-phase8b-overlay"
+      ],
+      "dependsOnCheckIds": []
+    },
+    {
+      "checkId": "chk-as-separate-corpus-totals",
+      "packetId": "a-s",
+      "callerCallableId": "phase10-a-s-check-caller",
+      "independentEvaluatorCallableId": "phase10-as-verifier",
+      "negativeControlIds": [],
+      "dependsOnOutputIds": [
+        "out-as-report"
+      ],
+      "dependsOnCheckIds": []
+    },
+    {
+      "checkId": "chk-as-zero-validation-credit",
+      "packetId": "a-s",
+      "callerCallableId": "phase10-a-s-check-caller",
+      "independentEvaluatorCallableId": "phase10-as-verifier",
+      "negativeControlIds": [
+        "nc-as-upgrade-validation-credit"
+      ],
+      "dependsOnOutputIds": [
+        "out-as-report"
+      ],
+      "dependsOnCheckIds": []
+    },
+    {
+      "checkId": "chk-b-acquisition-nas-receipt-or-na",
+      "packetId": "b-acquisition",
+      "callerCallableId": "phase10-b-acquisition-check-caller",
+      "independentEvaluatorCallableId": "phase10-b-acquisition-verifier",
+      "negativeControlIds": [],
+      "dependsOnOutputIds": [
+        "out-b-acquisition-nas-publication"
+      ],
+      "dependsOnCheckIds": []
+    },
+    {
+      "checkId": "chk-b-acquisition-six-targets",
+      "packetId": "b-acquisition",
+      "callerCallableId": "phase10-b-acquisition-check-caller",
+      "independentEvaluatorCallableId": "phase10-b-acquisition-verifier",
+      "negativeControlIds": [],
+      "dependsOnOutputIds": [
+        "out-b-acquisition-round"
+      ],
+      "dependsOnCheckIds": []
+    },
+    {
+      "checkId": "chk-b-all-searches-terminal",
+      "packetId": "b-aggregate",
+      "callerCallableId": "phase10-b-aggregate-check-caller",
+      "independentEvaluatorCallableId": "phase10-b-aggregate-verifier",
+      "negativeControlIds": [],
+      "dependsOnOutputIds": [
+        "out-b-report"
+      ],
+      "dependsOnCheckIds": []
+    },
+    {
+      "checkId": "chk-b-all-six-terminal",
+      "packetId": "b-aggregate",
+      "callerCallableId": "phase10-b-aggregate-check-caller",
+      "independentEvaluatorCallableId": "phase10-b-aggregate-verifier",
+      "negativeControlIds": [],
+      "dependsOnOutputIds": [
+        "out-b-report"
+      ],
+      "dependsOnCheckIds": []
+    },
+    {
+      "checkId": "chk-b-development-evidence-only",
+      "packetId": "b-aggregate",
+      "callerCallableId": "phase10-b-aggregate-check-caller",
+      "independentEvaluatorCallableId": "phase10-b-aggregate-verifier",
+      "negativeControlIds": [],
+      "dependsOnOutputIds": [
+        "out-b-report"
+      ],
+      "dependsOnCheckIds": []
+    },
+    {
+      "checkId": "chk-b-no-efh-execution",
+      "packetId": "b-aggregate",
+      "callerCallableId": "phase10-b-aggregate-check-caller",
+      "independentEvaluatorCallableId": "phase10-b-aggregate-verifier",
+      "negativeControlIds": [],
+      "dependsOnOutputIds": [
+        "out-b-return-proposals"
+      ],
+      "dependsOnCheckIds": []
+    },
+    {
+      "checkId": "chk-b-no-provider-contact-purchase",
+      "packetId": "b-aggregate",
+      "callerCallableId": "phase10-b-aggregate-check-caller",
+      "independentEvaluatorCallableId": "phase10-b-aggregate-verifier",
+      "negativeControlIds": [],
+      "dependsOnOutputIds": [
+        "out-b-report"
+      ],
+      "dependsOnCheckIds": []
+    },
+    {
+      "checkId": "chk-b-report-rederived",
+      "packetId": "b-aggregate",
+      "callerCallableId": "phase10-b-aggregate-check-caller",
+      "independentEvaluatorCallableId": "phase10-b-aggregate-verifier",
+      "negativeControlIds": [],
+      "dependsOnOutputIds": [
+        "out-b-artifact-index",
+        "out-b-report"
+      ],
+      "dependsOnCheckIds": []
+    },
+    {
+      "checkId": "chk-b1a-apparatus-surface-forcing",
+      "packetId": "b1a",
+      "callerCallableId": "phase10-b1a-check-caller",
+      "independentEvaluatorCallableId": "phase10-b1a-verifier",
+      "negativeControlIds": [],
+      "dependsOnOutputIds": [
+        "out-b1a-result"
+      ],
+      "dependsOnCheckIds": []
+    },
+    {
+      "checkId": "chk-b1a-current-monograph",
+      "packetId": "b1a",
+      "callerCallableId": "phase10-b1a-check-caller",
+      "independentEvaluatorCallableId": "phase10-b1a-verifier",
+      "negativeControlIds": [],
+      "dependsOnOutputIds": [
+        "out-b1a-result"
+      ],
+      "dependsOnCheckIds": []
+    },
+    {
+      "checkId": "chk-b1a-development-label",
+      "packetId": "b1a",
+      "callerCallableId": "phase10-b1a-check-caller",
+      "independentEvaluatorCallableId": "phase10-b1a-verifier",
+      "negativeControlIds": [],
+      "dependsOnOutputIds": [
+        "out-b1a-result"
+      ],
+      "dependsOnCheckIds": []
+    },
+    {
+      "checkId": "chk-b1a-operand-refusal",
+      "packetId": "b1a",
+      "callerCallableId": "phase10-b1a-check-caller",
+      "independentEvaluatorCallableId": "phase10-b1a-verifier",
+      "negativeControlIds": [],
+      "dependsOnOutputIds": [
+        "out-b1a-result"
+      ],
+      "dependsOnCheckIds": []
+    },
+    {
+      "checkId": "chk-b1a-protocol-before-values",
+      "packetId": "b1a",
+      "callerCallableId": "phase10-b1a-check-caller",
+      "independentEvaluatorCallableId": "phase10-b1a-verifier",
+      "negativeControlIds": [],
+      "dependsOnOutputIds": [
+        "out-b1a-protocol"
+      ],
+      "dependsOnCheckIds": []
+    },
+    {
+      "checkId": "chk-b1a-return-only",
+      "packetId": "b1a",
+      "callerCallableId": "phase10-b1a-check-caller",
+      "independentEvaluatorCallableId": "phase10-b1a-verifier",
+      "negativeControlIds": [],
+      "dependsOnOutputIds": [
+        "out-b1a-result"
+      ],
+      "dependsOnCheckIds": []
+    },
+    {
+      "checkId": "chk-b1a-search-bounds",
+      "packetId": "b1a",
+      "callerCallableId": "phase10-b1a-check-caller",
+      "independentEvaluatorCallableId": "phase10-b1a-verifier",
+      "negativeControlIds": [],
+      "dependsOnOutputIds": [
+        "out-b1a-search"
+      ],
+      "dependsOnCheckIds": []
+    },
+    {
+      "checkId": "chk-b1a-uncertainty-or-envelope",
+      "packetId": "b1a",
+      "callerCallableId": "phase10-b1a-check-caller",
+      "independentEvaluatorCallableId": "phase10-b1a-verifier",
+      "negativeControlIds": [],
+      "dependsOnOutputIds": [
+        "out-b1a-result"
+      ],
+      "dependsOnCheckIds": []
+    },
+    {
+      "checkId": "chk-b1b-asymmetric-transfer",
+      "packetId": "b1b",
+      "callerCallableId": "phase10-b1b-check-caller",
+      "independentEvaluatorCallableId": "phase10-b1b-verifier",
+      "negativeControlIds": [],
+      "dependsOnOutputIds": [
+        "out-b1b-result"
+      ],
+      "dependsOnCheckIds": []
+    },
+    {
+      "checkId": "chk-b1b-evolving-geometry",
+      "packetId": "b1b",
+      "callerCallableId": "phase10-b1b-check-caller",
+      "independentEvaluatorCallableId": "phase10-b1b-verifier",
+      "negativeControlIds": [],
+      "dependsOnOutputIds": [
+        "out-b1b-result"
+      ],
+      "dependsOnCheckIds": []
+    },
+    {
+      "checkId": "chk-b1b-local-forcing",
+      "packetId": "b1b",
+      "callerCallableId": "phase10-b1b-check-caller",
+      "independentEvaluatorCallableId": "phase10-b1b-verifier",
+      "negativeControlIds": [],
+      "dependsOnOutputIds": [
+        "out-b1b-result"
+      ],
+      "dependsOnCheckIds": []
+    },
+    {
+      "checkId": "chk-b1b-matched-cross-pressure",
+      "packetId": "b1b",
+      "callerCallableId": "phase10-b1b-check-caller",
+      "independentEvaluatorCallableId": "phase10-b1b-verifier",
+      "negativeControlIds": [],
+      "dependsOnOutputIds": [
+        "out-b1b-result"
+      ],
+      "dependsOnCheckIds": []
+    },
+    {
+      "checkId": "chk-b1b-no-implemented-transport-claim",
+      "packetId": "b1b",
+      "callerCallableId": "phase10-b1b-check-caller",
+      "independentEvaluatorCallableId": "phase10-b1b-verifier",
+      "negativeControlIds": [],
+      "dependsOnOutputIds": [
+        "out-b1b-result"
+      ],
+      "dependsOnCheckIds": []
+    },
+    {
+      "checkId": "chk-b1b-operand-refusal",
+      "packetId": "b1b",
+      "callerCallableId": "phase10-b1b-check-caller",
+      "independentEvaluatorCallableId": "phase10-b1b-verifier",
+      "negativeControlIds": [],
+      "dependsOnOutputIds": [
+        "out-b1b-result"
+      ],
+      "dependsOnCheckIds": []
+    },
+    {
+      "checkId": "chk-b1b-protocol-before-values",
+      "packetId": "b1b",
+      "callerCallableId": "phase10-b1b-check-caller",
+      "independentEvaluatorCallableId": "phase10-b1b-verifier",
+      "negativeControlIds": [],
+      "dependsOnOutputIds": [
+        "out-b1b-protocol"
+      ],
+      "dependsOnCheckIds": []
+    },
+    {
+      "checkId": "chk-b1b-return-only",
+      "packetId": "b1b",
+      "callerCallableId": "phase10-b1b-check-caller",
+      "independentEvaluatorCallableId": "phase10-b1b-verifier",
+      "negativeControlIds": [],
+      "dependsOnOutputIds": [
+        "out-b1b-result"
+      ],
+      "dependsOnCheckIds": []
+    },
+    {
+      "checkId": "chk-b1b-search-bounds",
+      "packetId": "b1b",
+      "callerCallableId": "phase10-b1b-check-caller",
+      "independentEvaluatorCallableId": "phase10-b1b-verifier",
+      "negativeControlIds": [],
+      "dependsOnOutputIds": [
+        "out-b1b-search"
+      ],
+      "dependsOnCheckIds": []
+    },
+    {
+      "checkId": "chk-b1b-support-heat",
+      "packetId": "b1b",
+      "callerCallableId": "phase10-b1b-check-caller",
+      "independentEvaluatorCallableId": "phase10-b1b-verifier",
+      "negativeControlIds": [],
+      "dependsOnOutputIds": [
+        "out-b1b-result"
+      ],
+      "dependsOnCheckIds": []
+    },
+    {
+      "checkId": "chk-b2-complete-method-operands",
+      "packetId": "b2",
+      "callerCallableId": "phase10-b2-check-caller",
+      "independentEvaluatorCallableId": "phase10-b2-verifier",
+      "negativeControlIds": [],
+      "dependsOnOutputIds": [
+        "out-b2-result"
+      ],
+      "dependsOnCheckIds": []
+    },
+    {
+      "checkId": "chk-b2-controlled-velocity-dataset",
+      "packetId": "b2",
+      "callerCallableId": "phase10-b2-check-caller",
+      "independentEvaluatorCallableId": "phase10-b2-verifier",
+      "negativeControlIds": [],
+      "dependsOnOutputIds": [
+        "out-b2-result"
+      ],
+      "dependsOnCheckIds": []
+    },
+    {
+      "checkId": "chk-b2-development-label",
+      "packetId": "b2",
+      "callerCallableId": "phase10-b2-check-caller",
+      "independentEvaluatorCallableId": "phase10-b2-verifier",
+      "negativeControlIds": [],
+      "dependsOnOutputIds": [
+        "out-b2-result"
+      ],
+      "dependsOnCheckIds": []
+    },
+    {
+      "checkId": "chk-b2-operand-refusal",
+      "packetId": "b2",
+      "callerCallableId": "phase10-b2-check-caller",
+      "independentEvaluatorCallableId": "phase10-b2-verifier",
+      "negativeControlIds": [],
+      "dependsOnOutputIds": [
+        "out-b2-result"
+      ],
+      "dependsOnCheckIds": []
+    },
+    {
+      "checkId": "chk-b2-protocol-before-values",
+      "packetId": "b2",
+      "callerCallableId": "phase10-b2-check-caller",
+      "independentEvaluatorCallableId": "phase10-b2-verifier",
+      "negativeControlIds": [],
+      "dependsOnOutputIds": [
+        "out-b2-protocol"
+      ],
+      "dependsOnCheckIds": []
+    },
+    {
+      "checkId": "chk-b2-return-only",
+      "packetId": "b2",
+      "callerCallableId": "phase10-b2-check-caller",
+      "independentEvaluatorCallableId": "phase10-b2-verifier",
+      "negativeControlIds": [],
+      "dependsOnOutputIds": [
+        "out-b2-result"
+      ],
+      "dependsOnCheckIds": []
+    },
+    {
+      "checkId": "chk-b2-reynolds-diagnostic-only",
+      "packetId": "b2",
+      "callerCallableId": "phase10-b2-check-caller",
+      "independentEvaluatorCallableId": "phase10-b2-verifier",
+      "negativeControlIds": [],
+      "dependsOnOutputIds": [
+        "out-b2-result"
+      ],
+      "dependsOnCheckIds": []
+    },
+    {
+      "checkId": "chk-b2-search-bounds",
+      "packetId": "b2",
+      "callerCallableId": "phase10-b2-check-caller",
+      "independentEvaluatorCallableId": "phase10-b2-verifier",
+      "negativeControlIds": [],
+      "dependsOnOutputIds": [
+        "out-b2-search"
+      ],
+      "dependsOnCheckIds": []
+    },
+    {
+      "checkId": "chk-b3-carrier-gas-audit",
+      "packetId": "b3",
+      "callerCallableId": "phase10-b3-check-caller",
+      "independentEvaluatorCallableId": "phase10-b3-verifier",
+      "negativeControlIds": [],
+      "dependsOnOutputIds": [
+        "out-b3-result"
+      ],
+      "dependsOnCheckIds": []
+    },
+    {
+      "checkId": "chk-b3-currency",
+      "packetId": "b3",
+      "callerCallableId": "phase10-b3-check-caller",
+      "independentEvaluatorCallableId": "phase10-b3-verifier",
+      "negativeControlIds": [],
+      "dependsOnOutputIds": [
+        "out-b3-result"
+      ],
+      "dependsOnCheckIds": []
+    },
+    {
+      "checkId": "chk-b3-one-factor-or-crossed-identification",
+      "packetId": "b3",
+      "callerCallableId": "phase10-b3-check-caller",
+      "independentEvaluatorCallableId": "phase10-b3-verifier",
+      "negativeControlIds": [],
+      "dependsOnOutputIds": [
+        "out-b3-result"
+      ],
+      "dependsOnCheckIds": []
+    },
+    {
+      "checkId": "chk-b3-protocol-before-values",
+      "packetId": "b3",
+      "callerCallableId": "phase10-b3-check-caller",
+      "independentEvaluatorCallableId": "phase10-b3-verifier",
+      "negativeControlIds": [],
+      "dependsOnOutputIds": [
+        "out-b3-protocol"
+      ],
+      "dependsOnCheckIds": []
+    },
+    {
+      "checkId": "chk-b3-return-only",
+      "packetId": "b3",
+      "callerCallableId": "phase10-b3-check-caller",
+      "independentEvaluatorCallableId": "phase10-b3-verifier",
+      "negativeControlIds": [],
+      "dependsOnOutputIds": [
+        "out-b3-result"
+      ],
+      "dependsOnCheckIds": []
+    },
+    {
+      "checkId": "chk-b3-search-bounds",
+      "packetId": "b3",
+      "callerCallableId": "phase10-b3-check-caller",
+      "independentEvaluatorCallableId": "phase10-b3-verifier",
+      "negativeControlIds": [],
+      "dependsOnOutputIds": [
+        "out-b3-search"
+      ],
+      "dependsOnCheckIds": []
+    },
+    {
+      "checkId": "chk-b3-temperature-conflict",
+      "packetId": "b3",
+      "callerCallableId": "phase10-b3-check-caller",
+      "independentEvaluatorCallableId": "phase10-b3-verifier",
+      "negativeControlIds": [],
+      "dependsOnOutputIds": [
+        "out-b3-result"
+      ],
+      "dependsOnCheckIds": []
+    },
+    {
+      "checkId": "chk-b3-terminal-nonidentification",
+      "packetId": "b3",
+      "callerCallableId": "phase10-b3-check-caller",
+      "independentEvaluatorCallableId": "phase10-b3-verifier",
+      "negativeControlIds": [],
+      "dependsOnOutputIds": [
+        "out-b3-result"
+      ],
+      "dependsOnCheckIds": []
+    },
+    {
+      "checkId": "chk-b3-two-reader-operator",
+      "packetId": "b3",
+      "callerCallableId": "phase10-b3-check-caller",
+      "independentEvaluatorCallableId": "phase10-b3-verifier",
+      "negativeControlIds": [],
+      "dependsOnOutputIds": [
+        "out-b3-result"
+      ],
+      "dependsOnCheckIds": []
+    },
+    {
+      "checkId": "chk-b3-zhao-role-audit",
+      "packetId": "b3",
+      "callerCallableId": "phase10-b3-check-caller",
+      "independentEvaluatorCallableId": "phase10-b3-verifier",
+      "negativeControlIds": [],
+      "dependsOnOutputIds": [
+        "out-b3-result"
+      ],
+      "dependsOnCheckIds": []
+    },
+    {
+      "checkId": "chk-b4-forcing-semantics",
+      "packetId": "b4",
+      "callerCallableId": "phase10-b4-check-caller",
+      "independentEvaluatorCallableId": "phase10-b4-verifier",
+      "negativeControlIds": [],
+      "dependsOnOutputIds": [
+        "out-b4-result"
+      ],
+      "dependsOnCheckIds": []
+    },
+    {
+      "checkId": "chk-b4-no-mechanism-rank",
+      "packetId": "b4",
+      "callerCallableId": "phase10-b4-check-caller",
+      "independentEvaluatorCallableId": "phase10-b4-verifier",
+      "negativeControlIds": [],
+      "dependsOnOutputIds": [
+        "out-b4-result"
+      ],
+      "dependsOnCheckIds": []
+    },
+    {
+      "checkId": "chk-b4-protocol-before-values",
+      "packetId": "b4",
+      "callerCallableId": "phase10-b4-check-caller",
+      "independentEvaluatorCallableId": "phase10-b4-verifier",
+      "negativeControlIds": [],
+      "dependsOnOutputIds": [
+        "out-b4-protocol"
+      ],
+      "dependsOnCheckIds": []
+    },
+    {
+      "checkId": "chk-b4-return-only",
+      "packetId": "b4",
+      "callerCallableId": "phase10-b4-check-caller",
+      "independentEvaluatorCallableId": "phase10-b4-verifier",
+      "negativeControlIds": [],
+      "dependsOnOutputIds": [
+        "out-b4-result"
+      ],
+      "dependsOnCheckIds": []
+    },
+    {
+      "checkId": "chk-b4-rival-fit-or-refusal",
+      "packetId": "b4",
+      "callerCallableId": "phase10-b4-check-caller",
+      "independentEvaluatorCallableId": "phase10-b4-verifier",
+      "negativeControlIds": [],
+      "dependsOnOutputIds": [
+        "out-b4-result"
+      ],
+      "dependsOnCheckIds": []
+    },
+    {
+      "checkId": "chk-b4-same-lineage-limit",
+      "packetId": "b4",
+      "callerCallableId": "phase10-b4-check-caller",
+      "independentEvaluatorCallableId": "phase10-b4-verifier",
+      "negativeControlIds": [],
+      "dependsOnOutputIds": [
+        "out-b4-result"
+      ],
+      "dependsOnCheckIds": []
+    },
+    {
+      "checkId": "chk-b4-search-bounds",
+      "packetId": "b4",
+      "callerCallableId": "phase10-b4-check-caller",
+      "independentEvaluatorCallableId": "phase10-b4-verifier",
+      "negativeControlIds": [],
+      "dependsOnOutputIds": [
+        "out-b4-search"
+      ],
+      "dependsOnCheckIds": []
+    },
+    {
+      "checkId": "chk-b4-theory-methods-separate",
+      "packetId": "b4",
+      "callerCallableId": "phase10-b4-check-caller",
+      "independentEvaluatorCallableId": "phase10-b4-verifier",
+      "negativeControlIds": [],
+      "dependsOnOutputIds": [
+        "out-b4-result"
+      ],
+      "dependsOnCheckIds": []
+    },
+    {
+      "checkId": "chk-b5-all-attempts-published",
+      "packetId": "b5",
+      "callerCallableId": "phase10-b5-check-caller",
+      "independentEvaluatorCallableId": "phase10-b5-verifier",
+      "negativeControlIds": [],
+      "dependsOnOutputIds": [
+        "out-b5-result"
+      ],
+      "dependsOnCheckIds": []
+    },
+    {
+      "checkId": "chk-b5-calibration-operator-uncertainty",
+      "packetId": "b5",
+      "callerCallableId": "phase10-b5-check-caller",
+      "independentEvaluatorCallableId": "phase10-b5-verifier",
+      "negativeControlIds": [],
+      "dependsOnOutputIds": [
+        "out-b5-result"
+      ],
+      "dependsOnCheckIds": []
+    },
+    {
+      "checkId": "chk-b5-media-feature-roster-frozen",
+      "packetId": "b5",
+      "callerCallableId": "phase10-b5-check-caller",
+      "independentEvaluatorCallableId": "phase10-b5-verifier",
+      "negativeControlIds": [],
+      "dependsOnOutputIds": [
+        "out-b5-result"
+      ],
+      "dependsOnCheckIds": []
+    },
+    {
+      "checkId": "chk-b5-operand-refusal",
+      "packetId": "b5",
+      "callerCallableId": "phase10-b5-check-caller",
+      "independentEvaluatorCallableId": "phase10-b5-verifier",
+      "negativeControlIds": [],
+      "dependsOnOutputIds": [
+        "out-b5-result"
+      ],
+      "dependsOnCheckIds": []
+    },
+    {
+      "checkId": "chk-b5-protocol-before-values",
+      "packetId": "b5",
+      "callerCallableId": "phase10-b5-check-caller",
+      "independentEvaluatorCallableId": "phase10-b5-verifier",
+      "negativeControlIds": [],
+      "dependsOnOutputIds": [
+        "out-b5-protocol"
+      ],
+      "dependsOnCheckIds": []
+    },
+    {
+      "checkId": "chk-b5-return-only",
+      "packetId": "b5",
+      "callerCallableId": "phase10-b5-check-caller",
+      "independentEvaluatorCallableId": "phase10-b5-verifier",
+      "negativeControlIds": [],
+      "dependsOnOutputIds": [
+        "out-b5-result"
+      ],
+      "dependsOnCheckIds": []
+    },
+    {
+      "checkId": "chk-b5-search-bounds",
+      "packetId": "b5",
+      "callerCallableId": "phase10-b5-check-caller",
+      "independentEvaluatorCallableId": "phase10-b5-verifier",
+      "negativeControlIds": [],
+      "dependsOnOutputIds": [
+        "out-b5-search"
+      ],
+      "dependsOnCheckIds": []
+    },
+    {
+      "checkId": "chk-b5-trajectory-or-categorical-closure",
+      "packetId": "b5",
+      "callerCallableId": "phase10-b5-check-caller",
+      "independentEvaluatorCallableId": "phase10-b5-verifier",
+      "negativeControlIds": [],
+      "dependsOnOutputIds": [
+        "out-b5-result"
+      ],
+      "dependsOnCheckIds": []
+    },
+    {
+      "checkId": "chk-c0-all-spacings",
+      "packetId": "c0-derive",
+      "callerCallableId": "phase10-c0-derive-check-caller",
+      "independentEvaluatorCallableId": "phase10-c0-evaluator",
+      "negativeControlIds": [
+        "nc-c0-coarse-fail-fine-pass",
+        "nc-c0-fine-fail-coarse-pass"
+      ],
+      "dependsOnOutputIds": [
+        "out-c0-comparisons"
+      ],
+      "dependsOnCheckIds": []
+    },
+    {
+      "checkId": "chk-c0-comparison-roster",
+      "packetId": "c0-derive",
+      "callerCallableId": "phase10-c0-derive-check-caller",
+      "independentEvaluatorCallableId": "phase10-c0-evaluator",
+      "negativeControlIds": [],
+      "dependsOnOutputIds": [
+        "out-c0-comparisons"
+      ],
+      "dependsOnCheckIds": []
+    },
+    {
+      "checkId": "chk-c0-cost-separation",
+      "packetId": "c0-derive",
+      "callerCallableId": "phase10-c0-derive-check-caller",
+      "independentEvaluatorCallableId": "phase10-c0-evaluator",
+      "negativeControlIds": [],
+      "dependsOnOutputIds": [
+        "out-c0-analysis"
+      ],
+      "dependsOnCheckIds": []
+    },
+    {
+      "checkId": "chk-c0-field-allowlist",
+      "packetId": "c0-derive",
+      "callerCallableId": "phase10-c0-derive-check-caller",
+      "independentEvaluatorCallableId": "phase10-c0-evaluator",
+      "negativeControlIds": [
+        "nc-c0-forbidden-field"
+      ],
+      "dependsOnOutputIds": [
+        "out-c0-analysis",
+        "out-c0-gaps"
+      ],
+      "dependsOnCheckIds": []
+    },
+    {
+      "checkId": "chk-c0-independent-rederivation",
+      "packetId": "c0-derive",
+      "callerCallableId": "phase10-c0-derive-check-caller",
+      "independentEvaluatorCallableId": "phase10-c0-evaluator",
+      "negativeControlIds": [
+        "nc-c0-forged-producer-verdict"
+      ],
+      "dependsOnOutputIds": [
+        "out-c0-analysis",
+        "out-c0-comparisons"
+      ],
+      "dependsOnCheckIds": []
+    },
+    {
+      "checkId": "chk-c0-no-solver",
+      "packetId": "c0-derive",
+      "callerCallableId": "phase10-c0-derive-check-caller",
+      "independentEvaluatorCallableId": "phase10-c0-evaluator",
+      "negativeControlIds": [],
+      "dependsOnOutputIds": [
+        "out-c0-analysis"
+      ],
+      "dependsOnCheckIds": []
+    },
+    {
+      "checkId": "chk-c0-operand-echo",
+      "packetId": "c0-derive",
+      "callerCallableId": "phase10-c0-derive-check-caller",
+      "independentEvaluatorCallableId": "phase10-c0-evaluator",
+      "negativeControlIds": [
+        "nc-c0-operand-echo"
+      ],
+      "dependsOnOutputIds": [
+        "out-c0-comparisons"
+      ],
+      "dependsOnCheckIds": []
+    },
+    {
+      "checkId": "chk-c0-publish-artifact-graph",
+      "packetId": "c0-publish",
+      "callerCallableId": "phase10-c0-publish-check-caller",
+      "independentEvaluatorCallableId": "phase10-c0-publication-verifier",
+      "negativeControlIds": [],
+      "dependsOnOutputIds": [
+        "out-c0-artifact-index"
+      ],
+      "dependsOnCheckIds": []
+    },
+    {
+      "checkId": "chk-c0-publish-breakdown",
+      "packetId": "c0-publish",
+      "callerCallableId": "phase10-c0-publish-check-caller",
+      "independentEvaluatorCallableId": "phase10-c0-publication-verifier",
+      "negativeControlIds": [],
+      "dependsOnOutputIds": [
+        "out-c0-report"
+      ],
+      "dependsOnCheckIds": []
+    },
+    {
+      "checkId": "chk-c0-publish-gap-list",
+      "packetId": "c0-publish",
+      "callerCallableId": "phase10-c0-publish-check-caller",
+      "independentEvaluatorCallableId": "phase10-c0-publication-verifier",
+      "negativeControlIds": [],
+      "dependsOnOutputIds": [
+        "out-c0-report"
+      ],
+      "dependsOnCheckIds": []
+    },
+    {
+      "checkId": "chk-c0-publish-historical-limit",
+      "packetId": "c0-publish",
+      "callerCallableId": "phase10-c0-publish-check-caller",
+      "independentEvaluatorCallableId": "phase10-c0-publication-verifier",
+      "negativeControlIds": [],
+      "dependsOnOutputIds": [
+        "out-c0-report"
+      ],
+      "dependsOnCheckIds": []
+    },
+    {
+      "checkId": "chk-c0-publish-no-habit-claim",
+      "packetId": "c0-publish",
+      "callerCallableId": "phase10-c0-publish-check-caller",
+      "independentEvaluatorCallableId": "phase10-c0-publication-verifier",
+      "negativeControlIds": [],
+      "dependsOnOutputIds": [
+        "out-c0-report"
+      ],
+      "dependsOnCheckIds": []
+    },
+    {
+      "checkId": "chk-c0-row-roster",
+      "packetId": "c0-derive",
+      "callerCallableId": "phase10-c0-derive-check-caller",
+      "independentEvaluatorCallableId": "phase10-c0-evaluator",
+      "negativeControlIds": [
+        "nc-c0-duplicate-or-truncated",
+        "nc-c0-missing-row"
+      ],
+      "dependsOnOutputIds": [
+        "out-c0-comparisons"
+      ],
+      "dependsOnCheckIds": []
+    },
+    {
+      "checkId": "chk-c0v-all-three-terminal",
+      "packetId": "c0v-aggregate",
+      "callerCallableId": "phase10-c0v-aggregate-check-caller",
+      "independentEvaluatorCallableId": "phase10-c0v-aggregate-evaluator",
+      "negativeControlIds": [],
+      "dependsOnOutputIds": [
+        "out-c0v-terminal-table"
+      ],
+      "dependsOnCheckIds": []
+    },
+    {
+      "checkId": "chk-c0v-any-layer-nonpass",
+      "packetId": "c0v-aggregate",
+      "callerCallableId": "phase10-c0v-aggregate-check-caller",
+      "independentEvaluatorCallableId": "phase10-c0v-aggregate-evaluator",
+      "negativeControlIds": [
+        "nc-c0v-any-layer-nonpass"
+      ],
+      "dependsOnOutputIds": [
+        "out-c0v-aggregate",
+        "out-c0v-terminal-table"
+      ],
+      "dependsOnCheckIds": []
+    },
+    {
+      "checkId": "chk-c0v-moving-artifact-graph",
+      "packetId": "c0v-moving-publish",
+      "callerCallableId": "phase10-c0v-moving-publish-check-caller",
+      "independentEvaluatorCallableId": "phase10-c0v-moving-publication-verifier",
+      "negativeControlIds": [],
+      "dependsOnOutputIds": [
+        "out-c0v-moving-artifact-index"
+      ],
+      "dependsOnCheckIds": []
+    },
+    {
+      "checkId": "chk-c0v-moving-freeze-ancestry",
+      "packetId": "c0v-moving-produce",
+      "callerCallableId": "phase10-c0v-moving-produce-check-caller",
+      "independentEvaluatorCallableId": "phase10-c0v-moving-evaluator",
+      "negativeControlIds": [],
+      "dependsOnOutputIds": [
+        "out-c0v-moving-protocol"
+      ],
+      "dependsOnCheckIds": []
+    },
+    {
+      "checkId": "chk-c0v-moving-numeric",
+      "packetId": "c0v-moving-produce",
+      "callerCallableId": "phase10-c0v-moving-produce-check-caller",
+      "independentEvaluatorCallableId": "phase10-c0v-moving-evaluator",
+      "negativeControlIds": [
+        "nc-event-event-time",
+        "nc-event-topology-orbit"
+      ],
+      "dependsOnOutputIds": [
+        "out-c0v-moving-evaluation",
+        "out-c0v-moving-reference",
+        "out-c0v-moving-witness"
+      ],
+      "dependsOnCheckIds": [
+        "chk-c0v-moving-reference-independence"
+      ]
+    },
+    {
+      "checkId": "chk-c0v-moving-reference-independence",
+      "packetId": "c0v-moving-produce",
+      "callerCallableId": "phase10-c0v-moving-produce-check-caller",
+      "independentEvaluatorCallableId": "phase10-c0v-moving-evaluator",
+      "negativeControlIds": [],
+      "dependsOnOutputIds": [
+        "out-c0v-moving-reference"
+      ],
+      "dependsOnCheckIds": []
+    },
+    {
+      "checkId": "chk-c0v-moving-refusal-validity",
+      "packetId": "c0v-moving-produce",
+      "callerCallableId": "phase10-c0v-moving-produce-check-caller",
+      "independentEvaluatorCallableId": "phase10-c0v-moving-refusal-evaluator",
+      "negativeControlIds": [],
+      "dependsOnOutputIds": [
+        "out-c0v-moving-reference-refusal"
+      ],
+      "dependsOnCheckIds": []
+    },
+    {
+      "checkId": "chk-c0v-moving-resource-boundary",
+      "packetId": "c0v-moving-produce",
+      "callerCallableId": "phase10-c0v-moving-produce-check-caller",
+      "independentEvaluatorCallableId": "phase10-c0v-moving-evaluator",
+      "negativeControlIds": [],
+      "dependsOnOutputIds": [
+        "out-c0v-moving-attempt-ledger"
+      ],
+      "dependsOnCheckIds": []
+    },
+    {
+      "checkId": "chk-c0v-moving-terminal-disposition",
+      "packetId": "c0v-moving-publish",
+      "callerCallableId": "phase10-c0v-moving-publish-check-caller",
+      "independentEvaluatorCallableId": "phase10-c0v-moving-publication-verifier",
+      "negativeControlIds": [],
+      "dependsOnOutputIds": [
+        "out-c0v-moving-result"
+      ],
+      "dependsOnCheckIds": []
+    },
+    {
+      "checkId": "chk-c0v-moving-verdict-rederived",
+      "packetId": "c0v-moving-publish",
+      "callerCallableId": "phase10-c0v-moving-publish-check-caller",
+      "independentEvaluatorCallableId": "phase10-c0v-moving-publication-verifier",
+      "negativeControlIds": [],
+      "dependsOnOutputIds": [
+        "out-c0v-moving-result"
+      ],
+      "dependsOnCheckIds": []
+    },
+    {
+      "checkId": "chk-c0v-radial-artifact-graph",
+      "packetId": "c0v-radial-publish",
+      "callerCallableId": "phase10-c0v-radial-publish-check-caller",
+      "independentEvaluatorCallableId": "phase10-c0v-radial-publication-verifier",
+      "negativeControlIds": [],
+      "dependsOnOutputIds": [
+        "out-c0v-radial-artifact-index"
+      ],
+      "dependsOnCheckIds": []
+    },
+    {
+      "checkId": "chk-c0v-radial-freeze-ancestry",
+      "packetId": "c0v-radial-produce",
+      "callerCallableId": "phase10-c0v-radial-produce-check-caller",
+      "independentEvaluatorCallableId": "phase10-c0v-radial-evaluator",
+      "negativeControlIds": [],
+      "dependsOnOutputIds": [
+        "out-c0v-radial-protocol"
+      ],
+      "dependsOnCheckIds": []
+    },
+    {
+      "checkId": "chk-c0v-radial-numeric",
+      "packetId": "c0v-radial-produce",
+      "callerCallableId": "phase10-c0v-radial-produce-check-caller",
+      "independentEvaluatorCallableId": "phase10-c0v-radial-evaluator",
+      "negativeControlIds": [
+        "nc-radial-finite-shell-term",
+        "nc-radial-forged-summary",
+        "nc-radial-robin-coefficient"
+      ],
+      "dependsOnOutputIds": [
+        "out-c0v-radial-evaluation",
+        "out-c0v-radial-reference",
+        "out-c0v-radial-witness"
+      ],
+      "dependsOnCheckIds": [
+        "chk-c0v-radial-reference-independence"
+      ]
+    },
+    {
+      "checkId": "chk-c0v-radial-reference-independence",
+      "packetId": "c0v-radial-produce",
+      "callerCallableId": "phase10-c0v-radial-produce-check-caller",
+      "independentEvaluatorCallableId": "phase10-c0v-radial-evaluator",
+      "negativeControlIds": [],
+      "dependsOnOutputIds": [
+        "out-c0v-radial-reference"
+      ],
+      "dependsOnCheckIds": []
+    },
+    {
+      "checkId": "chk-c0v-radial-refusal-validity",
+      "packetId": "c0v-radial-produce",
+      "callerCallableId": "phase10-c0v-radial-produce-check-caller",
+      "independentEvaluatorCallableId": "phase10-c0v-radial-refusal-evaluator",
+      "negativeControlIds": [],
+      "dependsOnOutputIds": [
+        "out-c0v-radial-reference-refusal"
+      ],
+      "dependsOnCheckIds": []
+    },
+    {
+      "checkId": "chk-c0v-radial-resource-boundary",
+      "packetId": "c0v-radial-produce",
+      "callerCallableId": "phase10-c0v-radial-produce-check-caller",
+      "independentEvaluatorCallableId": "phase10-c0v-radial-evaluator",
+      "negativeControlIds": [],
+      "dependsOnOutputIds": [
+        "out-c0v-radial-attempt-ledger"
+      ],
+      "dependsOnCheckIds": []
+    },
+    {
+      "checkId": "chk-c0v-radial-terminal-disposition",
+      "packetId": "c0v-radial-publish",
+      "callerCallableId": "phase10-c0v-radial-publish-check-caller",
+      "independentEvaluatorCallableId": "phase10-c0v-radial-publication-verifier",
+      "negativeControlIds": [],
+      "dependsOnOutputIds": [
+        "out-c0v-radial-result"
+      ],
+      "dependsOnCheckIds": []
+    },
+    {
+      "checkId": "chk-c0v-radial-verdict-rederived",
+      "packetId": "c0v-radial-publish",
+      "callerCallableId": "phase10-c0v-radial-publish-check-caller",
+      "independentEvaluatorCallableId": "phase10-c0v-radial-publication-verifier",
+      "negativeControlIds": [],
+      "dependsOnOutputIds": [
+        "out-c0v-radial-result"
+      ],
+      "dependsOnCheckIds": []
+    },
+    {
+      "checkId": "chk-c0v-resource-ledger",
+      "packetId": "c0v-aggregate",
+      "callerCallableId": "phase10-c0v-aggregate-check-caller",
+      "independentEvaluatorCallableId": "phase10-c0v-aggregate-evaluator",
+      "negativeControlIds": [],
+      "dependsOnOutputIds": [
+        "out-c0v-resource-ledger"
+      ],
+      "dependsOnCheckIds": []
+    },
+    {
+      "checkId": "chk-c0v-static-artifact-graph",
+      "packetId": "c0v-static-publish",
+      "callerCallableId": "phase10-c0v-static-publish-check-caller",
+      "independentEvaluatorCallableId": "phase10-c0v-static-publication-verifier",
+      "negativeControlIds": [],
+      "dependsOnOutputIds": [
+        "out-c0v-static-artifact-index"
+      ],
+      "dependsOnCheckIds": []
+    },
+    {
+      "checkId": "chk-c0v-static-freeze-ancestry",
+      "packetId": "c0v-static-produce",
+      "callerCallableId": "phase10-c0v-static-produce-check-caller",
+      "independentEvaluatorCallableId": "phase10-c0v-static-evaluator",
+      "negativeControlIds": [],
+      "dependsOnOutputIds": [
+        "out-c0v-static-protocol"
+      ],
+      "dependsOnCheckIds": []
+    },
+    {
+      "checkId": "chk-c0v-static-numeric",
+      "packetId": "c0v-static-produce",
+      "callerCallableId": "phase10-c0v-static-produce-check-caller",
+      "independentEvaluatorCallableId": "phase10-c0v-static-evaluator",
+      "negativeControlIds": [
+        "nc-static-boundary-stencil",
+        "nc-static-forged-norms",
+        "nc-static-missing-level"
+      ],
+      "dependsOnOutputIds": [
+        "out-c0v-static-evaluation",
+        "out-c0v-static-reference",
+        "out-c0v-static-witness"
+      ],
+      "dependsOnCheckIds": [
+        "chk-c0v-static-reference-independence"
+      ]
+    },
+    {
+      "checkId": "chk-c0v-static-reference-independence",
+      "packetId": "c0v-static-produce",
+      "callerCallableId": "phase10-c0v-static-produce-check-caller",
+      "independentEvaluatorCallableId": "phase10-c0v-static-evaluator",
+      "negativeControlIds": [
+        "nc-static-shared-operator"
+      ],
+      "dependsOnOutputIds": [
+        "out-c0v-static-reference"
+      ],
+      "dependsOnCheckIds": []
+    },
+    {
+      "checkId": "chk-c0v-static-refusal-validity",
+      "packetId": "c0v-static-produce",
+      "callerCallableId": "phase10-c0v-static-produce-check-caller",
+      "independentEvaluatorCallableId": "phase10-c0v-static-refusal-evaluator",
+      "negativeControlIds": [],
+      "dependsOnOutputIds": [
+        "out-c0v-static-reference-refusal"
+      ],
+      "dependsOnCheckIds": []
+    },
+    {
+      "checkId": "chk-c0v-static-resource-boundary",
+      "packetId": "c0v-static-produce",
+      "callerCallableId": "phase10-c0v-static-produce-check-caller",
+      "independentEvaluatorCallableId": "phase10-c0v-static-evaluator",
+      "negativeControlIds": [],
+      "dependsOnOutputIds": [
+        "out-c0v-static-attempt-ledger"
+      ],
+      "dependsOnCheckIds": []
+    },
+    {
+      "checkId": "chk-c0v-static-terminal-disposition",
+      "packetId": "c0v-static-publish",
+      "callerCallableId": "phase10-c0v-static-publish-check-caller",
+      "independentEvaluatorCallableId": "phase10-c0v-static-publication-verifier",
+      "negativeControlIds": [],
+      "dependsOnOutputIds": [
+        "out-c0v-static-result"
+      ],
+      "dependsOnCheckIds": []
+    },
+    {
+      "checkId": "chk-c0v-static-verdict-rederived",
+      "packetId": "c0v-static-publish",
+      "callerCallableId": "phase10-c0v-static-publish-check-caller",
+      "independentEvaluatorCallableId": "phase10-c0v-static-publication-verifier",
+      "negativeControlIds": [],
+      "dependsOnOutputIds": [
+        "out-c0v-static-result"
+      ],
+      "dependsOnCheckIds": []
+    },
+    {
+      "checkId": "chk-c0v-verdict-rederived",
+      "packetId": "c0v-aggregate",
+      "callerCallableId": "phase10-c0v-aggregate-check-caller",
+      "independentEvaluatorCallableId": "phase10-c0v-aggregate-evaluator",
+      "negativeControlIds": [],
+      "dependsOnOutputIds": [
+        "out-c0v-aggregate"
+      ],
+      "dependsOnCheckIds": []
+    },
+    {
+      "checkId": "chk-closure-all-obligations-terminal",
+      "packetId": "closure",
+      "callerCallableId": "phase10-closure-check-caller",
+      "independentEvaluatorCallableId": "phase10-gate10-evaluator",
+      "negativeControlIds": [],
+      "dependsOnOutputIds": [
+        "out-closure-obligation-report",
+        "out-closure-package-report",
+        "out-closure-receipt-index"
+      ],
+      "dependsOnCheckIds": []
+    },
+    {
+      "checkId": "chk-closure-claim-map",
+      "packetId": "closure",
+      "callerCallableId": "phase10-closure-check-caller",
+      "independentEvaluatorCallableId": "phase10-gate10-evaluator",
+      "negativeControlIds": [],
+      "dependsOnOutputIds": [
+        "out-closure-claim-map"
+      ],
+      "dependsOnCheckIds": []
+    },
+    {
+      "checkId": "chk-closure-completion-disposition-separation",
+      "packetId": "closure",
+      "callerCallableId": "phase10-closure-check-caller",
+      "independentEvaluatorCallableId": "phase10-gate10-evaluator",
+      "negativeControlIds": [],
+      "dependsOnOutputIds": [
+        "out-closure-package-report"
+      ],
+      "dependsOnCheckIds": []
+    },
+    {
+      "checkId": "chk-closure-exact-npm-test",
+      "packetId": "closure",
+      "callerCallableId": "phase10-closure-check-caller",
+      "independentEvaluatorCallableId": "phase10-gate10-evaluator",
+      "negativeControlIds": [],
+      "dependsOnOutputIds": [
+        "out-closure-suite-receipt"
+      ],
+      "dependsOnCheckIds": []
+    },
+    {
+      "checkId": "chk-closure-flagless-gate10",
+      "packetId": "closure",
+      "callerCallableId": "phase10-closure-check-caller",
+      "independentEvaluatorCallableId": "phase10-gate10-evaluator",
+      "negativeControlIds": [],
+      "dependsOnOutputIds": [
+        "out-closure-gate10"
+      ],
+      "dependsOnCheckIds": []
+    },
+    {
+      "checkId": "chk-closure-no-validation-credit",
+      "packetId": "closure",
+      "callerCallableId": "phase10-closure-check-caller",
+      "independentEvaluatorCallableId": "phase10-gate10-evaluator",
+      "negativeControlIds": [],
+      "dependsOnOutputIds": [
+        "out-closure-package-report"
+      ],
+      "dependsOnCheckIds": []
+    },
+    {
+      "checkId": "chk-closure-non-author-review",
+      "packetId": "closure",
+      "callerCallableId": "phase10-closure-check-caller",
+      "independentEvaluatorCallableId": "phase10-gate10-evaluator",
+      "negativeControlIds": [],
+      "dependsOnOutputIds": [
+        "out-closure-review"
+      ],
+      "dependsOnCheckIds": []
+    },
+    {
+      "checkId": "chk-closure-obligation-report-rederived",
+      "packetId": "closure",
+      "callerCallableId": "phase10-closure-check-caller",
+      "independentEvaluatorCallableId": "phase10-gate10-evaluator",
+      "negativeControlIds": [],
+      "dependsOnOutputIds": [
+        "out-closure-obligation-report",
+        "out-closure-receipt-index"
+      ],
+      "dependsOnCheckIds": []
+    },
+    {
+      "checkId": "chk-closure-prior-artifacts-labels",
+      "packetId": "closure",
+      "callerCallableId": "phase10-closure-check-caller",
+      "independentEvaluatorCallableId": "phase10-gate10-evaluator",
+      "negativeControlIds": [],
+      "dependsOnOutputIds": [
+        "out-closure-package-report"
+      ],
+      "dependsOnCheckIds": []
+    },
+    {
+      "checkId": "chk-closure-receipt-retention",
+      "packetId": "closure",
+      "callerCallableId": "phase10-closure-check-caller",
+      "independentEvaluatorCallableId": "phase10-gate10-evaluator",
+      "negativeControlIds": [],
+      "dependsOnOutputIds": [
+        "out-closure-receipt-index"
+      ],
+      "dependsOnCheckIds": []
+    }
+  ],
+  "negativeControls": [
+    {
+      "negativeControlId": "nc-ap-missing-producer",
+      "packetId": "a-p",
+      "ownerCheckId": "chk-ap-output-producers",
+      "callableId": "phase10-nc-ap-missing-producer"
+    },
+    {
+      "negativeControlId": "nc-ap-uncalled-check",
+      "packetId": "a-p",
+      "ownerCheckId": "chk-ap-called-checks",
+      "callableId": "phase10-nc-ap-uncalled-check"
+    },
+    {
+      "negativeControlId": "nc-as-collapse-multiple-blockers",
+      "packetId": "a-s",
+      "ownerCheckId": "chk-as-multiblocker-support",
+      "callableId": "phase10-nc-as-collapse-multiple-blockers"
+    },
+    {
+      "negativeControlId": "nc-as-drop-one-overlay-row",
+      "packetId": "a-s",
+      "ownerCheckId": "chk-as-exact-rosters",
+      "callableId": "phase10-nc-as-drop-one-overlay-row"
+    },
+    {
+      "negativeControlId": "nc-as-rewrite-frozen-role",
+      "packetId": "a-s",
+      "ownerCheckId": "chk-as-immutable-roles",
+      "callableId": "phase10-nc-as-rewrite-frozen-role"
+    },
+    {
+      "negativeControlId": "nc-as-upgrade-validation-credit",
+      "packetId": "a-s",
+      "ownerCheckId": "chk-as-zero-validation-credit",
+      "callableId": "phase10-nc-as-upgrade-validation-credit"
+    },
+    {
+      "negativeControlId": "nc-c0-coarse-fail-fine-pass",
+      "packetId": "c0-derive",
+      "ownerCheckId": "chk-c0-all-spacings",
+      "callableId": "phase10-nc-c0-coarse-fail-fine-pass"
+    },
+    {
+      "negativeControlId": "nc-c0-duplicate-or-truncated",
+      "packetId": "c0-derive",
+      "ownerCheckId": "chk-c0-row-roster",
+      "callableId": "phase10-nc-c0-duplicate-or-truncated"
+    },
+    {
+      "negativeControlId": "nc-c0-fine-fail-coarse-pass",
+      "packetId": "c0-derive",
+      "ownerCheckId": "chk-c0-all-spacings",
+      "callableId": "phase10-nc-c0-fine-fail-coarse-pass"
+    },
+    {
+      "negativeControlId": "nc-c0-forbidden-field",
+      "packetId": "c0-derive",
+      "ownerCheckId": "chk-c0-field-allowlist",
+      "callableId": "phase10-nc-c0-forbidden-field"
+    },
+    {
+      "negativeControlId": "nc-c0-forged-producer-verdict",
+      "packetId": "c0-derive",
+      "ownerCheckId": "chk-c0-independent-rederivation",
+      "callableId": "phase10-nc-c0-forged-producer-verdict"
+    },
+    {
+      "negativeControlId": "nc-c0-missing-row",
+      "packetId": "c0-derive",
+      "ownerCheckId": "chk-c0-row-roster",
+      "callableId": "phase10-nc-c0-missing-row"
+    },
+    {
+      "negativeControlId": "nc-c0-operand-echo",
+      "packetId": "c0-derive",
+      "ownerCheckId": "chk-c0-operand-echo",
+      "callableId": "phase10-nc-c0-operand-echo"
+    },
+    {
+      "negativeControlId": "nc-c0v-any-layer-nonpass",
+      "packetId": "c0v-aggregate",
+      "ownerCheckId": "chk-c0v-any-layer-nonpass",
+      "callableId": "phase10-nc-c0v-any-layer-nonpass"
+    },
+    {
+      "negativeControlId": "nc-event-event-time",
+      "packetId": "c0v-moving-produce",
+      "ownerCheckId": "chk-c0v-moving-numeric",
+      "callableId": "phase10-nc-event-event-time"
+    },
+    {
+      "negativeControlId": "nc-event-topology-orbit",
+      "packetId": "c0v-moving-produce",
+      "ownerCheckId": "chk-c0v-moving-numeric",
+      "callableId": "phase10-nc-event-topology-orbit"
+    },
+    {
+      "negativeControlId": "nc-radial-finite-shell-term",
+      "packetId": "c0v-radial-produce",
+      "ownerCheckId": "chk-c0v-radial-numeric",
+      "callableId": "phase10-nc-radial-finite-shell-term"
+    },
+    {
+      "negativeControlId": "nc-radial-forged-summary",
+      "packetId": "c0v-radial-produce",
+      "ownerCheckId": "chk-c0v-radial-numeric",
+      "callableId": "phase10-nc-radial-forged-summary"
+    },
+    {
+      "negativeControlId": "nc-radial-robin-coefficient",
+      "packetId": "c0v-radial-produce",
+      "ownerCheckId": "chk-c0v-radial-numeric",
+      "callableId": "phase10-nc-radial-robin-coefficient"
+    },
+    {
+      "negativeControlId": "nc-static-boundary-stencil",
+      "packetId": "c0v-static-produce",
+      "ownerCheckId": "chk-c0v-static-numeric",
+      "callableId": "phase10-nc-static-boundary-stencil"
+    },
+    {
+      "negativeControlId": "nc-static-forged-norms",
+      "packetId": "c0v-static-produce",
+      "ownerCheckId": "chk-c0v-static-numeric",
+      "callableId": "phase10-nc-static-forged-norms"
+    },
+    {
+      "negativeControlId": "nc-static-missing-level",
+      "packetId": "c0v-static-produce",
+      "ownerCheckId": "chk-c0v-static-numeric",
+      "callableId": "phase10-nc-static-missing-level"
+    },
+    {
+      "negativeControlId": "nc-static-shared-operator",
+      "packetId": "c0v-static-produce",
+      "ownerCheckId": "chk-c0v-static-reference-independence",
+      "callableId": "phase10-nc-static-shared-operator"
+    }
+  ],
+  "conditionalGroups": [
+    {
+      "groupId": "group-c0v-moving-reference-route",
+      "packetId": "c0v-moving-produce",
+      "independentReference": {
+        "outputIds": [
+          "out-c0v-moving-evaluation",
+          "out-c0v-moving-reference",
+          "out-c0v-moving-witness"
+        ],
+        "checkIds": [
+          "chk-c0v-moving-numeric",
+          "chk-c0v-moving-reference-independence"
+        ]
+      },
+      "referenceRefusal": {
+        "outputIds": [
+          "out-c0v-moving-reference-refusal"
+        ],
+        "checkIds": [
+          "chk-c0v-moving-refusal-validity"
+        ]
+      }
+    },
+    {
+      "groupId": "group-c0v-radial-reference-route",
+      "packetId": "c0v-radial-produce",
+      "independentReference": {
+        "outputIds": [
+          "out-c0v-radial-evaluation",
+          "out-c0v-radial-reference",
+          "out-c0v-radial-witness"
+        ],
+        "checkIds": [
+          "chk-c0v-radial-numeric",
+          "chk-c0v-radial-reference-independence"
+        ]
+      },
+      "referenceRefusal": {
+        "outputIds": [
+          "out-c0v-radial-reference-refusal"
+        ],
+        "checkIds": [
+          "chk-c0v-radial-refusal-validity"
+        ]
+      }
+    },
+    {
+      "groupId": "group-c0v-static-reference-route",
+      "packetId": "c0v-static-produce",
+      "independentReference": {
+        "outputIds": [
+          "out-c0v-static-evaluation",
+          "out-c0v-static-reference",
+          "out-c0v-static-witness"
+        ],
+        "checkIds": [
+          "chk-c0v-static-numeric",
+          "chk-c0v-static-reference-independence"
+        ]
+      },
+      "referenceRefusal": {
+        "outputIds": [
+          "out-c0v-static-reference-refusal"
+        ],
+        "checkIds": [
+          "chk-c0v-static-refusal-validity"
+        ]
+      }
+    }
+  ]
+}

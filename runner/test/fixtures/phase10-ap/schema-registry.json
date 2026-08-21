@@ -1,0 +1,58 @@
+{
+  "schema": "phase10-artifact-schema-registry-v1",
+  "createdOn": "2026-08-21",
+  "foundationFreeze": {},
+  "conformance": {},
+  "enums": {},
+  "definitions": {},
+  "artifactSchemas": [
+    {
+      "schemaId": "phase10-callable-registry-v1",
+      "format": "json",
+      "exactFields": ["fixture"],
+      "fieldContracts": {
+        "fixture": "synthetic callable-registry artifact contract"
+      },
+      "invariants": ["The test artifact carries its exact synthetic fixture field."]
+    },
+    {
+      "schemaId": "phase10-execution-receipt-v1",
+      "format": "json",
+      "exactFields": ["fixture"],
+      "fieldContracts": {
+        "fixture": "synthetic execution-receipt artifact contract"
+      },
+      "invariants": ["The test artifact carries its exact synthetic fixture field."]
+    },
+    {
+      "schemaId": "phase10-packet-protocol-v1",
+      "format": "json",
+      "exactFields": ["fixture"],
+      "fieldContracts": {
+        "fixture": "synthetic packet-protocol artifact contract"
+      },
+      "invariants": ["The test artifact carries its exact synthetic fixture field."]
+    }
+  ],
+  "schemaAliases": [],
+  "externalSchemaDefinitions": [],
+  "externalSchemaReservations": [],
+  "schemaAvailability": [
+    {
+      "schemaId": "phase10-callable-registry-v1",
+      "state": "defined",
+      "requiredBeforePacketIds": []
+    },
+    {
+      "schemaId": "phase10-execution-receipt-v1",
+      "state": "defined",
+      "requiredBeforePacketIds": []
+    },
+    {
+      "schemaId": "phase10-packet-protocol-v1",
+      "state": "defined",
+      "requiredBeforePacketIds": []
+    }
+  ],
+  "refusalSemantics": {}
+}

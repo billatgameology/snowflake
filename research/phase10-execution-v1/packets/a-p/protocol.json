@@ -1,0 +1,46 @@
+{
+  "schema": "phase10-packet-protocol-v1",
+  "protocolId": "phase10-a-p-s1-freeze-v1",
+  "matrixId": "phase10-selected-package-obligations-v1",
+  "packetId": "a-p",
+  "artifactSchemaRegistry": {
+    "path": "research/phase10-artifact-schema-registry-v1.json",
+    "byteLength": 114255,
+    "sha256": "c89463c37384d5652b57c039e26f0c612b08a2d9bb5994482bbf750eae121c70"
+  },
+  "selectedBranches": [],
+  "registeredOutputIds": [
+    "out-ap-artifact-index",
+    "out-ap-artifact-schema-registry",
+    "out-ap-c0-protocol",
+    "out-ap-c0v-foundation",
+    "out-ap-execution-readme",
+    "out-ap-foundation-freeze",
+    "out-ap-matrix",
+    "out-ap-missing-producer-receipt",
+    "out-ap-packet-catalogue",
+    "out-ap-self-callable-registry",
+    "out-ap-self-execution-receipt",
+    "out-ap-self-packet-protocol",
+    "out-ap-uncalled-check-receipt",
+    "out-ap-verification"
+  ],
+  "registeredCheckIds": [
+    "chk-ap-called-checks",
+    "chk-ap-command-boundary",
+    "chk-ap-conditional-groups",
+    "chk-ap-global-coverage",
+    "chk-ap-output-producers",
+    "chk-ap-packet-catalogue",
+    "chk-ap-packet-set-equality",
+    "chk-ap-rights-resource-claim-boundary",
+    "chk-ap-schema-coverage",
+    "chk-ap-schema-promotion",
+    "chk-ap-self-freeze"
+  ],
+  "registeredNegativeControlIds": [
+    "nc-ap-missing-producer",
+    "nc-ap-uncalled-check"
+  ],
+  "boundDependencyPacketIds": []
+}

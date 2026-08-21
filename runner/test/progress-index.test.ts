@@ -47,7 +47,7 @@ const PHASE10_STATUS_LINE =
 const PHASE8_GATE_PREFIX = "| 8 | **Complete (8A + 8B)** |";
 const PHASE7_GATE_PREFIX = "| 7 | Not started; independently eligible |";
 const PHASE9_GATE_PREFIX = "| 9 | **Complete (development-only)** |";
-const PHASE10_GATE_PREFIX = "| 10 | **In progress — S1 protocol freeze** |";
+const PHASE10_GATE_PREFIX = "| 10 | **In progress — S1 complete; S2 A-S next** |";
 const CONTRADICTORY_STATE_PATTERNS = [
   /Phase 8B (?:is |remains )?(?:active|incomplete|pending)\b/iu,
   /Phase 8B.*\b(?:may|can|will|must) (?:rewrite|mutate|replace|overwrite)\b.*\b(?:8A|v1|phase8-target-book)\b/iu,
@@ -121,7 +121,8 @@ function currentIndexErrors(text: string): string[] {
     "no C1–C5 or habit rows",
     "(plans/phase-10-evidence-verification-execution.md)",
     "governance checkpoint is complete",
-    "S0 complete; S1 protocol and obligation freeze next",
+    "S1 contract freeze are complete. S2 A-S is the",
+    "Phase 10 — S1 complete; execute the A-S scope overlays next",
     "- **Last updated:** 2026-08-21",
   ];
   for (const phrase of required) {

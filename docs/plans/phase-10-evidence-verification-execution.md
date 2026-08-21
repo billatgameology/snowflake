@@ -45,6 +45,7 @@ were re-hashed at plan creation, carry effective `-text`, and are read-only inpu
 | `evidence/phase9-source-overlay-v1/report.json` | 6,530 | `51e1fa2bf6a84beb94ffd442fd0d55df9017f7bb76e2b04d1e1f5fec38c63d8a` | completed Phase 9 source dispositions |
 | `research/phase9-post-freeze-source-intake-v1.json` | 12,925 | `1a9a8fdb24fcd230d377297a268694727e27baccbe3a8ba807857b5a611afc48` | 14-payload / 24-file intake and private-NAS bindings |
 | `evidence/phase6-wp2-ladder/report.json` | 43,863 | `fd20f7018dbe2e4a09634c076ff274a017dafe6600321a983836bb8ab1b1ebb7` | C0 persisted numerical diagnostics |
+| `evidence/phase6-wp2-ladder/rows.jsonl` | 73,873 | `c4fa70f7d8351f998f4800ff580ddaad0eb09fd2e2f2df7f606ca717e789cd14` | C0 raw 80-row / 64-pairing re-derivation input; the historical report is only a cross-check |
 
 Phase 6, Phase 8, and Phase 9 evidence bytes are never amended. Private source payloads remain in
 their governed NAS collection; tracked outputs expose only rights-safe identities, hashes,
@@ -69,7 +70,10 @@ and Phase 10 eligibility before B consumes them. Reuse existing custody and sour
 re-performing it. Run one closed currency snapshot for the source lineages B actually selects,
 with exact queries, dates, endpoints, and terminal outcomes. Reopen only for a correction or
 version change to a consumed source, a newly selected load-bearing family, an unavailable priority
-lead becoming available, or a maker-scheduled refresh.
+lead becoming available, or a maker-scheduled refresh. A-I is a structurally verified static
+packet: it does not open or acquire new source bytes. The shared six-target direct acquisition and
+any resulting private-NAS publication belong to B's separately launch-governed `b-acquisition`
+packet after A-I closes.
 
 ### B — finite observation and apparatus bridges
 
@@ -90,7 +94,8 @@ Run all six required dispositions without skipping the cross-pressure branch:
    calibration/operator/uncertainty rules before numeric inspection, then publish every attempted
    extraction or refusal.
 
-B starts with A-I's retained tranche. It permits one named acquisition round for the complete HP26
+B starts with A-I's retained tranche. Its first deciding packet is `b-acquisition`, which permits
+one named acquisition round for the complete HP26
 article, Pokrifka–Moyle–Harrington 2025 Methods, Keller–Hallett 1982, the complete current Princeton
 monograph, Zhao's main article, and Zhao's identified S2 companion video. Each still-missing
 operand permits at most one separately committed targeted search packet with no more than three
@@ -131,16 +136,30 @@ blocks any later C5 claim.
 
 ### A-P — packet-specific obligation preflight
 
-Before any C0/C0V producer or publication packet runs, freeze a matrix mapping every registered
-output/check to its producer, artifact path or field, independent evaluator where required, and
-proportionate negative control. Preflight refuses an output with no production path, a check with
-no caller, a dirty or disallowed head, wrong runtime, duplicate/missing roster item, unsafe shared
-path, insufficient disk, or stale writer. Its adversarial fixtures must remove one producer and
-make one check uncalled. A-P establishes obligation completeness, not scientific correctness.
+S1 freezes a base matrix mapping every selected-package output/check class to its producer,
+artifact path or field, independent evaluator where required, and proportionate negative control.
+Each later deciding packet protocol must bind the base IDs it implements and may only refine or add
+obligations; it may not delete one. The packet protocol also binds the exact artifact-schema
+registry path, byte length, and SHA-256. Freeze preflight permits an explicitly reserved schema
+only for its named promotion packet; run and receipt preflight require exactly one concrete local,
+alias, or independently hash-bound external definition and reject a promotion asserted only by a
+status label. Before any C0/C0V producer or publication packet runs, and
+before a B deciding extraction runs, launch preflight must resolve and hash the actual registered
+producer/evaluator callables and prove planned and executed check-set equality. It refuses an
+output with no production path, a check with no caller, a dirty or disallowed head, wrong runtime,
+duplicate/missing roster item, unsafe shared path, insufficient disk, or stale writer. Its
+adversarial fixtures must remove one producer and make one check uncalled. A-P establishes
+obligation completeness, not scientific correctness.
+
+The closing receipt index is finite and non-recursive: it binds every non-closure packet and every
+retained or superseded attempt, but excludes its closure packet, itself, and the later closure
+terminal/verification receipts. `evidence/MANIFEST.json` pins those final excluded bytes; gate10
+and the non-author review bind the pre-verification closure inputs and record the exclusion rather
+than claiming an impossible self-hash.
 
 Routine A-S/A-I/B source reading does not pretend to be a scientific launch and is not blocked on
-machine-only C0V launch checks. Any B protocol that registers outputs or checks still enters the
-package-level obligation matrix before its deciding extraction.
+machine-only checks. A-S/A-I still receive matrix coverage and structural verification, and every
+B protocol enters the package-level obligation matrix before its deciding extraction.
 
 ## Resource and execution boundary
 
@@ -157,6 +176,13 @@ package-level obligation matrix before its deciding extraction.
   including retries, failed attempts, and superseded attempts. Exceeding or
   projecting beyond either cap yields a resource refusal and maker return, not a silent roster
   reduction or numerical failure.
+- C0V scratch plus retained raw/published attempts is capped at 64 GiB. Every packet protocol
+  registers its projected bytes and minimum free-space requirement before launch; a projection or
+  observation beyond the cap yields a resource refusal rather than deleting an attempt or reducing
+  the roster.
+- The exact Phase 10 execution runtime is Node v24.13.1. A different runtime may run ordinary
+  development checks but cannot launch a deciding B extraction or C0/C0V packet without a committed
+  plan amendment and repeated preflight.
 - Freeze C0V's exact grid/case roster before the corresponding production implementation. Tests
   and source-independent work may run concurrently; record actual concurrency. C0V solver controls
   execute at process concurrency one so host contention cannot contaminate their cost record.
@@ -182,7 +208,7 @@ collection.
   progress-state regression; mark the candidate plan superseded for execution while preserving its
   planning history. Audit the complete charter diff and run exact `npm test`. No source consumption
   or package implementation precedes this commit.
-- [ ] **S1 — freeze the package obligation matrix and schemas.** Register every A-S/A-I/B/C0/C0V
+- [x] **S1 — freeze the package obligation matrix and schemas.** Register every A-S/A-I/B/C0/C0V
   output and check, define rights-safe tracked/NAS boundaries, add the missing-producer and
   uncalled-check fixtures, and prove preflight refuses them.
 - [ ] **S2 — execute A-S.** Publish and verify separate 18-entry and 51-record overlays with the
@@ -190,7 +216,8 @@ collection.
   totals independently re-derived from the overlay bytes.
 - [ ] **S3 — execute A-I.** Verify the governed private-NAS bindings, terminally disposition all 14
   retained payloads, freeze selected B lineages, and close the finite currency snapshot. Preserve
-  unavailable or rights-blocked sources as explicit refusals.
+  unavailable or rights-blocked retained sources as explicit refusals; do not acquire new bytes in
+  this static packet.
 - [ ] **S4 — publish C0.** Implement an independent ladder parser/evaluator, reproduce the
   persisted comparison breakdown, reject missing/duplicate/malformed rows and forbidden inferred
   fields, and publish the target-field gap list.
@@ -201,7 +228,8 @@ collection.
 - [ ] **S6 — implement and execute C0V.** Build separate producers and artifact-derived evaluators,
   run packet preflight, execute only the frozen controls, retain all attempts, and publish one
   terminal PASS/FAIL/REFUSAL result per layer plus the aggregate verdict.
-- [ ] **S7 — execute B1a/B1b and B2–B5.** Parallelize source-independent branches while preserving
+- [ ] **S7 — execute B acquisition, B1a/B1b, and B2–B5.** Run the launch-governed
+  `b-acquisition` packet first, then parallelize source-independent branches while preserving
   per-branch freeze-before-value semantics. Complete the named acquisition round and only the
   precommitted targeted packets needed for unresolved operands. Publish eligible bridges or exact
   operand-level refusals, never an invented mapping.
@@ -229,6 +257,25 @@ load-bearing quantitative extraction or reference receives one targeted independ
 closing package report and C0V aggregate receive one non-author adversarial review; reviews do not
 recurse. The review records model/context provenance, what it re-executed, and what it did not
 check.
+
+### S1 checkpoint record — 2026-08-21
+
+S1 freezes a 21-packet matrix containing 112 outputs, 140 checks, 23 negative controls, and three
+conditional groups. Its load-bearing inputs are the 125,508-byte obligation matrix at SHA-256
+`8f85e6febad1ec7568b2a7a47dd764c260cc1f602da08c7dd27d5ee1a6c1bab3`, the 32,327-byte
+foundation at SHA-256 `7847f26a24d1a09eefc6b15ed07baf1d007782fdd58c3301e3f926e4c8805871`, and the
+114,255-byte schema registry at SHA-256
+`c89463c37384d5652b57c039e26f0c612b08a2d9bb5994482bbf750eae121c70`. The focused preflight
+suite passes 14/14, including independently observed missing-producer and uncalled-check
+mutations; exact `npm test` is the final checkpoint check. No source value, restricted payload,
+solver row, or scientific control was inspected or executed.
+
+One non-author OpenAI Codex reviewer inherited the full development context but authored none of
+the reviewed bytes. It independently re-ran the focused suite, both typechecks, the Rule 7 scan,
+the diff check, and custom read-only hash/roster/schema/branch/Git-attribute audits and reported
+zero unresolved blockers. It did not inspect restricted sources or NAS payloads, launch a solver
+or S2+ packet, run `gate10`, or independently run the full `npm test`; later planned callables and
+reserved schemas remain deliberately unresolved until their registered packet freezes.
 
 ## Return and stop rules
 

@@ -1,0 +1,379 @@
+{
+  "schema": "phase10-c0v-foundation-v1",
+  "protocolId": "phase10-c0v-absolute-verification-foundation-v1",
+  "frozenDate": "2026-08-21",
+  "adoptionCommit": "0c889c3423d87f9062555a058a320c4a5cce2bc5",
+  "state": {
+    "foundation": "frozen-before-s5-reference-derivation",
+    "referenceValuesPresent": false,
+    "tolerancesPresent": false,
+    "gridOrFixtureChoicesPresent": false,
+    "solverControlExecuted": false,
+    "productionComparisonImplemented": false
+  },
+  "claimBoundary": {
+    "allowed": [
+      "absolute numerical verification of each named control only after an independent reference is frozen",
+      "an artifact-derived pre-implementation refusal when a reference cannot be made independent",
+      "a terminal diagnostic pass, fail, or refusal for each control layer"
+    ],
+    "forbidden": [
+      "self-convergence presented as accuracy",
+      "a physical-validation or target-facing laboratory claim",
+      "a scientific habit row or C1-C5 execution",
+      "a solver, state, checkpoint, or permanent surface-operator contract change",
+      "choosing reference values, tolerances, grids, or fixtures after production output is inspected"
+    ]
+  },
+  "freezeOrder": [
+    "this S1 foundation and its obligation classes",
+    "one S5 layer supplement containing either the complete independent-reference protocol or the artifact-derived pre-implementation refusal",
+    "the S5 reference bytes and one targeted independent reference check, when the independent-reference branch is taken",
+    "production comparison implementation in a later commit whose ancestry includes the applicable S5 freeze",
+    "packet preflight, frozen control execution, artifact-derived evaluation, and publication"
+  ],
+  "s5ReservedFields": {
+    "common": [
+      "exact physical operands and their provenance",
+      "exact tolerance values",
+      "exact artifact encodings and paths",
+      "exact reference and implementation source hashes",
+      "exact launch commands and expected runtime envelope"
+    ],
+    "radial": [
+      "the four exact requested spacings",
+      "problem geometry and conditions",
+      "constant Robin attachment coefficient",
+      "expected field, surface value, shell value, and growth velocity"
+    ],
+    "static": [
+      "the exact three- or four-level grid roster",
+      "physical domain, fixed geometry, field and flux reference values",
+      "norm weights, expected order, and lower bound",
+      "residual, divergence, smoother-drift, and iteration limits"
+    ],
+    "movingEvent": [
+      "the exact symmetric fixture and initial raw state",
+      "the tied orbit and tie/margin rule",
+      "expected event time, topology, post-event field, and ledger",
+      "event, field, and ledger tolerances"
+    ]
+  },
+  "conditionalObligationRule": {
+    "cardinality": "exactly one branch per layer",
+    "independentReferenceBranch": {
+      "required": [
+        "S5 protocol supplement committed before production implementation",
+        "reference derivation with exact raw output bytes",
+        "one targeted independent calculation or semantic check",
+        "reference-independence and import-boundary receipt",
+        "production witness from only the frozen roster",
+        "artifact-derived independent evaluation",
+        "all named negative controls"
+      ]
+    },
+    "preimplementationRefusalBranch": {
+      "required": [
+        "artifact-derived refusal committed before production implementation",
+        "the exact unavailable operand, shared-arithmetic seam, missing state, or unjustified expectation",
+        "the attempted derivation route and why it is not independent",
+        "a receipt marking later producer/run obligations not applicable because of this refusal"
+      ],
+      "forbidden": [
+        "an absent file treated as a refusal",
+        "a producer or solver run after the refusal",
+        "a PASS label",
+        "substituting self-convergence"
+      ]
+    }
+  },
+  "obligationClasses": [
+    {
+      "id": "protocol-supplement",
+      "kind": "output",
+      "requirement": "freezes every S5-reserved field for one layer before reference or production output"
+    },
+    {
+      "id": "reference-or-refusal",
+      "kind": "conditional-output",
+      "requirement": "exactly one complete conditional branch is published"
+    },
+    {
+      "id": "targeted-reference-check",
+      "kind": "check",
+      "requirement": "an implementation separate from the reference derivation checks every load-bearing reference quantity"
+    },
+    {
+      "id": "production-witness",
+      "kind": "conditional-output",
+      "requirement": "raw fields and operands are emitted only when the independent-reference branch is complete"
+    },
+    {
+      "id": "artifact-derived-evaluation",
+      "kind": "conditional-check-output",
+      "requirement": "the evaluator ignores producer verdicts and recomputes the disposition from protocol, reference, and witness bytes"
+    },
+    {
+      "id": "negative-controls",
+      "kind": "check",
+      "requirement": "every named mutation executes, moves an independent witness, preserves the clean capture, and fails its attacked check"
+    },
+    {
+      "id": "packet-preflight",
+      "kind": "check",
+      "requirement": "the matrix route is callable, the exact roster and ancestry are valid, and runtime, paths, disk, and stale-writer checks pass before execution"
+    },
+    {
+      "id": "publication-receipt",
+      "kind": "output",
+      "requirement": "every claim-bearing byte and terminal disposition is digest-pinned"
+    }
+  ],
+  "independenceRules": {
+    "scientificArithmetic": "reference derivation, production comparison, and artifact evaluator may share the frozen mathematical specification but do not share scientific-arithmetic implementation or mutable implementation code",
+    "permittedSharedCode": [
+      "strict artifact schema and binary decoding that supplies neither side of a scientific comparison",
+      "canonical JSON serialization",
+      "cryptographic hashing",
+      "path containment and provenance collection"
+    ],
+    "independentReferenceForbiddenImports": [
+      "solver-cpu production modules",
+      "LKSolver or its private aggregate boundary and smoother arithmetic",
+      "sphericalAnalytic or sphericalNumeric",
+      "a Phase 10 production adapter",
+      "a producer report or producer verdict as expected truth"
+    ],
+    "independentEvaluatorForbiddenImports": [
+      "the corresponding producer module",
+      "the corresponding reference implementation's scientific arithmetic",
+      "production boundary, topology, event, norm, or ledger arithmetic",
+      "historical report verdict fields as authority"
+    ],
+    "quantitativeOperandRule": "an operand also used by production is frozen in the S5 supplement and receives the targeted independent check; importing the same production function on both sides is not independent",
+    "topologyRule": "a moving-event reference freezes explicit integer-coordinate topology or an independently enumerated neighbor table rather than importing production topology decisions",
+    "dependencyAudit": "a static import/dependency check is a required preflight witness for every reference and evaluator route",
+    "testHooks": "testAlphaOverride, testExtraSeedSites, testMode, and any equivalent test-only surface/state substitution are forbidden from all evidence routes"
+  },
+  "rawArtifactRules": {
+    "producerVerdict": "non-authoritative and ignored by the independent evaluator",
+    "requiredBindings": [
+      "foundation and S5 supplement identities",
+      "reference or refusal identity",
+      "freeze and implementation commits with ancestry result",
+      "exact runtime, head, command, process concurrency, start, finish, exit status, and attempt identity",
+      "raw binary or canonical JSON witness byte length and SHA-256"
+    ],
+    "malformedOrMissingBytes": "artifact refusal, never scientific fail or pass",
+    "scientificFail": "a well-formed independently referenced comparison misses its frozen criterion",
+    "resourceRefusal": "a registered cap prevents completion; no roster reduction or numerical-failure label is allowed"
+  },
+  "layers": {
+    "radial": {
+      "layerId": "C0V-RADIAL",
+      "rosterBounds": {
+        "caseCount": 4,
+        "automaticRefinement": false,
+        "exactCasesReservedForS5": true
+      },
+      "referenceRequirements": [
+        "constant-coefficient spherical Robin problem with a finite Dirichlet shell",
+        "independently derived surface supersaturation and complete radial field",
+        "independently derived growth velocity",
+        "no-attachment uniform-field identity",
+        "outer-shell value identity",
+        "requested and actual radial spacing plus node count"
+      ],
+      "normRequirements": [
+        "relative surface-supersaturation error at every roster member",
+        "growth-velocity comparison at every roster member",
+        "uniform-field and shell-value identity errors"
+      ],
+      "productionWitness": [
+        "all frozen input operands and actual derived spacing",
+        "complete float64 radial field",
+        "surface value, shell value, growth velocity, and node count",
+        "no-attachment identity witness"
+      ],
+      "negativeControls": [
+        {
+          "id": "nc-radial-robin-coefficient",
+          "ownerCheckId": "chk-c0v-radial-numeric",
+          "ownershipClass": "production-numerical-accuracy",
+          "evaluatedBy": "the independent artifact-derived radial numerical evaluator against the separately frozen reference",
+          "notOwnedByCheckId": "chk-c0v-radial-reference-independence",
+          "mutation": "change only the production-side Robin attachment coefficient or its boundary use",
+          "expected": "the production raw witness hash moves and the independent numerical-accuracy evaluation fails; this mutation does not establish or attack reference independence"
+        },
+        {
+          "id": "nc-radial-finite-shell-term",
+          "mutation": "remove or alter only the production-side finite-shell contribution",
+          "expected": "raw witness hash moves and the independent evaluator fails"
+        },
+        {
+          "id": "nc-radial-forged-summary",
+          "mutation": "change only a producer-reported radial error or summary verdict without changing raw reference or witness bytes",
+          "expected": "the independent evaluator ignores the forged summary or reports disagreement"
+        }
+      ],
+      "refusalTriggers": [
+        "the exact field or growth velocity cannot be derived without importing production spherical arithmetic",
+        "a load-bearing quantitative operand cannot receive an independent check",
+        "the required raw field cannot be emitted without a forbidden contract change"
+      ]
+    },
+    "static": {
+      "layerId": "C0V-STATIC",
+      "rosterBounds": {
+        "minimumGridLevels": 3,
+        "maximumGridLevels": 4,
+        "automaticRefinement": false,
+        "exactGridLevelsReservedForS5": true
+      },
+      "requiredOperatorCoverage": [
+        "actual aggregate-v6 boundary policy",
+        "actual monopole-matched shell",
+        "nontrivial fixed three-dimensional field and boundary flux",
+        "residual, divergence, and directly metered smoother-drift diagnostics"
+      ],
+      "referenceRequirements": [
+        "an exact or independently solved field and flux that does not share the production operator",
+        "physical domain, fixed geometry, active mask, boundary sampling set, flux definition, units, and weights",
+        "analytically justified expected order and lower bound",
+        "complete raw reference field and boundary-flux bytes at every frozen level"
+      ],
+      "normRequirements": [
+        "volume-weighted L2 field norm",
+        "L-infinity field norm",
+        "the S5-defined weighted L2 boundary-flux norm",
+        "L-infinity boundary-flux norm",
+        "observed-order calculation over the exact roster",
+        "residual, divergence, and independently recomputed smoother-drift bounds"
+      ],
+      "productionWitness": [
+        "exact grid, domain, policy, far-field, geometry, and coefficient echoes",
+        "complete float64 field and active/attached masks",
+        "boundary indices, neighbor counts, opposing and boundary field values, attachment coefficient alphaHK, and flux operands",
+        "monopole shell targets and raw shell diagnostics",
+        "relaxation report and raw divergence/smoother-drift operands"
+      ],
+      "negativeControls": [
+        {
+          "id": "nc-static-boundary-stencil",
+          "mutation": "change one production-side aggregate boundary-stencil operand or ordering without moving the frozen reference",
+          "expected": "raw field or flux witness hash moves and the independent norm/order evaluator fails"
+        },
+        {
+          "id": "nc-static-shared-operator",
+          "mutation": "introduce the production aggregate boundary or smoother implementation into the static reference route",
+          "expected": "dependency preflight refuses before execution"
+        },
+        {
+          "id": "nc-static-missing-level",
+          "mutation": "remove one frozen grid level from an otherwise complete static roster",
+          "expected": "the roster check refuses and no observed-order PASS is possible"
+        },
+        {
+          "id": "nc-static-forged-norms",
+          "mutation": "change only producer-reported norms or observed order without changing raw reference or witness fields",
+          "expected": "the independent evaluator ignores the forged values or reports disagreement"
+        }
+      ],
+      "refusalTriggers": [
+        "no exact or independently solved reference can exercise aggregate-v6 and the monopole shell without sharing production arithmetic",
+        "the expected order or lower bound cannot be analytically justified before production implementation",
+        "required raw field, shell, flux, or diagnostic state is unavailable without a solver/state/checkpoint contract change",
+        "only self-convergence is available"
+      ]
+    },
+    "movingEvent": {
+      "layerId": "C0V-MOVING-EVENT",
+      "rosterBounds": {
+        "caseCount": 1,
+        "automaticFanOut": false,
+        "exactFixtureReservedForS5": true
+      },
+      "referenceRequirements": [
+        "small symmetric pre-event state with an independently computable first event",
+        "explicit tied attaching orbit and a frozen tie/margin rule",
+        "independent event time, topology transition, post-event relaxation field, and exact kinetic ledger",
+        "explicit integer-coordinate topology or independently enumerated neighbor table"
+      ],
+      "checkRequirements": [
+        "maximum rate and first-event time",
+        "exact attached-cell orbit and D6h closure",
+        "neighbor and boundary topology transition",
+        "post-event field and relaxation convergence",
+        "placed fill plus unapplied clipping equals computed kinetic demand",
+        "hole-fill deficit remains separate",
+        "physical-time and ledger chain"
+      ],
+      "productionWitness": [
+        "complete pre-event field, occupancy, fill, boundary, neighbor, and ledger bytes",
+        "all boundary states and independently usable rate operands",
+        "surface and relaxation reports plus attached coordinates",
+        "complete post-event field, occupancy, fill, boundary, neighbor, time, and ledger bytes"
+      ],
+      "negativeControls": [
+        {
+          "id": "nc-event-event-time",
+          "mutation": "change only the production-side event time or its selecting rate",
+          "expected": "raw witness hash moves and the independent evaluator fails"
+        },
+        {
+          "id": "nc-event-topology-orbit",
+          "mutation": "drop, add, or redirect one attaching-orbit member or topology edge",
+          "expected": "raw topology/post-field witness hash moves and the independent evaluator fails"
+        }
+      ],
+      "refusalTriggers": [
+        "the tied event or post-event field cannot be computed independently before production output",
+        "the fixture requires a test-only hook or a solver/state/checkpoint contract change",
+        "the required pre/post raw state cannot be emitted",
+        "the event tie is numerically degenerate without a predeclared margin rule"
+      ]
+    }
+  },
+  "commonNegativeControls": [
+    {
+      "id": "nc-c0v-any-layer-nonpass",
+      "mutation": "make exactly one otherwise well-formed layer fail or refuse",
+      "expected": "aggregate C0V is not PASS"
+    }
+  ],
+  "negativeControlExecutionRule": "each control executes its named mutation, an independent witness proves the mutation moved, the clean capture remains unchanged, and the attacked check fails",
+  "terminalSemantics": {
+    "layerStatuses": [
+      "pass",
+      "fail",
+      "refusal"
+    ],
+    "pass": "the independent-reference branch is complete and every frozen criterion and negative control passes",
+    "fail": "well-formed independently referenced output misses at least one frozen numerical or control criterion",
+    "refusal": "a named reference-independence, artifact, infrastructure, or resource condition prevents a valid comparison and is published from bytes",
+    "aggregatePass": "all three layers take the independent-reference branch and have status pass",
+    "aggregateNonPass": "any layer fail or refusal prevents PASS",
+    "packageCompletion": "a layer failure or refusal may complete the selected Phase 10 package when fully reported; it blocks dependent future qualification and never becomes PASS"
+  },
+  "commandSeparation": {
+    "preflight": "read-only obligation, callable-route, ancestry, runtime, roster, path, disk, and stale-writer checks",
+    "referenceOrRefusal": "S5-only command/module that emits either frozen reference bytes plus derivation metadata or the explicit pre-implementation refusal",
+    "targetedReferenceCheck": "separate command/module that does not import the reference scientific arithmetic",
+    "producer": "S6 command/module that runs only the frozen roster and emits raw witness bytes without the independent verdict",
+    "independentEvaluator": "separate command/module that re-derives norms, events, ledgers, and disposition from protocol/reference/witness bytes",
+    "aggregate": "combines the three terminal layer artifacts using all-layers-pass semantics",
+    "publisher": "pins complete attempts and terminal bytes only after evaluation",
+    "gate10": "later re-derives package completion and never inherits a producer boolean"
+  },
+  "resourceBoundary": {
+    "requiredExecutionRuntime": "Node v24.13.1",
+    "perExecutableControlInvocationWallHoursMaximum": 4,
+    "packageProcessHoursMaximum": 24,
+    "retriesFailedAndSupersededAttemptsCount": true,
+    "solverControlProcessConcurrency": 1,
+    "scratchPlusRetainedRawPublishedAttemptsGiBMaximum": 64,
+    "packetStoragePreflight": "each S5 supplement registers projected bytes and minimum free space before launch",
+    "runtimeMismatch": "refuse a deciding launch until a committed plan amendment and repeated preflight",
+    "capOutcome": "resource refusal and maker return; never delete an attempt, silently reduce the roster, or label the result a numerical failure"
+  }
+}

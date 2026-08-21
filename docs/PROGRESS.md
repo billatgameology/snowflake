@@ -98,8 +98,16 @@ detail.
   governance checkpoint is complete: accepted
   [decision 0052](decisions/0052-adopt-phase10-evidence-verification.md), charter v1.28, the active
   plan, state reconciliation, and complete charter-diff audit landed together before source
-  consumption or package implementation. No Phase 10 evidence or scientific result exists yet;
-  S1's protocol and obligation freeze is next.
+  consumption or package implementation. S1 now freezes the 21-packet, 112-output, 140-check,
+  23-negative-control obligation graph and its three conditional groups. The registered matrix is
+  125,508 bytes / SHA-256 `8f85e6febad1ec7568b2a7a47dd764c260cc1f602da08c7dd27d5ee1a6c1bab3`; its
+  foundation is 32,327 bytes / SHA-256
+  `7847f26a24d1a09eefc6b15ed07baf1d007782fdd58c3301e3f926e4c8805871`; and its schema
+  registry is 114,255 bytes / SHA-256
+  `c89463c37384d5652b57c039e26f0c612b08a2d9bb5994482bbf750eae121c70`. The focused
+  preflight suite passes 14/14, both required mutations refuse, and a non-author contract review
+  reports zero unresolved blockers. Exact `npm test` is the S1 checkpoint check. No Phase 10
+  evidence, source-value extraction, solver row, or scientific result exists yet; S2 A-S is next.
 - **Phase 10 C0 implementation trap (found 2026-08-21).** The frozen WP2 plan, primary evaluator,
   its mixed pass/fail controls, and `gate6` require every spacing to pass before the top-level result
   can pass. The later post-execution independent script uses `some` instead of `every`. Both
@@ -120,8 +128,8 @@ detail.
   direction) and content stays in-repo unpublished, `test.yml` CI unaffected. Reconciliation is
   a live decision point under **Next step**. Full freeze history:
   [the history file](progress-history-phases-6-8-9.md).
-- **Last updated:** 2026-08-21 (recorded the maker's exact Phase 10 package selection, completed its
-  S0 governance checkpoint, and left S1 protocol/obligation freeze as the next prerequisite)
+- **Last updated:** 2026-08-21 (completed the Phase 10 S1 protocol/obligation freeze with independent
+  review and left the versioned A-S scope overlays as the next bounded packet)
 
 ## Phase gates
 
@@ -141,7 +149,7 @@ and every superseded attempt live in the linked plans and historical progress sn
 | 7 | Not started; independently eligible | Charter v1.25 preserves Phase 7's independence but does not start it. A committed Phase 7 plan and isolated worktree are required; product, held-out validation, and v6 WGSL/preview-GPU parity remain its scope. |
 | 8 | **Complete (8A + 8B)** | The immutable 8A book remains 18 entries / 59,019 bytes / SHA-256 `47a75f3f…71ec`. The verified 8B successor is 51 development records, 252,134 native rows and 431 plot points; no row is held out. [Completed plan](plans/phase-8-measurement-corpus.md). |
 | 9 | **Complete (development-only)** | The all-no-pass branch closed: D-BT failed, M-F/M-K2 stayed mapping-dependent, controls/path-state/M-PK are unavailable or non-identifiable, and zero items promoted. Exact `TMPDIR=/private/tmp npm test` passed; no result grants validation credit. [Completed plan](plans/phase-9-execution.md). |
-| 10 | **In progress — S1 protocol freeze** | Maker selected A-S + A-I + B + C0 + C0V with packet-specific A-P on 2026-08-21, with no C1–C5 or habit rows. [Active plan](plans/phase-10-evidence-verification-execution.md); S0 governance is complete and no evidence or scientific result exists yet. |
+| 10 | **In progress — S1 complete; S2 A-S next** | Maker selected A-S + A-I + B + C0 + C0V with packet-specific A-P on 2026-08-21, with no C1–C5 or habit rows. [Active plan](plans/phase-10-evidence-verification-execution.md); S0 and the independently reviewed S1 contract freeze are complete. No Phase 10 evidence or scientific result exists yet. |
 
 ## Active plan
 
@@ -157,8 +165,8 @@ and completion credit isolated.
 correction changes no phase claim or credit.
 
 The [Phase 10 execution plan](plans/phase-10-evidence-verification-execution.md) is active in its
-isolated worktree. Its S0 governance checkpoint is complete; S1 is the active prerequisite before
-source consumption, extraction, or numerical execution. The
+isolated worktree. Its S0 governance checkpoint and S1 contract freeze are complete. S2 A-S is the
+active bounded packet; A-I, B, C0, and C0V remain unstarted. The
 [Phase 10 candidate plan](plans/phase-10-closures-and-frontier.md) is completed decision support
 and superseded for execution. It remains the design history for the selected and rejected packages,
 not execution authority.
@@ -171,7 +179,7 @@ the package-specific prerequisites in its charter amendment and execution plan. 
 
 ## Next step
 
-### Phase 10 — S0 complete; S1 protocol and obligation freeze next
+### Phase 10 — S1 complete; execute the A-S scope overlays next
 
 The maker selected **A-S + A-I + B + C0 + C0V with packet-specific A-P** on 2026-08-21. No
 C1–C5 numerical-qualification or scientific habit row is part of this execution. The
@@ -181,12 +189,23 @@ of candidate E/F/H branches.
 
 S0 landed accepted [decision 0052](decisions/0052-adopt-phase10-evidence-verification.md), charter
 v1.28, the execution plan, state reconciliation, and complete charter-clause audit together before
-source consumption or implementation. Execute **S1** from the active plan now: freeze the package
-obligation matrix and schemas, bind every A-S/A-I/B/C0/C0V output and check to its producer and
-evaluator, define the rights-safe Git/NAS boundary, and prove preflight refuses one missing producer
-and one uncalled check. C0's registered aggregation is all-spacings-must-pass; do not copy the historical
-post-execution independent script's weaker `some` expression. No later step starts until S1's
-registered prerequisites pass.
+source consumption or implementation. S1 then froze the package matrix, schemas, input identities,
+rights/resource boundaries, and fail-closed callable/receipt contracts; its mandatory
+missing-producer and uncalled-check controls both refuse. Execute **S2 A-S** next. First implement
+`runner/src/phase10-scope-contracts.ts`, `runner/src/phase10-scope-overlay.ts`,
+`runner/src/phase10-scope-overlay-verify.ts`, and
+`runner/test/phase10-scope-overlay.test.ts`; then commit
+`research/phase10-scope-classification-protocol-v1.json` before producing or inspecting any
+classification output. Use the exact static-contract produce/independent-verify/publish sequence in
+`research/phase10-execution-v1/README.md`, beginning with
+`npx vitest run runner/test/phase10-scope-overlay.test.ts` and ending with exact `npm test`.
+
+A-S must publish separate overlays for exactly 18 Phase 8A entries and 51 Phase 8B records. It must
+preserve the Phase 8A status row/filter rule, immutable evidence roles, phase ownership, Phase 8B's
+development/zero-held-out labels, cited classification reasons, and multiple simultaneous blockers.
+The independent evaluator re-derives every roster and total from the overlay bytes and executes the
+registered drop-row, role-rewrite, blocker-collapse, and validation-credit mutations. Do not begin
+A-I, B, C0, or C0V until the A-S checkpoint lands.
 
 Standing constraints: no Phase 8 record may be relabeled unseen; Phase 7 retains held-out,
 product, and GPU obligations; B outcomes do not automatically authorize E/F/H; the permanent
