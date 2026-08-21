@@ -500,9 +500,12 @@ into single-class collections (ADR 0051 §2 forbids mixed classes):
    review; no expiration". Everything else under the main checkout's `out/` (education scratch
    trees, `out/worktrees/**`, probe scripts, exploratory checkpoints and logs, review scratch)
    EXCEPT bytes already selected by collections 1–2. Selector: enumerated top-level path list
-   frozen in the archival program. Anything that fails the safe-name rules or mutates during
-   scan goes to `_control/quarantine/unresolved/windows-workspace-2026-08-20/` rather than
-   being silently skipped.
+   frozen in the archival program; an unexpected top-level directory is a refusal. Amended
+   after the program's non-author review (2026-08-20): regenerable link material and this
+   lane's own outputs are RECORDED EXCLUSIONS in the receipt rather than quarantine payload —
+   node_modules junctions (not followed), `out/restores/**` (this lane's own validation
+   staging), and `out/nas-archive-*` (this lane's own outputs); hard-linked dedup files are
+   recorded-and-included. Unsafe names and mid-scan mutation remain hard refusals.
 
 ### Windows SMB validation protocol — before any durable write
 

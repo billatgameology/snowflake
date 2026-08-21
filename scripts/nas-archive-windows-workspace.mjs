@@ -76,6 +76,27 @@ const SAFE_SEGMENT = /^(?!(?:con|prn|aux|nul|clock\$|com[1-9]|lpt[1-9])(?:\.|$))
 const segmentSafe = (segment) =>
   SAFE_SEGMENT.test(segment) && !/[. ]$/u.test(segment) && segment === segment.normalize("NFC");
 
+/**
+ * Absence/presence that REFUSES on unreadable state (review blocker 2): bare existsSync returns
+ * false on ANY stat error, and this share's rename replaces present file targets — a transient
+ * SMB error must halt the program, never let a guard "pass". ENOENT is the only absence.
+ */
+function statOrRefuse(path) {
+  try {
+    return lstatSync(path);
+  } catch (error) {
+    if (error?.code === "ENOENT") return null;
+    fail(`path-state-unreadable (${error?.code}): ${path}`);
+  }
+}
+const isPresent = (path) => statOrRefuse(path) !== null;
+/** Rename with assert-absent-before and verify-present-after (probe fact: rename replaces). */
+function renameToAbsent(from, to) {
+  if (isPresent(to)) fail(`rename target already present: ${to}`);
+  renameSync(from, to);
+  if (!isPresent(to)) fail(`rename target absent after rename: ${to}`);
+}
+
 function resolveShare() {
   const root = "S:/";
   const markerPath = resolve(root, ".snowflake-nas.json");
@@ -136,8 +157,9 @@ function collectionSources(collection, bundleDir) {
   };
   for (const root of collection.roots) {
     if (root === "out:root-claim-files") {
-      for (const entry of readdirSync(resolve(REPO, "out"), { withFileTypes: true })) {
+      for (const entry of readdirSync(resolve(REPO, "out"), { withFileTypes: true }).sort((a, b) => a.name.localeCompare(b.name))) {
         if (!entry.isFile() || !ROOT_CLAIM_PATTERN.test(entry.name)) continue;
+        if (!segmentSafe(entry.name)) fail(`root claim file unsafe name: ${entry.name}`);
         const absolute = resolve(REPO, "out", entry.name);
         const status = lstatSync(absolute);
         if (status.nlink !== 1 || status.isSymbolicLink()) fail(`root claim file refused: ${entry.name}`);
@@ -149,10 +171,24 @@ function collectionSources(collection, bundleDir) {
         rows.push({ shareRel: name, absolute, bytes: statSync(absolute).size });
       }
     } else if (root === "out:scratch-remainder") {
+      // Frozen expected top-level set (review concern: "enumerated, not globbed" must be real).
+      // An out/ directory not in this list and not owned elsewhere is a REFUSAL: a new tree
+      // appearing after review means the plan pass did not cover it.
+      const EXPECTED_SCRATCH_DIRS = new Set([
+        "education-local", "education-review-scratch", "education-verify", "education-visual-qa",
+        "gate6-review", "pgm-plate", "phase2a-play", "phase5-source", "phase6",
+        "phase6-sweep-arm3", "phase6-wp2-ladder", "phase6-wp2-recon", "r2-probes",
+        "r3-backup-phase3-visual", "worktrees", "wp2-review", "wp3-review-phase4",
+        "wp6-s6-phase3-visual", "wp6-s6-phase4-visual",
+      ]);
       const owned = new Set([...EVIDENCE_TREES.map((t) => t.split("/")[1]), "restores"]);
+      const recordedExclusion = (name) => name === "restores" || name.startsWith("nas-archive-");
       for (const entry of readdirSync(resolve(REPO, "out"), { withFileTypes: true }).sort((a, b) => a.name.localeCompare(b.name))) {
         if (entry.isDirectory()) {
           if (owned.has(entry.name)) continue;
+          if (recordedExclusion(entry.name)) { linkExclusions.push({ label: "scratch", path: `out/${entry.name} (recorded exclusion: restore staging / this batch's own outputs)` }); continue; }
+          if (!EXPECTED_SCRATCH_DIRS.has(entry.name)) fail(`scratch: unexpected out/ top-level directory "${entry.name}" — not in the frozen enumeration`);
+          if (!segmentSafe(entry.name)) fail(`scratch: unsafe top-level name "${entry.name}"`);
           push(entry.name, inventoryTree(resolve(REPO, "out", entry.name), `scratch/${entry.name}`, true));
         } else if (entry.isFile() && !ROOT_CLAIM_PATTERN.test(entry.name)) {
           const absolute = resolve(REPO, "out", entry.name);
@@ -206,35 +242,50 @@ const staging = resolve(share, "_control", "staging", BATCH);
 const lockDir = resolve(share, "_control", "locks", `${BATCH}.lock`);
 const receiptDir = resolve(share, "_control", "receipts", "migrations", BATCH);
 const receiptPath = resolve(receiptDir, "result.json");
-const bundleDir = resolve(REPO, "out", "nas-archive-bundle");
+const bundleDir = resolve(REPO, "out", "nas-archive-bundle"); // excluded from scratch via the nas-archive- prefix rule
 
 if (mode === "rollback") {
-  if (existsSync(receiptPath)) { console.log("rollback=forbidden receipt=published"); process.exit(1); }
+  // statOrRefuse (not existsSync): a published receipt misread as absent here would let this
+  // path trash catalogued collections — the guard must HALT on unreadable state.
+  if (isPresent(receiptPath)) { console.log("rollback=forbidden receipt=published"); process.exit(1); }
   const trash = resolve(share, "_control", "trash", `${BATCH}-rollback-${Date.now()}`);
   mkdirSync(trash, { recursive: true });
   let moved = 0;
-  if (existsSync(staging)) { renameSync(staging, resolve(trash, "staging")); moved += 1; }
+  if (isPresent(staging)) { renameToAbsent(staging, resolve(trash, "staging")); moved += 1; }
   for (const collection of COLLECTIONS) {
-    const final = resolve(share, "collections", collection.id);
-    if (existsSync(final)) { renameSync(final, resolve(trash, collection.id)); moved += 1; }
+    // Only version dirs this batch creates are retired; for the earlier-* completions the
+    // collection root did not pre-exist either, but moving just the version dir is the
+    // narrower, always-safe action.
+    const finalVersion = resolve(share, "collections", collection.id, collection.version);
+    if (isPresent(finalVersion)) {
+      renameToAbsent(finalVersion, resolve(trash, `${collection.id}@${collection.version}`));
+      moved += 1;
+    }
   }
-  if (existsSync(lockDir)) renameSync(lockDir, resolve(trash, "lock"));
+  // Review blocker 1: the receipt batch dir (with any stale .result.pending and apply.mjs
+  // copy) must be retired too, or a crashed apply can never re-run to a receipt.
+  if (isPresent(receiptDir)) { renameToAbsent(receiptDir, resolve(trash, "receipt-dir")); moved += 1; }
+  if (isPresent(lockDir)) renameToAbsent(lockDir, resolve(trash, "lock"));
   console.log(`rollback=complete receipt=absent movedRoots=${moved} trash=${trash}`);
   process.exit(0);
 }
 
 // Preconditions (both plan and apply).
-if (existsSync(receiptPath)) fail("receipt already published — this batch is complete; refusing to run again");
+if (isPresent(receiptPath)) fail("receipt already published — this batch is complete; refusing to run again");
+if (isPresent(receiptDir)) fail(`receipt dir exists without a receipt: ${receiptDir} (crashed apply — run --rollback first)`);
 for (const collection of COLLECTIONS) {
-  const finalRoot = resolve(share, "collections", collection.id);
-  if (existsSync(finalRoot)) fail(`final target already exists: ${finalRoot}`);
+  const finalVersion = resolve(share, "collections", collection.id, collection.version);
+  if (isPresent(finalVersion)) fail(`final target already exists: ${finalVersion}`);
 }
-if (existsSync(staging)) fail(`staging already exists: ${staging} (run --rollback first)`);
+if (isPresent(staging)) fail(`staging already exists: ${staging} (run --rollback first)`);
 
 // Fresh git bundle (local write only; part of the source set).
 mkdirSync(bundleDir, { recursive: true });
+// Deterministic: the bundle is created ONCE (first plan run) and apply archives exactly the
+// bytes the reviewed plan pass showed; regenerating at apply would archive bytes the review
+// never saw. bundle-head.txt records the bundled HEAD.
 const bundlePath = resolve(bundleDir, "snowflake.bundle");
-if (!existsSync(bundlePath) || mode === "apply") {
+if (!isPresent(bundlePath)) {
   execFileSync("git", ["bundle", "create", bundlePath, "--all"], { cwd: REPO, stdio: "pipe" });
   const verify = execFileSync("git", ["bundle", "verify", bundlePath], { cwd: REPO, encoding: "utf8" });
   const head = execFileSync("git", ["rev-parse", "HEAD"], { cwd: REPO, encoding: "utf8" }).trim();
@@ -299,8 +350,7 @@ try {
   for (const { collection } of planned) {
     const finalVersionDir = resolve(share, "collections", collection.id, collection.version);
     mkdirSync(dirname(finalVersionDir), { recursive: true });
-    if (existsSync(finalVersionDir)) fail(`final version dir appeared mid-run: ${finalVersionDir}`);
-    renameSync(resolve(staging, collection.id, collection.version), finalVersionDir);
+    renameToAbsent(resolve(staging, collection.id, collection.version), finalVersionDir);
     console.log(`promoted ${collection.id}@${collection.version}`);
   }
 
@@ -322,7 +372,7 @@ try {
   writeFileSync(resolve(outDir, "aggregates.json"), JSON.stringify(manifests.map((m) => ({ id: `${m.collection.id}@${m.collection.version}`, files: m.fileCount, bytes: m.totalBytes })), null, 1));
 
   mkdirSync(receiptDir, { recursive: true });
-  copyFileSync(resolve(REPO, "scripts", "nas-archive-windows-workspace.mjs"), resolve(receiptDir, "apply.mjs"));
+  copyFileSync(resolve(REPO, "scripts", "nas-archive-windows-workspace.mjs"), resolve(receiptDir, "apply.mjs"), fsConstants.COPYFILE_EXCL);
   const receipt = {
     format: "snowflake-nas-windows-archive-receipt-v1",
     batch: BATCH,
@@ -344,8 +394,7 @@ try {
   const pendingFd = openSync(pending, "wx");
   writeSync(pendingFd, receiptBytes);
   closeSync(pendingFd);
-  if (existsSync(receiptPath)) fail("receipt appeared mid-run");
-  renameSync(pending, receiptPath);
+  renameToAbsent(pending, receiptPath);
   const rereadReceipt = readFileSync(receiptPath);
   if (sha256(rereadReceipt) !== sha256(receiptBytes)) fail("receipt readback mismatch");
   writeFileSync(resolve(outDir, "receipt-copy.json"), rereadReceipt);

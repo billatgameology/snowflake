@@ -178,7 +178,7 @@ describe("tracked NAS asset catalogue", () => {
       // the archival program's apply + fresh-process verification flip them active.
       "windows-phase6-ladder-workspace@2026-08-20": ["provisional", 9, 131247],
       "windows-repo-bundle@2026-08-20": ["provisional", 3, 10011107],
-      "windows-out-scratch@2026-08-20": ["provisional", 7856, 1733581839],
+      "windows-out-scratch@2026-08-20": ["provisional", 7853, 1723570732],
       "windows-out-gate-artifacts@2026-08-20": ["provisional", 28, 137079788],
     } as const;
 
