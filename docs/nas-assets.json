@@ -2187,6 +2187,302 @@
       "unresolved": [
         "Locate and verify the 78 files, or record a reviewed superseded disposition."
       ]
+    },
+    {
+      "assetId": "windows-phase6-ladder-workspace",
+      "version": "2026-08-20",
+      "state": "provisional",
+      "ownerWorkstream": "windows-write-lane",
+      "locator": "collections/windows-phase6-ladder-workspace/2026-08-20/payload",
+      "historicalRepoPath": null,
+      "legacyAliases": [],
+      "storageClass": "external-evidence",
+      "aggregate": {
+        "files": 9,
+        "bytes": 131247
+      },
+      "ownerManifest": null,
+      "rights": {
+        "kind": "project-owned",
+        "redistribution": "allowed"
+      },
+      "privacy": "public",
+      "serve": {
+        "policy": "deny",
+        "prefixes": []
+      },
+      "retention": {
+        "policy": "permanent",
+        "garbageCollection": {
+          "policy": "never",
+          "graceDays": null,
+          "approver": "maker"
+        }
+      },
+      "mutability": "immutable",
+      "externalEvidenceAuthority": {
+        "planRefs": [
+          "docs/plans/phase-6-wp2-ladder.md"
+        ],
+        "claimRefs": [
+          "docs/plans/phase-6-wp2-ladder.md"
+        ],
+        "charterRefs": [],
+        "decisionRefs": [
+          "docs/decisions/0045-bound-phase6-closure-to-a-compute-week.md",
+          "docs/decisions/0051-govern-durable-untracked-assets-on-nas.md"
+        ]
+      },
+      "provenance": {
+        "record": "docs/plans/nas-asset-governance.md",
+        "producerCommit": null,
+        "command": "node scripts/nas-archive-windows-workspace.mjs --apply"
+      },
+      "reproducibility": {
+        "kind": "none",
+        "record": "docs/plans/nas-asset-governance.md"
+      },
+      "restore": {
+        "status": "pending",
+        "command": null,
+        "verifyCommand": null,
+        "record": "docs/local-assets.md"
+      },
+      "verification": {
+        "status": "unavailable",
+        "at": null,
+        "host": null,
+        "receipt": null,
+        "limits": [
+          "Windows write lane apply pending (registered 2026-08-20)"
+        ]
+      },
+      "storageDomains": [],
+      "backup": {
+        "status": "not-required",
+        "independentDomains": [],
+        "receipts": []
+      },
+      "supersedes": [],
+      "unresolved": [
+        "Windows write lane apply pending (registered 2026-08-20)"
+      ]
+    },
+    {
+      "assetId": "windows-repo-bundle",
+      "version": "2026-08-20",
+      "state": "provisional",
+      "ownerWorkstream": "windows-write-lane",
+      "locator": "collections/windows-repo-bundle/2026-08-20/payload",
+      "historicalRepoPath": null,
+      "legacyAliases": [],
+      "storageClass": "generated-cache",
+      "aggregate": {
+        "files": 3,
+        "bytes": 10011107
+      },
+      "ownerManifest": null,
+      "rights": {
+        "kind": "project-owned",
+        "redistribution": "allowed"
+      },
+      "privacy": "public",
+      "serve": {
+        "policy": "deny",
+        "prefixes": []
+      },
+      "retention": {
+        "policy": "maker-approved-delete-only",
+        "garbageCollection": {
+          "policy": "plan-only",
+          "graceDays": null,
+          "approver": "maker"
+        }
+      },
+      "mutability": "immutable",
+      "externalEvidenceAuthority": null,
+      "provenance": {
+        "record": "docs/plans/nas-asset-governance.md",
+        "producerCommit": null,
+        "command": "node scripts/nas-archive-windows-workspace.mjs --apply"
+      },
+      "reproducibility": {
+        "kind": "git",
+        "record": "docs/plans/nas-asset-governance.md"
+      },
+      "restore": {
+        "status": "pending",
+        "command": null,
+        "verifyCommand": null,
+        "record": "docs/local-assets.md"
+      },
+      "verification": {
+        "status": "unavailable",
+        "at": null,
+        "host": null,
+        "receipt": null,
+        "limits": [
+          "Windows write lane apply pending (registered 2026-08-20)"
+        ]
+      },
+      "storageDomains": [],
+      "backup": {
+        "status": "not-required",
+        "independentDomains": [],
+        "receipts": []
+      },
+      "supersedes": [],
+      "unresolved": [
+        "Windows write lane apply pending (registered 2026-08-20)"
+      ]
+    },
+    {
+      "assetId": "windows-out-scratch",
+      "version": "2026-08-20",
+      "state": "provisional",
+      "ownerWorkstream": "windows-write-lane",
+      "locator": "collections/windows-out-scratch/2026-08-20/payload",
+      "historicalRepoPath": null,
+      "legacyAliases": [],
+      "storageClass": "scratch",
+      "aggregate": {
+        "files": 7856,
+        "bytes": 1733581839
+      },
+      "ownerManifest": null,
+      "rights": {
+        "kind": "project-owned",
+        "redistribution": "allowed"
+      },
+      "privacy": "public",
+      "serve": {
+        "policy": "deny",
+        "prefixes": []
+      },
+      "retention": {
+        "policy": "maker-approved-delete-only",
+        "garbageCollection": {
+          "policy": "plan-only",
+          "graceDays": null,
+          "approver": "maker"
+        }
+      },
+      "mutability": "immutable",
+      "externalEvidenceAuthority": null,
+      "provenance": {
+        "record": "docs/plans/nas-asset-governance.md",
+        "producerCommit": null,
+        "command": "node scripts/nas-archive-windows-workspace.mjs --apply"
+      },
+      "reproducibility": {
+        "kind": "none",
+        "record": "docs/plans/nas-asset-governance.md"
+      },
+      "restore": {
+        "status": "pending",
+        "command": null,
+        "verifyCommand": null,
+        "record": "docs/local-assets.md"
+      },
+      "verification": {
+        "status": "unavailable",
+        "at": null,
+        "host": null,
+        "receipt": null,
+        "limits": [
+          "Windows write lane apply pending (registered 2026-08-20)"
+        ]
+      },
+      "storageDomains": [],
+      "backup": {
+        "status": "not-required",
+        "independentDomains": [],
+        "receipts": []
+      },
+      "supersedes": [],
+      "unresolved": [
+        "Windows write lane apply pending (registered 2026-08-20)"
+      ]
+    },
+    {
+      "assetId": "windows-out-gate-artifacts",
+      "version": "2026-08-20",
+      "state": "provisional",
+      "ownerWorkstream": "windows-write-lane",
+      "locator": "collections/windows-out-gate-artifacts/2026-08-20/payload",
+      "historicalRepoPath": null,
+      "legacyAliases": [],
+      "storageClass": "external-evidence",
+      "aggregate": {
+        "files": 28,
+        "bytes": 137079788
+      },
+      "ownerManifest": null,
+      "rights": {
+        "kind": "project-owned",
+        "redistribution": "allowed"
+      },
+      "privacy": "public",
+      "serve": {
+        "policy": "deny",
+        "prefixes": []
+      },
+      "retention": {
+        "policy": "permanent",
+        "garbageCollection": {
+          "policy": "never",
+          "graceDays": null,
+          "approver": "maker"
+        }
+      },
+      "mutability": "immutable",
+      "externalEvidenceAuthority": {
+        "charterRefs": [],
+        "decisionRefs": [
+          "docs/decisions/0038-evidence-tree-is-tracked.md",
+          "docs/decisions/0051-govern-durable-untracked-assets-on-nas.md"
+        ],
+        "planRefs": [
+          "docs/plans/nas-asset-governance.md"
+        ],
+        "claimRefs": [
+          "docs/PROGRESS.md"
+        ]
+      },
+      "provenance": {
+        "record": "docs/plans/nas-asset-governance.md",
+        "producerCommit": null,
+        "command": "node scripts/nas-archive-windows-workspace.mjs --apply"
+      },
+      "reproducibility": {
+        "kind": "none",
+        "record": "docs/plans/nas-asset-governance.md"
+      },
+      "restore": {
+        "status": "pending",
+        "command": null,
+        "verifyCommand": null,
+        "record": "docs/local-assets.md"
+      },
+      "verification": {
+        "status": "unavailable",
+        "at": null,
+        "host": null,
+        "receipt": null,
+        "limits": [
+          "Windows write lane apply pending (registered 2026-08-20)"
+        ]
+      },
+      "storageDomains": [],
+      "backup": {
+        "status": "not-required",
+        "independentDomains": [],
+        "receipts": []
+      },
+      "supersedes": [],
+      "unresolved": [
+        "Windows write lane apply pending (registered 2026-08-20)"
+      ]
     }
   ],
   "overlays": [
