@@ -111,8 +111,11 @@ detail.
   51-record Phase 8B rosters. Before that commit, two temporary focused-test invocations derived
   throwaway candidate bytes from the real frozen corpus; they are recorded as invalid ordering
   attempts, retained and published nothing, changed no classification, and do not count as S2
-  verification. No Phase 10 evidence, solver row, or scientific result exists yet; valid A-S
-  derivation begins only from the committed classification freeze.
+  verification. The executable checkpoint now resolves the real A-P and A-S registries and their
+  independently reviewed static lifecycles; exact `npm test` passes 135/135 files and 2,250 tests
+  with 49 skipped. No Phase 10 evidence, solver row, or scientific result exists yet. A-S remains
+  blocked until the clean committed head produces, independently verifies, publishes, pins, tests,
+  and commits the required A-P dependency.
 - **Phase 10 C0 implementation trap (found 2026-08-21).** The frozen WP2 plan, primary evaluator,
   its mixed pass/fail controls, and `gate6` require every spacing to pass before the top-level result
   can pass. The later post-execution independent script uses `some` instead of `every`. Both
@@ -133,8 +136,8 @@ detail.
   direction) and content stays in-repo unpublished, `test.yml` CI unaffected. Reconciliation is
   a live decision point under **Next step**. Full freeze history:
   [the history file](progress-history-phases-6-8-9.md).
-- **Last updated:** 2026-08-21 (committed the independently audited A-S classification freeze and
-  left valid post-freeze derivation, verification, and publication as the next bounded action)
+- **Last updated:** 2026-08-21 (implemented and independently reviewed the A-P bootstrap and A-S
+  static lifecycle; produced no evidence and left clean-head A-P publication as the next action)
 
 ## Phase gates
 
@@ -154,7 +157,7 @@ and every superseded attempt live in the linked plans and historical progress sn
 | 7 | Not started; independently eligible | Charter v1.25 preserves Phase 7's independence but does not start it. A committed Phase 7 plan and isolated worktree are required; product, held-out validation, and v6 WGSL/preview-GPU parity remain its scope. |
 | 8 | **Complete (8A + 8B)** | The immutable 8A book remains 18 entries / 59,019 bytes / SHA-256 `47a75f3f…71ec`. The verified 8B successor is 51 development records, 252,134 native rows and 431 plot points; no row is held out. [Completed plan](plans/phase-8-measurement-corpus.md). |
 | 9 | **Complete (development-only)** | The all-no-pass branch closed: D-BT failed, M-F/M-K2 stayed mapping-dependent, controls/path-state/M-PK are unavailable or non-identifiable, and zero items promoted. Exact `TMPDIR=/private/tmp npm test` passed; no result grants validation credit. [Completed plan](plans/phase-9-execution.md). |
-| 10 | **In progress — S2 A-S classification protocol frozen** | Maker selected A-S + A-I + B + C0 + C0V with packet-specific A-P on 2026-08-21, with no C1–C5 or habit rows. [Active plan](plans/phase-10-evidence-verification-execution.md); S0/S1 are complete and the independently audited 69-row A-S protocol is committed. No Phase 10 evidence or scientific result exists yet. |
+| 10 | **In progress — A-P/A-S implementation ready; no evidence** | Maker selected A-S + A-I + B + C0 + C0V with packet-specific A-P on 2026-08-21, with no C1–C5 or habit rows. [Active plan](plans/phase-10-evidence-verification-execution.md); S0/S1 and the independently audited 69-row A-S freeze are committed, while the resolved A-P/A-S static lifecycles are implementation-ready. No Phase 10 evidence or scientific result exists yet. |
 
 ## Active plan
 
@@ -171,8 +174,9 @@ correction changes no phase claim or credit.
 
 The [Phase 10 execution plan](plans/phase-10-evidence-verification-execution.md) is active in its
 isolated worktree. Its S0 governance checkpoint, S1 contract freeze, and S2 A-S classification
-freeze are complete. Valid A-S derivation, verification, and publication are the active bounded
-work; A-I, B, C0, and C0V remain unstarted. The
+freeze are complete; the A-P bootstrap and A-S static lifecycle are implemented and independently
+reviewed. Publishing and committing the terminal A-P dependency is the active bounded work before
+A-S production may start; A-I, B, C0, and C0V remain unstarted. The
 [Phase 10 candidate plan](plans/phase-10-closures-and-frontier.md) is completed decision support
 and superseded for execution. It remains the design history for the selected and rejected packages,
 not execution authority.
@@ -185,7 +189,7 @@ the package-specific prerequisites in its charter amendment and execution plan. 
 
 ## Next step
 
-### Phase 10 — A-S protocol frozen; derive and verify the scope overlays next
+### Phase 10 — publish the A-P bootstrap before A-S
 
 The maker selected **A-S + A-I + B + C0 + C0V with packet-specific A-P** on 2026-08-21. No
 C1–C5 numerical-qualification or scientific habit row is part of this execution. The
@@ -196,13 +200,17 @@ of candidate E/F/H branches.
 S0 landed accepted [decision 0052](decisions/0052-adopt-phase10-evidence-verification.md), charter
 v1.28, the execution plan, state reconciliation, and complete charter-clause audit together before
 source consumption or implementation. S1 then froze the package matrix, schemas, input identities,
-rights/resource boundaries, and fail-closed callable/receipt contracts; its mandatory
-missing-producer and uncalled-check controls both refuse. The independently audited 69-row A-S
-classification protocol and strict contract are now committed. Finish the resolved callable
-registry and focused tests without altering those decisions, then use the exact static-contract
-produce/independent-verify/publish sequence in `research/phase10-execution-v1/README.md`. Only
-post-freeze runs count: begin with `npx vitest run runner/test/phase10-scope-overlay.test.ts` and end
-with exact `npm test` after publication.
+rights/resource boundaries, and fail-closed callable/receipt contracts. The independently audited
+69-row A-S classification protocol and strict contract are committed, and both the A-P and A-S
+static lifecycles now have resolved callable identities, focused tests, exact full-suite coverage,
+and zero-blocker non-author reviews.
+
+From the clean implementation checkpoint, run the exact A-P
+produce/independent-verify/publish sequence in `research/phase10-execution-v1/README.md`. Reopen and
+pin its six evidence files, stage only that bundle plus `evidence/MANIFEST.json`, run exact
+`npm test`, and commit the terminal dependency. Only then run A-S's exact focused-test,
+produce/independent-verify/publish sequence from the new clean head. Pre-commit or uncommitted runs
+do not count.
 
 A-S must publish separate overlays for exactly 18 Phase 8A entries and 51 Phase 8B records. It must
 preserve the Phase 8A status row/filter rule, immutable evidence roles, phase ownership, Phase 8B's

@@ -36,6 +36,37 @@ resource projection, and governed NAS availability only when the packet needs it
 
 ## Packet commands
 
+The A-P bootstrap is a static-contract packet. Its logical bundle root is the repository root
+`.` because its registered producer index spans frozen files under `research/` and new receipts
+under `evidence/`. The structural receipt pair uses attempt `s1-static-20260821-v1`. Run this
+exact sequence only from the committed, clean allowed branch:
+
+```text
+npx vitest run runner/test/phase10-ap-lifecycle.test.ts
+
+node runner/src/phase10-ap-publish.ts produce --repository-root . --out out/phase10-obligation-preflight-v1-candidate
+
+node runner/src/phase10-ap-independent.ts verify --repository-root . --bundle out/phase10-obligation-preflight-v1-candidate --receipt out/phase10-obligation-preflight-v1-candidate/verification.json
+
+node runner/src/phase10-ap-publish.ts publish --repository-root . --candidate out/phase10-obligation-preflight-v1-candidate --out evidence/phase10-obligation-preflight-v1
+```
+
+After publication, independently reopen and hash these six files:
+
+```text
+evidence/phase10-obligation-preflight-v1/artifact-index.json
+evidence/phase10-obligation-preflight-v1/missing-producer.json
+evidence/phase10-obligation-preflight-v1/uncalled-check.json
+evidence/phase10-obligation-preflight-v1/verification.json
+evidence/phase10-obligation-preflight-v1/packets/a-p/preflight.json
+evidence/phase10-obligation-preflight-v1/packets/a-p/terminal-receipt.json
+```
+
+Use those reopened identities to update `evidence/MANIFEST.json` manually, then stage exactly the
+six files and the manifest before running exact `npm test`. The gut-check-only evidence pin command
+does not own this bundle. A-P passes only when the independent verification receipt rederives all
+11 registered checks and both mandatory missing-producer and uncalled-check controls from bytes.
+
 Every later deciding B extraction and every C0/C0V producer or publisher must run through one
 lock-holding wrapper after its packet-specific supplement is committed:
 
@@ -54,6 +85,34 @@ node runner/src/phase10-scope-overlay.ts produce --repository-root . --protocol 
 node runner/src/phase10-scope-overlay-verify.ts verify --repository-root . --protocol research/phase10-scope-classification-protocol-v1.json --bundle out/phase10-scope-intake-v1-candidate --receipt out/phase10-scope-intake-v1-candidate/scope-verification.json
 
 node runner/src/phase10-scope-overlay.ts publish --repository-root . --candidate out/phase10-scope-intake-v1-candidate --out evidence/phase10-scope-intake-v1
+```
+
+Print and independently inspect the byte length and SHA-256 of all seven published files:
+
+```powershell
+$phase10PublishedPaths = @(
+  'evidence/phase10-scope-intake-v1/phase8a-overlay.jsonl'
+  'evidence/phase10-scope-intake-v1/phase8b-overlay.jsonl'
+  'evidence/phase10-scope-intake-v1/scope-report.json'
+  'evidence/phase10-scope-intake-v1/scope-artifact-index.json'
+  'evidence/phase10-scope-intake-v1/scope-verification.json'
+  'evidence/phase10-obligation-preflight-v1/packets/a-s/preflight.json'
+  'evidence/phase10-obligation-preflight-v1/packets/a-s/terminal-receipt.json'
+)
+$phase10PublishedPaths | ForEach-Object {
+  $phase10PublishedItem = Get-Item -LiteralPath $_
+  $phase10PublishedHash = (Get-FileHash -Algorithm SHA256 -LiteralPath $_).Hash.ToLowerInvariant()
+  [pscustomobject]@{ path = $_; byteLength = $phase10PublishedItem.Length; sha256 = $phase10PublishedHash } |
+    ConvertTo-Json -Compress
+}
+```
+
+Use those reopened identities to update `evidence/MANIFEST.json` manually. Do not use the
+gut-check-only evidence pin command: it does not own Phase 10. Then stage exactly the seven files
+and the manifest before the final repository check:
+
+```text
+git add -- evidence/phase10-scope-intake-v1/phase8a-overlay.jsonl evidence/phase10-scope-intake-v1/phase8b-overlay.jsonl evidence/phase10-scope-intake-v1/scope-report.json evidence/phase10-scope-intake-v1/scope-artifact-index.json evidence/phase10-scope-intake-v1/scope-verification.json evidence/phase10-obligation-preflight-v1/packets/a-s/preflight.json evidence/phase10-obligation-preflight-v1/packets/a-s/terminal-receipt.json evidence/MANIFEST.json
 
 npm test
 ```
@@ -62,9 +121,11 @@ The focused test neither produces nor publishes evidence. `produce` writes only 
 candidate bundle. The independent `verify` command reopens the candidate, frozen inputs, committed
 classification protocol, and registered evaluator bytes; it derives the check verdict and writes
 the verification receipt without trusting producer status. `publish` requires that passing receipt,
-rechecks the exact registered candidate bytes, and atomically installs only the registered A-S
-artifacts; it neither makes classification decisions nor recomputes the evaluator verdict. The final
-exact `npm test` is required after publication and does not substitute for independent verification.
+rechecks the exact registered candidate bytes, and installs the registered A-S artifacts plus their
+structural receipt pair with exact-byte partial-publication recovery; it neither makes classification
+decisions nor recomputes the evaluator verdict. The final exact `npm test` runs only after all seven
+published identities are verified, pinned in `evidence/MANIFEST.json`, and staged. It does not
+substitute for independent verification.
 
 A-I is the other static-contract packet and also stays outside the machine executor. Its bounded
 custody/currency command sequence is:

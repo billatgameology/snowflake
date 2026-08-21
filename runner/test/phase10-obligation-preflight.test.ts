@@ -263,7 +263,7 @@ describe("Phase 10 A-P strict contracts", () => {
     ).toEqual([]);
   });
 
-  it("freezes the tracked A-P bootstrap against its bound schema registry", () => {
+  it("resolves the tracked A-P bootstrap against its bound schema registry", () => {
     const matrix = json<MutableMatrix>("research/phase10-obligation-matrix-v1.json");
     const protocol = json<MutableProtocol>(
       "research/phase10-execution-v1/packets/a-p/protocol.json",
@@ -284,7 +284,13 @@ describe("Phase 10 A-P strict contracts", () => {
     expect(frozen.outputIds).toEqual(protocol.registeredOutputIds);
     expect(frozen.checkIds).toEqual(protocol.registeredCheckIds);
     expect(frozen.negativeControlIds).toEqual(protocol.registeredNegativeControlIds);
-    expect(frozen.unresolvedCallableIds).toEqual(registry.callables.map((row) => row.callableId));
+    expect(frozen.unresolvedCallableIds).toEqual([]);
+    expect(phase10ObligationRunPreflight(matrix, protocol, registry)).toMatchObject({
+      pass: true,
+      stage: "run",
+      packetId: "a-p",
+      unresolvedCallableIds: [],
+    });
   });
 
   it("keeps every registered research output trackable with raw-byte-stable attributes", () => {

@@ -8,10 +8,13 @@
     {
       "callableId": "phase10-a-p-check-caller",
       "role": "check-caller",
-      "resolution": "planned",
+      "resolution": "resolved",
       "modulePath": "runner/src/phase10-ap-verify.ts",
       "exportName": "verifyPhase10ApArtifacts",
-      "identity": null,
+      "identity": {
+        "byteLength": 26071,
+        "sha256": "238022a8d19d2760ac2c9161318932ba6f48eaf10a3fd29fb4e77ec55c1472ba"
+      },
       "producedOutputIds": [],
       "invokedCheckIds": [
         "chk-ap-called-checks",
@@ -32,10 +35,13 @@
     {
       "callableId": "phase10-a-p-producer",
       "role": "producer",
-      "resolution": "planned",
+      "resolution": "resolved",
       "modulePath": "runner/src/phase10-ap-publish.ts",
       "exportName": "producePhase10ApArtifacts",
-      "identity": null,
+      "identity": {
+        "byteLength": 22956,
+        "sha256": "c7c55ceb8600e2be90d39cac05838cc2efac4cb36d4af0f11eb9320786299256"
+      },
       "producedOutputIds": [
         "out-ap-artifact-index",
         "out-ap-artifact-schema-registry",
@@ -57,10 +63,13 @@
     {
       "callableId": "phase10-a-p-terminal-receipt-writer",
       "role": "producer",
-      "resolution": "planned",
+      "resolution": "resolved",
       "modulePath": "runner/src/phase10-execution-receipt.ts",
       "exportName": "writePhase10ExecutionReceipt",
-      "identity": null,
+      "identity": {
+        "byteLength": 19334,
+        "sha256": "a620aa263c3fe690249935a28d6a350e5304907068b42b856ccc57e33d39f213"
+      },
       "producedOutputIds": [
         "out-ap-self-execution-receipt"
       ],
@@ -71,10 +80,13 @@
     {
       "callableId": "phase10-a-p-verification-receipt-writer",
       "role": "producer",
-      "resolution": "planned",
+      "resolution": "resolved",
       "modulePath": "runner/src/phase10-verification-receipt.ts",
       "exportName": "writePhase10PacketVerificationReceipt",
-      "identity": null,
+      "identity": {
+        "byteLength": 24199,
+        "sha256": "c382936c0aa97960ef1a0e11677010399354aca75601b8841404d1ce62f9b151"
+      },
       "producedOutputIds": [
         "out-ap-verification"
       ],
@@ -85,10 +97,13 @@
     {
       "callableId": "phase10-ap-evaluator",
       "role": "independent-evaluator",
-      "resolution": "planned",
+      "resolution": "resolved",
       "modulePath": "runner/src/phase10-ap-independent.ts",
       "exportName": "independentlyVerifyPhase10ApArtifacts",
-      "identity": null,
+      "identity": {
+        "byteLength": 39667,
+        "sha256": "b8c7ecbd88be28849d20d5679022f9881dc48c20c21a65ade4b9315ac3340c0c"
+      },
       "producedOutputIds": [],
       "invokedCheckIds": [],
       "evaluatedCheckIds": [
@@ -109,10 +124,13 @@
     {
       "callableId": "phase10-nc-ap-missing-producer",
       "role": "negative-control",
-      "resolution": "planned",
+      "resolution": "resolved",
       "modulePath": "runner/src/phase10-ap-negative-controls.ts",
       "exportName": "runPhase10MissingProducerControl",
-      "identity": null,
+      "identity": {
+        "byteLength": 8990,
+        "sha256": "28b885ccafef1165179fe17ad04fa717a18616a4505fde3fa6e96d692d5887eb"
+      },
       "producedOutputIds": [],
       "invokedCheckIds": [],
       "evaluatedCheckIds": [],
@@ -123,10 +141,13 @@
     {
       "callableId": "phase10-nc-ap-uncalled-check",
       "role": "negative-control",
-      "resolution": "planned",
+      "resolution": "resolved",
       "modulePath": "runner/src/phase10-ap-negative-controls.ts",
       "exportName": "runPhase10UncalledCheckControl",
-      "identity": null,
+      "identity": {
+        "byteLength": 8990,
+        "sha256": "28b885ccafef1165179fe17ad04fa717a18616a4505fde3fa6e96d692d5887eb"
+      },
       "producedOutputIds": [],
       "invokedCheckIds": [],
       "evaluatedCheckIds": [],

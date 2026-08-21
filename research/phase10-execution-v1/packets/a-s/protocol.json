@@ -1,0 +1,42 @@
+{
+  "schema": "phase10-packet-protocol-v1",
+  "protocolId": "phase10-a-s-scope-overlay-v1",
+  "matrixId": "phase10-selected-package-obligations-v1",
+  "packetId": "a-s",
+  "artifactSchemaRegistry": {
+    "path": "research/phase10-artifact-schema-registry-v1.json",
+    "byteLength": 114255,
+    "sha256": "c89463c37384d5652b57c039e26f0c612b08a2d9bb5994482bbf750eae121c70"
+  },
+  "selectedBranches": [],
+  "registeredOutputIds": [
+    "out-as-artifact-index",
+    "out-as-classification-protocol",
+    "out-as-phase8a-overlay",
+    "out-as-phase8b-overlay",
+    "out-as-report",
+    "out-as-verification-receipt"
+  ],
+  "registeredCheckIds": [
+    "chk-as-artifact-index-integrity",
+    "chk-as-cited-classifications",
+    "chk-as-exact-rosters",
+    "chk-as-frozen-input-joins",
+    "chk-as-immutable-roles",
+    "chk-as-modelclass-blocker-separation",
+    "chk-as-multiblocker-support",
+    "chk-as-phase-ownership",
+    "chk-as-protocol-before-classification",
+    "chk-as-separate-corpus-totals",
+    "chk-as-zero-validation-credit"
+  ],
+  "registeredNegativeControlIds": [
+    "nc-as-collapse-multiple-blockers",
+    "nc-as-drop-one-overlay-row",
+    "nc-as-rewrite-frozen-role",
+    "nc-as-upgrade-validation-credit"
+  ],
+  "boundDependencyPacketIds": [
+    "a-p"
+  ]
+}

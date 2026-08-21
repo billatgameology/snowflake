@@ -297,6 +297,38 @@ cited as S2 verification. They exposed only structural implementation defects in
 and citation projection. Valid A-S derivation and verification start after this checkpoint from a
 clean committed head.
 
+### S2 executable implementation checkpoint — 2026-08-21
+
+The frozen packet graph makes A-S depend on a terminal A-P bootstrap, so the executable checkpoint
+resolves and implements both packets before either may publish. The A-P registry is 5,263 bytes /
+SHA-256 `d859a7ae0692e6e77c33160470d39a8c5f8d60bf29a1a5d8ee86108af695c991`; its real run
+preflight derives 14 outputs, 11 checks, two negative controls, seven resolved callables, and zero
+unresolved callables. The A-S registry is 6,252 bytes / SHA-256
+`2ca1a8e0e124bc54a4445aaa787315b8fb05bf028009503833c952c5fae4727e`. The static lifecycle
+binds the clean branch/head, Node v24.13.1, exact command and paths, frozen protocol and contract
+bytes, historical callable identities, independent verification, exact terminal attempt, and
+recoverable exact-byte publication. No real candidate or evidence byte was produced or published.
+
+The exact pre-commit `npm test` passed 135/135 files and 2,250 tests with 49 skipped. Focused
+integration passed 41/41 across the obligation, A-P, and A-S suites; both actual packet registries
+also passed run preflight with zero unresolved callables. These are implementation checks, not an
+A-P or A-S evidence verdict.
+
+One non-author OpenAI Codex GPT-5 reviewer inherited full development context and reviewed A-P
+without authoring its bytes. It independently re-ran the 5-test lifecycle, 14-test obligation
+suite, actual 14-output/11-check/two-control/seven-callable preflight, complete matrix validation,
+typechecks, Rule 7, diff checks, registry identities, command/publication boundaries, and A-S
+dependency compatibility and reported zero blockers. It did not run full `npm test`, real
+production/publication, crash interruption, or a concurrent-writer attack; it inspected no NAS,
+private, or future held-out material.
+
+A separate non-author OpenAI Codex GPT-5 reviewer with full development context independently ran
+the 22-test A-S suite, typechecks, Rule 7, diff checks, and exact registry/hash/attribute audit and
+reported zero blockers. It did not run full `npm test`, real production/publication, `gate10`, or
+inspect private NAS or future held-out sources. The next authorized action is the exact committed
+A-P produce/independent-verify/publish sequence; A-S remains blocked until that passing dependency
+is published, pinned, tested, and committed.
+
 ## Return and stop rules
 
 - Return to the maker, without continuing, for any E/F/H candidate, any C1–C5 or target-facing
@@ -344,6 +376,10 @@ clean committed head.
   before the classification protocol was committed. No bytes were retained or published and no
   classification changed, but neither run counts; valid derivation starts only after the S2
   classification-freeze checkpoint.
+- **Treat S1's freeze preflight as a terminal A-P pass.** Rejected during S2 implementation. The
+  frozen A-S supplement depends on packet `a-p`, while S1 deliberately permitted planned callables
+  and emitted no terminal receipt. A-S therefore requires a real resolved A-P lifecycle and a
+  committed passing dependency before its own production preflight can open.
 - **Reuse the post-execution Phase 6 independent script's top-level `some` aggregation in C0.**
   Rejected during the 2026-08-21 code audit. The frozen WP2 plan defines a pass independently at
   each spacing, the primary evaluator and its two mixed pass/fail controls require all spacings to

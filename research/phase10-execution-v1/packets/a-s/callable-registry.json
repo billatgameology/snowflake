@@ -1,0 +1,185 @@
+{
+  "schema": "phase10-callable-registry-v1",
+  "registryId": "phase10-a-s-resolved-callables-v1",
+  "matrixId": "phase10-selected-package-obligations-v1",
+  "protocolId": "phase10-a-s-scope-overlay-v1",
+  "packetId": "a-s",
+  "callables": [
+    {
+      "callableId": "phase10-a-s-check-caller",
+      "role": "check-caller",
+      "resolution": "resolved",
+      "modulePath": "runner/src/phase10-scope-checks.ts",
+      "exportName": "phase10ASCheckCaller",
+      "identity": {
+        "byteLength": 862,
+        "sha256": "0fbd76499db8f8eb6284a5056ff3c18e69275ae92a03540ad022e6e2c5cd611a"
+      },
+      "producedOutputIds": [],
+      "invokedCheckIds": [
+        "chk-as-artifact-index-integrity",
+        "chk-as-cited-classifications",
+        "chk-as-exact-rosters",
+        "chk-as-frozen-input-joins",
+        "chk-as-immutable-roles",
+        "chk-as-modelclass-blocker-separation",
+        "chk-as-multiblocker-support",
+        "chk-as-phase-ownership",
+        "chk-as-protocol-before-classification",
+        "chk-as-separate-corpus-totals",
+        "chk-as-zero-validation-credit"
+      ],
+      "evaluatedCheckIds": [],
+      "executedNegativeControlIds": []
+    },
+    {
+      "callableId": "phase10-a-s-producer",
+      "role": "producer",
+      "resolution": "resolved",
+      "modulePath": "runner/src/phase10-scope-overlay.ts",
+      "exportName": "producePhase10ScopeArtifacts",
+      "identity": {
+        "byteLength": 84022,
+        "sha256": "9273479dd642d21f08fc9b99c71608f70ff0819555b50b4ca1655db2dcdeedd9"
+      },
+      "producedOutputIds": [
+        "out-as-artifact-index",
+        "out-as-phase8a-overlay",
+        "out-as-phase8b-overlay",
+        "out-as-report"
+      ],
+      "invokedCheckIds": [],
+      "evaluatedCheckIds": [],
+      "executedNegativeControlIds": []
+    },
+    {
+      "callableId": "phase10-a-s-protocol-producer",
+      "role": "producer",
+      "resolution": "resolved",
+      "modulePath": "runner/src/phase10-scope-contracts.ts",
+      "exportName": "producePhase10ScopeClassificationProtocol",
+      "identity": {
+        "byteLength": 51753,
+        "sha256": "599499bdc2794d9ba189879f52c8a21d1fcd93608f971ddb248daa5d2009f69f"
+      },
+      "producedOutputIds": [
+        "out-as-classification-protocol"
+      ],
+      "invokedCheckIds": [],
+      "evaluatedCheckIds": [],
+      "executedNegativeControlIds": []
+    },
+    {
+      "callableId": "phase10-as-verification-receipt-writer",
+      "role": "producer",
+      "resolution": "resolved",
+      "modulePath": "runner/src/phase10-scope-verification-receipt.ts",
+      "exportName": "writePhase10ScopeVerificationReceipt",
+      "identity": {
+        "byteLength": 20360,
+        "sha256": "c1fe28fbaf6fc6803e1b72f4ed6078c8d9e6805b31cb33d872b8857c5ea44464"
+      },
+      "producedOutputIds": [
+        "out-as-verification-receipt"
+      ],
+      "invokedCheckIds": [],
+      "evaluatedCheckIds": [],
+      "executedNegativeControlIds": []
+    },
+    {
+      "callableId": "phase10-as-verifier",
+      "role": "independent-evaluator",
+      "resolution": "resolved",
+      "modulePath": "runner/src/phase10-scope-overlay-verify.ts",
+      "exportName": "phase10ScopeOverlayVerify",
+      "identity": {
+        "byteLength": 66121,
+        "sha256": "aef207fdb2be938e858b3dbc548909d3dda7916c94d0d895fcbe1101cfae3a23"
+      },
+      "producedOutputIds": [],
+      "invokedCheckIds": [],
+      "evaluatedCheckIds": [
+        "chk-as-artifact-index-integrity",
+        "chk-as-cited-classifications",
+        "chk-as-exact-rosters",
+        "chk-as-frozen-input-joins",
+        "chk-as-immutable-roles",
+        "chk-as-modelclass-blocker-separation",
+        "chk-as-multiblocker-support",
+        "chk-as-phase-ownership",
+        "chk-as-protocol-before-classification",
+        "chk-as-separate-corpus-totals",
+        "chk-as-zero-validation-credit"
+      ],
+      "executedNegativeControlIds": []
+    },
+    {
+      "callableId": "phase10-nc-as-collapse-multiple-blockers",
+      "role": "negative-control",
+      "resolution": "resolved",
+      "modulePath": "runner/src/phase10-scope-negative-controls.ts",
+      "exportName": "phase10ASCollapseMultipleBlockers",
+      "identity": {
+        "byteLength": 7167,
+        "sha256": "059e0e0bc6c47faf05005c80af40f858b392c5eef46acbf58aadad3a1a2dbd86"
+      },
+      "producedOutputIds": [],
+      "invokedCheckIds": [],
+      "evaluatedCheckIds": [],
+      "executedNegativeControlIds": [
+        "nc-as-collapse-multiple-blockers"
+      ]
+    },
+    {
+      "callableId": "phase10-nc-as-drop-one-overlay-row",
+      "role": "negative-control",
+      "resolution": "resolved",
+      "modulePath": "runner/src/phase10-scope-negative-controls.ts",
+      "exportName": "phase10ASDropOneOverlayRow",
+      "identity": {
+        "byteLength": 7167,
+        "sha256": "059e0e0bc6c47faf05005c80af40f858b392c5eef46acbf58aadad3a1a2dbd86"
+      },
+      "producedOutputIds": [],
+      "invokedCheckIds": [],
+      "evaluatedCheckIds": [],
+      "executedNegativeControlIds": [
+        "nc-as-drop-one-overlay-row"
+      ]
+    },
+    {
+      "callableId": "phase10-nc-as-rewrite-frozen-role",
+      "role": "negative-control",
+      "resolution": "resolved",
+      "modulePath": "runner/src/phase10-scope-negative-controls.ts",
+      "exportName": "phase10ASRewriteFrozenRole",
+      "identity": {
+        "byteLength": 7167,
+        "sha256": "059e0e0bc6c47faf05005c80af40f858b392c5eef46acbf58aadad3a1a2dbd86"
+      },
+      "producedOutputIds": [],
+      "invokedCheckIds": [],
+      "evaluatedCheckIds": [],
+      "executedNegativeControlIds": [
+        "nc-as-rewrite-frozen-role"
+      ]
+    },
+    {
+      "callableId": "phase10-nc-as-upgrade-validation-credit",
+      "role": "negative-control",
+      "resolution": "resolved",
+      "modulePath": "runner/src/phase10-scope-negative-controls.ts",
+      "exportName": "phase10ASUpgradeValidationCredit",
+      "identity": {
+        "byteLength": 7167,
+        "sha256": "059e0e0bc6c47faf05005c80af40f858b392c5eef46acbf58aadad3a1a2dbd86"
+      },
+      "producedOutputIds": [],
+      "invokedCheckIds": [],
+      "evaluatedCheckIds": [],
+      "executedNegativeControlIds": [
+        "nc-as-upgrade-validation-credit"
+      ]
+    }
+  ]
+}

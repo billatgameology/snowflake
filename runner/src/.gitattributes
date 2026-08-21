@@ -13,3 +13,6 @@ phase8-plot-extraction.ts -text
 # Phase 9 pins the raw bytes of its implementation modules (see research/.gitattributes for why
 # these rules cannot live in the root file: the Phase 8 freeze pins the root file's exact bytes).
 phase9-* -text
+
+# Phase 10 packet registries bind callable modules by exact byte length and SHA-256.
+phase10-* -text
