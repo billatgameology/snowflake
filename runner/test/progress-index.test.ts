@@ -9,6 +9,7 @@ const REPO = fileURLToPath(new URL("../..", import.meta.url));
 const PROGRESS = resolve(REPO, "docs", "PROGRESS.md");
 const HANDOFF = resolve(REPO, "docs", "HANDOFF.md");
 const ARCHIVE = resolve(REPO, "docs", "progress-history-through-2026-08-02.md");
+const PHASE_HISTORY = resolve(REPO, "docs", "progress-history-phases-6-8-9.md");
 const STATE_PLANS = [
   resolve(REPO, "docs", "plans", "phase-6-science-first-completion.md"),
   resolve(REPO, "docs", "plans", "phase-8-what-is-real.md"),
@@ -104,6 +105,8 @@ function currentIndexErrors(text: string): string[] {
     "(plans/phase-6-science-first-completion.md)",
     "(plans/phase-8-what-is-real.md)",
     "(plans/phase-8-measurement-corpus.md)",
+    "(progress-history-phases-6-8-9.md)",
+    "maker selected Options A + B (2026-08-20)",
     "- **Last updated:** 2026-08-20",
   ];
   for (const phrase of required) {
@@ -235,6 +238,13 @@ describe("compact progress index and byte-exact historical record", () => {
     expect(banner).toContain(ARCHIVED_BODY_SHA256);
   });
 
+  it("labels the phase 6/8/9 history file as historical rather than a second current authority", () => {
+    const banner = readFileSync(PHASE_HISTORY, "utf8").slice(0, 700);
+    expect(banner).toContain("Historical snapshot — not current authority");
+    expect(banner).toContain("[PROGRESS.md](PROGRESS.md)");
+    expect(banner).toContain("preserved as last written");
+  });
+
   it("rejects named current-index state-loss mutations", () => {
     const current = readFileSync(PROGRESS, "utf8");
     expect(currentIndexErrors(current.replace("Phase 6 is COMPLETE (2026-08-20)", "Phase 6 is ACTIVE AND INCOMPLETE")))
@@ -342,6 +352,13 @@ describe("compact progress index and byte-exact historical record", () => {
     expect(phase9LinkMutation).not.toBe(current);
     expect(currentIndexErrors(phase9LinkMutation))
       .toContain("missing current-state phrase: (plans/phase-9-execution.md)");
+    const phase10DecisionMutation = current.replace(
+      "maker selected Options A + B (2026-08-20)",
+      "Phase 10 options remain undecided",
+    );
+    expect(phase10DecisionMutation).not.toBe(current);
+    expect(currentIndexErrors(phase10DecisionMutation))
+      .toContain("missing current-state phrase: maker selected Options A + B (2026-08-20)");
     expect(currentIndexErrors(`${current}\n## Next step\n`))
       .toContain("expected exactly one ## Next step");
     expect(currentIndexErrors(`${current}\n${ARCHIVE_MARKER}`))

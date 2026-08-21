@@ -76,6 +76,13 @@ Recommended sequencing: A, then B with C as its numerical work package; closures
 on B/C outcomes. Phase 7 (product, held-out validation, GPU parity) runs as a parallel track
 under its own future plan and does not gate any of this.
 
+**Maker decision (2026-08-20): Options A + B selected, in that order.** C is not adopted and
+stays available as future work; D stays deferred until its prerequisites exist. The next
+actions — isolated worktree, a separate Phase 10 execution plan scoped to A + B, and the
+Rule 5 chartering ADR plus charter amendment — are specified in
+[PROGRESS.md](../PROGRESS.md) → **Next step**. This draft remains design history; it is not
+the execution plan.
+
 ## Goal
 
 Phases 8–9 exhaust what the literature *prints*: tabulated kinetics, source-endorsed
