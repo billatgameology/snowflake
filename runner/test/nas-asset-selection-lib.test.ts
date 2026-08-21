@@ -138,8 +138,30 @@ describe("exact catalogue-bound owner-manifest selection", () => {
   });
 
   it("uses the historical root for an unavailable json-tree-key collection", () => {
+    // The real earlier-phase2b activated with the 2026-08-20 Windows write lane, so the
+    // unavailable+json-tree-key branch is exercised on a synthetic reversion of that entry —
+    // exactly its pre-activation registered shape.
+    const historical = structuredClone(REAL_CATALOGUE) as unknown as {
+      collections: {
+        assetId: string; state: string; locator: string | null; unresolved: string[];
+        ownerManifest: unknown;
+      }[];
+    };
+    const entry = historical.collections.find((collection) => collection.assetId === "earlier-phase2b");
+    if (entry === undefined) throw new Error("missing earlier-phase2b");
+    entry.state = "unavailable";
+    entry.locator = null;
+    entry.unresolved = ["fixture: pre-activation registered shape"];
+    entry.ownerManifest = {
+      storage: "tracked",
+      path: "evidence/OUT-TREES-MANIFEST.json",
+      format: "out-tree-digest-manifest-v1",
+      bytes: 85811,
+      sha256: "42b1dee5adc2907a167da43945eeb8286af90b576f63d740c0bf6946e612a43d",
+      selector: { kind: "json-tree-key", key: "out/phase2b" },
+    };
     const selection = loadBoundCollectionSelection({
-      catalogue: REAL_CATALOGUE,
+      catalogue: historical as unknown as typeof REAL_CATALOGUE,
       collection: "earlier-phase2b@2026-08-01",
       repoRoot: REPOSITORY_ROOT,
       shareRoot: null,
@@ -153,6 +175,24 @@ describe("exact catalogue-bound owner-manifest selection", () => {
     });
     expect(selection.files.every((file) => file.sharePath.startsWith("out/phase2b/"))).toBe(true);
     expect(selection.files.every((file) => !file.relativePath.startsWith("out/phase2b/"))).toBe(true);
+  });
+
+  it("selects the activated earlier-phase2b completion through its governed ledger locator", () => {
+    const selection = loadBoundCollectionSelection({
+      catalogue: REAL_CATALOGUE,
+      collection: "earlier-phase2b@2026-08-01",
+      repoRoot: REPOSITORY_ROOT,
+      shareRoot: null,
+    });
+    expect(selection).toMatchObject({
+      state: "active",
+      locator: "collections/earlier-phase2b/2026-08-01/payload",
+      fileCount: 11,
+      totalBytes: 60_438_811,
+    });
+    expect(
+      selection.files.every((file) => file.sharePath.startsWith("collections/earlier-phase2b/2026-08-01/payload/")),
+    ).toBe(true);
   });
 
   it("applies path-prefix inclusions and exclusions before exact aggregate binding", () => {

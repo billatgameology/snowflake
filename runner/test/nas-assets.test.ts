@@ -281,7 +281,40 @@ describe("bounded owner-manifest verification", () => {
   });
 
   it("preserves unavailable limits instead of upgrading them", () => {
-    const unavailable = run(["verify", "--collection", "earlier-phase2b"]);
+    // The real earlier-phase2b activated with the 2026-08-20 Windows write lane; the
+    // unavailable-state behavior is exercised on a synthetic reversion of that entry — its
+    // exact pre-activation registered shape, verified against the real repository's tracked
+    // OUT-TREES manifest.
+    const historical = structuredClone(REAL_CATALOG) as unknown as {
+      collections: {
+        assetId: string; state: string; locator: string | null; unresolved: string[];
+        ownerManifest: unknown;
+      }[];
+      overlays: unknown[];
+      systemExclusions: unknown[];
+    };
+    historical.collections = historical.collections.filter((collection) => collection.assetId === "earlier-phase2b");
+    historical.overlays = [];
+    historical.systemExclusions = [];
+    const entry = historical.collections[0];
+    if (entry === undefined) throw new Error("missing earlier-phase2b");
+    entry.state = "unavailable";
+    entry.locator = null;
+    entry.unresolved = ["fixture: pre-activation registered shape"];
+    entry.ownerManifest = {
+      storage: "tracked",
+      path: "evidence/OUT-TREES-MANIFEST.json",
+      format: "out-tree-digest-manifest-v1",
+      bytes: 85811,
+      sha256: "42b1dee5adc2907a167da43945eeb8286af90b576f63d740c0bf6946e612a43d",
+      selector: { kind: "json-tree-key", key: "out/phase2b" },
+    };
+    const catalogPath = join(temporaryRoot("unavailable-limits-catalog"), "catalog.json");
+    writeFileSync(catalogPath, JSON.stringify(historical));
+    const unavailable = run([
+      "verify", "--catalog", catalogPath, "--repo-root", REPO,
+      "--collection", "earlier-phase2b",
+    ]);
     expect(unavailable.code).toBe(0);
     expect(unavailable.report.collections).toEqual([
       expect.objectContaining({
@@ -304,7 +337,13 @@ describe("bounded owner-manifest verification", () => {
     const collection = structuredClone(template) as unknown as {
       aggregate: { files: number; bytes: number };
       ownerManifest: { path: string; format: string; bytes: number; sha256: string; selector: unknown };
+      state: string; locator: string | null; unresolved: string[];
     };
+    // The real earlier-phase2b activated 2026-08-20; restore the unavailable shape this
+    // fixture exists to exercise.
+    collection.state = "unavailable";
+    collection.locator = null;
+    collection.unresolved = ["fixture: unavailable-state verification subject"];
     collection.aggregate = { files: 1, bytes: 3 };
     collection.ownerManifest = {
       ...collection.ownerManifest,

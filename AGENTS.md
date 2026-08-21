@@ -300,7 +300,10 @@ node runner/src/main.ts gate2b
   `docs/nas-assets.json`; share containment alone is not permission to serve a file. Emitted URLs
   are mount-agnostic by construction. After the physical marker was installed on 2026-08-15, the
   governed index rebuilt on macOS and a live loopback check returned 200 for a catalogued file,
-  206 for its byte range, and 403 for private and unknown roots. Windows `S:/` remains unexecuted.
+  206 for its byte range, and 403 for private and unknown roots. The Windows `S:/` write path
+  executed 2026-08-20 (the Windows write lane in `docs/plans/nas-asset-governance.md`): reads,
+  semantics probe, staged archival with receipt, and fresh-process verifies all green; SMB
+  rename crash-durability stays verification-based (win32 cannot fsync a directory handle).
   Paid for twice: the 2026-08-06 and 2026-08-12 machine transfers each broke the same tooling.
 - Nothing under `out/` is tracked. It and ignored payloads under `research/` are local staging,
   not evidence of either preservation or disposability; Rule 15 governs retention and cleanup.

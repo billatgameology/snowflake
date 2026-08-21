@@ -167,19 +167,19 @@ describe("tracked NAS asset catalogue", () => {
       "phase9-search@2026-08-15": ["provisional", 3, 631494],
       "post-phase9-intake@2026-08-13": ["provisional", 26, 165722101],
       "research-copy-verification-residue@2026-08-10": ["unavailable", 24, 110412535],
-      "earlier-phase2b@2026-08-01": ["unavailable", 11, 60438811],
-      "earlier-phase4@2026-08-01": ["unavailable", 125, 519684864],
-      "earlier-phase4-visual@2026-08-01": ["unavailable", 21, 1924721],
-      "earlier-phase5@2026-08-01": ["unavailable", 78, 80944402],
-      "earlier-phase5-wp5-0a611e7@2026-08-01": ["unavailable", 78, 79697941],
-      "earlier-phase5-wp5-0a611e7-original@2026-08-01": ["unavailable", 78, 79697941],
-      "earlier-phase5-wp7-32eed48-superseded@2026-08-01": ["unavailable", 78, 80944780],
-      // Windows write lane (docs/plans/nas-asset-governance.md, 2026-08-20): provisional until
-      // the archival program's apply + fresh-process verification flip them active.
-      "windows-phase6-ladder-workspace@2026-08-20": ["provisional", 9, 131247],
-      "windows-repo-bundle@2026-08-20": ["provisional", 3, 10011107],
-      "windows-out-scratch@2026-08-20": ["provisional", 7853, 1723570732],
-      "windows-out-gate-artifacts@2026-08-20": ["provisional", 28, 137079788],
+      "earlier-phase2b@2026-08-01": ["active", 11, 60438811],
+      "earlier-phase4@2026-08-01": ["active", 125, 519684864],
+      "earlier-phase4-visual@2026-08-01": ["active", 21, 1924721],
+      "earlier-phase5@2026-08-01": ["active", 78, 80944402],
+      "earlier-phase5-wp5-0a611e7@2026-08-01": ["active", 78, 79697941],
+      "earlier-phase5-wp5-0a611e7-original@2026-08-01": ["active", 78, 79697941],
+      "earlier-phase5-wp7-32eed48-superseded@2026-08-01": ["active", 78, 80944780],
+      // Windows write lane (docs/plans/nas-asset-governance.md): applied and verified
+      // 2026-08-20; the seven earlier-* completions above activated in the same batch.
+      "windows-phase6-ladder-workspace@2026-08-20": ["active", 9, 131247],
+      "windows-repo-bundle@2026-08-20": ["active", 3, 10011107],
+      "windows-out-scratch@2026-08-20": ["active", 7853, 1723570732],
+      "windows-out-gate-artifacts@2026-08-20": ["active", 28, 137079788],
     } as const;
 
     expect(Object.fromEntries(CATALOG.collections.map((collection) => [
@@ -190,6 +190,13 @@ describe("tracked NAS asset catalogue", () => {
       "research-media-subset",
       "gutcheck-large-products-and-archives",
       "phase3-visual-historical-owner",
+      "phase2b-historical-owner",
+      "phase4-historical-owner",
+      "phase4-visual-historical-owner",
+      "phase5-historical-owner",
+      "phase5-wp5-0a611e7-historical-owner",
+      "phase5-wp5-0a611e7-original-historical-owner",
+      "phase5-wp7-32eed48-superseded-historical-owner",
     ]);
     expect(CATALOG.systemExclusions.map((exclusion) => exclusion.path)).toEqual([
       "#recycle",

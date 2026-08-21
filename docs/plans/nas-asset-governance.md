@@ -560,3 +560,69 @@ receipt-published boundary exactly as the reference.
 - [ ] Catalogue, owner manifests, ledger `files[]`/`moves[]` additions, and this record
       committed as one unit; exact `npm.cmd test` gates the push.
 - [ ] Nothing deleted anywhere; the maker's prune approval remains a separate future decision.
+
+
+### Windows write lane — implementation record (2026-08-20)
+
+**Validation protocol: executed, all green.** First Windows executions of the four registered
+read commands: `assets:audit` returned the expected nonzero (the one deliberately unclassified
+custody entry; every other count zero, matching the macOS record); `assets:verify --full` on
+`earlier-phase3-visual@2026-08-01` verified 10/10; `assets:restore` + `verify-restored`
+round-tripped byte-identically (tree SHA-256 `73a9f672…3faf` both directions); bootstrap
+dry-run reported `already-bootstrapped`, marker validated, 6/6 control directories. The
+bounded semantics probe (transcript at
+`_control/staging/windows-probe-2026-08-20/transcript.txt`, also archived inside the scratch
+collection) measured: exclusive create refuses EEXIST when contested; rename onto an ABSENT
+target preserves content; rename onto a PRESENT file target REPLACES silently (hence the
+program's assert-absent-before-every-rename discipline); staging and collections agree on
+`dev` (the same-filesystem guard passes); `nlink` reads 1 on SMB; the share is
+case-insensitive with `wx` on a folded name refusing EEXIST (the tooling's NFC-lowercase
+collision keys are exactly right); trailing-dot/space names are accepted but silently
+mangled (the naming-layer refusals are the only real protection); fresh-file timestamps are
+coherent to 5 ms (the macOS second-apply failure mode does not reproduce); and
+reopen-re-hash after rename is byte-identical — the durability-mitigation primitive works.
+
+**Program review (Rule 10): one engagement, 2 blockers + 4 concerns, all adopted before
+apply.** Blockers: the pending-receipt crash state was unrecoverable (rollback now retires
+the receipt directory; the apply.mjs receipt copy is exclusive-create), and every absence
+guard used error-swallowing `existsSync` while this share's rename replaces present targets
+(now `statOrRefuse` halting on non-ENOENT plus assert-absent-before / verify-present-after
+around every rename). Concerns: the git-bundle trio was double-owned by two collections
+(scratch shrank by exactly those 3 files / 10,011,107 bytes); the frozen top-level
+enumeration became real code and immediately caught two `wp6-s6-*` directories a truncated
+survey had missed; the bundle is created once so apply archives exactly the reviewed bytes;
+safe-name checks extended to top-level and root-claim names, sorted traversal for
+deterministic receipts. Recorded exclusions instead of quarantine for regenerable material:
+one node_modules junction (not followed), `out/restores/**`, `out/nas-archive-*`; hard-linked
+dedup files recorded-and-included.
+
+**Apply: complete, nothing deleted anywhere.** 11 collections, 8,362 files,
+2,774,126,334 bytes, staged then promoted by absent-target renames, every file hashed three
+ways (source, staged, final) with all three digests identical; every `earlier-*` byte matched
+its `evidence/OUT-TREES-MANIFEST.json` pin before staging. Receipt
+`_control/receipts/migrations/windows-workspace-2026-08-20/result.json`: 465,124 bytes,
+SHA-256 `254d5b70f0da8800bf65be5529c6a70af0fae00220c7ca74375e719927ee5c0f`, with the program
+copy beside it. Fresh-process `assets:verify --full`: 11/11 ok, 0 fails; restore +
+`verify-restored` round-trip on `windows-phase6-ladder-workspace@2026-08-20`: ok. The ledger
+now owns 31,090 files / 471,637,028,713 bytes (7,285,570 bytes, SHA-256 `46a0d214…c9c7`);
+the catalogue holds 30 collections / 10 overlays with all 11 lane entries active and the
+seven `earlier-*` completions carrying `*-historical-owner` overlays preserving the
+OUT-TREES authority, per the `earlier-phase3-visual` precedent.
+
+**Standing limits.** SMB rename crash-durability is unproven as a hardware property (win32
+cannot fsync a directory handle); every lane claim is therefore verification-based and each
+activated entry's `verification.limits` says so. The NAS remains one failure domain: the two
+external-evidence collections carry `backup.status: "required-missing"` honestly, and the
+workstation source copies remain in place — no deletion was authorized, and the maker's
+prune decision remains separate and future.
+
+### Windows lane done-when — discharged
+
+- [x] Validation protocol fully executed and recorded (above).
+- [x] Read-only pass, non-author review (2 blockers + 4 concerns adopted), reviewed program
+      committed at `20131c3` BEFORE physical apply.
+- [x] Apply complete; receipt published and byte-verified; 11/11 fresh-process full
+      verifies; restore + verify-restored round-trip green from Windows.
+- [x] Catalogue, owner manifests, ledger additions, and this record committed as one unit;
+      exact `npm.cmd test` gates the push.
+- [x] Nothing deleted anywhere; the maker's prune approval remains a separate future decision.

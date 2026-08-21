@@ -27,8 +27,8 @@
         "storage": "tracked",
         "path": "docs/nas-ledger.json",
         "format": "snowflake-nas-ledger-v1",
-        "bytes": 5165509,
-        "sha256": "aedde64bb1d01632d790fbf0d3a5ca7a3b3a594b90f3714033b48b1cfeccee05",
+        "bytes": 7285570,
+        "sha256": "46a0d214394a0d149037803f932752131c8ea2b457584cb34c2a9ad3a828c9c7",
         "selector": {
           "kind": "path-prefixes",
           "include": [
@@ -116,8 +116,8 @@
         "storage": "tracked",
         "path": "docs/nas-ledger.json",
         "format": "snowflake-nas-ledger-v1",
-        "bytes": 5165509,
-        "sha256": "aedde64bb1d01632d790fbf0d3a5ca7a3b3a594b90f3714033b48b1cfeccee05",
+        "bytes": 7285570,
+        "sha256": "46a0d214394a0d149037803f932752131c8ea2b457584cb34c2a9ad3a828c9c7",
         "selector": {
           "kind": "path-prefixes",
           "include": [
@@ -437,8 +437,8 @@
         "storage": "tracked",
         "path": "docs/nas-ledger.json",
         "format": "snowflake-nas-ledger-v1",
-        "bytes": 5165509,
-        "sha256": "aedde64bb1d01632d790fbf0d3a5ca7a3b3a594b90f3714033b48b1cfeccee05",
+        "bytes": 7285570,
+        "sha256": "46a0d214394a0d149037803f932752131c8ea2b457584cb34c2a9ad3a828c9c7",
         "selector": {
           "kind": "path-prefixes",
           "include": [
@@ -592,8 +592,8 @@
         "storage": "tracked",
         "path": "docs/nas-ledger.json",
         "format": "snowflake-nas-ledger-v1",
-        "bytes": 5165509,
-        "sha256": "aedde64bb1d01632d790fbf0d3a5ca7a3b3a594b90f3714033b48b1cfeccee05",
+        "bytes": 7285570,
+        "sha256": "46a0d214394a0d149037803f932752131c8ea2b457584cb34c2a9ad3a828c9c7",
         "selector": {
           "kind": "path-prefixes",
           "include": [
@@ -676,8 +676,8 @@
         "storage": "tracked",
         "path": "docs/nas-ledger.json",
         "format": "snowflake-nas-ledger-v1",
-        "bytes": 5165509,
-        "sha256": "aedde64bb1d01632d790fbf0d3a5ca7a3b3a594b90f3714033b48b1cfeccee05",
+        "bytes": 7285570,
+        "sha256": "46a0d214394a0d149037803f932752131c8ea2b457584cb34c2a9ad3a828c9c7",
         "selector": {
           "kind": "path-prefixes",
           "include": [
@@ -759,8 +759,8 @@
         "storage": "tracked",
         "path": "docs/nas-ledger.json",
         "format": "snowflake-nas-ledger-v1",
-        "bytes": 5165509,
-        "sha256": "aedde64bb1d01632d790fbf0d3a5ca7a3b3a594b90f3714033b48b1cfeccee05",
+        "bytes": 7285570,
+        "sha256": "46a0d214394a0d149037803f932752131c8ea2b457584cb34c2a9ad3a828c9c7",
         "selector": {
           "kind": "path-prefixes",
           "include": [
@@ -842,8 +842,8 @@
         "storage": "tracked",
         "path": "docs/nas-ledger.json",
         "format": "snowflake-nas-ledger-v1",
-        "bytes": 5165509,
-        "sha256": "aedde64bb1d01632d790fbf0d3a5ca7a3b3a594b90f3714033b48b1cfeccee05",
+        "bytes": 7285570,
+        "sha256": "46a0d214394a0d149037803f932752131c8ea2b457584cb34c2a9ad3a828c9c7",
         "selector": {
           "kind": "path-prefixes",
           "include": [
@@ -925,8 +925,8 @@
         "storage": "tracked",
         "path": "docs/nas-ledger.json",
         "format": "snowflake-nas-ledger-v1",
-        "bytes": 5165509,
-        "sha256": "aedde64bb1d01632d790fbf0d3a5ca7a3b3a594b90f3714033b48b1cfeccee05",
+        "bytes": 7285570,
+        "sha256": "46a0d214394a0d149037803f932752131c8ea2b457584cb34c2a9ad3a828c9c7",
         "selector": {
           "kind": "path-prefixes",
           "include": [
@@ -1561,9 +1561,9 @@
     {
       "assetId": "earlier-phase2b",
       "version": "2026-08-01",
-      "state": "unavailable",
+      "state": "active",
       "ownerWorkstream": "phase-2b-libbrecht-kinetics",
-      "locator": null,
+      "locator": "collections/earlier-phase2b/2026-08-01/payload",
       "historicalRepoPath": "out/phase2b",
       "legacyAliases": [],
       "storageClass": "external-evidence",
@@ -1573,13 +1573,16 @@
       },
       "ownerManifest": {
         "storage": "tracked",
-        "path": "evidence/OUT-TREES-MANIFEST.json",
-        "format": "out-tree-digest-manifest-v1",
-        "bytes": 85811,
-        "sha256": "42b1dee5adc2907a167da43945eeb8286af90b576f63d740c0bf6946e612a43d",
+        "path": "docs/nas-ledger.json",
+        "format": "snowflake-nas-ledger-v1",
+        "bytes": 7285570,
+        "sha256": "46a0d214394a0d149037803f932752131c8ea2b457584cb34c2a9ad3a828c9c7",
         "selector": {
-          "kind": "json-tree-key",
-          "key": "out/phase2b"
+          "kind": "path-prefixes",
+          "include": [
+            "collections/earlier-phase2b/2026-08-01/payload"
+          ],
+          "exclude": []
         }
       },
       "rights": {
@@ -1623,37 +1626,40 @@
         "record": "docs/plans/phase-2-cpu-solver.md"
       },
       "restore": {
-        "status": "unavailable",
-        "command": null,
-        "verifyCommand": null,
-        "record": "docs/nas-inventory-audit-20260815.md"
+        "status": "documented",
+        "command": "npm run assets:restore -- --collection earlier-phase2b@2026-08-01 --to out/restores/earlier-phase2b-2026-08-01",
+        "verifyCommand": "npm run assets:verify-restored -- --collection earlier-phase2b@2026-08-01 --from out/restores/earlier-phase2b-2026-08-01",
+        "record": "docs/plans/nas-asset-governance.md"
       },
       "verification": {
-        "status": "unavailable",
-        "at": "2026-08-15",
-        "host": "macOS",
-        "receipt": "docs/nas-inventory-audit-20260815.md",
+        "status": "full-hash",
+        "at": "2026-08-20",
+        "host": "Windows",
+        "receipt": "docs/plans/nas-asset-governance.md",
         "limits": [
-          "The tracked digest inventory exists, but no restorable byte location was observed."
+          "Archived from the Windows workstation by the reviewed one-time program; source, staged, and final bytes hashed independently (receipt 254d5b70..., _control/receipts/migrations/windows-workspace-2026-08-20/).",
+          "win32 cannot fsync a directory handle, so SMB rename crash-durability is unproven; this verification is observation-based (post-rename full re-hash plus a separate fresh-process full verify), as the Windows write lane records.",
+          "The workstation source copies remain in place; no deletion is authorized by this record.",
+          "Every archived byte matched its evidence/OUT-TREES-MANIFEST.json pin before staging."
         ]
       },
-      "storageDomains": [],
+      "storageDomains": [
+        "snowcrystal-nas"
+      ],
       "backup": {
         "status": "required-missing",
         "independentDomains": [],
         "receipts": []
       },
       "supersedes": [],
-      "unresolved": [
-        "Locate and verify the 11 files, or record a reviewed superseded disposition."
-      ]
+      "unresolved": []
     },
     {
       "assetId": "earlier-phase4",
       "version": "2026-08-01",
-      "state": "unavailable",
+      "state": "active",
       "ownerWorkstream": "phase-4-morphology-gauntlet",
-      "locator": null,
+      "locator": "collections/earlier-phase4/2026-08-01/payload",
       "historicalRepoPath": "out/phase4",
       "legacyAliases": [],
       "storageClass": "external-evidence",
@@ -1663,13 +1669,16 @@
       },
       "ownerManifest": {
         "storage": "tracked",
-        "path": "evidence/OUT-TREES-MANIFEST.json",
-        "format": "out-tree-digest-manifest-v1",
-        "bytes": 85811,
-        "sha256": "42b1dee5adc2907a167da43945eeb8286af90b576f63d740c0bf6946e612a43d",
+        "path": "docs/nas-ledger.json",
+        "format": "snowflake-nas-ledger-v1",
+        "bytes": 7285570,
+        "sha256": "46a0d214394a0d149037803f932752131c8ea2b457584cb34c2a9ad3a828c9c7",
         "selector": {
-          "kind": "json-tree-key",
-          "key": "out/phase4"
+          "kind": "path-prefixes",
+          "include": [
+            "collections/earlier-phase4/2026-08-01/payload"
+          ],
+          "exclude": []
         }
       },
       "rights": {
@@ -1713,37 +1722,40 @@
         "record": "docs/plans/phase-4-morphology-gauntlet.md"
       },
       "restore": {
-        "status": "unavailable",
-        "command": null,
-        "verifyCommand": null,
-        "record": "docs/nas-inventory-audit-20260815.md"
+        "status": "documented",
+        "command": "npm run assets:restore -- --collection earlier-phase4@2026-08-01 --to out/restores/earlier-phase4-2026-08-01",
+        "verifyCommand": "npm run assets:verify-restored -- --collection earlier-phase4@2026-08-01 --from out/restores/earlier-phase4-2026-08-01",
+        "record": "docs/plans/nas-asset-governance.md"
       },
       "verification": {
-        "status": "unavailable",
-        "at": "2026-08-15",
-        "host": "macOS",
-        "receipt": "docs/nas-inventory-audit-20260815.md",
+        "status": "full-hash",
+        "at": "2026-08-20",
+        "host": "Windows",
+        "receipt": "docs/plans/nas-asset-governance.md",
         "limits": [
-          "The tracked digest inventory exists, but no restorable byte location was observed."
+          "Archived from the Windows workstation by the reviewed one-time program; source, staged, and final bytes hashed independently (receipt 254d5b70..., _control/receipts/migrations/windows-workspace-2026-08-20/).",
+          "win32 cannot fsync a directory handle, so SMB rename crash-durability is unproven; this verification is observation-based (post-rename full re-hash plus a separate fresh-process full verify), as the Windows write lane records.",
+          "The workstation source copies remain in place; no deletion is authorized by this record.",
+          "Every archived byte matched its evidence/OUT-TREES-MANIFEST.json pin before staging."
         ]
       },
-      "storageDomains": [],
+      "storageDomains": [
+        "snowcrystal-nas"
+      ],
       "backup": {
         "status": "required-missing",
         "independentDomains": [],
         "receipts": []
       },
       "supersedes": [],
-      "unresolved": [
-        "Locate and verify the 125 files, or record a reviewed superseded disposition."
-      ]
+      "unresolved": []
     },
     {
       "assetId": "earlier-phase4-visual",
       "version": "2026-08-01",
-      "state": "unavailable",
+      "state": "active",
       "ownerWorkstream": "phase-4-morphology-gauntlet",
-      "locator": null,
+      "locator": "collections/earlier-phase4-visual/2026-08-01/payload",
       "historicalRepoPath": "out/phase4-visual",
       "legacyAliases": [],
       "storageClass": "external-evidence",
@@ -1753,13 +1765,16 @@
       },
       "ownerManifest": {
         "storage": "tracked",
-        "path": "evidence/OUT-TREES-MANIFEST.json",
-        "format": "out-tree-digest-manifest-v1",
-        "bytes": 85811,
-        "sha256": "42b1dee5adc2907a167da43945eeb8286af90b576f63d740c0bf6946e612a43d",
+        "path": "docs/nas-ledger.json",
+        "format": "snowflake-nas-ledger-v1",
+        "bytes": 7285570,
+        "sha256": "46a0d214394a0d149037803f932752131c8ea2b457584cb34c2a9ad3a828c9c7",
         "selector": {
-          "kind": "json-tree-key",
-          "key": "out/phase4-visual"
+          "kind": "path-prefixes",
+          "include": [
+            "collections/earlier-phase4-visual/2026-08-01/payload"
+          ],
+          "exclude": []
         }
       },
       "rights": {
@@ -1803,37 +1818,40 @@
         "record": "docs/plans/phase-4-morphology-gauntlet.md"
       },
       "restore": {
-        "status": "unavailable",
-        "command": null,
-        "verifyCommand": null,
-        "record": "docs/nas-inventory-audit-20260815.md"
+        "status": "documented",
+        "command": "npm run assets:restore -- --collection earlier-phase4-visual@2026-08-01 --to out/restores/earlier-phase4-visual-2026-08-01",
+        "verifyCommand": "npm run assets:verify-restored -- --collection earlier-phase4-visual@2026-08-01 --from out/restores/earlier-phase4-visual-2026-08-01",
+        "record": "docs/plans/nas-asset-governance.md"
       },
       "verification": {
-        "status": "unavailable",
-        "at": "2026-08-15",
-        "host": "macOS",
-        "receipt": "docs/nas-inventory-audit-20260815.md",
+        "status": "full-hash",
+        "at": "2026-08-20",
+        "host": "Windows",
+        "receipt": "docs/plans/nas-asset-governance.md",
         "limits": [
-          "The tracked digest inventory exists, but no restorable byte location was observed."
+          "Archived from the Windows workstation by the reviewed one-time program; source, staged, and final bytes hashed independently (receipt 254d5b70..., _control/receipts/migrations/windows-workspace-2026-08-20/).",
+          "win32 cannot fsync a directory handle, so SMB rename crash-durability is unproven; this verification is observation-based (post-rename full re-hash plus a separate fresh-process full verify), as the Windows write lane records.",
+          "The workstation source copies remain in place; no deletion is authorized by this record.",
+          "Every archived byte matched its evidence/OUT-TREES-MANIFEST.json pin before staging."
         ]
       },
-      "storageDomains": [],
+      "storageDomains": [
+        "snowcrystal-nas"
+      ],
       "backup": {
         "status": "required-missing",
         "independentDomains": [],
         "receipts": []
       },
       "supersedes": [],
-      "unresolved": [
-        "Locate and verify the 21 files, or record a reviewed superseded disposition."
-      ]
+      "unresolved": []
     },
     {
       "assetId": "earlier-phase5",
       "version": "2026-08-01",
-      "state": "unavailable",
+      "state": "active",
       "ownerWorkstream": "phase-5-gpu-port",
-      "locator": null,
+      "locator": "collections/earlier-phase5/2026-08-01/payload",
       "historicalRepoPath": "out/phase5",
       "legacyAliases": [],
       "storageClass": "external-evidence",
@@ -1843,13 +1861,16 @@
       },
       "ownerManifest": {
         "storage": "tracked",
-        "path": "evidence/OUT-TREES-MANIFEST.json",
-        "format": "out-tree-digest-manifest-v1",
-        "bytes": 85811,
-        "sha256": "42b1dee5adc2907a167da43945eeb8286af90b576f63d740c0bf6946e612a43d",
+        "path": "docs/nas-ledger.json",
+        "format": "snowflake-nas-ledger-v1",
+        "bytes": 7285570,
+        "sha256": "46a0d214394a0d149037803f932752131c8ea2b457584cb34c2a9ad3a828c9c7",
         "selector": {
-          "kind": "json-tree-key",
-          "key": "out/phase5"
+          "kind": "path-prefixes",
+          "include": [
+            "collections/earlier-phase5/2026-08-01/payload"
+          ],
+          "exclude": []
         }
       },
       "rights": {
@@ -1893,37 +1914,40 @@
         "record": "docs/plans/phase-5-gpu-port.md"
       },
       "restore": {
-        "status": "unavailable",
-        "command": null,
-        "verifyCommand": null,
-        "record": "docs/nas-inventory-audit-20260815.md"
+        "status": "documented",
+        "command": "npm run assets:restore -- --collection earlier-phase5@2026-08-01 --to out/restores/earlier-phase5-2026-08-01",
+        "verifyCommand": "npm run assets:verify-restored -- --collection earlier-phase5@2026-08-01 --from out/restores/earlier-phase5-2026-08-01",
+        "record": "docs/plans/nas-asset-governance.md"
       },
       "verification": {
-        "status": "unavailable",
-        "at": "2026-08-15",
-        "host": "macOS",
-        "receipt": "docs/nas-inventory-audit-20260815.md",
+        "status": "full-hash",
+        "at": "2026-08-20",
+        "host": "Windows",
+        "receipt": "docs/plans/nas-asset-governance.md",
         "limits": [
-          "The tracked digest inventory exists, but no restorable byte location was observed."
+          "Archived from the Windows workstation by the reviewed one-time program; source, staged, and final bytes hashed independently (receipt 254d5b70..., _control/receipts/migrations/windows-workspace-2026-08-20/).",
+          "win32 cannot fsync a directory handle, so SMB rename crash-durability is unproven; this verification is observation-based (post-rename full re-hash plus a separate fresh-process full verify), as the Windows write lane records.",
+          "The workstation source copies remain in place; no deletion is authorized by this record.",
+          "Every archived byte matched its evidence/OUT-TREES-MANIFEST.json pin before staging."
         ]
       },
-      "storageDomains": [],
+      "storageDomains": [
+        "snowcrystal-nas"
+      ],
       "backup": {
         "status": "required-missing",
         "independentDomains": [],
         "receipts": []
       },
       "supersedes": [],
-      "unresolved": [
-        "Locate and verify the 78 files, or record a reviewed superseded disposition."
-      ]
+      "unresolved": []
     },
     {
       "assetId": "earlier-phase5-wp5-0a611e7",
       "version": "2026-08-01",
-      "state": "unavailable",
+      "state": "active",
       "ownerWorkstream": "phase-5-gpu-port",
-      "locator": null,
+      "locator": "collections/earlier-phase5-wp5-0a611e7/2026-08-01/payload",
       "historicalRepoPath": "out/phase5-wp5-0a611e7",
       "legacyAliases": [],
       "storageClass": "external-evidence",
@@ -1933,13 +1957,16 @@
       },
       "ownerManifest": {
         "storage": "tracked",
-        "path": "evidence/OUT-TREES-MANIFEST.json",
-        "format": "out-tree-digest-manifest-v1",
-        "bytes": 85811,
-        "sha256": "42b1dee5adc2907a167da43945eeb8286af90b576f63d740c0bf6946e612a43d",
+        "path": "docs/nas-ledger.json",
+        "format": "snowflake-nas-ledger-v1",
+        "bytes": 7285570,
+        "sha256": "46a0d214394a0d149037803f932752131c8ea2b457584cb34c2a9ad3a828c9c7",
         "selector": {
-          "kind": "json-tree-key",
-          "key": "out/phase5-wp5-0a611e7"
+          "kind": "path-prefixes",
+          "include": [
+            "collections/earlier-phase5-wp5-0a611e7/2026-08-01/payload"
+          ],
+          "exclude": []
         }
       },
       "rights": {
@@ -1983,37 +2010,40 @@
         "record": "docs/plans/phase-5-gpu-port.md"
       },
       "restore": {
-        "status": "unavailable",
-        "command": null,
-        "verifyCommand": null,
-        "record": "docs/nas-inventory-audit-20260815.md"
+        "status": "documented",
+        "command": "npm run assets:restore -- --collection earlier-phase5-wp5-0a611e7@2026-08-01 --to out/restores/earlier-phase5-wp5-0a611e7-2026-08-01",
+        "verifyCommand": "npm run assets:verify-restored -- --collection earlier-phase5-wp5-0a611e7@2026-08-01 --from out/restores/earlier-phase5-wp5-0a611e7-2026-08-01",
+        "record": "docs/plans/nas-asset-governance.md"
       },
       "verification": {
-        "status": "unavailable",
-        "at": "2026-08-15",
-        "host": "macOS",
-        "receipt": "docs/nas-inventory-audit-20260815.md",
+        "status": "full-hash",
+        "at": "2026-08-20",
+        "host": "Windows",
+        "receipt": "docs/plans/nas-asset-governance.md",
         "limits": [
-          "The tracked digest inventory exists, but no restorable byte location was observed."
+          "Archived from the Windows workstation by the reviewed one-time program; source, staged, and final bytes hashed independently (receipt 254d5b70..., _control/receipts/migrations/windows-workspace-2026-08-20/).",
+          "win32 cannot fsync a directory handle, so SMB rename crash-durability is unproven; this verification is observation-based (post-rename full re-hash plus a separate fresh-process full verify), as the Windows write lane records.",
+          "The workstation source copies remain in place; no deletion is authorized by this record.",
+          "Every archived byte matched its evidence/OUT-TREES-MANIFEST.json pin before staging."
         ]
       },
-      "storageDomains": [],
+      "storageDomains": [
+        "snowcrystal-nas"
+      ],
       "backup": {
         "status": "required-missing",
         "independentDomains": [],
         "receipts": []
       },
       "supersedes": [],
-      "unresolved": [
-        "Locate and verify the 78 files, or record a reviewed superseded disposition."
-      ]
+      "unresolved": []
     },
     {
       "assetId": "earlier-phase5-wp5-0a611e7-original",
       "version": "2026-08-01",
-      "state": "unavailable",
+      "state": "active",
       "ownerWorkstream": "phase-5-gpu-port",
-      "locator": null,
+      "locator": "collections/earlier-phase5-wp5-0a611e7-original/2026-08-01/payload",
       "historicalRepoPath": "out/phase5-wp5-0a611e7-original",
       "legacyAliases": [],
       "storageClass": "external-evidence",
@@ -2023,13 +2053,16 @@
       },
       "ownerManifest": {
         "storage": "tracked",
-        "path": "evidence/OUT-TREES-MANIFEST.json",
-        "format": "out-tree-digest-manifest-v1",
-        "bytes": 85811,
-        "sha256": "42b1dee5adc2907a167da43945eeb8286af90b576f63d740c0bf6946e612a43d",
+        "path": "docs/nas-ledger.json",
+        "format": "snowflake-nas-ledger-v1",
+        "bytes": 7285570,
+        "sha256": "46a0d214394a0d149037803f932752131c8ea2b457584cb34c2a9ad3a828c9c7",
         "selector": {
-          "kind": "json-tree-key",
-          "key": "out/phase5-wp5-0a611e7-original"
+          "kind": "path-prefixes",
+          "include": [
+            "collections/earlier-phase5-wp5-0a611e7-original/2026-08-01/payload"
+          ],
+          "exclude": []
         }
       },
       "rights": {
@@ -2073,37 +2106,40 @@
         "record": "docs/plans/phase-5-gpu-port.md"
       },
       "restore": {
-        "status": "unavailable",
-        "command": null,
-        "verifyCommand": null,
-        "record": "docs/nas-inventory-audit-20260815.md"
+        "status": "documented",
+        "command": "npm run assets:restore -- --collection earlier-phase5-wp5-0a611e7-original@2026-08-01 --to out/restores/earlier-phase5-wp5-0a611e7-original-2026-08-01",
+        "verifyCommand": "npm run assets:verify-restored -- --collection earlier-phase5-wp5-0a611e7-original@2026-08-01 --from out/restores/earlier-phase5-wp5-0a611e7-original-2026-08-01",
+        "record": "docs/plans/nas-asset-governance.md"
       },
       "verification": {
-        "status": "unavailable",
-        "at": "2026-08-15",
-        "host": "macOS",
-        "receipt": "docs/nas-inventory-audit-20260815.md",
+        "status": "full-hash",
+        "at": "2026-08-20",
+        "host": "Windows",
+        "receipt": "docs/plans/nas-asset-governance.md",
         "limits": [
-          "The tracked digest inventory exists, but no restorable byte location was observed."
+          "Archived from the Windows workstation by the reviewed one-time program; source, staged, and final bytes hashed independently (receipt 254d5b70..., _control/receipts/migrations/windows-workspace-2026-08-20/).",
+          "win32 cannot fsync a directory handle, so SMB rename crash-durability is unproven; this verification is observation-based (post-rename full re-hash plus a separate fresh-process full verify), as the Windows write lane records.",
+          "The workstation source copies remain in place; no deletion is authorized by this record.",
+          "Every archived byte matched its evidence/OUT-TREES-MANIFEST.json pin before staging."
         ]
       },
-      "storageDomains": [],
+      "storageDomains": [
+        "snowcrystal-nas"
+      ],
       "backup": {
         "status": "required-missing",
         "independentDomains": [],
         "receipts": []
       },
       "supersedes": [],
-      "unresolved": [
-        "Locate and verify the 78 files, or record a reviewed superseded disposition."
-      ]
+      "unresolved": []
     },
     {
       "assetId": "earlier-phase5-wp7-32eed48-superseded",
       "version": "2026-08-01",
-      "state": "unavailable",
+      "state": "active",
       "ownerWorkstream": "phase-5-gpu-port",
-      "locator": null,
+      "locator": "collections/earlier-phase5-wp7-32eed48-superseded/2026-08-01/payload",
       "historicalRepoPath": "out/phase5-wp7-32eed48-superseded",
       "legacyAliases": [],
       "storageClass": "external-evidence",
@@ -2113,13 +2149,16 @@
       },
       "ownerManifest": {
         "storage": "tracked",
-        "path": "evidence/OUT-TREES-MANIFEST.json",
-        "format": "out-tree-digest-manifest-v1",
-        "bytes": 85811,
-        "sha256": "42b1dee5adc2907a167da43945eeb8286af90b576f63d740c0bf6946e612a43d",
+        "path": "docs/nas-ledger.json",
+        "format": "snowflake-nas-ledger-v1",
+        "bytes": 7285570,
+        "sha256": "46a0d214394a0d149037803f932752131c8ea2b457584cb34c2a9ad3a828c9c7",
         "selector": {
-          "kind": "json-tree-key",
-          "key": "out/phase5-wp7-32eed48-superseded"
+          "kind": "path-prefixes",
+          "include": [
+            "collections/earlier-phase5-wp7-32eed48-superseded/2026-08-01/payload"
+          ],
+          "exclude": []
         }
       },
       "rights": {
@@ -2163,35 +2202,38 @@
         "record": "docs/plans/phase-5-gpu-port.md"
       },
       "restore": {
-        "status": "unavailable",
-        "command": null,
-        "verifyCommand": null,
-        "record": "docs/nas-inventory-audit-20260815.md"
+        "status": "documented",
+        "command": "npm run assets:restore -- --collection earlier-phase5-wp7-32eed48-superseded@2026-08-01 --to out/restores/earlier-phase5-wp7-32eed48-superseded-2026-08-01",
+        "verifyCommand": "npm run assets:verify-restored -- --collection earlier-phase5-wp7-32eed48-superseded@2026-08-01 --from out/restores/earlier-phase5-wp7-32eed48-superseded-2026-08-01",
+        "record": "docs/plans/nas-asset-governance.md"
       },
       "verification": {
-        "status": "unavailable",
-        "at": "2026-08-15",
-        "host": "macOS",
-        "receipt": "docs/nas-inventory-audit-20260815.md",
+        "status": "full-hash",
+        "at": "2026-08-20",
+        "host": "Windows",
+        "receipt": "docs/plans/nas-asset-governance.md",
         "limits": [
-          "The tracked digest inventory exists, but no restorable byte location was observed."
+          "Archived from the Windows workstation by the reviewed one-time program; source, staged, and final bytes hashed independently (receipt 254d5b70..., _control/receipts/migrations/windows-workspace-2026-08-20/).",
+          "win32 cannot fsync a directory handle, so SMB rename crash-durability is unproven; this verification is observation-based (post-rename full re-hash plus a separate fresh-process full verify), as the Windows write lane records.",
+          "The workstation source copies remain in place; no deletion is authorized by this record.",
+          "Every archived byte matched its evidence/OUT-TREES-MANIFEST.json pin before staging."
         ]
       },
-      "storageDomains": [],
+      "storageDomains": [
+        "snowcrystal-nas"
+      ],
       "backup": {
         "status": "required-missing",
         "independentDomains": [],
         "receipts": []
       },
       "supersedes": [],
-      "unresolved": [
-        "Locate and verify the 78 files, or record a reviewed superseded disposition."
-      ]
+      "unresolved": []
     },
     {
       "assetId": "windows-phase6-ladder-workspace",
       "version": "2026-08-20",
-      "state": "provisional",
+      "state": "active",
       "ownerWorkstream": "windows-write-lane",
       "locator": "collections/windows-phase6-ladder-workspace/2026-08-20/payload",
       "historicalRepoPath": null,
@@ -2201,7 +2243,20 @@
         "files": 9,
         "bytes": 131247
       },
-      "ownerManifest": null,
+      "ownerManifest": {
+        "storage": "tracked",
+        "path": "docs/nas-ledger.json",
+        "format": "snowflake-nas-ledger-v1",
+        "bytes": 7285570,
+        "sha256": "46a0d214394a0d149037803f932752131c8ea2b457584cb34c2a9ad3a828c9c7",
+        "selector": {
+          "kind": "path-prefixes",
+          "include": [
+            "collections/windows-phase6-ladder-workspace/2026-08-20/payload"
+          ],
+          "exclude": []
+        }
+      },
       "rights": {
         "kind": "project-owned",
         "redistribution": "allowed"
@@ -2243,35 +2298,37 @@
         "record": "docs/plans/nas-asset-governance.md"
       },
       "restore": {
-        "status": "pending",
-        "command": null,
-        "verifyCommand": null,
-        "record": "docs/local-assets.md"
+        "status": "documented",
+        "command": "npm run assets:restore -- --collection windows-phase6-ladder-workspace@2026-08-20 --to out/restores/windows-phase6-ladder-workspace-2026-08-20",
+        "verifyCommand": "npm run assets:verify-restored -- --collection windows-phase6-ladder-workspace@2026-08-20 --from out/restores/windows-phase6-ladder-workspace-2026-08-20",
+        "record": "docs/plans/nas-asset-governance.md"
       },
       "verification": {
-        "status": "unavailable",
-        "at": null,
-        "host": null,
-        "receipt": null,
+        "status": "full-hash",
+        "at": "2026-08-20",
+        "host": "Windows",
+        "receipt": "docs/plans/nas-asset-governance.md",
         "limits": [
-          "Windows write lane apply pending (registered 2026-08-20)"
+          "Archived from the Windows workstation by the reviewed one-time program; source, staged, and final bytes hashed independently (receipt 254d5b70..., _control/receipts/migrations/windows-workspace-2026-08-20/).",
+          "win32 cannot fsync a directory handle, so SMB rename crash-durability is unproven; this verification is observation-based (post-rename full re-hash plus a separate fresh-process full verify), as the Windows write lane records.",
+          "The workstation source copies remain in place; no deletion is authorized by this record."
         ]
       },
-      "storageDomains": [],
+      "storageDomains": [
+        "snowcrystal-nas"
+      ],
       "backup": {
-        "status": "not-required",
+        "status": "required-missing",
         "independentDomains": [],
         "receipts": []
       },
       "supersedes": [],
-      "unresolved": [
-        "Windows write lane apply pending (registered 2026-08-20)"
-      ]
+      "unresolved": []
     },
     {
       "assetId": "windows-repo-bundle",
       "version": "2026-08-20",
-      "state": "provisional",
+      "state": "active",
       "ownerWorkstream": "windows-write-lane",
       "locator": "collections/windows-repo-bundle/2026-08-20/payload",
       "historicalRepoPath": null,
@@ -2281,7 +2338,20 @@
         "files": 3,
         "bytes": 10011107
       },
-      "ownerManifest": null,
+      "ownerManifest": {
+        "storage": "tracked",
+        "path": "docs/nas-ledger.json",
+        "format": "snowflake-nas-ledger-v1",
+        "bytes": 7285570,
+        "sha256": "46a0d214394a0d149037803f932752131c8ea2b457584cb34c2a9ad3a828c9c7",
+        "selector": {
+          "kind": "path-prefixes",
+          "include": [
+            "collections/windows-repo-bundle/2026-08-20/payload"
+          ],
+          "exclude": []
+        }
+      },
       "rights": {
         "kind": "project-owned",
         "redistribution": "allowed"
@@ -2311,35 +2381,37 @@
         "record": "docs/plans/nas-asset-governance.md"
       },
       "restore": {
-        "status": "pending",
-        "command": null,
-        "verifyCommand": null,
-        "record": "docs/local-assets.md"
+        "status": "documented",
+        "command": "npm run assets:restore -- --collection windows-repo-bundle@2026-08-20 --to out/restores/windows-repo-bundle-2026-08-20",
+        "verifyCommand": "npm run assets:verify-restored -- --collection windows-repo-bundle@2026-08-20 --from out/restores/windows-repo-bundle-2026-08-20",
+        "record": "docs/plans/nas-asset-governance.md"
       },
       "verification": {
-        "status": "unavailable",
-        "at": null,
-        "host": null,
-        "receipt": null,
+        "status": "full-hash",
+        "at": "2026-08-20",
+        "host": "Windows",
+        "receipt": "docs/plans/nas-asset-governance.md",
         "limits": [
-          "Windows write lane apply pending (registered 2026-08-20)"
+          "Archived from the Windows workstation by the reviewed one-time program; source, staged, and final bytes hashed independently (receipt 254d5b70..., _control/receipts/migrations/windows-workspace-2026-08-20/).",
+          "win32 cannot fsync a directory handle, so SMB rename crash-durability is unproven; this verification is observation-based (post-rename full re-hash plus a separate fresh-process full verify), as the Windows write lane records.",
+          "The workstation source copies remain in place; no deletion is authorized by this record."
         ]
       },
-      "storageDomains": [],
+      "storageDomains": [
+        "snowcrystal-nas"
+      ],
       "backup": {
         "status": "not-required",
         "independentDomains": [],
         "receipts": []
       },
       "supersedes": [],
-      "unresolved": [
-        "Windows write lane apply pending (registered 2026-08-20)"
-      ]
+      "unresolved": []
     },
     {
       "assetId": "windows-out-scratch",
       "version": "2026-08-20",
-      "state": "provisional",
+      "state": "active",
       "ownerWorkstream": "windows-write-lane",
       "locator": "collections/windows-out-scratch/2026-08-20/payload",
       "historicalRepoPath": null,
@@ -2349,7 +2421,20 @@
         "files": 7853,
         "bytes": 1723570732
       },
-      "ownerManifest": null,
+      "ownerManifest": {
+        "storage": "tracked",
+        "path": "docs/nas-ledger.json",
+        "format": "snowflake-nas-ledger-v1",
+        "bytes": 7285570,
+        "sha256": "46a0d214394a0d149037803f932752131c8ea2b457584cb34c2a9ad3a828c9c7",
+        "selector": {
+          "kind": "path-prefixes",
+          "include": [
+            "collections/windows-out-scratch/2026-08-20/payload"
+          ],
+          "exclude": []
+        }
+      },
       "rights": {
         "kind": "project-owned",
         "redistribution": "allowed"
@@ -2379,35 +2464,37 @@
         "record": "docs/plans/nas-asset-governance.md"
       },
       "restore": {
-        "status": "pending",
-        "command": null,
-        "verifyCommand": null,
-        "record": "docs/local-assets.md"
+        "status": "documented",
+        "command": "npm run assets:restore -- --collection windows-out-scratch@2026-08-20 --to out/restores/windows-out-scratch-2026-08-20",
+        "verifyCommand": "npm run assets:verify-restored -- --collection windows-out-scratch@2026-08-20 --from out/restores/windows-out-scratch-2026-08-20",
+        "record": "docs/plans/nas-asset-governance.md"
       },
       "verification": {
-        "status": "unavailable",
-        "at": null,
-        "host": null,
-        "receipt": null,
+        "status": "full-hash",
+        "at": "2026-08-20",
+        "host": "Windows",
+        "receipt": "docs/plans/nas-asset-governance.md",
         "limits": [
-          "Windows write lane apply pending (registered 2026-08-20)"
+          "Archived from the Windows workstation by the reviewed one-time program; source, staged, and final bytes hashed independently (receipt 254d5b70..., _control/receipts/migrations/windows-workspace-2026-08-20/).",
+          "win32 cannot fsync a directory handle, so SMB rename crash-durability is unproven; this verification is observation-based (post-rename full re-hash plus a separate fresh-process full verify), as the Windows write lane records.",
+          "The workstation source copies remain in place; no deletion is authorized by this record."
         ]
       },
-      "storageDomains": [],
+      "storageDomains": [
+        "snowcrystal-nas"
+      ],
       "backup": {
         "status": "not-required",
         "independentDomains": [],
         "receipts": []
       },
       "supersedes": [],
-      "unresolved": [
-        "Windows write lane apply pending (registered 2026-08-20)"
-      ]
+      "unresolved": []
     },
     {
       "assetId": "windows-out-gate-artifacts",
       "version": "2026-08-20",
-      "state": "provisional",
+      "state": "active",
       "ownerWorkstream": "windows-write-lane",
       "locator": "collections/windows-out-gate-artifacts/2026-08-20/payload",
       "historicalRepoPath": null,
@@ -2417,7 +2504,20 @@
         "files": 28,
         "bytes": 137079788
       },
-      "ownerManifest": null,
+      "ownerManifest": {
+        "storage": "tracked",
+        "path": "docs/nas-ledger.json",
+        "format": "snowflake-nas-ledger-v1",
+        "bytes": 7285570,
+        "sha256": "46a0d214394a0d149037803f932752131c8ea2b457584cb34c2a9ad3a828c9c7",
+        "selector": {
+          "kind": "path-prefixes",
+          "include": [
+            "collections/windows-out-gate-artifacts/2026-08-20/payload"
+          ],
+          "exclude": []
+        }
+      },
       "rights": {
         "kind": "project-owned",
         "redistribution": "allowed"
@@ -2459,30 +2559,32 @@
         "record": "docs/plans/nas-asset-governance.md"
       },
       "restore": {
-        "status": "pending",
-        "command": null,
-        "verifyCommand": null,
-        "record": "docs/local-assets.md"
+        "status": "documented",
+        "command": "npm run assets:restore -- --collection windows-out-gate-artifacts@2026-08-20 --to out/restores/windows-out-gate-artifacts-2026-08-20",
+        "verifyCommand": "npm run assets:verify-restored -- --collection windows-out-gate-artifacts@2026-08-20 --from out/restores/windows-out-gate-artifacts-2026-08-20",
+        "record": "docs/plans/nas-asset-governance.md"
       },
       "verification": {
-        "status": "unavailable",
-        "at": null,
-        "host": null,
-        "receipt": null,
+        "status": "full-hash",
+        "at": "2026-08-20",
+        "host": "Windows",
+        "receipt": "docs/plans/nas-asset-governance.md",
         "limits": [
-          "Windows write lane apply pending (registered 2026-08-20)"
+          "Archived from the Windows workstation by the reviewed one-time program; source, staged, and final bytes hashed independently (receipt 254d5b70..., _control/receipts/migrations/windows-workspace-2026-08-20/).",
+          "win32 cannot fsync a directory handle, so SMB rename crash-durability is unproven; this verification is observation-based (post-rename full re-hash plus a separate fresh-process full verify), as the Windows write lane records.",
+          "The workstation source copies remain in place; no deletion is authorized by this record."
         ]
       },
-      "storageDomains": [],
+      "storageDomains": [
+        "snowcrystal-nas"
+      ],
       "backup": {
-        "status": "not-required",
+        "status": "required-missing",
         "independentDomains": [],
         "receipts": []
       },
       "supersedes": [],
-      "unresolved": [
-        "Windows write lane apply pending (registered 2026-08-20)"
-      ]
+      "unresolved": []
     }
   ],
   "overlays": [
@@ -2541,6 +2643,132 @@
         "earlier-phase3-visual@2026-08-01"
       ],
       "relationship": "The immutable OUT-TREES manifest owns the producer-era out/phase3-visual tree and its ten exact file digests. The active ledger maps those same bytes to the governed collections locator; this overlay preserves historical provenance without defining current physical placement."
+    },
+    {
+      "overlayId": "phase2b-historical-owner",
+      "manifest": {
+        "storage": "tracked",
+        "path": "evidence/OUT-TREES-MANIFEST.json",
+        "format": "out-tree-digest-manifest-v1",
+        "bytes": 85811,
+        "sha256": "42b1dee5adc2907a167da43945eeb8286af90b576f63d740c0bf6946e612a43d",
+        "selector": {
+          "kind": "json-tree-key",
+          "key": "out/phase2b"
+        }
+      },
+      "appliesTo": [
+        "earlier-phase2b@2026-08-01"
+      ],
+      "relationship": "The immutable OUT-TREES manifest owns the producer-era out/phase2b tree and its exact file digests. The active ledger maps those same bytes to the governed collections locator; this overlay preserves historical provenance without defining current physical placement."
+    },
+    {
+      "overlayId": "phase4-historical-owner",
+      "manifest": {
+        "storage": "tracked",
+        "path": "evidence/OUT-TREES-MANIFEST.json",
+        "format": "out-tree-digest-manifest-v1",
+        "bytes": 85811,
+        "sha256": "42b1dee5adc2907a167da43945eeb8286af90b576f63d740c0bf6946e612a43d",
+        "selector": {
+          "kind": "json-tree-key",
+          "key": "out/phase4"
+        }
+      },
+      "appliesTo": [
+        "earlier-phase4@2026-08-01"
+      ],
+      "relationship": "The immutable OUT-TREES manifest owns the producer-era out/phase4 tree and its exact file digests. The active ledger maps those same bytes to the governed collections locator; this overlay preserves historical provenance without defining current physical placement."
+    },
+    {
+      "overlayId": "phase4-visual-historical-owner",
+      "manifest": {
+        "storage": "tracked",
+        "path": "evidence/OUT-TREES-MANIFEST.json",
+        "format": "out-tree-digest-manifest-v1",
+        "bytes": 85811,
+        "sha256": "42b1dee5adc2907a167da43945eeb8286af90b576f63d740c0bf6946e612a43d",
+        "selector": {
+          "kind": "json-tree-key",
+          "key": "out/phase4-visual"
+        }
+      },
+      "appliesTo": [
+        "earlier-phase4-visual@2026-08-01"
+      ],
+      "relationship": "The immutable OUT-TREES manifest owns the producer-era out/phase4-visual tree and its exact file digests. The active ledger maps those same bytes to the governed collections locator; this overlay preserves historical provenance without defining current physical placement."
+    },
+    {
+      "overlayId": "phase5-historical-owner",
+      "manifest": {
+        "storage": "tracked",
+        "path": "evidence/OUT-TREES-MANIFEST.json",
+        "format": "out-tree-digest-manifest-v1",
+        "bytes": 85811,
+        "sha256": "42b1dee5adc2907a167da43945eeb8286af90b576f63d740c0bf6946e612a43d",
+        "selector": {
+          "kind": "json-tree-key",
+          "key": "out/phase5"
+        }
+      },
+      "appliesTo": [
+        "earlier-phase5@2026-08-01"
+      ],
+      "relationship": "The immutable OUT-TREES manifest owns the producer-era out/phase5 tree and its exact file digests. The active ledger maps those same bytes to the governed collections locator; this overlay preserves historical provenance without defining current physical placement."
+    },
+    {
+      "overlayId": "phase5-wp5-0a611e7-historical-owner",
+      "manifest": {
+        "storage": "tracked",
+        "path": "evidence/OUT-TREES-MANIFEST.json",
+        "format": "out-tree-digest-manifest-v1",
+        "bytes": 85811,
+        "sha256": "42b1dee5adc2907a167da43945eeb8286af90b576f63d740c0bf6946e612a43d",
+        "selector": {
+          "kind": "json-tree-key",
+          "key": "out/phase5-wp5-0a611e7"
+        }
+      },
+      "appliesTo": [
+        "earlier-phase5-wp5-0a611e7@2026-08-01"
+      ],
+      "relationship": "The immutable OUT-TREES manifest owns the producer-era out/phase5-wp5-0a611e7 tree and its exact file digests. The active ledger maps those same bytes to the governed collections locator; this overlay preserves historical provenance without defining current physical placement."
+    },
+    {
+      "overlayId": "phase5-wp5-0a611e7-original-historical-owner",
+      "manifest": {
+        "storage": "tracked",
+        "path": "evidence/OUT-TREES-MANIFEST.json",
+        "format": "out-tree-digest-manifest-v1",
+        "bytes": 85811,
+        "sha256": "42b1dee5adc2907a167da43945eeb8286af90b576f63d740c0bf6946e612a43d",
+        "selector": {
+          "kind": "json-tree-key",
+          "key": "out/phase5-wp5-0a611e7-original"
+        }
+      },
+      "appliesTo": [
+        "earlier-phase5-wp5-0a611e7-original@2026-08-01"
+      ],
+      "relationship": "The immutable OUT-TREES manifest owns the producer-era out/phase5-wp5-0a611e7-original tree and its exact file digests. The active ledger maps those same bytes to the governed collections locator; this overlay preserves historical provenance without defining current physical placement."
+    },
+    {
+      "overlayId": "phase5-wp7-32eed48-superseded-historical-owner",
+      "manifest": {
+        "storage": "tracked",
+        "path": "evidence/OUT-TREES-MANIFEST.json",
+        "format": "out-tree-digest-manifest-v1",
+        "bytes": 85811,
+        "sha256": "42b1dee5adc2907a167da43945eeb8286af90b576f63d740c0bf6946e612a43d",
+        "selector": {
+          "kind": "json-tree-key",
+          "key": "out/phase5-wp7-32eed48-superseded"
+        }
+      },
+      "appliesTo": [
+        "earlier-phase5-wp7-32eed48-superseded@2026-08-01"
+      ],
+      "relationship": "The immutable OUT-TREES manifest owns the producer-era out/phase5-wp7-32eed48-superseded tree and its exact file digests. The active ledger maps those same bytes to the governed collections locator; this overlay preserves historical provenance without defining current physical placement."
     }
   ],
   "systemExclusions": [

@@ -8,8 +8,13 @@ are bound separately by `docs/nas-assets.json`; see `docs/local-assets.md`.
 ## Attaching the share
 
 Both host mount names address the same configured share, and canonical catalogue locators do not
-embed either prefix. The governed flow was executed on macOS; Windows `S:/` path, case, Unicode,
-ACL, and restore behavior remains unverified.
+embed either prefix. The governed flow was executed on macOS, and on 2026-08-20 the Windows
+write lane executed the flow from `S:/` end to end (registered read commands, semantics probe,
+staged archival with receipt, fresh-process full verifies, restore round-trip — see the
+Windows write lane in `docs/plans/nas-asset-governance.md`). Windows case-insensitivity,
+timestamp coherence, and rename semantics are now measured facts recorded there; SMB rename
+crash-durability remains unproven as a hardware property (win32 cannot fsync a directory), so
+Windows-published collections carry verification-based durability claims.
 
 | host | mount | how |
 | --- | --- | --- |
@@ -42,6 +47,7 @@ Per-collection class, retention, recovery, and serving authority come only from
 | 2026-08-15 | Phase 3 visual collection → `collections/earlier-phase3-visual/2026-08-01/payload/` | 10 | 984,164 B | source, target, quarantine and fresh restored staging matched tree SHA-256 `73a9f672…3faf`; legacy root moved into `_control/quarantine/relocations/` |
 | 2026-08-16 | remaining live generated `out/**` payloads → seven versioned `collections/**` payloads | 23,215 | 469,029,676,843 B | exact pre-move census; 710 omitted generated files fully hashed; absent-target same-share renames; exact final path/count/size checks |
 | 2026-08-16 | mixed gutcheck remainder corrected: generated diagnostics → active collection; Git mirrors and unresolved material → private quarantine | 931 | 833,991,988 B | every source and final row descriptor-hashed; disjoint 434/128/369 partition; receipt 1,547 B / SHA-256 `7de6caa2…220`; no payload deleted |
+| 2026-08-20 | Windows write lane: seven pre-registered `earlier-*` out-tree collections completed at their 2026-08-01 versions + `windows-out-gate-artifacts`, `windows-phase6-ladder-workspace`, `windows-repo-bundle`, `windows-out-scratch` | 8,362 | 2,774,126,334 B | workstation→share staged copy with source/staged/final triple SHA-256; all seven `earlier-*` trees matched their `evidence/OUT-TREES-MANIFEST.json` pins; receipt 465,124 B / SHA-256 `254d5b70…5c0f`; fresh-process full verifies + one restore round-trip; nothing deleted anywhere |
 
 The first 2026-08-16 ledger revision registered 710 documented generated rows omitted by earlier
 snapshots and rewrote every live row to its canonical collection locator. The row-level correction
