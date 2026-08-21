@@ -52,7 +52,8 @@ detail.
   supplied no adoption authority, and cannot grant a validation label. The exact full suite passed 97/97
   files; the detached clean-checkout verifier and 51 focused tests passed; and the final non-author audit
   returned zero blockers after its two bookkeeping findings were repaired. Phase 7 is completely
-  standalone, unstarted and requires its own plan/worktree; Phase 10 remains uncharted.
+  standalone, unstarted and requires its own plan/worktree; Phase 10 was still uncharted when
+  Phase 8 closed.
 - **Phase 9 is COMPLETE (development-only, 2026-08-13).**
   Decision [0050](decisions/0050-adopt-phase9-modular-physics-experiments.md), charter v1.27 and the
   [execution plan](plans/phase-9-execution.md) authorized isolated Mac development. S0B's
@@ -86,8 +87,25 @@ detail.
   brainstorming and **selected no Phase 10 package (2026-08-20)**. Commit `f51f58e` recorded that
   brainstorm as a selection before the correction arrived; this live index and the
   [decision-ready candidate plan](plans/phase-10-closures-and-frontier.md) supersede that status
-  statement. Phase 10 remains uncharted, no execution plan is active, and no scientific PC run is
-  authorized.
+  statement. At the close of 2026-08-20, Phase 10 remained uncharted, no execution plan was active,
+  and no scientific PC run was authorized.
+- **Phase 10 is IN PROGRESS (selected 2026-08-21).** The maker accepted the candidate plan's
+  recommended **A-S + A-I + B + C0 + C0V with packet-specific A-P** package. The separate C1–C5
+  numerical qualification work, including the early attached-count/domain sentinel and every
+  scientific habit row, is explicitly unselected. The active
+  [execution plan](plans/phase-10-evidence-verification-execution.md) runs in the isolated
+  `phase10/evidence-verification` branch at `G:\Code Files\snowflake-phase10-evidence`. The S0
+  governance checkpoint is complete: accepted
+  [decision 0052](decisions/0052-adopt-phase10-evidence-verification.md), charter v1.28, the active
+  plan, state reconciliation, and complete charter-diff audit landed together before source
+  consumption or package implementation. No Phase 10 evidence or scientific result exists yet;
+  S1's protocol and obligation freeze is next.
+- **Phase 10 C0 implementation trap (found 2026-08-21).** The frozen WP2 plan, primary evaluator,
+  its mixed pass/fail controls, and `gate6` require every spacing to pass before the top-level result
+  can pass. The later post-execution independent script uses `some` instead of `every`. Both
+  published spacings are no-pass, so the historical verdict is unchanged. C0 must freeze the
+  all-spacings rule, test both mixed directions, and retain the old script mismatch as a historical
+  verifier limit; see the active plan's **Tried and rejected** record.
 - **Assurance is proportional to decision risk.** [Decision 0049](decisions/0049-make-assurance-proportionate-to-decision-risk.md),
   charter v1.26 and `AGENTS.md` require integrity for routine sources, one targeted check for
   load-bearing inputs, and full named controls for gates or strong public claims. No recursive
@@ -102,8 +120,8 @@ detail.
   direction) and content stays in-repo unpublished, `test.yml` CI unaffected. Reconciliation is
   a live decision point under **Next step**. Full freeze history:
   [the history file](progress-history-phases-6-8-9.md).
-- **Last updated:** 2026-08-20 (preserved the Phase 6/8/9 index compaction; corrected Phase 10 to
-  no package selected and completed decision-ready option planning)
+- **Last updated:** 2026-08-21 (recorded the maker's exact Phase 10 package selection, completed its
+  S0 governance checkpoint, and left S1 protocol/obligation freeze as the next prerequisite)
 
 ## Phase gates
 
@@ -123,6 +141,7 @@ and every superseded attempt live in the linked plans and historical progress sn
 | 7 | Not started; independently eligible | Charter v1.25 preserves Phase 7's independence but does not start it. A committed Phase 7 plan and isolated worktree are required; product, held-out validation, and v6 WGSL/preview-GPU parity remain its scope. |
 | 8 | **Complete (8A + 8B)** | The immutable 8A book remains 18 entries / 59,019 bytes / SHA-256 `47a75f3f…71ec`. The verified 8B successor is 51 development records, 252,134 native rows and 431 plot points; no row is held out. [Completed plan](plans/phase-8-measurement-corpus.md). |
 | 9 | **Complete (development-only)** | The all-no-pass branch closed: D-BT failed, M-F/M-K2 stayed mapping-dependent, controls/path-state/M-PK are unavailable or non-identifiable, and zero items promoted. Exact `TMPDIR=/private/tmp npm test` passed; no result grants validation credit. [Completed plan](plans/phase-9-execution.md). |
+| 10 | **In progress — S1 protocol freeze** | Maker selected A-S + A-I + B + C0 + C0V with packet-specific A-P on 2026-08-21, with no C1–C5 or habit rows. [Active plan](plans/phase-10-evidence-verification-execution.md); S0 governance is complete and no evidence or scientific result exists yet. |
 
 ## Active plan
 
@@ -137,9 +156,12 @@ and completion credit isolated.
 [nas-asset-governance.md](plans/nas-asset-governance.md) is a completed infrastructure record; its
 correction changes no phase claim or credit.
 
-No execution plan is currently active. The
-[Phase 10 candidate plan](plans/phase-10-closures-and-frontier.md) is decision support, not
-execution authority; no A–H package is selected.
+The [Phase 10 execution plan](plans/phase-10-evidence-verification-execution.md) is active in its
+isolated worktree. Its S0 governance checkpoint is complete; S1 is the active prerequisite before
+source consumption, extraction, or numerical execution. The
+[Phase 10 candidate plan](plans/phase-10-closures-and-frontier.md) is completed decision support
+and superseded for execution. It remains the design history for the selected and rejected packages,
+not execution authority.
 
 The old source-strata/ladder/WP3/R15 prerequisite sentence governed the now-closed Phase 6
 production path. WP3 and R15 closed as not computed under decision 0045; that sentence does not
@@ -149,25 +171,22 @@ the package-specific prerequisites in its charter amendment and execution plan. 
 
 ## Next step
 
-### Phase 10 — planning complete; maker package selection pending
+### Phase 10 — S0 complete; S1 protocol and obligation freeze next
 
-The [candidate plan](plans/phase-10-closures-and-frontier.md) replaces the original A–D shorthand
-with composable A–H packages and explicit return gates. Nothing is selected. Its recommended
-default is **A-S + A-I + B, alongside no-solver C0 and verification-first C0V with its
-packet-specific A-P preflight**, with no PC habit run. A separate opt-in early numerical-risk
-probe is **C0 + A-P + C1–C2**: fresh N80 replay, N96
-sentinel, then N112 only if N96 passes, with a three-row/72-process-hour maximum. It is diagnostic
-at one neutral attached-count consumer and does not qualify a future B target. D remains deferred.
+The maker selected **A-S + A-I + B + C0 + C0V with packet-specific A-P** on 2026-08-21. No
+C1–C5 numerical-qualification or scientific habit row is part of this execution. The
+[active plan](plans/phase-10-evidence-verification-execution.md) preserves the candidate plan's
+done/stop rules, authority boundaries, finite source and compute budgets, and return-only handling
+of candidate E/F/H branches.
 
-The next action is the maker's package choice or a decision to stop at G. After a choice—and not
-before—the repository actions are:
-
-1. write a package-scoped execution plan and ADR/charter amendment with the chosen done/stop rules,
-   authority boundaries, resource budget, and complete charter-clause audit;
-2. correct `AGENTS.md`'s stale “Phases 0–8” sentence during that reconciliation; and
-3. for any executable/PC package, implement A-P's obligation matrix, producer, independent
-   evaluator, negative controls required by the protocol, and exact launch README; pass exact
-   `npm test` and packet preflight before moving the run to the PC.
+S0 landed accepted [decision 0052](decisions/0052-adopt-phase10-evidence-verification.md), charter
+v1.28, the execution plan, state reconciliation, and complete charter-clause audit together before
+source consumption or implementation. Execute **S1** from the active plan now: freeze the package
+obligation matrix and schemas, bind every A-S/A-I/B/C0/C0V output and check to its producer and
+evaluator, define the rights-safe Git/NAS boundary, and prove preflight refuses one missing producer
+and one uncalled check. C0's registered aggregation is all-spacings-must-pass; do not copy the historical
+post-execution independent script's weaker `some` expression. No later step starts until S1's
+registered prerequisites pass.
 
 Standing constraints: no Phase 8 record may be relabeled unseen; Phase 7 retains held-out,
 product, and GPU obligations; B outcomes do not automatically authorize E/F/H; the permanent

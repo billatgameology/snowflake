@@ -15,6 +15,7 @@ const STATE_PLANS = [
   resolve(REPO, "docs", "plans", "phase-8-what-is-real.md"),
   resolve(REPO, "docs", "plans", "phase-8-measurement-corpus.md"),
   resolve(REPO, "docs", "plans", "phase-9-execution.md"),
+  resolve(REPO, "docs", "plans", "phase-10-evidence-verification-execution.md"),
 ];
 const ARCHIVE_MARKER = "<!-- BEGIN EXACT PRE-COMPACTION PROGRESS BODY -->\n";
 const ARCHIVED_BODY_BYTES = 191_859;
@@ -32,14 +33,21 @@ const FORBIDDEN_SEQUENCING = [
   "maker adoption decision next",
   "### Phase 9 resume point — integrate the bounded all-no-pass tranche",
   "maker selected Options A + B (2026-08-20)",
+  "No execution plan is currently active.",
+  "### Phase 10 — planning complete; maker package selection pending",
+  "Nothing is selected.",
+  "left S0 governance as the next prerequisite",
 ];
 const PHASE8_STATUS_LINE =
   "- **Phase 8 is COMPLETE (Phase 8A 2026-08-10; Phase 8B 2026-08-12).**";
 const PHASE9_STATUS_LINE =
   "- **Phase 9 is COMPLETE (development-only, 2026-08-13).**";
+const PHASE10_STATUS_LINE =
+  "- **Phase 10 is IN PROGRESS (selected 2026-08-21).** The maker accepted the candidate plan's";
 const PHASE8_GATE_PREFIX = "| 8 | **Complete (8A + 8B)** |";
 const PHASE7_GATE_PREFIX = "| 7 | Not started; independently eligible |";
 const PHASE9_GATE_PREFIX = "| 9 | **Complete (development-only)** |";
+const PHASE10_GATE_PREFIX = "| 10 | **In progress — S1 protocol freeze** |";
 const CONTRADICTORY_STATE_PATTERNS = [
   /Phase 8B (?:is |remains )?(?:active|incomplete|pending)\b/iu,
   /Phase 8B.*\b(?:may|can|will|must) (?:rewrite|mutate|replace|overwrite)\b.*\b(?:8A|v1|phase8-target-book)\b/iu,
@@ -108,7 +116,13 @@ function currentIndexErrors(text: string): string[] {
     "(plans/phase-8-measurement-corpus.md)",
     "(progress-history-phases-6-8-9.md)",
     "selected no Phase 10 package (2026-08-20)",
-    "- **Last updated:** 2026-08-20",
+    "Phase 10 is IN PROGRESS (selected 2026-08-21)",
+    "A-S + A-I + B + C0 + C0V with packet-specific A-P",
+    "no C1–C5 or habit rows",
+    "(plans/phase-10-evidence-verification-execution.md)",
+    "governance checkpoint is complete",
+    "S0 complete; S1 protocol and obligation freeze next",
+    "- **Last updated:** 2026-08-21",
   ];
   for (const phrase of required) {
     if (!text.includes(phrase)) errors.push(`missing current-state phrase: ${phrase}`);
@@ -125,6 +139,9 @@ function currentIndexErrors(text: string): string[] {
   if (countExactLine(text, PHASE9_STATUS_LINE) !== 1) {
     errors.push("expected exactly one structured Phase 9 status line");
   }
+  if (countExactLine(text, PHASE10_STATUS_LINE) !== 1) {
+    errors.push("expected exactly one structured Phase 10 status line");
+  }
   const lines = text.split(/\r?\n/u);
   const phase8GateLines = lines.filter((line) => line.startsWith("| 8 |"));
   if (phase8GateLines.length !== 1 || !phase8GateLines[0]?.startsWith(PHASE8_GATE_PREFIX)) {
@@ -137,6 +154,10 @@ function currentIndexErrors(text: string): string[] {
   const phase9GateLines = lines.filter((line) => line.startsWith("| 9 |"));
   if (phase9GateLines.length !== 1 || !phase9GateLines[0]?.startsWith(PHASE9_GATE_PREFIX)) {
     errors.push("expected exactly one completed Phase 9 gate row");
+  }
+  const phase10GateLines = lines.filter((line) => line.startsWith("| 10 |"));
+  if (phase10GateLines.length !== 1 || !phase10GateLines[0]?.startsWith(PHASE10_GATE_PREFIX)) {
+    errors.push("expected exactly one in-progress Phase 10 gate row");
   }
   for (const line of lines) {
     if (CONTRADICTORY_STATE_PATTERNS.some((pattern) => pattern.test(line))) {
@@ -208,7 +229,7 @@ describe("compact progress index and byte-exact historical record", () => {
     expect(currentIndexErrors(text)).toEqual([]);
 
     const progressDate = text.match(/^- \*\*Last updated:\*\* (\d{4}-\d{2}-\d{2})/mu)?.[1];
-    expect(progressDate).toBe("2026-08-20");
+    expect(progressDate).toBe("2026-08-21");
     // The handoff mechanism is retired (maker direction 2026-08-20). docs/HANDOFF.md remains
     // only as a tombstone so the byte-frozen archive's HANDOFF.md links keep resolving; it
     // must never carry a live dated snapshot heading again.
@@ -334,6 +355,10 @@ describe("compact progress index and byte-exact historical record", () => {
       .toContain("expected exactly one structured Phase 9 status line");
     expect(currentIndexErrors(`${current}\n${PHASE9_GATE_PREFIX} contradictory |\n`))
       .toContain("expected exactly one completed Phase 9 gate row");
+    expect(currentIndexErrors(`${current}\n${PHASE10_STATUS_LINE}\n`))
+      .toContain("expected exactly one structured Phase 10 status line");
+    expect(currentIndexErrors(`${current}\n${PHASE10_GATE_PREFIX} contradictory |\n`))
+      .toContain("expected exactly one in-progress Phase 10 gate row");
     for (const phrase of FORBIDDEN_SEQUENCING) {
       expect(currentIndexErrors(`${current}\n${phrase}\n`))
         .toContain(`stale sequencing phrase: ${phrase}`);
@@ -360,6 +385,13 @@ describe("compact progress index and byte-exact historical record", () => {
     expect(phase10DecisionMutation).not.toBe(current);
     expect(currentIndexErrors(phase10DecisionMutation))
       .toContain("missing current-state phrase: selected no Phase 10 package (2026-08-20)");
+    const phase10SelectionMutation = current.replace(
+      "Phase 10 is IN PROGRESS (selected 2026-08-21)",
+      "Phase 10 remains unselected",
+    );
+    expect(phase10SelectionMutation).not.toBe(current);
+    expect(currentIndexErrors(phase10SelectionMutation))
+      .toContain("missing current-state phrase: Phase 10 is IN PROGRESS (selected 2026-08-21)");
     expect(currentIndexErrors(`${current}\n## Next step\n`))
       .toContain("expected exactly one ## Next step");
     expect(currentIndexErrors(`${current}\n${ARCHIVE_MARKER}`))

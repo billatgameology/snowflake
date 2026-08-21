@@ -1,17 +1,21 @@
 # Plan — Phase 10 candidates: evidence bridges, numerical adequacy, and the scope boundary
 
-- **Phase:** Phase 10 (proposed) — establish what is in scope, measurable, and numerically
+- **Phase:** Phase 10 decision support — establish what is in scope, measurable, and numerically
   admissible before inventing a closure
-- **Status:** **decision-ready planning record; no option has been selected and no Phase 10 work
-  is authorized.** Phase 10 is not chartered. Adoption requires an accepted ADR, a charter
-  amendment, and a committed execution plan before source consumption, implementation, or a
-  scientific PC run. The 2026-08-04 closure proposal is preserved below as design history, not
-  as an executable plan.
+- **Status:** **completed decision-support record; superseded for execution.** On 2026-08-20 no
+  package was selected. On 2026-08-21 the maker selected the recommended
+  **A-S + A-I + B + C0 + C0V with packet-specific A-P** package, explicitly without C1–C5 or any
+  scientific habit row. Execution is governed by
+  [`phase-10-evidence-verification-execution.md`](phase-10-evidence-verification-execution.md),
+  not this candidate record. Its S0 accepted ADR, charter amendment, and committed execution plan
+  now satisfy the adoption prerequisite; S1 remains required before source consumption or
+  implementation. The 2026-08-04 closure
+  proposal is preserved below as design history, not as an executable plan.
 - **Started:** 2026-08-04 (drafted)
-- **Last touched:** 2026-08-20 — decision-ready option and PC-probe design after the maker
-  clarified that the working-tree material was brainstorming and that nothing had been selected
+- **Last touched:** 2026-08-21 — recorded the maker's recommended-package selection and pointed
+  execution to the new package-scoped plan without rewriting this decision-support history
 
-## Decision this record supports
+## Decision this record supported
 
 Choose what to try next without silently turning a promising lead into a phase commitment. The
 choices below are **composable work packages**, not four mutually exclusive programmes:
@@ -29,6 +33,17 @@ choices below are **composable work packages**, not four mutually exclusive prog
 
 Phase 7 is not one of these choices. It remains an independent, paused product/held-out/GPU track
 under charter v1.25 and needs its own plan if resumed.
+
+## Selection outcome — 2026-08-21
+
+The maker selected the recommended evidence-and-verification package:
+**A-S + A-I + B + C0 + C0V with packet-specific A-P**. C1–C5, including the early
+attached-count/domain sentinel and every target-facing or habit row, were explicitly not selected.
+B may return exact candidate scopes for E, F, or H, but it does not execute or authorize them.
+D remains deferred. The active
+[execution plan](phase-10-evidence-verification-execution.md) owns the selected work, its bounded
+steps, and its S0 authority checkpoint; this file remains the completed comparison and design
+history that explains why that package was chosen.
 
 ## Landed facts that every option inherits (2026-08-20)
 
@@ -114,7 +129,7 @@ These packages refine the original A–D list. In particular:
 - D remains deferred. E, F, and H are additional routes that keep B from becoming an endless
   source search when a bridge must instead be observed, implemented, or newly measured.
 
-## Recommended default sequence — a recommendation, not a selection
+## Recommended default sequence — planning recommendation selected 2026-08-21
 
 1. For the evidence route, adopt A-S + A-I, triage the already-held post-freeze tranche, then run
    B1–B5 in the Phase 9 guide's order.
@@ -617,19 +632,25 @@ D is not currently selectable. E, F, and H are separately selectable only after 
 branch, resource budget, and return/stop rule are named in the chartering ADR or a later maker
 decision; a B outcome never authorizes them automatically.
 
+**Selected 2026-08-21:** Evidence plus verification, exactly as bounded above. The maker did not
+select the early numerical-risk probe, the consumer-defined numerical qualification, or any other
+C1–C5/habit execution.
+
 Selecting a package still requires the chartering ADR to quote the exact work packages, claim
 limits, and done-when clauses it adopts. Its authority audit must cover the charter's scientific
 claim discipline, Phase 7 held-out ownership, Phase 8 immutability, Phase 9 development labels,
 sequencing/isolation, and assurance clauses—not only the sentences that say Phase 10 is uncharted.
 That reconciliation should also correct `AGENTS.md`'s stale statement that the charter covers only
-Phases 0–8. Unselected packages remain proposals.
+Phases 0–8. The 2026-08-21 state reconciliation made that narrow correction; unselected packages
+remain proposals.
 
 ## Planning done when
 
-This planning session is complete when this record and `docs/PROGRESS.md` state that no package is
-selected, preserve the corrected A–H option set, define the first bounded PC branch and its stop
-rules, and leave the next session an explicit maker decision. No source is consumed, solver code is
-changed, or scientific row is launched by satisfying this planning milestone.
+This planning session completed on 2026-08-20 when this record and `docs/PROGRESS.md` stated that no
+package was then selected, preserved the corrected A–H option set, defined the first bounded PC
+branch and its stop rules, and left the maker an explicit decision. The maker selected the
+recommended package on 2026-08-21; the linked execution plan now owns that work. No source was
+consumed, solver code changed, or scientific row launched by satisfying this planning milestone.
 
 ## Historical 2026-08-04 closure draft — preserved design history, not executable
 

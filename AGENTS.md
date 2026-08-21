@@ -14,7 +14,7 @@ byte-frozen progress archive links to it; never revive it as a snapshot.
 symlink with a second copy; two instruction files will drift.
 
 The governing document is [project charter.md](project charter.md). It defines the goal, the
-science, the stack, and Phases 0–8. **The charter is the spec; these files are the state.**
+science, the stack, and Phases 0–10. **The charter is the spec; these files are the state.**
 
 ---
 
