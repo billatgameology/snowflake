@@ -458,3 +458,102 @@ zero). The distinct Rule 10 review returned zero blockers. The final exact
 bytes, SHA-256 `8a9b445af3c0db040b57ef9d7eba27e90d9d13b14812cc65e3583f961866e708`.
 The repository correction is complete; request approval before removing the exact redundant local
 staging paths. No NAS or quarantine deletion is authorized.
+
+
+## Windows write lane — archive the Windows workstation's untracked bulk (registered 2026-08-20)
+
+Maker direction (2026-08-20, verbatim): "do not delete anything. / let's first make a windows to
+nas governed tooling or windows write path first. make sure we follow existing filing directory
+standard in nas. it should be gamestation/snowcrystal. / once you have that, copy everything over
+to nas, lean on the safe side." Maker clarifications, same session: the Mac lane is idle (this
+machine owns the catalogue/ledger until this lane lands and pushes), and scope is the untracked
+bulk plus a git-bundle snapshot.
+
+This lane discharges the standing "Windows S:/ … remains unexecuted" follow-up for the WRITE
+path, under ADR 0051's existing lifecycle — no new governance. Collections are created by the
+sanctioned bounded-program pattern (AGENTS.md Rule 15; reference implementation
+`scripts/nas-finalize-gutcheck-remainder.mjs`), never by an unregistered forward command. Nothing
+local is deleted at any step; prune remains a separately maker-approved list that this lane never
+produces.
+
+### Scope — what gets archived, lean-safe
+
+Every untracked byte on the Windows workstation with any plausible durability claim, partitioned
+into single-class collections (ADR 0051 §2 forbids mixed classes):
+
+1. `windows-out-evidence-trees@2026-08-20` — class `external-evidence`. The eight out/ trees
+   whose identities `evidence/OUT-TREES-MANIFEST.json` pins (`out/phase2b`, `out/phase4`,
+   `out/phase4-visual`, `out/phase5`, `out/phase5-wp5-0a611e7`, `out/phase5-wp5-0a611e7-original`,
+   `out/phase5-wp7-32eed48-superseded`, `out/phase3-visual`) plus the enumerated out/-root gate
+   checkpoints and logs that PROGRESS or a gate table cites (the `plate-gate*.ckpt` family,
+   `gate2b-*.ckpt`, `gate3-plate.ckpt`, and their logs). Authority: OUT-TREES-MANIFEST plus the
+   Phase 2a/2b/3/4/5 gate rows in `docs/PROGRESS.md`; ADR 0038 and ADR 0051 govern.
+2. `windows-phase6-ladder-workspace@2026-08-20` — class `external-evidence`. The complete
+   `out/` residue of the pinned ladder worktree `G:\Code Files\snowflake-phase6-ladder`
+   (`live.log`, seven launch logs, and the rows.jsonl whose bytes equal the published
+   `evidence/phase6-wp2-ladder/rows.jsonl`, SHA-256 `c4fa70f7…cd14`). Authority: the WP2 ladder
+   plan's execution scheduling record cites these logs ("recorded in the launch logs").
+3. `windows-repo-bundle@2026-08-20` — class `generated-cache` (regenerable from GitHub; the
+   recipe is `git bundle create … --all` at the recorded head). One `snowflake.bundle` file plus
+   a `bundle-verify.txt` transcript of `git bundle verify`.
+4. `windows-out-scratch@2026-08-20` — class `scratch`, disposition "retained pending maker
+   review; no expiration". Everything else under the main checkout's `out/` (education scratch
+   trees, `out/worktrees/**`, probe scripts, exploratory checkpoints and logs, review scratch)
+   EXCEPT bytes already selected by collections 1–2. Selector: enumerated top-level path list
+   frozen in the archival program. Anything that fails the safe-name rules or mutates during
+   scan goes to `_control/quarantine/unresolved/windows-workspace-2026-08-20/` rather than
+   being silently skipped.
+
+### Windows SMB validation protocol — before any durable write
+
+Executed and recorded in this section's implementation record before the archival program runs
+with `--apply`:
+
+- [ ] The four registered read commands run green from Windows against `S:/`
+      (`assets:audit`, and `assets:verify --full` on one existing small active collection;
+      `assets:restore` + `assets:verify-restored` on the same collection into fresh
+      `out/restores/`). First Windows execution of each — that is itself lane evidence.
+- [ ] `node scripts/nas-asset-bootstrap.ts --nas-root S:/` reports `already-bootstrapped`.
+- [ ] A bounded semantics probe, writing ONLY under `_control/staging/windows-probe-<date>/`:
+      exclusive create (`wx`) contested twice; rename onto an absent target; rename-refusal onto
+      a present target; `dev`/`ino` agreement between a staging child and its final parent
+      (the transaction core's same-filesystem guard); `nlink` observation on SMB; case-fold
+      collision behavior (create `A.txt`, probe `a.txt`); trailing-dot/space refusal; timestamp
+      coherence of a freshly created owner file (the failure that aborted the Mac's second
+      apply). Every observation recorded verbatim; no probe byte under `collections/`.
+- [ ] **Durability mitigation for the win32 `fsyncParentDirectory` no-op**
+      (`scripts/nas-asset-lib.ts:1522-1525`): every durable rename in the archival program is
+      followed by close → reopen-by-path → full re-hash, the receipt is written only after that
+      verification, and the lane's Done-when requires a later, separate-process
+      `assets:verify --full` pass over every new collection (a fresh SMB session, after the
+      write session ended). Crash durability of SMB rename remains UNPROVEN as a hardware
+      property; the lane's claim is verification-based, not fsync-based, and says so in each
+      collection's `verification.limits`.
+
+### The archival program
+
+`scripts/nas-archive-windows-workspace.mjs` — bounded, one-time, modeled on the reference
+implementation: pinned expectations, share resolution via `detectNasMount`, per-batch lock under
+`_control/locks/`, source inventory via the shared stable-tree/refusal machinery, copy-in to
+uniquely named `_control/staging/` (workstation→share copy, byte-verified length+SHA-256 against
+the source before promotion — the one structural difference from the same-share-rename reference,
+recorded here because the source filesystem is not the share), absent-target rename into
+`collections/<id>/<version>/payload/`, final reopen-and-re-hash, exactly one owner manifest per
+collection (tracked `docs/nas-assets/manifests/<id>/<version>.json` for the public classes; the
+scratch collection may use the same public path — no private filenames exist in this scope),
+receipt to `_control/receipts/migrations/windows-workspace-2026-08-20/result.json` with the
+program and selector copies beside it, provisional catalogue entries committed BEFORE any durable
+share write, active only after verification. Default read-only; `--apply`; `--rollback` with the
+receipt-published boundary exactly as the reference.
+
+### Done when
+
+- [ ] Validation protocol above fully executed and recorded.
+- [ ] The program's read-only pass, its non-author review (Rule 10; one engagement, blockers
+      separated from hardening), and the reviewed program committed BEFORE physical apply.
+- [ ] Apply completes; receipt published and byte-verified; all four collections re-verified
+      `--full` from a fresh process; one collection restore + `verify-restored` round-trip green
+      from Windows.
+- [ ] Catalogue, owner manifests, ledger `files[]`/`moves[]` additions, and this record
+      committed as one unit; exact `npm.cmd test` gates the push.
+- [ ] Nothing deleted anywhere; the maker's prune approval remains a separate future decision.
