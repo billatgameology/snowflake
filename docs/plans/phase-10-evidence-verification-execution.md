@@ -863,11 +863,9 @@ authorities. The narrow repair normalizes CRLF to LF only for `package.json` and
 `package-lock.json`, rejects a bare CR and every other byte change, and leaves every protocol,
 binding, callable, and transitive local import under raw-byte comparison. Its synthetic test uses
 Git-filter-equivalent/raw-different package bytes, proves the allowed case reaches derive, rejects a
-hidden valid non-EOL package mutation, and rejects CRLF on the exact protocol. The repaired
-lifecycle passes 11/11, typecheck passes, Rule 7 remains clean across 1,146 files, and diff check is
-clean. Because implementation bytes changed, the initial full-suite result is superseded; exact
-`npm test` passing again before the local S5a commit is amended and S5b restarts is the repaired
-checkpoint's acceptance condition.
+hidden valid non-EOL package mutation, and rejects CRLF on the exact protocol. The repaired exact
+`npm test` passed 143/143 files with 2,333 passed and 49 skipped in 953.52 seconds. S5a's exact
+value-free science/code freeze is commit `cf0bd8b6ad12c79e38cb30ca0e50bcadab9cc6d9`.
 
 Two independent reviews closed with zero blockers:
 
@@ -885,12 +883,62 @@ Two independent reviews closed with zero blockers:
   run full `npm test`, execute registered C0V commands or a solver, open Phase 6 evidence, inspect
   S6 production semantics, stage/commit evidence, or stress concurrent writers/host injection.
 
-S5b starts from the exact clean commit containing this record and runs only the nine commands in
-`docs/PROGRESS.md` under **Next step**, using attempts `c0v-radial-reference-20260821-v1`,
-`c0v-moving-reference-20260821-v1`, and `c0v-static-refusal-20260821-v1`. It may publish only the
-radial reference, moving reference, and static scoped-refusal paths before independent review,
-manifest pinning, exact `npm test`, and a separate reference-freeze commit. It does not close any
-produce packet and never runs a solver.
+### S5b claim-projection incident and conservative infrastructure re-freeze — 2026-08-22
+
+The nine registered S5b commands ran at clean science freeze
+`cf0bd8b6ad12c79e38cb30ca0e50bcadab9cc6d9`. They produced and retained exact candidate/check
+pairs under attempts `c0v-radial-reference-20260821-v1`, `c0v-moving-reference-20260821-v1`, and
+`c0v-static-refusal-20260821-v1`; no solver or production implementation ran. Radial independently
+checked PASS. Moving retained comparison FAIL with the sole persisted error
+`monotonicity/bracket/residual scalar check failed`: its artifact records global bracket and
+positive-derivative flags true, candidate residual-relative `1.1564823173178715e-16`, and
+independent-root relative difference `1.826493716525238e-16`, both below the frozen `1e-14`
+tolerance, while the exact endpoint-record conjunct is false. Its topology, field, event, and
+ledger groups pass. Static independently validates the scoped current-contract refusal with every
+solver/reference/production/witness/numerical-evaluation/process-hour counter zero. These are
+control-only diagnostics and grant no physical or validation claim.
+
+The first final wrappers exposed a lifecycle defect: the moving output correctly used registered
+path `evidence/phase10-numerical-verification-v1/c0v-moving-reference.json`, schema
+`phase10-c0v-moving-reference-v1`, branch `independent-reference`, and disposition
+`reference-discrepancy-refusal`, but its final `claimBoundary.allowed` copied the protocol's
+success-only independent-check-agreement claim. The exact unpinned wrappers are preserved under
+`out/phase10-c0v-reference-v1/superseded/cf0bd8b6ad12c79e38cb30ca0e50bcadab9cc6d9/published/`:
+
+| Superseded final wrapper | Bytes | SHA-256 |
+|---|---:|---|
+| `c0v-radial-reference.json` | 449,978 | `9c654673db42267bc3297bce0593f4ce8e655e275d3ce982d9362752c124dda4` |
+| `c0v-moving-reference.json` | 80,816 | `38c4b3c15fdc4b9a32a8fd0371d47485551c18bf33f6db4d33c70050fe86d4f6` |
+| `c0v-static-reference-refusal.json` | 13,381 | `181b1bd3eb144d5ec44e180241be31dc273af0db9b82586d76f7b489bd98e084` |
+
+Those bytes are invalid infrastructure staging, not evidence, and must not be manifest-pinned. A
+non-author science reviewer and a separate non-author integration reviewer both confirmed that the
+moving path/schema/branch is correct: the frozen matrix permits the moving reference terminal
+states `fail|pass`, the schema admits `reference-discrepancy-refusal`, and the separate generic
+refusal output belongs only to the preimplementation inability branch.
+
+The accepted repair is an explicit conservative child infrastructure re-freeze, not a rewrite of
+the science freeze. Its exact parent must be `cf0bd8b6ad12c79e38cb30ca0e50bcadab9cc6d9`; its Git
+diff is restricted to the neutral publisher, lifecycle test, PROGRESS, this plan, and progress-index
+test. Runtime preflight requires that exact parent/allowlist and raw-compares every protocol,
+binding, generator, checker, shared parser, and non-publisher closure byte to `cf0bd8b…`. The
+corrected publisher at `runner/src/phase10-c0v-reference-publish.ts` is 62,359 bytes / SHA-256
+`f4d01873bff83f99820b95ca1485dba0a43f9b59688c23bb93ca893ad9d71b1b`; its lifecycle test is
+28,864 bytes / `e2aff3f9416b9659b6c7b934814db38178fbfb754cf1eb4c8cb7ffe5b451b868` and passes 12/12.
+PASS retains the exact original claim boundary. FAIL emits one discrepancy-only allowed claim and
+moves the sorted/deduplicated union of all protocol allowed/forbidden claims plus explicit
+agreement/reference-frozen claims into `forbidden`; an adversarial restored success boundary is
+rejected by exact no-overwrite publication.
+
+Exact `npm test` on the five-path correction snapshot passed 143/143 files with 2,334 passed and
+49 skipped in 963.10 seconds, including Rule 7 and both typechecks. After the clean correction
+child, S5b must reopen the retained candidate/check
+bytes and run only the three publish commands in `docs/PROGRESS.md`; derive and check must not run
+again. Replacement outputs must bind top-level science freeze `cf0bd8b…`, the child publication
+freeze and corrected neutral publisher in their code/import receipt, and the original
+candidate/check identities and scientific verdicts. Only after bounded non-author re-review may the
+three replacements enter `evidence/MANIFEST.json`, followed by exact `npm test` and the separate
+S5b evidence-freeze commit. S5b closes no produce packet and never runs a solver.
 
 ## Return and stop rules
 

@@ -42,6 +42,18 @@ import {
 
 const EXPECTED_BRANCH = "phase10/evidence-verification" as const;
 const EXPECTED_RUNTIME = "v24.13.1" as const;
+export const PHASE10_C0V_S5A_SCIENCE_FREEZE_COMMIT =
+  "cf0bd8b6ad12c79e38cb30ca0e50bcadab9cc6d9" as const;
+export const PHASE10_C0V_CLAIM_CORRECTION_DIFF = Object.freeze([
+  "M\tdocs/PROGRESS.md",
+  "M\tdocs/plans/phase-10-evidence-verification-execution.md",
+  "M\trunner/src/phase10-c0v-reference-publish.ts",
+  "M\trunner/test/phase10-c0v-reference-lifecycle.test.ts",
+  "M\trunner/test/progress-index.test.ts",
+] as const);
+const PHASE10_C0V_DISCREPANCY_ALLOWED = Object.freeze([
+  "artifact-derived generator/checker discrepancy recorded under the exact frozen protocol with no reference or agreement credit",
+] as const);
 export const PHASE10_C0V_REFERENCE_CANDIDATE_SCHEMA =
   "phase10-c0v-reference-candidate-v1" as const;
 export const PHASE10_C0V_TARGETED_CHECK_SCHEMA =
@@ -115,6 +127,7 @@ export interface Phase10C0VFreezeInspection {
   readonly protocolBytes: Uint8Array;
   readonly protocolIdentity: Phase10C0VArtifactIdentity;
   readonly freezeCommit: string;
+  readonly scienceFreezeCommit: string;
   readonly generator: Phase10C0VCodeIdentity;
   readonly checker: Phase10C0VCodeIdentity;
   readonly sharedParser: Phase10C0VCodeIdentity;
@@ -756,11 +769,33 @@ function assertHeadGitTextBytes(root: string, head: string, paths: readonly stri
   }
 }
 
-function assertProtocolIntroductionHead(
+export function phase10C0VScienceFreezeCommitForHistory(facts: {
+  readonly head: string;
+  readonly protocolCommits: readonly string[];
+  readonly parentCommit?: string;
+  readonly changedRows?: readonly string[];
+}): string {
+  if (facts.protocolCommits.length === 1 && facts.protocolCommits[0] === facts.head) {
+    return facts.head;
+  }
+  if (
+    facts.protocolCommits.length !== 1 ||
+    facts.protocolCommits[0] !== PHASE10_C0V_S5A_SCIENCE_FREEZE_COMMIT ||
+    facts.parentCommit !== PHASE10_C0V_S5A_SCIENCE_FREEZE_COMMIT ||
+    facts.changedRows === undefined ||
+    facts.changedRows.length !== PHASE10_C0V_CLAIM_CORRECTION_DIFF.length ||
+    facts.changedRows.some((row, index) => row !== PHASE10_C0V_CLAIM_CORRECTION_DIFF[index])
+  ) {
+    fail("HEAD must be the single protocol-introduction commit or its exact claim-projection correction child");
+  }
+  return PHASE10_C0V_S5A_SCIENCE_FREEZE_COMMIT;
+}
+
+function protocolScienceFreezeCommit(
   root: string,
   head: string,
   protocolPath: string,
-): void {
+): string {
   const result = spawnSync(
     "git",
     ["log", "--format=%H", "--reverse", "--", protocolPath],
@@ -770,9 +805,18 @@ function assertProtocolIntroductionHead(
     fail(`cannot inspect protocol introduction history: ${(result.stderr || result.error?.message || "unknown error").trim()}`);
   }
   const commits = result.stdout.split(/\r?\n/u).filter((entry) => entry.length > 0);
-  if (commits.length !== 1 || commits[0] !== head) {
-    fail("HEAD must be the single protocol-introduction commit before reference derivation");
-  }
+  if (commits.length === 1 && commits[0] === head) return head;
+  const parentCommit = git(root, ["rev-parse", `${head}^`]);
+  const changedRows = git(
+    root,
+    ["diff", "--name-status", "--no-renames", PHASE10_C0V_S5A_SCIENCE_FREEZE_COMMIT, head],
+  ).split(/\r?\n/u).filter((entry) => entry.length > 0);
+  return phase10C0VScienceFreezeCommitForHistory({
+    head,
+    protocolCommits: commits,
+    parentCommit,
+    changedRows,
+  });
 }
 
 function assertArtifactAbsentAtHead(root: string, head: string, path: string): void {
@@ -817,7 +861,7 @@ export function inspectPhase10C0VReferenceFreeze(options: {
     fail("layer, layerId, and branch disagree");
   }
   if (protocol.artifactPaths.protocol !== protocolPath) fail("protocol artifact path does not name itself");
-  assertProtocolIntroductionHead(root, freezeCommit, protocolPath);
+  const scienceFreezeCommit = protocolScienceFreezeCommit(root, freezeCommit, protocolPath);
   assertArtifactAbsentAtHead(
     root,
     freezeCommit,
@@ -848,16 +892,27 @@ export function inspectPhase10C0VReferenceFreeze(options: {
     ...neutralClosure.map((entry) => entry.path),
   ].filter((entry, index, values) => values.indexOf(entry) === index).sort();
   assertHeadBytes(root, freezeCommit, commitPaths);
+  if (scienceFreezeCommit !== freezeCommit) {
+    assertHeadBytes(
+      root,
+      scienceFreezeCommit,
+      commitPaths.filter((path) => path !== neutralPublish.modulePath),
+    );
+  }
   // Git's checkout policy may expose these two tracked JSON files as CRLF on Windows while their
   // committed blobs remain LF. Permit only that reversible Git text transform; all protocols,
   // callables, and transitive local imports above remain raw-byte exact.
   assertHeadGitTextBytes(root, freezeCommit, ["package.json", "package-lock.json"]);
+  if (scienceFreezeCommit !== freezeCommit) {
+    assertHeadGitTextBytes(root, scienceFreezeCommit, ["package.json", "package-lock.json"]);
+  }
   return Object.freeze({
     root,
     protocol,
     protocolBytes,
     protocolIdentity: phase10C0VArtifactIdentity(protocolPath, protocolBytes),
     freezeCommit,
+    scienceFreezeCommit,
     generator,
     checker,
     sharedParser,
@@ -1052,7 +1107,7 @@ export function validatePhase10C0VReferenceCandidate(
     candidate.layerId !== expectedLayerId(layer) ||
     candidate.branch !== expectedBranch(layer) ||
     candidate.protocolId !== inspection.protocol.protocolId ||
-    candidate.freezeCommit !== inspection.freezeCommit ||
+    candidate.freezeCommit !== inspection.scienceFreezeCommit ||
     candidate.runtime !== EXPECTED_RUNTIME ||
     candidate.startedAt > candidate.completedAt
   ) {
@@ -1287,6 +1342,30 @@ export function writePhase10C0VStagingArtifact(
   writeOrMatchAtomic(root, resolveContained(root, path, "staging artifact path"), bytes);
 }
 
+export function phase10C0VFinalClaimBoundary(
+  protocolClaimBoundary: unknown,
+  verdict: "pass" | "fail",
+): StrictJson {
+  const boundary = object(strictJsonSnapshot(protocolClaimBoundary), "protocol claimBoundary");
+  exactKeys(boundary, ["allowed", "forbidden"], "protocol claimBoundary");
+  const allowed = stringArray(boundary.allowed, "protocol claimBoundary.allowed");
+  const forbidden = stringArray(boundary.forbidden, "protocol claimBoundary.forbidden");
+  assertSortedUnique(allowed, "protocol claimBoundary.allowed");
+  assertSortedUnique(forbidden, "protocol claimBoundary.forbidden");
+  if (verdict === "pass") {
+    return strictJsonSnapshot({ allowed, forbidden });
+  }
+  return strictJsonSnapshot({
+    allowed: PHASE10_C0V_DISCREPANCY_ALLOWED,
+    forbidden: [...new Set([
+      ...allowed,
+      ...forbidden,
+      "independent-check agreement",
+      "reference-frozen disposition",
+    ])].sort(),
+  });
+}
+
 function finalReference(
   inspection: Phase10C0VFreezeInspection,
   candidate: Phase10C0VReferenceCandidate,
@@ -1342,7 +1421,10 @@ function finalReference(
     disposition: check.verdict === "pass"
       ? "reference-frozen"
       : "reference-discrepancy-refusal",
-    claimBoundary: object(inspection.protocol.claimBoundary, "protocol claimBoundary"),
+    claimBoundary: phase10C0VFinalClaimBoundary(
+      inspection.protocol.claimBoundary,
+      check.verdict === "pass" ? "pass" : "fail",
+    ),
   });
 }
 

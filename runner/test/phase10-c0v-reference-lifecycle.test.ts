@@ -11,7 +11,12 @@ import {
 } from "node:fs";
 import { dirname, resolve, sep } from "node:path";
 import { afterEach, describe, expect, it } from "vitest";
-import { phase10C0VFrozenArtifactIdentity } from "../src/phase10-c0v-reference-publish.ts";
+import {
+  PHASE10_C0V_CLAIM_CORRECTION_DIFF,
+  PHASE10_C0V_S5A_SCIENCE_FREEZE_COMMIT,
+  phase10C0VFrozenArtifactIdentity,
+  phase10C0VScienceFreezeCommitForHistory,
+} from "../src/phase10-c0v-reference-publish.ts";
 
 const SOURCE_ROOT = resolve(import.meta.dirname, "../..");
 const PROTOCOL = "research/synthetic-c0v-radial-protocol.json";
@@ -336,6 +341,7 @@ describe("Phase 10 C0V neutral S5 reference lifecycle", () => {
     expect(readFileSync(resolve(root, OUTPUT))).toEqual(firstOutput);
     const published = JSON.parse(firstOutput.toString("utf8")) as {
       disposition: string;
+      claimBoundary: { allowed: string[]; forbidden: string[] };
       codeAndImportReceipt: {
         pass: boolean;
         codeIdentities: Record<string, { byteLength: number; sha256: string }>;
@@ -343,6 +349,10 @@ describe("Phase 10 C0V neutral S5 reference lifecycle", () => {
       };
     };
     expect(published.disposition).toBe("reference-frozen");
+    expect(published.claimBoundary).toEqual({
+      allowed: ["synthetic plumbing"],
+      forbidden: ["scientific claim"],
+    });
     expect(published.codeAndImportReceipt.pass).toBe(true);
     expect(Object.keys(published.codeAndImportReceipt.codeIdentities)).toHaveLength(6);
     expect(Date.parse(published.codeAndImportReceipt.timestamps.publishCompletedAt)).toBeGreaterThanOrEqual(
@@ -357,11 +367,54 @@ describe("Phase 10 C0V neutral S5 reference lifecycle", () => {
     const published = JSON.parse(readFileSync(resolve(root, OUTPUT), "utf8")) as {
       disposition: string;
       comparison: { observedOutcome: string; errors: string[] };
+      claimBoundary: { allowed: string[]; forbidden: string[] };
     };
     expect(published.disposition).toBe("reference-discrepancy-refusal");
     expect(published.comparison.observedOutcome).toBe("fail");
     expect(published.comparison.errors).toEqual(["synthetic discrepancy"]);
+    expect(published.claimBoundary).toEqual({
+      allowed: [
+        "artifact-derived generator/checker discrepancy recorded under the exact frozen protocol with no reference or agreement credit",
+      ],
+      forbidden: [
+        "independent-check agreement",
+        "reference-frozen disposition",
+        "scientific claim",
+        "synthetic plumbing",
+      ],
+    });
+
+    published.claimBoundary = {
+      allowed: ["synthetic plumbing"],
+      forbidden: ["scientific claim"],
+    };
+    write(root, OUTPUT, pretty(published));
+    const restoredAgreement = refuse(root, process.execPath, PUBLISH_ARGS);
+    expect(restoredAgreement.status).not.toBe(0);
+    expect(restoredAgreement.stderr).toContain("publication target exists with different bytes");
   }, 30_000);
+
+  it("accepts only the exact value-inert claim-projection correction child", () => {
+    const correctedHead = "1".repeat(40);
+    expect(phase10C0VScienceFreezeCommitForHistory({
+      head: correctedHead,
+      protocolCommits: [PHASE10_C0V_S5A_SCIENCE_FREEZE_COMMIT],
+      parentCommit: PHASE10_C0V_S5A_SCIENCE_FREEZE_COMMIT,
+      changedRows: PHASE10_C0V_CLAIM_CORRECTION_DIFF,
+    })).toBe(PHASE10_C0V_S5A_SCIENCE_FREEZE_COMMIT);
+    expect(() => phase10C0VScienceFreezeCommitForHistory({
+      head: correctedHead,
+      protocolCommits: [PHASE10_C0V_S5A_SCIENCE_FREEZE_COMMIT],
+      parentCommit: PHASE10_C0V_S5A_SCIENCE_FREEZE_COMMIT,
+      changedRows: [...PHASE10_C0V_CLAIM_CORRECTION_DIFF, "M\trunner/src/science-drift.ts"],
+    })).toThrow(/exact claim-projection correction child/u);
+    expect(() => phase10C0VScienceFreezeCommitForHistory({
+      head: correctedHead,
+      protocolCommits: [PHASE10_C0V_S5A_SCIENCE_FREEZE_COMMIT],
+      parentCommit: "2".repeat(40),
+      changedRows: PHASE10_C0V_CLAIM_CORRECTION_DIFF,
+    })).toThrow(/exact claim-projection correction child/u);
+  });
 
   it("reexecutes the independent check and rejects a post-check receipt mutation", () => {
     const root = fixture();

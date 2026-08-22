@@ -238,7 +238,7 @@ the package-specific prerequisites in its charter amendment and execution plan. 
 
 ## Next step
 
-### Phase 10 — derive and freeze C0V references/refusal from the exact S5a commit
+### Phase 10 — repair and freeze the C0V S5b reference/refusal checkpoint
 
 The maker selected **A-S + A-I + B + C0 + C0V with packet-specific A-P** on 2026-08-21. No
 C1–C5 numerical-qualification or scientific habit row is part of this execution. The
@@ -315,13 +315,13 @@ attempt, or solver run exists at this boundary.
 The initial pre-repair exact `npm test` passed 143/143 files with 2,332 passed and 49 skipped in
 948.54 seconds. The first registered radial S5b derive then refused before creating an attempt or
 output because raw `package-lock.json` bytes were LF in Git and CRLF in this clean Windows checkout.
-The repair permits only reversible CRLF-to-LF equivalence for `package.json` and
+The narrow EOL repair permits only reversible CRLF-to-LF equivalence for `package.json` and
 `package-lock.json`; protocols, bindings, callables, and transitive local imports remain raw-byte
 exact. Its synthetic regression proves the package bytes differ raw while their Git-filtered hashes
 match, accepts that case, rejects a hidden substantive package mutation, and rejects the same EOL
-mutation on a protocol. The repaired lifecycle passes 11/11, but the initial full suite is
-superseded. The repaired checkpoint's acceptance condition is a new exact `npm test` pass before
-the local S5a commit is amended and S5b restarts.
+mutation on a protocol. The repaired exact `npm test` then passed 143/143 files with 2,333 passed
+and 49 skipped in 953.52 seconds, and the value-free science/code freeze was committed at
+`cf0bd8b6ad12c79e38cb30ca0e50bcadab9cc6d9`.
 
 A non-author OpenAI Codex GPT-5-family science reviewer with full shared context independently
 rechecked the formulas, units, topology, ledgers, static public-API grounds, byte bindings, and
@@ -331,19 +331,42 @@ five S5a suites at 41/41, obligation/progress at 22/22, typecheck, Rule 7, and d
 reported zero blockers. Neither review derived a registered reference, ran a solver, opened Phase 6
 inputs, or executed S5b/S6; the active plan preserves their complete Rule 10 limits.
 
-After the entire S5a checkpoint is committed and `git status --short` is empty, run exactly the
-following S5b commands in order. Do not create an intervening commit: every layer protocol's
-first-introduction commit must remain the clean execution `HEAD`.
+The nine registered S5b commands ran from that clean head. They retained exact candidate/check
+pairs under their registered attempt paths: radial 215,555 / 233,158 bytes with SHA-256
+`9189038d0789cb77ac19266b8cc373fa7f25912d1842fd8e8ba03ff3a782fb9e` /
+`d53401b2ae488b37528fbc4ea82616bc49d7b1ea87974caebcf3073a8cd22162`; moving 73,290 / 6,289
+bytes with `89ebd7d39b843208c3cc804735fbcba96da7457cf9c667ff5a927a86a5776698` /
+`e5477f6943b062501d172596fb8f4ac00409d6bc95728653635a0a47433b4396`; and static 8,536 / 4,189
+bytes with `e6b1c3d4f27e3b451330026662baafb9a52e8742205eecb0be502a502fb84b34` /
+`e7945d533d36c8a7a008e7af8eab2e62c8f47901e8d9cccf5a504b4ea361b334`. Radial checked PASS;
+moving checked FAIL with the single artifact-recorded error `monotonicity/bracket/residual scalar
+check failed`; static checked the scoped refusal. No solver or production implementation ran.
+
+The first final wrappers were not valid evidence: the moving wrapper used the correct registered
+reference path/schema and `reference-discrepancy-refusal` disposition, but copied the protocol's
+success-only “independent-check agreement” claim into `claimBoundary.allowed`. Their exact unpinned
+identities—radial 449,978 / `9c654673db42267bc3297bce0593f4ce8e655e275d3ce982d9362752c124dda4`,
+moving 80,816 / `38c4b3c15fdc4b9a32a8fd0371d47485551c18bf33f6db4d33c70050fe86d4f6`,
+and static 13,381 / `181b1bd3eb144d5ec44e180241be31dc273af0db9b82586d76f7b489bd98e084`—are retained under
+`out/phase10-c0v-reference-v1/superseded/cf0bd8b6ad12c79e38cb30ca0e50bcadab9cc6d9/published/`.
+They must never enter `evidence/MANIFEST.json`.
+
+The in-flight conservative claim-projection repair is value-inert. Its child commit must have
+exact parent/science freeze `cf0bd8b6ad12c79e38cb30ca0e50bcadab9cc6d9` and exactly five changed
+paths: this file, the active plan, the neutral publisher, its lifecycle test, and the progress-index
+test. It raw-compares every protocol, binding, generator, checker, shared parser, and non-publisher
+closure byte to the science freeze. PASS retains the exact protocol claim boundary; FAIL permits
+only an artifact-derived discrepancy record and moves every success/forbidden protocol claim into
+the final forbidden set. The repaired lifecycle passes 12/12 and typecheck is green. Exact
+`npm test` on this five-path correction snapshot passed 143/143 files with 2,334 passed and 49
+skipped in 963.10 seconds. A clean correction child is required before publication.
+
+After that child is committed and clean, do not re-run derive or check. Reopen the exact retained
+candidate/check bytes and run only these three publication commands:
 
 ```text
-node runner/src/phase10-c0v-reference-derive.ts derive --repository-root . --layer radial --protocol research/phase10-c0v-radial-protocol-v1.json --attempt c0v-radial-reference-20260821-v1 --out out/phase10-c0v-reference-v1/attempts/c0v-radial-reference-20260821-v1
-node runner/src/phase10-c0v-reference-check.ts verify --repository-root . --layer radial --protocol research/phase10-c0v-radial-protocol-v1.json --candidate out/phase10-c0v-reference-v1/attempts/c0v-radial-reference-20260821-v1/reference-candidate.json --receipt out/phase10-c0v-reference-v1/attempts/c0v-radial-reference-20260821-v1/targeted-check.json
 node runner/src/phase10-c0v-reference-publish.ts publish --repository-root . --layer radial --protocol research/phase10-c0v-radial-protocol-v1.json --candidate out/phase10-c0v-reference-v1/attempts/c0v-radial-reference-20260821-v1/reference-candidate.json --check out/phase10-c0v-reference-v1/attempts/c0v-radial-reference-20260821-v1/targeted-check.json --out evidence/phase10-numerical-verification-v1/c0v-radial-reference.json
-node runner/src/phase10-c0v-reference-derive.ts derive --repository-root . --layer moving --protocol research/phase10-c0v-moving-protocol-v1.json --attempt c0v-moving-reference-20260821-v1 --out out/phase10-c0v-reference-v1/attempts/c0v-moving-reference-20260821-v1
-node runner/src/phase10-c0v-reference-check.ts verify --repository-root . --layer moving --protocol research/phase10-c0v-moving-protocol-v1.json --candidate out/phase10-c0v-reference-v1/attempts/c0v-moving-reference-20260821-v1/reference-candidate.json --receipt out/phase10-c0v-reference-v1/attempts/c0v-moving-reference-20260821-v1/targeted-check.json
 node runner/src/phase10-c0v-reference-publish.ts publish --repository-root . --layer moving --protocol research/phase10-c0v-moving-protocol-v1.json --candidate out/phase10-c0v-reference-v1/attempts/c0v-moving-reference-20260821-v1/reference-candidate.json --check out/phase10-c0v-reference-v1/attempts/c0v-moving-reference-20260821-v1/targeted-check.json --out evidence/phase10-numerical-verification-v1/c0v-moving-reference.json
-node runner/src/phase10-c0v-reference-derive.ts derive --repository-root . --layer static --protocol research/phase10-c0v-static-protocol-v1.json --attempt c0v-static-refusal-20260821-v1 --out out/phase10-c0v-reference-v1/attempts/c0v-static-refusal-20260821-v1
-node runner/src/phase10-c0v-reference-check.ts verify --repository-root . --layer static --protocol research/phase10-c0v-static-protocol-v1.json --candidate out/phase10-c0v-reference-v1/attempts/c0v-static-refusal-20260821-v1/reference-candidate.json --receipt out/phase10-c0v-reference-v1/attempts/c0v-static-refusal-20260821-v1/targeted-check.json
 node runner/src/phase10-c0v-reference-publish.ts publish --repository-root . --layer static --protocol research/phase10-c0v-static-protocol-v1.json --candidate out/phase10-c0v-reference-v1/attempts/c0v-static-refusal-20260821-v1/reference-candidate.json --check out/phase10-c0v-reference-v1/attempts/c0v-static-refusal-20260821-v1/targeted-check.json --out evidence/phase10-numerical-verification-v1/c0v-static-reference-refusal.json
 ```
 
