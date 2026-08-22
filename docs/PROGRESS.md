@@ -239,7 +239,7 @@ the package-specific prerequisites in its charter amendment and execution plan. 
 
 ## Next step
 
-### Phase 10 — freeze C0V S6 infrastructure before any production run
+### Phase 10 — commit the C0V discrepancy-route correction, then freeze S6
 
 The maker selected **A-S + A-I + B + C0 + C0V with packet-specific A-P** on 2026-08-21. No
 C1–C5 numerical-qualification or scientific habit row is part of this execution. The
@@ -399,13 +399,49 @@ from the frozen obligation matrix. On those stable bytes, exact `npm test` passe
 containing this record is the S5b evidence freeze. S5b closes no produce packet and never runs a
 solver.
 
-Next, implement and freeze the S6 match-only reopener, packet receipts, branch-applicable
-production/evaluation code, layer results, and aggregate before any production command runs. S6
-must byte-match the manifest-pinned S5b artifacts and may never regenerate or tune them. Radial is
-the only layer with a `reference-frozen` artifact that can authorize production; moving must carry
-its discrepancy refusal and static its scoped refusal through match-only closure, with no solver,
-witness, or numerical evaluator for either refusal. Do not run a C0V solver until that separate S6
-implementation checkpoint has exact `npm test` and a non-author audit on a clean committed head.
+The S5b moving result exposed a real mismatch between the approved live plan and the S1 machine
+graph. The pinned moving artifact is a pre-production `reference-discrepancy-refusal`, so the plan
+correctly forbids a solver, witness, numerical evaluator, and event-control campaign. Matrix v1,
+however, has only independent-reference and preimplementation-refusal branches; its selected moving
+branch still requires the forbidden witness/evaluation/check/control roster. Do not fabricate those
+outputs or relabel the discrepancy as the static-only refusal route.
+
+Decision [0053](decisions/0053-add-c0v-reference-discrepancy-route.md), charter v1.29, and the
+active plan therefore add the missing third lifecycle outcome and concretize the already-authorized
+prelaunch and registered-cap artifact/resource-refusal outcomes without changing the selected
+scope, science protocols, values, tolerances, original matrix, or evidence. A validated failed
+prelaunch condition closes with zero solver work; a separately validated registered-cap event may
+close during production with its exact partial execution recorded. A crash, transport failure, or
+otherwise unclassified timeout/nonzero exit remains retryable infrastructure, and exit status
+alone cannot select a scientific route. Commit this governance-only correction first. Then
+implement and freeze a scoped
+`research/phase10-c0v-s6-obligation-matrix-v1.json`, `research/phase10-execution-v2/`, supplemental
+`a-p-c0v-s6`, dedicated C0V executor, match-only refusal routes, radial production/evaluation,
+layer publication, and aggregate while every later attempt/output remains absent. The overlay must
+derive radial/moving routing from the exact pinned S5 disposition: `reference-frozen` takes the
+full production route, while `reference-discrepancy-refusal` takes match-only closure.
+
+The first exact `npm test` on this governance checkpoint caught one stale historical fixture in
+[`runner/test/phase10-scope-overlay.test.ts`](../runner/test/phase10-scope-overlay.test.ts): it had
+substituted the later live charter for the exact raw v1.28 charter bytes bound by the A-S protocol.
+The fixture now reconstructs the registered 107,284-byte / SHA-256
+`fe621b3c22cab02a9386e36a0afd644a101245dc12c1849ce5691239461fb5e6` identity from immutable
+charter commit `0c889c3423d87f9062555a058a320c4a5cce2bc5` and the historical mixed-line-ending map; it does
+not repin A-S or weaken its checks. A non-author OpenAI Codex GPT-5 reviewer with full shared
+context independently reproduced that tuple, reran the A-S 23/23 lifecycle, and reported zero
+blockers with no solver, registered C0V, NAS/network, or Phase 6 evidence access. Exact `npm test`
+then passed 143/143 files with 2,335 passed and 49 skipped in 981.82 seconds. Commit this
+governance/test checkpoint before adding S6 implementation bytes.
+
+S6 must byte-match the manifest-pinned S5b artifacts and may never regenerate or tune them. Radial
+is the only current layer with a `reference-frozen` artifact that can authorize production if its
+frozen artifact/resource preconditions pass; a registered in-run cap would remain resource refusal,
+not numerical FAIL. Moving
+must carry its discrepancy refusal and static its scoped refusal through match-only closure, with
+no solver, witness, numerical evaluator, or numerical negative-control campaign for either
+refusal. Do not run a C0V solver until the separate S6 implementation checkpoint has exact
+`npm test`, a clean commit, and a zero-blocker non-author audit, followed by the committed
+supplemental A-P PASS.
 The static refusal is required
 because the current contract supplies no admissible independent continuum field/flux reference,
 expected spatial order, or justified order lower bound. The public one-sweep retry path can recover

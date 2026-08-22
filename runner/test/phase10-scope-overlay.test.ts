@@ -124,6 +124,16 @@ const SCOPE_EVIDENCE_PATH = "evidence/phase10-scope-intake-v1";
 const STATIC_RECEIPT_DIRECTORY = "evidence/phase10-obligation-preflight-v1/packets/a-s";
 const STATIC_ATTEMPT_ID = "s2-static-20260821-v1";
 const SCOPE_FREEZE_COMMIT = "ca40a47a06cda23772b00ca93dce1d4d69d082ab";
+const SCOPE_CHARTER_CONTENT_COMMIT = "0c889c3423d87f9062555a058a320c4a5cce2bc5";
+// The A-S protocol froze the raw Windows v1.28 working-tree bytes. Git stores
+// the charter blob with LF endings, while the then-live file retained CRLF on
+// every line except these lines touched by the historical patch sequence.
+// Reconstructing that exact byte form keeps this fixture independent of the
+// later live charter without weakening the protocol's raw-byte identity.
+const SCOPE_CHARTER_LF_LINES = new Set([
+  3, 7, 8, 9, 74, 75, 76, 77, 78, 79, 104, 205, 259, 371, 398, 399, 400,
+  401, 402, 403, 404, 405, 406, 407, 408, 409, 410, 411, 412, 422,
+]);
 const SCOPE_FREEZE_IDENTITIES = Object.freeze({
   [PHASE10_SCOPE_CLASSIFICATION_PROTOCOL_PATH]: Object.freeze({
     byteLength: 477980,
@@ -189,9 +199,36 @@ function bytes(path: string): Uint8Array {
   return new Uint8Array(readFileSync(path));
 }
 
+function frozenScopeCharterBytes(): Uint8Array {
+  const frozen = spawnSync(
+    "git",
+    ["show", `${SCOPE_CHARTER_CONTENT_COMMIT}:${CHARTER_PATH}`],
+    { cwd: SOURCE_REPOSITORY, windowsHide: true },
+  );
+  if (frozen.status !== 0) {
+    throw new Error(
+      `git show ${SCOPE_CHARTER_CONTENT_COMMIT}:${CHARTER_PATH} failed: ${String(frozen.stderr)}`,
+    );
+  }
+  const normalizedText = new TextDecoder().decode(frozen.stdout as Uint8Array);
+  if (!normalizedText.endsWith("\n") || normalizedText.includes("\r")) {
+    throw new Error("registered v1.28 charter blob is not canonical LF text");
+  }
+  const lines = normalizedText.slice(0, -1).split("\n");
+  return new TextEncoder().encode(
+    lines
+      .map((line, index) => `${line}${SCOPE_CHARTER_LF_LINES.has(index + 1) ? "\n" : "\r\n"}`)
+      .join(""),
+  );
+}
+
 function copy(repositoryRoot: string, path: string): void {
   const destination = resolve(repositoryRoot, path);
   mkdirSync(dirname(destination), { recursive: true });
+  if (path === CHARTER_PATH) {
+    writeFileSync(destination, frozenScopeCharterBytes());
+    return;
+  }
   copyFileSync(resolve(SOURCE_REPOSITORY, path), destination);
 }
 
@@ -736,6 +773,22 @@ afterAll(() => {
 });
 
 describe("Phase 10 A-S scope overlay", () => {
+  it("reconstructs the registered raw v1.28 charter instead of substituting the later live charter", () => {
+    const protocol = parsePhase10ScopeClassificationProtocol(
+      JSON.parse(
+        readFileSync(
+          resolve(state.repositoryRoot, PHASE10_SCOPE_CLASSIFICATION_PROTOCOL_PATH),
+          "utf8",
+        ),
+      ),
+    );
+    const frozenCharter = bytes(resolve(state.repositoryRoot, CHARTER_PATH));
+    expect(frozenCharter.byteLength).toBe(protocol.rules.authority.charterArtifact.byteLength);
+    expect(sha256Bytes(frozenCharter)).toBe(protocol.rules.authority.charterArtifact.sha256);
+    expect(sha256Bytes(bytes(resolve(SOURCE_REPOSITORY, CHARTER_PATH))))
+      .not.toBe(protocol.rules.authority.charterArtifact.sha256);
+  });
+
   it("independently executes every registered check and exact mutation control", () => {
     expect(
       state.evaluation.verdict,

@@ -2,7 +2,7 @@
 
 - **Phase:** Phase 10 — scope, evidence bridges, and absolute numerical verification
 - **Status:** in progress — maker selected the recommended package on 2026-08-21; adoption is
-  governed by decision 0052 and charter v1.28
+  governed by decisions 0052–0053 and charter v1.29
 - **Started:** 2026-08-21
 - **Last touched:** 2026-08-22 by OpenAI Codex
 - **Branch/worktree:** `phase10/evidence-verification` at
@@ -23,7 +23,7 @@ remain unselected.
 
 ## Done when
 
-Done when (a) A-S publishes separate versioned overlays covering 18/18 Phase 8A entries and 51/51 Phase 8B records with cited scope reasons, immutable evidence roles and phase ownership, multiple blockers where applicable, and unresolved or mixed counts; (b) A-I gives all 14 post-freeze payloads terminal identity, version, rights, lineage, duplicate, purpose, and eligibility dispositions and closes one currency snapshot for every selected B source lineage; (c) B1a, B1b, and B2–B5 each ends with its source-complete eligible bridge or dataset or an operand-level refusal, every allowed acquisition or search packet is terminal, and no B result has silently executed or authorized E, F, or H; (d) C0 independently re-derives the registered ladder breakdown from committed bytes, analyzes only persisted or independently derivable fields, and records the fields a future target-specific observable would require; (e) each C0V control either has a frozen independent reference, norms, tolerances, finite roster, and required negative control before its production implementation followed by an independent evaluator publishing a terminal pass, fail, or refusal from artifact bytes, or publishes an artifact-derived pre-implementation reference-independence refusal, and C0V is labeled PASS only if all three controls take the independent-reference branch and pass; (f) packet-specific A-P rejects at least one missing producer and one uncalled check, covers every registered obligation and proportionate negative control, and passes before every executable packet; and (g) a flagless `gate10` re-derives package completion and the separate scientific dispositions from committed evidence, the package report preserves every prior-phase label and artifact and states that no C1–C5 habit row, target score, held-out comparison, solver-physics change, or quantitative validation occurred, exact `npm test` passes, and one proportionate non-author review closes with zero unresolved blockers. A C0V failure or refusal or a B source refusal completes this package when reported under these rules; it blocks dependent future work but does not become a pass. Phase 10 grants no quantitative-validation label and no Phase 7, Phase 8, or Phase 9 credit.
+Done when (a) A-S publishes separate versioned overlays covering 18/18 Phase 8A entries and 51/51 Phase 8B records with cited scope reasons, immutable evidence roles and phase ownership, multiple blockers where applicable, and unresolved or mixed counts; (b) A-I gives all 14 post-freeze payloads terminal identity, version, rights, lineage, duplicate, purpose, and eligibility dispositions and closes one currency snapshot for every selected B source lineage; (c) B1a, B1b, and B2–B5 each ends with its source-complete eligible bridge or dataset or an operand-level refusal, every allowed acquisition or search packet is terminal, and no B result has silently executed or authorized E, F, or H; (d) C0 independently re-derives the registered ladder breakdown from committed bytes, analyzes only persisted or independently derivable fields, and records the fields a future target-specific observable would require; (e) each C0V control either (1) has a frozen independent reference, norms, tolerances, finite roster, and required negative control before its production implementation followed by an independent evaluator publishing a terminal pass, fail, or refusal from artifact bytes; (2) when an independently classified artifact or prelaunch resource precondition blocks execution before a valid witness, publishes and binds that pre-production refusal with no solver, witness, numerical evaluator, or numerical negative-control campaign; (3) when a separately validated registered cap prevents completion during production, publishes and binds the exact partial-execution resource refusal with no valid witness, numerical verdict, or numerical negative-control campaign; (4) when a separately implemented reference derivation and its independent check disagree before production, publishes and binds the exact discrepancy and closes as a match-only refusal with no solver, witness, numerical evaluator, or numerical negative-control campaign; or (5) publishes an artifact-derived pre-implementation reference-independence refusal, and C0V is labeled PASS only if all three controls reach independently referenced production and pass; (f) packet-specific A-P rejects at least one missing producer and one uncalled check, covers every registered obligation and proportionate negative control, and passes before every executable packet; and (g) a flagless `gate10` re-derives package completion and the separate scientific dispositions from committed evidence, the package report preserves every prior-phase label and artifact and states that no C1–C5 habit row, target score, held-out comparison, solver-physics change, or quantitative validation occurred, exact `npm test` passes, and one proportionate non-author review closes with zero unresolved blockers. A C0V failure or refusal or a B source refusal completes this package when reported under these rules; it blocks dependent future work but does not become a pass. Phase 10 grants no quantitative-validation label and no Phase 7, Phase 8, or Phase 9 credit.
 
 The denominators above are bound at plan creation to the accepted Phase 8A freeze and Phase 8B
 successor bytes listed below. The 14-payload count is the `sources/` roster inside the 24-file
@@ -233,12 +233,15 @@ collection.
   preimplementation refusal, pin them in `evidence/MANIFEST.json`, run exact `npm test`, obtain one
   bounded non-author review, and commit the reference freeze. A layer reference that cannot remain
   independent closes as a refusal; production implementation remains forbidden until this commit.
-- [ ] **S6 — implement and execute C0V.** For an independently checked `reference-frozen` branch,
-  build separate production producers and artifact-derived evaluators. For a refusal branch, add
-  only the match-only refusal reopener, refusal-validity evaluator, receipts, and result—never a solver,
-  witness, or numerical evaluator. Run packet preflight, execute only the branch-applicable frozen
-  controls, retain all attempts, and publish one terminal PASS/FAIL/REFUSAL result per layer plus
-  the aggregate verdict.
+- [ ] **S6 — implement and execute C0V.** First freeze the decision-0053 scoped S6 obligation
+  overlay, execution-v2 catalogue, resolved callable registries, dedicated executor, supplemental
+  A-P, exact commands, and resource/receipt contracts while every S6 attempt and output is absent.
+  For an independently checked `reference-frozen` branch, build separate production producers and
+  artifact-derived evaluators. For a preimplementation refusal or a frozen reference-discrepancy
+  refusal, add only the match-only reopener, refusal-validity evaluator, receipts, and result—never
+  a solver, witness, numerical evaluator, or numerical negative-control campaign. Run packet
+  preflight, execute only the branch-applicable frozen controls, retain all attempts, and publish
+  one terminal PASS/FAIL/REFUSAL result per layer plus the aggregate verdict.
 - [ ] **S7 — execute B acquisition, B1a/B1b, and B2–B5.** Run the launch-governed
   `b-acquisition` packet first, then parallelize source-independent branches while preserving
   per-branch freeze-before-value semantics. Complete the named acquisition round and only the
@@ -1019,6 +1022,157 @@ derives the complete 23-path S6 absence roster from the frozen obligation matrix
 snapshot, exact `npm test` passed 143/143 files with 2,334 passed and 49 skipped in 954.36 seconds,
 including Rule 7 and both typechecks. The commit containing this paragraph is the separate S5b
 evidence freeze. S5b closes no produce packet and never runs a solver.
+
+### S6 discrepancy-route governance and implementation plan — 2026-08-22
+
+The S5b moving artifact exposed a contract defect before any production-comparison code or solver
+run. Its exact disposition is `reference-discrepancy-refusal`, but matrix v1 has only the full
+independent-reference route and the separate preimplementation reference-refusal route. The former
+requires a witness, numerical evaluation, numerical checks, and both moving controls; the latter
+names a different output whose concrete v1 contract is static-only. A nullable moving result field
+does not waive those obligations. Decision 0053 and charter v1.29 therefore add the already
+predeclared third outcome rather than fabricating outputs or rewriting the S5 result.
+
+This correction uses composite, non-destructive authority:
+
+- `research/phase10-obligation-matrix-v1.json`, execution-v1, the A-P v1 evidence, all S5 science
+  protocols/code, and all three manifest-pinned S5 artifacts remain byte-identical historical and
+  scientific authority.
+- `research/phase10-c0v-s6-obligation-matrix-v1.json` is a scoped successor graph for only the
+  remaining C0V S6 lifecycle. It binds the original matrix, C0V foundation, successor schema
+  registry/contracts, S5 science freeze, S5 evidence freeze, and exact radial/moving/static S5
+  artifact identities. It adds the deterministic discrepancy route and concretizes the existing
+  prelaunch and registered-cap artifact/resource-refusal outcomes for otherwise referenced
+  controls. It rejects any conflicting override outside the named C0V packets.
+- `research/phase10-execution-v2/` contains a new README, packet catalogue, and supplements plus
+  resolved registries for `a-p-c0v-s6`, the three produce packets, the three publish packets, and
+  `c0v-aggregate`. Its ignored attempt roots and structural receipt destinations are distinct from
+  execution-v1. Final registered C0V evidence paths remain the matrix-owned paths under
+  `evidence/phase10-numerical-verification-v1/`.
+- Supplemental `a-p-c0v-s6` binds the original six-file A-P PASS, independently verifies the
+  complete successor callable/output/check/control graph, and reruns named missing-producer and
+  uncalled-check mutations. Its six-file evidence bundle is isolated under
+  `evidence/phase10-obligation-preflight-v2/`. The three produce packets, three publish packets,
+  and aggregate depend on its committed PASS; supplemental A-P itself depends on the original A-P
+  PASS.
+
+The successor graph derives the scientific route from the immutable S5 artifact, not from a new
+choice made after seeing values:
+
+1. A radial or moving `reference-frozen` disposition takes the original independent-reference
+   production route.
+2. A radial or moving `reference-discrepancy-refusal` disposition takes the match-only discrepancy
+   route. The protocol/reference reopeners, attempt writer, ancestry/resource checks, and a
+   separately registered discrepancy-validity evaluator execute. Production, witness, numerical
+   evaluation, and numerical negative controls are absent and forbidden.
+3. A preimplementation refusal artifact takes the original reference-refusal route. The exact
+   refusal and its independent validity evidence are reopened; no solver or numerical path exists.
+4. An independently classified artifact or prelaunch resource precondition that blocks an
+   otherwise valid referenced control before a witness takes the pre-production refusal route. Its
+   evaluator binds the exact failed precondition and zero scientific execution.
+5. A separately validated registered cap that prevents completion during production takes the
+   in-run resource-refusal route. Its evaluator binds the attempt ledger, exact cap, and exact
+   partial execution; it creates no valid witness, numerical verdict, or numerical negative-control
+   credit. A crash, transport failure, or otherwise unclassified timeout/nonzero exit is retained
+   as retryable infrastructure, and exit status alone may not select any scientific route.
+
+Only radial selects production on current bytes. Its producer uses the existing production-side
+finite-shell spherical numerical implementation and emits a strict binary witness containing
+complete fields for all four protocol-ordered cases plus required operand/rate/Robin records, but
+no authoritative verdict.
+Its evaluator must independently decode raw bytes, reopen the exact S5 reference, rederive every
+registered norm/residual/disposition, and execute the three named radial mutations. Generator or
+targeted-reference-check arithmetic is forbidden from the producer/evaluator closures. A forged
+producer summary never becomes a verdict. If an independently classified pre-production artifact
+or prelaunch resource precondition prevents a valid radial comparison, the layer closes through an
+explicitly registered refusal route before a witness with zero solver execution; it does not become
+numerical FAIL. If a separately validated registered cap prevents completion during production,
+the exact partial execution closes as resource refusal without a valid witness or numerical verdict.
+A crash, transport failure, or otherwise unclassified timeout/nonzero exit is retained as retryable
+infrastructure, and exit status alone may not classify the outcome.
+
+Moving's discrepancy evaluator must rederive from the 81,026-byte pinned artifact that expected
+outcome is pass, observed outcome is fail, disposition is `reference-discrepancy-refusal`, the raw
+independent check has its exact nonempty error set, the claim boundary grants only discrepancy
+recording, the code/import receipt is bound, and no S6 moving solver/witness/evaluation path exists.
+Static's refusal evaluator must reopen and revalidate the 13,381-byte scoped refusal, exact current-
+contract grounds, source identities, zero-execution record, and claim limits. Neither refusal may
+be transformed, regenerated, or copied to a different science branch/path.
+
+The dedicated implementation boundary is new `runner/src/phase10-c0v-*` S6 code. Do not edit the
+published C0 executor, preflight, worker, or their shared transitive closure: committed C0 receipts
+bind those historical bytes. The S6 executor owns its own strict contracts, overlay/A-P preflight,
+dependency verifier, lock-before-observation lifecycle, worker dispatch, attempt/exit/resource
+records, candidate verification, crash-safe no-overwrite publication, and exact-byte resume. It
+dispatches hard-coded packet IDs and never executes a command read from JSON.
+
+Layer publish packets reopen their committed produce attempts and independently derive artifact
+indexes, PASS/FAIL/REFUSAL results, and publication verification. Scientific FAIL and REFUSAL are
+publishable terminal evidence. Moving remains science branch `independent-reference` with terminal
+`refusal`, the exact pinned discrepancy as `referenceOrRefusal`, and null witness/evaluation;
+static is the scoped refusal; radial follows its artifact-derived outcome. Aggregate runs only
+after all three publish checkpoints are committed, rebuilds the terminal table and complete
+attempt resource ledger, and executes `nc-c0v-any-layer-nonpass` from a synthetic all-pass clean
+table before mutating exactly one row. Current S5 dispositions guarantee aggregate non-PASS,
+package-completion eligibility, and dependent C5 blockage; they do not predetermine radial's
+numerical result.
+
+The implementation-freeze commit must contain the complete successor graph, all direct and
+transitive callable identities, exact binary layout, exact resources, exact command strings and
+unique attempt IDs, synthetic/adversarial tests, and proof that every S6 attempt and future output
+is absent. Runtime remains Node v24.13.1; solver-control concurrency is one; each executable
+control invocation remains below four wall-clock hours; all attempts count toward the 24 process-
+hour and 64 GiB retained-storage caps; there is no automatic retry, refinement, or fan-out. The
+radial science protocol's tighter 300-second and byte projections remain binding. Exact numeric
+resource tuples are frozen in packet supplements before launch, never inferred after execution.
+
+Execution order is serialized:
+
+1. Commit decision 0053, charter v1.29, this plan, and current-state reconciliation before S6 code.
+2. Commit the complete S6 implementation freeze after exact `npm test` and one bounded non-author
+   contract/code audit; all S6 attempts and outputs remain absent.
+3. Run, independently audit, manifest-pin, test, and commit supplemental A-P.
+4. For each layer, run exact read-only `check` then one unique `run`; audit/pin/test/commit the
+   produce evidence before its dependent publish packet. Never reuse an attempt ID.
+5. Run and commit all three publish packets, then run/audit/pin/test/commit aggregate.
+
+Each evidence-producing run starts from a clean committed head. No packet is launched merely
+because an ignored candidate exists, and no several-packet batch crosses a dirty publication
+boundary. The final gate later validates the union of v1 historical authority and the scoped S6
+successor, including the explicit duplicate-ID override rule.
+
+The governance/contract delta received a zero-blocker non-author review before commit. The reviewer
+was OpenAI Codex GPT-5 with full shared task, developer, and repository context. It independently
+re-executed `git diff --check`, the focused progress-index suite (8/8), Rule 7 (clean across 1,150
+files), exact charter/ADR/plan quote comparisons, original-matrix route inspection, and manifest
+byte/hash verification for all three pinned S5b artifacts. It did not run exact `npm test`,
+typecheck, a registered C0V command, a solver, NAS/network access, staging, commit, or the future S6
+implementation audit; those are explicit limits of this governance review. The exact full suite
+remained the owner's final precommit check on the recorded bytes.
+
+The first exact `npm test` attempt on this governance checkpoint correctly failed in
+[`runner/test/phase10-scope-overlay.test.ts`](../../runner/test/phase10-scope-overlay.test.ts): the
+synthetic historical A-S repository copied the later live charter while the frozen A-S protocol
+requires the exact raw v1.28 working-tree byte identity. Git's v1.28 blob is LF-normalized and is
+therefore not itself those raw bytes. The repaired fixture reconstructs the registered Windows
+working-tree form from immutable charter commit `0c889c3423d87f9062555a058a320c4a5cce2bc5`, preserving
+CRLF except at the 30 historically patched LF lines, and then requires the existing protocol's
+107,284-byte / SHA-256 `fe621b3c22cab02a9386e36a0afd644a101245dc12c1849ce5691239461fb5e6`
+identity. It does not repin A-S to charter v1.29 or weaken any check. The repaired A-S suite passes
+23/23, retaining all 11 registered checks and four mutation controls. Exact `npm test` then passed
+143/143 files with 2,335 passed and 49 skipped in 981.82 seconds, including Rule 7 and both
+typechecks.
+
+A separate non-author historical-fixture review closed with zero blockers. The reviewer was
+OpenAI Codex GPT-5 with full shared task and repository context. It independently reconstructed
+the exact protocol-bound charter tuple, tested all 426 single-line-ending mutations, proved the
+30-line LF roster stays within the v1.28 edit spans, checked ancestry and absence of an intervening
+charter commit, reran the A-S suite 23/23, progress-index 8/8, typecheck, Rule 7 across 1,150 files,
+`git diff --check`, and the exact charter/ADR/plan clause comparisons. It did not run exact full
+`npm test`, any registered C0V command, a solver, NAS/network access, or inspect Phase 6 inputs or
+evidence; it made no edit, stage, or commit. The historical mixed-ending bytes are not a Git blob,
+so their authenticity is limited to the already-frozen raw byte length and SHA-256 rather than an
+independent archived copy.
 
 ## Return and stop rules
 
