@@ -3,8 +3,8 @@
  "movedFrom": "out/ (gitignored), plus the byte-identical tracked arm64 fingerprint formerly under docs/",
  "movedTo": "evidence/ (tracked)",
  "note": "Historical sweep digests were computed before their move and re-verified afterward. The arm64 fingerprint preserves the exact former docs/ Git blob (18398 bytes, SHA-256 d6686f8e...). The x64 fingerprint is the complete 2026-08-01 lightweight fixture re-execution backing the exact per-entry comparison; it reproduces registered digest 2a9f64b3. These are preserved claim-backing bytes, not regenerated production sweeps.",
- "fileCount": 363,
- "totalBytes": 4874715,
+ "fileCount": 371,
+ "totalBytes": 4958253,
  "files": {
   "phase6-crossplatform/arm64-libm-fingerprint.txt": {
    "bytes": 18398,
@@ -490,6 +490,14 @@
    "bytes": 4537,
    "sha256": "35e5b2d42b8a18ea0933a52e9d138bcb5fd3237390a2204082a28f753f01ad8e"
   },
+  "phase10-obligation-preflight-v1/packets/a-i/preflight.json": {
+   "bytes": 3938,
+   "sha256": "16688d1e1ef6e860cdb494c0e36e5dfe027a70f1455ac70bd3008b93c6d093de"
+  },
+  "phase10-obligation-preflight-v1/packets/a-i/terminal-receipt.json": {
+   "bytes": 1119,
+   "sha256": "21bb8cb98d9907f2cd1419e90b276554825e95f23c60c6babad74d32103f1cdb"
+  },
   "phase10-obligation-preflight-v1/packets/a-p/preflight.json": {
    "bytes": 3164,
    "sha256": "3badfa9686ee098eecd0b15f99815ede5749d4550f9497ef44f3550025ff402c"
@@ -514,6 +522,26 @@
    "bytes": 16938,
    "sha256": "6b39cf5b7f663c5518f5dd0745e92d59aae3dc21ac7dcf94ece72603fc96eaec"
   },
+  "phase10-scope-intake-v1/currency.jsonl": {
+   "bytes": 16542,
+   "sha256": "a8c1dcbe7a0bcd02d38adc195c863dd1c3cf0b657294bdadf3a9fd472912a574"
+  },
+  "phase10-scope-intake-v1/file-custody.jsonl": {
+   "bytes": 18165,
+   "sha256": "aa1aa9bef7d460b12f8d4fb1b4511e070b4c98480aba3edc6ec8fe0a6bcfc220"
+  },
+  "phase10-scope-intake-v1/intake-artifact-index.json": {
+   "bytes": 1445,
+   "sha256": "656b898fba2f5965503016ebc90df0e6b29f16da31fc7a70a784b35d5f92a14c"
+  },
+  "phase10-scope-intake-v1/intake-report.json": {
+   "bytes": 7395,
+   "sha256": "5ca8650a0c6baf707a8d0243ff14cb741de227e79080217030925aca37e4df52"
+  },
+  "phase10-scope-intake-v1/intake-verification.json": {
+   "bytes": 4293,
+   "sha256": "ae04b87627c1e9e2bd9152f413fa44d025cc6a0dc682c07337f80bbf40cb1c96"
+  },
   "phase10-scope-intake-v1/phase8a-overlay.jsonl": {
    "bytes": 77762,
    "sha256": "6c9b293c5348f415ece03f88e9ac803c54812a51c6c1a9fe013b80fb6930239c"
@@ -521,6 +549,10 @@
   "phase10-scope-intake-v1/phase8b-overlay.jsonl": {
    "bytes": 357138,
    "sha256": "954f777092c1e6ba34f85e0d92236d7c534376b94d239b32304a9ca9fcbcfa11"
+  },
+  "phase10-scope-intake-v1/post-freeze-dispositions.jsonl": {
+   "bytes": 30641,
+   "sha256": "619c29255dd63a8179429abc0f44a895575294b176805a5a49339f7437c5bfd8"
   },
   "phase10-scope-intake-v1/scope-artifact-index.json": {
    "bytes": 1066,

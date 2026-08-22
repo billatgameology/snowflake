@@ -214,7 +214,7 @@ collection.
 - [x] **S2 — execute A-S.** Publish and verify separate 18-entry and 51-record overlays with the
   complete field set, cited reasons, immutable roles, phase ownership, multi-blocker support, and
   totals independently re-derived from the overlay bytes.
-- [ ] **S3 — execute A-I.** Verify the governed private-NAS bindings, terminally disposition all 14
+- [x] **S3 — execute A-I.** Verify the governed private-NAS bindings, terminally disposition all 14
   retained payloads, freeze selected B lineages, and close the finite currency snapshot. Preserve
   unavailable or rights-blocked retained sources as explicit refusals; do not acquire new bytes in
   this static packet.
@@ -460,6 +460,64 @@ nothing was redirected or written, and no value was analyzed or used to choose a
 implementation, classification, or result. This is an ordering/boundary incident, not C0
 execution or evidence, and the author cannot serve as the unopened-input independent scientific
 reviewer. The separate non-author reviewer preserved the unopened-input boundary.
+
+### S3 A-I evidence checkpoint — 2026-08-21
+
+From clean implementation freeze `ae2f90dd1cdd6f1e8b5b97e62ffcf088b61615e1`, the exact
+observation command executed the frozen 24-query roster once. All 24 requests reached a terminal
+HTTP response: 22 returned 200 and two returned 429. The bounded governed-NAS check terminated as
+`unavailable-refusal`; it did not establish current private-file presence, storage, restore, or
+backup. Observation validation passed before any disposition was authored. The resulting three
+value-bearing inputs entered Git together in commit
+`9fb2e1b61ffb585daba01d63b5ff2f8eea5e7969`, whose freeze-to-input diff contains exactly these
+paths:
+
+| Input | Bytes | SHA-256 |
+|---|---:|---|
+| `research/phase10-execution-v1/packets/a-i/observations.json` | 22,441 | `6d8fb807c359187f8448e787da925501dc77b60d13a149eba54e064c8a79de56` |
+| `research/phase10-execution-v1/packets/a-i/disposition-decisions.json` | 64,867 | `03c90782ab855841f64820c47b2a120a79ea872b7f759dd5c045cd05f09bb22d` |
+| `research/phase10-execution-v1/packets/a-i/semantic-review.json` | 8,904 | `0a005e4ec129a4b6c9c6bd51ec9286629d640f3e921a56dbc71c63387b73772b` |
+
+The decisions close all 14 payload rows as terminal `refused` because the current-source/NAS
+operands remain blocked; none of the retained payloads was opened by Phase 10. The 12-lineage
+currency snapshot records eight `current-no-change`, two `source-refusal`, one `version-bound`, and
+one `priority-lead-unavailable` disposition, with nine candidate records: seven `no-change`, one
+`bound`, and one `unavailable`. These are
+bibliographic/currentness and availability dispositions, not source-content validation. The
+non-author semantic review binds the observation and decision validators plus 25 retained raw
+artifacts, reports zero unresolved blockers, and explicitly does not establish that every human
+judgment is a theorem.
+
+From clean input head `9fb2e1b61ffb585daba01d63b5ff2f8eea5e7969`, A-I then produced,
+independently verified, and published its registered static bundle. Artifact-derived verification
+passes all 7/7 checks and the terminal receipt records `complete`. The eight new evidence files
+total 83,538 bytes:
+
+| File | Bytes | SHA-256 |
+|---|---:|---|
+| `evidence/phase10-scope-intake-v1/currency.jsonl` | 16,542 | `a8c1dcbe7a0bcd02d38adc195c863dd1c3cf0b657294bdadf3a9fd472912a574` |
+| `evidence/phase10-scope-intake-v1/file-custody.jsonl` | 18,165 | `aa1aa9bef7d460b12f8d4fb1b4511e070b4c98480aba3edc6ec8fe0a6bcfc220` |
+| `evidence/phase10-scope-intake-v1/intake-artifact-index.json` | 1,445 | `656b898fba2f5965503016ebc90df0e6b29f16da31fc7a70a784b35d5f92a14c` |
+| `evidence/phase10-scope-intake-v1/intake-report.json` | 7,395 | `5ca8650a0c6baf707a8d0243ff14cb741de227e79080217030925aca37e4df52` |
+| `evidence/phase10-scope-intake-v1/intake-verification.json` | 4,293 | `ae04b87627c1e9e2bd9152f413fa44d025cc6a0dc682c07337f80bbf40cb1c96` |
+| `evidence/phase10-scope-intake-v1/post-freeze-dispositions.jsonl` | 30,641 | `619c29255dd63a8179429abc0f44a895575294b176805a5a49339f7437c5bfd8` |
+| `evidence/phase10-obligation-preflight-v1/packets/a-i/preflight.json` | 3,938 | `16688d1e1ef6e860cdb494c0e36e5dfe027a70f1455ac70bd3008b93c6d093de` |
+| `evidence/phase10-obligation-preflight-v1/packets/a-i/terminal-receipt.json` | 1,119 | `21bb8cb98d9907f2cd1419e90b276554825e95f23c60c6babad74d32103f1cdb` |
+
+The evidence manifest now registers 371 files / 4,958,253 bytes. A-I's PASS is structural: exact
+custody, terminal disposition, currency, rights-safe projection, dependencies, and receipt closure.
+It grants no source availability, scientific validation, held-out comparison, target score,
+prior-phase credit, downstream authorization, solver change, C1–C5 row, or habit result.
+
+Two synthetic-clone fixtures needed post-commit topology repairs after the real freeze and input
+commits existed. `phase10-executor.test.ts` now omits a synthetic freeze commit when copying the
+already-identical committed C0 sources leaves no change. `phase10-intake.test.ts` now starts from
+the parent of the committed A-I protocol introduction and copies the current implementation to
+construct a real input-absent freeze. These are test-fixture repairs only; they change no protocol,
+producer, evaluator, input, or evidence semantics. The exact focused command
+`npx vitest run runner/test/evidence-integrity.test.ts runner/test/phase10-intake.test.ts runner/test/phase10-c0-lifecycle.test.ts runner/test/phase10-executor.test.ts`
+passes 46/46. Exact post-publication `npm test` remains the checkpoint check and is not claimed by
+that focused result.
 
 ## Return and stop rules
 

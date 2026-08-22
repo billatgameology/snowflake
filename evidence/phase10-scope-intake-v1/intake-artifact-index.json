@@ -1,0 +1,42 @@
+{
+  "schema": "phase10-artifact-index-v1",
+  "bundleId": "phase10-scope-intake-v1",
+  "artifacts": [
+    {
+      "artifactId": "out-ai-currency",
+      "path": "currency.jsonl",
+      "mediaType": "application/x-ndjson",
+      "byteLength": 16542,
+      "sha256": "a8c1dcbe7a0bcd02d38adc195c863dd1c3cf0b657294bdadf3a9fd472912a574",
+      "role": "closed per-work currency snapshots",
+      "producedBy": "phase10-a-i-producer"
+    },
+    {
+      "artifactId": "out-ai-dispositions",
+      "path": "post-freeze-dispositions.jsonl",
+      "mediaType": "application/x-ndjson",
+      "byteLength": 30641,
+      "sha256": "619c29255dd63a8179429abc0f44a895575294b176805a5a49339f7437c5bfd8",
+      "role": "terminal 14-payload dispositions",
+      "producedBy": "phase10-a-i-producer"
+    },
+    {
+      "artifactId": "out-ai-file-custody",
+      "path": "file-custody.jsonl",
+      "mediaType": "application/x-ndjson",
+      "byteLength": 18165,
+      "sha256": "aa1aa9bef7d460b12f8d4fb1b4511e070b4c98480aba3edc6ec8fe0a6bcfc220",
+      "role": "exact 24-file custody projection",
+      "producedBy": "phase10-a-i-producer"
+    },
+    {
+      "artifactId": "out-ai-report",
+      "path": "intake-report.json",
+      "mediaType": "application/json",
+      "byteLength": 7395,
+      "sha256": "5ca8650a0c6baf707a8d0243ff14cb741de227e79080217030925aca37e4df52",
+      "role": "A-I aggregate report",
+      "producedBy": "phase10-a-i-producer"
+    }
+  ]
+}

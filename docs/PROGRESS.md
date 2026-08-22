@@ -123,13 +123,22 @@ detail.
   blockers. A-S reports scope in/mixed/out/unresolved = 9/1/3/5 for Phase 8A and 31/0/2/18 for
   Phase 8B, with quantitative eligibility 0 in both. Its seven files total 537,246 bytes and are
   pinned in the 363-file / 4,874,715-byte evidence manifest. Exact post-publication `npm test`
-  passes 135/135 files and 2,250 tests with 49 skipped. The implementation checkpoint freezes the independently
-  reviewed A-I and C0/executor lifecycles in the same commit as every protocol, registry, and
-  transitive callable byte. A-I's exact 12-lineage/24-query supplement is frozen with its future
-  observation, decision, and semantic-review inputs absent. C0 independently enumerates 80 rows and
-  64 pairings, derives terminal state from verification bytes, and authorizes no solver call. The
-  combined synthetic integration suite passes 80/80. No valid A-I observation, NAS query, endpoint
-  query, C0 derivation, solver row, publication, or scientific result has occurred.
+  passes 135/135 files and 2,250 tests with 49 skipped. The implementation checkpoint froze the
+  independently reviewed A-I and C0/executor lifecycles in commit `ae2f90d`, with every protocol,
+  registry, and transitive callable byte and all three future A-I inputs absent. From that freeze,
+  A-I executed its exact 24-query observation roster: 22 requests returned HTTP 200, two returned
+  429, and the bounded NAS check ended `unavailable-refusal` without a storage/current-presence
+  claim. Commit `9fb2e1b` then added exactly the validated observation, 14-payload decision, and
+  zero-blocker non-author semantic-review inputs. All 14 payload dispositions are terminal but
+  conservatively refused; none of the retained payloads was opened. A-I's artifact-derived
+  verification passes 7/7 checks and publishes eight files totaling 83,538 bytes, including the
+  7,395-byte [intake report](../evidence/phase10-scope-intake-v1/intake-report.json) at SHA-256
+  `5ca8650a0c6baf707a8d0243ff14cb741de227e79080217030925aca37e4df52` and 4,293-byte
+  [verification](../evidence/phase10-scope-intake-v1/intake-verification.json) at SHA-256
+  `ae04b87627c1e9e2bd9152f413fa44d025cc6a0dc682c07337f80bbf40cb1c96`. The manifest now
+  pins 371 files / 4,958,253 bytes. This is a structural intake PASS, not source availability,
+  scientific validation, downstream authorization, or prior-phase credit. C0 still has no valid
+  derivation, solver row, publication, or scientific result.
 - **Phase 10 C0 implementation trap (found 2026-08-21).** The frozen WP2 plan, primary evaluator,
   its mixed pass/fail controls, and `gate6` require every spacing to pass before the top-level result
   can pass. The later post-execution independent script uses `some` instead of `every`. Both
@@ -153,8 +162,8 @@ detail.
   direction) and content stays in-repo unpublished, `test.yml` CI unaffected. Reconciliation is
   a live decision point under **Next step**. Full freeze history:
   [the history file](progress-history-phases-6-8-9.md).
-- **Last updated:** 2026-08-21 (A-P and A-S PASS committed; A-I plus C0/executor pre-execution
-  freeze reconciled with zero-blocker non-author reviews; future A-I inputs remain absent)
+- **Last updated:** 2026-08-21 (A-P, A-S, and bounded structural A-I PASS evidence published;
+  C0 derive remains frozen and unexecuted)
 
 ## Phase gates
 
@@ -174,7 +183,7 @@ and every superseded attempt live in the linked plans and historical progress sn
 | 7 | Not started; independently eligible | Charter v1.25 preserves Phase 7's independence but does not start it. A committed Phase 7 plan and isolated worktree are required; product, held-out validation, and v6 WGSL/preview-GPU parity remain its scope. |
 | 8 | **Complete (8A + 8B)** | The immutable 8A book remains 18 entries / 59,019 bytes / SHA-256 `47a75f3f…71ec`. The verified 8B successor is 51 development records, 252,134 native rows and 431 plot points; no row is held out. [Completed plan](plans/phase-8-measurement-corpus.md). |
 | 9 | **Complete (development-only)** | The all-no-pass branch closed: D-BT failed, M-F/M-K2 stayed mapping-dependent, controls/path-state/M-PK are unavailable or non-identifiable, and zero items promoted. Exact `TMPDIR=/private/tmp npm test` passed; no result grants validation credit. [Completed plan](plans/phase-9-execution.md). |
-| 10 | **In progress — A-P/A-S PASS; A-I/C0 frozen pre-execution** | A-P and A-S PASS evidence is committed. The reviewed A-I and C0/executor lifecycles are frozen with future A-I inputs absent and no C0 input opened by a valid packet. Next: from the clean freeze, run the exact A-I observation/decision/review sequence, then publish A-I before C0 derive. Selection still includes no C1–C5 or habit rows; no solver row or scientific result occurred. |
+| 10 | **In progress — A-P/A-S/A-I PASS; C0 frozen pre-execution** | A-P, A-S, and the bounded structural A-I PASS evidence are published and pinned. A-I closes 14/14 payload dispositions as refusals under the unavailable NAS/current-source operands; it grants no scientific or source-availability claim. Next: run only the exact registered C0 derive executor from a clean evidence head. Selection still includes no C1–C5 or habit rows; no solver row or scientific result occurred. |
 
 ## Active plan
 
@@ -192,12 +201,13 @@ correction changes no phase claim or credit.
 The [Phase 10 execution plan](plans/phase-10-evidence-verification-execution.md) is active in its
 isolated worktree. Its S0 governance checkpoint, S1 contract freeze, and S2 A-S classification
 freeze are complete; the A-P bootstrap and A-S static lifecycle are implemented and independently
-reviewed. The six-file terminal A-P PASS dependency and seven-file A-S PASS bundle are committed,
-independently rederived, manifest-pinned, and exact-suite checked. A-I and C0/executor now have
-separate producer/evaluator paths, exact protocols and callable registries, focused adversarial
-  tests, and zero-blocker non-author pre-execution reviews. Their same-commit clean-head freeze is
-  complete; all three future A-I inputs remain absent, and the exact A-I observation is next. No
-  valid A-I or C0 packet has run. B and C0V remain unstarted. The
+reviewed. The six-file terminal A-P PASS dependency, seven-file A-S PASS bundle, and eight-file A-I
+structural PASS bundle are published, independently verified, and manifest-pinned. A-I's exact
+three-input commit preserves the freeze ordering; its 14 payloads are terminal refusals and its NAS
+state is `unavailable-refusal`, so B inherits no source-availability claim. Two post-commit
+synthetic-clone fixture repairs change no production semantics; the focused evidence/A-I/C0/executor
+set passes 46/46, while exact post-publication `npm test` remains pending. C0/executor retains its
+reviewed protocol and callable freeze, but no valid C0 packet has run. B and C0V remain unstarted. The
 [Phase 10 candidate plan](plans/phase-10-closures-and-frontier.md) is completed decision support
 and superseded for execution. It remains the design history for the selected and rejected packages,
 not execution authority.
@@ -210,7 +220,7 @@ the package-specific prerequisites in its charter amendment and execution plan. 
 
 ## Next step
 
-### Phase 10 — execute A-I from the clean implementation freeze
+### Phase 10 — execute C0 derive from the clean A-I evidence checkpoint
 
 The maker selected **A-S + A-I + B + C0 + C0V with packet-specific A-P** on 2026-08-21. No
 C1–C5 numerical-qualification or scientific habit row is part of this execution. The
@@ -218,37 +228,31 @@ C1–C5 numerical-qualification or scientific habit row is part of this executio
 done/stop rules, authority boundaries, finite source and compute budgets, and return-only handling
 of candidate E/F/H branches.
 
-S0 landed accepted [decision 0052](decisions/0052-adopt-phase10-evidence-verification.md), charter
-v1.28, the execution plan, state reconciliation, and complete charter-clause audit together before
-source consumption or implementation. S1 then froze the package matrix, schemas, input identities,
-rights/resource boundaries, and fail-closed callable/receipt contracts. The independently audited
-69-row A-S classification protocol and strict contract are committed, and both the A-P and A-S
-static lifecycles now have resolved callable identities, focused tests, exact full-suite coverage,
-and zero-blocker non-author reviews.
+The A-P PASS dependency is committed at `63ca13c`; A-S PASS is committed at `78c1875`. A-I's
+observation/decision/review inputs are committed at `9fb2e1b`, and its eight-file structural PASS
+bundle is now published and pinned. The active plan's S3 checkpoint records every input and output
+identity plus the exact claim limits. The fixture-only repairs have a green 46/46 focused
+evidence/A-I/C0/executor run; do not describe that focused result as exact `npm test`.
 
-The A-P PASS dependency is committed at `63ca13c`; A-S PASS is committed at `78c1875`. The
-implementation checkpoint commits A-I's 26,443-byte semantic supplement, A-I/C0 packet
-protocols and resolved registries, every transitive callable, and the shared executor together.
-It proves `observations.json`, `disposition-decisions.json`, and `semantic-review.json` were absent,
-runs exact `npm test`, and leaves a clean head. Do not split the C0
-protocol/registry from its transitive code closure: the launch preflight intentionally refuses that
-history.
+After the A-I evidence/docs checkpoint is committed and the worktree is clean, run these exact
+commands in order:
 
-From the exact clean freeze head, run the A-I supplement's `observe` command, validate the fixed raw
-attempt, author the rights-safe 14-payload dispositions, validate them, and obtain a non-author
-semantic review. Commit exactly those three input paths before A-I produce/verify/publish. A-I may
-inspect only the governed 14-payload/24-file intake and frozen 12-lineage/24-query currency roster;
-it does not execute `b-acquisition`. Pin, review, exact-suite check, and commit A-I evidence before
-C0. Then run the exact registered C0 `check` and `run` commands: C0 reads only the committed
-Phase 6 ladder report and transitively bound 80-row file, runs no solver, freezes the all-spacings
-rule, and records the historical `some`/`every` verifier mismatch without rewriting Phase 6
-evidence. Commit derive evidence before the dependent publish packet.
+```text
+node runner/src/phase10-executor.ts check --packet c0-derive --protocol research/phase10-execution-v1/packets/c0-derive/protocol.json --attempt c0-derive-20260821-v1
+node runner/src/phase10-executor.ts run --packet c0-derive --protocol research/phase10-execution-v1/packets/c0-derive/protocol.json --attempt c0-derive-20260821-v1
+```
+
+`check` is read-only and non-authorizing; only the registered `run` may create a valid C0 attempt.
+Do not open, search, or summarize the Phase 6 ladder report or rows outside that executor. C0 reads
+only those two committed inputs, executes no solver, applies the frozen all-spacings rule, and
+records the historical `some`/`every` verifier mismatch without rewriting Phase 6 evidence. Pin,
+independently review, exact-suite check, and commit the derive evidence before running the dependent
+C0 publish packet.
 
 The A-S evidence preserves the Phase 8A status row/filter rule, immutable evidence roles, phase
 ownership, Phase 8B's development/zero-held-out labels, cited classification reasons, and multiple
 simultaneous blockers. It grants no quantitative eligibility, validation, held-out comparison, or
-prior-phase credit. Do not run A-I observations or C0 until the exact implementation freeze is
-committed and the worktree is clean; B and C0V retain their later protocol/reference freezes.
+prior-phase credit. B and C0V retain their later protocol/reference freezes.
 
 Standing constraints: no Phase 8 record may be relabeled unseen; Phase 7 retains held-out,
 product, and GPU obligations; B outcomes do not automatically authorize E/F/H; the permanent

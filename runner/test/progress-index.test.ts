@@ -37,6 +37,11 @@ const FORBIDDEN_SEQUENCING = [
   "### Phase 10 — planning complete; maker package selection pending",
   "Nothing is selected.",
   "left S0 governance as the next prerequisite",
+  "### Phase 10 — execute A-I from the clean implementation freeze",
+  "all three future A-I inputs remain absent",
+  "the exact A-I observation is next",
+  "No valid A-I or C0 packet has run",
+  "run the exact A-I observation/decision/review sequence",
 ];
 const PHASE8_STATUS_LINE =
   "- **Phase 8 is COMPLETE (Phase 8A 2026-08-10; Phase 8B 2026-08-12).**";
@@ -47,7 +52,7 @@ const PHASE10_STATUS_LINE =
 const PHASE8_GATE_PREFIX = "| 8 | **Complete (8A + 8B)** |";
 const PHASE7_GATE_PREFIX = "| 7 | Not started; independently eligible |";
 const PHASE9_GATE_PREFIX = "| 9 | **Complete (development-only)** |";
-const PHASE10_GATE_PREFIX = "| 10 | **In progress — A-P/A-S PASS; A-I/C0 frozen pre-execution** |";
+const PHASE10_GATE_PREFIX = "| 10 | **In progress — A-P/A-S/A-I PASS; C0 frozen pre-execution** |";
 const CONTRADICTORY_STATE_PATTERNS = [
   /Phase 8B (?:is |remains )?(?:active|incomplete|pending)\b/iu,
   /Phase 8B.*\b(?:may|can|will|must) (?:rewrite|mutate|replace|overwrite)\b.*\b(?:8A|v1|phase8-target-book)\b/iu,
@@ -122,7 +127,16 @@ function currentIndexErrors(text: string): string[] {
     "(plans/phase-10-evidence-verification-execution.md)",
     "governance checkpoint is complete",
     "S1 contract freeze, and S2 A-S classification",
-    "Phase 10 — execute A-I from the clean implementation freeze",
+    "A-P/A-S/A-I PASS; C0 frozen pre-execution",
+    "bounded structural A-I PASS evidence",
+    "All 14 payload dispositions are terminal but",
+    "conservatively refused",
+    "46/46",
+    "C0 derive remains frozen and unexecuted",
+    "Phase 10 — execute C0 derive from the clean A-I evidence checkpoint",
+    "node runner/src/phase10-executor.ts check --packet c0-derive --protocol research/phase10-execution-v1/packets/c0-derive/protocol.json --attempt c0-derive-20260821-v1",
+    "node runner/src/phase10-executor.ts run --packet c0-derive --protocol research/phase10-execution-v1/packets/c0-derive/protocol.json --attempt c0-derive-20260821-v1",
+    "Do not open, search, or summarize the Phase 6 ladder report or rows outside that executor",
     "- **Last updated:** 2026-08-21",
   ];
   for (const phrase of required) {

@@ -63,7 +63,9 @@ function cloneFrozenExecutorFixture(): string {
     cpSync(join(SOURCE_ROOT, "research/phase10-execution-v1/packets", packetId), target, { recursive: true });
   }
   cpSync(join(SOURCE_ROOT, "research/.gitattributes"), join(root, "research/.gitattributes"));
-  commit(root, "test: freeze synthetic C0 executor sources");
+  if (git(root, ["status", "--porcelain"]) !== "") {
+    commit(root, "test: freeze synthetic C0 executor sources");
+  }
   return root;
 }
 

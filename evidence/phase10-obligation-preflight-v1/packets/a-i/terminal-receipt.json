@@ -1,0 +1,39 @@
+{
+  "schema": "phase10-execution-receipt-v1",
+  "receiptId": "phase10-a-i-s3-static-20260821-v1-terminal-v1",
+  "matrixId": "phase10-selected-package-obligations-v1",
+  "protocolId": "phase10-a-i-intake-v1",
+  "registryId": "phase10-a-i-resolved-callables-v1",
+  "packetId": "a-i",
+  "terminalState": "complete",
+  "producedOutputIds": [
+    "out-ai-artifact-index",
+    "out-ai-currency",
+    "out-ai-dispositions",
+    "out-ai-file-custody",
+    "out-ai-report",
+    "out-ai-verification"
+  ],
+  "executedCheckIds": [
+    "chk-ai-currency-closed-once",
+    "chk-ai-development-evidence-label",
+    "chk-ai-exact-14-payloads",
+    "chk-ai-exact-24-files",
+    "chk-ai-rights-safe-projection",
+    "chk-ai-terminal-dimensions",
+    "chk-ai-three-denominators"
+  ],
+  "evaluatedCheckIds": [
+    "chk-ai-currency-closed-once",
+    "chk-ai-development-evidence-label",
+    "chk-ai-exact-14-payloads",
+    "chk-ai-exact-24-files",
+    "chk-ai-rights-safe-projection",
+    "chk-ai-terminal-dimensions",
+    "chk-ai-three-denominators"
+  ],
+  "executedNegativeControlIds": [],
+  "boundDependencyPacketIds": [
+    "a-p"
+  ]
+}

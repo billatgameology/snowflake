@@ -1,0 +1,103 @@
+{
+  "schema": "phase10-preflight-receipt-v1",
+  "receiptId": "phase10-a-i-s3-static-20260821-v1-preflight-v1",
+  "matrixId": "phase10-selected-package-obligations-v1",
+  "protocolId": "phase10-a-i-intake-v1",
+  "registryId": "phase10-a-i-resolved-callables-v1",
+  "packetId": "a-i",
+  "attemptId": "s3-static-20260821-v1",
+  "stage": "run",
+  "observed": {
+    "launchClass": "static-contract",
+    "machineLaunchChecks": "not-applicable",
+    "branch": "phase10/evidence-verification",
+    "head": "9fb2e1b61ffb585daba01d63b5ff2f8eea5e7969",
+    "runtime": "v24.13.1",
+    "command": "node runner/src/phase10-intake.ts produce --repository-root . --protocol research/phase10-execution-v1/packets/a-i/protocol.json --out out/phase10-scope-intake-v1-a-i-candidate",
+    "repositoryBundleRoot": ".",
+    "matrix": {
+      "path": "research/phase10-obligation-matrix-v1.json",
+      "byteLength": 125508,
+      "sha256": "8f85e6febad1ec7568b2a7a47dd764c260cc1f602da08c7dd27d5ee1a6c1bab3"
+    },
+    "protocol": {
+      "path": "research/phase10-execution-v1/packets/a-i/protocol.json",
+      "byteLength": 938,
+      "sha256": "4f6b76ea61c75165851d64ad8ffe9235438f9c3fbfe4ea1c320f3f1c46078598"
+    },
+    "callableRegistry": {
+      "path": "research/phase10-execution-v1/packets/a-i/callable-registry.json",
+      "byteLength": 3013,
+      "sha256": "1a19cc5ac989097e65b8fb0c3b1f4109b74297230b2d0fec1b74773eb27897ee"
+    },
+    "candidateDirectory": "out/phase10-scope-intake-v1-a-i-candidate",
+    "registeredAttemptRoot": "out/phase10-execution-v1/attempts/a-i",
+    "finalPreflightReceiptPath": "evidence/phase10-obligation-preflight-v1/packets/a-i/preflight.json",
+    "finalTerminalReceiptPath": "evidence/phase10-obligation-preflight-v1/packets/a-i/terminal-receipt.json",
+    "verificationPaths": [
+      "evidence/phase10-scope-intake-v1/intake-verification.json"
+    ],
+    "dependencyPacketIds": [
+      "a-p"
+    ],
+    "dependencyArtifacts": [
+      {
+        "packetId": "a-p",
+        "protocol": {
+          "path": "research/phase10-execution-v1/packets/a-p/protocol.json",
+          "byteLength": 1393,
+          "sha256": "515752d73dd31032736e6ccebd21c935a9672ac4ba546f30955c3bc9efe5e0f7"
+        },
+        "callableRegistry": {
+          "path": "research/phase10-execution-v1/packets/a-p/callable-registry.json",
+          "byteLength": 5263,
+          "sha256": "d859a7ae0692e6e77c33160470d39a8c5f8d60bf29a1a5d8ee86108af695c991"
+        },
+        "preflightReceipt": {
+          "path": "evidence/phase10-obligation-preflight-v1/packets/a-p/preflight.json",
+          "byteLength": 3164,
+          "sha256": "3badfa9686ee098eecd0b15f99815ede5749d4550f9497ef44f3550025ff402c"
+        },
+        "terminalReceipt": {
+          "path": "evidence/phase10-obligation-preflight-v1/packets/a-p/terminal-receipt.json",
+          "byteLength": 1681,
+          "sha256": "c84e269f521f7b2fb680fa1000dfc3837893f2baa88fc46402a6303e24b076c4"
+        },
+        "verificationArtifacts": [
+          {
+            "path": "evidence/phase10-obligation-preflight-v1/verification.json",
+            "byteLength": 16938,
+            "sha256": "6b39cf5b7f663c5518f5dd0745e92d59aae3dc21ac7dcf94ece72603fc96eaec"
+          }
+        ]
+      }
+    ]
+  },
+  "outputIds": [
+    "out-ai-artifact-index",
+    "out-ai-currency",
+    "out-ai-dispositions",
+    "out-ai-file-custody",
+    "out-ai-report",
+    "out-ai-verification"
+  ],
+  "checkIds": [
+    "chk-ai-currency-closed-once",
+    "chk-ai-development-evidence-label",
+    "chk-ai-exact-14-payloads",
+    "chk-ai-exact-24-files",
+    "chk-ai-rights-safe-projection",
+    "chk-ai-terminal-dimensions",
+    "chk-ai-three-denominators"
+  ],
+  "negativeControlIds": [],
+  "callableIds": [
+    "phase10-a-i-check-caller",
+    "phase10-a-i-producer",
+    "phase10-a-i-verification-receipt-writer",
+    "phase10-ai-verifier"
+  ],
+  "selectedBranches": {},
+  "verdict": "pass",
+  "reasons": []
+}

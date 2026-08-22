@@ -58,6 +58,11 @@ const AI_IMPLEMENTATION_PATHS = [
   "runner/src/phase10-intake-verify.ts",
   "runner/src/phase10-intake-verification-receipt.ts",
 ] as const;
+const AI_INPUT_PATHS = [
+  PHASE10_AI_OBSERVATIONS_PATH,
+  PHASE10_AI_DECISIONS_PATH,
+  PHASE10_AI_SEMANTIC_REVIEW_PATH,
+] as const;
 
 const PRODUCE = ["runner/src/phase10-intake.ts", "produce", "--repository-root", ".", "--protocol", `${AI_PACKET_DIRECTORY}/protocol.json`, "--out", CANDIDATE] as const;
 const VERIFY = ["runner/src/phase10-intake-verify.ts", "verify", "--repository-root", ".", "--protocol", `${AI_PACKET_DIRECTORY}/protocol.json`, "--bundle", CANDIDATE, "--receipt", `${CANDIDATE}/intake-verification.json`] as const;
@@ -112,9 +117,12 @@ function cloneWithFreeze(mutateBeforeFreeze?: (root: string) => void): { readonl
   temporaryRoots.push(root);
   const clone = spawnSync("git", ["clone", "--no-hardlinks", "--quiet", SOURCE_REPOSITORY, root], { encoding: "utf8", windowsHide: true });
   if (clone.status !== 0) throw new Error(`git clone failed: ${clone.stderr}`);
+  const sourceProtocolFreeze = git(root, ["log", "--diff-filter=A", "--format=%H", "-1", "--", PHASE10_AI_INTAKE_PROTOCOL_PATH]);
+  if (!/^[0-9a-f]{40}$/u.test(sourceProtocolFreeze)) throw new Error("source semantic protocol has no committed introduction");
+  git(root, ["checkout", "--quiet", "-B", "phase10/evidence-verification", `${sourceProtocolFreeze}^`]);
   symlinkSync(resolve(SOURCE_REPOSITORY, "node_modules"), resolve(root, "node_modules"), process.platform === "win32" ? "junction" : "dir");
   for (const path of AI_IMPLEMENTATION_PATHS) copyCurrent(root, path);
-  for (const input of [PHASE10_AI_OBSERVATIONS_PATH, PHASE10_AI_DECISIONS_PATH, PHASE10_AI_SEMANTIC_REVIEW_PATH]) {
+  for (const input of AI_INPUT_PATHS) {
     if (existsSync(resolve(root, input))) rmSync(resolve(root, input));
   }
   mutateBeforeFreeze?.(root);

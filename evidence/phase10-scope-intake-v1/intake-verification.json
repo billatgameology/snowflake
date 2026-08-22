@@ -1,0 +1,125 @@
+{
+  "schema": "phase10-packet-verification-v1",
+  "verificationId": "phase10-a-i-verification-v1",
+  "matrixId": "phase10-selected-package-obligations-v1",
+  "protocolId": "phase10-a-i-intake-v1",
+  "registryId": "phase10-a-i-resolved-callables-v1",
+  "packetId": "a-i",
+  "terminalState": "complete",
+  "verifiedArtifacts": [
+    {
+      "outputId": "out-ai-artifact-index",
+      "path": "evidence/phase10-scope-intake-v1/intake-artifact-index.json",
+      "byteLength": 1445,
+      "sha256": "656b898fba2f5965503016ebc90df0e6b29f16da31fc7a70a784b35d5f92a14c"
+    },
+    {
+      "outputId": "out-ai-currency",
+      "path": "evidence/phase10-scope-intake-v1/currency.jsonl",
+      "byteLength": 16542,
+      "sha256": "a8c1dcbe7a0bcd02d38adc195c863dd1c3cf0b657294bdadf3a9fd472912a574"
+    },
+    {
+      "outputId": "out-ai-dispositions",
+      "path": "evidence/phase10-scope-intake-v1/post-freeze-dispositions.jsonl",
+      "byteLength": 30641,
+      "sha256": "619c29255dd63a8179429abc0f44a895575294b176805a5a49339f7437c5bfd8"
+    },
+    {
+      "outputId": "out-ai-file-custody",
+      "path": "evidence/phase10-scope-intake-v1/file-custody.jsonl",
+      "byteLength": 18165,
+      "sha256": "aa1aa9bef7d460b12f8d4fb1b4511e070b4c98480aba3edc6ec8fe0a6bcfc220"
+    },
+    {
+      "outputId": "out-ai-report",
+      "path": "evidence/phase10-scope-intake-v1/intake-report.json",
+      "byteLength": 7395,
+      "sha256": "5ca8650a0c6baf707a8d0243ff14cb741de227e79080217030925aca37e4df52"
+    }
+  ],
+  "checkResults": [
+    {
+      "checkId": "chk-ai-currency-closed-once",
+      "verdict": "pass",
+      "reasons": [],
+      "witnessOutputIds": [
+        "out-ai-currency"
+      ]
+    },
+    {
+      "checkId": "chk-ai-development-evidence-label",
+      "verdict": "pass",
+      "reasons": [],
+      "witnessOutputIds": [
+        "out-ai-currency",
+        "out-ai-dispositions"
+      ]
+    },
+    {
+      "checkId": "chk-ai-exact-14-payloads",
+      "verdict": "pass",
+      "reasons": [],
+      "witnessOutputIds": [
+        "out-ai-dispositions"
+      ]
+    },
+    {
+      "checkId": "chk-ai-exact-24-files",
+      "verdict": "pass",
+      "reasons": [],
+      "witnessOutputIds": [
+        "out-ai-file-custody"
+      ]
+    },
+    {
+      "checkId": "chk-ai-rights-safe-projection",
+      "verdict": "pass",
+      "reasons": [],
+      "witnessOutputIds": [
+        "out-ai-dispositions",
+        "out-ai-file-custody"
+      ]
+    },
+    {
+      "checkId": "chk-ai-terminal-dimensions",
+      "verdict": "pass",
+      "reasons": [],
+      "witnessOutputIds": [
+        "out-ai-dispositions"
+      ]
+    },
+    {
+      "checkId": "chk-ai-three-denominators",
+      "verdict": "pass",
+      "reasons": [],
+      "witnessOutputIds": [
+        "out-ai-report"
+      ]
+    }
+  ],
+  "executedNegativeControlIds": [],
+  "negativeControlResults": [],
+  "boundDependencyPacketIds": [
+    "a-p"
+  ],
+  "execution": {
+    "evaluatorCallableId": "phase10-ai-verifier",
+    "modulePath": "runner/src/phase10-intake-verify.ts",
+    "exportName": "phase10IntakeVerify",
+    "byteLength": 26105,
+    "sha256": "0dd0a295f84fafb461aa3fd3dbfa77ec7f0f1831b43803c70185b8190882d157",
+    "runtime": "v24.13.1",
+    "command": "node runner/src/phase10-intake-verify.ts verify --repository-root . --protocol research/phase10-execution-v1/packets/a-i/protocol.json --bundle out/phase10-scope-intake-v1-a-i-candidate --receipt out/phase10-scope-intake-v1-a-i-candidate/intake-verification.json",
+    "gitHead": "9fb2e1b61ffb585daba01d63b5ff2f8eea5e7969",
+    "startedOn": "2026-08-21T23:42:35.423Z",
+    "endedOn": "2026-08-21T23:42:36.141Z",
+    "processConcurrency": 1
+  },
+  "aggregateVerdict": "pass",
+  "limits": [
+    "A-I verifies the frozen intake, custody, currency, rights-safe projection, and terminal-disposition contract; it does not establish scientific validation or downstream Phase 10 results.",
+    "The non-author semantic review is a committed, identity-bound judgment record; automated checks establish its provenance and zero-blocker disposition, not a theorem that every human judgment is correct.",
+    "The private 26-file NAS roster is checked only through its bounded verifier and 24-of-26 tuple projection; private-only row names and restricted payload bytes are not published."
+  ]
+}

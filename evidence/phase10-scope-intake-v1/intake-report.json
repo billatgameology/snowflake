@@ -1,0 +1,192 @@
+{
+  "schema": "phase10-intake-report-v1",
+  "bundleId": "phase10-scope-intake-v1",
+  "foundationFreeze": {
+    "path": "research/phase10-foundation-freeze-v1.json",
+    "byteLength": 32327,
+    "sha256": "7847f26a24d1a09eefc6b15ed07baf1d007782fdd58c3301e3f926e4c8805871"
+  },
+  "protocolBinding": {
+    "path": "research/phase10-execution-v1/packets/a-i/intake-protocol.json",
+    "byteLength": 26443,
+    "sha256": "6adffffdbd02b7e023072f2e096909f43ee557b1fcd45e7a0d7f52107f36fe78",
+    "commit": "ae2f90dd1cdd6f1e8b5b97e62ffcf088b61615e1"
+  },
+  "counts": {
+    "trackedCustodyFiles": 24,
+    "sourcePayloads": 14,
+    "rawAcquisitionHistoryFiles": 1,
+    "acquisitionMetadataFiles": 9,
+    "nasAggregateFiles": 26,
+    "trackedAndNasScopesDistinct": true
+  },
+  "nasVerification": {
+    "existingCollection": {
+      "state": "unavailable-refusal",
+      "checkedOn": "2026-08-21",
+      "collectionId": "post-phase9-intake@2026-08-13",
+      "aggregateFiles": 26,
+      "aggregateBytes": 165722101,
+      "ownerManifest": {
+        "path": "collections/post-phase9-intake/2026-08-13/manifest.private.jsonl",
+        "byteLength": 6335,
+        "sha256": "9d839913d4f078a912e302194e34d718e470f91244f6cf81e4c6b627e7dd90db"
+      },
+      "matchedTrackedTupleCount": null,
+      "privateOnlyTupleCount": null,
+      "attemptReport": {
+        "path": "out/phase10-execution-v1/attempts/a-i/observe-20260821-v1/raw/nas-verification.json",
+        "byteLength": 157,
+        "sha256": "7b5f244c7bd921fb0e1640a66b52f4799a427bb777d9f260dc27d750396ba5bd"
+      },
+      "verificationReceipt": null,
+      "refusalReason": "The exact bounded NAS verification or 24-of-26 tuple-subset check did not pass; no storage claim was inherited.",
+      "restoreStatus": "pending",
+      "backupStatus": "required-missing"
+    },
+    "newCollection": {
+      "state": "not-applicable-no-new-bytes",
+      "collectionId": "phase10-source-intake@2026-08-21-v1",
+      "receipt": null,
+      "sourcePruneAuthorized": false
+    },
+    "scopeDependency": {
+      "packetId": "a-s",
+      "preflightReceipt": {
+        "path": "evidence/phase10-obligation-preflight-v1/packets/a-s/preflight.json",
+        "byteLength": 4487,
+        "sha256": "334a8ec38c580b4e88959c1cee2170986d4fef1026d2fe5efbe0138508f7b3a5"
+      },
+      "terminalReceipt": {
+        "path": "evidence/phase10-obligation-preflight-v1/packets/a-s/terminal-receipt.json",
+        "byteLength": 1605,
+        "sha256": "99e6ced9e48d41113ac8d433649e43d9d5ec5e36c6fe799f808b4005e27b55de"
+      },
+      "verification": {
+        "path": "evidence/phase10-scope-intake-v1/scope-verification.json",
+        "byteLength": 90011,
+        "sha256": "1507546a91a60b6ad1b7d1afd62b1b69aee18549d465c78d4f97ddc254e1704c"
+      },
+      "verifiedArtifacts": [
+        {
+          "path": "evidence/phase10-scope-intake-v1/phase8a-overlay.jsonl",
+          "byteLength": 77762,
+          "sha256": "6c9b293c5348f415ece03f88e9ac803c54812a51c6c1a9fe013b80fb6930239c"
+        },
+        {
+          "path": "evidence/phase10-scope-intake-v1/phase8b-overlay.jsonl",
+          "byteLength": 357138,
+          "sha256": "954f777092c1e6ba34f85e0d92236d7c534376b94d239b32304a9ca9fcbcfa11"
+        },
+        {
+          "path": "evidence/phase10-scope-intake-v1/scope-artifact-index.json",
+          "byteLength": 1066,
+          "sha256": "c98399b2fb78970c89e73940aee9acfbbd759a9b40b3f5583319ca5af8d1fc48"
+        },
+        {
+          "path": "evidence/phase10-scope-intake-v1/scope-report.json",
+          "byteLength": 5177,
+          "sha256": "d210803c6cf6a36931fba1b00b5745bd64e785f037db5a463e7487aa1b59d14b"
+        },
+        {
+          "path": "research/phase10-scope-classification-protocol-v1.json",
+          "byteLength": 477980,
+          "sha256": "e5a7196f9a1cefc2bb6548887b76d70d5633d7bb0b43ffd96c94c6ac74a76c39"
+        }
+      ]
+    }
+  },
+  "currencySummary": {
+    "selectedLineageIds": [
+      "lineage-gonda-namba-sei-2001",
+      "lineage-gonda-sei-1988",
+      "lineage-libbrecht-2011-apparatus",
+      "lineage-libbrecht-2012-systematics",
+      "lineage-libbrecht-rickerby-2012",
+      "lineage-magee-2014",
+      "lineage-nelson-1993",
+      "lineage-pokrifka-2018-dataset",
+      "lineage-pokrifka-2023-dataset",
+      "lineage-swanson-nelson-2019",
+      "lineage-voigtlaender-2018",
+      "lineage-zhao-2026"
+    ],
+    "snapshotCount": 12,
+    "standingWatchAuthorized": false,
+    "reopenTriggers": [
+      "correction or version change to a consumed source",
+      "maker-scheduled refresh",
+      "newly selected load-bearing family",
+      "unavailable priority lead becomes available"
+    ],
+    "semanticReview": {
+      "path": "research/phase10-execution-v1/packets/a-i/semantic-review.json",
+      "byteLength": 8904,
+      "sha256": "0a005e4ec129a4b6c9c6bd51ec9286629d640f3e921a56dbc71c63387b73772b"
+    }
+  },
+  "claimBoundary": {
+    "scopeCensusOnlyForAS": true,
+    "allOpenedSourceValuesArePhase10DevelopmentEvidence": true,
+    "quantitativeValidationEarned": false,
+    "phase7CreditEarned": false,
+    "phase8CreditEarned": false,
+    "phase9CreditEarned": false,
+    "heldOutComparisonExecuted": false,
+    "targetScoreProduced": false,
+    "solverPhysicsChanged": false,
+    "c1ThroughC5RowsProduced": false,
+    "habitRowsProduced": false,
+    "eObservationOperatorImplemented": false,
+    "fExternalRequestWrittenOrSent": false,
+    "hTransportImplemented": false,
+    "downstreamExecutionAuthorized": false,
+    "priorPhaseLabelsAndArtifactsPreserved": true
+  },
+  "artifacts": [
+    {
+      "artifactId": "dependency-a-s-verification",
+      "path": "scope-verification.json",
+      "mediaType": "application/json",
+      "byteLength": 90011,
+      "sha256": "1507546a91a60b6ad1b7d1afd62b1b69aee18549d465c78d4f97ddc254e1704c",
+      "role": "required completed A-S scope dependency",
+      "producedBy": "phase10-as-verification-receipt-writer"
+    },
+    {
+      "artifactId": "out-ai-currency",
+      "path": "currency.jsonl",
+      "mediaType": "application/x-ndjson",
+      "byteLength": 16542,
+      "sha256": "a8c1dcbe7a0bcd02d38adc195c863dd1c3cf0b657294bdadf3a9fd472912a574",
+      "role": "closed per-work currency snapshots",
+      "producedBy": "phase10-a-i-producer"
+    },
+    {
+      "artifactId": "out-ai-dispositions",
+      "path": "post-freeze-dispositions.jsonl",
+      "mediaType": "application/x-ndjson",
+      "byteLength": 30641,
+      "sha256": "619c29255dd63a8179429abc0f44a895575294b176805a5a49339f7437c5bfd8",
+      "role": "terminal 14-payload dispositions",
+      "producedBy": "phase10-a-i-producer"
+    },
+    {
+      "artifactId": "out-ai-file-custody",
+      "path": "file-custody.jsonl",
+      "mediaType": "application/x-ndjson",
+      "byteLength": 18165,
+      "sha256": "aa1aa9bef7d460b12f8d4fb1b4511e070b4c98480aba3edc6ec8fe0a6bcfc220",
+      "role": "exact 24-file custody projection",
+      "producedBy": "phase10-a-i-producer"
+    }
+  ],
+  "producer": {
+    "producerId": "phase10-a-i-producer",
+    "commit": "9fb2e1b61ffb585daba01d63b5ff2f8eea5e7969",
+    "command": "node runner/src/phase10-intake.ts produce --repository-root . --protocol research/phase10-execution-v1/packets/a-i/protocol.json --out out/phase10-scope-intake-v1-a-i-candidate",
+    "startedOn": "2026-08-21T23:42:27.238Z",
+    "endedOn": "2026-08-21T23:42:27.598Z",
+    "actualConcurrency": 1
+  }
+}
