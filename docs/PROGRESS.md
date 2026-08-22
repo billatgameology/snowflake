@@ -183,7 +183,7 @@ and every superseded attempt live in the linked plans and historical progress sn
 | 7 | Not started; independently eligible | Charter v1.25 preserves Phase 7's independence but does not start it. A committed Phase 7 plan and isolated worktree are required; product, held-out validation, and v6 WGSL/preview-GPU parity remain its scope. |
 | 8 | **Complete (8A + 8B)** | The immutable 8A book remains 18 entries / 59,019 bytes / SHA-256 `47a75f3f…71ec`. The verified 8B successor is 51 development records, 252,134 native rows and 431 plot points; no row is held out. [Completed plan](plans/phase-8-measurement-corpus.md). |
 | 9 | **Complete (development-only)** | The all-no-pass branch closed: D-BT failed, M-F/M-K2 stayed mapping-dependent, controls/path-state/M-PK are unavailable or non-identifiable, and zero items promoted. Exact `TMPDIR=/private/tmp npm test` passed; no result grants validation credit. [Completed plan](plans/phase-9-execution.md). |
-| 10 | **In progress — A-P/A-S/A-I PASS; C0 packet PASS/complete with numerical criterion NO-PASS** | A-P, A-S, bounded structural A-I PASS evidence, and the complete C0 packet are published and pinned. C0 independently re-derived 80/80 rows and 64/64 comparisons: 36 passed and 28 failed the attached-count criterion, so both spacings and the authoritative all-spacings reduction are NO-PASS ([report](../evidence/phase10-numerical-verification-v1/c0-report.json), SHA-256 `571e62ae…0b72`). C0 executed no solver and grants no absolute-accuracy, habit-robustness, target-score, validation, or prior-phase credit. Next: checkpoint C0, then freeze C0V references before implementation. Selection still includes no C1–C5 or habit rows. |
+| 10 | **In progress — A-P/A-S/A-I PASS; C0 packet PASS/complete with numerical criterion NO-PASS** | A-P, A-S, bounded structural A-I PASS evidence, and the complete C0 packet are published and pinned. C0 independently re-derived 80/80 rows and 64/64 comparisons: 36 passed and 28 failed the attached-count criterion, so both spacings and the authoritative all-spacings reduction are NO-PASS ([report](../evidence/phase10-numerical-verification-v1/c0-report.json), SHA-256 `571e62ae…0b72`). C0 executed no solver and grants no absolute-accuracy, habit-robustness, target-score, validation, or prior-phase credit. Next: S5a freezes radial/moving independent-reference protocols and the static refusal before any C0V value or production implementation. Selection still includes no C1–C5 or habit rows. |
 
 ## Active plan
 
@@ -220,7 +220,12 @@ unstarted. The strict-parser repair received a zero-blocker non-author review, p
 same-commit v3 C0 code freeze at `a6d62e6`. The
 [Phase 10 candidate plan](plans/phase-10-closures-and-frontier.md) is completed decision support
 and superseded for execution. It remains the design history for the selected and rejected packages,
-not execution authority.
+not execution authority. C0 is durably complete at `b8e65f3`. S5 design selected independent
+references for radial and moving controls and the registered preimplementation refusal for static;
+no S5 C0V layer protocol, reference value, refusal artifact, production-comparison implementation,
+attempt, or solver run exists yet. The S5 branch/checkpoint design passed exact `npm test` and a
+non-author review reported no blockers; S5a implementation starts only from this planning
+checkpoint.
 
 The old source-strata/ladder/WP3/R15 prerequisite sentence governed the now-closed Phase 6
 production path. WP3 and R15 closed as not computed under decision 0045; that sentence does not
@@ -230,7 +235,7 @@ the package-specific prerequisites in its charter amendment and execution plan. 
 
 ## Next step
 
-### Phase 10 — checkpoint C0 NO-PASS, then freeze C0V references
+### Phase 10 — freeze C0V protocols before deriving references
 
 The maker selected **A-S + A-I + B + C0 + C0V with packet-specific A-P** on 2026-08-21. No
 C1–C5 numerical-qualification or scientific habit row is part of this execution. The
@@ -285,14 +290,32 @@ The [publication verification](../evidence/phase10-numerical-verification-v1/c0-
 (`criterion`). Keep all 12 C0 files pinned in the 383-file / 5,300,224-byte evidence manifest
 ([`evidence/MANIFEST.json`](../evidence/MANIFEST.json), 63,752 bytes / SHA-256 `e220637c…c601`).
 Exact post-publication `npm test` passed 138/138 files with 2,291 passed and 49 skipped in 900.63
-seconds. Commit this C0 publication checkpoint.
+seconds. The C0 publication checkpoint is committed at
+`b8e65f39749f120e6d67d5549982f3d743626f68`.
 
-From that clean checkpoint, execute S5 only: freeze the radial, static aggregate-v6, and moving-event
-C0V reference protocols, exact rosters, norms, tolerances, resource bounds, negative controls, and
-independent-reference/refusal branches before any C0V production implementation or numerical run.
-If an independent reference cannot be frozen, publish the registered pre-implementation refusal;
-do not substitute self-convergence. B remains independently eligible for its finite packet work,
-but no C1–C5, target score, or habit row is authorized.
+Execute S5 in two checkpoints. First commit S5a: the radial and moving independent-reference
+protocols, the static reference-refusal protocol, a complete successor C0V schema registry and
+cycle-free schema-contract file, only the three produce-packet supplements/registries, and
+reference/refusal-only generator and independent-check code. The immutable
+[C0V foundation](../research/phase10-c0v-foundation-v1.json), 19,412 bytes / SHA-256
+`ddb842588fea19898f9f71a02ce461d5d32ec102b140798e5c62d175521157e8`, remains the governing
+pre-value boundary. Synthetic tests may use synthetic operands, but no actual reference value,
+static refusal artifact, production-comparison implementation, C0V attempt, or solver run may occur
+before S5a passes exact `npm test`, receives a bounded non-author audit, and enters Git.
+
+Then, from that exact clean S5a ancestor, execute S5b only: generate and independently check the
+radial and moving reference wrappers, generate and independently validate the static scoped
+refusal, and pin those three early-produced matrix outputs in `evidence/MANIFEST.json`. This does
+not close any produce packet; S6 must reopen the exact committed bytes and separately publish each
+packet's attempt ledger, receipts, branch-applicable witness/evaluation, layer result, and aggregate.
+Run exact `npm test`,
+obtain a bounded non-author review, and commit the reference freeze. The static refusal is required
+because current public solver evidence cannot expose the raw accepted-final-sweep operands or
+justify the required spatial field/flux order without a solver-contract change or self-convergence.
+The moving layer uses its predeclared single-site axial first-event fixture only as a tiny numerical
+event control and grants no habit or physical claim. S6 may reopen and bind the committed
+S5b bytes but may never regenerate or tune them. B remains independently eligible for its finite
+packet work, but no C1–C5, target score, or habit row is authorized.
 
 The A-S evidence preserves the Phase 8A status row/filter rule, immutable evidence roles, phase
 ownership, Phase 8B's development/zero-held-out labels, cited classification reasons, and multiple

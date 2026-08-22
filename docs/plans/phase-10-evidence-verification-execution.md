@@ -222,13 +222,23 @@ collection.
   persisted comparison breakdown, reject missing/duplicate/malformed rows and forbidden inferred
   fields, and publish the target-field gap list. Both derive and publish subpackets are published,
   independently verified, manifest-pinned, and retain the numerical criterion NO-PASS.
-- [ ] **S5 — freeze C0V references before production implementation.** Commit the radial, static
-  aggregate-v6, and moving-event protocols with independent derivations, exact rosters, norms,
-  tolerances, negative controls, artifact schemas, cost bounds, and refusal branches. A reference
-  that cannot be independent stops its layer here.
-- [ ] **S6 — implement and execute C0V.** Build separate producers and artifact-derived evaluators,
-  run packet preflight, execute only the frozen controls, retain all attempts, and publish one
-  terminal PASS/FAIL/REFUSAL result per layer plus the aggregate verdict.
+- [ ] **S5a — freeze C0V protocols, schemas, and reference-only code.** Commit the radial,
+  static aggregate-v6, and moving-event protocols; the complete successor schema registry; exact
+  branch, roster, norm, tolerance, control, and resource contracts; and only the code needed to
+  derive and independently check a reference or refusal. Run exact `npm test` and one bounded
+  non-author audit. No reference output, production-comparison implementation, or solver run may
+  precede this checkpoint.
+- [ ] **S5b — freeze C0V references and the static refusal.** From the clean S5a commit, produce
+  and independently check the radial and moving reference artifacts and the static
+  preimplementation refusal, pin them in `evidence/MANIFEST.json`, run exact `npm test`, obtain one
+  bounded non-author review, and commit the reference freeze. A layer reference that cannot remain
+  independent closes as a refusal; production implementation remains forbidden until this commit.
+- [ ] **S6 — implement and execute C0V.** For independent-reference branches, build separate
+  production producers and artifact-derived evaluators. For a refusal branch, add only the
+  match-only refusal reopener, refusal-validity evaluator, receipts, and result—never a solver,
+  witness, or numerical evaluator. Run packet preflight, execute only the branch-applicable frozen
+  controls, retain all attempts, and publish one terminal PASS/FAIL/REFUSAL result per layer plus
+  the aggregate verdict.
 - [ ] **S7 — execute B acquisition, B1a/B1b, and B2–B5.** Run the launch-governed
   `b-acquisition` packet first, then parallelize source-independent branches while preserving
   per-branch freeze-before-value semantics. Complete the named acquisition round and only the
@@ -721,6 +731,73 @@ total 5,300,224 bytes. Exact post-publication `npm test` passed 138/138 files wi
 focused progress test, Rule 7 scan, diff check, and non-author delta review are the final checks
 before S5.
 
+### S5 branch and checkpoint design — 2026-08-21
+
+S5 starts from clean C0 checkpoint `b8e65f39749f120e6d67d5549982f3d743626f68` and preserves the
+[C0V foundation](../../research/phase10-c0v-foundation-v1.json), 19,412 bytes / SHA-256
+`ddb842588fea19898f9f71a02ce461d5d32ec102b140798e5c62d175521157e8`, the
+[obligation matrix](../../research/phase10-obligation-matrix-v1.json), 125,508 bytes / SHA-256
+`8f85e6febad1ec7568b2a7a47dd764c260cc1f602da08c7dd27d5ee1a6c1bab3`, and the A-P-pinned
+[schema registry](../../research/phase10-artifact-schema-registry-v1.json), 114,255 bytes /
+SHA-256 `c89463c37384d5652b57c039e26f0c612b08a2d9bb5994482bbf750eae121c70`, byte-for-byte.
+The original registry intentionally reserves the C0V contracts, so S5a creates the complete
+successor `research/phase10-c0v-artifact-schema-registry-v1.json` and cycle-free external contract
+file `research/phase10-c0v-schema-contracts-v1.json`. The generic layer packet supplements bind the
+successor registry identity; that successor transitively hash-binds the contract file through its
+external definitions, and each layer science protocol also binds the contract identity directly.
+The successor retains every prior schema and promotes only the C0V reservations. It does not
+rewrite the published A-P dependency.
+
+The radial and moving layers select `independent-reference`. Their exact operands, requested and
+actual grids, formulas, rosters, tolerances, control mutations, resource projections, and import
+denials live in the S5a layer protocols and receive byte identities in the S5a checkpoint record.
+The radial generator and checker use separate algebraic derivations. The moving fixture is
+production-constructible through the accepted constructor and public APIs, but its S5 reference
+independently enumerates integer coordinates and neighbors and re-derives event, topology, field,
+and ledger values without importing the constructor, `LKSolver`, core topology helpers, or
+production arithmetic. It uses the predeclared single-site axial first-event fixture as a small
+numerical event control. That fixture grants no habit, apparatus, mechanism, or
+physical-realism claim and may not use test hooks, private state, or a fabricated resume state.
+
+The static layer selects `reference-refusal`. Under the current frozen solver contract, the
+accepted final aggregate-v6 sweep's load-bearing pre-sweep and replacement operands are private and
+transient, while the public report retains only aggregate scalars. Exposing those operands would
+change the solver/state/checkpoint contract. A separate implementation of the same discrete
+operator could establish implementation agreement but not the required spatial field/flux order;
+scaling solver tolerance with grid spacing would manufacture stopping-error order and is the
+forbidden self-convergence substitute. The static protocol therefore instantiates no numerical
+grid, norm threshold, reference value, solver call, witness, or numerical evaluation; its
+refusal-validity evaluator remains mandatory. Its S5b artifact is a scoped refusal under the
+current contract, not a claim of universal impossibility. This terminal refusal completes the
+layer diagnostic, prevents C0V PASS, and keeps dependent C5 work blocked.
+
+S5 is deliberately two checkpoints. S5a commits all layer protocols, the successor schema
+registry and concrete contracts, only the three produce-packet supplements/registries, and
+mutually independent reference/refusal tooling before any actual reference value is derived or
+inspected. Synthetic tests may exercise synthetic operands only. No C0V executor dispatch,
+production adapter, witness/evaluation writer, or layer-publish implementation belongs in S5a.
+
+S5b starts from that exact clean ancestor. Each radial/moving final reference wrapper embeds the
+raw generator output, independently recomputed targeted check, exact code/import identities, and
+comparison; ignored candidates and receipts are staging only. The static final refusal wrapper
+embeds its independently checked contract/API grounds and records zero solver/reference execution.
+S5b manifest-pins exactly the radial reference, moving reference, and static refusal paths as
+early-produced matrix outputs; it does not claim that any of the three produce packets is terminal.
+Those bytes then become immutable, already-committed inputs to S6. Each later packet
+reference/refusal callable is a neutral match-only reopener that proves the first artifact commit
+predates production code and never regenerates, chooses, or tunes it; S6 separately produces the
+attempt ledger, preflight/terminal receipts, witness/evaluation where applicable, layer result, and
+aggregate. Any S5b discrepancy closes the affected layer as a refusal rather than altering the S5a
+protocol.
+
+This plan-only authority checkpoint passed exact `npm test`. Its first full-suite attempt hit a
+transient Windows libuv child-process shutdown assertion in the unchanged gut-check hardening test;
+the exact case passed in isolation and the repeated full command passed without a source repair. A
+non-author OpenAI Codex GPT-5 reviewer with full shared task context independently checked the
+charter, ADR, foundation, matrix, state, and plan diff and reran the focused progress test, Rule 7
+scan, and diff check; it reported no remaining blocker. The reviewer did not inspect future code,
+derive a reference value, run a solver, open Phase 6 inputs, or run the full suite.
+
 ## Return and stop rules
 
 - Return to the maker, without continuing, for any E/F/H candidate, any C1–C5 or target-facing
@@ -785,6 +862,10 @@ before S5.
 - **Maximize process concurrency by core count.** Rejected as an unconditional rule: independent
   work is parallelized, while cost-uncertain solver controls first measure whether extra processes
   improve throughput on this memory-bandwidth-sensitive host.
+- **Treat the transient Windows libuv child-process shutdown assertion as a Phase 10 code failure.**
+  Rejected after the exact failing case passed in isolation and a repeated exact `npm test` passed
+  without changing the existing gut-check code. The failed full-suite attempt remains part of this
+  checkpoint record rather than being reported as green.
 
 ## Open questions
 

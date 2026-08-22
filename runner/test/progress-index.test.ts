@@ -133,7 +133,7 @@ function currentIndexErrors(text: string): string[] {
     "conservatively refused",
     "46/46",
     "C0's artifact-derived numerical disposition is criterion NO-PASS",
-    "Phase 10 — checkpoint C0 NO-PASS, then freeze C0V references",
+    "Phase 10 — freeze C0V protocols before deriving references",
     "node runner/src/phase10-executor.ts check --packet c0-derive --protocol research/phase10-execution-v1/packets/c0-derive/protocol.json --attempt c0-derive-20260821-v2",
     "node runner/src/phase10-executor.ts run --packet c0-derive --protocol research/phase10-execution-v1/packets/c0-derive/protocol.json --attempt c0-derive-20260821-v2",
     "retained intact and unpublished after its infrastructure refusal",
