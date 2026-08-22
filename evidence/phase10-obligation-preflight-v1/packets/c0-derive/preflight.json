@@ -1,0 +1,267 @@
+{
+  "schema": "phase10-preflight-receipt-v1",
+  "receiptId": "phase10-c0-derive-c0-derive-20260821-v2-preflight-v1",
+  "matrixId": "phase10-selected-package-obligations-v1",
+  "protocolId": "phase10-c0-derive-existing-byte-v1",
+  "registryId": "phase10-c0-derive-resolved-callables-v3",
+  "packetId": "c0-derive",
+  "attemptId": "c0-derive-20260821-v2",
+  "stage": "run",
+  "observed": {
+    "launchClass": "non-solver",
+    "branch": "phase10/evidence-verification",
+    "head": "4c914acc3d1bdc1b4f3475235eb2eb8d42a8c71a",
+    "runtime": "v24.13.1",
+    "command": "node runner/src/phase10-executor.ts run --packet c0-derive --protocol research/phase10-execution-v1/packets/c0-derive/protocol.json --attempt c0-derive-20260821-v2",
+    "cwd": "G:\\Code Files\\snowflake-phase10-evidence",
+    "repositoryBundleRoot": ".",
+    "matrix": {
+      "path": "research/phase10-obligation-matrix-v1.json",
+      "byteLength": 125508,
+      "sha256": "8f85e6febad1ec7568b2a7a47dd764c260cc1f602da08c7dd27d5ee1a6c1bab3"
+    },
+    "packetCatalogue": {
+      "path": "research/phase10-execution-v1/packet-catalogue.json",
+      "byteLength": 14645,
+      "sha256": "b72911dd7e78b4ef9df683a3006c19c40a8642e4c51ac056bb90390bd5c3a102"
+    },
+    "artifactSchemaRegistry": {
+      "path": "research/phase10-artifact-schema-registry-v1.json",
+      "byteLength": 114255,
+      "sha256": "c89463c37384d5652b57c039e26f0c612b08a2d9bb5994482bbf750eae121c70"
+    },
+    "scienceProtocol": {
+      "path": "research/phase10-c0-protocol-v1.json",
+      "byteLength": 56718,
+      "sha256": "bf07738663fb12afc35b4f40db66608cf6a1927322261701df8fb8e917cb6ff4"
+    },
+    "protocol": {
+      "path": "research/phase10-execution-v1/packets/c0-derive/protocol.json",
+      "byteLength": 1154,
+      "sha256": "29c1cabef149fde31e2000fcf2e2f69351f6bb19904649b466caa58d70c771ef"
+    },
+    "callableRegistry": {
+      "path": "research/phase10-execution-v1/packets/c0-derive/callable-registry.json",
+      "byteLength": 7005,
+      "sha256": "c70a4e7ff79f7364a32db6641f4c68afcea21c54a0f86637251d0a3540b5e45e"
+    },
+    "codeFreeze": {
+      "commit": "a6d62e6e2d1c57d3bc04574efc3555029caaf0b6",
+      "artifacts": [
+        {
+          "path": "research/phase10-artifact-schema-registry-v1.json",
+          "byteLength": 114255,
+          "sha256": "c89463c37384d5652b57c039e26f0c612b08a2d9bb5994482bbf750eae121c70"
+        },
+        {
+          "path": "research/phase10-c0-protocol-v1.json",
+          "byteLength": 56718,
+          "sha256": "bf07738663fb12afc35b4f40db66608cf6a1927322261701df8fb8e917cb6ff4"
+        },
+        {
+          "path": "research/phase10-execution-v1/packet-catalogue.json",
+          "byteLength": 14645,
+          "sha256": "b72911dd7e78b4ef9df683a3006c19c40a8642e4c51ac056bb90390bd5c3a102"
+        },
+        {
+          "path": "research/phase10-execution-v1/packets/c0-derive/callable-registry.json",
+          "byteLength": 7005,
+          "sha256": "c70a4e7ff79f7364a32db6641f4c68afcea21c54a0f86637251d0a3540b5e45e"
+        },
+        {
+          "path": "research/phase10-execution-v1/packets/c0-derive/protocol.json",
+          "byteLength": 1154,
+          "sha256": "29c1cabef149fde31e2000fcf2e2f69351f6bb19904649b466caa58d70c771ef"
+        },
+        {
+          "path": "research/phase10-obligation-matrix-v1.json",
+          "byteLength": 125508,
+          "sha256": "8f85e6febad1ec7568b2a7a47dd764c260cc1f602da08c7dd27d5ee1a6c1bab3"
+        },
+        {
+          "path": "runner/src/gate4-evidence.ts",
+          "byteLength": 23835,
+          "sha256": "784a8c54741988903f258dc38f711f21afe516441794abd38a1f7eff28d28a87"
+        },
+        {
+          "path": "runner/src/phase10-c0-checks.ts",
+          "byteLength": 779,
+          "sha256": "15c84b2dcc89eea16b8a4d91e249a72c34394fa2d9186f998d36c1ae60503311"
+        },
+        {
+          "path": "runner/src/phase10-c0-contracts.ts",
+          "byteLength": 51463,
+          "sha256": "35df5ac72c9407126de11ee809a11a8e0af531ab09eb41e5404c7e7cdfe91ca5"
+        },
+        {
+          "path": "runner/src/phase10-c0-derive-verification-receipt.ts",
+          "byteLength": 12457,
+          "sha256": "071533eff5201d9d767f27851c2f8cc592c6af9ce8c7b80af8c53d426ac0f654"
+        },
+        {
+          "path": "runner/src/phase10-c0-derive.ts",
+          "byteLength": 24173,
+          "sha256": "9ac3826c31160d5426d4e737744c4481d2a07adb80f9192664154f13caaafe06"
+        },
+        {
+          "path": "runner/src/phase10-c0-independent.ts",
+          "byteLength": 74796,
+          "sha256": "05ff60d94b4e8327c6a63d8ae25ccd5448631cd028526fe679c4a8c454cbe7d6"
+        },
+        {
+          "path": "runner/src/phase10-c0-negative-controls.ts",
+          "byteLength": 8934,
+          "sha256": "4f9a8a8c88e21117affc404ac2e20d36772dc8c4b0c2f4d8f38801a5f199bb5a"
+        },
+        {
+          "path": "runner/src/phase10-c0-publication-guard.ts",
+          "byteLength": 4864,
+          "sha256": "dbd609ff11d662d6f577b5cca02f27ebb468b892e4363bd4a65c93ed5cf7efc8"
+        },
+        {
+          "path": "runner/src/phase10-c0-publication-verifier.ts",
+          "byteLength": 14674,
+          "sha256": "daf6fccaae82d81f0539268bd725029392a491fc883e45c8ae98f59425288ad7"
+        },
+        {
+          "path": "runner/src/phase10-c0-publish-verification-receipt.ts",
+          "byteLength": 7858,
+          "sha256": "0905187d444f8bdd64c4f469e220b19a665dc272565a98175fd01ef6d5ce1df7"
+        },
+        {
+          "path": "runner/src/phase10-c0-publish.ts",
+          "byteLength": 14385,
+          "sha256": "26762bea2c0ac51ecc8f4aeff0b27b6cb5510598360b2cccccff97d444ddb093"
+        },
+        {
+          "path": "runner/src/phase10-contracts.ts",
+          "byteLength": 21738,
+          "sha256": "d20ca5c29c92e8d06f4cb1ff6945bbc3f1a01563ef78dd2d7bc487adac675964"
+        },
+        {
+          "path": "runner/src/phase10-execution-preflight.ts",
+          "byteLength": 56627,
+          "sha256": "2ae268ed4f29d55a64e4889f85145e308b0bb8b86f1a033b3e24e061a4d954c2"
+        },
+        {
+          "path": "runner/src/phase10-executor-worker.ts",
+          "byteLength": 9961,
+          "sha256": "efe40c821cf122c848083c10919a99b094bf508b12b2845426bdf5a70ce87408"
+        },
+        {
+          "path": "runner/src/phase10-executor.ts",
+          "byteLength": 24568,
+          "sha256": "9b982ba0c96eaf97e906eac910f79266de138ec20b2ffa187491cbad03f25d11"
+        },
+        {
+          "path": "runner/src/phase10-obligation-preflight.ts",
+          "byteLength": 58418,
+          "sha256": "fbc69f482c50edffa4e5c1411c396f9d5e3caa58d86b65fb6b043c979ea638be"
+        }
+      ]
+    },
+    "registeredAttemptRoot": "out/phase10-execution-v1/attempts/c0-derive",
+    "attemptDirectory": "out/phase10-execution-v1/attempts/c0-derive/c0-derive-20260821-v2",
+    "candidateDirectory": "out/phase10-execution-v1/attempts/c0-derive/c0-derive-20260821-v2/candidate",
+    "stdoutPath": "out/phase10-execution-v1/attempts/c0-derive/c0-derive-20260821-v2/stdout.log",
+    "stderrPath": "out/phase10-execution-v1/attempts/c0-derive/c0-derive-20260821-v2/stderr.log",
+    "exitStatusPath": "out/phase10-execution-v1/attempts/c0-derive/c0-derive-20260821-v2/exit-status.json",
+    "resourceLedgerPath": "out/phase10-execution-v1/attempts/c0-derive/c0-derive-20260821-v2/resource-ledger.json",
+    "lockPath": "out/phase10-execution-v1/attempts/c0-derive/writer.lock",
+    "finalPreflightReceiptPath": "evidence/phase10-obligation-preflight-v1/packets/c0-derive/preflight.json",
+    "finalTerminalReceiptPath": "evidence/phase10-obligation-preflight-v1/packets/c0-derive/terminal-receipt.json",
+    "verificationPaths": [
+      "evidence/phase10-numerical-verification-v1/c0-derive-verification.json"
+    ],
+    "dependencyPacketIds": [
+      "a-p"
+    ],
+    "dependencyArtifacts": [
+      {
+        "packetId": "a-p",
+        "protocol": {
+          "path": "research/phase10-execution-v1/packets/a-p/protocol.json",
+          "byteLength": 1393,
+          "sha256": "515752d73dd31032736e6ccebd21c935a9672ac4ba546f30955c3bc9efe5e0f7"
+        },
+        "callableRegistry": {
+          "path": "research/phase10-execution-v1/packets/a-p/callable-registry.json",
+          "byteLength": 5263,
+          "sha256": "d859a7ae0692e6e77c33160470d39a8c5f8d60bf29a1a5d8ee86108af695c991"
+        },
+        "preflightReceipt": {
+          "path": "evidence/phase10-obligation-preflight-v1/packets/a-p/preflight.json",
+          "byteLength": 3164,
+          "sha256": "3badfa9686ee098eecd0b15f99815ede5749d4550f9497ef44f3550025ff402c"
+        },
+        "terminalReceipt": {
+          "path": "evidence/phase10-obligation-preflight-v1/packets/a-p/terminal-receipt.json",
+          "byteLength": 1681,
+          "sha256": "c84e269f521f7b2fb680fa1000dfc3837893f2baa88fc46402a6303e24b076c4"
+        },
+        "verificationArtifacts": [
+          {
+            "path": "evidence/phase10-obligation-preflight-v1/verification.json",
+            "byteLength": 16938,
+            "sha256": "6b39cf5b7f663c5518f5dd0745e92d59aae3dc21ac7dcf94ece72603fc96eaec"
+          }
+        ]
+      }
+    ],
+    "resources": {
+      "solverExecutionAuthorized": false,
+      "requiredRuntime": "v24.13.1",
+      "processConcurrency": 1,
+      "scientificProcessHours": 0,
+      "projectedScratchBytes": 16777216,
+      "projectedOutputBytes": 4194304,
+      "minimumFreeBytes": 67108864,
+      "maxWallSeconds": 300,
+      "nasRequired": false,
+      "c0vScratchCapBytes": null,
+      "observedFreeBytes": 626085281792
+    }
+  },
+  "outputIds": [
+    "out-c0-analysis",
+    "out-c0-comparisons",
+    "out-c0-derive-verification",
+    "out-c0-gaps",
+    "out-c0-historical-limit"
+  ],
+  "checkIds": [
+    "chk-c0-all-spacings",
+    "chk-c0-comparison-roster",
+    "chk-c0-cost-separation",
+    "chk-c0-field-allowlist",
+    "chk-c0-independent-rederivation",
+    "chk-c0-no-solver",
+    "chk-c0-operand-echo",
+    "chk-c0-row-roster"
+  ],
+  "negativeControlIds": [
+    "nc-c0-coarse-fail-fine-pass",
+    "nc-c0-duplicate-or-truncated",
+    "nc-c0-fine-fail-coarse-pass",
+    "nc-c0-forbidden-field",
+    "nc-c0-forged-producer-verdict",
+    "nc-c0-missing-row",
+    "nc-c0-operand-echo"
+  ],
+  "callableIds": [
+    "phase10-c0-derive-check-caller",
+    "phase10-c0-derive-producer",
+    "phase10-c0-derive-verification-receipt-writer",
+    "phase10-c0-evaluator",
+    "phase10-nc-c0-coarse-fail-fine-pass",
+    "phase10-nc-c0-duplicate-or-truncated",
+    "phase10-nc-c0-fine-fail-coarse-pass",
+    "phase10-nc-c0-forbidden-field",
+    "phase10-nc-c0-forged-producer-verdict",
+    "phase10-nc-c0-missing-row",
+    "phase10-nc-c0-operand-echo"
+  ],
+  "selectedBranches": {},
+  "verdict": "pass",
+  "reasons": []
+}

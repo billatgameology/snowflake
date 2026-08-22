@@ -220,7 +220,8 @@ collection.
   this static packet.
 - [ ] **S4 — publish C0.** Implement an independent ladder parser/evaluator, reproduce the
   persisted comparison breakdown, reject missing/duplicate/malformed rows and forbidden inferred
-  fields, and publish the target-field gap list.
+  fields, and publish the target-field gap list. The derive subpacket is published and independently
+  verified; the dependent C0 publish subpacket remains.
 - [ ] **S5 — freeze C0V references before production implementation.** Commit the radial, static
   aggregate-v6, and moving-event protocols with independent derivations, exact rosters, norms,
   tolerances, negative controls, artifact schemas, cost bounds, and refusal branches. A reference
@@ -639,6 +640,50 @@ commit. The focused C0/executor suites pass 29/29, obligation/progress-state reg
 `npm test` passed 138/138 files with 2,291 passed and 49 skipped in 919.33 seconds; the focused
 results are not used as a substitute for that exact suite. No real retry, input read, or publication
 occurred while making this infrastructure repair.
+
+### S4 C0 derive v2 publication — 2026-08-21
+
+From clean head `4c914acc3d1bdc1b4f3475235eb2eb8d42a8c71a`, Node `v24.13.1`, and code freeze
+`a6d62e6e2d1c57d3bc04574efc3555029caaf0b6`, the registered read-only check passed and the exact
+`c0-derive-20260821-v2` run published five content artifacts plus its preflight and terminal
+receipt. The packet receipt is terminal `complete`; independent verification is PASS with 8/8
+checks and all 7/7 named negative controls executed and rejected. A non-author OpenAI Codex GPT-5
+reviewer with full shared task context directly re-executed the committed independent evaluator and
+separately reimplemented the row, comparison, ranking, gap, history, dependency, and resource
+checks; it reported zero blockers. The reviewer did not run a solver, C0 publish, `npm test`,
+`gate10`, or a Phase 6 campaign, and did not edit or pin evidence.
+
+Packet PASS is not a numerical pass. `c0-analysis.json`, 21,049 bytes / SHA-256
+`bfd247d513aa2b2bda98a4db4d1885877a1788ddb3dfdc92be79b415ce94bc72`, re-derives all 80/80
+expected rows and all 64/64 registered pairings with no missing, unexpected, duplicate, or
+malformed row. Of the 64 comparisons, 36 pass and 28 fail solely on the registered attached-count
+criterion: coarse domain fails 5/16, fine domain 6/16, `cflFill` 3/8, `relaxTol` 0/8, and seed
+radius 14/16. Both spacings are NO-PASS (`criterion`), so the authoritative all-spacings `every`
+reduction is overall NO-PASS. All 64 habit comparisons are neutral-versus-neutral, which is not a
+robust habit observable. The historical sibling's `some` reduction disagrees with the frozen rule
+on mixed outcomes but does not change the historical verdict because both actual spacings fail.
+
+The analysis ranks only persisted diagnostics. Its largest numerical normalized delta is total
+sweeps under coarse-domain spacing, `0.6140078641257088`; its separately ranked largest cost delta
+is wall seconds under coarse-domain spacing, `0.8206419672183735`. These are not absolute-error
+estimates. `c0-target-field-gaps.json`, 4,310 bytes / SHA-256
+`fb3d569689d528025163b07b4c55b73a037bf54e7dba9bf80fd0e3110ec48c3c`, records 36 persisted
+fields, eight independently derivable fields, and ten explicit refusals under an `inventory-only`
+boundary. C0 executes no solver and establishes no absolute solver accuracy, robust habit
+observable, target score, quantitative validation, or prior-phase credit.
+
+The seven-file publication is 316,068 bytes and is pinned in `evidence/MANIFEST.json`, 62,902 bytes /
+SHA-256 `c7b91208e0d0a07dafbd593cf26ca0a74216aff96f0c528417546a7f4bbcfae3`, whose 378 entries total
+5,274,321 bytes. The remaining identities are comparisons 260,498 bytes /
+`56540e9991b70e66c2565963719f4eb2f459380d15ccc8c2262ee8d03161924b`, independent verification
+16,782 bytes / `876a15a8bb03d5a5d1d82abc8aa2662eb4f18978d0c1db4ec0cd17e477f52188`, historical limit
+1,356 bytes / `f6d8f9f3df4c51a012e4e45ced6ecd46288a2b171d437c7f4324aafa8d317218`, preflight 10,733 bytes /
+`085c26a51703657ab6f8a1f7fb21f08d2af2234fe7d142c46740cfb50a188d75`, and terminal receipt
+1,340 bytes / `b3581ae1a51fa9f2b1f3be09a36f91bb0dbb3ef0440af32774082fe2bbede50b`.
+Exact post-publication `npm test` passed 138/138 files with 2,291 passed and 49 skipped in 902.30
+seconds. The subsequent Rule 10 provenance and adjacent-citation correction is prose-only; its
+focused progress test, Rule 7 scan, diff check, and non-author delta review remain the final checks
+before the dependent C0 publish packet.
 
 ## Return and stop rules
 

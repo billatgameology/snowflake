@@ -3,8 +3,8 @@
  "movedFrom": "out/ (gitignored), plus the byte-identical tracked arm64 fingerprint formerly under docs/",
  "movedTo": "evidence/ (tracked)",
  "note": "Historical sweep digests were computed before their move and re-verified afterward. The arm64 fingerprint preserves the exact former docs/ Git blob (18398 bytes, SHA-256 d6686f8e...). The x64 fingerprint is the complete 2026-08-01 lightweight fixture re-execution backing the exact per-entry comparison; it reproduces registered digest 2a9f64b3. These are preserved claim-backing bytes, not regenerated production sweeps.",
- "fileCount": 371,
- "totalBytes": 4958253,
+ "fileCount": 378,
+ "totalBytes": 5274321,
  "files": {
   "phase6-crossplatform/arm64-libm-fingerprint.txt": {
    "bytes": 18398,
@@ -482,6 +482,26 @@
    "bytes": 114408,
    "sha256": "f79cfd5268524d9017439e7be3abfe8b1e5df13f4e909c5d62569b8cc59ed5f7"
   },
+  "phase10-numerical-verification-v1/c0-analysis.json": {
+   "bytes": 21049,
+   "sha256": "bfd247d513aa2b2bda98a4db4d1885877a1788ddb3dfdc92be79b415ce94bc72"
+  },
+  "phase10-numerical-verification-v1/c0-comparisons.jsonl": {
+   "bytes": 260498,
+   "sha256": "56540e9991b70e66c2565963719f4eb2f459380d15ccc8c2262ee8d03161924b"
+  },
+  "phase10-numerical-verification-v1/c0-derive-verification.json": {
+   "bytes": 16782,
+   "sha256": "876a15a8bb03d5a5d1d82abc8aa2662eb4f18978d0c1db4ec0cd17e477f52188"
+  },
+  "phase10-numerical-verification-v1/c0-historical-verifier-limit.json": {
+   "bytes": 1356,
+   "sha256": "f6d8f9f3df4c51a012e4e45ced6ecd46288a2b171d437c7f4324aafa8d317218"
+  },
+  "phase10-numerical-verification-v1/c0-target-field-gaps.json": {
+   "bytes": 4310,
+   "sha256": "fb3d569689d528025163b07b4c55b73a037bf54e7dba9bf80fd0e3110ec48c3c"
+  },
   "phase10-obligation-preflight-v1/artifact-index.json": {
    "bytes": 4078,
    "sha256": "cccd2a66a1b07ec1ab7bad2f2b3c491fdec7d2caa3e0d80f23191de2d619be69"
@@ -513,6 +533,14 @@
   "phase10-obligation-preflight-v1/packets/a-s/terminal-receipt.json": {
    "bytes": 1605,
    "sha256": "99e6ced9e48d41113ac8d433649e43d9d5ec5e36c6fe799f808b4005e27b55de"
+  },
+  "phase10-obligation-preflight-v1/packets/c0-derive/preflight.json": {
+   "bytes": 10733,
+   "sha256": "085c26a51703657ab6f8a1f7fb21f08d2af2234fe7d142c46740cfb50a188d75"
+  },
+  "phase10-obligation-preflight-v1/packets/c0-derive/terminal-receipt.json": {
+   "bytes": 1340,
+   "sha256": "b3581ae1a51fa9f2b1f3be09a36f91bb0dbb3ef0440af32774082fe2bbede50b"
   },
   "phase10-obligation-preflight-v1/uncalled-check.json": {
    "bytes": 5207,

@@ -1,0 +1,542 @@
+{
+  "schema": "phase10-c0-analysis-v1",
+  "protocolId": "phase10-c0-existing-byte-diagnostic-v1",
+  "rowsArtifact": {
+    "path": "evidence/phase6-wp2-ladder/rows.jsonl",
+    "byteLength": 73873,
+    "sha256": "c4fa70f7d8351f998f4800ff580ddaad0eb09fd2e2f2df7f606ca717e789cd14"
+  },
+  "historicalReportArtifact": {
+    "path": "evidence/phase6-wp2-ladder/report.json",
+    "byteLength": 43863,
+    "sha256": "fd20f7018dbe2e4a09634c076ff274a017dafe6600321a983836bb8ab1b1ebb7"
+  },
+  "comparisonsArtifact": {
+    "path": "evidence/phase10-numerical-verification-v1/c0-comparisons.jsonl",
+    "byteLength": 260498,
+    "sha256": "56540e9991b70e66c2565963719f4eb2f459380d15ccc8c2262ee8d03161924b"
+  },
+  "roster": {
+    "expectedRowCount": 80,
+    "presentExpectedRowCount": 80,
+    "missingRowIds": [],
+    "unexpectedRowIds": [],
+    "duplicateRowIds": [],
+    "expectedPairingCount": 64,
+    "emittedPairingCount": 64,
+    "rowIdRosterSha256": "560b19895d883e77dee2a3ea889d45684aa9188ba247fc1f2fcbbb8a0c537593",
+    "pairingRosterSha256": "90016bf4f3d3268f83409a760146ece6110626042c83e4e33a980b44d2a52216"
+  },
+  "artifactDefects": [],
+  "spacingResults": [
+    {
+      "dxUm": 0.7,
+      "domainComparisonCount": 16,
+      "domainPass": false,
+      "auxiliaryComparisonCount": 32,
+      "auxiliaryPass": false,
+      "verdict": "no-pass",
+      "noPassClass": "criterion",
+      "reasons": [
+        "auxiliary|dom-0.35-n96@-13C-f0.15-CAK|aux-seed16@-13C-f0.15-CAK: c0-attached-count-tolerance",
+        "auxiliary|dom-0.35-n96@-13C-f0.15-CAK|aux-seed18@-13C-f0.15-CAK: c0-attached-count-tolerance",
+        "auxiliary|dom-0.35-n96@-13C-f0.15-M1|aux-seed16@-13C-f0.15-M1: c0-attached-count-tolerance",
+        "auxiliary|dom-0.35-n96@-13C-f0.15-M1|aux-seed18@-13C-f0.15-M1: c0-attached-count-tolerance",
+        "auxiliary|dom-0.35-n96@-27C-f0.15-CAK|aux-seed16@-27C-f0.15-CAK: c0-attached-count-tolerance",
+        "auxiliary|dom-0.35-n96@-27C-f0.15-CAK|aux-seed18@-27C-f0.15-CAK: c0-attached-count-tolerance",
+        "auxiliary|dom-0.35-n96@-27C-f0.15-M1|aux-seed16@-27C-f0.15-M1: c0-attached-count-tolerance",
+        "auxiliary|dom-0.35-n96@-31C-f0.6-CAK|aux-cfl0.05@-31C-f0.6-CAK: c0-attached-count-tolerance",
+        "auxiliary|dom-0.35-n96@-31C-f0.6-CAK|aux-seed16@-31C-f0.6-CAK: c0-attached-count-tolerance",
+        "auxiliary|dom-0.35-n96@-31C-f0.6-CAK|aux-seed18@-31C-f0.6-CAK: c0-attached-count-tolerance",
+        "auxiliary|dom-0.35-n96@-31C-f0.6-M1|aux-cfl0.05@-31C-f0.6-M1: c0-attached-count-tolerance",
+        "auxiliary|dom-0.35-n96@-31C-f0.6-M1|aux-seed16@-31C-f0.6-M1: c0-attached-count-tolerance",
+        "auxiliary|dom-0.35-n96@-31C-f0.6-M1|aux-seed18@-31C-f0.6-M1: c0-attached-count-tolerance",
+        "auxiliary|dom-0.35-n96@-6C-f0.15-CAK|aux-seed18@-6C-f0.15-CAK: c0-attached-count-tolerance",
+        "auxiliary|dom-0.35-n96@-6C-f0.15-M1|aux-cfl0.05@-6C-f0.15-M1: c0-attached-count-tolerance",
+        "auxiliary|dom-0.35-n96@-6C-f0.15-M1|aux-seed16@-6C-f0.15-M1: c0-attached-count-tolerance",
+        "auxiliary|dom-0.35-n96@-6C-f0.15-M1|aux-seed18@-6C-f0.15-M1: c0-attached-count-tolerance",
+        "domain|dom-0.7-n48@-31C-f0.6-CAK|dom-0.7-n64@-31C-f0.6-CAK: c0-attached-count-tolerance",
+        "domain|dom-0.7-n48@-31C-f0.6-M1|dom-0.7-n64@-31C-f0.6-M1: c0-attached-count-tolerance",
+        "domain|dom-0.7-n64@-27C-f0.15-CAK|dom-0.7-n80@-27C-f0.15-CAK: c0-attached-count-tolerance",
+        "domain|dom-0.7-n64@-31C-f0.6-M1|dom-0.7-n80@-31C-f0.6-M1: c0-attached-count-tolerance",
+        "domain|dom-0.7-n64@-6C-f0.15-M1|dom-0.7-n80@-6C-f0.15-M1: c0-attached-count-tolerance"
+      ]
+    },
+    {
+      "dxUm": 0.35,
+      "domainComparisonCount": 16,
+      "domainPass": false,
+      "auxiliaryComparisonCount": 32,
+      "auxiliaryPass": false,
+      "verdict": "no-pass",
+      "noPassClass": "criterion",
+      "reasons": [
+        "auxiliary|dom-0.35-n96@-13C-f0.15-CAK|aux-seed16@-13C-f0.15-CAK: c0-attached-count-tolerance",
+        "auxiliary|dom-0.35-n96@-13C-f0.15-CAK|aux-seed18@-13C-f0.15-CAK: c0-attached-count-tolerance",
+        "auxiliary|dom-0.35-n96@-13C-f0.15-M1|aux-seed16@-13C-f0.15-M1: c0-attached-count-tolerance",
+        "auxiliary|dom-0.35-n96@-13C-f0.15-M1|aux-seed18@-13C-f0.15-M1: c0-attached-count-tolerance",
+        "auxiliary|dom-0.35-n96@-27C-f0.15-CAK|aux-seed16@-27C-f0.15-CAK: c0-attached-count-tolerance",
+        "auxiliary|dom-0.35-n96@-27C-f0.15-CAK|aux-seed18@-27C-f0.15-CAK: c0-attached-count-tolerance",
+        "auxiliary|dom-0.35-n96@-27C-f0.15-M1|aux-seed16@-27C-f0.15-M1: c0-attached-count-tolerance",
+        "auxiliary|dom-0.35-n96@-31C-f0.6-CAK|aux-cfl0.05@-31C-f0.6-CAK: c0-attached-count-tolerance",
+        "auxiliary|dom-0.35-n96@-31C-f0.6-CAK|aux-seed16@-31C-f0.6-CAK: c0-attached-count-tolerance",
+        "auxiliary|dom-0.35-n96@-31C-f0.6-CAK|aux-seed18@-31C-f0.6-CAK: c0-attached-count-tolerance",
+        "auxiliary|dom-0.35-n96@-31C-f0.6-M1|aux-cfl0.05@-31C-f0.6-M1: c0-attached-count-tolerance",
+        "auxiliary|dom-0.35-n96@-31C-f0.6-M1|aux-seed16@-31C-f0.6-M1: c0-attached-count-tolerance",
+        "auxiliary|dom-0.35-n96@-31C-f0.6-M1|aux-seed18@-31C-f0.6-M1: c0-attached-count-tolerance",
+        "auxiliary|dom-0.35-n96@-6C-f0.15-CAK|aux-seed18@-6C-f0.15-CAK: c0-attached-count-tolerance",
+        "auxiliary|dom-0.35-n96@-6C-f0.15-M1|aux-cfl0.05@-6C-f0.15-M1: c0-attached-count-tolerance",
+        "auxiliary|dom-0.35-n96@-6C-f0.15-M1|aux-seed16@-6C-f0.15-M1: c0-attached-count-tolerance",
+        "auxiliary|dom-0.35-n96@-6C-f0.15-M1|aux-seed18@-6C-f0.15-M1: c0-attached-count-tolerance",
+        "domain|dom-0.35-n112@-13C-f0.15-CAK|dom-0.35-n128@-13C-f0.15-CAK: c0-attached-count-tolerance",
+        "domain|dom-0.35-n112@-31C-f0.6-M1|dom-0.35-n128@-31C-f0.6-M1: c0-attached-count-tolerance",
+        "domain|dom-0.35-n112@-6C-f0.15-M1|dom-0.35-n128@-6C-f0.15-M1: c0-attached-count-tolerance",
+        "domain|dom-0.35-n96@-13C-f0.15-M1|dom-0.35-n112@-13C-f0.15-M1: c0-attached-count-tolerance",
+        "domain|dom-0.35-n96@-31C-f0.6-CAK|dom-0.35-n112@-31C-f0.6-CAK: c0-attached-count-tolerance",
+        "domain|dom-0.35-n96@-31C-f0.6-M1|dom-0.35-n112@-31C-f0.6-M1: c0-attached-count-tolerance"
+      ]
+    }
+  ],
+  "overallVerdict": "no-pass",
+  "overallNoPassClass": "criterion",
+  "numericalRanking": [
+    {
+      "rank": 1,
+      "observableId": "totalSweeps",
+      "errorSourceId": "domain-coarse-spacing",
+      "comparisonCount": 16,
+      "definedCount": 16,
+      "nonZeroComparisonCount": 16,
+      "maxNormalizedAbsoluteDelta": 0.6140078641257088,
+      "maxWitnessPairId": "domain|dom-0.7-n48@-31C-f0.6-M1|dom-0.7-n64@-31C-f0.6-M1"
+    },
+    {
+      "rank": 2,
+      "observableId": "totalSweeps",
+      "errorSourceId": "cflFill",
+      "comparisonCount": 8,
+      "definedCount": 8,
+      "nonZeroComparisonCount": 8,
+      "maxNormalizedAbsoluteDelta": 0.5033861120458707,
+      "maxWitnessPairId": "auxiliary|dom-0.35-n96@-6C-f0.15-CAK|aux-cfl0.05@-6C-f0.15-CAK"
+    },
+    {
+      "rank": 3,
+      "observableId": "cycles",
+      "errorSourceId": "cflFill",
+      "comparisonCount": 8,
+      "definedCount": 8,
+      "nonZeroComparisonCount": 8,
+      "maxNormalizedAbsoluteDelta": 0.5005117707267144,
+      "maxWitnessPairId": "auxiliary|dom-0.35-n96@-6C-f0.15-CAK|aux-cfl0.05@-6C-f0.15-CAK"
+    },
+    {
+      "rank": 4,
+      "observableId": "totalSweeps",
+      "errorSourceId": "domain-fine-spacing",
+      "comparisonCount": 16,
+      "definedCount": 16,
+      "nonZeroComparisonCount": 16,
+      "maxNormalizedAbsoluteDelta": 0.39323487600929136,
+      "maxWitnessPairId": "domain|dom-0.35-n96@-31C-f0.6-CAK|dom-0.35-n112@-31C-f0.6-CAK"
+    },
+    {
+      "rank": 5,
+      "observableId": "totalSweeps",
+      "errorSourceId": "seedRadius",
+      "comparisonCount": 16,
+      "definedCount": 16,
+      "nonZeroComparisonCount": 16,
+      "maxNormalizedAbsoluteDelta": 0.15913053894875798,
+      "maxWitnessPairId": "auxiliary|dom-0.35-n96@-27C-f0.15-CAK|aux-seed18@-27C-f0.15-CAK"
+    },
+    {
+      "rank": 6,
+      "observableId": "cycles",
+      "errorSourceId": "seedRadius",
+      "comparisonCount": 16,
+      "definedCount": 16,
+      "nonZeroComparisonCount": 16,
+      "maxNormalizedAbsoluteDelta": 0.12284482758620689,
+      "maxWitnessPairId": "auxiliary|dom-0.35-n96@-27C-f0.15-CAK|aux-seed18@-27C-f0.15-CAK"
+    },
+    {
+      "rank": 7,
+      "observableId": "attachedCount",
+      "errorSourceId": "seedRadius",
+      "comparisonCount": 16,
+      "definedCount": 16,
+      "nonZeroComparisonCount": 16,
+      "maxNormalizedAbsoluteDelta": 0.09285174270593863,
+      "maxWitnessPairId": "auxiliary|dom-0.35-n96@-27C-f0.15-CAK|aux-seed16@-27C-f0.15-CAK"
+    },
+    {
+      "rank": 8,
+      "observableId": "aspectRatio",
+      "errorSourceId": "seedRadius",
+      "comparisonCount": 16,
+      "definedCount": 16,
+      "nonZeroComparisonCount": 9,
+      "maxNormalizedAbsoluteDelta": 0.05128205128205133,
+      "maxWitnessPairId": "auxiliary|dom-0.35-n96@-13C-f0.15-M1|aux-seed16@-13C-f0.15-M1"
+    },
+    {
+      "rank": 9,
+      "observableId": "aspectRatio",
+      "errorSourceId": "domain-coarse-spacing",
+      "comparisonCount": 16,
+      "definedCount": 16,
+      "nonZeroComparisonCount": 5,
+      "maxNormalizedAbsoluteDelta": 0.04999999999999992,
+      "maxWitnessPairId": "domain|dom-0.7-n64@-27C-f0.15-CAK|dom-0.7-n80@-27C-f0.15-CAK"
+    },
+    {
+      "rank": 10,
+      "observableId": "cycles",
+      "errorSourceId": "domain-coarse-spacing",
+      "comparisonCount": 16,
+      "definedCount": 16,
+      "nonZeroComparisonCount": 12,
+      "maxNormalizedAbsoluteDelta": 0.04716981132075472,
+      "maxWitnessPairId": "domain|dom-0.7-n48@-31C-f0.6-CAK|dom-0.7-n64@-31C-f0.6-CAK"
+    },
+    {
+      "rank": 11,
+      "observableId": "attachedCount",
+      "errorSourceId": "domain-coarse-spacing",
+      "comparisonCount": 16,
+      "definedCount": 16,
+      "nonZeroComparisonCount": 13,
+      "maxNormalizedAbsoluteDelta": 0.045637893281087936,
+      "maxWitnessPairId": "domain|dom-0.7-n48@-31C-f0.6-CAK|dom-0.7-n64@-31C-f0.6-CAK"
+    },
+    {
+      "rank": 12,
+      "observableId": "attachedCount",
+      "errorSourceId": "cflFill",
+      "comparisonCount": 8,
+      "definedCount": 8,
+      "nonZeroComparisonCount": 8,
+      "maxNormalizedAbsoluteDelta": 0.030976557016517713,
+      "maxWitnessPairId": "auxiliary|dom-0.35-n96@-6C-f0.15-M1|aux-cfl0.05@-6C-f0.15-M1"
+    },
+    {
+      "rank": 13,
+      "observableId": "aspectRatio",
+      "errorSourceId": "cflFill",
+      "comparisonCount": 8,
+      "definedCount": 8,
+      "nonZeroComparisonCount": 2,
+      "maxNormalizedAbsoluteDelta": 0.022222222222222143,
+      "maxWitnessPairId": "auxiliary|dom-0.35-n96@-6C-f0.15-M1|aux-cfl0.05@-6C-f0.15-M1"
+    },
+    {
+      "rank": 14,
+      "observableId": "aspectRatio",
+      "errorSourceId": "domain-fine-spacing",
+      "comparisonCount": 16,
+      "definedCount": 16,
+      "nonZeroComparisonCount": 3,
+      "maxNormalizedAbsoluteDelta": 0.020833333333333415,
+      "maxWitnessPairId": "domain|dom-0.35-n112@-13C-f0.15-CAK|dom-0.35-n128@-13C-f0.15-CAK"
+    },
+    {
+      "rank": 15,
+      "observableId": "cycles",
+      "errorSourceId": "domain-fine-spacing",
+      "comparisonCount": 16,
+      "definedCount": 16,
+      "nonZeroComparisonCount": 15,
+      "maxNormalizedAbsoluteDelta": 0.012987012987012988,
+      "maxWitnessPairId": "domain|dom-0.35-n96@-31C-f0.6-M1|dom-0.35-n112@-31C-f0.6-M1"
+    },
+    {
+      "rank": 16,
+      "observableId": "attachedCount",
+      "errorSourceId": "domain-fine-spacing",
+      "comparisonCount": 16,
+      "definedCount": 16,
+      "nonZeroComparisonCount": 16,
+      "maxNormalizedAbsoluteDelta": 0.010940890937808997,
+      "maxWitnessPairId": "domain|dom-0.35-n96@-31C-f0.6-M1|dom-0.35-n112@-31C-f0.6-M1"
+    },
+    {
+      "rank": 17,
+      "observableId": "totalSweeps",
+      "errorSourceId": "relaxTol",
+      "comparisonCount": 8,
+      "definedCount": 8,
+      "nonZeroComparisonCount": 3,
+      "maxNormalizedAbsoluteDelta": 0.0002514186914331262,
+      "maxWitnessPairId": "auxiliary|dom-0.35-n96@-27C-f0.15-CAK|aux-relaxTol1e-10@-27C-f0.15-CAK"
+    },
+    {
+      "rank": 18,
+      "observableId": "aspectRatio",
+      "errorSourceId": "relaxTol",
+      "comparisonCount": 8,
+      "definedCount": 8,
+      "nonZeroComparisonCount": 0,
+      "maxNormalizedAbsoluteDelta": 0,
+      "maxWitnessPairId": "auxiliary|dom-0.35-n96@-13C-f0.15-CAK|aux-relaxTol1e-10@-13C-f0.15-CAK"
+    },
+    {
+      "rank": 19,
+      "observableId": "attachedCount",
+      "errorSourceId": "relaxTol",
+      "comparisonCount": 8,
+      "definedCount": 8,
+      "nonZeroComparisonCount": 0,
+      "maxNormalizedAbsoluteDelta": 0,
+      "maxWitnessPairId": "auxiliary|dom-0.35-n96@-13C-f0.15-CAK|aux-relaxTol1e-10@-13C-f0.15-CAK"
+    },
+    {
+      "rank": 20,
+      "observableId": "cycles",
+      "errorSourceId": "relaxTol",
+      "comparisonCount": 8,
+      "definedCount": 8,
+      "nonZeroComparisonCount": 0,
+      "maxNormalizedAbsoluteDelta": 0,
+      "maxWitnessPairId": "auxiliary|dom-0.35-n96@-13C-f0.15-CAK|aux-relaxTol1e-10@-13C-f0.15-CAK"
+    },
+    {
+      "rank": 21,
+      "observableId": "finalExtent",
+      "errorSourceId": "cflFill",
+      "comparisonCount": 8,
+      "definedCount": 8,
+      "nonZeroComparisonCount": 0,
+      "maxNormalizedAbsoluteDelta": 0,
+      "maxWitnessPairId": "auxiliary|dom-0.35-n96@-13C-f0.15-CAK|aux-cfl0.05@-13C-f0.15-CAK"
+    },
+    {
+      "rank": 22,
+      "observableId": "finalExtent",
+      "errorSourceId": "domain-coarse-spacing",
+      "comparisonCount": 16,
+      "definedCount": 16,
+      "nonZeroComparisonCount": 0,
+      "maxNormalizedAbsoluteDelta": 0,
+      "maxWitnessPairId": "domain|dom-0.7-n48@-13C-f0.15-CAK|dom-0.7-n64@-13C-f0.15-CAK"
+    },
+    {
+      "rank": 23,
+      "observableId": "finalExtent",
+      "errorSourceId": "domain-fine-spacing",
+      "comparisonCount": 16,
+      "definedCount": 16,
+      "nonZeroComparisonCount": 0,
+      "maxNormalizedAbsoluteDelta": 0,
+      "maxWitnessPairId": "domain|dom-0.35-n112@-13C-f0.15-CAK|dom-0.35-n128@-13C-f0.15-CAK"
+    },
+    {
+      "rank": 24,
+      "observableId": "finalExtent",
+      "errorSourceId": "relaxTol",
+      "comparisonCount": 8,
+      "definedCount": 8,
+      "nonZeroComparisonCount": 0,
+      "maxNormalizedAbsoluteDelta": 0,
+      "maxWitnessPairId": "auxiliary|dom-0.35-n96@-13C-f0.15-CAK|aux-relaxTol1e-10@-13C-f0.15-CAK"
+    },
+    {
+      "rank": 25,
+      "observableId": "finalExtent",
+      "errorSourceId": "seedRadius",
+      "comparisonCount": 16,
+      "definedCount": 16,
+      "nonZeroComparisonCount": 0,
+      "maxNormalizedAbsoluteDelta": 0,
+      "maxWitnessPairId": "auxiliary|dom-0.35-n96@-13C-f0.15-CAK|aux-seed16@-13C-f0.15-CAK"
+    },
+    {
+      "rank": 26,
+      "observableId": "symmetryError",
+      "errorSourceId": "cflFill",
+      "comparisonCount": 8,
+      "definedCount": 8,
+      "nonZeroComparisonCount": 0,
+      "maxNormalizedAbsoluteDelta": 0,
+      "maxWitnessPairId": "auxiliary|dom-0.35-n96@-13C-f0.15-CAK|aux-cfl0.05@-13C-f0.15-CAK"
+    },
+    {
+      "rank": 27,
+      "observableId": "symmetryError",
+      "errorSourceId": "domain-coarse-spacing",
+      "comparisonCount": 16,
+      "definedCount": 16,
+      "nonZeroComparisonCount": 0,
+      "maxNormalizedAbsoluteDelta": 0,
+      "maxWitnessPairId": "domain|dom-0.7-n48@-13C-f0.15-CAK|dom-0.7-n64@-13C-f0.15-CAK"
+    },
+    {
+      "rank": 28,
+      "observableId": "symmetryError",
+      "errorSourceId": "domain-fine-spacing",
+      "comparisonCount": 16,
+      "definedCount": 16,
+      "nonZeroComparisonCount": 0,
+      "maxNormalizedAbsoluteDelta": 0,
+      "maxWitnessPairId": "domain|dom-0.35-n112@-13C-f0.15-CAK|dom-0.35-n128@-13C-f0.15-CAK"
+    },
+    {
+      "rank": 29,
+      "observableId": "symmetryError",
+      "errorSourceId": "relaxTol",
+      "comparisonCount": 8,
+      "definedCount": 8,
+      "nonZeroComparisonCount": 0,
+      "maxNormalizedAbsoluteDelta": 0,
+      "maxWitnessPairId": "auxiliary|dom-0.35-n96@-13C-f0.15-CAK|aux-relaxTol1e-10@-13C-f0.15-CAK"
+    },
+    {
+      "rank": 30,
+      "observableId": "symmetryError",
+      "errorSourceId": "seedRadius",
+      "comparisonCount": 16,
+      "definedCount": 16,
+      "nonZeroComparisonCount": 0,
+      "maxNormalizedAbsoluteDelta": 0,
+      "maxWitnessPairId": "auxiliary|dom-0.35-n96@-13C-f0.15-CAK|aux-seed16@-13C-f0.15-CAK"
+    }
+  ],
+  "costRanking": [
+    {
+      "rank": 1,
+      "observableId": "wallSeconds",
+      "errorSourceId": "domain-coarse-spacing",
+      "comparisonCount": 16,
+      "definedCount": 16,
+      "nonZeroComparisonCount": 16,
+      "maxNormalizedAbsoluteDelta": 0.8206419672183735,
+      "maxWitnessPairId": "domain|dom-0.7-n48@-31C-f0.6-CAK|dom-0.7-n64@-31C-f0.6-CAK"
+    },
+    {
+      "rank": 2,
+      "observableId": "wallSeconds",
+      "errorSourceId": "domain-fine-spacing",
+      "comparisonCount": 16,
+      "definedCount": 16,
+      "nonZeroComparisonCount": 16,
+      "maxNormalizedAbsoluteDelta": 0.6775481553932486,
+      "maxWitnessPairId": "domain|dom-0.35-n112@-13C-f0.15-M1|dom-0.35-n128@-13C-f0.15-M1"
+    },
+    {
+      "rank": 3,
+      "observableId": "wallSeconds",
+      "errorSourceId": "cflFill",
+      "comparisonCount": 8,
+      "definedCount": 8,
+      "nonZeroComparisonCount": 8,
+      "maxNormalizedAbsoluteDelta": 0.5846775281131168,
+      "maxWitnessPairId": "auxiliary|dom-0.35-n96@-13C-f0.15-M1|aux-cfl0.05@-13C-f0.15-M1"
+    },
+    {
+      "rank": 4,
+      "observableId": "wallSeconds",
+      "errorSourceId": "seedRadius",
+      "comparisonCount": 16,
+      "definedCount": 16,
+      "nonZeroComparisonCount": 16,
+      "maxNormalizedAbsoluteDelta": 0.5410644638174933,
+      "maxWitnessPairId": "auxiliary|dom-0.35-n96@-6C-f0.15-CAK|aux-seed18@-6C-f0.15-CAK"
+    },
+    {
+      "rank": 5,
+      "observableId": "wallSeconds",
+      "errorSourceId": "relaxTol",
+      "comparisonCount": 8,
+      "definedCount": 8,
+      "nonZeroComparisonCount": 8,
+      "maxNormalizedAbsoluteDelta": 0.4054530143328862,
+      "maxWitnessPairId": "auxiliary|dom-0.35-n96@-6C-f0.15-CAK|aux-relaxTol1e-10@-6C-f0.15-CAK"
+    },
+    {
+      "rank": 6,
+      "observableId": "peakRssBytes",
+      "errorSourceId": "domain-coarse-spacing",
+      "comparisonCount": 16,
+      "definedCount": 16,
+      "nonZeroComparisonCount": 16,
+      "maxNormalizedAbsoluteDelta": 0.23514680023445408,
+      "maxWitnessPairId": "domain|dom-0.7-n64@-6C-f0.15-M1|dom-0.7-n80@-6C-f0.15-M1"
+    },
+    {
+      "rank": 7,
+      "observableId": "peakRssBytes",
+      "errorSourceId": "domain-fine-spacing",
+      "comparisonCount": 16,
+      "definedCount": 16,
+      "nonZeroComparisonCount": 16,
+      "maxNormalizedAbsoluteDelta": 0.23012218784414495,
+      "maxWitnessPairId": "domain|dom-0.35-n96@-27C-f0.15-CAK|dom-0.35-n112@-27C-f0.15-CAK"
+    },
+    {
+      "rank": 8,
+      "observableId": "peakRssBytes",
+      "errorSourceId": "cflFill",
+      "comparisonCount": 8,
+      "definedCount": 8,
+      "nonZeroComparisonCount": 8,
+      "maxNormalizedAbsoluteDelta": 0.22140483138780803,
+      "maxWitnessPairId": "auxiliary|dom-0.35-n96@-6C-f0.15-CAK|aux-cfl0.05@-6C-f0.15-CAK"
+    },
+    {
+      "rank": 9,
+      "observableId": "peakRssBytes",
+      "errorSourceId": "seedRadius",
+      "comparisonCount": 16,
+      "definedCount": 16,
+      "nonZeroComparisonCount": 16,
+      "maxNormalizedAbsoluteDelta": 0.13931946626644467,
+      "maxWitnessPairId": "auxiliary|dom-0.35-n96@-27C-f0.15-CAK|aux-seed16@-27C-f0.15-CAK"
+    },
+    {
+      "rank": 10,
+      "observableId": "peakRssBytes",
+      "errorSourceId": "relaxTol",
+      "comparisonCount": 8,
+      "definedCount": 8,
+      "nonZeroComparisonCount": 8,
+      "maxNormalizedAbsoluteDelta": 0.131436955698599,
+      "maxWitnessPairId": "auxiliary|dom-0.35-n96@-27C-f0.15-CAK|aux-relaxTol1e-10@-27C-f0.15-CAK"
+    }
+  ],
+  "categoricalDiagnostics": [
+    {
+      "fieldId": "stopReason",
+      "comparisonCount": 64,
+      "definedCount": 64,
+      "disagreementCount": 0,
+      "maxDisagreement": 0,
+      "witnessPairId": null
+    }
+  ],
+  "unavailableGapIds": [
+    "attachment-event-orbit",
+    "checkpoint-state",
+    "crystallographic-calipers",
+    "future-target-observation",
+    "kinetic-ledgers",
+    "occupancy-mask",
+    "physical-time-history",
+    "relaxation-histories",
+    "trajectory",
+    "vapor-surface-fields"
+  ],
+  "historicalReportCrossCheck": {
+    "status": "agree",
+    "differences": []
+  },
+  "solverExecuted": false,
+  "execution": {
+    "runtime": "v24.13.1",
+    "command": "node runner/src/phase10-executor.ts run --packet c0-derive --protocol research/phase10-execution-v1/packets/c0-derive/protocol.json --attempt c0-derive-20260821-v2",
+    "cwd": "G:\\Code Files\\snowflake-phase10-evidence",
+    "gitHead": "4c914acc3d1bdc1b4f3475235eb2eb8d42a8c71a",
+    "startedIso": "2026-08-22T01:44:51.795Z",
+    "finishedIso": "2026-08-22T01:44:51.795Z",
+    "processConcurrency": 1
+  }
+}

@@ -1,0 +1,141 @@
+{
+  "schema": "phase10-c0-gap-report-v1",
+  "protocolId": "phase10-c0-existing-byte-diagnostic-v1",
+  "rowsArtifact": {
+    "path": "evidence/phase6-wp2-ladder/rows.jsonl",
+    "byteLength": 73873,
+    "sha256": "c4fa70f7d8351f998f4800ff580ddaad0eb09fd2e2f2df7f606ca717e789cd14"
+  },
+  "persistedFieldIds": [
+    "aspectRatio",
+    "attachedCount",
+    "cflFill",
+    "concurrency",
+    "cycles",
+    "dispatcherCommand",
+    "divTol",
+    "domain",
+    "domainN",
+    "dxUm",
+    "engine",
+    "farField",
+    "finalExtent",
+    "finishedIso",
+    "fraction",
+    "gitHead",
+    "host",
+    "noiseEpsilon",
+    "paramSet",
+    "peakRssBytes",
+    "pressurePa",
+    "relaxMaxSweeps",
+    "relaxTol",
+    "rngSeed",
+    "rowId",
+    "seedRadius",
+    "seedThickness",
+    "sigmaInfinity",
+    "startedIso",
+    "stopReason",
+    "surfacePolicy",
+    "symmetryError",
+    "targetExtent",
+    "tempC",
+    "totalSweeps",
+    "wallSeconds"
+  ],
+  "independentlyDerivableFieldIds": [
+    "attachedCountCriterionPass",
+    "attachedCountRelativeDifference",
+    "comparisonVerdict",
+    "failureClass",
+    "habitClass",
+    "habitCriterionPass",
+    "normalizedAbsoluteDelta",
+    "stopReasonDisagreement"
+  ],
+  "gaps": [
+    {
+      "gapId": "attachment-event-orbit",
+      "fieldDescription": "per-cycle attachment coordinates or orbit witnesses",
+      "availability": "unavailable",
+      "reasonCode": "absent-from-persisted-rows",
+      "requiredSource": "attachment-event bytes",
+      "disposition": "explicit-refusal"
+    },
+    {
+      "gapId": "checkpoint-state",
+      "fieldDescription": "checkpoint or resume-state bytes",
+      "availability": "unavailable",
+      "reasonCode": "absent-from-persisted-rows",
+      "requiredSource": "checkpoint bytes",
+      "disposition": "explicit-refusal"
+    },
+    {
+      "gapId": "crystallographic-calipers",
+      "fieldDescription": "exact crystallographic spans or axis calipers",
+      "availability": "unavailable",
+      "reasonCode": "forbidden-inference",
+      "requiredSource": "registered caliper output",
+      "disposition": "explicit-refusal"
+    },
+    {
+      "gapId": "future-target-observation",
+      "fieldDescription": "a future B-defined observation operator",
+      "availability": "unavailable",
+      "reasonCode": "requires-future-observation-operator",
+      "requiredSource": "future selected target operator",
+      "disposition": "explicit-refusal"
+    },
+    {
+      "gapId": "kinetic-ledgers",
+      "fieldDescription": "kinetic, clipping, hole-fill, or vapor ledgers",
+      "availability": "unavailable",
+      "reasonCode": "absent-from-persisted-rows",
+      "requiredSource": "detailed ledger bytes",
+      "disposition": "explicit-refusal"
+    },
+    {
+      "gapId": "occupancy-mask",
+      "fieldDescription": "occupancy or attached-cell masks",
+      "availability": "unavailable",
+      "reasonCode": "absent-from-persisted-rows",
+      "requiredSource": "occupancy bytes",
+      "disposition": "explicit-refusal"
+    },
+    {
+      "gapId": "physical-time-history",
+      "fieldDescription": "physical-time history",
+      "availability": "unavailable",
+      "reasonCode": "absent-from-persisted-rows",
+      "requiredSource": "per-step physical-time bytes",
+      "disposition": "explicit-refusal"
+    },
+    {
+      "gapId": "relaxation-histories",
+      "fieldDescription": "relaxation residual, divergence, or smoother-drift histories",
+      "availability": "unavailable",
+      "reasonCode": "absent-from-persisted-rows",
+      "requiredSource": "relaxation history bytes",
+      "disposition": "explicit-refusal"
+    },
+    {
+      "gapId": "trajectory",
+      "fieldDescription": "per-cycle or continuous trajectories",
+      "availability": "unavailable",
+      "reasonCode": "absent-from-persisted-rows",
+      "requiredSource": "trajectory bytes",
+      "disposition": "explicit-refusal"
+    },
+    {
+      "gapId": "vapor-surface-fields",
+      "fieldDescription": "vapor-field or surface-propensity arrays",
+      "availability": "unavailable",
+      "reasonCode": "absent-from-persisted-rows",
+      "requiredSource": "field-array bytes",
+      "disposition": "explicit-refusal"
+    }
+  ],
+  "targetObservationOperatorStatus": "not-defined-in-selected-package",
+  "claimBoundary": "inventory-only"
+}

@@ -1,0 +1,48 @@
+{
+  "schema": "phase10-execution-receipt-v1",
+  "receiptId": "phase10-c0-derive-c0-derive-20260821-v2-terminal-v1",
+  "matrixId": "phase10-selected-package-obligations-v1",
+  "protocolId": "phase10-c0-derive-existing-byte-v1",
+  "registryId": "phase10-c0-derive-resolved-callables-v3",
+  "packetId": "c0-derive",
+  "terminalState": "complete",
+  "producedOutputIds": [
+    "out-c0-analysis",
+    "out-c0-comparisons",
+    "out-c0-derive-verification",
+    "out-c0-gaps",
+    "out-c0-historical-limit"
+  ],
+  "executedCheckIds": [
+    "chk-c0-all-spacings",
+    "chk-c0-comparison-roster",
+    "chk-c0-cost-separation",
+    "chk-c0-field-allowlist",
+    "chk-c0-independent-rederivation",
+    "chk-c0-no-solver",
+    "chk-c0-operand-echo",
+    "chk-c0-row-roster"
+  ],
+  "evaluatedCheckIds": [
+    "chk-c0-all-spacings",
+    "chk-c0-comparison-roster",
+    "chk-c0-cost-separation",
+    "chk-c0-field-allowlist",
+    "chk-c0-independent-rederivation",
+    "chk-c0-no-solver",
+    "chk-c0-operand-echo",
+    "chk-c0-row-roster"
+  ],
+  "executedNegativeControlIds": [
+    "nc-c0-coarse-fail-fine-pass",
+    "nc-c0-duplicate-or-truncated",
+    "nc-c0-fine-fail-coarse-pass",
+    "nc-c0-forbidden-field",
+    "nc-c0-forged-producer-verdict",
+    "nc-c0-missing-row",
+    "nc-c0-operand-echo"
+  ],
+  "boundDependencyPacketIds": [
+    "a-p"
+  ]
+}

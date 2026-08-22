@@ -1,0 +1,30 @@
+{
+  "schema": "phase10-c0-historical-limit-v1",
+  "protocolId": "phase10-c0-existing-byte-diagnostic-v1",
+  "historicalReportArtifact": {
+    "path": "evidence/phase6-wp2-ladder/report.json",
+    "byteLength": 43863,
+    "sha256": "fd20f7018dbe2e4a09634c076ff274a017dafe6600321a983836bb8ab1b1ebb7"
+  },
+  "historicalScript": {
+    "path": "app/scripts/phase6-wp2-ladder-independent.mjs",
+    "gitCommit": "0c889c3423d87f9062555a058a320c4a5cce2bc5",
+    "byteLength": 8149,
+    "sha256": "7a9371917dbc56005b4e612c0637dce1cdc0156230a6495bd0d4042d3811181a"
+  },
+  "issue": {
+    "issueId": "c0-historical-any-spacing-aggregation",
+    "location": "app/scripts/phase6-wp2-ladder-independent.mjs:177",
+    "observedReduction": "any-spacing-some",
+    "authoritativeReduction": "all-spacings-every",
+    "consequence": "The historical sibling verifier could pass when only one spacing passes; both historical spacings failed, so its published verdict did not change."
+  },
+  "disposition": "excluded-as-authority",
+  "historicalReportUse": "cross-check-only",
+  "phase6EvidenceMutationAuthorized": false,
+  "claimLimits": [
+    "The historical script and report do not supply the Phase 10 verdict.",
+    "C0 does not establish numerical accuracy, a robust habit, a target score, or quantitative validation.",
+    "Phase 6 evidence bytes remain immutable."
+  ]
+}
