@@ -4,7 +4,7 @@
 - **Status:** in progress — maker selected the recommended package on 2026-08-21; adoption is
   governed by decision 0052 and charter v1.28
 - **Started:** 2026-08-21
-- **Last touched:** 2026-08-21 by OpenAI Codex
+- **Last touched:** 2026-08-22 by OpenAI Codex
 - **Branch/worktree:** `phase10/evidence-verification` at
   `G:\Code Files\snowflake-phase10-evidence`
 
@@ -252,6 +252,49 @@ collection.
   proportionate non-author review, repair any blocker once, and reconcile the plan, charter,
   `docs/PROGRESS.md`, and evidence/NAS catalogues. A negative or all-refusal result may complete the
   package under the Done-when.
+
+### Maker-approved design constraint for any separately authorized future model-combination plan — 2026-08-22
+
+This records a condition for a later package; it is not an S8 deliverable. Phase 10 may not propose
+D as part of the selected package or implement or execute a combination. If the maker later
+selects a model-change package, that package must avoid both bad shortcuts: adding mechanisms until
+one output looks right, and requiring every mechanism to pass alone before a physically motivated
+interaction may be tested. The first is tuning to the answer; the second can miss a real coupled
+effect.
+
+A coupled experiment is eligible for that later package only under all of these rules:
+
+- State the physical reason that candidate A and candidate B should interact, the target
+  conditions, and the result that would count against that interaction before inspecting deciding
+  model output. Apparatus and observation operators needed to make the comparison honest are
+  prerequisites, not automatically successful model mechanisms.
+- Run the unchanged baseline, A-only, and B-only probes before A+B, all against the same frozen
+  conditions, observation operator, evidence role, and numerical qualification. This preserves
+  the charter's one-factor-before-combinations rule. A weak A-only or B-only result does not by
+  itself cancel an already registered A+B test; the interaction is a separate hypothesis.
+- Freeze the interaction quantity and decision rule in advance. For an additive scalar outcome,
+  the default contrast is `(A+B) - A - B + baseline`; a different contrast must be physically
+  justified and frozen before results. Report all four arms and the contrast, including a null,
+  adverse, or ambiguous interaction.
+- Freeze each arm's parameter provenance, adjustable-parameter roster, fitting data, optimizer and
+  budget, uncertainty treatment, and complexity rule. More adjustable freedom is not evidence for
+  a mechanism. Development fitting and the later confrontation must use separate evidence; a
+  genuinely unseen comparison is frozen before its values are inspected. Parameters and fitting
+  procedure freeze before confrontation values are opened; already-inspected evidence remains
+  development evidence and can never be relabeled held out.
+- Predeclare the required observable vector and vetoes, not just one attractive score. A habit
+  improvement cannot hide a material regression in growth rate, mass or fill ledgers, symmetry,
+  numerical convergence, or another required observable. At every predeclared load-bearing C5
+  corner, qualify the matched baseline/A-only/B-only/A+B set or take a predeclared fail-first
+  no-credit stop; separate one-factor and one-axis passes are not assumed to compose.
+- Start with one mechanistically coupled pair. A larger combination requires pair-level evidence,
+  a new finite roster and resource budget, and another maker-approved amendment. Arbitrary subset
+  searches, post-result pair selection, and “best fit wins” ranking are not eligible evidence.
+
+This rule governs only the shape of a future proposal. It selects no mechanism, changes no solver,
+authorizes no C1–C5/D/E/F/G/H execution, and grants no validation claim. Phase 9's completed S12
+remains an accurate historical record; a later package must receive its own maker-approved plan
+and any ADR or specification required by its solver change.
 
 ## Evidence and review
 

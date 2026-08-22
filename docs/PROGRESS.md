@@ -418,6 +418,20 @@ event control and grants no habit or physical claim. S6 may reopen and bind the 
 S5b bytes but may never regenerate or tune them. B remains independently eligible for its finite
 packet work, but no C1–C5, target score, or habit row is authorized.
 
+Maker direction on 2026-08-22 adds a prospective interaction rule to the active plan for any
+separately authorized future model-change package. It is not an S8 deliverable: under decision
+0052, S8 may still return only exact E/F/H scopes and budgets supported by B. A later approved
+package may test a physically motivated A+B interaction even when an A-only or B-only arm is weak,
+but only after the unchanged baseline, A-only, and B-only probes and under one frozen
+baseline/A/B/A+B design at every load-bearing C5 corner. The interaction hypothesis, contrast,
+parameter and fitting budget, required observable vector, numerical qualifications, failure
+branch, and separate later confrontation evidence must all be fixed before deciding output is
+inspected; already-inspected evidence remains development evidence. This rejects both post-result
+combination search and the opposite mistake of assuming that weak single arms rule out genuine
+coupling. It does not select a mechanism or authorize any solver change, combination run, C1–C5
+row, or D/E/F/G/H execution in Phase 10, and it can take effect only in a separately
+maker-authorized future package.
+
 The A-S evidence preserves the Phase 8A status row/filter rule, immutable evidence roles, phase
 ownership, Phase 8B's development/zero-held-out labels, cited classification reasons, and multiple
 simultaneous blockers. It grants no quantitative eligibility, validation, held-out comparison, or
