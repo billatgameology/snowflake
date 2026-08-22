@@ -535,8 +535,7 @@ registered-lock-path comparison and `finally` release.
 
 The A-P-published execution README remains byte-identical because it is dependency evidence; it
 continues to freeze the canonical CLI grammar. This plan and `docs/PROGRESS.md` freeze the concrete
-post-A-P C0 invocations. After this repair is committed and the worktree is clean, execute derive
-only as:
+post-A-P C0 invocations. The first post-repair derive invocation was frozen as:
 
 ```text
 node runner/src/phase10-executor.ts check --packet c0-derive --protocol research/phase10-execution-v1/packets/c0-derive/protocol.json --attempt c0-derive-20260821-v1
@@ -572,6 +571,72 @@ producer, evaluator, input read, or publication occurred while making this repai
 and progress-state regressions pass 22/22, `npm run typecheck` passes, and `npm run lint:rule7`
 reports clean across 1,108 files. Exact `npm test` passes 138/138 files with 2,290 passed and 49
 skipped; the focused results are not used as a substitute for that exact suite.
+
+### S4 C0 derive v1 retained infrastructure failure and v2 retry freeze — 2026-08-21
+
+From clean lock-repair head `e9b726843821e8b645bac9f290660b4244c8927e`, the exact
+`c0-derive-20260821-v1` attempt completed its worker with exit 0, no signal, no timeout, empty worker
+stderr, concurrency one, 0.652 wall seconds, zero solver/scientific process-hours, and no NAS use.
+The independent candidate receipt and retained terminal were structurally `complete`, with the
+exact 5 produced outputs, 8 executed checks, 8 evaluated checks, 7 executed controls, and one A-P
+dependency. Those facts do not publish or interpret a scientific result.
+
+Publication then failed closed before writing any registered evidence file. The publisher-side
+verification context bypassed `parsePhase10C0Protocol`, decoded the protocol as an ad hoc object,
+and incorrectly looked for top-level `rowsArtifact` and `historicalReportArtifact` members. The
+registered schema stores those identities under `inputArtifacts`; the strict parser already returns
+the validated flattened artifact contracts. All seven registered derive evidence destinations are
+absent. The v1 terminal remains structurally `complete`, and its byte-for-byte retained local attempt
+record remains under `out/phase10-execution-v1/attempts/c0-derive/c0-derive-20260821-v1`; it is an
+unpublished infrastructure failure record and is neither deleted nor eligible for same-attempt
+publication under changed code/registry bytes. The recorded hashes detect later drift but do not
+make ignored `out/` staging immutable or grant it evidence status.
+
+The v1 retained file identities were recorded without opening or interpreting candidate scientific
+fields:
+
+| Retained file | Bytes | SHA-256 |
+|---|---:|---|
+| `candidate/c0-analysis.json` | 21,049 | `c46fe7aa4d273c72715950853571f1997176caf2c0b6fd4fb9973d33ffbdc2af` |
+| `candidate/c0-comparisons.jsonl` | 260,498 | `56540e9991b70e66c2565963719f4eb2f459380d15ccc8c2262ee8d03161924b` |
+| `candidate/c0-derive-verification.json` | 16,782 | `88962eee42367a82a55f8a4b3a7de34183f4c64b10a70576c3b49900c70c090a` |
+| `candidate/c0-historical-verifier-limit.json` | 1,356 | `f6d8f9f3df4c51a012e4e45ced6ecd46288a2b171d437c7f4324aafa8d317218` |
+| `candidate/c0-target-field-gaps.json` | 4,310 | `fb3d569689d528025163b07b4c55b73a037bf54e7dba9bf80fd0e3110ec48c3c` |
+| `exit-status.json` | 185 | `25c20cf0b7f86c57a0afbb9930594c5a00d2a30c5b7c67a1a3cc0911ee444a1b` |
+| `preflight.json` | 10,733 | `033c8ad407c83db82c363f3ef885a3259da76ff4746060d6cc2c8e88cf558afb` |
+| `resource-ledger.json` | 401 | `889a44326cb5b57358922b6d8d079fe61be180ac8d61d434de4eccaa06eaf25c` |
+| `stderr.log` | 0 | `e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855` |
+| `stdout.log` | 95 | `94b29472593864c54ea2ed41e291ba142ff3482b1fed369881c13d7983d0019b` |
+| `terminal-receipt.json` | 1,340 | `8f9e58608ea3f50ad5ad034deac18ca542a1036f36e9213b8a61861711b15a0c` |
+
+The repair routes publisher-side input reopening through the strict parser and adds a non-vacuous
+regression over the real committed protocol shape without opening either registered input. The
+unchanged derive/publish protocols remain 1,154 bytes /
+`29c1cabef149fde31e2000fcf2e2f69351f6bb19904649b466caa58d70c771ef` and 842 bytes /
+`83cf4197d01b4376014da24e5c99ea29d35c4039c76c283c5098d2bcbdc35f27`. The new registry IDs and
+identities are `phase10-c0-derive-resolved-callables-v3`, 7,005 bytes /
+`c70a4e7ff79f7364a32db6641f4c68afcea21c54a0f86637251d0a3540b5e45e`, and
+`phase10-c0-publish-resolved-callables-v3`, 2,882 bytes /
+`571c9796647f750b6b40af818a04044ff110c4443f51ac8ab0dd9da9bf3d6bcf`. The changed closure
+members are `runner/src/phase10-c0-contracts.ts`, 51,463 bytes /
+`35df5ac72c9407126de11ee809a11a8e0af531ab09eb41e5404c7e7cdfe91ca5`, and
+`runner/src/phase10-executor.ts`, 24,568 bytes /
+`9b982ba0c96eaf97e906eac910f79266de138ec20b2ffa187491cbad03f25d11`.
+
+After this repair is reviewed, exact-suite checked, committed as a same-commit C0 code freeze, and
+the worktree is clean, retry derive only with the new attempt:
+
+```text
+node runner/src/phase10-executor.ts check --packet c0-derive --protocol research/phase10-execution-v1/packets/c0-derive/protocol.json --attempt c0-derive-20260821-v2
+node runner/src/phase10-executor.ts run --packet c0-derive --protocol research/phase10-execution-v1/packets/c0-derive/protocol.json --attempt c0-derive-20260821-v2
+```
+
+The later publish command remains frozen at attempt `c0-publish-20260821-v1`; derive v2 must first
+publish, receive independent review and manifest pinning, pass exact `npm test`, and enter a clean
+commit. The focused C0/executor suites pass 29/29, obligation/progress-state regressions pass 22/22,
+`npm run typecheck` passes, and `npm run lint:rule7` reports clean across 1,108 files. Exact
+`npm test` remains the repair checkpoint check and is not claimed by those focused results. No real
+retry, input read, or publication occurred while making this infrastructure repair.
 
 ## Return and stop rules
 

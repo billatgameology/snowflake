@@ -24,6 +24,7 @@ import {
   phase10AcquireWriterLock,
   phase10CandidateVerificationTerminalState,
   phase10ClassifyWorkerOutcome,
+  phase10C0RegisteredScienceInputPaths,
   phase10ParseExecutorArguments,
   phase10RunExecutor,
 } from "../src/phase10-executor.ts";
@@ -322,6 +323,24 @@ describe("Phase 10 bounded non-solver executor", () => {
     expect(source).not.toMatch(/spawnSync\([^\n]*(?:observed|protocol|command)/u);
   });
 
+  it("derives evaluator reopen paths from the strict committed science-protocol shape", () => {
+    const protocolBytes = new Uint8Array(readFileSync(join(SOURCE_ROOT, "research/phase10-c0-protocol-v1.json")));
+    const raw = JSON.parse(new TextDecoder("utf-8", { fatal: true }).decode(protocolBytes)) as {
+      inputArtifacts: {
+        rows: { path: string };
+        historicalReport: { path: string };
+      };
+      rowsArtifact?: unknown;
+      historicalReportArtifact?: unknown;
+    };
+    expect(raw.rowsArtifact).toBeUndefined();
+    expect(raw.historicalReportArtifact).toBeUndefined();
+    expect(phase10C0RegisteredScienceInputPaths(protocolBytes)).toEqual({
+      rowsArtifactPath: raw.inputArtifacts.rows.path,
+      historicalReportArtifactPath: raw.inputArtifacts.historicalReport.path,
+    });
+  });
+
   it("fails every runtime, branch, head, dirt, and disk launch predicate by name", () => {
     const valid = {
       runtime: "v24.13.1",
@@ -379,7 +398,7 @@ describe("Phase 10 bounded non-solver executor", () => {
     const common = {
       matrixId: "phase10-selected-package-obligations-v1",
       protocolId: "phase10-c0-derive-existing-byte-v1",
-      registryId: "phase10-c0-derive-resolved-callables-v2",
+      registryId: "phase10-c0-derive-resolved-callables-v3",
       packetId: "c0-derive",
       verifiedArtifacts: [],
       checkResults: [],
@@ -411,7 +430,7 @@ describe("Phase 10 bounded non-solver executor", () => {
       verificationId: "phase10-c0-publication-verification-v1",
       matrixId: common.matrixId,
       protocolId: "phase10-c0-publish-existing-byte-v1",
-      registryId: "phase10-c0-publish-resolved-callables-v2",
+      registryId: "phase10-c0-publish-resolved-callables-v3",
       packetId: "c0-publish",
       terminalState: "fail",
       verifiedArtifacts: [],

@@ -1,6 +1,6 @@
 {
   "schema": "phase10-callable-registry-v1",
-  "registryId": "phase10-c0-derive-resolved-callables-v2",
+  "registryId": "phase10-c0-derive-resolved-callables-v3",
   "matrixId": "phase10-selected-package-obligations-v1",
   "protocolId": "phase10-c0-derive-existing-byte-v1",
   "packetId": "c0-derive",

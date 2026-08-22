@@ -22,6 +22,7 @@ import {
   PHASE10_C0_EXECUTOR_RESOURCES,
   PHASE10_C0_PUBLISH_PACKET_PROTOCOL_PATH,
   PHASE10_C0_SCIENCE_PROTOCOL_PATH,
+  parsePhase10C0Protocol,
   phase10C0ParsePrettyJson,
   phase10C0ParseRetainedPreflight,
   type Phase10C0ExecutionProvenance,
@@ -252,23 +253,31 @@ function candidateVerificationTerminalState(context: Phase10ExecutionPreflightCo
   );
 }
 
+export function phase10C0RegisteredScienceInputPaths(scienceProtocolBytes: Uint8Array): {
+  readonly rowsArtifactPath: string;
+  readonly historicalReportArtifactPath: string;
+} {
+  const science = parsePhase10C0Protocol(scienceProtocolBytes);
+  return Object.freeze({
+    rowsArtifactPath: science.rowsArtifact.path,
+    historicalReportArtifactPath: science.historicalReportArtifact.path,
+  });
+}
+
 function verificationContext(context: Phase10ExecutionPreflightContext, preflightReceiptBytes: Uint8Array) {
   const verificationName = context.packetId === "c0-derive" ? "c0-derive-verification.json" : "c0-verification.json";
   const verification = parseObject(read(context.repositoryRoot, `${context.paths.candidateDirectory}/${verificationName}`), "candidate verification");
   if (context.packetId === "c0-derive") {
     const scienceProtocolBytes = read(context.repositoryRoot, PHASE10_C0_SCIENCE_PROTOCOL_PATH);
-    const science = JSON.parse(new TextDecoder("utf-8", { fatal: true }).decode(scienceProtocolBytes)) as {
-      rowsArtifact?: { path?: unknown }; historicalReportArtifact?: { path?: unknown };
-    };
-    if (typeof science.rowsArtifact?.path !== "string" || typeof science.historicalReportArtifact?.path !== "string") fail("science protocol input paths differ");
+    const scienceInputPaths = phase10C0RegisteredScienceInputPaths(scienceProtocolBytes);
     return Object.freeze({
       packetId: "c0-derive" as const,
       scienceProtocolBytes,
       packetProtocolBytes: context.protocolBytes,
       callableRegistryBytes: context.registryBytes,
       preflightReceiptBytes,
-      rowsBytes: read(context.repositoryRoot, science.rowsArtifact.path),
-      historicalReportBytes: read(context.repositoryRoot, science.historicalReportArtifact.path),
+      rowsBytes: read(context.repositoryRoot, scienceInputPaths.rowsArtifactPath),
+      historicalReportBytes: read(context.repositoryRoot, scienceInputPaths.historicalReportArtifactPath),
       evaluatorExecution: verification.execution as unknown as Phase10C0EvaluatorExecution,
       evaluatorCwd: context.repositoryRoot,
     });

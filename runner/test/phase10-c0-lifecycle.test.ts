@@ -71,7 +71,7 @@ function identity(path: string): Record<string, unknown> {
 function syntheticPreflight(packetId: "c0-derive" | "c0-publish"): Uint8Array {
   const attemptId = packetId === "c0-derive" ? "synthetic-c0-derive-v1" : "synthetic-c0-publish-v1";
   const protocolId = packetId === "c0-derive" ? "phase10-c0-derive-existing-byte-v1" : "phase10-c0-publish-existing-byte-v1";
-  const registryId = packetId === "c0-derive" ? "phase10-c0-derive-resolved-callables-v2" : "phase10-c0-publish-resolved-callables-v2";
+  const registryId = packetId === "c0-derive" ? "phase10-c0-derive-resolved-callables-v3" : "phase10-c0-publish-resolved-callables-v3";
   const outputIds = packetId === "c0-derive"
     ? ["out-c0-analysis", "out-c0-comparisons", "out-c0-derive-verification", "out-c0-gaps", "out-c0-historical-limit"]
     : ["out-c0-artifact-index", "out-c0-report", "out-c0-verification-receipt"];
