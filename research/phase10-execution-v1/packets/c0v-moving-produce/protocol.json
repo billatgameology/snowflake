@@ -1,0 +1,37 @@
+{
+  "schema": "phase10-packet-protocol-v1",
+  "protocolId": "phase10-c0v-moving-produce-independent-reference-v1",
+  "matrixId": "phase10-selected-package-obligations-v1",
+  "packetId": "c0v-moving-produce",
+  "artifactSchemaRegistry": {
+    "path": "research/phase10-c0v-artifact-schema-registry-v1.json",
+    "byteLength": 117196,
+    "sha256": "d69af84af58af0aff1b5a6a307ef63094439891f0b79357c127035c483c6134d"
+  },
+  "selectedBranches": [
+    {
+      "groupId": "group-c0v-moving-reference-route",
+      "branch": "independent-reference"
+    }
+  ],
+  "registeredOutputIds": [
+    "out-c0v-moving-attempt-ledger",
+    "out-c0v-moving-evaluation",
+    "out-c0v-moving-protocol",
+    "out-c0v-moving-reference",
+    "out-c0v-moving-witness"
+  ],
+  "registeredCheckIds": [
+    "chk-c0v-moving-freeze-ancestry",
+    "chk-c0v-moving-numeric",
+    "chk-c0v-moving-reference-independence",
+    "chk-c0v-moving-resource-boundary"
+  ],
+  "registeredNegativeControlIds": [
+    "nc-event-event-time",
+    "nc-event-topology-orbit"
+  ],
+  "boundDependencyPacketIds": [
+    "a-p"
+  ]
+}

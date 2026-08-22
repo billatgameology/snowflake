@@ -1,0 +1,31 @@
+{
+  "schema": "phase10-packet-protocol-v1",
+  "protocolId": "phase10-c0v-static-produce-reference-refusal-v1",
+  "matrixId": "phase10-selected-package-obligations-v1",
+  "packetId": "c0v-static-produce",
+  "artifactSchemaRegistry": {
+    "path": "research/phase10-c0v-artifact-schema-registry-v1.json",
+    "byteLength": 117196,
+    "sha256": "d69af84af58af0aff1b5a6a307ef63094439891f0b79357c127035c483c6134d"
+  },
+  "selectedBranches": [
+    {
+      "groupId": "group-c0v-static-reference-route",
+      "branch": "reference-refusal"
+    }
+  ],
+  "registeredOutputIds": [
+    "out-c0v-static-attempt-ledger",
+    "out-c0v-static-protocol",
+    "out-c0v-static-reference-refusal"
+  ],
+  "registeredCheckIds": [
+    "chk-c0v-static-freeze-ancestry",
+    "chk-c0v-static-refusal-validity",
+    "chk-c0v-static-resource-boundary"
+  ],
+  "registeredNegativeControlIds": [],
+  "boundDependencyPacketIds": [
+    "a-p"
+  ]
+}

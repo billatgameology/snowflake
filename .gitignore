@@ -27,6 +27,8 @@ research/*
 # Restricted third-party payloads remain ignored and in governed private NAS collections.
 !research/phase10-foundation-freeze-v1.json
 !research/phase10-artifact-schema-registry-v1.json
+!research/phase10-c0v-artifact-schema-registry-v1.json
+!research/phase10-c0v-schema-contracts-v1.json
 !research/phase10-c0-protocol-v1.json
 !research/phase10-c0v-foundation-v1.json
 !research/phase10-obligation-matrix-v1.json

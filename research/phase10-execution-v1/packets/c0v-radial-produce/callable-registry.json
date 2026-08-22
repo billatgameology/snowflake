@@ -1,0 +1,155 @@
+{
+  "schema": "phase10-callable-registry-v1",
+  "registryId": "phase10-c0v-radial-produce-planned-callables-v1",
+  "matrixId": "phase10-selected-package-obligations-v1",
+  "protocolId": "phase10-c0v-radial-produce-independent-reference-v1",
+  "packetId": "c0v-radial-produce",
+  "callables": [
+    {
+      "callableId": "phase10-c0v-radial-attempt-receipt-writer",
+      "role": "producer",
+      "resolution": "planned",
+      "modulePath": "runner/src/phase10-c0v-radial-attempt-receipt.ts",
+      "exportName": "writePhase10C0VRadialAttemptReceipt",
+      "identity": null,
+      "producedOutputIds": [
+        "out-c0v-radial-attempt-ledger"
+      ],
+      "invokedCheckIds": [],
+      "evaluatedCheckIds": [],
+      "executedNegativeControlIds": []
+    },
+    {
+      "callableId": "phase10-c0v-radial-evaluation-receipt-writer",
+      "role": "producer",
+      "resolution": "planned",
+      "modulePath": "runner/src/phase10-c0v-radial-evaluation-receipt.ts",
+      "exportName": "writePhase10C0VRadialEvaluationReceipt",
+      "identity": null,
+      "producedOutputIds": [
+        "out-c0v-radial-evaluation"
+      ],
+      "invokedCheckIds": [],
+      "evaluatedCheckIds": [],
+      "executedNegativeControlIds": []
+    },
+    {
+      "callableId": "phase10-c0v-radial-evaluator",
+      "role": "independent-evaluator",
+      "resolution": "planned",
+      "modulePath": "runner/src/phase10-c0v-radial-evaluator.ts",
+      "exportName": "independentlyEvaluatePhase10C0VRadial",
+      "identity": null,
+      "producedOutputIds": [],
+      "invokedCheckIds": [],
+      "evaluatedCheckIds": [
+        "chk-c0v-radial-freeze-ancestry",
+        "chk-c0v-radial-numeric",
+        "chk-c0v-radial-reference-independence",
+        "chk-c0v-radial-resource-boundary"
+      ],
+      "executedNegativeControlIds": []
+    },
+    {
+      "callableId": "phase10-c0v-radial-produce-check-caller",
+      "role": "check-caller",
+      "resolution": "planned",
+      "modulePath": "runner/src/phase10-c0v-radial-checks.ts",
+      "exportName": "phase10C0VRadialProduceCheckCaller",
+      "identity": null,
+      "producedOutputIds": [],
+      "invokedCheckIds": [
+        "chk-c0v-radial-freeze-ancestry",
+        "chk-c0v-radial-numeric",
+        "chk-c0v-radial-reference-independence",
+        "chk-c0v-radial-resource-boundary"
+      ],
+      "evaluatedCheckIds": [],
+      "executedNegativeControlIds": []
+    },
+    {
+      "callableId": "phase10-c0v-radial-production-producer",
+      "role": "producer",
+      "resolution": "planned",
+      "modulePath": "runner/src/phase10-c0v-radial-production.ts",
+      "exportName": "producePhase10C0VRadialWitness",
+      "identity": null,
+      "producedOutputIds": [
+        "out-c0v-radial-witness"
+      ],
+      "invokedCheckIds": [],
+      "evaluatedCheckIds": [],
+      "executedNegativeControlIds": []
+    },
+    {
+      "callableId": "phase10-c0v-radial-protocol-producer",
+      "role": "producer",
+      "resolution": "planned",
+      "modulePath": "runner/src/phase10-c0v-radial-protocol-reopener.ts",
+      "exportName": "reopenPhase10C0VRadialProtocol",
+      "identity": null,
+      "producedOutputIds": [
+        "out-c0v-radial-protocol"
+      ],
+      "invokedCheckIds": [],
+      "evaluatedCheckIds": [],
+      "executedNegativeControlIds": []
+    },
+    {
+      "callableId": "phase10-c0v-radial-reference-producer",
+      "role": "producer",
+      "resolution": "planned",
+      "modulePath": "runner/src/phase10-c0v-radial-reference-reopener.ts",
+      "exportName": "reopenPhase10C0VRadialReference",
+      "identity": null,
+      "producedOutputIds": [
+        "out-c0v-radial-reference"
+      ],
+      "invokedCheckIds": [],
+      "evaluatedCheckIds": [],
+      "executedNegativeControlIds": []
+    },
+    {
+      "callableId": "phase10-nc-radial-finite-shell-term",
+      "role": "negative-control",
+      "resolution": "planned",
+      "modulePath": "runner/src/phase10-c0v-radial-negative-controls.ts",
+      "exportName": "phase10RadialFiniteShellTerm",
+      "identity": null,
+      "producedOutputIds": [],
+      "invokedCheckIds": [],
+      "evaluatedCheckIds": [],
+      "executedNegativeControlIds": [
+        "nc-radial-finite-shell-term"
+      ]
+    },
+    {
+      "callableId": "phase10-nc-radial-forged-summary",
+      "role": "negative-control",
+      "resolution": "planned",
+      "modulePath": "runner/src/phase10-c0v-radial-negative-controls.ts",
+      "exportName": "phase10RadialForgedSummary",
+      "identity": null,
+      "producedOutputIds": [],
+      "invokedCheckIds": [],
+      "evaluatedCheckIds": [],
+      "executedNegativeControlIds": [
+        "nc-radial-forged-summary"
+      ]
+    },
+    {
+      "callableId": "phase10-nc-radial-robin-coefficient",
+      "role": "negative-control",
+      "resolution": "planned",
+      "modulePath": "runner/src/phase10-c0v-radial-negative-controls.ts",
+      "exportName": "phase10RadialRobinCoefficient",
+      "identity": null,
+      "producedOutputIds": [],
+      "invokedCheckIds": [],
+      "evaluatedCheckIds": [],
+      "executedNegativeControlIds": [
+        "nc-radial-robin-coefficient"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,141 @@
+{
+  "schema": "phase10-callable-registry-v1",
+  "registryId": "phase10-c0v-moving-produce-planned-callables-v1",
+  "matrixId": "phase10-selected-package-obligations-v1",
+  "protocolId": "phase10-c0v-moving-produce-independent-reference-v1",
+  "packetId": "c0v-moving-produce",
+  "callables": [
+    {
+      "callableId": "phase10-c0v-moving-attempt-receipt-writer",
+      "role": "producer",
+      "resolution": "planned",
+      "modulePath": "runner/src/phase10-c0v-moving-attempt-receipt.ts",
+      "exportName": "writePhase10C0VMovingAttemptReceipt",
+      "identity": null,
+      "producedOutputIds": [
+        "out-c0v-moving-attempt-ledger"
+      ],
+      "invokedCheckIds": [],
+      "evaluatedCheckIds": [],
+      "executedNegativeControlIds": []
+    },
+    {
+      "callableId": "phase10-c0v-moving-evaluation-receipt-writer",
+      "role": "producer",
+      "resolution": "planned",
+      "modulePath": "runner/src/phase10-c0v-moving-evaluation-receipt.ts",
+      "exportName": "writePhase10C0VMovingEvaluationReceipt",
+      "identity": null,
+      "producedOutputIds": [
+        "out-c0v-moving-evaluation"
+      ],
+      "invokedCheckIds": [],
+      "evaluatedCheckIds": [],
+      "executedNegativeControlIds": []
+    },
+    {
+      "callableId": "phase10-c0v-moving-evaluator",
+      "role": "independent-evaluator",
+      "resolution": "planned",
+      "modulePath": "runner/src/phase10-c0v-moving-evaluator.ts",
+      "exportName": "independentlyEvaluatePhase10C0VMoving",
+      "identity": null,
+      "producedOutputIds": [],
+      "invokedCheckIds": [],
+      "evaluatedCheckIds": [
+        "chk-c0v-moving-freeze-ancestry",
+        "chk-c0v-moving-numeric",
+        "chk-c0v-moving-reference-independence",
+        "chk-c0v-moving-resource-boundary"
+      ],
+      "executedNegativeControlIds": []
+    },
+    {
+      "callableId": "phase10-c0v-moving-produce-check-caller",
+      "role": "check-caller",
+      "resolution": "planned",
+      "modulePath": "runner/src/phase10-c0v-moving-checks.ts",
+      "exportName": "phase10C0VMovingProduceCheckCaller",
+      "identity": null,
+      "producedOutputIds": [],
+      "invokedCheckIds": [
+        "chk-c0v-moving-freeze-ancestry",
+        "chk-c0v-moving-numeric",
+        "chk-c0v-moving-reference-independence",
+        "chk-c0v-moving-resource-boundary"
+      ],
+      "evaluatedCheckIds": [],
+      "executedNegativeControlIds": []
+    },
+    {
+      "callableId": "phase10-c0v-moving-production-producer",
+      "role": "producer",
+      "resolution": "planned",
+      "modulePath": "runner/src/phase10-c0v-moving-production.ts",
+      "exportName": "producePhase10C0VMovingWitness",
+      "identity": null,
+      "producedOutputIds": [
+        "out-c0v-moving-witness"
+      ],
+      "invokedCheckIds": [],
+      "evaluatedCheckIds": [],
+      "executedNegativeControlIds": []
+    },
+    {
+      "callableId": "phase10-c0v-moving-protocol-producer",
+      "role": "producer",
+      "resolution": "planned",
+      "modulePath": "runner/src/phase10-c0v-moving-protocol-reopener.ts",
+      "exportName": "reopenPhase10C0VMovingProtocol",
+      "identity": null,
+      "producedOutputIds": [
+        "out-c0v-moving-protocol"
+      ],
+      "invokedCheckIds": [],
+      "evaluatedCheckIds": [],
+      "executedNegativeControlIds": []
+    },
+    {
+      "callableId": "phase10-c0v-moving-reference-producer",
+      "role": "producer",
+      "resolution": "planned",
+      "modulePath": "runner/src/phase10-c0v-moving-reference-reopener.ts",
+      "exportName": "reopenPhase10C0VMovingReference",
+      "identity": null,
+      "producedOutputIds": [
+        "out-c0v-moving-reference"
+      ],
+      "invokedCheckIds": [],
+      "evaluatedCheckIds": [],
+      "executedNegativeControlIds": []
+    },
+    {
+      "callableId": "phase10-nc-event-event-time",
+      "role": "negative-control",
+      "resolution": "planned",
+      "modulePath": "runner/src/phase10-c0v-moving-negative-controls.ts",
+      "exportName": "phase10EventEventTime",
+      "identity": null,
+      "producedOutputIds": [],
+      "invokedCheckIds": [],
+      "evaluatedCheckIds": [],
+      "executedNegativeControlIds": [
+        "nc-event-event-time"
+      ]
+    },
+    {
+      "callableId": "phase10-nc-event-topology-orbit",
+      "role": "negative-control",
+      "resolution": "planned",
+      "modulePath": "runner/src/phase10-c0v-moving-negative-controls.ts",
+      "exportName": "phase10EventTopologyOrbit",
+      "identity": null,
+      "producedOutputIds": [],
+      "invokedCheckIds": [],
+      "evaluatedCheckIds": [],
+      "executedNegativeControlIds": [
+        "nc-event-topology-orbit"
+      ]
+    }
+  ]
+}

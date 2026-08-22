@@ -1,0 +1,96 @@
+{
+  "schema": "phase10-callable-registry-v1",
+  "registryId": "phase10-c0v-static-produce-planned-callables-v1",
+  "matrixId": "phase10-selected-package-obligations-v1",
+  "protocolId": "phase10-c0v-static-produce-reference-refusal-v1",
+  "packetId": "c0v-static-produce",
+  "callables": [
+    {
+      "callableId": "phase10-c0v-static-attempt-receipt-writer",
+      "role": "producer",
+      "resolution": "planned",
+      "modulePath": "runner/src/phase10-c0v-static-attempt-receipt.ts",
+      "exportName": "writePhase10C0VStaticAttemptReceipt",
+      "identity": null,
+      "producedOutputIds": [
+        "out-c0v-static-attempt-ledger"
+      ],
+      "invokedCheckIds": [],
+      "evaluatedCheckIds": [],
+      "executedNegativeControlIds": []
+    },
+    {
+      "callableId": "phase10-c0v-static-evaluator",
+      "role": "independent-evaluator",
+      "resolution": "planned",
+      "modulePath": "runner/src/phase10-c0v-static-evaluator.ts",
+      "exportName": "independentlyEvaluatePhase10C0VStatic",
+      "identity": null,
+      "producedOutputIds": [],
+      "invokedCheckIds": [],
+      "evaluatedCheckIds": [
+        "chk-c0v-static-freeze-ancestry",
+        "chk-c0v-static-resource-boundary"
+      ],
+      "executedNegativeControlIds": []
+    },
+    {
+      "callableId": "phase10-c0v-static-produce-check-caller",
+      "role": "check-caller",
+      "resolution": "planned",
+      "modulePath": "runner/src/phase10-c0v-static-checks.ts",
+      "exportName": "phase10C0VStaticProduceCheckCaller",
+      "identity": null,
+      "producedOutputIds": [],
+      "invokedCheckIds": [
+        "chk-c0v-static-freeze-ancestry",
+        "chk-c0v-static-refusal-validity",
+        "chk-c0v-static-resource-boundary"
+      ],
+      "evaluatedCheckIds": [],
+      "executedNegativeControlIds": []
+    },
+    {
+      "callableId": "phase10-c0v-static-protocol-producer",
+      "role": "producer",
+      "resolution": "planned",
+      "modulePath": "runner/src/phase10-c0v-static-protocol-reopener.ts",
+      "exportName": "reopenPhase10C0VStaticProtocol",
+      "identity": null,
+      "producedOutputIds": [
+        "out-c0v-static-protocol"
+      ],
+      "invokedCheckIds": [],
+      "evaluatedCheckIds": [],
+      "executedNegativeControlIds": []
+    },
+    {
+      "callableId": "phase10-c0v-static-refusal-evaluator",
+      "role": "independent-evaluator",
+      "resolution": "planned",
+      "modulePath": "runner/src/phase10-c0v-static-refusal-evaluator.ts",
+      "exportName": "independentlyEvaluatePhase10C0VStaticRefusal",
+      "identity": null,
+      "producedOutputIds": [],
+      "invokedCheckIds": [],
+      "evaluatedCheckIds": [
+        "chk-c0v-static-refusal-validity"
+      ],
+      "executedNegativeControlIds": []
+    },
+    {
+      "callableId": "phase10-c0v-static-refusal-receipt-writer",
+      "role": "producer",
+      "resolution": "planned",
+      "modulePath": "runner/src/phase10-c0v-static-refusal-reopener.ts",
+      "exportName": "reopenPhase10C0VStaticReferenceRefusal",
+      "identity": null,
+      "producedOutputIds": [
+        "out-c0v-static-reference-refusal"
+      ],
+      "invokedCheckIds": [],
+      "evaluatedCheckIds": [],
+      "executedNegativeControlIds": []
+    }
+  ]
+}

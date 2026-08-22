@@ -1,0 +1,316 @@
+{
+  "schema": "phase10-c0v-radial-protocol-v1",
+  "protocolId": "phase10-c0v-radial-s5a-v1",
+  "layerId": "C0V-RADIAL",
+  "frozenDate": "2026-08-21",
+  "branch": "independent-reference",
+  "bindings": {
+    "foundation": {
+      "path": "research/phase10-c0v-foundation-v1.json",
+      "byteLength": 19412,
+      "sha256": "ddb842588fea19898f9f71a02ce461d5d32ec102b140798e5c62d175521157e8"
+    },
+    "obligationMatrix": {
+      "path": "research/phase10-obligation-matrix-v1.json",
+      "byteLength": 125508,
+      "sha256": "8f85e6febad1ec7568b2a7a47dd764c260cc1f602da08c7dd27d5ee1a6c1bab3"
+    },
+    "schemaRegistry": {
+      "path": "research/phase10-c0v-artifact-schema-registry-v1.json",
+      "byteLength": 117196,
+      "sha256": "d69af84af58af0aff1b5a6a307ef63094439891f0b79357c127035c483c6134d"
+    },
+    "schemaContracts": {
+      "path": "research/phase10-c0v-schema-contracts-v1.json",
+      "byteLength": 93575,
+      "sha256": "be743fbc560e46e60b51132be66ca9381ffa5d7b69bf6b1e21cce500628cf0f6"
+    }
+  },
+  "artifactPaths": {
+    "protocol": "research/phase10-c0v-radial-protocol-v1.json",
+    "reference": "evidence/phase10-numerical-verification-v1/c0v-radial-reference.json",
+    "referenceRefusal": "evidence/phase10-numerical-verification-v1/c0v-radial-reference-refusal.json",
+    "witness": "evidence/phase10-numerical-verification-v1/c0v-radial-witness.bin",
+    "evaluation": "evidence/phase10-numerical-verification-v1/c0v-radial-evaluation.json",
+    "result": "evidence/phase10-numerical-verification-v1/c0v-radial-result.json",
+    "attemptLedger": "evidence/phase10-numerical-verification-v1/c0v-radial-attempts.jsonl"
+  },
+  "referenceOnlyCode": [
+    {
+      "role": "generator",
+      "modulePath": "runner/src/phase10-c0v-radial-reference-derive.ts",
+      "exportName": "derivePhase10C0VRadialReference",
+      "byteLength": 20311,
+      "sha256": "391d318b13c10ea835da86fd6586d373c67b2392f49efdd5bd173832702e2797"
+    },
+    {
+      "role": "independent-checker",
+      "modulePath": "runner/src/phase10-c0v-radial-reference-check.ts",
+      "exportName": "independentlyCheckPhase10C0VRadialReference",
+      "byteLength": 42073,
+      "sha256": "e9209c18bcdd2eeb18cf07c4ece07a460c2b415579772f799482024558144d8f"
+    },
+    {
+      "role": "shared-parser",
+      "modulePath": "runner/src/phase10-c0v-contracts.ts",
+      "exportName": "parsePhase10C0VRadialProtocol",
+      "byteLength": 144599,
+      "sha256": "95cd7f83a612afd4220b14967fe78f3b200e3d52fa604794a96689b3adf8f653"
+    }
+  ],
+  "problem": {
+    "geometry": "finite-spherical-shell",
+    "radiusM": 0.000003,
+    "farRadiusM": 0.0000168,
+    "sigmaInfinity": 0.0075,
+    "tempC": -5,
+    "pressurePa": 101325,
+    "alphaHKConst": 0.393,
+    "physicalConstants": {
+      "kBoltzmannJPerK": 1.380649e-23,
+      "celsiusZeroK": 273.15,
+      "waterMoleculeMassKg": 3e-26,
+      "iceNumberDensityPerM3": 3.1e+28,
+      "diffusivityAir1AtmM2S": 0.00002,
+      "standardAtmospherePa": 101325,
+      "saturationPressurePrefactorMbar": 37000000000,
+      "saturationPressureExponentK": -6150,
+      "mbarToPa": 100
+    },
+    "provenance": [
+      {
+        "operandId": "alphaHKConst",
+        "provenanceClass": "idealized-finite-shell-spherical-control-constant",
+        "source": "solver-cpu/test/spherical-reference.test.ts",
+        "locator": "solver-cpu/test/spherical-reference.test.ts#COEFFICIENT",
+        "status": "phase10-control-test-fixture-only-no-temperature-law-or-validation-claim"
+      },
+      {
+        "operandId": "environment-and-metrological-constants",
+        "provenanceClass": "source-explicit-and-authoritative-exact-mixture",
+        "source": "docs/libbrecht-parameters.md",
+        "locator": "implemented physical inputs and exact definitions",
+        "status": "copied-as-frozen-operands"
+      },
+      {
+        "operandId": "finite-shell-geometry-and-grid-roster",
+        "provenanceClass": "phase10-control-design",
+        "source": "docs/plans/phase-10-evidence-verification-execution.md",
+        "locator": "S5 branch and checkpoint design",
+        "status": "preimplementation-frozen"
+      }
+    ]
+  },
+  "roster": {
+    "caseCount": 4,
+    "automaticRefinement": false,
+    "nodeRule": {
+      "formula": "max(3, floor((farRadiusM - radiusM) / requestedSpacingM + 1 / 2) + 1)",
+      "rounding": "nearest-with-positive-half-up",
+      "minimumNodes": 3,
+      "spanDefinition": "farRadiusM - radiusM"
+    },
+    "orderDisposition": "not-applicable-exact-u-roundoff-control",
+    "cases": [
+      {
+        "caseId": "radial-dr-0p7um",
+        "requestedSpacingUm": 0.7,
+        "requestedSpacingM": 7e-7,
+        "expectedIntervalCount": 20,
+        "expectedNodeCount": 21,
+        "expectedActualSpacingM": 6.9e-7,
+        "actualSpacingUmRational": {
+          "numerator": 69,
+          "denominator": 100
+        }
+      },
+      {
+        "caseId": "radial-dr-0p35um",
+        "requestedSpacingUm": 0.35,
+        "requestedSpacingM": 3.5e-7,
+        "expectedIntervalCount": 39,
+        "expectedNodeCount": 40,
+        "expectedActualSpacingM": 3.538461538461538e-7,
+        "actualSpacingUmRational": {
+          "numerator": 23,
+          "denominator": 65
+        }
+      },
+      {
+        "caseId": "radial-dr-0p175um",
+        "requestedSpacingUm": 0.175,
+        "requestedSpacingM": 1.75e-7,
+        "expectedIntervalCount": 79,
+        "expectedNodeCount": 80,
+        "expectedActualSpacingM": 1.7468354430379744e-7,
+        "actualSpacingUmRational": {
+          "numerator": 69,
+          "denominator": 395
+        }
+      },
+      {
+        "caseId": "radial-dr-0p0875um",
+        "requestedSpacingUm": 0.0875,
+        "requestedSpacingM": 8.75e-8,
+        "expectedIntervalCount": 158,
+        "expectedNodeCount": 159,
+        "expectedActualSpacingM": 8.734177215189872e-8,
+        "actualSpacingUmRational": {
+          "numerator": 69,
+          "denominator": 790
+        }
+      }
+    ]
+  },
+  "formulas": {
+    "temperatureK": "temperatureK = tempC + celsiusZeroK",
+    "saturationPressurePa": "saturationPressurePa = saturationPressurePrefactorMbar * exp(saturationPressureExponentK / temperatureK) * mbarToPa, where saturationPressureExponentK is the signed value -6150 and no second unary minus is applied",
+    "saturationNumberDensityPerM3": "saturationNumberDensityPerM3 = saturationPressurePa / (kBoltzmannJPerK * temperatureK)",
+    "diffusivityM2S": "diffusivityM2S = diffusivityAir1AtmM2S * standardAtmospherePa / pressurePa",
+    "thermalSpeedMS": "thermalSpeedMS = sqrt(kBoltzmannJPerK * temperatureK / (2 * PI * waterMoleculeMassKg))",
+    "kineticVelocityMS": "kineticVelocityMS = saturationNumberDensityPerM3 / iceNumberDensityPerM3 * thermalSpeedMS",
+    "kineticLengthM": "kineticLengthM = saturationNumberDensityPerM3 / iceNumberDensityPerM3 * diffusivityM2S / kineticVelocityMS",
+    "solutionFamily": "sigma(r) = harmonicConstant + harmonicInverseRadiusCoefficientM / r",
+    "shellEquation": "harmonicConstant + harmonicInverseRadiusCoefficientM / farRadiusM = sigmaInfinity",
+    "robinEquation": "kineticLengthM * (-harmonicInverseRadiusCoefficientM / radiusM^2) = alphaHKConst * (harmonicConstant + harmonicInverseRadiusCoefficientM / radiusM)",
+    "growthVelocityFluxMS": "growthVelocityFluxMS = saturationNumberDensityPerM3 / iceNumberDensityPerM3 * diffusivityM2S * surfaceGradientPerM",
+    "growthVelocityKineticMS": "growthVelocityKineticMS = alphaHKConst * kineticVelocityMS * sigmaSurface",
+    "uniformControl": "when alphaHKConst = 0, sigma(r) = sigmaInfinity at every node, both growth velocities and the Robin residual are bitwise zero",
+    "fieldRelativeLInf": "max_i(abs(candidateSigma_i - referenceSigma_i)) / max_i(abs(referenceSigma_i))",
+    "fieldWeightedRelativeL2": "sqrt(sum_i(weight_i * (candidateSigma_i - referenceSigma_i)^2) / sum_i(weight_i * referenceSigma_i^2))",
+    "sphericalTrapezoidWeights": "weight_i = radius_i^2 * actualSpacingM * (1 / 2 for endpoints, 1 for interior nodes); the common 4 * PI angular factor cancels",
+    "normalizedResiduals": "shell and uniform errors divide by max(abs(sigmaInfinity), Number.MIN_VALUE); Robin residual divides by max(abs(alphaHKConst * sigmaSurface), abs(kineticLengthM * surfaceGradientPerM), Number.MIN_VALUE)"
+  },
+  "referenceDerivation": {
+    "method": "independent-2x2-harmonic-coefficients",
+    "unknowns": [
+      "harmonicConstant",
+      "harmonicInverseRadiusCoefficientM"
+    ],
+    "caseProcedure": [
+      "derive physical scales from the frozen signed-exponent equations",
+      "solve the shell and Robin equations as a two-unknown linear system",
+      "evaluate every node from the frozen node-rule binary64 spacing",
+      "derive flux and Hertz-Knudsen velocities independently from the solved surface state",
+      "emit every floating operand and result as decimal plus big-endian binary64 hexadecimal identity"
+    ],
+    "uniformControlProcedure": [
+      "set only alphaHKConst to zero",
+      "re-solve every frozen roster member",
+      "require the uniform field, exact shell, bitwise-zero rates, and bitwise-zero Robin residual"
+    ],
+    "actualSpacingRule": "expectedActualSpacingM is the exact binary64 evaluation of (farRadiusM - radiusM) / expectedIntervalCount; the rational micrometre identity is checked within binary64 roundoff and is not used to reconstruct the bit pattern",
+    "outputValuePolicy": "no-actual-output-values-in-protocol"
+  },
+  "targetedCheck": {
+    "method": "independent-closed-form-lambda",
+    "independentParameterization": "derive the finite-shell dimensionless Robin strength Lambda and closed-form surface/profile without importing or repeating the generator two-by-two solve",
+    "checks": [
+      "exact operand and requested/actual roster echo",
+      "independent physical-scale identities including the signed saturation-pressure exponent",
+      "surface and both velocity relative errors",
+      "standard complete-field relative L-infinity norm",
+      "spherical-trapezoid weighted relative L2 norm",
+      "shell, uniform zero-attachment, and Robin residual normalized errors",
+      "generator/checker agreement and finite-value reduction",
+      "all four cases and the uniform control are present"
+    ],
+    "aggregateRule": "every exact identity and every less-than-or-equal tolerance must pass for all four cases",
+    "generatorImportAllowed": false
+  },
+  "criteria": {
+    "allCasesRequired": true,
+    "exactOperandEcho": true,
+    "exactNodeRoster": true,
+    "exactActualSpacing": true,
+    "surfaceRelative": 1e-9,
+    "velocityRelative": 1e-9,
+    "fieldRelativeLInf": 1e-9,
+    "fieldWeightedRelativeL2": 1e-9,
+    "shellNormalized": 1e-12,
+    "uniformNormalizedLInf": 1e-12,
+    "robinResidualNormalized": 1e-9,
+    "generatorCheckerAgreement": 1e-13,
+    "comparisonOperator": "less-than-or-equal"
+  },
+  "negativeControls": [
+    {
+      "negativeControlId": "nc-radial-finite-shell-term",
+      "mutation": "remove only the production-side finite-shell contribution while the frozen reference remains unchanged",
+      "independentWitness": "the production raw witness SHA-256 must move while the frozen reference identity remains byte-identical",
+      "attackedCheck": "chk-c0v-radial-numeric",
+      "expected": "the independent numerical evaluator fails"
+    },
+    {
+      "negativeControlId": "nc-radial-forged-summary",
+      "mutation": "change only a producer-reported radial error or summary verdict without changing raw witness bytes",
+      "independentWitness": "a verifier distinct from the mutation author proves raw reference and witness identities did not move",
+      "attackedCheck": "chk-c0v-radial-numeric",
+      "expected": "the independent evaluator ignores the forged summary or reports disagreement"
+    },
+    {
+      "negativeControlId": "nc-radial-robin-coefficient",
+      "mutation": "change only the production-side Robin attachment coefficient alphaHKConst or its boundary use",
+      "independentWitness": "the production raw witness SHA-256 must move while the frozen reference identity remains byte-identical",
+      "attackedCheck": "chk-c0v-radial-numeric",
+      "expected": "the independent numerical evaluator fails; reference independence is neither established nor attacked by this mutation"
+    }
+  ],
+  "resourceBoundary": {
+    "requiredRuntime": "v24.13.1",
+    "timeoutSeconds": 300,
+    "projectedScratchBytes": 8388608,
+    "projectedPublicationBytes": 2097152,
+    "minimumFreeBytes": 67108864,
+    "solverProcessConcurrency": 1,
+    "s5ScientificProcessHours": 0,
+    "automaticRefinementOrFanOut": false,
+    "capOutcome": "resource-refusal-and-maker-return"
+  },
+  "independence": {
+    "scientificArithmeticSeparation": "the two-by-two harmonic generator and closed-form Lambda checker share frozen schemas and operands but no scientific-arithmetic implementation",
+    "permittedSharedCode": [
+      "artifact identity and strict schema parsing",
+      "canonical JSON serialization",
+      "cryptographic hashing",
+      "path containment and provenance collection"
+    ],
+    "sharedImportAllowlist": [
+      "runner/src/gate4-evidence.ts",
+      "runner/src/phase10-c0v-contracts.ts"
+    ],
+    "forbiddenImports": [
+      "core/**",
+      "runner/src/phase10-execution-preflight.ts",
+      "runner/src/phase10-executor-worker.ts",
+      "runner/src/phase10-executor.ts",
+      "solver-cpu/**",
+      "solver-gpu/**"
+    ],
+    "dependencyAudit": "recursively resolve every local TypeScript import from generator and checker, hash every closure member, require the exact shared allowlist intersection, and refuse any forbidden path before derivation",
+    "testHooks": "testAlphaOverride, testExtraSeedSites, testMode, fabricated resume state, and equivalent substitutions are forbidden",
+    "productionImplementationPresent": false,
+    "solverExecutionPresent": false
+  },
+  "terminalSemantics": {
+    "earlyReferenceArtifact": "S5b may publish one immutable radial reference or a discrepancy refusal from the clean S5a ancestor",
+    "packetCompletion": "the produce packet remains incomplete until S6 production witness, evaluation, attempt ledger, and controls are terminal",
+    "referenceReopener": "S6 may only reopen and byte-match the committed S5b artifact; it cannot regenerate, select, or tune it",
+    "discrepancyOutcome": "a generator/checker discrepancy publishes a scoped refusal and does not alter this protocol",
+    "aggregateRule": "any C0V layer failure or refusal prevents aggregate C0V PASS"
+  },
+  "claimBoundary": {
+    "allowed": [
+      "constant-coefficient finite-shell spherical Robin control under the exact frozen operands",
+      "radial reference generation and independent-check agreement within frozen tolerances"
+    ],
+    "forbidden": [
+      "apparatus agreement",
+      "habit robustness",
+      "mechanism validation",
+      "physical realism",
+      "prior-phase credit",
+      "quantitative validation"
+    ]
+  }
+}

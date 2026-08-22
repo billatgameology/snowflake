@@ -19,6 +19,8 @@ media-inventory.json -text
 # execution. Keep their identities stable on Windows as well as other execution/review hosts.
 phase10-foundation-freeze-v1.json -text
 phase10-artifact-schema-registry-v1.json -text
+phase10-c0v-artifact-schema-registry-v1.json -text
+phase10-c0v-schema-contracts-v1.json -text
 phase10-c0-protocol-v1.json -text
 phase10-c0v-foundation-v1.json -text
 phase10-obligation-matrix-v1.json -text

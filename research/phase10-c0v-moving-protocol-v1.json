@@ -1,0 +1,408 @@
+{
+  "schema": "phase10-c0v-moving-protocol-v1",
+  "protocolId": "phase10-c0v-moving-s5a-v1",
+  "layerId": "C0V-MOVING-EVENT",
+  "frozenDate": "2026-08-21",
+  "branch": "independent-reference",
+  "bindings": {
+    "foundation": {
+      "path": "research/phase10-c0v-foundation-v1.json",
+      "byteLength": 19412,
+      "sha256": "ddb842588fea19898f9f71a02ce461d5d32ec102b140798e5c62d175521157e8"
+    },
+    "obligationMatrix": {
+      "path": "research/phase10-obligation-matrix-v1.json",
+      "byteLength": 125508,
+      "sha256": "8f85e6febad1ec7568b2a7a47dd764c260cc1f602da08c7dd27d5ee1a6c1bab3"
+    },
+    "schemaRegistry": {
+      "path": "research/phase10-c0v-artifact-schema-registry-v1.json",
+      "byteLength": 117196,
+      "sha256": "d69af84af58af0aff1b5a6a307ef63094439891f0b79357c127035c483c6134d"
+    },
+    "schemaContracts": {
+      "path": "research/phase10-c0v-schema-contracts-v1.json",
+      "byteLength": 93575,
+      "sha256": "be743fbc560e46e60b51132be66ca9381ffa5d7b69bf6b1e21cce500628cf0f6"
+    }
+  },
+  "artifactPaths": {
+    "protocol": "research/phase10-c0v-moving-protocol-v1.json",
+    "reference": "evidence/phase10-numerical-verification-v1/c0v-moving-reference.json",
+    "referenceRefusal": "evidence/phase10-numerical-verification-v1/c0v-moving-reference-refusal.json",
+    "witness": "evidence/phase10-numerical-verification-v1/c0v-moving-witness.bin",
+    "evaluation": "evidence/phase10-numerical-verification-v1/c0v-moving-evaluation.json",
+    "result": "evidence/phase10-numerical-verification-v1/c0v-moving-result.json",
+    "attemptLedger": "evidence/phase10-numerical-verification-v1/c0v-moving-attempts.jsonl"
+  },
+  "referenceOnlyCode": [
+    {
+      "role": "generator",
+      "modulePath": "runner/src/phase10-c0v-moving-reference-derive.ts",
+      "exportName": "derivePhase10C0VMovingReference",
+      "byteLength": 27751,
+      "sha256": "2900317842c98bc1eacf06d94889c62233966d53833fcbafe49069135f6a7fe2"
+    },
+    {
+      "role": "independent-checker",
+      "modulePath": "runner/src/phase10-c0v-moving-reference-check.ts",
+      "exportName": "independentlyCheckPhase10C0VMovingReference",
+      "byteLength": 50008,
+      "sha256": "0192036ad7a5dc6e65122ccd7c90be5a2e8ae24033a5aa33e2d9fb10a4bf6972"
+    },
+    {
+      "role": "shared-parser",
+      "modulePath": "runner/src/phase10-c0v-contracts.ts",
+      "exportName": "parsePhase10C0VMovingProtocol",
+      "byteLength": 144599,
+      "sha256": "95cd7f83a612afd4220b14967fe78f3b200e3d52fa604794a96689b3adf8f653"
+    }
+  ],
+  "fixture": {
+    "surfacePolicy": "aggregate-hv-g1h1-v6",
+    "dimensions": [
+      3,
+      3,
+      5
+    ],
+    "center": [
+      1,
+      1,
+      2
+    ],
+    "domain": "hexPrism",
+    "farField": "dirichlet",
+    "seedRadius": 0,
+    "seedThickness": 1,
+    "tempC": -5,
+    "sigmaInfinity": 0.0075,
+    "dxUm": 0.35,
+    "pressurePa": 101325,
+    "paramSet": "CAK_A1",
+    "cflFill": 0.26,
+    "relaxTol": 1e-13,
+    "divTol": 1e-10,
+    "maxSweeps": 100000,
+    "noiseEpsilon": 0,
+    "rngSeed": 0,
+    "physicalConstants": {
+      "kBoltzmannJPerK": 1.380649e-23,
+      "celsiusZeroK": 273.15,
+      "waterMoleculeMassKg": 3e-26,
+      "iceNumberDensityPerM3": 3.1e+28,
+      "diffusivityAir1AtmM2S": 0.00002,
+      "standardAtmospherePa": 101325,
+      "saturationPressurePrefactorMbar": 37000000000,
+      "saturationPressureExponentK": -6150,
+      "mbarToPa": 100
+    },
+    "kineticInputs": {
+      "basalPrefactor": 1,
+      "basalSigma0": 0.007,
+      "robinGeometry": 1,
+      "fillGeometry": 1
+    },
+    "provenance": [
+      {
+        "operandId": "surface-policy-and-coupled-formulas",
+        "provenanceClass": "accepted-solver-specification",
+        "source": "docs/attachment-kinetics.md",
+        "locator": "docs/attachment-kinetics.md#4.4-the-surface-operator-specification",
+        "status": "aggregate-hv-g1h1-v6-production-contract-copied-for-independent-control"
+      },
+      {
+        "operandId": "CAK_A1-minus5C-basal-kinetic-inputs",
+        "provenanceClass": "P2-composite-source-digitization-and-cited-A1-modeling-choice",
+        "source": "docs/libbrecht-parameters.md",
+        "locator": "Section 3 Branch 1, minus-5-C row and parameter-set provenance",
+        "status": "basalPrefactor-1-and-basalSigma0-0.007-copied-for-this-control"
+      },
+      {
+        "operandId": "environment-and-metrological-constants",
+        "provenanceClass": "source-explicit-and-authoritative-exact-mixture",
+        "source": "docs/libbrecht-parameters.md",
+        "locator": "Section 1 governing equations and Section 2 physical constants and exact metrological definitions",
+        "status": "copied-as-frozen-operands-with-signed-saturation-pressure-exponent"
+      },
+      {
+        "operandId": "moving-control-geometry-grid-and-step",
+        "provenanceClass": "phase10-control-design",
+        "source": "docs/plans/phase-10-evidence-verification-execution.md",
+        "locator": "S5 branch and checkpoint design",
+        "status": "tiny-first-event-control-only-no-habit-apparatus-mechanism-or-physical-realism-claim"
+      }
+    ]
+  },
+  "topology": {
+    "linearIndexRule": "i + ni * (j + nj * k)",
+    "neighborOffsets": [
+      [
+        1,
+        0,
+        0
+      ],
+      [
+        -1,
+        0,
+        0
+      ],
+      [
+        0,
+        1,
+        0
+      ],
+      [
+        0,
+        -1,
+        0
+      ],
+      [
+        1,
+        -1,
+        0
+      ],
+      [
+        -1,
+        1,
+        0
+      ],
+      [
+        0,
+        0,
+        1
+      ],
+      [
+        0,
+        0,
+        -1
+      ]
+    ],
+    "initialAttachedIndices": [
+      22
+    ],
+    "initialBoundaryIndices": [
+      13,
+      19,
+      20,
+      21,
+      23,
+      24,
+      25,
+      31
+    ],
+    "tiedOrbitIndices": [
+      13,
+      31
+    ],
+    "postAttachedIndices": [
+      13,
+      22,
+      31
+    ],
+    "postBoundaryIndices": [
+      4,
+      10,
+      11,
+      12,
+      14,
+      15,
+      16,
+      19,
+      20,
+      21,
+      23,
+      24,
+      25,
+      28,
+      29,
+      30,
+      32,
+      33,
+      34,
+      40
+    ],
+    "eventOrdinal": 4,
+    "d6hClosureRule": "the tied axial orbit [13, 31] is invariant as a set under the fixture's D6h rotations, mirrors, and z reflection; both members attach atomically at event ordinal 4"
+  },
+  "formulas": {
+    "environmentEquations": "temperatureK = tempC + celsiusZeroK; saturationPressurePa = saturationPressurePrefactorMbar * exp(saturationPressureExponentK / temperatureK) * mbarToPa with signed saturationPressureExponentK = -6150 and no second unary minus; cSat = saturationPressurePa / (kBoltzmannJPerK * temperatureK); diffusivity = diffusivityAir1AtmM2S * standardAtmospherePa / pressurePa; thermalSpeed = sqrt(kBoltzmannJPerK * temperatureK / (2 * PI * waterMoleculeMassKg)); vKinMS = cSat / iceNumberDensityPerM3 * thermalSpeed; x0M = cSat / iceNumberDensityPerM3 * diffusivity / vKinMS; dxM = dxUm * 1e-6; q = dxM / x0M",
+    "inPlaneEquation": "for each active cell, pair opposite values (east + west), (northEast + southWest), (southEast + northWest), sort the three pair sums ascending, then uInPlane = (((own + lowPair) + middlePair) + highPair) / 7; blocked or out-of-domain neighbors reflect own",
+    "verticalEquation": "uCandidate = (4 / 7) * uInPlane + (3 / 14) * (upInPlane + downInPlane), with blocked or out-of-domain vertical neighbors reflecting uInPlane",
+    "opposingEquation": "sigmaOpp is the arithmetic mean of the immutable post-smoother candidate values opposite every attached neighbor, summed in ascending numeric value order under aggregate-hv-g1h1-v6",
+    "boundaryEquation": "alphaHKBoundary = basalPrefactor * exp(-basalSigma0 / sigmaBoundary) for positive basal sigmaBoundary, inhibited cells use zero, rough cells use one; sigmaBoundary = sigmaOpp / (1 + alphaHKBoundary * robinGeometry * q)",
+    "preEventScalarEquation": "let I = sigmaInfinity, s = the tied axial boundary value, uAxial = (s + 6 * I) / 7, uCap = I, and o = (4 / 7) * I + (3 / 14) * (uAxial + I) = (95 * I + 3 * s) / 98; substituting Eq. 5.34 gives F(s) = s * (1 + (98 / 95) * q * exp(-0.007 / s)) - I = 0",
+    "evaluationOrder": [
+      "enumerate active integer coordinates, shell flags, and the ordered eight-neighbor table without production topology imports",
+      "construct the single-site attached state with seed index 22 field bitwise zero and fill exactly one, then construct the frozen pre-event scalar field",
+      "evaluate the full in-plane smoother from one immutable source",
+      "evaluate the full vertical post-smoother candidate from the completed in-plane field",
+      "compute every boundary solution and cache from that immutable candidate without in-place boundary replacement",
+      "replace every boundary value only after all boundary solutions are complete",
+      "clamp the Dirichlet shell after boundary replacement",
+      "compute residual, shell injection, surface exchange, smoother drift, divergence, and drift limit from the same sweep",
+      "derive fixed pre-event rates, advance four fill-CFL cycles, attach the exact tied orbit atomically, rebuild topology, and relax the post-event state"
+    ],
+    "bisection": {
+      "lowerBound": "0 with F(0) defined as -sigmaInfinity",
+      "upperBound": "sigmaInfinity",
+      "maxIterations": 256,
+      "stopRule": "stop when the binary64 midpoint equals either current endpoint or after 256 bracket updates",
+      "selectionRule": "select the endpoint with smaller absolute F; on equality select the lower endpoint"
+    },
+    "eventUpdate": {
+      "rateEquation": "fillRatePerSecond = alphaHKBoundary * vKinMS * sigmaBoundary / (fillGeometry * dxM)",
+      "timeStepEquation": "deltaTimeSeconds = cflFill / maxPositiveFillRate and cumulative time is the left-to-right binary64 sum of cycle deltas",
+      "fillEquation": "rawIncrement = fillRatePerSecond * deltaTimeSeconds; demand adds rawIncrement; placed adds min(rawIncrement, 1 - oldFill); clipping adds max(0, rawIncrement - (1 - oldFill)); maxKineticFillIncrement is the maximum rawIncrement",
+      "attachmentRule": "after all initial-boundary increments for a cycle are evaluated, attach every cell whose rawIncrement is greater than or equal to remaining room; steps 1 through 3 attach zero cells and step 4 atomically attaches indices [13, 31]",
+      "topologyRule": "after the event set attached = [13, 22, 31], independently re-enumerate boundary cells from the ordered neighbor table, require the exact frozen post-boundary roster, set attached fields to bitwise zero/fill one and every remaining active shell field to bitwise sigmaInfinity"
+    },
+    "ledgerIdentity": {
+      "iceCellEquation": "placedFillIceCells + saturationClippedFillIceCells = kineticDemandIceCells, accumulated once per initial boundary pixel and cycle",
+      "vaporEquation": "placedFillVaporUnits = placedFillIceCells * iceNumberDensityPerM3 / cSat",
+      "holeFillRule": "holeFillCount and holeFillDeficitIceCells remain exactly zero; hole fill is never folded into placed, clipped, or kinetic demand"
+    },
+    "driftBound": {
+      "nonzeroEquation": "smootherDriftLimit = 1024 * activeCellCount * max(Number.EPSILON * maxAbsSweepInput, Number.MIN_VALUE)",
+      "zeroFieldValue": "an exact zero field has exact zero smoother drift and zero drift limit"
+    }
+  },
+  "referenceDerivation": {
+    "method": "independent-integer-topology-scalar-bisection",
+    "integerTopologyRule": "use only dimensions, center, cube-coordinate radius, integer linear indexing, and the protocol's ordered eight offsets; do not import core or production topology",
+    "nonlinearSolve": "solve the frozen monotone scalar equation by endpoint-bracket bisection with the exact stop and endpoint-selection rules",
+    "fieldIteration": "implement the in-plane, vertical, opposing-value, boundary-replacement, and shell-clamp stages locally from immutable buffers and independently meter every diagnostic",
+    "eventProcedure": "hold pre-event rates fixed, use deltaTime = cflFill / maxRate, advance exact per-boundary demand/placed/clipped fill, and stop at the first nonempty simultaneous attachment set",
+    "postEventProcedure": "derive the attached/boundary transition from integer neighbors, construct the exact shell/zero post-state, and independently verify its fixed-point relaxation diagnostics",
+    "ledgerProcedure": "accumulate placed, clipping, demand, vapor units, hole count, and hole deficit from raw cycle increments rather than a producer summary",
+    "outputValuePolicy": "no-actual-output-values-in-protocol"
+  },
+  "targetedCheck": {
+    "method": "independent-cube-topology-safeguarded-newton-and-equation-residuals",
+    "independentArithmetic": "re-enumerate topology by cube-coordinate predicates, solve F(s) with safeguarded Newton iteration, reconstruct field equations/diagnostics, recompute the event chain, and rebuild every ledger identity without importing the generator",
+    "checks": [
+      "monotonicity, bracket, candidate residual, independently recomputed root, and bisection endpoint-selection rule",
+      "exact active cells, eight-neighbor rows, initial/post attached and boundary sets, and D6h tied orbit",
+      "pre-event complete-field L-infinity and weighted L2 norms plus reconstructed fixed-point residual",
+      "bit-identical positive axial rates, bitwise-zero other rates, exact four-step attachment counts, and event time",
+      "per-cycle fill-CFL increments, placed/clipped/demand event chain, vapor units, and exact zero hole ledger",
+      "post-event shell/zero bit identities and fixed-point relaxation diagnostics",
+      "strict relaxation residual, divergence, smoother-drift, and maximum-sweep criteria"
+    ],
+    "tieRule": "indices [13, 31] must have bit-identical positive maximum rates; every other initial boundary rate is bitwise zero, the next rate is zero, and tieMarginPerSecond equals maxRatePerSecond",
+    "aggregateRule": "every exact topology/bit identity and every named tolerance must pass; no missing case or group is allowed",
+    "generatorImportAllowed": false
+  },
+  "criteria": {
+    "allChecksRequired": true,
+    "scalarEquationResidualRelative": 1e-14,
+    "preEventFieldLInf": 5e-10,
+    "preEventFieldWeightedL2": 5e-10,
+    "axialRateRelative": 1e-7,
+    "axialRatesBitIdenticalPositive": true,
+    "otherInitialBoundaryRatesBitwiseZero": true,
+    "attachedNowByStep": [
+      0,
+      0,
+      0,
+      2
+    ],
+    "eventTimeRelative": 1e-7,
+    "maxKineticIncrementAbsolute": 1e-14,
+    "exactTopologyNeighborD6hSets": true,
+    "postFieldShellBitwiseSigmaInfinity": true,
+    "postFieldAttachedAndWallBitwiseZero": true,
+    "placedFillAbsolute": 1e-12,
+    "clippingAbsolute": 1e-12,
+    "vaporLedgerRelative": 1e-10,
+    "eventChainRelative": 1e-10,
+    "holeFillExact": {
+      "count": 0,
+      "deficit": 0
+    },
+    "postFieldFixedPointResidual": 1e-11,
+    "relaxationCriteria": {
+      "residualStrictlyLessThan": 1e-13,
+      "divergenceStrictlyLessThan": 1e-10,
+      "maxSweeps": 100000,
+      "smootherDriftWithinRoundoffBound": true
+    },
+    "comparisonOperators": {
+      "tolerance": "less-than-or-equal",
+      "relaxation": "strictly-less-than",
+      "exact": "strict-equality-or-bitwise-as-named"
+    }
+  },
+  "negativeControls": [
+    {
+      "negativeControlId": "nc-event-event-time",
+      "mutation": "change only the production-side event time or its selecting rate",
+      "independentWitness": "the production raw witness SHA-256 must move while the committed moving reference remains byte-identical",
+      "attackedCheck": "chk-c0v-moving-numeric",
+      "expected": "the independent event/time/ledger evaluator fails"
+    },
+    {
+      "negativeControlId": "nc-event-topology-orbit",
+      "mutation": "drop, add, or redirect exactly one attaching-orbit member or topology edge",
+      "independentWitness": "the raw topology or post-field witness SHA-256 must move while the committed moving reference remains byte-identical",
+      "attackedCheck": "chk-c0v-moving-numeric",
+      "expected": "the independent topology, D6h, or post-field evaluator fails"
+    }
+  ],
+  "resourceBoundary": {
+    "requiredRuntime": "v24.13.1",
+    "timeoutSeconds": 1800,
+    "projectedScratchBytes": 33554432,
+    "projectedPublicationBytes": 8388608,
+    "minimumFreeBytes": 134217728,
+    "solverProcessConcurrency": 1,
+    "s5ScientificProcessHours": 0,
+    "automaticRefinementOrFanOut": false,
+    "capOutcome": "resource-refusal-and-maker-return"
+  },
+  "independence": {
+    "scientificArithmeticSeparation": "the integer-topology/bisection generator and cube-topology/safeguarded-Newton checker share frozen schemas and operands but no scientific-arithmetic implementation",
+    "permittedSharedCode": [
+      "artifact identity and strict schema parsing",
+      "canonical JSON serialization",
+      "cryptographic hashing",
+      "path containment and provenance collection"
+    ],
+    "sharedImportAllowlist": [
+      "runner/src/gate4-evidence.ts",
+      "runner/src/phase10-c0v-contracts.ts"
+    ],
+    "forbiddenImports": [
+      "core/**",
+      "runner/src/phase10-execution-preflight.ts",
+      "runner/src/phase10-executor-worker.ts",
+      "runner/src/phase10-executor.ts",
+      "solver-cpu/**",
+      "solver-gpu/**"
+    ],
+    "dependencyAudit": "recursively resolve every local TypeScript import from generator and checker, hash every closure member, require the exact shared allowlist intersection, and refuse any forbidden path before derivation",
+    "testHooks": "testAlphaOverride, testExtraSeedSites, testMode, fabricated resume state, private state mutation, and equivalent substitutions are forbidden",
+    "productionImplementationPresent": false,
+    "solverExecutionPresent": false
+  },
+  "terminalSemantics": {
+    "earlyReferenceArtifact": "S5b may publish one immutable moving reference or a discrepancy refusal from the clean S5a ancestor",
+    "packetCompletion": "the produce packet remains incomplete until S6 production witness, evaluation, attempt ledger, and controls are terminal",
+    "referenceReopener": "S6 may only reopen and byte-match the committed S5b artifact; it cannot regenerate, select, or tune it",
+    "discrepancyOutcome": "a generator/checker discrepancy publishes a scoped refusal and does not alter this protocol",
+    "aggregateRule": "any C0V layer failure or refusal prevents aggregate C0V PASS"
+  },
+  "claimBoundary": {
+    "allowed": [
+      "moving-interface first-event reference generation and independent-check agreement under the exact tiny fixture",
+      "topology, field, event-time, convergence, and ledger control under the frozen operands"
+    ],
+    "forbidden": [
+      "apparatus agreement",
+      "habit robustness",
+      "mechanism validation",
+      "physical realism",
+      "prior-phase credit",
+      "quantitative validation"
+    ]
+  }
+}

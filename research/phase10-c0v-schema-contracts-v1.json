@@ -1,0 +1,2200 @@
+{
+  "schema": "phase10-c0v-schema-contracts-v1",
+  "createdOn": "2026-08-21",
+  "conformance": {
+    "unknownFields": "reject at every object depth",
+    "optionalFields": false,
+    "numbers": "finite JSON numbers only; integer contracts additionally require safe integers; negative zero rejects",
+    "jsonEncoding": "UTF-8, two-space pretty JSON, terminal LF",
+    "jsonlEncoding": "one compact exact-key JSON object per LF-terminated line; blank lines and CR bytes reject",
+    "binaryEncoding": "exact little-endian headers and payload layouts named by each witness contract",
+    "identityArrays": "arrays described as sorted unique use Unicode code-point order and contain no duplicate",
+    "producerVerdicts": "non-authoritative and ignored by independent evaluators"
+  },
+  "definitions": {
+    "artifactIdentity": {
+      "exactFields": [
+        "path",
+        "byteLength",
+        "sha256"
+      ],
+      "fieldContracts": {
+        "path": "normalized repository-relative path",
+        "byteLength": "positive safe integer",
+        "sha256": "lowercase 64-hex SHA-256 of exact bytes"
+      }
+    },
+    "protocolBindings": {
+      "exactFields": [
+        "foundation",
+        "obligationMatrix",
+        "schemaRegistry",
+        "schemaContracts"
+      ],
+      "fieldContracts": {
+        "foundation": "artifactIdentity",
+        "obligationMatrix": "artifactIdentity",
+        "schemaRegistry": "artifactIdentity",
+        "schemaContracts": "artifactIdentity"
+      }
+    },
+    "artifactPaths": {
+      "exactFields": [
+        "protocol",
+        "reference",
+        "referenceRefusal",
+        "witness",
+        "evaluation",
+        "result",
+        "attemptLedger"
+      ],
+      "fieldContracts": {
+        "protocol": "fixed normalized repository-relative matrix artifact path",
+        "reference": "fixed normalized repository-relative matrix artifact path",
+        "referenceRefusal": "fixed normalized repository-relative matrix artifact path",
+        "witness": "fixed normalized repository-relative matrix artifact path",
+        "evaluation": "fixed normalized repository-relative matrix artifact path",
+        "result": "fixed normalized repository-relative matrix artifact path",
+        "attemptLedger": "fixed normalized repository-relative matrix artifact path"
+      }
+    },
+    "codeIdentity": {
+      "exactFields": [
+        "role",
+        "modulePath",
+        "exportName",
+        "byteLength",
+        "sha256"
+      ],
+      "fieldContracts": {
+        "role": "generator | independent-checker | shared-parser",
+        "modulePath": "runner/src TypeScript path",
+        "exportName": "direct named function export",
+        "byteLength": "positive safe integer",
+        "sha256": "lowercase 64-hex SHA-256"
+      }
+    },
+    "receiptCodeIdentity": {
+      "exactFields": [
+        "role",
+        "modulePath",
+        "exportName",
+        "byteLength",
+        "sha256"
+      ],
+      "fieldContracts": {
+        "role": "generator | independent-checker | shared-parser | neutral-derive | neutral-check | neutral-publish, exactly matching the receiptCodeIdentities key",
+        "modulePath": "runner/src TypeScript path",
+        "exportName": "direct named function export",
+        "byteLength": "positive safe integer",
+        "sha256": "lowercase 64-hex SHA-256"
+      }
+    },
+    "receiptCodeIdentities": {
+      "exactFields": [
+        "generator",
+        "independentChecker",
+        "sharedParser",
+        "neutralDerive",
+        "neutralCheck",
+        "neutralPublish"
+      ],
+      "fieldContracts": {
+        "generator": "receiptCodeIdentity matching the protocol generator identity",
+        "independentChecker": "receiptCodeIdentity matching the protocol independent-checker identity",
+        "sharedParser": "receiptCodeIdentity matching the protocol shared-parser identity",
+        "neutralDerive": "receiptCodeIdentity for derivePhase10C0VReferenceCandidate",
+        "neutralCheck": "receiptCodeIdentity for verifyPhase10C0VReferenceCandidate",
+        "neutralPublish": "receiptCodeIdentity for publishPhase10C0VReference"
+      }
+    },
+    "referenceFreezePreflight": {
+      "exactFields": [
+        "branch",
+        "head",
+        "runtime",
+        "trackedWorktreeClean",
+        "protocol"
+      ],
+      "fieldContracts": {
+        "branch": "phase10/evidence-verification",
+        "head": "lowercase 40-hex clean S5a commit",
+        "runtime": "v24.13.1",
+        "trackedWorktreeClean": "true",
+        "protocol": "artifactIdentity matching the selected layer protocol"
+      }
+    },
+    "referenceCommands": {
+      "exactFields": [
+        "derive",
+        "check",
+        "publish"
+      ],
+      "fieldContracts": {
+        "derive": "exact neutral derive command string",
+        "check": "exact neutral independent-check command string",
+        "publish": "exact neutral publish command string"
+      }
+    },
+    "referenceTimestamps": {
+      "exactFields": [
+        "deriveStartedAt",
+        "deriveCompletedAt",
+        "checkCompletedAt",
+        "publishCompletedAt"
+      ],
+      "fieldContracts": {
+        "deriveStartedAt": "UTC ISO-8601 instant",
+        "deriveCompletedAt": "UTC ISO-8601 instant not before deriveStartedAt",
+        "checkCompletedAt": "UTC ISO-8601 instant not before deriveCompletedAt",
+        "publishCompletedAt": "UTC ISO-8601 instant not before checkCompletedAt"
+      }
+    },
+    "observedReferenceImports": {
+      "exactFields": [
+        "generator",
+        "independentChecker"
+      ],
+      "fieldContracts": {
+        "generator": "path-sorted recursive import-closure artifactIdentity array including the generator module",
+        "independentChecker": "path-sorted recursive import-closure artifactIdentity array including the independent-checker module"
+      }
+    },
+    "codeAndImportReceipt": {
+      "exactFields": [
+        "protocolBindings",
+        "freezePreflight",
+        "commands",
+        "timestamps",
+        "codeIdentities",
+        "observedImports",
+        "allowedSharedImports",
+        "forbiddenImportPatterns",
+        "forbiddenImportsObserved",
+        "generatorCheckerScientificImportOverlap",
+        "pass"
+      ],
+      "fieldContracts": {
+        "protocolBindings": "protocolBindings exactly matching the frozen science protocol",
+        "freezePreflight": "referenceFreezePreflight",
+        "commands": "referenceCommands",
+        "timestamps": "referenceTimestamps",
+        "codeIdentities": "receiptCodeIdentities",
+        "observedImports": "observedReferenceImports containing full artifact identities rather than path-only claims",
+        "allowedSharedImports": "sorted unique path array",
+        "forbiddenImportPatterns": "sorted unique nonempty pattern array",
+        "forbiddenImportsObserved": "empty array for a frozen reference",
+        "generatorCheckerScientificImportOverlap": "empty array",
+        "pass": "boolean"
+      }
+    },
+    "referenceComparison": {
+      "exactFields": [
+        "method",
+        "expectedOutcome",
+        "observedOutcome",
+        "errors"
+      ],
+      "fieldContracts": {
+        "method": "independent-reexecution",
+        "expectedOutcome": "pass | refusal",
+        "observedOutcome": "pass | fail | refusal",
+        "errors": "string array copied from the independent check or scoped refusal discrepancy"
+      }
+    },
+    "numericIdentity": {
+      "exactFields": [
+        "decimal",
+        "binary64Hex"
+      ],
+      "fieldContracts": {
+        "decimal": "finite round-tripping decimal string",
+        "binary64Hex": "16 lowercase hexadecimal digits encoding the same binary64 value in big-endian byte order"
+      }
+    },
+    "resourceBoundary": {
+      "exactFields": [
+        "requiredRuntime",
+        "timeoutSeconds",
+        "projectedScratchBytes",
+        "projectedPublicationBytes",
+        "minimumFreeBytes",
+        "solverProcessConcurrency",
+        "s5ScientificProcessHours",
+        "automaticRefinementOrFanOut",
+        "capOutcome"
+      ],
+      "fieldContracts": {
+        "requiredRuntime": "Node v24.13.1",
+        "timeoutSeconds": "positive safe integer",
+        "projectedScratchBytes": "positive safe integer",
+        "projectedPublicationBytes": "positive safe integer",
+        "minimumFreeBytes": "positive safe integer",
+        "solverProcessConcurrency": "1",
+        "s5ScientificProcessHours": "0",
+        "automaticRefinementOrFanOut": "false",
+        "capOutcome": "resource-refusal-and-maker-return"
+      }
+    },
+    "independence": {
+      "exactFields": [
+        "scientificArithmeticSeparation",
+        "permittedSharedCode",
+        "sharedImportAllowlist",
+        "forbiddenImports",
+        "dependencyAudit",
+        "testHooks",
+        "productionImplementationPresent",
+        "solverExecutionPresent"
+      ],
+      "fieldContracts": {
+        "scientificArithmeticSeparation": "nonempty frozen independence rule",
+        "permittedSharedCode": "sorted unique nonempty description array",
+        "sharedImportAllowlist": "exact sorted [runner/src/gate4-evidence.ts, runner/src/phase10-c0v-contracts.ts]",
+        "forbiddenImports": "exact sorted forbidden pattern array",
+        "dependencyAudit": "recursive import-closure rule",
+        "testHooks": "explicit test-hook denial",
+        "productionImplementationPresent": "false at S5a",
+        "solverExecutionPresent": "false at S5a"
+      }
+    },
+    "terminalSemantics": {
+      "exactFields": [
+        "earlyReferenceArtifact",
+        "packetCompletion",
+        "referenceReopener",
+        "discrepancyOutcome",
+        "aggregateRule"
+      ],
+      "fieldContracts": {
+        "earlyReferenceArtifact": "S5b early-artifact semantics",
+        "packetCompletion": "produce packet remains incomplete until S6",
+        "referenceReopener": "later neutral match-only behavior",
+        "discrepancyOutcome": "discrepancy becomes scoped refusal without protocol tuning",
+        "aggregateRule": "any fail/refusal prevents C0V PASS"
+      }
+    },
+    "claimBoundary": {
+      "exactFields": [
+        "allowed",
+        "forbidden"
+      ],
+      "fieldContracts": {
+        "allowed": "sorted unique nonempty exact allowed-claim array",
+        "forbidden": "sorted unique nonempty exact forbidden-claim array"
+      }
+    },
+    "negativeControl": {
+      "exactFields": [
+        "negativeControlId",
+        "mutation",
+        "independentWitness",
+        "attackedCheck",
+        "expected"
+      ],
+      "fieldContracts": {
+        "negativeControlId": "exact matrix ID",
+        "mutation": "one isolated mutation",
+        "independentWitness": "how changed raw bytes are proven independently",
+        "attackedCheck": "exact owning check ID",
+        "expected": "failure/refusal semantics"
+      }
+    },
+    "negativeControlResult": {
+      "exactFields": [
+        "negativeControlId",
+        "mutationExecuted",
+        "witnessMoved",
+        "cleanCapturePreserved",
+        "attackedCheckFailed",
+        "pass"
+      ],
+      "fieldContracts": {
+        "negativeControlId": "strict non-null value governed by nestedContracts and invariants",
+        "mutationExecuted": "strict non-null value governed by nestedContracts and invariants",
+        "witnessMoved": "strict non-null value governed by nestedContracts and invariants",
+        "cleanCapturePreserved": "strict non-null value governed by nestedContracts and invariants",
+        "attackedCheckFailed": "strict non-null value governed by nestedContracts and invariants",
+        "pass": "strict non-null value governed by nestedContracts and invariants"
+      }
+    },
+    "checkResult": {
+      "exactFields": [
+        "checkId",
+        "pass",
+        "reasonCodes",
+        "witnesses"
+      ],
+      "fieldContracts": {
+        "checkId": "registered check ID",
+        "pass": "boolean",
+        "reasonCodes": "sorted unique strings",
+        "witnesses": "strict JSON witness array"
+      }
+    },
+    "radialProblem": {
+      "exactFields": [
+        "geometry",
+        "radiusM",
+        "farRadiusM",
+        "sigmaInfinity",
+        "tempC",
+        "pressurePa",
+        "alphaHKConst",
+        "physicalConstants",
+        "provenance"
+      ],
+      "fieldContracts": {
+        "geometry": "finite-spherical-shell",
+        "radiusM": "3e-6 m",
+        "farRadiusM": "16.8e-6 m",
+        "sigmaInfinity": "0.0075 fraction",
+        "tempC": "-5 degrees Celsius",
+        "pressurePa": "101325 Pa",
+        "alphaHKConst": "0.393 dimensionless idealized finite-shell spherical control constant copied from solver-cpu/test/spherical-reference.test.ts#COEFFICIENT; a Phase 10 control/test fixture, not CAK_A1 and not temperature-law provenance",
+        "physicalConstants": "exact frozen constant object",
+        "provenance": "exact three-row frozen provenance roster, including the test-fixture-only classification and no temperature-law or validation claim for alphaHKConst"
+      }
+    },
+    "radialRoster": {
+      "exactFields": [
+        "caseCount",
+        "automaticRefinement",
+        "nodeRule",
+        "orderDisposition",
+        "cases"
+      ],
+      "fieldContracts": {
+        "caseCount": "4",
+        "automaticRefinement": "false",
+        "nodeRule": "exact nearest-integer interval rule with floor(x+1/2)",
+        "orderDisposition": "not-applicable-exact-u-roundoff-control",
+        "cases": "four exact case rows"
+      }
+    },
+    "radialCriteria": {
+      "exactFields": [
+        "allCasesRequired",
+        "exactOperandEcho",
+        "exactNodeRoster",
+        "exactActualSpacing",
+        "surfaceRelative",
+        "velocityRelative",
+        "fieldRelativeLInf",
+        "fieldWeightedRelativeL2",
+        "shellNormalized",
+        "uniformNormalizedLInf",
+        "robinResidualNormalized",
+        "generatorCheckerAgreement",
+        "comparisonOperator"
+      ],
+      "fieldContracts": {
+        "allCasesRequired": "strict non-null value governed by nestedContracts and invariants",
+        "exactOperandEcho": "strict non-null value governed by nestedContracts and invariants",
+        "exactNodeRoster": "strict non-null value governed by nestedContracts and invariants",
+        "exactActualSpacing": "strict non-null value governed by nestedContracts and invariants",
+        "surfaceRelative": "strict non-null value governed by nestedContracts and invariants",
+        "velocityRelative": "strict non-null value governed by nestedContracts and invariants",
+        "fieldRelativeLInf": "strict non-null value governed by nestedContracts and invariants",
+        "fieldWeightedRelativeL2": "strict non-null value governed by nestedContracts and invariants",
+        "shellNormalized": "strict non-null value governed by nestedContracts and invariants",
+        "uniformNormalizedLInf": "strict non-null value governed by nestedContracts and invariants",
+        "robinResidualNormalized": "strict non-null value governed by nestedContracts and invariants",
+        "generatorCheckerAgreement": "strict non-null value governed by nestedContracts and invariants",
+        "comparisonOperator": "strict non-null value governed by nestedContracts and invariants"
+      }
+    },
+    "radialFormulas": {
+      "exactFields": [
+        "temperatureK",
+        "saturationPressurePa",
+        "saturationNumberDensityPerM3",
+        "diffusivityM2S",
+        "thermalSpeedMS",
+        "kineticVelocityMS",
+        "kineticLengthM",
+        "solutionFamily",
+        "shellEquation",
+        "robinEquation",
+        "growthVelocityFluxMS",
+        "growthVelocityKineticMS",
+        "uniformControl",
+        "fieldRelativeLInf",
+        "fieldWeightedRelativeL2",
+        "sphericalTrapezoidWeights",
+        "normalizedResiduals"
+      ],
+      "fieldContracts": {
+        "temperatureK": "exact symbolic equation string",
+        "saturationPressurePa": "signed-exponent symbolic equation string",
+        "saturationNumberDensityPerM3": "exact symbolic equation string",
+        "diffusivityM2S": "exact symbolic equation string",
+        "thermalSpeedMS": "exact symbolic equation string",
+        "kineticVelocityMS": "exact symbolic equation string",
+        "kineticLengthM": "exact symbolic equation string",
+        "solutionFamily": "exact A+B/r solution family",
+        "shellEquation": "finite Dirichlet shell equation",
+        "robinEquation": "constant attachment-coefficient Robin equation",
+        "growthVelocityFluxMS": "diffusive-flux velocity equation",
+        "growthVelocityKineticMS": "Hertz-Knudsen velocity equation",
+        "uniformControl": "zero-attachment uniform-field identity",
+        "fieldRelativeLInf": "standard complete-field relative L-infinity equation",
+        "fieldWeightedRelativeL2": "spherical-trapezoid weighted relative L2 equation",
+        "sphericalTrapezoidWeights": "exact endpoint/interior r-squared-delta-r weights",
+        "normalizedResiduals": "exact shell, uniform, and Robin normalization denominators"
+      }
+    },
+    "radialReferenceDerivation": {
+      "exactFields": [
+        "method",
+        "unknowns",
+        "caseProcedure",
+        "uniformControlProcedure",
+        "actualSpacingRule",
+        "outputValuePolicy"
+      ],
+      "fieldContracts": {
+        "method": "independent-2x2-harmonic-coefficients",
+        "unknowns": "exact [harmonicConstant, harmonicInverseRadiusCoefficientM]",
+        "caseProcedure": "ordered nonempty derivation-step array",
+        "uniformControlProcedure": "ordered nonempty control-step array",
+        "actualSpacingRule": "binary64 node-rule spacing, separate from exact micrometre rational identity",
+        "outputValuePolicy": "no-actual-output-values-in-protocol"
+      }
+    },
+    "radialTargetedCheck": {
+      "exactFields": [
+        "method",
+        "independentParameterization",
+        "checks",
+        "aggregateRule",
+        "generatorImportAllowed"
+      ],
+      "fieldContracts": {
+        "method": "independent-closed-form-lambda",
+        "independentParameterization": "closed-form Lambda route distinct from generator linear solve",
+        "checks": "ordered complete check roster",
+        "aggregateRule": "every case, control, metric, and exact identity required",
+        "generatorImportAllowed": "false"
+      }
+    },
+    "radialReferenceCandidate": {
+      "exactFields": [
+        "schema",
+        "protocolId",
+        "method",
+        "operands",
+        "requestedRoster",
+        "derivedPhysics",
+        "cases",
+        "uniformFieldControl",
+        "scope"
+      ],
+      "fieldContracts": {
+        "schema": "strict non-null value governed by nestedContracts and invariants",
+        "protocolId": "strict non-null value governed by nestedContracts and invariants",
+        "method": "strict non-null value governed by nestedContracts and invariants",
+        "operands": "strict non-null value governed by nestedContracts and invariants",
+        "requestedRoster": "exact four-case requested-spacing identity roster",
+        "derivedPhysics": "strict non-null value governed by nestedContracts and invariants",
+        "cases": "exact four-case output roster, one case per requestedRoster entry",
+        "uniformFieldControl": "strict non-null value governed by nestedContracts and invariants",
+        "scope": "exact no-solver, no-habit, no-validation scope declaration"
+      }
+    },
+    "radialReferenceCheck": {
+      "exactFields": [
+        "schema",
+        "protocolId",
+        "method",
+        "independentDerivedPhysics",
+        "exactOperandEcho",
+        "exactRoster",
+        "cases",
+        "maxima",
+        "allFinite",
+        "errors",
+        "pass"
+      ],
+      "fieldContracts": {
+        "schema": "strict non-null value governed by nestedContracts and invariants",
+        "protocolId": "strict non-null value governed by nestedContracts and invariants",
+        "method": "strict non-null value governed by nestedContracts and invariants",
+        "independentDerivedPhysics": "closed-form-checker numerical identities",
+        "exactOperandEcho": "boolean",
+        "exactRoster": "boolean",
+        "cases": "exact four-case independent-check roster",
+        "maxima": "exact eight named independently recomputed maximum metric rows",
+        "allFinite": "boolean",
+        "errors": "string array",
+        "pass": "boolean independently reduced from every required check"
+      }
+    },
+    "movingFixture": {
+      "exactFields": [
+        "surfacePolicy",
+        "dimensions",
+        "center",
+        "domain",
+        "farField",
+        "seedRadius",
+        "seedThickness",
+        "tempC",
+        "sigmaInfinity",
+        "dxUm",
+        "pressurePa",
+        "paramSet",
+        "cflFill",
+        "relaxTol",
+        "divTol",
+        "maxSweeps",
+        "noiseEpsilon",
+        "rngSeed",
+        "physicalConstants",
+        "kineticInputs",
+        "provenance"
+      ],
+      "fieldContracts": {
+        "surfacePolicy": "strict non-null value governed by nestedContracts and invariants",
+        "dimensions": "strict non-null value governed by nestedContracts and invariants",
+        "center": "strict non-null value governed by nestedContracts and invariants",
+        "domain": "strict non-null value governed by nestedContracts and invariants",
+        "farField": "strict non-null value governed by nestedContracts and invariants",
+        "seedRadius": "strict non-null value governed by nestedContracts and invariants",
+        "seedThickness": "strict non-null value governed by nestedContracts and invariants",
+        "tempC": "strict non-null value governed by nestedContracts and invariants",
+        "sigmaInfinity": "strict non-null value governed by nestedContracts and invariants",
+        "dxUm": "strict non-null value governed by nestedContracts and invariants",
+        "pressurePa": "strict non-null value governed by nestedContracts and invariants",
+        "paramSet": "strict non-null value governed by nestedContracts and invariants",
+        "cflFill": "strict non-null value governed by nestedContracts and invariants",
+        "relaxTol": "strict non-null value governed by nestedContracts and invariants",
+        "divTol": "strict non-null value governed by nestedContracts and invariants",
+        "maxSweeps": "strict non-null value governed by nestedContracts and invariants",
+        "noiseEpsilon": "strict non-null value governed by nestedContracts and invariants",
+        "rngSeed": "strict non-null value governed by nestedContracts and invariants",
+        "physicalConstants": "strict non-null value governed by nestedContracts and invariants",
+        "kineticInputs": "exact CAK_A1 minus-5-C basalPrefactor 1, basalSigma0 0.007, and unit Robin/fill geometry operands",
+        "provenance": "exact four-row frozen provenance roster binding the accepted aggregate-v6 solver spec, CAK_A1 P2 composite and minus-5-C basal inputs, physical/metrological constants, and the Phase 10 tiny control geometry/grid/CFL design"
+      }
+    },
+    "movingTopology": {
+      "exactFields": [
+        "linearIndexRule",
+        "neighborOffsets",
+        "initialAttachedIndices",
+        "initialBoundaryIndices",
+        "tiedOrbitIndices",
+        "postAttachedIndices",
+        "postBoundaryIndices",
+        "eventOrdinal",
+        "d6hClosureRule"
+      ],
+      "fieldContracts": {
+        "linearIndexRule": "strict non-null value governed by nestedContracts and invariants",
+        "neighborOffsets": "strict non-null value governed by nestedContracts and invariants",
+        "initialAttachedIndices": "strict non-null value governed by nestedContracts and invariants",
+        "initialBoundaryIndices": "strict non-null value governed by nestedContracts and invariants",
+        "tiedOrbitIndices": "strict non-null value governed by nestedContracts and invariants",
+        "postAttachedIndices": "strict non-null value governed by nestedContracts and invariants",
+        "postBoundaryIndices": "strict non-null value governed by nestedContracts and invariants",
+        "eventOrdinal": "strict non-null value governed by nestedContracts and invariants",
+        "d6hClosureRule": "strict non-null value governed by nestedContracts and invariants"
+      }
+    },
+    "movingCriteria": {
+      "exactFields": [
+        "allChecksRequired",
+        "scalarEquationResidualRelative",
+        "preEventFieldLInf",
+        "preEventFieldWeightedL2",
+        "axialRateRelative",
+        "axialRatesBitIdenticalPositive",
+        "otherInitialBoundaryRatesBitwiseZero",
+        "attachedNowByStep",
+        "eventTimeRelative",
+        "maxKineticIncrementAbsolute",
+        "exactTopologyNeighborD6hSets",
+        "postFieldShellBitwiseSigmaInfinity",
+        "postFieldAttachedAndWallBitwiseZero",
+        "placedFillAbsolute",
+        "clippingAbsolute",
+        "vaporLedgerRelative",
+        "eventChainRelative",
+        "holeFillExact",
+        "postFieldFixedPointResidual",
+        "relaxationCriteria",
+        "comparisonOperators"
+      ],
+      "fieldContracts": {
+        "allChecksRequired": "strict non-null value governed by nestedContracts and invariants",
+        "scalarEquationResidualRelative": "strict non-null value governed by nestedContracts and invariants",
+        "preEventFieldLInf": "strict non-null value governed by nestedContracts and invariants",
+        "preEventFieldWeightedL2": "strict non-null value governed by nestedContracts and invariants",
+        "axialRateRelative": "strict non-null value governed by nestedContracts and invariants",
+        "axialRatesBitIdenticalPositive": "strict non-null value governed by nestedContracts and invariants",
+        "otherInitialBoundaryRatesBitwiseZero": "strict non-null value governed by nestedContracts and invariants",
+        "attachedNowByStep": "strict non-null value governed by nestedContracts and invariants",
+        "eventTimeRelative": "strict non-null value governed by nestedContracts and invariants",
+        "maxKineticIncrementAbsolute": "strict non-null value governed by nestedContracts and invariants",
+        "exactTopologyNeighborD6hSets": "strict non-null value governed by nestedContracts and invariants",
+        "postFieldShellBitwiseSigmaInfinity": "strict non-null value governed by nestedContracts and invariants",
+        "postFieldAttachedAndWallBitwiseZero": "strict non-null value governed by nestedContracts and invariants",
+        "placedFillAbsolute": "strict non-null value governed by nestedContracts and invariants",
+        "clippingAbsolute": "strict non-null value governed by nestedContracts and invariants",
+        "vaporLedgerRelative": "strict non-null value governed by nestedContracts and invariants",
+        "eventChainRelative": "strict non-null value governed by nestedContracts and invariants",
+        "holeFillExact": "strict non-null value governed by nestedContracts and invariants",
+        "postFieldFixedPointResidual": "strict non-null value governed by nestedContracts and invariants",
+        "relaxationCriteria": "strict non-null value governed by nestedContracts and invariants",
+        "comparisonOperators": "strict non-null value governed by nestedContracts and invariants"
+      }
+    },
+    "movingFormulas": {
+      "exactFields": [
+        "environmentEquations",
+        "inPlaneEquation",
+        "verticalEquation",
+        "opposingEquation",
+        "boundaryEquation",
+        "preEventScalarEquation",
+        "evaluationOrder",
+        "bisection",
+        "eventUpdate",
+        "ledgerIdentity",
+        "driftBound"
+      ],
+      "fieldContracts": {
+        "environmentEquations": "signed-exponent environment and kinetic-scale equations",
+        "inPlaneEquation": "canonical opposite-pair sorted in-plane smoother equation",
+        "verticalEquation": "4/7 and 3/14 vertical smoother equation",
+        "opposingEquation": "ascending-value opposing-vapor mean",
+        "boundaryEquation": "aggregate Eq. 5.34 self-consistent boundary equation",
+        "preEventScalarEquation": "exact F(s)=0 scalar equation for the frozen axial orbit",
+        "evaluationOrder": "exact ordered immutable-candidate evaluation stages, including production-valid initial attached seed fill exactly one and bitwise-zero attached field",
+        "bisection": "exact lowerBound, upperBound, maxIterations, stopRule, selectionRule object",
+        "eventUpdate": "exact rateEquation, timeStepEquation, fillEquation, attachmentRule, topologyRule object",
+        "ledgerIdentity": "exact iceCellEquation, vaporEquation, holeFillRule object",
+        "driftBound": "exact nonzeroEquation and zeroFieldValue object"
+      }
+    },
+    "movingReferenceDerivation": {
+      "exactFields": [
+        "method",
+        "integerTopologyRule",
+        "nonlinearSolve",
+        "fieldIteration",
+        "eventProcedure",
+        "postEventProcedure",
+        "ledgerProcedure",
+        "outputValuePolicy"
+      ],
+      "fieldContracts": {
+        "method": "independent-integer-topology-scalar-bisection",
+        "integerTopologyRule": "independent integer-coordinate active-mask and neighbor enumeration",
+        "nonlinearSolve": "bracketed monotone bisection without production arithmetic",
+        "fieldIteration": "independent immutable-candidate smoother/replacement/clamp iteration",
+        "eventProcedure": "exact four-step first-event construction",
+        "postEventProcedure": "exact topology transition and relaxation construction",
+        "ledgerProcedure": "independent kinetic-demand, placed, clipping, vapor, and hole-fill ledger",
+        "outputValuePolicy": "no-actual-output-values-in-protocol"
+      }
+    },
+    "movingTargetedCheck": {
+      "exactFields": [
+        "method",
+        "independentArithmetic",
+        "checks",
+        "tieRule",
+        "aggregateRule",
+        "generatorImportAllowed"
+      ],
+      "fieldContracts": {
+        "method": "independent-cube-topology-safeguarded-newton-and-equation-residuals",
+        "independentArithmetic": "separate monotonicity, bracket, topology, field, event, and ledger reconstruction",
+        "checks": "ordered complete check roster",
+        "tieRule": "exact positive tied orbit and strict next-rate margin rule",
+        "aggregateRule": "all checks required",
+        "generatorImportAllowed": "false"
+      }
+    },
+    "movingReferenceCandidate": {
+      "exactFields": [
+        "schema",
+        "protocolId",
+        "method",
+        "activeCells",
+        "neighborTable",
+        "initialState",
+        "cycles",
+        "event",
+        "postState",
+        "ledger",
+        "convergence"
+      ],
+      "fieldContracts": {
+        "schema": "strict non-null value governed by nestedContracts and invariants",
+        "protocolId": "strict non-null value governed by nestedContracts and invariants",
+        "method": "strict non-null value governed by nestedContracts and invariants",
+        "activeCells": "strict non-null value governed by nestedContracts and invariants",
+        "neighborTable": "strict non-null value governed by nestedContracts and invariants",
+        "initialState": "strict non-null value governed by nestedContracts and invariants",
+        "cycles": "strict non-null value governed by nestedContracts and invariants",
+        "event": "strict non-null value governed by nestedContracts and invariants",
+        "postState": "strict non-null value governed by nestedContracts and invariants",
+        "ledger": "strict non-null value governed by nestedContracts and invariants",
+        "convergence": "strict non-null value governed by nestedContracts and invariants"
+      }
+    },
+    "movingReferenceCheck": {
+      "exactFields": [
+        "schema",
+        "protocolId",
+        "method",
+        "monotonicityBracketResidual",
+        "topologyChecks",
+        "fieldEquationChecks",
+        "eventChecks",
+        "ledgerChecks",
+        "verdict",
+        "errors"
+      ],
+      "fieldContracts": {
+        "schema": "strict non-null value governed by nestedContracts and invariants",
+        "protocolId": "strict non-null value governed by nestedContracts and invariants",
+        "method": "strict non-null value governed by nestedContracts and invariants",
+        "monotonicityBracketResidual": "strict non-null value governed by nestedContracts and invariants",
+        "topologyChecks": "strict non-null value governed by nestedContracts and invariants",
+        "fieldEquationChecks": "strict non-null value governed by nestedContracts and invariants",
+        "eventChecks": "strict non-null value governed by nestedContracts and invariants",
+        "ledgerChecks": "strict non-null value governed by nestedContracts and invariants",
+        "verdict": "strict non-null value governed by nestedContracts and invariants",
+        "errors": "strict non-null value governed by nestedContracts and invariants"
+      }
+    },
+    "attemptedRoute": {
+      "exactFields": [
+        "routeId",
+        "route",
+        "disposition",
+        "reason"
+      ],
+      "fieldContracts": {
+        "routeId": "one of the exact two protocol-frozen route IDs in protocol order",
+        "route": "bounded route that was inspected without numerical execution",
+        "disposition": "available-but-insufficient | forbidden-substitute as fixed for the named route",
+        "reason": "artifact-grounded scoped reason"
+      }
+    },
+    "staticPublicApiFinding": {
+      "exactFields": [
+        "findingId",
+        "operandIds",
+        "visibility",
+        "contractChangeRequired",
+        "evidenceLocator"
+      ],
+      "fieldContracts": {
+        "findingId": "one of the exact two protocol-frozen finding IDs in protocol order",
+        "operandIds": "exact operand-ID array for the named finding",
+        "visibility": "public-accepted-state | not-specified as fixed for the named finding",
+        "contractChangeRequired": "false; the public reconstruction needs no contract change and a future independent reference may be supplied separately",
+        "evidenceLocator": "normalized repository path followed by # and a nonempty exact locator"
+      }
+    },
+    "staticProtocolFinding": {
+      "exactFields": [
+        "findingId",
+        "operandIds",
+        "visibility",
+        "contractChangeRequired",
+        "evidenceLocator",
+        "ground"
+      ],
+      "fieldContracts": {
+        "findingId": "one of the exact two protocol-frozen finding IDs in protocol order",
+        "operandIds": "exact operand-ID array for the named finding",
+        "visibility": "public-accepted-state | not-specified as fixed for the named finding",
+        "contractChangeRequired": "false",
+        "evidenceLocator": "normalized repository path followed by # and a nonempty exact locator",
+        "ground": "scoped artifact-grounded statement that acknowledges public accepted state where applicable"
+      }
+    },
+    "staticSourceAudit": {
+      "exactFields": [
+        "auditId",
+        "currentContractOnly",
+        "inspectedArtifacts",
+        "publicApiFindings",
+        "executionRecord"
+      ],
+      "fieldContracts": {
+        "auditId": "stable source-audit ID",
+        "currentContractOnly": "true",
+        "inspectedArtifacts": "path-sorted nonempty artifactIdentity array",
+        "publicApiFindings": "exact two staticPublicApiFinding rows copied from the protocol: public one-sweep reconstruction available, then independent static spatial reference/order not specified",
+        "executionRecord": "zeroExecutionRecord"
+      }
+    },
+    "staticFinalContractEvidence": {
+      "exactFields": [
+        "sourceAudit",
+        "codeAndImportReceipt"
+      ],
+      "fieldContracts": {
+        "sourceAudit": "staticSourceAudit emitted by the refusal generator and accepted by the independent checker",
+        "codeAndImportReceipt": "definitions.codeAndImportReceipt for the static generator, checker, parser, and neutral lifecycle"
+      }
+    },
+    "staticRefusalCandidate": {
+      "exactFields": [
+        "schema",
+        "protocolId",
+        "reasonCode",
+        "currentContractScope",
+        "unavailableOperands",
+        "attemptedRoutes",
+        "forbiddenSubstitutes",
+        "contractEvidence",
+        "executionRecord",
+        "downstreamEffect",
+        "claimBoundary"
+      ],
+      "fieldContracts": {
+        "schema": "phase10-c0v-static-refusal-candidate-v1",
+        "protocolId": "bound static protocol ID",
+        "reasonCode": "protocol-frozen stable reason code",
+        "currentContractScope": "accepted-current-public-solver-contract-only",
+        "unavailableOperands": "exact five protocol operands: independent continuum field and boundary-flux references, analytic expected field and flux orders, and justified order lower bound",
+        "attemptedRoutes": "exact two-row attemptedRoute array",
+        "forbiddenSubstitutes": "exact same-discrete-replay-as-spatial-accuracy and self-convergence-as-absolute-accuracy IDs",
+        "contractEvidence": "staticSourceAudit",
+        "executionRecord": "zeroExecutionRecord",
+        "downstreamEffect": "exact scoped non-PASS/blocking object",
+        "claimBoundary": "exact current-contract/no-universal-impossibility object"
+      }
+    },
+    "staticRefusalCheck": {
+      "exactFields": [
+        "schema",
+        "protocolId",
+        "method",
+        "groundChecks",
+        "routeChecks",
+        "scopeChecks",
+        "zeroExecutionChecks",
+        "verdict",
+        "errors"
+      ],
+      "fieldContracts": {
+        "schema": "phase10-c0v-static-refusal-check-v1",
+        "protocolId": "bound static protocol ID",
+        "method": "independent-current-contract-ground-route-scope-and-zero-execution-check",
+        "groundChecks": "exact passed/details check group",
+        "routeChecks": "exact passed/details check group",
+        "scopeChecks": "exact passed/details check group",
+        "zeroExecutionChecks": "exact passed/details check group",
+        "verdict": "pass | fail",
+        "errors": "string array"
+      }
+    },
+    "staticRefusalGrounds": {
+      "exactFields": [
+        "auditId",
+        "reasonCode",
+        "currentContractScope",
+        "unavailableOperands",
+        "forbiddenSubstitutes",
+        "findings"
+      ],
+      "fieldContracts": {
+        "auditId": "stable current-contract source-audit ID",
+        "reasonCode": "stable scoped-refusal reason code",
+        "currentContractScope": "accepted-current-public-solver-contract-only",
+        "unavailableOperands": "exact five independent continuum field/flux reference, analytic expected-order, and justified lower-bound operand IDs; no public or reconstructible raw state is named unavailable",
+        "forbiddenSubstitutes": "exact two substitute IDs forbidding same-discrete replay as spatial accuracy and self-convergence as absolute accuracy",
+        "findings": "exact two staticProtocolFinding rows"
+      }
+    },
+    "staticNotApplicableObligations": {
+      "exactFields": [
+        "gridRoster",
+        "normThresholds",
+        "referenceValues",
+        "solverCalls",
+        "witnesses",
+        "numericalEvaluations"
+      ],
+      "fieldContracts": {
+        "gridRoster": "not-instantiated",
+        "normThresholds": "not-instantiated",
+        "referenceValues": "not-instantiated",
+        "solverCalls": "not-instantiated",
+        "witnesses": "not-instantiated",
+        "numericalEvaluations": "not-instantiated"
+      }
+    },
+    "staticTargetedCheck": {
+      "exactFields": [
+        "method",
+        "requiredFindingIds",
+        "requiredRouteIds",
+        "zeroExecutionRequired",
+        "scopeRule",
+        "universalImpossibilityClaim"
+      ],
+      "fieldContracts": {
+        "method": "independent-current-contract-ground-route-scope-and-zero-execution-check",
+        "requiredFindingIds": "exact two-finding protocol-order roster",
+        "requiredRouteIds": "exact two-route protocol-order roster",
+        "zeroExecutionRequired": "true",
+        "scopeRule": "current-contract-only and explicitly non-universal",
+        "universalImpossibilityClaim": "false"
+      }
+    },
+    "zeroExecutionRecord": {
+      "exactFields": [
+        "solverInvocations",
+        "referenceInvocations",
+        "productionInvocations",
+        "witnessesProduced",
+        "numericalEvaluations",
+        "scientificProcessHours"
+      ],
+      "fieldContracts": {
+        "solverInvocations": "strict non-null value governed by nestedContracts and invariants",
+        "referenceInvocations": "strict non-null value governed by nestedContracts and invariants",
+        "productionInvocations": "strict non-null value governed by nestedContracts and invariants",
+        "witnessesProduced": "strict non-null value governed by nestedContracts and invariants",
+        "numericalEvaluations": "strict non-null value governed by nestedContracts and invariants",
+        "scientificProcessHours": "strict non-null value governed by nestedContracts and invariants"
+      }
+    }
+  },
+  "schemas": {
+    "phase10-c0v-aggregate-v1": {
+      "schemaId": "phase10-c0v-aggregate-v1",
+      "format": "json",
+      "exactTopLevelFields": [
+        "schema",
+        "aggregateId",
+        "terminalTable",
+        "resourceLedger",
+        "layerResults",
+        "allThreeTerminal",
+        "allIndependentReferences",
+        "allLayersPass",
+        "aggregateStatus",
+        "negativeControl",
+        "packageCompletionEligible",
+        "dependentQualificationBlocked",
+        "claimBoundary"
+      ],
+      "fieldContracts": {
+        "schema": "strict non-null value governed by nestedContracts and invariants",
+        "aggregateId": "strict non-null value governed by nestedContracts and invariants",
+        "terminalTable": "strict non-null value governed by nestedContracts and invariants",
+        "resourceLedger": "strict non-null value governed by nestedContracts and invariants",
+        "layerResults": "strict non-null value governed by nestedContracts and invariants",
+        "allThreeTerminal": "strict non-null value governed by nestedContracts and invariants",
+        "allIndependentReferences": "strict non-null value governed by nestedContracts and invariants",
+        "allLayersPass": "strict non-null value governed by nestedContracts and invariants",
+        "aggregateStatus": "strict non-null value governed by nestedContracts and invariants",
+        "negativeControl": "strict non-null value governed by nestedContracts and invariants",
+        "packageCompletionEligible": "strict non-null value governed by nestedContracts and invariants",
+        "dependentQualificationBlocked": "strict non-null value governed by nestedContracts and invariants",
+        "claimBoundary": "strict non-null value governed by nestedContracts and invariants"
+      },
+      "nestedContracts": {
+        "terminalTable": "definitions.artifactIdentity",
+        "resourceLedger": "definitions.artifactIdentity",
+        "layerResults": "exactly radial, static, moving definitions.artifactIdentity rows",
+        "negativeControl": "definitions.negativeControlResult"
+      },
+      "enums": {
+        "schema": [
+          "phase10-c0v-aggregate-v1"
+        ],
+        "aggregateStatus": [
+          "pass",
+          "non-pass"
+        ]
+      },
+      "nullRules": [
+        "no field is nullable"
+      ],
+      "invariants": [
+        "aggregateStatus is pass exactly when all three layers took independent-reference and passed.",
+        "The selected static refusal therefore forces non-pass while still permitting package completion."
+      ]
+    },
+    "phase10-c0v-attempt-row-v1": {
+      "schemaId": "phase10-c0v-attempt-row-v1",
+      "format": "jsonl-row",
+      "exactTopLevelFields": [
+        "schema",
+        "attemptId",
+        "layerId",
+        "branch",
+        "protocol",
+        "referenceOrRefusal",
+        "runtime",
+        "command",
+        "gitHead",
+        "startedAt",
+        "finishedAt",
+        "wallSeconds",
+        "processHours",
+        "processConcurrency",
+        "scratchBytes",
+        "retainedBytes",
+        "terminalStatus",
+        "exitCode",
+        "preflight",
+        "stdout",
+        "stderr",
+        "terminalReceipt"
+      ],
+      "fieldContracts": {
+        "schema": "strict non-null value governed by nestedContracts and invariants",
+        "attemptId": "strict non-null value governed by nestedContracts and invariants",
+        "layerId": "strict non-null value governed by nestedContracts and invariants",
+        "branch": "strict non-null value governed by nestedContracts and invariants",
+        "protocol": "strict non-null value governed by nestedContracts and invariants",
+        "referenceOrRefusal": "strict non-null value governed by nestedContracts and invariants",
+        "runtime": "strict non-null value governed by nestedContracts and invariants",
+        "command": "strict non-null value governed by nestedContracts and invariants",
+        "gitHead": "strict non-null value governed by nestedContracts and invariants",
+        "startedAt": "strict non-null value governed by nestedContracts and invariants",
+        "finishedAt": "strict non-null value governed by nestedContracts and invariants",
+        "wallSeconds": "strict non-null value governed by nestedContracts and invariants",
+        "processHours": "strict non-null value governed by nestedContracts and invariants",
+        "processConcurrency": "strict non-null value governed by nestedContracts and invariants",
+        "scratchBytes": "strict non-null value governed by nestedContracts and invariants",
+        "retainedBytes": "strict non-null value governed by nestedContracts and invariants",
+        "terminalStatus": "strict non-null value governed by nestedContracts and invariants",
+        "exitCode": "strict non-null value governed by nestedContracts and invariants",
+        "preflight": "strict non-null value governed by nestedContracts and invariants",
+        "stdout": "strict non-null value governed by nestedContracts and invariants",
+        "stderr": "strict non-null value governed by nestedContracts and invariants",
+        "terminalReceipt": "strict non-null value governed by nestedContracts and invariants"
+      },
+      "nestedContracts": {
+        "protocol": "definitions.artifactIdentity",
+        "referenceOrRefusal": "definitions.artifactIdentity",
+        "preflight": "definitions.artifactIdentity",
+        "stdout": "definitions.artifactIdentity",
+        "stderr": "definitions.artifactIdentity",
+        "terminalReceipt": "definitions.artifactIdentity"
+      },
+      "enums": {
+        "schema": [
+          "phase10-c0v-attempt-row-v1"
+        ],
+        "layerId": [
+          "C0V-RADIAL",
+          "C0V-STATIC",
+          "C0V-MOVING-EVENT"
+        ],
+        "branch": [
+          "independent-reference",
+          "reference-refusal"
+        ],
+        "terminalStatus": [
+          "pass",
+          "fail",
+          "refusal"
+        ]
+      },
+      "nullRules": [
+        "exitCode is null only when no process launched due to preflight refusal"
+      ],
+      "invariants": [
+        "Rows are append-only and unique by attemptId.",
+        "Failed, retried, and superseded attempts remain counted in process hours and retained bytes.",
+        "Static refusal records zero solver process hours."
+      ]
+    },
+    "phase10-c0v-moving-evaluation-v1": {
+      "schemaId": "phase10-c0v-moving-evaluation-v1",
+      "format": "json",
+      "exactTopLevelFields": [
+        "schema",
+        "evaluationId",
+        "protocol",
+        "reference",
+        "witness",
+        "checkResults",
+        "negativeControls",
+        "numericalDisposition",
+        "artifactDisposition",
+        "limits"
+      ],
+      "fieldContracts": {
+        "schema": "strict non-null value governed by nestedContracts and invariants",
+        "evaluationId": "strict non-null value governed by nestedContracts and invariants",
+        "protocol": "strict non-null value governed by nestedContracts and invariants",
+        "reference": "strict non-null value governed by nestedContracts and invariants",
+        "witness": "strict non-null value governed by nestedContracts and invariants",
+        "checkResults": "strict non-null value governed by nestedContracts and invariants",
+        "negativeControls": "strict non-null value governed by nestedContracts and invariants",
+        "numericalDisposition": "strict non-null value governed by nestedContracts and invariants",
+        "artifactDisposition": "strict non-null value governed by nestedContracts and invariants",
+        "limits": "strict non-null value governed by nestedContracts and invariants"
+      },
+      "nestedContracts": {
+        "protocol": "definitions.artifactIdentity",
+        "reference": "definitions.artifactIdentity",
+        "witness": "definitions.artifactIdentity",
+        "checkResultItems": "definitions.checkResult",
+        "negativeControlItems": "definitions.negativeControlResult"
+      },
+      "enums": {
+        "schema": [
+          "phase10-c0v-moving-evaluation-v1"
+        ],
+        "numericalDisposition": [
+          "pass",
+          "fail"
+        ],
+        "artifactDisposition": [
+          "valid",
+          "refusal"
+        ]
+      },
+      "nullRules": [
+        "no field is nullable"
+      ],
+      "invariants": [
+        "PASS requires the exact event ordinal/orbit/topology plus every field, rate, timing, convergence, and ledger criterion and both controls."
+      ]
+    },
+    "phase10-c0v-moving-protocol-v1": {
+      "schemaId": "phase10-c0v-moving-protocol-v1",
+      "format": "json",
+      "exactTopLevelFields": [
+        "schema",
+        "protocolId",
+        "layerId",
+        "frozenDate",
+        "branch",
+        "bindings",
+        "artifactPaths",
+        "referenceOnlyCode",
+        "fixture",
+        "topology",
+        "formulas",
+        "referenceDerivation",
+        "targetedCheck",
+        "criteria",
+        "negativeControls",
+        "resourceBoundary",
+        "independence",
+        "terminalSemantics",
+        "claimBoundary"
+      ],
+      "fieldContracts": {
+        "schema": "fixed schema discriminator",
+        "protocolId": "stable protocol identity",
+        "layerId": "fixed C0V layer identity",
+        "frozenDate": "ISO date",
+        "branch": "independent-reference or reference-refusal as fixed by the layer protocol",
+        "bindings": "definitions.protocolBindings",
+        "artifactPaths": "definitions.artifactPaths",
+        "referenceOnlyCode": "exactly generator, independent-checker, and shared-parser definitions.codeIdentity rows",
+        "fixture": "definitions.movingFixture",
+        "topology": "definitions.movingTopology",
+        "formulas": "complete aggregate-v6, smoother, shell, event, field, and ledger formulas and evaluation order",
+        "referenceDerivation": "independent integer-topology, nonlinear-boundary, field, event, and ledger derivation contract",
+        "targetedCheck": "separate monotonicity/bracket/residual, topology, field-equation, event, and ledger checker contract",
+        "criteria": "definitions.movingCriteria",
+        "negativeControls": "exactly two definitions.negativeControl rows",
+        "resourceBoundary": "definitions.resourceBoundary",
+        "independence": "exact forbidden-import, separation, dependency-audit, and test-hook rules",
+        "terminalSemantics": "exact pass/fail/refusal and early-reference reopening rules",
+        "claimBoundary": "nonempty allowed/forbidden claim arrays"
+      },
+      "nestedContracts": {
+        "bindings": "definitions.protocolBindings",
+        "artifactPaths": "definitions.artifactPaths",
+        "referenceOnlyCodeItems": "definitions.codeIdentity",
+        "fixture": "definitions.movingFixture",
+        "topology": "definitions.movingTopology",
+        "formulas": "definitions.movingFormulas",
+        "referenceDerivation": "definitions.movingReferenceDerivation",
+        "targetedCheck": "definitions.movingTargetedCheck",
+        "criteria": "definitions.movingCriteria",
+        "negativeControlItems": "definitions.negativeControl",
+        "resourceBoundary": "definitions.resourceBoundary",
+        "independence": "definitions.independence",
+        "terminalSemantics": "definitions.terminalSemantics",
+        "claimBoundary": "definitions.claimBoundary"
+      },
+      "enums": {
+        "schema": [
+          "phase10-c0v-moving-protocol-v1"
+        ],
+        "layerId": [
+          "C0V-MOVING-EVENT"
+        ],
+        "branch": [
+          "independent-reference"
+        ]
+      },
+      "nullRules": [
+        "no field is nullable"
+      ],
+      "invariants": [
+        "The fixture is constructible through the production constructor and public API with no test hook, resume fabrication, private state mutation, or solver contract change.",
+        "The fixture carries the exact four-row provenance roster for aggregate-v6, CAK_A1 minus-5-C basal inputs, physical/metrological constants, and the tiny Phase 10 control design.",
+        "The exact integer topology and event ordinal are frozen before any numerical reference field is derived.",
+        "The protocol contains no evaluated field, rate, event-time, or ledger value."
+      ]
+    },
+    "phase10-c0v-moving-reference-v1": {
+      "schemaId": "phase10-c0v-moving-reference-v1",
+      "format": "json",
+      "exactTopLevelFields": [
+        "schema",
+        "referenceId",
+        "protocolId",
+        "layerId",
+        "branch",
+        "protocol",
+        "freezeCommit",
+        "createdAt",
+        "generatorOutput",
+        "independentCheck",
+        "codeAndImportReceipt",
+        "comparison",
+        "disposition",
+        "claimBoundary"
+      ],
+      "fieldContracts": {
+        "schema": "fixed schema discriminator",
+        "referenceId": "strict non-null value governed by nestedContracts and invariants",
+        "protocolId": "strict non-null value governed by nestedContracts and invariants",
+        "layerId": "C0V-MOVING-EVENT",
+        "branch": "independent-reference",
+        "protocol": "definitions.artifactIdentity",
+        "freezeCommit": "strict non-null value governed by nestedContracts and invariants",
+        "createdAt": "strict non-null value governed by nestedContracts and invariants",
+        "generatorOutput": "complete raw phase10-c0v-moving-reference-candidate-v1 output",
+        "independentCheck": "complete raw phase10-c0v-moving-reference-check-v1 output",
+        "codeAndImportReceipt": "definitions.codeAndImportReceipt",
+        "comparison": "definitions.referenceComparison exact outcome/error summary; load-bearing quantities remain in generatorOutput and independentCheck",
+        "disposition": "strict non-null value governed by nestedContracts and invariants",
+        "claimBoundary": "strict non-null value governed by nestedContracts and invariants"
+      },
+      "nestedContracts": {
+        "protocol": "definitions.artifactIdentity",
+        "codeAndImportReceipt": "definitions.codeAndImportReceipt",
+        "comparison": "definitions.referenceComparison",
+        "generatorOutput": "definitions.movingReferenceCandidate",
+        "independentCheck": "definitions.movingReferenceCheck"
+      },
+      "enums": {
+        "schema": [
+          "phase10-c0v-moving-reference-v1"
+        ],
+        "layerId": [
+          "C0V-MOVING-EVENT"
+        ],
+        "branch": [
+          "independent-reference"
+        ],
+        "disposition": [
+          "reference-frozen",
+          "reference-discrepancy-refusal"
+        ]
+      },
+      "nullRules": [
+        "no field is nullable"
+      ],
+      "invariants": [
+        "The raw derivation and separate check include every load-bearing field, topology, event, and ledger quantity.",
+        "comparison binds only the expected/observed outcome summary; generatorOutput and independentCheck retain every load-bearing quantity and criterion.",
+        "The outer protocolId equals both raw output protocolId values, and comparison observedOutcome/errors exactly bind the raw independent-check verdict/errors outcome.",
+        "reference-frozen requires the exact topology and every frozen numerical criterion to pass."
+      ]
+    },
+    "phase10-c0v-moving-result-v1": {
+      "schemaId": "phase10-c0v-moving-result-v1",
+      "format": "json",
+      "exactTopLevelFields": [
+        "schema",
+        "resultId",
+        "layerId",
+        "branch",
+        "protocol",
+        "referenceOrRefusal",
+        "attemptLedger",
+        "witness",
+        "evaluation",
+        "terminalStatus",
+        "scientificDisposition",
+        "negativeControlDisposition",
+        "resourceDisposition",
+        "claimBoundary"
+      ],
+      "fieldContracts": {
+        "schema": "strict non-null value governed by nestedContracts and invariants",
+        "resultId": "strict non-null value governed by nestedContracts and invariants",
+        "layerId": "strict non-null value governed by nestedContracts and invariants",
+        "branch": "strict non-null value governed by nestedContracts and invariants",
+        "protocol": "strict non-null value governed by nestedContracts and invariants",
+        "referenceOrRefusal": "strict non-null value governed by nestedContracts and invariants",
+        "attemptLedger": "strict non-null value governed by nestedContracts and invariants",
+        "witness": "strict non-null value governed by nestedContracts and invariants",
+        "evaluation": "strict non-null value governed by nestedContracts and invariants",
+        "terminalStatus": "strict non-null value governed by nestedContracts and invariants",
+        "scientificDisposition": "strict non-null value governed by nestedContracts and invariants",
+        "negativeControlDisposition": "strict non-null value governed by nestedContracts and invariants",
+        "resourceDisposition": "strict non-null value governed by nestedContracts and invariants",
+        "claimBoundary": "strict non-null value governed by nestedContracts and invariants"
+      },
+      "nestedContracts": {
+        "protocol": "definitions.artifactIdentity",
+        "referenceOrRefusal": "definitions.artifactIdentity",
+        "attemptLedger": "definitions.artifactIdentity",
+        "witness": "definitions.artifactIdentity or null only on refusal",
+        "evaluation": "definitions.artifactIdentity or null only on refusal"
+      },
+      "enums": {
+        "schema": [
+          "phase10-c0v-moving-result-v1"
+        ],
+        "layerId": [
+          "C0V-MOVING-EVENT"
+        ],
+        "branch": [
+          "independent-reference",
+          "reference-refusal"
+        ],
+        "terminalStatus": [
+          "pass",
+          "fail",
+          "refusal"
+        ]
+      },
+      "nullRules": [
+        "witness and evaluation may be null only for a valid refusal before or during production"
+      ],
+      "invariants": [
+        "This control grants no habit, mechanism, apparatus, realism, target, or validation claim."
+      ]
+    },
+    "phase10-c0v-moving-witness-v1": {
+      "schemaId": "phase10-c0v-moving-witness-v1",
+      "format": "binary",
+      "exactTopLevelFields": [
+        "magic",
+        "formatVersion",
+        "endianness",
+        "schemaId",
+        "protocolSha256",
+        "referenceSha256",
+        "payloadByteLength",
+        "payloadSha256"
+      ],
+      "fieldContracts": {
+        "magic": "strict non-null value governed by nestedContracts and invariants",
+        "formatVersion": "strict non-null value governed by nestedContracts and invariants",
+        "endianness": "strict non-null value governed by nestedContracts and invariants",
+        "schemaId": "strict non-null value governed by nestedContracts and invariants",
+        "protocolSha256": "strict non-null value governed by nestedContracts and invariants",
+        "referenceSha256": "strict non-null value governed by nestedContracts and invariants",
+        "payloadByteLength": "strict non-null value governed by nestedContracts and invariants",
+        "payloadSha256": "strict non-null value governed by nestedContracts and invariants"
+      },
+      "nestedContracts": {
+        "payload": "complete pre/cycle/post float64 fields, occupancy/fill/masks, integer topology, boundary rate operands, convergence reports, surface reports, and ledgers for exactly one fixture"
+      },
+      "enums": {
+        "schemaId": [
+          "phase10-c0v-moving-witness-v1"
+        ],
+        "endianness": [
+          "little-endian"
+        ]
+      },
+      "nullRules": [
+        "binary fields are never nullable"
+      ],
+      "invariants": [
+        "All cells appear in increasing linear-index order.",
+        "The witness contains no independent verdict and no test-hook state."
+      ]
+    },
+    "phase10-c0v-radial-evaluation-v1": {
+      "schemaId": "phase10-c0v-radial-evaluation-v1",
+      "format": "json",
+      "exactTopLevelFields": [
+        "schema",
+        "evaluationId",
+        "protocol",
+        "reference",
+        "witness",
+        "checkResults",
+        "negativeControls",
+        "numericalDisposition",
+        "artifactDisposition",
+        "limits"
+      ],
+      "fieldContracts": {
+        "schema": "strict non-null value governed by nestedContracts and invariants",
+        "evaluationId": "strict non-null value governed by nestedContracts and invariants",
+        "protocol": "strict non-null value governed by nestedContracts and invariants",
+        "reference": "strict non-null value governed by nestedContracts and invariants",
+        "witness": "strict non-null value governed by nestedContracts and invariants",
+        "checkResults": "strict non-null value governed by nestedContracts and invariants",
+        "negativeControls": "strict non-null value governed by nestedContracts and invariants",
+        "numericalDisposition": "strict non-null value governed by nestedContracts and invariants",
+        "artifactDisposition": "strict non-null value governed by nestedContracts and invariants",
+        "limits": "strict non-null value governed by nestedContracts and invariants"
+      },
+      "nestedContracts": {
+        "protocol": "definitions.artifactIdentity",
+        "reference": "definitions.artifactIdentity",
+        "witness": "definitions.artifactIdentity",
+        "checkResultItems": "definitions.checkResult",
+        "negativeControlItems": "definitions.negativeControlResult"
+      },
+      "enums": {
+        "schema": [
+          "phase10-c0v-radial-evaluation-v1"
+        ],
+        "numericalDisposition": [
+          "pass",
+          "fail"
+        ],
+        "artifactDisposition": [
+          "valid",
+          "refusal"
+        ]
+      },
+      "nullRules": [
+        "no field is nullable"
+      ],
+      "invariants": [
+        "The evaluator reopens raw reference and witness bytes and ignores producer summaries.",
+        "PASS requires all four cases, every criterion, and all three named controls to pass."
+      ]
+    },
+    "phase10-c0v-radial-protocol-v1": {
+      "schemaId": "phase10-c0v-radial-protocol-v1",
+      "format": "json",
+      "exactTopLevelFields": [
+        "schema",
+        "protocolId",
+        "layerId",
+        "frozenDate",
+        "branch",
+        "bindings",
+        "artifactPaths",
+        "referenceOnlyCode",
+        "problem",
+        "roster",
+        "formulas",
+        "referenceDerivation",
+        "targetedCheck",
+        "criteria",
+        "negativeControls",
+        "resourceBoundary",
+        "independence",
+        "terminalSemantics",
+        "claimBoundary"
+      ],
+      "fieldContracts": {
+        "schema": "fixed schema discriminator",
+        "protocolId": "stable protocol identity",
+        "layerId": "fixed C0V layer identity",
+        "frozenDate": "ISO date",
+        "branch": "independent-reference or reference-refusal as fixed by the layer protocol",
+        "bindings": "definitions.protocolBindings",
+        "artifactPaths": "definitions.artifactPaths",
+        "referenceOnlyCode": "exactly generator, independent-checker, and shared-parser definitions.codeIdentity rows",
+        "problem": "definitions.radialProblem",
+        "roster": "definitions.radialRoster",
+        "formulas": "exact finite-shell harmonic-field, Robin, kinetic, norm, and zero-attachment formulas",
+        "referenceDerivation": "independent 2x2 harmonic-coefficient derivation contract",
+        "targetedCheck": "separate closed-form Lambda derivation and exact import audit contract",
+        "criteria": "definitions.radialCriteria",
+        "negativeControls": "exactly three definitions.negativeControl rows",
+        "resourceBoundary": "definitions.resourceBoundary",
+        "independence": "exact forbidden-import, separation, dependency-audit, and test-hook rules",
+        "terminalSemantics": "exact pass/fail/refusal and early-reference reopening rules",
+        "claimBoundary": "nonempty allowed/forbidden claim arrays"
+      },
+      "nestedContracts": {
+        "bindings": "definitions.protocolBindings",
+        "artifactPaths": "definitions.artifactPaths",
+        "referenceOnlyCodeItems": "definitions.codeIdentity",
+        "problem": "definitions.radialProblem",
+        "roster": "definitions.radialRoster",
+        "formulas": "definitions.radialFormulas",
+        "referenceDerivation": "definitions.radialReferenceDerivation",
+        "targetedCheck": "definitions.radialTargetedCheck",
+        "criteria": "definitions.radialCriteria",
+        "negativeControlItems": "definitions.negativeControl",
+        "resourceBoundary": "definitions.resourceBoundary",
+        "independence": "definitions.independence",
+        "terminalSemantics": "definitions.terminalSemantics",
+        "claimBoundary": "definitions.claimBoundary"
+      },
+      "enums": {
+        "schema": [
+          "phase10-c0v-radial-protocol-v1"
+        ],
+        "layerId": [
+          "C0V-RADIAL"
+        ],
+        "branch": [
+          "independent-reference"
+        ]
+      },
+      "nullRules": [
+        "no field is nullable"
+      ],
+      "invariants": [
+        "The protocol contains operands, formulas, exact grid identities, and tolerances but no evaluated reference or production value.",
+        "alphaHKConst 0.393 is the idealized finite-shell spherical control constant from solver-cpu/test/spherical-reference.test.ts#COEFFICIENT, not CAK_A1 and not temperature-law provenance.",
+        "The four requested spacings and their interval/node/rational-actual-spacing roster are immutable and complete.",
+        "Every reference-only source byte identity predates reference derivation and production comparison implementation.",
+        "The radial generator and targeted checker share schemas only and do not share scientific arithmetic."
+      ]
+    },
+    "phase10-c0v-radial-reference-v1": {
+      "schemaId": "phase10-c0v-radial-reference-v1",
+      "format": "json",
+      "exactTopLevelFields": [
+        "schema",
+        "referenceId",
+        "protocolId",
+        "layerId",
+        "branch",
+        "protocol",
+        "freezeCommit",
+        "createdAt",
+        "generatorOutput",
+        "independentCheck",
+        "codeAndImportReceipt",
+        "comparison",
+        "disposition",
+        "claimBoundary"
+      ],
+      "fieldContracts": {
+        "schema": "fixed schema discriminator",
+        "referenceId": "stable reference identity",
+        "protocolId": "bound radial science protocol identity",
+        "layerId": "C0V-RADIAL",
+        "branch": "independent-reference",
+        "protocol": "definitions.artifactIdentity",
+        "freezeCommit": "lowercase 40-hex clean S5a commit",
+        "createdAt": "ISO-8601 timestamp",
+        "generatorOutput": "complete raw phase10-c0v-radial-reference-candidate-v1 output",
+        "independentCheck": "complete raw phase10-c0v-radial-reference-check-v1 output",
+        "codeAndImportReceipt": "definitions.codeAndImportReceipt",
+        "comparison": "definitions.referenceComparison exact outcome/error summary; load-bearing quantities and frozen criteria remain in generatorOutput and independentCheck",
+        "disposition": "reference-frozen or reference-discrepancy-refusal",
+        "claimBoundary": "control-only limits"
+      },
+      "nestedContracts": {
+        "protocol": "definitions.artifactIdentity",
+        "codeAndImportReceipt": "definitions.codeAndImportReceipt",
+        "comparison": "definitions.referenceComparison",
+        "generatorOutput": "definitions.radialReferenceCandidate",
+        "independentCheck": "definitions.radialReferenceCheck"
+      },
+      "enums": {
+        "schema": [
+          "phase10-c0v-radial-reference-v1"
+        ],
+        "layerId": [
+          "C0V-RADIAL"
+        ],
+        "branch": [
+          "independent-reference"
+        ],
+        "disposition": [
+          "reference-frozen",
+          "reference-discrepancy-refusal"
+        ]
+      },
+      "nullRules": [
+        "no field is nullable"
+      ],
+      "invariants": [
+        "The generator output and targeted independent check are preserved verbatim as strict JSON values.",
+        "comparison binds only the expected/observed outcome summary; generatorOutput and independentCheck retain every load-bearing quantity and criterion.",
+        "The outer protocolId equals both raw output protocolId values, and comparison observedOutcome/errors exactly bind the raw independent-check pass/errors outcome.",
+        "reference-frozen requires every frozen generator/checker agreement criterion and dependency audit to pass.",
+        "The artifact predates and is never regenerated by the later production packet."
+      ]
+    },
+    "phase10-c0v-radial-result-v1": {
+      "schemaId": "phase10-c0v-radial-result-v1",
+      "format": "json",
+      "exactTopLevelFields": [
+        "schema",
+        "resultId",
+        "layerId",
+        "branch",
+        "protocol",
+        "referenceOrRefusal",
+        "attemptLedger",
+        "witness",
+        "evaluation",
+        "terminalStatus",
+        "scientificDisposition",
+        "negativeControlDisposition",
+        "resourceDisposition",
+        "claimBoundary"
+      ],
+      "fieldContracts": {
+        "schema": "strict non-null value governed by nestedContracts and invariants",
+        "resultId": "strict non-null value governed by nestedContracts and invariants",
+        "layerId": "strict non-null value governed by nestedContracts and invariants",
+        "branch": "strict non-null value governed by nestedContracts and invariants",
+        "protocol": "strict non-null value governed by nestedContracts and invariants",
+        "referenceOrRefusal": "strict non-null value governed by nestedContracts and invariants",
+        "attemptLedger": "strict non-null value governed by nestedContracts and invariants",
+        "witness": "strict non-null value governed by nestedContracts and invariants",
+        "evaluation": "strict non-null value governed by nestedContracts and invariants",
+        "terminalStatus": "strict non-null value governed by nestedContracts and invariants",
+        "scientificDisposition": "strict non-null value governed by nestedContracts and invariants",
+        "negativeControlDisposition": "strict non-null value governed by nestedContracts and invariants",
+        "resourceDisposition": "strict non-null value governed by nestedContracts and invariants",
+        "claimBoundary": "strict non-null value governed by nestedContracts and invariants"
+      },
+      "nestedContracts": {
+        "protocol": "definitions.artifactIdentity",
+        "referenceOrRefusal": "definitions.artifactIdentity",
+        "attemptLedger": "definitions.artifactIdentity",
+        "witness": "definitions.artifactIdentity or null only on refusal",
+        "evaluation": "definitions.artifactIdentity or null only on refusal"
+      },
+      "enums": {
+        "schema": [
+          "phase10-c0v-radial-result-v1"
+        ],
+        "layerId": [
+          "C0V-RADIAL"
+        ],
+        "branch": [
+          "independent-reference",
+          "reference-refusal"
+        ],
+        "terminalStatus": [
+          "pass",
+          "fail",
+          "refusal"
+        ]
+      },
+      "nullRules": [
+        "witness and evaluation may be null only for a valid reference-refusal or artifact/resource refusal before production"
+      ],
+      "invariants": [
+        "The publication result derives status from committed artifacts and never inherits a producer verdict."
+      ]
+    },
+    "phase10-c0v-radial-witness-v1": {
+      "schemaId": "phase10-c0v-radial-witness-v1",
+      "format": "binary",
+      "exactTopLevelFields": [
+        "magic",
+        "formatVersion",
+        "endianness",
+        "schemaId",
+        "protocolSha256",
+        "referenceSha256",
+        "payloadByteLength",
+        "payloadSha256"
+      ],
+      "fieldContracts": {
+        "magic": "eight fixed ASCII bytes C0VRAD01",
+        "formatVersion": "unsigned little-endian 32-bit integer equal to 1",
+        "endianness": "fixed little-endian marker",
+        "schemaId": "length-prefixed UTF-8 phase10-c0v-radial-witness-v1",
+        "protocolSha256": "raw 32-byte digest",
+        "referenceSha256": "raw 32-byte digest",
+        "payloadByteLength": "unsigned little-endian 64-bit safe integer",
+        "payloadSha256": "raw 32-byte digest"
+      },
+      "nestedContracts": {
+        "payload": "four case records with exact operand echoes, node counts, complete float64 fields, surface/shell/velocity/Robin data, uniform controls, and producer summary marked non-authoritative"
+      },
+      "enums": {
+        "schemaId": [
+          "phase10-c0v-radial-witness-v1"
+        ],
+        "endianness": [
+          "little-endian"
+        ]
+      },
+      "nullRules": [
+        "binary fields are never nullable"
+      ],
+      "invariants": [
+        "Exactly four cases appear in protocol order and every float64 payload is raw little-endian.",
+        "The witness contains no independent verdict."
+      ]
+    },
+    "phase10-c0v-reference-refusal-v1": {
+      "schemaId": "phase10-c0v-reference-refusal-v1",
+      "format": "json",
+      "exactTopLevelFields": [
+        "schema",
+        "refusalId",
+        "protocolId",
+        "layerId",
+        "branch",
+        "protocol",
+        "freezeCommit",
+        "createdAt",
+        "reasonCode",
+        "unavailableOperands",
+        "attemptedRoutes",
+        "forbiddenSubstitutes",
+        "contractEvidence",
+        "independentCheck",
+        "executionRecord",
+        "downstreamEffect",
+        "claimBoundary"
+      ],
+      "fieldContracts": {
+        "schema": "fixed schema discriminator",
+        "refusalId": "stable refusal identity",
+        "protocolId": "bound layer science protocol identity",
+        "layerId": "C0V-STATIC; this v1 final-refusal contract carries the scoped static source audit and check",
+        "branch": "reference-refusal",
+        "protocol": "definitions.artifactIdentity",
+        "freezeCommit": "lowercase 40-hex S5a commit",
+        "createdAt": "ISO-8601 timestamp",
+        "reasonCode": "stable reference-independence reason code",
+        "unavailableOperands": "exact five independent continuum field/flux reference, analytic expected-order, and justified lower-bound operand IDs",
+        "attemptedRoutes": "exact two protocol-frozen attempted-route rows",
+        "forbiddenSubstitutes": "exact two protocol-frozen substitute IDs",
+        "contractEvidence": "exact code/API/spec identities and scoped observations",
+        "independentCheck": "complete raw refusal-check output from a separate module",
+        "executionRecord": "exact zero solver/reference/production invocation counts",
+        "downstreamEffect": "layer refusal, C0V non-PASS, dependent qualification blocked",
+        "claimBoundary": "current-contract scope and no universal-impossibility claim"
+      },
+      "nestedContracts": {
+        "protocol": "definitions.artifactIdentity",
+        "attemptedRouteItems": "definitions.attemptedRoute",
+        "contractEvidence": "definitions.staticFinalContractEvidence for the C0V-STATIC scoped refusal",
+        "independentCheck": "definitions.staticRefusalCheck for the C0V-STATIC scoped refusal",
+        "executionRecord": "definitions.zeroExecutionRecord"
+      },
+      "enums": {
+        "schema": [
+          "phase10-c0v-reference-refusal-v1"
+        ],
+        "layerId": [
+          "C0V-STATIC"
+        ],
+        "branch": [
+          "reference-refusal"
+        ]
+      },
+      "nullRules": [
+        "no field is nullable"
+      ],
+      "invariants": [
+        "The refusal is an artifact, never an absent file.",
+        "The artifact is C0V-STATIC, its outer protocolId equals the raw refusal-check protocolId, and that scoped refusal-validity check passes with no errors.",
+        "No producer or solver run follows a preimplementation reference refusal for that layer.",
+        "The artifact never carries PASS."
+      ]
+    },
+    "phase10-c0v-resource-ledger-v1": {
+      "schemaId": "phase10-c0v-resource-ledger-v1",
+      "format": "json",
+      "exactTopLevelFields": [
+        "schema",
+        "ledgerId",
+        "requiredRuntime",
+        "perInvocationWallHoursMaximum",
+        "packageProcessHoursMaximum",
+        "solverControlProcessConcurrency",
+        "scratchRetainedGiBMaximum",
+        "attempts",
+        "totals",
+        "capExceeded",
+        "disposition"
+      ],
+      "fieldContracts": {
+        "schema": "strict non-null value governed by nestedContracts and invariants",
+        "ledgerId": "strict non-null value governed by nestedContracts and invariants",
+        "requiredRuntime": "strict non-null value governed by nestedContracts and invariants",
+        "perInvocationWallHoursMaximum": "strict non-null value governed by nestedContracts and invariants",
+        "packageProcessHoursMaximum": "strict non-null value governed by nestedContracts and invariants",
+        "solverControlProcessConcurrency": "strict non-null value governed by nestedContracts and invariants",
+        "scratchRetainedGiBMaximum": "strict non-null value governed by nestedContracts and invariants",
+        "attempts": "strict non-null value governed by nestedContracts and invariants",
+        "totals": "strict non-null value governed by nestedContracts and invariants",
+        "capExceeded": "strict non-null value governed by nestedContracts and invariants",
+        "disposition": "strict non-null value governed by nestedContracts and invariants"
+      },
+      "nestedContracts": {
+        "attemptItems": "exact attempt identity, wall/process hours, scratch, retained bytes, and status",
+        "totals": "exact summed process hours and max/current storage"
+      },
+      "enums": {
+        "schema": [
+          "phase10-c0v-resource-ledger-v1"
+        ],
+        "requiredRuntime": [
+          "Node v24.13.1"
+        ],
+        "disposition": [
+          "within-cap",
+          "resource-refusal"
+        ]
+      },
+      "nullRules": [
+        "no field is nullable"
+      ],
+      "invariants": [
+        "All failed, retried, and superseded attempts count.",
+        "A cap breach is resource refusal, never numerical failure, roster reduction, or deletion authorization."
+      ]
+    },
+    "phase10-c0v-static-evaluation-v1": {
+      "schemaId": "phase10-c0v-static-evaluation-v1",
+      "format": "json",
+      "exactTopLevelFields": [
+        "schema",
+        "evaluationId",
+        "protocol",
+        "reference",
+        "witness",
+        "checkResults",
+        "negativeControls",
+        "numericalDisposition",
+        "artifactDisposition",
+        "limits"
+      ],
+      "fieldContracts": {
+        "schema": "strict non-null value governed by nestedContracts and invariants",
+        "evaluationId": "strict non-null value governed by nestedContracts and invariants",
+        "protocol": "strict non-null value governed by nestedContracts and invariants",
+        "reference": "strict non-null value governed by nestedContracts and invariants",
+        "witness": "strict non-null value governed by nestedContracts and invariants",
+        "checkResults": "strict non-null value governed by nestedContracts and invariants",
+        "negativeControls": "strict non-null value governed by nestedContracts and invariants",
+        "numericalDisposition": "strict non-null value governed by nestedContracts and invariants",
+        "artifactDisposition": "strict non-null value governed by nestedContracts and invariants",
+        "limits": "strict non-null value governed by nestedContracts and invariants"
+      },
+      "nestedContracts": {
+        "protocol": "definitions.artifactIdentity",
+        "reference": "definitions.artifactIdentity",
+        "witness": "definitions.artifactIdentity",
+        "checkResultItems": "definitions.checkResult",
+        "negativeControlItems": "definitions.negativeControlResult"
+      },
+      "enums": {
+        "schema": [
+          "phase10-c0v-static-evaluation-v1"
+        ],
+        "numericalDisposition": [
+          "pass",
+          "fail"
+        ],
+        "artifactDisposition": [
+          "valid",
+          "refusal"
+        ]
+      },
+      "nullRules": [
+        "no field is nullable"
+      ],
+      "invariants": [
+        "Concrete for registry closure but unreachable under the selected static refusal branch."
+      ]
+    },
+    "phase10-c0v-static-protocol-v1": {
+      "schemaId": "phase10-c0v-static-protocol-v1",
+      "format": "json",
+      "exactTopLevelFields": [
+        "schema",
+        "protocolId",
+        "layerId",
+        "frozenDate",
+        "branch",
+        "bindings",
+        "artifactPaths",
+        "referenceOnlyCode",
+        "refusalGrounds",
+        "attemptedRoutes",
+        "notApplicableObligations",
+        "targetedCheck",
+        "resourceBoundary",
+        "independence",
+        "terminalSemantics",
+        "claimBoundary"
+      ],
+      "fieldContracts": {
+        "schema": "fixed schema discriminator",
+        "protocolId": "stable protocol identity",
+        "layerId": "fixed C0V layer identity",
+        "frozenDate": "ISO date",
+        "branch": "independent-reference or reference-refusal as fixed by the layer protocol",
+        "bindings": "definitions.protocolBindings",
+        "artifactPaths": "definitions.artifactPaths",
+        "referenceOnlyCode": "exactly generator, independent-checker, and shared-parser definitions.codeIdentity rows",
+        "refusalGrounds": "exact current-contract-only two-finding audit: public one-sweep same-discrete reconstruction is available, while the independent continuum/spatial field+flux references, expected orders, and justified lower bound are not specified",
+        "attemptedRoutes": "exact two-route audit distinguishing available-but-insufficient same-discrete replay from forbidden tolerance-scaled self-convergence",
+        "notApplicableObligations": "exact independent-branch outputs, checks, controls, grids, norms, and solver execution prohibited by the refusal",
+        "targetedCheck": "independent refusal-validity and API/source dependency check",
+        "resourceBoundary": "definitions.resourceBoundary",
+        "independence": "exact forbidden-import, separation, dependency-audit, and test-hook rules",
+        "terminalSemantics": "exact pass/fail/refusal and early-reference reopening rules",
+        "claimBoundary": "nonempty allowed/forbidden claim arrays"
+      },
+      "nestedContracts": {
+        "bindings": "definitions.protocolBindings",
+        "artifactPaths": "definitions.artifactPaths",
+        "referenceOnlyCodeItems": "definitions.codeIdentity",
+        "refusalGrounds": "definitions.staticRefusalGrounds",
+        "attemptedRouteItems": "definitions.attemptedRoute",
+        "notApplicableObligations": "definitions.staticNotApplicableObligations",
+        "targetedCheck": "definitions.staticTargetedCheck",
+        "resourceBoundary": "definitions.resourceBoundary",
+        "independence": "definitions.independence",
+        "terminalSemantics": "definitions.terminalSemantics",
+        "claimBoundary": "definitions.claimBoundary"
+      },
+      "enums": {
+        "schema": [
+          "phase10-c0v-static-protocol-v1"
+        ],
+        "layerId": [
+          "C0V-STATIC"
+        ],
+        "branch": [
+          "reference-refusal"
+        ]
+      },
+      "nullRules": [
+        "no field is nullable"
+      ],
+      "invariants": [
+        "No numerical grid, norm threshold, reference value, solver call, witness, numerical evaluation, or negative control is instantiated.",
+        "The refusal is scoped to the current frozen public solver contract and does not claim universal impossibility.",
+        "Self-convergence and tolerance scaling are forbidden substitutes for independent spatial field/flux accuracy."
+      ]
+    },
+    "phase10-c0v-static-reference-v1": {
+      "schemaId": "phase10-c0v-static-reference-v1",
+      "format": "json",
+      "exactTopLevelFields": [
+        "schema",
+        "referenceId",
+        "protocolId",
+        "layerId",
+        "branch",
+        "protocol",
+        "freezeCommit",
+        "createdAt",
+        "generatorOutput",
+        "independentCheck",
+        "codeAndImportReceipt",
+        "comparison",
+        "disposition",
+        "claimBoundary"
+      ],
+      "fieldContracts": {
+        "schema": "strict non-null value governed by nestedContracts and invariants",
+        "referenceId": "strict non-null value governed by nestedContracts and invariants",
+        "protocolId": "strict non-null value governed by nestedContracts and invariants",
+        "layerId": "strict non-null value governed by nestedContracts and invariants",
+        "branch": "strict non-null value governed by nestedContracts and invariants",
+        "protocol": "strict non-null value governed by nestedContracts and invariants",
+        "freezeCommit": "strict non-null value governed by nestedContracts and invariants",
+        "createdAt": "strict non-null value governed by nestedContracts and invariants",
+        "generatorOutput": "strict non-null value governed by nestedContracts and invariants",
+        "independentCheck": "strict non-null value governed by nestedContracts and invariants",
+        "codeAndImportReceipt": "strict non-null value governed by nestedContracts and invariants",
+        "comparison": "strict non-null value governed by nestedContracts and invariants",
+        "disposition": "strict non-null value governed by nestedContracts and invariants",
+        "claimBoundary": "strict non-null value governed by nestedContracts and invariants"
+      },
+      "nestedContracts": {
+        "protocol": "definitions.artifactIdentity",
+        "generatorOutput": "complete independent fixed 3D field/flux reference",
+        "independentCheck": "separate load-bearing check",
+        "codeAndImportReceipt": "definitions.codeAndImportReceipt"
+      },
+      "enums": {
+        "schema": [
+          "phase10-c0v-static-reference-v1"
+        ],
+        "layerId": [
+          "C0V-STATIC"
+        ],
+        "branch": [
+          "independent-reference"
+        ],
+        "disposition": [
+          "reference-frozen",
+          "reference-discrepancy-refusal"
+        ]
+      },
+      "nullRules": [
+        "no field is nullable"
+      ],
+      "invariants": [
+        "Concrete for registry closure but unreachable under phase10-c0v-static-protocol-v1's selected refusal branch."
+      ]
+    },
+    "phase10-c0v-static-result-v1": {
+      "schemaId": "phase10-c0v-static-result-v1",
+      "format": "json",
+      "exactTopLevelFields": [
+        "schema",
+        "resultId",
+        "layerId",
+        "branch",
+        "protocol",
+        "referenceOrRefusal",
+        "attemptLedger",
+        "witness",
+        "evaluation",
+        "terminalStatus",
+        "scientificDisposition",
+        "negativeControlDisposition",
+        "resourceDisposition",
+        "claimBoundary"
+      ],
+      "fieldContracts": {
+        "schema": "strict non-null value governed by nestedContracts and invariants",
+        "resultId": "strict non-null value governed by nestedContracts and invariants",
+        "layerId": "strict non-null value governed by nestedContracts and invariants",
+        "branch": "strict non-null value governed by nestedContracts and invariants",
+        "protocol": "strict non-null value governed by nestedContracts and invariants",
+        "referenceOrRefusal": "strict non-null value governed by nestedContracts and invariants",
+        "attemptLedger": "strict non-null value governed by nestedContracts and invariants",
+        "witness": "strict non-null value governed by nestedContracts and invariants",
+        "evaluation": "strict non-null value governed by nestedContracts and invariants",
+        "terminalStatus": "strict non-null value governed by nestedContracts and invariants",
+        "scientificDisposition": "strict non-null value governed by nestedContracts and invariants",
+        "negativeControlDisposition": "strict non-null value governed by nestedContracts and invariants",
+        "resourceDisposition": "strict non-null value governed by nestedContracts and invariants",
+        "claimBoundary": "strict non-null value governed by nestedContracts and invariants"
+      },
+      "nestedContracts": {
+        "protocol": "definitions.artifactIdentity",
+        "referenceOrRefusal": "definitions.artifactIdentity",
+        "attemptLedger": "definitions.artifactIdentity",
+        "witness": "null on selected refusal branch",
+        "evaluation": "null on selected refusal branch"
+      },
+      "enums": {
+        "schema": [
+          "phase10-c0v-static-result-v1"
+        ],
+        "layerId": [
+          "C0V-STATIC"
+        ],
+        "branch": [
+          "reference-refusal"
+        ],
+        "terminalStatus": [
+          "refusal"
+        ]
+      },
+      "nullRules": [
+        "witness and evaluation are null on the selected refusal branch"
+      ],
+      "invariants": [
+        "The result validates and reopens the committed refusal without running a solver or numerical evaluator."
+      ]
+    },
+    "phase10-c0v-static-witness-v1": {
+      "schemaId": "phase10-c0v-static-witness-v1",
+      "format": "binary",
+      "exactTopLevelFields": [
+        "magic",
+        "formatVersion",
+        "endianness",
+        "schemaId",
+        "protocolSha256",
+        "referenceSha256",
+        "payloadByteLength",
+        "payloadSha256"
+      ],
+      "fieldContracts": {
+        "magic": "strict non-null value governed by nestedContracts and invariants",
+        "formatVersion": "strict non-null value governed by nestedContracts and invariants",
+        "endianness": "strict non-null value governed by nestedContracts and invariants",
+        "schemaId": "strict non-null value governed by nestedContracts and invariants",
+        "protocolSha256": "strict non-null value governed by nestedContracts and invariants",
+        "referenceSha256": "strict non-null value governed by nestedContracts and invariants",
+        "payloadByteLength": "strict non-null value governed by nestedContracts and invariants",
+        "payloadSha256": "strict non-null value governed by nestedContracts and invariants"
+      },
+      "nestedContracts": {
+        "payload": "complete fields, masks, boundary/flux/shell operands, and convergence diagnostics over the frozen 3-or-4-level roster"
+      },
+      "enums": {
+        "schemaId": [
+          "phase10-c0v-static-witness-v1"
+        ],
+        "endianness": [
+          "little-endian"
+        ]
+      },
+      "nullRules": [
+        "binary fields are never nullable"
+      ],
+      "invariants": [
+        "Concrete for registry closure but unreachable under the selected static refusal branch."
+      ]
+    },
+    "phase10-c0v-terminal-table-v1": {
+      "schemaId": "phase10-c0v-terminal-table-v1",
+      "format": "json",
+      "exactTopLevelFields": [
+        "schema",
+        "tableId",
+        "rows",
+        "allThreeTerminal",
+        "allIndependentReferences",
+        "allLayersPass",
+        "aggregateStatus"
+      ],
+      "fieldContracts": {
+        "schema": "strict non-null value governed by nestedContracts and invariants",
+        "tableId": "strict non-null value governed by nestedContracts and invariants",
+        "rows": "strict non-null value governed by nestedContracts and invariants",
+        "allThreeTerminal": "strict non-null value governed by nestedContracts and invariants",
+        "allIndependentReferences": "strict non-null value governed by nestedContracts and invariants",
+        "allLayersPass": "strict non-null value governed by nestedContracts and invariants",
+        "aggregateStatus": "strict non-null value governed by nestedContracts and invariants"
+      },
+      "nestedContracts": {
+        "rowItems": "exactly one radial, static, and moving row with branch, terminal status, result identity, scientific disposition, and limits"
+      },
+      "enums": {
+        "schema": [
+          "phase10-c0v-terminal-table-v1"
+        ],
+        "aggregateStatus": [
+          "pass",
+          "non-pass"
+        ]
+      },
+      "nullRules": [
+        "no field is nullable"
+      ],
+      "invariants": [
+        "Rows are ordered radial, static, moving and all are terminal.",
+        "Any fail or refusal yields aggregate non-pass."
+      ]
+    }
+  }
+}

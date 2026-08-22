@@ -222,7 +222,7 @@ collection.
   persisted comparison breakdown, reject missing/duplicate/malformed rows and forbidden inferred
   fields, and publish the target-field gap list. Both derive and publish subpackets are published,
   independently verified, manifest-pinned, and retain the numerical criterion NO-PASS.
-- [ ] **S5a — freeze C0V protocols, schemas, and reference-only code.** Commit the radial,
+- [x] **S5a — freeze C0V protocols, schemas, and reference-only code.** Commit the radial,
   static aggregate-v6, and moving-event protocols; the complete successor schema registry; exact
   branch, roster, norm, tolerance, control, and resource contracts; and only the code needed to
   derive and independently check a reference or refusal. Run exact `npm test` and one bounded
@@ -759,14 +759,17 @@ production arithmetic. It uses the predeclared single-site axial first-event fix
 numerical event control. That fixture grants no habit, apparatus, mechanism, or
 physical-realism claim and may not use test hooks, private state, or a fabricated resume state.
 
-The static layer selects `reference-refusal`. Under the current frozen solver contract, the
-accepted final aggregate-v6 sweep's load-bearing pre-sweep and replacement operands are private and
-transient, while the public report retains only aggregate scalars. Exposing those operands would
-change the solver/state/checkpoint contract. A separate implementation of the same discrete
-operator could establish implementation agreement but not the required spatial field/flux order;
-scaling solver tolerance with grid spacing would manufacture stopping-error order and is the
-forbidden self-convergence substitute. The static protocol therefore instantiates no numerical
-grid, norm threshold, reference value, solver call, witness, or numerical evaluation; its
+The static layer selects `reference-refusal`. Under the current frozen solver contract,
+`boundaryState(index)`, `boundaryCells()`, and `neighborCounts()` publicly expose accepted
+boundary-state scalars and rosters. The public `relaxMaxSweeps: 1` retry path can recover the
+accepted final-sweep pre-call field, and the accepted discrete specification permits a separate
+implementation to reconstruct the post-smoother/pre-boundary-replacement candidate. The refusal
+does not claim either state is private or unavailable. Those routes can establish same-discrete
+implementation agreement and stopping-error behavior, but the current contract supplies no
+admissible independent continuum field/flux reference, expected spatial order, or justified order
+lower bound. Scaling solver tolerance with grid spacing would manufacture stopping-error order and
+is the forbidden self-convergence substitute. The static protocol therefore instantiates no
+numerical grid, norm threshold, reference value, solver call, witness, or numerical evaluation; its
 refusal-validity evaluator remains mandatory. Its S5b artifact is a scoped refusal under the
 current contract, not a claim of universal impossibility. This terminal refusal completes the
 layer diagnostic, prevents C0V PASS, and keeps dependent C5 work blocked.
@@ -780,7 +783,9 @@ production adapter, witness/evaluation writer, or layer-publish implementation b
 S5b starts from that exact clean ancestor. Each radial/moving final reference wrapper embeds the
 raw generator output, independently recomputed targeted check, exact code/import identities, and
 comparison; ignored candidates and receipts are staging only. The static final refusal wrapper
-embeds its independently checked contract/API grounds and records zero solver/reference execution.
+embeds its independently checked current-contract reference/order grounds, records the
+available-but-insufficient public reconstruction routes, and records zero solver/reference
+execution.
 S5b manifest-pins exactly the radial reference, moving reference, and static refusal paths as
 early-produced matrix outputs; it does not claim that any of the three produce packets is terminal.
 Those bytes then become immutable, already-committed inputs to S6. Each later packet
@@ -797,6 +802,95 @@ non-author OpenAI Codex GPT-5 reviewer with full shared task context independent
 charter, ADR, foundation, matrix, state, and plan diff and reran the focused progress test, Rule 7
 scan, and diff check; it reported no remaining blocker. The reviewer did not inspect future code,
 derive a reference value, run a solver, open Phase 6 inputs, or run the full suite.
+
+### S5a implementation and freeze checkpoint — 2026-08-21
+
+S5a's authority, strict codecs, independent scientific implementations, neutral lifecycle, packet
+supplements, synthetic tests, and this checkpoint record enter Git together. The commit containing
+this paragraph is the only admissible S5b execution head: each layer protocol must be introduced by
+that exact clean `HEAD`, and no follow-up documentation or code commit may intervene before the
+registered S5b commands execute. No reference candidate, final reference/refusal output, C0V
+attempt, production-comparison implementation, or solver execution exists at this boundary.
+
+The successor registry promotes exactly the 20 C0V reservations and retains all four unrelated
+reservations; those counts are re-derived from
+`research/phase10-c0v-artifact-schema-registry-v1.json`, 117,196 bytes / SHA-256
+`d69af84af58af0aff1b5a6a307ef63094439891f0b79357c127035c483c6134d`. Its 20 external
+definitions bind the cycle-free contracts file below. Every JSON identity is exact pretty-2 with
+one terminal LF, and every hash-bound research/source path has effective `text: unset`.
+
+| Frozen authority or packet path | Bytes | SHA-256 |
+|---|---:|---|
+| `research/phase10-c0v-schema-contracts-v1.json` | 93,575 | `be743fbc560e46e60b51132be66ca9381ffa5d7b69bf6b1e21cce500628cf0f6` |
+| `research/phase10-c0v-artifact-schema-registry-v1.json` | 117,196 | `d69af84af58af0aff1b5a6a307ef63094439891f0b79357c127035c483c6134d` |
+| `research/phase10-c0v-radial-protocol-v1.json` | 14,998 | `dcfab6f059d3592ab5684e7fe42ecfe827790c19d8f8a6f7e1968f2b3f55abcf` |
+| `research/phase10-c0v-moving-protocol-v1.json` | 18,951 | `29f3ef332371aa97bfe42e971806831e69fc080b3daa557ca9a9eddba3d259e8` |
+| `research/phase10-c0v-static-protocol-v1.json` | 10,473 | `18bcf8ba641cfd5a9c971a1aa4e520fdf200afa844ca4aadc3f6853a01c779b4` |
+| `research/phase10-execution-v1/packets/c0v-radial-produce/protocol.json` | 1,120 | `e9c26842c4a5c73de5af63f8c97d9a13b0546c2b7bfa7413a3f63421b88dbb93` |
+| `research/phase10-execution-v1/packets/c0v-radial-produce/callable-registry.json` | 5,152 | `7ecea7ce31ae51b4b7a2732d86bbfb2b24cbce17fee71957997b1283812556a2` |
+| `research/phase10-execution-v1/packets/c0v-moving-produce/protocol.json` | 1,076 | `cc2e831dc77d934351769f5622fe9321170156f130c53c1ea32cdf3c21cdc397` |
+| `research/phase10-execution-v1/packets/c0v-moving-produce/callable-registry.json` | 4,663 | `60874d4590357f2c9841b7878f3d613c69b25e387b0e1c070a7440118af5793d` |
+| `research/phase10-execution-v1/packets/c0v-static-produce/protocol.json` | 917 | `437e98d78c5ead34faa71644126e3236e30d79a1a17573bb2bfb283cb3360aba` |
+| `research/phase10-execution-v1/packets/c0v-static-produce/callable-registry.json` | 3,232 | `efdf725f66a137f2947da4d25c43e6636d954d891ad417191496f37230c72008` |
+
+| Frozen implementation path | Bytes | SHA-256 |
+|---|---:|---|
+| `runner/src/phase10-c0v-contracts.ts` | 144,599 | `95cd7f83a612afd4220b14967fe78f3b200e3d52fa604794a96689b3adf8f653` |
+| `runner/src/phase10-c0v-radial-reference-derive.ts` | 20,311 | `391d318b13c10ea835da86fd6586d373c67b2392f49efdd5bd173832702e2797` |
+| `runner/src/phase10-c0v-radial-reference-check.ts` | 42,073 | `e9209c18bcdd2eeb18cf07c4ece07a460c2b415579772f799482024558144d8f` |
+| `runner/src/phase10-c0v-moving-reference-derive.ts` | 27,751 | `2900317842c98bc1eacf06d94889c62233966d53833fcbafe49069135f6a7fe2` |
+| `runner/src/phase10-c0v-moving-reference-check.ts` | 50,008 | `0192036ad7a5dc6e65122ccd7c90be5a2e8ae24033a5aa33e2d9fb10a4bf6972` |
+| `runner/src/phase10-c0v-static-refusal.ts` | 14,926 | `de14b58343fc5b0bc58109a1c607a9bb3815bce65730f2995e21342e331798b2` |
+| `runner/src/phase10-c0v-static-refusal-check.ts` | 37,885 | `a2e7d2f2c9d349054eee58d2acbc839d7c719b9c7e5fa31ea6a5a7fe3c5994a7` |
+| `runner/src/phase10-c0v-reference-derive.ts` | 9,450 | `51e22824cc957058c9cca00be5189394bbc092c644b5428835fdf8a669b64fac` |
+| `runner/src/phase10-c0v-reference-check.ts` | 11,551 | `3f7a0321af68cd4171c6cf7cff03f5729f9df6f0228892d624317aa0084a3bbb` |
+| `runner/src/phase10-c0v-reference-publish.ts` | 59,103 | `cb8f685c6c2a902ccd9ca79b472115153776a013544bb68c515c446c8713183a` |
+
+The radial generator and checker use distinct 2-by-2 and closed-form Lambda routes. The moving
+generator/checker separately enumerate the integer topology, initial attached-seed fill, start-of-
+step hole predicate, tied event, field relaxation, Decision-0014 drift bound, and exact ledger.
+The static generator/checker preserve a scoped current-contract refusal: public one-sweep recovery
+and same-discrete replay are available but insufficient, while no independent continuum field/flux
+reference, expected spatial order, or justified lower bound is specified. The checker receives the
+exact source bytes separately, binds their identities to `HEAD`, and independently validates the
+public reconstruction route and the absence of a structured admissible reference/order contract.
+
+The initial pre-repair exact `npm test` passed 143/143 files with 2,332 passed and 49 skipped in
+948.54 seconds. The first exact radial S5b derive then failed closed before attempt-directory or
+output creation: `package-lock.json` is LF in the commit and CRLF in a clean Windows checkout, but
+the original freeze helper compared those two Git text files as if they were `-text` binary
+authorities. The narrow repair normalizes CRLF to LF only for `package.json` and
+`package-lock.json`, rejects a bare CR and every other byte change, and leaves every protocol,
+binding, callable, and transitive local import under raw-byte comparison. Its synthetic test uses
+Git-filter-equivalent/raw-different package bytes, proves the allowed case reaches derive, rejects a
+hidden valid non-EOL package mutation, and rejects CRLF on the exact protocol. The repaired
+lifecycle passes 11/11, typecheck passes, Rule 7 remains clean across 1,146 files, and diff check is
+clean. Because implementation bytes changed, the initial full-suite result is superseded; exact
+`npm test` passing again before the local S5a commit is amended and S5b restarts is the repaired
+checkpoint's acceptance condition.
+
+Two independent reviews closed with zero blockers:
+
+- Science/independence: non-author OpenAI Codex GPT-5-family reviewer with full shared parent/team
+  context. It independently checked formulas, signs, units, D6h topology, event ordering, ledgers,
+  static public APIs/AST, every registered byte binding/export, and prohibited cross-imports, and
+  reexecuted the radial, moving/static, and contracts suites at 24/24. It did not derive registered
+  reference values, execute a registered protocol or solver, open Phase 6/NAS/private/held-out
+  inputs, inspect S6, run `gate10`, or rerun the neutral lifecycle/full suite.
+- Integration/lifecycle: non-author OpenAI Codex GPT-5 reviewer with full shared task/repository
+  context; read-only. It reexecuted the five S5a suites at 41/41, obligation/progress at 22/22,
+  typecheck, Rule 7, and diff check; independently checked exact schema promotion, deep contract
+  coverage, protocol/callable/import-closure identities, the registered TypeScript runtime/lock pin,
+  safe CLI/publication/retry behavior, and absence of every future output/staging path. It did not
+  run full `npm test`, execute registered C0V commands or a solver, open Phase 6 evidence, inspect
+  S6 production semantics, stage/commit evidence, or stress concurrent writers/host injection.
+
+S5b starts from the exact clean commit containing this record and runs only the nine commands in
+`docs/PROGRESS.md` under **Next step**, using attempts `c0v-radial-reference-20260821-v1`,
+`c0v-moving-reference-20260821-v1`, and `c0v-static-refusal-20260821-v1`. It may publish only the
+radial reference, moving reference, and static scoped-refusal paths before independent review,
+manifest pinning, exact `npm test`, and a separate reference-freeze commit. It does not close any
+produce packet and never runs a solver.
 
 ## Return and stop rules
 
