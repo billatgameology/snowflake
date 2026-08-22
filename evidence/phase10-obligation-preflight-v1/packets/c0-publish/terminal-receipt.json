@@ -1,0 +1,33 @@
+{
+  "schema": "phase10-execution-receipt-v1",
+  "receiptId": "phase10-c0-publish-c0-publish-20260821-v1-terminal-v1",
+  "matrixId": "phase10-selected-package-obligations-v1",
+  "protocolId": "phase10-c0-publish-existing-byte-v1",
+  "registryId": "phase10-c0-publish-resolved-callables-v3",
+  "packetId": "c0-publish",
+  "terminalState": "complete",
+  "producedOutputIds": [
+    "out-c0-artifact-index",
+    "out-c0-report",
+    "out-c0-verification-receipt"
+  ],
+  "executedCheckIds": [
+    "chk-c0-publish-artifact-graph",
+    "chk-c0-publish-breakdown",
+    "chk-c0-publish-gap-list",
+    "chk-c0-publish-historical-limit",
+    "chk-c0-publish-no-habit-claim"
+  ],
+  "evaluatedCheckIds": [
+    "chk-c0-publish-artifact-graph",
+    "chk-c0-publish-breakdown",
+    "chk-c0-publish-gap-list",
+    "chk-c0-publish-historical-limit",
+    "chk-c0-publish-no-habit-claim"
+  ],
+  "executedNegativeControlIds": [],
+  "boundDependencyPacketIds": [
+    "a-p",
+    "c0-derive"
+  ]
+}

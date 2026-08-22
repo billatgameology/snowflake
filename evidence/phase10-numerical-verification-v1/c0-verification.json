@@ -1,0 +1,113 @@
+{
+  "schema": "phase10-independent-verification-v1",
+  "verificationId": "phase10-c0-publication-verification-v1",
+  "matrixId": "phase10-selected-package-obligations-v1",
+  "protocolId": "phase10-c0-publish-existing-byte-v1",
+  "registryId": "phase10-c0-publish-resolved-callables-v3",
+  "packetId": "c0-publish",
+  "terminalState": "complete",
+  "verifiedArtifacts": [
+    {
+      "outputId": "out-c0-analysis",
+      "path": "evidence/phase10-numerical-verification-v1/c0-analysis.json",
+      "byteLength": 21049,
+      "sha256": "bfd247d513aa2b2bda98a4db4d1885877a1788ddb3dfdc92be79b415ce94bc72"
+    },
+    {
+      "outputId": "out-c0-artifact-index",
+      "path": "evidence/phase10-numerical-verification-v1/c0-artifact-index.json",
+      "byteLength": 1948,
+      "sha256": "60c99d67e21a02e6502aa7a8b273509e3a4f7d7863d7dd3226f3342123f4c9a5"
+    },
+    {
+      "outputId": "out-c0-comparisons",
+      "path": "evidence/phase10-numerical-verification-v1/c0-comparisons.jsonl",
+      "byteLength": 260498,
+      "sha256": "56540e9991b70e66c2565963719f4eb2f459380d15ccc8c2262ee8d03161924b"
+    },
+    {
+      "outputId": "out-c0-gaps",
+      "path": "evidence/phase10-numerical-verification-v1/c0-target-field-gaps.json",
+      "byteLength": 4310,
+      "sha256": "fb3d569689d528025163b07b4c55b73a037bf54e7dba9bf80fd0e3110ec48c3c"
+    },
+    {
+      "outputId": "out-c0-historical-limit",
+      "path": "evidence/phase10-numerical-verification-v1/c0-historical-verifier-limit.json",
+      "byteLength": 1356,
+      "sha256": "f6d8f9f3df4c51a012e4e45ced6ecd46288a2b171d437c7f4324aafa8d317218"
+    },
+    {
+      "outputId": "out-c0-report",
+      "path": "evidence/phase10-numerical-verification-v1/c0-report.json",
+      "byteLength": 7657,
+      "sha256": "571e62ae3ff170ae4f864ca8fae79c7d4b1597b746a2f43477ea4445ea4f0b72"
+    }
+  ],
+  "checkResults": [
+    {
+      "checkId": "chk-c0-publish-artifact-graph",
+      "verdict": "pass",
+      "reasons": [],
+      "witnessOutputIds": [
+        "out-c0-artifact-index"
+      ]
+    },
+    {
+      "checkId": "chk-c0-publish-breakdown",
+      "verdict": "pass",
+      "reasons": [],
+      "witnessOutputIds": [
+        "out-c0-analysis",
+        "out-c0-comparisons",
+        "out-c0-report"
+      ]
+    },
+    {
+      "checkId": "chk-c0-publish-gap-list",
+      "verdict": "pass",
+      "reasons": [],
+      "witnessOutputIds": [
+        "out-c0-gaps",
+        "out-c0-report"
+      ]
+    },
+    {
+      "checkId": "chk-c0-publish-historical-limit",
+      "verdict": "pass",
+      "reasons": [],
+      "witnessOutputIds": [
+        "out-c0-historical-limit",
+        "out-c0-report"
+      ]
+    },
+    {
+      "checkId": "chk-c0-publish-no-habit-claim",
+      "verdict": "pass",
+      "reasons": [],
+      "witnessOutputIds": [
+        "out-c0-report"
+      ]
+    }
+  ],
+  "executedNegativeControlIds": [],
+  "boundDependencyPacketIds": [
+    "a-p",
+    "c0-derive"
+  ],
+  "execution": {
+    "runtime": "v24.13.1",
+    "command": "node runner/src/phase10-executor.ts run --packet c0-publish --protocol research/phase10-execution-v1/packets/c0-publish/protocol.json --attempt c0-publish-20260821-v1",
+    "cwd": "G:\\Code Files\\snowflake-phase10-evidence",
+    "gitHead": "b7b5e91572bbca6124a8bc633824a2a2d8eee5e7",
+    "startedIso": "2026-08-22T02:19:39.042Z",
+    "finishedIso": "2026-08-22T02:19:39.042Z",
+    "processConcurrency": 1
+  },
+  "aggregateVerdict": "pass",
+  "limits": [
+    "No solver execution, absolute-accuracy reference, target score, robust habit claim, or quantitative validation was checked.",
+    "The publication verifier checked only the six C0 content/index artifacts and their registered graph.",
+    "The receipt excludes its own byte identity and relies on the later terminal receipt and repository evidence manifest for closure."
+  ]
+}

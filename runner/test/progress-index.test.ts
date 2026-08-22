@@ -52,7 +52,7 @@ const PHASE10_STATUS_LINE =
 const PHASE8_GATE_PREFIX = "| 8 | **Complete (8A + 8B)** |";
 const PHASE7_GATE_PREFIX = "| 7 | Not started; independently eligible |";
 const PHASE9_GATE_PREFIX = "| 9 | **Complete (development-only)** |";
-const PHASE10_GATE_PREFIX = "| 10 | **In progress — A-P/A-S/A-I PASS; C0 derive PASS/complete with numerical criterion NO-PASS** |";
+const PHASE10_GATE_PREFIX = "| 10 | **In progress — A-P/A-S/A-I PASS; C0 packet PASS/complete with numerical criterion NO-PASS** |";
 const CONTRADICTORY_STATE_PATTERNS = [
   /Phase 8B (?:is |remains )?(?:active|incomplete|pending)\b/iu,
   /Phase 8B.*\b(?:may|can|will|must) (?:rewrite|mutate|replace|overwrite)\b.*\b(?:8A|v1|phase8-target-book)\b/iu,
@@ -127,18 +127,18 @@ function currentIndexErrors(text: string): string[] {
     "(plans/phase-10-evidence-verification-execution.md)",
     "governance checkpoint is complete",
     "S1 contract freeze, and S2 A-S classification",
-    "A-P/A-S/A-I PASS; C0 derive PASS/complete with numerical criterion NO-PASS",
+    "A-P/A-S/A-I PASS; C0 packet PASS/complete with numerical criterion NO-PASS",
     "bounded structural A-I PASS evidence",
     "All 14 payload dispositions are terminal but",
     "conservatively refused",
     "46/46",
-    "C0 derive v2 packet PASS/complete with artifact-derived criterion NO-PASS",
-    "Phase 10 — checkpoint C0 derive NO-PASS, then publish C0",
+    "C0's artifact-derived numerical disposition is criterion NO-PASS",
+    "Phase 10 — checkpoint C0 NO-PASS, then freeze C0V references",
     "node runner/src/phase10-executor.ts check --packet c0-derive --protocol research/phase10-execution-v1/packets/c0-derive/protocol.json --attempt c0-derive-20260821-v2",
     "node runner/src/phase10-executor.ts run --packet c0-derive --protocol research/phase10-execution-v1/packets/c0-derive/protocol.json --attempt c0-derive-20260821-v2",
     "retained intact and unpublished after its infrastructure refusal",
     "Do not rerun or reuse either derive attempt",
-    "Keep the seven files pinned in the 378-file / 5,274,321-byte evidence manifest",
+    "Keep all 12 C0 files pinned in the 383-file / 5,300,224-byte evidence manifest",
     "zero-blocker non-author review",
     "- **Last updated:** 2026-08-21",
   ];

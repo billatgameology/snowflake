@@ -1,0 +1,51 @@
+{
+  "schema": "phase10-artifact-index-v1",
+  "bundleId": "phase10-numerical-verification-v1",
+  "artifacts": [
+    {
+      "artifactId": "out-c0-analysis",
+      "path": "evidence/phase10-numerical-verification-v1/c0-analysis.json",
+      "mediaType": "application/json",
+      "byteLength": 21049,
+      "sha256": "bfd247d513aa2b2bda98a4db4d1885877a1788ddb3dfdc92be79b415ce94bc72",
+      "role": "c0-analysis",
+      "producedBy": "phase10-c0-derive-producer"
+    },
+    {
+      "artifactId": "out-c0-comparisons",
+      "path": "evidence/phase10-numerical-verification-v1/c0-comparisons.jsonl",
+      "mediaType": "application/x-ndjson",
+      "byteLength": 260498,
+      "sha256": "56540e9991b70e66c2565963719f4eb2f459380d15ccc8c2262ee8d03161924b",
+      "role": "c0-comparisons",
+      "producedBy": "phase10-c0-derive-producer"
+    },
+    {
+      "artifactId": "out-c0-gaps",
+      "path": "evidence/phase10-numerical-verification-v1/c0-target-field-gaps.json",
+      "mediaType": "application/json",
+      "byteLength": 4310,
+      "sha256": "fb3d569689d528025163b07b4c55b73a037bf54e7dba9bf80fd0e3110ec48c3c",
+      "role": "c0-gap-report",
+      "producedBy": "phase10-c0-derive-producer"
+    },
+    {
+      "artifactId": "out-c0-historical-limit",
+      "path": "evidence/phase10-numerical-verification-v1/c0-historical-verifier-limit.json",
+      "mediaType": "application/json",
+      "byteLength": 1356,
+      "sha256": "f6d8f9f3df4c51a012e4e45ced6ecd46288a2b171d437c7f4324aafa8d317218",
+      "role": "c0-historical-limit",
+      "producedBy": "phase10-c0-derive-producer"
+    },
+    {
+      "artifactId": "out-c0-report",
+      "path": "evidence/phase10-numerical-verification-v1/c0-report.json",
+      "mediaType": "application/json",
+      "byteLength": 7657,
+      "sha256": "571e62ae3ff170ae4f864ca8fae79c7d4b1597b746a2f43477ea4445ea4f0b72",
+      "role": "c0-report",
+      "producedBy": "phase10-c0-publish-producer"
+    }
+  ]
+}

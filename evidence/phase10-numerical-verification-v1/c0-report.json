@@ -1,0 +1,137 @@
+{
+  "schema": "phase10-c0-report-v1",
+  "protocolId": "phase10-c0-existing-byte-diagnostic-v1",
+  "analysisArtifact": {
+    "path": "evidence/phase10-numerical-verification-v1/c0-analysis.json",
+    "byteLength": 21049,
+    "sha256": "bfd247d513aa2b2bda98a4db4d1885877a1788ddb3dfdc92be79b415ce94bc72"
+  },
+  "comparisonsArtifact": {
+    "path": "evidence/phase10-numerical-verification-v1/c0-comparisons.jsonl",
+    "byteLength": 260498,
+    "sha256": "56540e9991b70e66c2565963719f4eb2f459380d15ccc8c2262ee8d03161924b"
+  },
+  "gapArtifact": {
+    "path": "evidence/phase10-numerical-verification-v1/c0-target-field-gaps.json",
+    "byteLength": 4310,
+    "sha256": "fb3d569689d528025163b07b4c55b73a037bf54e7dba9bf80fd0e3110ec48c3c"
+  },
+  "historicalLimitArtifact": {
+    "path": "evidence/phase10-numerical-verification-v1/c0-historical-verifier-limit.json",
+    "byteLength": 1356,
+    "sha256": "f6d8f9f3df4c51a012e4e45ced6ecd46288a2b171d437c7f4324aafa8d317218"
+  },
+  "comparisonBreakdown": {
+    "expectedRowCount": 80,
+    "presentExpectedRowCount": 80,
+    "expectedPairingCount": 64,
+    "emittedPairingCount": 64,
+    "spacingResults": [
+      {
+        "dxUm": 0.7,
+        "domainComparisonCount": 16,
+        "domainPass": false,
+        "auxiliaryComparisonCount": 32,
+        "auxiliaryPass": false,
+        "verdict": "no-pass",
+        "noPassClass": "criterion",
+        "reasons": [
+          "auxiliary|dom-0.35-n96@-13C-f0.15-CAK|aux-seed16@-13C-f0.15-CAK: c0-attached-count-tolerance",
+          "auxiliary|dom-0.35-n96@-13C-f0.15-CAK|aux-seed18@-13C-f0.15-CAK: c0-attached-count-tolerance",
+          "auxiliary|dom-0.35-n96@-13C-f0.15-M1|aux-seed16@-13C-f0.15-M1: c0-attached-count-tolerance",
+          "auxiliary|dom-0.35-n96@-13C-f0.15-M1|aux-seed18@-13C-f0.15-M1: c0-attached-count-tolerance",
+          "auxiliary|dom-0.35-n96@-27C-f0.15-CAK|aux-seed16@-27C-f0.15-CAK: c0-attached-count-tolerance",
+          "auxiliary|dom-0.35-n96@-27C-f0.15-CAK|aux-seed18@-27C-f0.15-CAK: c0-attached-count-tolerance",
+          "auxiliary|dom-0.35-n96@-27C-f0.15-M1|aux-seed16@-27C-f0.15-M1: c0-attached-count-tolerance",
+          "auxiliary|dom-0.35-n96@-31C-f0.6-CAK|aux-cfl0.05@-31C-f0.6-CAK: c0-attached-count-tolerance",
+          "auxiliary|dom-0.35-n96@-31C-f0.6-CAK|aux-seed16@-31C-f0.6-CAK: c0-attached-count-tolerance",
+          "auxiliary|dom-0.35-n96@-31C-f0.6-CAK|aux-seed18@-31C-f0.6-CAK: c0-attached-count-tolerance",
+          "auxiliary|dom-0.35-n96@-31C-f0.6-M1|aux-cfl0.05@-31C-f0.6-M1: c0-attached-count-tolerance",
+          "auxiliary|dom-0.35-n96@-31C-f0.6-M1|aux-seed16@-31C-f0.6-M1: c0-attached-count-tolerance",
+          "auxiliary|dom-0.35-n96@-31C-f0.6-M1|aux-seed18@-31C-f0.6-M1: c0-attached-count-tolerance",
+          "auxiliary|dom-0.35-n96@-6C-f0.15-CAK|aux-seed18@-6C-f0.15-CAK: c0-attached-count-tolerance",
+          "auxiliary|dom-0.35-n96@-6C-f0.15-M1|aux-cfl0.05@-6C-f0.15-M1: c0-attached-count-tolerance",
+          "auxiliary|dom-0.35-n96@-6C-f0.15-M1|aux-seed16@-6C-f0.15-M1: c0-attached-count-tolerance",
+          "auxiliary|dom-0.35-n96@-6C-f0.15-M1|aux-seed18@-6C-f0.15-M1: c0-attached-count-tolerance",
+          "domain|dom-0.7-n48@-31C-f0.6-CAK|dom-0.7-n64@-31C-f0.6-CAK: c0-attached-count-tolerance",
+          "domain|dom-0.7-n48@-31C-f0.6-M1|dom-0.7-n64@-31C-f0.6-M1: c0-attached-count-tolerance",
+          "domain|dom-0.7-n64@-27C-f0.15-CAK|dom-0.7-n80@-27C-f0.15-CAK: c0-attached-count-tolerance",
+          "domain|dom-0.7-n64@-31C-f0.6-M1|dom-0.7-n80@-31C-f0.6-M1: c0-attached-count-tolerance",
+          "domain|dom-0.7-n64@-6C-f0.15-M1|dom-0.7-n80@-6C-f0.15-M1: c0-attached-count-tolerance"
+        ]
+      },
+      {
+        "dxUm": 0.35,
+        "domainComparisonCount": 16,
+        "domainPass": false,
+        "auxiliaryComparisonCount": 32,
+        "auxiliaryPass": false,
+        "verdict": "no-pass",
+        "noPassClass": "criterion",
+        "reasons": [
+          "auxiliary|dom-0.35-n96@-13C-f0.15-CAK|aux-seed16@-13C-f0.15-CAK: c0-attached-count-tolerance",
+          "auxiliary|dom-0.35-n96@-13C-f0.15-CAK|aux-seed18@-13C-f0.15-CAK: c0-attached-count-tolerance",
+          "auxiliary|dom-0.35-n96@-13C-f0.15-M1|aux-seed16@-13C-f0.15-M1: c0-attached-count-tolerance",
+          "auxiliary|dom-0.35-n96@-13C-f0.15-M1|aux-seed18@-13C-f0.15-M1: c0-attached-count-tolerance",
+          "auxiliary|dom-0.35-n96@-27C-f0.15-CAK|aux-seed16@-27C-f0.15-CAK: c0-attached-count-tolerance",
+          "auxiliary|dom-0.35-n96@-27C-f0.15-CAK|aux-seed18@-27C-f0.15-CAK: c0-attached-count-tolerance",
+          "auxiliary|dom-0.35-n96@-27C-f0.15-M1|aux-seed16@-27C-f0.15-M1: c0-attached-count-tolerance",
+          "auxiliary|dom-0.35-n96@-31C-f0.6-CAK|aux-cfl0.05@-31C-f0.6-CAK: c0-attached-count-tolerance",
+          "auxiliary|dom-0.35-n96@-31C-f0.6-CAK|aux-seed16@-31C-f0.6-CAK: c0-attached-count-tolerance",
+          "auxiliary|dom-0.35-n96@-31C-f0.6-CAK|aux-seed18@-31C-f0.6-CAK: c0-attached-count-tolerance",
+          "auxiliary|dom-0.35-n96@-31C-f0.6-M1|aux-cfl0.05@-31C-f0.6-M1: c0-attached-count-tolerance",
+          "auxiliary|dom-0.35-n96@-31C-f0.6-M1|aux-seed16@-31C-f0.6-M1: c0-attached-count-tolerance",
+          "auxiliary|dom-0.35-n96@-31C-f0.6-M1|aux-seed18@-31C-f0.6-M1: c0-attached-count-tolerance",
+          "auxiliary|dom-0.35-n96@-6C-f0.15-CAK|aux-seed18@-6C-f0.15-CAK: c0-attached-count-tolerance",
+          "auxiliary|dom-0.35-n96@-6C-f0.15-M1|aux-cfl0.05@-6C-f0.15-M1: c0-attached-count-tolerance",
+          "auxiliary|dom-0.35-n96@-6C-f0.15-M1|aux-seed16@-6C-f0.15-M1: c0-attached-count-tolerance",
+          "auxiliary|dom-0.35-n96@-6C-f0.15-M1|aux-seed18@-6C-f0.15-M1: c0-attached-count-tolerance",
+          "domain|dom-0.35-n112@-13C-f0.15-CAK|dom-0.35-n128@-13C-f0.15-CAK: c0-attached-count-tolerance",
+          "domain|dom-0.35-n112@-31C-f0.6-M1|dom-0.35-n128@-31C-f0.6-M1: c0-attached-count-tolerance",
+          "domain|dom-0.35-n112@-6C-f0.15-M1|dom-0.35-n128@-6C-f0.15-M1: c0-attached-count-tolerance",
+          "domain|dom-0.35-n96@-13C-f0.15-M1|dom-0.35-n112@-13C-f0.15-M1: c0-attached-count-tolerance",
+          "domain|dom-0.35-n96@-31C-f0.6-CAK|dom-0.35-n112@-31C-f0.6-CAK: c0-attached-count-tolerance",
+          "domain|dom-0.35-n96@-31C-f0.6-M1|dom-0.35-n112@-31C-f0.6-M1: c0-attached-count-tolerance"
+        ]
+      }
+    ],
+    "overallVerdict": "no-pass",
+    "overallNoPassClass": "criterion"
+  },
+  "gapSummary": {
+    "gapCount": 10,
+    "gapIds": [
+      "attachment-event-orbit",
+      "checkpoint-state",
+      "crystallographic-calipers",
+      "future-target-observation",
+      "kinetic-ledgers",
+      "occupancy-mask",
+      "physical-time-history",
+      "relaxation-histories",
+      "trajectory",
+      "vapor-surface-fields"
+    ],
+    "targetObservationOperatorStatus": "not-defined-in-selected-package"
+  },
+  "historicalLimitSummary": {
+    "disposition": "excluded-as-authority",
+    "historicalReportUse": "cross-check-only",
+    "observedReduction": "any-spacing-some",
+    "authoritativeReduction": "all-spacings-every"
+  },
+  "scientificDisposition": {
+    "status": "diagnostic-complete",
+    "solverExecuted": false,
+    "solverAccuracyPass": false,
+    "robustHabitClaim": false,
+    "targetScoreProduced": false,
+    "quantitativeValidationClaim": false
+  },
+  "claimLimits": [
+    "C0 ranks only persisted or independently derivable diagnostic fields.",
+    "Neutral-only historical habit classes do not establish a robust habit observable.",
+    "No solver run, absolute-accuracy reference, target score, or quantitative validation occurred."
+  ],
+  "publishedIso": "2026-08-22T02:19:39.043Z"
+}

@@ -218,10 +218,10 @@ collection.
   retained payloads, freeze selected B lineages, and close the finite currency snapshot. Preserve
   unavailable or rights-blocked retained sources as explicit refusals; do not acquire new bytes in
   this static packet.
-- [ ] **S4 — publish C0.** Implement an independent ladder parser/evaluator, reproduce the
+- [x] **S4 — publish C0.** Implement an independent ladder parser/evaluator, reproduce the
   persisted comparison breakdown, reject missing/duplicate/malformed rows and forbidden inferred
-  fields, and publish the target-field gap list. The derive subpacket is published and independently
-  verified; the dependent C0 publish subpacket remains.
+  fields, and publish the target-field gap list. Both derive and publish subpackets are published,
+  independently verified, manifest-pinned, and retain the numerical criterion NO-PASS.
 - [ ] **S5 — freeze C0V references before production implementation.** Commit the radial, static
   aggregate-v6, and moving-event protocols with independent derivations, exact rosters, norms,
   tolerances, negative controls, artifact schemas, cost bounds, and refusal branches. A reference
@@ -672,9 +672,10 @@ fields, eight independently derivable fields, and ten explicit refusals under an
 boundary. C0 executes no solver and establishes no absolute solver accuracy, robust habit
 observable, target score, quantitative validation, or prior-phase credit.
 
-The seven-file publication is 316,068 bytes and is pinned in `evidence/MANIFEST.json`, 62,902 bytes /
-SHA-256 `c7b91208e0d0a07dafbd593cf26ca0a74216aff96f0c528417546a7f4bbcfae3`, whose 378 entries total
-5,274,321 bytes. The remaining identities are comparisons 260,498 bytes /
+The derive checkpoint `b7b5e91` records the seven-file publication as 316,068 bytes and its
+378-entry manifest snapshot as 62,902 bytes / SHA-256
+`c7b91208e0d0a07dafbd593cf26ca0a74216aff96f0c528417546a7f4bbcfae3`, totaling 5,274,321
+evidence bytes. The remaining identities are comparisons 260,498 bytes /
 `56540e9991b70e66c2565963719f4eb2f459380d15ccc8c2262ee8d03161924b`, independent verification
 16,782 bytes / `876a15a8bb03d5a5d1d82abc8aa2662eb4f18978d0c1db4ec0cd17e477f52188`, historical limit
 1,356 bytes / `f6d8f9f3df4c51a012e4e45ced6ecd46288a2b171d437c7f4324aafa8d317218`, preflight 10,733 bytes /
@@ -683,7 +684,42 @@ SHA-256 `c7b91208e0d0a07dafbd593cf26ca0a74216aff96f0c528417546a7f4bbcfae3`, whos
 Exact post-publication `npm test` passed 138/138 files with 2,291 passed and 49 skipped in 902.30
 seconds. The subsequent Rule 10 provenance and adjacent-citation correction is prose-only; its
 focused progress test, Rule 7 scan, diff check, and non-author delta review remain the final checks
-before the dependent C0 publish packet.
+that closed the derive checkpoint before the dependent C0 publish packet ran.
+
+### S4 C0 publish completion — 2026-08-21
+
+From clean derive checkpoint `b7b5e91572bbca6124a8bc633824a2a2d8eee5e7`, Node `v24.13.1`, and
+the same code freeze `a6d62e6e2d1c57d3bc04574efc3555029caaf0b6`, the registered publish
+check passed and exact attempt `c0-publish-20260821-v1` installed its artifact index, aggregate
+report, independent verification, preflight, and terminal receipt. The terminal state is `complete`
+and independent publication verification passes 5/5 checks with both A-P and C0-derive dependencies
+bound. A non-author OpenAI Codex GPT-5 reviewer with full shared task context independently rebuilt
+the five publication checks, comparison breakdown, ranking groups, gap inventory, history boundary,
+artifact graph, dependencies, and code-freeze identities; it reported zero blockers. It did not
+open the Phase 6 source inputs, run a solver, `npm test`, `gate10`, C0V, or B, and made no edit.
+
+Publication PASS remains distinct from the scientific disposition. `c0-report.json`, 7,657 bytes /
+SHA-256 `571e62ae3ff170ae4f864ca8fae79c7d4b1597b746a2f43477ea4445ea4f0b72`,
+is `diagnostic-complete` with overall numerical NO-PASS (`criterion`): 80/80 rows, 64/64 pairings,
+36 passes, and 28 attached-count failures split as coarse domain 5/16, fine domain 6/16,
+`cflFill` 3/8, `relaxTol` 0/8, and seed radius 14/16. Both spacings fail the authoritative
+all-spacings reduction. All 64 habit comparisons remain neutral-versus-neutral and do not support
+a robust habit observable. C0 executes no solver and grants no absolute solver accuracy, target
+score, quantitative validation, or prior-phase credit. Ten target-field gaps remain explicit
+refusals under the `inventory-only` boundary; the historical `any-spacing-some` sibling remains
+excluded as authority.
+
+The five publish files total 25,903 bytes: artifact index 1,948 /
+`60c99d67e21a02e6502aa7a8b273509e3a4f7d7863d7dd3226f3342123f4c9a5`, report as above,
+verification 3,818 / `f6114ce1b3ca254b9ec355c53f3ef7d5bf8de1877c10d69e0e87b9c788e2fa2f`,
+preflight 11,507 / `dcca46ef364affecb3b4f35f363edaf697008c9091e0b2cf521738481941b22d`,
+and terminal receipt 973 / `8a68a45cc26e3dce8ee801e3ff0a22656630e1baf89901e96d9bc40abc857463`.
+They are pinned in `evidence/MANIFEST.json`, 63,752 bytes /
+`e220637c0ee69837a9bb6072c68385c2b366f47baee9c039d03cd70886d8c601`, whose 383 entries
+total 5,300,224 bytes. Exact post-publication `npm test` passed 138/138 files with 2,291 passed and
+49 skipped in 900.63 seconds. The later historical-snapshot labeling correction is prose-only; its
+focused progress test, Rule 7 scan, diff check, and non-author delta review are the final checks
+before S5.
 
 ## Return and stop rules
 

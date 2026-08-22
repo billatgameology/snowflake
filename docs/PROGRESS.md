@@ -135,10 +135,10 @@ detail.
   7,395-byte [intake report](../evidence/phase10-scope-intake-v1/intake-report.json) at SHA-256
   `5ca8650a0c6baf707a8d0243ff14cb741de227e79080217030925aca37e4df52` and 4,293-byte
   [verification](../evidence/phase10-scope-intake-v1/intake-verification.json) at SHA-256
-  `ae04b87627c1e9e2bd9152f413fa44d025cc6a0dc682c07337f80bbf40cb1c96`. The manifest now
-  pins 371 files / 4,958,253 bytes. This is a structural intake PASS, not source availability,
-  scientific validation, downstream authorization, or prior-phase credit. C0 still has no valid
-  derivation, solver row, publication, or scientific result.
+  `ae04b87627c1e9e2bd9152f413fa44d025cc6a0dc682c07337f80bbf40cb1c96`. At the A-I checkpoint,
+  the manifest pinned 371 files / 4,958,253 bytes; C0 then had no valid derivation, solver row,
+  publication, or scientific result. That A-I result is a structural intake PASS, not source
+  availability, scientific validation, downstream authorization, or prior-phase credit.
 - **Phase 10 C0 implementation trap (found 2026-08-21).** The frozen WP2 plan, primary evaluator,
   its mixed pass/fail controls, and `gate6` require every spacing to pass before the top-level result
   can pass. The later post-execution independent script uses `some` instead of `every`. Both
@@ -162,8 +162,8 @@ detail.
   direction) and content stays in-repo unpublished, `test.yml` CI unaffected. Reconciliation is
   a live decision point under **Next step**. Full freeze history:
   [the history file](progress-history-phases-6-8-9.md).
-- **Last updated:** 2026-08-21 (A-P, A-S, and bounded structural A-I PASS evidence published;
-  C0 derive v2 packet PASS/complete with artifact-derived criterion NO-PASS)
+- **Last updated:** 2026-08-21 (A-P, A-S, bounded structural A-I, and C0 packet PASS evidence
+  published; C0's artifact-derived numerical disposition is criterion NO-PASS)
 
 ## Phase gates
 
@@ -183,7 +183,7 @@ and every superseded attempt live in the linked plans and historical progress sn
 | 7 | Not started; independently eligible | Charter v1.25 preserves Phase 7's independence but does not start it. A committed Phase 7 plan and isolated worktree are required; product, held-out validation, and v6 WGSL/preview-GPU parity remain its scope. |
 | 8 | **Complete (8A + 8B)** | The immutable 8A book remains 18 entries / 59,019 bytes / SHA-256 `47a75f3f…71ec`. The verified 8B successor is 51 development records, 252,134 native rows and 431 plot points; no row is held out. [Completed plan](plans/phase-8-measurement-corpus.md). |
 | 9 | **Complete (development-only)** | The all-no-pass branch closed: D-BT failed, M-F/M-K2 stayed mapping-dependent, controls/path-state/M-PK are unavailable or non-identifiable, and zero items promoted. Exact `TMPDIR=/private/tmp npm test` passed; no result grants validation credit. [Completed plan](plans/phase-9-execution.md). |
-| 10 | **In progress — A-P/A-S/A-I PASS; C0 derive PASS/complete with numerical criterion NO-PASS** | A-P, A-S, bounded structural A-I, and the C0 derive packet are published and pinned. C0 independently re-derived 80/80 rows and 64/64 comparisons: 36 passed and 28 failed the attached-count criterion, so both spacings and the authoritative all-spacings reduction are NO-PASS ([analysis](../evidence/phase10-numerical-verification-v1/c0-analysis.json), SHA-256 `bfd247d5…bc72`). C0 executed no solver and grants no absolute-accuracy, habit-robustness, target-score, validation, or prior-phase credit. Next: checkpoint derive, then run only the frozen C0 publish packet. Selection still includes no C1–C5 or habit rows. |
+| 10 | **In progress — A-P/A-S/A-I PASS; C0 packet PASS/complete with numerical criterion NO-PASS** | A-P, A-S, bounded structural A-I PASS evidence, and the complete C0 packet are published and pinned. C0 independently re-derived 80/80 rows and 64/64 comparisons: 36 passed and 28 failed the attached-count criterion, so both spacings and the authoritative all-spacings reduction are NO-PASS ([report](../evidence/phase10-numerical-verification-v1/c0-report.json), SHA-256 `571e62ae…0b72`). C0 executed no solver and grants no absolute-accuracy, habit-robustness, target-score, validation, or prior-phase credit. Next: checkpoint C0, then freeze C0V references before implementation. Selection still includes no C1–C5 or habit rows. |
 
 ## Active plan
 
@@ -230,7 +230,7 @@ the package-specific prerequisites in its charter amendment and execution plan. 
 
 ## Next step
 
-### Phase 10 — checkpoint C0 derive NO-PASS, then publish C0
+### Phase 10 — checkpoint C0 NO-PASS, then freeze C0V references
 
 The maker selected **A-S + A-I + B + C0 + C0V with packet-specific A-P** on 2026-08-21. No
 C1–C5 numerical-qualification or scientific habit row is part of this execution. The
@@ -257,8 +257,9 @@ node runner/src/phase10-executor.ts run --packet c0-derive --protocol research/p
 ```
 
 Do not rerun or reuse either derive attempt. V2 published five content artifacts plus its preflight
-and terminal receipt, 316,068 bytes total as pinned by [the evidence manifest](../evidence/MANIFEST.json),
-62,902 bytes / SHA-256 `c7b91208…fae3`, and received a zero-blocker non-author review. The
+and terminal receipt, 316,068 bytes total as pinned by the 378-file manifest snapshot in derive
+checkpoint `b7b5e91`, 62,902 bytes / SHA-256 `c7b91208…fae3`, and received a zero-blocker
+non-author review. The
 [independent receipt](../evidence/phase10-numerical-verification-v1/c0-derive-verification.json),
 16,782 bytes / SHA-256 `876a15a8…2188`, passes 8/8 checks and all 7/7 named controls; the
 artifact-derived ladder result is nevertheless NO-PASS (`criterion`) at both spacings and overall.
@@ -268,20 +269,30 @@ attached-count criterion failures, and records the historical `some`/`every` ver
 without rewriting Phase 6. It executes no solver and grants no absolute-accuracy, robust-habit,
 target-score, validation, or prior-phase claim.
 
-Keep the seven files pinned in the 378-file / 5,274,321-byte evidence manifest
-([`evidence/MANIFEST.json`](../evidence/MANIFEST.json), 62,902 bytes / SHA-256 `c7b91208…fae3`).
-Exact post-publication `npm test` passed 138/138 files
-with 2,291 passed and 49 skipped in 902.30 seconds. Commit this checkpoint, then from its clean head
-use the separately frozen publish attempt:
+The derive checkpoint is committed at `b7b5e91`. From that clean head, the following registered
+check and run executed the dependent publish attempt exactly once:
 
 ```text
 node runner/src/phase10-executor.ts check --packet c0-publish --protocol research/phase10-execution-v1/packets/c0-publish/protocol.json --attempt c0-publish-20260821-v1
 node runner/src/phase10-executor.ts run --packet c0-publish --protocol research/phase10-execution-v1/packets/c0-publish/protocol.json --attempt c0-publish-20260821-v1
 ```
 
-Independently reopen and hash the three publish outputs plus its preflight/terminal receipt pair,
-pin those five files in `evidence/MANIFEST.json`, run exact `npm test`, and commit the publication
-checkpoint before any dependent work.
+Do not rerun or reuse the publish attempt. Its artifact index, report, independent verification,
+preflight, and terminal receipt total 25,903 bytes and received a zero-blocker non-author review.
+The [publication verification](../evidence/phase10-numerical-verification-v1/c0-verification.json),
+3,818 bytes / SHA-256 `f6114ce1…fa2f`, passes 5/5 checks; the [report](../evidence/phase10-numerical-verification-v1/c0-report.json),
+7,657 bytes / SHA-256 `571e62ae…0b72`, remains `diagnostic-complete` with numerical NO-PASS
+(`criterion`). Keep all 12 C0 files pinned in the 383-file / 5,300,224-byte evidence manifest
+([`evidence/MANIFEST.json`](../evidence/MANIFEST.json), 63,752 bytes / SHA-256 `e220637c…c601`).
+Exact post-publication `npm test` passed 138/138 files with 2,291 passed and 49 skipped in 900.63
+seconds. Commit this C0 publication checkpoint.
+
+From that clean checkpoint, execute S5 only: freeze the radial, static aggregate-v6, and moving-event
+C0V reference protocols, exact rosters, norms, tolerances, resource bounds, negative controls, and
+independent-reference/refusal branches before any C0V production implementation or numerical run.
+If an independent reference cannot be frozen, publish the registered pre-implementation refusal;
+do not substitute self-convergence. B remains independently eligible for its finite packet work,
+but no C1–C5, target score, or habit row is authorized.
 
 The A-S evidence preserves the Phase 8A status row/filter rule, immutable evidence roles, phase
 ownership, Phase 8B's development/zero-held-out labels, cited classification reasons, and multiple
