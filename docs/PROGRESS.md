@@ -215,7 +215,9 @@ publisher-side revalidation incorrectly bypassed the strict protocol parser and 
 identities at the wrong schema level. That is an unpublished infrastructure failure, not an
 interpreted scientific result; its byte-for-byte retained local v1 attempt record remains under
 `out/`. The recorded hashes detect later drift but do not make ignored staging into evidence. B and C0V remain
-unstarted. The
+unstarted. The strict-parser repair received a zero-blocker non-author review, passed exact
+`npm test` across 138/138 files with 2,291 passed and 49 skipped in 919.33 seconds, and entered the
+same-commit v3 C0 code freeze at `a6d62e6`. The
 [Phase 10 candidate plan](plans/phase-10-closures-and-frontier.md) is completed decision support
 and superseded for execution. It remains the design history for the selected and rejected packages,
 not execution authority.
@@ -228,7 +230,7 @@ the package-specific prerequisites in its charter amendment and execution plan. 
 
 ## Next step
 
-### Phase 10 — repair C0 publication revalidation, then retry derive
+### Phase 10 — repair C0 publication revalidation, then retry derive (repair complete)
 
 The maker selected **A-S + A-I + B + C0 + C0V with packet-specific A-P** on 2026-08-21. No
 C1–C5 numerical-qualification or scientific habit row is part of this execution. The
@@ -246,9 +248,10 @@ The A-P-pinned execution README remains byte-frozen and supplies the canonical e
 this live state and the active plan freeze the post-A-P attempt instantiations. Attempt
 `c0-derive-20260821-v1` is retained intact and unpublished: worker exit 0 and terminal `complete`
 describe transport and independent candidate closure, while publisher revalidation failed before
-any registered evidence write. Preserve that attempt without reuse, deletion, or mutation. After
-the strict-parser repair/re-freeze checkpoint is reviewed, exact-suite checked, committed, and the
-worktree is clean, run these exact retry commands in order:
+any registered evidence write. Preserve that attempt without reuse, deletion, or mutation. The
+strict-parser repair/re-freeze checkpoint is committed at `a6d62e6` after zero-blocker independent
+review and the exact 138-file suite. From a clean descendant of that freeze, run these exact retry
+commands in order:
 
 ```text
 node runner/src/phase10-executor.ts check --packet c0-derive --protocol research/phase10-execution-v1/packets/c0-derive/protocol.json --attempt c0-derive-20260821-v2

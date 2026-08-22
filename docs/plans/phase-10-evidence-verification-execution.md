@@ -623,8 +623,9 @@ members are `runner/src/phase10-c0-contracts.ts`, 51,463 bytes /
 `runner/src/phase10-executor.ts`, 24,568 bytes /
 `9b982ba0c96eaf97e906eac910f79266de138ec20b2ffa187491cbad03f25d11`.
 
-After this repair is reviewed, exact-suite checked, committed as a same-commit C0 code freeze, and
-the worktree is clean, retry derive only with the new attempt:
+This repair received a zero-blocker non-author review, passed exact `npm test` across 138/138 files
+with 2,291 passed and 49 skipped in 919.33 seconds, and entered the same-commit v3 C0 code freeze at
+`a6d62e6`. From a clean descendant of that freeze, retry derive only with the new attempt:
 
 ```text
 node runner/src/phase10-executor.ts check --packet c0-derive --protocol research/phase10-execution-v1/packets/c0-derive/protocol.json --attempt c0-derive-20260821-v2
@@ -635,8 +636,9 @@ The later publish command remains frozen at attempt `c0-publish-20260821-v1`; de
 publish, receive independent review and manifest pinning, pass exact `npm test`, and enter a clean
 commit. The focused C0/executor suites pass 29/29, obligation/progress-state regressions pass 22/22,
 `npm run typecheck` passes, and `npm run lint:rule7` reports clean across 1,108 files. Exact
-`npm test` remains the repair checkpoint check and is not claimed by those focused results. No real
-retry, input read, or publication occurred while making this infrastructure repair.
+`npm test` passed 138/138 files with 2,291 passed and 49 skipped in 919.33 seconds; the focused
+results are not used as a substitute for that exact suite. No real retry, input read, or publication
+occurred while making this infrastructure repair.
 
 ## Return and stop rules
 
