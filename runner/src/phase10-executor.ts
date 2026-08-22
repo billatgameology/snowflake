@@ -418,17 +418,32 @@ function retainProcessRecords(
 
 export function phase10RunExecutor(args: Phase10ExecutorArguments, repositoryRoot = "."): StrictJson {
   const root = safeRoot(repositoryRoot);
-  const existingAttempt = existsSync(safePath(root, `out/phase10-execution-v1/attempts/${args.packetId}/${args.attemptId}`, "attempt directory"));
-  const context = phase10InspectExecutionPreflight({
-    repositoryRoot: root,
-    packetId: args.packetId,
-    protocolPath: args.protocolPath,
-    attemptId: args.attemptId,
-    allowedStatusPaths: existingAttempt ? allowedRecoveryPaths(args.packetId) : [],
-  });
-  if (args.mode === "check") return phase10BuildExecutionPreflightReceipt(context);
-  const release = phase10AcquireWriterLock(root, context.paths.lock, context.attemptId);
+  const attemptDirectory = `out/phase10-execution-v1/attempts/${args.packetId}/${args.attemptId}`;
+  const lockPath = `out/phase10-execution-v1/attempts/${args.packetId}/writer.lock`;
+  if (args.mode === "check") {
+    const existingAttempt = existsSync(safePath(root, attemptDirectory, "attempt directory"));
+    const context = phase10InspectExecutionPreflight({
+      repositoryRoot: root,
+      packetId: args.packetId,
+      protocolPath: args.protocolPath,
+      attemptId: args.attemptId,
+      allowedStatusPaths: existingAttempt ? allowedRecoveryPaths(args.packetId) : [],
+    });
+    return phase10BuildExecutionPreflightReceipt(context);
+  }
+  // The run-mode lock precedes every authorizing observation. A concurrent invocation cannot
+  // preflight a clean state, wait for an earlier publication, and then execute without rechecking.
+  const release = phase10AcquireWriterLock(root, lockPath, args.attemptId);
   try {
+    const existingAttempt = existsSync(safePath(root, attemptDirectory, "attempt directory"));
+    const context = phase10InspectExecutionPreflight({
+      repositoryRoot: root,
+      packetId: args.packetId,
+      protocolPath: args.protocolPath,
+      attemptId: args.attemptId,
+      allowedStatusPaths: [lockPath, ...(existingAttempt ? allowedRecoveryPaths(args.packetId) : [])],
+    });
+    if (context.paths.lock !== lockPath) fail("registered writer lock path differs from the acquired lock");
     if (existingAttempt) {
       const preflightBytes = validateResume(context);
       return strictJsonSnapshot({ packetId: context.packetId, attemptId: context.attemptId, resumed: true, publicationChanged: publishCompleted(context, preflightBytes) });

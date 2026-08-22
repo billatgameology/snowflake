@@ -1,6 +1,6 @@
 {
   "schema": "phase10-callable-registry-v1",
-  "registryId": "phase10-c0-publish-resolved-callables-v1",
+  "registryId": "phase10-c0-publish-resolved-callables-v2",
   "matrixId": "phase10-selected-package-obligations-v1",
   "protocolId": "phase10-c0-publish-existing-byte-v1",
   "packetId": "c0-publish",

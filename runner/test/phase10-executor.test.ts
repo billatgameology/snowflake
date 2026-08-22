@@ -349,6 +349,26 @@ describe("Phase 10 bounded non-solver executor", () => {
     release();
   });
 
+  it("losing concurrent run acquires no authorization observation before the writer lock", () => {
+    const root = cloneFrozenExecutorFixture();
+    const lockPath = "out/phase10-execution-v1/attempts/c0-derive/writer.lock";
+    const release = phase10AcquireWriterLock(root, lockPath, "winning-attempt");
+    try {
+      const trackedPath = join(root, "runner/src/phase10-c0-checks.ts");
+      writeFileSync(trackedPath, `${readFileSync(trackedPath, "utf8")}\n// concurrent post-lock drift\n`);
+      expect(() => phase10RunExecutor({
+        mode: "run",
+        packetId: "c0-derive",
+        protocolPath: PHASE10_C0_DERIVE_PACKET_PROTOCOL_PATH,
+        attemptId: "losing-attempt",
+      }, root)).toThrow(/writer lock exists or cannot be acquired/u);
+      expect(existsSync(join(root, lockPath))).toBe(true);
+      expect(existsSync(join(root, "out/phase10-execution-v1/attempts/c0-derive/losing-attempt"))).toBe(false);
+    } finally {
+      release();
+    }
+  });
+
   it("classifies the hard timeout as failure and pins the production bound to 300 seconds", () => {
     const error = Object.assign(new Error("timed out"), { code: "ETIMEDOUT" });
     expect(phase10ClassifyWorkerOutcome({ status: null, signal: "SIGKILL", error })).toEqual({ success: false, timedOut: true });
@@ -359,7 +379,7 @@ describe("Phase 10 bounded non-solver executor", () => {
     const common = {
       matrixId: "phase10-selected-package-obligations-v1",
       protocolId: "phase10-c0-derive-existing-byte-v1",
-      registryId: "phase10-c0-derive-resolved-callables-v1",
+      registryId: "phase10-c0-derive-resolved-callables-v2",
       packetId: "c0-derive",
       verifiedArtifacts: [],
       checkResults: [],
@@ -391,7 +411,7 @@ describe("Phase 10 bounded non-solver executor", () => {
       verificationId: "phase10-c0-publication-verification-v1",
       matrixId: common.matrixId,
       protocolId: "phase10-c0-publish-existing-byte-v1",
-      registryId: "phase10-c0-publish-resolved-callables-v1",
+      registryId: "phase10-c0-publish-resolved-callables-v2",
       packetId: "c0-publish",
       terminalState: "fail",
       verifiedArtifacts: [],
@@ -418,6 +438,7 @@ describe("Phase 10 bounded non-solver executor", () => {
       "runner/src/phase10-executor-worker.ts",
     ]));
     expect(git(root, ["status", "--porcelain=v1", "--untracked-files=all"])).toBe(before);
+    expect(existsSync(join(root, "out/phase10-execution-v1/attempts/c0-derive"))).toBe(false);
     expect(existsSync(join(root, "out/phase10-execution-v1/attempts/c0-derive/synthetic-executor-v1"))).toBe(false);
   });
 

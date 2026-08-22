@@ -1071,7 +1071,7 @@ export function phase10C0ParseRetainedPreflight(
   const attemptId = stringField(receipt, "attemptId", `${packetId} retained preflight`);
   if (!/^[a-z0-9][a-z0-9.-]*$/u.test(attemptId)) fail(`${packetId} retained preflight attempt ID is unsafe`);
   const expectedProtocolId = packetId === "c0-derive" ? "phase10-c0-derive-existing-byte-v1" : "phase10-c0-publish-existing-byte-v1";
-  const expectedRegistryId = packetId === "c0-derive" ? "phase10-c0-derive-resolved-callables-v1" : "phase10-c0-publish-resolved-callables-v1";
+  const expectedRegistryId = packetId === "c0-derive" ? "phase10-c0-derive-resolved-callables-v2" : "phase10-c0-publish-resolved-callables-v2";
   if (
     receipt.schema !== "phase10-preflight-receipt-v1" || receipt.receiptId !== `phase10-${packetId}-${attemptId}-preflight-v1` ||
     receipt.matrixId !== PHASE10_C0_MATRIX_ID || receipt.protocolId !== expectedProtocolId || receipt.registryId !== expectedRegistryId ||

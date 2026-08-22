@@ -248,9 +248,11 @@ Claim-bearing outputs live under new `evidence/phase10-*` bundles—initially se
 observation-bridge, numerical-verification, and closure bundles—and are pinned in
 `evidence/MANIFEST.json`; private or rights-restricted payloads remain under decision 0051's NAS
 collection boundary. Working protocols and rights-safe source dispositions live under
-`research/phase10-*`. Exact launch/preflight/producer/evaluator/gate commands live in a committed
-Phase 10 execution README. Production and independent evaluation are separate modules for every
-published quantitative result. Every deciding protocol enters Git before its output is inspected.
+`research/phase10-*`. The committed Phase 10 execution README freezes the canonical command grammar.
+After A-P publishes and pins that README as dependency evidence, exact later attempt instantiations
+are frozen in this active plan and `docs/PROGRESS.md` so dependency bytes are not rewritten.
+Production and independent evaluation are separate modules for every published quantitative
+result. Every deciding protocol enters Git before its output is inspected.
 
 Routine source dispositions receive the direct integrity required by decision 0049. A
 load-bearing quantitative extraction or reference receives one targeted independent check. The
@@ -516,8 +518,60 @@ the parent of the committed A-I protocol introduction and copies the current imp
 construct a real input-absent freeze. These are test-fixture repairs only; they change no protocol,
 producer, evaluator, input, or evidence semantics. The exact focused command
 `npx vitest run runner/test/evidence-integrity.test.ts runner/test/phase10-intake.test.ts runner/test/phase10-c0-lifecycle.test.ts runner/test/phase10-executor.test.ts`
-passes 46/46. Exact post-publication `npm test` remains the checkpoint check and is not claimed by
-that focused result.
+passes 46/46. Exact post-publication `npm test` then passed 138/138 files with 2,289 passed and
+49 skipped in 907.19 seconds before checkpoint commit `689a95a`; the focused result is not used as
+a substitute for that exact suite.
+
+### S4 C0 lock repair and launch-command freeze — 2026-08-21
+
+A read-only pre-launch audit found that `run` completed its authorizing clean-head, code-freeze,
+dependency, and resource observations before acquiring the packet writer lock. That contradicted
+the registered single-writer lifecycle and allowed two concurrent invocations to observe the same
+clean state before the losing process acquired a later lock. The bounded repair keeps diagnostic
+`check` read-only, but `run` now acquires the canonical packet lock before it observes the attempt,
+repository state, code/protocol bytes, dependency evidence, or resources. The same lock encloses
+preflight, retained-attempt handling, worker execution, verification, and publication, with exact
+registered-lock-path comparison and `finally` release.
+
+The A-P-published execution README remains byte-identical because it is dependency evidence; it
+continues to freeze the canonical CLI grammar. This plan and `docs/PROGRESS.md` freeze the concrete
+post-A-P C0 invocations. After this repair is committed and the worktree is clean, execute derive
+only as:
+
+```text
+node runner/src/phase10-executor.ts check --packet c0-derive --protocol research/phase10-execution-v1/packets/c0-derive/protocol.json --attempt c0-derive-20260821-v1
+node runner/src/phase10-executor.ts run --packet c0-derive --protocol research/phase10-execution-v1/packets/c0-derive/protocol.json --attempt c0-derive-20260821-v1
+```
+
+Independently hash, manifest-pin, review, exact-suite check, and commit the five derive artifacts
+plus its preflight/terminal pair before the dependent publication packet. From that later clean
+derive-evidence head, execute publication only as:
+
+```text
+node runner/src/phase10-executor.ts check --packet c0-publish --protocol research/phase10-execution-v1/packets/c0-publish/protocol.json --attempt c0-publish-20260821-v1
+node runner/src/phase10-executor.ts run --packet c0-publish --protocol research/phase10-execution-v1/packets/c0-publish/protocol.json --attempt c0-publish-20260821-v1
+```
+
+The unchanged derive/publish protocols remain 1,154 bytes /
+`29c1cabef149fde31e2000fcf2e2f69351f6bb19904649b466caa58d70c771ef` and 842 bytes /
+`83cf4197d01b4376014da24e5c99ea29d35c4039c76c283c5098d2bcbdc35f27`. Their re-freeze
+registries are now `phase10-c0-derive-resolved-callables-v2`, 7,005 bytes /
+`b6d36b66ecd6606a9750d92ecf9126beeb378d8da5a950b0fdc0dbb2120eadf5`, and
+`phase10-c0-publish-resolved-callables-v2`, 2,882 bytes /
+`f097e9ce747b138329713c263c63676b45fdbfeab11c9b6ab672ad8a618e6cda`. The changed closure
+members are `runner/src/phase10-c0-contracts.ts`, 51,463 bytes /
+`45061dce3b82f3ad8e7fe087ca7030f5c3afe318a2ea333048bf9a94a32f8655`, and
+`runner/src/phase10-executor.ts`, 24,400 bytes /
+`63f238aaeff1bc2450682710114525484955c2f8ad01bba1370e430960ea4d1f`.
+
+The deterministic race fixture holds the winning writer lock, introduces tracked drift, and proves
+the losing `run` refuses on the lock before any authorization observation or attempt creation; the
+pre-repair ordering instead refused on dirt first. Diagnostic `check` also proves it creates no
+packet attempt root. The focused C0/executor suites pass 28/28. No real C0 check, run, worker,
+producer, evaluator, input read, or publication occurred while making this repair. The obligation
+and progress-state regressions pass 22/22, `npm run typecheck` passes, and `npm run lint:rule7`
+reports clean across 1,108 files. Exact `npm test` passes 138/138 files with 2,290 passed and 49
+skipped; the focused results are not used as a substitute for that exact suite.
 
 ## Return and stop rules
 

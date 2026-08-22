@@ -206,8 +206,11 @@ structural PASS bundle are published, independently verified, and manifest-pinne
 three-input commit preserves the freeze ordering; its 14 payloads are terminal refusals and its NAS
 state is `unavailable-refusal`, so B inherits no source-availability claim. Two post-commit
 synthetic-clone fixture repairs change no production semantics; the focused evidence/A-I/C0/executor
-set passes 46/46, while exact post-publication `npm test` remains pending. C0/executor retains its
-reviewed protocol and callable freeze, but no valid C0 packet has run. B and C0V remain unstarted. The
+set passes 46/46. Exact post-publication `npm test` then passed 138/138 files with 2,289 passed and
+49 skipped in 907.19 seconds before checkpoint commit `689a95a`. C0/executor retains its reviewed
+protocol and callable freeze. The lock-before-preflight repair snapshot's exact `npm test` passes
+138/138 files with 2,290 passed and 49 skipped; no valid C0 packet has run. B and C0V remain
+unstarted. The
 [Phase 10 candidate plan](plans/phase-10-closures-and-frontier.md) is completed decision support
 and superseded for execution. It remains the design history for the selected and rejected packages,
 not execution authority.
@@ -234,8 +237,10 @@ bundle is now published and pinned. The active plan's S3 checkpoint records ever
 identity plus the exact claim limits. The fixture-only repairs have a green 46/46 focused
 evidence/A-I/C0/executor run; do not describe that focused result as exact `npm test`.
 
-After the A-I evidence/docs checkpoint is committed and the worktree is clean, run these exact
-commands in order:
+The A-P-pinned execution README remains byte-frozen and supplies the canonical executor grammar;
+this live state and the active plan freeze the post-A-P attempt instantiations. After the C0
+lock-before-preflight repair/re-freeze checkpoint is committed and the worktree is clean, run these
+exact commands in order:
 
 ```text
 node runner/src/phase10-executor.ts check --packet c0-derive --protocol research/phase10-execution-v1/packets/c0-derive/protocol.json --attempt c0-derive-20260821-v1
@@ -247,7 +252,17 @@ Do not open, search, or summarize the Phase 6 ladder report or rows outside that
 only those two committed inputs, executes no solver, applies the frozen all-spacings rule, and
 records the historical `some`/`every` verifier mismatch without rewriting Phase 6 evidence. Pin,
 independently review, exact-suite check, and commit the derive evidence before running the dependent
-C0 publish packet.
+C0 publish packet. From that clean derive-evidence commit, use the separately frozen publish
+attempt:
+
+```text
+node runner/src/phase10-executor.ts check --packet c0-publish --protocol research/phase10-execution-v1/packets/c0-publish/protocol.json --attempt c0-publish-20260821-v1
+node runner/src/phase10-executor.ts run --packet c0-publish --protocol research/phase10-execution-v1/packets/c0-publish/protocol.json --attempt c0-publish-20260821-v1
+```
+
+Independently reopen and hash the three publish outputs plus its preflight/terminal receipt pair,
+pin those five files in `evidence/MANIFEST.json`, run exact `npm test`, and commit the publication
+checkpoint before any dependent work.
 
 The A-S evidence preserves the Phase 8A status row/filter rule, immutable evidence roles, phase
 ownership, Phase 8B's development/zero-held-out labels, cited classification reasons, and multiple
