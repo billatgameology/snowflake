@@ -1,0 +1,3350 @@
+{
+  "schema": "phase10-c0v-moving-reference-v1",
+  "referenceId": "phase10-c0v-moving-reference-v1",
+  "protocolId": "phase10-c0v-moving-s5a-v1",
+  "layerId": "C0V-MOVING-EVENT",
+  "branch": "independent-reference",
+  "protocol": {
+    "path": "research/phase10-c0v-moving-protocol-v1.json",
+    "byteLength": 18951,
+    "sha256": "29f3ef332371aa97bfe42e971806831e69fc080b3daa557ca9a9eddba3d259e8"
+  },
+  "freezeCommit": "cf0bd8b6ad12c79e38cb30ca0e50bcadab9cc6d9",
+  "createdAt": "2026-08-22T07:32:55.406Z",
+  "generatorOutput": {
+    "schema": "phase10-c0v-moving-reference-candidate-v1",
+    "protocolId": "phase10-c0v-moving-s5a-v1",
+    "method": "independent-integer-topology-scalar-bisection",
+    "activeCells": [
+      {
+        "linearIndex": 1,
+        "i": 1,
+        "j": 0,
+        "k": 0,
+        "di": 0,
+        "dj": -1,
+        "dk": -2,
+        "shell": true
+      },
+      {
+        "linearIndex": 2,
+        "i": 2,
+        "j": 0,
+        "k": 0,
+        "di": 1,
+        "dj": -1,
+        "dk": -2,
+        "shell": true
+      },
+      {
+        "linearIndex": 3,
+        "i": 0,
+        "j": 1,
+        "k": 0,
+        "di": -1,
+        "dj": 0,
+        "dk": -2,
+        "shell": true
+      },
+      {
+        "linearIndex": 4,
+        "i": 1,
+        "j": 1,
+        "k": 0,
+        "di": 0,
+        "dj": 0,
+        "dk": -2,
+        "shell": true
+      },
+      {
+        "linearIndex": 5,
+        "i": 2,
+        "j": 1,
+        "k": 0,
+        "di": 1,
+        "dj": 0,
+        "dk": -2,
+        "shell": true
+      },
+      {
+        "linearIndex": 6,
+        "i": 0,
+        "j": 2,
+        "k": 0,
+        "di": -1,
+        "dj": 1,
+        "dk": -2,
+        "shell": true
+      },
+      {
+        "linearIndex": 7,
+        "i": 1,
+        "j": 2,
+        "k": 0,
+        "di": 0,
+        "dj": 1,
+        "dk": -2,
+        "shell": true
+      },
+      {
+        "linearIndex": 10,
+        "i": 1,
+        "j": 0,
+        "k": 1,
+        "di": 0,
+        "dj": -1,
+        "dk": -1,
+        "shell": true
+      },
+      {
+        "linearIndex": 11,
+        "i": 2,
+        "j": 0,
+        "k": 1,
+        "di": 1,
+        "dj": -1,
+        "dk": -1,
+        "shell": true
+      },
+      {
+        "linearIndex": 12,
+        "i": 0,
+        "j": 1,
+        "k": 1,
+        "di": -1,
+        "dj": 0,
+        "dk": -1,
+        "shell": true
+      },
+      {
+        "linearIndex": 13,
+        "i": 1,
+        "j": 1,
+        "k": 1,
+        "di": 0,
+        "dj": 0,
+        "dk": -1,
+        "shell": false
+      },
+      {
+        "linearIndex": 14,
+        "i": 2,
+        "j": 1,
+        "k": 1,
+        "di": 1,
+        "dj": 0,
+        "dk": -1,
+        "shell": true
+      },
+      {
+        "linearIndex": 15,
+        "i": 0,
+        "j": 2,
+        "k": 1,
+        "di": -1,
+        "dj": 1,
+        "dk": -1,
+        "shell": true
+      },
+      {
+        "linearIndex": 16,
+        "i": 1,
+        "j": 2,
+        "k": 1,
+        "di": 0,
+        "dj": 1,
+        "dk": -1,
+        "shell": true
+      },
+      {
+        "linearIndex": 19,
+        "i": 1,
+        "j": 0,
+        "k": 2,
+        "di": 0,
+        "dj": -1,
+        "dk": 0,
+        "shell": true
+      },
+      {
+        "linearIndex": 20,
+        "i": 2,
+        "j": 0,
+        "k": 2,
+        "di": 1,
+        "dj": -1,
+        "dk": 0,
+        "shell": true
+      },
+      {
+        "linearIndex": 21,
+        "i": 0,
+        "j": 1,
+        "k": 2,
+        "di": -1,
+        "dj": 0,
+        "dk": 0,
+        "shell": true
+      },
+      {
+        "linearIndex": 22,
+        "i": 1,
+        "j": 1,
+        "k": 2,
+        "di": 0,
+        "dj": 0,
+        "dk": 0,
+        "shell": false
+      },
+      {
+        "linearIndex": 23,
+        "i": 2,
+        "j": 1,
+        "k": 2,
+        "di": 1,
+        "dj": 0,
+        "dk": 0,
+        "shell": true
+      },
+      {
+        "linearIndex": 24,
+        "i": 0,
+        "j": 2,
+        "k": 2,
+        "di": -1,
+        "dj": 1,
+        "dk": 0,
+        "shell": true
+      },
+      {
+        "linearIndex": 25,
+        "i": 1,
+        "j": 2,
+        "k": 2,
+        "di": 0,
+        "dj": 1,
+        "dk": 0,
+        "shell": true
+      },
+      {
+        "linearIndex": 28,
+        "i": 1,
+        "j": 0,
+        "k": 3,
+        "di": 0,
+        "dj": -1,
+        "dk": 1,
+        "shell": true
+      },
+      {
+        "linearIndex": 29,
+        "i": 2,
+        "j": 0,
+        "k": 3,
+        "di": 1,
+        "dj": -1,
+        "dk": 1,
+        "shell": true
+      },
+      {
+        "linearIndex": 30,
+        "i": 0,
+        "j": 1,
+        "k": 3,
+        "di": -1,
+        "dj": 0,
+        "dk": 1,
+        "shell": true
+      },
+      {
+        "linearIndex": 31,
+        "i": 1,
+        "j": 1,
+        "k": 3,
+        "di": 0,
+        "dj": 0,
+        "dk": 1,
+        "shell": false
+      },
+      {
+        "linearIndex": 32,
+        "i": 2,
+        "j": 1,
+        "k": 3,
+        "di": 1,
+        "dj": 0,
+        "dk": 1,
+        "shell": true
+      },
+      {
+        "linearIndex": 33,
+        "i": 0,
+        "j": 2,
+        "k": 3,
+        "di": -1,
+        "dj": 1,
+        "dk": 1,
+        "shell": true
+      },
+      {
+        "linearIndex": 34,
+        "i": 1,
+        "j": 2,
+        "k": 3,
+        "di": 0,
+        "dj": 1,
+        "dk": 1,
+        "shell": true
+      },
+      {
+        "linearIndex": 37,
+        "i": 1,
+        "j": 0,
+        "k": 4,
+        "di": 0,
+        "dj": -1,
+        "dk": 2,
+        "shell": true
+      },
+      {
+        "linearIndex": 38,
+        "i": 2,
+        "j": 0,
+        "k": 4,
+        "di": 1,
+        "dj": -1,
+        "dk": 2,
+        "shell": true
+      },
+      {
+        "linearIndex": 39,
+        "i": 0,
+        "j": 1,
+        "k": 4,
+        "di": -1,
+        "dj": 0,
+        "dk": 2,
+        "shell": true
+      },
+      {
+        "linearIndex": 40,
+        "i": 1,
+        "j": 1,
+        "k": 4,
+        "di": 0,
+        "dj": 0,
+        "dk": 2,
+        "shell": true
+      },
+      {
+        "linearIndex": 41,
+        "i": 2,
+        "j": 1,
+        "k": 4,
+        "di": 1,
+        "dj": 0,
+        "dk": 2,
+        "shell": true
+      },
+      {
+        "linearIndex": 42,
+        "i": 0,
+        "j": 2,
+        "k": 4,
+        "di": -1,
+        "dj": 1,
+        "dk": 2,
+        "shell": true
+      },
+      {
+        "linearIndex": 43,
+        "i": 1,
+        "j": 2,
+        "k": 4,
+        "di": 0,
+        "dj": 1,
+        "dk": 2,
+        "shell": true
+      }
+    ],
+    "neighborTable": [
+      {
+        "linearIndex": 1,
+        "neighbors": [
+          2,
+          0,
+          4,
+          null,
+          null,
+          3,
+          10,
+          null
+        ]
+      },
+      {
+        "linearIndex": 2,
+        "neighbors": [
+          null,
+          1,
+          5,
+          null,
+          null,
+          4,
+          11,
+          null
+        ]
+      },
+      {
+        "linearIndex": 3,
+        "neighbors": [
+          4,
+          null,
+          6,
+          0,
+          1,
+          null,
+          12,
+          null
+        ]
+      },
+      {
+        "linearIndex": 4,
+        "neighbors": [
+          5,
+          3,
+          7,
+          1,
+          2,
+          6,
+          13,
+          null
+        ]
+      },
+      {
+        "linearIndex": 5,
+        "neighbors": [
+          null,
+          4,
+          8,
+          2,
+          null,
+          7,
+          14,
+          null
+        ]
+      },
+      {
+        "linearIndex": 6,
+        "neighbors": [
+          7,
+          null,
+          null,
+          3,
+          4,
+          null,
+          15,
+          null
+        ]
+      },
+      {
+        "linearIndex": 7,
+        "neighbors": [
+          8,
+          6,
+          null,
+          4,
+          5,
+          null,
+          16,
+          null
+        ]
+      },
+      {
+        "linearIndex": 10,
+        "neighbors": [
+          11,
+          9,
+          13,
+          null,
+          null,
+          12,
+          19,
+          1
+        ]
+      },
+      {
+        "linearIndex": 11,
+        "neighbors": [
+          null,
+          10,
+          14,
+          null,
+          null,
+          13,
+          20,
+          2
+        ]
+      },
+      {
+        "linearIndex": 12,
+        "neighbors": [
+          13,
+          null,
+          15,
+          9,
+          10,
+          null,
+          21,
+          3
+        ]
+      },
+      {
+        "linearIndex": 13,
+        "neighbors": [
+          14,
+          12,
+          16,
+          10,
+          11,
+          15,
+          22,
+          4
+        ]
+      },
+      {
+        "linearIndex": 14,
+        "neighbors": [
+          null,
+          13,
+          17,
+          11,
+          null,
+          16,
+          23,
+          5
+        ]
+      },
+      {
+        "linearIndex": 15,
+        "neighbors": [
+          16,
+          null,
+          null,
+          12,
+          13,
+          null,
+          24,
+          6
+        ]
+      },
+      {
+        "linearIndex": 16,
+        "neighbors": [
+          17,
+          15,
+          null,
+          13,
+          14,
+          null,
+          25,
+          7
+        ]
+      },
+      {
+        "linearIndex": 19,
+        "neighbors": [
+          20,
+          18,
+          22,
+          null,
+          null,
+          21,
+          28,
+          10
+        ]
+      },
+      {
+        "linearIndex": 20,
+        "neighbors": [
+          null,
+          19,
+          23,
+          null,
+          null,
+          22,
+          29,
+          11
+        ]
+      },
+      {
+        "linearIndex": 21,
+        "neighbors": [
+          22,
+          null,
+          24,
+          18,
+          19,
+          null,
+          30,
+          12
+        ]
+      },
+      {
+        "linearIndex": 22,
+        "neighbors": [
+          23,
+          21,
+          25,
+          19,
+          20,
+          24,
+          31,
+          13
+        ]
+      },
+      {
+        "linearIndex": 23,
+        "neighbors": [
+          null,
+          22,
+          26,
+          20,
+          null,
+          25,
+          32,
+          14
+        ]
+      },
+      {
+        "linearIndex": 24,
+        "neighbors": [
+          25,
+          null,
+          null,
+          21,
+          22,
+          null,
+          33,
+          15
+        ]
+      },
+      {
+        "linearIndex": 25,
+        "neighbors": [
+          26,
+          24,
+          null,
+          22,
+          23,
+          null,
+          34,
+          16
+        ]
+      },
+      {
+        "linearIndex": 28,
+        "neighbors": [
+          29,
+          27,
+          31,
+          null,
+          null,
+          30,
+          37,
+          19
+        ]
+      },
+      {
+        "linearIndex": 29,
+        "neighbors": [
+          null,
+          28,
+          32,
+          null,
+          null,
+          31,
+          38,
+          20
+        ]
+      },
+      {
+        "linearIndex": 30,
+        "neighbors": [
+          31,
+          null,
+          33,
+          27,
+          28,
+          null,
+          39,
+          21
+        ]
+      },
+      {
+        "linearIndex": 31,
+        "neighbors": [
+          32,
+          30,
+          34,
+          28,
+          29,
+          33,
+          40,
+          22
+        ]
+      },
+      {
+        "linearIndex": 32,
+        "neighbors": [
+          null,
+          31,
+          35,
+          29,
+          null,
+          34,
+          41,
+          23
+        ]
+      },
+      {
+        "linearIndex": 33,
+        "neighbors": [
+          34,
+          null,
+          null,
+          30,
+          31,
+          null,
+          42,
+          24
+        ]
+      },
+      {
+        "linearIndex": 34,
+        "neighbors": [
+          35,
+          33,
+          null,
+          31,
+          32,
+          null,
+          43,
+          25
+        ]
+      },
+      {
+        "linearIndex": 37,
+        "neighbors": [
+          38,
+          36,
+          40,
+          null,
+          null,
+          39,
+          null,
+          28
+        ]
+      },
+      {
+        "linearIndex": 38,
+        "neighbors": [
+          null,
+          37,
+          41,
+          null,
+          null,
+          40,
+          null,
+          29
+        ]
+      },
+      {
+        "linearIndex": 39,
+        "neighbors": [
+          40,
+          null,
+          42,
+          36,
+          37,
+          null,
+          null,
+          30
+        ]
+      },
+      {
+        "linearIndex": 40,
+        "neighbors": [
+          41,
+          39,
+          43,
+          37,
+          38,
+          42,
+          null,
+          31
+        ]
+      },
+      {
+        "linearIndex": 41,
+        "neighbors": [
+          null,
+          40,
+          44,
+          38,
+          null,
+          43,
+          null,
+          32
+        ]
+      },
+      {
+        "linearIndex": 42,
+        "neighbors": [
+          43,
+          null,
+          null,
+          39,
+          40,
+          null,
+          null,
+          33
+        ]
+      },
+      {
+        "linearIndex": 43,
+        "neighbors": [
+          44,
+          42,
+          null,
+          40,
+          41,
+          null,
+          null,
+          34
+        ]
+      }
+    ],
+    "initialState": {
+      "attachedIndices": [
+        22
+      ],
+      "boundaryIndices": [
+        13,
+        19,
+        20,
+        21,
+        23,
+        24,
+        25,
+        31
+      ],
+      "fieldRows": [
+        {
+          "linearIndex": 0,
+          "attached": false,
+          "wall": true,
+          "fill": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          },
+          "sigma": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          }
+        },
+        {
+          "linearIndex": 1,
+          "attached": false,
+          "wall": false,
+          "fill": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          },
+          "sigma": {
+            "decimal": "0.0075",
+            "binary64Hex": "3f7eb851eb851eb8"
+          }
+        },
+        {
+          "linearIndex": 2,
+          "attached": false,
+          "wall": false,
+          "fill": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          },
+          "sigma": {
+            "decimal": "0.0075",
+            "binary64Hex": "3f7eb851eb851eb8"
+          }
+        },
+        {
+          "linearIndex": 3,
+          "attached": false,
+          "wall": false,
+          "fill": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          },
+          "sigma": {
+            "decimal": "0.0075",
+            "binary64Hex": "3f7eb851eb851eb8"
+          }
+        },
+        {
+          "linearIndex": 4,
+          "attached": false,
+          "wall": false,
+          "fill": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          },
+          "sigma": {
+            "decimal": "0.0075",
+            "binary64Hex": "3f7eb851eb851eb8"
+          }
+        },
+        {
+          "linearIndex": 5,
+          "attached": false,
+          "wall": false,
+          "fill": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          },
+          "sigma": {
+            "decimal": "0.0075",
+            "binary64Hex": "3f7eb851eb851eb8"
+          }
+        },
+        {
+          "linearIndex": 6,
+          "attached": false,
+          "wall": false,
+          "fill": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          },
+          "sigma": {
+            "decimal": "0.0075",
+            "binary64Hex": "3f7eb851eb851eb8"
+          }
+        },
+        {
+          "linearIndex": 7,
+          "attached": false,
+          "wall": false,
+          "fill": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          },
+          "sigma": {
+            "decimal": "0.0075",
+            "binary64Hex": "3f7eb851eb851eb8"
+          }
+        },
+        {
+          "linearIndex": 8,
+          "attached": false,
+          "wall": true,
+          "fill": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          },
+          "sigma": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          }
+        },
+        {
+          "linearIndex": 9,
+          "attached": false,
+          "wall": true,
+          "fill": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          },
+          "sigma": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          }
+        },
+        {
+          "linearIndex": 10,
+          "attached": false,
+          "wall": false,
+          "fill": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          },
+          "sigma": {
+            "decimal": "0.0075",
+            "binary64Hex": "3f7eb851eb851eb8"
+          }
+        },
+        {
+          "linearIndex": 11,
+          "attached": false,
+          "wall": false,
+          "fill": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          },
+          "sigma": {
+            "decimal": "0.0075",
+            "binary64Hex": "3f7eb851eb851eb8"
+          }
+        },
+        {
+          "linearIndex": 12,
+          "attached": false,
+          "wall": false,
+          "fill": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          },
+          "sigma": {
+            "decimal": "0.0075",
+            "binary64Hex": "3f7eb851eb851eb8"
+          }
+        },
+        {
+          "linearIndex": 13,
+          "attached": false,
+          "wall": false,
+          "fill": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          },
+          "sigma": {
+            "decimal": "0.004748780300424422",
+            "binary64Hex": "3f73737501611fc7"
+          }
+        },
+        {
+          "linearIndex": 14,
+          "attached": false,
+          "wall": false,
+          "fill": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          },
+          "sigma": {
+            "decimal": "0.0075",
+            "binary64Hex": "3f7eb851eb851eb8"
+          }
+        },
+        {
+          "linearIndex": 15,
+          "attached": false,
+          "wall": false,
+          "fill": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          },
+          "sigma": {
+            "decimal": "0.0075",
+            "binary64Hex": "3f7eb851eb851eb8"
+          }
+        },
+        {
+          "linearIndex": 16,
+          "attached": false,
+          "wall": false,
+          "fill": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          },
+          "sigma": {
+            "decimal": "0.0075",
+            "binary64Hex": "3f7eb851eb851eb8"
+          }
+        },
+        {
+          "linearIndex": 17,
+          "attached": false,
+          "wall": true,
+          "fill": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          },
+          "sigma": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          }
+        },
+        {
+          "linearIndex": 18,
+          "attached": false,
+          "wall": true,
+          "fill": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          },
+          "sigma": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          }
+        },
+        {
+          "linearIndex": 19,
+          "attached": false,
+          "wall": false,
+          "fill": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          },
+          "sigma": {
+            "decimal": "0.0075",
+            "binary64Hex": "3f7eb851eb851eb8"
+          }
+        },
+        {
+          "linearIndex": 20,
+          "attached": false,
+          "wall": false,
+          "fill": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          },
+          "sigma": {
+            "decimal": "0.0075",
+            "binary64Hex": "3f7eb851eb851eb8"
+          }
+        },
+        {
+          "linearIndex": 21,
+          "attached": false,
+          "wall": false,
+          "fill": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          },
+          "sigma": {
+            "decimal": "0.0075",
+            "binary64Hex": "3f7eb851eb851eb8"
+          }
+        },
+        {
+          "linearIndex": 22,
+          "attached": true,
+          "wall": false,
+          "fill": {
+            "decimal": "1",
+            "binary64Hex": "3ff0000000000000"
+          },
+          "sigma": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          }
+        },
+        {
+          "linearIndex": 23,
+          "attached": false,
+          "wall": false,
+          "fill": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          },
+          "sigma": {
+            "decimal": "0.0075",
+            "binary64Hex": "3f7eb851eb851eb8"
+          }
+        },
+        {
+          "linearIndex": 24,
+          "attached": false,
+          "wall": false,
+          "fill": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          },
+          "sigma": {
+            "decimal": "0.0075",
+            "binary64Hex": "3f7eb851eb851eb8"
+          }
+        },
+        {
+          "linearIndex": 25,
+          "attached": false,
+          "wall": false,
+          "fill": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          },
+          "sigma": {
+            "decimal": "0.0075",
+            "binary64Hex": "3f7eb851eb851eb8"
+          }
+        },
+        {
+          "linearIndex": 26,
+          "attached": false,
+          "wall": true,
+          "fill": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          },
+          "sigma": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          }
+        },
+        {
+          "linearIndex": 27,
+          "attached": false,
+          "wall": true,
+          "fill": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          },
+          "sigma": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          }
+        },
+        {
+          "linearIndex": 28,
+          "attached": false,
+          "wall": false,
+          "fill": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          },
+          "sigma": {
+            "decimal": "0.0075",
+            "binary64Hex": "3f7eb851eb851eb8"
+          }
+        },
+        {
+          "linearIndex": 29,
+          "attached": false,
+          "wall": false,
+          "fill": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          },
+          "sigma": {
+            "decimal": "0.0075",
+            "binary64Hex": "3f7eb851eb851eb8"
+          }
+        },
+        {
+          "linearIndex": 30,
+          "attached": false,
+          "wall": false,
+          "fill": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          },
+          "sigma": {
+            "decimal": "0.0075",
+            "binary64Hex": "3f7eb851eb851eb8"
+          }
+        },
+        {
+          "linearIndex": 31,
+          "attached": false,
+          "wall": false,
+          "fill": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          },
+          "sigma": {
+            "decimal": "0.004748780300424422",
+            "binary64Hex": "3f73737501611fc7"
+          }
+        },
+        {
+          "linearIndex": 32,
+          "attached": false,
+          "wall": false,
+          "fill": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          },
+          "sigma": {
+            "decimal": "0.0075",
+            "binary64Hex": "3f7eb851eb851eb8"
+          }
+        },
+        {
+          "linearIndex": 33,
+          "attached": false,
+          "wall": false,
+          "fill": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          },
+          "sigma": {
+            "decimal": "0.0075",
+            "binary64Hex": "3f7eb851eb851eb8"
+          }
+        },
+        {
+          "linearIndex": 34,
+          "attached": false,
+          "wall": false,
+          "fill": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          },
+          "sigma": {
+            "decimal": "0.0075",
+            "binary64Hex": "3f7eb851eb851eb8"
+          }
+        },
+        {
+          "linearIndex": 35,
+          "attached": false,
+          "wall": true,
+          "fill": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          },
+          "sigma": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          }
+        },
+        {
+          "linearIndex": 36,
+          "attached": false,
+          "wall": true,
+          "fill": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          },
+          "sigma": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          }
+        },
+        {
+          "linearIndex": 37,
+          "attached": false,
+          "wall": false,
+          "fill": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          },
+          "sigma": {
+            "decimal": "0.0075",
+            "binary64Hex": "3f7eb851eb851eb8"
+          }
+        },
+        {
+          "linearIndex": 38,
+          "attached": false,
+          "wall": false,
+          "fill": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          },
+          "sigma": {
+            "decimal": "0.0075",
+            "binary64Hex": "3f7eb851eb851eb8"
+          }
+        },
+        {
+          "linearIndex": 39,
+          "attached": false,
+          "wall": false,
+          "fill": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          },
+          "sigma": {
+            "decimal": "0.0075",
+            "binary64Hex": "3f7eb851eb851eb8"
+          }
+        },
+        {
+          "linearIndex": 40,
+          "attached": false,
+          "wall": false,
+          "fill": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          },
+          "sigma": {
+            "decimal": "0.0075",
+            "binary64Hex": "3f7eb851eb851eb8"
+          }
+        },
+        {
+          "linearIndex": 41,
+          "attached": false,
+          "wall": false,
+          "fill": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          },
+          "sigma": {
+            "decimal": "0.0075",
+            "binary64Hex": "3f7eb851eb851eb8"
+          }
+        },
+        {
+          "linearIndex": 42,
+          "attached": false,
+          "wall": false,
+          "fill": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          },
+          "sigma": {
+            "decimal": "0.0075",
+            "binary64Hex": "3f7eb851eb851eb8"
+          }
+        },
+        {
+          "linearIndex": 43,
+          "attached": false,
+          "wall": false,
+          "fill": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          },
+          "sigma": {
+            "decimal": "0.0075",
+            "binary64Hex": "3f7eb851eb851eb8"
+          }
+        },
+        {
+          "linearIndex": 44,
+          "attached": false,
+          "wall": true,
+          "fill": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          },
+          "sigma": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          }
+        }
+      ],
+      "boundaryRows": [
+        {
+          "linearIndex": 13,
+          "nT": 0,
+          "nZ": 1,
+          "facetClass": "basal",
+          "opposingIndices": [
+            4
+          ],
+          "sigmaOpp": {
+            "decimal": "0.007415778988788502",
+            "binary64Hex": "3f7e600203b309da"
+          },
+          "sigmaBoundary": {
+            "decimal": "0.004748780300424421",
+            "binary64Hex": "3f73737501611fc6"
+          },
+          "alphaHK": {
+            "decimal": "0.22899325759730807",
+            "binary64Hex": "3fcd4fa6ac3145c5"
+          },
+          "fillRatePerSecond": {
+            "decimal": "1.53739162065246",
+            "binary64Hex": "3ff89927f4bd8c4e"
+          }
+        },
+        {
+          "linearIndex": 19,
+          "nT": 1,
+          "nZ": 0,
+          "facetClass": "inhibited",
+          "opposingIndices": [],
+          "sigmaOpp": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          },
+          "sigmaBoundary": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          },
+          "alphaHK": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          },
+          "fillRatePerSecond": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          }
+        },
+        {
+          "linearIndex": 20,
+          "nT": 1,
+          "nZ": 0,
+          "facetClass": "inhibited",
+          "opposingIndices": [],
+          "sigmaOpp": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          },
+          "sigmaBoundary": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          },
+          "alphaHK": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          },
+          "fillRatePerSecond": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          }
+        },
+        {
+          "linearIndex": 21,
+          "nT": 1,
+          "nZ": 0,
+          "facetClass": "inhibited",
+          "opposingIndices": [],
+          "sigmaOpp": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          },
+          "sigmaBoundary": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          },
+          "alphaHK": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          },
+          "fillRatePerSecond": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          }
+        },
+        {
+          "linearIndex": 23,
+          "nT": 1,
+          "nZ": 0,
+          "facetClass": "inhibited",
+          "opposingIndices": [],
+          "sigmaOpp": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          },
+          "sigmaBoundary": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          },
+          "alphaHK": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          },
+          "fillRatePerSecond": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          }
+        },
+        {
+          "linearIndex": 24,
+          "nT": 1,
+          "nZ": 0,
+          "facetClass": "inhibited",
+          "opposingIndices": [],
+          "sigmaOpp": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          },
+          "sigmaBoundary": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          },
+          "alphaHK": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          },
+          "fillRatePerSecond": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          }
+        },
+        {
+          "linearIndex": 25,
+          "nT": 1,
+          "nZ": 0,
+          "facetClass": "inhibited",
+          "opposingIndices": [],
+          "sigmaOpp": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          },
+          "sigmaBoundary": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          },
+          "alphaHK": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          },
+          "fillRatePerSecond": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          }
+        },
+        {
+          "linearIndex": 31,
+          "nT": 0,
+          "nZ": 1,
+          "facetClass": "basal",
+          "opposingIndices": [
+            40
+          ],
+          "sigmaOpp": {
+            "decimal": "0.007415778988788502",
+            "binary64Hex": "3f7e600203b309da"
+          },
+          "sigmaBoundary": {
+            "decimal": "0.004748780300424421",
+            "binary64Hex": "3f73737501611fc6"
+          },
+          "alphaHK": {
+            "decimal": "0.22899325759730807",
+            "binary64Hex": "3fcd4fa6ac3145c5"
+          },
+          "fillRatePerSecond": {
+            "decimal": "1.53739162065246",
+            "binary64Hex": "3ff89927f4bd8c4e"
+          }
+        }
+      ],
+      "relaxation": {
+        "sweeps": 1,
+        "residual": {
+          "decimal": "1.1564823173178715e-16",
+          "binary64Hex": "3ca0aaaaaaaaaaab"
+        },
+        "converged": true,
+        "divergenceResidual": {
+          "decimal": "1.4197467493740533e-16",
+          "binary64Hex": "3ca475f0e486c534"
+        },
+        "shellClampDiagnostic": {
+          "decimal": "0.04887416651572889",
+          "binary64Hex": "3fa90608e59bcf06"
+        },
+        "surfaceExchangeDiagnostic": {
+          "decimal": "0.04887416651572888",
+          "binary64Hex": "3fa90608e59bcf05"
+        },
+        "smootherDriftDiagnostic": {
+          "decimal": "-1.3877787807814457e-17",
+          "binary64Hex": "bc70000000000000"
+        },
+        "smootherDriftLimit": {
+          "decimal": "5.968558980384842e-14",
+          "binary64Hex": "3d30cccccccccccd"
+        },
+        "maxAbsSweepInput": {
+          "decimal": "0.0075",
+          "binary64Hex": "3f7eb851eb851eb8"
+        }
+      }
+    },
+    "cycles": [
+      {
+        "stepOrdinal": 1,
+        "deltaTimeSeconds": {
+          "decimal": "0.1691176122643738",
+          "binary64Hex": "3fc5a5a55aed322f"
+        },
+        "cumulativeTimeSeconds": {
+          "decimal": "0.1691176122643738",
+          "binary64Hex": "3fc5a5a55aed322f"
+        },
+        "maxKineticFillIncrement": {
+          "decimal": "0.26",
+          "binary64Hex": "3fd0a3d70a3d70a4"
+        },
+        "placedFillDelta": {
+          "decimal": "0.52",
+          "binary64Hex": "3fe0a3d70a3d70a4"
+        },
+        "saturationClippedFillDelta": {
+          "decimal": "0",
+          "binary64Hex": "0000000000000000"
+        },
+        "kineticDemandDelta": {
+          "decimal": "0.52",
+          "binary64Hex": "3fe0a3d70a3d70a4"
+        },
+        "attachedIndices": []
+      },
+      {
+        "stepOrdinal": 2,
+        "deltaTimeSeconds": {
+          "decimal": "0.1691176122643738",
+          "binary64Hex": "3fc5a5a55aed322f"
+        },
+        "cumulativeTimeSeconds": {
+          "decimal": "0.3382352245287476",
+          "binary64Hex": "3fd5a5a55aed322f"
+        },
+        "maxKineticFillIncrement": {
+          "decimal": "0.26",
+          "binary64Hex": "3fd0a3d70a3d70a4"
+        },
+        "placedFillDelta": {
+          "decimal": "0.52",
+          "binary64Hex": "3fe0a3d70a3d70a4"
+        },
+        "saturationClippedFillDelta": {
+          "decimal": "0",
+          "binary64Hex": "0000000000000000"
+        },
+        "kineticDemandDelta": {
+          "decimal": "0.52",
+          "binary64Hex": "3fe0a3d70a3d70a4"
+        },
+        "attachedIndices": []
+      },
+      {
+        "stepOrdinal": 3,
+        "deltaTimeSeconds": {
+          "decimal": "0.1691176122643738",
+          "binary64Hex": "3fc5a5a55aed322f"
+        },
+        "cumulativeTimeSeconds": {
+          "decimal": "0.5073528367931214",
+          "binary64Hex": "3fe03c3c0431e5a3"
+        },
+        "maxKineticFillIncrement": {
+          "decimal": "0.26",
+          "binary64Hex": "3fd0a3d70a3d70a4"
+        },
+        "placedFillDelta": {
+          "decimal": "0.52",
+          "binary64Hex": "3fe0a3d70a3d70a4"
+        },
+        "saturationClippedFillDelta": {
+          "decimal": "0",
+          "binary64Hex": "0000000000000000"
+        },
+        "kineticDemandDelta": {
+          "decimal": "0.52",
+          "binary64Hex": "3fe0a3d70a3d70a4"
+        },
+        "attachedIndices": []
+      },
+      {
+        "stepOrdinal": 4,
+        "deltaTimeSeconds": {
+          "decimal": "0.1691176122643738",
+          "binary64Hex": "3fc5a5a55aed322f"
+        },
+        "cumulativeTimeSeconds": {
+          "decimal": "0.6764704490574952",
+          "binary64Hex": "3fe5a5a55aed322f"
+        },
+        "maxKineticFillIncrement": {
+          "decimal": "0.26",
+          "binary64Hex": "3fd0a3d70a3d70a4"
+        },
+        "placedFillDelta": {
+          "decimal": "0.43999999999999995",
+          "binary64Hex": "3fdc28f5c28f5c28"
+        },
+        "saturationClippedFillDelta": {
+          "decimal": "0.08000000000000007",
+          "binary64Hex": "3fb47ae147ae1480"
+        },
+        "kineticDemandDelta": {
+          "decimal": "0.52",
+          "binary64Hex": "3fe0a3d70a3d70a4"
+        },
+        "attachedIndices": [
+          13,
+          31
+        ]
+      }
+    ],
+    "event": {
+      "eventOrdinal": 4,
+      "eventStepOrdinal": 4,
+      "tiedOrbitIndices": [
+        13,
+        31
+      ],
+      "maxRatePerSecond": {
+        "decimal": "1.53739162065246",
+        "binary64Hex": "3ff89927f4bd8c4e"
+      },
+      "nextRatePerSecond": {
+        "decimal": "0",
+        "binary64Hex": "0000000000000000"
+      },
+      "tieMarginPerSecond": {
+        "decimal": "1.53739162065246",
+        "binary64Hex": "3ff89927f4bd8c4e"
+      },
+      "eventTimeSeconds": {
+        "decimal": "0.6764704490574952",
+        "binary64Hex": "3fe5a5a55aed322f"
+      },
+      "preEventFillRows": [
+        {
+          "linearIndex": 13,
+          "fill": {
+            "decimal": "0.78",
+            "binary64Hex": "3fe8f5c28f5c28f6"
+          }
+        },
+        {
+          "linearIndex": 19,
+          "fill": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          }
+        },
+        {
+          "linearIndex": 20,
+          "fill": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          }
+        },
+        {
+          "linearIndex": 21,
+          "fill": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          }
+        },
+        {
+          "linearIndex": 23,
+          "fill": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          }
+        },
+        {
+          "linearIndex": 24,
+          "fill": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          }
+        },
+        {
+          "linearIndex": 25,
+          "fill": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          }
+        },
+        {
+          "linearIndex": 31,
+          "fill": {
+            "decimal": "0.78",
+            "binary64Hex": "3fe8f5c28f5c28f6"
+          }
+        }
+      ],
+      "attachedIndices": [
+        13,
+        31
+      ]
+    },
+    "postState": {
+      "attachedIndices": [
+        13,
+        22,
+        31
+      ],
+      "boundaryIndices": [
+        4,
+        10,
+        11,
+        12,
+        14,
+        15,
+        16,
+        19,
+        20,
+        21,
+        23,
+        24,
+        25,
+        28,
+        29,
+        30,
+        32,
+        33,
+        34,
+        40
+      ],
+      "fieldRows": [
+        {
+          "linearIndex": 0,
+          "attached": false,
+          "wall": true,
+          "fill": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          },
+          "sigma": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          }
+        },
+        {
+          "linearIndex": 1,
+          "attached": false,
+          "wall": false,
+          "fill": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          },
+          "sigma": {
+            "decimal": "0.0075",
+            "binary64Hex": "3f7eb851eb851eb8"
+          }
+        },
+        {
+          "linearIndex": 2,
+          "attached": false,
+          "wall": false,
+          "fill": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          },
+          "sigma": {
+            "decimal": "0.0075",
+            "binary64Hex": "3f7eb851eb851eb8"
+          }
+        },
+        {
+          "linearIndex": 3,
+          "attached": false,
+          "wall": false,
+          "fill": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          },
+          "sigma": {
+            "decimal": "0.0075",
+            "binary64Hex": "3f7eb851eb851eb8"
+          }
+        },
+        {
+          "linearIndex": 4,
+          "attached": false,
+          "wall": false,
+          "fill": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          },
+          "sigma": {
+            "decimal": "0.0075",
+            "binary64Hex": "3f7eb851eb851eb8"
+          }
+        },
+        {
+          "linearIndex": 5,
+          "attached": false,
+          "wall": false,
+          "fill": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          },
+          "sigma": {
+            "decimal": "0.0075",
+            "binary64Hex": "3f7eb851eb851eb8"
+          }
+        },
+        {
+          "linearIndex": 6,
+          "attached": false,
+          "wall": false,
+          "fill": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          },
+          "sigma": {
+            "decimal": "0.0075",
+            "binary64Hex": "3f7eb851eb851eb8"
+          }
+        },
+        {
+          "linearIndex": 7,
+          "attached": false,
+          "wall": false,
+          "fill": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          },
+          "sigma": {
+            "decimal": "0.0075",
+            "binary64Hex": "3f7eb851eb851eb8"
+          }
+        },
+        {
+          "linearIndex": 8,
+          "attached": false,
+          "wall": true,
+          "fill": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          },
+          "sigma": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          }
+        },
+        {
+          "linearIndex": 9,
+          "attached": false,
+          "wall": true,
+          "fill": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          },
+          "sigma": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          }
+        },
+        {
+          "linearIndex": 10,
+          "attached": false,
+          "wall": false,
+          "fill": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          },
+          "sigma": {
+            "decimal": "0.0075",
+            "binary64Hex": "3f7eb851eb851eb8"
+          }
+        },
+        {
+          "linearIndex": 11,
+          "attached": false,
+          "wall": false,
+          "fill": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          },
+          "sigma": {
+            "decimal": "0.0075",
+            "binary64Hex": "3f7eb851eb851eb8"
+          }
+        },
+        {
+          "linearIndex": 12,
+          "attached": false,
+          "wall": false,
+          "fill": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          },
+          "sigma": {
+            "decimal": "0.0075",
+            "binary64Hex": "3f7eb851eb851eb8"
+          }
+        },
+        {
+          "linearIndex": 13,
+          "attached": true,
+          "wall": false,
+          "fill": {
+            "decimal": "1",
+            "binary64Hex": "3ff0000000000000"
+          },
+          "sigma": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          }
+        },
+        {
+          "linearIndex": 14,
+          "attached": false,
+          "wall": false,
+          "fill": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          },
+          "sigma": {
+            "decimal": "0.0075",
+            "binary64Hex": "3f7eb851eb851eb8"
+          }
+        },
+        {
+          "linearIndex": 15,
+          "attached": false,
+          "wall": false,
+          "fill": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          },
+          "sigma": {
+            "decimal": "0.0075",
+            "binary64Hex": "3f7eb851eb851eb8"
+          }
+        },
+        {
+          "linearIndex": 16,
+          "attached": false,
+          "wall": false,
+          "fill": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          },
+          "sigma": {
+            "decimal": "0.0075",
+            "binary64Hex": "3f7eb851eb851eb8"
+          }
+        },
+        {
+          "linearIndex": 17,
+          "attached": false,
+          "wall": true,
+          "fill": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          },
+          "sigma": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          }
+        },
+        {
+          "linearIndex": 18,
+          "attached": false,
+          "wall": true,
+          "fill": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          },
+          "sigma": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          }
+        },
+        {
+          "linearIndex": 19,
+          "attached": false,
+          "wall": false,
+          "fill": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          },
+          "sigma": {
+            "decimal": "0.0075",
+            "binary64Hex": "3f7eb851eb851eb8"
+          }
+        },
+        {
+          "linearIndex": 20,
+          "attached": false,
+          "wall": false,
+          "fill": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          },
+          "sigma": {
+            "decimal": "0.0075",
+            "binary64Hex": "3f7eb851eb851eb8"
+          }
+        },
+        {
+          "linearIndex": 21,
+          "attached": false,
+          "wall": false,
+          "fill": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          },
+          "sigma": {
+            "decimal": "0.0075",
+            "binary64Hex": "3f7eb851eb851eb8"
+          }
+        },
+        {
+          "linearIndex": 22,
+          "attached": true,
+          "wall": false,
+          "fill": {
+            "decimal": "1",
+            "binary64Hex": "3ff0000000000000"
+          },
+          "sigma": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          }
+        },
+        {
+          "linearIndex": 23,
+          "attached": false,
+          "wall": false,
+          "fill": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          },
+          "sigma": {
+            "decimal": "0.0075",
+            "binary64Hex": "3f7eb851eb851eb8"
+          }
+        },
+        {
+          "linearIndex": 24,
+          "attached": false,
+          "wall": false,
+          "fill": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          },
+          "sigma": {
+            "decimal": "0.0075",
+            "binary64Hex": "3f7eb851eb851eb8"
+          }
+        },
+        {
+          "linearIndex": 25,
+          "attached": false,
+          "wall": false,
+          "fill": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          },
+          "sigma": {
+            "decimal": "0.0075",
+            "binary64Hex": "3f7eb851eb851eb8"
+          }
+        },
+        {
+          "linearIndex": 26,
+          "attached": false,
+          "wall": true,
+          "fill": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          },
+          "sigma": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          }
+        },
+        {
+          "linearIndex": 27,
+          "attached": false,
+          "wall": true,
+          "fill": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          },
+          "sigma": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          }
+        },
+        {
+          "linearIndex": 28,
+          "attached": false,
+          "wall": false,
+          "fill": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          },
+          "sigma": {
+            "decimal": "0.0075",
+            "binary64Hex": "3f7eb851eb851eb8"
+          }
+        },
+        {
+          "linearIndex": 29,
+          "attached": false,
+          "wall": false,
+          "fill": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          },
+          "sigma": {
+            "decimal": "0.0075",
+            "binary64Hex": "3f7eb851eb851eb8"
+          }
+        },
+        {
+          "linearIndex": 30,
+          "attached": false,
+          "wall": false,
+          "fill": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          },
+          "sigma": {
+            "decimal": "0.0075",
+            "binary64Hex": "3f7eb851eb851eb8"
+          }
+        },
+        {
+          "linearIndex": 31,
+          "attached": true,
+          "wall": false,
+          "fill": {
+            "decimal": "1",
+            "binary64Hex": "3ff0000000000000"
+          },
+          "sigma": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          }
+        },
+        {
+          "linearIndex": 32,
+          "attached": false,
+          "wall": false,
+          "fill": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          },
+          "sigma": {
+            "decimal": "0.0075",
+            "binary64Hex": "3f7eb851eb851eb8"
+          }
+        },
+        {
+          "linearIndex": 33,
+          "attached": false,
+          "wall": false,
+          "fill": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          },
+          "sigma": {
+            "decimal": "0.0075",
+            "binary64Hex": "3f7eb851eb851eb8"
+          }
+        },
+        {
+          "linearIndex": 34,
+          "attached": false,
+          "wall": false,
+          "fill": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          },
+          "sigma": {
+            "decimal": "0.0075",
+            "binary64Hex": "3f7eb851eb851eb8"
+          }
+        },
+        {
+          "linearIndex": 35,
+          "attached": false,
+          "wall": true,
+          "fill": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          },
+          "sigma": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          }
+        },
+        {
+          "linearIndex": 36,
+          "attached": false,
+          "wall": true,
+          "fill": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          },
+          "sigma": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          }
+        },
+        {
+          "linearIndex": 37,
+          "attached": false,
+          "wall": false,
+          "fill": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          },
+          "sigma": {
+            "decimal": "0.0075",
+            "binary64Hex": "3f7eb851eb851eb8"
+          }
+        },
+        {
+          "linearIndex": 38,
+          "attached": false,
+          "wall": false,
+          "fill": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          },
+          "sigma": {
+            "decimal": "0.0075",
+            "binary64Hex": "3f7eb851eb851eb8"
+          }
+        },
+        {
+          "linearIndex": 39,
+          "attached": false,
+          "wall": false,
+          "fill": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          },
+          "sigma": {
+            "decimal": "0.0075",
+            "binary64Hex": "3f7eb851eb851eb8"
+          }
+        },
+        {
+          "linearIndex": 40,
+          "attached": false,
+          "wall": false,
+          "fill": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          },
+          "sigma": {
+            "decimal": "0.0075",
+            "binary64Hex": "3f7eb851eb851eb8"
+          }
+        },
+        {
+          "linearIndex": 41,
+          "attached": false,
+          "wall": false,
+          "fill": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          },
+          "sigma": {
+            "decimal": "0.0075",
+            "binary64Hex": "3f7eb851eb851eb8"
+          }
+        },
+        {
+          "linearIndex": 42,
+          "attached": false,
+          "wall": false,
+          "fill": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          },
+          "sigma": {
+            "decimal": "0.0075",
+            "binary64Hex": "3f7eb851eb851eb8"
+          }
+        },
+        {
+          "linearIndex": 43,
+          "attached": false,
+          "wall": false,
+          "fill": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          },
+          "sigma": {
+            "decimal": "0.0075",
+            "binary64Hex": "3f7eb851eb851eb8"
+          }
+        },
+        {
+          "linearIndex": 44,
+          "attached": false,
+          "wall": true,
+          "fill": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          },
+          "sigma": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          }
+        }
+      ],
+      "boundaryRows": [
+        {
+          "linearIndex": 4,
+          "nT": 0,
+          "nZ": 1,
+          "facetClass": "basal",
+          "opposingIndices": [],
+          "sigmaOpp": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          },
+          "sigmaBoundary": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          },
+          "alphaHK": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          },
+          "fillRatePerSecond": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          }
+        },
+        {
+          "linearIndex": 10,
+          "nT": 1,
+          "nZ": 0,
+          "facetClass": "inhibited",
+          "opposingIndices": [],
+          "sigmaOpp": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          },
+          "sigmaBoundary": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          },
+          "alphaHK": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          },
+          "fillRatePerSecond": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          }
+        },
+        {
+          "linearIndex": 11,
+          "nT": 1,
+          "nZ": 0,
+          "facetClass": "inhibited",
+          "opposingIndices": [],
+          "sigmaOpp": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          },
+          "sigmaBoundary": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          },
+          "alphaHK": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          },
+          "fillRatePerSecond": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          }
+        },
+        {
+          "linearIndex": 12,
+          "nT": 1,
+          "nZ": 0,
+          "facetClass": "inhibited",
+          "opposingIndices": [],
+          "sigmaOpp": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          },
+          "sigmaBoundary": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          },
+          "alphaHK": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          },
+          "fillRatePerSecond": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          }
+        },
+        {
+          "linearIndex": 14,
+          "nT": 1,
+          "nZ": 0,
+          "facetClass": "inhibited",
+          "opposingIndices": [],
+          "sigmaOpp": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          },
+          "sigmaBoundary": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          },
+          "alphaHK": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          },
+          "fillRatePerSecond": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          }
+        },
+        {
+          "linearIndex": 15,
+          "nT": 1,
+          "nZ": 0,
+          "facetClass": "inhibited",
+          "opposingIndices": [],
+          "sigmaOpp": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          },
+          "sigmaBoundary": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          },
+          "alphaHK": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          },
+          "fillRatePerSecond": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          }
+        },
+        {
+          "linearIndex": 16,
+          "nT": 1,
+          "nZ": 0,
+          "facetClass": "inhibited",
+          "opposingIndices": [],
+          "sigmaOpp": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          },
+          "sigmaBoundary": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          },
+          "alphaHK": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          },
+          "fillRatePerSecond": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          }
+        },
+        {
+          "linearIndex": 19,
+          "nT": 1,
+          "nZ": 0,
+          "facetClass": "inhibited",
+          "opposingIndices": [],
+          "sigmaOpp": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          },
+          "sigmaBoundary": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          },
+          "alphaHK": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          },
+          "fillRatePerSecond": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          }
+        },
+        {
+          "linearIndex": 20,
+          "nT": 1,
+          "nZ": 0,
+          "facetClass": "inhibited",
+          "opposingIndices": [],
+          "sigmaOpp": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          },
+          "sigmaBoundary": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          },
+          "alphaHK": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          },
+          "fillRatePerSecond": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          }
+        },
+        {
+          "linearIndex": 21,
+          "nT": 1,
+          "nZ": 0,
+          "facetClass": "inhibited",
+          "opposingIndices": [],
+          "sigmaOpp": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          },
+          "sigmaBoundary": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          },
+          "alphaHK": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          },
+          "fillRatePerSecond": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          }
+        },
+        {
+          "linearIndex": 23,
+          "nT": 1,
+          "nZ": 0,
+          "facetClass": "inhibited",
+          "opposingIndices": [],
+          "sigmaOpp": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          },
+          "sigmaBoundary": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          },
+          "alphaHK": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          },
+          "fillRatePerSecond": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          }
+        },
+        {
+          "linearIndex": 24,
+          "nT": 1,
+          "nZ": 0,
+          "facetClass": "inhibited",
+          "opposingIndices": [],
+          "sigmaOpp": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          },
+          "sigmaBoundary": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          },
+          "alphaHK": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          },
+          "fillRatePerSecond": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          }
+        },
+        {
+          "linearIndex": 25,
+          "nT": 1,
+          "nZ": 0,
+          "facetClass": "inhibited",
+          "opposingIndices": [],
+          "sigmaOpp": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          },
+          "sigmaBoundary": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          },
+          "alphaHK": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          },
+          "fillRatePerSecond": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          }
+        },
+        {
+          "linearIndex": 28,
+          "nT": 1,
+          "nZ": 0,
+          "facetClass": "inhibited",
+          "opposingIndices": [],
+          "sigmaOpp": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          },
+          "sigmaBoundary": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          },
+          "alphaHK": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          },
+          "fillRatePerSecond": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          }
+        },
+        {
+          "linearIndex": 29,
+          "nT": 1,
+          "nZ": 0,
+          "facetClass": "inhibited",
+          "opposingIndices": [],
+          "sigmaOpp": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          },
+          "sigmaBoundary": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          },
+          "alphaHK": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          },
+          "fillRatePerSecond": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          }
+        },
+        {
+          "linearIndex": 30,
+          "nT": 1,
+          "nZ": 0,
+          "facetClass": "inhibited",
+          "opposingIndices": [],
+          "sigmaOpp": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          },
+          "sigmaBoundary": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          },
+          "alphaHK": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          },
+          "fillRatePerSecond": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          }
+        },
+        {
+          "linearIndex": 32,
+          "nT": 1,
+          "nZ": 0,
+          "facetClass": "inhibited",
+          "opposingIndices": [],
+          "sigmaOpp": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          },
+          "sigmaBoundary": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          },
+          "alphaHK": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          },
+          "fillRatePerSecond": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          }
+        },
+        {
+          "linearIndex": 33,
+          "nT": 1,
+          "nZ": 0,
+          "facetClass": "inhibited",
+          "opposingIndices": [],
+          "sigmaOpp": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          },
+          "sigmaBoundary": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          },
+          "alphaHK": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          },
+          "fillRatePerSecond": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          }
+        },
+        {
+          "linearIndex": 34,
+          "nT": 1,
+          "nZ": 0,
+          "facetClass": "inhibited",
+          "opposingIndices": [],
+          "sigmaOpp": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          },
+          "sigmaBoundary": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          },
+          "alphaHK": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          },
+          "fillRatePerSecond": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          }
+        },
+        {
+          "linearIndex": 40,
+          "nT": 0,
+          "nZ": 1,
+          "facetClass": "basal",
+          "opposingIndices": [],
+          "sigmaOpp": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          },
+          "sigmaBoundary": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          },
+          "alphaHK": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          },
+          "fillRatePerSecond": {
+            "decimal": "0",
+            "binary64Hex": "0000000000000000"
+          }
+        }
+      ],
+      "relaxation": {
+        "sweeps": 1,
+        "residual": {
+          "decimal": "0",
+          "binary64Hex": "0000000000000000"
+        },
+        "converged": true,
+        "divergenceResidual": {
+          "decimal": "5.551115123125784e-16",
+          "binary64Hex": "3cc4000000000001"
+        },
+        "shellClampDiagnostic": {
+          "decimal": "0.15000000000000008",
+          "binary64Hex": "3fc3333333333336"
+        },
+        "surfaceExchangeDiagnostic": {
+          "decimal": "0.14999999999999997",
+          "binary64Hex": "3fc3333333333332"
+        },
+        "smootherDriftDiagnostic": {
+          "decimal": "-2.7755575615628914e-17",
+          "binary64Hex": "bc80000000000000"
+        },
+        "smootherDriftLimit": {
+          "decimal": "5.968558980384842e-14",
+          "binary64Hex": "3d30cccccccccccd"
+        },
+        "maxAbsSweepInput": {
+          "decimal": "0.0075",
+          "binary64Hex": "3f7eb851eb851eb8"
+        }
+      }
+    },
+    "ledger": {
+      "placedFillIceCells": {
+        "decimal": "2",
+        "binary64Hex": "4000000000000000"
+      },
+      "saturationClippedFillIceCells": {
+        "decimal": "0.08000000000000007",
+        "binary64Hex": "3fb47ae147ae1480"
+      },
+      "kineticDemandIceCells": {
+        "decimal": "2.08",
+        "binary64Hex": "4000a3d70a3d70a4"
+      },
+      "holeFillDeficitIceCells": {
+        "decimal": "0",
+        "binary64Hex": "0000000000000000"
+      },
+      "holeFillCount": 0,
+      "placedFillVaporUnits": {
+        "decimal": "566450.8007389015",
+        "binary64Hex": "4121496599fa7305"
+      }
+    },
+    "convergence": {
+      "scalarRoot": {
+        "lowerEndpoint": {
+          "decimal": "0.004748780300424421",
+          "binary64Hex": "3f73737501611fc6"
+        },
+        "upperEndpoint": {
+          "decimal": "0.004748780300424422",
+          "binary64Hex": "3f73737501611fc7"
+        },
+        "selectedRoot": {
+          "decimal": "0.004748780300424422",
+          "binary64Hex": "3f73737501611fc7"
+        },
+        "residual": {
+          "decimal": "8.673617379884035e-19",
+          "binary64Hex": "3c30000000000000"
+        },
+        "relativeResidual": {
+          "decimal": "1.1564823173178715e-16",
+          "binary64Hex": "3ca0aaaaaaaaaaab"
+        },
+        "iterations": 53
+      },
+      "preEvent": {
+        "sweeps": 1,
+        "residual": {
+          "decimal": "1.1564823173178715e-16",
+          "binary64Hex": "3ca0aaaaaaaaaaab"
+        },
+        "converged": true,
+        "divergenceResidual": {
+          "decimal": "1.4197467493740533e-16",
+          "binary64Hex": "3ca475f0e486c534"
+        },
+        "shellClampDiagnostic": {
+          "decimal": "0.04887416651572889",
+          "binary64Hex": "3fa90608e59bcf06"
+        },
+        "surfaceExchangeDiagnostic": {
+          "decimal": "0.04887416651572888",
+          "binary64Hex": "3fa90608e59bcf05"
+        },
+        "smootherDriftDiagnostic": {
+          "decimal": "-1.3877787807814457e-17",
+          "binary64Hex": "bc70000000000000"
+        },
+        "smootherDriftLimit": {
+          "decimal": "5.968558980384842e-14",
+          "binary64Hex": "3d30cccccccccccd"
+        },
+        "maxAbsSweepInput": {
+          "decimal": "0.0075",
+          "binary64Hex": "3f7eb851eb851eb8"
+        }
+      },
+      "postEvent": {
+        "sweeps": 1,
+        "residual": {
+          "decimal": "0",
+          "binary64Hex": "0000000000000000"
+        },
+        "converged": true,
+        "divergenceResidual": {
+          "decimal": "5.551115123125784e-16",
+          "binary64Hex": "3cc4000000000001"
+        },
+        "shellClampDiagnostic": {
+          "decimal": "0.15000000000000008",
+          "binary64Hex": "3fc3333333333336"
+        },
+        "surfaceExchangeDiagnostic": {
+          "decimal": "0.14999999999999997",
+          "binary64Hex": "3fc3333333333332"
+        },
+        "smootherDriftDiagnostic": {
+          "decimal": "-2.7755575615628914e-17",
+          "binary64Hex": "bc80000000000000"
+        },
+        "smootherDriftLimit": {
+          "decimal": "5.968558980384842e-14",
+          "binary64Hex": "3d30cccccccccccd"
+        },
+        "maxAbsSweepInput": {
+          "decimal": "0.0075",
+          "binary64Hex": "3f7eb851eb851eb8"
+        }
+      }
+    }
+  },
+  "independentCheck": {
+    "schema": "phase10-c0v-moving-reference-check-v1",
+    "protocolId": "phase10-c0v-moving-s5a-v1",
+    "method": "independent-cube-topology-safeguarded-newton-and-equation-residuals",
+    "monotonicityBracketResidual": {
+      "bracketed": true,
+      "derivativePositive": true,
+      "candidateResidualRelative": {
+        "decimal": "1.1564823173178715e-16",
+        "binary64Hex": "3ca0aaaaaaaaaaab"
+      },
+      "recomputedRoot": {
+        "decimal": "0.00474878030042442",
+        "binary64Hex": "3f73737501611fc5"
+      },
+      "rootRelativeDifference": {
+        "decimal": "1.826493716525238e-16",
+        "binary64Hex": "3caa52928aa77cd8"
+      },
+      "passed": false
+    },
+    "topologyChecks": {
+      "passed": true,
+      "details": [
+        "integer topology, neighbors, sets, and D6h orbit re-derived"
+      ],
+      "activeCellsExact": true,
+      "neighborsExact": true,
+      "initialSetsExact": true,
+      "postSetsExact": true,
+      "d6hOrbitExact": true
+    },
+    "fieldEquationChecks": {
+      "passed": true,
+      "details": [
+        "field equations, boundary caches, and relaxation limits pass"
+      ],
+      "preLInf": {
+        "decimal": "2.312964634635743e-16",
+        "binary64Hex": "3cb0aaaaaaaaaaab"
+      },
+      "preWeightedL2": {
+        "decimal": "5.609763233483134e-17",
+        "binary64Hex": "3c902b46509865df"
+      },
+      "preFixedPointResidual": {
+        "decimal": "2.312964634635743e-16",
+        "binary64Hex": "3cb0aaaaaaaaaaab"
+      },
+      "postLInf": {
+        "decimal": "0",
+        "binary64Hex": "0000000000000000"
+      },
+      "postFixedPointResidual": {
+        "decimal": "0",
+        "binary64Hex": "0000000000000000"
+      },
+      "shellExact": true,
+      "zerosExact": true
+    },
+    "eventChecks": {
+      "passed": true,
+      "details": [
+        "rate tie, four-step event, time chain, and simultaneous orbit pass"
+      ],
+      "ratesTiedPositive": true,
+      "otherRatesZero": true,
+      "attachedNowByStep": [
+        0,
+        0,
+        0,
+        2
+      ],
+      "eventTimeRelativeDifference": {
+        "decimal": "6.564798365823633e-16",
+        "binary64Hex": "3cc7a6f530401a96"
+      }
+    },
+    "ledgerChecks": {
+      "passed": true,
+      "details": [
+        "placed, clipped, demand, vapor, and hole ledgers pass"
+      ],
+      "placedAbsDifference": {
+        "decimal": "0",
+        "binary64Hex": "0000000000000000"
+      },
+      "clippingAbsDifference": {
+        "decimal": "0",
+        "binary64Hex": "0000000000000000"
+      },
+      "demandIdentityAbsResidual": {
+        "decimal": "0",
+        "binary64Hex": "0000000000000000"
+      },
+      "vaporRelativeDifference": {
+        "decimal": "0",
+        "binary64Hex": "0000000000000000"
+      },
+      "holeFillExact": true
+    },
+    "verdict": "fail",
+    "errors": [
+      "monotonicity/bracket/residual scalar check failed"
+    ]
+  },
+  "codeAndImportReceipt": {
+    "protocolBindings": {
+      "foundation": {
+        "path": "research/phase10-c0v-foundation-v1.json",
+        "byteLength": 19412,
+        "sha256": "ddb842588fea19898f9f71a02ce461d5d32ec102b140798e5c62d175521157e8"
+      },
+      "obligationMatrix": {
+        "path": "research/phase10-obligation-matrix-v1.json",
+        "byteLength": 125508,
+        "sha256": "8f85e6febad1ec7568b2a7a47dd764c260cc1f602da08c7dd27d5ee1a6c1bab3"
+      },
+      "schemaRegistry": {
+        "path": "research/phase10-c0v-artifact-schema-registry-v1.json",
+        "byteLength": 117196,
+        "sha256": "d69af84af58af0aff1b5a6a307ef63094439891f0b79357c127035c483c6134d"
+      },
+      "schemaContracts": {
+        "path": "research/phase10-c0v-schema-contracts-v1.json",
+        "byteLength": 93575,
+        "sha256": "be743fbc560e46e60b51132be66ca9381ffa5d7b69bf6b1e21cce500628cf0f6"
+      }
+    },
+    "freezePreflight": {
+      "branch": "phase10/evidence-verification",
+      "head": "cd331b75be4527bab11f3139d968626914a87694",
+      "runtime": "v24.13.1",
+      "trackedWorktreeClean": true,
+      "protocol": {
+        "path": "research/phase10-c0v-moving-protocol-v1.json",
+        "byteLength": 18951,
+        "sha256": "29f3ef332371aa97bfe42e971806831e69fc080b3daa557ca9a9eddba3d259e8"
+      }
+    },
+    "commands": {
+      "derive": "node runner/src/phase10-c0v-reference-derive.ts derive --repository-root . --layer moving --protocol research/phase10-c0v-moving-protocol-v1.json --attempt c0v-moving-reference-20260821-v1 --out out/phase10-c0v-reference-v1/attempts/c0v-moving-reference-20260821-v1",
+      "check": "node runner/src/phase10-c0v-reference-check.ts verify --repository-root . --layer moving --protocol research/phase10-c0v-moving-protocol-v1.json --candidate out/phase10-c0v-reference-v1/attempts/c0v-moving-reference-20260821-v1/reference-candidate.json --receipt out/phase10-c0v-reference-v1/attempts/c0v-moving-reference-20260821-v1/targeted-check.json",
+      "publish": "node runner/src/phase10-c0v-reference-publish.ts publish --repository-root . --layer moving --protocol research/phase10-c0v-moving-protocol-v1.json --candidate out/phase10-c0v-reference-v1/attempts/c0v-moving-reference-20260821-v1/reference-candidate.json --check out/phase10-c0v-reference-v1/attempts/c0v-moving-reference-20260821-v1/targeted-check.json --out evidence/phase10-numerical-verification-v1/c0v-moving-reference.json"
+    },
+    "timestamps": {
+      "deriveStartedAt": "2026-08-22T06:47:07.308Z",
+      "deriveCompletedAt": "2026-08-22T06:47:07.315Z",
+      "checkCompletedAt": "2026-08-22T06:47:14.827Z",
+      "publishCompletedAt": "2026-08-22T07:32:55.406Z"
+    },
+    "codeIdentities": {
+      "generator": {
+        "role": "generator",
+        "modulePath": "runner/src/phase10-c0v-moving-reference-derive.ts",
+        "exportName": "derivePhase10C0VMovingReference",
+        "byteLength": 27751,
+        "sha256": "2900317842c98bc1eacf06d94889c62233966d53833fcbafe49069135f6a7fe2"
+      },
+      "independentChecker": {
+        "role": "independent-checker",
+        "modulePath": "runner/src/phase10-c0v-moving-reference-check.ts",
+        "exportName": "independentlyCheckPhase10C0VMovingReference",
+        "byteLength": 50008,
+        "sha256": "0192036ad7a5dc6e65122ccd7c90be5a2e8ae24033a5aa33e2d9fb10a4bf6972"
+      },
+      "sharedParser": {
+        "role": "shared-parser",
+        "modulePath": "runner/src/phase10-c0v-contracts.ts",
+        "exportName": "parsePhase10C0VMovingProtocol",
+        "byteLength": 144599,
+        "sha256": "95cd7f83a612afd4220b14967fe78f3b200e3d52fa604794a96689b3adf8f653"
+      },
+      "neutralDerive": {
+        "role": "neutral-derive",
+        "modulePath": "runner/src/phase10-c0v-reference-derive.ts",
+        "exportName": "derivePhase10C0VReferenceCandidate",
+        "byteLength": 9450,
+        "sha256": "51e22824cc957058c9cca00be5189394bbc092c644b5428835fdf8a669b64fac"
+      },
+      "neutralCheck": {
+        "role": "neutral-check",
+        "modulePath": "runner/src/phase10-c0v-reference-check.ts",
+        "exportName": "verifyPhase10C0VReferenceCandidate",
+        "byteLength": 11551,
+        "sha256": "3f7a0321af68cd4171c6cf7cff03f5729f9df6f0228892d624317aa0084a3bbb"
+      },
+      "neutralPublish": {
+        "role": "neutral-publish",
+        "modulePath": "runner/src/phase10-c0v-reference-publish.ts",
+        "exportName": "publishPhase10C0VReference",
+        "byteLength": 62359,
+        "sha256": "f4d01873bff83f99820b95ca1485dba0a43f9b59688c23bb93ca893ad9d71b1b"
+      }
+    },
+    "observedImports": {
+      "generator": [
+        {
+          "path": "runner/src/gate4-evidence.ts",
+          "byteLength": 23835,
+          "sha256": "784a8c54741988903f258dc38f711f21afe516441794abd38a1f7eff28d28a87"
+        },
+        {
+          "path": "runner/src/phase10-c0v-contracts.ts",
+          "byteLength": 144599,
+          "sha256": "95cd7f83a612afd4220b14967fe78f3b200e3d52fa604794a96689b3adf8f653"
+        },
+        {
+          "path": "runner/src/phase10-c0v-moving-reference-derive.ts",
+          "byteLength": 27751,
+          "sha256": "2900317842c98bc1eacf06d94889c62233966d53833fcbafe49069135f6a7fe2"
+        }
+      ],
+      "independentChecker": [
+        {
+          "path": "runner/src/gate4-evidence.ts",
+          "byteLength": 23835,
+          "sha256": "784a8c54741988903f258dc38f711f21afe516441794abd38a1f7eff28d28a87"
+        },
+        {
+          "path": "runner/src/phase10-c0v-contracts.ts",
+          "byteLength": 144599,
+          "sha256": "95cd7f83a612afd4220b14967fe78f3b200e3d52fa604794a96689b3adf8f653"
+        },
+        {
+          "path": "runner/src/phase10-c0v-moving-reference-check.ts",
+          "byteLength": 50008,
+          "sha256": "0192036ad7a5dc6e65122ccd7c90be5a2e8ae24033a5aa33e2d9fb10a4bf6972"
+        }
+      ]
+    },
+    "allowedSharedImports": [
+      "runner/src/gate4-evidence.ts",
+      "runner/src/phase10-c0v-contracts.ts"
+    ],
+    "forbiddenImportPatterns": [
+      "core/**",
+      "runner/src/phase10-execution-preflight.ts",
+      "runner/src/phase10-executor-worker.ts",
+      "runner/src/phase10-executor.ts",
+      "solver-cpu/**",
+      "solver-gpu/**"
+    ],
+    "forbiddenImportsObserved": [],
+    "generatorCheckerScientificImportOverlap": [],
+    "pass": true
+  },
+  "comparison": {
+    "method": "independent-reexecution",
+    "expectedOutcome": "pass",
+    "observedOutcome": "fail",
+    "errors": [
+      "monotonicity/bracket/residual scalar check failed"
+    ]
+  },
+  "disposition": "reference-discrepancy-refusal",
+  "claimBoundary": {
+    "allowed": [
+      "artifact-derived generator/checker discrepancy recorded under the exact frozen protocol with no reference or agreement credit"
+    ],
+    "forbidden": [
+      "apparatus agreement",
+      "habit robustness",
+      "independent-check agreement",
+      "mechanism validation",
+      "moving-interface first-event reference generation and independent-check agreement under the exact tiny fixture",
+      "physical realism",
+      "prior-phase credit",
+      "quantitative validation",
+      "reference-frozen disposition",
+      "topology, field, event-time, convergence, and ledger control under the frozen operands"
+    ]
+  }
+}

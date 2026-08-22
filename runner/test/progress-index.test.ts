@@ -133,27 +133,31 @@ function currentIndexErrors(text: string): string[] {
     "conservatively refused",
     "46/46",
     "C0's artifact-derived numerical disposition is criterion NO-PASS",
-    "Phase 10 — repair and freeze the C0V S5b reference/refusal checkpoint",
-    "S5a is complete in this same commit",
+    "Phase 10 — freeze C0V S6 infrastructure before any production run",
+    "S5a is complete at science freeze",
     "package-lock.json` bytes were LF in Git and CRLF in this clean Windows checkout",
     "refused before creating an attempt or",
-    "repaired lifecycle passes 12/12",
     "143/143 files with 2,333 passed",
-    "143/143 files with 2,334 passed",
-    "conservative claim-projection repair",
-    "do not re-run derive or check",
+    "2,334 passed and 49 skipped in 963.10 seconds",
+    "2,334 passed and 49 skipped in 954.36 seconds",
+    "value-inert claim-projection repair",
+    "derive and check did not run",
     "reference-discrepancy-refusal",
     "must never enter `evidence/MANIFEST.json`",
-    "c0v-radial-reference-20260821-v1",
-    "c0v-moving-reference-20260821-v1",
-    "c0v-static-refusal-20260821-v1",
+    "386 files / 5,844,609 bytes",
+    "all 23 still-absent S6 evidence paths",
+    "containing this record is the S5b evidence freeze",
+    "20/20 lifecycle/progress tests",
+    "c0v-radial-reference.json",
+    "c0v-moving-reference.json",
+    "c0v-static-reference-refusal.json",
     "node runner/src/phase10-executor.ts check --packet c0-derive --protocol research/phase10-execution-v1/packets/c0-derive/protocol.json --attempt c0-derive-20260821-v2",
     "node runner/src/phase10-executor.ts run --packet c0-derive --protocol research/phase10-execution-v1/packets/c0-derive/protocol.json --attempt c0-derive-20260821-v2",
     "retained intact and unpublished after its infrastructure refusal",
     "Do not rerun or reuse either derive attempt",
     "Keep all 12 C0 files pinned in the 383-file / 5,300,224-byte evidence manifest",
     "zero-blocker non-author review",
-    "- **Last updated:** 2026-08-21",
+    "- **Last updated:** 2026-08-22",
   ];
   for (const phrase of required) {
     if (!text.includes(phrase)) errors.push(`missing current-state phrase: ${phrase}`);
@@ -260,7 +264,7 @@ describe("compact progress index and byte-exact historical record", () => {
     expect(currentIndexErrors(text)).toEqual([]);
 
     const progressDate = text.match(/^- \*\*Last updated:\*\* (\d{4}-\d{2}-\d{2})/mu)?.[1];
-    expect(progressDate).toBe("2026-08-21");
+    expect(progressDate).toBe("2026-08-22");
     // The handoff mechanism is retired (maker direction 2026-08-20). docs/HANDOFF.md remains
     // only as a tombstone so the byte-frozen archive's HANDOFF.md links keep resolving; it
     // must never carry a live dated snapshot heading again.

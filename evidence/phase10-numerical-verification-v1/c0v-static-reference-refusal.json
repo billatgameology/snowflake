@@ -1,0 +1,299 @@
+{
+  "schema": "phase10-c0v-reference-refusal-v1",
+  "refusalId": "phase10-c0v-static-reference-refusal-v1",
+  "protocolId": "phase10-c0v-static-s5a-v1",
+  "layerId": "C0V-STATIC",
+  "branch": "reference-refusal",
+  "protocol": {
+    "path": "research/phase10-c0v-static-protocol-v1.json",
+    "byteLength": 10473,
+    "sha256": "18bcf8ba641cfd5a9c971a1aa4e520fdf200afa844ca4aadc3f6853a01c779b4"
+  },
+  "freezeCommit": "cf0bd8b6ad12c79e38cb30ca0e50bcadab9cc6d9",
+  "createdAt": "2026-08-22T07:33:09.178Z",
+  "reasonCode": "current-contract-lacks-independent-static-spatial-reference-v1",
+  "unavailableOperands": [
+    "analyticExpectedFieldOrder",
+    "analyticExpectedFluxOrder",
+    "independentContinuumBoundaryFluxReference",
+    "independentContinuumFieldReference",
+    "orderLowerBound"
+  ],
+  "attemptedRoutes": [
+    {
+      "routeId": "public-one-sweep-reconstruction-plus-separate-discrete-replay",
+      "route": "Set public relaxMaxSweeps to one, repeat public relaxField from incomplete, capture public sigma before the accepted one-sweep convergence call, and reconstruct the post-smoother candidate and aggregate diagnostics from public topology, boundary state, and the accepted specification.",
+      "disposition": "available-but-insufficient",
+      "reason": "This route is available and requires no solver contract change, but it replays the accepted discrete operator and therefore supplies implementation agreement and stopping-error evidence rather than an independent continuum/spatial field or flux accuracy reference, expected order, or justified lower bound."
+    },
+    {
+      "routeId": "tolerance-scaled-self-convergence",
+      "route": "Run multiple grid levels while scaling the production relaxation tolerance with spacing and treat the resulting self-convergence slope as absolute accuracy.",
+      "disposition": "forbidden-substitute",
+      "reason": "Self-convergence is not an accuracy reference, and coupling solver tolerance to spacing can manufacture an apparent order from stopping error."
+    }
+  ],
+  "forbiddenSubstitutes": [
+    "same-discrete-replay-as-spatial-accuracy",
+    "self-convergence-as-absolute-accuracy"
+  ],
+  "contractEvidence": {
+    "sourceAudit": {
+      "auditId": "phase10-c0v-static-current-contract-audit-v1",
+      "currentContractOnly": true,
+      "inspectedArtifacts": [
+        {
+          "path": "docs/attachment-kinetics.md",
+          "byteLength": 56814,
+          "sha256": "e245a7355aef6926a0228e69d4dedfc9c68ae311d4d04a210cace33bdf1e1900"
+        },
+        {
+          "path": "solver-cpu/src/lk-solver.ts",
+          "byteLength": 91632,
+          "sha256": "0719b820182d9f8edb954a6d17044f72da02084b6a7b5df58a4b9cb405976062"
+        }
+      ],
+      "publicApiFindings": [
+        {
+          "findingId": "public-one-sweep-reconstruction-available",
+          "operandIds": [
+            "acceptedFinalSweepPreCallField",
+            "postSmootherCandidate",
+            "relaxField",
+            "relaxMaxSweeps",
+            "sigma"
+          ],
+          "visibility": "public-accepted-state",
+          "contractChangeRequired": false,
+          "evidenceLocator": "solver-cpu/src/lk-solver.ts#LKSolver.relaxField-relaxMaxSweeps-incomplete-and-sigma"
+        },
+        {
+          "findingId": "independent-static-spatial-reference-order-not-specified",
+          "operandIds": [
+            "analyticExpectedFieldOrder",
+            "analyticExpectedFluxOrder",
+            "independentContinuumBoundaryFluxReference",
+            "independentContinuumFieldReference",
+            "orderLowerBound"
+          ],
+          "visibility": "not-specified",
+          "contractChangeRequired": false,
+          "evidenceLocator": "docs/attachment-kinetics.md#4.4-the-surface-operator-specification"
+        }
+      ],
+      "executionRecord": {
+        "solverInvocations": 0,
+        "referenceInvocations": 0,
+        "productionInvocations": 0,
+        "witnessesProduced": 0,
+        "numericalEvaluations": 0,
+        "scientificProcessHours": 0
+      }
+    },
+    "codeAndImportReceipt": {
+      "protocolBindings": {
+        "foundation": {
+          "path": "research/phase10-c0v-foundation-v1.json",
+          "byteLength": 19412,
+          "sha256": "ddb842588fea19898f9f71a02ce461d5d32ec102b140798e5c62d175521157e8"
+        },
+        "obligationMatrix": {
+          "path": "research/phase10-obligation-matrix-v1.json",
+          "byteLength": 125508,
+          "sha256": "8f85e6febad1ec7568b2a7a47dd764c260cc1f602da08c7dd27d5ee1a6c1bab3"
+        },
+        "schemaRegistry": {
+          "path": "research/phase10-c0v-artifact-schema-registry-v1.json",
+          "byteLength": 117196,
+          "sha256": "d69af84af58af0aff1b5a6a307ef63094439891f0b79357c127035c483c6134d"
+        },
+        "schemaContracts": {
+          "path": "research/phase10-c0v-schema-contracts-v1.json",
+          "byteLength": 93575,
+          "sha256": "be743fbc560e46e60b51132be66ca9381ffa5d7b69bf6b1e21cce500628cf0f6"
+        }
+      },
+      "freezePreflight": {
+        "branch": "phase10/evidence-verification",
+        "head": "cd331b75be4527bab11f3139d968626914a87694",
+        "runtime": "v24.13.1",
+        "trackedWorktreeClean": true,
+        "protocol": {
+          "path": "research/phase10-c0v-static-protocol-v1.json",
+          "byteLength": 10473,
+          "sha256": "18bcf8ba641cfd5a9c971a1aa4e520fdf200afa844ca4aadc3f6853a01c779b4"
+        }
+      },
+      "commands": {
+        "derive": "node runner/src/phase10-c0v-reference-derive.ts derive --repository-root . --layer static --protocol research/phase10-c0v-static-protocol-v1.json --attempt c0v-static-refusal-20260821-v1 --out out/phase10-c0v-reference-v1/attempts/c0v-static-refusal-20260821-v1",
+        "check": "node runner/src/phase10-c0v-reference-check.ts verify --repository-root . --layer static --protocol research/phase10-c0v-static-protocol-v1.json --candidate out/phase10-c0v-reference-v1/attempts/c0v-static-refusal-20260821-v1/reference-candidate.json --receipt out/phase10-c0v-reference-v1/attempts/c0v-static-refusal-20260821-v1/targeted-check.json",
+        "publish": "node runner/src/phase10-c0v-reference-publish.ts publish --repository-root . --layer static --protocol research/phase10-c0v-static-protocol-v1.json --candidate out/phase10-c0v-reference-v1/attempts/c0v-static-refusal-20260821-v1/reference-candidate.json --check out/phase10-c0v-reference-v1/attempts/c0v-static-refusal-20260821-v1/targeted-check.json --out evidence/phase10-numerical-verification-v1/c0v-static-reference-refusal.json"
+      },
+      "timestamps": {
+        "deriveStartedAt": "2026-08-22T06:47:33.303Z",
+        "deriveCompletedAt": "2026-08-22T06:47:33.373Z",
+        "checkCompletedAt": "2026-08-22T06:47:41.573Z",
+        "publishCompletedAt": "2026-08-22T07:33:09.178Z"
+      },
+      "codeIdentities": {
+        "generator": {
+          "role": "generator",
+          "modulePath": "runner/src/phase10-c0v-static-refusal.ts",
+          "exportName": "derivePhase10C0VStaticRefusal",
+          "byteLength": 14926,
+          "sha256": "de14b58343fc5b0bc58109a1c607a9bb3815bce65730f2995e21342e331798b2"
+        },
+        "independentChecker": {
+          "role": "independent-checker",
+          "modulePath": "runner/src/phase10-c0v-static-refusal-check.ts",
+          "exportName": "independentlyCheckPhase10C0VStaticRefusal",
+          "byteLength": 37885,
+          "sha256": "a2e7d2f2c9d349054eee58d2acbc839d7c719b9c7e5fa31ea6a5a7fe3c5994a7"
+        },
+        "sharedParser": {
+          "role": "shared-parser",
+          "modulePath": "runner/src/phase10-c0v-contracts.ts",
+          "exportName": "parsePhase10C0VStaticProtocol",
+          "byteLength": 144599,
+          "sha256": "95cd7f83a612afd4220b14967fe78f3b200e3d52fa604794a96689b3adf8f653"
+        },
+        "neutralDerive": {
+          "role": "neutral-derive",
+          "modulePath": "runner/src/phase10-c0v-reference-derive.ts",
+          "exportName": "derivePhase10C0VReferenceCandidate",
+          "byteLength": 9450,
+          "sha256": "51e22824cc957058c9cca00be5189394bbc092c644b5428835fdf8a669b64fac"
+        },
+        "neutralCheck": {
+          "role": "neutral-check",
+          "modulePath": "runner/src/phase10-c0v-reference-check.ts",
+          "exportName": "verifyPhase10C0VReferenceCandidate",
+          "byteLength": 11551,
+          "sha256": "3f7a0321af68cd4171c6cf7cff03f5729f9df6f0228892d624317aa0084a3bbb"
+        },
+        "neutralPublish": {
+          "role": "neutral-publish",
+          "modulePath": "runner/src/phase10-c0v-reference-publish.ts",
+          "exportName": "publishPhase10C0VReference",
+          "byteLength": 62359,
+          "sha256": "f4d01873bff83f99820b95ca1485dba0a43f9b59688c23bb93ca893ad9d71b1b"
+        }
+      },
+      "observedImports": {
+        "generator": [
+          {
+            "path": "runner/src/gate4-evidence.ts",
+            "byteLength": 23835,
+            "sha256": "784a8c54741988903f258dc38f711f21afe516441794abd38a1f7eff28d28a87"
+          },
+          {
+            "path": "runner/src/phase10-c0v-contracts.ts",
+            "byteLength": 144599,
+            "sha256": "95cd7f83a612afd4220b14967fe78f3b200e3d52fa604794a96689b3adf8f653"
+          },
+          {
+            "path": "runner/src/phase10-c0v-static-refusal.ts",
+            "byteLength": 14926,
+            "sha256": "de14b58343fc5b0bc58109a1c607a9bb3815bce65730f2995e21342e331798b2"
+          }
+        ],
+        "independentChecker": [
+          {
+            "path": "runner/src/gate4-evidence.ts",
+            "byteLength": 23835,
+            "sha256": "784a8c54741988903f258dc38f711f21afe516441794abd38a1f7eff28d28a87"
+          },
+          {
+            "path": "runner/src/phase10-c0v-contracts.ts",
+            "byteLength": 144599,
+            "sha256": "95cd7f83a612afd4220b14967fe78f3b200e3d52fa604794a96689b3adf8f653"
+          },
+          {
+            "path": "runner/src/phase10-c0v-static-refusal-check.ts",
+            "byteLength": 37885,
+            "sha256": "a2e7d2f2c9d349054eee58d2acbc839d7c719b9c7e5fa31ea6a5a7fe3c5994a7"
+          }
+        ]
+      },
+      "allowedSharedImports": [
+        "runner/src/gate4-evidence.ts",
+        "runner/src/phase10-c0v-contracts.ts"
+      ],
+      "forbiddenImportPatterns": [
+        "core/**",
+        "runner/src/phase10-execution-preflight.ts",
+        "runner/src/phase10-executor-worker.ts",
+        "runner/src/phase10-executor.ts",
+        "solver-cpu/**",
+        "solver-gpu/**"
+      ],
+      "forbiddenImportsObserved": [],
+      "generatorCheckerScientificImportOverlap": [],
+      "pass": true
+    }
+  },
+  "independentCheck": {
+    "schema": "phase10-c0v-static-refusal-check-v1",
+    "protocolId": "phase10-c0v-static-s5a-v1",
+    "method": "independent-current-contract-ground-route-scope-and-zero-execution-check",
+    "groundChecks": {
+      "passed": true,
+      "details": [
+        "frozen source bytes independently establish same-discrete one-sweep reconstruction and the missing independent spatial reference/order contract"
+      ]
+    },
+    "routeChecks": {
+      "passed": true,
+      "details": [
+        "all attempted routes and forbidden substitutes match"
+      ]
+    },
+    "scopeChecks": {
+      "passed": true,
+      "details": [
+        "refusal is limited to the current frozen contract and makes no universal claim"
+      ]
+    },
+    "zeroExecutionChecks": {
+      "passed": true,
+      "details": [
+        "solver, reference, production, witness, numerical-evaluation, and process-hour counters are zero"
+      ]
+    },
+    "verdict": "pass",
+    "errors": []
+  },
+  "executionRecord": {
+    "solverInvocations": 0,
+    "referenceInvocations": 0,
+    "productionInvocations": 0,
+    "witnessesProduced": 0,
+    "numericalEvaluations": 0,
+    "scientificProcessHours": 0
+  },
+  "downstreamEffect": {
+    "earlyReferenceArtifact": "S5b publishes one immutable scoped static reference-refusal artifact from the clean S5a ancestor",
+    "packetCompletion": "the scoped refusal completes the static layer diagnostic without numerical execution, but the generic produce packet's later bookkeeping remains separate",
+    "referenceReopener": "any later callable may only reopen and byte-match the committed refusal; it cannot regenerate, broaden, or reinterpret it",
+    "discrepancyOutcome": "a source-audit/check discrepancy remains a refusal and cannot be repaired by instantiating a grid, solver, norm, or reference value under this protocol",
+    "aggregateRule": "the static refusal prevents aggregate C0V PASS and keeps dependent C5 qualification blocked"
+  },
+  "claimBoundary": {
+    "allowed": [
+      "current-contract scoped static reference-independence refusal",
+      "public accepted state and final-sweep same-discrete reconstruction are acknowledged while the independent-reference and order gap is named",
+      "zero numerical and solver execution under this refusal branch"
+    ],
+    "forbidden": [
+      "all aggregate-v6 replacement operands are unavailable",
+      "apparatus agreement",
+      "habit robustness",
+      "mechanism validation",
+      "physical realism",
+      "prior-phase credit",
+      "quantitative validation",
+      "same-discrete final-sweep reconstruction is unavailable",
+      "universal impossibility of a future independent static reference"
+    ]
+  }
+}

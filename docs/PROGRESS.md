@@ -162,9 +162,9 @@ detail.
   direction) and content stays in-repo unpublished, `test.yml` CI unaffected. Reconciliation is
   a live decision point under **Next step**. Full freeze history:
   [the history file](progress-history-phases-6-8-9.md).
-- **Last updated:** 2026-08-21 (A-P, A-S, bounded structural A-I, and C0 packet PASS evidence
-  published; C0's artifact-derived numerical disposition is criterion NO-PASS; C0V S5a
-  protocols, schemas, and reference/refusal-only code frozen before any reference output)
+- **Last updated:** 2026-08-22 (A-P, A-S, bounded structural A-I, and C0 packet PASS evidence
+  published; C0's artifact-derived numerical disposition is criterion NO-PASS; C0V S5b radial
+  reference, moving discrepancy refusal, and scoped static refusal published and pinned)
 
 ## Phase gates
 
@@ -184,7 +184,7 @@ and every superseded attempt live in the linked plans and historical progress sn
 | 7 | Not started; independently eligible | Charter v1.25 preserves Phase 7's independence but does not start it. A committed Phase 7 plan and isolated worktree are required; product, held-out validation, and v6 WGSL/preview-GPU parity remain its scope. |
 | 8 | **Complete (8A + 8B)** | The immutable 8A book remains 18 entries / 59,019 bytes / SHA-256 `47a75f3f…71ec`. The verified 8B successor is 51 development records, 252,134 native rows and 431 plot points; no row is held out. [Completed plan](plans/phase-8-measurement-corpus.md). |
 | 9 | **Complete (development-only)** | The all-no-pass branch closed: D-BT failed, M-F/M-K2 stayed mapping-dependent, controls/path-state/M-PK are unavailable or non-identifiable, and zero items promoted. Exact `TMPDIR=/private/tmp npm test` passed; no result grants validation credit. [Completed plan](plans/phase-9-execution.md). |
-| 10 | **In progress — A-P/A-S/A-I PASS; C0 packet PASS/complete with numerical criterion NO-PASS** | A-P, A-S, bounded structural A-I PASS evidence, and the complete C0 packet are published and pinned. C0 independently re-derived 80/80 rows and 64/64 comparisons: 36 passed and 28 failed the attached-count criterion, so both spacings and the authoritative all-spacings reduction are NO-PASS ([report](../evidence/phase10-numerical-verification-v1/c0-report.json), SHA-256 `571e62ae…0b72`). C0 executed no solver and grants no absolute-accuracy, habit-robustness, target-score, validation, or prior-phase credit. C0V S5a now freezes the radial/moving independent-reference routes and the scoped static refusal before any reference output or production implementation; S5b is next. Selection still includes no C1–C5 or habit rows. |
+| 10 | **In progress — A-P/A-S/A-I PASS; C0 packet PASS/complete with numerical criterion NO-PASS** | A-P, A-S, bounded structural A-I PASS evidence, and the complete C0 packet are published and pinned. C0 independently re-derived 80/80 rows and 64/64 comparisons: 36 passed and 28 failed the attached-count criterion, so both spacings and the authoritative all-spacings reduction are NO-PASS ([report](../evidence/phase10-numerical-verification-v1/c0-report.json), SHA-256 `571e62ae…0b72`). C0 executed no solver and grants no absolute-accuracy, habit-robustness, target-score, validation, or prior-phase credit. C0V S5b now pins the radial reference, moving `reference-discrepancy-refusal`, and scoped static refusal; S6 production/reopen infrastructure remains unimplemented and no C0V solver has run. Selection still includes no C1–C5 or habit rows. |
 
 ## Active plan
 
@@ -225,10 +225,11 @@ and superseded for execution. It remains the design history for the selected and
 not execution authority. C0 is durably complete at `b8e65f3`. S5 design selected independent
 references for radial and moving controls and the registered preimplementation refusal for static.
 S5a's protocols, successor schema registry, concrete schema contracts, packet supplements, and
-reference/refusal-only tooling enter Git together in the commit containing this record. No C0V
-reference value, refusal output, production-comparison implementation, attempt, or solver run
-preceded that boundary. The active plan records every load-bearing byte identity, the exact suite,
-and two zero-blocker non-author reviews. S5b may start only from this exact clean commit.
+reference/refusal-only tooling entered Git together at the science freeze. S5b then published and
+manifest-pinned the radial reference, moving discrepancy refusal, and scoped static refusal without
+running a solver or production-comparison implementation. The active plan records every
+load-bearing byte identity, exact suite, incident, and zero-blocker non-author reviews. S6 remains
+unimplemented and may only match-reopen these exact committed bytes after its own clean freeze.
 
 The old source-strata/ladder/WP3/R15 prerequisite sentence governed the now-closed Phase 6
 production path. WP3 and R15 closed as not computed under decision 0045; that sentence does not
@@ -238,7 +239,7 @@ the package-specific prerequisites in its charter amendment and execution plan. 
 
 ## Next step
 
-### Phase 10 — repair and freeze the C0V S5b reference/refusal checkpoint
+### Phase 10 — freeze C0V S6 infrastructure before any production run
 
 The maker selected **A-S + A-I + B + C0 + C0V with packet-specific A-P** on 2026-08-21. No
 C1–C5 numerical-qualification or scientific habit row is part of this execution. The
@@ -296,10 +297,11 @@ Exact post-publication `npm test` passed 138/138 files with 2,291 passed and 49 
 seconds. The C0 publication checkpoint is committed at
 `b8e65f39749f120e6d67d5549982f3d743626f68`.
 
-S5a is complete in this same commit. It freezes the radial and moving independent-reference
-protocols, the static reference-refusal protocol, a complete successor C0V schema registry and
-cycle-free schema-contract file, only the three produce-packet supplements/registries, and
-reference/refusal-only generator and independent-check code. The immutable
+S5a is complete at science freeze `cf0bd8b6ad12c79e38cb30ca0e50bcadab9cc6d9`. It freezes the
+radial and moving independent-reference protocols, the static reference-refusal protocol, a
+complete successor C0V schema registry and cycle-free schema-contract file, only the three
+produce-packet supplements/registries, and reference/refusal-only generator and independent-check
+code. The immutable
 [C0V foundation](../research/phase10-c0v-foundation-v1.json), 19,412 bytes / SHA-256
 `ddb842588fea19898f9f71a02ce461d5d32ec102b140798e5c62d175521157e8`, remains the governing
 pre-value boundary. The [successor registry](../research/phase10-c0v-artifact-schema-registry-v1.json),
@@ -351,29 +353,59 @@ and static 13,381 / `181b1bd3eb144d5ec44e180241be31dc273af0db9b82586d76f7b489bd9
 `out/phase10-c0v-reference-v1/superseded/cf0bd8b6ad12c79e38cb30ca0e50bcadab9cc6d9/published/`.
 They must never enter `evidence/MANIFEST.json`.
 
-The in-flight conservative claim-projection repair is value-inert. Its child commit must have
-exact parent/science freeze `cf0bd8b6ad12c79e38cb30ca0e50bcadab9cc6d9` and exactly five changed
-paths: this file, the active plan, the neutral publisher, its lifecycle test, and the progress-index
-test. It raw-compares every protocol, binding, generator, checker, shared parser, and non-publisher
-closure byte to the science freeze. PASS retains the exact protocol claim boundary; FAIL permits
-only an artifact-derived discrepancy record and moves every success/forbidden protocol claim into
-the final forbidden set. The repaired lifecycle passes 12/12 and typecheck is green. Exact
-`npm test` on this five-path correction snapshot passed 143/143 files with 2,334 passed and 49
-skipped in 963.10 seconds. A clean correction child is required before publication.
+The value-inert claim-projection repair is committed at
+`cd331b75be4527bab11f3139d968626914a87694`, the direct child of science freeze
+`cf0bd8b6ad12c79e38cb30ca0e50bcadab9cc6d9`, with exactly the authorized five changed paths.
+Every protocol, binding, generator, checker, shared parser, and non-publisher closure byte remains
+raw-identical to the science freeze. Exact pre-publication `npm test` passed 143/143 files with
+2,334 passed and 49 skipped in 963.10 seconds. From the clean child, only the three registered
+publication commands reopened the retained candidate/check bytes; derive and check did not run
+again.
 
-After that child is committed and clean, do not re-run derive or check. Reopen the exact retained
-candidate/check bytes and run only these three publication commands:
+The three reviewed S5b outputs are now pinned:
 
-```text
-node runner/src/phase10-c0v-reference-publish.ts publish --repository-root . --layer radial --protocol research/phase10-c0v-radial-protocol-v1.json --candidate out/phase10-c0v-reference-v1/attempts/c0v-radial-reference-20260821-v1/reference-candidate.json --check out/phase10-c0v-reference-v1/attempts/c0v-radial-reference-20260821-v1/targeted-check.json --out evidence/phase10-numerical-verification-v1/c0v-radial-reference.json
-node runner/src/phase10-c0v-reference-publish.ts publish --repository-root . --layer moving --protocol research/phase10-c0v-moving-protocol-v1.json --candidate out/phase10-c0v-reference-v1/attempts/c0v-moving-reference-20260821-v1/reference-candidate.json --check out/phase10-c0v-reference-v1/attempts/c0v-moving-reference-20260821-v1/targeted-check.json --out evidence/phase10-numerical-verification-v1/c0v-moving-reference.json
-node runner/src/phase10-c0v-reference-publish.ts publish --repository-root . --layer static --protocol research/phase10-c0v-static-protocol-v1.json --candidate out/phase10-c0v-reference-v1/attempts/c0v-static-refusal-20260821-v1/reference-candidate.json --check out/phase10-c0v-reference-v1/attempts/c0v-static-refusal-20260821-v1/targeted-check.json --out evidence/phase10-numerical-verification-v1/c0v-static-reference-refusal.json
-```
+- [Radial reference](../evidence/phase10-numerical-verification-v1/c0v-radial-reference.json),
+  449,978 bytes / SHA-256 `60800ae66160deedd96f21ecb982301546153057892e8fa68faa54b6251f31e2`,
+  is `reference-frozen`; all four cases pass and the artifact-derived maximum generator/checker
+  disagreement is `1.978373880025239e-15` against its frozen `1e-13` tolerance.
+- [Moving reference](../evidence/phase10-numerical-verification-v1/c0v-moving-reference.json),
+  81,026 bytes / SHA-256 `5419efd63ba03822159e573708637265ff6f09653e061ee7a4932e09f34e6386`,
+  is `reference-discrepancy-refusal`. Topology, field, event, and ledger groups pass, but its scalar
+  aggregate retains the sole error `monotonicity/bracket/residual scalar check failed`; the allowed
+  claim records only the discrepancy with no reference or agreement credit.
+- [Static refusal](../evidence/phase10-numerical-verification-v1/c0v-static-reference-refusal.json),
+  13,381 bytes / SHA-256 `6e1e10c54f0262bcaf701996dfde52953b52afa9f9dc918b31daa1b680c179ea`,
+  records scoped reason `current-contract-lacks-independent-static-spatial-reference-v1` with all
+  six execution counters zero.
 
-S5b then pins those three early-produced matrix outputs in `evidence/MANIFEST.json`, runs exact
-`npm test`, obtains a bounded non-author review, and commits the reference freeze. This does not
-close any produce packet; S6 must reopen the exact committed bytes and separately publish each
-packet's attempt ledger, receipts, branch-applicable witness/evaluation, layer result, and aggregate.
+Together they add 544,385 bytes. [`evidence/MANIFEST.json`](../evidence/MANIFEST.json), 64,274
+bytes / SHA-256 `78900f9a61db451ccf16ef2c703d6906504f0af36b2e16effd540248c92c13ee`,
+now pins 386 files / 5,844,609 bytes. A non-author OpenAI Codex GPT-5-family science reviewer with
+full shared context independently re-executed the radial formulas, moving topology/event/ledger and
+binary64 checks, static source/API grounds, import independence, hashes, and freeze ancestry. A
+separate non-author OpenAI Codex GPT-5 integration reviewer with full shared context re-executed the
+production freeze inspector, strict/canonical parsing, binding/projection checks, manifest
+arithmetic, and the 20/20 lifecycle/progress tests. Both reported zero blockers. Neither reviewer
+ran derive/check/publish, a solver, S6, or full `npm test`, or opened Phase 6 inputs/evidence. The
+generic envelope parser alone does not enforce claim/disposition linkage; exact publisher
+projection, no-overwrite publication, manifest hashing, and required S6 byte matching are the
+bounded protection.
+
+The first post-pinning exact `npm test` correctly failed one stale S5a-era assertion that required
+every S5b path to remain absent. The repaired schema-promotion test now pins the exact three selected
+outputs, rejects the three unselected branches, and derives all 23 still-absent S6 evidence paths
+from the frozen obligation matrix. On those stable bytes, exact `npm test` passed 143/143 files with
+2,334 passed and 49 skipped in 954.36 seconds, including Rule 7 and both typechecks. The commit
+containing this record is the S5b evidence freeze. S5b closes no produce packet and never runs a
+solver.
+
+Next, implement and freeze the S6 match-only reopener, packet receipts, branch-applicable
+production/evaluation code, layer results, and aggregate before any production command runs. S6
+must byte-match the manifest-pinned S5b artifacts and may never regenerate or tune them. Radial is
+the only layer with a `reference-frozen` artifact that can authorize production; moving must carry
+its discrepancy refusal and static its scoped refusal through match-only closure, with no solver,
+witness, or numerical evaluator for either refusal. Do not run a C0V solver until that separate S6
+implementation checkpoint has exact `npm test` and a non-author audit on a clean committed head.
 The static refusal is required
 because the current contract supplies no admissible independent continuum field/flux reference,
 expected spatial order, or justified order lower bound. The public one-sweep retry path can recover

@@ -3,8 +3,8 @@
  "movedFrom": "out/ (gitignored), plus the byte-identical tracked arm64 fingerprint formerly under docs/",
  "movedTo": "evidence/ (tracked)",
  "note": "Historical sweep digests were computed before their move and re-verified afterward. The arm64 fingerprint preserves the exact former docs/ Git blob (18398 bytes, SHA-256 d6686f8e...). The x64 fingerprint is the complete 2026-08-01 lightweight fixture re-execution backing the exact per-entry comparison; it reproduces registered digest 2a9f64b3. These are preserved claim-backing bytes, not regenerated production sweeps.",
- "fileCount": 383,
- "totalBytes": 5300224,
+ "fileCount": 386,
+ "totalBytes": 5844609,
  "files": {
   "phase6-crossplatform/arm64-libm-fingerprint.txt": {
    "bytes": 18398,
@@ -513,6 +513,18 @@
   "phase10-numerical-verification-v1/c0-verification.json": {
    "bytes": 3818,
    "sha256": "f6114ce1b3ca254b9ec355c53f3ef7d5bf8de1877c10d69e0e87b9c788e2fa2f"
+  },
+  "phase10-numerical-verification-v1/c0v-moving-reference.json": {
+   "bytes": 81026,
+   "sha256": "5419efd63ba03822159e573708637265ff6f09653e061ee7a4932e09f34e6386"
+  },
+  "phase10-numerical-verification-v1/c0v-radial-reference.json": {
+   "bytes": 449978,
+   "sha256": "60800ae66160deedd96f21ecb982301546153057892e8fa68faa54b6251f31e2"
+  },
+  "phase10-numerical-verification-v1/c0v-static-reference-refusal.json": {
+   "bytes": 13381,
+   "sha256": "6e1e10c54f0262bcaf701996dfde52953b52afa9f9dc918b31daa1b680c179ea"
   },
   "phase10-obligation-preflight-v1/artifact-index.json": {
    "bytes": 4078,

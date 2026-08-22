@@ -255,12 +255,59 @@ describe("Phase 10 C0V schema promotion", () => {
     }
   });
 
-  it("contains no S5b reference/refusal or S6 production artifacts", () => {
-    for (const layer of ["radial", "moving", "static"]) {
-      for (const suffix of ["reference.json", "reference-refusal.json", "witness.bin", "evaluation.json", "result.json", "attempts.jsonl"]) {
-        expect(existsSync(join(ROOT, `evidence/phase10-numerical-verification-v1/c0v-${layer}-${suffix}`)))
-          .toBe(false);
-      }
+  it("pins the exact S5b reference/refusal outputs while every S6 production artifact remains absent", () => {
+    const published = {
+      "evidence/phase10-numerical-verification-v1/c0v-radial-reference.json": {
+        byteLength: 449978,
+        sha256: "60800ae66160deedd96f21ecb982301546153057892e8fa68faa54b6251f31e2",
+      },
+      "evidence/phase10-numerical-verification-v1/c0v-moving-reference.json": {
+        byteLength: 81026,
+        sha256: "5419efd63ba03822159e573708637265ff6f09653e061ee7a4932e09f34e6386",
+      },
+      "evidence/phase10-numerical-verification-v1/c0v-static-reference-refusal.json": {
+        byteLength: 13381,
+        sha256: "6e1e10c54f0262bcaf701996dfde52953b52afa9f9dc918b31daa1b680c179ea",
+      },
+    } as const;
+    for (const [path, expected] of Object.entries(published)) {
+      expect(existsSync(join(ROOT, path)), `${path} is absent`).toBe(true);
+      expect(identity(path), `${path} identity`).toEqual(expected);
+    }
+
+    const referenceOutputIds = new Set([
+      "out-c0v-radial-reference",
+      "out-c0v-radial-reference-refusal",
+      "out-c0v-moving-reference",
+      "out-c0v-moving-reference-refusal",
+      "out-c0v-static-reference",
+      "out-c0v-static-reference-refusal",
+    ]);
+    for (const path of [
+      "evidence/phase10-numerical-verification-v1/c0v-radial-reference-refusal.json",
+      "evidence/phase10-numerical-verification-v1/c0v-moving-reference-refusal.json",
+      "evidence/phase10-numerical-verification-v1/c0v-static-reference.json",
+    ]) {
+      expect(existsSync(join(ROOT, path)), `${path} is an unselected S5b branch`).toBe(false);
+    }
+
+    const matrix = json<{
+      readonly outputs: readonly {
+        readonly outputId: string;
+        readonly artifact: { readonly path: string | null };
+      }[];
+    }>(MATRIX_PATH);
+    const futureEvidencePaths = matrix.outputs
+      .filter((row) =>
+        row.outputId.startsWith("out-c0v-")
+        && !referenceOutputIds.has(row.outputId)
+        && typeof row.artifact.path === "string"
+        && row.artifact.path.startsWith("evidence/"))
+      .map((row) => row.artifact.path as string);
+    expect(futureEvidencePaths).toHaveLength(23);
+    expect(new Set(futureEvidencePaths).size).toBe(futureEvidencePaths.length);
+    for (const path of futureEvidencePaths) {
+      expect(existsSync(join(ROOT, path)), `${path} is an S6 artifact`).toBe(false);
     }
   });
 });

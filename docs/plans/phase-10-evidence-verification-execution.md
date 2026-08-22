@@ -228,14 +228,14 @@ collection.
   derive and independently check a reference or refusal. Run exact `npm test` and one bounded
   non-author audit. No reference output, production-comparison implementation, or solver run may
   precede this checkpoint.
-- [ ] **S5b — freeze C0V references and the static refusal.** From the clean S5a commit, produce
+- [x] **S5b — freeze C0V references and the static refusal.** From the clean S5a commit, produce
   and independently check the radial and moving reference artifacts and the static
   preimplementation refusal, pin them in `evidence/MANIFEST.json`, run exact `npm test`, obtain one
   bounded non-author review, and commit the reference freeze. A layer reference that cannot remain
   independent closes as a refusal; production implementation remains forbidden until this commit.
-- [ ] **S6 — implement and execute C0V.** For independent-reference branches, build separate
-  production producers and artifact-derived evaluators. For a refusal branch, add only the
-  match-only refusal reopener, refusal-validity evaluator, receipts, and result—never a solver,
+- [ ] **S6 — implement and execute C0V.** For an independently checked `reference-frozen` branch,
+  build separate production producers and artifact-derived evaluators. For a refusal branch, add
+  only the match-only refusal reopener, refusal-validity evaluator, receipts, and result—never a solver,
   witness, or numerical evaluator. Run packet preflight, execute only the branch-applicable frozen
   controls, retain all attempts, and publish one terminal PASS/FAIL/REFUSAL result per layer plus
   the aggregate verdict.
@@ -931,14 +931,51 @@ agreement/reference-frozen claims into `forbidden`; an adversarial restored succ
 rejected by exact no-overwrite publication.
 
 Exact `npm test` on the five-path correction snapshot passed 143/143 files with 2,334 passed and
-49 skipped in 963.10 seconds, including Rule 7 and both typechecks. After the clean correction
-child, S5b must reopen the retained candidate/check
-bytes and run only the three publish commands in `docs/PROGRESS.md`; derive and check must not run
-again. Replacement outputs must bind top-level science freeze `cf0bd8b…`, the child publication
-freeze and corrected neutral publisher in their code/import receipt, and the original
-candidate/check identities and scientific verdicts. Only after bounded non-author re-review may the
-three replacements enter `evidence/MANIFEST.json`, followed by exact `npm test` and the separate
-S5b evidence-freeze commit. S5b closes no produce packet and never runs a solver.
+49 skipped in 963.10 seconds, including Rule 7 and both typechecks. The correction was committed as
+`cd331b75be4527bab11f3139d968626914a87694`, the direct child of `cf0bd8b6…`, with exactly the
+authorized five-path diff. Its production freeze inspector passed for all three layers. From that
+clean child, S5b ran only the three registered publish commands, reopening the original retained
+candidate/check bytes without re-running derive or check.
+
+| Reviewed replacement output | Bytes | SHA-256 | Disposition |
+|---|---:|---|---|
+| `evidence/phase10-numerical-verification-v1/c0v-radial-reference.json` | 449,978 | `60800ae66160deedd96f21ecb982301546153057892e8fa68faa54b6251f31e2` | `reference-frozen`; comparison PASS |
+| `evidence/phase10-numerical-verification-v1/c0v-moving-reference.json` | 81,026 | `5419efd63ba03822159e573708637265ff6f09653e061ee7a4932e09f34e6386` | `reference-discrepancy-refusal`; comparison FAIL |
+| `evidence/phase10-numerical-verification-v1/c0v-static-reference-refusal.json` | 13,381 | `6e1e10c54f0262bcaf701996dfde52953b52afa9f9dc918b31daa1b680c179ea` | scoped preimplementation refusal |
+
+The replacements total 544,385 bytes. The radial artifact passes all four cases and records maximum
+generator/checker disagreement `1.978373880025239e-15` against frozen tolerance `1e-13`. The moving
+artifact preserves passing topology, field, event, and ledger groups but retains sole scalar error
+`monotonicity/bracket/residual scalar check failed`; its only allowed claim records the discrepancy
+with no reference or agreement credit. Its compound `initialState` keeps the pre-sweep source in
+`fieldRows` and the one-sweep post-boundary cache in `boundaryRows`; it is not one bit-identical
+accepted post-sweep snapshot. The static artifact preserves scoped reason
+`current-contract-lacks-independent-static-spatial-reference-v1` with all six execution counters
+zero. No scientific value, tolerance, verdict, error, candidate, or check output changed across the
+repair.
+
+A non-author OpenAI Codex GPT-5-family science reviewer with full shared context independently
+re-executed the radial formulas, moving topology/event/ledger, drift-bound and binary64 checks,
+static source/API grounds, hash/import-independence checks, and freeze ancestry and reported zero
+blockers. It did not edit, run a registered command, solver, S6, or full `npm test`, or inspect Phase
+6 inputs/evidence, NAS/private bytes, or timestamps externally. A separate non-author OpenAI Codex
+GPT-5 integration reviewer with full shared context independently re-executed the production freeze
+inspector, strict/canonical parsing, binding/projection checks, manifest arithmetic, and 20/20
+lifecycle/progress tests and reported zero blockers. It did not edit, stage, commit, run a registered
+command, solver, S6, or full `npm test`, or inspect Phase 6 inputs/evidence. The generic reference
+envelope parser alone accepts a structurally valid restored success boundary; the evidence path is
+instead bounded by exact publisher projection, no-overwrite publication, manifest hashing, and
+required S6 byte matching, so no parser-side semantic enforcement is claimed.
+
+`evidence/MANIFEST.json`, 64,274 bytes / SHA-256
+`78900f9a61db451ccf16ef2c703d6906504f0af36b2e16effd540248c92c13ee`, now pins 386 files /
+5,844,609 bytes including the three replacements. The first post-pinning exact `npm test` failed
+one stale S5a-era schema-promotion assertion that still required every S5b path to be absent. The
+repaired test pins the exact three selected outputs, rejects all three unselected branch paths, and
+derives the complete 23-path S6 absence roster from the frozen obligation matrix. On that stable
+snapshot, exact `npm test` passed 143/143 files with 2,334 passed and 49 skipped in 954.36 seconds,
+including Rule 7 and both typechecks. The commit containing this paragraph is the separate S5b
+evidence freeze. S5b closes no produce packet and never runs a solver.
 
 ## Return and stop rules
 
