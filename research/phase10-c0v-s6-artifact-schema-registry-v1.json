@@ -1,0 +1,374 @@
+{
+  "schema": "phase10-c0v-s6-artifact-schema-registry-v1",
+  "registryId": "phase10-c0v-s6-successor-artifact-schemas-v1",
+  "createdOn": "2026-08-22",
+  "bindings": {
+    "predecessorRegistry": {
+      "path": "research/phase10-c0v-artifact-schema-registry-v1.json",
+      "byteLength": 117196,
+      "sha256": "d69af84af58af0aff1b5a6a307ef63094439891f0b79357c127035c483c6134d"
+    },
+    "predecessorContracts": {
+      "path": "research/phase10-c0v-schema-contracts-v1.json",
+      "byteLength": 93575,
+      "sha256": "be743fbc560e46e60b51132be66ca9381ffa5d7b69bf6b1e21cce500628cf0f6"
+    },
+    "successorContracts": {
+      "path": "research/phase10-c0v-s6-schema-contracts-v1.json",
+      "byteLength": 91419,
+      "sha256": "2de3d788eef2ffd893871d3507bb0d44c09a5c689f6ef2b43ade31638d702436"
+    }
+  },
+  "overridePolicy": {
+    "mode": "scoped-output-schema-replacement-and-addition",
+    "allowedPacketIds": [
+      "a-p-c0v-s6",
+      "c0v-moving-produce",
+      "c0v-moving-publish",
+      "c0v-radial-produce",
+      "c0v-radial-publish",
+      "c0v-static-produce",
+      "c0v-static-publish",
+      "c0v-aggregate"
+    ],
+    "addedOutputIds": [
+      "out-ap-c0v-s6-preflight",
+      "out-ap-c0v-s6-terminal-receipt",
+      "out-ap-c0v-s6-verification",
+      "out-c0v-aggregate-preflight",
+      "out-c0v-aggregate-terminal-receipt",
+      "out-c0v-moving-produce-preflight",
+      "out-c0v-moving-produce-terminal-receipt",
+      "out-c0v-moving-produce-verification",
+      "out-c0v-moving-publish-preflight",
+      "out-c0v-moving-publish-terminal-receipt",
+      "out-c0v-radial-produce-preflight",
+      "out-c0v-radial-produce-terminal-receipt",
+      "out-c0v-radial-produce-verification",
+      "out-c0v-radial-publish-preflight",
+      "out-c0v-radial-publish-terminal-receipt",
+      "out-c0v-static-produce-preflight",
+      "out-c0v-static-produce-terminal-receipt",
+      "out-c0v-static-produce-verification",
+      "out-c0v-static-publish-preflight",
+      "out-c0v-static-publish-terminal-receipt"
+    ],
+    "overriddenOutputIds": [
+      "out-c0v-aggregate-verification",
+      "out-c0v-moving-attempt-ledger",
+      "out-c0v-moving-publish-verification",
+      "out-c0v-radial-attempt-ledger",
+      "out-c0v-radial-publish-verification",
+      "out-c0v-radial-result",
+      "out-c0v-static-attempt-ledger",
+      "out-c0v-static-publish-verification"
+    ],
+    "pathMutationAllowed": false,
+    "predecessorMutationAllowed": false,
+    "otherDuplicateSchemaIdsAllowed": false
+  },
+  "publicationSchemaRule": "every-s6-published-output-schema-and-binding-registered-exactly-once",
+  "schemas": [
+    {
+      "schemaId": "phase10-c0v-attempt-row-v2",
+      "state": "defined",
+      "format": "jsonl-row",
+      "contract": {
+        "path": "research/phase10-c0v-s6-schema-contracts-v1.json",
+        "byteLength": 91419,
+        "sha256": "2de3d788eef2ffd893871d3507bb0d44c09a5c689f6ef2b43ade31638d702436",
+        "pointer": "/schemas/phase10-c0v-attempt-row-v2"
+      },
+      "outputBindings": [
+        {
+          "bindingKind": "supersedes",
+          "packetId": "c0v-moving-produce",
+          "outputId": "out-c0v-moving-attempt-ledger",
+          "path": "evidence/phase10-numerical-verification-v1/c0v-moving-attempts.jsonl",
+          "previousSchemaId": "phase10-c0v-attempt-row-v1"
+        },
+        {
+          "bindingKind": "supersedes",
+          "packetId": "c0v-radial-produce",
+          "outputId": "out-c0v-radial-attempt-ledger",
+          "path": "evidence/phase10-numerical-verification-v1/c0v-radial-attempts.jsonl",
+          "previousSchemaId": "phase10-c0v-attempt-row-v1"
+        },
+        {
+          "bindingKind": "supersedes",
+          "packetId": "c0v-static-produce",
+          "outputId": "out-c0v-static-attempt-ledger",
+          "path": "evidence/phase10-numerical-verification-v1/c0v-static-attempts.jsonl",
+          "previousSchemaId": "phase10-c0v-attempt-row-v1"
+        }
+      ],
+      "requiredBeforePacketIds": [
+        "a-p-c0v-s6",
+        "c0v-moving-produce",
+        "c0v-radial-produce",
+        "c0v-static-produce"
+      ]
+    },
+    {
+      "schemaId": "phase10-c0v-radial-result-v2",
+      "state": "defined",
+      "format": "json",
+      "contract": {
+        "path": "research/phase10-c0v-s6-schema-contracts-v1.json",
+        "byteLength": 91419,
+        "sha256": "2de3d788eef2ffd893871d3507bb0d44c09a5c689f6ef2b43ade31638d702436",
+        "pointer": "/schemas/phase10-c0v-radial-result-v2"
+      },
+      "outputBindings": [
+        {
+          "bindingKind": "supersedes",
+          "packetId": "c0v-radial-publish",
+          "outputId": "out-c0v-radial-result",
+          "path": "evidence/phase10-numerical-verification-v1/c0v-radial-result.json",
+          "previousSchemaId": "phase10-c0v-radial-result-v1"
+        }
+      ],
+      "requiredBeforePacketIds": [
+        "a-p-c0v-s6",
+        "c0v-radial-publish"
+      ]
+    },
+    {
+      "schemaId": "phase10-c0v-s6-preflight-receipt-v2",
+      "state": "defined",
+      "format": "json",
+      "contract": {
+        "path": "research/phase10-c0v-s6-schema-contracts-v1.json",
+        "byteLength": 91419,
+        "sha256": "2de3d788eef2ffd893871d3507bb0d44c09a5c689f6ef2b43ade31638d702436",
+        "pointer": "/schemas/phase10-c0v-s6-preflight-receipt-v2"
+      },
+      "outputBindings": [
+        {
+          "bindingKind": "added",
+          "packetId": "a-p-c0v-s6",
+          "outputId": "out-ap-c0v-s6-preflight",
+          "path": "evidence/phase10-obligation-preflight-v2/packets/a-p-c0v-s6/preflight.json",
+          "previousSchemaId": null
+        },
+        {
+          "bindingKind": "added",
+          "packetId": "c0v-moving-produce",
+          "outputId": "out-c0v-moving-produce-preflight",
+          "path": "evidence/phase10-obligation-preflight-v2/packets/c0v-moving-produce/preflight.json",
+          "previousSchemaId": null
+        },
+        {
+          "bindingKind": "added",
+          "packetId": "c0v-moving-publish",
+          "outputId": "out-c0v-moving-publish-preflight",
+          "path": "evidence/phase10-obligation-preflight-v2/packets/c0v-moving-publish/preflight.json",
+          "previousSchemaId": null
+        },
+        {
+          "bindingKind": "added",
+          "packetId": "c0v-radial-produce",
+          "outputId": "out-c0v-radial-produce-preflight",
+          "path": "evidence/phase10-obligation-preflight-v2/packets/c0v-radial-produce/preflight.json",
+          "previousSchemaId": null
+        },
+        {
+          "bindingKind": "added",
+          "packetId": "c0v-radial-publish",
+          "outputId": "out-c0v-radial-publish-preflight",
+          "path": "evidence/phase10-obligation-preflight-v2/packets/c0v-radial-publish/preflight.json",
+          "previousSchemaId": null
+        },
+        {
+          "bindingKind": "added",
+          "packetId": "c0v-static-produce",
+          "outputId": "out-c0v-static-produce-preflight",
+          "path": "evidence/phase10-obligation-preflight-v2/packets/c0v-static-produce/preflight.json",
+          "previousSchemaId": null
+        },
+        {
+          "bindingKind": "added",
+          "packetId": "c0v-static-publish",
+          "outputId": "out-c0v-static-publish-preflight",
+          "path": "evidence/phase10-obligation-preflight-v2/packets/c0v-static-publish/preflight.json",
+          "previousSchemaId": null
+        },
+        {
+          "bindingKind": "added",
+          "packetId": "c0v-aggregate",
+          "outputId": "out-c0v-aggregate-preflight",
+          "path": "evidence/phase10-obligation-preflight-v2/packets/c0v-aggregate/preflight.json",
+          "previousSchemaId": null
+        }
+      ],
+      "requiredBeforePacketIds": [
+        "a-p-c0v-s6",
+        "c0v-moving-produce",
+        "c0v-moving-publish",
+        "c0v-radial-produce",
+        "c0v-radial-publish",
+        "c0v-static-produce",
+        "c0v-static-publish",
+        "c0v-aggregate"
+      ]
+    },
+    {
+      "schemaId": "phase10-c0v-s6-terminal-receipt-v2",
+      "state": "defined",
+      "format": "json",
+      "contract": {
+        "path": "research/phase10-c0v-s6-schema-contracts-v1.json",
+        "byteLength": 91419,
+        "sha256": "2de3d788eef2ffd893871d3507bb0d44c09a5c689f6ef2b43ade31638d702436",
+        "pointer": "/schemas/phase10-c0v-s6-terminal-receipt-v2"
+      },
+      "outputBindings": [
+        {
+          "bindingKind": "added",
+          "packetId": "a-p-c0v-s6",
+          "outputId": "out-ap-c0v-s6-terminal-receipt",
+          "path": "evidence/phase10-obligation-preflight-v2/packets/a-p-c0v-s6/terminal-receipt.json",
+          "previousSchemaId": null
+        },
+        {
+          "bindingKind": "added",
+          "packetId": "c0v-moving-produce",
+          "outputId": "out-c0v-moving-produce-terminal-receipt",
+          "path": "evidence/phase10-obligation-preflight-v2/packets/c0v-moving-produce/terminal-receipt.json",
+          "previousSchemaId": null
+        },
+        {
+          "bindingKind": "added",
+          "packetId": "c0v-moving-publish",
+          "outputId": "out-c0v-moving-publish-terminal-receipt",
+          "path": "evidence/phase10-obligation-preflight-v2/packets/c0v-moving-publish/terminal-receipt.json",
+          "previousSchemaId": null
+        },
+        {
+          "bindingKind": "added",
+          "packetId": "c0v-radial-produce",
+          "outputId": "out-c0v-radial-produce-terminal-receipt",
+          "path": "evidence/phase10-obligation-preflight-v2/packets/c0v-radial-produce/terminal-receipt.json",
+          "previousSchemaId": null
+        },
+        {
+          "bindingKind": "added",
+          "packetId": "c0v-radial-publish",
+          "outputId": "out-c0v-radial-publish-terminal-receipt",
+          "path": "evidence/phase10-obligation-preflight-v2/packets/c0v-radial-publish/terminal-receipt.json",
+          "previousSchemaId": null
+        },
+        {
+          "bindingKind": "added",
+          "packetId": "c0v-static-produce",
+          "outputId": "out-c0v-static-produce-terminal-receipt",
+          "path": "evidence/phase10-obligation-preflight-v2/packets/c0v-static-produce/terminal-receipt.json",
+          "previousSchemaId": null
+        },
+        {
+          "bindingKind": "added",
+          "packetId": "c0v-static-publish",
+          "outputId": "out-c0v-static-publish-terminal-receipt",
+          "path": "evidence/phase10-obligation-preflight-v2/packets/c0v-static-publish/terminal-receipt.json",
+          "previousSchemaId": null
+        },
+        {
+          "bindingKind": "added",
+          "packetId": "c0v-aggregate",
+          "outputId": "out-c0v-aggregate-terminal-receipt",
+          "path": "evidence/phase10-obligation-preflight-v2/packets/c0v-aggregate/terminal-receipt.json",
+          "previousSchemaId": null
+        }
+      ],
+      "requiredBeforePacketIds": [
+        "a-p-c0v-s6",
+        "c0v-moving-produce",
+        "c0v-moving-publish",
+        "c0v-radial-produce",
+        "c0v-radial-publish",
+        "c0v-static-produce",
+        "c0v-static-publish",
+        "c0v-aggregate"
+      ]
+    },
+    {
+      "schemaId": "phase10-packet-verification-v2",
+      "state": "defined",
+      "format": "json",
+      "contract": {
+        "path": "research/phase10-c0v-s6-schema-contracts-v1.json",
+        "byteLength": 91419,
+        "sha256": "2de3d788eef2ffd893871d3507bb0d44c09a5c689f6ef2b43ade31638d702436",
+        "pointer": "/schemas/phase10-packet-verification-v2"
+      },
+      "outputBindings": [
+        {
+          "bindingKind": "added",
+          "packetId": "a-p-c0v-s6",
+          "outputId": "out-ap-c0v-s6-verification",
+          "path": "evidence/phase10-obligation-preflight-v2/verification.json",
+          "previousSchemaId": null
+        },
+        {
+          "bindingKind": "added",
+          "packetId": "c0v-moving-produce",
+          "outputId": "out-c0v-moving-produce-verification",
+          "path": "evidence/phase10-obligation-preflight-v2/packets/c0v-moving-produce/verification.json",
+          "previousSchemaId": null
+        },
+        {
+          "bindingKind": "supersedes",
+          "packetId": "c0v-moving-publish",
+          "outputId": "out-c0v-moving-publish-verification",
+          "path": "evidence/phase10-numerical-verification-v1/c0v-moving-publish-verification.json",
+          "previousSchemaId": "phase10-packet-verification-v1"
+        },
+        {
+          "bindingKind": "added",
+          "packetId": "c0v-radial-produce",
+          "outputId": "out-c0v-radial-produce-verification",
+          "path": "evidence/phase10-obligation-preflight-v2/packets/c0v-radial-produce/verification.json",
+          "previousSchemaId": null
+        },
+        {
+          "bindingKind": "supersedes",
+          "packetId": "c0v-radial-publish",
+          "outputId": "out-c0v-radial-publish-verification",
+          "path": "evidence/phase10-numerical-verification-v1/c0v-radial-publish-verification.json",
+          "previousSchemaId": "phase10-packet-verification-v1"
+        },
+        {
+          "bindingKind": "added",
+          "packetId": "c0v-static-produce",
+          "outputId": "out-c0v-static-produce-verification",
+          "path": "evidence/phase10-obligation-preflight-v2/packets/c0v-static-produce/verification.json",
+          "previousSchemaId": null
+        },
+        {
+          "bindingKind": "supersedes",
+          "packetId": "c0v-static-publish",
+          "outputId": "out-c0v-static-publish-verification",
+          "path": "evidence/phase10-numerical-verification-v1/c0v-static-publish-verification.json",
+          "previousSchemaId": "phase10-packet-verification-v1"
+        },
+        {
+          "bindingKind": "supersedes",
+          "packetId": "c0v-aggregate",
+          "outputId": "out-c0v-aggregate-verification",
+          "path": "evidence/phase10-numerical-verification-v1/c0v-aggregate-verification.json",
+          "previousSchemaId": "phase10-packet-verification-v1"
+        }
+      ],
+      "requiredBeforePacketIds": [
+        "a-p-c0v-s6",
+        "c0v-moving-produce",
+        "c0v-moving-publish",
+        "c0v-radial-produce",
+        "c0v-radial-publish",
+        "c0v-static-produce",
+        "c0v-static-publish",
+        "c0v-aggregate"
+      ]
+    }
+  ]
+}

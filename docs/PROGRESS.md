@@ -148,6 +148,84 @@ detail.
   overly broad repository-root `rg` printed matching real ladder-row lines to tool stdout. No value
   was analyzed or used, no output was retained or published, and that author is excluded from the
   unopened-input independent review; the active plan records the exact command and limit.
+- **Phase 10 C0V S6 implementation is in flight (2026-08-22; no execution credit).** The dedicated
+  parent-side preflight observer now reopens both locks, Git/manifest authority, the exact baseline
+  and accepted-prefix physical-copy census, parent-monotonic process totals, dependencies,
+  projections, and the single admissible pass/refusal route. It recursively rejects unknown,
+  aliased, or hard-linked files under the governed publication, baseline, attempt, and lock roots;
+  supported prior prefixes are independently deep-reproved before preflight publication, while
+  later prefixes remain fail-closed pending their acyclic adapters. The historical root
+  `.gitattributes` is byte-identical to its Phase 8 freeze; scoped child rules preserve raw source
+  bytes, while root-only metadata uses HEAD-blob plus Git-filter equivalence. The packet catalogue
+  now freezes the exact parent-executor and worker-dispatcher exports plus the bounded canonical
+  JSONL/ACK transport; the implementation-freeze evaluator independently audits both complete
+  raw import closures, direct exports, external packages, builtins, forbidden paths/hooks, and
+  TypeScript parser-runtime receipt without treating either orchestrator as a claim callable.
+  The exact lock-issued watchdog is now authenticated against the same active `run` locks and
+  authority and synchronously checked around preflight/final publication and lock-cleanup
+  eligibility; an overrun after packet-lock cleanup retains the package lock. Both runtime
+  entrypoints also require empty `process.execArgv`, reject case-insensitive `NODE*`/`TS_NODE*`
+  environment keys visible at entry, and independently require the complete exact nine-row worker
+  environment; the parent now constructs only that catalogue roster and clones no ambient value.
+  A read-only host probe observed exactly those nine Node keys and resolved the roster's clean PATH
+  to `git version 2.35.1.windows.2`; it ran no protocol, solver, or output command.
+  This does not exclude a self-erasing preload that ran before either entrypoint: a separately
+  frozen external pre-Node launcher and its sixteen command/host-trust authorities remain an
+  explicit blocker before implementation freeze. The active plan now freezes the proposed native
+  C/CreateProcessW-or-execve catalogue shape, physical Node/Git identities, clean child environment,
+  authenticated private launcher channel, cwd/argv, and source/build resolution boundary. The
+  design-state catalogue/parser rows are present, but source, compiler/build receipt, binary
+  identity, and command rewrites remain deliberately absent. A static marker is explicitly
+  non-authorizing. Every packet protocol now freezes an exact per-subroute request roster:
+  preflight stage/install, direct terminal candidate, every selected stage/install pair, optional
+  verification, terminal, path-bound packet/package cleanup, and release last; every request uses
+  a fresh 32-byte challenge. A failed action may end only at a strict non-release prefix. The
+  private channel stays live through one final output-release exchange. Its inherited response
+  read end is OS-nonblocking before child creation; Node treats only `EAGAIN`/`EWOULDBLOCK` as no
+  bytes, rejects queued bytes or premature EOF at every boundary, and requires the release response
+  plus exact EOF with no intervening byte under one request-write deadline. Exact 30,000 ms
+  parent-monotonic handshake bounds and a fixed
+  65,536-byte streaming proxy buffer are frozen. The launcher reports fresh self-opened image
+  bytes while Node independently rehashes the external catalogue identity; no infeasible
+  self-embedded executable SHA is permitted. Worker stdout is capped at 4,194,304 retained aggregate bytes
+  with exact per-message shape/count budgets, stderr at 33,554,432 bytes, and every packet freezes
+  the remaining non-log attempt-root census bound. Its scratch projection is exactly the sum of
+  those three maxima; equality is accepted and an additional byte fail-stops.
+  Radial negative-control cap routes now preserve their exact attempted invocation prefix only as
+  raw timing/partial-execution fact: every cap terminal/candidate executed-control roster is empty,
+  and a coherent mutation that promotes a completed control is rejected. A-P, moving-produce, and
+  moving-publish now project the terminal candidate only in memory through category limits,
+  census, resource, receipt, and closed-world validation; physical candidate creation is later and
+  independent audit found no post-write route/content selection. Verification-v2 now freezes
+  truthful route-aware execution provenance: it is null on every structurally verified radial
+  artifact/prelaunch/registered-cap refusal and non-null only after a real completed main
+  evaluator on a normal credit-bearing route. That authority blocker is cleared, and the locked
+  raw radial finalizer is implemented and type-green, but the parent radial worker/dispatch path
+  is not yet wired and no radial finalizer output exists. The radial stdout boundary/progress
+  count is 28 (3,088,384 derived bytes), including all eight Robin internal-case lines. Radial `invocation-finished` and
+  `worker-stopped` now preserve the active case and cumulative progress while setting only
+  `caseId` null, so a mid-case production cap remains representable; its focused parser/writer
+  regression passes 6/6.
+  `check` remains lock-free and explicitly non-authorizing, and `run` remains fail-closed pending
+  a genuine A-P raw-finalizer positive after callable identity resolution. At the earlier
+  portability checkpoint, focused Phase 8, observer, and executor tests pass 71/71 on its recorded
+  bytes. On the current watchdog/loader
+  regenerated authority snapshot, all eight packet protocols and callable registries plus the
+  catalogue, matrix, and schema registry strict-parse, while the schema contracts canonical-parse
+  and are identity-bound; the combined authority/launcher-channel/worker-progress/watchdog/radial
+  set passes 67/67 and observer/dispatch/worker/publication passes 34/34. The final paused
+  implementation bytes then passed exact `npm test`: 154/154 test files, 2,510 passed and 49
+  skipped in 1,326.31 seconds, including Rule 7 across 1,229 files and both TypeScript checks.
+  This is a pre-freeze implementation check, not an implementation freeze, an S6 attempt, or
+  scientific evidence.
+  At the explicit pause boundary, the append/fsync/reopen radial worker-progress writer, its
+  retained-candidate identity gate and infrastructure-stop retention, and both authenticated
+  watchdog handoffs (evaluator-to-first-control and post-artifact deferred control start) are
+  implemented. The launcher channel's additional delayed-intervening-byte, premature-EOF, and
+  non-`EAGAIN` controls pass 25/25 with typecheck green. No source file is mid-edit. Resume at
+  `runner/src/phase10-c0v-s6-executor.ts`: wire the still-disabled radial parent state machine to
+  those stable APIs, add synthetic transport/timing/cap attacks, and do not flip readiness or run
+  a registered command.
 - **Assurance is proportional to decision risk.** [Decision 0049](decisions/0049-make-assurance-proportionate-to-decision-risk.md),
   charter v1.26 and `AGENTS.md` require integrity for routine sources, one targeted check for
   load-bearing inputs, and full named controls for gates or strong public claims. No recursive
@@ -184,7 +262,7 @@ and every superseded attempt live in the linked plans and historical progress sn
 | 7 | Not started; independently eligible | Charter v1.25 preserves Phase 7's independence but does not start it. A committed Phase 7 plan and isolated worktree are required; product, held-out validation, and v6 WGSL/preview-GPU parity remain its scope. |
 | 8 | **Complete (8A + 8B)** | The immutable 8A book remains 18 entries / 59,019 bytes / SHA-256 `47a75f3f…71ec`. The verified 8B successor is 51 development records, 252,134 native rows and 431 plot points; no row is held out. [Completed plan](plans/phase-8-measurement-corpus.md). |
 | 9 | **Complete (development-only)** | The all-no-pass branch closed: D-BT failed, M-F/M-K2 stayed mapping-dependent, controls/path-state/M-PK are unavailable or non-identifiable, and zero items promoted. Exact `TMPDIR=/private/tmp npm test` passed; no result grants validation credit. [Completed plan](plans/phase-9-execution.md). |
-| 10 | **In progress — A-P/A-S/A-I PASS; C0 packet PASS/complete with numerical criterion NO-PASS** | A-P, A-S, bounded structural A-I PASS evidence, and the complete C0 packet are published and pinned. C0 independently re-derived 80/80 rows and 64/64 comparisons: 36 passed and 28 failed the attached-count criterion, so both spacings and the authoritative all-spacings reduction are NO-PASS ([report](../evidence/phase10-numerical-verification-v1/c0-report.json), SHA-256 `571e62ae…0b72`). C0 executed no solver and grants no absolute-accuracy, habit-robustness, target-score, validation, or prior-phase credit. C0V S5b now pins the radial reference, moving `reference-discrepancy-refusal`, and scoped static refusal; S6 production/reopen infrastructure remains unimplemented and no C0V solver has run. Selection still includes no C1–C5 or habit rows. |
+| 10 | **In progress — A-P/A-S/A-I PASS; C0 packet PASS/complete with numerical criterion NO-PASS** | A-P, A-S, bounded structural A-I PASS evidence, and the complete C0 packet are published and pinned. C0 independently re-derived 80/80 rows and 64/64 comparisons: 36 passed and 28 failed the attached-count criterion, so both spacings and the authoritative all-spacings reduction are NO-PASS ([report](../evidence/phase10-numerical-verification-v1/c0-report.json), SHA-256 `571e62ae…0b72`). C0 executed no solver and grants no absolute-accuracy, habit-robustness, target-score, validation, or prior-phase credit. C0V S5b now pins the radial reference, moving `reference-discrepancy-refusal`, and scoped static refusal. S6 has substantial uncommitted pre-freeze infrastructure, but the radial parent, later packet routes, and native launcher remain incomplete; no C0V solver has run. Selection still includes no C1–C5 or habit rows. |
 
 ## Active plan
 
@@ -228,8 +306,9 @@ S5a's protocols, successor schema registry, concrete schema contracts, packet su
 reference/refusal-only tooling entered Git together at the science freeze. S5b then published and
 manifest-pinned the radial reference, moving discrepancy refusal, and scoped static refusal without
 running a solver or production-comparison implementation. The active plan records every
-load-bearing byte identity, exact suite, incident, and zero-blocker non-author reviews. S6 remains
-unimplemented and may only match-reopen these exact committed bytes after its own clean freeze.
+load-bearing byte identity, exact suite, incident, and zero-blocker non-author reviews. S6
+implementation is now in flight but uncommitted; no registered S6 command, attempt, solver, or
+output exists, and execution remains forbidden until its own clean implementation freeze.
 
 The old source-strata/ladder/WP3/R15 prerequisite sentence governed the now-closed Phase 6
 production path. WP3 and R15 closed as not computed under decision 0045; that sentence does not
@@ -239,13 +318,19 @@ the package-specific prerequisites in its charter amendment and execution plan. 
 
 ## Next step
 
-### Phase 10 — commit the C0V discrepancy-route correction, then freeze S6
+### Phase 10 — finish and freeze the C0V S6 implementation
 
 The maker selected **A-S + A-I + B + C0 + C0V with packet-specific A-P** on 2026-08-21. No
 C1–C5 numerical-qualification or scientific habit row is part of this execution. The
 [active plan](plans/phase-10-evidence-verification-execution.md) preserves the candidate plan's
 done/stop rules, authority boundaries, finite source and compute budgets, and return-only handling
 of candidate E/F/H branches.
+
+Resume the paused implementation at the unwired `c0v-radial-produce` parent path in
+`runner/src/phase10-c0v-s6-executor.ts`. The raw radial finalizer, durable progress writer,
+authenticated LF-arrival watchdog transitions, and regenerated protocol authority are coherent;
+the executor route/readiness flag and its behavioral state-machine tests remain deliberately
+absent. Keep readiness false and run no registered S6 command while completing that wiring.
 
 The A-P PASS dependency is committed at `63ca13c`; A-S PASS is committed at `78c1875`. A-I's
 observation/decision/review inputs are committed at `9fb2e1b`, and its eight-file structural PASS
@@ -411,9 +496,11 @@ active plan therefore add the missing third lifecycle outcome and concretize the
 prelaunch and registered-cap artifact/resource-refusal outcomes without changing the selected
 scope, science protocols, values, tolerances, original matrix, or evidence. A validated failed
 prelaunch condition closes with zero solver work; a separately validated registered-cap event may
-close during production with its exact partial execution recorded. A crash, transport failure, or
-otherwise unclassified timeout/nonzero exit remains retryable infrastructure, and exit status
-alone cannot select a scientific route. Commit this governance-only correction first. Then
+close during production with its exact partial execution recorded. A crash, transport failure,
+invalid negative-control campaign, or structural failure retains only immutable ignored raw state
+and stale locks: v1 writes no terminal candidate, attempt row/ledger, verification, final receipt,
+or credit, and a separately frozen successor is required before another attempt. Exit status alone
+cannot select a scientific route. Commit this governance-only correction first. Then
 implement and freeze a scoped
 `research/phase10-c0v-s6-obligation-matrix-v1.json`, `research/phase10-execution-v2/`, supplemental
 `a-p-c0v-s6`, dedicated C0V executor, match-only refusal routes, radial production/evaluation,
@@ -444,7 +531,8 @@ refusal. Do not run a C0V solver until the separate S6 implementation checkpoint
 supplemental A-P PASS.
 The static refusal is required
 because the current contract supplies no admissible independent continuum field/flux reference,
-expected spatial order, or justified order lower bound. The public one-sweep retry path can recover
+expected spatial order, or justified order lower bound. The public one-sweep solver re-execution
+path (not an execution-v2 attempt retry) can recover
 the accepted final-sweep pre-call field, and a separate implementation can reconstruct the
 post-smoother candidate; those routes support same-discrete implementation/stopping-error checks,
 not the required independent spatial-accuracy reference. Tolerance-scaled self-convergence remains

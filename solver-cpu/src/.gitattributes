@@ -3,3 +3,6 @@
 # pins the root file's exact bytes).
 gg-solver.ts -text
 lk-solver.ts -text
+
+# Phase 10 reopens this exact pre-observation comparison-side implementation from the S5 freeze.
+spherical-reference.ts -text

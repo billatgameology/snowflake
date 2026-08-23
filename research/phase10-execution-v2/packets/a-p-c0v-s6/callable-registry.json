@@ -1,0 +1,183 @@
+{
+  "schema": "phase10-c0v-s6-callable-registry-v1",
+  "registryId": "phase10-a-p-c0v-s6-execution-v2-callables-v1",
+  "matrixId": "phase10-c0v-s6-obligations-v1",
+  "protocolId": "phase10-a-p-c0v-s6-execution-v2-v1",
+  "packetId": "a-p-c0v-s6",
+  "callables": [
+    {
+      "callableId": "phase10-a-p-c0v-s6-check-caller",
+      "role": "check-caller",
+      "resolution": "planned",
+      "modulePath": "runner/src/phase10-c0v-s6-ap.ts",
+      "exportName": "verifyPhase10C0VS6ApArtifacts",
+      "identity": null,
+      "producedOutputIds": [],
+      "invokedCheckIds": [
+        "chk-ap-c0v-s6-authority-bindings",
+        "chk-ap-c0v-s6-branch-routes",
+        "chk-ap-c0v-s6-callable-resolution",
+        "chk-ap-c0v-s6-called-checks",
+        "chk-ap-c0v-s6-original-ap-binding",
+        "chk-ap-c0v-s6-output-producers",
+        "chk-ap-c0v-s6-override-scope",
+        "chk-ap-c0v-s6-packet-catalogue",
+        "chk-ap-c0v-s6-resource-contracts",
+        "chk-ap-c0v-s6-schema-delta"
+      ],
+      "evaluatedCheckIds": [],
+      "executedNegativeControlIds": []
+    },
+    {
+      "callableId": "phase10-a-p-c0v-s6-evaluator",
+      "role": "independent-evaluator",
+      "resolution": "planned",
+      "modulePath": "runner/src/phase10-c0v-s6-ap-independent.ts",
+      "exportName": "independentlyVerifyPhase10C0VS6ApArtifacts",
+      "identity": null,
+      "producedOutputIds": [],
+      "invokedCheckIds": [],
+      "evaluatedCheckIds": [
+        "chk-ap-c0v-s6-authority-bindings",
+        "chk-ap-c0v-s6-branch-routes",
+        "chk-ap-c0v-s6-callable-resolution",
+        "chk-ap-c0v-s6-called-checks",
+        "chk-ap-c0v-s6-original-ap-binding",
+        "chk-ap-c0v-s6-output-producers",
+        "chk-ap-c0v-s6-override-scope",
+        "chk-ap-c0v-s6-packet-catalogue",
+        "chk-ap-c0v-s6-resource-contracts",
+        "chk-ap-c0v-s6-schema-delta"
+      ],
+      "executedNegativeControlIds": []
+    },
+    {
+      "callableId": "phase10-a-p-c0v-s6-producer",
+      "role": "producer",
+      "resolution": "planned",
+      "modulePath": "runner/src/phase10-c0v-s6-ap.ts",
+      "exportName": "producePhase10C0VS6ApArtifacts",
+      "identity": null,
+      "producedOutputIds": [
+        "out-ap-c0v-s6-artifact-index"
+      ],
+      "invokedCheckIds": [],
+      "evaluatedCheckIds": [],
+      "executedNegativeControlIds": []
+    },
+    {
+      "callableId": "phase10-a-p-c0v-s6-verification-receipt-writer",
+      "role": "producer",
+      "resolution": "planned",
+      "modulePath": "runner/src/phase10-c0v-s6-receipts.ts",
+      "exportName": "writePhase10C0VS6ApVerificationReceipt",
+      "identity": null,
+      "producedOutputIds": [
+        "out-ap-c0v-s6-verification"
+      ],
+      "invokedCheckIds": [],
+      "evaluatedCheckIds": [],
+      "executedNegativeControlIds": []
+    },
+    {
+      "callableId": "phase10-c0v-s6-freeze-evaluator",
+      "role": "independent-evaluator",
+      "resolution": "planned",
+      "modulePath": "runner/src/phase10-c0v-s6-freeze.ts",
+      "exportName": "independentlyEvaluatePhase10C0VS6FreezeAncestry",
+      "identity": null,
+      "producedOutputIds": [],
+      "invokedCheckIds": [],
+      "evaluatedCheckIds": [],
+      "executedNegativeControlIds": []
+    },
+    {
+      "callableId": "phase10-c0v-s6-preflight-receipt-writer",
+      "role": "producer",
+      "resolution": "planned",
+      "modulePath": "runner/src/phase10-c0v-s6-receipts.ts",
+      "exportName": "writePhase10C0VS6PreflightReceipt",
+      "identity": null,
+      "producedOutputIds": [
+        "out-ap-c0v-s6-preflight"
+      ],
+      "invokedCheckIds": [],
+      "evaluatedCheckIds": [],
+      "executedNegativeControlIds": []
+    },
+    {
+      "callableId": "phase10-c0v-s6-refusal-check-caller",
+      "role": "check-caller",
+      "resolution": "planned",
+      "modulePath": "runner/src/phase10-c0v-s6-refusal.ts",
+      "exportName": "phase10C0VS6RefusalCheckCaller",
+      "identity": null,
+      "producedOutputIds": [],
+      "invokedCheckIds": [
+        "chk-ap-c0v-s6-resource-refusal-validity"
+      ],
+      "evaluatedCheckIds": [],
+      "executedNegativeControlIds": []
+    },
+    {
+      "callableId": "phase10-c0v-s6-refusal-evaluator",
+      "role": "independent-evaluator",
+      "resolution": "planned",
+      "modulePath": "runner/src/phase10-c0v-s6-refusal.ts",
+      "exportName": "independentlyEvaluatePhase10C0VS6RefusalCause",
+      "identity": null,
+      "producedOutputIds": [],
+      "invokedCheckIds": [],
+      "evaluatedCheckIds": [
+        "chk-ap-c0v-s6-resource-refusal-validity"
+      ],
+      "executedNegativeControlIds": []
+    },
+    {
+      "callableId": "phase10-c0v-s6-terminal-receipt-writer",
+      "role": "producer",
+      "resolution": "planned",
+      "modulePath": "runner/src/phase10-c0v-s6-receipts.ts",
+      "exportName": "writePhase10C0VS6TerminalReceipt",
+      "identity": null,
+      "producedOutputIds": [
+        "out-ap-c0v-s6-terminal-receipt"
+      ],
+      "invokedCheckIds": [],
+      "evaluatedCheckIds": [],
+      "executedNegativeControlIds": []
+    },
+    {
+      "callableId": "phase10-nc-a-p-c0v-s6-missing-producer",
+      "role": "negative-control",
+      "resolution": "planned",
+      "modulePath": "runner/src/phase10-c0v-s6-ap-negative-controls.ts",
+      "exportName": "runPhase10C0VS6MissingProducerControl",
+      "identity": null,
+      "producedOutputIds": [
+        "out-ap-c0v-s6-missing-producer"
+      ],
+      "invokedCheckIds": [],
+      "evaluatedCheckIds": [],
+      "executedNegativeControlIds": [
+        "nc-ap-c0v-s6-missing-producer"
+      ]
+    },
+    {
+      "callableId": "phase10-nc-a-p-c0v-s6-uncalled-check",
+      "role": "negative-control",
+      "resolution": "planned",
+      "modulePath": "runner/src/phase10-c0v-s6-ap-negative-controls.ts",
+      "exportName": "runPhase10C0VS6UncalledCheckControl",
+      "identity": null,
+      "producedOutputIds": [
+        "out-ap-c0v-s6-uncalled-check"
+      ],
+      "invokedCheckIds": [],
+      "evaluatedCheckIds": [],
+      "executedNegativeControlIds": [
+        "nc-ap-c0v-s6-uncalled-check"
+      ]
+    }
+  ]
+}

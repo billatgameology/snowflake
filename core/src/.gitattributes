@@ -4,3 +4,11 @@
 lattice.ts -text
 libbrecht.ts -text
 metrics.ts -text
+
+# Phase 10 reopens the remaining exact pre-observation radial production-side closure from S5.
+checkpoint.ts -text
+lk-resume-checkpoint.ts -text
+params.ts -text
+prng.ts -text
+state.ts -text
+timeline.ts -text

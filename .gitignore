@@ -29,6 +29,9 @@ research/*
 !research/phase10-artifact-schema-registry-v1.json
 !research/phase10-c0v-artifact-schema-registry-v1.json
 !research/phase10-c0v-schema-contracts-v1.json
+!research/phase10-c0v-s6-artifact-schema-registry-v1.json
+!research/phase10-c0v-s6-schema-contracts-v1.json
+!research/phase10-c0v-s6-obligation-matrix-v1.json
 !research/phase10-c0-protocol-v1.json
 !research/phase10-c0v-foundation-v1.json
 !research/phase10-obligation-matrix-v1.json
@@ -50,6 +53,15 @@ research/phase10-execution-v1/*
 !research/phase10-execution-v1/packets/**/
 !research/phase10-execution-v1/packets/**/protocol.json
 !research/phase10-execution-v1/packets/**/callable-registry.json
+!research/phase10-execution-v2/
+research/phase10-execution-v2/*
+!research/phase10-execution-v2/README.md
+!research/phase10-execution-v2/build-authority.cjs
+!research/phase10-execution-v2/packet-catalogue.json
+!research/phase10-execution-v2/packets/
+!research/phase10-execution-v2/packets/**/
+!research/phase10-execution-v2/packets/**/protocol.json
+!research/phase10-execution-v2/packets/**/callable-registry.json
 # Our own Phase 6 source-lock metadata and extracted observations; contains no third-party media.
 !research/phase6-heldout-candidate-lock.json
 # Exact maker-rejected WP1 V4/V4.x history; retained as records, never executable authority.
