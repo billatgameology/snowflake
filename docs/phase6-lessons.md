@@ -361,6 +361,39 @@ this interactive's known branch; it does not automate the general domain-claim d
 
 ---
 
+## F. Assurance and coordination can displace the experiment
+
+### F1 — hostile-runtime hardening escaped the declared threat model
+
+**Incident (2026-08-22).** Phase 10 C0V S6 correctly needed to reject visible stale loader state,
+partial writes, mismatched artifacts, and producer/verifier disagreement. The implementation then
+expanded toward a native pre-Node launcher intended to detect a preload that deliberately erased
+its own trace, process/PID substitution, and an authenticated peer violating its frozen channel.
+Those cases require deliberate hostile control already excluded by charter §3.3 and decisions
+0042/0049. The added protocol, schema, identity, liveness, and review work became an
+implementation-freeze blocker while the radial parent path was still not wired end to end.
+
+**Rule — ENFORCED BY AGENTS RULE 14A.** Classify the actor and failure before writing the defense.
+Protect against plausible accidental error at the nearest claim-bearing boundary. Do not promote a
+hostile-owner construction into environment drift or a required research gate. Expanding the
+threat model is a maker/authority decision, not an implementation inference.
+
+### F2 — process work continued after the vertical deliverable stopped advancing
+
+**Incident (2026-08-22).** Concurrent audits inspected changing S6 interfaces, producing useful
+findings but also stale reports, repeated authority regeneration, transient compile churn, and new
+verification machinery. The checkpoint ended with substantial correct infrastructure and a green
+full suite, but every run route remained disabled and the immediate radial parent deliverable was
+unfinished. The existing one-quarter stop-and-simplify rule had been read but was not operationally
+obeyed.
+
+**Rule — ENFORCED BY AGENTS RULE 14B.** Name one vertical deliverable per work block. Use focused
+checks while it moves, one bounded review after it stabilizes, and identity regeneration/full-suite
+checks at a checkpoint. If plans, reviews, registries, or proof machinery dominate while the
+deliverable remains unusable, stop and simplify; do not answer process excess with more process.
+
+---
+
 ## What could NOT be automated, and why it matters
 
 B2's rule — *preflight asserts every registered output was produced* — is the one that would have

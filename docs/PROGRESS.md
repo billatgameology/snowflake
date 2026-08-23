@@ -222,10 +222,13 @@ detail.
   retained-candidate identity gate and infrastructure-stop retention, and both authenticated
   watchdog handoffs (evaluator-to-first-control and post-artifact deferred control start) are
   implemented. The launcher channel's additional delayed-intervening-byte, premature-EOF, and
-  non-`EAGAIN` controls pass 25/25 with typecheck green. No source file is mid-edit. Resume at
-  `runner/src/phase10-c0v-s6-executor.ts`: wire the still-disabled radial parent state machine to
-  those stable APIs, add synthetic transport/timing/cap attacks, and do not flip readiness or run
-  a registered command.
+  non-`EAGAIN` controls pass 25/25 with typecheck green, but maker review now classifies the
+  self-erasing-preload, PID-reuse, and deliberately misbehaving authenticated-peer defenses as
+  out-of-scope hostile hardening under charter §3.3 and decisions 0042/0049. That launcher path is
+  suspended WIP, not an implementation-freeze blocker or tomorrow's implementation direction.
+  AGENTS Rule 14 now has mandatory threat-admission and delivery-first procedures because the
+  existing proportionality rule did not prevent assurance and coordination work from displacing
+  the unwired radial parent deliverable. No source file is mid-edit and no registered command ran.
 - **Assurance is proportional to decision risk.** [Decision 0049](decisions/0049-make-assurance-proportionate-to-decision-risk.md),
   charter v1.26 and `AGENTS.md` require integrity for routine sources, one targeted check for
   load-bearing inputs, and full named controls for gates or strong public claims. No recursive
@@ -326,11 +329,15 @@ C1–C5 numerical-qualification or scientific habit row is part of this executio
 done/stop rules, authority boundaries, finite source and compute budgets, and return-only handling
 of candidate E/F/H branches.
 
-Resume the paused implementation at the unwired `c0v-radial-produce` parent path in
-`runner/src/phase10-c0v-s6-executor.ts`. The raw radial finalizer, durable progress writer,
-authenticated LF-arrival watchdog transitions, and regenerated protocol authority are coherent;
-the executor route/readiness flag and its behavioral state-machine tests remain deliberately
-absent. Keep readiness false and run no registered S6 command while completing that wiring.
+First apply AGENTS Rules 14A/14B to the paused S6 work: remove or simplify the design-state native
+launcher requirement in the active plan, catalogue, protocols, and generated authority while
+retaining the visible stale-environment rejection that covers the in-scope accidental failure.
+Do not implement a native launcher or expand the threat model without new maker authority. Then
+resume the single vertical deliverable at the unwired `c0v-radial-produce` parent path in
+`runner/src/phase10-c0v-s6-executor.ts`. The raw radial finalizer, durable progress writer, and
+authenticated LF-arrival watchdog transitions are coherent; the executor route/readiness flag and
+its behavioral state-machine tests remain deliberately absent. Keep readiness false and run no
+registered S6 command while completing that wiring.
 
 The A-P PASS dependency is committed at `63ca13c`; A-S PASS is committed at `78c1875`. A-I's
 observation/decision/review inputs are committed at `9fb2e1b`, and its eight-file structural PASS

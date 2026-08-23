@@ -1194,13 +1194,14 @@ the A-P raw finalizer has a genuine positive on resolved callable identities and
 implementation-freeze commit; synthetic injected freeze authority is deliberately not an accepted
 substitute.
 
-The entrypoint loader check is intentionally narrower than a launch proof: empty `process.execArgv`
-and the case-insensitive `NODE*`/`TS_NODE*` rejection cover only state still visible when the Node
-entrypoint begins. A self-erasing preload can run before that observation. A separately registered
-external pre-Node launcher, including its host-trust boundary and all sixteen revised command
-authorities, is recorded in the design-state catalogue but must be implemented, built, and
-resolved before implementation freeze; no PowerShell/native executable is silently assumed by
-this v1 snapshot. The transport's 33,554,432-byte line limit is a
+The entrypoint loader check requires empty `process.execArgv` and rejects the case-insensitive
+`NODE*`/`TS_NODE*` family still visible when the Node entrypoint begins. That covers the in-scope
+accidental stale-environment failure. Maker review on 2026-08-22 rejected treating a preload that
+deliberately erases its trace as ordinary environment drift: it requires hostile code already
+executing inside the trusted runtime and is outside charter §3.3 and decisions 0042/0049. The
+design-state external launcher and its sixteen command rewrites are therefore suspended and must
+be removed or simplified from generated authority before implementation freeze, not implemented
+as an S6 prerequisite. The transport's 33,554,432-byte line limit is a
 framing ceiling, not aggregate storage authority. Every catalogue packet instead freezes a
 4,194,304-byte aggregate retained-stdout maximum and a finite permitted-message budget. Lifecycle,
 boundary/progress, artifact, and result lines are respectively bounded at 4,096, 16,384, 262,144,
@@ -1236,7 +1237,15 @@ then passed 154/154 test files with 2,510 passed and 49 skipped in 1,326.31 seco
 7 across 1,229 files and both TypeScript checks. This remains a pre-freeze implementation check,
 not an implementation freeze, an S6 attempt, or scientific evidence.
 
-### Native pre-Node launcher design freeze (source not yet implemented)
+### Rejected native pre-Node launcher design (retained history; do not implement)
+
+**Superseded by maker direction on 2026-08-22.** The detail below records the design that exposed
+the scope error; it is not an implementation checklist or freeze prerequisite. Visible stale
+loader/environment state remains rejected in process. Detecting a self-erasing preload, PID reuse,
+or deliberate protocol violation by an authenticated frozen peer is hostile-runtime hardening and
+falls outside the accepted threat model. On resume, simplify the catalogue/protocol authority and
+retire this path before wiring the radial parent. A future revival requires explicit maker
+direction and an authority-level threat-model amendment.
 
 Charter §3.3 and decision 0042 keep accidental or stale ambient-environment drift in scope while
 excluding only deliberate hostile replacement by the machine/repository owner. An in-process Node
@@ -1525,10 +1534,17 @@ independent archived copy.
 - **Maximize process concurrency by core count.** Rejected as an unconditional rule: independent
   work is parallelized, while cost-uncertain solver controls first measure whether extra processes
   improve throughput on this memory-bandwidth-sensitive host.
-- **Treat a launcher environment marker as launch provenance.** Rejected: direct Node can forge the
-  same marker. The frozen design instead requires a fresh challenge over private inherited pipes,
-  exact live parent-PID/image binding, and launcher liveness at every claim-publication boundary;
-  the marker is only a version hint.
+- **Treat a self-erasing preload as ordinary environment drift requiring a native launch proof.**
+  Rejected by maker direction on 2026-08-22. Visible stale loader state is an in-scope accidental
+  failure and remains rejected; deliberate trace erasure, PID/process impersonation, and a frozen
+  authenticated peer intentionally violating its channel require hostile control outside charter
+  §3.3 and decisions 0042/0049. The unfinished launcher design is retained above only as rejected
+  history and must be removed or simplified from S6 authority before implementation freeze.
+- **Continue planning, concurrent review, and authority regeneration while the vertical packet path
+  remains unusable.** Rejected after the same pause. Useful reviews found real defects, but review
+  churn and generalized infrastructure displaced the unwired radial parent. AGENTS Rule 14B now
+  requires one named vertical deliverable, focused checks while it moves, and one bounded review
+  after its interface stabilizes; process excess triggers simplification, not another process layer.
 - **Project stdout as maximum message count times the 33,554,432-byte framing ceiling.** Rejected:
   that would charge up to 192 MiB for A-P while its scratch projection authorized 16 MiB before
   stderr. Each packet now has a 4 MiB aggregate retained-stdout ceiling and exact per-message
@@ -1541,5 +1557,8 @@ independent archived copy.
 
 ## Open questions
 
-None blocks the selected package. B findings may create exact E/F/H proposals; C0V may expose a
-solver or reference gap; both are governed returns rather than permission to expand this plan.
+No scientific scope question blocks the selected package. Before S6 implementation resumes, its
+generated authority must retire or simplify the now-rejected native-launcher prerequisite; that is
+bounded process cleanup, not a new scientific package. B findings may create exact E/F/H proposals;
+C0V may expose a solver or reference gap; both are governed returns rather than permission to
+expand this plan.

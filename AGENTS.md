@@ -526,6 +526,48 @@ tripwire—not a tracked metric—if process consumes roughly one quarter of a w
 producing source coverage, measurements, calculations, code, experiments, or the requested
 decision, or if a second meta-validation layer appears, stop and simplify before continuing.
 
+### Rule 14A — Admit the threat before building the defense
+
+Before adding or expanding an adversarial test, launcher, transport protocol, identity registry,
+verifier, or integrity gate, answer four questions in the existing active plan or implementation
+note; never create a new tracking document for this procedure:
+
+1. What plausible failure is being prevented?
+2. Is it accidental and in scope, or does it require deliberate hostile control?
+3. Which scientific decision or claim-bearing evidence bytes could it change?
+4. Why do the existing checks at the nearest claim-bearing boundary not already catch it?
+
+If any answer is missing, do not build the control. Treat as out of scope by default any scenario
+that requires code already executing inside the trusted runtime to erase its launch trace;
+deliberate substitution of repository, runtime, executable, worker, or verifier bytes; process or
+PID impersonation after an authenticated launch; a trusted authenticated peer intentionally
+violating its own frozen protocol; or a person controlling the machine who mutates bytes during a
+check. These are not relabeled as ordinary environment drift. An out-of-scope finding may be noted
+as a limit, but it is never a blocker, required negative control, freeze prerequisite, or reason to
+build another launcher or protocol layer. Expanding that threat model requires explicit maker
+direction and amendment at the governing authority level. Credential, destructive-action, and
+external-system safety rules remain in force independently of this research-integrity boundary.
+
+### Rule 14B — Deliver the vertical slice before expanding process
+
+Every non-trivial work block names one end-to-end deliverable and its shortest meaningful check in
+the existing plan, `PROGRESS.md`, or working commentary. Do not create a new plan, ledger, schema,
+or dashboard merely to manage the work block. Shared infrastructure is built only when that current
+deliverable is concretely blocked by its absence; implement the smallest seam, then return to the
+vertical slice instead of generalizing for hypothetical later routes.
+
+Do not aim multiple independent reviewers at moving implementation. Use one implementation lane
+and at most one bounded review engagement after the relevant interface and focused tests are
+stable; decision 0042's maker escalation applies after two blocker-bearing verdicts. During
+implementation, use focused checks. Regenerate identity cascades and run the exact full suite at a
+named stable checkpoint, not after every interface edit.
+
+When Rule 14's one-quarter tripwire fires, or the latest progress consists mainly of plans,
+reviews, registries, and verification machinery while the named deliverable remains unusable, stop
+immediately and tell the maker what has not been delivered. Cut or defer non-blocking machinery and
+resume only with a smaller vertical slice. The corrective action is simplification and delivery,
+not another process document, gate, audit round, or metric for tracking the excess.
+
 ## Rule 15 — Ignored is neither preserved nor disposable
 
 Tracked source records under `research/` remain Git authority; ignored payloads staged under
