@@ -1,5 +1,6 @@
 import {
   appendFileSync,
+  existsSync,
   fstatSync,
   mkdirSync,
   mkdtempSync,
@@ -18,6 +19,7 @@ import { createServer as createViteServer, isFileServingAllowed, resolveConfig a
 import viteConfig, {
   assertLoopbackViteHost,
   assertCanonicalViteRoots,
+  createGutcheckAnimationSelectionHandler,
   createGutcheckIndexHandler,
   createNasRequestHandler,
   createViteLocalFileBoundary,
@@ -78,7 +80,11 @@ const withServer = async <T>(
 const fetchFixture = async (
   port: number,
   path: string,
-  options: { readonly method?: string; readonly headers?: Readonly<Record<string, string>> } = {},
+  options: {
+    readonly method?: string;
+    readonly headers?: Readonly<Record<string, string>>;
+    readonly body?: string | Buffer;
+  } = {},
 ): Promise<HttpResult> => new Promise<HttpResult>((resolvePromise, rejectPromise) => {
   const request = httpRequest(
     {
@@ -100,7 +106,7 @@ const fetchFixture = async (
     },
   );
   request.once("error", rejectPromise);
-  request.end();
+  request.end(options.body);
 });
 
 afterEach(() => {
@@ -154,6 +160,12 @@ const safeGutcheckIndex = (): Record<string, unknown> => ({
               href: `/spike-gg-realism.html?look=glass&interactive=1&mesh=/nas/${SERVED_FILE}`,
             },
           ],
+          queue: {
+            id: "fixture",
+            mesh: `/nas/${SERVED_PREFIX}/fixture-mesh.bin`,
+            render: `/nas/${SERVED_PREFIX}/fixture.png`,
+            spec: "evidence/gutcheck-gg-realism/specs/fixture.json",
+          },
         },
       ],
     },
@@ -215,6 +227,95 @@ describe("Vite gutcheck index boundary", () => {
       expect(result.headers["cache-control"]).toBe("no-store");
       expect(result.body.toString("utf8")).not.toContain("/private/checkout");
       expect(result.body.toString("utf8")).not.toBe(source);
+    });
+  });
+});
+
+const queueFixture = (queueId = "fixture-selection"): Record<string, unknown> => ({
+  format: "gutcheck-animation-queue-v1",
+  queueId,
+  createdAt: "2026-08-23T12:00:00.000Z",
+  sourceIndexGenerated: "2026-08-15T12:00:00.000Z",
+  settings: {
+    pipeline: "web-turntable-v1",
+    look: "glass",
+    width: 1080,
+    height: 1080,
+    fps: 30,
+    durationSeconds: 12,
+    meshFormat: "gutcheck-mesh-v2q",
+    transportEncoding: "gzip",
+  },
+  items: [
+    {
+      id: "fixture",
+      label: "generated mesh",
+      mesh: `/nas/${SERVED_PREFIX}/fixture-mesh.bin`,
+      render: `/nas/${SERVED_PREFIX}/fixture.png`,
+      spec: "evidence/gutcheck-gg-realism/specs/fixture.json",
+    },
+  ],
+});
+
+describe("Vite gutcheck animation selection boundary", () => {
+  it("round-trips an exact current candidate and atomically replaces it", async () => {
+    const root = temporaryRoot("animation-selection");
+    const indexPath = join(root, "index.json");
+    const selectionPath = join(root, "nested", "selection.json");
+    writeFileSync(indexPath, JSON.stringify(safeGutcheckIndex()));
+    const handler = createGutcheckAnimationSelectionHandler(
+      selectionPath,
+      indexPath,
+      NAS_ASSET_CATALOG,
+    );
+    await withServer(handler, async (port) => {
+      expect((await fetchFixture(port, "/selection")).status).toBe(404);
+
+      expect((await fetchFixture(port, "/selection", {
+        method: "PUT",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify(queueFixture()),
+      })).status).toBe(204);
+      const loaded = await fetchFixture(port, "/selection");
+      expect(loaded.status).toBe(200);
+      expect(JSON.parse(loaded.body.toString("utf8"))).toEqual(queueFixture());
+
+      const replacement = queueFixture("replacement-selection");
+      expect((await fetchFixture(port, "/selection", {
+        method: "PUT",
+        headers: { "content-type": "application/json; charset=utf-8" },
+        body: JSON.stringify(replacement),
+      })).status).toBe(204);
+      expect(JSON.parse(readFileSync(selectionPath, "utf8"))).toEqual(replacement);
+    });
+  });
+
+  it("refuses wrong methods, media types, and non-candidate identities", async () => {
+    const root = temporaryRoot("animation-selection-refusal");
+    const indexPath = join(root, "index.json");
+    const selectionPath = join(root, "selection.json");
+    writeFileSync(indexPath, JSON.stringify(safeGutcheckIndex()));
+    const handler = createGutcheckAnimationSelectionHandler(
+      selectionPath,
+      indexPath,
+      NAS_ASSET_CATALOG,
+    );
+    await withServer(handler, async (port) => {
+      expect((await fetchFixture(port, "/selection", { method: "POST" })).status).toBe(405);
+      expect((await fetchFixture(port, "/selection", {
+        method: "PUT",
+        headers: { "content-type": "text/plain" },
+        body: "{}",
+      })).status).toBe(415);
+
+      const forged = queueFixture();
+      (forged.items as Array<Record<string, unknown>>)[0]!.label = "different row";
+      expect((await fetchFixture(port, "/selection", {
+        method: "PUT",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify(forged),
+      })).status).toBe(400);
+      expect(existsSync(selectionPath)).toBe(false);
     });
   });
 });

@@ -98,11 +98,14 @@ detail.
   placed 37 model-only orphan links ahead of them, making the thumbnails appear absent; the
   generator now orders the generated-crystal gallery first and a regression pins that priority.
   This is an operational UX correction only and changes no scientific evidence or phase state.
-- **A maker-directed animation-selection queue is active (2026-08-23).** The committed
+- **The maker-directed animation-selection queue tooling is COMPLETE (2026-08-23); aesthetic
+  selection is pending.** The completed
   [queue plan](plans/gutcheck-animation-selection-queue.md) adds preview-adjacent selection,
   portable manifests, deterministic disjoint batches, existing-mesh flyaround rendering, and
-  merge-safe local/NAS staging. It pins the measured `gutcheck-mesh-v2q` web format; no render has
-  started and no immutable NAS collection is being mutated.
+  merge-safe local/NAS staging. The current `out/gutcheck-gg-realism/index.json` exposes 89 exact
+  candidates. Live reload/export/import/clear verification, focused tests, the app build, and exact
+  `npm test` passed. It pins the measured `gutcheck-mesh-v2q` web format; no render has started and
+  no immutable NAS collection is being mutated.
 - Historical extent-21 artifacts remain valid measured-only comparisons: **CAK 3/90, M1 54/90**
   over their named scopes. They are not the registered conservative-intersection verdict, which
   decision 0045 closed as not computed.
@@ -113,8 +116,8 @@ detail.
   direction) and content stays in-repo unpublished, `test.yml` CI unaffected. Reconciliation is
   a live decision point under **Next step**. Full freeze history:
   [the history file](progress-history-phases-6-8-9.md).
-- **Last updated:** 2026-08-23 (put the GG gut-check generated-crystal thumbnails first; no phase
-  or evidence change)
+- **Last updated:** 2026-08-23 (completed the GG gut-check animation-selection and portable batch
+  tooling; no phase or evidence change)
 
 ## Phase gates
 
@@ -149,7 +152,8 @@ and completion credit isolated.
 correction changes no phase claim or credit.
 
 The maker-directed [gut-check animation selection and queue plan](plans/gutcheck-animation-selection-queue.md)
-is the active pre-Phase 7 product-tooling plan. It changes no phase status or scientific claim.
+is a completed pre-Phase 7 product-tooling record. The maker's queue is not yet selected; this
+changes no phase status or scientific claim.
 The
 [Phase 10 candidate plan](plans/phase-10-closures-and-frontier.md) is decision support, not
 execution authority; no A–H package is selected.
@@ -161,6 +165,27 @@ the package-specific prerequisites in its charter amendment and execution plan. 
 0043–0044's Phase 7 deferrals remain authoritative and cannot be discharged by Phase 10.
 
 ## Next step
+
+### Gut-check animation queue — maker selection pending
+
+The loopback site is running at `http://127.0.0.1:5173/gutcheck-index.html`. Select the desired
+models beside their preview images and use **Export queue JSON** for a portable copy. While this
+development server is running, the same strict manifest is mirrored automatically to
+`out/gutcheck-animation-queue/selection.json`.
+
+After selection, create two deterministic, disjoint worker manifests:
+
+`node scripts/gutcheck-animation-queue.ts plan --queue out/gutcheck-animation-queue/selection.json --batches 2`
+
+The command emits `batch-a.json`, `batch-b.json`, and `RUN-batch-{a,b}.cmd` / `.sh` under the
+queue's local `out/gutcheck-animation-queue/<queue-id>/` directory. Give one manifest/launcher to
+each checkout or computer. Run each worker with `--nas-stage` (the generated launchers already do
+this); each host resolves its own marked NAS mount and writes only
+`_control/staging/gutcheck-animation/<queue-id>/<batch-id>/`. Reconcile the two result-record roots
+only after both finish; immutable collection publication remains a separate governed transaction.
+The local, non-NAS dry-run form is:
+
+`node scripts/gutcheck-animation-queue.ts run --batch <batch-a.json> --dry-run`
 
 ### Phase 10 — planning complete; maker package selection pending
 

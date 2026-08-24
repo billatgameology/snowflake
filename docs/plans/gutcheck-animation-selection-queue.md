@@ -1,7 +1,7 @@
 # Plan — gut-check animation selection and portable queue
 
 - **Phase:** Pre-Phase 7 product tooling; maker-directed 2026-08-23. Not a charter phase gate.
-- **Status:** in progress
+- **Status:** complete; maker selection pending
 - **Started:** 2026-08-23
 - **Last touched:** 2026-08-23 by OpenAI Codex (GPT-5)
 
@@ -53,19 +53,41 @@ or NAS `_control/staging/` when supplied). Publishing a completed result set int
 
 ## Steps
 
-- [ ] Add queue metadata to generated index rows and extend the strict serving validator.
-- [ ] Add preview-adjacent selection controls, selected-count panel, local persistence, loopback
+- [x] Add queue metadata to generated index rows and extend the strict serving validator.
+- [x] Add preview-adjacent selection controls, selected-count panel, local persistence, loopback
       persistence, clear, JSON import, and JSON export.
-- [ ] Implement the strict shared queue schema and the loopback save/load handler with size,
+- [x] Implement the strict shared queue schema and the loopback save/load handler with size,
       method, content-type, candidate-identity, and path checks.
-- [ ] Implement deterministic batch planning and dry-run execution commands with disjoint output
-      and record roots; extend the portable workpack selector to accept exact batch IDs.
-- [ ] Prepare v2q meshes and deterministic static-mesh scene recipes in the execution path without
+- [x] Implement deterministic batch planning and dry-run execution commands with disjoint output
+      and record roots; emit exact batch manifests plus Windows and POSIX NAS-worker launchers.
+- [x] Prepare v2q meshes and deterministic static-mesh scene recipes in the execution path without
       starting a real render before the maker has selected items.
-- [ ] Verify one browser selection/reload/export round trip, an import round trip, batch
+- [x] Verify one browser selection/reload/export round trip, an import round trip, batch
       disjointness/exhaustiveness, path refusals, focused tests, and exact `npm test`.
-- [ ] Update this plan and `docs/PROGRESS.md` with the completed commands, measured counts, and the
+- [x] Update this plan and `docs/PROGRESS.md` with the completed commands, measured counts, and the
       next concrete action for running the maker's exported queue.
+
+## Completion record
+
+Completed 2026-08-23. The current generated index at
+`out/gutcheck-gg-realism/index.json` exposes 89 exact selection candidates. A live Playwright smoke
+run against `http://127.0.0.1:5173/gutcheck-index.html` selected two rows, observed both after
+reload, exported two items, cleared, imported the same two items, and cleared again; the inspected
+viewport is preserved at `out/gutcheck-animation-queue/selection-ui.png`. The final mirrored
+`out/gutcheck-animation-queue/selection.json` is deliberately empty so the smoke test is not
+mistaken for the maker's aesthetic selection.
+
+Focused verification passed:
+
+- `npx vitest run app/test/gutcheck-animation-queue.test.ts runner/test/vite-nas-serving.test.ts`
+- `npx vitest run runner/test/gutcheck-animation-queue-cli.test.ts app/test/gutcheck-animation-queue.test.ts`
+- `npm run build --workspace app`
+- exact `npm test`
+
+The CLI test executed `plan --batches 2`, reopened both manifests, proved their item sets disjoint
+and exhaustive, dry-ran both workers, checked both portable launchers, and rejected an unscoped
+output root. No real animation was rendered. The next action is the maker's selection, followed by
+the commands recorded in `docs/PROGRESS.md`.
 
 ## Out of scope
 

@@ -124,6 +124,12 @@ interface CompareRow {
   comparisons: Item[];
   viewers: Item[];
   animation?: Item;
+  queue?: {
+    id: string;
+    mesh: string;
+    render: string;
+    spec: string;
+  };
 }
 interface Section {
   title: string;
@@ -577,6 +583,14 @@ for (const path of recordFiles) {
     comparisons: image === null ? [] : [{ label: id, href: FS(image), image: FS(image) }],
     viewers,
     ...(animation && { animation }),
+    ...(image !== null && exists(meshPath) && {
+      queue: {
+        id,
+        mesh: FS(meshPath),
+        render: FS(image),
+        spec: `evidence/gutcheck-gg-realism/specs/${id}.json`,
+      },
+    }),
   });
 }
 // Dial-in runs still growing have a timeline directory but no record yet — pick those up too.

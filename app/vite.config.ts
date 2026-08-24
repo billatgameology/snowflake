@@ -1,7 +1,16 @@
-import { closeSync, createReadStream, lstatSync, readFileSync, realpathSync } from "node:fs";
+import {
+  closeSync,
+  createReadStream,
+  lstatSync,
+  mkdirSync,
+  readFileSync,
+  realpathSync,
+  renameSync,
+  writeFileSync,
+} from "node:fs";
 import type { IncomingMessage, ServerResponse } from "node:http";
 import { isIP } from "node:net";
-import { isAbsolute, relative, resolve, sep } from "node:path";
+import { dirname, isAbsolute, relative, resolve, sep } from "node:path";
 import { defineConfig, type Plugin } from "vite";
 
 import {
@@ -13,6 +22,11 @@ import {
   type OpenedContainedRegularFileResolution,
 } from "../scripts/nas-asset-lib.ts";
 import { detectNasMount } from "../scripts/nas-root.ts";
+import {
+  parseAnimationQueueManifest,
+  stringifyAnimationQueueManifest,
+  type AnimationQueueItem,
+} from "./src/gutcheck-animation-queue.ts";
 
 const REPOSITORY_ROOT = resolve(import.meta.dirname, "..");
 const CANONICAL_APP_ROOT = resolve(REPOSITORY_ROOT, "app");
@@ -46,6 +60,10 @@ export const NAS_ASSET_CATALOG = loadNasAssetCatalog();
 // /nas route below. Dev only — a static bundle from scripts/gutcheck-build-site.ts carries its
 // own ./data/index.json next to the page.
 const outIndexJson = resolve(REPOSITORY_ROOT, "out/gutcheck-gg-realism/index.json");
+const animationSelectionJson = resolve(
+  REPOSITORY_ROOT,
+  "out/gutcheck-animation-queue/selection.json",
+);
 
 type UnknownRecord = Record<string, unknown>;
 
@@ -181,13 +199,34 @@ export const validateGutcheckIndexForServing = (source: string, catalog: NasAsse
     for (const [rowIndex, rowValue] of section.rows.entries()) {
       const rowLabel = `${label}.rows[${rowIndex}]`;
       const row = indexRecord(rowValue, rowLabel);
-      indexKeys(row, ["comparisons", "label", "viewers"], ["animation"], rowLabel);
+      indexKeys(row, ["comparisons", "label", "viewers"], ["animation", "queue"], rowLabel);
       indexString(row.label, `${rowLabel}.label`);
       for (const key of ["comparisons", "viewers"] as const) {
         if (!Array.isArray(row[key])) throw new Error(`${rowLabel}.${key} must be an array`);
         row[key].forEach((item, itemIndex) => validateIndexItem(item, catalog, `${rowLabel}.${key}[${itemIndex}]`));
       }
       if (row.animation !== undefined) validateIndexItem(row.animation, catalog, `${rowLabel}.animation`);
+      if (row.queue !== undefined) {
+        const queue = indexRecord(row.queue, `${rowLabel}.queue`);
+        indexKeys(queue, ["id", "mesh", "render", "spec"], [], `${rowLabel}.queue`);
+        const id = indexString(queue.id, `${rowLabel}.queue.id`);
+        if (!/^[a-z0-9][a-z0-9.-]{0,127}$/u.test(id)) {
+          throw new Error(`${rowLabel}.queue.id is not portable`);
+        }
+        authorizeEncodedNasIndexUrl(
+          indexString(queue.mesh, `${rowLabel}.queue.mesh`),
+          catalog,
+          `${rowLabel}.queue.mesh`,
+        );
+        authorizeEncodedNasIndexUrl(
+          indexString(queue.render, `${rowLabel}.queue.render`),
+          catalog,
+          `${rowLabel}.queue.render`,
+        );
+        if (queue.spec !== `evidence/gutcheck-gg-realism/specs/${id}.json`) {
+          throw new Error(`${rowLabel}.queue.spec must match its tracked spec identity`);
+        }
+      }
     }
   }
 };
@@ -235,6 +274,130 @@ const gutcheckIndexJson: Plugin = {
   apply: "serve",
   configureServer(server) {
     server.middlewares.use("/gutcheck-index.json", gutcheckIndexHandler);
+  },
+};
+
+const queueCandidatesFromIndex = (indexPath: string, catalog: NasAssetCatalogV1): Map<string, AnimationQueueItem> => {
+  const source = readFileSync(indexPath, "utf8");
+  validateGutcheckIndexForServing(source, catalog);
+  const value = JSON.parse(source) as {
+    sections: Array<{ rows?: Array<{ label: string; queue?: Omit<AnimationQueueItem, "label"> }> }>;
+  };
+  const candidates = new Map<string, AnimationQueueItem>();
+  for (const section of value.sections) {
+    for (const row of section.rows ?? []) {
+      if (row.queue === undefined) continue;
+      candidates.set(row.queue.id, { ...row.queue, label: row.label });
+    }
+  }
+  return candidates;
+};
+
+const assertQueueMatchesIndex = (
+  items: readonly AnimationQueueItem[],
+  indexPath: string,
+  catalog: NasAssetCatalogV1,
+): void => {
+  const candidates = queueCandidatesFromIndex(indexPath, catalog);
+  for (const item of items) {
+    const candidate = candidates.get(item.id);
+    if (
+      candidate === undefined ||
+      candidate.label !== item.label ||
+      candidate.mesh !== item.mesh ||
+      candidate.render !== item.render ||
+      candidate.spec !== item.spec
+    ) {
+      throw new Error(`queue item ${item.id} is not an exact candidate in the current index`);
+    }
+  }
+};
+
+export const createGutcheckAnimationSelectionHandler = (
+  selectionPath: string,
+  indexPath: string,
+  catalog: NasAssetCatalogV1,
+): ((request: IncomingMessage, response: ServerResponse) => void) => (request, response) => {
+  const method = request.method ?? "GET";
+  response.setHeader("cache-control", "no-store");
+  response.setHeader("x-content-type-options", "nosniff");
+  if (method === "GET" || method === "HEAD") {
+    let source: string;
+    try {
+      source = readFileSync(selectionPath, "utf8");
+      const manifest = parseAnimationQueueManifest(JSON.parse(source) as unknown);
+      assertQueueMatchesIndex(manifest.items, indexPath, catalog);
+      source = stringifyAnimationQueueManifest(manifest);
+    } catch {
+      response.statusCode = 404;
+      response.end();
+      return;
+    }
+    const body = Buffer.from(source);
+    response.setHeader("content-type", "application/json");
+    response.setHeader("content-length", body.byteLength);
+    response.end(method === "HEAD" ? undefined : body);
+    return;
+  }
+  if (method !== "PUT") {
+    response.statusCode = 405;
+    response.setHeader("allow", "GET, HEAD, PUT");
+    response.end();
+    return;
+  }
+  if (!(request.headers["content-type"] ?? "").toLowerCase().startsWith("application/json")) {
+    response.statusCode = 415;
+    response.end("content-type must be application/json");
+    return;
+  }
+  const chunks: Buffer[] = [];
+  let bytes = 0;
+  let refused = false;
+  request.on("data", (chunk: Buffer) => {
+    if (refused) return;
+    bytes += chunk.byteLength;
+    if (bytes > 1024 * 1024) {
+      refused = true;
+      response.statusCode = 413;
+      response.end("animation queue exceeds 1 MiB");
+      request.destroy();
+      return;
+    }
+    chunks.push(chunk);
+  });
+  request.on("end", () => {
+    if (refused) return;
+    try {
+      const manifest = parseAnimationQueueManifest(
+        JSON.parse(Buffer.concat(chunks).toString("utf8")) as unknown,
+      );
+      assertQueueMatchesIndex(manifest.items, indexPath, catalog);
+      const source = stringifyAnimationQueueManifest(manifest);
+      mkdirSync(dirname(selectionPath), { recursive: true });
+      const temporary = `${selectionPath}.${String(process.pid)}.tmp`;
+      writeFileSync(temporary, source, { encoding: "utf8", flag: "w" });
+      renameSync(temporary, selectionPath);
+      response.statusCode = 204;
+      response.end();
+    } catch (error) {
+      response.statusCode = 400;
+      response.end(error instanceof Error ? error.message : String(error));
+    }
+  });
+};
+
+const gutcheckAnimationSelection: Plugin = {
+  name: "gutcheck-animation-selection",
+  apply: "serve",
+  configureServer(server) {
+    server.middlewares.use(
+      "/gutcheck-animation-selection.json",
+      createGutcheckAnimationSelectionHandler(
+        animationSelectionJson,
+        outIndexJson,
+        NAS_ASSET_CATALOG,
+      ),
+    );
   },
 };
 
@@ -635,7 +798,13 @@ const viteLocalFileBoundary: Plugin = {
 // Module workers only (the solver worker); "es" keeps import statements legal inside the
 // bundled worker. Build target es2022 matches the repo's tsconfig target.
 export default defineConfig({
-  plugins: [loopbackOnly, viteLocalFileBoundary, gutcheckIndexJson, nasStatic],
+  plugins: [
+    loopbackOnly,
+    viteLocalFileBoundary,
+    gutcheckIndexJson,
+    gutcheckAnimationSelection,
+    nasStatic,
+  ],
   worker: { format: "es" },
   build: {
     target: "es2022",
