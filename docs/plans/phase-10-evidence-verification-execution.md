@@ -4,7 +4,7 @@
 - **Status:** in progress — maker selected the recommended package on 2026-08-21; adoption is
   governed by decisions 0052–0053 and charter v1.29
 - **Started:** 2026-08-21
-- **Last touched:** 2026-08-22 by OpenAI Codex
+- **Last touched:** 2026-08-24 by OpenAI Codex
 - **Branch/worktree:** `phase10/evidence-verification` at
   `G:\Code Files\snowflake-phase10-evidence`
 
@@ -1267,6 +1267,66 @@ blockers. It did not run exact `npm test`, a registered command, a solver, evide
 end-to-end seven-packet chain, crash injection, NAS/private-source checks, or a broader review; these
 are explicit limits, not implied coverage. No registered command, solver, attempt, or S6 evidence
 output ran before this implementation freeze.
+
+### S6 v1 preflight infrastructure stop and recovery-v1 successor plan — 2026-08-24
+
+From clean pushed implementation freeze `27ca0dea801be026f6b3729d5d898a8856c42722`, the exact
+supplemental A-P `check` reported `executableNow: true`, created no state, and exited 0. The one
+registered v1 `run` then failed closed before preflight publication, attempt-root creation, worker
+invocation, solver work, receipt, or evidence output. The observer compared raw Node
+`process.version` (`v24.13.1`) with the protocol's deliberately normalized runtime label
+`Node v24.13.1`; this is an implementation-format defect, not a host or scientific refusal.
+
+The failed launch retained exactly two stale regular lock files, both naming now-dead PID 53684:
+
+| Retained predecessor lock | Bytes | SHA-256 | Acquired |
+|---|---:|---|---|
+| `out/phase10-execution-v2/locks/package.lock` | 220 | `8275c6d47285db6d671c1f0f75ad0b45c2081164550a5e31f111f03ec1522bfe` | `2026-08-24T09:01:39.426Z` |
+| `out/phase10-execution-v2/locks/a-p-c0v-s6.lock` | 176 | `b9805c9142115822fa9f36dd89f702b79c5abf9ffb44688ffa9e3584d5981f02` | `2026-08-24T09:01:39.430Z` |
+
+The v1 A-P attempt root, all six registered final outputs, and all six registered v1 staging paths
+remain absent. The retained footprint is 396 bytes, zero worker invocations, zero governed process
+hours, and zero packet or scientific credit. The predecessor A-P protocol is 72,689 bytes /
+SHA-256 `5885d5f7677e9da56374b56a62babaf29e69f90a29caf7684e51f0b31e995f96`; its catalogue is
+14,858 bytes / `f939389cbaa9e408c63caa40a77f45b8e2ce1c6fe686fc697cc9cc16ad4a31d1`.
+Do not delete, move, rewrite, archive, or reuse either lock or the v1 attempt ID, and never rerun
+the v1 tuple.
+
+Recovery is one bounded, package-wide, non-destructive successor—not a new science protocol:
+
+- Add `research/phase10-execution-v2/recovery-v1/recovery-authority.json` and a complete derived
+  eight-packet successor catalogue/protocol/registry set below that directory. Keep every existing
+  execution-v2 v1 authority byte unchanged. The recovery authority binds the implementation-freeze
+  commit, predecessor protocol/catalogue identities, both exact lock contents and identities, the
+  complete v1 absence roster, 396 retained bytes, zero worker/process-hour credit, and
+  `automaticRetry: false`.
+- Use only new runtime paths below `out/phase10-execution-v2/recovery-v1/`: separate package/packet
+  locks and attempt roots. Supplemental A-P alone receives new attempt ID
+  `a-p-c0v-s6-20260822-v2`; the seven never-consumed packet IDs remain their registered v1 IDs in
+  the new namespace. Their science routes, matrices, tolerances, final evidence destinations, S5
+  artifacts, process-hour ceiling, and storage ceiling do not change. The package baseline rises
+  only by the retained 396 bytes, from 1,629,577 to 1,629,973.
+- Before any successor write, exact-reopen the old lock root as those two unique regular files and
+  re-prove the complete old attempt/output/stage absence roster. A missing, changed, linked, or
+  additional predecessor lock, or any old attempt/output/stage object, refuses. Successful
+  successor cleanup leaves both predecessor locks byte-identical.
+- Normalize the live runtime observation once to the exact registered `Node v24.13.1` literal and
+  use that same validated value for comparison and receipt serialization. Reject every other live
+  version. Do not add PID-reuse, native-launcher, deliberate-preload, or authenticated-peer hostile
+  hardening.
+- Freeze the successor from the first commit adding `recovery-authority.json`, require predecessor
+  ancestry and exact current successor/runtime/callable closure bytes, and reject the retired v1
+  command tuple before it can acquire a new lock. Regenerate all eight registries because the
+  shared freeze evaluator belongs to all eight callable closures.
+
+Done when focused recovery tests cover runtime normalization, exact predecessor-state reproof,
+new-path cleanup, v1 rejection/v2 single use, and successor freeze drift; exact `npm test` passes;
+one bounded non-author recovery audit reports zero blockers; and the clean successor freeze is
+committed and pushed with every successor attempt/output absent. Only then run the exact read-only
+A-P v2 `check`, verify zero writes and unchanged predecessor locks, and run A-P v2 once. No ADR or
+charter amendment is needed because decision 0053 and this plan already require a separately
+frozen successor for an unclassified infrastructure stop; deleting/reusing state, changing science,
+or increasing a cap would require new authority.
 
 ### Rejected native pre-Node launcher design (retained history; do not implement)
 
