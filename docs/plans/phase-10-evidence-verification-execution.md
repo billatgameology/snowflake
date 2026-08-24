@@ -1544,6 +1544,84 @@ the verdict relies on the generator's 101/101 audit plus the exact green suite r
 independent sweep. Assurance stops here: after this first-add checkpoint is committed and pushed,
 verify its freeze identity, then run only the exact v4 read-only `check` and one v4 `run`.
 
+### S6 recovery-v3 A-P v4 finalizer-overlay stop and recovery-v4 successor plan — 2026-08-24
+
+The recovery-v3 first-add freeze is clean and pushed at
+`4286c613df99f3d4c83652a008db5cde2f8a22e8`. The exact v4 read-only `check` exited 0 without
+writes. The one authorized `run` then passed preflight and freeze ancestry, completed the worker,
+all ten structural checks, and both named negative-control reproofs, but the parent fail-stopped
+before physical terminal-candidate materialization with
+`out-ap-c0v-s6-preflight lacks one raw-published current artifact`. It published no artifact index,
+missing-producer receipt, uncalled-check receipt, verification, or terminal receipt. The in-memory
+structural PASS is diagnostic only: the tuple earns zero packet, solver, scientific, or success
+credit.
+
+The bounded non-author diagnosis found the remaining internal overlay seam in
+`runner/src/phase10-c0v-s6-published-packet.ts`. Candidate projection, current verification,
+selected-publication closed-world checks, and historical materialized/reopened verification still
+compare the immutable matrix's v2 whole-file path as though it were the current A-P path. The v4
+preflight therefore cannot join the three raw worker publications. The smallest repair is to reuse
+`phase10C0VS6ResolveRegisteredWholeFilePublicationPath()` at those current-path joins. The matrix
+stays immutable and non-A-P behavior stays unchanged because the resolver returns the matrix path
+for every non-A-P packet.
+
+The consumed v4 tuple and locks are immutable. The attempt base is
+`out/phase10-execution-v2/recovery-v3/attempts/a-p-c0v-s6/a-p-c0v-s6-20260822-v4/`:
+
+| Recovery-v3 retained file | Bytes | SHA-256 |
+|---|---:|---|
+| `candidate/artifact-index.json` | 13,211 | `58f0262ebb5d98af09ed96f336a285458e83f172741a2dce85ead4b9e740514c` |
+| `candidate/missing-producer.json` | 30,741 | `4f02570b34cb17aeb883bd5f3f384c5dbd577e3b614b6c0c480d3ef655bcc76d` |
+| `candidate/uncalled-check.json` | 31,382 | `8279c4a6dce6fd3eeb2a0a7212e2830b259007460bf216bdcfccb1d6ec6153b7` |
+| `exit-status.json` | 243 | `1e9884cd1632148532bf0f48839bd07671363452edbe8ad90a41f12980d58b3a` |
+| `freeze-evaluation.json` | 28,131 | `8fbdf83b3b46c3bf31dd57b45a3b38c96655a7103e2f5b30a74bf36a546a1f5a` |
+| `stderr.log` | 0 | `e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855` |
+| `stdout.log` | 283,305 | `f44912834fece99c439629ded32efe4eb793e15564c1724021233f7a25f32e5b` |
+| `worker-invocations.jsonl` | 3,903 | `7630a2392754401d4e71da36998c9c002e4878e2fe12313b0815ca3714133435` |
+| `out/phase10-execution-v2/recovery-v3/locks/a-p-c0v-s6.lock` | 176 | `90b1e66219e4ecfde43ebb96101164991444faea1021fa17ec621ef3e964e2ef` |
+| `out/phase10-execution-v2/recovery-v3/locks/package.lock` | 232 | `e305f40956a4076a8e45c15339fc34026288310fe34c5283f5d19496ef1f6543` |
+| `evidence/phase10-obligation-preflight-v4/packets/a-p-c0v-s6/preflight.json` | 42,189 | `131f576278df328896c761de9a204f11967804410efe67b68ed1efc971a4a025` |
+
+The worker lifetime is 132,474,672,300 ns. Its four governed intervals are 13,691,900,
+12,254,800, 37,267,600, and 131,934,683,000 ns: exactly 131,997,897,300 ns =
+0.036666082583333336 process-hours. The new retained addition is 11 files / 433,513 bytes;
+cumulative S6 retention is 927,001 bytes and the next exact baseline is 44 files / 2,556,578
+bytes. Only the v4 preflight final exists. The other five v4 finals and all six v4 stages remain
+absent, as do the 22 predecessor v2/v3 final/stage paths: 33 predecessor absences in total.
+
+Recovery-v4 is the smallest non-destructive successor:
+
+- Track and manifest-pin the passing v4 preflight. Freeze a package-wide successor below
+  `research/phase10-execution-v2/recovery-v4/`, with runtime/locks below
+  `out/phase10-execution-v2/recovery-v4/`, sole new A-P attempt `a-p-c0v-s6-20260822-v5`, and six
+  fresh final/stage paths below `evidence/phase10-obligation-preflight-v5/`. The other seven attempt
+  IDs and their own output paths remain unchanged; only their six A-P dependency identities move
+  to v5.
+- The successor authority exact-binds the `4286c613` recovery-v3 freeze and authority, all eight
+  predecessor locks, all 21 predecessor attempt files, all three published preflights, the 33
+  remaining predecessor absences, and absence of the recovery-v4 runtime plus all 12 v5 final/stage
+  paths: 46 governed absences. It records 927,001 retained bytes, the latest one observed worker /
+  132,474,672,300 ns, and its four credited governed invocations / 131,997,897,300 ns /
+  0.036666082583333336 process-hours, with `automaticRetry: false`.
+- A-P's package carry-forward before v5 is 257,287,739,300 ns = 0.07146881647222222
+  process-hours. Its projected unchanged 16-hour ceiling is 57,857,287,739,300 ns and
+  16.07146881647222 process-hours. The projected storage total is 57,082,530 bytes.
+- Use the already-exported exact resolver through candidate projection, raw verification,
+  selected-publication closed-world checks, and historical reopen. Add one successful synthetic
+  A-P finalization regression proving all six fresh identities and one non-A-P unchanged case. Do
+  not add new hostile-runtime controls or broaden the threat model.
+- Regenerate all eight callable registries/protocol bindings, run exact `npm test`, and obtain one
+  bounded non-author audit. Commit and push the first-add recovery-v4 freeze while its runtime and
+  all v5 paths remain absent. Only then may the exact v5 read-only `check` and one v5 `run` occur.
+  Never retry v1 through v5 automatically; any refusal retains every byte and returns here.
+
+The diagnosing reviewer was a GPT-5-family Codex child sharing the task/repository context and was
+not an author of this run or implementation. It independently re-read the failure branches,
+authority/protocol/preflight, locks, exit/freeze records, worker stdout/JSONL, hashed all 11 new
+files, and re-derived timing, storage, manifest arithmetic, and absences. It did not run tests, a
+registered S6 command, solver, retry, finalizer reproduction, NAS/network access, edit, delete,
+commit, or push. The proposed fix remains source-traced until implemented and tested.
+
 No ADR or charter amendment is needed: decision 0053 and this plan already require a separately
 frozen successor after an unclassified infrastructure stop. Science, references, tolerances,
 resource ceilings, and the rejected hostile-runtime design remain closed.
