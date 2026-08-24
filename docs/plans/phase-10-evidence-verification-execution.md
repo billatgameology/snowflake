@@ -1661,6 +1661,90 @@ can be verified only after this checkpoint is committed. Assurance stops here: c
 first-add freeze, verify it and the governed absences, then run only the exact v5 read-only `check`
 and one v5 `run`.
 
+### S6 recovery-v4 A-P v5 semantic-fingerprint stop and recovery-v5 successor plan — 2026-08-24
+
+The recovery-v4 first-add freeze is clean and pushed at
+`7ff83eaf9312ebc3bf23d6f5ef5a56d6f65a912a`. The exact v5 read-only `check` exited 0 without
+writes. The one authorized `run` passed preflight and freeze ancestry, completed the worker, all
+ten structural checks, and both named negative-control reproofs, but final verification fail-stopped
+before returning or publishing verification bytes with
+`negativeControlResults[0].beforeWitness.semanticFingerprint.sha256 differs from canonical semantic
+projection bytes`. No terminal candidate, verification, terminal receipt, or other v5 final was
+published. The worker-side structural PASS remains diagnostic only; the tuple earns zero packet,
+solver, scientific, semantic, claim, or success credit.
+
+The bounded non-author diagnosis found one representation conflation. The A-P control producer in
+`runner/src/phase10-c0v-s6-ap-negative-controls.ts` hashes the physical pretty-JSON registry bytes
+for both the artifact identity and its semantic projection. The independent reproof in
+`runner/src/phase10-c0v-s6-ap-independent.ts` requires that duplication. The terminal receipt
+parser correctly recomputes the semantic digest from compact recursively sorted JSON without a
+trailing LF, so it refuses. The generic radial/aggregate mutation-witness producer in
+`runner/src/phase10-c0v-s6-published-packet.ts` has the complementary latent newline error: it uses
+`canonicalJsonSha256`, which includes a trailing LF. The smallest repair keeps every physical
+artifact digest unchanged, centralizes the already-established semantic contract as exactly
+`SHA256(UTF8(canonicalJson(projection)))`, and reuses it in both producers, the A-P independent
+reproof, and the existing terminal parser. This normalizes one byte contract; it adds no gate.
+
+The consumed v5 tuple and locks are immutable. The attempt base is
+`out/phase10-execution-v2/recovery-v4/attempts/a-p-c0v-s6/a-p-c0v-s6-20260822-v5/`:
+
+| Recovery-v4 retained file | Bytes | SHA-256 |
+|---|---:|---|
+| `candidate/artifact-index.json` | 13,211 | `910b3f92f0e35b2a82735a03e41771327ae6e97b44557a7e0d1271e4c5624e0a` |
+| `candidate/missing-producer.json` | 30,741 | `8e4b2936dfd8ffd6b2c262f388f962b8b81045d788b43db6b12fbe4903e8f31c` |
+| `candidate/uncalled-check.json` | 31,382 | `28e9546598da3cec5dfc09a0c5de207fea2f0e513d57df5f6a23f2814a7fd6f2` |
+| `exit-status.json` | 243 | `a63e702621d100b4b7a87586b98474743f01b4d7926881c98fb2552adcf38ae5` |
+| `freeze-evaluation.json` | 28,982 | `56a2c2b7f18c4dd04a842681d405ece360d21f1060f6795ea1a17b67bd6e9cfd` |
+| `stderr.log` | 0 | `e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855` |
+| `stdout.log` | 283,305 | `c604aeee1c187577a0637583831345df9f2f83aca5f358baa19fb4a02e2e7915` |
+| `worker-invocations.jsonl` | 3,903 | `8e0aae815890654b6e71320d6a95fd5f065e419952994c5a72eee58fb39070e4` |
+| `out/phase10-execution-v2/recovery-v4/locks/a-p-c0v-s6.lock` | 176 | `42ef915d09fabfffc810a2852f4db1d63847b60a942f5fe690a3e304b7c26d20` |
+| `out/phase10-execution-v2/recovery-v4/locks/package.lock` | 232 | `f13f46397b7e47dae02777d9d4acc9495a7db57dd520c856366d9f12dd9c44f6` |
+| `evidence/phase10-obligation-preflight-v5/packets/a-p-c0v-s6/preflight.json` | 45,634 | `5810af1e49041134ae8de171c4219b3fc0293b91922be63aa7249a23f6090f0a` |
+
+The worker lifetime is 134,346,732,400 ns. Its four governed intervals are 13,956,200,
+13,235,400, 37,893,300, and 133,805,427,800 ns: exactly 133,870,512,700 ns =
+0.037186253527777775 process-hours. The new retained addition is 11 files / 437,809 bytes;
+cumulative S6 retention is 1,364,810 bytes and the next exact baseline is 55 files / 2,994,387
+bytes. Only the v5 preflight final exists. The other five v5 finals and all six v5 stages remain
+absent, along with the 33 earlier paths: 44 predecessor absences in total.
+
+Recovery-v5 is the smallest non-destructive successor:
+
+- Track and manifest-pin the passing v5 preflight. Freeze a package-wide successor below
+  `research/phase10-execution-v2/recovery-v5/`, with runtime/locks below
+  `out/phase10-execution-v2/recovery-v5/`, sole new A-P attempt `a-p-c0v-s6-20260822-v6`, and six
+  fresh final/stage paths below `evidence/phase10-obligation-preflight-v6/`. The other seven attempt
+  IDs and their own output paths remain unchanged; only their six A-P dependency identities move
+  to v6.
+- The successor authority exact-binds the `7ff83eaf` recovery-v4 freeze and authority, all ten
+  predecessor locks, all 29 predecessor attempt files, all four published preflights, the 44
+  remaining predecessor absences, and absence of the recovery-v5 runtime plus all 12 v6 final/stage
+  paths: 57 governed absences. It records 1,364,810 retained bytes, the latest one observed worker /
+  134,346,732,400 ns, and its four credited governed invocations / 133,870,512,700 ns /
+  0.037186253527777775 process-hours, with `automaticRetry: false`.
+- A-P's package carry-forward before v6 is 391,158,252,000 ns = 0.10865507 process-hours. Its
+  projected unchanged 16-hour ceiling is 57,991,158,252,000 ns / 16.10865507 process-hours, and
+  its projected storage total is 57,520,339 bytes.
+- Correct only the physical-versus-semantic digest split in the A-P producer and independent
+  reproof, plus the latent trailing-LF error in the generic radial/aggregate producer. Reuse one
+  small helper for the existing no-LF canonical semantic digest in those sites and the terminal
+  parser. Add focused regressions that route real A-P negative-control receipts through independent
+  reproof and packet-verification write/parse and exercise one generic mutation result, proving
+  distinct physical/semantic hashes, the preserved named mutation refusal, and no-LF canonical
+  semantics. Add no new hostile-runtime controls.
+- Regenerate all eight callable registries/protocol bindings, run exact `npm test`, and obtain one
+  bounded non-author audit. Commit and push the first-add recovery-v5 freeze while its runtime and
+  all v6 paths remain absent. Only then may the exact v6 read-only `check` and one v6 `run` occur.
+  Never retry v1 through v6 automatically; any refusal retains every byte and returns here.
+
+The diagnosing reviewer was a GPT-5-family Codex child sharing the task/repository context and was
+not an author of this run or implementation. It independently inspected the producer, reproof, and
+terminal-parser bytes; recomputed all four physical-versus-canonical digest pairs; hashed all 11
+new files; and re-derived timing, storage, manifest arithmetic, and absences. It did not run tests,
+a registered command, solver/finalizer, retry, NAS/network access, edit, delete, commit, or push.
+The proposed fix remains source-traced until implemented and tested.
+
 No ADR or charter amendment is needed: decision 0053 and this plan already require a separately
 frozen successor after an unclassified infrastructure stop. Science, references, tolerances,
 resource ceilings, and the rejected hostile-runtime design remain closed.
