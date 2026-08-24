@@ -486,28 +486,28 @@ interface WholeFilePublicationPathAuthority {
 const AP_WHOLE_FILE_PUBLICATION_OVERLAY = Object.freeze({
   "out-ap-c0v-s6-artifact-index": Object.freeze({
     matrixPath: "evidence/phase10-obligation-preflight-v2/artifact-index.json",
-    currentPublicationPath: "evidence/phase10-obligation-preflight-v4/artifact-index.json",
+    currentPublicationPath: "evidence/phase10-obligation-preflight-v5/artifact-index.json",
   }),
   "out-ap-c0v-s6-missing-producer": Object.freeze({
     matrixPath: "evidence/phase10-obligation-preflight-v2/missing-producer.json",
-    currentPublicationPath: "evidence/phase10-obligation-preflight-v4/missing-producer.json",
+    currentPublicationPath: "evidence/phase10-obligation-preflight-v5/missing-producer.json",
   }),
   "out-ap-c0v-s6-preflight": Object.freeze({
     matrixPath: "evidence/phase10-obligation-preflight-v2/packets/a-p-c0v-s6/preflight.json",
-    currentPublicationPath: "evidence/phase10-obligation-preflight-v4/packets/a-p-c0v-s6/preflight.json",
+    currentPublicationPath: "evidence/phase10-obligation-preflight-v5/packets/a-p-c0v-s6/preflight.json",
   }),
   "out-ap-c0v-s6-terminal-receipt": Object.freeze({
     matrixPath: "evidence/phase10-obligation-preflight-v2/packets/a-p-c0v-s6/terminal-receipt.json",
     currentPublicationPath:
-      "evidence/phase10-obligation-preflight-v4/packets/a-p-c0v-s6/terminal-receipt.json",
+      "evidence/phase10-obligation-preflight-v5/packets/a-p-c0v-s6/terminal-receipt.json",
   }),
   "out-ap-c0v-s6-uncalled-check": Object.freeze({
     matrixPath: "evidence/phase10-obligation-preflight-v2/uncalled-check.json",
-    currentPublicationPath: "evidence/phase10-obligation-preflight-v4/uncalled-check.json",
+    currentPublicationPath: "evidence/phase10-obligation-preflight-v5/uncalled-check.json",
   }),
   "out-ap-c0v-s6-verification": Object.freeze({
     matrixPath: "evidence/phase10-obligation-preflight-v2/verification.json",
-    currentPublicationPath: "evidence/phase10-obligation-preflight-v4/verification.json",
+    currentPublicationPath: "evidence/phase10-obligation-preflight-v5/verification.json",
   }),
 } as const);
 

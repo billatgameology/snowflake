@@ -3,9 +3,9 @@ import { basename, isAbsolute, relative, resolve, sep } from "node:path";
 import { canonicalJsonSha256, strictJsonSnapshot, type StrictJson } from "./gate4-evidence.ts";
 import {
   PHASE10_C0V_S6_PACKET_IDS,
-  PHASE10_C0V_S6_RECOVERY_V3_ATTEMPT_ROOT,
-  PHASE10_C0V_S6_RECOVERY_V3_AUTHORITY_PATH,
-  PHASE10_C0V_S6_RECOVERY_V3_PACKET_CATALOGUE_PATH,
+  PHASE10_C0V_S6_RECOVERY_V4_ATTEMPT_ROOT,
+  PHASE10_C0V_S6_RECOVERY_V4_AUTHORITY_PATH,
+  PHASE10_C0V_S6_RECOVERY_V4_PACKET_CATALOGUE_PATH,
   parsePhase10C0VS6CallableRegistry,
   parsePhase10C0VS6Matrix,
   parsePhase10C0VS6PacketCatalogue,
@@ -64,6 +64,7 @@ import {
   independentlyMaterializePhase10C0VS6TerminalCandidate,
   independentlyReopenPhase10C0VS6HistoricalTerminalCandidate,
   independentlyReopenPhase10C0VS6TerminalCandidate,
+  phase10C0VS6ResolveRegisteredWholeFilePublicationPath,
   type Phase10C0VS6RawTerminalCandidateProjection,
 } from "./phase10-c0v-s6-lifecycle.ts";
 import {
@@ -150,9 +151,10 @@ const PACKAGE_PUBLICATION_ROOTS = Object.freeze([
   "evidence/phase10-obligation-preflight-v2",
   "evidence/phase10-obligation-preflight-v3",
   "evidence/phase10-obligation-preflight-v4",
+  "evidence/phase10-obligation-preflight-v5",
 ] as const);
 const PACKAGE_BASELINE_ATTEMPT_ROOT = "out/phase10-c0v-reference-v1" as const;
-const PACKAGE_ATTEMPT_ROOT = PHASE10_C0V_S6_RECOVERY_V3_ATTEMPT_ROOT;
+const PACKAGE_ATTEMPT_ROOT = PHASE10_C0V_S6_RECOVERY_V4_ATTEMPT_ROOT;
 
 export interface Phase10C0VS6ReopenedPublishedArtifact {
   readonly artifactRole:
@@ -314,13 +316,15 @@ export interface Phase10C0VS6FinalizedStaticPublishPacket
 export interface Phase10C0VS6FinalizedAggregatePacket
   extends Phase10C0VS6FinalizedMovingPublishPacket {}
 
-interface ReopenedAuthority {
+export interface Phase10C0VS6ReopenedPublicationAuthority {
   readonly root: Phase10C0VS6PhysicalRoot;
   readonly catalogue: Phase10C0VS6PacketCatalogue;
   readonly matrix: Phase10C0VS6ObligationMatrix;
   readonly manifest: ReadonlyMap<string, Phase10C0VS6ArtifactIdentity>;
   readonly dependencyArtifacts: readonly Phase10C0VS6ReopenedDependencyArtifact[];
 }
+
+type ReopenedAuthority = Phase10C0VS6ReopenedPublicationAuthority;
 
 function fail(message: string): never {
   throw new Error(`Phase 10 C0V S6 published packet refused: ${message}`);
@@ -511,6 +515,19 @@ function outputDefinition(
   return rows[0]!;
 }
 
+export function phase10C0VS6ResolveCurrentWholeFileOutputPath(
+  matrix: Phase10C0VS6ObligationMatrix,
+  packet: Phase10C0VS6PacketProtocol,
+  outputId: string,
+): string {
+  const definition = outputDefinition(matrix, packet.packetId, outputId);
+  return phase10C0VS6ResolveRegisteredWholeFilePublicationPath(
+    packet,
+    outputId,
+    definition.artifact.path,
+  );
+}
+
 function expectedOutputIdentity(
   authority: ReopenedAuthority,
   packet: Phase10C0VS6PacketProtocol,
@@ -540,14 +557,14 @@ function deriveVerifiedArtifacts(
   const outputIds = subroute.requiredOutputIds.filter((entry) =>
     !entry.endsWith("-verification") && !entry.endsWith("-terminal-receipt"));
   const rows = outputIds.map((outputId): Phase10C0VS6VerifiedArtifact => {
-    const definition = outputDefinition(authority.matrix, packet.packetId, outputId);
+    const outputPath = phase10C0VS6ResolveCurrentWholeFileOutputPath(authority.matrix, packet, outputId);
     const expected = expectedOutputIdentity(
       authority,
       packet,
       lifecycle.lifecycle.preflightIdentity,
-      definition.artifact.path,
+      outputPath,
     );
-    const reopened = readArtifact(authority.root, definition.artifact.path, expected, `${outputId} live output`);
+    const reopened = readArtifact(authority.root, outputPath, expected, `${outputId} live output`);
     return Object.freeze({ outputId, ...reopened.identity });
   }).sort((left, right) => codePointCompare(left.outputId, right.outputId));
   exactRoster(rows.map((entry) => entry.outputId), outputIds, "verified output ID roster");
@@ -799,12 +816,12 @@ function independentlyDeriveApArtifactIndexBytes(
   }
   register("authority-execution-v2-readme", "research/phase10-execution-v2/README.md");
   register(
-    "authority-execution-v2-recovery-v3",
-    PHASE10_C0V_S6_RECOVERY_V3_AUTHORITY_PATH,
+    "authority-execution-v2-recovery-v4",
+    PHASE10_C0V_S6_RECOVERY_V4_AUTHORITY_PATH,
   );
   register(
     "authority-packet-catalogue",
-    PHASE10_C0V_S6_RECOVERY_V3_PACKET_CATALOGUE_PATH,
+    PHASE10_C0V_S6_RECOVERY_V4_PACKET_CATALOGUE_PATH,
   );
   for (const packet of authority.catalogue.packets) {
     register(`authority-${packet.packetId}-protocol`, packet.protocolPath);
@@ -812,12 +829,12 @@ function independentlyDeriveApArtifactIndexBytes(
   }
   register(
     "out-ap-c0v-s6-missing-producer",
-    "evidence/phase10-obligation-preflight-v4/missing-producer.json",
+    "evidence/phase10-obligation-preflight-v5/missing-producer.json",
     missingProducerBytes,
   );
   register(
     "out-ap-c0v-s6-uncalled-check",
-    "evidence/phase10-obligation-preflight-v4/uncalled-check.json",
+    "evidence/phase10-obligation-preflight-v5/uncalled-check.json",
     uncalledCheckBytes,
   );
   const artifacts = [...sources.entries()].map(([path, source]) => Object.freeze({
@@ -836,7 +853,7 @@ function independentlyDeriveApArtifactIndexBytes(
   }
   return phase10C0VS6PrettyJsonBytes(Object.freeze({
     schema: "phase10-artifact-index-v1",
-    bundleId: "phase10-obligation-preflight-v4",
+    bundleId: "phase10-obligation-preflight-v5",
     artifacts: Object.freeze(artifacts),
   }));
 }
@@ -1262,12 +1279,12 @@ function materializedPublicationArtifacts(
   if (subroute === undefined) fail("selected subroute is absent while deriving publication accounting");
   const finalizationPaths = new Set(packet.resources.publicationFinalizationProjections.map((entry) => entry.path));
   const allowedPaths = new Set(subroute.requiredOutputIds.map((outputId) =>
-    outputDefinition(authority.matrix, packet.packetId, outputId)).map((entry) => entry.artifact.path));
+    phase10C0VS6ResolveCurrentWholeFileOutputPath(authority.matrix, packet, outputId)));
   const transitions = packet.paths.publicationStagingPaths.filter((entry) =>
     allowedPaths.has(entry.finalPath) && !finalizationPaths.has(entry.finalPath));
   return Object.freeze(transitions.map((transition) => {
     const outputs = subroute.requiredOutputIds.filter((outputId) =>
-      outputDefinition(authority.matrix, packet.packetId, outputId).artifact.path === transition.finalPath);
+      phase10C0VS6ResolveCurrentWholeFileOutputPath(authority.matrix, packet, outputId) === transition.finalPath);
     if (outputs.length !== 1) fail(`${transition.finalPath} does not resolve one selected output ID`);
     const expected = expectedOutputIdentity(
       authority,
@@ -1448,6 +1465,24 @@ function addExactIdentity(
   else identities.set(identity.path, identity);
 }
 
+function reopenExistingCurrentPublicationIdentities(
+  authority: ReopenedAuthority,
+  paths: readonly string[],
+): readonly Phase10C0VS6ArtifactIdentity[] {
+  const identities: Phase10C0VS6ArtifactIdentity[] = [];
+  for (const path of paths) {
+    if (existsSync(resolve(authority.root.path, path))) {
+      identities.push(readArtifact(
+        authority.root,
+        path,
+        null,
+        `${path} current-packet publication`,
+      ).identity);
+    }
+  }
+  return Object.freeze(identities);
+}
+
 /**
  * Reconciles the selected prefix with a recursive physical census. Files owned by the current
  * in-flight packet are permitted only at its exact registered publication paths or beneath its
@@ -1503,12 +1538,8 @@ function assertSelectedPrefixClosedWorld(
       }
     }
   }
-  for (const path of currentAllowedPublicationPaths) {
-    const absolute = resolve(authority.root.path, path);
-    if (existsSync(absolute)) {
-      const current = readArtifact(authority.root, path, null, `${path} current-packet publication`);
-      addExactIdentity(expectedPublication, current.identity, `${path} current-packet publication`);
-    }
+  for (const identity of reopenExistingCurrentPublicationIdentities(authority, currentAllowedPublicationPaths)) {
+    addExactIdentity(expectedPublication, identity, `${identity.path} current-packet publication`);
   }
   phase10C0VS6AssertExactPhysicalRootCensus(
     authority.root,
@@ -1697,20 +1728,20 @@ function deriveCurrentVerifiedArtifacts(
   const outputIds = subroute.requiredOutputIds.filter((entry) =>
     !entry.endsWith("-verification") && !entry.endsWith("-terminal-receipt"));
   const rows = outputIds.map((outputId): Phase10C0VS6VerifiedArtifact => {
-    const definition = outputDefinition(authority.matrix, packet.packetId, outputId);
+    const outputPath = phase10C0VS6ResolveCurrentWholeFileOutputPath(authority.matrix, packet, outputId);
     let identity: Phase10C0VS6ArtifactIdentity;
-    if (definition.artifact.path === candidate.lifecycle.preflightIdentity.path) {
+    if (outputPath === candidate.lifecycle.preflightIdentity.path) {
       identity = candidate.lifecycle.preflightIdentity;
       readArtifact(authority.root, identity.path, identity, `${outputId} current preflight`);
-    } else if (packet.bindings.scienceProtocol?.path === definition.artifact.path) {
+    } else if (packet.bindings.scienceProtocol?.path === outputPath) {
       identity = packet.bindings.scienceProtocol;
       readArtifact(authority.root, identity.path, identity, `${outputId} current science protocol`);
-    } else if (packet.bindings.referenceOrRefusal?.path === definition.artifact.path) {
+    } else if (packet.bindings.referenceOrRefusal?.path === outputPath) {
       identity = packet.bindings.referenceOrRefusal;
       readArtifact(authority.root, identity.path, identity, `${outputId} current reference/refusal`);
     } else {
       const published = publicationArtifacts.filter((entry) =>
-        entry.outputId === outputId && entry.identity.path === definition.artifact.path);
+        entry.outputId === outputId && entry.identity.path === outputPath);
       if (published.length !== 1) fail(`${outputId} lacks one raw-published current artifact`);
       identity = published[0]!.identity;
       phase10C0VS6SameIdentity(
@@ -1726,6 +1757,15 @@ function deriveCurrentVerifiedArtifacts(
   }).sort((left, right) => codePointCompare(left.outputId, right.outputId));
   exactRoster(rows.map((entry) => entry.outputId), outputIds, "current verified output roster");
   return Object.freeze(rows);
+}
+
+function selectedCurrentPublicationPaths(
+  authority: ReopenedAuthority,
+  packet: Phase10C0VS6PacketProtocol,
+  outputIds: readonly string[],
+): readonly string[] {
+  return Object.freeze(outputIds.map((outputId) =>
+    phase10C0VS6ResolveCurrentWholeFileOutputPath(authority.matrix, packet, outputId)));
 }
 
 function finalizationProjection(
@@ -1977,8 +2017,11 @@ export function independentlyFinalizePhase10C0VS6ApPacket(
     }
   }
   assertNoPublicationStages(packet, authority.root);
-  const selectedPublicationPaths = subroute.requiredOutputIds.map((outputId) =>
-    outputDefinition(authority.matrix, packet.packetId, outputId).artifact.path);
+  const selectedPublicationPaths = selectedCurrentPublicationPaths(
+    authority,
+    packet,
+    subroute.requiredOutputIds,
+  );
   assertSelectedPrefixClosedWorld(
     authority,
     packet,
@@ -2755,17 +2798,17 @@ function currentCandidatePublicationArtifacts(
   const filenames = packet.candidateFilenameRosters[candidate.lifecycle.selectedSubrouteId];
   if (filenames === undefined) fail("selected route lacks a candidate filename roster");
   for (const outputId of decision.candidateProducedOutputIds) {
-    const definition = outputDefinition(authority.matrix, packet.packetId, outputId);
+    const outputPath = phase10C0VS6ResolveCurrentWholeFileOutputPath(authority.matrix, packet, outputId);
     let bytes: Uint8Array;
-    if (definition.artifact.path === candidate.lifecycle.preflightIdentity.path) {
+    if (outputPath === candidate.lifecycle.preflightIdentity.path) {
       bytes = readArtifact(
         authority.root,
-        definition.artifact.path,
+        outputPath,
         candidate.lifecycle.preflightIdentity,
         `${packet.packetId} retained preflight publication`,
       ).bytes;
     } else {
-      const filename = basename(definition.artifact.path);
+      const filename = basename(outputPath);
       const matches = filenames.filter((entry) => entry === filename);
       // Science/reference bindings are already tracked immutable inputs and do not create a new
       // physical publication copy. They remain verified outputs, but are outside current packet
@@ -2782,7 +2825,7 @@ function currentCandidatePublicationArtifacts(
     rows.push(Object.freeze({
       artifactRole: "published-output",
       outputId,
-      identity: phase10C0VS6ArtifactIdentity(definition.artifact.path, bytes),
+      identity: phase10C0VS6ArtifactIdentity(outputPath, bytes),
       bytes: new Uint8Array(bytes),
     }));
   }
@@ -2790,7 +2833,7 @@ function currentCandidatePublicationArtifacts(
   exactRoster(
     ordered.map((entry) => entry.outputId!).sort(codePointCompare),
     decision.candidateProducedOutputIds.filter((outputId) => {
-      const path = outputDefinition(authority.matrix, packet.packetId, outputId).artifact.path;
+      const path = phase10C0VS6ResolveCurrentWholeFileOutputPath(authority.matrix, packet, outputId);
       return path === candidate.lifecycle.preflightIdentity.path || filenames.includes(basename(path));
     }).sort(codePointCompare),
     `${packet.packetId} in-memory candidate publication roster`,
@@ -2801,6 +2844,52 @@ function currentCandidatePublicationArtifacts(
     }
   }
   return ordered;
+}
+
+export interface Phase10C0VS6PublicationFinalizationJoinProjection {
+  readonly candidatePublicationArtifacts: readonly Phase10C0VS6ReopenedPublishedArtifact[];
+  readonly currentVerifiedArtifacts: readonly Phase10C0VS6VerifiedArtifact[];
+  readonly selectedPublicationPaths: readonly string[];
+  readonly selectedPublicationIdentities: readonly Phase10C0VS6ArtifactIdentity[];
+  readonly historicalMaterializedPublicationArtifacts: readonly Phase10C0VS6ReopenedPublishedArtifact[];
+  readonly historicalVerifiedArtifacts: readonly Phase10C0VS6VerifiedArtifact[];
+}
+
+/** Narrow synthetic seam covering the path joins shared by current and historical finalization. */
+export function independentlyProjectPhase10C0VS6PublicationFinalizationJoins(
+  authority: Phase10C0VS6ReopenedPublicationAuthority,
+  candidate: Phase10C0VS6RawTerminalCandidateProjection,
+): Phase10C0VS6PublicationFinalizationJoinProjection {
+  const packet = candidate.lifecycle.packet;
+  const subroute = packet.terminalSubroutes.find((entry) =>
+    entry.subrouteId === candidate.lifecycle.selectedSubrouteId);
+  if (subroute === undefined) fail("synthetic finalization join route is absent from packet authority");
+  const candidatePublicationArtifacts = currentCandidatePublicationArtifacts(authority, candidate);
+  const currentVerifiedArtifacts = deriveCurrentVerifiedArtifacts(
+    authority,
+    candidate,
+    candidatePublicationArtifacts,
+  );
+  const selectedPublicationPaths = selectedCurrentPublicationPaths(
+    authority,
+    packet,
+    subroute.requiredOutputIds,
+  );
+  return Object.freeze({
+    candidatePublicationArtifacts,
+    currentVerifiedArtifacts,
+    selectedPublicationPaths,
+    selectedPublicationIdentities: reopenExistingCurrentPublicationIdentities(
+      authority,
+      selectedPublicationPaths,
+    ),
+    historicalMaterializedPublicationArtifacts: materializedPublicationArtifacts(
+      authority,
+      packet,
+      candidate,
+    ),
+    historicalVerifiedArtifacts: deriveVerifiedArtifacts(authority, packet, candidate),
+  });
 }
 
 function mergeCurrentPublicationArtifacts(
@@ -3115,8 +3204,11 @@ function independentlyFinalizePhase10C0VS6MatchOnlyProducePacket(
   // No claim-bearing row is written until every downstream structure has independently parsed
   // and the closed-world packet census is still exact. A structural refusal therefore retains
   // only raw ignored attempt artifacts and stale locks, never a terminal candidate or ledger.
-  const selectedPublicationPaths = subroute.requiredOutputIds.map((outputId) =>
-    outputDefinition(authority.matrix, packet.packetId, outputId).artifact.path);
+  const selectedPublicationPaths = selectedCurrentPublicationPaths(
+    authority,
+    packet,
+    subroute.requiredOutputIds,
+  );
   assertNoPublicationStages(packet, root);
   assertSelectedPrefixClosedWorld(
     authority,
@@ -3504,8 +3596,11 @@ export function independentlyFinalizePhase10C0VS6RadialProducePacket(
     terminalAuthority,
   );
 
-  const selectedPublicationPaths = subroute.requiredOutputIds.map((outputId) =>
-    outputDefinition(authority.matrix, packet.packetId, outputId).artifact.path);
+  const selectedPublicationPaths = selectedCurrentPublicationPaths(
+    authority,
+    packet,
+    subroute.requiredOutputIds,
+  );
   assertNoPublicationStages(packet, root);
   assertSelectedPrefixClosedWorld(
     authority,
@@ -3980,8 +4075,11 @@ function independentlyFinalizePhase10C0VS6LayerPublishPacket(
   );
   let terminal = parsePhase10C0VS6TerminalReceiptV2Bytes(terminalBytes, packet, terminalAuthority);
 
-  const selectedPublicationPaths = subroute.requiredOutputIds.map((outputId) =>
-    outputDefinition(authority.matrix, packet.packetId, outputId).artifact.path);
+  const selectedPublicationPaths = selectedCurrentPublicationPaths(
+    authority,
+    packet,
+    subroute.requiredOutputIds,
+  );
   assertNoPublicationStages(packet, root);
   assertSelectedPrefixClosedWorld(
     authority,
@@ -4373,8 +4471,11 @@ export function independentlyFinalizePhase10C0VS6AggregatePacket(
     terminalProjection.maximumByteLength,
   );
   let terminal = parsePhase10C0VS6TerminalReceiptV2Bytes(terminalBytes, packet, terminalAuthority);
-  const selectedPublicationPaths = subroute.requiredOutputIds.map((outputId) =>
-    outputDefinition(authority.matrix, packet.packetId, outputId).artifact.path);
+  const selectedPublicationPaths = selectedCurrentPublicationPaths(
+    authority,
+    packet,
+    subroute.requiredOutputIds,
+  );
   assertNoPublicationStages(packet, root);
   assertSelectedPrefixClosedWorld(
     authority,
@@ -4956,14 +5057,34 @@ function verifyProduceDependencyPrefix(
   // such as moving-publish before radial-produce. Seed those committed outputs from the exact
   // launch-HEAD manifest and matrix; the later direct-contract join remains shallow-only below.
   for (const packetId of requiredCoreIds) {
+    const catalogueRows = catalogue.packets.filter((entry) => entry.packetId === packetId);
+    if (catalogueRows.length !== 1) fail(`${packetId} has no unique chronological catalogue row`);
+    const protocolArtifact = readArtifact(
+      root,
+      catalogueRows[0]!.protocolPath,
+      null,
+      `${packetId} chronological protocol`,
+    );
+    const chronologicalPacket = parsePhase10C0VS6PacketProtocol(parsePhase10C0VS6PrettyJsonBytes(
+      protocolArtifact.bytes,
+      `${packetId} chronological protocol`,
+    ));
+    if (chronologicalPacket.packetId !== packetId) {
+      fail(`${packetId} chronological protocol names another packet`);
+    }
     const outputRows = matrix.outputs.filter((entry) => entry.packetId === packetId);
     if (outputRows.length === 0) fail(`${packetId} has no registered S6 outputs`);
     for (const output of outputRows) {
-      const expected = manifest.get(output.artifact.path);
+      const outputPath = phase10C0VS6ResolveRegisteredWholeFilePublicationPath(
+        chronologicalPacket,
+        output.outputId,
+        output.artifact.path,
+      );
+      const expected = manifest.get(outputPath);
       if (expected === undefined) continue;
       const artifact = readArtifact(
         root,
-        output.artifact.path,
+        outputPath,
         expected,
         `${packetId} chronological output ${output.outputId}`,
       );

@@ -1605,7 +1605,7 @@ Recovery-v4 is the smallest non-destructive successor:
   0.036666082583333336 process-hours, with `automaticRetry: false`.
 - A-P's package carry-forward before v5 is 257,287,739,300 ns = 0.07146881647222222
   process-hours. Its projected unchanged 16-hour ceiling is 57,857,287,739,300 ns and
-  16.07146881647222 process-hours. The projected storage total is 57,082,530 bytes.
+  16.071468816472223 process-hours. The projected storage total is 57,082,530 bytes.
 - Use the already-exported exact resolver through candidate projection, raw verification,
   selected-publication closed-world checks, and historical reopen. Add one successful synthetic
   A-P finalization regression proving all six fresh identities and one non-A-P unchanged case. Do
@@ -1621,6 +1621,45 @@ authority/protocol/preflight, locks, exit/freeze records, worker stdout/JSONL, h
 files, and re-derived timing, storage, manifest arithmetic, and absences. It did not run tests, a
 registered S6 command, solver, retry, finalizer reproduction, NAS/network access, edit, delete,
 commit, or push. The proposed fix remains source-traced until implemented and tested.
+
+### S6 recovery-v4 implementation checkpoint — 2026-08-24
+
+Recovery-v4 is implemented as the bounded resolver reuse above. The deterministic 18-JSON
+generated tree has SHA-256 `ccb17e8c1bd7222986f13835f9a1b69590ca7b90543ad07c090aff99e19d64c6`;
+the 15,144-byte authority has SHA-256
+`d4589800fa2f49a25e75012498397f377d3fa69ca5f7127985ed97eb7513a1f7`, and the 16,104-byte
+catalogue has SHA-256 `35ca2463f2f6fc0668c32144a59081d2243f783d1d3b1b55d34baff720b9ed30`.
+The authority exact-binds 8 locks, 21 attempt files, 3 published preflights, and 46 governed
+absences. Every protocol carries the ordered 44-file / 2,556,578-byte storage baseline. The
+manifest is 389 files / 5,961,573 bytes and pins the retained v4 preflight at 42,189 bytes /
+SHA-256 `131f576278df328896c761de9a204f11967804410efe67b68ed1efc971a4a025`.
+
+The published-packet resolver now delegates every current whole-file join to the lifecycle's exact
+output-ID + immutable-matrix-path + current-roster resolver: candidate projection, current verified
+artifacts, selected closed-world paths, historical materialized/verified reopen, and chronological
+prefix lookup. The new file-backed regression drives all six A-P v5 identities through those
+production joins and separately proves a non-A-P path remains its immutable matrix path. A-P alone
+advances to `a-p-c0v-s6-20260822-v5`; all seven non-A-P attempts remain v1 and only their A-P
+dependencies move to v5. Before this checkpoint, the recovery-v4 runtime root, all six v5 finals,
+and all six v5 stages were absent.
+
+Exact `npm test` exited 0 on these bytes: Rule 7 scanned 1,312 files, both typechecks passed, and
+Vitest passed 159/159 files with 2,509 passed and 49 skipped tests in 1,814.54 seconds. No
+registered S6 command ran during recovery-v4 implementation or verification.
+
+One bounded non-author audit by a GPT-5-family Codex child sharing the task/repository context and
+not authoring recovery-v4 reported zero concrete blockers. It independently inspected the staged
+resolver, finalization, regression, freeze, runtime, authority, catalogue, protocols, and
+registries; compared every non-A-P semantic surface; re-derived all 32 retained identities /
+927,001 bytes, the 44-file baseline, the 389-file manifest, all 46 absences, 101 callable
+registrations / 54 module-export pairs, and 124 generated bindings. It did not run `npm test`, a
+registered command, solver/packet/finalizer execution, crash injection, NAS/network checks, edit,
+delete, commit, or push. Its one initial read-only census stopped on an audit-script expression; a
+corrected census passed without repository change. The focused regression traverses the production
+join helpers rather than consuming a fresh publication attempt, and the first-add freeze identity
+can be verified only after this checkpoint is committed. Assurance stops here: commit and push the
+first-add freeze, verify it and the governed absences, then run only the exact v5 read-only `check`
+and one v5 `run`.
 
 No ADR or charter amendment is needed: decision 0053 and this plan already require a separately
 frozen successor after an unclassified infrastructure stop. Science, references, tolerances,

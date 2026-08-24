@@ -68,3 +68,8 @@ phase10-execution-v2/recovery-v3/recovery-authority.json -text
 phase10-execution-v2/recovery-v3/packet-catalogue.json -text
 phase10-execution-v2/recovery-v3/packets/*/protocol.json -text
 phase10-execution-v2/recovery-v3/packets/*/callable-registry.json -text
+phase10-execution-v2/recovery-v4/build-recovery-authority.cjs -text
+phase10-execution-v2/recovery-v4/recovery-authority.json -text
+phase10-execution-v2/recovery-v4/packet-catalogue.json -text
+phase10-execution-v2/recovery-v4/packets/*/protocol.json -text
+phase10-execution-v2/recovery-v4/packets/*/callable-registry.json -text

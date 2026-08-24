@@ -86,6 +86,14 @@ research/phase10-execution-v2/*
 !research/phase10-execution-v2/recovery-v3/packets/**/
 !research/phase10-execution-v2/recovery-v3/packets/**/protocol.json
 !research/phase10-execution-v2/recovery-v3/packets/**/callable-registry.json
+!research/phase10-execution-v2/recovery-v4/
+!research/phase10-execution-v2/recovery-v4/build-recovery-authority.cjs
+!research/phase10-execution-v2/recovery-v4/packet-catalogue.json
+!research/phase10-execution-v2/recovery-v4/recovery-authority.json
+!research/phase10-execution-v2/recovery-v4/packets/
+!research/phase10-execution-v2/recovery-v4/packets/**/
+!research/phase10-execution-v2/recovery-v4/packets/**/protocol.json
+!research/phase10-execution-v2/recovery-v4/packets/**/callable-registry.json
 # Our own Phase 6 source-lock metadata and extracted observations; contains no third-party media.
 !research/phase6-heldout-candidate-lock.json
 # Exact maker-rejected WP1 V4/V4.x history; retained as records, never executable authority.

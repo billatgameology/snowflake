@@ -1,0 +1,186 @@
+{
+  "schema": "phase10-c0v-s6-callable-registry-v1",
+  "registryId": "phase10-c0v-aggregate-execution-v2-recovery-v4-callables-v1",
+  "matrixId": "phase10-c0v-s6-obligations-v1",
+  "protocolId": "phase10-c0v-aggregate-execution-v2-recovery-v4",
+  "packetId": "c0v-aggregate",
+  "callables": [
+    {
+      "callableId": "phase10-c0v-aggregate-check-caller",
+      "role": "check-caller",
+      "resolution": "resolved",
+      "modulePath": "runner/src/phase10-c0v-s6-aggregate-checks.ts",
+      "exportName": "phase10C0VAggregateCheckCaller",
+      "identity": {
+        "byteLength": 2272,
+        "sha256": "5db14e5465fb15d9e0093dfac5a5b8f6190434673776cb33c6b610d4823eb89e"
+      },
+      "producedOutputIds": [],
+      "invokedCheckIds": [
+        "chk-c0v-all-three-terminal",
+        "chk-c0v-any-layer-nonpass",
+        "chk-c0v-resource-ledger",
+        "chk-c0v-verdict-rederived"
+      ],
+      "evaluatedCheckIds": [],
+      "executedNegativeControlIds": []
+    },
+    {
+      "callableId": "phase10-c0v-aggregate-evaluator",
+      "role": "independent-evaluator",
+      "resolution": "resolved",
+      "modulePath": "runner/src/phase10-c0v-s6-aggregate-verifier.ts",
+      "exportName": "independentlyVerifyPhase10C0VAggregate",
+      "identity": {
+        "byteLength": 25584,
+        "sha256": "a11a212f8694dfae5aaa27a009d7b03a4a92c524ee415dee1f80b40b4fd4d224"
+      },
+      "producedOutputIds": [],
+      "invokedCheckIds": [],
+      "evaluatedCheckIds": [
+        "chk-c0v-all-three-terminal",
+        "chk-c0v-any-layer-nonpass",
+        "chk-c0v-resource-ledger",
+        "chk-c0v-verdict-rederived"
+      ],
+      "executedNegativeControlIds": []
+    },
+    {
+      "callableId": "phase10-c0v-aggregate-producer",
+      "role": "producer",
+      "resolution": "resolved",
+      "modulePath": "runner/src/phase10-c0v-s6-aggregate.ts",
+      "exportName": "producePhase10C0VAggregate",
+      "identity": {
+        "byteLength": 23018,
+        "sha256": "e8335bef0fd8b74e6900f3f038556dac2cffa0ee0810b5579cacb4cc8f075e77"
+      },
+      "producedOutputIds": [
+        "out-c0v-aggregate",
+        "out-c0v-artifact-index",
+        "out-c0v-resource-ledger",
+        "out-c0v-terminal-table"
+      ],
+      "invokedCheckIds": [],
+      "evaluatedCheckIds": [],
+      "executedNegativeControlIds": []
+    },
+    {
+      "callableId": "phase10-c0v-aggregate-verification-receipt-writer",
+      "role": "producer",
+      "resolution": "resolved",
+      "modulePath": "runner/src/phase10-c0v-s6-receipts.ts",
+      "exportName": "writePhase10C0VAggregateVerificationReceipt",
+      "identity": {
+        "byteLength": 133484,
+        "sha256": "0a4894a68d9305ddef80d60a3b3d8bf66e677e388eed1117213e8c4c4f40e2c3"
+      },
+      "producedOutputIds": [
+        "out-c0v-aggregate-verification"
+      ],
+      "invokedCheckIds": [],
+      "evaluatedCheckIds": [],
+      "executedNegativeControlIds": []
+    },
+    {
+      "callableId": "phase10-c0v-s6-freeze-evaluator",
+      "role": "independent-evaluator",
+      "resolution": "resolved",
+      "modulePath": "runner/src/phase10-c0v-s6-freeze.ts",
+      "exportName": "independentlyEvaluatePhase10C0VS6FreezeAncestry",
+      "identity": {
+        "byteLength": 54098,
+        "sha256": "faffecba31353c797d5785157c728c8930cf7b9b94e5e5c8c43f1163846916a5"
+      },
+      "producedOutputIds": [],
+      "invokedCheckIds": [],
+      "evaluatedCheckIds": [],
+      "executedNegativeControlIds": []
+    },
+    {
+      "callableId": "phase10-c0v-s6-preflight-receipt-writer",
+      "role": "producer",
+      "resolution": "resolved",
+      "modulePath": "runner/src/phase10-c0v-s6-receipts.ts",
+      "exportName": "writePhase10C0VS6PreflightReceipt",
+      "identity": {
+        "byteLength": 133484,
+        "sha256": "0a4894a68d9305ddef80d60a3b3d8bf66e677e388eed1117213e8c4c4f40e2c3"
+      },
+      "producedOutputIds": [
+        "out-c0v-aggregate-preflight"
+      ],
+      "invokedCheckIds": [],
+      "evaluatedCheckIds": [],
+      "executedNegativeControlIds": []
+    },
+    {
+      "callableId": "phase10-c0v-s6-refusal-check-caller",
+      "role": "check-caller",
+      "resolution": "resolved",
+      "modulePath": "runner/src/phase10-c0v-s6-refusal.ts",
+      "exportName": "phase10C0VS6RefusalCheckCaller",
+      "identity": {
+        "byteLength": 41799,
+        "sha256": "a2f8d0892c0ade5b92b26d4ca3c0968fab79cd6707d95a3bd85ad64fd69231cf"
+      },
+      "producedOutputIds": [],
+      "invokedCheckIds": [
+        "chk-c0v-aggregate-resource-refusal-validity"
+      ],
+      "evaluatedCheckIds": [],
+      "executedNegativeControlIds": []
+    },
+    {
+      "callableId": "phase10-c0v-s6-refusal-evaluator",
+      "role": "independent-evaluator",
+      "resolution": "resolved",
+      "modulePath": "runner/src/phase10-c0v-s6-refusal.ts",
+      "exportName": "independentlyEvaluatePhase10C0VS6RefusalCause",
+      "identity": {
+        "byteLength": 41799,
+        "sha256": "a2f8d0892c0ade5b92b26d4ca3c0968fab79cd6707d95a3bd85ad64fd69231cf"
+      },
+      "producedOutputIds": [],
+      "invokedCheckIds": [],
+      "evaluatedCheckIds": [
+        "chk-c0v-aggregate-resource-refusal-validity"
+      ],
+      "executedNegativeControlIds": []
+    },
+    {
+      "callableId": "phase10-c0v-s6-terminal-receipt-writer",
+      "role": "producer",
+      "resolution": "resolved",
+      "modulePath": "runner/src/phase10-c0v-s6-receipts.ts",
+      "exportName": "writePhase10C0VS6TerminalReceipt",
+      "identity": {
+        "byteLength": 133484,
+        "sha256": "0a4894a68d9305ddef80d60a3b3d8bf66e677e388eed1117213e8c4c4f40e2c3"
+      },
+      "producedOutputIds": [
+        "out-c0v-aggregate-terminal-receipt"
+      ],
+      "invokedCheckIds": [],
+      "evaluatedCheckIds": [],
+      "executedNegativeControlIds": []
+    },
+    {
+      "callableId": "phase10-nc-c0v-any-layer-nonpass",
+      "role": "negative-control",
+      "resolution": "resolved",
+      "modulePath": "runner/src/phase10-c0v-s6-aggregate.ts",
+      "exportName": "phase10C0VAnyLayerNonpass",
+      "identity": {
+        "byteLength": 23018,
+        "sha256": "e8335bef0fd8b74e6900f3f038556dac2cffa0ee0810b5579cacb4cc8f075e77"
+      },
+      "producedOutputIds": [],
+      "invokedCheckIds": [],
+      "evaluatedCheckIds": [],
+      "executedNegativeControlIds": [
+        "nc-c0v-any-layer-nonpass"
+      ]
+    }
+  ]
+}
