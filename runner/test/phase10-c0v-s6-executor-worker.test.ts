@@ -1,5 +1,11 @@
 import { Buffer } from "node:buffer";
-import { env as processEnvironment, execArgv as processExecArguments } from "node:process";
+import { spawnSync } from "node:child_process";
+import {
+  env as processEnvironment,
+  execArgv as processExecArguments,
+  execPath as nodeExecutablePath,
+  platform as processPlatform,
+} from "node:process";
 import { fileURLToPath } from "node:url";
 import { afterAll, afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
@@ -115,7 +121,7 @@ vi.mock("../src/phase10-c0v-s6-runtime-authority.ts", async (importOriginal) => 
         refusalCandidate: null,
         observed: {
           candidateDirectory:
-    "out/phase10-execution-v2/recovery-v1/attempts/c0v-radial-produce/c0v-radial-produce-20260822-v1/candidate",
+    "out/phase10-execution-v2/recovery-v2/attempts/c0v-radial-produce/c0v-radial-produce-20260822-v1/candidate",
           command: "test-only-worker-dispatch",
           head: "0".repeat(40),
           resources: { observedFreeBytes: 1_000_000_000 },
@@ -236,7 +242,10 @@ vi.mock("../src/phase10-c0v-radial-checks.ts", () => ({
 }));
 
 import { phase10C0VS6ExecutorWorker } from "../src/phase10-c0v-s6-executor-worker.ts";
-import { PHASE10_C0V_S6_EXACT_RUNTIME_ENVIRONMENT } from
+import {
+  PHASE10_C0V_S6_EXACT_RUNTIME_ENVIRONMENT,
+  phase10C0VS6ExactWorkerEnvironment,
+} from
   "../src/phase10-c0v-s6-worker-transport.ts";
 
 const repositoryRoot = fileURLToPath(new URL("../..", import.meta.url));
@@ -246,7 +255,7 @@ const originalRuntimeEnvironmentEntries = Object.freeze(Object.entries(processEn
 const workerArguments = Object.freeze([
   "--repository-root", repositoryRoot,
   "--packet", "c0v-radial-produce",
-      "--protocol", "research/phase10-execution-v2/recovery-v1/packets/c0v-radial-produce/protocol.json",
+      "--protocol", "research/phase10-execution-v2/recovery-v2/packets/c0v-radial-produce/protocol.json",
   "--attempt", "c0v-radial-produce-20260822-v1",
 ]);
 
@@ -288,6 +297,33 @@ describe("Phase 10 C0V S6 real worker dispatcher ACK state machine", () => {
 
   afterAll(() => {
     processExecArguments.splice(0, processExecArguments.length, ...originalRuntimeExecArguments);
+  });
+
+  it("materializes the exact 17-row environment in a real Windows Node child", () => {
+    const expectedKeys = PHASE10_C0V_S6_EXACT_RUNTIME_ENVIRONMENT.map((entry) => entry.key);
+    expect(expectedKeys).toHaveLength(17);
+    expect(expectedKeys).toEqual([...expectedKeys].sort());
+    if (processPlatform !== "win32") return;
+
+    const childProgram = [
+      "const entries = Object.entries(process.env)",
+      ".sort(([left], [right]) => left < right ? -1 : left > right ? 1 : 0)",
+      ".map(([key, value]) => ({ key, value }));",
+      "process.stdout.write(JSON.stringify(entries));",
+    ].join("");
+    const child = spawnSync(nodeExecutablePath, ["--eval", childProgram], {
+      cwd: repositoryRoot,
+      encoding: "utf8",
+      env: { ...phase10C0VS6ExactWorkerEnvironment(PHASE10_C0V_S6_EXACT_RUNTIME_ENVIRONMENT) },
+      maxBuffer: 65_536,
+      timeout: 10_000,
+      windowsHide: true,
+    });
+    expect(child.error).toBeUndefined();
+    expect(child.signal).toBeNull();
+    expect(child.status).toBe(0);
+    expect(child.stderr).toBe("");
+    expect(JSON.parse(child.stdout)).toEqual(PHASE10_C0V_S6_EXACT_RUNTIME_ENVIRONMENT);
   });
 
   it("rejects any ambient row outside the exact parent-provided worker environment", () => {

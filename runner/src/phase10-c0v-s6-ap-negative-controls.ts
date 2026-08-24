@@ -39,9 +39,9 @@ export interface Phase10C0VS6ApNegativeControlRequest {
 }
 
 const REGISTRY_PATH =
-  "research/phase10-execution-v2/recovery-v1/packets/c0v-radial-produce/callable-registry.json" as const;
+  "research/phase10-execution-v2/recovery-v2/packets/c0v-radial-produce/callable-registry.json" as const;
 const ATTEMPT_PREFIX =
-  "out/phase10-execution-v2/recovery-v1/attempts/a-p-c0v-s6/a-p-c0v-s6-20260822-v2/negative-controls" as const;
+  "out/phase10-execution-v2/recovery-v2/attempts/a-p-c0v-s6/a-p-c0v-s6-20260822-v3/negative-controls" as const;
 
 function fail(message: string): never {
   throw new Error(`Phase 10 C0V S6 A-P negative control refused: ${message}`);

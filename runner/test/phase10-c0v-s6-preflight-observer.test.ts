@@ -12,7 +12,7 @@ import { afterEach, describe, expect, it } from "vitest";
 import {
   parsePhase10C0VS6PacketProtocol,
   parsePhase10C0VS6PrettyJsonBytes,
-  parsePhase10C0VS6RecoveryAuthority,
+  parsePhase10C0VS6RecoveryV2Authority,
   type Phase10C0VS6PacketProtocol,
 } from "../src/phase10-c0v-s6-contracts.ts";
 import {
@@ -47,7 +47,7 @@ const ROOT = resolve(import.meta.dirname, "../..");
 const temporaryRoots: string[] = [];
 
 function packet(packetId: Phase10C0VS6PacketProtocol["packetId"]): Phase10C0VS6PacketProtocol {
-  const path = resolve(ROOT, `research/phase10-execution-v2/recovery-v1/packets/${packetId}/protocol.json`);
+  const path = resolve(ROOT, `research/phase10-execution-v2/recovery-v2/packets/${packetId}/protocol.json`);
   return parsePhase10C0VS6PacketProtocol(
     parsePhase10C0VS6PrettyJsonBytes(readFileSync(path), `${packetId} protocol`),
   );
@@ -70,13 +70,19 @@ function write(root: string, path: string, bytes: Uint8Array | string): void {
 }
 
 function writeRecoveryPredecessorState(root: string): void {
-  const authorityPath = "research/phase10-execution-v2/recovery-v1/recovery-authority.json";
+  const authorityPath = "research/phase10-execution-v2/recovery-v2/recovery-authority.json";
   const authorityBytes = new Uint8Array(readFileSync(resolve(ROOT, authorityPath)));
   if (!existsSync(resolve(root, authorityPath))) write(root, authorityPath, authorityBytes);
-  const authority = parsePhase10C0VS6RecoveryAuthority(
+  const authority = parsePhase10C0VS6RecoveryV2Authority(
     parsePhase10C0VS6PrettyJsonBytes(authorityBytes, "preflight-test recovery authority"),
   );
-  for (const identity of [authority.predecessorPacketCatalogue, authority.predecessorApProtocol]) {
+  for (const identity of [
+    authority.predecessorRecoveryAuthority,
+    authority.predecessorPacketCatalogue,
+    authority.predecessorApProtocol,
+    ...authority.predecessorAttemptArtifacts,
+    ...authority.predecessorPublishedArtifacts,
+  ]) {
     const artifact = new Uint8Array(readFileSync(resolve(ROOT, identity.path)));
     expect(phase10C0VS6ArtifactIdentity(identity.path, artifact)).toEqual(identity);
     write(root, identity.path, artifact);
@@ -84,6 +90,7 @@ function writeRecoveryPredecessorState(root: string): void {
   for (const lock of authority.predecessorLockArtifacts) {
     write(root, lock.path, phase10C0VS6PrettyJsonBytes(lock.parsedContent));
   }
+  write(root, "evidence/MANIFEST.json", readFileSync(resolve(ROOT, "evidence/MANIFEST.json")));
 }
 
 function identity(path: string, bytes: Uint8Array | string): Phase10C0VS6ArtifactIdentity {
@@ -102,7 +109,7 @@ function movingPublicationSemanticRequest(): Phase10C0VMovingPublicationSemantic
     throw new Error("moving fixture lacks its exact science/reference bindings");
   }
   const attemptDirectory =
-    "out/phase10-execution-v2/recovery-v1/attempts/c0v-moving-produce/c0v-moving-produce-20260822-v1";
+    "out/phase10-execution-v2/recovery-v2/attempts/c0v-moving-produce/c0v-moving-produce-20260822-v1";
   const stdout = identity(`${attemptDirectory}/stdout.log`, "stdout\n");
   const stderr = identity(`${attemptDirectory}/stderr.log`, "stderr\n");
   const terminalCandidate = identity(
@@ -537,7 +544,7 @@ describe("Phase 10 C0V S6 parent preflight observer", () => {
     const locks: Phase10C0VS6PackageAndPacketLockContext = Object.freeze({
       packageLock: Object.freeze({
         schema: "phase10-c0v-s6-lock-v1",
-        packetId: "phase10-c0v-s6-execution-v2-recovery-v1-packet-paths-v1",
+        packetId: "phase10-c0v-s6-execution-v2-recovery-v2-packet-paths-v1",
         attemptId: `${authority.packetId}:${authority.registeredAttemptId}`,
         processId: process.pid,
         acquiredAt,
@@ -555,7 +562,7 @@ describe("Phase 10 C0V S6 parent preflight observer", () => {
     const root = phase10C0VS6PhysicalRepositoryRoot(rootPath);
     expect(() => phase10C0VS6AssertObservedLocks(root, authority, locks)).not.toThrow();
 
-    const unknownLockPath = "out/phase10-execution-v2/recovery-v1/locks/unregistered.lock";
+    const unknownLockPath = "out/phase10-execution-v2/recovery-v2/locks/unregistered.lock";
     write(rootPath, unknownLockPath, "unknown\n");
     expect(() => phase10C0VS6AssertObservedLocks(root, authority, locks))
       .toThrow(/cardinality differs/u);
@@ -578,9 +585,9 @@ describe("Phase 10 C0V S6 parent preflight observer", () => {
     const packetId = "c0v-moving-produce" as const;
     const rootPath = temporaryRoot("authenticated-watchdog");
     for (const path of [
-      "research/phase10-execution-v2/recovery-v1/recovery-authority.json",
-      "research/phase10-execution-v2/recovery-v1/packet-catalogue.json",
-      `research/phase10-execution-v2/recovery-v1/packets/${packetId}/protocol.json`,
+      "research/phase10-execution-v2/recovery-v2/recovery-authority.json",
+      "research/phase10-execution-v2/recovery-v2/packet-catalogue.json",
+      `research/phase10-execution-v2/recovery-v2/packets/${packetId}/protocol.json`,
     ]) {
       write(rootPath, path, readFileSync(resolve(ROOT, path)));
     }

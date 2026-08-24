@@ -72,9 +72,10 @@ const PACKAGE_RETAINED_BYTES_MAXIMUM = 68_719_476_736;
 const PACKAGE_PUBLICATION_ROOTS = Object.freeze([
   "evidence/phase10-numerical-verification-v1",
   "evidence/phase10-obligation-preflight-v2",
+  "evidence/phase10-obligation-preflight-v3",
 ] as const);
 const PACKAGE_BASELINE_ATTEMPT_ROOT = "out/phase10-c0v-reference-v1" as const;
-const PACKAGE_ATTEMPT_ROOT = "out/phase10-execution-v2/recovery-v1/attempts" as const;
+const PACKAGE_ATTEMPT_ROOT = "out/phase10-execution-v2/recovery-v2/attempts" as const;
 
 const TERMINAL_FIELDS = Object.freeze([
   "schema", "receiptId", "matrixId", "protocolId", "registryId", "packetId", "attemptId",

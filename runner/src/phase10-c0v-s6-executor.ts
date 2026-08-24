@@ -102,7 +102,7 @@ import {
 } from "./phase10-c0v-s6-worker-transport.ts";
 
 const PACKET_CATALOGUE_PATH =
-  "research/phase10-execution-v2/recovery-v1/packet-catalogue.json" as const;
+  "research/phase10-execution-v2/recovery-v2/packet-catalogue.json" as const;
 const CHECK_LIMITS = Object.freeze([
   "no-lock-or-authorizing-preflight-observation",
   "no-resource-or-mutable-dependency-observation",
@@ -437,7 +437,7 @@ export interface Phase10C0VS6RunResult {
     | "c0v-static-publish"
     | "c0v-aggregate";
   readonly registeredAttemptId:
-    | "a-p-c0v-s6-20260822-v2"
+    | "a-p-c0v-s6-20260822-v3"
     | "c0v-moving-produce-20260822-v1"
     | "c0v-moving-publish-20260822-v1"
     | "c0v-radial-produce-20260822-v1"
@@ -3541,7 +3541,7 @@ async function runLockedApPacket(
 ): Promise<Phase10C0VS6RunResult> {
   const packet = authority.packet;
   if (packet.packetId !== "a-p-c0v-s6" ||
-    packet.registeredAttemptId !== "a-p-c0v-s6-20260822-v2") {
+    packet.registeredAttemptId !== "a-p-c0v-s6-20260822-v3") {
     fail("locked A-P runner received different packet authority");
   }
   watchdog.assertActive();
@@ -3583,7 +3583,7 @@ async function runLockedApPacket(
   return Object.freeze({
     mode: "run",
     packetId: "a-p-c0v-s6",
-    registeredAttemptId: "a-p-c0v-s6-20260822-v2",
+    registeredAttemptId: "a-p-c0v-s6-20260822-v3",
     selectedSubrouteId: finalized.terminalCandidate.lifecycle.selectedSubrouteId,
     terminalState: finalized.terminalCandidate.lifecycle.terminalState,
     terminalReceiptIdentity: finalized.terminalReceiptIdentity,

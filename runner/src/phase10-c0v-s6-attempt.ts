@@ -69,7 +69,7 @@ function packetAuthority(
     parsePhase10C0VS6PrettyJsonBytes(bytes, "attempt packet protocol"),
   );
   if (packet.bindings.callableRegistry.path !==
-    `research/phase10-execution-v2/recovery-v1/packets/${packet.packetId}/callable-registry.json`) {
+    `research/phase10-execution-v2/recovery-v2/packets/${packet.packetId}/callable-registry.json`) {
     fail("packet registry path is not the exact packet-local authority");
   }
   return packet;

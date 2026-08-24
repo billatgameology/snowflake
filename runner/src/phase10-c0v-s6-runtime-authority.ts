@@ -85,7 +85,7 @@ export function derivePhase10C0VS6RetainedRuntimeAuthority(
     parsePhase10C0VS6PrettyJsonBytes(input.packetProtocolBytes, "packet protocol"),
   );
   const expectedPath =
-    `research/phase10-execution-v2/recovery-v1/packets/${packet.packetId}/protocol.json`;
+    `research/phase10-execution-v2/recovery-v2/packets/${packet.packetId}/protocol.json`;
   if (input.packetProtocolIdentity.path !== expectedPath) {
     fail("packet protocol identity path differs from exact packet authority path");
   }

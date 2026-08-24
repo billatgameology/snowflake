@@ -1,0 +1,4664 @@
+{
+  "schema": "phase10-c0v-s6-recovery-v2-packet-protocol-v1",
+  "protocolId": "phase10-c0v-radial-produce-execution-v2-recovery-v2",
+  "matrixId": "phase10-c0v-s6-obligations-v1",
+  "packetId": "c0v-radial-produce",
+  "registryId": "phase10-c0v-radial-produce-execution-v2-recovery-v2-callables-v1",
+  "registeredAttemptId": "c0v-radial-produce-20260822-v1",
+  "executionMode": "radial-production",
+  "bindings": {
+    "matrix": {
+      "path": "research/phase10-c0v-s6-obligation-matrix-v1.json",
+      "byteLength": 78657,
+      "sha256": "2d917da9d2a8058b4901131399e570928a7b17e366129cc4bcb0dbc93cfac2d8"
+    },
+    "packetCatalogue": {
+      "path": "research/phase10-execution-v2/recovery-v2/packet-catalogue.json",
+      "byteLength": 16104,
+      "sha256": "c746a176dc539dd8202a69851e8845964eb9bd131673ca6b3e46bbabd76c0bc6"
+    },
+    "recoveryAuthority": {
+      "path": "research/phase10-execution-v2/recovery-v2/recovery-authority.json",
+      "byteLength": 7040,
+      "sha256": "b950f41ba55e2414948cc4c3cf8af14ec80fcedf816a7fcd9a8fc84a74b2294f"
+    },
+    "predecessorSchemaRegistry": {
+      "path": "research/phase10-c0v-artifact-schema-registry-v1.json",
+      "byteLength": 117196,
+      "sha256": "d69af84af58af0aff1b5a6a307ef63094439891f0b79357c127035c483c6134d"
+    },
+    "predecessorSchemaContracts": {
+      "path": "research/phase10-c0v-schema-contracts-v1.json",
+      "byteLength": 93575,
+      "sha256": "be743fbc560e46e60b51132be66ca9381ffa5d7b69bf6b1e21cce500628cf0f6"
+    },
+    "successorSchemaRegistry": {
+      "path": "research/phase10-c0v-s6-artifact-schema-registry-v1.json",
+      "byteLength": 14272,
+      "sha256": "94a3361b354637f9b271d408a8f377b2421c1c5774be1d8f10c7e44c56156290"
+    },
+    "successorSchemaContracts": {
+      "path": "research/phase10-c0v-s6-schema-contracts-v1.json",
+      "byteLength": 89137,
+      "sha256": "a7d3a8edab8ead74129bd5bef951c18e4ca6b6fa70d0957edb20c73aeb23bc2a"
+    },
+    "callableRegistry": {
+      "path": "research/phase10-execution-v2/recovery-v2/packets/c0v-radial-produce/callable-registry.json",
+      "byteLength": 12797,
+      "sha256": "5412b1c53751d11afc2461830a13fdc5cf85b5075a86728dafd8b05e1c7eac84"
+    },
+    "scienceProtocol": {
+      "path": "research/phase10-c0v-radial-protocol-v1.json",
+      "byteLength": 14998,
+      "sha256": "dcfab6f059d3592ab5684e7fe42ecfe827790c19d8f8a6f7e1968f2b3f55abcf"
+    },
+    "referenceOrRefusal": {
+      "path": "evidence/phase10-numerical-verification-v1/c0v-radial-reference.json",
+      "byteLength": 449978,
+      "sha256": "60800ae66160deedd96f21ecb982301546153057892e8fa68faa54b6251f31e2"
+    },
+    "originalApEvidence": [
+      {
+        "path": "evidence/phase10-obligation-preflight-v1/artifact-index.json",
+        "byteLength": 4078,
+        "sha256": "cccd2a66a1b07ec1ab7bad2f2b3c491fdec7d2caa3e0d80f23191de2d619be69"
+      },
+      {
+        "path": "evidence/phase10-obligation-preflight-v1/missing-producer.json",
+        "byteLength": 4537,
+        "sha256": "35e5b2d42b8a18ea0933a52e9d138bcb5fd3237390a2204082a28f753f01ad8e"
+      },
+      {
+        "path": "evidence/phase10-obligation-preflight-v1/packets/a-p/preflight.json",
+        "byteLength": 3164,
+        "sha256": "3badfa9686ee098eecd0b15f99815ede5749d4550f9497ef44f3550025ff402c"
+      },
+      {
+        "path": "evidence/phase10-obligation-preflight-v1/packets/a-p/terminal-receipt.json",
+        "byteLength": 1681,
+        "sha256": "c84e269f521f7b2fb680fa1000dfc3837893f2baa88fc46402a6303e24b076c4"
+      },
+      {
+        "path": "evidence/phase10-obligation-preflight-v1/uncalled-check.json",
+        "byteLength": 5207,
+        "sha256": "983b6be3285e2eac6bbc941e828976edc752ec2224ee6097795ab0ca3ac52ec0"
+      },
+      {
+        "path": "evidence/phase10-obligation-preflight-v1/verification.json",
+        "byteLength": 16938,
+        "sha256": "6b39cf5b7f663c5518f5dd0745e92d59aae3dc21ac7dcf94ece72603fc96eaec"
+      }
+    ]
+  },
+  "selectedRouteId": "route-c0v-radial-independent-reference",
+  "s5ArtifactDisposition": "reference-frozen",
+  "registeredOutputIds": [
+    "out-c0v-radial-attempt-ledger",
+    "out-c0v-radial-evaluation",
+    "out-c0v-radial-produce-preflight",
+    "out-c0v-radial-produce-terminal-receipt",
+    "out-c0v-radial-produce-verification",
+    "out-c0v-radial-protocol",
+    "out-c0v-radial-reference",
+    "out-c0v-radial-witness"
+  ],
+  "registeredCheckIds": [
+    "chk-c0v-radial-artifact-refusal-validity",
+    "chk-c0v-radial-attempt-census",
+    "chk-c0v-radial-discrepancy-validity",
+    "chk-c0v-radial-freeze-ancestry",
+    "chk-c0v-radial-numeric",
+    "chk-c0v-radial-reference-independence",
+    "chk-c0v-radial-resource-boundary",
+    "chk-c0v-radial-resource-refusal-validity"
+  ],
+  "registeredNegativeControlIds": [
+    "nc-radial-finite-shell-term",
+    "nc-radial-forged-summary",
+    "nc-radial-robin-coefficient"
+  ],
+  "boundDependencyPacketIds": [
+    "a-p-c0v-s6"
+  ],
+  "dependencyArtifactContracts": [
+    {
+      "packetId": "a-p-c0v-s6",
+      "artifactPath": "evidence/phase10-obligation-preflight-v3/artifact-index.json",
+      "schemaId": "phase10-artifact-index-v1",
+      "retentionClass": "tracked-evidence",
+      "applicableDispositionCodes": [
+        null
+      ]
+    },
+    {
+      "packetId": "a-p-c0v-s6",
+      "artifactPath": "evidence/phase10-obligation-preflight-v3/missing-producer.json",
+      "schemaId": "phase10-ap-negative-control-v1",
+      "retentionClass": "tracked-evidence",
+      "applicableDispositionCodes": [
+        null
+      ]
+    },
+    {
+      "packetId": "a-p-c0v-s6",
+      "artifactPath": "evidence/phase10-obligation-preflight-v3/packets/a-p-c0v-s6/preflight.json",
+      "schemaId": "phase10-c0v-s6-preflight-receipt-v2",
+      "retentionClass": "tracked-evidence",
+      "applicableDispositionCodes": [
+        null
+      ]
+    },
+    {
+      "packetId": "a-p-c0v-s6",
+      "artifactPath": "evidence/phase10-obligation-preflight-v3/packets/a-p-c0v-s6/terminal-receipt.json",
+      "schemaId": "phase10-c0v-s6-terminal-receipt-v2",
+      "retentionClass": "tracked-evidence",
+      "applicableDispositionCodes": [
+        null
+      ]
+    },
+    {
+      "packetId": "a-p-c0v-s6",
+      "artifactPath": "evidence/phase10-obligation-preflight-v3/uncalled-check.json",
+      "schemaId": "phase10-ap-negative-control-v1",
+      "retentionClass": "tracked-evidence",
+      "applicableDispositionCodes": [
+        null
+      ]
+    },
+    {
+      "packetId": "a-p-c0v-s6",
+      "artifactPath": "evidence/phase10-obligation-preflight-v3/verification.json",
+      "schemaId": "phase10-packet-verification-v2",
+      "retentionClass": "tracked-evidence",
+      "applicableDispositionCodes": [
+        null
+      ]
+    }
+  ],
+  "commandTemplates": [
+    {
+      "commandId": "check",
+      "command": "node runner/src/phase10-c0v-s6-executor.ts check --packet c0v-radial-produce --protocol research/phase10-execution-v2/recovery-v2/packets/c0v-radial-produce/protocol.json --attempt c0v-radial-produce-20260822-v1"
+    },
+    {
+      "commandId": "run",
+      "command": "node runner/src/phase10-c0v-s6-executor.ts run --packet c0v-radial-produce --protocol research/phase10-execution-v2/recovery-v2/packets/c0v-radial-produce/protocol.json --attempt c0v-radial-produce-20260822-v1"
+    }
+  ],
+  "paths": {
+    "attemptRoot": "out/phase10-execution-v2/recovery-v2/attempts/c0v-radial-produce",
+    "packageLockPath": "out/phase10-execution-v2/recovery-v2/locks/package.lock",
+    "lockPath": "out/phase10-execution-v2/recovery-v2/locks/c0v-radial-produce.lock",
+    "preflightReceiptPath": "evidence/phase10-obligation-preflight-v2/packets/c0v-radial-produce/preflight.json",
+    "terminalReceiptPath": "evidence/phase10-obligation-preflight-v2/packets/c0v-radial-produce/terminal-receipt.json",
+    "allowedPublicationPaths": [
+      "evidence/phase10-numerical-verification-v1/c0v-radial-attempts.jsonl",
+      "evidence/phase10-numerical-verification-v1/c0v-radial-evaluation.json",
+      "evidence/phase10-numerical-verification-v1/c0v-radial-witness.bin",
+      "evidence/phase10-obligation-preflight-v2/packets/c0v-radial-produce/preflight.json",
+      "evidence/phase10-obligation-preflight-v2/packets/c0v-radial-produce/terminal-receipt.json",
+      "evidence/phase10-obligation-preflight-v2/packets/c0v-radial-produce/verification.json"
+    ],
+    "publicationStagingPaths": [
+      {
+        "finalPath": "evidence/phase10-numerical-verification-v1/c0v-radial-attempts.jsonl",
+        "stagingPath": "evidence/phase10-numerical-verification-v1/c0v-radial-attempts.jsonl.stage-c0v-radial-produce-20260822-v1"
+      },
+      {
+        "finalPath": "evidence/phase10-numerical-verification-v1/c0v-radial-evaluation.json",
+        "stagingPath": "evidence/phase10-numerical-verification-v1/c0v-radial-evaluation.json.stage-c0v-radial-produce-20260822-v1"
+      },
+      {
+        "finalPath": "evidence/phase10-numerical-verification-v1/c0v-radial-witness.bin",
+        "stagingPath": "evidence/phase10-numerical-verification-v1/c0v-radial-witness.bin.stage-c0v-radial-produce-20260822-v1"
+      },
+      {
+        "finalPath": "evidence/phase10-obligation-preflight-v2/packets/c0v-radial-produce/preflight.json",
+        "stagingPath": "evidence/phase10-obligation-preflight-v2/packets/c0v-radial-produce/preflight.json.stage-c0v-radial-produce-20260822-v1"
+      },
+      {
+        "finalPath": "evidence/phase10-obligation-preflight-v2/packets/c0v-radial-produce/terminal-receipt.json",
+        "stagingPath": "evidence/phase10-obligation-preflight-v2/packets/c0v-radial-produce/terminal-receipt.json.stage-c0v-radial-produce-20260822-v1"
+      },
+      {
+        "finalPath": "evidence/phase10-obligation-preflight-v2/packets/c0v-radial-produce/verification.json",
+        "stagingPath": "evidence/phase10-obligation-preflight-v2/packets/c0v-radial-produce/verification.json.stage-c0v-radial-produce-20260822-v1"
+      }
+    ],
+    "internalOnlyFilenames": [
+      "c0v-radial-producer-summary.json",
+      "cause-evaluation.json",
+      "exit-status.json",
+      "freeze-evaluation.json",
+      "nc-radial-finite-shell-term-witness.bin",
+      "nc-radial-forged-summary.json",
+      "nc-radial-robin-coefficient-witness.bin",
+      "stderr.log",
+      "stdout.log",
+      "terminal-success-candidate.json",
+      "worker-invocations.jsonl",
+      "worker-progress.jsonl"
+    ]
+  },
+  "candidateFilenameRosters": {
+    "radial-complete-pass": [
+      "c0v-radial-attempts.jsonl",
+      "c0v-radial-evaluation.json",
+      "c0v-radial-witness.bin"
+    ],
+    "radial-complete-fail": [
+      "c0v-radial-attempts.jsonl",
+      "c0v-radial-evaluation.json",
+      "c0v-radial-witness.bin"
+    ],
+    "radial-artifact-refusal": [
+      "c0v-radial-attempts.jsonl"
+    ],
+    "radial-prelaunch-refusal": [
+      "c0v-radial-attempts.jsonl"
+    ],
+    "radial-cap-production": [
+      "c0v-radial-attempts.jsonl"
+    ],
+    "radial-cap-evaluator": [
+      "c0v-radial-attempts.jsonl"
+    ],
+    "radial-cap-nc-finite-shell": [
+      "c0v-radial-attempts.jsonl"
+    ],
+    "radial-cap-nc-forged-summary": [
+      "c0v-radial-attempts.jsonl"
+    ],
+    "radial-cap-nc-robin": [
+      "c0v-radial-attempts.jsonl"
+    ]
+  },
+  "internalArtifactRosters": [
+    {
+      "rosterId": "radial-complete-pass",
+      "relativePaths": [
+        "candidate/c0v-radial-producer-summary.json",
+        "candidate/nc-radial-finite-shell-term-witness.bin",
+        "candidate/nc-radial-forged-summary.json",
+        "candidate/nc-radial-robin-coefficient-witness.bin",
+        "exit-status.json",
+        "freeze-evaluation.json",
+        "stderr.log",
+        "stdout.log",
+        "terminal-success-candidate.json",
+        "worker-invocations.jsonl",
+        "worker-progress.jsonl"
+      ]
+    },
+    {
+      "rosterId": "radial-complete-fail",
+      "relativePaths": [
+        "candidate/c0v-radial-producer-summary.json",
+        "candidate/nc-radial-finite-shell-term-witness.bin",
+        "candidate/nc-radial-forged-summary.json",
+        "candidate/nc-radial-robin-coefficient-witness.bin",
+        "exit-status.json",
+        "freeze-evaluation.json",
+        "stderr.log",
+        "stdout.log",
+        "terminal-success-candidate.json",
+        "worker-invocations.jsonl",
+        "worker-progress.jsonl"
+      ]
+    },
+    {
+      "rosterId": "radial-artifact-refusal",
+      "relativePaths": [
+        "cause-evaluation.json",
+        "exit-status.json",
+        "freeze-evaluation.json",
+        "stderr.log",
+        "stdout.log",
+        "terminal-success-candidate.json"
+      ]
+    },
+    {
+      "rosterId": "radial-prelaunch-refusal",
+      "relativePaths": [
+        "cause-evaluation.json",
+        "exit-status.json",
+        "freeze-evaluation.json",
+        "stderr.log",
+        "stdout.log",
+        "terminal-success-candidate.json"
+      ]
+    },
+    {
+      "rosterId": "radial-cap-production",
+      "relativePaths": [
+        "cause-evaluation.json",
+        "exit-status.json",
+        "freeze-evaluation.json",
+        "stderr.log",
+        "stdout.log",
+        "terminal-success-candidate.json",
+        "worker-invocations.jsonl",
+        "worker-progress.jsonl"
+      ]
+    },
+    {
+      "rosterId": "radial-cap-evaluator",
+      "relativePaths": [
+        "candidate/c0v-radial-producer-summary.json",
+        "candidate/c0v-radial-witness.bin",
+        "cause-evaluation.json",
+        "exit-status.json",
+        "freeze-evaluation.json",
+        "stderr.log",
+        "stdout.log",
+        "terminal-success-candidate.json",
+        "worker-invocations.jsonl",
+        "worker-progress.jsonl"
+      ]
+    },
+    {
+      "rosterId": "radial-cap-nc-finite-shell",
+      "relativePaths": [
+        "candidate/c0v-radial-producer-summary.json",
+        "candidate/c0v-radial-witness.bin",
+        "cause-evaluation.json",
+        "exit-status.json",
+        "freeze-evaluation.json",
+        "stderr.log",
+        "stdout.log",
+        "terminal-success-candidate.json",
+        "worker-invocations.jsonl",
+        "worker-progress.jsonl"
+      ]
+    },
+    {
+      "rosterId": "radial-cap-nc-forged-summary",
+      "relativePaths": [
+        "candidate/c0v-radial-producer-summary.json",
+        "candidate/c0v-radial-witness.bin",
+        "candidate/nc-radial-finite-shell-term-witness.bin",
+        "cause-evaluation.json",
+        "exit-status.json",
+        "freeze-evaluation.json",
+        "stderr.log",
+        "stdout.log",
+        "terminal-success-candidate.json",
+        "worker-invocations.jsonl",
+        "worker-progress.jsonl"
+      ]
+    },
+    {
+      "rosterId": "radial-cap-nc-robin",
+      "relativePaths": [
+        "candidate/c0v-radial-producer-summary.json",
+        "candidate/c0v-radial-witness.bin",
+        "candidate/nc-radial-finite-shell-term-witness.bin",
+        "candidate/nc-radial-forged-summary.json",
+        "cause-evaluation.json",
+        "exit-status.json",
+        "freeze-evaluation.json",
+        "stderr.log",
+        "stdout.log",
+        "terminal-success-candidate.json",
+        "worker-invocations.jsonl",
+        "worker-progress.jsonl"
+      ]
+    }
+  ],
+  "verification": {
+    "filename": "verification.json",
+    "schemaId": "phase10-packet-verification-v2",
+    "verificationIdRule": "phase10-packet-attempt-verification-v2",
+    "executionProvenanceRule": "nonnull-completed-main-evaluator-for-normal-credit-route-null-exactly-radial-validated-refusal-no-verification-on-other-maker-return"
+  },
+  "allowedCleanTerminalClasses": [
+    "packet-resource-refusal",
+    "scientific-fail",
+    "scientific-pass",
+    "scientific-refusal"
+  ],
+  "terminalSubroutes": [
+    {
+      "subrouteId": "radial-complete-pass",
+      "dispositionCode": "production-complete",
+      "classificationConditionIds": [],
+      "requiredOutputIds": [
+        "out-c0v-radial-attempt-ledger",
+        "out-c0v-radial-evaluation",
+        "out-c0v-radial-produce-preflight",
+        "out-c0v-radial-produce-terminal-receipt",
+        "out-c0v-radial-produce-verification",
+        "out-c0v-radial-protocol",
+        "out-c0v-radial-reference",
+        "out-c0v-radial-witness"
+      ],
+      "forbiddenOutputIds": [
+        "out-c0v-radial-reference-refusal"
+      ],
+      "requiredCheckIds": [
+        "chk-c0v-radial-attempt-census",
+        "chk-c0v-radial-freeze-ancestry",
+        "chk-c0v-radial-numeric",
+        "chk-c0v-radial-reference-independence",
+        "chk-c0v-radial-resource-boundary"
+      ],
+      "forbiddenCheckIds": [
+        "chk-c0v-radial-artifact-refusal-validity",
+        "chk-c0v-radial-discrepancy-validity",
+        "chk-c0v-radial-refusal-validity",
+        "chk-c0v-radial-resource-refusal-validity"
+      ],
+      "requiredNegativeControlIds": [
+        "nc-radial-finite-shell-term",
+        "nc-radial-forged-summary",
+        "nc-radial-robin-coefficient"
+      ],
+      "forbiddenNegativeControlIds": []
+    },
+    {
+      "subrouteId": "radial-complete-fail",
+      "dispositionCode": "production-complete",
+      "classificationConditionIds": [],
+      "requiredOutputIds": [
+        "out-c0v-radial-attempt-ledger",
+        "out-c0v-radial-evaluation",
+        "out-c0v-radial-produce-preflight",
+        "out-c0v-radial-produce-terminal-receipt",
+        "out-c0v-radial-produce-verification",
+        "out-c0v-radial-protocol",
+        "out-c0v-radial-reference",
+        "out-c0v-radial-witness"
+      ],
+      "forbiddenOutputIds": [
+        "out-c0v-radial-reference-refusal"
+      ],
+      "requiredCheckIds": [
+        "chk-c0v-radial-attempt-census",
+        "chk-c0v-radial-freeze-ancestry",
+        "chk-c0v-radial-numeric",
+        "chk-c0v-radial-reference-independence",
+        "chk-c0v-radial-resource-boundary"
+      ],
+      "forbiddenCheckIds": [
+        "chk-c0v-radial-artifact-refusal-validity",
+        "chk-c0v-radial-discrepancy-validity",
+        "chk-c0v-radial-refusal-validity",
+        "chk-c0v-radial-resource-refusal-validity"
+      ],
+      "requiredNegativeControlIds": [
+        "nc-radial-finite-shell-term",
+        "nc-radial-forged-summary",
+        "nc-radial-robin-coefficient"
+      ],
+      "forbiddenNegativeControlIds": []
+    },
+    {
+      "subrouteId": "radial-artifact-refusal",
+      "dispositionCode": "preproduction-artifact-refusal",
+      "classificationConditionIds": [
+        "cond-c0v-radial-artifact-precondition-failed"
+      ],
+      "requiredOutputIds": [
+        "out-c0v-radial-attempt-ledger",
+        "out-c0v-radial-produce-preflight",
+        "out-c0v-radial-produce-terminal-receipt",
+        "out-c0v-radial-produce-verification",
+        "out-c0v-radial-protocol",
+        "out-c0v-radial-reference"
+      ],
+      "forbiddenOutputIds": [
+        "out-c0v-radial-evaluation",
+        "out-c0v-radial-reference-refusal",
+        "out-c0v-radial-witness"
+      ],
+      "requiredCheckIds": [
+        "chk-c0v-radial-artifact-refusal-validity",
+        "chk-c0v-radial-attempt-census",
+        "chk-c0v-radial-freeze-ancestry"
+      ],
+      "forbiddenCheckIds": [
+        "chk-c0v-radial-discrepancy-validity",
+        "chk-c0v-radial-numeric",
+        "chk-c0v-radial-reference-independence",
+        "chk-c0v-radial-refusal-validity",
+        "chk-c0v-radial-resource-boundary",
+        "chk-c0v-radial-resource-refusal-validity"
+      ],
+      "requiredNegativeControlIds": [],
+      "forbiddenNegativeControlIds": [
+        "nc-radial-finite-shell-term",
+        "nc-radial-forged-summary",
+        "nc-radial-robin-coefficient"
+      ]
+    },
+    {
+      "subrouteId": "radial-prelaunch-refusal",
+      "dispositionCode": "prelaunch-resource-refusal",
+      "classificationConditionIds": [
+        "cond-c0v-radial-produce-prelaunch-free-space",
+        "cond-c0v-radial-produce-prelaunch-process-hours",
+        "cond-c0v-radial-produce-prelaunch-storage"
+      ],
+      "requiredOutputIds": [
+        "out-c0v-radial-attempt-ledger",
+        "out-c0v-radial-produce-preflight",
+        "out-c0v-radial-produce-terminal-receipt",
+        "out-c0v-radial-produce-verification",
+        "out-c0v-radial-protocol",
+        "out-c0v-radial-reference"
+      ],
+      "forbiddenOutputIds": [
+        "out-c0v-radial-evaluation",
+        "out-c0v-radial-reference-refusal",
+        "out-c0v-radial-witness"
+      ],
+      "requiredCheckIds": [
+        "chk-c0v-radial-attempt-census",
+        "chk-c0v-radial-freeze-ancestry",
+        "chk-c0v-radial-resource-refusal-validity"
+      ],
+      "forbiddenCheckIds": [
+        "chk-c0v-radial-artifact-refusal-validity",
+        "chk-c0v-radial-discrepancy-validity",
+        "chk-c0v-radial-numeric",
+        "chk-c0v-radial-reference-independence",
+        "chk-c0v-radial-refusal-validity",
+        "chk-c0v-radial-resource-boundary"
+      ],
+      "requiredNegativeControlIds": [],
+      "forbiddenNegativeControlIds": [
+        "nc-radial-finite-shell-term",
+        "nc-radial-forged-summary",
+        "nc-radial-robin-coefficient"
+      ]
+    },
+    {
+      "subrouteId": "radial-cap-production",
+      "dispositionCode": "registered-cap-resource-refusal",
+      "classificationConditionIds": [
+        "cond-c0v-radial-cap-production"
+      ],
+      "requiredOutputIds": [
+        "out-c0v-radial-attempt-ledger",
+        "out-c0v-radial-produce-preflight",
+        "out-c0v-radial-produce-terminal-receipt",
+        "out-c0v-radial-produce-verification",
+        "out-c0v-radial-protocol",
+        "out-c0v-radial-reference"
+      ],
+      "forbiddenOutputIds": [
+        "out-c0v-radial-evaluation",
+        "out-c0v-radial-reference-refusal",
+        "out-c0v-radial-witness"
+      ],
+      "requiredCheckIds": [
+        "chk-c0v-radial-attempt-census",
+        "chk-c0v-radial-freeze-ancestry",
+        "chk-c0v-radial-resource-boundary",
+        "chk-c0v-radial-resource-refusal-validity"
+      ],
+      "forbiddenCheckIds": [
+        "chk-c0v-radial-artifact-refusal-validity",
+        "chk-c0v-radial-discrepancy-validity",
+        "chk-c0v-radial-numeric",
+        "chk-c0v-radial-reference-independence",
+        "chk-c0v-radial-refusal-validity"
+      ],
+      "requiredNegativeControlIds": [],
+      "forbiddenNegativeControlIds": [
+        "nc-radial-finite-shell-term",
+        "nc-radial-forged-summary",
+        "nc-radial-robin-coefficient"
+      ]
+    },
+    {
+      "subrouteId": "radial-cap-evaluator",
+      "dispositionCode": "registered-cap-resource-refusal",
+      "classificationConditionIds": [
+        "cond-c0v-radial-cap-evaluator"
+      ],
+      "requiredOutputIds": [
+        "out-c0v-radial-attempt-ledger",
+        "out-c0v-radial-produce-preflight",
+        "out-c0v-radial-produce-terminal-receipt",
+        "out-c0v-radial-produce-verification",
+        "out-c0v-radial-protocol",
+        "out-c0v-radial-reference"
+      ],
+      "forbiddenOutputIds": [
+        "out-c0v-radial-evaluation",
+        "out-c0v-radial-reference-refusal",
+        "out-c0v-radial-witness"
+      ],
+      "requiredCheckIds": [
+        "chk-c0v-radial-attempt-census",
+        "chk-c0v-radial-freeze-ancestry",
+        "chk-c0v-radial-resource-boundary",
+        "chk-c0v-radial-resource-refusal-validity"
+      ],
+      "forbiddenCheckIds": [
+        "chk-c0v-radial-artifact-refusal-validity",
+        "chk-c0v-radial-discrepancy-validity",
+        "chk-c0v-radial-numeric",
+        "chk-c0v-radial-reference-independence",
+        "chk-c0v-radial-refusal-validity"
+      ],
+      "requiredNegativeControlIds": [],
+      "forbiddenNegativeControlIds": [
+        "nc-radial-finite-shell-term",
+        "nc-radial-forged-summary",
+        "nc-radial-robin-coefficient"
+      ]
+    },
+    {
+      "subrouteId": "radial-cap-nc-finite-shell",
+      "dispositionCode": "registered-cap-resource-refusal",
+      "classificationConditionIds": [
+        "cond-c0v-radial-cap-nc-finite-shell"
+      ],
+      "requiredOutputIds": [
+        "out-c0v-radial-attempt-ledger",
+        "out-c0v-radial-produce-preflight",
+        "out-c0v-radial-produce-terminal-receipt",
+        "out-c0v-radial-produce-verification",
+        "out-c0v-radial-protocol",
+        "out-c0v-radial-reference"
+      ],
+      "forbiddenOutputIds": [
+        "out-c0v-radial-evaluation",
+        "out-c0v-radial-reference-refusal",
+        "out-c0v-radial-witness"
+      ],
+      "requiredCheckIds": [
+        "chk-c0v-radial-attempt-census",
+        "chk-c0v-radial-freeze-ancestry",
+        "chk-c0v-radial-resource-boundary",
+        "chk-c0v-radial-resource-refusal-validity"
+      ],
+      "forbiddenCheckIds": [
+        "chk-c0v-radial-artifact-refusal-validity",
+        "chk-c0v-radial-discrepancy-validity",
+        "chk-c0v-radial-numeric",
+        "chk-c0v-radial-reference-independence",
+        "chk-c0v-radial-refusal-validity"
+      ],
+      "requiredNegativeControlIds": [],
+      "forbiddenNegativeControlIds": [
+        "nc-radial-finite-shell-term",
+        "nc-radial-forged-summary",
+        "nc-radial-robin-coefficient"
+      ]
+    },
+    {
+      "subrouteId": "radial-cap-nc-forged-summary",
+      "dispositionCode": "registered-cap-resource-refusal",
+      "classificationConditionIds": [
+        "cond-c0v-radial-cap-nc-forged-summary"
+      ],
+      "requiredOutputIds": [
+        "out-c0v-radial-attempt-ledger",
+        "out-c0v-radial-produce-preflight",
+        "out-c0v-radial-produce-terminal-receipt",
+        "out-c0v-radial-produce-verification",
+        "out-c0v-radial-protocol",
+        "out-c0v-radial-reference"
+      ],
+      "forbiddenOutputIds": [
+        "out-c0v-radial-evaluation",
+        "out-c0v-radial-reference-refusal",
+        "out-c0v-radial-witness"
+      ],
+      "requiredCheckIds": [
+        "chk-c0v-radial-attempt-census",
+        "chk-c0v-radial-freeze-ancestry",
+        "chk-c0v-radial-resource-boundary",
+        "chk-c0v-radial-resource-refusal-validity"
+      ],
+      "forbiddenCheckIds": [
+        "chk-c0v-radial-artifact-refusal-validity",
+        "chk-c0v-radial-discrepancy-validity",
+        "chk-c0v-radial-numeric",
+        "chk-c0v-radial-reference-independence",
+        "chk-c0v-radial-refusal-validity"
+      ],
+      "requiredNegativeControlIds": [],
+      "forbiddenNegativeControlIds": [
+        "nc-radial-finite-shell-term",
+        "nc-radial-forged-summary",
+        "nc-radial-robin-coefficient"
+      ]
+    },
+    {
+      "subrouteId": "radial-cap-nc-robin",
+      "dispositionCode": "registered-cap-resource-refusal",
+      "classificationConditionIds": [
+        "cond-c0v-radial-cap-nc-robin"
+      ],
+      "requiredOutputIds": [
+        "out-c0v-radial-attempt-ledger",
+        "out-c0v-radial-produce-preflight",
+        "out-c0v-radial-produce-terminal-receipt",
+        "out-c0v-radial-produce-verification",
+        "out-c0v-radial-protocol",
+        "out-c0v-radial-reference"
+      ],
+      "forbiddenOutputIds": [
+        "out-c0v-radial-evaluation",
+        "out-c0v-radial-reference-refusal",
+        "out-c0v-radial-witness"
+      ],
+      "requiredCheckIds": [
+        "chk-c0v-radial-attempt-census",
+        "chk-c0v-radial-freeze-ancestry",
+        "chk-c0v-radial-resource-boundary",
+        "chk-c0v-radial-resource-refusal-validity"
+      ],
+      "forbiddenCheckIds": [
+        "chk-c0v-radial-artifact-refusal-validity",
+        "chk-c0v-radial-discrepancy-validity",
+        "chk-c0v-radial-numeric",
+        "chk-c0v-radial-reference-independence",
+        "chk-c0v-radial-refusal-validity"
+      ],
+      "requiredNegativeControlIds": [],
+      "forbiddenNegativeControlIds": [
+        "nc-radial-finite-shell-term",
+        "nc-radial-forged-summary",
+        "nc-radial-robin-coefficient"
+      ]
+    }
+  ],
+  "resources": {
+    "requiredRuntime": "Node v24.13.1",
+    "solverWorkerTimeoutSeconds": 300,
+    "perExecutableControlInvocationWallHoursMaximum": 4,
+    "outerInfrastructureOrchestrationAllowanceSeconds": 3600,
+    "outerInfrastructureSafetyTimeoutSeconds": 61500,
+    "outerInfrastructureTimingRule": "parent-monotonic-nanoseconds-limit-plus-one-millisecond-fail-stop-stale-lock-invalidates-claims",
+    "packageElapsedNanosecondsMaximum": 86400000000000,
+    "packageProcessHoursMaximum": 24,
+    "currentPacketRegisteredElapsedNanosecondsMaximum": 57900000000000,
+    "currentPacketRegisteredProcessHoursMaximum": 16.083333333333332,
+    "attemptRootWritePolicy": "exclusive-create-append-only-no-delete-no-overwrite",
+    "transientCopyAccounting": "all-physical-staging-copies-counted",
+    "filesystemObjectPolicy": "regular-file-single-link-unaliased-parent",
+    "publicationTransitionPolicy": "registered-stage-to-final-hardlink-window-no-credit-final-single-link",
+    "lockLifetimePolicy": "held-through-awaited-worker-and-rejected-action-until-governed-recovery",
+    "lockAcquisitionPolicy": "compiled-package-then-packet-before-authority-read-stale-global-halts-all",
+    "packageStorageAccountingRule": "physical-path-copies-no-content-deduplication",
+    "packageStorageBaselineArtifacts": [
+      {
+        "path": "evidence/phase10-numerical-verification-v1/c0v-moving-reference.json",
+        "byteLength": 81026,
+        "sha256": "5419efd63ba03822159e573708637265ff6f09653e061ee7a4932e09f34e6386"
+      },
+      {
+        "path": "evidence/phase10-numerical-verification-v1/c0v-radial-reference.json",
+        "byteLength": 449978,
+        "sha256": "60800ae66160deedd96f21ecb982301546153057892e8fa68faa54b6251f31e2"
+      },
+      {
+        "path": "evidence/phase10-numerical-verification-v1/c0v-static-reference-refusal.json",
+        "byteLength": 13381,
+        "sha256": "6e1e10c54f0262bcaf701996dfde52953b52afa9f9dc918b31daa1b680c179ea"
+      },
+      {
+        "path": "evidence/phase10-obligation-preflight-v2/packets/a-p-c0v-s6/preflight.json",
+        "byteLength": 36074,
+        "sha256": "06bd4544d42b0719846de4c3f8b3d547469dc895ace9ee3555dd5212deebdac6"
+      },
+      {
+        "path": "out/phase10-c0v-reference-v1/attempts/c0v-moving-reference-20260821-v1/reference-candidate.json",
+        "byteLength": 73290,
+        "sha256": "89ebd7d39b843208c3cc804735fbcba96da7457cf9c667ff5a927a86a5776698"
+      },
+      {
+        "path": "out/phase10-c0v-reference-v1/attempts/c0v-moving-reference-20260821-v1/targeted-check.json",
+        "byteLength": 6289,
+        "sha256": "e5477f6943b062501d172596fb8f4ac00409d6bc95728653635a0a47433b4396"
+      },
+      {
+        "path": "out/phase10-c0v-reference-v1/attempts/c0v-radial-reference-20260821-v1/reference-candidate.json",
+        "byteLength": 215555,
+        "sha256": "9189038d0789cb77ac19266b8cc373fa7f25912d1842fd8e8ba03ff3a782fb9e"
+      },
+      {
+        "path": "out/phase10-c0v-reference-v1/attempts/c0v-radial-reference-20260821-v1/targeted-check.json",
+        "byteLength": 233158,
+        "sha256": "d53401b2ae488b37528fbc4ea82616bc49d7b1ea87974caebcf3073a8cd22162"
+      },
+      {
+        "path": "out/phase10-c0v-reference-v1/attempts/c0v-static-refusal-20260821-v1/reference-candidate.json",
+        "byteLength": 8536,
+        "sha256": "e6b1c3d4f27e3b451330026662baafb9a52e8742205eecb0be502a502fb84b34"
+      },
+      {
+        "path": "out/phase10-c0v-reference-v1/attempts/c0v-static-refusal-20260821-v1/targeted-check.json",
+        "byteLength": 4189,
+        "sha256": "e7945d533d36c8a7a008e7af8eab2e62c8f47901e8d9cccf5a504b4ea361b334"
+      },
+      {
+        "path": "out/phase10-c0v-reference-v1/superseded/cf0bd8b6ad12c79e38cb30ca0e50bcadab9cc6d9/published/c0v-moving-reference.json",
+        "byteLength": 80816,
+        "sha256": "38c4b3c15fdc4b9a32a8fd0371d47485551c18bf33f6db4d33c70050fe86d4f6"
+      },
+      {
+        "path": "out/phase10-c0v-reference-v1/superseded/cf0bd8b6ad12c79e38cb30ca0e50bcadab9cc6d9/published/c0v-radial-reference.json",
+        "byteLength": 449978,
+        "sha256": "9c654673db42267bc3297bce0593f4ce8e655e275d3ce982d9362752c124dda4"
+      },
+      {
+        "path": "out/phase10-c0v-reference-v1/superseded/cf0bd8b6ad12c79e38cb30ca0e50bcadab9cc6d9/published/c0v-static-reference-refusal.json",
+        "byteLength": 13381,
+        "sha256": "181b1bd3eb144d5ec44e180241be31dc273af0db9b82586d76f7b489bd98e084"
+      },
+      {
+        "path": "out/phase10-execution-v2/locks/a-p-c0v-s6.lock",
+        "byteLength": 176,
+        "sha256": "b9805c9142115822fa9f36dd89f702b79c5abf9ffb44688ffa9e3584d5981f02"
+      },
+      {
+        "path": "out/phase10-execution-v2/locks/package.lock",
+        "byteLength": 220,
+        "sha256": "8275c6d47285db6d671c1f0f75ad0b45c2081164550a5e31f111f03ec1522bfe"
+      },
+      {
+        "path": "out/phase10-execution-v2/recovery-v1/attempts/a-p-c0v-s6/a-p-c0v-s6-20260822-v2/exit-status.json",
+        "byteLength": 257,
+        "sha256": "cea268a67888283d8d58b5e883f5a8211b9d4c8fbf7b56815f89147ff9c32ca9"
+      },
+      {
+        "path": "out/phase10-execution-v2/recovery-v1/attempts/a-p-c0v-s6/a-p-c0v-s6-20260822-v2/freeze-evaluation.json",
+        "byteLength": 26430,
+        "sha256": "fa1dfc06212a9098fa534057026077bdfec65f65cd3ca525c9cbec1c45635a48"
+      },
+      {
+        "path": "out/phase10-execution-v2/recovery-v1/attempts/a-p-c0v-s6/a-p-c0v-s6-20260822-v2/stderr.log",
+        "byteLength": 114,
+        "sha256": "35c5268b7e8244549f387d66ca7eff45bd0bf557aa4139468ab9fff127ab4d04"
+      },
+      {
+        "path": "out/phase10-execution-v2/recovery-v1/attempts/a-p-c0v-s6/a-p-c0v-s6-20260822-v2/stdout.log",
+        "byteLength": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": "out/phase10-execution-v2/recovery-v1/attempts/a-p-c0v-s6/a-p-c0v-s6-20260822-v2/worker-invocations.jsonl",
+        "byteLength": 637,
+        "sha256": "8eeaab4d250ec6eec364a287d36471755d79c05633b2b55c9cf51678dc02afe8"
+      },
+      {
+        "path": "out/phase10-execution-v2/recovery-v1/locks/a-p-c0v-s6.lock",
+        "byteLength": 176,
+        "sha256": "da26c79f92fb9be021fa25b2c790ad1f9b23f91123ecc47806e32b6fff1a4399"
+      },
+      {
+        "path": "out/phase10-execution-v2/recovery-v1/locks/package.lock",
+        "byteLength": 232,
+        "sha256": "40a72d4270b6128da9485ca2e25442b6dfeef484b5a9fc1799cc7e58e42cf6de"
+      }
+    ],
+    "packageStorageBaselineBytes": 1693893,
+    "processConcurrency": 1,
+    "solverProcessConcurrency": 1,
+    "retainedStorageBytesMaximum": 68719476736,
+    "projectedScratchBytes": 41943040,
+    "projectedPublicationBytes": 2097152,
+    "publicationFinalizationProjections": [
+      {
+        "artifactRole": "packet-verification",
+        "path": "evidence/phase10-obligation-preflight-v2/packets/c0v-radial-produce/verification.json",
+        "stagingPath": "evidence/phase10-obligation-preflight-v2/packets/c0v-radial-produce/verification.json.stage-c0v-radial-produce-20260822-v1",
+        "maximumByteLength": 524288
+      },
+      {
+        "artifactRole": "terminal-receipt",
+        "path": "evidence/phase10-obligation-preflight-v2/packets/c0v-radial-produce/terminal-receipt.json",
+        "stagingPath": "evidence/phase10-obligation-preflight-v2/packets/c0v-radial-produce/terminal-receipt.json.stage-c0v-radial-produce-20260822-v1",
+        "maximumByteLength": 131072
+      }
+    ],
+    "minimumFreeBytes": 67108864,
+    "automaticRetry": false,
+    "automaticRefinementOrFanOut": false
+  },
+  "ancestryAuthority": {
+    "launchBranch": "phase10/evidence-verification",
+    "governanceCommit": "fdb829b7a31e9e2573d8217d317ad7f5ffbc54fc",
+    "s5ScienceFreezeCommit": "cf0bd8b6ad12c79e38cb30ca0e50bcadab9cc6d9",
+    "s5InfrastructureCorrectionCommit": "cd331b75be4527bab11f3139d968626914a87694",
+    "s5EvidenceFreezeCommit": "a14d9049751d561629a6fdc6bf85fdc9cc99e870",
+    "cleanWorktreeRequired": true,
+    "headMustEqualLaunchCommit": true,
+    "launchCleanObservationRule": "preflight-observes-empty-status-before-first-generated-write",
+    "indexConcealmentRule": "git-ls-files-t-v-roster-equals-launch-head-and-every-tag-is-uppercase-H",
+    "postLaunchRevalidationRule": "launch-head-authority-bytes-exact-with-stage-selected-generated-dirt-only",
+    "postLaunchDirtyAllowlistRule": "freeze-preflight-only-packet-verification-selected-required-publications-minus-current-verification-and-terminal-final-reopen-selected-required-publications",
+    "implementationFreezeRule": "first-introduction-commit-of-recovery-v2-authority-with-both-predecessor-freezes-ancestor-and-current-successor-closure",
+    "codeFreezeSource": "git-first-introduction-plus-current-byte-match"
+  },
+  "preObservationProductionClosure": {
+    "schema": "phase10-c0v-s6-preobservation-production-closure-v1",
+    "commit": "cf0bd8b6ad12c79e38cb30ca0e50bcadab9cc6d9",
+    "artifacts": [
+      {
+        "path": "app/package.json",
+        "byteLength": 725,
+        "sha256": "dadd38a6f4727ca9a0834e5cff6fddf906843033e11689ca1eb953d91eee752f"
+      },
+      {
+        "path": "core/package.json",
+        "byteLength": 264,
+        "sha256": "f59378c0d94e96d0eeb8cc8b43d2eb08f690a202fafe37c45f3aaecfd77cd73b"
+      },
+      {
+        "path": "core/src/checkpoint.ts",
+        "byteLength": 36270,
+        "sha256": "4c24a055b39fa5fb8283304eaf42d16aa7da51823cb6d102b9ba107d66e363d7"
+      },
+      {
+        "path": "core/src/index.ts",
+        "byteLength": 324,
+        "sha256": "c9c08f7649fb4fa2d5a8c76d2e36fffd05de28edea8e730de3e64964a72bfe6c"
+      },
+      {
+        "path": "core/src/lattice.ts",
+        "byteLength": 5311,
+        "sha256": "fe654c30be71e0f26cf27d52b14f38f6c9496dea538dafc945c8229f33776fdb"
+      },
+      {
+        "path": "core/src/libbrecht.ts",
+        "byteLength": 23328,
+        "sha256": "d18d30868a20424cacc49f89e8a417583e2aa60e876c9bc775db66529bdacb38"
+      },
+      {
+        "path": "core/src/lk-resume-checkpoint.ts",
+        "byteLength": 67807,
+        "sha256": "52ca2068ecfcff23d3ff4f42b0cd6f72dd72d71950c8691f0521d3d4a00c3616"
+      },
+      {
+        "path": "core/src/metrics.ts",
+        "byteLength": 30010,
+        "sha256": "51d51d6bad0c177514292f3a46e7f03efbff63cb5b7d9f2fd54dde7e09e78080"
+      },
+      {
+        "path": "core/src/params.ts",
+        "byteLength": 7791,
+        "sha256": "9184786bb60cbf0f72b538d4fd79cdd9e28e7cfbf59d196d0891aea41ecdb118"
+      },
+      {
+        "path": "core/src/prng.ts",
+        "byteLength": 2089,
+        "sha256": "da5d3ec7e80957bba472ae8e68fca17bca10f44b815daabeef025470e9114b0c"
+      },
+      {
+        "path": "core/src/state.ts",
+        "byteLength": 2823,
+        "sha256": "af069eb888a161f78a811ab06a7bbb43ef2bb6177c815bffdba8ab75773addeb"
+      },
+      {
+        "path": "core/src/target-observables.ts",
+        "byteLength": 24467,
+        "sha256": "dcd9b546d975d341eb4bde202f1d041a46fd5e14f17a0d07f84fbb324dd4eeb8"
+      },
+      {
+        "path": "core/src/timeline.ts",
+        "byteLength": 30376,
+        "sha256": "8c70d8691bd43c718114ab3e3b4364cf539aa6c73bc41696b506e8813080af6b"
+      },
+      {
+        "path": "package-lock.json",
+        "byteLength": 59052,
+        "sha256": "c7f89b10cf71fa16ef75f7e4a3a619551d7dad39b50a4d27d34fac3ffa5470b6"
+      },
+      {
+        "path": "package.json",
+        "byteLength": 1131,
+        "sha256": "1158c0528e11f37928ecedc2104fed45fd447879567485148cccd5ea149092b8"
+      },
+      {
+        "path": "runner/package.json",
+        "byteLength": 348,
+        "sha256": "05be8d1290586f556b11fe38b635421a34e5d358a503e4e29502e32f9c664146"
+      },
+      {
+        "path": "runner/src/gate4-evidence.ts",
+        "byteLength": 23835,
+        "sha256": "784a8c54741988903f258dc38f711f21afe516441794abd38a1f7eff28d28a87"
+      },
+      {
+        "path": "runner/src/phase10-c0v-contracts.ts",
+        "byteLength": 144599,
+        "sha256": "95cd7f83a612afd4220b14967fe78f3b200e3d52fa604794a96689b3adf8f653"
+      },
+      {
+        "path": "solver-cpu/package.json",
+        "byteLength": 335,
+        "sha256": "07891a59e7a4a6b3325faef6d85ffeac8393c3bca447765b29509730c936ca6e"
+      },
+      {
+        "path": "solver-cpu/src/spherical-reference.ts",
+        "byteLength": 15057,
+        "sha256": "4ac3d9ee17430056702f85581d040d1378753c2592b7bfdeff7e074fc5f29481"
+      },
+      {
+        "path": "solver-gpu/package.json",
+        "byteLength": 289,
+        "sha256": "f44d0f64b2a8d2c95bd5b972a5a5f1edb0269a18981c04876a30040f6c65382a"
+      },
+      {
+        "path": "tsconfig.base.json",
+        "byteLength": 412,
+        "sha256": "8750c1593fc364431077ce5286c106615b326f187a0f5cbf18d858fea2189ead"
+      },
+      {
+        "path": "tsconfig.json",
+        "byteLength": 374,
+        "sha256": "c4bdca8abee0d3ca445e1a23f373c2ef7cb8330d52f651dfe6a0118a1521ce25"
+      }
+    ],
+    "membershipRule": "producer-import-closure-and-resolution-artifacts-existing-at-s5-science-freeze",
+    "comparisonRule": "live-and-implementation-blobs-equal-cf0-raw-bytes"
+  },
+  "preflightObservedContract": {
+    "schema": "phase10-c0v-s6-preflight-observed-contract-v1",
+    "observedFieldOrder": [
+      "launchClass",
+      "executionMode",
+      "selectedRouteId",
+      "branch",
+      "head",
+      "runtime",
+      "command",
+      "cwd",
+      "repositoryBundleRoot",
+      "compositeMatrix",
+      "packetCatalogue",
+      "successorSchemaRegistry",
+      "evidenceManifest",
+      "scienceProtocol",
+      "referenceOrRefusal",
+      "packetProtocol",
+      "callableRegistry",
+      "codeFreeze",
+      "registeredAttemptRoot",
+      "attemptDirectory",
+      "candidateDirectory",
+      "stdoutPath",
+      "stderrPath",
+      "exitStatusPath",
+      "packageLockPath",
+      "lockPath",
+      "finalPreflightReceiptPath",
+      "finalTerminalReceiptPath",
+      "verificationPaths",
+      "dependencyPacketIds",
+      "dependencyArtifacts",
+      "resources",
+      "ancestry"
+    ],
+    "resourceFieldOrder": [
+      "requiredRuntime",
+      "processConcurrency",
+      "solverProcessConcurrency",
+      "solverWorkerTimeoutSeconds",
+      "perExecutableControlInvocationWallHoursMaximum",
+      "outerInfrastructureOrchestrationAllowanceSeconds",
+      "outerInfrastructureSafetyTimeoutSeconds",
+      "outerInfrastructureTimingRule",
+      "packageElapsedNanosecondsMaximum",
+      "packageProcessHoursMaximum",
+      "currentPacketRegisteredElapsedNanosecondsMaximum",
+      "currentPacketRegisteredProcessHoursMaximum",
+      "attemptRootWritePolicy",
+      "transientCopyAccounting",
+      "filesystemObjectPolicy",
+      "publicationTransitionPolicy",
+      "lockLifetimePolicy",
+      "lockAcquisitionPolicy",
+      "packageStorageAccountingRule",
+      "packageStorageBaselineArtifacts",
+      "packageStorageBaselineBytes",
+      "retainedStorageBytesMaximum",
+      "projectedScratchBytes",
+      "projectedPublicationBytes",
+      "publicationFinalizationProjections",
+      "minimumFreeBytes",
+      "packageElapsedNanosecondsBeforeAttempt",
+      "projectedPackageElapsedNanosecondsAfterAttempt",
+      "packageProcessHoursBeforeAttempt",
+      "projectedPackageProcessHoursAfterAttempt",
+      "packageRetainedBytesBeforeAttempt",
+      "projectedPackageBytesAfterAttempt",
+      "observedFreeBytes",
+      "automaticRetry",
+      "automaticRefinementOrFanOut",
+      "nasOrNetworkAccess"
+    ],
+    "ancestryFieldOrder": [
+      "repositoryClean",
+      "headMatchesLaunch",
+      "requiredCommitsAreAncestors",
+      "boundArtifactsMatch",
+      "codeFreezeMatches",
+      "verdict",
+      "errors"
+    ],
+    "selectedBranchesFieldOrder": [
+      "selectedRouteId",
+      "s5ArtifactDisposition"
+    ],
+    "stage": "run",
+    "commandTemplateId": "run",
+    "launchClass": "solver-control",
+    "cwd": ".",
+    "repositoryBundleRoot": ".",
+    "packetCataloguePath": "research/phase10-execution-v2/recovery-v2/packet-catalogue.json",
+    "cleanWorktreeRequired": true,
+    "nasOrNetworkAccess": false,
+    "allowedRefusalDispositionCodes": [
+      "prelaunch-resource-refusal",
+      "preproduction-artifact-refusal"
+    ]
+  },
+  "workerInvocationContract": {
+    "schema": "phase10-c0v-worker-invocation-contract-v1",
+    "filename": "worker-invocations.jsonl",
+    "rowSchema": "phase10-c0v-worker-invocation-row-v1",
+    "exactFields": [
+      "schema",
+      "sequence",
+      "observedAt",
+      "monotonicOffsetNanoseconds",
+      "event",
+      "invocationId",
+      "callableId",
+      "negativeControlId",
+      "invocationClass",
+      "registeredWallSecondsMaximum",
+      "terminalState"
+    ],
+    "eventValues": [
+      "worker-started",
+      "invocation-started",
+      "invocation-finished",
+      "worker-stopped"
+    ],
+    "eventStateTransitions": [
+      {
+        "transitionId": "worker-started",
+        "event": "worker-started",
+        "positionRule": "first-record-only",
+        "invocationRule": "all-invocation-fields-null",
+        "terminalStateValues": [
+          "running"
+        ]
+      },
+      {
+        "transitionId": "invocation-started",
+        "event": "invocation-started",
+        "positionRule": "next-unfinished-protocol-invocation",
+        "invocationRule": "exact-open-protocol-invocation",
+        "terminalStateValues": [
+          "running"
+        ]
+      },
+      {
+        "transitionId": "invocation-finished",
+        "event": "invocation-finished",
+        "positionRule": "closes-exact-open-invocation",
+        "invocationRule": "same-open-protocol-invocation",
+        "terminalStateValues": [
+          "complete",
+          "registered-cap",
+          "infrastructure-failure"
+        ]
+      },
+      {
+        "transitionId": "worker-stopped",
+        "event": "worker-stopped",
+        "positionRule": "final-record-only",
+        "invocationRule": "all-invocation-fields-null-no-open-invocation",
+        "terminalStateValues": [
+          "complete",
+          "registered-cap",
+          "infrastructure-failure"
+        ]
+      }
+    ],
+    "writer": "parent-executor-from-structured-child-messages",
+    "sequenceRule": "zero-based-contiguous",
+    "timestampRule": "canonical-millisecond-utc-nondecreasing-within-attempt",
+    "monotonicClockRule": "parent-owned-zero-based-safe-integer-nanoseconds-nondecreasing",
+    "durationRule": "elapsed-nanoseconds-from-invocation-offset-difference-wall-seconds-derived-only-from-elapsed",
+    "rosterRule": "exact-protocol-leaf-roster-or-registered-prefix",
+    "embeddedDerivationRule": "attempt-or-verification-records-derived-from-raw-parent-events"
+  },
+  "workerProgressContract": {
+    "schema": "phase10-c0v-worker-progress-contract-v1",
+    "filename": "worker-progress.jsonl",
+    "rowSchema": "phase10-c0v-worker-progress-row-v1",
+    "exactFields": [
+      "schema",
+      "sequence",
+      "observedAt",
+      "event",
+      "invocationId",
+      "caseId",
+      "startedCaseIds",
+      "completedCaseIds",
+      "activeCaseId",
+      "completedNumericFieldValueCount",
+      "completedUniformFieldValueCount",
+      "candidateByteLength",
+      "candidateSha256",
+      "terminalState"
+    ],
+    "eventValues": [
+      "worker-started",
+      "invocation-started",
+      "case-started",
+      "case-completed",
+      "invocation-finished",
+      "worker-stopped"
+    ],
+    "eventStateTransitions": [
+      {
+        "transitionId": "worker-started",
+        "event": "worker-started",
+        "positionRule": "first-record-only",
+        "invocationRule": "invocation-id-null",
+        "caseRule": "case-and-active-null-empty-prefixes",
+        "terminalStateValues": [
+          "running"
+        ],
+        "progressRule": "zero-counts-zero-candidate"
+      },
+      {
+        "transitionId": "invocation-started",
+        "event": "invocation-started",
+        "positionRule": "next-unfinished-protocol-invocation",
+        "invocationRule": "exact-open-invocation-id",
+        "caseRule": "case-id-null-progress-unchanged",
+        "terminalStateValues": [
+          "running"
+        ],
+        "progressRule": "candidate-state-monotone"
+      },
+      {
+        "transitionId": "case-started",
+        "event": "case-started",
+        "positionRule": "inside-solver-production-only",
+        "invocationRule": "exact-open-solver-production-id",
+        "caseRule": "append-next-case-to-started-and-set-active",
+        "terminalStateValues": [
+          "running"
+        ],
+        "progressRule": "completed-counts-unchanged"
+      },
+      {
+        "transitionId": "case-completed",
+        "event": "case-completed",
+        "positionRule": "inside-solver-production-only",
+        "invocationRule": "exact-open-solver-production-id",
+        "caseRule": "append-active-case-to-completed-and-clear-active",
+        "terminalStateValues": [
+          "running"
+        ],
+        "progressRule": "counts-advance-by-completed-case-node-count"
+      },
+      {
+        "transitionId": "invocation-finished",
+        "event": "invocation-finished",
+        "positionRule": "closes-exact-open-invocation",
+        "invocationRule": "same-open-invocation-id",
+        "caseRule": "case-id-null-started-completed-active-and-cumulative-progress-preserved",
+        "terminalStateValues": [
+          "complete",
+          "registered-cap",
+          "infrastructure-failure"
+        ],
+        "progressRule": "candidate-state-monotone"
+      },
+      {
+        "transitionId": "worker-stopped",
+        "event": "worker-stopped",
+        "positionRule": "final-record-only",
+        "invocationRule": "invocation-id-null-no-open-invocation",
+        "caseRule": "case-id-null-started-completed-active-and-cumulative-progress-preserved",
+        "terminalStateValues": [
+          "complete",
+          "registered-cap",
+          "infrastructure-failure"
+        ],
+        "progressRule": "terminal-state-matches-final-invocation-and-candidate-state"
+      }
+    ],
+    "caseOrder": [
+      "radial-dr-0p7um",
+      "radial-dr-0p35um",
+      "radial-dr-0p175um",
+      "radial-dr-0p0875um"
+    ],
+    "completedFieldValueCounts": [
+      21,
+      40,
+      80,
+      159
+    ],
+    "writer": "parent-executor-from-structured-child-messages",
+    "sequenceRule": "zero-based-contiguous",
+    "timestampRule": "canonical-millisecond-utc-nondecreasing-within-attempt",
+    "prefixRule": "started-and-completed-case-lists-are-exact-roster-prefixes",
+    "countRule": "numeric-and-uniform-counts-equal-sum-of-completed-case-node-counts",
+    "candidateRule": "zero-and-null-until-exact-retained-candidate-exists",
+    "embeddedRule": "compact-jsonl-lf-reserialization-matches-artifact-identity"
+  },
+  "exitStatusContract": {
+    "schema": "phase10-c0v-exit-status-contract-v1",
+    "filename": "exit-status.json",
+    "rowSchema": "phase10-c0v-exit-status-v1",
+    "exactFields": [
+      "schema",
+      "packetId",
+      "attemptId",
+      "workerProcessInvocationCount",
+      "workerStarted",
+      "exitCode",
+      "signal",
+      "classification"
+    ],
+    "classificationValues": [
+      "no-worker",
+      "complete",
+      "registered-cap",
+      "infrastructure-failure"
+    ],
+    "exitCodeRule": "no-worker-both-null-worker-exactly-one-code-or-signal",
+    "signalRule": "raw-child-signal-never-route-selecting",
+    "ownership": "parent-executor"
+  },
+  "freezeEvaluationContract": {
+    "schema": "phase10-c0v-s6-freeze-evaluation-contract-v1",
+    "filename": "freeze-evaluation.json",
+    "rowSchema": "phase10-c0v-s6-freeze-evaluation-v1",
+    "evaluationIdRule": "freeze-packet-registered-attempt-v1",
+    "exactFields": [
+      "schema",
+      "evaluationId",
+      "packetId",
+      "attemptId",
+      "protocol",
+      "preflight",
+      "implementationFreezeCommit",
+      "launchHead",
+      "launchBranch",
+      "anchorPaths",
+      "artifacts",
+      "parserRuntimeArtifacts",
+      "artifactFailure",
+      "invokedCheckIds",
+      "verdict",
+      "reasons"
+    ],
+    "artifactFailureExactFields": [
+      "artifactRole",
+      "expected",
+      "observed",
+      "filesystemObservation",
+      "failureClass"
+    ],
+    "artifactFailureRule": "null-except-radial-preproduction-artifact-refusal",
+    "verdictRule": "pass-means-freeze-and-selected-artifact-observation-independently-rederived",
+    "constructionRule": "immutable-before-terminal-candidate-no-overwrite"
+  },
+  "causeEvaluationContract": {
+    "schema": "phase10-c0v-s6-cause-evaluation-contract-v1",
+    "filename": "cause-evaluation.json",
+    "rowSchema": "phase10-c0v-s6-cause-evaluation-v1",
+    "evaluationIdRule": "cause-packet-registered-attempt-subroute-v1",
+    "exactFields": [
+      "schema",
+      "evaluationId",
+      "packetId",
+      "attemptId",
+      "selectedSubrouteId",
+      "dispositionCode",
+      "protocol",
+      "preflight",
+      "exitStatus",
+      "workerInvocations",
+      "classificationConditionIds",
+      "observations",
+      "evidence",
+      "evaluatorCallableId",
+      "invokedCheckIds",
+      "verdict",
+      "reasons"
+    ],
+    "observationExactFields": [
+      "conditionId",
+      "kind",
+      "comparator",
+      "registeredValue",
+      "observedValue",
+      "unit",
+      "routeConditionMatched",
+      "preconditionPassed",
+      "evidenceIds"
+    ],
+    "evidenceExactFields": [
+      "evidenceId",
+      "evidenceRole",
+      "retentionClass",
+      "artifact",
+      "inlineObservationPath"
+    ],
+    "workerInvocationsRule": "null-iff-worker-process-count-zero-otherwise-exact-attempt-local-identity",
+    "selectionRule": "exact-terminal-subroute-condition-roster-and-raw-observations",
+    "evidenceRule": "condition-specific-tracked-identities-or-inline-observations-no-self-identity",
+    "routeRule": "cross-route-extra-missing-or-relabelled-observation-refuses",
+    "constructionRule": "immutable-before-terminal-candidate-no-overwrite"
+  },
+  "terminalCandidateContract": {
+    "schema": "phase10-c0v-terminal-candidate-contract-v1",
+    "rowSchema": "phase10-c0v-terminal-candidate-v1",
+    "successFilename": "terminal-success-candidate.json",
+    "exactFields": [
+      "schema",
+      "packetId",
+      "attemptId",
+      "selectedSubrouteId",
+      "dispositionCode",
+      "preflight",
+      "exitStatus",
+      "producedOutputIds",
+      "executedCheckIds",
+      "executedNegativeControlIds",
+      "callerInvocationResults",
+      "freezeDecision",
+      "causeDecision",
+      "verdict",
+      "reasons"
+    ],
+    "decisionExactFields": [
+      "decisionId",
+      "evaluatorCallableId",
+      "invokedCheckIds",
+      "verdict",
+      "reasons",
+      "evidence"
+    ],
+    "decisionEvidenceExactFields": [
+      "evidenceRole",
+      "artifact"
+    ],
+    "decisionRosters": [
+      {
+        "subrouteId": "radial-complete-pass",
+        "candidateFilename": "terminal-success-candidate.json",
+        "candidateVerdict": "accepted-route-candidate",
+        "candidateProducedOutputIds": [
+          "out-c0v-radial-evaluation",
+          "out-c0v-radial-produce-preflight",
+          "out-c0v-radial-protocol",
+          "out-c0v-radial-reference",
+          "out-c0v-radial-witness"
+        ],
+        "candidateExecutedCheckIds": [
+          "chk-c0v-radial-freeze-ancestry",
+          "chk-c0v-radial-numeric",
+          "chk-c0v-radial-reference-independence"
+        ],
+        "candidateExecutedNegativeControlIds": [
+          "nc-radial-finite-shell-term",
+          "nc-radial-forged-summary",
+          "nc-radial-robin-coefficient"
+        ],
+        "candidateReasonCodes": [],
+        "candidateCallerInvocationIds": [
+          "caller-radial-complete-pass-1",
+          "caller-radial-complete-pass-2"
+        ],
+        "decisions": [
+          {
+            "decisionRole": "freeze",
+            "fieldName": "freezeDecision",
+            "decisionId": "decision-c0v-radial-produce-radial-complete-pass-freeze-v1",
+            "evaluatorCallableId": "phase10-c0v-s6-freeze-evaluator",
+            "invokedCheckIds": [
+              "chk-c0v-radial-freeze-ancestry"
+            ],
+            "expectedVerdict": "pass",
+            "evidence": [
+              {
+                "evidenceRole": "freeze-evaluation",
+                "artifactRelativePath": "freeze-evaluation.json"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "subrouteId": "radial-complete-fail",
+        "candidateFilename": "terminal-success-candidate.json",
+        "candidateVerdict": "accepted-route-candidate",
+        "candidateProducedOutputIds": [
+          "out-c0v-radial-evaluation",
+          "out-c0v-radial-produce-preflight",
+          "out-c0v-radial-protocol",
+          "out-c0v-radial-reference",
+          "out-c0v-radial-witness"
+        ],
+        "candidateExecutedCheckIds": [
+          "chk-c0v-radial-freeze-ancestry",
+          "chk-c0v-radial-numeric",
+          "chk-c0v-radial-reference-independence"
+        ],
+        "candidateExecutedNegativeControlIds": [
+          "nc-radial-finite-shell-term",
+          "nc-radial-forged-summary",
+          "nc-radial-robin-coefficient"
+        ],
+        "candidateReasonCodes": [],
+        "candidateCallerInvocationIds": [
+          "caller-radial-complete-fail-1",
+          "caller-radial-complete-fail-2"
+        ],
+        "decisions": [
+          {
+            "decisionRole": "freeze",
+            "fieldName": "freezeDecision",
+            "decisionId": "decision-c0v-radial-produce-radial-complete-fail-freeze-v1",
+            "evaluatorCallableId": "phase10-c0v-s6-freeze-evaluator",
+            "invokedCheckIds": [
+              "chk-c0v-radial-freeze-ancestry"
+            ],
+            "expectedVerdict": "pass",
+            "evidence": [
+              {
+                "evidenceRole": "freeze-evaluation",
+                "artifactRelativePath": "freeze-evaluation.json"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "subrouteId": "radial-artifact-refusal",
+        "candidateFilename": "terminal-success-candidate.json",
+        "candidateVerdict": "accepted-route-candidate",
+        "candidateProducedOutputIds": [
+          "out-c0v-radial-produce-preflight",
+          "out-c0v-radial-protocol",
+          "out-c0v-radial-reference"
+        ],
+        "candidateExecutedCheckIds": [
+          "chk-c0v-radial-artifact-refusal-validity",
+          "chk-c0v-radial-freeze-ancestry"
+        ],
+        "candidateExecutedNegativeControlIds": [],
+        "candidateReasonCodes": [],
+        "candidateCallerInvocationIds": [
+          "caller-radial-artifact-refusal-1",
+          "caller-radial-artifact-refusal-2"
+        ],
+        "decisions": [
+          {
+            "decisionRole": "freeze",
+            "fieldName": "freezeDecision",
+            "decisionId": "decision-c0v-radial-produce-radial-artifact-refusal-freeze-v1",
+            "evaluatorCallableId": "phase10-c0v-s6-freeze-evaluator",
+            "invokedCheckIds": [
+              "chk-c0v-radial-freeze-ancestry"
+            ],
+            "expectedVerdict": "pass",
+            "evidence": [
+              {
+                "evidenceRole": "freeze-evaluation",
+                "artifactRelativePath": "freeze-evaluation.json"
+              }
+            ]
+          },
+          {
+            "decisionRole": "cause",
+            "fieldName": "causeDecision",
+            "decisionId": "decision-c0v-radial-produce-radial-artifact-refusal-cause-v1",
+            "evaluatorCallableId": "phase10-c0v-s6-refusal-evaluator",
+            "invokedCheckIds": [
+              "chk-c0v-radial-artifact-refusal-validity"
+            ],
+            "expectedVerdict": "pass",
+            "evidence": [
+              {
+                "evidenceRole": "cause-evaluation",
+                "artifactRelativePath": "cause-evaluation.json"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "subrouteId": "radial-prelaunch-refusal",
+        "candidateFilename": "terminal-success-candidate.json",
+        "candidateVerdict": "accepted-route-candidate",
+        "candidateProducedOutputIds": [
+          "out-c0v-radial-produce-preflight",
+          "out-c0v-radial-protocol",
+          "out-c0v-radial-reference"
+        ],
+        "candidateExecutedCheckIds": [
+          "chk-c0v-radial-freeze-ancestry",
+          "chk-c0v-radial-resource-refusal-validity"
+        ],
+        "candidateExecutedNegativeControlIds": [],
+        "candidateReasonCodes": [],
+        "candidateCallerInvocationIds": [
+          "caller-radial-prelaunch-refusal-1",
+          "caller-radial-prelaunch-refusal-2"
+        ],
+        "decisions": [
+          {
+            "decisionRole": "freeze",
+            "fieldName": "freezeDecision",
+            "decisionId": "decision-c0v-radial-produce-radial-prelaunch-refusal-freeze-v1",
+            "evaluatorCallableId": "phase10-c0v-s6-freeze-evaluator",
+            "invokedCheckIds": [
+              "chk-c0v-radial-freeze-ancestry"
+            ],
+            "expectedVerdict": "pass",
+            "evidence": [
+              {
+                "evidenceRole": "freeze-evaluation",
+                "artifactRelativePath": "freeze-evaluation.json"
+              }
+            ]
+          },
+          {
+            "decisionRole": "cause",
+            "fieldName": "causeDecision",
+            "decisionId": "decision-c0v-radial-produce-radial-prelaunch-refusal-cause-v1",
+            "evaluatorCallableId": "phase10-c0v-s6-refusal-evaluator",
+            "invokedCheckIds": [
+              "chk-c0v-radial-resource-refusal-validity"
+            ],
+            "expectedVerdict": "pass",
+            "evidence": [
+              {
+                "evidenceRole": "cause-evaluation",
+                "artifactRelativePath": "cause-evaluation.json"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "subrouteId": "radial-cap-production",
+        "candidateFilename": "terminal-success-candidate.json",
+        "candidateVerdict": "accepted-route-candidate",
+        "candidateProducedOutputIds": [
+          "out-c0v-radial-produce-preflight",
+          "out-c0v-radial-protocol",
+          "out-c0v-radial-reference"
+        ],
+        "candidateExecutedCheckIds": [
+          "chk-c0v-radial-freeze-ancestry",
+          "chk-c0v-radial-resource-refusal-validity"
+        ],
+        "candidateExecutedNegativeControlIds": [],
+        "candidateReasonCodes": [],
+        "candidateCallerInvocationIds": [
+          "caller-radial-cap-production-1",
+          "caller-radial-cap-production-2"
+        ],
+        "decisions": [
+          {
+            "decisionRole": "freeze",
+            "fieldName": "freezeDecision",
+            "decisionId": "decision-c0v-radial-produce-radial-cap-production-freeze-v1",
+            "evaluatorCallableId": "phase10-c0v-s6-freeze-evaluator",
+            "invokedCheckIds": [
+              "chk-c0v-radial-freeze-ancestry"
+            ],
+            "expectedVerdict": "pass",
+            "evidence": [
+              {
+                "evidenceRole": "freeze-evaluation",
+                "artifactRelativePath": "freeze-evaluation.json"
+              }
+            ]
+          },
+          {
+            "decisionRole": "cause",
+            "fieldName": "causeDecision",
+            "decisionId": "decision-c0v-radial-produce-radial-cap-production-cause-v1",
+            "evaluatorCallableId": "phase10-c0v-s6-refusal-evaluator",
+            "invokedCheckIds": [
+              "chk-c0v-radial-resource-refusal-validity"
+            ],
+            "expectedVerdict": "pass",
+            "evidence": [
+              {
+                "evidenceRole": "cause-evaluation",
+                "artifactRelativePath": "cause-evaluation.json"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "subrouteId": "radial-cap-evaluator",
+        "candidateFilename": "terminal-success-candidate.json",
+        "candidateVerdict": "accepted-route-candidate",
+        "candidateProducedOutputIds": [
+          "out-c0v-radial-produce-preflight",
+          "out-c0v-radial-protocol",
+          "out-c0v-radial-reference"
+        ],
+        "candidateExecutedCheckIds": [
+          "chk-c0v-radial-freeze-ancestry",
+          "chk-c0v-radial-resource-refusal-validity"
+        ],
+        "candidateExecutedNegativeControlIds": [],
+        "candidateReasonCodes": [],
+        "candidateCallerInvocationIds": [
+          "caller-radial-cap-evaluator-1",
+          "caller-radial-cap-evaluator-2",
+          "caller-radial-cap-evaluator-3"
+        ],
+        "decisions": [
+          {
+            "decisionRole": "freeze",
+            "fieldName": "freezeDecision",
+            "decisionId": "decision-c0v-radial-produce-radial-cap-evaluator-freeze-v1",
+            "evaluatorCallableId": "phase10-c0v-s6-freeze-evaluator",
+            "invokedCheckIds": [
+              "chk-c0v-radial-freeze-ancestry"
+            ],
+            "expectedVerdict": "pass",
+            "evidence": [
+              {
+                "evidenceRole": "freeze-evaluation",
+                "artifactRelativePath": "freeze-evaluation.json"
+              }
+            ]
+          },
+          {
+            "decisionRole": "cause",
+            "fieldName": "causeDecision",
+            "decisionId": "decision-c0v-radial-produce-radial-cap-evaluator-cause-v1",
+            "evaluatorCallableId": "phase10-c0v-s6-refusal-evaluator",
+            "invokedCheckIds": [
+              "chk-c0v-radial-resource-refusal-validity"
+            ],
+            "expectedVerdict": "pass",
+            "evidence": [
+              {
+                "evidenceRole": "cause-evaluation",
+                "artifactRelativePath": "cause-evaluation.json"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "subrouteId": "radial-cap-nc-finite-shell",
+        "candidateFilename": "terminal-success-candidate.json",
+        "candidateVerdict": "accepted-route-candidate",
+        "candidateProducedOutputIds": [
+          "out-c0v-radial-produce-preflight",
+          "out-c0v-radial-protocol",
+          "out-c0v-radial-reference"
+        ],
+        "candidateExecutedCheckIds": [
+          "chk-c0v-radial-freeze-ancestry",
+          "chk-c0v-radial-resource-refusal-validity"
+        ],
+        "candidateExecutedNegativeControlIds": [],
+        "candidateReasonCodes": [],
+        "candidateCallerInvocationIds": [
+          "caller-radial-cap-nc-finite-shell-1",
+          "caller-radial-cap-nc-finite-shell-2",
+          "caller-radial-cap-nc-finite-shell-3"
+        ],
+        "decisions": [
+          {
+            "decisionRole": "freeze",
+            "fieldName": "freezeDecision",
+            "decisionId": "decision-c0v-radial-produce-radial-cap-nc-finite-shell-freeze-v1",
+            "evaluatorCallableId": "phase10-c0v-s6-freeze-evaluator",
+            "invokedCheckIds": [
+              "chk-c0v-radial-freeze-ancestry"
+            ],
+            "expectedVerdict": "pass",
+            "evidence": [
+              {
+                "evidenceRole": "freeze-evaluation",
+                "artifactRelativePath": "freeze-evaluation.json"
+              }
+            ]
+          },
+          {
+            "decisionRole": "cause",
+            "fieldName": "causeDecision",
+            "decisionId": "decision-c0v-radial-produce-radial-cap-nc-finite-shell-cause-v1",
+            "evaluatorCallableId": "phase10-c0v-s6-refusal-evaluator",
+            "invokedCheckIds": [
+              "chk-c0v-radial-resource-refusal-validity"
+            ],
+            "expectedVerdict": "pass",
+            "evidence": [
+              {
+                "evidenceRole": "cause-evaluation",
+                "artifactRelativePath": "cause-evaluation.json"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "subrouteId": "radial-cap-nc-forged-summary",
+        "candidateFilename": "terminal-success-candidate.json",
+        "candidateVerdict": "accepted-route-candidate",
+        "candidateProducedOutputIds": [
+          "out-c0v-radial-produce-preflight",
+          "out-c0v-radial-protocol",
+          "out-c0v-radial-reference"
+        ],
+        "candidateExecutedCheckIds": [
+          "chk-c0v-radial-freeze-ancestry",
+          "chk-c0v-radial-resource-refusal-validity"
+        ],
+        "candidateExecutedNegativeControlIds": [],
+        "candidateReasonCodes": [],
+        "candidateCallerInvocationIds": [
+          "caller-radial-cap-nc-forged-summary-1",
+          "caller-radial-cap-nc-forged-summary-2",
+          "caller-radial-cap-nc-forged-summary-3"
+        ],
+        "decisions": [
+          {
+            "decisionRole": "freeze",
+            "fieldName": "freezeDecision",
+            "decisionId": "decision-c0v-radial-produce-radial-cap-nc-forged-summary-freeze-v1",
+            "evaluatorCallableId": "phase10-c0v-s6-freeze-evaluator",
+            "invokedCheckIds": [
+              "chk-c0v-radial-freeze-ancestry"
+            ],
+            "expectedVerdict": "pass",
+            "evidence": [
+              {
+                "evidenceRole": "freeze-evaluation",
+                "artifactRelativePath": "freeze-evaluation.json"
+              }
+            ]
+          },
+          {
+            "decisionRole": "cause",
+            "fieldName": "causeDecision",
+            "decisionId": "decision-c0v-radial-produce-radial-cap-nc-forged-summary-cause-v1",
+            "evaluatorCallableId": "phase10-c0v-s6-refusal-evaluator",
+            "invokedCheckIds": [
+              "chk-c0v-radial-resource-refusal-validity"
+            ],
+            "expectedVerdict": "pass",
+            "evidence": [
+              {
+                "evidenceRole": "cause-evaluation",
+                "artifactRelativePath": "cause-evaluation.json"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "subrouteId": "radial-cap-nc-robin",
+        "candidateFilename": "terminal-success-candidate.json",
+        "candidateVerdict": "accepted-route-candidate",
+        "candidateProducedOutputIds": [
+          "out-c0v-radial-produce-preflight",
+          "out-c0v-radial-protocol",
+          "out-c0v-radial-reference"
+        ],
+        "candidateExecutedCheckIds": [
+          "chk-c0v-radial-freeze-ancestry",
+          "chk-c0v-radial-resource-refusal-validity"
+        ],
+        "candidateExecutedNegativeControlIds": [],
+        "candidateReasonCodes": [],
+        "candidateCallerInvocationIds": [
+          "caller-radial-cap-nc-robin-1",
+          "caller-radial-cap-nc-robin-2",
+          "caller-radial-cap-nc-robin-3"
+        ],
+        "decisions": [
+          {
+            "decisionRole": "freeze",
+            "fieldName": "freezeDecision",
+            "decisionId": "decision-c0v-radial-produce-radial-cap-nc-robin-freeze-v1",
+            "evaluatorCallableId": "phase10-c0v-s6-freeze-evaluator",
+            "invokedCheckIds": [
+              "chk-c0v-radial-freeze-ancestry"
+            ],
+            "expectedVerdict": "pass",
+            "evidence": [
+              {
+                "evidenceRole": "freeze-evaluation",
+                "artifactRelativePath": "freeze-evaluation.json"
+              }
+            ]
+          },
+          {
+            "decisionRole": "cause",
+            "fieldName": "causeDecision",
+            "decisionId": "decision-c0v-radial-produce-radial-cap-nc-robin-cause-v1",
+            "evaluatorCallableId": "phase10-c0v-s6-refusal-evaluator",
+            "invokedCheckIds": [
+              "chk-c0v-radial-resource-refusal-validity"
+            ],
+            "expectedVerdict": "pass",
+            "evidence": [
+              {
+                "evidenceRole": "cause-evaluation",
+                "artifactRelativePath": "cause-evaluation.json"
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "verdictRule": "accepted-route-candidate-for-every-current-materializable-subroute",
+    "forbiddenFields": [
+      "attemptLedger",
+      "packetVerification",
+      "terminalReceipt"
+    ],
+    "constructionRule": "immutable-preledger-candidate-no-overwrite"
+  },
+  "terminalReceiptContract": {
+    "schema": "phase10-c0v-s6-terminal-receipt-contract-v1",
+    "receiptSchema": "phase10-c0v-s6-terminal-receipt-v2",
+    "receiptIdRule": "phase10-packet-attempt-terminal-v2",
+    "constructionOrder": "terminal-candidate-then-ledger-then-verification-then-final-terminal",
+    "radialValidatedRefusalCreditRule": "artifact-prelaunch-and-five-cap-refusals-require-verification-and-dependency-credit",
+    "makerReturnRule": "moving-static-route-cap-and-nonproduce-cap-have-null-verification-zero-credit",
+    "infrastructureFailStopRule": "retain-ignored-root-and-lock-no-candidate-ledger-verification-or-final-receipt-successor-required",
+    "callerInvocationResultExactFields": [
+      "callerInvocationId",
+      "stage",
+      "callerCallableId",
+      "evaluatorCallableId",
+      "terminalState",
+      "executedCheckIds",
+      "evaluatedCheckIds",
+      "executedNegativeControlIds",
+      "evaluatorResult",
+      "sourceArtifactIdentities"
+    ],
+    "callerResultSourceIdentityExactFields": [
+      "artifactRole",
+      "artifact"
+    ],
+    "callerInvocationResultRosters": [
+      {
+        "subrouteId": "radial-complete-pass",
+        "callerInvocationResults": [
+          {
+            "callerInvocationId": "caller-radial-complete-pass-1",
+            "stage": "pre-candidate",
+            "callerCallableId": "phase10-c0v-s6-freeze-check-caller",
+            "evaluatorCallableId": "phase10-c0v-s6-freeze-evaluator",
+            "terminalState": "complete",
+            "executedCheckIds": [
+              "chk-c0v-radial-freeze-ancestry"
+            ],
+            "evaluatedCheckIds": [
+              "chk-c0v-radial-freeze-ancestry"
+            ],
+            "executedNegativeControlIds": [],
+            "evaluatorResultRule": "canonical-rerun-exact",
+            "sourceArtifactAuthorities": [
+              {
+                "artifactRole": "output:out-c0v-radial-produce-preflight",
+                "sourceKind": "registered-output",
+                "outputId": "out-c0v-radial-produce-preflight",
+                "artifactRelativePath": null
+              },
+              {
+                "artifactRole": "internal:freeze-evaluation.json",
+                "sourceKind": "attempt-internal",
+                "outputId": null,
+                "artifactRelativePath": "freeze-evaluation.json"
+              }
+            ]
+          },
+          {
+            "callerInvocationId": "caller-radial-complete-pass-2",
+            "stage": "pre-candidate",
+            "callerCallableId": "phase10-c0v-radial-produce-check-caller",
+            "evaluatorCallableId": "phase10-c0v-radial-evaluator",
+            "terminalState": "complete",
+            "executedCheckIds": [
+              "chk-c0v-radial-numeric",
+              "chk-c0v-radial-reference-independence"
+            ],
+            "evaluatedCheckIds": [
+              "chk-c0v-radial-numeric",
+              "chk-c0v-radial-reference-independence"
+            ],
+            "executedNegativeControlIds": [
+              "nc-radial-finite-shell-term",
+              "nc-radial-forged-summary",
+              "nc-radial-robin-coefficient"
+            ],
+            "evaluatorResultRule": "canonical-rerun-exact",
+            "sourceArtifactAuthorities": [
+              {
+                "artifactRole": "output:out-c0v-radial-produce-preflight",
+                "sourceKind": "registered-output",
+                "outputId": "out-c0v-radial-produce-preflight",
+                "artifactRelativePath": null
+              },
+              {
+                "artifactRole": "output:out-c0v-radial-evaluation",
+                "sourceKind": "registered-output",
+                "outputId": "out-c0v-radial-evaluation",
+                "artifactRelativePath": null
+              },
+              {
+                "artifactRole": "output:out-c0v-radial-protocol",
+                "sourceKind": "registered-output",
+                "outputId": "out-c0v-radial-protocol",
+                "artifactRelativePath": null
+              },
+              {
+                "artifactRole": "output:out-c0v-radial-reference",
+                "sourceKind": "registered-output",
+                "outputId": "out-c0v-radial-reference",
+                "artifactRelativePath": null
+              },
+              {
+                "artifactRole": "output:out-c0v-radial-witness",
+                "sourceKind": "registered-output",
+                "outputId": "out-c0v-radial-witness",
+                "artifactRelativePath": null
+              }
+            ]
+          },
+          {
+            "callerInvocationId": "caller-radial-complete-pass-3",
+            "stage": "post-candidate",
+            "callerCallableId": "phase10-c0v-s6-attempt-census-check-caller",
+            "evaluatorCallableId": "phase10-c0v-s6-attempt-census-evaluator",
+            "terminalState": "complete",
+            "executedCheckIds": [
+              "chk-c0v-radial-attempt-census"
+            ],
+            "evaluatedCheckIds": [
+              "chk-c0v-radial-attempt-census"
+            ],
+            "executedNegativeControlIds": [],
+            "evaluatorResultRule": "canonical-rerun-exact",
+            "sourceArtifactAuthorities": [
+              {
+                "artifactRole": "output:out-c0v-radial-produce-preflight",
+                "sourceKind": "registered-output",
+                "outputId": "out-c0v-radial-produce-preflight",
+                "artifactRelativePath": null
+              },
+              {
+                "artifactRole": "internal:terminal-success-candidate.json",
+                "sourceKind": "attempt-internal",
+                "outputId": null,
+                "artifactRelativePath": "terminal-success-candidate.json"
+              },
+              {
+                "artifactRole": "output:out-c0v-radial-attempt-ledger",
+                "sourceKind": "registered-output",
+                "outputId": "out-c0v-radial-attempt-ledger",
+                "artifactRelativePath": null
+              }
+            ]
+          },
+          {
+            "callerInvocationId": "caller-radial-complete-pass-4",
+            "stage": "post-candidate",
+            "callerCallableId": "phase10-c0v-s6-resource-check-caller",
+            "evaluatorCallableId": "phase10-c0v-s6-resource-evaluator",
+            "terminalState": "complete",
+            "executedCheckIds": [
+              "chk-c0v-radial-resource-boundary"
+            ],
+            "evaluatedCheckIds": [
+              "chk-c0v-radial-resource-boundary"
+            ],
+            "executedNegativeControlIds": [],
+            "evaluatorResultRule": "canonical-rerun-exact",
+            "sourceArtifactAuthorities": [
+              {
+                "artifactRole": "output:out-c0v-radial-produce-preflight",
+                "sourceKind": "registered-output",
+                "outputId": "out-c0v-radial-produce-preflight",
+                "artifactRelativePath": null
+              },
+              {
+                "artifactRole": "internal:terminal-success-candidate.json",
+                "sourceKind": "attempt-internal",
+                "outputId": null,
+                "artifactRelativePath": "terminal-success-candidate.json"
+              },
+              {
+                "artifactRole": "output:out-c0v-radial-attempt-ledger",
+                "sourceKind": "registered-output",
+                "outputId": "out-c0v-radial-attempt-ledger",
+                "artifactRelativePath": null
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "subrouteId": "radial-complete-fail",
+        "callerInvocationResults": [
+          {
+            "callerInvocationId": "caller-radial-complete-fail-1",
+            "stage": "pre-candidate",
+            "callerCallableId": "phase10-c0v-s6-freeze-check-caller",
+            "evaluatorCallableId": "phase10-c0v-s6-freeze-evaluator",
+            "terminalState": "complete",
+            "executedCheckIds": [
+              "chk-c0v-radial-freeze-ancestry"
+            ],
+            "evaluatedCheckIds": [
+              "chk-c0v-radial-freeze-ancestry"
+            ],
+            "executedNegativeControlIds": [],
+            "evaluatorResultRule": "canonical-rerun-exact",
+            "sourceArtifactAuthorities": [
+              {
+                "artifactRole": "output:out-c0v-radial-produce-preflight",
+                "sourceKind": "registered-output",
+                "outputId": "out-c0v-radial-produce-preflight",
+                "artifactRelativePath": null
+              },
+              {
+                "artifactRole": "internal:freeze-evaluation.json",
+                "sourceKind": "attempt-internal",
+                "outputId": null,
+                "artifactRelativePath": "freeze-evaluation.json"
+              }
+            ]
+          },
+          {
+            "callerInvocationId": "caller-radial-complete-fail-2",
+            "stage": "pre-candidate",
+            "callerCallableId": "phase10-c0v-radial-produce-check-caller",
+            "evaluatorCallableId": "phase10-c0v-radial-evaluator",
+            "terminalState": "complete",
+            "executedCheckIds": [
+              "chk-c0v-radial-numeric",
+              "chk-c0v-radial-reference-independence"
+            ],
+            "evaluatedCheckIds": [
+              "chk-c0v-radial-numeric",
+              "chk-c0v-radial-reference-independence"
+            ],
+            "executedNegativeControlIds": [
+              "nc-radial-finite-shell-term",
+              "nc-radial-forged-summary",
+              "nc-radial-robin-coefficient"
+            ],
+            "evaluatorResultRule": "canonical-rerun-exact",
+            "sourceArtifactAuthorities": [
+              {
+                "artifactRole": "output:out-c0v-radial-produce-preflight",
+                "sourceKind": "registered-output",
+                "outputId": "out-c0v-radial-produce-preflight",
+                "artifactRelativePath": null
+              },
+              {
+                "artifactRole": "output:out-c0v-radial-evaluation",
+                "sourceKind": "registered-output",
+                "outputId": "out-c0v-radial-evaluation",
+                "artifactRelativePath": null
+              },
+              {
+                "artifactRole": "output:out-c0v-radial-protocol",
+                "sourceKind": "registered-output",
+                "outputId": "out-c0v-radial-protocol",
+                "artifactRelativePath": null
+              },
+              {
+                "artifactRole": "output:out-c0v-radial-reference",
+                "sourceKind": "registered-output",
+                "outputId": "out-c0v-radial-reference",
+                "artifactRelativePath": null
+              },
+              {
+                "artifactRole": "output:out-c0v-radial-witness",
+                "sourceKind": "registered-output",
+                "outputId": "out-c0v-radial-witness",
+                "artifactRelativePath": null
+              }
+            ]
+          },
+          {
+            "callerInvocationId": "caller-radial-complete-fail-3",
+            "stage": "post-candidate",
+            "callerCallableId": "phase10-c0v-s6-attempt-census-check-caller",
+            "evaluatorCallableId": "phase10-c0v-s6-attempt-census-evaluator",
+            "terminalState": "complete",
+            "executedCheckIds": [
+              "chk-c0v-radial-attempt-census"
+            ],
+            "evaluatedCheckIds": [
+              "chk-c0v-radial-attempt-census"
+            ],
+            "executedNegativeControlIds": [],
+            "evaluatorResultRule": "canonical-rerun-exact",
+            "sourceArtifactAuthorities": [
+              {
+                "artifactRole": "output:out-c0v-radial-produce-preflight",
+                "sourceKind": "registered-output",
+                "outputId": "out-c0v-radial-produce-preflight",
+                "artifactRelativePath": null
+              },
+              {
+                "artifactRole": "internal:terminal-success-candidate.json",
+                "sourceKind": "attempt-internal",
+                "outputId": null,
+                "artifactRelativePath": "terminal-success-candidate.json"
+              },
+              {
+                "artifactRole": "output:out-c0v-radial-attempt-ledger",
+                "sourceKind": "registered-output",
+                "outputId": "out-c0v-radial-attempt-ledger",
+                "artifactRelativePath": null
+              }
+            ]
+          },
+          {
+            "callerInvocationId": "caller-radial-complete-fail-4",
+            "stage": "post-candidate",
+            "callerCallableId": "phase10-c0v-s6-resource-check-caller",
+            "evaluatorCallableId": "phase10-c0v-s6-resource-evaluator",
+            "terminalState": "complete",
+            "executedCheckIds": [
+              "chk-c0v-radial-resource-boundary"
+            ],
+            "evaluatedCheckIds": [
+              "chk-c0v-radial-resource-boundary"
+            ],
+            "executedNegativeControlIds": [],
+            "evaluatorResultRule": "canonical-rerun-exact",
+            "sourceArtifactAuthorities": [
+              {
+                "artifactRole": "output:out-c0v-radial-produce-preflight",
+                "sourceKind": "registered-output",
+                "outputId": "out-c0v-radial-produce-preflight",
+                "artifactRelativePath": null
+              },
+              {
+                "artifactRole": "internal:terminal-success-candidate.json",
+                "sourceKind": "attempt-internal",
+                "outputId": null,
+                "artifactRelativePath": "terminal-success-candidate.json"
+              },
+              {
+                "artifactRole": "output:out-c0v-radial-attempt-ledger",
+                "sourceKind": "registered-output",
+                "outputId": "out-c0v-radial-attempt-ledger",
+                "artifactRelativePath": null
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "subrouteId": "radial-artifact-refusal",
+        "callerInvocationResults": [
+          {
+            "callerInvocationId": "caller-radial-artifact-refusal-1",
+            "stage": "pre-candidate",
+            "callerCallableId": "phase10-c0v-s6-freeze-check-caller",
+            "evaluatorCallableId": "phase10-c0v-s6-freeze-evaluator",
+            "terminalState": "complete",
+            "executedCheckIds": [
+              "chk-c0v-radial-freeze-ancestry"
+            ],
+            "evaluatedCheckIds": [
+              "chk-c0v-radial-freeze-ancestry"
+            ],
+            "executedNegativeControlIds": [],
+            "evaluatorResultRule": "canonical-rerun-exact",
+            "sourceArtifactAuthorities": [
+              {
+                "artifactRole": "output:out-c0v-radial-produce-preflight",
+                "sourceKind": "registered-output",
+                "outputId": "out-c0v-radial-produce-preflight",
+                "artifactRelativePath": null
+              },
+              {
+                "artifactRole": "internal:freeze-evaluation.json",
+                "sourceKind": "attempt-internal",
+                "outputId": null,
+                "artifactRelativePath": "freeze-evaluation.json"
+              }
+            ]
+          },
+          {
+            "callerInvocationId": "caller-radial-artifact-refusal-2",
+            "stage": "pre-candidate",
+            "callerCallableId": "phase10-c0v-s6-refusal-check-caller",
+            "evaluatorCallableId": "phase10-c0v-s6-refusal-evaluator",
+            "terminalState": "complete",
+            "executedCheckIds": [
+              "chk-c0v-radial-artifact-refusal-validity"
+            ],
+            "evaluatedCheckIds": [
+              "chk-c0v-radial-artifact-refusal-validity"
+            ],
+            "executedNegativeControlIds": [],
+            "evaluatorResultRule": "canonical-rerun-exact",
+            "sourceArtifactAuthorities": [
+              {
+                "artifactRole": "output:out-c0v-radial-produce-preflight",
+                "sourceKind": "registered-output",
+                "outputId": "out-c0v-radial-produce-preflight",
+                "artifactRelativePath": null
+              },
+              {
+                "artifactRole": "internal:cause-evaluation.json",
+                "sourceKind": "attempt-internal",
+                "outputId": null,
+                "artifactRelativePath": "cause-evaluation.json"
+              }
+            ]
+          },
+          {
+            "callerInvocationId": "caller-radial-artifact-refusal-3",
+            "stage": "post-candidate",
+            "callerCallableId": "phase10-c0v-s6-attempt-census-check-caller",
+            "evaluatorCallableId": "phase10-c0v-s6-attempt-census-evaluator",
+            "terminalState": "complete",
+            "executedCheckIds": [
+              "chk-c0v-radial-attempt-census"
+            ],
+            "evaluatedCheckIds": [
+              "chk-c0v-radial-attempt-census"
+            ],
+            "executedNegativeControlIds": [],
+            "evaluatorResultRule": "canonical-rerun-exact",
+            "sourceArtifactAuthorities": [
+              {
+                "artifactRole": "output:out-c0v-radial-produce-preflight",
+                "sourceKind": "registered-output",
+                "outputId": "out-c0v-radial-produce-preflight",
+                "artifactRelativePath": null
+              },
+              {
+                "artifactRole": "internal:terminal-success-candidate.json",
+                "sourceKind": "attempt-internal",
+                "outputId": null,
+                "artifactRelativePath": "terminal-success-candidate.json"
+              },
+              {
+                "artifactRole": "output:out-c0v-radial-attempt-ledger",
+                "sourceKind": "registered-output",
+                "outputId": "out-c0v-radial-attempt-ledger",
+                "artifactRelativePath": null
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "subrouteId": "radial-prelaunch-refusal",
+        "callerInvocationResults": [
+          {
+            "callerInvocationId": "caller-radial-prelaunch-refusal-1",
+            "stage": "pre-candidate",
+            "callerCallableId": "phase10-c0v-s6-freeze-check-caller",
+            "evaluatorCallableId": "phase10-c0v-s6-freeze-evaluator",
+            "terminalState": "complete",
+            "executedCheckIds": [
+              "chk-c0v-radial-freeze-ancestry"
+            ],
+            "evaluatedCheckIds": [
+              "chk-c0v-radial-freeze-ancestry"
+            ],
+            "executedNegativeControlIds": [],
+            "evaluatorResultRule": "canonical-rerun-exact",
+            "sourceArtifactAuthorities": [
+              {
+                "artifactRole": "output:out-c0v-radial-produce-preflight",
+                "sourceKind": "registered-output",
+                "outputId": "out-c0v-radial-produce-preflight",
+                "artifactRelativePath": null
+              },
+              {
+                "artifactRole": "internal:freeze-evaluation.json",
+                "sourceKind": "attempt-internal",
+                "outputId": null,
+                "artifactRelativePath": "freeze-evaluation.json"
+              }
+            ]
+          },
+          {
+            "callerInvocationId": "caller-radial-prelaunch-refusal-2",
+            "stage": "pre-candidate",
+            "callerCallableId": "phase10-c0v-s6-refusal-check-caller",
+            "evaluatorCallableId": "phase10-c0v-s6-refusal-evaluator",
+            "terminalState": "complete",
+            "executedCheckIds": [
+              "chk-c0v-radial-resource-refusal-validity"
+            ],
+            "evaluatedCheckIds": [
+              "chk-c0v-radial-resource-refusal-validity"
+            ],
+            "executedNegativeControlIds": [],
+            "evaluatorResultRule": "canonical-rerun-exact",
+            "sourceArtifactAuthorities": [
+              {
+                "artifactRole": "output:out-c0v-radial-produce-preflight",
+                "sourceKind": "registered-output",
+                "outputId": "out-c0v-radial-produce-preflight",
+                "artifactRelativePath": null
+              },
+              {
+                "artifactRole": "internal:cause-evaluation.json",
+                "sourceKind": "attempt-internal",
+                "outputId": null,
+                "artifactRelativePath": "cause-evaluation.json"
+              }
+            ]
+          },
+          {
+            "callerInvocationId": "caller-radial-prelaunch-refusal-3",
+            "stage": "post-candidate",
+            "callerCallableId": "phase10-c0v-s6-attempt-census-check-caller",
+            "evaluatorCallableId": "phase10-c0v-s6-attempt-census-evaluator",
+            "terminalState": "complete",
+            "executedCheckIds": [
+              "chk-c0v-radial-attempt-census"
+            ],
+            "evaluatedCheckIds": [
+              "chk-c0v-radial-attempt-census"
+            ],
+            "executedNegativeControlIds": [],
+            "evaluatorResultRule": "canonical-rerun-exact",
+            "sourceArtifactAuthorities": [
+              {
+                "artifactRole": "output:out-c0v-radial-produce-preflight",
+                "sourceKind": "registered-output",
+                "outputId": "out-c0v-radial-produce-preflight",
+                "artifactRelativePath": null
+              },
+              {
+                "artifactRole": "internal:terminal-success-candidate.json",
+                "sourceKind": "attempt-internal",
+                "outputId": null,
+                "artifactRelativePath": "terminal-success-candidate.json"
+              },
+              {
+                "artifactRole": "output:out-c0v-radial-attempt-ledger",
+                "sourceKind": "registered-output",
+                "outputId": "out-c0v-radial-attempt-ledger",
+                "artifactRelativePath": null
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "subrouteId": "radial-cap-production",
+        "callerInvocationResults": [
+          {
+            "callerInvocationId": "caller-radial-cap-production-1",
+            "stage": "pre-candidate",
+            "callerCallableId": "phase10-c0v-s6-freeze-check-caller",
+            "evaluatorCallableId": "phase10-c0v-s6-freeze-evaluator",
+            "terminalState": "complete",
+            "executedCheckIds": [
+              "chk-c0v-radial-freeze-ancestry"
+            ],
+            "evaluatedCheckIds": [
+              "chk-c0v-radial-freeze-ancestry"
+            ],
+            "executedNegativeControlIds": [],
+            "evaluatorResultRule": "canonical-rerun-exact",
+            "sourceArtifactAuthorities": [
+              {
+                "artifactRole": "output:out-c0v-radial-produce-preflight",
+                "sourceKind": "registered-output",
+                "outputId": "out-c0v-radial-produce-preflight",
+                "artifactRelativePath": null
+              },
+              {
+                "artifactRole": "internal:freeze-evaluation.json",
+                "sourceKind": "attempt-internal",
+                "outputId": null,
+                "artifactRelativePath": "freeze-evaluation.json"
+              }
+            ]
+          },
+          {
+            "callerInvocationId": "caller-radial-cap-production-2",
+            "stage": "pre-candidate",
+            "callerCallableId": "phase10-c0v-s6-refusal-check-caller",
+            "evaluatorCallableId": "phase10-c0v-s6-refusal-evaluator",
+            "terminalState": "complete",
+            "executedCheckIds": [
+              "chk-c0v-radial-resource-refusal-validity"
+            ],
+            "evaluatedCheckIds": [
+              "chk-c0v-radial-resource-refusal-validity"
+            ],
+            "executedNegativeControlIds": [],
+            "evaluatorResultRule": "canonical-rerun-exact",
+            "sourceArtifactAuthorities": [
+              {
+                "artifactRole": "output:out-c0v-radial-produce-preflight",
+                "sourceKind": "registered-output",
+                "outputId": "out-c0v-radial-produce-preflight",
+                "artifactRelativePath": null
+              },
+              {
+                "artifactRole": "internal:cause-evaluation.json",
+                "sourceKind": "attempt-internal",
+                "outputId": null,
+                "artifactRelativePath": "cause-evaluation.json"
+              }
+            ]
+          },
+          {
+            "callerInvocationId": "caller-radial-cap-production-3",
+            "stage": "post-candidate",
+            "callerCallableId": "phase10-c0v-s6-attempt-census-check-caller",
+            "evaluatorCallableId": "phase10-c0v-s6-attempt-census-evaluator",
+            "terminalState": "complete",
+            "executedCheckIds": [
+              "chk-c0v-radial-attempt-census"
+            ],
+            "evaluatedCheckIds": [
+              "chk-c0v-radial-attempt-census"
+            ],
+            "executedNegativeControlIds": [],
+            "evaluatorResultRule": "canonical-rerun-exact",
+            "sourceArtifactAuthorities": [
+              {
+                "artifactRole": "output:out-c0v-radial-produce-preflight",
+                "sourceKind": "registered-output",
+                "outputId": "out-c0v-radial-produce-preflight",
+                "artifactRelativePath": null
+              },
+              {
+                "artifactRole": "internal:terminal-success-candidate.json",
+                "sourceKind": "attempt-internal",
+                "outputId": null,
+                "artifactRelativePath": "terminal-success-candidate.json"
+              },
+              {
+                "artifactRole": "output:out-c0v-radial-attempt-ledger",
+                "sourceKind": "registered-output",
+                "outputId": "out-c0v-radial-attempt-ledger",
+                "artifactRelativePath": null
+              }
+            ]
+          },
+          {
+            "callerInvocationId": "caller-radial-cap-production-4",
+            "stage": "post-candidate",
+            "callerCallableId": "phase10-c0v-s6-resource-check-caller",
+            "evaluatorCallableId": "phase10-c0v-s6-resource-evaluator",
+            "terminalState": "complete",
+            "executedCheckIds": [
+              "chk-c0v-radial-resource-boundary"
+            ],
+            "evaluatedCheckIds": [
+              "chk-c0v-radial-resource-boundary"
+            ],
+            "executedNegativeControlIds": [],
+            "evaluatorResultRule": "canonical-rerun-exact",
+            "sourceArtifactAuthorities": [
+              {
+                "artifactRole": "output:out-c0v-radial-produce-preflight",
+                "sourceKind": "registered-output",
+                "outputId": "out-c0v-radial-produce-preflight",
+                "artifactRelativePath": null
+              },
+              {
+                "artifactRole": "internal:terminal-success-candidate.json",
+                "sourceKind": "attempt-internal",
+                "outputId": null,
+                "artifactRelativePath": "terminal-success-candidate.json"
+              },
+              {
+                "artifactRole": "output:out-c0v-radial-attempt-ledger",
+                "sourceKind": "registered-output",
+                "outputId": "out-c0v-radial-attempt-ledger",
+                "artifactRelativePath": null
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "subrouteId": "radial-cap-evaluator",
+        "callerInvocationResults": [
+          {
+            "callerInvocationId": "caller-radial-cap-evaluator-1",
+            "stage": "pre-candidate",
+            "callerCallableId": "phase10-c0v-s6-freeze-check-caller",
+            "evaluatorCallableId": "phase10-c0v-s6-freeze-evaluator",
+            "terminalState": "complete",
+            "executedCheckIds": [
+              "chk-c0v-radial-freeze-ancestry"
+            ],
+            "evaluatedCheckIds": [
+              "chk-c0v-radial-freeze-ancestry"
+            ],
+            "executedNegativeControlIds": [],
+            "evaluatorResultRule": "canonical-rerun-exact",
+            "sourceArtifactAuthorities": [
+              {
+                "artifactRole": "output:out-c0v-radial-produce-preflight",
+                "sourceKind": "registered-output",
+                "outputId": "out-c0v-radial-produce-preflight",
+                "artifactRelativePath": null
+              },
+              {
+                "artifactRole": "internal:freeze-evaluation.json",
+                "sourceKind": "attempt-internal",
+                "outputId": null,
+                "artifactRelativePath": "freeze-evaluation.json"
+              }
+            ]
+          },
+          {
+            "callerInvocationId": "caller-radial-cap-evaluator-2",
+            "stage": "pre-candidate",
+            "callerCallableId": "phase10-c0v-radial-produce-check-caller",
+            "evaluatorCallableId": "phase10-c0v-radial-evaluator",
+            "terminalState": "child-registered-cap",
+            "executedCheckIds": [],
+            "evaluatedCheckIds": [],
+            "executedNegativeControlIds": [],
+            "evaluatorResultRule": "null-child-registered-cap",
+            "sourceArtifactAuthorities": [
+              {
+                "artifactRole": "output:out-c0v-radial-produce-preflight",
+                "sourceKind": "registered-output",
+                "outputId": "out-c0v-radial-produce-preflight",
+                "artifactRelativePath": null
+              },
+              {
+                "artifactRole": "internal:worker-invocations.jsonl",
+                "sourceKind": "attempt-internal",
+                "outputId": null,
+                "artifactRelativePath": "worker-invocations.jsonl"
+              },
+              {
+                "artifactRole": "internal:worker-progress.jsonl",
+                "sourceKind": "attempt-internal",
+                "outputId": null,
+                "artifactRelativePath": "worker-progress.jsonl"
+              }
+            ]
+          },
+          {
+            "callerInvocationId": "caller-radial-cap-evaluator-3",
+            "stage": "pre-candidate",
+            "callerCallableId": "phase10-c0v-s6-refusal-check-caller",
+            "evaluatorCallableId": "phase10-c0v-s6-refusal-evaluator",
+            "terminalState": "complete",
+            "executedCheckIds": [
+              "chk-c0v-radial-resource-refusal-validity"
+            ],
+            "evaluatedCheckIds": [
+              "chk-c0v-radial-resource-refusal-validity"
+            ],
+            "executedNegativeControlIds": [],
+            "evaluatorResultRule": "canonical-rerun-exact",
+            "sourceArtifactAuthorities": [
+              {
+                "artifactRole": "output:out-c0v-radial-produce-preflight",
+                "sourceKind": "registered-output",
+                "outputId": "out-c0v-radial-produce-preflight",
+                "artifactRelativePath": null
+              },
+              {
+                "artifactRole": "internal:cause-evaluation.json",
+                "sourceKind": "attempt-internal",
+                "outputId": null,
+                "artifactRelativePath": "cause-evaluation.json"
+              }
+            ]
+          },
+          {
+            "callerInvocationId": "caller-radial-cap-evaluator-4",
+            "stage": "post-candidate",
+            "callerCallableId": "phase10-c0v-s6-attempt-census-check-caller",
+            "evaluatorCallableId": "phase10-c0v-s6-attempt-census-evaluator",
+            "terminalState": "complete",
+            "executedCheckIds": [
+              "chk-c0v-radial-attempt-census"
+            ],
+            "evaluatedCheckIds": [
+              "chk-c0v-radial-attempt-census"
+            ],
+            "executedNegativeControlIds": [],
+            "evaluatorResultRule": "canonical-rerun-exact",
+            "sourceArtifactAuthorities": [
+              {
+                "artifactRole": "output:out-c0v-radial-produce-preflight",
+                "sourceKind": "registered-output",
+                "outputId": "out-c0v-radial-produce-preflight",
+                "artifactRelativePath": null
+              },
+              {
+                "artifactRole": "internal:terminal-success-candidate.json",
+                "sourceKind": "attempt-internal",
+                "outputId": null,
+                "artifactRelativePath": "terminal-success-candidate.json"
+              },
+              {
+                "artifactRole": "output:out-c0v-radial-attempt-ledger",
+                "sourceKind": "registered-output",
+                "outputId": "out-c0v-radial-attempt-ledger",
+                "artifactRelativePath": null
+              }
+            ]
+          },
+          {
+            "callerInvocationId": "caller-radial-cap-evaluator-5",
+            "stage": "post-candidate",
+            "callerCallableId": "phase10-c0v-s6-resource-check-caller",
+            "evaluatorCallableId": "phase10-c0v-s6-resource-evaluator",
+            "terminalState": "complete",
+            "executedCheckIds": [
+              "chk-c0v-radial-resource-boundary"
+            ],
+            "evaluatedCheckIds": [
+              "chk-c0v-radial-resource-boundary"
+            ],
+            "executedNegativeControlIds": [],
+            "evaluatorResultRule": "canonical-rerun-exact",
+            "sourceArtifactAuthorities": [
+              {
+                "artifactRole": "output:out-c0v-radial-produce-preflight",
+                "sourceKind": "registered-output",
+                "outputId": "out-c0v-radial-produce-preflight",
+                "artifactRelativePath": null
+              },
+              {
+                "artifactRole": "internal:terminal-success-candidate.json",
+                "sourceKind": "attempt-internal",
+                "outputId": null,
+                "artifactRelativePath": "terminal-success-candidate.json"
+              },
+              {
+                "artifactRole": "output:out-c0v-radial-attempt-ledger",
+                "sourceKind": "registered-output",
+                "outputId": "out-c0v-radial-attempt-ledger",
+                "artifactRelativePath": null
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "subrouteId": "radial-cap-nc-finite-shell",
+        "callerInvocationResults": [
+          {
+            "callerInvocationId": "caller-radial-cap-nc-finite-shell-1",
+            "stage": "pre-candidate",
+            "callerCallableId": "phase10-c0v-s6-freeze-check-caller",
+            "evaluatorCallableId": "phase10-c0v-s6-freeze-evaluator",
+            "terminalState": "complete",
+            "executedCheckIds": [
+              "chk-c0v-radial-freeze-ancestry"
+            ],
+            "evaluatedCheckIds": [
+              "chk-c0v-radial-freeze-ancestry"
+            ],
+            "executedNegativeControlIds": [],
+            "evaluatorResultRule": "canonical-rerun-exact",
+            "sourceArtifactAuthorities": [
+              {
+                "artifactRole": "output:out-c0v-radial-produce-preflight",
+                "sourceKind": "registered-output",
+                "outputId": "out-c0v-radial-produce-preflight",
+                "artifactRelativePath": null
+              },
+              {
+                "artifactRole": "internal:freeze-evaluation.json",
+                "sourceKind": "attempt-internal",
+                "outputId": null,
+                "artifactRelativePath": "freeze-evaluation.json"
+              }
+            ]
+          },
+          {
+            "callerInvocationId": "caller-radial-cap-nc-finite-shell-2",
+            "stage": "pre-candidate",
+            "callerCallableId": "phase10-c0v-radial-produce-check-caller",
+            "evaluatorCallableId": "phase10-c0v-radial-evaluator",
+            "terminalState": "child-registered-cap",
+            "executedCheckIds": [],
+            "evaluatedCheckIds": [],
+            "executedNegativeControlIds": [],
+            "evaluatorResultRule": "null-child-registered-cap",
+            "sourceArtifactAuthorities": [
+              {
+                "artifactRole": "output:out-c0v-radial-produce-preflight",
+                "sourceKind": "registered-output",
+                "outputId": "out-c0v-radial-produce-preflight",
+                "artifactRelativePath": null
+              },
+              {
+                "artifactRole": "internal:worker-invocations.jsonl",
+                "sourceKind": "attempt-internal",
+                "outputId": null,
+                "artifactRelativePath": "worker-invocations.jsonl"
+              },
+              {
+                "artifactRole": "internal:worker-progress.jsonl",
+                "sourceKind": "attempt-internal",
+                "outputId": null,
+                "artifactRelativePath": "worker-progress.jsonl"
+              }
+            ]
+          },
+          {
+            "callerInvocationId": "caller-radial-cap-nc-finite-shell-3",
+            "stage": "pre-candidate",
+            "callerCallableId": "phase10-c0v-s6-refusal-check-caller",
+            "evaluatorCallableId": "phase10-c0v-s6-refusal-evaluator",
+            "terminalState": "complete",
+            "executedCheckIds": [
+              "chk-c0v-radial-resource-refusal-validity"
+            ],
+            "evaluatedCheckIds": [
+              "chk-c0v-radial-resource-refusal-validity"
+            ],
+            "executedNegativeControlIds": [],
+            "evaluatorResultRule": "canonical-rerun-exact",
+            "sourceArtifactAuthorities": [
+              {
+                "artifactRole": "output:out-c0v-radial-produce-preflight",
+                "sourceKind": "registered-output",
+                "outputId": "out-c0v-radial-produce-preflight",
+                "artifactRelativePath": null
+              },
+              {
+                "artifactRole": "internal:cause-evaluation.json",
+                "sourceKind": "attempt-internal",
+                "outputId": null,
+                "artifactRelativePath": "cause-evaluation.json"
+              }
+            ]
+          },
+          {
+            "callerInvocationId": "caller-radial-cap-nc-finite-shell-4",
+            "stage": "post-candidate",
+            "callerCallableId": "phase10-c0v-s6-attempt-census-check-caller",
+            "evaluatorCallableId": "phase10-c0v-s6-attempt-census-evaluator",
+            "terminalState": "complete",
+            "executedCheckIds": [
+              "chk-c0v-radial-attempt-census"
+            ],
+            "evaluatedCheckIds": [
+              "chk-c0v-radial-attempt-census"
+            ],
+            "executedNegativeControlIds": [],
+            "evaluatorResultRule": "canonical-rerun-exact",
+            "sourceArtifactAuthorities": [
+              {
+                "artifactRole": "output:out-c0v-radial-produce-preflight",
+                "sourceKind": "registered-output",
+                "outputId": "out-c0v-radial-produce-preflight",
+                "artifactRelativePath": null
+              },
+              {
+                "artifactRole": "internal:terminal-success-candidate.json",
+                "sourceKind": "attempt-internal",
+                "outputId": null,
+                "artifactRelativePath": "terminal-success-candidate.json"
+              },
+              {
+                "artifactRole": "output:out-c0v-radial-attempt-ledger",
+                "sourceKind": "registered-output",
+                "outputId": "out-c0v-radial-attempt-ledger",
+                "artifactRelativePath": null
+              }
+            ]
+          },
+          {
+            "callerInvocationId": "caller-radial-cap-nc-finite-shell-5",
+            "stage": "post-candidate",
+            "callerCallableId": "phase10-c0v-s6-resource-check-caller",
+            "evaluatorCallableId": "phase10-c0v-s6-resource-evaluator",
+            "terminalState": "complete",
+            "executedCheckIds": [
+              "chk-c0v-radial-resource-boundary"
+            ],
+            "evaluatedCheckIds": [
+              "chk-c0v-radial-resource-boundary"
+            ],
+            "executedNegativeControlIds": [],
+            "evaluatorResultRule": "canonical-rerun-exact",
+            "sourceArtifactAuthorities": [
+              {
+                "artifactRole": "output:out-c0v-radial-produce-preflight",
+                "sourceKind": "registered-output",
+                "outputId": "out-c0v-radial-produce-preflight",
+                "artifactRelativePath": null
+              },
+              {
+                "artifactRole": "internal:terminal-success-candidate.json",
+                "sourceKind": "attempt-internal",
+                "outputId": null,
+                "artifactRelativePath": "terminal-success-candidate.json"
+              },
+              {
+                "artifactRole": "output:out-c0v-radial-attempt-ledger",
+                "sourceKind": "registered-output",
+                "outputId": "out-c0v-radial-attempt-ledger",
+                "artifactRelativePath": null
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "subrouteId": "radial-cap-nc-forged-summary",
+        "callerInvocationResults": [
+          {
+            "callerInvocationId": "caller-radial-cap-nc-forged-summary-1",
+            "stage": "pre-candidate",
+            "callerCallableId": "phase10-c0v-s6-freeze-check-caller",
+            "evaluatorCallableId": "phase10-c0v-s6-freeze-evaluator",
+            "terminalState": "complete",
+            "executedCheckIds": [
+              "chk-c0v-radial-freeze-ancestry"
+            ],
+            "evaluatedCheckIds": [
+              "chk-c0v-radial-freeze-ancestry"
+            ],
+            "executedNegativeControlIds": [],
+            "evaluatorResultRule": "canonical-rerun-exact",
+            "sourceArtifactAuthorities": [
+              {
+                "artifactRole": "output:out-c0v-radial-produce-preflight",
+                "sourceKind": "registered-output",
+                "outputId": "out-c0v-radial-produce-preflight",
+                "artifactRelativePath": null
+              },
+              {
+                "artifactRole": "internal:freeze-evaluation.json",
+                "sourceKind": "attempt-internal",
+                "outputId": null,
+                "artifactRelativePath": "freeze-evaluation.json"
+              }
+            ]
+          },
+          {
+            "callerInvocationId": "caller-radial-cap-nc-forged-summary-2",
+            "stage": "pre-candidate",
+            "callerCallableId": "phase10-c0v-radial-produce-check-caller",
+            "evaluatorCallableId": "phase10-c0v-radial-evaluator",
+            "terminalState": "child-registered-cap",
+            "executedCheckIds": [],
+            "evaluatedCheckIds": [],
+            "executedNegativeControlIds": [],
+            "evaluatorResultRule": "null-child-registered-cap",
+            "sourceArtifactAuthorities": [
+              {
+                "artifactRole": "output:out-c0v-radial-produce-preflight",
+                "sourceKind": "registered-output",
+                "outputId": "out-c0v-radial-produce-preflight",
+                "artifactRelativePath": null
+              },
+              {
+                "artifactRole": "internal:worker-invocations.jsonl",
+                "sourceKind": "attempt-internal",
+                "outputId": null,
+                "artifactRelativePath": "worker-invocations.jsonl"
+              },
+              {
+                "artifactRole": "internal:worker-progress.jsonl",
+                "sourceKind": "attempt-internal",
+                "outputId": null,
+                "artifactRelativePath": "worker-progress.jsonl"
+              }
+            ]
+          },
+          {
+            "callerInvocationId": "caller-radial-cap-nc-forged-summary-3",
+            "stage": "pre-candidate",
+            "callerCallableId": "phase10-c0v-s6-refusal-check-caller",
+            "evaluatorCallableId": "phase10-c0v-s6-refusal-evaluator",
+            "terminalState": "complete",
+            "executedCheckIds": [
+              "chk-c0v-radial-resource-refusal-validity"
+            ],
+            "evaluatedCheckIds": [
+              "chk-c0v-radial-resource-refusal-validity"
+            ],
+            "executedNegativeControlIds": [],
+            "evaluatorResultRule": "canonical-rerun-exact",
+            "sourceArtifactAuthorities": [
+              {
+                "artifactRole": "output:out-c0v-radial-produce-preflight",
+                "sourceKind": "registered-output",
+                "outputId": "out-c0v-radial-produce-preflight",
+                "artifactRelativePath": null
+              },
+              {
+                "artifactRole": "internal:cause-evaluation.json",
+                "sourceKind": "attempt-internal",
+                "outputId": null,
+                "artifactRelativePath": "cause-evaluation.json"
+              }
+            ]
+          },
+          {
+            "callerInvocationId": "caller-radial-cap-nc-forged-summary-4",
+            "stage": "post-candidate",
+            "callerCallableId": "phase10-c0v-s6-attempt-census-check-caller",
+            "evaluatorCallableId": "phase10-c0v-s6-attempt-census-evaluator",
+            "terminalState": "complete",
+            "executedCheckIds": [
+              "chk-c0v-radial-attempt-census"
+            ],
+            "evaluatedCheckIds": [
+              "chk-c0v-radial-attempt-census"
+            ],
+            "executedNegativeControlIds": [],
+            "evaluatorResultRule": "canonical-rerun-exact",
+            "sourceArtifactAuthorities": [
+              {
+                "artifactRole": "output:out-c0v-radial-produce-preflight",
+                "sourceKind": "registered-output",
+                "outputId": "out-c0v-radial-produce-preflight",
+                "artifactRelativePath": null
+              },
+              {
+                "artifactRole": "internal:terminal-success-candidate.json",
+                "sourceKind": "attempt-internal",
+                "outputId": null,
+                "artifactRelativePath": "terminal-success-candidate.json"
+              },
+              {
+                "artifactRole": "output:out-c0v-radial-attempt-ledger",
+                "sourceKind": "registered-output",
+                "outputId": "out-c0v-radial-attempt-ledger",
+                "artifactRelativePath": null
+              }
+            ]
+          },
+          {
+            "callerInvocationId": "caller-radial-cap-nc-forged-summary-5",
+            "stage": "post-candidate",
+            "callerCallableId": "phase10-c0v-s6-resource-check-caller",
+            "evaluatorCallableId": "phase10-c0v-s6-resource-evaluator",
+            "terminalState": "complete",
+            "executedCheckIds": [
+              "chk-c0v-radial-resource-boundary"
+            ],
+            "evaluatedCheckIds": [
+              "chk-c0v-radial-resource-boundary"
+            ],
+            "executedNegativeControlIds": [],
+            "evaluatorResultRule": "canonical-rerun-exact",
+            "sourceArtifactAuthorities": [
+              {
+                "artifactRole": "output:out-c0v-radial-produce-preflight",
+                "sourceKind": "registered-output",
+                "outputId": "out-c0v-radial-produce-preflight",
+                "artifactRelativePath": null
+              },
+              {
+                "artifactRole": "internal:terminal-success-candidate.json",
+                "sourceKind": "attempt-internal",
+                "outputId": null,
+                "artifactRelativePath": "terminal-success-candidate.json"
+              },
+              {
+                "artifactRole": "output:out-c0v-radial-attempt-ledger",
+                "sourceKind": "registered-output",
+                "outputId": "out-c0v-radial-attempt-ledger",
+                "artifactRelativePath": null
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "subrouteId": "radial-cap-nc-robin",
+        "callerInvocationResults": [
+          {
+            "callerInvocationId": "caller-radial-cap-nc-robin-1",
+            "stage": "pre-candidate",
+            "callerCallableId": "phase10-c0v-s6-freeze-check-caller",
+            "evaluatorCallableId": "phase10-c0v-s6-freeze-evaluator",
+            "terminalState": "complete",
+            "executedCheckIds": [
+              "chk-c0v-radial-freeze-ancestry"
+            ],
+            "evaluatedCheckIds": [
+              "chk-c0v-radial-freeze-ancestry"
+            ],
+            "executedNegativeControlIds": [],
+            "evaluatorResultRule": "canonical-rerun-exact",
+            "sourceArtifactAuthorities": [
+              {
+                "artifactRole": "output:out-c0v-radial-produce-preflight",
+                "sourceKind": "registered-output",
+                "outputId": "out-c0v-radial-produce-preflight",
+                "artifactRelativePath": null
+              },
+              {
+                "artifactRole": "internal:freeze-evaluation.json",
+                "sourceKind": "attempt-internal",
+                "outputId": null,
+                "artifactRelativePath": "freeze-evaluation.json"
+              }
+            ]
+          },
+          {
+            "callerInvocationId": "caller-radial-cap-nc-robin-2",
+            "stage": "pre-candidate",
+            "callerCallableId": "phase10-c0v-radial-produce-check-caller",
+            "evaluatorCallableId": "phase10-c0v-radial-evaluator",
+            "terminalState": "child-registered-cap",
+            "executedCheckIds": [],
+            "evaluatedCheckIds": [],
+            "executedNegativeControlIds": [],
+            "evaluatorResultRule": "null-child-registered-cap",
+            "sourceArtifactAuthorities": [
+              {
+                "artifactRole": "output:out-c0v-radial-produce-preflight",
+                "sourceKind": "registered-output",
+                "outputId": "out-c0v-radial-produce-preflight",
+                "artifactRelativePath": null
+              },
+              {
+                "artifactRole": "internal:worker-invocations.jsonl",
+                "sourceKind": "attempt-internal",
+                "outputId": null,
+                "artifactRelativePath": "worker-invocations.jsonl"
+              },
+              {
+                "artifactRole": "internal:worker-progress.jsonl",
+                "sourceKind": "attempt-internal",
+                "outputId": null,
+                "artifactRelativePath": "worker-progress.jsonl"
+              }
+            ]
+          },
+          {
+            "callerInvocationId": "caller-radial-cap-nc-robin-3",
+            "stage": "pre-candidate",
+            "callerCallableId": "phase10-c0v-s6-refusal-check-caller",
+            "evaluatorCallableId": "phase10-c0v-s6-refusal-evaluator",
+            "terminalState": "complete",
+            "executedCheckIds": [
+              "chk-c0v-radial-resource-refusal-validity"
+            ],
+            "evaluatedCheckIds": [
+              "chk-c0v-radial-resource-refusal-validity"
+            ],
+            "executedNegativeControlIds": [],
+            "evaluatorResultRule": "canonical-rerun-exact",
+            "sourceArtifactAuthorities": [
+              {
+                "artifactRole": "output:out-c0v-radial-produce-preflight",
+                "sourceKind": "registered-output",
+                "outputId": "out-c0v-radial-produce-preflight",
+                "artifactRelativePath": null
+              },
+              {
+                "artifactRole": "internal:cause-evaluation.json",
+                "sourceKind": "attempt-internal",
+                "outputId": null,
+                "artifactRelativePath": "cause-evaluation.json"
+              }
+            ]
+          },
+          {
+            "callerInvocationId": "caller-radial-cap-nc-robin-4",
+            "stage": "post-candidate",
+            "callerCallableId": "phase10-c0v-s6-attempt-census-check-caller",
+            "evaluatorCallableId": "phase10-c0v-s6-attempt-census-evaluator",
+            "terminalState": "complete",
+            "executedCheckIds": [
+              "chk-c0v-radial-attempt-census"
+            ],
+            "evaluatedCheckIds": [
+              "chk-c0v-radial-attempt-census"
+            ],
+            "executedNegativeControlIds": [],
+            "evaluatorResultRule": "canonical-rerun-exact",
+            "sourceArtifactAuthorities": [
+              {
+                "artifactRole": "output:out-c0v-radial-produce-preflight",
+                "sourceKind": "registered-output",
+                "outputId": "out-c0v-radial-produce-preflight",
+                "artifactRelativePath": null
+              },
+              {
+                "artifactRole": "internal:terminal-success-candidate.json",
+                "sourceKind": "attempt-internal",
+                "outputId": null,
+                "artifactRelativePath": "terminal-success-candidate.json"
+              },
+              {
+                "artifactRole": "output:out-c0v-radial-attempt-ledger",
+                "sourceKind": "registered-output",
+                "outputId": "out-c0v-radial-attempt-ledger",
+                "artifactRelativePath": null
+              }
+            ]
+          },
+          {
+            "callerInvocationId": "caller-radial-cap-nc-robin-5",
+            "stage": "post-candidate",
+            "callerCallableId": "phase10-c0v-s6-resource-check-caller",
+            "evaluatorCallableId": "phase10-c0v-s6-resource-evaluator",
+            "terminalState": "complete",
+            "executedCheckIds": [
+              "chk-c0v-radial-resource-boundary"
+            ],
+            "evaluatedCheckIds": [
+              "chk-c0v-radial-resource-boundary"
+            ],
+            "executedNegativeControlIds": [],
+            "evaluatorResultRule": "canonical-rerun-exact",
+            "sourceArtifactAuthorities": [
+              {
+                "artifactRole": "output:out-c0v-radial-produce-preflight",
+                "sourceKind": "registered-output",
+                "outputId": "out-c0v-radial-produce-preflight",
+                "artifactRelativePath": null
+              },
+              {
+                "artifactRole": "internal:terminal-success-candidate.json",
+                "sourceKind": "attempt-internal",
+                "outputId": null,
+                "artifactRelativePath": "terminal-success-candidate.json"
+              },
+              {
+                "artifactRole": "output:out-c0v-radial-attempt-ledger",
+                "sourceKind": "registered-output",
+                "outputId": "out-c0v-radial-attempt-ledger",
+                "artifactRelativePath": null
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "callerResultRule": "candidate-prestage-subsequence-verification-full-rerun-terminal-exact-copy"
+  },
+  "executionRecordTuples": [
+    {
+      "tupleId": "radial-complete-pass",
+      "dispositionCode": "production-complete",
+      "terminalStatus": "pass",
+      "lifecycleStage": "production-complete",
+      "record": {
+        "protocolReopenCount": 1,
+        "referenceOrRefusalReopenCount": 1,
+        "workerProcessInvocationCount": 1,
+        "solverWorkerInvocationCount": 1,
+        "productionInvocationCount": 1,
+        "discrepancyOrRefusalEvaluatorInvocationCount": 0,
+        "freezeEvaluatorInvocationCount": 1,
+        "resourceEvaluatorInvocationCount": 1,
+        "attemptCensusEvaluatorInvocationCount": 1,
+        "checkCallerInvocationCount": 4,
+        "numericalEvaluatorInvocationCount": 1,
+        "numericalNegativeControlInvocationCount": 3,
+        "acceptedValidWitnessCount": 1,
+        "acceptedNumericalVerdictCount": 1
+      },
+      "governedInvocationElapsedNanosecondsRule": "measured-sum",
+      "partialExecutionRule": "must-be-null"
+    },
+    {
+      "tupleId": "radial-complete-fail",
+      "dispositionCode": "production-complete",
+      "terminalStatus": "fail",
+      "lifecycleStage": "production-complete",
+      "record": {
+        "protocolReopenCount": 1,
+        "referenceOrRefusalReopenCount": 1,
+        "workerProcessInvocationCount": 1,
+        "solverWorkerInvocationCount": 1,
+        "productionInvocationCount": 1,
+        "discrepancyOrRefusalEvaluatorInvocationCount": 0,
+        "freezeEvaluatorInvocationCount": 1,
+        "resourceEvaluatorInvocationCount": 1,
+        "attemptCensusEvaluatorInvocationCount": 1,
+        "checkCallerInvocationCount": 4,
+        "numericalEvaluatorInvocationCount": 1,
+        "numericalNegativeControlInvocationCount": 3,
+        "acceptedValidWitnessCount": 1,
+        "acceptedNumericalVerdictCount": 1
+      },
+      "governedInvocationElapsedNanosecondsRule": "measured-sum",
+      "partialExecutionRule": "must-be-null"
+    },
+    {
+      "tupleId": "radial-artifact-refusal",
+      "dispositionCode": "preproduction-artifact-refusal",
+      "terminalStatus": "refusal",
+      "lifecycleStage": "preproduction-artifact-refusal",
+      "record": {
+        "protocolReopenCount": 1,
+        "referenceOrRefusalReopenCount": 1,
+        "workerProcessInvocationCount": 0,
+        "solverWorkerInvocationCount": 0,
+        "productionInvocationCount": 0,
+        "discrepancyOrRefusalEvaluatorInvocationCount": 1,
+        "freezeEvaluatorInvocationCount": 1,
+        "resourceEvaluatorInvocationCount": 0,
+        "attemptCensusEvaluatorInvocationCount": 1,
+        "checkCallerInvocationCount": 3,
+        "numericalEvaluatorInvocationCount": 0,
+        "numericalNegativeControlInvocationCount": 0,
+        "acceptedValidWitnessCount": 0,
+        "acceptedNumericalVerdictCount": 0
+      },
+      "governedInvocationElapsedNanosecondsRule": "exact-zero",
+      "partialExecutionRule": "must-be-null"
+    },
+    {
+      "tupleId": "radial-prelaunch-refusal",
+      "dispositionCode": "prelaunch-resource-refusal",
+      "terminalStatus": "refusal",
+      "lifecycleStage": "prelaunch-resource-refusal",
+      "record": {
+        "protocolReopenCount": 1,
+        "referenceOrRefusalReopenCount": 1,
+        "workerProcessInvocationCount": 0,
+        "solverWorkerInvocationCount": 0,
+        "productionInvocationCount": 0,
+        "discrepancyOrRefusalEvaluatorInvocationCount": 1,
+        "freezeEvaluatorInvocationCount": 1,
+        "resourceEvaluatorInvocationCount": 0,
+        "attemptCensusEvaluatorInvocationCount": 1,
+        "checkCallerInvocationCount": 3,
+        "numericalEvaluatorInvocationCount": 0,
+        "numericalNegativeControlInvocationCount": 0,
+        "acceptedValidWitnessCount": 0,
+        "acceptedNumericalVerdictCount": 0
+      },
+      "governedInvocationElapsedNanosecondsRule": "exact-zero",
+      "partialExecutionRule": "must-be-null"
+    },
+    {
+      "tupleId": "radial-cap-production",
+      "dispositionCode": "registered-cap-resource-refusal",
+      "terminalStatus": "refusal",
+      "lifecycleStage": "registered-cap-production",
+      "record": {
+        "protocolReopenCount": 1,
+        "referenceOrRefusalReopenCount": 1,
+        "workerProcessInvocationCount": 1,
+        "solverWorkerInvocationCount": 1,
+        "productionInvocationCount": 1,
+        "discrepancyOrRefusalEvaluatorInvocationCount": 1,
+        "freezeEvaluatorInvocationCount": 1,
+        "resourceEvaluatorInvocationCount": 1,
+        "attemptCensusEvaluatorInvocationCount": 1,
+        "checkCallerInvocationCount": 4,
+        "numericalEvaluatorInvocationCount": 0,
+        "numericalNegativeControlInvocationCount": 0,
+        "acceptedValidWitnessCount": 0,
+        "acceptedNumericalVerdictCount": 0
+      },
+      "governedInvocationElapsedNanosecondsRule": "measured-sum",
+      "partialExecutionRule": "must-be-present"
+    },
+    {
+      "tupleId": "radial-cap-evaluator",
+      "dispositionCode": "registered-cap-resource-refusal",
+      "terminalStatus": "refusal",
+      "lifecycleStage": "registered-cap-evaluator",
+      "record": {
+        "protocolReopenCount": 1,
+        "referenceOrRefusalReopenCount": 1,
+        "workerProcessInvocationCount": 1,
+        "solverWorkerInvocationCount": 1,
+        "productionInvocationCount": 1,
+        "discrepancyOrRefusalEvaluatorInvocationCount": 1,
+        "freezeEvaluatorInvocationCount": 1,
+        "resourceEvaluatorInvocationCount": 1,
+        "attemptCensusEvaluatorInvocationCount": 1,
+        "checkCallerInvocationCount": 5,
+        "numericalEvaluatorInvocationCount": 1,
+        "numericalNegativeControlInvocationCount": 0,
+        "acceptedValidWitnessCount": 0,
+        "acceptedNumericalVerdictCount": 0
+      },
+      "governedInvocationElapsedNanosecondsRule": "measured-sum",
+      "partialExecutionRule": "must-be-present"
+    },
+    {
+      "tupleId": "radial-cap-nc-finite-shell",
+      "dispositionCode": "registered-cap-resource-refusal",
+      "terminalStatus": "refusal",
+      "lifecycleStage": "registered-cap-nc-finite-shell",
+      "record": {
+        "protocolReopenCount": 1,
+        "referenceOrRefusalReopenCount": 1,
+        "workerProcessInvocationCount": 1,
+        "solverWorkerInvocationCount": 1,
+        "productionInvocationCount": 1,
+        "discrepancyOrRefusalEvaluatorInvocationCount": 1,
+        "freezeEvaluatorInvocationCount": 1,
+        "resourceEvaluatorInvocationCount": 1,
+        "attemptCensusEvaluatorInvocationCount": 1,
+        "checkCallerInvocationCount": 5,
+        "numericalEvaluatorInvocationCount": 1,
+        "numericalNegativeControlInvocationCount": 1,
+        "acceptedValidWitnessCount": 0,
+        "acceptedNumericalVerdictCount": 0
+      },
+      "governedInvocationElapsedNanosecondsRule": "measured-sum",
+      "partialExecutionRule": "must-be-present"
+    },
+    {
+      "tupleId": "radial-cap-nc-forged-summary",
+      "dispositionCode": "registered-cap-resource-refusal",
+      "terminalStatus": "refusal",
+      "lifecycleStage": "registered-cap-nc-forged-summary",
+      "record": {
+        "protocolReopenCount": 1,
+        "referenceOrRefusalReopenCount": 1,
+        "workerProcessInvocationCount": 1,
+        "solverWorkerInvocationCount": 1,
+        "productionInvocationCount": 1,
+        "discrepancyOrRefusalEvaluatorInvocationCount": 1,
+        "freezeEvaluatorInvocationCount": 1,
+        "resourceEvaluatorInvocationCount": 1,
+        "attemptCensusEvaluatorInvocationCount": 1,
+        "checkCallerInvocationCount": 5,
+        "numericalEvaluatorInvocationCount": 1,
+        "numericalNegativeControlInvocationCount": 2,
+        "acceptedValidWitnessCount": 0,
+        "acceptedNumericalVerdictCount": 0
+      },
+      "governedInvocationElapsedNanosecondsRule": "measured-sum",
+      "partialExecutionRule": "must-be-present"
+    },
+    {
+      "tupleId": "radial-cap-nc-robin",
+      "dispositionCode": "registered-cap-resource-refusal",
+      "terminalStatus": "refusal",
+      "lifecycleStage": "registered-cap-nc-robin",
+      "record": {
+        "protocolReopenCount": 1,
+        "referenceOrRefusalReopenCount": 1,
+        "workerProcessInvocationCount": 1,
+        "solverWorkerInvocationCount": 1,
+        "productionInvocationCount": 1,
+        "discrepancyOrRefusalEvaluatorInvocationCount": 1,
+        "freezeEvaluatorInvocationCount": 1,
+        "resourceEvaluatorInvocationCount": 1,
+        "attemptCensusEvaluatorInvocationCount": 1,
+        "checkCallerInvocationCount": 5,
+        "numericalEvaluatorInvocationCount": 1,
+        "numericalNegativeControlInvocationCount": 3,
+        "acceptedValidWitnessCount": 0,
+        "acceptedNumericalVerdictCount": 0
+      },
+      "governedInvocationElapsedNanosecondsRule": "measured-sum",
+      "partialExecutionRule": "must-be-present"
+    }
+  ],
+  "executableInvocationRosters": [
+    {
+      "tupleId": "radial-complete-pass",
+      "completionRule": "complete-roster",
+      "prefixOfTupleId": null,
+      "invocations": [
+        {
+          "invocationId": "inv-c0v-radial-production",
+          "callableId": "phase10-c0v-radial-production-producer",
+          "negativeControlId": null,
+          "invocationClass": "solver-production",
+          "registeredWallSecondsMaximum": 300,
+          "terminalState": "complete"
+        },
+        {
+          "invocationId": "inv-c0v-radial-evaluator",
+          "callableId": "phase10-c0v-radial-evaluator",
+          "negativeControlId": null,
+          "invocationClass": "numerical-evaluator",
+          "registeredWallSecondsMaximum": 14400,
+          "terminalState": "complete"
+        },
+        {
+          "invocationId": "inv-c0v-radial-nc-finite-shell-term",
+          "callableId": "phase10-nc-radial-finite-shell-term",
+          "negativeControlId": "nc-radial-finite-shell-term",
+          "invocationClass": "numerical-negative-control",
+          "registeredWallSecondsMaximum": 14400,
+          "terminalState": "complete"
+        },
+        {
+          "invocationId": "inv-c0v-radial-nc-forged-summary",
+          "callableId": "phase10-nc-radial-forged-summary",
+          "negativeControlId": "nc-radial-forged-summary",
+          "invocationClass": "numerical-negative-control",
+          "registeredWallSecondsMaximum": 14400,
+          "terminalState": "complete"
+        },
+        {
+          "invocationId": "inv-c0v-radial-nc-robin-coefficient",
+          "callableId": "phase10-nc-radial-robin-coefficient",
+          "negativeControlId": "nc-radial-robin-coefficient",
+          "invocationClass": "numerical-negative-control",
+          "registeredWallSecondsMaximum": 14400,
+          "terminalState": "complete"
+        }
+      ]
+    },
+    {
+      "tupleId": "radial-complete-fail",
+      "completionRule": "complete-roster",
+      "prefixOfTupleId": null,
+      "invocations": [
+        {
+          "invocationId": "inv-c0v-radial-production",
+          "callableId": "phase10-c0v-radial-production-producer",
+          "negativeControlId": null,
+          "invocationClass": "solver-production",
+          "registeredWallSecondsMaximum": 300,
+          "terminalState": "complete"
+        },
+        {
+          "invocationId": "inv-c0v-radial-evaluator",
+          "callableId": "phase10-c0v-radial-evaluator",
+          "negativeControlId": null,
+          "invocationClass": "numerical-evaluator",
+          "registeredWallSecondsMaximum": 14400,
+          "terminalState": "complete"
+        },
+        {
+          "invocationId": "inv-c0v-radial-nc-finite-shell-term",
+          "callableId": "phase10-nc-radial-finite-shell-term",
+          "negativeControlId": "nc-radial-finite-shell-term",
+          "invocationClass": "numerical-negative-control",
+          "registeredWallSecondsMaximum": 14400,
+          "terminalState": "complete"
+        },
+        {
+          "invocationId": "inv-c0v-radial-nc-forged-summary",
+          "callableId": "phase10-nc-radial-forged-summary",
+          "negativeControlId": "nc-radial-forged-summary",
+          "invocationClass": "numerical-negative-control",
+          "registeredWallSecondsMaximum": 14400,
+          "terminalState": "complete"
+        },
+        {
+          "invocationId": "inv-c0v-radial-nc-robin-coefficient",
+          "callableId": "phase10-nc-radial-robin-coefficient",
+          "negativeControlId": "nc-radial-robin-coefficient",
+          "invocationClass": "numerical-negative-control",
+          "registeredWallSecondsMaximum": 14400,
+          "terminalState": "complete"
+        }
+      ]
+    },
+    {
+      "tupleId": "radial-artifact-refusal",
+      "completionRule": "complete-roster",
+      "prefixOfTupleId": null,
+      "invocations": []
+    },
+    {
+      "tupleId": "radial-prelaunch-refusal",
+      "completionRule": "complete-roster",
+      "prefixOfTupleId": null,
+      "invocations": []
+    },
+    {
+      "tupleId": "radial-cap-production",
+      "completionRule": "registered-cap-prefix",
+      "prefixOfTupleId": "radial-complete-pass",
+      "invocations": [
+        {
+          "invocationId": "inv-c0v-radial-production",
+          "callableId": "phase10-c0v-radial-production-producer",
+          "negativeControlId": null,
+          "invocationClass": "solver-production",
+          "registeredWallSecondsMaximum": 300,
+          "terminalState": "registered-cap"
+        }
+      ]
+    },
+    {
+      "tupleId": "radial-cap-evaluator",
+      "completionRule": "registered-cap-prefix",
+      "prefixOfTupleId": "radial-complete-pass",
+      "invocations": [
+        {
+          "invocationId": "inv-c0v-radial-production",
+          "callableId": "phase10-c0v-radial-production-producer",
+          "negativeControlId": null,
+          "invocationClass": "solver-production",
+          "registeredWallSecondsMaximum": 300,
+          "terminalState": "complete"
+        },
+        {
+          "invocationId": "inv-c0v-radial-evaluator",
+          "callableId": "phase10-c0v-radial-evaluator",
+          "negativeControlId": null,
+          "invocationClass": "numerical-evaluator",
+          "registeredWallSecondsMaximum": 14400,
+          "terminalState": "registered-cap"
+        }
+      ]
+    },
+    {
+      "tupleId": "radial-cap-nc-finite-shell",
+      "completionRule": "registered-cap-prefix",
+      "prefixOfTupleId": "radial-complete-pass",
+      "invocations": [
+        {
+          "invocationId": "inv-c0v-radial-production",
+          "callableId": "phase10-c0v-radial-production-producer",
+          "negativeControlId": null,
+          "invocationClass": "solver-production",
+          "registeredWallSecondsMaximum": 300,
+          "terminalState": "complete"
+        },
+        {
+          "invocationId": "inv-c0v-radial-evaluator",
+          "callableId": "phase10-c0v-radial-evaluator",
+          "negativeControlId": null,
+          "invocationClass": "numerical-evaluator",
+          "registeredWallSecondsMaximum": 14400,
+          "terminalState": "complete"
+        },
+        {
+          "invocationId": "inv-c0v-radial-nc-finite-shell-term",
+          "callableId": "phase10-nc-radial-finite-shell-term",
+          "negativeControlId": "nc-radial-finite-shell-term",
+          "invocationClass": "numerical-negative-control",
+          "registeredWallSecondsMaximum": 14400,
+          "terminalState": "registered-cap"
+        }
+      ]
+    },
+    {
+      "tupleId": "radial-cap-nc-forged-summary",
+      "completionRule": "registered-cap-prefix",
+      "prefixOfTupleId": "radial-complete-pass",
+      "invocations": [
+        {
+          "invocationId": "inv-c0v-radial-production",
+          "callableId": "phase10-c0v-radial-production-producer",
+          "negativeControlId": null,
+          "invocationClass": "solver-production",
+          "registeredWallSecondsMaximum": 300,
+          "terminalState": "complete"
+        },
+        {
+          "invocationId": "inv-c0v-radial-evaluator",
+          "callableId": "phase10-c0v-radial-evaluator",
+          "negativeControlId": null,
+          "invocationClass": "numerical-evaluator",
+          "registeredWallSecondsMaximum": 14400,
+          "terminalState": "complete"
+        },
+        {
+          "invocationId": "inv-c0v-radial-nc-finite-shell-term",
+          "callableId": "phase10-nc-radial-finite-shell-term",
+          "negativeControlId": "nc-radial-finite-shell-term",
+          "invocationClass": "numerical-negative-control",
+          "registeredWallSecondsMaximum": 14400,
+          "terminalState": "complete"
+        },
+        {
+          "invocationId": "inv-c0v-radial-nc-forged-summary",
+          "callableId": "phase10-nc-radial-forged-summary",
+          "negativeControlId": "nc-radial-forged-summary",
+          "invocationClass": "numerical-negative-control",
+          "registeredWallSecondsMaximum": 14400,
+          "terminalState": "registered-cap"
+        }
+      ]
+    },
+    {
+      "tupleId": "radial-cap-nc-robin",
+      "completionRule": "registered-cap-prefix",
+      "prefixOfTupleId": "radial-complete-pass",
+      "invocations": [
+        {
+          "invocationId": "inv-c0v-radial-production",
+          "callableId": "phase10-c0v-radial-production-producer",
+          "negativeControlId": null,
+          "invocationClass": "solver-production",
+          "registeredWallSecondsMaximum": 300,
+          "terminalState": "complete"
+        },
+        {
+          "invocationId": "inv-c0v-radial-evaluator",
+          "callableId": "phase10-c0v-radial-evaluator",
+          "negativeControlId": null,
+          "invocationClass": "numerical-evaluator",
+          "registeredWallSecondsMaximum": 14400,
+          "terminalState": "complete"
+        },
+        {
+          "invocationId": "inv-c0v-radial-nc-finite-shell-term",
+          "callableId": "phase10-nc-radial-finite-shell-term",
+          "negativeControlId": "nc-radial-finite-shell-term",
+          "invocationClass": "numerical-negative-control",
+          "registeredWallSecondsMaximum": 14400,
+          "terminalState": "complete"
+        },
+        {
+          "invocationId": "inv-c0v-radial-nc-forged-summary",
+          "callableId": "phase10-nc-radial-forged-summary",
+          "negativeControlId": "nc-radial-forged-summary",
+          "invocationClass": "numerical-negative-control",
+          "registeredWallSecondsMaximum": 14400,
+          "terminalState": "complete"
+        },
+        {
+          "invocationId": "inv-c0v-radial-nc-robin-coefficient",
+          "callableId": "phase10-nc-radial-robin-coefficient",
+          "negativeControlId": "nc-radial-robin-coefficient",
+          "invocationClass": "numerical-negative-control",
+          "registeredWallSecondsMaximum": 14400,
+          "terminalState": "registered-cap"
+        }
+      ]
+    }
+  ],
+  "verificationInvocationRoster": [],
+  "verificationRegisteredCapBindings": [],
+  "resourceObservationPointRosters": [
+    {
+      "tupleId": "radial-complete-pass",
+      "observationPointIds": [
+        "obs-radial-terminal-retention"
+      ]
+    },
+    {
+      "tupleId": "radial-complete-fail",
+      "observationPointIds": [
+        "obs-radial-terminal-retention"
+      ]
+    },
+    {
+      "tupleId": "radial-artifact-refusal",
+      "observationPointIds": [
+        "obs-radial-terminal-retention"
+      ]
+    },
+    {
+      "tupleId": "radial-prelaunch-refusal",
+      "observationPointIds": [
+        "obs-radial-terminal-retention"
+      ]
+    },
+    {
+      "tupleId": "radial-cap-production",
+      "observationPointIds": [
+        "obs-radial-terminal-retention"
+      ]
+    },
+    {
+      "tupleId": "radial-cap-evaluator",
+      "observationPointIds": [
+        "obs-radial-terminal-retention"
+      ]
+    },
+    {
+      "tupleId": "radial-cap-nc-finite-shell",
+      "observationPointIds": [
+        "obs-radial-terminal-retention"
+      ]
+    },
+    {
+      "tupleId": "radial-cap-nc-forged-summary",
+      "observationPointIds": [
+        "obs-radial-terminal-retention"
+      ]
+    },
+    {
+      "tupleId": "radial-cap-nc-robin",
+      "observationPointIds": [
+        "obs-radial-terminal-retention"
+      ]
+    }
+  ],
+  "registeredCapBindings": [
+    {
+      "tupleId": "radial-cap-production",
+      "invocationId": "inv-c0v-radial-production",
+      "conditionId": "cond-c0v-radial-cap-production",
+      "observedValueSource": "capped-invocation-wall"
+    },
+    {
+      "tupleId": "radial-cap-evaluator",
+      "invocationId": "inv-c0v-radial-evaluator",
+      "conditionId": "cond-c0v-radial-cap-evaluator",
+      "observedValueSource": "capped-invocation-wall"
+    },
+    {
+      "tupleId": "radial-cap-nc-finite-shell",
+      "invocationId": "inv-c0v-radial-nc-finite-shell-term",
+      "conditionId": "cond-c0v-radial-cap-nc-finite-shell",
+      "observedValueSource": "capped-invocation-wall"
+    },
+    {
+      "tupleId": "radial-cap-nc-forged-summary",
+      "invocationId": "inv-c0v-radial-nc-forged-summary",
+      "conditionId": "cond-c0v-radial-cap-nc-forged-summary",
+      "observedValueSource": "capped-invocation-wall"
+    },
+    {
+      "tupleId": "radial-cap-nc-robin",
+      "invocationId": "inv-c0v-radial-nc-robin-coefficient",
+      "conditionId": "cond-c0v-radial-cap-nc-robin",
+      "observedValueSource": "capped-invocation-wall"
+    }
+  ],
+  "classificationConditions": [
+    {
+      "conditionId": "cond-c0v-radial-produce-prelaunch-free-space",
+      "kind": "available-bytes",
+      "comparator": "less-than",
+      "registeredValue": 67108864,
+      "unit": "bytes",
+      "routeSelecting": true
+    },
+    {
+      "conditionId": "cond-c0v-radial-produce-prelaunch-process-hours",
+      "kind": "process-hours",
+      "comparator": "greater-than",
+      "registeredValue": 24,
+      "unit": "hours",
+      "routeSelecting": true
+    },
+    {
+      "conditionId": "cond-c0v-radial-produce-prelaunch-storage",
+      "kind": "retained-bytes",
+      "comparator": "greater-than",
+      "registeredValue": 68719476736,
+      "unit": "bytes",
+      "routeSelecting": true
+    },
+    {
+      "conditionId": "cond-c0v-radial-artifact-precondition-failed",
+      "kind": "artifact-filesystem-policy",
+      "comparator": "not-equal",
+      "registeredValue": "regular-single-link-unaliased",
+      "unit": "classification",
+      "routeSelecting": true
+    },
+    {
+      "conditionId": "cond-c0v-radial-cap-evaluator",
+      "kind": "wall-seconds",
+      "comparator": "greater-than",
+      "registeredValue": 14400,
+      "unit": "seconds",
+      "routeSelecting": true
+    },
+    {
+      "conditionId": "cond-c0v-radial-cap-nc-finite-shell",
+      "kind": "wall-seconds",
+      "comparator": "greater-than",
+      "registeredValue": 14400,
+      "unit": "seconds",
+      "routeSelecting": true
+    },
+    {
+      "conditionId": "cond-c0v-radial-cap-nc-forged-summary",
+      "kind": "wall-seconds",
+      "comparator": "greater-than",
+      "registeredValue": 14400,
+      "unit": "seconds",
+      "routeSelecting": true
+    },
+    {
+      "conditionId": "cond-c0v-radial-cap-nc-robin",
+      "kind": "wall-seconds",
+      "comparator": "greater-than",
+      "registeredValue": 14400,
+      "unit": "seconds",
+      "routeSelecting": true
+    },
+    {
+      "conditionId": "cond-c0v-radial-cap-production",
+      "kind": "wall-seconds",
+      "comparator": "greater-than",
+      "registeredValue": 300,
+      "unit": "seconds",
+      "routeSelecting": true
+    },
+    {
+      "conditionId": "cond-c0v-radial-negative-control-campaign",
+      "kind": "negative-control-outcome",
+      "comparator": "not-equal",
+      "registeredValue": "pass",
+      "unit": "outcome",
+      "routeSelecting": true
+    },
+    {
+      "conditionId": "cond-c0v-radial-process-exit-corroboration",
+      "kind": "process-exit",
+      "comparator": "not-equal",
+      "registeredValue": 0,
+      "unit": "exit-code",
+      "routeSelecting": false
+    },
+    {
+      "conditionId": "cond-c0v-radial-production-complete",
+      "kind": "lifecycle-classification",
+      "comparator": "classified-as",
+      "registeredValue": "production-complete",
+      "unit": "classification",
+      "routeSelecting": true
+    },
+    {
+      "conditionId": "cond-c0v-radial-reference-disposition",
+      "kind": "reference-disposition",
+      "comparator": "equal",
+      "registeredValue": "reference-frozen",
+      "unit": "disposition",
+      "routeSelecting": true
+    },
+    {
+      "conditionId": "cond-c0v-radial-reference-identity",
+      "kind": "artifact-identity",
+      "comparator": "identity-equal",
+      "registeredValue": "evidence/phase10-numerical-verification-v1/c0v-radial-reference.json",
+      "unit": "artifact-identity",
+      "routeSelecting": true
+    },
+    {
+      "conditionId": "cond-c0v-radial-science-protocol-identity",
+      "kind": "artifact-identity",
+      "comparator": "identity-equal",
+      "registeredValue": "research/phase10-c0v-radial-protocol-v1.json",
+      "unit": "artifact-identity",
+      "routeSelecting": true
+    }
+  ],
+  "classificationProjectionRosters": [
+    {
+      "subrouteId": "radial-artifact-refusal",
+      "validationId": "classification-c0v-radial-produce-c0v-radial-produce-20260822-v1-radial-artifact-refusal-v1",
+      "assemblerCallableId": "phase10-c0v-radial-attempt-receipt-writer",
+      "componentEvaluatorCallableIds": [
+        "phase10-c0v-s6-refusal-evaluator",
+        "phase10-c0v-s6-freeze-evaluator",
+        "phase10-c0v-s6-attempt-census-evaluator"
+      ],
+      "method": "independent-artifact-precondition-classification",
+      "selectedConditionCardinality": "all",
+      "observations": [
+        {
+          "conditionId": "cond-c0v-radial-artifact-precondition-failed",
+          "kind": "artifact-filesystem-policy",
+          "comparator": "not-equal",
+          "registeredValue": "regular-single-link-unaliased",
+          "unit": "classification",
+          "observedValueSource": "preflight.refusalCandidate.failedArtifact.failureClass",
+          "observedValueDerivation": "identity",
+          "finalizedValueBinding": null,
+          "conditionPassRule": "must-pass",
+          "evidenceIds": [
+            "evidence-c0v-radial-produce-packet-protocol",
+            "evidence-c0v-radial-produce-preflight",
+            "evidence-c0v-radial-produce-radial-artifact-refusal-filesystem-inline"
+          ]
+        }
+      ],
+      "evidence": [
+        {
+          "evidenceId": "evidence-c0v-radial-produce-packet-protocol",
+          "evidenceRole": "packet-protocol",
+          "retentionClass": "tracked-authority",
+          "artifactSource": "bindings.packetProtocol",
+          "artifactRelativePath": null,
+          "inlineObservationPath": null
+        },
+        {
+          "evidenceId": "evidence-c0v-radial-produce-preflight",
+          "evidenceRole": "preflight-receipt",
+          "retentionClass": "tracked-evidence",
+          "artifactSource": "retainedPreflight",
+          "artifactRelativePath": null,
+          "inlineObservationPath": null
+        },
+        {
+          "evidenceId": "evidence-c0v-radial-produce-radial-artifact-refusal-filesystem-inline",
+          "evidenceRole": "classification-input",
+          "retentionClass": "embedded-preflight-observation",
+          "artifactSource": null,
+          "artifactRelativePath": null,
+          "inlineObservationPath": "preflight.refusalCandidate.failedArtifact.filesystemObservation"
+        }
+      ],
+      "projectionRule": "cause-evaluation-attempt-classification-and-final-rerun-exactly-equal"
+    },
+    {
+      "subrouteId": "radial-prelaunch-refusal",
+      "validationId": "classification-c0v-radial-produce-c0v-radial-produce-20260822-v1-radial-prelaunch-refusal-v1",
+      "assemblerCallableId": "phase10-c0v-radial-attempt-receipt-writer",
+      "componentEvaluatorCallableIds": [
+        "phase10-c0v-s6-refusal-evaluator",
+        "phase10-c0v-s6-freeze-evaluator",
+        "phase10-c0v-s6-attempt-census-evaluator"
+      ],
+      "method": "independent-prelaunch-resource-classification",
+      "selectedConditionCardinality": "exactly-one",
+      "observations": [
+        {
+          "conditionId": "cond-c0v-radial-produce-prelaunch-free-space",
+          "kind": "available-bytes",
+          "comparator": "less-than",
+          "registeredValue": 67108864,
+          "unit": "bytes",
+          "observedValueSource": "preflight.observed.resources.observedFreeBytes",
+          "observedValueDerivation": "identity",
+          "finalizedValueBinding": null,
+          "conditionPassRule": "exactly-one-selected-pass",
+          "evidenceIds": [
+            "evidence-c0v-radial-produce-packet-protocol",
+            "evidence-c0v-radial-produce-preflight"
+          ]
+        },
+        {
+          "conditionId": "cond-c0v-radial-produce-prelaunch-process-hours",
+          "kind": "process-hours",
+          "comparator": "greater-than",
+          "registeredValue": 24,
+          "unit": "hours",
+          "observedValueSource": "preflight.observed.resources.projectedPackageProcessHoursAfterAttempt",
+          "observedValueDerivation": "identity",
+          "finalizedValueBinding": null,
+          "conditionPassRule": "exactly-one-selected-pass",
+          "evidenceIds": [
+            "evidence-c0v-radial-produce-packet-protocol",
+            "evidence-c0v-radial-produce-preflight"
+          ]
+        },
+        {
+          "conditionId": "cond-c0v-radial-produce-prelaunch-storage",
+          "kind": "retained-bytes",
+          "comparator": "greater-than",
+          "registeredValue": 68719476736,
+          "unit": "bytes",
+          "observedValueSource": "preflight.observed.resources.projectedPackageBytesAfterAttempt",
+          "observedValueDerivation": "identity",
+          "finalizedValueBinding": null,
+          "conditionPassRule": "exactly-one-selected-pass",
+          "evidenceIds": [
+            "evidence-c0v-radial-produce-packet-protocol",
+            "evidence-c0v-radial-produce-preflight"
+          ]
+        }
+      ],
+      "evidence": [
+        {
+          "evidenceId": "evidence-c0v-radial-produce-packet-protocol",
+          "evidenceRole": "packet-protocol",
+          "retentionClass": "tracked-authority",
+          "artifactSource": "bindings.packetProtocol",
+          "artifactRelativePath": null,
+          "inlineObservationPath": null
+        },
+        {
+          "evidenceId": "evidence-c0v-radial-produce-preflight",
+          "evidenceRole": "preflight-receipt",
+          "retentionClass": "tracked-evidence",
+          "artifactSource": "retainedPreflight",
+          "artifactRelativePath": null,
+          "inlineObservationPath": null
+        }
+      ],
+      "projectionRule": "cause-evaluation-attempt-classification-and-final-rerun-exactly-equal"
+    },
+    {
+      "subrouteId": "radial-cap-production",
+      "validationId": "classification-c0v-radial-produce-c0v-radial-produce-20260822-v1-radial-cap-production-v1",
+      "assemblerCallableId": "phase10-c0v-radial-attempt-receipt-writer",
+      "componentEvaluatorCallableIds": [
+        "phase10-c0v-s6-refusal-evaluator",
+        "phase10-c0v-s6-freeze-evaluator",
+        "phase10-c0v-s6-attempt-census-evaluator",
+        "phase10-c0v-s6-resource-evaluator"
+      ],
+      "method": "independent-registered-cap-classification",
+      "selectedConditionCardinality": "all",
+      "observations": [
+        {
+          "conditionId": "cond-c0v-radial-cap-production",
+          "kind": "wall-seconds",
+          "comparator": "greater-than",
+          "registeredValue": 300,
+          "unit": "seconds",
+          "observedValueSource": "internal.workerInvocations.inv-c0v-radial-production.elapsedNanoseconds",
+          "observedValueDerivation": "elapsed-nanoseconds-divided-by-1000000000",
+          "finalizedValueBinding": "attempt.executableInvocationRecords.inv-c0v-radial-production.wallSeconds",
+          "conditionPassRule": "must-pass",
+          "evidenceIds": [
+            "evidence-c0v-radial-produce-packet-protocol",
+            "evidence-c0v-radial-produce-radial-cap-production-exit-raw",
+            "evidence-c0v-radial-produce-radial-cap-production-invocations-raw",
+            "evidence-c0v-radial-produce-radial-cap-production-progress-raw"
+          ]
+        }
+      ],
+      "evidence": [
+        {
+          "evidenceId": "evidence-c0v-radial-produce-packet-protocol",
+          "evidenceRole": "packet-protocol",
+          "retentionClass": "tracked-authority",
+          "artifactSource": "bindings.packetProtocol",
+          "artifactRelativePath": null,
+          "inlineObservationPath": null
+        },
+        {
+          "evidenceId": "evidence-c0v-radial-produce-radial-cap-production-exit-raw",
+          "evidenceRole": "exit-record",
+          "retentionClass": "ignored-staging-corroboration",
+          "artifactSource": "internal.exitStatus",
+          "artifactRelativePath": "exit-status.json",
+          "inlineObservationPath": null
+        },
+        {
+          "evidenceId": "evidence-c0v-radial-produce-radial-cap-production-invocations-raw",
+          "evidenceRole": "classification-input",
+          "retentionClass": "ignored-staging-corroboration",
+          "artifactSource": "internal.workerInvocations",
+          "artifactRelativePath": "worker-invocations.jsonl",
+          "inlineObservationPath": null
+        },
+        {
+          "evidenceId": "evidence-c0v-radial-produce-radial-cap-production-progress-raw",
+          "evidenceRole": "classification-input",
+          "retentionClass": "ignored-staging-corroboration",
+          "artifactSource": "internal.workerProgress",
+          "artifactRelativePath": "worker-progress.jsonl",
+          "inlineObservationPath": null
+        }
+      ],
+      "projectionRule": "cause-evaluation-attempt-classification-and-final-rerun-exactly-equal"
+    },
+    {
+      "subrouteId": "radial-cap-evaluator",
+      "validationId": "classification-c0v-radial-produce-c0v-radial-produce-20260822-v1-radial-cap-evaluator-v1",
+      "assemblerCallableId": "phase10-c0v-radial-attempt-receipt-writer",
+      "componentEvaluatorCallableIds": [
+        "phase10-c0v-s6-refusal-evaluator",
+        "phase10-c0v-s6-freeze-evaluator",
+        "phase10-c0v-s6-attempt-census-evaluator",
+        "phase10-c0v-s6-resource-evaluator"
+      ],
+      "method": "independent-registered-cap-classification",
+      "selectedConditionCardinality": "all",
+      "observations": [
+        {
+          "conditionId": "cond-c0v-radial-cap-evaluator",
+          "kind": "wall-seconds",
+          "comparator": "greater-than",
+          "registeredValue": 14400,
+          "unit": "seconds",
+          "observedValueSource": "internal.workerInvocations.inv-c0v-radial-evaluator.elapsedNanoseconds",
+          "observedValueDerivation": "elapsed-nanoseconds-divided-by-1000000000",
+          "finalizedValueBinding": "attempt.executableInvocationRecords.inv-c0v-radial-evaluator.wallSeconds",
+          "conditionPassRule": "must-pass",
+          "evidenceIds": [
+            "evidence-c0v-radial-produce-packet-protocol",
+            "evidence-c0v-radial-produce-radial-cap-evaluator-exit-raw",
+            "evidence-c0v-radial-produce-radial-cap-evaluator-invocations-raw",
+            "evidence-c0v-radial-produce-radial-cap-evaluator-progress-raw"
+          ]
+        }
+      ],
+      "evidence": [
+        {
+          "evidenceId": "evidence-c0v-radial-produce-packet-protocol",
+          "evidenceRole": "packet-protocol",
+          "retentionClass": "tracked-authority",
+          "artifactSource": "bindings.packetProtocol",
+          "artifactRelativePath": null,
+          "inlineObservationPath": null
+        },
+        {
+          "evidenceId": "evidence-c0v-radial-produce-radial-cap-evaluator-exit-raw",
+          "evidenceRole": "exit-record",
+          "retentionClass": "ignored-staging-corroboration",
+          "artifactSource": "internal.exitStatus",
+          "artifactRelativePath": "exit-status.json",
+          "inlineObservationPath": null
+        },
+        {
+          "evidenceId": "evidence-c0v-radial-produce-radial-cap-evaluator-invocations-raw",
+          "evidenceRole": "classification-input",
+          "retentionClass": "ignored-staging-corroboration",
+          "artifactSource": "internal.workerInvocations",
+          "artifactRelativePath": "worker-invocations.jsonl",
+          "inlineObservationPath": null
+        },
+        {
+          "evidenceId": "evidence-c0v-radial-produce-radial-cap-evaluator-progress-raw",
+          "evidenceRole": "classification-input",
+          "retentionClass": "ignored-staging-corroboration",
+          "artifactSource": "internal.workerProgress",
+          "artifactRelativePath": "worker-progress.jsonl",
+          "inlineObservationPath": null
+        }
+      ],
+      "projectionRule": "cause-evaluation-attempt-classification-and-final-rerun-exactly-equal"
+    },
+    {
+      "subrouteId": "radial-cap-nc-finite-shell",
+      "validationId": "classification-c0v-radial-produce-c0v-radial-produce-20260822-v1-radial-cap-nc-finite-shell-v1",
+      "assemblerCallableId": "phase10-c0v-radial-attempt-receipt-writer",
+      "componentEvaluatorCallableIds": [
+        "phase10-c0v-s6-refusal-evaluator",
+        "phase10-c0v-s6-freeze-evaluator",
+        "phase10-c0v-s6-attempt-census-evaluator",
+        "phase10-c0v-s6-resource-evaluator"
+      ],
+      "method": "independent-registered-cap-classification",
+      "selectedConditionCardinality": "all",
+      "observations": [
+        {
+          "conditionId": "cond-c0v-radial-cap-nc-finite-shell",
+          "kind": "wall-seconds",
+          "comparator": "greater-than",
+          "registeredValue": 14400,
+          "unit": "seconds",
+          "observedValueSource": "internal.workerInvocations.inv-c0v-radial-nc-finite-shell-term.elapsedNanoseconds",
+          "observedValueDerivation": "elapsed-nanoseconds-divided-by-1000000000",
+          "finalizedValueBinding": "attempt.executableInvocationRecords.inv-c0v-radial-nc-finite-shell-term.wallSeconds",
+          "conditionPassRule": "must-pass",
+          "evidenceIds": [
+            "evidence-c0v-radial-produce-packet-protocol",
+            "evidence-c0v-radial-produce-radial-cap-nc-finite-shell-exit-raw",
+            "evidence-c0v-radial-produce-radial-cap-nc-finite-shell-invocations-raw",
+            "evidence-c0v-radial-produce-radial-cap-nc-finite-shell-progress-raw"
+          ]
+        }
+      ],
+      "evidence": [
+        {
+          "evidenceId": "evidence-c0v-radial-produce-packet-protocol",
+          "evidenceRole": "packet-protocol",
+          "retentionClass": "tracked-authority",
+          "artifactSource": "bindings.packetProtocol",
+          "artifactRelativePath": null,
+          "inlineObservationPath": null
+        },
+        {
+          "evidenceId": "evidence-c0v-radial-produce-radial-cap-nc-finite-shell-exit-raw",
+          "evidenceRole": "exit-record",
+          "retentionClass": "ignored-staging-corroboration",
+          "artifactSource": "internal.exitStatus",
+          "artifactRelativePath": "exit-status.json",
+          "inlineObservationPath": null
+        },
+        {
+          "evidenceId": "evidence-c0v-radial-produce-radial-cap-nc-finite-shell-invocations-raw",
+          "evidenceRole": "classification-input",
+          "retentionClass": "ignored-staging-corroboration",
+          "artifactSource": "internal.workerInvocations",
+          "artifactRelativePath": "worker-invocations.jsonl",
+          "inlineObservationPath": null
+        },
+        {
+          "evidenceId": "evidence-c0v-radial-produce-radial-cap-nc-finite-shell-progress-raw",
+          "evidenceRole": "classification-input",
+          "retentionClass": "ignored-staging-corroboration",
+          "artifactSource": "internal.workerProgress",
+          "artifactRelativePath": "worker-progress.jsonl",
+          "inlineObservationPath": null
+        }
+      ],
+      "projectionRule": "cause-evaluation-attempt-classification-and-final-rerun-exactly-equal"
+    },
+    {
+      "subrouteId": "radial-cap-nc-forged-summary",
+      "validationId": "classification-c0v-radial-produce-c0v-radial-produce-20260822-v1-radial-cap-nc-forged-summary-v1",
+      "assemblerCallableId": "phase10-c0v-radial-attempt-receipt-writer",
+      "componentEvaluatorCallableIds": [
+        "phase10-c0v-s6-refusal-evaluator",
+        "phase10-c0v-s6-freeze-evaluator",
+        "phase10-c0v-s6-attempt-census-evaluator",
+        "phase10-c0v-s6-resource-evaluator"
+      ],
+      "method": "independent-registered-cap-classification",
+      "selectedConditionCardinality": "all",
+      "observations": [
+        {
+          "conditionId": "cond-c0v-radial-cap-nc-forged-summary",
+          "kind": "wall-seconds",
+          "comparator": "greater-than",
+          "registeredValue": 14400,
+          "unit": "seconds",
+          "observedValueSource": "internal.workerInvocations.inv-c0v-radial-nc-forged-summary.elapsedNanoseconds",
+          "observedValueDerivation": "elapsed-nanoseconds-divided-by-1000000000",
+          "finalizedValueBinding": "attempt.executableInvocationRecords.inv-c0v-radial-nc-forged-summary.wallSeconds",
+          "conditionPassRule": "must-pass",
+          "evidenceIds": [
+            "evidence-c0v-radial-produce-packet-protocol",
+            "evidence-c0v-radial-produce-radial-cap-nc-forged-summary-exit-raw",
+            "evidence-c0v-radial-produce-radial-cap-nc-forged-summary-invocations-raw",
+            "evidence-c0v-radial-produce-radial-cap-nc-forged-summary-progress-raw"
+          ]
+        }
+      ],
+      "evidence": [
+        {
+          "evidenceId": "evidence-c0v-radial-produce-packet-protocol",
+          "evidenceRole": "packet-protocol",
+          "retentionClass": "tracked-authority",
+          "artifactSource": "bindings.packetProtocol",
+          "artifactRelativePath": null,
+          "inlineObservationPath": null
+        },
+        {
+          "evidenceId": "evidence-c0v-radial-produce-radial-cap-nc-forged-summary-exit-raw",
+          "evidenceRole": "exit-record",
+          "retentionClass": "ignored-staging-corroboration",
+          "artifactSource": "internal.exitStatus",
+          "artifactRelativePath": "exit-status.json",
+          "inlineObservationPath": null
+        },
+        {
+          "evidenceId": "evidence-c0v-radial-produce-radial-cap-nc-forged-summary-invocations-raw",
+          "evidenceRole": "classification-input",
+          "retentionClass": "ignored-staging-corroboration",
+          "artifactSource": "internal.workerInvocations",
+          "artifactRelativePath": "worker-invocations.jsonl",
+          "inlineObservationPath": null
+        },
+        {
+          "evidenceId": "evidence-c0v-radial-produce-radial-cap-nc-forged-summary-progress-raw",
+          "evidenceRole": "classification-input",
+          "retentionClass": "ignored-staging-corroboration",
+          "artifactSource": "internal.workerProgress",
+          "artifactRelativePath": "worker-progress.jsonl",
+          "inlineObservationPath": null
+        }
+      ],
+      "projectionRule": "cause-evaluation-attempt-classification-and-final-rerun-exactly-equal"
+    },
+    {
+      "subrouteId": "radial-cap-nc-robin",
+      "validationId": "classification-c0v-radial-produce-c0v-radial-produce-20260822-v1-radial-cap-nc-robin-v1",
+      "assemblerCallableId": "phase10-c0v-radial-attempt-receipt-writer",
+      "componentEvaluatorCallableIds": [
+        "phase10-c0v-s6-refusal-evaluator",
+        "phase10-c0v-s6-freeze-evaluator",
+        "phase10-c0v-s6-attempt-census-evaluator",
+        "phase10-c0v-s6-resource-evaluator"
+      ],
+      "method": "independent-registered-cap-classification",
+      "selectedConditionCardinality": "all",
+      "observations": [
+        {
+          "conditionId": "cond-c0v-radial-cap-nc-robin",
+          "kind": "wall-seconds",
+          "comparator": "greater-than",
+          "registeredValue": 14400,
+          "unit": "seconds",
+          "observedValueSource": "internal.workerInvocations.inv-c0v-radial-nc-robin-coefficient.elapsedNanoseconds",
+          "observedValueDerivation": "elapsed-nanoseconds-divided-by-1000000000",
+          "finalizedValueBinding": "attempt.executableInvocationRecords.inv-c0v-radial-nc-robin-coefficient.wallSeconds",
+          "conditionPassRule": "must-pass",
+          "evidenceIds": [
+            "evidence-c0v-radial-produce-packet-protocol",
+            "evidence-c0v-radial-produce-radial-cap-nc-robin-exit-raw",
+            "evidence-c0v-radial-produce-radial-cap-nc-robin-invocations-raw",
+            "evidence-c0v-radial-produce-radial-cap-nc-robin-progress-raw"
+          ]
+        }
+      ],
+      "evidence": [
+        {
+          "evidenceId": "evidence-c0v-radial-produce-packet-protocol",
+          "evidenceRole": "packet-protocol",
+          "retentionClass": "tracked-authority",
+          "artifactSource": "bindings.packetProtocol",
+          "artifactRelativePath": null,
+          "inlineObservationPath": null
+        },
+        {
+          "evidenceId": "evidence-c0v-radial-produce-radial-cap-nc-robin-exit-raw",
+          "evidenceRole": "exit-record",
+          "retentionClass": "ignored-staging-corroboration",
+          "artifactSource": "internal.exitStatus",
+          "artifactRelativePath": "exit-status.json",
+          "inlineObservationPath": null
+        },
+        {
+          "evidenceId": "evidence-c0v-radial-produce-radial-cap-nc-robin-invocations-raw",
+          "evidenceRole": "classification-input",
+          "retentionClass": "ignored-staging-corroboration",
+          "artifactSource": "internal.workerInvocations",
+          "artifactRelativePath": "worker-invocations.jsonl",
+          "inlineObservationPath": null
+        },
+        {
+          "evidenceId": "evidence-c0v-radial-produce-radial-cap-nc-robin-progress-raw",
+          "evidenceRole": "classification-input",
+          "retentionClass": "ignored-staging-corroboration",
+          "artifactSource": "internal.workerProgress",
+          "artifactRelativePath": "worker-progress.jsonl",
+          "inlineObservationPath": null
+        }
+      ],
+      "projectionRule": "cause-evaluation-attempt-classification-and-final-rerun-exactly-equal"
+    }
+  ],
+  "radialBinaryLayout": {
+    "magic": "C0VRAD01",
+    "formatVersion": 1,
+    "endiannessMarker": 16909060,
+    "schemaId": "phase10-c0v-radial-witness-v1",
+    "schemaByteLength": 29,
+    "headerByteLength": 153,
+    "payloadByteLength": 5738,
+    "fileByteLength": 5891,
+    "protocolDigestSource": "s5-science-protocol",
+    "referenceDigestSource": "s5-reference",
+    "producerEvaluatorSharedRuntimeClosurePaths": [
+      "runner/src/gate4-evidence.ts",
+      "runner/src/phase10-c0v-contracts.ts",
+      "runner/src/phase10-c0v-s6-contracts.ts",
+      "runner/src/phase10-c0v-s6-execution-contracts.ts"
+    ],
+    "headerOffsets": {
+      "magic": [
+        0,
+        8
+      ],
+      "formatVersion": [
+        8,
+        12
+      ],
+      "endiannessMarker": [
+        12,
+        16
+      ],
+      "schemaByteLength": [
+        16,
+        20
+      ],
+      "schema": [
+        20,
+        49
+      ],
+      "protocolSha256": [
+        49,
+        81
+      ],
+      "referenceSha256": [
+        81,
+        113
+      ],
+      "payloadByteLength": [
+        113,
+        121
+      ],
+      "payloadSha256": [
+        121,
+        153
+      ],
+      "payload": [
+        153,
+        5891
+      ]
+    },
+    "globalFloatNames": [
+      "radiusM",
+      "farRadiusM",
+      "sigmaInfinity",
+      "tempC",
+      "pressurePa",
+      "alphaHKConst",
+      "kBoltzmannJPerK",
+      "celsiusZeroK",
+      "waterMoleculeMassKg",
+      "iceNumberDensityPerM3",
+      "diffusivityAir1AtmM2S",
+      "standardAtmospherePa",
+      "saturationPressurePrefactorMbar",
+      "saturationPressureExponentK",
+      "mbarToPa",
+      "temperatureK",
+      "saturationPressurePa",
+      "saturationNumberDensityPerM3",
+      "diffusivityM2S",
+      "thermalSpeedMS",
+      "kineticVelocityMS",
+      "kineticLengthM"
+    ],
+    "caseOrder": [
+      "radial-dr-0p7um",
+      "radial-dr-0p35um",
+      "radial-dr-0p175um",
+      "radial-dr-0p0875um"
+    ],
+    "caseNodeCounts": [
+      21,
+      40,
+      80,
+      159
+    ],
+    "caseScalarNames": [
+      "requestedSpacingM",
+      "actualSpacingM",
+      "sigmaSurface",
+      "sigmaShell",
+      "growthVelocityKineticMS",
+      "growthVelocityFluxMS",
+      "surfaceGradientPerM",
+      "robinLeft",
+      "robinRight",
+      "robinResidual",
+      "uniformSigmaSurface",
+      "uniformSigmaShell",
+      "uniformGrowthVelocityKineticMS",
+      "uniformGrowthVelocityFluxMS",
+      "uniformSurfaceGradientPerM",
+      "uniformRobinLeft",
+      "uniformRobinRight",
+      "uniformRobinResidual"
+    ],
+    "caseRecordByteLengths": [
+      523,
+      828,
+      1469,
+      2734
+    ],
+    "payloadPrefixByteLength": 184,
+    "recordByteLengthPrefixPresent": false,
+    "numericEncoding": "float64-le-finite-no-negative-zero",
+    "exactZeroEncoding": "positive-zero",
+    "trailingBytesAllowed": false
+  },
+  "radialProducerSummary": {
+    "schema": "phase10-c0v-radial-producer-summary-v1",
+    "authority": "non-authoritative",
+    "exactFields": [
+      "schema",
+      "authority",
+      "caseCount",
+      "totalNumericFieldValues",
+      "totalUniformFieldValues",
+      "allFinite",
+      "reportedDisposition",
+      "reportedMaximum"
+    ],
+    "caseCount": 4,
+    "totalNumericFieldValues": 300,
+    "totalUniformFieldValues": 300,
+    "reportedMaximumRule": "maximum-absolute-stored-robin-residual-without-reference-comparison",
+    "evaluatorUse": "inventory-and-parse-only-never-metrics-or-verdict"
+  },
+  "controlOperators": [
+    {
+      "negativeControlId": "nc-radial-finite-shell-term",
+      "operator": "coherent-first-case-missing-shell-constant",
+      "invariantBindings": [
+        "all-other-cases-unchanged",
+        "global-operands-unchanged",
+        "reference-identity-unchanged",
+        "uniform-records-unchanged"
+      ],
+      "expected": "independent-radial-evaluator-fail"
+    },
+    {
+      "negativeControlId": "nc-radial-forged-summary",
+      "operator": "flip-external-summary-disposition-and-set-maximum-one",
+      "invariantBindings": [
+        "reference-identity-unchanged",
+        "witness-bytes-unchanged",
+        "witness-digest-unchanged"
+      ],
+      "expected": "clean-independent-evaluation-identical"
+    },
+    {
+      "negativeControlId": "nc-radial-robin-coefficient",
+      "operator": "coherent-all-numeric-cases-half-robin-coefficient",
+      "invariantBindings": [
+        "global-operands-unchanged",
+        "header-bindings-unchanged",
+        "reference-identity-unchanged",
+        "uniform-records-unchanged"
+      ],
+      "expected": "independent-radial-evaluator-fail"
+    }
+  ],
+  "aggregateNegativeControlContract": null,
+  "claimBoundary": {
+    "allowed": [
+      "four-case-radial-reference-comparison-or-registered-refusal",
+      "no-target-fit-or-validation-claim"
+    ],
+    "forbidden": [
+      "c1-through-c5-qualification",
+      "model-tuning",
+      "new-validation-label",
+      "target-facing-score"
+    ]
+  }
+}

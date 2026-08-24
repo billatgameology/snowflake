@@ -13,13 +13,13 @@ import {
 } from "../src/phase10-c0v-s6-execution-contracts.ts";
 import { phase10C0VS6ValidateAggregateInvocationResult } from "../src/phase10-c0v-s6-executor.ts";
 
-const protocolPath = "research/phase10-execution-v2/recovery-v1/packets/c0v-aggregate/protocol.json";
+const protocolPath = "research/phase10-execution-v2/recovery-v2/packets/c0v-aggregate/protocol.json";
 const packet = parsePhase10C0VS6PacketProtocol(parsePhase10C0VS6PrettyJsonBytes(
   new Uint8Array(readFileSync(resolve(process.cwd(), protocolPath))),
   "aggregate parent test protocol",
 ));
 const attemptDirectory =
-  "out/phase10-execution-v2/recovery-v1/attempts/c0v-aggregate/c0v-aggregate-20260822-v1";
+  "out/phase10-execution-v2/recovery-v2/attempts/c0v-aggregate/c0v-aggregate-20260822-v1";
 const preflight = Object.freeze({
   observed: Object.freeze({ attemptDirectory, candidateDirectory: `${attemptDirectory}/candidate` }),
 }) as Phase10C0VS6RetainedPreflight;

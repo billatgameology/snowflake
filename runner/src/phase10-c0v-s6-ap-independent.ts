@@ -5,8 +5,8 @@ import { strictJsonSnapshot, type StrictJson } from "./gate4-evidence.ts";
 import { parsePhase10ObligationMatrix, type Phase10ObligationMatrix } from "./phase10-contracts.ts";
 import {
   PHASE10_C0V_S6_PACKET_IDS,
-  PHASE10_C0V_S6_RECOVERY_AUTHORITY_PATH,
-  PHASE10_C0V_S6_RECOVERY_PACKAGE_LOCK_PATH,
+  PHASE10_C0V_S6_RECOVERY_V2_AUTHORITY_PATH,
+  PHASE10_C0V_S6_RECOVERY_V2_PACKAGE_LOCK_PATH,
   assertPhase10C0VS6ArtifactSchemaRegistryMatrixParity,
   parsePhase10C0VS6ArtifactSchemaRegistry,
   parsePhase10C0VS6CallableRegistry,
@@ -14,7 +14,7 @@ import {
   parsePhase10C0VS6PacketCatalogue,
   parsePhase10C0VS6PacketProtocol,
   parsePhase10C0VS6PrettyJsonBytes,
-  parsePhase10C0VS6RecoveryAuthority,
+  parsePhase10C0VS6RecoveryV2Authority,
   type Phase10C0VS6ArtifactIdentity,
   type Phase10C0VS6ArtifactSchemaRegistry,
   type Phase10C0VS6CallableRegistry,
@@ -22,7 +22,7 @@ import {
   type Phase10C0VS6PacketCatalogue,
   type Phase10C0VS6PacketId,
   type Phase10C0VS6PacketProtocol,
-  type Phase10C0VS6RecoveryAuthority,
+  type Phase10C0VS6RecoveryV2Authority,
 } from "./phase10-c0v-s6-contracts.ts";
 import {
   phase10C0VS6AssertBuiltinAllowlistRegistryCoverage,
@@ -104,7 +104,7 @@ interface CapturedAuthority {
   readonly originalMatrix: Phase10ObligationMatrix;
   readonly catalogue: Phase10C0VS6PacketCatalogue;
   readonly catalogueIdentity: Phase10C0VS6ArtifactIdentity;
-  readonly recoveryAuthority: Phase10C0VS6RecoveryAuthority;
+  readonly recoveryAuthority: Phase10C0VS6RecoveryV2Authority;
   readonly recoveryAuthorityIdentity: Phase10C0VS6ArtifactIdentity;
   readonly successorSchemaRegistry: Phase10C0VS6ArtifactSchemaRegistry;
   readonly predecessorSchemaRegistryValue: StrictJson;
@@ -206,17 +206,17 @@ function capture(request: Phase10C0VS6ApGraphRequest): CapturedAuthority {
   const matrixBytes = readBytes(root, matrixPath, "S6 obligation matrix");
   const matrixValue = loadJson(root, matrixPath, overrides.matrix, "S6 obligation matrix");
   const matrix = parsePhase10C0VS6Matrix(matrixValue);
-  const cataloguePath = "research/phase10-execution-v2/recovery-v1/packet-catalogue.json";
+  const cataloguePath = "research/phase10-execution-v2/recovery-v2/packet-catalogue.json";
   const catalogueBytes = readBytes(root, cataloguePath, "S6 packet catalogue");
   const catalogue = parsePhase10C0VS6PacketCatalogue(loadJson(
     root, cataloguePath, overrides.catalogue, "S6 packet catalogue",
   ));
   const recoveryAuthorityBytes = readBytes(
     root,
-    PHASE10_C0V_S6_RECOVERY_AUTHORITY_PATH,
+    PHASE10_C0V_S6_RECOVERY_V2_AUTHORITY_PATH,
     "S6 recovery authority",
   );
-  const recoveryAuthority = parsePhase10C0VS6RecoveryAuthority(parsePhase10C0VS6PrettyJsonBytes(
+  const recoveryAuthority = parsePhase10C0VS6RecoveryV2Authority(parsePhase10C0VS6PrettyJsonBytes(
     recoveryAuthorityBytes,
     "S6 recovery authority",
   ));
@@ -243,8 +243,8 @@ function capture(request: Phase10C0VS6ApGraphRequest): CapturedAuthority {
   const registries = new Map<Phase10C0VS6PacketId, Phase10C0VS6CallableRegistry>();
   const registryValues = new Map<Phase10C0VS6PacketId, StrictJson>();
   for (const packetId of PHASE10_C0V_S6_PACKET_IDS) {
-    const protocolPath = `research/phase10-execution-v2/recovery-v1/packets/${packetId}/protocol.json`;
-    const registryPath = `research/phase10-execution-v2/recovery-v1/packets/${packetId}/callable-registry.json`;
+    const protocolPath = `research/phase10-execution-v2/recovery-v2/packets/${packetId}/protocol.json`;
+    const registryPath = `research/phase10-execution-v2/recovery-v2/packets/${packetId}/callable-registry.json`;
     const protocolValue = loadJson(root, protocolPath, overrides.protocols?.[packetId], `${packetId} protocol`);
     const registryValue = loadJson(
       root, registryPath, overrides.callableRegistries?.[packetId], `${packetId} callable registry`,
@@ -263,7 +263,7 @@ function capture(request: Phase10C0VS6ApGraphRequest): CapturedAuthority {
     catalogue,
     catalogueIdentity: identity(cataloguePath, catalogueBytes),
     recoveryAuthority,
-    recoveryAuthorityIdentity: identity(PHASE10_C0V_S6_RECOVERY_AUTHORITY_PATH, recoveryAuthorityBytes),
+    recoveryAuthorityIdentity: identity(PHASE10_C0V_S6_RECOVERY_V2_AUTHORITY_PATH, recoveryAuthorityBytes),
     successorSchemaRegistry,
     predecessorSchemaRegistryValue,
     protocols,
@@ -315,7 +315,7 @@ function validateAuthorityBindings(context: CapturedAuthority): readonly string[
       !sameIdentity(protocol.bindings.recoveryAuthority, context.recoveryAuthorityIdentity)) {
       fail(`${packetId} protocol/registry authority binding differs`);
     }
-    const registryPath = `research/phase10-execution-v2/recovery-v1/packets/${packetId}/callable-registry.json`;
+    const registryPath = `research/phase10-execution-v2/recovery-v2/packets/${packetId}/callable-registry.json`;
     const registryBytes = readBytes(context.root, registryPath, `${packetId} live registry`);
     if (!sameIdentity(protocol.bindings.callableRegistry, identity(registryPath, registryBytes))) {
       fail(`${packetId} protocol does not bind its exact live callable registry`);
@@ -486,7 +486,7 @@ function overlaps(left: string, right: string): boolean {
 }
 
 function validatePacketCatalogue(context: CapturedAuthority): readonly string[] {
-  if (context.catalogue.packageLockPath !== PHASE10_C0V_S6_RECOVERY_PACKAGE_LOCK_PATH) {
+  if (context.catalogue.packageLockPath !== PHASE10_C0V_S6_RECOVERY_V2_PACKAGE_LOCK_PATH) {
     fail("catalogue package lock differs");
   }
   const attemptRoots = context.catalogue.packets.map((entry) => entry.attemptRoot);
@@ -535,7 +535,7 @@ function validateResourceContracts(context: CapturedAuthority): readonly string[
       resources.outerInfrastructureSafetyTimeoutSeconds !==
         resources.currentPacketRegisteredElapsedNanosecondsMaximum / 1_000_000_000 + 3600 ||
       resources.automaticRetry !== false ||
-      protocol.paths.packageLockPath !== PHASE10_C0V_S6_RECOVERY_PACKAGE_LOCK_PATH) {
+      protocol.paths.packageLockPath !== PHASE10_C0V_S6_RECOVERY_V2_PACKAGE_LOCK_PATH) {
       fail(`${packetId} resource literals or integer derivations differ`);
     }
     const rawFields = protocol.workerInvocationContract.exactFields;
@@ -775,7 +775,7 @@ export function independentlyReprovePhase10C0VS6ApNegativeControl(
   const root = physicalRoot(repositoryRoot);
   const receipt = parsePhase10C0VS6ApNegativeControlReceiptBytes(receiptBytes);
   const registryPath =
-    "research/phase10-execution-v2/recovery-v1/packets/c0v-radial-produce/callable-registry.json";
+    "research/phase10-execution-v2/recovery-v2/packets/c0v-radial-produce/callable-registry.json";
   const baselineBytes = canonicalPrettyBytes(receipt.beforeWitness.semanticFingerprint.projection);
   const liveBaselineBytes = readBytes(root, registryPath, "live radial callable registry");
   if (!sameBytes(baselineBytes, liveBaselineBytes)) {
@@ -787,7 +787,7 @@ export function independentlyReprovePhase10C0VS6ApNegativeControl(
   if (!sameBytes(expectedAfterBytes, observedAfterBytes)) {
     fail(`${receipt.fixtureId} embedded mutation differs from the independently derived named operation`);
   }
-  const afterPath = `out/phase10-execution-v2/recovery-v1/attempts/a-p-c0v-s6/a-p-c0v-s6-20260822-v2/negative-controls/${receipt.fixtureId}/callable-registry.json`;
+  const afterPath = `out/phase10-execution-v2/recovery-v2/attempts/a-p-c0v-s6/a-p-c0v-s6-20260822-v3/negative-controls/${receipt.fixtureId}/callable-registry.json`;
   assertWitnessIdentity(receipt.beforeWitness, registryPath, baselineBytes, `${receipt.fixtureId} before witness`);
   assertWitnessIdentity(receipt.afterWitness, afterPath, observedAfterBytes, `${receipt.fixtureId} after witness`);
   if (receipt.beforeWitness.sha256 === receipt.afterWitness.sha256) {

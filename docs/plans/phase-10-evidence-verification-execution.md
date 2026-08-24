@@ -1414,6 +1414,31 @@ frozen successor for an unclassified infrastructure stop. This plan authorizes o
 Windows child-roster and A-P version/path changes above; it does not reopen science or the rejected
 hostile-runtime design.
 
+### S6 recovery-v2 implementation checkpoint — 2026-08-24
+
+Recovery-v2 is complete in the first-introduction freeze checkpoint that adds its 7,040-byte
+authority (SHA-256 `b950f41ba55e2414948cc4c3cf8af14ec80fcedf816a7fcd9a8fc84a74b2294f`).
+The 16,104-byte catalogue and all eight protocol/registry pairs bind 101 live callable
+registrations, the exact 17-row child environment, the two consumed predecessor generations, sole
+A-P v3 authorization, six fresh A-P outputs, and unchanged science/caps. At this checkpoint all ten
+retained artifacts rehash exactly, all 25 required paths and the recovery-v2 runtime root remain
+absent, and the package baseline is 1,693,893 bytes.
+
+Exact `npm test` passed: Rule 7 scanned 1,270 files clean; both TypeScript checks passed; and Vitest
+passed 157/157 files with 2,501 passed and 49 skipped tests in 1,723.63 seconds. The single bounded
+non-author audit used a GPT-5-family Codex agent with full shared task/repository context. It
+independently reproved the four locks, five attempt files, pinned preflight and manifest delta,
+dead-PID/process accounting, all 25 absences, the real 17-row Windows child, 101 registrations / 54
+exports, A-P-only v3 transform, downstream dependencies, two-generation ancestry, unchanged
+science/caps, and staged cleanliness; it reported zero blockers. It did not rerun the full suite,
+invoke a registered command, run a solver/packet chain, inject crashes, access NAS/network
+resources, edit state, create evidence, commit, or push. The real first-add freeze hash can only be
+rederived after this checkpoint is committed.
+
+After the clean checkpoint is pushed, run only the exact A-P v3 read-only `check`; confirm it writes
+nothing and all predecessor bytes remain exact; then run A-P v3 once. Never retry automatically. A
+refusal retains every byte and returns to this plan before moving-produce.
+
 ### Rejected native pre-Node launcher design (retained history; do not implement)
 
 **Superseded by maker direction on 2026-08-22.** The detail below records the design that exposed

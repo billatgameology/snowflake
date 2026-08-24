@@ -230,7 +230,7 @@ function producerInputs(
   const root = phase10C0VS6PhysicalRepositoryRoot(request.repositoryRoot);
   const config = CONFIGS[packetId];
   const producePath =
-    `research/phase10-execution-v2/recovery-v1/packets/${config.producePacketId}/protocol.json`;
+    `research/phase10-execution-v2/recovery-v2/packets/${config.producePacketId}/protocol.json`;
   const producePacket = parsePhase10C0VS6PacketProtocol(parsePhase10C0VS6PrettyJsonBytes(
     phase10C0VS6ReadUniquePhysicalFile(root, producePath),
     `${config.producePacketId} protocol`,
