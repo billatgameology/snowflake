@@ -98,6 +98,11 @@ detail.
   placed 37 model-only orphan links ahead of them, making the thumbnails appear absent; the
   generator now orders the generated-crystal gallery first and a regression pins that priority.
   This is an operational UX correction only and changes no scientific evidence or phase state.
+- **A maker-directed animation-selection queue is active (2026-08-23).** The committed
+  [queue plan](plans/gutcheck-animation-selection-queue.md) adds preview-adjacent selection,
+  portable manifests, deterministic disjoint batches, existing-mesh flyaround rendering, and
+  merge-safe local/NAS staging. It pins the measured `gutcheck-mesh-v2q` web format; no render has
+  started and no immutable NAS collection is being mutated.
 - Historical extent-21 artifacts remain valid measured-only comparisons: **CAK 3/90, M1 54/90**
   over their named scopes. They are not the registered conservative-intersection verdict, which
   decision 0045 closed as not computed.
@@ -143,7 +148,9 @@ and completion credit isolated.
 [nas-asset-governance.md](plans/nas-asset-governance.md) is a completed infrastructure record; its
 correction changes no phase claim or credit.
 
-No execution plan is currently active. The
+The maker-directed [gut-check animation selection and queue plan](plans/gutcheck-animation-selection-queue.md)
+is the active pre-Phase 7 product-tooling plan. It changes no phase status or scientific claim.
+The
 [Phase 10 candidate plan](plans/phase-10-closures-and-frontier.md) is decision support, not
 execution authority; no A–H package is selected.
 
