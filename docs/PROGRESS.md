@@ -152,8 +152,10 @@ and completion credit isolated.
 correction changes no phase claim or credit.
 
 The maker-directed [gut-check animation selection and queue plan](plans/gutcheck-animation-selection-queue.md)
-is a completed pre-Phase 7 product-tooling record. The maker's queue is not yet selected; this
-changes no phase status or scientific claim.
+has an active 2026-08-24 usability follow-up: add safe regenerated previews/selectors for the 37
+public pre-sweep figure meshes and a durable second-host operator guide. The maker exported a
+working sweep selection; no animation render has started. This changes no phase status or
+scientific claim.
 The
 [Phase 10 candidate plan](plans/phase-10-closures-and-frontier.md) is decision support, not
 execution authority; no A–H package is selected.
