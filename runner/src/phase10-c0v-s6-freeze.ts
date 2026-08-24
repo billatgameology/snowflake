@@ -8,17 +8,22 @@ import {
 } from "./phase10-c0v-s6-artifact-observation.ts";
 import {
   PHASE10_C0V_S6_PACKET_IDS,
+  PHASE10_C0V_S6_PREDECESSOR_IMPLEMENTATION_FREEZE_COMMIT,
+  PHASE10_C0V_S6_RECOVERY_AUTHORITY_PATH,
+  PHASE10_C0V_S6_RECOVERY_PACKET_CATALOGUE_PATH,
   assertPhase10C0VS6Commit,
   parsePhase10C0VS6CallableRegistry,
   parsePhase10C0VS6PacketCatalogue,
   parsePhase10C0VS6PacketProtocol,
   parsePhase10C0VS6PrettyJsonBytes,
+  parsePhase10C0VS6RecoveryAuthority,
   parsePhase10C0VS6RetainedPreflight,
   validatePhase10C0VS6RetainedPreflightRegistryContext,
   type Phase10C0VS6CallableRegistry,
   type Phase10C0VS6PacketCatalogue,
   type Phase10C0VS6PacketId,
   type Phase10C0VS6PacketProtocol,
+  type Phase10C0VS6RecoveryAuthority,
 } from "./phase10-c0v-s6-contracts.ts";
 import {
   phase10C0VS6ArtifactIdentity,
@@ -41,7 +46,7 @@ import {
   type Phase10C0VS6FreezeEvaluationReceipt,
 } from "./phase10-c0v-s6-receipts.ts";
 
-const CATALOGUE_PATH = "research/phase10-execution-v2/packet-catalogue.json";
+const CATALOGUE_PATH = PHASE10_C0V_S6_RECOVERY_PACKET_CATALOGUE_PATH;
 const README_PATH = "research/phase10-execution-v2/README.md";
 const RULE_PATHS = Object.freeze([
   ".gitattributes", ".gitignore", "app/.gitattributes", "core/.gitattributes",
@@ -420,6 +425,19 @@ function readCatalogue(root: string): Readonly<{
   });
 }
 
+function readRecoveryAuthority(root: string): Readonly<{
+  identity: Phase10C0VS6ArtifactIdentity;
+  authority: Phase10C0VS6RecoveryAuthority;
+}> {
+  const bytes = readPhysical(root, PHASE10_C0V_S6_RECOVERY_AUTHORITY_PATH);
+  return Object.freeze({
+    identity: phase10C0VS6ArtifactIdentity(PHASE10_C0V_S6_RECOVERY_AUTHORITY_PATH, bytes),
+    authority: parsePhase10C0VS6RecoveryAuthority(
+      parsePhase10C0VS6PrettyJsonBytes(bytes, "execution-v2 recovery authority"),
+    ),
+  });
+}
+
 interface ParsedPackagePacket {
   readonly protocolIdentity: Phase10C0VS6ArtifactIdentity;
   readonly protocol: Phase10C0VS6PacketProtocol;
@@ -475,7 +493,21 @@ function derivePhase10C0VS6ImplementationFreezeAtLaunch(
     fail("more than one radial science/reference binding failed; no registered refusal route applies");
   }
   const failedArtifact = observedArtifactFailures[0] ?? null;
+  const recoveryAuthority = readRecoveryAuthority(root);
   const catalogueAuthority = readCatalogue(root);
+  if (catalogueAuthority.catalogue.recoveryAuthority === undefined) {
+    fail("recovery catalogue lacks its recovery-authority binding");
+  }
+  phase10C0VS6SameIdentity(
+    catalogueAuthority.catalogue.recoveryAuthority,
+    recoveryAuthority.identity,
+    "recovery catalogue authority bytes",
+  );
+  if (recoveryAuthority.authority.successor.packetCatalogueId !==
+      catalogueAuthority.catalogue.catalogueId ||
+    recoveryAuthority.authority.successor.packetCataloguePath !== CATALOGUE_PATH) {
+    fail("recovery authority successor catalogue mapping differs from the live catalogue");
+  }
   phase10C0VS6SameIdentity(
     catalogueAuthority.identity,
     suppliedProtocol.bindings.packetCatalogue,
@@ -499,10 +531,31 @@ function derivePhase10C0VS6ImplementationFreezeAtLaunch(
     audit: Phase10C0VS6ImportAuditReceipt;
   }>>>();
   const registeredCallableIds: string[] = [];
-  const anchors = new Set<string>([CATALOGUE_PATH, README_PATH]);
+  const anchors = new Set<string>([
+    CATALOGUE_PATH,
+    PHASE10_C0V_S6_RECOVERY_AUTHORITY_PATH,
+    README_PATH,
+  ]);
   const gitCanonicalMetadataPaths = new Set<string>(RULE_PATHS);
   const rawClosurePaths = new Set<string>();
+  addIdentity(frozen, recoveryAuthority.identity);
   addIdentity(frozen, catalogueAuthority.identity);
+  for (const [identity, label] of [
+    [recoveryAuthority.authority.predecessorPacketCatalogue, "predecessor packet catalogue"],
+    [recoveryAuthority.authority.predecessorApProtocol, "predecessor A-P protocol"],
+  ] as const) {
+    addIdentity(frozen, liveIdentity(root, identity));
+    const predecessorBytes = gitBytes(
+      root,
+      ["show", `${PHASE10_C0V_S6_PREDECESSOR_IMPLEMENTATION_FREEZE_COMMIT}:${identity.path}`],
+      `${label} predecessor-freeze blob`,
+    );
+    phase10C0VS6SameIdentity(
+      phase10C0VS6ArtifactIdentity(identity.path, predecessorBytes),
+      identity,
+      `${label} predecessor-freeze identity`,
+    );
+  }
   for (const path of RULE_PATHS) {
     addIdentity(frozen, phase10C0VS6GitCanonicalWorktreeIdentity(root, path));
   }
@@ -535,6 +588,14 @@ function derivePhase10C0VS6ImplementationFreezeAtLaunch(
   for (const packet of packets) {
     addIdentity(frozen, packet.protocolIdentity);
     addIdentity(frozen, packet.registryIdentity);
+    if (packet.protocol.bindings.recoveryAuthority === undefined) {
+      fail(`${packet.protocol.packetId} lacks its recovery-authority binding`);
+    }
+    phase10C0VS6SameIdentity(
+      packet.protocol.bindings.recoveryAuthority,
+      recoveryAuthority.identity,
+      `${packet.protocol.packetId} recovery-authority bytes`,
+    );
     anchors.add(packet.protocolIdentity.path);
     anchors.add(packet.registryIdentity.path);
     for (const identity of [
@@ -545,11 +606,13 @@ function derivePhase10C0VS6ImplementationFreezeAtLaunch(
       packet.protocol.bindings.predecessorSchemaContracts,
       packet.protocol.bindings.successorSchemaRegistry,
       packet.protocol.bindings.successorSchemaContracts,
+      packet.protocol.bindings.recoveryAuthority,
       packet.protocol.bindings.scienceProtocol,
       packet.protocol.bindings.referenceOrRefusal,
       ...packet.protocol.bindings.originalApEvidence,
     ]) {
-      if (identity !== null && identity.path !== failedArtifact?.expected.path) {
+      if (identity !== null && identity !== undefined &&
+        identity.path !== failedArtifact?.expected.path) {
         addIdentity(frozen, liveIdentity(root, identity));
       }
     }
@@ -659,15 +722,18 @@ function derivePhase10C0VS6ImplementationFreezeAtLaunch(
     if (!gitPathExistsAtCommit(root, GOVERNANCE_COMMIT, path)) anchors.add(path);
   }
   const anchorPaths = Object.freeze([...anchors].sort(codePointCompare));
-  const firstAdds = new Set<string>();
-  for (const path of anchorPaths) {
-    const commits = gitText(root, ["log", "--diff-filter=A", "--format=%H", "HEAD", "--", path], `${path} first-add history`)
-      .split(/\r?\n/u).filter((entry) => entry.length !== 0);
-    if (commits.length !== 1) fail(`${path} does not have exactly one first-add commit`);
-    firstAdds.add(assertPhase10C0VS6Commit(commits[0], `${path} first-add commit`));
+  const recoveryFirstAdds = gitText(
+    root,
+    ["log", "--diff-filter=A", "--format=%H", "HEAD", "--", PHASE10_C0V_S6_RECOVERY_AUTHORITY_PATH],
+    "recovery authority first-add history",
+  ).split(/\r?\n/u).filter((entry) => entry.length !== 0);
+  if (recoveryFirstAdds.length !== 1) {
+    fail("recovery authority does not have exactly one first-introduction commit");
   }
-  if (firstAdds.size !== 1) fail("execution-v2 authority/callable anchors do not share one first-introduction commit");
-  const implementationFreezeCommit = [...firstAdds][0] as string;
+  const implementationFreezeCommit = assertPhase10C0VS6Commit(
+    recoveryFirstAdds[0]!,
+    "recovery authority first-add commit",
+  );
   const currentHead = assertPhase10C0VS6Commit(
     gitText(root, ["rev-parse", "HEAD"], historicalLaunchHead === null ? "launch HEAD" : "current HEAD"),
     historicalLaunchHead === null ? "launch HEAD" : "current HEAD",
@@ -699,6 +765,16 @@ function derivePhase10C0VS6ImplementationFreezeAtLaunch(
     });
   } catch {
     fail("implementation freeze is not an ancestor of launch HEAD");
+  }
+  try {
+    execFileSync("git", [
+      "merge-base",
+      "--is-ancestor",
+      PHASE10_C0V_S6_PREDECESSOR_IMPLEMENTATION_FREEZE_COMMIT,
+      implementationFreezeCommit,
+    ], { cwd: root, windowsHide: true, stdio: "ignore" });
+  } catch {
+    fail("predecessor implementation freeze is not an ancestor of the recovery freeze");
   }
   const artifacts = Object.freeze([...frozen.values()].sort((left, right) => codePointCompare(left.path, right.path)));
   for (const artifact of artifacts) {

@@ -1,0 +1,72 @@
+{
+  "schema": "phase10-c0v-s6-recovery-authority-v1",
+  "recoveryAuthorityId": "phase10-c0v-s6-execution-v2-recovery-v1",
+  "automaticRetry": false,
+  "predecessorImplementationFreezeCommit": "27ca0dea801be026f6b3729d5d898a8856c42722",
+  "predecessorPacketCatalogue": {
+    "path": "research/phase10-execution-v2/packet-catalogue.json",
+    "byteLength": 14858,
+    "sha256": "f939389cbaa9e408c63caa40a77f45b8e2ce1c6fe686fc697cc9cc16ad4a31d1"
+  },
+  "predecessorApProtocol": {
+    "path": "research/phase10-execution-v2/packets/a-p-c0v-s6/protocol.json",
+    "byteLength": 72689,
+    "sha256": "5885d5f7677e9da56374b56a62babaf29e69f90a29caf7684e51f0b31e995f96"
+  },
+  "predecessorLockArtifacts": [
+    {
+      "path": "out/phase10-execution-v2/locks/package.lock",
+      "byteLength": 220,
+      "sha256": "8275c6d47285db6d671c1f0f75ad0b45c2081164550a5e31f111f03ec1522bfe",
+      "parsedContent": {
+        "schema": "phase10-c0v-s6-lock-v1",
+        "packetId": "phase10-c0v-s6-execution-v2-packet-paths-v1",
+        "attemptId": "a-p-c0v-s6:a-p-c0v-s6-20260822-v1",
+        "processId": 53684,
+        "acquiredAt": "2026-08-24T09:01:39.426Z"
+      }
+    },
+    {
+      "path": "out/phase10-execution-v2/locks/a-p-c0v-s6.lock",
+      "byteLength": 176,
+      "sha256": "b9805c9142115822fa9f36dd89f702b79c5abf9ffb44688ffa9e3584d5981f02",
+      "parsedContent": {
+        "schema": "phase10-c0v-s6-lock-v1",
+        "packetId": "a-p-c0v-s6",
+        "attemptId": "a-p-c0v-s6-20260822-v1",
+        "processId": 53684,
+        "acquiredAt": "2026-08-24T09:01:39.430Z"
+      }
+    }
+  ],
+  "predecessorGovernedAbsentPaths": [
+    "out/phase10-execution-v2/attempts/a-p-c0v-s6",
+    "evidence/phase10-obligation-preflight-v2/artifact-index.json",
+    "evidence/phase10-obligation-preflight-v2/missing-producer.json",
+    "evidence/phase10-obligation-preflight-v2/packets/a-p-c0v-s6/preflight.json",
+    "evidence/phase10-obligation-preflight-v2/packets/a-p-c0v-s6/terminal-receipt.json",
+    "evidence/phase10-obligation-preflight-v2/uncalled-check.json",
+    "evidence/phase10-obligation-preflight-v2/verification.json",
+    "evidence/phase10-obligation-preflight-v2/artifact-index.json.stage-a-p-c0v-s6-20260822-v1",
+    "evidence/phase10-obligation-preflight-v2/missing-producer.json.stage-a-p-c0v-s6-20260822-v1",
+    "evidence/phase10-obligation-preflight-v2/packets/a-p-c0v-s6/preflight.json.stage-a-p-c0v-s6-20260822-v1",
+    "evidence/phase10-obligation-preflight-v2/packets/a-p-c0v-s6/terminal-receipt.json.stage-a-p-c0v-s6-20260822-v1",
+    "evidence/phase10-obligation-preflight-v2/uncalled-check.json.stage-a-p-c0v-s6-20260822-v1",
+    "evidence/phase10-obligation-preflight-v2/verification.json.stage-a-p-c0v-s6-20260822-v1"
+  ],
+  "retainedBytes": 396,
+  "creditedWorkerInvocationCount": 0,
+  "creditedGovernedProcessHours": 0,
+  "successor": {
+    "packetCatalogueId": "phase10-c0v-s6-execution-v2-recovery-v1-packet-paths-v1",
+    "packetCataloguePath": "research/phase10-execution-v2/recovery-v1/packet-catalogue.json",
+    "maximumAuthorizedNewAttempts": 1,
+    "authorizedAttempts": [
+      {
+        "packetId": "a-p-c0v-s6",
+        "predecessorAttemptId": "a-p-c0v-s6-20260822-v1",
+        "successorAttemptId": "a-p-c0v-s6-20260822-v2"
+      }
+    ]
+  }
+}

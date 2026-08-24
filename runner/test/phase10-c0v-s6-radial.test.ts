@@ -331,7 +331,7 @@ function syntheticS6Authority(
   candidateDirectory: string;
 }> {
   const packetPath =
-    "research/phase10-execution-v2/packets/c0v-radial-produce/protocol.json";
+    "research/phase10-execution-v2/recovery-v1/packets/c0v-radial-produce/protocol.json";
   const canonicalPacket = JSON.parse(readFileSync(resolve(ROOT, packetPath), "utf8")) as {
     bindings?: Record<string, unknown>;
   } & Record<string, unknown>;
@@ -980,7 +980,7 @@ describe("Phase 10 C0V S6 radial production and independent evaluation", () => {
     let boundaries = 0;
     const wrongWitness = Object.freeze({
       ...fixture.witness,
-      path: "out/phase10-execution-v2/attempts/c0v-radial-produce/wrong/candidate/c0v-radial-witness.bin",
+      path: "out/phase10-execution-v2/recovery-v1/attempts/c0v-radial-produce/wrong/candidate/c0v-radial-witness.bin",
     });
     expect(() => phase10C0VRadialSyntheticFixtureCheckCaller(Object.freeze({
       ...evaluationInput(fixture.production.witnessBytes, wrongWitness),

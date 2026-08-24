@@ -72,7 +72,9 @@ interface IndexSource {
 type JsonObject = { readonly [key: string]: StrictJson };
 
 const MATRIX_PATH = "research/phase10-c0v-s6-obligation-matrix-v1.json" as const;
-const CATALOGUE_PATH = "research/phase10-execution-v2/packet-catalogue.json" as const;
+const CATALOGUE_PATH = "research/phase10-execution-v2/recovery-v1/packet-catalogue.json" as const;
+const RECOVERY_AUTHORITY_PATH =
+  "research/phase10-execution-v2/recovery-v1/recovery-authority.json" as const;
 const README_PATH = "research/phase10-execution-v2/README.md" as const;
 
 function fail(message: string): never {
@@ -155,13 +157,14 @@ function sourceIds(root: string): readonly IndexSource[] {
     register(`authority-original-a-p-${index}`, row.path);
   }
   register("authority-execution-v2-readme", README_PATH);
+  register("authority-execution-v2-recovery-v1", RECOVERY_AUTHORITY_PATH);
   register("authority-packet-catalogue", CATALOGUE_PATH);
   for (const packetId of [
     "a-p-c0v-s6", "c0v-moving-produce", "c0v-moving-publish", "c0v-radial-produce",
     "c0v-radial-publish", "c0v-static-produce", "c0v-static-publish", "c0v-aggregate",
   ]) {
-    register(`authority-${packetId}-protocol`, `research/phase10-execution-v2/packets/${packetId}/protocol.json`);
-    register(`authority-${packetId}-callable-registry`, `research/phase10-execution-v2/packets/${packetId}/callable-registry.json`);
+    register(`authority-${packetId}-protocol`, `research/phase10-execution-v2/recovery-v1/packets/${packetId}/protocol.json`);
+    register(`authority-${packetId}-callable-registry`, `research/phase10-execution-v2/recovery-v1/packets/${packetId}/callable-registry.json`);
   }
   return Object.freeze([...byPath.entries()].map(([path, artifactId]) => Object.freeze({
     artifactId,

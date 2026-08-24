@@ -12,6 +12,7 @@ import { afterEach, describe, expect, it } from "vitest";
 import {
   parsePhase10C0VS6PacketProtocol,
   parsePhase10C0VS6PrettyJsonBytes,
+  parsePhase10C0VS6RecoveryAuthority,
   type Phase10C0VS6PacketProtocol,
 } from "../src/phase10-c0v-s6-contracts.ts";
 import {
@@ -33,6 +34,7 @@ import {
 import {
   phase10C0VS6AssertObservedLocks,
   phase10C0VS6ClassifyPreflightResources,
+  phase10C0VS6ResolveRuntimeLabel,
   phase10C0VS6SelectPreflightFailure,
 } from "../src/phase10-c0v-s6-preflight-observer.ts";
 import {
@@ -45,7 +47,7 @@ const ROOT = resolve(import.meta.dirname, "../..");
 const temporaryRoots: string[] = [];
 
 function packet(packetId: Phase10C0VS6PacketProtocol["packetId"]): Phase10C0VS6PacketProtocol {
-  const path = resolve(ROOT, `research/phase10-execution-v2/packets/${packetId}/protocol.json`);
+  const path = resolve(ROOT, `research/phase10-execution-v2/recovery-v1/packets/${packetId}/protocol.json`);
   return parsePhase10C0VS6PacketProtocol(
     parsePhase10C0VS6PrettyJsonBytes(readFileSync(path), `${packetId} protocol`),
   );
@@ -67,6 +69,23 @@ function write(root: string, path: string, bytes: Uint8Array | string): void {
   writeFileSync(absolute, bytes, { flag: "wx" });
 }
 
+function writeRecoveryPredecessorState(root: string): void {
+  const authorityPath = "research/phase10-execution-v2/recovery-v1/recovery-authority.json";
+  const authorityBytes = new Uint8Array(readFileSync(resolve(ROOT, authorityPath)));
+  if (!existsSync(resolve(root, authorityPath))) write(root, authorityPath, authorityBytes);
+  const authority = parsePhase10C0VS6RecoveryAuthority(
+    parsePhase10C0VS6PrettyJsonBytes(authorityBytes, "preflight-test recovery authority"),
+  );
+  for (const identity of [authority.predecessorPacketCatalogue, authority.predecessorApProtocol]) {
+    const artifact = new Uint8Array(readFileSync(resolve(ROOT, identity.path)));
+    expect(phase10C0VS6ArtifactIdentity(identity.path, artifact)).toEqual(identity);
+    write(root, identity.path, artifact);
+  }
+  for (const lock of authority.predecessorLockArtifacts) {
+    write(root, lock.path, phase10C0VS6PrettyJsonBytes(lock.parsedContent));
+  }
+}
+
 function identity(path: string, bytes: Uint8Array | string): Phase10C0VS6ArtifactIdentity {
   return phase10C0VS6ArtifactIdentity(
     path,
@@ -83,7 +102,7 @@ function movingPublicationSemanticRequest(): Phase10C0VMovingPublicationSemantic
     throw new Error("moving fixture lacks its exact science/reference bindings");
   }
   const attemptDirectory =
-    "out/phase10-execution-v2/attempts/c0v-moving-produce/c0v-moving-produce-20260822-v1";
+    "out/phase10-execution-v2/recovery-v1/attempts/c0v-moving-produce/c0v-moving-produce-20260822-v1";
   const stdout = identity(`${attemptDirectory}/stdout.log`, "stdout\n");
   const stderr = identity(`${attemptDirectory}/stderr.log`, "stderr\n");
   const terminalCandidate = identity(
@@ -319,6 +338,14 @@ afterEach(() => {
 });
 
 describe("Phase 10 C0V S6 parent preflight observer", () => {
+  it("maps the exact raw Node version to the registered runtime label", () => {
+    expect(phase10C0VS6ResolveRuntimeLabel("v24.13.1")).toBe("Node v24.13.1");
+  });
+
+  it("rejects every other raw Node version", () => {
+    expect(() => phase10C0VS6ResolveRuntimeLabel("v24.13.0")).toThrow(/live runtime .* differs/u);
+  });
+
   it("deep-reproofs the moving publication before any current preflight write", () => {
     const request = movingPublicationSemanticRequest();
     expect(independentlyEvaluatePhase10C0VMovingPublicationSemantic(request).aggregateVerdict)
@@ -510,7 +537,7 @@ describe("Phase 10 C0V S6 parent preflight observer", () => {
     const locks: Phase10C0VS6PackageAndPacketLockContext = Object.freeze({
       packageLock: Object.freeze({
         schema: "phase10-c0v-s6-lock-v1",
-        packetId: "phase10-c0v-s6-execution-v2-packet-paths-v1",
+        packetId: "phase10-c0v-s6-execution-v2-recovery-v1-packet-paths-v1",
         attemptId: `${authority.packetId}:${authority.registeredAttemptId}`,
         processId: process.pid,
         acquiredAt,
@@ -528,7 +555,7 @@ describe("Phase 10 C0V S6 parent preflight observer", () => {
     const root = phase10C0VS6PhysicalRepositoryRoot(rootPath);
     expect(() => phase10C0VS6AssertObservedLocks(root, authority, locks)).not.toThrow();
 
-    const unknownLockPath = "out/phase10-execution-v2/locks/unregistered.lock";
+    const unknownLockPath = "out/phase10-execution-v2/recovery-v1/locks/unregistered.lock";
     write(rootPath, unknownLockPath, "unknown\n");
     expect(() => phase10C0VS6AssertObservedLocks(root, authority, locks))
       .toThrow(/cardinality differs/u);
@@ -551,11 +578,13 @@ describe("Phase 10 C0V S6 parent preflight observer", () => {
     const packetId = "c0v-moving-produce" as const;
     const rootPath = temporaryRoot("authenticated-watchdog");
     for (const path of [
-      "research/phase10-execution-v2/packet-catalogue.json",
-      `research/phase10-execution-v2/packets/${packetId}/protocol.json`,
+      "research/phase10-execution-v2/recovery-v1/recovery-authority.json",
+      "research/phase10-execution-v2/recovery-v1/packet-catalogue.json",
+      `research/phase10-execution-v2/recovery-v1/packets/${packetId}/protocol.json`,
     ]) {
       write(rootPath, path, readFileSync(resolve(ROOT, path)));
     }
+    writeRecoveryPredecessorState(rootPath);
     const root = phase10C0VS6PhysicalRepositoryRoot(rootPath);
     let assertAfterCallback: (() => void) | null = null;
     await phase10C0VS6WithPackageAndPacketLocks(

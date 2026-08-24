@@ -147,7 +147,7 @@ const PACKAGE_PUBLICATION_ROOTS = Object.freeze([
   "evidence/phase10-obligation-preflight-v2",
 ] as const);
 const PACKAGE_BASELINE_ATTEMPT_ROOT = "out/phase10-c0v-reference-v1" as const;
-const PACKAGE_ATTEMPT_ROOT = "out/phase10-execution-v2/attempts" as const;
+const PACKAGE_ATTEMPT_ROOT = "out/phase10-execution-v2/recovery-v1/attempts" as const;
 
 export interface Phase10C0VS6ReopenedPublishedArtifact {
   readonly artifactRole:
@@ -793,7 +793,14 @@ function independentlyDeriveApArtifactIndexBytes(
     register(`authority-original-a-p-${index}`, binding.path);
   }
   register("authority-execution-v2-readme", "research/phase10-execution-v2/README.md");
-  register("authority-packet-catalogue", "research/phase10-execution-v2/packet-catalogue.json");
+  register(
+    "authority-execution-v2-recovery-v1",
+    "research/phase10-execution-v2/recovery-v1/recovery-authority.json",
+  );
+  register(
+    "authority-packet-catalogue",
+    "research/phase10-execution-v2/recovery-v1/packet-catalogue.json",
+  );
   for (const packet of authority.catalogue.packets) {
     register(`authority-${packet.packetId}-protocol`, packet.protocolPath);
     register(`authority-${packet.packetId}-callable-registry`, packet.callableRegistryPath);

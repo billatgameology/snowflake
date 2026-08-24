@@ -1328,6 +1328,31 @@ charter amendment is needed because decision 0053 and this plan already require 
 frozen successor for an unclassified infrastructure stop; deleting/reusing state, changing science,
 or increasing a cap would require new authority.
 
+### S6 recovery-v1 implementation checkpoint — 2026-08-24
+
+The package-wide recovery successor is complete in the first-introduction freeze checkpoint that
+adds `recovery-authority.json`. The derived catalogue and all eight protocol/registry pairs use the
+new runtime namespace; only supplemental A-P advances to attempt
+`a-p-c0v-s6-20260822-v2`. Runtime normalization, exact predecessor-state reproof, successor-only
+cleanup, retired-v1 refusal, and recovery freeze drift are covered without changing science routes,
+S5 bindings, final destinations, or registered caps. At this checkpoint the recovery runtime root is
+absent, the predecessor locks remain byte-identical at 220 and 176 bytes, and all 13 governed
+predecessor paths remain absent, so retained credit is still zero.
+
+Exact `npm test` passed: Rule 7 scanned 1,250 files clean; both TypeScript checks passed; and Vitest
+passed 157/157 files with 2,499 passed and 49 skipped tests in 1,710.83 seconds. The single bounded
+non-author audit used a GPT-5-family Codex agent with full shared task/repository context. It parsed
+the authority, catalogue, and all eight protocol/registry pairs; re-derived the authorized v1→v2
+transform; rehashed 101 registrations / 54 callable exports; reproved both regular-file locks,
+396-byte accounting, all 13 absences, unchanged science/caps, predecessor ancestry, and whitespace;
+and reported zero blockers. It did not rerun the full suite, invoke a registered S6 command, run a
+solver or packet chain, inject crashes, access NAS/network resources, create evidence, commit, or
+push. The exact first-add freeze hash can only be re-derived after this checkpoint is committed.
+
+After the clean checkpoint is pushed, run only the exact A-P v2 read-only `check`; confirm it writes
+nothing and leaves both predecessor locks unchanged; then run A-P v2 once. Never retry
+automatically. A refusal retains all state and returns to this plan before any moving packet.
+
 ### Rejected native pre-Node launcher design (retained history; do not implement)
 
 **Superseded by maker direction on 2026-08-22.** The detail below records the design that exposed

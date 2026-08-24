@@ -14,13 +14,13 @@ import {
   phase10C0VS6ValidateRadialProductionBoundary,
 } from "../src/phase10-c0v-s6-executor.ts";
 
-const protocolPath = "research/phase10-execution-v2/packets/c0v-radial-produce/protocol.json";
+const protocolPath = "research/phase10-execution-v2/recovery-v1/packets/c0v-radial-produce/protocol.json";
 const packet = parsePhase10C0VS6PacketProtocol(parsePhase10C0VS6PrettyJsonBytes(
   new Uint8Array(readFileSync(resolve(process.cwd(), protocolPath))),
   "radial parent test protocol",
 ));
 const candidateDirectory =
-  "out/phase10-execution-v2/attempts/c0v-radial-produce/" +
+  "out/phase10-execution-v2/recovery-v1/attempts/c0v-radial-produce/" +
   "c0v-radial-produce-20260822-v1/candidate";
 const preflight = Object.freeze({
   observed: Object.freeze({ candidateDirectory }),

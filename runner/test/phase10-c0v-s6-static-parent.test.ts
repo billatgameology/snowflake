@@ -12,12 +12,12 @@ import {
   phase10C0VS6ValidateStaticPublishInvocationResult,
 } from "../src/phase10-c0v-s6-executor.ts";
 
-const protocolPath = "research/phase10-execution-v2/packets/c0v-static-produce/protocol.json";
+const protocolPath = "research/phase10-execution-v2/recovery-v1/packets/c0v-static-produce/protocol.json";
 const packet = parsePhase10C0VS6PacketProtocol(parsePhase10C0VS6PrettyJsonBytes(
   new Uint8Array(readFileSync(resolve(process.cwd(), protocolPath))),
   "static parent test protocol",
 ));
-const publishProtocolPath = "research/phase10-execution-v2/packets/c0v-static-publish/protocol.json";
+const publishProtocolPath = "research/phase10-execution-v2/recovery-v1/packets/c0v-static-publish/protocol.json";
 const publishPacket = parsePhase10C0VS6PacketProtocol(parsePhase10C0VS6PrettyJsonBytes(
   new Uint8Array(readFileSync(resolve(process.cwd(), publishProtocolPath))),
   "static-publish parent test protocol",
@@ -25,7 +25,7 @@ const publishPacket = parsePhase10C0VS6PacketProtocol(parsePhase10C0VS6PrettyJso
 const publishPreflight = Object.freeze({
   observed: Object.freeze({
     candidateDirectory:
-      "out/phase10-execution-v2/attempts/c0v-static-publish/" +
+  "out/phase10-execution-v2/recovery-v1/attempts/c0v-static-publish/" +
       "c0v-static-publish-20260822-v1/candidate",
   }),
 }) as Phase10C0VS6RetainedPreflight;

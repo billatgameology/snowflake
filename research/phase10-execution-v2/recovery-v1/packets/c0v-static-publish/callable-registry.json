@@ -1,0 +1,165 @@
+{
+  "schema": "phase10-c0v-s6-callable-registry-v1",
+  "registryId": "phase10-c0v-static-publish-execution-v2-recovery-v1-callables-v1",
+  "matrixId": "phase10-c0v-s6-obligations-v1",
+  "protocolId": "phase10-c0v-static-publish-execution-v2-recovery-v1",
+  "packetId": "c0v-static-publish",
+  "callables": [
+    {
+      "callableId": "phase10-c0v-s6-freeze-evaluator",
+      "role": "independent-evaluator",
+      "resolution": "resolved",
+      "modulePath": "runner/src/phase10-c0v-s6-freeze.ts",
+      "exportName": "independentlyEvaluatePhase10C0VS6FreezeAncestry",
+      "identity": {
+        "byteLength": 44734,
+        "sha256": "49ae9ee90ab2c7b60a710af2d54f912c5d9368e89b8f2d3b9300e49940a23560"
+      },
+      "producedOutputIds": [],
+      "invokedCheckIds": [],
+      "evaluatedCheckIds": [],
+      "executedNegativeControlIds": []
+    },
+    {
+      "callableId": "phase10-c0v-s6-preflight-receipt-writer",
+      "role": "producer",
+      "resolution": "resolved",
+      "modulePath": "runner/src/phase10-c0v-s6-receipts.ts",
+      "exportName": "writePhase10C0VS6PreflightReceipt",
+      "identity": {
+        "byteLength": 133484,
+        "sha256": "0a4894a68d9305ddef80d60a3b3d8bf66e677e388eed1117213e8c4c4f40e2c3"
+      },
+      "producedOutputIds": [
+        "out-c0v-static-publish-preflight"
+      ],
+      "invokedCheckIds": [],
+      "evaluatedCheckIds": [],
+      "executedNegativeControlIds": []
+    },
+    {
+      "callableId": "phase10-c0v-s6-refusal-check-caller",
+      "role": "check-caller",
+      "resolution": "resolved",
+      "modulePath": "runner/src/phase10-c0v-s6-refusal.ts",
+      "exportName": "phase10C0VS6RefusalCheckCaller",
+      "identity": {
+        "byteLength": 41799,
+        "sha256": "a2f8d0892c0ade5b92b26d4ca3c0968fab79cd6707d95a3bd85ad64fd69231cf"
+      },
+      "producedOutputIds": [],
+      "invokedCheckIds": [
+        "chk-c0v-static-publish-resource-refusal-validity"
+      ],
+      "evaluatedCheckIds": [],
+      "executedNegativeControlIds": []
+    },
+    {
+      "callableId": "phase10-c0v-s6-refusal-evaluator",
+      "role": "independent-evaluator",
+      "resolution": "resolved",
+      "modulePath": "runner/src/phase10-c0v-s6-refusal.ts",
+      "exportName": "independentlyEvaluatePhase10C0VS6RefusalCause",
+      "identity": {
+        "byteLength": 41799,
+        "sha256": "a2f8d0892c0ade5b92b26d4ca3c0968fab79cd6707d95a3bd85ad64fd69231cf"
+      },
+      "producedOutputIds": [],
+      "invokedCheckIds": [],
+      "evaluatedCheckIds": [
+        "chk-c0v-static-publish-resource-refusal-validity"
+      ],
+      "executedNegativeControlIds": []
+    },
+    {
+      "callableId": "phase10-c0v-s6-terminal-receipt-writer",
+      "role": "producer",
+      "resolution": "resolved",
+      "modulePath": "runner/src/phase10-c0v-s6-receipts.ts",
+      "exportName": "writePhase10C0VS6TerminalReceipt",
+      "identity": {
+        "byteLength": 133484,
+        "sha256": "0a4894a68d9305ddef80d60a3b3d8bf66e677e388eed1117213e8c4c4f40e2c3"
+      },
+      "producedOutputIds": [
+        "out-c0v-static-publish-terminal-receipt"
+      ],
+      "invokedCheckIds": [],
+      "evaluatedCheckIds": [],
+      "executedNegativeControlIds": []
+    },
+    {
+      "callableId": "phase10-c0v-static-publication-verifier",
+      "role": "independent-evaluator",
+      "resolution": "resolved",
+      "modulePath": "runner/src/phase10-c0v-s6-publication-verifier.ts",
+      "exportName": "independentlyVerifyPhase10C0VStaticPublication",
+      "identity": {
+        "byteLength": 33198,
+        "sha256": "aa76715d794ad7e0e235bee8acfa89e38d5c4a4147aef9a46b4831ff15bbde69"
+      },
+      "producedOutputIds": [],
+      "invokedCheckIds": [],
+      "evaluatedCheckIds": [
+        "chk-c0v-static-artifact-graph",
+        "chk-c0v-static-terminal-disposition",
+        "chk-c0v-static-verdict-rederived"
+      ],
+      "executedNegativeControlIds": []
+    },
+    {
+      "callableId": "phase10-c0v-static-publish-check-caller",
+      "role": "check-caller",
+      "resolution": "resolved",
+      "modulePath": "runner/src/phase10-c0v-s6-publication-checks.ts",
+      "exportName": "phase10C0VStaticPublishCheckCaller",
+      "identity": {
+        "byteLength": 3246,
+        "sha256": "8a6c58d5054593165876b54ca424353f04588f58566832379f83c217bf4d03f0"
+      },
+      "producedOutputIds": [],
+      "invokedCheckIds": [
+        "chk-c0v-static-artifact-graph",
+        "chk-c0v-static-terminal-disposition",
+        "chk-c0v-static-verdict-rederived"
+      ],
+      "evaluatedCheckIds": [],
+      "executedNegativeControlIds": []
+    },
+    {
+      "callableId": "phase10-c0v-static-publish-producer",
+      "role": "producer",
+      "resolution": "resolved",
+      "modulePath": "runner/src/phase10-c0v-s6-publication.ts",
+      "exportName": "producePhase10C0VStaticPublication",
+      "identity": {
+        "byteLength": 20633,
+        "sha256": "21c1631f1e8acbe4f80a4b57c9309bddd80c17763ad0202c64a86520067aabe3"
+      },
+      "producedOutputIds": [
+        "out-c0v-static-artifact-index",
+        "out-c0v-static-result"
+      ],
+      "invokedCheckIds": [],
+      "evaluatedCheckIds": [],
+      "executedNegativeControlIds": []
+    },
+    {
+      "callableId": "phase10-c0v-static-publish-verification-receipt-writer",
+      "role": "producer",
+      "resolution": "resolved",
+      "modulePath": "runner/src/phase10-c0v-s6-receipts.ts",
+      "exportName": "writePhase10C0VStaticPublishVerificationReceipt",
+      "identity": {
+        "byteLength": 133484,
+        "sha256": "0a4894a68d9305ddef80d60a3b3d8bf66e677e388eed1117213e8c4c4f40e2c3"
+      },
+      "producedOutputIds": [
+        "out-c0v-static-publish-verification"
+      ],
+      "invokedCheckIds": [],
+      "evaluatedCheckIds": [],
+      "executedNegativeControlIds": []
+    }
+  ]
+}

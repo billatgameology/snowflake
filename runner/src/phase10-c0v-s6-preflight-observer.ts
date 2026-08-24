@@ -18,6 +18,7 @@ import {
   type Phase10C0VS6RetainedPreflight,
 } from "./phase10-c0v-s6-contracts.ts";
 import {
+  PHASE10_C0V_S6_RUNTIME,
   parsePhase10C0VS6ArtifactIdentity,
   parsePhase10C0VS6AttemptLedgerV2,
   phase10C0VS6ArtifactIdentity,
@@ -73,7 +74,7 @@ const PACKAGE_PUBLICATION_ROOTS = Object.freeze([
   "evidence/phase10-obligation-preflight-v2",
 ] as const);
 const PACKAGE_BASELINE_ATTEMPT_ROOT = "out/phase10-c0v-reference-v1" as const;
-const PACKAGE_ATTEMPT_ROOT = "out/phase10-execution-v2/attempts" as const;
+const PACKAGE_ATTEMPT_ROOT = "out/phase10-execution-v2/recovery-v1/attempts" as const;
 
 const TERMINAL_FIELDS = Object.freeze([
   "schema", "receiptId", "matrixId", "protocolId", "registryId", "packetId", "attemptId",
@@ -153,6 +154,16 @@ export interface Phase10C0VS6ObservePreflightInput {
 
 function fail(message: string): never {
   throw new Error(`Phase 10 C0V S6 preflight observer refused: ${message}`);
+}
+
+export function phase10C0VS6ResolveRuntimeLabel(
+  rawRuntimeVersion: string,
+): typeof PHASE10_C0V_S6_RUNTIME {
+  const observedRuntime = `Node ${rawRuntimeVersion}`;
+  if (observedRuntime !== PHASE10_C0V_S6_RUNTIME) {
+    fail(`live runtime ${observedRuntime} differs from ${PHASE10_C0V_S6_RUNTIME}`);
+  }
+  return PHASE10_C0V_S6_RUNTIME;
 }
 
 function codePointCompare(left: string, right: string): number {
@@ -1163,7 +1174,8 @@ export function phase10C0VS6ObservePreflight(
     input.watchdog,
     "run",
   );
-  if (runtimeVersion !== packet.resources.requiredRuntime ||
+  const observedRuntime = phase10C0VS6ResolveRuntimeLabel(runtimeVersion);
+  if (observedRuntime !== packet.resources.requiredRuntime ||
     phase10C0VS6PhysicalRepositoryRoot(cwd()).path !== root.path) {
     fail("live runtime or working directory differs from registered launch authority");
   }
@@ -1317,7 +1329,7 @@ export function phase10C0VS6ObservePreflight(
       selectedRouteId: packet.selectedRouteId,
       branch: freeze.launchBranch,
       head: freeze.launchHead,
-      runtime: runtimeVersion as "Node v24.13.1",
+      runtime: observedRuntime,
       command: commandRows[0]!.command,
       cwd: ".",
       repositoryBundleRoot: ".",

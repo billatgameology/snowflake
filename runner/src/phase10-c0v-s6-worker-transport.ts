@@ -24,35 +24,35 @@ export const PHASE10_C0V_S6_EXACT_RUNTIME_ENVIRONMENT = Object.freeze([
 
 export const PHASE10_C0V_S6_EXECUTOR_PACKET_AUTHORITY = Object.freeze({
   "a-p-c0v-s6": Object.freeze({
-    protocolPath: "research/phase10-execution-v2/packets/a-p-c0v-s6/protocol.json",
-    attemptId: "a-p-c0v-s6-20260822-v1",
+    protocolPath: "research/phase10-execution-v2/recovery-v1/packets/a-p-c0v-s6/protocol.json",
+    attemptId: "a-p-c0v-s6-20260822-v2",
   }),
   "c0v-moving-produce": Object.freeze({
-    protocolPath: "research/phase10-execution-v2/packets/c0v-moving-produce/protocol.json",
+    protocolPath: "research/phase10-execution-v2/recovery-v1/packets/c0v-moving-produce/protocol.json",
     attemptId: "c0v-moving-produce-20260822-v1",
   }),
   "c0v-moving-publish": Object.freeze({
-    protocolPath: "research/phase10-execution-v2/packets/c0v-moving-publish/protocol.json",
+    protocolPath: "research/phase10-execution-v2/recovery-v1/packets/c0v-moving-publish/protocol.json",
     attemptId: "c0v-moving-publish-20260822-v1",
   }),
   "c0v-radial-produce": Object.freeze({
-    protocolPath: "research/phase10-execution-v2/packets/c0v-radial-produce/protocol.json",
+    protocolPath: "research/phase10-execution-v2/recovery-v1/packets/c0v-radial-produce/protocol.json",
     attemptId: "c0v-radial-produce-20260822-v1",
   }),
   "c0v-radial-publish": Object.freeze({
-    protocolPath: "research/phase10-execution-v2/packets/c0v-radial-publish/protocol.json",
+    protocolPath: "research/phase10-execution-v2/recovery-v1/packets/c0v-radial-publish/protocol.json",
     attemptId: "c0v-radial-publish-20260822-v1",
   }),
   "c0v-static-produce": Object.freeze({
-    protocolPath: "research/phase10-execution-v2/packets/c0v-static-produce/protocol.json",
+    protocolPath: "research/phase10-execution-v2/recovery-v1/packets/c0v-static-produce/protocol.json",
     attemptId: "c0v-static-produce-20260822-v1",
   }),
   "c0v-static-publish": Object.freeze({
-    protocolPath: "research/phase10-execution-v2/packets/c0v-static-publish/protocol.json",
+    protocolPath: "research/phase10-execution-v2/recovery-v1/packets/c0v-static-publish/protocol.json",
     attemptId: "c0v-static-publish-20260822-v1",
   }),
   "c0v-aggregate": Object.freeze({
-    protocolPath: "research/phase10-execution-v2/packets/c0v-aggregate/protocol.json",
+    protocolPath: "research/phase10-execution-v2/recovery-v1/packets/c0v-aggregate/protocol.json",
     attemptId: "c0v-aggregate-20260822-v1",
   }),
 } satisfies Readonly<Record<Phase10C0VS6PacketId, Readonly<{
