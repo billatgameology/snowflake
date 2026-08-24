@@ -1,0 +1,229 @@
+{
+  "schema": "phase10-c0v-s6-recovery-authority-v3",
+  "recoveryAuthorityId": "phase10-c0v-s6-execution-v2-recovery-v3",
+  "automaticRetry": false,
+  "predecessorImplementationFreezeCommit": "d670494b863484f6130d09915ce7ecae64b0d867",
+  "predecessorRecoveryAuthority": {
+    "path": "research/phase10-execution-v2/recovery-v2/recovery-authority.json",
+    "byteLength": 7040,
+    "sha256": "b950f41ba55e2414948cc4c3cf8af14ec80fcedf816a7fcd9a8fc84a74b2294f"
+  },
+  "predecessorPacketCatalogue": {
+    "path": "research/phase10-execution-v2/recovery-v2/packet-catalogue.json",
+    "byteLength": 16104,
+    "sha256": "c746a176dc539dd8202a69851e8845964eb9bd131673ca6b3e46bbabd76c0bc6"
+  },
+  "predecessorApProtocol": {
+    "path": "research/phase10-execution-v2/recovery-v2/packets/a-p-c0v-s6/protocol.json",
+    "byteLength": 75334,
+    "sha256": "4ce0aa90a7e66e3d45a1e6f3be3fe2caaf55c8434cc61dad68164bedffaf29e4"
+  },
+  "predecessorLockArtifacts": [
+    {
+      "path": "out/phase10-execution-v2/locks/package.lock",
+      "byteLength": 220,
+      "sha256": "8275c6d47285db6d671c1f0f75ad0b45c2081164550a5e31f111f03ec1522bfe",
+      "parsedContent": {
+        "schema": "phase10-c0v-s6-lock-v1",
+        "packetId": "phase10-c0v-s6-execution-v2-packet-paths-v1",
+        "attemptId": "a-p-c0v-s6:a-p-c0v-s6-20260822-v1",
+        "processId": 53684,
+        "acquiredAt": "2026-08-24T09:01:39.426Z"
+      }
+    },
+    {
+      "path": "out/phase10-execution-v2/locks/a-p-c0v-s6.lock",
+      "byteLength": 176,
+      "sha256": "b9805c9142115822fa9f36dd89f702b79c5abf9ffb44688ffa9e3584d5981f02",
+      "parsedContent": {
+        "schema": "phase10-c0v-s6-lock-v1",
+        "packetId": "a-p-c0v-s6",
+        "attemptId": "a-p-c0v-s6-20260822-v1",
+        "processId": 53684,
+        "acquiredAt": "2026-08-24T09:01:39.430Z"
+      }
+    },
+    {
+      "path": "out/phase10-execution-v2/recovery-v1/locks/package.lock",
+      "byteLength": 232,
+      "sha256": "40a72d4270b6128da9485ca2e25442b6dfeef484b5a9fc1799cc7e58e42cf6de",
+      "parsedContent": {
+        "schema": "phase10-c0v-s6-lock-v1",
+        "packetId": "phase10-c0v-s6-execution-v2-recovery-v1-packet-paths-v1",
+        "attemptId": "a-p-c0v-s6:a-p-c0v-s6-20260822-v2",
+        "processId": 50756,
+        "acquiredAt": "2026-08-24T10:45:09.585Z"
+      }
+    },
+    {
+      "path": "out/phase10-execution-v2/recovery-v1/locks/a-p-c0v-s6.lock",
+      "byteLength": 176,
+      "sha256": "da26c79f92fb9be021fa25b2c790ad1f9b23f91123ecc47806e32b6fff1a4399",
+      "parsedContent": {
+        "schema": "phase10-c0v-s6-lock-v1",
+        "packetId": "a-p-c0v-s6",
+        "attemptId": "a-p-c0v-s6-20260822-v2",
+        "processId": 50756,
+        "acquiredAt": "2026-08-24T10:45:09.590Z"
+      }
+    },
+    {
+      "path": "out/phase10-execution-v2/recovery-v2/locks/package.lock",
+      "byteLength": 232,
+      "sha256": "d60b3dc3801d35673f0a3be2cd7816905112348e415cff80eaeda370c9e90424",
+      "parsedContent": {
+        "schema": "phase10-c0v-s6-lock-v1",
+        "packetId": "phase10-c0v-s6-execution-v2-recovery-v2-packet-paths-v1",
+        "attemptId": "a-p-c0v-s6:a-p-c0v-s6-20260822-v3",
+        "processId": 51264,
+        "acquiredAt": "2026-08-24T12:15:10.034Z"
+      }
+    },
+    {
+      "path": "out/phase10-execution-v2/recovery-v2/locks/a-p-c0v-s6.lock",
+      "byteLength": 176,
+      "sha256": "b163ff257442dcee2489b619c6f7be61b2f3ceb8e03bfaca89cd0a6eaa34f93d",
+      "parsedContent": {
+        "schema": "phase10-c0v-s6-lock-v1",
+        "packetId": "a-p-c0v-s6",
+        "attemptId": "a-p-c0v-s6-20260822-v3",
+        "processId": 51264,
+        "acquiredAt": "2026-08-24T12:15:10.038Z"
+      }
+    }
+  ],
+  "predecessorAttemptArtifacts": [
+    {
+      "path": "out/phase10-execution-v2/recovery-v1/attempts/a-p-c0v-s6/a-p-c0v-s6-20260822-v2/exit-status.json",
+      "byteLength": 257,
+      "sha256": "cea268a67888283d8d58b5e883f5a8211b9d4c8fbf7b56815f89147ff9c32ca9"
+    },
+    {
+      "path": "out/phase10-execution-v2/recovery-v1/attempts/a-p-c0v-s6/a-p-c0v-s6-20260822-v2/freeze-evaluation.json",
+      "byteLength": 26430,
+      "sha256": "fa1dfc06212a9098fa534057026077bdfec65f65cd3ca525c9cbec1c45635a48"
+    },
+    {
+      "path": "out/phase10-execution-v2/recovery-v1/attempts/a-p-c0v-s6/a-p-c0v-s6-20260822-v2/stderr.log",
+      "byteLength": 114,
+      "sha256": "35c5268b7e8244549f387d66ca7eff45bd0bf557aa4139468ab9fff127ab4d04"
+    },
+    {
+      "path": "out/phase10-execution-v2/recovery-v1/attempts/a-p-c0v-s6/a-p-c0v-s6-20260822-v2/stdout.log",
+      "byteLength": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "out/phase10-execution-v2/recovery-v1/attempts/a-p-c0v-s6/a-p-c0v-s6-20260822-v2/worker-invocations.jsonl",
+      "byteLength": 637,
+      "sha256": "8eeaab4d250ec6eec364a287d36471755d79c05633b2b55c9cf51678dc02afe8"
+    },
+    {
+      "path": "out/phase10-execution-v2/recovery-v2/attempts/a-p-c0v-s6/a-p-c0v-s6-20260822-v3/candidate/artifact-index.json",
+      "byteLength": 13210,
+      "sha256": "ca677825c471a5311062bd160231a5828c05fc17ceac1c3e0f2d20d10f82d0f7"
+    },
+    {
+      "path": "out/phase10-execution-v2/recovery-v2/attempts/a-p-c0v-s6/a-p-c0v-s6-20260822-v3/candidate/missing-producer.json",
+      "byteLength": 30741,
+      "sha256": "0341289d0bd4431847609713f5ffc0a99d063fe6a13a8940d7536b28e864acff"
+    },
+    {
+      "path": "out/phase10-execution-v2/recovery-v2/attempts/a-p-c0v-s6/a-p-c0v-s6-20260822-v3/candidate/uncalled-check.json",
+      "byteLength": 31382,
+      "sha256": "b62d26663cf8d7ed95eecbedbd2db2a7491bd3fcb3a3e9c5b4939b9e22059996"
+    },
+    {
+      "path": "out/phase10-execution-v2/recovery-v2/attempts/a-p-c0v-s6/a-p-c0v-s6-20260822-v3/exit-status.json",
+      "byteLength": 243,
+      "sha256": "547f4797edc9f68964caa68e58375a10bd2c983b8b68dba5f14fed2556006f12"
+    },
+    {
+      "path": "out/phase10-execution-v2/recovery-v2/attempts/a-p-c0v-s6/a-p-c0v-s6-20260822-v3/freeze-evaluation.json",
+      "byteLength": 27280,
+      "sha256": "8ca2c8806f56c84bdc20718cc3a95cb96e1ab9ec6e7e82db1c814f5bb759057a"
+    },
+    {
+      "path": "out/phase10-execution-v2/recovery-v2/attempts/a-p-c0v-s6/a-p-c0v-s6-20260822-v3/stderr.log",
+      "byteLength": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "out/phase10-execution-v2/recovery-v2/attempts/a-p-c0v-s6/a-p-c0v-s6-20260822-v3/stdout.log",
+      "byteLength": 283304,
+      "sha256": "a2e83c042fc5bfdb6025a8e5b3ba557284a7e95029a472d192a4aa9042b873b2"
+    },
+    {
+      "path": "out/phase10-execution-v2/recovery-v2/attempts/a-p-c0v-s6/a-p-c0v-s6-20260822-v3/worker-invocations.jsonl",
+      "byteLength": 3903,
+      "sha256": "0559ded5fd38f56b9451389b3ea3d65c5fe8bb478b7044cb671eec214c61f244"
+    }
+  ],
+  "predecessorPublishedArtifacts": [
+    {
+      "path": "evidence/phase10-obligation-preflight-v2/packets/a-p-c0v-s6/preflight.json",
+      "byteLength": 36074,
+      "sha256": "06bd4544d42b0719846de4c3f8b3d547469dc895ace9ee3555dd5212deebdac6"
+    },
+    {
+      "path": "evidence/phase10-obligation-preflight-v3/packets/a-p-c0v-s6/preflight.json",
+      "byteLength": 38701,
+      "sha256": "dd7d897043313fbfd439a264fb8435fe5c3e736e078aa7db8e84a5980826ed36"
+    }
+  ],
+  "predecessorGovernedAbsentPaths": [
+    "evidence/phase10-obligation-preflight-v2/artifact-index.json",
+    "evidence/phase10-obligation-preflight-v2/missing-producer.json",
+    "evidence/phase10-obligation-preflight-v2/packets/a-p-c0v-s6/terminal-receipt.json",
+    "evidence/phase10-obligation-preflight-v2/uncalled-check.json",
+    "evidence/phase10-obligation-preflight-v2/verification.json",
+    "evidence/phase10-obligation-preflight-v2/artifact-index.json.stage-a-p-c0v-s6-20260822-v2",
+    "evidence/phase10-obligation-preflight-v2/missing-producer.json.stage-a-p-c0v-s6-20260822-v2",
+    "evidence/phase10-obligation-preflight-v2/packets/a-p-c0v-s6/preflight.json.stage-a-p-c0v-s6-20260822-v2",
+    "evidence/phase10-obligation-preflight-v2/packets/a-p-c0v-s6/terminal-receipt.json.stage-a-p-c0v-s6-20260822-v2",
+    "evidence/phase10-obligation-preflight-v2/uncalled-check.json.stage-a-p-c0v-s6-20260822-v2",
+    "evidence/phase10-obligation-preflight-v2/verification.json.stage-a-p-c0v-s6-20260822-v2",
+    "evidence/phase10-obligation-preflight-v3/artifact-index.json",
+    "evidence/phase10-obligation-preflight-v3/missing-producer.json",
+    "evidence/phase10-obligation-preflight-v3/packets/a-p-c0v-s6/terminal-receipt.json",
+    "evidence/phase10-obligation-preflight-v3/uncalled-check.json",
+    "evidence/phase10-obligation-preflight-v3/verification.json",
+    "evidence/phase10-obligation-preflight-v3/artifact-index.json.stage-a-p-c0v-s6-20260822-v3",
+    "evidence/phase10-obligation-preflight-v3/missing-producer.json.stage-a-p-c0v-s6-20260822-v3",
+    "evidence/phase10-obligation-preflight-v3/packets/a-p-c0v-s6/preflight.json.stage-a-p-c0v-s6-20260822-v3",
+    "evidence/phase10-obligation-preflight-v3/packets/a-p-c0v-s6/terminal-receipt.json.stage-a-p-c0v-s6-20260822-v3",
+    "evidence/phase10-obligation-preflight-v3/uncalled-check.json.stage-a-p-c0v-s6-20260822-v3",
+    "evidence/phase10-obligation-preflight-v3/verification.json.stage-a-p-c0v-s6-20260822-v3",
+    "out/phase10-execution-v2/recovery-v3",
+    "evidence/phase10-obligation-preflight-v4/artifact-index.json",
+    "evidence/phase10-obligation-preflight-v4/missing-producer.json",
+    "evidence/phase10-obligation-preflight-v4/packets/a-p-c0v-s6/preflight.json",
+    "evidence/phase10-obligation-preflight-v4/packets/a-p-c0v-s6/terminal-receipt.json",
+    "evidence/phase10-obligation-preflight-v4/uncalled-check.json",
+    "evidence/phase10-obligation-preflight-v4/verification.json",
+    "evidence/phase10-obligation-preflight-v4/artifact-index.json.stage-a-p-c0v-s6-20260822-v4",
+    "evidence/phase10-obligation-preflight-v4/missing-producer.json.stage-a-p-c0v-s6-20260822-v4",
+    "evidence/phase10-obligation-preflight-v4/packets/a-p-c0v-s6/preflight.json.stage-a-p-c0v-s6-20260822-v4",
+    "evidence/phase10-obligation-preflight-v4/packets/a-p-c0v-s6/terminal-receipt.json.stage-a-p-c0v-s6-20260822-v4",
+    "evidence/phase10-obligation-preflight-v4/uncalled-check.json.stage-a-p-c0v-s6-20260822-v4",
+    "evidence/phase10-obligation-preflight-v4/verification.json.stage-a-p-c0v-s6-20260822-v4"
+  ],
+  "retainedBytes": 493488,
+  "observedWorkerProcessCount": 1,
+  "observedWorkerLifetimeNanoseconds": 125776629700,
+  "creditedGovernedInvocationCount": 4,
+  "creditedGovernedElapsedNanoseconds": 125289842000,
+  "creditedGovernedProcessHours": 0.0348027338888889,
+  "successor": {
+    "packetCatalogueId": "phase10-c0v-s6-execution-v2-recovery-v3-packet-paths-v1",
+    "packetCataloguePath": "research/phase10-execution-v2/recovery-v3/packet-catalogue.json",
+    "maximumAuthorizedNewAttempts": 1,
+    "authorizedAttempts": [
+      {
+        "packetId": "a-p-c0v-s6",
+        "predecessorAttemptId": "a-p-c0v-s6-20260822-v3",
+        "successorAttemptId": "a-p-c0v-s6-20260822-v4"
+      }
+    ]
+  }
+}

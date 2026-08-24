@@ -4,6 +4,7 @@ import {
   parsePhase10C0VReferenceRefusal,
 } from "./phase10-c0v-contracts.ts";
 import {
+  PHASE10_C0V_S6_RECOVERY_V3_AUTHORITY_ROOT,
   parsePhase10C0VS6PacketProtocol,
   parsePhase10C0VS6PrettyJsonBytes,
   type Phase10C0VS6PacketProtocol,
@@ -230,7 +231,7 @@ function producerInputs(
   const root = phase10C0VS6PhysicalRepositoryRoot(request.repositoryRoot);
   const config = CONFIGS[packetId];
   const producePath =
-    `research/phase10-execution-v2/recovery-v2/packets/${config.producePacketId}/protocol.json`;
+    `${PHASE10_C0V_S6_RECOVERY_V3_AUTHORITY_ROOT}/packets/${config.producePacketId}/protocol.json`;
   const producePacket = parsePhase10C0VS6PacketProtocol(parsePhase10C0VS6PrettyJsonBytes(
     phase10C0VS6ReadUniquePhysicalFile(root, producePath),
     `${config.producePacketId} protocol`,

@@ -329,7 +329,7 @@ function deriveOutcome(table: Phase10C0VTerminalTable): Phase10C0VAggregateOutco
 
 export function independentlyReprovePhase10C0VAnyLayerNonpass(
   receiptBytes: Uint8Array,
-  receiptPath = "out/phase10-execution-v2/recovery-v2/attempts/c0v-aggregate/synthetic/any-layer-nonpass-control.json",
+  receiptPath = "out/phase10-execution-v2/recovery-v3/attempts/c0v-aggregate/synthetic/any-layer-nonpass-control.json",
 ): Phase10C0VAggregateNegativeControlReproof {
   const receipt = parsePhase10C0VAnyLayerNonpassControlReceiptBytes(receiptBytes);
   const clean = independentCleanTable();

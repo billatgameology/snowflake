@@ -10,6 +10,7 @@ import {
   type Phase10C0VS6AttemptRowV2,
 } from "./phase10-c0v-s6-execution-contracts.ts";
 import {
+  PHASE10_C0V_S6_RECOVERY_V3_AUTHORITY_ROOT,
   parsePhase10C0VS6PacketProtocol,
   parsePhase10C0VS6PrettyJsonBytes,
   type Phase10C0VS6PacketProtocol,
@@ -69,7 +70,7 @@ function packetAuthority(
     parsePhase10C0VS6PrettyJsonBytes(bytes, "attempt packet protocol"),
   );
   if (packet.bindings.callableRegistry.path !==
-    `research/phase10-execution-v2/recovery-v2/packets/${packet.packetId}/callable-registry.json`) {
+    `${PHASE10_C0V_S6_RECOVERY_V3_AUTHORITY_ROOT}/packets/${packet.packetId}/callable-registry.json`) {
     fail("packet registry path is not the exact packet-local authority");
   }
   return packet;

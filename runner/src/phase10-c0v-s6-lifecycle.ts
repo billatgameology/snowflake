@@ -476,6 +476,77 @@ function exactCapturedCallerResult(actual: unknown, expected: unknown, label: st
   );
 }
 
+interface WholeFilePublicationPathAuthority {
+  readonly packetId: Phase10C0VS6PacketProtocol["packetId"];
+  readonly paths: Readonly<{
+    readonly allowedPublicationPaths: readonly string[];
+  }>;
+}
+
+const AP_WHOLE_FILE_PUBLICATION_OVERLAY = Object.freeze({
+  "out-ap-c0v-s6-artifact-index": Object.freeze({
+    matrixPath: "evidence/phase10-obligation-preflight-v2/artifact-index.json",
+    currentPublicationPath: "evidence/phase10-obligation-preflight-v4/artifact-index.json",
+  }),
+  "out-ap-c0v-s6-missing-producer": Object.freeze({
+    matrixPath: "evidence/phase10-obligation-preflight-v2/missing-producer.json",
+    currentPublicationPath: "evidence/phase10-obligation-preflight-v4/missing-producer.json",
+  }),
+  "out-ap-c0v-s6-preflight": Object.freeze({
+    matrixPath: "evidence/phase10-obligation-preflight-v2/packets/a-p-c0v-s6/preflight.json",
+    currentPublicationPath: "evidence/phase10-obligation-preflight-v4/packets/a-p-c0v-s6/preflight.json",
+  }),
+  "out-ap-c0v-s6-terminal-receipt": Object.freeze({
+    matrixPath: "evidence/phase10-obligation-preflight-v2/packets/a-p-c0v-s6/terminal-receipt.json",
+    currentPublicationPath:
+      "evidence/phase10-obligation-preflight-v4/packets/a-p-c0v-s6/terminal-receipt.json",
+  }),
+  "out-ap-c0v-s6-uncalled-check": Object.freeze({
+    matrixPath: "evidence/phase10-obligation-preflight-v2/uncalled-check.json",
+    currentPublicationPath: "evidence/phase10-obligation-preflight-v4/uncalled-check.json",
+  }),
+  "out-ap-c0v-s6-verification": Object.freeze({
+    matrixPath: "evidence/phase10-obligation-preflight-v2/verification.json",
+    currentPublicationPath: "evidence/phase10-obligation-preflight-v4/verification.json",
+  }),
+} as const);
+
+const AP_CURRENT_PUBLICATION_PATH_ROSTER = Object.freeze([
+  AP_WHOLE_FILE_PUBLICATION_OVERLAY["out-ap-c0v-s6-artifact-index"].currentPublicationPath,
+  AP_WHOLE_FILE_PUBLICATION_OVERLAY["out-ap-c0v-s6-missing-producer"].currentPublicationPath,
+  AP_WHOLE_FILE_PUBLICATION_OVERLAY["out-ap-c0v-s6-preflight"].currentPublicationPath,
+  AP_WHOLE_FILE_PUBLICATION_OVERLAY["out-ap-c0v-s6-terminal-receipt"].currentPublicationPath,
+  AP_WHOLE_FILE_PUBLICATION_OVERLAY["out-ap-c0v-s6-uncalled-check"].currentPublicationPath,
+  AP_WHOLE_FILE_PUBLICATION_OVERLAY["out-ap-c0v-s6-verification"].currentPublicationPath,
+] as const);
+
+export function phase10C0VS6ResolveRegisteredWholeFilePublicationPath(
+  packet: WholeFilePublicationPathAuthority,
+  outputId: string,
+  matrixPath: string,
+): string {
+  if (packet.packetId === "a-p-c0v-s6") {
+    const descriptor = Object.prototype.hasOwnProperty.call(AP_WHOLE_FILE_PUBLICATION_OVERLAY, outputId)
+      ? AP_WHOLE_FILE_PUBLICATION_OVERLAY[
+        outputId as keyof typeof AP_WHOLE_FILE_PUBLICATION_OVERLAY
+      ]
+      : undefined;
+    if (descriptor === undefined || matrixPath !== descriptor.matrixPath) {
+      fail(`${outputId} does not resolve one registered whole-file publication path`);
+    }
+    if (packet.paths.allowedPublicationPaths.length !== AP_CURRENT_PUBLICATION_PATH_ROSTER.length ||
+      packet.paths.allowedPublicationPaths.some((path, index) =>
+        path !== AP_CURRENT_PUBLICATION_PATH_ROSTER[index])) {
+      fail(`${outputId} does not resolve one registered whole-file publication path`);
+    }
+    return descriptor.currentPublicationPath;
+  }
+  if (!packet.paths.allowedPublicationPaths.includes(matrixPath)) {
+    fail(`${outputId} does not resolve one registered whole-file publication path`);
+  }
+  return matrixPath;
+}
+
 function registeredCallerSourceIdentity(
   root: ReturnType<typeof phase10C0VS6PhysicalRepositoryRoot>,
   lifecycle: Phase10C0VS6RawLifecycleRouteProjection,
@@ -495,7 +566,9 @@ function registeredCallerSourceIdentity(
   if (source.outputId === null || source.artifactRelativePath !== null) {
     fail(`${source.artifactRole} has incoherent registered-output source authority`);
   }
-  if (source.outputId.endsWith("-preflight")) return lifecycle.preflightIdentity;
+  if (source.outputId.endsWith("-preflight") && lifecycle.packet.packetId !== "a-p-c0v-s6") {
+    return lifecycle.preflightIdentity;
+  }
   const matrixBytes = phase10C0VS6ReadUniquePhysicalFile(root, lifecycle.packet.bindings.matrix.path);
   phase10C0VS6SameIdentity(
     phase10C0VS6ArtifactIdentity(lifecycle.packet.bindings.matrix.path, matrixBytes),
@@ -508,16 +581,26 @@ function registeredCallerSourceIdentity(
   const outputRows = matrix.outputs.filter((entry) =>
     entry.packetId === lifecycle.packet.packetId && entry.outputId === source.outputId &&
     entry.artifact.field === null);
-  if (outputRows.length !== 1 ||
-    !lifecycle.packet.paths.allowedPublicationPaths.includes(outputRows[0]!.artifact.path)) {
+  if (outputRows.length !== 1) {
     fail(`${source.outputId} does not resolve one registered whole-file publication path`);
   }
+  const publicationPath = phase10C0VS6ResolveRegisteredWholeFilePublicationPath(
+    lifecycle.packet,
+    source.outputId,
+    outputRows[0]!.artifact.path,
+  );
   const publishedIdentity = (candidateIdentity: Phase10C0VS6ArtifactIdentity): Phase10C0VS6ArtifactIdentity =>
     Object.freeze({
-      path: outputRows[0]!.artifact.path,
+      path: publicationPath,
       byteLength: candidateIdentity.byteLength,
       sha256: candidateIdentity.sha256,
     });
+  if (source.outputId.endsWith("-preflight")) {
+    if (lifecycle.preflightIdentity.path !== publicationPath) {
+      fail(`${source.outputId} does not resolve one registered whole-file publication path`);
+    }
+    return lifecycle.preflightIdentity;
+  }
   const completion = lifecycle.completionProof;
   if (completion !== null) {
     if (source.outputId === "out-ap-c0v-s6-artifact-index") {

@@ -12,8 +12,12 @@ import {
   PHASE10_C0V_S6_RECOVERY_AUTHORITY_PATH,
   PHASE10_C0V_S6_RECOVERY_PACKET_CATALOGUE_ID,
   PHASE10_C0V_S6_RECOVERY_V2_AUTHORITY_PATH,
+  PHASE10_C0V_S6_RECOVERY_V2_PACKET_CATALOGUE_ID,
   PHASE10_C0V_S6_RECOVERY_V2_PACKET_CATALOGUE_PATH,
   PHASE10_C0V_S6_RECOVERY_V2_PREDECESSOR_IMPLEMENTATION_FREEZE_COMMIT,
+  PHASE10_C0V_S6_RECOVERY_V3_AUTHORITY_PATH,
+  PHASE10_C0V_S6_RECOVERY_V3_PACKET_CATALOGUE_PATH,
+  PHASE10_C0V_S6_RECOVERY_V3_PREDECESSOR_IMPLEMENTATION_FREEZE_COMMIT,
   assertPhase10C0VS6Commit,
   parsePhase10C0VS6CallableRegistry,
   parsePhase10C0VS6PacketCatalogue,
@@ -21,6 +25,7 @@ import {
   parsePhase10C0VS6PrettyJsonBytes,
   parsePhase10C0VS6RecoveryAuthority,
   parsePhase10C0VS6RecoveryV2Authority,
+  parsePhase10C0VS6RecoveryV3Authority,
   parsePhase10C0VS6RetainedPreflight,
   validatePhase10C0VS6RetainedPreflightRegistryContext,
   type Phase10C0VS6CallableRegistry,
@@ -29,6 +34,7 @@ import {
   type Phase10C0VS6PacketProtocol,
   type Phase10C0VS6RecoveryAuthority,
   type Phase10C0VS6RecoveryV2Authority,
+  type Phase10C0VS6RecoveryV3Authority,
 } from "./phase10-c0v-s6-contracts.ts";
 import {
   phase10C0VS6ArtifactIdentity,
@@ -51,7 +57,7 @@ import {
   type Phase10C0VS6FreezeEvaluationReceipt,
 } from "./phase10-c0v-s6-receipts.ts";
 
-const CATALOGUE_PATH = PHASE10_C0V_S6_RECOVERY_V2_PACKET_CATALOGUE_PATH;
+const CATALOGUE_PATH = PHASE10_C0V_S6_RECOVERY_V3_PACKET_CATALOGUE_PATH;
 const README_PATH = "research/phase10-execution-v2/README.md";
 const RULE_PATHS = Object.freeze([
   ".gitattributes", ".gitignore", "app/.gitattributes", "core/.gitattributes",
@@ -432,6 +438,19 @@ function readCatalogue(root: string): Readonly<{
 
 function readRecoveryAuthority(root: string): Readonly<{
   identity: Phase10C0VS6ArtifactIdentity;
+  authority: Phase10C0VS6RecoveryV3Authority;
+}> {
+  const bytes = readPhysical(root, PHASE10_C0V_S6_RECOVERY_V3_AUTHORITY_PATH);
+  return Object.freeze({
+    identity: phase10C0VS6ArtifactIdentity(PHASE10_C0V_S6_RECOVERY_V3_AUTHORITY_PATH, bytes),
+    authority: parsePhase10C0VS6RecoveryV3Authority(
+      parsePhase10C0VS6PrettyJsonBytes(bytes, "execution-v2 recovery-v3 authority"),
+    ),
+  });
+}
+
+function readPredecessorRecoveryAuthority(root: string): Readonly<{
+  identity: Phase10C0VS6ArtifactIdentity;
   authority: Phase10C0VS6RecoveryV2Authority;
 }> {
   const bytes = readPhysical(root, PHASE10_C0V_S6_RECOVERY_V2_AUTHORITY_PATH);
@@ -443,7 +462,7 @@ function readRecoveryAuthority(root: string): Readonly<{
   });
 }
 
-function readPredecessorRecoveryAuthority(root: string): Readonly<{
+function readOriginalRecoveryAuthority(root: string): Readonly<{
   identity: Phase10C0VS6ArtifactIdentity;
   authority: Phase10C0VS6RecoveryAuthority;
 }> {
@@ -513,9 +532,15 @@ function derivePhase10C0VS6ImplementationFreezeAtLaunch(
   const failedArtifact = observedArtifactFailures[0] ?? null;
   const recoveryAuthority = readRecoveryAuthority(root);
   const predecessorRecoveryAuthority = readPredecessorRecoveryAuthority(root);
+  const originalRecoveryAuthority = readOriginalRecoveryAuthority(root);
   phase10C0VS6SameIdentity(
     recoveryAuthority.authority.predecessorRecoveryAuthority,
     predecessorRecoveryAuthority.identity,
+    "recovery-v2 authority predecessor bytes",
+  );
+  phase10C0VS6SameIdentity(
+    predecessorRecoveryAuthority.authority.predecessorRecoveryAuthority,
+    originalRecoveryAuthority.identity,
     "recovery-v1 authority predecessor bytes",
   );
   const catalogueAuthority = readCatalogue(root);
@@ -533,9 +558,15 @@ function derivePhase10C0VS6ImplementationFreezeAtLaunch(
     fail("recovery authority successor catalogue mapping differs from the live catalogue");
   }
   if (predecessorRecoveryAuthority.authority.successor.packetCatalogueId !==
-      PHASE10_C0V_S6_RECOVERY_PACKET_CATALOGUE_ID ||
+      PHASE10_C0V_S6_RECOVERY_V2_PACKET_CATALOGUE_ID ||
     predecessorRecoveryAuthority.authority.successor.packetCataloguePath !==
       recoveryAuthority.authority.predecessorPacketCatalogue.path) {
+    fail("recovery-v2 authority successor catalogue mapping differs from its frozen predecessor");
+  }
+  if (originalRecoveryAuthority.authority.successor.packetCatalogueId !==
+      PHASE10_C0V_S6_RECOVERY_PACKET_CATALOGUE_ID ||
+    originalRecoveryAuthority.authority.successor.packetCataloguePath !==
+      predecessorRecoveryAuthority.authority.predecessorPacketCatalogue.path) {
     fail("recovery-v1 authority successor catalogue mapping differs from its frozen predecessor");
   }
   phase10C0VS6SameIdentity(
@@ -563,6 +594,7 @@ function derivePhase10C0VS6ImplementationFreezeAtLaunch(
   const registeredCallableIds: string[] = [];
   const anchors = new Set<string>([
     CATALOGUE_PATH,
+    PHASE10_C0V_S6_RECOVERY_V3_AUTHORITY_PATH,
     PHASE10_C0V_S6_RECOVERY_V2_AUTHORITY_PATH,
     PHASE10_C0V_S6_RECOVERY_AUTHORITY_PATH,
     README_PATH,
@@ -571,10 +603,27 @@ function derivePhase10C0VS6ImplementationFreezeAtLaunch(
   const rawClosurePaths = new Set<string>();
   addIdentity(frozen, recoveryAuthority.identity);
   addIdentity(frozen, predecessorRecoveryAuthority.identity);
+  addIdentity(frozen, originalRecoveryAuthority.identity);
   addIdentity(frozen, catalogueAuthority.identity);
   for (const [identity, label] of [
     [recoveryAuthority.authority.predecessorPacketCatalogue, "predecessor packet catalogue"],
     [recoveryAuthority.authority.predecessorApProtocol, "predecessor A-P protocol"],
+  ] as const) {
+    addIdentity(frozen, liveIdentity(root, identity));
+    const predecessorBytes = gitBytes(
+      root,
+      ["show", `${PHASE10_C0V_S6_RECOVERY_V3_PREDECESSOR_IMPLEMENTATION_FREEZE_COMMIT}:${identity.path}`],
+      `${label} predecessor-freeze blob`,
+    );
+    phase10C0VS6SameIdentity(
+      phase10C0VS6ArtifactIdentity(identity.path, predecessorBytes),
+      identity,
+      `${label} predecessor-freeze identity`,
+    );
+  }
+  for (const [identity, label] of [
+    [predecessorRecoveryAuthority.authority.predecessorPacketCatalogue, "recovery-v1 packet catalogue"],
+    [predecessorRecoveryAuthority.authority.predecessorApProtocol, "recovery-v1 A-P protocol"],
   ] as const) {
     addIdentity(frozen, liveIdentity(root, identity));
     const predecessorBytes = gitBytes(
@@ -589,8 +638,8 @@ function derivePhase10C0VS6ImplementationFreezeAtLaunch(
     );
   }
   for (const [identity, label] of [
-    [predecessorRecoveryAuthority.authority.predecessorPacketCatalogue, "original packet catalogue"],
-    [predecessorRecoveryAuthority.authority.predecessorApProtocol, "original A-P protocol"],
+    [originalRecoveryAuthority.authority.predecessorPacketCatalogue, "original packet catalogue"],
+    [originalRecoveryAuthority.authority.predecessorApProtocol, "original A-P protocol"],
   ] as const) {
     addIdentity(frozen, liveIdentity(root, identity));
     const predecessorBytes = gitBytes(
@@ -772,23 +821,32 @@ function derivePhase10C0VS6ImplementationFreezeAtLaunch(
   const anchorPaths = Object.freeze([...anchors].sort(codePointCompare));
   const recoveryFirstAdds = gitText(
     root,
-    ["log", "--diff-filter=A", "--format=%H", "HEAD", "--", PHASE10_C0V_S6_RECOVERY_V2_AUTHORITY_PATH],
-    "recovery-v2 authority first-add history",
+    ["log", "--diff-filter=A", "--format=%H", "HEAD", "--", PHASE10_C0V_S6_RECOVERY_V3_AUTHORITY_PATH],
+    "recovery-v3 authority first-add history",
   ).split(/\r?\n/u).filter((entry) => entry.length !== 0);
   if (recoveryFirstAdds.length !== 1) {
-    fail("recovery-v2 authority does not have exactly one first-introduction commit");
+    fail("recovery-v3 authority does not have exactly one first-introduction commit");
   }
   const implementationFreezeCommit = assertPhase10C0VS6Commit(
     recoveryFirstAdds[0]!,
-    "recovery-v2 authority first-add commit",
+    "recovery-v3 authority first-add commit",
   );
   const predecessorRecoveryFirstAdds = gitText(
+    root,
+    ["log", "--diff-filter=A", "--format=%H", "HEAD", "--", PHASE10_C0V_S6_RECOVERY_V2_AUTHORITY_PATH],
+    "recovery-v2 authority first-add history",
+  ).split(/\r?\n/u).filter((entry) => entry.length !== 0);
+  if (predecessorRecoveryFirstAdds.length !== 1 ||
+    predecessorRecoveryFirstAdds[0] !== PHASE10_C0V_S6_RECOVERY_V3_PREDECESSOR_IMPLEMENTATION_FREEZE_COMMIT) {
+    fail("recovery-v2 authority first introduction differs from the exact predecessor freeze");
+  }
+  const originalRecoveryFirstAdds = gitText(
     root,
     ["log", "--diff-filter=A", "--format=%H", "HEAD", "--", PHASE10_C0V_S6_RECOVERY_AUTHORITY_PATH],
     "recovery-v1 authority first-add history",
   ).split(/\r?\n/u).filter((entry) => entry.length !== 0);
-  if (predecessorRecoveryFirstAdds.length !== 1 ||
-    predecessorRecoveryFirstAdds[0] !== PHASE10_C0V_S6_RECOVERY_V2_PREDECESSOR_IMPLEMENTATION_FREEZE_COMMIT) {
+  if (originalRecoveryFirstAdds.length !== 1 ||
+    originalRecoveryFirstAdds[0] !== PHASE10_C0V_S6_RECOVERY_V2_PREDECESSOR_IMPLEMENTATION_FREEZE_COMMIT) {
     fail("recovery-v1 authority first introduction differs from the exact predecessor freeze");
   }
   const currentHead = assertPhase10C0VS6Commit(
@@ -827,8 +885,18 @@ function derivePhase10C0VS6ImplementationFreezeAtLaunch(
     execFileSync("git", [
       "merge-base",
       "--is-ancestor",
-      PHASE10_C0V_S6_RECOVERY_V2_PREDECESSOR_IMPLEMENTATION_FREEZE_COMMIT,
+      PHASE10_C0V_S6_RECOVERY_V3_PREDECESSOR_IMPLEMENTATION_FREEZE_COMMIT,
       implementationFreezeCommit,
+    ], { cwd: root, windowsHide: true, stdio: "ignore" });
+  } catch {
+    fail("recovery-v2 freeze is not an ancestor of the recovery-v3 freeze");
+  }
+  try {
+    execFileSync("git", [
+      "merge-base",
+      "--is-ancestor",
+      PHASE10_C0V_S6_RECOVERY_V2_PREDECESSOR_IMPLEMENTATION_FREEZE_COMMIT,
+      PHASE10_C0V_S6_RECOVERY_V3_PREDECESSOR_IMPLEMENTATION_FREEZE_COMMIT,
     ], { cwd: root, windowsHide: true, stdio: "ignore" });
   } catch {
     fail("recovery-v1 freeze is not an ancestor of the recovery-v2 freeze");

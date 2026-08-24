@@ -1510,6 +1510,40 @@ Recovery-v3 is the smallest non-destructive successor:
   A-P v4 `run`. Never retry v1, v2, v3, or v4 automatically. Any refusal retains every byte and
   returns here before moving-produce.
 
+### S6 recovery-v3 implementation checkpoint — 2026-08-24
+
+Recovery-v3 is implemented as the planned bounded publication overlay. Its deterministic 19-file
+generated tree has SHA-256 `8a515b3ed0db799d8dabf1b8fcec115e44bc0ec27cd97fdc2490d477b3492f9f`;
+the 11,096-byte authority has SHA-256
+`1164764dc41712210bac1f9c5d8c1a742343c1e077159d76461332efa54d24b4`, and the 16,104-byte
+catalogue has SHA-256 `94001263d722fb95cdee6a1332c0718f055a0d5932c54b2cc0fa467e99b25a10`.
+The authority exact-binds 6 locks, 13 attempt files, 2 published preflights, and 35 absences. Its
+globally ordered storage baseline is 33 files / 2,123,065 bytes; retained S6 state is 493,488
+bytes. The evidence manifest is 388 files / 5,919,384 bytes and pins the v3 preflight at 38,701
+bytes / SHA-256 `dd7d897043313fbfd439a264fb8435fe5c3e736e078aa7db8e84a5980826ed36`.
+
+The A-P resolver now exact-maps each of the immutable matrix's six v2 whole-file identities by
+output ID to the protocol's ordered v4 publication identity, while non-A-P packets retain their
+prior exact matrix-path behavior. A-P alone advances to attempt `a-p-c0v-s6-20260822-v4`; the
+other seven attempts remain v1. The regenerated eight registries contain 101 registrations whose
+identities match the final callable bytes. Before this checkpoint, the recovery-v3 runtime root,
+all six v4 finals, and all six v4 stages were absent.
+
+Exact `npm test` exited 0 on these bytes: Rule 7 scanned 1,291 files, both typechecks passed, and
+Vitest passed 158/158 files with 2,506 passed and 49 skipped tests in 1,753.81 seconds. No
+registered S6 command ran during implementation or verification.
+
+One bounded non-author audit by a GPT-5-family Codex child sharing the task/repository context
+reported zero concrete blockers. It independently reopened the staged census, authority,
+catalogue, protocols, registries, lifecycle overlay, freeze chain, manifest, retained invocation
+record, and governed absences; it re-derived the four invocation intervals as 125,289,842,000 ns =
+0.0348027338888889 process-hours. It did not rerun `npm test`, a registered S6 command, packet or
+solver work, publication, crash/NAS/network paths, commit, or push. Its attempted fresh aggregate
+101-callable sweep failed in the inline audit wrapper before repository code ran, so that part of
+the verdict relies on the generator's 101/101 audit plus the exact green suite rather than a second
+independent sweep. Assurance stops here: after this first-add checkpoint is committed and pushed,
+verify its freeze identity, then run only the exact v4 read-only `check` and one v4 `run`.
+
 No ADR or charter amendment is needed: decision 0053 and this plan already require a separately
 frozen successor after an unclassified infrastructure stop. Science, references, tolerances,
 resource ceilings, and the rejected hostile-runtime design remain closed.

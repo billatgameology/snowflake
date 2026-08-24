@@ -4,6 +4,7 @@ import {
   phase10C0VS6ValidatePreflightArtifactFailure,
 } from "./phase10-c0v-s6-artifact-observation.ts";
 import {
+  PHASE10_C0V_S6_RECOVERY_V3_AUTHORITY_ROOT,
   parsePhase10C0VS6PacketCatalogue,
   parsePhase10C0VS6PacketProtocol,
   parsePhase10C0VS6PrettyJsonBytes,
@@ -85,7 +86,7 @@ export function derivePhase10C0VS6RetainedRuntimeAuthority(
     parsePhase10C0VS6PrettyJsonBytes(input.packetProtocolBytes, "packet protocol"),
   );
   const expectedPath =
-    `research/phase10-execution-v2/recovery-v2/packets/${packet.packetId}/protocol.json`;
+    `${PHASE10_C0V_S6_RECOVERY_V3_AUTHORITY_ROOT}/packets/${packet.packetId}/protocol.json`;
   if (input.packetProtocolIdentity.path !== expectedPath) {
     fail("packet protocol identity path differs from exact packet authority path");
   }

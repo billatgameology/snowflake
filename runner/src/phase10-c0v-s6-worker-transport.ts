@@ -1,7 +1,11 @@
 import { Buffer } from "node:buffer";
 import { env as processEnvironment, execArgv as processExecArguments } from "node:process";
 import { strictJsonSnapshot, type StrictJson } from "./gate4-evidence.ts";
-import type { Phase10C0VS6PacketId } from "./phase10-c0v-s6-contracts.ts";
+import {
+  PHASE10_C0V_S6_RECOVERY_V3_ATTEMPT_IDS,
+  PHASE10_C0V_S6_RECOVERY_V3_AUTHORITY_ROOT,
+  type Phase10C0VS6PacketId,
+} from "./phase10-c0v-s6-contracts.ts";
 
 const WIRE_BYTES_KEY = "$phase10C0VS6Bytes" as const;
 export const PHASE10_C0V_S6_MAXIMUM_WORKER_WIRE_LINE_BYTES = 33_554_432 as const;
@@ -33,36 +37,36 @@ export const PHASE10_C0V_S6_EXACT_RUNTIME_ENVIRONMENT = Object.freeze([
 
 export const PHASE10_C0V_S6_EXECUTOR_PACKET_AUTHORITY = Object.freeze({
   "a-p-c0v-s6": Object.freeze({
-    protocolPath: "research/phase10-execution-v2/recovery-v2/packets/a-p-c0v-s6/protocol.json",
-    attemptId: "a-p-c0v-s6-20260822-v3",
+    protocolPath: `${PHASE10_C0V_S6_RECOVERY_V3_AUTHORITY_ROOT}/packets/a-p-c0v-s6/protocol.json`,
+    attemptId: PHASE10_C0V_S6_RECOVERY_V3_ATTEMPT_IDS["a-p-c0v-s6"],
   }),
   "c0v-moving-produce": Object.freeze({
-    protocolPath: "research/phase10-execution-v2/recovery-v2/packets/c0v-moving-produce/protocol.json",
-    attemptId: "c0v-moving-produce-20260822-v1",
+    protocolPath: `${PHASE10_C0V_S6_RECOVERY_V3_AUTHORITY_ROOT}/packets/c0v-moving-produce/protocol.json`,
+    attemptId: PHASE10_C0V_S6_RECOVERY_V3_ATTEMPT_IDS["c0v-moving-produce"],
   }),
   "c0v-moving-publish": Object.freeze({
-    protocolPath: "research/phase10-execution-v2/recovery-v2/packets/c0v-moving-publish/protocol.json",
-    attemptId: "c0v-moving-publish-20260822-v1",
+    protocolPath: `${PHASE10_C0V_S6_RECOVERY_V3_AUTHORITY_ROOT}/packets/c0v-moving-publish/protocol.json`,
+    attemptId: PHASE10_C0V_S6_RECOVERY_V3_ATTEMPT_IDS["c0v-moving-publish"],
   }),
   "c0v-radial-produce": Object.freeze({
-    protocolPath: "research/phase10-execution-v2/recovery-v2/packets/c0v-radial-produce/protocol.json",
-    attemptId: "c0v-radial-produce-20260822-v1",
+    protocolPath: `${PHASE10_C0V_S6_RECOVERY_V3_AUTHORITY_ROOT}/packets/c0v-radial-produce/protocol.json`,
+    attemptId: PHASE10_C0V_S6_RECOVERY_V3_ATTEMPT_IDS["c0v-radial-produce"],
   }),
   "c0v-radial-publish": Object.freeze({
-    protocolPath: "research/phase10-execution-v2/recovery-v2/packets/c0v-radial-publish/protocol.json",
-    attemptId: "c0v-radial-publish-20260822-v1",
+    protocolPath: `${PHASE10_C0V_S6_RECOVERY_V3_AUTHORITY_ROOT}/packets/c0v-radial-publish/protocol.json`,
+    attemptId: PHASE10_C0V_S6_RECOVERY_V3_ATTEMPT_IDS["c0v-radial-publish"],
   }),
   "c0v-static-produce": Object.freeze({
-    protocolPath: "research/phase10-execution-v2/recovery-v2/packets/c0v-static-produce/protocol.json",
-    attemptId: "c0v-static-produce-20260822-v1",
+    protocolPath: `${PHASE10_C0V_S6_RECOVERY_V3_AUTHORITY_ROOT}/packets/c0v-static-produce/protocol.json`,
+    attemptId: PHASE10_C0V_S6_RECOVERY_V3_ATTEMPT_IDS["c0v-static-produce"],
   }),
   "c0v-static-publish": Object.freeze({
-    protocolPath: "research/phase10-execution-v2/recovery-v2/packets/c0v-static-publish/protocol.json",
-    attemptId: "c0v-static-publish-20260822-v1",
+    protocolPath: `${PHASE10_C0V_S6_RECOVERY_V3_AUTHORITY_ROOT}/packets/c0v-static-publish/protocol.json`,
+    attemptId: PHASE10_C0V_S6_RECOVERY_V3_ATTEMPT_IDS["c0v-static-publish"],
   }),
   "c0v-aggregate": Object.freeze({
-    protocolPath: "research/phase10-execution-v2/recovery-v2/packets/c0v-aggregate/protocol.json",
-    attemptId: "c0v-aggregate-20260822-v1",
+    protocolPath: `${PHASE10_C0V_S6_RECOVERY_V3_AUTHORITY_ROOT}/packets/c0v-aggregate/protocol.json`,
+    attemptId: PHASE10_C0V_S6_RECOVERY_V3_ATTEMPT_IDS["c0v-aggregate"],
   }),
 } satisfies Readonly<Record<Phase10C0VS6PacketId, Readonly<{
   protocolPath: string;

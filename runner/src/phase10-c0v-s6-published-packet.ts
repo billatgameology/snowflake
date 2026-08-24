@@ -3,6 +3,9 @@ import { basename, isAbsolute, relative, resolve, sep } from "node:path";
 import { canonicalJsonSha256, strictJsonSnapshot, type StrictJson } from "./gate4-evidence.ts";
 import {
   PHASE10_C0V_S6_PACKET_IDS,
+  PHASE10_C0V_S6_RECOVERY_V3_ATTEMPT_ROOT,
+  PHASE10_C0V_S6_RECOVERY_V3_AUTHORITY_PATH,
+  PHASE10_C0V_S6_RECOVERY_V3_PACKET_CATALOGUE_PATH,
   parsePhase10C0VS6CallableRegistry,
   parsePhase10C0VS6Matrix,
   parsePhase10C0VS6PacketCatalogue,
@@ -146,9 +149,10 @@ const PACKAGE_PUBLICATION_ROOTS = Object.freeze([
   "evidence/phase10-numerical-verification-v1",
   "evidence/phase10-obligation-preflight-v2",
   "evidence/phase10-obligation-preflight-v3",
+  "evidence/phase10-obligation-preflight-v4",
 ] as const);
 const PACKAGE_BASELINE_ATTEMPT_ROOT = "out/phase10-c0v-reference-v1" as const;
-const PACKAGE_ATTEMPT_ROOT = "out/phase10-execution-v2/recovery-v2/attempts" as const;
+const PACKAGE_ATTEMPT_ROOT = PHASE10_C0V_S6_RECOVERY_V3_ATTEMPT_ROOT;
 
 export interface Phase10C0VS6ReopenedPublishedArtifact {
   readonly artifactRole:
@@ -795,12 +799,12 @@ function independentlyDeriveApArtifactIndexBytes(
   }
   register("authority-execution-v2-readme", "research/phase10-execution-v2/README.md");
   register(
-    "authority-execution-v2-recovery-v2",
-    "research/phase10-execution-v2/recovery-v2/recovery-authority.json",
+    "authority-execution-v2-recovery-v3",
+    PHASE10_C0V_S6_RECOVERY_V3_AUTHORITY_PATH,
   );
   register(
     "authority-packet-catalogue",
-    "research/phase10-execution-v2/recovery-v2/packet-catalogue.json",
+    PHASE10_C0V_S6_RECOVERY_V3_PACKET_CATALOGUE_PATH,
   );
   for (const packet of authority.catalogue.packets) {
     register(`authority-${packet.packetId}-protocol`, packet.protocolPath);
@@ -808,12 +812,12 @@ function independentlyDeriveApArtifactIndexBytes(
   }
   register(
     "out-ap-c0v-s6-missing-producer",
-    "evidence/phase10-obligation-preflight-v3/missing-producer.json",
+    "evidence/phase10-obligation-preflight-v4/missing-producer.json",
     missingProducerBytes,
   );
   register(
     "out-ap-c0v-s6-uncalled-check",
-    "evidence/phase10-obligation-preflight-v3/uncalled-check.json",
+    "evidence/phase10-obligation-preflight-v4/uncalled-check.json",
     uncalledCheckBytes,
   );
   const artifacts = [...sources.entries()].map(([path, source]) => Object.freeze({
@@ -832,7 +836,7 @@ function independentlyDeriveApArtifactIndexBytes(
   }
   return phase10C0VS6PrettyJsonBytes(Object.freeze({
     schema: "phase10-artifact-index-v1",
-    bundleId: "phase10-obligation-preflight-v3",
+    bundleId: "phase10-obligation-preflight-v4",
     artifacts: Object.freeze(artifacts),
   }));
 }

@@ -2,7 +2,12 @@ import { createHash } from "node:crypto";
 import { lstatSync, readFileSync, realpathSync } from "node:fs";
 import { relative, resolve } from "node:path";
 import { strictJsonSnapshot, type StrictJson } from "./gate4-evidence.ts";
-import { parsePhase10C0VS6PrettyJsonBytes } from "./phase10-c0v-s6-contracts.ts";
+import {
+  PHASE10_C0V_S6_RECOVERY_V3_ATTEMPT_IDS,
+  PHASE10_C0V_S6_RECOVERY_V3_ATTEMPT_ROOT,
+  PHASE10_C0V_S6_RECOVERY_V3_AUTHORITY_ROOT,
+  parsePhase10C0VS6PrettyJsonBytes,
+} from "./phase10-c0v-s6-contracts.ts";
 
 type MutableJson = null | boolean | number | string | MutableJson[] | { [key: string]: MutableJson };
 type JsonObject = { readonly [key: string]: StrictJson };
@@ -39,9 +44,10 @@ export interface Phase10C0VS6ApNegativeControlRequest {
 }
 
 const REGISTRY_PATH =
-  "research/phase10-execution-v2/recovery-v2/packets/c0v-radial-produce/callable-registry.json" as const;
+  `${PHASE10_C0V_S6_RECOVERY_V3_AUTHORITY_ROOT}/packets/c0v-radial-produce/callable-registry.json` as const;
 const ATTEMPT_PREFIX =
-  "out/phase10-execution-v2/recovery-v2/attempts/a-p-c0v-s6/a-p-c0v-s6-20260822-v3/negative-controls" as const;
+  `${PHASE10_C0V_S6_RECOVERY_V3_ATTEMPT_ROOT}/a-p-c0v-s6/` +
+  `${PHASE10_C0V_S6_RECOVERY_V3_ATTEMPT_IDS["a-p-c0v-s6"]}/negative-controls`;
 
 function fail(message: string): never {
   throw new Error(`Phase 10 C0V S6 A-P negative control refused: ${message}`);
