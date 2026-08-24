@@ -1439,6 +1439,81 @@ After the clean checkpoint is pushed, run only the exact A-P v3 read-only `check
 nothing and all predecessor bytes remain exact; then run A-P v3 once. Never retry automatically. A
 refusal retains every byte and returns to this plan before moving-produce.
 
+### S6 recovery-v2 A-P v3 publication-overlay stop and recovery-v3 successor plan — 2026-08-24
+
+From clean pushed freeze `d670494b863484f6130d09915ce7ecae64b0d867`, the exact A-P v3
+read-only `check` exited 0 without writes and the one authorized `run` completed preflight and its
+worker. The worker completed both named negative controls, the producer, and the check caller, then
+the parent fail-stopped before terminal-candidate materialization with
+`out-ap-c0v-s6-artifact-index does not resolve one registered whole-file publication path`. No
+terminal candidate, verification, terminal receipt, or final structural output was published.
+
+The bounded non-author diagnosis located one internal publication-overlay seam in
+`runner/src/phase10-c0v-s6-lifecycle.ts`: `registeredCallerSourceIdentity()` uniquely reopens the
+immutable matrix row, but then treats that row's physical v2 path as the active publication path.
+The recovery-v2 protocol correctly authorizes the fresh v3 path, so the membership check refuses;
+removing only that check would be wrong because the emitted identity would still name v2. This is
+a fail-closed infrastructure defect, not a worker, control, solver, or science failure.
+
+The consumed v3 tuple and its two locks are immutable. The attempt base is
+`out/phase10-execution-v2/recovery-v2/attempts/a-p-c0v-s6/a-p-c0v-s6-20260822-v3/`:
+
+| Recovery-v2 retained file | Bytes | SHA-256 |
+|---|---:|---|
+| `candidate/artifact-index.json` | 13,210 | `ca677825c471a5311062bd160231a5828c05fc17ceac1c3e0f2d20d10f82d0f7` |
+| `candidate/missing-producer.json` | 30,741 | `0341289d0bd4431847609713f5ffc0a99d063fe6a13a8940d7536b28e864acff` |
+| `candidate/uncalled-check.json` | 31,382 | `b62d26663cf8d7ed95eecbedbd2db2a7491bd3fcb3a3e9c5b4939b9e22059996` |
+| `exit-status.json` | 243 | `547f4797edc9f68964caa68e58375a10bd2c983b8b68dba5f14fed2556006f12` |
+| `freeze-evaluation.json` | 27,280 | `8ca2c8806f56c84bdc20718cc3a95cb96e1ab9ec6e7e82db1c814f5bb759057a` |
+| `stderr.log` | 0 | `e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855` |
+| `stdout.log` | 283,304 | `a2e83c042fc5bfdb6025a8e5b3ba557284a7e95029a472d192a4aa9042b873b2` |
+| `worker-invocations.jsonl` | 3,903 | `0559ded5fd38f56b9451389b3ea3d65c5fe8bb478b7044cb671eec214c61f244` |
+| `out/phase10-execution-v2/recovery-v2/locks/a-p-c0v-s6.lock` | 176 | `b163ff257442dcee2489b619c6f7be61b2f3ceb8e03bfaca89cd0a6eaa34f93d` |
+| `out/phase10-execution-v2/recovery-v2/locks/package.lock` | 232 | `d60b3dc3801d35673f0a3be2cd7816905112348e415cff80eaeda370c9e90424` |
+| `evidence/phase10-obligation-preflight-v3/packets/a-p-c0v-s6/preflight.json` | 38,701 | `dd7d897043313fbfd439a264fb8435fe5c3e736e078aa7db8e84a5980826ed36` |
+
+The worker lifetime is 125,776,629,700 ns. Its four completed governed invocations total exactly
+125,289,842,000 ns = 0.0348027338888889 process-hours: missing-producer 17,384,500 ns,
+uncalled-check 12,691,100 ns, producer 39,980,400 ns, and check-caller 125,219,786,000 ns. Recovery
+must credit those resources, but the tuple earns zero packet, scientific, or success credit. The
+new retained addition is 429,172 bytes; cumulative S6 retention is 493,488 bytes and the next exact
+package baseline is 2,123,065 bytes. Only the v3 preflight final exists: the other five v3 finals
+and all six v3 stages remain absent.
+
+Recovery-v3 is the smallest non-destructive successor:
+
+- Track and manifest-pin the passing v3 preflight. Freeze a package-wide successor below
+  `research/phase10-execution-v2/recovery-v3/`, with runtime/locks below
+  `out/phase10-execution-v2/recovery-v3/`, sole new A-P attempt `a-p-c0v-s6-20260822-v4`, and six
+  fresh final/stage paths below `evidence/phase10-obligation-preflight-v4/`. The other seven attempt
+  IDs and their own output paths remain unchanged; only their six A-P dependency identities move
+  to v4.
+- The successor authority exact-binds the `d670494b` recovery-v2 freeze and authority, all six
+  predecessor locks, all 13 predecessor attempt files, both published preflights, all 22 still
+  absent v2/v3 final/stage paths, and absence of the recovery-v3 runtime plus all 12 v4 final/stage
+  paths. It records 493,488 retained bytes, one observed worker / 125,776,629,700 ns, four credited
+  governed invocations / 125,289,842,000 ns / 0.0348027338888889 process-hours, and
+  `automaticRetry: false`. A-P's projected unchanged 16-hour ceiling is 57,725,289,842,000 ns and
+  16.0348027338889 process-hours including predecessor work.
+- Repair only the A-P whole-file overlay. Use an exact output-ID-keyed six-row descriptor that
+  requires the immutable matrix's v2 path and resolves to the protocol's exact v4 path:
+  `artifact-index`, `missing-producer`, `packets/a-p-c0v-s6/preflight`,
+  `packets/a-p-c0v-s6/terminal-receipt`, `uncalled-check`, and `verification`. Validate and emit the
+  resolved v4 identity. Preserve the existing exact matrix-path behavior for every non-A-P packet;
+  do not use basename, generic containment, or positional pairing.
+- Add focused success and refusal coverage for the fresh A-P identities, a swapped/wrong
+  output-ID mapping, and a non-A-P matrix/protocol mismatch. Regenerate all eight callable
+  registries/protocol bindings because lifecycle is in their frozen closure. Run exact `npm test`
+  and one bounded non-author audit, then commit and push the first-add recovery-v3 freeze with all
+  recovery-v3 runtime and v4 paths absent.
+- Only after that clean freeze may the exact A-P v4 `check` run and write nothing, followed by one
+  A-P v4 `run`. Never retry v1, v2, v3, or v4 automatically. Any refusal retains every byte and
+  returns here before moving-produce.
+
+No ADR or charter amendment is needed: decision 0053 and this plan already require a separately
+frozen successor after an unclassified infrastructure stop. Science, references, tolerances,
+resource ceilings, and the rejected hostile-runtime design remain closed.
+
 ### Rejected native pre-Node launcher design (retained history; do not implement)
 
 **Superseded by maker direction on 2026-08-22.** The detail below records the design that exposed
