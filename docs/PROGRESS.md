@@ -92,6 +92,12 @@ detail.
   charter v1.26 and `AGENTS.md` require integrity for routine sources, one targeted check for
   load-bearing inputs, and full named controls for gates or strong public claims. No recursive
   reviews; stop when another check cannot change the decision. No evidence or criteria changed.
+- **The GG gut-check catalogue now leads with its image-bearing generated sweep (2026-08-23).**
+  The governed NAS split intentionally leaves historical mixed comparison/reference media
+  unserved, but 89 project-generated PNG renders remain public and healthy. The index formerly
+  placed 37 model-only orphan links ahead of them, making the thumbnails appear absent; the
+  generator now orders the generated-crystal gallery first and a regression pins that priority.
+  This is an operational UX correction only and changes no scientific evidence or phase state.
 - Historical extent-21 artifacts remain valid measured-only comparisons: **CAK 3/90, M1 54/90**
   over their named scopes. They are not the registered conservative-intersection verdict, which
   decision 0045 closed as not computed.
@@ -102,8 +108,8 @@ detail.
   direction) and content stays in-repo unpublished, `test.yml` CI unaffected. Reconciliation is
   a live decision point under **Next step**. Full freeze history:
   [the history file](progress-history-phases-6-8-9.md).
-- **Last updated:** 2026-08-20 (preserved the Phase 6/8/9 index compaction; corrected Phase 10 to
-  no package selected and completed decision-ready option planning)
+- **Last updated:** 2026-08-23 (put the GG gut-check generated-crystal thumbnails first; no phase
+  or evidence change)
 
 ## Phase gates
 

@@ -668,10 +668,24 @@ sections.push({
     .map((p) => ({ label: name(p).replace(".png", ""), href: FS(p), image: FS(p) })),
 });
 
+// The maker uses this page to choose generated crystals for animation. Keep that image-bearing
+// sweep ahead of model-only orphan links; after the NAS governance split removed the historical
+// mixed comparison galleries, those links otherwise occupied several screens and made the
+// available thumbnails look absent.
+const sectionPriority = (section: Section): number => {
+  if (section.title === "Generated crystals (parameter sweep)") return 0;
+  if (section.title.startsWith("Animation dial-in")) return 1;
+  if (section.title === "Crystal by crystal") return 2;
+  if (section.title === "Interactive views with no comparison image") return 3;
+  return 4;
+};
+const visibleSections = sections.filter((s) => s.items.length > 0 || (s.rows ?? []).length > 0);
+visibleSections.sort((a, b) => sectionPriority(a) - sectionPriority(b));
+
 const out = {
   generated: new Date().toISOString(),
   root: INDEX_ROOT,
-  sections: sections.filter((s) => s.items.length > 0 || (s.rows ?? []).length > 0),
+  sections: visibleSections,
 };
 // A fresh worktree has no out/ tree at all; the index is the first thing written into it.
 mkdirSync(ROOT, { recursive: true });

@@ -73,8 +73,9 @@ describe("gutcheck index catalogue boundary", () => {
 
     const indexPath = join(working, "out/gutcheck-gg-realism/index.json");
     const source = readFileSync(indexPath, "utf8");
-    const index = JSON.parse(source) as { root: string; sections: unknown[] };
+    const index = JSON.parse(source) as { root: string; sections: Array<{ title?: string }> };
     expect(index.root).toBe("out/gutcheck-gg-realism");
+    expect(index.sections[0]?.title).toBe("Generated crystals (parameter sweep)");
     expect(source).not.toContain(working);
     expect(source).not.toContain(bulk);
     expect(source).not.toContain("/@fs/");
