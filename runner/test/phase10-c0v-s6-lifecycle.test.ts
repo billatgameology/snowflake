@@ -1,6 +1,16 @@
+import { readFileSync } from "node:fs";
+import { resolve } from "node:path";
 import { describe, expect, it } from "vitest";
-import { phase10C0VS6ResolveRegisteredWholeFilePublicationPath } from
+import {
+  independentlyReopenPhase10C0VS6HistoricalTerminalCandidate,
+  phase10C0VS6ResolveRegisteredWholeFilePublicationPath,
+} from
   "../src/phase10-c0v-s6-lifecycle.ts";
+import { phase10C0VS6ArtifactIdentity } from "../src/phase10-c0v-s6-execution-contracts.ts";
+import {
+  derivePhase10C0VS6HistoricalRetainedRuntimeAuthority,
+  derivePhase10C0VS6RetainedRuntimeAuthority,
+} from "../src/phase10-c0v-s6-runtime-authority.ts";
 
 type ResolverPacket = Parameters<typeof phase10C0VS6ResolveRegisteredWholeFilePublicationPath>[0];
 
@@ -38,6 +48,7 @@ const AP_OVERLAY_ROWS = Object.freeze([
     currentPath: "evidence/phase10-obligation-preflight-v6/verification.json",
   }),
 ] as const);
+const ROOT = resolve(import.meta.dirname, "../..");
 
 function packet(
   packetId: ResolverPacket["packetId"],
@@ -50,6 +61,31 @@ function packet(
 }
 
 describe("Phase 10 C0V S6 lifecycle whole-file publication overlay", () => {
+  it("reopens the accepted A-P lifecycle through its retained recovery-v5 protocol only", () => {
+    const protocolPath =
+      "research/phase10-execution-v2/recovery-v5/packets/a-p-c0v-s6/protocol.json";
+    const preflightPath =
+      "evidence/phase10-obligation-preflight-v6/packets/a-p-c0v-s6/preflight.json";
+    const protocolBytes = new Uint8Array(readFileSync(resolve(ROOT, protocolPath)));
+    const input = Object.freeze({
+      repositoryRoot: ROOT,
+      packetProtocolIdentity: phase10C0VS6ArtifactIdentity(protocolPath, protocolBytes),
+      packetProtocolBytes: protocolBytes,
+      preflightBytes: new Uint8Array(readFileSync(resolve(ROOT, preflightPath))),
+    });
+    expect(() => derivePhase10C0VS6RetainedRuntimeAuthority(input))
+      .toThrow(/current recovery-v6 packet protocol identity path differs/u);
+    const retained = derivePhase10C0VS6HistoricalRetainedRuntimeAuthority(input);
+    expect(retained.packet.packetId).toBe("a-p-c0v-s6");
+    expect(retained.packet.registeredAttemptId).toBe("a-p-c0v-s6-20260822-v6");
+    expect(retained.preflight.observed.packetProtocol).toEqual(input.packetProtocolIdentity);
+    const candidate = independentlyReopenPhase10C0VS6HistoricalTerminalCandidate(input);
+    expect(candidate.lifecycle.packet.protocolId)
+      .toBe("phase10-a-p-c0v-s6-execution-v2-recovery-v5");
+    expect(candidate.lifecycle.preflight.observed.packetProtocol).toEqual(input.packetProtocolIdentity);
+    expect(candidate.lifecycle.selectedSubrouteId).toBe("a-p-c0v-s6-structural-complete");
+  }, 600_000);
+
   it("resolves every exact immutable A-P v2 row to its fresh v6 publication path", () => {
     const authority = packet("a-p-c0v-s6", AP_OVERLAY_ROWS.map((entry) => entry.currentPath));
     for (const row of AP_OVERLAY_ROWS) {

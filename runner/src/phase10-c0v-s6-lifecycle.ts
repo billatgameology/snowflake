@@ -36,6 +36,7 @@ import {
   type Phase10C0VS6TerminalRegisteredCap,
 } from "./phase10-c0v-s6-receipts.ts";
 import {
+  derivePhase10C0VS6HistoricalRetainedRuntimeAuthority,
   derivePhase10C0VS6RetainedRuntimeAuthority,
   type Phase10C0VS6RawRuntimeAuthorityInput,
 } from "./phase10-c0v-s6-runtime-authority.ts";
@@ -235,10 +236,13 @@ function refusalProjection(
  * Attempt rows, terminal candidates, verification receipts, and terminal receipts are never
  * inputs, so they cannot choose their own tuple, subroute, or terminal state.
  */
-export function independentlyProjectPhase10C0VS6RawLifecycleRoute(
+function projectPhase10C0VS6RawLifecycleRoute(
   input: Phase10C0VS6RawRuntimeAuthorityInput,
+  historical: boolean,
 ): Phase10C0VS6RawLifecycleRouteProjection {
-  const { packet, preflight } = derivePhase10C0VS6RetainedRuntimeAuthority(input);
+  const { packet, preflight } = historical
+    ? derivePhase10C0VS6HistoricalRetainedRuntimeAuthority(input)
+    : derivePhase10C0VS6RetainedRuntimeAuthority(input);
   const root = phase10C0VS6PhysicalRepositoryRoot(input.repositoryRoot);
   const preflightIdentity = phase10C0VS6ArtifactIdentity(packet.paths.preflightReceiptPath, input.preflightBytes);
   const exitStatusBytes = phase10C0VS6ReadUniquePhysicalFile(root, preflight.observed.exitStatusPath);
@@ -395,6 +399,7 @@ export function independentlyProjectPhase10C0VS6RawLifecycleRoute(
   const evaluation = independentlyVerifyPhase10C0VS6ApArtifacts({
     repositoryRoot: input.repositoryRoot,
     negativeControlReceiptBytes,
+    authorityGeneration: historical ? "historical-predecessor-ap" : "current",
   });
   if (evaluation.aggregateVerdict !== "pass" || evaluation.errors.length !== 0 ||
     evaluation.negativeControlReproofs.length !== 2 ||
@@ -444,6 +449,12 @@ export function independentlyProjectPhase10C0VS6RawLifecycleRoute(
     registeredCap: null,
     completionProof,
   });
+}
+
+export function independentlyProjectPhase10C0VS6RawLifecycleRoute(
+  input: Phase10C0VS6RawRuntimeAuthorityInput,
+): Phase10C0VS6RawLifecycleRouteProjection {
+  return projectPhase10C0VS6RawLifecycleRoute(input, false);
 }
 
 interface RawTerminalCandidateContext extends Phase10C0VS6RawTerminalCandidateProjection {
@@ -975,7 +986,7 @@ function reopenPhase10C0VS6TerminalCandidate(
   historical = false,
 ): Phase10C0VS6RawTerminalCandidateProjection {
   const root = phase10C0VS6PhysicalRepositoryRoot(input.repositoryRoot);
-  const lifecycle = independentlyProjectPhase10C0VS6RawLifecycleRoute(input);
+  const lifecycle = projectPhase10C0VS6RawLifecycleRoute(input, historical);
   const decisionRosters = lifecycle.packet.terminalCandidateContract.decisionRosters.filter(
     (entry) => entry.subrouteId === lifecycle.selectedSubrouteId,
   );

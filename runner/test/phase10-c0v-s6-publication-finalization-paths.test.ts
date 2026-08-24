@@ -126,7 +126,7 @@ describe("Phase 10 C0V S6 publication finalization path joins", () => {
     const rootPath = mkdtempSync(join(tmpdir(), "phase10-c0v-s6-finalization-paths-"));
     temporaryRoots.push(rootPath);
     const candidateDirectory =
-      "out/phase10-execution-v2/recovery-v5/attempts/a-p-c0v-s6/" +
+      "out/phase10-execution-v2/recovery-v6/attempts/a-p-c0v-s6/" +
       "a-p-c0v-s6-20260822-v6/candidate";
     const bytesByOutput = new Map(AP_OUTPUTS.map((entry, index) => [
       entry.outputId,

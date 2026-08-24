@@ -102,7 +102,7 @@ import {
 } from "./phase10-c0v-s6-worker-transport.ts";
 
 const PACKET_CATALOGUE_PATH =
-  "research/phase10-execution-v2/recovery-v5/packet-catalogue.json" as const;
+  "research/phase10-execution-v2/recovery-v6/packet-catalogue.json" as const;
 const CHECK_LIMITS = Object.freeze([
   "no-lock-or-authorizing-preflight-observation",
   "no-resource-or-mutable-dependency-observation",

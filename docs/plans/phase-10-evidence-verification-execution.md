@@ -1960,6 +1960,36 @@ now derived from the recovery-v5 authority's first-add commit and retains that c
 manifest, while current source bytes are still copied into the synthetic closure. This restores
 the intended later-evidence-commit test without changing production or governed state.
 
+### S6 recovery-v6 implementation checkpoint — 2026-08-24
+
+Recovery-v6 implements only the registered repair and successor boundary. The observer compares a
+prior route's exact internal-plus-candidate attempt roster; the accepted A-P packet is reopened
+through its retained recovery-v5 protocol, preflight, catalogue, registry, and `d47b803` freeze;
+the current recovery-v6 catalogue and all eight registries remain one homogeneous live freeze.
+Moving-produce alone advances from v1 to v2. A-P stays v6 and the other six attempts stay v1.
+
+The deterministic generated package contains 18 JSON files / 833,453 bytes with tree SHA-256
+`0608d68c87565d2f57d4fd1cbc2e21432030ef8026c5ba56f12c09dcd1cd2d97`. Its authority is 24,915
+bytes / `3ca90817b7e7ff1e3ab05681f5f25448cdb0cbaba2603bb740e43de1cac223cd`; its catalogue is 16,104
+bytes / `4bc5fc245cde709706a3191b73270b94ac52467d18187fad0e08d45f0c17c8a5`. Strict parsing passes
+18/18 and all 101 live callable registrations match. The authority binds 12 locks, 38 attempt
+files, 10 published files, 2,002,925 retained bytes, and 64 absent paths. The static baseline is
+57 files / 2,994,827 bytes; accepted A-P remains separate at 15 files / 637,675 bytes, so moving v2
+observes 72 files / 3,632,502 bytes and 532,300,704,500 governed ns before its attempt.
+
+Focused authority/executor tests pass 83/83; the runtime/history set passes 46/46 and reopens the
+exact accepted 15-file A-P prefix. Exact `npm test` passes Rule 7 across 1,360 files, both
+typechecks, and 161/161 Vitest files with 2,516 passed and 49 skipped in 1,631.64 seconds. No
+registered recovery-v6 command, solver, attempt, evidence publication, commit, or push occurred
+during implementation or validation.
+
+A fresh non-author GPT-5-family Codex reviewer sharing the task context reported zero concrete
+blockers. It independently rehashed and censused the 60 retained files, 64 absent paths, all 101
+live callable identities, generated bindings, accepted recovery-v5 A-P Git blobs, and the storage
+and timing partition. It did not run tests, a registered command, solver/finalizer, edit, commit,
+push, NAS, or network. Its explicit limit is that recovery-v6 has no first-add identity before its
+first commit; the post-commit registered `check` must prove that freeze before any run.
+
 ### Rejected native pre-Node launcher design (retained history; do not implement)
 
 **Superseded by maker direction on 2026-08-22.** The detail below records the design that exposed

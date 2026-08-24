@@ -3,9 +3,9 @@ import { lstatSync, readFileSync, realpathSync } from "node:fs";
 import { isAbsolute, relative, resolve, sep } from "node:path";
 import { strictJsonSnapshot, type StrictJson } from "./gate4-evidence.ts";
 import {
-  PHASE10_C0V_S6_RECOVERY_V5_AUTHORITY_PATH,
-  PHASE10_C0V_S6_RECOVERY_V5_AUTHORITY_ROOT,
-  PHASE10_C0V_S6_RECOVERY_V5_PACKET_CATALOGUE_PATH,
+  PHASE10_C0V_S6_RECOVERY_V6_AUTHORITY_PATH,
+  PHASE10_C0V_S6_RECOVERY_V6_AUTHORITY_ROOT,
+  PHASE10_C0V_S6_RECOVERY_V6_PACKET_CATALOGUE_PATH,
   parsePhase10C0VS6PrettyJsonBytes,
 } from "./phase10-c0v-s6-contracts.ts";
 import {
@@ -77,8 +77,8 @@ interface IndexSource {
 type JsonObject = { readonly [key: string]: StrictJson };
 
 const MATRIX_PATH = "research/phase10-c0v-s6-obligation-matrix-v1.json" as const;
-const CATALOGUE_PATH = PHASE10_C0V_S6_RECOVERY_V5_PACKET_CATALOGUE_PATH;
-const RECOVERY_AUTHORITY_PATH = PHASE10_C0V_S6_RECOVERY_V5_AUTHORITY_PATH;
+const CATALOGUE_PATH = PHASE10_C0V_S6_RECOVERY_V6_PACKET_CATALOGUE_PATH;
+const RECOVERY_AUTHORITY_PATH = PHASE10_C0V_S6_RECOVERY_V6_AUTHORITY_PATH;
 const README_PATH = "research/phase10-execution-v2/README.md" as const;
 
 function fail(message: string): never {
@@ -161,14 +161,14 @@ function sourceIds(root: string): readonly IndexSource[] {
     register(`authority-original-a-p-${index}`, row.path);
   }
   register("authority-execution-v2-readme", README_PATH);
-  register("authority-execution-v2-recovery-v5", RECOVERY_AUTHORITY_PATH);
+  register("authority-execution-v2-recovery-v6", RECOVERY_AUTHORITY_PATH);
   register("authority-packet-catalogue", CATALOGUE_PATH);
   for (const packetId of [
     "a-p-c0v-s6", "c0v-moving-produce", "c0v-moving-publish", "c0v-radial-produce",
     "c0v-radial-publish", "c0v-static-produce", "c0v-static-publish", "c0v-aggregate",
   ]) {
-    register(`authority-${packetId}-protocol`, `${PHASE10_C0V_S6_RECOVERY_V5_AUTHORITY_ROOT}/packets/${packetId}/protocol.json`);
-    register(`authority-${packetId}-callable-registry`, `${PHASE10_C0V_S6_RECOVERY_V5_AUTHORITY_ROOT}/packets/${packetId}/callable-registry.json`);
+    register(`authority-${packetId}-protocol`, `${PHASE10_C0V_S6_RECOVERY_V6_AUTHORITY_ROOT}/packets/${packetId}/protocol.json`);
+    register(`authority-${packetId}-callable-registry`, `${PHASE10_C0V_S6_RECOVERY_V6_AUTHORITY_ROOT}/packets/${packetId}/callable-registry.json`);
   }
   return Object.freeze([...byPath.entries()].map(([path, artifactId]) => Object.freeze({
     artifactId,

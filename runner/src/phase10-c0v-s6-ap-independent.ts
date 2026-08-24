@@ -12,6 +12,13 @@ import {
   PHASE10_C0V_S6_RECOVERY_V5_AUTHORITY_ROOT,
   PHASE10_C0V_S6_RECOVERY_V5_PACKAGE_LOCK_PATH,
   PHASE10_C0V_S6_RECOVERY_V5_PACKET_CATALOGUE_PATH,
+  PHASE10_C0V_S6_RECOVERY_V6_ATTEMPT_IDS,
+  PHASE10_C0V_S6_RECOVERY_V6_ATTEMPT_ROOT,
+  PHASE10_C0V_S6_RECOVERY_V6_AUTHORITY_PATH,
+  PHASE10_C0V_S6_RECOVERY_V6_AUTHORITY_ROOT,
+  PHASE10_C0V_S6_RECOVERY_V6_PACKAGE_LOCK_PATH,
+  PHASE10_C0V_S6_RECOVERY_V6_PACKET_CATALOGUE_PATH,
+  PHASE10_C0V_S6_RECOVERY_V6_PREDECESSOR_IMPLEMENTATION_FREEZE_COMMIT,
   assertPhase10C0VS6ArtifactSchemaRegistryMatrixParity,
   parsePhase10C0VS6ArtifactSchemaRegistry,
   parsePhase10C0VS6CallableRegistry,
@@ -20,6 +27,7 @@ import {
   parsePhase10C0VS6PacketProtocol,
   parsePhase10C0VS6PrettyJsonBytes,
   parsePhase10C0VS6RecoveryV5Authority,
+  parsePhase10C0VS6RecoveryV6Authority,
   type Phase10C0VS6ArtifactIdentity,
   type Phase10C0VS6ArtifactSchemaRegistry,
   type Phase10C0VS6CallableRegistry,
@@ -28,6 +36,7 @@ import {
   type Phase10C0VS6PacketId,
   type Phase10C0VS6PacketProtocol,
   type Phase10C0VS6RecoveryV5Authority,
+  type Phase10C0VS6RecoveryV6Authority,
 } from "./phase10-c0v-s6-contracts.ts";
 import {
   phase10C0VS6AssertBuiltinAllowlistRegistryCoverage,
@@ -92,6 +101,8 @@ export interface Phase10C0VS6ApGraphRequest {
   readonly overrides?: Phase10C0VS6ApAuthorityOverrides;
   /** Final packet execution sets this true. Mutation campaigns set it false to isolate graph errors. */
   readonly requireResolvedCallables?: boolean;
+  /** Retained accepted A-P evidence explicitly reopens its own recovery-v5 authority graph. */
+  readonly authorityGeneration?: "current" | "historical-predecessor-ap";
 }
 
 export interface Phase10C0VS6ApIndependentRequest extends Phase10C0VS6ApGraphRequest {
@@ -103,13 +114,16 @@ export interface Phase10C0VS6ApIndependentRequest extends Phase10C0VS6ApGraphReq
 
 interface CapturedAuthority {
   readonly root: string;
+  readonly authorityRoot: string;
+  readonly packageLockPath: string;
+  readonly historicalFreezeArtifacts: ReadonlyMap<string, Phase10C0VS6ArtifactIdentity> | null;
   readonly matrix: Phase10C0VS6ObligationMatrix;
   readonly matrixValue: StrictJson;
   readonly matrixIdentity: Phase10C0VS6ArtifactIdentity;
   readonly originalMatrix: Phase10ObligationMatrix;
   readonly catalogue: Phase10C0VS6PacketCatalogue;
   readonly catalogueIdentity: Phase10C0VS6ArtifactIdentity;
-  readonly recoveryAuthority: Phase10C0VS6RecoveryV5Authority;
+  readonly recoveryAuthority: Phase10C0VS6RecoveryV5Authority | Phase10C0VS6RecoveryV6Authority;
   readonly recoveryAuthorityIdentity: Phase10C0VS6ArtifactIdentity;
   readonly successorSchemaRegistry: Phase10C0VS6ArtifactSchemaRegistry;
   readonly predecessorSchemaRegistryValue: StrictJson;
@@ -207,24 +221,36 @@ function loadJson(root: string, path: string, override: unknown, label: string):
 function capture(request: Phase10C0VS6ApGraphRequest): CapturedAuthority {
   const root = physicalRoot(request.repositoryRoot);
   const overrides = request.overrides ?? {};
+  const historical = request.authorityGeneration === "historical-predecessor-ap";
+  const cataloguePath = historical
+    ? PHASE10_C0V_S6_RECOVERY_V5_PACKET_CATALOGUE_PATH
+    : PHASE10_C0V_S6_RECOVERY_V6_PACKET_CATALOGUE_PATH;
+  const authorityPath = historical
+    ? PHASE10_C0V_S6_RECOVERY_V5_AUTHORITY_PATH
+    : PHASE10_C0V_S6_RECOVERY_V6_AUTHORITY_PATH;
+  const authorityRoot = historical
+    ? PHASE10_C0V_S6_RECOVERY_V5_AUTHORITY_ROOT
+    : PHASE10_C0V_S6_RECOVERY_V6_AUTHORITY_ROOT;
+  const packageLockPath = historical
+    ? PHASE10_C0V_S6_RECOVERY_V5_PACKAGE_LOCK_PATH
+    : PHASE10_C0V_S6_RECOVERY_V6_PACKAGE_LOCK_PATH;
   const matrixPath = "research/phase10-c0v-s6-obligation-matrix-v1.json";
   const matrixBytes = readBytes(root, matrixPath, "S6 obligation matrix");
   const matrixValue = loadJson(root, matrixPath, overrides.matrix, "S6 obligation matrix");
   const matrix = parsePhase10C0VS6Matrix(matrixValue);
-  const cataloguePath = PHASE10_C0V_S6_RECOVERY_V5_PACKET_CATALOGUE_PATH;
   const catalogueBytes = readBytes(root, cataloguePath, "S6 packet catalogue");
   const catalogue = parsePhase10C0VS6PacketCatalogue(loadJson(
     root, cataloguePath, overrides.catalogue, "S6 packet catalogue",
   ));
   const recoveryAuthorityBytes = readBytes(
     root,
-    PHASE10_C0V_S6_RECOVERY_V5_AUTHORITY_PATH,
+    authorityPath,
     "S6 recovery authority",
   );
-  const recoveryAuthority = parsePhase10C0VS6RecoveryV5Authority(parsePhase10C0VS6PrettyJsonBytes(
-    recoveryAuthorityBytes,
-    "S6 recovery authority",
-  ));
+  const recoveryAuthorityValue = parsePhase10C0VS6PrettyJsonBytes(recoveryAuthorityBytes, "S6 recovery authority");
+  const recoveryAuthority = historical
+    ? parsePhase10C0VS6RecoveryV5Authority(recoveryAuthorityValue)
+    : parsePhase10C0VS6RecoveryV6Authority(recoveryAuthorityValue);
   const originalMatrix = parsePhase10ObligationMatrix(loadJson(
     root,
     "research/phase10-obligation-matrix-v1.json",
@@ -248,8 +274,8 @@ function capture(request: Phase10C0VS6ApGraphRequest): CapturedAuthority {
   const registries = new Map<Phase10C0VS6PacketId, Phase10C0VS6CallableRegistry>();
   const registryValues = new Map<Phase10C0VS6PacketId, StrictJson>();
   for (const packetId of PHASE10_C0V_S6_PACKET_IDS) {
-    const protocolPath = `${PHASE10_C0V_S6_RECOVERY_V5_AUTHORITY_ROOT}/packets/${packetId}/protocol.json`;
-    const registryPath = `${PHASE10_C0V_S6_RECOVERY_V5_AUTHORITY_ROOT}/packets/${packetId}/callable-registry.json`;
+    const protocolPath = `${authorityRoot}/packets/${packetId}/protocol.json`;
+    const registryPath = `${authorityRoot}/packets/${packetId}/callable-registry.json`;
     const protocolValue = loadJson(root, protocolPath, overrides.protocols?.[packetId], `${packetId} protocol`);
     const registryValue = loadJson(
       root, registryPath, overrides.callableRegistries?.[packetId], `${packetId} callable registry`,
@@ -259,8 +285,35 @@ function capture(request: Phase10C0VS6ApGraphRequest): CapturedAuthority {
     protocols.set(packetId, parsePhase10C0VS6PacketProtocol(protocolValue));
     registries.set(packetId, parsePhase10C0VS6CallableRegistry(registryValue));
   }
+  let historicalFreezeArtifacts: ReadonlyMap<string, Phase10C0VS6ArtifactIdentity> | null = null;
+  if (historical) {
+    const apPacket = protocols.get("a-p-c0v-s6")!;
+    const preflight = jsonObject(loadJson(
+      root,
+      apPacket.paths.preflightReceiptPath,
+      undefined,
+      "accepted A-P retained preflight",
+    ), "accepted A-P retained preflight");
+    const observed = jsonObject(preflight.observed, "accepted A-P retained preflight observed");
+    const codeFreeze = jsonObject(observed.codeFreeze, "accepted A-P retained preflight codeFreeze");
+    if (codeFreeze.commit !== PHASE10_C0V_S6_RECOVERY_V6_PREDECESSOR_IMPLEMENTATION_FREEZE_COMMIT) {
+      fail("accepted A-P retained preflight freeze commit differs from recovery-v6 authority");
+    }
+    const identities = jsonArray(codeFreeze.artifacts, "accepted A-P retained preflight freeze artifacts")
+      .map((entry, index) => bindingIdentity(
+        entry,
+        `accepted A-P retained preflight freeze artifact[${index}]`,
+      ));
+    if (new Set(identities.map((entry) => entry.path)).size !== identities.length) {
+      fail("accepted A-P retained preflight freeze artifacts repeat a path");
+    }
+    historicalFreezeArtifacts = new Map(identities.map((entry) => [entry.path, entry]));
+  }
   return Object.freeze({
     root,
+    authorityRoot,
+    packageLockPath,
+    historicalFreezeArtifacts,
     matrix,
     matrixValue,
     matrixIdentity: identity(matrixPath, matrixBytes),
@@ -268,7 +321,7 @@ function capture(request: Phase10C0VS6ApGraphRequest): CapturedAuthority {
     catalogue,
     catalogueIdentity: identity(cataloguePath, catalogueBytes),
     recoveryAuthority,
-    recoveryAuthorityIdentity: identity(PHASE10_C0V_S6_RECOVERY_V5_AUTHORITY_PATH, recoveryAuthorityBytes),
+    recoveryAuthorityIdentity: identity(authorityPath, recoveryAuthorityBytes),
     successorSchemaRegistry,
     predecessorSchemaRegistryValue,
     protocols,
@@ -320,7 +373,7 @@ function validateAuthorityBindings(context: CapturedAuthority): readonly string[
       !sameIdentity(protocol.bindings.recoveryAuthority, context.recoveryAuthorityIdentity)) {
       fail(`${packetId} protocol/registry authority binding differs`);
     }
-    const registryPath = `${PHASE10_C0V_S6_RECOVERY_V5_AUTHORITY_ROOT}/packets/${packetId}/callable-registry.json`;
+    const registryPath = `${context.authorityRoot}/packets/${packetId}/callable-registry.json`;
     const registryBytes = readBytes(context.root, registryPath, `${packetId} live registry`);
     if (!sameIdentity(protocol.bindings.callableRegistry, identity(registryPath, registryBytes))) {
       fail(`${packetId} protocol does not bind its exact live callable registry`);
@@ -398,15 +451,27 @@ function validateCallableResolution(context: CapturedAuthority): readonly string
       if (callable.resolution !== "resolved" || callable.identity === null) {
         fail(`${callable.callableId} is not resolved`);
       }
-      phase10C0VS6AssertCallableRegistration(context.root, {
-        callableId: callable.callableId,
-        modulePath: callable.modulePath,
-        exportName: callable.exportName,
-        identity: Object.freeze({ path: callable.modulePath, ...callable.identity }),
-      });
+      const registeredIdentity = Object.freeze({ path: callable.modulePath, ...callable.identity });
+      if (context.historicalFreezeArtifacts === null) {
+        phase10C0VS6AssertCallableRegistration(context.root, {
+          callableId: callable.callableId,
+          modulePath: callable.modulePath,
+          exportName: callable.exportName,
+          identity: registeredIdentity,
+        });
+      } else {
+        const frozenIdentity = context.historicalFreezeArtifacts.get(callable.modulePath) ??
+          fail(`${callable.callableId} module is absent from the accepted A-P code freeze`);
+        if (!sameIdentity(frozenIdentity, registeredIdentity)) {
+          fail(`${callable.callableId} registry identity differs from the accepted A-P code freeze`);
+        }
+      }
     }
   }
-  return Object.freeze(["exact-callable-union", context.requireResolvedCallables ? "all-live-import-audits" : "mutation-structural-mode"]);
+  return Object.freeze([
+    "exact-callable-union",
+    context.requireResolvedCallables ? "all-live-import-audits" : "mutation-structural-mode",
+  ]);
 }
 
 function validateCalledChecks(context: CapturedAuthority): readonly string[] {
@@ -491,7 +556,7 @@ function overlaps(left: string, right: string): boolean {
 }
 
 function validatePacketCatalogue(context: CapturedAuthority): readonly string[] {
-  if (context.catalogue.packageLockPath !== PHASE10_C0V_S6_RECOVERY_V5_PACKAGE_LOCK_PATH) {
+  if (context.catalogue.packageLockPath !== context.packageLockPath) {
     fail("catalogue package lock differs");
   }
   const attemptRoots = context.catalogue.packets.map((entry) => entry.attemptRoot);
@@ -540,7 +605,7 @@ function validateResourceContracts(context: CapturedAuthority): readonly string[
       resources.outerInfrastructureSafetyTimeoutSeconds !==
         resources.currentPacketRegisteredElapsedNanosecondsMaximum / 1_000_000_000 + 3600 ||
       resources.automaticRetry !== false ||
-      protocol.paths.packageLockPath !== PHASE10_C0V_S6_RECOVERY_V5_PACKAGE_LOCK_PATH) {
+      protocol.paths.packageLockPath !== context.packageLockPath) {
       fail(`${packetId} resource literals or integer derivations differ`);
     }
     const rawFields = protocol.workerInvocationContract.exactFields;
@@ -778,11 +843,22 @@ function assertWitnessIdentity(
 export function independentlyReprovePhase10C0VS6ApNegativeControl(
   repositoryRoot: string,
   receiptBytes: Uint8Array,
+  authorityGeneration: Phase10C0VS6ApGraphRequest["authorityGeneration"] = "current",
 ): Phase10C0VS6ApNegativeControlReproof {
   const root = physicalRoot(repositoryRoot);
   const receipt = parsePhase10C0VS6ApNegativeControlReceiptBytes(receiptBytes);
+  const historical = authorityGeneration === "historical-predecessor-ap";
+  const authorityRoot = historical
+    ? PHASE10_C0V_S6_RECOVERY_V5_AUTHORITY_ROOT
+    : PHASE10_C0V_S6_RECOVERY_V6_AUTHORITY_ROOT;
+  const attemptRoot = historical
+    ? PHASE10_C0V_S6_RECOVERY_V5_ATTEMPT_ROOT
+    : PHASE10_C0V_S6_RECOVERY_V6_ATTEMPT_ROOT;
+  const attemptId = historical
+    ? PHASE10_C0V_S6_RECOVERY_V5_ATTEMPT_IDS["a-p-c0v-s6"]
+    : PHASE10_C0V_S6_RECOVERY_V6_ATTEMPT_IDS["a-p-c0v-s6"];
   const registryPath =
-    `${PHASE10_C0V_S6_RECOVERY_V5_AUTHORITY_ROOT}/packets/c0v-radial-produce/callable-registry.json`;
+    `${authorityRoot}/packets/c0v-radial-produce/callable-registry.json`;
   const baselineBytes = canonicalPrettyBytes(receipt.beforeWitness.semanticFingerprint.projection);
   const liveBaselineBytes = readBytes(root, registryPath, "live radial callable registry");
   if (!sameBytes(baselineBytes, liveBaselineBytes)) {
@@ -795,8 +871,8 @@ export function independentlyReprovePhase10C0VS6ApNegativeControl(
     fail(`${receipt.fixtureId} embedded mutation differs from the independently derived named operation`);
   }
   const afterPath =
-    `${PHASE10_C0V_S6_RECOVERY_V5_ATTEMPT_ROOT}/a-p-c0v-s6/` +
-    `${PHASE10_C0V_S6_RECOVERY_V5_ATTEMPT_IDS["a-p-c0v-s6"]}/negative-controls/` +
+    `${attemptRoot}/a-p-c0v-s6/` +
+    `${attemptId}/negative-controls/` +
     `${receipt.fixtureId}/callable-registry.json`;
   assertWitnessIdentity(receipt.beforeWitness, registryPath, baselineBytes, `${receipt.fixtureId} before witness`);
   assertWitnessIdentity(receipt.afterWitness, afterPath, observedAfterBytes, `${receipt.fixtureId} after witness`);
@@ -806,7 +882,11 @@ export function independentlyReprovePhase10C0VS6ApNegativeControl(
   const ownerCheckId = receipt.fixtureId === "missing-producer"
     ? "chk-ap-c0v-s6-output-producers"
     : "chk-ap-c0v-s6-called-checks";
-  const baseline = evaluateGraph({ repositoryRoot: root, requireResolvedCallables: false });
+  const baseline = evaluateGraph({
+    repositoryRoot: root,
+    requireResolvedCallables: false,
+    authorityGeneration,
+  });
   const beforeCheck = baseline.checkResults.find((entry) => entry.checkId === ownerCheckId);
   if (beforeCheck?.verdict !== "pass") fail(`${ownerCheckId} does not pass on the retained baseline`);
   const mutated = evaluateGraph({
@@ -815,6 +895,7 @@ export function independentlyReprovePhase10C0VS6ApNegativeControl(
       callableRegistries: { "c0v-radial-produce": receipt.afterWitness.semanticFingerprint.projection },
     },
     requireResolvedCallables: false,
+    authorityGeneration,
   });
   const afterCheck = mutated.checkResults.find((entry) => entry.checkId === ownerCheckId);
   if (afterCheck?.verdict !== "fail" || afterCheck.errors.length === 0 ||
@@ -844,10 +925,12 @@ export function independentlyVerifyPhase10C0VS6ApArtifacts(
   const missingProducer = independentlyReprovePhase10C0VS6ApNegativeControl(
     request.repositoryRoot,
     request.negativeControlReceiptBytes.missingProducer,
+    request.authorityGeneration,
   );
   const uncalledCheck = independentlyReprovePhase10C0VS6ApNegativeControl(
     request.repositoryRoot,
     request.negativeControlReceiptBytes.uncalledCheck,
+    request.authorityGeneration,
   );
   if (missingProducer.fixtureId !== "missing-producer" || uncalledCheck.fixtureId !== "uncalled-check") {
     fail("negative-control receipt roles are swapped");

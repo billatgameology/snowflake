@@ -7,6 +7,10 @@ import {
   PHASE10_C0V_S6_RECOVERY_V5_ATTEMPT_ROOT,
   PHASE10_C0V_S6_RECOVERY_V5_AUTHORITY_PATH,
   PHASE10_C0V_S6_RECOVERY_V5_PACKET_CATALOGUE_PATH,
+  PHASE10_C0V_S6_RECOVERY_V6_ATTEMPT_ROOT,
+  PHASE10_C0V_S6_RECOVERY_V6_AUTHORITY_PATH,
+  PHASE10_C0V_S6_RECOVERY_V6_PACKET_CATALOGUE_PATH,
+  PHASE10_C0V_S6_RECOVERY_V6_PREDECESSOR_ACCEPTED_PACKET_COMMIT,
   parsePhase10C0VS6CallableRegistry,
   parsePhase10C0VS6Matrix,
   parsePhase10C0VS6PacketCatalogue,
@@ -117,6 +121,7 @@ import {
   independentlyEvaluatePhase10C0VS6WorkerProgress,
 } from "./phase10-c0v-s6-worker-progress.ts";
 import {
+  derivePhase10C0VS6HistoricalRetainedRuntimeAuthority,
   derivePhase10C0VS6RetainedRuntimeAuthority,
   type Phase10C0VS6RawRuntimeAuthorityInput,
 } from "./phase10-c0v-s6-runtime-authority.ts";
@@ -156,7 +161,10 @@ const PACKAGE_PUBLICATION_ROOTS = Object.freeze([
   "evidence/phase10-obligation-preflight-v6",
 ] as const);
 const PACKAGE_BASELINE_ATTEMPT_ROOT = "out/phase10-c0v-reference-v1" as const;
-const PACKAGE_ATTEMPT_ROOT = PHASE10_C0V_S6_RECOVERY_V5_ATTEMPT_ROOT;
+const PACKAGE_ATTEMPT_ROOTS = Object.freeze([
+  PHASE10_C0V_S6_RECOVERY_V5_ATTEMPT_ROOT,
+  PHASE10_C0V_S6_RECOVERY_V6_ATTEMPT_ROOT,
+] as const);
 
 export interface Phase10C0VS6ReopenedPublishedArtifact {
   readonly artifactRole:
@@ -453,29 +461,46 @@ function rawInputForPacket(
   const catalogueRows = authority.catalogue.packets.filter((entry) => entry.packetId === packetId);
   if (catalogueRows.length !== 1) fail(`${packetId} does not resolve one catalogue row`);
   const catalogueRow = catalogueRows[0]!;
-  const protocolArtifact = readArtifact(authority.root, catalogueRow.protocolPath, null, `${packetId} protocol`);
-  const packet = parsePhase10C0VS6PacketProtocol(
-    parsePhase10C0VS6PrettyJsonBytes(protocolArtifact.bytes, `${packetId} protocol`),
-  );
-  if (packet.packetId !== packetId || packet.paths.preflightReceiptPath !== catalogueRow.preflightReceiptPath ||
-    packet.paths.terminalReceiptPath !== catalogueRow.terminalReceiptPath) {
-    fail(`${packetId} live protocol differs from catalogue paths`);
-  }
   const preflightArtifact = authority.dependencyArtifacts.filter((entry) =>
     entry.packetId === packetId && entry.schemaId === "phase10-c0v-s6-preflight-receipt-v2");
-  if (preflightArtifact.length !== 1) fail(`${packetId} dependency roster lacks one retained preflight`);
+  if (preflightArtifact.length > 1) fail(`${packetId} dependency roster repeats its retained preflight`);
+  const expectedPreflight = preflightArtifact[0]?.identity ?? authority.manifest.get(
+    catalogueRow.preflightReceiptPath,
+  ) ?? fail(`${packetId} retained preflight is absent from dependency and launch-HEAD authority`);
   const livePreflight = readArtifact(
     authority.root,
     catalogueRow.preflightReceiptPath,
-    preflightArtifact[0]!.identity,
+    expectedPreflight,
     `${packetId} retained preflight`,
   );
-  return Object.freeze({
+  const preflightValue = object(
+    parsePhase10C0VS6PrettyJsonBytes(livePreflight.bytes, `${packetId} retained preflight protocol authority`),
+    `${packetId} retained preflight protocol authority`,
+  );
+  const observed = object(preflightValue.observed!, `${packetId} retained preflight observed authority`);
+  const protocolIdentity = parsePhase10C0VS6ArtifactIdentity(
+    observed.packetProtocol,
+    `${packetId} retained preflight packetProtocol`,
+  );
+  const protocolArtifact = readArtifact(
+    authority.root,
+    protocolIdentity.path,
+    protocolIdentity,
+    `${packetId} retained protocol`,
+  );
+  const rawInput = Object.freeze({
     repositoryRoot: authority.root.path,
     packetProtocolIdentity: protocolArtifact.identity,
     packetProtocolBytes: protocolArtifact.bytes,
     preflightBytes: livePreflight.bytes,
   });
+  const retained = derivePhase10C0VS6HistoricalRetainedRuntimeAuthority(rawInput);
+  if (retained.packet.packetId !== packetId ||
+    retained.packet.paths.preflightReceiptPath !== catalogueRow.preflightReceiptPath ||
+    retained.packet.paths.terminalReceiptPath !== catalogueRow.terminalReceiptPath) {
+    fail(`${packetId} retained protocol differs from the current catalogue's immutable publication paths`);
+  }
+  return rawInput;
 }
 
 function selectedDependencyArtifact(
@@ -833,13 +858,16 @@ function independentlyDeriveApArtifactIndexBytes(
     register(`authority-original-a-p-${index}`, binding.path);
   }
   register("authority-execution-v2-readme", "research/phase10-execution-v2/README.md");
+  const historicalAp = authority.catalogue.schema === "phase10-c0v-s6-recovery-v5-packet-catalogue-v1";
   register(
-    "authority-execution-v2-recovery-v5",
-    PHASE10_C0V_S6_RECOVERY_V5_AUTHORITY_PATH,
+    historicalAp ? "authority-execution-v2-recovery-v5" : "authority-execution-v2-recovery-v6",
+    historicalAp ? PHASE10_C0V_S6_RECOVERY_V5_AUTHORITY_PATH : PHASE10_C0V_S6_RECOVERY_V6_AUTHORITY_PATH,
   );
   register(
     "authority-packet-catalogue",
-    PHASE10_C0V_S6_RECOVERY_V5_PACKET_CATALOGUE_PATH,
+    historicalAp
+      ? PHASE10_C0V_S6_RECOVERY_V5_PACKET_CATALOGUE_PATH
+      : PHASE10_C0V_S6_RECOVERY_V6_PACKET_CATALOGUE_PATH,
   );
   for (const packet of authority.catalogue.packets) {
     register(`authority-${packet.packetId}-protocol`, packet.protocolPath);
@@ -1166,19 +1194,30 @@ function deriveExecution(
   if (execution.modulePath !== binding.modulePath || execution.exportName !== binding.exportName) {
     fail("verification evaluator module/export differs from callable registry");
   }
-  const implementation = readArtifact(root, binding.modulePath, null, "verification evaluator implementation");
-  if (execution.byteLength !== implementation.identity.byteLength ||
-    execution.sha256 !== implementation.identity.sha256 ||
-    (binding.identity !== null && (binding.identity.byteLength !== execution.byteLength ||
-      binding.identity.sha256 !== execution.sha256))) {
-    fail("verification evaluator identity differs from live/registered implementation bytes");
+  const historicalAp = packet.packetId === "a-p-c0v-s6" &&
+    packet.bindings.recoveryAuthority?.path === PHASE10_C0V_S6_RECOVERY_V5_AUTHORITY_PATH;
+  if (historicalAp) {
+    const frozen = preflight.observed.codeFreeze.artifacts.filter((entry) => entry.path === binding.modulePath);
+    if (frozen.length !== 1 || execution.byteLength !== frozen[0]!.byteLength ||
+      execution.sha256 !== frozen[0]!.sha256 || binding.identity === null ||
+      binding.identity.byteLength !== execution.byteLength || binding.identity.sha256 !== execution.sha256) {
+      fail("historical A-P verification evaluator differs from its registry/code-freeze identity");
+    }
+  } else {
+    const implementation = readArtifact(root, binding.modulePath, null, "verification evaluator implementation");
+    if (execution.byteLength !== implementation.identity.byteLength ||
+      execution.sha256 !== implementation.identity.sha256 ||
+      (binding.identity !== null && (binding.identity.byteLength !== execution.byteLength ||
+        binding.identity.sha256 !== execution.sha256))) {
+      fail("verification evaluator identity differs from live/registered implementation bytes");
+    }
+    phase10C0VS6AssertCallableRegistration(root.path, {
+      callableId: binding.callableId,
+      modulePath: binding.modulePath,
+      exportName: binding.exportName,
+      identity: implementation.identity,
+    });
   }
-  phase10C0VS6AssertCallableRegistration(root.path, {
-    callableId: binding.callableId,
-    modulePath: binding.modulePath,
-    exportName: binding.exportName,
-    identity: implementation.identity,
-  });
   const run = packet.commandTemplates.filter((entry) => entry.commandId === "run");
   if (run.length !== 1 || execution.runtime !== preflight.observed.runtime ||
     execution.command !== run[0]!.command || execution.gitHead !== preflight.observed.head ||
@@ -1576,7 +1615,8 @@ function assertSelectedPrefixClosedWorld(
   const expectedAttempts = new Map<string, Phase10C0VS6ArtifactIdentity>();
   for (const packet of selected) {
     for (const artifact of packet.reopenedArtifacts) {
-      if (pathBelongsToRoot(artifact.identity.path, PACKAGE_ATTEMPT_ROOT)) {
+      if (PACKAGE_ATTEMPT_ROOTS.some((attemptRoot) =>
+        pathBelongsToRoot(artifact.identity.path, attemptRoot))) {
         addExactIdentity(expectedAttempts, artifact.identity, `${artifact.identity.path} selected-prefix attempt`);
       }
     }
@@ -1592,7 +1632,7 @@ function assertSelectedPrefixClosedWorld(
   }
   phase10C0VS6AssertExactPhysicalRootCensus(
     authority.root,
-    [PACKAGE_ATTEMPT_ROOT],
+    PACKAGE_ATTEMPT_ROOTS,
     Object.freeze([...expectedAttempts.values()]),
   );
 }
@@ -1625,6 +1665,50 @@ function reopenCurrentPacketAuthority(
   );
   const manifest = phase10C0VS6ValidateHeadBoundPreflightManifest(root.path, preflight);
   return Object.freeze({ root, catalogue, matrix, manifest, dependencyArtifacts: Object.freeze([]) });
+}
+
+function reopenHistoricalPacketAuthority(
+  authority: ReopenedAuthority,
+  packet: Phase10C0VS6PacketProtocol,
+): ReopenedAuthority {
+  const catalogueBytes = phase10C0VS6ReadUniquePhysicalFile(
+    authority.root,
+    packet.bindings.packetCatalogue.path,
+  );
+  phase10C0VS6SameIdentity(
+    phase10C0VS6ArtifactIdentity(packet.bindings.packetCatalogue.path, catalogueBytes),
+    packet.bindings.packetCatalogue,
+    `${packet.packetId} historical packet catalogue`,
+  );
+  const catalogue = parsePhase10C0VS6PacketCatalogue(parsePhase10C0VS6PrettyJsonBytes(
+    catalogueBytes,
+    `${packet.packetId} historical packet catalogue`,
+  ));
+  exactRoster(
+    catalogue.packets.map((entry) => entry.packetId),
+    PHASE10_C0V_S6_PACKET_IDS,
+    `${packet.packetId} historical catalogue order`,
+  );
+  const rows = catalogue.packets.filter((entry) => entry.packetId === packet.packetId);
+  const recoveryAuthority = packet.bindings.recoveryAuthority ??
+    fail(`${packet.packetId} historical protocol lacks recovery-authority binding`);
+  const authorityRoot = recoveryAuthority.path.replace(/\/recovery-authority\.json$/u, "");
+  if (authorityRoot === recoveryAuthority.path || rows.length !== 1 || rows[0]!.protocolPath !==
+    `${authorityRoot}/packets/${packet.packetId}/protocol.json` ||
+    rows[0]!.preflightReceiptPath !== packet.paths.preflightReceiptPath ||
+    rows[0]!.terminalReceiptPath !== packet.paths.terminalReceiptPath) {
+    fail(`${packet.packetId} historical protocol differs from its own catalogue`);
+  }
+  const matrixBytes = phase10C0VS6ReadUniquePhysicalFile(authority.root, packet.bindings.matrix.path);
+  phase10C0VS6SameIdentity(
+    phase10C0VS6ArtifactIdentity(packet.bindings.matrix.path, matrixBytes),
+    packet.bindings.matrix,
+    `${packet.packetId} historical S6 matrix`,
+  );
+  const matrix = parsePhase10C0VS6Matrix(
+    parsePhase10C0VS6PrettyJsonBytes(matrixBytes, `${packet.packetId} historical S6 matrix`),
+  );
+  return Object.freeze({ ...authority, catalogue, matrix });
 }
 
 function exactPublicationTransition(
@@ -4571,8 +4655,9 @@ function verifyCorePacket(
   semanticReproof: Phase10C0VS6HistoricalPacketSemanticReproof | null = null,
 ): Phase10C0VS6VerifiedPublishedPacket {
   const rawInput = rawInputForPacket(authority, packetId);
-  const retained = derivePhase10C0VS6RetainedRuntimeAuthority(rawInput);
+  const retained = derivePhase10C0VS6HistoricalRetainedRuntimeAuthority(rawInput);
   const packet = retained.packet;
+  authority = reopenHistoricalPacketAuthority(authority, packet);
   const candidate = independentlyReopenPhase10C0VS6HistoricalTerminalCandidate(rawInput);
   if (candidate.lifecycle.selectedSubrouteId !== candidate.candidate.selectedSubrouteId ||
     candidate.lifecycle.dispositionCode !== candidate.candidate.dispositionCode) {
@@ -4933,7 +5018,7 @@ function independentlyReprovePublicationPacket(
   prior: readonly Phase10C0VS6VerifiedPublishedPacket[],
 ): Phase10C0VS6HistoricalPacketSemanticReproof {
   const rawInput = rawInputForPacket(authority, config.packetId);
-  const packet = derivePhase10C0VS6RetainedRuntimeAuthority(rawInput).packet;
+  const packet = derivePhase10C0VS6HistoricalRetainedRuntimeAuthority(rawInput).packet;
   const candidate = independentlyReopenPhase10C0VS6HistoricalTerminalCandidate(rawInput);
   if (candidate.lifecycle.selectedSubrouteId !== `${config.packetId}-structural-complete` ||
     candidate.lifecycle.dispositionCode !== null || candidate.lifecycle.terminalState !== "complete") {
@@ -5075,18 +5160,10 @@ function verifyProduceDependencyPrefix(
   // such as moving-publish before radial-produce. Seed those committed outputs from the exact
   // launch-HEAD manifest and matrix; the later direct-contract join remains shallow-only below.
   for (const packetId of requiredCoreIds) {
-    const catalogueRows = catalogue.packets.filter((entry) => entry.packetId === packetId);
-    if (catalogueRows.length !== 1) fail(`${packetId} has no unique chronological catalogue row`);
-    const protocolArtifact = readArtifact(
-      root,
-      catalogueRows[0]!.protocolPath,
-      null,
-      `${packetId} chronological protocol`,
-    );
-    const chronologicalPacket = parsePhase10C0VS6PacketProtocol(parsePhase10C0VS6PrettyJsonBytes(
-      protocolArtifact.bytes,
-      `${packetId} chronological protocol`,
-    ));
+    const chronologicalInput = rawInputForPacket(baseAuthority, packetId);
+    const chronologicalPacket = derivePhase10C0VS6HistoricalRetainedRuntimeAuthority(
+      chronologicalInput,
+    ).packet;
     if (chronologicalPacket.packetId !== packetId) {
       fail(`${packetId} chronological protocol names another packet`);
     }
@@ -5125,7 +5202,7 @@ function verifyProduceDependencyPrefix(
       dependencyArtifacts: Object.freeze([...expandedArtifacts.values()]),
     });
     const rawInput = rawInputForPacket(closureAuthority, packetId);
-    const dependency = derivePhase10C0VS6RetainedRuntimeAuthority(rawInput);
+    const dependency = derivePhase10C0VS6HistoricalRetainedRuntimeAuthority(rawInput);
     const dependencyIndex = catalogue.packets.findIndex((entry) => entry.packetId === packetId);
     if (dependencyIndex < 0 || dependencyIndex >= currentIndex) {
       fail(`${packetId} is not an earlier packet in the current dependency closure`);
@@ -5273,7 +5350,7 @@ export function independentlyReopenPhase10C0VS6VerifiedPublishedDependencies(
 export function independentlyReopenPhase10C0VS6HistoricalVerifiedProduceDependencies(
   input: Phase10C0VS6RawRuntimeAuthorityInput,
 ): Phase10C0VS6VerifiedCoreDependencySet {
-  const current = derivePhase10C0VS6RetainedRuntimeAuthority(input);
+  const current = derivePhase10C0VS6HistoricalRetainedRuntimeAuthority(input);
   const shallow = phase10C0VS6ReopenHistoricalPublishedDependenciesFromRetainedAuthority({
     repositoryRoot: input.repositoryRoot,
     packet: current.packet,
@@ -5283,6 +5360,103 @@ export function independentlyReopenPhase10C0VS6HistoricalVerifiedProduceDependen
     ...current,
     packetProtocolIdentity: input.packetProtocolIdentity,
   }), shallow, Object.freeze([]), true);
+}
+
+/**
+ * Focused accepted-prefix seam: reopens the committed A-P packet through its retained V5
+ * protocol while selecting its six published outputs from the live V6 package matrix/catalogue.
+ */
+export function independentlyReopenPhase10C0VS6AcceptedHistoricalApPacket(
+  repositoryRoot: string,
+): Phase10C0VS6VerifiedPublishedPacket {
+  const root = phase10C0VS6PhysicalRepositoryRoot(repositoryRoot);
+  const catalogueBytes = phase10C0VS6ReadUniquePhysicalFile(
+    root,
+    PHASE10_C0V_S6_RECOVERY_V6_PACKET_CATALOGUE_PATH,
+  );
+  const catalogue = parsePhase10C0VS6PacketCatalogue(parsePhase10C0VS6PrettyJsonBytes(
+    catalogueBytes,
+    "accepted A-P live recovery-v6 catalogue",
+  ));
+  const apRows = catalogue.packets.filter((entry) => entry.packetId === "a-p-c0v-s6");
+  if (apRows.length !== 1) fail("accepted A-P does not resolve one live recovery-v6 catalogue row");
+  const currentProtocol = readArtifact(
+    root,
+    apRows[0]!.protocolPath,
+    null,
+    "accepted A-P live recovery-v6 protocol",
+  );
+  const currentPacket = parsePhase10C0VS6PacketProtocol(parsePhase10C0VS6PrettyJsonBytes(
+    currentProtocol.bytes,
+    "accepted A-P live recovery-v6 protocol",
+  ));
+  const matrixBytes = phase10C0VS6ReadUniquePhysicalFile(root, currentPacket.bindings.matrix.path);
+  phase10C0VS6SameIdentity(
+    phase10C0VS6ArtifactIdentity(currentPacket.bindings.matrix.path, matrixBytes),
+    currentPacket.bindings.matrix,
+    "accepted A-P live S6 matrix",
+  );
+  const matrix = parsePhase10C0VS6Matrix(
+    parsePhase10C0VS6PrettyJsonBytes(matrixBytes, "accepted A-P live S6 matrix"),
+  );
+  const manifest = phase10C0VS6HistoricalHeadManifest(
+    root.path,
+    PHASE10_C0V_S6_RECOVERY_V6_PREDECESSOR_ACCEPTED_PACKET_COMMIT,
+  ).entries;
+  const preflightExpected = manifest.get(apRows[0]!.preflightReceiptPath) ??
+    fail("accepted A-P preflight is absent from its accepted-commit manifest");
+  const preflight = readArtifact(
+    root,
+    apRows[0]!.preflightReceiptPath,
+    preflightExpected,
+    "accepted A-P retained preflight",
+  );
+  const preflightValue = object(
+    parsePhase10C0VS6PrettyJsonBytes(preflight.bytes, "accepted A-P retained preflight"),
+    "accepted A-P retained preflight",
+  );
+  const observed = object(preflightValue.observed!, "accepted A-P retained preflight observed authority");
+  const historicalProtocolIdentity = parsePhase10C0VS6ArtifactIdentity(
+    observed.packetProtocol,
+    "accepted A-P retained protocol identity",
+  );
+  const historicalProtocol = readArtifact(
+    root,
+    historicalProtocolIdentity.path,
+    historicalProtocolIdentity,
+    "accepted A-P retained protocol",
+  );
+  const historical = derivePhase10C0VS6HistoricalRetainedRuntimeAuthority({
+    repositoryRoot: root.path,
+    packetProtocolIdentity: historicalProtocol.identity,
+    packetProtocolBytes: historicalProtocol.bytes,
+    preflightBytes: preflight.bytes,
+  });
+  const dependencyArtifacts = Object.freeze(matrix.outputs
+    .filter((entry) => entry.packetId === "a-p-c0v-s6" && entry.artifact.field === null)
+    .map((entry): Phase10C0VS6ReopenedDependencyArtifact => {
+      const path = phase10C0VS6ResolveRegisteredWholeFilePublicationPath(
+        historical.packet,
+        entry.outputId,
+        entry.artifact.path,
+      );
+      const expected = manifest.get(path) ?? fail(`${entry.outputId} is absent from the accepted-commit manifest`);
+      const artifact = readArtifact(root, path, expected, `${entry.outputId} accepted A-P output`);
+      return Object.freeze({
+        packetId: "a-p-c0v-s6" as const,
+        schemaId: entry.artifact.schemaId,
+        identity: artifact.identity,
+        bytes: artifact.bytes,
+      });
+    }));
+  const authority: ReopenedAuthority = Object.freeze({
+    root,
+    catalogue,
+    matrix,
+    manifest,
+    dependencyArtifacts,
+  });
+  return verifyCorePacket(authority, "a-p-c0v-s6", Object.freeze([]));
 }
 
 /**

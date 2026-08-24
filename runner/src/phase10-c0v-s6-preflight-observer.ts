@@ -2,7 +2,9 @@ import { statfsSync, lstatSync, readdirSync, realpathSync } from "node:fs";
 import { basename, isAbsolute, relative, resolve, sep } from "node:path";
 import { cwd, version as runtimeVersion } from "node:process";
 import {
-  PHASE10_C0V_S6_RECOVERY_V5_PACKAGE_CARRY_FORWARD_ELAPSED_NANOSECONDS,
+  PHASE10_C0V_S6_RECOVERY_V5_ATTEMPT_ROOT,
+  PHASE10_C0V_S6_RECOVERY_V6_ATTEMPT_ROOT,
+  PHASE10_C0V_S6_RECOVERY_V6_PACKAGE_CARRY_FORWARD_ELAPSED_NANOSECONDS,
   parsePhase10C0VS6CallableRegistry,
   parsePhase10C0VS6Matrix,
   parsePhase10C0VS6PacketProtocol,
@@ -66,6 +68,9 @@ import {
 import {
   independentlyVerifyPhase10C0VS6ObservedPublishedDependencyPrefix,
 } from "./phase10-c0v-s6-published-prefix.ts";
+import {
+  derivePhase10C0VS6HistoricalRetainedRuntimeAuthority,
+} from "./phase10-c0v-s6-runtime-authority.ts";
 
 const EVIDENCE_MANIFEST_PATH = "evidence/MANIFEST.json" as const;
 const PACKAGE_ELAPSED_NANOSECONDS_MAXIMUM = 86_400_000_000_000;
@@ -79,7 +84,10 @@ const PACKAGE_PUBLICATION_ROOTS = Object.freeze([
   "evidence/phase10-obligation-preflight-v6",
 ] as const);
 const PACKAGE_BASELINE_ATTEMPT_ROOT = "out/phase10-c0v-reference-v1" as const;
-const PACKAGE_ATTEMPT_ROOT = "out/phase10-execution-v2/recovery-v5/attempts" as const;
+const PACKAGE_ATTEMPT_ROOTS = Object.freeze([
+  PHASE10_C0V_S6_RECOVERY_V5_ATTEMPT_ROOT,
+  PHASE10_C0V_S6_RECOVERY_V6_ATTEMPT_ROOT,
+] as const);
 
 const TERMINAL_FIELDS = Object.freeze([
   "schema", "receiptId", "matrixId", "protocolId", "registryId", "packetId", "attemptId",
@@ -321,9 +329,12 @@ function assertPackageRetainedRootCensus(
   baseline: readonly Phase10C0VS6ArtifactIdentity[],
   priorPackets: readonly Phase10C0VS6PriorPacketPreflightObservation[],
 ): void {
-  const protocols = catalogue.packets.map((entry) => entry.packetId === currentPacket.packetId
+  const currentIndex = catalogue.packets.findIndex((entry) => entry.packetId === currentPacket.packetId);
+  const protocols = catalogue.packets.map((entry, index) => entry.packetId === currentPacket.packetId
     ? currentPacket
-    : readPriorProtocol(root, catalogue, entry.packetId).packet);
+    : index < currentIndex
+      ? readPriorProtocol(root, catalogue, entry.packetId).packet
+      : readCurrentProtocol(root, catalogue, entry.packetId).packet);
   const allowedPublicationPaths = protocols.flatMap((entry) => entry.paths.allowedPublicationPaths);
   if (new Set(allowedPublicationPaths).size !== allowedPublicationPaths.length) {
     fail("package protocols repeat an allowed publication path");
@@ -359,8 +370,9 @@ function assertPackageRetainedRootCensus(
     baselineAttemptArtifacts,
   );
   const acceptedAttemptArtifacts = priorPackets.flatMap((entry) => entry.retainedArtifacts)
-    .filter((entry) => pathBelongsToRoot(entry.path, PACKAGE_ATTEMPT_ROOT));
-  phase10C0VS6AssertExactPhysicalRootCensus(root, [PACKAGE_ATTEMPT_ROOT], acceptedAttemptArtifacts);
+    .filter((entry) => PACKAGE_ATTEMPT_ROOTS.some((attemptRoot) =>
+      pathBelongsToRoot(entry.path, attemptRoot)));
+  phase10C0VS6AssertExactPhysicalRootCensus(root, PACKAGE_ATTEMPT_ROOTS, acceptedAttemptArtifacts);
 }
 
 function exactIdentityRoster(
@@ -560,7 +572,7 @@ function assertUnmaterializedPacket(
   }
 }
 
-function readPriorProtocol(
+function readCurrentProtocol(
   root: Phase10C0VS6PhysicalRoot,
   catalogue: Phase10C0VS6PacketCatalogue,
   packetId: Phase10C0VS6PacketId,
@@ -573,14 +585,50 @@ function readPriorProtocol(
   const entry = entries[0]!;
   const reopened = readIdentity(root, entry.protocolPath);
   const packet = parsePhase10C0VS6PacketProtocol(
-    parsePhase10C0VS6PrettyJsonBytes(reopened.bytes, `${packetId} prior protocol`),
+    parsePhase10C0VS6PrettyJsonBytes(reopened.bytes, `${packetId} current protocol`),
   );
   if (packet.packetId !== packetId || packet.paths.attemptRoot !== entry.attemptRoot ||
     packet.paths.preflightReceiptPath !== entry.preflightReceiptPath ||
     packet.paths.terminalReceiptPath !== entry.terminalReceiptPath) {
-    fail(`${packetId} prior protocol differs from catalogue`);
+    fail(`${packetId} current protocol differs from catalogue`);
   }
   return Object.freeze({ packet, identity: reopened.identity });
+}
+
+function readPriorProtocol(
+  root: Phase10C0VS6PhysicalRoot,
+  catalogue: Phase10C0VS6PacketCatalogue,
+  packetId: Phase10C0VS6PacketId,
+): Readonly<{
+  packet: Phase10C0VS6PacketProtocol;
+  identity: Phase10C0VS6ArtifactIdentity;
+}> {
+  const entries = catalogue.packets.filter((entry) => entry.packetId === packetId);
+  if (entries.length !== 1) fail(`${packetId} does not resolve one catalogue row`);
+  const entry = entries[0]!;
+  const preflightLive = readIdentity(root, entry.preflightReceiptPath);
+  const raw = phase10C0VS6Object(
+    phase10C0VS6ParsePrettyJson(preflightLive.bytes, `${packetId} retained preflight protocol authority`),
+    `${packetId} retained preflight protocol authority`,
+  );
+  const observed = phase10C0VS6Object(raw.observed, `${packetId} retained preflight observed authority`);
+  const identity = parsePhase10C0VS6ArtifactIdentity(
+    observed.packetProtocol,
+    `${packetId} retained preflight packetProtocol`,
+  );
+  const protocolBytes = requireExpectedIdentity(root, identity, `${packetId} retained packet protocol`).bytes;
+  const retained = derivePhase10C0VS6HistoricalRetainedRuntimeAuthority({
+    repositoryRoot: root.path,
+    packetProtocolIdentity: identity,
+    packetProtocolBytes: protocolBytes,
+    preflightBytes: preflightLive.bytes,
+  });
+  if (retained.packet.packetId !== packetId ||
+    retained.packet.paths.preflightReceiptPath !== entry.preflightReceiptPath ||
+    retained.packet.paths.terminalReceiptPath !== entry.terminalReceiptPath) {
+    fail(`${packetId} retained protocol differs from the current catalogue's immutable publication paths`);
+  }
+  return Object.freeze({ packet: retained.packet, identity });
 }
 
 function selectedSubrouteFromTerminal(
@@ -626,6 +674,29 @@ function selectedSubrouteFromTerminal(
   return subroute;
 }
 
+/** Exact closed-world attempt roster for one selected route, including candidate payloads. */
+export function phase10C0VS6AssertSelectedAttemptPathRoster(
+  packet: Phase10C0VS6PacketProtocol,
+  selectedSubrouteId: string,
+  attemptDirectory: string,
+  actualPaths: readonly string[],
+): void {
+  const internalRosters = packet.internalArtifactRosters.filter(
+    (entry) => entry.rosterId === selectedSubrouteId,
+  );
+  if (internalRosters.length !== 1) fail(`${selectedSubrouteId} does not resolve one internal artifact roster`);
+  const candidateFilenames = packet.candidateFilenameRosters[selectedSubrouteId];
+  if (candidateFilenames === undefined) fail(`${selectedSubrouteId} does not resolve one candidate filename roster`);
+  const expectedPaths = [
+    ...internalRosters[0]!.relativePaths.map((path) => `${attemptDirectory}/${path}`),
+    ...candidateFilenames.map((filename) => `${attemptDirectory}/candidate/${filename}`),
+  ].sort(codePointCompare);
+  if (new Set(expectedPaths).size !== expectedPaths.length) {
+    fail(`${selectedSubrouteId} repeats a selected attempt path`);
+  }
+  exactPathRoster(actualPaths, expectedPaths, `${selectedSubrouteId} selected attempt paths`);
+}
+
 function parsePriorResourceAccounting(
   root: Phase10C0VS6PhysicalRoot,
   packet: Phase10C0VS6PacketProtocol,
@@ -657,11 +728,12 @@ function parsePriorResourceAccounting(
   const actualAttemptArtifacts = phase10C0VS6CensusUniquePhysicalDirectory(root, attemptDirectory);
   const recordedAttemptArtifacts = identityRoster(row.attemptRootArtifacts, `${label}.attemptRootArtifacts`);
   exactIdentityRoster(recordedAttemptArtifacts, actualAttemptArtifacts, `${label}.attemptRootArtifacts live census`);
-  const internalRosters = packet.internalArtifactRosters.filter((entry) => entry.rosterId === selectedSubrouteId);
-  if (internalRosters.length !== 1) fail(`${selectedSubrouteId} does not resolve one internal artifact roster`);
-  const expectedInternalPaths = internalRosters[0]!.relativePaths
-    .map((path) => `${attemptDirectory}/${path}`).sort(codePointCompare);
-  exactPathRoster(actualAttemptArtifacts.map((entry) => entry.path), expectedInternalPaths, `${label} internal paths`);
+  phase10C0VS6AssertSelectedAttemptPathRoster(
+    packet,
+    selectedSubrouteId,
+    attemptDirectory,
+    actualAttemptArtifacts.map((entry) => entry.path),
+  );
   const attemptBytes = safeIntegerSum(actualAttemptArtifacts.map((entry) => entry.byteLength), `${label} attempt bytes`);
   if (row.attemptTerminalRetainedBytes !== attemptBytes ||
     row.attemptMaximumObservedConcurrentBytes !== attemptBytes) {
@@ -1225,7 +1297,7 @@ export function phase10C0VS6ObservePreflight(
     fail("catalogue prior prefix has no complete deep published-packet projector");
   }
   for (const entry of catalogue.packets.slice(currentIndex + 1)) {
-    assertUnmaterializedPacket(root, readPriorProtocol(root, catalogue, entry.packetId).packet);
+    assertUnmaterializedPacket(root, readCurrentProtocol(root, catalogue, entry.packetId).packet);
   }
   const packageStorageBaselineArtifacts = baselineArtifacts(root, packet, freeze);
   assertPackageRetainedRootCensus(
@@ -1246,7 +1318,7 @@ export function phase10C0VS6ObservePreflight(
   }
   const packageElapsedNanosecondsBeforeAttempt = safeIntegerSum(
     [
-      PHASE10_C0V_S6_RECOVERY_V5_PACKAGE_CARRY_FORWARD_ELAPSED_NANOSECONDS,
+      PHASE10_C0V_S6_RECOVERY_V6_PACKAGE_CARRY_FORWARD_ELAPSED_NANOSECONDS,
       ...priorPackets.map((entry) => entry.governedElapsedNanoseconds),
     ],
     "prior packet governed elapsed nanoseconds",
