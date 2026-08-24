@@ -1877,6 +1877,89 @@ No ADR or charter amendment is needed: decision 0053 and this plan already requi
 frozen successor after an unclassified infrastructure stop. Science, references, tolerances,
 resource ceilings, and the rejected hostile-runtime design remain closed.
 
+### S6 recovery-v5 moving-produce v1 accounting-reader stop and recovery-v6 successor plan — 2026-08-24
+
+The supplemental A-P evidence checkpoint is clean and pushed at
+`e092259b8d4c3099b569febc08944bf99bfef31a`. From that exact head, the registered
+moving-produce v1 read-only `check` exited 0 with `executableNow: true` and wrote nothing. Its one
+authorized `run` acquired the recovery-v5 package and packet locks, then fail-stopped before
+preflight publication, attempt-root creation, worker start, solver work, or any final/stage write
+with `a-p-c0v-s6 packet resource accounting internal paths differs`. Moving-produce v1 is consumed
+and must not be retried.
+
+The two retained locks name dead PID 52792 and are the complete new moving state:
+
+| Recovery-v5 moving lock | Bytes | SHA-256 |
+|---|---:|---|
+| `out/phase10-execution-v2/recovery-v5/locks/package.lock` | 248 | `6d049c5b60f38dedefea22b1ae32cdddbda6852680d346693533a3a8082182b4` |
+| `out/phase10-execution-v2/recovery-v5/locks/c0v-moving-produce.lock` | 192 | `009ae20742a764e0eec701574207046c317c2eba52324fe8b231572ba2b44cf7` |
+
+The bounded non-author diagnosis found one exact reader omission in
+`parsePriorResourceAccounting()`. It reopens and validates the live A-P v6 attempt census, but
+then compares that nine-file root against only the selected six-file `internalArtifactRosters`
+entry. The valid root also contains the selected route's three registered `candidate/` files.
+`phase10-c0v-s6-attempt-census.ts` and `phase10-c0v-s6-published-packet.ts` already implement the
+correct exact union: internal paths below the attempt directory plus the selected
+`candidateFilenameRosters` paths below the candidate directory, sorted by code point. Recovery-v6
+must reuse that contract in the observer and add one real prior-packet reopen regression. This is
+normalization of an existing closed-world roster, not a new gate or threat-model expansion.
+
+The stop earns zero workers, invocations, governed elapsed/process-hours, packet credit, and
+science credit. A-P v6 remains accepted and is never rerun. Cumulative recovery state is now 60
+files / 2,002,925 bytes: 12 locks, 38 attempt files, and 10 published files. Storage accounting
+must preserve the existing partition rather than double-count A-P: the static successor baseline
+is the recovery-v5 55-file / 2,994,387-byte baseline plus only these two locks, or 57 files /
+2,994,827 bytes; accepted A-P is separately 15 files / 637,675 bytes, so moving v2 observes 72
+files / 3,632,502 bytes before its attempt. Likewise, recovery carry remains
+391,158,252,000 ns and accepted A-P separately contributes 141,142,452,500 ns, for an exact
+moving-v2 pre-attempt total of 532,300,704,500 ns = 0.14786130680555556 process-hours. The exact
+successor absence roster is 64 unique paths.
+
+Recovery-v6 is one bounded package-wide successor:
+
+- Add a separately frozen authority, catalogue, and all eight protocol/registry pairs below
+  `research/phase10-execution-v2/recovery-v6/`, with runtime and locks below
+  `out/phase10-execution-v2/recovery-v6/`. Preserve the exact recovery-v5 A-P protocol as accepted
+  prior-packet authority, add one explicit `predecessorAuthorizedPacketProtocol` binding for
+  moving-produce v1, and bind accepted A-P evidence checkpoint `e092259`; a moving-only successor
+  must not mislabel its source protocol as A-P. The authority exact-binds the 12 locks, 38 attempt
+  files, 10 published files, all 64 absences, zero latest-run execution credit, and
+  `automaticRetry: false`.
+- Authorize exactly `c0v-moving-produce-20260822-v1` to
+  `c0v-moving-produce-20260822-v2`. Its four final destinations remain unchanged because they are
+  absent; its attempt/runtime paths and four stage suffixes advance to v2. A-P remains v6 and the
+  other six packet attempts remain v1. Science routes, S5 artifacts, checks, tolerances, and all
+  compute/storage ceilings stay unchanged.
+- Fix the observer's exact selected-attempt roster join and permit the recovery authority's
+  truthful zero-worker/zero-invocation latest-stop record. A prior packet must be re-proved against
+  the exact protocol identity embedded in its retained preflight, not against a newly regenerated
+  same-packet protocol from the current catalogue. Reuse that historical protocol in observer
+  accounting, published-prefix reopening, and retained runtime authority, with an exact
+  schema-to-authority-root mapping; the live recovery-v6 catalogue and all eight registries remain
+  a uniform current freeze. Add one focused chained regression that reopens the recovery-v5 A-P
+  nine-file root while moving runs under recovery-v6 and rejects a missing, extra, or wrong
+  candidate path through the existing exact comparison. Regenerate all eight callable registries
+  because these shared readers are in the package closure.
+- Run focused checks while this vertical path moves, then one exact `npm test` and one bounded
+  non-author audit on stable generated bytes. Commit and push the first-add recovery-v6 freeze
+  while its runtime, moving-v2 attempt, four finals, and four v2 stages remain absent. Only then
+  may the exact moving-produce v2 read-only `check` run, followed by one v2 `run`. Any refusal
+  retains every byte and returns here before moving-publish.
+
+The diagnosing reviewer was a GPT-5-family Codex child sharing the task/repository context and not
+an author of the moving run. It independently rechecked the live census, hashes, dead process,
+source join, absence state, and storage/timing arithmetic. It did not edit, test, invoke a
+registered command or solver, commit, push, or access NAS/network. No ADR or charter amendment is
+needed because decision 0053 already requires a separately frozen successor after this
+unclassified infrastructure stop.
+
+The first post-publication exact suite exposed one test-only historical-fixture collision: the
+fixture used live `HEAD` as its synthetic pre-evidence base after `HEAD` began tracking the A-P v6
+preflight, then attempted an exclusive synthetic write at that same path. Its pre-evidence base is
+now derived from the recovery-v5 authority's first-add commit and retains that commit's evidence
+manifest, while current source bytes are still copied into the synthetic closure. This restores
+the intended later-evidence-commit test without changing production or governed state.
+
 ### Rejected native pre-Node launcher design (retained history; do not implement)
 
 **Superseded by maker direction on 2026-08-22.** The detail below records the design that exposed

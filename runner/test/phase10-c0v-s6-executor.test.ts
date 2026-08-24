@@ -492,8 +492,12 @@ function prepareApPreFreezeAuthority(root: string, resolveRegistries = false): R
   readonly head: string;
   readonly evidenceManifest: Phase10C0VS6ArtifactIdentity;
 }> {
+  const recoveryV5AuthorityPath =
+    "research/phase10-execution-v2/recovery-v5/recovery-authority.json";
   const sourceBase = resolveRegistries
-    ? git(process.cwd(), ["rev-parse", "HEAD"])
+    ? git(process.cwd(), [
+      "log", "-1", "--format=%H", "--diff-filter=A", "--", recoveryV5AuthorityPath,
+    ])
     : "7ff83eaf9312ebc3bf23d6f5ef5a56d6f65a912a";
   git(root, ["init"]);
   git(root, ["config", "user.email", "phase10@example.invalid"]);
@@ -514,8 +518,18 @@ function prepareApPreFreezeAuthority(root: string, resolveRegistries = false): R
   for (const directory of ["core/src", "runner/src", "solver-cpu/src", "solver-gpu/src"]) {
     copyWorkingDirectory(root, directory, true);
   }
-  const evidenceManifest = copyWorkingPath(root, "evidence/MANIFEST.json", true);
   copyRecoveryPredecessorState(root);
+  const evidenceManifestPath = "evidence/MANIFEST.json";
+  if (resolveRegistries) {
+    git(root, ["checkout", sourceBase, "--", evidenceManifestPath]);
+  }
+  const evidenceManifestBytes = new Uint8Array(
+    readFileSync(resolve(root, evidenceManifestPath)),
+  );
+  const evidenceManifest = phase10C0VS6ArtifactIdentity(
+    evidenceManifestPath,
+    evidenceManifestBytes,
+  );
   const cataloguePath = "research/phase10-execution-v2/recovery-v5/packet-catalogue.json";
   const catalogueBytes = new Uint8Array(readFileSync(resolve(process.cwd(), cataloguePath)));
   const catalogue = parsePhase10C0VS6PacketCatalogue(
