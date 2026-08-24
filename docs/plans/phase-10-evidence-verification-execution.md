@@ -1801,6 +1801,78 @@ paths remain absent. Verify the derived first-add/ancestry result from the commi
 then run the exact A-P v6 read-only `check` and one v6 `run`; any refusal retains all bytes and
 returns here before moving-produce.
 
+### S6 recovery-v5 A-P v6 PASS checkpoint — 2026-08-24
+
+Recovery-v5 first entered a clean pushed freeze at
+`d47b80373b1fec5ecc79d349046cfbf2a28fa58e`. Its authority independently derived that same
+first-add commit, and its runtime root plus all v6 final/stage paths were absent. The exact A-P v6
+read-only `check` exited 0 with `executableNow: true` and wrote nothing. The one authorized `run`
+then completed successfully; do not rerun or reuse this tuple.
+
+The six published final artifacts are:
+
+| A-P v6 final | Bytes | SHA-256 |
+|---|---:|---|
+| `evidence/phase10-obligation-preflight-v6/artifact-index.json` | 13,211 | `7fd3d46e9edc33b60142c2fdf04f1eb6f468482941898137b521d496d61cfd31` |
+| `evidence/phase10-obligation-preflight-v6/missing-producer.json` | 30,741 | `3266dc73696ec749a60eb83e18be922ef46ff93e4b4779208597768080f145e7` |
+| `evidence/phase10-obligation-preflight-v6/packets/a-p-c0v-s6/preflight.json` | 49,270 | `03ff669a927700f39714db87524e9946636be8afc3e455051332764f93a3fd14` |
+| `evidence/phase10-obligation-preflight-v6/packets/a-p-c0v-s6/terminal-receipt.json` | 10,127 | `11bf3112732fdcb8673a30644c0a2290a462e3452d01d07e8f6b174b156bffc2` |
+| `evidence/phase10-obligation-preflight-v6/uncalled-check.json` | 31,382 | `a6ecba80cc9289666a364da94b95d26599a823adbf6cfe2c9292c6654f511050` |
+| `evidence/phase10-obligation-preflight-v6/verification.json` | 100,562 | `c4e32051bbd754c9263dc408df58e6f3d7d3e2fa1033f408b0beba4745dc6210` |
+
+The terminal receipt says `complete`, `acceptedPacketCredit: true`, and `dependencyValid: true`.
+Verification independently returns `pass`: all 10 registered structural checks pass, both named
+controls executed and were rejected, all six output IDs were produced, and the four nonrecursive
+verification artifacts reopen exactly. Solver concurrency is zero; no scientific, validation,
+tuning, target-score, or prior-phase claim is made.
+
+The ignored attempt base is
+`out/phase10-execution-v2/recovery-v5/attempts/a-p-c0v-s6/a-p-c0v-s6-20260822-v6/`:
+
+| Retained attempt file | Bytes | SHA-256 |
+|---|---:|---|
+| `candidate/artifact-index.json` | 13,211 | `7fd3d46e9edc33b60142c2fdf04f1eb6f468482941898137b521d496d61cfd31` |
+| `candidate/missing-producer.json` | 30,741 | `3266dc73696ec749a60eb83e18be922ef46ff93e4b4779208597768080f145e7` |
+| `candidate/uncalled-check.json` | 31,382 | `a6ecba80cc9289666a364da94b95d26599a823adbf6cfe2c9292c6654f511050` |
+| `exit-status.json` | 243 | `87fa0b6182650fe60895c9127a89153eb0ccfb29b5cd9aba129b63d8b0c26d8d` |
+| `freeze-evaluation.json` | 30,078 | `f9a5605e2e58be906bf7025f6a049f6aecd0e3c8d449774c03f6d0ddafde5550` |
+| `stderr.log` | 0 | `e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855` |
+| `stdout.log` | 283,305 | `0767db5f0d91edfe9ff9d72361762002fb9ccb857518bdc808e063e93c301ff5` |
+| `terminal-success-candidate.json` | 9,519 | `19d7d23e6ec16af894e8f0e8ab164bea4f7e14f5bf6a984ad4b5cc3f7381bc3a` |
+| `worker-invocations.jsonl` | 3,903 | `89bcb35abc4fa3b124c28735e0593e07c7e9537a78a281d3925df0ec19f12e12` |
+
+The attempt contains exactly those nine files / 402,382 bytes, has no stage files, and both active
+locks were cleaned. The six physical finals total 235,293 bytes, so the actual new retained prefix
+is 15 files / 637,675 bytes. `evidence/MANIFEST.json` now pins 396 files / 6,242,500 bytes. The next
+moving-produce prefix therefore observes 70 retained artifacts / 3,632,062 bytes. One worker lived
+141,617,155,000 ns; its four governed invocation intervals sum 141,142,452,500 ns =
+0.03920623680555556 process-hours. The exact cumulative carry into moving-produce is
+532,300,704,500 ns = 0.14786130680555556 process-hours.
+
+A bounded non-author GPT-5-family Codex reviewer with shared task/repository context independently
+re-parsed and hashed all final and attempt files, re-derived the terminal, verification, controls,
+closed worlds, timings, storage totals, and moving-produce dependency contracts, and reported zero
+blockers. It did not run tests, registered commands, a solver/finalizer, edit, pin, commit, push,
+NAS, or network. Its raw freeze rehash stopped at the known Git-LF/worktree-CRLF `.gitignore`
+distinction; the 126-entry freeze roster, launch/head joins, and tracked status matched.
+
+The first post-pinning exact `npm test` passed Rule 7 across 1,340 files, both typechecks, 159/160
+test files, and 2,511 tests with 49 skipped; its sole failure was the synthetic retained-freeze test
+crossing its historical 180-second Vitest allowance. The same case crossed that allowance in
+isolation. Bounded diagnosis found correct synchronous behavior: the fixture rebuilds Git state,
+re-derives 101 callable registrations and five ancestry layers, and only then rejects the forged
+commit. The test-only allowance is now 300 seconds; no production watchdog, resource cap, or
+refusal check changed. The isolated case passed in 184.18 seconds. Updating the live state then made
+the focused progress-index test catch its two stale A-P-next/gate-row strings; only those exact
+state assertions changed. Final exact `npm test` on all current executable, evidence, test, and
+state bytes passed Rule 7 across 1,340 files, both typechecks, and 160/160 files with 2,512 passed
+and 49 skipped in 1,881.32 seconds; the formerly marginal test passed in-suite in 185.69 seconds.
+
+A bounded readiness check found all six moving-produce dependency bindings exact and its v1
+attempt root, packet lock, four finals, and four stages absent. After this A-P evidence checkpoint
+is committed and pushed, run only the exact moving-produce read-only `check`, confirm it writes
+nothing, and then its one registered `run`. Never rerun A-P v6 automatically.
+
 No ADR or charter amendment is needed: decision 0053 and this plan already require a separately
 frozen successor after an unclassified infrastructure stop. Science, references, tolerances,
 resource ceilings, and the rejected hostile-runtime design remain closed.

@@ -1,0 +1,277 @@
+{
+  "schema": "phase10-c0v-s6-terminal-receipt-v2",
+  "receiptId": "phase10-a-p-c0v-s6-a-p-c0v-s6-20260822-v6-terminal-v2",
+  "matrixId": "phase10-c0v-s6-obligations-v1",
+  "protocolId": "phase10-a-p-c0v-s6-execution-v2-recovery-v5",
+  "registryId": "phase10-a-p-c0v-s6-execution-v2-recovery-v5-callables-v1",
+  "packetId": "a-p-c0v-s6",
+  "attemptId": "a-p-c0v-s6-20260822-v6",
+  "terminalState": "complete",
+  "dispositionCode": null,
+  "preflight": {
+    "path": "evidence/phase10-obligation-preflight-v6/packets/a-p-c0v-s6/preflight.json",
+    "byteLength": 49270,
+    "sha256": "03ff669a927700f39714db87524e9946636be8afc3e455051332764f93a3fd14"
+  },
+  "terminalCandidate": {
+    "path": "out/phase10-execution-v2/recovery-v5/attempts/a-p-c0v-s6/a-p-c0v-s6-20260822-v6/terminal-success-candidate.json",
+    "byteLength": 9519,
+    "sha256": "19d7d23e6ec16af894e8f0e8ab164bea4f7e14f5bf6a984ad4b5cc3f7381bc3a"
+  },
+  "attemptLedger": null,
+  "packetVerification": {
+    "path": "evidence/phase10-obligation-preflight-v6/verification.json",
+    "byteLength": 100562,
+    "sha256": "c4e32051bbd754c9263dc408df58e6f3d7d3e2fa1033f408b0beba4745dc6210"
+  },
+  "producedOutputIds": [
+    "out-ap-c0v-s6-artifact-index",
+    "out-ap-c0v-s6-missing-producer",
+    "out-ap-c0v-s6-preflight",
+    "out-ap-c0v-s6-terminal-receipt",
+    "out-ap-c0v-s6-uncalled-check",
+    "out-ap-c0v-s6-verification"
+  ],
+  "executedCheckIds": [
+    "chk-ap-c0v-s6-authority-bindings",
+    "chk-ap-c0v-s6-branch-routes",
+    "chk-ap-c0v-s6-callable-resolution",
+    "chk-ap-c0v-s6-called-checks",
+    "chk-ap-c0v-s6-original-ap-binding",
+    "chk-ap-c0v-s6-output-producers",
+    "chk-ap-c0v-s6-override-scope",
+    "chk-ap-c0v-s6-packet-catalogue",
+    "chk-ap-c0v-s6-resource-contracts",
+    "chk-ap-c0v-s6-schema-delta"
+  ],
+  "executedNegativeControlIds": [
+    "nc-ap-c0v-s6-missing-producer",
+    "nc-ap-c0v-s6-uncalled-check"
+  ],
+  "invocationRecords": [],
+  "callerInvocationResults": [
+    {
+      "callerInvocationId": "caller-a-p-c0v-s6-structural-complete-1",
+      "stage": "pre-candidate",
+      "callerCallableId": "phase10-a-p-c0v-s6-check-caller",
+      "evaluatorCallableId": "phase10-a-p-c0v-s6-evaluator",
+      "terminalState": "complete",
+      "executedCheckIds": [
+        "chk-ap-c0v-s6-authority-bindings",
+        "chk-ap-c0v-s6-branch-routes",
+        "chk-ap-c0v-s6-callable-resolution",
+        "chk-ap-c0v-s6-called-checks",
+        "chk-ap-c0v-s6-original-ap-binding",
+        "chk-ap-c0v-s6-output-producers",
+        "chk-ap-c0v-s6-override-scope",
+        "chk-ap-c0v-s6-packet-catalogue",
+        "chk-ap-c0v-s6-resource-contracts",
+        "chk-ap-c0v-s6-schema-delta"
+      ],
+      "evaluatedCheckIds": [
+        "chk-ap-c0v-s6-authority-bindings",
+        "chk-ap-c0v-s6-branch-routes",
+        "chk-ap-c0v-s6-callable-resolution",
+        "chk-ap-c0v-s6-called-checks",
+        "chk-ap-c0v-s6-original-ap-binding",
+        "chk-ap-c0v-s6-output-producers",
+        "chk-ap-c0v-s6-override-scope",
+        "chk-ap-c0v-s6-packet-catalogue",
+        "chk-ap-c0v-s6-resource-contracts",
+        "chk-ap-c0v-s6-schema-delta"
+      ],
+      "executedNegativeControlIds": [
+        "nc-ap-c0v-s6-missing-producer",
+        "nc-ap-c0v-s6-uncalled-check"
+      ],
+      "evaluatorResult": {
+        "schema": "phase10-c0v-s6-ap-independent-evaluation-v1",
+        "matrixId": "phase10-c0v-s6-obligations-v1",
+        "packetId": "a-p-c0v-s6",
+        "checkResults": [
+          {
+            "checkId": "chk-ap-c0v-s6-authority-bindings",
+            "evaluatorCallableId": "phase10-a-p-c0v-s6-evaluator",
+            "verdict": "pass",
+            "witnesses": [
+              "matrix-bindings",
+              "recovery-authority-binding",
+              "all-eight-protocol-bindings",
+              "all-eight-registry-bindings"
+            ],
+            "errors": []
+          },
+          {
+            "checkId": "chk-ap-c0v-s6-branch-routes",
+            "evaluatorCallableId": "phase10-a-p-c0v-s6-evaluator",
+            "verdict": "pass",
+            "witnesses": [
+              "selected-route-triad",
+              "preserved-radial-discrepancy-route",
+              "original-definition-partition"
+            ],
+            "errors": []
+          },
+          {
+            "checkId": "chk-ap-c0v-s6-callable-resolution",
+            "evaluatorCallableId": "phase10-a-p-c0v-s6-evaluator",
+            "verdict": "pass",
+            "witnesses": [
+              "exact-callable-union",
+              "all-live-import-audits"
+            ],
+            "errors": []
+          },
+          {
+            "checkId": "chk-ap-c0v-s6-called-checks",
+            "evaluatorCallableId": "phase10-a-p-c0v-s6-evaluator",
+            "verdict": "pass",
+            "witnesses": [
+              "every-check-called-once",
+              "every-check-evaluated-once",
+              "no-phantom-check-registrations"
+            ],
+            "errors": []
+          },
+          {
+            "checkId": "chk-ap-c0v-s6-original-ap-binding",
+            "evaluatorCallableId": "phase10-a-p-c0v-s6-evaluator",
+            "verdict": "pass",
+            "witnesses": [
+              "original-matrix",
+              "original-six-artifacts"
+            ],
+            "errors": []
+          },
+          {
+            "checkId": "chk-ap-c0v-s6-output-producers",
+            "evaluatorCallableId": "phase10-a-p-c0v-s6-evaluator",
+            "verdict": "pass",
+            "witnesses": [
+              "every-output-produced-once",
+              "no-phantom-output-registrations"
+            ],
+            "errors": []
+          },
+          {
+            "checkId": "chk-ap-c0v-s6-override-scope",
+            "evaluatorCallableId": "phase10-a-p-c0v-s6-evaluator",
+            "verdict": "pass",
+            "witnesses": [
+              "seven-overridden-packets",
+              "one-added-packet",
+              "four-schema-replacements"
+            ],
+            "errors": []
+          },
+          {
+            "checkId": "chk-ap-c0v-s6-packet-catalogue",
+            "evaluatorCallableId": "phase10-a-p-c0v-s6-evaluator",
+            "verdict": "pass",
+            "witnesses": [
+              "catalogue-order",
+              "global-locks",
+              "nonoverlapping-attempt-roots",
+              "unique-publication-transitions"
+            ],
+            "errors": []
+          },
+          {
+            "checkId": "chk-ap-c0v-s6-resource-contracts",
+            "evaluatorCallableId": "phase10-a-p-c0v-s6-evaluator",
+            "verdict": "pass",
+            "witnesses": [
+              "integer-process-cap",
+              "parent-monotonic-leaves",
+              "outer-fail-stop",
+              "no-claim-bearing-retry"
+            ],
+            "errors": []
+          },
+          {
+            "checkId": "chk-ap-c0v-s6-schema-delta",
+            "evaluatorCallableId": "phase10-a-p-c0v-s6-evaluator",
+            "verdict": "pass",
+            "witnesses": [
+              "successor-registry-matrix-parity",
+              "every-output-schema-registered"
+            ],
+            "errors": []
+          }
+        ],
+        "negativeControlReproofs": [
+          {
+            "fixtureId": "missing-producer",
+            "negativeControlId": "nc-ap-c0v-s6-missing-producer",
+            "ownerCheckId": "chk-ap-c0v-s6-output-producers",
+            "mutatedRegistry": {
+              "path": "out/phase10-execution-v2/recovery-v5/attempts/a-p-c0v-s6/a-p-c0v-s6-20260822-v6/negative-controls/missing-producer/callable-registry.json",
+              "byteLength": 12230,
+              "sha256": "4603936f21d9f962dd89b271a9cfa48612960d069292d8d30a192cd8fb2cac6d"
+            },
+            "failingCheckIds": [
+              "chk-ap-c0v-s6-callable-resolution",
+              "chk-ap-c0v-s6-output-producers"
+            ],
+            "verdict": "pass"
+          },
+          {
+            "fixtureId": "uncalled-check",
+            "negativeControlId": "nc-ap-c0v-s6-uncalled-check",
+            "ownerCheckId": "chk-ap-c0v-s6-called-checks",
+            "mutatedRegistry": {
+              "path": "out/phase10-execution-v2/recovery-v5/attempts/a-p-c0v-s6/a-p-c0v-s6-20260822-v6/negative-controls/uncalled-check/callable-registry.json",
+              "byteLength": 12750,
+              "sha256": "924b6b1bb830750e3df2b578ffb170aa31807742766f92491f3342114090a06c"
+            },
+            "failingCheckIds": [
+              "chk-ap-c0v-s6-called-checks"
+            ],
+            "verdict": "pass"
+          }
+        ],
+        "aggregateVerdict": "pass",
+        "errors": []
+      },
+      "sourceArtifactIdentities": [
+        {
+          "artifactRole": "output:out-ap-c0v-s6-preflight",
+          "artifact": {
+            "path": "evidence/phase10-obligation-preflight-v6/packets/a-p-c0v-s6/preflight.json",
+            "byteLength": 49270,
+            "sha256": "03ff669a927700f39714db87524e9946636be8afc3e455051332764f93a3fd14"
+          }
+        },
+        {
+          "artifactRole": "output:out-ap-c0v-s6-artifact-index",
+          "artifact": {
+            "path": "evidence/phase10-obligation-preflight-v6/artifact-index.json",
+            "byteLength": 13211,
+            "sha256": "7fd3d46e9edc33b60142c2fdf04f1eb6f468482941898137b521d496d61cfd31"
+          }
+        },
+        {
+          "artifactRole": "output:out-ap-c0v-s6-missing-producer",
+          "artifact": {
+            "path": "evidence/phase10-obligation-preflight-v6/missing-producer.json",
+            "byteLength": 30741,
+            "sha256": "3266dc73696ec749a60eb83e18be922ef46ff93e4b4779208597768080f145e7"
+          }
+        },
+        {
+          "artifactRole": "output:out-ap-c0v-s6-uncalled-check",
+          "artifact": {
+            "path": "evidence/phase10-obligation-preflight-v6/uncalled-check.json",
+            "byteLength": 31382,
+            "sha256": "a6ecba80cc9289666a364da94b95d26599a823adbf6cfe2c9292c6654f511050"
+          }
+        }
+      ]
+    }
+  ],
+  "registeredCap": null,
+  "acceptedPacketCredit": true,
+  "dependencyValid": true,
+  "verdict": "complete",
+  "reasons": []
+}

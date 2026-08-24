@@ -52,7 +52,7 @@ const PHASE10_STATUS_LINE =
 const PHASE8_GATE_PREFIX = "| 8 | **Complete (8A + 8B)** |";
 const PHASE7_GATE_PREFIX = "| 7 | Not started; independently eligible |";
 const PHASE9_GATE_PREFIX = "| 9 | **Complete (development-only)** |";
-const PHASE10_GATE_PREFIX = "| 10 | **In progress — A-P/A-S/A-I PASS; C0 packet PASS/complete with numerical criterion NO-PASS** |";
+const PHASE10_GATE_PREFIX = "| 10 | **In progress — A-P/A-S/A-I PASS; C0 packet PASS/complete with numerical criterion NO-PASS; C0V supplemental A-P PASS** |";
 const CONTRADICTORY_STATE_PATTERNS = [
   /Phase 8B (?:is |remains )?(?:active|incomplete|pending)\b/iu,
   /Phase 8B.*\b(?:may|can|will|must) (?:rewrite|mutate|replace|overwrite)\b.*\b(?:8A|v1|phase8-target-book)\b/iu,
@@ -133,7 +133,7 @@ function currentIndexErrors(text: string): string[] {
     "conservatively refused",
     "46/46",
     "C0 independently re-derived 80/80 rows and 64/64 comparisons",
-    "Phase 10 — execute the supplemental C0V A-P packet",
+    "Phase 10 — check and execute C0V moving-produce once",
     "Phase 10 C0V S6 implementation freeze is complete (2026-08-24; no execution credit)",
     "observer, and executor tests pass 71/71",
     "Decision [0053]",

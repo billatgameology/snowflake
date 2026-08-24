@@ -3,8 +3,8 @@
  "movedFrom": "out/ (gitignored), plus the byte-identical tracked arm64 fingerprint formerly under docs/",
  "movedTo": "evidence/ (tracked)",
  "note": "Historical sweep digests were computed before their move and re-verified afterward. The arm64 fingerprint preserves the exact former docs/ Git blob (18398 bytes, SHA-256 d6686f8e...). The x64 fingerprint is the complete 2026-08-01 lightweight fixture re-execution backing the exact per-entry comparison; it reproduces registered digest 2a9f64b3. These are preserved claim-backing bytes, not regenerated production sweeps.",
- "fileCount": 390,
- "totalBytes": 6007207,
+ "fileCount": 396,
+ "totalBytes": 6242500,
  "files": {
   "phase6-crossplatform/arm64-libm-fingerprint.txt": {
    "bytes": 18398,
@@ -597,6 +597,30 @@
   "phase10-obligation-preflight-v5/packets/a-p-c0v-s6/preflight.json": {
    "bytes": 45634,
    "sha256": "5810af1e49041134ae8de171c4219b3fc0293b91922be63aa7249a23f6090f0a"
+  },
+  "phase10-obligation-preflight-v6/artifact-index.json": {
+   "bytes": 13211,
+   "sha256": "7fd3d46e9edc33b60142c2fdf04f1eb6f468482941898137b521d496d61cfd31"
+  },
+  "phase10-obligation-preflight-v6/missing-producer.json": {
+   "bytes": 30741,
+   "sha256": "3266dc73696ec749a60eb83e18be922ef46ff93e4b4779208597768080f145e7"
+  },
+  "phase10-obligation-preflight-v6/packets/a-p-c0v-s6/preflight.json": {
+   "bytes": 49270,
+   "sha256": "03ff669a927700f39714db87524e9946636be8afc3e455051332764f93a3fd14"
+  },
+  "phase10-obligation-preflight-v6/packets/a-p-c0v-s6/terminal-receipt.json": {
+   "bytes": 10127,
+   "sha256": "11bf3112732fdcb8673a30644c0a2290a462e3452d01d07e8f6b174b156bffc2"
+  },
+  "phase10-obligation-preflight-v6/uncalled-check.json": {
+   "bytes": 31382,
+   "sha256": "a6ecba80cc9289666a364da94b95d26599a823adbf6cfe2c9292c6654f511050"
+  },
+  "phase10-obligation-preflight-v6/verification.json": {
+   "bytes": 100562,
+   "sha256": "c4e32051bbd754c9263dc408df58e6f3d7d3e2fa1033f408b0beba4745dc6210"
   },
   "phase10-scope-intake-v1/currency.jsonl": {
    "bytes": 16542,

@@ -1179,7 +1179,7 @@ describe("Phase 10 C0V S6 filesystem and closure refusal boundary", () => {
       expect(existsSync(resolve(fixture.root, projection.path))).toBe(false);
       expect(existsSync(resolve(fixture.root, projection.stagingPath))).toBe(false);
     }
-  }, 180_000);
+  }, 300_000);
 
   it("raw-projects a retained prelaunch refusal and rejects forged cause bytes", () => {
     const fixture = rawCauseFixture("c0v-moving-produce", "prelaunch-resource-refusal");

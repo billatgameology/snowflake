@@ -1,0 +1,774 @@
+{
+  "schema": "phase10-ap-negative-control-v1",
+  "fixtureId": "uncalled-check",
+  "mutation": {
+    "kind": "remove-invoked-check",
+    "callableId": "phase10-c0v-s6-attempt-census-check-caller",
+    "checkId": "chk-c0v-radial-attempt-census"
+  },
+  "beforeWitness": {
+    "artifactId": "authority-c0v-radial-produce-callable-registry",
+    "path": "research/phase10-execution-v2/recovery-v5/packets/c0v-radial-produce/callable-registry.json",
+    "byteLength": 12797,
+    "sha256": "83c300a8221a19b3015d281842706afaa03a9491feac974133b8c1528d8d6bb3",
+    "semanticFingerprint": {
+      "projection": {
+        "schema": "phase10-c0v-s6-callable-registry-v1",
+        "registryId": "phase10-c0v-radial-produce-execution-v2-recovery-v5-callables-v1",
+        "matrixId": "phase10-c0v-s6-obligations-v1",
+        "protocolId": "phase10-c0v-radial-produce-execution-v2-recovery-v5",
+        "packetId": "c0v-radial-produce",
+        "callables": [
+          {
+            "callableId": "phase10-c0v-radial-attempt-receipt-writer",
+            "role": "producer",
+            "resolution": "resolved",
+            "modulePath": "runner/src/phase10-c0v-s6-attempt.ts",
+            "exportName": "writePhase10C0VRadialAttemptReceipt",
+            "identity": {
+              "byteLength": 7003,
+              "sha256": "0b8e5d81c1fe183c9d26e2760f10387cd02dd0832c09cc58418cab751fb13bbc"
+            },
+            "producedOutputIds": [
+              "out-c0v-radial-attempt-ledger"
+            ],
+            "invokedCheckIds": [],
+            "evaluatedCheckIds": [],
+            "executedNegativeControlIds": []
+          },
+          {
+            "callableId": "phase10-c0v-radial-evaluation-receipt-writer",
+            "role": "producer",
+            "resolution": "resolved",
+            "modulePath": "runner/src/phase10-c0v-s6-receipts.ts",
+            "exportName": "writePhase10C0VRadialEvaluationReceipt",
+            "identity": {
+              "byteLength": 133577,
+              "sha256": "b7f4162bc6135ca73a6e047cd128ba7d17f5f827ec0b7be5986bc5665aabfd02"
+            },
+            "producedOutputIds": [
+              "out-c0v-radial-evaluation"
+            ],
+            "invokedCheckIds": [],
+            "evaluatedCheckIds": [],
+            "executedNegativeControlIds": []
+          },
+          {
+            "callableId": "phase10-c0v-radial-evaluator",
+            "role": "independent-evaluator",
+            "resolution": "resolved",
+            "modulePath": "runner/src/phase10-c0v-radial-evaluator.ts",
+            "exportName": "independentlyEvaluatePhase10C0VRadial",
+            "identity": {
+              "byteLength": 49315,
+              "sha256": "b40babb2c421ce863ed03df8fa89074e4a847ee2b388ceff215babe8b1edf248"
+            },
+            "producedOutputIds": [],
+            "invokedCheckIds": [],
+            "evaluatedCheckIds": [
+              "chk-c0v-radial-numeric",
+              "chk-c0v-radial-reference-independence"
+            ],
+            "executedNegativeControlIds": []
+          },
+          {
+            "callableId": "phase10-c0v-radial-produce-check-caller",
+            "role": "check-caller",
+            "resolution": "resolved",
+            "modulePath": "runner/src/phase10-c0v-radial-checks.ts",
+            "exportName": "phase10C0VRadialProduceCheckCaller",
+            "identity": {
+              "byteLength": 38276,
+              "sha256": "0e327545a881c373434eaca08f0050d45a91f184ff69c614dccdae81c7220302"
+            },
+            "producedOutputIds": [],
+            "invokedCheckIds": [
+              "chk-c0v-radial-numeric",
+              "chk-c0v-radial-reference-independence"
+            ],
+            "evaluatedCheckIds": [],
+            "executedNegativeControlIds": []
+          },
+          {
+            "callableId": "phase10-c0v-radial-production-producer",
+            "role": "producer",
+            "resolution": "resolved",
+            "modulePath": "runner/src/phase10-c0v-radial-production.ts",
+            "exportName": "producePhase10C0VRadialWitness",
+            "identity": {
+              "byteLength": 20618,
+              "sha256": "ed84b671a085b46fddf9935359758aeee10c4b3db56153e26a8a0ae586746686"
+            },
+            "producedOutputIds": [
+              "out-c0v-radial-witness"
+            ],
+            "invokedCheckIds": [],
+            "evaluatedCheckIds": [],
+            "executedNegativeControlIds": []
+          },
+          {
+            "callableId": "phase10-c0v-radial-protocol-producer",
+            "role": "producer",
+            "resolution": "resolved",
+            "modulePath": "runner/src/phase10-c0v-s6-attempt.ts",
+            "exportName": "reopenPhase10C0VRadialProtocol",
+            "identity": {
+              "byteLength": 7003,
+              "sha256": "0b8e5d81c1fe183c9d26e2760f10387cd02dd0832c09cc58418cab751fb13bbc"
+            },
+            "producedOutputIds": [
+              "out-c0v-radial-protocol"
+            ],
+            "invokedCheckIds": [],
+            "evaluatedCheckIds": [],
+            "executedNegativeControlIds": []
+          },
+          {
+            "callableId": "phase10-c0v-radial-reference-producer",
+            "role": "producer",
+            "resolution": "resolved",
+            "modulePath": "runner/src/phase10-c0v-s6-attempt.ts",
+            "exportName": "reopenPhase10C0VRadialReference",
+            "identity": {
+              "byteLength": 7003,
+              "sha256": "0b8e5d81c1fe183c9d26e2760f10387cd02dd0832c09cc58418cab751fb13bbc"
+            },
+            "producedOutputIds": [
+              "out-c0v-radial-reference"
+            ],
+            "invokedCheckIds": [],
+            "evaluatedCheckIds": [],
+            "executedNegativeControlIds": []
+          },
+          {
+            "callableId": "phase10-c0v-s6-attempt-census-check-caller",
+            "role": "check-caller",
+            "resolution": "resolved",
+            "modulePath": "runner/src/phase10-c0v-s6-attempt-census.ts",
+            "exportName": "phase10C0VS6AttemptCensusCheckCaller",
+            "identity": {
+              "byteLength": 31550,
+              "sha256": "7b10147236e065d7e06e27c23e73591b0d12fe1086c54369ae6071448a2722c3"
+            },
+            "producedOutputIds": [],
+            "invokedCheckIds": [
+              "chk-c0v-radial-attempt-census"
+            ],
+            "evaluatedCheckIds": [],
+            "executedNegativeControlIds": []
+          },
+          {
+            "callableId": "phase10-c0v-s6-attempt-census-evaluator",
+            "role": "independent-evaluator",
+            "resolution": "resolved",
+            "modulePath": "runner/src/phase10-c0v-s6-attempt-census.ts",
+            "exportName": "independentlyCensusPhase10C0VS6Attempt",
+            "identity": {
+              "byteLength": 31550,
+              "sha256": "7b10147236e065d7e06e27c23e73591b0d12fe1086c54369ae6071448a2722c3"
+            },
+            "producedOutputIds": [],
+            "invokedCheckIds": [],
+            "evaluatedCheckIds": [
+              "chk-c0v-radial-attempt-census"
+            ],
+            "executedNegativeControlIds": []
+          },
+          {
+            "callableId": "phase10-c0v-s6-freeze-check-caller",
+            "role": "check-caller",
+            "resolution": "resolved",
+            "modulePath": "runner/src/phase10-c0v-s6-freeze.ts",
+            "exportName": "phase10C0VS6FreezeAncestryCheckCaller",
+            "identity": {
+              "byteLength": 57206,
+              "sha256": "769c4f69b1401f16983c2d4108553120a1c56e30c228cb305271f1890b68aa3c"
+            },
+            "producedOutputIds": [],
+            "invokedCheckIds": [
+              "chk-c0v-radial-freeze-ancestry"
+            ],
+            "evaluatedCheckIds": [],
+            "executedNegativeControlIds": []
+          },
+          {
+            "callableId": "phase10-c0v-s6-freeze-evaluator",
+            "role": "independent-evaluator",
+            "resolution": "resolved",
+            "modulePath": "runner/src/phase10-c0v-s6-freeze.ts",
+            "exportName": "independentlyEvaluatePhase10C0VS6FreezeAncestry",
+            "identity": {
+              "byteLength": 57206,
+              "sha256": "769c4f69b1401f16983c2d4108553120a1c56e30c228cb305271f1890b68aa3c"
+            },
+            "producedOutputIds": [],
+            "invokedCheckIds": [],
+            "evaluatedCheckIds": [
+              "chk-c0v-radial-freeze-ancestry"
+            ],
+            "executedNegativeControlIds": []
+          },
+          {
+            "callableId": "phase10-c0v-s6-packet-verification-receipt-writer",
+            "role": "producer",
+            "resolution": "resolved",
+            "modulePath": "runner/src/phase10-c0v-s6-receipts.ts",
+            "exportName": "writePhase10C0VS6PacketVerificationReceipt",
+            "identity": {
+              "byteLength": 133577,
+              "sha256": "b7f4162bc6135ca73a6e047cd128ba7d17f5f827ec0b7be5986bc5665aabfd02"
+            },
+            "producedOutputIds": [
+              "out-c0v-radial-produce-verification"
+            ],
+            "invokedCheckIds": [],
+            "evaluatedCheckIds": [],
+            "executedNegativeControlIds": []
+          },
+          {
+            "callableId": "phase10-c0v-s6-preflight-receipt-writer",
+            "role": "producer",
+            "resolution": "resolved",
+            "modulePath": "runner/src/phase10-c0v-s6-receipts.ts",
+            "exportName": "writePhase10C0VS6PreflightReceipt",
+            "identity": {
+              "byteLength": 133577,
+              "sha256": "b7f4162bc6135ca73a6e047cd128ba7d17f5f827ec0b7be5986bc5665aabfd02"
+            },
+            "producedOutputIds": [
+              "out-c0v-radial-produce-preflight"
+            ],
+            "invokedCheckIds": [],
+            "evaluatedCheckIds": [],
+            "executedNegativeControlIds": []
+          },
+          {
+            "callableId": "phase10-c0v-s6-refusal-check-caller",
+            "role": "check-caller",
+            "resolution": "resolved",
+            "modulePath": "runner/src/phase10-c0v-s6-refusal.ts",
+            "exportName": "phase10C0VS6RefusalCheckCaller",
+            "identity": {
+              "byteLength": 41799,
+              "sha256": "a2f8d0892c0ade5b92b26d4ca3c0968fab79cd6707d95a3bd85ad64fd69231cf"
+            },
+            "producedOutputIds": [],
+            "invokedCheckIds": [
+              "chk-c0v-radial-artifact-refusal-validity",
+              "chk-c0v-radial-discrepancy-validity",
+              "chk-c0v-radial-resource-refusal-validity"
+            ],
+            "evaluatedCheckIds": [],
+            "executedNegativeControlIds": []
+          },
+          {
+            "callableId": "phase10-c0v-s6-refusal-evaluator",
+            "role": "independent-evaluator",
+            "resolution": "resolved",
+            "modulePath": "runner/src/phase10-c0v-s6-refusal.ts",
+            "exportName": "independentlyEvaluatePhase10C0VS6RefusalCause",
+            "identity": {
+              "byteLength": 41799,
+              "sha256": "a2f8d0892c0ade5b92b26d4ca3c0968fab79cd6707d95a3bd85ad64fd69231cf"
+            },
+            "producedOutputIds": [],
+            "invokedCheckIds": [],
+            "evaluatedCheckIds": [
+              "chk-c0v-radial-artifact-refusal-validity",
+              "chk-c0v-radial-discrepancy-validity",
+              "chk-c0v-radial-resource-refusal-validity"
+            ],
+            "executedNegativeControlIds": []
+          },
+          {
+            "callableId": "phase10-c0v-s6-resource-check-caller",
+            "role": "check-caller",
+            "resolution": "resolved",
+            "modulePath": "runner/src/phase10-c0v-s6-resource.ts",
+            "exportName": "phase10C0VS6ResourceBoundaryCheckCaller",
+            "identity": {
+              "byteLength": 22933,
+              "sha256": "4bf50f595d9b32771fbcca598a65862eb7c4d70329e73fe2dcbf322fafa590f9"
+            },
+            "producedOutputIds": [],
+            "invokedCheckIds": [
+              "chk-c0v-radial-resource-boundary"
+            ],
+            "evaluatedCheckIds": [],
+            "executedNegativeControlIds": []
+          },
+          {
+            "callableId": "phase10-c0v-s6-resource-evaluator",
+            "role": "independent-evaluator",
+            "resolution": "resolved",
+            "modulePath": "runner/src/phase10-c0v-s6-resource.ts",
+            "exportName": "independentlyEvaluatePhase10C0VS6ResourceBoundary",
+            "identity": {
+              "byteLength": 22933,
+              "sha256": "4bf50f595d9b32771fbcca598a65862eb7c4d70329e73fe2dcbf322fafa590f9"
+            },
+            "producedOutputIds": [],
+            "invokedCheckIds": [],
+            "evaluatedCheckIds": [
+              "chk-c0v-radial-resource-boundary"
+            ],
+            "executedNegativeControlIds": []
+          },
+          {
+            "callableId": "phase10-c0v-s6-terminal-receipt-writer",
+            "role": "producer",
+            "resolution": "resolved",
+            "modulePath": "runner/src/phase10-c0v-s6-receipts.ts",
+            "exportName": "writePhase10C0VS6TerminalReceipt",
+            "identity": {
+              "byteLength": 133577,
+              "sha256": "b7f4162bc6135ca73a6e047cd128ba7d17f5f827ec0b7be5986bc5665aabfd02"
+            },
+            "producedOutputIds": [
+              "out-c0v-radial-produce-terminal-receipt"
+            ],
+            "invokedCheckIds": [],
+            "evaluatedCheckIds": [],
+            "executedNegativeControlIds": []
+          },
+          {
+            "callableId": "phase10-nc-radial-finite-shell-term",
+            "role": "negative-control",
+            "resolution": "resolved",
+            "modulePath": "runner/src/phase10-c0v-radial-negative-controls.ts",
+            "exportName": "phase10RadialFiniteShellTerm",
+            "identity": {
+              "byteLength": 19882,
+              "sha256": "b6319ba4959765c4ffc70eb13f42ef1c71d119a58a0e71aa8051635a45b8d196"
+            },
+            "producedOutputIds": [],
+            "invokedCheckIds": [],
+            "evaluatedCheckIds": [],
+            "executedNegativeControlIds": [
+              "nc-radial-finite-shell-term"
+            ]
+          },
+          {
+            "callableId": "phase10-nc-radial-forged-summary",
+            "role": "negative-control",
+            "resolution": "resolved",
+            "modulePath": "runner/src/phase10-c0v-radial-negative-controls.ts",
+            "exportName": "phase10RadialForgedSummary",
+            "identity": {
+              "byteLength": 19882,
+              "sha256": "b6319ba4959765c4ffc70eb13f42ef1c71d119a58a0e71aa8051635a45b8d196"
+            },
+            "producedOutputIds": [],
+            "invokedCheckIds": [],
+            "evaluatedCheckIds": [],
+            "executedNegativeControlIds": [
+              "nc-radial-forged-summary"
+            ]
+          },
+          {
+            "callableId": "phase10-nc-radial-robin-coefficient",
+            "role": "negative-control",
+            "resolution": "resolved",
+            "modulePath": "runner/src/phase10-c0v-radial-negative-controls.ts",
+            "exportName": "phase10RadialRobinCoefficient",
+            "identity": {
+              "byteLength": 19882,
+              "sha256": "b6319ba4959765c4ffc70eb13f42ef1c71d119a58a0e71aa8051635a45b8d196"
+            },
+            "producedOutputIds": [],
+            "invokedCheckIds": [],
+            "evaluatedCheckIds": [],
+            "executedNegativeControlIds": [
+              "nc-radial-robin-coefficient"
+            ]
+          }
+        ]
+      },
+      "sha256": "e489249ee90d8e6ca8e32d81f241e5a95443e42762896ccb5f568f3c2f94ff23"
+    }
+  },
+  "afterWitness": {
+    "artifactId": "authority-c0v-radial-produce-callable-registry",
+    "path": "out/phase10-execution-v2/recovery-v5/attempts/a-p-c0v-s6/a-p-c0v-s6-20260822-v6/negative-controls/uncalled-check/callable-registry.json",
+    "byteLength": 12750,
+    "sha256": "924b6b1bb830750e3df2b578ffb170aa31807742766f92491f3342114090a06c",
+    "semanticFingerprint": {
+      "projection": {
+        "schema": "phase10-c0v-s6-callable-registry-v1",
+        "registryId": "phase10-c0v-radial-produce-execution-v2-recovery-v5-callables-v1",
+        "matrixId": "phase10-c0v-s6-obligations-v1",
+        "protocolId": "phase10-c0v-radial-produce-execution-v2-recovery-v5",
+        "packetId": "c0v-radial-produce",
+        "callables": [
+          {
+            "callableId": "phase10-c0v-radial-attempt-receipt-writer",
+            "role": "producer",
+            "resolution": "resolved",
+            "modulePath": "runner/src/phase10-c0v-s6-attempt.ts",
+            "exportName": "writePhase10C0VRadialAttemptReceipt",
+            "identity": {
+              "byteLength": 7003,
+              "sha256": "0b8e5d81c1fe183c9d26e2760f10387cd02dd0832c09cc58418cab751fb13bbc"
+            },
+            "producedOutputIds": [
+              "out-c0v-radial-attempt-ledger"
+            ],
+            "invokedCheckIds": [],
+            "evaluatedCheckIds": [],
+            "executedNegativeControlIds": []
+          },
+          {
+            "callableId": "phase10-c0v-radial-evaluation-receipt-writer",
+            "role": "producer",
+            "resolution": "resolved",
+            "modulePath": "runner/src/phase10-c0v-s6-receipts.ts",
+            "exportName": "writePhase10C0VRadialEvaluationReceipt",
+            "identity": {
+              "byteLength": 133577,
+              "sha256": "b7f4162bc6135ca73a6e047cd128ba7d17f5f827ec0b7be5986bc5665aabfd02"
+            },
+            "producedOutputIds": [
+              "out-c0v-radial-evaluation"
+            ],
+            "invokedCheckIds": [],
+            "evaluatedCheckIds": [],
+            "executedNegativeControlIds": []
+          },
+          {
+            "callableId": "phase10-c0v-radial-evaluator",
+            "role": "independent-evaluator",
+            "resolution": "resolved",
+            "modulePath": "runner/src/phase10-c0v-radial-evaluator.ts",
+            "exportName": "independentlyEvaluatePhase10C0VRadial",
+            "identity": {
+              "byteLength": 49315,
+              "sha256": "b40babb2c421ce863ed03df8fa89074e4a847ee2b388ceff215babe8b1edf248"
+            },
+            "producedOutputIds": [],
+            "invokedCheckIds": [],
+            "evaluatedCheckIds": [
+              "chk-c0v-radial-numeric",
+              "chk-c0v-radial-reference-independence"
+            ],
+            "executedNegativeControlIds": []
+          },
+          {
+            "callableId": "phase10-c0v-radial-produce-check-caller",
+            "role": "check-caller",
+            "resolution": "resolved",
+            "modulePath": "runner/src/phase10-c0v-radial-checks.ts",
+            "exportName": "phase10C0VRadialProduceCheckCaller",
+            "identity": {
+              "byteLength": 38276,
+              "sha256": "0e327545a881c373434eaca08f0050d45a91f184ff69c614dccdae81c7220302"
+            },
+            "producedOutputIds": [],
+            "invokedCheckIds": [
+              "chk-c0v-radial-numeric",
+              "chk-c0v-radial-reference-independence"
+            ],
+            "evaluatedCheckIds": [],
+            "executedNegativeControlIds": []
+          },
+          {
+            "callableId": "phase10-c0v-radial-production-producer",
+            "role": "producer",
+            "resolution": "resolved",
+            "modulePath": "runner/src/phase10-c0v-radial-production.ts",
+            "exportName": "producePhase10C0VRadialWitness",
+            "identity": {
+              "byteLength": 20618,
+              "sha256": "ed84b671a085b46fddf9935359758aeee10c4b3db56153e26a8a0ae586746686"
+            },
+            "producedOutputIds": [
+              "out-c0v-radial-witness"
+            ],
+            "invokedCheckIds": [],
+            "evaluatedCheckIds": [],
+            "executedNegativeControlIds": []
+          },
+          {
+            "callableId": "phase10-c0v-radial-protocol-producer",
+            "role": "producer",
+            "resolution": "resolved",
+            "modulePath": "runner/src/phase10-c0v-s6-attempt.ts",
+            "exportName": "reopenPhase10C0VRadialProtocol",
+            "identity": {
+              "byteLength": 7003,
+              "sha256": "0b8e5d81c1fe183c9d26e2760f10387cd02dd0832c09cc58418cab751fb13bbc"
+            },
+            "producedOutputIds": [
+              "out-c0v-radial-protocol"
+            ],
+            "invokedCheckIds": [],
+            "evaluatedCheckIds": [],
+            "executedNegativeControlIds": []
+          },
+          {
+            "callableId": "phase10-c0v-radial-reference-producer",
+            "role": "producer",
+            "resolution": "resolved",
+            "modulePath": "runner/src/phase10-c0v-s6-attempt.ts",
+            "exportName": "reopenPhase10C0VRadialReference",
+            "identity": {
+              "byteLength": 7003,
+              "sha256": "0b8e5d81c1fe183c9d26e2760f10387cd02dd0832c09cc58418cab751fb13bbc"
+            },
+            "producedOutputIds": [
+              "out-c0v-radial-reference"
+            ],
+            "invokedCheckIds": [],
+            "evaluatedCheckIds": [],
+            "executedNegativeControlIds": []
+          },
+          {
+            "callableId": "phase10-c0v-s6-attempt-census-check-caller",
+            "role": "check-caller",
+            "resolution": "resolved",
+            "modulePath": "runner/src/phase10-c0v-s6-attempt-census.ts",
+            "exportName": "phase10C0VS6AttemptCensusCheckCaller",
+            "identity": {
+              "byteLength": 31550,
+              "sha256": "7b10147236e065d7e06e27c23e73591b0d12fe1086c54369ae6071448a2722c3"
+            },
+            "producedOutputIds": [],
+            "invokedCheckIds": [],
+            "evaluatedCheckIds": [],
+            "executedNegativeControlIds": []
+          },
+          {
+            "callableId": "phase10-c0v-s6-attempt-census-evaluator",
+            "role": "independent-evaluator",
+            "resolution": "resolved",
+            "modulePath": "runner/src/phase10-c0v-s6-attempt-census.ts",
+            "exportName": "independentlyCensusPhase10C0VS6Attempt",
+            "identity": {
+              "byteLength": 31550,
+              "sha256": "7b10147236e065d7e06e27c23e73591b0d12fe1086c54369ae6071448a2722c3"
+            },
+            "producedOutputIds": [],
+            "invokedCheckIds": [],
+            "evaluatedCheckIds": [
+              "chk-c0v-radial-attempt-census"
+            ],
+            "executedNegativeControlIds": []
+          },
+          {
+            "callableId": "phase10-c0v-s6-freeze-check-caller",
+            "role": "check-caller",
+            "resolution": "resolved",
+            "modulePath": "runner/src/phase10-c0v-s6-freeze.ts",
+            "exportName": "phase10C0VS6FreezeAncestryCheckCaller",
+            "identity": {
+              "byteLength": 57206,
+              "sha256": "769c4f69b1401f16983c2d4108553120a1c56e30c228cb305271f1890b68aa3c"
+            },
+            "producedOutputIds": [],
+            "invokedCheckIds": [
+              "chk-c0v-radial-freeze-ancestry"
+            ],
+            "evaluatedCheckIds": [],
+            "executedNegativeControlIds": []
+          },
+          {
+            "callableId": "phase10-c0v-s6-freeze-evaluator",
+            "role": "independent-evaluator",
+            "resolution": "resolved",
+            "modulePath": "runner/src/phase10-c0v-s6-freeze.ts",
+            "exportName": "independentlyEvaluatePhase10C0VS6FreezeAncestry",
+            "identity": {
+              "byteLength": 57206,
+              "sha256": "769c4f69b1401f16983c2d4108553120a1c56e30c228cb305271f1890b68aa3c"
+            },
+            "producedOutputIds": [],
+            "invokedCheckIds": [],
+            "evaluatedCheckIds": [
+              "chk-c0v-radial-freeze-ancestry"
+            ],
+            "executedNegativeControlIds": []
+          },
+          {
+            "callableId": "phase10-c0v-s6-packet-verification-receipt-writer",
+            "role": "producer",
+            "resolution": "resolved",
+            "modulePath": "runner/src/phase10-c0v-s6-receipts.ts",
+            "exportName": "writePhase10C0VS6PacketVerificationReceipt",
+            "identity": {
+              "byteLength": 133577,
+              "sha256": "b7f4162bc6135ca73a6e047cd128ba7d17f5f827ec0b7be5986bc5665aabfd02"
+            },
+            "producedOutputIds": [
+              "out-c0v-radial-produce-verification"
+            ],
+            "invokedCheckIds": [],
+            "evaluatedCheckIds": [],
+            "executedNegativeControlIds": []
+          },
+          {
+            "callableId": "phase10-c0v-s6-preflight-receipt-writer",
+            "role": "producer",
+            "resolution": "resolved",
+            "modulePath": "runner/src/phase10-c0v-s6-receipts.ts",
+            "exportName": "writePhase10C0VS6PreflightReceipt",
+            "identity": {
+              "byteLength": 133577,
+              "sha256": "b7f4162bc6135ca73a6e047cd128ba7d17f5f827ec0b7be5986bc5665aabfd02"
+            },
+            "producedOutputIds": [
+              "out-c0v-radial-produce-preflight"
+            ],
+            "invokedCheckIds": [],
+            "evaluatedCheckIds": [],
+            "executedNegativeControlIds": []
+          },
+          {
+            "callableId": "phase10-c0v-s6-refusal-check-caller",
+            "role": "check-caller",
+            "resolution": "resolved",
+            "modulePath": "runner/src/phase10-c0v-s6-refusal.ts",
+            "exportName": "phase10C0VS6RefusalCheckCaller",
+            "identity": {
+              "byteLength": 41799,
+              "sha256": "a2f8d0892c0ade5b92b26d4ca3c0968fab79cd6707d95a3bd85ad64fd69231cf"
+            },
+            "producedOutputIds": [],
+            "invokedCheckIds": [
+              "chk-c0v-radial-artifact-refusal-validity",
+              "chk-c0v-radial-discrepancy-validity",
+              "chk-c0v-radial-resource-refusal-validity"
+            ],
+            "evaluatedCheckIds": [],
+            "executedNegativeControlIds": []
+          },
+          {
+            "callableId": "phase10-c0v-s6-refusal-evaluator",
+            "role": "independent-evaluator",
+            "resolution": "resolved",
+            "modulePath": "runner/src/phase10-c0v-s6-refusal.ts",
+            "exportName": "independentlyEvaluatePhase10C0VS6RefusalCause",
+            "identity": {
+              "byteLength": 41799,
+              "sha256": "a2f8d0892c0ade5b92b26d4ca3c0968fab79cd6707d95a3bd85ad64fd69231cf"
+            },
+            "producedOutputIds": [],
+            "invokedCheckIds": [],
+            "evaluatedCheckIds": [
+              "chk-c0v-radial-artifact-refusal-validity",
+              "chk-c0v-radial-discrepancy-validity",
+              "chk-c0v-radial-resource-refusal-validity"
+            ],
+            "executedNegativeControlIds": []
+          },
+          {
+            "callableId": "phase10-c0v-s6-resource-check-caller",
+            "role": "check-caller",
+            "resolution": "resolved",
+            "modulePath": "runner/src/phase10-c0v-s6-resource.ts",
+            "exportName": "phase10C0VS6ResourceBoundaryCheckCaller",
+            "identity": {
+              "byteLength": 22933,
+              "sha256": "4bf50f595d9b32771fbcca598a65862eb7c4d70329e73fe2dcbf322fafa590f9"
+            },
+            "producedOutputIds": [],
+            "invokedCheckIds": [
+              "chk-c0v-radial-resource-boundary"
+            ],
+            "evaluatedCheckIds": [],
+            "executedNegativeControlIds": []
+          },
+          {
+            "callableId": "phase10-c0v-s6-resource-evaluator",
+            "role": "independent-evaluator",
+            "resolution": "resolved",
+            "modulePath": "runner/src/phase10-c0v-s6-resource.ts",
+            "exportName": "independentlyEvaluatePhase10C0VS6ResourceBoundary",
+            "identity": {
+              "byteLength": 22933,
+              "sha256": "4bf50f595d9b32771fbcca598a65862eb7c4d70329e73fe2dcbf322fafa590f9"
+            },
+            "producedOutputIds": [],
+            "invokedCheckIds": [],
+            "evaluatedCheckIds": [
+              "chk-c0v-radial-resource-boundary"
+            ],
+            "executedNegativeControlIds": []
+          },
+          {
+            "callableId": "phase10-c0v-s6-terminal-receipt-writer",
+            "role": "producer",
+            "resolution": "resolved",
+            "modulePath": "runner/src/phase10-c0v-s6-receipts.ts",
+            "exportName": "writePhase10C0VS6TerminalReceipt",
+            "identity": {
+              "byteLength": 133577,
+              "sha256": "b7f4162bc6135ca73a6e047cd128ba7d17f5f827ec0b7be5986bc5665aabfd02"
+            },
+            "producedOutputIds": [
+              "out-c0v-radial-produce-terminal-receipt"
+            ],
+            "invokedCheckIds": [],
+            "evaluatedCheckIds": [],
+            "executedNegativeControlIds": []
+          },
+          {
+            "callableId": "phase10-nc-radial-finite-shell-term",
+            "role": "negative-control",
+            "resolution": "resolved",
+            "modulePath": "runner/src/phase10-c0v-radial-negative-controls.ts",
+            "exportName": "phase10RadialFiniteShellTerm",
+            "identity": {
+              "byteLength": 19882,
+              "sha256": "b6319ba4959765c4ffc70eb13f42ef1c71d119a58a0e71aa8051635a45b8d196"
+            },
+            "producedOutputIds": [],
+            "invokedCheckIds": [],
+            "evaluatedCheckIds": [],
+            "executedNegativeControlIds": [
+              "nc-radial-finite-shell-term"
+            ]
+          },
+          {
+            "callableId": "phase10-nc-radial-forged-summary",
+            "role": "negative-control",
+            "resolution": "resolved",
+            "modulePath": "runner/src/phase10-c0v-radial-negative-controls.ts",
+            "exportName": "phase10RadialForgedSummary",
+            "identity": {
+              "byteLength": 19882,
+              "sha256": "b6319ba4959765c4ffc70eb13f42ef1c71d119a58a0e71aa8051635a45b8d196"
+            },
+            "producedOutputIds": [],
+            "invokedCheckIds": [],
+            "evaluatedCheckIds": [],
+            "executedNegativeControlIds": [
+              "nc-radial-forged-summary"
+            ]
+          },
+          {
+            "callableId": "phase10-nc-radial-robin-coefficient",
+            "role": "negative-control",
+            "resolution": "resolved",
+            "modulePath": "runner/src/phase10-c0v-radial-negative-controls.ts",
+            "exportName": "phase10RadialRobinCoefficient",
+            "identity": {
+              "byteLength": 19882,
+              "sha256": "b6319ba4959765c4ffc70eb13f42ef1c71d119a58a0e71aa8051635a45b8d196"
+            },
+            "producedOutputIds": [],
+            "invokedCheckIds": [],
+            "evaluatedCheckIds": [],
+            "executedNegativeControlIds": [
+              "nc-radial-robin-coefficient"
+            ]
+          }
+        ]
+      },
+      "sha256": "e325c95f1ecdd182fab6a587327e3a526f4cb2fa4523d7ecaa16392f71d775f3"
+    }
+  },
+  "refused": true,
+  "error": {
+    "refusalClass": "uncalled-check",
+    "message": "Phase 10 C0V S6 supplemental A-P refused: registered check chk-c0v-radial-attempt-census is uncalled or unevaluated"
+  }
+}
