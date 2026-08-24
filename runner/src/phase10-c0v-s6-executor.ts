@@ -20,6 +20,8 @@ import {
 } from "./phase10-c0v-s6-aggregate-contracts.ts";
 import { parsePhase10C0VS6ApNegativeControlReceiptBytes } from "./phase10-c0v-s6-ap-independent.ts";
 import {
+  PHASE10_C0V_S6_CURRENT_MOVING_ATTEMPT_ID,
+  PHASE10_C0V_S6_RECOVERY_V7_PACKET_CATALOGUE_PATH,
   parsePhase10C0VS6CallableRegistry,
   parsePhase10C0VS6PacketCatalogue,
   parsePhase10C0VS6PacketProtocol,
@@ -101,8 +103,7 @@ import {
   type Phase10C0VS6WorkerMessage,
 } from "./phase10-c0v-s6-worker-transport.ts";
 
-const PACKET_CATALOGUE_PATH =
-  "research/phase10-execution-v2/recovery-v6/packet-catalogue.json" as const;
+const PACKET_CATALOGUE_PATH = PHASE10_C0V_S6_RECOVERY_V7_PACKET_CATALOGUE_PATH;
 const CHECK_LIMITS = Object.freeze([
   "no-lock-or-authorizing-preflight-observation",
   "no-resource-or-mutable-dependency-observation",
@@ -278,7 +279,7 @@ const AGGREGATE_INVOCATION_AUTHORITY = Object.freeze([
 interface Phase10C0VS6MatchOnlyParentConfig {
   readonly packetId: "c0v-moving-produce" | "c0v-static-produce";
   readonly registeredAttemptId:
-    | "c0v-moving-produce-20260822-v1"
+    | typeof PHASE10_C0V_S6_CURRENT_MOVING_ATTEMPT_ID
     | "c0v-static-produce-20260822-v1";
   readonly label: "moving" | "static";
   readonly invocationAuthority: readonly Phase10C0VS6GovernedInvocationAuthority[];
@@ -290,7 +291,7 @@ interface Phase10C0VS6MatchOnlyParentConfig {
 
 const MOVING_PARENT_CONFIG: Phase10C0VS6MatchOnlyParentConfig = Object.freeze({
   packetId: "c0v-moving-produce",
-  registeredAttemptId: "c0v-moving-produce-20260822-v1",
+  registeredAttemptId: PHASE10_C0V_S6_CURRENT_MOVING_ATTEMPT_ID,
   label: "moving",
   invocationAuthority: MOVING_INVOCATION_AUTHORITY,
   invocationId: "inv-c0v-moving-cause",
@@ -438,7 +439,7 @@ export interface Phase10C0VS6RunResult {
     | "c0v-aggregate";
   readonly registeredAttemptId:
     | "a-p-c0v-s6-20260822-v6"
-    | "c0v-moving-produce-20260822-v1"
+    | typeof PHASE10_C0V_S6_CURRENT_MOVING_ATTEMPT_ID
     | "c0v-moving-publish-20260822-v1"
     | "c0v-radial-produce-20260822-v1"
     | "c0v-radial-publish-20260822-v1"
@@ -3599,7 +3600,7 @@ async function runLockedMovingPacket(
 ): Promise<Phase10C0VS6RunResult> {
   const packet = authority.packet;
   if (packet.packetId !== "c0v-moving-produce" ||
-    packet.registeredAttemptId !== "c0v-moving-produce-20260822-v1") {
+    packet.registeredAttemptId !== PHASE10_C0V_S6_CURRENT_MOVING_ATTEMPT_ID) {
     fail("locked moving runner received different packet authority");
   }
   watchdog.assertActive();
@@ -3639,7 +3640,7 @@ async function runLockedMovingPacket(
   return Object.freeze({
     mode: "run",
     packetId: "c0v-moving-produce",
-    registeredAttemptId: "c0v-moving-produce-20260822-v1",
+    registeredAttemptId: PHASE10_C0V_S6_CURRENT_MOVING_ATTEMPT_ID,
     selectedSubrouteId: finalized.terminalCandidate.lifecycle.selectedSubrouteId,
     terminalState: finalized.terminalCandidate.lifecycle.terminalState,
     terminalReceiptIdentity: finalized.terminalReceiptIdentity,

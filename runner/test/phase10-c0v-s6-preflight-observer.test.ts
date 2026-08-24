@@ -17,6 +17,7 @@ import {
   parsePhase10C0VS6RecoveryV4Authority,
   parsePhase10C0VS6RecoveryV5Authority,
   parsePhase10C0VS6RecoveryV6Authority,
+  parsePhase10C0VS6RecoveryV7Authority,
   type Phase10C0VS6PacketProtocol,
 } from "../src/phase10-c0v-s6-contracts.ts";
 import {
@@ -52,7 +53,7 @@ const ROOT = resolve(import.meta.dirname, "../..");
 const temporaryRoots: string[] = [];
 
 function packet(packetId: Phase10C0VS6PacketProtocol["packetId"]): Phase10C0VS6PacketProtocol {
-  const path = resolve(ROOT, `research/phase10-execution-v2/recovery-v6/packets/${packetId}/protocol.json`);
+  const path = resolve(ROOT, `research/phase10-execution-v2/recovery-v7/packets/${packetId}/protocol.json`);
   return parsePhase10C0VS6PacketProtocol(
     parsePhase10C0VS6PrettyJsonBytes(readFileSync(path), `${packetId} protocol`),
   );
@@ -75,10 +76,10 @@ function write(root: string, path: string, bytes: Uint8Array | string): void {
 }
 
 function writeRecoveryPredecessorState(root: string): void {
-  const authorityPath = "research/phase10-execution-v2/recovery-v6/recovery-authority.json";
+  const authorityPath = "research/phase10-execution-v2/recovery-v7/recovery-authority.json";
   const authorityBytes = new Uint8Array(readFileSync(resolve(ROOT, authorityPath)));
   if (!existsSync(resolve(root, authorityPath))) write(root, authorityPath, authorityBytes);
-  const authority = parsePhase10C0VS6RecoveryV6Authority(
+  const authority = parsePhase10C0VS6RecoveryV7Authority(
     parsePhase10C0VS6PrettyJsonBytes(authorityBytes, "preflight-test recovery authority"),
   );
   const predecessorAuthorityBytes = new Uint8Array(readFileSync(
@@ -89,10 +90,10 @@ function writeRecoveryPredecessorState(root: string): void {
     predecessorAuthorityBytes,
   )).toEqual(authority.predecessorRecoveryAuthority);
   write(root, authority.predecessorRecoveryAuthority.path, predecessorAuthorityBytes);
-  const predecessorAuthority = parsePhase10C0VS6RecoveryV5Authority(
+  const predecessorAuthority = parsePhase10C0VS6RecoveryV6Authority(
     parsePhase10C0VS6PrettyJsonBytes(
       predecessorAuthorityBytes,
-      "preflight-test recovery-v5 authority",
+      "preflight-test recovery-v6 authority",
     ),
   );
   const earlierRecoveryAuthorityBytes = new Uint8Array(readFileSync(
@@ -103,10 +104,10 @@ function writeRecoveryPredecessorState(root: string): void {
     earlierRecoveryAuthorityBytes,
   )).toEqual(predecessorAuthority.predecessorRecoveryAuthority);
   write(root, predecessorAuthority.predecessorRecoveryAuthority.path, earlierRecoveryAuthorityBytes);
-  const earlierRecoveryAuthority = parsePhase10C0VS6RecoveryV4Authority(
+  const earlierRecoveryAuthority = parsePhase10C0VS6RecoveryV5Authority(
     parsePhase10C0VS6PrettyJsonBytes(
       earlierRecoveryAuthorityBytes,
-      "preflight-test recovery-v4 authority",
+      "preflight-test recovery-v5 authority",
     ),
   );
   const secondEarlierRecoveryAuthorityBytes = new Uint8Array(readFileSync(
@@ -121,10 +122,10 @@ function writeRecoveryPredecessorState(root: string): void {
     earlierRecoveryAuthority.predecessorRecoveryAuthority.path,
     secondEarlierRecoveryAuthorityBytes,
   );
-  const secondEarlierRecoveryAuthority = parsePhase10C0VS6RecoveryV3Authority(
+  const secondEarlierRecoveryAuthority = parsePhase10C0VS6RecoveryV4Authority(
     parsePhase10C0VS6PrettyJsonBytes(
       secondEarlierRecoveryAuthorityBytes,
-      "preflight-test recovery-v3 authority",
+      "preflight-test recovery-v4 authority",
     ),
   );
   const thirdEarlierRecoveryAuthorityBytes = new Uint8Array(readFileSync(
@@ -139,20 +140,38 @@ function writeRecoveryPredecessorState(root: string): void {
     secondEarlierRecoveryAuthority.predecessorRecoveryAuthority.path,
     thirdEarlierRecoveryAuthorityBytes,
   );
-  const thirdEarlierRecoveryAuthority = parsePhase10C0VS6RecoveryV2Authority(
+  const thirdEarlierRecoveryAuthority = parsePhase10C0VS6RecoveryV3Authority(
     parsePhase10C0VS6PrettyJsonBytes(
       thirdEarlierRecoveryAuthorityBytes,
-      "preflight-test recovery-v2 authority",
+      "preflight-test recovery-v3 authority",
     ),
   );
-  const originalAuthorityBytes = new Uint8Array(readFileSync(
+  const fourthEarlierRecoveryAuthorityBytes = new Uint8Array(readFileSync(
     resolve(ROOT, thirdEarlierRecoveryAuthority.predecessorRecoveryAuthority.path),
   ));
   expect(phase10C0VS6ArtifactIdentity(
     thirdEarlierRecoveryAuthority.predecessorRecoveryAuthority.path,
-    originalAuthorityBytes,
+    fourthEarlierRecoveryAuthorityBytes,
   )).toEqual(thirdEarlierRecoveryAuthority.predecessorRecoveryAuthority);
-  write(root, thirdEarlierRecoveryAuthority.predecessorRecoveryAuthority.path, originalAuthorityBytes);
+  write(
+    root,
+    thirdEarlierRecoveryAuthority.predecessorRecoveryAuthority.path,
+    fourthEarlierRecoveryAuthorityBytes,
+  );
+  const fourthEarlierRecoveryAuthority = parsePhase10C0VS6RecoveryV2Authority(
+    parsePhase10C0VS6PrettyJsonBytes(
+      fourthEarlierRecoveryAuthorityBytes,
+      "preflight-test recovery-v2 authority",
+    ),
+  );
+  const originalAuthorityBytes = new Uint8Array(readFileSync(
+    resolve(ROOT, fourthEarlierRecoveryAuthority.predecessorRecoveryAuthority.path),
+  ));
+  expect(phase10C0VS6ArtifactIdentity(
+    fourthEarlierRecoveryAuthority.predecessorRecoveryAuthority.path,
+    originalAuthorityBytes,
+  )).toEqual(fourthEarlierRecoveryAuthority.predecessorRecoveryAuthority);
+  write(root, fourthEarlierRecoveryAuthority.predecessorRecoveryAuthority.path, originalAuthorityBytes);
   for (const identity of [
     authority.predecessorPacketCatalogue,
     authority.predecessorApProtocol,
@@ -186,7 +205,7 @@ function movingPublicationSemanticRequest(): Phase10C0VMovingPublicationSemantic
     throw new Error("moving fixture lacks its exact science/reference bindings");
   }
   const attemptDirectory =
-    "out/phase10-execution-v2/recovery-v6/attempts/c0v-moving-produce/c0v-moving-produce-20260822-v2";
+    "out/phase10-execution-v2/recovery-v7/attempts/c0v-moving-produce/c0v-moving-produce-20260822-v3";
   const stdout = identity(`${attemptDirectory}/stdout.log`, "stdout\n");
   const stderr = identity(`${attemptDirectory}/stderr.log`, "stderr\n");
   const terminalCandidate = identity(
@@ -570,23 +589,23 @@ describe("Phase 10 C0V S6 parent preflight observer", () => {
       .toBe("cond-c0v-radial-artifact-precondition-failed");
   });
 
-  it("carries the accepted A-P accounting into the recovery-v6 moving-v2 projection", () => {
+  it("carries the accepted A-P accounting into the recovery-v7 moving-v3 projection", () => {
     const authority = packet("c0v-moving-produce");
-    expect(authority.registeredAttemptId).toBe("c0v-moving-produce-20260822-v2");
-    expect(authority.resources.packageStorageBaselineBytes).toBe(2_994_827);
+    expect(authority.registeredAttemptId).toBe("c0v-moving-produce-20260822-v3");
+    expect(authority.resources.packageStorageBaselineBytes).toBe(2_995_267);
     expect(authority.resources.currentPacketRegisteredElapsedNanosecondsMaximum)
       .toBe(14_400_000_000_000);
 
     const observed = phase10C0VS6ClassifyPreflightResources(authority, {
       packageElapsedNanosecondsBeforeAttempt: 532_300_704_500,
-      packageRetainedBytesBeforeAttempt: 3_632_502,
+      packageRetainedBytesBeforeAttempt: 3_632_942,
       observedFreeBytes: Number.MAX_SAFE_INTEGER,
     });
     expect(observed).toEqual({
       packageElapsedNanosecondsBeforeAttempt: 532_300_704_500,
       projectedPackageElapsedNanosecondsAfterAttempt: 14_932_300_704_500,
-      packageRetainedBytesBeforeAttempt: 3_632_502,
-      projectedPackageBytesAfterAttempt: 79_129_974,
+      packageRetainedBytesBeforeAttempt: 3_632_942,
+      projectedPackageBytesAfterAttempt: 79_130_414,
       observedFreeBytes: Number.MAX_SAFE_INTEGER,
       failedConditionIds: [],
     });
@@ -688,7 +707,7 @@ describe("Phase 10 C0V S6 parent preflight observer", () => {
     const locks: Phase10C0VS6PackageAndPacketLockContext = Object.freeze({
       packageLock: Object.freeze({
         schema: "phase10-c0v-s6-lock-v1",
-        packetId: "phase10-c0v-s6-execution-v2-recovery-v6-packet-paths-v1",
+        packetId: "phase10-c0v-s6-execution-v2-recovery-v7-packet-paths-v1",
         attemptId: `${authority.packetId}:${authority.registeredAttemptId}`,
         processId: process.pid,
         acquiredAt,
@@ -706,7 +725,7 @@ describe("Phase 10 C0V S6 parent preflight observer", () => {
     const root = phase10C0VS6PhysicalRepositoryRoot(rootPath);
     expect(() => phase10C0VS6AssertObservedLocks(root, authority, locks)).not.toThrow();
 
-    const unknownLockPath = "out/phase10-execution-v2/recovery-v6/locks/unregistered.lock";
+    const unknownLockPath = "out/phase10-execution-v2/recovery-v7/locks/unregistered.lock";
     write(rootPath, unknownLockPath, "unknown\n");
     expect(() => phase10C0VS6AssertObservedLocks(root, authority, locks))
       .toThrow(/cardinality differs/u);
@@ -729,9 +748,9 @@ describe("Phase 10 C0V S6 parent preflight observer", () => {
     const packetId = "c0v-moving-produce" as const;
     const rootPath = temporaryRoot("authenticated-watchdog");
     for (const path of [
-      "research/phase10-execution-v2/recovery-v6/recovery-authority.json",
-      "research/phase10-execution-v2/recovery-v6/packet-catalogue.json",
-      `research/phase10-execution-v2/recovery-v6/packets/${packetId}/protocol.json`,
+      "research/phase10-execution-v2/recovery-v7/recovery-authority.json",
+      "research/phase10-execution-v2/recovery-v7/packet-catalogue.json",
+      `research/phase10-execution-v2/recovery-v7/packets/${packetId}/protocol.json`,
     ]) {
       write(rootPath, path, readFileSync(resolve(ROOT, path)));
     }

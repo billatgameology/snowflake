@@ -1,0 +1,356 @@
+{
+  "schema": "phase10-c0v-s6-recovery-v7-packet-catalogue-v1",
+  "catalogueId": "phase10-c0v-s6-execution-v2-recovery-v7-packet-paths-v1",
+  "matrixId": "phase10-c0v-s6-obligations-v1",
+  "packageLockPath": "out/phase10-execution-v2/recovery-v7/locks/package.lock",
+  "packageLockRule": "all-predecessor-audits-before-successor-package-lock-then-packet-lock-before-any-observation",
+  "recoveryAuthority": {
+    "path": "research/phase10-execution-v2/recovery-v7/recovery-authority.json",
+    "byteLength": 26481,
+    "sha256": "3ffde7e830de8f3c1a660a3e2a81f89defddbae0ca1c24bf0c3010f8d84ede2c"
+  },
+  "runtimeEntrypoints": [
+    {
+      "role": "parent-executor",
+      "modulePath": "runner/src/phase10-c0v-s6-executor.ts",
+      "exportName": "phase10C0VS6RunExecutor"
+    },
+    {
+      "role": "worker-dispatcher",
+      "modulePath": "runner/src/phase10-c0v-s6-executor-worker.ts",
+      "exportName": "phase10C0VS6ExecutorWorker"
+    }
+  ],
+  "runtimeLoaderContract": {
+    "schema": "phase10-c0v-s6-runtime-loader-contract-v1",
+    "execArgvRule": "parent-and-worker-process-exec-argv-exact-empty-array",
+    "forbiddenEnvironmentKeyRule": "ascii-uppercase-equals-NODE-or-TS_NODE-or-starts-NODE_-or-TS_NODE_",
+    "exactWorkerEnvironment": [
+      {
+        "key": "GIT_CONFIG_GLOBAL",
+        "value": "NUL"
+      },
+      {
+        "key": "GIT_CONFIG_NOSYSTEM",
+        "value": "1"
+      },
+      {
+        "key": "GIT_OPTIONAL_LOCKS",
+        "value": "0"
+      },
+      {
+        "key": "GIT_TERMINAL_PROMPT",
+        "value": "0"
+      },
+      {
+        "key": "HOMEDRIVE",
+        "value": ""
+      },
+      {
+        "key": "HOMEPATH",
+        "value": ""
+      },
+      {
+        "key": "LC_ALL",
+        "value": "C"
+      },
+      {
+        "key": "LOGONSERVER",
+        "value": ""
+      },
+      {
+        "key": "PATH",
+        "value": "C:\\Program Files\\Git\\cmd"
+      },
+      {
+        "key": "PATHEXT",
+        "value": ".COM;.EXE"
+      },
+      {
+        "key": "SYSTEMDRIVE",
+        "value": ""
+      },
+      {
+        "key": "SYSTEMROOT",
+        "value": "C:\\WINDOWS"
+      },
+      {
+        "key": "TEMP",
+        "value": ""
+      },
+      {
+        "key": "USERDOMAIN",
+        "value": ""
+      },
+      {
+        "key": "USERNAME",
+        "value": ""
+      },
+      {
+        "key": "USERPROFILE",
+        "value": ""
+      },
+      {
+        "key": "WINDIR",
+        "value": ""
+      }
+    ],
+    "workerEnvironmentRule": "parent-materializes-exact-clean-environment-worker-independently-exact-compares-complete-environment-no-ambient-clone",
+    "preflightRecordingRule": "frozen-code-rejection-no-ambient-environment-values-serialized",
+    "entryObservationScopeRule": "visible-at-entry-loader-state-enforced-deliberate-trace-erasure-outside-registered-threat-model"
+  },
+  "workerTransportContract": {
+    "schema": "phase10-c0v-s6-worker-transport-contract-v1",
+    "transport": "blocking-fd0-command-fd1-message-canonical-compact-jsonl",
+    "maximumLineBytes": 33554432,
+    "maximumStderrBytes": 33554432,
+    "parentToChild": {
+      "schema": "phase10-c0v-s6-worker-command-v1",
+      "exactFields": [
+        "schema",
+        "sequence",
+        "packetId",
+        "attemptId",
+        "kind",
+        "invocationId",
+        "acknowledgedWorkerSequence"
+      ],
+      "kindValues": [
+        "invoke",
+        "acknowledge",
+        "stop"
+      ],
+      "nullabilityRule": "invoke-id-nonnull-ack-null_acknowledge-both-nonnull_stop-both-null"
+    },
+    "childToParent": {
+      "schema": "phase10-c0v-s6-worker-message-v1",
+      "exactFields": [
+        "schema",
+        "sequence",
+        "packetId",
+        "attemptId",
+        "kind",
+        "invocationId",
+        "payload"
+      ],
+      "kindValues": [
+        "ready",
+        "boundary",
+        "progress",
+        "artifact",
+        "result",
+        "stopped",
+        "error"
+      ],
+      "nullabilityRule": "ready-stopped-both-null_boundary-progress-artifact-result-both-nonnull_error-payload-nonnull-id-nullable"
+    },
+    "sequenceRule": "independent-zero-based-contiguous-safe-integer-per-direction",
+    "bytePayloadMarkerKey": "$phase10C0VS6Bytes",
+    "bytePayloadRule": "uint8array-only-one-key-canonical-base64-object-recursive-finite-json",
+    "acknowledgementRule": "boundary-and-artifact-callback-return-only-after-exact-scoped-parent-acknowledgement",
+    "retainedAuthorityRule": "parent-synthesizes-all-retained-time-timing-terminal-fields-child-stdout-never-authoritative",
+    "stderrRule": "diagnostics-only-never-evidence-or-route-authority"
+  },
+  "packets": [
+    {
+      "packetId": "a-p-c0v-s6",
+      "protocolPath": "research/phase10-execution-v2/recovery-v7/packets/a-p-c0v-s6/protocol.json",
+      "callableRegistryPath": "research/phase10-execution-v2/recovery-v7/packets/a-p-c0v-s6/callable-registry.json",
+      "attemptRoot": "out/phase10-execution-v2/recovery-v7/attempts/a-p-c0v-s6",
+      "lockPath": "out/phase10-execution-v2/recovery-v7/locks/a-p-c0v-s6.lock",
+      "preflightReceiptPath": "evidence/phase10-obligation-preflight-v6/packets/a-p-c0v-s6/preflight.json",
+      "terminalReceiptPath": "evidence/phase10-obligation-preflight-v6/packets/a-p-c0v-s6/terminal-receipt.json",
+      "verificationPath": "evidence/phase10-obligation-preflight-v6/verification.json",
+      "verificationFilename": "verification.json",
+      "verificationSchemaId": "phase10-packet-verification-v2",
+      "maximumStdoutBytes": 4194304,
+      "maximumOtherAttemptRootBytes": 12582912,
+      "stdoutMessageByteBudget": {
+        "lifecycleLineBytesMaximum": 4096,
+        "boundaryOrProgressLineBytesMaximum": 16384,
+        "artifactLineBytesMaximum": 262144,
+        "resultLineBytesMaximum": 917504,
+        "lifecycleLineCountMaximum": 2,
+        "boundaryOrProgressLineCountMaximum": 0,
+        "artifactLineCountMaximum": 0,
+        "resultLineCountMaximum": 4,
+        "derivedMaximumBytes": 3678208
+      }
+    },
+    {
+      "packetId": "c0v-moving-produce",
+      "protocolPath": "research/phase10-execution-v2/recovery-v7/packets/c0v-moving-produce/protocol.json",
+      "callableRegistryPath": "research/phase10-execution-v2/recovery-v7/packets/c0v-moving-produce/callable-registry.json",
+      "attemptRoot": "out/phase10-execution-v2/recovery-v7/attempts/c0v-moving-produce",
+      "lockPath": "out/phase10-execution-v2/recovery-v7/locks/c0v-moving-produce.lock",
+      "preflightReceiptPath": "evidence/phase10-obligation-preflight-v2/packets/c0v-moving-produce/preflight.json",
+      "terminalReceiptPath": "evidence/phase10-obligation-preflight-v2/packets/c0v-moving-produce/terminal-receipt.json",
+      "verificationPath": "evidence/phase10-obligation-preflight-v2/packets/c0v-moving-produce/verification.json",
+      "verificationFilename": "verification.json",
+      "verificationSchemaId": "phase10-packet-verification-v2",
+      "maximumStdoutBytes": 4194304,
+      "maximumOtherAttemptRootBytes": 29360128,
+      "stdoutMessageByteBudget": {
+        "lifecycleLineBytesMaximum": 4096,
+        "boundaryOrProgressLineBytesMaximum": 16384,
+        "artifactLineBytesMaximum": 262144,
+        "resultLineBytesMaximum": 917504,
+        "lifecycleLineCountMaximum": 2,
+        "boundaryOrProgressLineCountMaximum": 0,
+        "artifactLineCountMaximum": 0,
+        "resultLineCountMaximum": 1,
+        "derivedMaximumBytes": 925696
+      }
+    },
+    {
+      "packetId": "c0v-moving-publish",
+      "protocolPath": "research/phase10-execution-v2/recovery-v7/packets/c0v-moving-publish/protocol.json",
+      "callableRegistryPath": "research/phase10-execution-v2/recovery-v7/packets/c0v-moving-publish/callable-registry.json",
+      "attemptRoot": "out/phase10-execution-v2/recovery-v7/attempts/c0v-moving-publish",
+      "lockPath": "out/phase10-execution-v2/recovery-v7/locks/c0v-moving-publish.lock",
+      "preflightReceiptPath": "evidence/phase10-obligation-preflight-v2/packets/c0v-moving-publish/preflight.json",
+      "terminalReceiptPath": "evidence/phase10-obligation-preflight-v2/packets/c0v-moving-publish/terminal-receipt.json",
+      "verificationPath": "evidence/phase10-numerical-verification-v1/c0v-moving-publish-verification.json",
+      "verificationFilename": "c0v-moving-publish-verification.json",
+      "verificationSchemaId": "phase10-packet-verification-v2",
+      "maximumStdoutBytes": 4194304,
+      "maximumOtherAttemptRootBytes": 12582912,
+      "stdoutMessageByteBudget": {
+        "lifecycleLineBytesMaximum": 4096,
+        "boundaryOrProgressLineBytesMaximum": 16384,
+        "artifactLineBytesMaximum": 262144,
+        "resultLineBytesMaximum": 917504,
+        "lifecycleLineCountMaximum": 2,
+        "boundaryOrProgressLineCountMaximum": 0,
+        "artifactLineCountMaximum": 0,
+        "resultLineCountMaximum": 2,
+        "derivedMaximumBytes": 1843200
+      }
+    },
+    {
+      "packetId": "c0v-radial-produce",
+      "protocolPath": "research/phase10-execution-v2/recovery-v7/packets/c0v-radial-produce/protocol.json",
+      "callableRegistryPath": "research/phase10-execution-v2/recovery-v7/packets/c0v-radial-produce/callable-registry.json",
+      "attemptRoot": "out/phase10-execution-v2/recovery-v7/attempts/c0v-radial-produce",
+      "lockPath": "out/phase10-execution-v2/recovery-v7/locks/c0v-radial-produce.lock",
+      "preflightReceiptPath": "evidence/phase10-obligation-preflight-v2/packets/c0v-radial-produce/preflight.json",
+      "terminalReceiptPath": "evidence/phase10-obligation-preflight-v2/packets/c0v-radial-produce/terminal-receipt.json",
+      "verificationPath": "evidence/phase10-obligation-preflight-v2/packets/c0v-radial-produce/verification.json",
+      "verificationFilename": "verification.json",
+      "verificationSchemaId": "phase10-packet-verification-v2",
+      "maximumStdoutBytes": 4194304,
+      "maximumOtherAttemptRootBytes": 4194304,
+      "stdoutMessageByteBudget": {
+        "lifecycleLineBytesMaximum": 4096,
+        "boundaryOrProgressLineBytesMaximum": 16384,
+        "artifactLineBytesMaximum": 262144,
+        "resultLineBytesMaximum": 917504,
+        "lifecycleLineCountMaximum": 2,
+        "boundaryOrProgressLineCountMaximum": 28,
+        "artifactLineCountMaximum": 3,
+        "resultLineCountMaximum": 2,
+        "derivedMaximumBytes": 3088384
+      }
+    },
+    {
+      "packetId": "c0v-radial-publish",
+      "protocolPath": "research/phase10-execution-v2/recovery-v7/packets/c0v-radial-publish/protocol.json",
+      "callableRegistryPath": "research/phase10-execution-v2/recovery-v7/packets/c0v-radial-publish/callable-registry.json",
+      "attemptRoot": "out/phase10-execution-v2/recovery-v7/attempts/c0v-radial-publish",
+      "lockPath": "out/phase10-execution-v2/recovery-v7/locks/c0v-radial-publish.lock",
+      "preflightReceiptPath": "evidence/phase10-obligation-preflight-v2/packets/c0v-radial-publish/preflight.json",
+      "terminalReceiptPath": "evidence/phase10-obligation-preflight-v2/packets/c0v-radial-publish/terminal-receipt.json",
+      "verificationPath": "evidence/phase10-numerical-verification-v1/c0v-radial-publish-verification.json",
+      "verificationFilename": "c0v-radial-publish-verification.json",
+      "verificationSchemaId": "phase10-packet-verification-v2",
+      "maximumStdoutBytes": 4194304,
+      "maximumOtherAttemptRootBytes": 12582912,
+      "stdoutMessageByteBudget": {
+        "lifecycleLineBytesMaximum": 4096,
+        "boundaryOrProgressLineBytesMaximum": 16384,
+        "artifactLineBytesMaximum": 262144,
+        "resultLineBytesMaximum": 917504,
+        "lifecycleLineCountMaximum": 2,
+        "boundaryOrProgressLineCountMaximum": 0,
+        "artifactLineCountMaximum": 0,
+        "resultLineCountMaximum": 2,
+        "derivedMaximumBytes": 1843200
+      }
+    },
+    {
+      "packetId": "c0v-static-produce",
+      "protocolPath": "research/phase10-execution-v2/recovery-v7/packets/c0v-static-produce/protocol.json",
+      "callableRegistryPath": "research/phase10-execution-v2/recovery-v7/packets/c0v-static-produce/callable-registry.json",
+      "attemptRoot": "out/phase10-execution-v2/recovery-v7/attempts/c0v-static-produce",
+      "lockPath": "out/phase10-execution-v2/recovery-v7/locks/c0v-static-produce.lock",
+      "preflightReceiptPath": "evidence/phase10-obligation-preflight-v2/packets/c0v-static-produce/preflight.json",
+      "terminalReceiptPath": "evidence/phase10-obligation-preflight-v2/packets/c0v-static-produce/terminal-receipt.json",
+      "verificationPath": "evidence/phase10-obligation-preflight-v2/packets/c0v-static-produce/verification.json",
+      "verificationFilename": "verification.json",
+      "verificationSchemaId": "phase10-packet-verification-v2",
+      "maximumStdoutBytes": 4194304,
+      "maximumOtherAttemptRootBytes": 4194304,
+      "stdoutMessageByteBudget": {
+        "lifecycleLineBytesMaximum": 4096,
+        "boundaryOrProgressLineBytesMaximum": 16384,
+        "artifactLineBytesMaximum": 262144,
+        "resultLineBytesMaximum": 917504,
+        "lifecycleLineCountMaximum": 2,
+        "boundaryOrProgressLineCountMaximum": 0,
+        "artifactLineCountMaximum": 0,
+        "resultLineCountMaximum": 1,
+        "derivedMaximumBytes": 925696
+      }
+    },
+    {
+      "packetId": "c0v-static-publish",
+      "protocolPath": "research/phase10-execution-v2/recovery-v7/packets/c0v-static-publish/protocol.json",
+      "callableRegistryPath": "research/phase10-execution-v2/recovery-v7/packets/c0v-static-publish/callable-registry.json",
+      "attemptRoot": "out/phase10-execution-v2/recovery-v7/attempts/c0v-static-publish",
+      "lockPath": "out/phase10-execution-v2/recovery-v7/locks/c0v-static-publish.lock",
+      "preflightReceiptPath": "evidence/phase10-obligation-preflight-v2/packets/c0v-static-publish/preflight.json",
+      "terminalReceiptPath": "evidence/phase10-obligation-preflight-v2/packets/c0v-static-publish/terminal-receipt.json",
+      "verificationPath": "evidence/phase10-numerical-verification-v1/c0v-static-publish-verification.json",
+      "verificationFilename": "c0v-static-publish-verification.json",
+      "verificationSchemaId": "phase10-packet-verification-v2",
+      "maximumStdoutBytes": 4194304,
+      "maximumOtherAttemptRootBytes": 12582912,
+      "stdoutMessageByteBudget": {
+        "lifecycleLineBytesMaximum": 4096,
+        "boundaryOrProgressLineBytesMaximum": 16384,
+        "artifactLineBytesMaximum": 262144,
+        "resultLineBytesMaximum": 917504,
+        "lifecycleLineCountMaximum": 2,
+        "boundaryOrProgressLineCountMaximum": 0,
+        "artifactLineCountMaximum": 0,
+        "resultLineCountMaximum": 2,
+        "derivedMaximumBytes": 1843200
+      }
+    },
+    {
+      "packetId": "c0v-aggregate",
+      "protocolPath": "research/phase10-execution-v2/recovery-v7/packets/c0v-aggregate/protocol.json",
+      "callableRegistryPath": "research/phase10-execution-v2/recovery-v7/packets/c0v-aggregate/callable-registry.json",
+      "attemptRoot": "out/phase10-execution-v2/recovery-v7/attempts/c0v-aggregate",
+      "lockPath": "out/phase10-execution-v2/recovery-v7/locks/c0v-aggregate.lock",
+      "preflightReceiptPath": "evidence/phase10-obligation-preflight-v2/packets/c0v-aggregate/preflight.json",
+      "terminalReceiptPath": "evidence/phase10-obligation-preflight-v2/packets/c0v-aggregate/terminal-receipt.json",
+      "verificationPath": "evidence/phase10-numerical-verification-v1/c0v-aggregate-verification.json",
+      "verificationFilename": "c0v-aggregate-verification.json",
+      "verificationSchemaId": "phase10-packet-verification-v2",
+      "maximumStdoutBytes": 4194304,
+      "maximumOtherAttemptRootBytes": 12582912,
+      "stdoutMessageByteBudget": {
+        "lifecycleLineBytesMaximum": 4096,
+        "boundaryOrProgressLineBytesMaximum": 16384,
+        "artifactLineBytesMaximum": 262144,
+        "resultLineBytesMaximum": 917504,
+        "lifecycleLineCountMaximum": 2,
+        "boundaryOrProgressLineCountMaximum": 0,
+        "artifactLineCountMaximum": 0,
+        "resultLineCountMaximum": 3,
+        "derivedMaximumBytes": 2760704
+      }
+    }
+  ]
+}

@@ -2035,6 +2035,38 @@ dead PID, absences, and accounting. It did not edit, test, run a registered comm
 or finalizer, commit, push, or access NAS/network. It explicitly records that its pre-run audit
 missed this private dispatch boundary; generated-authority checks did not execute the locked runner.
 
+### S6 recovery-v7 implementation checkpoint — 2026-08-24
+
+Recovery-v7 implements only the registered namespace repair. One exported current moving-attempt
+authority now drives the parent-config type/value, run-result type, locked-run guard, returned ID,
+and worker table. A real public-run-to-locked-callback regression proves v3 reaches the preflight
+boundary and consumed v2 refuses before watchdog, preflight, worker, or science. Historical v1/v2
+facts and the exact accepted recovery-v5 A-P chain remain unchanged.
+
+The deterministic generated package contains 18 JSON files / 838,371 bytes with tree SHA-256
+`db03959635308b8a7ecbd1b1036517ccc450225ef0c0fc71c894966fe825b13a`. Its authority is 26,481
+bytes / `3ffde7e830de8f3c1a660a3e2a81f89defddbae0ca1c24bf0c3010f8d84ede2c`; its catalogue is 16,104
+bytes / `783d8ba945857ff60609f924bc213e1d7e5f3abbe037d67577c77b36255cd98e`. Strict parsing passes
+18/18 and all 101 live callable registrations match. The authority binds 14 locks, 38 attempt
+files, 10 published files, 2,003,365 retained bytes, and 69 absent paths. The static baseline is
+59 files / 2,995,267 bytes; accepted A-P remains separate at 15 files / 637,675 bytes, so moving v3
+observes 74 files / 3,632,942 bytes and 532,300,704,500 governed ns before its attempt.
+
+Focused runtime/history tests pass 47/47; all 67 executor cases and the 17-case authority suite are
+green. Exact `npm test` passes Rule 7 across 1,380 files, both typechecks, and 162/162 Vitest files
+with 2,518 passed and 49 skipped in 1,485.25 seconds. No registered recovery-v7 command, solver,
+attempt, evidence publication, commit, or push occurred during implementation or validation.
+
+A fresh non-author GPT-5-family Codex reviewer sharing the full task context reported zero concrete
+blockers. It independently rehashed and censused the 62 retained files, 69 absent paths, all 101
+live callable registrations, generated bindings, accepted recovery-v5 A-P Git/manifest joins, and
+the storage/timing partition. It also confirmed that the new regression calls the public executor,
+enters the locked callback, admits v3 to preflight, and refuses v2 before watchdog/preflight. It did
+not edit, run tests or the builder, invoke a registered command, worker, solver, or finalizer,
+commit, push, or access NAS/network. Its explicit limit is that recovery-v7 has no first-add
+identity before its first commit; the post-commit registered `check` must prove that freeze before
+any run.
+
 ### Rejected native pre-Node launcher design (retained history; do not implement)
 
 **Superseded by maker direction on 2026-08-22.** The detail below records the design that exposed

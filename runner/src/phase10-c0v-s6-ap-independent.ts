@@ -12,13 +12,13 @@ import {
   PHASE10_C0V_S6_RECOVERY_V5_AUTHORITY_ROOT,
   PHASE10_C0V_S6_RECOVERY_V5_PACKAGE_LOCK_PATH,
   PHASE10_C0V_S6_RECOVERY_V5_PACKET_CATALOGUE_PATH,
-  PHASE10_C0V_S6_RECOVERY_V6_ATTEMPT_IDS,
-  PHASE10_C0V_S6_RECOVERY_V6_ATTEMPT_ROOT,
-  PHASE10_C0V_S6_RECOVERY_V6_AUTHORITY_PATH,
-  PHASE10_C0V_S6_RECOVERY_V6_AUTHORITY_ROOT,
-  PHASE10_C0V_S6_RECOVERY_V6_PACKAGE_LOCK_PATH,
-  PHASE10_C0V_S6_RECOVERY_V6_PACKET_CATALOGUE_PATH,
   PHASE10_C0V_S6_RECOVERY_V6_PREDECESSOR_IMPLEMENTATION_FREEZE_COMMIT,
+  PHASE10_C0V_S6_RECOVERY_V7_ATTEMPT_IDS,
+  PHASE10_C0V_S6_RECOVERY_V7_ATTEMPT_ROOT,
+  PHASE10_C0V_S6_RECOVERY_V7_AUTHORITY_PATH,
+  PHASE10_C0V_S6_RECOVERY_V7_AUTHORITY_ROOT,
+  PHASE10_C0V_S6_RECOVERY_V7_PACKAGE_LOCK_PATH,
+  PHASE10_C0V_S6_RECOVERY_V7_PACKET_CATALOGUE_PATH,
   assertPhase10C0VS6ArtifactSchemaRegistryMatrixParity,
   parsePhase10C0VS6ArtifactSchemaRegistry,
   parsePhase10C0VS6CallableRegistry,
@@ -27,7 +27,7 @@ import {
   parsePhase10C0VS6PacketProtocol,
   parsePhase10C0VS6PrettyJsonBytes,
   parsePhase10C0VS6RecoveryV5Authority,
-  parsePhase10C0VS6RecoveryV6Authority,
+  parsePhase10C0VS6RecoveryV7Authority,
   type Phase10C0VS6ArtifactIdentity,
   type Phase10C0VS6ArtifactSchemaRegistry,
   type Phase10C0VS6CallableRegistry,
@@ -36,7 +36,7 @@ import {
   type Phase10C0VS6PacketId,
   type Phase10C0VS6PacketProtocol,
   type Phase10C0VS6RecoveryV5Authority,
-  type Phase10C0VS6RecoveryV6Authority,
+  type Phase10C0VS6RecoveryV7Authority,
 } from "./phase10-c0v-s6-contracts.ts";
 import {
   phase10C0VS6AssertBuiltinAllowlistRegistryCoverage,
@@ -123,7 +123,7 @@ interface CapturedAuthority {
   readonly originalMatrix: Phase10ObligationMatrix;
   readonly catalogue: Phase10C0VS6PacketCatalogue;
   readonly catalogueIdentity: Phase10C0VS6ArtifactIdentity;
-  readonly recoveryAuthority: Phase10C0VS6RecoveryV5Authority | Phase10C0VS6RecoveryV6Authority;
+  readonly recoveryAuthority: Phase10C0VS6RecoveryV5Authority | Phase10C0VS6RecoveryV7Authority;
   readonly recoveryAuthorityIdentity: Phase10C0VS6ArtifactIdentity;
   readonly successorSchemaRegistry: Phase10C0VS6ArtifactSchemaRegistry;
   readonly predecessorSchemaRegistryValue: StrictJson;
@@ -224,16 +224,16 @@ function capture(request: Phase10C0VS6ApGraphRequest): CapturedAuthority {
   const historical = request.authorityGeneration === "historical-predecessor-ap";
   const cataloguePath = historical
     ? PHASE10_C0V_S6_RECOVERY_V5_PACKET_CATALOGUE_PATH
-    : PHASE10_C0V_S6_RECOVERY_V6_PACKET_CATALOGUE_PATH;
+    : PHASE10_C0V_S6_RECOVERY_V7_PACKET_CATALOGUE_PATH;
   const authorityPath = historical
     ? PHASE10_C0V_S6_RECOVERY_V5_AUTHORITY_PATH
-    : PHASE10_C0V_S6_RECOVERY_V6_AUTHORITY_PATH;
+    : PHASE10_C0V_S6_RECOVERY_V7_AUTHORITY_PATH;
   const authorityRoot = historical
     ? PHASE10_C0V_S6_RECOVERY_V5_AUTHORITY_ROOT
-    : PHASE10_C0V_S6_RECOVERY_V6_AUTHORITY_ROOT;
+    : PHASE10_C0V_S6_RECOVERY_V7_AUTHORITY_ROOT;
   const packageLockPath = historical
     ? PHASE10_C0V_S6_RECOVERY_V5_PACKAGE_LOCK_PATH
-    : PHASE10_C0V_S6_RECOVERY_V6_PACKAGE_LOCK_PATH;
+    : PHASE10_C0V_S6_RECOVERY_V7_PACKAGE_LOCK_PATH;
   const matrixPath = "research/phase10-c0v-s6-obligation-matrix-v1.json";
   const matrixBytes = readBytes(root, matrixPath, "S6 obligation matrix");
   const matrixValue = loadJson(root, matrixPath, overrides.matrix, "S6 obligation matrix");
@@ -250,7 +250,7 @@ function capture(request: Phase10C0VS6ApGraphRequest): CapturedAuthority {
   const recoveryAuthorityValue = parsePhase10C0VS6PrettyJsonBytes(recoveryAuthorityBytes, "S6 recovery authority");
   const recoveryAuthority = historical
     ? parsePhase10C0VS6RecoveryV5Authority(recoveryAuthorityValue)
-    : parsePhase10C0VS6RecoveryV6Authority(recoveryAuthorityValue);
+    : parsePhase10C0VS6RecoveryV7Authority(recoveryAuthorityValue);
   const originalMatrix = parsePhase10ObligationMatrix(loadJson(
     root,
     "research/phase10-obligation-matrix-v1.json",
@@ -850,13 +850,13 @@ export function independentlyReprovePhase10C0VS6ApNegativeControl(
   const historical = authorityGeneration === "historical-predecessor-ap";
   const authorityRoot = historical
     ? PHASE10_C0V_S6_RECOVERY_V5_AUTHORITY_ROOT
-    : PHASE10_C0V_S6_RECOVERY_V6_AUTHORITY_ROOT;
+    : PHASE10_C0V_S6_RECOVERY_V7_AUTHORITY_ROOT;
   const attemptRoot = historical
     ? PHASE10_C0V_S6_RECOVERY_V5_ATTEMPT_ROOT
-    : PHASE10_C0V_S6_RECOVERY_V6_ATTEMPT_ROOT;
+    : PHASE10_C0V_S6_RECOVERY_V7_ATTEMPT_ROOT;
   const attemptId = historical
     ? PHASE10_C0V_S6_RECOVERY_V5_ATTEMPT_IDS["a-p-c0v-s6"]
-    : PHASE10_C0V_S6_RECOVERY_V6_ATTEMPT_IDS["a-p-c0v-s6"];
+    : PHASE10_C0V_S6_RECOVERY_V7_ATTEMPT_IDS["a-p-c0v-s6"];
   const registryPath =
     `${authorityRoot}/packets/c0v-radial-produce/callable-registry.json`;
   const baselineBytes = canonicalPrettyBytes(receipt.beforeWitness.semanticFingerprint.projection);

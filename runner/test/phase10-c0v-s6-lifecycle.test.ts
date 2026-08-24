@@ -74,7 +74,7 @@ describe("Phase 10 C0V S6 lifecycle whole-file publication overlay", () => {
       preflightBytes: new Uint8Array(readFileSync(resolve(ROOT, preflightPath))),
     });
     expect(() => derivePhase10C0VS6RetainedRuntimeAuthority(input))
-      .toThrow(/current recovery-v6 packet protocol identity path differs/u);
+      .toThrow(/current recovery-v7 packet protocol identity path differs/u);
     const retained = derivePhase10C0VS6HistoricalRetainedRuntimeAuthority(input);
     expect(retained.packet.packetId).toBe("a-p-c0v-s6");
     expect(retained.packet.registeredAttemptId).toBe("a-p-c0v-s6-20260822-v6");

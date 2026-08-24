@@ -1,0 +1,281 @@
+{
+  "schema": "phase10-c0v-s6-callable-registry-v1",
+  "registryId": "phase10-c0v-static-produce-execution-v2-recovery-v7-callables-v1",
+  "matrixId": "phase10-c0v-s6-obligations-v1",
+  "protocolId": "phase10-c0v-static-produce-execution-v2-recovery-v7",
+  "packetId": "c0v-static-produce",
+  "callables": [
+    {
+      "callableId": "phase10-c0v-s6-attempt-census-check-caller",
+      "role": "check-caller",
+      "resolution": "resolved",
+      "modulePath": "runner/src/phase10-c0v-s6-attempt-census.ts",
+      "exportName": "phase10C0VS6AttemptCensusCheckCaller",
+      "identity": {
+        "byteLength": 31550,
+        "sha256": "7b10147236e065d7e06e27c23e73591b0d12fe1086c54369ae6071448a2722c3"
+      },
+      "producedOutputIds": [],
+      "invokedCheckIds": [
+        "chk-c0v-static-attempt-census"
+      ],
+      "evaluatedCheckIds": [],
+      "executedNegativeControlIds": []
+    },
+    {
+      "callableId": "phase10-c0v-s6-attempt-census-evaluator",
+      "role": "independent-evaluator",
+      "resolution": "resolved",
+      "modulePath": "runner/src/phase10-c0v-s6-attempt-census.ts",
+      "exportName": "independentlyCensusPhase10C0VS6Attempt",
+      "identity": {
+        "byteLength": 31550,
+        "sha256": "7b10147236e065d7e06e27c23e73591b0d12fe1086c54369ae6071448a2722c3"
+      },
+      "producedOutputIds": [],
+      "invokedCheckIds": [],
+      "evaluatedCheckIds": [
+        "chk-c0v-static-attempt-census"
+      ],
+      "executedNegativeControlIds": []
+    },
+    {
+      "callableId": "phase10-c0v-s6-freeze-check-caller",
+      "role": "check-caller",
+      "resolution": "resolved",
+      "modulePath": "runner/src/phase10-c0v-s6-freeze.ts",
+      "exportName": "phase10C0VS6FreezeAncestryCheckCaller",
+      "identity": {
+        "byteLength": 74490,
+        "sha256": "1f989585f0382a0c1f99f58e687093ae63e5e89dadb9bfcd5304da7d28a0c83c"
+      },
+      "producedOutputIds": [],
+      "invokedCheckIds": [
+        "chk-c0v-static-freeze-ancestry"
+      ],
+      "evaluatedCheckIds": [],
+      "executedNegativeControlIds": []
+    },
+    {
+      "callableId": "phase10-c0v-s6-freeze-evaluator",
+      "role": "independent-evaluator",
+      "resolution": "resolved",
+      "modulePath": "runner/src/phase10-c0v-s6-freeze.ts",
+      "exportName": "independentlyEvaluatePhase10C0VS6FreezeAncestry",
+      "identity": {
+        "byteLength": 74490,
+        "sha256": "1f989585f0382a0c1f99f58e687093ae63e5e89dadb9bfcd5304da7d28a0c83c"
+      },
+      "producedOutputIds": [],
+      "invokedCheckIds": [],
+      "evaluatedCheckIds": [
+        "chk-c0v-static-freeze-ancestry"
+      ],
+      "executedNegativeControlIds": []
+    },
+    {
+      "callableId": "phase10-c0v-s6-packet-verification-receipt-writer",
+      "role": "producer",
+      "resolution": "resolved",
+      "modulePath": "runner/src/phase10-c0v-s6-receipts.ts",
+      "exportName": "writePhase10C0VS6PacketVerificationReceipt",
+      "identity": {
+        "byteLength": 133577,
+        "sha256": "b7f4162bc6135ca73a6e047cd128ba7d17f5f827ec0b7be5986bc5665aabfd02"
+      },
+      "producedOutputIds": [
+        "out-c0v-static-produce-verification"
+      ],
+      "invokedCheckIds": [],
+      "evaluatedCheckIds": [],
+      "executedNegativeControlIds": []
+    },
+    {
+      "callableId": "phase10-c0v-s6-preflight-receipt-writer",
+      "role": "producer",
+      "resolution": "resolved",
+      "modulePath": "runner/src/phase10-c0v-s6-receipts.ts",
+      "exportName": "writePhase10C0VS6PreflightReceipt",
+      "identity": {
+        "byteLength": 133577,
+        "sha256": "b7f4162bc6135ca73a6e047cd128ba7d17f5f827ec0b7be5986bc5665aabfd02"
+      },
+      "producedOutputIds": [
+        "out-c0v-static-produce-preflight"
+      ],
+      "invokedCheckIds": [],
+      "evaluatedCheckIds": [],
+      "executedNegativeControlIds": []
+    },
+    {
+      "callableId": "phase10-c0v-s6-refusal-check-caller",
+      "role": "check-caller",
+      "resolution": "resolved",
+      "modulePath": "runner/src/phase10-c0v-s6-refusal.ts",
+      "exportName": "phase10C0VS6RefusalCheckCaller",
+      "identity": {
+        "byteLength": 41799,
+        "sha256": "a2f8d0892c0ade5b92b26d4ca3c0968fab79cd6707d95a3bd85ad64fd69231cf"
+      },
+      "producedOutputIds": [],
+      "invokedCheckIds": [
+        "chk-c0v-static-resource-refusal-validity"
+      ],
+      "evaluatedCheckIds": [],
+      "executedNegativeControlIds": []
+    },
+    {
+      "callableId": "phase10-c0v-s6-refusal-evaluator",
+      "role": "independent-evaluator",
+      "resolution": "resolved",
+      "modulePath": "runner/src/phase10-c0v-s6-refusal.ts",
+      "exportName": "independentlyEvaluatePhase10C0VS6RefusalCause",
+      "identity": {
+        "byteLength": 41799,
+        "sha256": "a2f8d0892c0ade5b92b26d4ca3c0968fab79cd6707d95a3bd85ad64fd69231cf"
+      },
+      "producedOutputIds": [],
+      "invokedCheckIds": [],
+      "evaluatedCheckIds": [
+        "chk-c0v-static-resource-refusal-validity"
+      ],
+      "executedNegativeControlIds": []
+    },
+    {
+      "callableId": "phase10-c0v-s6-resource-check-caller",
+      "role": "check-caller",
+      "resolution": "resolved",
+      "modulePath": "runner/src/phase10-c0v-s6-resource.ts",
+      "exportName": "phase10C0VS6ResourceBoundaryCheckCaller",
+      "identity": {
+        "byteLength": 22933,
+        "sha256": "4bf50f595d9b32771fbcca598a65862eb7c4d70329e73fe2dcbf322fafa590f9"
+      },
+      "producedOutputIds": [],
+      "invokedCheckIds": [
+        "chk-c0v-static-resource-boundary"
+      ],
+      "evaluatedCheckIds": [],
+      "executedNegativeControlIds": []
+    },
+    {
+      "callableId": "phase10-c0v-s6-resource-evaluator",
+      "role": "independent-evaluator",
+      "resolution": "resolved",
+      "modulePath": "runner/src/phase10-c0v-s6-resource.ts",
+      "exportName": "independentlyEvaluatePhase10C0VS6ResourceBoundary",
+      "identity": {
+        "byteLength": 22933,
+        "sha256": "4bf50f595d9b32771fbcca598a65862eb7c4d70329e73fe2dcbf322fafa590f9"
+      },
+      "producedOutputIds": [],
+      "invokedCheckIds": [],
+      "evaluatedCheckIds": [
+        "chk-c0v-static-resource-boundary"
+      ],
+      "executedNegativeControlIds": []
+    },
+    {
+      "callableId": "phase10-c0v-s6-terminal-receipt-writer",
+      "role": "producer",
+      "resolution": "resolved",
+      "modulePath": "runner/src/phase10-c0v-s6-receipts.ts",
+      "exportName": "writePhase10C0VS6TerminalReceipt",
+      "identity": {
+        "byteLength": 133577,
+        "sha256": "b7f4162bc6135ca73a6e047cd128ba7d17f5f827ec0b7be5986bc5665aabfd02"
+      },
+      "producedOutputIds": [
+        "out-c0v-static-produce-terminal-receipt"
+      ],
+      "invokedCheckIds": [],
+      "evaluatedCheckIds": [],
+      "executedNegativeControlIds": []
+    },
+    {
+      "callableId": "phase10-c0v-static-attempt-receipt-writer",
+      "role": "producer",
+      "resolution": "resolved",
+      "modulePath": "runner/src/phase10-c0v-s6-attempt.ts",
+      "exportName": "writePhase10C0VStaticAttemptReceipt",
+      "identity": {
+        "byteLength": 7003,
+        "sha256": "35ec7f491b244e5a8ab030d627ea91cdb69da3c90487b44b17af34f7591bf39f"
+      },
+      "producedOutputIds": [
+        "out-c0v-static-attempt-ledger"
+      ],
+      "invokedCheckIds": [],
+      "evaluatedCheckIds": [],
+      "executedNegativeControlIds": []
+    },
+    {
+      "callableId": "phase10-c0v-static-produce-check-caller",
+      "role": "check-caller",
+      "resolution": "resolved",
+      "modulePath": "runner/src/phase10-c0v-s6-refusal.ts",
+      "exportName": "phase10C0VStaticProduceCheckCaller",
+      "identity": {
+        "byteLength": 41799,
+        "sha256": "a2f8d0892c0ade5b92b26d4ca3c0968fab79cd6707d95a3bd85ad64fd69231cf"
+      },
+      "producedOutputIds": [],
+      "invokedCheckIds": [
+        "chk-c0v-static-refusal-validity"
+      ],
+      "evaluatedCheckIds": [],
+      "executedNegativeControlIds": []
+    },
+    {
+      "callableId": "phase10-c0v-static-protocol-producer",
+      "role": "producer",
+      "resolution": "resolved",
+      "modulePath": "runner/src/phase10-c0v-s6-attempt.ts",
+      "exportName": "reopenPhase10C0VStaticProtocol",
+      "identity": {
+        "byteLength": 7003,
+        "sha256": "35ec7f491b244e5a8ab030d627ea91cdb69da3c90487b44b17af34f7591bf39f"
+      },
+      "producedOutputIds": [
+        "out-c0v-static-protocol"
+      ],
+      "invokedCheckIds": [],
+      "evaluatedCheckIds": [],
+      "executedNegativeControlIds": []
+    },
+    {
+      "callableId": "phase10-c0v-static-refusal-evaluator",
+      "role": "independent-evaluator",
+      "resolution": "resolved",
+      "modulePath": "runner/src/phase10-c0v-s6-refusal.ts",
+      "exportName": "independentlyEvaluatePhase10C0VStaticRefusal",
+      "identity": {
+        "byteLength": 41799,
+        "sha256": "a2f8d0892c0ade5b92b26d4ca3c0968fab79cd6707d95a3bd85ad64fd69231cf"
+      },
+      "producedOutputIds": [],
+      "invokedCheckIds": [],
+      "evaluatedCheckIds": [
+        "chk-c0v-static-refusal-validity"
+      ],
+      "executedNegativeControlIds": []
+    },
+    {
+      "callableId": "phase10-c0v-static-refusal-receipt-writer",
+      "role": "producer",
+      "resolution": "resolved",
+      "modulePath": "runner/src/phase10-c0v-s6-attempt.ts",
+      "exportName": "reopenPhase10C0VStaticReferenceRefusal",
+      "identity": {
+        "byteLength": 7003,
+        "sha256": "35ec7f491b244e5a8ab030d627ea91cdb69da3c90487b44b17af34f7591bf39f"
+      },
+      "producedOutputIds": [
+        "out-c0v-static-reference-refusal"
+      ],
+      "invokedCheckIds": [],
+      "evaluatedCheckIds": [],
+      "executedNegativeControlIds": []
+    }
+  ]
+}

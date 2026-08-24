@@ -7,10 +7,10 @@ import {
   PHASE10_C0V_S6_RECOVERY_V5_ATTEMPT_ROOT,
   PHASE10_C0V_S6_RECOVERY_V5_AUTHORITY_PATH,
   PHASE10_C0V_S6_RECOVERY_V5_PACKET_CATALOGUE_PATH,
-  PHASE10_C0V_S6_RECOVERY_V6_ATTEMPT_ROOT,
-  PHASE10_C0V_S6_RECOVERY_V6_AUTHORITY_PATH,
-  PHASE10_C0V_S6_RECOVERY_V6_PACKET_CATALOGUE_PATH,
-  PHASE10_C0V_S6_RECOVERY_V6_PREDECESSOR_ACCEPTED_PACKET_COMMIT,
+  PHASE10_C0V_S6_RECOVERY_V7_ATTEMPT_ROOT,
+  PHASE10_C0V_S6_RECOVERY_V7_AUTHORITY_PATH,
+  PHASE10_C0V_S6_RECOVERY_V7_PACKET_CATALOGUE_PATH,
+  PHASE10_C0V_S6_RECOVERY_V7_PREDECESSOR_ACCEPTED_PACKET_COMMIT,
   parsePhase10C0VS6CallableRegistry,
   parsePhase10C0VS6Matrix,
   parsePhase10C0VS6PacketCatalogue,
@@ -163,7 +163,7 @@ const PACKAGE_PUBLICATION_ROOTS = Object.freeze([
 const PACKAGE_BASELINE_ATTEMPT_ROOT = "out/phase10-c0v-reference-v1" as const;
 const PACKAGE_ATTEMPT_ROOTS = Object.freeze([
   PHASE10_C0V_S6_RECOVERY_V5_ATTEMPT_ROOT,
-  PHASE10_C0V_S6_RECOVERY_V6_ATTEMPT_ROOT,
+  PHASE10_C0V_S6_RECOVERY_V7_ATTEMPT_ROOT,
 ] as const);
 
 export interface Phase10C0VS6ReopenedPublishedArtifact {
@@ -860,14 +860,14 @@ function independentlyDeriveApArtifactIndexBytes(
   register("authority-execution-v2-readme", "research/phase10-execution-v2/README.md");
   const historicalAp = authority.catalogue.schema === "phase10-c0v-s6-recovery-v5-packet-catalogue-v1";
   register(
-    historicalAp ? "authority-execution-v2-recovery-v5" : "authority-execution-v2-recovery-v6",
-    historicalAp ? PHASE10_C0V_S6_RECOVERY_V5_AUTHORITY_PATH : PHASE10_C0V_S6_RECOVERY_V6_AUTHORITY_PATH,
+    historicalAp ? "authority-execution-v2-recovery-v5" : "authority-execution-v2-recovery-v7",
+    historicalAp ? PHASE10_C0V_S6_RECOVERY_V5_AUTHORITY_PATH : PHASE10_C0V_S6_RECOVERY_V7_AUTHORITY_PATH,
   );
   register(
     "authority-packet-catalogue",
     historicalAp
       ? PHASE10_C0V_S6_RECOVERY_V5_PACKET_CATALOGUE_PATH
-      : PHASE10_C0V_S6_RECOVERY_V6_PACKET_CATALOGUE_PATH,
+      : PHASE10_C0V_S6_RECOVERY_V7_PACKET_CATALOGUE_PATH,
   );
   for (const packet of authority.catalogue.packets) {
     register(`authority-${packet.packetId}-protocol`, packet.protocolPath);
@@ -5364,7 +5364,7 @@ export function independentlyReopenPhase10C0VS6HistoricalVerifiedProduceDependen
 
 /**
  * Focused accepted-prefix seam: reopens the committed A-P packet through its retained V5
- * protocol while selecting its six published outputs from the live V6 package matrix/catalogue.
+ * protocol while selecting its six published outputs from the live V7 package matrix/catalogue.
  */
 export function independentlyReopenPhase10C0VS6AcceptedHistoricalApPacket(
   repositoryRoot: string,
@@ -5372,23 +5372,23 @@ export function independentlyReopenPhase10C0VS6AcceptedHistoricalApPacket(
   const root = phase10C0VS6PhysicalRepositoryRoot(repositoryRoot);
   const catalogueBytes = phase10C0VS6ReadUniquePhysicalFile(
     root,
-    PHASE10_C0V_S6_RECOVERY_V6_PACKET_CATALOGUE_PATH,
+    PHASE10_C0V_S6_RECOVERY_V7_PACKET_CATALOGUE_PATH,
   );
   const catalogue = parsePhase10C0VS6PacketCatalogue(parsePhase10C0VS6PrettyJsonBytes(
     catalogueBytes,
-    "accepted A-P live recovery-v6 catalogue",
+    "accepted A-P live recovery-v7 catalogue",
   ));
   const apRows = catalogue.packets.filter((entry) => entry.packetId === "a-p-c0v-s6");
-  if (apRows.length !== 1) fail("accepted A-P does not resolve one live recovery-v6 catalogue row");
+  if (apRows.length !== 1) fail("accepted A-P does not resolve one live recovery-v7 catalogue row");
   const currentProtocol = readArtifact(
     root,
     apRows[0]!.protocolPath,
     null,
-    "accepted A-P live recovery-v6 protocol",
+    "accepted A-P live recovery-v7 protocol",
   );
   const currentPacket = parsePhase10C0VS6PacketProtocol(parsePhase10C0VS6PrettyJsonBytes(
     currentProtocol.bytes,
-    "accepted A-P live recovery-v6 protocol",
+    "accepted A-P live recovery-v7 protocol",
   ));
   const matrixBytes = phase10C0VS6ReadUniquePhysicalFile(root, currentPacket.bindings.matrix.path);
   phase10C0VS6SameIdentity(
@@ -5401,7 +5401,7 @@ export function independentlyReopenPhase10C0VS6AcceptedHistoricalApPacket(
   );
   const manifest = phase10C0VS6HistoricalHeadManifest(
     root.path,
-    PHASE10_C0V_S6_RECOVERY_V6_PREDECESSOR_ACCEPTED_PACKET_COMMIT,
+    PHASE10_C0V_S6_RECOVERY_V7_PREDECESSOR_ACCEPTED_PACKET_COMMIT,
   ).entries;
   const preflightExpected = manifest.get(apRows[0]!.preflightReceiptPath) ??
     fail("accepted A-P preflight is absent from its accepted-commit manifest");

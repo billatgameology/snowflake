@@ -281,7 +281,9 @@ detail.
   without writes, but its one `run` fail-stopped immediately after locking because five private
   executor literals still named moving v1. Only two locks / 440 bytes remain; no preflight,
   attempt, worker, or science ran. Recovery-v7 will unify those five sites behind the current
-  moving-attempt authority and authorize only v2 to v3. No consumed tuple may be rerun.
+  moving-attempt authority and authorize only v2 to v3. Its deterministic authority and exact
+  repository suite are green; the bounded non-author audit remains before first-add freeze. No
+  consumed tuple may be rerun.
 - **Assurance is proportional to decision risk.** [Decision 0049](decisions/0049-make-assurance-proportionate-to-decision-risk.md),
   charter v1.26 and `AGENTS.md` require integrity for routine sources, one targeted check for
   load-bearing inputs, and full named controls for gates or strong public claims. No recursive
@@ -296,8 +298,8 @@ detail.
   direction) and content stays in-repo unpublished, `test.yml` CI unaffected. Reconciliation is
   a live decision point under **Next step**. Full freeze history:
   [the history file](progress-history-phases-6-8-9.md).
-- **Last updated:** 2026-08-24 (moving-produce v2 retained a zero-credit stale-runner-literal stop;
-  bounded recovery-v7 planning is the next checkpoint)
+- **Last updated:** 2026-08-24 (recovery-v7 implementation, exact suite, and bounded non-author
+  audit are green; first-add freeze precedes the moving-produce v3 check/run)
 
 ## Phase gates
 
@@ -317,7 +319,7 @@ and every superseded attempt live in the linked plans and historical progress sn
 | 7 | Not started; independently eligible | Charter v1.25 preserves Phase 7's independence but does not start it. A committed Phase 7 plan and isolated worktree are required; product, held-out validation, and v6 WGSL/preview-GPU parity remain its scope. |
 | 8 | **Complete (8A + 8B)** | The immutable 8A book remains 18 entries / 59,019 bytes / SHA-256 `47a75f3f…71ec`. The verified 8B successor is 51 development records, 252,134 native rows and 431 plot points; no row is held out. [Completed plan](plans/phase-8-measurement-corpus.md). |
 | 9 | **Complete (development-only)** | The all-no-pass branch closed: D-BT failed, M-F/M-K2 stayed mapping-dependent, controls/path-state/M-PK are unavailable or non-identifiable, and zero items promoted. Exact `TMPDIR=/private/tmp npm test` passed; no result grants validation credit. [Completed plan](plans/phase-9-execution.md). |
-| 10 | **In progress — A-P/A-S/A-I PASS; C0 packet PASS/complete with numerical criterion NO-PASS; C0V supplemental A-P PASS** | A-P, A-S, bounded structural A-I PASS evidence, and the complete C0 packet are published and pinned. C0 independently re-derived 80/80 rows and 64/64 comparisons: 36 passed and 28 failed the attached-count criterion, so both spacings and the authoritative all-spacings reduction are NO-PASS ([report](../evidence/phase10-numerical-verification-v1/c0-report.json), SHA-256 `571e62ae…0b72`). C0 executed no solver and grants no absolute-accuracy, habit-robustness, target-score, validation, or prior-phase credit. C0V S5b pins the radial reference, moving `reference-discrepancy-refusal`, and scoped static refusal. S6's v1 through v5 A-P tuples each fail-stopped on bounded infrastructure defects; all bytes are retained and earn no packet/scientific credit. Recovery-v5 A-P v6 is terminal `complete`, passes 10/10 structural checks and both controls, and grants exact packet/dependency credit. Its six finals are pinned; it ran no solver and grants no science or validation claim. Moving-produce v1 and v2 then fail-stopped before preflight/worker on bounded reader/runner defects, each retaining only two locks and zero credit. Recovery-v7 is planned but unimplemented. Selection still includes no C1–C5 or habit rows. |
+| 10 | **In progress — A-P/A-S/A-I PASS; C0 packet PASS/complete with numerical criterion NO-PASS; C0V supplemental A-P PASS** | A-P, A-S, bounded structural A-I PASS evidence, and the complete C0 packet are published and pinned. C0 independently re-derived 80/80 rows and 64/64 comparisons: 36 passed and 28 failed the attached-count criterion, so both spacings and the authoritative all-spacings reduction are NO-PASS ([report](../evidence/phase10-numerical-verification-v1/c0-report.json), SHA-256 `571e62ae…0b72`). C0 executed no solver and grants no absolute-accuracy, habit-robustness, target-score, validation, or prior-phase credit. C0V S5b pins the radial reference, moving `reference-discrepancy-refusal`, and scoped static refusal. S6's v1 through v5 A-P tuples each fail-stopped on bounded infrastructure defects; all bytes are retained and earn no packet/scientific credit. Recovery-v5 A-P v6 is terminal `complete`, passes 10/10 structural checks and both controls, and grants exact packet/dependency credit. Its six finals are pinned; it ran no solver and grants no science or validation claim. Moving-produce v1 and v2 then fail-stopped before preflight/worker on bounded reader/runner defects, each retaining only two locks and zero credit. Recovery-v7 implementation and exact suite are green; its audit/first-add freeze remain before v3. Selection still includes no C1–C5 or habit rows. |
 
 ## Active plan
 
@@ -394,8 +396,10 @@ historical recovery-v5 A-P reopening, and sole moving-produce v2 namespace; exac
 found zero concrete blockers. Its pushed freeze is `e65ca44`. The v2 check passed without writes,
 but its one run stopped immediately after locking because five active executor literals still named
 moving v1. The two new locks total 440 bytes; no preflight, attempt, worker, or science ran. The
-active plan now records the bounded recovery-v7 successor. Moving-produce v1 and v2 must not be
-retried.
+recovery-v7 successor now unifies the five sites behind one current moving-attempt authority and
+adds a real locked-dispatch regression. Its generated package, exact `npm test`, and bounded
+non-author audit are green; the first-add freeze remains before any registered v7 command.
+Moving-produce v1 and v2 must not be retried.
 
 The old source-strata/ladder/WP3/R15 prerequisite sentence governed the now-closed Phase 6
 production path. WP3 and R15 closed as not computed under decision 0045; that sentence does not
@@ -419,14 +423,14 @@ it. The former **Phase 10 — freeze recovery-v6 for moving-produce v2** checkpo
 private v1 literal rejected the correct v2 authority. Preserve both moving v1 and v2 lock pairs
 byte-for-byte; neither consumed attempt may be retried.
 
-Commit and push the concise recovery-v7 plan/state checkpoint first. Then replace the five active
-moving-attempt literals with one current-attempt authority, regenerate the package-wide
-recovery-v7 freeze, and authorize only moving v2 to v3. The static successor baseline is 59 files /
+The concise recovery-v7 plan/state checkpoint is pushed at `454bc27`. Recovery-v7 now replaces the
+five active moving-attempt literals with one current-attempt authority, regenerates the homogeneous
+package freeze, and authorizes only moving v2 to v3. The static successor baseline is 59 files /
 2,995,267 bytes; accepted A-P remains separate at 15 files / 637,675 bytes, so moving v3 observes
-74 files / 3,632,942 bytes and 532,300,704,500 governed ns before its attempt. Run focused checks,
-exact `npm test`, and one bounded non-author audit; commit and push the first-add freeze before any
-registered recovery-v7 command. The future exact commands will be recorded by that implementation
-checkpoint.
+74 files / 3,632,942 bytes and 532,300,704,500 governed ns before its attempt. Focused checks,
+exact `npm test`, and one bounded non-author audit are green. Commit and push the first-add freeze
+with all 69 governed paths absent. Only afterward may the exact v3 check/run commands be recorded
+and invoked.
 
 Do not delete or mutate predecessor bytes or retry any consumed tuple automatically. After the
 future v3 `check` exits 0 without writes, permit one `run`; on refusal, retain every byte and return
