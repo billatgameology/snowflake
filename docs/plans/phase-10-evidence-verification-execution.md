@@ -1753,6 +1753,54 @@ new files; and re-derived timing, storage, manifest arithmetic, and absences. It
 a registered command, solver/finalizer, retry, NAS/network access, edit, delete, commit, or push.
 The proposed fix remains source-traced until implemented and tested.
 
+### S6 recovery-v5 implementation checkpoint — 2026-08-24
+
+Recovery-v5 is implemented as the bounded representation and receipt-value repair above. One small
+helper now computes the established semantic fingerprint as
+`SHA256(UTF8(canonicalJson(projection)))` without a trailing LF. The A-P producer and independent
+reproof, generic radial/aggregate producer, and terminal parser all reuse it; physical pretty-JSON
+identities remain separate. The packet receipt now carries the active protocol's independently
+sum-checked package baseline instead of the original historical literal. Focused regression drives
+both real A-P controls through independent reproof and verification write/parse, rejects the
+newline-bearing semantic digest, asserts the active baseline, and separately round-trips a generic
+aggregate mutation result. No science, tolerance, hostile-runtime rule, or resource ceiling changed.
+
+The deterministic recovery-v5 generated package contains 18 JSON files / 824,376 bytes with tree
+SHA-256 `504b022fa4b8ec44fc8c3aa156a31063476bc5931e259a3abcc0d5fcf97bfba3`.
+Its 19,190-byte authority has SHA-256
+`5bd192d2a1a316008f682499e43c7c8d3cc2140bc02ab0e38773707c7365dd9b`; its 16,104-byte
+catalogue has SHA-256 `d0a393c92c169bea3acd0e51abfb38bafd122a87fc180ea928204e1cc63416d6`.
+Strict parsing passed for all 18 generated files and 101/101 live callable identities match. The
+authority exact-binds ten locks, 29 attempt files, four preflights, 1,364,810 retained bytes, and 57
+absent governed paths. All eight protocols share the exact 55-file / 2,994,387-byte baseline. The
+v5 preflight is tracked and pinned at 45,634 bytes / SHA-256
+`5810af1e49041134ae8de171c4219b3fc0293b91922be63aa7249a23f6090f0a`; the manifest is
+390 files / 6,007,207 bytes. A-P alone advances to v6, while all seven non-A-P v1 attempt IDs and
+their own decision surfaces remain unchanged.
+
+Focused validation passed 156/156 tests across runtime, publication, authority, preflight, and
+executor suites, plus typecheck, Rule 7, generated identity, and diff checks. The first exact
+`npm test` run correctly refused the newly manifest-pinned preflight while it remained untracked:
+159/160 files and 2,511 passed / 49 skipped tests, with only the evidence-integrity Git-index check
+failing. After staging that exact file, the focused integrity suite passed 7/7. Exact `npm test`
+then passed Rule 7 across 1,334 files, both typechecks, and 160/160 test files with 2,512 passed and
+49 skipped tests in 1,843.13 seconds.
+
+The one bounded final non-author audit reported zero concrete blockers. The reviewer was a
+GPT-5-family Codex child with shared task and repository context. It did not author recovery-v5,
+although it diagnosed the consumed v5 failure. It independently re-read the representation,
+receipt, runtime, freeze, test, authority, protocol, registry, manifest, and retained-state
+surfaces; recomputed all retained/baseline/manifest identities, 57 absences, timing/storage
+arithmetic, 101 callable identities, and 124 generated bindings; and compared all seven non-A-P
+decision surfaces to recovery-v4. It did not run `npm test`, focused tests, a registered S6
+command, solver/finalizer, edit, commit, push, NAS, or network. The recovery-v5 first-add commit and
+post-commit freeze result can be verified only after this checkpoint is committed.
+
+Commit and push this first-add freeze while the recovery-v5 runtime root and all v6 final/stage
+paths remain absent. Verify the derived first-add/ancestry result from the committed bytes. Only
+then run the exact A-P v6 read-only `check` and one v6 `run`; any refusal retains all bytes and
+returns here before moving-produce.
+
 No ADR or charter amendment is needed: decision 0053 and this plan already require a separately
 frozen successor after an unclassified infrastructure stop. Science, references, tolerances,
 resource ceilings, and the rejected hostile-runtime design remain closed.

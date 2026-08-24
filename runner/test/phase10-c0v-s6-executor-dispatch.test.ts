@@ -182,7 +182,7 @@ describe("Phase 10 C0V S6 executor dispatch", () => {
 });
 
 describe("Phase 10 C0V S6 blocking worker transport", () => {
-  const scope = Object.freeze({ packetId: "a-p-c0v-s6" as const, attemptId: "a-p-c0v-s6-20260822-v5" });
+  const scope = Object.freeze({ packetId: "a-p-c0v-s6" as const, attemptId: "a-p-c0v-s6-20260822-v6" });
 
   it("round-trips exact commands and recursive byte payloads", () => {
     const command: Phase10C0VS6WorkerCommand = Object.freeze({
@@ -263,7 +263,7 @@ describe("Phase 10 C0V S6 blocking worker transport", () => {
   it("rejects field-order, sequence, nullability, framing, and reserved-marker attacks", () => {
     const reordered = new TextEncoder().encode(
       '{"schema":"phase10-c0v-s6-worker-command-v1","sequence":0,' +
-      '"attemptId":"a-p-c0v-s6-20260822-v5","packetId":"a-p-c0v-s6",' +
+      '"attemptId":"a-p-c0v-s6-20260822-v6","packetId":"a-p-c0v-s6",' +
       '"kind":"invoke","invocationId":"inv-a-p-c0v-s6-nc-missing-producer",' +
       '"acknowledgedWorkerSequence":null}\n',
     );
@@ -301,7 +301,7 @@ describe("Phase 10 C0V S6 blocking worker transport", () => {
   it("rejects noncanonical byte markers and lines above the exact 32 MiB bound", () => {
     const noncanonical = new TextEncoder().encode(
       '{"schema":"phase10-c0v-s6-worker-message-v1","sequence":0,' +
-      '"packetId":"a-p-c0v-s6","attemptId":"a-p-c0v-s6-20260822-v5",' +
+      '"packetId":"a-p-c0v-s6","attemptId":"a-p-c0v-s6-20260822-v6",' +
       '"kind":"result","invocationId":"inv-a-p-c0v-s6-nc-missing-producer",' +
       '"payload":{"$phase10C0VS6Bytes":"AA"}}\n',
     );

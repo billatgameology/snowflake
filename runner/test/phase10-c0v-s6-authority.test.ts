@@ -18,6 +18,10 @@ import {
   PHASE10_C0V_S6_RECOVERY_V4_PREDECESSOR_ATTEMPT_ARTIFACTS,
   PHASE10_C0V_S6_RECOVERY_V4_PREDECESSOR_LOCK_ARTIFACTS,
   PHASE10_C0V_S6_RECOVERY_V4_PREDECESSOR_PUBLISHED_ARTIFACTS,
+  PHASE10_C0V_S6_RECOVERY_V5_GOVERNED_ABSENT_PATHS,
+  PHASE10_C0V_S6_RECOVERY_V5_PREDECESSOR_ATTEMPT_ARTIFACTS,
+  PHASE10_C0V_S6_RECOVERY_V5_PREDECESSOR_LOCK_ARTIFACTS,
+  PHASE10_C0V_S6_RECOVERY_V5_PREDECESSOR_PUBLISHED_ARTIFACTS,
   assertPhase10C0VS6ArtifactSchemaRegistryMatrixParity,
   parsePhase10C0VS6ArtifactSchemaRegistry,
   parsePhase10C0VS6CallableRegistry,
@@ -29,6 +33,7 @@ import {
   parsePhase10C0VS6RecoveryV2Authority,
   parsePhase10C0VS6RecoveryV3Authority,
   parsePhase10C0VS6RecoveryV4Authority,
+  parsePhase10C0VS6RecoveryV5Authority,
 } from "../src/phase10-c0v-s6-contracts.ts";
 import {
   independentlyReprovePhase10C0VS6ApNegativeControl,
@@ -75,6 +80,12 @@ const AUTHORITY_PATHS = Object.freeze([
   ...PHASE10_C0V_S6_PACKET_IDS.flatMap((packetId) => [
     `research/phase10-execution-v2/recovery-v4/packets/${packetId}/protocol.json`,
     `research/phase10-execution-v2/recovery-v4/packets/${packetId}/callable-registry.json`,
+  ]),
+  "research/phase10-execution-v2/recovery-v5/recovery-authority.json",
+  "research/phase10-execution-v2/recovery-v5/packet-catalogue.json",
+  ...PHASE10_C0V_S6_PACKET_IDS.flatMap((packetId) => [
+    `research/phase10-execution-v2/recovery-v5/packets/${packetId}/protocol.json`,
+    `research/phase10-execution-v2/recovery-v5/packets/${packetId}/callable-registry.json`,
   ]),
 ]);
 
@@ -289,6 +300,56 @@ describe("Phase 10 C0V S6 execution-v2 authority", () => {
     }]);
   });
 
+  it("binds recovery-v5 to the exact recovery-v4 stop and authorizes only A-P v6", () => {
+    const recovery = parsePhase10C0VS6RecoveryV5Authority(json(
+      "research/phase10-execution-v2/recovery-v5/recovery-authority.json",
+    ));
+    expect(recovery.predecessorImplementationFreezeCommit)
+      .toBe("7ff83eaf9312ebc3bf23d6f5ef5a56d6f65a912a");
+    for (const identity of [
+      recovery.predecessorRecoveryAuthority,
+      recovery.predecessorPacketCatalogue,
+      recovery.predecessorApProtocol,
+    ]) {
+      const frozenBytes = execFileSync(
+        "git",
+        ["show", `${recovery.predecessorImplementationFreezeCommit}:${identity.path}`],
+        { cwd: ROOT, windowsHide: true },
+      );
+      expect(bytes(identity.path), identity.path).toEqual(frozenBytes);
+      expect(phase10C0VS6ArtifactIdentity(identity.path, frozenBytes), identity.path).toEqual(identity);
+    }
+    expect(recovery.predecessorLockArtifacts).toEqual(
+      PHASE10_C0V_S6_RECOVERY_V5_PREDECESSOR_LOCK_ARTIFACTS,
+    );
+    expect(recovery.predecessorAttemptArtifacts).toEqual(
+      PHASE10_C0V_S6_RECOVERY_V5_PREDECESSOR_ATTEMPT_ARTIFACTS,
+    );
+    expect(recovery.predecessorPublishedArtifacts).toEqual(
+      PHASE10_C0V_S6_RECOVERY_V5_PREDECESSOR_PUBLISHED_ARTIFACTS,
+    );
+    expect(recovery.predecessorGovernedAbsentPaths).toEqual(
+      PHASE10_C0V_S6_RECOVERY_V5_GOVERNED_ABSENT_PATHS,
+    );
+    expect(recovery).toMatchObject({
+      retainedBytes: 1_364_810,
+      observedWorkerProcessCount: 1,
+      observedWorkerLifetimeNanoseconds: 134_346_732_400,
+      creditedGovernedInvocationCount: 4,
+      creditedGovernedElapsedNanoseconds: 133_870_512_700,
+      creditedGovernedProcessHours: 0.037186253527777775,
+    });
+    expect(recovery.predecessorLockArtifacts).toHaveLength(10);
+    expect(recovery.predecessorAttemptArtifacts).toHaveLength(29);
+    expect(recovery.predecessorPublishedArtifacts).toHaveLength(4);
+    expect(recovery.predecessorGovernedAbsentPaths).toHaveLength(57);
+    expect(recovery.successor.authorizedAttempts).toEqual([{
+      packetId: "a-p-c0v-s6",
+      predecessorAttemptId: "a-p-c0v-s6-20260822-v5",
+      successorAttemptId: "a-p-c0v-s6-20260822-v6",
+    }]);
+  });
+
   it("independently closes all ten supplemental A-P graph checks", () => {
     const missing = runPhase10C0VS6MissingProducerControl({ repositoryRoot: ROOT });
     const uncalled = runPhase10C0VS6UncalledCheckControl({ repositoryRoot: ROOT });
@@ -402,9 +463,9 @@ describe("Phase 10 C0V S6 execution-v2 authority", () => {
       "research/phase10-c0v-s6-obligation-matrix-v1.json",
     ));
     const catalogue = parsePhase10C0VS6PacketCatalogue(json(
-      "research/phase10-execution-v2/recovery-v4/packet-catalogue.json",
+      "research/phase10-execution-v2/recovery-v5/packet-catalogue.json",
     ));
-    const recoveryAuthorityPath = "research/phase10-execution-v2/recovery-v4/recovery-authority.json";
+    const recoveryAuthorityPath = "research/phase10-execution-v2/recovery-v5/recovery-authority.json";
     expect(catalogue.recoveryAuthority).toEqual(phase10C0VS6ArtifactIdentity(
       recoveryAuthorityPath,
       bytes(recoveryAuthorityPath),
@@ -493,18 +554,18 @@ describe("Phase 10 C0V S6 execution-v2 authority", () => {
 
     for (const packetId of PHASE10_C0V_S6_PACKET_IDS) {
       const protocol = parsePhase10C0VS6PacketProtocol(json(
-        `research/phase10-execution-v2/recovery-v4/packets/${packetId}/protocol.json`,
+        `research/phase10-execution-v2/recovery-v5/packets/${packetId}/protocol.json`,
       ));
       const cataloguePacket = catalogue.packets.find((entry) => entry.packetId === packetId)!;
       const registry = parsePhase10C0VS6CallableRegistry(json(
-        `research/phase10-execution-v2/recovery-v4/packets/${packetId}/callable-registry.json`,
+        `research/phase10-execution-v2/recovery-v5/packets/${packetId}/callable-registry.json`,
       ));
       expect(protocol.packetId).toBe(packetId);
       expect(registry.packetId).toBe(packetId);
       expect(protocol.bindings.recoveryAuthority).toEqual(catalogue.recoveryAuthority);
       expect(protocol.registeredAttemptId).toBe(
         packetId === "a-p-c0v-s6"
-          ? "a-p-c0v-s6-20260822-v5"
+          ? "a-p-c0v-s6-20260822-v6"
           : `${packetId}-20260822-v1`,
       );
       expect(protocol.terminalSubroutes.every((entry) =>
@@ -612,7 +673,7 @@ describe("Phase 10 C0V S6 execution-v2 authority", () => {
   });
 
   it("rejects forged caller-result authority and post-candidate credit in a terminal candidate", () => {
-    const path = "research/phase10-execution-v2/recovery-v4/packets/c0v-moving-produce/protocol.json";
+    const path = "research/phase10-execution-v2/recovery-v5/packets/c0v-moving-produce/protocol.json";
     const raw = json(path) as {
       terminalReceiptContract: {
         callerInvocationResultRosters: Array<{
@@ -653,7 +714,7 @@ describe("Phase 10 C0V S6 execution-v2 authority", () => {
   });
 
   it("rejects completed negative-control credit on a radial capped-control prefix", () => {
-    const path = "research/phase10-execution-v2/recovery-v4/packets/c0v-radial-produce/protocol.json";
+    const path = "research/phase10-execution-v2/recovery-v5/packets/c0v-radial-produce/protocol.json";
     const raw = json(path) as {
       terminalSubroutes: Array<{
         subrouteId: string;
@@ -701,7 +762,7 @@ describe("Phase 10 C0V S6 execution-v2 authority", () => {
     omitted.schemas[0]!.outputBindings.pop();
     expect(() => parsePhase10C0VS6ArtifactSchemaRegistry(omitted)).toThrow(/omits|differs/u);
 
-    const rawCatalogue = json("research/phase10-execution-v2/recovery-v4/packet-catalogue.json") as {
+    const rawCatalogue = json("research/phase10-execution-v2/recovery-v5/packet-catalogue.json") as {
       packageLockPath: string;
       runtimeEntrypoints: Array<{ role: string; modulePath: string; exportName: string }>;
       runtimeLoaderContract: {
@@ -816,7 +877,7 @@ describe("Phase 10 C0V S6 execution-v2 authority", () => {
     expect(() => parsePhase10C0VS6PacketCatalogue(collidedPackageLock)).toThrow(/packageLockPath/u);
 
     const rawProtocol = json(
-      "research/phase10-execution-v2/recovery-v4/packets/a-p-c0v-s6/protocol.json",
+      "research/phase10-execution-v2/recovery-v5/packets/a-p-c0v-s6/protocol.json",
     ) as {
       verification: { executionProvenanceRule: string };
       paths: {
@@ -845,7 +906,7 @@ describe("Phase 10 C0V S6 execution-v2 authority", () => {
       .toThrow(/executionProvenanceRule/u);
 
     const rawRadialProtocol = json(
-      "research/phase10-execution-v2/recovery-v4/packets/c0v-radial-produce/protocol.json",
+      "research/phase10-execution-v2/recovery-v5/packets/c0v-radial-produce/protocol.json",
     ) as {
       workerProgressContract: {
         eventStateTransitions: Array<{ transitionId: string; caseRule: string }>;
@@ -864,7 +925,7 @@ describe("Phase 10 C0V S6 execution-v2 authority", () => {
   });
 
   it("rejects cyclic cap sources and missing raw-to-final joins", () => {
-    const path = "research/phase10-execution-v2/recovery-v4/packets/c0v-radial-produce/protocol.json";
+    const path = "research/phase10-execution-v2/recovery-v5/packets/c0v-radial-produce/protocol.json";
     const raw = json(path) as {
       classificationProjectionRosters: Array<{
         observations: Array<{

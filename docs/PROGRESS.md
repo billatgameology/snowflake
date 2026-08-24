@@ -267,7 +267,9 @@ detail.
   credit was earned. All 433,513 new bytes are retained. Recovery-v4 now implements the bounded
   resolver reuse and entered clean pushed freeze `7ff83ea`. Its one v5 run completed four governed
   invocations but final verification rejected a conflated physical/semantic digest before any
-  terminal publication. All 437,809 new bytes are retained; recovery-v5 is the bounded digest split.
+  terminal publication. All 437,809 new bytes are retained. Recovery-v5 now implements the bounded
+  digest split and active receipt-baseline repair, exact-binds all retained state, and has exact
+  `npm test` plus one bounded non-author audit green with every v6 path absent.
 - **Assurance is proportional to decision risk.** [Decision 0049](decisions/0049-make-assurance-proportionate-to-decision-risk.md),
   charter v1.26 and `AGENTS.md` require integrity for routine sources, one targeted check for
   load-bearing inputs, and full named controls for gates or strong public claims. No recursive
@@ -282,8 +284,8 @@ detail.
   direction) and content stays in-repo unpublished, `test.yml` CI unaffected. Reconciliation is
   a live decision point under **Next step**. Full freeze history:
   [the history file](progress-history-phases-6-8-9.md).
-- **Last updated:** 2026-08-24 (one recovery-v4 A-P v5 run fail-stopped in final verification after
-  four governed invocations; all bytes retained; bounded recovery-v5 successor planned)
+- **Last updated:** 2026-08-24 (bounded recovery-v5 successor implemented and audited; exact suite
+  green; A-P v6 check/run next after the clean pushed first-add freeze)
 
 ## Phase gates
 
@@ -303,7 +305,7 @@ and every superseded attempt live in the linked plans and historical progress sn
 | 7 | Not started; independently eligible | Charter v1.25 preserves Phase 7's independence but does not start it. A committed Phase 7 plan and isolated worktree are required; product, held-out validation, and v6 WGSL/preview-GPU parity remain its scope. |
 | 8 | **Complete (8A + 8B)** | The immutable 8A book remains 18 entries / 59,019 bytes / SHA-256 `47a75f3f…71ec`. The verified 8B successor is 51 development records, 252,134 native rows and 431 plot points; no row is held out. [Completed plan](plans/phase-8-measurement-corpus.md). |
 | 9 | **Complete (development-only)** | The all-no-pass branch closed: D-BT failed, M-F/M-K2 stayed mapping-dependent, controls/path-state/M-PK are unavailable or non-identifiable, and zero items promoted. Exact `TMPDIR=/private/tmp npm test` passed; no result grants validation credit. [Completed plan](plans/phase-9-execution.md). |
-| 10 | **In progress — A-P/A-S/A-I PASS; C0 packet PASS/complete with numerical criterion NO-PASS** | A-P, A-S, bounded structural A-I PASS evidence, and the complete C0 packet are published and pinned. C0 independently re-derived 80/80 rows and 64/64 comparisons: 36 passed and 28 failed the attached-count criterion, so both spacings and the authoritative all-spacings reduction are NO-PASS ([report](../evidence/phase10-numerical-verification-v1/c0-report.json), SHA-256 `571e62ae…0b72`). C0 executed no solver and grants no absolute-accuracy, habit-robustness, target-score, validation, or prior-phase credit. C0V S5b pins the radial reference, moving `reference-discrepancy-refusal`, and scoped static refusal. S6's v1 through v5 A-P tuples each fail-stopped on bounded infrastructure defects; all bytes are retained. The v3, v4, and v5 workers each completed four governed structural invocations but published no terminal packet and earn no science/success credit. Recovery-v5 is planned as the exact physical/semantic digest split; selection still includes no C1–C5 or habit rows. |
+| 10 | **In progress — A-P/A-S/A-I PASS; C0 packet PASS/complete with numerical criterion NO-PASS** | A-P, A-S, bounded structural A-I PASS evidence, and the complete C0 packet are published and pinned. C0 independently re-derived 80/80 rows and 64/64 comparisons: 36 passed and 28 failed the attached-count criterion, so both spacings and the authoritative all-spacings reduction are NO-PASS ([report](../evidence/phase10-numerical-verification-v1/c0-report.json), SHA-256 `571e62ae…0b72`). C0 executed no solver and grants no absolute-accuracy, habit-robustness, target-score, validation, or prior-phase credit. C0V S5b pins the radial reference, moving `reference-discrepancy-refusal`, and scoped static refusal. S6's v1 through v5 A-P tuples each fail-stopped on bounded infrastructure defects; all bytes are retained. The v3, v4, and v5 workers each completed four governed structural invocations but published no terminal packet and earn no science/success credit. Recovery-v5 is implemented and audited with all v6 paths absent at its first-add checkpoint; selection still includes no C1–C5 or habit rows. |
 
 ## Active plan
 
@@ -364,8 +366,11 @@ current and historical finalization joins, pins the v4 preflight, and has exact 
 bounded non-author audit green. After its first-add checkpoint is clean and pushed, the active plan
 authorized only the exact A-P v5 `check` and one v5 `run`. That run completed four governed
 invocations, then final verification refused the control witness's conflated physical/semantic
-digest before terminal publication. The active plan now authorizes only the bounded recovery-v5
-implementation/freeze; v5 must not be retried.
+digest before terminal publication. Recovery-v5 now centralizes the established no-LF semantic
+digest, keeps physical identities separate, removes the masked historical baseline literal, pins
+the v5 preflight, and exact-binds the complete predecessor state. Exact `npm test` and one bounded
+non-author audit are green. After its first-add checkpoint is clean and pushed, the active plan
+authorizes only the exact A-P v6 `check` and one v6 `run`; v5 must not be retried.
 
 The old source-strata/ladder/WP3/R15 prerequisite sentence governed the now-closed Phase 6
 production path. WP3 and R15 closed as not computed under decision 0045; that sentence does not
@@ -375,7 +380,7 @@ the package-specific prerequisites in its charter amendment and execution plan. 
 
 ## Next step
 
-### Phase 10 — freeze the bounded S6 recovery-v5 successor
+### Phase 10 — check and execute supplemental S6 A-P v6 once
 
 The maker selected **A-S + A-I + B + C0 + C0V with packet-specific A-P** on 2026-08-21. No
 C1–C5 numerical-qualification or scientific habit row is part of this execution. The
@@ -383,25 +388,21 @@ C1–C5 numerical-qualification or scientific habit row is part of this executio
 done/stop rules, authority boundaries, finite source and compute budgets, and return-only handling
 of candidate E/F/H branches.
 
-The recovery-v4 A-P v5 `check` passed without writes and its one authorized `run` fail-stopped after
-the worker completed four governed invocations. Preserve that consumed tuple, both locks, and its
-passing preflight exactly; do not retry it. Normalize the existing no-LF canonical semantic digest
-across the A-P producer/reproof, generic mutation producer, and terminal parser while preserving
-physical pretty-JSON identity; add the separately frozen
-`research/phase10-execution-v2/recovery-v5/` package, and manifest-pin the v5 preflight.
-Recovery-v5 alone authorizes A-P attempt `a-p-c0v-s6-20260822-v6` and six fresh
-`evidence/phase10-obligation-preflight-v6/` final/stage paths; science, tolerances, and the other
-seven attempt IDs remain unchanged.
+The recovery-v4 A-P v5 tuple remains consumed and immutable. Recovery-v5 implements its bounded
+repair, manifest-pins the retained preflight, and exact-binds every predecessor byte and absence.
+Exact `npm test` passed 160/160 files with 2,512 passed and 49 skipped tests; one bounded non-author
+audit found zero concrete blockers. Commit and push this first-add freeze, verify that its authority
+derives that exact first-add commit, and confirm the recovery-v5 runtime root plus all v6 final/stage
+paths remain absent. Then run only these registered commands in order:
 
 ```text
-npm test
+node runner/src/phase10-c0v-s6-executor.ts check --packet a-p-c0v-s6 --protocol research/phase10-execution-v2/recovery-v5/packets/a-p-c0v-s6/protocol.json --attempt a-p-c0v-s6-20260822-v6
+node runner/src/phase10-c0v-s6-executor.ts run --packet a-p-c0v-s6 --protocol research/phase10-execution-v2/recovery-v5/packets/a-p-c0v-s6/protocol.json --attempt a-p-c0v-s6-20260822-v6
 ```
 
-After exact `npm test` and one bounded non-author audit pass, commit and push the first-add
-recovery-v5 freeze while its runtime root and all v6 final/stage paths remain absent. Only then may
-the exact v6 read-only `check` and one v6 `run` occur. Do not delete or mutate predecessor bytes or
-retry any consumed tuple automatically. On refusal, retain every byte and return to the active
-plan; on success, independently verify and pin A-P before authorizing moving-produce.
+The `check` must exit 0 without writes before the one `run`. Do not delete or mutate predecessor
+bytes or retry any consumed tuple automatically. On refusal, retain every byte and return to the
+active plan; on success, independently verify and pin A-P before authorizing moving-produce.
 This supersedes **Phase 10 — execute the supplemental C0V A-P packet**: neither its original v1
 tuple nor the consumed v2/v3/v4/v5 tuples are authorized again.
 

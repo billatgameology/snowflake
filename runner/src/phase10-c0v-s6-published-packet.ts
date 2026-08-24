@@ -1,11 +1,12 @@
 import { existsSync, lstatSync, readdirSync, realpathSync } from "node:fs";
 import { basename, isAbsolute, relative, resolve, sep } from "node:path";
-import { canonicalJsonSha256, strictJsonSnapshot, type StrictJson } from "./gate4-evidence.ts";
+import { strictJsonSnapshot, type StrictJson } from "./gate4-evidence.ts";
+import { phase10C0VS6CanonicalSemanticSha256 } from "./phase10-c0v-s6-semantic-fingerprint.ts";
 import {
   PHASE10_C0V_S6_PACKET_IDS,
-  PHASE10_C0V_S6_RECOVERY_V4_ATTEMPT_ROOT,
-  PHASE10_C0V_S6_RECOVERY_V4_AUTHORITY_PATH,
-  PHASE10_C0V_S6_RECOVERY_V4_PACKET_CATALOGUE_PATH,
+  PHASE10_C0V_S6_RECOVERY_V5_ATTEMPT_ROOT,
+  PHASE10_C0V_S6_RECOVERY_V5_AUTHORITY_PATH,
+  PHASE10_C0V_S6_RECOVERY_V5_PACKET_CATALOGUE_PATH,
   parsePhase10C0VS6CallableRegistry,
   parsePhase10C0VS6Matrix,
   parsePhase10C0VS6PacketCatalogue,
@@ -152,9 +153,10 @@ const PACKAGE_PUBLICATION_ROOTS = Object.freeze([
   "evidence/phase10-obligation-preflight-v3",
   "evidence/phase10-obligation-preflight-v4",
   "evidence/phase10-obligation-preflight-v5",
+  "evidence/phase10-obligation-preflight-v6",
 ] as const);
 const PACKAGE_BASELINE_ATTEMPT_ROOT = "out/phase10-c0v-reference-v1" as const;
-const PACKAGE_ATTEMPT_ROOT = PHASE10_C0V_S6_RECOVERY_V4_ATTEMPT_ROOT;
+const PACKAGE_ATTEMPT_ROOT = PHASE10_C0V_S6_RECOVERY_V5_ATTEMPT_ROOT;
 
 export interface Phase10C0VS6ReopenedPublishedArtifact {
   readonly artifactRole:
@@ -651,7 +653,7 @@ function deriveApNegativeControlResults(
   return Object.freeze(rows);
 }
 
-function mutationWitness(
+export function phase10C0VS6BuildMutationWitness(
   artifactId: string,
   identity: Phase10C0VS6ArtifactIdentity,
   projection: StrictJson,
@@ -661,7 +663,7 @@ function mutationWitness(
     ...identity,
     semanticFingerprint: Object.freeze({
       projection,
-      sha256: canonicalJsonSha256(projection),
+      sha256: phase10C0VS6CanonicalSemanticSha256(projection),
     }),
   });
 }
@@ -726,8 +728,16 @@ function deriveRadialNegativeControlResults(
       // nevertheless rejected by the separate raw summary mutation proof.  Never derive this
       // generic verification verdict from attackedCheckFailed alone.
       rejected: true,
-      beforeWitness: mutationWitness(control.artifactId, control.before, beforeProjection),
-      afterWitness: mutationWitness(control.artifactId, control.after, afterProjection),
+      beforeWitness: phase10C0VS6BuildMutationWitness(
+        control.artifactId,
+        control.before,
+        beforeProjection,
+      ),
+      afterWitness: phase10C0VS6BuildMutationWitness(
+        control.artifactId,
+        control.after,
+        afterProjection,
+      ),
       errors: Object.freeze([]),
     });
   }));
@@ -782,8 +792,16 @@ function deriveAggregateNegativeControlResults(
     negativeControlId: "nc-c0v-any-layer-nonpass",
     mutationExecuted: true,
     rejected: true,
-    beforeWitness: mutationWitness("c0v-terminal-table", receiptIdentity, beforeProjection),
-    afterWitness: mutationWitness("c0v-terminal-table", receiptIdentity, afterProjection),
+    beforeWitness: phase10C0VS6BuildMutationWitness(
+      "c0v-terminal-table",
+      receiptIdentity,
+      beforeProjection,
+    ),
+    afterWitness: phase10C0VS6BuildMutationWitness(
+      "c0v-terminal-table",
+      receiptIdentity,
+      afterProjection,
+    ),
     errors: Object.freeze([]),
   })]);
 }
@@ -816,12 +834,12 @@ function independentlyDeriveApArtifactIndexBytes(
   }
   register("authority-execution-v2-readme", "research/phase10-execution-v2/README.md");
   register(
-    "authority-execution-v2-recovery-v4",
-    PHASE10_C0V_S6_RECOVERY_V4_AUTHORITY_PATH,
+    "authority-execution-v2-recovery-v5",
+    PHASE10_C0V_S6_RECOVERY_V5_AUTHORITY_PATH,
   );
   register(
     "authority-packet-catalogue",
-    PHASE10_C0V_S6_RECOVERY_V4_PACKET_CATALOGUE_PATH,
+    PHASE10_C0V_S6_RECOVERY_V5_PACKET_CATALOGUE_PATH,
   );
   for (const packet of authority.catalogue.packets) {
     register(`authority-${packet.packetId}-protocol`, packet.protocolPath);
@@ -829,12 +847,12 @@ function independentlyDeriveApArtifactIndexBytes(
   }
   register(
     "out-ap-c0v-s6-missing-producer",
-    "evidence/phase10-obligation-preflight-v5/missing-producer.json",
+    "evidence/phase10-obligation-preflight-v6/missing-producer.json",
     missingProducerBytes,
   );
   register(
     "out-ap-c0v-s6-uncalled-check",
-    "evidence/phase10-obligation-preflight-v5/uncalled-check.json",
+    "evidence/phase10-obligation-preflight-v6/uncalled-check.json",
     uncalledCheckBytes,
   );
   const artifacts = [...sources.entries()].map(([path, source]) => Object.freeze({
@@ -853,7 +871,7 @@ function independentlyDeriveApArtifactIndexBytes(
   }
   return phase10C0VS6PrettyJsonBytes(Object.freeze({
     schema: "phase10-artifact-index-v1",
-    bundleId: "phase10-obligation-preflight-v5",
+    bundleId: "phase10-obligation-preflight-v6",
     artifacts: Object.freeze(artifacts),
   }));
 }
@@ -1440,7 +1458,7 @@ function packageResourceAccounting(
     selectedPacketIds: processAccounting.selectedPacketIds,
     priorPacketResources: priorRows,
     packageStorageBaselineArtifacts: packet.resources.packageStorageBaselineArtifacts,
-    packageStorageBaselineBytes: 1_629_577,
+    packageStorageBaselineBytes: packet.resources.packageStorageBaselineBytes,
     priorFinalizedPacketRetainedBytes: priorBytes,
     currentProjectedPacketRetainedBytes: current.projectedPacketRetainedBytes,
     totalPackageRetainedBytes: total,

@@ -1,5 +1,6 @@
-import { canonicalJson, strictJsonSnapshot, type StrictJson } from "./gate4-evidence.ts";
+import { strictJsonSnapshot, type StrictJson } from "./gate4-evidence.ts";
 import { basename, dirname } from "node:path";
+import { phase10C0VS6CanonicalSemanticSha256 } from "./phase10-c0v-s6-semantic-fingerprint.ts";
 import {
   PHASE10_C0V_S6_MATRIX_ID,
   parsePhase10C0VS6RetainedPreflight,
@@ -20,7 +21,6 @@ import {
   phase10C0VS6SafeToken,
   phase10C0VS6SameIdentity,
   phase10C0VS6SameJson,
-  phase10C0VS6Sha256,
   phase10C0VS6SortedUniqueStrings,
   phase10C0VS6String,
   parsePhase10C0VS6ArtifactIdentity,
@@ -1560,7 +1560,8 @@ export interface Phase10C0VS6PackageResourceAccounting {
   readonly selectedPacketIds: readonly string[];
   readonly priorPacketResources: readonly Phase10C0VS6PriorPacketResourceAccounting[];
   readonly packageStorageBaselineArtifacts: readonly Phase10C0VS6ArtifactIdentity[];
-  readonly packageStorageBaselineBytes: 1629577;
+  readonly packageStorageBaselineBytes:
+    Phase10C0VS6PacketProtocol["resources"]["packageStorageBaselineBytes"];
   readonly priorFinalizedPacketRetainedBytes: number;
   readonly currentProjectedPacketRetainedBytes: number;
   readonly totalPackageRetainedBytes: number;
@@ -1722,7 +1723,7 @@ function parseMutationWitness(value: unknown, label: string): Phase10C0VS6Mutati
   const projection = strictJsonSnapshot(fingerprint.projection);
   const sha256 = phase10C0VS6String(fingerprint.sha256, `${fingerprintLabel}.sha256`);
   if (!SHA256_LOWER.test(sha256) ||
-    sha256 !== phase10C0VS6Sha256(new TextEncoder().encode(canonicalJson(projection)))) {
+    sha256 !== phase10C0VS6CanonicalSemanticSha256(projection)) {
     fail(`${fingerprintLabel}.sha256 differs from canonical semantic projection bytes`);
   }
   return Object.freeze({
@@ -2421,7 +2422,7 @@ function parsePackageResourceAccounting(
     selectedPacketIds,
     priorPacketResources,
     packageStorageBaselineArtifacts,
-    packageStorageBaselineBytes: 1629577,
+    packageStorageBaselineBytes,
     priorFinalizedPacketRetainedBytes,
     currentProjectedPacketRetainedBytes,
     totalPackageRetainedBytes,

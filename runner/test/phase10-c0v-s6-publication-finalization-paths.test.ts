@@ -25,7 +25,7 @@ import {
 
 const REPOSITORY_ROOT = fileURLToPath(new URL("../..", import.meta.url));
 const MATRIX_PATH = "research/phase10-c0v-s6-obligation-matrix-v1.json" as const;
-const PREDECESSOR_ROOT = "research/phase10-execution-v2/recovery-v3" as const;
+const PREDECESSOR_ROOT = "research/phase10-execution-v2/recovery-v4" as const;
 const PREDECESSOR_CATALOGUE_PATH = `${PREDECESSOR_ROOT}/packet-catalogue.json` as const;
 const AP_PROTOCOL_PATH = `${PREDECESSOR_ROOT}/packets/a-p-c0v-s6/protocol.json` as const;
 const MOVING_PROTOCOL_PATH = `${PREDECESSOR_ROOT}/packets/c0v-moving-produce/protocol.json` as const;
@@ -33,27 +33,27 @@ const MOVING_PROTOCOL_PATH = `${PREDECESSOR_ROOT}/packets/c0v-moving-produce/pro
 const AP_OUTPUTS = Object.freeze([
   Object.freeze({
     outputId: "out-ap-c0v-s6-artifact-index",
-    path: "evidence/phase10-obligation-preflight-v5/artifact-index.json",
+    path: "evidence/phase10-obligation-preflight-v6/artifact-index.json",
   }),
   Object.freeze({
     outputId: "out-ap-c0v-s6-missing-producer",
-    path: "evidence/phase10-obligation-preflight-v5/missing-producer.json",
+    path: "evidence/phase10-obligation-preflight-v6/missing-producer.json",
   }),
   Object.freeze({
     outputId: "out-ap-c0v-s6-preflight",
-    path: "evidence/phase10-obligation-preflight-v5/packets/a-p-c0v-s6/preflight.json",
+    path: "evidence/phase10-obligation-preflight-v6/packets/a-p-c0v-s6/preflight.json",
   }),
   Object.freeze({
     outputId: "out-ap-c0v-s6-terminal-receipt",
-    path: "evidence/phase10-obligation-preflight-v5/packets/a-p-c0v-s6/terminal-receipt.json",
+    path: "evidence/phase10-obligation-preflight-v6/packets/a-p-c0v-s6/terminal-receipt.json",
   }),
   Object.freeze({
     outputId: "out-ap-c0v-s6-uncalled-check",
-    path: "evidence/phase10-obligation-preflight-v5/uncalled-check.json",
+    path: "evidence/phase10-obligation-preflight-v6/uncalled-check.json",
   }),
   Object.freeze({
     outputId: "out-ap-c0v-s6-verification",
-    path: "evidence/phase10-obligation-preflight-v5/verification.json",
+    path: "evidence/phase10-obligation-preflight-v6/verification.json",
   }),
 ] as const);
 
@@ -85,29 +85,29 @@ function outputPaths(
   return Object.freeze(Object.fromEntries(rows.map((entry) => [entry.outputId, entry.path])));
 }
 
-function syntheticV5ApPacket(): Phase10C0VS6PacketProtocol {
+function syntheticV6ApPacket(): Phase10C0VS6PacketProtocol {
   const predecessor = parsePhase10C0VS6PacketProtocol(liveJson(AP_PROTOCOL_PATH));
-  const v5Path = (path: string): string => path
-    .replace("phase10-obligation-preflight-v4", "phase10-obligation-preflight-v5")
-    .replace("a-p-c0v-s6-20260822-v4", "a-p-c0v-s6-20260822-v5");
+  const v6Path = (path: string): string => path
+    .replace("phase10-obligation-preflight-v5", "phase10-obligation-preflight-v6")
+    .replace("a-p-c0v-s6-20260822-v5", "a-p-c0v-s6-20260822-v6");
   return Object.freeze({
     ...predecessor,
-    registeredAttemptId: "a-p-c0v-s6-20260822-v5",
+    registeredAttemptId: "a-p-c0v-s6-20260822-v6",
     paths: Object.freeze({
       ...predecessor.paths,
-      allowedPublicationPaths: Object.freeze(predecessor.paths.allowedPublicationPaths.map(v5Path)),
-      preflightReceiptPath: v5Path(predecessor.paths.preflightReceiptPath),
-      terminalReceiptPath: v5Path(predecessor.paths.terminalReceiptPath),
+      allowedPublicationPaths: Object.freeze(predecessor.paths.allowedPublicationPaths.map(v6Path)),
+      preflightReceiptPath: v6Path(predecessor.paths.preflightReceiptPath),
+      terminalReceiptPath: v6Path(predecessor.paths.terminalReceiptPath),
       publicationStagingPaths: Object.freeze(predecessor.paths.publicationStagingPaths.map((entry) =>
-        Object.freeze({ finalPath: v5Path(entry.finalPath), stagingPath: v5Path(entry.stagingPath) }))),
+        Object.freeze({ finalPath: v6Path(entry.finalPath), stagingPath: v6Path(entry.stagingPath) }))),
     }),
     resources: Object.freeze({
       ...predecessor.resources,
       publicationFinalizationProjections: Object.freeze(
         predecessor.resources.publicationFinalizationProjections.map((entry) => Object.freeze({
           ...entry,
-          path: v5Path(entry.path),
-          stagingPath: v5Path(entry.stagingPath),
+          path: v6Path(entry.path),
+          stagingPath: v6Path(entry.stagingPath),
         })),
       ),
     }),
@@ -115,9 +115,9 @@ function syntheticV5ApPacket(): Phase10C0VS6PacketProtocol {
 }
 
 describe("Phase 10 C0V S6 publication finalization path joins", () => {
-  it("carries all six fresh A-P v5 identities through current and historical finalization joins", () => {
+  it("carries all six fresh A-P v6 identities through current and historical finalization joins", () => {
     const matrix = parsePhase10C0VS6Matrix(liveJson(MATRIX_PATH));
-    const packet = syntheticV5ApPacket();
+    const packet = syntheticV6ApPacket();
     const catalogue = parsePhase10C0VS6PacketCatalogue(liveJson(PREDECESSOR_CATALOGUE_PATH));
     const subroute = packet.terminalSubroutes.find((entry) =>
       entry.subrouteId === "a-p-c0v-s6-structural-complete");
@@ -126,8 +126,8 @@ describe("Phase 10 C0V S6 publication finalization path joins", () => {
     const rootPath = mkdtempSync(join(tmpdir(), "phase10-c0v-s6-finalization-paths-"));
     temporaryRoots.push(rootPath);
     const candidateDirectory =
-      "out/phase10-execution-v2/recovery-v4/attempts/a-p-c0v-s6/" +
-      "a-p-c0v-s6-20260822-v5/candidate";
+      "out/phase10-execution-v2/recovery-v5/attempts/a-p-c0v-s6/" +
+      "a-p-c0v-s6-20260822-v6/candidate";
     const bytesByOutput = new Map(AP_OUTPUTS.map((entry, index) => [
       entry.outputId,
       new TextEncoder().encode(`${index}:${entry.outputId}\n`),

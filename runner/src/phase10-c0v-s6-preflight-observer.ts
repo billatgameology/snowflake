@@ -2,7 +2,7 @@ import { statfsSync, lstatSync, readdirSync, realpathSync } from "node:fs";
 import { basename, isAbsolute, relative, resolve, sep } from "node:path";
 import { cwd, version as runtimeVersion } from "node:process";
 import {
-  PHASE10_C0V_S6_RECOVERY_V4_PACKAGE_CARRY_FORWARD_ELAPSED_NANOSECONDS,
+  PHASE10_C0V_S6_RECOVERY_V5_PACKAGE_CARRY_FORWARD_ELAPSED_NANOSECONDS,
   parsePhase10C0VS6CallableRegistry,
   parsePhase10C0VS6Matrix,
   parsePhase10C0VS6PacketProtocol,
@@ -76,9 +76,10 @@ const PACKAGE_PUBLICATION_ROOTS = Object.freeze([
   "evidence/phase10-obligation-preflight-v3",
   "evidence/phase10-obligation-preflight-v4",
   "evidence/phase10-obligation-preflight-v5",
+  "evidence/phase10-obligation-preflight-v6",
 ] as const);
 const PACKAGE_BASELINE_ATTEMPT_ROOT = "out/phase10-c0v-reference-v1" as const;
-const PACKAGE_ATTEMPT_ROOT = "out/phase10-execution-v2/recovery-v4/attempts" as const;
+const PACKAGE_ATTEMPT_ROOT = "out/phase10-execution-v2/recovery-v5/attempts" as const;
 
 const TERMINAL_FIELDS = Object.freeze([
   "schema", "receiptId", "matrixId", "protocolId", "registryId", "packetId", "attemptId",
@@ -1245,7 +1246,7 @@ export function phase10C0VS6ObservePreflight(
   }
   const packageElapsedNanosecondsBeforeAttempt = safeIntegerSum(
     [
-      PHASE10_C0V_S6_RECOVERY_V4_PACKAGE_CARRY_FORWARD_ELAPSED_NANOSECONDS,
+      PHASE10_C0V_S6_RECOVERY_V5_PACKAGE_CARRY_FORWARD_ELAPSED_NANOSECONDS,
       ...priorPackets.map((entry) => entry.governedElapsedNanoseconds),
     ],
     "prior packet governed elapsed nanoseconds",

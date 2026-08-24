@@ -2,10 +2,11 @@ import { createHash } from "node:crypto";
 import { lstatSync, readFileSync, realpathSync } from "node:fs";
 import { relative, resolve } from "node:path";
 import { strictJsonSnapshot, type StrictJson } from "./gate4-evidence.ts";
+import { phase10C0VS6CanonicalSemanticSha256 } from "./phase10-c0v-s6-semantic-fingerprint.ts";
 import {
-  PHASE10_C0V_S6_RECOVERY_V4_ATTEMPT_IDS,
-  PHASE10_C0V_S6_RECOVERY_V4_ATTEMPT_ROOT,
-  PHASE10_C0V_S6_RECOVERY_V4_AUTHORITY_ROOT,
+  PHASE10_C0V_S6_RECOVERY_V5_ATTEMPT_IDS,
+  PHASE10_C0V_S6_RECOVERY_V5_ATTEMPT_ROOT,
+  PHASE10_C0V_S6_RECOVERY_V5_AUTHORITY_ROOT,
   parsePhase10C0VS6PrettyJsonBytes,
 } from "./phase10-c0v-s6-contracts.ts";
 
@@ -44,10 +45,10 @@ export interface Phase10C0VS6ApNegativeControlRequest {
 }
 
 const REGISTRY_PATH =
-  `${PHASE10_C0V_S6_RECOVERY_V4_AUTHORITY_ROOT}/packets/c0v-radial-produce/callable-registry.json` as const;
+  `${PHASE10_C0V_S6_RECOVERY_V5_AUTHORITY_ROOT}/packets/c0v-radial-produce/callable-registry.json` as const;
 const ATTEMPT_PREFIX =
-  `${PHASE10_C0V_S6_RECOVERY_V4_ATTEMPT_ROOT}/a-p-c0v-s6/` +
-  `${PHASE10_C0V_S6_RECOVERY_V4_ATTEMPT_IDS["a-p-c0v-s6"]}/negative-controls`;
+  `${PHASE10_C0V_S6_RECOVERY_V5_ATTEMPT_ROOT}/a-p-c0v-s6/` +
+  `${PHASE10_C0V_S6_RECOVERY_V5_ATTEMPT_IDS["a-p-c0v-s6"]}/negative-controls`;
 
 function fail(message: string): never {
   throw new Error(`Phase 10 C0V S6 A-P negative control refused: ${message}`);
@@ -111,7 +112,10 @@ function witness(path: string, value: StrictJson): Phase10C0VS6ApMutationWitness
     path,
     byteLength: encoded.byteLength,
     sha256: digest(encoded),
-    semanticFingerprint: Object.freeze({ projection: semantic, sha256: digest(bytes(semantic)) }),
+    semanticFingerprint: Object.freeze({
+      projection: semantic,
+      sha256: phase10C0VS6CanonicalSemanticSha256(semantic),
+    }),
   });
 }
 
