@@ -1353,6 +1353,67 @@ After the clean checkpoint is pushed, run only the exact A-P v2 read-only `check
 nothing and leaves both predecessor locks unchanged; then run A-P v2 once. Never retry
 automatically. A refusal retains all state and returns to this plan before any moving packet.
 
+### S6 recovery-v1 A-P v2 infrastructure stop and recovery-v2 successor plan — 2026-08-24
+
+Clean pushed freeze `df24330f878bda8b73e58875127736ee1a21684d` was the exact first-add
+commit for recovery-v1. Its A-P v2 read-only `check` exited 0 with `executableNow: true`, wrote
+nothing, and left both v1 locks byte-identical. The one authorized `run` published a passing
+preflight receipt (36,074 bytes / SHA-256
+`06bd4544d42b0719846de4c3f8b3d547469dc895ace9ee3555dd5212deebdac6`), then its worker
+failed before `ready` or any governed invocation. The parent supplied every frozen child row with
+the registered value, but Node v24.13.1 on Windows carried nine omitted ordinary OS rows into the
+child, so the worker's complete eight-row equality check refused. A non-registered same-host spawn
+probe reproduced the mismatch; an exact 17-row roster with those nine names explicitly empty
+produced the intended deterministic child environment. This is an infrastructure authority/test
+snapshot defect, not a runtime-version, loader, science, or hostile-environment refusal.
+
+The v2 tuple is consumed and must not be retried. Its dead PID 50756 retained these exact bytes:
+
+| Recovery-v1 retained file | Bytes | SHA-256 |
+|---|---:|---|
+| `out/phase10-execution-v2/recovery-v1/locks/package.lock` | 232 | `40a72d4270b6128da9485ca2e25442b6dfeef484b5a9fc1799cc7e58e42cf6de` |
+| `out/phase10-execution-v2/recovery-v1/locks/a-p-c0v-s6.lock` | 176 | `da26c79f92fb9be021fa25b2c790ad1f9b23f91123ecc47806e32b6fff1a4399` |
+| `out/phase10-execution-v2/recovery-v1/attempts/a-p-c0v-s6/a-p-c0v-s6-20260822-v2/exit-status.json` | 257 | `cea268a67888283d8d58b5e883f5a8211b9d4c8fbf7b56815f89147ff9c32ca9` |
+| `out/phase10-execution-v2/recovery-v1/attempts/a-p-c0v-s6/a-p-c0v-s6-20260822-v2/freeze-evaluation.json` | 26,430 | `fa1dfc06212a9098fa534057026077bdfec65f65cd3ca525c9cbec1c45635a48` |
+| `out/phase10-execution-v2/recovery-v1/attempts/a-p-c0v-s6/a-p-c0v-s6-20260822-v2/stderr.log` | 114 | `35c5268b7e8244549f387d66ca7eff45bd0bf557aa4139468ab9fff127ab4d04` |
+| `out/phase10-execution-v2/recovery-v1/attempts/a-p-c0v-s6/a-p-c0v-s6-20260822-v2/stdout.log` | 0 | `e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855` |
+| `out/phase10-execution-v2/recovery-v1/attempts/a-p-c0v-s6/a-p-c0v-s6-20260822-v2/worker-invocations.jsonl` | 637 | `8eeaab4d250ec6eec364a287d36471755d79c05633b2b55c9cf51678dc02afe8` |
+| `evidence/phase10-obligation-preflight-v2/packets/a-p-c0v-s6/preflight.json` | 36,074 | `06bd4544d42b0719846de4c3f8b3d547469dc895ace9ee3555dd5212deebdac6` |
+
+The recovery-v1 addition is 63,920 bytes. Together with v1's 396 bytes, the cumulative retained
+footprint is 64,316 bytes and the next package baseline is 1,693,893 bytes. One worker process lived
+384,945,300 ns, but zero governed invocation, callable, check, negative control, solver, or
+scientific work started; governed process-hour, packet, and scientific credit remain zero. The
+passing preflight is tracked and manifest-pinned as failed-launch evidence. All ignored attempt and
+lock bytes remain immutable.
+
+Recovery-v2 is another bounded, package-wide, non-destructive successor:
+
+- Add a separately frozen authority/catalogue/eight-protocol/eight-registry package below
+  `research/phase10-execution-v2/recovery-v2/` and use only runtime paths below
+  `out/phase10-execution-v2/recovery-v2/`. Bind and exact-reprove both predecessor freezes, all four
+  locks, the complete recovery-v1 attempt, the pinned v2 preflight, and absence of every other v2
+  final/stage plus all v3 state before the first successor write.
+- Replace the eight-row child roster with the same rows plus `HOMEDRIVE`, `HOMEPATH`,
+  `LOGONSERVER`, `SYSTEMDRIVE`, `TEMP`, `USERDOMAIN`, `USERNAME`, `USERPROFILE`, and `WINDIR`, each
+  explicitly empty and ASCII-key-sorted. Keep empty `process.execArgv` and the existing `NODE` /
+  `TS_NODE` loader-key refusal. Add one actual child-process regression proving the exact 17-row
+  environment. Do not add a launcher, PID checks, authenticated peers, or broader environment
+  hardening.
+- Supplemental A-P alone receives attempt `a-p-c0v-s6-20260822-v3` and fresh six-file output/stage
+  paths below `evidence/phase10-obligation-preflight-v3/`; the seven unused attempts, their outputs,
+  science routes, matrices, S5 inputs, tolerances, and compute/storage ceilings otherwise remain
+  unchanged. The new package baseline is exactly 1,693,893 bytes and automatic retry remains false.
+- Freeze from the first commit adding recovery-v2 authority, run focused spawn/predecessor checks,
+  exact `npm test`, and one bounded non-author audit, then commit and push with every v3 path absent.
+  Only afterward run the exact A-P v3 read-only `check`, reprove all predecessor bytes, and run A-P
+  v3 once. Any refusal retains all bytes and stops before moving-produce.
+
+No ADR or charter amendment is needed: decision 0053 and this plan already require a separately
+frozen successor for an unclassified infrastructure stop. This plan authorizes only the mechanical
+Windows child-roster and A-P version/path changes above; it does not reopen science or the rejected
+hostile-runtime design.
+
 ### Rejected native pre-Node launcher design (retained history; do not implement)
 
 **Superseded by maker direction on 2026-08-22.** The detail below records the design that exposed
