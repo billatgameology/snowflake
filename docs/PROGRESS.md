@@ -148,6 +148,93 @@ detail.
   overly broad repository-root `rg` printed matching real ladder-row lines to tool stdout. No value
   was analyzed or used, no output was retained or published, and that author is excluded from the
   unopened-input independent review; the active plan records the exact command and limit.
+- **Phase 10 C0V S6 implementation freeze is complete (2026-08-24; no execution credit).** The dedicated
+  parent-side preflight observer now reopens both locks, Git/manifest authority, the exact baseline
+  and accepted-prefix physical-copy census, parent-monotonic process totals, dependencies,
+  projections, and the single admissible pass/refusal route. It recursively rejects unknown,
+  aliased, or hard-linked files under the governed publication, baseline, attempt, and lock roots;
+  every earlier chronological prefix is independently deep-reproved before preflight publication.
+  The historical root
+  `.gitattributes` is byte-identical to its Phase 8 freeze; scoped child rules preserve raw source
+  bytes, while root-only metadata uses HEAD-blob plus Git-filter equivalence. The packet catalogue
+  now freezes the exact parent-executor and worker-dispatcher exports plus the bounded canonical
+  JSONL/ACK transport; the implementation-freeze evaluator independently audits both complete
+  raw import closures, direct exports, external packages, builtins, forbidden paths/hooks, and
+  TypeScript parser-runtime receipt without treating either orchestrator as a claim callable.
+  The exact lock-issued watchdog is now authenticated against the same active `run` locks and
+  authority and synchronously checked around preflight/final publication and lock-cleanup
+  eligibility; an overrun after packet-lock cleanup retains the package lock. Both runtime
+  entrypoints also require empty `process.execArgv`, reject case-insensitive `NODE*`/`TS_NODE*`
+  environment keys visible at entry, and independently require the complete exact eight-row worker
+  environment; the parent constructs only that catalogue roster and clones no ambient value.
+  Maker review classified deliberately self-erasing preloads, PID/process impersonation, and a
+  deliberately misbehaving authenticated peer as hostile-runtime attacks outside charter §3.3 and
+  decisions 0042/0049. The rejected native-launcher contract, protocol boundary rosters, marker,
+  channel implementation, and 25-test channel suite have therefore been removed from live S6
+  authority and runtime code; the detailed proposal remains only as rejected history in the active
+  plan. Reintroducing either catalogue or protocol launcher fields is now a strict-parser negative
+  control. Worker stdout is capped at 4,194,304 retained aggregate bytes
+  with exact per-message shape/count budgets, stderr at 33,554,432 bytes, and every packet freezes
+  the remaining non-log attempt-root census bound. Its scratch projection is exactly the sum of
+  those three maxima; equality is accepted and an additional byte fail-stops.
+  Radial negative-control cap routes now preserve their exact attempted invocation prefix only as
+  raw timing/partial-execution fact: every cap terminal/candidate executed-control roster is empty,
+  and a coherent mutation that promotes a completed control is rejected. A-P, moving-produce, and
+  moving-publish now project the terminal candidate only in memory through category limits,
+  census, resource, receipt, and closed-world validation; physical candidate creation is later and
+  independent audit found no post-write route/content selection. Verification-v2 now freezes
+  truthful route-aware execution provenance: it is null on every structurally verified radial
+  artifact/prelaunch/registered-cap refusal and non-null only after a real completed main
+  evaluator on a normal credit-bearing route. That authority blocker is cleared, and the locked
+  raw radial finalizer plus parent worker/dispatch state machine are implemented; all route
+  readiness flags become true together in this common implementation freeze, and no radial
+  finalizer output exists. The parent hard-codes the five
+  governed leaves, retains/reopens every artifact before acknowledgement, and authenticates each
+  registered LF-arrival boundary. The radial stdout boundary/progress count is 28 (3,088,384
+  derived bytes), including all eight Robin internal-case lines. Radial `invocation-finished` and
+  `worker-stopped` now preserve the active case and cumulative progress while setting only
+  `caseId` null, so a mid-case production cap remains representable; its focused parser/writer
+  regression passes 6/6.
+  `check` remains lock-free and explicitly non-authorizing. `run` becomes eligible only from this
+  common clean implementation-freeze commit and still reopens all mutable authority beneath both
+  locks before it may write. At the earlier
+  portability checkpoint, focused Phase 8, observer, and executor tests pass 71/71 on its recorded
+  bytes. On the current watchdog/loader
+  regenerated pre-pause authority snapshot, all eight packet protocols and callable registries plus
+  the catalogue, matrix, and schema registry strict-parse, while the schema contracts
+  canonical-parse and are identity-bound; its combined authority/launcher-channel/worker-progress/
+  watchdog/radial set passed 67/67 and observer/dispatch/worker/publication passed 34/34. The final paused
+  implementation bytes then passed exact `npm test`: 154/154 test files, 2,510 passed and 49
+  skipped in 1,326.31 seconds, including Rule 7 across 1,229 files and both TypeScript checks.
+  This is a pre-freeze implementation check, not an implementation freeze, an S6 attempt, or
+  scientific evidence.
+  At the explicit pause boundary, the append/fsync/reopen radial worker-progress writer, its
+  retained-candidate identity gate and infrastructure-stop retention, and both authenticated
+  watchdog handoffs (evaluator-to-first-control and post-artifact deferred control start) are
+  implemented. On the post-resume authority cleanup, the regenerated live catalogue, schema
+  contracts, and all eight protocols contain no launcher prerequisite. The completed radial-parent
+  checkpoint passes its six focused files at 103/103; `npx tsc -p tsconfig.json --noEmit`, Rule 7
+  across 1,228 files, and `git diff --check` also pass. Exact `npm test` has not been rerun on these
+  bytes and remains the required pre-freeze check after all eight runtime paths are complete.
+  All eight vertical paths are wired in the implementation freeze.
+  Aggregate executes its exact three-leaf control/producer/caller roster, reopens the complete
+  seven-packet chronological dependency closure, and finalizes its four candidate outputs plus
+  verification-v2 and terminal-v2 without a solver path. All 101 callable registrations are
+  resolved to exact live module identities, every route-readiness flag is true, and final authority
+  was regenerated in a disposable worktree; the normalized authority diff changed only callable
+  resolution/identity and each protocol's bound registry identity. Thirteen focused S6 files pass
+  94/94 in 144.03 seconds. The active plan's final S6 checkpoint records the exact final-byte
+  `npm test`: 157/157 files and 2,495 passed with 49 skipped in 1,654.54 seconds, including Rule 7
+  clean across 1,231 files and both TypeScript checks. The single bounded non-author audit found
+  and prompted repair of two real deep-prefix blockers: the original `a-p` dependency needed to
+  remain an external terminal, and chronological accounting had been incorrectly equated with a
+  packet's direct logical dependencies. Its post-repair audit reran three focused files at 14/14,
+  rechecked all 101 callable registrations with zero identity inconsistencies, and closed with zero
+  unresolved blockers; the active plan records its provenance and limits.
+  AGENTS Rule 14 now has mandatory threat-admission and delivery-first procedures because the
+  existing proportionality rule did not prevent assurance and coordination work from displacing
+  the unwired radial parent deliverable. No registered command, solver, attempt, or evidence output
+  ran during the cleanup.
 - **Assurance is proportional to decision risk.** [Decision 0049](decisions/0049-make-assurance-proportionate-to-decision-risk.md),
   charter v1.26 and `AGENTS.md` require integrity for routine sources, one targeted check for
   load-bearing inputs, and full named controls for gates or strong public claims. No recursive
@@ -162,9 +249,8 @@ detail.
   direction) and content stays in-repo unpublished, `test.yml` CI unaffected. Reconciliation is
   a live decision point under **Next step**. Full freeze history:
   [the history file](progress-history-phases-6-8-9.md).
-- **Last updated:** 2026-08-22 (A-P, A-S, bounded structural A-I, and C0 packet PASS evidence
-  published; C0's artifact-derived numerical disposition is criterion NO-PASS; C0V S5b radial
-  reference, moving discrepancy refusal, and scoped static refusal published and pinned)
+- **Last updated:** 2026-08-24 (C0V S6 implementation frozen after exact full-suite verification
+  and one bounded zero-blocker audit; no registered S6 command, attempt, solver, or output exists)
 
 ## Phase gates
 
@@ -184,7 +270,7 @@ and every superseded attempt live in the linked plans and historical progress sn
 | 7 | Not started; independently eligible | Charter v1.25 preserves Phase 7's independence but does not start it. A committed Phase 7 plan and isolated worktree are required; product, held-out validation, and v6 WGSL/preview-GPU parity remain its scope. |
 | 8 | **Complete (8A + 8B)** | The immutable 8A book remains 18 entries / 59,019 bytes / SHA-256 `47a75f3f…71ec`. The verified 8B successor is 51 development records, 252,134 native rows and 431 plot points; no row is held out. [Completed plan](plans/phase-8-measurement-corpus.md). |
 | 9 | **Complete (development-only)** | The all-no-pass branch closed: D-BT failed, M-F/M-K2 stayed mapping-dependent, controls/path-state/M-PK are unavailable or non-identifiable, and zero items promoted. Exact `TMPDIR=/private/tmp npm test` passed; no result grants validation credit. [Completed plan](plans/phase-9-execution.md). |
-| 10 | **In progress — A-P/A-S/A-I PASS; C0 packet PASS/complete with numerical criterion NO-PASS** | A-P, A-S, bounded structural A-I PASS evidence, and the complete C0 packet are published and pinned. C0 independently re-derived 80/80 rows and 64/64 comparisons: 36 passed and 28 failed the attached-count criterion, so both spacings and the authoritative all-spacings reduction are NO-PASS ([report](../evidence/phase10-numerical-verification-v1/c0-report.json), SHA-256 `571e62ae…0b72`). C0 executed no solver and grants no absolute-accuracy, habit-robustness, target-score, validation, or prior-phase credit. C0V S5b now pins the radial reference, moving `reference-discrepancy-refusal`, and scoped static refusal; S6 production/reopen infrastructure remains unimplemented and no C0V solver has run. Selection still includes no C1–C5 or habit rows. |
+| 10 | **In progress — A-P/A-S/A-I PASS; C0 packet PASS/complete with numerical criterion NO-PASS** | A-P, A-S, bounded structural A-I PASS evidence, and the complete C0 packet are published and pinned. C0 independently re-derived 80/80 rows and 64/64 comparisons: 36 passed and 28 failed the attached-count criterion, so both spacings and the authoritative all-spacings reduction are NO-PASS ([report](../evidence/phase10-numerical-verification-v1/c0-report.json), SHA-256 `571e62ae…0b72`). C0 executed no solver and grants no absolute-accuracy, habit-robustness, target-score, validation, or prior-phase credit. C0V S5b pins the radial reference, moving `reference-discrepancy-refusal`, and scoped static refusal. S6's complete eight-route implementation is frozen with all route-readiness flags and callable identities resolved; exact `npm test` and the one bounded implementation audit are green, while no registered S6 command, attempt, output, or C0V solver run exists. Selection still includes no C1–C5 or habit rows. |
 
 ## Active plan
 
@@ -228,8 +314,9 @@ S5a's protocols, successor schema registry, concrete schema contracts, packet su
 reference/refusal-only tooling entered Git together at the science freeze. S5b then published and
 manifest-pinned the radial reference, moving discrepancy refusal, and scoped static refusal without
 running a solver or production-comparison implementation. The active plan records every
-load-bearing byte identity, exact suite, incident, and zero-blocker non-author reviews. S6 remains
-unimplemented and may only match-reopen these exact committed bytes after its own clean freeze.
+load-bearing byte identity, exact suite, incident, and zero-blocker non-author reviews. S6
+implementation is frozen in the current checkpoint; no registered S6 command, attempt, solver, or
+output existed before that freeze.
 
 The old source-strata/ladder/WP3/R15 prerequisite sentence governed the now-closed Phase 6
 production path. WP3 and R15 closed as not computed under decision 0045; that sentence does not
@@ -239,13 +326,20 @@ the package-specific prerequisites in its charter amendment and execution plan. 
 
 ## Next step
 
-### Phase 10 — commit the C0V discrepancy-route correction, then freeze S6
+### Phase 10 — execute the supplemental C0V A-P packet
 
 The maker selected **A-S + A-I + B + C0 + C0V with packet-specific A-P** on 2026-08-21. No
 C1–C5 numerical-qualification or scientific habit row is part of this execution. The
 [active plan](plans/phase-10-evidence-verification-execution.md) preserves the candidate plan's
 done/stop rules, authority boundaries, finite source and compute budgets, and return-only handling
 of candidate E/F/H branches.
+
+From the clean pushed implementation-freeze commit, run the exact read-only command:
+`node runner/src/phase10-c0v-s6-executor.ts check --packet a-p-c0v-s6 --protocol research/phase10-execution-v2/packets/a-p-c0v-s6/protocol.json --attempt a-p-c0v-s6-20260822-v1`.
+If it reports the registered packet executable without creating an attempt or output, run the exact
+registered `run` command from the same protocol once. Independently reopen the retained A-P result,
+pin only its registered evidence outputs, run the plan-required checks, and commit/push that packet
+before starting `c0v-moving-produce`.
 
 The A-P PASS dependency is committed at `63ca13c`; A-S PASS is committed at `78c1875`. A-I's
 observation/decision/review inputs are committed at `9fb2e1b`, and its eight-file structural PASS
@@ -411,9 +505,11 @@ active plan therefore add the missing third lifecycle outcome and concretize the
 prelaunch and registered-cap artifact/resource-refusal outcomes without changing the selected
 scope, science protocols, values, tolerances, original matrix, or evidence. A validated failed
 prelaunch condition closes with zero solver work; a separately validated registered-cap event may
-close during production with its exact partial execution recorded. A crash, transport failure, or
-otherwise unclassified timeout/nonzero exit remains retryable infrastructure, and exit status
-alone cannot select a scientific route. Commit this governance-only correction first. Then
+close during production with its exact partial execution recorded. A crash, transport failure,
+invalid negative-control campaign, or structural failure retains only immutable ignored raw state
+and stale locks: v1 writes no terminal candidate, attempt row/ledger, verification, final receipt,
+or credit, and a separately frozen successor is required before another attempt. Exit status alone
+cannot select a scientific route. Commit this governance-only correction first. Then
 implement and freeze a scoped
 `research/phase10-c0v-s6-obligation-matrix-v1.json`, `research/phase10-execution-v2/`, supplemental
 `a-p-c0v-s6`, dedicated C0V executor, match-only refusal routes, radial production/evaluation,
@@ -444,7 +540,8 @@ refusal. Do not run a C0V solver until the separate S6 implementation checkpoint
 supplemental A-P PASS.
 The static refusal is required
 because the current contract supplies no admissible independent continuum field/flux reference,
-expected spatial order, or justified order lower bound. The public one-sweep retry path can recover
+expected spatial order, or justified order lower bound. The public one-sweep solver re-execution
+path (not an execution-v2 attempt retry) can recover
 the accepted final-sweep pre-call field, and a separate implementation can reconstruct the
 post-smoother candidate; those routes support same-discrete implementation/stopping-error checks,
 not the required independent spatial-accuracy reference. Tolerance-scaled self-convergence remains

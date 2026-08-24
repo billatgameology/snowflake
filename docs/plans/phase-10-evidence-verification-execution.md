@@ -172,8 +172,11 @@ B protocol enters the package-level obligation matrix before its deciding extrac
   acquisition is authorized.
 - C0 executes no solver. C0V uses four radial spacings, three or four predeclared static grid
   levels, and one moving-event case, with no automatic refinement or fan-out. Each executable
-  control invocation is capped at four wall-clock hours and the package at 24 process-hours total,
-  including retries, failed attempts, and superseded attempts. Exceeding or
+  control invocation is capped at four hours of parent-monotonic governed elapsed time and the
+  package at 24 process-hours total, including failed/superseded executions and any later attempt
+  authorized by a separately frozen successor protocol. Current execution-v2 v1 authorizes one
+  attempt per protocol and publishes no row or receipt for unclassified infrastructure; its
+  ignored root and stale locks fail-stop until such a successor audits and counts them. Exceeding or
   projecting beyond either cap yields a resource refusal and maker return, not a silent roster
   reduction or numerical failure.
 - C0V scratch plus retained raw/published attempts is capped at 64 GiB. Every packet protocol
@@ -807,7 +810,7 @@ physical-realism claim and may not use test hooks, private state, or a fabricate
 
 The static layer selects `reference-refusal`. Under the current frozen solver contract,
 `boundaryState(index)`, `boundaryCells()`, and `neighborCounts()` publicly expose accepted
-boundary-state scalars and rosters. The public `relaxMaxSweeps: 1` retry path can recover the
+boundary-state scalars and rosters. The public `relaxMaxSweeps: 1` solver re-execution path can recover the
 accepted final-sweep pre-call field, and the accepted discrete specification permits a separate
 implementation to reconstruct the post-smoother/pre-boundary-replacement candidate. The refusal
 does not claim either state is private or unavailable. Those routes can establish same-discrete
@@ -925,7 +928,8 @@ Two independent reviews closed with zero blockers:
   context; read-only. It reexecuted the five S5a suites at 41/41, obligation/progress at 22/22,
   typecheck, Rule 7, and diff check; independently checked exact schema promotion, deep contract
   coverage, protocol/callable/import-closure identities, the registered TypeScript runtime/lock pin,
-  safe CLI/publication/retry behavior, and absence of every future output/staging path. It did not
+  safe CLI/publication and unauthorized-retry rejection behavior, and absence of every future
+  output/staging path. It did not
   run full `npm test`, execute registered C0V commands or a solver, open Phase 6 evidence, inspect
   S6 production semantics, stage/commit evidence, or stress concurrent writers/host injection.
 
@@ -1074,12 +1078,15 @@ choice made after seeing values:
    in-run resource-refusal route. Its evaluator binds the attempt ledger, exact cap, and exact
    partial execution; it creates no valid witness, numerical verdict, or numerical negative-control
    credit. A crash, transport failure, or otherwise unclassified timeout/nonzero exit is retained
-   as retryable infrastructure, and exit status alone may not select any scientific route.
+   as immutable ignored raw attempt state with stale locks, zero ledger/verification/final-receipt
+   or packet credit, and a mandatory separately frozen successor; exit status alone may not select
+   any scientific route.
 
-Only radial selects production on current bytes. Its producer uses the existing production-side
-finite-shell spherical numerical implementation and emits a strict binary witness containing
-complete fields for all four protocol-ordered cases plus required operand/rate/Robin records, but
-no authoritative verdict.
+Only radial selects production on current bytes. Its producer uses the existing separately
+implemented idealized one-dimensional finite-shell spherical reference routine in the
+production-side role solely for this arithmetic/implementation comparison and emits a strict
+binary witness containing complete fields for all four protocol-ordered cases plus required
+operand/rate/Robin records, but no authoritative verdict.
 Its evaluator must independently decode raw bytes, reopen the exact S5 reference, rederive every
 registered norm/residual/disposition, and execute the three named radial mutations. Generator or
 targeted-reference-check arithmetic is forbidden from the producer/evaluator closures. A forged
@@ -1088,8 +1095,10 @@ or prelaunch resource precondition prevents a valid radial comparison, the layer
 explicitly registered refusal route before a witness with zero solver execution; it does not become
 numerical FAIL. If a separately validated registered cap prevents completion during production,
 the exact partial execution closes as resource refusal without a valid witness or numerical verdict.
-A crash, transport failure, or otherwise unclassified timeout/nonzero exit is retained as retryable
-infrastructure, and exit status alone may not classify the outcome.
+A crash, transport failure, invalid negative-control campaign, or structural failure retains only
+the immutable ignored raw attempt root and stale locks, with no terminal candidate, attempt row,
+ledger, verification, final receipt, or credit. A separately frozen successor is required before
+another attempt, and exit status alone may not classify the outcome.
 
 Moving's discrepancy evaluator must rederive from the 81,026-byte pinned artifact that expected
 outcome is pass, observed outcome is fail, disposition is `reference-discrepancy-refusal`, the raw
@@ -1103,8 +1112,10 @@ The dedicated implementation boundary is new `runner/src/phase10-c0v-*` S6 code.
 published C0 executor, preflight, worker, or their shared transitive closure: committed C0 receipts
 bind those historical bytes. The S6 executor owns its own strict contracts, overlay/A-P preflight,
 dependency verifier, lock-before-observation lifecycle, worker dispatch, attempt/exit/resource
-records, candidate verification, crash-safe no-overwrite publication, and exact-byte resume. It
-dispatches hard-coded packet IDs and never executes a command read from JSON.
+records, candidate verification, crash-safe no-overwrite publication, and read-only exact-byte
+verify-existing inspection. It never resumes, deletes, overwrites, or reruns a partial same-ID
+attempt: partial state fail-stops and only a separately frozen successor may recover it. The
+executor dispatches hard-coded packet IDs and never executes a command read from JSON.
 
 Layer publish packets reopen their committed produce attempts and independently derive artifact
 indexes, PASS/FAIL/REFUSAL results, and publication verification. Scientific FAIL and REFUSAL are
@@ -1112,17 +1123,30 @@ publishable terminal evidence. Moving remains science branch `independent-refere
 `refusal`, the exact pinned discrepancy as `referenceOrRefusal`, and null witness/evaluation;
 static is the scoped refusal; radial follows its artifact-derived outcome. Aggregate runs only
 after all three publish checkpoints are committed, rebuilds the terminal table and complete
-attempt resource ledger, and executes `nc-c0v-any-layer-nonpass` from a synthetic all-pass clean
+three-row legacy produce-attempt resource ledger, and executes `nc-c0v-any-layer-nonpass` from a synthetic all-pass clean
 table before mutating exactly one row. Current S5 dispositions guarantee aggregate non-PASS,
 package-completion eligibility, and dependent C5 blockage; they do not predetermine radial's
-numerical result.
+numerical result. The predecessor resource-ledger schema is exhaustive only for materialized
+produce-attempt rows: its totals, `capExceeded`, and disposition derive only the exact three durable
+produce rows, and `packageProcessHoursMaximum` is policy metadata rather than package-coverage
+evidence. The packet verification-v2 receipt is the sole complete eight-packet
+process/storage authority, includes supplemental A-P, publish, and aggregate governed leaves plus
+every selected/unselected retained execution exactly once, and may reject aggregate candidates
+after all governed aggregate leaves finish.
+Its `execution` provenance is non-null only for a normal credit-bearing route whose main evaluator
+actually completed. Every structurally verified radial artifact/prelaunch/registered-cap refusal
+sets `execution` null and instead binds its truthful full caller-result roster, raw
+invocation/partial-execution prefix, governed timing, census, and resource reproof. A parent-side
+structural finalizer is not a governed numerical evaluator and cannot be used to fabricate that
+interval. Other maker-return routes publish no verification-v2.
 
 The implementation-freeze commit must contain the complete successor graph, all direct and
 transitive callable identities, exact binary layout, exact resources, exact command strings and
 unique attempt IDs, synthetic/adversarial tests, and proof that every S6 attempt and future output
 is absent. Runtime remains Node v24.13.1; solver-control concurrency is one; each executable
-control invocation remains below four wall-clock hours; all attempts count toward the 24 process-
-hour and 64 GiB retained-storage caps; there is no automatic retry, refinement, or fan-out. The
+control invocation remains at or below four hours of parent-monotonic governed elapsed time; all
+attempts count toward the 24 process-hour and 64 GiB retained-storage caps; there is no automatic
+retry, refinement, or fan-out. The
 radial science protocol's tighter 300-second and byte projections remain binding. Exact numeric
 resource tuples are frozen in packet supplements before launch, never inferred after execution.
 
@@ -1135,6 +1159,305 @@ Execution order is serialized:
 4. For each layer, run exact read-only `check` then one unique `run`; audit/pin/test/commit the
    produce evidence before its dependent publish packet. Never reuse an attempt ID.
 5. Run and commit all three publish packets, then run/audit/pin/test/commit aggregate.
+
+Implementation milestone (2026-08-22, still pre-freeze): the strict parent preflight observer now
+derives its receipt only while both exact package/packet locks are live. It reopens the launch-HEAD
+manifest, recursively censuses the governed publication roots, the fixed 1,629,577-byte S5
+baseline, every accepted attempt root, and the lock root, and rejects any unknown physical copy,
+alias, hard link, stranded stage, duplicate, or omission. Package elapsed time is rederived from
+parent-monotonic integer nanoseconds and package retained bytes from exact physical identities;
+free-space and current-packet projections are observed rather than supplied. The canonical
+in-memory preflight is joined to the independent raw lifecycle/verification/terminal projector
+before publication for the currently complete A-P, A-P→moving-produce, and
+A-P→moving-produce→moving-publish prefixes. Any later catalogue prefix has no fallback to the
+observer's structural parse and remains fail-closed until its acyclic deep adapter exists.
+
+Windows byte portability no longer changes the historical root `.gitattributes`, which Phase 8
+pins. Exact child `.gitattributes` files govern the raw-hashed app/core/runner/solver workspace
+manifests and pre-observation source closure; root-only `.gitignore`, package/lock, and tsconfig
+metadata are reopened as exact HEAD blobs after Git-filtered worktree equivalence, while executable
+and scientific source remains raw-byte exact. The combined focused audit passed 71/71 tests
+(Phase 8 target-book 17, S6 observer 4, S6 executor/import/freeze 50),
+`npx tsc -p tsconfig.json --noEmit` passed, and Rule 7 was clean across 1,221 files. No registered
+S6 command, solver, NAS/network access, attempt, evidence output, full `npm test`, callable-identity
+freeze, or implementation commit occurred; those remain required before step 3.
+
+The same pre-freeze implementation now has one catalogue-owned parent executor, one worker
+dispatcher, and one strict blocking canonical-JSONL transport. The catalogue fixes the two direct
+named exports and the transport's schemas, field orders, sequence/nullability rules, recursive byte
+marker, 33,554,432-byte line bound, and exact boundary/artifact acknowledgement. The import-freeze
+audit treats these as orchestration entrypoints rather than claim-callable registry rows, but still
+freezes and checks every raw closure byte, direct export, external package, builtin, resolution
+artifact, forbidden retired path/hook, and trusted TypeScript parser artifact. Static `check` grants
+no lock, dynamic observation, resume, or run authority. The `run` branch remains fail-closed until
+the A-P raw finalizer has a genuine positive on resolved callable identities and the common clean
+implementation-freeze commit; synthetic injected freeze authority is deliberately not an accepted
+substitute.
+
+The entrypoint loader check requires empty `process.execArgv` and rejects the case-insensitive
+`NODE*`/`TS_NODE*` family still visible when the Node entrypoint begins. That covers the in-scope
+accidental stale-environment failure. Maker review on 2026-08-22 rejected treating a preload that
+deliberately erases its trace as ordinary environment drift: it requires hostile code already
+executing inside the trusted runtime and is outside charter §3.3 and decisions 0042/0049. The
+design-state external launcher and its sixteen command rewrites are therefore suspended and must
+be removed or simplified from generated authority before implementation freeze, not implemented
+as an S6 prerequisite. The transport's 33,554,432-byte line limit is a
+framing ceiling, not aggregate storage authority. Every catalogue packet instead freezes a
+4,194,304-byte aggregate retained-stdout maximum and a finite permitted-message budget. Lifecycle,
+boundary/progress, artifact, and result lines are respectively bounded at 4,096, 16,384, 262,144,
+and 917,504 bytes; the packet row fixes each class count and the exact derived sum must be no larger
+than the aggregate maximum. Retained stderr is separately capped at 33,554,432 bytes. The packet's
+`maximumOtherAttemptRootBytes` excludes both logs and is enforced against the terminal physical
+census of all remaining attempt-root files. The exact equation is `projectedScratchBytes =
+maximumStdoutBytes + maximumStderrBytes + maximumOtherAttemptRootBytes`; equality is accepted and
+one further byte in any class is an unclassified infrastructure fail-stop rather than evidence.
+
+The A-P, moving-produce, and moving-publish raw finalizers now hold the terminal candidate wholly
+in memory while category limits, attempt census, resource arithmetic, receipt codecs, and the
+closed-world publication census are independently checked. Only after all those checks pass is the
+candidate exclusive-created; an independent read-only audit found no route or content selection
+after that first write. The validated radial-refusal authority now accepts null `execution`
+provenance under the route-aware rule above without fabricating a governed evaluator interval;
+the locked raw radial finalizer and parent worker/dispatch state machine now consume that stable
+authority, while the route readiness flag stays false. The parent hard-codes the five governed
+leaves, retains and reopens every artifact before acknowledgement, and binds each transition to
+the authenticated LF-arrival boundary. No radial output or execution credit exists. Its
+stdout budget now counts the actual 28 boundary/progress messages, including all eight Robin
+internal-case start/complete lines; with 3 artifacts, 2 results, and 2 lifecycle messages the exact
+derived ceiling is 3,088,384 bytes, still below the 4,194,304-byte aggregate maximum.
+
+Post-resume checkpoint (2026-08-23): the radial parent path is wired and its six focused files pass
+103/103 after the generated authority was rebuilt once on stable bytes. TypeScript, Rule 7 across
+1,228 files, and `git diff --check` pass. The next implementation action is the disabled
+`c0v-radial-publish` parent path, followed by the remaining static and aggregate paths. Do not
+enable any route or execute a registered command. Exact final-byte `npm test` remains deferred to
+the complete implementation-freeze candidate. This is not an implementation freeze, S6 attempt,
+or scientific evidence.
+
+Implementation-freeze checkpoint (2026-08-24): all eight parent/finalizer routes are
+wired. The aggregate parent hard-codes its three governed leaves, the deep dependency verifier
+reopens the complete chronological seven-packet prefix, and the raw aggregate finalizer derives and
+publishes only the registered table, ledger, report, verification-v2, and terminal-v2 outputs.
+Every route-readiness flag is true and all 101 callable registrations resolve to exact module
+identities regenerated in the required disposable worktree. The normalized generated diff changed
+only those callable resolution/identity fields and each protocol's bound registry identity. The
+thirteen focused S6 files pass 94/94 in 144.03 seconds; TypeScript passes and Rule 7 is clean across
+1,231 files.
+
+The first exact full-suite attempt correctly exposed one stale executor-test expectation: after
+callable resolution, the synthetic fixture reaches its live radial S5-closure mismatch rather than
+the former unresolved-callable refusal. The assertion now names that current refusal and the one
+integration case has an explicit 180-second allowance; its focused run passed in 131.55 seconds.
+The final exact `npm test` terminal run, started at 01:28:14 local time, exited 0 with 157/157 test
+files, 2,495 passed and 49 skipped in 1,654.54 seconds, including Rule 7 across 1,231 files and both
+TypeScript checks.
+
+The single bounded non-author implementation reviewer was an OpenAI Codex GPT-5-family agent
+(`Tesla`) with full shared task, developer, and repository context. Its first pass found two
+blocking deep-prefix defects: recursive traversal rejected the original v1 `a-p` dependency under
+supplemental A-P, and the verifier incorrectly required a packet's direct logical dependency graph
+to equal the complete earlier chronological catalogue prefix. The repair treats only that original
+`a-p` as an externally validated terminal, seeds chronological accounting from every earlier
+catalogue packet's launch-HEAD manifest/matrix identity, retains strict earlier-index recursion,
+and checks current direct dependencies separately. After repair the reviewer independently reran
+three focused files at 14/14, audited 101 registrations / 54 callable IDs / 11 shared IDs with zero
+identity, resolution, or shared-closure inconsistencies, confirmed all eight readiness flags, and
+found zero S6 attempt roots and zero future registered outputs. Its final verdict was zero unresolved
+blockers. It did not run exact `npm test`, a registered command, a solver, evidence generation, an
+end-to-end seven-packet chain, crash injection, NAS/private-source checks, or a broader review; these
+are explicit limits, not implied coverage. No registered command, solver, attempt, or S6 evidence
+output ran before this implementation freeze.
+
+### Rejected native pre-Node launcher design (retained history; do not implement)
+
+**Superseded by maker direction on 2026-08-22.** The detail below records the design that exposed
+the scope error; it is not an implementation checklist or freeze prerequisite. Visible stale
+loader/environment state remains rejected in process. Detecting a self-erasing preload, PID reuse,
+or deliberate protocol violation by an authenticated frozen peer is hostile-runtime hardening and
+falls outside the accepted threat model. On resume, simplify the catalogue/protocol authority and
+retire this path before wiring the radial parent. A future revival requires explicit maker
+direction and an authority-level threat-model amendment.
+
+Charter §3.3 and decision 0042 keep accidental or stale ambient-environment drift in scope while
+excluding only deliberate hostile replacement by the machine/repository owner. An in-process Node
+check is therefore too late: `NODE_OPTIONS=--require` or a CLI preload can execute and erase its own
+visible trace before the parent assertion. The current design freezes a small portable-C launcher,
+not PowerShell, `cmd.exe`, or another interpreter. Its Windows implementation uses
+`CreateProcessW` and waits/returns the exact child status; its POSIX branch uses `execve`. The source
+may be portable, but this execution-v2 authority remains the named Windows x64 host and needs a new
+frozen host row before another platform can execute.
+
+The packet catalogue now carries the design-state `runtimeLauncherContract` immediately before
+`runtimeEntrypoints`, with this exact field order:
+`schema,launcherId,state,sourcePath,executable,repositoryRoot,nodeExecutable,gitExecutable,ambientInspectionRule,cleanEnvironment,launcherChannelContract,entrypointRule,argumentRule,directNodeRule,buildContract`.
+The fields have this meaning:
+
+- `schema`, `launcherId`, and `state`; state is
+  `design-frozen-source-absent` until source, build toolchain/command, and executable identity are
+  frozen together, then becomes `resolved` in the implementation-freeze commit.
+- `sourcePath` = `runner/native/phase10-c0v-s6-launcher.c` and `executable` = exact fields
+  `platform,arch,path,resolution,identity`, with Windows path
+  `runner/native/phase10-c0v-s6-launcher-win32-x64.exe`. `identity` is null only while planned and
+  becomes exact byte length/SHA-256 when resolved. Direct entrypoint execution is forbidden while
+  it is null.
+- `repositoryRoot` = exact physical `G:/Code Files/snowflake-phase10-evidence`. The launcher opens
+  and canonicalizes the current directory without following an outside-root alias and requires
+  exact bidirectional equality before any target read or child creation.
+- `nodeExecutable` = exact fields `platform,arch,version,path,byteLength,sha256`, fixed on this host
+  to Windows x64 Node v24.13.1 at physical
+  `C:/Users/biao3/AppData/Local/nvm/v24.13.1/node.exe`, 91,406,496 bytes,
+  SHA-256 `e3be0545990c90995d7bf3a7af5d64af1f2e0fc1bbd9b79c27f7abc1e9676e50`.
+  The launcher hashes that exact regular physical file before every child creation; PATH lookup,
+  the mutable `C:/nvm4w/nodejs` junction, and a version string without the byte identity reject.
+- `gitExecutable` = exact path/version/byte identity for
+  `C:/Program Files/Git/cmd/git.exe`, Git `2.35.1.windows.2`, 45,584 bytes, SHA-256
+  `2295eb8e7e38e4fe504c38fe18ef11b86d2d3fb9d32d1b58c4244621d9e7babd`.
+  Its current two-name hard-link state is host provenance rather than packet evidence; exact path
+  and bytes are load-bearing. Runtime Git calls must resolve only through the frozen clean PATH and
+  the parent implementation-freeze recheck must exact-bind this identity.
+- `ambientInspectionRule` enumerates the raw incoming environment before reading target authority,
+  rejects duplicate ASCII-case-folded keys, any `NODE`, `NODE_*`, `TS_NODE`, or `TS_NODE_*` key,
+  and any pre-existing launcher-marker key, then copies no ambient value into the child.
+- `cleanEnvironment` is an exact ASCII-key-sorted roster and the complete static child
+  environment:
+  `GIT_CONFIG_GLOBAL=NUL`, `GIT_CONFIG_NOSYSTEM=1`, `GIT_OPTIONAL_LOCKS=0`,
+  `GIT_TERMINAL_PROMPT=0`, `LC_ALL=C`, `PATH=C:\\Program Files\\Git\\cmd`,
+  `PATHEXT=.COM;.EXE`, `PHASE10_C0V_S6_LAUNCHER_VERSION=phase10-c0v-s6-native-launcher-v1`,
+  and `SYSTEMROOT=C:\\WINDOWS`. No inherited entry or hidden Windows drive-current-directory entry
+  is permitted. The same exact block is cloned for the worker; neither parent nor worker may add,
+  remove, or rewrite a row. `PHASE10_C0V_S6_LAUNCHER_VERSION` is a version hint only and never
+  authenticates the launcher. The parent now constructs the worker environment solely from this
+  exact catalogue roster, and the worker independently requires its complete process environment
+  to equal the same nine rows before parsing arguments or reading authority. This closes the prior
+  ambient-clone seam; launcher source/build/image resolution remains separately blocked.
+- `launcherChannelContract` freezes two private one-way anonymous pipes. On Windows the launcher
+  maps the launcher-to-child pipe to the child's standard input and the child-to-launcher pipe to
+  the child's standard output with `STARTUPINFOEXW` and an exact
+  `PROC_THREAD_ATTRIBUTE_HANDLE_LIST`; no other non-standard handle is inherited. On POSIX the
+  forked child maps the same two pipe ends to file descriptors 0 and 1, closes every unrelated
+  descriptor, and then calls `execve`. No pipe name, handle value, challenge, or response is placed
+  in the environment or command line. The inherited launcher-to-Node response read end is already
+  OS-nonblocking before child creation: Win32 uses `CreatePipe` and requires a successful
+  `SetNamedPipeHandleState(..., PIPE_NOWAIT, ...)` on the read handle before `CreateProcessW`;
+  POSIX requires a successful `fcntl(..., O_NONBLOCK)` before `execve`.
+- Each authentication boundary uses one compact canonical JSON request line and one compact
+  canonical JSON response line, each LF-terminated and at most 4,096 bytes. Before parsing packet
+  arguments or reading any packet authority, the Node parent obtains 32 bytes from
+  `node:crypto.randomBytes`, encodes the bytes as exactly 64 lowercase hexadecimal characters, and
+  writes the initial request as the first child-stdout frame. Every later boundary uses a new
+  challenge. Request field order is
+  `schema,domain,sequence,kind,boundaryId,childPid,challenge`. The exact request schema is
+  `phase10-c0v-s6-launcher-challenge-v1` and the domain is
+  `phase10-c0v-s6-native-launcher-auth-v1`.
+- Request `kind` is exactly `initial-auth | boundary-recheck | release-output`; `sequence` is
+  zero-based contiguous. Every packet protocol carries the strict
+  `phase10-c0v-s6-launcher-boundary-contract-v1`. Its `checkRequests` are exactly
+  `initial-auth/entry-before-arguments`, then `release-output/release-output`. Its `runRosters`
+  cover the packet's terminal subroutes once in protocol order and are mechanically derived from
+  the selected subroute and registered paths: initial auth; preflight
+  `publication-stage:<registered sibling stage>` then
+  `publication-install:<registered final>`; direct
+  `terminal-candidate:<attemptRoot>/<attemptId>/terminal-success-candidate.json`; every selected
+  candidate-output final in code-point path order as its own stage/install pair; the verification
+  stage/install pair exactly when that subroute requires verification; terminal-receipt
+  stage/install; `cleanup-packet-lock:<exact packet lock path>`;
+  `cleanup-package-lock:<exact package lock path>`; and release last. Stage creation and final
+  install are distinct authenticated boundaries. All subroutes share the preflight prefix, so the
+  raw observation may select the outcome before the roster diverges. The native launcher accepts
+  a successful action only when it completes the exact check roster or one exact packet/subroute
+  run roster. A failed action may retain only a strict non-release prefix and never emits executor
+  output.
+- The still-live launcher requires every `childPid` to equal its child-creation PID and returns
+  exact field order
+  `schema,domain,sequence,kind,boundaryId,launcherVersion,launcherPid,childPid,challenge,launcherExecutable`.
+  The response schema is `phase10-c0v-s6-launcher-response-v1`; sequence, kind, boundary, domain,
+  child PID, and challenge exactly copy the request; there is exactly one response per request and
+  no unsolicited response. `launcherVersion` is `phase10-c0v-s6-native-launcher-v1` and
+  `launcherExecutable` is the launcher's self-opened physical `path,byteLength,sha256` identity.
+- Node polls the nonblocking response read end against parent-owned `hrtime`. Only `EAGAIN` or
+  `EWOULDBLOCK` means no bytes; a zero-byte read is EOF, and every other read error fail-stops.
+  Before writing every request it rejects any queued unsolicited byte or EOF. After a canonical
+  nonrelease response it drains the bytes currently queued: a nonempty drain or EOF rejects, while
+  a byte arriving later is rejected by the next pre-request check. This prevents an early extra
+  response from hiding between authenticated publication boundaries.
+- The launcher self-opens and hashes its canonical image before child creation and before every
+  response, requires every later observation to equal its initial observation, and reports the
+  current identity. It does **not** embed its final executable SHA-256: that would be a hash cycle.
+  Node independently reopens and hashes the resolved catalogue path on every response and requires
+  exact equality to both the response and resolved external catalogue identity.
+- Authentication has an exact 30,000 ms parent-monotonic bound on each of two independently owned
+  intervals: launcher successful-child-create to complete initial request, and Node complete
+  request write to complete matching response for every nonrelease request. For `release-output`,
+  that same Node interval ends only after the canonical response and exact EOF with no intervening
+  byte; there is no second EOF deadline. Equality passes; 30,001 ms fail-stops. The launcher keeps
+  the response pipe open until `release-output`; it never forwards public stdin. Before release it
+  consumes only exact control requests and rejects any executor-output byte. After writing the
+  release response it stops frame parsing and closes child stdin; only after Node observes the
+  required EOF may output release succeed. The launcher raw-copies every subsequent child-stdout
+  byte unchanged. Its proxy uses one fixed 65,536-byte
+  read/write buffer, drains it before the next read, relies on OS backpressure, and never
+  accumulates an aggregate output buffer.
+- The Node parent accepts each response only when it is byte-canonical, its challenge is fresh for
+  that sequence, `process.ppid` equals `launcherPid`, and it arrives over the same private pipe
+  while that launcher remains the live parent. Fresh boundary challenges plus the still-open peer
+  exclude PID reuse between publications and cleanup checks. Missing/extra responses, timeout,
+  premature launcher death, PID/image/peer/sequence/boundary drift, or any field mismatch
+  fail-stops. This binds the child-parent relationship to the externally frozen launcher image
+  without trusting a forgeable environment marker or an unavailable stock-Node Windows image
+  query.
+- `entrypointRule`, `argumentRule`, and `directNodeRule` bind the parent to that live authenticated
+  channel, exact clean environment, physical Node identity, physical repository cwd, and compiled
+  packet table. A direct `node runner/src/phase10-c0v-s6-executor.ts ...` invocation is always
+  non-authorizing even if its packet arguments and environment marker are otherwise correct. The
+  worker is authorized only as the exact authenticated parent's child through the already frozen
+  scoped parent-worker transport and active locked authority; direct worker invocation is likewise
+  non-authorizing. Deliberate owner replacement of the launcher executable and compiled authority
+  remains outside decision 0042's threat model.
+- `buildContract` is null in the source-absent design state. Before implementation, it must freeze
+  exact compiler path/version/byte identity, flags, source bytes, output bytes, and a clean rebuild
+  equality check; a locally available compiler is not assumed.
+
+Every packet's two `commandTemplates` will change from direct Node to exactly
+`runner/native/phase10-c0v-s6-launcher-win32-x64.exe {check|run} --packet {packetId} --protocol
+research/phase10-execution-v2/packets/{packetId}/protocol.json --attempt {registeredAttemptId}`.
+The launcher accepts only those sixteen compiled argument vectors and creates Node with the exact
+child argv `[nodeExecutable.path, runner/src/phase10-c0v-s6-executor.ts, {check|run}, --packet,
+packetId, --protocol, protocolPath, --attempt, attemptId]`; extra/reordered arguments reject. The
+launcher sets the child cwd to the exact physical repository root and calls `CreateProcessW` or
+`execve` directly; no shell, PATH lookup, script association, or intermediate interpreter
+participates. The parent independently checks the same table and the live catalogue after the
+authenticated launcher handshake and, for `run`, again after acquiring locks. This design section
+does not authorize source creation, compilation, a command-template rewrite, or an S6 run; those
+occur only after the catalogue shape and build authority receive explicit approval.
+
+Radial registered-cap authority separately counts the exact invocation prefix and accepted control
+credit. A cap in any negative-control leaf retains the completed/attempted prefix and sole capped
+leaf in raw worker timing and partial execution, but every radial cap terminal/candidate
+`executedNegativeControlIds` roster is empty. Only a full three-control production campaign earns
+the registered control roster; the contextual protocol parser rejects a coherently relabeled
+capped prefix.
+At `invocation-finished` and `worker-stopped`, the parent-owned radial progress stream sets
+`caseId` null but preserves the started/completed prefixes, `activeCaseId`, and cumulative counts.
+A production cap inside an active case therefore retains the case in partial execution; normal
+completion naturally reaches both boundaries with no active case.
+
+The parent safety boundary is wrapper-owned rather than structurally caller-supplied. The same
+watchdog is bound to the active package/packet locks and locked authority;
+the observer, candidate/finalizer paths, and lock-cleanup eligibility synchronously recheck the
+live monotonic clock at their publication boundaries. Physical unlink is non-claim cleanup, but a
+packet-unlink overrun is detected before package-lock removal, leaving the common stale lock to
+invalidate any late installed artifact. The catalogue also freezes an empty `process.execArgv`
+for both entrypoints and ASCII-case-insensitive rejection of every `NODE`, `NODE_*`, `TS_NODE`, or
+`TS_NODE_*` environment key. The parent constructs only the catalogue's exact nine-row worker
+environment and the worker independently exact-compares its complete environment; no ambient
+value is cloned. The rejected native-launcher design above is historical only and creates no
+implementation prerequisite.
+
+On this regenerated authority snapshot, all eight packet protocols and callable registries plus
+the catalogue, matrix, and schema registry strict-parse, while the schema contracts canonical-parse
+and are identity-bound. The completed radial-parent checkpoint passes six focused files at 103/103;
+`npx tsc -p tsconfig.json --noEmit`, Rule 7 across 1,228 files, and `git diff --check` pass. No
+registered command, solver, attempt, evidence output, or exact `npm test` ran.
 
 Each evidence-producing run starts from a clean committed head. No packet is launched merely
 because an ignored candidate exists, and no several-packet batch crosses a dirty publication
@@ -1238,6 +1561,22 @@ independent archived copy.
 - **Maximize process concurrency by core count.** Rejected as an unconditional rule: independent
   work is parallelized, while cost-uncertain solver controls first measure whether extra processes
   improve throughput on this memory-bandwidth-sensitive host.
+- **Treat a self-erasing preload as ordinary environment drift requiring a native launch proof.**
+  Rejected by maker direction on 2026-08-22. Visible stale loader state is an in-scope accidental
+  failure and remains rejected; deliberate trace erasure, PID/process impersonation, and a frozen
+  authenticated peer intentionally violating its channel require hostile control outside charter
+  §3.3 and decisions 0042/0049. The unfinished launcher design is retained above only as rejected
+  history and must be removed or simplified from S6 authority before implementation freeze.
+- **Continue planning, concurrent review, and authority regeneration while the vertical packet path
+  remains unusable.** Rejected after the same pause. Useful reviews found real defects, but review
+  churn and generalized infrastructure displaced the unwired radial parent. AGENTS Rule 14B now
+  requires one named vertical deliverable, focused checks while it moves, and one bounded review
+  after its interface stabilizes; process excess triggers simplification, not another process layer.
+- **Project stdout as maximum message count times the 33,554,432-byte framing ceiling.** Rejected:
+  that would charge up to 192 MiB for A-P while its scratch projection authorized 16 MiB before
+  stderr. Each packet now has a 4 MiB aggregate retained-stdout ceiling and exact per-message
+  shape/count budgets whose derived sum fits it, separately from stderr and the terminal physical
+  census of every other attempt-root file.
 - **Treat the transient Windows libuv child-process shutdown assertion as a Phase 10 code failure.**
   Rejected after the exact failing case passed in isolation and a repeated exact `npm test` passed
   without changing the existing gut-check code. The failed full-suite attempt remains part of this
@@ -1245,5 +1584,8 @@ independent archived copy.
 
 ## Open questions
 
-None blocks the selected package. B findings may create exact E/F/H proposals; C0V may expose a
-solver or reference gap; both are governed returns rather than permission to expand this plan.
+No scientific scope question blocks the selected package. Before S6 implementation resumes, its
+generated authority must retire or simplify the now-rejected native-launcher prerequisite; that is
+bounded process cleanup, not a new scientific package. B findings may create exact E/F/H proposals;
+C0V may expose a solver or reference gap; both are governed returns rather than permission to
+expand this plan.

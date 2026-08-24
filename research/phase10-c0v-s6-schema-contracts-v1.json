@@ -1,0 +1,1107 @@
+{
+  "schema": "phase10-c0v-s6-schema-contracts-v1",
+  "createdOn": "2026-08-22",
+  "predecessorContracts": {
+    "path": "research/phase10-c0v-schema-contracts-v1.json",
+    "byteLength": 93575,
+    "sha256": "be743fbc560e46e60b51132be66ca9381ffa5d7b69bf6b1e21cce500628cf0f6"
+  },
+  "scope": {
+    "addedSchemaIds": [
+      "phase10-c0v-attempt-row-v2",
+      "phase10-c0v-radial-result-v2",
+      "phase10-c0v-s6-preflight-receipt-v2",
+      "phase10-c0v-s6-terminal-receipt-v2",
+      "phase10-packet-verification-v2"
+    ],
+    "addedOutputIds": [
+      "out-ap-c0v-s6-preflight",
+      "out-ap-c0v-s6-terminal-receipt",
+      "out-ap-c0v-s6-verification",
+      "out-c0v-aggregate-preflight",
+      "out-c0v-aggregate-terminal-receipt",
+      "out-c0v-moving-produce-preflight",
+      "out-c0v-moving-produce-terminal-receipt",
+      "out-c0v-moving-produce-verification",
+      "out-c0v-moving-publish-preflight",
+      "out-c0v-moving-publish-terminal-receipt",
+      "out-c0v-radial-produce-preflight",
+      "out-c0v-radial-produce-terminal-receipt",
+      "out-c0v-radial-produce-verification",
+      "out-c0v-radial-publish-preflight",
+      "out-c0v-radial-publish-terminal-receipt",
+      "out-c0v-static-produce-preflight",
+      "out-c0v-static-produce-terminal-receipt",
+      "out-c0v-static-produce-verification",
+      "out-c0v-static-publish-preflight",
+      "out-c0v-static-publish-terminal-receipt"
+    ],
+    "overriddenOutputIds": [
+      "out-c0v-aggregate-verification",
+      "out-c0v-moving-attempt-ledger",
+      "out-c0v-moving-publish-verification",
+      "out-c0v-radial-attempt-ledger",
+      "out-c0v-radial-publish-verification",
+      "out-c0v-radial-result",
+      "out-c0v-static-attempt-ledger",
+      "out-c0v-static-publish-verification"
+    ],
+    "unchangedPathRule": "Each override keeps its phase10-obligation-matrix-v1 repository path. No v1 schema contract or previously published artifact is edited."
+  },
+  "conformance": {
+    "unknownFields": "reject at every object depth",
+    "optionalFields": false,
+    "numbers": "finite JSON numbers only; integer contracts additionally require safe integers; negative zero rejects",
+    "jsonEncoding": "UTF-8, two-space pretty JSON, terminal LF",
+    "jsonlEncoding": "one compact exact-key JSON object per LF-terminated line; blank lines and CR bytes reject",
+    "identityArrays": "arrays described as sorted unique use Unicode code-point order and contain no duplicate",
+    "routeSelection": "branch records the immutable S5 science branch; dispositionCode alone records the S6 lifecycle route; exitCode alone never selects a route",
+    "producerVerdicts": "non-authoritative and ignored by independent evaluators"
+  },
+  "definitions": {
+    "artifactIdentity": {
+      "exactFields": [
+        "path",
+        "byteLength",
+        "sha256"
+      ],
+      "fieldContracts": {
+        "path": "normalized repository-relative path",
+        "byteLength": "nonnegative safe integer",
+        "sha256": "lowercase 64-hex SHA-256 of exact bytes"
+      }
+    },
+    "classificationEvidence": {
+      "exactFields": [
+        "evidenceId",
+        "evidenceRole",
+        "retentionClass",
+        "artifact",
+        "inlineObservationPath"
+      ],
+      "fieldContracts": {
+        "evidenceId": "nonempty stable ID unique within the classificationValidation evidence roster",
+        "evidenceRole": "packet-protocol | science-protocol | reference-or-refusal | preflight-receipt | terminal-receipt | stdout-log | stderr-log | exit-record | resource-record | classification-input",
+        "retentionClass": "tracked-authority | tracked-evidence | embedded-preflight-observation | embedded-attempt-record | embedded-terminal-record | ignored-staging-corroboration",
+        "artifact": "definitions.artifactIdentity for tracked authority/evidence or ignored staging corroboration; null exactly for an embedded observation",
+        "inlineObservationPath": "nonempty exact raw/embedded value path exactly for an embedded observation; null for an artifact identity. Ignored staging is corroboration only and can never be the sole claim-bearing support for a route-selecting observation"
+      }
+    },
+    "classificationObservation": {
+      "exactFields": [
+        "conditionId",
+        "kind",
+        "comparator",
+        "registeredValue",
+        "observedValue",
+        "unit",
+        "conditionPassed",
+        "evidenceIds"
+      ],
+      "fieldContracts": {
+        "conditionId": "exact condition ID registered by the selected execution-v2 packet protocol",
+        "kind": "artifact-identity | artifact-filesystem-policy | artifact-presence | available-bytes | retained-bytes | scratch-bytes | wall-seconds | process-hours | process-exit | reference-disposition | reference-check-outcome | negative-control-outcome | refusal-ground | lifecycle-classification",
+        "comparator": "equal | not-equal | less-than | less-than-or-equal | greater-than | greater-than-or-equal | identity-equal | present | classified-as",
+        "registeredValue": "JSON scalar only: string, boolean, finite number, or null; its primitive type and value are fixed by the registered condition",
+        "observedValue": "JSON scalar only: string, boolean, finite number, or null; its primitive type is checked against the registered condition",
+        "unit": "bytes | seconds | hours | count | artifact-identity | disposition | outcome | reason-code | exit-code | classification | null",
+        "conditionPassed": "independently rederived comparison outcome",
+        "evidenceIds": "nonempty sorted-unique IDs resolving the exact classificationEvidence roster"
+      }
+    },
+    "executionRecord": {
+      "exactFields": [
+        "protocolReopenCount",
+        "referenceOrRefusalReopenCount",
+        "workerProcessInvocationCount",
+        "solverWorkerInvocationCount",
+        "productionInvocationCount",
+        "discrepancyOrRefusalEvaluatorInvocationCount",
+        "freezeEvaluatorInvocationCount",
+        "resourceEvaluatorInvocationCount",
+        "attemptCensusEvaluatorInvocationCount",
+        "checkCallerInvocationCount",
+        "numericalEvaluatorInvocationCount",
+        "numericalNegativeControlInvocationCount",
+        "acceptedValidWitnessCount",
+        "acceptedNumericalVerdictCount",
+        "governedInvocationElapsedNanoseconds",
+        "governedInvocationWallSeconds"
+      ],
+      "fieldContracts": {
+        "protocolReopenCount": "nonnegative safe integer",
+        "referenceOrRefusalReopenCount": "nonnegative safe integer",
+        "workerProcessInvocationCount": "nonnegative safe integer",
+        "solverWorkerInvocationCount": "nonnegative safe integer",
+        "productionInvocationCount": "nonnegative safe integer",
+        "discrepancyOrRefusalEvaluatorInvocationCount": "nonnegative safe integer",
+        "freezeEvaluatorInvocationCount": "nonnegative safe integer",
+        "resourceEvaluatorInvocationCount": "nonnegative safe integer",
+        "attemptCensusEvaluatorInvocationCount": "nonnegative safe integer",
+        "checkCallerInvocationCount": "nonnegative safe integer",
+        "numericalEvaluatorInvocationCount": "nonnegative safe integer",
+        "numericalNegativeControlInvocationCount": "nonnegative safe integer",
+        "acceptedValidWitnessCount": "nonnegative safe integer counting only a witness accepted by the complete packet after every structural check",
+        "acceptedNumericalVerdictCount": "nonnegative safe integer counting only a numerical verdict accepted by the complete packet after every structural check",
+        "governedInvocationElapsedNanoseconds": "exact safe-integer sum of every worker executableInvocationRecords.elapsedNanoseconds, including route-cause-evaluator; acyclic structural freeze/census/resource stages are outside this roster",
+        "governedInvocationWallSeconds": "exact governedInvocationElapsedNanoseconds / 1000000000; never a separately summed floating-point quantity"
+      }
+    },
+    "packetVerificationInvocationRecord": {
+      "exactFields": [
+        "invocationId",
+        "callableId",
+        "negativeControlId",
+        "invocationClass",
+        "startedAt",
+        "finishedAt",
+        "elapsedNanoseconds",
+        "wallSeconds",
+        "registeredWallSecondsMaximum",
+        "terminalState"
+      ],
+      "fieldContracts": {
+        "invocationId": "exact packet-protocol invocation ID in registered order",
+        "callableId": "exact resolved callable ID",
+        "negativeControlId": "exact matrix negative-control ID only for packet-negative-control; null otherwise",
+        "invocationClass": "packet-producer | packet-evaluator | packet-negative-control",
+        "startedAt": "canonical millisecond UTC ISO-8601 provenance instant within the packet attempt; never duration authority",
+        "finishedAt": "canonical millisecond UTC ISO-8601 provenance instant not before startedAt; never duration authority",
+        "elapsedNanoseconds": "exact nonnegative safe-integer difference between the parent-owned invocation-finished and invocation-started monotonicOffsetNanoseconds values",
+        "wallSeconds": "exact elapsedNanoseconds / 1000000000, finite nonnegative without negative zero; wall-clock timestamp subtraction is forbidden",
+        "registeredWallSecondsMaximum": "exactly 14400",
+        "terminalState": "complete | registered-cap; complete allows elapsedNanoseconds at or below 14400000000000 while registered-cap requires it strictly above that maximum. A phase10-packet-verification-v2 receipt contains only the exact full all-complete roster; a nonproduce registered-cap terminal-v2 receipt may reuse this record shape for its exact prefix ending in the sole registered-cap row"
+      }
+    },
+    "callerResultSourceIdentity": {
+      "exactFields": [
+        "artifactRole",
+        "artifact"
+      ],
+      "fieldContracts": {
+        "artifactRole": "exact protocol callerInvocationResultRoster source role in registered order",
+        "artifact": "definitions.artifactIdentity for the exact reopened registered output or attempt-internal raw source; the current verification and terminal receipt can never cite their own identities"
+      }
+    },
+    "callerInvocationResult": {
+      "exactFields": [
+        "callerInvocationId",
+        "stage",
+        "callerCallableId",
+        "evaluatorCallableId",
+        "terminalState",
+        "executedCheckIds",
+        "evaluatedCheckIds",
+        "executedNegativeControlIds",
+        "evaluatorResult",
+        "sourceArtifactIdentities"
+      ],
+      "fieldContracts": {
+        "callerInvocationId": "exact packet-protocol terminalReceiptContract caller invocation ID in selected-subroute order",
+        "stage": "pre-candidate | post-candidate; the terminal candidate contains exactly the pre-candidate subsequence and can never claim later census/resource caller work",
+        "callerCallableId": "exact registered check-caller callable ID actually entered",
+        "evaluatorCallableId": "exact independently registered evaluator invoked by that caller",
+        "terminalState": "complete | child-registered-cap",
+        "executedCheckIds": "exact protocol-registered check roster returned by the caller; empty on child-registered-cap",
+        "evaluatedCheckIds": "exact evaluator-rederived check roster and equal to executedCheckIds; empty on child-registered-cap",
+        "executedNegativeControlIds": "exact registered control roster actually completed through this caller; empty on child-registered-cap",
+        "evaluatorResult": "canonical strict-JSON evaluator result exact-copied from the caller and independently rerun/exact-compared when terminalState is complete; null exactly on child-registered-cap",
+        "sourceArtifactIdentities": "exact registered-order definitions.callerResultSourceIdentity roster, reopened from bytes. A child-registered-cap row binds raw parent-owned worker invocation/progress sources and may not fabricate an evaluator result"
+      }
+    },
+    "aggregateAnyLayerNonpassControl": {
+      "exactFields": [
+        "schema",
+        "negativeControlId",
+        "ownerCheckId",
+        "callableId",
+        "cleanTable",
+        "mutatedLayerId",
+        "mutatedTable",
+        "mutation",
+        "cleanOutcome",
+        "attackedOutcome",
+        "result"
+      ],
+      "fieldContracts": {
+        "schema": "phase10-c0v-any-layer-nonpass-control-v1",
+        "negativeControlId": "nc-c0v-any-layer-nonpass",
+        "ownerCheckId": "chk-c0v-any-layer-nonpass",
+        "callableId": "phase10-nc-c0v-any-layer-nonpass",
+        "cleanTable": "phase10-c0v-terminal-table-v1 shape with exact synthetic tableId c0v-terminal-table-synthetic-all-pass-v1 and exact three-row radial, static, moving all-independent/pass roster",
+        "mutatedLayerId": "C0V-RADIAL",
+        "mutatedTable": "exact copy of cleanTable with tableId c0v-terminal-table-synthetic-radial-refusal-v1 and only the radial scientificDisposition changed from pass to refusal",
+        "mutation": "exact object {field,before,after,changedRowCount,otherRowsUnchanged}: scientificDisposition, pass, refusal, 1, true",
+        "cleanOutcome": "exact object {aggregateStatus,packageCompletionEligible,dependentQualificationBlocked}: pass, true, false",
+        "attackedOutcome": "exact object {aggregateStatus,packageCompletionEligible,dependentQualificationBlocked}: non-pass, true, true",
+        "result": "inherited definitions.negativeControlResult with every boolean true; the aggregate producer embeds only this strict result while the independent verifier rederives and exact-compares the complete retained receipt"
+      }
+    },
+    "aggregateTerminalTableRow": {
+      "exactFields": [
+        "layerId",
+        "branch",
+        "terminalStatus",
+        "result",
+        "scientificDisposition",
+        "negativeControlDisposition",
+        "resourceDisposition",
+        "claimBoundary"
+      ],
+      "fieldContracts": {
+        "layerId": "exact row position: C0V-RADIAL, then C0V-STATIC, then C0V-MOVING-EVENT",
+        "branch": "independent-reference | reference-refusal, exact-copied from the strict layer result",
+        "terminalStatus": "pass | fail | refusal, exact-copied from the strict layer result",
+        "result": "definitions.artifactIdentity for the exact committed layer result",
+        "scientificDisposition": "pass | fail | refusal, exact-copied from the strict layer result",
+        "negativeControlDisposition": "pass | not-run-no-credit | not-accepted-no-credit, exact-copied from the strict layer result",
+        "resourceDisposition": "within-cap | artifact-refusal | prelaunch-resource-refusal | registered-cap-resource-refusal, exact-copied from the strict layer result",
+        "claimBoundary": "exact canonical allowed/forbidden claim boundary copied from the strict layer result"
+      }
+    },
+    "aggregateProduceAttemptResourceRow": {
+      "exactFields": [
+        "packetId",
+        "attemptId",
+        "attemptLedger",
+        "terminalStatus",
+        "dispositionCode",
+        "governedInvocationElapsedNanoseconds",
+        "processHours",
+        "maximumObservedConcurrentBytes",
+        "terminalRetainedBytes"
+      ],
+      "fieldContracts": {
+        "packetId": "exact row position: c0v-radial-produce, then c0v-static-produce, then c0v-moving-produce",
+        "attemptId": "exact sole registered materializable v1 attempt row reopened from attemptLedger",
+        "attemptLedger": "definitions.artifactIdentity for the exact committed one-row phase10-c0v-attempt-row-v2 ledger",
+        "terminalStatus": "pass | fail | refusal, exact row terminal status",
+        "dispositionCode": "exact row dispositionCode",
+        "governedInvocationElapsedNanoseconds": "exact row executionRecord.governedInvocationElapsedNanoseconds safe integer",
+        "processHours": "exact governedInvocationElapsedNanoseconds / 3600000000000",
+        "maximumObservedConcurrentBytes": "exact row resourceRecord.maximumObservedConcurrentBytes",
+        "terminalRetainedBytes": "exact row resourceRecord.terminalRetainedBytes"
+      }
+    },
+    "aggregateProduceAttemptResourceTotals": {
+      "exactFields": [
+        "governedInvocationElapsedNanoseconds",
+        "processHours",
+        "maximumObservedConcurrentBytes",
+        "terminalRetainedBytes"
+      ],
+      "fieldContracts": {
+        "governedInvocationElapsedNanoseconds": "exact safe-integer sum of the three produce-attempt rows",
+        "processHours": "exact governedInvocationElapsedNanoseconds / 3600000000000; floating row hours are never summed",
+        "maximumObservedConcurrentBytes": "exact maximum of the three row values",
+        "terminalRetainedBytes": "exact safe-integer sum of the three row values"
+      }
+    },
+    "packetGovernedTiming": {
+      "exactFields": [
+        "source",
+        "selectedAttemptId",
+        "attemptLedger",
+        "invocationRecords",
+        "governedInvocationElapsedNanoseconds",
+        "governedInvocationWallSeconds",
+        "processHours"
+      ],
+      "fieldContracts": {
+        "source": "selected-attempt-row | packet-verification-worker",
+        "selectedAttemptId": "exact selected attempt-v2 ID on a produce packet; null otherwise",
+        "attemptLedger": "definitions.artifactIdentity for the exact produce ledger; null otherwise",
+        "invocationRecords": "on a produce packet, exact definitions.executableInvocationRecord array from the selected attempt; otherwise exact full definitions.packetVerificationInvocationRecord array matching the packet verificationInvocationRoster with every terminalState complete",
+        "governedInvocationElapsedNanoseconds": "exact safe-integer sum of invocationRecords.elapsedNanoseconds in protocol order",
+        "governedInvocationWallSeconds": "exact governedInvocationElapsedNanoseconds / 1000000000; never a separately summed floating-point quantity",
+        "processHours": "exact governedInvocationElapsedNanoseconds / 3600000000000"
+      }
+    },
+    "priorPacketVerificationAccounting": {
+      "exactFields": [
+        "packetId",
+        "verification",
+        "governedInvocationElapsedNanoseconds",
+        "processHours"
+      ],
+      "fieldContracts": {
+        "packetId": "exact preceding packet ID in catalogue execution order",
+        "verification": "definitions.artifactIdentity for that packet's committed phase10-packet-verification-v2 bytes",
+        "governedInvocationElapsedNanoseconds": "exact governedTiming.governedInvocationElapsedNanoseconds reopened from those bytes",
+        "processHours": "exact governedTiming.processHours reopened from those bytes"
+      }
+    },
+    "unselectedAttemptAccounting": {
+      "exactFields": [
+        "packetId",
+        "attemptLedger",
+        "attemptId",
+        "dispositionCode",
+        "governedInvocationElapsedNanoseconds",
+        "processHours"
+      ],
+      "fieldContracts": {
+        "packetId": "one of the three produce packet IDs",
+        "attemptLedger": "definitions.artifactIdentity for the committed attempt-v2 ledger",
+        "attemptId": "exact row ID not already represented by a current/prior selected verification",
+        "dispositionCode": "exact row dispositionCode",
+        "governedInvocationElapsedNanoseconds": "exact row executionRecord.governedInvocationElapsedNanoseconds",
+        "processHours": "exact row processHours"
+      }
+    },
+    "packageProcessAccounting": {
+      "exactFields": [
+        "selectedPacketIds",
+        "priorPacketVerifications",
+        "unselectedAttemptRows",
+        "priorSelectedPacketElapsedNanoseconds",
+        "unselectedAttemptElapsedNanoseconds",
+        "currentPacketElapsedNanoseconds",
+        "totalElapsedNanoseconds",
+        "maximumElapsedNanoseconds",
+        "priorSelectedPacketProcessHours",
+        "unselectedAttemptProcessHours",
+        "currentPacketProcessHours",
+        "totalProcessHours",
+        "maximumProcessHours",
+        "duplicateAccountingVerdict",
+        "omissionAccountingVerdict"
+      ],
+      "fieldContracts": {
+        "selectedPacketIds": "exact packet-catalogue execution-order prefix ending with the current packet",
+        "priorPacketVerifications": "exact definitions.priorPacketVerificationAccounting array for every preceding selectedPacketIds member, once each; current verification is excluded to avoid self-reference",
+        "unselectedAttemptRows": "attemptId-sorted definitions.unselectedAttemptAccounting array containing every durable governed produce-attempt row in the successful selected catalogue-prefix history that is not represented by a selected verification, once each; a nonproduce maker-return has no attempt row and halts this v1 history",
+        "priorSelectedPacketElapsedNanoseconds": "exact safe-integer sum of priorPacketVerifications.governedInvocationElapsedNanoseconds",
+        "unselectedAttemptElapsedNanoseconds": "exact safe-integer sum of unselectedAttemptRows.governedInvocationElapsedNanoseconds",
+        "currentPacketElapsedNanoseconds": "exact current governedTiming.governedInvocationElapsedNanoseconds",
+        "totalElapsedNanoseconds": "exact safe-integer sum of priorSelectedPacketElapsedNanoseconds, unselectedAttemptElapsedNanoseconds, and currentPacketElapsedNanoseconds",
+        "maximumElapsedNanoseconds": "exactly 86400000000000; equality is allowed and any greater total refuses",
+        "priorSelectedPacketProcessHours": "exact priorSelectedPacketElapsedNanoseconds / 3600000000000",
+        "unselectedAttemptProcessHours": "exact unselectedAttemptElapsedNanoseconds / 3600000000000",
+        "currentPacketProcessHours": "exact currentPacketElapsedNanoseconds / 3600000000000",
+        "totalProcessHours": "exact totalElapsedNanoseconds / 3600000000000; never a separately summed floating-point quantity",
+        "maximumProcessHours": "exactly 24; equality is allowed and any greater total refuses",
+        "duplicateAccountingVerdict": "pass only when no packet verification or attempt ID is counted twice",
+        "omissionAccountingVerdict": "pass only when the selected-verification plus unselected-produce-attempt union covers every governed execution in the successful selected catalogue-prefix history exactly once. A nonproduce cap/prelaunch maker-return terminates v1 before another packet verification; any separately frozen successor must first ingest its retained terminal timing and raw root exactly once"
+      }
+    },
+    "publicationFinalizationProjection": {
+      "exactFields": [
+        "artifactRole",
+        "path",
+        "stagingPath",
+        "maximumByteLength"
+      ],
+      "fieldContracts": {
+        "artifactRole": "packet-verification | terminal-receipt, in that exact order",
+        "path": "exact packet-protocol registered final path, unique and absent from materializedPublicationArtifacts",
+        "stagingPath": "exact attempt-bound sibling stage path registered by the packet protocol",
+        "maximumByteLength": "positive safe integer per physical copy; the protocol registers exactly 524288 for packet-verification and 131072 for terminal-receipt"
+      }
+    },
+    "packetResourceAccounting": {
+      "exactFields": [
+        "source",
+        "attemptId",
+        "attemptLedger",
+        "attemptRoot",
+        "attemptRootArtifacts",
+        "attemptMaximumObservedConcurrentBytes",
+        "attemptTerminalRetainedBytes",
+        "materializedPublicationArtifacts",
+        "materializedPublicationBytes",
+        "publicationFinalizationProjections",
+        "projectedFinalizationBytes",
+        "projectedPacketRetainedBytes",
+        "physicalPathUniquenessVerdict",
+        "appendOnlyVerdict"
+      ],
+      "fieldContracts": {
+        "source": "selected-attempt-resource-record | append-only-attempt-root",
+        "attemptId": "exact registered packet attempt ID",
+        "attemptLedger": "definitions.artifactIdentity on a produce packet and null otherwise",
+        "attemptRoot": "exact packet-protocol attemptRoot",
+        "attemptRootArtifacts": "path-sorted unique exact terminal attempt-root artifact identities; for produce this equals the selected attempt resourceRecord terminal observation",
+        "attemptMaximumObservedConcurrentBytes": "exact selected resourceRecord maximum on produce; exact terminal byte sum on append-only nonproduce",
+        "attemptTerminalRetainedBytes": "exact sum attemptRootArtifacts.byteLength",
+        "materializedPublicationArtifacts": "path-sorted unique exact identities for every current-packet publication already materialized before verification, excluding the current verification and later terminal receipt",
+        "materializedPublicationBytes": "exact sum materializedPublicationArtifacts.byteLength",
+        "publicationFinalizationProjections": "exact packet-protocol definitions.publicationFinalizationProjection roster for the current verification and later terminal receipt; these paths avoid a self-hash cycle",
+        "projectedFinalizationBytes": "exact twice the sum publicationFinalizationProjections.maximumByteLength because staging and final may coexist physically",
+        "projectedPacketRetainedBytes": "exact attemptTerminalRetainedBytes plus materializedPublicationBytes plus projectedFinalizationBytes",
+        "physicalPathUniquenessVerdict": "pass only when attempt, materialized-publication, and projected paths are pairwise distinct physical copies",
+        "appendOnlyVerdict": "pass only when nonproduce attempt-root writing was no-overwrite/append-only so terminal bytes equal high-water; produce instead rederives the complete resourceRecord"
+      }
+    },
+    "priorPacketResourceAccounting": {
+      "exactFields": [
+        "packetId",
+        "verification",
+        "terminalReceipt",
+        "attemptMaximumObservedConcurrentBytes",
+        "finalizedPacketRetainedBytes"
+      ],
+      "fieldContracts": {
+        "packetId": "exact preceding packet ID in catalogue execution order",
+        "verification": "exact manifest-pinned phase10-packet-verification-v2 identity",
+        "terminalReceipt": "exact manifest-pinned terminal-receipt identity replacing that verification's terminal projection",
+        "attemptMaximumObservedConcurrentBytes": "exact packetResourceAccounting attempt high-water reopened from the verification",
+        "finalizedPacketRetainedBytes": "exact attempt-root plus materialized publication plus actual verification and terminal receipt physical-copy bytes, replacing both prior projections"
+      }
+    },
+    "packageResourceAccounting": {
+      "exactFields": [
+        "selectedPacketIds",
+        "priorPacketResources",
+        "packageStorageBaselineArtifacts",
+        "packageStorageBaselineBytes",
+        "priorFinalizedPacketRetainedBytes",
+        "currentProjectedPacketRetainedBytes",
+        "totalPackageRetainedBytes",
+        "maximumPackageRetainedBytes",
+        "physicalPathDuplicateVerdict",
+        "omissionAccountingVerdict",
+        "storageLimitVerdict"
+      ],
+      "fieldContracts": {
+        "selectedPacketIds": "exact catalogue execution-order prefix ending at the current packet and identical to packageProcessAccounting.selectedPacketIds",
+        "priorPacketResources": "one definitions.priorPacketResourceAccounting row per preceding selected packet, exactly once and in catalogue order",
+        "packageStorageBaselineArtifacts": "exact 12-entry physical-copy baseline registered by the packet protocol, counted once without content deduplication",
+        "packageStorageBaselineBytes": "exactly 1629577 and equal to the baseline artifact-byte sum",
+        "priorFinalizedPacketRetainedBytes": "exact sum priorPacketResources.finalizedPacketRetainedBytes",
+        "currentProjectedPacketRetainedBytes": "exact packetResourceAccounting.projectedPacketRetainedBytes",
+        "totalPackageRetainedBytes": "exact baseline plus prior-finalized plus current-projected byte sum",
+        "maximumPackageRetainedBytes": "exactly 68719476736; equality is allowed and any greater total refuses",
+        "physicalPathDuplicateVerdict": "pass only when baseline, prior finalized packet copies, and current packet paths contain no duplicated physical path",
+        "omissionAccountingVerdict": "pass only when every baseline copy and every packet in the successful selected catalogue-prefix history has its raw and published retained bytes represented once. A nonproduce cap/prelaunch maker-return terminates v1; any separately frozen successor must first census and count its retained terminal/raw-root bytes exactly once",
+        "storageLimitVerdict": "pass only when totalPackageRetainedBytes is at most maximumPackageRetainedBytes"
+      }
+    },
+    "resourceObservation": {
+      "exactFields": [
+        "observationId",
+        "observedAt",
+        "artifacts",
+        "concurrentBytes"
+      ],
+      "fieldContracts": {
+        "observationId": "exact route-specific observation-point ID registered by the selected execution-v2 packet protocol",
+        "observedAt": "UTC ISO-8601 instant within the enclosing attempt interval and not before the preceding protocol-order observation",
+        "artifacts": "path-sorted unique definitions.artifactIdentity array for every file present under the attempt root at this point, excluding the candidate layer ledger path",
+        "concurrentBytes": "exact safe-integer sum of artifact.byteLength over this observation"
+      }
+    },
+    "resourceRecord": {
+      "exactFields": [
+        "schema",
+        "registeredObservationPointIds",
+        "observations",
+        "maximumObservedConcurrentBytes",
+        "maximumObservationId",
+        "terminalRetainedBytes",
+        "excludedLedgerPath"
+      ],
+      "fieldContracts": {
+        "schema": "phase10-c0v-resource-record-v1",
+        "registeredObservationPointIds": "exact nonempty route-specific protocol-order observation-point roster",
+        "observations": "definitions.resourceObservation array with exactly one row per registered point in the same order",
+        "maximumObservedConcurrentBytes": "exact maximum observations.concurrentBytes",
+        "maximumObservationId": "first protocol-order observationId attaining maximumObservedConcurrentBytes",
+        "terminalRetainedBytes": "exact concurrentBytes of the protocol's sole terminal-retention observation; attempt-root writing is exclusive-create append-only with no delete or overwrite, so actual maximum equals terminal retained bytes without a false historical snapshot claim",
+        "excludedLedgerPath": "exact current layer attempt-ledger path, absent from every observation artifact roster"
+      }
+    },
+    "executableInvocationRecord": {
+      "exactFields": [
+        "invocationId",
+        "callableId",
+        "negativeControlId",
+        "invocationClass",
+        "startedAt",
+        "finishedAt",
+        "elapsedNanoseconds",
+        "wallSeconds",
+        "registeredWallSecondsMaximum",
+        "terminalState"
+      ],
+      "fieldContracts": {
+        "invocationId": "exact protocol-registered ID unique within the attempt and in route order",
+        "callableId": "exact resolved callable ID registered for this invocation",
+        "negativeControlId": "exact matrix negative-control ID only for numerical-negative-control; null for every other invocationClass",
+        "invocationClass": "solver-production | numerical-evaluator | numerical-negative-control | route-cause-evaluator; only worker leaf science/control invocations are timed because check callers contain child intervals and preflight/census/resource verification stages cannot self-validate their later timing rows",
+        "startedAt": "UTC ISO-8601 provenance instant within the enclosing attempt interval and not before the preceding invocation finished; never duration authority",
+        "finishedAt": "UTC ISO-8601 provenance instant not before startedAt and within the enclosing attempt interval; never duration authority",
+        "elapsedNanoseconds": "exact nonnegative safe-integer difference between the parent-owned invocation-finished and invocation-started monotonicOffsetNanoseconds values",
+        "wallSeconds": "exact elapsedNanoseconds / 1000000000; finite nonnegative without negative zero; wall-clock timestamp subtraction is forbidden",
+        "registeredWallSecondsMaximum": "exact positive protocol cap in seconds: 300 for radial solver production and 14400 for every other executable control invocation",
+        "terminalState": "complete | registered-cap, exactly as frozen for this materializable tuple row; complete allows wallSeconds at or below registeredWallSecondsMaximum, while registered-cap requires wallSeconds strictly greater than it; scientific PASS/FAIL and negative-control rejection exist only in independently parsed evaluator/control bytes; infrastructure-failure may exist only in ignored raw worker timing and cannot enter an attempt row"
+      }
+    },
+    "workerProgressRecord": {
+      "exactFields": [
+        "schema",
+        "sequence",
+        "observedAt",
+        "event",
+        "invocationId",
+        "caseId",
+        "startedCaseIds",
+        "completedCaseIds",
+        "activeCaseId",
+        "completedNumericFieldValueCount",
+        "completedUniformFieldValueCount",
+        "candidateByteLength",
+        "candidateSha256",
+        "terminalState"
+      ],
+      "fieldContracts": {
+        "schema": "phase10-c0v-worker-progress-row-v1",
+        "sequence": "zero-based contiguous safe integer assigned by the parent executor",
+        "observedAt": "canonical millisecond UTC ISO-8601 instant, nondecreasing and within the attempt interval",
+        "event": "worker-started | invocation-started | case-started | case-completed | invocation-finished | worker-stopped",
+        "invocationId": "null on worker-started/worker-stopped and exact protocol invocation ID otherwise",
+        "caseId": "exact protocol case ID only on case-started/case-completed and null otherwise",
+        "startedCaseIds": "exact order-preserving prefix of the protocol case roster",
+        "completedCaseIds": "exact order-preserving prefix of startedCaseIds",
+        "activeCaseId": "null or the sole last started-but-not-completed case",
+        "completedNumericFieldValueCount": "exact sum of protocol node counts for completedCaseIds; active-case partial work earns no count",
+        "completedUniformFieldValueCount": "exact same completed-case node-count sum as the numeric count",
+        "candidateByteLength": "zero until an exact retained candidate exists, then its nonnegative safe-integer byte length",
+        "candidateSha256": "null exactly while candidateByteLength is zero, otherwise lowercase 64-hex identity of the exact candidate bytes",
+        "terminalState": "running | complete | registered-cap | infrastructure-failure under exact event/state rules; invocation-finished and worker-stopped set caseId null while preserving started/completed prefixes, activeCaseId, and cumulative counts, so a mid-case registered cap retains its active case while normal completion naturally has activeCaseId null"
+      }
+    },
+    "workerProgress": {
+      "exactFields": [
+        "artifact",
+        "records"
+      ],
+      "fieldContracts": {
+        "artifact": "definitions.artifactIdentity for the parent-owned ignored worker-progress.jsonl",
+        "records": "nonempty protocol-valid definitions.workerProgressRecord array; compact JSON plus LF reserialization exactly matches artifact.byteLength and artifact.sha256"
+      }
+    },
+    "partialExecution": {
+      "exactFields": [
+        "capId",
+        "registeredLimit",
+        "observedValue",
+        "unit",
+        "cappedInvocationId",
+        "cappedInvocationClass",
+        "invocationStartedAt",
+        "invocationStoppedAt",
+        "invocationElapsedNanoseconds",
+        "rosterCaseIds",
+        "startedCaseIds",
+        "completedCaseIds",
+        "activeCaseId",
+        "completedNumericFieldValueCount",
+        "completedUniformFieldValueCount",
+        "retainedCandidateBytes",
+        "acceptedValidWitnessProduced"
+      ],
+      "fieldContracts": {
+        "capId": "exact registered-cap condition ID from the selected packet protocol",
+        "registeredLimit": "exact finite positive registered limit without negative zero",
+        "observedValue": "exact finite nonnegative independently observed value without negative zero",
+        "unit": "seconds | hours | bytes, exactly matching the registered cap",
+        "cappedInvocationId": "exact protocol invocation ID for the sole executableInvocationRecord with terminalState registered-cap",
+        "cappedInvocationClass": "solver-production | numerical-evaluator | numerical-negative-control | route-cause-evaluator, exactly matching that registered-cap invocation record; route-cause caps are moving/static maker-return rows with empty case/progress rosters",
+        "invocationStartedAt": "exact UTC ISO-8601 startedAt from the registered-cap invocation record",
+        "invocationStoppedAt": "exact UTC ISO-8601 finishedAt from the registered-cap invocation record and not before invocationStartedAt",
+        "invocationElapsedNanoseconds": "exact elapsedNanoseconds from the sole registered-cap invocation record; observedValue seconds equals this value divided by 1000000000",
+        "rosterCaseIds": "exact packet-protocol case roster in protocol order",
+        "startedCaseIds": "an order-preserving prefix of rosterCaseIds",
+        "completedCaseIds": "an order-preserving prefix of startedCaseIds",
+        "activeCaseId": "null or the last started but not completed case ID",
+        "completedNumericFieldValueCount": "nonnegative safe integer consistent with the completed progress prefix",
+        "completedUniformFieldValueCount": "nonnegative safe integer consistent with the completed progress prefix",
+        "retainedCandidateBytes": "nonnegative safe integer counted in the attempt resource record",
+        "acceptedValidWitnessProduced": "false; a registered-cap refusal never accepts a valid witness even when a later-leaf cap leaves unaccepted candidate bytes"
+      }
+    },
+    "classificationValidation": {
+      "exactFields": [
+        "validationId",
+        "assemblerCallableId",
+        "componentEvaluatorCallableIds",
+        "method",
+        "validatedDispositionCode",
+        "observations",
+        "evidence",
+        "zeroScientificExecution",
+        "partialExecutionMatched",
+        "acceptedValidWitnessAbsent",
+        "acceptedNumericalVerdictAbsent",
+        "completedNumericalNegativeControlCampaignCreditAbsent",
+        "verdict",
+        "errors"
+      ],
+      "fieldContracts": {
+        "validationId": "exact classification-{packetId}-{registeredAttemptId}-{tupleId}-v1",
+        "assemblerCallableId": "exact layer attempt-receipt writer callable; it canonical-copies independently reopened component results and grants no verdict",
+        "componentEvaluatorCallableIds": "exact unique evaluator roster in this order when applicable: route-cause, freeze, attempt-census, resource; no omitted, extra, reordered, or one-callable-claims-all roster is accepted",
+        "method": "independent-artifact-precondition-classification | independent-prelaunch-resource-classification | independent-registered-cap-classification | independent-reference-discrepancy-classification | independent-preimplementation-refusal-classification",
+        "validatedDispositionCode": "exact attempt dispositionCode",
+        "observations": "nonempty array formed by exact canonical concatenation of each component evaluator's protocol-order classificationObservation roster in componentEvaluatorCallableIds order",
+        "evidence": "nonempty evidenceId-sorted unique definitions.classificationEvidence array formed by de-duplicating exact-equal component evidence; a duplicate ID with differing deep content refuses",
+        "zeroScientificExecution": "true for preproduction, discrepancy, preimplementation refusal, and moving/static route-cause registered-cap maker-return rows; false for a radial pipeline registered-cap partial execution",
+        "partialExecutionMatched": "true exactly when the validator independently matches the required null or non-null partialExecution state",
+        "acceptedValidWitnessAbsent": "true for every valid refusal even when a later-leaf registered cap leaves unaccepted candidate witness bytes",
+        "acceptedNumericalVerdictAbsent": "true for every valid refusal; candidate evaluation bytes before a later-leaf registered cap earn no accepted packet credit",
+        "completedNumericalNegativeControlCampaignCreditAbsent": "true for every valid refusal; actual pre-cap control invocations may be recorded but earn no completed campaign credit",
+        "verdict": "pass | fail",
+        "errors": "string array; empty exactly on pass"
+      },
+      "invariants": [
+        "The assembler reopens every component output and copies canonical values only. It never supplies or changes an observation, evidence identity, or component verdict.",
+        "The final packet verifier reruns every component evaluator from raw protocol, preflight, live Git/manifest artifacts, candidate/census/resource bytes and exact-compares the entire classificationValidation object.",
+        "A component evaluator may claim only its registered route-cause, freeze, census, or resource scope; a single caller-supplied context cannot satisfy multiple component roles.",
+        "Cause evidence and classificationValidation evidence use the same five-field shape. Artifact identities are required for tracked or ignored-staging rows, inline paths are required for embedded rows, and ignored staging remains corroboration that cannot grant a route without independently reopened tracked/embedded support."
+      ]
+    },
+    "preflightRefusalObservation": {
+      "exactFields": [
+        "conditionId",
+        "kind",
+        "comparator",
+        "registeredValue",
+        "observedValue",
+        "unit",
+        "routeConditionMatched",
+        "preconditionPassed",
+        "evidenceIds"
+      ],
+      "fieldContracts": {
+        "conditionId": "exact radial packet route-selecting artifact-precondition or prelaunch-resource condition ID",
+        "kind": "artifact-filesystem-policy | available-bytes | retained-bytes | process-hours",
+        "comparator": "not-equal for artifact-filesystem-policy; otherwise the exact packet-protocol numeric comparator",
+        "registeredValue": "exact packet-protocol registered scalar",
+        "observedValue": "raw independently observed scalar of the same primitive type",
+        "unit": "classification for artifact-filesystem-policy; otherwise the exact packet-protocol unit or null",
+        "routeConditionMatched": "true only when the raw observed value selects the registered refusal condition",
+        "preconditionPassed": "false; a refusal candidate cannot encode a passing launch precondition",
+        "evidenceIds": "nonempty sorted-unique IDs resolving the refusalCandidate evidence roster"
+      }
+    },
+    "preflightFailedArtifact": {
+      "exactFields": [
+        "artifactRole",
+        "expected",
+        "observed",
+        "filesystemObservation",
+        "failureClass"
+      ],
+      "fieldContracts": {
+        "artifactRole": "science-protocol | reference-or-refusal; only these two radial preproduction operands may select this refusal route",
+        "expected": "definitions.artifactIdentity from packet authority",
+        "observed": "definitions.artifactIdentity exactly equal to expected; the selected artifact remains byte-identical to packet and launch-HEAD authority",
+        "filesystemObservation": "strict inline object with exact ordered fields path,lstatObjectType,lstatByteLength,lstatLinkCount,fileResolvedRelativePath,lexicalParentRelativePath,resolvedParentRelativePath,resolvedInsideRepository,parentAliased,fstatBefore,fstatAfter,failureReasons,readMethod; lstatObjectType is regular-file, resolvedInsideRepository is true before any read, fstat before/after descriptor hashing are identical canonical device/file decimal IDs plus byteLength/linkCount, and failureReasons is the exact nonempty protocol-order subset link-count-not-one,parent-path-aliased",
+        "failureClass": "filesystem-object-policy-failure"
+      }
+    },
+    "preflightClassificationEvidence": {
+      "exactFields": [
+        "evidenceId",
+        "evidenceRole",
+        "retentionClass",
+        "artifact",
+        "inlineObservationPath"
+      ],
+      "fieldContracts": {
+        "evidenceId": "exact condition-specific stable ID, unique and code-point ordered within the refusal candidate",
+        "evidenceRole": "packet-protocol | science-protocol | reference-or-refusal | classification-input",
+        "retentionClass": "tracked-authority exactly when artifact is nonnull; inline-observation exactly when inlineObservationPath is nonnull",
+        "artifact": "exact packet-protocol or selected science/reference authority identity, or null only for an inline resource/filesystem observation",
+        "inlineObservationPath": "null for tracked authority; otherwise the exact observed.resources field path registered for the selected resource condition or refusalCandidate.failedArtifact.filesystemObservation"
+      }
+    },
+    "preflightRefusalCandidate": {
+      "exactFields": [
+        "dispositionCode",
+        "observation",
+        "failedArtifact",
+        "evidence",
+        "solverLaunched",
+        "verdict"
+      ],
+      "fieldContracts": {
+        "dispositionCode": "preproduction-artifact-refusal | prelaunch-resource-refusal",
+        "observation": "definitions.preflightRefusalObservation",
+        "failedArtifact": "definitions.preflightFailedArtifact exactly for preproduction-artifact-refusal; null for prelaunch-resource-refusal",
+        "evidence": "exact condition-specific definitions.preflightClassificationEvidence roster: packet-protocol plus the selected science/reference expected authority and inline filesystemObservation for artifact refusal, or packet-protocol plus the exact inline resource observation for resource refusal; the current preflight receipt can never cite its own identity",
+        "solverLaunched": "false",
+        "verdict": "refusal"
+      }
+    },
+    "terminalRegisteredCap": {
+      "exactFields": [
+        "conditionId",
+        "invocationId",
+        "observedWallSeconds",
+        "registeredWallSecondsMaximum",
+        "unit",
+        "makerReturnRequired"
+      ],
+      "fieldContracts": {
+        "conditionId": "exact route-selecting packet-protocol registered-cap condition bound to invocationId",
+        "invocationId": "exact sole invocationRecords row with terminalState registered-cap",
+        "observedWallSeconds": "exact capped invocation elapsedNanoseconds / 1000000000 from the parent-owned monotonic event pair, strictly greater than the registered maximum; UTC subtraction is forbidden",
+        "registeredWallSecondsMaximum": "exact protocol cap: 300 or 14400",
+        "unit": "seconds",
+        "makerReturnRequired": "false exactly for c0v-radial-produce validated five-leaf cap refusal after structural verification/dependency credit; true for moving/static route-cause and nonproduce caps"
+      }
+    }
+  },
+  "schemas": {
+    "phase10-c0v-s6-preflight-receipt-v2": {
+      "schemaId": "phase10-c0v-s6-preflight-receipt-v2",
+      "format": "json",
+      "exactTopLevelFields": [
+        "schema",
+        "receiptId",
+        "matrixId",
+        "protocolId",
+        "registryId",
+        "packetId",
+        "attemptId",
+        "stage",
+        "observed",
+        "outputIds",
+        "checkIds",
+        "negativeControlIds",
+        "callableIds",
+        "selectedBranches",
+        "refusalCandidate",
+        "verdict",
+        "reasons"
+      ],
+      "fieldContracts": {
+        "schema": "phase10-c0v-s6-preflight-receipt-v2",
+        "receiptId": "phase10-{packetId}-{registeredAttemptId}-preflight-v2",
+        "matrixId": "phase10-c0v-s6-obligations-v1",
+        "protocolId": "exact execution-v2 packet protocol ID",
+        "registryId": "exact resolved callable registry ID",
+        "packetId": "one of the eight S6 packet IDs",
+        "attemptId": "exact packet-protocol registeredAttemptId",
+        "stage": "run",
+        "observed": "exact protocol preflightObservedContract snapshot preserving raw artifact, ancestry, storage, free-byte, and parent-monotonic process observations; packageElapsedNanosecondsBeforeAttempt and projectedPackageElapsedNanosecondsAfterAttempt are safe integers, hours are derived displays only",
+        "outputIds": "exact active output roster for the selected route",
+        "checkIds": "exact active check roster for the selected route",
+        "negativeControlIds": "exact active negative-control roster for the selected route",
+        "callableIds": "exact resolved packet callable roster",
+        "selectedBranches": "exact selectedRouteId and immutable S5 artifact disposition",
+        "refusalCandidate": "null exactly on PASS; definitions.preflightRefusalCandidate exactly on an authorized registered prelaunch-resource refusal for any packet or the radial-only preproduction-artifact refusal",
+        "verdict": "pass | refusal",
+        "reasons": "empty exactly on pass; on refusal, the single exact refusal observation conditionId"
+      },
+      "invariants": [
+        "PASS requires every registered launch precondition and ancestry/resource projection check to pass, refusalCandidate null, and no reasons.",
+        "Every packet may publish prelaunch-resource-refusal only when its raw observation matches exactly one registered free-space, projected-storage, or projected-process-hours refusal condition; solverLaunched is false. Only c0v-radial-produce additionally permits preproduction-artifact-refusal from the sole clean-worktree-materializable filesystem-object-policy condition.",
+        "All three resource truth values are rederived for every receipt. PASS requires all three true; resource refusal requires exactly one false and the selected condition ID; radial artifact refusal requires all three resource conditions true plus exactly one selected science/reference live-binding failure while every other binding remains exact.",
+        "The process projection uses exact integers: projectedPackageElapsedNanosecondsAfterAttempt equals packageElapsedNanosecondsBeforeAttempt plus currentPacketRegisteredElapsedNanosecondsMaximum. Equality to packageElapsedNanosecondsMaximum 86400000000000 passes and one nanosecond greater refuses; process-hour fields equal their integer operands divided by 3600000000000 and never select a route independently.",
+        "On radial artifact refusal, observed.ancestry.boundArtifactsMatch true means every bound content identity, including the selected operand, exactly matches packet and launch-HEAD bytes; every other binding passes; and the sole selected failure is only the independently recorded regular-file single-link/unaliased-parent policy. Missing, mismatched, noncanonical, unreadable, outside-root, or Git-cleanliness-indeterminate operands fail-stop without a receipt.",
+        "The selected filesystem failure is safe to observe: its resolved target is proven inside the physical repository before opening, bytes are hashed through one descriptor, and canonical fstat device/file identity, size, and link count are identical before and after hashing. No outside-root alias is read.",
+        "Refusal evidence is an exact condition-specific authority/inline roster and cannot cite the enclosing preflight receipt or another cyclic current artifact.",
+        "The observer and writer require the exact parent watchdog issued with the same active run locks and locked catalogue/protocol authority. They synchronously recheck the live parent-monotonic clock at entry, after canonical derivation, immediately before registered staged publication, and after the exact final bytes are reopened; a caller-built, cross-action, or expired watchdog rejects and leaves any late installed receipt ignored behind stale locks.",
+        "The catalogue's 33554432-byte worker-message line limit is only a framing ceiling. Every packet row fixes maximumStdoutBytes at the 4194304-byte aggregate retained-stdout ceiling plus exact lifecycle, boundary/progress, artifact, and result line maxima/counts whose derived sum is no greater than that ceiling.",
+        "Every packet projectedScratchBytes exactly equals catalogue maximumStdoutBytes plus workerTransportContract.maximumStderrBytes plus catalogue maximumOtherAttemptRootBytes. The latter excludes stdout/stderr and is enforced by the terminal physical census over every other attempt-root path. Equality is allowed; one further byte in any class is infrastructure fail-stop and cannot become route or evidence authority.",
+        "The catalogue runtimeLoaderContract requires exact-empty process.execArgv in both parent and worker and rejects every visible case-insensitive NODE, NODE_*, TS_NODE, or TS_NODE_* environment key before packet execution. It records no ambient environment value, and deliberate entry-state trace erasure remains outside the registered research threat model.",
+        "The parent materializes exactly the catalogue's eight-row worker environment and clones no ambient value. The worker independently exact-compares its complete environment to that same roster before reading packet authority or accepting a command.",
+        "The public check/run command templates invoke the frozen Node parent directly. Run authority still requires the exact compiled command, clean committed ancestry, locked live authority, passing observed preflight, parent-owned watchdog, bounded worker transport, raw-derived lifecycle, and no-overwrite publication; no separate native-launch prerequisite exists.",
+        "Any preflight failure outside those exact registered conditions fail-stops before a terminal candidate, attempt row, ledger, packet verification, or final terminal receipt. It retains only the ignored raw attempt root and stale locks for review, cannot be relabeled as resource/scientific refusal, earns no packet or dependency completion credit, and requires a separately frozen successor protocol.",
+        "A passing observation cannot be relabeled as refusal, and a refusal receipt cannot substitute PASS-shaped observed values. Exit code never selects either route.",
+        "The independent cause evaluator reopens raw receipt bytes and live Git/manifest/resource facts; the later attempt-v2 classificationValidation embeds artifact-derived observations so ignored staging is corroboration only."
+      ]
+    },
+    "phase10-c0v-s6-terminal-receipt-v2": {
+      "schemaId": "phase10-c0v-s6-terminal-receipt-v2",
+      "format": "json",
+      "exactTopLevelFields": [
+        "schema",
+        "receiptId",
+        "matrixId",
+        "protocolId",
+        "registryId",
+        "packetId",
+        "attemptId",
+        "terminalState",
+        "dispositionCode",
+        "preflight",
+        "terminalCandidate",
+        "attemptLedger",
+        "packetVerification",
+        "producedOutputIds",
+        "executedCheckIds",
+        "executedNegativeControlIds",
+        "invocationRecords",
+        "callerInvocationResults",
+        "registeredCap",
+        "acceptedPacketCredit",
+        "dependencyValid",
+        "verdict",
+        "reasons"
+      ],
+      "fieldContracts": {
+        "schema": "phase10-c0v-s6-terminal-receipt-v2",
+        "receiptId": "phase10-{packetId}-{registeredAttemptId}-terminal-v2",
+        "matrixId": "phase10-c0v-s6-obligations-v1",
+        "protocolId": "exact execution-v2 packet protocol ID",
+        "registryId": "exact resolved callable registry ID",
+        "packetId": "one of the eight S6 packet IDs",
+        "attemptId": "exact packet-protocol registeredAttemptId",
+        "terminalState": "complete | scientific-pass | scientific-fail | scientific-refusal | registered-cap-resource-refusal",
+        "dispositionCode": "exact selected produce attempt disposition, registered-cap-resource-refusal for a nonproduce cap, or null on a successful nonproduce packet",
+        "preflight": "definitions.artifactIdentity for exact phase10-c0v-s6-preflight-receipt-v2 bytes",
+        "terminalCandidate": "definitions.artifactIdentity for the immutable registered internal terminal-success-candidate.json; the candidate exists only for a valid materializable outcome and contains no ledger, final terminal-receipt, or packet-verification identity",
+        "attemptLedger": "definitions.artifactIdentity exactly for produce; null for nonproduce",
+        "packetVerification": "definitions.artifactIdentity exactly for an accepted successfully verified packet, including c0v-radial-produce validated artifact/prelaunch/five scientific-leaf registered-cap refusals; null on moving/static route-cause cap and every nonproduce cap/prelaunch maker-return",
+        "producedOutputIds": "exact selected terminal-subroute output roster; radial validated artifact/prelaunch/five-cap refusal includes produce verification, while moving/static route-cause cap and nonproduce maker-return omit verification",
+        "executedCheckIds": "exact completed check roster",
+        "executedNegativeControlIds": "exact completed negative-control roster",
+        "invocationRecords": "empty on normal completion and produce outcomes whose attempt ledger owns timing; on nonproduce registered cap, the exact protocol verificationInvocationRoster prefix ending in one registered-cap row",
+        "callerInvocationResults": "exact selected-subroute definitions.callerInvocationResult roster. It exact-copies the successful packet verification roster when packetVerification is non-null; on a maker-return it is the full protocol-authorized terminal roster even though packetVerification is null",
+        "registeredCap": "definitions.terminalRegisteredCap exactly on registered-cap-resource-refusal; null otherwise",
+        "acceptedPacketCredit": "true exactly after successful packet verification, including radial validated artifact/prelaunch/five-cap refusal; false on moving/static route-cause cap and nonproduce maker-return",
+        "dependencyValid": "true exactly when acceptedPacketCredit is true; a maker-return terminal receipt is tracked evidence but never dependency completion",
+        "verdict": "complete | refusal",
+        "reasons": "empty on accepted completion; exact registered refusal-condition roster otherwise"
+      },
+      "invariants": [
+        "A nonproduce registered-cap receipt preserves every earlier complete governed leaf and the sole capped leaf strictly above 14400 seconds; a successful complete invocation may be at or below its cap.",
+        "Every complete callerInvocationResults row is independently rerun and exact-compared from its registered sourceArtifactIdentities. A child-registered-cap row has null evaluatorResult, empty check/control rosters, and exact raw parent timing sources; process exit or a fabricated evaluator object cannot create caller credit.",
+        "terminalCandidate contains exactly the pre-candidate callerInvocationResults subsequence. It never claims post-candidate census/resource work. Packet verification carries the complete selected-subroute roster, and this terminal receipt exact-copies that roster one way when verification exists.",
+        "The one-way construction order is internal terminalCandidate, then finalized produce attemptLedger when applicable, then successful packetVerification when applicable, then this final receipt. No earlier artifact contains this final receipt identity and no hash fixed point or placeholder is permitted.",
+        "The c0v-radial-produce artifact/prelaunch and five scientific-leaf registered-cap refusals are independently structurally verified, require nonnull packetVerification, grant dependency credit, and may close the radial control without accepted witness/numerical/negative-control credit.",
+        "Moving/static route-cause caps and nonproduce prelaunch/cap outcomes write and pin this receipt as maker-return evidence, write no phase10-packet-verification-v2 receipt, grant no packet/dependency credit, and require a successor protocol.",
+        "Every claim-bearing publication is bracketed by synchronous assertions on the exact parent watchdog bound to the active run locks and locked authority. The outer deadline includes final semantic revalidation and lock-cleanup eligibility decisions; physical unlink is non-claim cleanup, and a post-packet-unlink overrun retains the package lock and invalidates any already installed receipt.",
+        "The receipt never treats process exit alone as a cause and cannot inherit a worker verdict. The independent verifier reopens protocol, raw timing, preflight, resource census, and callable artifacts.",
+        "Unclassified crash, transport loss, negative-control invalidity, or census/resource/receipt infrastructure failure stops before terminalCandidate and therefore before attempt ledger, packet verification, and this final receipt. Only the ignored raw attempt root and stale locks remain for review; a separately frozen successor protocol with a new unique attempt ID is required."
+      ]
+    },
+    "phase10-c0v-attempt-row-v2": {
+      "schemaId": "phase10-c0v-attempt-row-v2",
+      "format": "jsonl-row",
+      "exactTopLevelFields": [
+        "schema",
+        "attemptId",
+        "layerId",
+        "branch",
+        "protocol",
+        "referenceOrRefusal",
+        "runtime",
+        "command",
+        "gitHead",
+        "startedAt",
+        "finishedAt",
+        "wallSeconds",
+        "processHours",
+        "processConcurrency",
+        "scratchBytes",
+        "retainedBytes",
+        "terminalStatus",
+        "dispositionCode",
+        "exitCode",
+        "preflight",
+        "stdout",
+        "stderr",
+        "terminalCandidate",
+        "executableInvocationRecords",
+        "workerProgress",
+        "resourceRecord",
+        "executionRecord",
+        "partialExecution",
+        "classificationValidation"
+      ],
+      "fieldContracts": {
+        "schema": "phase10-c0v-attempt-row-v2",
+        "attemptId": "unique canonical lowercase alphanumeric/hyphen token matching ^[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$; Windows device basenames con/prn/aux/nul/com1-com9/lpt1-lpt9 reject; rows append and are never replaced",
+        "layerId": "C0V-RADIAL | C0V-MOVING-EVENT | C0V-STATIC",
+        "branch": "immutable S5 science branch: independent-reference or reference-refusal; it never records the S6 lifecycle route",
+        "protocol": "definitions.artifactIdentity for the immutable S5 science protocol",
+        "referenceOrRefusal": "definitions.artifactIdentity for the exact pinned S5 artifact",
+        "runtime": "Node v24.13.1",
+        "command": "exact execution-v2 README command instantiated with the unique attempt ID",
+        "gitHead": "lowercase 40-hex clean launch commit",
+        "startedAt": "UTC ISO-8601 instant",
+        "finishedAt": "UTC ISO-8601 instant not before startedAt",
+        "wallSeconds": "finite nonnegative end-to-end wall-clock provenance seconds without negative zero; never registered-cap or package-process authority, both of which derive solely from parent-owned monotonic invocation records",
+        "processHours": "exact executionRecord.governedInvocationElapsedNanoseconds / 3600000000000; includes every governed worker executable leaf from this materializable attempt, including route-cause and completed prefixes on registered-cap rows, and excludes only acyclic structural freeze/census/resource stages",
+        "processConcurrency": "exact actual process concurrency and exactly one for every S6 attempt, including non-solver and executor-only preflight refusal routes; workerProcessInvocationCount and solverWorkerInvocationCount distinguish child and solver work",
+        "scratchBytes": "exact maximum observed concurrent bytes under the attempt root across the protocol-registered observation points, including partial, candidate, log, exit, and resource files present at each observation",
+        "retainedBytes": "exact terminal retained bytes under the ignored attempt root excluding this candidate layer-attempt-ledger file itself",
+        "terminalStatus": "pass | fail | refusal",
+        "dispositionCode": "production-complete | preproduction-artifact-refusal | prelaunch-resource-refusal | registered-cap-resource-refusal | reference-discrepancy-refusal | preimplementation-reference-refusal",
+        "exitCode": "null when executionRecord.workerProcessInvocationCount is zero or the raw child ended by signal; otherwise the exact safe-integer child exit code. The parent-owned exit-status artifact preserves the mutually exclusive raw code/signal pair, and neither selects a lifecycle route alone",
+        "preflight": "definitions.artifactIdentity",
+        "stdout": "definitions.artifactIdentity; ignored staging is never sole claim-bearing support",
+        "stderr": "definitions.artifactIdentity; ignored staging is never sole claim-bearing support",
+        "terminalCandidate": "definitions.artifactIdentity for the exact immutable internal terminal-success-candidate.json under the attempt root; it exists only for a valid materializable route, contains no ledger or final terminal-receipt identity, and breaks the construction hash cycle",
+        "executableInvocationRecords": "strict protocol-order definitions.executableInvocationRecord array; exact full registered roster on a completed route or exact registered prefix ending in the sole registered-cap invocation on a validated cap route",
+        "workerProgress": "definitions.workerProgress or null; embedded records, not the ignored raw file alone, are claim-bearing",
+        "resourceRecord": "definitions.resourceRecord persisted inline so ignored resource staging is never claim-bearing",
+        "executionRecord": "definitions.executionRecord",
+        "partialExecution": "definitions.partialExecution or null",
+        "classificationValidation": "definitions.classificationValidation or null"
+      },
+      "nullRules": [
+        "classificationValidation is null exactly for production-complete and is non-null for every other dispositionCode.",
+        "partialExecution is non-null exactly for registered-cap-resource-refusal and is null otherwise.",
+        "workerProgress is non-null exactly when executionRecord.solverWorkerInvocationCount is nonzero and null otherwise.",
+        "No-worker rows have null exitCode and null raw signal. A started child has exactly one raw exitCode or signal in the governed exit-status artifact; the attempt-row exitCode is null for a signaled child and no mapped or fabricated code is allowed."
+      ],
+      "invariants": [
+        "production-complete has terminalStatus pass or fail solely from the independent numerical evaluator; its classificationValidation is null.",
+        "Each of the five registered scientific refusal dispositions has terminalStatus refusal and a passing, empty-error independent classificationValidation.",
+        "No unclassified infrastructure or negative-control-invalid row is serializable under this schema. Such execution stops before terminalCandidate and retains only ignored raw state and stale locks until a separately frozen successor protocol audits it.",
+        "Every serialized row binds terminal-success-candidate.json. The final terminal-v2 receipt later binds this candidate plus the finalized ledger and the route-applicable verification-v2 in one direction.",
+        "branch remains the pinned S5 science branch even for reference-discrepancy-refusal; dispositionCode alone records the lifecycle route.",
+        "Every packet protocol freezes a finite exact executionRecord count tuple roster keyed by dispositionCode and terminalStatus; rows outside that roster reject.",
+        "Every packet protocol freezes one exact worker-leaf science/control invocation roster per execution tuple in route order. Completed scientific rows contain the full roster; registered-cap rows contain the exact prefix ending in the sole capped leaf. Missing, reordered, duplicate, extra, infrastructure-state, or falsely relabeled worker rows reject. Check callers are counted separately and never add overlapping timing rows around their evaluator/control children.",
+        "Freeze preflight and post-worker attempt-census/resource evaluators are acyclic verification stages outside executableInvocationRecords: their counters remain durable, but they never claim to validate their own later finish times or identities. Their overhead is excluded from processHours. Every governed worker executable leaf, including route-cause, is included and summed across every materialized attempt for the 24 process-hour package cap.",
+        "The radial solver-production invocation has the tighter S5 300-second worker cap. Every other registered executable control invocation has the foundation four-hour cap independently checked from its own timing row; no whole-attempt four-hour scientific cap exists.",
+        "Invocation cap classification is disjoint: complete rows are at or below their registered 300/14400-second maximum, while registered-cap rows are strictly above it. Equality is allowed for normal completion and never classifies registered-cap; raw infrastructure timing remains ignored and cannot enter this schema.",
+        "The parent-owned worker-progress file is retained staging, but its exact records are embedded in the tracked attempt row and compact-JSONL reserialization must reproduce the recorded artifact identity. Publication and later verification rederive registered-cap partialExecution solely from the embedded records and packet protocol.",
+        "The radial production-complete tuple is 1 protocol reopen, 1 reference reopen, 1 worker process, 1 solver worker, 1 production invocation, 0 discrepancy/refusal evaluators, 1 freeze evaluator, 1 resource evaluator, 1 attempt-census evaluator, 4 distinct check callers, 1 numerical evaluator, 3 numerical controls, 1 accepted valid witness, and 1 accepted numerical verdict.",
+        "The five radial registered-cap tuple families all have 1 protocol reopen, 1 reference reopen, 1 worker process, 1 solver worker, 1 production invocation, 1 post-worker cap-cause evaluator, 1 freeze evaluator, 1 resource evaluator, 1 attempt-census evaluator, and zero accepted witness/verdict counts. The production-cap family has 4 distinct check callers and numerical evaluator/control invocation-prefix counts 0/0. The evaluator-cap and three control-cap families have 5 distinct check callers because the radial science caller was entered before the capped leaf; their invocation-prefix numerical evaluator/control counts, including the sole capped leaf, are respectively 1/0, 1/1, 1/2, and 1/3. Every radial cap route has an empty executedNegativeControlIds roster and earns zero completed negative-control credit; earlier completed controls remain raw retained prefix facts only.",
+        "The current moving discrepancy and static preimplementation tuples are 1 protocol reopen, 1 reference/refusal reopen, 1 non-solver worker process, 0 solver/production invocations, 1 route-specific discrepancy/refusal evaluator, 1 freeze evaluator, 1 resource evaluator, 1 attempt-census evaluator, 4 distinct check callers, and zero numerical evaluator, numerical control, accepted witness, and accepted numerical verdict counts.",
+        "The moving/static route-cause cap tuples preserve the entered registered produce check-caller as a child-registered-cap caller result, have exactly 5 check-caller invocations, and grant no route-validity, packet-verification, result, or dependency credit. The route evaluator is invoked only as that caller's child and is never executed a second time for caller credit.",
+        "A late negative-control, census, resource, or receipt infrastructure failure cannot serialize a row, even when ignored candidate bytes or completed leaf timing exist. It retains the ignored root and stale locks only and earns zero accepted credit.",
+        "Freeze ancestry, final resource accounting, structural attempt census, and route-specific science/refusal validity remain separately owned and independently rederived; no caller-supplied lifecycle context can satisfy more than its registered check.",
+        "A registered-cap partialExecution binds the exact protocol cap, roster-prefix progress, capped-invocation time, executionRecord, and resource counts; non-prefix progress rejects.",
+        "Radial registered-cap authority enumerates exactly five cap positions: solver production at 300 seconds, numerical evaluator at 14400 seconds, and each of the three numerical negative-control leaves at 14400 seconds. The partial identifies the sole registered-cap invocation and later-leaf caps retain every earlier completed invocation/progress record while all accepted-credit counts remain zero.",
+        "The packet protocol freezes scratch observation points; deleting or superseding an intermediate file cannot reduce scratchBytes below the maximum already observed.",
+        "Package storage accounting counts each physical path copy without content deduplication. Before S6 it reopens the exact 12-file baseline: nine ignored S5 reference-root files totaling 1085192 bytes plus three separately tracked pinned S5 C0V outputs totaling 544385 bytes, for 1629577 bytes. Every preflight rederives that roster and all later retained copies before applying the 64 GiB cap.",
+        "resourceRecord is mandatory on every row; its point IDs and observations exactly match the selected route protocol, artifacts are path-sorted unique, concurrent byte sums rederive, timestamps are ordered within the attempt, maximumObservedConcurrentBytes equals scratchBytes, terminalRetainedBytes equals retainedBytes, and excludedLedgerPath is absent from every observation.",
+        "For a valid scientific classification, every observation cites at least one tracked-authority or tracked-evidence row regardless of conditionPassed. Ignored-staging evidence may corroborate but may never be its sole support.",
+        "Exit status alone never classifies production failure, resource refusal, or scientific refusal."
+      ]
+    },
+    "phase10-c0v-radial-result-v2": {
+      "schemaId": "phase10-c0v-radial-result-v2",
+      "format": "json",
+      "exactTopLevelFields": [
+        "schema",
+        "resultId",
+        "layerId",
+        "branch",
+        "protocol",
+        "referenceOrRefusal",
+        "attemptLedger",
+        "selectedAttemptId",
+        "attemptDispositionCode",
+        "witness",
+        "evaluation",
+        "terminalStatus",
+        "scientificDisposition",
+        "negativeControlDisposition",
+        "resourceDisposition",
+        "claimBoundary"
+      ],
+      "fieldContracts": {
+        "schema": "phase10-c0v-radial-result-v2",
+        "resultId": "nonempty stable radial result ID",
+        "layerId": "C0V-RADIAL",
+        "branch": "independent-reference, fixed by the pinned S5 radial artifact",
+        "protocol": "definitions.artifactIdentity for the immutable S5 radial science protocol",
+        "referenceOrRefusal": "definitions.artifactIdentity for the exact pinned S5 radial reference",
+        "attemptLedger": "definitions.artifactIdentity for the committed phase10-c0v-attempt-row-v2 JSONL ledger",
+        "selectedAttemptId": "unique terminal row in attemptLedger selected from artifact bytes",
+        "attemptDispositionCode": "production-complete | preproduction-artifact-refusal | prelaunch-resource-refusal | registered-cap-resource-refusal",
+        "witness": "definitions.artifactIdentity exactly for production-complete; null for a validated refusal",
+        "evaluation": "definitions.artifactIdentity exactly for production-complete; null for a validated refusal",
+        "terminalStatus": "pass | fail | refusal",
+        "scientificDisposition": "pass | fail | refusal, independently derived from the selected attempt and evaluation",
+        "negativeControlDisposition": "pass | not-accepted-no-credit; production-complete is allowed only after all three registered campaigns pass, while a refusal uses not-accepted-no-credit even when earlier control leaves ran because no complete campaign earned packet credit",
+        "resourceDisposition": "within-cap | artifact-refusal | prelaunch-resource-refusal | registered-cap-resource-refusal",
+        "claimBoundary": "strict exact S6 radial claim-boundary object fixed by the publish packet protocol"
+      },
+      "nullRules": [
+        "witness and evaluation are both non-null exactly for production-complete.",
+        "witness and evaluation are both null exactly for one of the three independently validated refusal dispositions."
+      ],
+      "invariants": [
+        "selectedAttemptId resolves the exact sole committed materializable ledger row; infrastructure executions never create a candidate ledger row and therefore cannot be selected.",
+        "attemptDispositionCode, branch, protocol, referenceOrRefusal, terminal status, scientific disposition, numerical-control disposition, and resource disposition are independently rederived from the selected row and committed evaluation bytes.",
+        "production-complete terminalStatus/scientificDisposition is pass or fail from the evaluator and never from the producer or process exit code, and negativeControlDisposition is exactly pass because any campaign invalidity fail-stops with ignored raw state and no result.",
+        "registered-cap-resource-refusal requires a passing classificationValidation and non-null matching partialExecution on the selected row; the other two refusal routes require null partialExecution and zero scientific execution.",
+        "Every refusal has terminalStatus and scientificDisposition refusal, negativeControlDisposition not-accepted-no-credit, null witness/evaluation, and no accepted numerical verdict; earlier control invocation rows may exist on a later-leaf cap but never become accepted campaign credit.",
+        "The pinned radial reference-frozen identity forbids reference-discrepancy-refusal and preimplementation-reference-refusal in this result schema."
+      ]
+    },
+    "phase10-packet-verification-v2": {
+      "schemaId": "phase10-packet-verification-v2",
+      "format": "json",
+      "exactTopLevelFields": [
+        "schema",
+        "verificationId",
+        "matrixId",
+        "protocolId",
+        "registryId",
+        "packetId",
+        "terminalState",
+        "verifiedArtifacts",
+        "checkResults",
+        "executedNegativeControlIds",
+        "negativeControlResults",
+        "boundDependencyPacketIds",
+        "execution",
+        "callerInvocationResults",
+        "governedTiming",
+        "packageProcessAccounting",
+        "packetResourceAccounting",
+        "packageResourceAccounting",
+        "aggregateVerdict",
+        "limits"
+      ],
+      "fieldContracts": {
+        "schema": "phase10-packet-verification-v2",
+        "verificationId": "exact phase10-${packetId}-${registeredAttemptId}-verification-v2",
+        "matrixId": "phase10-c0v-s6-obligations-v1",
+        "protocolId": "exact execution-v2 packet protocol ID",
+        "registryId": "exact resolved execution-v2 callable registry ID",
+        "packetId": "one of the eight exact S6 packet IDs",
+        "terminalState": "complete; this is structural packet-verification state, not the scientific layer result",
+        "verifiedArtifacts": "sorted unique inherited verified-artifact-v1 array excluding this receipt",
+        "checkResults": "sorted unique inherited packet-check-result-v1 array",
+        "executedNegativeControlIds": "sorted unique active negative-control ID array",
+        "negativeControlResults": "sorted unique inherited negative-control-result-v1 array",
+        "boundDependencyPacketIds": "exact packet protocol dependency roster",
+        "execution": "inherited evaluator-execution-provenance-v1 for a normal credit-bearing route with one completed main evaluator; null exactly for a structurally verified radial preproduction-artifact-refusal, prelaunch-resource-refusal, or registered-cap-resource-refusal",
+        "callerInvocationResults": "exact complete selected-subroute definitions.callerInvocationResult roster from the packet protocol; every row is independently rerun and exact-compared before packet credit",
+        "governedTiming": "definitions.packetGovernedTiming",
+        "packageProcessAccounting": "definitions.packageProcessAccounting",
+        "packetResourceAccounting": "definitions.packetResourceAccounting",
+        "packageResourceAccounting": "definitions.packageResourceAccounting",
+        "aggregateVerdict": "pass; a truthful scientific pass, fail, or refusal may all have structurally passing packet verification",
+        "limits": "nonempty string array preserving the exact packet claim boundary"
+      },
+      "invariants": [
+        "The independent verifier reopens every witness artifact and computes every check/negative-control verdict; a producer cannot supply either side of a comparison it participates in.",
+        "Supplemental A-P executes its governed leaves exactly once in protocol order: missing-producer control, uncalled-check control, artifact-index producer, then the registered check-caller wrapper, which invokes the independent evaluator exactly once. Each control callable owns its retained phase10-ap-negative-control-v1 output; the index producer only assembles those existing bytes. The evaluator and final verifier reopen each receipt's complete baseline/mutated registry projections, canonical-reserialize and hash them, independently derive the exact named mutation, rerun the registered owner check, and exact-compare the refusal before granting control credit.",
+        "Publish packets execute producer then registered check-caller wrapper; aggregate executes its any-layer-nonpass control, producer, then registered check-caller wrapper. A wrapper invokes its independent evaluator exactly once, and candidate/check credit comes only from the returned caller result rather than a protocol-copied roster.",
+        "The aggregate control retains one canonical definitions.aggregateAnyLayerNonpassControl receipt at the exact strict-preflight observed.attemptDirectory/any-layer-nonpass-control.json path before the aggregate producer runs. The packet attemptRoot parent without the registered attempt ID is forbidden. The producer embeds only its strict negativeControlResult; the aggregate check-caller and final verifier independently rederive the exact one-field radial mutation and both clean/attacked outcomes from the full retained receipt.",
+        "The published phase10-c0v-terminal-table-v1 has tableId c0v-terminal-table-v1 and exactly three definitions.aggregateTerminalTableRow rows in radial, static, moving order. Every row is rederived from its exact committed result identity; no copied disposition can disagree with those bytes.",
+        "The published legacy phase10-c0v-resource-ledger-v1 has ledgerId c0v-resource-ledger-v1 and exactly three definitions.aggregateProduceAttemptResourceRow rows in radial-produce, static-produce, moving-produce order plus definitions.aggregateProduceAttemptResourceTotals. It is the complete produce-attempt ledger for this one-protocol/one-attempt v1 history, not the complete package process/resource ledger.",
+        "The legacy resource ledger's totals, capExceeded, and disposition rederive only its three durable produce-attempt rows and their resource-refusal dispositions. Its packageProcessHoursMaximum value is policy metadata, not evidence that this legacy ledger accounts for the package. Complete eight-packet process/storage authority, including supplemental A-P, publication, aggregate control/producer/check-caller timing and every selected/unselected retained execution exactly once, belongs exclusively to verification-v2 packageProcessAccounting/packageResourceAccounting and may veto the pre-verification aggregate candidates.",
+        "Every callerInvocationResults row uses the packet protocol's exact caller/evaluator/source authority. Complete rows embed a canonical evaluatorResult and exact executed/evaluated check and control rosters; child-registered-cap rows embed no evaluator verdict or check credit. The terminal candidate carries only the pre-candidate subsequence, verification carries the complete rerun roster, and terminal-v2 exact-copies it without a self-identity.",
+        "execution follows the packet verification.executionProvenanceRule. It is non-null only when the selected normal credit-bearing route has an exact completed main evaluator interval. It is null for every structurally verified radial artifact/prelaunch/registered-cap refusal because zero-worker, production-cap, and child-cap routes have no truthful completed numerical-evaluator interval; callerInvocationResults and governedTiming retain the independently rederived structural/cap provenance. Other maker-return routes publish no verification-v2.",
+        "A produce verification reopens its attempt-v2 ledger, selects the exact sole materializable row, and copies no timing claim: invocationRecords, governedInvocationElapsedNanoseconds, governedInvocationWallSeconds, and processHours must exactly rederive from that row.",
+        "A supplemental-A-P, publish, or aggregate verification records the exact full protocol verificationInvocationRoster with execution-only timing states and parent-owned monotonic elapsed-nanosecond intervals; UTC instants are provenance only.",
+        "selectedPacketIds is the exact catalogue execution-order prefix ending at this packet. priorPacketVerifications contains every earlier member exactly once and excludes the current receipt so the schema has no self-hash cycle.",
+        "An attempt row contributes through a selected packet verification or unselectedAttemptRows, never both. The exact union covers every governed execution once; duplicateAccountingVerdict and omissionAccountingVerdict must both pass.",
+        "At aggregate, selectedPacketIds contains all eight packets in catalogue order and priorPacketVerifications contains the preceding seven exact manifest-pinned verification identities.",
+        "A moving/static or nonproduce maker-return carries no successful packet verification and therefore ends the current v1 catalogue prefix before aggregate. Any separately frozen successor protocol must reopen and count that terminal timing and retained raw root exactly once before authorizing another attempt; current v1 never claims it through unselectedAttemptRows.",
+        "totalElapsedNanoseconds equals the exact integer prior-selected, unselected-attempt, and current elapsed-nanosecond sum. totalProcessHours is derived once by division by 3600000000000; equality to 86400000000000 nanoseconds (24 hours) is allowed and one nanosecond greater refuses.",
+        "Produce packetResourceAccounting reopens the selected attempt-v2 resourceRecord. Nonproduce accounting independently censuses the append-only terminal attempt root; terminal retained bytes therefore equal the observed high-water.",
+        "Materialized publication artifacts are exact identities. The current verification and later terminal receipt use only their two exact protocol-registered path/byte projections, avoiding self-reference; the next packet replaces both with manifest-pinned exact identities.",
+        "packageResourceAccounting uses the same exact catalogue prefix as packageProcessAccounting, counts the 1,629,577-byte physical-copy baseline once, and covers every selected packet raw/published copy exactly once. Aggregate covers all eight packets; S9 rechecks the final committed actual bytes.",
+        "Moving publication deterministically emits resultId c0v-moving-result-v1 and static emits c0v-static-result-v1; both have terminalStatus and scientificDisposition refusal, null witness/evaluation, negativeControlDisposition not-run-no-credit, and resourceDisposition within-cap. Radial publication emits resultId c0v-radial-result-v2 and must satisfy the exact phase10-c0v-radial-result-v2 route mapping.",
+        "Each layer artifact-index-v1 has bundleId phase10-numerical-verification-v1, excludes its own identity, and is sorted by output ID and path over the exact science protocol, reference/refusal, attempt ledger, and result; radial adds witness and evaluation exactly for production-complete and forbids both on validated refusal.",
+        "terminalState complete and aggregateVerdict pass describe successful artifact verification only. The layer result alone carries scientific pass, fail, or refusal.",
+        "The verification receipt cannot hash itself and is bound separately by the terminal receipt/manifest."
+      ]
+    }
+  }
+}

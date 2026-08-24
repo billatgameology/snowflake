@@ -132,8 +132,10 @@ function currentIndexErrors(text: string): string[] {
     "All 14 payload dispositions are terminal but",
     "conservatively refused",
     "46/46",
-    "C0's artifact-derived numerical disposition is criterion NO-PASS",
-    "Phase 10 — commit the C0V discrepancy-route correction, then freeze S6",
+    "C0 independently re-derived 80/80 rows and 64/64 comparisons",
+    "Phase 10 — execute the supplemental C0V A-P packet",
+    "Phase 10 C0V S6 implementation freeze is complete (2026-08-24; no execution credit)",
+    "observer, and executor tests pass 71/71",
     "Decision [0053]",
     "reference-discrepancy-refusal",
     "phase10-c0v-s6-obligation-matrix-v1.json",
@@ -161,7 +163,7 @@ function currentIndexErrors(text: string): string[] {
     "Do not rerun or reuse either derive attempt",
     "Keep all 12 C0 files pinned in the 383-file / 5,300,224-byte evidence manifest",
     "zero-blocker non-author review",
-    "- **Last updated:** 2026-08-22",
+    "- **Last updated:** 2026-08-24",
   ];
   for (const phrase of required) {
     if (!text.includes(phrase)) errors.push(`missing current-state phrase: ${phrase}`);
@@ -268,7 +270,7 @@ describe("compact progress index and byte-exact historical record", () => {
     expect(currentIndexErrors(text)).toEqual([]);
 
     const progressDate = text.match(/^- \*\*Last updated:\*\* (\d{4}-\d{2}-\d{2})/mu)?.[1];
-    expect(progressDate).toBe("2026-08-22");
+    expect(progressDate).toBe("2026-08-24");
     // The handoff mechanism is retired (maker direction 2026-08-20). docs/HANDOFF.md remains
     // only as a tombstone so the byte-frozen archive's HANDOFF.md links keep resolving; it
     // must never carry a live dated snapshot heading again.
