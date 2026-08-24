@@ -1685,6 +1685,13 @@ artifact digest unchanged, centralizes the already-established semantic contract
 `SHA256(UTF8(canonicalJson(projection)))`, and reuses it in both producers, the A-P independent
 reproof, and the existing terminal parser. This normalizes one byte contract; it adds no gate.
 
+The same focused trace found one masked value seam immediately after that digest check:
+`published-packet.ts` and the receipt return type still spell the original 1,629,577-byte package
+baseline even though the parser independently derives the current protocol-bound baseline. The
+v5 run stopped before reaching it. Recovery-v5 must return and type-check the exact active
+`packet.resources.packageStorageBaselineBytes` value instead of a historical literal; the parser's
+independent artifact-sum comparison remains unchanged.
+
 The consumed v5 tuple and locks are immutable. The attempt base is
 `out/phase10-execution-v2/recovery-v4/attempts/a-p-c0v-s6/a-p-c0v-s6-20260822-v5/`:
 
@@ -1732,7 +1739,8 @@ Recovery-v5 is the smallest non-destructive successor:
   parser. Add focused regressions that route real A-P negative-control receipts through independent
   reproof and packet-verification write/parse and exercise one generic mutation result, proving
   distinct physical/semantic hashes, the preserved named mutation refusal, and no-LF canonical
-  semantics. Add no new hostile-runtime controls.
+  semantics. Normalize the masked receipt baseline field to the active protocol value and assert
+  it in that same verification regression. Add no new hostile-runtime controls.
 - Regenerate all eight callable registries/protocol bindings, run exact `npm test`, and obtain one
   bounded non-author audit. Commit and push the first-add recovery-v5 freeze while its runtime and
   all v6 paths remain absent. Only then may the exact v6 read-only `check` and one v6 `run` occur.
