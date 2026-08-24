@@ -98,14 +98,18 @@ detail.
   placed 37 model-only orphan links ahead of them, making the thumbnails appear absent; the
   generator now orders the generated-crystal gallery first and a regression pins that priority.
   This is an operational UX correction only and changes no scientific evidence or phase state.
-- **The maker-directed animation-selection queue tooling is COMPLETE (2026-08-23); aesthetic
-  selection is pending.** The completed
+- **The maker-directed animation-selection queue tooling and figure-preview follow-up are COMPLETE
+  (2026-08-24); aesthetic selection is in progress.** The completed
   [queue plan](plans/gutcheck-animation-selection-queue.md) adds preview-adjacent selection,
   portable manifests, deterministic disjoint batches, existing-mesh flyaround rendering, and
-  merge-safe local/NAS staging. The current `out/gutcheck-gg-realism/index.json` exposes 89 exact
-  candidates. Live reload/export/import/clear verification, focused tests, the app build, and exact
-  `npm test` passed. It pins the measured `gutcheck-mesh-v2q` web format; no render has started and
-  no immutable NAS collection is being mutated.
+  merge-safe local/NAS staging. Its follow-up regenerates 33 safe project-owned figure thumbnails
+  from public final meshes and adds them as selectable pre-sweep rows; the historic mixed/private
+  composites remain non-served. The checked-in
+  [second-computer guide](gutcheck-animation-worker-guide.md) records validation, dry-run, NAS
+  staging, resume, and completion-report steps. Live reload/export/import verification passed; at
+  the completion check, the mirror recorded 51 maker selections (30 sweep plus 21 figure). It pins
+  the measured `gutcheck-mesh-v2q` web format; no render has started and no immutable NAS collection
+  is being mutated.
 - Historical extent-21 artifacts remain valid measured-only comparisons: **CAK 3/90, M1 54/90**
   over their named scopes. They are not the registered conservative-intersection verdict, which
   decision 0045 closed as not computed.
@@ -116,8 +120,8 @@ detail.
   direction) and content stays in-repo unpublished, `test.yml` CI unaffected. Reconciliation is
   a live decision point under **Next step**. Full freeze history:
   [the history file](progress-history-phases-6-8-9.md).
-- **Last updated:** 2026-08-23 (completed the GG gut-check animation-selection and portable batch
-  tooling; no phase or evidence change)
+- **Last updated:** 2026-08-24 (completed safe pre-sweep figure previews and the second-host worker
+  guide; no phase or evidence change)
 
 ## Phase gates
 
@@ -152,9 +156,10 @@ and completion credit isolated.
 correction changes no phase claim or credit.
 
 The maker-directed [gut-check animation selection and queue plan](plans/gutcheck-animation-selection-queue.md)
-has an active 2026-08-24 usability follow-up: add safe regenerated previews/selectors for the 37
-public pre-sweep figure meshes and a durable second-host operator guide. The maker exported a
-working sweep selection; no animation render has started. This changes no phase status or
+is complete, including its 2026-08-24 usability follow-up: 33 public pre-sweep figure meshes now
+have safe regenerated previews/selectors, and the
+[second-host operator guide](gutcheck-animation-worker-guide.md) is durable. The completion check
+found 51 maker selections; no animation render has started. This changes no phase status or
 scientific claim.
 The
 [Phase 10 candidate plan](plans/phase-10-closures-and-frontier.md) is decision support, not
@@ -170,10 +175,12 @@ the package-specific prerequisites in its charter amendment and execution plan. 
 
 ### Gut-check animation queue — maker selection pending
 
-The loopback site is running at `http://127.0.0.1:5173/gutcheck-index.html`. Select the desired
-models beside their preview images and use **Export queue JSON** for a portable copy. While this
-development server is running, the same strict manifest is mirrored automatically to
-`out/gutcheck-animation-queue/selection.json`.
+The loopback site is running at `http://127.0.0.1:5173/gutcheck-index.html`. Refresh once to load
+the new 33-row **Pre-sweep figure models — regenerated previews** section, finish selecting, and
+use **Export queue JSON** for a portable copy. The live mirror had 51 choices at the completion
+check (30 sweep plus 21 figure) at `out/gutcheck-animation-queue/selection.json`; preserve the
+exported copy before starting workers. The original side-by-side composites remain non-served
+because their target halves are governed mixed/private media.
 
 After selection, create two deterministic, disjoint worker manifests:
 
@@ -185,6 +192,8 @@ each checkout or computer. Run each worker with `--nas-stage` (the generated lau
 this); each host resolves its own marked NAS mount and writes only
 `_control/staging/gutcheck-animation/<queue-id>/<batch-id>/`. Reconcile the two result-record roots
 only after both finish; immutable collection publication remains a separate governed transaction.
+The context-free setup, resume, and reporting procedure is in
+`docs/gutcheck-animation-worker-guide.md`.
 The local, non-NAS dry-run form is:
 
 `node scripts/gutcheck-animation-queue.ts run --batch <batch-a.json> --dry-run`

@@ -81,6 +81,14 @@ export const animationQueueIdFromName = (name: string): string => {
   return slug === "" ? "snowflake-animation-selection" : slug;
 };
 
+export const animationQueueSourceRecordMatches = (id: string, sourceRecord: string): boolean =>
+  sourceRecord === `evidence/gutcheck-gg-realism/specs/${id}.json` ||
+  sourceRecord === `evidence/gutcheck-gg-realism/fig-records/${id}-record.json`;
+
+export const animationQueueRenderMatches = (id: string, render: string): boolean =>
+  (render.startsWith("/nas/") && /\.png$/u.test(render)) ||
+  render === `/gutcheck-figure-previews/${id}.png`;
+
 export const parseAnimationQueueManifest = (value: unknown): AnimationQueueManifest => {
   const queue = record(value, "animation queue");
   exactKeys(
@@ -162,11 +170,11 @@ export const parseAnimationQueueManifest = (value: unknown): AnimationQueueManif
     if (!mesh.startsWith("/nas/") || !mesh.endsWith(`/${id}-mesh.bin`)) {
       throw new Error(`${label}.mesh must be the selected generated mesh /nas URL`);
     }
-    if (!render.startsWith("/nas/") || !/\.png$/u.test(render)) {
-      throw new Error(`${label}.render must be a generated PNG /nas URL`);
+    if (!animationQueueRenderMatches(id, render)) {
+      throw new Error(`${label}.render must be its generated PNG preview URL`);
     }
-    if (spec !== `evidence/gutcheck-gg-realism/specs/${id}.json`) {
-      throw new Error(`${label}.spec must match its tracked spec identity`);
+    if (!animationQueueSourceRecordMatches(id, spec)) {
+      throw new Error(`${label}.spec must match its tracked source identity`);
     }
     items.push({ id, label: string(item["label"], `${label}.label`), mesh, render, spec });
   }

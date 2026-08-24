@@ -23,6 +23,8 @@ import {
 } from "../scripts/nas-asset-lib.ts";
 import { detectNasMount } from "../scripts/nas-root.ts";
 import {
+  animationQueueRenderMatches,
+  animationQueueSourceRecordMatches,
   parseAnimationQueueManifest,
   stringifyAnimationQueueManifest,
   type AnimationQueueItem,
@@ -64,6 +66,8 @@ const animationSelectionJson = resolve(
   REPOSITORY_ROOT,
   "out/gutcheck-animation-queue/selection.json",
 );
+const gutcheckFigurePreviewRoot = resolve(REPOSITORY_ROOT, "out/gutcheck-figure-previews");
+const FIGURE_PREVIEW_URL = /^\/gutcheck-figure-previews\/(fig\d+(?:v\d+)?)\.png$/u;
 
 type UnknownRecord = Record<string, unknown>;
 
@@ -124,6 +128,7 @@ const authorizeEncodedNasIndexUrl = (
 
 const validateIndexHref = (value: unknown, catalog: NasAssetCatalogV1, label: string): void => {
   const href = indexString(value, label);
+  if (FIGURE_PREVIEW_URL.test(href)) return;
   if (href.startsWith("/nas/")) {
     authorizeEncodedNasIndexUrl(href, catalog, label);
     return;
@@ -162,7 +167,9 @@ const validateIndexItem = (value: unknown, catalog: NasAssetCatalogV1, label: st
   validateIndexHref(item.href, catalog, `${label}.href`);
   if (item.image !== undefined) {
     const image = indexString(item.image, `${label}.image`);
-    authorizeEncodedNasIndexUrl(image, catalog, `${label}.image`);
+    if (!FIGURE_PREVIEW_URL.test(image)) {
+      authorizeEncodedNasIndexUrl(image, catalog, `${label}.image`);
+    }
   }
   if (item.note !== undefined) indexString(item.note, `${label}.note`);
 };
@@ -218,13 +225,15 @@ export const validateGutcheckIndexForServing = (source: string, catalog: NasAsse
           catalog,
           `${rowLabel}.queue.mesh`,
         );
-        authorizeEncodedNasIndexUrl(
-          indexString(queue.render, `${rowLabel}.queue.render`),
-          catalog,
-          `${rowLabel}.queue.render`,
-        );
-        if (queue.spec !== `evidence/gutcheck-gg-realism/specs/${id}.json`) {
-          throw new Error(`${rowLabel}.queue.spec must match its tracked spec identity`);
+        const render = indexString(queue.render, `${rowLabel}.queue.render`);
+        if (!animationQueueRenderMatches(id, render)) {
+          throw new Error(`${rowLabel}.queue.render must match its generated preview identity`);
+        }
+        if (render.startsWith("/nas/")) {
+          authorizeEncodedNasIndexUrl(render, catalog, `${rowLabel}.queue.render`);
+        }
+        if (!animationQueueSourceRecordMatches(id, indexString(queue.spec, `${rowLabel}.queue.spec`))) {
+          throw new Error(`${rowLabel}.queue.spec must match its tracked source identity`);
         }
       }
     }
@@ -274,6 +283,62 @@ const gutcheckIndexJson: Plugin = {
   apply: "serve",
   configureServer(server) {
     server.middlewares.use("/gutcheck-index.json", gutcheckIndexHandler);
+  },
+};
+
+export const createGutcheckFigurePreviewHandler = (
+  previewRoot: string,
+): NasRequestHandler => (request, response) => {
+  const method = request.method ?? "GET";
+  if (method !== "GET" && method !== "HEAD") {
+    response.statusCode = 405;
+    response.setHeader("allow", "GET, HEAD");
+    response.end();
+    return;
+  }
+  let requestPath: string;
+  try {
+    requestPath = decodeURIComponent((request.url ?? "").split("?", 1)[0] as string);
+  } catch {
+    forbidden(response);
+    return;
+  }
+  const match = /^\/(fig\d+(?:v\d+)?)\.png$/u.exec(requestPath);
+  if (match === null) {
+    forbidden(response);
+    return;
+  }
+  const filename = `${match[1]}.png`;
+  const opened = openContainedRegularFile(previewRoot, filename, filename);
+  if (opened.kind === "forbidden") {
+    forbidden(response);
+    return;
+  }
+  if (opened.kind === "not-found") {
+    response.statusCode = 404;
+    response.end();
+    return;
+  }
+  response.setHeader("content-type", "image/png");
+  response.setHeader("content-length", opened.byteLength);
+  response.setHeader("cache-control", "no-cache");
+  response.setHeader("x-content-type-options", "nosniff");
+  if (method === "HEAD") {
+    closeQuietly(opened.fd);
+    response.end();
+    return;
+  }
+  pipeNasFile(response, opened.path, opened.fd, { start: 0, end: opened.byteLength - 1 });
+};
+
+const gutcheckFigurePreviews: Plugin = {
+  name: "gutcheck-local-figure-previews",
+  apply: "serve",
+  configureServer(server) {
+    server.middlewares.use(
+      "/gutcheck-figure-previews",
+      createGutcheckFigurePreviewHandler(gutcheckFigurePreviewRoot),
+    );
   },
 };
 
@@ -802,6 +867,7 @@ export default defineConfig({
     loopbackOnly,
     viteLocalFileBoundary,
     gutcheckIndexJson,
+    gutcheckFigurePreviews,
     gutcheckAnimationSelection,
     nasStatic,
   ],

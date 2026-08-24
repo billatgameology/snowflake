@@ -48,7 +48,23 @@ describe("gut-check animation queue schema", () => {
 
     const drift = structuredClone(manifest()) as unknown as { items: Array<Record<string, unknown>> };
     drift.items[0]!.spec = "evidence/gutcheck-gg-realism/specs/someone-else.json";
-    expect(() => parseAnimationQueueManifest(drift)).toThrow(/tracked spec identity/u);
+    expect(() => parseAnimationQueueManifest(drift)).toThrow(/tracked source identity/u);
+  });
+
+  it("accepts a regenerated figure preview with its tracked figure record", () => {
+    const value = manifest();
+    const figure = {
+      id: "fig10",
+      label: "Fig. 10",
+      mesh: "/nas/collections/gutcheck-generated-public/2026-08-15/payload/large/figs/fig10-mesh.bin",
+      render: "/gutcheck-figure-previews/fig10.png",
+      spec: "evidence/gutcheck-gg-realism/fig-records/fig10-record.json",
+    };
+    const withFigure = {
+      ...value,
+      items: [...value.items, figure].sort((left, right) => left.id.localeCompare(right.id)),
+    };
+    expect(parseAnimationQueueManifest(withFigure).items).toContainEqual(figure);
   });
 
   it("partitions sorted IDs round-robin without overlap or omission", () => {

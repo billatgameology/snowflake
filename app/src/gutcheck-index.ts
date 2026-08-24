@@ -181,6 +181,12 @@ function thumbnail(
   cap.className = "cap";
   cap.textContent = item.label;
   a.appendChild(cap);
+  if (item.note !== undefined) {
+    const note = document.createElement("div");
+    note.className = "cap-note";
+    note.textContent = item.note;
+    a.appendChild(note);
+  }
   const position = shots.length;
   shots.push({ src: item.image, label: item.label });
   a.addEventListener("click", (event) => {
@@ -214,7 +220,7 @@ function renderRows(
   const table = document.createElement("div");
   table.className = "rows";
 
-  for (const heading of ["Comparison — ours vs target", "Interactive", "Animation"]) {
+  for (const heading of ["Preview / comparison", "Interactive", "Animation"]) {
     const head = document.createElement("div");
     head.className = "rows-head";
     head.textContent = heading;

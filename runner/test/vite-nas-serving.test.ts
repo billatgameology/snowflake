@@ -20,6 +20,7 @@ import viteConfig, {
   assertLoopbackViteHost,
   assertCanonicalViteRoots,
   createGutcheckAnimationSelectionHandler,
+  createGutcheckFigurePreviewHandler,
   createGutcheckIndexHandler,
   createNasRequestHandler,
   createViteLocalFileBoundary,
@@ -167,6 +168,28 @@ const safeGutcheckIndex = (): Record<string, unknown> => ({
             spec: "evidence/gutcheck-gg-realism/specs/fixture.json",
           },
         },
+        {
+          label: "Fig. 10",
+          comparisons: [
+            {
+              label: "Fig. 10 regenerated preview",
+              href: "/gutcheck-figure-previews/fig10.png",
+              image: "/gutcheck-figure-previews/fig10.png",
+            },
+          ],
+          viewers: [
+            {
+              label: "viewer",
+              href: `/spike-gg-realism.html?look=glass&interactive=1&mesh=/nas/${SERVED_PREFIX}/fig10-mesh.bin`,
+            },
+          ],
+          queue: {
+            id: "fig10",
+            mesh: `/nas/${SERVED_PREFIX}/fig10-mesh.bin`,
+            render: "/gutcheck-figure-previews/fig10.png",
+            spec: "evidence/gutcheck-gg-realism/fig-records/fig10-record.json",
+          },
+        },
       ],
     },
   ],
@@ -287,6 +310,23 @@ describe("Vite gutcheck animation selection boundary", () => {
         body: JSON.stringify(replacement),
       })).status).toBe(204);
       expect(JSON.parse(readFileSync(selectionPath, "utf8"))).toEqual(replacement);
+
+      const figureSelection = queueFixture("figure-selection");
+      figureSelection.items = [
+        {
+          id: "fig10",
+          label: "Fig. 10",
+          mesh: `/nas/${SERVED_PREFIX}/fig10-mesh.bin`,
+          render: "/gutcheck-figure-previews/fig10.png",
+          spec: "evidence/gutcheck-gg-realism/fig-records/fig10-record.json",
+        },
+      ];
+      expect((await fetchFixture(port, "/selection", {
+        method: "PUT",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify(figureSelection),
+      })).status).toBe(204);
+      expect(JSON.parse(readFileSync(selectionPath, "utf8"))).toEqual(figureSelection);
     });
   });
 
@@ -316,6 +356,25 @@ describe("Vite gutcheck animation selection boundary", () => {
         body: JSON.stringify(forged),
       })).status).toBe(400);
       expect(existsSync(selectionPath)).toBe(false);
+    });
+  });
+});
+
+describe("Vite regenerated figure preview boundary", () => {
+  it("serves only exact generated figure PNG names from its bounded local directory", async () => {
+    const root = temporaryRoot("figure-previews");
+    writeFileSync(join(root, "fig10.png"), "PNG-FIXTURE");
+    writeFileSync(join(root, "secret.png"), "SECRET");
+    const handler = createGutcheckFigurePreviewHandler(root);
+    await withServer(handler, async (port) => {
+      const served = await fetchFixture(port, "/fig10.png");
+      expect(served.status).toBe(200);
+      expect(served.headers["content-type"]).toBe("image/png");
+      expect(served.body.toString("utf8")).toBe("PNG-FIXTURE");
+      expect((await fetchFixture(port, "/fig10.png", { method: "HEAD" })).body.byteLength).toBe(0);
+      expect((await fetchFixture(port, "/secret.png")).status).toBe(403);
+      expect((await fetchFixture(port, "/../secret.png")).status).toBe(403);
+      expect((await fetchFixture(port, "/fig10.png", { method: "POST" })).status).toBe(405);
     });
   });
 });

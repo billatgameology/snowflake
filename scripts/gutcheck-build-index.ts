@@ -18,6 +18,7 @@ import {
 // startsWith filter below matched nothing) as well as the URLs — 2026-08-06 machine transfer.
 const ROOT = resolve("out/gutcheck-gg-realism").replace(/\\/g, "/");
 const INDEX_ROOT = "out/gutcheck-gg-realism";
+const FIGURE_PREVIEW_ROOT = resolve("out/gutcheck-figure-previews").replace(/\\/g, "/");
 const NAS_LOGICAL_ROOT = "collections/gutcheck-generated-public/2026-08-15/payload";
 const join = (...parts: string[]): string => parts.join("/");
 const CATALOGUE = parseNasAssetCatalogV1(
@@ -212,6 +213,14 @@ const exists = (p: string): boolean => {
   return BULK_AVAILABLE && servedFileExists(p);
 };
 
+const localFileExists = (path: string): boolean => {
+  try {
+    return statSync(path).isFile();
+  } catch {
+    return false;
+  }
+};
+
 // What exists per crystal, beyond the still comparison. Keyed by the id the composite
 // filenames resolve to (see crystalOf). Only three crystals have an interactive mesh and
 // only Run B has a growth animation — anim-B is the single 701-frame timeline in the whole
@@ -372,18 +381,64 @@ sections.push({
 // Guard: an interactive view whose crystal has no composite would otherwise vanish from the
 // index entirely. None today; this fires rather than silently dropping one later.
 const linkedMeshes = new Set(rows.flatMap((r) => r.viewers.map((v) => v.href)));
+const figureRows: CompareRow[] = [];
 const orphanViewers: Item[] = [];
 for (const [key, crystal] of Object.entries(CRYSTALS)) {
-  for (const v of crystal.viewers) {
-    if (!exists(v.mesh)) continue;
+  const unlinked = crystal.viewers.filter((v) => exists(v.mesh) && !linkedMeshes.has(meshHref(v.look, v.mesh)));
+  if (unlinked.length === 0) continue;
+  const figureMatch = /^fig\d+(?:v\d+)?$/u.test(key);
+  const surface = unlinked.find((viewer) => viewer.subject === "surface mesh");
+  const previewPath = join(FIGURE_PREVIEW_ROOT, `${key}.png`);
+  const previewUrl = `/gutcheck-figure-previews/${key}.png`;
+  const sourceRecord = `evidence/gutcheck-gg-realism/fig-records/${key}-record.json`;
+  if (figureMatch && surface !== undefined) {
+    const hasPreview = localFileExists(previewPath);
+    figureRows.push({
+      label: crystalLabel(key, key),
+      comparisons: hasPreview
+        ? [{
+            label: `${crystalLabel(key, key)} — regenerated model preview`,
+            href: previewUrl,
+            image: previewUrl,
+            note: "Project-owned preview regenerated from the final mesh; historical source comparison remains non-served.",
+          }]
+        : [],
+      viewers: unlinked.map((viewer) => ({
+        label: `${viewer.subject} · ${viewer.look}`,
+        href: meshHref(viewer.look, viewer.mesh),
+        note: lookNote(viewer.look, "orbit / upright / spin / face-on"),
+      })),
+      ...(hasPreview && localFileExists(resolve(sourceRecord)) && {
+        queue: {
+          id: key,
+          mesh: FS(surface.mesh),
+          render: previewUrl,
+          spec: sourceRecord,
+        },
+      }),
+    });
+    continue;
+  }
+  for (const v of unlinked) {
     const href = meshHref(v.look, v.mesh);
-    if (linkedMeshes.has(href)) continue;
     orphanViewers.push({
       label: `${key} — ${v.subject} · ${v.look}`,
       href,
       note: lookNote(v.look, "no side-by-side comparison for this crystal"),
     });
   }
+}
+if (figureRows.length > 0) {
+  figureRows.sort((a, b) => figNumber(a.label) - figNumber(b.label) || a.label.localeCompare(b.label));
+  sections.push({
+    title: "Pre-sweep figure models — regenerated previews",
+    note:
+      `${figureRows.length} public final meshes with tracked figure records. ` +
+      "These project-owned thumbnails are regenerated from the meshes. The historical paper/photo " +
+      "comparison composites remain non-served under the NAS privacy boundary.",
+    items: [],
+    rows: figureRows,
+  });
 }
 if (orphanViewers.length > 0) {
   sections.push({
@@ -687,11 +742,12 @@ sections.push({
 // mixed comparison galleries, those links otherwise occupied several screens and made the
 // available thumbnails look absent.
 const sectionPriority = (section: Section): number => {
-  if (section.title === "Generated crystals (parameter sweep)") return 0;
-  if (section.title.startsWith("Animation dial-in")) return 1;
-  if (section.title === "Crystal by crystal") return 2;
-  if (section.title === "Interactive views with no comparison image") return 3;
-  return 4;
+  if (section.title.startsWith("Pre-sweep figure models")) return 0;
+  if (section.title === "Generated crystals (parameter sweep)") return 1;
+  if (section.title.startsWith("Animation dial-in")) return 2;
+  if (section.title === "Crystal by crystal") return 3;
+  if (section.title === "Interactive views with no comparison image") return 4;
+  return 5;
 };
 const visibleSections = sections.filter((s) => s.items.length > 0 || (s.rows ?? []).length > 0);
 visibleSections.sort((a, b) => sectionPriority(a) - sectionPriority(b));

@@ -22,6 +22,7 @@ import { basename, isAbsolute, join, relative, resolve, sep } from "node:path";
 import { spawnSync } from "node:child_process";
 
 import {
+  animationQueueSourceRecordMatches,
   parseAnimationQueueManifest,
   type AnimationQueueItem,
   type AnimationQueueManifest,
@@ -142,12 +143,16 @@ const parseBatch = (value: unknown): AnimationBatchManifest => {
   };
 };
 
-const assertTrackedSpecs = (items: readonly AnimationQueueItem[]): void => {
+const assertTrackedSourceRecords = (items: readonly AnimationQueueItem[]): void => {
   for (const item of items) {
     const path = resolve(REPO, item.spec);
-    const evidenceRoot = resolve(REPO, "evidence/gutcheck-gg-realism/specs");
-    if (!path.startsWith(`${evidenceRoot}${sep}`) || !existsSync(path)) {
-      throw new Error(`${item.id}: tracked spec is absent or escapes the specs root`);
+    const evidenceRoot = resolve(REPO, "evidence/gutcheck-gg-realism");
+    if (
+      !animationQueueSourceRecordMatches(item.id, item.spec) ||
+      !path.startsWith(`${evidenceRoot}${sep}`) ||
+      !existsSync(path)
+    ) {
+      throw new Error(`${item.id}: tracked source record is absent or escapes the evidence root`);
     }
   }
 };
@@ -159,7 +164,7 @@ const plan = (argv: readonly string[]): void => {
   if (queueArg === undefined) throw new Error("plan requires --queue <selection.json>");
   const queuePath = resolve(queueArg);
   const queue = parseAnimationQueueManifest(JSON.parse(readFileSync(queuePath, "utf8")) as unknown);
-  assertTrackedSpecs(queue.items);
+  assertTrackedSourceRecords(queue.items);
   const batches = positiveInteger(argument(argv, "batches", "2"), "--batches");
   const outDir = resolve(
     argument(argv, "out-dir", join("out/gutcheck-animation-queue", queue.queueId)) as string,
@@ -257,7 +262,7 @@ const execute = (argv: readonly string[]): void => {
   if (batchArg === undefined) throw new Error("run requires --batch <batch.json>");
   const batchPath = resolve(batchArg);
   const batch = parseBatch(JSON.parse(readFileSync(batchPath, "utf8")) as unknown);
-  assertTrackedSpecs(batch.items);
+  assertTrackedSourceRecords(batch.items);
   const defaultRoot = join("out/gutcheck-animation-queue", batch.queueId, batch.batch.label);
   const explicitOutput = argument(argv, "output-root");
   const nasStage = argv.includes("--nas-stage");

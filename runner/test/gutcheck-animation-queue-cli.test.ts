@@ -25,6 +25,7 @@ describe("gut-check animation queue CLI", () => {
     roots.push(root);
     const ids = [
       "bentley785",
+      "fig10",
       "staged-branch1-to-plate3-at8000",
       "staged-branch1-to-plate3-at12000",
     ].sort();
@@ -37,9 +38,15 @@ describe("gut-check animation queue CLI", () => {
       items: ids.map((id) => ({
         id,
         label: `label ${id}`,
-        mesh: `/nas/collections/gutcheck-generated-public/2026-08-15/payload/large/gen/${id}-mesh.bin`,
-        render: `/nas/collections/gutcheck-generated-public/2026-08-15/payload/gen/renders/${id}-render.png`,
-        spec: `evidence/gutcheck-gg-realism/specs/${id}.json`,
+        mesh: id === "fig10"
+          ? `/nas/collections/gutcheck-generated-public/2026-08-15/payload/large/figs/${id}-mesh.bin`
+          : `/nas/collections/gutcheck-generated-public/2026-08-15/payload/large/gen/${id}-mesh.bin`,
+        render: id === "fig10"
+          ? `/gutcheck-figure-previews/${id}.png`
+          : `/nas/collections/gutcheck-generated-public/2026-08-15/payload/gen/renders/${id}-render.png`,
+        spec: id === "fig10"
+          ? `evidence/gutcheck-gg-realism/fig-records/${id}-record.json`
+          : `evidence/gutcheck-gg-realism/specs/${id}.json`,
       })),
     };
     const queuePath = join(root, "selection.json");
@@ -52,7 +59,7 @@ describe("gut-check animation queue CLI", () => {
       { cwd: REPO, encoding: "utf8" },
     );
     expect(output).toContain("batch-a: 2 item(s)");
-    expect(output).toContain("batch-b: 1 item(s)");
+    expect(output).toContain("batch-b: 2 item(s)");
     expect(existsSync(join(outDir, "RUN-batch-a.cmd"))).toBe(true);
     expect(readFileSync(join(outDir, "RUN-batch-b.sh"), "utf8")).toContain("--nas-stage");
 
