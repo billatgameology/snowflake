@@ -1,0 +1,278 @@
+{
+  "schema": "phase10-final-package-report-v1",
+  "phase": 10,
+  "closedOn": "2026-08-25",
+  "producerCommit": "621c4ec7a91dbd3ec4445ac0f88ba0633e8c1aa8",
+  "packageOutcome": "complete-negative",
+  "completionBasis": "terminal-b-source-refusal",
+  "workstreams": [
+    {
+      "workstreamId": "A-P",
+      "completion": "pass",
+      "scientificDisposition": "obligation-completeness-only"
+    },
+    {
+      "workstreamId": "A-S",
+      "completion": "pass",
+      "scientificDisposition": "scope-overlay-only"
+    },
+    {
+      "workstreamId": "A-I",
+      "completion": "complete",
+      "scientificDisposition": "terminal-source-intake"
+    },
+    {
+      "workstreamId": "B",
+      "completion": "refusal",
+      "scientificDisposition": "six-terminal-negative-branches",
+      "branchOutcomes": [
+        {
+          "branchId": "B1a",
+          "terminalOutcome": "terminal-refusal"
+        },
+        {
+          "branchId": "B1b",
+          "terminalOutcome": "terminal-refusal"
+        },
+        {
+          "branchId": "B2",
+          "terminalOutcome": "terminal-refusal"
+        },
+        {
+          "branchId": "B3",
+          "terminalOutcome": "terminal-non-identification"
+        },
+        {
+          "branchId": "B4",
+          "terminalOutcome": "terminal-refusal"
+        },
+        {
+          "branchId": "B5",
+          "terminalOutcome": "terminal-refusal"
+        }
+      ]
+    },
+    {
+      "workstreamId": "C0",
+      "completion": "complete",
+      "scientificDisposition": "criterion-no-pass"
+    },
+    {
+      "workstreamId": "C0V",
+      "completion": "maker-terminated-incomplete",
+      "scientificDisposition": "incomplete-no-pass"
+    }
+  ],
+  "c0vLayers": [
+    {
+      "layerId": "C0V-RADIAL",
+      "s5Disposition": "reference-frozen",
+      "productionDisposition": "not-executed-infrastructure-stopped",
+      "scientificDisposition": "no-verdict",
+      "s6PacketCredit": false
+    },
+    {
+      "layerId": "C0V-MOVING",
+      "s5Disposition": "reference-discrepancy-refusal",
+      "productionDisposition": "not-executed",
+      "scientificDisposition": "refusal",
+      "s6PacketCredit": false
+    },
+    {
+      "layerId": "C0V-STATIC",
+      "s5Disposition": "preimplementation-reference-refusal",
+      "productionDisposition": "not-executed",
+      "scientificDisposition": "refusal",
+      "s6PacketCredit": false
+    }
+  ],
+  "c0vAggregate": {
+    "disposition": "incomplete-no-pass",
+    "packetCredit": false,
+    "pass": false
+  },
+  "unresolvedOperands": [
+    "B1A-COMPARISON-DOMAIN",
+    "B1A-CURRENT-PRINCETON-EDITION",
+    "B1A-PLANAR-FORCING-MAP",
+    "B1A-UNCERTAINTY-TREATMENT",
+    "B1B-ASYMMETRIC-VAPOR-TRANSFER",
+    "B1B-EVOLVING-GEOMETRY",
+    "B1B-LOCAL-TEMPERATURE-FORCING",
+    "B1B-LOCAL-VAPOR-FORCING",
+    "B1B-MATCHED-CROSS-PRESSURE-OBSERVATION",
+    "B1B-OBSERVATION-DOMAIN",
+    "B1B-SUPPORT-HEAT-PATH",
+    "B2-CHARACTERISTIC-SIZE-COVERAGE",
+    "B2-CONTROLLED-VELOCITY-DATASET",
+    "B2-DENSITY-COVERAGE",
+    "B2-DROPLET-STATE-COVERAGE",
+    "B2-METHOD-COVERAGE",
+    "B2-SPEED-COVERAGE",
+    "B2-SUPPORT-STATE-COVERAGE",
+    "B2-TEMPERATURE-COVERAGE",
+    "B2-TIME-COVERAGE",
+    "B2-VISCOSITY-COVERAGE",
+    "B3-CARRIER-GAS-AUDIT",
+    "B3-GEOMETRY-CONTROL",
+    "B3-HISTORY-CONTROL",
+    "B3-ISONO-CURRENCY",
+    "B3-LINEAGE",
+    "B3-MATCHED-OBSERVATION",
+    "B3-POINT-IDENTITY",
+    "B3-PRESSURE-OR-GAS-INTERVENTION",
+    "B3-SUPPORT-CONTROL",
+    "B3-TEMPERATURE-CONFLICT-DISPOSITION",
+    "B3-TEMPERATURE-CONTROL",
+    "B3-TWO-READER-OPERATOR",
+    "B3-UNCERTAINTY",
+    "B3-VENTILATION-CONTROL",
+    "B3-ZHAO-ROLE-AUDIT",
+    "B4-FINAL-THEORY-ARTICLE",
+    "B4-FORCING-SEMANTICS",
+    "B4-MEASUREMENT-METHODS",
+    "B4-SAME-LINEAGE-LINK",
+    "B5-FEATURE-ROSTER",
+    "B5-LOCAL-FORCING",
+    "B5-MATCHED-TRANSPORT",
+    "B5-MEDIA-ROSTER",
+    "B5-OBSERVATION-OPERATOR",
+    "B5-REPEATABILITY-AND-UNCERTAINTY",
+    "B5-SCALE-CALIBRATION",
+    "B5-TIME-CALIBRATION"
+  ],
+  "downstreamCandidates": [],
+  "priorPhaseLabels": [
+    {
+      "phase": 6,
+      "label": "complete",
+      "artifactMutationAuthorized": false
+    },
+    {
+      "phase": 7,
+      "label": "not-started-independently-eligible",
+      "artifactMutationAuthorized": false
+    },
+    {
+      "phase": 8,
+      "label": "complete-8a-plus-8b",
+      "artifactMutationAuthorized": false
+    },
+    {
+      "phase": 9,
+      "label": "complete-development-only",
+      "artifactMutationAuthorized": false
+    }
+  ],
+  "inputs": [
+    {
+      "path": "docs/decisions/0054-close-phase10-after-maker-terminated-c0v-infrastructure.md",
+      "byteLength": 14336,
+      "sha256": "b94f3b9a7b215085b4fd1f7cc66b228beebd4fe8e0a09c22370343a21b66a231"
+    },
+    {
+      "path": "evidence/phase10-numerical-verification-v1/c0-report.json",
+      "byteLength": 7657,
+      "sha256": "571e62ae3ff170ae4f864ca8fae79c7d4b1597b746a2f43477ea4445ea4f0b72"
+    },
+    {
+      "path": "evidence/phase10-numerical-verification-v1/c0-verification.json",
+      "byteLength": 3818,
+      "sha256": "f6114ce1b3ca254b9ec355c53f3ef7d5bf8de1877c10d69e0e87b9c788e2fa2f"
+    },
+    {
+      "path": "evidence/phase10-numerical-verification-v1/c0v-moving-reference.json",
+      "byteLength": 81026,
+      "sha256": "5419efd63ba03822159e573708637265ff6f09653e061ee7a4932e09f34e6386"
+    },
+    {
+      "path": "evidence/phase10-numerical-verification-v1/c0v-radial-reference.json",
+      "byteLength": 449978,
+      "sha256": "60800ae66160deedd96f21ecb982301546153057892e8fa68faa54b6251f31e2"
+    },
+    {
+      "path": "evidence/phase10-numerical-verification-v1/c0v-static-reference-refusal.json",
+      "byteLength": 13381,
+      "sha256": "6e1e10c54f0262bcaf701996dfde52953b52afa9f9dc918b31daa1b680c179ea"
+    },
+    {
+      "path": "evidence/phase10-obligation-preflight-v1/packets/a-i/terminal-receipt.json",
+      "byteLength": 1119,
+      "sha256": "21bb8cb98d9907f2cd1419e90b276554825e95f23c60c6babad74d32103f1cdb"
+    },
+    {
+      "path": "evidence/phase10-obligation-preflight-v1/packets/a-p/terminal-receipt.json",
+      "byteLength": 1681,
+      "sha256": "c84e269f521f7b2fb680fa1000dfc3837893f2baa88fc46402a6303e24b076c4"
+    },
+    {
+      "path": "evidence/phase10-obligation-preflight-v1/packets/a-s/terminal-receipt.json",
+      "byteLength": 1605,
+      "sha256": "99e6ced9e48d41113ac8d433649e43d9d5ec5e36c6fe799f808b4005e27b55de"
+    },
+    {
+      "path": "evidence/phase10-obligation-preflight-v1/packets/b-aggregate/terminal-receipt.json",
+      "byteLength": 1084,
+      "sha256": "f3be99bb389bd94e3ac45f0d7486e54e418e98f6fc293947c4be584ecbffd928"
+    },
+    {
+      "path": "evidence/phase10-obligation-preflight-v1/packets/c0-publish/terminal-receipt.json",
+      "byteLength": 973,
+      "sha256": "8a68a45cc26e3dce8ee801e3ff0a22656630e1baf89901e96d9bc40abc857463"
+    },
+    {
+      "path": "evidence/phase10-obligation-preflight-v6/packets/a-p-c0v-s6/terminal-receipt.json",
+      "byteLength": 10127,
+      "sha256": "11bf3112732fdcb8673a30644c0a2290a462e3452d01d07e8f6b174b156bffc2"
+    },
+    {
+      "path": "evidence/phase10-observation-bridges-v1/report.json",
+      "byteLength": 9225,
+      "sha256": "440056007d52735a59145ca97fbfd7b67cb275bdf216ffe1138ef8e00c6d19da"
+    },
+    {
+      "path": "evidence/phase10-observation-bridges-v1/return-proposals.json",
+      "byteLength": 6928,
+      "sha256": "7569e5b86d7cb3d84d196c12aec768345ee4ee7d525d9f3912b3eeb7eeb3d0bd"
+    },
+    {
+      "path": "evidence/phase10-observation-bridges-v1/verification.json",
+      "byteLength": 3334,
+      "sha256": "60d1e3642c42b5f2e2c9ddcf4709ee6b680226155465e750b92458701e07a9df"
+    },
+    {
+      "path": "evidence/phase10-scope-intake-v1/intake-report.json",
+      "byteLength": 7395,
+      "sha256": "5ca8650a0c6baf707a8d0243ff14cb741de227e79080217030925aca37e4df52"
+    },
+    {
+      "path": "evidence/phase10-scope-intake-v1/scope-report.json",
+      "byteLength": 5177,
+      "sha256": "d210803c6cf6a36931fba1b00b5745bd64e785f037db5a463e7487aa1b59d14b"
+    }
+  ],
+  "claimBoundary": {
+    "scopeCensusOnlyForAS": true,
+    "allOpenedSourceValuesArePhase10DevelopmentEvidence": true,
+    "quantitativeValidationEarned": false,
+    "phase7CreditEarned": false,
+    "phase8CreditEarned": false,
+    "phase9CreditEarned": false,
+    "heldOutComparisonExecuted": false,
+    "targetScoreProduced": false,
+    "solverPhysicsChanged": false,
+    "c1ThroughC5RowsProduced": false,
+    "habitRowsProduced": false,
+    "eObservationOperatorImplemented": false,
+    "fExternalRequestWrittenOrSent": false,
+    "hTransportImplemented": false,
+    "downstreamExecutionAuthorized": false,
+    "priorPhaseLabelsAndArtifactsPreserved": true
+  },
+  "limits": [
+    "Phase 10 completed on the terminal B source refusal; completion is not a scientific PASS.",
+    "C0V is incomplete/non-PASS: radial production did not run and no S6 layer or aggregate packet earned credit.",
+    "Moving and static retain only their pinned S5 refusal meanings; no infrastructure stop is a scientific result.",
+    "No C1-C5 row, habit row, target score, held-out comparison, solver change, E/F/H execution, validation label, or prior-phase credit was produced."
+  ]
+}

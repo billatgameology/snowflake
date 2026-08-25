@@ -2461,6 +2461,16 @@ checks pass; and Rule 7 is clean across 1,506 files. No closure report, final su
 receipt, or gate receipt has published yet. Next, commit and push this code freeze, then publish the
 single report from that clean commit.
 
+From clean pushed code freeze `621c4ec`, the one package publication wrote
+`evidence/phase10-closure-v1/report.json`: 9,195 bytes / SHA-256
+`34f4bcc2956b40ce7d57c4776f1e3c0c5f90e724ffcc39743692173a9a818372`. Its producer identity is
+the full commit `621c4ec7a91dbd3ec4445ac0f88ba0633e8c1aa8`. The report re-derives the six terminal B outcomes
+and 48 unresolved operands, records the package as `complete-negative` on terminal B refusal, and
+preserves C0V as incomplete/non-PASS with radial no-verdict and zero S6 packet credit. The manifest
+now pins 446 files / 6,533,387 bytes. A direct published-byte equality test plus evidence integrity
+passes 10/10, and both TypeScript checks pass. Next, commit and push this report publication, then
+run the single required exact suite from that stable checkpoint.
+
 ### Rejected native pre-Node launcher design (retained history; do not implement)
 
 **Superseded by maker direction on 2026-08-22.** The detail below records the design that exposed

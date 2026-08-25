@@ -49,4 +49,9 @@ describe("Phase 10 final package", () => {
   it("refuses a non-commit producer identity", () => {
     expect(() => derivePhase10FinalPackageReport(ROOT, "not-a-commit")).toThrow(/producer commit differs/u);
   });
+
+  it("matches the published report to its bound producer commit", () => {
+    const published = JSON.parse(readFileSync(join(ROOT, "evidence/phase10-closure-v1/report.json"), "utf8")) as Record<string, any>;
+    expect(published).toEqual(derivePhase10FinalPackageReport(ROOT, published.producerCommit, published.closedOn));
+  });
 });
