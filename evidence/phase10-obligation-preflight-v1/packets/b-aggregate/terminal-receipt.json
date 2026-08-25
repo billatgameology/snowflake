@@ -1,0 +1,42 @@
+{
+  "schema": "phase10-execution-receipt-v1",
+  "receiptId": "phase10-b-aggregate-terminal-v1",
+  "matrixId": "phase10-selected-package-obligations-v1",
+  "protocolId": "phase10-b-aggregate-v1",
+  "registryId": "phase10-b-aggregate-resolved-callables-v1",
+  "packetId": "b-aggregate",
+  "terminalState": "refusal",
+  "producedOutputIds": [
+    "out-b-artifact-index",
+    "out-b-report",
+    "out-b-return-proposals",
+    "out-b-verification"
+  ],
+  "executedCheckIds": [
+    "chk-b-all-searches-terminal",
+    "chk-b-all-six-terminal",
+    "chk-b-development-evidence-only",
+    "chk-b-no-efh-execution",
+    "chk-b-no-provider-contact-purchase",
+    "chk-b-report-rederived"
+  ],
+  "evaluatedCheckIds": [
+    "chk-b-all-searches-terminal",
+    "chk-b-all-six-terminal",
+    "chk-b-development-evidence-only",
+    "chk-b-no-efh-execution",
+    "chk-b-no-provider-contact-purchase",
+    "chk-b-report-rederived"
+  ],
+  "executedNegativeControlIds": [],
+  "boundDependencyPacketIds": [
+    "a-p",
+    "b-acquisition",
+    "b1a",
+    "b1b",
+    "b2",
+    "b3",
+    "b4",
+    "b5"
+  ]
+}

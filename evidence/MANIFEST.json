@@ -3,8 +3,8 @@
  "movedFrom": "out/ (gitignored), plus the byte-identical tracked arm64 fingerprint formerly under docs/",
  "movedTo": "evidence/ (tracked)",
  "note": "Historical sweep digests were computed before their move and re-verified afterward. The arm64 fingerprint preserves the exact former docs/ Git blob (18398 bytes, SHA-256 d6686f8e...). The x64 fingerprint is the complete 2026-08-01 lightweight fixture re-execution backing the exact per-entry comparison; it reproduces registered digest 2a9f64b3. These are preserved claim-backing bytes, not regenerated production sweeps.",
- "fileCount": 439,
- "totalBytes": 6491444,
+ "fileCount": 445,
+ "totalBytes": 6524192,
  "files": {
   "phase6-crossplatform/arm64-libm-fingerprint.txt": {
    "bytes": 18398,
@@ -538,6 +538,10 @@
    "bytes": 2363,
    "sha256": "636715c88adb0a3e7f3eee3903863fec2f398b036a773e775e93f2d5146d80ea"
   },
+  "phase10-observation-bridges-v1/artifact-index.json": {
+   "bytes": 799,
+   "sha256": "ef08807204938f71823c1c7d80bffd0a0812484b04102338ae295364bdbc9a4d"
+  },
   "phase10-observation-bridges-v1/b1a-result.json": {
    "bytes": 4263,
    "sha256": "1b76fe5f6f6fea0a094f8c39b08b6ef30323a002b615a1b4cc9706dd6a299302"
@@ -634,6 +638,18 @@
    "bytes": 3755,
    "sha256": "aa19ea8471312f8822739c871f0bba968dde31dcfa2bf78dca9b2dc3cb8ba7fc"
   },
+  "phase10-observation-bridges-v1/report.json": {
+   "bytes": 9225,
+   "sha256": "440056007d52735a59145ca97fbfd7b67cb275bdf216ffe1138ef8e00c6d19da"
+  },
+  "phase10-observation-bridges-v1/return-proposals.json": {
+   "bytes": 6928,
+   "sha256": "7569e5b86d7cb3d84d196c12aec768345ee4ee7d525d9f3912b3eeb7eeb3d0bd"
+  },
+  "phase10-observation-bridges-v1/verification.json": {
+   "bytes": 3334,
+   "sha256": "60d1e3642c42b5f2e2c9ddcf4709ee6b680226155465e750b92458701e07a9df"
+  },
   "phase10-obligation-preflight-v1/artifact-index.json": {
    "bytes": 4078,
    "sha256": "cccd2a66a1b07ec1ab7bad2f2b3c491fdec7d2caa3e0d80f23191de2d619be69"
@@ -673,6 +689,14 @@
   "phase10-obligation-preflight-v1/packets/b-acquisition/terminal-receipt.json": {
    "bytes": 813,
    "sha256": "90f9acd2d21c57232b8cc006b00ce035681b7bc6e21e0200b0ac03dfb61e5ac2"
+  },
+  "phase10-obligation-preflight-v1/packets/b-aggregate/preflight.json": {
+   "bytes": 11378,
+   "sha256": "2f108d740a60a4eaba15e020e3288e6b2f7ea43a32a9e7b11275ba8a0a29574d"
+  },
+  "phase10-obligation-preflight-v1/packets/b-aggregate/terminal-receipt.json": {
+   "bytes": 1084,
+   "sha256": "f3be99bb389bd94e3ac45f0d7486e54e418e98f6fc293947c4be584ecbffd928"
   },
   "phase10-obligation-preflight-v1/packets/b1a/preflight.json": {
    "bytes": 7154,

@@ -321,12 +321,11 @@ detail.
   `4f2a07813efb55f920b30a34c49e8ae009a7b1f3f6804efb30a308dae5f7fe0f`, and both collection-specific
   full-hash commands pass. The finalized `b-acquisition` packet passes 2/2 registered checks with
   terminal `refusal`: five exact sources are rights-blocked and Zhao S2 is acquired-and-bound.
-  The six B branch packets are now terminal from clean pushed protocol freeze `db7ca35`: B1a, B1b,
-  B2, B4, and B5 are refusals and B3 is a non-identification. Their independent receipts pass all
-  52 registered checks with zero search packets and no E/F/H authorization. The 36 new files total
-  118,984 bytes and are pinned in the 439-file / 6,491,444-byte evidence manifest; the focused
-  evidence/branch/preflight set passes 24/24. Publishing `b-aggregate` from the already-frozen
-  authority is the active S7 deliverable.
+  S7 is complete. From clean pushed branch publication `caf1392`, `b-aggregate` passed all six
+  registered checks and published terminal `refusal`: six terminal branches, 48 unresolved operands,
+  zero searches, six null return proposals, and no E/F/H execution or authorization. Its six files
+  total 32,748 bytes and bring the pinned evidence manifest to 445 files / 6,524,192 bytes. Minimum
+  C0V/package closure is now the active deliverable; no further moving-recovery ladder is authorized.
 - **Assurance is proportional to decision risk.** [Decision 0049](decisions/0049-make-assurance-proportionate-to-decision-risk.md),
   charter v1.26 and `AGENTS.md` require integrity for routine sources, one targeted check for
   load-bearing inputs, and full named controls for gates or strong public claims. No recursive
@@ -341,7 +340,7 @@ detail.
   direction) and content stays in-repo unpublished, `test.yml` CI unaffected. Reconciliation is
   a live decision point under **Next step**. Full freeze history:
   [the history file](progress-history-phases-6-8-9.md).
-- **Last updated:** 2026-08-25 (six B branches terminal; `b-aggregate` is next)
+- **Last updated:** 2026-08-25 (B complete with terminal refusal; minimum C0V closure is next)
 
 ## Phase gates
 
@@ -361,7 +360,7 @@ and every superseded attempt live in the linked plans and historical progress sn
 | 7 | Not started; independently eligible | Charter v1.25 preserves Phase 7's independence but does not start it. A committed Phase 7 plan and isolated worktree are required; product, held-out validation, and v6 WGSL/preview-GPU parity remain its scope. |
 | 8 | **Complete (8A + 8B)** | The immutable 8A book remains 18 entries / 59,019 bytes / SHA-256 `47a75f3f…71ec`. The verified 8B successor is 51 development records, 252,134 native rows and 431 plot points; no row is held out. [Completed plan](plans/phase-8-measurement-corpus.md). |
 | 9 | **Complete (development-only)** | The all-no-pass branch closed: D-BT failed, M-F/M-K2 stayed mapping-dependent, controls/path-state/M-PK are unavailable or non-identifiable, and zero items promoted. Exact `TMPDIR=/private/tmp npm test` passed; no result grants validation credit. [Completed plan](plans/phase-9-execution.md). |
-| 10 | **In progress — A-P/A-S/A-I PASS; C0 complete with criterion NO-PASS; six B branches terminal; C0V moving unresolved** | A-P, A-S, bounded structural A-I PASS evidence, and C0 are published and pinned. C0 re-derived 80/80 rows and 64/64 comparisons: 36 passed and 28 failed the attached-count criterion, so both spacings and the all-spacings reduction are NO-PASS. C0V S5b pins its three reference/refusal artifacts; recovery-v5 A-P v6 is terminal complete, but moving production remains unresolved after the retained v5 infrastructure stop. The finalized six-target B acquisition passes 2/2 checks: five sources are rights-blocked and one 9,040,679-byte Zhao S2 video is privately published and fresh-restore verified. B1a–B5 are now terminal with 52/52 checks and zero searches; B aggregate, C0V closure, package synthesis, `gate10`, final exact `npm test`, and final review remain. No C1–C5 row, habit row, target score, validation claim, or prior-phase credit exists. |
+| 10 | **In progress — A-P/A-S/A-I PASS; C0 complete with criterion NO-PASS; B complete with terminal refusal; C0V moving unresolved** | A-P, A-S, bounded structural A-I PASS evidence, and C0 are published and pinned. C0 re-derived 80/80 rows and 64/64 comparisons: 36 passed and 28 failed the attached-count criterion, so both spacings and the all-spacings reduction are NO-PASS. C0V S5b pins its three reference/refusal artifacts; recovery-v5 A-P v6 is terminal complete, but moving production remains unresolved after the retained v5 infrastructure stop. B acquisition and all six branches are terminal; aggregate verification passes 6/6 and returns refusal with zero search or E/F/H execution. C0V closure, package synthesis, `gate10`, final exact `npm test`, and final review remain. No C1–C5 row, habit row, target score, validation claim, or prior-phase credit exists. |
 
 ## Active plan
 
@@ -464,7 +463,7 @@ the package-specific prerequisites in its charter amendment and execution plan. 
 
 ## Next step
 
-### Phase 10 — publish the terminal B aggregate
+### Phase 10 — close the minimum remaining C0V/package obligations
 
 The maker selected **A-S + A-I + B + C0 + C0V with packet-specific A-P** on 2026-08-21. No
 C1–C5 numerical-qualification or scientific habit row is part of this execution. The
@@ -483,12 +482,11 @@ maker direction.
 `b-acquisition` is terminal and pinned. It passes both registered checks with aggregate `refusal`:
 five exact targets are rights-blocked and Zhao S2 is acquired-and-bound in the active private NAS
 collection. Publication and fresh-restore verification both pass for one file / 9,040,679 bytes;
-no source prune is authorized. All six finite branch packets are now terminal from clean commit
-`db7ca35`, with 52/52 checks, zero search packets, and no downstream authorization. Commit and push
-the pinned six-branch publication, then run the already-frozen `b-aggregate` once. Do not run broad
-search, contact providers, purchase access, reacquire sources, inspect numeric media values,
-implement E/F/H, or add another assurance framework. After `b-aggregate` is terminal, return to the
-minimum C0V closure required by the selected done-when.
+no source prune is authorized. All six finite branch packets and `b-aggregate` are terminal; the
+aggregate passes 6/6 checks and grants no downstream authorization. Commit and push this aggregate
+publication, then use the already-pinned C0V reference/refusal artifacts to close only the selected
+done-when. Do not resume a moving-recovery ladder, run broad search, inspect numeric media values,
+implement E/F/H, or add another assurance framework.
 
 The A-P PASS dependency is committed at `63ca13c`; A-S PASS is committed at `78c1875`. A-I's
 observation/decision/review inputs are committed at `9fb2e1b`, and its eight-file structural PASS

@@ -245,7 +245,7 @@ collection.
   a solver, witness, numerical evaluator, or numerical negative-control campaign. Run packet
   preflight, execute only the branch-applicable frozen controls, retain all attempts, and publish
   one terminal PASS/FAIL/REFUSAL result per layer plus the aggregate verdict.
-- [ ] **S7 — execute B acquisition, B1a/B1b, and B2–B5.** Run the launch-governed
+- [x] **S7 — execute B acquisition, B1a/B1b, and B2–B5.** Run the launch-governed
   `b-acquisition` packet first, then parallelize source-independent branches while preserving
   per-branch freeze-before-value semantics. Complete the named acquisition round and only the
   precommitted targeted packets needed for unresolved operands. Publish eligible bridges or exact
@@ -2431,6 +2431,13 @@ The 36 new branch/preflight evidence files total 118,984 bytes and are pinned in
 files were untracked; after staging the pinned files, the focused evidence-integrity, B-branch, and
 obligation-preflight set passed 24/24. Next, commit and push this terminal six-branch publication,
 then run `b-aggregate` once from that clean commit.
+
+From clean pushed branch publication `caf1392`, the sole `b-aggregate` run passed all six registered
+checks and published terminal `refusal`. It re-derived six terminal branches, 48 unresolved operands,
+zero executed searches, six null return proposals, and no E/F/H execution or authorization. Its six
+new evidence/preflight files total 32,748 bytes and bring the pinned manifest to 445 files /
+6,524,192 bytes. This completes S7 under the selected negative-result rule. Next, commit and push the
+aggregate publication, then close only the minimum remaining C0V/package obligations.
 
 ### Rejected native pre-Node launcher design (retained history; do not implement)
 

@@ -1,0 +1,302 @@
+{
+  "schema": "phase10-observation-bridge-report-v1",
+  "bundleId": "phase10-observation-bridges-v1",
+  "foundationFreeze": {
+    "path": "research/phase10-foundation-freeze-v1.json",
+    "byteLength": 32327,
+    "sha256": "7847f26a24d1a09eefc6b15ed07baf1d007782fdd58c3301e3f926e4c8805871"
+  },
+  "branchResultBindings": [
+    {
+      "path": "evidence/phase10-observation-bridges-v1/b1a-result.json",
+      "byteLength": 4263,
+      "sha256": "1b76fe5f6f6fea0a094f8c39b08b6ef30323a002b615a1b4cc9706dd6a299302"
+    },
+    {
+      "path": "evidence/phase10-observation-bridges-v1/b1b-result.json",
+      "byteLength": 5629,
+      "sha256": "7eb37dc5230de5464e823115cb7bc4889abf337077e67b499eb7851c2ee7106c"
+    },
+    {
+      "path": "evidence/phase10-observation-bridges-v1/b2-result.json",
+      "byteLength": 6801,
+      "sha256": "1806deef72e6ccbf82c64cd107eec695274c9fbe58274d5bbb944422e7ebd740"
+    },
+    {
+      "path": "evidence/phase10-observation-bridges-v1/b3-result.json",
+      "byteLength": 9442,
+      "sha256": "b2fa37cee9428df48347cdfb8b2316dc8f2b67291345653a46e900010a219e3f"
+    },
+    {
+      "path": "evidence/phase10-observation-bridges-v1/b4-result.json",
+      "byteLength": 4535,
+      "sha256": "a8eecad6e737a24566676d668f7154ad3d8b860228ab67365214de41e4ac92d9"
+    },
+    {
+      "path": "evidence/phase10-observation-bridges-v1/b5-result.json",
+      "byteLength": 6267,
+      "sha256": "36dc947d53fce18fa01b2f98c02e9019042765d06e2b54fd925649e6a885e472"
+    }
+  ],
+  "acquisitionSummary": {
+    "targetCount": 6,
+    "acquiredCount": 1,
+    "terminalDisposition": "refusal"
+  },
+  "searchSummary": [
+    {
+      "branchId": "B1a",
+      "registered": 3,
+      "executed": 0,
+      "unused": 3,
+      "terminal": true
+    },
+    {
+      "branchId": "B1b",
+      "registered": 5,
+      "executed": 0,
+      "unused": 5,
+      "terminal": true
+    },
+    {
+      "branchId": "B2",
+      "registered": 1,
+      "executed": 0,
+      "unused": 1,
+      "terminal": true
+    },
+    {
+      "branchId": "B3",
+      "registered": 6,
+      "executed": 0,
+      "unused": 6,
+      "terminal": true
+    },
+    {
+      "branchId": "B4",
+      "registered": 2,
+      "executed": 0,
+      "unused": 2,
+      "terminal": true
+    },
+    {
+      "branchId": "B5",
+      "registered": 4,
+      "executed": 0,
+      "unused": 4,
+      "terminal": true
+    }
+  ],
+  "terminalBranchOutcomes": [
+    {
+      "branchId": "B1a",
+      "terminalOutcome": "terminal-refusal"
+    },
+    {
+      "branchId": "B1b",
+      "terminalOutcome": "terminal-refusal"
+    },
+    {
+      "branchId": "B2",
+      "terminalOutcome": "terminal-refusal"
+    },
+    {
+      "branchId": "B3",
+      "terminalOutcome": "terminal-non-identification"
+    },
+    {
+      "branchId": "B4",
+      "terminalOutcome": "terminal-refusal"
+    },
+    {
+      "branchId": "B5",
+      "terminalOutcome": "terminal-refusal"
+    }
+  ],
+  "unresolvedOperands": [
+    "B1A-COMPARISON-DOMAIN",
+    "B1A-CURRENT-PRINCETON-EDITION",
+    "B1A-PLANAR-FORCING-MAP",
+    "B1A-UNCERTAINTY-TREATMENT",
+    "B1B-ASYMMETRIC-VAPOR-TRANSFER",
+    "B1B-EVOLVING-GEOMETRY",
+    "B1B-LOCAL-TEMPERATURE-FORCING",
+    "B1B-LOCAL-VAPOR-FORCING",
+    "B1B-MATCHED-CROSS-PRESSURE-OBSERVATION",
+    "B1B-OBSERVATION-DOMAIN",
+    "B1B-SUPPORT-HEAT-PATH",
+    "B2-CHARACTERISTIC-SIZE-COVERAGE",
+    "B2-CONTROLLED-VELOCITY-DATASET",
+    "B2-DENSITY-COVERAGE",
+    "B2-DROPLET-STATE-COVERAGE",
+    "B2-METHOD-COVERAGE",
+    "B2-SPEED-COVERAGE",
+    "B2-SUPPORT-STATE-COVERAGE",
+    "B2-TEMPERATURE-COVERAGE",
+    "B2-TIME-COVERAGE",
+    "B2-VISCOSITY-COVERAGE",
+    "B3-CARRIER-GAS-AUDIT",
+    "B3-GEOMETRY-CONTROL",
+    "B3-HISTORY-CONTROL",
+    "B3-ISONO-CURRENCY",
+    "B3-LINEAGE",
+    "B3-MATCHED-OBSERVATION",
+    "B3-POINT-IDENTITY",
+    "B3-PRESSURE-OR-GAS-INTERVENTION",
+    "B3-SUPPORT-CONTROL",
+    "B3-TEMPERATURE-CONFLICT-DISPOSITION",
+    "B3-TEMPERATURE-CONTROL",
+    "B3-TWO-READER-OPERATOR",
+    "B3-UNCERTAINTY",
+    "B3-VENTILATION-CONTROL",
+    "B3-ZHAO-ROLE-AUDIT",
+    "B4-FINAL-THEORY-ARTICLE",
+    "B4-FORCING-SEMANTICS",
+    "B4-MEASUREMENT-METHODS",
+    "B4-SAME-LINEAGE-LINK",
+    "B5-FEATURE-ROSTER",
+    "B5-LOCAL-FORCING",
+    "B5-MATCHED-TRANSPORT",
+    "B5-MEDIA-ROSTER",
+    "B5-OBSERVATION-OPERATOR",
+    "B5-REPEATABILITY-AND-UNCERTAINTY",
+    "B5-SCALE-CALIBRATION",
+    "B5-TIME-CALIBRATION"
+  ],
+  "claimBoundary": {
+    "scopeCensusOnlyForAS": true,
+    "allOpenedSourceValuesArePhase10DevelopmentEvidence": true,
+    "quantitativeValidationEarned": false,
+    "phase7CreditEarned": false,
+    "phase8CreditEarned": false,
+    "phase9CreditEarned": false,
+    "heldOutComparisonExecuted": false,
+    "targetScoreProduced": false,
+    "solverPhysicsChanged": false,
+    "c1ThroughC5RowsProduced": false,
+    "habitRowsProduced": false,
+    "eObservationOperatorImplemented": false,
+    "fExternalRequestWrittenOrSent": false,
+    "hTransportImplemented": false,
+    "downstreamExecutionAuthorized": false,
+    "priorPhaseLabelsAndArtifactsPreserved": true
+  },
+  "artifacts": [
+    {
+      "artifactId": "b1a-result",
+      "path": "b1a-result.json",
+      "mediaType": "application/json",
+      "byteLength": 4263,
+      "sha256": "1b76fe5f6f6fea0a094f8c39b08b6ef30323a002b615a1b4cc9706dd6a299302",
+      "role": "terminal branch result",
+      "producedBy": "phase10-b1a-result-producer"
+    },
+    {
+      "artifactId": "b1a-search",
+      "path": "b1a-search.json",
+      "mediaType": "application/json",
+      "byteLength": 476,
+      "sha256": "7176996baeae41ac2b3f422514dcfd26e147b8efc381b2088ed81bcd263cb32f",
+      "role": "terminal search disposition",
+      "producedBy": "phase10-b1a-result-producer"
+    },
+    {
+      "artifactId": "b1b-result",
+      "path": "b1b-result.json",
+      "mediaType": "application/json",
+      "byteLength": 5629,
+      "sha256": "7eb37dc5230de5464e823115cb7bc4889abf337077e67b499eb7851c2ee7106c",
+      "role": "terminal branch result",
+      "producedBy": "phase10-b1b-result-producer"
+    },
+    {
+      "artifactId": "b1b-search",
+      "path": "b1b-search.json",
+      "mediaType": "application/json",
+      "byteLength": 658,
+      "sha256": "a1e62cd6bd8d71e8a9d117c974a9201e3095b70f47f2e338130ca326e840bf04",
+      "role": "terminal search disposition",
+      "producedBy": "phase10-b1b-result-producer"
+    },
+    {
+      "artifactId": "b2-result",
+      "path": "b2-result.json",
+      "mediaType": "application/json",
+      "byteLength": 6801,
+      "sha256": "1806deef72e6ccbf82c64cd107eec695274c9fbe58274d5bbb944422e7ebd740",
+      "role": "terminal branch result",
+      "producedBy": "phase10-b2-result-producer"
+    },
+    {
+      "artifactId": "b2-search",
+      "path": "b2-search.json",
+      "mediaType": "application/json",
+      "byteLength": 373,
+      "sha256": "ea4099be5b0a73593e1d338a9bfc89dbee1f74a746ee558f9d7e30b81b527176",
+      "role": "terminal search disposition",
+      "producedBy": "phase10-b2-result-producer"
+    },
+    {
+      "artifactId": "b3-result",
+      "path": "b3-result.json",
+      "mediaType": "application/json",
+      "byteLength": 9442,
+      "sha256": "b2fa37cee9428df48347cdfb8b2316dc8f2b67291345653a46e900010a219e3f",
+      "role": "terminal branch result",
+      "producedBy": "phase10-b3-result-producer"
+    },
+    {
+      "artifactId": "b3-search",
+      "path": "b3-search.json",
+      "mediaType": "application/json",
+      "byteLength": 669,
+      "sha256": "edc34e4027f5636703fdbc3f754ef0898778aef9ce3b0913c5b8378fd4bd0b36",
+      "role": "terminal search disposition",
+      "producedBy": "phase10-b3-result-producer"
+    },
+    {
+      "artifactId": "b4-result",
+      "path": "b4-result.json",
+      "mediaType": "application/json",
+      "byteLength": 4535,
+      "sha256": "a8eecad6e737a24566676d668f7154ad3d8b860228ab67365214de41e4ac92d9",
+      "role": "terminal branch result",
+      "producedBy": "phase10-b4-result-producer"
+    },
+    {
+      "artifactId": "b4-search",
+      "path": "b4-search.json",
+      "mediaType": "application/json",
+      "byteLength": 417,
+      "sha256": "d141e428a2f32e6f89ac5331b5ff53d32787a38c986053d122680abffbacd957",
+      "role": "terminal search disposition",
+      "producedBy": "phase10-b4-result-producer"
+    },
+    {
+      "artifactId": "b5-result",
+      "path": "b5-result.json",
+      "mediaType": "application/json",
+      "byteLength": 6267,
+      "sha256": "36dc947d53fce18fa01b2f98c02e9019042765d06e2b54fd925649e6a885e472",
+      "role": "terminal branch result",
+      "producedBy": "phase10-b5-result-producer"
+    },
+    {
+      "artifactId": "b5-search",
+      "path": "b5-search.json",
+      "mediaType": "application/json",
+      "byteLength": 565,
+      "sha256": "e449cbf26f3a6cf1caad8e2e5212fbf6ac36f502f57a4a28d436ff8683664bf3",
+      "role": "terminal search disposition",
+      "producedBy": "phase10-b5-result-producer"
+    }
+  ],
+  "producer": {
+    "producerId": "phase10-b-aggregate-producer",
+    "commit": "caf1392d175763ba40c3b5e86d29e68567a84da0",
+    "command": "node runner/src/phase10-b-branches.ts run-aggregate --repository-root .",
+    "startedOn": "2026-08-25T15:02:52.464Z",
+    "endedOn": "2026-08-25T15:02:52.465Z",
+    "actualConcurrency": 1
+  }
+}

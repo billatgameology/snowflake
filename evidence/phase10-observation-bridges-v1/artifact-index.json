@@ -1,0 +1,24 @@
+{
+  "schema": "phase10-artifact-index-v1",
+  "bundleId": "phase10-observation-bridges-v1",
+  "artifacts": [
+    {
+      "artifactId": "out-b-report",
+      "path": "report.json",
+      "mediaType": "application/json",
+      "byteLength": 9225,
+      "sha256": "440056007d52735a59145ca97fbfd7b67cb275bdf216ffe1138ef8e00c6d19da",
+      "role": "aggregate observation-bridge report",
+      "producedBy": "phase10-b-aggregate-producer"
+    },
+    {
+      "artifactId": "out-b-return-proposals",
+      "path": "return-proposals.json",
+      "mediaType": "application/json",
+      "byteLength": 6928,
+      "sha256": "7569e5b86d7cb3d84d196c12aec768345ee4ee7d525d9f3912b3eeb7eeb3d0bd",
+      "role": "return-only E/F/H proposal dispositions",
+      "producedBy": "phase10-b-aggregate-producer"
+    }
+  ]
+}
