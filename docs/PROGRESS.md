@@ -92,6 +92,12 @@ detail.
   charter v1.26 and `AGENTS.md` require integrity for routine sources, one targeted check for
   load-bearing inputs, and full named controls for gates or strong public claims. No recursive
   reviews; stop when another check cannot change the decision. No evidence or criteria changed.
+- **Maker verification boundary (2026-08-24).** Isolated website, gallery, animation-selection,
+  render-recipe, and batch-orchestration changes use focused tests, relevant typecheck/build checks,
+  and a live smoke or representative render. They do not trigger exact `npm test`, scientific gates,
+  or unrelated solver suites unless they also change a scientific, evidence, gate, or root-wide
+  contract. `AGENTS.md` Rule 6 is the durable operating rule; completed records still state checks
+  that actually ran but do not establish precedent.
 - **The GG gut-check catalogue now leads with its image-bearing generated sweep (2026-08-23).**
   The governed NAS split intentionally leaves historical mixed comparison/reference media
   unserved, but 89 project-generated PNG renders remain public and healthy. The index formerly
@@ -120,8 +126,8 @@ detail.
   direction) and content stays in-repo unpublished, `test.yml` CI unaffected. Reconciliation is
   a live decision point under **Next step**. Full freeze history:
   [the history file](progress-history-phases-6-8-9.md).
-- **Last updated:** 2026-08-24 (completed safe pre-sweep figure previews and the second-host worker
-  guide; no phase or evidence change)
+- **Last updated:** 2026-08-24 (recorded the maker's product-sized verification boundary for
+  website and animation work; no phase or evidence change)
 
 ## Phase gates
 
@@ -197,6 +203,10 @@ The context-free setup, resume, and reporting procedure is in
 The local, non-NAS dry-run form is:
 
 `node scripts/gutcheck-animation-queue.ts run --batch <batch-a.json> --dry-run`
+
+This operational selection/render path uses the focused queue checks, dry run, and a representative
+sample render defined by `AGENTS.md` Rule 6. Do not run the full scientific suite unless later work
+crosses into a scientific, evidence, gate, or root-wide contract.
 
 ### Phase 10 — planning complete; maker package selection pending
 

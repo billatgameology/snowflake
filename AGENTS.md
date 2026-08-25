@@ -256,7 +256,9 @@ node runner/src/main.ts gate2b
 ```
 
 - `npm test` runs the Rule 7 scan, strict typecheck, and all Vitest suites. It is the required
-  local check, but a green self-test is not sufficient evidence for a scientific gate.
+  full check for the scientific and cross-cutting changes named in Rule 6; it is not the default
+  check for isolated website, presentation, or animation-orchestration work. A green self-test is
+  not sufficient evidence for a scientific gate.
 - `grow` is observational unless the appropriate enforcement flag is present. Printed metrics
   do not turn exit 0 into a gate result.
 - `grow-lk` is exploratory. `gate2b` is flagless because it encodes the pre-registered protocol;
@@ -391,13 +393,31 @@ Scientific milestones are **automated metrics, not screenshots** (§3.3). So:
   paragraph, and the `5463e76` retraction of the Phase 6 structural bound, whose script
   counted sigma_0 crossings while the claim governed habit — which depends on the full
   attachment coefficient alphaHK, a different quantity with a different crossing count.
-- **For executable code, tests, build configuration, gate/evidence generation or verification,
-  or any change whose governing plan names the full suite, the required local check is exact
-  `npm test`, and nothing else counts as it.** A green `npx vitest run` omits the Rule 7 scan
-  and both typechecks; quoting it as verification is how 319 scan violations merged to `main`
-  unnoticed on 2026-07-29. Pure prose, source-index, and governance edits use the cheapest check
-  that covers their actual failure surfaces, including the Rule 7 scan when repository prose
-  changes, and are never described as "suite green." Name the exact command beside any claim.
+- **Choose verification by the surface and decision risk before running it.** Exact `npm test` is
+  required when a change touches numerical or scientific behavior in `core/`, `solver-cpu/`, or
+  `solver-gpu/`; scientific readout or claim logic; a phase gate; evidence generation,
+  verification, integrity, or publication; root-wide test/build configuration; or a mixture of
+  those surfaces with product code. It also remains required when a charter or accepted ADR names
+  it for that exact scope. A green `npx vitest run` does not substitute for the full check in those
+  cases: it omits the Rule 7 scan and both typechecks, which is how 319 scan violations merged to
+  `main` unnoticed on 2026-07-29.
+- **Isolated product work stops at product-sized checks.** A presentation-only website, gallery,
+  selection UI, animation queue, camera/render recipe, or batch-orchestration change that does not
+  alter solver behavior, scientific readouts or claims, evidence, or gates uses the focused Vitest
+  files for the changed boundary, `npm run typecheck`, the app build when bundled app code changes,
+  and a live browser smoke, dry run, or representative sample render as applicable. When those pass,
+  stop. Do not run exact `npm test`, scientific gates, or unrelated solver suites merely because a
+  TypeScript file changed or because extra confidence feels desirable.
+- A plan for isolated product work must not add exact `npm test` as a default done criterion. If an
+  inherited plan does so without a scientific or cross-cutting failure surface, amend the plan to
+  this rule before continuing; a completed historical record still reports what actually ran but
+  is not precedent for repeating it.
+- Pure prose, source-index, and governance edits use the cheapest check that covers their actual
+  failure surfaces, including the Rule 7 scan when repository prose changes, and are never
+  described as "suite green." Name the exact command beside any claim.
+- Before starting any check expected to take more than five minutes, tell the maker which required
+  failure surface it covers and that it is starting. If the check is not required by the tiers
+  above and a cheaper check covers the changed boundary, do not launch it.
 
 ## Rule 7 — A bare `alpha` is banned from this repository
 

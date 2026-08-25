@@ -176,6 +176,16 @@ Follow-up verification passed:
 - `npm run build --workspace app`
 - exact `npm test`
 
+### Process correction after completion
+
+Maker direction on 2026-08-24 supersedes the verification precedent implied by this plan's original
+done criteria. The full-suite runs above are retained as an accurate historical record, but they
+were disproportionate for isolated website and animation-orchestration work and must not be copied
+into a later product task. Future work on this queue follows `AGENTS.md` Rule 6: focused queue/UI
+tests, relevant typecheck and app build, then a live smoke, dry run, or representative sample render.
+Exact `npm test` and scientific gate suites apply only if the change crosses into their scientific,
+evidence, gate, or root-wide contracts.
+
 ### Follow-up tried and rejected
 
 - **Re-serve the historical composites from private quarantine.** Rejected: their target halves are
