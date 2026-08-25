@@ -1488,6 +1488,76 @@
       ]
     },
     {
+      "assetId": "phase10-source-intake",
+      "version": "2026-08-21-v1",
+      "state": "provisional",
+      "ownerWorkstream": "phase-10-evidence-verification",
+      "locator": "collections/phase10-source-intake/2026-08-21-v1/payload",
+      "historicalRepoPath": "out/phase10-execution-v1/attempts/b-acquisition/p10-acquisition-round-01-v1/payload",
+      "legacyAliases": [],
+      "storageClass": "private-source",
+      "aggregate": {
+        "files": 0,
+        "bytes": 0
+      },
+      "ownerManifest": null,
+      "rights": {
+        "kind": "restricted-third-party",
+        "redistribution": "restricted"
+      },
+      "privacy": "private",
+      "serve": {
+        "policy": "deny",
+        "prefixes": []
+      },
+      "retention": {
+        "policy": "maker-approved-delete-only",
+        "garbageCollection": {
+          "policy": "plan-only",
+          "graceDays": null,
+          "approver": "maker"
+        }
+      },
+      "mutability": "immutable",
+      "externalEvidenceAuthority": null,
+      "provenance": {
+        "record": "docs/plans/phase-10-evidence-verification-execution.md",
+        "producerCommit": null,
+        "command": "node runner/src/phase10-b-acquisition.ts run --repository-root ."
+      },
+      "reproducibility": {
+        "kind": "source-origin",
+        "record": "research/phase10-execution-v1/packets/b-acquisition/acquisition-protocol.json"
+      },
+      "restore": {
+        "status": "documented",
+        "command": "npm run assets:restore -- --collection phase10-source-intake@2026-08-21-v1 --to out/restores/phase10-source-intake-2026-08-21-v1",
+        "verifyCommand": "npm run assets:verify-restored -- --collection phase10-source-intake@2026-08-21-v1 --from out/restores/phase10-source-intake-2026-08-21-v1",
+        "record": "docs/plans/phase-10-evidence-verification-execution.md"
+      },
+      "verification": {
+        "status": "unavailable",
+        "at": null,
+        "host": null,
+        "receipt": null,
+        "limits": [
+          "The collection is only a zero-byte publication intent until the frozen B acquisition round lawfully obtains source bytes."
+        ]
+      },
+      "storageDomains": [
+        "snowcrystal-nas"
+      ],
+      "backup": {
+        "status": "required-missing",
+        "independentDomains": [],
+        "receipts": []
+      },
+      "supersedes": [],
+      "unresolved": [
+        "Publication, private owner-manifest binding, full verification, and fresh restore remain contingent on the frozen six-target acquisition round obtaining new lawful bytes."
+      ]
+    },
+    {
       "assetId": "research-copy-verification-residue",
       "version": "2026-08-10",
       "state": "unavailable",

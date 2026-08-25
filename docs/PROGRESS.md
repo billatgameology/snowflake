@@ -467,14 +467,18 @@ does not claim Phase 10 completion under the current charter; a permanent waiver
 separate maker-approved ADR and matching charter edit. No recovery work resumes without explicit
 maker direction.
 
-B is independently eligible. Implement only the vertical `b-acquisition` packet registered in
-`research/phase10-obligation-matrix-v1.json`: the six named acquisition targets, its three outputs,
-two checks, exact refusal outcomes, and no generalized packet framework. The first freeze adds
-`research/phase10-execution-v1/packets/b-acquisition/protocol.json`, its callable registry, and the
-smallest producer/verifier path needed to terminally disposition the six targets. Use focused checks
-while it moves and one bounded review only after the interface is stable. Commit that value-free
-freeze before the registered read-only `check` and sole `run`; do not broaden search, contact a
-provider, purchase access, or implement E/F/H.
+B is independently eligible. The current worktree now contains only the vertical `b-acquisition`
+implementation registered in `research/phase10-obligation-matrix-v1.json`: the exact target roster
+in `research/phase10-execution-v1/packets/b-acquisition/acquisition-protocol.json`, resolved
+producer/check/verifier callables, the one reserved NAS-disposition schema promotion, a provisional
+zero-byte private-NAS intent, and one focused lifecycle test. `npm run typecheck` and
+`npx vitest run runner/test/phase10-b-acquisition.test.ts` pass. The one exact `npm test` invocation
+passed Rule 7 and both typechecks and ran all 163 Vitest files; 162 passed, while the fixed NAS census
+expectation omitted the new provisional zero-byte collection. The one-row repair passes its focused
+file 8/8; the other 162 unchanged files are not being rerun. No network request or NAS write has run.
+Commit and push this value-free freeze, then execute only
+`node runner/src/phase10-b-acquisition.ts run --repository-root .` once. Do not broaden search,
+contact a provider, purchase access, add an assurance framework, or implement E/F/H.
 
 The A-P PASS dependency is committed at `63ca13c`; A-S PASS is committed at `78c1875`. A-I's
 observation/decision/review inputs are committed at `9fb2e1b`, and its eight-file structural PASS

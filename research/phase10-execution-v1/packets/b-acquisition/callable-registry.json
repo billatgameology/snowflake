@@ -1,0 +1,80 @@
+{
+  "schema": "phase10-callable-registry-v1",
+  "registryId": "phase10-b-acquisition-resolved-callables-v1",
+  "matrixId": "phase10-selected-package-obligations-v1",
+  "protocolId": "phase10-b-acquisition-v1",
+  "packetId": "b-acquisition",
+  "callables": [
+    {
+      "callableId": "phase10-b-acquisition-check-caller",
+      "role": "check-caller",
+      "resolution": "resolved",
+      "modulePath": "runner/src/phase10-b-acquisition-checks.ts",
+      "exportName": "phase10BAcquisitionCheckCaller",
+      "identity": {
+        "byteLength": 315,
+        "sha256": "1ee74bb363dbe225720c9ae1299622c5dea27de51075d4655b9d7a5347e0618f"
+      },
+      "producedOutputIds": [],
+      "invokedCheckIds": [
+        "chk-b-acquisition-nas-receipt-or-na",
+        "chk-b-acquisition-six-targets"
+      ],
+      "evaluatedCheckIds": [],
+      "executedNegativeControlIds": []
+    },
+    {
+      "callableId": "phase10-b-acquisition-producer",
+      "role": "producer",
+      "resolution": "resolved",
+      "modulePath": "runner/src/phase10-b-acquisition.ts",
+      "exportName": "producePhase10BAcquisition",
+      "identity": {
+        "byteLength": 47793,
+        "sha256": "06529eeec9b4d2db27e05bccc27023edfc9fb6d78b96ad99776f446dd889eb4b"
+      },
+      "producedOutputIds": [
+        "out-b-acquisition-nas-publication",
+        "out-b-acquisition-round"
+      ],
+      "invokedCheckIds": [],
+      "evaluatedCheckIds": [],
+      "executedNegativeControlIds": []
+    },
+    {
+      "callableId": "phase10-b-acquisition-verification-receipt-writer",
+      "role": "producer",
+      "resolution": "resolved",
+      "modulePath": "runner/src/phase10-b-acquisition.ts",
+      "exportName": "writePhase10BAcquisitionVerificationReceipt",
+      "identity": {
+        "byteLength": 47793,
+        "sha256": "06529eeec9b4d2db27e05bccc27023edfc9fb6d78b96ad99776f446dd889eb4b"
+      },
+      "producedOutputIds": [
+        "out-b-acquisition-verification"
+      ],
+      "invokedCheckIds": [],
+      "evaluatedCheckIds": [],
+      "executedNegativeControlIds": []
+    },
+    {
+      "callableId": "phase10-b-acquisition-verifier",
+      "role": "independent-evaluator",
+      "resolution": "resolved",
+      "modulePath": "runner/src/phase10-b-acquisition-verify.ts",
+      "exportName": "phase10BAcquisitionVerify",
+      "identity": {
+        "byteLength": 23192,
+        "sha256": "229c9ac1680fe51c55b85cca9ddb39a47522e23f46f0677f302c4daede59c0f9"
+      },
+      "producedOutputIds": [],
+      "invokedCheckIds": [],
+      "evaluatedCheckIds": [
+        "chk-b-acquisition-nas-receipt-or-na",
+        "chk-b-acquisition-six-targets"
+      ],
+      "executedNegativeControlIds": []
+    }
+  ]
+}

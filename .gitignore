@@ -31,6 +31,8 @@ research/*
 !research/phase10-c0v-schema-contracts-v1.json
 !research/phase10-c0v-s6-artifact-schema-registry-v1.json
 !research/phase10-c0v-s6-schema-contracts-v1.json
+!research/phase10-b-artifact-schema-registry-v1.json
+!research/phase10-b-schema-contracts-v1.json
 !research/phase10-c0v-s6-obligation-matrix-v1.json
 !research/phase10-c0-protocol-v1.json
 !research/phase10-c0v-foundation-v1.json

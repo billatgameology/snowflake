@@ -2351,6 +2351,26 @@ charter edit. B is already independently eligible, so the active vertical delive
 finite six-target `b-acquisition` packet. Implement only that packet and the smallest focused checks
 needed to execute it; do not generalize another lifecycle or assurance framework.
 
+### S7 B acquisition implementation checkpoint — 2026-08-24
+
+The value-free `b-acquisition` vertical is implemented without a generalized launcher or new
+negative-control campaign. Its acquisition protocol freezes the matrix-named source roster to one
+official endpoint and one request per target, with no retry, credential, purchase, provider contact,
+broad discovery, recursive citation chase, or experiment. The resolved packet callables produce the
+acquisition round and NAS receipt-or-not-applicable disposition, call the two matrix checks, and
+independently verify the exact roster. The sole schema change promotes the already-reserved
+`phase10-nas-publication-disposition-v1`; all predecessor registry definitions remain unchanged.
+
+The focused command
+`npx vitest run runner/test/phase10-b-acquisition.test.ts` passes the frozen roster, schema promotion,
+response classification, and a synthetic complete refusal branch. `npm run typecheck` also passes.
+The one exact `npm test` invocation passed Rule 7 and both typechecks and ran all 163 Vitest files:
+162 passed and the sole failure was the fixed NAS census expectation omitting this packet's new
+provisional zero-byte collection. Adding that one expected row made the focused catalogue file pass
+8/8; no production behavior changed, so the other 162 files are not being rerun. No endpoint request,
+source-byte acquisition, NAS transaction, candidate publication, or evidence publication has run.
+Next, commit and push the value-free freeze before executing the sole registered acquisition command.
+
 ### Rejected native pre-Node launcher design (retained history; do not implement)
 
 **Superseded by maker direction on 2026-08-22.** The detail below records the design that exposed

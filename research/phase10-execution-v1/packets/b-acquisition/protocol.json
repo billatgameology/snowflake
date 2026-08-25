@@ -1,0 +1,27 @@
+{
+  "schema": "phase10-packet-protocol-v1",
+  "protocolId": "phase10-b-acquisition-v1",
+  "matrixId": "phase10-selected-package-obligations-v1",
+  "packetId": "b-acquisition",
+  "artifactSchemaRegistry": {
+    "path": "research/phase10-b-artifact-schema-registry-v1.json",
+    "byteLength": 117350,
+    "sha256": "dd28589bcf1c970752d9c8ad76cb883525642ea1464a6f8c6d9ed17abb854505"
+  },
+  "selectedBranches": [],
+  "registeredOutputIds": [
+    "out-b-acquisition-nas-publication",
+    "out-b-acquisition-round",
+    "out-b-acquisition-verification"
+  ],
+  "registeredCheckIds": [
+    "chk-b-acquisition-nas-receipt-or-na",
+    "chk-b-acquisition-six-targets"
+  ],
+  "registeredNegativeControlIds": [],
+  "boundDependencyPacketIds": [
+    "a-i",
+    "a-p",
+    "a-s"
+  ]
+}

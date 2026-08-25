@@ -157,6 +157,7 @@ describe("tracked NAS asset catalogue", () => {
       "gutcheck-workspace-remainder@2026-08-15": ["unavailable", 369, 167584091],
       "gutcheck-retained-archives@2026-08-07": ["provisional", 6, 10721854876],
       "out-legacy-scratch-archives@2026-08-15": ["provisional", 2, 41999619],
+      "phase10-source-intake@2026-08-21-v1": ["provisional", 0, 0],
       "phase9-failed-debug@2026-08-13": ["provisional", 10, 85153],
       "phase6-arm64-host-record@2026-08-12": ["provisional", 55, 43644],
       "wp3-phase4-review@2026-08-12": ["provisional", 21, 2530556],

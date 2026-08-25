@@ -1,0 +1,3376 @@
+{
+  "schema": "phase10-artifact-schema-registry-v1",
+  "createdOn": "2026-08-21",
+  "foundationFreeze": {
+    "path": "research/phase10-foundation-freeze-v1.json",
+    "byteLength": 32327,
+    "sha256": "7847f26a24d1a09eefc6b15ed07baf1d007782fdd58c3301e3f926e4c8805871"
+  },
+  "conformance": {
+    "unknownFieldsRejected": true,
+    "optionalSemanticFieldsAllowed": false,
+    "absentScalarRepresentation": null,
+    "absentCollectionRepresentation": "empty-array",
+    "finiteNumbersRequired": true,
+    "sha256Format": "lowercase 64-character hexadecimal",
+    "jsonEncoding": "UTF-8",
+    "jsonIndentSpaces": 2,
+    "terminalNewlineRequired": true,
+    "jsonlRecordEncoding": "one exact-key JSON object per LF-terminated line",
+    "identityArraysSortedAndUnique": true,
+    "producerVerdictsTrustedByEvaluators": false,
+    "independentEvaluatorRule": "An independent evaluator may share strict parsers and canonical byte helpers but may not import producer decision logic; it re-derives the registered verdict from artifact bytes."
+  },
+  "enums": {
+    "acquisitionTerminalDisposition": [
+      "acquired-and-bound",
+      "already-held-and-bound",
+      "identity-ambiguous",
+      "not-found",
+      "resource-refusal",
+      "rights-blocked",
+      "unavailable"
+    ],
+    "apparatusCompatibility": [
+      "adapter-required",
+      "direct",
+      "incompatible",
+      "source-blocked"
+    ],
+    "branchId": [
+      "B1a",
+      "B1b",
+      "B2",
+      "B3",
+      "B4",
+      "B5"
+    ],
+    "branchTerminalOutcome": [
+      "eligible-bridge",
+      "eligible-dataset",
+      "eligible-observable",
+      "terminal-categorical-only",
+      "terminal-non-identification",
+      "terminal-refusal"
+    ],
+    "callableRole": [
+      "check-caller",
+      "independent-evaluator",
+      "negative-control",
+      "producer"
+    ],
+    "currencyComponentStatus": [
+      "checked-bound",
+      "checked-none-found",
+      "not-applicable",
+      "unresolved"
+    ],
+    "currencyTerminalDisposition": [
+      "correction-bound",
+      "current-no-change",
+      "priority-lead-unavailable",
+      "source-refusal",
+      "version-bound"
+    ],
+    "decisionEligibility": [
+      "categorical-only",
+      "diagnostic-only",
+      "quantitative",
+      "refused"
+    ],
+    "downstreamCandidateKind": [
+      "E",
+      "F",
+      "H"
+    ],
+    "duplicateStatus": [
+      "canonical",
+      "distinct",
+      "exact-duplicate",
+      "malformed-acquisition-copy",
+      "near-duplicate",
+      "not-applicable"
+    ],
+    "evaluatorVerdict": [
+      "fail",
+      "no-decision",
+      "pass",
+      "refusal"
+    ],
+    "immutableEvidenceRole": [
+      "descriptive-only",
+      "phase8a-historical-held-out-no-current-gate-effect",
+      "phase8a-historical-input",
+      "phase8a-historical-model-development",
+      "phase8a-historical-out-of-model",
+      "phase8b-development"
+    ],
+    "identityStatus": [
+      "ambiguous",
+      "unavailable",
+      "verified"
+    ],
+    "modelClassScope": [
+      "in",
+      "mixed",
+      "out",
+      "unresolved"
+    ],
+    "operandStatus": [
+      "calibration-missing",
+      "edition-incomplete",
+      "identity-ambiguous",
+      "incompatible",
+      "mapping-missing",
+      "missing",
+      "non-identifying",
+      "not-applicable",
+      "operator-missing",
+      "resource-refused",
+      "rights-blocked",
+      "satisfied",
+      "source-incomplete",
+      "transport-missing",
+      "uncertainty-missing",
+      "unavailable",
+      "uninspected",
+      "version-incomplete"
+    ],
+    "phenomenonClass": [
+      "aggregation",
+      "impurity-or-chemistry",
+      "mixed-or-uncertain",
+      "nucleation",
+      "polycrystal-or-twin",
+      "riming-or-graupel",
+      "single-crystal"
+    ],
+    "phaseOwnership": [
+      "outside-phase7-and-phase10",
+      "phase10-development",
+      "phase7-held-out-product-gpu-obligation",
+      "shared-read-only-input"
+    ],
+    "purposeRole": [
+      "apparatus",
+      "calibration-media",
+      "mapping",
+      "method",
+      "observation",
+      "provenance-only",
+      "reproducibility-only",
+      "theory",
+      "transport"
+    ],
+    "refusalClass": [
+      "calibration",
+      "compatibility",
+      "edition",
+      "identity-version",
+      "infrastructure",
+      "mapping",
+      "non-identification",
+      "observation-operator",
+      "resource",
+      "rights",
+      "source",
+      "transport",
+      "uncertainty"
+    ],
+    "representabilityBlockerKind": [
+      "missing-forcing-map",
+      "missing-observation-operator",
+      "missing-physical-operator",
+      "numerical-inadequacy",
+      "other"
+    ],
+    "rightsStatus": [
+      "public-redistributable",
+      "restricted-third-party",
+      "unknown"
+    ],
+    "searchTerminalDisposition": [
+      "cap-exhausted",
+      "identity-ambiguous",
+      "not-found",
+      "resource-refusal",
+      "rights-blocked",
+      "source-bound",
+      "unavailable"
+    ],
+    "versionStatus": [
+      "current-checked",
+      "not-applicable",
+      "partial",
+      "superseded",
+      "uncertain"
+    ],
+    "workPackage": [
+      "A-I",
+      "A-P",
+      "A-S",
+      "B",
+      "C0",
+      "C0V",
+      "closure"
+    ]
+  },
+  "definitions": [
+    {
+      "definitionId": "artifact-tuple-v1",
+      "exactFields": [
+        "path",
+        "byteLength",
+        "sha256"
+      ],
+      "fieldContracts": {
+        "path": "nonempty repository-relative or governed-NAS-relative string",
+        "byteLength": "nonnegative safe integer",
+        "sha256": "sha256"
+      },
+      "invariants": [
+        "All three fields describe the same immutable bytes."
+      ]
+    },
+    {
+      "definitionId": "protocol-binding-v1",
+      "exactFields": [
+        "path",
+        "byteLength",
+        "sha256",
+        "commit"
+      ],
+      "fieldContracts": {
+        "path": "nonempty repository-relative string",
+        "byteLength": "nonnegative safe integer",
+        "sha256": "sha256",
+        "commit": "40-character Git commit"
+      },
+      "invariants": [
+        "The protocol commit precedes the deciding producer invocation."
+      ]
+    },
+    {
+      "definitionId": "citation-ref-v1",
+      "exactFields": [
+        "refId",
+        "kind",
+        "locator",
+        "artifact",
+        "recordId"
+      ],
+      "fieldContracts": {
+        "refId": "stable unique string",
+        "kind": "charter | tracked-record | nas-private-source | external-metadata",
+        "locator": "rights-safe locator string",
+        "artifact": "artifact-tuple-v1 or null",
+        "recordId": "string or null"
+      },
+      "invariants": [
+        "A private source reference exposes no restricted bytes or copied passage."
+      ]
+    },
+    {
+      "definitionId": "immutable-source-field-v1",
+      "exactFields": [
+        "field",
+        "value",
+        "canonicalSha256"
+      ],
+      "fieldContracts": {
+        "field": "source field name",
+        "value": "strict JSON value copied from the frozen metadata record",
+        "canonicalSha256": "SHA-256 of project canonical JSON bytes for value"
+      },
+      "invariants": [
+        "The value is metadata only and is verified against the frozen source record."
+      ]
+    },
+    {
+      "definitionId": "source-record-join-v1",
+      "exactFields": [
+        "sourceArtifact",
+        "sourceRecordId",
+        "sourceRecordCanonicalSha256",
+        "frozenRoleFields"
+      ],
+      "fieldContracts": {
+        "sourceArtifact": "artifact-tuple-v1",
+        "sourceRecordId": "stable source ID",
+        "sourceRecordCanonicalSha256": "SHA-256 of project canonical JSON bytes for the complete source record",
+        "frozenRoleFields": "sorted nonempty immutable-source-field-v1 array"
+      },
+      "invariants": [
+        "Phase 8A binds role and partition; Phase 8B binds split, phase9EvidenceRole, and binding.",
+        "No title or filename-only join is accepted."
+      ]
+    },
+    {
+      "definitionId": "scope-reason-v1",
+      "exactFields": [
+        "status",
+        "reason",
+        "citationRefs"
+      ],
+      "fieldContracts": {
+        "status": "enum:modelClassScope",
+        "reason": "nonempty paraphrased reason",
+        "citationRefs": "nonempty sorted unique citation-ref-v1 array"
+      },
+      "invariants": [
+        "A current representability blocker alone cannot justify permanent out-of-model scope."
+      ]
+    },
+    {
+      "definitionId": "representability-blocker-v1",
+      "exactFields": [
+        "operandId",
+        "kind",
+        "detail",
+        "citationRefs"
+      ],
+      "fieldContracts": {
+        "operandId": "stable unique operand ID",
+        "kind": "enum:representabilityBlockerKind",
+        "detail": "nonempty paraphrased detail",
+        "citationRefs": "sorted unique citation-ref-v1 array"
+      },
+      "invariants": [
+        "Kind other requires a specifically named blocker."
+      ]
+    },
+    {
+      "definitionId": "apparatus-compatibility-v1",
+      "exactFields": [
+        "status",
+        "reason",
+        "citationRefs"
+      ],
+      "fieldContracts": {
+        "status": "enum:apparatusCompatibility",
+        "reason": "nonempty paraphrased reason",
+        "citationRefs": "nonempty sorted unique citation-ref-v1 array"
+      },
+      "invariants": []
+    },
+    {
+      "definitionId": "decision-eligibility-v1",
+      "exactFields": [
+        "status",
+        "blockingOperandIds",
+        "reason"
+      ],
+      "fieldContracts": {
+        "status": "enum:decisionEligibility",
+        "blockingOperandIds": "sorted unique stable operand ID array",
+        "reason": "nonempty paraphrased reason"
+      },
+      "invariants": [
+        "Refused requires at least one blocking operand.",
+        "Quantitative has no blocking operand for the named decision."
+      ]
+    },
+    {
+      "definitionId": "private-source-binding-v1",
+      "exactFields": [
+        "collectionId",
+        "ownerManifest",
+        "relativePath",
+        "byteLength",
+        "sha256"
+      ],
+      "fieldContracts": {
+        "collectionId": "governed collection ID",
+        "ownerManifest": "artifact-tuple-v1",
+        "relativePath": "collection-relative path",
+        "byteLength": "nonnegative safe integer",
+        "sha256": "sha256"
+      },
+      "invariants": [
+        "The path never resolves through a served prefix.",
+        "The owner manifest independently contains the exact byte tuple."
+      ]
+    },
+    {
+      "definitionId": "custody-binding-v1",
+      "exactFields": [
+        "intakeArtifact",
+        "collectionId",
+        "ownerManifest",
+        "relativePath",
+        "role",
+        "byteLength",
+        "sha256"
+      ],
+      "fieldContracts": {
+        "intakeArtifact": "artifact-tuple-v1",
+        "collectionId": "governed collection ID",
+        "ownerManifest": "artifact-tuple-v1",
+        "relativePath": "collection-relative path",
+        "role": "exact intake role string",
+        "byteLength": "nonnegative safe integer",
+        "sha256": "sha256"
+      },
+      "invariants": [
+        "The tuple is present in both the tracked intake record and private owner manifest."
+      ]
+    },
+    {
+      "definitionId": "persistent-id-v1",
+      "exactFields": [
+        "scheme",
+        "value"
+      ],
+      "fieldContracts": {
+        "scheme": "nonempty normalized scheme",
+        "value": "nonempty identity value"
+      },
+      "invariants": []
+    },
+    {
+      "definitionId": "identity-disposition-v1",
+      "exactFields": [
+        "status",
+        "canonicalCitation",
+        "persistentIds"
+      ],
+      "fieldContracts": {
+        "status": "enum:identityStatus",
+        "canonicalCitation": "rights-safe citation string or null",
+        "persistentIds": "sorted unique persistent-id-v1 array"
+      },
+      "invariants": [
+        "Verified requires a non-null citation or persistent ID."
+      ]
+    },
+    {
+      "definitionId": "version-disposition-v1",
+      "exactFields": [
+        "status",
+        "editionOrRelease",
+        "correctionStatus",
+        "supplementStatus",
+        "currentnessSnapshotId"
+      ],
+      "fieldContracts": {
+        "status": "enum:versionStatus",
+        "editionOrRelease": "rights-safe version identity or null",
+        "correctionStatus": "enum:currencyComponentStatus",
+        "supplementStatus": "enum:currencyComponentStatus",
+        "currentnessSnapshotId": "currency snapshot ID or null"
+      },
+      "invariants": []
+    },
+    {
+      "definitionId": "rights-disposition-v1",
+      "exactFields": [
+        "status",
+        "redistribution",
+        "trackedDerivativePolicy",
+        "nasStorageRequired"
+      ],
+      "fieldContracts": {
+        "status": "enum:rightsStatus",
+        "redistribution": "allowed | restricted | unknown",
+        "trackedDerivativePolicy": "metadata-only | project-derived-summary-authorized | redistributable",
+        "nasStorageRequired": "boolean"
+      },
+      "invariants": [
+        "Restricted or unknown defaults to metadata-only unless a specific disposition authorizes more."
+      ]
+    },
+    {
+      "definitionId": "lineage-disposition-v1",
+      "exactFields": [
+        "lineageId",
+        "laboratoryOrProjectId",
+        "methodId",
+        "campaignId",
+        "relatedPayloadIds"
+      ],
+      "fieldContracts": {
+        "lineageId": "stable lineage ID",
+        "laboratoryOrProjectId": "stable ID or null",
+        "methodId": "stable ID or null",
+        "campaignId": "stable ID or null",
+        "relatedPayloadIds": "sorted unique payload ID array"
+      },
+      "invariants": []
+    },
+    {
+      "definitionId": "duplicate-disposition-v1",
+      "exactFields": [
+        "status",
+        "canonicalPayloadId",
+        "basis"
+      ],
+      "fieldContracts": {
+        "status": "enum:duplicateStatus",
+        "canonicalPayloadId": "payload ID or null",
+        "basis": "digest | identity-version | manual-audit | not-applicable"
+      },
+      "invariants": [
+        "A duplicate status other than canonical, distinct, or not-applicable requires a canonical payload ID."
+      ]
+    },
+    {
+      "definitionId": "purpose-disposition-v1",
+      "exactFields": [
+        "candidateBranches",
+        "role",
+        "reason",
+        "routingState"
+      ],
+      "fieldContracts": {
+        "candidateBranches": "sorted unique enum:branchId array",
+        "role": "enum:purposeRole",
+        "reason": "nonempty paraphrased reason",
+        "routingState": "candidate-uninspected | confirmed | refused"
+      },
+      "invariants": [
+        "Candidate-uninspected conveys no eligibility."
+      ]
+    },
+    {
+      "definitionId": "date-window-v1",
+      "exactFields": [
+        "from",
+        "through"
+      ],
+      "fieldContracts": {
+        "from": "ISO date",
+        "through": "ISO date"
+      },
+      "invariants": [
+        "From is not later than through."
+      ]
+    },
+    {
+      "definitionId": "currency-query-v1",
+      "exactFields": [
+        "queryId",
+        "serviceId",
+        "endpoint",
+        "query",
+        "executedOn"
+      ],
+      "fieldContracts": {
+        "queryId": "stable unique query ID",
+        "serviceId": "service identity",
+        "endpoint": "exact endpoint identity",
+        "query": "exact rights-safe query text",
+        "executedOn": "ISO date"
+      },
+      "invariants": []
+    },
+    {
+      "definitionId": "currency-candidate-v1",
+      "exactFields": [
+        "candidateId",
+        "identity",
+        "locator",
+        "relation",
+        "disposition"
+      ],
+      "fieldContracts": {
+        "candidateId": "stable unique candidate ID",
+        "identity": "rights-safe identity",
+        "locator": "rights-safe locator",
+        "relation": "correction | version | supplement | native-data | later-output | unrelated",
+        "disposition": "bound | no-change | unavailable | rejected | unresolved"
+      },
+      "invariants": []
+    },
+    {
+      "definitionId": "search-service-v1",
+      "exactFields": [
+        "serviceId",
+        "endpoint"
+      ],
+      "fieldContracts": {
+        "serviceId": "stable service identity",
+        "endpoint": "exact endpoint identity"
+      },
+      "invariants": []
+    },
+    {
+      "definitionId": "search-query-v1",
+      "exactFields": [
+        "queryId",
+        "serviceId",
+        "query"
+      ],
+      "fieldContracts": {
+        "queryId": "stable unique query ID",
+        "serviceId": "registered service ID",
+        "query": "exact rights-safe query text"
+      },
+      "invariants": []
+    },
+    {
+      "definitionId": "search-candidate-v1",
+      "exactFields": [
+        "candidateId",
+        "identity",
+        "locator",
+        "dedupKey",
+        "disposition",
+        "reason"
+      ],
+      "fieldContracts": {
+        "candidateId": "stable unique candidate ID",
+        "identity": "rights-safe identity",
+        "locator": "rights-safe locator",
+        "dedupKey": "normalized persistent identity or locator",
+        "disposition": "bound | backlog | rejected | unavailable | rights-blocked | identity-ambiguous",
+        "reason": "nonempty paraphrased reason"
+      },
+      "invariants": [
+        "Candidate count is measured after exact dedupKey deduplication."
+      ]
+    },
+    {
+      "definitionId": "operand-disposition-v1",
+      "exactFields": [
+        "operandId",
+        "status",
+        "refusalClass",
+        "supportingArtifactRefs",
+        "reason"
+      ],
+      "fieldContracts": {
+        "operandId": "registered operand ID",
+        "status": "enum:operandStatus",
+        "refusalClass": "enum:refusalClass or null",
+        "supportingArtifactRefs": "sorted unique artifact or source binding ID array",
+        "reason": "nonempty paraphrased reason"
+      },
+      "invariants": [
+        "Satisfied and not-applicable have null refusalClass.",
+        "A blocking terminal status has a non-null refusalClass."
+      ]
+    },
+    {
+      "definitionId": "branch-source-binding-v1",
+      "exactFields": [
+        "bindingId",
+        "sourceKind",
+        "payloadId",
+        "artifact",
+        "privateSource",
+        "developmentEvidence"
+      ],
+      "fieldContracts": {
+        "bindingId": "stable unique binding ID",
+        "sourceKind": "tracked-artifact | private-nas-source | external-metadata",
+        "payloadId": "payload ID or null",
+        "artifact": "artifact-tuple-v1 or null",
+        "privateSource": "private-source-binding-v1 or null",
+        "developmentEvidence": "boolean"
+      },
+      "invariants": [
+        "Exactly one of artifact or privateSource is non-null for byte-bearing sources.",
+        "Anything opened by B has developmentEvidence true."
+      ]
+    },
+    {
+      "definitionId": "downstream-candidate-v1",
+      "exactFields": [
+        "kind",
+        "missingOperandIds",
+        "minimumScope",
+        "budget",
+        "authorization"
+      ],
+      "fieldContracts": {
+        "kind": "enum:downstreamCandidateKind",
+        "missingOperandIds": "sorted unique operand ID array",
+        "minimumScope": "rights-safe scope description",
+        "budget": "bounded estimate string or null",
+        "authorization": "none"
+      },
+      "invariants": [
+        "No provider message, request dispatch, implementation, or automatic authorization is encoded."
+      ]
+    },
+    {
+      "definitionId": "producer-provenance-v1",
+      "exactFields": [
+        "producerId",
+        "commit",
+        "command",
+        "startedOn",
+        "endedOn",
+        "actualConcurrency"
+      ],
+      "fieldContracts": {
+        "producerId": "registered callable ID",
+        "commit": "40-character Git commit",
+        "command": "exact command string",
+        "startedOn": "ISO timestamp",
+        "endedOn": "ISO timestamp",
+        "actualConcurrency": "positive integer"
+      },
+      "invariants": []
+    },
+    {
+      "definitionId": "phase10-claim-boundary-v1",
+      "exactFields": [
+        "scopeCensusOnlyForAS",
+        "allOpenedSourceValuesArePhase10DevelopmentEvidence",
+        "quantitativeValidationEarned",
+        "phase7CreditEarned",
+        "phase8CreditEarned",
+        "phase9CreditEarned",
+        "heldOutComparisonExecuted",
+        "targetScoreProduced",
+        "solverPhysicsChanged",
+        "c1ThroughC5RowsProduced",
+        "habitRowsProduced",
+        "eObservationOperatorImplemented",
+        "fExternalRequestWrittenOrSent",
+        "hTransportImplemented",
+        "downstreamExecutionAuthorized",
+        "priorPhaseLabelsAndArtifactsPreserved"
+      ],
+      "fieldContracts": {
+        "scopeCensusOnlyForAS": "true",
+        "allOpenedSourceValuesArePhase10DevelopmentEvidence": "true",
+        "quantitativeValidationEarned": "false",
+        "phase7CreditEarned": "false",
+        "phase8CreditEarned": "false",
+        "phase9CreditEarned": "false",
+        "heldOutComparisonExecuted": "false",
+        "targetScoreProduced": "false",
+        "solverPhysicsChanged": "false",
+        "c1ThroughC5RowsProduced": "false",
+        "habitRowsProduced": "false",
+        "eObservationOperatorImplemented": "false",
+        "fExternalRequestWrittenOrSent": "false",
+        "hTransportImplemented": "false",
+        "downstreamExecutionAuthorized": "false",
+        "priorPhaseLabelsAndArtifactsPreserved": "true"
+      },
+      "invariants": [
+        "These values are fixed for the selected Phase 10 package."
+      ]
+    },
+    {
+      "definitionId": "artifact-index-entry-v1",
+      "exactFields": [
+        "artifactId",
+        "path",
+        "mediaType",
+        "byteLength",
+        "sha256",
+        "role",
+        "producedBy"
+      ],
+      "fieldContracts": {
+        "artifactId": "stable unique artifact ID",
+        "path": "bundle-relative path",
+        "mediaType": "nonempty media type",
+        "byteLength": "nonnegative safe integer",
+        "sha256": "sha256",
+        "role": "nonempty role string",
+        "producedBy": "registered producer ID"
+      },
+      "invariants": [
+        "The index does not index itself."
+      ]
+    },
+    {
+      "definitionId": "matrix-packet-v1",
+      "exactFields": [
+        "packetId",
+        "launchClass",
+        "baseOutputIds",
+        "baseCheckIds",
+        "dependencyPacketIds"
+      ],
+      "fieldContracts": {
+        "packetId": "stable unique packet ID",
+        "launchClass": "static-contract | deciding-extraction | non-solver | solver-control | closure",
+        "baseOutputIds": "sorted unique output ID array",
+        "baseCheckIds": "sorted unique check ID array",
+        "dependencyPacketIds": "sorted unique packet ID array"
+      },
+      "invariants": [
+        "Routine source reading is not assigned solver-control launch semantics."
+      ]
+    },
+    {
+      "definitionId": "matrix-artifact-target-v1",
+      "exactFields": [
+        "path",
+        "field",
+        "schemaId"
+      ],
+      "fieldContracts": {
+        "path": "safe unique repository-relative output path",
+        "field": "JSON pointer or null",
+        "schemaId": "registered artifact schema ID"
+      },
+      "invariants": []
+    },
+    {
+      "definitionId": "matrix-output-v1",
+      "exactFields": [
+        "outputId",
+        "packetId",
+        "producerCallableId",
+        "artifact",
+        "terminalStates",
+        "dependsOnOutputIds"
+      ],
+      "fieldContracts": {
+        "outputId": "stable unique output ID",
+        "packetId": "registered packet ID",
+        "producerCallableId": "registered producer callable ID",
+        "artifact": "matrix-artifact-target-v1",
+        "terminalStates": "sorted unique complete | fail | pass | refusal array; not-applicable may occur only inside a governed artifact disposition",
+        "dependsOnOutputIds": "sorted unique output ID array"
+      },
+      "invariants": [
+        "Every output has one production path and a registered artifact schema."
+      ]
+    },
+    {
+      "definitionId": "matrix-check-v1",
+      "exactFields": [
+        "checkId",
+        "packetId",
+        "callerCallableId",
+        "independentEvaluatorCallableId",
+        "negativeControlIds",
+        "dependsOnOutputIds",
+        "dependsOnCheckIds"
+      ],
+      "fieldContracts": {
+        "checkId": "stable unique check ID",
+        "packetId": "registered packet ID",
+        "callerCallableId": "registered check-caller callable ID",
+        "independentEvaluatorCallableId": "registered independent-evaluator callable ID or null",
+        "negativeControlIds": "sorted unique negative-control ID array",
+        "dependsOnOutputIds": "sorted unique output ID array",
+        "dependsOnCheckIds": "sorted unique check ID array"
+      },
+      "invariants": [
+        "Every check has a caller.",
+        "An evaluator required by the governing protocol is registered independently."
+      ]
+    },
+    {
+      "definitionId": "matrix-negative-control-v1",
+      "exactFields": [
+        "negativeControlId",
+        "packetId",
+        "ownerCheckId",
+        "callableId"
+      ],
+      "fieldContracts": {
+        "negativeControlId": "stable unique negative-control ID",
+        "packetId": "registered packet ID",
+        "ownerCheckId": "registered check ID",
+        "callableId": "registered negative-control callable ID"
+      },
+      "invariants": []
+    },
+    {
+      "definitionId": "matrix-conditional-branch-v1",
+      "exactFields": [
+        "outputIds",
+        "checkIds"
+      ],
+      "fieldContracts": {
+        "outputIds": "sorted unique output ID array",
+        "checkIds": "sorted unique check ID array"
+      },
+      "invariants": []
+    },
+    {
+      "definitionId": "matrix-conditional-group-v1",
+      "exactFields": [
+        "groupId",
+        "packetId",
+        "independentReference",
+        "referenceRefusal"
+      ],
+      "fieldContracts": {
+        "groupId": "stable unique conditional group ID",
+        "packetId": "registered packet ID",
+        "independentReference": "matrix-conditional-branch-v1",
+        "referenceRefusal": "matrix-conditional-branch-v1"
+      },
+      "invariants": [
+        "Exactly one branch is selected in the packet protocol."
+      ]
+    },
+    {
+      "definitionId": "callable-identity-v1",
+      "exactFields": [
+        "byteLength",
+        "sha256"
+      ],
+      "fieldContracts": {
+        "byteLength": "positive safe integer",
+        "sha256": "sha256"
+      },
+      "invariants": []
+    },
+    {
+      "definitionId": "callable-entry-v1",
+      "exactFields": [
+        "callableId",
+        "role",
+        "resolution",
+        "modulePath",
+        "exportName",
+        "identity",
+        "producedOutputIds",
+        "invokedCheckIds",
+        "evaluatedCheckIds",
+        "executedNegativeControlIds"
+      ],
+      "fieldContracts": {
+        "callableId": "stable unique callable ID",
+        "role": "enum:callableRole",
+        "resolution": "planned | resolved",
+        "modulePath": "safe runner/src TypeScript module path",
+        "exportName": "JavaScript export identifier",
+        "identity": "callable-identity-v1 or null",
+        "producedOutputIds": "sorted unique output ID array",
+        "invokedCheckIds": "sorted unique check ID array",
+        "evaluatedCheckIds": "sorted unique check ID array",
+        "executedNegativeControlIds": "sorted unique negative-control ID array"
+      },
+      "invariants": [
+        "Planned has null identity and resolved has a byte identity.",
+        "The four obligation arrays are exact for the callable's single registered role.",
+        "Independent evaluator is not the producer callable."
+      ]
+    },
+    {
+      "definitionId": "b-operand-rule-v1",
+      "exactFields": [
+        "operandId",
+        "required",
+        "searchGroupId",
+        "eligibilityUse"
+      ],
+      "fieldContracts": {
+        "operandId": "registered branch operand ID",
+        "required": "boolean",
+        "searchGroupId": "registered search group ID or null",
+        "eligibilityUse": "required-conjunct | downstream-only | diagnostic-only"
+      },
+      "invariants": []
+    },
+    {
+      "definitionId": "observation-domain-v1",
+      "exactFields": [
+        "domainId",
+        "description",
+        "sourceRefIds"
+      ],
+      "fieldContracts": {
+        "domainId": "stable unique domain ID",
+        "description": "bounded rights-safe domain definition",
+        "sourceRefIds": "sorted unique citation or source binding ID array"
+      },
+      "invariants": []
+    },
+    {
+      "definitionId": "eligibility-rule-v1",
+      "exactFields": [
+        "ruleId",
+        "conjunctiveOperandIds",
+        "allowedNotApplicableOperandIds",
+        "description"
+      ],
+      "fieldContracts": {
+        "ruleId": "stable unique rule ID",
+        "conjunctiveOperandIds": "sorted unique operand ID array",
+        "allowedNotApplicableOperandIds": "sorted unique operand ID array",
+        "description": "nonempty predeclared rule"
+      },
+      "invariants": [
+        "The producer may not add operands after numeric inspection."
+      ]
+    },
+    {
+      "definitionId": "terminal-outcome-rule-v1",
+      "exactFields": [
+        "eligibleOutcome",
+        "refusalOutcome",
+        "nonIdentificationAllowed",
+        "categoricalOnlyAllowed"
+      ],
+      "fieldContracts": {
+        "eligibleOutcome": "enum:branchTerminalOutcome",
+        "refusalOutcome": "terminal-refusal",
+        "nonIdentificationAllowed": "boolean",
+        "categoricalOnlyAllowed": "boolean"
+      },
+      "invariants": []
+    },
+    {
+      "definitionId": "b1a-contract-v1",
+      "exactFields": [
+        "schema",
+        "apparatusForcing",
+        "surfaceForcing",
+        "mappingDefinition",
+        "validDomain",
+        "transferArgument",
+        "currentMonographComparison",
+        "uncertaintyMode",
+        "modelInputUncertainty",
+        "observationUncertainty",
+        "sensitivityEnvelope"
+      ],
+      "fieldContracts": {
+        "schema": "phase10-b1a-contract-v1",
+        "apparatusForcing": "predeclared source-defined quantity contract",
+        "surfaceForcing": "predeclared target quantity contract",
+        "mappingDefinition": "source-backed bounded map contract",
+        "validDomain": "observation-domain-v1",
+        "transferArgument": "explicit falsifiable transfer contract or null",
+        "currentMonographComparison": "current-edition comparison contract",
+        "uncertaintyMode": "statistical | non-statistical-sensitivity-envelope",
+        "modelInputUncertainty": "predeclared uncertainty contract or null",
+        "observationUncertainty": "predeclared uncertainty contract or null",
+        "sensitivityEnvelope": "explicitly non-statistical envelope contract or null"
+      },
+      "invariants": [
+        "A sensitivity envelope is never labeled statistical uncertainty and cannot substitute for the forcing map or monograph comparison."
+      ]
+    },
+    {
+      "definitionId": "b1b-contract-v1",
+      "exactFields": [
+        "schema",
+        "localVaporForcing",
+        "localTemperatureForcing",
+        "supportHeatPath",
+        "asymmetricVaporTransfer",
+        "evolvingGeometry",
+        "matchedCrossPressureObservation",
+        "observationDomain",
+        "analyticScalarComparison"
+      ],
+      "fieldContracts": {
+        "schema": "phase10-b1b-contract-v1",
+        "localVaporForcing": "source-backed contract",
+        "localTemperatureForcing": "source-backed contract",
+        "supportHeatPath": "source-backed contract",
+        "asymmetricVaporTransfer": "source-backed contract",
+        "evolvingGeometry": "source-backed contract",
+        "matchedCrossPressureObservation": "source-backed contract",
+        "observationDomain": "observation-domain-v1",
+        "analyticScalarComparison": "bounded comparison contract or null"
+      },
+      "invariants": [
+        "A source specification is not reported as an implemented transport representation."
+      ]
+    },
+    {
+      "definitionId": "b2-contract-v1",
+      "exactFields": [
+        "schema",
+        "datasetIdentity",
+        "intervalDefinition",
+        "densityCoverage",
+        "viscosityCoverage",
+        "speedCoverage",
+        "characteristicSizeCoverage",
+        "timeCoverage",
+        "temperatureCoverage",
+        "dropletStateCoverage",
+        "supportStateCoverage",
+        "methodCoverage",
+        "reynoldsDiagnostic"
+      ],
+      "fieldContracts": {
+        "schema": "phase10-b2-contract-v1",
+        "datasetIdentity": "source-complete dataset binding",
+        "intervalDefinition": "predeclared interval contract",
+        "densityCoverage": "interval-wide coverage contract",
+        "viscosityCoverage": "interval-wide coverage contract",
+        "speedCoverage": "interval-wide coverage contract",
+        "characteristicSizeCoverage": "interval-wide coverage contract",
+        "timeCoverage": "interval-wide coverage contract",
+        "temperatureCoverage": "interval-wide coverage contract",
+        "dropletStateCoverage": "interval-wide coverage contract",
+        "supportStateCoverage": "interval-wide coverage contract",
+        "methodCoverage": "source-method contract",
+        "reynoldsDiagnostic": "diagnostic-only contract"
+      },
+      "invariants": [
+        "The Reynolds diagnostic is not a universal no-ventilation rule."
+      ]
+    },
+    {
+      "definitionId": "b3-contract-v1",
+      "exactFields": [
+        "schema",
+        "heldGeometry",
+        "heldSupport",
+        "heldTemperature",
+        "heldHistory",
+        "heldVentilation",
+        "pressureGasIntervention",
+        "matchedObservation",
+        "isonoCurrency",
+        "twoReaderOperator",
+        "pointIdentity",
+        "uncertainty",
+        "lineage",
+        "temperatureConflictDisposition",
+        "carrierGasAudit",
+        "zhaoRoleAudit",
+        "identificationRule"
+      ],
+      "fieldContracts": {
+        "schema": "phase10-b3-contract-v1",
+        "heldGeometry": "control contract",
+        "heldSupport": "control contract",
+        "heldTemperature": "control contract",
+        "heldHistory": "control contract",
+        "heldVentilation": "control contract",
+        "pressureGasIntervention": "one-factor or crossed intervention contract",
+        "matchedObservation": "observation contract",
+        "isonoCurrency": "closed currency binding",
+        "twoReaderOperator": "predeclared independent reader contract",
+        "pointIdentity": "stable point-ID contract",
+        "uncertainty": "predeclared uncertainty contract",
+        "lineage": "lineage contract",
+        "temperatureConflictDisposition": "terminal adjudication contract",
+        "carrierGasAudit": "source-role audit contract",
+        "zhaoRoleAudit": "main, supplement, and companion role audit contract",
+        "identificationRule": "predeclared gas-transport separation rule"
+      },
+      "invariants": [
+        "A list of controlled and confounded axes is not eligibility.",
+        "Unresolved temperature conflict precludes eligibility."
+      ]
+    },
+    {
+      "definitionId": "b4-contract-v1",
+      "exactFields": [
+        "schema",
+        "finalTheoryBinding",
+        "methodsBinding",
+        "roleSeparationRule",
+        "forcingSemantics",
+        "sameLineageDefinition",
+        "theoryReplayOrRivalFit",
+        "mechanismRankingBlockers"
+      ],
+      "fieldContracts": {
+        "schema": "phase10-b4-contract-v1",
+        "finalTheoryBinding": "independent source binding",
+        "methodsBinding": "independent source binding",
+        "roleSeparationRule": "predeclared no-substitution rule",
+        "forcingSemantics": "measurement-method contract",
+        "sameLineageDefinition": "predeclared lineage contract",
+        "theoryReplayOrRivalFit": "bounded immediate-result contract",
+        "mechanismRankingBlockers": "sorted unique registered prerequisite ID array"
+      },
+      "invariants": [
+        "The final theory source cannot supply the measurement Methods role and vice versa.",
+        "The immediate result is limited to a same-lineage replay or rival fit."
+      ]
+    },
+    {
+      "definitionId": "b5-contract-v1",
+      "exactFields": [
+        "schema",
+        "mediaRoster",
+        "featureRoster",
+        "scaleCalibration",
+        "timeCalibration",
+        "extractionOperator",
+        "repeatabilityMethod",
+        "uncertaintyMethod",
+        "eligibilityThresholds",
+        "attemptRoster",
+        "allAttemptsRequired"
+      ],
+      "fieldContracts": {
+        "schema": "phase10-b5-contract-v1",
+        "mediaRoster": "finite sorted unique media binding array",
+        "featureRoster": "finite sorted unique feature definition array",
+        "scaleCalibration": "predeclared calibration contract",
+        "timeCalibration": "predeclared calibration contract",
+        "extractionOperator": "predeclared observation operator contract",
+        "repeatabilityMethod": "predeclared method",
+        "uncertaintyMethod": "predeclared method",
+        "eligibilityThresholds": "predeclared observation, forcing, and transport conjunction",
+        "attemptRoster": "finite sorted unique attempt ID array",
+        "allAttemptsRequired": "true"
+      },
+      "invariants": [
+        "Every media-feature attempt is frozen before numeric inspection and later published or refused.",
+        "No favorable-only selection is allowed."
+      ]
+    },
+    {
+      "definitionId": "scope-corpus-counts-v1",
+      "exactFields": [
+        "totalRows",
+        "phenomenonClass",
+        "modelClassScope",
+        "representabilityBlockerCardinality",
+        "representabilityBlockerKindOccurrences",
+        "specimenApparatusCompatibility",
+        "immutableEvidenceRole",
+        "phaseOwnership",
+        "currentDecisionEligibility"
+      ],
+      "fieldContracts": {
+        "totalRows": "safe integer fixed to 18 for phase8aCounts and 51 for phase8bCounts",
+        "phenomenonClass": "exact object with every enum:phenomenonClass key and nonnegative safe-integer counts, including zeros",
+        "modelClassScope": "exact object with every enum:modelClassScope key and nonnegative safe-integer counts, including zeros",
+        "representabilityBlockerCardinality": "exact object with zero, one, and multiple nonnegative safe-integer counts",
+        "representabilityBlockerKindOccurrences": "exact object with every enum:representabilityBlockerKind key and nonnegative safe-integer occurrence counts, including zeros",
+        "specimenApparatusCompatibility": "exact object with every enum:apparatusCompatibility key and nonnegative safe-integer counts, including zeros",
+        "immutableEvidenceRole": "exact object with every enum:immutableEvidenceRole key and nonnegative safe-integer counts, including zeros",
+        "phaseOwnership": "exact object with every enum:phaseOwnership key and nonnegative safe-integer counts, including zeros",
+        "currentDecisionEligibility": "exact object with every enum:decisionEligibility key and nonnegative safe-integer counts, including zeros"
+      },
+      "invariants": [
+        "Every mutually exclusive categorical map and representabilityBlockerCardinality sums to totalRows.",
+        "representabilityBlockerKindOccurrences sums to the total number of blocker objects, not rows.",
+        "The two corpus count objects remain separate; no 69-row total or combined percentage exists."
+      ]
+    },
+    {
+      "definitionId": "mutation-witness-v1",
+      "exactFields": [
+        "artifactId",
+        "path",
+        "byteLength",
+        "sha256",
+        "semanticFingerprint"
+      ],
+      "fieldContracts": {
+        "artifactId": "stable artifact or fixture ID",
+        "path": "safe repository-relative or unique ignored-fixture-relative path",
+        "byteLength": "nonnegative safe integer",
+        "sha256": "lowercase 64-character SHA-256 of exact bytes",
+        "semanticFingerprint": "independently derived canonical semantic projection and digest"
+      },
+      "invariants": [
+        "The byte identity and semantic fingerprint are computed by a witness path other than the mutation author."
+      ]
+    },
+    {
+      "definitionId": "negative-control-result-v1",
+      "exactFields": [
+        "negativeControlId",
+        "mutationExecuted",
+        "rejected",
+        "beforeWitness",
+        "afterWitness",
+        "errors"
+      ],
+      "fieldContracts": {
+        "negativeControlId": "registered active negative-control ID",
+        "mutationExecuted": "boolean",
+        "rejected": "boolean",
+        "beforeWitness": "mutation-witness-v1",
+        "afterWitness": "mutation-witness-v1",
+        "errors": "string array"
+      },
+      "invariants": [
+        "A passing control has mutationExecuted and rejected both true.",
+        "Before and after byte identities and semantic fingerprints prove the named mutation changed its intended operand.",
+        "A no-op, wrong-field mutation, self-attested witness, or accepted mutation fails the control."
+      ]
+    },
+    {
+      "definitionId": "packet-check-result-v1",
+      "exactFields": [
+        "checkId",
+        "verdict",
+        "reasons",
+        "witnessOutputIds"
+      ],
+      "fieldContracts": {
+        "checkId": "registered active check ID",
+        "verdict": "pass | fail | refusal",
+        "reasons": "string array",
+        "witnessOutputIds": "sorted unique active output ID array"
+      },
+      "invariants": [
+        "The evaluator derives verdict and reasons from reopened witness bytes rather than a producer verdict."
+      ]
+    },
+    {
+      "definitionId": "verified-artifact-v1",
+      "exactFields": [
+        "outputId",
+        "path",
+        "byteLength",
+        "sha256"
+      ],
+      "fieldContracts": {
+        "outputId": "registered active output ID",
+        "path": "exact registered artifact path",
+        "byteLength": "nonnegative safe integer",
+        "sha256": "lowercase 64-character SHA-256 of reopened bytes"
+      },
+      "invariants": [
+        "The verification receipt does not include its own output ID or byte identity."
+      ]
+    },
+    {
+      "definitionId": "evaluator-execution-provenance-v1",
+      "exactFields": [
+        "evaluatorCallableId",
+        "modulePath",
+        "exportName",
+        "byteLength",
+        "sha256",
+        "runtime",
+        "command",
+        "gitHead",
+        "startedOn",
+        "endedOn",
+        "processConcurrency"
+      ],
+      "fieldContracts": {
+        "evaluatorCallableId": "registered independent-evaluator callable ID",
+        "modulePath": "safe runner/src TypeScript module path",
+        "exportName": "resolved direct named function export",
+        "byteLength": "positive safe integer",
+        "sha256": "lowercase 64-character module SHA-256",
+        "runtime": "exact registered Node runtime",
+        "command": "exact argv rendering",
+        "gitHead": "clean allowed 40-character Git head",
+        "startedOn": "ISO timestamp",
+        "endedOn": "ISO timestamp",
+        "processConcurrency": "positive safe integer"
+      },
+      "invariants": [
+        "The evaluator callable identity matches run preflight and differs from producer modules for every check it evaluates."
+      ]
+    }
+  ],
+  "artifactSchemas": [
+    {
+      "schemaId": "phase10-obligation-matrix-v1",
+      "format": "json",
+      "exactFields": [
+        "schema",
+        "matrixId",
+        "packets",
+        "outputs",
+        "checks",
+        "negativeControls",
+        "conditionalGroups"
+      ],
+      "fieldContracts": {
+        "schema": "phase10-obligation-matrix-v1",
+        "matrixId": "stable unique matrix ID",
+        "packets": "sorted unique matrix-packet-v1 array",
+        "outputs": "sorted unique matrix-output-v1 array",
+        "checks": "sorted unique matrix-check-v1 array",
+        "negativeControls": "sorted unique matrix-negative-control-v1 array",
+        "conditionalGroups": "sorted unique matrix-conditional-group-v1 array"
+      },
+      "invariants": [
+        "Every selected A-S, A-I, B, C0, and C0V output and check appears exactly once.",
+        "A missing producer or uncalled check causes preflight refusal.",
+        "All IDs and dependency references form one closed acyclic obligation graph."
+      ]
+    },
+    {
+      "schemaId": "phase10-callable-registry-v1",
+      "format": "json",
+      "exactFields": [
+        "schema",
+        "registryId",
+        "matrixId",
+        "protocolId",
+        "packetId",
+        "callables"
+      ],
+      "fieldContracts": {
+        "schema": "phase10-callable-registry-v1",
+        "registryId": "stable unique registry ID",
+        "matrixId": "bound obligation matrix ID",
+        "protocolId": "bound packet protocol ID",
+        "packetId": "bound packet ID",
+        "callables": "sorted unique callable-entry-v1 array"
+      },
+      "invariants": [
+        "Every callable required by the selected packet protocol occurs exactly once.",
+        "Freeze preflight permits planned callables; run preflight requires resolved byte identities."
+      ]
+    },
+    {
+      "schemaId": "phase10-packet-protocol-v1",
+      "format": "json",
+      "exactFields": [
+        "schema",
+        "protocolId",
+        "matrixId",
+        "packetId",
+        "artifactSchemaRegistry",
+        "selectedBranches",
+        "registeredOutputIds",
+        "registeredCheckIds",
+        "registeredNegativeControlIds",
+        "boundDependencyPacketIds"
+      ],
+      "fieldContracts": {
+        "schema": "phase10-packet-protocol-v1",
+        "protocolId": "stable unique protocol ID",
+        "matrixId": "bound obligation matrix ID",
+        "packetId": "registered packet ID",
+        "artifactSchemaRegistry": "exact safe path, byte length, and SHA-256 identity of the concrete schema registry used by preflight",
+        "selectedBranches": "sorted unique objects with exact groupId and independent-reference | reference-refusal branch fields",
+        "registeredOutputIds": "sorted unique output ID array",
+        "registeredCheckIds": "sorted unique check ID array",
+        "registeredNegativeControlIds": "sorted unique negative-control ID array",
+        "boundDependencyPacketIds": "sorted unique dependency packet ID array"
+      },
+      "invariants": [
+        "The registered obligation sets equal the base packet obligations plus exactly one selected branch from every conditional group.",
+        "Preflight reopens the bound artifact-schema-registry bytes and refuses identity drift or a projected state without exactly one concrete local, alias, external, or reservation contract."
+      ]
+    },
+    {
+      "schemaId": "phase10-execution-receipt-v1",
+      "format": "json",
+      "exactFields": [
+        "schema",
+        "receiptId",
+        "matrixId",
+        "protocolId",
+        "registryId",
+        "packetId",
+        "terminalState",
+        "producedOutputIds",
+        "executedCheckIds",
+        "evaluatedCheckIds",
+        "executedNegativeControlIds",
+        "boundDependencyPacketIds"
+      ],
+      "fieldContracts": {
+        "schema": "phase10-execution-receipt-v1",
+        "receiptId": "stable unique receipt ID",
+        "matrixId": "bound obligation matrix ID",
+        "protocolId": "bound packet protocol ID",
+        "registryId": "bound callable registry ID",
+        "packetId": "registered packet ID",
+        "terminalState": "complete | pass | fail | refusal",
+        "producedOutputIds": "sorted unique output ID array",
+        "executedCheckIds": "sorted unique check ID array",
+        "evaluatedCheckIds": "sorted unique independently evaluated check ID array",
+        "executedNegativeControlIds": "sorted unique negative-control ID array",
+        "boundDependencyPacketIds": "sorted unique dependency packet ID array"
+      },
+      "invariants": [
+        "Receipt obligation sets exactly equal the selected packet protocol.",
+        "The evaluator rechecks the receipt against committed output bytes."
+      ]
+    },
+    {
+      "schemaId": "phase10-execution-readme-v1",
+      "format": "markdown-utf8",
+      "exactFields": [],
+      "fieldContracts": {},
+      "requiredSections": [
+        "Purpose and claim boundary",
+        "Frozen authority and commit",
+        "Runtime and host preflight",
+        "Packet commands",
+        "Output and log paths",
+        "Restart and single-writer semantics",
+        "Evaluator and gate commands",
+        "Resource and refusal rules"
+      ],
+      "invariants": [
+        "Commands are exact and packet-specific.",
+        "The README does not authorize excluded work."
+      ]
+    },
+    {
+      "schemaId": "phase10-scope-overlay-row-v1",
+      "format": "jsonl-row",
+      "exactFields": [
+        "schema",
+        "overlayId",
+        "corpus",
+        "sourceJoin",
+        "phenomenonClass",
+        "modelClassScope",
+        "representabilityBlockers",
+        "specimenApparatusCompatibility",
+        "immutableEvidenceRole",
+        "phaseOwnership",
+        "currentDecisionEligibility",
+        "classificationProtocol",
+        "classifiedOn"
+      ],
+      "fieldContracts": {
+        "schema": "phase10-scope-overlay-row-v1",
+        "overlayId": "stable unique overlay row ID",
+        "corpus": "phase8a | phase8b",
+        "sourceJoin": "source-record-join-v1",
+        "phenomenonClass": "enum:phenomenonClass",
+        "modelClassScope": "scope-reason-v1",
+        "representabilityBlockers": "sorted unique representability-blocker-v1 array",
+        "specimenApparatusCompatibility": "apparatus-compatibility-v1",
+        "immutableEvidenceRole": "enum:immutableEvidenceRole",
+        "phaseOwnership": "enum:phaseOwnership",
+        "currentDecisionEligibility": "decision-eligibility-v1",
+        "classificationProtocol": "protocol-binding-v1",
+        "classifiedOn": "ISO date"
+      },
+      "invariants": [
+        "Phase 8A and Phase 8B are emitted to separate files.",
+        "Every scope classification has a cited reason.",
+        "Multiple blockers are allowed and preserved."
+      ]
+    },
+    {
+      "schemaId": "phase10-scope-report-v1",
+      "format": "json",
+      "exactFields": [
+        "schema",
+        "bundleId",
+        "foundationFreeze",
+        "protocolBinding",
+        "inputArtifacts",
+        "phase8aCounts",
+        "phase8bCounts",
+        "claimBoundary",
+        "producer"
+      ],
+      "fieldContracts": {
+        "schema": "phase10-scope-report-v1",
+        "bundleId": "stable bundle ID",
+        "foundationFreeze": "artifact-tuple-v1",
+        "protocolBinding": "protocol-binding-v1",
+        "inputArtifacts": "sorted unique artifact-tuple-v1 array",
+        "phase8aCounts": "exact counts for 18 rows by every scope and eligibility enum plus mixed, unresolved, and multiple-blocker totals",
+        "phase8bCounts": "exact counts for 51 rows by every scope and eligibility enum plus mixed, unresolved, and multiple-blocker totals",
+        "claimBoundary": "phase10-claim-boundary-v1",
+        "producer": "producer-provenance-v1"
+      },
+      "invariants": [
+        "phase8aCounts and phase8bCounts each conform exactly to scope-corpus-counts-v1.",
+        "Counts are separated by corpus and independently re-derived from overlay bytes.",
+        "No combined flattering coverage percentage is emitted."
+      ]
+    },
+    {
+      "schemaId": "phase10-artifact-index-v1",
+      "format": "json",
+      "exactFields": [
+        "schema",
+        "bundleId",
+        "artifacts"
+      ],
+      "fieldContracts": {
+        "schema": "phase10-artifact-index-v1",
+        "bundleId": "stable bundle ID",
+        "artifacts": "sorted unique artifact-index-entry-v1 array"
+      },
+      "invariants": [
+        "The producer index does not index itself.",
+        "Independent verification receipts stay outside the producer index and are pinned separately, avoiding a reciprocal hash cycle."
+      ]
+    },
+    {
+      "schemaId": "phase10-file-custody-row-v1",
+      "format": "jsonl-row",
+      "exactFields": [
+        "schema",
+        "custodyEntryId",
+        "custodyBinding",
+        "custodyClass",
+        "payloadId"
+      ],
+      "fieldContracts": {
+        "schema": "phase10-file-custody-row-v1",
+        "custodyEntryId": "stable unique custody entry ID",
+        "custodyBinding": "custody-binding-v1",
+        "custodyClass": "source-payload | raw-acquisition-history | acquisition-metadata",
+        "payloadId": "registered payload ID or null"
+      },
+      "invariants": [
+        "Exactly 24 rows reproduce the intake tuple roster.",
+        "Exactly 14 source-payload rows have a non-null payload ID."
+      ]
+    },
+    {
+      "schemaId": "phase10-intake-disposition-row-v1",
+      "format": "jsonl-row",
+      "exactFields": [
+        "schema",
+        "payloadId",
+        "custodyBinding",
+        "identity",
+        "version",
+        "rights",
+        "lineage",
+        "duplicate",
+        "purpose",
+        "eligibility",
+        "openedByPhase10",
+        "terminal"
+      ],
+      "fieldContracts": {
+        "schema": "phase10-intake-disposition-row-v1",
+        "payloadId": "registered payload ID",
+        "custodyBinding": "custody-binding-v1",
+        "identity": "identity-disposition-v1",
+        "version": "version-disposition-v1",
+        "rights": "rights-disposition-v1",
+        "lineage": "lineage-disposition-v1",
+        "duplicate": "duplicate-disposition-v1",
+        "purpose": "purpose-disposition-v1",
+        "eligibility": "decision-eligibility-v1",
+        "openedByPhase10": "boolean",
+        "terminal": "true"
+      },
+      "invariants": [
+        "Exactly 14 rows cover the frozen payload roster.",
+        "All seven disposition dimensions are terminal before B consumption."
+      ]
+    },
+    {
+      "schemaId": "phase10-currency-snapshot-row-v1",
+      "format": "jsonl-row",
+      "exactFields": [
+        "schema",
+        "snapshotId",
+        "lineageId",
+        "selectedByBranches",
+        "seedPayloadIds",
+        "cutoffDate",
+        "dateWindow",
+        "queries",
+        "candidates",
+        "correctionStatus",
+        "versionStatus",
+        "supplementStatus",
+        "nativeDataStatus",
+        "laterOutputStatus",
+        "terminalDisposition",
+        "reopenTriggers",
+        "closed"
+      ],
+      "fieldContracts": {
+        "schema": "phase10-currency-snapshot-row-v1",
+        "snapshotId": "stable unique snapshot ID",
+        "lineageId": "selected lineage ID",
+        "selectedByBranches": "sorted unique enum:branchId array",
+        "seedPayloadIds": "sorted unique payload ID array",
+        "cutoffDate": "ISO date",
+        "dateWindow": "date-window-v1",
+        "queries": "sorted unique currency-query-v1 array",
+        "candidates": "sorted unique currency-candidate-v1 array",
+        "correctionStatus": "enum:currencyComponentStatus",
+        "versionStatus": "enum:currencyComponentStatus",
+        "supplementStatus": "enum:currencyComponentStatus",
+        "nativeDataStatus": "enum:currencyComponentStatus",
+        "laterOutputStatus": "enum:currencyComponentStatus",
+        "terminalDisposition": "enum:currencyTerminalDisposition",
+        "reopenTriggers": "the exact four frozen foundation triggers",
+        "closed": "true"
+      },
+      "invariants": [
+        "Exactly one closed snapshot exists for every B-selected lineage.",
+        "No indefinite standing watch is created."
+      ]
+    },
+    {
+      "schemaId": "phase10-acquisition-round-row-v1",
+      "format": "jsonl-row",
+      "exactFields": [
+        "schema",
+        "targetId",
+        "attemptId",
+        "freezeCommit",
+        "startedOn",
+        "endedOn",
+        "endpoints",
+        "identityCandidates",
+        "acquiredBinding",
+        "terminalDisposition",
+        "reason"
+      ],
+      "fieldContracts": {
+        "schema": "phase10-acquisition-round-row-v1",
+        "targetId": "one of the six frozen acquisition target IDs",
+        "attemptId": "stable unique attempt ID",
+        "freezeCommit": "40-character Git commit",
+        "startedOn": "ISO timestamp",
+        "endedOn": "ISO timestamp",
+        "endpoints": "sorted unique endpoint identity array",
+        "identityCandidates": "sorted unique rights-safe identity array",
+        "acquiredBinding": "private-source-binding-v1 or null",
+        "terminalDisposition": "enum:acquisitionTerminalDisposition",
+        "reason": "nonempty paraphrased reason"
+      },
+      "invariants": [
+        "The row is terminal for exactly one frozen acquisition target.",
+        "No purchase, credential use, provider contact, or experiment is encoded."
+      ]
+    },
+    {
+      "schemaId": "phase10-acquisition-round-v1",
+      "format": "json",
+      "exactFields": [
+        "schema",
+        "roundId",
+        "freezeCommit",
+        "targetRoster",
+        "targets",
+        "terminalDisposition",
+        "producer"
+      ],
+      "fieldContracts": {
+        "schema": "phase10-acquisition-round-v1",
+        "roundId": "stable unique acquisition-round ID",
+        "freezeCommit": "40-character Git commit",
+        "targetRoster": "exact sorted six-target acquisition roster",
+        "targets": "exact sorted six-row phase10-acquisition-round-row-v1 array",
+        "terminalDisposition": "complete | refusal derived from the six target rows",
+        "producer": "producer-provenance-v1"
+      },
+      "invariants": [
+        "targets contains exactly one terminal row for every targetRoster ID and no other row.",
+        "The aggregate disposition is refusal if any target row prevents the registered downstream operand; a terminal source refusal still completes the bounded acquisition attempt.",
+        "No purchase, credential use, provider contact, or experiment is encoded."
+      ]
+    },
+    {
+      "schemaId": "phase10-intake-report-v1",
+      "format": "json",
+      "exactFields": [
+        "schema",
+        "bundleId",
+        "foundationFreeze",
+        "protocolBinding",
+        "counts",
+        "nasVerification",
+        "currencySummary",
+        "claimBoundary",
+        "artifacts",
+        "producer"
+      ],
+      "fieldContracts": {
+        "schema": "phase10-intake-report-v1",
+        "bundleId": "stable bundle ID",
+        "foundationFreeze": "artifact-tuple-v1",
+        "protocolBinding": "protocol-binding-v1",
+        "counts": "exact 24 custody, 14 payload, 1 raw-history, 9 metadata, and 26 NAS aggregate counts",
+        "nasVerification": "state, availability, tuple verification, restore, and backup dispositions",
+        "currencySummary": "selected lineage roster and terminal snapshot counts",
+        "claimBoundary": "phase10-claim-boundary-v1",
+        "artifacts": "sorted unique artifact-index-entry-v1 array",
+        "producer": "producer-provenance-v1"
+      },
+      "invariants": [
+        "The distinct 24-file and 26-file scopes are never collapsed.",
+        "Private payload bytes are not copied into the report."
+      ]
+    },
+    {
+      "schemaId": "phase10-ai-artifact-index-row-v1",
+      "format": "jsonl-row",
+      "exactFields": [
+        "schema",
+        "artifactId",
+        "path",
+        "mediaType",
+        "byteLength",
+        "sha256",
+        "role",
+        "producedBy"
+      ],
+      "fieldContracts": {
+        "schema": "phase10-ai-artifact-index-row-v1",
+        "artifactId": "artifact-index-entry-v1.artifactId",
+        "path": "artifact-index-entry-v1.path",
+        "mediaType": "artifact-index-entry-v1.mediaType",
+        "byteLength": "artifact-index-entry-v1.byteLength",
+        "sha256": "artifact-index-entry-v1.sha256",
+        "role": "artifact-index-entry-v1.role",
+        "producedBy": "artifact-index-entry-v1.producedBy"
+      },
+      "invariants": [
+        "The index does not index itself."
+      ]
+    },
+    {
+      "schemaId": "phase10-b-deciding-protocol-v1",
+      "format": "json",
+      "exactFields": [
+        "schema",
+        "protocolId",
+        "branchId",
+        "registrationSha256",
+        "protocolCommit",
+        "frozenOn",
+        "sourceBindings",
+        "operandRules",
+        "observationDomain",
+        "branchContract",
+        "eligibilityRule",
+        "terminalOutcomeRule",
+        "outputRoster",
+        "checkRoster",
+        "claimBoundary"
+      ],
+      "fieldContracts": {
+        "schema": "phase10-b-deciding-protocol-v1",
+        "protocolId": "stable unique protocol ID",
+        "branchId": "enum:branchId",
+        "registrationSha256": "SHA-256 of project canonical JSON bytes for the frozen branch registration",
+        "protocolCommit": "40-character Git commit",
+        "frozenOn": "ISO date",
+        "sourceBindings": "sorted unique branch-source-binding-v1 array",
+        "operandRules": "sorted unique b-operand-rule-v1 array",
+        "observationDomain": "observation-domain-v1",
+        "branchContract": "exactly one of b1a-contract-v1 through b5-contract-v1 matching branchId",
+        "eligibilityRule": "eligibility-rule-v1",
+        "terminalOutcomeRule": "terminal-outcome-rule-v1",
+        "outputRoster": "sorted unique obligation ID array",
+        "checkRoster": "sorted unique obligation ID array",
+        "claimBoundary": "phase10-claim-boundary-v1"
+      },
+      "invariants": [
+        "The protocol is committed before deciding numeric inspection.",
+        "Its branch, operands, search groups, and outcomes match the foundation registration."
+      ]
+    },
+    {
+      "schemaId": "phase10-search-disposition-v1",
+      "format": "json",
+      "exactFields": [
+        "schema",
+        "packetId",
+        "branchId",
+        "searchOperandGroupId",
+        "freezeCommit",
+        "dateWindow",
+        "services",
+        "queries",
+        "deduplicationRule",
+        "candidateCap",
+        "candidates",
+        "openedCandidateIds",
+        "backlogCandidateIds",
+        "terminalDisposition"
+      ],
+      "fieldContracts": {
+        "schema": "phase10-search-disposition-v1",
+        "packetId": "P10-SEARCH-<BRANCH>-<OPERAND-GROUP>-01",
+        "branchId": "enum:branchId",
+        "searchOperandGroupId": "registered branch search group ID",
+        "freezeCommit": "40-character Git commit",
+        "dateWindow": "date-window-v1",
+        "services": "one through three sorted unique search-service-v1 entries",
+        "queries": "one through four sorted unique search-query-v1 entries",
+        "deduplicationRule": "exact normalized persistent-ID then locator rule",
+        "candidateCap": "integer 25",
+        "candidates": "at most 25 unique search-candidate-v1 entries",
+        "openedCandidateIds": "sorted unique candidate ID array",
+        "backlogCandidateIds": "sorted unique candidate ID array",
+        "terminalDisposition": "enum:searchTerminalDisposition"
+      },
+      "invariants": [
+        "At most one packet exists for a still-missing registered operand group.",
+        "No broad discovery, recursive citation chase, purchase, provider contact, experiment, or credential use occurs.",
+        "Every opened candidate becomes Phase 10 development evidence."
+      ]
+    },
+    {
+      "schemaId": "phase10-search-disposition-set-v1",
+      "format": "json",
+      "exactFields": [
+        "schema",
+        "branchId",
+        "freezeCommit",
+        "registeredOperandGroupIds",
+        "packetCap",
+        "packets",
+        "unusedOperandGroupIds",
+        "aggregateDisposition"
+      ],
+      "fieldContracts": {
+        "schema": "phase10-search-disposition-set-v1",
+        "branchId": "enum:branchId",
+        "freezeCommit": "40-character Git commit preceding every deciding search value",
+        "registeredOperandGroupIds": "exact sorted unique branch search-operand roster from the foundation freeze",
+        "packetCap": "non-negative safe integer equal to the registered branch search-packet maximum",
+        "packets": "zero through packetCap phase10-search-disposition-v1 objects sorted by searchOperandGroupId",
+        "unusedOperandGroupIds": "sorted unique registered operand groups for which no search packet was needed",
+        "aggregateDisposition": "complete | not-applicable | refusal"
+      },
+      "invariants": [
+        "Packet searchOperandGroupIds and unusedOperandGroupIds are disjoint and their union equals registeredOperandGroupIds.",
+        "Zero packets requires every registered operand group to be unused and aggregateDisposition not-applicable.",
+        "Each packet validates independently as phase10-search-disposition-v1 and no operand group has more than one packet.",
+        "A refusal remains terminal and does not authorize a replacement or citation chase."
+      ]
+    },
+    {
+      "schemaId": "phase10-b-branch-result-v1",
+      "format": "json",
+      "exactFields": [
+        "schema",
+        "branchId",
+        "protocolBinding",
+        "sourceBindings",
+        "operandDispositions",
+        "acquisitionAttemptIds",
+        "searchPacketIds",
+        "terminalOutcome",
+        "blockingOperandIds",
+        "downstreamCandidates",
+        "claimBoundary",
+        "producer"
+      ],
+      "fieldContracts": {
+        "schema": "phase10-b-branch-result-v1",
+        "branchId": "enum:branchId",
+        "protocolBinding": "protocol-binding-v1",
+        "sourceBindings": "sorted unique branch-source-binding-v1 array",
+        "operandDispositions": "one operand-disposition-v1 per registered required operand",
+        "acquisitionAttemptIds": "sorted unique acquisition attempt ID array",
+        "searchPacketIds": "sorted unique search packet ID array",
+        "terminalOutcome": "enum:branchTerminalOutcome",
+        "blockingOperandIds": "sorted unique operand ID array",
+        "downstreamCandidates": "sorted unique downstream-candidate-v1 array",
+        "claimBoundary": "phase10-claim-boundary-v1",
+        "producer": "producer-provenance-v1"
+      },
+      "invariants": [
+        "Every required operand and authorized packet used by the branch is terminal.",
+        "Eligible outcomes have no blocking operand.",
+        "Refusal and non-identification outcomes name exact blocking operands.",
+        "No downstream candidate is authorized or executed."
+      ]
+    },
+    {
+      "schemaId": "phase10-observation-bridge-report-v1",
+      "format": "json",
+      "exactFields": [
+        "schema",
+        "bundleId",
+        "foundationFreeze",
+        "branchResultBindings",
+        "acquisitionSummary",
+        "searchSummary",
+        "terminalBranchOutcomes",
+        "unresolvedOperands",
+        "claimBoundary",
+        "artifacts",
+        "producer"
+      ],
+      "fieldContracts": {
+        "schema": "phase10-observation-bridge-report-v1",
+        "bundleId": "stable bundle ID",
+        "foundationFreeze": "artifact-tuple-v1",
+        "branchResultBindings": "exactly six sorted unique artifact-tuple-v1 entries",
+        "acquisitionSummary": "exact six-target terminal summary",
+        "searchSummary": "per-branch registered, executed, unused, and terminal packet counts",
+        "terminalBranchOutcomes": "exactly one terminal outcome per branch",
+        "unresolvedOperands": "sorted unique operand ID array",
+        "claimBoundary": "phase10-claim-boundary-v1",
+        "artifacts": "sorted unique artifact-index-entry-v1 array",
+        "producer": "producer-provenance-v1"
+      },
+      "invariants": [
+        "All six branches appear even when every result is negative or refused.",
+        "Infrastructure, artifact, source, non-identification, and no-decision states remain distinct."
+      ]
+    },
+    {
+      "schemaId": "phase10-b-artifact-index-row-v1",
+      "format": "jsonl-row",
+      "exactFields": [
+        "schema",
+        "artifactId",
+        "path",
+        "mediaType",
+        "byteLength",
+        "sha256",
+        "role",
+        "producedBy"
+      ],
+      "fieldContracts": {
+        "schema": "phase10-b-artifact-index-row-v1",
+        "artifactId": "artifact-index-entry-v1.artifactId",
+        "path": "artifact-index-entry-v1.path",
+        "mediaType": "artifact-index-entry-v1.mediaType",
+        "byteLength": "artifact-index-entry-v1.byteLength",
+        "sha256": "artifact-index-entry-v1.sha256",
+        "role": "artifact-index-entry-v1.role",
+        "producedBy": "artifact-index-entry-v1.producedBy"
+      },
+      "invariants": [
+        "The index does not index itself."
+      ]
+    },
+    {
+      "schemaId": "phase10-review-v1",
+      "format": "json",
+      "exactFields": [
+        "schema",
+        "reviewId",
+        "reviewerModel",
+        "sharedContextWithDeveloper",
+        "reviewDate",
+        "reexecutedCommands",
+        "artifactsInspected",
+        "notChecked",
+        "findings",
+        "unresolvedBlockers",
+        "verdict"
+      ],
+      "fieldContracts": {
+        "schema": "phase10-review-v1",
+        "reviewId": "stable unique review ID",
+        "reviewerModel": "exact model identity",
+        "sharedContextWithDeveloper": "boolean",
+        "reviewDate": "ISO date",
+        "reexecutedCommands": "ordered exact command array",
+        "artifactsInspected": "sorted unique artifact-tuple-v1 array",
+        "notChecked": "nonempty evidence-limit array",
+        "findings": "ordered finding records",
+        "unresolvedBlockers": "ordered blocker records",
+        "verdict": "enum:evaluatorVerdict"
+      },
+      "invariants": [
+        "Review provenance, independent re-execution, and limits are explicit."
+      ]
+    },
+    {
+      "schemaId": "phase10-suite-receipt-v1",
+      "format": "json",
+      "exactFields": [
+        "schema",
+        "command",
+        "startedOn",
+        "endedOn",
+        "exitCode",
+        "headCommit",
+        "worktreeStatus",
+        "stdoutLog",
+        "stderrLog",
+        "verdict"
+      ],
+      "fieldContracts": {
+        "schema": "phase10-suite-receipt-v1",
+        "command": "exact npm test command",
+        "startedOn": "ISO timestamp",
+        "endedOn": "ISO timestamp",
+        "exitCode": "integer",
+        "headCommit": "40-character Git commit",
+        "worktreeStatus": "exact status record",
+        "stdoutLog": "artifact-tuple-v1 or null",
+        "stderrLog": "artifact-tuple-v1 or null",
+        "verdict": "pass | fail"
+      },
+      "invariants": [
+        "Only exact npm test is represented as the required full suite."
+      ]
+    },
+    {
+      "schemaId": "phase10-gate10-report-v1",
+      "format": "json",
+      "exactFields": [
+        "schema",
+        "gateId",
+        "headCommit",
+        "inputArtifacts",
+        "packageCompletion",
+        "scientificDispositions",
+        "priorPhaseLabelsPreserved",
+        "claimBoundary",
+        "checks",
+        "evaluatorVerdict",
+        "producer"
+      ],
+      "fieldContracts": {
+        "schema": "phase10-gate10-report-v1",
+        "gateId": "gate10",
+        "headCommit": "40-character Git commit",
+        "inputArtifacts": "sorted unique artifact-tuple-v1 array",
+        "packageCompletion": "artifact-derived complete | incomplete",
+        "scientificDispositions": "separate A-S, A-I, six B, C0, and three C0V layer dispositions",
+        "priorPhaseLabelsPreserved": "true",
+        "claimBoundary": "phase10-claim-boundary-v1",
+        "checks": "registered check execution records",
+        "evaluatorVerdict": "enum:evaluatorVerdict",
+        "producer": "producer-provenance-v1"
+      },
+      "invariants": [
+        "Package completion and scientific pass/fail/refusal are separate.",
+        "A negative or all-refusal package may be complete without becoming a pass."
+      ]
+    },
+    {
+      "schemaId": "phase10-package-report-v1",
+      "format": "json",
+      "exactFields": [
+        "schema",
+        "closedOn",
+        "gateBinding",
+        "packageOutcome",
+        "branchOutcomes",
+        "unresolvedOperands",
+        "downstreamCandidates",
+        "resourceUse",
+        "reviewBinding",
+        "suiteBinding",
+        "claimBoundary"
+      ],
+      "fieldContracts": {
+        "schema": "phase10-package-report-v1",
+        "closedOn": "ISO date",
+        "gateBinding": "artifact-tuple-v1",
+        "packageOutcome": "complete | incomplete | no-decision",
+        "branchOutcomes": "exactly one outcome for every selected package branch or layer",
+        "unresolvedOperands": "sorted unique operand ID array",
+        "downstreamCandidates": "sorted unique downstream-candidate-v1 array",
+        "resourceUse": "bounded execution and acquisition resource record",
+        "reviewBinding": "artifact-tuple-v1",
+        "suiteBinding": "artifact-tuple-v1",
+        "claimBoundary": "phase10-claim-boundary-v1"
+      },
+      "invariants": [
+        "Closure preserves all prior-phase labels and artifacts.",
+        "Closure does not authorize a downstream package."
+      ]
+    },
+    {
+      "schemaId": "phase10-artifact-schema-registry-v1",
+      "format": "json",
+      "exactFields": [
+        "schema",
+        "createdOn",
+        "foundationFreeze",
+        "conformance",
+        "enums",
+        "definitions",
+        "artifactSchemas",
+        "schemaAliases",
+        "externalSchemaDefinitions",
+        "externalSchemaReservations",
+        "schemaAvailability",
+        "refusalSemantics"
+      ],
+      "fieldContracts": {
+        "schema": "phase10-artifact-schema-registry-v1",
+        "createdOn": "ISO date",
+        "foundationFreeze": "artifact-tuple-v1",
+        "conformance": "exact global parsing and independence rules",
+        "enums": "closed enum registry",
+        "definitions": "unique exact nested-definition array",
+        "artifactSchemas": "unique inline exact-schema array",
+        "schemaAliases": "unique fixed-parameter aliases to inline schemas",
+        "externalSchemaDefinitions": "unique hash-bound exact schemas delegated to frozen protocol bytes",
+        "externalSchemaReservations": "unique later-stage schema reservations with required packet promotion rosters",
+        "schemaAvailability": "complete unique schema state projection used by packet preflight",
+        "refusalSemantics": "closed refusal interpretation"
+      },
+      "invariants": [
+        "Every matrix artifact schema ID occurs exactly once across defined schemas, aliases, external definitions, or reservations.",
+        "schemaAvailability is an exact projection of those four registries.",
+        "A run or receipt preflight refuses an active output whose schema remains reserved."
+      ]
+    },
+    {
+      "schemaId": "phase10-foundation-freeze-v1",
+      "format": "json",
+      "exactFields": [
+        "schema",
+        "createdOn",
+        "entryCommit",
+        "branch",
+        "selectedPackage",
+        "rosterDigestProtocol",
+        "frozenInputs",
+        "scopeRosters",
+        "intakeRoster",
+        "nasBoundary",
+        "currencyPolicy",
+        "acquisitionRoster",
+        "searchPolicy",
+        "branchRoster",
+        "branchRegistrations",
+        "terminalityRules",
+        "claimBoundary"
+      ],
+      "fieldContracts": {
+        "schema": "phase10-foundation-freeze-v1",
+        "createdOn": "ISO date",
+        "entryCommit": "40-character adoption commit",
+        "branch": "phase10/evidence-verification",
+        "selectedPackage": "exact selected-package and exclusion object",
+        "rosterDigestProtocol": "exact canonical roster-hash rules",
+        "frozenInputs": "exact immutable input artifact bindings",
+        "scopeRosters": "separate Phase 8A and Phase 8B roster/filter contracts",
+        "intakeRoster": "exact 14-payload, 24-custody-file, and 26-NAS-file denominators",
+        "nasBoundary": "decision-0051 private-byte and conditional-publication boundary",
+        "currencyPolicy": "finite selected-lineage currency contract",
+        "acquisitionRoster": "exact six-target direct round",
+        "searchPolicy": "finite per-operand search rules and caps",
+        "branchRoster": "exact B1a, B1b, B2, B3, B4, and B5 roster",
+        "branchRegistrations": "exact operand/acquisition/search registrations",
+        "terminalityRules": "closed completion and refusal rules",
+        "claimBoundary": "phase10-claim-boundary-v1"
+      },
+      "invariants": [
+        "All rosters are finite and independently countable.",
+        "The Phase 8A status row is excluded by its explicit kind filter and remains separately bound.",
+        "No scientific source value or solver result is stored in this freeze."
+      ]
+    },
+    {
+      "schemaId": "phase10-c0-protocol-v1",
+      "format": "json",
+      "exactFields": [
+        "schema",
+        "protocolId",
+        "frozenDate",
+        "adoptionCommit",
+        "state",
+        "claimBoundary",
+        "inputArtifacts",
+        "rowSchema",
+        "roster",
+        "pairingGraph",
+        "fieldPolicy",
+        "comparisonRules",
+        "provenanceRules",
+        "aggregationRules",
+        "diagnosticNormalization",
+        "errorSourceGroups",
+        "pairingToErrorSourceMap",
+        "rankingRules",
+        "artifactSchemaContracts",
+        "requiredOutputs",
+        "negativeControls",
+        "negativeControlExecutionRule",
+        "commandSeparation"
+      ],
+      "fieldContracts": {
+        "schema": "phase10-c0-protocol-v1",
+        "protocolId": "phase10-c0-existing-byte-diagnostic-v1",
+        "frozenDate": "ISO date",
+        "adoptionCommit": "40-character adoption commit",
+        "state": "exact frozen-authority object recording pre-analysis state, known historical results, and zero solver/evidence-mutation authority",
+        "claimBoundary": "exact C0 no-solver/no-accuracy/no-habit boundary",
+        "inputArtifacts": "exact committed Phase 6 report and rows identities",
+        "rowSchema": "exact 36-field Phase 6 row schema",
+        "roster": "exact 80-row and 64-pairing roster",
+        "pairingGraph": "complete exact registered comparison graph",
+        "fieldPolicy": "closed allowed and forbidden field sets",
+        "comparisonRules": "exact persisted-observable comparisons",
+        "provenanceRules": "exact row/report ancestry rules",
+        "aggregationRules": "all-spacings-every authority",
+        "diagnosticNormalization": "exact unrounded diagnostic formula",
+        "errorSourceGroups": "five exact error-source groups and counts",
+        "pairingToErrorSourceMap": "normative mutually exclusive 64-pair map",
+        "rankingRules": "exact ranking and tie rules",
+        "artifactSchemaContracts": "exact C0 output and verification schemas",
+        "requiredOutputs": "exact C0 output roster",
+        "negativeControls": "exact C0 mutation roster",
+        "negativeControlExecutionRule": "independent before/after mutation rule",
+        "commandSeparation": "producer/evaluator command and import separation"
+      },
+      "invariants": [
+        "The protocol is committed before C0 analysis.",
+        "All C0 output schemas are exact and hash-bound through externalSchemaDefinitions."
+      ]
+    },
+    {
+      "schemaId": "phase10-c0v-foundation-v1",
+      "format": "json",
+      "exactFields": [
+        "schema",
+        "protocolId",
+        "frozenDate",
+        "adoptionCommit",
+        "state",
+        "claimBoundary",
+        "freezeOrder",
+        "s5ReservedFields",
+        "conditionalObligationRule",
+        "obligationClasses",
+        "independenceRules",
+        "rawArtifactRules",
+        "layers",
+        "commonNegativeControls",
+        "negativeControlExecutionRule",
+        "terminalSemantics",
+        "commandSeparation",
+        "resourceBoundary"
+      ],
+      "fieldContracts": {
+        "schema": "phase10-c0v-foundation-v1",
+        "protocolId": "phase10-c0v-absolute-verification-foundation-v1",
+        "frozenDate": "ISO date",
+        "adoptionCommit": "40-character adoption commit",
+        "state": "exact foundation-state object recording absent reference/tolerance/fixture values and zero solver/control execution",
+        "claimBoundary": "exact numerical-verification-only boundary",
+        "freezeOrder": "reference-before-production ordering",
+        "s5ReservedFields": "exact values that must be promoted before each control packet",
+        "conditionalObligationRule": "independent-reference or preimplementation-refusal route",
+        "obligationClasses": "exact layer obligation classes",
+        "independenceRules": "closed reference/evaluator independence rules",
+        "rawArtifactRules": "complete raw witness requirements",
+        "layers": "radial, static, and moving-event layer foundations",
+        "commonNegativeControls": "cross-layer mutation roster",
+        "negativeControlExecutionRule": "independent mutation-witness rule",
+        "terminalSemantics": "PASS/FAIL/REFUSAL and package-completion separation",
+        "commandSeparation": "producer/evaluator command and import separation",
+        "resourceBoundary": "Node, roster, disk, wall, process-hour, and concurrency caps"
+      },
+      "invariants": [
+        "Exact C0V operands and output schemas remain reserved until S5 and must be promoted before a layer run.",
+        "No self-convergence substitution is permitted."
+      ]
+    },
+    {
+      "schemaId": "phase10-scope-classification-protocol-v1",
+      "format": "json",
+      "exactFields": [
+        "schema",
+        "protocolId",
+        "createdOn",
+        "foundationFreeze",
+        "obligationMatrix",
+        "artifactSchemaRegistry",
+        "inputCorpora",
+        "rules",
+        "classifications"
+      ],
+      "fieldContracts": {
+        "schema": "phase10-scope-classification-protocol-v1",
+        "protocolId": "stable unique protocol ID",
+        "createdOn": "ISO date",
+        "foundationFreeze": "artifact-tuple-v1",
+        "obligationMatrix": "artifact-tuple-v1",
+        "artifactSchemaRegistry": "artifact-tuple-v1",
+        "inputCorpora": "exact two-row input-corpus binding array",
+        "rules": "exact charter-derived scope, blocker, role, ownership, denominator, and claim rules",
+        "classifications": "exact 69-row classification input array"
+      },
+      "invariants": [
+        "Each input-corpus row has exact corpus, inputArtifactId, sourceArtifact, recordIdField, expectedRecordCount, expectedJsonlRowCount, expectedIdsSha256, immutableSourceFields, and terminalStatus fields.",
+        "Each classification has exact schema, overlayId, corpus, sourceRecordId, phenomenonClass, modelClassScope, representabilityBlockers, specimenApparatusCompatibility, phaseOwnership, currentDecisionEligibility, and classifiedOn fields.",
+        "sourceJoin and immutableEvidenceRole are independently derived from frozen Phase 8 bytes, never supplied by classifications.",
+        "Single-crystal rows remain model-class in despite current representability blockers; pure excluded phenomena and mixed/unresolved rules follow charter v1.28.",
+        "Phase 8 roles/splits are immutable, Phase 7 ownership is not waived, denominators remain separate, and no validation credit is granted."
+      ]
+    },
+    {
+      "schemaId": "phase10-as-verification-v1",
+      "format": "json",
+      "exactFields": [
+        "schema",
+        "verificationId",
+        "packetId",
+        "obligationMatrix",
+        "classificationProtocol",
+        "callableRegistry",
+        "evaluator",
+        "inputArtifacts",
+        "evaluatedArtifacts",
+        "executedCheckIds",
+        "checkResults",
+        "executedNegativeControlIds",
+        "negativeControlResults",
+        "startedOn",
+        "endedOn",
+        "verdict"
+      ],
+      "fieldContracts": {
+        "schema": "phase10-as-verification-v1",
+        "verificationId": "stable unique verification ID",
+        "packetId": "a-s",
+        "obligationMatrix": "artifact-tuple-v1",
+        "classificationProtocol": "artifact-tuple-v1",
+        "callableRegistry": "artifact-tuple-v1",
+        "evaluator": "exact callableId, modulePath, exportName, byteLength, and sha256 object",
+        "inputArtifacts": "exact two frozen input corpus identities plus Phase 8A freeze identity",
+        "evaluatedArtifacts": "exact reopened overlay, report, and producer-index artifact identities",
+        "executedCheckIds": "exact sorted A-S check roster",
+        "checkResults": "sorted exact checkId, verdict, and detail objects",
+        "executedNegativeControlIds": "exact sorted A-S negative-control roster",
+        "negativeControlResults": "sorted exact mutation result objects with before/after witnesses",
+        "startedOn": "ISO timestamp",
+        "endedOn": "ISO timestamp",
+        "verdict": "pass | fail"
+      },
+      "invariants": [
+        "Every registered A-S check is present exactly once and verdict pass requires every check to pass.",
+        "Every registered negative control proves its named mutation executed, changed the semantic witness, and was rejected.",
+        "The evaluator module differs from producer modules and artifact hashes come from reopened bytes.",
+        "Mutation witnesses have exact artifactId, path, byteLength, sha256, and semanticFingerprint fields."
+      ]
+    },
+    {
+      "schemaId": "phase10-packet-verification-v1",
+      "format": "json",
+      "exactFields": [
+        "schema",
+        "verificationId",
+        "matrixId",
+        "protocolId",
+        "registryId",
+        "packetId",
+        "terminalState",
+        "verifiedArtifacts",
+        "checkResults",
+        "executedNegativeControlIds",
+        "negativeControlResults",
+        "boundDependencyPacketIds",
+        "execution",
+        "aggregateVerdict",
+        "limits"
+      ],
+      "fieldContracts": {
+        "schema": "phase10-packet-verification-v1",
+        "verificationId": "stable unique verification ID",
+        "matrixId": "bound obligation matrix ID",
+        "protocolId": "bound packet protocol ID",
+        "registryId": "bound callable registry ID",
+        "packetId": "registered packet ID",
+        "terminalState": "complete | pass | fail | refusal",
+        "verifiedArtifacts": "sorted unique verified-artifact-v1 array excluding this receipt",
+        "checkResults": "sorted unique packet-check-result-v1 array",
+        "executedNegativeControlIds": "sorted unique registered negative-control ID array",
+        "negativeControlResults": "sorted unique negative-control-result-v1 array",
+        "boundDependencyPacketIds": "sorted exact packet dependency roster",
+        "execution": "evaluator-execution-provenance-v1",
+        "aggregateVerdict": "pass | fail | refusal",
+        "limits": "nonempty string array"
+      },
+      "invariants": [
+        "The independent evaluator reopens every witness artifact and does not trust producer verdict fields.",
+        "checkResults contains every active evaluated check exactly once; negativeControlResults contains every active negative control exactly once.",
+        "Every passing negative control has mutationExecuted and rejected true and independent before/after witnesses with a semantic change.",
+        "aggregateVerdict pass requires every active registered check and negative control to pass.",
+        "The verification receipt cannot hash itself and is bound separately by the packet receipt index."
+      ]
+    },
+    {
+      "schemaId": "phase10-packet-catalogue-v1",
+      "format": "json",
+      "exactFields": [
+        "schema",
+        "catalogueId",
+        "matrixId",
+        "packets"
+      ],
+      "fieldContracts": {
+        "schema": "phase10-packet-catalogue-v1",
+        "catalogueId": "stable unique catalogue ID",
+        "matrixId": "phase10-selected-package-obligations-v1",
+        "packets": "exact sorted packet-path row for every matrix packet"
+      },
+      "invariants": [
+        "Each packet row has exact packetId, launchClass, protocolPath, callableRegistryPath, attemptRoot, preflightReceiptPath, terminalReceiptPath, and verificationPaths fields.",
+        "verificationPaths is a nonempty sorted unique path array; a conditional control-produce packet lists both its independent-reference evaluation and reference-refusal receipt paths.",
+        "All paths are safe, unique, repository-relative, and match the frozen packet ID.",
+        "Static packets retain structural protocol, registry, receipt, and verification artifacts even though they do not use the machine-launch wrapper."
+      ]
+    },
+    {
+      "schemaId": "phase10-preflight-receipt-v1",
+      "format": "json",
+      "exactFields": [
+        "schema",
+        "receiptId",
+        "matrixId",
+        "protocolId",
+        "registryId",
+        "packetId",
+        "attemptId",
+        "stage",
+        "observed",
+        "outputIds",
+        "checkIds",
+        "negativeControlIds",
+        "callableIds",
+        "selectedBranches",
+        "verdict",
+        "reasons"
+      ],
+      "fieldContracts": {
+        "schema": "phase10-preflight-receipt-v1",
+        "receiptId": "stable unique receipt ID",
+        "matrixId": "bound matrix ID",
+        "protocolId": "bound protocol ID",
+        "registryId": "bound callable registry ID",
+        "packetId": "registered packet ID",
+        "attemptId": "registered unique attempt ID or static",
+        "stage": "freeze | run",
+        "observed": "exact code, branch, head, runtime, path, roster, resource, disk, and writer observations applicable to the packet",
+        "outputIds": "exact active output ID set",
+        "checkIds": "exact active check ID set",
+        "negativeControlIds": "exact active negative-control ID set",
+        "callableIds": "exact callable roster",
+        "selectedBranches": "exact conditional selection object",
+        "verdict": "pass | refusal",
+        "reasons": "string array"
+      },
+      "invariants": [
+        "A run receipt is written by the lock-holding wrapper before producer dispatch.",
+        "A freeze receipt is non-authorizing and may contain planned callables."
+      ]
+    },
+    {
+      "schemaId": "phase10-ap-negative-control-v1",
+      "format": "json",
+      "exactFields": [
+        "schema",
+        "fixtureId",
+        "mutation",
+        "beforeWitness",
+        "afterWitness",
+        "refused",
+        "error"
+      ],
+      "fieldContracts": {
+        "schema": "phase10-ap-negative-control-v1",
+        "fixtureId": "missing-producer | uncalled-check",
+        "mutation": "exact named structural mutation",
+        "beforeWitness": "independently derived semantic and byte witness",
+        "afterWitness": "independently derived semantic and byte witness",
+        "refused": "boolean fixed true",
+        "error": "exact refusal class and message"
+      },
+      "invariants": [
+        "Before and after witnesses differ exactly in the named producer or called-check registration.",
+        "The production preflight rejects the mutated bytes."
+      ]
+    },
+    {
+      "schemaId": "phase10-ap-receipt-index-v1",
+      "format": "json",
+      "exactFields": [
+        "schema",
+        "indexId",
+        "matrixId",
+        "packetCatalogue",
+        "packets"
+      ],
+      "fieldContracts": {
+        "schema": "phase10-ap-receipt-index-v1",
+        "indexId": "stable unique index ID",
+        "matrixId": "bound matrix ID",
+        "packetCatalogue": "artifact-tuple-v1",
+        "packets": "exact sorted receipt-binding rows for every non-closure matrix packet"
+      },
+      "invariants": [
+        "Each non-closure packet row binds its protocol, callable registry, every preflight and execution receipt, terminal receipt, and independent verification artifact by path, size, and hash.",
+        "No non-closure attempt or superseded receipt is omitted.",
+        "The index excludes its closure packet, its own bytes, and the later closure preflight, terminal, and verification receipts to avoid a recursive hash obligation; evidence/MANIFEST.json pins the final excluded bytes, while flagless gate10 and the non-author review bind the pre-verification closure inputs and explicitly record this self-exclusion."
+      ]
+    },
+    {
+      "schemaId": "phase10-ap-report-v1",
+      "format": "json",
+      "exactFields": [
+        "schema",
+        "bundleId",
+        "matrix",
+        "artifactSchemaRegistry",
+        "packetCatalogue",
+        "negativeControls",
+        "receiptIndex",
+        "coverage",
+        "claimBoundary",
+        "producer"
+      ],
+      "fieldContracts": {
+        "schema": "phase10-ap-report-v1",
+        "bundleId": "stable bundle ID",
+        "matrix": "artifact-tuple-v1",
+        "artifactSchemaRegistry": "artifact-tuple-v1",
+        "packetCatalogue": "artifact-tuple-v1",
+        "negativeControls": "exact two artifact-tuple-v1 entries",
+        "receiptIndex": "artifact-tuple-v1",
+        "coverage": "exact packet, output, check, control, branch, callable, schema-state, and receipt counts rederived from bytes",
+        "claimBoundary": "A-P obligation completeness only; no scientific correctness claim",
+        "producer": "producer-provenance-v1"
+      },
+      "invariants": [
+        "Every registered obligation and active schema state is rederived from committed bytes.",
+        "Missing-producer and uncalled-check mutations are both retained and rejected.",
+        "Receipt coverage uses phase10-ap-receipt-index-v1's explicit closure self-exclusion and never claims a recursive self-hash.",
+        "A-P PASS does not imply a scientific result."
+      ]
+    }
+  ],
+  "schemaAliases": [
+    {
+      "schemaId": "phase10-b1a-protocol-v1",
+      "contractSchemaId": "phase10-b-deciding-protocol-v1",
+      "fixedBranchId": "B1a"
+    },
+    {
+      "schemaId": "phase10-b1a-result-v1",
+      "contractSchemaId": "phase10-b-branch-result-v1",
+      "fixedBranchId": "B1a"
+    },
+    {
+      "schemaId": "phase10-b1b-protocol-v1",
+      "contractSchemaId": "phase10-b-deciding-protocol-v1",
+      "fixedBranchId": "B1b"
+    },
+    {
+      "schemaId": "phase10-b1b-result-v1",
+      "contractSchemaId": "phase10-b-branch-result-v1",
+      "fixedBranchId": "B1b"
+    },
+    {
+      "schemaId": "phase10-b2-protocol-v1",
+      "contractSchemaId": "phase10-b-deciding-protocol-v1",
+      "fixedBranchId": "B2"
+    },
+    {
+      "schemaId": "phase10-b2-result-v1",
+      "contractSchemaId": "phase10-b-branch-result-v1",
+      "fixedBranchId": "B2"
+    },
+    {
+      "schemaId": "phase10-b3-protocol-v1",
+      "contractSchemaId": "phase10-b-deciding-protocol-v1",
+      "fixedBranchId": "B3"
+    },
+    {
+      "schemaId": "phase10-b3-result-v1",
+      "contractSchemaId": "phase10-b-branch-result-v1",
+      "fixedBranchId": "B3"
+    },
+    {
+      "schemaId": "phase10-b4-protocol-v1",
+      "contractSchemaId": "phase10-b-deciding-protocol-v1",
+      "fixedBranchId": "B4"
+    },
+    {
+      "schemaId": "phase10-b4-result-v1",
+      "contractSchemaId": "phase10-b-branch-result-v1",
+      "fixedBranchId": "B4"
+    },
+    {
+      "schemaId": "phase10-b5-protocol-v1",
+      "contractSchemaId": "phase10-b-deciding-protocol-v1",
+      "fixedBranchId": "B5"
+    },
+    {
+      "schemaId": "phase10-b5-result-v1",
+      "contractSchemaId": "phase10-b-branch-result-v1",
+      "fixedBranchId": "B5"
+    }
+  ],
+  "externalSchemaDefinitions": [
+    {
+      "schemaId": "phase10-c0-analysis-v1",
+      "owner": "C0 frozen protocol",
+      "state": "defined",
+      "contractPath": "research/phase10-c0-protocol-v1.json",
+      "contractPointer": "/artifactSchemaContracts/schemas/phase10-c0-analysis-v1",
+      "byteLength": 56718,
+      "sha256": "bf07738663fb12afc35b4f40db66608cf6a1927322261701df8fb8e917cb6ff4"
+    },
+    {
+      "schemaId": "phase10-c0-comparison-row-v1",
+      "owner": "C0 frozen protocol",
+      "state": "defined",
+      "contractPath": "research/phase10-c0-protocol-v1.json",
+      "contractPointer": "/artifactSchemaContracts/schemas/phase10-c0-comparison-row-v1",
+      "byteLength": 56718,
+      "sha256": "bf07738663fb12afc35b4f40db66608cf6a1927322261701df8fb8e917cb6ff4"
+    },
+    {
+      "schemaId": "phase10-c0-gap-report-v1",
+      "owner": "C0 frozen protocol",
+      "state": "defined",
+      "contractPath": "research/phase10-c0-protocol-v1.json",
+      "contractPointer": "/artifactSchemaContracts/schemas/phase10-c0-gap-report-v1",
+      "byteLength": 56718,
+      "sha256": "bf07738663fb12afc35b4f40db66608cf6a1927322261701df8fb8e917cb6ff4"
+    },
+    {
+      "schemaId": "phase10-c0-historical-limit-v1",
+      "owner": "C0 frozen protocol",
+      "state": "defined",
+      "contractPath": "research/phase10-c0-protocol-v1.json",
+      "contractPointer": "/artifactSchemaContracts/schemas/phase10-c0-historical-limit-v1",
+      "byteLength": 56718,
+      "sha256": "bf07738663fb12afc35b4f40db66608cf6a1927322261701df8fb8e917cb6ff4"
+    },
+    {
+      "schemaId": "phase10-c0-report-v1",
+      "owner": "C0 frozen protocol",
+      "state": "defined",
+      "contractPath": "research/phase10-c0-protocol-v1.json",
+      "contractPointer": "/artifactSchemaContracts/schemas/phase10-c0-report-v1",
+      "byteLength": 56718,
+      "sha256": "bf07738663fb12afc35b4f40db66608cf6a1927322261701df8fb8e917cb6ff4"
+    },
+    {
+      "schemaId": "phase10-c0v-aggregate-v1",
+      "owner": "Phase 10 C0V S5a schema-contract freeze",
+      "state": "defined",
+      "contractPath": "research/phase10-c0v-schema-contracts-v1.json",
+      "contractPointer": "/schemas/phase10-c0v-aggregate-v1",
+      "byteLength": 93575,
+      "sha256": "be743fbc560e46e60b51132be66ca9381ffa5d7b69bf6b1e21cce500628cf0f6"
+    },
+    {
+      "schemaId": "phase10-c0v-attempt-row-v1",
+      "owner": "Phase 10 C0V S5a schema-contract freeze",
+      "state": "defined",
+      "contractPath": "research/phase10-c0v-schema-contracts-v1.json",
+      "contractPointer": "/schemas/phase10-c0v-attempt-row-v1",
+      "byteLength": 93575,
+      "sha256": "be743fbc560e46e60b51132be66ca9381ffa5d7b69bf6b1e21cce500628cf0f6"
+    },
+    {
+      "schemaId": "phase10-c0v-moving-evaluation-v1",
+      "owner": "Phase 10 C0V S5a schema-contract freeze",
+      "state": "defined",
+      "contractPath": "research/phase10-c0v-schema-contracts-v1.json",
+      "contractPointer": "/schemas/phase10-c0v-moving-evaluation-v1",
+      "byteLength": 93575,
+      "sha256": "be743fbc560e46e60b51132be66ca9381ffa5d7b69bf6b1e21cce500628cf0f6"
+    },
+    {
+      "schemaId": "phase10-c0v-moving-protocol-v1",
+      "owner": "Phase 10 C0V S5a schema-contract freeze",
+      "state": "defined",
+      "contractPath": "research/phase10-c0v-schema-contracts-v1.json",
+      "contractPointer": "/schemas/phase10-c0v-moving-protocol-v1",
+      "byteLength": 93575,
+      "sha256": "be743fbc560e46e60b51132be66ca9381ffa5d7b69bf6b1e21cce500628cf0f6"
+    },
+    {
+      "schemaId": "phase10-c0v-moving-reference-v1",
+      "owner": "Phase 10 C0V S5a schema-contract freeze",
+      "state": "defined",
+      "contractPath": "research/phase10-c0v-schema-contracts-v1.json",
+      "contractPointer": "/schemas/phase10-c0v-moving-reference-v1",
+      "byteLength": 93575,
+      "sha256": "be743fbc560e46e60b51132be66ca9381ffa5d7b69bf6b1e21cce500628cf0f6"
+    },
+    {
+      "schemaId": "phase10-c0v-moving-result-v1",
+      "owner": "Phase 10 C0V S5a schema-contract freeze",
+      "state": "defined",
+      "contractPath": "research/phase10-c0v-schema-contracts-v1.json",
+      "contractPointer": "/schemas/phase10-c0v-moving-result-v1",
+      "byteLength": 93575,
+      "sha256": "be743fbc560e46e60b51132be66ca9381ffa5d7b69bf6b1e21cce500628cf0f6"
+    },
+    {
+      "schemaId": "phase10-c0v-moving-witness-v1",
+      "owner": "Phase 10 C0V S5a schema-contract freeze",
+      "state": "defined",
+      "contractPath": "research/phase10-c0v-schema-contracts-v1.json",
+      "contractPointer": "/schemas/phase10-c0v-moving-witness-v1",
+      "byteLength": 93575,
+      "sha256": "be743fbc560e46e60b51132be66ca9381ffa5d7b69bf6b1e21cce500628cf0f6"
+    },
+    {
+      "schemaId": "phase10-c0v-radial-evaluation-v1",
+      "owner": "Phase 10 C0V S5a schema-contract freeze",
+      "state": "defined",
+      "contractPath": "research/phase10-c0v-schema-contracts-v1.json",
+      "contractPointer": "/schemas/phase10-c0v-radial-evaluation-v1",
+      "byteLength": 93575,
+      "sha256": "be743fbc560e46e60b51132be66ca9381ffa5d7b69bf6b1e21cce500628cf0f6"
+    },
+    {
+      "schemaId": "phase10-c0v-radial-protocol-v1",
+      "owner": "Phase 10 C0V S5a schema-contract freeze",
+      "state": "defined",
+      "contractPath": "research/phase10-c0v-schema-contracts-v1.json",
+      "contractPointer": "/schemas/phase10-c0v-radial-protocol-v1",
+      "byteLength": 93575,
+      "sha256": "be743fbc560e46e60b51132be66ca9381ffa5d7b69bf6b1e21cce500628cf0f6"
+    },
+    {
+      "schemaId": "phase10-c0v-radial-reference-v1",
+      "owner": "Phase 10 C0V S5a schema-contract freeze",
+      "state": "defined",
+      "contractPath": "research/phase10-c0v-schema-contracts-v1.json",
+      "contractPointer": "/schemas/phase10-c0v-radial-reference-v1",
+      "byteLength": 93575,
+      "sha256": "be743fbc560e46e60b51132be66ca9381ffa5d7b69bf6b1e21cce500628cf0f6"
+    },
+    {
+      "schemaId": "phase10-c0v-radial-result-v1",
+      "owner": "Phase 10 C0V S5a schema-contract freeze",
+      "state": "defined",
+      "contractPath": "research/phase10-c0v-schema-contracts-v1.json",
+      "contractPointer": "/schemas/phase10-c0v-radial-result-v1",
+      "byteLength": 93575,
+      "sha256": "be743fbc560e46e60b51132be66ca9381ffa5d7b69bf6b1e21cce500628cf0f6"
+    },
+    {
+      "schemaId": "phase10-c0v-radial-witness-v1",
+      "owner": "Phase 10 C0V S5a schema-contract freeze",
+      "state": "defined",
+      "contractPath": "research/phase10-c0v-schema-contracts-v1.json",
+      "contractPointer": "/schemas/phase10-c0v-radial-witness-v1",
+      "byteLength": 93575,
+      "sha256": "be743fbc560e46e60b51132be66ca9381ffa5d7b69bf6b1e21cce500628cf0f6"
+    },
+    {
+      "schemaId": "phase10-c0v-reference-refusal-v1",
+      "owner": "Phase 10 C0V S5a schema-contract freeze",
+      "state": "defined",
+      "contractPath": "research/phase10-c0v-schema-contracts-v1.json",
+      "contractPointer": "/schemas/phase10-c0v-reference-refusal-v1",
+      "byteLength": 93575,
+      "sha256": "be743fbc560e46e60b51132be66ca9381ffa5d7b69bf6b1e21cce500628cf0f6"
+    },
+    {
+      "schemaId": "phase10-c0v-resource-ledger-v1",
+      "owner": "Phase 10 C0V S5a schema-contract freeze",
+      "state": "defined",
+      "contractPath": "research/phase10-c0v-schema-contracts-v1.json",
+      "contractPointer": "/schemas/phase10-c0v-resource-ledger-v1",
+      "byteLength": 93575,
+      "sha256": "be743fbc560e46e60b51132be66ca9381ffa5d7b69bf6b1e21cce500628cf0f6"
+    },
+    {
+      "schemaId": "phase10-c0v-static-evaluation-v1",
+      "owner": "Phase 10 C0V S5a schema-contract freeze",
+      "state": "defined",
+      "contractPath": "research/phase10-c0v-schema-contracts-v1.json",
+      "contractPointer": "/schemas/phase10-c0v-static-evaluation-v1",
+      "byteLength": 93575,
+      "sha256": "be743fbc560e46e60b51132be66ca9381ffa5d7b69bf6b1e21cce500628cf0f6"
+    },
+    {
+      "schemaId": "phase10-c0v-static-protocol-v1",
+      "owner": "Phase 10 C0V S5a schema-contract freeze",
+      "state": "defined",
+      "contractPath": "research/phase10-c0v-schema-contracts-v1.json",
+      "contractPointer": "/schemas/phase10-c0v-static-protocol-v1",
+      "byteLength": 93575,
+      "sha256": "be743fbc560e46e60b51132be66ca9381ffa5d7b69bf6b1e21cce500628cf0f6"
+    },
+    {
+      "schemaId": "phase10-c0v-static-reference-v1",
+      "owner": "Phase 10 C0V S5a schema-contract freeze",
+      "state": "defined",
+      "contractPath": "research/phase10-c0v-schema-contracts-v1.json",
+      "contractPointer": "/schemas/phase10-c0v-static-reference-v1",
+      "byteLength": 93575,
+      "sha256": "be743fbc560e46e60b51132be66ca9381ffa5d7b69bf6b1e21cce500628cf0f6"
+    },
+    {
+      "schemaId": "phase10-c0v-static-result-v1",
+      "owner": "Phase 10 C0V S5a schema-contract freeze",
+      "state": "defined",
+      "contractPath": "research/phase10-c0v-schema-contracts-v1.json",
+      "contractPointer": "/schemas/phase10-c0v-static-result-v1",
+      "byteLength": 93575,
+      "sha256": "be743fbc560e46e60b51132be66ca9381ffa5d7b69bf6b1e21cce500628cf0f6"
+    },
+    {
+      "schemaId": "phase10-c0v-static-witness-v1",
+      "owner": "Phase 10 C0V S5a schema-contract freeze",
+      "state": "defined",
+      "contractPath": "research/phase10-c0v-schema-contracts-v1.json",
+      "contractPointer": "/schemas/phase10-c0v-static-witness-v1",
+      "byteLength": 93575,
+      "sha256": "be743fbc560e46e60b51132be66ca9381ffa5d7b69bf6b1e21cce500628cf0f6"
+    },
+    {
+      "schemaId": "phase10-c0v-terminal-table-v1",
+      "owner": "Phase 10 C0V S5a schema-contract freeze",
+      "state": "defined",
+      "contractPath": "research/phase10-c0v-schema-contracts-v1.json",
+      "contractPointer": "/schemas/phase10-c0v-terminal-table-v1",
+      "byteLength": 93575,
+      "sha256": "be743fbc560e46e60b51132be66ca9381ffa5d7b69bf6b1e21cce500628cf0f6"
+    },
+    {
+      "schemaId": "phase10-independent-verification-v1",
+      "owner": "C0 frozen protocol",
+      "state": "defined",
+      "contractPath": "research/phase10-c0-protocol-v1.json",
+      "contractPointer": "/artifactSchemaContracts/independentVerificationSchema",
+      "byteLength": 56718,
+      "sha256": "bf07738663fb12afc35b4f40db66608cf6a1927322261701df8fb8e917cb6ff4"
+    },
+    {
+      "schemaId": "phase10-nas-publication-disposition-v1",
+      "owner": "S1 integration",
+      "state": "defined",
+      "contractPath": "research/phase10-b-schema-contracts-v1.json",
+      "contractPointer": "/schemas/phase10-nas-publication-disposition-v1",
+      "byteLength": 1523,
+      "sha256": "ca34bd9bae3d9a33e84ffa722899dd02395544ef2129389628dae2985d85f59a"
+    }
+  ],
+  "externalSchemaReservations": [
+    {
+      "schemaId": "phase10-claim-map-v1",
+      "owner": "S1 integration",
+      "state": "reserved",
+      "requiredBeforePacketIds": [
+        "closure"
+      ]
+    },
+    {
+      "schemaId": "phase10-return-proposal-v1",
+      "owner": "S1 integration",
+      "state": "reserved",
+      "requiredBeforePacketIds": [
+        "b1a",
+        "b1b",
+        "b2",
+        "b3",
+        "b4",
+        "b5"
+      ]
+    },
+    {
+      "schemaId": "phase10-return-proposals-v1",
+      "owner": "S1 integration",
+      "state": "reserved",
+      "requiredBeforePacketIds": [
+        "b-aggregate"
+      ]
+    }
+  ],
+  "schemaAvailability": [
+    {
+      "schemaId": "phase10-acquisition-round-row-v1",
+      "state": "defined",
+      "requiredBeforePacketIds": []
+    },
+    {
+      "schemaId": "phase10-acquisition-round-v1",
+      "state": "defined",
+      "requiredBeforePacketIds": []
+    },
+    {
+      "schemaId": "phase10-ai-artifact-index-row-v1",
+      "state": "defined",
+      "requiredBeforePacketIds": []
+    },
+    {
+      "schemaId": "phase10-ap-negative-control-v1",
+      "state": "defined",
+      "requiredBeforePacketIds": []
+    },
+    {
+      "schemaId": "phase10-ap-receipt-index-v1",
+      "state": "defined",
+      "requiredBeforePacketIds": []
+    },
+    {
+      "schemaId": "phase10-ap-report-v1",
+      "state": "defined",
+      "requiredBeforePacketIds": []
+    },
+    {
+      "schemaId": "phase10-artifact-index-v1",
+      "state": "defined",
+      "requiredBeforePacketIds": []
+    },
+    {
+      "schemaId": "phase10-artifact-schema-registry-v1",
+      "state": "defined",
+      "requiredBeforePacketIds": []
+    },
+    {
+      "schemaId": "phase10-as-verification-v1",
+      "state": "defined",
+      "requiredBeforePacketIds": []
+    },
+    {
+      "schemaId": "phase10-b-artifact-index-row-v1",
+      "state": "defined",
+      "requiredBeforePacketIds": []
+    },
+    {
+      "schemaId": "phase10-b-branch-result-v1",
+      "state": "defined",
+      "requiredBeforePacketIds": []
+    },
+    {
+      "schemaId": "phase10-b-deciding-protocol-v1",
+      "state": "defined",
+      "requiredBeforePacketIds": []
+    },
+    {
+      "schemaId": "phase10-b1a-protocol-v1",
+      "state": "defined",
+      "requiredBeforePacketIds": []
+    },
+    {
+      "schemaId": "phase10-b1a-result-v1",
+      "state": "defined",
+      "requiredBeforePacketIds": []
+    },
+    {
+      "schemaId": "phase10-b1b-protocol-v1",
+      "state": "defined",
+      "requiredBeforePacketIds": []
+    },
+    {
+      "schemaId": "phase10-b1b-result-v1",
+      "state": "defined",
+      "requiredBeforePacketIds": []
+    },
+    {
+      "schemaId": "phase10-b2-protocol-v1",
+      "state": "defined",
+      "requiredBeforePacketIds": []
+    },
+    {
+      "schemaId": "phase10-b2-result-v1",
+      "state": "defined",
+      "requiredBeforePacketIds": []
+    },
+    {
+      "schemaId": "phase10-b3-protocol-v1",
+      "state": "defined",
+      "requiredBeforePacketIds": []
+    },
+    {
+      "schemaId": "phase10-b3-result-v1",
+      "state": "defined",
+      "requiredBeforePacketIds": []
+    },
+    {
+      "schemaId": "phase10-b4-protocol-v1",
+      "state": "defined",
+      "requiredBeforePacketIds": []
+    },
+    {
+      "schemaId": "phase10-b4-result-v1",
+      "state": "defined",
+      "requiredBeforePacketIds": []
+    },
+    {
+      "schemaId": "phase10-b5-protocol-v1",
+      "state": "defined",
+      "requiredBeforePacketIds": []
+    },
+    {
+      "schemaId": "phase10-b5-result-v1",
+      "state": "defined",
+      "requiredBeforePacketIds": []
+    },
+    {
+      "schemaId": "phase10-c0-analysis-v1",
+      "state": "defined",
+      "requiredBeforePacketIds": []
+    },
+    {
+      "schemaId": "phase10-c0-comparison-row-v1",
+      "state": "defined",
+      "requiredBeforePacketIds": []
+    },
+    {
+      "schemaId": "phase10-c0-gap-report-v1",
+      "state": "defined",
+      "requiredBeforePacketIds": []
+    },
+    {
+      "schemaId": "phase10-c0-historical-limit-v1",
+      "state": "defined",
+      "requiredBeforePacketIds": []
+    },
+    {
+      "schemaId": "phase10-c0-protocol-v1",
+      "state": "defined",
+      "requiredBeforePacketIds": []
+    },
+    {
+      "schemaId": "phase10-c0-report-v1",
+      "state": "defined",
+      "requiredBeforePacketIds": []
+    },
+    {
+      "schemaId": "phase10-c0v-aggregate-v1",
+      "state": "defined",
+      "requiredBeforePacketIds": []
+    },
+    {
+      "schemaId": "phase10-c0v-attempt-row-v1",
+      "state": "defined",
+      "requiredBeforePacketIds": []
+    },
+    {
+      "schemaId": "phase10-c0v-foundation-v1",
+      "state": "defined",
+      "requiredBeforePacketIds": []
+    },
+    {
+      "schemaId": "phase10-c0v-moving-evaluation-v1",
+      "state": "defined",
+      "requiredBeforePacketIds": []
+    },
+    {
+      "schemaId": "phase10-c0v-moving-protocol-v1",
+      "state": "defined",
+      "requiredBeforePacketIds": []
+    },
+    {
+      "schemaId": "phase10-c0v-moving-reference-v1",
+      "state": "defined",
+      "requiredBeforePacketIds": []
+    },
+    {
+      "schemaId": "phase10-c0v-moving-result-v1",
+      "state": "defined",
+      "requiredBeforePacketIds": []
+    },
+    {
+      "schemaId": "phase10-c0v-moving-witness-v1",
+      "state": "defined",
+      "requiredBeforePacketIds": []
+    },
+    {
+      "schemaId": "phase10-c0v-radial-evaluation-v1",
+      "state": "defined",
+      "requiredBeforePacketIds": []
+    },
+    {
+      "schemaId": "phase10-c0v-radial-protocol-v1",
+      "state": "defined",
+      "requiredBeforePacketIds": []
+    },
+    {
+      "schemaId": "phase10-c0v-radial-reference-v1",
+      "state": "defined",
+      "requiredBeforePacketIds": []
+    },
+    {
+      "schemaId": "phase10-c0v-radial-result-v1",
+      "state": "defined",
+      "requiredBeforePacketIds": []
+    },
+    {
+      "schemaId": "phase10-c0v-radial-witness-v1",
+      "state": "defined",
+      "requiredBeforePacketIds": []
+    },
+    {
+      "schemaId": "phase10-c0v-reference-refusal-v1",
+      "state": "defined",
+      "requiredBeforePacketIds": []
+    },
+    {
+      "schemaId": "phase10-c0v-resource-ledger-v1",
+      "state": "defined",
+      "requiredBeforePacketIds": []
+    },
+    {
+      "schemaId": "phase10-c0v-static-evaluation-v1",
+      "state": "defined",
+      "requiredBeforePacketIds": []
+    },
+    {
+      "schemaId": "phase10-c0v-static-protocol-v1",
+      "state": "defined",
+      "requiredBeforePacketIds": []
+    },
+    {
+      "schemaId": "phase10-c0v-static-reference-v1",
+      "state": "defined",
+      "requiredBeforePacketIds": []
+    },
+    {
+      "schemaId": "phase10-c0v-static-result-v1",
+      "state": "defined",
+      "requiredBeforePacketIds": []
+    },
+    {
+      "schemaId": "phase10-c0v-static-witness-v1",
+      "state": "defined",
+      "requiredBeforePacketIds": []
+    },
+    {
+      "schemaId": "phase10-c0v-terminal-table-v1",
+      "state": "defined",
+      "requiredBeforePacketIds": []
+    },
+    {
+      "schemaId": "phase10-callable-registry-v1",
+      "state": "defined",
+      "requiredBeforePacketIds": []
+    },
+    {
+      "schemaId": "phase10-claim-map-v1",
+      "state": "reserved",
+      "requiredBeforePacketIds": [
+        "closure"
+      ]
+    },
+    {
+      "schemaId": "phase10-currency-snapshot-row-v1",
+      "state": "defined",
+      "requiredBeforePacketIds": []
+    },
+    {
+      "schemaId": "phase10-execution-readme-v1",
+      "state": "defined",
+      "requiredBeforePacketIds": []
+    },
+    {
+      "schemaId": "phase10-execution-receipt-v1",
+      "state": "defined",
+      "requiredBeforePacketIds": []
+    },
+    {
+      "schemaId": "phase10-file-custody-row-v1",
+      "state": "defined",
+      "requiredBeforePacketIds": []
+    },
+    {
+      "schemaId": "phase10-foundation-freeze-v1",
+      "state": "defined",
+      "requiredBeforePacketIds": []
+    },
+    {
+      "schemaId": "phase10-gate10-report-v1",
+      "state": "defined",
+      "requiredBeforePacketIds": []
+    },
+    {
+      "schemaId": "phase10-independent-verification-v1",
+      "state": "defined",
+      "requiredBeforePacketIds": []
+    },
+    {
+      "schemaId": "phase10-intake-disposition-row-v1",
+      "state": "defined",
+      "requiredBeforePacketIds": []
+    },
+    {
+      "schemaId": "phase10-intake-report-v1",
+      "state": "defined",
+      "requiredBeforePacketIds": []
+    },
+    {
+      "schemaId": "phase10-nas-publication-disposition-v1",
+      "state": "defined",
+      "requiredBeforePacketIds": []
+    },
+    {
+      "schemaId": "phase10-obligation-matrix-v1",
+      "state": "defined",
+      "requiredBeforePacketIds": []
+    },
+    {
+      "schemaId": "phase10-observation-bridge-report-v1",
+      "state": "defined",
+      "requiredBeforePacketIds": []
+    },
+    {
+      "schemaId": "phase10-package-report-v1",
+      "state": "defined",
+      "requiredBeforePacketIds": []
+    },
+    {
+      "schemaId": "phase10-packet-catalogue-v1",
+      "state": "defined",
+      "requiredBeforePacketIds": []
+    },
+    {
+      "schemaId": "phase10-packet-protocol-v1",
+      "state": "defined",
+      "requiredBeforePacketIds": []
+    },
+    {
+      "schemaId": "phase10-packet-verification-v1",
+      "state": "defined",
+      "requiredBeforePacketIds": []
+    },
+    {
+      "schemaId": "phase10-preflight-receipt-v1",
+      "state": "defined",
+      "requiredBeforePacketIds": []
+    },
+    {
+      "schemaId": "phase10-return-proposal-v1",
+      "state": "reserved",
+      "requiredBeforePacketIds": [
+        "b1a",
+        "b1b",
+        "b2",
+        "b3",
+        "b4",
+        "b5"
+      ]
+    },
+    {
+      "schemaId": "phase10-return-proposals-v1",
+      "state": "reserved",
+      "requiredBeforePacketIds": [
+        "b-aggregate"
+      ]
+    },
+    {
+      "schemaId": "phase10-review-v1",
+      "state": "defined",
+      "requiredBeforePacketIds": []
+    },
+    {
+      "schemaId": "phase10-scope-classification-protocol-v1",
+      "state": "defined",
+      "requiredBeforePacketIds": []
+    },
+    {
+      "schemaId": "phase10-scope-overlay-row-v1",
+      "state": "defined",
+      "requiredBeforePacketIds": []
+    },
+    {
+      "schemaId": "phase10-scope-report-v1",
+      "state": "defined",
+      "requiredBeforePacketIds": []
+    },
+    {
+      "schemaId": "phase10-search-disposition-set-v1",
+      "state": "defined",
+      "requiredBeforePacketIds": []
+    },
+    {
+      "schemaId": "phase10-search-disposition-v1",
+      "state": "defined",
+      "requiredBeforePacketIds": []
+    },
+    {
+      "schemaId": "phase10-suite-receipt-v1",
+      "state": "defined",
+      "requiredBeforePacketIds": []
+    }
+  ],
+  "refusalSemantics": {
+    "terminalBranchRule": "Every required operand is terminal, every authorized acquisition or search packet used by the branch is terminal, and no unbounded continuation remains.",
+    "refusalRule": "terminal-refusal names at least one blocking operand and non-null refusal class.",
+    "nonIdentificationRule": "terminal-non-identification is distinct from missing-source, mapping, and infrastructure refusal.",
+    "artifactInvalidRule": "Artifact-invalid, missing evaluator evidence, or an uncalled check yields package no-decision and leaves the branch incomplete.",
+    "criterionFailureRule": "A measured criterion failure is not a source refusal.",
+    "resourceRule": "Resource and infrastructure failures are never relabeled scientific or numerical failures.",
+    "downstreamRule": "E, F, and H entries are candidate scope and budget only, with authorization fixed to none."
+  }
+}
