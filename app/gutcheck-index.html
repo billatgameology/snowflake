@@ -57,10 +57,16 @@
         font-size: 12px; text-transform: uppercase; letter-spacing: 0.04em;
         padding: 6px 0; border-bottom: 1px solid #2a3a58; }
       .cell { padding: 12px 0; border-top: 1px solid #1d2941; min-width: 0; }
+      .cell-compare.is-selected { background: #173329; box-shadow: inset 3px 0 #65d99a;
+        padding-left: 10px; }
       .rows > .cell:nth-child(3n + 4),
       .rows > .cell:nth-child(3n + 5),
       .rows > .cell:nth-child(3n + 6) { border-top: 1px solid #1d2941; }
       .crystal { font-size: 13.5px; color: #dfe7f4; margin-bottom: 6px; }
+      .queue-select { display: inline-flex; align-items: center; gap: 7px; margin: 0 0 8px;
+        padding: 6px 9px; border: 1px solid #3b6b58; border-radius: 6px; background: #142b24;
+        color: #bcebd0; cursor: pointer; font-size: 12.5px; }
+      .queue-select input { width: 17px; height: 17px; accent-color: #65d99a; }
       /* Comparisons for one crystal. Wrap rather than scroll: this view exists to show what
          exists, and Run B's six comparisons must not hide behind a scrollbar. */
       .strip { display: flex; flex-wrap: wrap; gap: 8px; }
@@ -76,7 +82,21 @@
       .card { background: #131c2e; border: 1px solid #263450; border-radius: 8px; overflow: hidden; }
       .card img { width: 100%; height: 170px; object-fit: cover; display: block; background: #0a0f18; }
       .card .cap { padding: 6px 9px; font-size: 12.5px; color: #b9c6de; word-break: break-all; }
+      .card .cap-note { padding: 0 9px 8px; font-size: 11.5px; line-height: 1.35;
+        color: #7185a8; }
       .meta { color: #6c7d9c; font-size: 12px; margin-top: 30px; }
+      .queue-panel { position: sticky; top: 0; z-index: 4; display: flex; flex-wrap: wrap;
+        align-items: center; gap: 8px; padding: 10px 12px; margin: 12px 0 18px;
+        border: 1px solid #355173; border-radius: 8px; background: #111d30ee;
+        backdrop-filter: blur(8px); box-shadow: 0 5px 18px #05091288; }
+      .queue-panel input[type="text"] { min-width: 230px; flex: 1 1 260px; padding: 7px 9px;
+        border: 1px solid #415b82; border-radius: 5px; color: #e5eeff; background: #0c1422; }
+      .queue-panel button { border: 1px solid #46658f; border-radius: 5px; padding: 7px 10px;
+        color: #d9e8ff; background: #203453; cursor: pointer; }
+      .queue-panel button:hover { background: #2a4269; }
+      .queue-count { color: #8ff0b8; min-width: 70px; }
+      .queue-status { color: #93a5c4; font-size: 12px; }
+      .queue-format { flex-basis: 100%; color: #7185a8; font-size: 11.5px; }
       a { color: #9fc0ff; }
     </style>
   </head>

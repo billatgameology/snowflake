@@ -92,6 +92,30 @@ detail.
   charter v1.26 and `AGENTS.md` require integrity for routine sources, one targeted check for
   load-bearing inputs, and full named controls for gates or strong public claims. No recursive
   reviews; stop when another check cannot change the decision. No evidence or criteria changed.
+- **Maker verification boundary (2026-08-24).** Isolated website, gallery, animation-selection,
+  render-recipe, and batch-orchestration changes use focused tests, relevant typecheck/build checks,
+  and a live smoke or representative render. They do not trigger exact `npm test`, scientific gates,
+  or unrelated solver suites unless they also change a scientific, evidence, gate, or root-wide
+  contract. `AGENTS.md` Rule 6 is the durable operating rule; completed records still state checks
+  that actually ran but do not establish precedent.
+- **The GG gut-check catalogue now leads with its image-bearing generated sweep (2026-08-23).**
+  The governed NAS split intentionally leaves historical mixed comparison/reference media
+  unserved, but 89 project-generated PNG renders remain public and healthy. The index formerly
+  placed 37 model-only orphan links ahead of them, making the thumbnails appear absent; the
+  generator now orders the generated-crystal gallery first and a regression pins that priority.
+  This is an operational UX correction only and changes no scientific evidence or phase state.
+- **The maker-directed animation-selection queue tooling and figure-preview follow-up are COMPLETE
+  (2026-08-24); aesthetic selection is in progress.** The completed
+  [queue plan](plans/gutcheck-animation-selection-queue.md) adds preview-adjacent selection,
+  portable manifests, deterministic disjoint batches, existing-mesh flyaround rendering, and
+  merge-safe local/NAS staging. Its follow-up regenerates 33 safe project-owned figure thumbnails
+  from public final meshes and adds them as selectable pre-sweep rows; the historic mixed/private
+  composites remain non-served. The checked-in
+  [second-computer guide](gutcheck-animation-worker-guide.md) records validation, dry-run, NAS
+  staging, resume, and completion-report steps. Live reload/export/import verification passed; at
+  the completion check, the mirror recorded 51 maker selections (30 sweep plus 21 figure). It pins
+  the measured `gutcheck-mesh-v2q` web format; no render has started and no immutable NAS collection
+  is being mutated.
 - Historical extent-21 artifacts remain valid measured-only comparisons: **CAK 3/90, M1 54/90**
   over their named scopes. They are not the registered conservative-intersection verdict, which
   decision 0045 closed as not computed.
@@ -102,8 +126,8 @@ detail.
   direction) and content stays in-repo unpublished, `test.yml` CI unaffected. Reconciliation is
   a live decision point under **Next step**. Full freeze history:
   [the history file](progress-history-phases-6-8-9.md).
-- **Last updated:** 2026-08-20 (preserved the Phase 6/8/9 index compaction; corrected Phase 10 to
-  no package selected and completed decision-ready option planning)
+- **Last updated:** 2026-08-24 (recorded the maker's product-sized verification boundary for
+  website and animation work; no phase or evidence change)
 
 ## Phase gates
 
@@ -137,7 +161,13 @@ and completion credit isolated.
 [nas-asset-governance.md](plans/nas-asset-governance.md) is a completed infrastructure record; its
 correction changes no phase claim or credit.
 
-No execution plan is currently active. The
+The maker-directed [gut-check animation selection and queue plan](plans/gutcheck-animation-selection-queue.md)
+is complete, including its 2026-08-24 usability follow-up: 33 public pre-sweep figure meshes now
+have safe regenerated previews/selectors, and the
+[second-host operator guide](gutcheck-animation-worker-guide.md) is durable. The completion check
+found 51 maker selections; no animation render has started. This changes no phase status or
+scientific claim.
+The
 [Phase 10 candidate plan](plans/phase-10-closures-and-frontier.md) is decision support, not
 execution authority; no A–H package is selected.
 
@@ -148,6 +178,35 @@ the package-specific prerequisites in its charter amendment and execution plan. 
 0043–0044's Phase 7 deferrals remain authoritative and cannot be discharged by Phase 10.
 
 ## Next step
+
+### Gut-check animation queue — maker selection pending
+
+The loopback site is running at `http://127.0.0.1:5173/gutcheck-index.html`. Refresh once to load
+the new 33-row **Pre-sweep figure models — regenerated previews** section, finish selecting, and
+use **Export queue JSON** for a portable copy. The live mirror had 51 choices at the completion
+check (30 sweep plus 21 figure) at `out/gutcheck-animation-queue/selection.json`; preserve the
+exported copy before starting workers. The original side-by-side composites remain non-served
+because their target halves are governed mixed/private media.
+
+After selection, create two deterministic, disjoint worker manifests:
+
+`node scripts/gutcheck-animation-queue.ts plan --queue out/gutcheck-animation-queue/selection.json --batches 2`
+
+The command emits `batch-a.json`, `batch-b.json`, and `RUN-batch-{a,b}.cmd` / `.sh` under the
+queue's local `out/gutcheck-animation-queue/<queue-id>/` directory. Give one manifest/launcher to
+each checkout or computer. Run each worker with `--nas-stage` (the generated launchers already do
+this); each host resolves its own marked NAS mount and writes only
+`_control/staging/gutcheck-animation/<queue-id>/<batch-id>/`. Reconcile the two result-record roots
+only after both finish; immutable collection publication remains a separate governed transaction.
+The context-free setup, resume, and reporting procedure is in
+`docs/gutcheck-animation-worker-guide.md`.
+The local, non-NAS dry-run form is:
+
+`node scripts/gutcheck-animation-queue.ts run --batch <batch-a.json> --dry-run`
+
+This operational selection/render path uses the focused queue checks, dry run, and a representative
+sample render defined by `AGENTS.md` Rule 6. Do not run the full scientific suite unless later work
+crosses into a scientific, evidence, gate, or root-wide contract.
 
 ### Phase 10 — planning complete; maker package selection pending
 
