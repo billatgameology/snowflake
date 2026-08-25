@@ -208,3 +208,27 @@ discarded with the worktree.
 - **Embed 37 live Three.js viewers in the index.** Rejected: dozens of simultaneous WebGL contexts
   are expensive and fragile. Deterministic project-owned PNG thumbnails make selection cheap while
   each row keeps its existing interactive viewer link.
+
+### Windows render lane repair (2026-08-24, branch fix/animation-queue-windows-spawn)
+
+First Windows execution of the render lane (host HIL_ADMIN, Node 24.19.0, maker's exported
+51-item queue). `run --nas-stage` failed before rendering anything: `npx vite build ... failed
+with status null`. Root cause: `runChecked` mapped `npx` to `npx.cmd` on win32 but `spawnSync`
+of a `.cmd` without a shell fails EINVAL since Node's CVE-2024-27980 (BatBadBut) hardening in
+20.12+, and the error surfaced only as `status null` because `result.error` was never inspected.
+The same command succeeded when run manually in a shell, isolating the spawn mechanism.
+
+Fix (two edits in `scripts/gutcheck-animation-queue.ts`): invoke vite through its JS bin
+(`process.execPath` + `node_modules/vite/bin/vite.js`) so only real executables are spawned, and
+throw `result.error` from `runChecked` when the spawn itself fails. The win32 `.cmd` mapping is
+removed as dead. `scene-capture.mjs`'s `ffmpeg` spawn resolves a real `.exe` and is unaffected.
+
+- **Rejected: `shell: true` on win32.** Reintroduces cmd.exe argument-injection surface on paths
+  that include a NAS staging directory; the JS-bin invocation is deterministic and needs no
+  escaping rules.
+
+Verification per this plan's process correction: focused queue tests
+(`runner/test/gutcheck-animation-queue-cli.test.ts`, `app/test/gutcheck-animation-queue.test.ts`,
+5/5 pass), `npm run typecheck`, then the representative sample render (single-item fig13 probe,
+the queue's largest source mesh at 72.7 MB, written to the canonical batch-a NAS staging
+directory so the full run resumes past it by identity).
