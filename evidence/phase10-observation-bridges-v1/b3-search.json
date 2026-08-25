@@ -1,0 +1,24 @@
+{
+  "schema": "phase10-search-disposition-set-v1",
+  "branchId": "B3",
+  "freezeCommit": "db7ca3532469e1a0245ccbadc45bd119f1e971ff",
+  "registeredOperandGroupIds": [
+    "B3-SEARCH-CARRIER-GAS-MATERIALS",
+    "B3-SEARCH-CROSSED-DESIGN",
+    "B3-SEARCH-ISONO-CURRENCY",
+    "B3-SEARCH-TEMPERATURE-CONFLICT",
+    "B3-SEARCH-ZHAO-MAIN",
+    "B3-SEARCH-ZHAO-S2"
+  ],
+  "packetCap": 6,
+  "packets": [],
+  "unusedOperandGroupIds": [
+    "B3-SEARCH-CARRIER-GAS-MATERIALS",
+    "B3-SEARCH-CROSSED-DESIGN",
+    "B3-SEARCH-ISONO-CURRENCY",
+    "B3-SEARCH-TEMPERATURE-CONFLICT",
+    "B3-SEARCH-ZHAO-MAIN",
+    "B3-SEARCH-ZHAO-S2"
+  ],
+  "aggregateDisposition": "not-applicable"
+}

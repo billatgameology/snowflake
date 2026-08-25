@@ -1,0 +1,183 @@
+{
+  "schema": "phase10-preflight-receipt-v1",
+  "receiptId": "phase10-b1a-terminal-v1-preflight",
+  "matrixId": "phase10-selected-package-obligations-v1",
+  "protocolId": "phase10-b1a-terminal-disposition-v1",
+  "registryId": "phase10-b1a-resolved-callables-v1",
+  "packetId": "b1a",
+  "attemptId": "b1a-terminal-v1",
+  "stage": "run",
+  "observed": {
+    "launchClass": "deciding-extraction",
+    "machineLaunchChecks": "branch-clean-runtime-unique-output",
+    "branch": "phase10/evidence-verification",
+    "head": "db7ca3532469e1a0245ccbadc45bd119f1e971ff",
+    "runtime": "v24.13.1",
+    "command": "node runner/src/phase10-b-branches.ts run-branches --repository-root .",
+    "repositoryBundleRoot": ".",
+    "attemptDirectory": "out/phase10-execution-v1/attempts/b1a/terminal-v1",
+    "candidateDirectory": "out/phase10-execution-v1/attempts/b1a/terminal-v1/candidate",
+    "registeredAttemptRoot": "out/phase10-execution-v1/attempts/b1a",
+    "finalPreflightReceiptPath": "evidence/phase10-obligation-preflight-v1/packets/b1a/preflight.json",
+    "finalTerminalReceiptPath": "evidence/phase10-obligation-preflight-v1/packets/b1a/terminal-receipt.json",
+    "verificationPaths": [
+      "evidence/phase10-observation-bridges-v1/b1a-verification.json"
+    ],
+    "matrix": {
+      "path": "research/phase10-obligation-matrix-v1.json",
+      "byteLength": 125508,
+      "sha256": "8f85e6febad1ec7568b2a7a47dd764c260cc1f602da08c7dd27d5ee1a6c1bab3"
+    },
+    "protocol": {
+      "path": "research/phase10-execution-v1/packets/b1a/protocol.json",
+      "byteLength": 998,
+      "sha256": "de6a74b7c47a65c86ea66b1192c7906a0eedb084c94f6142b26a23a98dcb949e"
+    },
+    "callableRegistry": {
+      "path": "research/phase10-execution-v1/packets/b1a/callable-registry.json",
+      "byteLength": 3552,
+      "sha256": "24ee4e022c731bb9cdf7f037b7457c6c475f03175eb01a455a6fe48b5a7180a8"
+    },
+    "decidingProtocol": {
+      "path": "research/phase10-b1a-protocol-v1.json",
+      "byteLength": 5160,
+      "sha256": "eccff8026fcf690bb6aa7aa200948c16421673897096e035b217bd646cc6afcc"
+    },
+    "dependencyPacketIds": [
+      "a-i",
+      "a-p",
+      "a-s",
+      "b-acquisition"
+    ],
+    "dependencyArtifacts": [
+      {
+        "packetId": "a-i",
+        "protocol": {
+          "path": "research/phase10-execution-v1/packets/a-i/protocol.json",
+          "byteLength": 938,
+          "sha256": "4f6b76ea61c75165851d64ad8ffe9235438f9c3fbfe4ea1c320f3f1c46078598"
+        },
+        "callableRegistry": {
+          "path": "research/phase10-execution-v1/packets/a-i/callable-registry.json",
+          "byteLength": 3013,
+          "sha256": "1a19cc5ac989097e65b8fb0c3b1f4109b74297230b2d0fec1b74773eb27897ee"
+        },
+        "terminalReceipt": {
+          "path": "evidence/phase10-obligation-preflight-v1/packets/a-i/terminal-receipt.json",
+          "byteLength": 1119,
+          "sha256": "21bb8cb98d9907f2cd1419e90b276554825e95f23c60c6babad74d32103f1cdb"
+        },
+        "verificationArtifacts": [
+          {
+            "path": "evidence/phase10-scope-intake-v1/intake-verification.json",
+            "byteLength": 4293,
+            "sha256": "ae04b87627c1e9e2bd9152f413fa44d025cc6a0dc682c07337f80bbf40cb1c96"
+          }
+        ]
+      },
+      {
+        "packetId": "a-p",
+        "protocol": {
+          "path": "research/phase10-execution-v1/packets/a-p/protocol.json",
+          "byteLength": 1393,
+          "sha256": "515752d73dd31032736e6ccebd21c935a9672ac4ba546f30955c3bc9efe5e0f7"
+        },
+        "callableRegistry": {
+          "path": "research/phase10-execution-v1/packets/a-p/callable-registry.json",
+          "byteLength": 5263,
+          "sha256": "d859a7ae0692e6e77c33160470d39a8c5f8d60bf29a1a5d8ee86108af695c991"
+        },
+        "terminalReceipt": {
+          "path": "evidence/phase10-obligation-preflight-v1/packets/a-p/terminal-receipt.json",
+          "byteLength": 1681,
+          "sha256": "c84e269f521f7b2fb680fa1000dfc3837893f2baa88fc46402a6303e24b076c4"
+        },
+        "verificationArtifacts": [
+          {
+            "path": "evidence/phase10-obligation-preflight-v1/verification.json",
+            "byteLength": 16938,
+            "sha256": "6b39cf5b7f663c5518f5dd0745e92d59aae3dc21ac7dcf94ece72603fc96eaec"
+          }
+        ]
+      },
+      {
+        "packetId": "a-s",
+        "protocol": {
+          "path": "research/phase10-execution-v1/packets/a-s/protocol.json",
+          "byteLength": 1275,
+          "sha256": "b11c53c1ad408f8db21924418fa9f2b4fa198c8f8c7fde2e8af5f6b62faf1250"
+        },
+        "callableRegistry": {
+          "path": "research/phase10-execution-v1/packets/a-s/callable-registry.json",
+          "byteLength": 6252,
+          "sha256": "2ca1a8e0e124bc54a4445aaa787315b8fb05bf028009503833c952c5fae4727e"
+        },
+        "terminalReceipt": {
+          "path": "evidence/phase10-obligation-preflight-v1/packets/a-s/terminal-receipt.json",
+          "byteLength": 1605,
+          "sha256": "99e6ced9e48d41113ac8d433649e43d9d5ec5e36c6fe799f808b4005e27b55de"
+        },
+        "verificationArtifacts": [
+          {
+            "path": "evidence/phase10-scope-intake-v1/scope-verification.json",
+            "byteLength": 90011,
+            "sha256": "1507546a91a60b6ad1b7d1afd62b1b69aee18549d465c78d4f97ddc254e1704c"
+          }
+        ]
+      },
+      {
+        "packetId": "b-acquisition",
+        "protocol": {
+          "path": "research/phase10-execution-v1/packets/b-acquisition/protocol.json",
+          "byteLength": 770,
+          "sha256": "992e65ca6512c86617043d45a20826caacc83b87c4a6cdb4557b6f510fd5faec"
+        },
+        "callableRegistry": {
+          "path": "research/phase10-execution-v1/packets/b-acquisition/callable-registry.json",
+          "byteLength": 2685,
+          "sha256": "e6b546ed8108ff42f3b03b0ef0124b835bfecd311fa06e122e32c487f243f597"
+        },
+        "terminalReceipt": {
+          "path": "evidence/phase10-obligation-preflight-v1/packets/b-acquisition/terminal-receipt.json",
+          "byteLength": 813,
+          "sha256": "90f9acd2d21c57232b8cc006b00ce035681b7bc6e21e0200b0ac03dfb61e5ac2"
+        },
+        "verificationArtifacts": [
+          {
+            "path": "evidence/phase10-observation-bridges-v1/acquisition-verification.json",
+            "byteLength": 2363,
+            "sha256": "636715c88adb0a3e7f3eee3903863fec2f398b036a773e775e93f2d5146d80ea"
+          }
+        ]
+      }
+    ]
+  },
+  "outputIds": [
+    "out-b1a-protocol",
+    "out-b1a-result",
+    "out-b1a-return",
+    "out-b1a-search",
+    "out-b1a-verification"
+  ],
+  "checkIds": [
+    "chk-b1a-apparatus-surface-forcing",
+    "chk-b1a-current-monograph",
+    "chk-b1a-development-label",
+    "chk-b1a-operand-refusal",
+    "chk-b1a-protocol-before-values",
+    "chk-b1a-return-only",
+    "chk-b1a-search-bounds",
+    "chk-b1a-uncertainty-or-envelope"
+  ],
+  "negativeControlIds": [],
+  "callableIds": [
+    "phase10-b1a-check-caller",
+    "phase10-b1a-protocol-producer",
+    "phase10-b1a-result-producer",
+    "phase10-b1a-verification-receipt-writer",
+    "phase10-b1a-verifier"
+  ],
+  "selectedBranches": {},
+  "verdict": "pass",
+  "reasons": []
+}

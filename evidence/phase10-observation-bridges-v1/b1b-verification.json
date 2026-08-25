@@ -1,0 +1,143 @@
+{
+  "schema": "phase10-packet-verification-v1",
+  "verificationId": "phase10-b1b-verification-v1",
+  "matrixId": "phase10-selected-package-obligations-v1",
+  "protocolId": "phase10-b1b-terminal-disposition-v1",
+  "registryId": "phase10-b1b-resolved-callables-v1",
+  "packetId": "b1b",
+  "terminalState": "refusal",
+  "verifiedArtifacts": [
+    {
+      "outputId": "out-b1b-protocol",
+      "path": "research/phase10-b1b-protocol-v1.json",
+      "byteLength": 5773,
+      "sha256": "4292bf81c808a32b12fa96b40f3a5db1b6bc8cb820239e373c857d1d5b38d432"
+    },
+    {
+      "outputId": "out-b1b-result",
+      "path": "out/phase10-execution-v1/attempts/b1b/terminal-v1/candidate/result.json",
+      "byteLength": 5629,
+      "sha256": "7eb37dc5230de5464e823115cb7bc4889abf337077e67b499eb7851c2ee7106c"
+    },
+    {
+      "outputId": "out-b1b-return",
+      "path": "out/phase10-execution-v1/attempts/b1b/terminal-v1/candidate/return.json",
+      "byteLength": 916,
+      "sha256": "41f4492baf92bde5087f5d04da685be95e0c1d6b07faf5efdf824ca57afbb382"
+    },
+    {
+      "outputId": "out-b1b-search",
+      "path": "out/phase10-execution-v1/attempts/b1b/terminal-v1/candidate/search.json",
+      "byteLength": 658,
+      "sha256": "a1e62cd6bd8d71e8a9d117c974a9201e3095b70f47f2e338130ca326e840bf04"
+    }
+  ],
+  "checkResults": [
+    {
+      "checkId": "chk-b1b-asymmetric-transfer",
+      "verdict": "pass",
+      "reasons": [],
+      "witnessOutputIds": [
+        "out-b1b-result"
+      ]
+    },
+    {
+      "checkId": "chk-b1b-evolving-geometry",
+      "verdict": "pass",
+      "reasons": [],
+      "witnessOutputIds": [
+        "out-b1b-result"
+      ]
+    },
+    {
+      "checkId": "chk-b1b-local-forcing",
+      "verdict": "pass",
+      "reasons": [],
+      "witnessOutputIds": [
+        "out-b1b-result"
+      ]
+    },
+    {
+      "checkId": "chk-b1b-matched-cross-pressure",
+      "verdict": "pass",
+      "reasons": [],
+      "witnessOutputIds": [
+        "out-b1b-result"
+      ]
+    },
+    {
+      "checkId": "chk-b1b-no-implemented-transport-claim",
+      "verdict": "pass",
+      "reasons": [],
+      "witnessOutputIds": [
+        "out-b1b-result"
+      ]
+    },
+    {
+      "checkId": "chk-b1b-operand-refusal",
+      "verdict": "pass",
+      "reasons": [],
+      "witnessOutputIds": [
+        "out-b1b-result"
+      ]
+    },
+    {
+      "checkId": "chk-b1b-protocol-before-values",
+      "verdict": "pass",
+      "reasons": [],
+      "witnessOutputIds": [
+        "out-b1b-protocol"
+      ]
+    },
+    {
+      "checkId": "chk-b1b-return-only",
+      "verdict": "pass",
+      "reasons": [],
+      "witnessOutputIds": [
+        "out-b1b-return"
+      ]
+    },
+    {
+      "checkId": "chk-b1b-search-bounds",
+      "verdict": "pass",
+      "reasons": [],
+      "witnessOutputIds": [
+        "out-b1b-search"
+      ]
+    },
+    {
+      "checkId": "chk-b1b-support-heat",
+      "verdict": "pass",
+      "reasons": [],
+      "witnessOutputIds": [
+        "out-b1b-result"
+      ]
+    }
+  ],
+  "executedNegativeControlIds": [],
+  "negativeControlResults": [],
+  "boundDependencyPacketIds": [
+    "a-i",
+    "a-p",
+    "a-s",
+    "b-acquisition"
+  ],
+  "execution": {
+    "evaluatorCallableId": "phase10-b1b-verifier",
+    "modulePath": "runner/src/phase10-b-branch-verify.ts",
+    "exportName": "phase10B1bVerify",
+    "byteLength": 23460,
+    "sha256": "e4012efb4dbb736d183965020ad52e0999b32d4b012d91f469563f52ce7f30bb",
+    "runtime": "v24.13.1",
+    "command": "node runner/src/phase10-b-branches.ts run-branches --repository-root .",
+    "gitHead": "db7ca3532469e1a0245ccbadc45bd119f1e971ff",
+    "startedOn": "2026-08-25T14:58:26.984Z",
+    "endedOn": "2026-08-25T14:58:26.984Z",
+    "processConcurrency": 1
+  },
+  "aggregateVerdict": "refusal",
+  "limits": [
+    "This verifies terminal operand dispositions from already-published rights-safe metadata; it does not claim that unavailable sources do not exist elsewhere.",
+    "No numeric media inspection, provider contact, purchase, experiment, E/F/H execution, scientific habit row, target score, or validation occurred."
+  ]
+}

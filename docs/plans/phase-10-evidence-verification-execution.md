@@ -2422,6 +2422,16 @@ obligation-preflight tests pass 21/21, `npm run typecheck` passes, and the Rule 
 scientific claim has run or published yet. Next, commit and push this first-add protocol/code freeze,
 then execute the six finite branch dispositions once from the clean commit.
 
+From clean pushed freeze `db7ca3532469e1a0245ccbadc45bd119f1e971ff`, that sole branch run
+published all six registered terminal dispositions. B1a, B1b, B2, B4, and B5 are terminal
+refusals; B3 is a terminal non-identification. The independent receipts pass all 52 registered
+checks, record zero search packets, and preserve null return proposals with authorization `none`.
+The 36 new branch/preflight evidence files total 118,984 bytes and are pinned in the 439-file /
+6,491,444-byte evidence manifest. The initial integrity check correctly refused while those new
+files were untracked; after staging the pinned files, the focused evidence-integrity, B-branch, and
+obligation-preflight set passed 24/24. Next, commit and push this terminal six-branch publication,
+then run `b-aggregate` once from that clean commit.
+
 ### Rejected native pre-Node launcher design (retained history; do not implement)
 
 **Superseded by maker direction on 2026-08-22.** The detail below records the design that exposed

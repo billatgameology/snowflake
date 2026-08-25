@@ -1,0 +1,20 @@
+{
+  "schema": "phase10-search-disposition-set-v1",
+  "branchId": "B5",
+  "freezeCommit": "db7ca3532469e1a0245ccbadc45bd119f1e971ff",
+  "registeredOperandGroupIds": [
+    "B5-SEARCH-CALIBRATION-METADATA",
+    "B5-SEARCH-FORCING-METADATA",
+    "B5-SEARCH-MEDIA-COMPANION",
+    "B5-SEARCH-TRANSPORT-METADATA"
+  ],
+  "packetCap": 4,
+  "packets": [],
+  "unusedOperandGroupIds": [
+    "B5-SEARCH-CALIBRATION-METADATA",
+    "B5-SEARCH-FORCING-METADATA",
+    "B5-SEARCH-MEDIA-COMPANION",
+    "B5-SEARCH-TRANSPORT-METADATA"
+  ],
+  "aggregateDisposition": "not-applicable"
+}

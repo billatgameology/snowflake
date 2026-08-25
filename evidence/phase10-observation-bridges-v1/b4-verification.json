@@ -1,0 +1,127 @@
+{
+  "schema": "phase10-packet-verification-v1",
+  "verificationId": "phase10-b4-verification-v1",
+  "matrixId": "phase10-selected-package-obligations-v1",
+  "protocolId": "phase10-b4-terminal-disposition-v1",
+  "registryId": "phase10-b4-resolved-callables-v1",
+  "packetId": "b4",
+  "terminalState": "refusal",
+  "verifiedArtifacts": [
+    {
+      "outputId": "out-b4-protocol",
+      "path": "research/phase10-b4-protocol-v1.json",
+      "byteLength": 5168,
+      "sha256": "afd0775600108b0bf37037ab785da58c858a8a25afc92ef3c28c872e6728077a"
+    },
+    {
+      "outputId": "out-b4-result",
+      "path": "out/phase10-execution-v1/attempts/b4/terminal-v1/candidate/result.json",
+      "byteLength": 4535,
+      "sha256": "a8eecad6e737a24566676d668f7154ad3d8b860228ab67365214de41e4ac92d9"
+    },
+    {
+      "outputId": "out-b4-return",
+      "path": "out/phase10-execution-v1/attempts/b4/terminal-v1/candidate/return.json",
+      "byteLength": 915,
+      "sha256": "8209aeb7c83680aff1d8b0bb678fea84af0b9c6c55c2fd6596953dc5eb8d3f73"
+    },
+    {
+      "outputId": "out-b4-search",
+      "path": "out/phase10-execution-v1/attempts/b4/terminal-v1/candidate/search.json",
+      "byteLength": 417,
+      "sha256": "d141e428a2f32e6f89ac5331b5ff53d32787a38c986053d122680abffbacd957"
+    }
+  ],
+  "checkResults": [
+    {
+      "checkId": "chk-b4-forcing-semantics",
+      "verdict": "pass",
+      "reasons": [],
+      "witnessOutputIds": [
+        "out-b4-result"
+      ]
+    },
+    {
+      "checkId": "chk-b4-no-mechanism-rank",
+      "verdict": "pass",
+      "reasons": [],
+      "witnessOutputIds": [
+        "out-b4-result"
+      ]
+    },
+    {
+      "checkId": "chk-b4-protocol-before-values",
+      "verdict": "pass",
+      "reasons": [],
+      "witnessOutputIds": [
+        "out-b4-protocol"
+      ]
+    },
+    {
+      "checkId": "chk-b4-return-only",
+      "verdict": "pass",
+      "reasons": [],
+      "witnessOutputIds": [
+        "out-b4-return"
+      ]
+    },
+    {
+      "checkId": "chk-b4-rival-fit-or-refusal",
+      "verdict": "pass",
+      "reasons": [],
+      "witnessOutputIds": [
+        "out-b4-result"
+      ]
+    },
+    {
+      "checkId": "chk-b4-same-lineage-limit",
+      "verdict": "pass",
+      "reasons": [],
+      "witnessOutputIds": [
+        "out-b4-result"
+      ]
+    },
+    {
+      "checkId": "chk-b4-search-bounds",
+      "verdict": "pass",
+      "reasons": [],
+      "witnessOutputIds": [
+        "out-b4-search"
+      ]
+    },
+    {
+      "checkId": "chk-b4-theory-methods-separate",
+      "verdict": "pass",
+      "reasons": [],
+      "witnessOutputIds": [
+        "out-b4-result"
+      ]
+    }
+  ],
+  "executedNegativeControlIds": [],
+  "negativeControlResults": [],
+  "boundDependencyPacketIds": [
+    "a-i",
+    "a-p",
+    "a-s",
+    "b-acquisition"
+  ],
+  "execution": {
+    "evaluatorCallableId": "phase10-b4-verifier",
+    "modulePath": "runner/src/phase10-b-branch-verify.ts",
+    "exportName": "phase10B4Verify",
+    "byteLength": 23460,
+    "sha256": "e4012efb4dbb736d183965020ad52e0999b32d4b012d91f469563f52ce7f30bb",
+    "runtime": "v24.13.1",
+    "command": "node runner/src/phase10-b-branches.ts run-branches --repository-root .",
+    "gitHead": "db7ca3532469e1a0245ccbadc45bd119f1e971ff",
+    "startedOn": "2026-08-25T14:58:27.486Z",
+    "endedOn": "2026-08-25T14:58:27.486Z",
+    "processConcurrency": 1
+  },
+  "aggregateVerdict": "refusal",
+  "limits": [
+    "This verifies terminal operand dispositions from already-published rights-safe metadata; it does not claim that unavailable sources do not exist elsewhere.",
+    "No numeric media inspection, provider contact, purchase, experiment, E/F/H execution, scientific habit row, target score, or validation occurred."
+  ]
+}

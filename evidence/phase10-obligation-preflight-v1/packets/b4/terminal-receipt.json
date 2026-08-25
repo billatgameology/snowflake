@@ -1,0 +1,43 @@
+{
+  "schema": "phase10-execution-receipt-v1",
+  "receiptId": "phase10-b4-terminal-v1",
+  "matrixId": "phase10-selected-package-obligations-v1",
+  "protocolId": "phase10-b4-terminal-disposition-v1",
+  "registryId": "phase10-b4-resolved-callables-v1",
+  "packetId": "b4",
+  "terminalState": "refusal",
+  "producedOutputIds": [
+    "out-b4-protocol",
+    "out-b4-result",
+    "out-b4-return",
+    "out-b4-search",
+    "out-b4-verification"
+  ],
+  "executedCheckIds": [
+    "chk-b4-forcing-semantics",
+    "chk-b4-no-mechanism-rank",
+    "chk-b4-protocol-before-values",
+    "chk-b4-return-only",
+    "chk-b4-rival-fit-or-refusal",
+    "chk-b4-same-lineage-limit",
+    "chk-b4-search-bounds",
+    "chk-b4-theory-methods-separate"
+  ],
+  "evaluatedCheckIds": [
+    "chk-b4-forcing-semantics",
+    "chk-b4-no-mechanism-rank",
+    "chk-b4-protocol-before-values",
+    "chk-b4-return-only",
+    "chk-b4-rival-fit-or-refusal",
+    "chk-b4-same-lineage-limit",
+    "chk-b4-search-bounds",
+    "chk-b4-theory-methods-separate"
+  ],
+  "executedNegativeControlIds": [],
+  "boundDependencyPacketIds": [
+    "a-i",
+    "a-p",
+    "a-s",
+    "b-acquisition"
+  ]
+}

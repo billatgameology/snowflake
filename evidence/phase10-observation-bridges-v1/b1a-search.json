@@ -1,0 +1,18 @@
+{
+  "schema": "phase10-search-disposition-set-v1",
+  "branchId": "B1a",
+  "freezeCommit": "db7ca3532469e1a0245ccbadc45bd119f1e971ff",
+  "registeredOperandGroupIds": [
+    "B1A-SEARCH-CURRENT-MONOGRAPH",
+    "B1A-SEARCH-FORCING-MAP",
+    "B1A-SEARCH-UNCERTAINTY"
+  ],
+  "packetCap": 3,
+  "packets": [],
+  "unusedOperandGroupIds": [
+    "B1A-SEARCH-CURRENT-MONOGRAPH",
+    "B1A-SEARCH-FORCING-MAP",
+    "B1A-SEARCH-UNCERTAINTY"
+  ],
+  "aggregateDisposition": "not-applicable"
+}

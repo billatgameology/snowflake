@@ -1,0 +1,194 @@
+{
+  "schema": "phase10-b2-result-v1",
+  "branchId": "B2",
+  "protocolBinding": {
+    "path": "research/phase10-b2-protocol-v1.json",
+    "byteLength": 6344,
+    "sha256": "242eb195748e715516c1f42121e10ed95ad9022a0ff387ca201c1800c1bd89b7",
+    "commit": "db7ca3532469e1a0245ccbadc45bd119f1e971ff"
+  },
+  "sourceBindings": [
+    {
+      "bindingId": "a-i-currency",
+      "sourceKind": "tracked-artifact",
+      "payloadId": null,
+      "artifact": {
+        "path": "evidence/phase10-scope-intake-v1/currency.jsonl",
+        "byteLength": 16542,
+        "sha256": "a8c1dcbe7a0bcd02d38adc195c863dd1c3cf0b657294bdadf3a9fd472912a574"
+      },
+      "privateSource": null,
+      "developmentEvidence": true
+    },
+    {
+      "bindingId": "a-i-dispositions",
+      "sourceKind": "tracked-artifact",
+      "payloadId": null,
+      "artifact": {
+        "path": "evidence/phase10-scope-intake-v1/post-freeze-dispositions.jsonl",
+        "byteLength": 30641,
+        "sha256": "619c29255dd63a8179429abc0f44a895575294b176805a5a49339f7437c5bfd8"
+      },
+      "privateSource": null,
+      "developmentEvidence": true
+    },
+    {
+      "bindingId": "b-acquisition-round",
+      "sourceKind": "tracked-artifact",
+      "payloadId": null,
+      "artifact": {
+        "path": "evidence/phase10-observation-bridges-v1/acquisition-round.json",
+        "byteLength": 6739,
+        "sha256": "e7775b51a8d5377fe2b0d57f20fb51677152838f4cffea68737af678be1b0bf2"
+      },
+      "privateSource": null,
+      "developmentEvidence": true
+    }
+  ],
+  "operandDispositions": [
+    {
+      "operandId": "B2-CHARACTERISTIC-SIZE-COVERAGE",
+      "status": "rights-blocked",
+      "refusalClass": "rights",
+      "reason": "The exact Keller–Hallett endpoint returned an access page rather than the complete paper or dataset; purchase is not authorized.",
+      "supportingArtifactRefs": [
+        "a-i-dispositions",
+        "b-acquisition-round"
+      ]
+    },
+    {
+      "operandId": "B2-CONTROLLED-VELOCITY-DATASET",
+      "status": "rights-blocked",
+      "refusalClass": "rights",
+      "reason": "The exact Keller–Hallett endpoint returned an access page rather than the complete paper or dataset; purchase is not authorized.",
+      "supportingArtifactRefs": [
+        "a-i-dispositions",
+        "b-acquisition-round"
+      ]
+    },
+    {
+      "operandId": "B2-DENSITY-COVERAGE",
+      "status": "rights-blocked",
+      "refusalClass": "rights",
+      "reason": "The exact Keller–Hallett endpoint returned an access page rather than the complete paper or dataset; purchase is not authorized.",
+      "supportingArtifactRefs": [
+        "a-i-dispositions",
+        "b-acquisition-round"
+      ]
+    },
+    {
+      "operandId": "B2-DROPLET-STATE-COVERAGE",
+      "status": "rights-blocked",
+      "refusalClass": "rights",
+      "reason": "The exact Keller–Hallett endpoint returned an access page rather than the complete paper or dataset; purchase is not authorized.",
+      "supportingArtifactRefs": [
+        "a-i-dispositions",
+        "b-acquisition-round"
+      ]
+    },
+    {
+      "operandId": "B2-METHOD-COVERAGE",
+      "status": "rights-blocked",
+      "refusalClass": "rights",
+      "reason": "The exact Keller–Hallett endpoint returned an access page rather than the complete paper or dataset; purchase is not authorized.",
+      "supportingArtifactRefs": [
+        "a-i-dispositions",
+        "b-acquisition-round"
+      ]
+    },
+    {
+      "operandId": "B2-SPEED-COVERAGE",
+      "status": "rights-blocked",
+      "refusalClass": "rights",
+      "reason": "The exact Keller–Hallett endpoint returned an access page rather than the complete paper or dataset; purchase is not authorized.",
+      "supportingArtifactRefs": [
+        "a-i-dispositions",
+        "b-acquisition-round"
+      ]
+    },
+    {
+      "operandId": "B2-SUPPORT-STATE-COVERAGE",
+      "status": "rights-blocked",
+      "refusalClass": "rights",
+      "reason": "The exact Keller–Hallett endpoint returned an access page rather than the complete paper or dataset; purchase is not authorized.",
+      "supportingArtifactRefs": [
+        "a-i-dispositions",
+        "b-acquisition-round"
+      ]
+    },
+    {
+      "operandId": "B2-TEMPERATURE-COVERAGE",
+      "status": "rights-blocked",
+      "refusalClass": "rights",
+      "reason": "The exact Keller–Hallett endpoint returned an access page rather than the complete paper or dataset; purchase is not authorized.",
+      "supportingArtifactRefs": [
+        "a-i-dispositions",
+        "b-acquisition-round"
+      ]
+    },
+    {
+      "operandId": "B2-TIME-COVERAGE",
+      "status": "rights-blocked",
+      "refusalClass": "rights",
+      "reason": "The exact Keller–Hallett endpoint returned an access page rather than the complete paper or dataset; purchase is not authorized.",
+      "supportingArtifactRefs": [
+        "a-i-dispositions",
+        "b-acquisition-round"
+      ]
+    },
+    {
+      "operandId": "B2-VISCOSITY-COVERAGE",
+      "status": "rights-blocked",
+      "refusalClass": "rights",
+      "reason": "The exact Keller–Hallett endpoint returned an access page rather than the complete paper or dataset; purchase is not authorized.",
+      "supportingArtifactRefs": [
+        "a-i-dispositions",
+        "b-acquisition-round"
+      ]
+    }
+  ],
+  "acquisitionAttemptIds": [
+    "p10-acq-keller-hallett-1982-v1"
+  ],
+  "searchPacketIds": [],
+  "terminalOutcome": "terminal-refusal",
+  "blockingOperandIds": [
+    "B2-CHARACTERISTIC-SIZE-COVERAGE",
+    "B2-CONTROLLED-VELOCITY-DATASET",
+    "B2-DENSITY-COVERAGE",
+    "B2-DROPLET-STATE-COVERAGE",
+    "B2-METHOD-COVERAGE",
+    "B2-SPEED-COVERAGE",
+    "B2-SUPPORT-STATE-COVERAGE",
+    "B2-TEMPERATURE-COVERAGE",
+    "B2-TIME-COVERAGE",
+    "B2-VISCOSITY-COVERAGE"
+  ],
+  "downstreamCandidates": [],
+  "claimBoundary": {
+    "scopeCensusOnlyForAS": true,
+    "allOpenedSourceValuesArePhase10DevelopmentEvidence": true,
+    "quantitativeValidationEarned": false,
+    "phase7CreditEarned": false,
+    "phase8CreditEarned": false,
+    "phase9CreditEarned": false,
+    "heldOutComparisonExecuted": false,
+    "targetScoreProduced": false,
+    "solverPhysicsChanged": false,
+    "c1ThroughC5RowsProduced": false,
+    "habitRowsProduced": false,
+    "eObservationOperatorImplemented": false,
+    "fExternalRequestWrittenOrSent": false,
+    "hTransportImplemented": false,
+    "downstreamExecutionAuthorized": false,
+    "priorPhaseLabelsAndArtifactsPreserved": true
+  },
+  "producer": {
+    "producerId": "phase10-b2-result-producer",
+    "commit": "db7ca3532469e1a0245ccbadc45bd119f1e971ff",
+    "command": "node runner/src/phase10-b-branches.ts run-branches --repository-root .",
+    "startedOn": "2026-08-25T14:58:27.081Z",
+    "endedOn": "2026-08-25T14:58:27.081Z",
+    "actualConcurrency": 1
+  }
+}

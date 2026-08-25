@@ -1,0 +1,43 @@
+{
+  "schema": "phase10-execution-receipt-v1",
+  "receiptId": "phase10-b2-terminal-v1",
+  "matrixId": "phase10-selected-package-obligations-v1",
+  "protocolId": "phase10-b2-terminal-disposition-v1",
+  "registryId": "phase10-b2-resolved-callables-v1",
+  "packetId": "b2",
+  "terminalState": "refusal",
+  "producedOutputIds": [
+    "out-b2-protocol",
+    "out-b2-result",
+    "out-b2-return",
+    "out-b2-search",
+    "out-b2-verification"
+  ],
+  "executedCheckIds": [
+    "chk-b2-complete-method-operands",
+    "chk-b2-controlled-velocity-dataset",
+    "chk-b2-development-label",
+    "chk-b2-operand-refusal",
+    "chk-b2-protocol-before-values",
+    "chk-b2-return-only",
+    "chk-b2-reynolds-diagnostic-only",
+    "chk-b2-search-bounds"
+  ],
+  "evaluatedCheckIds": [
+    "chk-b2-complete-method-operands",
+    "chk-b2-controlled-velocity-dataset",
+    "chk-b2-development-label",
+    "chk-b2-operand-refusal",
+    "chk-b2-protocol-before-values",
+    "chk-b2-return-only",
+    "chk-b2-reynolds-diagnostic-only",
+    "chk-b2-search-bounds"
+  ],
+  "executedNegativeControlIds": [],
+  "boundDependencyPacketIds": [
+    "a-i",
+    "a-p",
+    "a-s",
+    "b-acquisition"
+  ]
+}

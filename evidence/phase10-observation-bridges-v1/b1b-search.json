@@ -1,0 +1,22 @@
+{
+  "schema": "phase10-search-disposition-set-v1",
+  "branchId": "B1b",
+  "freezeCommit": "db7ca3532469e1a0245ccbadc45bd119f1e971ff",
+  "registeredOperandGroupIds": [
+    "B1B-SEARCH-ASYMMETRIC-TRANSFER",
+    "B1B-SEARCH-CROSS-PRESSURE-OBSERVATION",
+    "B1B-SEARCH-EVOLVING-GEOMETRY",
+    "B1B-SEARCH-LOCAL-FORCING",
+    "B1B-SEARCH-SUPPORT-HEAT-PATH"
+  ],
+  "packetCap": 5,
+  "packets": [],
+  "unusedOperandGroupIds": [
+    "B1B-SEARCH-ASYMMETRIC-TRANSFER",
+    "B1B-SEARCH-CROSS-PRESSURE-OBSERVATION",
+    "B1B-SEARCH-EVOLVING-GEOMETRY",
+    "B1B-SEARCH-LOCAL-FORCING",
+    "B1B-SEARCH-SUPPORT-HEAT-PATH"
+  ],
+  "aggregateDisposition": "not-applicable"
+}

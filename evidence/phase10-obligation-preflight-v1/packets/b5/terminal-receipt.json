@@ -1,0 +1,43 @@
+{
+  "schema": "phase10-execution-receipt-v1",
+  "receiptId": "phase10-b5-terminal-v1",
+  "matrixId": "phase10-selected-package-obligations-v1",
+  "protocolId": "phase10-b5-terminal-disposition-v1",
+  "registryId": "phase10-b5-resolved-callables-v1",
+  "packetId": "b5",
+  "terminalState": "refusal",
+  "producedOutputIds": [
+    "out-b5-protocol",
+    "out-b5-result",
+    "out-b5-return",
+    "out-b5-search",
+    "out-b5-verification"
+  ],
+  "executedCheckIds": [
+    "chk-b5-all-attempts-published",
+    "chk-b5-calibration-operator-uncertainty",
+    "chk-b5-media-feature-roster-frozen",
+    "chk-b5-operand-refusal",
+    "chk-b5-protocol-before-values",
+    "chk-b5-return-only",
+    "chk-b5-search-bounds",
+    "chk-b5-trajectory-or-categorical-closure"
+  ],
+  "evaluatedCheckIds": [
+    "chk-b5-all-attempts-published",
+    "chk-b5-calibration-operator-uncertainty",
+    "chk-b5-media-feature-roster-frozen",
+    "chk-b5-operand-refusal",
+    "chk-b5-protocol-before-values",
+    "chk-b5-return-only",
+    "chk-b5-search-bounds",
+    "chk-b5-trajectory-or-categorical-closure"
+  ],
+  "executedNegativeControlIds": [],
+  "boundDependencyPacketIds": [
+    "a-i",
+    "a-p",
+    "a-s",
+    "b-acquisition"
+  ]
+}

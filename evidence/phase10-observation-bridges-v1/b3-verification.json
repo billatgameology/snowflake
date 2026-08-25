@@ -1,0 +1,143 @@
+{
+  "schema": "phase10-packet-verification-v1",
+  "verificationId": "phase10-b3-verification-v1",
+  "matrixId": "phase10-selected-package-obligations-v1",
+  "protocolId": "phase10-b3-terminal-disposition-v1",
+  "registryId": "phase10-b3-resolved-callables-v1",
+  "packetId": "b3",
+  "terminalState": "refusal",
+  "verifiedArtifacts": [
+    {
+      "outputId": "out-b3-protocol",
+      "path": "research/phase10-b3-protocol-v1.json",
+      "byteLength": 7651,
+      "sha256": "9737f48baad9617d8c64f2ab7cfe4fd9ce2e23af76cf2ab61d6e0dafaae2ce55"
+    },
+    {
+      "outputId": "out-b3-result",
+      "path": "out/phase10-execution-v1/attempts/b3/terminal-v1/candidate/result.json",
+      "byteLength": 9442,
+      "sha256": "b2fa37cee9428df48347cdfb8b2316dc8f2b67291345653a46e900010a219e3f"
+    },
+    {
+      "outputId": "out-b3-return",
+      "path": "out/phase10-execution-v1/attempts/b3/terminal-v1/candidate/return.json",
+      "byteLength": 915,
+      "sha256": "2f20c357a945ec6efada63d4043ef75bcc9e33f60461edc70e91e12cbef8f9ff"
+    },
+    {
+      "outputId": "out-b3-search",
+      "path": "out/phase10-execution-v1/attempts/b3/terminal-v1/candidate/search.json",
+      "byteLength": 669,
+      "sha256": "edc34e4027f5636703fdbc3f754ef0898778aef9ce3b0913c5b8378fd4bd0b36"
+    }
+  ],
+  "checkResults": [
+    {
+      "checkId": "chk-b3-carrier-gas-audit",
+      "verdict": "pass",
+      "reasons": [],
+      "witnessOutputIds": [
+        "out-b3-result"
+      ]
+    },
+    {
+      "checkId": "chk-b3-currency",
+      "verdict": "pass",
+      "reasons": [],
+      "witnessOutputIds": [
+        "out-b3-result"
+      ]
+    },
+    {
+      "checkId": "chk-b3-one-factor-or-crossed-identification",
+      "verdict": "pass",
+      "reasons": [],
+      "witnessOutputIds": [
+        "out-b3-result"
+      ]
+    },
+    {
+      "checkId": "chk-b3-protocol-before-values",
+      "verdict": "pass",
+      "reasons": [],
+      "witnessOutputIds": [
+        "out-b3-protocol"
+      ]
+    },
+    {
+      "checkId": "chk-b3-return-only",
+      "verdict": "pass",
+      "reasons": [],
+      "witnessOutputIds": [
+        "out-b3-return"
+      ]
+    },
+    {
+      "checkId": "chk-b3-search-bounds",
+      "verdict": "pass",
+      "reasons": [],
+      "witnessOutputIds": [
+        "out-b3-search"
+      ]
+    },
+    {
+      "checkId": "chk-b3-temperature-conflict",
+      "verdict": "pass",
+      "reasons": [],
+      "witnessOutputIds": [
+        "out-b3-result"
+      ]
+    },
+    {
+      "checkId": "chk-b3-terminal-nonidentification",
+      "verdict": "pass",
+      "reasons": [],
+      "witnessOutputIds": [
+        "out-b3-result"
+      ]
+    },
+    {
+      "checkId": "chk-b3-two-reader-operator",
+      "verdict": "pass",
+      "reasons": [],
+      "witnessOutputIds": [
+        "out-b3-result"
+      ]
+    },
+    {
+      "checkId": "chk-b3-zhao-role-audit",
+      "verdict": "pass",
+      "reasons": [],
+      "witnessOutputIds": [
+        "out-b3-result"
+      ]
+    }
+  ],
+  "executedNegativeControlIds": [],
+  "negativeControlResults": [],
+  "boundDependencyPacketIds": [
+    "a-i",
+    "a-p",
+    "a-s",
+    "b-acquisition"
+  ],
+  "execution": {
+    "evaluatorCallableId": "phase10-b3-verifier",
+    "modulePath": "runner/src/phase10-b-branch-verify.ts",
+    "exportName": "phase10B3Verify",
+    "byteLength": 23460,
+    "sha256": "e4012efb4dbb736d183965020ad52e0999b32d4b012d91f469563f52ce7f30bb",
+    "runtime": "v24.13.1",
+    "command": "node runner/src/phase10-b-branches.ts run-branches --repository-root .",
+    "gitHead": "db7ca3532469e1a0245ccbadc45bd119f1e971ff",
+    "startedOn": "2026-08-25T14:58:27.327Z",
+    "endedOn": "2026-08-25T14:58:27.327Z",
+    "processConcurrency": 1
+  },
+  "aggregateVerdict": "refusal",
+  "limits": [
+    "This verifies terminal operand dispositions from already-published rights-safe metadata; it does not claim that unavailable sources do not exist elsewhere.",
+    "No numeric media inspection, provider contact, purchase, experiment, E/F/H execution, scientific habit row, target score, or validation occurred."
+  ]
+}

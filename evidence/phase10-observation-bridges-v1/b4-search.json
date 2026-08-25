@@ -1,0 +1,16 @@
+{
+  "schema": "phase10-search-disposition-set-v1",
+  "branchId": "B4",
+  "freezeCommit": "db7ca3532469e1a0245ccbadc45bd119f1e971ff",
+  "registeredOperandGroupIds": [
+    "B4-SEARCH-FINAL-THEORY",
+    "B4-SEARCH-MEASUREMENT-METHODS"
+  ],
+  "packetCap": 2,
+  "packets": [],
+  "unusedOperandGroupIds": [
+    "B4-SEARCH-FINAL-THEORY",
+    "B4-SEARCH-MEASUREMENT-METHODS"
+  ],
+  "aggregateDisposition": "not-applicable"
+}

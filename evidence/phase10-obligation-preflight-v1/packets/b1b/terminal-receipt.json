@@ -1,0 +1,47 @@
+{
+  "schema": "phase10-execution-receipt-v1",
+  "receiptId": "phase10-b1b-terminal-v1",
+  "matrixId": "phase10-selected-package-obligations-v1",
+  "protocolId": "phase10-b1b-terminal-disposition-v1",
+  "registryId": "phase10-b1b-resolved-callables-v1",
+  "packetId": "b1b",
+  "terminalState": "refusal",
+  "producedOutputIds": [
+    "out-b1b-protocol",
+    "out-b1b-result",
+    "out-b1b-return",
+    "out-b1b-search",
+    "out-b1b-verification"
+  ],
+  "executedCheckIds": [
+    "chk-b1b-asymmetric-transfer",
+    "chk-b1b-evolving-geometry",
+    "chk-b1b-local-forcing",
+    "chk-b1b-matched-cross-pressure",
+    "chk-b1b-no-implemented-transport-claim",
+    "chk-b1b-operand-refusal",
+    "chk-b1b-protocol-before-values",
+    "chk-b1b-return-only",
+    "chk-b1b-search-bounds",
+    "chk-b1b-support-heat"
+  ],
+  "evaluatedCheckIds": [
+    "chk-b1b-asymmetric-transfer",
+    "chk-b1b-evolving-geometry",
+    "chk-b1b-local-forcing",
+    "chk-b1b-matched-cross-pressure",
+    "chk-b1b-no-implemented-transport-claim",
+    "chk-b1b-operand-refusal",
+    "chk-b1b-protocol-before-values",
+    "chk-b1b-return-only",
+    "chk-b1b-search-bounds",
+    "chk-b1b-support-heat"
+  ],
+  "executedNegativeControlIds": [],
+  "boundDependencyPacketIds": [
+    "a-i",
+    "a-p",
+    "a-s",
+    "b-acquisition"
+  ]
+}

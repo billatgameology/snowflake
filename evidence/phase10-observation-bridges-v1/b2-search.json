@@ -1,0 +1,14 @@
+{
+  "schema": "phase10-search-disposition-set-v1",
+  "branchId": "B2",
+  "freezeCommit": "db7ca3532469e1a0245ccbadc45bd119f1e971ff",
+  "registeredOperandGroupIds": [
+    "B2-SEARCH-CONTROLLED-VELOCITY-DATASET"
+  ],
+  "packetCap": 1,
+  "packets": [],
+  "unusedOperandGroupIds": [
+    "B2-SEARCH-CONTROLLED-VELOCITY-DATASET"
+  ],
+  "aggregateDisposition": "not-applicable"
+}

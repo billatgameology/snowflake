@@ -1,0 +1,128 @@
+{
+  "schema": "phase10-b1a-result-v1",
+  "branchId": "B1a",
+  "protocolBinding": {
+    "path": "research/phase10-b1a-protocol-v1.json",
+    "byteLength": 5160,
+    "sha256": "eccff8026fcf690bb6aa7aa200948c16421673897096e035b217bd646cc6afcc",
+    "commit": "db7ca3532469e1a0245ccbadc45bd119f1e971ff"
+  },
+  "sourceBindings": [
+    {
+      "bindingId": "a-i-currency",
+      "sourceKind": "tracked-artifact",
+      "payloadId": null,
+      "artifact": {
+        "path": "evidence/phase10-scope-intake-v1/currency.jsonl",
+        "byteLength": 16542,
+        "sha256": "a8c1dcbe7a0bcd02d38adc195c863dd1c3cf0b657294bdadf3a9fd472912a574"
+      },
+      "privateSource": null,
+      "developmentEvidence": true
+    },
+    {
+      "bindingId": "a-i-dispositions",
+      "sourceKind": "tracked-artifact",
+      "payloadId": null,
+      "artifact": {
+        "path": "evidence/phase10-scope-intake-v1/post-freeze-dispositions.jsonl",
+        "byteLength": 30641,
+        "sha256": "619c29255dd63a8179429abc0f44a895575294b176805a5a49339f7437c5bfd8"
+      },
+      "privateSource": null,
+      "developmentEvidence": true
+    },
+    {
+      "bindingId": "b-acquisition-round",
+      "sourceKind": "tracked-artifact",
+      "payloadId": null,
+      "artifact": {
+        "path": "evidence/phase10-observation-bridges-v1/acquisition-round.json",
+        "byteLength": 6739,
+        "sha256": "e7775b51a8d5377fe2b0d57f20fb51677152838f4cffea68737af678be1b0bf2"
+      },
+      "privateSource": null,
+      "developmentEvidence": true
+    }
+  ],
+  "operandDispositions": [
+    {
+      "operandId": "B1A-COMPARISON-DOMAIN",
+      "status": "source-incomplete",
+      "refusalClass": "source",
+      "reason": "The complete planar-facet source domain is not available for inspection.",
+      "supportingArtifactRefs": [
+        "a-i-dispositions",
+        "b-acquisition-round"
+      ]
+    },
+    {
+      "operandId": "B1A-CURRENT-PRINCETON-EDITION",
+      "status": "rights-blocked",
+      "refusalClass": "rights",
+      "reason": "The frozen current-edition endpoint returned an access page; the partial preview cannot substitute.",
+      "supportingArtifactRefs": [
+        "a-i-dispositions",
+        "b-acquisition-round"
+      ]
+    },
+    {
+      "operandId": "B1A-PLANAR-FORCING-MAP",
+      "status": "source-incomplete",
+      "refusalClass": "source",
+      "reason": "No complete eligible source supports the apparatus-to-surface forcing map.",
+      "supportingArtifactRefs": [
+        "a-i-dispositions",
+        "b-acquisition-round"
+      ]
+    },
+    {
+      "operandId": "B1A-UNCERTAINTY-TREATMENT",
+      "status": "uncertainty-missing",
+      "refusalClass": "uncertainty",
+      "reason": "Source-backed uncertainty or an admissible sensitivity envelope cannot be instantiated without the complete forcing operands.",
+      "supportingArtifactRefs": [
+        "a-i-dispositions",
+        "b-acquisition-round"
+      ]
+    }
+  ],
+  "acquisitionAttemptIds": [
+    "p10-acq-princeton-monograph-current-v1"
+  ],
+  "searchPacketIds": [],
+  "terminalOutcome": "terminal-refusal",
+  "blockingOperandIds": [
+    "B1A-COMPARISON-DOMAIN",
+    "B1A-CURRENT-PRINCETON-EDITION",
+    "B1A-PLANAR-FORCING-MAP",
+    "B1A-UNCERTAINTY-TREATMENT"
+  ],
+  "downstreamCandidates": [],
+  "claimBoundary": {
+    "scopeCensusOnlyForAS": true,
+    "allOpenedSourceValuesArePhase10DevelopmentEvidence": true,
+    "quantitativeValidationEarned": false,
+    "phase7CreditEarned": false,
+    "phase8CreditEarned": false,
+    "phase9CreditEarned": false,
+    "heldOutComparisonExecuted": false,
+    "targetScoreProduced": false,
+    "solverPhysicsChanged": false,
+    "c1ThroughC5RowsProduced": false,
+    "habitRowsProduced": false,
+    "eObservationOperatorImplemented": false,
+    "fExternalRequestWrittenOrSent": false,
+    "hTransportImplemented": false,
+    "downstreamExecutionAuthorized": false,
+    "priorPhaseLabelsAndArtifactsPreserved": true
+  },
+  "producer": {
+    "producerId": "phase10-b1a-result-producer",
+    "commit": "db7ca3532469e1a0245ccbadc45bd119f1e971ff",
+    "command": "node runner/src/phase10-b-branches.ts run-branches --repository-root .",
+    "startedOn": "2026-08-25T14:58:26.736Z",
+    "endedOn": "2026-08-25T14:58:26.737Z",
+    "actualConcurrency": 1
+  }
+}

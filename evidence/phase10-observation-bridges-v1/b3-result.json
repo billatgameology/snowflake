@@ -1,0 +1,250 @@
+{
+  "schema": "phase10-b3-result-v1",
+  "branchId": "B3",
+  "protocolBinding": {
+    "path": "research/phase10-b3-protocol-v1.json",
+    "byteLength": 7651,
+    "sha256": "9737f48baad9617d8c64f2ab7cfe4fd9ce2e23af76cf2ab61d6e0dafaae2ce55",
+    "commit": "db7ca3532469e1a0245ccbadc45bd119f1e971ff"
+  },
+  "sourceBindings": [
+    {
+      "bindingId": "a-i-currency",
+      "sourceKind": "tracked-artifact",
+      "payloadId": null,
+      "artifact": {
+        "path": "evidence/phase10-scope-intake-v1/currency.jsonl",
+        "byteLength": 16542,
+        "sha256": "a8c1dcbe7a0bcd02d38adc195c863dd1c3cf0b657294bdadf3a9fd472912a574"
+      },
+      "privateSource": null,
+      "developmentEvidence": true
+    },
+    {
+      "bindingId": "a-i-dispositions",
+      "sourceKind": "tracked-artifact",
+      "payloadId": null,
+      "artifact": {
+        "path": "evidence/phase10-scope-intake-v1/post-freeze-dispositions.jsonl",
+        "byteLength": 30641,
+        "sha256": "619c29255dd63a8179429abc0f44a895575294b176805a5a49339f7437c5bfd8"
+      },
+      "privateSource": null,
+      "developmentEvidence": true
+    },
+    {
+      "bindingId": "b-acquisition-round",
+      "sourceKind": "tracked-artifact",
+      "payloadId": null,
+      "artifact": {
+        "path": "evidence/phase10-observation-bridges-v1/acquisition-round.json",
+        "byteLength": 6739,
+        "sha256": "e7775b51a8d5377fe2b0d57f20fb51677152838f4cffea68737af678be1b0bf2"
+      },
+      "privateSource": null,
+      "developmentEvidence": true
+    }
+  ],
+  "operandDispositions": [
+    {
+      "operandId": "B3-CARRIER-GAS-AUDIT",
+      "status": "non-identifying",
+      "refusalClass": "non-identification",
+      "reason": "The A-I carrier-gas sources remain unavailable; Zhao S2 is bound, but its main article is rights-blocked, so no same-geometry crossed design can be identified.",
+      "supportingArtifactRefs": [
+        "a-i-dispositions",
+        "b-acquisition-round"
+      ]
+    },
+    {
+      "operandId": "B3-GEOMETRY-CONTROL",
+      "status": "non-identifying",
+      "refusalClass": "non-identification",
+      "reason": "The A-I carrier-gas sources remain unavailable; Zhao S2 is bound, but its main article is rights-blocked, so no same-geometry crossed design can be identified.",
+      "supportingArtifactRefs": [
+        "a-i-dispositions",
+        "b-acquisition-round"
+      ]
+    },
+    {
+      "operandId": "B3-HISTORY-CONTROL",
+      "status": "non-identifying",
+      "refusalClass": "non-identification",
+      "reason": "The A-I carrier-gas sources remain unavailable; Zhao S2 is bound, but its main article is rights-blocked, so no same-geometry crossed design can be identified.",
+      "supportingArtifactRefs": [
+        "a-i-dispositions",
+        "b-acquisition-round"
+      ]
+    },
+    {
+      "operandId": "B3-ISONO-CURRENCY",
+      "status": "non-identifying",
+      "refusalClass": "non-identification",
+      "reason": "The A-I carrier-gas sources remain unavailable; Zhao S2 is bound, but its main article is rights-blocked, so no same-geometry crossed design can be identified.",
+      "supportingArtifactRefs": [
+        "a-i-dispositions",
+        "b-acquisition-round"
+      ]
+    },
+    {
+      "operandId": "B3-LINEAGE",
+      "status": "non-identifying",
+      "refusalClass": "non-identification",
+      "reason": "The A-I carrier-gas sources remain unavailable; Zhao S2 is bound, but its main article is rights-blocked, so no same-geometry crossed design can be identified.",
+      "supportingArtifactRefs": [
+        "a-i-dispositions",
+        "b-acquisition-round"
+      ]
+    },
+    {
+      "operandId": "B3-MATCHED-OBSERVATION",
+      "status": "non-identifying",
+      "refusalClass": "non-identification",
+      "reason": "The A-I carrier-gas sources remain unavailable; Zhao S2 is bound, but its main article is rights-blocked, so no same-geometry crossed design can be identified.",
+      "supportingArtifactRefs": [
+        "a-i-dispositions",
+        "b-acquisition-round"
+      ]
+    },
+    {
+      "operandId": "B3-POINT-IDENTITY",
+      "status": "non-identifying",
+      "refusalClass": "non-identification",
+      "reason": "The A-I carrier-gas sources remain unavailable; Zhao S2 is bound, but its main article is rights-blocked, so no same-geometry crossed design can be identified.",
+      "supportingArtifactRefs": [
+        "a-i-dispositions",
+        "b-acquisition-round"
+      ]
+    },
+    {
+      "operandId": "B3-PRESSURE-OR-GAS-INTERVENTION",
+      "status": "non-identifying",
+      "refusalClass": "non-identification",
+      "reason": "The A-I carrier-gas sources remain unavailable; Zhao S2 is bound, but its main article is rights-blocked, so no same-geometry crossed design can be identified.",
+      "supportingArtifactRefs": [
+        "a-i-dispositions",
+        "b-acquisition-round"
+      ]
+    },
+    {
+      "operandId": "B3-SUPPORT-CONTROL",
+      "status": "non-identifying",
+      "refusalClass": "non-identification",
+      "reason": "The A-I carrier-gas sources remain unavailable; Zhao S2 is bound, but its main article is rights-blocked, so no same-geometry crossed design can be identified.",
+      "supportingArtifactRefs": [
+        "a-i-dispositions",
+        "b-acquisition-round"
+      ]
+    },
+    {
+      "operandId": "B3-TEMPERATURE-CONFLICT-DISPOSITION",
+      "status": "non-identifying",
+      "refusalClass": "non-identification",
+      "reason": "The A-I carrier-gas sources remain unavailable; Zhao S2 is bound, but its main article is rights-blocked, so no same-geometry crossed design can be identified.",
+      "supportingArtifactRefs": [
+        "a-i-dispositions",
+        "b-acquisition-round"
+      ]
+    },
+    {
+      "operandId": "B3-TEMPERATURE-CONTROL",
+      "status": "non-identifying",
+      "refusalClass": "non-identification",
+      "reason": "The A-I carrier-gas sources remain unavailable; Zhao S2 is bound, but its main article is rights-blocked, so no same-geometry crossed design can be identified.",
+      "supportingArtifactRefs": [
+        "a-i-dispositions",
+        "b-acquisition-round"
+      ]
+    },
+    {
+      "operandId": "B3-TWO-READER-OPERATOR",
+      "status": "non-identifying",
+      "refusalClass": "non-identification",
+      "reason": "The A-I carrier-gas sources remain unavailable; Zhao S2 is bound, but its main article is rights-blocked, so no same-geometry crossed design can be identified.",
+      "supportingArtifactRefs": [
+        "a-i-dispositions",
+        "b-acquisition-round"
+      ]
+    },
+    {
+      "operandId": "B3-UNCERTAINTY",
+      "status": "non-identifying",
+      "refusalClass": "non-identification",
+      "reason": "The A-I carrier-gas sources remain unavailable; Zhao S2 is bound, but its main article is rights-blocked, so no same-geometry crossed design can be identified.",
+      "supportingArtifactRefs": [
+        "a-i-dispositions",
+        "b-acquisition-round"
+      ]
+    },
+    {
+      "operandId": "B3-VENTILATION-CONTROL",
+      "status": "non-identifying",
+      "refusalClass": "non-identification",
+      "reason": "The A-I carrier-gas sources remain unavailable; Zhao S2 is bound, but its main article is rights-blocked, so no same-geometry crossed design can be identified.",
+      "supportingArtifactRefs": [
+        "a-i-dispositions",
+        "b-acquisition-round"
+      ]
+    },
+    {
+      "operandId": "B3-ZHAO-ROLE-AUDIT",
+      "status": "non-identifying",
+      "refusalClass": "non-identification",
+      "reason": "The A-I carrier-gas sources remain unavailable; Zhao S2 is bound, but its main article is rights-blocked, so no same-geometry crossed design can be identified.",
+      "supportingArtifactRefs": [
+        "a-i-dispositions",
+        "b-acquisition-round"
+      ]
+    }
+  ],
+  "acquisitionAttemptIds": [
+    "p10-acq-zhao-2026-main-article-v1",
+    "p10-acq-zhao-2026-s2-video-v1"
+  ],
+  "searchPacketIds": [],
+  "terminalOutcome": "terminal-non-identification",
+  "blockingOperandIds": [
+    "B3-CARRIER-GAS-AUDIT",
+    "B3-GEOMETRY-CONTROL",
+    "B3-HISTORY-CONTROL",
+    "B3-ISONO-CURRENCY",
+    "B3-LINEAGE",
+    "B3-MATCHED-OBSERVATION",
+    "B3-POINT-IDENTITY",
+    "B3-PRESSURE-OR-GAS-INTERVENTION",
+    "B3-SUPPORT-CONTROL",
+    "B3-TEMPERATURE-CONFLICT-DISPOSITION",
+    "B3-TEMPERATURE-CONTROL",
+    "B3-TWO-READER-OPERATOR",
+    "B3-UNCERTAINTY",
+    "B3-VENTILATION-CONTROL",
+    "B3-ZHAO-ROLE-AUDIT"
+  ],
+  "downstreamCandidates": [],
+  "claimBoundary": {
+    "scopeCensusOnlyForAS": true,
+    "allOpenedSourceValuesArePhase10DevelopmentEvidence": true,
+    "quantitativeValidationEarned": false,
+    "phase7CreditEarned": false,
+    "phase8CreditEarned": false,
+    "phase9CreditEarned": false,
+    "heldOutComparisonExecuted": false,
+    "targetScoreProduced": false,
+    "solverPhysicsChanged": false,
+    "c1ThroughC5RowsProduced": false,
+    "habitRowsProduced": false,
+    "eObservationOperatorImplemented": false,
+    "fExternalRequestWrittenOrSent": false,
+    "hTransportImplemented": false,
+    "downstreamExecutionAuthorized": false,
+    "priorPhaseLabelsAndArtifactsPreserved": true
+  },
+  "producer": {
+    "producerId": "phase10-b3-result-producer",
+    "commit": "db7ca3532469e1a0245ccbadc45bd119f1e971ff",
+    "command": "node runner/src/phase10-b-branches.ts run-branches --repository-root .",
+    "startedOn": "2026-08-25T14:58:27.252Z",
+    "endedOn": "2026-08-25T14:58:27.252Z",
+    "actualConcurrency": 1
+  }
+}

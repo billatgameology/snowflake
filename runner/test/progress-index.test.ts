@@ -52,7 +52,7 @@ const PHASE10_STATUS_LINE =
 const PHASE8_GATE_PREFIX = "| 8 | **Complete (8A + 8B)** |";
 const PHASE7_GATE_PREFIX = "| 7 | Not started; independently eligible |";
 const PHASE9_GATE_PREFIX = "| 9 | **Complete (development-only)** |";
-const PHASE10_GATE_PREFIX = "| 10 | **In progress — A-P/A-S/A-I PASS; C0 complete with criterion NO-PASS; B acquisition terminal refusal; C0V moving unresolved** |";
+const PHASE10_GATE_PREFIX = "| 10 | **In progress — A-P/A-S/A-I PASS; C0 complete with criterion NO-PASS; six B branches terminal; C0V moving unresolved** |";
 const CONTRADICTORY_STATE_PATTERNS = [
   /Phase 8B (?:is |remains )?(?:active|incomplete|pending)\b/iu,
   /Phase 8B.*\b(?:may|can|will|must) (?:rewrite|mutate|replace|overwrite)\b.*\b(?:8A|v1|phase8-target-book)\b/iu,
