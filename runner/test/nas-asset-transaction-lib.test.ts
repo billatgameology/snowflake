@@ -10,6 +10,7 @@ import {
   rmSync,
   symlinkSync,
   unlinkSync,
+  utimesSync,
   writeFileSync,
 } from "node:fs";
 import { tmpdir } from "node:os";
@@ -259,6 +260,30 @@ describe("transactional publication", () => {
     expect(receiptSource).not.toContain(fixture.root);
     expect(existsSync(join(fixture.share, "_control", "locks", "publish", "fixture-generated@v1.lock"))).toBe(false);
     expect(readdirSync(join(fixture.share, "_control", "staging", "publish"))).toEqual([]);
+  });
+
+  it("accepts timestamp settling on a byte-identical staged file", () => {
+    const fixture = treeFixture("publish-staged-timestamp-settling");
+    const collection = intentCollection();
+    let timestampChanged = false;
+    const result = publishCollectionFixture({
+      shareRoot: fixture.share,
+      sourceRoot: fixture.source,
+      collection,
+      catalogueCollections: [collection],
+      transactionId: "staged-timestamp-settling",
+      hooks: {
+        afterPhase: (phase, context) => {
+          if (phase !== "publish-file-copied" || context.relativePath !== "root.bin") return;
+          const stagedFile = join(context.stagePayloadPath as string, context.relativePath);
+          utimesSync(stagedFile, new Date("2020-01-01T00:00:00.000Z"), new Date("2020-01-01T00:00:00.000Z"));
+          timestampChanged = true;
+        },
+      },
+    });
+    expect(timestampChanged).toBe(true);
+    expect(result.receipt.source).toEqual(result.receipt.final);
+    expect(readFileSync(join(result.finalPayloadPath, "root.bin"), "utf8")).toBe("root bytes");
   });
 
   it("detects a same-length source mutation after inventory and leaves no final or receipt", () => {

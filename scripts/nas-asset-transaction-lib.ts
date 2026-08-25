@@ -254,6 +254,11 @@ const transactionId = (specified: string | undefined): string => {
 const statIdentity = (status: Stats): string =>
   [status.dev, status.ino, status.mode, status.nlink, status.size, status.mtimeMs, status.ctimeMs].join(":");
 
+// SMB may settle file timestamps after a successful fsync. Bind copied files to the stable
+// filesystem object and size here; the surrounding inventories independently bind every byte.
+const copiedFileIdentity = (status: Stats): string =>
+  [status.dev, status.ino, status.mode, status.nlink, status.size].join(":");
+
 const sameDirectoryObject = (expected: Stats, actual: Stats): boolean =>
   actual.isDirectory() &&
   !actual.isSymbolicLink() &&
@@ -636,7 +641,7 @@ const copyExpectedFile = (
       digest.digest("hex") !== expected.sha256 ||
       !destinationOpened.isFile() ||
       destinationOpened.nlink !== 1 ||
-      statIdentity(destinationOpened) !== statIdentity(destinationCurrent)
+      copiedFileIdentity(destinationOpened) !== copiedFileIdentity(destinationCurrent)
     ) {
       throw new Error(`copy source mutated or disagrees with inventory: ${expected.path}`);
     }
@@ -669,11 +674,11 @@ const copyInventory = (
   for (const file of inventory.files) {
     assertRootOwned();
     const destinationStatus = copyExpectedFile(sourceRoot, destinationRealRoot, file);
-    fileIdentities.set(file.path, statIdentity(destinationStatus));
+    fileIdentities.set(file.path, copiedFileIdentity(destinationStatus));
     phase(hooks, phaseName, { ...baseContext, relativePath: file.path });
     assertRootOwned();
     const currentFile = lstatSync(resolve(destinationRealRoot, file.path));
-    if (statIdentity(currentFile) !== statIdentity(destinationStatus)) {
+    if (copiedFileIdentity(currentFile) !== copiedFileIdentity(destinationStatus)) {
       throw new Error(`transaction copied file ownership changed: ${file.path}`);
     }
   }
@@ -707,7 +712,7 @@ const assertOwnedTreeBinding = (binding: OwnedTreeBinding, expected: NasTreeInve
   const current = inventoryStableTree(binding.rootPath);
   assertSameTree(expected, current, "transaction staging cleanup tree");
   for (const [path, identity] of binding.fileIdentities) {
-    if (statIdentity(lstatSync(resolve(binding.rootPath, path))) !== identity) {
+    if (copiedFileIdentity(lstatSync(resolve(binding.rootPath, path))) !== identity) {
       throw new Error(`transaction-owned file changed: ${path}`);
     }
   }
@@ -729,7 +734,7 @@ const removeVerifiedInventory = (binding: OwnedTreeBinding, expected: NasTreeInv
       status.isSymbolicLink() ||
       status.nlink !== 1 ||
       status.size !== file.byteLength ||
-      statIdentity(status) !== binding.fileIdentities.get(file.path)
+      copiedFileIdentity(status) !== binding.fileIdentities.get(file.path)
     ) {
       throw new Error("transaction staging cleanup file changed");
     }
