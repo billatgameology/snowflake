@@ -2,9 +2,14 @@
 // gutcheck-growth-v1 attachment-event asset per snowflake for the website's growth stage
 // (docs/plans/gutcheck-animation-selection-queue.md, "growth-event assets" follow-up).
 //
-//   node scripts/gutcheck-growth-fleet.ts plan --queue <selection.json> [--items id,id]
+//   node scripts/gutcheck-growth-fleet.ts plan --queue <selection.json> [--items id,id] [--scientific]
 //   node scripts/gutcheck-growth-fleet.ts run  --queue <selection.json> [--items id,id] \
-//        [--concurrency 3] [--out-dir out/growth-assets]
+//        [--concurrency 3] [--out-dir out/growth-assets] [--scientific]
+//
+// --scientific keeps the identical replay but adds the heavy products per crystal — the full
+// final GG state checkpoint and a ~120-frame gutcheck-anim-v1 mesh timeline — under
+// out/growth-scientific/ (maker direction, 2026-08-25: a second full round with "a lot more
+// data" after the web pass).
 //
 // Every job replays its item's PINNED run record (dims, tick cap, seed, noise, extraction),
 // with the record's embedded spec written next to the outputs — the specs/ copies are not
@@ -78,6 +83,7 @@ export const jobForItem = (
   specField: string,
   outDir: string,
   repo: string = REPO,
+  scientific = false,
 ): GrowthJob => {
   const recordPath = pinnedRecordPath(id, specField);
   const absolute = resolve(repo, recordPath);
@@ -98,6 +104,9 @@ export const jobForItem = (
   }
   const specPath = join(outDir, `${id}-spec.json`);
   const extraction = record.mesh.extraction;
+  // Scientific pass: aim for ~120 timeline frames per crystal regardless of run length,
+  // never denser than every 100 ticks (the anim-B hero cadence).
+  const framesEvery = Math.max(100, Math.ceil(record.tick / 120 / 10) * 10);
   return {
     id,
     recordPath,
@@ -125,17 +134,30 @@ export const jobForItem = (
       "--expect-tick", String(record.tick),
       "--expect-attached", String(record.attachedCount),
       "--metrics-every", "2000",
+      ...(scientific
+        ? [
+            "--out-state", join(outDir, `${id}-state.bin`),
+            "--frames-dir", join(outDir, `${id}-frames`),
+            "--frames-every", String(framesEvery),
+          ]
+        : []),
     ],
   };
 };
 
-const loadJobs = (argv: readonly string[]): { jobs: GrowthJob[]; outDir: string } => {
+const loadJobs = (
+  argv: readonly string[],
+): { jobs: GrowthJob[]; outDir: string; scientific: boolean } => {
   const queueArg = argument(argv, "queue");
   if (queueArg === undefined) throw new Error("--queue <selection.json> is required");
   const queue = parseAnimationQueueManifest(
     JSON.parse(readFileSync(resolve(queueArg), "utf8")) as unknown,
   );
-  const outDir = resolve(argument(argv, "out-dir", join(REPO, "out/growth-assets")) as string);
+  // --scientific: same replay, richer products — full final state checkpoint plus the
+  // gutcheck-anim-v1 mesh timeline — in its own output root so the web pass stays lean.
+  const scientific = argv.includes("--scientific");
+  const defaultOut = scientific ? "out/growth-scientific" : "out/growth-assets";
+  const outDir = resolve(argument(argv, "out-dir", join(REPO, defaultOut)) as string);
   mkdirSync(outDir, { recursive: true });
   const only = argument(argv, "items");
   const wanted = only === undefined ? null : new Set(only.split(",").map((s) => s.trim()));
@@ -147,14 +169,17 @@ const loadJobs = (argv: readonly string[]): { jobs: GrowthJob[]; outDir: string 
   }
   const jobs = queue.items
     .filter((item) => wanted === null || wanted.has(item.id))
-    .map((item) => jobForItem(item.id, item.spec, outDir));
+    .map((item) => jobForItem(item.id, item.spec, outDir, REPO, scientific));
   jobs.sort((left, right) => right.recordedSeconds - left.recordedSeconds);
-  return { jobs, outDir };
+  return { jobs, outDir, scientific };
 };
 
-const jobDone = (job: GrowthJob, outDir: string): boolean =>
+const jobDone = (job: GrowthJob, outDir: string, scientific: boolean): boolean =>
   existsSync(join(outDir, `${job.id}-growth-v1.bin`)) &&
-  existsSync(join(outDir, `${job.id}-record.json`));
+  existsSync(join(outDir, `${job.id}-record.json`)) &&
+  (!scientific ||
+    (existsSync(join(outDir, `${job.id}-state.bin`)) &&
+      existsSync(join(outDir, `${job.id}-frames`, "manifest.json"))));
 
 const writeSpec = (job: GrowthJob, outDir: string, repo: string = REPO): void => {
   const record = JSON.parse(readFileSync(resolve(repo, job.recordPath), "utf8")) as PinnedRecord;
@@ -162,10 +187,10 @@ const writeSpec = (job: GrowthJob, outDir: string, repo: string = REPO): void =>
 };
 
 const plan = (argv: readonly string[]): void => {
-  const { jobs, outDir } = loadJobs(argv);
+  const { jobs, outDir, scientific } = loadJobs(argv);
   let pendingSeconds = 0;
   for (const job of jobs) {
-    const done = jobDone(job, outDir);
+    const done = jobDone(job, outDir, scientific);
     if (!done) pendingSeconds += job.recordedSeconds;
     console.log(
       `${done ? "done   " : "pending"} ${job.id.padEnd(40)} ${job.dims.padEnd(12)} ` +
@@ -179,14 +204,14 @@ const plan = (argv: readonly string[]): void => {
 };
 
 const run = async (argv: readonly string[]): Promise<void> => {
-  const { jobs, outDir } = loadJobs(argv);
+  const { jobs, outDir, scientific } = loadJobs(argv);
   const concurrency = Number(argument(argv, "concurrency", "3"));
   if (!Number.isInteger(concurrency) || concurrency < 1 || concurrency > 24) {
     throw new Error("--concurrency must be an integer in [1, 24]");
   }
-  const pending = jobs.filter((job) => !jobDone(job, outDir));
+  const pending = jobs.filter((job) => !jobDone(job, outDir, scientific));
   for (const job of jobs) {
-    if (!pending.includes(job)) console.log(`skip ${job.id} — asset and record exist`);
+    if (!pending.includes(job)) console.log(`skip ${job.id} — complete outputs exist`);
   }
   const failures: string[] = [];
   let next = 0;

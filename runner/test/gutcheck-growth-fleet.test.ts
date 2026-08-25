@@ -66,6 +66,27 @@ describe("growth fleet", () => {
     expect(argv).toContain(join(outDir, "item-a-growth-v1.bin"));
   });
 
+  it("adds state and frame products in scientific mode, with a ~120-frame cadence", () => {
+    const root = mkdtempSync(join(tmpdir(), "growth-fleet-"));
+    roots.push(root);
+    mkdirSync(join(root, "evidence/gutcheck-gg-realism/gen-records"), { recursive: true });
+    writeFileSync(
+      join(root, "evidence/gutcheck-gg-realism/gen-records/item-a-record.json"),
+      JSON.stringify({ ...record, tick: 30000 }),
+    );
+    const outDir = join(root, "out");
+    mkdirSync(outDir, { recursive: true });
+    const web = jobForItem("item-a", "evidence/gutcheck-gg-realism/specs/item-a.json", outDir, root);
+    expect(web.argv.join(" ")).not.toContain("--out-state");
+    const sci = jobForItem(
+      "item-a", "evidence/gutcheck-gg-realism/specs/item-a.json", outDir, root, true,
+    );
+    const argv = sci.argv.join(" ");
+    expect(argv).toContain(`--out-state ${join(outDir, "item-a-state.bin")}`);
+    expect(argv).toContain(`--frames-dir ${join(outDir, "item-a-frames")}`);
+    expect(argv).toContain("--frames-every 250"); // 30000 ticks / 120 frames
+  });
+
   it("refuses a pinned attachedCount above the decoder cap", () => {
     const root = mkdtempSync(join(tmpdir(), "growth-fleet-"));
     roots.push(root);

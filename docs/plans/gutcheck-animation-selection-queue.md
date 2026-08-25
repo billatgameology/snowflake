@@ -286,3 +286,27 @@ reproduced exactly (tick 1706, attached 350941, no drift warnings), wall 276 s v
 (host ratio ~1.27x faster), asset 2.8 MB, and the snowcrystal_website's own `growthAsset.ts`
 decoder accepts the file and builds its 201x201x109 volume. Fleet projection at 20-wide:
 ~15 h wall for the remaining 50.
+
+Maker directions received 2026-08-25 before departing (this session records the assumptions;
+correct on return if wrong):
+
+1. **"Add all needle shape [and hollow column] to the render list."** Habit audit against the
+   grown catalog: fig29 (needle), fig30 (hollow column), fig37/fig38 (tsuzumi capped columns),
+   and fig39 (nucleating needles) were already selected; all 93 gen-records are planar (nz=96).
+   The only needle/hollow-column-class crystal missing was **fig40 (star with needles, §XIII)**;
+   an extended queue `out/growth-assets/queue-plus-needles.json` (52 items, same queueId, sorted)
+   was derived from the maker's export and fig40's regrowth launched. Growing the canonical
+   `needle`/`hollowColumn` presets as NEW crystals is explicitly NOT done — they have no maker
+   -eyeballed record or catalogued mesh; parked as a question for the maker.
+2. **"After web runs complete, a scientific round with a lot more data for all crystals."**
+   Implemented as `--scientific` on the fleet driver: identical replay, plus per crystal the
+   full final GG state checkpoint (`<id>-state.bin`) and a ~120-frame gutcheck-anim-v1 mesh
+   timeline (`<id>-frames/`, cadence max(100, tick/120)), under `out/growth-scientific/`.
+   Runs after the web fleet drains, 20-wide per maker direction. Interpretation of "a lot more
+   data" = state + timeline; metrics remain in logs/records. If the maker meant something
+   further (e.g. per-tick metrics dumps), extend then.
+
+Divergence log: fig6's x64 regrowth left its pinned endpoint (tick 33737/attached 734215 vs
+42981/459787) — the only divergence in the first 39 completions; consistent with d1a0978's
+measured non-portability of exact trajectories. Its regrown mesh needs a maker eyeball against
+the original render before its growth asset ships.
