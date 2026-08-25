@@ -1,0 +1,173 @@
+{
+  "schema": "phase10-b1b-protocol-v1",
+  "protocolId": "phase10-b1b-terminal-disposition-v1",
+  "branchId": "B1b",
+  "registrationSha256": "b6762abc7946283ba7d74a87406f60309990f6156e0d725285648937107c866c",
+  "protocolCommit": "7e1626ccf0106ecd2fc325261574a4a695ac102a",
+  "frozenOn": "2026-08-25",
+  "sourceBindings": [
+    {
+      "bindingId": "a-i-currency",
+      "sourceKind": "tracked-artifact",
+      "payloadId": null,
+      "artifact": {
+        "path": "evidence/phase10-scope-intake-v1/currency.jsonl",
+        "byteLength": 16542,
+        "sha256": "a8c1dcbe7a0bcd02d38adc195c863dd1c3cf0b657294bdadf3a9fd472912a574"
+      },
+      "privateSource": null,
+      "developmentEvidence": true
+    },
+    {
+      "bindingId": "a-i-dispositions",
+      "sourceKind": "tracked-artifact",
+      "payloadId": null,
+      "artifact": {
+        "path": "evidence/phase10-scope-intake-v1/post-freeze-dispositions.jsonl",
+        "byteLength": 30641,
+        "sha256": "619c29255dd63a8179429abc0f44a895575294b176805a5a49339f7437c5bfd8"
+      },
+      "privateSource": null,
+      "developmentEvidence": true
+    },
+    {
+      "bindingId": "b-acquisition-round",
+      "sourceKind": "tracked-artifact",
+      "payloadId": null,
+      "artifact": {
+        "path": "evidence/phase10-observation-bridges-v1/acquisition-round.json",
+        "byteLength": 6739,
+        "sha256": "e7775b51a8d5377fe2b0d57f20fb51677152838f4cffea68737af678be1b0bf2"
+      },
+      "privateSource": null,
+      "developmentEvidence": true
+    }
+  ],
+  "operandRules": [
+    {
+      "operandId": "B1B-ASYMMETRIC-VAPOR-TRANSFER",
+      "required": true,
+      "searchGroupId": "B1B-SEARCH-ASYMMETRIC-TRANSFER",
+      "eligibilityUse": "required-conjunct"
+    },
+    {
+      "operandId": "B1B-EVOLVING-GEOMETRY",
+      "required": true,
+      "searchGroupId": "B1B-SEARCH-EVOLVING-GEOMETRY",
+      "eligibilityUse": "required-conjunct"
+    },
+    {
+      "operandId": "B1B-LOCAL-TEMPERATURE-FORCING",
+      "required": true,
+      "searchGroupId": "B1B-SEARCH-LOCAL-FORCING",
+      "eligibilityUse": "required-conjunct"
+    },
+    {
+      "operandId": "B1B-LOCAL-VAPOR-FORCING",
+      "required": true,
+      "searchGroupId": "B1B-SEARCH-LOCAL-FORCING",
+      "eligibilityUse": "required-conjunct"
+    },
+    {
+      "operandId": "B1B-MATCHED-CROSS-PRESSURE-OBSERVATION",
+      "required": true,
+      "searchGroupId": "B1B-SEARCH-CROSS-PRESSURE-OBSERVATION",
+      "eligibilityUse": "required-conjunct"
+    },
+    {
+      "operandId": "B1B-OBSERVATION-DOMAIN",
+      "required": true,
+      "searchGroupId": null,
+      "eligibilityUse": "required-conjunct"
+    },
+    {
+      "operandId": "B1B-SUPPORT-HEAT-PATH",
+      "required": true,
+      "searchGroupId": "B1B-SEARCH-SUPPORT-HEAT-PATH",
+      "eligibilityUse": "required-conjunct"
+    }
+  ],
+  "observationDomain": {
+    "domainId": "b1b-registered-domain",
+    "description": "Rights-safe metadata domain bounded by A-I and the terminal six-target acquisition round.",
+    "sourceRefIds": [
+      "a-i-currency",
+      "a-i-dispositions",
+      "b-acquisition-round"
+    ]
+  },
+  "branchContract": {
+    "schema": "phase10-b1b-contract-v1",
+    "localVaporForcing": "source-backed local vapor forcing",
+    "localTemperatureForcing": "source-backed local temperature forcing",
+    "supportHeatPath": "source-backed support heat path",
+    "asymmetricVaporTransfer": "source-backed asymmetric transfer",
+    "evolvingGeometry": "source-backed evolving geometry",
+    "matchedCrossPressureObservation": "same-observable matched-pressure observation",
+    "observationDomain": {
+      "domainId": "b1b-supported-growth-domain",
+      "description": "supported ice growth with local forcing and geometry histories",
+      "sourceRefIds": [
+        "a-i-dispositions"
+      ]
+    },
+    "analyticScalarComparison": null
+  },
+  "eligibilityRule": {
+    "ruleId": "b1b-all-required-operands",
+    "conjunctiveOperandIds": [
+      "B1B-ASYMMETRIC-VAPOR-TRANSFER",
+      "B1B-EVOLVING-GEOMETRY",
+      "B1B-LOCAL-TEMPERATURE-FORCING",
+      "B1B-LOCAL-VAPOR-FORCING",
+      "B1B-MATCHED-CROSS-PRESSURE-OBSERVATION",
+      "B1B-OBSERVATION-DOMAIN",
+      "B1B-SUPPORT-HEAT-PATH"
+    ],
+    "allowedNotApplicableOperandIds": [],
+    "description": "The eligible outcome requires every registered required operand; otherwise the named terminal refusal or non-identification outcome applies."
+  },
+  "terminalOutcomeRule": {
+    "eligibleOutcome": "eligible-bridge",
+    "refusalOutcome": "terminal-refusal",
+    "nonIdentificationAllowed": false,
+    "categoricalOnlyAllowed": false
+  },
+  "outputRoster": [
+    "out-b1b-protocol",
+    "out-b1b-result",
+    "out-b1b-return",
+    "out-b1b-search",
+    "out-b1b-verification"
+  ],
+  "checkRoster": [
+    "chk-b1b-asymmetric-transfer",
+    "chk-b1b-evolving-geometry",
+    "chk-b1b-local-forcing",
+    "chk-b1b-matched-cross-pressure",
+    "chk-b1b-no-implemented-transport-claim",
+    "chk-b1b-operand-refusal",
+    "chk-b1b-protocol-before-values",
+    "chk-b1b-return-only",
+    "chk-b1b-search-bounds",
+    "chk-b1b-support-heat"
+  ],
+  "claimBoundary": {
+    "scopeCensusOnlyForAS": true,
+    "allOpenedSourceValuesArePhase10DevelopmentEvidence": true,
+    "quantitativeValidationEarned": false,
+    "phase7CreditEarned": false,
+    "phase8CreditEarned": false,
+    "phase9CreditEarned": false,
+    "heldOutComparisonExecuted": false,
+    "targetScoreProduced": false,
+    "solverPhysicsChanged": false,
+    "c1ThroughC5RowsProduced": false,
+    "habitRowsProduced": false,
+    "eObservationOperatorImplemented": false,
+    "fExternalRequestWrittenOrSent": false,
+    "hTransportImplemented": false,
+    "downstreamExecutionAuthorized": false,
+    "priorPhaseLabelsAndArtifactsPreserved": true
+  }
+}

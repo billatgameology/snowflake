@@ -1,0 +1,156 @@
+{
+  "schema": "phase10-b4-protocol-v1",
+  "protocolId": "phase10-b4-terminal-disposition-v1",
+  "branchId": "B4",
+  "registrationSha256": "8488767f8158180b6f97a72f29ee45290cb2cb7cd4b8384c72535ef1533f3bfa",
+  "protocolCommit": "7e1626ccf0106ecd2fc325261574a4a695ac102a",
+  "frozenOn": "2026-08-25",
+  "sourceBindings": [
+    {
+      "bindingId": "a-i-currency",
+      "sourceKind": "tracked-artifact",
+      "payloadId": null,
+      "artifact": {
+        "path": "evidence/phase10-scope-intake-v1/currency.jsonl",
+        "byteLength": 16542,
+        "sha256": "a8c1dcbe7a0bcd02d38adc195c863dd1c3cf0b657294bdadf3a9fd472912a574"
+      },
+      "privateSource": null,
+      "developmentEvidence": true
+    },
+    {
+      "bindingId": "a-i-dispositions",
+      "sourceKind": "tracked-artifact",
+      "payloadId": null,
+      "artifact": {
+        "path": "evidence/phase10-scope-intake-v1/post-freeze-dispositions.jsonl",
+        "byteLength": 30641,
+        "sha256": "619c29255dd63a8179429abc0f44a895575294b176805a5a49339f7437c5bfd8"
+      },
+      "privateSource": null,
+      "developmentEvidence": true
+    },
+    {
+      "bindingId": "b-acquisition-round",
+      "sourceKind": "tracked-artifact",
+      "payloadId": null,
+      "artifact": {
+        "path": "evidence/phase10-observation-bridges-v1/acquisition-round.json",
+        "byteLength": 6739,
+        "sha256": "e7775b51a8d5377fe2b0d57f20fb51677152838f4cffea68737af678be1b0bf2"
+      },
+      "privateSource": null,
+      "developmentEvidence": true
+    }
+  ],
+  "operandRules": [
+    {
+      "operandId": "B4-FINAL-THEORY-ARTICLE",
+      "required": true,
+      "searchGroupId": "B4-SEARCH-FINAL-THEORY",
+      "eligibilityUse": "required-conjunct"
+    },
+    {
+      "operandId": "B4-FORCING-SEMANTICS",
+      "required": true,
+      "searchGroupId": "B4-SEARCH-MEASUREMENT-METHODS",
+      "eligibilityUse": "required-conjunct"
+    },
+    {
+      "operandId": "B4-MEASUREMENT-METHODS",
+      "required": true,
+      "searchGroupId": "B4-SEARCH-MEASUREMENT-METHODS",
+      "eligibilityUse": "required-conjunct"
+    },
+    {
+      "operandId": "B4-ROLE-SEPARATION",
+      "required": true,
+      "searchGroupId": null,
+      "eligibilityUse": "required-conjunct"
+    },
+    {
+      "operandId": "B4-SAME-LINEAGE-LINK",
+      "required": true,
+      "searchGroupId": null,
+      "eligibilityUse": "required-conjunct"
+    }
+  ],
+  "observationDomain": {
+    "domainId": "b4-registered-domain",
+    "description": "Rights-safe metadata domain bounded by A-I and the terminal six-target acquisition round.",
+    "sourceRefIds": [
+      "a-i-currency",
+      "a-i-dispositions",
+      "b-acquisition-round"
+    ]
+  },
+  "branchContract": {
+    "schema": "phase10-b4-contract-v1",
+    "finalTheoryBinding": "complete HP26 final theory article",
+    "methodsBinding": "complete PMH2025 measurement Methods",
+    "roleSeparationRule": "theory and Methods cannot substitute for one another",
+    "forcingSemantics": "measurement forcing must come from Methods",
+    "sameLineageDefinition": "same apparatus, campaign, and observation lineage",
+    "theoryReplayOrRivalFit": "only after both independent roles and same-lineage operands are complete",
+    "mechanismRankingBlockers": [
+      "B4-CURRENT-MONOGRAPH-COMPARISON",
+      "B4-LATTICE-TO-WIDTH-MAP",
+      "B4-MATCHED-TRANSPORT",
+      "B4-NUMERIC-SPATIAL-OR-RIM-TRAJECTORIES",
+      "B4-PHYSICAL-WIDTH"
+    ]
+  },
+  "eligibilityRule": {
+    "ruleId": "b4-all-required-operands",
+    "conjunctiveOperandIds": [
+      "B4-FINAL-THEORY-ARTICLE",
+      "B4-FORCING-SEMANTICS",
+      "B4-MEASUREMENT-METHODS",
+      "B4-ROLE-SEPARATION",
+      "B4-SAME-LINEAGE-LINK"
+    ],
+    "allowedNotApplicableOperandIds": [],
+    "description": "The eligible outcome requires every registered required operand; otherwise the named terminal refusal or non-identification outcome applies."
+  },
+  "terminalOutcomeRule": {
+    "eligibleOutcome": "eligible-bridge",
+    "refusalOutcome": "terminal-refusal",
+    "nonIdentificationAllowed": false,
+    "categoricalOnlyAllowed": false
+  },
+  "outputRoster": [
+    "out-b4-protocol",
+    "out-b4-result",
+    "out-b4-return",
+    "out-b4-search",
+    "out-b4-verification"
+  ],
+  "checkRoster": [
+    "chk-b4-forcing-semantics",
+    "chk-b4-no-mechanism-rank",
+    "chk-b4-protocol-before-values",
+    "chk-b4-return-only",
+    "chk-b4-rival-fit-or-refusal",
+    "chk-b4-same-lineage-limit",
+    "chk-b4-search-bounds",
+    "chk-b4-theory-methods-separate"
+  ],
+  "claimBoundary": {
+    "scopeCensusOnlyForAS": true,
+    "allOpenedSourceValuesArePhase10DevelopmentEvidence": true,
+    "quantitativeValidationEarned": false,
+    "phase7CreditEarned": false,
+    "phase8CreditEarned": false,
+    "phase9CreditEarned": false,
+    "heldOutComparisonExecuted": false,
+    "targetScoreProduced": false,
+    "solverPhysicsChanged": false,
+    "c1ThroughC5RowsProduced": false,
+    "habitRowsProduced": false,
+    "eObservationOperatorImplemented": false,
+    "fExternalRequestWrittenOrSent": false,
+    "hTransportImplemented": false,
+    "downstreamExecutionAuthorized": false,
+    "priorPhaseLabelsAndArtifactsPreserved": true
+  }
+}

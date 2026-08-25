@@ -1,0 +1,52 @@
+{
+  "schema": "phase10-b-schema-contracts-v1",
+  "createdOn": "2026-08-24",
+  "schemas": {
+    "phase10-return-proposal-v1": {
+      "schemaId": "phase10-return-proposal-v1",
+      "exactFields": [
+        "schema",
+        "branchId",
+        "candidate",
+        "reason",
+        "authorization",
+        "claimBoundary"
+      ],
+      "fieldContracts": {
+        "schema": "phase10-return-proposal-v1",
+        "branchId": "enum:branchId",
+        "candidate": "downstream-candidate-v1 or null",
+        "reason": "nonempty rights-safe disposition",
+        "authorization": "none",
+        "claimBoundary": "phase10-claim-boundary-v1"
+      },
+      "invariants": [
+        "A null candidate records that the terminal branch result supplies no actionable downstream proposal.",
+        "A non-null candidate remains return-only and grants no execution, contact, purchase, or implementation authority."
+      ]
+    },
+    "phase10-return-proposals-v1": {
+      "schemaId": "phase10-return-proposals-v1",
+      "exactFields": [
+        "schema",
+        "bundleId",
+        "proposals",
+        "executedKinds",
+        "authorization",
+        "claimBoundary"
+      ],
+      "fieldContracts": {
+        "schema": "phase10-return-proposals-v1",
+        "bundleId": "stable bundle ID",
+        "proposals": "exactly six phase10-return-proposal-v1 objects sorted by branchId",
+        "executedKinds": "empty enum:downstreamCandidateKind array",
+        "authorization": "none",
+        "claimBoundary": "phase10-claim-boundary-v1"
+      },
+      "invariants": [
+        "The aggregate preserves every branch proposal or explicit null candidate.",
+        "No E, F, or H work is executed or authorized by this artifact."
+      ]
+    }
+  }
+}

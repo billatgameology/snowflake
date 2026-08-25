@@ -321,7 +321,11 @@ detail.
   `4f2a07813efb55f920b30a34c49e8ae009a7b1f3f6804efb30a308dae5f7fe0f`, and both collection-specific
   full-hash commands pass. The finalized `b-acquisition` packet passes 2/2 registered checks with
   terminal `refusal`: five exact sources are rights-blocked and Zhao S2 is acquired-and-bound.
-  B1a–B5 and `b-aggregate` remain the active S7 deliverable.
+  The value-free S7 branch implementation now freezes all six deciding protocols and the aggregate
+  packet authority against the existing A-I/acquisition state. Focused acquisition, B-branch, and
+  obligation-preflight tests pass 21/21, both TypeScript projects pass, and Rule 7 is clean; no
+  B1a–B5 result or aggregate has executed yet. Committing this first-add freeze and then running the
+  six finite dispositions once is the active S7 deliverable.
 - **Assurance is proportional to decision risk.** [Decision 0049](decisions/0049-make-assurance-proportionate-to-decision-risk.md),
   charter v1.26 and `AGENTS.md` require integrity for routine sources, one targeted check for
   load-bearing inputs, and full named controls for gates or strong public claims. No recursive
@@ -336,7 +340,7 @@ detail.
   direction) and content stays in-repo unpublished, `test.yml` CI unaffected. Reconciliation is
   a live decision point under **Next step**. Full freeze history:
   [the history file](progress-history-phases-6-8-9.md).
-- **Last updated:** 2026-08-25 (`b-acquisition` terminal; B1a–B5 and aggregate are next)
+- **Last updated:** 2026-08-25 (B branch protocols frozen; clean-commit execution is next)
 
 ## Phase gates
 
@@ -478,10 +482,11 @@ maker direction.
 `b-acquisition` is terminal and pinned. It passes both registered checks with aggregate `refusal`:
 five exact targets are rights-blocked and Zhao S2 is acquired-and-bound in the active private NAS
 collection. Publication and fresh-restore verification both pass for one file / 9,040,679 bytes;
-no source prune is authorized. Implement and freeze only the six registered B branch protocols,
-then derive operand-level refusals from the A-I dispositions and acquisition round. Do not run
-broad search, contact providers, purchase access, reacquire sources, inspect numeric media values,
-implement E/F/H, or add another assurance framework. After B1a–B5 are terminal, publish
+no source prune is authorized. The six registered B branch protocols and `b-aggregate` authority are
+now frozen with 21/21 focused checks green and no result values executed. Commit and push this
+first-add freeze, then run the six finite operand dispositions once from the clean commit. Do not
+run broad search, contact providers, purchase access, reacquire sources, inspect numeric media
+values, implement E/F/H, or add another assurance framework. After B1a–B5 are terminal, publish
 `b-aggregate` and return to the minimum C0V closure required by the selected done-when.
 
 The A-P PASS dependency is committed at `63ca13c`; A-S PASS is committed at `78c1875`. A-I's

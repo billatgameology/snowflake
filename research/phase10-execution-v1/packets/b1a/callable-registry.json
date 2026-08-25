@@ -1,0 +1,110 @@
+{
+  "schema": "phase10-callable-registry-v1",
+  "registryId": "phase10-b1a-resolved-callables-v1",
+  "matrixId": "phase10-selected-package-obligations-v1",
+  "protocolId": "phase10-b1a-terminal-disposition-v1",
+  "packetId": "b1a",
+  "callables": [
+    {
+      "callableId": "phase10-b1a-check-caller",
+      "role": "check-caller",
+      "resolution": "resolved",
+      "modulePath": "runner/src/phase10-b-branch-checks.ts",
+      "exportName": "phase10B1aCheckCaller",
+      "identity": {
+        "byteLength": 2616,
+        "sha256": "12f2775053ca3350a5f2aeb82f6f774170eee7ca7e3c065bfe921af28d667dc4"
+      },
+      "producedOutputIds": [],
+      "invokedCheckIds": [
+        "chk-b1a-apparatus-surface-forcing",
+        "chk-b1a-current-monograph",
+        "chk-b1a-development-label",
+        "chk-b1a-operand-refusal",
+        "chk-b1a-protocol-before-values",
+        "chk-b1a-return-only",
+        "chk-b1a-search-bounds",
+        "chk-b1a-uncertainty-or-envelope"
+      ],
+      "evaluatedCheckIds": [],
+      "executedNegativeControlIds": []
+    },
+    {
+      "callableId": "phase10-b1a-protocol-producer",
+      "role": "producer",
+      "resolution": "resolved",
+      "modulePath": "runner/src/phase10-b-branches.ts",
+      "exportName": "producePhase10B1aProtocol",
+      "identity": {
+        "byteLength": 53189,
+        "sha256": "79a902f82055daaf074df51aaa2546b13ef5ed48a4fde2d9be800b28f0222e0c"
+      },
+      "producedOutputIds": [
+        "out-b1a-protocol"
+      ],
+      "invokedCheckIds": [],
+      "evaluatedCheckIds": [],
+      "executedNegativeControlIds": []
+    },
+    {
+      "callableId": "phase10-b1a-result-producer",
+      "role": "producer",
+      "resolution": "resolved",
+      "modulePath": "runner/src/phase10-b-branches.ts",
+      "exportName": "producePhase10B1aResult",
+      "identity": {
+        "byteLength": 53189,
+        "sha256": "79a902f82055daaf074df51aaa2546b13ef5ed48a4fde2d9be800b28f0222e0c"
+      },
+      "producedOutputIds": [
+        "out-b1a-result",
+        "out-b1a-return",
+        "out-b1a-search"
+      ],
+      "invokedCheckIds": [],
+      "evaluatedCheckIds": [],
+      "executedNegativeControlIds": []
+    },
+    {
+      "callableId": "phase10-b1a-verification-receipt-writer",
+      "role": "producer",
+      "resolution": "resolved",
+      "modulePath": "runner/src/phase10-b-branches.ts",
+      "exportName": "writePhase10B1aVerificationReceipt",
+      "identity": {
+        "byteLength": 53189,
+        "sha256": "79a902f82055daaf074df51aaa2546b13ef5ed48a4fde2d9be800b28f0222e0c"
+      },
+      "producedOutputIds": [
+        "out-b1a-verification"
+      ],
+      "invokedCheckIds": [],
+      "evaluatedCheckIds": [],
+      "executedNegativeControlIds": []
+    },
+    {
+      "callableId": "phase10-b1a-verifier",
+      "role": "independent-evaluator",
+      "resolution": "resolved",
+      "modulePath": "runner/src/phase10-b-branch-verify.ts",
+      "exportName": "phase10B1aVerify",
+      "identity": {
+        "byteLength": 23460,
+        "sha256": "e4012efb4dbb736d183965020ad52e0999b32d4b012d91f469563f52ce7f30bb"
+      },
+      "producedOutputIds": [],
+      "invokedCheckIds": [],
+      "evaluatedCheckIds": [
+        "chk-b1a-apparatus-surface-forcing",
+        "chk-b1a-current-monograph",
+        "chk-b1a-development-label",
+        "chk-b1a-operand-refusal",
+        "chk-b1a-protocol-before-values",
+        "chk-b1a-return-only",
+        "chk-b1a-search-bounds",
+        "chk-b1a-uncertainty-or-envelope"
+      ],
+      "executedNegativeControlIds": []
+    }
+  ]
+}

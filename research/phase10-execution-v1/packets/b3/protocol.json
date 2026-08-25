@@ -1,0 +1,38 @@
+{
+  "schema": "phase10-packet-protocol-v1",
+  "protocolId": "phase10-b3-terminal-disposition-v1",
+  "matrixId": "phase10-selected-package-obligations-v1",
+  "packetId": "b3",
+  "artifactSchemaRegistry": {
+    "path": "research/phase10-b-branch-artifact-schema-registry-v1.json",
+    "byteLength": 117549,
+    "sha256": "04d6bbb69e9daa62cf240cc4da9e9e42b72d3729457fae4d7cc74544a685ff7c"
+  },
+  "selectedBranches": [],
+  "registeredOutputIds": [
+    "out-b3-protocol",
+    "out-b3-result",
+    "out-b3-return",
+    "out-b3-search",
+    "out-b3-verification"
+  ],
+  "registeredCheckIds": [
+    "chk-b3-carrier-gas-audit",
+    "chk-b3-currency",
+    "chk-b3-one-factor-or-crossed-identification",
+    "chk-b3-protocol-before-values",
+    "chk-b3-return-only",
+    "chk-b3-search-bounds",
+    "chk-b3-temperature-conflict",
+    "chk-b3-terminal-nonidentification",
+    "chk-b3-two-reader-operator",
+    "chk-b3-zhao-role-audit"
+  ],
+  "registeredNegativeControlIds": [],
+  "boundDependencyPacketIds": [
+    "a-i",
+    "a-p",
+    "a-s",
+    "b-acquisition"
+  ]
+}

@@ -1,0 +1,190 @@
+{
+  "schema": "phase10-b2-protocol-v1",
+  "protocolId": "phase10-b2-terminal-disposition-v1",
+  "branchId": "B2",
+  "registrationSha256": "f21c38a6cd6006a864c040c83391cc91573e20395cb900b4815908be8eceb091",
+  "protocolCommit": "7e1626ccf0106ecd2fc325261574a4a695ac102a",
+  "frozenOn": "2026-08-25",
+  "sourceBindings": [
+    {
+      "bindingId": "a-i-currency",
+      "sourceKind": "tracked-artifact",
+      "payloadId": null,
+      "artifact": {
+        "path": "evidence/phase10-scope-intake-v1/currency.jsonl",
+        "byteLength": 16542,
+        "sha256": "a8c1dcbe7a0bcd02d38adc195c863dd1c3cf0b657294bdadf3a9fd472912a574"
+      },
+      "privateSource": null,
+      "developmentEvidence": true
+    },
+    {
+      "bindingId": "a-i-dispositions",
+      "sourceKind": "tracked-artifact",
+      "payloadId": null,
+      "artifact": {
+        "path": "evidence/phase10-scope-intake-v1/post-freeze-dispositions.jsonl",
+        "byteLength": 30641,
+        "sha256": "619c29255dd63a8179429abc0f44a895575294b176805a5a49339f7437c5bfd8"
+      },
+      "privateSource": null,
+      "developmentEvidence": true
+    },
+    {
+      "bindingId": "b-acquisition-round",
+      "sourceKind": "tracked-artifact",
+      "payloadId": null,
+      "artifact": {
+        "path": "evidence/phase10-observation-bridges-v1/acquisition-round.json",
+        "byteLength": 6739,
+        "sha256": "e7775b51a8d5377fe2b0d57f20fb51677152838f4cffea68737af678be1b0bf2"
+      },
+      "privateSource": null,
+      "developmentEvidence": true
+    }
+  ],
+  "operandRules": [
+    {
+      "operandId": "B2-CHARACTERISTIC-SIZE-COVERAGE",
+      "required": true,
+      "searchGroupId": "B2-SEARCH-CONTROLLED-VELOCITY-DATASET",
+      "eligibilityUse": "required-conjunct"
+    },
+    {
+      "operandId": "B2-CONTROLLED-VELOCITY-DATASET",
+      "required": true,
+      "searchGroupId": "B2-SEARCH-CONTROLLED-VELOCITY-DATASET",
+      "eligibilityUse": "required-conjunct"
+    },
+    {
+      "operandId": "B2-DENSITY-COVERAGE",
+      "required": true,
+      "searchGroupId": "B2-SEARCH-CONTROLLED-VELOCITY-DATASET",
+      "eligibilityUse": "required-conjunct"
+    },
+    {
+      "operandId": "B2-DROPLET-STATE-COVERAGE",
+      "required": true,
+      "searchGroupId": "B2-SEARCH-CONTROLLED-VELOCITY-DATASET",
+      "eligibilityUse": "required-conjunct"
+    },
+    {
+      "operandId": "B2-METHOD-COVERAGE",
+      "required": true,
+      "searchGroupId": "B2-SEARCH-CONTROLLED-VELOCITY-DATASET",
+      "eligibilityUse": "required-conjunct"
+    },
+    {
+      "operandId": "B2-SPEED-COVERAGE",
+      "required": true,
+      "searchGroupId": "B2-SEARCH-CONTROLLED-VELOCITY-DATASET",
+      "eligibilityUse": "required-conjunct"
+    },
+    {
+      "operandId": "B2-SUPPORT-STATE-COVERAGE",
+      "required": true,
+      "searchGroupId": "B2-SEARCH-CONTROLLED-VELOCITY-DATASET",
+      "eligibilityUse": "required-conjunct"
+    },
+    {
+      "operandId": "B2-TEMPERATURE-COVERAGE",
+      "required": true,
+      "searchGroupId": "B2-SEARCH-CONTROLLED-VELOCITY-DATASET",
+      "eligibilityUse": "required-conjunct"
+    },
+    {
+      "operandId": "B2-TIME-COVERAGE",
+      "required": true,
+      "searchGroupId": "B2-SEARCH-CONTROLLED-VELOCITY-DATASET",
+      "eligibilityUse": "required-conjunct"
+    },
+    {
+      "operandId": "B2-VISCOSITY-COVERAGE",
+      "required": true,
+      "searchGroupId": "B2-SEARCH-CONTROLLED-VELOCITY-DATASET",
+      "eligibilityUse": "required-conjunct"
+    }
+  ],
+  "observationDomain": {
+    "domainId": "b2-registered-domain",
+    "description": "Rights-safe metadata domain bounded by A-I and the terminal six-target acquisition round.",
+    "sourceRefIds": [
+      "a-i-currency",
+      "a-i-dispositions",
+      "b-acquisition-round"
+    ]
+  },
+  "branchContract": {
+    "schema": "phase10-b2-contract-v1",
+    "datasetIdentity": "complete controlled-velocity dataset binding",
+    "intervalDefinition": "predeclared complete reported interval",
+    "densityCoverage": "interval-wide",
+    "viscosityCoverage": "interval-wide",
+    "speedCoverage": "interval-wide",
+    "characteristicSizeCoverage": "interval-wide",
+    "timeCoverage": "interval-wide",
+    "temperatureCoverage": "interval-wide",
+    "dropletStateCoverage": "interval-wide",
+    "supportStateCoverage": "interval-wide",
+    "methodCoverage": "complete source method",
+    "reynoldsDiagnostic": "diagnostic only; never a universal no-ventilation rule"
+  },
+  "eligibilityRule": {
+    "ruleId": "b2-all-required-operands",
+    "conjunctiveOperandIds": [
+      "B2-CHARACTERISTIC-SIZE-COVERAGE",
+      "B2-CONTROLLED-VELOCITY-DATASET",
+      "B2-DENSITY-COVERAGE",
+      "B2-DROPLET-STATE-COVERAGE",
+      "B2-METHOD-COVERAGE",
+      "B2-SPEED-COVERAGE",
+      "B2-SUPPORT-STATE-COVERAGE",
+      "B2-TEMPERATURE-COVERAGE",
+      "B2-TIME-COVERAGE",
+      "B2-VISCOSITY-COVERAGE"
+    ],
+    "allowedNotApplicableOperandIds": [],
+    "description": "The eligible outcome requires every registered required operand; otherwise the named terminal refusal or non-identification outcome applies."
+  },
+  "terminalOutcomeRule": {
+    "eligibleOutcome": "eligible-dataset",
+    "refusalOutcome": "terminal-refusal",
+    "nonIdentificationAllowed": false,
+    "categoricalOnlyAllowed": false
+  },
+  "outputRoster": [
+    "out-b2-protocol",
+    "out-b2-result",
+    "out-b2-return",
+    "out-b2-search",
+    "out-b2-verification"
+  ],
+  "checkRoster": [
+    "chk-b2-complete-method-operands",
+    "chk-b2-controlled-velocity-dataset",
+    "chk-b2-development-label",
+    "chk-b2-operand-refusal",
+    "chk-b2-protocol-before-values",
+    "chk-b2-return-only",
+    "chk-b2-reynolds-diagnostic-only",
+    "chk-b2-search-bounds"
+  ],
+  "claimBoundary": {
+    "scopeCensusOnlyForAS": true,
+    "allOpenedSourceValuesArePhase10DevelopmentEvidence": true,
+    "quantitativeValidationEarned": false,
+    "phase7CreditEarned": false,
+    "phase8CreditEarned": false,
+    "phase9CreditEarned": false,
+    "heldOutComparisonExecuted": false,
+    "targetScoreProduced": false,
+    "solverPhysicsChanged": false,
+    "c1ThroughC5RowsProduced": false,
+    "habitRowsProduced": false,
+    "eObservationOperatorImplemented": false,
+    "fExternalRequestWrittenOrSent": false,
+    "hTransportImplemented": false,
+    "downstreamExecutionAuthorized": false,
+    "priorPhaseLabelsAndArtifactsPreserved": true
+  }
+}

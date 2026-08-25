@@ -2405,6 +2405,23 @@ manifest-pinned evidence files. Its independent verifier passes both registered 
 terminal `refusal`: five exact source targets are rights-blocked, while the Zhao S2 video is
 `acquired-and-bound`. This completes only `b-acquisition`; B1a–B5 and `b-aggregate` remain next.
 
+### S7 B branch protocol freeze checkpoint — 2026-08-25
+
+The single remaining B vertical is implemented and frozen without another acquisition, search,
+provider contact, numeric-media inspection, or generalized execution framework. Six deciding
+protocols bind the existing A-I currency/dispositions and terminal acquisition round before any
+result. Their conjunctive operand rules yield five terminal refusals and one terminal
+non-identification when run from the frozen source state; every optional search group is recorded
+unused, and every E/F/H return proposal is null with authorization `none`. The aggregate authority
+requires all six terminal packets and preserves those limits.
+
+The schema successor promotes only the two previously reserved return-proposal schemas; the
+terminal acquisition registry remains independently usable. Focused acquisition, B-branch, and
+obligation-preflight tests pass 21/21, `npm run typecheck` passes, and the Rule 7 scan is clean over
+1,458 files. No B1a–B5 result, aggregate result, attempt, preflight receipt, terminal receipt, or
+scientific claim has run or published yet. Next, commit and push this first-add protocol/code freeze,
+then execute the six finite branch dispositions once from the clean commit.
+
 ### Rejected native pre-Node launcher design (retained history; do not implement)
 
 **Superseded by maker direction on 2026-08-22.** The detail below records the design that exposed

@@ -1,0 +1,36 @@
+{
+  "schema": "phase10-packet-protocol-v1",
+  "protocolId": "phase10-b4-terminal-disposition-v1",
+  "matrixId": "phase10-selected-package-obligations-v1",
+  "packetId": "b4",
+  "artifactSchemaRegistry": {
+    "path": "research/phase10-b-branch-artifact-schema-registry-v1.json",
+    "byteLength": 117549,
+    "sha256": "04d6bbb69e9daa62cf240cc4da9e9e42b72d3729457fae4d7cc74544a685ff7c"
+  },
+  "selectedBranches": [],
+  "registeredOutputIds": [
+    "out-b4-protocol",
+    "out-b4-result",
+    "out-b4-return",
+    "out-b4-search",
+    "out-b4-verification"
+  ],
+  "registeredCheckIds": [
+    "chk-b4-forcing-semantics",
+    "chk-b4-no-mechanism-rank",
+    "chk-b4-protocol-before-values",
+    "chk-b4-return-only",
+    "chk-b4-rival-fit-or-refusal",
+    "chk-b4-same-lineage-limit",
+    "chk-b4-search-bounds",
+    "chk-b4-theory-methods-separate"
+  ],
+  "registeredNegativeControlIds": [],
+  "boundDependencyPacketIds": [
+    "a-i",
+    "a-p",
+    "a-s",
+    "b-acquisition"
+  ]
+}

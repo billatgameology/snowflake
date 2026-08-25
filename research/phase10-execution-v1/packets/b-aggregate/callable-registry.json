@@ -1,0 +1,89 @@
+{
+  "schema": "phase10-callable-registry-v1",
+  "registryId": "phase10-b-aggregate-resolved-callables-v1",
+  "matrixId": "phase10-selected-package-obligations-v1",
+  "protocolId": "phase10-b-aggregate-v1",
+  "packetId": "b-aggregate",
+  "callables": [
+    {
+      "callableId": "phase10-b-aggregate-check-caller",
+      "role": "check-caller",
+      "resolution": "resolved",
+      "modulePath": "runner/src/phase10-b-branch-checks.ts",
+      "exportName": "phase10BAggregateCheckCaller",
+      "identity": {
+        "byteLength": 2616,
+        "sha256": "12f2775053ca3350a5f2aeb82f6f774170eee7ca7e3c065bfe921af28d667dc4"
+      },
+      "producedOutputIds": [],
+      "invokedCheckIds": [
+        "chk-b-all-searches-terminal",
+        "chk-b-all-six-terminal",
+        "chk-b-development-evidence-only",
+        "chk-b-no-efh-execution",
+        "chk-b-no-provider-contact-purchase",
+        "chk-b-report-rederived"
+      ],
+      "evaluatedCheckIds": [],
+      "executedNegativeControlIds": []
+    },
+    {
+      "callableId": "phase10-b-aggregate-producer",
+      "role": "producer",
+      "resolution": "resolved",
+      "modulePath": "runner/src/phase10-b-branches.ts",
+      "exportName": "producePhase10BAggregateArtifacts",
+      "identity": {
+        "byteLength": 53189,
+        "sha256": "79a902f82055daaf074df51aaa2546b13ef5ed48a4fde2d9be800b28f0222e0c"
+      },
+      "producedOutputIds": [
+        "out-b-artifact-index",
+        "out-b-report",
+        "out-b-return-proposals"
+      ],
+      "invokedCheckIds": [],
+      "evaluatedCheckIds": [],
+      "executedNegativeControlIds": []
+    },
+    {
+      "callableId": "phase10-b-aggregate-verification-receipt-writer",
+      "role": "producer",
+      "resolution": "resolved",
+      "modulePath": "runner/src/phase10-b-branches.ts",
+      "exportName": "writePhase10BAggregateVerificationReceipt",
+      "identity": {
+        "byteLength": 53189,
+        "sha256": "79a902f82055daaf074df51aaa2546b13ef5ed48a4fde2d9be800b28f0222e0c"
+      },
+      "producedOutputIds": [
+        "out-b-verification"
+      ],
+      "invokedCheckIds": [],
+      "evaluatedCheckIds": [],
+      "executedNegativeControlIds": []
+    },
+    {
+      "callableId": "phase10-b-aggregate-verifier",
+      "role": "independent-evaluator",
+      "resolution": "resolved",
+      "modulePath": "runner/src/phase10-b-branch-verify.ts",
+      "exportName": "phase10BAggregateVerify",
+      "identity": {
+        "byteLength": 23460,
+        "sha256": "e4012efb4dbb736d183965020ad52e0999b32d4b012d91f469563f52ce7f30bb"
+      },
+      "producedOutputIds": [],
+      "invokedCheckIds": [],
+      "evaluatedCheckIds": [
+        "chk-b-all-searches-terminal",
+        "chk-b-all-six-terminal",
+        "chk-b-development-evidence-only",
+        "chk-b-no-efh-execution",
+        "chk-b-no-provider-contact-purchase",
+        "chk-b-report-rederived"
+      ],
+      "executedNegativeControlIds": []
+    }
+  ]
+}

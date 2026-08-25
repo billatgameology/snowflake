@@ -1,0 +1,153 @@
+{
+  "schema": "phase10-b1a-protocol-v1",
+  "protocolId": "phase10-b1a-terminal-disposition-v1",
+  "branchId": "B1a",
+  "registrationSha256": "fcc9b4e5d6e947288aa749dad8f0a0226326320a57ad80327793b26391e00579",
+  "protocolCommit": "7e1626ccf0106ecd2fc325261574a4a695ac102a",
+  "frozenOn": "2026-08-25",
+  "sourceBindings": [
+    {
+      "bindingId": "a-i-currency",
+      "sourceKind": "tracked-artifact",
+      "payloadId": null,
+      "artifact": {
+        "path": "evidence/phase10-scope-intake-v1/currency.jsonl",
+        "byteLength": 16542,
+        "sha256": "a8c1dcbe7a0bcd02d38adc195c863dd1c3cf0b657294bdadf3a9fd472912a574"
+      },
+      "privateSource": null,
+      "developmentEvidence": true
+    },
+    {
+      "bindingId": "a-i-dispositions",
+      "sourceKind": "tracked-artifact",
+      "payloadId": null,
+      "artifact": {
+        "path": "evidence/phase10-scope-intake-v1/post-freeze-dispositions.jsonl",
+        "byteLength": 30641,
+        "sha256": "619c29255dd63a8179429abc0f44a895575294b176805a5a49339f7437c5bfd8"
+      },
+      "privateSource": null,
+      "developmentEvidence": true
+    },
+    {
+      "bindingId": "b-acquisition-round",
+      "sourceKind": "tracked-artifact",
+      "payloadId": null,
+      "artifact": {
+        "path": "evidence/phase10-observation-bridges-v1/acquisition-round.json",
+        "byteLength": 6739,
+        "sha256": "e7775b51a8d5377fe2b0d57f20fb51677152838f4cffea68737af678be1b0bf2"
+      },
+      "privateSource": null,
+      "developmentEvidence": true
+    }
+  ],
+  "operandRules": [
+    {
+      "operandId": "B1A-COMPARISON-DOMAIN",
+      "required": true,
+      "searchGroupId": null,
+      "eligibilityUse": "required-conjunct"
+    },
+    {
+      "operandId": "B1A-CURRENT-PRINCETON-EDITION",
+      "required": true,
+      "searchGroupId": "B1A-SEARCH-CURRENT-MONOGRAPH",
+      "eligibilityUse": "required-conjunct"
+    },
+    {
+      "operandId": "B1A-PLANAR-FORCING-MAP",
+      "required": true,
+      "searchGroupId": "B1A-SEARCH-FORCING-MAP",
+      "eligibilityUse": "required-conjunct"
+    },
+    {
+      "operandId": "B1A-UNCERTAINTY-TREATMENT",
+      "required": true,
+      "searchGroupId": "B1A-SEARCH-UNCERTAINTY",
+      "eligibilityUse": "required-conjunct"
+    }
+  ],
+  "observationDomain": {
+    "domainId": "b1a-registered-domain",
+    "description": "Rights-safe metadata domain bounded by A-I and the terminal six-target acquisition round.",
+    "sourceRefIds": [
+      "a-i-currency",
+      "a-i-dispositions",
+      "b-acquisition-round"
+    ]
+  },
+  "branchContract": {
+    "schema": "phase10-b1a-contract-v1",
+    "apparatusForcing": "source-defined planar apparatus forcing",
+    "surfaceForcing": "surface supersaturation at the observed facet",
+    "mappingDefinition": "source-backed apparatus-to-surface map",
+    "validDomain": {
+      "domainId": "b1a-planar-facet-domain",
+      "description": "planar Sei–Gonda facet observations in the complete source domain",
+      "sourceRefIds": [
+        "a-i-dispositions",
+        "b-acquisition-round"
+      ]
+    },
+    "transferArgument": null,
+    "currentMonographComparison": "complete current Princeton edition required",
+    "uncertaintyMode": "non-statistical-sensitivity-envelope",
+    "modelInputUncertainty": null,
+    "observationUncertainty": null,
+    "sensitivityEnvelope": "predeclared bounded sensitivity only after forcing and source operands are complete"
+  },
+  "eligibilityRule": {
+    "ruleId": "b1a-all-required-operands",
+    "conjunctiveOperandIds": [
+      "B1A-COMPARISON-DOMAIN",
+      "B1A-CURRENT-PRINCETON-EDITION",
+      "B1A-PLANAR-FORCING-MAP",
+      "B1A-UNCERTAINTY-TREATMENT"
+    ],
+    "allowedNotApplicableOperandIds": [],
+    "description": "The eligible outcome requires every registered required operand; otherwise the named terminal refusal or non-identification outcome applies."
+  },
+  "terminalOutcomeRule": {
+    "eligibleOutcome": "eligible-bridge",
+    "refusalOutcome": "terminal-refusal",
+    "nonIdentificationAllowed": false,
+    "categoricalOnlyAllowed": false
+  },
+  "outputRoster": [
+    "out-b1a-protocol",
+    "out-b1a-result",
+    "out-b1a-return",
+    "out-b1a-search",
+    "out-b1a-verification"
+  ],
+  "checkRoster": [
+    "chk-b1a-apparatus-surface-forcing",
+    "chk-b1a-current-monograph",
+    "chk-b1a-development-label",
+    "chk-b1a-operand-refusal",
+    "chk-b1a-protocol-before-values",
+    "chk-b1a-return-only",
+    "chk-b1a-search-bounds",
+    "chk-b1a-uncertainty-or-envelope"
+  ],
+  "claimBoundary": {
+    "scopeCensusOnlyForAS": true,
+    "allOpenedSourceValuesArePhase10DevelopmentEvidence": true,
+    "quantitativeValidationEarned": false,
+    "phase7CreditEarned": false,
+    "phase8CreditEarned": false,
+    "phase9CreditEarned": false,
+    "heldOutComparisonExecuted": false,
+    "targetScoreProduced": false,
+    "solverPhysicsChanged": false,
+    "c1ThroughC5RowsProduced": false,
+    "habitRowsProduced": false,
+    "eObservationOperatorImplemented": false,
+    "fExternalRequestWrittenOrSent": false,
+    "hTransportImplemented": false,
+    "downstreamExecutionAuthorized": false,
+    "priorPhaseLabelsAndArtifactsPreserved": true
+  }
+}

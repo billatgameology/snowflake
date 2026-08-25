@@ -1,0 +1,192 @@
+{
+  "schema": "phase10-b5-protocol-v1",
+  "protocolId": "phase10-b5-terminal-disposition-v1",
+  "branchId": "B5",
+  "registrationSha256": "66e7c1a4d03b1a2d09d26b81125913ebe6ba54e2557862170fb5975a11e4a97c",
+  "protocolCommit": "7e1626ccf0106ecd2fc325261574a4a695ac102a",
+  "frozenOn": "2026-08-25",
+  "sourceBindings": [
+    {
+      "bindingId": "a-i-currency",
+      "sourceKind": "tracked-artifact",
+      "payloadId": null,
+      "artifact": {
+        "path": "evidence/phase10-scope-intake-v1/currency.jsonl",
+        "byteLength": 16542,
+        "sha256": "a8c1dcbe7a0bcd02d38adc195c863dd1c3cf0b657294bdadf3a9fd472912a574"
+      },
+      "privateSource": null,
+      "developmentEvidence": true
+    },
+    {
+      "bindingId": "a-i-dispositions",
+      "sourceKind": "tracked-artifact",
+      "payloadId": null,
+      "artifact": {
+        "path": "evidence/phase10-scope-intake-v1/post-freeze-dispositions.jsonl",
+        "byteLength": 30641,
+        "sha256": "619c29255dd63a8179429abc0f44a895575294b176805a5a49339f7437c5bfd8"
+      },
+      "privateSource": null,
+      "developmentEvidence": true
+    },
+    {
+      "bindingId": "b-acquisition-round",
+      "sourceKind": "tracked-artifact",
+      "payloadId": null,
+      "artifact": {
+        "path": "evidence/phase10-observation-bridges-v1/acquisition-round.json",
+        "byteLength": 6739,
+        "sha256": "e7775b51a8d5377fe2b0d57f20fb51677152838f4cffea68737af678be1b0bf2"
+      },
+      "privateSource": null,
+      "developmentEvidence": true
+    }
+  ],
+  "operandRules": [
+    {
+      "operandId": "B5-ALL-ATTEMPTS-REPORTED",
+      "required": true,
+      "searchGroupId": null,
+      "eligibilityUse": "required-conjunct"
+    },
+    {
+      "operandId": "B5-ELIGIBILITY-THRESHOLDS",
+      "required": true,
+      "searchGroupId": null,
+      "eligibilityUse": "required-conjunct"
+    },
+    {
+      "operandId": "B5-FEATURE-ROSTER",
+      "required": true,
+      "searchGroupId": null,
+      "eligibilityUse": "required-conjunct"
+    },
+    {
+      "operandId": "B5-LOCAL-FORCING",
+      "required": true,
+      "searchGroupId": "B5-SEARCH-FORCING-METADATA",
+      "eligibilityUse": "required-conjunct"
+    },
+    {
+      "operandId": "B5-MATCHED-TRANSPORT",
+      "required": true,
+      "searchGroupId": "B5-SEARCH-TRANSPORT-METADATA",
+      "eligibilityUse": "required-conjunct"
+    },
+    {
+      "operandId": "B5-MEDIA-ROSTER",
+      "required": true,
+      "searchGroupId": "B5-SEARCH-MEDIA-COMPANION",
+      "eligibilityUse": "required-conjunct"
+    },
+    {
+      "operandId": "B5-OBSERVATION-OPERATOR",
+      "required": true,
+      "searchGroupId": null,
+      "eligibilityUse": "required-conjunct"
+    },
+    {
+      "operandId": "B5-REPEATABILITY-AND-UNCERTAINTY",
+      "required": true,
+      "searchGroupId": null,
+      "eligibilityUse": "required-conjunct"
+    },
+    {
+      "operandId": "B5-SCALE-CALIBRATION",
+      "required": true,
+      "searchGroupId": "B5-SEARCH-CALIBRATION-METADATA",
+      "eligibilityUse": "required-conjunct"
+    },
+    {
+      "operandId": "B5-TIME-CALIBRATION",
+      "required": true,
+      "searchGroupId": "B5-SEARCH-CALIBRATION-METADATA",
+      "eligibilityUse": "required-conjunct"
+    }
+  ],
+  "observationDomain": {
+    "domainId": "b5-registered-domain",
+    "description": "Rights-safe metadata domain bounded by A-I and the terminal six-target acquisition round.",
+    "sourceRefIds": [
+      "a-i-currency",
+      "a-i-dispositions",
+      "b-acquisition-round"
+    ]
+  },
+  "branchContract": {
+    "schema": "phase10-b5-contract-v1",
+    "mediaRoster": [
+      "Zhao 2026 S2, bound but not numerically inspected"
+    ],
+    "featureRoster": [
+      "trajectory or categorical surface-state feature, pending complete calibration"
+    ],
+    "scaleCalibration": "source-backed scale required",
+    "timeCalibration": "source-backed timebase required",
+    "extractionOperator": "frozen operator required before numeric inspection",
+    "repeatabilityMethod": "all attempts reported; no favorable selection",
+    "uncertaintyMethod": "source-backed or predeclared non-statistical envelope",
+    "eligibilityThresholds": "media, calibration, local forcing, transport, operator, and uncertainty all required",
+    "attemptRoster": [],
+    "allAttemptsRequired": true
+  },
+  "eligibilityRule": {
+    "ruleId": "b5-all-required-operands",
+    "conjunctiveOperandIds": [
+      "B5-ALL-ATTEMPTS-REPORTED",
+      "B5-ELIGIBILITY-THRESHOLDS",
+      "B5-FEATURE-ROSTER",
+      "B5-LOCAL-FORCING",
+      "B5-MATCHED-TRANSPORT",
+      "B5-MEDIA-ROSTER",
+      "B5-OBSERVATION-OPERATOR",
+      "B5-REPEATABILITY-AND-UNCERTAINTY",
+      "B5-SCALE-CALIBRATION",
+      "B5-TIME-CALIBRATION"
+    ],
+    "allowedNotApplicableOperandIds": [],
+    "description": "The eligible outcome requires every registered required operand; otherwise the named terminal refusal or non-identification outcome applies."
+  },
+  "terminalOutcomeRule": {
+    "eligibleOutcome": "eligible-observable",
+    "refusalOutcome": "terminal-refusal",
+    "nonIdentificationAllowed": false,
+    "categoricalOnlyAllowed": true
+  },
+  "outputRoster": [
+    "out-b5-protocol",
+    "out-b5-result",
+    "out-b5-return",
+    "out-b5-search",
+    "out-b5-verification"
+  ],
+  "checkRoster": [
+    "chk-b5-all-attempts-published",
+    "chk-b5-calibration-operator-uncertainty",
+    "chk-b5-media-feature-roster-frozen",
+    "chk-b5-operand-refusal",
+    "chk-b5-protocol-before-values",
+    "chk-b5-return-only",
+    "chk-b5-search-bounds",
+    "chk-b5-trajectory-or-categorical-closure"
+  ],
+  "claimBoundary": {
+    "scopeCensusOnlyForAS": true,
+    "allOpenedSourceValuesArePhase10DevelopmentEvidence": true,
+    "quantitativeValidationEarned": false,
+    "phase7CreditEarned": false,
+    "phase8CreditEarned": false,
+    "phase9CreditEarned": false,
+    "heldOutComparisonExecuted": false,
+    "targetScoreProduced": false,
+    "solverPhysicsChanged": false,
+    "c1ThroughC5RowsProduced": false,
+    "habitRowsProduced": false,
+    "eObservationOperatorImplemented": false,
+    "fExternalRequestWrittenOrSent": false,
+    "hTransportImplemented": false,
+    "downstreamExecutionAuthorized": false,
+    "priorPhaseLabelsAndArtifactsPreserved": true
+  }
+}

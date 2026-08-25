@@ -1,0 +1,38 @@
+{
+  "schema": "phase10-packet-protocol-v1",
+  "protocolId": "phase10-b1b-terminal-disposition-v1",
+  "matrixId": "phase10-selected-package-obligations-v1",
+  "packetId": "b1b",
+  "artifactSchemaRegistry": {
+    "path": "research/phase10-b-branch-artifact-schema-registry-v1.json",
+    "byteLength": 117549,
+    "sha256": "04d6bbb69e9daa62cf240cc4da9e9e42b72d3729457fae4d7cc74544a685ff7c"
+  },
+  "selectedBranches": [],
+  "registeredOutputIds": [
+    "out-b1b-protocol",
+    "out-b1b-result",
+    "out-b1b-return",
+    "out-b1b-search",
+    "out-b1b-verification"
+  ],
+  "registeredCheckIds": [
+    "chk-b1b-asymmetric-transfer",
+    "chk-b1b-evolving-geometry",
+    "chk-b1b-local-forcing",
+    "chk-b1b-matched-cross-pressure",
+    "chk-b1b-no-implemented-transport-claim",
+    "chk-b1b-operand-refusal",
+    "chk-b1b-protocol-before-values",
+    "chk-b1b-return-only",
+    "chk-b1b-search-bounds",
+    "chk-b1b-support-heat"
+  ],
+  "registeredNegativeControlIds": [],
+  "boundDependencyPacketIds": [
+    "a-i",
+    "a-p",
+    "a-s",
+    "b-acquisition"
+  ]
+}

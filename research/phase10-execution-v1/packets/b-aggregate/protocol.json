@@ -1,0 +1,37 @@
+{
+  "schema": "phase10-packet-protocol-v1",
+  "protocolId": "phase10-b-aggregate-v1",
+  "matrixId": "phase10-selected-package-obligations-v1",
+  "packetId": "b-aggregate",
+  "artifactSchemaRegistry": {
+    "path": "research/phase10-b-branch-artifact-schema-registry-v1.json",
+    "byteLength": 117549,
+    "sha256": "04d6bbb69e9daa62cf240cc4da9e9e42b72d3729457fae4d7cc74544a685ff7c"
+  },
+  "selectedBranches": [],
+  "registeredOutputIds": [
+    "out-b-artifact-index",
+    "out-b-report",
+    "out-b-return-proposals",
+    "out-b-verification"
+  ],
+  "registeredCheckIds": [
+    "chk-b-all-searches-terminal",
+    "chk-b-all-six-terminal",
+    "chk-b-development-evidence-only",
+    "chk-b-no-efh-execution",
+    "chk-b-no-provider-contact-purchase",
+    "chk-b-report-rederived"
+  ],
+  "registeredNegativeControlIds": [],
+  "boundDependencyPacketIds": [
+    "a-p",
+    "b-acquisition",
+    "b1a",
+    "b1b",
+    "b2",
+    "b3",
+    "b4",
+    "b5"
+  ]
+}
