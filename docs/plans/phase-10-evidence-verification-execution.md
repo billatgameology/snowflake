@@ -2151,6 +2151,80 @@ registered S6 command, worker, solver, or finalizer. Its direct seam check exerc
 source linkage rather than a full end-to-end observer launch. Recovery-v8 cannot have a first-add
 identity before this commit; rederive and verify it before the moving v4 registered `check`.
 
+### S6 recovery-v8 moving-produce v4 immutable-binding stop and recovery-v9 successor plan — 2026-08-24
+
+Recovery-v8 entered clean pushed first-add freeze
+`0abc4b5245aaed2cfe9a0b4084d76a72f2315894`. Its exact moving-produce v4 `check` exited 0 with
+`executableNow: true` and wrote nothing. Its one authorized `run` published a passing preflight,
+started one worker, completed one governed moving-discrepancy caller, and then fail-stopped during
+terminal finalization with `out-c0v-moving-protocol does not resolve one registered whole-file
+publication path`. Moving v4 is consumed and must not be retried.
+
+The raw result is a valid retained diagnostic, not an accepted packet. The discrepancy evaluator
+passed its one registered check, selected `moving-discrepancy-refusal`, and invoked no solver. The
+worker lifetime was 453,469,200 ns; the single governed invocation used 35,198,500 ns =
+0.000009777361111111111 process-hours. No candidate, attempt ledger, verification, terminal receipt,
+stage, packet credit, publication credit, scientific credit, or validation credit exists.
+
+The nine new retained files are exact:
+
+| Recovery-v8 moving v4 artifact | Bytes | SHA-256 |
+|---|---:|---|
+| `out/phase10-execution-v2/recovery-v8/locks/package.lock` | 248 | `757ce64d0aee51c2f878175e186b3e7169adf9325faee5175b71d78e5b398de6` |
+| `out/phase10-execution-v2/recovery-v8/locks/c0v-moving-produce.lock` | 192 | `20ca902e0a7a35fca03e09c77b3aadc962856dd76e1f4d4ecafa9cbc24a34487` |
+| `out/phase10-execution-v2/recovery-v8/attempts/c0v-moving-produce/c0v-moving-produce-20260822-v4/cause-evaluation.json` | 7,106 | `c6e4474bd84c3695b060f897f68d80f1f37494acaaae2377ed74d044c1f4a956` |
+| `out/phase10-execution-v2/recovery-v8/attempts/c0v-moving-produce/c0v-moving-produce-20260822-v4/exit-status.json` | 259 | `8f35616bbd42c8d988741f50b30e14d6ab0e16cfce08d809687a5c9b677e6ff1` |
+| `out/phase10-execution-v2/recovery-v8/attempts/c0v-moving-produce/c0v-moving-produce-20260822-v4/freeze-evaluation.json` | 34,437 | `a68c8420849e6ed4561247e895d97a4ac9ab9169130bb9d1d931c0b511e207cd` |
+| `out/phase10-execution-v2/recovery-v8/attempts/c0v-moving-produce/c0v-moving-produce-20260822-v4/stderr.log` | 0 | `e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855` |
+| `out/phase10-execution-v2/recovery-v8/attempts/c0v-moving-produce/c0v-moving-produce-20260822-v4/stdout.log` | 4,505 | `bd30c7ca9fd7efd0738dfc0457be439ba3ecc3dcf564f574b0d5481eb736e702` |
+| `out/phase10-execution-v2/recovery-v8/attempts/c0v-moving-produce/c0v-moving-produce-20260822-v4/worker-invocations.jsonl` | 1,413 | `da02dd8f0fd34cb117147e8303c0a0371a543b796bd1610a3ade2081b9d3efd7` |
+| `evidence/phase10-obligation-preflight-v2/packets/c0v-moving-produce/preflight.json` | 54,825 | `2b175094f905d3495b71c8b32d8979b6ce6337e61134e4cef13f0bc8021d40c4` |
+
+The bounded non-author trace found one exact authority seam. Current verification calls
+`phase10C0VS6ResolveRegisteredWholeFilePublicationPath()` for every selected moving output. Its
+non-A-P branch admits only writable `allowedPublicationPaths`, so it rejects the matrix path
+`research/phase10-c0v-moving-protocol-v1.json` even though that path exactly equals the packet's
+immutable `scienceProtocol` binding; the immutable reference binding would fail next. Recovery-v9
+must extend the resolver authority with path-only science/reference bindings and return an exact
+matching matrix path after the unchanged A-P overlay. It must not add tracked inputs to writable
+publication paths or weaken the A-P ID+matrix+overlay join. One production-path regression must use
+the real moving protocol/matrix and prove both immutable binding paths resolve while remaining
+outside `allowedPublicationPaths`.
+
+The v4 preflight now immutably owns the original v2 final path. Recovery-v9 therefore maps exactly
+the moving preflight, verification, and terminal-receipt matrix-v2 rows to the fresh per-packet v3
+subtree under `evidence/phase10-obligation-preflight-v3/packets/c0v-moving-produce/`. The attempt
+ledger final stays `evidence/phase10-numerical-verification-v1/c0v-moving-attempts.jsonl`; the
+science protocol and reference remain their exact tracked bindings. Update the moving-produce
+protocol/catalogue and the three moving-publish dependency contracts; do not move any other packet
+output. The fresh v5 stage suffix applies to those four writable finals. This uses the next physical
+moving envelope; choosing a globally unused v7 root would change the same decision surfaces without
+adding evidence.
+
+Cumulative predecessor retention becomes 18 locks / 3,788 bytes, 44 attempt files / 1,650,286
+bytes, and 11 published files / 452,716 bytes: 73 files / 2,106,790 bytes. The recovery-v9 static
+baseline is 70 files / 3,098,692 bytes. Accepted A-P remains separate at 15 files / 637,675 bytes,
+so moving v5 observes 85 files / 3,736,367 bytes and 532,335,903,000 governed ns =
+0.14787108416666667 process-hours before its attempt. The projected package ceiling is 79,233,839
+bytes and 14,932,335,903,000 ns = 4.147871084166667 hours.
+
+Recovery-v9 is one bounded package-wide successor: bind predecessor freeze `0abc4b5`, accepted A-P
+checkpoint `e092259`, recovery-v8 authority/catalogue/moving-v4 protocol identities, and all nine
+new retained identities; preserve the historical recovery-v5 A-P chain; carry the 72 still-absent
+predecessor paths and add the recovery-v9 root, three fresh v3 moving finals, and four v5 stages for
+an exact 80-path absence roster; authorize only moving v4 to v5; keep A-P v6 and the other six
+attempts v1. Change no science route, reference bytes, tolerance, cap, or claim. The new preflight
+is pinned at 397 files / 6,297,325 bytes. Run focused tests, exact `npm test`, and one bounded
+non-author audit on stable generated bytes. Commit and push the first-add recovery-v9 freeze before
+the v5 read-only `check` and sole `run`.
+
+The diagnosing reviewer was a non-author GPT-5-family Codex agent with full inherited task and
+repository context. It independently parsed and hashed all new files, rederived timing/accounting,
+traced the actual finalizer call chain and the next immutable-reference failure, and enumerated the
+fresh output/dependency paths. It did not edit, test, run a registered command, worker, solver, or
+finalizer, commit, push, or access NAS/network. Its explicit limit is that the source fix and
+recovery-v9 freeze do not yet exist and therefore were not executed.
+
 ### Rejected native pre-Node launcher design (retained history; do not implement)
 
 **Superseded by maker direction on 2026-08-22.** The detail below records the design that exposed

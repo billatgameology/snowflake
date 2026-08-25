@@ -284,10 +284,14 @@ detail.
   moving-attempt authority and authorize only v2 to v3. Its one v3 `check` passed without writes,
   but its one `run` fail-stopped during prior-A-P observation because the observer compared all six
   current v6 outputs to immutable v2 matrix paths. Only two locks / 440 bytes remain; no preflight,
-  attempt, worker, or science ran. Recovery-v8 now reuses the existing exact path resolver across
-  that complete six-output observer join and authorizes only v3 to v4. Focused checks, exact
-  `npm test`, and the required non-author freeze audit are green; the first-add commit is next. No
-  consumed tuple may be rerun.
+  attempt, worker, or science ran. Recovery-v8 repaired that complete six-output observer join,
+  passed exact `npm test` and the bounded non-author audit, and entered pushed freeze `0abc4b5`.
+  Its v4 check wrote nothing. Its one run produced a passing preflight and one completed governed
+  moving-discrepancy invocation with no solver, then fail-stopped in finalization because the
+  shared whole-file resolver rejected the exact immutable moving protocol binding before it could
+  reach the equally immutable reference binding. Nine retained files total 102,985 bytes; no
+  packet, publication, science, or validation credit was earned. The active plan records the
+  bounded recovery-v9 successor. No consumed tuple may be rerun.
 - **Assurance is proportional to decision risk.** [Decision 0049](decisions/0049-make-assurance-proportionate-to-decision-risk.md),
   charter v1.26 and `AGENTS.md` require integrity for routine sources, one targeted check for
   load-bearing inputs, and full named controls for gates or strong public claims. No recursive
@@ -302,8 +306,8 @@ detail.
   direction) and content stays in-repo unpublished, `test.yml` CI unaffected. Reconciliation is
   a live decision point under **Next step**. Full freeze history:
   [the history file](progress-history-phases-6-8-9.md).
-- **Last updated:** 2026-08-24 (recovery-v8 implementation, exact full suite, and bounded non-author
-  audit are green; its first-add freeze commit is next)
+- **Last updated:** 2026-08-24 (recovery-v8 is frozen; moving v4 is retained after a post-worker
+  publication-authority refusal; recovery-v9 is the next bounded action)
 
 ## Phase gates
 
@@ -323,7 +327,7 @@ and every superseded attempt live in the linked plans and historical progress sn
 | 7 | Not started; independently eligible | Charter v1.25 preserves Phase 7's independence but does not start it. A committed Phase 7 plan and isolated worktree are required; product, held-out validation, and v6 WGSL/preview-GPU parity remain its scope. |
 | 8 | **Complete (8A + 8B)** | The immutable 8A book remains 18 entries / 59,019 bytes / SHA-256 `47a75f3f…71ec`. The verified 8B successor is 51 development records, 252,134 native rows and 431 plot points; no row is held out. [Completed plan](plans/phase-8-measurement-corpus.md). |
 | 9 | **Complete (development-only)** | The all-no-pass branch closed: D-BT failed, M-F/M-K2 stayed mapping-dependent, controls/path-state/M-PK are unavailable or non-identifiable, and zero items promoted. Exact `TMPDIR=/private/tmp npm test` passed; no result grants validation credit. [Completed plan](plans/phase-9-execution.md). |
-| 10 | **In progress — A-P/A-S/A-I PASS; C0 packet PASS/complete with numerical criterion NO-PASS; C0V supplemental A-P PASS** | A-P, A-S, bounded structural A-I PASS evidence, and the complete C0 packet are published and pinned. C0 independently re-derived 80/80 rows and 64/64 comparisons: 36 passed and 28 failed the attached-count criterion, so both spacings and the authoritative all-spacings reduction are NO-PASS ([report](../evidence/phase10-numerical-verification-v1/c0-report.json), SHA-256 `571e62ae…0b72`). C0 executed no solver and grants no absolute-accuracy, habit-robustness, target-score, validation, or prior-phase credit. C0V S5b pins the radial reference, moving `reference-discrepancy-refusal`, and scoped static refusal. S6's v1 through v5 A-P tuples each fail-stopped on bounded infrastructure defects; all bytes are retained and earn no packet/scientific credit. Recovery-v5 A-P v6 is terminal `complete`, passes 10/10 structural checks and both controls, and grants exact packet/dependency credit. Its six finals are pinned; it ran no solver and grants no science or validation claim. Moving-produce v1–v3 then fail-stopped before preflight/worker on bounded reader/runner/overlay defects, each retaining only two locks and zero credit. Recovery-v8 implementation, exact full-suite validation, and bounded non-author audit are green; only its first-add freeze remains before any v4 command. Selection still includes no C1–C5 or habit rows. |
+| 10 | **In progress — A-P/A-S/A-I PASS; C0 packet PASS/complete with numerical criterion NO-PASS; C0V supplemental A-P PASS** | A-P, A-S, bounded structural A-I PASS evidence, and the complete C0 packet are published and pinned. C0 independently re-derived 80/80 rows and 64/64 comparisons: 36 passed and 28 failed the attached-count criterion, so both spacings and the authoritative all-spacings reduction are NO-PASS ([report](../evidence/phase10-numerical-verification-v1/c0-report.json), SHA-256 `571e62ae…0b72`). C0 executed no solver and grants no absolute-accuracy, habit-robustness, target-score, validation, or prior-phase credit. C0V S5b pins the radial reference, moving `reference-discrepancy-refusal`, and scoped static refusal. S6's v1 through v5 A-P tuples each fail-stopped on bounded infrastructure defects; all bytes are retained and earn no packet/scientific credit. Recovery-v5 A-P v6 is terminal `complete`, passes 10/10 structural checks and both controls, and grants exact packet/dependency credit. Its six finals are pinned; it ran no solver and grants no science or validation claim. Moving-produce v1–v3 fail-stopped before preflight/worker. Frozen recovery-v8 moving v4 reached one completed discrepancy invocation with no solver, then failed finalization on an immutable-binding path seam; its preflight and raw attempt are retained with zero packet/scientific credit. Recovery-v9 is planned as the minimal successor. Selection still includes no C1–C5 or habit rows. |
 
 ## Active plan
 
@@ -405,14 +409,18 @@ real locked-dispatch regression, passed exact `npm test` and audit, and entered 
 `af72b00`. Its v3 check wrote nothing. Its one run then stopped during prior-A-P observation because
 the observer's separate route-output classifier still used raw matrix paths. The two new locks
 total 440 bytes; no preflight, attempt, worker, or science ran. The active plan records the bounded
-recovery-v8 successor. Recovery-v8 now maps every selected prior-route output through the exact
-matrix-to-live resolver and freezes moving v4 alone. Its generated 18-JSON tree is deterministic at
+recovery-v8 successor. Recovery-v8 mapped every selected prior-route output through the exact
+matrix-to-live resolver and froze moving v4 alone. Its generated 18-JSON tree is deterministic at
 SHA-256 `3fa94b67d2cc5ce1917d30a2e0f5679c2b96e2b4e90d690eccb24087db097763`; strict parsing and all
 101 live callable bindings pass. Exact `npm test` passed 162/162 files with 2,520 passed and 49
 skipped in 1,425.82 seconds. A fresh non-author audit independently rehashed the 64 retained files,
 verified all 74 absences, all 101 live registrations, the six-output production observer join,
-accounting, and ancestry, and reported zero blockers. Only the first-add commit remains.
-Moving-produce v1–v3 must not be retried.
+accounting, and ancestry, and reported zero blockers. Recovery-v8 entered pushed first-add freeze
+`0abc4b5`. Its v4 check wrote nothing; its sole run completed the exact discrepancy caller without
+a solver, then finalization rejected the immutable moving protocol path as though it needed writable
+publication authority. The 54,825-byte passing preflight and eight ignored runtime files are
+retained; the stop earns no packet, publication, science, or validation credit. Moving-produce
+v1–v4 must not be retried.
 
 The old source-strata/ladder/WP3/R15 prerequisite sentence governed the now-closed Phase 6
 production path. WP3 and R15 closed as not computed under decision 0045; that sentence does not
@@ -422,7 +430,7 @@ the package-specific prerequisites in its charter amendment and execution plan. 
 
 ## Next step
 
-### Phase 10 — audit and freeze recovery-v8, then execute moving-produce v4 once
+### Phase 10 — freeze the bounded recovery-v9 successor, then execute moving-produce v5 once
 
 The maker selected **A-S + A-I + B + C0 + C0V with packet-specific A-P** on 2026-08-21. No
 C1–C5 numerical-qualification or scientific habit row is part of this execution. The
@@ -441,20 +449,33 @@ only two locks before the prior-A-P observer rejected the first of six current v
 immutable v2 matrix path. Preserve all three moving lock pairs byte-for-byte; never rerun v1–v3 or
 any A-P tuple.
 
-The recovery-v8 plan/state checkpoint is pushed at `926fb20`. The implementation now reuses the
-exact ID+matrix+protocol path resolver in the observer for the entire six-output A-P roster, and
-its executing regression covers all six outputs plus wrong-matrix and incomplete-overlay refusals.
-The package-wide generated freeze authorizes only moving v3 to v4. The static successor baseline is
-61 files / 2,995,707 bytes; accepted A-P remains separate at 15 files / 637,675 bytes, so moving v4
-observes 76 files / 3,633,382 bytes and 532,300,704,500 governed ns before its attempt. Focused
-checks and exact `npm test` are green. The bounded non-author audit is also green with zero blockers.
-Commit and push the first-add freeze now, then recheck its derived freeze identity before any
-registered recovery-v8 run.
+Recovery-v8 is frozen and pushed at `0abc4b5`. Its v4 check exited 0 with `executableNow: true` and
+wrote nothing. Its sole run published a passing preflight, started one worker, and completed one
+35,198,500-ns moving-discrepancy invocation; the cause verdict passed and no solver ran. During
+terminal finalization the shared resolver rejected the matrix path
+`research/phase10-c0v-moving-protocol-v1.json`, even though it is the protocol's exact immutable
+`scienceProtocol` binding; the exact immutable reference binding would have failed next. Preserve
+the two locks, six attempt files, and pinned preflight byte-for-byte. Moving v4 is consumed.
 
-Do not delete or mutate predecessor bytes or retry any consumed tuple automatically. After the
-future v4 `check` exits 0 without writes, permit one `run`; on refusal, retain every byte and return
-to the active plan, and on success independently verify and pin moving-produce before authorizing
-its publish packet.
+The active plan specifies one recovery-v9 successor and no new gate. Extend the shared resolver
+only to admit exact immutable science/reference binding paths after the unchanged A-P overlay; keep
+tracked inputs outside writable `allowedPublicationPaths`. Because v4 now owns the canonical v2
+moving preflight, map the three moving preflight/verification/terminal matrix-v2 outputs to the
+fresh moving subtree under the next per-packet v3 evidence envelope; keep the attempt ledger,
+science protocol, and reference paths unchanged. Bind the exact 73-file / 2,106,790-byte
+predecessor census and 80 governed absences,
+authorize only moving v4 to v5, and preserve A-P v6 plus the six other v1 attempts. Run focused
+checks, exact `npm test`, and one bounded non-author audit, then commit/push the first-add freeze.
+Only after a write-free v5 `check` may one `run` occur.
+
+The v4 preflight is now tracked and manifest-pinned at 397 files / 6,297,325 bytes; the focused
+evidence-integrity test passes 7/7. An exact `npm test` started after the pin and was deliberately
+interrupted for the operator's restart after Rule 7, both typechecks, and seven test files passed;
+that partial run is not suite evidence. Run the exact suite once on stable recovery-v9 bytes.
+
+Do not delete or mutate predecessor bytes or retry any consumed tuple automatically. On a future
+v5 refusal, retain every byte and return to the active plan; on success, independently verify and
+pin moving-produce before authorizing its publish packet.
 
 The A-P PASS dependency is committed at `63ca13c`; A-S PASS is committed at `78c1875`. A-I's
 observation/decision/review inputs are committed at `9fb2e1b`, and its eight-file structural PASS
