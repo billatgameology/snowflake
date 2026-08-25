@@ -2371,6 +2371,19 @@ provisional zero-byte collection. Adding that one expected row made the focused 
 source-byte acquisition, NAS transaction, candidate publication, or evidence publication has run.
 Next, commit and push the value-free freeze before executing the sole registered acquisition command.
 
+From clean pushed freeze `e29196454ebcb95c4ab2b2995f59c53c75892b06`, the sole acquisition
+run completed once. Its retained
+`out/phase10-execution-v1/attempts/b-acquisition/p10-acquisition-round-01-v1/attempt.json` records
+five `rights-blocked` dispositions and one exact S2 video staged at 9,040,679 bytes / SHA-256
+`4f2a07813efb55f920b30a34c49e8ae009a7b1f3f6804efb30a308dae5f7fe0f`; actual concurrency was
+one and retry count was zero. The sole `publish-nas` invocation then fail-stopped with
+`transaction copied file ownership changed: cg5c01481_si_002.mp4`. It wrote no NAS publication
+report, final collection, restore, candidate, or evidence output. Read-only inspection found the
+202-byte transaction owner record and the exact 9,040,679-byte staged copy under their registered
+NAS lock/staging paths; the staged SHA-256 matches the acquisition record. Do not retry, delete, or
+invent a recovery lifecycle automatically. The next action is a maker decision on whether the
+shared Windows/SMB transaction identity seam should receive a separately scoped repair.
+
 ### Rejected native pre-Node launcher design (retained history; do not implement)
 
 **Superseded by maker direction on 2026-08-22.** The detail below records the design that exposed

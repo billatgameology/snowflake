@@ -451,7 +451,7 @@ the package-specific prerequisites in its charter amendment and execution plan. 
 
 ## Next step
 
-### Phase 10 — execute the finite S7 B acquisition round
+### Phase 10 — B acquisition complete; NAS publication fail-stopped
 
 The maker selected **A-S + A-I + B + C0 + C0V with packet-specific A-P** on 2026-08-21. No
 C1–C5 numerical-qualification or scientific habit row is part of this execution. The
@@ -475,10 +475,19 @@ zero-byte private-NAS intent, and one focused lifecycle test. `npm run typecheck
 `npx vitest run runner/test/phase10-b-acquisition.test.ts` pass. The one exact `npm test` invocation
 passed Rule 7 and both typechecks and ran all 163 Vitest files; 162 passed, while the fixed NAS census
 expectation omitted the new provisional zero-byte collection. The one-row repair passes its focused
-file 8/8; the other 162 unchanged files are not being rerun. No network request or NAS write has run.
-Commit and push this value-free freeze, then execute only
-`node runner/src/phase10-b-acquisition.ts run --repository-root .` once. Do not broaden search,
-contact a provider, purchase access, add an assurance framework, or implement E/F/H.
+file 8/8; the other 162 unchanged files were not rerun. The value-free freeze is pushed at
+`e29196454ebcb95c4ab2b2995f59c53c75892b06`. Its sole acquisition run completed once: the retained
+`out/phase10-execution-v1/attempts/b-acquisition/p10-acquisition-round-01-v1/attempt.json` records
+five `rights-blocked` sources and the exact Zhao S2 video staged at 9,040,679 bytes / SHA-256
+`4f2a07813efb55f920b30a34c49e8ae009a7b1f3f6804efb30a308dae5f7fe0f`, with concurrency one and
+zero retries. The sole NAS publication command then fail-stopped on
+`transaction copied file ownership changed: cg5c01481_si_002.mp4`. No final collection, receipt,
+restore, candidate, or evidence publication exists. The registered NAS lock retains its 202-byte
+owner record and the staging envelope retains an exact hash-matching 9,040,679-byte copy; the final
+collection remains absent. Do not retry or clean those paths automatically. The next action is a
+maker decision on whether to authorize a separately scoped repair of the shared Windows/SMB
+transaction identity seam. Do not broaden search, contact a provider, purchase access, add an
+assurance framework, or implement E/F/H.
 
 The A-P PASS dependency is committed at `63ca13c`; A-S PASS is committed at `78c1875`. A-I's
 observation/decision/review inputs are committed at `9fb2e1b`, and its eight-file structural PASS
