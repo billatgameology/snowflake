@@ -1,0 +1,93 @@
+{
+  "schema": "phase10-final-gate10-report-v1",
+  "gateId": "gate10",
+  "headCommit": "2823189206bf37c24044c841114971b7fb55e81e",
+  "inputArtifacts": [
+    {
+      "path": "evidence/phase10-closure-v1/report.json",
+      "byteLength": 9195,
+      "sha256": "34f4bcc2956b40ce7d57c4776f1e3c0c5f90e724ffcc39743692173a9a818372"
+    },
+    {
+      "path": "evidence/phase10-closure-v1/npm-test.json",
+      "byteLength": 329,
+      "sha256": "c81bed5fc8c5b4d61abcf4f497d09da4b69df7110968d5fc8834381fb204aade"
+    },
+    {
+      "path": "evidence/phase10-closure-v1/review.json",
+      "byteLength": 1850,
+      "sha256": "b87b1e96647ffb97b5bac215bae15f824a52079112caf95c859e90bdbe002942"
+    }
+  ],
+  "packageCompletion": "complete-negative",
+  "scientificDispositions": {
+    "package": "complete-negative",
+    "B": "refusal",
+    "C0": "criterion-no-pass",
+    "C0V": "incomplete-no-pass",
+    "radial": "no-verdict",
+    "moving": "refusal",
+    "static": "refusal"
+  },
+  "priorPhaseLabelsPreserved": true,
+  "claimBoundary": {
+    "scopeCensusOnlyForAS": true,
+    "allOpenedSourceValuesArePhase10DevelopmentEvidence": true,
+    "quantitativeValidationEarned": false,
+    "phase7CreditEarned": false,
+    "phase8CreditEarned": false,
+    "phase9CreditEarned": false,
+    "heldOutComparisonExecuted": false,
+    "targetScoreProduced": false,
+    "solverPhysicsChanged": false,
+    "c1ThroughC5RowsProduced": false,
+    "habitRowsProduced": false,
+    "eObservationOperatorImplemented": false,
+    "fExternalRequestWrittenOrSent": false,
+    "hTransportImplemented": false,
+    "downstreamExecutionAuthorized": false,
+    "priorPhaseLabelsAndArtifactsPreserved": true
+  },
+  "checks": [
+    {
+      "checkId": "phase10-selected-workstreams-terminal",
+      "verdict": "pass",
+      "reasons": []
+    },
+    {
+      "checkId": "phase10-b-refusal-completion-basis",
+      "verdict": "pass",
+      "reasons": []
+    },
+    {
+      "checkId": "phase10-c0v-incomplete-no-credit",
+      "verdict": "pass",
+      "reasons": []
+    },
+    {
+      "checkId": "phase10-no-downstream-or-validation-credit",
+      "verdict": "pass",
+      "reasons": []
+    },
+    {
+      "checkId": "phase10-prior-labels-preserved",
+      "verdict": "pass",
+      "reasons": []
+    },
+    {
+      "checkId": "phase10-exact-suite-pass",
+      "verdict": "pass",
+      "reasons": []
+    },
+    {
+      "checkId": "phase10-non-author-review-pass",
+      "verdict": "pass",
+      "reasons": []
+    }
+  ],
+  "evaluatorVerdict": "pass",
+  "limits": [
+    "C0V remains incomplete/non-PASS and radial has no production verdict.",
+    "Phase 10 grants no validation or prior-phase credit and authorizes no downstream work."
+  ]
+}

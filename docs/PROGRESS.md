@@ -341,8 +341,11 @@ detail.
   6,533,716 bytes. The one bounded non-author closure review then passed with zero unresolved
   blockers and confirmed the exact B-refusal/C0V-incomplete/no-credit claim boundary; its 1,850-byte
   receipt is SHA-256 `b87b1e96647ffb97b5bac215bae15f824a52079112caf95c859e90bdbe002942`,
-  bringing the manifest to 448 files / 6,535,566 bytes. The next action is the single gate receipt
-  publication and flagless gate. No recovery-v10 is created.
+  bringing the manifest to 448 files / 6,535,566 bytes. From clean review checkpoint `2823189`, the
+  gate publisher passed all seven re-derived checks and wrote a 2,692-byte receipt at SHA-256
+  `acb7d178cc5bc73bbf140fbfd7ec8c8e409b3292c7941b1c1f422fb848137e39`; the manifest now pins 449
+  files / 6,538,258 bytes. The next action is to commit that receipt and run the flagless gate once.
+  No recovery-v10 is created.
 - **Assurance is proportional to decision risk.** [Decision 0049](decisions/0049-make-assurance-proportionate-to-decision-risk.md),
   charter v1.26 and `AGENTS.md` require integrity for routine sources, one targeted check for
   load-bearing inputs, and full named controls for gates or strong public claims. No recursive
@@ -501,10 +504,10 @@ collection. Publication and fresh-restore verification both pass for one file / 
 no source prune is authorized. All six finite branch packets and `b-aggregate` are terminal; the
 aggregate passes 6/6 checks and grants no downstream authorization. Decision 0054 / charter v1.30
 now close the preserved maker-terminated recovery-v9 state without S6 packet or scientific credit.
-Commit and push the zero-blocker non-author review receipt, then publish the single gate receipt and
-run flagless `node runner/src/main.ts gate10`. Do not repeat the exact suite unless closure code or
-evidence logic changes. Do not resume a moving-recovery ladder, run broad search, inspect numeric
-media values, implement E/F/H, or add another assurance framework.
+Commit and push the pinned gate receipt, then run flagless `node runner/src/main.ts gate10` once.
+Do not repeat the exact suite unless closure code or evidence logic changes. Do not resume a
+moving-recovery ladder, run broad search, inspect numeric media values, implement E/F/H, or add
+another assurance framework.
 
 The A-P PASS dependency is committed at `63ca13c`; A-S PASS is committed at `78c1875`. A-I's
 observation/decision/review inputs are committed at `9fb2e1b`, and its eight-file structural PASS

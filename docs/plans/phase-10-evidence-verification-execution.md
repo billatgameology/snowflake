@@ -250,7 +250,7 @@ collection.
   per-branch freeze-before-value semantics. Complete the named acquisition round and only the
   precommitted targeted packets needed for unresolved operands. Publish eligible bridges or exact
   operand-level refusals, never an invented mapping.
-- [ ] **S8 — synthesize and return.** Bind every claim to published bytes, preserve criterion,
+- [x] **S8 — synthesize and return.** Bind every claim to published bytes, preserve criterion,
   infrastructure, artifact, solver-integrity, source-refusal, and no-decision distinctions, and
   propose exact E/F/H scopes and budgets only where B supports them. Do not execute those branches.
 - [ ] **S9 — close the selected package.** Run exact `npm test`, verify every claim-bearing artifact
@@ -2491,6 +2491,13 @@ The 1,850-byte review receipt has SHA-256
 `b87b1e96647ffb97b5bac215bae15f824a52079112caf95c859e90bdbe002942`; the manifest now pins 448
 files / 6,535,566 bytes. Next, commit and push the review, then publish the single gate receipt from
 that clean commit.
+
+From clean pushed review checkpoint `2823189206bf37c24044c841114971b7fb55e81e`, the gate publisher
+independently re-derived and passed all seven closure checks. The 2,692-byte gate receipt has
+SHA-256 `acb7d178cc5bc73bbf140fbfd7ec8c8e409b3292c7941b1c1f422fb848137e39` and preserves the exact
+`complete-negative`, B-refusal, C0V-incomplete/no-credit, and no-validation boundaries. The
+manifest now pins 449 files / 6,538,258 bytes. Next, commit and push this receipt, then run the
+flagless gate once; S9 and Phase 10 remain open until that command exits 0.
 
 ### Rejected native pre-Node launcher design (retained history; do not implement)
 
