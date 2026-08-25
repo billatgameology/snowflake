@@ -232,3 +232,36 @@ Verification per this plan's process correction: focused queue tests
 5/5 pass), `npm run typecheck`, then the representative sample render (single-item fig13 probe,
 the queue's largest source mesh at 72.7 MB, written to the canonical batch-a NAS staging
 directory so the full run resumes past it by identity).
+
+### Follow-up: growth-event assets for the website (maker direction, 2026-08-24)
+
+The maker reviewed the fig13 turntable and redirected the deliverable: the queue's 51 selections
+need **growth animations (seed to full size)**, consumed by the separate `snowcrystal_website`
+repo's Run B stage. That site replays a `gutcheck-growth-v1` asset — u32 header-length prefix,
+strict JSON header, then eventCount × (u32 flat site index, u32 attach tick) little-endian,
+i-fastest/j-next/k-slowest — and raymarches the arrival-tick volume directly; no meshes, no MP4,
+~8 bytes per attached site (run B: 7.7 MB for 961,597 events). The original baker
+(`gutcheck-bake-growth.ts`) lives only on an unmerged Mac exploration branch
+(`explore/education-ch1-video`, head `44fd4b6`) and is preset-only; the 51 items are spec/stage
+runs, so the writer is added to `gutcheck-grow-params.ts` instead (same reasoning as
+`--frames-dir`: this loop already owns the spec, stages, and stop rules).
+
+Plan:
+
+1. `--growth-out <file>` [+ `--growth-padding`, default 2] on grow-params: seed sites from the
+   t=0 attached field (`a[idx]===1`) as tick-0 events, then `solver.lastAttached` appended after
+   every `step()`; crop tracked over all events plus padding; header mirrors run B's (required
+   decoder fields plus lattice/spec/runIdentity/source provenance and optional expected-endpoint
+   echo from the item's pinned record, warn-only on mismatch — the arm64 control showed habit
+   classes portable but not bitwise trajectories, so x64 regrowths may differ in ULP detail).
+   Assert seedCount + per-step events == final attachedCount; refuse > 8M events (decoder cap).
+2. Focused round-trip test + decode of a real output with the website's own `growthAsset.ts`
+   (the consumer is the contract).
+3. Calibration: regrow fig11 (cheapest item, recorded 351 s) with `--growth-out`; measures this
+   host's speed ratio for the fleet decision and produces the first asset.
+4. Fleet (pending maker scope decision): regrow the 51 with `--growth-out` only (no `--frames-dir`
+   mesh timelines — the site needs events, not meshes), several runs concurrent, recorded hours
+   ≈ 390 total on the original host.
+
+The fig13 turntable render and the batch-a staging output remain valid but are no longer the
+deliverable; the turntable batch is shelved unless the maker asks for it.
