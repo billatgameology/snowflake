@@ -21,7 +21,7 @@ import {
 import { parsePhase10C0VS6ApNegativeControlReceiptBytes } from "./phase10-c0v-s6-ap-independent.ts";
 import {
   PHASE10_C0V_S6_CURRENT_MOVING_ATTEMPT_ID,
-  PHASE10_C0V_S6_RECOVERY_V7_PACKET_CATALOGUE_PATH,
+  PHASE10_C0V_S6_RECOVERY_V8_PACKET_CATALOGUE_PATH,
   parsePhase10C0VS6CallableRegistry,
   parsePhase10C0VS6PacketCatalogue,
   parsePhase10C0VS6PacketProtocol,
@@ -103,7 +103,7 @@ import {
   type Phase10C0VS6WorkerMessage,
 } from "./phase10-c0v-s6-worker-transport.ts";
 
-const PACKET_CATALOGUE_PATH = PHASE10_C0V_S6_RECOVERY_V7_PACKET_CATALOGUE_PATH;
+const PACKET_CATALOGUE_PATH = PHASE10_C0V_S6_RECOVERY_V8_PACKET_CATALOGUE_PATH;
 const CHECK_LIMITS = Object.freeze([
   "no-lock-or-authorizing-preflight-observation",
   "no-resource-or-mutable-dependency-observation",

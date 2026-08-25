@@ -2115,6 +2115,42 @@ worker, solver, or finalizer, commit, push, or access NAS/network. It records th
 verified the resolver in published-packet and a dispatch test that mocked preflight at entry, but
 did not traverse this distinct real observer classifier.
 
+### S6 recovery-v8 implementation checkpoint — 2026-08-24
+
+Recovery-v8 implements only the registered observer-overlay repair and moving v3-to-v4 successor.
+`phase10C0VS6ResolvePriorRouteOutputPaths()` resolves every selected output ID to its unique
+immutable matrix whole-file path and then through the existing exact registered-publication
+resolver; the production `observePriorPacket()` path calls it. The focused regression proves the
+complete six-output accepted A-P v6 roster and refuses a wrong final matrix row and an incomplete
+protocol overlay. A-P remains v6, moving-produce alone advances to v4, and the other six packet
+attempts remain v1. No reference, route, tolerance, cap, science implementation, or claim changed.
+
+The generated recovery-v8 package is deterministic: 18 JSON files / 843,289 bytes, canonical tree
+SHA-256 `3fa94b67d2cc5ce1917d30a2e0f5679c2b96e2b4e90d690eccb24087db097763`;
+authority 28,047 bytes / SHA-256
+`725deb532bfdbe7105b31f4d9cafbcd92648f1e8efdacc34b97bd6f2e4e95940`; catalogue 16,104 bytes /
+SHA-256 `88c66a7f2ade93a3ce61199016b281fc1aa056ed36e9bc55e29ffd95eb2f0e02`.
+Strict parsing passes 18/18 and all 101 live callable hashes/exports match. The authority binds the
+exact 16 locks / 38 attempt files / 10 published files and 74 absences, with retained total 64 files
+/ 2,003,805 bytes, static baseline 61 / 2,995,707 bytes, and accepted A-P separate at 15 / 637,675
+bytes. No registered command ran.
+
+Focused typechecks and tests are green. On the final stable bytes, exact `npm test` passed: Rule 7
+clean across 1,399 files, both typechecks green, and 162/162 Vitest files with 2,520 passed / 49
+skipped in 1,425.82 seconds. The remaining pre-freeze step is one fresh bounded non-author audit;
+then commit and push the first-add authority before the read-only moving v4 `check` and sole `run`.
+
+That fresh bounded audit closed with zero blockers. The reviewer was a non-author OpenAI Codex
+GPT-5-family agent with full inherited task and repository context. It independently strict-parsed
+and rehashed all 18 generated JSON files, matched all 101 live callable registrations, rehashed the
+exact 64 retained files / 2,003,805 bytes, proved all 74 governed paths absent, traced the complete
+six-output resolver into production `observePriorPacket()`, recomputed storage and
+532,300,704,500 ns timing, compared v7-to-v8 decision surfaces, and checked v7/accepted-A-P
+ancestry. It did not edit, stage, commit, push, use NAS/network, run `npm test`, invoke any
+registered S6 command, worker, solver, or finalizer. Its direct seam check exercised the helper and
+source linkage rather than a full end-to-end observer launch. Recovery-v8 cannot have a first-add
+identity before this commit; rederive and verify it before the moving v4 registered `check`.
+
 ### Rejected native pre-Node launcher design (retained history; do not implement)
 
 **Superseded by maker direction on 2026-08-22.** The detail below records the design that exposed

@@ -1,9 +1,9 @@
 import { resolve } from "node:path";
 import { describe, expect, it } from "vitest";
 import {
-  PHASE10_C0V_S6_RECOVERY_V7_ACCEPTED_AP_ARTIFACTS,
-  PHASE10_C0V_S6_RECOVERY_V7_ACCEPTED_AP_BYTES,
-  PHASE10_C0V_S6_RECOVERY_V7_PREDECESSOR_AP_PROTOCOL,
+  PHASE10_C0V_S6_RECOVERY_V8_ACCEPTED_AP_ARTIFACTS,
+  PHASE10_C0V_S6_RECOVERY_V8_ACCEPTED_AP_BYTES,
+  PHASE10_C0V_S6_RECOVERY_V8_PREDECESSOR_AP_PROTOCOL,
 } from "../src/phase10-c0v-s6-contracts.ts";
 import {
   independentlyReopenPhase10C0VS6AcceptedHistoricalApPacket,
@@ -17,10 +17,10 @@ describe("Phase 10 C0V S6 accepted historical A-P reopen", () => {
     expect(reopened.packet.packetId).toBe("a-p-c0v-s6");
     expect(reopened.packet.protocolId).toBe("phase10-a-p-c0v-s6-execution-v2-recovery-v5");
     expect(reopened.preflight.observed.packetProtocol)
-      .toEqual(PHASE10_C0V_S6_RECOVERY_V7_PREDECESSOR_AP_PROTOCOL);
+      .toEqual(PHASE10_C0V_S6_RECOVERY_V8_PREDECESSOR_AP_PROTOCOL);
     expect(reopened.retainedPhysicalPaths)
-      .toEqual(PHASE10_C0V_S6_RECOVERY_V7_ACCEPTED_AP_ARTIFACTS.map((entry) => entry.path));
-    expect(reopened.finalizedPacketRetainedBytes).toBe(PHASE10_C0V_S6_RECOVERY_V7_ACCEPTED_AP_BYTES);
+      .toEqual(PHASE10_C0V_S6_RECOVERY_V8_ACCEPTED_AP_ARTIFACTS.map((entry) => entry.path));
+    expect(reopened.finalizedPacketRetainedBytes).toBe(PHASE10_C0V_S6_RECOVERY_V8_ACCEPTED_AP_BYTES);
     expect(reopened.governedElapsedNanoseconds).toBe(141_142_452_500);
   }, 600_000);
 });

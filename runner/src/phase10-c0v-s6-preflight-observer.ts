@@ -3,8 +3,8 @@ import { basename, isAbsolute, relative, resolve, sep } from "node:path";
 import { cwd, version as runtimeVersion } from "node:process";
 import {
   PHASE10_C0V_S6_RECOVERY_V5_ATTEMPT_ROOT,
-  PHASE10_C0V_S6_RECOVERY_V7_ATTEMPT_ROOT,
-  PHASE10_C0V_S6_RECOVERY_V7_PACKAGE_CARRY_FORWARD_ELAPSED_NANOSECONDS,
+  PHASE10_C0V_S6_RECOVERY_V8_ATTEMPT_ROOT,
+  PHASE10_C0V_S6_RECOVERY_V8_PACKAGE_CARRY_FORWARD_ELAPSED_NANOSECONDS,
   parsePhase10C0VS6CallableRegistry,
   parsePhase10C0VS6Matrix,
   parsePhase10C0VS6PacketProtocol,
@@ -71,6 +71,9 @@ import {
 import {
   derivePhase10C0VS6HistoricalRetainedRuntimeAuthority,
 } from "./phase10-c0v-s6-runtime-authority.ts";
+import {
+  phase10C0VS6ResolveRegisteredWholeFilePublicationPath,
+} from "./phase10-c0v-s6-lifecycle.ts";
 
 const EVIDENCE_MANIFEST_PATH = "evidence/MANIFEST.json" as const;
 const PACKAGE_ELAPSED_NANOSECONDS_MAXIMUM = 86_400_000_000_000;
@@ -86,7 +89,7 @@ const PACKAGE_PUBLICATION_ROOTS = Object.freeze([
 const PACKAGE_BASELINE_ATTEMPT_ROOT = "out/phase10-c0v-reference-v1" as const;
 const PACKAGE_ATTEMPT_ROOTS = Object.freeze([
   PHASE10_C0V_S6_RECOVERY_V5_ATTEMPT_ROOT,
-  PHASE10_C0V_S6_RECOVERY_V7_ATTEMPT_ROOT,
+  PHASE10_C0V_S6_RECOVERY_V8_ATTEMPT_ROOT,
 ] as const);
 
 const TERMINAL_FIELDS = Object.freeze([
@@ -484,7 +487,7 @@ function parseDisposition(value: unknown, label: string): Phase10C0VS6Dispositio
 }
 
 function outputPath(
-  matrix: Phase10C0VS6ObligationMatrix,
+  matrix: Pick<Phase10C0VS6ObligationMatrix, "outputs">,
   packetId: Phase10C0VS6PacketId,
   outputId: string,
 ): string {
@@ -492,6 +495,22 @@ function outputPath(
     entry.packetId === packetId && entry.outputId === outputId && entry.artifact.field === null);
   if (matches.length !== 1) fail(`${packetId} output ${outputId} does not resolve one whole-file path`);
   return matches[0]!.artifact.path;
+}
+
+/** Exact matrix-to-live-publication projection used by prior-packet observation. */
+export function phase10C0VS6ResolvePriorRouteOutputPaths(
+  matrix: Pick<Phase10C0VS6ObligationMatrix, "outputs">,
+  packet: Pick<Phase10C0VS6PacketProtocol, "packetId"> & Readonly<{
+    paths: Pick<Phase10C0VS6PacketProtocol["paths"], "allowedPublicationPaths">;
+  }>,
+  requiredOutputIds: readonly string[],
+): readonly string[] {
+  return Object.freeze(requiredOutputIds.map((requiredOutputId) =>
+    phase10C0VS6ResolveRegisteredWholeFilePublicationPath(
+      packet,
+      requiredOutputId,
+      outputPath(matrix, packet.packetId, requiredOutputId),
+    )));
 }
 
 function candidatePublicationPaths(
@@ -992,8 +1011,11 @@ function observePriorPacket(
   ], `${packetId} finalized retained bytes`);
   // The selected route's full output paths must be either pre-existing bound authority or one of
   // the exactly retained current-packet paths; no unregistered physical output can satisfy it.
-  const registeredOutputPaths = subroute.requiredOutputIds.map((outputId) =>
-    outputPath(matrix, packetId, outputId));
+  const registeredOutputPaths = phase10C0VS6ResolvePriorRouteOutputPaths(
+    matrix,
+    packet,
+    subroute.requiredOutputIds,
+  );
   for (const path of retainedPaths.filter((entry) => !entry.startsWith(`${packet.paths.attemptRoot}/`))) {
     if (!registeredOutputPaths.includes(path)) fail(`${packetId} retained path ${path} is not a route output`);
   }
@@ -1318,7 +1340,7 @@ export function phase10C0VS6ObservePreflight(
   }
   const packageElapsedNanosecondsBeforeAttempt = safeIntegerSum(
     [
-      PHASE10_C0V_S6_RECOVERY_V7_PACKAGE_CARRY_FORWARD_ELAPSED_NANOSECONDS,
+      PHASE10_C0V_S6_RECOVERY_V8_PACKAGE_CARRY_FORWARD_ELAPSED_NANOSECONDS,
       ...priorPackets.map((entry) => entry.governedElapsedNanoseconds),
     ],
     "prior packet governed elapsed nanoseconds",

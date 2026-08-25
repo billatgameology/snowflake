@@ -2,7 +2,7 @@ import { fileURLToPath } from "node:url";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
 const harness = vi.hoisted(() => ({
-  lockedAttemptId: "c0v-moving-produce-20260822-v3",
+  lockedAttemptId: "c0v-moving-produce-20260822-v4",
   lockCallbacks: 0,
   preflightCalls: 0,
   watchdogAssertions: 0,
@@ -100,7 +100,7 @@ describe("Phase 10 C0V S6 locked moving dispatch authority", () => {
     expect(harness.watchdogAssertions).toBe(1);
     expect(harness.preflightCalls).toBe(1);
 
-    harness.lockedAttemptId = "c0v-moving-produce-20260822-v2";
+    harness.lockedAttemptId = "c0v-moving-produce-20260822-v3";
     harness.preflightCalls = 0;
     harness.watchdogAssertions = 0;
     harness.lockCallbacks = 0;
