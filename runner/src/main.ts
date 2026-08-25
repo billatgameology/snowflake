@@ -90,6 +90,7 @@ import { gate4 } from "./gate4-aggregate.ts";
 import { gate5Lane } from "./gate5-lane.ts";
 import { gate5 } from "./gate5-aggregate.ts";
 import { gate6 } from "./gate6-aggregate.ts";
+import { gate10 } from "./gate10.ts";
 import {
   GATE2B_NODE,
   GATE2B_PREREGISTRATION,
@@ -1383,6 +1384,19 @@ if (command === "__gate2b-worker") {
     console.error("GATE6 EXIT STATUS: 1");
     process.exitCode = 1;
   }
+} else if (command === "gate10") {
+  if (rest.length > 0) {
+    console.error("gate10 takes no flags: Phase 10 closure is pinned in the active execution plan");
+    console.error("GATE10 EXIT STATUS: 2");
+    process.exit(2);
+  }
+  try {
+    process.exitCode = gate10();
+  } catch (error) {
+    console.error(error instanceof Error ? (error.stack ?? error.message) : String(error));
+    console.error("GATE10 EXIT STATUS: 1");
+    process.exitCode = 1;
+  }
 } else if (
   command === "phase6-sweep" || command === "phase6-sweep-arm2" || command === "phase6-sweep-arm3"
 ) {
@@ -1496,6 +1510,7 @@ if (command === "__gate2b-worker") {
       "       node runner/src/main.ts gate5-lane\n" +
       "       node runner/src/main.ts gate5\n" +
       "       node runner/src/main.ts gate6\n" +
+      "       node runner/src/main.ts gate10\n" +
       "       node runner/src/main.ts phase6-fixture\n" +
       "       node runner/src/main.ts phase6-sweep [concurrency]\n" +
       "       node runner/src/main.ts phase6-sweep-arm2 [concurrency]\n" +

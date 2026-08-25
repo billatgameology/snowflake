@@ -2446,6 +2446,21 @@ ran, and no recovery-v10 authority was created. The closing report must preserve
 executed, moving/static as their exact S5 refusal meanings, C0V as incomplete/non-PASS, and every S6
 packet as no-credit; package completion rests independently on B's terminal source refusal.
 
+### S8 final-package implementation freeze — 2026-08-25
+
+The finite closure producer and independently re-deriving flagless `gate10` are implemented without
+another recovery, execution packet, solver run, source search, or assurance framework. The producer
+binds the already-pinned A-P/A-S/A-I, B, C0, S6 A-P, and S5 C0V artifacts and can publish only the
+single closure report from a clean Phase 10 commit. The gate keeps package completion separate from
+scientific disposition: B refusal is the completion basis; C0V remains incomplete/non-PASS with no
+S6 packet credit; radial has no production verdict; moving/static retain only their S5 refusals;
+and no downstream, validation, target-score, solver-change, C1–C5, or prior-phase credit is granted.
+
+Focused final-package, progress-index, and evidence-integrity tests pass 17/17; both TypeScript
+checks pass; and Rule 7 is clean across 1,506 files. No closure report, final suite receipt, review
+receipt, or gate receipt has published yet. Next, commit and push this code freeze, then publish the
+single report from that clean commit.
+
 ### Rejected native pre-Node launcher design (retained history; do not implement)
 
 **Superseded by maker direction on 2026-08-22.** The detail below records the design that exposed

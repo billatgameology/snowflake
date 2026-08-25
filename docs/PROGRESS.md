@@ -329,7 +329,11 @@ detail.
   Decision 0054 and charter v1.30 now authorize one exact closure of the maker-terminated recovery-v9
   state: radial remains not executed, moving/static retain only their S5 refusal meanings, C0V is
   incomplete/non-PASS with no S6 packet credit, and package completion rests on the terminal B
-  refusal. Implementing that report and flagless `gate10` is next; no recovery-v10 is created.
+  refusal. The finite report producer and independently re-deriving flagless `gate10` are now
+  implemented: the focused final-package/progress/evidence set passes 17/17, both TypeScript checks
+  pass, and Rule 7 is clean across 1,506 files. No report or closure receipt has published yet; the
+  next action is to commit this code freeze and publish the one report from that clean commit. No
+  recovery-v10 is created.
 - **Assurance is proportional to decision risk.** [Decision 0049](decisions/0049-make-assurance-proportionate-to-decision-risk.md),
   charter v1.26 and `AGENTS.md` require integrity for routine sources, one targeted check for
   load-bearing inputs, and full named controls for gates or strong public claims. No recursive
@@ -488,9 +492,11 @@ collection. Publication and fresh-restore verification both pass for one file / 
 no source prune is authorized. All six finite branch packets and `b-aggregate` are terminal; the
 aggregate passes 6/6 checks and grants no downstream authorization. Decision 0054 / charter v1.30
 now close the preserved maker-terminated recovery-v9 state without S6 packet or scientific credit.
-Implement the finite package report and flagless `gate10` from the already-pinned B and C0V bytes.
-Do not resume a moving-recovery ladder, run broad search, inspect numeric media values, implement
-E/F/H, or add another assurance framework.
+Commit and push the implemented finite package-report/flagless-`gate10` code freeze, then publish
+the single closure report from that clean commit. After it is pinned, run the one required exact
+suite, obtain the one proportionate non-author review, publish the gate receipt, and run flagless
+`node runner/src/main.ts gate10`. Do not resume a moving-recovery ladder, run broad search, inspect
+numeric media values, implement E/F/H, or add another assurance framework.
 
 The A-P PASS dependency is committed at `63ca13c`; A-S PASS is committed at `78c1875`. A-I's
 observation/decision/review inputs are committed at `9fb2e1b`, and its eight-file structural PASS
