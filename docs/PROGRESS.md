@@ -310,8 +310,10 @@ detail.
   `currentProducePublicationArtifacts()` compared the fresh v3 preflight path directly with the
   immutable matrix's v2 path. Nine retained files total 106,861 bytes; the preflight is pinned, and
   no candidate, ledger, verification, terminal, packet, publication, science, or validation credit
-  exists. Moving v5 is consumed. The active plan freezes a bounded recovery-v10 current-output
-  resolver repair and v6 successor.
+  exists. Moving v5 is consumed. By maker direction on 2026-08-24, recovery-v10 and further S6
+  moving-recovery work are stopped. S6 moving remains unresolved with zero packet/scientific credit;
+  its pinned S5b `reference-discrepancy-refusal` remains valid evidence but is not relabeled as a
+  completed S6 packet. B is independently eligible, so work moves to S7.
 - **Assurance is proportional to decision risk.** [Decision 0049](decisions/0049-make-assurance-proportionate-to-decision-risk.md),
   charter v1.26 and `AGENTS.md` require integrity for routine sources, one targeted check for
   load-bearing inputs, and full named controls for gates or strong public claims. No recursive
@@ -326,8 +328,7 @@ detail.
   direction) and content stays in-repo unpublished, `test.yml` CI unaffected. Reconciliation is
   a live decision point under **Next step**. Full freeze history:
   [the history file](progress-history-phases-6-8-9.md).
-- **Last updated:** 2026-08-24 (recovery-v9 is frozen; moving v5 is retained after a
-  current-output path refusal; recovery-v10 is the next bounded action)
+- **Last updated:** 2026-08-24 (maker stopped further S6 recovery; S7 B is next)
 
 ## Phase gates
 
@@ -347,7 +348,7 @@ and every superseded attempt live in the linked plans and historical progress sn
 | 7 | Not started; independently eligible | Charter v1.25 preserves Phase 7's independence but does not start it. A committed Phase 7 plan and isolated worktree are required; product, held-out validation, and v6 WGSL/preview-GPU parity remain its scope. |
 | 8 | **Complete (8A + 8B)** | The immutable 8A book remains 18 entries / 59,019 bytes / SHA-256 `47a75f3f…71ec`. The verified 8B successor is 51 development records, 252,134 native rows and 431 plot points; no row is held out. [Completed plan](plans/phase-8-measurement-corpus.md). |
 | 9 | **Complete (development-only)** | The all-no-pass branch closed: D-BT failed, M-F/M-K2 stayed mapping-dependent, controls/path-state/M-PK are unavailable or non-identifiable, and zero items promoted. Exact `TMPDIR=/private/tmp npm test` passed; no result grants validation credit. [Completed plan](plans/phase-9-execution.md). |
-| 10 | **In progress — A-P/A-S/A-I PASS; C0 packet PASS/complete with numerical criterion NO-PASS; C0V supplemental A-P PASS** | A-P, A-S, bounded structural A-I PASS evidence, and the complete C0 packet are published and pinned. C0 independently re-derived 80/80 rows and 64/64 comparisons: 36 passed and 28 failed the attached-count criterion, so both spacings and the authoritative all-spacings reduction are NO-PASS ([report](../evidence/phase10-numerical-verification-v1/c0-report.json), SHA-256 `571e62ae…0b72`). C0 executed no solver and grants no absolute-accuracy, habit-robustness, target-score, validation, or prior-phase credit. C0V S5b pins the radial reference, moving `reference-discrepancy-refusal`, and scoped static refusal. S6's v1 through v5 A-P tuples each fail-stopped on bounded infrastructure defects; all bytes are retained and earn no packet/scientific credit. Recovery-v5 A-P v6 is terminal `complete`, passes 10/10 structural checks and both controls, and grants exact packet/dependency credit. Its six finals are pinned; it ran no solver and grants no science or validation claim. Moving-produce v1–v3 fail-stopped before preflight/worker. Frozen recovery-v8 moving v4 and recovery-v9 moving v5 each completed one discrepancy invocation with no solver, then failed distinct finalization path joins; both preflights and raw attempts are retained with zero packet/scientific credit. Recovery-v10 is the bounded planned successor. Selection still includes no C1–C5 or habit rows. |
+| 10 | **In progress — A-P/A-S/A-I PASS; C0 packet PASS/complete with numerical criterion NO-PASS; C0V supplemental A-P PASS** | A-P, A-S, bounded structural A-I PASS evidence, and the complete C0 packet are published and pinned. C0 independently re-derived 80/80 rows and 64/64 comparisons: 36 passed and 28 failed the attached-count criterion, so both spacings and the authoritative all-spacings reduction are NO-PASS ([report](../evidence/phase10-numerical-verification-v1/c0-report.json), SHA-256 `571e62ae…0b72`). C0 executed no solver and grants no absolute-accuracy, habit-robustness, target-score, validation, or prior-phase credit. C0V S5b pins the radial reference, moving `reference-discrepancy-refusal`, and scoped static refusal. S6's v1 through v5 A-P tuples each fail-stopped on bounded infrastructure defects; all bytes are retained and earn no packet/scientific credit. Recovery-v5 A-P v6 is terminal `complete`, passes 10/10 structural checks and both controls, and grants exact packet/dependency credit. Its six finals are pinned; it ran no solver and grants no science or validation claim. Moving-produce v1–v3 fail-stopped before preflight/worker. Frozen recovery-v8 moving v4 and recovery-v9 moving v5 each completed one discrepancy invocation with no solver, then failed distinct finalization path joins; both preflights and raw attempts are retained with zero packet/scientific credit. Further moving recovery is maker-stopped; S6 moving remains unresolved, and Phase 10 cannot claim closure under the current done-when. Work proceeds to independently eligible S7 B. Selection still includes no C1–C5 or habit rows. |
 
 ## Active plan
 
@@ -450,7 +451,7 @@ the package-specific prerequisites in its charter amendment and execution plan. 
 
 ## Next step
 
-### Phase 10 — implement and freeze recovery-v10, then execute moving-produce v6 once
+### Phase 10 — execute the finite S7 B acquisition round
 
 The maker selected **A-S + A-I + B + C0 + C0V with packet-specific A-P** on 2026-08-21. No
 C1–C5 numerical-qualification or scientific habit row is part of this execution. The
@@ -458,45 +459,22 @@ C1–C5 numerical-qualification or scientific habit row is part of this executio
 done/stop rules, authority boundaries, finite source and compute budgets, and return-only handling
 of candidate E/F/H branches.
 
-Recovery-v5 A-P v6 is complete, independently audited, pinned, and pushed at `e092259`; never rerun
-it. The former **Phase 10 — freeze recovery-v6 for moving-produce v2** checkpoint is pushed at
-`e65ca44`. Its v2 check wrote nothing. Its one run then retained only two locks before a stale
-private v1 literal rejected the correct v2 authority. Preserve both moving v1 and v2 lock pairs
-byte-for-byte; neither consumed attempt may be retried.
+Maker direction on 2026-08-24 stops recovery-v10 and every further automatic S6 moving recovery.
+The incomplete 12-file recovery-v10 working diff was discarded before any freeze, test, registered
+check, or run; no v6 tuple exists. Preserve every pushed authority, lock, attempt, preflight, and S5b
+artifact byte-for-byte. S6 moving remains unresolved with zero packet/scientific credit. This stop
+does not claim Phase 10 completion under the current charter; a permanent waiver would require a
+separate maker-approved ADR and matching charter edit. No recovery work resumes without explicit
+maker direction.
 
-Recovery-v7 is frozen and pushed at `af72b00`. Its v3 check wrote nothing, but its sole run retained
-only two locks before the prior-A-P observer rejected the first of six current v6 paths against the
-immutable v2 matrix path. Preserve all three moving lock pairs byte-for-byte; never rerun v1–v3 or
-any A-P tuple.
-
-Recovery-v8 is frozen and pushed at `0abc4b5`. Its v4 check exited 0 with `executableNow: true` and
-wrote nothing. Its sole run published a passing preflight, started one worker, and completed one
-35,198,500-ns moving-discrepancy invocation; the cause verdict passed and no solver ran. During
-terminal finalization the shared resolver rejected the matrix path
-`research/phase10-c0v-moving-protocol-v1.json`, even though it is the protocol's exact immutable
-`scienceProtocol` binding; the exact immutable reference binding would have failed next. Preserve
-the two locks, six attempt files, and pinned preflight byte-for-byte. Moving v4 is consumed.
-
-Recovery-v9 is frozen and pushed at `910f84d`. Its v5 check wrote nothing. Its sole run published a
-passing preflight and completed one moving-discrepancy invocation with no solver, then current
-publication assembly compared that fresh v3 preflight directly to the immutable v2 matrix path and
-refused. Preserve its two locks, six attempt files, and pinned preflight byte-for-byte; moving v5 is
-consumed. The preflight is manifest-pinned at 398 files / 6,355,161 bytes.
-
-The active plan specifies one recovery-v10 successor and no new gate. Extend the non-A-P shared
-resolver only for a matrix path that is not already writable: it may select the unique allowed
-current path with the same filename, after the unchanged A-P and immutable-binding branches. Make
-the actual produce-publication join call that resolver. A synthetic regression must invoke the
-production function with the real moving protocol/matrix, fresh preflight path, and unchanged
-ledger. Move only the three occupied moving structural finals and corresponding publish
-dependencies from v3 to v4, authorize only moving v5 to v6, and preserve all science, reference,
-route, tolerance, cap, and claim contracts. Bind 82 retained files / 2,213,651 bytes and 86 governed
-absences. Run focused checks, exact `npm test`, and one bounded non-author audit, then commit/push
-the first-add freeze. Only after a write-free v6 `check` may its sole `run` occur.
-
-Do not delete or mutate predecessor bytes or retry any consumed tuple automatically. On a future
-v6 refusal, retain every byte and return to the active plan; on success, independently verify and
-pin moving-produce before authorizing its publish packet.
+B is independently eligible. Implement only the vertical `b-acquisition` packet registered in
+`research/phase10-obligation-matrix-v1.json`: the six named acquisition targets, its three outputs,
+two checks, exact refusal outcomes, and no generalized packet framework. The first freeze adds
+`research/phase10-execution-v1/packets/b-acquisition/protocol.json`, its callable registry, and the
+smallest producer/verifier path needed to terminally disposition the six targets. Use focused checks
+while it moves and one bounded review only after the interface is stable. Commit that value-free
+freeze before the registered read-only `check` and sole `run`; do not broaden search, contact a
+provider, purchase access, or implement E/F/H.
 
 The A-P PASS dependency is committed at `63ca13c`; A-S PASS is committed at `78c1875`. A-I's
 observation/decision/review inputs are committed at `9fb2e1b`, and its eight-file structural PASS

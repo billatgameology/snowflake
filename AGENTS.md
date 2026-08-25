@@ -568,6 +568,11 @@ immediately and tell the maker what has not been delivered. Cut or defer non-blo
 resume only with a smaller vertical slice. The corrective action is simplification and delivery,
 not another process document, gate, audit round, or metric for tracking the excess.
 
+Before an intentional pause/compaction checkpoint and immediately after resuming from compacted
+context, explicitly restate the operating constraint: this is solo scientific research, deliberate
+hostile actors are outside scope unless the maker says otherwise, and the next work must advance one
+named scientific or product deliverable. Re-read Rules 14A–14B before adding any assurance machinery.
+
 ## Rule 15 — Ignored is neither preserved nor disposable
 
 Tracked source records under `research/` remain Git authority; ignored payloads staged under

@@ -133,7 +133,7 @@ function currentIndexErrors(text: string): string[] {
     "conservatively refused",
     "46/46",
     "C0 independently re-derived 80/80 rows and 64/64 comparisons",
-    "Phase 10 — freeze recovery-v6 for moving-produce v2",
+    "Maker direction on 2026-08-24 stops recovery-v10",
     "Moving-produce v1 then fail-stopped before preflight/worker",
     "Phase 10 C0V S6 implementation freeze is complete (2026-08-24; no execution credit)",
     "observer, and executor tests pass 71/71",

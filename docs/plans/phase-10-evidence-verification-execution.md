@@ -2335,6 +2335,22 @@ sole v6 `run` occur. The new preflight is manifest-pinned at 398 files / 6,355,1
 refusal, retain every byte and return here; on success, independently verify and pin moving-produce
 before authorizing moving-publish.
 
+### Maker stop on further S6 recovery — 2026-08-24
+
+The maker directed: stop repeating non-useful recovery work and move on. Recovery-v10 is therefore
+retired before a freeze, test, registered check, or run; its incomplete 12-file working diff was
+discarded. Preserve every v1–v5 moving and v1–v6 A-P predecessor byte and credit exactly as recorded
+above, but create no further recovery authority or attempt without new explicit maker direction.
+The pinned S5b moving `reference-discrepancy-refusal` remains valid evidence; the separate S6 moving
+produce/publish lifecycle remains unresolved and receives no packet, solver, science, publication,
+or validation credit.
+
+This is a sequencing stop, not a claim that the current charter done-when is met. Permanently
+waiving the open S6 lifecycle for package closure would require a maker-approved ADR and matching
+charter edit. B is already independently eligible, so the active vertical deliverable moves to S7's
+finite six-target `b-acquisition` packet. Implement only that packet and the smallest focused checks
+needed to execute it; do not generalize another lifecycle or assurance framework.
+
 ### Rejected native pre-Node launcher design (retained history; do not implement)
 
 **Superseded by maker direction on 2026-08-22.** The detail below records the design that exposed
