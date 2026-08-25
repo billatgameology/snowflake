@@ -1,0 +1,28 @@
+{
+  "schema": "phase10-execution-receipt-v1",
+  "receiptId": "phase10-b-acquisition-p10-acquisition-round-01-v1-terminal-v1",
+  "matrixId": "phase10-selected-package-obligations-v1",
+  "protocolId": "phase10-b-acquisition-v1",
+  "registryId": "phase10-b-acquisition-resolved-callables-v1",
+  "packetId": "b-acquisition",
+  "terminalState": "refusal",
+  "producedOutputIds": [
+    "out-b-acquisition-nas-publication",
+    "out-b-acquisition-round",
+    "out-b-acquisition-verification"
+  ],
+  "executedCheckIds": [
+    "chk-b-acquisition-nas-receipt-or-na",
+    "chk-b-acquisition-six-targets"
+  ],
+  "evaluatedCheckIds": [
+    "chk-b-acquisition-nas-receipt-or-na",
+    "chk-b-acquisition-six-targets"
+  ],
+  "executedNegativeControlIds": [],
+  "boundDependencyPacketIds": [
+    "a-i",
+    "a-p",
+    "a-s"
+  ]
+}

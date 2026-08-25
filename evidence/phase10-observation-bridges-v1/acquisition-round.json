@@ -1,0 +1,142 @@
+{
+  "schema": "phase10-acquisition-round-v1",
+  "roundId": "P10-ACQUISITION-ROUND-01",
+  "freezeCommit": "e29196454ebcb95c4ab2b2995f59c53c75892b06",
+  "targetRoster": [
+    "P10-ACQ-HP26-FINAL-ARTICLE",
+    "P10-ACQ-KELLER-HALLETT-1982",
+    "P10-ACQ-PMH2025-METHODS",
+    "P10-ACQ-PRINCETON-MONOGRAPH-CURRENT",
+    "P10-ACQ-ZHAO-2026-MAIN-ARTICLE",
+    "P10-ACQ-ZHAO-2026-S2-VIDEO"
+  ],
+  "targets": [
+    {
+      "schema": "phase10-acquisition-round-row-v1",
+      "targetId": "P10-ACQ-HP26-FINAL-ARTICLE",
+      "attemptId": "p10-acq-hp26-final-article-v1",
+      "freezeCommit": "e29196454ebcb95c4ab2b2995f59c53c75892b06",
+      "startedOn": "2026-08-25T05:22:29.908Z",
+      "endedOn": "2026-08-25T05:22:30.060Z",
+      "endpoints": [
+        "https://journals.ametsoc.org/downloadpdf/view/journals/atsc/83/7/JAS-D-26-0016.1.pdf"
+      ],
+      "identityCandidates": [
+        "Jerry Y. Harrington and Gwenore F. Pokrifka (2026), Revisiting Theories for the Growth of Solid and Hollow Single Crystals: The Importance of Step-Source Location, Journal of the Atmospheric Sciences 83(7), 1175-1190",
+        "doi:10.1175/JAS-D-26-0016.1"
+      ],
+      "acquiredBinding": null,
+      "terminalDisposition": "rights-blocked",
+      "reason": "The official endpoint returned access status 403; purchase and credentials are not authorized."
+    },
+    {
+      "schema": "phase10-acquisition-round-row-v1",
+      "targetId": "P10-ACQ-KELLER-HALLETT-1982",
+      "attemptId": "p10-acq-keller-hallett-1982-v1",
+      "freezeCommit": "e29196454ebcb95c4ab2b2995f59c53c75892b06",
+      "startedOn": "2026-08-25T05:22:30.060Z",
+      "endedOn": "2026-08-25T05:22:30.352Z",
+      "endpoints": [
+        "https://linkinghub.elsevier.com/retrieve/pii/0022024882901762"
+      ],
+      "identityCandidates": [
+        "V. W. Keller and J. Hallett (1982), Influence of air velocity on the habit of ice crystal growth from the vapor, Journal of Crystal Growth 60(1), 91-106",
+        "doi:10.1016/0022-0248(82)90176-2"
+      ],
+      "acquiredBinding": null,
+      "terminalDisposition": "rights-blocked",
+      "reason": "The official endpoint returned an access or product page instead of the complete PDF; purchase and credentials are not authorized."
+    },
+    {
+      "schema": "phase10-acquisition-round-row-v1",
+      "targetId": "P10-ACQ-PMH2025-METHODS",
+      "attemptId": "p10-acq-pmh2025-methods-v1",
+      "freezeCommit": "e29196454ebcb95c4ab2b2995f59c53c75892b06",
+      "startedOn": "2026-08-25T05:22:30.352Z",
+      "endedOn": "2026-08-25T05:22:30.370Z",
+      "endpoints": [
+        "https://journals.ametsoc.org/downloadpdf/view/journals/atsc/82/10/JAS-D-25-0030.1.pdf"
+      ],
+      "identityCandidates": [
+        "Gwenore F. Pokrifka, Alfred M. Moyle, and Jerry Y. Harrington (2025), Columnar Ice Dimensional Growth Rates at Temperatures below -40 C: Measurements in a Novel Thermal Gradient Diffusion Chamber, Journal of the Atmospheric Sciences 82(10), 2255-2273",
+        "doi:10.1175/JAS-D-25-0030.1"
+      ],
+      "acquiredBinding": null,
+      "terminalDisposition": "rights-blocked",
+      "reason": "The official endpoint returned access status 403; purchase and credentials are not authorized."
+    },
+    {
+      "schema": "phase10-acquisition-round-row-v1",
+      "targetId": "P10-ACQ-PRINCETON-MONOGRAPH-CURRENT",
+      "attemptId": "p10-acq-princeton-monograph-current-v1",
+      "freezeCommit": "e29196454ebcb95c4ab2b2995f59c53c75892b06",
+      "startedOn": "2026-08-25T05:22:30.370Z",
+      "endedOn": "2026-08-25T05:22:30.641Z",
+      "endpoints": [
+        "https://press.princeton.edu/books/ebook/9780691223629/snow-crystals-pdf-0"
+      ],
+      "identityCandidates": [
+        "Kenneth G. Libbrecht, Snow Crystals: A Case Study in Spontaneous Structure Formation, Princeton University Press, 456 pages, PDF ISBN 9780691223629",
+        "doi:10.2307/j.ctv1qdqztv"
+      ],
+      "acquiredBinding": null,
+      "terminalDisposition": "rights-blocked",
+      "reason": "The official endpoint returned an access or product page instead of the complete PDF; purchase and credentials are not authorized."
+    },
+    {
+      "schema": "phase10-acquisition-round-row-v1",
+      "targetId": "P10-ACQ-ZHAO-2026-MAIN-ARTICLE",
+      "attemptId": "p10-acq-zhao-2026-main-article-v1",
+      "freezeCommit": "e29196454ebcb95c4ab2b2995f59c53c75892b06",
+      "startedOn": "2026-08-25T05:22:30.641Z",
+      "endedOn": "2026-08-25T05:22:30.720Z",
+      "endpoints": [
+        "https://pubs.acs.org/doi/pdf/10.1021/acs.cgd.5c01481"
+      ],
+      "identityCandidates": [
+        "Yuheng Zhao, Ken Nagashima, Ken-ichiro Murata, and Gen Sazaki (2026), Nonreactive Ambient Nitrogen Gas Significantly Suppresses the Growth Kinetics of Elementary Spiral Steps on Prism Faces of Ice Crystals, Crystal Growth and Design 26(3), 1309-1314",
+        "doi:10.1021/acs.cgd.5c01481"
+      ],
+      "acquiredBinding": null,
+      "terminalDisposition": "rights-blocked",
+      "reason": "The official endpoint returned access status 403; purchase and credentials are not authorized."
+    },
+    {
+      "schema": "phase10-acquisition-round-row-v1",
+      "targetId": "P10-ACQ-ZHAO-2026-S2-VIDEO",
+      "attemptId": "p10-acq-zhao-2026-s2-video-v1",
+      "freezeCommit": "e29196454ebcb95c4ab2b2995f59c53c75892b06",
+      "startedOn": "2026-08-25T05:22:30.720Z",
+      "endedOn": "2026-08-25T05:22:33.459Z",
+      "endpoints": [
+        "https://ndownloader.figshare.com/files/61061083"
+      ],
+      "identityCandidates": [
+        "Zhao et al. (2026), S2 media companion, file cg5c01481_si_002.mp4",
+        "doi:10.1021/acs.cgd.5c01481.s002"
+      ],
+      "acquiredBinding": {
+        "collectionId": "phase10-source-intake@2026-08-21-v1",
+        "ownerManifest": {
+          "path": "collections/phase10-source-intake/2026-08-21-v1/manifest.private.jsonl",
+          "byteLength": 374,
+          "sha256": "fb5a266aade73215097e44b2b5f8b4d340771300c9a9d3ee40318aa8bf9b4e1b"
+        },
+        "relativePath": "cg5c01481_si_002.mp4",
+        "byteLength": 9040679,
+        "sha256": "4f2a07813efb55f920b30a34c49e8ae009a7b1f3f6804efb30a308dae5f7fe0f"
+      },
+      "terminalDisposition": "acquired-and-bound",
+      "reason": "The frozen official endpoint returned the complete media candidate, and the bytes were bound in the governed private NAS collection."
+    }
+  ],
+  "terminalDisposition": "refusal",
+  "producer": {
+    "producerId": "phase10-b-acquisition-producer",
+    "commit": "e29196454ebcb95c4ab2b2995f59c53c75892b06",
+    "command": "node runner/src/phase10-b-acquisition.ts run --repository-root .",
+    "startedOn": "2026-08-25T05:22:29.907Z",
+    "endedOn": "2026-08-25T05:22:33.559Z",
+    "actualConcurrency": 1
+  }
+}

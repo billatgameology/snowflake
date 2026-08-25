@@ -1,0 +1,22 @@
+{
+  "schema": "phase10-nas-publication-disposition-v1",
+  "collectionId": "phase10-source-intake@2026-08-21-v1",
+  "state": "published-and-restored",
+  "publicationReceipt": {
+    "path": "_control/receipts/publication/phase10-source-intake/2026-08-21-v1/phase10-source-intake-20260821-v1-publication-01.json",
+    "byteLength": 987,
+    "sha256": "39f3f4d56874e49fbac340cb4434d5841a10edf8a3e1d76ceab94b41f556ca03"
+  },
+  "restoreReceipt": {
+    "path": "_control/receipts/restore/phase10-source-intake/2026-08-21-v1/phase10-source-intake-20260821-v1-restore-01.json",
+    "byteLength": 999,
+    "sha256": "0d3219524d930b2ead469439dc9a7b755a1e3ab612efc0b31db9e96cf80b2c18"
+  },
+  "ownerManifest": {
+    "path": "collections/phase10-source-intake/2026-08-21-v1/manifest.private.jsonl",
+    "byteLength": 374,
+    "sha256": "fb5a266aade73215097e44b2b5f8b4d340771300c9a9d3ee40318aa8bf9b4e1b"
+  },
+  "sourcePruneAuthorized": false,
+  "reason": "New lawful source bytes were published to the governed private collection, fully verified, and restored to a fresh local destination."
+}

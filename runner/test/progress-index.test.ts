@@ -52,7 +52,7 @@ const PHASE10_STATUS_LINE =
 const PHASE8_GATE_PREFIX = "| 8 | **Complete (8A + 8B)** |";
 const PHASE7_GATE_PREFIX = "| 7 | Not started; independently eligible |";
 const PHASE9_GATE_PREFIX = "| 9 | **Complete (development-only)** |";
-const PHASE10_GATE_PREFIX = "| 10 | **In progress — A-P/A-S/A-I PASS; C0 packet PASS/complete with numerical criterion NO-PASS; C0V supplemental A-P PASS** |";
+const PHASE10_GATE_PREFIX = "| 10 | **In progress — A-P/A-S/A-I PASS; C0 complete with criterion NO-PASS; B acquisition terminal refusal; C0V moving unresolved** |";
 const CONTRADICTORY_STATE_PATTERNS = [
   /Phase 8B (?:is |remains )?(?:active|incomplete|pending)\b/iu,
   /Phase 8B.*\b(?:may|can|will|must) (?:rewrite|mutate|replace|overwrite)\b.*\b(?:8A|v1|phase8-target-book)\b/iu,
@@ -123,16 +123,16 @@ function currentIndexErrors(text: string): string[] {
     "selected no Phase 10 package (2026-08-20)",
     "Phase 10 is IN PROGRESS (selected 2026-08-21)",
     "A-S + A-I + B + C0 + C0V with packet-specific A-P",
-    "no C1–C5 or habit rows",
+    "No C1–C5 row, habit row",
     "(plans/phase-10-evidence-verification-execution.md)",
     "governance checkpoint is complete",
     "S1 contract freeze, and S2 A-S classification",
-    "A-P/A-S/A-I PASS; C0 packet PASS/complete with numerical criterion NO-PASS",
+    "A-P/A-S/A-I PASS; C0 complete with criterion NO-PASS",
     "bounded structural A-I PASS evidence",
     "All 14 payload dispositions are terminal but",
     "conservatively refused",
     "46/46",
-    "C0 independently re-derived 80/80 rows and 64/64 comparisons",
+    "C0 re-derived 80/80 rows and 64/64 comparisons",
     "Maker direction on 2026-08-24 stops recovery-v10",
     "Moving-produce v1 then fail-stopped before preflight/worker",
     "Phase 10 C0V S6 implementation freeze is complete (2026-08-24; no execution credit)",
@@ -164,7 +164,7 @@ function currentIndexErrors(text: string): string[] {
     "Do not rerun or reuse either derive attempt",
     "Keep all 12 C0 files pinned in the 383-file / 5,300,224-byte evidence manifest",
     "zero-blocker non-author review",
-    "- **Last updated:** 2026-08-24",
+    "- **Last updated:** 2026-08-25",
   ];
   for (const phrase of required) {
     if (!text.includes(phrase)) errors.push(`missing current-state phrase: ${phrase}`);
@@ -271,7 +271,7 @@ describe("compact progress index and byte-exact historical record", () => {
     expect(currentIndexErrors(text)).toEqual([]);
 
     const progressDate = text.match(/^- \*\*Last updated:\*\* (\d{4}-\d{2}-\d{2})/mu)?.[1];
-    expect(progressDate).toBe("2026-08-24");
+    expect(progressDate).toBe("2026-08-25");
     // The handoff mechanism is retired (maker direction 2026-08-20). docs/HANDOFF.md remains
     // only as a tombstone so the byte-frozen archive's HANDOFF.md links keep resolving; it
     // must never carry a live dated snapshot heading again.

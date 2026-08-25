@@ -313,7 +313,15 @@ detail.
   exists. Moving v5 is consumed. By maker direction on 2026-08-24, recovery-v10 and further S6
   moving-recovery work are stopped. S6 moving remains unresolved with zero packet/scientific credit;
   its pinned S5b `reference-discrepancy-refusal` remains valid evidence but is not relabeled as a
-  completed S6 packet. B is independently eligible, so work moves to S7.
+  completed S6 packet. The maker explicitly resumed work through Phase 10 completion on 2026-08-25.
+  The bounded Windows/SMB copied-file timestamp repair passed 36 focused transaction tests with six
+  platform skips and both TypeScript checks. The exact stale B transaction was reverified and
+  cleared without reacquisition; publication and fresh restore then completed. The active private
+  collection contains one 9,040,679-byte file at SHA-256
+  `4f2a07813efb55f920b30a34c49e8ae009a7b1f3f6804efb30a308dae5f7fe0f`, and both collection-specific
+  full-hash commands pass. The finalized `b-acquisition` packet passes 2/2 registered checks with
+  terminal `refusal`: five exact sources are rights-blocked and Zhao S2 is acquired-and-bound.
+  B1a–B5 and `b-aggregate` remain the active S7 deliverable.
 - **Assurance is proportional to decision risk.** [Decision 0049](decisions/0049-make-assurance-proportionate-to-decision-risk.md),
   charter v1.26 and `AGENTS.md` require integrity for routine sources, one targeted check for
   load-bearing inputs, and full named controls for gates or strong public claims. No recursive
@@ -328,7 +336,7 @@ detail.
   direction) and content stays in-repo unpublished, `test.yml` CI unaffected. Reconciliation is
   a live decision point under **Next step**. Full freeze history:
   [the history file](progress-history-phases-6-8-9.md).
-- **Last updated:** 2026-08-24 (maker stopped further S6 recovery; S7 B is next)
+- **Last updated:** 2026-08-25 (`b-acquisition` terminal; B1a–B5 and aggregate are next)
 
 ## Phase gates
 
@@ -348,7 +356,7 @@ and every superseded attempt live in the linked plans and historical progress sn
 | 7 | Not started; independently eligible | Charter v1.25 preserves Phase 7's independence but does not start it. A committed Phase 7 plan and isolated worktree are required; product, held-out validation, and v6 WGSL/preview-GPU parity remain its scope. |
 | 8 | **Complete (8A + 8B)** | The immutable 8A book remains 18 entries / 59,019 bytes / SHA-256 `47a75f3f…71ec`. The verified 8B successor is 51 development records, 252,134 native rows and 431 plot points; no row is held out. [Completed plan](plans/phase-8-measurement-corpus.md). |
 | 9 | **Complete (development-only)** | The all-no-pass branch closed: D-BT failed, M-F/M-K2 stayed mapping-dependent, controls/path-state/M-PK are unavailable or non-identifiable, and zero items promoted. Exact `TMPDIR=/private/tmp npm test` passed; no result grants validation credit. [Completed plan](plans/phase-9-execution.md). |
-| 10 | **In progress — A-P/A-S/A-I PASS; C0 packet PASS/complete with numerical criterion NO-PASS; C0V supplemental A-P PASS** | A-P, A-S, bounded structural A-I PASS evidence, and the complete C0 packet are published and pinned. C0 independently re-derived 80/80 rows and 64/64 comparisons: 36 passed and 28 failed the attached-count criterion, so both spacings and the authoritative all-spacings reduction are NO-PASS ([report](../evidence/phase10-numerical-verification-v1/c0-report.json), SHA-256 `571e62ae…0b72`). C0 executed no solver and grants no absolute-accuracy, habit-robustness, target-score, validation, or prior-phase credit. C0V S5b pins the radial reference, moving `reference-discrepancy-refusal`, and scoped static refusal. S6's v1 through v5 A-P tuples each fail-stopped on bounded infrastructure defects; all bytes are retained and earn no packet/scientific credit. Recovery-v5 A-P v6 is terminal `complete`, passes 10/10 structural checks and both controls, and grants exact packet/dependency credit. Its six finals are pinned; it ran no solver and grants no science or validation claim. Moving-produce v1–v3 fail-stopped before preflight/worker. Frozen recovery-v8 moving v4 and recovery-v9 moving v5 each completed one discrepancy invocation with no solver, then failed distinct finalization path joins; both preflights and raw attempts are retained with zero packet/scientific credit. Further moving recovery is maker-stopped; S6 moving remains unresolved, and Phase 10 cannot claim closure under the current done-when. Work proceeds to independently eligible S7 B. Selection still includes no C1–C5 or habit rows. |
+| 10 | **In progress — A-P/A-S/A-I PASS; C0 complete with criterion NO-PASS; B acquisition terminal refusal; C0V moving unresolved** | A-P, A-S, bounded structural A-I PASS evidence, and C0 are published and pinned. C0 re-derived 80/80 rows and 64/64 comparisons: 36 passed and 28 failed the attached-count criterion, so both spacings and the all-spacings reduction are NO-PASS. C0V S5b pins its three reference/refusal artifacts; recovery-v5 A-P v6 is terminal complete, but moving production remains unresolved after the retained v5 infrastructure stop. The finalized six-target B acquisition passes 2/2 checks: five sources are rights-blocked and one 9,040,679-byte Zhao S2 video is privately published and fresh-restore verified. B1a–B5, B aggregate, C0V closure, package synthesis, `gate10`, final exact `npm test`, and final review remain. No C1–C5 row, habit row, target score, validation claim, or prior-phase credit exists. |
 
 ## Active plan
 
@@ -451,7 +459,7 @@ the package-specific prerequisites in its charter amendment and execution plan. 
 
 ## Next step
 
-### Phase 10 — B acquisition complete; NAS publication fail-stopped
+### Phase 10 — finish B1a–B5 from terminal source dispositions
 
 The maker selected **A-S + A-I + B + C0 + C0V with packet-specific A-P** on 2026-08-21. No
 C1–C5 numerical-qualification or scientific habit row is part of this execution. The
@@ -467,27 +475,14 @@ does not claim Phase 10 completion under the current charter; a permanent waiver
 separate maker-approved ADR and matching charter edit. No recovery work resumes without explicit
 maker direction.
 
-B is independently eligible. The current worktree now contains only the vertical `b-acquisition`
-implementation registered in `research/phase10-obligation-matrix-v1.json`: the exact target roster
-in `research/phase10-execution-v1/packets/b-acquisition/acquisition-protocol.json`, resolved
-producer/check/verifier callables, the one reserved NAS-disposition schema promotion, a provisional
-zero-byte private-NAS intent, and one focused lifecycle test. `npm run typecheck` and
-`npx vitest run runner/test/phase10-b-acquisition.test.ts` pass. The one exact `npm test` invocation
-passed Rule 7 and both typechecks and ran all 163 Vitest files; 162 passed, while the fixed NAS census
-expectation omitted the new provisional zero-byte collection. The one-row repair passes its focused
-file 8/8; the other 162 unchanged files were not rerun. The value-free freeze is pushed at
-`e29196454ebcb95c4ab2b2995f59c53c75892b06`. Its sole acquisition run completed once: the retained
-`out/phase10-execution-v1/attempts/b-acquisition/p10-acquisition-round-01-v1/attempt.json` records
-five `rights-blocked` sources and the exact Zhao S2 video staged at 9,040,679 bytes / SHA-256
-`4f2a07813efb55f920b30a34c49e8ae009a7b1f3f6804efb30a308dae5f7fe0f`, with concurrency one and
-zero retries. The sole NAS publication command then fail-stopped on
-`transaction copied file ownership changed: cg5c01481_si_002.mp4`. No final collection, receipt,
-restore, candidate, or evidence publication exists. The registered NAS lock retains its 202-byte
-owner record and the staging envelope retains an exact hash-matching 9,040,679-byte copy; the final
-collection remains absent. Do not retry or clean those paths automatically. The next action is a
-maker decision on whether to authorize a separately scoped repair of the shared Windows/SMB
-transaction identity seam. Do not broaden search, contact a provider, purchase access, add an
-assurance framework, or implement E/F/H.
+`b-acquisition` is terminal and pinned. It passes both registered checks with aggregate `refusal`:
+five exact targets are rights-blocked and Zhao S2 is acquired-and-bound in the active private NAS
+collection. Publication and fresh-restore verification both pass for one file / 9,040,679 bytes;
+no source prune is authorized. Implement and freeze only the six registered B branch protocols,
+then derive operand-level refusals from the A-I dispositions and acquisition round. Do not run
+broad search, contact providers, purchase access, reacquire sources, inspect numeric media values,
+implement E/F/H, or add another assurance framework. After B1a–B5 are terminal, publish
+`b-aggregate` and return to the minimum C0V closure required by the selected done-when.
 
 The A-P PASS dependency is committed at `63ca13c`; A-S PASS is committed at `78c1875`. A-I's
 observation/decision/review inputs are committed at `9fb2e1b`, and its eight-file structural PASS

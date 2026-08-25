@@ -4,7 +4,7 @@
 - **Status:** in progress — maker selected the recommended package on 2026-08-21; adoption is
   governed by decisions 0052–0053 and charter v1.29
 - **Started:** 2026-08-21
-- **Last touched:** 2026-08-24 by OpenAI Codex
+- **Last touched:** 2026-08-25 by OpenAI Codex
 - **Branch/worktree:** `phase10/evidence-verification` at
   `G:\Code Files\snowflake-phase10-evidence`
 
@@ -2383,6 +2383,27 @@ report, final collection, restore, candidate, or evidence output. Read-only insp
 NAS lock/staging paths; the staged SHA-256 matches the acquisition record. Do not retry, delete, or
 invent a recovery lifecycle automatically. The next action is a maker decision on whether the
 shared Windows/SMB transaction identity seam should receive a separately scoped repair.
+
+### S7 B acquisition terminal checkpoint — 2026-08-25
+
+After the maker explicitly resumed work through Phase 10 completion, the shared NAS transaction
+seam received one bounded repair: copied-file ownership now binds stable filesystem object fields
+and size while the existing source/stage/final inventories continue to bind every byte by SHA-256.
+The focused transaction suite passed 36 tests with six platform skips and both TypeScript checks
+passed. The exact stale transaction was removed only after its lock identity, absent final target,
+9,040,679-byte length, and SHA-256
+`4f2a07813efb55f920b30a34c49e8ae009a7b1f3f6804efb30a308dae5f7fe0f` were reverified. No network
+request or source acquisition was repeated.
+
+The frozen publication then completed with a fresh restore. The private owner manifest is 374
+bytes / SHA-256 `fb5a266aade73215097e44b2b5f8b4d340771300c9a9d3ee40318aa8bf9b4e1b`; the publication receipt
+is 987 bytes / SHA-256 `39f3f4d56874e49fbac340cb4434d5841a10edf8a3e1d76ceab94b41f556ca03`;
+and the restore receipt is 999 bytes / SHA-256
+`0d3219524d930b2ead469439dc9a7b755a1e3ab612efc0b31db9e96cf80b2c18`. Both collection-specific
+full-hash commands pass for one file / 9,040,679 bytes. The finalized packet publishes five
+manifest-pinned evidence files. Its independent verifier passes both registered checks and returns
+terminal `refusal`: five exact source targets are rights-blocked, while the Zhao S2 video is
+`acquired-and-bound`. This completes only `b-acquisition`; B1a–B5 and `b-aggregate` remain next.
 
 ### Rejected native pre-Node launcher design (retained history; do not implement)
 

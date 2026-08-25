@@ -1,0 +1,66 @@
+{
+  "schema": "phase10-packet-verification-v1",
+  "verificationId": "phase10-b-acquisition-verification-v1",
+  "matrixId": "phase10-selected-package-obligations-v1",
+  "protocolId": "phase10-b-acquisition-v1",
+  "registryId": "phase10-b-acquisition-resolved-callables-v1",
+  "packetId": "b-acquisition",
+  "terminalState": "refusal",
+  "verifiedArtifacts": [
+    {
+      "outputId": "out-b-acquisition-nas-publication",
+      "path": "evidence/phase10-observation-bridges-v1/acquisition-nas-publication.json",
+      "byteLength": 1078,
+      "sha256": "ad9984db6c36bf3f8615759143e2c6902ab68c68a86ea5d2cb864716733a130e"
+    },
+    {
+      "outputId": "out-b-acquisition-round",
+      "path": "evidence/phase10-observation-bridges-v1/acquisition-round.json",
+      "byteLength": 6739,
+      "sha256": "e7775b51a8d5377fe2b0d57f20fb51677152838f4cffea68737af678be1b0bf2"
+    }
+  ],
+  "checkResults": [
+    {
+      "checkId": "chk-b-acquisition-nas-receipt-or-na",
+      "verdict": "pass",
+      "reasons": [],
+      "witnessOutputIds": [
+        "out-b-acquisition-nas-publication"
+      ]
+    },
+    {
+      "checkId": "chk-b-acquisition-six-targets",
+      "verdict": "pass",
+      "reasons": [],
+      "witnessOutputIds": [
+        "out-b-acquisition-round"
+      ]
+    }
+  ],
+  "executedNegativeControlIds": [],
+  "negativeControlResults": [],
+  "boundDependencyPacketIds": [
+    "a-i",
+    "a-p",
+    "a-s"
+  ],
+  "execution": {
+    "evaluatorCallableId": "phase10-b-acquisition-verifier",
+    "modulePath": "runner/src/phase10-b-acquisition-verify.ts",
+    "exportName": "phase10BAcquisitionVerify",
+    "byteLength": 23192,
+    "sha256": "229c9ac1680fe51c55b85cca9ddb39a47522e23f46f0677f302c4daede59c0f9",
+    "runtime": "v24.13.1",
+    "command": "node runner/src/phase10-b-acquisition.ts finalize --repository-root .",
+    "gitHead": "6c6df9742bb0889c6324ecf595eabf21cb864ab0",
+    "startedOn": "2026-08-25T14:32:13.963Z",
+    "endedOn": "2026-08-25T14:32:13.964Z",
+    "processConcurrency": 1
+  },
+  "aggregateVerdict": "refusal",
+  "limits": [
+    "The verifier establishes the exact six-target terminal acquisition roster and NAS receipt-or-not-applicable branch; it does not claim the unavailable sources do not exist elsewhere.",
+    "Every opened source value remains Phase 10 development evidence and grants no validation or prior-phase credit."
+  ]
+}
