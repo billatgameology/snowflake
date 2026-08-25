@@ -265,3 +265,14 @@ Plan:
 
 The fig13 turntable render and the batch-a staging output remain valid but are no longer the
 deliverable; the turntable batch is shelved unless the maker asks for it.
+
+Worktree registration (Rule 16): this workstream moved to the isolated worktree
+`C:/Users/HIL_ADMIN/Documents/GitHub/snowflake-animation` on branch
+`fix/animation-queue-windows-spawn` (maker direction, 2026-08-24); the primary checkout returned
+to `main`. Owner: the animation/growth session on the Windows host. Removal condition: after this
+branch's PR merges and its `out/growth-assets/` products are reconciled to NAS staging.
+
+Implementation note: the first `--growth-out` commit used a constructor parameter property,
+which Node's type stripping refuses at runtime (`ERR_UNSUPPORTED_TYPESCRIPT_SYNTAX` — parameter
+properties are non-erasable; the repo runs `.ts` directly). Replaced with an explicit field.
+The round-trip test and both typechecks pass in the worktree.

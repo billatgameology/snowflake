@@ -155,7 +155,10 @@ class GrowthEvents {
   private kMin: number;
   private kMax = 0;
 
-  constructor(private readonly dims: Dims) {
+  private readonly dims: Dims;
+
+  constructor(dims: Dims) {
+    this.dims = dims;
     this.iMin = dims.nx - 1;
     this.jMin = dims.ny - 1;
     this.kMin = dims.nz - 1;
