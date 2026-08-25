@@ -276,3 +276,13 @@ Implementation note: the first `--growth-out` commit used a constructor paramete
 which Node's type stripping refuses at runtime (`ERR_UNSUPPORTED_TYPESCRIPT_SYNTAX` — parameter
 properties are non-erasable; the repo runs `.ts` directly). Replaced with an explicit field.
 The round-trip test and both typechecks pass in the worktree.
+
+Fleet execution (2026-08-24): `scripts/gutcheck-growth-fleet.ts` plan|run regrows every queue
+item from its PINNED record (embedded spec, dims, tick cap, seed, extraction; specs/ not
+consulted), longest-first (LPT — cheapest-first would start an 18 h item last and add ~15 h of
+makespan), resume-by-identity on `<id>-growth-v1.bin` + `<id>-record.json`, per-item logs.
+Maker directed 20-way parallelism on this 24-thread host. Calibration on fig11: endpoint
+reproduced exactly (tick 1706, attached 350941, no drift warnings), wall 276 s vs 351 s recorded
+(host ratio ~1.27x faster), asset 2.8 MB, and the snowcrystal_website's own `growthAsset.ts`
+decoder accepts the file and builds its 201x201x109 volume. Fleet projection at 20-wide:
+~15 h wall for the remaining 50.
