@@ -186,6 +186,21 @@ tests, relevant typecheck and app build, then a live smoke, dry run, or represen
 Exact `npm test` and scientific gate suites apply only if the change crosses into their scientific,
 evidence, gate, or root-wide contracts.
 
+### Publication and worktree closure
+
+PR preparation on 2026-08-24 retained exactly one task branch,
+`feature/animation-generation`, with implementation/process head `c2791b3`; the other registered
+worktrees are separately owned, and the dirty `phase10/evidence-verification` worktree is untouched.
+Product-sized verification for the final state is the focused queue/index/serving tests,
+`npm run typecheck`, `npm run build --workspace app`, the Rule 7 scan, and the live browser/HTTP
+smoke recorded above. The earlier exact `npm test` result remains historical rather than a new
+closure requirement. PR URL: pending creation; replace this marker before merge.
+
+Before removing the task worktree, transfer the live ignored `selection.json`, regenerated figure
+preview cache, and generated index into the primary worktree's corresponding `out/` paths and
+verify their hashes. The two UI screenshots are reproducible inspection scratch and may be
+discarded with the worktree.
+
 ### Follow-up tried and rejected
 
 - **Re-serve the historical composites from private quarantine.** Rejected: their target halves are
