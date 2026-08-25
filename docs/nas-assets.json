@@ -1490,17 +1490,29 @@
     {
       "assetId": "phase10-source-intake",
       "version": "2026-08-21-v1",
-      "state": "provisional",
+      "state": "active",
       "ownerWorkstream": "phase-10-evidence-verification",
       "locator": "collections/phase10-source-intake/2026-08-21-v1/payload",
       "historicalRepoPath": "out/phase10-execution-v1/attempts/b-acquisition/p10-acquisition-round-01-v1/payload",
       "legacyAliases": [],
       "storageClass": "private-source",
       "aggregate": {
-        "files": 0,
-        "bytes": 0
+        "files": 1,
+        "bytes": 9040679
       },
-      "ownerManifest": null,
+      "ownerManifest": {
+        "storage": "nas-private",
+        "path": "collections/phase10-source-intake/2026-08-21-v1/manifest.private.jsonl",
+        "bytes": 374,
+        "sha256": "fb5a266aade73215097e44b2b5f8b4d340771300c9a9d3ee40318aa8bf9b4e1b",
+        "format": "snowflake-nas-private-owner-jsonl-v1",
+        "selector": {
+          "kind": "jsonl-field-equals",
+          "recordType": "file",
+          "field": "collection",
+          "equals": "phase10-source-intake@2026-08-21-v1"
+        }
+      },
       "rights": {
         "kind": "restricted-third-party",
         "redistribution": "restricted"
@@ -1522,7 +1534,7 @@
       "externalEvidenceAuthority": null,
       "provenance": {
         "record": "docs/plans/phase-10-evidence-verification-execution.md",
-        "producerCommit": null,
+        "producerCommit": "e29196454ebcb95c4ab2b2995f59c53c75892b06",
         "command": "node runner/src/phase10-b-acquisition.ts run --repository-root ."
       },
       "reproducibility": {
@@ -1530,18 +1542,18 @@
         "record": "research/phase10-execution-v1/packets/b-acquisition/acquisition-protocol.json"
       },
       "restore": {
-        "status": "documented",
+        "status": "tested",
         "command": "npm run assets:restore -- --collection phase10-source-intake@2026-08-21-v1 --to out/restores/phase10-source-intake-2026-08-21-v1",
         "verifyCommand": "npm run assets:verify-restored -- --collection phase10-source-intake@2026-08-21-v1 --from out/restores/phase10-source-intake-2026-08-21-v1",
-        "record": "docs/plans/phase-10-evidence-verification-execution.md"
+        "record": "_control/receipts/restore/phase10-source-intake/2026-08-21-v1/phase10-source-intake-20260821-v1-restore-01.json"
       },
       "verification": {
-        "status": "unavailable",
-        "at": null,
-        "host": null,
-        "receipt": null,
+        "status": "full-hash",
+        "at": "2026-08-25",
+        "host": "Windows",
+        "receipt": "_control/receipts/publication/phase10-source-intake/2026-08-21-v1/phase10-source-intake-20260821-v1-publication-01.json",
         "limits": [
-          "The collection is only a zero-byte publication intent until the frozen B acquisition round lawfully obtains source bytes."
+          "The transaction receipts bind the complete private payload and one fresh restored copy; no local source prune is authorized."
         ]
       },
       "storageDomains": [
@@ -1553,9 +1565,7 @@
         "receipts": []
       },
       "supersedes": [],
-      "unresolved": [
-        "Publication, private owner-manifest binding, full verification, and fresh restore remain contingent on the frozen six-target acquisition round obtaining new lawful bytes."
-      ]
+      "unresolved": []
     },
     {
       "assetId": "research-copy-verification-residue",

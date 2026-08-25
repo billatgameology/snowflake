@@ -157,7 +157,7 @@ describe("Phase 10 B acquisition", () => {
     )).toMatchObject({ accepted: false, disposition: "unavailable" });
   });
 
-  it("accepts the exact six-target no-byte result and rejects an incomplete roster", () => {
+  it("rejects an obsolete no-byte disposition and an incomplete roster", () => {
     const directory = mkdtempSync(join(tmpdir(), "phase10-b-acquisition-"));
     temporaryDirectories.push(directory);
     const acquisition = json<{
@@ -211,22 +211,14 @@ describe("Phase 10 B acquisition", () => {
       reason: "No new bytes were obtained.",
     });
 
-    expect(phase10BAcquisitionVerify({
+    expect(() => phase10BAcquisitionVerify({
       repositoryRoot: ROOT,
       bundleDirectory: directory,
       command: "focused synthetic verification",
       gitHead: FREEZE_COMMIT,
       startedOn: timestamp,
       endedOn: timestamp,
-    })).toMatchObject({
-      packetId: "b-acquisition",
-      terminalState: "refusal",
-      aggregateVerdict: "refusal",
-      checkResults: [
-        { checkId: "chk-b-acquisition-nas-receipt-or-na", verdict: "pass" },
-        { checkId: "chk-b-acquisition-six-targets", verdict: "pass" },
-      ],
-    });
+    })).toThrow(/registered zero-byte collection/u);
 
     writeJson(join(directory, "acquisition-round.json"), { ...round, targets: targetRows.slice(0, 5) });
     expect(() => phase10BAcquisitionVerify({
