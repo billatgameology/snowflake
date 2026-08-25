@@ -326,6 +326,10 @@ detail.
   zero searches, six null return proposals, and no E/F/H execution or authorization. Its six files
   total 32,748 bytes and bring the pinned evidence manifest to 445 files / 6,524,192 bytes. Minimum
   C0V/package closure is now the active deliverable; no further moving-recovery ladder is authorized.
+  Decision 0054 and charter v1.30 now authorize one exact closure of the maker-terminated recovery-v9
+  state: radial remains not executed, moving/static retain only their S5 refusal meanings, C0V is
+  incomplete/non-PASS with no S6 packet credit, and package completion rests on the terminal B
+  refusal. Implementing that report and flagless `gate10` is next; no recovery-v10 is created.
 - **Assurance is proportional to decision risk.** [Decision 0049](decisions/0049-make-assurance-proportionate-to-decision-risk.md),
   charter v1.26 and `AGENTS.md` require integrity for routine sources, one targeted check for
   load-bearing inputs, and full named controls for gates or strong public claims. No recursive
@@ -474,19 +478,19 @@ of candidate E/F/H branches.
 Maker direction on 2026-08-24 stops recovery-v10 and every further automatic S6 moving recovery.
 The incomplete 12-file recovery-v10 working diff was discarded before any freeze, test, registered
 check, or run; no v6 tuple exists. Preserve every pushed authority, lock, attempt, preflight, and S5b
-artifact byte-for-byte. S6 moving remains unresolved with zero packet/scientific credit. This stop
-does not claim Phase 10 completion under the current charter; a permanent waiver would require a
-separate maker-approved ADR and matching charter edit. No recovery work resumes without explicit
-maker direction.
+artifact byte-for-byte. S6 moving remains unresolved with zero packet/scientific credit. Decision
+0054 and charter v1.30 now provide the maker-approved one-package closure while preserving that
+exact state and credit. No recovery work resumes without explicit maker direction and new authority.
 
 `b-acquisition` is terminal and pinned. It passes both registered checks with aggregate `refusal`:
 five exact targets are rights-blocked and Zhao S2 is acquired-and-bound in the active private NAS
 collection. Publication and fresh-restore verification both pass for one file / 9,040,679 bytes;
 no source prune is authorized. All six finite branch packets and `b-aggregate` are terminal; the
-aggregate passes 6/6 checks and grants no downstream authorization. Commit and push this aggregate
-publication, then use the already-pinned C0V reference/refusal artifacts to close only the selected
-done-when. Do not resume a moving-recovery ladder, run broad search, inspect numeric media values,
-implement E/F/H, or add another assurance framework.
+aggregate passes 6/6 checks and grants no downstream authorization. Decision 0054 / charter v1.30
+now close the preserved maker-terminated recovery-v9 state without S6 packet or scientific credit.
+Implement the finite package report and flagless `gate10` from the already-pinned B and C0V bytes.
+Do not resume a moving-recovery ladder, run broad search, inspect numeric media values, implement
+E/F/H, or add another assurance framework.
 
 The A-P PASS dependency is committed at `63ca13c`; A-S PASS is committed at `78c1875`. A-I's
 observation/decision/review inputs are committed at `9fb2e1b`, and its eight-file structural PASS
