@@ -43,6 +43,7 @@ import {
   parsePhase10C0VS6RecoveryV6Authority,
   parsePhase10C0VS6RecoveryV7Authority,
   parsePhase10C0VS6RecoveryV8Authority,
+  parsePhase10C0VS6RecoveryV9Authority,
 } from "../src/phase10-c0v-s6-contracts.ts";
 import {
   phase10C0VS6AssertActiveLockedPacketAuthority,
@@ -528,13 +529,51 @@ function copyRecoveryV7PredecessorState(root: string): void {
   copyWorkingPath(root, "evidence/MANIFEST.json", true);
 }
 
-function copyRecoveryPredecessorState(root: string): void {
+function copyRecoveryV8PredecessorState(root: string): void {
   copyRecoveryV7PredecessorState(root);
   const authorityPath = "research/phase10-execution-v2/recovery-v8/recovery-authority.json";
   const authorityBytes = new Uint8Array(readFileSync(resolve(process.cwd(), authorityPath)));
   if (!existsSync(resolve(root, authorityPath))) writeBytes(root, authorityPath, authorityBytes);
   const authority = parsePhase10C0VS6RecoveryV8Authority(
     parsePhase10C0VS6PrettyJsonBytes(authorityBytes, "synthetic recovery-v8 authority"),
+  );
+  for (const identity of [
+    authority.predecessorRecoveryAuthority,
+    authority.predecessorPacketCatalogue,
+    authority.predecessorApProtocol,
+    authority.predecessorAuthorizedPacketProtocol,
+  ]) {
+    const liveBytes = new Uint8Array(readFileSync(resolve(process.cwd(), identity.path)));
+    expect(phase10C0VS6ArtifactIdentity(identity.path, liveBytes)).toEqual(identity);
+    if (!existsSync(resolve(root, identity.path))) writeBytes(root, identity.path, liveBytes);
+  }
+  for (const lock of authority.predecessorLockArtifacts) {
+    const lockBytes = phase10C0VS6PrettyJsonBytes(lock.parsedContent);
+    expect(phase10C0VS6ArtifactIdentity(lock.path, lockBytes)).toMatchObject({
+      path: lock.path,
+      byteLength: lock.byteLength,
+      sha256: lock.sha256,
+    });
+    if (!existsSync(resolve(root, lock.path))) writeBytes(root, lock.path, lockBytes);
+  }
+  for (const artifact of [
+    ...authority.predecessorAttemptArtifacts,
+    ...authority.predecessorPublishedArtifacts,
+  ]) {
+    const artifactBytes = new Uint8Array(readFileSync(resolve(process.cwd(), artifact.path)));
+    expect(phase10C0VS6ArtifactIdentity(artifact.path, artifactBytes)).toEqual(artifact);
+    if (!existsSync(resolve(root, artifact.path))) writeBytes(root, artifact.path, artifactBytes);
+  }
+  copyWorkingPath(root, "evidence/MANIFEST.json", true);
+}
+
+function copyRecoveryPredecessorState(root: string): void {
+  copyRecoveryV8PredecessorState(root);
+  const authorityPath = "research/phase10-execution-v2/recovery-v9/recovery-authority.json";
+  const authorityBytes = new Uint8Array(readFileSync(resolve(process.cwd(), authorityPath)));
+  if (!existsSync(resolve(root, authorityPath))) writeBytes(root, authorityPath, authorityBytes);
+  const authority = parsePhase10C0VS6RecoveryV9Authority(
+    parsePhase10C0VS6PrettyJsonBytes(authorityBytes, "synthetic recovery-v9 authority"),
   );
   for (const identity of [
     authority.predecessorRecoveryAuthority,
@@ -599,7 +638,7 @@ function prepareApPreFreezeAuthority(root: string): Readonly<{
     evidenceManifestPath,
     evidenceManifestBytes,
   );
-  const cataloguePath = "research/phase10-execution-v2/recovery-v8/packet-catalogue.json";
+  const cataloguePath = "research/phase10-execution-v2/recovery-v9/packet-catalogue.json";
   const catalogueBytes = new Uint8Array(readFileSync(resolve(process.cwd(), cataloguePath)));
   const catalogue = parsePhase10C0VS6PacketCatalogue(
     parsePhase10C0VS6PrettyJsonBytes(catalogueBytes, "A-P pre-freeze catalogue"),
@@ -638,7 +677,7 @@ function rawCauseFixture(
   const earlyApPreFreeze = packetId === "a-p-c0v-s6"
     ? prepareApPreFreezeAuthority(root)
     : null;
-  const packetPath = `research/phase10-execution-v2/recovery-v8/packets/${packetId}/protocol.json`;
+  const packetPath = `research/phase10-execution-v2/recovery-v9/packets/${packetId}/protocol.json`;
   let packetProtocolBytes = new Uint8Array(readFileSync(resolve(process.cwd(), packetPath)));
   let packetProtocolIdentity = phase10C0VS6ArtifactIdentity(packetPath, packetProtocolBytes);
   let packet = parsePhase10C0VS6PacketProtocol(
@@ -658,7 +697,7 @@ function rawCauseFixture(
 
   const attemptDirectory = `${packet.paths.attemptRoot}/${packet.registeredAttemptId}`;
   const packageElapsedNanosecondsBeforeAttempt = packetId === "c0v-moving-produce"
-    ? 532_300_704_500
+    ? 532_335_903_000
     : 391_158_252_000;
   const projectedPackageElapsedNanosecondsAfterAttempt =
     packageElapsedNanosecondsBeforeAttempt +
@@ -668,7 +707,7 @@ function rawCauseFixture(
   const projectedPackageProcessHoursAfterAttempt =
     projectedPackageElapsedNanosecondsAfterAttempt / 3_600_000_000_000;
   const packageRetainedBytesBeforeAttempt = packetId === "c0v-moving-produce"
-    ? 3_633_382
+    ? 3_736_367
     : packet.resources.packageStorageBaselineBytes;
   const projectedPackageBytesAfterAttempt = packageRetainedBytesBeforeAttempt +
     packet.resources.projectedScratchBytes + packet.resources.projectedPublicationBytes;
@@ -1009,17 +1048,17 @@ afterEach(() => {
 });
 
 describe("Phase 10 C0V S6 filesystem and closure refusal boundary", () => {
-  it("reopens the exact eight-generation stop before recovery-v8 lock acquisition", () => {
+  it("reopens the exact nine-generation stop before recovery-v9 lock acquisition", () => {
     const rootPath = temporaryRoot("recovery-predecessor-audit");
     copyRecoveryPredecessorState(rootPath);
     const root = phase10C0VS6PhysicalRepositoryRoot(rootPath);
     const state = phase10C0VS6AssertRecoveryPredecessorState(root, "initial-successor");
     expect(state.authority.predecessorImplementationFreezeCommit)
-      .toBe("af72b00814ee3d0a28499296b144a35585157dba");
-    expect(state.predecessorLockIdentities).toHaveLength(16);
-    expect(state.predecessorAttemptIdentities).toHaveLength(38);
-    expect(state.predecessorPublishedIdentities).toHaveLength(10);
-    expect(state.checkedAbsentPaths).toHaveLength(74);
+      .toBe("0abc4b5245aaed2cfe9a0b4084d76a72f2315894");
+    expect(state.predecessorLockIdentities).toHaveLength(18);
+    expect(state.predecessorAttemptIdentities).toHaveLength(44);
+    expect(state.predecessorPublishedIdentities).toHaveLength(11);
+    expect(state.checkedAbsentPaths).toHaveLength(80);
     expect(state.checkedAbsentPaths).toEqual(state.authority.predecessorGovernedAbsentPaths);
 
     mkdirSync(resolve(rootPath, state.authority.predecessorGovernedAbsentPaths[0]!), { recursive: true });
@@ -1130,7 +1169,7 @@ describe("Phase 10 C0V S6 filesystem and closure refusal boundary", () => {
     const forgedLocks = Object.freeze({
       packageLock: Object.freeze({
         schema: "phase10-c0v-s6-lock-v1" as const,
-        packetId: "phase10-c0v-s6-execution-v2-recovery-v8-packet-paths-v1",
+        packetId: "phase10-c0v-s6-execution-v2-recovery-v9-packet-paths-v1",
         attemptId: `${fixture.packet.packetId}:${fixture.packet.registeredAttemptId}`,
         processId: process.pid,
         acquiredAt: "2026-08-22T12:00:00.000Z",
@@ -1217,7 +1256,7 @@ describe("Phase 10 C0V S6 filesystem and closure refusal boundary", () => {
     for (const packetId of packetIds) {
       const packetBytes = new Uint8Array(readFileSync(resolve(
         process.cwd(),
-        `research/phase10-execution-v2/recovery-v8/packets/${packetId}/protocol.json`,
+        `research/phase10-execution-v2/recovery-v9/packets/${packetId}/protocol.json`,
       )));
       const packet = parsePhase10C0VS6PacketProtocol(
         parsePhase10C0VS6PrettyJsonBytes(packetBytes, `${packetId} cap matrix protocol`),
@@ -1286,7 +1325,7 @@ describe("Phase 10 C0V S6 filesystem and closure refusal boundary", () => {
     ] as const) {
       const packetBytes = new Uint8Array(readFileSync(resolve(
         process.cwd(),
-        `research/phase10-execution-v2/recovery-v8/packets/${packetId}/protocol.json`,
+        `research/phase10-execution-v2/recovery-v9/packets/${packetId}/protocol.json`,
       )));
       const packet = parsePhase10C0VS6PacketProtocol(
         parsePhase10C0VS6PrettyJsonBytes(packetBytes, `${packetId} complete timing protocol`),
@@ -1444,7 +1483,7 @@ describe("Phase 10 C0V S6 filesystem and closure refusal boundary", () => {
         .toThrow(/raw worker\/exit bytes/u);
     }
 
-    const packetRoot = resolve(import.meta.dirname, "../../research/phase10-execution-v2/recovery-v8/packets");
+    const packetRoot = resolve(import.meta.dirname, "../../research/phase10-execution-v2/recovery-v9/packets");
     const registeredExports = readdirSync(packetRoot).flatMap((packetDirectory) => {
       const registry = JSON.parse(readFileSync(
         resolve(packetRoot, packetDirectory, "callable-registry.json"),
@@ -1457,7 +1496,7 @@ describe("Phase 10 C0V S6 filesystem and closure refusal boundary", () => {
   });
 
   it("covers the exact union of all execution-v2 registered callable IDs", () => {
-    const packetRoot = resolve(import.meta.dirname, "../../research/phase10-execution-v2/recovery-v8/packets");
+    const packetRoot = resolve(import.meta.dirname, "../../research/phase10-execution-v2/recovery-v9/packets");
     const callableIds = readdirSync(packetRoot).flatMap((packetDirectory) => {
       const registry = JSON.parse(readFileSync(
         resolve(packetRoot, packetDirectory, "callable-registry.json"),
@@ -1866,7 +1905,7 @@ describe("Phase 10 C0V S6 filesystem and closure refusal boundary", () => {
     git(root, ["commit", "-m", "synthetic launch"]);
     const launchHead = git(root, ["rev-parse", "HEAD"]);
     const packetBytes = new Uint8Array(readFileSync(
-      resolve(process.cwd(), "research/phase10-execution-v2/recovery-v8/packets/c0v-moving-produce/protocol.json"),
+      resolve(process.cwd(), "research/phase10-execution-v2/recovery-v9/packets/c0v-moving-produce/protocol.json"),
     ));
     const packet = parsePhase10C0VS6PacketProtocol(
       parsePhase10C0VS6PrettyJsonBytes(packetBytes, "freeze-stage packet"),
@@ -2748,10 +2787,10 @@ describe("Phase 10 C0V S6 filesystem and closure refusal boundary", () => {
     const rootPath = temporaryRoot("package-lock-deferred");
     const root = phase10C0VS6PhysicalRepositoryRoot(rootPath);
     for (const path of [
-      "research/phase10-execution-v2/recovery-v8/recovery-authority.json",
-      "research/phase10-execution-v2/recovery-v8/packet-catalogue.json",
-      "research/phase10-execution-v2/recovery-v8/packets/c0v-moving-produce/protocol.json",
-      "research/phase10-execution-v2/recovery-v8/packets/c0v-radial-produce/protocol.json",
+      "research/phase10-execution-v2/recovery-v9/recovery-authority.json",
+      "research/phase10-execution-v2/recovery-v9/packet-catalogue.json",
+      "research/phase10-execution-v2/recovery-v9/packets/c0v-moving-produce/protocol.json",
+      "research/phase10-execution-v2/recovery-v9/packets/c0v-radial-produce/protocol.json",
     ]) {
       const destination = resolve(rootPath, path);
       mkdirSync(resolve(destination, ".."), { recursive: true });
@@ -2762,8 +2801,8 @@ describe("Phase 10 C0V S6 filesystem and closure refusal boundary", () => {
     const gate = new Promise<void>((resolveGate) => {
       release = resolveGate;
     });
-    const packageLockPath = "out/phase10-execution-v2/recovery-v8/locks/package.lock";
-    const movingLockPath = "out/phase10-execution-v2/recovery-v8/locks/c0v-moving-produce.lock";
+    const packageLockPath = "out/phase10-execution-v2/recovery-v9/locks/package.lock";
+    const movingLockPath = "out/phase10-execution-v2/recovery-v9/locks/c0v-moving-produce.lock";
     let authorityReadObserved = false;
     let capturedActive:
       | Readonly<{ locks: Parameters<typeof phase10C0VS6AssertActiveLockedPacketAuthority>[1];
@@ -2805,7 +2844,7 @@ describe("Phase 10 C0V S6 filesystem and closure refusal boundary", () => {
       "run",
       async () => true,
     )).rejects.toThrow(/concurrent or stale execution/u);
-    expect(existsSync(resolve(rootPath, "out/phase10-execution-v2/recovery-v8/locks/c0v-radial-produce.lock"))).toBe(false);
+    expect(existsSync(resolve(rootPath, "out/phase10-execution-v2/recovery-v9/locks/c0v-radial-produce.lock"))).toBe(false);
     release();
     await expect(first).resolves.toBeUndefined();
     expect(existsSync(resolve(rootPath, packageLockPath))).toBe(false);
@@ -2823,9 +2862,9 @@ describe("Phase 10 C0V S6 filesystem and closure refusal boundary", () => {
     const makeLockedRoot = (label: string): { rootPath: string; root: ReturnType<typeof phase10C0VS6PhysicalRepositoryRoot> } => {
       const rootPath = temporaryRoot(label);
       for (const path of [
-        "research/phase10-execution-v2/recovery-v8/recovery-authority.json",
-        "research/phase10-execution-v2/recovery-v8/packet-catalogue.json",
-        "research/phase10-execution-v2/recovery-v8/packets/c0v-moving-produce/protocol.json",
+        "research/phase10-execution-v2/recovery-v9/recovery-authority.json",
+        "research/phase10-execution-v2/recovery-v9/packet-catalogue.json",
+        "research/phase10-execution-v2/recovery-v9/packets/c0v-moving-produce/protocol.json",
       ]) {
         const destination = resolve(rootPath, path);
         mkdirSync(resolve(destination, ".."), { recursive: true });
@@ -2836,7 +2875,7 @@ describe("Phase 10 C0V S6 filesystem and closure refusal boundary", () => {
     };
 
     const completed = makeLockedRoot("same-attempt-complete");
-    const completedPreflight = "evidence/phase10-obligation-preflight-v2/packets/c0v-moving-produce/preflight.json";
+    const completedPreflight = "evidence/phase10-obligation-preflight-v3/packets/c0v-moving-produce/preflight.json";
     mkdirSync(resolve(completed.rootPath, completedPreflight, ".."), { recursive: true });
     writeFileSync(resolve(completed.rootPath, completedPreflight), "already complete\n", { flag: "wx" });
     let completedActionCalled = false;
@@ -2849,11 +2888,11 @@ describe("Phase 10 C0V S6 filesystem and closure refusal boundary", () => {
       },
     )).rejects.toThrow(/predecessor state unexpectedly materialized/u);
     expect(completedActionCalled).toBe(false);
-    expect(existsSync(resolve(completed.rootPath, "out/phase10-execution-v2/recovery-v8/locks/package.lock"))).toBe(false);
-    expect(existsSync(resolve(completed.rootPath, "out/phase10-execution-v2/recovery-v8/locks/c0v-moving-produce.lock"))).toBe(false);
+    expect(existsSync(resolve(completed.rootPath, "out/phase10-execution-v2/recovery-v9/locks/package.lock"))).toBe(false);
+    expect(existsSync(resolve(completed.rootPath, "out/phase10-execution-v2/recovery-v9/locks/c0v-moving-produce.lock"))).toBe(false);
 
     const partial = makeLockedRoot("same-attempt-partial");
-    mkdirSync(resolve(partial.rootPath, "out/phase10-execution-v2/recovery-v8/attempts/c0v-moving-produce"), { recursive: true });
+    mkdirSync(resolve(partial.rootPath, "out/phase10-execution-v2/recovery-v9/attempts/c0v-moving-produce"), { recursive: true });
     let partialActionCalled = false;
     await expect(phase10C0VS6WithPackageAndPacketLocks(
       partial.root,
@@ -2866,7 +2905,7 @@ describe("Phase 10 C0V S6 filesystem and closure refusal boundary", () => {
     expect(partialActionCalled).toBe(false);
 
     const verify = makeLockedRoot("same-attempt-verify");
-    mkdirSync(resolve(verify.rootPath, "out/phase10-execution-v2/recovery-v8/attempts/c0v-moving-produce"), { recursive: true });
+    mkdirSync(resolve(verify.rootPath, "out/phase10-execution-v2/recovery-v9/attempts/c0v-moving-produce"), { recursive: true });
     await expect(phase10C0VS6WithPackageAndPacketLocks(
       verify.root,
       "c0v-moving-produce",
@@ -2901,7 +2940,7 @@ describe("Phase 10 C0V S6 filesystem and closure refusal boundary", () => {
     for (const packetId of packetIds) {
       const bytes = new Uint8Array(readFileSync(resolve(
         process.cwd(),
-        `research/phase10-execution-v2/recovery-v8/packets/${packetId}/protocol.json`,
+        `research/phase10-execution-v2/recovery-v9/packets/${packetId}/protocol.json`,
       )));
       const packet = parsePhase10C0VS6PacketProtocol(
         parsePhase10C0VS6PrettyJsonBytes(bytes, `${packetId} test protocol`),
@@ -3325,7 +3364,7 @@ describe("Phase 10 C0V S6 filesystem and closure refusal boundary", () => {
     for (const layer of ["moving", "radial", "static"] as const) {
       const registryPath = resolve(
         repositoryRoot,
-        `research/phase10-execution-v2/recovery-v8/packets/c0v-${layer}-publish/callable-registry.json`,
+        `research/phase10-execution-v2/recovery-v9/packets/c0v-${layer}-publish/callable-registry.json`,
       );
       const registry = JSON.parse(readFileSync(registryPath, "utf8")) as {
         readonly callables: readonly {

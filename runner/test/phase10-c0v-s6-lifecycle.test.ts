@@ -8,6 +8,11 @@ import {
   "../src/phase10-c0v-s6-lifecycle.ts";
 import { phase10C0VS6ArtifactIdentity } from "../src/phase10-c0v-s6-execution-contracts.ts";
 import {
+  parsePhase10C0VS6Matrix,
+  parsePhase10C0VS6PacketProtocol,
+  parsePhase10C0VS6PrettyJsonBytes,
+} from "../src/phase10-c0v-s6-contracts.ts";
+import {
   derivePhase10C0VS6HistoricalRetainedRuntimeAuthority,
   derivePhase10C0VS6RetainedRuntimeAuthority,
 } from "../src/phase10-c0v-s6-runtime-authority.ts";
@@ -53,9 +58,21 @@ const ROOT = resolve(import.meta.dirname, "../..");
 function packet(
   packetId: ResolverPacket["packetId"],
   allowedPublicationPaths: readonly string[],
+  immutablePaths: Readonly<{
+    scienceProtocol?: string;
+    referenceOrRefusal?: string;
+  }> = Object.freeze({}),
 ): ResolverPacket {
   return Object.freeze({
     packetId,
+    bindings: Object.freeze({
+      scienceProtocol: immutablePaths.scienceProtocol === undefined
+        ? null
+        : Object.freeze({ path: immutablePaths.scienceProtocol }),
+      referenceOrRefusal: immutablePaths.referenceOrRefusal === undefined
+        ? null
+        : Object.freeze({ path: immutablePaths.referenceOrRefusal }),
+    }),
     paths: Object.freeze({ allowedPublicationPaths: Object.freeze([...allowedPublicationPaths]) }),
   });
 }
@@ -74,7 +91,7 @@ describe("Phase 10 C0V S6 lifecycle whole-file publication overlay", () => {
       preflightBytes: new Uint8Array(readFileSync(resolve(ROOT, preflightPath))),
     });
     expect(() => derivePhase10C0VS6RetainedRuntimeAuthority(input))
-      .toThrow(/current recovery-v8 packet protocol identity path differs/u);
+      .toThrow(/current recovery-v9 packet protocol identity path differs/u);
     const retained = derivePhase10C0VS6HistoricalRetainedRuntimeAuthority(input);
     expect(retained.packet.packetId).toBe("a-p-c0v-s6");
     expect(retained.packet.registeredAttemptId).toBe("a-p-c0v-s6-20260822-v6");
@@ -142,5 +159,34 @@ describe("Phase 10 C0V S6 lifecycle whole-file publication overlay", () => {
       "out-c0v-moving-reference",
       matrixPath,
     )).toThrow(/does not resolve one registered whole-file publication path/u);
+  });
+
+  it("resolves the real immutable moving bindings without adding them to the writable roster", () => {
+    const matrix = parsePhase10C0VS6Matrix(parsePhase10C0VS6PrettyJsonBytes(
+      readFileSync(resolve(ROOT, "research/phase10-c0v-s6-obligation-matrix-v1.json")),
+      "real obligation matrix",
+    ));
+    const protocol = parsePhase10C0VS6PacketProtocol(parsePhase10C0VS6PrettyJsonBytes(
+      readFileSync(resolve(
+        ROOT,
+        "research/phase10-execution-v2/recovery-v9/packets/c0v-moving-produce/protocol.json",
+      )),
+      "real recovery-v9 moving protocol",
+    ));
+    for (const [outputId, binding] of [
+      ["out-c0v-moving-protocol", protocol.bindings.scienceProtocol],
+      ["out-c0v-moving-reference", protocol.bindings.referenceOrRefusal],
+    ] as const) {
+      if (binding === null) throw new Error(`${outputId} binding absent`);
+      const row = matrix.outputs.find((entry) => entry.outputId === outputId);
+      if (row === undefined) throw new Error(`${outputId} matrix row absent`);
+      expect(row.artifact.path).toBe(binding.path);
+      expect(protocol.paths.allowedPublicationPaths).not.toContain(binding.path);
+      expect(phase10C0VS6ResolveRegisteredWholeFilePublicationPath(
+        protocol,
+        outputId,
+        row.artifact.path,
+      )).toBe(binding.path);
+    }
   });
 });

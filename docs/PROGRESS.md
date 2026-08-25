@@ -292,6 +292,17 @@ detail.
   reach the equally immutable reference binding. Nine retained files total 102,985 bytes; no
   packet, publication, science, or validation credit was earned. The active plan records the
   bounded recovery-v9 successor. No consumed tuple may be rerun.
+  Recovery-v9 now implements only that path-authority repair: after the unchanged A-P overlay, the
+  shared resolver admits exact immutable science/reference bindings while keeping them outside the
+  writable publication roster. Moving-produce alone advances v4 to v5; exactly its three structural
+  finals and moving-publish dependencies move from the occupied v2 paths to the fresh v3 subtree.
+  The authority reopens 73 retained files / 2,106,790 bytes, proves 80 governed absences, and binds
+  the unchanged science, reference, cap, route, claim, A-P v6, and six other v1 contracts. Focused
+  tests passed 113/113. Exact `npm test` passed Rule 7 across 1,419 files, both typechecks, and
+  162/162 Vitest files with 2,522 passed / 49 skipped in 1,259.25 seconds. One bounded non-author
+  audit independently rehashed the retained state and all 101 callable identities, compared all
+  eight predecessor/successor protocol-registry pairs, passed its bounded 103/103 checks, and closed
+  with zero blockers. No registered command, worker, solver, finalizer, attempt, or output ran.
 - **Assurance is proportional to decision risk.** [Decision 0049](decisions/0049-make-assurance-proportionate-to-decision-risk.md),
   charter v1.26 and `AGENTS.md` require integrity for routine sources, one targeted check for
   load-bearing inputs, and full named controls for gates or strong public claims. No recursive
@@ -306,8 +317,8 @@ detail.
   direction) and content stays in-repo unpublished, `test.yml` CI unaffected. Reconciliation is
   a live decision point under **Next step**. Full freeze history:
   [the history file](progress-history-phases-6-8-9.md).
-- **Last updated:** 2026-08-24 (recovery-v8 is frozen; moving v4 is retained after a post-worker
-  publication-authority refusal; recovery-v9 is the next bounded action)
+- **Last updated:** 2026-08-24 (recovery-v9 is a fully verified first-add freeze candidate; commit
+  and push it before the moving v5 read-only check and sole run)
 
 ## Phase gates
 
@@ -327,7 +338,7 @@ and every superseded attempt live in the linked plans and historical progress sn
 | 7 | Not started; independently eligible | Charter v1.25 preserves Phase 7's independence but does not start it. A committed Phase 7 plan and isolated worktree are required; product, held-out validation, and v6 WGSL/preview-GPU parity remain its scope. |
 | 8 | **Complete (8A + 8B)** | The immutable 8A book remains 18 entries / 59,019 bytes / SHA-256 `47a75f3f…71ec`. The verified 8B successor is 51 development records, 252,134 native rows and 431 plot points; no row is held out. [Completed plan](plans/phase-8-measurement-corpus.md). |
 | 9 | **Complete (development-only)** | The all-no-pass branch closed: D-BT failed, M-F/M-K2 stayed mapping-dependent, controls/path-state/M-PK are unavailable or non-identifiable, and zero items promoted. Exact `TMPDIR=/private/tmp npm test` passed; no result grants validation credit. [Completed plan](plans/phase-9-execution.md). |
-| 10 | **In progress — A-P/A-S/A-I PASS; C0 packet PASS/complete with numerical criterion NO-PASS; C0V supplemental A-P PASS** | A-P, A-S, bounded structural A-I PASS evidence, and the complete C0 packet are published and pinned. C0 independently re-derived 80/80 rows and 64/64 comparisons: 36 passed and 28 failed the attached-count criterion, so both spacings and the authoritative all-spacings reduction are NO-PASS ([report](../evidence/phase10-numerical-verification-v1/c0-report.json), SHA-256 `571e62ae…0b72`). C0 executed no solver and grants no absolute-accuracy, habit-robustness, target-score, validation, or prior-phase credit. C0V S5b pins the radial reference, moving `reference-discrepancy-refusal`, and scoped static refusal. S6's v1 through v5 A-P tuples each fail-stopped on bounded infrastructure defects; all bytes are retained and earn no packet/scientific credit. Recovery-v5 A-P v6 is terminal `complete`, passes 10/10 structural checks and both controls, and grants exact packet/dependency credit. Its six finals are pinned; it ran no solver and grants no science or validation claim. Moving-produce v1–v3 fail-stopped before preflight/worker. Frozen recovery-v8 moving v4 reached one completed discrepancy invocation with no solver, then failed finalization on an immutable-binding path seam; its preflight and raw attempt are retained with zero packet/scientific credit. Recovery-v9 is planned as the minimal successor. Selection still includes no C1–C5 or habit rows. |
+| 10 | **In progress — A-P/A-S/A-I PASS; C0 packet PASS/complete with numerical criterion NO-PASS; C0V supplemental A-P PASS** | A-P, A-S, bounded structural A-I PASS evidence, and the complete C0 packet are published and pinned. C0 independently re-derived 80/80 rows and 64/64 comparisons: 36 passed and 28 failed the attached-count criterion, so both spacings and the authoritative all-spacings reduction are NO-PASS ([report](../evidence/phase10-numerical-verification-v1/c0-report.json), SHA-256 `571e62ae…0b72`). C0 executed no solver and grants no absolute-accuracy, habit-robustness, target-score, validation, or prior-phase credit. C0V S5b pins the radial reference, moving `reference-discrepancy-refusal`, and scoped static refusal. S6's v1 through v5 A-P tuples each fail-stopped on bounded infrastructure defects; all bytes are retained and earn no packet/scientific credit. Recovery-v5 A-P v6 is terminal `complete`, passes 10/10 structural checks and both controls, and grants exact packet/dependency credit. Its six finals are pinned; it ran no solver and grants no science or validation claim. Moving-produce v1–v3 fail-stopped before preflight/worker. Frozen recovery-v8 moving v4 reached one completed discrepancy invocation with no solver, then failed finalization on an immutable-binding path seam; its preflight and raw attempt are retained with zero packet/scientific credit. Recovery-v9 is a tested and independently audited first-add freeze candidate; no v5 command has run. Selection still includes no C1–C5 or habit rows. |
 
 ## Active plan
 
@@ -430,7 +441,7 @@ the package-specific prerequisites in its charter amendment and execution plan. 
 
 ## Next step
 
-### Phase 10 — freeze the bounded recovery-v9 successor, then execute moving-produce v5 once
+### Phase 10 — commit the recovery-v9 freeze, then execute moving-produce v5 once
 
 The maker selected **A-S + A-I + B + C0 + C0V with packet-specific A-P** on 2026-08-21. No
 C1–C5 numerical-qualification or scientific habit row is part of this execution. The
@@ -457,21 +468,16 @@ terminal finalization the shared resolver rejected the matrix path
 `scienceProtocol` binding; the exact immutable reference binding would have failed next. Preserve
 the two locks, six attempt files, and pinned preflight byte-for-byte. Moving v4 is consumed.
 
-The active plan specifies one recovery-v9 successor and no new gate. Extend the shared resolver
-only to admit exact immutable science/reference binding paths after the unchanged A-P overlay; keep
-tracked inputs outside writable `allowedPublicationPaths`. Because v4 now owns the canonical v2
-moving preflight, map the three moving preflight/verification/terminal matrix-v2 outputs to the
-fresh moving subtree under the next per-packet v3 evidence envelope; keep the attempt ledger,
-science protocol, and reference paths unchanged. Bind the exact 73-file / 2,106,790-byte
-predecessor census and 80 governed absences,
-authorize only moving v4 to v5, and preserve A-P v6 plus the six other v1 attempts. Run focused
-checks, exact `npm test`, and one bounded non-author audit, then commit/push the first-add freeze.
-Only after a write-free v5 `check` may one `run` occur.
+Recovery-v9 is implemented on stable generated bytes and changes no science, reference, tolerance,
+cap, route, or claim. The active plan's checkpoint records the exact 73-file predecessor census,
+80 absences, focused 113/113 result, full 162-file suite, and zero-blocker bounded non-author audit.
+No registered command has run. Commit and push the complete first-add freeze, then rederive its
+first-introduction identity with the exact generated moving-produce v5 read-only `check`. Confirm
+that `check` writes nothing. Only then may the sole registered v5 `run` occur.
 
-The v4 preflight is now tracked and manifest-pinned at 397 files / 6,297,325 bytes; the focused
-evidence-integrity test passes 7/7. An exact `npm test` started after the pin and was deliberately
-interrupted for the operator's restart after Rule 7, both typechecks, and seven test files passed;
-that partial run is not suite evidence. Run the exact suite once on stable recovery-v9 bytes.
+The v4 preflight is tracked and manifest-pinned at 397 files / 6,297,325 bytes; preserve it and all
+other predecessor bytes exactly. The earlier interrupted suite remains only restart history; the
+stable recovery-v9 bytes subsequently passed exact `npm test` in full.
 
 Do not delete or mutate predecessor bytes or retry any consumed tuple automatically. On a future
 v5 refusal, retain every byte and return to the active plan; on success, independently verify and

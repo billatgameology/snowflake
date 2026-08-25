@@ -213,6 +213,32 @@ export const PHASE10_C0V_S6_RECOVERY_V8_PACKAGE_LOCK_PATH =
   "out/phase10-execution-v2/recovery-v8/locks/package.lock" as const;
 export const PHASE10_C0V_S6_RECOVERY_V8_PACKAGE_LOCK_RULE =
   "all-predecessor-audits-before-successor-package-lock-then-packet-lock-before-any-observation" as const;
+export const PHASE10_C0V_S6_RECOVERY_V9_PACKET_PROTOCOL_SCHEMA =
+  "phase10-c0v-s6-recovery-v9-packet-protocol-v1" as const;
+export const PHASE10_C0V_S6_RECOVERY_V9_PACKET_CATALOGUE_SCHEMA =
+  "phase10-c0v-s6-recovery-v9-packet-catalogue-v1" as const;
+export const PHASE10_C0V_S6_RECOVERY_V9_AUTHORITY_SCHEMA =
+  "phase10-c0v-s6-recovery-authority-v9" as const;
+export const PHASE10_C0V_S6_RECOVERY_V9_AUTHORITY_ID =
+  "phase10-c0v-s6-execution-v2-recovery-v9" as const;
+export const PHASE10_C0V_S6_RECOVERY_V9_AUTHORITY_ROOT =
+  "research/phase10-execution-v2/recovery-v9" as const;
+export const PHASE10_C0V_S6_RECOVERY_V9_AUTHORITY_PATH =
+  "research/phase10-execution-v2/recovery-v9/recovery-authority.json" as const;
+export const PHASE10_C0V_S6_RECOVERY_V9_PACKET_CATALOGUE_PATH =
+  "research/phase10-execution-v2/recovery-v9/packet-catalogue.json" as const;
+export const PHASE10_C0V_S6_RECOVERY_V9_PACKET_CATALOGUE_ID =
+  "phase10-c0v-s6-execution-v2-recovery-v9-packet-paths-v1" as const;
+export const PHASE10_C0V_S6_RECOVERY_V9_RUNTIME_ROOT =
+  "out/phase10-execution-v2/recovery-v9" as const;
+export const PHASE10_C0V_S6_RECOVERY_V9_LOCK_ROOT =
+  "out/phase10-execution-v2/recovery-v9/locks" as const;
+export const PHASE10_C0V_S6_RECOVERY_V9_ATTEMPT_ROOT =
+  "out/phase10-execution-v2/recovery-v9/attempts" as const;
+export const PHASE10_C0V_S6_RECOVERY_V9_PACKAGE_LOCK_PATH =
+  "out/phase10-execution-v2/recovery-v9/locks/package.lock" as const;
+export const PHASE10_C0V_S6_RECOVERY_V9_PACKAGE_LOCK_RULE =
+  "all-predecessor-audits-before-successor-package-lock-then-packet-lock-before-any-observation" as const;
 export const PHASE10_C0V_S6_CALLABLE_REGISTRY_SCHEMA = "phase10-c0v-s6-callable-registry-v1" as const;
 export const PHASE10_C0V_S6_SCHEMA_CONTRACTS_SCHEMA = "phase10-c0v-s6-schema-contracts-v1" as const;
 export const PHASE10_C0V_S6_ARTIFACT_SCHEMA_REGISTRY_SCHEMA =
@@ -336,8 +362,10 @@ export const PHASE10_C0V_S6_RECOVERY_V6_ATTEMPT_IDS = Object.freeze(Object.fromE
   ]),
 ) as Readonly<Record<(typeof PHASE10_C0V_S6_PACKET_IDS)[number], string>>);
 
-export const PHASE10_C0V_S6_CURRENT_MOVING_ATTEMPT_ID =
+export const PHASE10_C0V_S6_RECOVERY_V8_MOVING_ATTEMPT_ID =
   "c0v-moving-produce-20260822-v4" as const;
+export const PHASE10_C0V_S6_CURRENT_MOVING_ATTEMPT_ID =
+  "c0v-moving-produce-20260822-v5" as const;
 
 export const PHASE10_C0V_S6_RECOVERY_V7_PACKET_LOCK_PATHS = Object.freeze(Object.fromEntries(
   PHASE10_C0V_S6_PACKET_IDS.map((packetId) => [
@@ -370,21 +398,39 @@ export const PHASE10_C0V_S6_RECOVERY_V8_ATTEMPT_IDS = Object.freeze(Object.fromE
     packetId === "a-p-c0v-s6"
       ? "a-p-c0v-s6-20260822-v6"
       : packetId === "c0v-moving-produce"
+        ? PHASE10_C0V_S6_RECOVERY_V8_MOVING_ATTEMPT_ID
+        : `${packetId}-20260822-v1`,
+  ]),
+) as Readonly<Record<(typeof PHASE10_C0V_S6_PACKET_IDS)[number], string>>);
+
+export const PHASE10_C0V_S6_RECOVERY_V9_PACKET_LOCK_PATHS = Object.freeze(Object.fromEntries(
+  PHASE10_C0V_S6_PACKET_IDS.map((packetId) => [
+    packetId,
+    `${PHASE10_C0V_S6_RECOVERY_V9_LOCK_ROOT}/${packetId}.lock`,
+  ]),
+) as Readonly<Record<(typeof PHASE10_C0V_S6_PACKET_IDS)[number], string>>);
+
+export const PHASE10_C0V_S6_RECOVERY_V9_ATTEMPT_IDS = Object.freeze(Object.fromEntries(
+  PHASE10_C0V_S6_PACKET_IDS.map((packetId) => [
+    packetId,
+    packetId === "a-p-c0v-s6"
+      ? "a-p-c0v-s6-20260822-v6"
+      : packetId === "c0v-moving-produce"
         ? PHASE10_C0V_S6_CURRENT_MOVING_ATTEMPT_ID
         : `${packetId}-20260822-v1`,
   ]),
 ) as Readonly<Record<(typeof PHASE10_C0V_S6_PACKET_IDS)[number], string>>);
 
 export function phase10C0VS6LockPathsForPacketId(packetId: string): Readonly<{
-  packageLockPath: typeof PHASE10_C0V_S6_RECOVERY_V8_PACKAGE_LOCK_PATH;
+  packageLockPath: typeof PHASE10_C0V_S6_RECOVERY_V9_PACKAGE_LOCK_PATH;
   packetLockPath: string;
 }> {
   if (!PHASE10_C0V_S6_PACKET_IDS.some((entry) => entry === packetId)) {
     throw new Error("Phase 10 C0V S6 CLI packet ID is not registered for pre-observation locking");
   }
   return Object.freeze({
-    packageLockPath: PHASE10_C0V_S6_RECOVERY_V8_PACKAGE_LOCK_PATH,
-    packetLockPath: PHASE10_C0V_S6_RECOVERY_V8_PACKET_LOCK_PATHS[packetId as Phase10C0VS6PacketId],
+    packageLockPath: PHASE10_C0V_S6_RECOVERY_V9_PACKAGE_LOCK_PATH,
+    packetLockPath: PHASE10_C0V_S6_RECOVERY_V9_PACKET_LOCK_PATHS[packetId as Phase10C0VS6PacketId],
   });
 }
 
@@ -429,7 +475,8 @@ export type Phase10C0VS6PackageLockPath =
   | typeof PHASE10_C0V_S6_RECOVERY_V5_PACKAGE_LOCK_PATH
   | typeof PHASE10_C0V_S6_RECOVERY_V6_PACKAGE_LOCK_PATH
   | typeof PHASE10_C0V_S6_RECOVERY_V7_PACKAGE_LOCK_PATH
-  | typeof PHASE10_C0V_S6_RECOVERY_V8_PACKAGE_LOCK_PATH;
+  | typeof PHASE10_C0V_S6_RECOVERY_V8_PACKAGE_LOCK_PATH
+  | typeof PHASE10_C0V_S6_RECOVERY_V9_PACKAGE_LOCK_PATH;
 export type Phase10C0VS6ExecutionMode =
   | "supplemental-ap"
   | "radial-production"
@@ -1492,7 +1539,7 @@ export const PHASE10_C0V_S6_RECOVERY_V8_PREDECESSOR_AUTHORIZED_ATTEMPT_ROOT =
 export const PHASE10_C0V_S6_RECOVERY_V8_FINAL_PATHS = PHASE10_C0V_S6_RECOVERY_V7_FINAL_PATHS;
 export const PHASE10_C0V_S6_RECOVERY_V8_STAGE_PATHS = Object.freeze(
   PHASE10_C0V_S6_RECOVERY_V8_FINAL_PATHS.map((path) =>
-    `${path}.stage-${PHASE10_C0V_S6_CURRENT_MOVING_ATTEMPT_ID}`),
+    `${path}.stage-${PHASE10_C0V_S6_RECOVERY_V8_MOVING_ATTEMPT_ID}`),
 );
 export const PHASE10_C0V_S6_RECOVERY_V8_GOVERNED_ABSENT_PATHS = Object.freeze([
   ...PHASE10_C0V_S6_RECOVERY_V8_PREDECESSOR_STILL_ABSENT_PATHS,
@@ -1516,6 +1563,129 @@ export const PHASE10_C0V_S6_RECOVERY_V8_PACKAGE_STORAGE_BASELINE:
     .map(({ parsedContent: _parsedContent, ...identity }) => Object.freeze(identity)),
 ].sort((left, right) => left.path < right.path ? -1 : left.path > right.path ? 1 : 0));
 export const PHASE10_C0V_S6_RECOVERY_V8_PACKAGE_STORAGE_BASELINE_BYTES = 2995707 as const;
+
+export const PHASE10_C0V_S6_RECOVERY_V9_PREDECESSOR_IMPLEMENTATION_FREEZE_COMMIT =
+  "0abc4b5245aaed2cfe9a0b4084d76a72f2315894" as const;
+export const PHASE10_C0V_S6_RECOVERY_V9_PREDECESSOR_ACCEPTED_PACKET_COMMIT =
+  "e092259b8d4c3099b569febc08944bf99bfef31a" as const;
+export const PHASE10_C0V_S6_RECOVERY_V9_PREDECESSOR_RECOVERY_AUTHORITY = Object.freeze({
+  path: PHASE10_C0V_S6_RECOVERY_V8_AUTHORITY_PATH,
+  byteLength: 28047,
+  sha256: "725deb532bfdbe7105b31f4d9cafbcd92648f1e8efdacc34b97bd6f2e4e95940",
+} as const satisfies Phase10C0VS6ArtifactIdentity);
+export const PHASE10_C0V_S6_RECOVERY_V9_PREDECESSOR_PACKET_CATALOGUE = Object.freeze({
+  path: PHASE10_C0V_S6_RECOVERY_V8_PACKET_CATALOGUE_PATH,
+  byteLength: 16104,
+  sha256: "88c66a7f2ade93a3ce61199016b281fc1aa056ed36e9bc55e29ffd95eb2f0e02",
+} as const satisfies Phase10C0VS6ArtifactIdentity);
+export const PHASE10_C0V_S6_RECOVERY_V9_PREDECESSOR_AP_PROTOCOL =
+  PHASE10_C0V_S6_RECOVERY_V8_PREDECESSOR_AP_PROTOCOL;
+export const PHASE10_C0V_S6_RECOVERY_V9_PREDECESSOR_AUTHORIZED_PACKET_PROTOCOL = Object.freeze({
+  path: `${PHASE10_C0V_S6_RECOVERY_V8_AUTHORITY_ROOT}/packets/c0v-moving-produce/protocol.json`,
+  byteLength: 86863,
+  sha256: "e1811e1815773be682e9e948e6774305327c06c853833829f4fec86396116908",
+} as const satisfies Phase10C0VS6ArtifactIdentity);
+export const PHASE10_C0V_S6_RECOVERY_V9_PREDECESSOR_MOVING_LOCK_ARTIFACTS = Object.freeze([
+  Object.freeze({
+    path: PHASE10_C0V_S6_RECOVERY_V8_PACKAGE_LOCK_PATH,
+    byteLength: 248,
+    sha256: "757ce64d0aee51c2f878175e186b3e7169adf9325faee5175b71d78e5b398de6",
+    parsedContent: Object.freeze({
+      schema: "phase10-c0v-s6-lock-v1" as const,
+      packetId: PHASE10_C0V_S6_RECOVERY_V8_PACKET_CATALOGUE_ID,
+      attemptId: "c0v-moving-produce:c0v-moving-produce-20260822-v4" as const,
+      processId: 13920 as const,
+      acquiredAt: "2026-08-25T01:26:58.030Z" as const,
+    }),
+  }),
+  Object.freeze({
+    path: PHASE10_C0V_S6_RECOVERY_V8_PACKET_LOCK_PATHS["c0v-moving-produce"],
+    byteLength: 192,
+    sha256: "20ca902e0a7a35fca03e09c77b3aadc962856dd76e1f4d4ecafa9cbc24a34487",
+    parsedContent: Object.freeze({
+      schema: "phase10-c0v-s6-lock-v1" as const,
+      packetId: "c0v-moving-produce" as const,
+      attemptId: PHASE10_C0V_S6_RECOVERY_V8_MOVING_ATTEMPT_ID,
+      processId: 13920 as const,
+      acquiredAt: "2026-08-25T01:26:58.034Z" as const,
+    }),
+  }),
+] as const);
+export const PHASE10_C0V_S6_RECOVERY_V9_PREDECESSOR_LOCK_ARTIFACTS = Object.freeze([
+  ...PHASE10_C0V_S6_RECOVERY_V8_PREDECESSOR_LOCK_ARTIFACTS,
+  ...PHASE10_C0V_S6_RECOVERY_V9_PREDECESSOR_MOVING_LOCK_ARTIFACTS,
+] as const);
+export const PHASE10_C0V_S6_RECOVERY_V9_PREDECESSOR_MOVING_ATTEMPT_ARTIFACTS = Object.freeze([
+  Object.freeze({ path: `${PHASE10_C0V_S6_RECOVERY_V8_ATTEMPT_ROOT}/c0v-moving-produce/${PHASE10_C0V_S6_RECOVERY_V8_MOVING_ATTEMPT_ID}/cause-evaluation.json`, byteLength: 7106, sha256: "c6e4474bd84c3695b060f897f68d80f1f37494acaaae2377ed74d044c1f4a956" }),
+  Object.freeze({ path: `${PHASE10_C0V_S6_RECOVERY_V8_ATTEMPT_ROOT}/c0v-moving-produce/${PHASE10_C0V_S6_RECOVERY_V8_MOVING_ATTEMPT_ID}/exit-status.json`, byteLength: 259, sha256: "8f35616bbd42c8d988741f50b30e14d6ab0e16cfce08d809687a5c9b677e6ff1" }),
+  Object.freeze({ path: `${PHASE10_C0V_S6_RECOVERY_V8_ATTEMPT_ROOT}/c0v-moving-produce/${PHASE10_C0V_S6_RECOVERY_V8_MOVING_ATTEMPT_ID}/freeze-evaluation.json`, byteLength: 34437, sha256: "a68c8420849e6ed4561247e895d97a4ac9ab9169130bb9d1d931c0b511e207cd" }),
+  Object.freeze({ path: `${PHASE10_C0V_S6_RECOVERY_V8_ATTEMPT_ROOT}/c0v-moving-produce/${PHASE10_C0V_S6_RECOVERY_V8_MOVING_ATTEMPT_ID}/stderr.log`, byteLength: 0, sha256: "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855" }),
+  Object.freeze({ path: `${PHASE10_C0V_S6_RECOVERY_V8_ATTEMPT_ROOT}/c0v-moving-produce/${PHASE10_C0V_S6_RECOVERY_V8_MOVING_ATTEMPT_ID}/stdout.log`, byteLength: 4505, sha256: "bd30c7ca9fd7efd0738dfc0457be439ba3ecc3dcf564f574b0d5481eb736e702" }),
+  Object.freeze({ path: `${PHASE10_C0V_S6_RECOVERY_V8_ATTEMPT_ROOT}/c0v-moving-produce/${PHASE10_C0V_S6_RECOVERY_V8_MOVING_ATTEMPT_ID}/worker-invocations.jsonl`, byteLength: 1413, sha256: "da02dd8f0fd34cb117147e8303c0a0371a543b796bd1610a3ade2081b9d3efd7" }),
+] as const satisfies readonly Phase10C0VS6ArtifactIdentity[]);
+export const PHASE10_C0V_S6_RECOVERY_V9_PREDECESSOR_ATTEMPT_ARTIFACTS = Object.freeze([
+  ...PHASE10_C0V_S6_RECOVERY_V8_PREDECESSOR_ATTEMPT_ARTIFACTS,
+  ...PHASE10_C0V_S6_RECOVERY_V9_PREDECESSOR_MOVING_ATTEMPT_ARTIFACTS,
+].sort((left, right) => left.path < right.path ? -1 : left.path > right.path ? 1 : 0));
+export const PHASE10_C0V_S6_RECOVERY_V9_PREDECESSOR_MOVING_PREFLIGHT = Object.freeze({
+  path: "evidence/phase10-obligation-preflight-v2/packets/c0v-moving-produce/preflight.json",
+  byteLength: 54825,
+  sha256: "2b175094f905d3495b71c8b32d8979b6ce6337e61134e4cef13f0bc8021d40c4",
+} as const satisfies Phase10C0VS6ArtifactIdentity);
+export const PHASE10_C0V_S6_RECOVERY_V9_PREDECESSOR_PUBLISHED_ARTIFACTS = Object.freeze([
+  ...PHASE10_C0V_S6_RECOVERY_V8_PREDECESSOR_PUBLISHED_ARTIFACTS,
+  PHASE10_C0V_S6_RECOVERY_V9_PREDECESSOR_MOVING_PREFLIGHT,
+].sort((left, right) => left.path < right.path ? -1 : left.path > right.path ? 1 : 0));
+export const PHASE10_C0V_S6_RECOVERY_V9_ACCEPTED_AP_ARTIFACTS =
+  PHASE10_C0V_S6_RECOVERY_V8_ACCEPTED_AP_ARTIFACTS;
+export const PHASE10_C0V_S6_RECOVERY_V9_ACCEPTED_AP_PUBLISHED_ARTIFACTS =
+  PHASE10_C0V_S6_RECOVERY_V8_ACCEPTED_AP_PUBLISHED_ARTIFACTS;
+export const PHASE10_C0V_S6_RECOVERY_V9_ACCEPTED_AP_BYTES =
+  PHASE10_C0V_S6_RECOVERY_V8_ACCEPTED_AP_BYTES;
+export const PHASE10_C0V_S6_RECOVERY_V9_ACCEPTED_AP_GOVERNED_ELAPSED_NANOSECONDS =
+  PHASE10_C0V_S6_RECOVERY_V8_ACCEPTED_AP_GOVERNED_ELAPSED_NANOSECONDS;
+export const PHASE10_C0V_S6_RECOVERY_V9_PREDECESSOR_STILL_ABSENT_PATHS = Object.freeze(
+  PHASE10_C0V_S6_RECOVERY_V8_GOVERNED_ABSENT_PATHS.filter((path) =>
+    path !== PHASE10_C0V_S6_RECOVERY_V8_RUNTIME_ROOT &&
+    path !== PHASE10_C0V_S6_RECOVERY_V9_PREDECESSOR_MOVING_PREFLIGHT.path),
+);
+export const PHASE10_C0V_S6_RECOVERY_V9_FINAL_PATHS = Object.freeze([
+  "evidence/phase10-obligation-preflight-v3/packets/c0v-moving-produce/preflight.json",
+  "evidence/phase10-obligation-preflight-v3/packets/c0v-moving-produce/terminal-receipt.json",
+  "evidence/phase10-obligation-preflight-v3/packets/c0v-moving-produce/verification.json",
+] as const);
+export const PHASE10_C0V_S6_RECOVERY_V9_STAGE_PATHS = Object.freeze([
+  `evidence/phase10-numerical-verification-v1/c0v-moving-attempts.jsonl.stage-${PHASE10_C0V_S6_CURRENT_MOVING_ATTEMPT_ID}`,
+  ...PHASE10_C0V_S6_RECOVERY_V9_FINAL_PATHS.map((path) =>
+    `${path}.stage-${PHASE10_C0V_S6_CURRENT_MOVING_ATTEMPT_ID}`),
+] as const);
+export const PHASE10_C0V_S6_RECOVERY_V9_GOVERNED_ABSENT_PATHS = Object.freeze([
+  ...PHASE10_C0V_S6_RECOVERY_V9_PREDECESSOR_STILL_ABSENT_PATHS,
+  PHASE10_C0V_S6_RECOVERY_V9_RUNTIME_ROOT,
+  ...PHASE10_C0V_S6_RECOVERY_V9_FINAL_PATHS,
+  ...PHASE10_C0V_S6_RECOVERY_V9_STAGE_PATHS,
+] as const);
+export const PHASE10_C0V_S6_RECOVERY_V9_RETAINED_BYTES = 2106790 as const;
+export const PHASE10_C0V_S6_RECOVERY_V9_OBSERVED_WORKER_LIFETIME_NANOSECONDS = 453469200 as const;
+export const PHASE10_C0V_S6_RECOVERY_V9_CREDITED_GOVERNED_ELAPSED_NANOSECONDS = 35198500 as const;
+export const PHASE10_C0V_S6_RECOVERY_V9_CREDITED_GOVERNED_PROCESS_HOURS =
+  0.000009777361111111111 as const;
+export const PHASE10_C0V_S6_RECOVERY_V9_PACKAGE_CARRY_FORWARD_ELAPSED_NANOSECONDS =
+  391193450500 as const;
+export const PHASE10_C0V_S6_RECOVERY_V9_PREATTEMPT_ELAPSED_NANOSECONDS = 532335903000 as const;
+export const PHASE10_C0V_S6_RECOVERY_V9_PREATTEMPT_PROCESS_HOURS = 0.14787108416666667 as const;
+export const PHASE10_C0V_S6_RECOVERY_V9_PROJECTED_ELAPSED_NANOSECONDS = 14932335903000 as const;
+export const PHASE10_C0V_S6_RECOVERY_V9_PROJECTED_PROCESS_HOURS = 4.147871084166667 as const;
+export const PHASE10_C0V_S6_RECOVERY_V9_PROJECTED_BYTES = 79233839 as const;
+export const PHASE10_C0V_S6_RECOVERY_V9_PACKAGE_STORAGE_BASELINE:
+  readonly Phase10C0VS6ArtifactIdentity[] = Object.freeze([
+  ...PHASE10_C0V_S6_RECOVERY_V8_PACKAGE_STORAGE_BASELINE,
+  ...PHASE10_C0V_S6_RECOVERY_V9_PREDECESSOR_MOVING_LOCK_ARTIFACTS
+    .map(({ parsedContent: _parsedContent, ...identity }) => Object.freeze(identity)),
+  ...PHASE10_C0V_S6_RECOVERY_V9_PREDECESSOR_MOVING_ATTEMPT_ARTIFACTS,
+  PHASE10_C0V_S6_RECOVERY_V9_PREDECESSOR_MOVING_PREFLIGHT,
+].sort((left, right) => left.path < right.path ? -1 : left.path > right.path ? 1 : 0));
+export const PHASE10_C0V_S6_RECOVERY_V9_PACKAGE_STORAGE_BASELINE_BYTES = 3098692 as const;
 
 export const PHASE10_C0V_S6_PREOBSERVATION_PRODUCTION_CLOSURE = Object.freeze([
   Object.freeze({ path: "app/package.json", byteLength: 725, sha256: "dadd38a6f4727ca9a0834e5cff6fddf906843033e11689ca1eb953d91eee752f" }),
@@ -1871,6 +2041,39 @@ export interface Phase10C0VS6RecoveryV8Authority {
   };
 }
 
+export interface Phase10C0VS6RecoveryV9Authority {
+  readonly schema: typeof PHASE10_C0V_S6_RECOVERY_V9_AUTHORITY_SCHEMA;
+  readonly recoveryAuthorityId: typeof PHASE10_C0V_S6_RECOVERY_V9_AUTHORITY_ID;
+  readonly automaticRetry: false;
+  readonly predecessorImplementationFreezeCommit:
+    typeof PHASE10_C0V_S6_RECOVERY_V9_PREDECESSOR_IMPLEMENTATION_FREEZE_COMMIT;
+  readonly predecessorAcceptedPacketCommit:
+    typeof PHASE10_C0V_S6_RECOVERY_V9_PREDECESSOR_ACCEPTED_PACKET_COMMIT;
+  readonly predecessorRecoveryAuthority: Phase10C0VS6ArtifactIdentity;
+  readonly predecessorPacketCatalogue: Phase10C0VS6ArtifactIdentity;
+  readonly predecessorApProtocol: Phase10C0VS6ArtifactIdentity;
+  readonly predecessorAuthorizedPacketProtocol: Phase10C0VS6ArtifactIdentity;
+  readonly predecessorLockArtifacts: readonly Phase10C0VS6RecoveryPredecessorLockArtifact[];
+  readonly predecessorAttemptArtifacts: readonly Phase10C0VS6ArtifactIdentity[];
+  readonly predecessorPublishedArtifacts: readonly Phase10C0VS6ArtifactIdentity[];
+  readonly predecessorGovernedAbsentPaths: readonly string[];
+  readonly retainedBytes: typeof PHASE10_C0V_S6_RECOVERY_V9_RETAINED_BYTES;
+  readonly observedWorkerProcessCount: 1;
+  readonly observedWorkerLifetimeNanoseconds:
+    typeof PHASE10_C0V_S6_RECOVERY_V9_OBSERVED_WORKER_LIFETIME_NANOSECONDS;
+  readonly creditedGovernedInvocationCount: 1;
+  readonly creditedGovernedElapsedNanoseconds:
+    typeof PHASE10_C0V_S6_RECOVERY_V9_CREDITED_GOVERNED_ELAPSED_NANOSECONDS;
+  readonly creditedGovernedProcessHours:
+    typeof PHASE10_C0V_S6_RECOVERY_V9_CREDITED_GOVERNED_PROCESS_HOURS;
+  readonly successor: {
+    readonly packetCatalogueId: typeof PHASE10_C0V_S6_RECOVERY_V9_PACKET_CATALOGUE_ID;
+    readonly packetCataloguePath: typeof PHASE10_C0V_S6_RECOVERY_V9_PACKET_CATALOGUE_PATH;
+    readonly maximumAuthorizedNewAttempts: 1;
+    readonly authorizedAttempts: readonly [Phase10C0VS6RecoveryAuthorizedAttempt];
+  };
+}
+
 
 export interface Phase10C0VS6OutputDefinition {
   readonly outputId: string;
@@ -2212,7 +2415,8 @@ export interface Phase10C0VS6PacketResources {
   readonly packageStorageAccountingRule: "physical-path-copies-no-content-deduplication";
   readonly packageStorageBaselineArtifacts: readonly Phase10C0VS6ArtifactIdentity[];
   readonly packageStorageBaselineBytes:
-    1629577 | 1629973 | 1693893 | 2123065 | 2556578 | 2994387 | 2994827 | 2995267 | 2995707;
+    1629577 | 1629973 | 1693893 | 2123065 | 2556578 | 2994387 | 2994827 | 2995267 | 2995707 |
+    3098692;
   readonly processConcurrency: 1;
   readonly solverProcessConcurrency: 0 | 1;
   readonly retainedStorageBytesMaximum: 68719476736;
@@ -2257,7 +2461,8 @@ export interface Phase10C0VS6AncestryAuthority {
     | "first-introduction-commit-of-recovery-v5-authority-with-all-predecessor-freezes-ancestor-and-current-successor-closure"
     | "first-introduction-commit-of-recovery-v6-authority-with-all-predecessor-freezes-ancestor-and-current-successor-closure"
     | "first-introduction-commit-of-recovery-v7-authority-with-all-predecessor-freezes-ancestor-and-current-successor-closure"
-    | "first-introduction-commit-of-recovery-v8-authority-with-all-predecessor-freezes-ancestor-and-current-successor-closure";
+    | "first-introduction-commit-of-recovery-v8-authority-with-all-predecessor-freezes-ancestor-and-current-successor-closure"
+    | "first-introduction-commit-of-recovery-v9-authority-with-all-predecessor-freezes-ancestor-and-current-successor-closure";
   readonly codeFreezeSource: "git-first-introduction-plus-current-byte-match";
 }
 
@@ -2289,7 +2494,8 @@ export interface Phase10C0VS6PreflightObservedContract {
       | typeof PHASE10_C0V_S6_RECOVERY_V5_PACKET_CATALOGUE_PATH
       | typeof PHASE10_C0V_S6_RECOVERY_V6_PACKET_CATALOGUE_PATH
       | typeof PHASE10_C0V_S6_RECOVERY_V7_PACKET_CATALOGUE_PATH
-      | typeof PHASE10_C0V_S6_RECOVERY_V8_PACKET_CATALOGUE_PATH;
+      | typeof PHASE10_C0V_S6_RECOVERY_V8_PACKET_CATALOGUE_PATH
+      | typeof PHASE10_C0V_S6_RECOVERY_V9_PACKET_CATALOGUE_PATH;
   readonly cleanWorktreeRequired: true;
   readonly nasOrNetworkAccess: false;
   readonly allowedRefusalDispositionCodes: readonly ("preproduction-artifact-refusal" | "prelaunch-resource-refusal")[];
@@ -2642,7 +2848,8 @@ export interface Phase10C0VS6PacketProtocol {
     | typeof PHASE10_C0V_S6_RECOVERY_V5_PACKET_PROTOCOL_SCHEMA
     | typeof PHASE10_C0V_S6_RECOVERY_V6_PACKET_PROTOCOL_SCHEMA
     | typeof PHASE10_C0V_S6_RECOVERY_V7_PACKET_PROTOCOL_SCHEMA
-    | typeof PHASE10_C0V_S6_RECOVERY_V8_PACKET_PROTOCOL_SCHEMA;
+    | typeof PHASE10_C0V_S6_RECOVERY_V8_PACKET_PROTOCOL_SCHEMA
+    | typeof PHASE10_C0V_S6_RECOVERY_V9_PACKET_PROTOCOL_SCHEMA;
   readonly protocolId: string;
   readonly matrixId: typeof PHASE10_C0V_S6_MATRIX_ID;
   readonly packetId: Phase10C0VS6PacketId;
@@ -2809,7 +3016,8 @@ export interface Phase10C0VS6PacketCatalogue {
     | typeof PHASE10_C0V_S6_RECOVERY_V5_PACKET_CATALOGUE_SCHEMA
     | typeof PHASE10_C0V_S6_RECOVERY_V6_PACKET_CATALOGUE_SCHEMA
     | typeof PHASE10_C0V_S6_RECOVERY_V7_PACKET_CATALOGUE_SCHEMA
-    | typeof PHASE10_C0V_S6_RECOVERY_V8_PACKET_CATALOGUE_SCHEMA;
+    | typeof PHASE10_C0V_S6_RECOVERY_V8_PACKET_CATALOGUE_SCHEMA
+    | typeof PHASE10_C0V_S6_RECOVERY_V9_PACKET_CATALOGUE_SCHEMA;
   readonly catalogueId: string;
   readonly matrixId: typeof PHASE10_C0V_S6_MATRIX_ID;
   readonly packageLockPath: Phase10C0VS6PackageLockPath;
@@ -2822,7 +3030,8 @@ export interface Phase10C0VS6PacketCatalogue {
     | typeof PHASE10_C0V_S6_RECOVERY_V5_PACKAGE_LOCK_RULE
     | typeof PHASE10_C0V_S6_RECOVERY_V6_PACKAGE_LOCK_RULE
     | typeof PHASE10_C0V_S6_RECOVERY_V7_PACKAGE_LOCK_RULE
-    | typeof PHASE10_C0V_S6_RECOVERY_V8_PACKAGE_LOCK_RULE;
+    | typeof PHASE10_C0V_S6_RECOVERY_V8_PACKAGE_LOCK_RULE
+    | typeof PHASE10_C0V_S6_RECOVERY_V9_PACKAGE_LOCK_RULE;
   readonly recoveryAuthority?: Phase10C0VS6ArtifactIdentity;
   readonly runtimeEntrypoints: readonly [
     Phase10C0VS6RuntimeEntrypointAuthority,
@@ -3290,7 +3499,8 @@ type Phase10C0VS6AuthorityGeneration =
   | "recovery-v5"
   | "recovery-v6"
   | "recovery-v7"
-  | "recovery-v8";
+  | "recovery-v8"
+  | "recovery-v9";
 
 function parseResources(
   value: StrictJson,
@@ -3369,7 +3579,9 @@ function parseResources(
     publicationFinalizationProjections.some((entry) => entry.path === entry.stagingPath)) {
     fail(`${label}.publicationFinalizationProjections`, "must contain exact distinct verification then terminal paths");
   }
-  const expectedPackageStorageBaseline = generation === "recovery-v8"
+  const expectedPackageStorageBaseline = generation === "recovery-v9"
+    ? PHASE10_C0V_S6_RECOVERY_V9_PACKAGE_STORAGE_BASELINE
+    : generation === "recovery-v8"
     ? PHASE10_C0V_S6_RECOVERY_V8_PACKAGE_STORAGE_BASELINE
     : generation === "recovery-v7"
     ? PHASE10_C0V_S6_RECOVERY_V7_PACKAGE_STORAGE_BASELINE
@@ -3386,7 +3598,9 @@ function parseResources(
     : generation === "recovery-v1"
       ? PHASE10_C0V_S6_RECOVERY_PACKAGE_STORAGE_BASELINE
       : PHASE10_C0V_S6_PACKAGE_STORAGE_BASELINE;
-  const expectedPackageStorageBaselineBytes = generation === "recovery-v8"
+  const expectedPackageStorageBaselineBytes = generation === "recovery-v9"
+    ? PHASE10_C0V_S6_RECOVERY_V9_PACKAGE_STORAGE_BASELINE_BYTES
+    : generation === "recovery-v8"
     ? PHASE10_C0V_S6_RECOVERY_V8_PACKAGE_STORAGE_BASELINE_BYTES
     : generation === "recovery-v7"
     ? PHASE10_C0V_S6_RECOVERY_V7_PACKAGE_STORAGE_BASELINE_BYTES
@@ -3464,7 +3678,7 @@ function parseResources(
     ),
     packageStorageBaselineArtifacts,
     packageStorageBaselineBytes: packageStorageBaselineBytes as
-      1629577 | 1629973 | 1693893 | 2123065 | 2556578 | 2994387 | 2994827 | 2995707,
+      1629577 | 1629973 | 1693893 | 2123065 | 2556578 | 2994387 | 2994827 | 2995707 | 3098692,
     processConcurrency: processConcurrency as 1,
     solverProcessConcurrency: solverProcessConcurrency as 0 | 1,
     retainedStorageBytesMaximum: retainedStorageBytesMaximum as 68719476736,
@@ -3522,7 +3736,9 @@ function parseAncestryAuthority(
     ),
     implementationFreezeRule: literal(
       row.implementationFreezeRule,
-      generation === "recovery-v8"
+      generation === "recovery-v9"
+        ? "first-introduction-commit-of-recovery-v9-authority-with-all-predecessor-freezes-ancestor-and-current-successor-closure"
+        : generation === "recovery-v8"
         ? "first-introduction-commit-of-recovery-v8-authority-with-all-predecessor-freezes-ancestor-and-current-successor-closure"
         : generation === "recovery-v7"
         ? "first-introduction-commit-of-recovery-v7-authority-with-all-predecessor-freezes-ancestor-and-current-successor-closure"
@@ -4510,11 +4726,14 @@ export function parsePhase10C0VS6PacketProtocol(value: unknown): Phase10C0VS6Pac
       PHASE10_C0V_S6_RECOVERY_V6_PACKET_PROTOCOL_SCHEMA,
       PHASE10_C0V_S6_RECOVERY_V7_PACKET_PROTOCOL_SCHEMA,
       PHASE10_C0V_S6_RECOVERY_V8_PACKET_PROTOCOL_SCHEMA,
+      PHASE10_C0V_S6_RECOVERY_V9_PACKET_PROTOCOL_SCHEMA,
     ] as const,
     `${label}.schema`,
   );
   const generation: Phase10C0VS6AuthorityGeneration =
-    schema === PHASE10_C0V_S6_RECOVERY_V8_PACKET_PROTOCOL_SCHEMA
+    schema === PHASE10_C0V_S6_RECOVERY_V9_PACKET_PROTOCOL_SCHEMA
+      ? "recovery-v9"
+      : schema === PHASE10_C0V_S6_RECOVERY_V8_PACKET_PROTOCOL_SCHEMA
       ? "recovery-v8"
       : schema === PHASE10_C0V_S6_RECOVERY_V7_PACKET_PROTOCOL_SCHEMA
       ? "recovery-v7"
@@ -4539,6 +4758,7 @@ export function parsePhase10C0VS6PacketProtocol(value: unknown): Phase10C0VS6Pac
   const recoveryV6 = generation === "recovery-v6";
   const recoveryV7 = generation === "recovery-v7";
   const recoveryV8 = generation === "recovery-v8";
+  const recoveryV9 = generation === "recovery-v9";
   exactKeys(row, ["schema", "protocolId", "matrixId", "packetId", "registryId", "registeredAttemptId", "executionMode", "bindings", "selectedRouteId", "s5ArtifactDisposition", "registeredOutputIds", "registeredCheckIds", "registeredNegativeControlIds", "boundDependencyPacketIds", "dependencyArtifactContracts", "commandTemplates", "paths", "candidateFilenameRosters", "internalArtifactRosters", "verification", "allowedCleanTerminalClasses", "terminalSubroutes", "resources", "ancestryAuthority", "preObservationProductionClosure", "preflightObservedContract", "workerInvocationContract", "workerProgressContract", "exitStatusContract", "freezeEvaluationContract", "causeEvaluationContract", "terminalCandidateContract", "terminalReceiptContract", "executionRecordTuples", "executableInvocationRosters", "verificationInvocationRoster", "verificationRegisteredCapBindings", "resourceObservationPointRosters", "registeredCapBindings", "classificationConditions", "classificationProjectionRosters", "radialBinaryLayout", "radialProducerSummary", "controlOperators", "aggregateNegativeControlContract", "claimBoundary"], label);
   const bindings = object(row.bindings, `${label}.bindings`);
   exactKeys(bindings, [
@@ -4871,7 +5091,9 @@ export function parsePhase10C0VS6PacketProtocol(value: unknown): Phase10C0VS6Pac
   const protocolId = stringValue(row.protocolId, `${label}.protocolId`);
   const registryId = stringValue(row.registryId, `${label}.registryId`);
   const registeredAttemptId = parsePhase10C0VS6AttemptId(row.registeredAttemptId, `${label}.registeredAttemptId`);
-  const expectedProtocolId = recoveryV8
+  const expectedProtocolId = recoveryV9
+    ? `phase10-${packetId}-execution-v2-recovery-v9`
+    : recoveryV8
     ? `phase10-${packetId}-execution-v2-recovery-v8`
     : recoveryV7
     ? `phase10-${packetId}-execution-v2-recovery-v7`
@@ -4888,7 +5110,9 @@ export function parsePhase10C0VS6PacketProtocol(value: unknown): Phase10C0VS6Pac
     : recovery
       ? `phase10-${packetId}-execution-v2-recovery-v1`
       : `phase10-${packetId}-execution-v2-v1`;
-  const expectedRegistryId = recoveryV8
+  const expectedRegistryId = recoveryV9
+    ? `phase10-${packetId}-execution-v2-recovery-v9-callables-v1`
+    : recoveryV8
     ? `phase10-${packetId}-execution-v2-recovery-v8-callables-v1`
     : recoveryV7
     ? `phase10-${packetId}-execution-v2-recovery-v7-callables-v1`
@@ -4905,7 +5129,9 @@ export function parsePhase10C0VS6PacketProtocol(value: unknown): Phase10C0VS6Pac
     : recovery
       ? `phase10-${packetId}-execution-v2-recovery-v1-callables-v1`
       : `phase10-${packetId}-execution-v2-callables-v1`;
-  const expectedAttemptId = recoveryV8
+  const expectedAttemptId = recoveryV9
+    ? PHASE10_C0V_S6_RECOVERY_V9_ATTEMPT_IDS[packetId]
+    : recoveryV8
     ? PHASE10_C0V_S6_RECOVERY_V8_ATTEMPT_IDS[packetId]
     : recoveryV7
     ? PHASE10_C0V_S6_RECOVERY_V7_ATTEMPT_IDS[packetId]
@@ -4926,7 +5152,9 @@ export function parsePhase10C0VS6PacketProtocol(value: unknown): Phase10C0VS6Pac
     registeredAttemptId !== expectedAttemptId) {
     fail(label, "protocolId, registryId, or registeredAttemptId differs from exact packet identity");
   }
-  const protocolRoot = recoveryV8
+  const protocolRoot = recoveryV9
+    ? `${PHASE10_C0V_S6_RECOVERY_V9_AUTHORITY_ROOT}/packets`
+    : recoveryV8
     ? `${PHASE10_C0V_S6_RECOVERY_V8_AUTHORITY_ROOT}/packets`
     : recoveryV7
     ? `${PHASE10_C0V_S6_RECOVERY_V7_AUTHORITY_ROOT}/packets`
@@ -4950,7 +5178,9 @@ export function parsePhase10C0VS6PacketProtocol(value: unknown): Phase10C0VS6Pac
     commands[1]?.commandId !== "run" || commands[1].command !== expectedRunCommand) {
     fail(`${label}.commandTemplates`, "must contain exact check then run commands");
   }
-  const expectedAttemptRoot = recoveryV8
+  const expectedAttemptRoot = recoveryV9
+    ? `${PHASE10_C0V_S6_RECOVERY_V9_ATTEMPT_ROOT}/${packetId}`
+    : recoveryV8
     ? `${PHASE10_C0V_S6_RECOVERY_V8_ATTEMPT_ROOT}/${packetId}`
     : recoveryV7
     ? `${PHASE10_C0V_S6_RECOVERY_V7_ATTEMPT_ROOT}/${packetId}`
@@ -4967,7 +5197,9 @@ export function parsePhase10C0VS6PacketProtocol(value: unknown): Phase10C0VS6Pac
     : recovery
       ? `${PHASE10_C0V_S6_RECOVERY_ATTEMPT_ROOT}/${packetId}`
       : `out/phase10-execution-v2/attempts/${packetId}`;
-  const expectedPackageLockPath = recoveryV8
+  const expectedPackageLockPath = recoveryV9
+    ? PHASE10_C0V_S6_RECOVERY_V9_PACKAGE_LOCK_PATH
+    : recoveryV8
     ? PHASE10_C0V_S6_RECOVERY_V8_PACKAGE_LOCK_PATH
     : recoveryV7
     ? PHASE10_C0V_S6_RECOVERY_V7_PACKAGE_LOCK_PATH
@@ -4984,7 +5216,9 @@ export function parsePhase10C0VS6PacketProtocol(value: unknown): Phase10C0VS6Pac
     : recovery
       ? PHASE10_C0V_S6_RECOVERY_PACKAGE_LOCK_PATH
       : PHASE10_C0V_S6_PACKAGE_LOCK_PATH;
-  const expectedLockPath = recoveryV8
+  const expectedLockPath = recoveryV9
+    ? PHASE10_C0V_S6_RECOVERY_V9_PACKET_LOCK_PATHS[packetId]
+    : recoveryV8
     ? PHASE10_C0V_S6_RECOVERY_V8_PACKET_LOCK_PATHS[packetId]
     : recoveryV7
     ? PHASE10_C0V_S6_RECOVERY_V7_PACKET_LOCK_PATHS[packetId]
@@ -5001,7 +5235,11 @@ export function parsePhase10C0VS6PacketProtocol(value: unknown): Phase10C0VS6Pac
     : recovery
       ? PHASE10_C0V_S6_RECOVERY_PACKET_LOCK_PATHS[packetId]
       : `out/phase10-execution-v2/locks/${packetId}.lock`;
-  const structuralEvidenceRoot = recoveryV8 && packetId === "a-p-c0v-s6"
+  const structuralEvidenceRoot = recoveryV9 && packetId === "c0v-moving-produce"
+    ? "evidence/phase10-obligation-preflight-v3"
+    : recoveryV9 && packetId === "a-p-c0v-s6"
+    ? "evidence/phase10-obligation-preflight-v6"
+    : recoveryV8 && packetId === "a-p-c0v-s6"
     ? "evidence/phase10-obligation-preflight-v6"
     : recoveryV7 && packetId === "a-p-c0v-s6"
     ? "evidence/phase10-obligation-preflight-v6"
@@ -5026,7 +5264,9 @@ export function parsePhase10C0VS6PacketProtocol(value: unknown): Phase10C0VS6Pac
   }
   const expectedBindingPaths = {
     matrix: "research/phase10-c0v-s6-obligation-matrix-v1.json",
-    packetCatalogue: recoveryV8
+    packetCatalogue: recoveryV9
+      ? PHASE10_C0V_S6_RECOVERY_V9_PACKET_CATALOGUE_PATH
+      : recoveryV8
       ? PHASE10_C0V_S6_RECOVERY_V8_PACKET_CATALOGUE_PATH
       : recoveryV7
       ? PHASE10_C0V_S6_RECOVERY_V7_PACKET_CATALOGUE_PATH
@@ -5054,7 +5294,9 @@ export function parsePhase10C0VS6PacketProtocol(value: unknown): Phase10C0VS6Pac
       fail(`${label}.bindings.${key}`, "path differs from exact authority surface");
     }
   }
-  const expectedRecoveryAuthorityPath = recoveryV8
+  const expectedRecoveryAuthorityPath = recoveryV9
+    ? PHASE10_C0V_S6_RECOVERY_V9_AUTHORITY_PATH
+    : recoveryV8
     ? PHASE10_C0V_S6_RECOVERY_V8_AUTHORITY_PATH
     : recoveryV7
     ? PHASE10_C0V_S6_RECOVERY_V7_AUTHORITY_PATH
@@ -5317,7 +5559,9 @@ export function parsePhase10C0VS6PacketProtocol(value: unknown): Phase10C0VS6Pac
   const preflightObservedContract = parsePreflightObservedContract(
     row.preflightObservedContract,
     `${label}.preflightObservedContract`,
-    recoveryV8
+    recoveryV9
+      ? PHASE10_C0V_S6_RECOVERY_V9_PACKET_CATALOGUE_PATH
+      : recoveryV8
       ? PHASE10_C0V_S6_RECOVERY_V8_PACKET_CATALOGUE_PATH
       : recoveryV7
       ? PHASE10_C0V_S6_RECOVERY_V7_PACKET_CATALOGUE_PATH
@@ -6118,7 +6362,7 @@ export function parsePhase10C0VS6PacketProtocol(value: unknown): Phase10C0VS6Pac
     "c0v-moving-produce": [
       "evidence/phase10-numerical-verification-v1/c0v-moving-attempts.jsonl",
       ...structuralBase,
-      "evidence/phase10-obligation-preflight-v2/packets/c0v-moving-produce/verification.json",
+      `${structuralEvidenceRoot}/packets/c0v-moving-produce/verification.json`,
     ].sort(),
     "c0v-moving-publish": [
       "evidence/phase10-numerical-verification-v1/c0v-moving-artifact-index.json",
@@ -6787,7 +7031,9 @@ export function parsePhase10C0VS6RetainedPreflight(
     fail(`${label}.observed.packetCatalogue`, "differs from packet catalogue authority");
   }
   const callableRegistry = parsePhase10C0VS6ArtifactIdentity(observed.callableRegistry, `${label}.observed.callableRegistry`);
-  const expectedRegistryRoot = protocol.schema === PHASE10_C0V_S6_RECOVERY_V8_PACKET_PROTOCOL_SCHEMA
+  const expectedRegistryRoot = protocol.schema === PHASE10_C0V_S6_RECOVERY_V9_PACKET_PROTOCOL_SCHEMA
+    ? `${PHASE10_C0V_S6_RECOVERY_V9_AUTHORITY_ROOT}/packets`
+    : protocol.schema === PHASE10_C0V_S6_RECOVERY_V8_PACKET_PROTOCOL_SCHEMA
     ? `${PHASE10_C0V_S6_RECOVERY_V8_AUTHORITY_ROOT}/packets`
     : protocol.schema === PHASE10_C0V_S6_RECOVERY_V7_PACKET_PROTOCOL_SCHEMA
     ? `${PHASE10_C0V_S6_RECOVERY_V7_AUTHORITY_ROOT}/packets`
@@ -7187,11 +7433,14 @@ export function parsePhase10C0VS6PacketCatalogue(value: unknown): Phase10C0VS6Pa
       PHASE10_C0V_S6_RECOVERY_V6_PACKET_CATALOGUE_SCHEMA,
       PHASE10_C0V_S6_RECOVERY_V7_PACKET_CATALOGUE_SCHEMA,
       PHASE10_C0V_S6_RECOVERY_V8_PACKET_CATALOGUE_SCHEMA,
+      PHASE10_C0V_S6_RECOVERY_V9_PACKET_CATALOGUE_SCHEMA,
     ] as const,
     `${label}.schema`,
   );
   const generation: Phase10C0VS6AuthorityGeneration =
-    schema === PHASE10_C0V_S6_RECOVERY_V8_PACKET_CATALOGUE_SCHEMA
+    schema === PHASE10_C0V_S6_RECOVERY_V9_PACKET_CATALOGUE_SCHEMA
+      ? "recovery-v9"
+      : schema === PHASE10_C0V_S6_RECOVERY_V8_PACKET_CATALOGUE_SCHEMA
       ? "recovery-v8"
       : schema === PHASE10_C0V_S6_RECOVERY_V7_PACKET_CATALOGUE_SCHEMA
       ? "recovery-v7"
@@ -7216,7 +7465,8 @@ export function parsePhase10C0VS6PacketCatalogue(value: unknown): Phase10C0VS6Pa
   const recoveryV6 = generation === "recovery-v6";
   const recoveryV7 = generation === "recovery-v7";
   const recoveryV8 = generation === "recovery-v8";
-  const modernRecovery = recoveryV2 || recoveryV3 || recoveryV4 || recoveryV5 || recoveryV6 || recoveryV7 || recoveryV8;
+  const recoveryV9 = generation === "recovery-v9";
+  const modernRecovery = recoveryV2 || recoveryV3 || recoveryV4 || recoveryV5 || recoveryV6 || recoveryV7 || recoveryV8 || recoveryV9;
   exactKeys(row, [
     "schema", "catalogueId", "matrixId", "packageLockPath", "packageLockRule",
     "runtimeEntrypoints", "runtimeLoaderContract", "workerTransportContract", "packets",
@@ -7225,7 +7475,9 @@ export function parsePhase10C0VS6PacketCatalogue(value: unknown): Phase10C0VS6Pa
   const recoveryAuthority = recovery
     ? parsePhase10C0VS6ArtifactIdentity(row.recoveryAuthority, `${label}.recoveryAuthority`)
     : null;
-  const expectedRecoveryAuthorityPath = recoveryV8
+  const expectedRecoveryAuthorityPath = recoveryV9
+    ? PHASE10_C0V_S6_RECOVERY_V9_AUTHORITY_PATH
+    : recoveryV8
     ? PHASE10_C0V_S6_RECOVERY_V8_AUTHORITY_PATH
     : recoveryV7
     ? PHASE10_C0V_S6_RECOVERY_V7_AUTHORITY_PATH
@@ -7243,7 +7495,9 @@ export function parsePhase10C0VS6PacketCatalogue(value: unknown): Phase10C0VS6Pa
   if (recoveryAuthority !== null && recoveryAuthority.path !== expectedRecoveryAuthorityPath) {
     fail(`${label}.recoveryAuthority`, "path differs from exact recovery authority");
   }
-  const expectedPackageLockPath = recoveryV8
+  const expectedPackageLockPath = recoveryV9
+    ? PHASE10_C0V_S6_RECOVERY_V9_PACKAGE_LOCK_PATH
+    : recoveryV8
     ? PHASE10_C0V_S6_RECOVERY_V8_PACKAGE_LOCK_PATH
     : recoveryV7
     ? PHASE10_C0V_S6_RECOVERY_V7_PACKAGE_LOCK_PATH
@@ -7265,7 +7519,9 @@ export function parsePhase10C0VS6PacketCatalogue(value: unknown): Phase10C0VS6Pa
     expectedPackageLockPath,
     `${label}.packageLockPath`,
   );
-  const expectedPackageLockRule = recoveryV8
+  const expectedPackageLockRule = recoveryV9
+    ? PHASE10_C0V_S6_RECOVERY_V9_PACKAGE_LOCK_RULE
+    : recoveryV8
     ? PHASE10_C0V_S6_RECOVERY_V8_PACKAGE_LOCK_RULE
     : recoveryV7
     ? PHASE10_C0V_S6_RECOVERY_V7_PACKAGE_LOCK_RULE
@@ -7641,7 +7897,9 @@ export function parsePhase10C0VS6PacketCatalogue(value: unknown): Phase10C0VS6Pa
   if (packets.length !== PHASE10_C0V_S6_PACKET_IDS.length || packets.some((entry, index) => entry.packetId !== PHASE10_C0V_S6_PACKET_IDS[index])) fail(`${label}.packets`, "must equal exact packet order");
   const verificationByPacket: Readonly<Record<Phase10C0VS6PacketId, readonly [string, string]>> = Object.freeze({
     "a-p-c0v-s6": [
-      recoveryV8
+      recoveryV9
+        ? "evidence/phase10-obligation-preflight-v6/verification.json"
+        : recoveryV8
         ? "evidence/phase10-obligation-preflight-v6/verification.json"
         : recoveryV7
         ? "evidence/phase10-obligation-preflight-v6/verification.json"
@@ -7658,7 +7916,9 @@ export function parsePhase10C0VS6PacketCatalogue(value: unknown): Phase10C0VS6Pa
         : "evidence/phase10-obligation-preflight-v2/verification.json",
       "verification.json",
     ],
-    "c0v-moving-produce": ["evidence/phase10-obligation-preflight-v2/packets/c0v-moving-produce/verification.json", "verification.json"],
+    "c0v-moving-produce": [recoveryV9
+      ? "evidence/phase10-obligation-preflight-v3/packets/c0v-moving-produce/verification.json"
+      : "evidence/phase10-obligation-preflight-v2/packets/c0v-moving-produce/verification.json", "verification.json"],
     "c0v-moving-publish": ["evidence/phase10-numerical-verification-v1/c0v-moving-publish-verification.json", "c0v-moving-publish-verification.json"],
     "c0v-radial-produce": ["evidence/phase10-obligation-preflight-v2/packets/c0v-radial-produce/verification.json", "verification.json"],
     "c0v-radial-publish": ["evidence/phase10-numerical-verification-v1/c0v-radial-publish-verification.json", "c0v-radial-publish-verification.json"],
@@ -7692,7 +7952,9 @@ export function parsePhase10C0VS6PacketCatalogue(value: unknown): Phase10C0VS6Pa
   for (const packet of packets) {
     const packetId = packet.packetId;
     const expectedVerification = verificationByPacket[packetId];
-    const authorityPacketRoot = recoveryV8
+    const authorityPacketRoot = recoveryV9
+      ? `${PHASE10_C0V_S6_RECOVERY_V9_AUTHORITY_ROOT}/packets`
+      : recoveryV8
       ? `${PHASE10_C0V_S6_RECOVERY_V8_AUTHORITY_ROOT}/packets`
       : recoveryV7
       ? `${PHASE10_C0V_S6_RECOVERY_V7_AUTHORITY_ROOT}/packets`
@@ -7709,7 +7971,9 @@ export function parsePhase10C0VS6PacketCatalogue(value: unknown): Phase10C0VS6Pa
       : recovery
         ? `${PHASE10_C0V_S6_RECOVERY_AUTHORITY_ROOT}/packets`
         : "research/phase10-execution-v2/packets";
-    const expectedAttemptRoot = recoveryV8
+    const expectedAttemptRoot = recoveryV9
+      ? `${PHASE10_C0V_S6_RECOVERY_V9_ATTEMPT_ROOT}/${packetId}`
+      : recoveryV8
       ? `${PHASE10_C0V_S6_RECOVERY_V8_ATTEMPT_ROOT}/${packetId}`
       : recoveryV7
       ? `${PHASE10_C0V_S6_RECOVERY_V7_ATTEMPT_ROOT}/${packetId}`
@@ -7726,7 +7990,9 @@ export function parsePhase10C0VS6PacketCatalogue(value: unknown): Phase10C0VS6Pa
       : recovery
         ? `${PHASE10_C0V_S6_RECOVERY_ATTEMPT_ROOT}/${packetId}`
         : `out/phase10-execution-v2/attempts/${packetId}`;
-    const expectedLockPath = recoveryV8
+    const expectedLockPath = recoveryV9
+      ? PHASE10_C0V_S6_RECOVERY_V9_PACKET_LOCK_PATHS[packetId]
+      : recoveryV8
       ? PHASE10_C0V_S6_RECOVERY_V8_PACKET_LOCK_PATHS[packetId]
       : recoveryV7
       ? PHASE10_C0V_S6_RECOVERY_V7_PACKET_LOCK_PATHS[packetId]
@@ -7743,7 +8009,11 @@ export function parsePhase10C0VS6PacketCatalogue(value: unknown): Phase10C0VS6Pa
       : recovery
         ? PHASE10_C0V_S6_RECOVERY_PACKET_LOCK_PATHS[packetId]
         : `out/phase10-execution-v2/locks/${packetId}.lock`;
-    const structuralEvidenceRoot = recoveryV8 && packetId === "a-p-c0v-s6"
+    const structuralEvidenceRoot = recoveryV9 && packetId === "c0v-moving-produce"
+      ? "evidence/phase10-obligation-preflight-v3"
+      : recoveryV9 && packetId === "a-p-c0v-s6"
+      ? "evidence/phase10-obligation-preflight-v6"
+      : recoveryV8 && packetId === "a-p-c0v-s6"
       ? "evidence/phase10-obligation-preflight-v6"
       : recoveryV7 && packetId === "a-p-c0v-s6"
       ? "evidence/phase10-obligation-preflight-v6"
@@ -7804,7 +8074,9 @@ export function parsePhase10C0VS6PacketCatalogue(value: unknown): Phase10C0VS6Pa
   }
   return Object.freeze({
     schema,
-    catalogueId: literal(row.catalogueId, recoveryV8
+    catalogueId: literal(row.catalogueId, recoveryV9
+      ? PHASE10_C0V_S6_RECOVERY_V9_PACKET_CATALOGUE_ID
+      : recoveryV8
       ? PHASE10_C0V_S6_RECOVERY_V8_PACKET_CATALOGUE_ID
       : recoveryV7
       ? PHASE10_C0V_S6_RECOVERY_V7_PACKET_CATALOGUE_ID
@@ -9565,7 +9837,7 @@ export function parsePhase10C0VS6RecoveryV8Authority(value: unknown): Phase10C0V
   if (maximumAuthorizedNewAttempts !== 1 || authorizedAttempts.length !== 1 ||
     authorizedAttempts[0]!.packetId !== "c0v-moving-produce" ||
     authorizedAttempts[0]!.predecessorAttemptId !== "c0v-moving-produce-20260822-v3" ||
-    authorizedAttempts[0]!.successorAttemptId !== PHASE10_C0V_S6_CURRENT_MOVING_ATTEMPT_ID) {
+    authorizedAttempts[0]!.successorAttemptId !== PHASE10_C0V_S6_RECOVERY_V8_MOVING_ATTEMPT_ID) {
     fail(`${label}.successor.authorizedAttempts`, "must authorize only the moving-produce v3-to-v4 successor");
   }
   return Object.freeze({
@@ -9620,6 +9892,248 @@ export function parsePhase10C0VS6RecoveryV8Authority(value: unknown): Phase10C0V
   });
 }
 
+
+export function parsePhase10C0VS6RecoveryV9Authority(value: unknown): Phase10C0VS6RecoveryV9Authority {
+  const label = "recovery-v9 authority";
+  const row = object(value, label);
+  exactKeys(row, [
+    "schema", "recoveryAuthorityId", "automaticRetry", "predecessorImplementationFreezeCommit",
+    "predecessorAcceptedPacketCommit", "predecessorRecoveryAuthority", "predecessorPacketCatalogue",
+    "predecessorApProtocol", "predecessorAuthorizedPacketProtocol", "predecessorLockArtifacts",
+    "predecessorAttemptArtifacts", "predecessorPublishedArtifacts", "predecessorGovernedAbsentPaths",
+    "retainedBytes", "observedWorkerProcessCount", "observedWorkerLifetimeNanoseconds",
+    "creditedGovernedInvocationCount", "creditedGovernedElapsedNanoseconds",
+    "creditedGovernedProcessHours", "successor",
+  ], label);
+  if (row.automaticRetry !== false) fail(`${label}.automaticRetry`, "must be false");
+  const predecessorRecoveryAuthority = parsePhase10C0VS6ArtifactIdentity(
+    row.predecessorRecoveryAuthority,
+    `${label}.predecessorRecoveryAuthority`,
+  );
+  const predecessorPacketCatalogue = parsePhase10C0VS6ArtifactIdentity(
+    row.predecessorPacketCatalogue,
+    `${label}.predecessorPacketCatalogue`,
+  );
+  const predecessorApProtocol = parsePhase10C0VS6ArtifactIdentity(
+    row.predecessorApProtocol,
+    `${label}.predecessorApProtocol`,
+  );
+  const predecessorAuthorizedPacketProtocol = parsePhase10C0VS6ArtifactIdentity(
+    row.predecessorAuthorizedPacketProtocol,
+    `${label}.predecessorAuthorizedPacketProtocol`,
+  );
+  if (!sameArtifactIdentity(
+    predecessorRecoveryAuthority,
+    PHASE10_C0V_S6_RECOVERY_V9_PREDECESSOR_RECOVERY_AUTHORITY,
+  ) || !sameArtifactIdentity(
+    predecessorPacketCatalogue,
+    PHASE10_C0V_S6_RECOVERY_V9_PREDECESSOR_PACKET_CATALOGUE,
+  ) || !sameArtifactIdentity(
+    predecessorApProtocol,
+    PHASE10_C0V_S6_RECOVERY_V9_PREDECESSOR_AP_PROTOCOL,
+  ) || !sameArtifactIdentity(
+    predecessorAuthorizedPacketProtocol,
+    PHASE10_C0V_S6_RECOVERY_V9_PREDECESSOR_AUTHORIZED_PACKET_PROTOCOL,
+  )) {
+    fail(label, "recovery-v8 authority, catalogue, A-P protocol, or authorized moving protocol identity differs");
+  }
+  const predecessorLockArtifacts = arrayValue(
+    row.predecessorLockArtifacts,
+    `${label}.predecessorLockArtifacts`,
+  ).map((entry, index): Phase10C0VS6RecoveryPredecessorLockArtifact => {
+    const lockLabel = `${label}.predecessorLockArtifacts[${index}]`;
+    const lock = object(entry, lockLabel);
+    exactKeys(lock, ["path", "byteLength", "sha256", "parsedContent"], lockLabel);
+    const identity = parsePhase10C0VS6ArtifactIdentity({
+      path: lock.path,
+      byteLength: lock.byteLength,
+      sha256: lock.sha256,
+    }, lockLabel);
+    const contentRow = object(lock.parsedContent, `${lockLabel}.parsedContent`);
+    exactKeys(
+      contentRow,
+      ["schema", "packetId", "attemptId", "processId", "acquiredAt"],
+      `${lockLabel}.parsedContent`,
+    );
+    return Object.freeze({
+      ...identity,
+      parsedContent: Object.freeze({
+        schema: literal(
+          contentRow.schema,
+          "phase10-c0v-s6-lock-v1",
+          `${lockLabel}.parsedContent.schema`,
+        ),
+        packetId: stringValue(contentRow.packetId, `${lockLabel}.parsedContent.packetId`),
+        attemptId: stringValue(contentRow.attemptId, `${lockLabel}.parsedContent.attemptId`),
+        processId: safeInteger(contentRow.processId, `${lockLabel}.parsedContent.processId`, 1),
+        acquiredAt: stringValue(contentRow.acquiredAt, `${lockLabel}.parsedContent.acquiredAt`),
+      }),
+    });
+  });
+  if (predecessorLockArtifacts.length !== PHASE10_C0V_S6_RECOVERY_V9_PREDECESSOR_LOCK_ARTIFACTS.length ||
+    predecessorLockArtifacts.some((entry, index) => {
+      const expected = PHASE10_C0V_S6_RECOVERY_V9_PREDECESSOR_LOCK_ARTIFACTS[index]!;
+      return !sameArtifactIdentity(entry, expected) ||
+        entry.parsedContent.schema !== expected.parsedContent.schema ||
+        entry.parsedContent.packetId !== expected.parsedContent.packetId ||
+        entry.parsedContent.attemptId !== expected.parsedContent.attemptId ||
+        entry.parsedContent.processId !== expected.parsedContent.processId ||
+        entry.parsedContent.acquiredAt !== expected.parsedContent.acquiredAt;
+    })) {
+    fail(`${label}.predecessorLockArtifacts`, "differs from the exact eighteen retained locks");
+  }
+  const predecessorAttemptArtifacts = parseIdentityRoster(
+    row.predecessorAttemptArtifacts,
+    `${label}.predecessorAttemptArtifacts`,
+  );
+  if (predecessorAttemptArtifacts.length !==
+      PHASE10_C0V_S6_RECOVERY_V9_PREDECESSOR_ATTEMPT_ARTIFACTS.length ||
+    predecessorAttemptArtifacts.some((entry, index) => !sameArtifactIdentity(
+      entry,
+      PHASE10_C0V_S6_RECOVERY_V9_PREDECESSOR_ATTEMPT_ARTIFACTS[index]!,
+    ))) {
+    fail(`${label}.predecessorAttemptArtifacts`, "differs from the exact forty-four predecessor attempt files");
+  }
+  const predecessorPublishedArtifacts = parseIdentityRoster(
+    row.predecessorPublishedArtifacts,
+    `${label}.predecessorPublishedArtifacts`,
+  );
+  if (predecessorPublishedArtifacts.length !==
+      PHASE10_C0V_S6_RECOVERY_V9_PREDECESSOR_PUBLISHED_ARTIFACTS.length ||
+    predecessorPublishedArtifacts.some((entry, index) => !sameArtifactIdentity(
+      entry,
+      PHASE10_C0V_S6_RECOVERY_V9_PREDECESSOR_PUBLISHED_ARTIFACTS[index]!,
+    ))) {
+    fail(`${label}.predecessorPublishedArtifacts`, "differs from the exact eleven pinned predecessor publications");
+  }
+  const predecessorGovernedAbsentPaths = arrayValue(
+    row.predecessorGovernedAbsentPaths,
+    `${label}.predecessorGovernedAbsentPaths`,
+  ).map((entry, index) => safePath(entry, `${label}.predecessorGovernedAbsentPaths[${index}]`));
+  if (predecessorGovernedAbsentPaths.length !== PHASE10_C0V_S6_RECOVERY_V9_GOVERNED_ABSENT_PATHS.length ||
+    predecessorGovernedAbsentPaths.some((entry, index) =>
+      entry !== PHASE10_C0V_S6_RECOVERY_V9_GOVERNED_ABSENT_PATHS[index])) {
+    fail(`${label}.predecessorGovernedAbsentPaths`, "differs from the exact eighty predecessor/successor absences");
+  }
+  const retainedBytes = safeInteger(row.retainedBytes, `${label}.retainedBytes`, 1);
+  const observedWorkerProcessCount = safeInteger(
+    row.observedWorkerProcessCount,
+    `${label}.observedWorkerProcessCount`,
+  );
+  const observedWorkerLifetimeNanoseconds = safeInteger(
+    row.observedWorkerLifetimeNanoseconds,
+    `${label}.observedWorkerLifetimeNanoseconds`,
+  );
+  const creditedGovernedInvocationCount = safeInteger(
+    row.creditedGovernedInvocationCount,
+    `${label}.creditedGovernedInvocationCount`,
+  );
+  const creditedGovernedElapsedNanoseconds = safeInteger(
+    row.creditedGovernedElapsedNanoseconds,
+    `${label}.creditedGovernedElapsedNanoseconds`,
+  );
+  const creditedGovernedProcessHours = finiteNumber(
+    row.creditedGovernedProcessHours,
+    `${label}.creditedGovernedProcessHours`,
+  );
+  const retainedIdentityBytes = predecessorLockArtifacts.reduce((sum, entry) => sum + entry.byteLength, 0) +
+    predecessorAttemptArtifacts.reduce((sum, entry) => sum + entry.byteLength, 0) +
+    predecessorPublishedArtifacts.reduce((sum, entry) => sum + entry.byteLength, 0);
+  if (retainedBytes !== PHASE10_C0V_S6_RECOVERY_V9_RETAINED_BYTES ||
+    retainedBytes !== retainedIdentityBytes || observedWorkerProcessCount !== 1 ||
+    observedWorkerLifetimeNanoseconds !== PHASE10_C0V_S6_RECOVERY_V9_OBSERVED_WORKER_LIFETIME_NANOSECONDS ||
+    creditedGovernedInvocationCount !== 1 ||
+    creditedGovernedElapsedNanoseconds !== PHASE10_C0V_S6_RECOVERY_V9_CREDITED_GOVERNED_ELAPSED_NANOSECONDS ||
+    creditedGovernedProcessHours !== PHASE10_C0V_S6_RECOVERY_V9_CREDITED_GOVERNED_PROCESS_HOURS) {
+    fail(label, "retained bytes or retained moving-v4 execution observation differs");
+  }
+  const successorRow = object(row.successor, `${label}.successor`);
+  exactKeys(successorRow, [
+    "packetCatalogueId", "packetCataloguePath", "maximumAuthorizedNewAttempts", "authorizedAttempts",
+  ], `${label}.successor`);
+  const authorizedAttempts = arrayValue(
+    successorRow.authorizedAttempts,
+    `${label}.successor.authorizedAttempts`,
+  ).map((entry, index): Phase10C0VS6RecoveryAuthorizedAttempt => {
+    const attemptLabel = `${label}.successor.authorizedAttempts[${index}]`;
+    const attempt = object(entry, attemptLabel);
+    exactKeys(attempt, ["packetId", "predecessorAttemptId", "successorAttemptId"], attemptLabel);
+    return Object.freeze({
+      packetId: parsePacketId(attempt.packetId, `${attemptLabel}.packetId`),
+      predecessorAttemptId: parsePhase10C0VS6AttemptId(
+        attempt.predecessorAttemptId,
+        `${attemptLabel}.predecessorAttemptId`,
+      ),
+      successorAttemptId: parsePhase10C0VS6AttemptId(
+        attempt.successorAttemptId,
+        `${attemptLabel}.successorAttemptId`,
+      ),
+    });
+  });
+  const maximumAuthorizedNewAttempts = safeInteger(
+    successorRow.maximumAuthorizedNewAttempts,
+    `${label}.successor.maximumAuthorizedNewAttempts`,
+    1,
+  );
+  if (maximumAuthorizedNewAttempts !== 1 || authorizedAttempts.length !== 1 ||
+    authorizedAttempts[0]!.packetId !== "c0v-moving-produce" ||
+    authorizedAttempts[0]!.predecessorAttemptId !== PHASE10_C0V_S6_RECOVERY_V8_MOVING_ATTEMPT_ID ||
+    authorizedAttempts[0]!.successorAttemptId !== PHASE10_C0V_S6_CURRENT_MOVING_ATTEMPT_ID) {
+    fail(`${label}.successor.authorizedAttempts`, "must authorize only the moving-produce v4-to-v5 successor");
+  }
+  return Object.freeze({
+    schema: literal(row.schema, PHASE10_C0V_S6_RECOVERY_V9_AUTHORITY_SCHEMA, `${label}.schema`),
+    recoveryAuthorityId: literal(
+      row.recoveryAuthorityId,
+      PHASE10_C0V_S6_RECOVERY_V9_AUTHORITY_ID,
+      `${label}.recoveryAuthorityId`,
+    ),
+    automaticRetry: false,
+    predecessorImplementationFreezeCommit: literal(
+      row.predecessorImplementationFreezeCommit,
+      PHASE10_C0V_S6_RECOVERY_V9_PREDECESSOR_IMPLEMENTATION_FREEZE_COMMIT,
+      `${label}.predecessorImplementationFreezeCommit`,
+    ),
+    predecessorAcceptedPacketCommit: literal(
+      row.predecessorAcceptedPacketCommit,
+      PHASE10_C0V_S6_RECOVERY_V9_PREDECESSOR_ACCEPTED_PACKET_COMMIT,
+      `${label}.predecessorAcceptedPacketCommit`,
+    ),
+    predecessorRecoveryAuthority,
+    predecessorPacketCatalogue,
+    predecessorApProtocol,
+    predecessorAuthorizedPacketProtocol,
+    predecessorLockArtifacts: Object.freeze(predecessorLockArtifacts) as unknown as
+      Phase10C0VS6RecoveryV9Authority["predecessorLockArtifacts"],
+    predecessorAttemptArtifacts: Object.freeze(predecessorAttemptArtifacts),
+    predecessorPublishedArtifacts: Object.freeze(predecessorPublishedArtifacts),
+    predecessorGovernedAbsentPaths: Object.freeze(predecessorGovernedAbsentPaths),
+    retainedBytes: retainedBytes as typeof PHASE10_C0V_S6_RECOVERY_V9_RETAINED_BYTES,
+    observedWorkerProcessCount: observedWorkerProcessCount as 1,
+    observedWorkerLifetimeNanoseconds: observedWorkerLifetimeNanoseconds as
+      typeof PHASE10_C0V_S6_RECOVERY_V9_OBSERVED_WORKER_LIFETIME_NANOSECONDS,
+    creditedGovernedInvocationCount: creditedGovernedInvocationCount as 1,
+    creditedGovernedElapsedNanoseconds: creditedGovernedElapsedNanoseconds as
+      typeof PHASE10_C0V_S6_RECOVERY_V9_CREDITED_GOVERNED_ELAPSED_NANOSECONDS,
+    creditedGovernedProcessHours: creditedGovernedProcessHours as
+      typeof PHASE10_C0V_S6_RECOVERY_V9_CREDITED_GOVERNED_PROCESS_HOURS,
+    successor: Object.freeze({
+      packetCatalogueId: literal(
+        successorRow.packetCatalogueId,
+        PHASE10_C0V_S6_RECOVERY_V9_PACKET_CATALOGUE_ID,
+        `${label}.successor.packetCatalogueId`,
+      ),
+      packetCataloguePath: literal(
+        successorRow.packetCataloguePath,
+        PHASE10_C0V_S6_RECOVERY_V9_PACKET_CATALOGUE_PATH,
+        `${label}.successor.packetCataloguePath`,
+      ),
+      maximumAuthorizedNewAttempts: maximumAuthorizedNewAttempts as 1,
+      authorizedAttempts: Object.freeze(authorizedAttempts) as unknown as
+        Phase10C0VS6RecoveryV9Authority["successor"]["authorizedAttempts"],
+    }),
+  });
+}
 
 export function parsePhase10C0VS6CallableRegistry(value: unknown): Phase10C0VS6CallableRegistry {
   const label = "callable registry";

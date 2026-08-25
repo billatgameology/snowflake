@@ -66,6 +66,17 @@ import {
   PHASE10_C0V_S6_RECOVERY_V8_PACKET_CATALOGUE_PATH,
   PHASE10_C0V_S6_RECOVERY_V8_PACKET_LOCK_PATHS,
   PHASE10_C0V_S6_RECOVERY_V8_RUNTIME_ROOT,
+  PHASE10_C0V_S6_RECOVERY_V9_ATTEMPT_IDS,
+  PHASE10_C0V_S6_RECOVERY_V9_AUTHORITY_PATH,
+  PHASE10_C0V_S6_RECOVERY_V9_AUTHORITY_ROOT,
+  PHASE10_C0V_S6_RECOVERY_V9_FINAL_PATHS,
+  PHASE10_C0V_S6_RECOVERY_V9_LOCK_ROOT,
+  PHASE10_C0V_S6_RECOVERY_V9_PACKAGE_LOCK_PATH,
+  PHASE10_C0V_S6_RECOVERY_V9_PACKAGE_LOCK_RULE,
+  PHASE10_C0V_S6_RECOVERY_V9_PACKET_CATALOGUE_ID,
+  PHASE10_C0V_S6_RECOVERY_V9_PACKET_CATALOGUE_PATH,
+  PHASE10_C0V_S6_RECOVERY_V9_PACKET_LOCK_PATHS,
+  PHASE10_C0V_S6_RECOVERY_V9_RUNTIME_ROOT,
   PHASE10_C0V_S6_RECOVERY_PACKET_CATALOGUE_ID,
   parsePhase10C0VS6PacketCatalogue,
   parsePhase10C0VS6PacketProtocol,
@@ -78,6 +89,7 @@ import {
   parsePhase10C0VS6RecoveryV6Authority,
   parsePhase10C0VS6RecoveryV7Authority,
   parsePhase10C0VS6RecoveryV8Authority,
+  parsePhase10C0VS6RecoveryV9Authority,
   type Phase10C0VS6PacketCatalogue,
   type Phase10C0VS6PacketProtocol,
   type Phase10C0VS6RecoveryAuthority,
@@ -88,6 +100,7 @@ import {
   type Phase10C0VS6RecoveryV6Authority,
   type Phase10C0VS6RecoveryV7Authority,
   type Phase10C0VS6RecoveryV8Authority,
+  type Phase10C0VS6RecoveryV9Authority,
 } from "./phase10-c0v-s6-contracts.ts";
 import {
   phase10C0VS6AssertActiveParentWatchdog,
@@ -149,9 +162,11 @@ export interface Phase10C0VS6LockedPacketAuthority {
 export type Phase10C0VS6RecoveryPredecessorAuditMode = "initial-successor" | "post-successor";
 
 export interface Phase10C0VS6RecoveryPredecessorState {
-  readonly authority: Phase10C0VS6RecoveryV8Authority;
+  readonly authority: Phase10C0VS6RecoveryV9Authority;
   readonly authorityIdentity: Phase10C0VS6ArtifactIdentity;
   readonly authorityBytes: Uint8Array;
+  readonly immediatePredecessorRecoveryAuthority: Phase10C0VS6RecoveryV8Authority;
+  readonly immediatePredecessorRecoveryAuthorityIdentity: Phase10C0VS6ArtifactIdentity;
   readonly predecessorRecoveryAuthority: Phase10C0VS6RecoveryV7Authority;
   readonly predecessorRecoveryAuthorityIdentity: Phase10C0VS6ArtifactIdentity;
   readonly earlierRecoveryAuthority: Phase10C0VS6RecoveryV6Authority;
@@ -174,10 +189,10 @@ export interface Phase10C0VS6RecoveryPredecessorState {
 
 export type Phase10C0VS6LockedPacketMode = "run" | "verify-existing";
 
-const PACKAGE_CATALOGUE_PATH = PHASE10_C0V_S6_RECOVERY_V8_PACKET_CATALOGUE_PATH;
-const PACKAGE_LOCK_PATH = PHASE10_C0V_S6_RECOVERY_V8_PACKAGE_LOCK_PATH;
-const PACKAGE_LOCK_ROOT = PHASE10_C0V_S6_RECOVERY_V8_LOCK_ROOT;
-const PACKAGE_LOCK_RULE = PHASE10_C0V_S6_RECOVERY_V8_PACKAGE_LOCK_RULE;
+const PACKAGE_CATALOGUE_PATH = PHASE10_C0V_S6_RECOVERY_V9_PACKET_CATALOGUE_PATH;
+const PACKAGE_LOCK_PATH = PHASE10_C0V_S6_RECOVERY_V9_PACKAGE_LOCK_PATH;
+const PACKAGE_LOCK_ROOT = PHASE10_C0V_S6_RECOVERY_V9_LOCK_ROOT;
+const PACKAGE_LOCK_RULE = PHASE10_C0V_S6_RECOVERY_V9_PACKAGE_LOCK_RULE;
 const ACTIVE_LOCK_CONTEXTS = new WeakSet<Phase10C0VS6PackageAndPacketLockContext>();
 const ACTIVE_LOCK_AUTHORITIES = new WeakMap<
   Phase10C0VS6PackageAndPacketLockContext,
@@ -193,51 +208,51 @@ const ACTIVE_LOCK_WATCHDOGS = new WeakMap<
 >();
 const PACKAGE_PACKET_LOCK_AUTHORITY = Object.freeze({
   "a-p-c0v-s6": Object.freeze({
-    attemptId: PHASE10_C0V_S6_RECOVERY_V8_ATTEMPT_IDS["a-p-c0v-s6"],
-    protocolPath: `${PHASE10_C0V_S6_RECOVERY_V8_AUTHORITY_ROOT}/packets/a-p-c0v-s6/protocol.json`,
-    lockPath: PHASE10_C0V_S6_RECOVERY_V8_PACKET_LOCK_PATHS["a-p-c0v-s6"],
+    attemptId: PHASE10_C0V_S6_RECOVERY_V9_ATTEMPT_IDS["a-p-c0v-s6"],
+    protocolPath: `${PHASE10_C0V_S6_RECOVERY_V9_AUTHORITY_ROOT}/packets/a-p-c0v-s6/protocol.json`,
+    lockPath: PHASE10_C0V_S6_RECOVERY_V9_PACKET_LOCK_PATHS["a-p-c0v-s6"],
     outerInfrastructureSafetyTimeoutSeconds: 61200,
   }),
   "c0v-moving-produce": Object.freeze({
-    attemptId: PHASE10_C0V_S6_RECOVERY_V8_ATTEMPT_IDS["c0v-moving-produce"],
-    protocolPath: `${PHASE10_C0V_S6_RECOVERY_V8_AUTHORITY_ROOT}/packets/c0v-moving-produce/protocol.json`,
-    lockPath: PHASE10_C0V_S6_RECOVERY_V8_PACKET_LOCK_PATHS["c0v-moving-produce"],
+    attemptId: PHASE10_C0V_S6_RECOVERY_V9_ATTEMPT_IDS["c0v-moving-produce"],
+    protocolPath: `${PHASE10_C0V_S6_RECOVERY_V9_AUTHORITY_ROOT}/packets/c0v-moving-produce/protocol.json`,
+    lockPath: PHASE10_C0V_S6_RECOVERY_V9_PACKET_LOCK_PATHS["c0v-moving-produce"],
     outerInfrastructureSafetyTimeoutSeconds: 18000,
   }),
   "c0v-moving-publish": Object.freeze({
-    attemptId: PHASE10_C0V_S6_RECOVERY_V8_ATTEMPT_IDS["c0v-moving-publish"],
-    protocolPath: `${PHASE10_C0V_S6_RECOVERY_V8_AUTHORITY_ROOT}/packets/c0v-moving-publish/protocol.json`,
-    lockPath: PHASE10_C0V_S6_RECOVERY_V8_PACKET_LOCK_PATHS["c0v-moving-publish"],
+    attemptId: PHASE10_C0V_S6_RECOVERY_V9_ATTEMPT_IDS["c0v-moving-publish"],
+    protocolPath: `${PHASE10_C0V_S6_RECOVERY_V9_AUTHORITY_ROOT}/packets/c0v-moving-publish/protocol.json`,
+    lockPath: PHASE10_C0V_S6_RECOVERY_V9_PACKET_LOCK_PATHS["c0v-moving-publish"],
     outerInfrastructureSafetyTimeoutSeconds: 32400,
   }),
   "c0v-radial-produce": Object.freeze({
-    attemptId: PHASE10_C0V_S6_RECOVERY_V8_ATTEMPT_IDS["c0v-radial-produce"],
-    protocolPath: `${PHASE10_C0V_S6_RECOVERY_V8_AUTHORITY_ROOT}/packets/c0v-radial-produce/protocol.json`,
-    lockPath: PHASE10_C0V_S6_RECOVERY_V8_PACKET_LOCK_PATHS["c0v-radial-produce"],
+    attemptId: PHASE10_C0V_S6_RECOVERY_V9_ATTEMPT_IDS["c0v-radial-produce"],
+    protocolPath: `${PHASE10_C0V_S6_RECOVERY_V9_AUTHORITY_ROOT}/packets/c0v-radial-produce/protocol.json`,
+    lockPath: PHASE10_C0V_S6_RECOVERY_V9_PACKET_LOCK_PATHS["c0v-radial-produce"],
     outerInfrastructureSafetyTimeoutSeconds: 61500,
   }),
   "c0v-radial-publish": Object.freeze({
-    attemptId: PHASE10_C0V_S6_RECOVERY_V8_ATTEMPT_IDS["c0v-radial-publish"],
-    protocolPath: `${PHASE10_C0V_S6_RECOVERY_V8_AUTHORITY_ROOT}/packets/c0v-radial-publish/protocol.json`,
-    lockPath: PHASE10_C0V_S6_RECOVERY_V8_PACKET_LOCK_PATHS["c0v-radial-publish"],
+    attemptId: PHASE10_C0V_S6_RECOVERY_V9_ATTEMPT_IDS["c0v-radial-publish"],
+    protocolPath: `${PHASE10_C0V_S6_RECOVERY_V9_AUTHORITY_ROOT}/packets/c0v-radial-publish/protocol.json`,
+    lockPath: PHASE10_C0V_S6_RECOVERY_V9_PACKET_LOCK_PATHS["c0v-radial-publish"],
     outerInfrastructureSafetyTimeoutSeconds: 32400,
   }),
   "c0v-static-produce": Object.freeze({
-    attemptId: PHASE10_C0V_S6_RECOVERY_V8_ATTEMPT_IDS["c0v-static-produce"],
-    protocolPath: `${PHASE10_C0V_S6_RECOVERY_V8_AUTHORITY_ROOT}/packets/c0v-static-produce/protocol.json`,
-    lockPath: PHASE10_C0V_S6_RECOVERY_V8_PACKET_LOCK_PATHS["c0v-static-produce"],
+    attemptId: PHASE10_C0V_S6_RECOVERY_V9_ATTEMPT_IDS["c0v-static-produce"],
+    protocolPath: `${PHASE10_C0V_S6_RECOVERY_V9_AUTHORITY_ROOT}/packets/c0v-static-produce/protocol.json`,
+    lockPath: PHASE10_C0V_S6_RECOVERY_V9_PACKET_LOCK_PATHS["c0v-static-produce"],
     outerInfrastructureSafetyTimeoutSeconds: 18000,
   }),
   "c0v-static-publish": Object.freeze({
-    attemptId: PHASE10_C0V_S6_RECOVERY_V8_ATTEMPT_IDS["c0v-static-publish"],
-    protocolPath: `${PHASE10_C0V_S6_RECOVERY_V8_AUTHORITY_ROOT}/packets/c0v-static-publish/protocol.json`,
-    lockPath: PHASE10_C0V_S6_RECOVERY_V8_PACKET_LOCK_PATHS["c0v-static-publish"],
+    attemptId: PHASE10_C0V_S6_RECOVERY_V9_ATTEMPT_IDS["c0v-static-publish"],
+    protocolPath: `${PHASE10_C0V_S6_RECOVERY_V9_AUTHORITY_ROOT}/packets/c0v-static-publish/protocol.json`,
+    lockPath: PHASE10_C0V_S6_RECOVERY_V9_PACKET_LOCK_PATHS["c0v-static-publish"],
     outerInfrastructureSafetyTimeoutSeconds: 32400,
   }),
   "c0v-aggregate": Object.freeze({
-    attemptId: PHASE10_C0V_S6_RECOVERY_V8_ATTEMPT_IDS["c0v-aggregate"],
-    protocolPath: `${PHASE10_C0V_S6_RECOVERY_V8_AUTHORITY_ROOT}/packets/c0v-aggregate/protocol.json`,
-    lockPath: PHASE10_C0V_S6_RECOVERY_V8_PACKET_LOCK_PATHS["c0v-aggregate"],
+    attemptId: PHASE10_C0V_S6_RECOVERY_V9_ATTEMPT_IDS["c0v-aggregate"],
+    protocolPath: `${PHASE10_C0V_S6_RECOVERY_V9_AUTHORITY_ROOT}/packets/c0v-aggregate/protocol.json`,
+    lockPath: PHASE10_C0V_S6_RECOVERY_V9_PACKET_LOCK_PATHS["c0v-aggregate"],
     outerInfrastructureSafetyTimeoutSeconds: 46800,
   }),
 } satisfies Readonly<Record<Phase10C0VS6PacketProtocol["packetId"], Readonly<{
@@ -496,7 +511,7 @@ export function phase10C0VS6AssertExactPhysicalRootCensus(
   return Object.freeze(actual);
 }
 
-/** Reopens all eight consumed generations and the separately registered recovery-v8 authority. */
+/** Reopens all nine consumed generations and the separately registered recovery-v9 authority. */
 export function phase10C0VS6AssertRecoveryPredecessorState(
   root: Phase10C0VS6PhysicalRoot,
   mode: Phase10C0VS6RecoveryPredecessorAuditMode = "initial-successor",
@@ -506,14 +521,33 @@ export function phase10C0VS6AssertRecoveryPredecessorState(
   }
   const authorityBytes = phase10C0VS6ReadUniquePhysicalFile(
     root,
-    PHASE10_C0V_S6_RECOVERY_V8_AUTHORITY_PATH,
+    PHASE10_C0V_S6_RECOVERY_V9_AUTHORITY_PATH,
   );
   const authorityIdentity = phase10C0VS6ArtifactIdentity(
-    PHASE10_C0V_S6_RECOVERY_V8_AUTHORITY_PATH,
+    PHASE10_C0V_S6_RECOVERY_V9_AUTHORITY_PATH,
     authorityBytes,
   );
-  const authority = parsePhase10C0VS6RecoveryV8Authority(
-    parsePhase10C0VS6PrettyJsonBytes(authorityBytes, "recovery-v8 authority"),
+  const authority = parsePhase10C0VS6RecoveryV9Authority(
+    parsePhase10C0VS6PrettyJsonBytes(authorityBytes, "recovery-v9 authority"),
+  );
+  const immediatePredecessorRecoveryAuthorityBytes = phase10C0VS6ReadUniquePhysicalFile(
+    root,
+    PHASE10_C0V_S6_RECOVERY_V8_AUTHORITY_PATH,
+  );
+  const immediatePredecessorRecoveryAuthorityIdentity = phase10C0VS6ArtifactIdentity(
+    PHASE10_C0V_S6_RECOVERY_V8_AUTHORITY_PATH,
+    immediatePredecessorRecoveryAuthorityBytes,
+  );
+  phase10C0VS6SameIdentity(
+    immediatePredecessorRecoveryAuthorityIdentity,
+    authority.predecessorRecoveryAuthority,
+    "recovery-v8 authority predecessor",
+  );
+  const immediatePredecessorRecoveryAuthority = parsePhase10C0VS6RecoveryV8Authority(
+    parsePhase10C0VS6PrettyJsonBytes(
+      immediatePredecessorRecoveryAuthorityBytes,
+      "recovery-v8 authority",
+    ),
   );
   const predecessorRecoveryAuthorityBytes = phase10C0VS6ReadUniquePhysicalFile(
     root,
@@ -525,7 +559,7 @@ export function phase10C0VS6AssertRecoveryPredecessorState(
   );
   phase10C0VS6SameIdentity(
     predecessorRecoveryAuthorityIdentity,
-    authority.predecessorRecoveryAuthority,
+    immediatePredecessorRecoveryAuthority.predecessorRecoveryAuthority,
     "recovery-v7 authority predecessor",
   );
   const predecessorRecoveryAuthority = parsePhase10C0VS6RecoveryV7Authority(
@@ -634,19 +668,19 @@ export function phase10C0VS6AssertRecoveryPredecessorState(
   phase10C0VS6SameIdentity(
     phase10C0VS6ArtifactIdentity(authority.predecessorPacketCatalogue.path, predecessorCatalogueBytes),
     authority.predecessorPacketCatalogue,
-    "recovery-v7 catalogue predecessor",
+    "recovery-v8 catalogue predecessor",
   );
   const predecessorCatalogue = parsePhase10C0VS6PacketCatalogue(
-    parsePhase10C0VS6PrettyJsonBytes(predecessorCatalogueBytes, "recovery-v7 catalogue"),
+    parsePhase10C0VS6PrettyJsonBytes(predecessorCatalogueBytes, "recovery-v8 catalogue"),
   );
-  if (predecessorCatalogue.catalogueId !== PHASE10_C0V_S6_RECOVERY_V7_PACKET_CATALOGUE_ID ||
+  if (predecessorCatalogue.catalogueId !== PHASE10_C0V_S6_RECOVERY_V8_PACKET_CATALOGUE_ID ||
     predecessorCatalogue.recoveryAuthority === undefined) {
-    fail("recovery-v7 catalogue predecessor mapping differs");
+    fail("recovery-v8 catalogue predecessor mapping differs");
   }
   phase10C0VS6SameIdentity(
     predecessorCatalogue.recoveryAuthority,
-    predecessorRecoveryAuthorityIdentity,
-    "recovery-v7 catalogue authority binding",
+    immediatePredecessorRecoveryAuthorityIdentity,
+    "recovery-v8 catalogue authority binding",
   );
   const predecessorApProtocolBytes = phase10C0VS6ReadUniquePhysicalFile(
     root,
@@ -680,23 +714,23 @@ export function phase10C0VS6AssertRecoveryPredecessorState(
       predecessorAuthorizedPacketProtocolBytes,
     ),
     authority.predecessorAuthorizedPacketProtocol,
-    "recovery-v7 authorized moving protocol predecessor",
+    "recovery-v8 authorized moving protocol predecessor",
   );
   const predecessorAuthorizedPacketProtocol = parsePhase10C0VS6PacketProtocol(
     parsePhase10C0VS6PrettyJsonBytes(
       predecessorAuthorizedPacketProtocolBytes,
-      "recovery-v7 authorized moving protocol",
+      "recovery-v8 authorized moving protocol",
     ),
   );
   if (predecessorAuthorizedPacketProtocol.packetId !== "c0v-moving-produce" ||
-    predecessorAuthorizedPacketProtocol.registeredAttemptId !== "c0v-moving-produce-20260822-v3" ||
+    predecessorAuthorizedPacketProtocol.registeredAttemptId !== "c0v-moving-produce-20260822-v4" ||
     predecessorAuthorizedPacketProtocol.bindings.recoveryAuthority === undefined) {
-    fail("recovery-v7 authorized moving protocol identity or attempt mapping differs");
+    fail("recovery-v8 authorized moving protocol identity or attempt mapping differs");
   }
   phase10C0VS6SameIdentity(
     predecessorAuthorizedPacketProtocol.bindings.recoveryAuthority,
-    predecessorRecoveryAuthorityIdentity,
-    "recovery-v7 authorized moving protocol authority binding",
+    immediatePredecessorRecoveryAuthorityIdentity,
+    "recovery-v8 authorized moving protocol authority binding",
   );
   const predecessorLockIdentities = authority.predecessorLockArtifacts.map((expected) => {
     const bytes = phase10C0VS6ReadUniquePhysicalFile(root, expected.path);
@@ -724,6 +758,7 @@ export function phase10C0VS6AssertRecoveryPredecessorState(
       PHASE10_C0V_S6_RECOVERY_V5_RUNTIME_ROOT,
       PHASE10_C0V_S6_RECOVERY_V6_RUNTIME_ROOT,
       PHASE10_C0V_S6_RECOVERY_V7_RUNTIME_ROOT,
+      PHASE10_C0V_S6_RECOVERY_V8_RUNTIME_ROOT,
     ],
     [...predecessorLockIdentities, ...predecessorAttemptIdentities],
   );
@@ -755,8 +790,8 @@ export function phase10C0VS6AssertRecoveryPredecessorState(
     }
   }
   const postSuccessorAllowedPaths = new Set<string>([
-    PHASE10_C0V_S6_RECOVERY_V8_RUNTIME_ROOT,
-    ...PHASE10_C0V_S6_RECOVERY_V8_FINAL_PATHS,
+    PHASE10_C0V_S6_RECOVERY_V9_RUNTIME_ROOT,
+    ...PHASE10_C0V_S6_RECOVERY_V9_FINAL_PATHS,
   ]);
   const checkedAbsentPaths = mode === "initial-successor"
     ? authority.predecessorGovernedAbsentPaths
@@ -771,6 +806,8 @@ export function phase10C0VS6AssertRecoveryPredecessorState(
     authority,
     authorityIdentity,
     authorityBytes: new Uint8Array(authorityBytes),
+    immediatePredecessorRecoveryAuthority,
+    immediatePredecessorRecoveryAuthorityIdentity,
     predecessorRecoveryAuthority,
     predecessorRecoveryAuthorityIdentity,
     earlierRecoveryAuthority,
@@ -804,7 +841,7 @@ export function phase10C0VS6AssertPackageAndPacketLockBytes(
   locks: Phase10C0VS6PackageAndPacketLockContext,
 ): void {
   if (locks.packageLock.schema !== "phase10-c0v-s6-lock-v1" ||
-    locks.packageLock.packetId !== PHASE10_C0V_S6_RECOVERY_V8_PACKET_CATALOGUE_ID ||
+    locks.packageLock.packetId !== PHASE10_C0V_S6_RECOVERY_V9_PACKET_CATALOGUE_ID ||
     locks.packageLock.attemptId !== `${packet.packetId}:${packet.registeredAttemptId}` ||
     locks.packageLock.processId !== pid ||
     locks.packetLock.schema !== "phase10-c0v-s6-lock-v1" ||
@@ -1189,7 +1226,7 @@ export async function phase10C0VS6WithPackageAndPacketLocks<T>(
   beforeAuthorityRead?: (locks: Phase10C0VS6PackageAndPacketLockContext) => void,
 ): Promise<T> {
   const registered = PACKAGE_PACKET_LOCK_AUTHORITY[packetId];
-  if (registered === undefined) fail("CLI packet ID is not registered by execution-v2 recovery-v8");
+  if (registered === undefined) fail("CLI packet ID is not registered by execution-v2 recovery-v9");
   const predecessorAuditMode: Phase10C0VS6RecoveryPredecessorAuditMode =
     packetId === "c0v-moving-produce" && mode === "run"
       ? "initial-successor"
@@ -1199,7 +1236,7 @@ export async function phase10C0VS6WithPackageAndPacketLocks<T>(
   return phase10C0VS6WithExclusiveLock(
     root,
     PACKAGE_LOCK_PATH,
-    PHASE10_C0V_S6_RECOVERY_V8_PACKET_CATALOGUE_ID,
+    PHASE10_C0V_S6_RECOVERY_V9_PACKET_CATALOGUE_ID,
     `${packetId}:${registered.attemptId}`,
     async (packageLock) => {
       let packetCleanupWatchdog: Phase10C0VS6ParentWatchdogContext | null = null;
@@ -1223,7 +1260,7 @@ export async function phase10C0VS6WithPackageAndPacketLocks<T>(
               );
               if (catalogue.packageLockPath !== PACKAGE_LOCK_PATH ||
                 catalogue.packageLockRule !== PACKAGE_LOCK_RULE ||
-                catalogue.catalogueId !== PHASE10_C0V_S6_RECOVERY_V8_PACKET_CATALOGUE_ID ||
+                catalogue.catalogueId !== PHASE10_C0V_S6_RECOVERY_V9_PACKET_CATALOGUE_ID ||
                 catalogue.recoveryAuthority === undefined) {
                 fail("locked catalogue differs from the hard-coded package serialization authority");
               }

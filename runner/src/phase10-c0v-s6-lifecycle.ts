@@ -489,6 +489,10 @@ function exactCapturedCallerResult(actual: unknown, expected: unknown, label: st
 
 interface WholeFilePublicationPathAuthority {
   readonly packetId: Phase10C0VS6PacketProtocol["packetId"];
+  readonly bindings: Readonly<{
+    readonly scienceProtocol: Pick<Phase10C0VS6ArtifactIdentity, "path"> | null;
+    readonly referenceOrRefusal: Pick<Phase10C0VS6ArtifactIdentity, "path"> | null;
+  }>;
   readonly paths: Readonly<{
     readonly allowedPublicationPaths: readonly string[];
   }>;
@@ -551,6 +555,10 @@ export function phase10C0VS6ResolveRegisteredWholeFilePublicationPath(
       fail(`${outputId} does not resolve one registered whole-file publication path`);
     }
     return descriptor.currentPublicationPath;
+  }
+  if (packet.bindings.scienceProtocol?.path === matrixPath ||
+    packet.bindings.referenceOrRefusal?.path === matrixPath) {
+    return matrixPath;
   }
   if (!packet.paths.allowedPublicationPaths.includes(matrixPath)) {
     fail(`${outputId} does not resolve one registered whole-file publication path`);

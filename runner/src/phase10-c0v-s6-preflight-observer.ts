@@ -4,7 +4,8 @@ import { cwd, version as runtimeVersion } from "node:process";
 import {
   PHASE10_C0V_S6_RECOVERY_V5_ATTEMPT_ROOT,
   PHASE10_C0V_S6_RECOVERY_V8_ATTEMPT_ROOT,
-  PHASE10_C0V_S6_RECOVERY_V8_PACKAGE_CARRY_FORWARD_ELAPSED_NANOSECONDS,
+  PHASE10_C0V_S6_RECOVERY_V9_ATTEMPT_ROOT,
+  PHASE10_C0V_S6_RECOVERY_V9_PACKAGE_CARRY_FORWARD_ELAPSED_NANOSECONDS,
   parsePhase10C0VS6CallableRegistry,
   parsePhase10C0VS6Matrix,
   parsePhase10C0VS6PacketProtocol,
@@ -86,10 +87,13 @@ const PACKAGE_PUBLICATION_ROOTS = Object.freeze([
   "evidence/phase10-obligation-preflight-v5",
   "evidence/phase10-obligation-preflight-v6",
 ] as const);
-const PACKAGE_BASELINE_ATTEMPT_ROOT = "out/phase10-c0v-reference-v1" as const;
+const PACKAGE_BASELINE_ATTEMPT_ROOTS = Object.freeze([
+  "out/phase10-c0v-reference-v1",
+  PHASE10_C0V_S6_RECOVERY_V8_ATTEMPT_ROOT,
+] as const);
 const PACKAGE_ATTEMPT_ROOTS = Object.freeze([
   PHASE10_C0V_S6_RECOVERY_V5_ATTEMPT_ROOT,
-  PHASE10_C0V_S6_RECOVERY_V8_ATTEMPT_ROOT,
+  PHASE10_C0V_S6_RECOVERY_V9_ATTEMPT_ROOT,
 ] as const);
 
 const TERMINAL_FIELDS = Object.freeze([
@@ -366,10 +370,11 @@ function assertPackageRetainedRootCensus(
   ];
   phase10C0VS6AssertExactPhysicalRootCensus(root, PACKAGE_PUBLICATION_ROOTS, expectedPublicationArtifacts);
   const baselineAttemptArtifacts = baseline.filter((entry) =>
-    pathBelongsToRoot(entry.path, PACKAGE_BASELINE_ATTEMPT_ROOT));
+    PACKAGE_BASELINE_ATTEMPT_ROOTS.some((attemptRoot) =>
+      pathBelongsToRoot(entry.path, attemptRoot)));
   phase10C0VS6AssertExactPhysicalRootCensus(
     root,
-    [PACKAGE_BASELINE_ATTEMPT_ROOT],
+    PACKAGE_BASELINE_ATTEMPT_ROOTS,
     baselineAttemptArtifacts,
   );
   const acceptedAttemptArtifacts = priorPackets.flatMap((entry) => entry.retainedArtifacts)
@@ -501,6 +506,7 @@ function outputPath(
 export function phase10C0VS6ResolvePriorRouteOutputPaths(
   matrix: Pick<Phase10C0VS6ObligationMatrix, "outputs">,
   packet: Pick<Phase10C0VS6PacketProtocol, "packetId"> & Readonly<{
+    bindings: Pick<Phase10C0VS6PacketProtocol["bindings"], "scienceProtocol" | "referenceOrRefusal">;
     paths: Pick<Phase10C0VS6PacketProtocol["paths"], "allowedPublicationPaths">;
   }>,
   requiredOutputIds: readonly string[],
@@ -1340,7 +1346,7 @@ export function phase10C0VS6ObservePreflight(
   }
   const packageElapsedNanosecondsBeforeAttempt = safeIntegerSum(
     [
-      PHASE10_C0V_S6_RECOVERY_V8_PACKAGE_CARRY_FORWARD_ELAPSED_NANOSECONDS,
+      PHASE10_C0V_S6_RECOVERY_V9_PACKAGE_CARRY_FORWARD_ELAPSED_NANOSECONDS,
       ...priorPackets.map((entry) => entry.governedElapsedNanoseconds),
     ],
     "prior packet governed elapsed nanoseconds",

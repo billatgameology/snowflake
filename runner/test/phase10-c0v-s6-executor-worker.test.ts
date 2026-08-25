@@ -121,7 +121,7 @@ vi.mock("../src/phase10-c0v-s6-runtime-authority.ts", async (importOriginal) => 
         refusalCandidate: null,
         observed: {
           candidateDirectory:
-    "out/phase10-execution-v2/recovery-v8/attempts/c0v-radial-produce/c0v-radial-produce-20260822-v1/candidate",
+    "out/phase10-execution-v2/recovery-v9/attempts/c0v-radial-produce/c0v-radial-produce-20260822-v1/candidate",
           command: "test-only-worker-dispatch",
           head: "0".repeat(40),
           resources: { observedFreeBytes: 1_000_000_000 },
@@ -255,7 +255,7 @@ const originalRuntimeEnvironmentEntries = Object.freeze(Object.entries(processEn
 const workerArguments = Object.freeze([
   "--repository-root", repositoryRoot,
   "--packet", "c0v-radial-produce",
-      "--protocol", "research/phase10-execution-v2/recovery-v8/packets/c0v-radial-produce/protocol.json",
+      "--protocol", "research/phase10-execution-v2/recovery-v9/packets/c0v-radial-produce/protocol.json",
   "--attempt", "c0v-radial-produce-20260822-v1",
 ]);
 
