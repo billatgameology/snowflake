@@ -194,7 +194,7 @@ worktrees are separately owned, and the dirty `phase10/evidence-verification` wo
 Product-sized verification for the final state is the focused queue/index/serving tests,
 `npm run typecheck`, `npm run build --workspace app`, the Rule 7 scan, and the live browser/HTTP
 smoke recorded above. The earlier exact `npm test` result remains historical rather than a new
-closure requirement. PR URL: pending creation; replace this marker before merge.
+closure requirement. PR: [#9](https://github.com/billatgameology/snowflake/pull/9).
 
 Before removing the task worktree, transfer the live ignored `selection.json`, regenerated figure
 preview cache, and generated index into the primary worktree's corresponding `out/` paths and
