@@ -310,3 +310,11 @@ Divergence log: fig6's x64 regrowth left its pinned endpoint (tick 33737/attache
 42981/459787) — the only divergence in the first 39 completions; consistent with d1a0978's
 measured non-portability of exact trajectories. Its regrown mesh needs a maker eyeball against
 the original render before its growth asset ships.
+
+Web round COMPLETE (2026-08-25): 52/52 growth-event assets in `out/growth-assets/`
+(51 maker selections + fig40 needle addition), 187 MB total, every asset decoded by the
+snowcrystal_website's own `growthAsset.ts` (0 failures). Endpoint audit across all logs:
+fig6 is the sole trajectory divergence (see divergence log above); everything else replayed
+its pinned endpoint exactly. The scientific round (`--scientific`, 52 items, 20-wide) started
+immediately after, writing state checkpoints + ~120-frame mesh timelines to
+`out/growth-scientific/`.
