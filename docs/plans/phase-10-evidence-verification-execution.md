@@ -1,8 +1,8 @@
 # Plan — Phase 10 scope, evidence bridges, and numerical verification
 
 - **Phase:** Phase 10 — scope, evidence bridges, and absolute numerical verification
-- **Status:** in progress — maker selected the recommended package on 2026-08-21; adoption is
-  governed by decisions 0052–0053 and charter v1.29
+- **Status:** complete-negative — flagless `gate10` exited 0 on 2026-08-25; completion is governed
+  by decisions 0052–0054 and charter v1.30
 - **Started:** 2026-08-21
 - **Last touched:** 2026-08-25 by OpenAI Codex
 - **Branch/worktree:** `phase10/evidence-verification` at
@@ -253,7 +253,7 @@ collection.
 - [x] **S8 — synthesize and return.** Bind every claim to published bytes, preserve criterion,
   infrastructure, artifact, solver-integrity, source-refusal, and no-decision distinctions, and
   propose exact E/F/H scopes and budgets only where B supports them. Do not execute those branches.
-- [ ] **S9 — close the selected package.** Run exact `npm test`, verify every claim-bearing artifact
+- [x] **S9 — close the selected package.** Run exact `npm test`, verify every claim-bearing artifact
   from its bytes, run `node runner/src/main.ts gate10`, audit claim-to-artifact coverage, obtain one
   proportionate non-author review, repair any blocker once, and reconcile the plan, charter,
   `docs/PROGRESS.md`, and evidence/NAS catalogues. A negative or all-refusal result may complete the
@@ -2499,6 +2499,15 @@ SHA-256 `acb7d178cc5bc73bbf140fbfd7ec8c8e409b3292c7941b1c1f422fb848137e39` and p
 manifest now pins 449 files / 6,538,258 bytes. Next, commit and push this receipt, then run the
 flagless gate once; S9 and Phase 10 remain open until that command exits 0.
 
+From clean pushed gate checkpoint `e2cca936859580c2a85fabd4330afcffa60d9f2a`, flagless
+`node runner/src/main.ts gate10` exited 0. It re-opened all four pinned closure artifacts and passed
+the same seven checks: package `complete-negative` on terminal B refusal; C0 criterion NO-PASS;
+C0V incomplete/non-PASS with radial no-verdict, moving/static S5 refusals, and zero S6 packet
+credit; prior labels preserved; exact suite and non-author review passed; no validation or
+downstream authorization. This completes S9 and Phase 10. S6 stays unchecked deliberately because
+its production lifecycle did not complete; decision 0054's maker-approved exception closes the
+selected package without fabricating that credit.
+
 ### Rejected native pre-Node launcher design (retained history; do not implement)
 
 **Superseded by maker direction on 2026-08-22.** The detail below records the design that exposed
@@ -2815,8 +2824,6 @@ independent archived copy.
 
 ## Open questions
 
-No scientific scope question blocks the selected package. Before S6 implementation resumes, its
-generated authority must retire or simplify the now-rejected native-launcher prerequisite; that is
-bounded process cleanup, not a new scientific package. B findings may create exact E/F/H proposals;
-C0V may expose a solver or reference gap; both are governed returns rather than permission to
-expand this plan.
+No open question blocks the completed package. Any future S6 production attempt, E/F/H proposal,
+solver/reference repair, or Phase 7 work requires separate maker selection and authority; none is
+started by this completion record.

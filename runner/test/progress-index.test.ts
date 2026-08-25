@@ -48,11 +48,11 @@ const PHASE8_STATUS_LINE =
 const PHASE9_STATUS_LINE =
   "- **Phase 9 is COMPLETE (development-only, 2026-08-13).**";
 const PHASE10_STATUS_LINE =
-  "- **Phase 10 is IN PROGRESS (selected 2026-08-21).** The maker accepted the candidate plan's";
+  "- **Phase 10 is COMPLETE (complete-negative, 2026-08-25).** The maker accepted the candidate plan's";
 const PHASE8_GATE_PREFIX = "| 8 | **Complete (8A + 8B)** |";
 const PHASE7_GATE_PREFIX = "| 7 | Not started; independently eligible |";
 const PHASE9_GATE_PREFIX = "| 9 | **Complete (development-only)** |";
-const PHASE10_GATE_PREFIX = "| 10 | **In progress — A-P/A-S/A-I PASS; C0 complete with criterion NO-PASS; B complete with terminal refusal; C0V moving unresolved** |";
+const PHASE10_GATE_PREFIX = "| 10 | **Complete (negative package; B refusal; C0V incomplete/NO-PASS)** |";
 const CONTRADICTORY_STATE_PATTERNS = [
   /Phase 8B (?:is |remains )?(?:active|incomplete|pending)\b/iu,
   /Phase 8B.*\b(?:may|can|will|must) (?:rewrite|mutate|replace|overwrite)\b.*\b(?:8A|v1|phase8-target-book)\b/iu,
@@ -121,18 +121,21 @@ function currentIndexErrors(text: string): string[] {
     "(plans/phase-8-measurement-corpus.md)",
     "(progress-history-phases-6-8-9.md)",
     "selected no Phase 10 package (2026-08-20)",
-    "Phase 10 is IN PROGRESS (selected 2026-08-21)",
+    "Phase 10 is COMPLETE (complete-negative, 2026-08-25)",
     "A-S + A-I + B + C0 + C0V with packet-specific A-P",
     "No C1–C5 row, habit row",
     "(plans/phase-10-evidence-verification-execution.md)",
     "governance checkpoint is complete",
     "S1 contract freeze, and S2 A-S classification",
-    "A-P/A-S/A-I PASS; C0 complete with criterion NO-PASS",
-    "bounded structural A-I PASS evidence",
+    "7/7 closure checks re-derive `complete-negative`",
+    "its 14 payloads are terminal refusals",
     "All 14 payload dispositions are terminal but",
     "conservatively refused",
     "46/46",
-    "C0 re-derived 80/80 rows and 64/64 comparisons",
+    "C0 criterion NO-PASS",
+    "gate10` exit 0 at `e2cca93",
+    "165/165 files, 2,533 tests with 49 skipped",
+    "449 files / 6,538,258 bytes",
     "Maker direction on 2026-08-24 stops recovery-v10",
     "Moving-produce v1 then fail-stopped before preflight/worker",
     "Phase 10 C0V S6 implementation freeze is complete (2026-08-24; no execution credit)",
@@ -199,7 +202,7 @@ function currentIndexErrors(text: string): string[] {
   }
   const phase10GateLines = lines.filter((line) => line.startsWith("| 10 |"));
   if (phase10GateLines.length !== 1 || !phase10GateLines[0]?.startsWith(PHASE10_GATE_PREFIX)) {
-    errors.push("expected exactly one in-progress Phase 10 gate row");
+    errors.push("expected exactly one completed Phase 10 gate row");
   }
   for (const line of lines) {
     if (CONTRADICTORY_STATE_PATTERNS.some((pattern) => pattern.test(line))) {
@@ -400,7 +403,7 @@ describe("compact progress index and byte-exact historical record", () => {
     expect(currentIndexErrors(`${current}\n${PHASE10_STATUS_LINE}\n`))
       .toContain("expected exactly one structured Phase 10 status line");
     expect(currentIndexErrors(`${current}\n${PHASE10_GATE_PREFIX} contradictory |\n`))
-      .toContain("expected exactly one in-progress Phase 10 gate row");
+      .toContain("expected exactly one completed Phase 10 gate row");
     for (const phrase of FORBIDDEN_SEQUENCING) {
       expect(currentIndexErrors(`${current}\n${phrase}\n`))
         .toContain(`stale sequencing phrase: ${phrase}`);
@@ -428,12 +431,12 @@ describe("compact progress index and byte-exact historical record", () => {
     expect(currentIndexErrors(phase10DecisionMutation))
       .toContain("missing current-state phrase: selected no Phase 10 package (2026-08-20)");
     const phase10SelectionMutation = current.replace(
-      "Phase 10 is IN PROGRESS (selected 2026-08-21)",
+      "Phase 10 is COMPLETE (complete-negative, 2026-08-25)",
       "Phase 10 remains unselected",
     );
     expect(phase10SelectionMutation).not.toBe(current);
     expect(currentIndexErrors(phase10SelectionMutation))
-      .toContain("missing current-state phrase: Phase 10 is IN PROGRESS (selected 2026-08-21)");
+      .toContain("missing current-state phrase: Phase 10 is COMPLETE (complete-negative, 2026-08-25)");
     expect(currentIndexErrors(`${current}\n## Next step\n`))
       .toContain("expected exactly one ## Next step");
     expect(currentIndexErrors(`${current}\n${ARCHIVE_MARKER}`))

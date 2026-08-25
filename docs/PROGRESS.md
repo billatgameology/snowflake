@@ -89,10 +89,10 @@ detail.
   [decision-ready candidate plan](plans/phase-10-closures-and-frontier.md) supersede that status
   statement. At the close of 2026-08-20, Phase 10 remained uncharted, no execution plan was active,
   and no scientific PC run was authorized.
-- **Phase 10 is IN PROGRESS (selected 2026-08-21).** The maker accepted the candidate plan's
+- **Phase 10 is COMPLETE (complete-negative, 2026-08-25).** The maker accepted the candidate plan's
   recommended **A-S + A-I + B + C0 + C0V with packet-specific A-P** package. The separate C1–C5
   numerical qualification work, including the early attached-count/domain sentinel and every
-  scientific habit row, is explicitly unselected. The active
+  scientific habit row, is explicitly unselected. The completed
   [execution plan](plans/phase-10-evidence-verification-execution.md) runs in the isolated
   `phase10/evidence-verification` branch at `G:\Code Files\snowflake-phase10-evidence`. The S0
   governance checkpoint is complete: accepted
@@ -360,7 +360,7 @@ detail.
   direction) and content stays in-repo unpublished, `test.yml` CI unaffected. Reconciliation is
   a live decision point under **Next step**. Full freeze history:
   [the history file](progress-history-phases-6-8-9.md).
-- **Last updated:** 2026-08-25 (B complete with terminal refusal; minimum C0V closure is next)
+- **Last updated:** 2026-08-25 (Phase 10 complete-negative; `gate10` exit 0)
 
 ## Phase gates
 
@@ -380,7 +380,7 @@ and every superseded attempt live in the linked plans and historical progress sn
 | 7 | Not started; independently eligible | Charter v1.25 preserves Phase 7's independence but does not start it. A committed Phase 7 plan and isolated worktree are required; product, held-out validation, and v6 WGSL/preview-GPU parity remain its scope. |
 | 8 | **Complete (8A + 8B)** | The immutable 8A book remains 18 entries / 59,019 bytes / SHA-256 `47a75f3f…71ec`. The verified 8B successor is 51 development records, 252,134 native rows and 431 plot points; no row is held out. [Completed plan](plans/phase-8-measurement-corpus.md). |
 | 9 | **Complete (development-only)** | The all-no-pass branch closed: D-BT failed, M-F/M-K2 stayed mapping-dependent, controls/path-state/M-PK are unavailable or non-identifiable, and zero items promoted. Exact `TMPDIR=/private/tmp npm test` passed; no result grants validation credit. [Completed plan](plans/phase-9-execution.md). |
-| 10 | **In progress — A-P/A-S/A-I PASS; C0 complete with criterion NO-PASS; B complete with terminal refusal; C0V moving unresolved** | A-P, A-S, bounded structural A-I PASS evidence, and C0 are published and pinned. C0 re-derived 80/80 rows and 64/64 comparisons: 36 passed and 28 failed the attached-count criterion, so both spacings and the all-spacings reduction are NO-PASS. C0V S5b pins its three reference/refusal artifacts; recovery-v5 A-P v6 is terminal complete, but moving production remains unresolved after the retained v5 infrastructure stop. B acquisition and all six branches are terminal; aggregate verification passes 6/6 and returns refusal with zero search or E/F/H execution. C0V closure, package synthesis, `gate10`, final exact `npm test`, and final review remain. No C1–C5 row, habit row, target score, validation claim, or prior-phase credit exists. |
+| 10 | **Complete (negative package; B refusal; C0V incomplete/NO-PASS)** | `gate10` exit 0 at `e2cca93`: 7/7 closure checks re-derive `complete-negative` from terminal B refusal while preserving C0 criterion NO-PASS and C0V incomplete/non-PASS with radial no-verdict, moving/static S5 refusals, and zero S6 packet credit. Exact `npm test` at `298caf8` passed 165/165 files, 2,533 tests with 49 skipped; the bounded non-author review found zero unresolved blockers. The 2,692-byte gate receipt is SHA-256 `acb7d178…37e39`; the manifest pins 449 files / 6,538,258 bytes. No C1–C5 row, habit row, target score, validation claim, downstream authorization, solver change, or prior-phase credit exists. Repro: `node runner/src/main.ts gate10`. |
 
 ## Active plan
 
@@ -395,7 +395,7 @@ and completion credit isolated.
 [nas-asset-governance.md](plans/nas-asset-governance.md) is a completed infrastructure record; its
 correction changes no phase claim or credit.
 
-The [Phase 10 execution plan](plans/phase-10-evidence-verification-execution.md) is active in its
+The [Phase 10 execution plan](plans/phase-10-evidence-verification-execution.md) is complete in its
 isolated worktree. Its S0 governance checkpoint, S1 contract freeze, and S2 A-S classification
 freeze are complete; the A-P bootstrap and A-S static lifecycle are implemented and independently
 reviewed. The six-file terminal A-P PASS dependency, seven-file A-S PASS bundle, and eight-file A-I
@@ -483,13 +483,15 @@ the package-specific prerequisites in its charter amendment and execution plan. 
 
 ## Next step
 
-### Phase 10 — close the minimum remaining C0V/package obligations
+### Phase 10 complete — maker selects the next workstream
 
-The maker selected **A-S + A-I + B + C0 + C0V with packet-specific A-P** on 2026-08-21. No
-C1–C5 numerical-qualification or scientific habit row is part of this execution. The
-[active plan](plans/phase-10-evidence-verification-execution.md) preserves the candidate plan's
-done/stop rules, authority boundaries, finite source and compute budgets, and return-only handling
-of candidate E/F/H branches.
+Phase 10 is complete-negative at clean pushed checkpoint `e2cca93`; reproduce it with
+`node runner/src/main.ts gate10`. The maker must select the next workstream before implementation
+continues. Phase 7 remains on hold and independently eligible; no E/F/H proposal, C0V recovery,
+solver change, source expansion, or new phase starts automatically. The completed
+[execution plan](plans/phase-10-evidence-verification-execution.md) is the detailed record.
+
+The material below is completed Phase 10 reproduction context, not a live execution checklist.
 
 Maker direction on 2026-08-24 stops recovery-v10 and every further automatic S6 moving recovery.
 The incomplete 12-file recovery-v10 working diff was discarded before any freeze, test, registered
@@ -504,10 +506,10 @@ collection. Publication and fresh-restore verification both pass for one file / 
 no source prune is authorized. All six finite branch packets and `b-aggregate` are terminal; the
 aggregate passes 6/6 checks and grants no downstream authorization. Decision 0054 / charter v1.30
 now close the preserved maker-terminated recovery-v9 state without S6 packet or scientific credit.
-Commit and push the pinned gate receipt, then run flagless `node runner/src/main.ts gate10` once.
-Do not repeat the exact suite unless closure code or evidence logic changes. Do not resume a
-moving-recovery ladder, run broad search, inspect numeric media values, implement E/F/H, or add
-another assurance framework.
+The pinned gate receipt passed flagless `node runner/src/main.ts gate10` once from clean
+`e2cca93`. Do not repeat the exact suite unless closure code or evidence logic changes. Do not
+resume a moving-recovery ladder, run broad search, inspect numeric media values, implement E/F/H,
+or add another assurance framework without new maker selection.
 
 The A-P PASS dependency is committed at `63ca13c`; A-S PASS is committed at `78c1875`. A-I's
 observation/decision/review inputs are committed at `9fb2e1b`, and its eight-file structural PASS
