@@ -2265,6 +2265,76 @@ identities. Its bounded four-file run passed 103/103. It did not edit, stage, co
 registered command, worker, solver, finalizer, NAS, or network; recovery-v9's first-add identity can
 exist only after this checkpoint is committed.
 
+### S6 recovery-v9 moving-produce v5 current-output stop and recovery-v10 successor plan — 2026-08-24
+
+Recovery-v9 entered clean pushed first-add freeze
+`910f84d95cbfc36ec43a12aa8a931e542308a264`. Its exact moving-produce v5 `check` exited 0 with
+`executableNow: true`, left the worktree clean, and left all ten packet-specific lock, attempt,
+stage, and fresh-final targets absent. Its one authorized `run` published a passing preflight,
+started one worker, completed the governed moving-discrepancy caller, and then fail-stopped during
+current-publication assembly with `evidence/phase10-obligation-preflight-v3/packets/
+c0v-moving-produce/preflight.json does not resolve one current produce output`. Moving v5 is
+consumed and must not be retried.
+
+The raw result is again a valid retained diagnostic, not an accepted packet. The discrepancy
+evaluator passed its one registered check, selected `moving-discrepancy-refusal`, and invoked no
+solver. Worker lifetime was 468,149,900 ns; the one governed invocation used 33,757,900 ns =
+0.000009377194444444444 process-hours. No candidate file, attempt ledger, verification, terminal
+receipt, stage, packet credit, publication credit, scientific credit, or validation credit exists.
+
+The nine new retained files are exact:
+
+| Recovery-v9 moving v5 artifact | Bytes | SHA-256 |
+|---|---:|---|
+| `out/phase10-execution-v2/recovery-v9/locks/package.lock` | 247 | `8c974c7b010e8235db9dfad6bc2925f43127f048e6b4050578750803b7c33abe` |
+| `out/phase10-execution-v2/recovery-v9/locks/c0v-moving-produce.lock` | 191 | `abe50905be6275041d4a64dc01942ac56d9804533d64e61756ceeaab7996357f` |
+| `out/phase10-execution-v2/recovery-v9/attempts/c0v-moving-produce/c0v-moving-produce-20260822-v5/cause-evaluation.json` | 7,106 | `7bf3c53118e899e2d1c1018eabdebc7485bf5aa71672cbf19c145d0aeba11c99` |
+| `out/phase10-execution-v2/recovery-v9/attempts/c0v-moving-produce/c0v-moving-produce-20260822-v5/exit-status.json` | 259 | `b7f3c53d9abc7efa171a7d26d424c953c91bad2d3f007d5f1f3a28580b9bc0da` |
+| `out/phase10-execution-v2/recovery-v9/attempts/c0v-moving-produce/c0v-moving-produce-20260822-v5/freeze-evaluation.json` | 35,304 | `343860b4d1a8cfb11629d81ccf8c48f02502c4120b2c773e78c05e89ac6e74c6` |
+| `out/phase10-execution-v2/recovery-v9/attempts/c0v-moving-produce/c0v-moving-produce-20260822-v5/stderr.log` | 0 | `e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855` |
+| `out/phase10-execution-v2/recovery-v9/attempts/c0v-moving-produce/c0v-moving-produce-20260822-v5/stdout.log` | 4,505 | `421c67545e8aff12ff8f2e118d3ab4355a78799795bf2308ed5f17c648086cd8` |
+| `out/phase10-execution-v2/recovery-v9/attempts/c0v-moving-produce/c0v-moving-produce-20260822-v5/worker-invocations.jsonl` | 1,413 | `db7f396aa5bec760a67cda2df151f2b1d96d5ca82599549685ee36236635a8c1` |
+| `evidence/phase10-obligation-preflight-v3/packets/c0v-moving-produce/preflight.json` | 57,836 | `52f8312926682c378f8518ad2ec0bc88398d95dea4c507c14d8d4aeefe8a82f5` |
+
+The exact failure is local. `currentProducePublicationArtifacts()` identifies the current
+preflight by comparing its v3 identity path directly with the immutable matrix's v2 path. The
+module already exports `phase10C0VS6ResolveCurrentWholeFileOutputPath()`, but this production join
+does not call it; moreover, the non-A-P resolver currently has no exact structural version-overlay
+case when the matrix path is no longer itself writable. The earlier finalization-path regression
+exercised A-P and one unchanged non-A-P matrix path, but never invoked this produce-publication
+function with a fresh non-A-P structural path.
+
+Recovery-v10 is one bounded package-wide successor and no new gate. Preserve the A-P overlay as
+the first resolver branch and the immutable science/reference match as the second. Preserve exact
+matrix paths already present in `allowedPublicationPaths`; otherwise admit only the unique allowed
+path with the same filename as the matrix path, which the strict protocol parser already binds to
+the exact no-overwrite publication surface and attempt-bound stage. Then make
+`currentProducePublicationArtifacts()` resolve each required output through that shared current
+path helper rather than comparing the raw matrix path. Add one synthetic regression that invokes
+the actual produce-publication function with the real generated moving protocol/matrix and fresh
+preflight path, plus the unchanged ledger, and proves both output IDs and paths. This directly
+covers the failed join without expanding the threat model.
+
+Moving v5 now owns the v3 preflight, so recovery-v10 maps exactly the moving preflight,
+verification, and terminal-receipt rows to the fresh v4 subtree and shifts only the same three
+moving-publish dependency contracts. Keep the attempt ledger, science protocol, reference, route,
+tolerances, caps, and claims unchanged. Bind first-add freeze `910f84d`, all nine new retained
+identities, the unchanged accepted A-P checkpoint, and the predecessor authority/catalogue/moving
+v5 identities. Retention becomes 20 locks / 4,226 bytes, 50 attempt files / 1,698,873 bytes, and 12
+published files / 510,552 bytes: 82 files / 2,213,651 bytes. Carry 78 still-absent predecessor paths
+and add the recovery-v10 root, three fresh v4 finals, and four v6 stages for 86 governed absences.
+The next static baseline is 79 files / 3,205,553 bytes; accepted A-P remains separate at 15 files /
+637,675 bytes, so the pre-attempt census is 94 / 3,843,228. Governed time before v6 is
+532,369,660,900 ns = 0.1478804613611111 hours; projected maxima are 79,340,700 bytes and
+14,932,369,660,900 ns = 4.147880461361111 hours.
+
+Authorize only moving v5 to v6; keep A-P v6 and all other attempts unchanged. Run focused tests,
+exact `npm test`, and one bounded non-author audit on stable generated bytes, then commit and push
+the first-add recovery-v10 freeze. Only after its exact read-only `check` leaves no state may the
+sole v6 `run` occur. The new preflight is manifest-pinned at 398 files / 6,355,161 bytes. On any v6
+refusal, retain every byte and return here; on success, independently verify and pin moving-produce
+before authorizing moving-publish.
+
 ### Rejected native pre-Node launcher design (retained history; do not implement)
 
 **Superseded by maker direction on 2026-08-22.** The detail below records the design that exposed
