@@ -334,9 +334,12 @@ detail.
   pass, and Rule 7 is clean across 1,506 files. From pushed freeze `621c4ec`, the single report is
   published at 9,195 bytes / SHA-256
   `34f4bcc2956b40ce7d57c4776f1e3c0c5f90e724ffcc39743692173a9a818372`; its direct derivation and
-  evidence-integrity checks pass 10/10, and the manifest pins 446 files / 6,533,387 bytes. The next
-  action is to commit this report publication and run the one required exact suite. No recovery-v10
-  is created.
+  evidence-integrity checks pass 10/10. The single required exact `npm test` passed at clean
+  `298caf85d10d4c0466e5035b97dc4deb4e96c9a5`: 165/165 files, 2,533 passed and 49 skipped, exit 0,
+  with no duplicate run. Its 329-byte receipt is SHA-256
+  `c81bed5fc8c5b4d61abcf4f497d09da4b69df7110968d5fc8834381fb204aade`; the manifest pins 447 files /
+  6,533,716 bytes. The next action is the one bounded non-author closure review. No recovery-v10 is
+  created.
 - **Assurance is proportional to decision risk.** [Decision 0049](decisions/0049-make-assurance-proportionate-to-decision-risk.md),
   charter v1.26 and `AGENTS.md` require integrity for routine sources, one targeted check for
   load-bearing inputs, and full named controls for gates or strong public claims. No recursive
@@ -495,11 +498,10 @@ collection. Publication and fresh-restore verification both pass for one file / 
 no source prune is authorized. All six finite branch packets and `b-aggregate` are terminal; the
 aggregate passes 6/6 checks and grants no downstream authorization. Decision 0054 / charter v1.30
 now close the preserved maker-terminated recovery-v9 state without S6 packet or scientific credit.
-Commit and push the published finite package report, then run the one required exact suite from
-that stable checkpoint. Record its exact result once, obtain the one proportionate non-author
-review, publish the gate receipt, and run flagless `node runner/src/main.ts gate10`. Do not resume a
-moving-recovery ladder, run broad search, inspect numeric media values, implement E/F/H, or add
-another assurance framework.
+Commit and push the recorded exact-suite receipt, obtain the one proportionate non-author review,
+then publish the gate receipt and run flagless `node runner/src/main.ts gate10`. Do not repeat the
+exact suite unless closure code or evidence logic changes. Do not resume a moving-recovery ladder,
+run broad search, inspect numeric media values, implement E/F/H, or add another assurance framework.
 
 The A-P PASS dependency is committed at `63ca13c`; A-S PASS is committed at `78c1875`. A-I's
 observation/decision/review inputs are committed at `9fb2e1b`, and its eight-file structural PASS

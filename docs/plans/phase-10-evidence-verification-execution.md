@@ -2471,6 +2471,15 @@ now pins 446 files / 6,533,387 bytes. A direct published-byte equality test plus
 passes 10/10, and both TypeScript checks pass. Next, commit and push this report publication, then
 run the single required exact suite from that stable checkpoint.
 
+The single required exact `npm test` then passed from clean pushed report checkpoint
+`298caf85d10d4c0466e5035b97dc4deb4e96c9a5`: 165/165 test files, 2,533 passed and 49 skipped,
+exit 0. The recorded interval is `2026-08-25T15:25:08.9137800Z` through
+`2026-08-25T15:45:53.8351727Z`; no duplicate run occurred. The 329-byte suite receipt has SHA-256
+`c81bed5fc8c5b4d61abcf4f497d09da4b69df7110968d5fc8834381fb204aade`, bringing the manifest to
+447 files / 6,533,716 bytes. Next, commit and push this exact receipt and obtain the one bounded
+non-author closure review; the exact suite is not repeated unless closure code or evidence logic
+changes.
+
 ### Rejected native pre-Node launcher design (retained history; do not implement)
 
 **Superseded by maker direction on 2026-08-22.** The detail below records the design that exposed

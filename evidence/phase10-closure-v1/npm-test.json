@@ -1,0 +1,12 @@
+{
+  "schema": "phase10-final-suite-receipt-v1",
+  "command": "npm test",
+  "startedOn": "2026-08-25T15:25:08.9137800Z",
+  "endedOn": "2026-08-25T15:45:53.8351727Z",
+  "exitCode": 0,
+  "headCommit": "298caf85d10d4c0466e5035b97dc4deb4e96c9a5",
+  "testFiles": 165,
+  "testsPassed": 2533,
+  "testsSkipped": 49,
+  "verdict": "pass"
+}
