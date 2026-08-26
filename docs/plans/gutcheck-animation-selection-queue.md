@@ -318,3 +318,13 @@ fig6 is the sole trajectory divergence (see divergence log above); everything el
 its pinned endpoint exactly. The scientific round (`--scientific`, 52 items, 20-wide) started
 immediately after, writing state checkpoints + ~120-frame mesh timelines to
 `out/growth-scientific/`.
+
+Scientific round COMPLETE (2026-08-26): 52/52 bundles in `out/growth-scientific/` — per
+crystal the full final GG state checkpoint, a gutcheck-anim-v1 mesh timeline (~120 frames),
+the growth-event asset, spec, record, and log; 78.5 GB total, 0 failures. Endpoint audit:
+fig6 alone diverges from its pinned arm64 record, and it reproduced its own x64 trajectory
+bit-identically across both rounds (event tables sha-equal), so this host is internally
+deterministic and every fig6 product describes one coherent crystal. Both maker-directed
+rounds are done; remaining maker decisions: (a) eyeball fig6's regrown mesh vs the original
+render, (b) whether to grow canonical needle/hollowColumn presets as new crystals, (c) NAS
+staging / website integration of the 52 web assets.
