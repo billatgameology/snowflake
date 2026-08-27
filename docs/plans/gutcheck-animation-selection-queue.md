@@ -328,3 +328,21 @@ deterministic and every fig6 product describes one coherent crystal. Both maker-
 rounds are done; remaining maker decisions: (a) eyeball fig6's regrown mesh vs the original
 render, (b) whether to grow canonical needle/hollowColumn presets as new crystals, (c) NAS
 staging / website integration of the 52 web assets.
+
+Maker decisions executed (2026-08-27):
+
+1. **fig6 = original render.** Its x64 growth asset is excluded from the website library
+   (README there records why); fig6 rejoins after an arm64 rebake reproduces the original
+   trajectory. Its scientific bundle is retained as a coherent sibling-crystal record.
+2. **Canonical needle/hollowColumn presets grown — and found to be fig29/fig30 verbatim.**
+   Identical parameter vectors (checked against core/params.ts), same domain and seed; both
+   x64 reruns reproduced the pinned arm64 endpoints exactly (needle 25075/220173, hollow
+   25000/329133). No new library entries — instead the website index names the habits so the
+   needle family is findable. The rerun products live in out/growth-presets/ as a
+   cross-architecture determinism record for these two vectors.
+3. **Website growth library shipped** (snowcrystal_website branch feature/growth-library,
+   commits 2ab1ce0 + e8f82d0): GrowthStage generalized behind a StageTour interface (authored
+   Run B film unchanged by default), /growth/library plays all 51 shipped assets through the
+   same raymarched stage with a generic grow-and-orbit tour; columns are framed by their
+   extent (a radius-framed needle sat inside the near plane and rendered black). Asset
+   binaries (183 MB) deliberately untracked pending the maker's hosting decision.
