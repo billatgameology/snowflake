@@ -382,7 +382,22 @@ and every superseded attempt live in the linked plans and historical progress sn
 | 9 | **Complete (development-only)** | The all-no-pass branch closed: D-BT failed, M-F/M-K2 stayed mapping-dependent, controls/path-state/M-PK are unavailable or non-identifiable, and zero items promoted. Exact `TMPDIR=/private/tmp npm test` passed; no result grants validation credit. [Completed plan](plans/phase-9-execution.md). |
 | 10 | **Complete (negative package; B refusal; C0V incomplete/NO-PASS)** | `gate10` exit 0 at `e2cca93`: 7/7 closure checks re-derive `complete-negative` from terminal B refusal while preserving C0 criterion NO-PASS and C0V incomplete/non-PASS with radial no-verdict, moving/static S5 refusals, and zero S6 packet credit. Exact `npm test` at `298caf8` passed 165/165 files, 2,533 tests with 49 skipped; the bounded non-author review found zero unresolved blockers. The 2,692-byte gate receipt is SHA-256 `acb7d178…37e39`; the manifest pins 449 files / 6,538,258 bytes. No C1–C5 row, habit row, target score, validation claim, downstream authorization, solver change, or prior-phase credit exists. Repro: `node runner/src/main.ts gate10`. |
 
+**Post-Phase-10 science exploration is selected (2026-08-27).** The maker authorized a fresh
+one-to-two-week, parallel CPU campaign in isolated worktree
+`G:\Code Files\snowflake-science-exploration`, branch `explore/post-phase10-discovery`. The
+[active plan](plans/post-phase10-discovery-campaign.md) freezes 31 unique rows maximum: seven
+numerical/domain/timestep/seed rows including one conditional N112 run, and 24 matched M1/no-dip
+trajectory rows across four temperature/forcing neighborhoods. This is exploratory
+model-development work, not Phase 7, a Phase 10 reopening, a solver change, or a validation gate.
+No experiment has launched yet.
+
 ## Active plan
+
+The [post-Phase-10 discovery campaign](plans/post-phase10-discovery-campaign.md) is the sole active
+science plan. Its first checkpoint is plan-only: implement one observational row worker and one
+finite 31-row-maximum launcher, run focused verification, then launch independent processes at
+recorded concurrency 12. Phase 7 remains a separate parallel product path and is not part of this
+campaign.
 
 [phase-6-science-first-completion.md](plans/phase-6-science-first-completion.md) is the completed Phase 6 record (see its Completion record).
 [phase-8-measurement-corpus.md](plans/phase-8-measurement-corpus.md) and
@@ -483,12 +498,23 @@ the package-specific prerequisites in its charter amendment and execution plan. 
 
 ## Next step
 
-### Phase 10 complete — maker selects the next workstream
+### Implement and launch the post-Phase-10 discovery campaign
+
+Open [the active plan](plans/post-phase10-discovery-campaign.md). Commit/push this plan checkpoint,
+then implement the smallest observational runner for the frozen Lane A/B/C roster. Verify it with
+focused tests, runner typecheck, Rule 7, and a two-row short smoke before committing the clean
+implementation checkpoint. Then launch the nonconditional rows as independent Node processes at
+actual concurrency 12 with per-row stdout, stderr, exit, resource, event, and result files. Do not
+involve Phase 7 or revive any C0V/S6 recovery path.
+
+The prior Phase 10 selection note below is completed reproduction context; its request for a next
+workstream is superseded by the campaign selection above.
+
+### Completed Phase 10 reproduction context
 
 Phase 10 is complete-negative at clean pushed checkpoint `e2cca93`; reproduce it with
-`node runner/src/main.ts gate10`. The maker must select the next workstream before implementation
-continues. Phase 7 remains on hold and independently eligible; no E/F/H proposal, C0V recovery,
-solver change, source expansion, or new phase starts automatically. The completed
+`node runner/src/main.ts gate10`. Phase 7 remains on hold and independently eligible; no E/F/H
+proposal, C0V recovery, solver change, source expansion, or new phase starts automatically. The completed
 [execution plan](plans/phase-10-evidence-verification-execution.md) is the detailed record.
 
 The material below is completed Phase 10 reproduction context, not a live execution checklist.
