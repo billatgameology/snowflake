@@ -1,6 +1,6 @@
 # Post-Phase-10 discovery campaign
 
-**Status:** selected by the maker 2026-08-27; plan checkpoint, no run launched yet  
+**Status:** runner implementation checkpoint ready; no campaign row launched
 **Worktree:** `G:\Code Files\snowflake-science-exploration`  
 **Branch:** `explore/post-phase10-discovery`  
 **Base:** `fda6bd3a1aa04b819de81576d446e191213080b1`  
@@ -145,11 +145,10 @@ Any pattern found here is a candidate explanation to test next, not a physical c
 1. Commit and push this plan before runner code.
 2. Add one row worker, one finite roster/launcher, and focused tests for roster values, per-cycle
    telemetry, stop classification, and a tiny deterministic fixture.
-3. Run focused tests, runner typecheck, Rule 7, and a two-row short smoke. Then commit/push the
-   implementation checkpoint.
-4. Launch the finite campaign, recording actual concurrency and process files. Do not run exact
-   `npm test` before launch unless the implementation changes numerical/scientific behavior;
-   the runner is observational only.
+3. Run focused tests, runner typecheck, Rule 7, and a two-row short smoke. Because the resulting
+   telemetry is a scientific readout used by the analysis, run exact `npm test` once on the stable
+   bytes, then commit/push the implementation checkpoint.
+4. Launch the finite campaign, recording actual concurrency and process files.
 5. Analyze completed bytes, promote only compact claim-bearing artifacts, update this plan and
    `docs/PROGRESS.md`, then run the verification tier required by the final changed surfaces.
 
@@ -183,3 +182,45 @@ Any pattern found here is a candidate explanation to test next, not a physical c
   initialization questions at lower cost.
 - Reusing the Phase 10 S6 executor/recovery machinery was rejected: its governance problem is
   unrelated to local scientific process concurrency and it is explicitly closed.
+
+## Implementation record
+
+The implementation adds only `runner/src/post-phase10-discovery.ts`, its small CLI launcher, and
+one focused test file. It changes no solver or core byte. The worker uses existing public
+`boundaryCells()`, `boundaryState()`, `facetClassOf()`, `relaxField()`, and `advanceSurface()`
+interfaces. The launcher hard-codes the registered roster, uses independent Node processes, and
+writes separate stdout, stderr, exit, status, event, and result files per row.
+
+Pre-checks on the stable runner bytes:
+
+- `npx vitest run runner/test/post-phase10-discovery.test.ts`: 1 file / 4 tests passed;
+- `npx tsc --noEmit`: passed;
+- `npm run lint:rule7`: clean across 1,514 files; and
+- two-process smoke `out/post-phase10-discovery/smoke-5d9204b-v2`: both M1 and no-dip workers
+  exited 0, each completed one converged cycle, and each wrote the complete registered file set.
+
+Exact `npm test` then ran once, as required for the scientific-readout boundary. Rule 7 and both
+TypeScript checks passed; Vitest completed 166 files with 158 passed / 8 failed and 2,500 tests
+passed / 14 failed / 72 skipped in 1,100.81 seconds. The new discovery file passed 4/4 inside that
+run. Every failure is in completed Phase 10 code and has one of two inherited prerequisites:
+
+- eight tests reopen ignored `out/phase10-execution-v2` recovery bytes that do not exist in this
+  fresh worktree; the completed Phase 10 worktree retains 70 such files totaling 1,703,099 bytes;
+  or
+- the Phase 10 scope/B/final-package fixtures mix commit-blob LF identities with the published
+  Windows working-tree CRLF identities. For example the current science worktree's
+  `phase10-b-schema-contracts-v1.json` is the published 1,557-byte SHA-256
+  `22f387843aa8c0dea866de6fcdc26b4d8acc8bec1a343564311e81b4d2aef813`, while the completed
+  Phase 10 worktree's LF checkout is the failing 1,523-byte
+  `ca34bd9bae3d9a33e84ffa722899dd02395544ef2129389628dae2985d85f59a` identity.
+
+The suite is therefore recorded as **not green for inherited Phase 10 fixture reasons**, not
+represented as a pass. No failed test imports the new runner or reports a new solver/readout
+disagreement. Repairing historical Phase 10 tests or copying its ignored recovery lineage into
+this campaign would be unrelated maintenance and is deliberately not made a launch prerequisite.
+
+The first real CLI smoke at `out/post-phase10-discovery/smoke-5d9204b` exited 1 for both workers:
+the launcher passed its two smoke-only ids through the campaign-only row lookup. No solver cycle or
+science ran. The lookup now checks the two fixed smoke rows before the campaign roster; the v2
+smoke above verifies the repaired subprocess path. This was an implementation defect, not a new
+protocol version or campaign attempt.

@@ -391,6 +391,19 @@ trajectory rows across four temperature/forcing neighborhoods. This is explorato
 model-development work, not Phase 7, a Phase 10 reopening, a solver change, or a validation gate.
 No experiment has launched yet.
 
+The observational runner and finite launcher are now implemented without a `core/` or
+`solver-cpu/` change. Focused Vitest passed 4/4, runner typecheck passed, Rule 7 is clean across
+1,514 files, and the corrected two-process smoke passed 2/2 at
+`out/post-phase10-discovery/smoke-5d9204b-v2`. The first smoke directory records a launcher-only
+unknown-row failure before either solver ran; the active plan records the exact cause and repair.
+Exact `npm test` ran once because the runner emits scientific readouts. Rule 7 and both typechecks
+passed; Vitest finished 158/166 files and 2,500 passed / 14 failed / 72 skipped tests in 1,100.81
+seconds. The discovery test passed 4/4. All failures are confined to completed Phase 10 tests:
+eight reopen ignored recovery bytes absent from this fresh worktree, while the remaining
+scope/B/final-package failures reproduce historical LF-versus-CRLF identity assumptions. The
+active plan records concrete byte examples. The suite is not called green; unrelated Phase 10
+fixture repair and recovery-tree copying are deliberately outside this science checkpoint.
+
 ## Active plan
 
 The [post-Phase-10 discovery campaign](plans/post-phase10-discovery-campaign.md) is the sole active
@@ -500,10 +513,8 @@ the package-specific prerequisites in its charter amendment and execution plan. 
 
 ### Implement and launch the post-Phase-10 discovery campaign
 
-Open [the active plan](plans/post-phase10-discovery-campaign.md). Commit/push this plan checkpoint,
-then implement the smallest observational runner for the frozen Lane A/B/C roster. Verify it with
-focused tests, runner typecheck, Rule 7, and a two-row short smoke before committing the clean
-implementation checkpoint. Then launch the nonconditional rows as independent Node processes at
+Open [the active plan](plans/post-phase10-discovery-campaign.md). Commit/push the clean runner
+implementation checkpoint, then launch the nonconditional rows as independent Node processes at
 actual concurrency 12 with per-row stdout, stderr, exit, resource, event, and result files. Do not
 involve Phase 7 or revive any C0V/S6 recovery path.
 
