@@ -11,6 +11,10 @@ import {
   runPostPhase10DiscoveryRow,
   type DiscoveryTerminalResult,
 } from "../src/post-phase10-discovery.ts";
+import {
+  discoveryTrend,
+  firstSustainedDifference,
+} from "../src/post-phase10-discovery-analysis.ts";
 
 const temporaryDirectories: string[] = [];
 
@@ -163,5 +167,32 @@ describe("row telemetry", () => {
     });
     expect(event.attached).toBeInstanceOf(Array);
     expect(JSON.parse(readFileSync(join(directory, "result.json"), "utf8"))).toEqual(measured);
+  });
+});
+
+describe("post-hoc trajectory analysis", () => {
+  it("finds the first three-checkpoint, same-sign sustained separation", () => {
+    const measured = firstSustainedDifference([
+      { coordinate: 1, difference: 0.05 },
+      { coordinate: 2, difference: 0.12, leftCycle: 3, rightCycle: 4 },
+      { coordinate: 3, difference: 0.14 },
+      { coordinate: 4, difference: 0.11 },
+      { coordinate: 5, difference: -0.2 },
+    ]);
+    expect(measured).toMatchObject({
+      coordinate: 2,
+      windowEndCoordinate: 4,
+      difference: 0.12,
+      sign: "positive",
+      leftCycle: 3,
+      rightCycle: 4,
+    });
+  });
+
+  it("classifies monotonic forcing sequences without fitting a law", () => {
+    expect(discoveryTrend([1, 0.5, 0.25])).toBe("nonincreasing");
+    expect(discoveryTrend([1, 1, 1])).toBe("constant");
+    expect(discoveryTrend([1, null, 2])).toBe("incomplete");
+    expect(discoveryTrend([1, 3, 2])).toBe("nonmonotonic");
   });
 });

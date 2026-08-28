@@ -382,14 +382,15 @@ and every superseded attempt live in the linked plans and historical progress sn
 | 9 | **Complete (development-only)** | The all-no-pass branch closed: D-BT failed, M-F/M-K2 stayed mapping-dependent, controls/path-state/M-PK are unavailable or non-identifiable, and zero items promoted. Exact `TMPDIR=/private/tmp npm test` passed; no result grants validation credit. [Completed plan](plans/phase-9-execution.md). |
 | 10 | **Complete (negative package; B refusal; C0V incomplete/NO-PASS)** | `gate10` exit 0 at `e2cca93`: 7/7 closure checks re-derive `complete-negative` from terminal B refusal while preserving C0 criterion NO-PASS and C0V incomplete/non-PASS with radial no-verdict, moving/static S5 refusals, and zero S6 packet credit. Exact `npm test` at `298caf8` passed 165/165 files, 2,533 tests with 49 skipped; the bounded non-author review found zero unresolved blockers. The 2,692-byte gate receipt is SHA-256 `acb7d178…37e39`; the manifest pins 449 files / 6,538,258 bytes. No C1–C5 row, habit row, target score, validation claim, downstream authorization, solver change, or prior-phase credit exists. Repro: `node runner/src/main.ts gate10`. |
 
-**Post-Phase-10 science exploration is selected (2026-08-27).** The maker authorized a fresh
-one-to-two-week, parallel CPU campaign in isolated worktree
+**Post-Phase-10 discovery campaign is complete (2026-08-28).** The maker authorized a fresh
+parallel CPU campaign in isolated worktree
 `G:\Code Files\snowflake-science-exploration`, branch `explore/post-phase10-discovery`. The
-[active plan](plans/post-phase10-discovery-campaign.md) freezes 31 unique rows maximum: seven
+[completed plan](plans/post-phase10-discovery-campaign.md) ran all 31 registered rows: seven
 numerical/domain/timestep/seed rows including one conditional N112 run, and 24 matched M1/no-dip
-trajectory rows across four temperature/forcing neighborhoods. This is exploratory
-model-development work, not Phase 7, a Phase 10 reopening, a solver change, or a validation gate.
-No experiment has launched yet.
+trajectory rows across four temperature/forcing neighborhoods. The initial 30 workers ran at
+actual maximum concurrency 12 and all exited 0; the eligible N112 worker also exited 0. All 31
+terminal results are admissible. This is exploratory model-development work, not Phase 7, a
+Phase 10 reopening, a solver change, or a validation gate.
 
 The observational runner and finite launcher are now implemented without a `core/` or
 `solver-cpu/` change. Focused Vitest passed 4/4, runner typecheck passed, Rule 7 is clean across
@@ -404,13 +405,27 @@ scope/B/final-package failures reproduce historical LF-versus-CRLF identity assu
 active plan records concrete byte examples. The suite is not called green; unrelated Phase 10
 fixture repair and recovery-tree copying are deliberately outside this science checkpoint.
 
+The compact analysis is
+`evidence/post-phase10-discovery-campaign-v1/analysis.json` (77,960 bytes, SHA-256
+`5c267a01dcdfa04bd0611415812f0a4cd0424a902536c6eb226def815ec04806`), with readable report
+`README.md` (5,113 bytes, SHA-256
+`4efb66ecebee1b11215401a6601e16bddcab93265db0b7740de6d0534d7e78a2`). A80/A96 ended with
+identical 7,693 attached cells and aspect ratio 1.2272727272727273; A112 retained that aspect ratio
+with 7,717 attached cells (+0.311972% from A96). The `cflFill = 0.05` final attached-count and
+aspect-ratio effects were identical at N80 and N96 (-288 and +0.05844155844155852), giving zero
+interaction for those final observables. Signed seed perturbations reversed between total count
+and post-seed growth, demonstrating local initialization memory. Across the matched trajectories,
+M1/no-dip aspect-ratio contrast has opposite signs in the warm (-5/-6 C) and cold (-19/-24 C)
+neighborhoods; its magnitude weakens with forcing except for a nearly flat -5 C sequence.
+Cumulative attachment orientation changes sign across -24 C forcing and is nonmonotonic at -19 C,
+making facet-specific ablation and transition localization the strongest next discovery targets.
+These are measured implementation-level patterns, not physical-cause claims.
+
 ## Active plan
 
-The [post-Phase-10 discovery campaign](plans/post-phase10-discovery-campaign.md) is the sole active
-science plan. Its first checkpoint is plan-only: implement one observational row worker and one
-finite 31-row-maximum launcher, run focused verification, then launch independent processes at
-recorded concurrency 12. Phase 7 remains a separate parallel product path and is not part of this
-campaign.
+There is no active science execution plan. The [post-Phase-10 discovery
+campaign](plans/post-phase10-discovery-campaign.md) is complete. Phase 7 remains a separate
+parallel product path and is not part of this science workstream.
 
 [phase-6-science-first-completion.md](plans/phase-6-science-first-completion.md) is the completed Phase 6 record (see its Completion record).
 [phase-8-measurement-corpus.md](plans/phase-8-measurement-corpus.md) and
@@ -511,12 +526,15 @@ the package-specific prerequisites in its charter amendment and execution plan. 
 
 ## Next step
 
-### Implement and launch the post-Phase-10 discovery campaign
+### Register the adaptive follow-up discovery campaign
 
-Open [the active plan](plans/post-phase10-discovery-campaign.md). Commit/push the clean runner
-implementation checkpoint, then launch the nonconditional rows as independent Node processes at
-actual concurrency 12 with per-row stdout, stderr, exit, resource, event, and result files. Do not
-involve Phase 7 or revive any C0V/S6 recovery path.
+Use the completed [discovery report](../evidence/post-phase10-discovery-campaign-v1/README.md) to
+write one concise, result-driven follow-up plan before implementation. Prioritize dense 48-cubed
+transition localization, seed-shape checks only at selected transition conditions, separate basal
+and prism dip ablations, physical-pressure contrasts, and abrupt temperature-history tests. Run
+independent rows at up to concurrency 16, then promote only informative survivors to selected
+80/96-cubed and `cflFill = 0.05` confirmations. Do not involve Phase 7, revive C0V/S6 recovery, or
+build a generic scheduler/dashboard.
 
 The prior Phase 10 selection note below is completed reproduction context; its request for a next
 workstream is superseded by the campaign selection above.

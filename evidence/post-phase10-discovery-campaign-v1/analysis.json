@@ -1,0 +1,2555 @@
+{
+  "schema": "post-phase10-discovery-analysis-v1",
+  "campaignId": "campaign-2026-08-27",
+  "analysisMethod": "post-phase10-discovery-analysis-v1",
+  "producerGitHead": "60cd9f8fef908ce4ddd5e7974e4f2292e84f7890",
+  "node": "v24.13.1",
+  "rowCount": 31,
+  "allRowsAdmissible": true,
+  "scope": "Exploratory model-development evidence only; not Phase 7, a Phase 10 reopening, physical causality, or quantitative validation.",
+  "postHocSustainedSeparation": {
+    "absoluteDifferenceThreshold": 0.1,
+    "consecutiveAlignedCheckpoints": 3,
+    "signMustRemainConstant": true,
+    "alignment": "last observation carried forward on each merged physical-time, extent, or attached-count coordinate within the common range",
+    "boundaryComposition": "basal boundary count / (basal + prism boundary count)",
+    "attachmentOrientation": "cumulative basal attachment events / cumulative (basal + prism attachment events)"
+  },
+  "sourceFiles": [
+    {
+      "path": "a112-complete.json",
+      "bytes": 535,
+      "sha256": "d7d07ee5710ff9b14d3aa3f4a2cd74118ac63e198dd7be0c202e0615c452dcc2"
+    },
+    {
+      "path": "a112-eligibility.json",
+      "bytes": 277,
+      "sha256": "9118455f8ba9d921aa3e992f28227a14269e2f7ab7a03ada63aa4add008dcd83"
+    },
+    {
+      "path": "a112-launch.json",
+      "bytes": 491,
+      "sha256": "dbb5626784336850badf74f7350e08cd2bb31c360b93031e5b6e142927528c02"
+    },
+    {
+      "path": "campaign.json",
+      "bytes": 1129,
+      "sha256": "6122e3b563522d25559797c1bd891f93449fc23df9adf6df149613a9b45dea83"
+    },
+    {
+      "path": "initial-complete.json",
+      "bytes": 6729,
+      "sha256": "2864392e780e8a5e7df6aacdae43818bddacec5995761b6a99c6e4daa9668199"
+    },
+    {
+      "path": "initial-launch.json",
+      "bytes": 1129,
+      "sha256": "2053e3123fdb30858e5c7cd3a22595ad5e8c341c664f4aa855f4bf024c266108"
+    },
+    {
+      "path": "rows/a112/events.jsonl",
+      "bytes": 518124,
+      "sha256": "d38b2388273fa7cadecdf90eebd6d7f1349f3341f5b50843b770d73758b69e70"
+    },
+    {
+      "path": "rows/a112/result.json",
+      "bytes": 1121,
+      "sha256": "bcccdf41587fb3cfddfe41ea91338b434ec19cef8820f3fc9b90875a233cf282"
+    },
+    {
+      "path": "rows/a112/spec.json",
+      "bytes": 600,
+      "sha256": "f832b13b62a1c6e74bea76a97fdf3fa8e8f1646f0367c5d54e4a598dbc2fe1e1"
+    },
+    {
+      "path": "rows/a80/events.jsonl",
+      "bytes": 513656,
+      "sha256": "cc7d4271c5146255120be1d6e792c2c1eb95260ab63fb79098f6bd6c00c95627"
+    },
+    {
+      "path": "rows/a80/result.json",
+      "bytes": 1119,
+      "sha256": "911c3cf28e63d4742ef023e116d14edca8f11849c611a007607d4d51c469b4ac"
+    },
+    {
+      "path": "rows/a80/spec.json",
+      "bytes": 599,
+      "sha256": "4b7d150786d4d1823308494ae5123af8472a368447bc69422fe96d48960a1a4a"
+    },
+    {
+      "path": "rows/a96/events.jsonl",
+      "bytes": 513648,
+      "sha256": "258264f18801fec40c10857c13532cc0a63b2735a336861da4f1803188f96342"
+    },
+    {
+      "path": "rows/a96/result.json",
+      "bytes": 1119,
+      "sha256": "5c1bb9032249a001dec1c2c566a2b3e3f6684fb2c25268dcaff8b1e41328c2ad"
+    },
+    {
+      "path": "rows/a96/spec.json",
+      "bytes": 599,
+      "sha256": "aaece7d525f28c008df678e706dd7282ee59860a9d1a3e308af6fabccbe1e670"
+    },
+    {
+      "path": "rows/b80-c05/events.jsonl",
+      "bytes": 702331,
+      "sha256": "b7a96b9ea0fb1fa88fcd24b335d9f760a8d0474f43b5d256f0800a88ddd7850c"
+    },
+    {
+      "path": "rows/b80-c05/result.json",
+      "bytes": 1122,
+      "sha256": "76738906e445a2464995bbf41a790b6050e7111ec2e88d8b145bd270a20a0248"
+    },
+    {
+      "path": "rows/b80-c05/spec.json",
+      "bytes": 604,
+      "sha256": "a27cc931eff20a424c5a9bca747550b41c87c2c9efd6eef9483f5237eb129a0d"
+    },
+    {
+      "path": "rows/b96-c05/events.jsonl",
+      "bytes": 707677,
+      "sha256": "c9711c54e6f2848621e622053183f52361316bc869ddd8eec21cdf1a87f06af2"
+    },
+    {
+      "path": "rows/b96-c05/result.json",
+      "bytes": 1126,
+      "sha256": "27941f7be72646b924f0d257500a4b76f77499d8e78b53c76e3ba7175eeb94fa"
+    },
+    {
+      "path": "rows/b96-c05/spec.json",
+      "bytes": 604,
+      "sha256": "65dc9d269ee4b53cbac412d633b3912c70d294d70842af463e756ef356f2d9cd"
+    },
+    {
+      "path": "rows/b96-seed7/events.jsonl",
+      "bytes": 633515,
+      "sha256": "e2673dd33f7aa0d3fb05dbe8ced20127b4384644ba6c02da775994f572f22552"
+    },
+    {
+      "path": "rows/b96-seed7/result.json",
+      "bytes": 1124,
+      "sha256": "431d77bf1e50de6e3902d88322cdd6fe78d642e3872e39d7a64f5cb380a79fd5"
+    },
+    {
+      "path": "rows/b96-seed7/spec.json",
+      "bytes": 605,
+      "sha256": "adb5307b5a513439003c4b6a3317a305c231b805b61798d454f8ac8fc3b4ed34"
+    },
+    {
+      "path": "rows/b96-seed9/events.jsonl",
+      "bytes": 407361,
+      "sha256": "d52f9f3393b32861e2a55dfc9ba5b7cfcd5d519bfb168c144e0aed4cab71f866"
+    },
+    {
+      "path": "rows/b96-seed9/result.json",
+      "bytes": 1124,
+      "sha256": "d3e6188b11ad4dee698bcc86475c81086043532ee961b3d06695df1e6fa5c1b4"
+    },
+    {
+      "path": "rows/b96-seed9/spec.json",
+      "bytes": 605,
+      "sha256": "3807ad5f4a6368263455340682a8a3e2bcf20aebb4b991f3f6b0b336d8b4d7bc"
+    },
+    {
+      "path": "rows/c-t05-f0p125-m1/events.jsonl",
+      "bytes": 642276,
+      "sha256": "276c875a7821964448a3b680382394f80be04ace44df8d09b6efbb33fce114d1"
+    },
+    {
+      "path": "rows/c-t05-f0p125-m1/result.json",
+      "bytes": 1131,
+      "sha256": "519811a33dd13cd295032ee342de960dc20fc4c3a1aeaa64560ce40f81c05d5b"
+    },
+    {
+      "path": "rows/c-t05-f0p125-m1/spec.json",
+      "bytes": 612,
+      "sha256": "11c206906776c6e4b38a8244123767f67b438b8da7356ad73013813ee30199b5"
+    },
+    {
+      "path": "rows/c-t05-f0p125-nodip/events.jsonl",
+      "bytes": 748239,
+      "sha256": "060139a7678e4b64cdb4105b4f852a84868d8c4499d1f6dc885bff93a704dc14"
+    },
+    {
+      "path": "rows/c-t05-f0p125-nodip/result.json",
+      "bytes": 1130,
+      "sha256": "cd832270556d34e6ca86fda6c17baeccc31c6d30606e5da5282b6fa6712331c4"
+    },
+    {
+      "path": "rows/c-t05-f0p125-nodip/spec.json",
+      "bytes": 631,
+      "sha256": "3ea17c83ce17465041bbc806b64ab64e3d1c72bc32d0f3d6fd6cd4e661531588"
+    },
+    {
+      "path": "rows/c-t05-f0p15-m1/events.jsonl",
+      "bytes": 607569,
+      "sha256": "90dbe350286ad42de1a242f57358b230d21bea2ddf7052d230b15772a66f964d"
+    },
+    {
+      "path": "rows/c-t05-f0p15-m1/result.json",
+      "bytes": 1126,
+      "sha256": "e09602a6543cc26c7b295288f705f6bce89152e83b647721ef07fbab43b33731"
+    },
+    {
+      "path": "rows/c-t05-f0p15-m1/spec.json",
+      "bytes": 609,
+      "sha256": "cd3e653576bed22a66ba4faee9375cb1494b178148e763621cd3be51d33114cd"
+    },
+    {
+      "path": "rows/c-t05-f0p15-nodip/events.jsonl",
+      "bytes": 686255,
+      "sha256": "9e8fc3b679b7461e58fd1d51e852a0c5adcf149ce3a0ab56bb6024229a651ad1"
+    },
+    {
+      "path": "rows/c-t05-f0p15-nodip/result.json",
+      "bytes": 1132,
+      "sha256": "69aeb4cc699e12be42cbad5d31886c0a6eb102b4a7dded02e3dc828385f9f244"
+    },
+    {
+      "path": "rows/c-t05-f0p15-nodip/spec.json",
+      "bytes": 628,
+      "sha256": "19fac3c6119f796ce023f4e18559e1cd9d0967e0efb5147641046e1e38270ae9"
+    },
+    {
+      "path": "rows/c-t05-f0p2-m1/events.jsonl",
+      "bytes": 547838,
+      "sha256": "c58df17d9587ae9999c01b8ab7ec9884a42a05be921cb739849fc6ca0a2f54b1"
+    },
+    {
+      "path": "rows/c-t05-f0p2-m1/result.json",
+      "bytes": 1128,
+      "sha256": "22a6f6136296754989fb8b6fc95147902b2b114e1cc27d112b9e7e1c5a4601f2"
+    },
+    {
+      "path": "rows/c-t05-f0p2-m1/spec.json",
+      "bytes": 605,
+      "sha256": "3db848b66121ab85f76b21320968c6eea2d0352139e5b6e80759103d5faede67"
+    },
+    {
+      "path": "rows/c-t05-f0p2-nodip/events.jsonl",
+      "bytes": 569544,
+      "sha256": "85e85649908b8c750ff39f9484e104afa63249a9c55de61979bfcef0d773acfc"
+    },
+    {
+      "path": "rows/c-t05-f0p2-nodip/result.json",
+      "bytes": 1128,
+      "sha256": "378ab6c5e9f0e53c6f04b327a13dadcdd1bf004f254241b0173e4b2d4b862f88"
+    },
+    {
+      "path": "rows/c-t05-f0p2-nodip/spec.json",
+      "bytes": 624,
+      "sha256": "e04e15811d5539ee93a748a5649c4630b50b7e2a25692de4ab25574560806cdf"
+    },
+    {
+      "path": "rows/c-t06-f0p125-m1/events.jsonl",
+      "bytes": 899369,
+      "sha256": "0714d471c494dca241edecf8f52b02d888843242a86648be6b79cd47950ae2f7"
+    },
+    {
+      "path": "rows/c-t06-f0p125-m1/result.json",
+      "bytes": 1129,
+      "sha256": "0eab83988bf54c679a8545d4a99435b1c61c04e57a80990c4783e745516551fd"
+    },
+    {
+      "path": "rows/c-t06-f0p125-m1/spec.json",
+      "bytes": 612,
+      "sha256": "5b2abf9b257402654635ecbabd90e4c207f22db24979bf61069a1c0f74a58f12"
+    },
+    {
+      "path": "rows/c-t06-f0p125-nodip/events.jsonl",
+      "bytes": 846838,
+      "sha256": "a5c01fc848955c86a63edcc7f898ab5aa19a87c061c44ff5011ea29451432c77"
+    },
+    {
+      "path": "rows/c-t06-f0p125-nodip/result.json",
+      "bytes": 1134,
+      "sha256": "acd1638ba71eb43d93314bfc7511fc5ff325c144689e79e833d318592b4f57fc"
+    },
+    {
+      "path": "rows/c-t06-f0p125-nodip/spec.json",
+      "bytes": 631,
+      "sha256": "0f540443509a685a38bbfa10e54c3928bbd8e46c66276e86e2580255b6462225"
+    },
+    {
+      "path": "rows/c-t06-f0p15-m1/events.jsonl",
+      "bytes": 845110,
+      "sha256": "d2950e69a79bde4ad1b95238db18afd2c011464a69a2b0be5595556dde2badc2"
+    },
+    {
+      "path": "rows/c-t06-f0p15-m1/result.json",
+      "bytes": 1110,
+      "sha256": "55ba7bee31bc736d4a66dc1af8ba95ddff99182aab728418b183acdca7442d80"
+    },
+    {
+      "path": "rows/c-t06-f0p15-m1/spec.json",
+      "bytes": 610,
+      "sha256": "c271965093ba13eab49de212599ced30ffbc9e01e6765b3919387e56ce079e83"
+    },
+    {
+      "path": "rows/c-t06-f0p15-nodip/events.jsonl",
+      "bytes": 765296,
+      "sha256": "8323f15d6152eaeb0eabd320e0bc64367a514277483ece020542145986c1ca8a"
+    },
+    {
+      "path": "rows/c-t06-f0p15-nodip/result.json",
+      "bytes": 1134,
+      "sha256": "f57e084ed25416b958872f9f7f966f9d672918008a549d5d4dd93a41cf37e124"
+    },
+    {
+      "path": "rows/c-t06-f0p15-nodip/spec.json",
+      "bytes": 629,
+      "sha256": "08558be5d9cd17286ccd5b9435effa41df69ec022d7fbacad3137268761c1886"
+    },
+    {
+      "path": "rows/c-t06-f0p2-m1/events.jsonl",
+      "bytes": 662706,
+      "sha256": "bc6e069425200ac67047dd78c5eef3c6f53525bc12b2cb50a3a74b41bd842ec2"
+    },
+    {
+      "path": "rows/c-t06-f0p2-m1/result.json",
+      "bytes": 1124,
+      "sha256": "4ef4cde7334212c661382a0f703e2231df9deddbbfc05afb2ad6dda1b41cfd55"
+    },
+    {
+      "path": "rows/c-t06-f0p2-m1/spec.json",
+      "bytes": 608,
+      "sha256": "86ddfb6b28a9700beade469f4d7a8cbab74f7796bdec190e75fadadd2ecd0b65"
+    },
+    {
+      "path": "rows/c-t06-f0p2-nodip/events.jsonl",
+      "bytes": 644614,
+      "sha256": "c7aaed4ede38e8d5177686845f43453ef17a779e063e1df091605757702ae04f"
+    },
+    {
+      "path": "rows/c-t06-f0p2-nodip/result.json",
+      "bytes": 1126,
+      "sha256": "c7b9475e28d3a43eea4d5ac30525dc9ee150927608cfc382677af66d491946f2"
+    },
+    {
+      "path": "rows/c-t06-f0p2-nodip/spec.json",
+      "bytes": 627,
+      "sha256": "477b5c1ee37e58913bf541d7a9457cb27a6fdaba66efbd162b6f03dd3749b4d7"
+    },
+    {
+      "path": "rows/c-t19-f0p1-m1/events.jsonl",
+      "bytes": 591139,
+      "sha256": "3aadb42d70b44404448d7ea48566b4eac6670d258b0ac00808fb6100a30f97c5"
+    },
+    {
+      "path": "rows/c-t19-f0p1-m1/result.json",
+      "bytes": 1107,
+      "sha256": "7adca3c0210afdcb88b33d6516d9ace2577ec87126cec0854937b5c74c756702"
+    },
+    {
+      "path": "rows/c-t19-f0p1-m1/spec.json",
+      "bytes": 609,
+      "sha256": "1de98b49d131d69c27ba7409902bdbc81400c3bb4ba816c33a1d56888c2b5317"
+    },
+    {
+      "path": "rows/c-t19-f0p1-nodip/events.jsonl",
+      "bytes": 757206,
+      "sha256": "358f594258d5784be4c9a4ba4d18db4c9a230536a7b081c8ad281baa4fb74bf8"
+    },
+    {
+      "path": "rows/c-t19-f0p1-nodip/result.json",
+      "bytes": 1131,
+      "sha256": "91fb760db18fed1dd685951786f013f67fc933ac64d33fef4b7f80e89212b96b"
+    },
+    {
+      "path": "rows/c-t19-f0p1-nodip/spec.json",
+      "bytes": 628,
+      "sha256": "aca6fb2b6f4f0556a57f73cdab886e4055eef6f2c43195735375ea23a77c9f37"
+    },
+    {
+      "path": "rows/c-t19-f0p125-m1/events.jsonl",
+      "bytes": 564183,
+      "sha256": "0703e958438a20ab71ca2c7e501ef23ab5e7de468942c73adaf726d447dc5a4a"
+    },
+    {
+      "path": "rows/c-t19-f0p125-m1/result.json",
+      "bytes": 1127,
+      "sha256": "82eae093d5d0b46422a14ee62281fd540ac21c5dc418fd79d6ce8bf773378a40"
+    },
+    {
+      "path": "rows/c-t19-f0p125-m1/spec.json",
+      "bytes": 614,
+      "sha256": "831dd2c83003ee1dc435d5b151dece1c1cf70ec82f257dfa2596968967c0757d"
+    },
+    {
+      "path": "rows/c-t19-f0p125-nodip/events.jsonl",
+      "bytes": 906406,
+      "sha256": "59c9e1a96a009feac850175591fa422a24718b7a2fc721c7c198b810d8d463c0"
+    },
+    {
+      "path": "rows/c-t19-f0p125-nodip/result.json",
+      "bytes": 1120,
+      "sha256": "2790fdadde83be8061ebc47778e4efc1e62a0f8bf8857e8f908157420cc96486"
+    },
+    {
+      "path": "rows/c-t19-f0p125-nodip/spec.json",
+      "bytes": 633,
+      "sha256": "6aa5090fcaccfe70a7a71f7e4078b030e83a3e8b0a0a8ce8f6690b6aa6ed8be1"
+    },
+    {
+      "path": "rows/c-t19-f0p2-m1/events.jsonl",
+      "bytes": 470621,
+      "sha256": "17183fcb742f6b97874599fce4fb43462dcbed4c314d0e7c6e7b901c62c0e674"
+    },
+    {
+      "path": "rows/c-t19-f0p2-m1/result.json",
+      "bytes": 1124,
+      "sha256": "dab892d0c7c8d47dc0537a774f9a54d0eecc7d74e6e5ff5c3bd6d1d14bc6a89e"
+    },
+    {
+      "path": "rows/c-t19-f0p2-m1/spec.json",
+      "bytes": 609,
+      "sha256": "d5e72a6f995cbbc163a63ffda587b4726a846e6c3e07ef507edd2fd7d7c41e24"
+    },
+    {
+      "path": "rows/c-t19-f0p2-nodip/events.jsonl",
+      "bytes": 1117019,
+      "sha256": "1f0e307d2c7bbfce56fd7d7cf9605299cacadcdd600b8967cc462774dfe30a05"
+    },
+    {
+      "path": "rows/c-t19-f0p2-nodip/result.json",
+      "bytes": 1131,
+      "sha256": "96138520edd4a94bc5a403cd19642f64aa1c5a6478074f5804fe8f0acaf04c37"
+    },
+    {
+      "path": "rows/c-t19-f0p2-nodip/spec.json",
+      "bytes": 628,
+      "sha256": "8941069fb4d0118c3af79e463e5fb5541f3d7b1b7e981a0fc7755c4dd1c63ebb"
+    },
+    {
+      "path": "rows/c-t24-f0p1-m1/events.jsonl",
+      "bytes": 875106,
+      "sha256": "a49e0c7758004eaeabedd103986dbfa32012ac8600a0c7163779bc31783ea572"
+    },
+    {
+      "path": "rows/c-t24-f0p1-m1/result.json",
+      "bytes": 1111,
+      "sha256": "7343e94d54490e7b4fa4eb4afff2f5539030baf920864682b39b2ffb138cca65"
+    },
+    {
+      "path": "rows/c-t24-f0p1-m1/spec.json",
+      "bytes": 608,
+      "sha256": "e31acae65811e81f3db1def7f0b532f43ee7d363210654d45e392afe0105a533"
+    },
+    {
+      "path": "rows/c-t24-f0p1-nodip/events.jsonl",
+      "bytes": 666239,
+      "sha256": "05eab69b60bf354ac5960c2cc5fa50f61718ee507851c1dadd49198e7ad9e67b"
+    },
+    {
+      "path": "rows/c-t24-f0p1-nodip/result.json",
+      "bytes": 1129,
+      "sha256": "4be5b9170fd6a99b858263eb777ee2cb1f8b812fc04789e76fa0824474a1426f"
+    },
+    {
+      "path": "rows/c-t24-f0p1-nodip/spec.json",
+      "bytes": 627,
+      "sha256": "3eca9c157e0ff1ba59b8cf03076ac792de9aedb3cace04aff12f60053470d909"
+    },
+    {
+      "path": "rows/c-t24-f0p125-m1/events.jsonl",
+      "bytes": 855012,
+      "sha256": "e16d1039d5b0ce524d1f7bfdb94e504ab7bc3e7c495e4d2cb05ee2c469fe4fb0"
+    },
+    {
+      "path": "rows/c-t24-f0p125-m1/result.json",
+      "bytes": 1112,
+      "sha256": "2175eced7b226a5819e6c6fd44662a6de6040e3c05bd415e535d5b56959e2691"
+    },
+    {
+      "path": "rows/c-t24-f0p125-m1/spec.json",
+      "bytes": 614,
+      "sha256": "2ab552855f752415b134d652ae796a4be6908c035751848e2b8adc362250c613"
+    },
+    {
+      "path": "rows/c-t24-f0p125-nodip/events.jsonl",
+      "bytes": 785219,
+      "sha256": "4543d1e57d81ff9462029c120a0588b656cfcef663786f56ee175ac2af906a64"
+    },
+    {
+      "path": "rows/c-t24-f0p125-nodip/result.json",
+      "bytes": 1131,
+      "sha256": "72056a388e83e201d0109975367a0358ecea0020b6fdf44e6e4f23f86548a14d"
+    },
+    {
+      "path": "rows/c-t24-f0p125-nodip/spec.json",
+      "bytes": 633,
+      "sha256": "f843e232f4dddcf52f0e1e78c20d2de76268f428bd939f41cd609d21d7a09f66"
+    },
+    {
+      "path": "rows/c-t24-f0p2-m1/events.jsonl",
+      "bytes": 925072,
+      "sha256": "bacd1b5a6815f1e147783f0c0acc5ce7a388927eda6d8074f6a1faf43e52d17c"
+    },
+    {
+      "path": "rows/c-t24-f0p2-m1/result.json",
+      "bytes": 1128,
+      "sha256": "078d9cfffc43e399af472f8d9112399d2787a35b88263fc61f509c67d65269c5"
+    },
+    {
+      "path": "rows/c-t24-f0p2-m1/spec.json",
+      "bytes": 607,
+      "sha256": "bb1846359a6e112c6f04b7a2c69b5345f9d2e27b14fbf48b14e517347d2481e5"
+    },
+    {
+      "path": "rows/c-t24-f0p2-nodip/events.jsonl",
+      "bytes": 937503,
+      "sha256": "33fd78ead0f58317181bb2c897132e45e6b58f24873bc219619fa61e3a09fb7e"
+    },
+    {
+      "path": "rows/c-t24-f0p2-nodip/result.json",
+      "bytes": 1116,
+      "sha256": "acbf79793d86ca733fa4b7966f37510bff9ae7d55689c6826b4cdb1400c2d626"
+    },
+    {
+      "path": "rows/c-t24-f0p2-nodip/spec.json",
+      "bytes": 626,
+      "sha256": "0a3523180499721eedb94512c6bb12cd5abc41c47eacfc6ca5178cafd49e214a"
+    }
+  ],
+  "laneA": {
+    "eligibility": {
+      "schema": "post-phase10-discovery-a112-eligibility-v1",
+      "sameExecutionIdentity": true,
+      "eligible": true,
+      "reason": "same habit class and attached-count difference is at most 0.5%",
+      "attachedCountRelativeDifference": 0,
+      "evaluatedAt": "2026-08-28T05:44:28.092Z"
+    },
+    "rows": [
+      {
+        "rowId": "a80",
+        "admissible": true,
+        "habitClass": "neutral",
+        "cycles": 92,
+        "attachedCount": 7693,
+        "aspectRatio": 1.2272727272727273,
+        "simTimeSeconds": 36.49261070401298,
+        "wallSeconds": 4789.677
+      },
+      {
+        "rowId": "a96",
+        "admissible": true,
+        "habitClass": "neutral",
+        "cycles": 92,
+        "attachedCount": 7693,
+        "aspectRatio": 1.2272727272727273,
+        "simTimeSeconds": 36.66859121402936,
+        "wallSeconds": 11377.162
+      },
+      {
+        "rowId": "a112",
+        "admissible": true,
+        "habitClass": "neutral",
+        "cycles": 93,
+        "attachedCount": 7717,
+        "aspectRatio": 1.2272727272727273,
+        "simTimeSeconds": 37.158971932000966,
+        "wallSeconds": 21616.53
+      }
+    ],
+    "successiveDomainDeltas": [
+      {
+        "from": "a80",
+        "to": "a96",
+        "attachedCount": {
+          "from": 7693,
+          "to": 7693,
+          "signed": 0,
+          "relativeToFrom": 0
+        },
+        "aspectRatio": {
+          "from": 1.2272727272727273,
+          "to": 1.2272727272727273,
+          "signed": 0,
+          "relativeToFrom": 0
+        },
+        "cycles": {
+          "from": 92,
+          "to": 92,
+          "signed": 0,
+          "relativeToFrom": 0
+        },
+        "simTimeSeconds": {
+          "from": 36.49261070401298,
+          "to": 36.66859121402936,
+          "signed": 0.17598051001638026,
+          "relativeToFrom": 0.004822360105823512
+        }
+      },
+      {
+        "from": "a96",
+        "to": "a112",
+        "attachedCount": {
+          "from": 7693,
+          "to": 7717,
+          "signed": 24,
+          "relativeToFrom": 0.0031197192252697256
+        },
+        "aspectRatio": {
+          "from": 1.2272727272727273,
+          "to": 1.2272727272727273,
+          "signed": 0,
+          "relativeToFrom": 0
+        },
+        "cycles": {
+          "from": 92,
+          "to": 93,
+          "signed": 1,
+          "relativeToFrom": 0.010869565217391304
+        },
+        "simTimeSeconds": {
+          "from": 36.66859121402936,
+          "to": 37.158971932000966,
+          "signed": 0.490380717971604,
+          "relativeToFrom": 0.013373317646956255
+        }
+      }
+    ]
+  },
+  "laneB": {
+    "baselineRowId": "a96",
+    "note": "Four cells are reported directly; no error law is fit from two levels.",
+    "metrics": {
+      "attachedCount": {
+        "values": {
+          "n80c1": 7693,
+          "n96c1": 7693,
+          "n80c05": 7405,
+          "n96c05": 7405
+        },
+        "domainContrasts": {
+          "atCfl0p1": 0,
+          "atCfl0p05": 0
+        },
+        "timestepContrasts": {
+          "atN80": -288,
+          "atN96": -288
+        },
+        "interaction": 0
+      },
+      "aspectRatio": {
+        "values": {
+          "n80c1": 1.2272727272727273,
+          "n96c1": 1.2272727272727273,
+          "n80c05": 1.2857142857142858,
+          "n96c05": 1.2857142857142858
+        },
+        "domainContrasts": {
+          "atCfl0p1": 0,
+          "atCfl0p05": 0
+        },
+        "timestepContrasts": {
+          "atN80": 0.05844155844155852,
+          "atN96": 0.05844155844155852
+        },
+        "interaction": 0
+      },
+      "cycles": {
+        "values": {
+          "n80c1": 92,
+          "n96c1": 92,
+          "n80c05": 172,
+          "n96c05": 174
+        },
+        "domainContrasts": {
+          "atCfl0p1": 0,
+          "atCfl0p05": 2
+        },
+        "timestepContrasts": {
+          "atN80": 80,
+          "atN96": 82
+        },
+        "interaction": 2
+      },
+      "simTimeSeconds": {
+        "values": {
+          "n80c1": 36.49261070401298,
+          "n96c1": 36.66859121402936,
+          "n80c05": 34.19954244241916,
+          "n96c05": 34.739216608799346
+        },
+        "domainContrasts": {
+          "atCfl0p1": 0.17598051001638026,
+          "atCfl0p05": 0.5396741663801876
+        },
+        "timestepContrasts": {
+          "atN80": -2.293068261593824,
+          "atN96": -1.9293746052300165
+        },
+        "interaction": 0.36369365636380735
+      }
+    },
+    "seedPerturbations": [
+      {
+        "rowId": "b96-seed7",
+        "seedSites": {
+          "from": 3689,
+          "to": 2535,
+          "signed": -1154,
+          "relativeToFrom": -0.3128219029547303
+        },
+        "totalAttached": {
+          "from": 7693,
+          "to": 7375,
+          "signed": -318,
+          "relativeToFrom": -0.041336279734823865
+        },
+        "postSeedGrowth": {
+          "from": 4004,
+          "to": 4840,
+          "signed": 836,
+          "relativeToFrom": 0.2087912087912088
+        },
+        "aspectRatio": {
+          "from": 1.2272727272727273,
+          "to": 1.2857142857142858,
+          "signed": 0.05844155844155852,
+          "relativeToFrom": 0.04761904761904768
+        },
+        "cycles": {
+          "from": 92,
+          "to": 115,
+          "signed": 23,
+          "relativeToFrom": 0.25
+        },
+        "simTimeSeconds": {
+          "from": 36.66859121402936,
+          "to": 43.66450697893988,
+          "signed": 6.995915764910521,
+          "relativeToFrom": 0.19078768868093005
+        }
+      },
+      {
+        "rowId": "b96-seed9",
+        "seedSites": {
+          "from": 3689,
+          "to": 5149,
+          "signed": 1460,
+          "relativeToFrom": 0.3957712117104906
+        },
+        "totalAttached": {
+          "from": 7693,
+          "to": 8475,
+          "signed": 782,
+          "relativeToFrom": 0.1016508514233719
+        },
+        "postSeedGrowth": {
+          "from": 4004,
+          "to": 3326,
+          "signed": -678,
+          "relativeToFrom": -0.16933066933066934
+        },
+        "aspectRatio": {
+          "from": 1.2272727272727273,
+          "to": 1.173913043478261,
+          "signed": -0.05335968379446632,
+          "relativeToFrom": -0.04347826086956515
+        },
+        "cycles": {
+          "from": 92,
+          "to": 69,
+          "signed": -23,
+          "relativeToFrom": -0.25
+        },
+        "simTimeSeconds": {
+          "from": 36.66859121402936,
+          "to": 28.98761872506204,
+          "signed": -7.680972488967324,
+          "relativeToFrom": -0.20947007328791492
+        }
+      }
+    ]
+  },
+  "laneC": {
+    "pairs": [
+      {
+        "tempC": -24,
+        "fraction": 0.1,
+        "sigmaInfinity": 0.0265,
+        "rowIds": {
+          "m1": "c-t24-f0p1-m1",
+          "noDip": "c-t24-f0p1-nodip"
+        },
+        "terminal": {
+          "m1": {
+            "aspectRatio": 0.65,
+            "boundaryBasalShare": 0.43569131832797425,
+            "attachmentBasalShare": 0.1793103448275862
+          },
+          "noDip": {
+            "aspectRatio": 1.9090909090909092,
+            "boundaryBasalShare": 0.24202127659574468,
+            "attachmentBasalShare": 0.7887323943661971
+          },
+          "differenceM1MinusNoDip": {
+            "aspectRatio": -1.2590909090909093,
+            "boundaryBasalShare": 0.19367004173222957,
+            "attachmentBasalShare": -0.6094220495386109
+          }
+        },
+        "firstSustained": {
+          "physicalTime": {
+            "aspectRatio": {
+              "coordinate": 3.4228972724349713,
+              "windowEndCoordinate": 3.503412817031611,
+              "difference": -0.43860952220359095,
+              "sign": "negative",
+              "leftCycle": 12,
+              "rightCycle": 10
+            },
+            "boundaryBasalShare": {
+              "coordinate": 3.3697843811576917,
+              "windowEndCoordinate": 3.438357620673269,
+              "difference": 0.1517647058823529,
+              "sign": "positive",
+              "leftCycle": 12,
+              "rightCycle": 9
+            },
+            "attachmentBasalShare": {
+              "coordinate": 3.4228972724349713,
+              "windowEndCoordinate": 3.503412817031611,
+              "difference": -1,
+              "sign": "negative",
+              "leftCycle": 12,
+              "rightCycle": 10
+            }
+          },
+          "extent": {
+            "aspectRatio": {
+              "coordinate": 5,
+              "windowEndCoordinate": 9,
+              "difference": -0.8,
+              "sign": "negative",
+              "leftCycle": 10,
+              "rightCycle": 29
+            },
+            "boundaryBasalShare": {
+              "coordinate": 5,
+              "windowEndCoordinate": 9,
+              "difference": 0.3722448979591837,
+              "sign": "positive",
+              "leftCycle": 10,
+              "rightCycle": 29
+            },
+            "attachmentBasalShare": {
+              "coordinate": 7,
+              "windowEndCoordinate": 11,
+              "difference": -0.33333333333333337,
+              "sign": "negative",
+              "leftCycle": 39,
+              "rightCycle": 74
+            }
+          },
+          "attachedCount": {
+            "aspectRatio": {
+              "coordinate": 31,
+              "windowEndCoordinate": 55,
+              "difference": -0.43860952220359095,
+              "sign": "negative",
+              "leftCycle": 18,
+              "rightCycle": 10
+            },
+            "boundaryBasalShare": {
+              "coordinate": 31,
+              "windowEndCoordinate": 55,
+              "difference": 0.1517647058823529,
+              "sign": "positive",
+              "leftCycle": 18,
+              "rightCycle": 10
+            },
+            "attachmentBasalShare": {
+              "coordinate": 31,
+              "windowEndCoordinate": 55,
+              "difference": -1,
+              "sign": "negative",
+              "leftCycle": 18,
+              "rightCycle": 10
+            }
+          }
+        }
+      },
+      {
+        "tempC": -24,
+        "fraction": 0.125,
+        "sigmaInfinity": 0.033125,
+        "rowIds": {
+          "m1": "c-t24-f0p125-m1",
+          "noDip": "c-t24-f0p125-nodip"
+        },
+        "terminal": {
+          "m1": {
+            "aspectRatio": 0.65,
+            "boundaryBasalShare": 0.43569131832797425,
+            "attachmentBasalShare": 0.2549019607843137
+          },
+          "noDip": {
+            "aspectRatio": 1.6153846153846154,
+            "boundaryBasalShare": 0.27078891257995735,
+            "attachmentBasalShare": 0.4742268041237113
+          },
+          "differenceM1MinusNoDip": {
+            "aspectRatio": -0.9653846153846154,
+            "boundaryBasalShare": 0.1649024057480169,
+            "attachmentBasalShare": -0.2193248433393976
+          }
+        },
+        "firstSustained": {
+          "physicalTime": {
+            "aspectRatio": {
+              "coordinate": 2.412393448470699,
+              "windowEndCoordinate": 2.476731249085126,
+              "difference": -0.43860952220359095,
+              "sign": "negative",
+              "leftCycle": 15,
+              "rightCycle": 11
+            },
+            "boundaryBasalShare": {
+              "coordinate": 2.190189823563893,
+              "windowEndCoordinate": 2.2475179808760615,
+              "difference": 0.1517647058823529,
+              "sign": "positive",
+              "leftCycle": 12,
+              "rightCycle": 9
+            },
+            "attachmentBasalShare": {
+              "coordinate": 2.412393448470699,
+              "windowEndCoordinate": 2.476731249085126,
+              "difference": -1,
+              "sign": "negative",
+              "leftCycle": 15,
+              "rightCycle": 11
+            }
+          },
+          "extent": {
+            "aspectRatio": {
+              "coordinate": 5,
+              "windowEndCoordinate": 9,
+              "difference": -0.39999999999999997,
+              "sign": "negative",
+              "leftCycle": 10,
+              "rightCycle": 21
+            },
+            "boundaryBasalShare": {
+              "coordinate": 5,
+              "windowEndCoordinate": 9,
+              "difference": 0.24648648648648652,
+              "sign": "positive",
+              "leftCycle": 10,
+              "rightCycle": 21
+            },
+            "attachmentBasalShare": {
+              "coordinate": 7,
+              "windowEndCoordinate": 11,
+              "difference": -0.30000000000000004,
+              "sign": "negative",
+              "leftCycle": 37,
+              "rightCycle": 69
+            }
+          },
+          "attachedCount": {
+            "aspectRatio": {
+              "coordinate": 43,
+              "windowEndCoordinate": 57,
+              "difference": -0.11582856661077295,
+              "sign": "negative",
+              "leftCycle": 17,
+              "rightCycle": 11
+            },
+            "boundaryBasalShare": {
+              "coordinate": 31,
+              "windowEndCoordinate": 55,
+              "difference": 0.1517647058823529,
+              "sign": "positive",
+              "leftCycle": 16,
+              "rightCycle": 10
+            },
+            "attachmentBasalShare": {
+              "coordinate": 43,
+              "windowEndCoordinate": 57,
+              "difference": -0.5,
+              "sign": "negative",
+              "leftCycle": 17,
+              "rightCycle": 11
+            }
+          }
+        }
+      },
+      {
+        "tempC": -24,
+        "fraction": 0.2,
+        "sigmaInfinity": 0.053,
+        "rowIds": {
+          "m1": "c-t24-f0p2-m1",
+          "noDip": "c-t24-f0p2-nodip"
+        },
+        "terminal": {
+          "m1": {
+            "aspectRatio": 0.7894736842105263,
+            "boundaryBasalShare": 0.43569131832797425,
+            "attachmentBasalShare": 0.7
+          },
+          "noDip": {
+            "aspectRatio": 1.3125,
+            "boundaryBasalShare": 0.3603411513859275,
+            "attachmentBasalShare": 0.5866666666666667
+          },
+          "differenceM1MinusNoDip": {
+            "aspectRatio": -0.5230263157894737,
+            "boundaryBasalShare": 0.07535016694204677,
+            "attachmentBasalShare": 0.11333333333333329
+          }
+        },
+        "firstSustained": {
+          "physicalTime": {
+            "aspectRatio": {
+              "coordinate": 1.104308172003436,
+              "windowEndCoordinate": 1.183705636939127,
+              "difference": -0.11582856661077295,
+              "sign": "negative",
+              "leftCycle": 14,
+              "rightCycle": 11
+            },
+            "boundaryBasalShare": {
+              "coordinate": 1.0176890431759469,
+              "windowEndCoordinate": 1.096105718824056,
+              "difference": 0.1517647058823529,
+              "sign": "positive",
+              "leftCycle": 12,
+              "rightCycle": 10
+            },
+            "attachmentBasalShare": {
+              "coordinate": 1.104308172003436,
+              "windowEndCoordinate": 1.183705636939127,
+              "difference": -0.5,
+              "sign": "negative",
+              "leftCycle": 14,
+              "rightCycle": 11
+            }
+          },
+          "extent": {
+            "aspectRatio": {
+              "coordinate": 5,
+              "windowEndCoordinate": 9,
+              "difference": -0.39999999999999997,
+              "sign": "negative",
+              "leftCycle": 10,
+              "rightCycle": 15
+            },
+            "boundaryBasalShare": {
+              "coordinate": 5,
+              "windowEndCoordinate": 9,
+              "difference": 0.24648648648648652,
+              "sign": "positive",
+              "leftCycle": 10,
+              "rightCycle": 15
+            },
+            "attachmentBasalShare": {
+              "coordinate": 7,
+              "windowEndCoordinate": 11,
+              "difference": -0.25,
+              "sign": "negative",
+              "leftCycle": 34,
+              "rightCycle": 53
+            }
+          },
+          "attachedCount": {
+            "aspectRatio": {
+              "coordinate": 43,
+              "windowEndCoordinate": 57,
+              "difference": -0.11582856661077295,
+              "sign": "negative",
+              "leftCycle": 14,
+              "rightCycle": 11
+            },
+            "boundaryBasalShare": {
+              "coordinate": 31,
+              "windowEndCoordinate": 55,
+              "difference": 0.1517647058823529,
+              "sign": "positive",
+              "leftCycle": 13,
+              "rightCycle": 10
+            },
+            "attachmentBasalShare": {
+              "coordinate": 43,
+              "windowEndCoordinate": 57,
+              "difference": -0.5,
+              "sign": "negative",
+              "leftCycle": 14,
+              "rightCycle": 11
+            }
+          }
+        }
+      },
+      {
+        "tempC": -19,
+        "fraction": 0.1,
+        "sigmaInfinity": 0.02034,
+        "rowIds": {
+          "m1": "c-t19-f0p1-m1",
+          "noDip": "c-t19-f0p1-nodip"
+        },
+        "terminal": {
+          "m1": {
+            "aspectRatio": 0.2631578947368421,
+            "boundaryBasalShare": 0.6674876847290641,
+            "attachmentBasalShare": 0.15384615384615385
+          },
+          "noDip": {
+            "aspectRatio": 1.6153846153846154,
+            "boundaryBasalShare": 0.27078891257995735,
+            "attachmentBasalShare": 0.4044943820224719
+          },
+          "differenceM1MinusNoDip": {
+            "aspectRatio": -1.3522267206477734,
+            "boundaryBasalShare": 0.3966987721491067,
+            "attachmentBasalShare": -0.25064822817631804
+          }
+        },
+        "firstSustained": {
+          "physicalTime": {
+            "aspectRatio": {
+              "coordinate": 2.7351979368624253,
+              "windowEndCoordinate": 2.8227116828037473,
+              "difference": -0.47386801637711684,
+              "sign": "negative",
+              "leftCycle": 31,
+              "rightCycle": 11
+            },
+            "boundaryBasalShare": {
+              "coordinate": 1.260631904381652,
+              "windowEndCoordinate": 1.3805523410315372,
+              "difference": 0.1517647058823529,
+              "sign": "positive",
+              "leftCycle": 12,
+              "rightCycle": 5
+            },
+            "attachmentBasalShare": {
+              "coordinate": 2.7351979368624253,
+              "windowEndCoordinate": 2.8227116828037473,
+              "difference": -1,
+              "sign": "negative",
+              "leftCycle": 31,
+              "rightCycle": 11
+            }
+          },
+          "extent": {
+            "aspectRatio": {
+              "coordinate": 5,
+              "windowEndCoordinate": 9,
+              "difference": -0.39999999999999997,
+              "sign": "negative",
+              "leftCycle": 10,
+              "rightCycle": 20
+            },
+            "boundaryBasalShare": {
+              "coordinate": 5,
+              "windowEndCoordinate": 9,
+              "difference": 0.24648648648648652,
+              "sign": "positive",
+              "leftCycle": 10,
+              "rightCycle": 20
+            },
+            "attachmentBasalShare": {
+              "coordinate": 7,
+              "windowEndCoordinate": 11,
+              "difference": -0.875,
+              "sign": "negative",
+              "leftCycle": 26,
+              "rightCycle": 67
+            }
+          },
+          "attachedCount": {
+            "aspectRatio": {
+              "coordinate": 43,
+              "windowEndCoordinate": 57,
+              "difference": -0.47386801637711684,
+              "sign": "negative",
+              "leftCycle": 32,
+              "rightCycle": 11
+            },
+            "boundaryBasalShare": {
+              "coordinate": 43,
+              "windowEndCoordinate": 57,
+              "difference": 0.24,
+              "sign": "positive",
+              "leftCycle": 32,
+              "rightCycle": 11
+            },
+            "attachmentBasalShare": {
+              "coordinate": 43,
+              "windowEndCoordinate": 57,
+              "difference": -1,
+              "sign": "negative",
+              "leftCycle": 32,
+              "rightCycle": 11
+            }
+          }
+        }
+      },
+      {
+        "tempC": -19,
+        "fraction": 0.125,
+        "sigmaInfinity": 0.025425,
+        "rowIds": {
+          "m1": "c-t19-f0p125-m1",
+          "noDip": "c-t19-f0p125-nodip"
+        },
+        "terminal": {
+          "m1": {
+            "aspectRatio": 0.3684210526315789,
+            "boundaryBasalShare": 0.6676646706586826,
+            "attachmentBasalShare": 0.45454545454545453
+          },
+          "noDip": {
+            "aspectRatio": 1.4,
+            "boundaryBasalShare": 0.2975352112676056,
+            "attachmentBasalShare": 0.39285714285714285
+          },
+          "differenceM1MinusNoDip": {
+            "aspectRatio": -1.031578947368421,
+            "boundaryBasalShare": 0.370129459391077,
+            "attachmentBasalShare": 0.06168831168831168
+          }
+        },
+        "firstSustained": {
+          "physicalTime": {
+            "aspectRatio": {
+              "coordinate": 1.8072493694498826,
+              "windowEndCoordinate": 1.8686781131694141,
+              "difference": -0.45714285714285713,
+              "sign": "negative",
+              "leftCycle": 25,
+              "rightCycle": 11
+            },
+            "boundaryBasalShare": {
+              "coordinate": 0.9559191971663632,
+              "windowEndCoordinate": 1.0059536775147526,
+              "difference": 0.1517647058823529,
+              "sign": "positive",
+              "leftCycle": 12,
+              "rightCycle": 5
+            },
+            "attachmentBasalShare": {
+              "coordinate": 1.8072493694498826,
+              "windowEndCoordinate": 1.8686781131694141,
+              "difference": -1,
+              "sign": "negative",
+              "leftCycle": 25,
+              "rightCycle": 11
+            }
+          },
+          "extent": {
+            "aspectRatio": {
+              "coordinate": 5,
+              "windowEndCoordinate": 9,
+              "difference": -0.39999999999999997,
+              "sign": "negative",
+              "leftCycle": 10,
+              "rightCycle": 16
+            },
+            "boundaryBasalShare": {
+              "coordinate": 5,
+              "windowEndCoordinate": 9,
+              "difference": 0.24648648648648652,
+              "sign": "positive",
+              "leftCycle": 10,
+              "rightCycle": 16
+            },
+            "attachmentBasalShare": {
+              "coordinate": 7,
+              "windowEndCoordinate": 11,
+              "difference": -0.8,
+              "sign": "negative",
+              "leftCycle": 25,
+              "rightCycle": 56
+            }
+          },
+          "attachedCount": {
+            "aspectRatio": {
+              "coordinate": 43,
+              "windowEndCoordinate": 57,
+              "difference": -0.47386801637711684,
+              "sign": "negative",
+              "leftCycle": 32,
+              "rightCycle": 11
+            },
+            "boundaryBasalShare": {
+              "coordinate": 43,
+              "windowEndCoordinate": 57,
+              "difference": 0.24,
+              "sign": "positive",
+              "leftCycle": 32,
+              "rightCycle": 11
+            },
+            "attachmentBasalShare": {
+              "coordinate": 43,
+              "windowEndCoordinate": 57,
+              "difference": -1,
+              "sign": "negative",
+              "leftCycle": 32,
+              "rightCycle": 11
+            }
+          }
+        }
+      },
+      {
+        "tempC": -19,
+        "fraction": 0.2,
+        "sigmaInfinity": 0.04068,
+        "rowIds": {
+          "m1": "c-t19-f0p2-m1",
+          "noDip": "c-t19-f0p2-nodip"
+        },
+        "terminal": {
+          "m1": {
+            "aspectRatio": 0.3820854733438844,
+            "boundaryBasalShare": 0.8227272727272728,
+            "attachmentBasalShare": 0.3333333333333333
+          },
+          "noDip": {
+            "aspectRatio": 1.1666666666666667,
+            "boundaryBasalShare": 0.38204225352112675,
+            "attachmentBasalShare": 0.5609756097560976
+          },
+          "differenceM1MinusNoDip": {
+            "aspectRatio": -0.7845811933227824,
+            "boundaryBasalShare": 0.440685019206146,
+            "attachmentBasalShare": -0.2276422764227643
+          }
+        },
+        "firstSustained": {
+          "physicalTime": {
+            "aspectRatio": {
+              "coordinate": 0.859203248416035,
+              "windowEndCoordinate": 0.9425271823926464,
+              "difference": -0.43860952220359095,
+              "sign": "negative",
+              "leftCycle": 21,
+              "rightCycle": 11
+            },
+            "boundaryBasalShare": {
+              "coordinate": 0.5533081914314086,
+              "windowEndCoordinate": 0.6211989409835901,
+              "difference": 0.1517647058823529,
+              "sign": "positive",
+              "leftCycle": 12,
+              "rightCycle": 7
+            },
+            "attachmentBasalShare": {
+              "coordinate": 0.859203248416035,
+              "windowEndCoordinate": 0.9425271823926464,
+              "difference": -1,
+              "sign": "negative",
+              "leftCycle": 21,
+              "rightCycle": 11
+            }
+          },
+          "extent": {
+            "aspectRatio": {
+              "coordinate": 5,
+              "windowEndCoordinate": 9,
+              "difference": -0.39999999999999997,
+              "sign": "negative",
+              "leftCycle": 10,
+              "rightCycle": 13
+            },
+            "boundaryBasalShare": {
+              "coordinate": 5,
+              "windowEndCoordinate": 9,
+              "difference": 0.26,
+              "sign": "positive",
+              "leftCycle": 10,
+              "rightCycle": 13
+            },
+            "attachmentBasalShare": {
+              "coordinate": 7,
+              "windowEndCoordinate": 11,
+              "difference": -0.8,
+              "sign": "negative",
+              "leftCycle": 23,
+              "rightCycle": 46
+            }
+          },
+          "attachedCount": {
+            "aspectRatio": {
+              "coordinate": 43,
+              "windowEndCoordinate": 57,
+              "difference": -0.45714285714285713,
+              "sign": "negative",
+              "leftCycle": 23,
+              "rightCycle": 11
+            },
+            "boundaryBasalShare": {
+              "coordinate": 55,
+              "windowEndCoordinate": 67,
+              "difference": 0.3849929873772791,
+              "sign": "positive",
+              "leftCycle": 24,
+              "rightCycle": 12
+            },
+            "attachmentBasalShare": {
+              "coordinate": 43,
+              "windowEndCoordinate": 57,
+              "difference": -1,
+              "sign": "negative",
+              "leftCycle": 23,
+              "rightCycle": 11
+            }
+          }
+        }
+      },
+      {
+        "tempC": -6,
+        "fraction": 0.125,
+        "sigmaInfinity": 0.00755,
+        "rowIds": {
+          "m1": "c-t06-f0p125-m1",
+          "noDip": "c-t06-f0p125-nodip"
+        },
+        "terminal": {
+          "m1": {
+            "aspectRatio": 1.105263157894737,
+            "boundaryBasalShare": 0.3497854077253219,
+            "attachmentBasalShare": 0.6808510638297872
+          },
+          "noDip": {
+            "aspectRatio": 0.5789473684210527,
+            "boundaryBasalShare": 0.477112676056338,
+            "attachmentBasalShare": 0.5789473684210527
+          },
+          "differenceM1MinusNoDip": {
+            "aspectRatio": 0.5263157894736843,
+            "boundaryBasalShare": -0.1273272683310161,
+            "attachmentBasalShare": 0.10190369540873456
+          }
+        },
+        "firstSustained": {
+          "physicalTime": {
+            "aspectRatio": {
+              "coordinate": 1.0656911268451994,
+              "windowEndCoordinate": 1.1649023970696157,
+              "difference": 0.39999999999999997,
+              "sign": "positive",
+              "leftCycle": 11,
+              "rightCycle": 9
+            },
+            "boundaryBasalShare": {
+              "coordinate": 1.1649023970696157,
+              "windowEndCoordinate": 1.2650643137344595,
+              "difference": -0.3406451612903226,
+              "sign": "negative",
+              "leftCycle": 12,
+              "rightCycle": 10
+            },
+            "attachmentBasalShare": {
+              "coordinate": 1.232530681415803,
+              "windowEndCoordinate": 1.2883505890123255,
+              "difference": 1,
+              "sign": "positive",
+              "leftCycle": 12,
+              "rightCycle": 11
+            }
+          },
+          "extent": {
+            "aspectRatio": {
+              "coordinate": 5,
+              "windowEndCoordinate": 9,
+              "difference": 0.39999999999999997,
+              "sign": "positive",
+              "leftCycle": 12,
+              "rightCycle": 10
+            },
+            "boundaryBasalShare": {
+              "coordinate": 5,
+              "windowEndCoordinate": 9,
+              "difference": -0.3406451612903226,
+              "sign": "negative",
+              "leftCycle": 12,
+              "rightCycle": 10
+            },
+            "attachmentBasalShare": {
+              "coordinate": 7,
+              "windowEndCoordinate": 11,
+              "difference": 0.25,
+              "sign": "positive",
+              "leftCycle": 34,
+              "rightCycle": 33
+            }
+          },
+          "attachedCount": {
+            "aspectRatio": {
+              "coordinate": 111,
+              "windowEndCoordinate": 123,
+              "difference": 0.28571428571428575,
+              "sign": "positive",
+              "leftCycle": 28,
+              "rightCycle": 33
+            },
+            "boundaryBasalShare": {
+              "coordinate": 31,
+              "windowEndCoordinate": 55,
+              "difference": -0.1517647058823529,
+              "sign": "negative",
+              "leftCycle": 10,
+              "rightCycle": 17
+            },
+            "attachmentBasalShare": {
+              "coordinate": 43,
+              "windowEndCoordinate": 67,
+              "difference": 0.5,
+              "sign": "positive",
+              "leftCycle": 12,
+              "rightCycle": 18
+            }
+          }
+        }
+      },
+      {
+        "tempC": -6,
+        "fraction": 0.15,
+        "sigmaInfinity": 0.00906,
+        "rowIds": {
+          "m1": "c-t06-f0p15-m1",
+          "noDip": "c-t06-f0p15-nodip"
+        },
+        "terminal": {
+          "m1": {
+            "aspectRatio": 1,
+            "boundaryBasalShare": 0.3108108108108108,
+            "attachmentBasalShare": 0.6486486486486487
+          },
+          "noDip": {
+            "aspectRatio": 0.5789473684210527,
+            "boundaryBasalShare": 0.49221789883268485,
+            "attachmentBasalShare": 0.6486486486486487
+          },
+          "differenceM1MinusNoDip": {
+            "aspectRatio": 0.42105263157894735,
+            "boundaryBasalShare": -0.18140708802187405,
+            "attachmentBasalShare": 0
+          }
+        },
+        "firstSustained": {
+          "physicalTime": {
+            "aspectRatio": {
+              "coordinate": 0.8665745944040113,
+              "windowEndCoordinate": 0.9471750563627975,
+              "difference": 0.39999999999999997,
+              "sign": "positive",
+              "leftCycle": 11,
+              "rightCycle": 9
+            },
+            "boundaryBasalShare": {
+              "coordinate": 0.9471750563627975,
+              "windowEndCoordinate": 1.008251405315374,
+              "difference": -0.3406451612903226,
+              "sign": "negative",
+              "leftCycle": 12,
+              "rightCycle": 10
+            },
+            "attachmentBasalShare": {
+              "coordinate": 0.9602455918995313,
+              "windowEndCoordinate": 1.028583902711065,
+              "difference": 1,
+              "sign": "positive",
+              "leftCycle": 12,
+              "rightCycle": 11
+            }
+          },
+          "extent": {
+            "aspectRatio": {
+              "coordinate": 5,
+              "windowEndCoordinate": 9,
+              "difference": 0.39999999999999997,
+              "sign": "positive",
+              "leftCycle": 12,
+              "rightCycle": 10
+            },
+            "boundaryBasalShare": {
+              "coordinate": 11,
+              "windowEndCoordinate": 15,
+              "difference": -0.1649436090225564,
+              "sign": "negative",
+              "leftCycle": 82,
+              "rightCycle": 83
+            },
+            "attachmentBasalShare": {
+              "coordinate": 7,
+              "windowEndCoordinate": 11,
+              "difference": 0.25,
+              "sign": "positive",
+              "leftCycle": 31,
+              "rightCycle": 30
+            }
+          },
+          "attachedCount": {
+            "aspectRatio": {
+              "coordinate": 111,
+              "windowEndCoordinate": 123,
+              "difference": 0.33588976341706483,
+              "sign": "positive",
+              "leftCycle": 27,
+              "rightCycle": 32
+            },
+            "boundaryBasalShare": {
+              "coordinate": 31,
+              "windowEndCoordinate": 55,
+              "difference": -0.1517647058823529,
+              "sign": "negative",
+              "leftCycle": 10,
+              "rightCycle": 15
+            },
+            "attachmentBasalShare": {
+              "coordinate": 43,
+              "windowEndCoordinate": 67,
+              "difference": 0.5,
+              "sign": "positive",
+              "leftCycle": 12,
+              "rightCycle": 16
+            }
+          }
+        }
+      },
+      {
+        "tempC": -6,
+        "fraction": 0.2,
+        "sigmaInfinity": 0.01208,
+        "rowIds": {
+          "m1": "c-t06-f0p2-m1",
+          "noDip": "c-t06-f0p2-nodip"
+        },
+        "terminal": {
+          "m1": {
+            "aspectRatio": 0.8947368421052632,
+            "boundaryBasalShare": 0.38421052631578945,
+            "attachmentBasalShare": 0.625
+          },
+          "noDip": {
+            "aspectRatio": 0.5789473684210527,
+            "boundaryBasalShare": 0.5727848101265823,
+            "attachmentBasalShare": 0.5625
+          },
+          "differenceM1MinusNoDip": {
+            "aspectRatio": 0.3157894736842105,
+            "boundaryBasalShare": -0.1885742838107929,
+            "attachmentBasalShare": 0.0625
+          }
+        },
+        "firstSustained": {
+          "physicalTime": {
+            "aspectRatio": {
+              "coordinate": 0.6297804987029277,
+              "windowEndCoordinate": 0.6882940472256637,
+              "difference": 0.39999999999999997,
+              "sign": "positive",
+              "leftCycle": 11,
+              "rightCycle": 10
+            },
+            "boundaryBasalShare": {
+              "coordinate": 1.1478368023138428,
+              "windowEndCoordinate": 1.1967944776063806,
+              "difference": 0.18506493506493504,
+              "sign": "positive",
+              "leftCycle": 22,
+              "rightCycle": 23
+            },
+            "attachmentBasalShare": {
+              "coordinate": 0.6610195388111129,
+              "windowEndCoordinate": 0.698705406132003,
+              "difference": 1,
+              "sign": "positive",
+              "leftCycle": 11,
+              "rightCycle": 11
+            }
+          },
+          "extent": {
+            "aspectRatio": {
+              "coordinate": 5,
+              "windowEndCoordinate": 9,
+              "difference": 0.39999999999999997,
+              "sign": "positive",
+              "leftCycle": 11,
+              "rightCycle": 10
+            },
+            "boundaryBasalShare": {
+              "coordinate": 11,
+              "windowEndCoordinate": 15,
+              "difference": -0.13376524390243905,
+              "sign": "negative",
+              "leftCycle": 73,
+              "rightCycle": 72
+            },
+            "attachmentBasalShare": {
+              "coordinate": 7,
+              "windowEndCoordinate": 11,
+              "difference": 0.30000000000000004,
+              "sign": "positive",
+              "leftCycle": 28,
+              "rightCycle": 27
+            }
+          },
+          "attachedCount": {
+            "aspectRatio": {
+              "coordinate": 123,
+              "windowEndCoordinate": 141,
+              "difference": 0.33588976341706483,
+              "sign": "positive",
+              "leftCycle": 28,
+              "rightCycle": 34
+            },
+            "boundaryBasalShare": {
+              "coordinate": 141,
+              "windowEndCoordinate": 165,
+              "difference": -0.3575510204081632,
+              "sign": "negative",
+              "leftCycle": 35,
+              "rightCycle": 40
+            },
+            "attachmentBasalShare": {
+              "coordinate": 43,
+              "windowEndCoordinate": 67,
+              "difference": 0.5,
+              "sign": "positive",
+              "leftCycle": 11,
+              "rightCycle": 15
+            }
+          }
+        }
+      },
+      {
+        "tempC": -5,
+        "fraction": 0.125,
+        "sigmaInfinity": 0.00625,
+        "rowIds": {
+          "m1": "c-t05-f0p125-m1",
+          "noDip": "c-t05-f0p125-nodip"
+        },
+        "terminal": {
+          "m1": {
+            "aspectRatio": 1.2352941176470589,
+            "boundaryBasalShare": 0.2682926829268293,
+            "attachmentBasalShare": 0.7096774193548387
+          },
+          "noDip": {
+            "aspectRatio": 0.5789473684210527,
+            "boundaryBasalShare": 0.4701834862385321,
+            "attachmentBasalShare": 0.5185185185185185
+          },
+          "differenceM1MinusNoDip": {
+            "aspectRatio": 0.6563467492260062,
+            "boundaryBasalShare": -0.20189080331170284,
+            "attachmentBasalShare": 0.19115890083632026
+          }
+        },
+        "firstSustained": {
+          "physicalTime": {
+            "aspectRatio": {
+              "coordinate": 1.069779455116084,
+              "windowEndCoordinate": 1.1679813533879853,
+              "difference": 0.39999999999999997,
+              "sign": "positive",
+              "leftCycle": 11,
+              "rightCycle": 9
+            },
+            "boundaryBasalShare": {
+              "coordinate": 1.1679813533879853,
+              "windowEndCoordinate": 1.2677550896204801,
+              "difference": -0.3406451612903226,
+              "sign": "negative",
+              "leftCycle": 12,
+              "rightCycle": 10
+            },
+            "attachmentBasalShare": {
+              "coordinate": 1.2677550896204801,
+              "windowEndCoordinate": 1.3658913803628079,
+              "difference": 1,
+              "sign": "positive",
+              "leftCycle": 13,
+              "rightCycle": 11
+            }
+          },
+          "extent": {
+            "aspectRatio": {
+              "coordinate": 5,
+              "windowEndCoordinate": 9,
+              "difference": 0.39999999999999997,
+              "sign": "positive",
+              "leftCycle": 14,
+              "rightCycle": 10
+            },
+            "boundaryBasalShare": {
+              "coordinate": 5,
+              "windowEndCoordinate": 9,
+              "difference": -0.3406451612903226,
+              "sign": "negative",
+              "leftCycle": 14,
+              "rightCycle": 10
+            },
+            "attachmentBasalShare": {
+              "coordinate": 7,
+              "windowEndCoordinate": 11,
+              "difference": 0.25,
+              "sign": "positive",
+              "leftCycle": 35,
+              "rightCycle": 30
+            }
+          },
+          "attachedCount": {
+            "aspectRatio": {
+              "coordinate": 43,
+              "windowEndCoordinate": 61,
+              "difference": 0.11582856661077295,
+              "sign": "positive",
+              "leftCycle": 13,
+              "rightCycle": 20
+            },
+            "boundaryBasalShare": {
+              "coordinate": 31,
+              "windowEndCoordinate": 55,
+              "difference": -0.1517647058823529,
+              "sign": "negative",
+              "leftCycle": 10,
+              "rightCycle": 19
+            },
+            "attachmentBasalShare": {
+              "coordinate": 43,
+              "windowEndCoordinate": 61,
+              "difference": 0.5,
+              "sign": "positive",
+              "leftCycle": 13,
+              "rightCycle": 20
+            }
+          }
+        }
+      },
+      {
+        "tempC": -5,
+        "fraction": 0.15,
+        "sigmaInfinity": 0.0075,
+        "rowIds": {
+          "m1": "c-t05-f0p15-m1",
+          "noDip": "c-t05-f0p15-nodip"
+        },
+        "terminal": {
+          "m1": {
+            "aspectRatio": 1.2352941176470589,
+            "boundaryBasalShare": 0.21142857142857144,
+            "attachmentBasalShare": 0.7096774193548387
+          },
+          "noDip": {
+            "aspectRatio": 0.5789473684210527,
+            "boundaryBasalShare": 0.5054054054054054,
+            "attachmentBasalShare": 0.5
+          },
+          "differenceM1MinusNoDip": {
+            "aspectRatio": 0.6563467492260062,
+            "boundaryBasalShare": -0.29397683397683394,
+            "attachmentBasalShare": 0.20967741935483875
+          }
+        },
+        "firstSustained": {
+          "physicalTime": {
+            "aspectRatio": {
+              "coordinate": 0.8819242336401883,
+              "windowEndCoordinate": 0.9629564463318528,
+              "difference": 0.39999999999999997,
+              "sign": "positive",
+              "leftCycle": 11,
+              "rightCycle": 9
+            },
+            "boundaryBasalShare": {
+              "coordinate": 0.9629564463318528,
+              "windowEndCoordinate": 1.0446790637662147,
+              "difference": -0.3406451612903226,
+              "sign": "negative",
+              "leftCycle": 12,
+              "rightCycle": 10
+            },
+            "attachmentBasalShare": {
+              "coordinate": 0.9988880226914412,
+              "windowEndCoordinate": 1.0525905936873432,
+              "difference": 1,
+              "sign": "positive",
+              "leftCycle": 12,
+              "rightCycle": 11
+            }
+          },
+          "extent": {
+            "aspectRatio": {
+              "coordinate": 5,
+              "windowEndCoordinate": 9,
+              "difference": 0.39999999999999997,
+              "sign": "positive",
+              "leftCycle": 13,
+              "rightCycle": 10
+            },
+            "boundaryBasalShare": {
+              "coordinate": 5,
+              "windowEndCoordinate": 9,
+              "difference": -0.3406451612903226,
+              "sign": "negative",
+              "leftCycle": 13,
+              "rightCycle": 10
+            },
+            "attachmentBasalShare": {
+              "coordinate": 7,
+              "windowEndCoordinate": 11,
+              "difference": 0.25,
+              "sign": "positive",
+              "leftCycle": 32,
+              "rightCycle": 28
+            }
+          },
+          "attachedCount": {
+            "aspectRatio": {
+              "coordinate": 105,
+              "windowEndCoordinate": 117,
+              "difference": 0.10577548252057756,
+              "sign": "positive",
+              "leftCycle": 24,
+              "rightCycle": 32
+            },
+            "boundaryBasalShare": {
+              "coordinate": 31,
+              "windowEndCoordinate": 55,
+              "difference": -0.1517647058823529,
+              "sign": "negative",
+              "leftCycle": 10,
+              "rightCycle": 17
+            },
+            "attachmentBasalShare": {
+              "coordinate": 43,
+              "windowEndCoordinate": 67,
+              "difference": 0.5,
+              "sign": "positive",
+              "leftCycle": 13,
+              "rightCycle": 18
+            }
+          }
+        }
+      },
+      {
+        "tempC": -5,
+        "fraction": 0.2,
+        "sigmaInfinity": 0.01,
+        "rowIds": {
+          "m1": "c-t05-f0p2-m1",
+          "noDip": "c-t05-f0p2-nodip"
+        },
+        "terminal": {
+          "m1": {
+            "aspectRatio": 1.2352941176470589,
+            "boundaryBasalShare": 0.25,
+            "attachmentBasalShare": 0.6666666666666666
+          },
+          "noDip": {
+            "aspectRatio": 0.6004200295403898,
+            "boundaryBasalShare": 0.6495327102803738,
+            "attachmentBasalShare": 0.45454545454545453
+          },
+          "differenceM1MinusNoDip": {
+            "aspectRatio": 0.6348740881066691,
+            "boundaryBasalShare": -0.39953271028037385,
+            "attachmentBasalShare": 0.2121212121212121
+          }
+        },
+        "firstSustained": {
+          "physicalTime": {
+            "aspectRatio": {
+              "coordinate": 0.6526115062325332,
+              "windowEndCoordinate": 0.712654778143182,
+              "difference": 0.39999999999999997,
+              "sign": "positive",
+              "leftCycle": 11,
+              "rightCycle": 10
+            },
+            "boundaryBasalShare": {
+              "coordinate": 0.712654778143182,
+              "windowEndCoordinate": 0.7732623498770413,
+              "difference": -0.3406451612903226,
+              "sign": "negative",
+              "leftCycle": 12,
+              "rightCycle": 11
+            },
+            "attachmentBasalShare": {
+              "coordinate": 0.6974798968977878,
+              "windowEndCoordinate": 0.739611911224927,
+              "difference": 1,
+              "sign": "positive",
+              "leftCycle": 11,
+              "rightCycle": 11
+            }
+          },
+          "extent": {
+            "aspectRatio": {
+              "coordinate": 5,
+              "windowEndCoordinate": 9,
+              "difference": 0.39999999999999997,
+              "sign": "positive",
+              "leftCycle": 12,
+              "rightCycle": 10
+            },
+            "boundaryBasalShare": {
+              "coordinate": 11,
+              "windowEndCoordinate": 15,
+              "difference": -0.1607142857142857,
+              "sign": "negative",
+              "leftCycle": 70,
+              "rightCycle": 68
+            },
+            "attachmentBasalShare": {
+              "coordinate": 7,
+              "windowEndCoordinate": 11,
+              "difference": 0.25,
+              "sign": "positive",
+              "leftCycle": 28,
+              "rightCycle": 26
+            }
+          },
+          "attachedCount": {
+            "aspectRatio": {
+              "coordinate": 111,
+              "windowEndCoordinate": 123,
+              "difference": 0.33588976341706483,
+              "sign": "positive",
+              "leftCycle": 25,
+              "rightCycle": 32
+            },
+            "boundaryBasalShare": {
+              "coordinate": 75,
+              "windowEndCoordinate": 99,
+              "difference": 0.18506493506493504,
+              "sign": "positive",
+              "leftCycle": 22,
+              "rightCycle": 24
+            },
+            "attachmentBasalShare": {
+              "coordinate": 43,
+              "windowEndCoordinate": 67,
+              "difference": 0.5,
+              "sign": "positive",
+              "leftCycle": 12,
+              "rightCycle": 16
+            }
+          }
+        }
+      }
+    ],
+    "forcingMaps": [
+      {
+        "tempC": -24,
+        "fractions": [
+          0.1,
+          0.125,
+          0.2
+        ],
+        "observables": {
+          "aspectRatio": {
+            "finalDifferences": [
+              -1.2590909090909093,
+              -0.9653846153846154,
+              -0.5230263157894737
+            ],
+            "finalSigns": [
+              "negative",
+              "negative",
+              "negative"
+            ],
+            "finalTrend": "nondecreasing",
+            "firstSustainedTiming": {
+              "physicalTime": {
+                "values": [
+                  3.4228972724349713,
+                  2.412393448470699,
+                  1.104308172003436
+                ],
+                "trend": "nonincreasing"
+              },
+              "extent": {
+                "values": [
+                  5,
+                  5,
+                  5
+                ],
+                "trend": "constant"
+              },
+              "attachedCount": {
+                "values": [
+                  31,
+                  43,
+                  43
+                ],
+                "trend": "nondecreasing"
+              }
+            }
+          },
+          "boundaryBasalShare": {
+            "finalDifferences": [
+              0.19367004173222957,
+              0.1649024057480169,
+              0.07535016694204677
+            ],
+            "finalSigns": [
+              "positive",
+              "positive",
+              "positive"
+            ],
+            "finalTrend": "nonincreasing",
+            "firstSustainedTiming": {
+              "physicalTime": {
+                "values": [
+                  3.3697843811576917,
+                  2.190189823563893,
+                  1.0176890431759469
+                ],
+                "trend": "nonincreasing"
+              },
+              "extent": {
+                "values": [
+                  5,
+                  5,
+                  5
+                ],
+                "trend": "constant"
+              },
+              "attachedCount": {
+                "values": [
+                  31,
+                  31,
+                  31
+                ],
+                "trend": "constant"
+              }
+            }
+          },
+          "attachmentBasalShare": {
+            "finalDifferences": [
+              -0.6094220495386109,
+              -0.2193248433393976,
+              0.11333333333333329
+            ],
+            "finalSigns": [
+              "negative",
+              "negative",
+              "positive"
+            ],
+            "finalTrend": "nondecreasing",
+            "firstSustainedTiming": {
+              "physicalTime": {
+                "values": [
+                  3.4228972724349713,
+                  2.412393448470699,
+                  1.104308172003436
+                ],
+                "trend": "nonincreasing"
+              },
+              "extent": {
+                "values": [
+                  7,
+                  7,
+                  7
+                ],
+                "trend": "constant"
+              },
+              "attachedCount": {
+                "values": [
+                  31,
+                  43,
+                  43
+                ],
+                "trend": "nondecreasing"
+              }
+            }
+          }
+        }
+      },
+      {
+        "tempC": -19,
+        "fractions": [
+          0.1,
+          0.125,
+          0.2
+        ],
+        "observables": {
+          "aspectRatio": {
+            "finalDifferences": [
+              -1.3522267206477734,
+              -1.031578947368421,
+              -0.7845811933227824
+            ],
+            "finalSigns": [
+              "negative",
+              "negative",
+              "negative"
+            ],
+            "finalTrend": "nondecreasing",
+            "firstSustainedTiming": {
+              "physicalTime": {
+                "values": [
+                  2.7351979368624253,
+                  1.8072493694498826,
+                  0.859203248416035
+                ],
+                "trend": "nonincreasing"
+              },
+              "extent": {
+                "values": [
+                  5,
+                  5,
+                  5
+                ],
+                "trend": "constant"
+              },
+              "attachedCount": {
+                "values": [
+                  43,
+                  43,
+                  43
+                ],
+                "trend": "constant"
+              }
+            }
+          },
+          "boundaryBasalShare": {
+            "finalDifferences": [
+              0.3966987721491067,
+              0.370129459391077,
+              0.440685019206146
+            ],
+            "finalSigns": [
+              "positive",
+              "positive",
+              "positive"
+            ],
+            "finalTrend": "nonmonotonic",
+            "firstSustainedTiming": {
+              "physicalTime": {
+                "values": [
+                  1.260631904381652,
+                  0.9559191971663632,
+                  0.5533081914314086
+                ],
+                "trend": "nonincreasing"
+              },
+              "extent": {
+                "values": [
+                  5,
+                  5,
+                  5
+                ],
+                "trend": "constant"
+              },
+              "attachedCount": {
+                "values": [
+                  43,
+                  43,
+                  55
+                ],
+                "trend": "nondecreasing"
+              }
+            }
+          },
+          "attachmentBasalShare": {
+            "finalDifferences": [
+              -0.25064822817631804,
+              0.06168831168831168,
+              -0.2276422764227643
+            ],
+            "finalSigns": [
+              "negative",
+              "positive",
+              "negative"
+            ],
+            "finalTrend": "nonmonotonic",
+            "firstSustainedTiming": {
+              "physicalTime": {
+                "values": [
+                  2.7351979368624253,
+                  1.8072493694498826,
+                  0.859203248416035
+                ],
+                "trend": "nonincreasing"
+              },
+              "extent": {
+                "values": [
+                  7,
+                  7,
+                  7
+                ],
+                "trend": "constant"
+              },
+              "attachedCount": {
+                "values": [
+                  43,
+                  43,
+                  43
+                ],
+                "trend": "constant"
+              }
+            }
+          }
+        }
+      },
+      {
+        "tempC": -6,
+        "fractions": [
+          0.125,
+          0.15,
+          0.2
+        ],
+        "observables": {
+          "aspectRatio": {
+            "finalDifferences": [
+              0.5263157894736843,
+              0.42105263157894735,
+              0.3157894736842105
+            ],
+            "finalSigns": [
+              "positive",
+              "positive",
+              "positive"
+            ],
+            "finalTrend": "nonincreasing",
+            "firstSustainedTiming": {
+              "physicalTime": {
+                "values": [
+                  1.0656911268451994,
+                  0.8665745944040113,
+                  0.6297804987029277
+                ],
+                "trend": "nonincreasing"
+              },
+              "extent": {
+                "values": [
+                  5,
+                  5,
+                  5
+                ],
+                "trend": "constant"
+              },
+              "attachedCount": {
+                "values": [
+                  111,
+                  111,
+                  123
+                ],
+                "trend": "nondecreasing"
+              }
+            }
+          },
+          "boundaryBasalShare": {
+            "finalDifferences": [
+              -0.1273272683310161,
+              -0.18140708802187405,
+              -0.1885742838107929
+            ],
+            "finalSigns": [
+              "negative",
+              "negative",
+              "negative"
+            ],
+            "finalTrend": "nonincreasing",
+            "firstSustainedTiming": {
+              "physicalTime": {
+                "values": [
+                  1.1649023970696157,
+                  0.9471750563627975,
+                  1.1478368023138428
+                ],
+                "trend": "nonmonotonic"
+              },
+              "extent": {
+                "values": [
+                  5,
+                  11,
+                  11
+                ],
+                "trend": "nondecreasing"
+              },
+              "attachedCount": {
+                "values": [
+                  31,
+                  31,
+                  141
+                ],
+                "trend": "nondecreasing"
+              }
+            }
+          },
+          "attachmentBasalShare": {
+            "finalDifferences": [
+              0.10190369540873456,
+              0,
+              0.0625
+            ],
+            "finalSigns": [
+              "positive",
+              "zero",
+              "positive"
+            ],
+            "finalTrend": "nonmonotonic",
+            "firstSustainedTiming": {
+              "physicalTime": {
+                "values": [
+                  1.232530681415803,
+                  0.9602455918995313,
+                  0.6610195388111129
+                ],
+                "trend": "nonincreasing"
+              },
+              "extent": {
+                "values": [
+                  7,
+                  7,
+                  7
+                ],
+                "trend": "constant"
+              },
+              "attachedCount": {
+                "values": [
+                  43,
+                  43,
+                  43
+                ],
+                "trend": "constant"
+              }
+            }
+          }
+        }
+      },
+      {
+        "tempC": -5,
+        "fractions": [
+          0.125,
+          0.15,
+          0.2
+        ],
+        "observables": {
+          "aspectRatio": {
+            "finalDifferences": [
+              0.6563467492260062,
+              0.6563467492260062,
+              0.6348740881066691
+            ],
+            "finalSigns": [
+              "positive",
+              "positive",
+              "positive"
+            ],
+            "finalTrend": "nonincreasing",
+            "firstSustainedTiming": {
+              "physicalTime": {
+                "values": [
+                  1.069779455116084,
+                  0.8819242336401883,
+                  0.6526115062325332
+                ],
+                "trend": "nonincreasing"
+              },
+              "extent": {
+                "values": [
+                  5,
+                  5,
+                  5
+                ],
+                "trend": "constant"
+              },
+              "attachedCount": {
+                "values": [
+                  43,
+                  105,
+                  111
+                ],
+                "trend": "nondecreasing"
+              }
+            }
+          },
+          "boundaryBasalShare": {
+            "finalDifferences": [
+              -0.20189080331170284,
+              -0.29397683397683394,
+              -0.39953271028037385
+            ],
+            "finalSigns": [
+              "negative",
+              "negative",
+              "negative"
+            ],
+            "finalTrend": "nonincreasing",
+            "firstSustainedTiming": {
+              "physicalTime": {
+                "values": [
+                  1.1679813533879853,
+                  0.9629564463318528,
+                  0.712654778143182
+                ],
+                "trend": "nonincreasing"
+              },
+              "extent": {
+                "values": [
+                  5,
+                  5,
+                  11
+                ],
+                "trend": "nondecreasing"
+              },
+              "attachedCount": {
+                "values": [
+                  31,
+                  31,
+                  75
+                ],
+                "trend": "nondecreasing"
+              }
+            }
+          },
+          "attachmentBasalShare": {
+            "finalDifferences": [
+              0.19115890083632026,
+              0.20967741935483875,
+              0.2121212121212121
+            ],
+            "finalSigns": [
+              "positive",
+              "positive",
+              "positive"
+            ],
+            "finalTrend": "nondecreasing",
+            "firstSustainedTiming": {
+              "physicalTime": {
+                "values": [
+                  1.2677550896204801,
+                  0.9988880226914412,
+                  0.6974798968977878
+                ],
+                "trend": "nonincreasing"
+              },
+              "extent": {
+                "values": [
+                  7,
+                  7,
+                  7
+                ],
+                "trend": "constant"
+              },
+              "attachedCount": {
+                "values": [
+                  43,
+                  43,
+                  43
+                ],
+                "trend": "constant"
+              }
+            }
+          }
+        }
+      }
+    ]
+  }
+}

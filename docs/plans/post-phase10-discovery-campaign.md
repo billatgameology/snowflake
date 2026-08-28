@@ -1,6 +1,6 @@
 # Post-Phase-10 discovery campaign
 
-**Status:** runner implementation checkpoint ready; no campaign row launched
+**Status:** complete; 31/31 terminal rows analyzed
 **Worktree:** `G:\Code Files\snowflake-science-exploration`  
 **Branch:** `explore/post-phase10-discovery`  
 **Base:** `fda6bd3a1aa04b819de81576d446e191213080b1`  
@@ -224,3 +224,56 @@ the launcher passed its two smoke-only ids through the campaign-only row lookup.
 science ran. The lookup now checks the two fixed smoke rows before the campaign roster; the v2
 smoke above verifies the repaired subprocess path. This was an implementation defect, not a new
 protocol version or campaign attempt.
+
+## Completion record
+
+The initial launch record at
+`out/post-phase10-discovery/campaign-2026-08-27/initial-complete.json` reports 30/30 workers exit 0,
+requested concurrency 12, and actual maximum concurrency 12. A80 and A96 met the frozen A112
+condition, so the conditional worker ran separately and exited 0. All 31 terminal rows are
+admissible. The compact report is
+`evidence/post-phase10-discovery-campaign-v1/analysis.json` (77,960 bytes, SHA-256
+`5c267a01dcdfa04bd0611415812f0a4cd0424a902536c6eb226def815ec04806`); its 99 source identities
+pin each retained row's spec, trajectory, and terminal result plus the launch records. The readable
+summary is `evidence/post-phase10-discovery-campaign-v1/README.md` (5,113 bytes, SHA-256
+`4efb66ecebee1b11215401a6601e16bddcab93265db0b7740de6d0534d7e78a2`).
+
+Measured outcomes:
+
+- Lane A: A80 and A96 ended with identical 7,693 attached cells and aspect ratio
+  1.2272727272727273. A112 ended one cycle later with 7,717 attached cells (+24, +0.311972% from
+  A96) and the same aspect ratio. This is a measured three-domain plateau in final gross aspect
+  ratio with a small remaining attached-count difference, not a proof of general domain
+  independence.
+- Lane B: changing `cflFill` from 0.1 to 0.05 changed attached count by -288 and aspect ratio by
+  +0.05844155844155852 at both N80 and N96, so the final attached-count and aspect-ratio
+  domain-by-timestep interactions are both exactly zero. The smaller seed changed total attached
+  count by -318 but post-seed growth by +836; the larger seed changed them by +782 and -678. Their
+  aspect-ratio changes also have opposite signs (+0.05844155844155852 and
+  -0.05335968379446632), establishing measurable initialization memory in this local comparison.
+- Lane C: every matched pair reached the size target with exact recorded D6h closure. M1 minus
+  no-dip final aspect-ratio differences are positive at -5 C and -6 C and negative at -19 C and
+  -24 C. Their magnitude weakens with forcing at -6 C, -19 C, and -24 C and is nearly flat at
+  -5 C. The cumulative attachment-orientation difference changes sign across forcing at -24 C
+  and is nonmonotonic at -19 C, while the gross aspect-ratio sequence remains smooth. That makes
+  facet-specific matched ablations and transition localization stronger next experiments than a
+  larger undirected endpoint sweep. These are implementation-level contrasts, not physical-cause
+  or validation claims.
+
+The trajectory analysis uses an explicitly post-hoc operational rule: absolute matched difference
+at least 0.10 for three consecutive carry-forward-aligned checkpoints of one sign. It reports the
+first crossing independently by physical time, extent, and attached count for aspect ratio,
+basal/(basal+prism) boundary composition, and cumulative basal/(basal+prism) attachment events.
+
+Final proportional verification:
+
+- `npx vitest run runner/test/post-phase10-discovery.test.ts`: 1 file / 6 tests passed;
+- `npx vitest run runner/test/evidence-integrity.test.ts`: 1 file / 7 tests passed after the two
+  new evidence files entered the Git index;
+- `npx tsc --noEmit`: passed; and
+- `npm run lint:rule7`: clean across 1,517 files.
+
+Exact `npm test` was not repeated: the stable readout checkpoint already received its required one
+run, whose unrelated inherited Phase 10 fixture failures are recorded above. Repeating that
+1,100-second result would not cover a new failure surface beyond the focused analysis and evidence
+checks.

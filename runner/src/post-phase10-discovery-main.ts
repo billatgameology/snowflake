@@ -18,6 +18,7 @@ import {
   runPostPhase10DiscoveryRow,
   type DiscoveryRow,
 } from "./post-phase10-discovery.ts";
+import { analyzePostPhase10Discovery } from "./post-phase10-discovery-analysis.ts";
 
 function writeJson(path: string, value: unknown): void {
   writeFileSync(path, `${JSON.stringify(value, null, 2)}\n`, "utf8");
@@ -297,11 +298,17 @@ async function main(): Promise<void> {
       if (args.length !== 1) throw new Error("smoke wants <output-directory>");
       await smoke(args[0]);
       return;
+    case "analyze":
+      if (args.length !== 2) {
+        throw new Error("analyze wants <campaign-directory> <output-directory>");
+      }
+      analyzePostPhase10Discovery(args[0], args[1]);
+      return;
     default:
       throw new Error(
         "usage: node runner/src/post-phase10-discovery-main.ts " +
           "list|run-row <row-id> <out>|launch-initial <campaign-dir> [concurrency]|" +
-          "launch-a112 <campaign-dir>|smoke <out>",
+          "launch-a112 <campaign-dir>|smoke <out>|analyze <campaign-dir> <output-dir>",
       );
   }
 }
