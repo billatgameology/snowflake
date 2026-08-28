@@ -14,7 +14,13 @@ import {
 import { float64SmootherDriftAbsLimit, LKSolver } from "@vcc/solver-cpu";
 import { validateLKStepEvidence } from "./gate2b-validation.ts";
 
-export type DiscoveryLane = "A" | "B" | "C";
+export type DiscoveryLane =
+  | "A"
+  | "B"
+  | "C"
+  | "adaptive-map"
+  | "adaptive-pressure"
+  | "adaptive-seed";
 
 export interface DiscoveryRow {
   readonly id: string;
@@ -23,6 +29,7 @@ export interface DiscoveryRow {
   readonly tempC: number;
   readonly fraction: number;
   readonly sigmaInfinity: number;
+  readonly pressurePa?: number;
   readonly paramSet: Extract<NucleationParamSet, "M1" | "M1_NO_DIP_ABLATION">;
   readonly dimsN: number;
   readonly dxUm: number;
@@ -429,6 +436,7 @@ export function runPostPhase10DiscoveryRow(
     schema: "post-phase10-discovery-row-v1",
     row: candidate,
     fixed: FIXED,
+    effectivePressurePa: candidate.pressurePa ?? FIXED.pressurePa,
   });
   writeJson(resolve(output, "host.json"), hostRecord(head));
 
@@ -452,7 +460,7 @@ export function runPostPhase10DiscoveryRow(
     tempC: candidate.tempC,
     sigmaInfinity: candidate.sigmaInfinity,
     dxUm: candidate.dxUm,
-    pressurePa: FIXED.pressurePa,
+    pressurePa: candidate.pressurePa ?? FIXED.pressurePa,
     paramSet: candidate.paramSet,
     cflFill: candidate.cflFill,
     relaxTol: FIXED.relaxTol,
@@ -474,7 +482,8 @@ export function runPostPhase10DiscoveryRow(
   let lastHeartbeat = Date.now();
   options.heartbeat?.(
     `start row=${candidate.id} lane=${candidate.lane} dims=${candidate.dimsN} ` +
-      `paramSet=${candidate.paramSet} target=${candidate.targetExtent}`,
+      `paramSet=${candidate.paramSet} pressurePa=${solver.pressurePa} ` +
+      `target=${candidate.targetExtent}`,
   );
 
   try {

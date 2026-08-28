@@ -19,6 +19,15 @@ import {
   type DiscoveryRow,
 } from "./post-phase10-discovery.ts";
 import { analyzePostPhase10Discovery } from "./post-phase10-discovery-analysis.ts";
+import {
+  ADAPTIVE_FRACTIONS,
+  ADAPTIVE_INTERACTION_FRACTIONS,
+  ADAPTIVE_INTERACTION_TEMPERATURES_C,
+  ADAPTIVE_TEMPERATURES_C,
+  POST_PHASE10_ADAPTIVE_ROWS,
+  POST_PHASE10_ADAPTIVE_SMOKE_ROWS,
+  findPostPhase10AdaptiveRow,
+} from "./post-phase10-adaptive.ts";
 
 function writeJson(path: string, value: unknown): void {
   writeFileSync(path, `${JSON.stringify(value, null, 2)}\n`, "utf8");
@@ -268,16 +277,74 @@ async function smoke(outputDirectory: string): Promise<void> {
   if (exits.some((exit) => exit.exitCode !== 0 || exit.signal !== null)) process.exitCode = 1;
 }
 
+async function launchAdaptive(campaignDirectory: string, concurrency: number): Promise<void> {
+  requireCleanTree();
+  const output = resolve(campaignDirectory);
+  if (existsSync(output)) throw new Error(`campaign directory already exists: ${output}`);
+  mkdirSync(output, { recursive: true });
+  const processors = cpus();
+  writeJson(resolve(output, "campaign.json"), {
+    schema: "post-phase10-adaptive-campaign-v1",
+    campaignId: basename(output),
+    gitHead: git(["rev-parse", "HEAD"]),
+    branch: git(["branch", "--show-current"]),
+    node: process.version,
+    logicalProcessors: processors.length,
+    cpuModels: [...new Set(processors.map((processor) => processor.model))],
+    totalMemoryBytes: totalmem(),
+    requestedConcurrency: concurrency,
+    rowCount: POST_PHASE10_ADAPTIVE_ROWS.length,
+    laneCounts: {
+      map: POST_PHASE10_ADAPTIVE_ROWS.filter((row) => row.lane === "adaptive-map").length,
+      pressure: POST_PHASE10_ADAPTIVE_ROWS.filter((row) => row.lane === "adaptive-pressure").length,
+      seed: POST_PHASE10_ADAPTIVE_ROWS.filter((row) => row.lane === "adaptive-seed").length,
+    },
+    temperaturesC: ADAPTIVE_TEMPERATURES_C,
+    fractions: ADAPTIVE_FRACTIONS,
+    interactionTemperaturesC: ADAPTIVE_INTERACTION_TEMPERATURES_C,
+    interactionFractions: ADAPTIVE_INTERACTION_FRACTIONS,
+    createdAt: new Date().toISOString(),
+  });
+  const exits = await launchRows({
+    campaignDirectory: output,
+    launchName: "first-tranche",
+    rows: POST_PHASE10_ADAPTIVE_ROWS,
+    concurrency,
+  });
+  if (exits.some((exit) => exit.exitCode !== 0 || exit.signal !== null)) process.exitCode = 1;
+}
+
+async function smokeAdaptive(outputDirectory: string): Promise<void> {
+  const output = resolve(outputDirectory);
+  if (existsSync(output)) throw new Error(`smoke directory already exists: ${output}`);
+  mkdirSync(output, { recursive: true });
+  const exits = await launchRows({
+    campaignDirectory: output,
+    launchName: "adaptive-smoke",
+    rows: POST_PHASE10_ADAPTIVE_SMOKE_ROWS,
+    concurrency: 2,
+  });
+  if (exits.some((exit) => exit.exitCode !== 0 || exit.signal !== null)) process.exitCode = 1;
+}
+
 async function main(): Promise<void> {
   const [command, ...args] = process.argv.slice(2);
   switch (command) {
     case "list":
       console.log(JSON.stringify(POST_PHASE10_DISCOVERY_ROWS, null, 2));
       return;
+    case "list-adaptive":
+      console.log(JSON.stringify(POST_PHASE10_ADAPTIVE_ROWS, null, 2));
+      return;
     case "run-row": {
       if (args.length !== 2) throw new Error("run-row wants <row-id> <output-directory>");
       const smokeRow = POST_PHASE10_SMOKE_ROWS.find((row) => row.id === args[0]);
-      const selectedRow = smokeRow ?? postPhase10DiscoveryRow(args[0]);
+      const adaptiveSmokeRow = POST_PHASE10_ADAPTIVE_SMOKE_ROWS.find((row) => row.id === args[0]);
+      const selectedRow =
+        smokeRow ??
+        adaptiveSmokeRow ??
+        findPostPhase10AdaptiveRow(args[0]) ??
+        postPhase10DiscoveryRow(args[0]);
       const result = runPostPhase10DiscoveryRow(selectedRow, args[1], {
         heartbeat: (message) => console.log(`${new Date().toISOString()} ${message}`),
       });
@@ -298,6 +365,16 @@ async function main(): Promise<void> {
       if (args.length !== 1) throw new Error("smoke wants <output-directory>");
       await smoke(args[0]);
       return;
+    case "launch-adaptive":
+      if (args.length < 1 || args.length > 2) {
+        throw new Error("launch-adaptive wants <campaign-directory> [concurrency]");
+      }
+      await launchAdaptive(args[0], parseConcurrency(args[1], 16));
+      return;
+    case "smoke-adaptive":
+      if (args.length !== 1) throw new Error("smoke-adaptive wants <output-directory>");
+      await smokeAdaptive(args[0]);
+      return;
     case "analyze":
       if (args.length !== 2) {
         throw new Error("analyze wants <campaign-directory> <output-directory>");
@@ -307,8 +384,10 @@ async function main(): Promise<void> {
     default:
       throw new Error(
         "usage: node runner/src/post-phase10-discovery-main.ts " +
-          "list|run-row <row-id> <out>|launch-initial <campaign-dir> [concurrency]|" +
-          "launch-a112 <campaign-dir>|smoke <out>|analyze <campaign-dir> <output-dir>",
+          "list|list-adaptive|run-row <row-id> <out>|" +
+          "launch-initial <campaign-dir> [concurrency]|launch-a112 <campaign-dir>|" +
+          "smoke <out>|launch-adaptive <campaign-dir> [concurrency]|smoke-adaptive <out>|" +
+          "analyze <campaign-dir> <output-dir>",
       );
   }
 }

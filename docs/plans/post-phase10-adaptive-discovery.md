@@ -1,9 +1,9 @@
 # Post-Phase-10 adaptive discovery follow-up
 
-**Status:** plan checkpoint; implementation not started  
-**Worktree:** `G:\Code Files\snowflake-science-exploration`  
-**Branch:** `explore/post-phase10-discovery`  
-**Base:** `ba99d81`  
+**Status:** first-tranche runner checkpoint ready; production not launched
+**Worktree:** `G:\Code Files\snowflake-science-exploration`
+**Branch:** `explore/post-phase10-discovery`
+**Base:** `ba99d81`
 **Claim level:** exploratory model-development evidence only
 
 ## Goal
@@ -134,3 +134,24 @@ Record the selection rule and observed operands in the report before launching t
 - Adding facet-specific parameter sets before locating informative conditions was rejected because
   it expands core/checkpoint surfaces before the existing two-arm model has identified where that
   decomposition is worth running.
+
+## First-tranche implementation record
+
+The implementation adds `runner/src/post-phase10-adaptive.ts` as the finite 432-row roster and
+reuses the completed campaign's worker and independent-process launcher. `DiscoveryRow.pressurePa`
+is optional so every historical row retains the existing 101,325 Pa default; every adaptive row
+states its pressure explicitly. No `core/` or `solver-cpu/` byte changed.
+
+Pre-launch checks:
+
+- `npx vitest run runner/test/post-phase10-adaptive.test.ts
+  runner/test/post-phase10-discovery.test.ts`: 2 files / 10 tests passed;
+- `npx tsc --noEmit`: passed; and
+- two-process smoke `out/post-phase10-adaptive/smoke-7cbcbc0-v1`: both workers exit 0 at actual
+  concurrency 2. The 50,662.5 Pa and 202,650 Pa specs each reached `size-target` in one converged
+  cycle with zero integrity errors;
+- `npm run lint:rule7`: clean across 1,520 files; and
+- `git diff --check`: passed.
+
+Exact `npm test` was not run for this bounded roster/configuration change: no numerical
+implementation, scientific readout calculation, gate, or evidence publication path changed.

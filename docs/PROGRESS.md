@@ -430,6 +430,12 @@ recorded concurrency 16. Its result-selected second tranche is capped at 48 rows
 [first discovery campaign](plans/post-phase10-discovery-campaign.md) is complete. Phase 7 remains
 a separate parallel product path and is not part of this science workstream.
 
+The first-tranche runner is implemented without a `core/` or `solver-cpu/` change. Focused Vitest
+passed 2 files / 10 tests and `npx tsc --noEmit` passed. The two-process smoke at
+`out/post-phase10-adaptive/smoke-7cbcbc0-v1/adaptive-smoke-complete.json` records 2/2 exit 0 and
+actual concurrency 2; its row specs/results record the intended 50,662.5 Pa / 202,650 Pa values,
+`size-target`, convergence, and zero integrity errors. Production has not launched.
+
 [phase-6-science-first-completion.md](plans/phase-6-science-first-completion.md) is the completed Phase 6 record (see its Completion record).
 [phase-8-measurement-corpus.md](plans/phase-8-measurement-corpus.md) and
 [phase-8-what-is-real.md](plans/phase-8-what-is-real.md) are completed records; the
@@ -531,11 +537,10 @@ the package-specific prerequisites in its charter amendment and execution plan. 
 
 ### Implement and launch the 432-row adaptive first tranche
 
-Open the [active plan](plans/post-phase10-adaptive-discovery.md). Add row-level pressure and the
-finite adaptive roster to the existing discovery runner, verify the changed boundary with focused
-tests/TypeScript/Rule 7 and a two-row smoke, commit/push the clean producer checkpoint, then launch
-the rows at actual concurrency 16. Do not involve Phase 7, revive C0V/S6 recovery, or build a
-generic scheduler/dashboard.
+Open the [active plan](plans/post-phase10-adaptive-discovery.md). Commit/push the clean producer
+checkpoint, then launch all 432 rows at actual concurrency 16 under
+`out/post-phase10-adaptive/`. Do not involve Phase 7, revive C0V/S6 recovery, or build a generic
+scheduler/dashboard.
 
 The prior Phase 10 selection note below is completed reproduction context; its request for a next
 workstream is superseded by the campaign selection above.
