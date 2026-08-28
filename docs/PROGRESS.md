@@ -423,9 +423,12 @@ These are measured implementation-level patterns, not physical-cause claims.
 
 ## Active plan
 
-There is no active science execution plan. The [post-Phase-10 discovery
-campaign](plans/post-phase10-discovery-campaign.md) is complete. Phase 7 remains a separate
-parallel product path and is not part of this science workstream.
+The [adaptive discovery follow-up](plans/post-phase10-adaptive-discovery.md) is the sole active
+science plan. Its first tranche is a finite 432-row CPU campaign: 288 matched temperature/forcing
+rows, 72 physical-pressure contrasts, and 72 near-volume-matched seed-shape contrasts, executed at
+recorded concurrency 16. Its result-selected second tranche is capped at 48 rows. The
+[first discovery campaign](plans/post-phase10-discovery-campaign.md) is complete. Phase 7 remains
+a separate parallel product path and is not part of this science workstream.
 
 [phase-6-science-first-completion.md](plans/phase-6-science-first-completion.md) is the completed Phase 6 record (see its Completion record).
 [phase-8-measurement-corpus.md](plans/phase-8-measurement-corpus.md) and
@@ -526,15 +529,13 @@ the package-specific prerequisites in its charter amendment and execution plan. 
 
 ## Next step
 
-### Register the adaptive follow-up discovery campaign
+### Implement and launch the 432-row adaptive first tranche
 
-Use the completed [discovery report](../evidence/post-phase10-discovery-campaign-v1/README.md) to
-write one concise, result-driven follow-up plan before implementation. Prioritize dense 48-cubed
-transition localization, seed-shape checks only at selected transition conditions, separate basal
-and prism dip ablations, physical-pressure contrasts, and abrupt temperature-history tests. Run
-independent rows at up to concurrency 16, then promote only informative survivors to selected
-80/96-cubed and `cflFill = 0.05` confirmations. Do not involve Phase 7, revive C0V/S6 recovery, or
-build a generic scheduler/dashboard.
+Open the [active plan](plans/post-phase10-adaptive-discovery.md). Add row-level pressure and the
+finite adaptive roster to the existing discovery runner, verify the changed boundary with focused
+tests/TypeScript/Rule 7 and a two-row smoke, commit/push the clean producer checkpoint, then launch
+the rows at actual concurrency 16. Do not involve Phase 7, revive C0V/S6 recovery, or build a
+generic scheduler/dashboard.
 
 The prior Phase 10 selection note below is completed reproduction context; its request for a next
 workstream is superseded by the campaign selection above.
