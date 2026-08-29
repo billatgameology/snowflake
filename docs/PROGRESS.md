@@ -104,18 +104,17 @@ detail.
   placed 37 model-only orphan links ahead of them, making the thumbnails appear absent; the
   generator now orders the generated-crystal gallery first and a regression pins that priority.
   This is an operational UX correction only and changes no scientific evidence or phase state.
-- **The maker-directed animation-selection queue tooling and figure-preview follow-up are COMPLETE
-  (2026-08-24); aesthetic selection is in progress.** The completed
+- **The maker-directed animation selection, growth replay, and website library are COMPLETE; the
+  scientific bundles' governed NAS publication is active (2026-08-29).** The completed
   [queue plan](plans/gutcheck-animation-selection-queue.md) adds preview-adjacent selection,
-  portable manifests, deterministic disjoint batches, existing-mesh flyaround rendering, and
-  merge-safe local/NAS staging. Its follow-up regenerates 33 safe project-owned figure thumbnails
-  from public final meshes and adds them as selectable pre-sweep rows; the historic mixed/private
-  composites remain non-served. The checked-in
-  [second-computer guide](gutcheck-animation-worker-guide.md) records validation, dry-run, NAS
-  staging, resume, and completion-report steps. Live reload/export/import verification passed; at
-  the completion check, the mirror recorded 51 maker selections (30 sweep plus 21 figure). It pins
-  the measured `gutcheck-mesh-v2q` web format; no render has started and no immutable NAS collection
-  is being mutated.
+  portable manifests, deterministic disjoint batches, and the later growth-event path. The Windows
+  fleet completed 52 web assets and 52 full scientific bundles; the maker kept the original `fig6`,
+  and the website library serves the other 51 from `snowcrystal_website`. The local scientific tree
+  at `out/growth-scientific/` contains 6,308 files / 84,247,312,054 bytes. Maker direction on
+  2026-08-29 starts its copy-first publication as the provisional generated-cache collection
+  `gutcheck-growth-scientific@2026-08-26`; no durable payload has been written and no local deletion
+  is authorized yet. The active
+  [publication plan](plans/gutcheck-growth-scientific-nas-publication.md) governs the write.
 - Historical extent-21 artifacts remain valid measured-only comparisons: **CAK 3/90, M1 54/90**
   over their named scopes. They are not the registered conservative-intersection verdict, which
   decision 0045 closed as not computed.
@@ -126,8 +125,8 @@ detail.
   direction) and content stays in-repo unpublished, `test.yml` CI unaffected. Reconciliation is
   a live decision point under **Next step**. Full freeze history:
   [the history file](progress-history-phases-6-8-9.md).
-- **Last updated:** 2026-08-24 (recorded the maker's product-sized verification boundary for
-  website and animation work; no phase or evidence change)
+- **Last updated:** 2026-08-29 (recorded the completed growth products and provisional governed NAS
+  publication; no phase or scientific-evidence change)
 
 ## Phase gates
 
@@ -162,11 +161,10 @@ and completion credit isolated.
 correction changes no phase claim or credit.
 
 The maker-directed [gut-check animation selection and queue plan](plans/gutcheck-animation-selection-queue.md)
-is complete, including its 2026-08-24 usability follow-up: 33 public pre-sweep figure meshes now
-have safe regenerated previews/selectors, and the
-[second-host operator guide](gutcheck-animation-worker-guide.md) is durable. The completion check
-found 51 maker selections; no animation render has started. This changes no phase status or
-scientific claim.
+is complete, including growth-event and full scientific output. The active
+[scientific-bundle NAS publication plan](plans/gutcheck-growth-scientific-nas-publication.md)
+continues the same registered worktree only for durable generated-cache publication; it changes no
+phase status or scientific claim.
 The
 [Phase 10 candidate plan](plans/phase-10-closures-and-frontier.md) is decision support, not
 execution authority; no A–H package is selected.
@@ -179,34 +177,19 @@ the package-specific prerequisites in its charter amendment and execution plan. 
 
 ## Next step
 
-### Gut-check animation queue — maker selection pending
+### Gut-check scientific bundles — governed NAS publication active
 
-The loopback site is running at `http://127.0.0.1:5173/gutcheck-index.html`. Refresh once to load
-the new 33-row **Pre-sweep figure models — regenerated previews** section, finish selecting, and
-use **Export queue JSON** for a portable copy. The live mirror had 51 choices at the completion
-check (30 sweep plus 21 figure) at `out/gutcheck-animation-queue/selection.json`; preserve the
-exported copy before starting workers. The original side-by-side composites remain non-served
-because their target halves are governed mixed/private media.
+The marked share resolved to `S:/`, its bootstrap identity check passed, it has sufficient free
+space, and `collections/gutcheck-growth-scientific/2026-08-26/` was absent at the opening check.
+The plan and provisional catalogue entry are now the authority. Next, implement and focus-test
+`scripts/nas-publish-gutcheck-growth-scientific.mjs`, commit it before any durable write, then run:
 
-After selection, create two deterministic, disjoint worker manifests:
+`node scripts/nas-publish-gutcheck-growth-scientific.mjs --dry-run`
 
-`node scripts/gutcheck-animation-queue.ts plan --queue out/gutcheck-animation-queue/selection.json --batches 2`
-
-The command emits `batch-a.json`, `batch-b.json`, and `RUN-batch-{a,b}.cmd` / `.sh` under the
-queue's local `out/gutcheck-animation-queue/<queue-id>/` directory. Give one manifest/launcher to
-each checkout or computer. Run each worker with `--nas-stage` (the generated launchers already do
-this); each host resolves its own marked NAS mount and writes only
-`_control/staging/gutcheck-animation/<queue-id>/<batch-id>/`. Reconcile the two result-record roots
-only after both finish; immutable collection publication remains a separate governed transaction.
-The context-free setup, resume, and reporting procedure is in
-`docs/gutcheck-animation-worker-guide.md`.
-The local, non-NAS dry-run form is:
-
-`node scripts/gutcheck-animation-queue.ts run --batch <batch-a.json> --dry-run`
-
-This operational selection/render path uses the focused queue checks, dry run, and a representative
-sample render defined by `AGENTS.md` Rule 6. Do not run the full scientific suite unless later work
-crosses into a scientific, evidence, gate, or root-wide contract.
+Only after the dry inventory agrees with the plan may the bounded `--apply` path copy to unique
+`_control/staging/`, publish the absent immutable envelope, write the owner manifest and receipts,
+activate the catalogue entry, and run the full verify/fresh-restore sequence in the active plan.
+Do not delete `out/growth-scientific/` or any restored copy; pruning is not part of this request.
 
 ### Phase 10 — planning complete; maker package selection pending
 

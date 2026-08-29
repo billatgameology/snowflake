@@ -2593,6 +2593,76 @@
       },
       "supersedes": [],
       "unresolved": []
+    },
+    {
+      "assetId": "gutcheck-growth-scientific",
+      "version": "2026-08-26",
+      "state": "provisional",
+      "ownerWorkstream": "gutcheck-animation-growth",
+      "locator": "collections/gutcheck-growth-scientific/2026-08-26/payload",
+      "historicalRepoPath": "out/growth-scientific",
+      "legacyAliases": [],
+      "storageClass": "generated-cache",
+      "aggregate": {
+        "files": 0,
+        "bytes": 0
+      },
+      "ownerManifest": null,
+      "rights": {
+        "kind": "project-owned",
+        "redistribution": "allowed"
+      },
+      "privacy": "public",
+      "serve": {
+        "policy": "deny",
+        "prefixes": []
+      },
+      "retention": {
+        "policy": "maker-approved-delete-only",
+        "garbageCollection": {
+          "policy": "plan-only",
+          "graceDays": null,
+          "approver": "maker"
+        }
+      },
+      "mutability": "immutable",
+      "externalEvidenceAuthority": null,
+      "provenance": {
+        "record": "docs/plans/gutcheck-growth-scientific-nas-publication.md",
+        "producerCommit": "3b1f422",
+        "command": "node scripts/gutcheck-growth-fleet.ts run --queue out/growth-assets/queue-plus-needles.json --scientific"
+      },
+      "reproducibility": {
+        "kind": "exact-recipe",
+        "record": "docs/plans/gutcheck-animation-selection-queue.md"
+      },
+      "restore": {
+        "status": "documented",
+        "command": "npm run assets:restore -- --collection gutcheck-growth-scientific@2026-08-26 --to out/restores/gutcheck-growth-scientific-2026-08-26",
+        "verifyCommand": "npm run assets:verify-restored -- --collection gutcheck-growth-scientific@2026-08-26 --from out/restores/gutcheck-growth-scientific-2026-08-26",
+        "record": "docs/plans/gutcheck-growth-scientific-nas-publication.md"
+      },
+      "verification": {
+        "status": "unavailable",
+        "at": null,
+        "host": null,
+        "receipt": null,
+        "limits": [
+          "Provisional registration only: no durable NAS payload, owner manifest, publication receipt, or fresh restore exists yet."
+        ]
+      },
+      "storageDomains": [
+        "snowcrystal-nas"
+      ],
+      "backup": {
+        "status": "not-required",
+        "independentDomains": [],
+        "receipts": []
+      },
+      "supersedes": [],
+      "unresolved": [
+        "Copy-first publication, owner-manifest binding, full final verification, and fresh restore are pending."
+      ]
     }
   ],
   "overlays": [
