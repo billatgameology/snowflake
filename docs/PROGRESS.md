@@ -182,13 +182,14 @@ the package-specific prerequisites in its charter amendment and execution plan. 
 The marked share resolved to `S:/`, its bootstrap identity check passed, it has sufficient free
 space, and `collections/gutcheck-growth-scientific/2026-08-26/` was absent at the opening check.
 The plan and provisional catalogue entry are now the authority. Next, implement and focus-test
-`scripts/nas-publish-gutcheck-growth-scientific.mjs`, commit it before any durable write, then run:
+`scripts/nas-publish-gutcheck-growth-scientific.ts`, commit it before any durable write, then run:
 
-`node scripts/nas-publish-gutcheck-growth-scientific.mjs --dry-run`
+`node scripts/nas-publish-gutcheck-growth-scientific.ts --dry-run`
 
-Only after the dry inventory agrees with the plan may the bounded `--apply` path copy to unique
-`_control/staging/`, publish the absent immutable envelope, write the owner manifest and receipts,
-activate the catalogue entry, and run the full verify/fresh-restore sequence in the active plan.
+Only after the dry inventory agrees with the plan may the bounded `--publish`, `--restore`, and
+`--register` stages copy to unique `_control/staging/`, publish the absent immutable envelope, write
+the owner manifest and receipts, activate the catalogue entry, and run the full verification
+sequence in the active plan.
 Do not delete `out/growth-scientific/` or any restored copy; pruning is not part of this request.
 
 ### Phase 10 — planning complete; maker package selection pending

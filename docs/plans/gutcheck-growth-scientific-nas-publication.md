@@ -79,11 +79,20 @@ hardware crash-durability claim.
 - [x] Resolve and validate the marked NAS mount; check free space, destination absence, and active
       publication/restore lock namespaces.
 - [x] Add this plan and the provisional catalogue identity before a durable write.
-- [ ] Implement and focus-test the bounded dry-run/publish/register/restore workflow; commit it
-      before `--apply`.
+- [x] Implement and focus-test the bounded dry-run/publish/register/restore workflow; commit it
+      before `--publish`.
 - [ ] Run the dry inventory and record its exact aggregate/tree digest.
 - [ ] Publish, activate, fresh-process verify, fresh-stage restore, and verify the restored tree.
 - [ ] Run required repository checks and record completion in this plan and `docs/PROGRESS.md`.
+
+Implementation checkpoint: the collection-specific TypeScript command delegates copying,
+absent-target publication, transaction receipts, and fresh restore to the existing transaction
+core; it exports only pure owner-manifest/catalogue activation helpers for focused testing. Before
+the implementation commit, `npm run typecheck`, `npm run lint:rule7`, `git diff --check`, and
+`npx vitest run runner/test/gutcheck-growth-scientific-nas-publication.test.ts
+runner/test/nas-asset-transaction-lib.test.ts runner/test/nas-assets-catalog.test.ts` passed: three
+files, 45 tests passed and six transaction fixtures skipped. No NAS payload was written by those
+checks.
 
 ## Out of scope
 
@@ -108,4 +117,3 @@ hardware crash-durability claim.
 - **Calling the scientific round external evidence because of its name.** It is reproducible model
   output and carries no gate claim; `generated-cache` is the accurate class.
 - **Deleting the local source after NAS verification.** Publication does not authorize pruning.
-
