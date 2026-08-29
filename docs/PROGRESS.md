@@ -181,15 +181,16 @@ the package-specific prerequisites in its charter amendment and execution plan. 
 
 The marked share resolved to `S:/`, its bootstrap identity check passed, it has sufficient free
 space, and `collections/gutcheck-growth-scientific/2026-08-26/` was absent at the opening check.
-The plan and provisional catalogue entry are now the authority. Next, implement and focus-test
-`scripts/nas-publish-gutcheck-growth-scientific.ts`, commit it before any durable write, then run:
+The plan, provisional catalogue entry, and bounded publisher are committed. Its read-only stable
+inventory passed at 6,308 files / 84,247,312,054 bytes / tree SHA-256
+`4a1e18634896a58b5e8acf26a041c75de72982bd32a665cae7762976f6465f3e`, with the final and restore
+targets absent. The next command is the copy-first publication:
 
-`node scripts/nas-publish-gutcheck-growth-scientific.ts --dry-run`
+`node scripts/nas-publish-gutcheck-growth-scientific.ts --publish`
 
-Only after the dry inventory agrees with the plan may the bounded `--publish`, `--restore`, and
-`--register` stages copy to unique `_control/staging/`, publish the absent immutable envelope, write
-the owner manifest and receipts, activate the catalogue entry, and run the full verification
-sequence in the active plan.
+If publication exits 0, run the bounded `--restore` into the fresh standard `out/restores/` target,
+then `--register`, the fresh-process full collection verifier, and the restored-tree verifier. Do
+not delete `out/growth-scientific/` or any restored copy; pruning is not part of this request.
 Do not delete `out/growth-scientific/` or any restored copy; pruning is not part of this request.
 
 ### Phase 10 — planning complete; maker package selection pending

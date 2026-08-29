@@ -1,7 +1,8 @@
 # Plan — publish the gut-check scientific growth bundles to governed NAS storage
 
 - **Phase:** Pre-Phase 7 product data retention; no charter phase or gate is reopened
-- **Status:** active — plan and provisional catalogue entry recorded; no durable NAS payload written
+- **Status:** active — dry inventory passed; publication is the next action and no durable NAS
+  payload has been written
 - **Started:** 2026-08-29
 - **Last touched:** 2026-08-29 by OpenAI Codex (GPT-5)
 
@@ -81,7 +82,7 @@ hardware crash-durability claim.
 - [x] Add this plan and the provisional catalogue identity before a durable write.
 - [x] Implement and focus-test the bounded dry-run/publish/register/restore workflow; commit it
       before `--publish`.
-- [ ] Run the dry inventory and record its exact aggregate/tree digest.
+- [x] Run the dry inventory and record its exact aggregate/tree digest.
 - [ ] Publish, activate, fresh-process verify, fresh-stage restore, and verify the restored tree.
 - [ ] Run required repository checks and record completion in this plan and `docs/PROGRESS.md`.
 
@@ -93,6 +94,13 @@ the implementation commit, `npm run typecheck`, `npm run lint:rule7`, `git diff 
 runner/test/nas-asset-transaction-lib.test.ts runner/test/nas-assets-catalog.test.ts` passed: three
 files, 45 tests passed and six transaction fixtures skipped. No NAS payload was written by those
 checks.
+
+Dry-run record: `node scripts/nas-publish-gutcheck-growth-scientific.ts --dry-run` exited 0 on the
+Windows host. Its ignored report at
+`out/nas-publish-gutcheck-growth-scientific-2026-08-26/dry-run.json` records 6,308 files /
+84,247,312,054 bytes / tree SHA-256
+`4a1e18634896a58b5e8acf26a041c75de72982bd32a665cae7762976f6465f3e`, marked-share free space
+47,968,330,186,752 bytes, and absent final and restore targets. It changed no NAS payload.
 
 ## Out of scope
 
