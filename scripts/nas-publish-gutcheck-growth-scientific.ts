@@ -8,8 +8,10 @@ import { createHash } from "node:crypto";
 import {
   appendFileSync,
   existsSync,
+  lstatSync,
   mkdirSync,
   readFileSync,
+  renameSync,
   statfsSync,
 } from "node:fs";
 import { dirname, resolve } from "node:path";
@@ -40,7 +42,7 @@ export const GROWTH_SCIENTIFIC_LOCATOR =
 export const GROWTH_SCIENTIFIC_MANIFEST_PATH =
   "docs/nas-assets/manifests/gutcheck-growth-scientific/2026-08-26.json" as const;
 export const GROWTH_SCIENTIFIC_PUBLISH_TRANSACTION =
-  "gutcheck-growth-scientific-20260829-publish" as const;
+  "gutcheck-growth-scientific-20260829-publish2" as const;
 export const GROWTH_SCIENTIFIC_RESTORE_TRANSACTION =
   "gutcheck-growth-scientific-20260829-restore" as const;
 export const GROWTH_SCIENTIFIC_PUBLICATION_RECEIPT =
@@ -60,8 +62,15 @@ const RESTORE_ROOT = resolve(
 const OPERATOR_ROOT = resolve(REPOSITORY_ROOT, "out/nas-publish-gutcheck-growth-scientific-2026-08-26");
 const MANIFEST_PATH = resolve(REPOSITORY_ROOT, GROWTH_SCIENTIFIC_MANIFEST_PATH);
 const FREE_SPACE_MARGIN_BYTES = 1024 * 1024 * 1024;
+const FAILED_PUBLISH_TRANSACTION = "gutcheck-growth-scientific-20260829-publish";
+const FAILED_STAGE_NAME = `${GROWTH_SCIENTIFIC_IDENTITY}.${FAILED_PUBLISH_TRANSACTION}`;
+const FAILED_QUARANTINE_RELATIVE =
+  "_control/quarantine/unresolved/gutcheck-growth-scientific-20260829-publish-attempt1";
+const FAILED_STAGE_FILE = "payload/bentley785-frames/manifest.json";
+const FAILED_STAGE_FILE_BYTES = 18_076;
+const FAILED_STAGE_FILE_SHA256 = "1f0009e49bd335d512511ef9f2fbc8f3dc06c623cdbcac72f1c88dd356b7b27a";
 
-type Command = "--dry-run" | "--publish" | "--restore" | "--register";
+type Command = "--dry-run" | "--retire-failed-publish" | "--publish" | "--restore" | "--register";
 
 interface TreeSummary {
   readonly fileCount: number;
@@ -487,12 +496,99 @@ const register = (): void => {
   log(JSON.stringify(report));
 };
 
+const retireFailedPublish = (): void => {
+  const log = logFactory("--retire-failed-publish");
+  catalogueAndIntent();
+  const shareRoot = mount();
+  const stagePath = resolve(shareRoot, "_control/staging/publish", FAILED_STAGE_NAME);
+  const lockPath = resolve(
+    shareRoot,
+    "_control/locks/publish",
+    `${GROWTH_SCIENTIFIC_IDENTITY}.lock`,
+  );
+  const oldReceiptPath = resolve(
+    shareRoot,
+    "_control/receipts/publication",
+    GROWTH_SCIENTIFIC_ASSET_ID,
+    GROWTH_SCIENTIFIC_VERSION,
+    `${FAILED_PUBLISH_TRANSACTION}.json`,
+  );
+  const finalPath = resolve(
+    shareRoot,
+    "collections",
+    GROWTH_SCIENTIFIC_ASSET_ID,
+    GROWTH_SCIENTIFIC_VERSION,
+  );
+  const quarantinePath = resolve(shareRoot, ...FAILED_QUARANTINE_RELATIVE.split("/"));
+  if (!existsSync(stagePath) || !lstatSync(stagePath).isDirectory()) {
+    throw new Error("the exact failed publication stage is absent or not a directory");
+  }
+  if (!existsSync(lockPath) || !lstatSync(lockPath).isDirectory()) {
+    throw new Error("the exact failed publication lock is absent or not a directory");
+  }
+  ensureAbsent(oldReceiptPath, "failed-attempt publication receipt");
+  ensureAbsent(finalPath, "final collection");
+  ensureAbsent(quarantinePath, "failed-attempt quarantine target");
+  const owner = record(
+    JSON.parse(readFileSync(resolve(lockPath, "owner.json"), "utf8")) as unknown,
+    "failed publication lock owner",
+  );
+  if (
+    owner.format !== "snowflake-nas-transaction-lock-v1" ||
+    owner.transactionId !== FAILED_PUBLISH_TRANSACTION ||
+    owner.identity !== GROWTH_SCIENTIFIC_IDENTITY ||
+    owner.operation !== "publish"
+  ) {
+    throw new Error("failed publication lock owner does not match the exact first attempt");
+  }
+  const staged = inventoryWithProgress(stagePath, "failed-stage", log);
+  if (
+    staged.fileCount !== 1 ||
+    staged.totalBytes !== FAILED_STAGE_FILE_BYTES ||
+    staged.files[0]?.path !== FAILED_STAGE_FILE ||
+    staged.files[0]?.sha256 !== FAILED_STAGE_FILE_SHA256
+  ) {
+    throw new Error("failed publication stage contains an unexpected byte or path");
+  }
+  mkdirSync(dirname(quarantinePath), { recursive: true });
+  mkdirSync(quarantinePath);
+  renameSync(stagePath, resolve(quarantinePath, "stage"));
+  renameSync(lockPath, resolve(quarantinePath, "lock"));
+  const failureRecord = {
+    format: "gutcheck-growth-scientific-nas-failed-publication-v1",
+    identity: GROWTH_SCIENTIFIC_IDENTITY,
+    transactionId: FAILED_PUBLISH_TRANSACTION,
+    failure:
+      "The transaction core captured the SMB destination identity before descriptor close; close committed mtime/ctime and the unchanged first file failed the following ownership comparison.",
+    staged: inventorySummary(staged),
+    stagedFile: {
+      path: FAILED_STAGE_FILE,
+      bytes: FAILED_STAGE_FILE_BYTES,
+      sha256: FAILED_STAGE_FILE_SHA256,
+    },
+    finalCollectionCreated: false,
+    publicationReceiptCreated: false,
+    disposition: "Stage and lock moved intact to non-served unresolved quarantine; no byte deleted.",
+    retiredAt: new Date().toISOString(),
+  };
+  writeJsonAtomic(resolve(quarantinePath, "failure.json"), failureRecord);
+  writeJsonAtomic(resolve(OPERATOR_ROOT, "failed-publish-retirement.json"), {
+    ...failureRecord,
+    quarantine: FAILED_QUARANTINE_RELATIVE,
+  });
+  log(JSON.stringify({ ok: true, quarantine: FAILED_QUARANTINE_RELATIVE, staged: failureRecord.staged }));
+};
+
 const main = (): void => {
   const command = process.argv[2] as Command | undefined;
-  if (process.argv.length !== 3 || !["--dry-run", "--publish", "--restore", "--register"].includes(command ?? "")) {
-    throw new Error("usage: node scripts/nas-publish-gutcheck-growth-scientific.ts --dry-run|--publish|--restore|--register");
+  if (
+    process.argv.length !== 3 ||
+    !["--dry-run", "--retire-failed-publish", "--publish", "--restore", "--register"].includes(command ?? "")
+  ) {
+    throw new Error("usage: node scripts/nas-publish-gutcheck-growth-scientific.ts --dry-run|--retire-failed-publish|--publish|--restore|--register");
   }
   if (command === "--dry-run") dryRun();
+  else if (command === "--retire-failed-publish") retireFailedPublish();
   else if (command === "--publish") publish();
   else if (command === "--restore") restore();
   else register();

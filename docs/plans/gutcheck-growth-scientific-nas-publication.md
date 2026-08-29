@@ -1,8 +1,8 @@
 # Plan — publish the gut-check scientific growth bundles to governed NAS storage
 
 - **Phase:** Pre-Phase 7 product data retention; no charter phase or gate is reopened
-- **Status:** active — dry inventory passed; publication is the next action and no durable NAS
-  payload has been written
+- **Status:** active — first publication attempt failed closed before durable placement; reviewed
+  SMB close-time repair and residue retirement precede the second attempt
 - **Started:** 2026-08-29
 - **Last touched:** 2026-08-29 by OpenAI Codex (GPT-5)
 
@@ -83,6 +83,7 @@ hardware crash-durability claim.
 - [x] Implement and focus-test the bounded dry-run/publish/register/restore workflow; commit it
       before `--publish`.
 - [x] Run the dry inventory and record its exact aggregate/tree digest.
+- [ ] Retire the exact first-attempt stage and lock intact to non-served quarantine; delete nothing.
 - [ ] Publish, activate, fresh-process verify, fresh-stage restore, and verify the restored tree.
 - [ ] Run required repository checks and record completion in this plan and `docs/PROGRESS.md`.
 
@@ -101,6 +102,20 @@ Windows host. Its ignored report at
 84,247,312,054 bytes / tree SHA-256
 `4a1e18634896a58b5e8acf26a041c75de72982bd32a665cae7762976f6465f3e`, marked-share free space
 47,968,330,186,752 bytes, and absent final and restore targets. It changed no NAS payload.
+
+First publication attempt (2026-08-29): transaction
+`gutcheck-growth-scientific-20260829-publish` failed closed immediately after the first staged file.
+The final collection and publication receipt remained absent. The exact residue is one
+`bentley785-frames/manifest.json`, 18,076 bytes, SHA-256
+`1f0009e49bd335d512511ef9f2fbc8f3dc06c623cdbcac72f1c88dd356b7b27a` (equal to source), plus
+the transaction-owned lock. Root cause: the transaction core returned the staged file's identity
+from its still-open write descriptor; Windows SMB committed final mtime/ctime on close, so the next
+path observation rejected an unchanged file as an ownership change. The repair still validates the
+open descriptor, object identity, type, link count, mode, and size, but binds later ownership checks
+to a post-close path observation. Before retrying under the new `publish2` transaction identity,
+the bounded retirement command moves the exact old stage and lock intact to
+`_control/quarantine/unresolved/gutcheck-growth-scientific-20260829-publish-attempt1/` and writes a
+failure record there. Nothing is deleted.
 
 ## Out of scope
 
@@ -125,3 +140,6 @@ Windows host. Its ignored report at
 - **Calling the scientific round external evidence because of its name.** It is reproducible model
   output and carries no gate claim; `generated-cache` is the accurate class.
 - **Deleting the local source after NAS verification.** Publication does not authorize pruning.
+- **Retrying against the stale first-attempt lock or deleting its one-file stage.** Rejected: the
+  first attempt is a useful executed Windows-SMB failure record. Preserve it in non-served
+  quarantine and use a new transaction identity.

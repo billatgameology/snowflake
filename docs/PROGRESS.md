@@ -184,13 +184,18 @@ space, and `collections/gutcheck-growth-scientific/2026-08-26/` was absent at th
 The plan, provisional catalogue entry, and bounded publisher are committed. Its read-only stable
 inventory passed at 6,308 files / 84,247,312,054 bytes / tree SHA-256
 `4a1e18634896a58b5e8acf26a041c75de72982bd32a665cae7762976f6465f3e`, with the final and restore
-targets absent. The next command is the copy-first publication:
+targets absent. The first publication attempt failed closed after staging one 18,076-byte file:
+Windows SMB committed mtime/ctime on descriptor close, invalidating the core's pre-close ownership
+snapshot even though the staged SHA-256 equalled source. No final collection or receipt exists.
+The repair preserves every substantive identity/byte check and captures the ownership snapshot
+after close. The next command preserves the exact failed stage and lock in quarantine:
 
-`node scripts/nas-publish-gutcheck-growth-scientific.ts --publish`
+`node scripts/nas-publish-gutcheck-growth-scientific.ts --retire-failed-publish`
 
-If publication exits 0, run the bounded `--restore` into the fresh standard `out/restores/` target,
+After its focused checks and repair commit, run `--publish` under the new `publish2` transaction
+identity. If it exits 0, run the bounded `--restore` into the fresh standard `out/restores/` target,
 then `--register`, the fresh-process full collection verifier, and the restored-tree verifier. Do
-not delete `out/growth-scientific/` or any restored copy; pruning is not part of this request.
+not delete `out/growth-scientific/`, the failed-attempt quarantine, or any restored copy.
 Do not delete `out/growth-scientific/` or any restored copy; pruning is not part of this request.
 
 ### Phase 10 — planning complete; maker package selection pending
