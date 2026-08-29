@@ -430,11 +430,16 @@ recorded concurrency 16. Its result-selected second tranche is capped at 48 rows
 [first discovery campaign](plans/post-phase10-discovery-campaign.md) is complete. Phase 7 remains
 a separate parallel product path and is not part of this science workstream.
 
-The first-tranche runner is implemented without a `core/` or `solver-cpu/` change. Focused Vitest
-passed 2 files / 10 tests and `npx tsc --noEmit` passed. The two-process smoke at
-`out/post-phase10-adaptive/smoke-7cbcbc0-v1/adaptive-smoke-complete.json` records 2/2 exit 0 and
-actual concurrency 2; its row specs/results record the intended 50,662.5 Pa / 202,650 Pa values,
-`size-target`, convergence, and zero integrity errors. Production has not launched.
+The adaptive first tranche is complete from clean producer head `0e55b7b`: 432/432 workers exited
+0 at actual maximum concurrency 16, comprising 288 temperature/forcing rows, 72 pressure rows and
+72 seed-shape rows. The ignored raw completion record is
+`out/post-phase10-adaptive/campaign-2026-08-28/first-tranche-complete.json` (95,383 bytes / SHA-256
+`4d798947bb13db0bf866e5e1941b7132a25ff72d110b3d2e42d4f59b7fbefb98`); the current row census
+finds 432 admissible terminal results, zero inadmissible results and zero stderr bytes. Compact
+analysis and evidence promotion are still in progress, so these retained `out/` bytes are not yet
+published evidence. Maker direction expands the earlier 48-row follow-up cap: every plausible
+pilot lead now receives longer matched evaluation, beginning with the complete 432-condition
+roster at N64 / target extent 29.
 
 [phase-6-science-first-completion.md](plans/phase-6-science-first-completion.md) is the completed Phase 6 record (see its Completion record).
 [phase-8-measurement-corpus.md](plans/phase-8-measurement-corpus.md) and
@@ -535,11 +540,13 @@ the package-specific prerequisites in its charter amendment and execution plan. 
 
 ## Next step
 
-### Implement and launch the 432-row adaptive first tranche
+### Analyze the pilot and launch the 432-row N64 long wave
 
 Open the [active plan](plans/post-phase10-adaptive-discovery.md). Commit/push the clean producer
-checkpoint, then launch all 432 rows at actual concurrency 16 under
-`out/post-phase10-adaptive/`. Do not involve Phase 7, revive C0V/S6 recovery, or build a generic
+checkpoint after adding the finite long-wave roster beside
+`runner/src/post-phase10-adaptive.ts`, then launch all 432 matched rows at actual concurrency 16
+under `out/post-phase10-long/`. The long wave uses N64, target extent 29 and the pilot's otherwise
+unchanged machinery. Do not involve Phase 7, revive C0V/S6 recovery, or build a generic
 scheduler/dashboard.
 
 The prior Phase 10 selection note below is completed reproduction context; its request for a next

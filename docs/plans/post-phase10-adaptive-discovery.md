@@ -1,6 +1,6 @@
 # Post-Phase-10 adaptive discovery follow-up
 
-**Status:** first-tranche runner checkpoint ready; production not launched
+**Status:** first tranche complete; larger-domain/longer-growth wave selected
 **Worktree:** `G:\Code Files\snowflake-science-exploration`
 **Branch:** `explore/post-phase10-discovery`
 **Base:** `ba99d81`
@@ -75,9 +75,36 @@ map. This remains a measured initialization experiment, not proof of seed indepe
 - Treat all localization/ranking as exploratory selection. Do not turn the search into a gate or
   quote a selected maximum as a population estimate.
 
-## Adaptive second tranche — capped at 48 rows
+## Longer evaluation loop — maker-expanded 2026-08-28
 
-After the first-tranche report, select no more than 12 conditions that cover distinct observed
+The completed pilot exposed plausible structure in every lane, and the maker explicitly directed
+that even small-chance leads receive longer evaluation. That direction supersedes the earlier
+12-condition / 48-row cap; it does not authorize Phase 7 or an unbounded parameter search.
+
+The first long wave repeats all 432 pilot conditions at `N = 64`, target extent 29,
+`cflFill = 0.1`, and otherwise identical machinery. Repeating the complete roster avoids selecting
+only the most dramatic post-hoc extrema and directly asks whether the temperature/forcing map,
+pressure response, and near-volume-matched seed memory persist over a larger domain and more
+growth. This is exploratory development evidence, not a domain-independence or convergence claim.
+
+After that wave, continue in finite result-selected waves while any plausible lead remains:
+
+1. `cflFill = 0.05` confirmations at the same N64/extent-29 conditions for sustained, reversed,
+   nonmonotonic, or trajectory-only signals;
+2. basal-dip-only and prism-dip-only arms at the resolved warm/crossover/cold neighborhoods;
+3. longer seed-memory and pressure-by-arm checks wherever the N64 trajectories remain separated;
+4. abrupt warm/cold history reversals at a common extent using the existing deterministic
+   temperature-conversion path; and
+5. a larger domain/extent rung only where N64 remains scientifically ambiguous.
+
+A lead is exhausted when matched longer runs either preserve it with facet/trajectory support,
+show that it collapses under the numerical/extent controls, or identify it as initialization or
+endpoint-quantization sensitivity. Do not require a large endpoint effect to promote a coherent
+trajectory signal, and do not spend a forced allocation after a question has been answered.
+
+## Superseded bounded second-tranche design
+
+The original design would have selected no more than 12 conditions that cover distinct observed
 phenomena rather than twelve versions of one optimum:
 
 1. an adjacent-grid gross-aspect-ratio sign transition;
@@ -85,7 +112,7 @@ phenomena rather than twelve versions of one optimum:
 3. the strongest pressure-by-arm interaction; and
 4. the strongest near-volume-matched seed-shape-by-arm interaction.
 
-At the selected conditions, use no more than 48 total rows for:
+At the selected conditions, it would have used no more than 48 total rows for:
 
 - two named mixed arms, basal-dip-only and prism-dip-only (maximum 24 rows), implemented as the
   exact M1/broad-branch facet combinations with focused core/solver/checkpoint tests;
@@ -94,8 +121,9 @@ At the selected conditions, use no more than 48 total rows for:
   conversion path, with the event placed at common extent 11 and static endpoint comparators from
   the first tranche.
 
-If the first tranche does not expose a condition for one category, do not spend its allocation.
-Record the selection rule and observed operands in the report before launching the second tranche.
+The maker's later direction replaces this cap because the full pilot exposed multiple plausible
+signals and compute is available. Its mechanistic categories remain useful, but not its arbitrary
+row ceiling.
 
 ## Implementation steps
 
@@ -103,16 +131,18 @@ Record the selection rule and observed operands in the report before launching t
 2. Add the finite first-tranche roster, row-level pressure, CLI launch mode, and focused roster
    tests. Run focused tests, TypeScript, Rule 7, and a tiny two-row smoke.
 3. Commit/push the clean producer checkpoint, then launch all first-tranche rows at concurrency 16.
-4. Analyze the retained trajectories, record the bounded second-tranche selection, implement only
-   the selected mixed/history/confirmation support, and run the selected rows.
-5. Promote compact claim-bearing reports, update `docs/PROGRESS.md`, and commit/push.
+4. Analyze the retained trajectories, implement the finite N64/extent-29 roster, and run all 432
+   matched long-wave rows at recorded concurrency 16.
+5. Analyze each completed wave, launch the next finite discriminating wave while a plausible lead
+   remains, then promote compact claim-bearing reports, update `docs/PROGRESS.md`, and commit/push.
 
 ## Done when
 
 - all 432 first-tranche rows have terminal classifications, with failures retained by cause;
 - the temperature/forcing, pressure, and seed-shape analyses are reproducible from retained rows;
-- the second tranche either completes within its 48-row cap or records why a category had no
-  result-driven candidate; and
+- every pilot signal with a plausible scientific interpretation receives a longer matched
+  evaluation and is classified as persistent, numerically sensitive, initialization-sensitive,
+  endpoint-quantized, or unresolved; and
 - the report distinguishes numerical sensitivity, implementation-level kinetic contrasts,
   initialization/history effects, and unresolved physical interpretation.
 
