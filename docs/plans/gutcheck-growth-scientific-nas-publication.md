@@ -1,8 +1,8 @@
 # Plan — publish the gut-check scientific growth bundles to governed NAS storage
 
 - **Phase:** Pre-Phase 7 product data retention; no charter phase or gate is reopened
-- **Status:** active — first publication attempt failed closed before durable placement; reviewed
-  SMB close-time repair and residue retirement precede the second attempt
+- **Status:** active — first attempt preserved in quarantine and SMB close-time repair committed;
+  second publication attempt is next
 - **Started:** 2026-08-29
 - **Last touched:** 2026-08-29 by OpenAI Codex (GPT-5)
 
@@ -83,7 +83,7 @@ hardware crash-durability claim.
 - [x] Implement and focus-test the bounded dry-run/publish/register/restore workflow; commit it
       before `--publish`.
 - [x] Run the dry inventory and record its exact aggregate/tree digest.
-- [ ] Retire the exact first-attempt stage and lock intact to non-served quarantine; delete nothing.
+- [x] Retire the exact first-attempt stage and lock intact to non-served quarantine; delete nothing.
 - [ ] Publish, activate, fresh-process verify, fresh-stage restore, and verify the restored tree.
 - [ ] Run required repository checks and record completion in this plan and `docs/PROGRESS.md`.
 
@@ -116,6 +116,12 @@ to a post-close path observation. Before retrying under the new `publish2` trans
 the bounded retirement command moves the exact old stage and lock intact to
 `_control/quarantine/unresolved/gutcheck-growth-scientific-20260829-publish-attempt1/` and writes a
 failure record there. Nothing is deleted.
+
+Retirement record: `node scripts/nas-publish-gutcheck-growth-scientific.ts
+--retire-failed-publish` exited 0. The quarantined stage remains one file / 18,076 bytes / tree
+SHA-256 `37b2dc649ae220b0e7ac84b88f96a7e01b12f43658d75574a9a4f329b8a09b7a`; the exact old lock and
+the new `failure.json` are beside it. The old live stage/lock, final collection, and old receipt are
+absent. The repair commit is `51b67a2`; focused tests and both typechecks passed before retirement.
 
 ## Out of scope
 

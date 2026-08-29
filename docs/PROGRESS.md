@@ -188,12 +188,14 @@ targets absent. The first publication attempt failed closed after staging one 18
 Windows SMB committed mtime/ctime on descriptor close, invalidating the core's pre-close ownership
 snapshot even though the staged SHA-256 equalled source. No final collection or receipt exists.
 The repair preserves every substantive identity/byte check and captures the ownership snapshot
-after close. The next command preserves the exact failed stage and lock in quarantine:
+after close. The exact failed stage and lock are now preserved, not deleted, under
+`_control/quarantine/unresolved/gutcheck-growth-scientific-20260829-publish-attempt1/` with a
+failure record. The next command is the repaired publication:
 
-`node scripts/nas-publish-gutcheck-growth-scientific.ts --retire-failed-publish`
+`node scripts/nas-publish-gutcheck-growth-scientific.ts --publish`
 
-After its focused checks and repair commit, run `--publish` under the new `publish2` transaction
-identity. If it exits 0, run the bounded `--restore` into the fresh standard `out/restores/` target,
+The command uses the new `publish2` transaction identity. If it exits 0, run the bounded `--restore`
+into the fresh standard `out/restores/` target,
 then `--register`, the fresh-process full collection verifier, and the restored-tree verifier. Do
 not delete `out/growth-scientific/`, the failed-attempt quarantine, or any restored copy.
 Do not delete `out/growth-scientific/` or any restored copy; pruning is not part of this request.
