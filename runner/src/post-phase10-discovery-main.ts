@@ -28,6 +28,12 @@ import {
   POST_PHASE10_ADAPTIVE_SMOKE_ROWS,
   findPostPhase10AdaptiveRow,
 } from "./post-phase10-adaptive.ts";
+import {
+  POST_PHASE10_LONG_DIMS_N,
+  POST_PHASE10_LONG_ROWS,
+  POST_PHASE10_LONG_TARGET_EXTENT,
+  findPostPhase10LongRow,
+} from "./post-phase10-long.ts";
 
 function writeJson(path: string, value: unknown): void {
   writeFileSync(path, `${JSON.stringify(value, null, 2)}\n`, "utf8");
@@ -327,6 +333,44 @@ async function smokeAdaptive(outputDirectory: string): Promise<void> {
   if (exits.some((exit) => exit.exitCode !== 0 || exit.signal !== null)) process.exitCode = 1;
 }
 
+async function launchLong(campaignDirectory: string, concurrency: number): Promise<void> {
+  requireCleanTree();
+  const output = resolve(campaignDirectory);
+  if (existsSync(output)) throw new Error(`campaign directory already exists: ${output}`);
+  mkdirSync(output, { recursive: true });
+  const processors = cpus();
+  writeJson(resolve(output, "campaign.json"), {
+    schema: "post-phase10-long-campaign-v1",
+    campaignId: basename(output),
+    gitHead: git(["rev-parse", "HEAD"]),
+    branch: git(["branch", "--show-current"]),
+    node: process.version,
+    logicalProcessors: processors.length,
+    cpuModels: [...new Set(processors.map((processor) => processor.model))],
+    totalMemoryBytes: totalmem(),
+    requestedConcurrency: concurrency,
+    rowCount: POST_PHASE10_LONG_ROWS.length,
+    dimsN: POST_PHASE10_LONG_DIMS_N,
+    targetExtent: POST_PHASE10_LONG_TARGET_EXTENT,
+    cflFill: 0.1,
+    laneCounts: {
+      map: POST_PHASE10_LONG_ROWS.filter((row) => row.lane === "long-map").length,
+      pressure: POST_PHASE10_LONG_ROWS.filter((row) => row.lane === "long-pressure").length,
+      seed: POST_PHASE10_LONG_ROWS.filter((row) => row.lane === "long-seed").length,
+    },
+    sourcePilotHead: "0e55b7b4b925ac80d05e0d9c60479c7edd920764",
+    sourcePilotDirectory: "out/post-phase10-adaptive/campaign-2026-08-28",
+    createdAt: new Date().toISOString(),
+  });
+  const exits = await launchRows({
+    campaignDirectory: output,
+    launchName: "long-wave-1",
+    rows: POST_PHASE10_LONG_ROWS,
+    concurrency,
+  });
+  if (exits.some((exit) => exit.exitCode !== 0 || exit.signal !== null)) process.exitCode = 1;
+}
+
 async function main(): Promise<void> {
   const [command, ...args] = process.argv.slice(2);
   switch (command) {
@@ -336,6 +380,9 @@ async function main(): Promise<void> {
     case "list-adaptive":
       console.log(JSON.stringify(POST_PHASE10_ADAPTIVE_ROWS, null, 2));
       return;
+    case "list-long":
+      console.log(JSON.stringify(POST_PHASE10_LONG_ROWS, null, 2));
+      return;
     case "run-row": {
       if (args.length !== 2) throw new Error("run-row wants <row-id> <output-directory>");
       const smokeRow = POST_PHASE10_SMOKE_ROWS.find((row) => row.id === args[0]);
@@ -343,6 +390,7 @@ async function main(): Promise<void> {
       const selectedRow =
         smokeRow ??
         adaptiveSmokeRow ??
+        findPostPhase10LongRow(args[0]) ??
         findPostPhase10AdaptiveRow(args[0]) ??
         postPhase10DiscoveryRow(args[0]);
       const result = runPostPhase10DiscoveryRow(selectedRow, args[1], {
@@ -375,6 +423,12 @@ async function main(): Promise<void> {
       if (args.length !== 1) throw new Error("smoke-adaptive wants <output-directory>");
       await smokeAdaptive(args[0]);
       return;
+    case "launch-long":
+      if (args.length < 1 || args.length > 2) {
+        throw new Error("launch-long wants <campaign-directory> [concurrency]");
+      }
+      await launchLong(args[0], parseConcurrency(args[1], 16));
+      return;
     case "analyze":
       if (args.length !== 2) {
         throw new Error("analyze wants <campaign-directory> <output-directory>");
@@ -384,9 +438,10 @@ async function main(): Promise<void> {
     default:
       throw new Error(
         "usage: node runner/src/post-phase10-discovery-main.ts " +
-          "list|list-adaptive|run-row <row-id> <out>|" +
+          "list|list-adaptive|list-long|run-row <row-id> <out>|" +
           "launch-initial <campaign-dir> [concurrency]|launch-a112 <campaign-dir>|" +
           "smoke <out>|launch-adaptive <campaign-dir> [concurrency]|smoke-adaptive <out>|" +
+          "launch-long <campaign-dir> [concurrency]|" +
           "analyze <campaign-dir> <output-dir>",
       );
   }

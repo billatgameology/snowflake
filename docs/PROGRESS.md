@@ -439,7 +439,10 @@ finds 432 admissible terminal results, zero inadmissible results and zero stderr
 analysis and evidence promotion are still in progress, so these retained `out/` bytes are not yet
 published evidence. Maker direction expands the earlier 48-row follow-up cap: every plausible
 pilot lead now receives longer matched evaluation, beginning with the complete 432-condition
-roster at N64 / target extent 29.
+roster at N64 / target extent 29. That finite long-wave roster and its `launch-long` route are now
+implemented without a `core/`, `solver-cpu/`, checkpoint, or readout change. Focused Vitest passed
+three files / 12 tests, `npx tsc --noEmit` passed, and Rule 7 is clean across 1,522 files. Exact
+`npm test` was not run for this runner-only roster extension under Rule 6.
 
 [phase-6-science-first-completion.md](plans/phase-6-science-first-completion.md) is the completed Phase 6 record (see its Completion record).
 [phase-8-measurement-corpus.md](plans/phase-8-measurement-corpus.md) and
@@ -540,7 +543,7 @@ the package-specific prerequisites in its charter amendment and execution plan. 
 
 ## Next step
 
-### Analyze the pilot and launch the 432-row N64 long wave
+### Launch the 432-row N64 long wave
 
 Open the [active plan](plans/post-phase10-adaptive-discovery.md). Commit/push the clean producer
 checkpoint after adding the finite long-wave roster beside

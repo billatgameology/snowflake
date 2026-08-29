@@ -1,6 +1,6 @@
 # Post-Phase-10 adaptive discovery follow-up
 
-**Status:** first tranche complete; larger-domain/longer-growth wave selected
+**Status:** first tranche complete; long-wave runner ready for launch
 **Worktree:** `G:\Code Files\snowflake-science-exploration`
 **Branch:** `explore/post-phase10-discovery`
 **Base:** `ba99d81`
@@ -185,3 +185,22 @@ Pre-launch checks:
 
 Exact `npm test` was not run for this bounded roster/configuration change: no numerical
 implementation, scientific readout calculation, gate, or evidence publication path changed.
+
+## Long-wave implementation record
+
+`runner/src/post-phase10-long.ts` maps the exact 432 pilot conditions to N64 / target extent 29
+and preserves every other row value. The existing independent-process launcher gained only the
+finite `list-long` and `launch-long` routes; no solver, checkpoint, core parameter, readout, retry,
+or scheduler behavior changed.
+
+Pre-launch checks:
+
+- `npx vitest run runner/test/post-phase10-long.test.ts
+  runner/test/post-phase10-adaptive.test.ts runner/test/post-phase10-discovery.test.ts`: three files
+  / 12 tests passed;
+- `npx tsc --noEmit`: passed;
+- `npm run lint:rule7`: clean across 1,522 files; and
+- `git diff --check`: passed.
+
+Exact `npm test` was not run: this is another bounded finite-roster/launcher extension and does not
+change numerical behavior, scientific readout calculation, a gate, or evidence publication.
