@@ -401,6 +401,20 @@ work for that type: move it to explicit Compose only when available components c
 visual scene, otherwise keep it visibly unsupported under the no-new-physics constraint. Outputs
 stay ignored under `out/named-crystal-catalog/early-stop-probes-v1/`.
 
+The registered implementation is `docs/named-snow-crystal-early-stop-probes.json` plus
+`scripts/named-crystal-early-stop-probes.ts`. It derives the fixed source specs from the bound
+hard-form manifest/review, records initial seed counts and final new-site counts, and writes exact
+argv, actual worker count, separate logs/exit status, and the strict web check. Pre-launch
+verification passed:
+
+- `node scripts/named-crystal-early-stop-probes.ts plan` — 24 pending jobs, three eight-stop
+  families, process concurrency 24, physical/logical counts 24/24
+- `npx vitest run runner/test/named-crystal-early-stop-probes.test.ts` — one file, two tests passed;
+  every within-family spec is identical after removing its descriptive label
+- `npm run typecheck`
+- `npm run lint:rule7`
+- `git diff --check`
+
 ## Out of scope
 
 - A riming, droplet, aggregation, thermal, or other new physical solver. `Rimed` and `Graupel` stay

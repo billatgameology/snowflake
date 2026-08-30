@@ -270,8 +270,14 @@ advances the four Hollow Plates variants, sends Multiply Capped Columns and Need
 explicit Compose, and sends Scrolls on Plates, Triangular Forms and Cups to one bounded early-stop
 search because growth erased their defining seed feature. Zero formal slots are filled. Next
 register the three-family, 24-job early-stop interval search before launching it on all 24 cores;
-do not change the two Compose routes until a scene implementation exists. Do not touch the
-independently running NAS publisher in the animation worktree.
+that manifest and runner are now complete. They derive one fixed source seed/spec for each family,
+vary only stop tick across 100–1,200, record initial and newly attached site counts, and require 24
+actual workers plus the strict web gate. Its 24-job plan, fixed-spec tests, both typechecks, Rule 7
+scan and diff check pass. Next commit this pre-launch checkpoint and run
+`node scripts/named-crystal-early-stop-probes.ts run`, then review the registered views and reject
+any variant with negligible growth. Do not change the two Compose routes until a scene
+implementation exists. Do not touch the independently running NAS publisher in the animation
+worktree.
 
 ### Phase 10 — planning complete; maker package selection pending
 
