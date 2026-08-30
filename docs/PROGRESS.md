@@ -357,6 +357,13 @@ check with the A/B runner passes 14 tests. Both TypeScript projects pass, the Ru
 across 1,080 files, and the diff check passes. Commit this implementation without changing or
 restarting Fleet A; Fleet C remains queued until the lane is free.
 
+The final Compose protocol is also registered for 11 families / 33 scenes, including the deferred
+Multiply Capped Columns and Needle Clusters route transitions. Every trio varies one small transform
+property, counts unique component bytes, binds exact full-resolution component science identities,
+and requires real-browser hash/decode/seek/render evidence. Implement its recipe manifest and
+fail-closed builder while Fleet A runs, but do not materialize scenes or change routes until the
+consolidated direct review exists.
+
 ### Phase 10 — planning complete; maker package selection pending
 
 The [candidate plan](plans/phase-10-closures-and-frontier.md) replaces the original A–D shorthand

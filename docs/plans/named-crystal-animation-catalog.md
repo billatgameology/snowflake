@@ -517,6 +517,41 @@ focused files pass 14 tests, both TypeScript projects pass, the Rule 7 scan is c
 files, and the diff check passes. The Fleet C output root remains absent; do not launch it while
 Fleet A owns the 24-worker lane.
 
+Final Compose production protocol (registered before implementation, 2026-08-30): after the direct
+review binds accepted full-resolution components, generate exactly 33 `growth-scene-v1` entries—
+three each for 11 Compose types. The two measured direct failures, Multiply Capped Columns and
+Needle Clusters, change from GG+ to Compose atomically with their first accepted scene; final route
+totals become 22 direct / 11 Compose / two excluded. Do not change the routes earlier and do not
+claim that a scene is one G-G solver state.
+
+| Compose family | Accepted component | One scene driver | Lower / baseline / upper |
+|---|---|---|---|
+| 12-branched Stars | Simple Star | relative in-plane rotation | 28 / 30 / 32 degrees |
+| Bullet Rosettes | Isolated Bullet | radial polar tilt | 48 / 52 / 56 degrees |
+| Radiating Plates | Hexagonal Plate | radial polar tilt | 36 / 40 / 44 degrees |
+| Radiating Dendrites | Stellar Dendrite | radial polar tilt | 44 / 48 / 52 degrees |
+| Multiply Capped Columns | Capped Column | axial instance spacing | 0.90 / 1.00 / 1.10 normalized units |
+| Twin Columns | Solid Column | twin opening angle | 8 / 10 / 12 degrees |
+| Irregulars | Stellar Plate | deterministic instance scale spread | 0.08 / 0.10 / 0.12 |
+| Needle Clusters | Simple Needle | radial polar tilt | 40 / 44 / 48 degrees |
+| Arrowhead Twins | Simple Prism | twin opening angle | 54 / 58 / 62 degrees |
+| Crossed Needles | Simple Needle | relative crossing angle | 86 / 90 / 94 degrees |
+| Crossed Plates | Hexagonal Plate | relative crossing angle | 56 / 60 / 64 degrees |
+
+Repeated instances reuse one unique component content identity wherever possible. Each output
+directory contains the strict scene, a scientific-scene bundle manifest that pins every component's
+full scientific bundle locator/tree identity, real-browser playback captures, and an inventory of
+the scene plus unique component web payloads. Cold bytes are the scene manifest plus each unique
+component growth asset exactly once and must be strictly below 20,000,000. The browser must fetch,
+hash, decode, seek mid/final time, and render the actual scene; three-view review must accept the
+named external form. Camera, color, and duplicate files never count as the variation.
+
+Implement the 11-family recipe manifest and builder before direct generation finishes, but make its
+materialization fail closed until the consolidated direct review provides exact accepted component
+web byte/SHA-256 and scientific tree identities. Write final scenes under
+`out/named-crystal-catalog/final-compose-v1/`. After all 33 pass, bind them into the catalog in one
+tracked review and perform the two route changes in the same transaction.
+
 Coverage-first execution and review checkpoint (2026-08-29): the registered command
 `node scripts/named-crystal-baseline-probes.ts run` launched exactly 24 workers on the Intel Core
 Ultra 9 285K host and completed 24/24 jobs. The exact local report is
