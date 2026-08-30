@@ -591,6 +591,17 @@ Fixture tests must cover a complete transaction plus report drift, non-adjacent 
 identity drift and missing clearance. The production decision file and transaction remain blocked on
 real output and visual review.
 
+Final direct-acceptance implementation checkpoint (2026-08-30):
+`scripts/named-crystal-final-direct-accept.ts` now verifies contained repository-relative identities
+for all three reports, contact sheets and clearance reports; independently enforces report, result,
+frame, decoder, web-byte, web-SHA-256, scientific-tree and registered-clearance contracts; decodes
+every selected web asset again; and remaps only three adjacent selected Capped Bullets stop ticks to
+lower/baseline/upper. It prepares the consolidated 22-family review, 66 direct catalog slots and
+generated table completely before replacing any tracked output. The five focused fixtures cover the
+complete 66-slot transaction and the four registered failure controls; all five pass, both TypeScript
+projects pass, the Rule 7 scan is clean across 1,087 files, and the diff check passes. The production
+decision/review files remain absent pending real A/B/C completion and visual review.
+
 Coverage-first execution and review checkpoint (2026-08-29): the registered command
 `node scripts/named-crystal-baseline-probes.ts run` launched exactly 24 workers on the Intel Core
 Ultra 9 285K host and completed 24/24 jobs. The exact local report is

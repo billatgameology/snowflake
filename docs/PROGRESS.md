@@ -387,6 +387,14 @@ then atomically produce the consolidated 22-family / 66-variant direct review an
 direct catalog slots. Implement and fixture-test that verifier while Fleet A continues, but do not
 create the production decision file or accept any row before all real outputs are visually reviewed.
 
+The fail-closed direct-acceptance verifier is now implemented. It rechecks contained A/B/C artifact
+identities, complete 24-worker reports, every selected decoder/web/scientific identity, all registered
+clearance rows and Capped Bullets adjacency before preparing the consolidated review and 66-slot
+catalog/table transaction. Five focused fixtures pass: one complete 66-slot transaction plus exact
+report drift, non-adjacent Capped Bullets, selected web-byte drift and incomplete-clearance controls.
+Both TypeScript projects pass, the Rule 7 scan is clean across 1,087 files, and the diff check passes.
+Commit the verifier; its production decision/review inputs remain absent until A/B/C visual review.
+
 ### Phase 10 — planning complete; maker package selection pending
 
 The [candidate plan](plans/phase-10-closures-and-frontier.md) replaces the original A–D shorthand
