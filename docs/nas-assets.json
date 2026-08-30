@@ -2276,16 +2276,16 @@
       },
       "mutability": "immutable",
       "externalEvidenceAuthority": {
+        "charterRefs": [],
+        "decisionRefs": [
+          "docs/decisions/0045-bound-phase6-closure-to-a-compute-week.md",
+          "docs/decisions/0051-govern-durable-untracked-assets-on-nas.md"
+        ],
         "planRefs": [
           "docs/plans/phase-6-wp2-ladder.md"
         ],
         "claimRefs": [
           "docs/plans/phase-6-wp2-ladder.md"
-        ],
-        "charterRefs": [],
-        "decisionRefs": [
-          "docs/decisions/0045-bound-phase6-closure-to-a-compute-week.md",
-          "docs/decisions/0051-govern-durable-untracked-assets-on-nas.md"
         ]
       },
       "provenance": {
@@ -2597,17 +2597,30 @@
     {
       "assetId": "gutcheck-growth-scientific",
       "version": "2026-08-26",
-      "state": "provisional",
+      "state": "active",
       "ownerWorkstream": "gutcheck-animation-growth",
       "locator": "collections/gutcheck-growth-scientific/2026-08-26/payload",
       "historicalRepoPath": "out/growth-scientific",
       "legacyAliases": [],
       "storageClass": "generated-cache",
       "aggregate": {
-        "files": 0,
-        "bytes": 0
+        "files": 6308,
+        "bytes": 84247312054
       },
-      "ownerManifest": null,
+      "ownerManifest": {
+        "storage": "tracked",
+        "path": "docs/nas-assets/manifests/gutcheck-growth-scientific/2026-08-26.json",
+        "format": "snowflake-nas-ledger-v1",
+        "bytes": 1482944,
+        "sha256": "405beba8dc79ef68282bd8c80abaacc833fda700f5a448674f5dd7a841fa82ae",
+        "selector": {
+          "kind": "path-prefixes",
+          "include": [
+            "collections/gutcheck-growth-scientific/2026-08-26/payload"
+          ],
+          "exclude": []
+        }
+      },
       "rights": {
         "kind": "project-owned",
         "redistribution": "allowed"
@@ -2643,12 +2656,15 @@
         "record": "docs/plans/gutcheck-growth-scientific-nas-publication.md"
       },
       "verification": {
-        "status": "unavailable",
-        "at": null,
-        "host": null,
-        "receipt": null,
+        "status": "full-hash",
+        "at": "2026-08-30",
+        "host": "HIL-SIMULATOR",
+        "receipt": "_control/receipts/publication/gutcheck-growth-scientific/2026-08-26/gutcheck-growth-scientific-20260829-publish3.json",
         "limits": [
-          "Provisional registration only: no durable NAS payload, owner manifest, publication receipt, or fresh restore exists yet."
+          "Publication receipt SHA-256 aef89b7894695c3c7e4fe4f53878982d8b50f976a73043dbed609ed171b249f7; source, stage, and final matched 6308 files / 84247312054 bytes / tree SHA-256 4a1e18634896a58b5e8acf26a041c75de72982bd32a665cae7762976f6465f3e.",
+          "Maker direction on 2026-08-29 narrowed completion to the basic durable copy plus tracked owner manifest; an independent fresh restore and later fresh-process full verifier were not run.",
+          "Windows cannot fsync an SMB directory handle; durability is observation-based through final close, reopen, and repeated hash verification within the publication process, not a hardware crash-durability claim.",
+          "The workstation source remains in place; publication authorizes no deletion."
         ]
       },
       "storageDomains": [
@@ -2660,9 +2676,7 @@
         "receipts": []
       },
       "supersedes": [],
-      "unresolved": [
-        "Copy-first publication, owner-manifest binding, full final verification, and fresh restore are pending."
-      ]
+      "unresolved": []
     }
   ],
   "overlays": [

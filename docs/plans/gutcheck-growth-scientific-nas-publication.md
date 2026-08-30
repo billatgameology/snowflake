@@ -1,10 +1,10 @@
 # Plan — publish the gut-check scientific growth bundles to governed NAS storage
 
 - **Phase:** Pre-Phase 7 product data retention; no charter phase or gate is reopened
-- **Status:** active — second attempt failed closed after full staging; directory-metadata repair is
-  focus-tested and exact attempt-2 quarantine is next
+- **Status:** complete — durable copy, tracked manifest registration, and required repository
+  checks passed
 - **Started:** 2026-08-29
-- **Last touched:** 2026-08-29 by OpenAI Codex (GPT-5)
+- **Last touched:** 2026-08-30 by OpenAI Codex (GPT-5)
 
 ## Goal
 
@@ -86,9 +86,9 @@ This is stated as a limit, not promoted to a hardware crash-durability claim.
 - [x] Retire the exact first-attempt stage and lock intact to non-served quarantine; delete nothing.
 - [x] Retire the exact second-attempt full stage and lock intact to a distinct non-served quarantine;
       delete nothing.
-- [ ] Publish the final tree and activate its exact tracked owner manifest; do not run a separate
+- [x] Publish the final tree and activate its exact tracked owner manifest; do not run a separate
       fresh restore or later full verifier under the narrowed maker direction.
-- [ ] Run required repository checks and record completion in this plan and `docs/PROGRESS.md`.
+- [x] Run required repository checks and record completion in this plan and `docs/PROGRESS.md`.
 
 Implementation checkpoint: the collection-specific TypeScript command delegates copying,
 absent-target publication, transaction receipts, and fresh restore to the existing transaction
@@ -159,6 +159,31 @@ writes the exact 6,308-row owner manifest, and activates the catalogue. The sepa
 restore, restored-tree verifier, and later fresh-process NAS verifier are deferred and must not be
 claimed as executed.
 
+Publication and registration record: `node scripts/nas-publish-gutcheck-growth-scientific.ts
+--publish` exited 0 under transaction `gutcheck-growth-scientific-20260829-publish3`; the immutable
+final locator is `collections/gutcheck-growth-scientific/2026-08-26/payload`. Its source, stage, and
+final aggregates matched 6,308 files / 84,247,312,054 bytes / tree SHA-256
+`4a1e18634896a58b5e8acf26a041c75de72982bd32a665cae7762976f6465f3e`. The 1,008-byte publication
+receipt is `_control/receipts/publication/gutcheck-growth-scientific/2026-08-26/gutcheck-growth-
+scientific-20260829-publish3.json`, SHA-256
+`aef89b7894695c3c7e4fe4f53878982d8b50f976a73043dbed609ed171b249f7`. The process released its lock
+normally. `node scripts/nas-publish-gutcheck-growth-scientific.ts --register` then exited 0 after a
+stable local source inventory matched the same aggregate. It activated the catalogue and wrote the
+6,308-row, 1,482,944-byte owner manifest at
+`docs/nas-assets/manifests/gutcheck-growth-scientific/2026-08-26.json`, SHA-256
+`405beba8dc79ef68282bd8c80abaacc833fda700f5a448674f5dd7a841fa82ae`. The source remains in place,
+no destructive action occurred, and no restore was performed.
+
+Verification record: the focused transaction/catalogue command
+`npx vitest run runner/test/gutcheck-growth-scientific-nas-publication.test.ts
+runner/test/nas-asset-transaction-lib.test.ts runner/test/nas-assets-catalog.test.ts` passed 46 tests
+with six skipped. `npm run typecheck`, `npm run lint:rule7`, and `git diff --check` passed. The exact
+`npm test` passed 137 test files / 2,226 tests, with 49 skipped, after normalizing this Windows
+host's `TEMP`/`TMP` spelling from its 8.3 alias to the same physical temporary directory's long
+path; the restore fixtures require their synthetic destination and repository roots to use the
+same spelling. These checks read the activated catalogue and tracked manifest but performed no NAS
+write, restore, verification, or local-source deletion.
+
 ## Out of scope
 
 - Deleting, pruning, moving, or modifying `out/growth-scientific/`, a restored copy, or any
@@ -190,3 +215,7 @@ claimed as executed.
 - **Weakening file identity or trusting the attempt-2 stage without a fresh inventory.** Rejected:
   the correction is directory-metadata-specific. Files retain strict post-close identity checks,
   and the full failed stage is rehashed before it and its lock move intact to quarantine.
+- **Adding a root `.gitattributes` rule for the generated owner manifest.** Rejected after the first
+  exact suite run because changing root attribute inheritance altered existing byte-frozen fixture
+  inputs. The rule was removed; the catalogue's byte length and SHA-256 bind the tracked manifest
+  without changing repository-wide checkout semantics.
