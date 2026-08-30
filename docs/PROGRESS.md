@@ -115,6 +115,14 @@ detail.
   `gutcheck-growth-scientific@2026-08-26`; two Windows/SMB attempts failed closed before final
   placement, no durable payload has been written, and no local deletion is authorized. The active
   [publication plan](plans/gutcheck-growth-scientific-nas-publication.md) governs the write.
+- **The named snow-crystal animation catalog is REGISTERED (2026-08-29); no new generation has
+  started.** Maker direction selects all 35 Libbrecht guide names as the catalog taxonomy, excludes
+  only `Rimed` and `Graupel` because this work adds no droplet-accretion physics, and requires at
+  least three small parameter variants for each of the remaining 33 types. The resulting floor is
+  99 accepted entries: 24 GG/GG+ type families and nine explicitly composed type families. The
+  [catalog plan](plans/named-crystal-animation-catalog.md) keeps full scientific GG bundles and
+  less-than-20,000,000-byte cold web payloads as separate required products, audits the current 52
+  assets before reuse, and labels composition as presentation rather than one solver state.
 - Historical extent-21 artifacts remain valid measured-only comparisons: **CAK 3/90, M1 54/90**
   over their named scopes. They are not the registered conservative-intersection verdict, which
   decision 0045 closed as not computed.
@@ -125,8 +133,8 @@ detail.
   direction) and content stays in-repo unpublished, `test.yml` CI unaffected. Reconciliation is
   a live decision point under **Next step**. Full freeze history:
   [the history file](progress-history-phases-6-8-9.md).
-- **Last updated:** 2026-08-29 (recorded the completed growth products and provisional governed NAS
-  publication; no phase or scientific-evidence change)
+- **Last updated:** 2026-08-29 (registered the 33-type / 99-entry named animation catalog while the
+  prior scientific-bundle publication remains independently active; no phase or evidence change)
 
 ## Phase gates
 
@@ -165,6 +173,10 @@ is complete, including growth-event and full scientific output. The active
 [scientific-bundle NAS publication plan](plans/gutcheck-growth-scientific-nas-publication.md)
 continues the same registered worktree only for durable generated-cache publication; it changes no
 phase status or scientific claim.
+The maker-selected [named snow-crystal animation catalog plan](plans/named-crystal-animation-catalog.md)
+is registered in `C:/Users/HIL_ADMIN/Documents/GitHub/snowflake-named-catalog` on branch
+`feature/named-crystal-catalog`. It is isolated from the running publisher and has not started
+implementation or generation.
 The
 [Phase 10 candidate plan](plans/phase-10-closures-and-frontier.md) is decision support, not
 execution authority; no A–H package is selected.
@@ -211,6 +223,24 @@ then run `node scripts/nas-publish-gutcheck-growth-scientific.ts --register`. Do
 the restored-tree verifier, or a later fresh-process full NAS verifier in this task; record them as
 deferred, keep restore status `documented`, and do not claim they ran. Do not delete
 `out/growth-scientific/` or either failed-attempt quarantine; pruning is not part of this request.
+
+### Named snow-crystal catalog — taxonomy and current-asset audit next
+
+Work only in `C:/Users/HIL_ADMIN/Documents/GitHub/snowflake-named-catalog` on
+`feature/named-crystal-catalog`; do not touch the running NAS publisher in the animation worktree.
+Open [the registered catalog plan](plans/named-crystal-animation-catalog.md), then add the strict
+`named-snow-crystal-catalog-v1` manifest and validator in
+`docs/named-snow-crystal-catalog.json` and `scripts/named-crystal-catalog.ts`. Seed all 35 names,
+their 24 GG/GG+ and nine Compose routes, the two exclusions, and three empty accepted-variant slots
+per included type. The validator must independently report 35 taxonomy rows, 33 included rows, two
+excluded rows, and 99 required slots.
+
+Next, import candidate identities from the 52-item queue, the 51-entry website index, and the exact
+scientific owner manifest after the independently running publication registers it. Generate the
+text-only linked audit table and mark each candidate `accepted`, `near`, or `missing` from fixed
+views/orbit playback; do not launch new growth runs during this inventory step. Run the new focused
+catalog test and `npm run typecheck`; solver-wide verification begins only when the later custom-seed
+implementation touches `solver-cpu/`.
 
 ### Phase 10 — planning complete; maker package selection pending
 
