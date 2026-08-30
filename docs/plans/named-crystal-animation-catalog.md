@@ -1,7 +1,7 @@
 # Plan — named snow-crystal animation catalog
 
 - **Phase:** Pre-Phase 7 product/catalog work; no charter phase or scientific gate is reopened
-- **Status:** in progress — taxonomy/audit and GG+ seed API complete; baseline recipes next
+- **Status:** in progress — first 24-entry dual-output GG+ production tranche registered
 - **Started:** 2026-08-29
 - **Last touched:** 2026-08-29 by OpenAI Codex (GPT-5)
 
@@ -476,6 +476,41 @@ Plates at 100/300/400 ticks, Triangular Forms at 200/400/600 ticks, and Cups at 
 Each selected variant has measured positive growth and remains below the web ceiling. These nine
 candidate files still fill zero formal slots until their large scientific counterparts and final
 catalog bindings are produced.
+
+First dual-output production protocol (registered before implementation/launch, 2026-08-30):
+generate exactly 24 distinct GG+ entries, three each for eight reviewed families, under
+`out/named-crystal-catalog/direct-production-v1/`. Launch exactly 24 independent single-threaded
+processes on the registered Intel Core Ultra 9 285K host, so the initial fleet uses all 24 physical
+cores without duplicating a recipe. Each process must write the exact materialized spec, full final
+state, final mesh, growth-event table, record, separate stdout/stderr, exit status, and a
+`gutcheck-anim-v1` mesh timeline. Timeline cadence is `ceil(tick cap / 120)` with a floor of one
+tick; the resulting manifest must contain approximately 120 frames, including seed and final-state
+snapshots. Every completed web file must decode through the real browser decoder and be strictly
+less than 20,000,000 bytes. The production report records actual worker count, exact argv, per-file
+byte lengths and SHA-256 identities, frame count, and a recursive scientific-bundle inventory.
+
+| Family | Variant IDs / values | One driver and source |
+|---|---|---|
+| Solid Columns | `rho-0p95`, `rho-1p00`, `rho-1p05` | multiply the reviewed baseline's `rho` by 0.95 / 1.00 / 1.05 |
+| Sheaths | `rho-0p95`, `rho-1p00`, `rho-1p05` | multiply the reviewed baseline's `rho` by 0.95 / 1.00 / 1.05 |
+| Split Plates & Stars | `rho-0p95`, `rho-1p00`, `rho-1p05` | multiply the reviewed baseline's `rho` by 0.95 / 1.00 / 1.05 |
+| Isolated Bullets | `rho-0p95`, `rho-1p00`, `rho-1p05` | multiply the reviewed baseline's `rho` by 0.95 / 1.00 / 1.05 |
+| Scrolls on Plates | stops 100 / 300 / 400 | exact reviewed early-stop candidates; stop tick is the only driver |
+| Triangular Forms | stops 200 / 400 / 600 | exact reviewed early-stop candidates; stop tick is the only driver |
+| Cups | stops 100 / 200 / 400 | exact reviewed early-stop candidates; stop tick is the only driver |
+| Hollow Plates | cavity radii 1 / 2 / 4 | exact reviewed hard-form candidates; seed cavity radius is the only driver |
+
+The stop-time and cavity-radius steps exceed 15% because their drivers are discrete and the bound
+review selected those exact distinguishable forms; they are explicitly recorded exceptions to the
+normal 5% starting step. The four `rho` families use the normal ±5% step and hold seed geometry,
+domain, dimensions, tick cap, stopping rule, camera/extraction recipe, RNG seed, noise, and all
+other G-G inputs fixed. The runner derives all 24 specs from tracked source manifests and verifies
+the derived source/spec hashes against the tracked reviews; ignored probe files are not authority.
+
+This tranche is production generation, not automatic type acceptance. After it completes, render
+the registered type views, confirm each trio remains within its named type, verify the scientific
+and web products, and only then fill those 24 catalog slots. A failed family stays pending and its
+three large bundles remain measured generation output rather than accepted catalog entries.
 
 ## Out of scope
 
