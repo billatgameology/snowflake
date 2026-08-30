@@ -484,6 +484,30 @@ absolute/fractional Z-clearance gate from each completed record. Both read-only 
 their output roots absent. Five focused files pass 26 tests, both TypeScript projects pass, and the
 Rule 7 scan is clean across 1,077 files; the diff check passes.
 
+Third final-resolution fleet protocol (registered before implementation/launch, 2026-08-30): use
+exactly 24 jobs / 24 workers to complete the six remaining direct-growth types. Fifteen jobs are
+five strong current-audit families at three schedule-wide `rho` scales (0.95 / 1.00 / 1.05):
+Columns on Plates binds `fig39` at 600×600×192 / 14,269 ticks; Skeletal Forms binds `fig19` at
+800×800×96 / 60,000; Simple Stars binds `fig16` at 800×800×96 / 38,501; Stellar Dendrites binds
+`fig15` at 800×800×96 / 34,502; Double Plates binds `fig6` at 600×600×96 / 42,981. These sources
+are all strong in the exact 52-asset audit; their registered source-spec hashes must be independently
+recomputed before launch.
+
+Use the other nine jobs for one final-resolution Capped Bullets search at 320×320×512. Bind the
+exact reviewed `bullet` custom seed plus `twoStage2500` column-to-plate schedule from the baseline
+probe and vary only total stop tick across 2,750, 3,000, 3,250, 3,500, 3,750, 4,000, 4,500, 5,000,
+and 5,500. The 2,500-tick transition and every seed/schedule/G-G/execution value remain fixed. This
+is not nine catalog variants: three adjacent results advance only if oblique/axial review shows both
+a tapered bullet body and a distinct plate cap, the actual decoder/web gate passes, and the same
+16-layer / 5%-of-`nz` vertical-clearance gate passes. If fewer than three survive, run one further
+bounded adjacent-stop search; do not relabel a capped column as a capped bullet.
+
+Fleet C writes under `out/named-crystal-catalog/final-resolution-c-v1/` and reuses the same full
+scientific/output verifier, 100–122 mesh-state contract, real decoder, strict web ceiling, exact
+per-worker logs and report. Its manifest/runner/tests must be committed before launch. Fleet C may
+be implemented while Fleet A is running, but it must not launch until a 24-worker production lane is
+free.
+
 Coverage-first execution and review checkpoint (2026-08-29): the registered command
 `node scripts/named-crystal-baseline-probes.ts run` launched exactly 24 workers on the Intel Core
 Ultra 9 285K host and completed 24/24 jobs. The exact local report is

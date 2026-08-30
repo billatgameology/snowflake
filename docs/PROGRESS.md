@@ -346,6 +346,13 @@ checkpoint, then launch
 `node scripts/named-crystal-final-resolution-production.ts run --fleet a` with all 24 workers. Do
 not touch the independently completed NAS publisher in the animation worktree.
 
+Fleet A is now running with 24 actual child processes and no early stderr. While it runs, the active
+plan registers Fleet C for the final six direct-growth types: three exact-source `rho` variants each
+for Columns on Plates, Skeletal Forms, Simple Stars, Stellar Dendrites and Double Plates, plus nine
+fixed-recipe Capped Bullet stop candidates from which three adjacent bullet-and-cap results must
+survive review. Implement and preflight Fleet C without launching it; Fleet A retains the only
+24-worker production lane until it completes.
+
 ### Phase 10 — planning complete; maker package selection pending
 
 The [candidate plan](plans/phase-10-closures-and-frontier.md) replaces the original A–D shorthand
