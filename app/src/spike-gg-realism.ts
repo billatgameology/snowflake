@@ -9,6 +9,7 @@
 //                  slider + play/pause scrub through frame meshes, orbit controls always
 //                  on, "face-on" resets the camera. ?frame=N picks the initial frame
 //                  (default 0, the seed). ?fps=N sets playback rate (default 5).
+//   ?growthScene=<url> strict growth-scene-v1 composed playback over verified growth assets.
 //
 // Static captures stay bit-stable for the recorded recipes: fixed backdrop plane, pixel
 // ratio 1, single render. Interactive/timeline modes use a screen-fixed background and
@@ -19,6 +20,12 @@ import * as THREE from "three";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 
 import { createSceneEditor } from "./scene-editor.ts";
+import { decodeGrowthAssetV1, visibleGrowthEventCount } from "./growth-asset.ts";
+import {
+  GROWTH_SCENE_WEB_LIMIT_BYTES,
+  growthSceneColdPayloadBytes,
+  parseGrowthSceneV1,
+} from "./growth-scene.ts";
 import { spikeOrthographicFrame } from "./spike-frame.ts";
 
 interface SpikeWindow {
@@ -510,7 +517,7 @@ function makeLookSwitcher(): HTMLSelectElement {
 /** Content-selection params carried across look/profile reloads. */
 function keepContentParams(): URLSearchParams {
   const keep = [
-    "mesh", "manifest", "scene", "frame", "frameExtent", "fps",
+    "mesh", "manifest", "scene", "growthScene", "frame", "frameExtent", "fps",
     "interactive", "clip", "tilt", "zoom", "ui", "profile", "look",
     // style/zscale are first-class page selectors (?style=povray|ggview): dropping them on
     // a profile switch silently re-renders a different page.
@@ -665,7 +672,11 @@ function makeBackdropControls(rig: SceneRig): HTMLSpanElement {
 }
 
 /** Build renderer, scene, camera, lights, materials for a given world extent. */
-function buildRig(extent: THREE.Vector3, liveBackground: boolean): SceneRig {
+function buildRig(
+  extent: THREE.Vector3,
+  liveBackground: boolean,
+  frameOverride?: { readonly tiltDegrees: number; readonly zoom: number },
+): SceneRig {
   const renderer = new THREE.WebGLRenderer({ antialias: true });
   renderer.localClippingEnabled = clipPlanes() !== null;
   renderer.setPixelRatio(liveBackground ? Math.min(window.devicePixelRatio, 2) : 1);
@@ -675,13 +686,13 @@ function buildRig(extent: THREE.Vector3, liveBackground: boolean): SceneRig {
   document.body.appendChild(renderer.domElement);
 
   const scene = new THREE.Scene();
-  const zoom = Number(param("zoom", "1"));
+  const zoom = frameOverride?.zoom ?? Number(param("zoom", "1"));
   const aspect = window.innerWidth / window.innerHeight;
   // At an oblique/axial view, Z projects into screen Y. Framing only max(X,Y) clipped tall
   // columns through the camera and far plane, producing vertical bars instead of a crystal.
   const frame = spikeOrthographicFrame(
     extent,
-    Number(param("tilt", "0")),
+    frameOverride?.tiltDegrees ?? Number(param("tilt", "0")),
     aspect,
     zoom,
   );
@@ -1257,6 +1268,162 @@ async function timelineMain(manifestUrl: string): Promise<void> {
   (window as unknown as SpikeWindow).__spikeReady = true;
 }
 
+// ── Composed growth mode (named catalog growth-scene-v1) ──────────────────────────────
+
+const digestHex = async (buffer: ArrayBuffer): Promise<string> => {
+  const digest = new Uint8Array(await crypto.subtle.digest("SHA-256", buffer));
+  return Array.from(digest, (value) => value.toString(16).padStart(2, "0")).join("");
+};
+
+async function growthSceneMain(sceneUrl: string): Promise<void> {
+  const sceneAbsolute = new URL(sceneUrl, window.location.href);
+  const response = await fetch(sceneAbsolute);
+  if (!response.ok) throw new Error(`growth scene fetch failed: ${response.status} ${sceneUrl}`);
+  const sceneText = await response.text();
+  const scene = parseGrowthSceneV1(JSON.parse(sceneText) as unknown);
+  const coldBytes = growthSceneColdPayloadBytes(scene, new TextEncoder().encode(sceneText).byteLength);
+  if (coldBytes >= GROWTH_SCENE_WEB_LIMIT_BYTES) {
+    throw new Error(
+      `growth scene cold payload ${coldBytes} is not below ${GROWTH_SCENE_WEB_LIMIT_BYTES}`,
+    );
+  }
+
+  const bounds = scene.bounds;
+  const extent = new THREE.Vector3(
+    bounds.xMax - bounds.xMin,
+    bounds.yMax - bounds.yMin,
+    bounds.zMax - bounds.zMin,
+  );
+  const rig = buildRig(extent, true, {
+    tiltDegrees: scene.camera.tiltDegrees,
+    zoom: scene.camera.zoom,
+  });
+  rig.crystal.visible = false;
+  if (rig.edgeMesh !== null) rig.edgeMesh.visible = false;
+  rig.group.position.set(
+    -(bounds.xMin + bounds.xMax) / 2,
+    -(bounds.yMin + bounds.yMax) / 2,
+    -(bounds.zMin + bounds.zMax) / 2,
+  );
+  const yawRadians = THREE.MathUtils.degToRad(scene.camera.yawDegrees);
+  rig.camera.position.applyAxisAngle(new THREE.Vector3(0, 0, 1), yawRadians);
+  rig.camera.up.set(0, 1, 0).applyAxisAngle(new THREE.Vector3(0, 0, 1), yawRadians);
+  rig.camera.lookAt(0, 0, 0);
+
+  const assetPromises = new Map<string, Promise<ReturnType<typeof decodeGrowthAssetV1>>>();
+  const loadAsset = (
+    component: (typeof scene.components)[number],
+  ): Promise<ReturnType<typeof decodeGrowthAssetV1>> => {
+    const cached = assetPromises.get(component.growthAsset.sha256);
+    if (cached !== undefined) return cached;
+    const promise = fetch(new URL(component.growthAsset.url, sceneAbsolute))
+      .then(async (assetResponse) => {
+        if (!assetResponse.ok) {
+          throw new Error(`growth component fetch failed: ${assetResponse.status} ${component.id}`);
+        }
+        const bytes = await assetResponse.arrayBuffer();
+        if (bytes.byteLength !== component.growthAsset.byteLength) {
+          throw new Error(
+            `${component.id} growth bytes ${bytes.byteLength} disagree with ` +
+              `${component.growthAsset.byteLength}`,
+          );
+        }
+        const actualSha = await digestHex(bytes);
+        if (actualSha !== component.growthAsset.sha256) {
+          throw new Error(`${component.id} growth SHA-256 disagrees with its scene identity`);
+        }
+        return decodeGrowthAssetV1(bytes);
+      });
+    assetPromises.set(component.growthAsset.sha256, promise);
+    return promise;
+  };
+
+  const cellGeometry = new THREE.CylinderGeometry(0.58, 0.58, 0.92, 6, 1, false);
+  cellGeometry.rotateX(Math.PI / 2);
+  cellGeometry.rotateZ(Math.PI / 6);
+  const material = rig.crystal.material as THREE.Material;
+  const matrix = new THREE.Matrix4();
+  const loaded = await Promise.all(scene.components.map(async (component) => {
+    const asset = await loadAsset(component);
+    const mesh = new THREE.InstancedMesh(cellGeometry, material, asset.eventCount);
+    mesh.instanceMatrix.setUsage(THREE.StaticDrawUsage);
+    mesh.frustumCulled = false;
+    const [nx, ny] = asset.dims;
+    const [centerI, centerJ, centerK] = asset.center;
+    const centerX = centerI + centerJ / 2;
+    const centerY = (Math.sqrt(3) * centerJ) / 2;
+    for (let event = 0; event < asset.eventCount; event++) {
+      const flat = asset.flatIndices[event]!;
+      const i = flat % nx;
+      const j = Math.floor(flat / nx) % ny;
+      const k = Math.floor(flat / (nx * ny));
+      matrix.makeTranslation(
+        i + j / 2 - centerX,
+        (Math.sqrt(3) * j) / 2 - centerY,
+        (k - centerK) * zscale,
+      );
+      mesh.setMatrixAt(event, matrix);
+    }
+    mesh.instanceMatrix.needsUpdate = true;
+    mesh.count = component.phaseOffset === 0 ? asset.seedCount : 0;
+    const componentGroup = new THREE.Group();
+    componentGroup.position.set(...component.transform.translate);
+    componentGroup.rotation.set(
+      THREE.MathUtils.degToRad(component.transform.rotateDegrees[0]),
+      THREE.MathUtils.degToRad(component.transform.rotateDegrees[1]),
+      THREE.MathUtils.degToRad(component.transform.rotateDegrees[2]),
+      "XYZ",
+    );
+    componentGroup.scale.setScalar(component.transform.scale);
+    componentGroup.add(mesh);
+    rig.group.add(componentGroup);
+    return { component, asset, mesh };
+  }));
+
+  if (param("ui", "1") !== "0") {
+    const disclosure = document.createElement("div");
+    disclosure.style.cssText =
+      "position:fixed;left:16px;bottom:16px;max-width:520px;padding:9px 12px;" +
+      "border:1px solid rgba(170,195,230,.45);border-radius:6px;background:rgba(8,12,22,.78);" +
+      "color:#dfe7f4;font:12px/1.45 system-ui,sans-serif;z-index:12";
+    disclosure.textContent =
+      `Composed visualization · ${scene.components.length} independently recorded G-G ` +
+      `component${scene.components.length === 1 ? "" : "s"} · ` +
+      `${coldBytes.toLocaleString()} cold bytes`;
+    document.body.appendChild(disclosure);
+  }
+
+  const duration = scene.durationSeconds;
+  const seek = async (seconds: number): Promise<void> => {
+    const progress = Math.max(0, Math.min(1, seconds / duration));
+    for (const item of loaded) {
+      const phase = item.component.phaseOffset;
+      if (progress < phase) {
+        item.mesh.count = 0;
+      } else {
+        const localProgress = phase === 1 ? 1 : (progress - phase) / (1 - phase);
+        const tick = Math.floor(Math.max(0, Math.min(1, localProgress)) * item.asset.finalTick);
+        item.mesh.count = visibleGrowthEventCount(item.asset, tick);
+      }
+    }
+    rig.render();
+  };
+
+  const spikeWindow = window as unknown as SpikeWindow;
+  spikeWindow.__sceneDuration = duration;
+  spikeWindow.__sceneSeek = seek;
+  await seek(0);
+  if (param("capture", "0") !== "1") {
+    const start = performance.now();
+    const animate = (now: number): void => {
+      requestAnimationFrame(animate);
+      void seek(((now - start) / 1000) % duration);
+    };
+    requestAnimationFrame(animate);
+  }
+  spikeWindow.__spikeReady = true;
+}
+
 // ── Scene mode (Phase 7 prep Track B, docs/plans/explore-phase7-prep.md) ─────────────────
 // A repo-committed scene script (charter Phase 7 Developer profile) drives camera, frame,
 // and captions from a virtual clock. Read-only over recorded artifacts; cannot alter solver
@@ -1484,6 +1651,11 @@ async function sceneMain(sceneUrl: string): Promise<void> {
 }
 
 async function main(): Promise<void> {
+  const growthSceneUrl = query.get("growthScene");
+  if (growthSceneUrl !== null && growthSceneUrl !== "") {
+    await growthSceneMain(growthSceneUrl);
+    return;
+  }
   const sceneUrl = query.get("scene");
   if (sceneUrl !== null && sceneUrl !== "") {
     await sceneMain(sceneUrl);

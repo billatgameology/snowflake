@@ -278,9 +278,16 @@ scan and diff check pass. The run then completed 24/24 with 24 workers. Its 50,4
 for every job and web assets from 4,105 to 53,312 bytes. Three-view review advances Scrolls on
 Plates at 100/300/400 ticks, Triangular Forms at 200/400/600 ticks, and Cups at 100/200/400 ticks:
 nine production candidates, still zero formal slots. Next bind the accepted direct-growth
-production candidate matrix—including these nine and four Hollow Plates candidates—then implement
-the versioned Compose scene contract before changing the two Compose route decisions. Do not touch
-the independently running NAS publisher in the animation worktree.
+production candidate matrix—including these nine and four Hollow Plates candidates. The versioned
+Compose contract and live player are now also implemented: strict component/scientific identities,
+transforms, phase offsets, bounds, unique cold-byte accounting, actual browser byte/hash checks and
+an explicit composed-visualization disclosure. A deterministic crossed-needle smoke used one
+121,806-byte growth request for two transformed instances and sought successfully at 4/8 seconds;
+the three focused files passed 8/8, both typechecks and the 75-module app build passed. That local
+probe is player evidence only, not an accepted scene. Next commit this contract, then build the
+direct-growth production candidate matrix and first scientifically bound Compose baselines before
+changing the two route decisions. Do not touch the independently running NAS publisher in the
+animation worktree.
 
 ### Phase 10 — planning complete; maker package selection pending
 

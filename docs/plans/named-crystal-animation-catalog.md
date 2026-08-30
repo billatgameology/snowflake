@@ -168,6 +168,36 @@ the payload ceiling. Scientific retention points to the exact component bundles 
 manifest. Scene variation changes one small recorded property such as orientation spread, relative
 scale, or phase offset; it does not count camera motion as morphology variation.
 
+Compose contract/player checkpoint (2026-08-29): `app/src/growth-scene.ts` implements strict
+`growth-scene-v1` parsing for the composed-visualization disclosure, variation driver, explicit
+bounds/camera, component web identities, scientific-bundle identities, transforms, scales and
+phase offsets. Its cold-payload calculation counts manifest bytes plus each unique growth-asset
+content identity once and rejects inconsistent byte claims. `app/src/growth-asset.ts` ports the
+website's load-bearing `gutcheck-growth-v1` checks into an environment-neutral browser decoder and
+provides chronological prefix lookup for playback.
+
+The spike player's `?growthScene=` mode fetches and validates the manifest, enforces the strict
+20,000,000-byte cold limit, verifies actual component byte length and SHA-256 in the browser,
+deduplicates repeated component fetches by content identity, instances recorded lattice cells under
+each explicit 3-D transform, applies phase delays, and exposes deterministic seek. Its UI labels the
+result as a composed visualization of independently recorded G-G components.
+
+Product-sized verification passed:
+
+- `npx vitest run app/test/growth-scene.test.ts app/test/growth-asset.test.ts
+  app/test/spike-gg-realism-frame.test.ts` — three files, eight tests passed
+- `npm run typecheck`
+- `npm run build --workspace app` — 75 modules transformed
+- `node out/named-crystal-catalog/compose-smoke/capture.mjs` — an ignored development-only crossed
+  needle scene sought at 4 and 8 seconds; one scene request and one unique 121,806-byte growth
+  request served two transformed, phase-shifted instances
+- `npm run lint:rule7`
+- `git diff --check`
+
+The smoke scene binds a local exploratory probe record, not a complete scientific bundle, and is
+therefore player evidence only—not an accepted Compose entry or precedent for weakening the
+production scientific-bundle requirement.
+
 ### 5. Generate and publish in bounded type tranches
 
 Extend the existing fleet planner to plan by stable type/variant identity, resume by exact recipe,
