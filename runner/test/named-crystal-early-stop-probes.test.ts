@@ -1,9 +1,11 @@
+import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { describe, expect, it } from "vitest";
 import { loadEarlyStopPlan } from "../../scripts/named-crystal-early-stop-probes.ts";
 
 const REPO = resolve(import.meta.dirname, "../..");
 const MANIFEST = resolve(REPO, "docs/named-snow-crystal-early-stop-probes.json");
+const REVIEW = resolve(REPO, "docs/named-snow-crystal-early-stop-probe-review.json");
 const EXPECTED_TYPES = ["cups", "scrolls-on-plates", "triangular-forms"];
 const EXPECTED_TICKS = [100, 200, 300, 400, 600, 800, 1000, 1200];
 
@@ -46,6 +48,55 @@ describe("named-crystal early-stop probe tranche", () => {
       expect(family[0]!.initialSeedSiteCount, typeId).toBeGreaterThan(0);
       for (const job of family.slice(1)) {
         expect(withoutLabel(job.spec), job.jobId).toEqual(withoutLabel(family[0]!.spec));
+      }
+    }
+  });
+
+  it("selects three meaningfully grown production candidates per family without filling slots", () => {
+    const review = JSON.parse(readFileSync(REVIEW, "utf8")) as {
+      readonly sourceReport: { readonly sha256: string };
+      readonly contactSheet: { readonly sha256: string };
+      readonly executionSummary: {
+        readonly actualWorkerCount: number;
+        readonly completed: number;
+        readonly failed: number;
+        readonly maximumWebBytes: number;
+        readonly webPayloadLimitBytes: number;
+      };
+      readonly counts: Record<string, number>;
+      readonly families: readonly {
+        readonly typeId: string;
+        readonly selected: readonly {
+          readonly jobId: string;
+          readonly newAttachedSites: number;
+          readonly webBytes: number;
+          readonly specSha256: string;
+        }[];
+      }[];
+    };
+    expect(review.families.map(({ typeId }) => typeId).sort()).toEqual(EXPECTED_TYPES);
+    expect(review.sourceReport.sha256).toMatch(/^[0-9a-f]{64}$/u);
+    expect(review.contactSheet.sha256).toMatch(/^[0-9a-f]{64}$/u);
+    expect(review.executionSummary).toMatchObject({
+      actualWorkerCount: 24,
+      completed: 24,
+      failed: 0,
+      webPayloadLimitBytes: 20_000_000,
+    });
+    expect(review.executionSummary.maximumWebBytes).toBeLessThan(
+      review.executionSummary.webPayloadLimitBytes,
+    );
+    expect(review.counts).toEqual({
+      advanceCandidateFamilies: 3,
+      selectedProductionCandidates: 9,
+      formalCatalogSlotsFilled: 0,
+    });
+    for (const family of review.families) {
+      expect(family.selected, family.typeId).toHaveLength(3);
+      for (const candidate of family.selected) {
+        expect(candidate.newAttachedSites, candidate.jobId).toBeGreaterThan(0);
+        expect(candidate.webBytes, candidate.jobId).toBeLessThan(20_000_000);
+        expect(candidate.specSha256, candidate.jobId).toMatch(/^[0-9a-f]{64}$/u);
       }
     }
   });

@@ -415,6 +415,23 @@ verification passed:
 - `npm run lint:rule7`
 - `git diff --check`
 
+Early-stop execution and review checkpoint (2026-08-29):
+`node scripts/named-crystal-early-stop-probes.ts run` launched exactly 24 workers and completed
+24/24 jobs in the registered interval. The exact local report is
+`out/named-crystal-catalog/early-stop-probes-v1/report.json` (50,418 bytes; SHA-256
+`4b09087bbcf515f527bc8fa5e281b51f5be9661a86d53be61e564f41f7a74db3`). Every job attached new
+sites beyond its seed; per-family ranges were 74–6,137 for Scrolls on Plates, 27–2,313 for
+Triangular Forms, and 66–3,174 for Cups. Web assets ranged from 4,105 to 53,312 bytes and totalled
+375,230 bytes, all below the strict ceiling. The reviewed contact sheet is
+`out/named-crystal-catalog/early-stop-probes-v1/contact-sheet.png` (7,904,899 bytes; SHA-256
+`328ee608462a770e19efedabcf6cb784e05888664f32c517306a17af757279b5`).
+
+The bound review advances all three families with three production candidates each: Scrolls on
+Plates at 100/300/400 ticks, Triangular Forms at 200/400/600 ticks, and Cups at 100/200/400 ticks.
+Each selected variant has measured positive growth and remains below the web ceiling. These nine
+candidate files still fill zero formal slots until their large scientific counterparts and final
+catalog bindings are produced.
+
 ## Out of scope
 
 - A riming, droplet, aggregation, thermal, or other new physical solver. `Rimed` and `Graupel` stay

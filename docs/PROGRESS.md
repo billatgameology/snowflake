@@ -273,11 +273,14 @@ register the three-family, 24-job early-stop interval search before launching it
 that manifest and runner are now complete. They derive one fixed source seed/spec for each family,
 vary only stop tick across 100–1,200, record initial and newly attached site counts, and require 24
 actual workers plus the strict web gate. Its 24-job plan, fixed-spec tests, both typechecks, Rule 7
-scan and diff check pass. Next commit this pre-launch checkpoint and run
-`node scripts/named-crystal-early-stop-probes.ts run`, then review the registered views and reject
-any variant with negligible growth. Do not change the two Compose routes until a scene
-implementation exists. Do not touch the independently running NAS publisher in the animation
-worktree.
+scan and diff check pass. The run then completed 24/24 with 24 workers. Its 50,418-byte report
+(SHA-256 `4b09087bbcf515f527bc8fa5e281b51f5be9661a86d53be61e564f41f7a74db3`) records positive growth
+for every job and web assets from 4,105 to 53,312 bytes. Three-view review advances Scrolls on
+Plates at 100/300/400 ticks, Triangular Forms at 200/400/600 ticks, and Cups at 100/200/400 ticks:
+nine production candidates, still zero formal slots. Next bind the accepted direct-growth
+production candidate matrix—including these nine and four Hollow Plates candidates—then implement
+the versioned Compose scene contract before changing the two Compose route decisions. Do not touch
+the independently running NAS publisher in the animation worktree.
 
 ### Phase 10 — planning complete; maker package selection pending
 
