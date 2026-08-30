@@ -263,8 +263,15 @@ runner independently binds those IDs to the failed first-pass review, materializ
 sites/schedules, records exact argv and actual worker count, and enforces the same strict web
 ceiling. The 24-job plan, connected-seed/schedule tests, both typechecks, Rule 7 scan and diff check
 pass. Next run `node scripts/named-crystal-hard-form-probes.ts run` with exactly 24 independent
-processes, then review all registered views without counting any visual candidate as a formal slot.
-Do not touch the independently running NAS publisher in the animation worktree.
+processes. That run completed 24/24 jobs with 24 actual workers; its 47,848-byte report (SHA-256
+`21475d310edcc231fe1f5429d42684ac0bbb92f047c060acf7249570aa281ddf`) records web files from
+34,549 to 507,663 bytes, 2,895,660 bytes total, all below the strict ceiling. Three-view review
+advances the four Hollow Plates variants, sends Multiply Capped Columns and Needle Clusters to
+explicit Compose, and sends Scrolls on Plates, Triangular Forms and Cups to one bounded early-stop
+search because growth erased their defining seed feature. Zero formal slots are filled. Next
+register the three-family, 24-job early-stop interval search before launching it on all 24 cores;
+do not change the two Compose routes until a scene implementation exists. Do not touch the
+independently running NAS publisher in the animation worktree.
 
 ### Phase 10 — planning complete; maker package selection pending
 

@@ -368,6 +368,24 @@ The registered implementation is `docs/named-snow-crystal-hard-form-probes.json`
 - `npm run lint:rule7`
 - `git diff --check`
 
+Hard-form execution and review checkpoint (2026-08-29):
+`node scripts/named-crystal-hard-form-probes.ts run` launched exactly 24 workers and completed
+24/24 jobs. The exact local report is
+`out/named-crystal-catalog/hard-form-probes-v1/report.json` (47,848 bytes; SHA-256
+`21475d310edcc231fe1f5429d42684ac0bbb92f047c060acf7249570aa281ddf`). Web assets ranged from
+34,549 to 507,663 bytes and totalled 2,895,660 bytes; all passed the strict 20,000,000-byte ceiling.
+The reviewed three-view contact sheet is
+`out/named-crystal-catalog/hard-form-probes-v1/contact-sheet.png` (8,533,252 bytes; SHA-256
+`433c74c3984f904d2aa415cfd47e6caa8567f5a6b93fd7cd3afd13591e6ef6a9`).
+
+The family-level review in `docs/named-snow-crystal-hard-form-probe-review.json` advances Hollow
+Plates: all four cavity radii retain the named cavity. It sends Multiply Capped Columns and Needle
+Clusters to explicit Compose because the single-lattice schedules/seeds produced no separated cap
+levels and no spatially distinct needle cluster. It keeps Scrolls on Plates, Triangular Forms and
+Cups on GG+ for one bounded early-stop search because their custom seed contains the desired
+feature but the registered duration erases it. These decisions still fill zero formal slots; the
+catalog routes change only when their production recipe/scene exists.
+
 ## Out of scope
 
 - A riming, droplet, aggregation, thermal, or other new physical solver. `Rimed` and `Graupel` stay

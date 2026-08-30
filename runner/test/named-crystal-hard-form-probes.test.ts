@@ -1,3 +1,4 @@
+import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { describe, expect, it } from "vitest";
 import { GG_PRESETS } from "@vcc/core";
@@ -9,6 +10,7 @@ import {
 
 const REPO = resolve(import.meta.dirname, "../..");
 const MANIFEST = resolve(REPO, "docs/named-snow-crystal-hard-form-probes.json");
+const REVIEW = resolve(REPO, "docs/named-snow-crystal-hard-form-probe-review.json");
 const EXPECTED_TYPES = [
   "cups",
   "hollow-plates",
@@ -77,5 +79,39 @@ describe("named-crystal hard-form probe tranche", () => {
       ]);
       expect(job.tickCap).toBe(job.driverValue * 6);
     }
+  });
+
+  it("records a complete post-run family review without filling catalog slots", () => {
+    const review = JSON.parse(readFileSync(REVIEW, "utf8")) as {
+      readonly sourceReport: { readonly sha256: string };
+      readonly contactSheet: { readonly sha256: string };
+      readonly executionSummary: {
+        readonly actualWorkerCount: number;
+        readonly completed: number;
+        readonly failed: number;
+        readonly maximumWebBytes: number;
+        readonly webPayloadLimitBytes: number;
+      };
+      readonly counts: Record<string, number>;
+      readonly families: readonly { readonly typeId: string; readonly status: string }[];
+    };
+    expect(review.families.map(({ typeId }) => typeId).sort()).toEqual(EXPECTED_TYPES);
+    expect(review.sourceReport.sha256).toMatch(/^[0-9a-f]{64}$/u);
+    expect(review.contactSheet.sha256).toMatch(/^[0-9a-f]{64}$/u);
+    expect(review.executionSummary).toMatchObject({
+      actualWorkerCount: 24,
+      completed: 24,
+      failed: 0,
+      webPayloadLimitBytes: 20_000_000,
+    });
+    expect(review.executionSummary.maximumWebBytes).toBeLessThan(
+      review.executionSummary.webPayloadLimitBytes,
+    );
+    expect(review.counts).toEqual({
+      advanceCandidateFamilies: 1,
+      composeRequiredFamilies: 2,
+      earlyStopRequiredFamilies: 3,
+      formalCatalogSlotsFilled: 0,
+    });
   });
 });
