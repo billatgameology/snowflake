@@ -334,8 +334,17 @@ now registers two replacement 24-worker fleets with exact large domains/caps and
 clearance gate, while preserving the same three-variant recipes, 120-mesh-state scientific cadence,
 actual web decoder and strict byte ceiling. Next commit that protocol revision; then implement the
 tracked supersession/reset plus the common final-resolution runner and focused preflight before
-launching Fleet A on all 24 cores. Do not touch the independently completed NAS publisher in the
-animation worktree.
+launching Fleet A on all 24 cores. The protocol revision is committed as `e73d467`. The exact
+36,250-byte supersession record (SHA-256
+`7529a3c2ee754f24baf5515bb6b8631670a8423b14194f485dee4c789b080dbd`) now preserves both screens
+and resets the strict catalog to 0 accepted / 99 remaining. The common manifest/runner materializes
+24 unique source-bound jobs for either Fleet A or B, checks all registered large dimensions/caps,
+and enforces both 16-layer and 5%-of-`nz` vertical clearance after generation. Its five focused
+files pass 26 tests, both TypeScript projects pass, the Rule 7 scan is clean across 1,077 files and
+the diff check passes; both final output roots remain absent. Next commit this implementation
+checkpoint, then launch
+`node scripts/named-crystal-final-resolution-production.ts run --fleet a` with all 24 workers. Do
+not touch the independently completed NAS publisher in the animation worktree.
 
 ### Phase 10 — planning complete; maker package selection pending
 

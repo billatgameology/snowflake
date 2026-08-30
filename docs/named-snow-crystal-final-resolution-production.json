@@ -1,0 +1,136 @@
+{
+  "format": "named-crystal-final-resolution-production-v1",
+  "catalog": "docs/named-snow-crystal-catalog.json",
+  "sources": {
+    "currentAudit": {
+      "path": "docs/named-snow-crystal-current-assets.json",
+      "byteLength": 47525,
+      "sha256": "5be36fda06a9a05d008c4555df54ca8e057fe29a2a5cd392765e4222f4a9646c"
+    },
+    "firstProductionManifest": {
+      "path": "docs/named-snow-crystal-direct-production.json",
+      "byteLength": 5290,
+      "sha256": "2c1ce5ebedd5bd53163c8889aab21e780536fb2cef3a85b9e56a5c24403cf121"
+    },
+    "supersession": {
+      "path": "docs/named-snow-crystal-resolution-supersession.json",
+      "byteLength": 36250,
+      "sha256": "7529a3c2ee754f24baf5515bb6b8631670a8423b14194f485dee4c789b080dbd"
+    }
+  },
+  "webPayloadLimitBytes": 20000000,
+  "scientificMeshStateTarget": 120,
+  "scientificMeshStateCountMinimum": 100,
+  "scientificMeshStateCountMaximum": 122,
+  "verticalClearance": {
+    "minimumLayers": 16,
+    "minimumFractionOfNz": 0.05,
+    "typeIds": ["solid-columns", "sheaths", "hollow-columns", "capped-columns", "isolated-bullets", "simple-needles", "cups"]
+  },
+  "execution": {
+    "processConcurrency": 24,
+    "hostProcessor": "Intel Core Ultra 9 285K",
+    "physicalCores": 24,
+    "logicalProcessors": 24,
+    "rngSeed": 1,
+    "noiseEpsilon": 0,
+    "domain": "hexPrism",
+    "spacing": 0.6,
+    "sigma": 0.45,
+    "normalDelta": 3
+  },
+  "fleets": {
+    "a": {
+      "outRoot": "out/named-crystal-catalog/final-resolution-a-v1",
+      "sourceKind": "current-audit-rho",
+      "families": [
+        {
+          "typeId": "simple-prisms",
+          "sourceId": "fig11",
+          "sourceRecord": "evidence/gutcheck-gg-realism/fig-records/fig11-record.json",
+          "sourceSpecSha256": "2b0190f5256c11d7a964ab5016734826548de905d3e941a0eb52da58cf88e033",
+          "dims": [500, 500, 256],
+          "tickCap": 1706,
+          "reviewViews": ["face", "oblique", "axial"]
+        },
+        {
+          "typeId": "hexagonal-plates",
+          "sourceId": "sweep-t2p5-r0p08",
+          "sourceRecord": "evidence/gutcheck-gg-realism/gen-records/sweep-t2p5-r0p08-record.json",
+          "sourceSpecSha256": "0535b0f3bd75767c06b7bb0e2e9bb2d0c2599cf182a413e1c3e297b2c812c28b",
+          "dims": [500, 500, 96],
+          "tickCap": 30000,
+          "reviewViews": ["face", "oblique"]
+        },
+        {
+          "typeId": "hollow-columns",
+          "sourceId": "fig30",
+          "sourceRecord": "evidence/gutcheck-gg-realism/fig-records/fig30-record.json",
+          "sourceSpecSha256": "5aebc31dd63041206025551872299dca3908c3ed92410fb1bdd9594b4b0f9622",
+          "dims": [128, 128, 768],
+          "tickCap": 25000,
+          "reviewViews": ["oblique", "axial"]
+        },
+        {
+          "typeId": "stellar-plates",
+          "sourceId": "sweep-t2-r0p12",
+          "sourceRecord": "evidence/gutcheck-gg-realism/gen-records/sweep-t2-r0p12-record.json",
+          "sourceSpecSha256": "15f0923eb78311376fc5b08c477a4fdb555a76a1da1c2d4219eaaa22e6fffa5a",
+          "dims": [500, 500, 96],
+          "tickCap": 30000,
+          "reviewViews": ["face", "oblique"]
+        },
+        {
+          "typeId": "capped-columns",
+          "sourceId": "fig37",
+          "sourceRecord": "evidence/gutcheck-gg-realism/fig-records/fig37-record.json",
+          "sourceSpecSha256": "f85be4ef2203183308fb1125d0d5b671eadffbf3678ac6b0b39f92533aa74c32",
+          "dims": [320, 320, 512],
+          "tickCap": 48350,
+          "reviewViews": ["oblique", "axial"]
+        },
+        {
+          "typeId": "sectored-plates",
+          "sourceId": "fig9v2",
+          "sourceRecord": "evidence/gutcheck-gg-realism/fig-records/fig9v2-record.json",
+          "sourceSpecSha256": "613793d49becbe13e75d055cabb41f52021e8aa8a1ff85900ba6abb9d5541ac9",
+          "dims": [600, 600, 96],
+          "tickCap": 67200,
+          "reviewViews": ["face", "oblique"]
+        },
+        {
+          "typeId": "simple-needles",
+          "sourceId": "fig29",
+          "sourceRecord": "evidence/gutcheck-gg-realism/fig-records/fig29-record.json",
+          "sourceSpecSha256": "f9cc6eef67d619499c4a2e9c840506add13730a7985d5a2afbbfe0d5cecbc3eb",
+          "dims": [128, 128, 768],
+          "tickCap": 25075,
+          "reviewViews": ["oblique", "axial"]
+        },
+        {
+          "typeId": "fernlike-stellar-dendrites",
+          "sourceId": "fig13",
+          "sourceRecord": "evidence/gutcheck-gg-realism/fig-records/fig13-record.json",
+          "sourceSpecSha256": "16ddbfcfee13c95d8968e29bd13d3bc054c97aa065c91e6da210bba76f2fff83",
+          "dims": [800, 800, 96],
+          "tickCap": 28512,
+          "reviewViews": ["face", "oblique"]
+        }
+      ]
+    },
+    "b": {
+      "outRoot": "out/named-crystal-catalog/final-resolution-b-v1",
+      "sourceKind": "first-production-reviewed",
+      "families": [
+        { "typeId": "solid-columns", "dims": [192, 192, 576] },
+        { "typeId": "sheaths", "dims": [128, 128, 768] },
+        { "typeId": "split-plates-and-stars", "dims": [600, 600, 96] },
+        { "typeId": "isolated-bullets", "dims": [192, 192, 576] },
+        { "typeId": "scrolls-on-plates", "dims": [500, 500, 192] },
+        { "typeId": "triangular-forms", "dims": [500, 500, 96] },
+        { "typeId": "cups", "dims": [256, 256, 512] },
+        { "typeId": "hollow-plates", "dims": [500, 500, 96] }
+      ]
+    }
+  }
+}

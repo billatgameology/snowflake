@@ -31,7 +31,7 @@
       "id": "solid-columns",
       "name": "Solid Columns",
       "route": "gg-plus",
-      "note": "Accepted direct-production trio; exact output identities and three-view rationale are in docs/named-snow-crystal-direct-production-review.json.",
+      "note": "Accepted direct-production trio; exact output identities and three-view rationale are in docs/named-snow-crystal-direct-production-review.json. Scaled production variants are preserved as morphology screens in named-snow-crystal-resolution-supersession.json; final-resolution replacement is pending.",
       "currentCandidates": [
         {
           "id": "fig31",
@@ -45,51 +45,9 @@
         }
       ],
       "variants": {
-        "lower": {
-          "entryId": "solid-columns-lower",
-          "variation": {
-            "driver": "rho-scale",
-            "value": 0.95,
-            "unit": "multiplier"
-          },
-          "links": {
-            "preview": "out/named-crystal-catalog/direct-production-v1/review-renders/solid-columns-lower-tilt55.png",
-            "webAsset": "out/named-crystal-catalog/direct-production-v1/solid-columns-lower/growth-v1.bin",
-            "recipeOrScene": "out/named-crystal-catalog/direct-production-v1/solid-columns-lower/spec.json",
-            "scientificBundle": "out/named-crystal-catalog/direct-production-v1/solid-columns-lower/"
-          },
-          "webPayloadBytes": 165620
-        },
-        "baseline": {
-          "entryId": "solid-columns-baseline",
-          "variation": {
-            "driver": "rho-scale",
-            "value": 1,
-            "unit": "multiplier"
-          },
-          "links": {
-            "preview": "out/named-crystal-catalog/direct-production-v1/review-renders/solid-columns-baseline-tilt55.png",
-            "webAsset": "out/named-crystal-catalog/direct-production-v1/solid-columns-baseline/growth-v1.bin",
-            "recipeOrScene": "out/named-crystal-catalog/direct-production-v1/solid-columns-baseline/spec.json",
-            "scientificBundle": "out/named-crystal-catalog/direct-production-v1/solid-columns-baseline/"
-          },
-          "webPayloadBytes": 168162
-        },
-        "upper": {
-          "entryId": "solid-columns-upper",
-          "variation": {
-            "driver": "rho-scale",
-            "value": 1.05,
-            "unit": "multiplier"
-          },
-          "links": {
-            "preview": "out/named-crystal-catalog/direct-production-v1/review-renders/solid-columns-upper-tilt55.png",
-            "webAsset": "out/named-crystal-catalog/direct-production-v1/solid-columns-upper/growth-v1.bin",
-            "recipeOrScene": "out/named-crystal-catalog/direct-production-v1/solid-columns-upper/spec.json",
-            "scientificBundle": "out/named-crystal-catalog/direct-production-v1/solid-columns-upper/"
-          },
-          "webPayloadBytes": 194052
-        }
+        "lower": null,
+        "baseline": null,
+        "upper": null
       },
       "exclusionReason": null
     },
@@ -97,7 +55,7 @@
       "id": "sheaths",
       "name": "Sheaths",
       "route": "gg-plus",
-      "note": "Accepted direct-production trio; exact output identities and three-view rationale are in docs/named-snow-crystal-direct-production-review.json.",
+      "note": "Accepted direct-production trio; exact output identities and three-view rationale are in docs/named-snow-crystal-direct-production-review.json. Scaled production variants are preserved as morphology screens in named-snow-crystal-resolution-supersession.json; final-resolution replacement is pending.",
       "currentCandidates": [
         {
           "id": "baseline-sheath",
@@ -106,51 +64,9 @@
         }
       ],
       "variants": {
-        "lower": {
-          "entryId": "sheaths-lower",
-          "variation": {
-            "driver": "rho-scale",
-            "value": 0.95,
-            "unit": "multiplier"
-          },
-          "links": {
-            "preview": "out/named-crystal-catalog/direct-production-v1/review-renders/sheaths-lower-tilt55.png",
-            "webAsset": "out/named-crystal-catalog/direct-production-v1/sheaths-lower/growth-v1.bin",
-            "recipeOrScene": "out/named-crystal-catalog/direct-production-v1/sheaths-lower/spec.json",
-            "scientificBundle": "out/named-crystal-catalog/direct-production-v1/sheaths-lower/"
-          },
-          "webPayloadBytes": 272592
-        },
-        "baseline": {
-          "entryId": "sheaths-baseline",
-          "variation": {
-            "driver": "rho-scale",
-            "value": 1,
-            "unit": "multiplier"
-          },
-          "links": {
-            "preview": "out/named-crystal-catalog/direct-production-v1/review-renders/sheaths-baseline-tilt55.png",
-            "webAsset": "out/named-crystal-catalog/direct-production-v1/sheaths-baseline/growth-v1.bin",
-            "recipeOrScene": "out/named-crystal-catalog/direct-production-v1/sheaths-baseline/spec.json",
-            "scientificBundle": "out/named-crystal-catalog/direct-production-v1/sheaths-baseline/"
-          },
-          "webPayloadBytes": 280670
-        },
-        "upper": {
-          "entryId": "sheaths-upper",
-          "variation": {
-            "driver": "rho-scale",
-            "value": 1.05,
-            "unit": "multiplier"
-          },
-          "links": {
-            "preview": "out/named-crystal-catalog/direct-production-v1/review-renders/sheaths-upper-tilt55.png",
-            "webAsset": "out/named-crystal-catalog/direct-production-v1/sheaths-upper/growth-v1.bin",
-            "recipeOrScene": "out/named-crystal-catalog/direct-production-v1/sheaths-upper/spec.json",
-            "scientificBundle": "out/named-crystal-catalog/direct-production-v1/sheaths-upper/"
-          },
-          "webPayloadBytes": 361488
-        }
+        "lower": null,
+        "baseline": null,
+        "upper": null
       },
       "exclusionReason": null
     },
@@ -158,7 +74,7 @@
       "id": "scrolls-on-plates",
       "name": "Scrolls on Plates",
       "route": "gg-plus",
-      "note": "Accepted direct-production trio; exact output identities and three-view rationale are in docs/named-snow-crystal-direct-production-review.json.",
+      "note": "Accepted direct-production trio; exact output identities and three-view rationale are in docs/named-snow-crystal-direct-production-review.json. Scaled production variants are preserved as morphology screens in named-snow-crystal-resolution-supersession.json; final-resolution replacement is pending.",
       "currentCandidates": [
         {
           "id": "scroll-stop-100",
@@ -177,51 +93,9 @@
         }
       ],
       "variants": {
-        "lower": {
-          "entryId": "scrolls-on-plates-lower",
-          "variation": {
-            "driver": "stop-tick",
-            "value": 100,
-            "unit": "ticks"
-          },
-          "links": {
-            "preview": "out/named-crystal-catalog/direct-production-v1/review-renders/scrolls-on-plates-lower-tilt55.png",
-            "webAsset": "out/named-crystal-catalog/direct-production-v1/scrolls-on-plates-lower/growth-v1.bin",
-            "recipeOrScene": "out/named-crystal-catalog/direct-production-v1/scrolls-on-plates-lower/spec.json",
-            "scientificBundle": "out/named-crystal-catalog/direct-production-v1/scrolls-on-plates-lower/"
-          },
-          "webPayloadBytes": 5134
-        },
-        "baseline": {
-          "entryId": "scrolls-on-plates-baseline",
-          "variation": {
-            "driver": "stop-tick",
-            "value": 300,
-            "unit": "ticks"
-          },
-          "links": {
-            "preview": "out/named-crystal-catalog/direct-production-v1/review-renders/scrolls-on-plates-baseline-tilt55.png",
-            "webAsset": "out/named-crystal-catalog/direct-production-v1/scrolls-on-plates-baseline/growth-v1.bin",
-            "recipeOrScene": "out/named-crystal-catalog/direct-production-v1/scrolls-on-plates-baseline/spec.json",
-            "scientificBundle": "out/named-crystal-catalog/direct-production-v1/scrolls-on-plates-baseline/"
-          },
-          "webPayloadBytes": 9024
-        },
-        "upper": {
-          "entryId": "scrolls-on-plates-upper",
-          "variation": {
-            "driver": "stop-tick",
-            "value": 400,
-            "unit": "ticks"
-          },
-          "links": {
-            "preview": "out/named-crystal-catalog/direct-production-v1/review-renders/scrolls-on-plates-upper-tilt55.png",
-            "webAsset": "out/named-crystal-catalog/direct-production-v1/scrolls-on-plates-upper/growth-v1.bin",
-            "recipeOrScene": "out/named-crystal-catalog/direct-production-v1/scrolls-on-plates-upper/spec.json",
-            "scientificBundle": "out/named-crystal-catalog/direct-production-v1/scrolls-on-plates-upper/"
-          },
-          "webPayloadBytes": 12201
-        }
+        "lower": null,
+        "baseline": null,
+        "upper": null
       },
       "exclusionReason": null
     },
@@ -229,7 +103,7 @@
       "id": "triangular-forms",
       "name": "Triangular Forms",
       "route": "gg-plus",
-      "note": "Accepted direct-production trio; exact output identities and three-view rationale are in docs/named-snow-crystal-direct-production-review.json.",
+      "note": "Accepted direct-production trio; exact output identities and three-view rationale are in docs/named-snow-crystal-direct-production-review.json. Scaled production variants are preserved as morphology screens in named-snow-crystal-resolution-supersession.json; final-resolution replacement is pending.",
       "currentCandidates": [
         {
           "id": "triangle-stop-200",
@@ -248,51 +122,9 @@
         }
       ],
       "variants": {
-        "lower": {
-          "entryId": "triangular-forms-lower",
-          "variation": {
-            "driver": "stop-tick",
-            "value": 200,
-            "unit": "ticks"
-          },
-          "links": {
-            "preview": "out/named-crystal-catalog/direct-production-v1/review-renders/triangular-forms-lower-tilt55.png",
-            "webAsset": "out/named-crystal-catalog/direct-production-v1/triangular-forms-lower/growth-v1.bin",
-            "recipeOrScene": "out/named-crystal-catalog/direct-production-v1/triangular-forms-lower/spec.json",
-            "scientificBundle": "out/named-crystal-catalog/direct-production-v1/triangular-forms-lower/"
-          },
-          "webPayloadBytes": 4759
-        },
-        "baseline": {
-          "entryId": "triangular-forms-baseline",
-          "variation": {
-            "driver": "stop-tick",
-            "value": 400,
-            "unit": "ticks"
-          },
-          "links": {
-            "preview": "out/named-crystal-catalog/direct-production-v1/review-renders/triangular-forms-baseline-tilt55.png",
-            "webAsset": "out/named-crystal-catalog/direct-production-v1/triangular-forms-baseline/growth-v1.bin",
-            "recipeOrScene": "out/named-crystal-catalog/direct-production-v1/triangular-forms-baseline/spec.json",
-            "scientificBundle": "out/named-crystal-catalog/direct-production-v1/triangular-forms-baseline/"
-          },
-          "webPayloadBytes": 7225
-        },
-        "upper": {
-          "entryId": "triangular-forms-upper",
-          "variation": {
-            "driver": "stop-tick",
-            "value": 600,
-            "unit": "ticks"
-          },
-          "links": {
-            "preview": "out/named-crystal-catalog/direct-production-v1/review-renders/triangular-forms-upper-tilt55.png",
-            "webAsset": "out/named-crystal-catalog/direct-production-v1/triangular-forms-upper/growth-v1.bin",
-            "recipeOrScene": "out/named-crystal-catalog/direct-production-v1/triangular-forms-upper/spec.json",
-            "scientificBundle": "out/named-crystal-catalog/direct-production-v1/triangular-forms-upper/"
-          },
-          "webPayloadBytes": 9511
-        }
+        "lower": null,
+        "baseline": null,
+        "upper": null
       },
       "exclusionReason": null
     },
@@ -338,7 +170,7 @@
       "id": "cups",
       "name": "Cups",
       "route": "gg-plus",
-      "note": "Accepted direct-production trio; exact output identities and three-view rationale are in docs/named-snow-crystal-direct-production-review.json.",
+      "note": "Accepted direct-production trio; exact output identities and three-view rationale are in docs/named-snow-crystal-direct-production-review.json. Scaled production variants are preserved as morphology screens in named-snow-crystal-resolution-supersession.json; final-resolution replacement is pending.",
       "currentCandidates": [
         {
           "id": "cup-stop-100",
@@ -357,51 +189,9 @@
         }
       ],
       "variants": {
-        "lower": {
-          "entryId": "cups-lower",
-          "variation": {
-            "driver": "stop-tick",
-            "value": 100,
-            "unit": "ticks"
-          },
-          "links": {
-            "preview": "out/named-crystal-catalog/direct-production-v1/review-renders/cups-lower-tilt55.png",
-            "webAsset": "out/named-crystal-catalog/direct-production-v1/cups-lower/growth-v1.bin",
-            "recipeOrScene": "out/named-crystal-catalog/direct-production-v1/cups-lower/spec.json",
-            "scientificBundle": "out/named-crystal-catalog/direct-production-v1/cups-lower/"
-          },
-          "webPayloadBytes": 6609
-        },
-        "baseline": {
-          "entryId": "cups-baseline",
-          "variation": {
-            "driver": "stop-tick",
-            "value": 200,
-            "unit": "ticks"
-          },
-          "links": {
-            "preview": "out/named-crystal-catalog/direct-production-v1/review-renders/cups-baseline-tilt55.png",
-            "webAsset": "out/named-crystal-catalog/direct-production-v1/cups-baseline/growth-v1.bin",
-            "recipeOrScene": "out/named-crystal-catalog/direct-production-v1/cups-baseline/spec.json",
-            "scientificBundle": "out/named-crystal-catalog/direct-production-v1/cups-baseline/"
-          },
-          "webPayloadBytes": 7251
-        },
-        "upper": {
-          "entryId": "cups-upper",
-          "variation": {
-            "driver": "stop-tick",
-            "value": 400,
-            "unit": "ticks"
-          },
-          "links": {
-            "preview": "out/named-crystal-catalog/direct-production-v1/review-renders/cups-upper-tilt55.png",
-            "webAsset": "out/named-crystal-catalog/direct-production-v1/cups-upper/growth-v1.bin",
-            "recipeOrScene": "out/named-crystal-catalog/direct-production-v1/cups-upper/spec.json",
-            "scientificBundle": "out/named-crystal-catalog/direct-production-v1/cups-upper/"
-          },
-          "webPayloadBytes": 11217
-        }
+        "lower": null,
+        "baseline": null,
+        "upper": null
       },
       "exclusionReason": null
     },
@@ -507,7 +297,7 @@
       "id": "split-plates-and-stars",
       "name": "Split Plates & Stars",
       "route": "gg-plus",
-      "note": "Accepted direct-production trio; exact output identities and three-view rationale are in docs/named-snow-crystal-direct-production-review.json.",
+      "note": "Accepted direct-production trio; exact output identities and three-view rationale are in docs/named-snow-crystal-direct-production-review.json. Scaled production variants are preserved as morphology screens in named-snow-crystal-resolution-supersession.json; final-resolution replacement is pending.",
       "currentCandidates": [
         {
           "id": "fig6",
@@ -521,51 +311,9 @@
         }
       ],
       "variants": {
-        "lower": {
-          "entryId": "split-plates-and-stars-lower",
-          "variation": {
-            "driver": "rho-scale",
-            "value": 0.95,
-            "unit": "multiplier"
-          },
-          "links": {
-            "preview": "out/named-crystal-catalog/direct-production-v1/review-renders/split-plates-and-stars-lower-tilt55.png",
-            "webAsset": "out/named-crystal-catalog/direct-production-v1/split-plates-and-stars-lower/growth-v1.bin",
-            "recipeOrScene": "out/named-crystal-catalog/direct-production-v1/split-plates-and-stars-lower/spec.json",
-            "scientificBundle": "out/named-crystal-catalog/direct-production-v1/split-plates-and-stars-lower/"
-          },
-          "webPayloadBytes": 276211
-        },
-        "baseline": {
-          "entryId": "split-plates-and-stars-baseline",
-          "variation": {
-            "driver": "rho-scale",
-            "value": 1,
-            "unit": "multiplier"
-          },
-          "links": {
-            "preview": "out/named-crystal-catalog/direct-production-v1/review-renders/split-plates-and-stars-baseline-tilt55.png",
-            "webAsset": "out/named-crystal-catalog/direct-production-v1/split-plates-and-stars-baseline/growth-v1.bin",
-            "recipeOrScene": "out/named-crystal-catalog/direct-production-v1/split-plates-and-stars-baseline/spec.json",
-            "scientificBundle": "out/named-crystal-catalog/direct-production-v1/split-plates-and-stars-baseline/"
-          },
-          "webPayloadBytes": 298737
-        },
-        "upper": {
-          "entryId": "split-plates-and-stars-upper",
-          "variation": {
-            "driver": "rho-scale",
-            "value": 1.05,
-            "unit": "multiplier"
-          },
-          "links": {
-            "preview": "out/named-crystal-catalog/direct-production-v1/review-renders/split-plates-and-stars-upper-tilt55.png",
-            "webAsset": "out/named-crystal-catalog/direct-production-v1/split-plates-and-stars-upper/growth-v1.bin",
-            "recipeOrScene": "out/named-crystal-catalog/direct-production-v1/split-plates-and-stars-upper/spec.json",
-            "scientificBundle": "out/named-crystal-catalog/direct-production-v1/split-plates-and-stars-upper/"
-          },
-          "webPayloadBytes": 336339
-        }
+        "lower": null,
+        "baseline": null,
+        "upper": null
       },
       "exclusionReason": null
     },
@@ -605,7 +353,7 @@
       "id": "isolated-bullets",
       "name": "Isolated Bullets",
       "route": "gg-plus",
-      "note": "Accepted direct-production trio; exact output identities and three-view rationale are in docs/named-snow-crystal-direct-production-review.json.",
+      "note": "Accepted direct-production trio; exact output identities and three-view rationale are in docs/named-snow-crystal-direct-production-review.json. Scaled production variants are preserved as morphology screens in named-snow-crystal-resolution-supersession.json; final-resolution replacement is pending.",
       "currentCandidates": [
         {
           "id": "baseline-isolated-bullet",
@@ -614,51 +362,9 @@
         }
       ],
       "variants": {
-        "lower": {
-          "entryId": "isolated-bullets-lower",
-          "variation": {
-            "driver": "rho-scale",
-            "value": 0.95,
-            "unit": "multiplier"
-          },
-          "links": {
-            "preview": "out/named-crystal-catalog/direct-production-v1/review-renders/isolated-bullets-lower-tilt55.png",
-            "webAsset": "out/named-crystal-catalog/direct-production-v1/isolated-bullets-lower/growth-v1.bin",
-            "recipeOrScene": "out/named-crystal-catalog/direct-production-v1/isolated-bullets-lower/spec.json",
-            "scientificBundle": "out/named-crystal-catalog/direct-production-v1/isolated-bullets-lower/"
-          },
-          "webPayloadBytes": 149435
-        },
-        "baseline": {
-          "entryId": "isolated-bullets-baseline",
-          "variation": {
-            "driver": "rho-scale",
-            "value": 1,
-            "unit": "multiplier"
-          },
-          "links": {
-            "preview": "out/named-crystal-catalog/direct-production-v1/review-renders/isolated-bullets-baseline-tilt55.png",
-            "webAsset": "out/named-crystal-catalog/direct-production-v1/isolated-bullets-baseline/growth-v1.bin",
-            "recipeOrScene": "out/named-crystal-catalog/direct-production-v1/isolated-bullets-baseline/spec.json",
-            "scientificBundle": "out/named-crystal-catalog/direct-production-v1/isolated-bullets-baseline/"
-          },
-          "webPayloadBytes": 173929
-        },
-        "upper": {
-          "entryId": "isolated-bullets-upper",
-          "variation": {
-            "driver": "rho-scale",
-            "value": 1.05,
-            "unit": "multiplier"
-          },
-          "links": {
-            "preview": "out/named-crystal-catalog/direct-production-v1/review-renders/isolated-bullets-upper-tilt55.png",
-            "webAsset": "out/named-crystal-catalog/direct-production-v1/isolated-bullets-upper/growth-v1.bin",
-            "recipeOrScene": "out/named-crystal-catalog/direct-production-v1/isolated-bullets-upper/spec.json",
-            "scientificBundle": "out/named-crystal-catalog/direct-production-v1/isolated-bullets-upper/"
-          },
-          "webPayloadBytes": 201315
-        }
+        "lower": null,
+        "baseline": null,
+        "upper": null
       },
       "exclusionReason": null
     },
@@ -903,7 +609,7 @@
       "id": "hollow-plates",
       "name": "Hollow Plates",
       "route": "gg-plus",
-      "note": "Accepted direct-production trio; exact output identities and three-view rationale are in docs/named-snow-crystal-direct-production-review.json.",
+      "note": "Accepted direct-production trio; exact output identities and three-view rationale are in docs/named-snow-crystal-direct-production-review.json. Scaled production variants are preserved as morphology screens in named-snow-crystal-resolution-supersession.json; final-resolution replacement is pending.",
       "currentCandidates": [
         {
           "id": "fig11",
@@ -927,51 +633,9 @@
         }
       ],
       "variants": {
-        "lower": {
-          "entryId": "hollow-plates-lower",
-          "variation": {
-            "driver": "cavity-radius",
-            "value": 1,
-            "unit": "lattice sites"
-          },
-          "links": {
-            "preview": "out/named-crystal-catalog/direct-production-v1/review-renders/hollow-plates-lower-tilt55.png",
-            "webAsset": "out/named-crystal-catalog/direct-production-v1/hollow-plates-lower/growth-v1.bin",
-            "recipeOrScene": "out/named-crystal-catalog/direct-production-v1/hollow-plates-lower/spec.json",
-            "scientificBundle": "out/named-crystal-catalog/direct-production-v1/hollow-plates-lower/"
-          },
-          "webPayloadBytes": 45690
-        },
-        "baseline": {
-          "entryId": "hollow-plates-baseline",
-          "variation": {
-            "driver": "cavity-radius",
-            "value": 2,
-            "unit": "lattice sites"
-          },
-          "links": {
-            "preview": "out/named-crystal-catalog/direct-production-v1/review-renders/hollow-plates-baseline-tilt55.png",
-            "webAsset": "out/named-crystal-catalog/direct-production-v1/hollow-plates-baseline/growth-v1.bin",
-            "recipeOrScene": "out/named-crystal-catalog/direct-production-v1/hollow-plates-baseline/spec.json",
-            "scientificBundle": "out/named-crystal-catalog/direct-production-v1/hollow-plates-baseline/"
-          },
-          "webPayloadBytes": 45912
-        },
-        "upper": {
-          "entryId": "hollow-plates-upper",
-          "variation": {
-            "driver": "cavity-radius",
-            "value": 4,
-            "unit": "lattice sites"
-          },
-          "links": {
-            "preview": "out/named-crystal-catalog/direct-production-v1/review-renders/hollow-plates-upper-tilt55.png",
-            "webAsset": "out/named-crystal-catalog/direct-production-v1/hollow-plates-upper/growth-v1.bin",
-            "recipeOrScene": "out/named-crystal-catalog/direct-production-v1/hollow-plates-upper/spec.json",
-            "scientificBundle": "out/named-crystal-catalog/direct-production-v1/hollow-plates-upper/"
-          },
-          "webPayloadBytes": 41406
-        }
+        "lower": null,
+        "baseline": null,
+        "upper": null
       },
       "exclusionReason": null
     },

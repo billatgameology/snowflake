@@ -472,6 +472,18 @@ and read-only plan; commit those artifacts before launch. Final acceptance remai
 three-view, and still requires both the full scientific bundle and actual decoder-verified web file
 under 20,000,000 bytes for every accepted entry.
 
+Final-resolution implementation checkpoint (2026-08-30):
+`docs/named-snow-crystal-resolution-supersession.json` (36,250 bytes; SHA-256
+`7529a3c2ee754f24baf5515bb6b8631670a8423b14194f485dee4c789b080dbd`) now binds the exact first
+review, second report/contact sheet, every second-fleet recipe/product/tree identity, and each tall
+screen's measured Z clearance. It preserves all products while resetting the strict catalog to
+0/99 final-resolution slots. The common manifest/runner independently pins the current audit,
+first-fleet recipe manifest and supersession record; refuses route, source classification/spec,
+host, output or resolution drift; materializes 24 unique jobs for either fleet; and enforces the
+absolute/fractional Z-clearance gate from each completed record. Both read-only fleet plans leave
+their output roots absent. Five focused files pass 26 tests, both TypeScript projects pass, and the
+Rule 7 scan is clean across 1,077 files; the diff check passes.
+
 Coverage-first execution and review checkpoint (2026-08-29): the registered command
 `node scripts/named-crystal-baseline-probes.ts run` launched exactly 24 workers on the Intel Core
 Ultra 9 285K host and completed 24/24 jobs. The exact local report is
