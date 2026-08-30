@@ -508,6 +508,15 @@ per-worker logs and report. Its manifest/runner/tests must be committed before l
 be implemented while Fleet A is running, but it must not launch until a 24-worker production lane is
 free.
 
+Fleet C implementation checkpoint (2026-08-30): the separate manifest and runner pin all four
+tracked source documents by byte length/SHA-256, independently bind the five strong audit
+classifications/specs, bind the exact reviewed Capped Bullets retune seed/schedule, and materialize
+15 final variants plus the nine registered stop candidates. The post-run path enforces Z clearance
+for all three Columns on Plates jobs and all nine Capped Bullets candidates. Both Fleet A/B and C
+focused files pass 14 tests, both TypeScript projects pass, the Rule 7 scan is clean across 1,080
+files, and the diff check passes. The Fleet C output root remains absent; do not launch it while
+Fleet A owns the 24-worker lane.
+
 Coverage-first execution and review checkpoint (2026-08-29): the registered command
 `node scripts/named-crystal-baseline-probes.ts run` launched exactly 24 workers on the Intel Core
 Ultra 9 285K host and completed 24/24 jobs. The exact local report is

@@ -351,7 +351,11 @@ plan registers Fleet C for the final six direct-growth types: three exact-source
 for Columns on Plates, Skeletal Forms, Simple Stars, Stellar Dendrites and Double Plates, plus nine
 fixed-recipe Capped Bullet stop candidates from which three adjacent bullet-and-cap results must
 survive review. Implement and preflight Fleet C without launching it; Fleet A retains the only
-24-worker production lane until it completes.
+24-worker production lane until it completes. Fleet C is now implemented as a separate byte-pinned
+manifest/runner, its 24-job read-only plan leaves the output root absent, and its combined focused
+check with the A/B runner passes 14 tests. Both TypeScript projects pass, the Rule 7 scan is clean
+across 1,080 files, and the diff check passes. Commit this implementation without changing or
+restarting Fleet A; Fleet C remains queued until the lane is free.
 
 ### Phase 10 — planning complete; maker package selection pending
 
