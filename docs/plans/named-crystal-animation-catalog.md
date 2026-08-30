@@ -562,6 +562,16 @@ direct review, and unique component science identities. The Compose builder plus
 growth decoder files pass nine focused tests; both TypeScript projects pass; the Rule 7 scan is clean
 across 1,083 files. The real output root remains absent pending direct acceptance.
 
+Compose browser-review helper checkpoint (2026-08-30):
+`scripts/named-crystal-final-compose-review.mjs` refuses any report other than a complete successful
+33-entry final Compose build, rechecks every scene byte length/SHA-256 and cold-byte ceiling, then
+loads the real app's strict `growthScene` mode. Readiness therefore follows browser fetch, SHA-256
+verification and `decodeGrowthAssetV1` for every unique component. The helper deterministically seeks
+start / 55% / final time, writes and hashes 99 captures, and emits a source-report-bound browser
+review without accepting catalog rows. `node --check scripts/named-crystal-final-compose-review.mjs`,
+`npm run lint:rule7` (1,085 files), and `git diff --check` pass. Real capture remains blocked on the
+consolidated direct review and real scene materialization.
+
 Coverage-first execution and review checkpoint (2026-08-29): the registered command
 `node scripts/named-crystal-baseline-probes.ts run` launched exactly 24 workers on the Intel Core
 Ultra 9 285K host and completed 24/24 jobs. The exact local report is

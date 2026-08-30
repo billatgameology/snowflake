@@ -371,6 +371,14 @@ both TypeScript projects pass, and the Rule 7 scan is clean across 1,083 files. 
 reports `directReviewReady: false` and leaves its output root absent as required. Commit this
 checkpoint; do not build real scenes or change routes before direct acceptance.
 
+The Compose browser-review helper is now implemented too. It requires the complete real 33-entry
+report, rechecks scene identities and the cold-byte ceiling, and drives the app's strict
+`growthScene` path through component fetch/hash/decode before capturing start / 55% / final time.
+It will write 99 capture identities bound to the exact source report, but cannot itself accept or
+change a catalog row. Its JavaScript syntax check passes, the Rule 7 scan is clean across 1,085
+files, and the diff check passes. Commit this helper while Fleet A continues; do not run it before
+direct acceptance and real Compose materialization.
+
 ### Phase 10 — planning complete; maker package selection pending
 
 The [candidate plan](plans/phase-10-closures-and-frontier.md) replaces the original A–D shorthand
