@@ -312,10 +312,13 @@ Stellar Plates, Capped Columns, Sectored Plates, Simple Needles and Fernlike Ste
 Every trio varies only one schedule-wide `rho` scale by ±5%. Six families derive from advance-grade
 baseline materializations; Simple Prisms binds the strong `fig11` current-audit source, and
 Hexagonal Plates binds the strong `sweep-t2p5-r0p08` source. The two plate families whose probes
-contacted their domains use fixed enlarged domains. Next implement and preflight
-`docs/named-snow-crystal-direct-production-2.json` and
-`scripts/named-crystal-direct-production-2.ts`, commit them, then launch all 24 workers. Do not
-touch the independently completed NAS publisher in the animation worktree.
+contacted their domains use fixed enlarged domains. The exact manifest and runner are now
+implemented and the read-only plan materializes all 24 jobs. It reuses the first tranche's
+dual-output executor/verifier and refuses source review/hash, route, dimension, host/concurrency or
+output-contract drift. The focused two-file check passes 11 tests; both TypeScript projects, the
+Rule 7 scan and diff check pass. The production root remains absent. Next commit this implementation
+checkpoint, then run `node scripts/named-crystal-direct-production-2.ts run` with all 24 independent
+workers. Do not touch the independently completed NAS publisher in the animation worktree.
 
 ### Phase 10 — planning complete; maker package selection pending
 

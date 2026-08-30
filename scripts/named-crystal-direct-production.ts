@@ -117,13 +117,13 @@ interface CatalogWire {
 
 export interface DirectProductionJob {
   readonly jobId: string;
-  readonly typeId: RequiredType;
+  readonly typeId: string;
   readonly typeName: string;
   readonly slot: VariantSlot;
-  readonly sourceLane: SourceLane;
+  readonly sourceLane: string;
   readonly sourceJobId: string;
   readonly sourceSpecSha256: string;
-  readonly driverName: FamilyWire["driverName"];
+  readonly driverName: string;
   readonly driverValue: number;
   readonly dims: readonly [number, number, number];
   readonly tickCap: number;
@@ -609,7 +609,7 @@ const validateProducts = async (
   };
 };
 
-const printPlan = (plan: DirectProductionPlan): void => {
+export const printDirectProductionPlan = (plan: DirectProductionPlan): void => {
   for (const job of plan.jobs) {
     console.log(
       `${jobDone(plan, job) ? "done   " : "pending"} ${job.jobId.padEnd(38)} ` +
@@ -629,7 +629,7 @@ const printPlan = (plan: DirectProductionPlan): void => {
   }));
 };
 
-const runPlan = async (plan: DirectProductionPlan): Promise<void> => {
+export const runDirectProductionPlan = async (plan: DirectProductionPlan): Promise<void> => {
   const hostLogical = cpus().length;
   const hostModel = cpus()[0]?.model.trim() ?? "unknown";
   if (hostLogical !== plan.execution.logicalProcessors) {
@@ -785,8 +785,8 @@ const main = async (): Promise<void> => {
   const manifest = parseArgument(argv, "manifest", DEFAULT_MANIFEST);
   const outRoot = parseArgument(argv, "out-root", DEFAULT_OUT);
   const plan = loadDirectProductionPlan(manifest, outRoot);
-  if (command === "plan") printPlan(plan);
-  else if (command === "run") await runPlan(plan);
+  if (command === "plan") printDirectProductionPlan(plan);
+  else if (command === "run") await runDirectProductionPlan(plan);
   else throw new Error("usage: named-crystal-direct-production.ts plan|run [--manifest file] [--out-root dir]");
 };
 

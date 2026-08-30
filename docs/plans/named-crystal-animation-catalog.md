@@ -413,6 +413,15 @@ refuse source classification, review, spec-hash, route, dimension, concurrency o
 drift. As in v1, generation does not automatically accept a type: render face/oblique/axial views,
 bind the exact report/contact sheet, and fill only the trios that remain within the named form.
 
+Implementation checkpoint (2026-08-30): the manifest, source-binding loader and second-tranche
+CLI now materialize the registered 24 jobs without writing the output root. The v1 executor and
+dual-output verifier are exported and reused rather than forked, so both tranches enforce the same
+record/checkpoint/frame/growth endpoint checks and actual `decodeGrowthAssetV1` web gate. Focused
+tests cover 24-job/family/host identity, the exact dimensions and caps, both current-audit source
+hashes, static and staged schedule-wide `rho` scaling, the combined output argv and read-only plan.
+The two focused files pass 11 tests; `npm run typecheck`, `npm run lint:rule7`, and
+`git diff --check` pass. The production output root is still absent at this checkpoint.
+
 Coverage-first execution and review checkpoint (2026-08-29): the registered command
 `node scripts/named-crystal-baseline-probes.ts run` launched exactly 24 workers on the Intel Core
 Ultra 9 285K host and completed 24/24 jobs. The exact local report is
