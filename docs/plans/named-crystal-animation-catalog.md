@@ -356,6 +356,18 @@ workers on this host, and fail each web artifact at `>= 20,000,000` bytes. Outpu
 under `out/named-crystal-catalog/hard-form-probes-v1/`. This remains an exploratory fixed-lattice
 test: failure does not authorize new physics, and visual resemblance does not fill a catalog slot.
 
+The registered implementation is `docs/named-snow-crystal-hard-form-probes.json` plus
+`scripts/named-crystal-hard-form-probes.ts`. Pre-launch verification passed:
+
+- `node scripts/named-crystal-hard-form-probes.ts plan` — 24 pending jobs, six four-variant
+  families, registered process concurrency 24 and 24/24 physical/logical counts
+- `npx vitest run runner/test/named-crystal-hard-form-probes.test.ts` — one file, three tests passed;
+  all materialized seeds constructed as fitting connected seeds and all six-stage schedules matched
+  their one interval driver
+- `npm run typecheck`
+- `npm run lint:rule7`
+- `git diff --check`
+
 ## Out of scope
 
 - A riming, droplet, aggregation, thermal, or other new physical solver. `Rimed` and `Graupel` stay

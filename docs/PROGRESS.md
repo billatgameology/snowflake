@@ -256,9 +256,15 @@ probes, with zero formal slots filled. A presentation-only orthographic camera c
 includes projected Z and full three-dimensional extent, so tall columns are no longer clipped into
 vertical bars; its focused review/runner/framing checks passed 8/8, both typechecks passed, and the
 app build transformed 73 modules. Next register one 24-job, one-driver-per-family follow-up across
-the six failed GG+ hard forms (four deterministic variants each), commit its manifest and tests,
-then launch it with exactly 24 independent processes. Keep the same strict web ceiling and do not
-touch the independently running NAS publisher in the animation worktree.
+the six failed GG+ hard forms (four deterministic variants each). That follow-up is now registered
+in `docs/named-snow-crystal-hard-form-probes.json`: 24 unique jobs, four variants each for Scrolls
+on Plates, Triangular Forms, Cups, Multiply Capped Columns, Needle Clusters and Hollow Plates. Its
+runner independently binds those IDs to the failed first-pass review, materializes exact custom
+sites/schedules, records exact argv and actual worker count, and enforces the same strict web
+ceiling. The 24-job plan, connected-seed/schedule tests, both typechecks, Rule 7 scan and diff check
+pass. Next run `node scripts/named-crystal-hard-form-probes.ts run` with exactly 24 independent
+processes, then review all registered views without counting any visual candidate as a formal slot.
+Do not touch the independently running NAS publisher in the animation worktree.
 
 ### Phase 10 — planning complete; maker package selection pending
 
