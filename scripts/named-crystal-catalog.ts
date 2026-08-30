@@ -316,15 +316,42 @@ export const parseNamedCrystalCatalog = (value: unknown): NamedCrystalCatalog =>
     entries,
   };
   const summary = summarizeNamedCrystalCatalog(parsed);
+  const deferredRoutes = new Map(
+    entries
+      .filter(({ id }) => id === "multiply-capped-columns" || id === "needle-clusters")
+      .map(({ id, route }) => [id, route]),
+  );
+  const deferredEntries = entries.filter(
+    ({ id }) => id === "multiply-capped-columns" || id === "needle-clusters",
+  );
+  const deferredEmpty = deferredEntries.every(({ variants }) =>
+    REQUIRED_VARIANT_SLOTS.every((slot) => variants[slot] === null)
+  );
+  const deferredComplete = deferredEntries.every(({ variants }) =>
+    REQUIRED_VARIANT_SLOTS.every((slot) => variants[slot] !== null)
+  );
+  const routesPending =
+    summary.ggTypes === 24
+    && summary.composeTypes === 9
+    && deferredRoutes.get("multiply-capped-columns") === "gg-plus"
+    && deferredRoutes.get("needle-clusters") === "gg-plus"
+    && deferredEmpty;
+  const routesFinal =
+    summary.ggTypes === 22
+    && summary.composeTypes === 11
+    && deferredRoutes.get("multiply-capped-columns") === "compose"
+    && deferredRoutes.get("needle-clusters") === "compose"
+    && deferredComplete;
   if (
     summary.taxonomyRows !== 35
     || summary.includedTypes !== 33
     || summary.excludedTypes !== 2
-    || summary.ggTypes !== 24
-    || summary.composeTypes !== 9
+    || (!routesPending && !routesFinal)
     || summary.requiredSlots !== 99
   ) {
-    throw new Error("catalog route/count contract is not 35 total, 33 included, 24 GG, 9 Compose, 2 excluded, 99 slots");
+    throw new Error(
+      "catalog route/count contract is not the atomic pending 24 GG / 9 Compose or final 22 GG / 11 Compose state",
+    );
   }
   const exclusions = entries.filter((entry) => entry.route === "excluded-new-physics").map((entry) => entry.name);
   if (exclusions.join("\0") !== ["Rimed", "Graupel"].join("\0")) {

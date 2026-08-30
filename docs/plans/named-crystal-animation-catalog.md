@@ -612,6 +612,17 @@ types / two exclusions. Fixture controls cover report drift, capture drift or mi
 payload failure and premature route drift. Production decisions and acceptance remain blocked on the
 real direct review, scene build and visual inspection.
 
+Final Compose acceptance implementation checkpoint (2026-08-30):
+`scripts/named-crystal-final-compose-accept.ts` now rechecks contained decision/report/browser/contact
+identities, all 33 actual scenes and scientific-scene bundles, recomputed unique cold bytes, and all
+297 capture files with exact entry/view/stage coverage. It prepares the final review, 33 catalog slots,
+two route changes and table before replacing tracked outputs. The catalog parser now accepts exactly
+two atomic states: both deferred families GG+ with empty slots, or both Compose with complete trios;
+an asymmetric or route/slot-split state is invalid. Six acceptance fixtures cover the terminal
+99-slot transaction and every registered failure control. Those six plus four focused catalog tests
+pass, both TypeScript projects pass, the Rule 7 scan is clean across 1,092 files, and the diff check
+passes. The production decision/review files remain absent pending real generation and visual review.
+
 Final direct-acceptance transaction protocol (registered before implementation, 2026-08-30): after
 all three direct fleets complete, render each fleet's exact three-view contact sheet and write one
 tracked `docs/named-snow-crystal-final-direct-decisions.json`. It must pin each fleet report, contact

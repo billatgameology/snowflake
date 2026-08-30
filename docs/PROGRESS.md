@@ -403,6 +403,15 @@ the last 33 slots and apply the two deferred route changes in one catalog/table 
 and fixture-test it while Fleet A continues; production decisions remain blocked on real direct
 acceptance, scene materialization and visual review.
 
+The fail-closed final Compose verifier is now implemented. It rechecks all 33 actual scene/science
+products, recomputes cold bytes, rehashes all 297 captures, requires exact nine-view/stage coverage
+per entry, and prepares the last 33 slots plus both deferred route changes before any tracked output
+replacement. The catalog validator now permits only the empty 24/9 pending route state or the complete
+22/11 terminal route state. Six acceptance fixtures plus four catalog tests pass, including report,
+capture, coverage, cold-byte and premature-route controls; both TypeScript projects pass, Rule 7 is
+clean across 1,092 files and the diff check passes. Commit the verifier; real decisions remain blocked
+on direct acceptance, scene generation, 297-image capture and visual review.
+
 The final direct-acceptance transaction is now registered before implementation. One future tracked
 decision file must pin the exact A/B/C reports, three-view contact sheets and clearance reports,
 record every morphology rationale, and choose exactly three adjacent Capped Bullets stops. A
