@@ -26,7 +26,6 @@ import {
 } from "./nas-asset-lib.ts";
 import {
   NAS_PUBLICATION_RECEIPT_FORMAT,
-  NAS_RESTORE_RECEIPT_FORMAT,
   publishCollectionFixture,
   restoreCollectionFixture,
   validateForwardPublishIntent,
@@ -176,25 +175,6 @@ const assertPublicationReceipt = (binding: ReceiptBinding): TreeSummary => {
   return source;
 };
 
-const assertRestoreReceipt = (
-  binding: ReceiptBinding,
-  publication: ReceiptBinding,
-): TreeSummary => {
-  const receipt = binding.value;
-  if (
-    receipt.format !== NAS_RESTORE_RECEIPT_FORMAT ||
-    receipt.transactionId !== GROWTH_SCIENTIFIC_RESTORE_TRANSACTION ||
-    receipt.identity !== GROWTH_SCIENTIFIC_IDENTITY ||
-    receipt.locator !== GROWTH_SCIENTIFIC_LOCATOR ||
-    receipt.publicationTransactionId !== GROWTH_SCIENTIFIC_PUBLISH_TRANSACTION ||
-    receipt.publicationReceiptPath !== GROWTH_SCIENTIFIC_PUBLICATION_RECEIPT ||
-    receipt.publicationReceiptSha256 !== publication.sha256
-  ) {
-    throw new Error("restore receipt identity is not bound to the registered publication");
-  }
-  return summary(receipt.restored, "restore.restored");
-};
-
 const catalogueAndIntent = (): {
   readonly sourceBytes: Buffer;
   readonly catalogue: NasAssetCatalogV1;
@@ -296,7 +276,6 @@ export const activateGrowthScientificCollection = (options: {
   readonly manifestBytes: number;
   readonly manifestSha256: string;
   readonly publication: ReceiptBinding;
-  readonly restore: ReceiptBinding;
   readonly verifiedAt: string;
   readonly host: string;
 }): NasAssetCatalogV1 => {
@@ -323,7 +302,7 @@ export const activateGrowthScientificCollection = (options: {
           exclude: [],
         },
       },
-      restore: { ...collection.restore, status: "tested" as const },
+      restore: { ...collection.restore, status: "documented" as const },
       verification: {
         status: "full-hash" as const,
         at: options.verifiedAt.slice(0, 10),
@@ -331,9 +310,9 @@ export const activateGrowthScientificCollection = (options: {
         receipt: options.publication.path,
         limits: [
           `Publication receipt SHA-256 ${options.publication.sha256}; source, stage, and final matched ${options.inventory.fileCount} files / ${options.inventory.totalBytes} bytes / tree SHA-256 ${options.inventory.treeSha256}.`,
-          `Fresh restore receipt ${options.restore.path} has SHA-256 ${options.restore.sha256} and matched the same tree.`,
-          "Windows cannot fsync an SMB directory handle; durability is observation-based through final reopen/re-hash plus a later fresh-process full verify, not a hardware crash-durability claim.",
-          "The workstation source and fresh restored copy remain in place; publication authorizes no deletion.",
+          "Maker direction on 2026-08-29 narrowed completion to the basic durable copy plus tracked owner manifest; an independent fresh restore and later fresh-process full verifier were not run.",
+          "Windows cannot fsync an SMB directory handle; durability is observation-based through final close, reopen, and repeated hash verification within the publication process, not a hardware crash-durability claim.",
+          "The workstation source remains in place; publication authorizes no deletion.",
         ],
       },
       unresolved: [],
@@ -442,28 +421,22 @@ const register = (): void => {
   const { catalogue } = catalogueAndIntent();
   const shareRoot = mount();
   const publication = readReceipt(shareRoot, GROWTH_SCIENTIFIC_PUBLICATION_RECEIPT);
-  const restoreBinding = readReceipt(shareRoot, GROWTH_SCIENTIFIC_RESTORE_RECEIPT);
   const publishedSummary = assertPublicationReceipt(publication);
-  const restoredSummary = assertRestoreReceipt(restoreBinding, publication);
-  assertSameSummary(publishedSummary, restoredSummary, "fresh restore");
   const sourceInventory = inventoryWithProgress(SOURCE_ROOT, "source-registration", log);
-  const restoredInventory = inventoryWithProgress(RESTORE_ROOT, "restored-registration", log);
   assertSameSummary(publishedSummary, inventorySummary(sourceInventory), "source registration inventory");
-  assertSameSummary(publishedSummary, inventorySummary(restoredInventory), "restored registration inventory");
 
   const manifest = buildGrowthScientificOwnerManifest(sourceInventory);
   mkdirSync(dirname(MANIFEST_PATH), { recursive: true });
   writeJsonAtomic(MANIFEST_PATH, manifest);
   const manifestBytes = readFileSync(MANIFEST_PATH);
   const manifestDigest = sha256(manifestBytes);
-  const verifiedAt = text(restoreBinding.value.verifiedAt, "restore.verifiedAt");
+  const verifiedAt = text(publication.value.verifiedAt, "publication.verifiedAt");
   const activeCatalogue = activateGrowthScientificCollection({
     catalogue,
     inventory: sourceInventory,
     manifestBytes: manifestBytes.byteLength,
     manifestSha256: manifestDigest,
     publication,
-    restore: restoreBinding,
     verifiedAt,
     host: process.env.COMPUTERNAME ?? "Windows",
   });
@@ -483,13 +456,8 @@ const register = (): void => {
       bytes: publication.bytes,
       sha256: publication.sha256,
     },
-    restoreReceipt: {
-      path: restoreBinding.path,
-      bytes: restoreBinding.bytes,
-      sha256: restoreBinding.sha256,
-    },
+    restorePerformed: false,
     sourceRetained: true,
-    restoredCopyRetained: true,
     destructiveAction: false,
   };
   writeJsonAtomic(resolve(OPERATOR_ROOT, "registration-result.json"), report);

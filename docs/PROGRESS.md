@@ -204,11 +204,13 @@ record. The next command is the repaired publication:
 
 `node scripts/nas-publish-gutcheck-growth-scientific.ts --publish`
 
-The command uses the new `publish3` transaction identity. If it exits 0, run the bounded `--restore`
-into the fresh standard `out/restores/` target,
-then `--register`, the fresh-process full collection verifier, and the restored-tree verifier. Do
-not delete `out/growth-scientific/`, the failed-attempt quarantine, or any restored copy.
-Do not delete `out/growth-scientific/` or any restored copy; pruning is not part of this request.
+The command uses the new `publish3` transaction identity. Maker direction later on 2026-08-29
+narrowed completion to the basic durable copy plus an exact tracked owner manifest so the project
+knows the NAS locator. Let the already-running publisher finish its own repeated hashes and receipt,
+then run `node scripts/nas-publish-gutcheck-growth-scientific.ts --register`. Do not run `--restore`,
+the restored-tree verifier, or a later fresh-process full NAS verifier in this task; record them as
+deferred, keep restore status `documented`, and do not claim they ran. Do not delete
+`out/growth-scientific/` or either failed-attempt quarantine; pruning is not part of this request.
 
 ### Phase 10 — planning complete; maker package selection pending
 

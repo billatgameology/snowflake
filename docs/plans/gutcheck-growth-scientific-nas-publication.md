@@ -49,11 +49,11 @@ restore before this plan records completion.
   file by length and SHA-256, atomically reserves the absent immutable collection envelope, reopens
   and re-hashes every final file, and writes a publication receipt.
 - The tracked owner manifest binds the exact final file set, aggregate, and tree digest; the
-  catalogue entry is activated with the final receipt identities and truthful Windows SMB limits.
-- A fresh-process `assets:verify --full` succeeds for the one exact collection.
-- A transaction-certified fresh restore and the catalogue-facing restore plus
-  `assets:verify-restored` both reproduce the exact manifest tree. No local source or restored byte
-  is deleted by this work.
+  catalogue entry is activated with the publication receipt identity and truthful Windows SMB
+  limits.
+- Maker direction on 2026-08-29 narrows completion to the durable copy plus tracked owner manifest.
+  The separate fresh-process full verifier and transaction-certified fresh restore are deferred;
+  the catalogue keeps restore status `documented`, and no local source byte is deleted by this work.
 - Focused NAS transaction/catalogue/restore tests, both typechecks, Rule 7, `git diff --check`, and
   exact `npm test` pass because this changes the root-wide storage and integrity contract.
 - `docs/PROGRESS.md` and this plan name the final file/byte/tree digest, receipt paths and digests,
@@ -69,9 +69,9 @@ from the independently verified final inventory and activates only that one prov
 row after the publication and fresh restore receipts exist.
 
 Windows cannot fsync an SMB directory handle. Therefore publication durability is observation-
-based: close and reopen the final paths, perform a complete final re-hash, end the write process,
-then run a separate fresh-process full verification. This is stated as a limit, not promoted to a
-hardware crash-durability claim.
+based: close and reopen the final paths and perform the transaction core's repeated complete final
+re-hashes before its receipt. The maker deferred the separate fresh-process verifier and restore.
+This is stated as a limit, not promoted to a hardware crash-durability claim.
 
 ## Steps
 
@@ -86,7 +86,8 @@ hardware crash-durability claim.
 - [x] Retire the exact first-attempt stage and lock intact to non-served quarantine; delete nothing.
 - [x] Retire the exact second-attempt full stage and lock intact to a distinct non-served quarantine;
       delete nothing.
-- [ ] Publish, activate, fresh-process verify, fresh-stage restore, and verify the restored tree.
+- [ ] Publish the final tree and activate its exact tracked owner manifest; do not run a separate
+      fresh restore or later full verifier under the narrowed maker direction.
 - [ ] Run required repository checks and record completion in this plan and `docs/PROGRESS.md`.
 
 Implementation checkpoint: the collection-specific TypeScript command delegates copying,
@@ -150,6 +151,14 @@ the exact stage envelope and transaction lock intact to
 `_control/quarantine/unresolved/gutcheck-growth-scientific-20260829-publish-attempt2/` and wrote its
 failure record. The live attempt-2 stage and lock are absent; no byte was deleted.
 
+Scope correction (maker direction, 2026-08-29): finish the basic file copy and register the files in
+the tracked manifest so the project knows their NAS location. The already-running bounded publisher
+continues through its own source/stage/final hash checks and receipt so it does not leave a stale
+lock or ambiguous final tree. After that, `--register` inventories the unchanged local source,
+writes the exact 6,308-row owner manifest, and activates the catalogue. The separate 84.2 GB fresh
+restore, restored-tree verifier, and later fresh-process NAS verifier are deferred and must not be
+claimed as executed.
+
 ## Out of scope
 
 - Deleting, pruning, moving, or modifying `out/growth-scientific/`, a restored copy, or any
@@ -158,6 +167,8 @@ failure record. The live attempt-2 stage and lock are absent; no byte was delete
   remain a separate product copy.
 - Reclassifying these generated outputs as tracked or external evidence, changing a scientific
   claim, rerunning a solver, or resolving the known `fig6` cross-architecture divergence.
+- Running the independent fresh restore or later fresh-process full NAS verifier after the maker
+  narrowed this task to the basic durable copy plus manifest registration.
 - Creating a generic public `assets:publish` command or altering another collection's retention,
   ownership, serving, or backup policy.
 

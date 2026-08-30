@@ -57,7 +57,7 @@ describe("gut-check scientific NAS publication registration", () => {
     });
   });
 
-  it("activates only the provisional collection after both receipt bindings exist", () => {
+  it("activates only the provisional collection after the publication receipt exists", () => {
     const manifest = buildGrowthScientificOwnerManifest(INVENTORY);
     const manifestBytes = Buffer.from(`${JSON.stringify(manifest, null, 2)}\n`);
     const publication = {
@@ -66,19 +66,12 @@ describe("gut-check scientific NAS publication registration", () => {
       sha256: DIGEST_A,
       value: {},
     };
-    const restore = {
-      path: "_control/receipts/restore/gutcheck-growth-scientific/2026-08-26/restore.json",
-      bytes: 101,
-      sha256: DIGEST_B,
-      value: {},
-    };
     const activated = activateGrowthScientificCollection({
       catalogue: CATALOG,
       inventory: INVENTORY,
       manifestBytes: manifestBytes.byteLength,
       manifestSha256: createHash("sha256").update(manifestBytes).digest("hex"),
       publication,
-      restore,
       verifiedAt: "2026-08-29T20:00:00.000Z",
       host: "Windows-test",
     });
@@ -95,7 +88,7 @@ describe("gut-check scientific NAS publication registration", () => {
         format: "snowflake-nas-ledger-v1",
         selector: { kind: "path-prefixes", include: [GROWTH_SCIENTIFIC_LOCATOR], exclude: [] },
       },
-      restore: { status: "tested" },
+      restore: { status: "documented" },
       verification: { status: "full-hash", at: "2026-08-29", host: "Windows-test" },
       unresolved: [],
     });
