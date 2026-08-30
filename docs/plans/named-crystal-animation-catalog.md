@@ -335,6 +335,27 @@ Product-sized post-run verification passed:
 - `npm run build --workspace app` — 73 modules transformed
 - `git diff --check`
 
+Hard-form follow-up protocol (registered before implementation/launch, 2026-08-29): use the next
+24-core tranche only for the six failed GG+ families whose named feature depends on a custom seed
+or schedule. Generate four deterministic jobs per family and vary exactly one family driver while
+holding its template, fixed override, dimensions, and stop rule constant (except that the
+multiply-capped stop is derived from its schedule interval):
+
+| Named family | One varied driver | Four registered values | Fixed interpretation |
+|---|---|---|---|
+| Scrolls on Plates | raised scroll-lip height | 1, 2, 3, 4 lattice layers | connected plate plus one raised hooked rim; intentionally asymmetric |
+| Triangular Forms | triangular seed side length | 5, 6, 7, 8 sites | reduced fixed vapor and early stop so G-G growth does not erase the seed immediately |
+| Cups | cup-wall height | 2, 3, 4, 5 lattice layers | filled base plus one open annular wall |
+| Multiply Capped Columns | alternating stage interval | 700, 900, 1,100, 1,300 ticks | three column/plate pairs; total stop is six intervals |
+| Needle Clusters | radial tip separation | 2, 3, 4, 5 lattice sites | six connected base spokes with separated axial tips |
+| Hollow Plates | central cavity radius | 1, 2, 3, 4 lattice sites | fixed-radius three-layer annular plate; this explicitly tests whether G-G preserves the cavity |
+
+The runner must independently require exactly those six failed-probe IDs from the bound first-pass
+review, materialize exact seed sites/schedules into each spec, require 24 unique jobs and 24 actual
+workers on this host, and fail each web artifact at `>= 20,000,000` bytes. Outputs stay ignored
+under `out/named-crystal-catalog/hard-form-probes-v1/`. This remains an exploratory fixed-lattice
+test: failure does not authorize new physics, and visual resemblance does not fill a catalog slot.
+
 ## Out of scope
 
 - A riming, droplet, aggregation, thermal, or other new physical solver. `Rimed` and `Graupel` stay
