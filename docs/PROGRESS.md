@@ -379,6 +379,12 @@ change a catalog row. Its JavaScript syntax check passes, the Rule 7 scan is cle
 files, and the diff check passes. Commit this helper while Fleet A continues; do not run it before
 direct acceptance and real Compose materialization.
 
+Review found that those 99 captures cover three timeline stages but only one camera and therefore do
+not yet discharge the separately registered three-view morphology gate. The correction is now
+registered before implementation: add capture-only bounded growth-scene camera overrides and produce
+face/oblique/axial × start/55%/final captures, 297 exact playback images in total. Update and test the
+helper while Fleet A continues; do not use its current 99-image form as Compose acceptance evidence.
+
 The final direct-acceptance transaction is now registered before implementation. One future tracked
 decision file must pin the exact A/B/C reports, three-view contact sheets and clearance reports,
 record every morphology rationale, and choose exactly three adjacent Capped Bullets stops. A

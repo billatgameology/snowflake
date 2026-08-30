@@ -572,6 +572,16 @@ review without accepting catalog rows. `node --check scripts/named-crystal-final
 `npm run lint:rule7` (1,085 files), and `git diff --check` pass. Real capture remains blocked on the
 consolidated direct review and real scene materialization.
 
+Compose review correction protocol (registered before the app/capture change, 2026-08-30): the 99
+start/middle/final captures above exercise time but only the scene's one committed camera, so they do
+not yet satisfy the plan's separate three-view morphology review. Add capture-only bounded camera
+query overrides to strict `growthScene` playback; they may change only review camera tilt/yaw after
+the exact scene and components are fetched, hashed and decoded. Update the helper to capture face,
+oblique and axial views at each of start / 55% / final time: 33 scenes × three views × three stages =
+297 hashed captures. Record the exact view angles in the browser-review artifact and add focused app
+tests plus a built-app browser smoke. Until that correction passes, the helper is playback tooling,
+not sufficient Compose acceptance evidence.
+
 Final direct-acceptance transaction protocol (registered before implementation, 2026-08-30): after
 all three direct fleets complete, render each fleet's exact three-view contact sheet and write one
 tracked `docs/named-snow-crystal-final-direct-decisions.json`. It must pin each fleet report, contact
