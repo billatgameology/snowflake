@@ -1,8 +1,8 @@
 # Plan — publish the gut-check scientific growth bundles to governed NAS storage
 
 - **Phase:** Pre-Phase 7 product data retention; no charter phase or gate is reopened
-- **Status:** active — first attempt preserved in quarantine and SMB close-time repair committed;
-  second publication attempt is next
+- **Status:** active — second attempt failed closed after full staging; directory-metadata repair is
+  focus-tested and exact attempt-2 quarantine is next
 - **Started:** 2026-08-29
 - **Last touched:** 2026-08-29 by OpenAI Codex (GPT-5)
 
@@ -84,6 +84,8 @@ hardware crash-durability claim.
       before `--publish`.
 - [x] Run the dry inventory and record its exact aggregate/tree digest.
 - [x] Retire the exact first-attempt stage and lock intact to non-served quarantine; delete nothing.
+- [ ] Retire the exact second-attempt full stage and lock intact to a distinct non-served quarantine;
+      delete nothing.
 - [ ] Publish, activate, fresh-process verify, fresh-stage restore, and verify the restored tree.
 - [ ] Run required repository checks and record completion in this plan and `docs/PROGRESS.md`.
 
@@ -123,6 +125,23 @@ SHA-256 `37b2dc649ae220b0e7ac84b88f96a7e01b12f43658d75574a9a4f329b8a09b7a`; the 
 the new `failure.json` are beside it. The old live stage/lock, final collection, and old receipt are
 absent. The repair commit is `51b67a2`; focused tests and both typechecks passed before retirement.
 
+Second publication attempt (2026-08-29): transaction
+`gutcheck-growth-scientific-20260829-publish2` copied all 6,308 files, emitted
+`publish-stage-verified` at `2026-08-29T23:45:39.063Z`, and re-confirmed the final target absent at
+`2026-08-30T00:14:56.770Z`. It then failed closed before the final reservation because SMB settled
+mutable directory metadata for `sweep-t3-r0p08-frames` after the transaction captured it. The final
+collection and receipt remain absent; the exact full stage and lock remain in private transaction
+custody. The repair changes only nested-directory binding from mutable
+size/mtime/ctime to device/inode/mode object identity. It retains a fresh stable inventory of every
+path, byte length, and SHA-256 plus strict file identity binding. A regression alters only a nested
+directory timestamp at the publication seam and requires success; the existing byte-identical tree
+replacement and final-collision negatives remain green. Focused tests passed 46 with six skipped,
+and both typechecks passed. The exact attempt-2 stage must now be re-inventoried against 6,308 files /
+84,247,312,054 bytes / tree SHA-256
+`4a1e18634896a58b5e8acf26a041c75de72982bd32a665cae7762976f6465f3e` and moved intact with its lock
+to `_control/quarantine/unresolved/gutcheck-growth-scientific-20260829-publish-attempt2/` before the
+fresh `publish3` transaction starts. Nothing is deleted.
+
 ## Out of scope
 
 - Deleting, pruning, moving, or modifying `out/growth-scientific/`, a restored copy, or any
@@ -149,3 +168,6 @@ absent. The repair commit is `51b67a2`; focused tests and both typechecks passed
 - **Retrying against the stale first-attempt lock or deleting its one-file stage.** Rejected: the
   first attempt is a useful executed Windows-SMB failure record. Preserve it in non-served
   quarantine and use a new transaction identity.
+- **Weakening file identity or trusting the attempt-2 stage without a fresh inventory.** Rejected:
+  the correction is directory-metadata-specific. Files retain strict post-close identity checks,
+  and the full failed stage is rehashed before it and its lock move intact to quarantine.

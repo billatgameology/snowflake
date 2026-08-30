@@ -732,7 +732,11 @@ const assertOwnedTreeBinding = (binding: OwnedTreeBinding, expected: NasTreeInve
     }
   }
   for (const [path, identity] of binding.directoryIdentities) {
-    if (statIdentity(lstatSync(resolve(binding.rootPath, path))) !== statIdentity(identity)) {
+    // Directory size and timestamps are mutable filesystem metadata. In particular, SMB may
+    // settle them after child handles close even though the directory object and payload bytes
+    // are unchanged. Bind the object identity here; the stable inventory above independently
+    // binds every file path, length, and digest.
+    if (!sameDirectoryObject(identity, lstatSync(resolve(binding.rootPath, path)))) {
       throw new Error(`transaction-owned directory changed: ${path}`);
     }
   }

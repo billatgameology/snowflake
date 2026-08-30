@@ -42,7 +42,7 @@ export const GROWTH_SCIENTIFIC_LOCATOR =
 export const GROWTH_SCIENTIFIC_MANIFEST_PATH =
   "docs/nas-assets/manifests/gutcheck-growth-scientific/2026-08-26.json" as const;
 export const GROWTH_SCIENTIFIC_PUBLISH_TRANSACTION =
-  "gutcheck-growth-scientific-20260829-publish2" as const;
+  "gutcheck-growth-scientific-20260829-publish3" as const;
 export const GROWTH_SCIENTIFIC_RESTORE_TRANSACTION =
   "gutcheck-growth-scientific-20260829-restore" as const;
 export const GROWTH_SCIENTIFIC_PUBLICATION_RECEIPT =
@@ -62,13 +62,13 @@ const RESTORE_ROOT = resolve(
 const OPERATOR_ROOT = resolve(REPOSITORY_ROOT, "out/nas-publish-gutcheck-growth-scientific-2026-08-26");
 const MANIFEST_PATH = resolve(REPOSITORY_ROOT, GROWTH_SCIENTIFIC_MANIFEST_PATH);
 const FREE_SPACE_MARGIN_BYTES = 1024 * 1024 * 1024;
-const FAILED_PUBLISH_TRANSACTION = "gutcheck-growth-scientific-20260829-publish";
+const FAILED_PUBLISH_TRANSACTION = "gutcheck-growth-scientific-20260829-publish2";
 const FAILED_STAGE_NAME = `${GROWTH_SCIENTIFIC_IDENTITY}.${FAILED_PUBLISH_TRANSACTION}`;
 const FAILED_QUARANTINE_RELATIVE =
-  "_control/quarantine/unresolved/gutcheck-growth-scientific-20260829-publish-attempt1";
-const FAILED_STAGE_FILE = "payload/bentley785-frames/manifest.json";
-const FAILED_STAGE_FILE_BYTES = 18_076;
-const FAILED_STAGE_FILE_SHA256 = "1f0009e49bd335d512511ef9f2fbc8f3dc06c623cdbcac72f1c88dd356b7b27a";
+  "_control/quarantine/unresolved/gutcheck-growth-scientific-20260829-publish-attempt2";
+const FAILED_STAGE_FILE_COUNT = 6_308;
+const FAILED_STAGE_TOTAL_BYTES = 84_247_312_054;
+const FAILED_STAGE_TREE_SHA256 = "4a1e18634896a58b5e8acf26a041c75de72982bd32a665cae7762976f6465f3e";
 
 type Command = "--dry-run" | "--retire-failed-publish" | "--publish" | "--restore" | "--register";
 
@@ -539,14 +539,13 @@ const retireFailedPublish = (): void => {
     owner.identity !== GROWTH_SCIENTIFIC_IDENTITY ||
     owner.operation !== "publish"
   ) {
-    throw new Error("failed publication lock owner does not match the exact first attempt");
+    throw new Error("failed publication lock owner does not match the exact second attempt");
   }
-  const staged = inventoryWithProgress(stagePath, "failed-stage", log);
+  const staged = inventoryWithProgress(resolve(stagePath, "payload"), "failed-stage", log);
   if (
-    staged.fileCount !== 1 ||
-    staged.totalBytes !== FAILED_STAGE_FILE_BYTES ||
-    staged.files[0]?.path !== FAILED_STAGE_FILE ||
-    staged.files[0]?.sha256 !== FAILED_STAGE_FILE_SHA256
+    staged.fileCount !== FAILED_STAGE_FILE_COUNT ||
+    staged.totalBytes !== FAILED_STAGE_TOTAL_BYTES ||
+    staged.treeSha256 !== FAILED_STAGE_TREE_SHA256
   ) {
     throw new Error("failed publication stage contains an unexpected byte or path");
   }
@@ -559,20 +558,15 @@ const retireFailedPublish = (): void => {
     identity: GROWTH_SCIENTIFIC_IDENTITY,
     transactionId: FAILED_PUBLISH_TRANSACTION,
     failure:
-      "The transaction core captured the SMB destination identity before descriptor close; close committed mtime/ctime and the unchanged first file failed the following ownership comparison.",
+      "The transaction core bound mutable SMB directory metadata after the copy; a later close-time metadata settlement changed one unchanged directory's mtime/ctime before the final publication boundary.",
     staged: inventorySummary(staged),
-    stagedFile: {
-      path: FAILED_STAGE_FILE,
-      bytes: FAILED_STAGE_FILE_BYTES,
-      sha256: FAILED_STAGE_FILE_SHA256,
-    },
     finalCollectionCreated: false,
     publicationReceiptCreated: false,
     disposition: "Stage and lock moved intact to non-served unresolved quarantine; no byte deleted.",
     retiredAt: new Date().toISOString(),
   };
   writeJsonAtomic(resolve(quarantinePath, "failure.json"), failureRecord);
-  writeJsonAtomic(resolve(OPERATOR_ROOT, "failed-publish-retirement.json"), {
+  writeJsonAtomic(resolve(OPERATOR_ROOT, "failed-publish-retirement-attempt2.json"), {
     ...failureRecord,
     quarantine: FAILED_QUARANTINE_RELATIVE,
   });

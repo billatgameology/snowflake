@@ -112,8 +112,8 @@ detail.
   and the website library serves the other 51 from `snowcrystal_website`. The local scientific tree
   at `out/growth-scientific/` contains 6,308 files / 84,247,312,054 bytes. Maker direction on
   2026-08-29 starts its copy-first publication as the provisional generated-cache collection
-  `gutcheck-growth-scientific@2026-08-26`; no durable payload has been written and no local deletion
-  is authorized yet. The active
+  `gutcheck-growth-scientific@2026-08-26`; two Windows/SMB attempts failed closed before final
+  placement, no durable payload has been written, and no local deletion is authorized. The active
   [publication plan](plans/gutcheck-growth-scientific-nas-publication.md) governs the write.
 - Historical extent-21 artifacts remain valid measured-only comparisons: **CAK 3/90, M1 54/90**
   over their named scopes. They are not the registered conservative-intersection verdict, which
@@ -187,14 +187,25 @@ inventory passed at 6,308 files / 84,247,312,054 bytes / tree SHA-256
 targets absent. The first publication attempt failed closed after staging one 18,076-byte file:
 Windows SMB committed mtime/ctime on descriptor close, invalidating the core's pre-close ownership
 snapshot even though the staged SHA-256 equalled source. No final collection or receipt exists.
-The repair preserves every substantive identity/byte check and captures the ownership snapshot
-after close. The exact failed stage and lock are now preserved, not deleted, under
+The first repair preserves every substantive identity/byte check and captures each file ownership
+snapshot after close. The exact first failed stage and lock are preserved, not deleted, under
 `_control/quarantine/unresolved/gutcheck-growth-scientific-20260829-publish-attempt1/` with a
-failure record. The next command is the repaired publication:
+failure record. The second transaction copied and verified the full 6,308-file stage, then failed
+closed before final reservation because SMB later settled mutable metadata on one unchanged nested
+directory. No final collection or receipt exists. The directory repair retains exact whole-tree
+path/length/SHA-256 verification and strict file identities while binding directories by their
+device/inode/mode object identity; 46 focused tests passed with six skipped, including the new
+settled-timestamp regression and existing replacement negatives. The exact full second stage and
+lock remain in transaction custody. The next command re-inventories them against the registered
+aggregate and moves both intact, never deleting them, to the distinct attempt-2 quarantine:
+
+`node scripts/nas-publish-gutcheck-growth-scientific.ts --retire-failed-publish`
+
+Then run the repaired publication:
 
 `node scripts/nas-publish-gutcheck-growth-scientific.ts --publish`
 
-The command uses the new `publish2` transaction identity. If it exits 0, run the bounded `--restore`
+The command uses the new `publish3` transaction identity. If it exits 0, run the bounded `--restore`
 into the fresh standard `out/restores/` target,
 then `--register`, the fresh-process full collection verifier, and the restored-tree verifier. Do
 not delete `out/growth-scientific/`, the failed-attempt quarantine, or any restored copy.
