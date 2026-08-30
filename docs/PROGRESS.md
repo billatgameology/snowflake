@@ -116,7 +116,7 @@ detail.
   placement, no durable payload has been written, and no local deletion is authorized. The active
   [publication plan](plans/gutcheck-growth-scientific-nas-publication.md) governs the write.
 - **The named snow-crystal animation catalog is IN PROGRESS (2026-08-30); its first 24-entry
-  dual-output production tranche is implemented and preflighted but not launched.** Maker direction selects all 35
+  dual-output production tranche is generated, verified, visually accepted and catalogued.** Maker direction selects all 35
   Libbrecht guide names as the catalog taxonomy, excludes
   only `Rimed` and `Graupel` because this work adds no droplet-accretion physics, and requires at
   least three small parameter variants for each of the remaining 33 types. The resulting floor is
@@ -125,8 +125,8 @@ detail.
   less-than-20,000,000-byte cold web payloads as separate required products, audits the current 52
   assets before reuse, and labels composition as presentation rather than one solver state. Its
   strict [text catalog](named-snow-crystal-catalog.md) now reports 35 rows, 33 included, two
-  excluded, 24 GG/GG+, nine Compose, 99 required animation slots, zero accepted, and 99 remaining;
-  current links are candidates pending formal family acceptance. The completed
+  excluded, 24 GG/GG+, nine Compose, 99 required animation slots, 24 accepted, and 75 remaining.
+  The accepted rows link exact local previews, web assets, recipes and scientific bundles. The completed
   [52-asset visual audit](named-snow-crystal-current-assets.md) binds exact web/scientific-record
   identities and reports 45 strong plus seven near type matches; all 52 web files pass the strict
   ceiling, with 196,599,652 total bytes and a 10,003,779-byte maximum.
@@ -140,8 +140,8 @@ detail.
   direction) and content stays in-repo unpublished, `test.yml` CI unaffected. Reconciliation is
   a live decision point under **Next step**. Full freeze history:
   [the history file](progress-history-phases-6-8-9.md).
-- **Last updated:** 2026-08-30 (registered the first 24-entry dual-output GG+ production tranche;
-  no phase or evidence change)
+- **Last updated:** 2026-08-30 (generated and accepted the first 24 dual-output GG+ catalog entries;
+  no phase or scientific-evidence change)
 
 ## Phase gates
 
@@ -296,17 +296,22 @@ identities for current strong anchors, without inventing a scientific locator be
 publisher registers it. Do not touch the independently running NAS publisher in the animation
 worktree.
 
-That first production matrix is now implemented and preflighted: exactly 24 distinct jobs, three
-each for Solid Columns, Sheaths, Split Plates & Stars, Isolated Bullets, Scrolls on Plates,
-Triangular Forms, Cups and Hollow Plates. The four baseline families vary only `rho` by ±5%; the
-four reviewed hard-form families use their exact selected stop/cavity values with the greater-than-
-15% discrete steps disclosed. Each job must produce the full final state, final mesh, approximately
-120 scientific frames, growth event file, record and separate logs; the real browser decoder and
-strict `< 20,000,000`-byte gate apply to every web file. The tracked manifest/runner derives all
-specs from the reviewed sources and verifies every scientific/web endpoint and file identity. Its
-read-only plan reports 24 pending jobs; five focused tests, both typechecks, Rule 7 scan and diff
-check pass. Next commit that implementation, then launch all 24 workers under
-`out/named-crystal-catalog/direct-production-v1/`. Do not touch the independently running NAS
+The first production matrix completed 24/24 with 24 actual workers. The exact 567,085-byte report
+(SHA-256 `ed3153cb3480180555c972ee07c0ec635111deb0773ed9bdcc1726e16dd4ef52`)
+records decoder-verified web files from 4,759 to 361,488 bytes, 3,084,489 bytes total. The full
+scientific inventory is 2,924 files / 2,291,163,313 bytes with 101–121 frames per entry. The bound
+8,384,905-byte three-view contact sheet (SHA-256
+`a77d447ecb0ca6b3f4f43de02007d165076f062aa6becbfc4c4ab3677e463346`)
+supports acceptance of all eight lower/baseline/upper trios. The generated catalog table now links
+each accepted preview, web asset, recipe and scientific bundle and reports 24 accepted / 75
+remaining. Outputs remain local ignored products; governed publication is still pending and no NAS
+locator is claimed.
+
+Next register the second 24-job dual-output tranche for eight current strong direct-growth anchors:
+Hexagonal Plates, Hollow Columns, Columns on Plates, Stellar Plates, Capped Columns, Sectored
+Plates, Simple Stars and Simple Needles. Use one tracked ±5% driver per family, bind the exact
+current-record identities, and run the same production preflight before
+`node scripts/named-crystal-direct-production-2.ts run`. Do not touch the independently running NAS
 publisher in the animation worktree.
 
 ### Phase 10 — planning complete; maker package selection pending

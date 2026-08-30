@@ -36,8 +36,8 @@ describe("named snow-crystal catalog", () => {
       ggTypes: 24,
       composeTypes: 9,
       requiredSlots: 99,
-      acceptedSlots: 0,
-      remainingSlots: 99,
+      acceptedSlots: 24,
+      remainingSlots: 75,
     });
     expect(catalog.entries.filter((entry) => entry.route === "excluded-new-physics").map((entry) => entry.name))
       .toEqual(["Rimed", "Graupel"]);
@@ -50,7 +50,10 @@ describe("named snow-crystal catalog", () => {
     expect(table).toContain("[fig30 (anchor)](../evidence/gutcheck-gg-realism/fig-records/fig30-record.json)");
     expect(table).toContain("[scroll-stop-100 (anchor)](named-snow-crystal-early-stop-probe-review.json)");
     expect(table).toContain("| Required accepted animations | 99 |");
-    expect(table).toContain("| Accepted animations | 0 |");
+    expect(table).toContain("| Accepted animations | 24 |");
+    expect(table).toContain("lower: [preview](../out/named-crystal-catalog/direct-production-v1/review-renders/solid-columns-lower-tilt55.png)");
+    expect(table).toContain("[web](../out/named-crystal-catalog/direct-production-v1/solid-columns-lower/growth-v1.bin)");
+    expect(table).toContain("[science](../out/named-crystal-catalog/direct-production-v1/solid-columns-lower)");
     expect(table).toContain("| Rimed | excluded-new-physics | — | — | Excluded");
   });
 

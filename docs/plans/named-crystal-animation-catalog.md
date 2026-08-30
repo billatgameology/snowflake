@@ -1,7 +1,7 @@
 # Plan — named snow-crystal animation catalog
 
 - **Phase:** Pre-Phase 7 product/catalog work; no charter phase or scientific gate is reopened
-- **Status:** in progress — first 24-entry dual-output GG+ production tranche registered
+- **Status:** in progress — first 24 dual-output GG+ entries accepted; 75 catalog slots remain
 - **Started:** 2026-08-29
 - **Last touched:** 2026-08-30 by OpenAI Codex (GPT-5)
 
@@ -349,6 +349,37 @@ Product-sized pre-launch verification passed:
   concurrency 24, physical/logical counts 24/24
 - `npx vitest run runner/test/named-crystal-baseline-probes.test.ts` — one file, three tests passed;
   all custom profiles constructed as fitting connected seeds
+- `npm run typecheck`
+- `npm run lint:rule7`
+- `git diff --check`
+
+Direct-production execution and acceptance checkpoint (2026-08-30): the registered command
+`node scripts/named-crystal-direct-production.ts run` launched 24/24 actual workers and completed
+24/24 jobs with zero failures or missing outputs. Its report is
+`out/named-crystal-catalog/direct-production-v1/report.json` (567,085 bytes; SHA-256
+`ed3153cb3480180555c972ee07c0ec635111deb0773ed9bdcc1726e16dd4ef52`). All 24 web files decoded
+through `decodeGrowthAssetV1`; sizes ranged from 4,759 to 361,488 bytes and totalled 3,084,489
+bytes, strictly below the 20,000,000-byte ceiling per entry. The scientific payload inventory is
+2,924 files / 2,291,163,313 bytes; each timeline contains 101–121 frames, and every checkpoint,
+growth endpoint and final frame agrees with its run record.
+
+The three-view contact sheet is
+`out/named-crystal-catalog/direct-production-v1/contact-sheet.png` (8,384,905 bytes; SHA-256
+`a77d447ecb0ca6b3f4f43de02007d165076f062aa6becbfc4c4ab3677e463346`). Face, 55-degree oblique
+and 85-degree axial review accepts all eight trios within their named visual types. The tracked
+`docs/named-snow-crystal-direct-production-review.json` binds every spec, web asset, checkpoint,
+frame count and complete bundle-tree identity. The strict catalog now fills 24/99 slots and leaves
+75. Its generated table links every accepted preview, web asset, recipe and local scientific
+bundle. These products remain local ignored output pending a later governed publication; no
+durable NAS locator is claimed yet.
+
+Post-run product verification passed:
+
+- `node scripts/named-crystal-direct-production-accept.ts`
+- `node scripts/named-crystal-catalog.ts validate` — 35 rows, 24 accepted, 75 remaining
+- `npx vitest run runner/test/named-crystal-direct-production.test.ts
+  runner/test/named-crystal-direct-production-review.test.ts
+  runner/test/named-crystal-catalog.test.ts` — three files, 11 tests passed
 - `npm run typecheck`
 - `npm run lint:rule7`
 - `git diff --check`

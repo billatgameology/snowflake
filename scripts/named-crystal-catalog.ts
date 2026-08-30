@@ -384,19 +384,36 @@ export const renderNamedCrystalCatalogTable = (
     "|---|---|---|---:|---|",
   ];
   for (const entry of catalog.entries) {
+    const localTarget = (path: string): string =>
+      /^https?:\/\//.test(path)
+        ? path
+        : relative(outputDirectory, resolve(path)).replaceAll("\\", "/");
     const candidates = entry.currentCandidates.length === 0
       ? "—"
       : entry.currentCandidates.map((candidate) => {
-        const target = relative(outputDirectory, resolve(candidate.sourceRecord)).replaceAll("\\", "/");
+        const target = localTarget(candidate.sourceRecord);
         const label = `${candidate.id} (${candidate.assessment.replace("-candidate", "")})`;
         return `[${label}](${target})`;
       }).join(" · ");
     const accepted = REQUIRED_VARIANT_SLOTS.filter((slot) => entry.variants[slot] !== null).length;
+    const acceptedLinks = REQUIRED_VARIANT_SLOTS.flatMap((slot) => {
+      const variant = entry.variants[slot];
+      if (variant === null || variant === undefined) return [];
+      return [
+        `${slot}: [preview](${localTarget(variant.links.preview)}) · ` +
+          `[web](${localTarget(variant.links.webAsset)}) · ` +
+          `[recipe](${localTarget(variant.links.recipeOrScene)}) · ` +
+          `[science](${localTarget(variant.links.scientificBundle)})`,
+      ];
+    });
+    const acceptedCell = entry.route === "excluded-new-physics"
+      ? "—"
+      : acceptedLinks.length === 0 ? "0/3" : `${accepted}/3 — ${acceptedLinks.join("<br>")}`;
     const status = entry.route === "excluded-new-physics"
       ? `Excluded — ${entry.exclusionReason}`
       : entry.note;
     lines.push(
-      `| ${escapeTable(entry.name)} | ${entry.route} | ${candidates} | ${entry.route === "excluded-new-physics" ? "—" : `${accepted}/3`} | ${escapeTable(status)} |`,
+      `| ${escapeTable(entry.name)} | ${entry.route} | ${candidates} | ${acceptedCell} | ${escapeTable(status)} |`,
     );
   }
   lines.push(
