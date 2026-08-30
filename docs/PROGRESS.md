@@ -116,7 +116,7 @@ detail.
   placement, no durable payload has been written, and no local deletion is authorized. The active
   [publication plan](plans/gutcheck-growth-scientific-nas-publication.md) governs the write.
 - **The named snow-crystal animation catalog is IN PROGRESS (2026-08-30); its first 24-entry
-  dual-output production tranche is registered but not launched.** Maker direction selects all 35
+  dual-output production tranche is implemented and preflighted but not launched.** Maker direction selects all 35
   Libbrecht guide names as the catalog taxonomy, excludes
   only `Rimed` and `Graupel` because this work adds no droplet-accretion physics, and requires at
   least three small parameter variants for each of the remaining 33 types. The resulting floor is
@@ -296,14 +296,16 @@ identities for current strong anchors, without inventing a scientific locator be
 publisher registers it. Do not touch the independently running NAS publisher in the animation
 worktree.
 
-That first production matrix is now registered in the active plan: exactly 24 distinct jobs, three
+That first production matrix is now implemented and preflighted: exactly 24 distinct jobs, three
 each for Solid Columns, Sheaths, Split Plates & Stars, Isolated Bullets, Scrolls on Plates,
 Triangular Forms, Cups and Hollow Plates. The four baseline families vary only `rho` by ±5%; the
 four reviewed hard-form families use their exact selected stop/cavity values with the greater-than-
 15% discrete steps disclosed. Each job must produce the full final state, final mesh, approximately
 120 scientific frames, growth event file, record and separate logs; the real browser decoder and
-strict `< 20,000,000`-byte gate apply to every web file. Next implement the tracked matrix/runner,
-pass its focused preflight, commit it, then launch all 24 workers under
+strict `< 20,000,000`-byte gate apply to every web file. The tracked manifest/runner derives all
+specs from the reviewed sources and verifies every scientific/web endpoint and file identity. Its
+read-only plan reports 24 pending jobs; five focused tests, both typechecks, Rule 7 scan and diff
+check pass. Next commit that implementation, then launch all 24 workers under
 `out/named-crystal-catalog/direct-production-v1/`. Do not touch the independently running NAS
 publisher in the animation worktree.
 

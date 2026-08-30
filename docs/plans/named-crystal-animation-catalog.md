@@ -3,7 +3,7 @@
 - **Phase:** Pre-Phase 7 product/catalog work; no charter phase or scientific gate is reopened
 - **Status:** in progress — first 24-entry dual-output GG+ production tranche registered
 - **Started:** 2026-08-29
-- **Last touched:** 2026-08-29 by OpenAI Codex (GPT-5)
+- **Last touched:** 2026-08-30 by OpenAI Codex (GPT-5)
 
 ## Goal
 
@@ -511,6 +511,26 @@ This tranche is production generation, not automatic type acceptance. After it c
 the registered type views, confirm each trio remains within its named type, verify the scientific
 and web products, and only then fill those 24 catalog slots. A failed family stays pending and its
 three large bundles remain measured generation output rather than accepted catalog entries.
+
+Direct-production implementation checkpoint (2026-08-30):
+`docs/named-snow-crystal-direct-production.json` pins the eight families, 24 lower/baseline/upper
+jobs, source identities, one-driver values, frame-count interval, strict web ceiling, and 24-core
+host contract. `scripts/named-crystal-direct-production.ts` derives every spec from the tracked
+baseline/early-stop/hard-form plans, refuses review or hash drift, and builds one replay per job
+that writes both output classes. Post-run verification decodes the web file through
+`decodeGrowthAssetV1`, decodes the full checkpoint, cross-checks checkpoint/growth/frame endpoints
+against the record, requires 100–122 complete scientific frames, hashes every payload file, and
+writes a resumable per-job status plus fleet report. The read-only plan reports 24 pending jobs,
+eight families, 24-process concurrency, and frame cadences from 1 to 50 ticks.
+
+Product-sized pre-launch verification passed:
+
+- `node scripts/named-crystal-direct-production.ts plan` — 24 pending jobs, eight families,
+  registered concurrency and physical/logical counts 24/24
+- `npx vitest run runner/test/named-crystal-direct-production.test.ts` — one file, five tests passed
+- `npm run typecheck`
+- `npm run lint:rule7`
+- `git diff --check`
 
 ## Out of scope
 
