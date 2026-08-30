@@ -386,6 +386,21 @@ Cups on GG+ for one bounded early-stop search because their custom seed contains
 feature but the registered duration erases it. These decisions still fill zero formal slots; the
 catalog routes change only when their production recipe/scene exists.
 
+Early-stop follow-up protocol (registered before implementation/launch, 2026-08-29): run one final
+fixed-lattice search only for Scrolls on Plates, Triangular Forms and Cups. Reuse the exact
+materialized hard-form spec for scroll-lip height 3, triangle side length 8, and cup-wall height 4;
+do not change the seed, G-G parameters, domain, dimensions, RNG seed, noise, or render criteria.
+Vary only the stop tick across `100, 200, 300, 400, 600, 800, 1,000, 1,200`, producing eight jobs
+per family and exactly 24 jobs total. Launch all 24 as independent processes on this host and keep
+the strict web gate at `< 20,000,000` bytes.
+
+An early-stop family advances only if at least three variants both attach new sites beyond the
+registered initial seed and retain the named external feature in the registered views. A static
+seed with negligible growth is not an animation acceptance. If the search fails, stop direct G-G
+work for that type: move it to explicit Compose only when available components can make an honest
+visual scene, otherwise keep it visibly unsupported under the no-new-physics constraint. Outputs
+stay ignored under `out/named-crystal-catalog/early-stop-probes-v1/`.
+
 ## Out of scope
 
 - A riming, droplet, aggregation, thermal, or other new physical solver. `Rimed` and `Graupel` stay
