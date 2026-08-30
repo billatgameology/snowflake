@@ -1,7 +1,7 @@
 # Plan — named snow-crystal animation catalog
 
 - **Phase:** Pre-Phase 7 product/catalog work; no charter phase or scientific gate is reopened
-- **Status:** registered; implementation not started
+- **Status:** in progress — strict taxonomy manifest and generated text table complete; current-asset audit next
 - **Started:** 2026-08-29
 - **Last touched:** 2026-08-29 by OpenAI Codex (GPT-5)
 
@@ -178,7 +178,7 @@ website copying remain explicit governed transactions, never implicit side effec
 
 - [x] Register the maker-selected 33-type scope, 99-entry floor, route map, payload ceiling, and
       scientific/web dual-output contract in this plan before implementation.
-- [ ] Add the strict taxonomy/catalog schema, seed its 35 rows, and generate a text-only linked
+- [x] Add the strict taxonomy/catalog schema, seed its 35 rows, and generate a text-only linked
       coverage table; prove the validator reports 33 included, two excluded, and 99 required slots.
 - [ ] Import and visually audit the existing 52-item candidate pool without counting labels alone;
       record accepted/near/missing by exact asset identity.
@@ -195,6 +195,23 @@ website copying remain explicit governed transactions, never implicit side effec
 - [ ] Publish the final linked table and exact manifest counts, recording actual route totals,
       reused/new run counts, byte totals, checks, and governed asset locators in this plan and
       `docs/PROGRESS.md`.
+
+Implementation checkpoint (2026-08-29): `docs/named-snow-crystal-catalog.json` pins the guide's
+35 chart rows in chart order, exact route/exclusion contract, three variant slots per included row,
+the strict decimal web ceiling, and current candidate record links without accepting any slot.
+`scripts/named-crystal-catalog.ts` strictly parses it, rejects taxonomy/count drift, duplicate
+accepted identities, malformed links and payloads at or above the ceiling, independently recomputes
+the counts, and generates `docs/named-snow-crystal-catalog.md`. The generated table reports 35 rows,
+33 included, two excluded, 24 GG/GG+, nine Compose, 99 required, zero accepted, and 99 remaining.
+
+Product-sized verification passed:
+
+- `node scripts/named-crystal-catalog.ts validate`
+- `npx vitest run runner/test/named-crystal-catalog.test.ts` — one file, four tests passed
+- `npm run typecheck`
+
+The current-candidate links are an intake aid only. The 52-item visual audit has not run, so no
+candidate fills an accepted variant slot yet and no growth process has started.
 
 ## Out of scope
 

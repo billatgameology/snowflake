@@ -1,0 +1,448 @@
+{
+  "format": "named-snow-crystal-catalog-v1",
+  "catalogId": "libbrecht-35-maker-scope-v1",
+  "taxonomy": {
+    "name": "Kenneth Libbrecht's Guide to Snowflakes",
+    "guideUrl": "https://www.snowcrystals.com/guide/guide.html",
+    "chartUrl": "https://www.its.caltech.edu/~atomic/snowcrystals/class/snowtypes4.jpg",
+    "note": "Operational 35-name visual catalog boundary selected by the maker; not a claim that nature has one definitive exact type count."
+  },
+  "webPayloadLimitBytes": 20000000,
+  "variationSlots": [
+    "lower",
+    "baseline",
+    "upper"
+  ],
+  "entries": [
+    {
+      "id": "simple-prisms",
+      "name": "Simple Prisms",
+      "route": "gg-plus",
+      "note": "Establish a clean early-stop compact-prism recipe.",
+      "currentCandidates": [],
+      "variants": { "lower": null, "baseline": null, "upper": null },
+      "exclusionReason": null
+    },
+    {
+      "id": "solid-columns",
+      "name": "Solid Columns",
+      "route": "gg-plus",
+      "note": "Audit fig31 and package a clean canonical column recipe.",
+      "currentCandidates": [
+        {
+          "id": "fig31",
+          "assessment": "related-candidate",
+          "sourceRecord": "evidence/gutcheck-gg-realism/fig-records/fig31-record.json"
+        }
+      ],
+      "variants": { "lower": null, "baseline": null, "upper": null },
+      "exclusionReason": null
+    },
+    {
+      "id": "sheaths",
+      "name": "Sheaths",
+      "route": "gg-plus",
+      "note": "Search the needle/column family for a thin hollow wall.",
+      "currentCandidates": [],
+      "variants": { "lower": null, "baseline": null, "upper": null },
+      "exclusionReason": null
+    },
+    {
+      "id": "scrolls-on-plates",
+      "name": "Scrolls on Plates",
+      "route": "gg-plus",
+      "note": "Bounded probe: test whether the fixed lattice can retain a convincing scroll.",
+      "currentCandidates": [],
+      "variants": { "lower": null, "baseline": null, "upper": null },
+      "exclusionReason": null
+    },
+    {
+      "id": "triangular-forms",
+      "name": "Triangular Forms",
+      "route": "gg-plus",
+      "note": "Add an intentionally asymmetric deterministic seed.",
+      "currentCandidates": [],
+      "variants": { "lower": null, "baseline": null, "upper": null },
+      "exclusionReason": null
+    },
+    {
+      "id": "hexagonal-plates",
+      "name": "Hexagonal Plates",
+      "route": "gg",
+      "note": "Audit fig11 and current plate-family runs; select a cleaner anchor if needed.",
+      "currentCandidates": [
+        {
+          "id": "fig11",
+          "assessment": "related-candidate",
+          "sourceRecord": "evidence/gutcheck-gg-realism/fig-records/fig11-record.json"
+        }
+      ],
+      "variants": { "lower": null, "baseline": null, "upper": null },
+      "exclusionReason": null
+    },
+    {
+      "id": "hollow-columns",
+      "name": "Hollow Columns",
+      "route": "gg",
+      "note": "fig30 is the current anchor candidate.",
+      "currentCandidates": [
+        {
+          "id": "fig30",
+          "assessment": "anchor-candidate",
+          "sourceRecord": "evidence/gutcheck-gg-realism/fig-records/fig30-record.json"
+        }
+      ],
+      "variants": { "lower": null, "baseline": null, "upper": null },
+      "exclusionReason": null
+    },
+    {
+      "id": "cups",
+      "name": "Cups",
+      "route": "gg-plus",
+      "note": "Bounded probe: test a recessed column seed and asymmetric axial schedule.",
+      "currentCandidates": [],
+      "variants": { "lower": null, "baseline": null, "upper": null },
+      "exclusionReason": null
+    },
+    {
+      "id": "columns-on-plates",
+      "name": "Columns on Plates",
+      "route": "gg",
+      "note": "Audit fig39 and fig40 against the named type.",
+      "currentCandidates": [
+        {
+          "id": "fig39",
+          "assessment": "related-candidate",
+          "sourceRecord": "evidence/gutcheck-gg-realism/fig-records/fig39-record.json"
+        },
+        {
+          "id": "fig40",
+          "assessment": "related-candidate",
+          "sourceRecord": "evidence/gutcheck-gg-realism/fig-records/fig40-record.json"
+        }
+      ],
+      "variants": { "lower": null, "baseline": null, "upper": null },
+      "exclusionReason": null
+    },
+    {
+      "id": "12-branched-stars",
+      "name": "12-branched Stars",
+      "route": "compose",
+      "note": "Instance two sixfold plate/star assets with a 30-degree relative rotation.",
+      "currentCandidates": [],
+      "variants": { "lower": null, "baseline": null, "upper": null },
+      "exclusionReason": null
+    },
+    {
+      "id": "stellar-plates",
+      "name": "Stellar Plates",
+      "route": "gg",
+      "note": "Audit fig32 and bentley785 as near-anchor candidates.",
+      "currentCandidates": [
+        {
+          "id": "fig32",
+          "assessment": "related-candidate",
+          "sourceRecord": "evidence/gutcheck-gg-realism/fig-records/fig32-record.json"
+        },
+        {
+          "id": "bentley785",
+          "assessment": "related-candidate",
+          "sourceRecord": "evidence/gutcheck-gg-realism/gen-records/bentley785-record.json"
+        }
+      ],
+      "variants": { "lower": null, "baseline": null, "upper": null },
+      "exclusionReason": null
+    },
+    {
+      "id": "bullet-rosettes",
+      "name": "Bullet Rosettes",
+      "route": "compose",
+      "note": "Radially instance a bullet or short-column component.",
+      "currentCandidates": [],
+      "variants": { "lower": null, "baseline": null, "upper": null },
+      "exclusionReason": null
+    },
+    {
+      "id": "capped-columns",
+      "name": "Capped Columns",
+      "route": "gg",
+      "note": "fig37 and fig38 are current anchor candidates.",
+      "currentCandidates": [
+        {
+          "id": "fig37",
+          "assessment": "anchor-candidate",
+          "sourceRecord": "evidence/gutcheck-gg-realism/fig-records/fig37-record.json"
+        },
+        {
+          "id": "fig38",
+          "assessment": "anchor-candidate",
+          "sourceRecord": "evidence/gutcheck-gg-realism/fig-records/fig38-record.json"
+        }
+      ],
+      "variants": { "lower": null, "baseline": null, "upper": null },
+      "exclusionReason": null
+    },
+    {
+      "id": "split-plates-and-stars",
+      "name": "Split Plates & Stars",
+      "route": "gg-plus",
+      "note": "Add a connected asymmetric or double seed; fig6 is related but not sufficient by name.",
+      "currentCandidates": [
+        {
+          "id": "fig6",
+          "assessment": "related-candidate",
+          "sourceRecord": "evidence/gutcheck-gg-realism/fig-records/fig6-record.json"
+        }
+      ],
+      "variants": { "lower": null, "baseline": null, "upper": null },
+      "exclusionReason": null
+    },
+    {
+      "id": "radiating-plates",
+      "name": "Radiating Plates",
+      "route": "compose",
+      "note": "Radially instance a plate component in multiple orientations.",
+      "currentCandidates": [],
+      "variants": { "lower": null, "baseline": null, "upper": null },
+      "exclusionReason": null
+    },
+    {
+      "id": "sectored-plates",
+      "name": "Sectored Plates",
+      "route": "gg",
+      "note": "fig9v2 is the current anchor candidate.",
+      "currentCandidates": [
+        {
+          "id": "fig9v2",
+          "assessment": "anchor-candidate",
+          "sourceRecord": "evidence/gutcheck-gg-realism/fig-records/fig9v2-record.json"
+        }
+      ],
+      "variants": { "lower": null, "baseline": null, "upper": null },
+      "exclusionReason": null
+    },
+    {
+      "id": "isolated-bullets",
+      "name": "Isolated Bullets",
+      "route": "gg-plus",
+      "note": "Add a short tapered column or bullet seed and stopping rule.",
+      "currentCandidates": [],
+      "variants": { "lower": null, "baseline": null, "upper": null },
+      "exclusionReason": null
+    },
+    {
+      "id": "multiply-capped-columns",
+      "name": "Multiply Capped Columns",
+      "route": "gg-plus",
+      "note": "Extend the established environment schedule through multiple transitions.",
+      "currentCandidates": [],
+      "variants": { "lower": null, "baseline": null, "upper": null },
+      "exclusionReason": null
+    },
+    {
+      "id": "skeletal-forms",
+      "name": "Skeletal Forms",
+      "route": "gg-plus",
+      "note": "Bounded recipe probe with a type-specific acceptance view.",
+      "currentCandidates": [],
+      "variants": { "lower": null, "baseline": null, "upper": null },
+      "exclusionReason": null
+    },
+    {
+      "id": "radiating-dendrites",
+      "name": "Radiating Dendrites",
+      "route": "compose",
+      "note": "Radially instance a dendrite component in multiple orientations.",
+      "currentCandidates": [],
+      "variants": { "lower": null, "baseline": null, "upper": null },
+      "exclusionReason": null
+    },
+    {
+      "id": "simple-stars",
+      "name": "Simple Stars",
+      "route": "gg",
+      "note": "fig16 is the current anchor candidate.",
+      "currentCandidates": [
+        {
+          "id": "fig16",
+          "assessment": "anchor-candidate",
+          "sourceRecord": "evidence/gutcheck-gg-realism/fig-records/fig16-record.json"
+        }
+      ],
+      "variants": { "lower": null, "baseline": null, "upper": null },
+      "exclusionReason": null
+    },
+    {
+      "id": "simple-needles",
+      "name": "Simple Needles",
+      "route": "gg",
+      "note": "fig29 is the current anchor candidate.",
+      "currentCandidates": [
+        {
+          "id": "fig29",
+          "assessment": "anchor-candidate",
+          "sourceRecord": "evidence/gutcheck-gg-realism/fig-records/fig29-record.json"
+        }
+      ],
+      "variants": { "lower": null, "baseline": null, "upper": null },
+      "exclusionReason": null
+    },
+    {
+      "id": "capped-bullets",
+      "name": "Capped Bullets",
+      "route": "gg-plus",
+      "note": "Combine a bullet seed with the established column-to-plate schedule.",
+      "currentCandidates": [],
+      "variants": { "lower": null, "baseline": null, "upper": null },
+      "exclusionReason": null
+    },
+    {
+      "id": "twin-columns",
+      "name": "Twin Columns",
+      "route": "compose",
+      "note": "Pair column components under an explicit visual twin transform.",
+      "currentCandidates": [],
+      "variants": { "lower": null, "baseline": null, "upper": null },
+      "exclusionReason": null
+    },
+    {
+      "id": "irregulars",
+      "name": "Irregulars",
+      "route": "compose",
+      "note": "Build a clearly labeled visual clump from reproducible GG components.",
+      "currentCandidates": [],
+      "variants": { "lower": null, "baseline": null, "upper": null },
+      "exclusionReason": null
+    },
+    {
+      "id": "stellar-dendrites",
+      "name": "Stellar Dendrites",
+      "route": "gg",
+      "note": "fig7 and fig15 are current anchor candidates.",
+      "currentCandidates": [
+        {
+          "id": "fig7",
+          "assessment": "anchor-candidate",
+          "sourceRecord": "evidence/gutcheck-gg-realism/fig-records/fig7-record.json"
+        },
+        {
+          "id": "fig15",
+          "assessment": "anchor-candidate",
+          "sourceRecord": "evidence/gutcheck-gg-realism/fig-records/fig15-record.json"
+        }
+      ],
+      "variants": { "lower": null, "baseline": null, "upper": null },
+      "exclusionReason": null
+    },
+    {
+      "id": "needle-clusters",
+      "name": "Needle Clusters",
+      "route": "gg-plus",
+      "note": "Add a connected multi-tip seed; compose only if the GG probe fails type review.",
+      "currentCandidates": [
+        {
+          "id": "fig39",
+          "assessment": "related-candidate",
+          "sourceRecord": "evidence/gutcheck-gg-realism/fig-records/fig39-record.json"
+        },
+        {
+          "id": "fig40",
+          "assessment": "related-candidate",
+          "sourceRecord": "evidence/gutcheck-gg-realism/fig-records/fig40-record.json"
+        }
+      ],
+      "variants": { "lower": null, "baseline": null, "upper": null },
+      "exclusionReason": null
+    },
+    {
+      "id": "double-plates",
+      "name": "Double Plates",
+      "route": "gg",
+      "note": "fig6 is the current scientific anchor; its website exclusion remains visible.",
+      "currentCandidates": [
+        {
+          "id": "fig6",
+          "assessment": "anchor-candidate",
+          "sourceRecord": "evidence/gutcheck-gg-realism/fig-records/fig6-record.json"
+        }
+      ],
+      "variants": { "lower": null, "baseline": null, "upper": null },
+      "exclusionReason": null
+    },
+    {
+      "id": "arrowhead-twins",
+      "name": "Arrowhead Twins",
+      "route": "compose",
+      "note": "Pair components under a recorded arrowhead-like twin transform.",
+      "currentCandidates": [],
+      "variants": { "lower": null, "baseline": null, "upper": null },
+      "exclusionReason": null
+    },
+    {
+      "id": "rimed",
+      "name": "Rimed",
+      "route": "excluded-new-physics",
+      "note": "Visible taxonomy row intentionally outside the selected implementation scope.",
+      "currentCandidates": [],
+      "variants": {},
+      "exclusionReason": "Requires supercooled-droplet capture and freezing physics."
+    },
+    {
+      "id": "fernlike-stellar-dendrites",
+      "name": "Fernlike Stellar Dendrites",
+      "route": "gg",
+      "note": "fig13 is the current anchor candidate.",
+      "currentCandidates": [
+        {
+          "id": "fig13",
+          "assessment": "anchor-candidate",
+          "sourceRecord": "evidence/gutcheck-gg-realism/fig-records/fig13-record.json"
+        }
+      ],
+      "variants": { "lower": null, "baseline": null, "upper": null },
+      "exclusionReason": null
+    },
+    {
+      "id": "crossed-needles",
+      "name": "Crossed Needles",
+      "route": "compose",
+      "note": "Cross one accepted needle component at explicit orientations.",
+      "currentCandidates": [],
+      "variants": { "lower": null, "baseline": null, "upper": null },
+      "exclusionReason": null
+    },
+    {
+      "id": "hollow-plates",
+      "name": "Hollow Plates",
+      "route": "gg-plus",
+      "note": "Bounded probe: search for a stable hollow plate; fig11 is related, not accepted by default.",
+      "currentCandidates": [
+        {
+          "id": "fig11",
+          "assessment": "related-candidate",
+          "sourceRecord": "evidence/gutcheck-gg-realism/fig-records/fig11-record.json"
+        }
+      ],
+      "variants": { "lower": null, "baseline": null, "upper": null },
+      "exclusionReason": null
+    },
+    {
+      "id": "crossed-plates",
+      "name": "Crossed Plates",
+      "route": "compose",
+      "note": "Cross one accepted plate component at explicit orientations.",
+      "currentCandidates": [],
+      "variants": { "lower": null, "baseline": null, "upper": null },
+      "exclusionReason": null
+    },
+    {
+      "id": "graupel",
+      "name": "Graupel",
+      "route": "excluded-new-physics",
+      "note": "Visible taxonomy row intentionally outside the selected implementation scope.",
+      "currentCandidates": [],
+      "variants": {},
+      "exclusionReason": "Requires extensive droplet accretion and riming physics."
+    }
+  ]
+}

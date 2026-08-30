@@ -115,14 +115,17 @@ detail.
   `gutcheck-growth-scientific@2026-08-26`; two Windows/SMB attempts failed closed before final
   placement, no durable payload has been written, and no local deletion is authorized. The active
   [publication plan](plans/gutcheck-growth-scientific-nas-publication.md) governs the write.
-- **The named snow-crystal animation catalog is REGISTERED (2026-08-29); no new generation has
+- **The named snow-crystal animation catalog is IN PROGRESS (2026-08-29); no new generation has
   started.** Maker direction selects all 35 Libbrecht guide names as the catalog taxonomy, excludes
   only `Rimed` and `Graupel` because this work adds no droplet-accretion physics, and requires at
   least three small parameter variants for each of the remaining 33 types. The resulting floor is
   99 accepted entries: 24 GG/GG+ type families and nine explicitly composed type families. The
   [catalog plan](plans/named-crystal-animation-catalog.md) keeps full scientific GG bundles and
   less-than-20,000,000-byte cold web payloads as separate required products, audits the current 52
-  assets before reuse, and labels composition as presentation rather than one solver state.
+  assets before reuse, and labels composition as presentation rather than one solver state. Its
+  strict [text catalog](named-snow-crystal-catalog.md) now reports 35 rows, 33 included, two
+  excluded, 24 GG/GG+, nine Compose, 99 required animation slots, zero accepted, and 99 remaining;
+  current links are candidates pending visual audit.
 - Historical extent-21 artifacts remain valid measured-only comparisons: **CAK 3/90, M1 54/90**
   over their named scopes. They are not the registered conservative-intersection verdict, which
   decision 0045 closed as not computed.
@@ -174,9 +177,9 @@ is complete, including growth-event and full scientific output. The active
 continues the same registered worktree only for durable generated-cache publication; it changes no
 phase status or scientific claim.
 The maker-selected [named snow-crystal animation catalog plan](plans/named-crystal-animation-catalog.md)
-is registered in `C:/Users/HIL_ADMIN/Documents/GitHub/snowflake-named-catalog` on branch
-`feature/named-crystal-catalog`. It is isolated from the running publisher and has not started
-implementation or generation.
+is active in `C:/Users/HIL_ADMIN/Documents/GitHub/snowflake-named-catalog` on branch
+`feature/named-crystal-catalog`. Its strict taxonomy manifest, validator, and generated text table
+are complete; it remains isolated from the running publisher and has started no generation.
 The
 [Phase 10 candidate plan](plans/phase-10-closures-and-frontier.md) is decision support, not
 execution authority; no A–H package is selected.
@@ -228,19 +231,15 @@ deferred, keep restore status `documented`, and do not claim they ran. Do not de
 
 Work only in `C:/Users/HIL_ADMIN/Documents/GitHub/snowflake-named-catalog` on
 `feature/named-crystal-catalog`; do not touch the running NAS publisher in the animation worktree.
-Open [the registered catalog plan](plans/named-crystal-animation-catalog.md), then add the strict
-`named-snow-crystal-catalog-v1` manifest and validator in
-`docs/named-snow-crystal-catalog.json` and `scripts/named-crystal-catalog.ts`. Seed all 35 names,
-their 24 GG/GG+ and nine Compose routes, the two exclusions, and three empty accepted-variant slots
-per included type. The validator must independently report 35 taxonomy rows, 33 included rows, two
-excluded rows, and 99 required slots.
-
-Next, import candidate identities from the 52-item queue, the 51-entry website index, and the exact
-scientific owner manifest after the independently running publication registers it. Generate the
-text-only linked audit table and mark each candidate `accepted`, `near`, or `missing` from fixed
-views/orbit playback; do not launch new growth runs during this inventory step. Run the new focused
-catalog test and `npm run typecheck`; solver-wide verification begins only when the later custom-seed
-implementation touches `solver-cpu/`.
+The strict manifest, validator, and generated [text table](named-snow-crystal-catalog.md) now exist.
+Next, import exact candidate identities from the 52-item queue, the 51-entry website index, and the
+scientific owner manifest after the independently running publication registers it. Add an audit
+record to `docs/named-snow-crystal-catalog.json` only after fixed views or orbit playback establish
+whether each candidate is `accepted`, `near`, or `missing`; current labels do not fill a slot. Do
+not launch a growth run during this inventory step. Regenerate the table with
+`node scripts/named-crystal-catalog.ts table --out docs/named-snow-crystal-catalog.md`, then run
+`npx vitest run runner/test/named-crystal-catalog.test.ts` and `npm run typecheck`. Solver-wide
+verification begins only when the later custom-seed implementation touches `solver-cpu/`.
 
 ### Phase 10 — planning complete; maker package selection pending
 
