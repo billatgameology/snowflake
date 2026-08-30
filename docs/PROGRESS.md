@@ -385,6 +385,16 @@ registered before implementation: add capture-only bounded growth-scene camera o
 face/oblique/axial × start/55%/final captures, 297 exact playback images in total. Update and test the
 helper while Fleet A continues; do not use its current 99-image form as Compose acceptance evidence.
 
+The Compose three-view correction is now implemented. Normal playback cannot apply review params;
+capture mode bounds tilt/yaw, and the helper now writes 297 face/oblique/axial × start/55%/final
+captures plus a bound final-time contact sheet. Eight focused tests, both TypeScript projects and the
+76-module app build pass. The built-app smoke command loaded a strict in-memory scene through real
+component fetch/hash/decode, rendered the axial override, proved normal playback ignored review
+params and refused 91° capture tilt; its screenshot SHA-256 was
+`7179d18e9f33958313bec382944557db902a612fda33d8dfc0aa3ccc27cd3d75`. Both review scripts pass
+syntax checks, Rule 7 is clean across 1,090 files and the diff check passes. Commit the correction;
+real capture remains blocked on direct acceptance and scene materialization.
+
 The final direct-acceptance transaction is now registered before implementation. One future tracked
 decision file must pin the exact A/B/C reports, three-view contact sheets and clearance reports,
 record every morphology rationale, and choose exactly three adjacent Capped Bullets stops. A

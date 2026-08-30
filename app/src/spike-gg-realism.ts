@@ -26,6 +26,7 @@ import {
   growthSceneColdPayloadBytes,
   parseGrowthSceneV1,
 } from "./growth-scene.ts";
+import { growthSceneReviewCamera } from "./growth-scene-review-camera.ts";
 import { spikeOrthographicFrame } from "./spike-frame.ts";
 
 interface SpikeWindow {
@@ -1294,8 +1295,9 @@ async function growthSceneMain(sceneUrl: string): Promise<void> {
     bounds.yMax - bounds.yMin,
     bounds.zMax - bounds.zMin,
   );
+  const reviewCamera = growthSceneReviewCamera(query, scene.camera);
   const rig = buildRig(extent, true, {
-    tiltDegrees: scene.camera.tiltDegrees,
+    tiltDegrees: reviewCamera.tiltDegrees,
     zoom: scene.camera.zoom,
   });
   rig.crystal.visible = false;
@@ -1305,7 +1307,7 @@ async function growthSceneMain(sceneUrl: string): Promise<void> {
     -(bounds.yMin + bounds.yMax) / 2,
     -(bounds.zMin + bounds.zMax) / 2,
   );
-  const yawRadians = THREE.MathUtils.degToRad(scene.camera.yawDegrees);
+  const yawRadians = THREE.MathUtils.degToRad(reviewCamera.yawDegrees);
   rig.camera.position.applyAxisAngle(new THREE.Vector3(0, 0, 1), yawRadians);
   rig.camera.up.set(0, 1, 0).applyAxisAngle(new THREE.Vector3(0, 0, 1), yawRadians);
   rig.camera.lookAt(0, 0, 0);

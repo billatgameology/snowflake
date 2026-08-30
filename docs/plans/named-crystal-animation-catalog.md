@@ -582,6 +582,18 @@ oblique and axial views at each of start / 55% / final time: 33 scenes × three 
 tests plus a built-app browser smoke. Until that correction passes, the helper is playback tooling,
 not sufficient Compose acceptance evidence.
 
+Compose three-view correction checkpoint (2026-08-30): normal `growthScene` playback now always uses
+the committed scene camera; only `capture=1` may apply finite bounded review tilt/yaw. The corrected
+helper records face 0°/0°, oblique 55°/15° and axial 85°/0° at start / 55% / final time, writes 297
+hashed playback captures, and builds a final-time three-view contact sheet bound into its review.
+Eight focused scene/camera tests pass, both TypeScript projects pass, and the app build transforms 76
+modules. `node scripts/named-crystal-final-compose-review-smoke.mjs --port 5207` served the built app,
+fetched/hashed/decoded an in-memory strict scene component, rendered/sought the axial override,
+proved normal playback ignored review params, and refused an out-of-range capture; its rendered PNG
+SHA-256 was `7179d18e9f33958313bec382944557db902a612fda33d8dfc0aa3ccc27cd3d75`.
+Both review scripts pass `node --check`, the Rule 7 scan is clean across 1,090 files, and the diff
+check passes. Real 297-image evidence remains blocked on direct acceptance and scene materialization.
+
 Final direct-acceptance transaction protocol (registered before implementation, 2026-08-30): after
 all three direct fleets complete, render each fleet's exact three-view contact sheet and write one
 tracked `docs/named-snow-crystal-final-direct-decisions.json`. It must pin each fleet report, contact
