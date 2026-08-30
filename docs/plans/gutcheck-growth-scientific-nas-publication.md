@@ -84,7 +84,7 @@ hardware crash-durability claim.
       before `--publish`.
 - [x] Run the dry inventory and record its exact aggregate/tree digest.
 - [x] Retire the exact first-attempt stage and lock intact to non-served quarantine; delete nothing.
-- [ ] Retire the exact second-attempt full stage and lock intact to a distinct non-served quarantine;
+- [x] Retire the exact second-attempt full stage and lock intact to a distinct non-served quarantine;
       delete nothing.
 - [ ] Publish, activate, fresh-process verify, fresh-stage restore, and verify the restored tree.
 - [ ] Run required repository checks and record completion in this plan and `docs/PROGRESS.md`.
@@ -141,6 +141,14 @@ and both typechecks passed. The exact attempt-2 stage must now be re-inventoried
 `4a1e18634896a58b5e8acf26a041c75de72982bd32a665cae7762976f6465f3e` and moved intact with its lock
 to `_control/quarantine/unresolved/gutcheck-growth-scientific-20260829-publish-attempt2/` before the
 fresh `publish3` transaction starts. Nothing is deleted.
+
+Attempt-2 retirement record: `node scripts/nas-publish-gutcheck-growth-scientific.ts
+--retire-failed-publish` exited 0 after a stable full inventory matched 6,308 files /
+84,247,312,054 bytes / tree SHA-256
+`4a1e18634896a58b5e8acf26a041c75de72982bd32a665cae7762976f6465f3e`. The bounded helper then moved
+the exact stage envelope and transaction lock intact to
+`_control/quarantine/unresolved/gutcheck-growth-scientific-20260829-publish-attempt2/` and wrote its
+failure record. The live attempt-2 stage and lock are absent; no byte was deleted.
 
 ## Out of scope
 

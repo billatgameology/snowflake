@@ -195,13 +195,12 @@ closed before final reservation because SMB later settled mutable metadata on on
 directory. No final collection or receipt exists. The directory repair retains exact whole-tree
 path/length/SHA-256 verification and strict file identities while binding directories by their
 device/inode/mode object identity; 46 focused tests passed with six skipped, including the new
-settled-timestamp regression and existing replacement negatives. The exact full second stage and
-lock remain in transaction custody. The next command re-inventories them against the registered
-aggregate and moves both intact, never deleting them, to the distinct attempt-2 quarantine:
-
-`node scripts/nas-publish-gutcheck-growth-scientific.ts --retire-failed-publish`
-
-Then run the repaired publication:
+settled-timestamp regression and existing replacement negatives. The exact full second stage was
+re-inventoried at 6,308 files / 84,247,312,054 bytes / tree SHA-256
+`4a1e18634896a58b5e8acf26a041c75de72982bd32a665cae7762976f6465f3e`, then it and its lock moved
+intact, never deleted, to
+`_control/quarantine/unresolved/gutcheck-growth-scientific-20260829-publish-attempt2/` with a failure
+record. The next command is the repaired publication:
 
 `node scripts/nas-publish-gutcheck-growth-scientific.ts --publish`
 
