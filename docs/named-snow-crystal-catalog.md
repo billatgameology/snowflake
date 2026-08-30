@@ -4,6 +4,8 @@ Operational taxonomy: [Kenneth Libbrecht's Guide to Snowflakes](https://www.snow
 
 This is a generated text index. Candidate links point to current project run records; a candidate does not fill a variant slot until visual audit accepts it. Compose entries are explicitly visual scenes, not one solver state.
 
+Detailed intake: [current 52-animation visual audit](named-snow-crystal-current-assets.md).
+
 | Measure | Count |
 |---|---:|
 | Named taxonomy rows | 35 |

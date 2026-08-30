@@ -1,7 +1,7 @@
 # Plan — named snow-crystal animation catalog
 
 - **Phase:** Pre-Phase 7 product/catalog work; no charter phase or scientific gate is reopened
-- **Status:** in progress — strict taxonomy manifest and generated text table complete; current-asset audit next
+- **Status:** in progress — taxonomy and exact 52-asset visual audit complete; GG+ seed API next
 - **Started:** 2026-08-29
 - **Last touched:** 2026-08-29 by OpenAI Codex (GPT-5)
 
@@ -180,7 +180,7 @@ website copying remain explicit governed transactions, never implicit side effec
       scientific/web dual-output contract in this plan before implementation.
 - [x] Add the strict taxonomy/catalog schema, seed its 35 rows, and generate a text-only linked
       coverage table; prove the validator reports 33 included, two excluded, and 99 required slots.
-- [ ] Import and visually audit the existing 52-item candidate pool without counting labels alone;
+- [x] Import and visually audit the existing 52-item candidate pool without counting labels alone;
       record accepted/near/missing by exact asset identity.
 - [ ] Specify and implement versioned deterministic custom seeds while leaving the G-G update rule
       bit-unchanged for the existing hexagonal-prism path.
@@ -210,8 +210,34 @@ Product-sized verification passed:
 - `npx vitest run runner/test/named-crystal-catalog.test.ts` — one file, four tests passed
 - `npm run typecheck`
 
-The current-candidate links are an intake aid only. The 52-item visual audit has not run, so no
-candidate fills an accepted variant slot yet and no growth process has started.
+At that first checkpoint the current-candidate links were intake aids only; the following audit
+checkpoint supersedes the then-pending visual review. No candidate fills a formal variant slot yet
+and no new growth process has started.
+
+Current-asset audit checkpoint (2026-08-29):
+`docs/named-snow-crystal-current-assets.json` binds all 52 queue items to the exact web file length
+and SHA-256, exact scientific record length and SHA-256, website inclusion, source record, preview
+locator, and a manual face or face-plus-oblique morphology assessment. The independently generated
+[text table](../named-snow-crystal-current-assets.md) reports 52 assets, 51 website entries, 45
+strong visual matches, seven near matches, 196,599,652 total web bytes, and a largest web asset of
+10,003,779 bytes against the strict 20,000,000-byte ceiling. `fig6` is the sole current website
+exclusion, matching the existing library index. The exact numbers are copied from
+`docs/named-snow-crystal-current-assets.json` at this update.
+
+The face review used one generated 52-item contact sheet. Because face-on views hide axial
+structure, `fig6`, `fig11`, `fig29`, `fig30`, `fig31`, `fig37`, `fig38`, `fig39`, and `fig40` also
+received fixed 55-degree and 85-degree mesh views before classification. Those PNG sheets are
+reproducible ignored inspection scratch; the durable output is the path/hash audit plus rationale.
+The audit intentionally does not fill formal variants: morphology match, a common one-parameter
+family, scientific-bundle binding, and lower/baseline/upper placement are separate checks.
+
+Additional product-sized verification passed:
+
+- `npx vitest run runner/test/named-crystal-catalog.test.ts runner/test/named-crystal-current-audit.test.ts`
+  — two files, six tests passed
+- `npm run typecheck`
+- `npm run lint:rule7`
+- `git diff --check`
 
 ## Out of scope
 

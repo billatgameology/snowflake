@@ -125,7 +125,10 @@ detail.
   assets before reuse, and labels composition as presentation rather than one solver state. Its
   strict [text catalog](named-snow-crystal-catalog.md) now reports 35 rows, 33 included, two
   excluded, 24 GG/GG+, nine Compose, 99 required animation slots, zero accepted, and 99 remaining;
-  current links are candidates pending visual audit.
+  current links are candidates pending formal family acceptance. The completed
+  [52-asset visual audit](named-snow-crystal-current-assets.md) binds exact web/scientific-record
+  identities and reports 45 strong plus seven near type matches; all 52 web files pass the strict
+  ceiling, with 196,599,652 total bytes and a 10,003,779-byte maximum.
 - Historical extent-21 artifacts remain valid measured-only comparisons: **CAK 3/90, M1 54/90**
   over their named scopes. They are not the registered conservative-intersection verdict, which
   decision 0045 closed as not computed.
@@ -231,15 +234,14 @@ deferred, keep restore status `documented`, and do not claim they ran. Do not de
 
 Work only in `C:/Users/HIL_ADMIN/Documents/GitHub/snowflake-named-catalog` on
 `feature/named-crystal-catalog`; do not touch the running NAS publisher in the animation worktree.
-The strict manifest, validator, and generated [text table](named-snow-crystal-catalog.md) now exist.
-Next, import exact candidate identities from the 52-item queue, the 51-entry website index, and the
-scientific owner manifest after the independently running publication registers it. Add an audit
-record to `docs/named-snow-crystal-catalog.json` only after fixed views or orbit playback establish
-whether each candidate is `accepted`, `near`, or `missing`; current labels do not fill a slot. Do
-not launch a growth run during this inventory step. Regenerate the table with
-`node scripts/named-crystal-catalog.ts table --out docs/named-snow-crystal-catalog.md`, then run
-`npx vitest run runner/test/named-crystal-catalog.test.ts` and `npm run typecheck`. Solver-wide
-verification begins only when the later custom-seed implementation touches `solver-cpu/`.
+The strict taxonomy and exact [52-asset visual audit](named-snow-crystal-current-assets.md) are
+complete. Next, read the seed contract in `solver-cpu/src/gg-solver.ts` and add the plan's versioned
+deterministic seed specification while preserving the existing radius/thickness hexagonal-prism
+path bit-for-bit. Pin exact sorted lattice sites and their digest in a recipe, reject duplicates and
+out-of-domain cells, and keep intentionally asymmetric seeds outside D6h claims. Add focused seed,
+runner, and checkpoint regressions, then run exact `npm test` because this step touches
+`solver-cpu/`. Do not start the 24-way production fleet until that implementation and one
+representative custom-seed growth sample pass.
 
 ### Phase 10 — planning complete; maker package selection pending
 
