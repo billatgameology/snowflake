@@ -364,6 +364,13 @@ and requires real-browser hash/decode/seek/render evidence. Implement its recipe
 fail-closed builder while Fleet A runs, but do not materialize scenes or change routes until the
 consolidated direct review exists.
 
+The recipe manifest and fail-closed Compose builder are now implemented. A fixture consolidated
+review exercised all 33 scenes through strict scene parsing, actual component decoding, unique cold
+byte accounting and scientific-scene inventory generation; the three focused files pass nine tests,
+both TypeScript projects pass, and the Rule 7 scan is clean across 1,083 files. The production plan
+reports `directReviewReady: false` and leaves its output root absent as required. Commit this
+checkpoint; do not build real scenes or change routes before direct acceptance.
+
 ### Phase 10 — planning complete; maker package selection pending
 
 The [candidate plan](plans/phase-10-closures-and-frontier.md) replaces the original A–D shorthand

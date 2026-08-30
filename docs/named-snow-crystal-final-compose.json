@@ -1,0 +1,110 @@
+{
+  "format": "named-crystal-final-compose-recipes-v1",
+  "catalog": "docs/named-snow-crystal-catalog.json",
+  "directReview": "docs/named-snow-crystal-final-direct-review.json",
+  "outRoot": "out/named-crystal-catalog/final-compose-v1",
+  "webPayloadLimitBytes": 20000000,
+  "durationSeconds": 8,
+  "routeChangesOnAcceptance": ["multiply-capped-columns", "needle-clusters"],
+  "families": [
+    {
+      "typeId": "12-branched-stars",
+      "componentTypeId": "simple-stars",
+      "componentSlot": "baseline",
+      "pattern": "double-in-plane",
+      "driver": "relative-in-plane-rotation",
+      "unit": "degrees",
+      "values": [28, 30, 32]
+    },
+    {
+      "typeId": "bullet-rosettes",
+      "componentTypeId": "isolated-bullets",
+      "componentSlot": "baseline",
+      "pattern": "radial-bullets",
+      "driver": "radial-polar-tilt",
+      "unit": "degrees",
+      "values": [48, 52, 56]
+    },
+    {
+      "typeId": "radiating-plates",
+      "componentTypeId": "hexagonal-plates",
+      "componentSlot": "baseline",
+      "pattern": "radial-plates",
+      "driver": "radial-polar-tilt",
+      "unit": "degrees",
+      "values": [36, 40, 44]
+    },
+    {
+      "typeId": "radiating-dendrites",
+      "componentTypeId": "stellar-dendrites",
+      "componentSlot": "baseline",
+      "pattern": "radial-dendrites",
+      "driver": "radial-polar-tilt",
+      "unit": "degrees",
+      "values": [44, 48, 52]
+    },
+    {
+      "typeId": "multiply-capped-columns",
+      "componentTypeId": "capped-columns",
+      "componentSlot": "baseline",
+      "pattern": "axial-stack",
+      "driver": "axial-instance-spacing",
+      "unit": "normalized-units",
+      "values": [0.9, 1, 1.1]
+    },
+    {
+      "typeId": "twin-columns",
+      "componentTypeId": "solid-columns",
+      "componentSlot": "baseline",
+      "pattern": "twin-columns",
+      "driver": "twin-opening-angle",
+      "unit": "degrees",
+      "values": [8, 10, 12]
+    },
+    {
+      "typeId": "irregulars",
+      "componentTypeId": "stellar-plates",
+      "componentSlot": "baseline",
+      "pattern": "irregular-cluster",
+      "driver": "instance-scale-spread",
+      "unit": "fraction",
+      "values": [0.08, 0.1, 0.12]
+    },
+    {
+      "typeId": "needle-clusters",
+      "componentTypeId": "simple-needles",
+      "componentSlot": "baseline",
+      "pattern": "radial-needles",
+      "driver": "radial-polar-tilt",
+      "unit": "degrees",
+      "values": [40, 44, 48]
+    },
+    {
+      "typeId": "arrowhead-twins",
+      "componentTypeId": "simple-prisms",
+      "componentSlot": "baseline",
+      "pattern": "arrowhead-pair",
+      "driver": "twin-opening-angle",
+      "unit": "degrees",
+      "values": [54, 58, 62]
+    },
+    {
+      "typeId": "crossed-needles",
+      "componentTypeId": "simple-needles",
+      "componentSlot": "baseline",
+      "pattern": "crossed-needles",
+      "driver": "relative-crossing-angle",
+      "unit": "degrees",
+      "values": [86, 90, 94]
+    },
+    {
+      "typeId": "crossed-plates",
+      "componentTypeId": "hexagonal-plates",
+      "componentSlot": "baseline",
+      "pattern": "crossed-plates",
+      "driver": "relative-crossing-angle",
+      "unit": "degrees",
+      "values": [56, 60, 64]
+    }
+  ]
+}

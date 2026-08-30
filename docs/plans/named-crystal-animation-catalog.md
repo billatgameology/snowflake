@@ -552,6 +552,16 @@ web byte/SHA-256 and scientific tree identities. Write final scenes under
 `out/named-crystal-catalog/final-compose-v1/`. After all 33 pass, bind them into the catalog in one
 tracked review and perform the two route changes in the same transaction.
 
+Compose builder checkpoint (2026-08-30): the strict recipe manifest materializes exactly 11
+families / 33 unique lower-baseline-upper scene identities and validates the two deferred route
+changes without applying them. The builder refuses production while the consolidated direct review
+is absent. A complete fixture review then exercised all 33 builds: every scene strictly parsed,
+every actual component binary passed `decodeGrowthAssetV1`, repeated content counted once, every
+cold payload stayed below the strict ceiling, and every scientific-scene bundle pinned its scene,
+direct review, and unique component science identities. The Compose builder plus existing scene and
+growth decoder files pass nine focused tests; both TypeScript projects pass; the Rule 7 scan is clean
+across 1,083 files. The real output root remains absent pending direct acceptance.
+
 Coverage-first execution and review checkpoint (2026-08-29): the registered command
 `node scripts/named-crystal-baseline-probes.ts run` launched exactly 24 workers on the Intel Core
 Ultra 9 285K host and completed 24/24 jobs. The exact local report is
