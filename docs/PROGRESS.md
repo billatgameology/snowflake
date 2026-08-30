@@ -286,8 +286,14 @@ an explicit composed-visualization disclosure. A deterministic crossed-needle sm
 the three focused files passed 8/8, both typechecks and the 75-module app build passed. That local
 probe is player evidence only, not an accepted scene. Next commit this contract, then build the
 direct-growth production candidate matrix and first scientifically bound Compose baselines before
-changing the two route decisions. Do not touch the independently running NAS publisher in the
-animation worktree.
+changing the two route decisions. The generated maker-facing catalog table now links all selected
+early-stop/hollow-plate trios plus the Solid Column, Sheath, Split Plate and Isolated Bullet
+baselines, and it names the two pending Compose transitions. Its strict validator and four focused
+tests pass while correctly retaining zero accepted slots. Next register the dual-output production
+matrix: exact lower/baseline/upper recipe identities for the new GG+ families and exact reuse
+identities for current strong anchors, without inventing a scientific locator before the independent
+publisher registers it. Do not touch the independently running NAS publisher in the animation
+worktree.
 
 ### Phase 10 — planning complete; maker package selection pending
 

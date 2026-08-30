@@ -142,9 +142,9 @@ const parseCandidate = (value: unknown, label: string): CurrentCandidate => {
     sourceRecord.startsWith("/")
     || sourceRecord.includes("\\")
     || sourceRecord.split("/").includes("..")
-    || !sourceRecord.endsWith("-record.json")
+    || !(sourceRecord.endsWith("-record.json") || sourceRecord.endsWith("-review.json"))
   ) {
-    throw new Error(`${label}.sourceRecord must be a repository-relative record path`);
+    throw new Error(`${label}.sourceRecord must be a repository-relative record or review path`);
   }
   return {
     id: nonEmptyString(candidate["id"], `${label}.id`),

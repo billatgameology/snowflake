@@ -27,12 +27,17 @@
       "id": "solid-columns",
       "name": "Solid Columns",
       "route": "gg-plus",
-      "note": "Audit fig31 and package a clean canonical column recipe.",
+      "note": "The 24-core baseline review advances a clean canonical solid-column recipe.",
       "currentCandidates": [
         {
           "id": "fig31",
           "assessment": "related-candidate",
           "sourceRecord": "evidence/gutcheck-gg-realism/fig-records/fig31-record.json"
+        },
+        {
+          "id": "baseline-solid-column",
+          "assessment": "anchor-candidate",
+          "sourceRecord": "docs/named-snow-crystal-baseline-probe-review.json"
         }
       ],
       "variants": { "lower": null, "baseline": null, "upper": null },
@@ -42,8 +47,14 @@
       "id": "sheaths",
       "name": "Sheaths",
       "route": "gg-plus",
-      "note": "Search the needle/column family for a thin hollow wall.",
-      "currentCandidates": [],
+      "note": "The 24-core baseline review advances a thin open annular-wall sheath.",
+      "currentCandidates": [
+        {
+          "id": "baseline-sheath",
+          "assessment": "anchor-candidate",
+          "sourceRecord": "docs/named-snow-crystal-baseline-probe-review.json"
+        }
+      ],
       "variants": { "lower": null, "baseline": null, "upper": null },
       "exclusionReason": null
     },
@@ -51,8 +62,24 @@
       "id": "scrolls-on-plates",
       "name": "Scrolls on Plates",
       "route": "gg-plus",
-      "note": "Bounded probe: test whether the fixed lattice can retain a convincing scroll.",
-      "currentCandidates": [],
+      "note": "Early-stop review advances the 100/300/400-tick raised-lip family; scientific production is pending.",
+      "currentCandidates": [
+        {
+          "id": "scroll-stop-100",
+          "assessment": "anchor-candidate",
+          "sourceRecord": "docs/named-snow-crystal-early-stop-probe-review.json"
+        },
+        {
+          "id": "scroll-stop-300",
+          "assessment": "anchor-candidate",
+          "sourceRecord": "docs/named-snow-crystal-early-stop-probe-review.json"
+        },
+        {
+          "id": "scroll-stop-400",
+          "assessment": "anchor-candidate",
+          "sourceRecord": "docs/named-snow-crystal-early-stop-probe-review.json"
+        }
+      ],
       "variants": { "lower": null, "baseline": null, "upper": null },
       "exclusionReason": null
     },
@@ -60,8 +87,24 @@
       "id": "triangular-forms",
       "name": "Triangular Forms",
       "route": "gg-plus",
-      "note": "Add an intentionally asymmetric deterministic seed.",
-      "currentCandidates": [],
+      "note": "Early-stop review advances truncated-triangle outlines at 200/400/600 ticks; scientific production is pending.",
+      "currentCandidates": [
+        {
+          "id": "triangle-stop-200",
+          "assessment": "anchor-candidate",
+          "sourceRecord": "docs/named-snow-crystal-early-stop-probe-review.json"
+        },
+        {
+          "id": "triangle-stop-400",
+          "assessment": "anchor-candidate",
+          "sourceRecord": "docs/named-snow-crystal-early-stop-probe-review.json"
+        },
+        {
+          "id": "triangle-stop-600",
+          "assessment": "anchor-candidate",
+          "sourceRecord": "docs/named-snow-crystal-early-stop-probe-review.json"
+        }
+      ],
       "variants": { "lower": null, "baseline": null, "upper": null },
       "exclusionReason": null
     },
@@ -99,8 +142,24 @@
       "id": "cups",
       "name": "Cups",
       "route": "gg-plus",
-      "note": "Bounded probe: test a recessed column seed and asymmetric axial schedule.",
-      "currentCandidates": [],
+      "note": "Early-stop review advances one-ended open cups at 100/200/400 ticks; scientific production is pending.",
+      "currentCandidates": [
+        {
+          "id": "cup-stop-100",
+          "assessment": "anchor-candidate",
+          "sourceRecord": "docs/named-snow-crystal-early-stop-probe-review.json"
+        },
+        {
+          "id": "cup-stop-200",
+          "assessment": "anchor-candidate",
+          "sourceRecord": "docs/named-snow-crystal-early-stop-probe-review.json"
+        },
+        {
+          "id": "cup-stop-400",
+          "assessment": "anchor-candidate",
+          "sourceRecord": "docs/named-snow-crystal-early-stop-probe-review.json"
+        }
+      ],
       "variants": { "lower": null, "baseline": null, "upper": null },
       "exclusionReason": null
     },
@@ -186,12 +245,17 @@
       "id": "split-plates-and-stars",
       "name": "Split Plates & Stars",
       "route": "gg-plus",
-      "note": "Add a connected asymmetric or double seed; fig6 is related but not sufficient by name.",
+      "note": "The connected two-lobe baseline advances; fig6 remains a related scientific anchor.",
       "currentCandidates": [
         {
           "id": "fig6",
           "assessment": "related-candidate",
           "sourceRecord": "evidence/gutcheck-gg-realism/fig-records/fig6-record.json"
+        },
+        {
+          "id": "baseline-split-plate",
+          "assessment": "anchor-candidate",
+          "sourceRecord": "docs/named-snow-crystal-baseline-probe-review.json"
         }
       ],
       "variants": { "lower": null, "baseline": null, "upper": null },
@@ -225,8 +289,14 @@
       "id": "isolated-bullets",
       "name": "Isolated Bullets",
       "route": "gg-plus",
-      "note": "Add a short tapered column or bullet seed and stopping rule.",
-      "currentCandidates": [],
+      "note": "The tapered connected-seed baseline advances as an isolated bullet production candidate.",
+      "currentCandidates": [
+        {
+          "id": "baseline-isolated-bullet",
+          "assessment": "anchor-candidate",
+          "sourceRecord": "docs/named-snow-crystal-baseline-probe-review.json"
+        }
+      ],
       "variants": { "lower": null, "baseline": null, "upper": null },
       "exclusionReason": null
     },
@@ -234,7 +304,7 @@
       "id": "multiply-capped-columns",
       "name": "Multiply Capped Columns",
       "route": "gg-plus",
-      "note": "Extend the established environment schedule through multiple transitions.",
+      "note": "The six-stage direct probe produced no separated cap levels; a scientifically bound Compose scene is required before changing this route.",
       "currentCandidates": [],
       "variants": { "lower": null, "baseline": null, "upper": null },
       "exclusionReason": null
@@ -338,7 +408,7 @@
       "id": "needle-clusters",
       "name": "Needle Clusters",
       "route": "gg-plus",
-      "note": "Add a connected multi-tip seed; compose only if the GG probe fails type review.",
+      "note": "The connected multi-tip probe fused into one axial envelope; a scientifically bound Compose scene is required before changing this route.",
       "currentCandidates": [
         {
           "id": "fig39",
@@ -415,12 +485,27 @@
       "id": "hollow-plates",
       "name": "Hollow Plates",
       "route": "gg-plus",
-      "note": "Bounded probe: search for a stable hollow plate; fig11 is related, not accepted by default.",
+      "note": "Hard-form review advances cavity-radius 1/2/4 plate candidates; scientific production is pending.",
       "currentCandidates": [
         {
           "id": "fig11",
           "assessment": "related-candidate",
           "sourceRecord": "evidence/gutcheck-gg-realism/fig-records/fig11-record.json"
+        },
+        {
+          "id": "hollow-plate-cavity-1",
+          "assessment": "anchor-candidate",
+          "sourceRecord": "docs/named-snow-crystal-hard-form-probe-review.json"
+        },
+        {
+          "id": "hollow-plate-cavity-2",
+          "assessment": "anchor-candidate",
+          "sourceRecord": "docs/named-snow-crystal-hard-form-probe-review.json"
+        },
+        {
+          "id": "hollow-plate-cavity-4",
+          "assessment": "anchor-candidate",
+          "sourceRecord": "docs/named-snow-crystal-hard-form-probe-review.json"
         }
       ],
       "variants": { "lower": null, "baseline": null, "upper": null },

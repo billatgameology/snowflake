@@ -198,6 +198,21 @@ The smoke scene binds a local exploratory probe record, not a complete scientifi
 therefore player evidence only—not an accepted Compose entry or precedent for weakening the
 production scientific-bundle requirement.
 
+Catalog-table refresh checkpoint (2026-08-29): current candidates may now link either an exact
+run record or a tracked type-review record. The generated table links the selected Scrolls on
+Plates, Triangular Forms and Cups early-stop trios; Hollow Plates cavity-radius 1/2/4; and the new
+Solid Column, Sheath, Split Plate and Isolated Bullet baseline anchors. Multiply Capped Columns and
+Needle Clusters visibly record their failed direct route and pending scientifically bound Compose
+scene. The validator still reports 35 rows, 33 included types, 99 required slots and zero accepted
+slots because candidate review alone does not satisfy the dual-output production contract.
+
+- `node scripts/named-crystal-catalog.ts validate`
+- `node scripts/named-crystal-catalog.ts table --out docs/named-snow-crystal-catalog.md`
+- `npx vitest run runner/test/named-crystal-catalog.test.ts` — one file, four tests passed
+- `npm run typecheck`
+- `npm run lint:rule7`
+- `git diff --check`
+
 ### 5. Generate and publish in bounded type tranches
 
 Extend the existing fleet planner to plan by stable type/variant identity, resume by exact recipe,
