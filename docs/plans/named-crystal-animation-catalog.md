@@ -384,6 +384,35 @@ Post-run product verification passed:
 - `npm run lint:rule7`
 - `git diff --check`
 
+Second dual-output production protocol (registered before implementation/launch, 2026-08-30):
+generate exactly 24 distinct GG/GG+ entries, three each for the next eight direct-growth families,
+under `out/named-crystal-catalog/direct-production-v2/`. Launch exactly 24 independent processes
+on the same 24-core host and reuse the v1 output/verification contract: one replay writes full
+state, final mesh, 100–122 scientific frames, growth-event file, record and separate logs; the
+actual browser decoder and strict `< 20,000,000`-byte web gate must pass before a job succeeds.
+
+The sole family driver is `rho-scale`: multiply the static source `rho`, or every stage's `rho` in
+a staged source, by 0.95 / 1.00 / 1.05. This is one schedule-wide driver, not multiple independently
+tuned inputs. Hold the exact seed geometry, stage transition ticks, dimensions, tick cap, domain,
+RNG seed, noise, extraction recipe and all other G-G parameters fixed within each trio.
+
+| Family | Tracked source | Fixed production dimensions / cap | Source review basis |
+|---|---|---|---|
+| Simple Prisms | `fig11` record | 400×400×160 / 1,706 ticks | current 52-asset audit: strong compact thick prism |
+| Hexagonal Plates | `sweep-t2p5-r0p08` record | 192×192×64 / 6,000 ticks | current audit: strong thin compact plate; bounded scale-down requires post-run review |
+| Hollow Columns | baseline probe materialization | 96×96×192 / 6,000 ticks | baseline review: advance |
+| Stellar Plates | baseline probe materialization | 256×256×80 / 6,000 ticks | baseline review: advance; domain enlarged from the contacted probe |
+| Capped Columns | baseline probe materialization | 144×144×192 / 6,000 ticks | baseline review: advance |
+| Sectored Plates | baseline probe materialization | 192×192×64 / 6,000 ticks | baseline review: advance |
+| Simple Needles | baseline probe materialization | 96×96×192 / 6,000 ticks | baseline review: advance |
+| Fernlike Stellar Dendrites | baseline probe materialization | 256×256×80 / 6,000 ticks | baseline review: advance; domain enlarged from the contacted probe |
+
+The runner must bind the two current-audit sources to their tracked record/spec identities and the
+six scale-down sources to their tracked baseline materializations plus advance review. It must
+refuse source classification, review, spec-hash, route, dimension, concurrency or output-contract
+drift. As in v1, generation does not automatically accept a type: render face/oblique/axial views,
+bind the exact report/contact sheet, and fill only the trios that remain within the named form.
+
 Coverage-first execution and review checkpoint (2026-08-29): the registered command
 `node scripts/named-crystal-baseline-probes.ts run` launched exactly 24 workers on the Intel Core
 Ultra 9 285K host and completed 24/24 jobs. The exact local report is

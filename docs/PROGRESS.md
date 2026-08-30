@@ -307,12 +307,15 @@ each accepted preview, web asset, recipe and scientific bundle and reports 24 ac
 remaining. Outputs remain local ignored products; governed publication is still pending and no NAS
 locator is claimed.
 
-Next register the second 24-job dual-output tranche for eight current strong direct-growth anchors:
-Hexagonal Plates, Hollow Columns, Columns on Plates, Stellar Plates, Capped Columns, Sectored
-Plates, Simple Stars and Simple Needles. Use one tracked ±5% driver per family, bind the exact
-current-record identities, and run the same production preflight before
-`node scripts/named-crystal-direct-production-2.ts run`. Do not touch the independently running NAS
-publisher in the animation worktree.
+The second 24-job protocol is now registered for Simple Prisms, Hexagonal Plates, Hollow Columns,
+Stellar Plates, Capped Columns, Sectored Plates, Simple Needles and Fernlike Stellar Dendrites.
+Every trio varies only one schedule-wide `rho` scale by ±5%. Six families derive from advance-grade
+baseline materializations; Simple Prisms binds the strong `fig11` current-audit source, and
+Hexagonal Plates binds the strong `sweep-t2p5-r0p08` source. The two plate families whose probes
+contacted their domains use fixed enlarged domains. Next implement and preflight
+`docs/named-snow-crystal-direct-production-2.json` and
+`scripts/named-crystal-direct-production-2.ts`, commit them, then launch all 24 workers. Do not
+touch the independently completed NAS publisher in the animation worktree.
 
 ### Phase 10 — planning complete; maker package selection pending
 
