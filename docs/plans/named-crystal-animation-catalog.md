@@ -280,6 +280,34 @@ direct-`GGSolver` design rejection recorded below. The final exact run includes 
 control identity, the separate GG+ adapter, the custom-seed growth/checkpoint round trip, and the
 current progress-state invariant.
 
+Coverage-first baseline probe checkpoint (2026-08-29):
+`docs/named-snow-crystal-baseline-probes.json` registers exactly one exploratory baseline for each
+of the 24 direct-growth catalog rows: 11 unchanged GG recipes and 13 GG+ seed/schedule recipes. Each
+job names its exact current-record parameter template, dimensions, tick cap, seed profile, schedule
+profile, intended review views, and visual intent. The profile compiler materializes exact
+`siteOffsets` into each run spec before launch, so the existing spec hash and seed-site digest bind
+the realized initial condition rather than only a profile name. The four bounded fixed-lattice
+questions are present in the same coverage pass and remain probes, not accepted types.
+
+`scripts/named-crystal-baseline-probes.ts` independently compares the tranche against the catalog,
+requires all 24 unique direct-growth IDs, validates the strict 20,000,000-byte web ceiling, and
+records the registered Intel Core Ultra 9 285K host as 24 physical cores / 24 logical processors.
+Its run command uses exactly 24 independent single-threaded processes, writes exact argv plus actual
+worker count to `launch.json`, keeps separate stdout/stderr and exit-status files per type, and
+fails an otherwise successful job if its web growth asset is not strictly below the ceiling. Probe
+payloads remain under ignored `out/named-crystal-catalog/baseline-probes-v1/`; only accepted recipes
+will advance to the full scientific production tranche.
+
+Product-sized pre-launch verification passed:
+
+- `node scripts/named-crystal-baseline-probes.ts plan` — 24 pending jobs, registered process
+  concurrency 24, physical/logical counts 24/24
+- `npx vitest run runner/test/named-crystal-baseline-probes.test.ts` — one file, three tests passed;
+  all custom profiles constructed as fitting connected seeds
+- `npm run typecheck`
+- `npm run lint:rule7`
+- `git diff --check`
+
 ## Out of scope
 
 - A riming, droplet, aggregation, thermal, or other new physical solver. `Rimed` and `Graupel` stay

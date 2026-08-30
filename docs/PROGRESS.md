@@ -243,9 +243,13 @@ A real four-site custom-seed growth sample round-tripped its web growth event fi
 checkpoint. Focused seed/runner/control-identity tests passed 25/25. Exact `npm test` then passed
 140/140 files, 2,237 tests with 49 skipped, in 440.00 seconds after setting `TEMP` and `TMP` to the
 canonical long Windows temp path; the permanent G-G control identity passed inside that run. Next
-commit this checkpoint and build the coverage-first baseline recipe/probe planner, using exactly 24
-independent growth processes on this 24-core host. Do not touch the independently running NAS
-publisher in the animation worktree.
+commit this checkpoint and launch the registered coverage-first baseline probe tranche with
+`node scripts/named-crystal-baseline-probes.ts run`. The planner has 24 unique direct-growth jobs,
+requires exactly 24 independent processes on this 24-physical-core / 24-logical-processor host,
+materializes exact GG+ sites into each run spec, and fails web payloads at or above 20,000,000
+bytes. Its focused three-test file, both typechecks, and Rule 7 scan pass. Monitor only
+`out/named-crystal-catalog/baseline-probes-v1/launch.json`, per-type stdout/stderr/exit status, and
+the final report. Do not touch the independently running NAS publisher in the animation worktree.
 
 ### Phase 10 — planning complete; maker package selection pending
 
