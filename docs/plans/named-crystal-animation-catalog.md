@@ -308,6 +308,33 @@ Product-sized pre-launch verification passed:
 - `npm run lint:rule7`
 - `git diff --check`
 
+Coverage-first execution and review checkpoint (2026-08-29): the registered command
+`node scripts/named-crystal-baseline-probes.ts run` launched exactly 24 workers on the Intel Core
+Ultra 9 285K host and completed 24/24 jobs. The exact local report is
+`out/named-crystal-catalog/baseline-probes-v1/report.json` (40,380 bytes; SHA-256
+`68221cc4190f4d28008dfc17c8fb0cf3cfa67347fc741ec4e13f9b767904ed3c`). Web growth assets ranged
+from 62,188 to 830,136 bytes, totalled 8,188,899 bytes, and all passed the strict
+`< 20,000,000`-byte entry gate. The report records actual worker count 24 and the exact per-job
+argv, stdout, stderr and exit status.
+
+The three-view review is recorded in `docs/named-snow-crystal-baseline-probe-review.json` and its
+generated text table. Ten results are advance candidates, five are retune candidates, and nine are
+failed probes; none fills a formal catalog slot. The reviewed contact sheet is
+`out/named-crystal-catalog/baseline-probes-v1/contact-sheet.png` (9,572,070 bytes; SHA-256
+`56521b3d836c81f1819b2e6a1134b117c0801aa87810ced7613a08954435ab59`). It was regenerated after a
+presentation-only camera correction made orthographic framing account for projected Z extent and
+the full three-dimensional camera far plane; pre-correction clipped column renders were excluded
+from the morphology review.
+
+Product-sized post-run verification passed:
+
+- `npx vitest run app/test/spike-gg-realism-frame.test.ts
+  runner/test/named-crystal-baseline-probe-review.test.ts
+  runner/test/named-crystal-baseline-probes.test.ts` — three files, eight tests passed
+- `npm run typecheck`
+- `npm run build --workspace app` — 73 modules transformed
+- `git diff --check`
+
 ## Out of scope
 
 - A riming, droplet, aggregation, thermal, or other new physical solver. `Rimed` and `Graupel` stay

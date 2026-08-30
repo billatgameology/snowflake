@@ -182,7 +182,9 @@ phase status or scientific claim.
 The maker-selected [named snow-crystal animation catalog plan](plans/named-crystal-animation-catalog.md)
 is active in `C:/Users/HIL_ADMIN/Documents/GitHub/snowflake-named-catalog` on branch
 `feature/named-crystal-catalog`. Its strict taxonomy manifest, validator, and generated text table
-are complete; it remains isolated from the running publisher and has started no generation.
+are complete; it remains isolated from the running publisher. Its first 24-process direct-growth
+screen completed 24/24 jobs, with ten advance candidates, five retune candidates and nine failed
+probes; no screened result is yet a formal catalog acceptance.
 The
 [Phase 10 candidate plan](plans/phase-10-closures-and-frontier.md) is decision support, not
 execution authority; no A–H package is selected.
@@ -242,14 +244,21 @@ are connected, canonicalized, bounds-checked, and identity-bound by exact sorted
 A real four-site custom-seed growth sample round-tripped its web growth event file and full public
 checkpoint. Focused seed/runner/control-identity tests passed 25/25. Exact `npm test` then passed
 140/140 files, 2,237 tests with 49 skipped, in 440.00 seconds after setting `TEMP` and `TMP` to the
-canonical long Windows temp path; the permanent G-G control identity passed inside that run. Next
-commit this checkpoint and launch the registered coverage-first baseline probe tranche with
-`node scripts/named-crystal-baseline-probes.ts run`. The planner has 24 unique direct-growth jobs,
-requires exactly 24 independent processes on this 24-physical-core / 24-logical-processor host,
-materializes exact GG+ sites into each run spec, and fails web payloads at or above 20,000,000
-bytes. Its focused three-test file, both typechecks, and Rule 7 scan pass. Monitor only
-`out/named-crystal-catalog/baseline-probes-v1/launch.json`, per-type stdout/stderr/exit status, and
-the final report. Do not touch the independently running NAS publisher in the animation worktree.
+canonical long Windows temp path; the permanent G-G control identity passed inside that run.
+
+The coverage-first command `node scripts/named-crystal-baseline-probes.ts run` then used exactly 24
+workers and completed 24/24 direct-growth jobs. Its report is
+`out/named-crystal-catalog/baseline-probes-v1/report.json` (40,380 bytes; SHA-256
+`68221cc4190f4d28008dfc17c8fb0cf3cfa67347fc741ec4e13f9b767904ed3c`): web files ranged from
+62,188 to 830,136 bytes, totalled 8,188,899 bytes, and all were strictly below 20,000,000 bytes.
+The bound three-view review records ten advance candidates, five retune candidates and nine failed
+probes, with zero formal slots filled. A presentation-only orthographic camera correction now
+includes projected Z and full three-dimensional extent, so tall columns are no longer clipped into
+vertical bars; its focused review/runner/framing checks passed 8/8, both typechecks passed, and the
+app build transformed 73 modules. Next register one 24-job, one-driver-per-family follow-up across
+the six failed GG+ hard forms (four deterministic variants each), commit its manifest and tests,
+then launch it with exactly 24 independent processes. Keep the same strict web ceiling and do not
+touch the independently running NAS publisher in the animation worktree.
 
 ### Phase 10 — planning complete; maker package selection pending
 

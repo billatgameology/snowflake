@@ -19,6 +19,7 @@ import * as THREE from "three";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 
 import { createSceneEditor } from "./scene-editor.ts";
+import { spikeOrthographicFrame } from "./spike-frame.ts";
 
 interface SpikeWindow {
   __spikeReady?: boolean;
@@ -675,8 +676,16 @@ function buildRig(extent: THREE.Vector3, liveBackground: boolean): SceneRig {
 
   const scene = new THREE.Scene();
   const zoom = Number(param("zoom", "1"));
-  const span = (Math.max(extent.x, extent.y) / 2) * 1.12 * zoom;
   const aspect = window.innerWidth / window.innerHeight;
+  // At an oblique/axial view, Z projects into screen Y. Framing only max(X,Y) clipped tall
+  // columns through the camera and far plane, producing vertical bars instead of a crystal.
+  const frame = spikeOrthographicFrame(
+    extent,
+    Number(param("tilt", "0")),
+    aspect,
+    zoom,
+  );
+  const { span, worldExtent } = frame;
 
   let backdropMaterial: THREE.MeshBasicMaterial | null = null;
   if (liveBackground) {
@@ -687,7 +696,7 @@ function buildRig(extent: THREE.Vector3, liveBackground: boolean): SceneRig {
       new THREE.PlaneGeometry(span * aspect * 2.1, span * 2.1),
       backdropMaterial,
     );
-    backdrop.position.z = -Math.max(extent.x, extent.y) * 0.75;
+    backdrop.position.z = -worldExtent * 0.75;
     scene.add(backdrop);
   }
   const setBackdrop = (a: string, b: string): void => {
@@ -724,13 +733,13 @@ function buildRig(extent: THREE.Vector3, liveBackground: boolean): SceneRig {
     new THREE.Color("#" + param("keyHex", "ffe3b0", "eaf2ff")),
     Number(param("keyI", "3.2", "2.0")),
   );
-  key.position.set(-1.4, 1.7, 0.45).multiplyScalar(extent.x);
+  key.position.set(-1.4, 1.7, 0.45).multiplyScalar(worldExtent);
   scene.add(key);
   const fill = new THREE.DirectionalLight(
     new THREE.Color("#" + param("fillHex", "93a8e0", "6f8fd0")),
     Number(param("fillI", "1.3", "1.0")),
   );
-  fill.position.set(1.1, -1.3, 0.6).multiplyScalar(extent.x);
+  fill.position.set(1.1, -1.3, 0.6).multiplyScalar(worldExtent);
   scene.add(fill);
 
   const camera = new THREE.OrthographicCamera(
@@ -739,11 +748,14 @@ function buildRig(extent: THREE.Vector3, liveBackground: boolean): SceneRig {
     span,
     -span,
     1,
-    Math.max(extent.x, extent.y) * 8,
+    worldExtent * 8,
   );
-  const tilt = (Number(param("tilt", "0")) * Math.PI) / 180;
-  const dist = Math.max(extent.x, extent.y) * 2;
-  camera.position.set(0, Math.sin(tilt) * dist, Math.cos(tilt) * dist);
+  const dist = worldExtent * 2;
+  camera.position.set(
+    0,
+    Math.sin(frame.tiltRadians) * dist,
+    Math.cos(frame.tiltRadians) * dist,
+  );
   camera.lookAt(0, 0, 0);
   scene.add(camera);
 
