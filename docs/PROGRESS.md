@@ -234,14 +234,18 @@ deferred, keep restore status `documented`, and do not claim they ran. Do not de
 
 Work only in `C:/Users/HIL_ADMIN/Documents/GitHub/snowflake-named-catalog` on
 `feature/named-crystal-catalog`; do not touch the running NAS publisher in the animation worktree.
-The strict taxonomy and exact [52-asset visual audit](named-snow-crystal-current-assets.md) are
-complete. Next, read the seed contract in `solver-cpu/src/gg-solver.ts` and add the plan's versioned
-deterministic seed specification while preserving the existing radius/thickness hexagonal-prism
-path bit-for-bit. Pin exact sorted lattice sites and their digest in a recipe, reject duplicates and
-out-of-domain cells, and keep intentionally asymmetric seeds outside D6h claims. Add focused seed,
-runner, and checkpoint regressions, then run exact `npm test` because this step touches
-`solver-cpu/`. Do not start the 24-way production fleet until that implementation and one
-representative custom-seed growth sample pass.
+The strict taxonomy, exact [52-asset visual audit](named-snow-crystal-current-assets.md), and
+versioned GG+ seed implementation are complete in the isolated worktree. GG+ is a separate
+initial-condition adapter: the permanent `gg-solver.ts` control remains byte-identical, while the
+adapter's hexagonal-prism route matches its tested 200-tick state bit-for-bit. Strict custom sites
+are connected, canonicalized, bounds-checked, and identity-bound by exact sorted-site digest.
+A real four-site custom-seed growth sample round-tripped its web growth event file and full public
+checkpoint. Focused seed/runner/control-identity tests passed 25/25. Exact `npm test` then passed
+140/140 files, 2,237 tests with 49 skipped, in 440.00 seconds after setting `TEMP` and `TMP` to the
+canonical long Windows temp path; the permanent G-G control identity passed inside that run. Next
+commit this checkpoint and build the coverage-first baseline recipe/probe planner, using exactly 24
+independent growth processes on this 24-core host. Do not touch the independently running NAS
+publisher in the animation worktree.
 
 ### Phase 10 — planning complete; maker package selection pending
 

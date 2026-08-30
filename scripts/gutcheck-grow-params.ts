@@ -18,6 +18,7 @@
 //     "ggThreshTable": {"01":2.5,"10":2,"11":2,"20":2,"21":1,"30":1,"31":1},
 //     "kappa": {"default":0.1,"overrides":{}}, "mu": {"default":0.001,"overrides":{}} }
 
+import { createHash } from "node:crypto";
 import { closeSync, mkdirSync, openSync, readFileSync, renameSync, writeFileSync, writeSync } from "node:fs";
 import { dirname, join } from "node:path";
 import {
@@ -29,7 +30,12 @@ import {
   type GGParams,
   type GGTimelineEnvironment,
 } from "@vcc/core";
-import { GGSolver, FAR_FIELD_STOP_FRACTION } from "@vcc/solver-cpu";
+import {
+  GGPlusSolver,
+  GGSolver,
+  FAR_FIELD_STOP_FRACTION,
+  type GGSeedGeometryV1,
+} from "@vcc/solver-cpu";
 import { buildGutcheckRunIdentity } from "./gutcheck-evidence-lib.ts";
 import { extractMesh } from "./gutcheck-mesh-lib.ts";
 
@@ -52,6 +58,8 @@ interface StageSpec {
 
 interface FigureSpec {
   readonly label: string;
+  /** Optional deterministic GG+ seed; omitted specs retain the canonical legacy seed path. */
+  readonly seedGeometry?: GGSeedGeometryV1;
   readonly rho?: number;
   readonly phi?: number;
   readonly ggThreshTable?: Record<string, number>;
@@ -64,6 +72,46 @@ interface FigureSpec {
    * single-vector fields are ignored.
    */
   readonly stages?: readonly StageSpec[];
+}
+
+interface SeedMetadata {
+  readonly geometry: GGSeedGeometryV1;
+  readonly siteCount: number;
+  readonly sitesSha256: string;
+  readonly radiusBound: number;
+  readonly thicknessSpan: number;
+}
+
+function seedMetadata(
+  solver: GGSolver,
+  geometry: GGSeedGeometryV1,
+): SeedMetadata {
+  const sites: number[] = [];
+  for (let site = 0; site < solver.a.length; site++) {
+    if (solver.a[site] === 1) sites.push(site);
+  }
+  let radiusBound = 0;
+  let kMin = Infinity;
+  let kMax = -Infinity;
+  const [ic, jc] = solver.center;
+  const { nx, ny } = solver.dims;
+  for (const site of sites) {
+    const i = site % nx;
+    const j = Math.floor(site / nx) % ny;
+    const k = Math.floor(site / (nx * ny));
+    const di = i - ic;
+    const dj = j - jc;
+    radiusBound = Math.max(radiusBound, Math.max(Math.abs(di), Math.abs(dj), Math.abs(di + dj)));
+    kMin = Math.min(kMin, k);
+    kMax = Math.max(kMax, k);
+  }
+  return {
+    geometry,
+    siteCount: sites.length,
+    sitesSha256: createHash("sha256").update(JSON.stringify(sites)).digest("hex"),
+    radiusBound,
+    thicknessSpan: sites.length === 0 ? 0 : kMax - kMin + 1,
+  };
 }
 
 function slotRecord(spec: SlotSpec, name: string): Record<string, number> {
@@ -415,6 +463,9 @@ function main(): void {
   const cli = parseCli(process.argv.slice(2));
   const t0 = Date.now();
   const spec = JSON.parse(readFileSync(cli.specFile, "utf8")) as FigureSpec;
+  if (spec.seedGeometry !== undefined && cli.seedThickness !== 1) {
+    throw new Error("a spec seedGeometry cannot be combined with non-default --seed-thickness");
+  }
   const runIdentity = buildGutcheckRunIdentity({
     spec,
     dims: cli.dims,
@@ -447,14 +498,30 @@ function main(): void {
   });
   const params = stageParams[0]!;
 
-  const solver = new GGSolver({
-    dims: cli.dims,
-    params,
-    rngSeed: cli.seed,
-    noiseEpsilon: cli.noise,
-    domain: cli.domain,
-    seedThickness: cli.seedThickness,
-  });
+  const solver = spec.seedGeometry === undefined
+    ? new GGSolver({
+        dims: cli.dims,
+        params,
+        rngSeed: cli.seed,
+        noiseEpsilon: cli.noise,
+        domain: cli.domain,
+        seedThickness: cli.seedThickness,
+      })
+    : new GGPlusSolver({
+        dims: cli.dims,
+        params,
+        rngSeed: cli.seed,
+        noiseEpsilon: cli.noise,
+        domain: cli.domain,
+        seedGeometry: spec.seedGeometry,
+      });
+  const effectiveSeedGeometry: GGSeedGeometryV1 = spec.seedGeometry ?? {
+    version: 1,
+    kind: "hexPrism",
+    radius: 2,
+    thickness: cli.seedThickness,
+  };
+  const seed = seedMetadata(solver, effectiveSeedGeometry);
   console.log(
     `grow-params label="${spec.label}" stages=${stages.length} rho1=${stages[0]!.rho} ` +
       `phi1=${stages[0]!.phi} dims=${cli.dims.nx},${cli.dims.ny},${cli.dims.nz} ` +
@@ -504,6 +571,9 @@ function main(): void {
             seed: cli.seed,
             noise: cli.noise,
             seedThickness: cli.seedThickness,
+            seedGeometry: seed.geometry,
+            seedSiteCount: seed.siteCount,
+            seedSitesSha256: seed.sitesSha256,
             runIdentity,
             extraction: {
               spacing: cli.spacing,
@@ -673,10 +743,13 @@ function main(): void {
         tickCap: cli.ticks,
         rngSeed: cli.seed,
         noiseEpsilon: cli.noise,
-        // The canonical seed is a radius-2 hexagonal plate (gg-machinery §5); the solver
-        // does not take a radius option here, so this is the constant it uses.
-        seedRadius: 2,
-        seedThickness: cli.seedThickness,
+        // Keep numeric bounds for the existing website decoder, and carry the exact
+        // versioned geometry plus a digest of its canonical flat-index set for GG+.
+        seedRadius: seed.radiusBound,
+        seedThickness: seed.thicknessSpan,
+        seedGeometry: seed.geometry,
+        seedSiteCount: seed.siteCount,
+        seedSitesSha256: seed.sitesSha256,
         center: [...state.center],
         farField: state.farField,
         params: {
@@ -744,7 +817,10 @@ function main(): void {
     domain: cli.domain,
     seed: cli.seed,
     noise: cli.noise,
-    seedThickness: cli.seedThickness,
+    seedThickness: seed.thicknessSpan,
+    seedGeometry: seed.geometry,
+    seedSiteCount: seed.siteCount,
+    seedSitesSha256: seed.sitesSha256,
     tickCap: cli.ticks,
     runIdentity,
     stopReason,

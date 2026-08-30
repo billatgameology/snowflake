@@ -1,7 +1,7 @@
 # Plan — named snow-crystal animation catalog
 
 - **Phase:** Pre-Phase 7 product/catalog work; no charter phase or scientific gate is reopened
-- **Status:** in progress — taxonomy and exact 52-asset visual audit complete; GG+ seed API next
+- **Status:** in progress — taxonomy/audit and GG+ seed API complete; baseline recipes next
 - **Started:** 2026-08-29
 - **Last touched:** 2026-08-29 by OpenAI Codex (GPT-5)
 
@@ -133,12 +133,14 @@ cannot show. It records `accepted`, `near`, or `missing`; only `accepted` fills 
 
 ### 2. Add deterministic GG+ seed geometry without replacing G-G physics
 
-Replace the runner's current radius/thickness-only seed description with a versioned discriminated
-seed specification that retains the existing hexagonal-prism case and adds deterministic procedural
-or exact-site seeds. Validate bounds, integer lattice coordinates, duplicates, active-domain
-membership, and connectedness for single-crystal GG runs. Pin the generator version plus the exact
-sorted-site digest in every recipe and bundle. Intentional asymmetric seeds do not claim D6h
-symmetry; existing symmetric seeds retain their exact behavior and tests.
+Add a downstream `GGPlusSolver` initial-condition adapter with a versioned discriminated seed
+specification that retains the existing hexagonal-prism case and adds deterministic procedural or
+exact-site seeds. The adapter inherits every evolution method from the permanent `GGSolver`; the
+byte-frozen `gg-solver.ts` control remains unchanged. Validate bounds, integer lattice coordinates,
+duplicates, active-domain membership, and connectedness for single-crystal GG runs. Pin the
+generator version plus the exact sorted-site digest in every recipe and bundle. Intentional
+asymmetric seeds do not claim D6h symmetry; existing symmetric seeds retain their exact behavior and
+tests.
 
 Use the already implemented environment-event path for capped and multiply capped histories.
 Do not add a new attachment rule, temperature meaning, or physical interpretation to the G-G
@@ -182,7 +184,7 @@ website copying remain explicit governed transactions, never implicit side effec
       coverage table; prove the validator reports 33 included, two excluded, and 99 required slots.
 - [x] Import and visually audit the existing 52-item candidate pool without counting labels alone;
       record accepted/near/missing by exact asset identity.
-- [ ] Specify and implement versioned deterministic custom seeds while leaving the G-G update rule
+- [x] Specify and implement versioned deterministic custom seeds while leaving the G-G update rule
       bit-unchanged for the existing hexagonal-prism path.
 - [ ] Produce one accepted baseline for every GG/GG+ type, running bounded probes first for the four
       uncertain fixed-lattice forms.
@@ -239,6 +241,45 @@ Additional product-sized verification passed:
 - `npm run lint:rule7`
 - `git diff --check`
 
+GG+ seed checkpoint (2026-08-29): the separate `GGPlusSolver` adapter accepts strict version-1
+`none`, `hexPrism`, and exact connected `siteOffsets` forms. `solver-cpu/src/gg-solver.ts` is
+byte-identical to the frozen permanent control. `GGPlusSolver` constructs that control without a
+seed, invokes its existing initialization attachment/boundary path, and inherits every subsequent
+evolution method. A 200-tick focused regression compares all three state fields bit-for-bit against
+the equivalent permanent-control hexagonal-prism run. Exact-site seeds reject ambiguous legacy
+controls, empty or duplicate sites, non-integer coordinates, disconnected components, and sites
+outside either the domain or active domain. Caller site order is canonicalized before
+initialization; the adapter exposes a sorted copy-safe initial site list.
+
+`scripts/gutcheck-grow-params.ts` accepts the versioned seed in a figure spec. Its scientific record,
+timeline manifest, and website growth header carry the exact geometry, site count, and SHA-256 of
+the canonical flat-index list. The website header retains numeric seed-radius and thickness bounds
+for the existing strict decoder. The run identity already hashes the complete spec, so it binds the
+custom seed without changing the frozen version-1 identity layout. A real 20-tick custom-seed run
+round-tripped its four-site asymmetric seed through the growth event file and public checkpoint
+codec; an equivalent shuffled-site run produced identical 80-tick state fields.
+
+Focused verification passed before the required full solver check:
+
+- `npx vitest run solver-cpu/test/gg-plus-solver.test.ts solver-cpu/test/gg-solver.test.ts
+  runner/test/gutcheck-growth-out.test.ts runner/test/phase9-permanent-control-readiness.test.ts` —
+  four files, 25 tests passed
+- `npm run typecheck`
+- `npm run lint:rule7`
+- `git diff --check`
+
+The required exact check passed with the canonical Windows temp path:
+
+- `$env:TEMP='C:\Users\HIL_ADMIN\AppData\Local\Temp';
+  $env:TMP='C:\Users\HIL_ADMIN\AppData\Local\Temp'; npm test` — 140 files passed, 2,237 tests
+  passed, 49 skipped, duration 440.00 seconds
+
+The first exact attempt inherited the host's 8.3-form temp path and failed 41 unrelated path-safety
+tests; the canonical path rerun cleared all of them. That first attempt also exposed and caused the
+direct-`GGSolver` design rejection recorded below. The final exact run includes the restored frozen
+control identity, the separate GG+ adapter, the custom-seed growth/checkpoint round trip, and the
+current progress-state invariant.
+
 ## Out of scope
 
 - A riming, droplet, aggregation, thermal, or other new physical solver. `Rimed` and `Graupel` stay
@@ -271,6 +312,16 @@ Additional product-sized verification passed:
   needs its unique component assets. The entry measurement includes those cold bytes.
 - **Attempt rimed crystals or graupel procedurally and leave them unlabeled.** Rejected by maker
   scope and epistemic honesty. Both remain visible exclusions rather than counterfeit physics.
+- **Add custom-seed controls directly to the permanent `GGSolver`.** Rejected after exact
+  `npm test` exercised the frozen Phase 9 permanent-control identity: the two readiness tests failed
+  because `solver-cpu/src/gg-solver.ts` changed from its recorded 35,382 bytes. Updating that hash
+  would rewrite a completed scientific-control identity for a product feature. GG+ therefore lives
+  in a separate adapter source, and the focused readiness test passes with the control restored
+  byte-for-byte.
+- **Duplicate the complete G-G evolution implementation into a second solver.** Rejected because
+  two copies of diffusion/surface machinery could silently drift. The GG+ adapter calls the
+  control's existing seed attachment and boundary rebuild path, then inherits all evolution methods;
+  an exact parity regression makes that compatibility seam visible.
 
 ## Open questions
 
