@@ -379,6 +379,14 @@ change a catalog row. Its JavaScript syntax check passes, the Rule 7 scan is cle
 files, and the diff check passes. Commit this helper while Fleet A continues; do not run it before
 direct acceptance and real Compose materialization.
 
+The final direct-acceptance transaction is now registered before implementation. One future tracked
+decision file must pin the exact A/B/C reports, three-view contact sheets and clearance reports,
+record every morphology rationale, and choose exactly three adjacent Capped Bullets stops. A
+fail-closed verifier will recheck all selected actual web/scientific identities and clearance rows,
+then atomically produce the consolidated 22-family / 66-variant direct review and fill only the 66
+direct catalog slots. Implement and fixture-test that verifier while Fleet A continues, but do not
+create the production decision file or accept any row before all real outputs are visually reviewed.
+
 ### Phase 10 — planning complete; maker package selection pending
 
 The [candidate plan](plans/phase-10-closures-and-frontier.md) replaces the original A–D shorthand

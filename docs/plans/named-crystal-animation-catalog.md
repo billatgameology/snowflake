@@ -572,6 +572,25 @@ review without accepting catalog rows. `node --check scripts/named-crystal-final
 `npm run lint:rule7` (1,085 files), and `git diff --check` pass. Real capture remains blocked on the
 consolidated direct review and real scene materialization.
 
+Final direct-acceptance transaction protocol (registered before implementation, 2026-08-30): after
+all three direct fleets complete, render each fleet's exact three-view contact sheet and write one
+tracked `docs/named-snow-crystal-final-direct-decisions.json`. It must pin each fleet report, contact
+sheet and vertical-clearance report by repository-relative path, byte length and SHA-256; record one
+non-empty morphology rationale for every accepted family; accept all lower/baseline/upper results for
+the 21 non-search direct families; and name exactly three adjacent Capped Bullets stop candidates in
+increasing tick order. Absence of that reviewed decision file keeps direct acceptance unavailable.
+
+Implement one acceptance verifier that independently requires three complete 24-worker reports with
+zero failed/missing jobs; 100–122 scientific mesh states; an actual decoder-verified web file strictly
+below 20,000,000 bytes; byte/SHA-256 agreement for every selected web asset; a valid scientific bundle
+tree identity; exact decision/report/contact/clearance identities; and a passed clearance row for every
+registered vertical job. It then writes the consolidated
+`docs/named-snow-crystal-final-direct-review.json` with 22 accepted families / 66 accepted variants and
+fills exactly those 66 direct catalog slots. No Compose route or slot changes in this transaction.
+Fixture tests must cover a complete transaction plus report drift, non-adjacent Capped Bullets, web
+identity drift and missing clearance. The production decision file and transaction remain blocked on
+real output and visual review.
+
 Coverage-first execution and review checkpoint (2026-08-29): the registered command
 `node scripts/named-crystal-baseline-probes.ts run` launched exactly 24 workers on the Intel Core
 Ultra 9 285K host and completed 24/24 jobs. The exact local report is
