@@ -395,6 +395,14 @@ params and refused 91° capture tilt; its screenshot SHA-256 was
 syntax checks, Rule 7 is clean across 1,090 files and the diff check passes. Commit the correction;
 real capture remains blocked on direct acceptance and scene materialization.
 
+The final Compose acceptance transaction is now registered before implementation. A future reviewed
+decision must pin the exact 33-scene report, 297-capture browser review and final-time three-view
+contact sheet, with one morphology rationale per Compose family. A fail-closed verifier will rehash
+all scenes, scientific-scene bundles and 297 captures, reparse scenes, recompute cold bytes, then fill
+the last 33 slots and apply the two deferred route changes in one catalog/table transaction. Implement
+and fixture-test it while Fleet A continues; production decisions remain blocked on real direct
+acceptance, scene materialization and visual review.
+
 The final direct-acceptance transaction is now registered before implementation. One future tracked
 decision file must pin the exact A/B/C reports, three-view contact sheets and clearance reports,
 record every morphology rationale, and choose exactly three adjacent Capped Bullets stops. A

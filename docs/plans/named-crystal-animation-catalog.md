@@ -594,6 +594,24 @@ SHA-256 was `7179d18e9f33958313bec382944557db902a612fda33d8dfc0aa3ccc27cd3d75`.
 Both review scripts pass `node --check`, the Rule 7 scan is clean across 1,090 files, and the diff
 check passes. Real 297-image evidence remains blocked on direct acceptance and scene materialization.
 
+Final Compose acceptance transaction protocol (registered before implementation, 2026-08-30): after
+the consolidated direct review materializes all 33 real scenes and the corrected browser helper
+finishes, write one tracked `docs/named-snow-crystal-final-compose-decisions.json`. It must pin the
+exact Compose report, 297-capture browser-review artifact and its final-time three-view contact sheet
+by repository-relative path, byte length and SHA-256, and record one non-empty morphology rationale
+for each of the 11 Compose families. Absence of that reviewed decision keeps acceptance unavailable.
+
+Implement one verifier that requires 33 unique successful report entries, strict scene parsing,
+actual scene/scientific-bundle byte and SHA-256 agreement, recomputed unique cold bytes below
+20,000,000, exact browser-review/source/contact identities, and nine unique face/oblique/axial ×
+start/55%/final capture identities for every entry. It must independently hash all 297 capture files.
+Only after all checks pass may it write the tracked final Compose review, fill 33 Compose slots, and
+change Multiply Capped Columns and Needle Clusters from GG+ to Compose in the same catalog/table
+transaction. Final catalog totals must be 99 accepted / zero remaining, 22 direct types / 11 Compose
+types / two exclusions. Fixture controls cover report drift, capture drift or missing coverage, cold
+payload failure and premature route drift. Production decisions and acceptance remain blocked on the
+real direct review, scene build and visual inspection.
+
 Final direct-acceptance transaction protocol (registered before implementation, 2026-08-30): after
 all three direct fleets complete, render each fleet's exact three-view contact sheet and write one
 tracked `docs/named-snow-crystal-final-direct-decisions.json`. It must pin each fleet report, contact
