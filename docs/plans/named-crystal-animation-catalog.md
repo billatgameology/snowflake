@@ -422,6 +422,56 @@ hashes, static and staged schedule-wide `rho` scaling, the combined output argv 
 The two focused files pass 11 tests; `npm run typecheck`, `npm run lint:rule7`, and
 `git diff --check` pass. The production output root is still absent at this checkpoint.
 
+Maker resolution correction and final-resolution protocol (2026-08-30): the second fleet completed
+24/24 with 24 actual workers, but its deliberately scaled-down domains are screening products, not
+final scientific-resolution replacements. The exact report is
+`out/named-crystal-catalog/direct-production-v2/report.json` (594,644 bytes; SHA-256
+`f5d30f6e896980a19df9716f5400c207c5c9994dce7fcd3804ec0c2ef97b85e1`): all 24 actual web files
+decoded, range from 55,268 to 3,576,987 bytes, and total 13,209,463 bytes; the scientific bundles
+contain 3,078 files / 6,568,205,710 bytes and 115–121 mesh states per entry. The three-view sheet is
+`out/named-crystal-catalog/direct-production-v2/contact-sheet.png` (9,983,672 bytes; SHA-256
+`6e849aab1f49ed1e6e107516e42c27578ed6dee37a3d15e7abde5c92d3e6e578`). It shows all eight named
+morphologies, but maker direction requires the established large scientific domain scale.
+
+The published 52-animation scientific owner manifest independently confirms that those established
+bundles contain 19–121 mesh states, so the 120-state target is format parity rather than a video
+frame count. A web growth file carries the complete attachment-event timeline and the viewer renders
+it at display cadence. Catalog prose must call the scientific files **mesh states** or **mesh
+keyframes**, never imply that a 121-state bundle is a 121-frame rendered movie.
+
+Final direct-production resolution is now registered as follows. A planar final uses at least
+500×500×96 unless its exact accepted source is larger. A source-defined compact three-dimensional
+form may use its registered native proportions. Needle, hollow-column and sheath finals use at least
+128×128×768; capped-column finals use at least 320×320×512. Other tall/custom forms use the explicit
+larger domain below. A vertical final must retain at least 16 lattice layers and 5% of `nz`, whichever
+is greater, between its occupied mesh bounds and both Z boundaries. The post-run review rejects a
+form that is flat in oblique/axial views or fails that clearance, even if the process and decoder
+checks pass.
+
+Run two replacement fleets, each exactly 24 jobs / 24 workers. Fleet A rematerializes the eight
+second-fleet families from exact strong current-audit sources and varies only schedule-wide `rho` by
+0.95 / 1.00 / 1.05. Its final domains/caps are: Simple Prisms 500×500×256 / 1,706; Hexagonal Plates
+500×500×96 / 30,000; Hollow Columns 128×128×768 / 25,000; Stellar Plates 500×500×96 / 30,000;
+Capped Columns 320×320×512 / 48,350; Sectored Plates 600×600×96 / 67,200; Simple Needles
+128×128×768 / 25,075; Fernlike Stellar Dendrites 800×800×96 / 28,512. Bind them respectively to
+`fig11`, `sweep-t2p5-r0p08`, `fig30`, `sweep-t2-r0p12`, `fig37`, `fig9v2`, `fig29`, and `fig13`.
+
+Fleet B rematerializes the eight first-fleet families while preserving their reviewed one-driver
+recipes. Its final domains are: Solid Columns 192×192×576; Sheaths 128×128×768; Split Plates &
+Stars 600×600×96; Isolated Bullets 192×192×576; Scrolls on Plates 500×500×192; Triangular Forms
+500×500×96; Cups 256×256×512; Hollow Plates 500×500×96. Preserve the existing per-variant stop
+ticks so custom defining features are not grown away: 6,000 / 6,000 / 6,000 for Solid Columns,
+Sheaths and Split Plates & Stars; 5,000 for Isolated Bullets; 100/300/400 for Scrolls on Plates;
+200/400/600 for Triangular Forms; 100/200/400 for Cups; and 1,500 for Hollow Plates.
+
+Before launching either final-resolution fleet, write a tracked supersession record bound to the
+first review and second screen report, clear the 24 scaled-down variants from the strict catalog,
+and regenerate its table. This changes completion credit only: preserve every prior output and review
+as screening evidence. Then implement a common source-bound final-resolution runner, focused tests,
+and read-only plan; commit those artifacts before launch. Final acceptance remains post-run and
+three-view, and still requires both the full scientific bundle and actual decoder-verified web file
+under 20,000,000 bytes for every accepted entry.
+
 Coverage-first execution and review checkpoint (2026-08-29): the registered command
 `node scripts/named-crystal-baseline-probes.ts run` launched exactly 24 workers on the Intel Core
 Ultra 9 285K host and completed 24/24 jobs. The exact local report is

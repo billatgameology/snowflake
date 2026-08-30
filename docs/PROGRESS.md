@@ -316,9 +316,26 @@ contacted their domains use fixed enlarged domains. The exact manifest and runne
 implemented and the read-only plan materializes all 24 jobs. It reuses the first tranche's
 dual-output executor/verifier and refuses source review/hash, route, dimension, host/concurrency or
 output-contract drift. The focused two-file check passes 11 tests; both TypeScript projects, the
-Rule 7 scan and diff check pass. The production root remains absent. Next commit this implementation
-checkpoint, then run `node scripts/named-crystal-direct-production-2.ts run` with all 24 independent
-workers. Do not touch the independently completed NAS publisher in the animation worktree.
+Rule 7 scan and diff check pass. The implementation was committed as `8c13747`, then
+`node scripts/named-crystal-direct-production-2.ts run` completed 24/24 with 24 actual workers. Its
+594,644-byte report (SHA-256
+`f5d30f6e896980a19df9716f5400c207c5c9994dce7fcd3804ec0c2ef97b85e1`) records decoder-verified
+web files from 55,268 to 3,576,987 bytes and scientific bundles totalling 3,078 files /
+6,568,205,710 bytes with 115–121 mesh states each. The 9,983,672-byte three-view sheet (SHA-256
+`6e849aab1f49ed1e6e107516e42c27578ed6dee37a3d15e7abde5c92d3e6e578`) shows the eight expected
+morphologies. Hollow Columns and Simple Needles retain 41–48 Z layers at their closest boundary;
+Capped Columns retain 66–70. They are not vertically clipped.
+
+Maker direction nevertheless requires the established large scientific domain scale: existing
+planar sources are generally 500–800 cells across, Simple Needles/Hollow Columns are
+128×128×768, and Capped Columns are 320×320×512. Therefore both completed 24-job fleets are retained
+as parameter/morphology screens but do not complete final-resolution catalog slots. The active plan
+now registers two replacement 24-worker fleets with exact large domains/caps and a vertical
+clearance gate, while preserving the same three-variant recipes, 120-mesh-state scientific cadence,
+actual web decoder and strict byte ceiling. Next commit that protocol revision; then implement the
+tracked supersession/reset plus the common final-resolution runner and focused preflight before
+launching Fleet A on all 24 cores. Do not touch the independently completed NAS publisher in the
+animation worktree.
 
 ### Phase 10 — planning complete; maker package selection pending
 
