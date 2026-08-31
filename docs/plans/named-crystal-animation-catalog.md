@@ -563,6 +563,27 @@ read-only plan passes, the three focused files pass 13 tests, both TypeScript pr
 Rule 7 scan is clean across 1,095 files and the diff check passes. Commit this implementation, then
 run the exact three-job repair in parallel.
 
+Fleet C repair reconciliation correction (registered after 3/3 repair generation and before any
+directory replacement, 2026-08-31): all three repaired jobs produced exactly 121 frames and passed
+the real decoder/web ceiling. Their final `mesh.bin` and `state.bin` files are byte-identical to the
+first pass. The original byte-identity assertion for `record.json` and `growth-v1.bin` was too broad:
+the record deliberately embeds output paths, web byte length and wall-clock elapsed time, while the
+web header deliberately embeds the full launch argv, including output root and the changed
+`frames-every` / `metrics-every` values. The fail-closed check stopped before moving any directory;
+this is provenance metadata drift, not solver-state drift.
+
+Correct the repair verifier without weakening the solver or web claims. Continue to require exact
+byte identity for final mesh and checkpoint. For the record, require every field to match after
+excluding only output-path strings, web byte length and elapsed seconds. For the compact web asset,
+decode both files and require identical event count, seed count, final tick, dimensions, center,
+flat-index array and attach-tick array. Before integration, rewrite only repair-root path prefixes in
+the generated record and web-header argv to the final Fleet C root; preserve the new cadence values
+and event bytes. Re-run the actual decoder and full product inventory after relocation, then write
+the repaired exit statuses and consolidated report from those final-root products. Preserve both
+raw repair launch/report files in the failure archive. Add focused negative controls for a changed
+mesh/checkpoint and changed decoded event table; do not infer semantic growth equality only from a
+matching final attached field.
+
 Final Compose production protocol (registered before implementation, 2026-08-30): after the direct
 review binds accepted full-resolution components, generate exactly 33 `growth-scene-v1` entries—
 three each for 11 Compose types. The two measured direct failures, Multiply Capped Columns and

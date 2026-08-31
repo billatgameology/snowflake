@@ -486,6 +486,18 @@ then run `node scripts/named-crystal-final-resolution-c-cadence-repair.ts run`; 
 repairs use three actual workers because no other failed recipe exists to occupy the remaining
 cores. After 3/3 completes, render and inspect Fleet C's three-view sheet.
 
+The cadence repair generation completed 3/3 at exactly 121 frames each; the decoder-verified staged
+web files are 1,599,644 / 5,877,133 / 6,214,328 bytes. Reconciliation then stopped before replacing
+anything because the preregistered byte-identity assertion included `record.json` and
+`growth-v1.bin`. Direct comparison proves every repaired final mesh and checkpoint is byte-identical.
+The record differs only in generated paths, web byte count and wall time; strict decoding shows the
+web event counts, seed counts, endpoints, dimensions, center, flat-index arrays and attach-tick
+arrays are identical, while its provenance header records the different root and cadence argv. The
+active plan now registers a correction: retain byte equality for mesh/checkpoint, require exact
+field/event semantic equality for record/web, relocate only embedded root prefixes, and rebuild the
+final inventory/status. Next implement and focused-test that correction, commit it, then rerun the
+reconciliation stage without rerunning the completed solvers.
+
 ### Phase 10 — planning complete; maker package selection pending
 
 The [candidate plan](plans/phase-10-closures-and-frontier.md) replaces the original A–D shorthand
