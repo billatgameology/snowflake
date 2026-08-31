@@ -676,7 +676,11 @@ function makeBackdropControls(rig: SceneRig): HTMLSpanElement {
 function buildRig(
   extent: THREE.Vector3,
   liveBackground: boolean,
-  frameOverride?: { readonly tiltDegrees: number; readonly zoom: number },
+  frameOverride?: {
+    readonly tiltDegrees: number;
+    readonly yawDegrees?: number;
+    readonly zoom: number;
+  },
 ): SceneRig {
   const renderer = new THREE.WebGLRenderer({ antialias: true });
   renderer.localClippingEnabled = clipPlanes() !== null;
@@ -696,6 +700,7 @@ function buildRig(
     frameOverride?.tiltDegrees ?? Number(param("tilt", "0")),
     aspect,
     zoom,
+    frameOverride?.yawDegrees ?? 0,
   );
   const { span, worldExtent } = frame;
 
@@ -1298,6 +1303,7 @@ async function growthSceneMain(sceneUrl: string): Promise<void> {
   const reviewCamera = growthSceneReviewCamera(query, scene.camera);
   const rig = buildRig(extent, true, {
     tiltDegrees: reviewCamera.tiltDegrees,
+    yawDegrees: reviewCamera.yawDegrees,
     zoom: scene.camera.zoom,
   });
   rig.crystal.visible = false;

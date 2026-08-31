@@ -10,14 +10,20 @@ export function spikeOrthographicFrame(
   tiltDegrees: number,
   aspect: number,
   zoom: number,
+  yawDegrees = 0,
 ): SpikeOrthographicFrame {
   const tiltRadians = (tiltDegrees * Math.PI) / 180;
+  const yawRadians = (yawDegrees * Math.PI) / 180;
+  const projectedWidth =
+    Math.abs(Math.cos(yawRadians)) * extent.x +
+    Math.abs(Math.sin(yawRadians)) * extent.y;
   const projectedHeight =
-    Math.abs(Math.cos(tiltRadians)) * extent.y +
+    Math.abs(Math.cos(tiltRadians) * Math.sin(yawRadians)) * extent.x +
+    Math.abs(Math.cos(tiltRadians) * Math.cos(yawRadians)) * extent.y +
     Math.abs(Math.sin(tiltRadians)) * extent.z;
   return {
     tiltRadians,
-    span: Math.max(projectedHeight / 2, extent.x / (2 * aspect)) * 1.12 * zoom,
+    span: Math.max(projectedHeight / 2, projectedWidth / (2 * aspect)) * 1.12 * zoom,
     worldExtent: Math.max(extent.x, extent.y, extent.z),
   };
 }

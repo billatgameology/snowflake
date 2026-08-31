@@ -685,6 +685,15 @@ frame allowance remains a margin instead of becoming a crop. Rebuild the same 33
 all 297 captures from an empty review directory; do not accept until the tall oblique/axial views
 show clearance and the complete contact sheet passes visual inspection.
 
+Compose projected-framing implementation checkpoint (2026-08-31): the player now fits both yawed
+screen axes using the registered orthographic projection, and final Compose scenes use scale-to-frame
+factors of 1 or 1.05 rather than cancelling the 12% allowance. The new tall/yawed regression and the
+existing scene/camera/bounds controls pass 15/15 focused tests; the root typecheck (which covers root
+and app), app production build, Rule 7 scan across 1,097 files, JavaScript syntax and diff checks all
+pass. A separately attempted app-workspace `typecheck` command is not a project script; it made no
+change and the required root command had already checked both projects. Commit the implementation,
+rebuild the same 33 scenes and restart the complete review from an empty capture directory.
+
 Final Compose production protocol (registered before implementation, 2026-08-30): after the direct
 review binds accepted full-resolution components, generate exactly 33 `growth-scene-v1` entries—
 three each for 11 Compose types. The two measured direct failures, Multiply Capped Columns and

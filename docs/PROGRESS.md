@@ -563,6 +563,13 @@ half-span. The active plan now registers yaw-aware projected framing, a tall/yaw
 minimum scene frame factor of 1. Next implement and focus-check that correction, rebuild the same 33
 scenes, remove the partial rejected captures and restart all 297 views.
 
+The yaw-aware projected-framing correction is implemented and focus-checked. Orthographic width and
+height now include the actual yawed X/Y contributions, and final Compose scale-to-frame factors are
+1 or 1.05 so the built-in 12% allowance remains positive. Fifteen focused tests pass, the root
+typecheck covers both TypeScript projects, the app production build passes, Rule 7 is clean across
+1,097 files and syntax/diff checks pass. Next commit the correction, rebuild all 33 scenes, remove
+the rejected partial capture directory and restart the complete 297-view review.
+
 ### Phase 10 — planning complete; maker package selection pending
 
 The [candidate plan](plans/phase-10-closures-and-frontier.md) replaces the original A–D shorthand
