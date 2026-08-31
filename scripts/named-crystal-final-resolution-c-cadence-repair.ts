@@ -18,6 +18,7 @@ import {
 import { dirname, join, relative, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
+import { type GrowthAssetV1, decodeGrowthAssetV1 } from "../app/src/growth-asset.ts";
 import {
   type DirectProductionJob,
   type DirectProductionPlan,
@@ -140,7 +141,11 @@ const sameIdentity = (path: string, expected: IdentityWire): boolean => {
   return fileIdentity(path).sha256 === expected.sha256;
 };
 
-const requireIdentity = (path: string, expected: IdentityWire, label: string): void => {
+export const requireFleetCRepairFileIdentity = (
+  path: string,
+  expected: IdentityWire,
+  label: string,
+): void => {
   if (!sameIdentity(path, expected)) {
     const actual = existsSync(path) ? fileIdentity(path) : null;
     throw new Error(`${label}: identity drift; got ${JSON.stringify(actual)}`);
@@ -207,9 +212,13 @@ export function loadFleetCCadenceRepairPlan(
   const initialReportPath = sameIdentity(resolve(repo, wire.firstPass.report.path), wire.firstPass.report)
     ? resolve(repo, wire.firstPass.report.path)
     : archivedInitialReport;
-  requireIdentity(initialReportPath, wire.firstPass.report, "Fleet C first-pass report");
-  requireIdentity(resolve(repo, wire.firstPass.launch.path), wire.firstPass.launch, "Fleet C first-pass launch");
-  requireIdentity(
+  requireFleetCRepairFileIdentity(initialReportPath, wire.firstPass.report, "Fleet C first-pass report");
+  requireFleetCRepairFileIdentity(
+    resolve(repo, wire.firstPass.launch.path),
+    wire.firstPass.launch,
+    "Fleet C first-pass launch",
+  );
+  requireFleetCRepairFileIdentity(
     resolve(repo, wire.firstPass.verticalClearance.path),
     wire.firstPass.verticalClearance,
     "Fleet C first-pass clearance",
@@ -233,7 +242,11 @@ export function loadFleetCCadenceRepairPlan(
       ? join(archiveRoot, repair.jobId)
       : join(firstPassRoot, repair.jobId);
     for (const name of INVARIANT_FILES) {
-      requireIdentity(join(originalJobRoot, name), repair.invariantFiles[name], `${repair.jobId}/${name}`);
+      requireFleetCRepairFileIdentity(
+        join(originalJobRoot, name),
+        repair.invariantFiles[name],
+        `${repair.jobId}/${name}`,
+      );
     }
     const record = JSON.parse(readFileSync(join(originalJobRoot, "record.json"), "utf8")) as {
       readonly tick?: unknown;
@@ -284,6 +297,61 @@ const sha256File = async (path: string): Promise<string> => {
   return hash.digest("hex");
 };
 
+const normalizedRecord = (value: Record<string, unknown>): Record<string, unknown> => {
+  const normalized = structuredClone(value);
+  const mesh = normalized.mesh as Record<string, unknown> | undefined;
+  const growth = normalized.growth as Record<string, unknown> | undefined;
+  if (mesh !== undefined) mesh.path = "<generated-output-path>";
+  if (growth !== undefined) {
+    growth.path = "<generated-output-path>";
+    growth.bytes = "<generated-web-byte-length>";
+  }
+  normalized.elapsedSeconds = "<wall-clock-duration>";
+  return normalized;
+};
+
+export const assertFleetCRepairRecordsEquivalent = (
+  firstPass: Record<string, unknown>,
+  repaired: Record<string, unknown>,
+  label: string,
+): void => {
+  if (JSON.stringify(normalizedRecord(firstPass)) !== JSON.stringify(normalizedRecord(repaired))) {
+    throw new Error(`${label}: repaired record changed outside generated paths/web bytes/wall time`);
+  }
+};
+
+export const assertFleetCRepairGrowthEquivalent = (
+  firstPass: GrowthAssetV1,
+  repaired: GrowthAssetV1,
+  label: string,
+): void => {
+  const scalarEqual =
+    firstPass.eventCount === repaired.eventCount &&
+    firstPass.seedCount === repaired.seedCount &&
+    firstPass.finalTick === repaired.finalTick &&
+    firstPass.dims.join(",") === repaired.dims.join(",") &&
+    firstPass.center.join(",") === repaired.center.join(",");
+  const arraysEqual = (left: Uint32Array, right: Uint32Array): boolean => {
+    if (left.length !== right.length) return false;
+    for (let index = 0; index < left.length; index++) {
+      if (left[index] !== right[index]) return false;
+    }
+    return true;
+  };
+  if (
+    !scalarEqual ||
+    !arraysEqual(firstPass.flatIndices, repaired.flatIndices) ||
+    !arraysEqual(firstPass.attachTicks, repaired.attachTicks)
+  ) {
+    throw new Error(`${label}: repaired decoded growth events changed`);
+  }
+};
+
+const decodeGrowthFile = (path: string): GrowthAssetV1 => {
+  const bytes = readFileSync(path);
+  return decodeGrowthAssetV1(bytes.buffer.slice(bytes.byteOffset, bytes.byteOffset + bytes.byteLength));
+};
+
 const verifyRepairProducts = async (
   plan: FleetCCadenceRepairPlan,
   report: ReportWire,
@@ -303,13 +371,26 @@ const verifyRepairProducts = async (
     }
     const paths = directProductionJobPaths(plan.repairPlan, job);
     await validateDirectProductionProducts(plan.repairPlan, job);
-    for (const name of INVARIANT_FILES) {
+    const originalRoot = existsSync(join(plan.archiveRoot, repair.jobId))
+      ? join(plan.archiveRoot, repair.jobId)
+      : join(plan.firstPassRoot, repair.jobId);
+    for (const name of ["mesh.bin", "state.bin"] as const) {
       const path = join(paths.root, name);
       const expected = repair.invariantFiles[name];
       if (statSync(path).size !== expected.byteLength || await sha256File(path) !== expected.sha256) {
-        throw new Error(`${repair.jobId}/${name}: repaired solver/web identity changed`);
+        throw new Error(`${repair.jobId}/${name}: repaired final solver identity changed`);
       }
     }
+    assertFleetCRepairRecordsEquivalent(
+      JSON.parse(readFileSync(join(originalRoot, "record.json"), "utf8")) as Record<string, unknown>,
+      JSON.parse(readFileSync(join(paths.root, "record.json"), "utf8")) as Record<string, unknown>,
+      repair.jobId,
+    );
+    assertFleetCRepairGrowthEquivalent(
+      decodeGrowthFile(join(originalRoot, "growth-v1.bin")),
+      decodeGrowthFile(join(paths.root, "growth-v1.bin")),
+      repair.jobId,
+    );
   }
 };
 
@@ -328,7 +409,11 @@ const copyFirstPassControls = (plan: FleetCCadenceRepairPlan): void => {
   for (const [source, destination] of copies) {
     if (!existsSync(destination)) copyFileSync(source, destination);
   }
-  requireIdentity(join(plan.archiveRoot, "first-pass-report.json"), plan.wire.firstPass.report, "archived report");
+  requireFleetCRepairFileIdentity(
+    join(plan.archiveRoot, "first-pass-report.json"),
+    plan.wire.firstPass.report,
+    "archived report",
+  );
 };
 
 const integrateRepairDirectories = (plan: FleetCCadenceRepairPlan): void => {
@@ -361,9 +446,68 @@ const reportIdentity = (path: string): IdentityWire & { readonly path: string } 
   ...fileIdentity(path),
 });
 
-const consolidateReport = (plan: FleetCCadenceRepairPlan, repair: ReportWire): Record<string, unknown> => {
+const replaceRootStrings = (value: unknown, from: string, to: string): unknown => {
+  if (typeof value === "string") return value.replaceAll(from, to);
+  if (Array.isArray(value)) return value.map((item) => replaceRootStrings(item, from, to));
+  if (value !== null && typeof value === "object") {
+    return Object.fromEntries(
+      Object.entries(value as Record<string, unknown>)
+        .map(([key, item]) => [key, replaceRootStrings(item, from, to)]),
+    );
+  }
+  return value;
+};
+
+const relocateGrowthHeader = (path: string, from: string, to: string): number => {
+  const input = readFileSync(path);
+  const headerLength = input.readUInt32LE(0);
+  const header = JSON.parse(input.subarray(4, 4 + headerLength).toString()) as Record<string, unknown>;
+  const relocatedHeader = Buffer.from(JSON.stringify(replaceRootStrings(header, from, to)));
+  const output = Buffer.allocUnsafe(4 + relocatedHeader.byteLength + input.byteLength - 4 - headerLength);
+  output.writeUInt32LE(relocatedHeader.byteLength, 0);
+  relocatedHeader.copy(output, 4);
+  input.copy(output, 4 + relocatedHeader.byteLength, 4 + headerLength);
+  writeFileSync(path, output);
+  return output.byteLength;
+};
+
+const relocateRecord = (path: string, from: string, to: string, growthBytes: number): void => {
+  const record = replaceRootStrings(
+    JSON.parse(readFileSync(path, "utf8")) as Record<string, unknown>,
+    from,
+    to,
+  ) as Record<string, unknown>;
+  const growth = record.growth as Record<string, unknown> | undefined;
+  if (growth === undefined) throw new Error(`${path}: relocated record has no growth summary`);
+  growth.bytes = growthBytes;
+  writeFileSync(path, `${JSON.stringify(record, null, 1)}\n`);
+};
+
+const finalizeIntegratedProducts = async (
+  plan: FleetCCadenceRepairPlan,
+): Promise<readonly ResultWire[]> => {
+  const finalPlan: DirectProductionPlan = { ...plan.repairPlan, outRoot: plan.firstPassRoot };
+  const results: ResultWire[] = [];
+  for (const repair of plan.jobs) {
+    const job = finalPlan.jobs.find(({ jobId }) => jobId === repair.jobId)!;
+    const paths = directProductionJobPaths(finalPlan, job);
+    const growthBytes = relocateGrowthHeader(paths.growth, plan.repairRoot, plan.firstPassRoot);
+    relocateRecord(paths.record, plan.repairRoot, plan.firstPassRoot, growthBytes);
+    const products = await validateDirectProductionProducts(finalPlan, job) as unknown as ProductWire;
+    const status = JSON.parse(readFileSync(paths.exit, "utf8")) as ResultWire & Record<string, unknown>;
+    const finalized = { ...status, products } as ResultWire & Record<string, unknown>;
+    writeJsonAtomic(paths.exit, finalized);
+    results.push(finalized);
+  }
+  return results;
+};
+
+const consolidateReport = (
+  plan: FleetCCadenceRepairPlan,
+  repairResults: readonly ResultWire[],
+): Record<string, unknown> => {
   const initial = readReport(join(plan.archiveRoot, "first-pass-report.json"));
-  const repairedById = new Map(repair.results.map((result) => [result.jobId, result]));
+  const repairedById = new Map(repairResults.map((result) => [result.jobId, result]));
   const results = initial.results
     .map((result) => repairedById.get(result.jobId) ?? result)
     .sort((left, right) => left.jobId.localeCompare(right.jobId));
@@ -427,7 +571,8 @@ const runRepair = async (plan: FleetCCadenceRepairPlan): Promise<void> => {
   await verifyRepairProducts(plan, report);
   copyFirstPassControls(plan);
   integrateRepairDirectories(plan);
-  writeJsonAtomic(join(plan.firstPassRoot, "report.json"), consolidateReport(plan, report));
+  const finalResults = await finalizeIntegratedProducts(plan);
+  writeJsonAtomic(join(plan.firstPassRoot, "report.json"), consolidateReport(plan, finalResults));
   const clearance = verifyFinalResolutionVerticalClearanceC(plan.sourcePlan);
   if (clearance.requiredResults !== 12 || clearance.results.some((row) => row.passed !== true)) {
     throw new Error("Fleet C clearance changed after cadence repair");

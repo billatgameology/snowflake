@@ -498,6 +498,14 @@ field/event semantic equality for record/web, relocate only embedded root prefix
 final inventory/status. Next implement and focused-test that correction, commit it, then rerun the
 reconciliation stage without rerunning the completed solvers.
 
+The correction is now implemented and product-sized verification passes: three focused files / 15
+tests, both TypeScript projects, Rule 7 across 1,095 files and diff check. Exact mesh/checkpoint
+identity remains mandatory; non-provenance record fields and both decoded attachment arrays now have
+independent negative controls. The final-root files are re-decoded and recursively inventoried after
+their embedded root prefixes are relocated. Next commit this correction and rerun the same repair
+command; it must detect the complete 3/3 staged report, skip solver work, reconcile Fleet C and leave
+the original failed bundles in the registered archive.
+
 ### Phase 10 — planning complete; maker package selection pending
 
 The [candidate plan](plans/phase-10-closures-and-frontier.md) replaces the original A–D shorthand

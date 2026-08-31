@@ -584,6 +584,16 @@ raw repair launch/report files in the failure archive. Add focused negative cont
 mesh/checkpoint and changed decoded event table; do not infer semantic growth equality only from a
 matching final attached field.
 
+Fleet C reconciliation-correction implementation checkpoint (2026-08-31): the verifier now keeps
+byte equality on final mesh/checkpoint, compares every non-provenance record field, and independently
+compares both decoded growth arrays plus their scalar contract. Integration relocates only embedded
+root strings, preserves the repair cadence/event bytes, re-decodes the final-root web file and
+rebuilds each complete bundle inventory/status before consolidation. Negative controls fail on one
+changed checkpoint byte, one changed record result and one changed attachment index. The three
+focused files pass 15 tests, both TypeScript projects pass, the Rule 7 scan remains clean across
+1,095 files and the diff check passes. Commit this correction, then rerun the command; its complete
+repair report must skip solver generation and perform reconciliation only.
+
 Final Compose production protocol (registered before implementation, 2026-08-30): after the direct
 review binds accepted full-resolution components, generate exactly 33 `growth-scene-v1` entries—
 three each for 11 Compose types. The two measured direct failures, Multiply Capped Columns and
