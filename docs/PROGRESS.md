@@ -115,21 +115,19 @@ detail.
   `gutcheck-growth-scientific@2026-08-26`; two Windows/SMB attempts failed closed before final
   placement, no durable payload has been written, and no local deletion is authorized. The active
   [publication plan](plans/gutcheck-growth-scientific-nas-publication.md) governs the write.
-- **The named snow-crystal animation catalog is IN PROGRESS (2026-08-30); its first 24-entry
-  dual-output production tranche is generated, verified, visually accepted and catalogued.** Maker direction selects all 35
-  Libbrecht guide names as the catalog taxonomy, excludes
-  only `Rimed` and `Graupel` because this work adds no droplet-accretion physics, and requires at
-  least three small parameter variants for each of the remaining 33 types. The resulting floor is
-  99 accepted entries: 24 GG/GG+ type families and nine explicitly composed type families. The
-  [catalog plan](plans/named-crystal-animation-catalog.md) keeps full scientific GG bundles and
-  less-than-20,000,000-byte cold web payloads as separate required products, audits the current 52
-  assets before reuse, and labels composition as presentation rather than one solver state. Its
-  strict [text catalog](named-snow-crystal-catalog.md) now reports 35 rows, 33 included, two
-  excluded, 24 GG/GG+, nine Compose, 99 required animation slots, 24 accepted, and 75 remaining.
-  The accepted rows link exact local previews, web assets, recipes and scientific bundles. The completed
-  [52-asset visual audit](named-snow-crystal-current-assets.md) binds exact web/scientific-record
-  identities and reports 45 strong plus seven near type matches; all 52 web files pass the strict
-  ceiling, with 196,599,652 total bytes and a 10,003,779-byte maximum.
+- **The named snow-crystal animation catalog is COMPLETE (2026-08-31).** The strict
+  [catalog](named-snow-crystal-catalog.json) and linked [text table](named-snow-crystal-catalog.md)
+  report all 35 Libbrecht guide names exactly once: 33 included types with three accepted animations
+  each, plus `Rimed` and `Graupel` visibly excluded because this work adds no droplet-accretion
+  physics. Final totals are 99 accepted / zero remaining, 22 direct GG/GG+ families and 11 explicitly
+  composed families. All 99 decoder-verified cold web payloads are below 20,000,000 bytes and range
+  from 4,769 to 10,923,005 bytes. The 66 direct entries retain 8,999 scientific files /
+  110,701,619,469 bytes with 101–121 mesh frames each; the 33 Compose records bind exact component
+  scientific identities without claiming a composed scene is one solver state. The exact
+  [Compose review](named-snow-crystal-final-compose-review.json) is 50,204 bytes / SHA-256
+  `212434bf4704763ccdd33d17b063a79f4305c020fc9e89024046f372e9e0ac19` and binds all 297 real-browser
+  captures after live clearance and visual progression review. The catalog plan contains the exact
+  report/contact-sheet/catalog identities and final product-sized checks.
 - Historical extent-21 artifacts remain valid measured-only comparisons: **CAK 3/90, M1 54/90**
   over their named scopes. They are not the registered conservative-intersection verdict, which
   decision 0045 closed as not computed.
@@ -140,8 +138,8 @@ detail.
   direction) and content stays in-repo unpublished, `test.yml` CI unaffected. Reconciliation is
   a live decision point under **Next step**. Full freeze history:
   [the history file](progress-history-phases-6-8-9.md).
-- **Last updated:** 2026-08-30 (generated and accepted the first 24 dual-output GG+ catalog entries;
-  no phase or scientific-evidence change)
+- **Last updated:** 2026-08-31 (completed the 99-animation named snow-crystal catalog; no phase or
+  scientific-evidence change)
 
 ## Phase gates
 
@@ -181,11 +179,10 @@ is complete, including growth-event and full scientific output. The active
 continues the same registered worktree only for durable generated-cache publication; it changes no
 phase status or scientific claim.
 The maker-selected [named snow-crystal animation catalog plan](plans/named-crystal-animation-catalog.md)
-is active in `C:/Users/HIL_ADMIN/Documents/GitHub/snowflake-named-catalog` on branch
-`feature/named-crystal-catalog`. Its strict taxonomy manifest, validator, and generated text table
-are complete; it remains isolated from the running publisher. Its first 24-process direct-growth
-screen completed 24/24 jobs, with ten advance candidates, five retune candidates and nine failed
-probes; no screened result is yet a formal catalog acceptance.
+is a completed product record in `C:/Users/HIL_ADMIN/Documents/GitHub/snowflake-named-catalog` on
+branch `feature/named-crystal-catalog`. Its 99 accepted animations, final table, exact dual-output
+bindings and real-browser Compose review are complete; no publication or cross-repository copy is
+implied by that completion.
 The
 [Phase 10 candidate plan](plans/phase-10-closures-and-frontier.md) is decision support, not
 execution authority; no A–H package is selected.
@@ -233,7 +230,7 @@ the restored-tree verifier, or a later fresh-process full NAS verifier in this t
 deferred, keep restore status `documented`, and do not claim they ran. Do not delete
 `out/growth-scientific/` or either failed-attempt quarantine; pruning is not part of this request.
 
-### Named snow-crystal catalog — taxonomy and current-asset audit next
+### Named snow-crystal catalog — complete
 
 Work only in `C:/Users/HIL_ADMIN/Documents/GitHub/snowflake-named-catalog` on
 `feature/named-crystal-catalog`; do not touch the running NAS publisher in the animation worktree.
@@ -583,6 +580,19 @@ actual Three.js component/scene matrices and camera, and the review helper refus
 Four focused files pass 16 tests, both TypeScript projects and the app production build pass, Rule 7
 is clean across 1,097 files and syntax/diff checks pass. Next commit, rebuild, archive the rejected
 partial review and restart with early flat/tall visual sentinels.
+
+That final pass completed all 33 scenes / 297 captures with every live clearance check passing.
+Flat and tall sentinels plus the complete contact sheet and representative seed/middle/final frames
+passed visual review. The exact 45,797-byte Compose report (SHA-256
+`d20832db1c7af49aaaae8e132b536e0298b8a992a11d9c5a25a1dc62a6513467`), 137,828-byte browser review
+(SHA-256 `42b25f9177cdadd5ea7aa9931c3b2f74db0459c6bba9d0de1dd3422260d9d311`) and 5,243,676-byte contact
+sheet (SHA-256 `0e2ea39dccb3fbf2b2c5bed4ef81ecf000670c1afbb80e999b76fe1397f47e59`) are bound by the tracked
+decision and consolidated review. Final acceptance atomically filled the last 33 slots and changed
+Multiply Capped Columns and Needle Clusters to Compose. The catalog is terminal at 99 accepted /
+zero remaining, 22 direct / 11 Compose / two excluded; every cold web payload is below 20,000,000
+bytes. Six focused files pass 26 tests, the root typecheck, app production build, Rule 7 across 1,099
+files and diff check pass. This workstream has no remaining generation step. Publication or copying
+these local products is a separate maker-authorized transaction if desired.
 
 ### Phase 10 — planning complete; maker package selection pending
 

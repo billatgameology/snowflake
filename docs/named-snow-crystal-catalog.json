@@ -601,12 +601,54 @@
       "id": "12-branched-stars",
       "name": "12-branched Stars",
       "route": "compose",
-      "note": "Instance two sixfold plate/star assets with a 30-degree relative rotation.",
+      "note": "Accepted composed-visualization trio; exact scene, component, browser and morphology identities are in docs/named-snow-crystal-final-compose-review.json.",
       "currentCandidates": [],
       "variants": {
-        "lower": null,
-        "baseline": null,
-        "upper": null
+        "lower": {
+          "entryId": "12-branched-stars-lower",
+          "variation": {
+            "driver": "relative-in-plane-rotation",
+            "value": 28,
+            "unit": "degrees"
+          },
+          "links": {
+            "preview": "out/named-crystal-catalog/final-compose-v1/browser-review/12-branched-stars-lower-oblique-final.png",
+            "webAsset": "out/named-crystal-catalog/final-compose-v1/12-branched-stars-lower/scene.json",
+            "recipeOrScene": "out/named-crystal-catalog/final-compose-v1/12-branched-stars-lower/scene.json",
+            "scientificBundle": "out/named-crystal-catalog/final-compose-v1/12-branched-stars-lower/scientific-scene-bundle.json"
+          },
+          "webPayloadBytes": 6648759
+        },
+        "baseline": {
+          "entryId": "12-branched-stars-baseline",
+          "variation": {
+            "driver": "relative-in-plane-rotation",
+            "value": 30,
+            "unit": "degrees"
+          },
+          "links": {
+            "preview": "out/named-crystal-catalog/final-compose-v1/browser-review/12-branched-stars-baseline-oblique-final.png",
+            "webAsset": "out/named-crystal-catalog/final-compose-v1/12-branched-stars-baseline/scene.json",
+            "recipeOrScene": "out/named-crystal-catalog/final-compose-v1/12-branched-stars-baseline/scene.json",
+            "scientificBundle": "out/named-crystal-catalog/final-compose-v1/12-branched-stars-baseline/scientific-scene-bundle.json"
+          },
+          "webPayloadBytes": 6648762
+        },
+        "upper": {
+          "entryId": "12-branched-stars-upper",
+          "variation": {
+            "driver": "relative-in-plane-rotation",
+            "value": 32,
+            "unit": "degrees"
+          },
+          "links": {
+            "preview": "out/named-crystal-catalog/final-compose-v1/browser-review/12-branched-stars-upper-oblique-final.png",
+            "webAsset": "out/named-crystal-catalog/final-compose-v1/12-branched-stars-upper/scene.json",
+            "recipeOrScene": "out/named-crystal-catalog/final-compose-v1/12-branched-stars-upper/scene.json",
+            "scientificBundle": "out/named-crystal-catalog/final-compose-v1/12-branched-stars-upper/scientific-scene-bundle.json"
+          },
+          "webPayloadBytes": 6648757
+        }
       },
       "exclusionReason": null
     },
@@ -680,12 +722,54 @@
       "id": "bullet-rosettes",
       "name": "Bullet Rosettes",
       "route": "compose",
-      "note": "Radially instance a bullet or short-column component.",
+      "note": "Accepted composed-visualization trio; exact scene, component, browser and morphology identities are in docs/named-snow-crystal-final-compose-review.json.",
       "currentCandidates": [],
       "variants": {
-        "lower": null,
-        "baseline": null,
-        "upper": null
+        "lower": {
+          "entryId": "bullet-rosettes-lower",
+          "variation": {
+            "driver": "radial-polar-tilt",
+            "value": 48,
+            "unit": "degrees"
+          },
+          "links": {
+            "preview": "out/named-crystal-catalog/final-compose-v1/browser-review/bullet-rosettes-lower-oblique-final.png",
+            "webAsset": "out/named-crystal-catalog/final-compose-v1/bullet-rosettes-lower/scene.json",
+            "recipeOrScene": "out/named-crystal-catalog/final-compose-v1/bullet-rosettes-lower/scene.json",
+            "scientificBundle": "out/named-crystal-catalog/final-compose-v1/bullet-rosettes-lower/scientific-scene-bundle.json"
+          },
+          "webPayloadBytes": 200664
+        },
+        "baseline": {
+          "entryId": "bullet-rosettes-baseline",
+          "variation": {
+            "driver": "radial-polar-tilt",
+            "value": 52,
+            "unit": "degrees"
+          },
+          "links": {
+            "preview": "out/named-crystal-catalog/final-compose-v1/browser-review/bullet-rosettes-baseline-oblique-final.png",
+            "webAsset": "out/named-crystal-catalog/final-compose-v1/bullet-rosettes-baseline/scene.json",
+            "recipeOrScene": "out/named-crystal-catalog/final-compose-v1/bullet-rosettes-baseline/scene.json",
+            "scientificBundle": "out/named-crystal-catalog/final-compose-v1/bullet-rosettes-baseline/scientific-scene-bundle.json"
+          },
+          "webPayloadBytes": 200697
+        },
+        "upper": {
+          "entryId": "bullet-rosettes-upper",
+          "variation": {
+            "driver": "radial-polar-tilt",
+            "value": 56,
+            "unit": "degrees"
+          },
+          "links": {
+            "preview": "out/named-crystal-catalog/final-compose-v1/browser-review/bullet-rosettes-upper-oblique-final.png",
+            "webAsset": "out/named-crystal-catalog/final-compose-v1/bullet-rosettes-upper/scene.json",
+            "recipeOrScene": "out/named-crystal-catalog/final-compose-v1/bullet-rosettes-upper/scene.json",
+            "scientificBundle": "out/named-crystal-catalog/final-compose-v1/bullet-rosettes-upper/scientific-scene-bundle.json"
+          },
+          "webPayloadBytes": 200661
+        }
       },
       "exclusionReason": null
     },
@@ -825,12 +909,54 @@
       "id": "radiating-plates",
       "name": "Radiating Plates",
       "route": "compose",
-      "note": "Radially instance a plate component in multiple orientations.",
+      "note": "Accepted composed-visualization trio; exact scene, component, browser and morphology identities are in docs/named-snow-crystal-final-compose-review.json.",
       "currentCandidates": [],
       "variants": {
-        "lower": null,
-        "baseline": null,
-        "upper": null
+        "lower": {
+          "entryId": "radiating-plates-lower",
+          "variation": {
+            "driver": "radial-polar-tilt",
+            "value": 36,
+            "unit": "degrees"
+          },
+          "links": {
+            "preview": "out/named-crystal-catalog/final-compose-v1/browser-review/radiating-plates-lower-oblique-final.png",
+            "webAsset": "out/named-crystal-catalog/final-compose-v1/radiating-plates-lower/scene.json",
+            "recipeOrScene": "out/named-crystal-catalog/final-compose-v1/radiating-plates-lower/scene.json",
+            "scientificBundle": "out/named-crystal-catalog/final-compose-v1/radiating-plates-lower/scientific-scene-bundle.json"
+          },
+          "webPayloadBytes": 760379
+        },
+        "baseline": {
+          "entryId": "radiating-plates-baseline",
+          "variation": {
+            "driver": "radial-polar-tilt",
+            "value": 40,
+            "unit": "degrees"
+          },
+          "links": {
+            "preview": "out/named-crystal-catalog/final-compose-v1/browser-review/radiating-plates-baseline-oblique-final.png",
+            "webAsset": "out/named-crystal-catalog/final-compose-v1/radiating-plates-baseline/scene.json",
+            "recipeOrScene": "out/named-crystal-catalog/final-compose-v1/radiating-plates-baseline/scene.json",
+            "scientificBundle": "out/named-crystal-catalog/final-compose-v1/radiating-plates-baseline/scientific-scene-bundle.json"
+          },
+          "webPayloadBytes": 760413
+        },
+        "upper": {
+          "entryId": "radiating-plates-upper",
+          "variation": {
+            "driver": "radial-polar-tilt",
+            "value": 44,
+            "unit": "degrees"
+          },
+          "links": {
+            "preview": "out/named-crystal-catalog/final-compose-v1/browser-review/radiating-plates-upper-oblique-final.png",
+            "webAsset": "out/named-crystal-catalog/final-compose-v1/radiating-plates-upper/scene.json",
+            "recipeOrScene": "out/named-crystal-catalog/final-compose-v1/radiating-plates-upper/scene.json",
+            "scientificBundle": "out/named-crystal-catalog/final-compose-v1/radiating-plates-upper/scientific-scene-bundle.json"
+          },
+          "webPayloadBytes": 760407
+        }
       },
       "exclusionReason": null
     },
@@ -959,13 +1085,55 @@
     {
       "id": "multiply-capped-columns",
       "name": "Multiply Capped Columns",
-      "route": "gg-plus",
-      "note": "The six-stage direct probe produced no separated cap levels; a scientifically bound Compose scene is required before changing this route.",
+      "route": "compose",
+      "note": "Accepted composed-visualization trio; exact scene, component, browser and morphology identities are in docs/named-snow-crystal-final-compose-review.json.",
       "currentCandidates": [],
       "variants": {
-        "lower": null,
-        "baseline": null,
-        "upper": null
+        "lower": {
+          "entryId": "multiply-capped-columns-lower",
+          "variation": {
+            "driver": "axial-instance-spacing",
+            "value": 0.9,
+            "unit": "normalized-units"
+          },
+          "links": {
+            "preview": "out/named-crystal-catalog/final-compose-v1/browser-review/multiply-capped-columns-lower-oblique-final.png",
+            "webAsset": "out/named-crystal-catalog/final-compose-v1/multiply-capped-columns-lower/scene.json",
+            "recipeOrScene": "out/named-crystal-catalog/final-compose-v1/multiply-capped-columns-lower/scene.json",
+            "scientificBundle": "out/named-crystal-catalog/final-compose-v1/multiply-capped-columns-lower/scientific-scene-bundle.json"
+          },
+          "webPayloadBytes": 9764421
+        },
+        "baseline": {
+          "entryId": "multiply-capped-columns-baseline",
+          "variation": {
+            "driver": "axial-instance-spacing",
+            "value": 1,
+            "unit": "normalized-units"
+          },
+          "links": {
+            "preview": "out/named-crystal-catalog/final-compose-v1/browser-review/multiply-capped-columns-baseline-oblique-final.png",
+            "webAsset": "out/named-crystal-catalog/final-compose-v1/multiply-capped-columns-baseline/scene.json",
+            "recipeOrScene": "out/named-crystal-catalog/final-compose-v1/multiply-capped-columns-baseline/scene.json",
+            "scientificBundle": "out/named-crystal-catalog/final-compose-v1/multiply-capped-columns-baseline/scientific-scene-bundle.json"
+          },
+          "webPayloadBytes": 9764422
+        },
+        "upper": {
+          "entryId": "multiply-capped-columns-upper",
+          "variation": {
+            "driver": "axial-instance-spacing",
+            "value": 1.1,
+            "unit": "normalized-units"
+          },
+          "links": {
+            "preview": "out/named-crystal-catalog/final-compose-v1/browser-review/multiply-capped-columns-upper-oblique-final.png",
+            "webAsset": "out/named-crystal-catalog/final-compose-v1/multiply-capped-columns-upper/scene.json",
+            "recipeOrScene": "out/named-crystal-catalog/final-compose-v1/multiply-capped-columns-upper/scene.json",
+            "scientificBundle": "out/named-crystal-catalog/final-compose-v1/multiply-capped-columns-upper/scientific-scene-bundle.json"
+          },
+          "webPayloadBytes": 9764421
+        }
       },
       "exclusionReason": null
     },
@@ -1028,12 +1196,54 @@
       "id": "radiating-dendrites",
       "name": "Radiating Dendrites",
       "route": "compose",
-      "note": "Radially instance a dendrite component in multiple orientations.",
+      "note": "Accepted composed-visualization trio; exact scene, component, browser and morphology identities are in docs/named-snow-crystal-final-compose-review.json.",
       "currentCandidates": [],
       "variants": {
-        "lower": null,
-        "baseline": null,
-        "upper": null
+        "lower": {
+          "entryId": "radiating-dendrites-lower",
+          "variation": {
+            "driver": "radial-polar-tilt",
+            "value": 44,
+            "unit": "degrees"
+          },
+          "links": {
+            "preview": "out/named-crystal-catalog/final-compose-v1/browser-review/radiating-dendrites-lower-oblique-final.png",
+            "webAsset": "out/named-crystal-catalog/final-compose-v1/radiating-dendrites-lower/scene.json",
+            "recipeOrScene": "out/named-crystal-catalog/final-compose-v1/radiating-dendrites-lower/scene.json",
+            "scientificBundle": "out/named-crystal-catalog/final-compose-v1/radiating-dendrites-lower/scientific-scene-bundle.json"
+          },
+          "webPayloadBytes": 6862775
+        },
+        "baseline": {
+          "entryId": "radiating-dendrites-baseline",
+          "variation": {
+            "driver": "radial-polar-tilt",
+            "value": 48,
+            "unit": "degrees"
+          },
+          "links": {
+            "preview": "out/named-crystal-catalog/final-compose-v1/browser-review/radiating-dendrites-baseline-oblique-final.png",
+            "webAsset": "out/named-crystal-catalog/final-compose-v1/radiating-dendrites-baseline/scene.json",
+            "recipeOrScene": "out/named-crystal-catalog/final-compose-v1/radiating-dendrites-baseline/scene.json",
+            "scientificBundle": "out/named-crystal-catalog/final-compose-v1/radiating-dendrites-baseline/scientific-scene-bundle.json"
+          },
+          "webPayloadBytes": 6862746
+        },
+        "upper": {
+          "entryId": "radiating-dendrites-upper",
+          "variation": {
+            "driver": "radial-polar-tilt",
+            "value": 52,
+            "unit": "degrees"
+          },
+          "links": {
+            "preview": "out/named-crystal-catalog/final-compose-v1/browser-review/radiating-dendrites-upper-oblique-final.png",
+            "webAsset": "out/named-crystal-catalog/final-compose-v1/radiating-dendrites-upper/scene.json",
+            "recipeOrScene": "out/named-crystal-catalog/final-compose-v1/radiating-dendrites-upper/scene.json",
+            "scientificBundle": "out/named-crystal-catalog/final-compose-v1/radiating-dendrites-upper/scientific-scene-bundle.json"
+          },
+          "webPayloadBytes": 6862771
+        }
       },
       "exclusionReason": null
     },
@@ -1218,12 +1428,54 @@
       "id": "twin-columns",
       "name": "Twin Columns",
       "route": "compose",
-      "note": "Pair column components under an explicit visual twin transform.",
+      "note": "Accepted composed-visualization trio; exact scene, component, browser and morphology identities are in docs/named-snow-crystal-final-compose-review.json.",
       "currentCandidates": [],
       "variants": {
-        "lower": null,
-        "baseline": null,
-        "upper": null
+        "lower": {
+          "entryId": "twin-columns-lower",
+          "variation": {
+            "driver": "twin-opening-angle",
+            "value": 8,
+            "unit": "degrees"
+          },
+          "links": {
+            "preview": "out/named-crystal-catalog/final-compose-v1/browser-review/twin-columns-lower-oblique-final.png",
+            "webAsset": "out/named-crystal-catalog/final-compose-v1/twin-columns-lower/scene.json",
+            "recipeOrScene": "out/named-crystal-catalog/final-compose-v1/twin-columns-lower/scene.json",
+            "scientificBundle": "out/named-crystal-catalog/final-compose-v1/twin-columns-lower/scientific-scene-bundle.json"
+          },
+          "webPayloadBytes": 198473
+        },
+        "baseline": {
+          "entryId": "twin-columns-baseline",
+          "variation": {
+            "driver": "twin-opening-angle",
+            "value": 10,
+            "unit": "degrees"
+          },
+          "links": {
+            "preview": "out/named-crystal-catalog/final-compose-v1/browser-review/twin-columns-baseline-oblique-final.png",
+            "webAsset": "out/named-crystal-catalog/final-compose-v1/twin-columns-baseline/scene.json",
+            "recipeOrScene": "out/named-crystal-catalog/final-compose-v1/twin-columns-baseline/scene.json",
+            "scientificBundle": "out/named-crystal-catalog/final-compose-v1/twin-columns-baseline/scientific-scene-bundle.json"
+          },
+          "webPayloadBytes": 198475
+        },
+        "upper": {
+          "entryId": "twin-columns-upper",
+          "variation": {
+            "driver": "twin-opening-angle",
+            "value": 12,
+            "unit": "degrees"
+          },
+          "links": {
+            "preview": "out/named-crystal-catalog/final-compose-v1/browser-review/twin-columns-upper-oblique-final.png",
+            "webAsset": "out/named-crystal-catalog/final-compose-v1/twin-columns-upper/scene.json",
+            "recipeOrScene": "out/named-crystal-catalog/final-compose-v1/twin-columns-upper/scene.json",
+            "scientificBundle": "out/named-crystal-catalog/final-compose-v1/twin-columns-upper/scientific-scene-bundle.json"
+          },
+          "webPayloadBytes": 198472
+        }
       },
       "exclusionReason": null
     },
@@ -1231,12 +1483,54 @@
       "id": "irregulars",
       "name": "Irregulars",
       "route": "compose",
-      "note": "Build a clearly labeled visual clump from reproducible GG components.",
+      "note": "Accepted composed-visualization trio; exact scene, component, browser and morphology identities are in docs/named-snow-crystal-final-compose-review.json.",
       "currentCandidates": [],
       "variants": {
-        "lower": null,
-        "baseline": null,
-        "upper": null
+        "lower": {
+          "entryId": "irregulars-lower",
+          "variation": {
+            "driver": "instance-scale-spread",
+            "value": 0.08,
+            "unit": "fraction"
+          },
+          "links": {
+            "preview": "out/named-crystal-catalog/final-compose-v1/browser-review/irregulars-lower-oblique-final.png",
+            "webAsset": "out/named-crystal-catalog/final-compose-v1/irregulars-lower/scene.json",
+            "recipeOrScene": "out/named-crystal-catalog/final-compose-v1/irregulars-lower/scene.json",
+            "scientificBundle": "out/named-crystal-catalog/final-compose-v1/irregulars-lower/scientific-scene-bundle.json"
+          },
+          "webPayloadBytes": 3410680
+        },
+        "baseline": {
+          "entryId": "irregulars-baseline",
+          "variation": {
+            "driver": "instance-scale-spread",
+            "value": 0.1,
+            "unit": "fraction"
+          },
+          "links": {
+            "preview": "out/named-crystal-catalog/final-compose-v1/browser-review/irregulars-baseline-oblique-final.png",
+            "webAsset": "out/named-crystal-catalog/final-compose-v1/irregulars-baseline/scene.json",
+            "recipeOrScene": "out/named-crystal-catalog/final-compose-v1/irregulars-baseline/scene.json",
+            "scientificBundle": "out/named-crystal-catalog/final-compose-v1/irregulars-baseline/scientific-scene-bundle.json"
+          },
+          "webPayloadBytes": 3410641
+        },
+        "upper": {
+          "entryId": "irregulars-upper",
+          "variation": {
+            "driver": "instance-scale-spread",
+            "value": 0.12,
+            "unit": "fraction"
+          },
+          "links": {
+            "preview": "out/named-crystal-catalog/final-compose-v1/browser-review/irregulars-upper-oblique-final.png",
+            "webAsset": "out/named-crystal-catalog/final-compose-v1/irregulars-upper/scene.json",
+            "recipeOrScene": "out/named-crystal-catalog/final-compose-v1/irregulars-upper/scene.json",
+            "scientificBundle": "out/named-crystal-catalog/final-compose-v1/irregulars-upper/scientific-scene-bundle.json"
+          },
+          "webPayloadBytes": 3410645
+        }
       },
       "exclusionReason": null
     },
@@ -1309,8 +1603,8 @@
     {
       "id": "needle-clusters",
       "name": "Needle Clusters",
-      "route": "gg-plus",
-      "note": "The connected multi-tip probe fused into one axial envelope; a scientifically bound Compose scene is required before changing this route.",
+      "route": "compose",
+      "note": "Accepted composed-visualization trio; exact scene, component, browser and morphology identities are in docs/named-snow-crystal-final-compose-review.json.",
       "currentCandidates": [
         {
           "id": "fig39",
@@ -1324,9 +1618,51 @@
         }
       ],
       "variants": {
-        "lower": null,
-        "baseline": null,
-        "upper": null
+        "lower": {
+          "entryId": "needle-clusters-lower",
+          "variation": {
+            "driver": "radial-polar-tilt",
+            "value": 40,
+            "unit": "degrees"
+          },
+          "links": {
+            "preview": "out/named-crystal-catalog/final-compose-v1/browser-review/needle-clusters-lower-oblique-final.png",
+            "webAsset": "out/named-crystal-catalog/final-compose-v1/needle-clusters-lower/scene.json",
+            "recipeOrScene": "out/named-crystal-catalog/final-compose-v1/needle-clusters-lower/scene.json",
+            "scientificBundle": "out/named-crystal-catalog/final-compose-v1/needle-clusters-lower/scientific-scene-bundle.json"
+          },
+          "webPayloadBytes": 1769746
+        },
+        "baseline": {
+          "entryId": "needle-clusters-baseline",
+          "variation": {
+            "driver": "radial-polar-tilt",
+            "value": 44,
+            "unit": "degrees"
+          },
+          "links": {
+            "preview": "out/named-crystal-catalog/final-compose-v1/browser-review/needle-clusters-baseline-oblique-final.png",
+            "webAsset": "out/named-crystal-catalog/final-compose-v1/needle-clusters-baseline/scene.json",
+            "recipeOrScene": "out/named-crystal-catalog/final-compose-v1/needle-clusters-baseline/scene.json",
+            "scientificBundle": "out/named-crystal-catalog/final-compose-v1/needle-clusters-baseline/scientific-scene-bundle.json"
+          },
+          "webPayloadBytes": 1769746
+        },
+        "upper": {
+          "entryId": "needle-clusters-upper",
+          "variation": {
+            "driver": "radial-polar-tilt",
+            "value": 48,
+            "unit": "degrees"
+          },
+          "links": {
+            "preview": "out/named-crystal-catalog/final-compose-v1/browser-review/needle-clusters-upper-oblique-final.png",
+            "webAsset": "out/named-crystal-catalog/final-compose-v1/needle-clusters-upper/scene.json",
+            "recipeOrScene": "out/named-crystal-catalog/final-compose-v1/needle-clusters-upper/scene.json",
+            "scientificBundle": "out/named-crystal-catalog/final-compose-v1/needle-clusters-upper/scientific-scene-bundle.json"
+          },
+          "webPayloadBytes": 1769713
+        }
       },
       "exclusionReason": null
     },
@@ -1395,12 +1731,54 @@
       "id": "arrowhead-twins",
       "name": "Arrowhead Twins",
       "route": "compose",
-      "note": "Pair components under a recorded arrowhead-like twin transform.",
+      "note": "Accepted composed-visualization trio; exact scene, component, browser and morphology identities are in docs/named-snow-crystal-final-compose-review.json.",
       "currentCandidates": [],
       "variants": {
-        "lower": null,
-        "baseline": null,
-        "upper": null
+        "lower": {
+          "entryId": "arrowhead-twins-lower",
+          "variation": {
+            "driver": "twin-opening-angle",
+            "value": 54,
+            "unit": "degrees"
+          },
+          "links": {
+            "preview": "out/named-crystal-catalog/final-compose-v1/browser-review/arrowhead-twins-lower-oblique-final.png",
+            "webAsset": "out/named-crystal-catalog/final-compose-v1/arrowhead-twins-lower/scene.json",
+            "recipeOrScene": "out/named-crystal-catalog/final-compose-v1/arrowhead-twins-lower/scene.json",
+            "scientificBundle": "out/named-crystal-catalog/final-compose-v1/arrowhead-twins-lower/scientific-scene-bundle.json"
+          },
+          "webPayloadBytes": 2812795
+        },
+        "baseline": {
+          "entryId": "arrowhead-twins-baseline",
+          "variation": {
+            "driver": "twin-opening-angle",
+            "value": 58,
+            "unit": "degrees"
+          },
+          "links": {
+            "preview": "out/named-crystal-catalog/final-compose-v1/browser-review/arrowhead-twins-baseline-oblique-final.png",
+            "webAsset": "out/named-crystal-catalog/final-compose-v1/arrowhead-twins-baseline/scene.json",
+            "recipeOrScene": "out/named-crystal-catalog/final-compose-v1/arrowhead-twins-baseline/scene.json",
+            "scientificBundle": "out/named-crystal-catalog/final-compose-v1/arrowhead-twins-baseline/scientific-scene-bundle.json"
+          },
+          "webPayloadBytes": 2812798
+        },
+        "upper": {
+          "entryId": "arrowhead-twins-upper",
+          "variation": {
+            "driver": "twin-opening-angle",
+            "value": 62,
+            "unit": "degrees"
+          },
+          "links": {
+            "preview": "out/named-crystal-catalog/final-compose-v1/browser-review/arrowhead-twins-upper-oblique-final.png",
+            "webAsset": "out/named-crystal-catalog/final-compose-v1/arrowhead-twins-upper/scene.json",
+            "recipeOrScene": "out/named-crystal-catalog/final-compose-v1/arrowhead-twins-upper/scene.json",
+            "scientificBundle": "out/named-crystal-catalog/final-compose-v1/arrowhead-twins-upper/scientific-scene-bundle.json"
+          },
+          "webPayloadBytes": 2812793
+        }
       },
       "exclusionReason": null
     },
@@ -1478,12 +1856,54 @@
       "id": "crossed-needles",
       "name": "Crossed Needles",
       "route": "compose",
-      "note": "Cross one accepted needle component at explicit orientations.",
+      "note": "Accepted composed-visualization trio; exact scene, component, browser and morphology identities are in docs/named-snow-crystal-final-compose-review.json.",
       "currentCandidates": [],
       "variants": {
-        "lower": null,
-        "baseline": null,
-        "upper": null
+        "lower": {
+          "entryId": "crossed-needles-lower",
+          "variation": {
+            "driver": "relative-crossing-angle",
+            "value": 86,
+            "unit": "degrees"
+          },
+          "links": {
+            "preview": "out/named-crystal-catalog/final-compose-v1/browser-review/crossed-needles-lower-oblique-final.png",
+            "webAsset": "out/named-crystal-catalog/final-compose-v1/crossed-needles-lower/scene.json",
+            "recipeOrScene": "out/named-crystal-catalog/final-compose-v1/crossed-needles-lower/scene.json",
+            "scientificBundle": "out/named-crystal-catalog/final-compose-v1/crossed-needles-lower/scientific-scene-bundle.json"
+          },
+          "webPayloadBytes": 1766690
+        },
+        "baseline": {
+          "entryId": "crossed-needles-baseline",
+          "variation": {
+            "driver": "relative-crossing-angle",
+            "value": 90,
+            "unit": "degrees"
+          },
+          "links": {
+            "preview": "out/named-crystal-catalog/final-compose-v1/browser-review/crossed-needles-baseline-oblique-final.png",
+            "webAsset": "out/named-crystal-catalog/final-compose-v1/crossed-needles-baseline/scene.json",
+            "recipeOrScene": "out/named-crystal-catalog/final-compose-v1/crossed-needles-baseline/scene.json",
+            "scientificBundle": "out/named-crystal-catalog/final-compose-v1/crossed-needles-baseline/scientific-scene-bundle.json"
+          },
+          "webPayloadBytes": 1766691
+        },
+        "upper": {
+          "entryId": "crossed-needles-upper",
+          "variation": {
+            "driver": "relative-crossing-angle",
+            "value": 94,
+            "unit": "degrees"
+          },
+          "links": {
+            "preview": "out/named-crystal-catalog/final-compose-v1/browser-review/crossed-needles-upper-oblique-final.png",
+            "webAsset": "out/named-crystal-catalog/final-compose-v1/crossed-needles-upper/scene.json",
+            "recipeOrScene": "out/named-crystal-catalog/final-compose-v1/crossed-needles-upper/scene.json",
+            "scientificBundle": "out/named-crystal-catalog/final-compose-v1/crossed-needles-upper/scientific-scene-bundle.json"
+          },
+          "webPayloadBytes": 1766658
+        }
       },
       "exclusionReason": null
     },
@@ -1567,12 +1987,54 @@
       "id": "crossed-plates",
       "name": "Crossed Plates",
       "route": "compose",
-      "note": "Cross one accepted plate component at explicit orientations.",
+      "note": "Accepted composed-visualization trio; exact scene, component, browser and morphology identities are in docs/named-snow-crystal-final-compose-review.json.",
       "currentCandidates": [],
       "variants": {
-        "lower": null,
-        "baseline": null,
-        "upper": null
+        "lower": {
+          "entryId": "crossed-plates-lower",
+          "variation": {
+            "driver": "relative-crossing-angle",
+            "value": 56,
+            "unit": "degrees"
+          },
+          "links": {
+            "preview": "out/named-crystal-catalog/final-compose-v1/browser-review/crossed-plates-lower-oblique-final.png",
+            "webAsset": "out/named-crystal-catalog/final-compose-v1/crossed-plates-lower/scene.json",
+            "recipeOrScene": "out/named-crystal-catalog/final-compose-v1/crossed-plates-lower/scene.json",
+            "scientificBundle": "out/named-crystal-catalog/final-compose-v1/crossed-plates-lower/scientific-scene-bundle.json"
+          },
+          "webPayloadBytes": 757310
+        },
+        "baseline": {
+          "entryId": "crossed-plates-baseline",
+          "variation": {
+            "driver": "relative-crossing-angle",
+            "value": 60,
+            "unit": "degrees"
+          },
+          "links": {
+            "preview": "out/named-crystal-catalog/final-compose-v1/browser-review/crossed-plates-baseline-oblique-final.png",
+            "webAsset": "out/named-crystal-catalog/final-compose-v1/crossed-plates-baseline/scene.json",
+            "recipeOrScene": "out/named-crystal-catalog/final-compose-v1/crossed-plates-baseline/scene.json",
+            "scientificBundle": "out/named-crystal-catalog/final-compose-v1/crossed-plates-baseline/scientific-scene-bundle.json"
+          },
+          "webPayloadBytes": 757313
+        },
+        "upper": {
+          "entryId": "crossed-plates-upper",
+          "variation": {
+            "driver": "relative-crossing-angle",
+            "value": 64,
+            "unit": "degrees"
+          },
+          "links": {
+            "preview": "out/named-crystal-catalog/final-compose-v1/browser-review/crossed-plates-upper-oblique-final.png",
+            "webAsset": "out/named-crystal-catalog/final-compose-v1/crossed-plates-upper/scene.json",
+            "recipeOrScene": "out/named-crystal-catalog/final-compose-v1/crossed-plates-upper/scene.json",
+            "scientificBundle": "out/named-crystal-catalog/final-compose-v1/crossed-plates-upper/scientific-scene-bundle.json"
+          },
+          "webPayloadBytes": 757310
+        }
       },
       "exclusionReason": null
     },

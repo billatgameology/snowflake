@@ -63,10 +63,16 @@ const fixture = (options: FixtureOptions = {}): Fixture => {
     entries: Array<Record<string, unknown>>;
   };
   for (const entry of rawCatalog.entries) {
+    const variants = entry.variants as Record<string, unknown>;
+    if (entry.route === "compose") {
+      for (const slot of SLOTS) variants[slot] = null;
+      if (ROUTE_CHANGES.includes(entry.id as (typeof ROUTE_CHANGES)[number])) {
+        entry.route = "gg-plus";
+      }
+    }
     if ((entry.route === "gg" || entry.route === "gg-plus") && !ROUTE_CHANGES.includes(
       entry.id as (typeof ROUTE_CHANGES)[number],
     )) {
-      const variants = entry.variants as Record<string, unknown>;
       for (const slot of SLOTS) {
         variants[slot] = {
           entryId: `direct-${String(entry.id)}-${slot}`,

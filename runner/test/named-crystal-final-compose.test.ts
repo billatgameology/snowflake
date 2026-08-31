@@ -17,6 +17,8 @@ import {
 const REPO = resolve(import.meta.dirname, "../..");
 const MANIFEST = resolve(REPO, "docs", "named-snow-crystal-final-compose.json");
 const CATALOG = resolve(REPO, "docs", "named-snow-crystal-catalog.json");
+const ROUTE_CHANGES = ["multiply-capped-columns", "needle-clusters"] as const;
+const SLOTS = ["lower", "baseline", "upper"] as const;
 const roots: string[] = [];
 
 afterEach(() => {
@@ -42,6 +44,23 @@ const encodeGrowth = (): Uint8Array => {
     view.setUint32(4 + header.length + index * 8 + 4, tick, true);
   }
   return bytes;
+};
+
+const preComposeCatalog = (root: string): string => {
+  const catalog = JSON.parse(readFileSync(CATALOG, "utf8")) as {
+    entries: Array<Record<string, unknown>>;
+  };
+  for (const entry of catalog.entries) {
+    if (entry.route !== "compose") continue;
+    const variants = entry.variants as Record<string, unknown>;
+    for (const slot of SLOTS) variants[slot] = null;
+    if (ROUTE_CHANGES.includes(entry.id as (typeof ROUTE_CHANGES)[number])) {
+      entry.route = "gg-plus";
+    }
+  }
+  const path = join(root, "pre-compose-catalog.json");
+  writeFileSync(path, JSON.stringify(catalog));
+  return path;
 };
 
 const fixture = (): { manifest: string; outRoot: string } => {
@@ -77,7 +96,7 @@ const fixture = (): { manifest: string; outRoot: string } => {
     })),
   }));
   const wire = JSON.parse(readFileSync(MANIFEST, "utf8")) as Record<string, unknown>;
-  wire.catalog = CATALOG;
+  wire.catalog = preComposeCatalog(root);
   wire.directReview = directReviewPath;
   wire.outRoot = join(root, "out");
   const manifest = join(root, "manifest.json");
@@ -87,7 +106,8 @@ const fixture = (): { manifest: string; outRoot: string } => {
 
 describe("named crystal final Compose production", () => {
   it("registers 11 one-driver trios against the accepted direct review", () => {
-    const plan = loadFinalComposePlan();
+    const { manifest, outRoot } = fixture();
+    const plan = loadFinalComposePlan(manifest, outRoot, REPO);
     expect(plan.entries).toHaveLength(33);
     expect(new Set(plan.entries.map(({ typeId }) => typeId))).toHaveLength(11);
     for (const typeId of new Set(plan.entries.map(({ typeId }) => typeId))) {
@@ -102,6 +122,7 @@ describe("named crystal final Compose production", () => {
     const root = mkdtempSync(join(tmpdir(), "named-final-compose-missing-review-"));
     roots.push(root);
     const wire = JSON.parse(readFileSync(MANIFEST, "utf8")) as Record<string, unknown>;
+    wire.catalog = preComposeCatalog(root);
     wire.directReview = join(root, "missing-direct-review.json");
     wire.outRoot = join(root, "out");
     const manifest = join(root, "manifest.json");

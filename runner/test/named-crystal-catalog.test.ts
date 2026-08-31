@@ -33,27 +33,28 @@ describe("named snow-crystal catalog", () => {
       taxonomyRows: 35,
       includedTypes: 33,
       excludedTypes: 2,
-      ggTypes: 24,
-      composeTypes: 9,
+      ggTypes: 22,
+      composeTypes: 11,
       requiredSlots: 99,
-      acceptedSlots: 66,
-      remainingSlots: 33,
+      acceptedSlots: 99,
+      remainingSlots: 0,
     });
     expect(catalog.entries.filter((entry) => entry.route === "excluded-new-physics").map((entry) => entry.name))
       .toEqual(["Rimed", "Graupel"]);
   });
 
-  it("renders a text table with accepted direct assets and pending Compose rows", () => {
+  it("renders a text table with accepted direct and Compose assets", () => {
     const catalog = parseNamedCrystalCatalog(rawManifest());
     const table = renderNamedCrystalCatalogTable(catalog, resolve(REPO, "docs/named-snow-crystal-catalog.md"));
     expect(table).toContain("| Hollow Columns | gg |");
     expect(table).toContain("[fig30 (anchor)](../evidence/gutcheck-gg-realism/fig-records/fig30-record.json)");
     expect(table).toContain("[scroll-stop-100 (anchor)](named-snow-crystal-early-stop-probe-review.json)");
     expect(table).toContain("| Required accepted animations | 99 |");
-    expect(table).toContain("| Accepted animations | 66 |");
-    expect(table).toContain("| Remaining animations | 33 |");
+    expect(table).toContain("| Accepted animations | 99 |");
+    expect(table).toContain("| Remaining animations | 0 |");
     expect(table).toContain("named-snow-crystal-final-direct-review.json");
-    expect(table).toContain("| 12-branched Stars | compose | — | 0/3 |");
+    expect(table).toContain("named-snow-crystal-final-compose-review.json");
+    expect(table).toContain("| 12-branched Stars | compose | — | 3/3");
     expect(table).toContain("| Rimed | excluded-new-physics | — | — | Excluded");
   });
 

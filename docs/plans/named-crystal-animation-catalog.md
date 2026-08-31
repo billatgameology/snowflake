@@ -233,15 +233,15 @@ website copying remain explicit governed transactions, never implicit side effec
       record accepted/near/missing by exact asset identity.
 - [x] Specify and implement versioned deterministic custom seeds while leaving the G-G update rule
       bit-unchanged for the existing hexagonal-prism path.
-- [ ] Produce one accepted baseline for every GG/GG+ type, running bounded probes first for the four
+- [x] Produce one accepted baseline for every GG/GG+ type, running bounded probes first for the four
       uncertain fixed-lattice forms.
-- [ ] Implement and round-trip `growth-scene-v1`; produce one accepted baseline for every Compose
+- [x] Implement and round-trip `growth-scene-v1`; produce one accepted baseline for every Compose
       type and measure cold unique web payloads.
-- [ ] Pre-register and generate the lower/baseline/upper family for every included type; replace any
+- [x] Pre-register and generate the lower/baseline/upper family for every included type; replace any
       candidate that crosses its type boundary.
-- [ ] Generate or bind full scientific bundles and less-than-20,000,000-byte web forms; verify every
+- [x] Generate or bind full scientific bundles and less-than-20,000,000-byte web forms; verify every
       web entry through the real decoder.
-- [ ] Publish the final linked table and exact manifest counts, recording actual route totals,
+- [x] Publish the final linked table and exact manifest counts, recording actual route totals,
       reused/new run counts, byte totals, checks, and governed asset locators in this plan and
       `docs/PROGRESS.md`.
 
@@ -1077,6 +1077,42 @@ Product-sized pre-launch verification passed:
 - `npm run typecheck`
 - `npm run lint:rule7`
 - `git diff --check`
+
+## Completion record — 2026-08-31
+
+The maker-selected no-new-physics catalog is complete at 99 accepted animations / zero remaining:
+22 direct GG/GG+ families, 11 explicitly composed families and the two visible exclusions, `Rimed`
+and `Graupel`. Every included family has lower/baseline/upper entries under one declared driver.
+The final generated [catalog](../named-snow-crystal-catalog.json) is 92,854 bytes / SHA-256
+`e010bfa101a1a6a38c7976b4e38a78b26916f8aadfb918e075c28605161a5bdc`; its linked
+[table](../named-snow-crystal-catalog.md) is 50,978 bytes / SHA-256
+`38c0b1986a3bccaaac3c6316546cb97b6a1b2862860584e8828b3399e6358037`.
+The validator independently reports 35 taxonomy rows, 33 included, two excluded, 99 accepted and
+zero remaining. All 99 cold web payloads are decoder-verified and range from 4,769 to 10,923,005
+bytes, strictly below 20,000,000.
+
+The 66 direct entries retain their complete final-resolution scientific products. From the exact
+Fleet A/B/C reports at final acceptance, their scientific inventories sum to 8,999 files /
+110,701,619,469 bytes with 101–121 recorded mesh frames per entry; their web files total
+182,578,524 bytes. The 33 Compose entries add strict `growth-scene-v1` manifests and 33 scientific
+scene bundles that bind exact component-science identities; none is described as a single solver
+checkpoint. The exact final Compose production report is 45,797 bytes / SHA-256
+`d20832db1c7af49aaaae8e132b536e0298b8a992a11d9c5a25a1dc62a6513467`.
+
+Real Chromium playback fetched, SHA-256 checked and decoded every scene component, then captured
+face / oblique / axial views at start / 55% / final time. The complete 297-capture review is
+137,828 bytes / SHA-256 `42b25f9177cdadd5ea7aa9931c3b2f74db0459c6bba9d0de1dd3422260d9d311`;
+its 5,243,676-byte final-time contact sheet has SHA-256
+`0e2ea39dccb3fbf2b2c5bed4ef81ecf000670c1afbb80e999b76fe1397f47e59`. Every view passed the live
+rendered-cell `-0.9..0.9` NDC clearance gate. Visual inspection accepted all 11 family trios and
+representative seed/middle/final progression. The tracked consolidated Compose review is 50,204
+bytes / SHA-256 `212434bf4704763ccdd33d17b063a79f4305c020fc9e89024046f372e9e0ac19`.
+
+Final product-sized verification passes 26/26 focused tests across six files, the root typecheck
+(root plus app), the app production build, Rule 7 across 1,099 files and `git diff --check`. The
+tests construct explicit 66/33 pre-Compose fixtures rather than treating the now-terminal live
+catalog as a reusable pre-acceptance input. Exact `npm test` and scientific gates were deliberately
+not run because this closing transaction is isolated catalog, composition and presentation work.
 
 ## Out of scope
 
