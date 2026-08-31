@@ -1,6 +1,9 @@
 import { describe, expect, it } from "vitest";
 
-import { growthSceneReviewCamera } from "../src/growth-scene-review-camera.ts";
+import {
+  growthSceneProjectedBoundsHaveClearance,
+  growthSceneReviewCamera,
+} from "../src/growth-scene-review-camera.ts";
 
 const committed = { tiltDegrees: 38, yawDegrees: 15 };
 
@@ -29,5 +32,21 @@ describe("growth scene capture-only review camera", () => {
       new URLSearchParams({ capture: "1", reviewYaw: "181" }),
       committed,
     )).toThrow(/reviewYaw must be finite/u);
+  });
+
+  it("requires five-percent rendered clearance on every viewport edge", () => {
+    expect(growthSceneProjectedBoundsHaveClearance({
+      xMin: -0.89,
+      xMax: 0.9,
+      yMin: -0.8,
+      yMax: 0.75,
+    })).toBe(true);
+    expect(growthSceneProjectedBoundsHaveClearance({
+      xMin: -0.91,
+      xMax: 0.8,
+      yMin: -0.8,
+      yMax: 0.8,
+    })).toBe(false);
+    expect(growthSceneProjectedBoundsHaveClearance(undefined)).toBe(false);
   });
 });

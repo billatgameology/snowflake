@@ -577,6 +577,13 @@ Three.js projected-cell rectangle that makes the browser harness fail unless eve
 clearance on all sides. Next implement/focus-check the rendered-clearance contract, rebuild the 33
 scenes and validate the first flat and tall sentinels before continuing the full pass.
 
+The rendered-clearance gate is implemented: full-growth decoded cells are projected through the
+actual Three.js component/scene matrices and camera, and the review helper refuses a view outside
+`-0.9..0.9` NDC before taking screenshots. Final Compose scenes use a conservative 1.4 frame factor.
+Four focused files pass 16 tests, both TypeScript projects and the app production build pass, Rule 7
+is clean across 1,097 files and syntax/diff checks pass. Next commit, rebuild, archive the rejected
+partial review and restart with early flat/tall visual sentinels.
+
 ### Phase 10 — planning complete; maker package selection pending
 
 The [candidate plan](plans/phase-10-closures-and-frontier.md) replaces the original A–D shorthand

@@ -708,6 +708,14 @@ at least 5% of the viewport (`-0.9..0.9` in NDC). Add focused contract coverage 
 rectangle and the fail-closed review check. Rebuild the same 33 scene IDs and validate the first flat
 and first tall family captures before allowing the full 297-view pass to continue.
 
+Compose rendered-clearance implementation checkpoint (2026-08-31): final scenes now use the 1.4
+factor, the player projects full-growth event-cell bounds through the actual Three.js matrices/camera,
+and the browser-review helper refuses any view outside `-0.9..0.9` NDC before capture. The new
+clearance predicate includes accepting and rejecting controls. Four focused files pass 16/16 tests;
+both TypeScript projects, the app production build, Rule 7 across 1,097 files, JavaScript syntax and
+diff checks pass. Rebuild, archive the partial rejected set, then use the live gate and visual checks
+on the first flat/tall sentinels before completing all 297 views.
+
 Final Compose production protocol (registered before implementation, 2026-08-30): after the direct
 review binds accepted full-resolution components, generate exactly 33 `growth-scene-v1` entries—
 three each for 11 Compose types. The two measured direct failures, Multiply Capped Columns and

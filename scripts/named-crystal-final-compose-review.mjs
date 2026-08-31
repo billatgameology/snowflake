@@ -11,6 +11,8 @@ import { mkdirSync, readFileSync, statSync, writeFileSync } from "node:fs";
 import { dirname, join, relative, resolve } from "node:path";
 import { chromium } from "playwright";
 
+import { growthSceneProjectedBoundsHaveClearance } from "../app/src/growth-scene-review-camera.ts";
+
 const argument = (name, fallback) => {
   const index = process.argv.indexOf(`--${name}`);
   if (index < 0) return fallback;
@@ -141,6 +143,13 @@ try {
         );
         const error = await page.evaluate(() => window.__spikeError);
         if (error !== undefined) throw new Error(`${result.entryId}/${view.id}: ${String(error)}`);
+        const projectedBounds = await page.evaluate(() => window.__sceneProjectedBounds);
+        if (!growthSceneProjectedBoundsHaveClearance(projectedBounds)) {
+          throw new Error(
+            `${result.entryId}/${view.id}: rendered full-growth bounds lack 5% viewport clearance: ` +
+              JSON.stringify(projectedBounds),
+          );
+        }
         const duration = await page.evaluate(() => window.__sceneDuration);
         if (typeof duration !== "number" || !Number.isFinite(duration) || duration <= 0) {
           throw new Error(`${result.entryId}/${view.id}: browser did not expose a valid scene duration`);

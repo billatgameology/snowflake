@@ -522,7 +522,7 @@ const componentsFor = (
 const cameraFor = (pattern: Pattern): GrowthSceneV1["camera"] => ({
   tiltDegrees: pattern === "crossed-plates" ? 55 : 38,
   yawDegrees: pattern === "irregular-cluster" ? 25 : 15,
-  zoom: pattern.startsWith("radial-") ? 1.05 : 1,
+  zoom: 1.4,
 });
 
 export function buildFinalComposeScenes(plan: FinalComposePlan): {

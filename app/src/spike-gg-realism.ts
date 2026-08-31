@@ -26,7 +26,10 @@ import {
   growthSceneColdPayloadBytes,
   parseGrowthSceneV1,
 } from "./growth-scene.ts";
-import { growthSceneReviewCamera } from "./growth-scene-review-camera.ts";
+import {
+  type GrowthSceneProjectedBounds,
+  growthSceneReviewCamera,
+} from "./growth-scene-review-camera.ts";
 import { spikeOrthographicFrame } from "./spike-frame.ts";
 
 interface SpikeWindow {
@@ -35,6 +38,8 @@ interface SpikeWindow {
   /** Scene mode (?scene=): deterministic seek used by app/scripts/scene-capture.mjs. */
   __sceneSeek?: (tSeconds: number) => Promise<void>;
   __sceneDuration?: number;
+  /** Full-growth rendered cell bounds in live-camera normalized device coordinates. */
+  __sceneProjectedBounds?: GrowthSceneProjectedBounds;
 }
 
 interface GutcheckMesh {
@@ -1360,16 +1365,29 @@ async function growthSceneMain(sceneUrl: string): Promise<void> {
     const [centerI, centerJ, centerK] = asset.center;
     const centerX = centerI + centerJ / 2;
     const centerY = (Math.sqrt(3) * centerJ) / 2;
+    const localBounds = {
+      xMin: Infinity,
+      xMax: -Infinity,
+      yMin: Infinity,
+      yMax: -Infinity,
+      zMin: Infinity,
+      zMax: -Infinity,
+    };
     for (let event = 0; event < asset.eventCount; event++) {
       const flat = asset.flatIndices[event]!;
       const i = flat % nx;
       const j = Math.floor(flat / nx) % ny;
       const k = Math.floor(flat / (nx * ny));
-      matrix.makeTranslation(
-        i + j / 2 - centerX,
-        (Math.sqrt(3) * j) / 2 - centerY,
-        (k - centerK) * zscale,
-      );
+      const x = i + j / 2 - centerX;
+      const y = (Math.sqrt(3) * j) / 2 - centerY;
+      const z = (k - centerK) * zscale;
+      localBounds.xMin = Math.min(localBounds.xMin, x - 0.58);
+      localBounds.xMax = Math.max(localBounds.xMax, x + 0.58);
+      localBounds.yMin = Math.min(localBounds.yMin, y - 0.58);
+      localBounds.yMax = Math.max(localBounds.yMax, y + 0.58);
+      localBounds.zMin = Math.min(localBounds.zMin, z - 0.46);
+      localBounds.zMax = Math.max(localBounds.zMax, z + 0.46);
+      matrix.makeTranslation(x, y, z);
       mesh.setMatrixAt(event, matrix);
     }
     mesh.instanceMatrix.needsUpdate = true;
@@ -1385,8 +1403,37 @@ async function growthSceneMain(sceneUrl: string): Promise<void> {
     componentGroup.scale.setScalar(component.transform.scale);
     componentGroup.add(mesh);
     rig.group.add(componentGroup);
-    return { component, asset, mesh };
+    return { component, asset, mesh, componentGroup, localBounds };
   }));
+
+  rig.group.updateMatrixWorld(true);
+  rig.camera.updateMatrixWorld(true);
+  const projectedBounds: {
+    xMin: number;
+    xMax: number;
+    yMin: number;
+    yMax: number;
+  } = {
+    xMin: Infinity,
+    xMax: -Infinity,
+    yMin: Infinity,
+    yMax: -Infinity,
+  };
+  for (const item of loaded) {
+    for (const x of [item.localBounds.xMin, item.localBounds.xMax]) {
+      for (const y of [item.localBounds.yMin, item.localBounds.yMax]) {
+        for (const z of [item.localBounds.zMin, item.localBounds.zMax]) {
+          const projected = new THREE.Vector3(x, y, z)
+            .applyMatrix4(item.componentGroup.matrixWorld)
+            .project(rig.camera);
+          projectedBounds.xMin = Math.min(projectedBounds.xMin, projected.x);
+          projectedBounds.xMax = Math.max(projectedBounds.xMax, projected.x);
+          projectedBounds.yMin = Math.min(projectedBounds.yMin, projected.y);
+          projectedBounds.yMax = Math.max(projectedBounds.yMax, projected.y);
+        }
+      }
+    }
+  }
 
   if (param("ui", "1") !== "0") {
     const disclosure = document.createElement("div");
@@ -1419,6 +1466,7 @@ async function growthSceneMain(sceneUrl: string): Promise<void> {
 
   const spikeWindow = window as unknown as SpikeWindow;
   spikeWindow.__sceneDuration = duration;
+  spikeWindow.__sceneProjectedBounds = projectedBounds;
   spikeWindow.__sceneSeek = seek;
   await seek(0);
   if (param("capture", "0") !== "1") {
