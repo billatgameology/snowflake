@@ -398,7 +398,7 @@ export function loadDirectProductionPlan(
   };
 }
 
-const jobPaths = (plan: DirectProductionPlan, job: DirectProductionJob) => {
+export const directProductionJobPaths = (plan: DirectProductionPlan, job: DirectProductionJob) => {
   const root = join(plan.outRoot, job.jobId);
   return {
     root,
@@ -420,7 +420,7 @@ export const buildProductionArgv = (
   job: DirectProductionJob,
   repo = REPO,
 ): string[] => {
-  const paths = jobPaths(plan, job);
+  const paths = directProductionJobPaths(plan, job);
   const execution = plan.execution;
   return [
     "--max-old-space-size=4096",
@@ -445,7 +445,7 @@ export const buildProductionArgv = (
 };
 
 const jobDone = (plan: DirectProductionPlan, job: DirectProductionJob): boolean => {
-  const paths = jobPaths(plan, job);
+  const paths = directProductionJobPaths(plan, job);
   if (
     ![paths.mesh, paths.state, paths.record, paths.growth, paths.frameManifest, paths.exit].every(
       existsSync,
@@ -510,11 +510,11 @@ const inventoryJob = async (root: string): Promise<{
   };
 };
 
-const validateProducts = async (
+export const validateDirectProductionProducts = async (
   plan: DirectProductionPlan,
   job: DirectProductionJob,
 ): Promise<Record<string, unknown>> => {
-  const paths = jobPaths(plan, job);
+  const paths = directProductionJobPaths(plan, job);
   for (const [label, path] of Object.entries({
     mesh: paths.mesh,
     state: paths.state,
@@ -676,7 +676,7 @@ export const runDirectProductionPlan = async (plan: DirectProductionPlan): Promi
   const worker = async (): Promise<void> => {
     while (next < pending.length) {
       const job = pending[next++]!;
-      const paths = jobPaths(plan, job);
+      const paths = directProductionJobPaths(plan, job);
       mkdirSync(paths.root, { recursive: true });
       writeFileSync(paths.spec, canonicalJson(job.spec));
       writeFileSync(paths.stdout, "");
@@ -697,7 +697,7 @@ export const runDirectProductionPlan = async (plan: DirectProductionPlan): Promi
       let failure: string | null = null;
       if (childResult.exitCode === 0) {
         try {
-          products = await validateProducts(plan, job);
+          products = await validateDirectProductionProducts(plan, job);
         } catch (error) {
           failure = error instanceof Error ? error.message : String(error);
         }
@@ -740,8 +740,10 @@ export const runDirectProductionPlan = async (plan: DirectProductionPlan): Promi
   await Promise.all(Array.from({ length: actualWorkerCount }, worker));
 
   const results = plan.jobs
-    .filter((job) => existsSync(jobPaths(plan, job).exit))
-    .map((job) => JSON.parse(readFileSync(jobPaths(plan, job).exit, "utf8")) as Record<string, unknown>)
+    .filter((job) => existsSync(directProductionJobPaths(plan, job).exit))
+    .map((job) => JSON.parse(
+      readFileSync(directProductionJobPaths(plan, job).exit, "utf8"),
+    ) as Record<string, unknown>)
     .sort((left, right) => String(left.jobId).localeCompare(String(right.jobId)));
   const failed = results.filter((result) => result.exitCode !== 0);
   const completed = results.filter((result) => result.exitCode === 0);

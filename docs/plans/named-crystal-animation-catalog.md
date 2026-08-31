@@ -552,6 +552,17 @@ focused repair/reconciliation tests, both typechecks, the Rule 7 scan and diff c
 repair implementation before launch. After the repaired report is complete, regenerate and inspect
 Fleet C's exact three-view contact sheet before creating the consolidated direct decision.
 
+Fleet C cadence-repair implementation checkpoint (2026-08-31): the tracked repair manifest pins
+the exact first-pass report/launch/clearance, three failed jobs, observed final ticks, old/new
+cadences and byte identities for each final mesh, checkpoint, record and compact web animation. The
+repair runner derives the three jobs from the unchanged Fleet C plan, runs them in a separate root,
+revalidates their full products, requires exactly 121 frames and byte-identical solver/web outputs,
+then archives the failed directories and writes a provenance-bearing 24/24 consolidated report. It
+preserves the original 24-worker launch and records the actual three-worker repair separately. The
+read-only plan passes, the three focused files pass 13 tests, both TypeScript projects pass, the
+Rule 7 scan is clean across 1,095 files and the diff check passes. Commit this implementation, then
+run the exact three-job repair in parallel.
+
 Final Compose production protocol (registered before implementation, 2026-08-30): after the direct
 review binds accepted full-resolution components, generate exactly 33 `growth-scene-v1` entries—
 three each for 11 Compose types. The two measured direct failures, Multiply Capped Columns and

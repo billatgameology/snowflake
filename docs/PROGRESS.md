@@ -476,6 +476,16 @@ focused-test the fail-closed repair/reconciliation tool, commit it, run the thre
 then render and inspect Fleet C's contact sheet. Do not weaken the 100-frame floor or change solver
 recipes/domains.
 
+The fail-closed cadence repair is now implemented. Its tracked manifest binds all first-pass and
+unchanged-product identities; the runner derives exactly the three registered jobs, stages them in
+a separate root, verifies 121-frame timelines plus byte-identical final mesh/checkpoint/record/web
+products, archives the failed bundles, and reconciles the fleet without rewriting its original
+24-worker launch. The read-only plan succeeds; the three focused files pass 13 tests; both
+TypeScript projects, the Rule 7 scan (1,095 files) and diff check pass. Next commit this checkpoint,
+then run `node scripts/named-crystal-final-resolution-c-cadence-repair.ts run`; the three independent
+repairs use three actual workers because no other failed recipe exists to occupy the remaining
+cores. After 3/3 completes, render and inspect Fleet C's three-view sheet.
+
 ### Phase 10 — planning complete; maker package selection pending
 
 The [candidate plan](plans/phase-10-closures-and-frontier.md) replaces the original A–D shorthand
