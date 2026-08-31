@@ -506,6 +506,18 @@ their embedded root prefixes are relocated. Next commit this correction and reru
 command; it must detect the complete 3/3 staged report, skip solver work, reconcile Fleet C and leave
 the original failed bundles in the registered archive.
 
+Fleet C is now complete and visually reviewed. Its exact 686,526-byte consolidated report (SHA-256
+`0807b91d123516b4cbfc6d9be8306e8a1838b21f36e1f0e76d8363240e380490`) records 24/24,
+decoder-verified web assets of 88,655–8,441,989 bytes, and 3,032 scientific files /
+55,888,738,908 bytes with 102–121 frames. Clearance remains 12/12 in the exact 4,703-byte report
+(SHA-256 `b368839ad836f358f83bedea994318bc686ba08078869a3e4ff7c880ba5067a0`). The exact 9,654,924-byte
+three-view sheet (SHA-256
+`4addc816196a172831df0702b7901d5f2028188076d8aaca1405672015cbee5d`) passes all five trios; Capped
+Bullets stops 4,500/5,000/5,500 are the selected adjacent trio because each retains a tapered bullet
+body and distinct plate cap. The exact three-fleet decision is now tracked. Next commit this review
+and decision, then run `node scripts/named-crystal-final-direct-accept.ts` to fill 66 direct slots;
+after its focused verification, build the 33 registered Compose scenes.
+
 ### Phase 10 — planning complete; maker package selection pending
 
 The [candidate plan](plans/phase-10-closures-and-frontier.md) replaces the original A–D shorthand

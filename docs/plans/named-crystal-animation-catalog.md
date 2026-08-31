@@ -594,6 +594,28 @@ focused files pass 15 tests, both TypeScript projects pass, the Rule 7 scan rema
 1,095 files and the diff check passes. Commit this correction, then rerun the command; its complete
 repair report must skip solver generation and perform reconciliation only.
 
+Final-resolution Fleet C execution/review checkpoint (2026-08-31): the corrected reconciliation
+completed without another solver run and produced a complete 24/24 report with the original 24-worker
+launch plus explicit three-worker repair provenance. The exact report is
+`out/named-crystal-catalog/final-resolution-c-v1/report.json` (686,526 bytes; SHA-256
+`0807b91d123516b4cbfc6d9be8306e8a1838b21f36e1f0e76d8363240e380490`). It records 24
+decoder-verified web assets from 88,655 to 8,441,989 bytes, total 85,000,701 bytes, all strictly
+below 20,000,000 bytes. The scientific bundles contain 3,032 files / 55,888,738,908 bytes with
+102–121 mesh states per job. The exact 4,703-byte clearance report (SHA-256
+`b368839ad836f358f83bedea994318bc686ba08078869a3e4ff7c880ba5067a0`) passes 12/12 rows.
+
+The reviewed 24-row three-view sheet is
+`out/named-crystal-catalog/final-resolution-c-v1/contact-sheet.png` (9,654,924 bytes; SHA-256
+`4addc816196a172831df0702b7901d5f2028188076d8aaca1405672015cbee5d`). Visual inspection accepts
+all five lower/baseline/upper `rho` trios: Columns on Plates retains a raised central axial structure
+over the plate and remains fully framed; Double Plates shows separated plate levels axially;
+Skeletal Forms keeps open blocky arms; Simple Stars keeps six primary star arms; and Stellar
+Dendrites keeps long side-branched arms. For Capped Bullets, stops 4,500 / 5,000 / 5,500 are the
+selected adjacent trio: each shows a long tapered bullet body and distinct hexagonal plate cap, with
+the cap visibly broadening across the stop sequence. Earlier stops remain generated search products
+but are not catalog variants. The tracked direct decision now pins all three reviewed fleets and
+these exact selections; commit it before running the 66-slot acceptance transaction.
+
 Final Compose production protocol (registered before implementation, 2026-08-30): after the direct
 review binds accepted full-resolution components, generate exactly 33 `growth-scene-v1` entries—
 three each for 11 Compose types. The two measured direct failures, Multiply Capped Columns and
