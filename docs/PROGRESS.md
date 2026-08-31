@@ -518,6 +518,15 @@ body and distinct plate cap. The exact three-fleet decision is now tracked. Next
 and decision, then run `node scripts/named-crystal-final-direct-accept.ts` to fill 66 direct slots;
 after its focused verification, build the 33 registered Compose scenes.
 
+Final direct acceptance is complete: the exact 92,966-byte consolidated review (SHA-256
+`31f5566114deae377d0a715bab2938b05750e5c6095a08e6144e6787023223ec`) binds 22 families / 66
+variants, and the generated catalog is now 66 accepted / 33 remaining. Two focused tests had stale
+0/99 fixture assumptions after the intended state transition; they now construct an explicit empty
+direct fixture and assert the live 66/33 catalog. Both focused files pass nine tests, both TypeScript
+projects pass, Rule 7 is clean across 1,097 files and diff check passes. Next commit this transaction,
+then run `node scripts/named-crystal-final-compose.ts build`, capture all 297 real-browser review
+images, inspect them and execute final Compose acceptance.
+
 ### Phase 10 — planning complete; maker package selection pending
 
 The [candidate plan](plans/phase-10-closures-and-frontier.md) replaces the original A–D shorthand

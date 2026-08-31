@@ -87,7 +87,17 @@ const fixture = (options: FixtureOptions = {}): Fixture => {
   const catalog = join(root, "catalog.json");
   const table = join(root, "catalog.md");
   const review = join(root, "direct-review.json");
-  writeFileSync(catalog, readFileSync(SOURCE_CATALOG));
+  const preAcceptanceCatalog = JSON.parse(readFileSync(SOURCE_CATALOG, "utf8")) as {
+    readonly entries: Array<{
+      readonly id: string;
+      variants: Record<(typeof SLOTS)[number], unknown>;
+    }>;
+  };
+  const directTypes = new Set<string>(Object.values(TYPES).flat());
+  for (const entry of preAcceptanceCatalog.entries.filter(({ id }) => directTypes.has(id))) {
+    entry.variants = { lower: null, baseline: null, upper: null };
+  }
+  writeJson(catalog, preAcceptanceCatalog);
   const growth = encodeGrowth();
   const growthSha = sha256(growth);
   const fleets = [];

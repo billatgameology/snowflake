@@ -616,6 +616,19 @@ the cap visibly broadening across the stop sequence. Earlier stops remain genera
 but are not catalog variants. The tracked direct decision now pins all three reviewed fleets and
 these exact selections; commit it before running the 66-slot acceptance transaction.
 
+Final direct acceptance checkpoint (2026-08-31): the fail-closed transaction accepted 22 families /
+66 variants and left exactly 33 Compose variants. The exact consolidated review is
+`docs/named-snow-crystal-final-direct-review.json` (92,966 bytes; SHA-256
+`31f5566114deae377d0a715bab2938b05750e5c6095a08e6144e6787023223ec`). The generated catalog is
+67,780 bytes (SHA-256 `11dffb80d52389775ea4e67eb8755488374485d87295fd8fd00ec23c358e16f8`)
+and its text table is 36,227 bytes (SHA-256
+`8b3239d25deec281684afc19632585d27b2cbca56fa2c0f8bcacba5b3c43e7e2`). The state transition
+exposed two stale focused-test assumptions that copied the live 0/99 catalog; fixtures now derive an
+explicit pre-acceptance catalog and the catalog assertions name the live 66/33 state. Both focused
+files pass nine tests, both TypeScript projects pass, the Rule 7 scan is clean across 1,097 files and
+the diff check passes. Commit this checkpoint, then build all 33 real Compose scenes from the exact
+direct review.
+
 Final Compose production protocol (registered before implementation, 2026-08-30): after the direct
 review binds accepted full-resolution components, generate exactly 33 `growth-scene-v1` entries—
 three each for 11 Compose types. The two measured direct failures, Multiply Capped Columns and

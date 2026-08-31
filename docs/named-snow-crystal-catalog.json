@@ -18,12 +18,54 @@
       "id": "simple-prisms",
       "name": "Simple Prisms",
       "route": "gg-plus",
-      "note": "Establish a clean early-stop compact-prism recipe.",
+      "note": "Accepted final-resolution direct trio; exact output, clearance and visual identities are in docs/named-snow-crystal-final-direct-review.json.",
       "currentCandidates": [],
       "variants": {
-        "lower": null,
-        "baseline": null,
-        "upper": null
+        "lower": {
+          "entryId": "simple-prisms-lower",
+          "variation": {
+            "driver": "rho-scale",
+            "value": 0.95,
+            "unit": "multiplier"
+          },
+          "links": {
+            "preview": "out/named-crystal-catalog/final-resolution-a-v1/review-renders/simple-prisms-lower-tilt55.png",
+            "webAsset": "out/named-crystal-catalog/final-resolution-a-v1/simple-prisms-lower/growth-v1.bin",
+            "recipeOrScene": "out/named-crystal-catalog/final-resolution-a-v1/simple-prisms-lower/spec.json",
+            "scientificBundle": "out/named-crystal-catalog/final-resolution-a-v1/simple-prisms-lower/"
+          },
+          "webPayloadBytes": 1948261
+        },
+        "baseline": {
+          "entryId": "simple-prisms-baseline",
+          "variation": {
+            "driver": "rho-scale",
+            "value": 1,
+            "unit": "multiplier"
+          },
+          "links": {
+            "preview": "out/named-crystal-catalog/final-resolution-a-v1/review-renders/simple-prisms-baseline-tilt55.png",
+            "webAsset": "out/named-crystal-catalog/final-resolution-a-v1/simple-prisms-baseline/growth-v1.bin",
+            "recipeOrScene": "out/named-crystal-catalog/final-resolution-a-v1/simple-prisms-baseline/spec.json",
+            "scientificBundle": "out/named-crystal-catalog/final-resolution-a-v1/simple-prisms-baseline/"
+          },
+          "webPayloadBytes": 2810843
+        },
+        "upper": {
+          "entryId": "simple-prisms-upper",
+          "variation": {
+            "driver": "rho-scale",
+            "value": 1.05,
+            "unit": "multiplier"
+          },
+          "links": {
+            "preview": "out/named-crystal-catalog/final-resolution-a-v1/review-renders/simple-prisms-upper-tilt55.png",
+            "webAsset": "out/named-crystal-catalog/final-resolution-a-v1/simple-prisms-upper/growth-v1.bin",
+            "recipeOrScene": "out/named-crystal-catalog/final-resolution-a-v1/simple-prisms-upper/spec.json",
+            "scientificBundle": "out/named-crystal-catalog/final-resolution-a-v1/simple-prisms-upper/"
+          },
+          "webPayloadBytes": 3576996
+        }
       },
       "exclusionReason": null
     },
@@ -31,7 +73,7 @@
       "id": "solid-columns",
       "name": "Solid Columns",
       "route": "gg-plus",
-      "note": "Accepted direct-production trio; exact output identities and three-view rationale are in docs/named-snow-crystal-direct-production-review.json. Scaled production variants are preserved as morphology screens in named-snow-crystal-resolution-supersession.json; final-resolution replacement is pending.",
+      "note": "Accepted final-resolution direct trio; exact output, clearance and visual identities are in docs/named-snow-crystal-final-direct-review.json.",
       "currentCandidates": [
         {
           "id": "fig31",
@@ -45,9 +87,51 @@
         }
       ],
       "variants": {
-        "lower": null,
-        "baseline": null,
-        "upper": null
+        "lower": {
+          "entryId": "solid-columns-lower",
+          "variation": {
+            "driver": "rho-scale",
+            "value": 0.95,
+            "unit": "multiplier"
+          },
+          "links": {
+            "preview": "out/named-crystal-catalog/final-resolution-b-v1/review-renders/solid-columns-lower-tilt55.png",
+            "webAsset": "out/named-crystal-catalog/final-resolution-b-v1/solid-columns-lower/growth-v1.bin",
+            "recipeOrScene": "out/named-crystal-catalog/final-resolution-b-v1/solid-columns-lower/spec.json",
+            "scientificBundle": "out/named-crystal-catalog/final-resolution-b-v1/solid-columns-lower/"
+          },
+          "webPayloadBytes": 169860
+        },
+        "baseline": {
+          "entryId": "solid-columns-baseline",
+          "variation": {
+            "driver": "rho-scale",
+            "value": 1,
+            "unit": "multiplier"
+          },
+          "links": {
+            "preview": "out/named-crystal-catalog/final-resolution-b-v1/review-renders/solid-columns-baseline-tilt55.png",
+            "webAsset": "out/named-crystal-catalog/final-resolution-b-v1/solid-columns-baseline/growth-v1.bin",
+            "recipeOrScene": "out/named-crystal-catalog/final-resolution-b-v1/solid-columns-baseline/spec.json",
+            "scientificBundle": "out/named-crystal-catalog/final-resolution-b-v1/solid-columns-baseline/"
+          },
+          "webPayloadBytes": 196546
+        },
+        "upper": {
+          "entryId": "solid-columns-upper",
+          "variation": {
+            "driver": "rho-scale",
+            "value": 1.05,
+            "unit": "multiplier"
+          },
+          "links": {
+            "preview": "out/named-crystal-catalog/final-resolution-b-v1/review-renders/solid-columns-upper-tilt55.png",
+            "webAsset": "out/named-crystal-catalog/final-resolution-b-v1/solid-columns-upper/growth-v1.bin",
+            "recipeOrScene": "out/named-crystal-catalog/final-resolution-b-v1/solid-columns-upper/spec.json",
+            "scientificBundle": "out/named-crystal-catalog/final-resolution-b-v1/solid-columns-upper/"
+          },
+          "webPayloadBytes": 225220
+        }
       },
       "exclusionReason": null
     },
@@ -55,7 +139,7 @@
       "id": "sheaths",
       "name": "Sheaths",
       "route": "gg-plus",
-      "note": "Accepted direct-production trio; exact output identities and three-view rationale are in docs/named-snow-crystal-direct-production-review.json. Scaled production variants are preserved as morphology screens in named-snow-crystal-resolution-supersession.json; final-resolution replacement is pending.",
+      "note": "Accepted final-resolution direct trio; exact output, clearance and visual identities are in docs/named-snow-crystal-final-direct-review.json.",
       "currentCandidates": [
         {
           "id": "baseline-sheath",
@@ -64,9 +148,51 @@
         }
       ],
       "variants": {
-        "lower": null,
-        "baseline": null,
-        "upper": null
+        "lower": {
+          "entryId": "sheaths-lower",
+          "variation": {
+            "driver": "rho-scale",
+            "value": 0.95,
+            "unit": "multiplier"
+          },
+          "links": {
+            "preview": "out/named-crystal-catalog/final-resolution-b-v1/review-renders/sheaths-lower-tilt55.png",
+            "webAsset": "out/named-crystal-catalog/final-resolution-b-v1/sheaths-lower/growth-v1.bin",
+            "recipeOrScene": "out/named-crystal-catalog/final-resolution-b-v1/sheaths-lower/spec.json",
+            "scientificBundle": "out/named-crystal-catalog/final-resolution-b-v1/sheaths-lower/"
+          },
+          "webPayloadBytes": 272222
+        },
+        "baseline": {
+          "entryId": "sheaths-baseline",
+          "variation": {
+            "driver": "rho-scale",
+            "value": 1,
+            "unit": "multiplier"
+          },
+          "links": {
+            "preview": "out/named-crystal-catalog/final-resolution-b-v1/review-renders/sheaths-baseline-tilt55.png",
+            "webAsset": "out/named-crystal-catalog/final-resolution-b-v1/sheaths-baseline/growth-v1.bin",
+            "recipeOrScene": "out/named-crystal-catalog/final-resolution-b-v1/sheaths-baseline/spec.json",
+            "scientificBundle": "out/named-crystal-catalog/final-resolution-b-v1/sheaths-baseline/"
+          },
+          "webPayloadBytes": 351340
+        },
+        "upper": {
+          "entryId": "sheaths-upper",
+          "variation": {
+            "driver": "rho-scale",
+            "value": 1.05,
+            "unit": "multiplier"
+          },
+          "links": {
+            "preview": "out/named-crystal-catalog/final-resolution-b-v1/review-renders/sheaths-upper-tilt55.png",
+            "webAsset": "out/named-crystal-catalog/final-resolution-b-v1/sheaths-upper/growth-v1.bin",
+            "recipeOrScene": "out/named-crystal-catalog/final-resolution-b-v1/sheaths-upper/spec.json",
+            "scientificBundle": "out/named-crystal-catalog/final-resolution-b-v1/sheaths-upper/"
+          },
+          "webPayloadBytes": 444686
+        }
       },
       "exclusionReason": null
     },
@@ -74,7 +200,7 @@
       "id": "scrolls-on-plates",
       "name": "Scrolls on Plates",
       "route": "gg-plus",
-      "note": "Accepted direct-production trio; exact output identities and three-view rationale are in docs/named-snow-crystal-direct-production-review.json. Scaled production variants are preserved as morphology screens in named-snow-crystal-resolution-supersession.json; final-resolution replacement is pending.",
+      "note": "Accepted final-resolution direct trio; exact output, clearance and visual identities are in docs/named-snow-crystal-final-direct-review.json.",
       "currentCandidates": [
         {
           "id": "scroll-stop-100",
@@ -93,9 +219,51 @@
         }
       ],
       "variants": {
-        "lower": null,
-        "baseline": null,
-        "upper": null
+        "lower": {
+          "entryId": "scrolls-on-plates-lower",
+          "variation": {
+            "driver": "stop-tick",
+            "value": 100,
+            "unit": "ticks"
+          },
+          "links": {
+            "preview": "out/named-crystal-catalog/final-resolution-b-v1/review-renders/scrolls-on-plates-lower-tilt55.png",
+            "webAsset": "out/named-crystal-catalog/final-resolution-b-v1/scrolls-on-plates-lower/growth-v1.bin",
+            "recipeOrScene": "out/named-crystal-catalog/final-resolution-b-v1/scrolls-on-plates-lower/spec.json",
+            "scientificBundle": "out/named-crystal-catalog/final-resolution-b-v1/scrolls-on-plates-lower/"
+          },
+          "webPayloadBytes": 5148
+        },
+        "baseline": {
+          "entryId": "scrolls-on-plates-baseline",
+          "variation": {
+            "driver": "stop-tick",
+            "value": 300,
+            "unit": "ticks"
+          },
+          "links": {
+            "preview": "out/named-crystal-catalog/final-resolution-b-v1/review-renders/scrolls-on-plates-baseline-tilt55.png",
+            "webAsset": "out/named-crystal-catalog/final-resolution-b-v1/scrolls-on-plates-baseline/growth-v1.bin",
+            "recipeOrScene": "out/named-crystal-catalog/final-resolution-b-v1/scrolls-on-plates-baseline/spec.json",
+            "scientificBundle": "out/named-crystal-catalog/final-resolution-b-v1/scrolls-on-plates-baseline/"
+          },
+          "webPayloadBytes": 9038
+        },
+        "upper": {
+          "entryId": "scrolls-on-plates-upper",
+          "variation": {
+            "driver": "stop-tick",
+            "value": 400,
+            "unit": "ticks"
+          },
+          "links": {
+            "preview": "out/named-crystal-catalog/final-resolution-b-v1/review-renders/scrolls-on-plates-upper-tilt55.png",
+            "webAsset": "out/named-crystal-catalog/final-resolution-b-v1/scrolls-on-plates-upper/growth-v1.bin",
+            "recipeOrScene": "out/named-crystal-catalog/final-resolution-b-v1/scrolls-on-plates-upper/spec.json",
+            "scientificBundle": "out/named-crystal-catalog/final-resolution-b-v1/scrolls-on-plates-upper/"
+          },
+          "webPayloadBytes": 12215
+        }
       },
       "exclusionReason": null
     },
@@ -103,7 +271,7 @@
       "id": "triangular-forms",
       "name": "Triangular Forms",
       "route": "gg-plus",
-      "note": "Accepted direct-production trio; exact output identities and three-view rationale are in docs/named-snow-crystal-direct-production-review.json. Scaled production variants are preserved as morphology screens in named-snow-crystal-resolution-supersession.json; final-resolution replacement is pending.",
+      "note": "Accepted final-resolution direct trio; exact output, clearance and visual identities are in docs/named-snow-crystal-final-direct-review.json.",
       "currentCandidates": [
         {
           "id": "triangle-stop-200",
@@ -122,9 +290,51 @@
         }
       ],
       "variants": {
-        "lower": null,
-        "baseline": null,
-        "upper": null
+        "lower": {
+          "entryId": "triangular-forms-lower",
+          "variation": {
+            "driver": "stop-tick",
+            "value": 200,
+            "unit": "ticks"
+          },
+          "links": {
+            "preview": "out/named-crystal-catalog/final-resolution-b-v1/review-renders/triangular-forms-lower-tilt55.png",
+            "webAsset": "out/named-crystal-catalog/final-resolution-b-v1/triangular-forms-lower/growth-v1.bin",
+            "recipeOrScene": "out/named-crystal-catalog/final-resolution-b-v1/triangular-forms-lower/spec.json",
+            "scientificBundle": "out/named-crystal-catalog/final-resolution-b-v1/triangular-forms-lower/"
+          },
+          "webPayloadBytes": 4769
+        },
+        "baseline": {
+          "entryId": "triangular-forms-baseline",
+          "variation": {
+            "driver": "stop-tick",
+            "value": 400,
+            "unit": "ticks"
+          },
+          "links": {
+            "preview": "out/named-crystal-catalog/final-resolution-b-v1/review-renders/triangular-forms-baseline-tilt55.png",
+            "webAsset": "out/named-crystal-catalog/final-resolution-b-v1/triangular-forms-baseline/growth-v1.bin",
+            "recipeOrScene": "out/named-crystal-catalog/final-resolution-b-v1/triangular-forms-baseline/spec.json",
+            "scientificBundle": "out/named-crystal-catalog/final-resolution-b-v1/triangular-forms-baseline/"
+          },
+          "webPayloadBytes": 7235
+        },
+        "upper": {
+          "entryId": "triangular-forms-upper",
+          "variation": {
+            "driver": "stop-tick",
+            "value": 600,
+            "unit": "ticks"
+          },
+          "links": {
+            "preview": "out/named-crystal-catalog/final-resolution-b-v1/review-renders/triangular-forms-upper-tilt55.png",
+            "webAsset": "out/named-crystal-catalog/final-resolution-b-v1/triangular-forms-upper/growth-v1.bin",
+            "recipeOrScene": "out/named-crystal-catalog/final-resolution-b-v1/triangular-forms-upper/spec.json",
+            "scientificBundle": "out/named-crystal-catalog/final-resolution-b-v1/triangular-forms-upper/"
+          },
+          "webPayloadBytes": 9521
+        }
       },
       "exclusionReason": null
     },
@@ -132,7 +342,7 @@
       "id": "hexagonal-plates",
       "name": "Hexagonal Plates",
       "route": "gg",
-      "note": "Audit fig11 and current plate-family runs; select a cleaner anchor if needed.",
+      "note": "Accepted final-resolution direct trio; exact output, clearance and visual identities are in docs/named-snow-crystal-final-direct-review.json.",
       "currentCandidates": [
         {
           "id": "fig11",
@@ -141,9 +351,51 @@
         }
       ],
       "variants": {
-        "lower": null,
-        "baseline": null,
-        "upper": null
+        "lower": {
+          "entryId": "hexagonal-plates-lower",
+          "variation": {
+            "driver": "rho-scale",
+            "value": 0.95,
+            "unit": "multiplier"
+          },
+          "links": {
+            "preview": "out/named-crystal-catalog/final-resolution-a-v1/review-renders/hexagonal-plates-lower-tilt55.png",
+            "webAsset": "out/named-crystal-catalog/final-resolution-a-v1/hexagonal-plates-lower/growth-v1.bin",
+            "recipeOrScene": "out/named-crystal-catalog/final-resolution-a-v1/hexagonal-plates-lower/spec.json",
+            "scientificBundle": "out/named-crystal-catalog/final-resolution-a-v1/hexagonal-plates-lower/"
+          },
+          "webPayloadBytes": 623976
+        },
+        "baseline": {
+          "entryId": "hexagonal-plates-baseline",
+          "variation": {
+            "driver": "rho-scale",
+            "value": 1,
+            "unit": "multiplier"
+          },
+          "links": {
+            "preview": "out/named-crystal-catalog/final-resolution-a-v1/review-renders/hexagonal-plates-baseline-tilt55.png",
+            "webAsset": "out/named-crystal-catalog/final-resolution-a-v1/hexagonal-plates-baseline/growth-v1.bin",
+            "recipeOrScene": "out/named-crystal-catalog/final-resolution-a-v1/hexagonal-plates-baseline/spec.json",
+            "scientificBundle": "out/named-crystal-catalog/final-resolution-a-v1/hexagonal-plates-baseline/"
+          },
+          "webPayloadBytes": 755367
+        },
+        "upper": {
+          "entryId": "hexagonal-plates-upper",
+          "variation": {
+            "driver": "rho-scale",
+            "value": 1.05,
+            "unit": "multiplier"
+          },
+          "links": {
+            "preview": "out/named-crystal-catalog/final-resolution-a-v1/review-renders/hexagonal-plates-upper-tilt55.png",
+            "webAsset": "out/named-crystal-catalog/final-resolution-a-v1/hexagonal-plates-upper/growth-v1.bin",
+            "recipeOrScene": "out/named-crystal-catalog/final-resolution-a-v1/hexagonal-plates-upper/spec.json",
+            "scientificBundle": "out/named-crystal-catalog/final-resolution-a-v1/hexagonal-plates-upper/"
+          },
+          "webPayloadBytes": 893563
+        }
       },
       "exclusionReason": null
     },
@@ -151,7 +403,7 @@
       "id": "hollow-columns",
       "name": "Hollow Columns",
       "route": "gg",
-      "note": "fig30 is the current anchor candidate.",
+      "note": "Accepted final-resolution direct trio; exact output, clearance and visual identities are in docs/named-snow-crystal-final-direct-review.json.",
       "currentCandidates": [
         {
           "id": "fig30",
@@ -160,9 +412,51 @@
         }
       ],
       "variants": {
-        "lower": null,
-        "baseline": null,
-        "upper": null
+        "lower": {
+          "entryId": "hollow-columns-lower",
+          "variation": {
+            "driver": "rho-scale",
+            "value": 0.95,
+            "unit": "multiplier"
+          },
+          "links": {
+            "preview": "out/named-crystal-catalog/final-resolution-a-v1/review-renders/hollow-columns-lower-tilt55.png",
+            "webAsset": "out/named-crystal-catalog/final-resolution-a-v1/hollow-columns-lower/growth-v1.bin",
+            "recipeOrScene": "out/named-crystal-catalog/final-resolution-a-v1/hollow-columns-lower/spec.json",
+            "scientificBundle": "out/named-crystal-catalog/final-resolution-a-v1/hollow-columns-lower/"
+          },
+          "webPayloadBytes": 2114865
+        },
+        "baseline": {
+          "entryId": "hollow-columns-baseline",
+          "variation": {
+            "driver": "rho-scale",
+            "value": 1,
+            "unit": "multiplier"
+          },
+          "links": {
+            "preview": "out/named-crystal-catalog/final-resolution-a-v1/review-renders/hollow-columns-baseline-tilt55.png",
+            "webAsset": "out/named-crystal-catalog/final-resolution-a-v1/hollow-columns-baseline/growth-v1.bin",
+            "recipeOrScene": "out/named-crystal-catalog/final-resolution-a-v1/hollow-columns-baseline/spec.json",
+            "scientificBundle": "out/named-crystal-catalog/final-resolution-a-v1/hollow-columns-baseline/"
+          },
+          "webPayloadBytes": 2636391
+        },
+        "upper": {
+          "entryId": "hollow-columns-upper",
+          "variation": {
+            "driver": "rho-scale",
+            "value": 1.05,
+            "unit": "multiplier"
+          },
+          "links": {
+            "preview": "out/named-crystal-catalog/final-resolution-a-v1/review-renders/hollow-columns-upper-tilt55.png",
+            "webAsset": "out/named-crystal-catalog/final-resolution-a-v1/hollow-columns-upper/growth-v1.bin",
+            "recipeOrScene": "out/named-crystal-catalog/final-resolution-a-v1/hollow-columns-upper/spec.json",
+            "scientificBundle": "out/named-crystal-catalog/final-resolution-a-v1/hollow-columns-upper/"
+          },
+          "webPayloadBytes": 2924754
+        }
       },
       "exclusionReason": null
     },
@@ -170,7 +464,7 @@
       "id": "cups",
       "name": "Cups",
       "route": "gg-plus",
-      "note": "Accepted direct-production trio; exact output identities and three-view rationale are in docs/named-snow-crystal-direct-production-review.json. Scaled production variants are preserved as morphology screens in named-snow-crystal-resolution-supersession.json; final-resolution replacement is pending.",
+      "note": "Accepted final-resolution direct trio; exact output, clearance and visual identities are in docs/named-snow-crystal-final-direct-review.json.",
       "currentCandidates": [
         {
           "id": "cup-stop-100",
@@ -189,9 +483,51 @@
         }
       ],
       "variants": {
-        "lower": null,
-        "baseline": null,
-        "upper": null
+        "lower": {
+          "entryId": "cups-lower",
+          "variation": {
+            "driver": "stop-tick",
+            "value": 100,
+            "unit": "ticks"
+          },
+          "links": {
+            "preview": "out/named-crystal-catalog/final-resolution-b-v1/review-renders/cups-lower-tilt55.png",
+            "webAsset": "out/named-crystal-catalog/final-resolution-b-v1/cups-lower/growth-v1.bin",
+            "recipeOrScene": "out/named-crystal-catalog/final-resolution-b-v1/cups-lower/spec.json",
+            "scientificBundle": "out/named-crystal-catalog/final-resolution-b-v1/cups-lower/"
+          },
+          "webPayloadBytes": 6623
+        },
+        "baseline": {
+          "entryId": "cups-baseline",
+          "variation": {
+            "driver": "stop-tick",
+            "value": 200,
+            "unit": "ticks"
+          },
+          "links": {
+            "preview": "out/named-crystal-catalog/final-resolution-b-v1/review-renders/cups-baseline-tilt55.png",
+            "webAsset": "out/named-crystal-catalog/final-resolution-b-v1/cups-baseline/growth-v1.bin",
+            "recipeOrScene": "out/named-crystal-catalog/final-resolution-b-v1/cups-baseline/spec.json",
+            "scientificBundle": "out/named-crystal-catalog/final-resolution-b-v1/cups-baseline/"
+          },
+          "webPayloadBytes": 7265
+        },
+        "upper": {
+          "entryId": "cups-upper",
+          "variation": {
+            "driver": "stop-tick",
+            "value": 400,
+            "unit": "ticks"
+          },
+          "links": {
+            "preview": "out/named-crystal-catalog/final-resolution-b-v1/review-renders/cups-upper-tilt55.png",
+            "webAsset": "out/named-crystal-catalog/final-resolution-b-v1/cups-upper/growth-v1.bin",
+            "recipeOrScene": "out/named-crystal-catalog/final-resolution-b-v1/cups-upper/spec.json",
+            "scientificBundle": "out/named-crystal-catalog/final-resolution-b-v1/cups-upper/"
+          },
+          "webPayloadBytes": 11231
+        }
       },
       "exclusionReason": null
     },
@@ -199,7 +535,7 @@
       "id": "columns-on-plates",
       "name": "Columns on Plates",
       "route": "gg",
-      "note": "Audit fig39 and fig40 against the named type.",
+      "note": "Accepted final-resolution direct trio; exact output, clearance and visual identities are in docs/named-snow-crystal-final-direct-review.json.",
       "currentCandidates": [
         {
           "id": "fig39",
@@ -213,9 +549,51 @@
         }
       ],
       "variants": {
-        "lower": null,
-        "baseline": null,
-        "upper": null
+        "lower": {
+          "entryId": "columns-on-plates-lower",
+          "variation": {
+            "driver": "rho-scale",
+            "value": 0.95,
+            "unit": "multiplier"
+          },
+          "links": {
+            "preview": "out/named-crystal-catalog/final-resolution-c-v1/review-renders/columns-on-plates-lower-tilt55.png",
+            "webAsset": "out/named-crystal-catalog/final-resolution-c-v1/columns-on-plates-lower/growth-v1.bin",
+            "recipeOrScene": "out/named-crystal-catalog/final-resolution-c-v1/columns-on-plates-lower/spec.json",
+            "scientificBundle": "out/named-crystal-catalog/final-resolution-c-v1/columns-on-plates-lower/"
+          },
+          "webPayloadBytes": 1956606
+        },
+        "baseline": {
+          "entryId": "columns-on-plates-baseline",
+          "variation": {
+            "driver": "rho-scale",
+            "value": 1,
+            "unit": "multiplier"
+          },
+          "links": {
+            "preview": "out/named-crystal-catalog/final-resolution-c-v1/review-renders/columns-on-plates-baseline-tilt55.png",
+            "webAsset": "out/named-crystal-catalog/final-resolution-c-v1/columns-on-plates-baseline/growth-v1.bin",
+            "recipeOrScene": "out/named-crystal-catalog/final-resolution-c-v1/columns-on-plates-baseline/spec.json",
+            "scientificBundle": "out/named-crystal-catalog/final-resolution-c-v1/columns-on-plates-baseline/"
+          },
+          "webPayloadBytes": 2381715
+        },
+        "upper": {
+          "entryId": "columns-on-plates-upper",
+          "variation": {
+            "driver": "rho-scale",
+            "value": 1.05,
+            "unit": "multiplier"
+          },
+          "links": {
+            "preview": "out/named-crystal-catalog/final-resolution-c-v1/review-renders/columns-on-plates-upper-tilt55.png",
+            "webAsset": "out/named-crystal-catalog/final-resolution-c-v1/columns-on-plates-upper/growth-v1.bin",
+            "recipeOrScene": "out/named-crystal-catalog/final-resolution-c-v1/columns-on-plates-upper/spec.json",
+            "scientificBundle": "out/named-crystal-catalog/final-resolution-c-v1/columns-on-plates-upper/"
+          },
+          "webPayloadBytes": 1599554
+        }
       },
       "exclusionReason": null
     },
@@ -236,7 +614,7 @@
       "id": "stellar-plates",
       "name": "Stellar Plates",
       "route": "gg",
-      "note": "Audit fig32 and bentley785 as near-anchor candidates.",
+      "note": "Accepted final-resolution direct trio; exact output, clearance and visual identities are in docs/named-snow-crystal-final-direct-review.json.",
       "currentCandidates": [
         {
           "id": "fig32",
@@ -250,9 +628,51 @@
         }
       ],
       "variants": {
-        "lower": null,
-        "baseline": null,
-        "upper": null
+        "lower": {
+          "entryId": "stellar-plates-lower",
+          "variation": {
+            "driver": "rho-scale",
+            "value": 0.95,
+            "unit": "multiplier"
+          },
+          "links": {
+            "preview": "out/named-crystal-catalog/final-resolution-a-v1/review-renders/stellar-plates-lower-tilt55.png",
+            "webAsset": "out/named-crystal-catalog/final-resolution-a-v1/stellar-plates-lower/growth-v1.bin",
+            "recipeOrScene": "out/named-crystal-catalog/final-resolution-a-v1/stellar-plates-lower/spec.json",
+            "scientificBundle": "out/named-crystal-catalog/final-resolution-a-v1/stellar-plates-lower/"
+          },
+          "webPayloadBytes": 2791293
+        },
+        "baseline": {
+          "entryId": "stellar-plates-baseline",
+          "variation": {
+            "driver": "rho-scale",
+            "value": 1,
+            "unit": "multiplier"
+          },
+          "links": {
+            "preview": "out/named-crystal-catalog/final-resolution-a-v1/review-renders/stellar-plates-baseline-tilt55.png",
+            "webAsset": "out/named-crystal-catalog/final-resolution-a-v1/stellar-plates-baseline/growth-v1.bin",
+            "recipeOrScene": "out/named-crystal-catalog/final-resolution-a-v1/stellar-plates-baseline/spec.json",
+            "scientificBundle": "out/named-crystal-catalog/final-resolution-a-v1/stellar-plates-baseline/"
+          },
+          "webPayloadBytes": 3405716
+        },
+        "upper": {
+          "entryId": "stellar-plates-upper",
+          "variation": {
+            "driver": "rho-scale",
+            "value": 1.05,
+            "unit": "multiplier"
+          },
+          "links": {
+            "preview": "out/named-crystal-catalog/final-resolution-a-v1/review-renders/stellar-plates-upper-tilt55.png",
+            "webAsset": "out/named-crystal-catalog/final-resolution-a-v1/stellar-plates-upper/growth-v1.bin",
+            "recipeOrScene": "out/named-crystal-catalog/final-resolution-a-v1/stellar-plates-upper/spec.json",
+            "scientificBundle": "out/named-crystal-catalog/final-resolution-a-v1/stellar-plates-upper/"
+          },
+          "webPayloadBytes": 4296085
+        }
       },
       "exclusionReason": null
     },
@@ -273,7 +693,7 @@
       "id": "capped-columns",
       "name": "Capped Columns",
       "route": "gg",
-      "note": "fig37 and fig38 are current anchor candidates.",
+      "note": "Accepted final-resolution direct trio; exact output, clearance and visual identities are in docs/named-snow-crystal-final-direct-review.json.",
       "currentCandidates": [
         {
           "id": "fig37",
@@ -287,9 +707,51 @@
         }
       ],
       "variants": {
-        "lower": null,
-        "baseline": null,
-        "upper": null
+        "lower": {
+          "entryId": "capped-columns-lower",
+          "variation": {
+            "driver": "rho-scale",
+            "value": 0.95,
+            "unit": "multiplier"
+          },
+          "links": {
+            "preview": "out/named-crystal-catalog/final-resolution-a-v1/review-renders/capped-columns-lower-tilt55.png",
+            "webAsset": "out/named-crystal-catalog/final-resolution-a-v1/capped-columns-lower/growth-v1.bin",
+            "recipeOrScene": "out/named-crystal-catalog/final-resolution-a-v1/capped-columns-lower/spec.json",
+            "scientificBundle": "out/named-crystal-catalog/final-resolution-a-v1/capped-columns-lower/"
+          },
+          "webPayloadBytes": 8155148
+        },
+        "baseline": {
+          "entryId": "capped-columns-baseline",
+          "variation": {
+            "driver": "rho-scale",
+            "value": 1,
+            "unit": "multiplier"
+          },
+          "links": {
+            "preview": "out/named-crystal-catalog/final-resolution-a-v1/review-renders/capped-columns-baseline-tilt55.png",
+            "webAsset": "out/named-crystal-catalog/final-resolution-a-v1/capped-columns-baseline/growth-v1.bin",
+            "recipeOrScene": "out/named-crystal-catalog/final-resolution-a-v1/capped-columns-baseline/spec.json",
+            "scientificBundle": "out/named-crystal-catalog/final-resolution-a-v1/capped-columns-baseline/"
+          },
+          "webPayloadBytes": 9761712
+        },
+        "upper": {
+          "entryId": "capped-columns-upper",
+          "variation": {
+            "driver": "rho-scale",
+            "value": 1.05,
+            "unit": "multiplier"
+          },
+          "links": {
+            "preview": "out/named-crystal-catalog/final-resolution-a-v1/review-renders/capped-columns-upper-tilt55.png",
+            "webAsset": "out/named-crystal-catalog/final-resolution-a-v1/capped-columns-upper/growth-v1.bin",
+            "recipeOrScene": "out/named-crystal-catalog/final-resolution-a-v1/capped-columns-upper/spec.json",
+            "scientificBundle": "out/named-crystal-catalog/final-resolution-a-v1/capped-columns-upper/"
+          },
+          "webPayloadBytes": 10923005
+        }
       },
       "exclusionReason": null
     },
@@ -297,7 +759,7 @@
       "id": "split-plates-and-stars",
       "name": "Split Plates & Stars",
       "route": "gg-plus",
-      "note": "Accepted direct-production trio; exact output identities and three-view rationale are in docs/named-snow-crystal-direct-production-review.json. Scaled production variants are preserved as morphology screens in named-snow-crystal-resolution-supersession.json; final-resolution replacement is pending.",
+      "note": "Accepted final-resolution direct trio; exact output, clearance and visual identities are in docs/named-snow-crystal-final-direct-review.json.",
       "currentCandidates": [
         {
           "id": "fig6",
@@ -311,9 +773,51 @@
         }
       ],
       "variants": {
-        "lower": null,
-        "baseline": null,
-        "upper": null
+        "lower": {
+          "entryId": "split-plates-and-stars-lower",
+          "variation": {
+            "driver": "rho-scale",
+            "value": 0.95,
+            "unit": "multiplier"
+          },
+          "links": {
+            "preview": "out/named-crystal-catalog/final-resolution-b-v1/review-renders/split-plates-and-stars-lower-tilt55.png",
+            "webAsset": "out/named-crystal-catalog/final-resolution-b-v1/split-plates-and-stars-lower/growth-v1.bin",
+            "recipeOrScene": "out/named-crystal-catalog/final-resolution-b-v1/split-plates-and-stars-lower/spec.json",
+            "scientificBundle": "out/named-crystal-catalog/final-resolution-b-v1/split-plates-and-stars-lower/"
+          },
+          "webPayloadBytes": 281533
+        },
+        "baseline": {
+          "entryId": "split-plates-and-stars-baseline",
+          "variation": {
+            "driver": "rho-scale",
+            "value": 1,
+            "unit": "multiplier"
+          },
+          "links": {
+            "preview": "out/named-crystal-catalog/final-resolution-b-v1/review-renders/split-plates-and-stars-baseline-tilt55.png",
+            "webAsset": "out/named-crystal-catalog/final-resolution-b-v1/split-plates-and-stars-baseline/growth-v1.bin",
+            "recipeOrScene": "out/named-crystal-catalog/final-resolution-b-v1/split-plates-and-stars-baseline/spec.json",
+            "scientificBundle": "out/named-crystal-catalog/final-resolution-b-v1/split-plates-and-stars-baseline/"
+          },
+          "webPayloadBytes": 316539
+        },
+        "upper": {
+          "entryId": "split-plates-and-stars-upper",
+          "variation": {
+            "driver": "rho-scale",
+            "value": 1.05,
+            "unit": "multiplier"
+          },
+          "links": {
+            "preview": "out/named-crystal-catalog/final-resolution-b-v1/review-renders/split-plates-and-stars-upper-tilt55.png",
+            "webAsset": "out/named-crystal-catalog/final-resolution-b-v1/split-plates-and-stars-upper/growth-v1.bin",
+            "recipeOrScene": "out/named-crystal-catalog/final-resolution-b-v1/split-plates-and-stars-upper/spec.json",
+            "scientificBundle": "out/named-crystal-catalog/final-resolution-b-v1/split-plates-and-stars-upper/"
+          },
+          "webPayloadBytes": 342941
+        }
       },
       "exclusionReason": null
     },
@@ -334,7 +838,7 @@
       "id": "sectored-plates",
       "name": "Sectored Plates",
       "route": "gg",
-      "note": "fig9v2 is the current anchor candidate.",
+      "note": "Accepted final-resolution direct trio; exact output, clearance and visual identities are in docs/named-snow-crystal-final-direct-review.json.",
       "currentCandidates": [
         {
           "id": "fig9v2",
@@ -343,9 +847,51 @@
         }
       ],
       "variants": {
-        "lower": null,
-        "baseline": null,
-        "upper": null
+        "lower": {
+          "entryId": "sectored-plates-lower",
+          "variation": {
+            "driver": "rho-scale",
+            "value": 0.95,
+            "unit": "multiplier"
+          },
+          "links": {
+            "preview": "out/named-crystal-catalog/final-resolution-a-v1/review-renders/sectored-plates-lower-tilt55.png",
+            "webAsset": "out/named-crystal-catalog/final-resolution-a-v1/sectored-plates-lower/growth-v1.bin",
+            "recipeOrScene": "out/named-crystal-catalog/final-resolution-a-v1/sectored-plates-lower/spec.json",
+            "scientificBundle": "out/named-crystal-catalog/final-resolution-a-v1/sectored-plates-lower/"
+          },
+          "webPayloadBytes": 2582156
+        },
+        "baseline": {
+          "entryId": "sectored-plates-baseline",
+          "variation": {
+            "driver": "rho-scale",
+            "value": 1,
+            "unit": "multiplier"
+          },
+          "links": {
+            "preview": "out/named-crystal-catalog/final-resolution-a-v1/review-renders/sectored-plates-baseline-tilt55.png",
+            "webAsset": "out/named-crystal-catalog/final-resolution-a-v1/sectored-plates-baseline/growth-v1.bin",
+            "recipeOrScene": "out/named-crystal-catalog/final-resolution-a-v1/sectored-plates-baseline/spec.json",
+            "scientificBundle": "out/named-crystal-catalog/final-resolution-a-v1/sectored-plates-baseline/"
+          },
+          "webPayloadBytes": 2905810
+        },
+        "upper": {
+          "entryId": "sectored-plates-upper",
+          "variation": {
+            "driver": "rho-scale",
+            "value": 1.05,
+            "unit": "multiplier"
+          },
+          "links": {
+            "preview": "out/named-crystal-catalog/final-resolution-a-v1/review-renders/sectored-plates-upper-tilt55.png",
+            "webAsset": "out/named-crystal-catalog/final-resolution-a-v1/sectored-plates-upper/growth-v1.bin",
+            "recipeOrScene": "out/named-crystal-catalog/final-resolution-a-v1/sectored-plates-upper/spec.json",
+            "scientificBundle": "out/named-crystal-catalog/final-resolution-a-v1/sectored-plates-upper/"
+          },
+          "webPayloadBytes": 2907949
+        }
       },
       "exclusionReason": null
     },
@@ -353,7 +899,7 @@
       "id": "isolated-bullets",
       "name": "Isolated Bullets",
       "route": "gg-plus",
-      "note": "Accepted direct-production trio; exact output identities and three-view rationale are in docs/named-snow-crystal-direct-production-review.json. Scaled production variants are preserved as morphology screens in named-snow-crystal-resolution-supersession.json; final-resolution replacement is pending.",
+      "note": "Accepted final-resolution direct trio; exact output, clearance and visual identities are in docs/named-snow-crystal-final-direct-review.json.",
       "currentCandidates": [
         {
           "id": "baseline-isolated-bullet",
@@ -362,9 +908,51 @@
         }
       ],
       "variants": {
-        "lower": null,
-        "baseline": null,
-        "upper": null
+        "lower": {
+          "entryId": "isolated-bullets-lower",
+          "variation": {
+            "driver": "rho-scale",
+            "value": 0.95,
+            "unit": "multiplier"
+          },
+          "links": {
+            "preview": "out/named-crystal-catalog/final-resolution-b-v1/review-renders/isolated-bullets-lower-tilt55.png",
+            "webAsset": "out/named-crystal-catalog/final-resolution-b-v1/isolated-bullets-lower/growth-v1.bin",
+            "recipeOrScene": "out/named-crystal-catalog/final-resolution-b-v1/isolated-bullets-lower/spec.json",
+            "scientificBundle": "out/named-crystal-catalog/final-resolution-b-v1/isolated-bullets-lower/"
+          },
+          "webPayloadBytes": 172691
+        },
+        "baseline": {
+          "entryId": "isolated-bullets-baseline",
+          "variation": {
+            "driver": "rho-scale",
+            "value": 1,
+            "unit": "multiplier"
+          },
+          "links": {
+            "preview": "out/named-crystal-catalog/final-resolution-b-v1/review-renders/isolated-bullets-baseline-tilt55.png",
+            "webAsset": "out/named-crystal-catalog/final-resolution-b-v1/isolated-bullets-baseline/growth-v1.bin",
+            "recipeOrScene": "out/named-crystal-catalog/final-resolution-b-v1/isolated-bullets-baseline/spec.json",
+            "scientificBundle": "out/named-crystal-catalog/final-resolution-b-v1/isolated-bullets-baseline/"
+          },
+          "webPayloadBytes": 195641
+        },
+        "upper": {
+          "entryId": "isolated-bullets-upper",
+          "variation": {
+            "driver": "rho-scale",
+            "value": 1.05,
+            "unit": "multiplier"
+          },
+          "links": {
+            "preview": "out/named-crystal-catalog/final-resolution-b-v1/review-renders/isolated-bullets-upper-tilt55.png",
+            "webAsset": "out/named-crystal-catalog/final-resolution-b-v1/isolated-bullets-upper/growth-v1.bin",
+            "recipeOrScene": "out/named-crystal-catalog/final-resolution-b-v1/isolated-bullets-upper/spec.json",
+            "scientificBundle": "out/named-crystal-catalog/final-resolution-b-v1/isolated-bullets-upper/"
+          },
+          "webPayloadBytes": 218427
+        }
       },
       "exclusionReason": null
     },
@@ -385,12 +973,54 @@
       "id": "skeletal-forms",
       "name": "Skeletal Forms",
       "route": "gg-plus",
-      "note": "Bounded recipe probe with a type-specific acceptance view.",
+      "note": "Accepted final-resolution direct trio; exact output, clearance and visual identities are in docs/named-snow-crystal-final-direct-review.json.",
       "currentCandidates": [],
       "variants": {
-        "lower": null,
-        "baseline": null,
-        "upper": null
+        "lower": {
+          "entryId": "skeletal-forms-lower",
+          "variation": {
+            "driver": "rho-scale",
+            "value": 0.95,
+            "unit": "multiplier"
+          },
+          "links": {
+            "preview": "out/named-crystal-catalog/final-resolution-c-v1/review-renders/skeletal-forms-lower-tilt55.png",
+            "webAsset": "out/named-crystal-catalog/final-resolution-c-v1/skeletal-forms-lower/growth-v1.bin",
+            "recipeOrScene": "out/named-crystal-catalog/final-resolution-c-v1/skeletal-forms-lower/spec.json",
+            "scientificBundle": "out/named-crystal-catalog/final-resolution-c-v1/skeletal-forms-lower/"
+          },
+          "webPayloadBytes": 5359505
+        },
+        "baseline": {
+          "entryId": "skeletal-forms-baseline",
+          "variation": {
+            "driver": "rho-scale",
+            "value": 1,
+            "unit": "multiplier"
+          },
+          "links": {
+            "preview": "out/named-crystal-catalog/final-resolution-c-v1/review-renders/skeletal-forms-baseline-tilt55.png",
+            "webAsset": "out/named-crystal-catalog/final-resolution-c-v1/skeletal-forms-baseline/growth-v1.bin",
+            "recipeOrScene": "out/named-crystal-catalog/final-resolution-c-v1/skeletal-forms-baseline/spec.json",
+            "scientificBundle": "out/named-crystal-catalog/final-resolution-c-v1/skeletal-forms-baseline/"
+          },
+          "webPayloadBytes": 5866438
+        },
+        "upper": {
+          "entryId": "skeletal-forms-upper",
+          "variation": {
+            "driver": "rho-scale",
+            "value": 1.05,
+            "unit": "multiplier"
+          },
+          "links": {
+            "preview": "out/named-crystal-catalog/final-resolution-c-v1/review-renders/skeletal-forms-upper-tilt55.png",
+            "webAsset": "out/named-crystal-catalog/final-resolution-c-v1/skeletal-forms-upper/growth-v1.bin",
+            "recipeOrScene": "out/named-crystal-catalog/final-resolution-c-v1/skeletal-forms-upper/spec.json",
+            "scientificBundle": "out/named-crystal-catalog/final-resolution-c-v1/skeletal-forms-upper/"
+          },
+          "webPayloadBytes": 8441989
+        }
       },
       "exclusionReason": null
     },
@@ -411,7 +1041,7 @@
       "id": "simple-stars",
       "name": "Simple Stars",
       "route": "gg",
-      "note": "fig16 is the current anchor candidate.",
+      "note": "Accepted final-resolution direct trio; exact output, clearance and visual identities are in docs/named-snow-crystal-final-direct-review.json.",
       "currentCandidates": [
         {
           "id": "fig16",
@@ -420,9 +1050,51 @@
         }
       ],
       "variants": {
-        "lower": null,
-        "baseline": null,
-        "upper": null
+        "lower": {
+          "entryId": "simple-stars-lower",
+          "variation": {
+            "driver": "rho-scale",
+            "value": 0.95,
+            "unit": "multiplier"
+          },
+          "links": {
+            "preview": "out/named-crystal-catalog/final-resolution-c-v1/review-renders/simple-stars-lower-tilt55.png",
+            "webAsset": "out/named-crystal-catalog/final-resolution-c-v1/simple-stars-lower/growth-v1.bin",
+            "recipeOrScene": "out/named-crystal-catalog/final-resolution-c-v1/simple-stars-lower/spec.json",
+            "scientificBundle": "out/named-crystal-catalog/final-resolution-c-v1/simple-stars-lower/"
+          },
+          "webPayloadBytes": 5822061
+        },
+        "baseline": {
+          "entryId": "simple-stars-baseline",
+          "variation": {
+            "driver": "rho-scale",
+            "value": 1,
+            "unit": "multiplier"
+          },
+          "links": {
+            "preview": "out/named-crystal-catalog/final-resolution-c-v1/review-renders/simple-stars-baseline-tilt55.png",
+            "webAsset": "out/named-crystal-catalog/final-resolution-c-v1/simple-stars-baseline/growth-v1.bin",
+            "recipeOrScene": "out/named-crystal-catalog/final-resolution-c-v1/simple-stars-baseline/spec.json",
+            "scientificBundle": "out/named-crystal-catalog/final-resolution-c-v1/simple-stars-baseline/"
+          },
+          "webPayloadBytes": 6646824
+        },
+        "upper": {
+          "entryId": "simple-stars-upper",
+          "variation": {
+            "driver": "rho-scale",
+            "value": 1.05,
+            "unit": "multiplier"
+          },
+          "links": {
+            "preview": "out/named-crystal-catalog/final-resolution-c-v1/review-renders/simple-stars-upper-tilt55.png",
+            "webAsset": "out/named-crystal-catalog/final-resolution-c-v1/simple-stars-upper/growth-v1.bin",
+            "recipeOrScene": "out/named-crystal-catalog/final-resolution-c-v1/simple-stars-upper/spec.json",
+            "scientificBundle": "out/named-crystal-catalog/final-resolution-c-v1/simple-stars-upper/"
+          },
+          "webPayloadBytes": 7400771
+        }
       },
       "exclusionReason": null
     },
@@ -430,7 +1102,7 @@
       "id": "simple-needles",
       "name": "Simple Needles",
       "route": "gg",
-      "note": "fig29 is the current anchor candidate.",
+      "note": "Accepted final-resolution direct trio; exact output, clearance and visual identities are in docs/named-snow-crystal-final-direct-review.json.",
       "currentCandidates": [
         {
           "id": "fig29",
@@ -439,9 +1111,51 @@
         }
       ],
       "variants": {
-        "lower": null,
-        "baseline": null,
-        "upper": null
+        "lower": {
+          "entryId": "simple-needles-lower",
+          "variation": {
+            "driver": "rho-scale",
+            "value": 0.95,
+            "unit": "multiplier"
+          },
+          "links": {
+            "preview": "out/named-crystal-catalog/final-resolution-a-v1/review-renders/simple-needles-lower-tilt55.png",
+            "webAsset": "out/named-crystal-catalog/final-resolution-a-v1/simple-needles-lower/growth-v1.bin",
+            "recipeOrScene": "out/named-crystal-catalog/final-resolution-a-v1/simple-needles-lower/spec.json",
+            "scientificBundle": "out/named-crystal-catalog/final-resolution-a-v1/simple-needles-lower/"
+          },
+          "webPayloadBytes": 1527245
+        },
+        "baseline": {
+          "entryId": "simple-needles-baseline",
+          "variation": {
+            "driver": "rho-scale",
+            "value": 1,
+            "unit": "multiplier"
+          },
+          "links": {
+            "preview": "out/named-crystal-catalog/final-resolution-a-v1/review-renders/simple-needles-baseline-tilt55.png",
+            "webAsset": "out/named-crystal-catalog/final-resolution-a-v1/simple-needles-baseline/growth-v1.bin",
+            "recipeOrScene": "out/named-crystal-catalog/final-resolution-a-v1/simple-needles-baseline/spec.json",
+            "scientificBundle": "out/named-crystal-catalog/final-resolution-a-v1/simple-needles-baseline/"
+          },
+          "webPayloadBytes": 1764707
+        },
+        "upper": {
+          "entryId": "simple-needles-upper",
+          "variation": {
+            "driver": "rho-scale",
+            "value": 1.05,
+            "unit": "multiplier"
+          },
+          "links": {
+            "preview": "out/named-crystal-catalog/final-resolution-a-v1/review-renders/simple-needles-upper-tilt55.png",
+            "webAsset": "out/named-crystal-catalog/final-resolution-a-v1/simple-needles-upper/growth-v1.bin",
+            "recipeOrScene": "out/named-crystal-catalog/final-resolution-a-v1/simple-needles-upper/spec.json",
+            "scientificBundle": "out/named-crystal-catalog/final-resolution-a-v1/simple-needles-upper/"
+          },
+          "webPayloadBytes": 1892286
+        }
       },
       "exclusionReason": null
     },
@@ -449,12 +1163,54 @@
       "id": "capped-bullets",
       "name": "Capped Bullets",
       "route": "gg-plus",
-      "note": "Combine a bullet seed with the established column-to-plate schedule.",
+      "note": "Accepted final-resolution direct trio; exact output, clearance and visual identities are in docs/named-snow-crystal-final-direct-review.json.",
       "currentCandidates": [],
       "variants": {
-        "lower": null,
-        "baseline": null,
-        "upper": null
+        "lower": {
+          "entryId": "capped-bullets-stop-4500",
+          "variation": {
+            "driver": "stop-tick",
+            "value": 4500,
+            "unit": "ticks"
+          },
+          "links": {
+            "preview": "out/named-crystal-catalog/final-resolution-c-v1/review-renders/capped-bullets-stop-4500-tilt55.png",
+            "webAsset": "out/named-crystal-catalog/final-resolution-c-v1/capped-bullets-stop-4500/growth-v1.bin",
+            "recipeOrScene": "out/named-crystal-catalog/final-resolution-c-v1/capped-bullets-stop-4500/spec.json",
+            "scientificBundle": "out/named-crystal-catalog/final-resolution-c-v1/capped-bullets-stop-4500/"
+          },
+          "webPayloadBytes": 184463
+        },
+        "baseline": {
+          "entryId": "capped-bullets-stop-5000",
+          "variation": {
+            "driver": "stop-tick",
+            "value": 5000,
+            "unit": "ticks"
+          },
+          "links": {
+            "preview": "out/named-crystal-catalog/final-resolution-c-v1/review-renders/capped-bullets-stop-5000-tilt55.png",
+            "webAsset": "out/named-crystal-catalog/final-resolution-c-v1/capped-bullets-stop-5000/growth-v1.bin",
+            "recipeOrScene": "out/named-crystal-catalog/final-resolution-c-v1/capped-bullets-stop-5000/spec.json",
+            "scientificBundle": "out/named-crystal-catalog/final-resolution-c-v1/capped-bullets-stop-5000/"
+          },
+          "webPayloadBytes": 212303
+        },
+        "upper": {
+          "entryId": "capped-bullets-stop-5500",
+          "variation": {
+            "driver": "stop-tick",
+            "value": 5500,
+            "unit": "ticks"
+          },
+          "links": {
+            "preview": "out/named-crystal-catalog/final-resolution-c-v1/review-renders/capped-bullets-stop-5500-tilt55.png",
+            "webAsset": "out/named-crystal-catalog/final-resolution-c-v1/capped-bullets-stop-5500/growth-v1.bin",
+            "recipeOrScene": "out/named-crystal-catalog/final-resolution-c-v1/capped-bullets-stop-5500/spec.json",
+            "scientificBundle": "out/named-crystal-catalog/final-resolution-c-v1/capped-bullets-stop-5500/"
+          },
+          "webPayloadBytes": 245711
+        }
       },
       "exclusionReason": null
     },
@@ -488,7 +1244,7 @@
       "id": "stellar-dendrites",
       "name": "Stellar Dendrites",
       "route": "gg",
-      "note": "fig7 and fig15 are current anchor candidates.",
+      "note": "Accepted final-resolution direct trio; exact output, clearance and visual identities are in docs/named-snow-crystal-final-direct-review.json.",
       "currentCandidates": [
         {
           "id": "fig7",
@@ -502,9 +1258,51 @@
         }
       ],
       "variants": {
-        "lower": null,
-        "baseline": null,
-        "upper": null
+        "lower": {
+          "entryId": "stellar-dendrites-lower",
+          "variation": {
+            "driver": "rho-scale",
+            "value": 0.95,
+            "unit": "multiplier"
+          },
+          "links": {
+            "preview": "out/named-crystal-catalog/final-resolution-c-v1/review-renders/stellar-dendrites-lower-tilt55.png",
+            "webAsset": "out/named-crystal-catalog/final-resolution-c-v1/stellar-dendrites-lower/growth-v1.bin",
+            "recipeOrScene": "out/named-crystal-catalog/final-resolution-c-v1/stellar-dendrites-lower/spec.json",
+            "scientificBundle": "out/named-crystal-catalog/final-resolution-c-v1/stellar-dendrites-lower/"
+          },
+          "webPayloadBytes": 5747244
+        },
+        "baseline": {
+          "entryId": "stellar-dendrites-baseline",
+          "variation": {
+            "driver": "rho-scale",
+            "value": 1,
+            "unit": "multiplier"
+          },
+          "links": {
+            "preview": "out/named-crystal-catalog/final-resolution-c-v1/review-renders/stellar-dendrites-baseline-tilt55.png",
+            "webAsset": "out/named-crystal-catalog/final-resolution-c-v1/stellar-dendrites-baseline/growth-v1.bin",
+            "recipeOrScene": "out/named-crystal-catalog/final-resolution-c-v1/stellar-dendrites-baseline/spec.json",
+            "scientificBundle": "out/named-crystal-catalog/final-resolution-c-v1/stellar-dendrites-baseline/"
+          },
+          "webPayloadBytes": 6857687
+        },
+        "upper": {
+          "entryId": "stellar-dendrites-upper",
+          "variation": {
+            "driver": "rho-scale",
+            "value": 1.05,
+            "unit": "multiplier"
+          },
+          "links": {
+            "preview": "out/named-crystal-catalog/final-resolution-c-v1/review-renders/stellar-dendrites-upper-tilt55.png",
+            "webAsset": "out/named-crystal-catalog/final-resolution-c-v1/stellar-dendrites-upper/growth-v1.bin",
+            "recipeOrScene": "out/named-crystal-catalog/final-resolution-c-v1/stellar-dendrites-upper/spec.json",
+            "scientificBundle": "out/named-crystal-catalog/final-resolution-c-v1/stellar-dendrites-upper/"
+          },
+          "webPayloadBytes": 7750722
+        }
       },
       "exclusionReason": null
     },
@@ -536,7 +1334,7 @@
       "id": "double-plates",
       "name": "Double Plates",
       "route": "gg",
-      "note": "fig6 is the current scientific anchor; its website exclusion remains visible.",
+      "note": "Accepted final-resolution direct trio; exact output, clearance and visual identities are in docs/named-snow-crystal-final-direct-review.json.",
       "currentCandidates": [
         {
           "id": "fig6",
@@ -545,9 +1343,51 @@
         }
       ],
       "variants": {
-        "lower": null,
-        "baseline": null,
-        "upper": null
+        "lower": {
+          "entryId": "double-plates-lower",
+          "variation": {
+            "driver": "rho-scale",
+            "value": 0.95,
+            "unit": "multiplier"
+          },
+          "links": {
+            "preview": "out/named-crystal-catalog/final-resolution-c-v1/review-renders/double-plates-lower-tilt55.png",
+            "webAsset": "out/named-crystal-catalog/final-resolution-c-v1/double-plates-lower/growth-v1.bin",
+            "recipeOrScene": "out/named-crystal-catalog/final-resolution-c-v1/double-plates-lower/spec.json",
+            "scientificBundle": "out/named-crystal-catalog/final-resolution-c-v1/double-plates-lower/"
+          },
+          "webPayloadBytes": 5692937
+        },
+        "baseline": {
+          "entryId": "double-plates-baseline",
+          "variation": {
+            "driver": "rho-scale",
+            "value": 1,
+            "unit": "multiplier"
+          },
+          "links": {
+            "preview": "out/named-crystal-catalog/final-resolution-c-v1/review-renders/double-plates-baseline-tilt55.png",
+            "webAsset": "out/named-crystal-catalog/final-resolution-c-v1/double-plates-baseline/growth-v1.bin",
+            "recipeOrScene": "out/named-crystal-catalog/final-resolution-c-v1/double-plates-baseline/spec.json",
+            "scientificBundle": "out/named-crystal-catalog/final-resolution-c-v1/double-plates-baseline/"
+          },
+          "webPayloadBytes": 5877043
+        },
+        "upper": {
+          "entryId": "double-plates-upper",
+          "variation": {
+            "driver": "rho-scale",
+            "value": 1.05,
+            "unit": "multiplier"
+          },
+          "links": {
+            "preview": "out/named-crystal-catalog/final-resolution-c-v1/review-renders/double-plates-upper-tilt55.png",
+            "webAsset": "out/named-crystal-catalog/final-resolution-c-v1/double-plates-upper/growth-v1.bin",
+            "recipeOrScene": "out/named-crystal-catalog/final-resolution-c-v1/double-plates-upper/spec.json",
+            "scientificBundle": "out/named-crystal-catalog/final-resolution-c-v1/double-plates-upper/"
+          },
+          "webPayloadBytes": 6214238
+        }
       },
       "exclusionReason": null
     },
@@ -577,7 +1417,7 @@
       "id": "fernlike-stellar-dendrites",
       "name": "Fernlike Stellar Dendrites",
       "route": "gg",
-      "note": "fig13 is the current anchor candidate.",
+      "note": "Accepted final-resolution direct trio; exact output, clearance and visual identities are in docs/named-snow-crystal-final-direct-review.json.",
       "currentCandidates": [
         {
           "id": "fig13",
@@ -586,9 +1426,51 @@
         }
       ],
       "variants": {
-        "lower": null,
-        "baseline": null,
-        "upper": null
+        "lower": {
+          "entryId": "fernlike-stellar-dendrites-lower",
+          "variation": {
+            "driver": "rho-scale",
+            "value": 0.95,
+            "unit": "multiplier"
+          },
+          "links": {
+            "preview": "out/named-crystal-catalog/final-resolution-a-v1/review-renders/fernlike-stellar-dendrites-lower-tilt55.png",
+            "webAsset": "out/named-crystal-catalog/final-resolution-a-v1/fernlike-stellar-dendrites-lower/growth-v1.bin",
+            "recipeOrScene": "out/named-crystal-catalog/final-resolution-a-v1/fernlike-stellar-dendrites-lower/spec.json",
+            "scientificBundle": "out/named-crystal-catalog/final-resolution-a-v1/fernlike-stellar-dendrites-lower/"
+          },
+          "webPayloadBytes": 6343437
+        },
+        "baseline": {
+          "entryId": "fernlike-stellar-dendrites-baseline",
+          "variation": {
+            "driver": "rho-scale",
+            "value": 1,
+            "unit": "multiplier"
+          },
+          "links": {
+            "preview": "out/named-crystal-catalog/final-resolution-a-v1/review-renders/fernlike-stellar-dendrites-baseline-tilt55.png",
+            "webAsset": "out/named-crystal-catalog/final-resolution-a-v1/fernlike-stellar-dendrites-baseline/growth-v1.bin",
+            "recipeOrScene": "out/named-crystal-catalog/final-resolution-a-v1/fernlike-stellar-dendrites-baseline/spec.json",
+            "scientificBundle": "out/named-crystal-catalog/final-resolution-a-v1/fernlike-stellar-dendrites-baseline/"
+          },
+          "webPayloadBytes": 8183979
+        },
+        "upper": {
+          "entryId": "fernlike-stellar-dendrites-upper",
+          "variation": {
+            "driver": "rho-scale",
+            "value": 1.05,
+            "unit": "multiplier"
+          },
+          "links": {
+            "preview": "out/named-crystal-catalog/final-resolution-a-v1/review-renders/fernlike-stellar-dendrites-upper-tilt55.png",
+            "webAsset": "out/named-crystal-catalog/final-resolution-a-v1/fernlike-stellar-dendrites-upper/growth-v1.bin",
+            "recipeOrScene": "out/named-crystal-catalog/final-resolution-a-v1/fernlike-stellar-dendrites-upper/spec.json",
+            "scientificBundle": "out/named-crystal-catalog/final-resolution-a-v1/fernlike-stellar-dendrites-upper/"
+          },
+          "webPayloadBytes": 8457494
+        }
       },
       "exclusionReason": null
     },
@@ -609,7 +1491,7 @@
       "id": "hollow-plates",
       "name": "Hollow Plates",
       "route": "gg-plus",
-      "note": "Accepted direct-production trio; exact output identities and three-view rationale are in docs/named-snow-crystal-direct-production-review.json. Scaled production variants are preserved as morphology screens in named-snow-crystal-resolution-supersession.json; final-resolution replacement is pending.",
+      "note": "Accepted final-resolution direct trio; exact output, clearance and visual identities are in docs/named-snow-crystal-final-direct-review.json.",
       "currentCandidates": [
         {
           "id": "fig11",
@@ -633,9 +1515,51 @@
         }
       ],
       "variants": {
-        "lower": null,
-        "baseline": null,
-        "upper": null
+        "lower": {
+          "entryId": "hollow-plates-lower",
+          "variation": {
+            "driver": "cavity-radius",
+            "value": 1,
+            "unit": "lattice sites"
+          },
+          "links": {
+            "preview": "out/named-crystal-catalog/final-resolution-b-v1/review-renders/hollow-plates-lower-tilt55.png",
+            "webAsset": "out/named-crystal-catalog/final-resolution-b-v1/hollow-plates-lower/growth-v1.bin",
+            "recipeOrScene": "out/named-crystal-catalog/final-resolution-b-v1/hollow-plates-lower/spec.json",
+            "scientificBundle": "out/named-crystal-catalog/final-resolution-b-v1/hollow-plates-lower/"
+          },
+          "webPayloadBytes": 45700
+        },
+        "baseline": {
+          "entryId": "hollow-plates-baseline",
+          "variation": {
+            "driver": "cavity-radius",
+            "value": 2,
+            "unit": "lattice sites"
+          },
+          "links": {
+            "preview": "out/named-crystal-catalog/final-resolution-b-v1/review-renders/hollow-plates-baseline-tilt55.png",
+            "webAsset": "out/named-crystal-catalog/final-resolution-b-v1/hollow-plates-baseline/growth-v1.bin",
+            "recipeOrScene": "out/named-crystal-catalog/final-resolution-b-v1/hollow-plates-baseline/spec.json",
+            "scientificBundle": "out/named-crystal-catalog/final-resolution-b-v1/hollow-plates-baseline/"
+          },
+          "webPayloadBytes": 46978
+        },
+        "upper": {
+          "entryId": "hollow-plates-upper",
+          "variation": {
+            "driver": "cavity-radius",
+            "value": 4,
+            "unit": "lattice sites"
+          },
+          "links": {
+            "preview": "out/named-crystal-catalog/final-resolution-b-v1/review-renders/hollow-plates-upper-tilt55.png",
+            "webAsset": "out/named-crystal-catalog/final-resolution-b-v1/hollow-plates-upper/growth-v1.bin",
+            "recipeOrScene": "out/named-crystal-catalog/final-resolution-b-v1/hollow-plates-upper/spec.json",
+            "scientificBundle": "out/named-crystal-catalog/final-resolution-b-v1/hollow-plates-upper/"
+          },
+          "webPayloadBytes": 41416
+        }
       },
       "exclusionReason": null
     },
