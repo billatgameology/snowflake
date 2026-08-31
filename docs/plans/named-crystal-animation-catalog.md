@@ -667,6 +667,24 @@ pass 12 tests, both TypeScript projects pass, Rule 7 remains clean across 1,097 
 syntax and diff checks pass. Commit the correction, rebuild the same 33 IDs and rerun all 297
 captures; the first capture set remains rejected evidence.
 
+Compose projected-framing correction (registered after the corrected review reached Multiply
+Capped Columns and before changing the player/builder, 2026-08-31): the transformed AABBs fix the
+scene-scale defect, but the first tall-family oblique and axial captures still touch or cross the
+viewport edge. Two presentation terms explain the observed clipping. The orthographic frame uses
+only the unyawed Y/Z projection even though review yaw can project X into screen height, and the
+generated scene `zoom` values below 1 multiply the half-span downward, cancelling the player's 12%
+framing allowance. These captures are rejected and the interrupted review is not acceptance
+evidence.
+
+Extend the pure framing calculation with the actual yawed orthographic projection: screen width is
+`abs(cos(yaw))*X + abs(sin(yaw))*Y`, while screen height is
+`abs(cos(tilt)*sin(yaw))*X + abs(cos(tilt)*cos(yaw))*Y + abs(sin(tilt))*Z`.
+Pass the effective review/scene yaw into that calculation and add a tall, yawed regression. Keep the
+scene-level scale-to-frame factor at or above 1 for all final Compose recipes so the existing 12%
+frame allowance remains a margin instead of becoming a crop. Rebuild the same 33 IDs and restart
+all 297 captures from an empty review directory; do not accept until the tall oblique/axial views
+show clearance and the complete contact sheet passes visual inspection.
+
 Final Compose production protocol (registered before implementation, 2026-08-30): after the direct
 review binds accepted full-resolution components, generate exactly 33 `growth-scene-v1` entries—
 three each for 11 Compose types. The two measured direct failures, Multiply Capped Columns and

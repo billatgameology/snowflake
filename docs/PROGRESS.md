@@ -555,6 +555,14 @@ and contact-sheet screenshots the same 120-second ceiling already used for scene
 commit this capture-only timeout and restart the browser review; no scene output or solver product
 changed.
 
+The corrected review reached 13/33 scenes before a second presentation defect was found and the run
+was stopped: Multiply Capped Columns touches/crosses the viewport edge in oblique and axial views.
+The transformed scene bounds themselves contain every component, but the orthographic fit omits
+the yaw contribution from X and the final Compose `zoom` values below 1 shrink the calculated
+half-span. The active plan now registers yaw-aware projected framing, a tall/yawed regression and a
+minimum scene frame factor of 1. Next implement and focus-check that correction, rebuild the same 33
+scenes, remove the partial rejected captures and restart all 297 views.
+
 ### Phase 10 — planning complete; maker package selection pending
 
 The [candidate plan](plans/phase-10-closures-and-frontier.md) replaces the original A–D shorthand
