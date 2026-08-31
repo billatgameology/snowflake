@@ -534,6 +534,12 @@ intercepts only the exact byte/SHA-verified scene and component URLs inside Play
 ordinary app code through loopback Vite; syntax, Rule 7 and diff checks pass. Next commit this helper
 fix, rerun all 297 captures, then inspect the final-time three-view contact sheet.
 
+The exact Playwright routes then reached and rendered the first real scene, but its first WebGPU
+screenshot exceeded Playwright's unrelated 30-second capture default. The helper now gives scene
+and contact-sheet screenshots the same 120-second ceiling already used for scene readiness. Next
+commit this capture-only timeout and restart the browser review; no scene output or solver product
+changed.
+
 ### Phase 10 — planning complete; maker package selection pending
 
 The [candidate plan](plans/phase-10-closures-and-frontier.md) replaces the original A–D shorthand

@@ -148,7 +148,7 @@ try {
         for (const stage of stages) {
           await page.evaluate((seconds) => window.__sceneSeek(seconds), duration * stage.fraction);
           const path = join(outputRoot, `${result.entryId}-${view.id}-${stage.id}.png`);
-          const bytes = await page.screenshot({ path });
+          const bytes = await page.screenshot({ path, timeout: 120_000 });
           captures.push({
             entryId: result.entryId,
             typeId: result.typeId,
@@ -198,7 +198,7 @@ const sheetBrowser = await chromium.launch({ headless: true });
 try {
   const page = await sheetBrowser.newPage({ viewport: { width: 1880, height: 1000 } });
   await page.setContent(html, { waitUntil: "load" });
-  await page.screenshot({ path: contactPath, fullPage: true });
+  await page.screenshot({ path: contactPath, fullPage: true, timeout: 120_000 });
 } finally {
   await sheetBrowser.close();
 }
