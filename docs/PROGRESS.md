@@ -527,6 +527,14 @@ projects pass, Rule 7 is clean across 1,097 files and diff check passes. Next co
 then run `node scripts/named-crystal-final-compose.ts build`, capture all 297 real-browser review
 images, inspect them and execute final Compose acceptance.
 
+The first complete 297-capture Compose review is not accepted. Visual inspection found that the
+fixed −500…500 scene cube makes several families tiny, while radial bullets/needles and crossed
+needles overlap because their old Euler Z variation does not rotate the component's local Z axis in
+the player's XYZ order. The active plan now registers exact event-derived transformed bounds, tested
+polar-axis Euler rotations and high-visibility `bold-ice` review captures. Next commit this correction
+protocol, implement it with focused geometry controls, rebuild the 33 scenes and replace all 297
+review captures before creating any Compose decision.
+
 All 33 real Compose scene/scientific bundles are built. The first browser-review request stopped on
 a Vite 403 before any scene rendered because the helper attempted raw `/@fs` access to `out/`, which
 the app's security boundary intentionally denies. The boundary remains unchanged. The helper now

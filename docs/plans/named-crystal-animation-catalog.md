@@ -637,6 +637,26 @@ in-memory route map containing only the byte/SHA-verified scene and its byte/SHA
 assets; ordinary app modules continue through the loopback Vite server. JavaScript syntax, Rule 7
 and diff checks pass. Commit this correction before restarting the 297-capture pass.
 
+Compose visual-framing correction (registered after the first complete 297-capture review and
+before rebuilding scenes, 2026-08-31): the browser evidence is technically complete but fails the
+visual catalog gate. The builder wrote one fixed −500…500 cube for every scene. That leaves several
+small-component families occupying only a few percent of the frame. The radial bullet/needle and
+crossed-needle recipes also vary an Euler Z value that cannot change the local Z axis under the
+player's fixed XYZ Euler order, so their nominally radial/crossed instances overlap in direction.
+Do not accept or write a Compose decision from these captures.
+
+Correct the existing scene builder without changing component growth assets or the registered
+one-driver values. Decode each exact component event table; derive its local lattice-cell AABB at
+the maximum supported display Z scale (3.5); transform all eight corners through every registered
+instance's scale, XYZ rotation and translation; union them; and add bounded 8% framing padding.
+Replace the radial and crossed-needle rotations with a tested polar-axis-to-XYZ-Euler mapping whose
+transformed local Z directions are six distinct azimuths or the requested crossing angle. Record the
+derived bounds in each scene/report and add negative controls that fail fixed 1,000-unit bounds,
+overlapping radial directions and any transformed corner outside the published bounds. Use the
+maker-preferred high-visibility `bold-ice` look for review because transparent `glass` has no mesh
+edge overlay for instanced cells and is too faint as a catalog visual aid. Rebuild the same 33 scene
+IDs, rerun all 297 captures, and visually inspect again before final acceptance.
+
 Final Compose production protocol (registered before implementation, 2026-08-30): after the direct
 review binds accepted full-resolution components, generate exactly 33 `growth-scene-v1` entries—
 three each for 11 Compose types. The two measured direct failures, Multiply Capped Columns and
