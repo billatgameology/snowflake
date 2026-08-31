@@ -1,7 +1,8 @@
 # Plan — named snow-crystal animation catalog
 
 - **Phase:** Pre-Phase 7 product/catalog work; no charter phase or scientific gate is reopened
-- **Status:** in progress — first 24 dual-output GG+ entries accepted; 75 catalog slots remain
+- **Status:** in progress — final-resolution Fleet A complete and visually reviewed; Fleets B/C and
+  final acceptance remain, with 0/99 final-resolution slots accepted
 - **Started:** 2026-08-29
 - **Last touched:** 2026-08-30 by OpenAI Codex (GPT-5)
 
@@ -652,6 +653,30 @@ generated table completely before replacing any tracked output. The five focused
 complete 66-slot transaction and the four registered failure controls; all five pass, both TypeScript
 projects pass, the Rule 7 scan is clean across 1,087 files, and the diff check passes. The production
 decision/review files remain absent pending real A/B/C completion and visual review.
+
+Final-resolution Fleet A execution/review checkpoint (2026-08-30): the registered command
+`node scripts/named-crystal-final-resolution-production.ts run --fleet a` launched 24 actual workers
+on the 24-core / 24-logical-processor Intel Core Ultra 9 285K host and completed 24/24 jobs with zero
+failed or missing. The exact report is
+`out/named-crystal-catalog/final-resolution-a-v1/report.json` (591,740 bytes; SHA-256
+`3f2450ea36371ad66198004e5f66368d59eeccb0e2ac021b46b973a121aa1cfd`). Its decoder-verified web
+assets range from 623,976 to 10,923,005 bytes, total 94,183,038 bytes, and all are strictly below the
+20,000,000-byte per-entry limit. The scientific bundles contain 3,043 files / 42,323,811,889 bytes
+with 109–121 mesh states per entry.
+
+The exact vertical-clearance report is
+`out/named-crystal-catalog/final-resolution-a-v1/vertical-clearance.json` (4,225 bytes; SHA-256
+`8badf5ef28933e6f3247edff9938ac30fe0345b38839492ae3439a166615f456`) and passes all nine required
+tall results. Hollow Columns retain 238–249 Z layers at the closer boundary, Capped Columns retain
+106–121, and Simple Needles retain 178–196; every value exceeds its registered absolute/fractional
+minimum. The reviewed 24-row three-view sheet is
+`out/named-crystal-catalog/final-resolution-a-v1/contact-sheet.png` (10,913,625 bytes; SHA-256
+`66222f9f5a84edb1b0132f7d049319b519c199eefa1c4f85f35af40a2572fcdf`). Visual inspection accepts
+all eight lower/baseline/upper trios as production candidates: planar families retain their named
+face morphology; Hollow Columns and Simple Needles are strongly axial and fully framed; and Capped
+Columns retain a long column with distinct caps at both ends. This is a recorded Fleet A review, not
+formal catalog acceptance: the tracked direct decision remains blocked until Fleets B/C and their
+visual reviews exist. Next launch Fleet B in the now-free registered 24-worker lane.
 
 Coverage-first execution and review checkpoint (2026-08-29): the registered command
 `node scripts/named-crystal-baseline-probes.ts run` launched exactly 24 workers on the Intel Core

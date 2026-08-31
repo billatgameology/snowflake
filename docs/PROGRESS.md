@@ -428,6 +428,22 @@ report drift, non-adjacent Capped Bullets, selected web-byte drift and incomplet
 Both TypeScript projects pass, the Rule 7 scan is clean across 1,087 files, and the diff check passes.
 Commit the verifier; its production decision/review inputs remain absent until A/B/C visual review.
 
+Final-resolution Fleet A then completed 24/24 jobs with 24 actual workers and zero failed/missing.
+Its exact 591,740-byte report (SHA-256
+`3f2450ea36371ad66198004e5f66368d59eeccb0e2ac021b46b973a121aa1cfd`) records 24 decoder-verified
+web files from 623,976 to 10,923,005 bytes, all strictly below 20,000,000 bytes, plus 3,043
+scientific files / 42,323,811,889 bytes with 109–121 mesh states per entry. The exact 4,225-byte
+vertical-clearance report (SHA-256
+`8badf5ef28933e6f3247edff9938ac30fe0345b38839492ae3439a166615f456`) passes 9/9 tall results:
+Hollow Columns retain 238–249 Z layers at the closer boundary, Capped Columns 106–121 and Simple
+Needles 178–196. Visual inspection of the exact 10,913,625-byte three-view sheet (SHA-256
+`66222f9f5a84edb1b0132f7d049319b519c199eefa1c4f85f35af40a2572fcdf`) accepts all eight trios as
+production candidates: planar forms retain their named face morphology, Hollow Columns/Needles are
+axial and fully framed, and Capped Columns keep distinct caps at both ends. These 24 outputs remain
+unaccepted until the consolidated A/B/C direct decision. Next commit this execution/review record,
+then run `node scripts/named-crystal-final-resolution-production.ts run --fleet b` in the freed
+24-worker lane; do not launch Fleet C concurrently.
+
 ### Phase 10 — planning complete; maker package selection pending
 
 The [candidate plan](plans/phase-10-closures-and-frontier.md) replaces the original A–D shorthand
