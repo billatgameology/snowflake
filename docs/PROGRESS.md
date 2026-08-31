@@ -570,6 +570,13 @@ typecheck covers both TypeScript projects, the app production build passes, Rule
 1,097 files and syntax/diff checks pass. Next commit the correction, rebuild all 33 scenes, remove
 the rejected partial capture directory and restart the complete 297-view review.
 
+That restarted review was stopped after six scenes because the first real face-on 12-branched Star
+still reaches the top and bottom pixels despite the yaw-aware AABB fit. This partial capture set is
+also rejected. The active plan now registers a conservative 1.4 scene frame factor plus a live
+Three.js projected-cell rectangle that makes the browser harness fail unless every view retains 5%
+clearance on all sides. Next implement/focus-check the rendered-clearance contract, rebuild the 33
+scenes and validate the first flat and tall sentinels before continuing the full pass.
+
 ### Phase 10 — planning complete; maker package selection pending
 
 The [candidate plan](plans/phase-10-closures-and-frontier.md) replaces the original A–D shorthand

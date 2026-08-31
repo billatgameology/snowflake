@@ -694,6 +694,20 @@ pass. A separately attempted app-workspace `typecheck` command is not a project 
 change and the required root command had already checked both projects. Commit the implementation,
 rebuild the same 33 scenes and restart the complete review from an empty capture directory.
 
+Compose rendered-clearance correction (registered after the restarted review's first family and
+before changing capture/player code, 2026-08-31): the yaw-aware mathematical fit fixed the known tall
+projection term, but the real face-on 12-branched Star still reaches the top and bottom pixels. The
+review was stopped after six scenes and its partial directory remains rejected. Do not infer visual
+clearance solely from the builder's transformed AABB again.
+
+Use a conservative 1.4 scale-to-frame factor for every final Compose scene. During real scene load,
+measure each component's rendered local cell bounds from the same decoded events, apply Three.js's
+actual component and scene matrices, project all corners through the live camera and expose the final
+NDC rectangle to the capture harness. Fail each view before screenshots unless all four edges retain
+at least 5% of the viewport (`-0.9..0.9` in NDC). Add focused contract coverage for the exposed
+rectangle and the fail-closed review check. Rebuild the same 33 scene IDs and validate the first flat
+and first tall family captures before allowing the full 297-view pass to continue.
+
 Final Compose production protocol (registered before implementation, 2026-08-30): after the direct
 review binds accepted full-resolution components, generate exactly 33 `growth-scene-v1` entries—
 three each for 11 Compose types. The two measured direct failures, Multiply Capped Columns and
