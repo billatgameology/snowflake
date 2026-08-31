@@ -8,7 +8,7 @@
 import { spawn } from "node:child_process";
 import { createHash } from "node:crypto";
 import { mkdirSync, readFileSync, statSync, writeFileSync } from "node:fs";
-import { join, relative, resolve } from "node:path";
+import { dirname, join, relative, resolve } from "node:path";
 import { chromium } from "playwright";
 
 const argument = (name, fallback) => {
@@ -90,12 +90,39 @@ try {
     if (sceneBytes.byteLength !== result.scene.byteLength || sha256(sceneBytes) !== result.scene.sha256) {
       throw new Error(`${result.entryId}: scene identity drift`);
     }
+    const scene = JSON.parse(sceneBytes.toString());
+    const sceneUrl = `/__compose-review/${encodeURIComponent(result.entryId)}/scene.json`;
+    const routeBase = `http://127.0.0.1:${port}${sceneUrl}`;
+    const exactRoutes = new Map([[sceneUrl, { bytes: sceneBytes, contentType: "application/json" }]]);
+    for (const component of scene.components ?? []) {
+      const assetPath = resolve(dirname(scenePath), component.growthAsset.url);
+      const assetBytes = readFileSync(assetPath);
+      if (
+        assetBytes.byteLength !== component.growthAsset.byteLength
+        || sha256(assetBytes) !== component.growthAsset.sha256
+      ) {
+        throw new Error(`${result.entryId}/${component.id}: component identity drift`);
+      }
+      const routePath = new URL(component.growthAsset.url, routeBase).pathname;
+      const existing = exactRoutes.get(routePath);
+      if (existing !== undefined && sha256(existing.bytes) !== component.growthAsset.sha256) {
+        throw new Error(`${result.entryId}/${component.id}: component route collision`);
+      }
+      exactRoutes.set(routePath, { bytes: assetBytes, contentType: "application/octet-stream" });
+    }
     for (const view of views) {
       const page = await browser.newPage({ viewport: { width: 720, height: 720 } });
       const pageErrors = [];
       page.on("pageerror", (error) => pageErrors.push(String(error)));
       try {
-        const sceneUrl = `/@fs/${webPath(scenePath)}`;
+        await page.route("**/*", (route) => {
+          const requestUrl = new URL(route.request().url());
+          const local = requestUrl.origin === `http://127.0.0.1:${port}`
+            ? exactRoutes.get(requestUrl.pathname)
+            : undefined;
+          if (local === undefined) return route.continue();
+          return route.fulfill({ body: local.bytes, contentType: local.contentType });
+        });
         const params = new URLSearchParams({
           growthScene: sceneUrl,
           capture: "1",

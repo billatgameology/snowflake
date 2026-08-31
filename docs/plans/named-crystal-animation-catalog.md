@@ -629,6 +629,14 @@ files pass nine tests, both TypeScript projects pass, the Rule 7 scan is clean a
 the diff check passes. Commit this checkpoint, then build all 33 real Compose scenes from the exact
 direct review.
 
+Compose materialization/review-helper checkpoint (2026-08-31): the builder completed all 33 real
+scene/scientific bundles. The first browser-review request correctly received 403 because the helper
+used Vite `/@fs` for an `out/` scene, while the repository security boundary deliberately denies all
+raw `out/` access. Do not weaken that boundary. The helper now gives Playwright an exact per-scene
+in-memory route map containing only the byte/SHA-verified scene and its byte/SHA-verified component
+assets; ordinary app modules continue through the loopback Vite server. JavaScript syntax, Rule 7
+and diff checks pass. Commit this correction before restarting the 297-capture pass.
+
 Final Compose production protocol (registered before implementation, 2026-08-30): after the direct
 review binds accepted full-resolution components, generate exactly 33 `growth-scene-v1` entries—
 three each for 11 Compose types. The two measured direct failures, Multiply Capped Columns and

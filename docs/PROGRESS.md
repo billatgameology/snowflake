@@ -527,6 +527,13 @@ projects pass, Rule 7 is clean across 1,097 files and diff check passes. Next co
 then run `node scripts/named-crystal-final-compose.ts build`, capture all 297 real-browser review
 images, inspect them and execute final Compose acceptance.
 
+All 33 real Compose scene/scientific bundles are built. The first browser-review request stopped on
+a Vite 403 before any scene rendered because the helper attempted raw `/@fs` access to `out/`, which
+the app's security boundary intentionally denies. The boundary remains unchanged. The helper now
+intercepts only the exact byte/SHA-verified scene and component URLs inside Playwright while serving
+ordinary app code through loopback Vite; syntax, Rule 7 and diff checks pass. Next commit this helper
+fix, rerun all 297 captures, then inspect the final-time three-view contact sheet.
+
 ### Phase 10 — planning complete; maker package selection pending
 
 The [candidate plan](plans/phase-10-closures-and-frontier.md) replaces the original A–D shorthand
