@@ -460,6 +460,22 @@ visibly split. These outputs remain unaccepted until the consolidated direct dec
 this record, then run `node scripts/named-crystal-final-resolution-production-c.ts run` in the freed
 24-worker lane; do not start Compose generation concurrently.
 
+Final-resolution Fleet C first pass then finished 21/24 with zero missing and 24 actual workers.
+The exact 524,024-byte report (SHA-256
+`84415852227cc635782358f5f2342173ff47edd9d2b910614a7a1b919e0d320e`) shows all nine Capped
+Bullets searches and all Stellar Dendrites, Simple Stars and Skeletal Forms variants passed. The
+exact 4,703-byte clearance report (SHA-256
+`b368839ad836f358f83bedea994318bc686ba08078869a3e4ff7c880ba5067a0`) passes all 12 Columns on
+Plates / Capped Bullets rows. Three child solvers exited zero and produced decoder-valid web files
+below 20,000,000 bytes, but deterministic domain contact preceded their tick caps and left only
+88/95/88 scientific frames: `columns-on-plates-upper` stopped at tick 10,251,
+`double-plates-baseline` at 33,737 and `double-plates-upper` at 31,081. The active plan now registers
+an exact three-job cadence-only repair at 86/282/260 ticks per frame, targeting 121 states while
+requiring the final mesh/state/record/growth identities to remain byte-identical. Next implement and
+focused-test the fail-closed repair/reconciliation tool, commit it, run the three jobs in parallel,
+then render and inspect Fleet C's contact sheet. Do not weaken the 100-frame floor or change solver
+recipes/domains.
+
 ### Phase 10 — planning complete; maker package selection pending
 
 The [candidate plan](plans/phase-10-closures-and-frontier.md) replaces the original A–D shorthand

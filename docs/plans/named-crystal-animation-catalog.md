@@ -1,10 +1,11 @@
 # Plan — named snow-crystal animation catalog
 
 - **Phase:** Pre-Phase 7 product/catalog work; no charter phase or scientific gate is reopened
-- **Status:** in progress — final-resolution Fleets A/B complete and visually reviewed; Fleet C and
-  final acceptance remain, with 0/99 final-resolution slots accepted
+- **Status:** in progress — final-resolution Fleets A/B complete and visually reviewed; Fleet C is
+  21/24 complete pending a three-job cadence-only repair; final acceptance remains, with 0/99
+  final-resolution slots accepted
 - **Started:** 2026-08-29
-- **Last touched:** 2026-08-30 by OpenAI Codex (GPT-5)
+- **Last touched:** 2026-08-31 by OpenAI Codex (GPT-5)
 
 ## Goal
 
@@ -517,6 +518,39 @@ for all three Columns on Plates jobs and all nine Capped Bullets candidates. Bot
 focused files pass 14 tests, both TypeScript projects pass, the Rule 7 scan is clean across 1,080
 files, and the diff check passes. The Fleet C output root remains absent; do not launch it while
 Fleet A owns the 24-worker lane.
+
+Fleet C cadence-repair protocol (registered after the completed first pass and before repair
+implementation/launch, 2026-08-31): the exact first-pass report is
+`out/named-crystal-catalog/final-resolution-c-v1/report.json` (524,024 bytes; SHA-256
+`84415852227cc635782358f5f2342173ff47edd9d2b910614a7a1b919e0d320e`). It records 21 completed,
+three failed, zero missing and 24 actual workers. All nine Capped Bullets jobs passed, all 12
+registered vertical-clearance rows passed, every child solver exited zero, and every web product
+decoded below 20,000,000 bytes. The only failures are scientific timeline counts below the
+registered 100-frame floor after deterministic early domain contact:
+
+| Exact job | Final tick | First cadence | First frames | Repair cadence | Expected repair frames |
+|---|---:|---:|---:|---:|---:|
+| `columns-on-plates-upper` | 10,251 | 119 | 88 | 86 | 121 |
+| `double-plates-baseline` | 33,737 | 359 | 95 | 282 | 121 |
+| `double-plates-upper` | 31,081 | 359 | 88 | 260 | 121 |
+
+Run one bounded repair containing exactly those three jobs in parallel. Keep each job's exact
+source/spec hash, dimensions, tick cap, stop policy, seed, noise, domain and G-G schedule unchanged;
+change only `framesEvery` to the registered value above. Generate into a separate repair root first,
+then fail closed unless the repaired final tick and the SHA-256 identities of `mesh.bin`,
+`state.bin`, `record.json`, and `growth-v1.bin` exactly match the first pass. This proves the denser
+sampling did not change the solver result or compact web animation. Require 100–122 complete mesh
+states and the real browser decoder/web limit before replacing the three failed job directories.
+Preserve those original directories in a separate cadence-failure archive and preserve the exact
+24-worker first-pass launch in the consolidated Fleet C report; record the three-worker repair
+launch separately rather than pretending it was part of the original fleet.
+
+Do not accept 88/95-frame timelines, enlarge domains, change physics or hand-edit the report. The
+problem is output sampling against a valid deterministic early stop, so any of those alternatives
+would either weaken the preregistered product contract or change an unrelated solver recipe. After
+focused repair/reconciliation tests, both typechecks, the Rule 7 scan and diff check pass, commit the
+repair implementation before launch. After the repaired report is complete, regenerate and inspect
+Fleet C's exact three-view contact sheet before creating the consolidated direct decision.
 
 Final Compose production protocol (registered before implementation, 2026-08-30): after the direct
 review binds accepted full-resolution components, generate exactly 33 `growth-scene-v1` entries—
