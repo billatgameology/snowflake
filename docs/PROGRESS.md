@@ -444,6 +444,22 @@ unaccepted until the consolidated A/B/C direct decision. Next commit this execut
 then run `node scripts/named-crystal-final-resolution-production.ts run --fleet b` in the freed
 24-worker lane; do not launch Fleet C concurrently.
 
+Final-resolution Fleet B then completed 24/24 jobs with 24 actual workers and zero failed/missing.
+Its exact 568,078-byte report (SHA-256
+`51c23843bcbb0953d07fcd4ad0fe2d8734ee07b3c7a73e130fea713c5b8a97fe`) records 24 decoder-verified
+web files from 4,769 to 444,686 bytes, all strictly below 20,000,000 bytes, plus 2,924 scientific
+files / 12,489,068,672 bytes with 101–121 mesh states per entry. The exact 5,342-byte clearance
+report (SHA-256 `0ce28de986c0424ea7adc2aabf720180ecfdccb7bfcdfaa8c78f062998235339`)
+passes 12/12 tall results: Cups retain 246–250 Z layers at the closer boundary, Isolated Bullets
+205–218, Sheaths 321–332 and Solid Columns 267–269. Visual inspection of the exact 8,666,417-byte
+three-view sheet (SHA-256
+`31dd77b506bf723dd110330e9497acc6c637286f061766b5ee172008b2386cae`) accepts all eight trios as
+production candidates: the tall families are fully framed, Hollow Plates retain their cavity,
+Scrolls remain asymmetric, Triangular Forms remain triangular and Split Plates & Stars remain
+visibly split. These outputs remain unaccepted until the consolidated direct decision. Next commit
+this record, then run `node scripts/named-crystal-final-resolution-production-c.ts run` in the freed
+24-worker lane; do not start Compose generation concurrently.
+
 ### Phase 10 — planning complete; maker package selection pending
 
 The [candidate plan](plans/phase-10-closures-and-frontier.md) replaces the original A–D shorthand
