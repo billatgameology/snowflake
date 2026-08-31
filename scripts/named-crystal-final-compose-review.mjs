@@ -127,7 +127,7 @@ try {
           growthScene: sceneUrl,
           capture: "1",
           ui: "0",
-          look: "glass",
+          look: "bold-ice",
           reviewTilt: String(view.tiltDegrees),
           reviewYaw: String(view.yawDegrees),
         });
@@ -213,6 +213,7 @@ const review = {
   playback: {
     page: "app/spike-gg-realism.html",
     queryMode: "growthScene",
+    look: "bold-ice",
     componentVerification: "browser-fetch-sha256-decodeGrowthAssetV1",
     views,
     stages,

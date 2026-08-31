@@ -89,6 +89,7 @@ interface ComponentBinding {
   readonly webSha256: string;
   readonly scientificLocator: string;
   readonly scientificIdentitySha256: string;
+  readonly localBounds: GrowthSceneV1["bounds"];
 }
 
 export interface FinalComposePlan {
@@ -131,6 +132,154 @@ const canonicalJson = (value: unknown): string => `${JSON.stringify(value, null,
 const sha256 = (bytes: Uint8Array | string): string => createHash("sha256").update(bytes).digest("hex");
 const isSha256 = (value: string): boolean => /^[0-9a-f]{64}$/.test(value);
 const webPath = (value: string): string => value.replaceAll("\\", "/");
+const MAX_SCENE_Z_SCALE = 3.5;
+const CELL_HALF_XY = 0.58;
+const CELL_HALF_Z = 0.46;
+
+const roundBound = (value: number): number => Math.round(value * 1_000_000) / 1_000_000;
+
+const growthLocalBounds = (
+  asset: ReturnType<typeof decodeGrowthAssetV1>,
+): GrowthSceneV1["bounds"] => {
+  let xMin = Infinity;
+  let xMax = -Infinity;
+  let yMin = Infinity;
+  let yMax = -Infinity;
+  let zMin = Infinity;
+  let zMax = -Infinity;
+  const [nx, ny] = asset.dims;
+  const [centerI, centerJ, centerK] = asset.center;
+  const centerX = centerI + centerJ / 2;
+  const centerY = (Math.sqrt(3) * centerJ) / 2;
+  for (const flat of asset.flatIndices) {
+    const i = flat % nx;
+    const j = Math.floor(flat / nx) % ny;
+    const k = Math.floor(flat / (nx * ny));
+    const x = i + j / 2 - centerX;
+    const y = (Math.sqrt(3) * j) / 2 - centerY;
+    const z = (k - centerK) * MAX_SCENE_Z_SCALE;
+    xMin = Math.min(xMin, x - CELL_HALF_XY);
+    xMax = Math.max(xMax, x + CELL_HALF_XY);
+    yMin = Math.min(yMin, y - CELL_HALF_XY);
+    yMax = Math.max(yMax, y + CELL_HALF_XY);
+    zMin = Math.min(zMin, z - CELL_HALF_Z);
+    zMax = Math.max(zMax, z + CELL_HALF_Z);
+  }
+  return { xMin, xMax, yMin, yMax, zMin, zMax };
+};
+
+export const rotateXyzPoint = (
+  point: readonly [number, number, number],
+  rotateDegrees: readonly [number, number, number],
+): readonly [number, number, number] => {
+  const rx = rotateDegrees[0] * Math.PI / 180;
+  const ry = rotateDegrees[1] * Math.PI / 180;
+  const rz = rotateDegrees[2] * Math.PI / 180;
+  const [x, y, z] = point;
+  const cosZ = Math.cos(rz!);
+  const sinZ = Math.sin(rz!);
+  const afterZ: readonly [number, number, number] = [cosZ * x - sinZ * y, sinZ * x + cosZ * y, z];
+  const cosY = Math.cos(ry!);
+  const sinY = Math.sin(ry!);
+  const afterY: readonly [number, number, number] = [
+    cosY * afterZ[0] + sinY * afterZ[2],
+    afterZ[1],
+    -sinY * afterZ[0] + cosY * afterZ[2],
+  ];
+  const cosX = Math.cos(rx!);
+  const sinX = Math.sin(rx!);
+  return [
+    afterY[0],
+    cosX * afterY[1] - sinX * afterY[2],
+    sinX * afterY[1] + cosX * afterY[2],
+  ];
+};
+
+export const polarAxisXyzEuler = (
+  polarDegrees: number,
+  azimuthDegrees: number,
+): readonly [number, number, number] => {
+  const polar = polarDegrees * Math.PI / 180;
+  const azimuth = azimuthDegrees * Math.PI / 180;
+  const directionX = Math.sin(polar) * Math.cos(azimuth);
+  const directionY = Math.sin(polar) * Math.sin(azimuth);
+  const directionZ = Math.cos(polar);
+  const rotateY = Math.asin(Math.max(-1, Math.min(1, directionX)));
+  const rotateX = Math.atan2(-directionY, directionZ);
+  return [rotateX * 180 / Math.PI, rotateY * 180 / Math.PI, azimuthDegrees];
+};
+
+const transformedSceneBounds = (
+  components: readonly GrowthSceneComponentV1[],
+  local: GrowthSceneV1["bounds"],
+): GrowthSceneV1["bounds"] => {
+  const corners: Array<readonly [number, number, number]> = [];
+  for (const x of [local.xMin, local.xMax]) {
+    for (const y of [local.yMin, local.yMax]) {
+      for (const z of [local.zMin, local.zMax]) corners.push([x, y, z]);
+    }
+  }
+  let xMin = Infinity;
+  let xMax = -Infinity;
+  let yMin = Infinity;
+  let yMax = -Infinity;
+  let zMin = Infinity;
+  let zMax = -Infinity;
+  for (const component of components) {
+    for (const corner of corners) {
+      const scaled = corner.map((value) => value * component.transform.scale) as [number, number, number];
+      const rotated = rotateXyzPoint(scaled, component.transform.rotateDegrees);
+      const transformed = rotated.map(
+        (value, index) => value + component.transform.translate[index]!,
+      ) as [number, number, number];
+      xMin = Math.min(xMin, transformed[0]);
+      xMax = Math.max(xMax, transformed[0]);
+      yMin = Math.min(yMin, transformed[1]);
+      yMax = Math.max(yMax, transformed[1]);
+      zMin = Math.min(zMin, transformed[2]);
+      zMax = Math.max(zMax, transformed[2]);
+    }
+  }
+  const span = Math.max(xMax - xMin, yMax - yMin, zMax - zMin);
+  const padding = Math.max(2, span * 0.08);
+  return {
+    xMin: roundBound(xMin - padding),
+    xMax: roundBound(xMax + padding),
+    yMin: roundBound(yMin - padding),
+    yMax: roundBound(yMax + padding),
+    zMin: roundBound(zMin - padding),
+    zMax: roundBound(zMax + padding),
+  };
+};
+
+export const sceneBoundsContainTransformedCorners = (
+  bounds: GrowthSceneV1["bounds"],
+  components: readonly GrowthSceneComponentV1[],
+  local: GrowthSceneV1["bounds"],
+): boolean => {
+  const epsilon = 1e-5;
+  for (const component of components) {
+    for (const x of [local.xMin, local.xMax]) {
+      for (const y of [local.yMin, local.yMax]) {
+        for (const z of [local.zMin, local.zMax]) {
+          const scaled: readonly [number, number, number] = [x, y, z].map(
+            (value) => value * component.transform.scale,
+          ) as [number, number, number];
+          const rotated = rotateXyzPoint(scaled, component.transform.rotateDegrees);
+          const point = rotated.map(
+            (value, index) => value + component.transform.translate[index]!,
+          ) as [number, number, number];
+          if (
+            point[0] < bounds.xMin - epsilon || point[0] > bounds.xMax + epsilon ||
+            point[1] < bounds.yMin - epsilon || point[1] > bounds.yMax + epsilon ||
+            point[2] < bounds.zMin - epsilon || point[2] > bounds.zMax + epsilon
+          ) return false;
+        }
+      }
+    }
+  }
+  return true;
+};
 
 const argument = (argv: readonly string[], name: string, fallback?: string): string | undefined => {
   const index = argv.indexOf(`--${name}`);
@@ -242,7 +391,9 @@ const readDirectBindings = (plan: FinalComposePlan): {
       if (bytes.byteLength !== variant.webAsset.byteLength || sha256(bytes) !== variant.webAsset.sha256) {
         throw new Error(`${family.typeId}/${variant.slot}: direct component web identity drift`);
       }
-      decodeGrowthAssetV1(bytes.buffer.slice(bytes.byteOffset, bytes.byteOffset + bytes.byteLength));
+      const growth = decodeGrowthAssetV1(
+        bytes.buffer.slice(bytes.byteOffset, bytes.byteOffset + bytes.byteLength),
+      );
       const key = `${family.typeId}/${variant.slot}`;
       if (bindings.has(key)) throw new Error(`${key}: duplicate direct component binding`);
       bindings.set(key, {
@@ -255,6 +406,7 @@ const readDirectBindings = (plan: FinalComposePlan): {
         webSha256: variant.webAsset.sha256,
         scientificLocator: variant.scientificBundle.locator,
         scientificIdentitySha256: variant.scientificBundle.identitySha256,
+        localBounds: growthLocalBounds(growth),
       });
     }
   }
@@ -292,12 +444,9 @@ const radial = (
   binding: ComponentBinding,
   sceneDirectory: string,
   tilt: number,
-  orientation: "x" | "y",
 ): GrowthSceneComponentV1[] => Array.from({ length: 6 }, (_, index) => {
   const azimuth = index * 60;
-  const rotation: readonly [number, number, number] = orientation === "x"
-    ? [tilt, 0, azimuth]
-    : [0, tilt, azimuth];
+  const rotation = polarAxisXyzEuler(tilt, azimuth);
   return makeComponent(`${prefix}-${index + 1}`, binding, sceneDirectory, [0, 0, 0], rotation, 0.78, index * 0.025);
 });
 
@@ -313,9 +462,9 @@ const componentsFor = (
         makeComponent("star-a", binding, sceneDirectory, [0, 0, 0], [0, 0, 0], 1, 0),
         makeComponent("star-b", binding, sceneDirectory, [0, 0, 0], [0, 0, v], 0.96, 0.04),
       ];
-    case "radial-bullets": return radial("bullet", binding, sceneDirectory, v, "y");
-    case "radial-plates": return radial("plate", binding, sceneDirectory, v, "x");
-    case "radial-dendrites": return radial("dendrite", binding, sceneDirectory, v, "x");
+    case "radial-bullets": return radial("bullet", binding, sceneDirectory, v);
+    case "radial-plates": return radial("plate", binding, sceneDirectory, v);
+    case "radial-dendrites": return radial("dendrite", binding, sceneDirectory, v);
     case "axial-stack":
       return [-1, 0, 1].map((position, index) =>
         makeComponent(
@@ -347,7 +496,7 @@ const componentsFor = (
         index * 0.035,
       ));
     }
-    case "radial-needles": return radial("needle", binding, sceneDirectory, v, "y");
+    case "radial-needles": return radial("needle", binding, sceneDirectory, v);
     case "arrowhead-pair":
       return [
         makeComponent("arrowhead-a", binding, sceneDirectory, [-35, 0, 0], [0, -v / 2, -15], 0.86, 0),
@@ -355,8 +504,12 @@ const componentsFor = (
       ];
     case "crossed-needles":
       return [
-        makeComponent("needle-a", binding, sceneDirectory, [0, 0, 0], [90, 0, -v / 2], 1, 0),
-        makeComponent("needle-b", binding, sceneDirectory, [0, 0, 0], [90, 0, v / 2], 0.96, 0.04),
+        makeComponent(
+          "needle-a", binding, sceneDirectory, [0, 0, 0], polarAxisXyzEuler(90, -v / 2), 1, 0,
+        ),
+        makeComponent(
+          "needle-b", binding, sceneDirectory, [0, 0, 0], polarAxisXyzEuler(90, v / 2), 0.96, 0.04,
+        ),
       ];
     case "crossed-plates":
       return [
@@ -388,17 +541,21 @@ export function buildFinalComposeScenes(plan: FinalComposePlan): {
     const entryId = `${entry.typeId}-${entry.slot}`;
     const directory = join(plan.outRoot, entryId);
     mkdirSync(directory, { recursive: true });
+    const components = componentsFor(entry, binding, directory);
     const scene: GrowthSceneV1 = {
       format: "growth-scene-v1",
       title: `${entry.typeName} — ${entry.slot}`,
       disclosure: "composed-visualization",
       durationSeconds: plan.durationSeconds,
       variation: { driver: entry.driver, value: entry.value, unit: entry.unit },
-      bounds: { xMin: -500, xMax: 500, yMin: -500, yMax: 500, zMin: -500, zMax: 500 },
+      bounds: transformedSceneBounds(components, binding.localBounds),
       camera: cameraFor(entry.pattern),
-      components: componentsFor(entry, binding, directory),
+      components,
     };
     const parsed = parseGrowthSceneV1(scene);
+    if (!sceneBoundsContainTransformedCorners(parsed.bounds, parsed.components, binding.localBounds)) {
+      throw new Error(`${entryId}: derived scene bounds do not contain every transformed component corner`);
+    }
     const sceneBytes = canonicalJson(parsed);
     const coldBytes = growthSceneColdPayloadBytes(parsed, Buffer.byteLength(sceneBytes));
     if (coldBytes >= plan.webPayloadLimitBytes) {
@@ -442,6 +599,8 @@ export function buildFinalComposeScenes(plan: FinalComposePlan): {
       coldWebPayloadBytes: coldBytes,
       webPayloadLimitBytes: plan.webPayloadLimitBytes,
       actualComponentDecoder: "decodeGrowthAssetV1",
+      boundsPolicy: "decoded-events-transformed-aabb-zscale3p5-pad8pct-v1",
+      bounds: parsed.bounds,
       scene: {
         path: webPath(relative(plan.repo, scenePath)),
         byteLength: statSync(scenePath).size,

@@ -657,6 +657,16 @@ maker-preferred high-visibility `bold-ice` look for review because transparent `
 edge overlay for instanced cells and is too faint as a catalog visual aid. Rebuild the same 33 scene
 IDs, rerun all 297 captures, and visually inspect again before final acceptance.
 
+Compose visual-framing implementation checkpoint (2026-08-31): the builder now decodes component
+events, derives lattice-cell bounds at maximum supported Z display scale, transforms every AABB
+corner through each instance and publishes the padded union. Radial and crossed-needle axes use the
+tested polar-to-XYZ mapping; six azimuths are distinct and the 90-degree fixture has a near-zero dot
+product. Runtime containment refuses any transformed corner outside the scene bounds, and the
+focused negative control proves a narrowed bound fails. Review uses `bold-ice`. Three focused files
+pass 12 tests, both TypeScript projects pass, Rule 7 remains clean across 1,097 files, JavaScript
+syntax and diff checks pass. Commit the correction, rebuild the same 33 IDs and rerun all 297
+captures; the first capture set remains rejected evidence.
+
 Final Compose production protocol (registered before implementation, 2026-08-30): after the direct
 review binds accepted full-resolution components, generate exactly 33 `growth-scene-v1` entries—
 three each for 11 Compose types. The two measured direct failures, Multiply Capped Columns and

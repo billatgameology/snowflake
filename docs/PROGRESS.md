@@ -535,6 +535,13 @@ polar-axis Euler rotations and high-visibility `bold-ice` review captures. Next 
 protocol, implement it with focused geometry controls, rebuild the 33 scenes and replace all 297
 review captures before creating any Compose decision.
 
+The Compose framing/rotation correction is implemented. Exact decoded-event AABBs replace the fixed
+cube; every transformed corner is checked against its published bounds; radial/crossed axes now use
+a tested polar-to-XYZ mapping; and review switches to high-visibility `bold-ice`. Three focused files
+pass 12 tests, both TypeScript projects pass, Rule 7 is clean across 1,097 files, JavaScript syntax
+and diff checks pass. Next commit this implementation, rebuild the 33 scenes and regenerate the full
+297-capture review before visual acceptance.
+
 All 33 real Compose scene/scientific bundles are built. The first browser-review request stopped on
 a Vite 403 before any scene rendered because the helper attempted raw `/@fs` access to `out/`, which
 the app's security boundary intentionally denies. The boundary remains unchanged. The helper now
