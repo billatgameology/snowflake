@@ -1,6 +1,6 @@
 # Named snow-crystal volume-rendered gallery
 
-**Status:** active
+**Status:** complete (2026-08-31)
 **Registered:** 2026-08-31
 **Worktree:** `C:/Users/HIL_ADMIN/Documents/GitHub/snowflake-named-catalog`
 **Branch:** `feature/named-crystal-catalog`
@@ -72,3 +72,24 @@ per-animation web payloads. This is a presentation correction, not new solver ph
 - **Use the old player with a darker background.** Rejected because contrast alone does not add
   thickness marching, surface normals, coherent refraction, tracked perspective or Compose-aware
   volume shading.
+
+## Completion record
+
+- The dedicated player now uses the GG showcase's strict growth decoding, integer arrival-volume
+  texture, ice material and studio environment. A worker verifies each growth SHA-256 and builds the
+  cropped volume off the UI thread; repeated Compose identities share a single texture.
+- Perspective orbit/framing is derived from the exact transformed component boxes. The full-catalog
+  browser smoke completed 66 direct and 33 Compose scenes with safe final projected bounds and no
+  browser errors; its exact command/output is
+  `out/named-crystal-gallery-site/all-volume-smoke-final.log`.
+- `out/named-crystal-gallery-volume-previews/report.json` (19,066 bytes; SHA-256
+  `f9e173e2c2fd7276f68344d39718681d959fcc476ca9b910dbb46893e466f958`) binds the 99 newly rendered
+  720×720 PNG previews. The exact allowlist preview route now serves only those accepted entry IDs.
+- The modal and all 99 cards use the new volume presentation. The direct/Compose text remains
+  explicit, accepted growth/scene identities are unchanged, and no per-animation network payload
+  was added or regenerated.
+- `npx vitest run app/test/catalog-volume.test.ts app/test/growth-scene.test.ts
+  app/test/named-crystal-catalog-service.test.ts` passed all three files / nine tests;
+  `npm run typecheck`, `npm run build --workspace app`, `npm run lint:rule7`, script syntax checks,
+  `git diff --check`, the two-sentinel gallery smoke and the 99-scene browser smoke passed. Exact
+  `npm test` and scientific gates were deliberately not run for this presentation-only change.

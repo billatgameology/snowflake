@@ -893,6 +893,7 @@ export default defineConfig({
     rollupOptions: {
       input: {
         main: resolve(import.meta.dirname, "index.html"),
+        catalogVolumePlayer: resolve(import.meta.dirname, "catalog-volume-player.html"),
         gutcheckIndex: resolve(import.meta.dirname, "gutcheck-index.html"),
         namedCrystalCatalog: resolve(import.meta.dirname, "named-crystal-catalog.html"),
         spike: resolve(import.meta.dirname, "spike-gg-realism.html"),

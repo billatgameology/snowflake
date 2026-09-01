@@ -40,8 +40,26 @@ try {
     await page.waitForFunction(() => {
       const frame = document.querySelector("dialog[open] iframe");
       return frame instanceof HTMLIFrameElement
-        && frame.contentWindow?.__spikeReady === true;
+        && frame.contentWindow?.__catalogVolumeReady === true;
     }, undefined, { timeout: 120_000 });
+    await page.locator("dialog[open] iframe").evaluate(async (frame) => {
+      if (!(frame instanceof HTMLIFrameElement)) return;
+      const player = frame.contentWindow;
+      await player?.__catalogVolumeSeek?.(player.__sceneDuration);
+    });
+    const bounds = await page.locator("dialog[open] iframe").evaluate((frame) => {
+      if (!(frame instanceof HTMLIFrameElement)) return null;
+      return frame.contentWindow?.__catalogVolumeProjectedBounds ?? null;
+    });
+    if (
+      bounds === null
+      || bounds.xMin < -0.92
+      || bounds.xMax > 0.92
+      || bounds.yMin < -0.92
+      || bounds.yMax > 0.92
+    ) {
+      throw new Error(`${entryId} volume bounds are outside the safe frame: ${JSON.stringify(bounds)}`);
+    }
     await page.locator("dialog[open] .close-player").click();
     await page.locator("dialog[open]").waitFor({ state: "detached" }).catch(async () => {
       await page.waitForFunction(() => !document.querySelector("dialog[open]"));

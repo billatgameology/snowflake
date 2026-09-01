@@ -72,7 +72,7 @@ const createModal = (): { readonly open: (entry: GalleryEntry, variant: GalleryV
         ? "Composed visualization from accepted G-G recordings"
         : "Direct accepted G-G/G-G+ growth recording";
       const query = new URLSearchParams({ growthScene: variant.sceneUrl, look: "bold-ice", ui: "1" });
-      frame.src = `/spike-gg-realism.html?${query.toString()}`;
+      frame.src = `/catalog-volume-player.html?${query.toString()}`;
       dialog.showModal();
     },
   };

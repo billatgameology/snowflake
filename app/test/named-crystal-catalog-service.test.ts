@@ -18,7 +18,10 @@ describe("named crystal local gallery service", () => {
         composeFamilies: number;
         excludedFamilies: number;
       };
-      entries: Array<{ route: string; variants: unknown[] }>;
+      entries: Array<{
+        route: string;
+        variants: Array<{ entryId: string; previewUrl: string; sceneUrl: string }>;
+      }>;
     };
     expect(index.counts).toEqual({
       families: 35,
@@ -31,5 +34,9 @@ describe("named crystal local gallery service", () => {
     expect(index.entries).toHaveLength(35);
     expect(index.entries.filter((entry) => entry.route !== "excluded-new-physics"))
       .toSatisfy((entries: Array<{ variants: unknown[] }>) => entries.every((entry) => entry.variants.length === 3));
+    const variants = index.entries.flatMap((entry) => entry.variants);
+    expect(variants).toSatisfy((items: typeof variants) => items.every((variant) =>
+      variant.previewUrl === `/named-crystal-catalog-api/preview/${variant.entryId}.png`
+      && variant.sceneUrl === `/named-crystal-catalog-api/scene/${variant.entryId}.json`));
   });
 });

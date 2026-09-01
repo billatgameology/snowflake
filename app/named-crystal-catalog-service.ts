@@ -78,6 +78,17 @@ const containedPath = (repositoryRoot: string, projectPath: string): string => {
   return absolute;
 };
 
+const volumePreviewPath = (repositoryRoot: string, entryId: string): string => {
+  if (!/^[a-z0-9-]+$/u.test(entryId)) throw new Error(`invalid catalog entry id: ${entryId}`);
+  const previewRoot = resolve(repositoryRoot, "out/named-crystal-gallery-volume-previews");
+  const absolute = resolve(previewRoot, `${entryId}.png`);
+  const rel = relative(previewRoot, absolute);
+  if (isAbsolute(rel) || rel === ".." || rel.startsWith(`..${sep}`)) {
+    throw new Error(`catalog preview escapes its generated root: ${entryId}`);
+  }
+  return absolute;
+};
+
 const verifiedBytes = (repositoryRoot: string, identity: ArtifactIdentity): Buffer => {
   const bytes = readFileSync(containedPath(repositoryRoot, identity.path));
   if (bytes.byteLength !== identity.byteLength || sha256(bytes) !== identity.sha256) {
@@ -156,7 +167,7 @@ export const createNamedCrystalCatalogService = (repositoryRoot: string): NamedC
     family.variants.map((variant) => [variant.entryId, variant] as const)));
   const composeByEntry = new Map(composeReview.families.flatMap((family) =>
     family.variants.map((variant) => [variant.entryId, variant] as const)));
-  const previewByEntry = new Map<string, { readonly path: string; readonly identity?: ArtifactIdentity }>();
+  const previewEntryIds = new Set<string>();
   const growthBySha = new Map<string, ArtifactIdentity>();
   const catalogEntries = catalog.entries.map((entry) => ({
     id: entry.id,
@@ -172,9 +183,7 @@ export const createNamedCrystalCatalogService = (repositoryRoot: string): NamedC
       if (entry.route === "compose" && compose === undefined) throw new Error(`missing compose review: ${variant.entryId}`);
       if (entry.route !== "compose" && direct === undefined) throw new Error(`missing direct review: ${variant.entryId}`);
       if (direct !== undefined) growthBySha.set(direct.webAsset.sha256, direct.webAsset);
-      previewByEntry.set(variant.entryId, compose === undefined
-        ? { path: variant.links.preview }
-        : { path: compose.preview.path, identity: compose.preview });
+      previewEntryIds.add(variant.entryId);
       return [{
         entryId: variant.entryId,
         slot,
@@ -233,11 +242,9 @@ export const createNamedCrystalCatalogService = (repositoryRoot: string): NamedC
       }
       const previewMatch = /^\/preview\/([a-z0-9-]+)\.png$/u.exec(path);
       if (previewMatch !== null) {
-        const preview = previewByEntry.get(previewMatch[1] as string);
-        if (preview === undefined) return reject(response);
-        const bytes = preview.identity === undefined
-          ? readFileSync(containedPath(repositoryRoot, preview.path))
-          : verifiedBytes(repositoryRoot, preview.identity);
+        const entryId = previewMatch[1] as string;
+        if (!previewEntryIds.has(entryId)) return reject(response);
+        const bytes = readFileSync(volumePreviewPath(repositoryRoot, entryId));
         send(request, response, bytes, "image/png");
         return;
       }

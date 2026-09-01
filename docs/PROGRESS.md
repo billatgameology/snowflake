@@ -145,8 +145,8 @@ detail.
   direction) and content stays in-repo unpublished, `test.yml` CI unaffected. Reconciliation is
   a live decision point under **Next step**. Full freeze history:
   [the history file](progress-history-phases-6-8-9.md).
-- **Last updated:** 2026-08-31 (completed the local 35-row/99-animation gallery; no phase or
-  scientific-evidence change)
+- **Last updated:** 2026-08-31 (completed the GG-style volume renderer and 99 matching previews; no
+  phase or scientific-evidence change)
 
 ## Phase gates
 
@@ -194,12 +194,16 @@ The maker-requested [local gallery plan](plans/named-crystal-local-gallery.md) i
 loopback-only 35-row visual catalog shows three cards per included type and click-to-play
 direct/Compose web payloads. The service exposes only catalog/review-bound files and leaves Vite's
 general `out/` denial intact; this is local presentation, not publication.
-The maker rejected the completed gallery player's visual quality after comparison with the existing
-GG website. The active [volume-rendered gallery plan](plans/named-crystal-volume-gallery.md) replaces
-only that presentation path: accepted records, identities, direct/Compose meaning and `<20 MB`
-payloads remain fixed. The measured compatibility audit decoded all 66 direct records with the GG
-website decoder; the largest cropped volume is 40,588,668 in-memory bytes, while Compose uses at
-most six instances and 38,577,364 unique in-memory bytes.
+The maker rejected the first gallery player's visual quality after comparison with the existing GG
+website. The completed [volume-rendered gallery plan](plans/named-crystal-volume-gallery.md) now uses
+that showcase's strict decoder, arrival-volume texture and studio ice material for every card and
+modal. Accepted records, identities, direct/Compose meaning and `<20 MB` payloads remain fixed. The
+99-scene live-browser smoke passed 66 direct and 33 Compose scenes, including safe final framing and
+shared-texture checks; the exact output is
+`out/named-crystal-gallery-site/all-volume-smoke-final.log`. The generated-preview report at
+`out/named-crystal-gallery-volume-previews/report.json` (19,066 bytes; SHA-256
+`f9e173e2c2fd7276f68344d39718681d959fcc476ca9b910dbb46893e466f958`) binds all 99 new 720×720
+volume-rendered card images.
 The
 [Phase 10 candidate plan](plans/phase-10-closures-and-frontier.md) is decision support, not
 execution authority; no A–H package is selected.
@@ -620,12 +624,16 @@ and the live browser smoke covered the serving boundary plus one direct and one 
 No gallery implementation step remains. Public deployment or cross-repository copying would be a
 separate maker-authorized transaction.
 
-### Named snow-crystal volume rendering — implementation active
+### Named snow-crystal volume rendering — complete
 
-Implement [named-crystal-volume-gallery.md](plans/named-crystal-volume-gallery.md): add the
-component-aware arrival-volume player, point the existing catalog modal at it, then run direct flat,
-tall/hollow and Compose visual sentinels. Do not regenerate growth histories or change accepted
-payload identities; the old player remains only as a capability fallback.
+The [volume-rendered gallery plan](plans/named-crystal-volume-gallery.md) is complete. All 99 cards
+now use matching final-frame previews and open the component-aware GG-style volume player. The
+direct planar, tall/hollow and Compose sentinels passed visual inspection; the complete 66-direct /
+33-Compose browser sweep passed framing, error and shared-texture assertions. Focused tests passed
+three files / nine tests, both TypeScript projects typechecked, the app production build, Rule 7,
+script syntax, diff check and the live gallery smoke passed. No solver, growth history, accepted
+identity, scientific claim or network-payload ceiling changed. The loopback page remains
+`http://127.0.0.1:5173/named-crystal-catalog.html`; public deployment is a separate transaction.
 
 ### Phase 10 — planning complete; maker package selection pending
 
