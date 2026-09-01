@@ -194,6 +194,12 @@ The maker-requested [local gallery plan](plans/named-crystal-local-gallery.md) i
 loopback-only 35-row visual catalog shows three cards per included type and click-to-play
 direct/Compose web payloads. The service exposes only catalog/review-bound files and leaves Vite's
 general `out/` denial intact; this is local presentation, not publication.
+The maker rejected the completed gallery player's visual quality after comparison with the existing
+GG website. The active [volume-rendered gallery plan](plans/named-crystal-volume-gallery.md) replaces
+only that presentation path: accepted records, identities, direct/Compose meaning and `<20 MB`
+payloads remain fixed. The measured compatibility audit decoded all 66 direct records with the GG
+website decoder; the largest cropped volume is 40,588,668 in-memory bytes, while Compose uses at
+most six instances and 38,577,364 unique in-memory bytes.
 The
 [Phase 10 candidate plan](plans/phase-10-closures-and-frontier.md) is decision support, not
 execution authority; no A–H package is selected.
@@ -613,6 +619,13 @@ files / 6 tests, both TypeScript projects typechecked, the app production build 
 and the live browser smoke covered the serving boundary plus one direct and one Compose playback.
 No gallery implementation step remains. Public deployment or cross-repository copying would be a
 separate maker-authorized transaction.
+
+### Named snow-crystal volume rendering — implementation active
+
+Implement [named-crystal-volume-gallery.md](plans/named-crystal-volume-gallery.md): add the
+component-aware arrival-volume player, point the existing catalog modal at it, then run direct flat,
+tall/hollow and Compose visual sentinels. Do not regenerate growth histories or change accepted
+payload identities; the old player remains only as a capability fallback.
 
 ### Phase 10 — planning complete; maker package selection pending
 
