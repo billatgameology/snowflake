@@ -183,6 +183,11 @@ is a completed product record in `C:/Users/HIL_ADMIN/Documents/GitHub/snowflake-
 branch `feature/named-crystal-catalog`. Its 99 accepted animations, final table, exact dual-output
 bindings and real-browser Compose review are complete; no publication or cross-repository copy is
 implied by that completion.
+The maker then requested a website view. The active
+[local gallery plan](plans/named-crystal-local-gallery.md) will add a loopback-only 35-row visual
+catalog with three cards per included type and click-to-play direct/Compose web payloads. Its
+development service must expose only catalog/review-bound files and leave Vite's general `out/`
+denial intact; this is local presentation, not publication.
 The
 [Phase 10 candidate plan](plans/phase-10-closures-and-frontier.md) is decision support, not
 execution authority; no A–H package is selected.
@@ -593,6 +598,13 @@ zero remaining, 22 direct / 11 Compose / two excluded; every cold web payload is
 bytes. Six focused files pass 26 tests, the root typecheck, app production build, Rule 7 across 1,099
 files and diff check pass. This workstream has no remaining generation step. Publication or copying
 these local products is a separate maker-authorized transaction if desired.
+
+### Named snow-crystal local gallery — implementation active
+
+Implement [named-crystal-local-gallery.md](plans/named-crystal-local-gallery.md): add the dedicated
+Vite page, exact allowlist service and truthful direct/Compose playback distinction. The next check
+is the focused parser/service/page suite followed by typecheck, app build and a live Playwright smoke;
+then start the loopback server and open `/named-crystal-catalog.html` for the maker.
 
 ### Phase 10 — planning complete; maker package selection pending
 
