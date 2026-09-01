@@ -28,7 +28,7 @@ export interface GrowthSceneComponentV1 {
 export interface GrowthSceneV1 {
   readonly format: "growth-scene-v1";
   readonly title: string;
-  readonly disclosure: "composed-visualization";
+  readonly disclosure: "direct-growth-recording" | "composed-visualization";
   readonly durationSeconds: number;
   readonly variation: {
     readonly driver: string;
@@ -138,8 +138,8 @@ export function parseGrowthSceneV1(value: unknown): GrowthSceneV1 {
     "scene",
   );
   if (wire.format !== "growth-scene-v1") throw new Error("scene.format must be growth-scene-v1");
-  if (wire.disclosure !== "composed-visualization") {
-    throw new Error("scene.disclosure must be composed-visualization");
+  if (wire.disclosure !== "direct-growth-recording" && wire.disclosure !== "composed-visualization") {
+    throw new Error("scene.disclosure must identify direct or composed playback");
   }
 
   const variation = object(wire.variation, "scene.variation");
@@ -195,7 +195,7 @@ export function parseGrowthSceneV1(value: unknown): GrowthSceneV1 {
   return {
     format: "growth-scene-v1",
     title: string(wire.title, "scene.title"),
-    disclosure: "composed-visualization",
+    disclosure: wire.disclosure,
     durationSeconds: positive(wire.durationSeconds, "scene.durationSeconds"),
     variation: {
       driver: string(variation.driver, "scene.variation.driver"),

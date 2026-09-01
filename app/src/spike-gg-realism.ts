@@ -9,7 +9,7 @@
 //                  slider + play/pause scrub through frame meshes, orbit controls always
 //                  on, "face-on" resets the camera. ?frame=N picks the initial frame
 //                  (default 0, the seed). ?fps=N sets playback rate (default 5).
-//   ?growthScene=<url> strict growth-scene-v1 composed playback over verified growth assets.
+//   ?growthScene=<url> strict growth-scene-v1 direct/composed playback over verified growth assets.
 //
 // Static captures stay bit-stable for the recorded recipes: fixed backdrop plane, pixel
 // ratio 1, single render. Interactive/timeline modes use a screen-fixed background and
@@ -1441,10 +1441,10 @@ async function growthSceneMain(sceneUrl: string): Promise<void> {
       "position:fixed;left:16px;bottom:16px;max-width:520px;padding:9px 12px;" +
       "border:1px solid rgba(170,195,230,.45);border-radius:6px;background:rgba(8,12,22,.78);" +
       "color:#dfe7f4;font:12px/1.45 system-ui,sans-serif;z-index:12";
-    disclosure.textContent =
-      `Composed visualization · ${scene.components.length} independently recorded G-G ` +
-      `component${scene.components.length === 1 ? "" : "s"} · ` +
-      `${coldBytes.toLocaleString()} cold bytes`;
+    const routeLabel = scene.disclosure === "composed-visualization"
+      ? `Composed visualization · ${scene.components.length} independently recorded G-G components`
+      : "Direct G-G/G-G+ growth recording";
+    disclosure.textContent = `${routeLabel} · ${coldBytes.toLocaleString()} cold bytes`;
     document.body.appendChild(disclosure);
   }
 

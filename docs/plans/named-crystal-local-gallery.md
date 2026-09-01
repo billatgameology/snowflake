@@ -1,6 +1,6 @@
 # Named snow-crystal local gallery
 
-**Status:** active  
+**Status:** complete
 **Registered:** 2026-08-31  
 **Worktree:** `C:/Users/HIL_ADMIN/Documents/GitHub/snowflake-named-catalog`  
 **Branch:** `feature/named-crystal-catalog`
@@ -57,3 +57,20 @@ maker play the actual less-than-20,000,000-byte growth payloads rather than only
 - **Describe a one-component direct animation as composed visualization.** Rejected because the
   catalog deliberately distinguishes direct growth from Compose; the player disclosure must retain
   that distinction.
+
+## Completion record
+
+Completed 2026-08-31. `/named-crystal-catalog.html` now renders the strict catalog as 35 named-type
+rows and 99 preview/play cards, with search and direct/Compose/excluded filters. The loopback-only
+API maps entry IDs and content SHA-256 identities to exact catalog/review-bound files; generic
+`out/` access remains denied. Direct recordings are wrapped in one-component scenes with decoded
+event bounds and `direct-growth-recording` disclosure, while accepted Compose scenes retain their
+disclosure and transforms with only component URLs rewritten to content-addressed routes.
+
+Verification: `npx vitest run app/test/growth-scene.test.ts
+app/test/named-crystal-catalog-service.test.ts` passed 2 files / 6 tests; `npm run typecheck`,
+`npm run build --workspace app`, `npm run lint:rule7` (1,107 files), and `git diff --check` passed.
+The live Playwright smoke at `http://127.0.0.1:5173` counted 35 family rows and 99 variant cards,
+confirmed unknown/generic-`out` denial, and completed real direct (`simple-prisms-lower`) and
+Compose (`crossed-plates-lower`) playback. The persistent loopback server is recorded in
+`out/named-crystal-gallery-site/vite.pid`, with stdout/stderr beside it.

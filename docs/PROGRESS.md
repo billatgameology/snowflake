@@ -128,6 +128,13 @@ detail.
   `212434bf4704763ccdd33d17b063a79f4305c020fc9e89024046f372e9e0ac19` and binds all 297 real-browser
   captures after live clearance and visual progression review. The catalog plan contains the exact
   report/contact-sheet/catalog identities and final product-sized checks.
+- **The named snow-crystal local gallery is COMPLETE (2026-08-31).** The dedicated loopback page
+  renders all 35 taxonomy rows and 99 accepted variant cards with previews, payload metadata,
+  search, route filters and click-to-play animation. Its exact allowlist API preserves the generic
+  Vite `out/` denial and distinguishes direct G-G/G-G+ recordings from Compose. A live Playwright
+  smoke counted 35 rows / 99 cards, confirmed unknown/generic-`out` denial, and completed one direct
+  and one Compose playback. The server is running at `http://127.0.0.1:5173/named-crystal-catalog.html`;
+  PID and logs are under `out/named-crystal-gallery-site/`.
 - Historical extent-21 artifacts remain valid measured-only comparisons: **CAK 3/90, M1 54/90**
   over their named scopes. They are not the registered conservative-intersection verdict, which
   decision 0045 closed as not computed.
@@ -138,7 +145,7 @@ detail.
   direction) and content stays in-repo unpublished, `test.yml` CI unaffected. Reconciliation is
   a live decision point under **Next step**. Full freeze history:
   [the history file](progress-history-phases-6-8-9.md).
-- **Last updated:** 2026-08-31 (completed the 99-animation named snow-crystal catalog; no phase or
+- **Last updated:** 2026-08-31 (completed the local 35-row/99-animation gallery; no phase or
   scientific-evidence change)
 
 ## Phase gates
@@ -183,11 +190,10 @@ is a completed product record in `C:/Users/HIL_ADMIN/Documents/GitHub/snowflake-
 branch `feature/named-crystal-catalog`. Its 99 accepted animations, final table, exact dual-output
 bindings and real-browser Compose review are complete; no publication or cross-repository copy is
 implied by that completion.
-The maker then requested a website view. The active
-[local gallery plan](plans/named-crystal-local-gallery.md) will add a loopback-only 35-row visual
-catalog with three cards per included type and click-to-play direct/Compose web payloads. Its
-development service must expose only catalog/review-bound files and leave Vite's general `out/`
-denial intact; this is local presentation, not publication.
+The maker-requested [local gallery plan](plans/named-crystal-local-gallery.md) is complete. Its
+loopback-only 35-row visual catalog shows three cards per included type and click-to-play
+direct/Compose web payloads. The service exposes only catalog/review-bound files and leaves Vite's
+general `out/` denial intact; this is local presentation, not publication.
 The
 [Phase 10 candidate plan](plans/phase-10-closures-and-frontier.md) is decision support, not
 execution authority; no A–H package is selected.
@@ -599,12 +605,14 @@ bytes. Six focused files pass 26 tests, the root typecheck, app production build
 files and diff check pass. This workstream has no remaining generation step. Publication or copying
 these local products is a separate maker-authorized transaction if desired.
 
-### Named snow-crystal local gallery — implementation active
+### Named snow-crystal local gallery — complete
 
-Implement [named-crystal-local-gallery.md](plans/named-crystal-local-gallery.md): add the dedicated
-Vite page, exact allowlist service and truthful direct/Compose playback distinction. The next check
-is the focused parser/service/page suite followed by typecheck, app build and a live Playwright smoke;
-then start the loopback server and open `/named-crystal-catalog.html` for the maker.
+The [local gallery plan](plans/named-crystal-local-gallery.md) completed the dedicated Vite page,
+exact allowlist service and truthful direct/Compose playback distinction. Focused tests passed 2
+files / 6 tests, both TypeScript projects typechecked, the app production build and Rule 7 passed,
+and the live browser smoke covered the serving boundary plus one direct and one Compose playback.
+No gallery implementation step remains. Public deployment or cross-repository copying would be a
+separate maker-authorized transaction.
 
 ### Phase 10 — planning complete; maker package selection pending
 

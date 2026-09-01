@@ -33,6 +33,13 @@ describe("growth-scene-v1", () => {
     expect(growthSceneColdPayloadBytes(scene, 600)).toBe(1624);
   });
 
+  it("accepts an explicitly disclosed direct growth recording", () => {
+    const wire = valid();
+    wire.disclosure = "direct-growth-recording";
+    wire.components = [component("direct")];
+    expect(parseGrowthSceneV1(wire).disclosure).toBe("direct-growth-recording");
+  });
+
   it("counts distinct cold component assets independently", () => {
     const wire = valid();
     wire.components[1] = component("needle-b", SHA_B, 2048);
@@ -47,6 +54,10 @@ describe("growth-scene-v1", () => {
 
     const unknown = { ...valid(), surprise: true };
     expect(() => parseGrowthSceneV1(unknown)).toThrow(/keys must be exactly/u);
+
+    const disclosure = valid();
+    disclosure.disclosure = "unspecified";
+    expect(() => parseGrowthSceneV1(disclosure)).toThrow(/disclosure/u);
 
     const phase = valid();
     phase.components[0]!.phaseOffset = 1;
