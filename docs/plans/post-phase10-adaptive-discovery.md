@@ -1,6 +1,6 @@
 # Post-Phase-10 adaptive discovery follow-up
 
-**Status:** first tranche complete; long-wave runner ready for launch
+**Status:** first tranche and N64 long wave complete; confirmation wave 1 pre-registered
 **Worktree:** `G:\Code Files\snowflake-science-exploration`
 **Branch:** `explore/post-phase10-discovery`
 **Base:** `ba99d81`
@@ -102,6 +102,51 @@ show that it collapses under the numerical/extent controls, or identify it as in
 endpoint-quantization sensitivity. Do not require a large endpoint effect to promote a coherent
 trajectory signal, and do not spend a forced allocation after a question has been answered.
 
+## Confirmation wave 1 — pre-registered 2026-09-02
+
+The complete N64/extent-29 wave leaves four distinct questions: a warm-to-cold reversal in the
+seed-shape-by-kinetic-arm interaction, a forcing-dependent pressure interaction, an M1-only
+sixfold core/tip separation around the prism-dip neighborhood, and open cross-sectional cavities
+in the warm M1 columns. The first confirmation wave is the following finite 70-row roster; no
+condition may be added after its result is seen:
+
+1. **Seed-transition localization (12 rows):** temperatures `[-7, -8, -9]` C at fraction `0.15`,
+   both M1/no-dip arms, and both radius-3/thickness-1 and radius-1/thickness-5 seeds, with
+   `cflFill = 0.1`.
+2. **Seed timestep control (12 rows):** temperatures `[-4.5, -6, -10]` C at fraction `0.15`, the
+   same two arms and two seeds, with `cflFill = 0.05`.
+3. **Pressure reversal timestep control (12 rows):** temperature `-6` C at fractions
+   `[0.1, 0.15, 0.2]`, both arms, and pressures 50,662.5 Pa / 202,650 Pa, with
+   `cflFill = 0.05`.
+4. **Pressure persistence controls (12 rows):** temperatures `[-14.4, -19, -24]` C at fraction
+   `0.15`, both arms, and the same low/high pressures, with `cflFill = 0.05`. The `-19` C cases
+   are the weak/trajectory-sensitive comparator, not a presumed positive result.
+5. **Sixfold-topology timestep control (6 rows):** temperatures `[-12, -14.4, -18]` C at fraction
+   `0.15`, both arms, canonical seed and pressure, with `cflFill = 0.05`.
+6. **Warm open-cavity timestep control (4 rows):** temperatures `[-4.5, -5]` C at fraction
+   `0.075`, both arms, canonical seed and pressure, with `cflFill = 0.05`.
+7. **Facet isolation (12 rows):** temperatures `[-4.5, -6, -10, -14.4, -19, -24]` C at fraction
+   `0.15`, canonical seed/pressure and `cflFill = 0.1`, under basal-dip-only and
+   prism-dip-only hybrids. Existing long-wave M1 and no-dip rows are their comparators.
+
+Every row remains N64 / target extent 29 with the fixed machinery above except for the one named
+factor. The hybrid arms use exactly the already implemented M1 and broad-branch facet functions:
+basal-dip-only is M1 basal plus broad prism; prism-dip-only is broad basal plus M1 prism. They are
+fresh-run exploratory inputs only: do not widen the v3 resume-checkpoint allow-list or the GPU
+solver. Run independent rows at actual process concurrency 32.
+
+Analyze exact first extent crossings and equal plateau age. For morphology, reconstruct occupancy
+from the seed plus recorded attachment events and report both the existing metrics and exact
+integer-lattice spans/core-to-tip depth. The adaptive angular-bin branch count is supporting
+diagnostic evidence only; a transient count of five in an exactly D6h-invariant crystal is metric
+quantization, not broken symmetry. A direct terminal comparison is also insufficient when one arm
+reaches extent 29 in-plane and the other reaches it vertically.
+
+After this wave, use its results to select only the remaining discriminating work: larger
+domain/extent checks for persistent cavity, core/tip, and seed-memory signals; half-timestep checks
+for any still-uncontrolled mixed endpoint trajectories; and deterministic warm/cold history
+reversals. This ordering does not weaken the maker's instruction to evaluate every plausible lead.
+
 ## Superseded bounded second-tranche design
 
 The original design would have selected no more than 12 conditions that cover distinct observed
@@ -164,6 +209,11 @@ row ceiling.
 - Adding facet-specific parameter sets before locating informative conditions was rejected because
   it expands core/checkpoint surfaces before the existing two-arm model has identified where that
   decomposition is worth running.
+- Treating terminal `branchCount` as the topology result was rejected because the angular-bin
+  diagnostic changes at lattice-sized radius increments even when occupancy stays exactly D6h.
+- Comparing every arm only at terminal `largestExtent = 29` was rejected because plate-like rows
+  can stop on in-plane extent while column-like rows stop on vertical extent. Equal in-plane size
+  and equal exact-extent plateau age are required where that distinction bears on interpretation.
 
 ## First-tranche implementation record
 
