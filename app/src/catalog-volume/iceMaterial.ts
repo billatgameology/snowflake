@@ -213,6 +213,7 @@ export function createIceMaterial(
      * Rays that miss this cylinder are rejected before they march.
      */
     uActiveRadius: { value: 1e9 },
+    uDebugMode: { value: 0 },
     uPlayheadTick: { value: 0 },
     uPlayheadOffset: { value: 0 },
     uTransition: { value: look.transitionTicks },
@@ -306,6 +307,7 @@ export function createIceMaterial(
       uniform mat4 uLocalToClip;
 
       uniform float uActiveRadius;
+      uniform int uDebugMode;
       uniform uint uPlayheadTick;
       uniform float uPlayheadOffset;
       uniform float uTransition;
@@ -452,16 +454,30 @@ export function createIceMaterial(
         return mix(z0, z1, f.z);
       }
 
+      vec3 normalizedOr(vec3 value, vec3 fallback) {
+        float lengthSquared = dot(value, value);
+        if (lengthSquared > 1e-12) return value * inversesqrt(lengthSquared);
+        float fallbackSquared = dot(fallback, fallback);
+        return fallbackSquared > 1e-12
+          ? fallback * inversesqrt(fallbackSquared)
+          : vec3(0.0, 0.0, 1.0);
+      }
+
       /** Outward surface normal in local space, from the field's gradient. */
-      vec3 surfaceNormal(vec3 point) {
+      vec3 surfaceNormal(vec3 point, vec3 fallback) {
         // Keyed to the cell grid rather than to a world epsilon, so all six arms
         // differentiate identically and the crystal cannot lose its symmetry to
         // rounding.
-        vec3 epsilon = 0.72 / max(uVolumeSize - vec3(1.0), vec3(1.0));
+        // A sub-cell stencil turns every lattice terrace into a high-contrast
+        // microfacet. Those facets are real topology but not useful optical
+        // normals: against the dark studio they flash between cyan and black as
+        // the camera moves. A 1.8-cell central difference keeps branch/terrace
+        // form while making the presentation normal coherent across pixels.
+        vec3 epsilon = 1.8 / max(uVolumeSize - vec3(1.0), vec3(1.0));
         float dx = fieldAt(point + vec3(epsilon.x, 0.0, 0.0)) - fieldAt(point - vec3(epsilon.x, 0.0, 0.0));
         float dy = fieldAt(point + vec3(0.0, epsilon.y, 0.0)) - fieldAt(point - vec3(0.0, epsilon.y, 0.0));
         float dz = fieldAt(point + vec3(0.0, 0.0, epsilon.z)) - fieldAt(point - vec3(0.0, 0.0, epsilon.z));
-        return normalize(-vec3(dx / epsilon.x, dy / epsilon.y, dz / epsilon.z));
+        return normalizedOr(-vec3(dx / epsilon.x, dy / epsilon.y, dz / epsilon.z), fallback);
       }
 
       bool rayBox(vec3 origin, vec3 direction, out float entry, out float exitDistance) {
@@ -603,17 +619,31 @@ export function createIceMaterial(
         float stepLength = exitDistance / float(THICKNESS_STEPS);
         float inside = 0.0;
         bool leftFirstBody = false;
+        float previousAlong = 0.0;
         for (int i = 1; i <= THICKNESS_STEPS; i++) {
-          vec3 probe = point + direction * (float(i) - 0.5) * stepLength;
-          if (fieldAt(probe) >= uIso) {
+          float along = (float(i) - 0.5) * stepLength;
+          vec3 probe = point + direction * along;
+          float value = fieldAt(probe);
+          if (value >= uIso) {
             inside += 1.0;
             if (leftFirstBody && !reachedFar) {
               reachedFar = true;
-              farPoint = probe;
+              // The coarse thickness sample may land many cells inside the far
+              // body, where the scalar field is flat and its normal is zero.
+              // Refine the actual empty→solid crossing before shading it.
+              float low = previousAlong;
+              float high = along;
+              for (int refine = 0; refine < 4; refine++) {
+                float middle = (low + high) * 0.5;
+                if (fieldAt(point + direction * middle) >= uIso) high = middle;
+                else low = middle;
+              }
+              farPoint = point + direction * high;
             }
           } else {
             leftFirstBody = true;
           }
+          previousAlong = along;
         }
         // Local step → world step. The lattice is sheared and the c-axis is
         // exaggerated, so a local unit is not a world unit and absorption would
@@ -638,14 +668,28 @@ export function createIceMaterial(
         if (!firstHit(rayOrigin, rayDirection, entry, exitDistance, hitDistance)) discard;
         vec3 hit = rayOrigin + rayDirection * hitDistance;
 
-        vec3 localNormal = surfaceNormal(hit);
+        if (uDebugMode == 1) {
+          vec4 debugClip = uLocalToClip * vec4(hit, 1.0);
+          gl_FragDepth = 0.5 * (debugClip.z / debugClip.w) + 0.5;
+          outColor = linearToOutputTexel(vec4(0.85, 0.92, 1.0, 1.0));
+          return;
+        }
 
-        vec3 normal = normalize(uLocalToWorldNormal * localNormal);
+        vec3 localNormal = surfaceNormal(hit, -rayDirection);
+
         vec3 worldHit = (uLocalToWorld * vec4(hit, 1.0)).xyz;
         vec3 view = normalize(cameraPosition - worldHit);
+        vec3 normal = normalizedOr(uLocalToWorldNormal * localNormal, view);
         // The proxy box is drawn front-side only, but a grazing ray can still
         // land on a back-facing patch of the implicit surface.
         if (dot(normal, view) < 0.0) normal = -normal;
+
+        if (uDebugMode == 2) {
+          vec4 debugClip = uLocalToClip * vec4(hit, 1.0);
+          gl_FragDepth = 0.5 * (debugClip.z / debugClip.w) + 0.5;
+          outColor = linearToOutputTexel(vec4(normal * 0.5 + 0.5, 1.0));
+          return;
+        }
 
         float nDotV = clamp(dot(normal, view), 1e-4, 1.0);
         float occlusion = ambientOcclusion(hit, localNormal);
@@ -702,7 +746,10 @@ export function createIceMaterial(
           transmitted = specularIbl * 0.5;
         } else {
           refractedWorld = normalize(refractedWorld);
-          vec3 refractedLocal = normalize((uWorldToLocal * vec4(refractedWorld, 0.0)).xyz);
+          vec3 refractedLocal = normalizedOr(
+            (uWorldToLocal * vec4(refractedWorld, 0.0)).xyz,
+            rayDirection
+          );
           bool reachedFar;
           vec3 farPoint;
           float thickness = traceInterior(hit, refractedLocal, reachedFar, farPoint);
@@ -735,8 +782,8 @@ export function createIceMaterial(
           // transmission and no occlusion — because it is being viewed through
           // a body that is about to absorb most of it anyway.
           if (reachedFar) {
-            vec3 farNormalLocal = surfaceNormal(farPoint);
-            vec3 farNormal = normalize(uLocalToWorldNormal * farNormalLocal);
+            vec3 farNormalLocal = surfaceNormal(farPoint, -refractedLocal);
+            vec3 farNormal = normalizedOr(uLocalToWorldNormal * farNormalLocal, -refractedWorld);
             if (dot(farNormal, refractedWorld) > 0.0) farNormal = -farNormal;
 
             float farFacing = max(dot(farNormal, -refractedWorld), 1e-4);

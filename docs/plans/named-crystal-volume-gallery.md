@@ -82,8 +82,8 @@ per-animation web payloads. This is a presentation correction, not new solver ph
   browser smoke completed 66 direct and 33 Compose scenes with safe final projected bounds and no
   browser errors; its exact command/output is
   `out/named-crystal-gallery-site/all-volume-smoke-final.log`.
-- `out/named-crystal-gallery-volume-previews/report.json` (19,066 bytes; SHA-256
-  `f9e173e2c2fd7276f68344d39718681d959fcc476ca9b910dbb46893e466f958`) binds the 99 newly rendered
+- `out/named-crystal-gallery-volume-previews/report.json` (19,066 bytes; current SHA-256
+  `5a316187e3bae4f9ed25bd1083865cfb772bcfdaf82784665b0033f494b0dcc3`) binds the 99 newly rendered
   720×720 PNG previews. The exact allowlist preview route now serves only those accepted entry IDs.
 - The modal and all 99 cards use the new volume presentation. The direct/Compose text remains
   explicit, accepted growth/scene identities are unchanged, and no per-animation network payload

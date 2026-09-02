@@ -145,7 +145,7 @@ detail.
   direction) and content stays in-repo unpublished, `test.yml` CI unaffected. Reconciliation is
   a live decision point under **Next step**. Full freeze history:
   [the history file](progress-history-phases-6-8-9.md).
-- **Last updated:** 2026-09-01 (registered the maker-reported volume-render pinhole/jitter correction;
+- **Last updated:** 2026-09-01 (completed the maker-reported volume-render pinhole/jitter correction;
   no phase or scientific-evidence change)
 
 ## Phase gates
@@ -202,14 +202,17 @@ modal. Accepted records, identities, direct/Compose meaning and `<20 MB` payload
 shared-texture checks; the exact output is
 `out/named-crystal-gallery-site/all-volume-smoke-final.log`. The generated-preview report at
 `out/named-crystal-gallery-volume-previews/report.json` (19,066 bytes; SHA-256
-`f9e173e2c2fd7276f68344d39718681d959fcc476ca9b910dbb46893e466f958`) binds all 99 new 720×720
+`5a316187e3bae4f9ed25bd1083865cfb772bcfdaf82784665b0033f494b0dcc3`) binds all 99 current 720×720
 volume-rendered card images.
 The maker then rejected black, patchy and camera-jittering pinholes in the dense volume view. The
-active [volume stability correction](plans/named-crystal-volume-stability-correction.md) records the
-measured first failure: the Simple Star crop requests 1,152 march steps at its configured sampling
-rate but is capped at 768, and the live catalog census finds 37 of 195 component instances truncated
-by their quality ceiling. The repair is renderer-only and must preserve all accepted products and
-payload claims.
+completed [volume stability correction](plans/named-crystal-volume-stability-correction.md) traced
+them past a solid first-hit mask to the transmission pass: a coarse probe inside a later body could
+have zero field gradient, so normalizing it emitted invalid black pixels that moved with the camera.
+The shader now refines the actual far-side crossing, uses a safe fallback normal and smooths only its
+shading stencil. The exact ten-capture review is bound by
+`out/named-crystal-volume-stability/final-review/report.json` (6,614 bytes; SHA-256
+`907d8aaca7cd95919cdbb2cc639fac5175b489512aa3215aadd1cace6ff00f4a`); all accepted products and
+payload claims remain unchanged.
 The
 [Phase 10 candidate plan](plans/phase-10-closures-and-frontier.md) is decision support, not
 execution authority; no A–H package is selected.
@@ -641,14 +644,16 @@ script syntax, diff check and the live gallery smoke passed. No solver, growth h
 identity, scientific claim or network-payload ceiling changed. The loopback page remains
 `http://127.0.0.1:5173/named-crystal-catalog.html`; public deployment is a separate transaction.
 
-### Named snow-crystal volume stability correction — active
+### Named snow-crystal volume stability correction — complete
 
-Implement [named-crystal-volume-stability-correction.md](plans/named-crystal-volume-stability-correction.md):
-restore the configured per-cell march coverage only for scenes whose volume diagonal exceeds the
-existing shader ceiling, then A/B the maker's `12-branched-stars-upper` view plus its direct Simple
-Star source. If coverage alone does not remove the dark chatter, isolate the remaining shading path
-before changing material parameters. After sentinel acceptance, regenerate all 99 previews and rerun
-the complete browser sweep. Do not change solver output, Compose transforms or network payloads.
+The [volume stability correction](plans/named-crystal-volume-stability-correction.md) is complete.
+The maker's exact 12-branched Star, its direct Simple Star source, two adjacent orbit frames, a
+six-component Radiating Dendrite and thin/tall/hollow sentinels now render without the invalid black
+pattern. All 99 previews were regenerated; the full browser sweep passed 66 direct / 33 Compose
+players and the gallery smoke passed its serving boundary plus both playback routes. Focused tests,
+both TypeScript projects, the app build, Rule 7, script syntax and diff checks pass. No solver output,
+accepted identity, Compose transform, animation timing or network payload changed. The loopback page
+remains `http://127.0.0.1:5173/named-crystal-catalog.html`.
 
 ### Phase 10 — planning complete; maker package selection pending
 

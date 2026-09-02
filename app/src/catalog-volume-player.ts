@@ -63,6 +63,12 @@ interface PlayerWindow extends Window {
 const params = new URLSearchParams(window.location.search);
 const sceneUrl = params.get("growthScene");
 const capture = params.get("capture") === "1";
+const debugParam = params.get("debug");
+const debugMode = capture && debugParam === "coverage"
+  ? 1
+  : capture && debugParam === "normals"
+    ? 2
+    : 0;
 const showUi = params.get("ui") !== "0";
 const host = document.querySelector<HTMLElement>("#volume-player");
 if (host === null) throw new Error("volume player root is missing");
@@ -218,6 +224,7 @@ const main = async (): Promise<void> => {
     built.uniforms.uGlowTicks.value = Math.max(10, item.volume.finalTick * 0.035);
     built.uniforms.uTransition.value = Math.max(2, item.volume.finalTick * 0.004);
     built.uniforms.uGlowStrength.value = 0.38;
+    built.uniforms.uDebugMode.value = debugMode;
     const finalRadius = item.volume.radiusTrack.at(-1) ?? 0;
     built.uniforms.uReferenceSpeed.value = item.volume.finalTick > 0
       ? finalRadius / item.volume.decimation / item.volume.finalTick
