@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>A Library Is Not a Score — Snow Crystals</title>
+  <meta name="description" content="How Phase 8 turned old snow-crystal experiments into a useful evidence library without pretending that unlike measurements share one score.">
+  <link rel="stylesheet" href="../assets/education.css">
+  <style>
+    body{--line:var(--rule);--paper:var(--surface-1);--display:var(--font-sans);--ink:var(--ink-primary);--muted:var(--ink-muted);--wash:var(--surface-sunken);--accent:var(--accent-key)}
+    .c31-stage{min-height:18rem;display:grid;place-items:center;padding:1rem}.c31-grid{width:min(100%,46rem);display:grid;grid-template-columns:repeat(auto-fit,minmax(9rem,1fr));gap:.75rem}.c31-card{border:1px solid var(--line);border-radius:.75rem;background:var(--paper);padding:1rem}.c31-big{font:700 clamp(1.7rem,4vw,3rem)/1 var(--display);color:var(--ink)}.c31-label{margin-top:.45rem;color:var(--muted);font-size:.9rem}.c31-rack{width:min(100%,48rem);display:grid;gap:.55rem}.c31-row{display:grid;grid-template-columns:8.5rem 1fr 8rem;gap:.65rem;align-items:center}.c31-track{height:1.1rem;background:var(--wash);border-radius:999px;overflow:hidden}.c31-fill{height:100%;background:var(--accent);border-radius:inherit;transition:width .25s}.c31-tag{font-size:.82rem;color:var(--muted)}.c31-machine{width:min(100%,44rem);display:grid;grid-template-columns:1fr auto 1fr;gap:1rem;align-items:center}.c31-bin{min-height:10rem;border:1px solid var(--line);border-radius:.8rem;padding:1rem;background:var(--paper)}.c31-arrow{font-size:2rem;color:var(--accent)}.c31-verdict{width:min(100%,43rem);padding:1.25rem;border:1px solid var(--line);border-radius:.8rem;background:var(--paper)}.c31-kicker{text-transform:uppercase;letter-spacing:.09em;font-size:.76rem;color:var(--accent);font-weight:700}.c31-answer{font:700 clamp(1.35rem,3vw,2.2rem)/1.08 var(--display);margin:.4rem 0}.c31-note{color:var(--muted);margin:.5rem 0 0}@media(max-width:640px){.c31-row{grid-template-columns:1fr}.c31-machine{grid-template-columns:1fr}.c31-arrow{transform:rotate(90deg);justify-self:center}}
+  </style>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to lesson</a>
+<header class="course-header">
+  <a class="course-header__home" href="../index.html">The Virtual Cloud Chamber</a>
+  <span class="course-header__part">Part X · Learning from a Negative Result</span>
+</header>
+<main id="main" class="lesson">
+  <header class="lesson-hero">
+    <p class="eyebrow">Chapter 31</p>
+    <h1>A Library Is Not a Score</h1>
+    <p class="dek">A century of experiments can teach us a great deal. But first we have to resist the tempting idea that every number belongs in the same spreadsheet column.</p>
+    <div class="lesson-question"><span>Guiding question</span><strong>How do you organize many unlike experiments without inventing a comparison they cannot support?</strong></div>
+  </header>
+
+  <section class="lesson-section" aria-labelledby="goals">
+    <h2 id="goals">By the end, you can</h2>
+    <ul class="goal-list">
+      <li>Separate an evidence library from a leaderboard.</li>
+      <li>Explain why apparatus, observable, and history matter before two rows can be compared.</li>
+      <li>Read the three Phase 8 record roles without treating them as grades.</li>
+      <li>Explain what a source-blocked operand is.</li>
+    </ul>
+  </section>
+
+  <aside class="status-callout"><strong>What Phase 8 actually finished:</strong> a target book plus a successor evidence library containing 51 development records, 252,134 native data rows, and 431 digitized plot points. It intentionally contains no held-out Phase 7 evidence.</aside>
+
+  <section class="lesson-section">
+    <h2>Fifty-one records are not fifty-one copies of one experiment</h2>
+    <p>Imagine collecting reports from many kitchens. One cook records oven temperature every second. Another photographs the crust after an hour. A third changes the recipe halfway through. You have a rich library, but subtracting all the numbers from one model output would be nonsense.</p>
+    <p>Snow-crystal experiments differ in the same basic ways. Some measure growth speed. Some classify the final habit as plate-like or column-like. Some record a whole time history. Pressure, temperature control, background gas, crystal size, and the definition of “growth” can differ too.</p>
+
+    <figure class="anim is-wide" id="c31-library" data-records="51" data-p0="18" data-p1="28" data-p2="5">
+      <div class="anim__head"><p class="anim__title">Browse the Phase 8 shelves</p><p class="anim__hint">Choose a shelf to see what its label means.</p></div>
+      <div class="anim__body c31-stage"></div>
+      <div class="anim__controls" aria-label="Evidence shelf controls"></div>
+      <figcaption><strong>Recorded result.</strong> Phase 8B contains 18 P0, 28 P1, and 5 P2 development records, for 51 total. The labels separate native histories, direct measurements, and safeguards; they are not scientific quality grades.</figcaption>
+    </figure>
+  </section>
+
+  <section class="lesson-section">
+    <h2>First match the question, then compare the answer</h2>
+    <p>A fair comparison needs compatible operands. An <em>operand</em> is simply one side of a calculation. If a paper reports a crystal’s diameter after 20 minutes, the matching model operand must define diameter the same way, use the matching conditions, and compare at 20 minutes. A final habit label is not a substitute for a growth-speed history.</p>
+    <p>This is why the Phase 8 library records more than numbers. It records what was measured, the apparatus and environment, the time or size interval, how the data were recovered, and what limits travel with them.</p>
+
+    <figure class="anim" id="c31-matcher" data-rule="apparatus-observable-history">
+      <div class="anim__head"><p class="anim__title">Try to make a fair pair</p><p class="anim__hint">Change the proposed model output.</p></div>
+      <div class="anim__body c31-stage"></div>
+      <div class="anim__controls" aria-label="Operand matching controls"></div>
+      <figcaption><strong>Teaching example.</strong> The matching rule is simplified. Real Phase 8 records carry source-specific limits, units, uncertainty information where available, and explicit gaps.</figcaption>
+    </figure>
+  </section>
+
+  <section class="lesson-section">
+    <h2>Why not pour everything into one score?</h2>
+    <p>A single score feels decisive. It can also hide the most important scientific information. Ten thousand easy rows from one instrument could overwhelm five difficult habit observations from a different apparatus. A unit conversion might be legitimate for one family and impossible for another. Missing uncertainty cannot be repaired by averaging harder.</p>
+    <p>Phase 8 therefore built a <strong>typed</strong> library: records say what kind of evidence they contain. Later work can ask a narrow question of compatible records instead of pretending the whole archive is one giant test.</p>
+
+    <figure class="anim is-wide" id="c31-blender" data-lesson="no-global-score">
+      <div class="anim__head"><p class="anim__title">Blend or keep the labels?</p><p class="anim__hint">Compare two ways to summarize unlike evidence.</p></div>
+      <div class="anim__body c31-stage"></div>
+      <div class="anim__controls" aria-label="Evidence summary controls"></div>
+      <figcaption><strong>Conceptual demonstration.</strong> The sample values are invented to expose weighting and compatibility problems. Phase 8 did not publish a global score, and this figure does not reconstruct one.</figcaption>
+    </figure>
+  </section>
+
+  <section class="lesson-section">
+    <h2>Sometimes the honest data value is “not recoverable”</h2>
+    <p>Suppose a graph exists only in a source that the project cannot lawfully or reliably access. Or perhaps the paper gives the final curve but omits the calibration needed to turn pixels into physical units. The missing quantity is a <strong>source-blocked operand</strong>: the desired comparison is known, but one required input cannot be reconstructed from governed evidence.</p>
+    <p>That label is useful. It prevents a later model from quietly guessing a number, and it tells a human exactly what new source or measurement would unblock the comparison.</p>
+
+    <figure class="anim" id="c31-provenance" data-outcome="blocked-is-data">
+      <div class="anim__head"><p class="anim__title">Follow a number back to its source</p><p class="anim__hint">Choose where the provenance chain breaks.</p></div>
+      <div class="anim__body c31-stage"></div>
+      <div class="anim__controls" aria-label="Provenance controls"></div>
+      <figcaption><strong>Conceptual provenance chain.</strong> Phase 8 stores source and recovery metadata record by record. “Blocked” preserves a known gap; it does not mean the original experiment was poor.</figcaption>
+    </figure>
+  </section>
+
+  <section class="lesson-section">
+    <h2>The handoff to model development</h2>
+    <p>Phase 8 did not decide whether the simulator was good. It made future questions answerable and made some unanswerable questions visibly unanswerable. Phase 9 then took the next disciplined step: find the cheapest comparison that could reject a model proposal before spending months building it.</p>
+  </section>
+
+  <nav class="chapter-nav" aria-label="Chapter navigation">
+    <a class="chapter-nav__link is-prev" href="./30-finished-failed-and-not-yet-built.html"><span class="chapter-nav__dir">&larr; Previous</span><span class="chapter-nav__title">Finished, Failed, and Not Yet Built</span></a>
+    <a class="chapter-nav__link is-next" href="./32-the-cheapest-honest-test.html"><span class="chapter-nav__dir">Next &rarr;</span><span class="chapter-nav__title">The Cheapest Honest Test</span></a>
+  </nav>
+  <footer class="lesson-sources"><h2>Where these numbers come from</h2><p>The inventory comes from the completed Phase 8A and Phase 8B plans and their governed artifacts. The interpretation follows the Phase 8 baseline guide; see the <a href="../references.html">course references</a> for the repository authority chain.</p></footer>
+</main>
+<script src="../assets/site.js"></script>
+<script src="../assets/viz.js"></script>
+<script>
+(function(){
+  "use strict";
+  function el(tag,cls,text){var n=document.createElement(tag);if(cls)n.className=cls;if(text!==undefined)n.textContent=text;return n;}
+  function box(root){return {stage:root.querySelector(".anim__body"),controls:root.querySelector(".anim__controls")};}
+  function clear(n){while(n.firstChild)n.removeChild(n.firstChild);}
+  (function(){var r=document.getElementById("c31-library"),b=box(r),shelves={"P0 · native histories":{n:18,t:"Native longitudinal data: measurements followed through time rather than copied from a plotted summary."},"P1 · direct measurements":{n:28,t:"A direct module-discriminating measurement, including plotted series and reported group aggregates."},"P2 · safeguards":{n:5,t:"An interpretation or lineage rule needed to use P0 and P1 correctly. These add no measurement coordinates."}};function draw(k){clear(b.stage);var g=el("div","c31-grid");Object.keys(shelves).forEach(function(name){var c=el("div","c31-card");c.appendChild(el("div","c31-big",String(shelves[name].n)));c.appendChild(el("div","c31-label",name));if(name===k)c.style.outline="3px solid var(--accent)";g.appendChild(c);});var d=el("div","c31-verdict");d.appendChild(el("div","c31-kicker",k));d.appendChild(el("p","c31-note",shelves[k].t));var w=el("div");w.appendChild(g);w.appendChild(d);b.stage.appendChild(w);}Object.keys(shelves).forEach(function(k,i){Viz.button(b.controls,k,function(){draw(k);},{pressed:i===0});});draw(Object.keys(shelves)[0]);})();
+  (function(){var r=document.getElementById("c31-matcher"),b=box(r),cases={"Final habit label":["diameter at 20 min","No match","Different observable"],"Diameter at 20 min":["diameter at 20 min","Possible match","Now check apparatus, units, and history"],"Speed at another pressure":["diameter at 20 min","No match yet","Environment differs"]};function draw(k){clear(b.stage);var m=el("div","c31-machine"),a=el("div","c31-bin"),z=el("div","c31-bin");a.appendChild(el("div","c31-kicker","experiment reports"));a.appendChild(el("div","c31-answer",cases[k][0]));z.appendChild(el("div","c31-kicker",cases[k][1]));z.appendChild(el("div","c31-answer",k));z.appendChild(el("p","c31-note",cases[k][2]));m.appendChild(a);m.appendChild(el("div","c31-arrow","→"));m.appendChild(z);b.stage.appendChild(m);}Object.keys(cases).forEach(function(k,i){Viz.button(b.controls,k,function(){draw(k);},{pressed:i===0});});draw("Final habit label");})();
+  (function(){var r=document.getElementById("c31-blender"),b=box(r);function draw(mode){clear(b.stage);if(mode==="One score"){var d=el("div","c31-verdict");d.appendChild(el("div","c31-kicker","apparently simple"));d.appendChild(el("div","c31-answer","73 / 100"));d.appendChild(el("p","c31-note","But which instrument dominated? Were the units compatible? What happened to missing uncertainty? The number hides the questions."));b.stage.appendChild(d);}else{var rack=el("div","c31-rack"),rows=[["growth speed",82,"native history"],["habit class",48,"categorical"],["pressure response",61,"different apparatus"]];rows.forEach(function(x){var q=el("div","c31-row");q.appendChild(el("strong","",x[0]));var t=el("div","c31-track"),f=el("div","c31-fill");f.style.width=x[1]+"%";t.appendChild(f);q.appendChild(t);q.appendChild(el("span","c31-tag",x[2]));rack.appendChild(q);});b.stage.appendChild(rack);}}["Keep typed","One score"].forEach(function(k,i){Viz.button(b.controls,k,function(){draw(k);},{pressed:i===0});});draw("Keep typed");})();
+  (function(){var r=document.getElementById("c31-provenance"),b=box(r),cases={"Source available":["paper → calibration → extracted value → comparison","Ready with limits"],"Calibration missing":["paper → ? → extracted value → comparison","Source-blocked operand"],"Image unavailable":["citation → ?","Source-blocked operand"]};function draw(k){clear(b.stage);var d=el("div","c31-verdict");d.appendChild(el("div","c31-kicker",cases[k][1]));d.appendChild(el("div","c31-answer",cases[k][0]));d.appendChild(el("p","c31-note",cases[k][1]==="Ready with limits"?"The chain is inspectable; comparison still needs a compatible model output.":"Do not guess across the question mark. Record what would be needed."));b.stage.appendChild(d);}Object.keys(cases).forEach(function(k,i){Viz.button(b.controls,k,function(){draw(k);},{pressed:i===0});});draw("Source available");})();
+})();
+</script>
+</body>
+</html>

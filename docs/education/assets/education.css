@@ -1197,6 +1197,74 @@ tbody tr:last-child td { border-bottom: 0; }
 .refs .ref__meta { color: var(--ink-secondary); }
 .refs .ref__id { font-family: var(--font-mono); color: var(--ink-muted); font-size: 0.8rem; }
 
+/* ---------------------------------------- compact lesson shell (30–33) --- */
+
+.course-header {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  min-height: 3.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: .75rem max(1rem, calc((100vw - 72rem) / 2));
+  border-bottom: 1px solid var(--rule);
+  background: color-mix(in srgb, var(--page) 94%, transparent);
+  backdrop-filter: blur(10px);
+  font-size: var(--step--1);
+}
+.course-header__home { color: var(--ink-primary); font-weight: 700; text-decoration: none; }
+.course-header__part { color: var(--ink-muted); }
+.lesson { width: min(100% - 2rem, 52rem); margin-inline: auto; }
+.lesson-hero { padding: clamp(3.5rem, 9vw, 7rem) 0 2.5rem; }
+.lesson-hero .eyebrow {
+  margin: 0 0 .7rem;
+  color: var(--accent-key);
+  font: 700 .78rem/1.2 var(--font-mono);
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+.lesson-hero h1 { margin: 0; max-width: 18ch; font-size: clamp(2.6rem, 8vw, 5.4rem); line-height: .98; }
+.lesson-hero .dek { max-width: 42rem; margin: 1.25rem 0; color: var(--ink-secondary); font-size: var(--step-1); }
+.lesson-question {
+  display: grid;
+  gap: .35rem;
+  margin-top: 2rem;
+  padding: 1rem 1.2rem;
+  border-left: 4px solid var(--accent-key);
+  background: var(--surface-sunken);
+}
+.lesson-question span { color: var(--ink-muted); font: 700 .72rem/1.2 var(--font-mono); letter-spacing: .07em; text-transform: uppercase; }
+.lesson-question strong { font-size: var(--step-1); line-height: 1.35; }
+.lesson-section { margin: 0 0 4rem; }
+.lesson-section > p, .lesson-section > ul { max-width: var(--measure); }
+.lesson .anim > figcaption {
+  padding: .75rem 1.25rem;
+  border-top: 1px solid var(--rule);
+  color: var(--ink-muted);
+  font-size: var(--step--1);
+}
+.lesson .anim > figcaption code { overflow-wrap: anywhere; word-break: break-word; }
+.goal-list { padding-left: 1.2rem; }
+.goal-list li { margin: .45rem 0; }
+.status-callout {
+  margin: 0 0 4rem;
+  padding: 1rem 1.2rem;
+  border: 1px solid var(--rule);
+  border-top: 4px solid var(--accent-open);
+  border-radius: var(--radius-md);
+  background: var(--surface-1);
+  color: var(--ink-secondary);
+}
+.lesson-sources { margin: 4rem 0; padding-top: 1.5rem; border-top: 1px solid var(--rule); color: var(--ink-secondary); font-size: var(--step--1); }
+.lesson-sources h2 { margin-top: 0; font-size: var(--step-1); }
+
+@media(max-width: 560px) {
+  .course-header { align-items: flex-start; flex-direction: column; gap: .2rem; }
+  .lesson-hero h1 { font-size: clamp(2.5rem, 15vw, 4rem); }
+}
+
 /* --------------------------------------------------------------- footer --- */
 
 .site-footer {
@@ -1212,7 +1280,7 @@ tbody tr:last-child td { border-bottom: 0; }
 /* ---------------------------------------------------------------- print --- */
 
 @media print {
-  .topbar, .sidenav, .chapter-nav, .anim__controls { display: none !important; }
+  .topbar, .course-header, .sidenav, .chapter-nav, .anim__controls { display: none !important; }
   body { background: #fff; color: #000; font-size: 11pt; }
   .figure, .chart, .anim, .callout, .fieldguide__card { break-inside: avoid; border-color: #bbb; }
   a { text-decoration: none; color: #000; }

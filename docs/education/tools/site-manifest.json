@@ -240,5 +240,29 @@
     "c29-relay",
     "c29-budget",
     "c29-claim"
+  ],
+  "chapters/30-finished-failed-and-not-yet-built.html": [
+    "c30-two-results",
+    "c30-label-stack",
+    "c30-profiles",
+    "c30-debts"
+  ],
+  "chapters/31-a-library-is-not-a-score.html": [
+    "c31-library",
+    "c31-matcher",
+    "c31-blender",
+    "c31-provenance"
+  ],
+  "chapters/32-the-cheapest-honest-test.html": [
+    "c32-funnel",
+    "c32-baseline",
+    "c32-ledger",
+    "c32-mapping"
+  ],
+  "chapters/33-a-green-gate-that-says-no.html": [
+    "c33-two-gates",
+    "c33-bridge",
+    "c33-ladder",
+    "c33-outcomes"
   ]
 }
