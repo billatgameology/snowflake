@@ -424,9 +424,10 @@ These are measured implementation-level patterns, not physical-cause claims.
 ## Active plan
 
 The [adaptive discovery follow-up](plans/post-phase10-adaptive-discovery.md) is the sole active
-science plan. Its first tranche is a finite 432-row CPU campaign: 288 matched temperature/forcing
-rows, 72 physical-pressure contrasts, and 72 near-volume-matched seed-shape contrasts, executed at
-recorded concurrency 16. Its result-selected second tranche is capped at 48 rows. The
+science plan. Its pilot and N64/extent-29 long wave are complete. The next finite confirmation wave
+has 58 rows: seed-transition localization, half-timestep seed and pressure controls, half-timestep
+sixfold-topology controls, and half-timestep warm open-cavity controls. It will run at recorded
+concurrency 32. The
 [first discovery campaign](plans/post-phase10-discovery-campaign.md) is complete. Phase 7 remains
 a separate parallel product path and is not part of this science workstream.
 
@@ -443,6 +444,20 @@ roster at N64 / target extent 29. That finite long-wave roster and its `launch-l
 implemented without a `core/`, `solver-cpu/`, checkpoint, or readout change. Focused Vitest passed
 three files / 12 tests, `npx tsc --noEmit` passed, and Rule 7 is clean across 1,522 files. Exact
 `npm test` was not run for this runner-only roster extension under Rule 6.
+
+The N64/extent-29 long wave is complete from producer head `df757992`: its ignored census at
+`out/post-phase10-long/long-wave-census-2026-09-02.json` (1,379 bytes / SHA-256
+`2ddceacbdb582b21a4ba241c58fa1eecc0bed49cceb2b91311b58b67d13bf13e`) records 432 registered,
+valid, unique size-target results, zero missing rows and one excluded earlier contact-stopped
+duplicate among 433 result files. The active plan records the four retained lead families and the
+pre-registered 58-row confirmation wave. A proposed additional 12 facet-hybrid rows were removed
+before any launch: the exact full check showed that their implementation changed the Phase 9-frozen
+permanent-control solver identity, and the existing coefficient override is explicitly test-only.
+The final 58-row design leaves `core/` and `solver-cpu/` byte-unchanged. Rule 7, both typechecks,
+the six focused roster/runner/Phase 9 files (35/35 tests), and `git diff --check` pass. The exact
+suite on the rejected design passed 161/170 files and 2,511 tests; its two new Phase 9 readiness
+failures caused the simplification, while the remaining failures were the already recorded Phase 10
+missing ignored recovery bytes and stale frozen identities. They are not part of this science work.
 
 [phase-6-science-first-completion.md](plans/phase-6-science-first-completion.md) is the completed Phase 6 record (see its Completion record).
 [phase-8-measurement-corpus.md](plans/phase-8-measurement-corpus.md) and
@@ -543,14 +558,15 @@ the package-specific prerequisites in its charter amendment and execution plan. 
 
 ## Next step
 
-### Launch the 432-row N64 long wave
+### Launch the 58-row confirmation wave
 
-Open the [active plan](plans/post-phase10-adaptive-discovery.md). Commit/push the clean producer
-checkpoint after adding the finite long-wave roster beside
-`runner/src/post-phase10-adaptive.ts`, then launch all 432 matched rows at actual concurrency 16
-under `out/post-phase10-long/`. The long wave uses N64, target extent 29 and the pilot's otherwise
-unchanged machinery. Do not involve Phase 7, revive C0V/S6 recovery, or build a generic
-scheduler/dashboard.
+Open the [active plan](plans/post-phase10-adaptive-discovery.md). Commit the clean producer
+checkpoint, then run
+`node runner/src/post-phase10-discovery-main.ts launch-confirmation out/post-phase10-confirmation/campaign-2026-09-02-wave1 32`.
+Keep source frozen while its 58 N64/extent-29 rows run. Analyze exact first-extent crossings and
+equal plateau age as rows complete, then promote only persistent leads to larger-domain/extent or
+history tests. Do not involve Phase 7, revive C0V/S6 recovery, or build a generic scheduler,
+dashboard, or facet-hybrid solver change.
 
 The prior Phase 10 selection note below is completed reproduction context; its request for a next
 workstream is superseded by the campaign selection above.

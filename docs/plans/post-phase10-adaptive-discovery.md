@@ -107,7 +107,10 @@ trajectory signal, and do not spend a forced allocation after a question has bee
 The complete N64/extent-29 wave leaves four distinct questions: a warm-to-cold reversal in the
 seed-shape-by-kinetic-arm interaction, a forcing-dependent pressure interaction, an M1-only
 sixfold core/tip separation around the prism-dip neighborhood, and open cross-sectional cavities
-in the warm M1 columns. The first confirmation wave is the following finite 70-row roster; no
+in the warm M1 columns. Before any confirmation row was launched, the full scientific check showed
+that the proposed facet-isolation implementation would change the Phase 9-frozen permanent-control
+solver identity. The first confirmation wave was therefore narrowed to the following finite
+58-row roster; no
 condition may be added after its result is seen:
 
 1. **Seed-transition localization (12 rows):** temperatures `[-7, -8, -9]` C at fraction `0.15`,
@@ -125,15 +128,8 @@ condition may be added after its result is seen:
    `0.15`, both arms, canonical seed and pressure, with `cflFill = 0.05`.
 6. **Warm open-cavity timestep control (4 rows):** temperatures `[-4.5, -5]` C at fraction
    `0.075`, both arms, canonical seed and pressure, with `cflFill = 0.05`.
-7. **Facet isolation (12 rows):** temperatures `[-4.5, -6, -10, -14.4, -19, -24]` C at fraction
-   `0.15`, canonical seed/pressure and `cflFill = 0.1`, under basal-dip-only and
-   prism-dip-only hybrids. Existing long-wave M1 and no-dip rows are their comparators.
-
 Every row remains N64 / target extent 29 with the fixed machinery above except for the one named
-factor. The hybrid arms use exactly the already implemented M1 and broad-branch facet functions:
-basal-dip-only is M1 basal plus broad prism; prism-dip-only is broad basal plus M1 prism. They are
-fresh-run exploratory inputs only: do not widen the v3 resume-checkpoint allow-list or the GPU
-solver. Run independent rows at actual process concurrency 32.
+factor. Run independent rows at actual process concurrency 32.
 
 Analyze exact first extent crossings and equal plateau age. For morphology, reconstruct occupancy
 from the seed plus recorded attachment events and report both the existing metrics and exact
@@ -209,6 +205,13 @@ row ceiling.
 - Adding facet-specific parameter sets before locating informative conditions was rejected because
   it expands core/checkpoint surfaces before the existing two-arm model has identified where that
   decomposition is worth running.
+- Adding the now-informative basal-dip-only and prism-dip-only hybrids directly to `LKSolver` was
+  rejected before launch because the exact full check correctly showed that it changes the
+  Phase 9-frozen permanent-control source identity. Routing a scientific run through the existing
+  test-only coefficient override was also rejected because that seam explicitly marks the result
+  as a test of different machinery. The 12 proposed hybrid rows were removed, leaving 58 rows;
+  facet contributions remain descriptive from the retained per-facet trajectories unless a later
+  deliberately separate experimental operator is justified.
 - Treating terminal `branchCount` as the topology result was rejected because the angular-bin
   diagnostic changes at lattice-sized radius increments even when occupancy stays exactly D6h.
 - Comparing every arm only at terminal `largestExtent = 29` was rejected because plate-like rows
@@ -254,3 +257,23 @@ Pre-launch checks:
 
 Exact `npm test` was not run: this is another bounded finite-roster/launcher extension and does not
 change numerical behavior, scientific readout calculation, a gate, or evidence publication.
+
+## Confirmation-wave implementation record
+
+`runner/src/post-phase10-confirm.ts` holds the exact 58-row roster, and the existing launcher gained
+only `list-confirmation`, `launch-confirmation`, and a concurrency ceiling matching the host's 32
+logical processors. No solver, core parameter, checkpoint, or readout calculation changed.
+
+Final pre-launch checks:
+
+- `npm run typecheck`: passed;
+- focused roster, runner, long-wave, and Phase 9 freeze tests: six files / 35 tests passed;
+- `npm run lint:rule7`: clean across 1,524 files; and
+- `git diff --check`: passed.
+
+Exact `npm test` ran on the rejected 70-row design and passed 161/170 files and 2,511 tests. Its two
+new Phase 9 permanent-control readiness failures identified the proposed `LKSolver` source change;
+removing that change and its 12 facet-hybrid rows restores the frozen solver byte identity, which
+the focused Phase 9 tests confirm. The other failures are the already recorded Phase 10 missing
+ignored recovery bytes and stale frozen identities; this science work neither repairs nor copies
+them.

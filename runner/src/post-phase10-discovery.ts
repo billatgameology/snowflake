@@ -23,7 +23,10 @@ export type DiscoveryLane =
   | "adaptive-seed"
   | "long-map"
   | "long-pressure"
-  | "long-seed";
+  | "long-seed"
+  | "confirm-seed"
+  | "confirm-pressure"
+  | "confirm-map";
 
 export interface DiscoveryRow {
   readonly id: string;

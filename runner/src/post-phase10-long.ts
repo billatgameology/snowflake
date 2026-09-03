@@ -14,6 +14,9 @@ const LONG_LANES: Readonly<Record<DiscoveryLane, DiscoveryLane | undefined>> = O
   "long-map": undefined,
   "long-pressure": undefined,
   "long-seed": undefined,
+  "confirm-seed": undefined,
+  "confirm-pressure": undefined,
+  "confirm-map": undefined,
 });
 
 export const POST_PHASE10_LONG_ROWS: readonly DiscoveryRow[] = Object.freeze(
