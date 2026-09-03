@@ -41,9 +41,9 @@
    of the CAK sweep
    measured 5 of 90 and was INVALIDATED by ADR 0031 — an unregistered CLI default
    supplied a parameter set violating a registered freeze row — so 5 of 90 is
-   withdrawn, not merely superseded. Phase 6 remains active and incomplete:
-   R15/replacement-gate, numerical-adequacy, GPU-cohort, matched no-dip, and
-   held-out validation obligations remain open.
+   withdrawn, not merely superseded. Phase 6 later completed on an accepted
+   negative finding; the closure does not validate the model. Phase 7's GPU
+   cohort and held-out validation obligations remain not started.
 
    WHAT THIS IS NOT
    This strip is an INVALID PROXY — it asks only which sigma0 curve is lower at

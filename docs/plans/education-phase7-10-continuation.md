@@ -1,9 +1,9 @@
 # Plan — education continuation through Phase 10
 
 - **Phase:** Cross-phase education reconciliation — Phases 6–10
-- **Status:** in progress
+- **Status:** implementation complete; exact repository-suite closure pending
 - **Started:** 2026-09-02
-- **Last touched:** 2026-09-02 by OpenAI Codex
+- **Last touched:** 2026-09-03 by OpenAI Codex
 - **Branch/worktree:** `docs/education-phase10` at
   `G:\Code Files\snowflake-education-phase10`
 
@@ -54,16 +54,44 @@ stale active-phase wording.
 - [x] Read the governing state, charter clauses, completed Phase 8–10 plans, plain-English guides,
   final Phase 10 report, current education structure, and frozen verifier boundary.
 - [x] Create the isolated task branch/worktree and record this plan before implementation.
-- [ ] Reconcile the index and Chapter 29 bridge with the final Phase 6 state and new course range.
-- [ ] Author Chapters 30–33 with their original diagrams, examples, interactions, citations, and
+- [x] Reconcile the index and Chapter 29 bridge with the final Phase 6 state and new course range.
+- [x] Author Chapters 30–33 with their original diagrams, examples, interactions, citations, and
   explicit limits.
-- [ ] Extend the site manifest and reconcile the Phase 6/new-chapter verifier semantics.
-- [ ] Run public and offline education verification, inspect representative desktop/mobile visual
+- [x] Extend the site manifest and reconcile the Phase 6/new-chapter verifier semantics.
+- [x] Run public and offline education verification, inspect representative desktop/mobile visual
   captures, and repair content or layout defects.
 - [ ] Run Rule 7, `git diff --check`, and exact `npm test`; record the verified result here and in
   `docs/PROGRESS.md`.
-- [ ] Perform one bounded skeptical content pass over the final learner-facing claims, apply any
+- [x] Perform one bounded skeptical content pass over the final learner-facing claims, apply any
   warranted corrections, and mark this plan complete.
+
+## Verification record
+
+- `node docs/education/tools/verify.mjs --public-only` passed on the final authored content: 37
+  manifest pages, 222 browser-profile loads plus deterministic repeats, and all 149 artifact-backed
+  negative controls. Report: ignored `out/education-verify/report.json`.
+- `node docs/education/tools/build-local.mjs` passed and built all 37 pages under ignored
+  `out/education-local/`. The build retained rights-aware placeholders for 139 absent source
+  figures and one video; none was silently republished.
+- Focused visual QA passed 36 desktop/mobile, light/dark profiles, then four corrected Chapter 31
+  profiles after the skeptical content pass. Report: ignored `out/education-visual-qa/report.json`.
+- `npm run lint:rule7` passed with 1,515 files scanned. `node --check` passed for every changed
+  JavaScript/MJS file. `git diff --check` passed again after the final state-record edit.
+- The skeptical pass checked the learner-facing numbers against the Phase 8 final report and guide,
+  the Phase 9 D-BT and M-F/M-K2 reports and guides, and the Phase 10 closure/C0 reports. It corrected
+  an early draft that had mistaken P0/P1/P2 for recovery levels: P0 is native longitudinal data, P1
+  is direct module-discriminating measurement, and P2 is interpretation/lineage safeguarding with
+  no measurement-coordinate rows.
+- Exact `npm test` on 2026-09-03 passed Rule 7 and both typechecks, then completed Vitest after
+  4,530.15 seconds with 139 files passed, 26 failed; 2,318 tests passed, 16 failed, and 72 skipped.
+  Seventeen failed suites correctly refused the temporary installed-runtime junction used to
+  bootstrap this isolated worktree; that junction was removed and replaced with a real local
+  `npm ci` installation. A focused S6 authority run then loaded and ran without the junction
+  refusal, but was deliberately stopped rather than treated as timing evidence while an unrelated
+  scientific campaign still occupied all 32 logical CPUs. The remaining recorded failures were
+  pre-existing Phase 10 byte-identity disagreements and process/IPC wall-time caps outside the
+  education files. Therefore the exact-suite checkbox remains open: rerun exact `npm test` when the
+  registered campaign workers are gone, and do not describe this run as green.
 
 ## Out of scope
 
@@ -89,8 +117,25 @@ stale active-phase wording.
   final closure bridge while retaining the measured history.
 - **Add a second education-specific evidence framework.** Rejected: the existing manifest and
   browser verifier already exercise interactive state and content boundaries; extend that seam.
+- **Link the new chapters directly to plans and evidence outside the public education root.**
+  Rejected after the verifier caught the boundary crossing. The chapters link to the public
+  references page, which explains the authority chain without making private repository paths
+  deployable.
+- **Describe P0/P1/P2 as recovery-strength levels.** Rejected during the skeptical pass because the
+  Phase 8 records define measurement roles, not a quality ladder. Chapter 31 now teaches those exact
+  roles and keeps P2 separate from coordinate-bearing measurements.
+- **Keep a shared `node_modules` junction in the isolated worktree.** Rejected after the exact suite
+  correctly refused an aliased installed runtime. The link was removed without touching its target
+  and replaced by a local `npm ci` installation.
+- **Treat process timeouts under the 32-worker scientific campaign as education regressions.**
+  Rejected: the full run showed passing neighboring assertions and wall-time-only failures in
+  untouched Phase 4/10 process tests. The exact suite still must be rerun under an idle host; this
+  observation is a limit, not a waiver.
 
 ## Open questions
 
-None currently blocks the bounded continuation. The course remains unpublished in-repository
-content unless the maker separately restores a deployment path.
+The bounded continuation is implemented and education-verified. Formal plan closure is waiting on
+an exact `npm test` rerun after the unrelated 32-worker scientific campaign finishes and any
+persisting Phase 10 byte-identity failures are resolved in their own authorized workstream. The
+course remains unpublished in-repository content unless the maker separately restores a deployment
+path.

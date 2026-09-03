@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>The Cheapest Honest Test — Snow Crystals</title>
+  <meta name="description" content="How Phase 9 used small, decisive comparisons to reject model-development ideas before expensive simulator work.">
+  <link rel="stylesheet" href="../assets/education.css">
+  <style>
+    body{--line:var(--rule);--paper:var(--surface-1);--display:var(--font-sans);--ink:var(--ink-primary);--muted:var(--ink-muted);--wash:var(--surface-sunken);--accent:var(--accent-key)}
+    .c32-stage{min-height:18rem;display:grid;place-items:center;padding:1rem}.c32-card{width:min(100%,44rem);border:1px solid var(--line);border-radius:.8rem;background:var(--paper);padding:1.2rem}.c32-kicker{text-transform:uppercase;letter-spacing:.09em;font-size:.76rem;color:var(--accent);font-weight:700}.c32-answer{font:700 clamp(1.4rem,3vw,2.35rem)/1.08 var(--display);margin:.45rem 0}.c32-note{margin:.5rem 0 0;color:var(--muted)}.c32-funnel{width:min(100%,47rem);display:grid;gap:.65rem}.c32-step{border:1px solid var(--line);background:var(--paper);border-radius:.7rem;padding:.8rem 1rem;transition:transform .2s,opacity .2s}.c32-step strong{display:block}.c32-step span{color:var(--muted);font-size:.88rem}.c32-bars{width:min(100%,44rem);display:grid;gap:1rem}.c32-row{display:grid;grid-template-columns:8rem 1fr 6.5rem;align-items:center;gap:.75rem}.c32-track{height:1.3rem;background:var(--wash);border-radius:999px;overflow:hidden}.c32-fill{height:100%;background:var(--accent);border-radius:inherit;transition:width .25s}.c32-fill.is-baseline{background:var(--muted)}.c32-ledger{width:min(100%,47rem);display:grid;grid-template-columns:repeat(auto-fit,minmax(9rem,1fr));gap:.75rem}.c32-cell{border:1px solid var(--line);border-radius:.7rem;background:var(--paper);padding:1rem}.c32-num{font:700 2rem/1 var(--display)}@media(max-width:600px){.c32-row{grid-template-columns:1fr}.c32-stage{padding:.4rem}}
+  </style>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to lesson</a>
+<header class="course-header"><a class="course-header__home" href="../index.html">The Virtual Cloud Chamber</a><span class="course-header__part">Part X · Learning from a Negative Result</span></header>
+<main id="main" class="lesson">
+  <header class="lesson-hero">
+    <p class="eyebrow">Chapter 32</p>
+    <h1>The Cheapest Honest Test</h1>
+    <p class="dek">Before rebuilding a simulator, ask whether the new idea survives a smaller test that can already prove it wrong.</p>
+    <div class="lesson-question"><span>Guiding question</span><strong>How can a cheap calculation save months of expensive, misleading work?</strong></div>
+  </header>
+
+  <section class="lesson-section" aria-labelledby="goals"><h2 id="goals">By the end, you can</h2><ul class="goal-list"><li>Define a discriminator and explain why it should be cheap.</li><li>Compare a proposed model with a simple baseline.</li><li>Explain why “all no-pass” can be a successful development result.</li><li>Separate a diagnostic mapping from a physical score.</li></ul></section>
+
+  <aside class="status-callout"><strong>What Phase 9 actually finished:</strong> it screened development proposals against the Phase 8 library. Every eligible route stopped without promotion. No production solver was changed, and no models were combined.</aside>
+
+  <section class="lesson-section">
+    <h2>A discriminator is a small door with a strong lock</h2>
+    <p>A model proposal can be very complicated: new surface physics, a rescaled temperature curve, or a rule borrowed from another experiment. Implementing it inside the full crystal simulator might take weeks. A <strong>discriminator</strong> asks for the smallest calculation that the proposal must pass before that work is justified.</p>
+    <p>The key word is <em>must</em>. A cheap test is useful only when failure really contradicts the proposal’s stated reason for existing. A random toy calculation is cheap, but it does not discriminate.</p>
+
+    <figure class="anim" id="c32-funnel" data-order="cheap-before-expensive">
+      <div class="anim__head"><p class="anim__title">Move a proposal through the funnel</p><p class="anim__hint">Choose the first result.</p></div>
+      <div class="anim__body c32-stage"></div><div class="anim__controls" aria-label="Development funnel controls"></div>
+      <figcaption><strong>Conceptual workflow.</strong> The funnel illustrates the Phase 9 rule: run the cheapest honest discriminator first. Passing permits more work; it does not prove the model physically correct.</figcaption>
+    </figure>
+  </section>
+
+  <section class="lesson-section">
+    <h2>The baseline gets a seat at the table</h2>
+    <p>Suppose a proposal predicts six temperature-dependent measurements. Its error looks large, but “large” needs context. A simple baseline might ignore most of the new mechanism and rescale the remaining histories using only the other histories. If that humble baseline predicts much better, the complicated proposal has not earned implementation.</p>
+    <p>One Phase 9 Lamb-data comparison did exactly this. The proposed D-BT mapping won zero of six matched cases. Its mean squared error was 431.3416, while the leave-one-history-out rescaling baseline achieved 0.6578183. Mean squared error squares each miss, averages the squares, and rewards smaller values.</p>
+
+    <figure class="anim is-wide" id="c32-baseline" data-proposal-mse="431.3416" data-baseline-mse="0.6578183" data-wins="0-of-6">
+      <div class="anim__head"><p class="anim__title">Put the errors on the same ruler</p><p class="anim__hint">Switch between a full and close view.</p></div>
+      <div class="anim__body c32-stage"></div><div class="anim__controls" aria-label="Error scale controls"></div>
+      <figcaption><strong>Recorded Phase 9 result.</strong> The values are 431.3416 for the D-BT proposal and 0.6578183 for the leave-one-history-out rescaling baseline, with proposal wins in 0/6 comparisons. This development result is specific to the registered Lamb mapping and operands.</figcaption>
+    </figure>
+  </section>
+
+  <section class="lesson-section">
+    <h2>“No-pass” is not the same as “useless”</h2>
+    <p>Phase 9 began with 70 proposal aliases. Those resolved to 59 complete artifacts because several names pointed to the same underlying candidate. The adapter examined 112 proposed purposes: 51 were eligible with a stated limit, 41 were ineligible, and 20 were source-blocked.</p>
+    <p>Only two routes reached quantitative comparison. Neither earned promotion. That result saved the project from adding attractive complexity whose advertised improvement had not survived its first fair test.</p>
+
+    <figure class="anim is-wide" id="c32-ledger" data-aliases="70" data-artifacts="59" data-purposes="112" data-promotions="0">
+      <div class="anim__head"><p class="anim__title">Read the development ledger</p><p class="anim__hint">Choose what to count.</p></div>
+      <div class="anim__body c32-stage"></div><div class="anim__controls" aria-label="Development ledger controls"></div>
+      <figcaption><strong>Recorded Phase 9 inventory.</strong> Counts come from the completed knowledge-adapter and model-development records. “Eligible” means eligible for a named development test, not validated or approved for production.</figcaption>
+    </figure>
+  </section>
+
+  <section class="lesson-section">
+    <h2>Some numbers are maps, not measurements</h2>
+    <p>The other quantitative route compared M-F and M-K2 through a mapping that depends on modeling choices. It produced a diagnostic 2/5 result. Because the mapping itself was not a direct physical measurement, Phase 9 correctly refused to turn 2/5 into a physical score.</p>
+    <p>This distinction matters whenever software transforms evidence. A graph pixel converted with a documented axis calibration can become a physical value. A category translated through a speculative model mapping remains a model-dependent diagnostic.</p>
+
+    <figure class="anim" id="c32-mapping" data-result="2-of-5" data-claim="diagnostic-only">
+      <div class="anim__head"><p class="anim__title">Name what the number can say</p><p class="anim__hint">Change the provenance of the mapping.</p></div>
+      <div class="anim__body c32-stage"></div><div class="anim__controls" aria-label="Mapping controls"></div>
+      <figcaption><strong>Claim boundary.</strong> Phase 9 recorded the M-F/M-K2 2/5 result as mapping-dependent and diagnostic-only. This interactive teaches the distinction; it does not add a new physical interpretation.</figcaption>
+    </figure>
+  </section>
+
+  <section class="lesson-section"><h2>The handoff to Phase 10</h2><p>An all-no-pass development phase leaves a clear next question: can the project repair one narrow missing bridge well enough to run a decisive comparison? Phase 10 investigated that question. Its most important result was not a better snowflake. It was a precise account of why the proposed bridge could not yet be built.</p></section>
+
+  <nav class="chapter-nav" aria-label="Chapter navigation"><a class="chapter-nav__link is-prev" href="./31-a-library-is-not-a-score.html"><span class="chapter-nav__dir">&larr; Previous</span><span class="chapter-nav__title">A Library Is Not a Score</span></a><a class="chapter-nav__link is-next" href="./33-a-green-gate-that-says-no.html"><span class="chapter-nav__dir">Next &rarr;</span><span class="chapter-nav__title">A Green Gate That Says No</span></a></nav>
+  <footer class="lesson-sources"><h2>Where these numbers come from</h2><p>The workflow and counts come from the completed Phase 9 execution plan, knowledge guide, and model-development guide. They are development evidence, not a validation claim; see the <a href="../references.html">course references</a> for the repository authority chain.</p></footer>
+</main>
+<script src="../assets/site.js"></script><script src="../assets/viz.js"></script>
+<script>
+(function(){"use strict";function el(t,c,x){var n=document.createElement(t);if(c)n.className=c;if(x!==undefined)n.textContent=x;return n;}function box(r){return{stage:r.querySelector(".anim__body"),controls:r.querySelector(".anim__controls")};}function clear(n){while(n.firstChild)n.removeChild(n.firstChild);}
+  (function(){var r=document.getElementById("c32-funnel"),b=box(r);function draw(pass){clear(b.stage);var f=el("div","c32-funnel"),steps=[["1. State the proposal","What improvement is actually promised?"],["2. Match operands","Use compatible evidence and definitions."],["3. Run cheap discriminator",pass?"Pass: more work is permitted.":"No-pass: stop before full implementation."],["4. Build and validate",pass?"Still future work; no credit yet.":"Not entered."]];steps.forEach(function(s,i){var d=el("div","c32-step");d.style.width=(100-i*8)+"%";if(!pass&&i===3)d.style.opacity=".35";d.appendChild(el("strong","",s[0]));d.appendChild(el("span","",s[1]));f.appendChild(d);});b.stage.appendChild(f);}[false,true].forEach(function(v,i){Viz.button(b.controls,v?"Discriminator passes":"Discriminator fails",function(){draw(v);},{pressed:i===0});});draw(false);})();
+  (function(){var r=document.getElementById("c32-baseline"),b=box(r),proposal=431.3416,baseline=.6578183;function draw(close){clear(b.stage);var bars=el("div","c32-bars"),max=close?5:proposal;[["D-BT proposal",proposal,false],["simple baseline",baseline,true]].forEach(function(x){var row=el("div","c32-row");row.appendChild(el("strong","",x[0]));var tr=el("div","c32-track"),fi=el("div","c32-fill"+(x[2]?" is-baseline":""));fi.style.width=Math.min(100,x[1]/max*100)+"%";tr.appendChild(fi);row.appendChild(tr);row.appendChild(el("span","",x[1].toFixed(4)));bars.appendChild(row);});bars.appendChild(el("p","c32-note",close?"Close view: the proposal runs beyond this 0–5 window.":"Full view: the baseline is so small that it nearly disappears."));b.stage.appendChild(bars);}[false,true].forEach(function(v,i){Viz.button(b.controls,v?"Close view":"Full scale",function(){draw(v);},{pressed:i===0});});draw(false);})();
+  (function(){var r=document.getElementById("c32-ledger"),b=box(r),sets={"Names and artifacts":[["proposal aliases",70],["complete artifacts",59]],"Purpose review":[["eligible with limit",51],["ineligible",41],["source-blocked",20]],"Outcome":[["promotions",0],["combinations",0]]};function draw(k){clear(b.stage);var g=el("div","c32-ledger");sets[k].forEach(function(x){var c=el("div","c32-cell");c.appendChild(el("div","c32-num",String(x[1])));c.appendChild(el("div","c32-note",x[0]));g.appendChild(c);});b.stage.appendChild(g);}Object.keys(sets).forEach(function(k,i){Viz.button(b.controls,k,function(){draw(k);},{pressed:i===0});});draw("Names and artifacts");})();
+  (function(){var r=document.getElementById("c32-mapping"),b=box(r),cases={"Model-dependent map":["2 / 5","Diagnostic only","The translation depends on modeling choices, so the result cannot become a direct physical score."],"Calibrated physical axis":["physical units","May support comparison","Only if apparatus, observable, range, uncertainty, and provenance also match."],"Missing calibration":["?","Source-blocked","The honest output is a named missing operand, not an invented conversion."]};function draw(k){clear(b.stage);var c=el("div","c32-card");c.appendChild(el("div","c32-kicker",cases[k][1]));c.appendChild(el("div","c32-answer",cases[k][0]));c.appendChild(el("p","c32-note",cases[k][2]));b.stage.appendChild(c);}Object.keys(cases).forEach(function(k,i){Viz.button(b.controls,k,function(){draw(k);},{pressed:i===0});});draw("Model-dependent map");})();
+})();
+</script>
+</body>
+</html>
