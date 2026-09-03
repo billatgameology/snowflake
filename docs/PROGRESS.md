@@ -356,10 +356,13 @@ detail.
 - CAK→M1 is a confounded parameter-family comparison. Only matched M1 versus
   `M1_NO_DIP_ABLATION` may isolate the implemented dip factors' effect on this solver under the
   frozen configuration; it **cannot establish physical SDAK causality or necessity** in nature.
-- Education is frozen with known-stale prose; the Pages deploy is retired (2026-08-16, maker
-  direction) and content stays in-repo unpublished, `test.yml` CI unaffected. Reconciliation is
-  a live decision point under **Next step**. Full freeze history:
-  [the history file](progress-history-phases-6-8-9.md).
+- **Education reconciliation is ACTIVE (2026-09-02).** The maker selected the in-repository
+  continuation through Phase 10. The isolated `docs/education-phase10` branch/worktree and
+  [active plan](plans/education-phase7-10-continuation.md) preserve Chapters 1–29 as the teaching
+  baseline, reconcile their stale Phase 6 status boundary, and add four chapters covering the
+  unstarted Phase 7 product plan plus the completed Phase 8, 9, and 10 records. This work changes
+  no solver, evidence artifact, phase gate, or validation label; the Pages deploy remains retired.
+  Full freeze history: [the history file](progress-history-phases-6-8-9.md).
 - **Last updated:** 2026-08-25 (Phase 10 complete-negative; `gate10` exit 0)
 
 ## Phase gates
@@ -483,12 +486,18 @@ the package-specific prerequisites in its charter amendment and execution plan. 
 
 ## Next step
 
-### Phase 10 complete — maker selects the next workstream
+### Education continuation through Phase 10 — active
 
-Phase 10 is complete-negative at clean pushed checkpoint `e2cca93`; reproduce it with
-`node runner/src/main.ts gate10`. The maker must select the next workstream before implementation
-continues. Phase 7 remains on hold and independently eligible; no E/F/H proposal, C0V recovery,
-solver change, source expansion, or new phase starts automatically. The completed
+Implement the [education continuation plan](plans/education-phase7-10-continuation.md) in the
+isolated `docs/education-phase10` worktree. Reconcile the index and Chapter 29 with Phase 6's final
+accepted negative closure, author Chapters 30–33 for Phases 7–10, extend the existing education
+manifest/verifier, then run public/offline browser checks, visual QA, Rule 7, `git diff --check`,
+and exact `npm test`. Do not claim Phase 7 execution or turn Phase 8–10 development/refusal results
+into validation.
+
+Phase 10 remains complete-negative at clean pushed checkpoint `e2cca93`; reproduce it with
+`node runner/src/main.ts gate10`. No E/F/H proposal, C0V recovery, solver change, source expansion,
+or new scientific phase starts automatically. The completed
 [execution plan](plans/phase-10-evidence-verification-execution.md) is the detailed record.
 
 The material below is completed Phase 10 reproduction context, not a live execution checklist.
@@ -751,9 +760,10 @@ explicitly amends their contract; and no Phase 6 evidence artifact is rewritten.
    `G:\Code Files\snowflake-phase6-ladder`, archived `out/` trees) is now unblocked by the
    verified external-evidence backups; it remains a separate reviewed maker decision. Nothing
    has been deleted.
-2. **Education reconciliation** — maker-directed, not started. The frozen education verifier
-   oracles (`docs/education/tools/part-two-oracles.mjs`) pin superseded state-document
-   content, including the retired handoff, so they are part of that reconciliation's scope.
+2. **Education reconciliation** — active in the isolated `docs/education-phase10` worktree under
+   [its plan](plans/education-phase7-10-continuation.md). The frozen education verifier oracles
+   (`docs/education/tools/part-two-oracles.mjs`) pin superseded state-document content, including
+   the retired handoff, so their current-status boundary is part of this work.
 
 Phase 7 stays on hold as a parallel product/engineering track; it still requires its own
 committed plan and isolated worktree before any work starts, and V4/V4.x apparatus stays
