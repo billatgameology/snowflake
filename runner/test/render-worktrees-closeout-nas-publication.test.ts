@@ -12,7 +12,7 @@ import {
   RENDER_CLOSEOUT_MANIFEST_PATH,
   activateRenderCloseoutCollection,
   buildRenderCloseoutOwnerManifest,
-  copyAnimationResidual,
+  copySelectedOutput,
 } from "../../scripts/nas-publish-render-worktrees-closeout.ts";
 import {
   inventoryStableTree,
@@ -64,7 +64,7 @@ describe("render worktree closeout NAS publication", () => {
     });
   });
 
-  it("activates only the provisional closeout collection after publication and restore", () => {
+  it("activates only the provisional closeout collection after publication", () => {
     const manifest = buildRenderCloseoutOwnerManifest(INVENTORY);
     const manifestBytes = Buffer.from(`${JSON.stringify(manifest, null, 2)}\n`);
     const publication = {
@@ -73,19 +73,12 @@ describe("render worktree closeout NAS publication", () => {
       sha256: DIGEST_A,
       value: {},
     };
-    const restoration = {
-      path: "_control/receipts/restore/render-worktrees-closeout/2026-09-04/restore.json",
-      bytes: 100,
-      sha256: DIGEST_B,
-      value: {},
-    };
     const activated = activateRenderCloseoutCollection({
       catalogue: CATALOG,
       inventory: INVENTORY,
       manifestBytes: manifestBytes.byteLength,
       manifestSha256: createHash("sha256").update(manifestBytes).digest("hex"),
       publication,
-      restoration,
       verifiedAt: "2026-09-04T20:00:00.000Z",
       host: "Windows-test",
     });
@@ -101,7 +94,7 @@ describe("render worktree closeout NAS publication", () => {
         path: RENDER_CLOSEOUT_MANIFEST_PATH,
         selector: { kind: "path-prefixes", include: [RENDER_CLOSEOUT_LOCATOR], exclude: [] },
       },
-      restore: { status: "tested" },
+      restore: { status: "documented" },
       verification: { status: "full-hash", at: "2026-09-04", host: "Windows-test" },
       unresolved: [],
     });
@@ -116,7 +109,7 @@ describe("render worktree closeout NAS publication", () => {
     );
   });
 
-  it("copies only the exact animation residual and refuses unexpected roots", () => {
+  it("copies selected output and compares its file and byte counts", () => {
     const root = mkdtempSync(join(tmpdir(), "render-closeout-test-"));
     TEMP_ROOTS.push(root);
     const source = join(root, "source");
@@ -129,16 +122,26 @@ describe("render worktree closeout NAS publication", () => {
     const expectedNames = ["growth-scientific", "keep-dir", "note.log"];
     const selectedNames = ["keep-dir", "note.log"];
 
-    const copied = copyAnimationResidual({ sourceRoot: source, destinationRoot: destination, expectedNames, selectedNames });
-    expect(copied).toEqual(inventoryStableTree(destination));
-    expect(copied.files.map((file) => file.path)).toEqual(["keep-dir/frame.bin", "note.log"]);
+    const copied = copySelectedOutput({
+      sourceRoot: source,
+      destinationRoot: destination,
+      expectedNames,
+      selectedNames,
+      label: "test output",
+    });
+    expect(copied).toEqual({ fileCount: 2, totalBytes: 8 });
+    expect(inventoryStableTree(destination).files.map((file) => file.path)).toEqual([
+      "keep-dir/frame.bin",
+      "note.log",
+    ]);
 
     writeFileSync(join(source, "unexpected.bin"), "unexpected");
-    expect(() => copyAnimationResidual({
+    expect(() => copySelectedOutput({
       sourceRoot: source,
       destinationRoot: join(root, "refused"),
       expectedNames,
       selectedNames,
+      label: "test output",
     })).toThrow(/top-level names changed/u);
   });
 });

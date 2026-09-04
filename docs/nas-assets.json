@@ -2732,7 +2732,7 @@
         "host": null,
         "receipt": null,
         "limits": [
-          "Provisional registration only: no durable NAS payload, owner manifest, publication receipt, fresh verifier or restore exists yet."
+          "Provisional registration only: the remaining generated output has not yet been copied to its durable NAS payload or bound by its tracked owner manifest and publication receipt."
         ]
       },
       "storageDomains": [
@@ -2745,7 +2745,7 @@
       },
       "supersedes": [],
       "unresolved": [
-        "Residual copy, publication, owner-manifest binding, fresh full verification and fresh restore are pending."
+        "Copy-only preparation, publication, and owner-manifest binding are pending; restoration will be tested by the maker on another computer after the pull request is merged."
       ]
     }
   ],

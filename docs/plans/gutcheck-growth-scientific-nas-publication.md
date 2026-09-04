@@ -191,9 +191,11 @@ Its report returned `ok=true`, `manifest=verified`, `aggregate=verified`,
 84,247,312,054 bytes. The ignored raw log in the animation worktree is 761 bytes / SHA-256
 `72aac9e0e4b176834468b5c3475cd89f1560be61c044bea67fc46f8da02e9479` at
 `out/nas-verify-gutcheck-growth-scientific-2026-09-04.log`; the active
-[render-worktree closeout plan](render-worktrees-nas-closeout.md) registers that log for the new
-closeout collection before the animation worktree is removed. This later verifier performed no NAS
-write, restore, movement, quarantine or deletion. A fresh restore is the next closeout check.
+[render-worktree closeout plan](render-worktrees-nas-closeout.md) registers that log in the new
+closeout collection while retaining the animation worktree. This later verifier performed no NAS
+write, restore, movement, quarantine or deletion. A subsequently started restore was stopped under
+the maker's narrowed 2026-09-04 direction and remains incomplete local scratch; the maker will test
+the documented restore on another computer after merging the closeout pull request.
 
 ## Out of scope
 

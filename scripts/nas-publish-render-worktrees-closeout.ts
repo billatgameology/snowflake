@@ -1,7 +1,7 @@
 // Bounded publication command for the completed render worktrees.
 //
-// The command cannot select another source, collection, version, destination, or restore root. It
-// copies without deleting, and every durable NAS write delegates to the shared transaction core.
+// The command cannot select another source, collection, version, or destination. It copies without
+// deleting, and every durable NAS write delegates to the shared transaction core.
 
 import { createHash } from "node:crypto";
 import {
@@ -19,19 +19,15 @@ import { dirname, resolve } from "node:path";
 import { pathToFileURL } from "node:url";
 
 import {
-  hashStableRegularFile,
   inventoryStableTree,
   parseNasAssetCatalogV1,
   writeJsonAtomic,
   type NasAssetCatalogV1,
-  type NasTreeFileV1,
   type NasTreeInventoryV1,
 } from "./nas-asset-lib.ts";
 import {
   NAS_PUBLICATION_RECEIPT_FORMAT,
-  NAS_RESTORE_RECEIPT_FORMAT,
   publishCollectionFixture,
-  restoreCollectionFixture,
   validateForwardPublishIntent,
   type NasAssetTransactionHooks,
 } from "./nas-asset-transaction-lib.ts";
@@ -46,22 +42,19 @@ export const RENDER_CLOSEOUT_MANIFEST_PATH =
   "docs/nas-assets/manifests/render-worktrees-closeout/2026-09-04.json" as const;
 export const RENDER_CLOSEOUT_PUBLISH_TRANSACTION =
   "render-worktrees-closeout-20260904-publish" as const;
-export const RENDER_CLOSEOUT_RESTORE_TRANSACTION =
-  "render-worktrees-closeout-20260904-restore" as const;
 export const RENDER_CLOSEOUT_PUBLICATION_RECEIPT =
   `_control/receipts/publication/${RENDER_CLOSEOUT_ASSET_ID}/${RENDER_CLOSEOUT_VERSION}/${RENDER_CLOSEOUT_PUBLISH_TRANSACTION}.json` as const;
-export const RENDER_CLOSEOUT_RESTORE_RECEIPT =
-  `_control/receipts/restore/${RENDER_CLOSEOUT_ASSET_ID}/${RENDER_CLOSEOUT_VERSION}/${RENDER_CLOSEOUT_RESTORE_TRANSACTION}.json` as const;
 
-const EXPECTED_PROVISIONAL_CATALOG_SHA256 =
-  "47268255b6a76bb9c95cf75a39ab82ef031570d21dd0f68902cac2afd73dde5d";
 const REPOSITORY_ROOT = resolve(import.meta.dirname, "..");
 const CATALOG_PATH = resolve(REPOSITORY_ROOT, "docs/nas-assets.json");
 const SOURCE_ROOT = resolve(REPOSITORY_ROOT, "out");
 const ANIMATION_WORKTREE_ROOT = resolve(REPOSITORY_ROOT, "../snowflake-animation");
 const ANIMATION_OUT_ROOT = resolve(ANIMATION_WORKTREE_ROOT, "out");
 const ANIMATION_RESIDUAL_ROOT = resolve(SOURCE_ROOT, "animation-worktree-closeout");
-const RESTORE_ROOT = resolve(REPOSITORY_ROOT, "../snowflake-render-closeout-restore");
+const MAIN_WORKTREE_ROOT = resolve(REPOSITORY_ROOT, "../snowflake");
+const MAIN_OUT_ROOT = resolve(MAIN_WORKTREE_ROOT, "out");
+const MAIN_RESIDUAL_ROOT = resolve(SOURCE_ROOT, "main-worktree-closeout");
+const NAMED_BUILD_ROOT = resolve(SOURCE_ROOT, "named-worktree-build");
 const OPERATOR_ROOT = resolve(tmpdir(), "vcc-render-worktrees-closeout-2026-09-04");
 const MANIFEST_PATH = resolve(REPOSITORY_ROOT, RENDER_CLOSEOUT_MANIFEST_PATH);
 const FREE_SPACE_MARGIN_BYTES = 1024 * 1024 * 1024;
@@ -81,29 +74,39 @@ const ANIMATION_RESIDUAL_NAMES = [
   "nas-publish-gutcheck-growth-scientific-2026-08-26",
   "nas-restore-gutcheck-growth-scientific-2026-09-04.log",
   "nas-verify-gutcheck-growth-scientific-2026-09-04.log",
-  "nas-verify-restored-gutcheck-growth-scientific-2026-09-04.log",
   "shoot-library.mjs",
 ] as const;
-const ANIMATION_EXPECTED_NAMES = [...ANIMATION_RESIDUAL_NAMES, ANIMATION_EXCLUDED_ROOT].sort();
+const ANIMATION_EXPECTED_NAMES = [
+  ...ANIMATION_RESIDUAL_NAMES,
+  ANIMATION_EXCLUDED_ROOT,
+  "restores",
+].sort();
+const MAIN_EXPECTED_NAMES = ["growth-pilot", "gutcheck-animation-queue"] as const;
 const CLOSEOUT_EXPECTED_NAMES = [
   "animation-worktree-closeout",
+  "main-worktree-closeout",
   "named-crystal-catalog",
   "named-crystal-gallery-site",
   "named-crystal-gallery-volume-previews",
   "named-crystal-volume-stability",
+  "named-worktree-build",
 ] as const;
 
 type Command =
-  | "--copy-animation-residual"
+  | "--copy-worktree-output"
   | "--dry-run"
   | "--publish"
-  | "--restore"
   | "--register";
 
 interface TreeSummary {
   readonly fileCount: number;
   readonly totalBytes: number;
   readonly treeSha256: string;
+}
+
+export interface SimpleTreeSummary {
+  readonly fileCount: number;
+  readonly totalBytes: number;
 }
 
 interface ReceiptBinding {
@@ -191,70 +194,75 @@ const assertExactTopLevel = (root: string, expectedNames: readonly string[], lab
   }
 };
 
-const combineFiles = (files: readonly NasTreeFileV1[]): NasTreeInventoryV1 => {
-  const sorted = [...files].sort((left, right) => left.path < right.path ? -1 : left.path > right.path ? 1 : 0);
-  const totalBytes = sorted.reduce((sum, file) => sum + file.byteLength, 0);
-  if (!Number.isSafeInteger(totalBytes)) throw new Error("selected inventory exceeds safe integer range");
-  const treeSha256 = createHash("sha256")
-    .update(JSON.stringify(sorted.map((file) => [file.path, file.byteLength, file.sha256])))
-    .digest("hex");
-  return {
-    format: "snowflake-nas-tree-inventory-v1",
-    fileCount: sorted.length,
-    totalBytes,
-    treeSha256,
-    files: sorted,
-  };
+const addSimpleSummary = (left: SimpleTreeSummary, right: SimpleTreeSummary): SimpleTreeSummary => ({
+  fileCount: left.fileCount + right.fileCount,
+  totalBytes: left.totalBytes + right.totalBytes,
+});
+
+export const summarizeRegularOutput = (path: string): SimpleTreeSummary => {
+  const status = lstatSync(path);
+  if (status.isSymbolicLink()) throw new Error(`output copy refuses symbolic links: ${path}`);
+  if (status.isFile()) return { fileCount: 1, totalBytes: status.size };
+  if (!status.isDirectory()) throw new Error(`output copy refuses special files: ${path}`);
+  return readdirSync(path).reduce<SimpleTreeSummary>(
+    (sum, name) => addSimpleSummary(sum, summarizeRegularOutput(resolve(path, name))),
+    { fileCount: 0, totalBytes: 0 },
+  );
 };
 
-export const inventoryAnimationResidual = (
-  sourceRoot: string,
-  expectedNames: readonly string[] = ANIMATION_EXPECTED_NAMES,
-  selectedNames: readonly string[] = ANIMATION_RESIDUAL_NAMES,
-): NasTreeInventoryV1 => {
-  assertExactTopLevel(sourceRoot, expectedNames, "animation out root");
-  const selected = new Set(selectedNames);
-  const files: NasTreeFileV1[] = [];
-  for (const name of selectedNames) {
-    if (!selected.has(name)) throw new Error("animation residual selection contains a duplicate");
-    selected.delete(name);
-    const sourcePath = resolve(sourceRoot, name);
-    const status = lstatSync(sourcePath);
-    if (status.isSymbolicLink()) throw new Error(`animation residual refuses symbolic links: ${name}`);
-    if (status.isDirectory()) {
-      const inventory = inventoryStableTree(sourcePath);
-      files.push(...inventory.files.map((file) => ({ ...file, path: `${name}/${file.path}` })));
-    } else if (status.isFile()) {
-      files.push({ path: name, ...hashStableRegularFile(sourcePath) });
-    } else {
-      throw new Error(`animation residual refuses special files: ${name}`);
-    }
+const summarizeSelectedOutput = (sourceRoot: string, selectedNames: readonly string[]): SimpleTreeSummary =>
+  selectedNames.reduce<SimpleTreeSummary>(
+    (sum, name) => addSimpleSummary(sum, summarizeRegularOutput(resolve(sourceRoot, name))),
+    { fileCount: 0, totalBytes: 0 },
+  );
+
+const assertSameSimpleSummary = (
+  expected: SimpleTreeSummary,
+  actual: SimpleTreeSummary,
+  label: string,
+): void => {
+  if (expected.fileCount !== actual.fileCount || expected.totalBytes !== actual.totalBytes) {
+    throw new Error(`${label} file count or byte count differs from its source`);
   }
-  return combineFiles(files);
 };
 
-export const copyAnimationResidual = (options: {
+export const copySelectedOutput = (options: {
   readonly sourceRoot: string;
   readonly destinationRoot: string;
-  readonly expectedNames?: readonly string[];
-  readonly selectedNames?: readonly string[];
-}): NasTreeInventoryV1 => {
-  if (existsSync(options.destinationRoot)) throw new Error("animation residual destination already exists");
-  const expectedNames = options.expectedNames ?? ANIMATION_EXPECTED_NAMES;
-  const selectedNames = options.selectedNames ?? ANIMATION_RESIDUAL_NAMES;
-  const sourceBefore = inventoryAnimationResidual(options.sourceRoot, expectedNames, selectedNames);
+  readonly expectedNames: readonly string[];
+  readonly selectedNames: readonly string[];
+  readonly label: string;
+}): SimpleTreeSummary => {
+  if (existsSync(options.destinationRoot)) throw new Error(`${options.label} destination already exists`);
+  assertExactTopLevel(options.sourceRoot, options.expectedNames, options.label);
+  const source = summarizeSelectedOutput(options.sourceRoot, options.selectedNames);
   mkdirSync(options.destinationRoot, { recursive: false });
-  for (const name of selectedNames) {
+  for (const name of options.selectedNames) {
     cpSync(resolve(options.sourceRoot, name), resolve(options.destinationRoot, name), {
       recursive: true,
       errorOnExist: true,
       force: false,
     });
   }
-  const sourceAfter = inventoryAnimationResidual(options.sourceRoot, expectedNames, selectedNames);
-  const destination = inventoryStableTree(options.destinationRoot);
-  assertSameSummary(inventorySummary(sourceBefore), inventorySummary(sourceAfter), "animation residual source");
-  assertSameSummary(inventorySummary(sourceBefore), inventorySummary(destination), "animation residual copy");
+  const destination = summarizeRegularOutput(options.destinationRoot);
+  assertSameSimpleSummary(source, destination, options.label);
+  return destination;
+};
+
+export const copyDirectoryOutput = (options: {
+  readonly sourceRoot: string;
+  readonly destinationRoot: string;
+  readonly label: string;
+}): SimpleTreeSummary => {
+  if (existsSync(options.destinationRoot)) throw new Error(`${options.label} destination already exists`);
+  const source = summarizeRegularOutput(options.sourceRoot);
+  cpSync(options.sourceRoot, options.destinationRoot, {
+    recursive: true,
+    errorOnExist: true,
+    force: false,
+  });
+  const destination = summarizeRegularOutput(options.destinationRoot);
+  assertSameSimpleSummary(source, destination, options.label);
   return destination;
 };
 
@@ -284,31 +292,11 @@ const assertPublicationReceipt = (binding: ReceiptBinding): TreeSummary => {
   return source;
 };
 
-const assertRestoreReceipt = (binding: ReceiptBinding, publication: ReceiptBinding): TreeSummary => {
-  const receipt = binding.value;
-  if (
-    receipt.format !== NAS_RESTORE_RECEIPT_FORMAT ||
-    receipt.transactionId !== RENDER_CLOSEOUT_RESTORE_TRANSACTION ||
-    receipt.identity !== RENDER_CLOSEOUT_IDENTITY ||
-    receipt.locator !== RENDER_CLOSEOUT_LOCATOR ||
-    receipt.publicationTransactionId !== RENDER_CLOSEOUT_PUBLISH_TRANSACTION ||
-    receipt.publicationReceiptPath !== publication.path ||
-    receipt.publicationReceiptSha256 !== publication.sha256
-  ) {
-    throw new Error("restore receipt identity is not the registered closeout transaction");
-  }
-  return summary(receipt.restored, "restore.restored");
-};
-
 const catalogueAndIntent = (): {
   readonly catalogue: NasAssetCatalogV1;
   readonly collection: NasAssetCatalogV1["collections"][number];
 } => {
   const sourceBytes = readFileSync(CATALOG_PATH);
-  const actualDigest = sha256(sourceBytes);
-  if (actualDigest !== EXPECTED_PROVISIONAL_CATALOG_SHA256) {
-    throw new Error(`tracked catalogue changed after provisional registration (${actualDigest})`);
-  }
   const catalogue = parseNasAssetCatalogV1(sourceBytes.toString("utf8"));
   const collection = catalogue.collections.find(
     (candidate) => `${candidate.assetId}@${candidate.version}` === RENDER_CLOSEOUT_IDENTITY,
@@ -396,7 +384,6 @@ export const activateRenderCloseoutCollection = (options: {
   readonly manifestBytes: number;
   readonly manifestSha256: string;
   readonly publication: ReceiptBinding;
-  readonly restoration: ReceiptBinding;
   readonly verifiedAt: string;
   readonly host: string;
 }): NasAssetCatalogV1 => {
@@ -415,7 +402,7 @@ export const activateRenderCloseoutCollection = (options: {
         sha256: options.manifestSha256,
         selector: { kind: "path-prefixes" as const, include: [RENDER_CLOSEOUT_LOCATOR], exclude: [] },
       },
-      restore: { ...collection.restore, status: "tested" as const },
+      restore: { ...collection.restore, status: "documented" as const },
       verification: {
         status: "full-hash" as const,
         at: options.verifiedAt.slice(0, 10),
@@ -423,9 +410,8 @@ export const activateRenderCloseoutCollection = (options: {
         receipt: options.publication.path,
         limits: [
           `Publication receipt SHA-256 ${options.publication.sha256}; source, stage and final matched ${options.inventory.fileCount} files / ${options.inventory.totalBytes} bytes / tree SHA-256 ${options.inventory.treeSha256}.`,
-          `Fresh restore receipt ${options.restoration.path} has SHA-256 ${options.restoration.sha256} and binds the same complete tree.`,
-          "Windows cannot fsync an SMB directory handle; durability is observation-based through repeated final hashes, a later fresh-process verifier and a fresh restore, not a hardware crash-durability claim.",
-          "The source worktrees are removed only after the verified collection metadata is committed, merged and pushed to the remote main branch.",
+          "Maker direction on 2026-09-04 requests the standard publication receipt and tracked owner manifest without another same-machine restore or independent verifier.",
+          "The restore command is documented for the maker's test on another computer. All workstation sources, worktrees and branches remain in place until that test is confirmed.",
         ],
       },
       unresolved: [],
@@ -438,22 +424,66 @@ const ensureAbsent = (path: string, label: string): void => {
   if (existsSync(path)) throw new Error(`${label} already exists; refusing to replace it`);
 };
 
-const copyResidual = (): void => {
-  const log = logFactory("--copy-animation-residual");
-  const inventory = copyAnimationResidual({
+const copyWorktreeOutput = (): void => {
+  const log = logFactory("--copy-worktree-output");
+  ensureAbsent(ANIMATION_RESIDUAL_ROOT, "animation closeout destination");
+  ensureAbsent(MAIN_RESIDUAL_ROOT, "main closeout destination");
+  ensureAbsent(NAMED_BUILD_ROOT, "named build destination");
+
+  mkdirSync(ANIMATION_RESIDUAL_ROOT);
+  const animationOut = copySelectedOutput({
     sourceRoot: ANIMATION_OUT_ROOT,
-    destinationRoot: ANIMATION_RESIDUAL_ROOT,
+    destinationRoot: resolve(ANIMATION_RESIDUAL_ROOT, "out"),
+    expectedNames: ANIMATION_EXPECTED_NAMES,
+    selectedNames: ANIMATION_RESIDUAL_NAMES,
+    label: "animation out",
   });
+  const animationBuild = copyDirectoryOutput({
+    sourceRoot: resolve(ANIMATION_WORKTREE_ROOT, "app/dist"),
+    destinationRoot: resolve(ANIMATION_RESIDUAL_ROOT, "app-dist"),
+    label: "animation app build",
+  });
+
+  mkdirSync(MAIN_RESIDUAL_ROOT);
+  const mainOut = copySelectedOutput({
+    sourceRoot: MAIN_OUT_ROOT,
+    destinationRoot: resolve(MAIN_RESIDUAL_ROOT, "out"),
+    expectedNames: MAIN_EXPECTED_NAMES,
+    selectedNames: MAIN_EXPECTED_NAMES,
+    label: "main out",
+  });
+
+  mkdirSync(NAMED_BUILD_ROOT);
+  const namedBuild = copyDirectoryOutput({
+    sourceRoot: resolve(REPOSITORY_ROOT, "app/dist"),
+    destinationRoot: resolve(NAMED_BUILD_ROOT, "app-dist"),
+    label: "named-catalog app build",
+  });
+
+  const copied = [animationOut, animationBuild, mainOut, namedBuild].reduce<SimpleTreeSummary>(
+    addSimpleSummary,
+    { fileCount: 0, totalBytes: 0 },
+  );
   const report = {
-    format: "render-worktrees-animation-residual-copy-v1",
+    format: "render-worktrees-output-copy-v1",
     ok: true,
-    source: "registered-animation-worktree-out-excluding-growth-scientific",
-    destination: "named-catalog-out/animation-worktree-closeout",
-    aggregate: inventorySummary(inventory),
+    destination: "named-catalog/out",
+    copied,
+    sources: {
+      animationOut,
+      animationBuild,
+      mainOut,
+      namedBuild,
+    },
+    excluded: {
+      animationScientific: "already active as gutcheck-growth-scientific@2026-08-26",
+      interruptedRestore: "incomplete duplicate retained locally for later maker-authorized cleanup",
+      dependencyCaches: "reinstallable node_modules directories",
+    },
     sourceRetained: true,
     destructiveAction: false,
   };
-  writeJsonAtomic(resolve(OPERATOR_ROOT, "animation-residual-copy.json"), report);
+  writeJsonAtomic(resolve(OPERATOR_ROOT, "worktree-output-copy.json"), report);
   log(JSON.stringify(report));
 };
 
@@ -464,24 +494,21 @@ const dryRun = (): void => {
   const shareRoot = mount();
   ensureAbsent(resolve(shareRoot, "collections", RENDER_CLOSEOUT_ASSET_ID, RENDER_CLOSEOUT_VERSION), "final collection");
   ensureAbsent(resolve(shareRoot, ...RENDER_CLOSEOUT_PUBLICATION_RECEIPT.split("/")), "publication receipt");
-  ensureAbsent(resolve(shareRoot, ...RENDER_CLOSEOUT_RESTORE_RECEIPT.split("/")), "restore receipt");
-  ensureAbsent(RESTORE_ROOT, "fresh restore destination");
-  const inventory = inventoryWithProgress(SOURCE_ROOT, "source", log);
+  const source = summarizeRegularOutput(SOURCE_ROOT);
   const filesystem = statfsSync(shareRoot);
   const freeBytes = filesystem.bavail * filesystem.bsize;
-  if (freeBytes < inventory.totalBytes + FREE_SPACE_MARGIN_BYTES) {
-    throw new Error(`NAS free space ${freeBytes} is insufficient for ${inventory.totalBytes} bytes plus margin`);
+  if (freeBytes < source.totalBytes + FREE_SPACE_MARGIN_BYTES) {
+    throw new Error(`NAS free space ${freeBytes} is insufficient for ${source.totalBytes} bytes plus margin`);
   }
   const report = {
     format: "render-worktrees-closeout-nas-dry-run-v1",
     ok: true,
     identity: RENDER_CLOSEOUT_IDENTITY,
-    source: inventorySummary(inventory),
+    source,
     nasMount: "attached-marked-share",
     nasFreeBytes: freeBytes,
     finalLocator: collection.locator,
     finalAbsent: true,
-    restoreAbsent: true,
     destructiveAction: false,
   };
   writeJsonAtomic(resolve(OPERATOR_ROOT, "dry-run.json"), report);
@@ -517,47 +544,12 @@ const publish = (): void => {
   log(JSON.stringify(report));
 };
 
-const restore = (): void => {
-  const log = logFactory("--restore");
-  const { catalogue, collection } = catalogueAndIntent();
-  const shareRoot = mount();
-  const publication = readReceipt(shareRoot, RENDER_CLOSEOUT_PUBLICATION_RECEIPT);
-  assertPublicationReceipt(publication);
-  ensureAbsent(RESTORE_ROOT, "fresh restore destination");
-  ensureAbsent(resolve(shareRoot, ...RENDER_CLOSEOUT_RESTORE_RECEIPT.split("/")), "restore receipt");
-  mkdirSync(dirname(RESTORE_ROOT), { recursive: true });
-  const result = restoreCollectionFixture({
-    shareRoot,
-    destinationPath: RESTORE_ROOT,
-    collection,
-    publicationReceiptPath: RENDER_CLOSEOUT_PUBLICATION_RECEIPT,
-    transactionId: RENDER_CLOSEOUT_RESTORE_TRANSACTION,
-    hooks: transactionProgress("restore", log),
-  });
-  const report = {
-    format: "render-worktrees-closeout-nas-restore-result-v1",
-    ok: true,
-    identity: result.identity,
-    publicationReceipt: RENDER_CLOSEOUT_PUBLICATION_RECEIPT,
-    restoreReceipt: result.restoreReceiptPath,
-    restoreReceiptSha256: result.restoreReceiptSha256,
-    restored: result.receipt.restored,
-    destructiveAction: false,
-  };
-  writeJsonAtomic(resolve(OPERATOR_ROOT, "restore-result.json"), report);
-  log(JSON.stringify(report));
-  void catalogue;
-};
-
 const register = (): void => {
   const log = logFactory("--register");
   const { catalogue } = catalogueAndIntent();
   const shareRoot = mount();
   const publication = readReceipt(shareRoot, RENDER_CLOSEOUT_PUBLICATION_RECEIPT);
-  const restoration = readReceipt(shareRoot, RENDER_CLOSEOUT_RESTORE_RECEIPT);
   const publishedSummary = assertPublicationReceipt(publication);
-  const restoredSummary = assertRestoreReceipt(restoration, publication);
-  assertSameSummary(publishedSummary, restoredSummary, "fresh restore");
   assertExactTopLevel(SOURCE_ROOT, CLOSEOUT_EXPECTED_NAMES, "closeout source root");
   const sourceInventory = inventoryWithProgress(SOURCE_ROOT, "source-registration", log);
   assertSameSummary(publishedSummary, inventorySummary(sourceInventory), "source registration inventory");
@@ -568,14 +560,13 @@ const register = (): void => {
   writeJsonAtomic(MANIFEST_PATH, manifest);
   const manifestBytes = readFileSync(MANIFEST_PATH);
   const manifestSha256 = sha256(manifestBytes);
-  const verifiedAt = text(restoration.value.verifiedAt, "restore.verifiedAt");
+  const verifiedAt = text(publication.value.verifiedAt, "publication.verifiedAt");
   const activeCatalogue = activateRenderCloseoutCollection({
     catalogue,
     inventory: sourceInventory,
     manifestBytes: manifestBytes.byteLength,
     manifestSha256,
     publication,
-    restoration,
     verifiedAt,
     host: process.env.COMPUTERNAME ?? "Windows",
   });
@@ -591,7 +582,7 @@ const register = (): void => {
       sha256: manifestSha256,
     },
     publicationReceipt: { path: publication.path, bytes: publication.bytes, sha256: publication.sha256 },
-    restoreReceipt: { path: restoration.path, bytes: restoration.bytes, sha256: restoration.sha256 },
+    restorePerformed: false,
     sourceRetained: true,
     destructiveAction: false,
   };
@@ -602,19 +593,17 @@ const register = (): void => {
 const main = (): void => {
   const command = process.argv[2] as Command | undefined;
   const commands: readonly Command[] = [
-    "--copy-animation-residual",
+    "--copy-worktree-output",
     "--dry-run",
     "--publish",
-    "--restore",
     "--register",
   ];
   if (process.argv.length !== 3 || command === undefined || !commands.includes(command)) {
     throw new Error(`usage: node scripts/nas-publish-render-worktrees-closeout.ts ${commands.join("|")}`);
   }
-  if (command === "--copy-animation-residual") copyResidual();
+  if (command === "--copy-worktree-output") copyWorktreeOutput();
   else if (command === "--dry-run") dryRun();
   else if (command === "--publish") publish();
-  else if (command === "--restore") restore();
   else register();
 };
 
