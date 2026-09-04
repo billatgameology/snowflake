@@ -17,6 +17,12 @@ const LONG_LANES: Readonly<Record<DiscoveryLane, DiscoveryLane | undefined>> = O
   "confirm-seed": undefined,
   "confirm-pressure": undefined,
   "confirm-map": undefined,
+  "followup-seed-timestep": undefined,
+  "followup-seed-forcing": undefined,
+  "followup-seed-localization": undefined,
+  "followup-mixed-timestep": undefined,
+  "followup-larger": undefined,
+  "followup-history": undefined,
 });
 
 export const POST_PHASE10_LONG_ROWS: readonly DiscoveryRow[] = Object.freeze(

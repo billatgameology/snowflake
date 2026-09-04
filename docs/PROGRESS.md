@@ -437,7 +437,13 @@ preserves M1-only sixfold arm depth at -12/-14.4/-18 C, and preserves open warm 
 -4.5/-5 C under half timestep. The active plan records the exact matched values and comparison
 rules. A finite 134-row wave 2 is pre-registered for crossover localization/forcing, the 20 mixed
 map-trajectory timestep controls, selected N80/extent-37 promotions, and eight abrupt history
-reversals at extent 11. The
+reversals at extent 11. That roster and launch path are implemented without changing `core/` or
+`solver-cpu/`; history rows reuse the existing Phase 4 LK timeline evaluator and record the exact
+event boundary and transition report. Focused Vitest passed five files / 20 tests in 2.53 seconds,
+and both TypeScript projects passed. The one required exact `npm test` passed Rule 7, both
+typechecks, 162/170 test files, and 2,516 tests with 72 skipped in 1,230.88 seconds. Its 14 failures
+are solely the previously recorded Phase 10 missing ignored recovery-byte and stale frozen-identity
+failures, which this science work does not repair or rerun. The
 [first discovery campaign](plans/post-phase10-discovery-campaign.md) is complete. Phase 7 remains
 a separate parallel product path and is not part of this science workstream.
 
@@ -568,14 +574,14 @@ the package-specific prerequisites in its charter amendment and execution plan. 
 
 ## Next step
 
-### Implement and launch follow-up wave 2
+### Commit and launch follow-up wave 2
 
-Open the [active plan](plans/post-phase10-adaptive-discovery.md). Commit this wave-2 selection before
-implementation, add only its finite 134-row roster plus the one-event existing LK timeline path,
-run the required focused/scientific checks once, commit the clean producer, and launch at concurrency
-32 under `out/post-phase10-followup/`. Keep source frozen while workers run. Analyze matched blocks
-as they finish and promote only wave-2 survivors. Do not involve Phase 7, revive C0V/S6 recovery, or
-build a generic scheduler, dashboard, hostile-runtime defense, or facet-hybrid solver change.
+Commit the checked finite roster and timeline reuse, then launch the clean producer with
+`node runner/src/post-phase10-discovery-main.ts launch-followup
+out/post-phase10-followup/campaign-2026-09-03-wave2 32`. Keep source frozen while workers run.
+Analyze matched blocks as they finish and promote only wave-2 survivors. Do not involve Phase 7,
+revive C0V/S6 recovery, or build a generic scheduler, dashboard, hostile-runtime defense, or
+facet-hybrid solver change.
 
 The prior Phase 10 selection note below is completed reproduction context; its request for a next
 workstream is superseded by the campaign selection above.

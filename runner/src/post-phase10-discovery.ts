@@ -5,13 +5,23 @@ import { resolve } from "node:path";
 import {
   aspectRatio,
   coordsOf,
+  createTimelineCursor,
   domainCenter,
+  evaluateTimelineBoundary,
   isD6hInvariantSet,
+  latticeExtents,
   symmetryError,
   type FacetClass,
+  type LKTimelineSchedule,
   type NucleationParamSet,
+  type TimelineCursor,
+  type TimelineEventLogEntry,
 } from "@vcc/core";
-import { float64SmootherDriftAbsLimit, LKSolver } from "@vcc/solver-cpu";
+import {
+  float64SmootherDriftAbsLimit,
+  LKSolver,
+  type LKEnvironmentTransitionReport,
+} from "@vcc/solver-cpu";
 import { validateLKStepEvidence } from "./gate2b-validation.ts";
 
 export type DiscoveryLane =
@@ -26,7 +36,19 @@ export type DiscoveryLane =
   | "long-seed"
   | "confirm-seed"
   | "confirm-pressure"
-  | "confirm-map";
+  | "confirm-map"
+  | "followup-seed-timestep"
+  | "followup-seed-forcing"
+  | "followup-seed-localization"
+  | "followup-mixed-timestep"
+  | "followup-larger"
+  | "followup-history";
+
+export interface DiscoveryTimelineEvent {
+  readonly triggerLargestExtent: number;
+  readonly tempC: number;
+  readonly sigmaInfinity: number;
+}
 
 export interface DiscoveryRow {
   readonly id: string;
@@ -44,6 +66,7 @@ export interface DiscoveryRow {
   readonly seedThickness: number;
   readonly targetExtent: number;
   readonly maxSteps: number;
+  readonly timelineEvent?: DiscoveryTimelineEvent;
 }
 
 export type DiscoveryStopReason =
@@ -90,6 +113,14 @@ export interface DiscoveryTerminalResult {
   readonly finishedAt: string;
   readonly gitHead: string;
   readonly node: string;
+  readonly timeline?: DiscoveryTimelineResult;
+}
+
+export interface DiscoveryTimelineResult {
+  readonly schedule: LKTimelineSchedule;
+  readonly eventLog: readonly TimelineEventLogEntry[];
+  readonly eventCycle: number;
+  readonly transitionReport: LKEnvironmentTransitionReport;
 }
 
 const FIXED = {
@@ -481,10 +512,55 @@ export function runPostPhase10DiscoveryRow(
     center,
   });
   const seedSites = solver.attachedCount;
-  const smootherDriftAbsLimit = float64SmootherDriftAbsLimit(
+  let currentSmootherDriftAbsLimit = float64SmootherDriftAbsLimit(
     solver.activeCellCount,
     candidate.sigmaInfinity,
   );
+  let maximumSmootherDriftAbsLimit = currentSmootherDriftAbsLimit;
+  const timelineSchedule: LKTimelineSchedule | null =
+    candidate.timelineEvent === undefined
+      ? null
+      : {
+          version: 1,
+          mode: "abrupt",
+          operator: "LibbrechtKinetics",
+          initialEnvironment: {
+            tempC: candidate.tempC,
+            sigmaInfinity: candidate.sigmaInfinity,
+          },
+          events: [
+            {
+              index: 0,
+              operator: "LibbrechtKinetics",
+              trigger: {
+                kind: "largestExtent",
+                value: candidate.timelineEvent.triggerLargestExtent,
+              },
+              environment: {
+                tempC: candidate.timelineEvent.tempC,
+                sigmaInfinity: candidate.timelineEvent.sigmaInfinity,
+              },
+            },
+          ],
+        };
+  let timelineCursor: TimelineCursor | null = null;
+  let timelineTransition:
+    | {
+        readonly eventCycle: number;
+        readonly transitionReport: LKEnvironmentTransitionReport;
+      }
+    | undefined;
+  if (timelineSchedule !== null) {
+    timelineCursor = createTimelineCursor(timelineSchedule);
+    const initialDecision = evaluateTimelineBoundary(timelineSchedule, timelineCursor, {
+      phase: "initial",
+      completedCycles: 0,
+    });
+    if (initialDecision.event !== null) {
+      throw new Error(`row ${candidate.id} timeline fired before growth`);
+    }
+    timelineCursor = initialDecision.cursor;
+  }
   let lastHeartbeat = Date.now();
   options.heartbeat?.(
     `start row=${candidate.id} lane=${candidate.lane} dims=${candidate.dimsN} ` +
@@ -538,7 +614,7 @@ export function runPostPhase10DiscoveryRow(
           FIXED.relaxTol,
           FIXED.divTol,
           FIXED.surfacePolicy,
-          smootherDriftAbsLimit,
+          currentSmootherDriftAbsLimit,
         );
         if (validated.maxKineticFillIncrement > candidate.cflFill + 1e-12) {
           throw new Error(
@@ -567,7 +643,42 @@ export function runPostPhase10DiscoveryRow(
       allAttachmentEventsD6h &&= eventD6h;
       const currentAspectRatio = aspectRatio(solver.a, dims);
       const currentSymmetryError = symmetryError(solver.a, dims, center);
-      const extent = solver.largestExtent();
+      const extents = latticeExtents(solver.a, dims);
+      if (extents === null) throw new Error(`row ${candidate.id} lost its crystal`);
+      const extent = extents.largestExtent;
+      let cycleTimelineEvent:
+        | {
+            readonly logEntry: TimelineEventLogEntry;
+            readonly transitionReport: LKEnvironmentTransitionReport;
+          }
+        | undefined;
+      if (timelineSchedule !== null && timelineCursor !== null) {
+        const decision = evaluateTimelineBoundary(timelineSchedule, timelineCursor, {
+          phase: "afterInterfaceStep",
+          completedCycles: solver.tick,
+          extents,
+        });
+        timelineCursor = decision.cursor;
+        if (decision.event !== null) {
+          if (decision.event.operator !== "LibbrechtKinetics" || decision.logEntry === null) {
+            throw new Error(`row ${candidate.id} timeline emitted an invalid event`);
+          }
+          if (timelineTransition !== undefined) {
+            throw new Error(`row ${candidate.id} timeline fired more than once`);
+          }
+          const transitionReport = solver.applyTimelineEnvironment(decision.event.environment);
+          timelineTransition = { eventCycle: solver.tick, transitionReport };
+          cycleTimelineEvent = { logEntry: decision.logEntry, transitionReport };
+          currentSmootherDriftAbsLimit = float64SmootherDriftAbsLimit(
+            solver.activeCellCount,
+            solver.sigmaInfinity,
+          );
+          maximumSmootherDriftAbsLimit = Math.max(
+            maximumSmootherDriftAbsLimit,
+            currentSmootherDriftAbsLimit,
+          );
+        }
+      }
       const rssBytes = process.memoryUsage().rss;
       peakRssBytes = Math.max(peakRssBytes, rssBytes);
       const cycleRecord = {
@@ -598,6 +709,9 @@ export function runPostPhase10DiscoveryRow(
           holeFillDeficitIncrement: solver.holeFillDeficit - holeDeficitBefore,
           holeFillCountTotal: solver.holeFillCountTotal,
         },
+        ...(cycleTimelineEvent === undefined
+          ? {}
+          : { timelineEvent: cycleTimelineEvent }),
         rssBytes,
       };
       appendFileSync(
@@ -641,6 +755,10 @@ export function runPostPhase10DiscoveryRow(
     integrityErrors.push(error instanceof Error ? error.stack ?? error.message : String(error));
   }
 
+  if (timelineSchedule !== null && timelineTransition === undefined) {
+    integrityErrors.push(`row ${candidate.id} did not reach its registered timeline event`);
+  }
+
   const finishedAt = new Date();
   const finalAspectRatio = aspectRatio(solver.a, dims);
   const finalSymmetryError = symmetryError(solver.a, dims, center);
@@ -672,7 +790,7 @@ export function runPostPhase10DiscoveryRow(
     maxKineticFillIncrement,
     maxDivergenceResidual,
     maxAbsSmootherDrift,
-    smootherDriftAbsLimit,
+    smootherDriftAbsLimit: maximumSmootherDriftAbsLimit,
     minShellInjection: finiteMinimum(minShellInjection),
     minSurfaceExchange: finiteMinimum(minSurfaceExchange),
     fillLedger: solver.fillLedger,
@@ -684,6 +802,16 @@ export function runPostPhase10DiscoveryRow(
     finishedAt: finishedAt.toISOString(),
     gitHead: head,
     node: process.version,
+    ...(timelineSchedule === null || timelineCursor === null || timelineTransition === undefined
+      ? {}
+      : {
+          timeline: {
+            schedule: timelineSchedule,
+            eventLog: timelineCursor.eventLog,
+            eventCycle: timelineTransition.eventCycle,
+            transitionReport: timelineTransition.transitionReport,
+          },
+        }),
   };
   writeJson(resolve(output, "result.json"), result);
   options.heartbeat?.(

@@ -38,6 +38,11 @@ import {
   POST_PHASE10_CONFIRM_ROWS,
   findPostPhase10ConfirmationRow,
 } from "./post-phase10-confirm.ts";
+import {
+  POST_PHASE10_FOLLOWUP_ROWS,
+  POST_PHASE10_FOLLOWUP_ROW_COUNT,
+  findPostPhase10FollowupRow,
+} from "./post-phase10-followup.ts";
 
 function writeJson(path: string, value: unknown): void {
   writeFileSync(path, `${JSON.stringify(value, null, 2)}\n`, "utf8");
@@ -411,6 +416,57 @@ async function launchConfirmation(campaignDirectory: string, concurrency: number
   if (exits.some((exit) => exit.exitCode !== 0 || exit.signal !== null)) process.exitCode = 1;
 }
 
+async function launchFollowup(campaignDirectory: string, concurrency: number): Promise<void> {
+  requireCleanTree();
+  const output = resolve(campaignDirectory);
+  if (existsSync(output)) throw new Error(`campaign directory already exists: ${output}`);
+  mkdirSync(output, { recursive: true });
+  const processors = cpus();
+  writeJson(resolve(output, "campaign.json"), {
+    schema: "post-phase10-followup-campaign-v1",
+    campaignId: basename(output),
+    gitHead: git(["rev-parse", "HEAD"]),
+    branch: git(["branch", "--show-current"]),
+    node: process.version,
+    logicalProcessors: processors.length,
+    cpuModels: [...new Set(processors.map((processor) => processor.model))],
+    totalMemoryBytes: totalmem(),
+    requestedConcurrency: concurrency,
+    rowCount: POST_PHASE10_FOLLOWUP_ROW_COUNT,
+    laneCounts: {
+      seedTimestep: POST_PHASE10_FOLLOWUP_ROWS.filter(
+        (row) => row.lane === "followup-seed-timestep",
+      ).length,
+      seedForcing: POST_PHASE10_FOLLOWUP_ROWS.filter(
+        (row) => row.lane === "followup-seed-forcing",
+      ).length,
+      seedLocalization: POST_PHASE10_FOLLOWUP_ROWS.filter(
+        (row) => row.lane === "followup-seed-localization",
+      ).length,
+      mixedTimestep: POST_PHASE10_FOLLOWUP_ROWS.filter(
+        (row) => row.lane === "followup-mixed-timestep",
+      ).length,
+      larger: POST_PHASE10_FOLLOWUP_ROWS.filter((row) => row.lane === "followup-larger").length,
+      history: POST_PHASE10_FOLLOWUP_ROWS.filter((row) => row.lane === "followup-history").length,
+    },
+    dimsN: [64, 80],
+    targetExtents: [29, 37],
+    cflFill: [0.05, 0.1],
+    timelineTriggerLargestExtent: 11,
+    sourceConfirmationHead: "cb33534e8b50199f394cfc4be028c92ffbd6972a",
+    sourceConfirmationDirectory:
+      "out/post-phase10-confirmation/campaign-2026-09-02-wave1",
+    createdAt: new Date().toISOString(),
+  });
+  const exits = await launchRows({
+    campaignDirectory: output,
+    launchName: "followup-wave-2",
+    rows: POST_PHASE10_FOLLOWUP_ROWS,
+    concurrency,
+  });
+  if (exits.some((exit) => exit.exitCode !== 0 || exit.signal !== null)) process.exitCode = 1;
+}
+
 async function main(): Promise<void> {
   const [command, ...args] = process.argv.slice(2);
   switch (command) {
@@ -426,6 +482,9 @@ async function main(): Promise<void> {
     case "list-confirmation":
       console.log(JSON.stringify(POST_PHASE10_CONFIRM_ROWS, null, 2));
       return;
+    case "list-followup":
+      console.log(JSON.stringify(POST_PHASE10_FOLLOWUP_ROWS, null, 2));
+      return;
     case "run-row": {
       if (args.length !== 2) throw new Error("run-row wants <row-id> <output-directory>");
       const smokeRow = POST_PHASE10_SMOKE_ROWS.find((row) => row.id === args[0]);
@@ -433,6 +492,7 @@ async function main(): Promise<void> {
       const selectedRow =
         smokeRow ??
         adaptiveSmokeRow ??
+        findPostPhase10FollowupRow(args[0]) ??
         findPostPhase10ConfirmationRow(args[0]) ??
         findPostPhase10LongRow(args[0]) ??
         findPostPhase10AdaptiveRow(args[0]) ??
@@ -479,6 +539,12 @@ async function main(): Promise<void> {
       }
       await launchConfirmation(args[0], parseConcurrency(args[1], 32));
       return;
+    case "launch-followup":
+      if (args.length < 1 || args.length > 2) {
+        throw new Error("launch-followup wants <campaign-directory> [concurrency]");
+      }
+      await launchFollowup(args[0], parseConcurrency(args[1], 32));
+      return;
     case "analyze":
       if (args.length !== 2) {
         throw new Error("analyze wants <campaign-directory> <output-directory>");
@@ -488,11 +554,13 @@ async function main(): Promise<void> {
     default:
       throw new Error(
         "usage: node runner/src/post-phase10-discovery-main.ts " +
-          "list|list-adaptive|list-long|list-confirmation|run-row <row-id> <out>|" +
+          "list|list-adaptive|list-long|list-confirmation|list-followup|" +
+          "run-row <row-id> <out>|" +
           "launch-initial <campaign-dir> [concurrency]|launch-a112 <campaign-dir>|" +
           "smoke <out>|launch-adaptive <campaign-dir> [concurrency]|smoke-adaptive <out>|" +
           "launch-long <campaign-dir> [concurrency]|" +
           "launch-confirmation <campaign-dir> [concurrency]|" +
+          "launch-followup <campaign-dir> [concurrency]|" +
           "analyze <campaign-dir> <output-dir>",
       );
   }

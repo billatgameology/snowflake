@@ -1,6 +1,6 @@
 # Post-Phase-10 adaptive discovery follow-up
 
-**Status:** confirmation wave 1 complete; follow-up wave 2 pre-registered
+**Status:** confirmation wave 1 complete; follow-up wave 2 implemented and ready to launch
 **Worktree:** `G:\Code Files\snowflake-science-exploration`
 **Branch:** `explore/post-phase10-discovery`
 **Base:** `ba99d81`
@@ -212,6 +212,26 @@ Launch the independent rows at recorded concurrency 32. Exact first crossings, e
 matched in-plane topology, and path-versus-static contrasts remain the analysis rules. A later
 larger rung is selected only from wave-2 survivors; the 134 rows are not an optimization grid and
 their extrema are not population estimates.
+
+## Follow-up-wave implementation record
+
+`runner/src/post-phase10-followup.ts` holds the exact 134-row roster, and the existing independent-
+process launcher gained only `list-followup` and `launch-followup`. The eight history rows use the
+existing Phase 4 LK timeline evaluator and `LKSolver.applyTimelineEnvironment` once at the first
+post-interface-step crossing of largest extent 11; each result records the exact event log and
+transition report. Static rows preserve their prior result shape. No `core/` or `solver-cpu/` byte
+changed.
+
+Pre-launch checks:
+
+- focused follow-up, confirmation, long-wave, adaptive-roster, and discovery-runner Vitest: five
+  files / 20 tests passed in 2.53 seconds;
+- `npm run typecheck`: both TypeScript projects passed;
+- exact `npm test`: Rule 7 and both typechecks passed; 162/170 test files and 2,516 tests passed,
+  with 72 skipped, in 1,230.88 seconds. All 14 failures are the previously recorded Phase 10
+  missing ignored recovery-byte and stale frozen-identity failures; the follow-up and other science
+  tests passed. This work does not repair or rerun that retired infrastructure; and
+- `git diff --check`: passed.
 
 ## Superseded bounded second-tranche design
 
