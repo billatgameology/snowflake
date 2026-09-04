@@ -424,10 +424,20 @@ These are measured implementation-level patterns, not physical-cause claims.
 ## Active plan
 
 The [adaptive discovery follow-up](plans/post-phase10-adaptive-discovery.md) is the sole active
-science plan. Its pilot and N64/extent-29 long wave are complete. The next finite confirmation wave
-has 58 rows: seed-transition localization, half-timestep seed and pressure controls, half-timestep
-sixfold-topology controls, and half-timestep warm open-cavity controls. It will run at recorded
-concurrency 32. The
+science plan. Its pilot, N64/extent-29 long wave, and 58-row confirmation wave 1 are complete. Wave
+1 ran from `cb33534e` at actual maximum concurrency 32; all 58 rows exited zero and a direct census
+found the exact roster, zero stderr, and 58 admissible size-target results with extent 29, exact D6h
+symmetry, converged relaxation, and zero integrity errors. Its ignored completion record is
+`out/post-phase10-confirmation/campaign-2026-09-02-wave1/confirmation-wave-1-complete.json`
+(14,537 bytes / SHA-256
+`26a0b5e8ac5b47e310abf9f123120a68574922584638f03adab15bc8e85a1f09`). The result localizes the
+seed-shape-by-arm sign transition between -8 and -9 C, preserves the -6 C pressure forcing reversal,
+preserves strong -14.4/-24 C pressure interactions while leaving -19 C trajectory-sensitive,
+preserves M1-only sixfold arm depth at -12/-14.4/-18 C, and preserves open warm M1 axial cavities at
+-4.5/-5 C under half timestep. The active plan records the exact matched values and comparison
+rules. A finite 134-row wave 2 is pre-registered for crossover localization/forcing, the 20 mixed
+map-trajectory timestep controls, selected N80/extent-37 promotions, and eight abrupt history
+reversals at extent 11. The
 [first discovery campaign](plans/post-phase10-discovery-campaign.md) is complete. Phase 7 remains
 a separate parallel product path and is not part of this science workstream.
 
@@ -558,15 +568,14 @@ the package-specific prerequisites in its charter amendment and execution plan. 
 
 ## Next step
 
-### Launch the 58-row confirmation wave
+### Implement and launch follow-up wave 2
 
-Open the [active plan](plans/post-phase10-adaptive-discovery.md). Commit the clean producer
-checkpoint, then run
-`node runner/src/post-phase10-discovery-main.ts launch-confirmation out/post-phase10-confirmation/campaign-2026-09-02-wave1 32`.
-Keep source frozen while its 58 N64/extent-29 rows run. Analyze exact first-extent crossings and
-equal plateau age as rows complete, then promote only persistent leads to larger-domain/extent or
-history tests. Do not involve Phase 7, revive C0V/S6 recovery, or build a generic scheduler,
-dashboard, or facet-hybrid solver change.
+Open the [active plan](plans/post-phase10-adaptive-discovery.md). Commit this wave-2 selection before
+implementation, add only its finite 134-row roster plus the one-event existing LK timeline path,
+run the required focused/scientific checks once, commit the clean producer, and launch at concurrency
+32 under `out/post-phase10-followup/`. Keep source frozen while workers run. Analyze matched blocks
+as they finish and promote only wave-2 survivors. Do not involve Phase 7, revive C0V/S6 recovery, or
+build a generic scheduler, dashboard, hostile-runtime defense, or facet-hybrid solver change.
 
 The prior Phase 10 selection note below is completed reproduction context; its request for a next
 workstream is superseded by the campaign selection above.

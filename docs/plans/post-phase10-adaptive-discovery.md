@@ -1,6 +1,6 @@
 # Post-Phase-10 adaptive discovery follow-up
 
-**Status:** first tranche and N64 long wave complete; confirmation wave 1 pre-registered
+**Status:** confirmation wave 1 complete; follow-up wave 2 pre-registered
 **Worktree:** `G:\Code Files\snowflake-science-exploration`
 **Branch:** `explore/post-phase10-discovery`
 **Base:** `ba99d81`
@@ -142,6 +142,76 @@ After this wave, use its results to select only the remaining discriminating wor
 domain/extent checks for persistent cavity, core/tip, and seed-memory signals; half-timestep checks
 for any still-uncontrolled mixed endpoint trajectories; and deterministic warm/cold history
 reversals. This ordering does not weaken the maker's instruction to evaluate every plausible lead.
+
+## Confirmation wave 1 result — complete 2026-09-03
+
+All 58 registered rows exited zero from producer head `cb33534e8b50199f394cfc4be028c92ffbd6972a`
+at actual maximum concurrency 32. The ignored completion record is
+`out/post-phase10-confirmation/campaign-2026-09-02-wave1/confirmation-wave-1-complete.json`
+(14,537 bytes / SHA-256
+`26a0b5e8ac5b47e310abf9f123120a68574922584638f03adab15bc8e85a1f09`). A direct roster census
+found 58/58 exact row directories and exit identities, zero missing, unexpected, duplicate, or
+nonzero exits, zero stderr bytes, and 58 admissible size-target results with extent 29, exact D6h
+symmetry, converged relaxation, zero integrity errors, the expected Git head, and Node v24.13.1.
+
+The matched conclusions that determine the next wave are:
+
+- The seed-shape-by-arm interaction crosses between -8 and -9 C. Exact first-crossing attached-count
+  interactions at extents 21/23/25/27/29 are `42/-114/-76/-532/-1334` at -8 C and
+  `2188/2674/4304/6008/6900` at -9 C; equal-plateau comparisons keep the same negative/positive
+  separation. At half timestep the warm/cold anchors remain negative at -4.5 C (`-7020` at extent
+  29) and -6 C (`-13964`) and positive at -10 C (`7368`). Rough attachments dominate each terminal
+  interaction. The sign reversal is persistent; its forcing dependence and sub-degree location
+  remain unresolved.
+- The -6 C pressure-by-arm interaction retains three forcing regimes at half timestep. Extent-29
+  values are `-1484` at fraction 0.10, `-968` after a positive-to-negative trajectory crossover at
+  0.15, and `1994` at 0.20. The timestep changes magnitude and crossover age without erasing the
+  forcing dependence.
+- At fraction 0.15 the half-timestep pressure interaction ends at `1894` at -14.4 C, `658` at
+  -19 C, and `1554` at -24 C. The -14.4 and -24 C endpoints nearly reproduce the full-timestep
+  `1848` and `1458`; -19 C remains plateau/trajectory sensitive rather than a settled law. Rough
+  attachments dominate the terminal interactions.
+- At matched central-plane tip radius, M1 retains a positive sixfold arm-depth contrast against a
+  filled no-dip hexagon: `0.230769...` versus `0` at -12 C, `0.272727...` versus `0` at -14.4 C,
+  and `0.1` versus `0` at -18 C. The -18 C magnitude weakens from the full-timestep result but does
+  not disappear. Branch-count bins are not used for this conclusion.
+- At both -4.5 and -5 C, fraction 0.075, half-timestep M1 has a 29-layer crystal whose central
+  radius-1 seven-cell section is empty in the 24 layers outside a five-layer solid waist. The
+  matched no-dip crystal is centrally filled in every occupied layer. This is an open axial-cavity
+  occupancy result, not a hole-fill-counter claim.
+
+## Follow-up wave 2 — pre-registered 2026-09-03
+
+Wave 2 is one finite 134-row roster. It spends compute on the surviving leads and the already
+identified mixed trajectories; it does not add a generic search or change a solver equation:
+
+1. **Seed-transition timestep (12 rows):** -7/-8/-9 C, fraction 0.15, both arms and both near-volume
+   seeds, N64/extent 29, `cflFill = 0.05`.
+2. **Seed-transition forcing (16 rows):** -8/-9 C, fractions 0.10 and 0.20, both arms and both seeds,
+   N64/extent 29, `cflFill = 0.1`. The existing fraction-0.15 rows are the midpoint comparators.
+3. **Seed-transition localization (12 rows):** -8.25/-8.5/-8.75 C, fraction 0.15, both arms and both
+   seeds, N64/extent 29, `cflFill = 0.1`.
+4. **Mixed-map timestep controls (40 rows):** both arms at the 20 N64/extent-29 conditions whose
+   full-timestep M1-minus-no-dip attached-count contrast changes sign between first entry at extent
+   21 and first entry at extent 29: `(-4; .15/.20/.25)`,
+   `(-4.5; .10/.125/.15/.20/.25)`, `(-5; .10/.125/.20/.25)`, `(-6; .075/.10)`,
+   `(-8; .10)`, `(-20; .075)`, `(-22; .15/.20)`, and `(-24; .20/.25)`. Use
+   `cflFill = 0.05`; these rows test trajectory persistence, not a generic endpoint score.
+5. **Larger domain/extent (46 rows):** N80/extent 37 checks with only domain/extent changed from the
+   corresponding confirmed setting: 12 seed rows at -7/-8/-9 C and fraction 0.15 with
+   `cflFill = 0.1`; 24 pressure rows at the three -6 C forcings and at -14.4/-19/-24 C, fraction
+   0.15, with `cflFill = 0.05`; six topology rows at -12/-14.4/-18 C with `cflFill = 0.05`; and
+   four cavity rows at -4.5/-5 C, fraction 0.075, with `cflFill = 0.05`.
+6. **Abrupt history reversals (8 rows):** -4.5 C to/from -24 C and -6 C to/from -14.4 C, both arms,
+   fraction 0.15, N64/extent 29, `cflFill = 0.1`, with the existing deterministic LK temperature
+   conversion applied once after first reaching largest extent 11. Existing static long-wave rows
+   are endpoint comparators. Record the exact event boundary and transition report; do not add a
+   same-temperature ceremony or duplicate the already tested timeline machinery.
+
+Launch the independent rows at recorded concurrency 32. Exact first crossings, equal plateau age,
+matched in-plane topology, and path-versus-static contrasts remain the analysis rules. A later
+larger rung is selected only from wave-2 survivors; the 134 rows are not an optimization grid and
+their extrema are not population estimates.
 
 ## Superseded bounded second-tranche design
 
