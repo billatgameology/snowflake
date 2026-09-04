@@ -1,7 +1,7 @@
 # Plan — preserve generated worktree output and open the closeout PR
 
 - **Phase:** Pre-Phase 7 product retention; no charter phase or gate is reopened
-- **Status:** active — published and registered; checks and PR remain
+- **Status:** active — PR #10 open; awaiting maker cross-machine restore confirmation
 - **Started:** 2026-09-04
 - **Last touched:** 2026-09-04 by OpenAI Codex (GPT-5)
 
@@ -73,7 +73,7 @@ is added.
       source and record the simple count/byte comparison.
 - [x] Publish to the NAS and register the owner manifest and catalogue result.
 - [x] Run the required repository checks and record exact results.
-- [ ] Push the feature branch and open a pull request to `main`.
+- [x] Push the feature branch and open a pull request to `main`.
 - [ ] After the maker later confirms a restore on another computer, make a separate authorized
       cleanup pass for local output, worktrees, and branches.
 
@@ -112,6 +112,11 @@ active real catalogue while exercising a provisional-to-active transition. The t
 its own provisional fixture; the real catalogue/owner-manifest integrity test was green in both
 runs. Under the maker's explicit simple-verification direction, no exact `npm test`, adversarial
 transaction fixture, scientific gate, independent NAS verifier, or local restore was run.
+
+The clean feature branch was pushed to `origin/feature/named-crystal-catalog`, and
+[PR #10](https://github.com/billatgameology/snowflake/pull/10) was opened against `main`. The maker
+owns merge and cross-machine restore testing. This plan remains active only as the landing point for
+that confirmation and the separately authorized cleanup pass.
 
 ## Out of scope
 

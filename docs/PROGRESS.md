@@ -153,7 +153,8 @@ detail.
   `1a2f9d0f4758a1f54e73f4d11e6da31046d041417f890020c1c7f9e2175960c2`. Its tracked 18,932-row
   owner manifest is 5,337,142 bytes / SHA-256
   `c9489ad64f6e693f09853ab35863b158e23dc3107c618c9cdd8282789d8b8a8d`; the standard publication
-  receipt is recorded in the closeout plan. Repository checks and pull-request creation remain.
+  receipt is recorded in the closeout plan. Focused closeout checks passed, the feature branch is
+  pushed, and [PR #10](https://github.com/billatgameology/snowflake/pull/10) is open against `main`.
 - Historical extent-21 artifacts remain valid measured-only comparisons: **CAK 3/90, M1 54/90**
   over their named scopes. They are not the registered conservative-intersection verdict, which
   decision 0045 closed as not computed.
@@ -165,7 +166,7 @@ detail.
   a live decision point under **Next step**. Full freeze history:
   [the history file](progress-history-phases-6-8-9.md).
 - **Last updated:** 2026-09-04 (published and registered the maker-directed generated-output NAS
-  snapshot; no deletion, restore, phase or scientific-evidence change)
+  snapshot and opened PR #10; no deletion, restore, phase or scientific-evidence change)
 
 ## Phase gates
 
@@ -251,12 +252,18 @@ the package-specific prerequisites in its charter amendment and execution plan. 
 
 ### Render-worktree NAS closeout — active
 
-`render-worktrees-closeout@2026-09-04` is published and registered at 18,932 files /
-130,479,382,836 bytes with its tracked owner manifest and publication receipt. Focused catalogue
-and publication tests passed 12/12; both typechecks, Rule 7, and `git diff --check` passed. Commit
-the exact execution record, push `feature/named-crystal-catalog`, and open a pull request to `main`.
-Do not merge, restore locally, remove a worktree, delete a branch, or delete any output. The maker
-will test restoration on another computer and authorize cleanup in a later session.
+[PR #10](https://github.com/billatgameology/snowflake/pull/10) is open against `main` with the
+tracked locator and owner manifest for `render-worktrees-closeout@2026-09-04`. The maker's next
+action is to merge that PR, fetch `main` on the other computer, attach the marked `snowcrystal` NAS,
+then run:
+
+```text
+npm run assets:restore -- --collection render-worktrees-closeout@2026-09-04 --to out/restores/render-worktrees-closeout-2026-09-04
+npm run assets:verify-restored -- --collection render-worktrees-closeout@2026-09-04 --from out/restores/render-worktrees-closeout-2026-09-04
+```
+
+Report that result before any cleanup. Do not remove a worktree, delete a branch, or delete local
+output until the maker explicitly confirms the cross-machine restore.
 
 ### Named snow-crystal catalog — complete
 
