@@ -135,6 +135,11 @@ detail.
   smoke counted 35 rows / 99 cards, confirmed unknown/generic-`out` denial, and completed one direct
   and one Compose playback. The server is running at `http://127.0.0.1:5173/named-crystal-catalog.html`;
   PID and logs are under `out/named-crystal-gallery-site/`.
+- **Render-worktree NAS closeout is active (2026-09-04).** Maker direction requests a verified NAS
+  save, merge to `main`, remote availability and removal of the completed animation and named-catalog
+  worktrees. The [closeout plan](plans/render-worktrees-nas-closeout.md) registers the required
+  copy/manifest/receipt/full-verify/fresh-restore boundary before any new NAS write. No worktree or
+  ignored output has been removed.
 - Historical extent-21 artifacts remain valid measured-only comparisons: **CAK 3/90, M1 54/90**
   over their named scopes. They are not the registered conservative-intersection verdict, which
   decision 0045 closed as not computed.
@@ -145,8 +150,8 @@ detail.
   direction) and content stays in-repo unpublished, `test.yml` CI unaffected. Reconciliation is
   a live decision point under **Next step**. Full freeze history:
   [the history file](progress-history-phases-6-8-9.md).
-- **Last updated:** 2026-09-01 (completed the maker-reported volume-render pinhole/jitter correction;
-  no phase or scientific-evidence change)
+- **Last updated:** 2026-09-04 (registered the maker-directed render-worktree NAS and Git closeout;
+  no payload write, deletion, phase or scientific-evidence change)
 
 ## Phase gates
 
@@ -213,6 +218,10 @@ shading stencil. The exact ten-capture review is bound by
 `out/named-crystal-volume-stability/final-review/report.json` (6,614 bytes; SHA-256
 `907d8aaca7cd95919cdbb2cc639fac5175b489512aa3215aadd1cace6ff00f4a`); all accepted products and
 payload claims remain unchanged.
+The active [render-worktree NAS closeout plan](plans/render-worktrees-nas-closeout.md) now governs
+durable publication of every useful ignored named-catalog product plus the animation worktree's
+non-duplicated residual, followed by merge/push and exact worktree removal. It changes no catalog,
+renderer or scientific result.
 The
 [Phase 10 candidate plan](plans/phase-10-closures-and-frontier.md) is decision support, not
 execution authority; no A–H package is selected.
@@ -224,6 +233,16 @@ the package-specific prerequisites in its charter amendment and execution plan. 
 0043–0044's Phase 7 deferrals remain authoritative and cannot be discharged by Phase 10.
 
 ## Next step
+
+### Render-worktree NAS closeout — active
+
+Commit the registered closeout plan, finish the already-running fresh full-hash verification of
+`gutcheck-growth-scientific@2026-08-26`, and record its exact result. Then reconcile the final
+animation/NAS commits into this branch, implement the fixed-source residual-copy and publication
+commands, and commit the provisional `render-worktrees-closeout@2026-09-04` catalogue entry before
+the first new NAS write. Do not remove either worktree until the new collection passes publication,
+tracked manifest registration, a later full verifier, a fresh restore/verify round-trip, required
+repository checks, `main` merge and remote push.
 
 ### Gut-check scientific bundles — governed NAS publication active
 
