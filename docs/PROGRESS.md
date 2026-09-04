@@ -119,7 +119,9 @@ detail.
   manifest tells the project every exact NAS path. Two earlier Windows/SMB attempts failed closed
   and remain preserved in non-served quarantine; no local deletion was authorized or performed.
   The [publication plan](plans/gutcheck-growth-scientific-nas-publication.md) records the receipts
-  and narrowed no-restore scope.
+  and narrowed no-restore scope. A later fresh-process full verifier on 2026-09-04 reopened all
+  6,308 files / 84,247,312,054 bytes and returned `ok=true`, `payload=verified-full` with zero
+  defects; the active closeout plan now requires the deferred fresh restore before worktree removal.
 - **The named snow-crystal animation catalog is COMPLETE (2026-08-31).** The strict
   [catalog](named-snow-crystal-catalog.json) and linked [text table](named-snow-crystal-catalog.md)
   report all 35 Libbrecht guide names exactly once: 33 included types with three accepted animations
@@ -241,13 +243,13 @@ the package-specific prerequisites in its charter amendment and execution plan. 
 
 ### Render-worktree NAS closeout — active
 
-Commit the registered closeout plan, finish the already-running fresh full-hash verification of
-`gutcheck-growth-scientific@2026-08-26`, and record its exact result. Then reconcile the final
-animation/NAS commits into this branch, implement the fixed-source residual-copy and publication
-commands, and commit the provisional `render-worktrees-closeout@2026-09-04` catalogue entry before
-the first new NAS write. Do not remove either worktree until the new collection passes publication,
-tracked manifest registration, a later full verifier, a fresh restore/verify round-trip, required
-repository checks, `main` merge and remote push.
+The fresh full-hash verification of `gutcheck-growth-scientific@2026-08-26` passed all 6,308 files /
+84,247,312,054 bytes with zero defects. Run its deferred fresh restore and restored-tree verifier,
+then commit the fixed-source residual-copy command, closeout publisher and provisional
+`render-worktrees-closeout@2026-09-04` catalogue entry before the first new NAS write. Do not remove
+either worktree until the new collection passes publication, tracked manifest registration, a later
+full verifier, a fresh restore/verify round-trip, required repository checks, `main` merge and remote
+push.
 
 ### Named snow-crystal catalog — complete
 

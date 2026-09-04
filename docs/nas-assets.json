@@ -2677,6 +2677,76 @@
       },
       "supersedes": [],
       "unresolved": []
+    },
+    {
+      "assetId": "render-worktrees-closeout",
+      "version": "2026-09-04",
+      "state": "provisional",
+      "ownerWorkstream": "named-crystal-catalog",
+      "locator": "collections/render-worktrees-closeout/2026-09-04/payload",
+      "historicalRepoPath": "out",
+      "legacyAliases": [],
+      "storageClass": "generated-cache",
+      "aggregate": {
+        "files": 0,
+        "bytes": 0
+      },
+      "ownerManifest": null,
+      "rights": {
+        "kind": "project-owned",
+        "redistribution": "allowed"
+      },
+      "privacy": "public",
+      "serve": {
+        "policy": "deny",
+        "prefixes": []
+      },
+      "retention": {
+        "policy": "maker-approved-delete-only",
+        "garbageCollection": {
+          "policy": "plan-only",
+          "graceDays": null,
+          "approver": "maker"
+        }
+      },
+      "mutability": "immutable",
+      "externalEvidenceAuthority": null,
+      "provenance": {
+        "record": "docs/plans/render-worktrees-nas-closeout.md",
+        "producerCommit": null,
+        "command": "node scripts/nas-publish-render-worktrees-closeout.ts --publish"
+      },
+      "reproducibility": {
+        "kind": "exact-recipe",
+        "record": "docs/plans/render-worktrees-nas-closeout.md"
+      },
+      "restore": {
+        "status": "documented",
+        "command": "npm run assets:restore -- --collection render-worktrees-closeout@2026-09-04 --to out/restores/render-worktrees-closeout-2026-09-04",
+        "verifyCommand": "npm run assets:verify-restored -- --collection render-worktrees-closeout@2026-09-04 --from out/restores/render-worktrees-closeout-2026-09-04",
+        "record": "docs/plans/render-worktrees-nas-closeout.md"
+      },
+      "verification": {
+        "status": "unavailable",
+        "at": null,
+        "host": null,
+        "receipt": null,
+        "limits": [
+          "Provisional registration only: no durable NAS payload, owner manifest, publication receipt, fresh verifier or restore exists yet."
+        ]
+      },
+      "storageDomains": [
+        "snowcrystal-nas"
+      ],
+      "backup": {
+        "status": "not-required",
+        "independentDomains": [],
+        "receipts": []
+      },
+      "supersedes": [],
+      "unresolved": [
+        "Residual copy, publication, owner-manifest binding, fresh full verification and fresh restore are pending."
+      ]
     }
   ],
   "overlays": [

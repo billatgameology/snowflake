@@ -53,8 +53,9 @@ resolved worktree roots.
   is clean or committed; ignored task output is classified as the existing scientific collection,
   the new closeout collection, or explicitly reproducible inspection scratch.
 - The existing `gutcheck-growth-scientific@2026-08-26` collection passes a fresh-process full-hash
-  verification against its tracked 6,308-row owner manifest, and the command/result is recorded in
-  its publication plan and `docs/PROGRESS.md`.
+  verification against its tracked 6,308-row owner manifest, followed by a fresh restore and
+  restored-tree verification. The exact commands/results are recorded in its publication plan and
+  `docs/PROGRESS.md`.
 - A bounded residual-copy step copies every animation-worktree `out/` regular file outside
   `growth-scientific/` into the named worktree's dedicated closeout child, compares every source and
   copy by path, length and SHA-256, and refuses symlinks, special files, aliases, mutation, unexpected
@@ -105,7 +106,8 @@ crash-durability theorem is claimed.
 - [x] Read the governing state, Phase 6 lessons, named catalog/gallery/renderer plans, NAS plan,
       decision 0051 and Rules 15–16; inspect all branches/worktrees and stop before destructive work.
 - [ ] Commit this plan and the live progress registration.
-- [ ] Finish and record the fresh full verification of the existing scientific collection.
+- [ ] Finish and record the fresh full verification and restore of the existing scientific
+      collection. The full verifier passed; restore remains.
 - [ ] Reconcile the completed animation/NAS commits into the named-catalog branch and correct the
       stale progress description without weakening either completed record.
 - [ ] Implement and focus-test the bounded residual copy and closeout publisher; add the provisional
