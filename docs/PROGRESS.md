@@ -260,10 +260,14 @@ then run:
 ```text
 npm run assets:restore -- --collection render-worktrees-closeout@2026-09-04 --to out/restores/render-worktrees-closeout-2026-09-04
 npm run assets:verify-restored -- --collection render-worktrees-closeout@2026-09-04 --from out/restores/render-worktrees-closeout-2026-09-04
+npm run assets:restore -- --collection gutcheck-growth-scientific@2026-08-26 --to out/restores/gutcheck-growth-scientific-2026-08-26
+npm run assets:verify-restored -- --collection gutcheck-growth-scientific@2026-08-26 --from out/restores/gutcheck-growth-scientific-2026-08-26
 ```
 
-Report that result before any cleanup. Do not remove a worktree, delete a branch, or delete local
-output until the maker explicitly confirms the cross-machine restore.
+The first pair restores the new 130,479,382,836-byte closeout; the second restores the separately
+owned 84,247,312,054-byte scientific tree that was deliberately not duplicated. Report both results
+before any cleanup. Do not remove a worktree, delete a branch, or delete local output until the
+maker explicitly confirms the cross-machine restore.
 
 ### Named snow-crystal catalog — complete
 

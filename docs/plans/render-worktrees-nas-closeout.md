@@ -115,8 +115,9 @@ transaction fixture, scientific gate, independent NAS verifier, or local restore
 
 The clean feature branch was pushed to `origin/feature/named-crystal-catalog`, and
 [PR #10](https://github.com/billatgameology/snowflake/pull/10) was opened against `main`. The maker
-owns merge and cross-machine restore testing. This plan remains active only as the landing point for
-that confirmation and the separately authorized cleanup pass.
+owns merge and cross-machine restore testing of both this collection and the separately owned
+`gutcheck-growth-scientific@2026-08-26` collection. This plan remains active only as the landing
+point for that confirmation and the separately authorized cleanup pass.
 
 ## Out of scope
 
