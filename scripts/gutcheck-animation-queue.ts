@@ -223,15 +223,17 @@ const assertOutputRoot = (outputRoot: string, queueId: string, batch: string): v
   }
 };
 
+// Spawn real executables only (node itself; ffmpeg is reached inside scene-capture). A Windows
+// `.cmd` shim such as npx.cmd cannot be spawnSync'd without a shell since Node's CVE-2024-27980
+// hardening — it fails EINVAL with status null — so vite is invoked through its JS bin instead.
 const runChecked = (command: string, args: string[], cwd = REPO): void => {
-  const executable =
-    process.platform === "win32" && (command === "npm" || command === "npx")
-      ? `${command}.cmd`
-      : command;
-  const result = spawnSync(executable, args, {
+  const result = spawnSync(command, args, {
     cwd,
     stdio: "inherit",
   });
+  if (result.error !== undefined) {
+    throw new Error(`${command} ${args.join(" ")} failed to spawn: ${result.error.message}`);
+  }
   if (result.status !== 0) {
     throw new Error(`${command} ${args.join(" ")} failed with status ${String(result.status)}`);
   }
@@ -297,7 +299,11 @@ const execute = (argv: readonly string[]): void => {
   const videoDir = join(outputRoot, "videos");
   const recordDir = join(outputRoot, "records");
   for (const dir of [siteDir, webMeshDir, sceneDir, videoDir, recordDir]) mkdirSync(dir, { recursive: true });
-  runChecked("npx", ["vite", "build", "--outDir", siteDir, "--emptyOutDir"], join(REPO, "app"));
+  runChecked(
+    process.execPath,
+    [join(REPO, "node_modules/vite/bin/vite.js"), "build", "--outDir", siteDir, "--emptyOutDir"],
+    join(REPO, "app"),
+  );
   mkdirSync(join(siteDir, "data/meshes"), { recursive: true });
 
   const gl = argument(argv, "gl", process.platform === "win32" ? "d3d11" : "swiftshader") as string;

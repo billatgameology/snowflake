@@ -29,6 +29,7 @@ import {
   stringifyAnimationQueueManifest,
   type AnimationQueueItem,
 } from "./src/gutcheck-animation-queue.ts";
+import { createNamedCrystalCatalogService } from "./named-crystal-catalog-service.ts";
 
 const REPOSITORY_ROOT = resolve(import.meta.dirname, "..");
 const CANONICAL_APP_ROOT = resolve(REPOSITORY_ROOT, "app");
@@ -689,6 +690,15 @@ const nasStatic: Plugin = {
   },
 };
 
+const namedCrystalCatalogService = createNamedCrystalCatalogService(REPOSITORY_ROOT);
+const namedCrystalCatalogApi: Plugin = {
+  name: "named-crystal-catalog-api",
+  apply: "serve",
+  configureServer(server) {
+    server.middlewares.use("/named-crystal-catalog-api", namedCrystalCatalogService.handler);
+  },
+};
+
 /** Refuse wildcard, LAN, hostname, and Vite's boolean --host forms. */
 export const assertLoopbackViteHost = (host: string | boolean | undefined, label: string): void => {
   const isNumericLoopback =
@@ -869,6 +879,7 @@ export default defineConfig({
     gutcheckIndexJson,
     gutcheckFigurePreviews,
     gutcheckAnimationSelection,
+    namedCrystalCatalogApi,
     nasStatic,
   ],
   worker: { format: "es" },
@@ -882,7 +893,9 @@ export default defineConfig({
     rollupOptions: {
       input: {
         main: resolve(import.meta.dirname, "index.html"),
+        catalogVolumePlayer: resolve(import.meta.dirname, "catalog-volume-player.html"),
         gutcheckIndex: resolve(import.meta.dirname, "gutcheck-index.html"),
+        namedCrystalCatalog: resolve(import.meta.dirname, "named-crystal-catalog.html"),
         spike: resolve(import.meta.dirname, "spike-gg-realism.html"),
       },
     },

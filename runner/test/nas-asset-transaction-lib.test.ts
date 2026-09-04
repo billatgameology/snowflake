@@ -10,6 +10,7 @@ import {
   rmSync,
   symlinkSync,
   unlinkSync,
+  utimesSync,
   writeFileSync,
 } from "node:fs";
 import { tmpdir } from "node:os";
@@ -259,6 +260,29 @@ describe("transactional publication", () => {
     expect(receiptSource).not.toContain(fixture.root);
     expect(existsSync(join(fixture.share, "_control", "locks", "publish", "fixture-generated@v1.lock"))).toBe(false);
     expect(readdirSync(join(fixture.share, "_control", "staging", "publish"))).toEqual([]);
+  });
+
+  it("accepts settled directory timestamps when the bound objects and exact payload are unchanged", () => {
+    const fixture = treeFixture("publish-directory-timestamp-settled");
+    const collection = intentCollection();
+    const result = publishCollectionFixture({
+      shareRoot: fixture.share,
+      sourceRoot: fixture.source,
+      collection,
+      catalogueCollections: [collection],
+      transactionId: "directory-timestamp-settled",
+      hooks: {
+        afterPhase: (phase, context) => {
+          if (phase !== "publish-final-absent") return;
+          const settled = new Date("2026-08-15T12:34:56.000Z");
+          utimesSync(join(context.stagePayloadPath as string, "nested"), settled, settled);
+        },
+      },
+    });
+    expect(result.receipt.source).toEqual(result.receipt.final);
+    expect(readFileSync(join(result.finalPayloadPath, "nested", "secret-project-name.bin"), "utf8")).toBe(
+      "private fixture bytes",
+    );
   });
 
   it("detects a same-length source mutation after inventory and leaves no final or receipt", () => {

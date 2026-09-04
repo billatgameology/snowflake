@@ -108,7 +108,7 @@ function currentIndexErrors(text: string): string[] {
     "(plans/phase-8-measurement-corpus.md)",
     "(progress-history-phases-6-8-9.md)",
     "selected no Phase 10 package (2026-08-20)",
-    "- **Last updated:** 2026-08-24",
+    "- **Last updated:** 2026-09-04",
   ];
   for (const phrase of required) {
     if (!text.includes(phrase)) errors.push(`missing current-state phrase: ${phrase}`);
@@ -208,7 +208,7 @@ describe("compact progress index and byte-exact historical record", () => {
     expect(currentIndexErrors(text)).toEqual([]);
 
     const progressDate = text.match(/^- \*\*Last updated:\*\* (\d{4}-\d{2}-\d{2})/mu)?.[1];
-    expect(progressDate).toBe("2026-08-24");
+    expect(progressDate).toBe("2026-09-04");
     // The handoff mechanism is retired (maker direction 2026-08-20). docs/HANDOFF.md remains
     // only as a tombstone so the byte-frozen archive's HANDOFF.md links keep resolving; it
     // must never carry a live dated snapshot heading again.

@@ -9,6 +9,7 @@
 //                  slider + play/pause scrub through frame meshes, orbit controls always
 //                  on, "face-on" resets the camera. ?frame=N picks the initial frame
 //                  (default 0, the seed). ?fps=N sets playback rate (default 5).
+//   ?growthScene=<url> strict growth-scene-v1 direct/composed playback over verified growth assets.
 //
 // Static captures stay bit-stable for the recorded recipes: fixed backdrop plane, pixel
 // ratio 1, single render. Interactive/timeline modes use a screen-fixed background and
@@ -19,6 +20,17 @@ import * as THREE from "three";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 
 import { createSceneEditor } from "./scene-editor.ts";
+import { decodeGrowthAssetV1, visibleGrowthEventCount } from "./growth-asset.ts";
+import {
+  GROWTH_SCENE_WEB_LIMIT_BYTES,
+  growthSceneColdPayloadBytes,
+  parseGrowthSceneV1,
+} from "./growth-scene.ts";
+import {
+  type GrowthSceneProjectedBounds,
+  growthSceneReviewCamera,
+} from "./growth-scene-review-camera.ts";
+import { spikeOrthographicFrame } from "./spike-frame.ts";
 
 interface SpikeWindow {
   __spikeReady?: boolean;
@@ -26,6 +38,8 @@ interface SpikeWindow {
   /** Scene mode (?scene=): deterministic seek used by app/scripts/scene-capture.mjs. */
   __sceneSeek?: (tSeconds: number) => Promise<void>;
   __sceneDuration?: number;
+  /** Full-growth rendered cell bounds in live-camera normalized device coordinates. */
+  __sceneProjectedBounds?: GrowthSceneProjectedBounds;
 }
 
 interface GutcheckMesh {
@@ -509,7 +523,7 @@ function makeLookSwitcher(): HTMLSelectElement {
 /** Content-selection params carried across look/profile reloads. */
 function keepContentParams(): URLSearchParams {
   const keep = [
-    "mesh", "manifest", "scene", "frame", "frameExtent", "fps",
+    "mesh", "manifest", "scene", "growthScene", "frame", "frameExtent", "fps",
     "interactive", "clip", "tilt", "zoom", "ui", "profile", "look",
     // style/zscale are first-class page selectors (?style=povray|ggview): dropping them on
     // a profile switch silently re-renders a different page.
@@ -664,7 +678,15 @@ function makeBackdropControls(rig: SceneRig): HTMLSpanElement {
 }
 
 /** Build renderer, scene, camera, lights, materials for a given world extent. */
-function buildRig(extent: THREE.Vector3, liveBackground: boolean): SceneRig {
+function buildRig(
+  extent: THREE.Vector3,
+  liveBackground: boolean,
+  frameOverride?: {
+    readonly tiltDegrees: number;
+    readonly yawDegrees?: number;
+    readonly zoom: number;
+  },
+): SceneRig {
   const renderer = new THREE.WebGLRenderer({ antialias: true });
   renderer.localClippingEnabled = clipPlanes() !== null;
   renderer.setPixelRatio(liveBackground ? Math.min(window.devicePixelRatio, 2) : 1);
@@ -674,9 +696,18 @@ function buildRig(extent: THREE.Vector3, liveBackground: boolean): SceneRig {
   document.body.appendChild(renderer.domElement);
 
   const scene = new THREE.Scene();
-  const zoom = Number(param("zoom", "1"));
-  const span = (Math.max(extent.x, extent.y) / 2) * 1.12 * zoom;
+  const zoom = frameOverride?.zoom ?? Number(param("zoom", "1"));
   const aspect = window.innerWidth / window.innerHeight;
+  // At an oblique/axial view, Z projects into screen Y. Framing only max(X,Y) clipped tall
+  // columns through the camera and far plane, producing vertical bars instead of a crystal.
+  const frame = spikeOrthographicFrame(
+    extent,
+    frameOverride?.tiltDegrees ?? Number(param("tilt", "0")),
+    aspect,
+    zoom,
+    frameOverride?.yawDegrees ?? 0,
+  );
+  const { span, worldExtent } = frame;
 
   let backdropMaterial: THREE.MeshBasicMaterial | null = null;
   if (liveBackground) {
@@ -687,7 +718,7 @@ function buildRig(extent: THREE.Vector3, liveBackground: boolean): SceneRig {
       new THREE.PlaneGeometry(span * aspect * 2.1, span * 2.1),
       backdropMaterial,
     );
-    backdrop.position.z = -Math.max(extent.x, extent.y) * 0.75;
+    backdrop.position.z = -worldExtent * 0.75;
     scene.add(backdrop);
   }
   const setBackdrop = (a: string, b: string): void => {
@@ -724,13 +755,13 @@ function buildRig(extent: THREE.Vector3, liveBackground: boolean): SceneRig {
     new THREE.Color("#" + param("keyHex", "ffe3b0", "eaf2ff")),
     Number(param("keyI", "3.2", "2.0")),
   );
-  key.position.set(-1.4, 1.7, 0.45).multiplyScalar(extent.x);
+  key.position.set(-1.4, 1.7, 0.45).multiplyScalar(worldExtent);
   scene.add(key);
   const fill = new THREE.DirectionalLight(
     new THREE.Color("#" + param("fillHex", "93a8e0", "6f8fd0")),
     Number(param("fillI", "1.3", "1.0")),
   );
-  fill.position.set(1.1, -1.3, 0.6).multiplyScalar(extent.x);
+  fill.position.set(1.1, -1.3, 0.6).multiplyScalar(worldExtent);
   scene.add(fill);
 
   const camera = new THREE.OrthographicCamera(
@@ -739,11 +770,14 @@ function buildRig(extent: THREE.Vector3, liveBackground: boolean): SceneRig {
     span,
     -span,
     1,
-    Math.max(extent.x, extent.y) * 8,
+    worldExtent * 8,
   );
-  const tilt = (Number(param("tilt", "0")) * Math.PI) / 180;
-  const dist = Math.max(extent.x, extent.y) * 2;
-  camera.position.set(0, Math.sin(tilt) * dist, Math.cos(tilt) * dist);
+  const dist = worldExtent * 2;
+  camera.position.set(
+    0,
+    Math.sin(frame.tiltRadians) * dist,
+    Math.cos(frame.tiltRadians) * dist,
+  );
   camera.lookAt(0, 0, 0);
   scene.add(camera);
 
@@ -1245,6 +1279,207 @@ async function timelineMain(manifestUrl: string): Promise<void> {
   (window as unknown as SpikeWindow).__spikeReady = true;
 }
 
+// ── Composed growth mode (named catalog growth-scene-v1) ──────────────────────────────
+
+const digestHex = async (buffer: ArrayBuffer): Promise<string> => {
+  const digest = new Uint8Array(await crypto.subtle.digest("SHA-256", buffer));
+  return Array.from(digest, (value) => value.toString(16).padStart(2, "0")).join("");
+};
+
+async function growthSceneMain(sceneUrl: string): Promise<void> {
+  const sceneAbsolute = new URL(sceneUrl, window.location.href);
+  const response = await fetch(sceneAbsolute);
+  if (!response.ok) throw new Error(`growth scene fetch failed: ${response.status} ${sceneUrl}`);
+  const sceneText = await response.text();
+  const scene = parseGrowthSceneV1(JSON.parse(sceneText) as unknown);
+  const coldBytes = growthSceneColdPayloadBytes(scene, new TextEncoder().encode(sceneText).byteLength);
+  if (coldBytes >= GROWTH_SCENE_WEB_LIMIT_BYTES) {
+    throw new Error(
+      `growth scene cold payload ${coldBytes} is not below ${GROWTH_SCENE_WEB_LIMIT_BYTES}`,
+    );
+  }
+
+  const bounds = scene.bounds;
+  const extent = new THREE.Vector3(
+    bounds.xMax - bounds.xMin,
+    bounds.yMax - bounds.yMin,
+    bounds.zMax - bounds.zMin,
+  );
+  const reviewCamera = growthSceneReviewCamera(query, scene.camera);
+  const rig = buildRig(extent, true, {
+    tiltDegrees: reviewCamera.tiltDegrees,
+    yawDegrees: reviewCamera.yawDegrees,
+    zoom: scene.camera.zoom,
+  });
+  rig.crystal.visible = false;
+  if (rig.edgeMesh !== null) rig.edgeMesh.visible = false;
+  rig.group.position.set(
+    -(bounds.xMin + bounds.xMax) / 2,
+    -(bounds.yMin + bounds.yMax) / 2,
+    -(bounds.zMin + bounds.zMax) / 2,
+  );
+  const yawRadians = THREE.MathUtils.degToRad(reviewCamera.yawDegrees);
+  rig.camera.position.applyAxisAngle(new THREE.Vector3(0, 0, 1), yawRadians);
+  rig.camera.up.set(0, 1, 0).applyAxisAngle(new THREE.Vector3(0, 0, 1), yawRadians);
+  rig.camera.lookAt(0, 0, 0);
+
+  const assetPromises = new Map<string, Promise<ReturnType<typeof decodeGrowthAssetV1>>>();
+  const loadAsset = (
+    component: (typeof scene.components)[number],
+  ): Promise<ReturnType<typeof decodeGrowthAssetV1>> => {
+    const cached = assetPromises.get(component.growthAsset.sha256);
+    if (cached !== undefined) return cached;
+    const promise = fetch(new URL(component.growthAsset.url, sceneAbsolute))
+      .then(async (assetResponse) => {
+        if (!assetResponse.ok) {
+          throw new Error(`growth component fetch failed: ${assetResponse.status} ${component.id}`);
+        }
+        const bytes = await assetResponse.arrayBuffer();
+        if (bytes.byteLength !== component.growthAsset.byteLength) {
+          throw new Error(
+            `${component.id} growth bytes ${bytes.byteLength} disagree with ` +
+              `${component.growthAsset.byteLength}`,
+          );
+        }
+        const actualSha = await digestHex(bytes);
+        if (actualSha !== component.growthAsset.sha256) {
+          throw new Error(`${component.id} growth SHA-256 disagrees with its scene identity`);
+        }
+        return decodeGrowthAssetV1(bytes);
+      });
+    assetPromises.set(component.growthAsset.sha256, promise);
+    return promise;
+  };
+
+  const cellGeometry = new THREE.CylinderGeometry(0.58, 0.58, 0.92, 6, 1, false);
+  cellGeometry.rotateX(Math.PI / 2);
+  cellGeometry.rotateZ(Math.PI / 6);
+  const material = rig.crystal.material as THREE.Material;
+  const matrix = new THREE.Matrix4();
+  const loaded = await Promise.all(scene.components.map(async (component) => {
+    const asset = await loadAsset(component);
+    const mesh = new THREE.InstancedMesh(cellGeometry, material, asset.eventCount);
+    mesh.instanceMatrix.setUsage(THREE.StaticDrawUsage);
+    mesh.frustumCulled = false;
+    const [nx, ny] = asset.dims;
+    const [centerI, centerJ, centerK] = asset.center;
+    const centerX = centerI + centerJ / 2;
+    const centerY = (Math.sqrt(3) * centerJ) / 2;
+    const localBounds = {
+      xMin: Infinity,
+      xMax: -Infinity,
+      yMin: Infinity,
+      yMax: -Infinity,
+      zMin: Infinity,
+      zMax: -Infinity,
+    };
+    for (let event = 0; event < asset.eventCount; event++) {
+      const flat = asset.flatIndices[event]!;
+      const i = flat % nx;
+      const j = Math.floor(flat / nx) % ny;
+      const k = Math.floor(flat / (nx * ny));
+      const x = i + j / 2 - centerX;
+      const y = (Math.sqrt(3) * j) / 2 - centerY;
+      const z = (k - centerK) * zscale;
+      localBounds.xMin = Math.min(localBounds.xMin, x - 0.58);
+      localBounds.xMax = Math.max(localBounds.xMax, x + 0.58);
+      localBounds.yMin = Math.min(localBounds.yMin, y - 0.58);
+      localBounds.yMax = Math.max(localBounds.yMax, y + 0.58);
+      localBounds.zMin = Math.min(localBounds.zMin, z - 0.46);
+      localBounds.zMax = Math.max(localBounds.zMax, z + 0.46);
+      matrix.makeTranslation(x, y, z);
+      mesh.setMatrixAt(event, matrix);
+    }
+    mesh.instanceMatrix.needsUpdate = true;
+    mesh.count = component.phaseOffset === 0 ? asset.seedCount : 0;
+    const componentGroup = new THREE.Group();
+    componentGroup.position.set(...component.transform.translate);
+    componentGroup.rotation.set(
+      THREE.MathUtils.degToRad(component.transform.rotateDegrees[0]),
+      THREE.MathUtils.degToRad(component.transform.rotateDegrees[1]),
+      THREE.MathUtils.degToRad(component.transform.rotateDegrees[2]),
+      "XYZ",
+    );
+    componentGroup.scale.setScalar(component.transform.scale);
+    componentGroup.add(mesh);
+    rig.group.add(componentGroup);
+    return { component, asset, mesh, componentGroup, localBounds };
+  }));
+
+  rig.group.updateMatrixWorld(true);
+  rig.camera.updateMatrixWorld(true);
+  const projectedBounds: {
+    xMin: number;
+    xMax: number;
+    yMin: number;
+    yMax: number;
+  } = {
+    xMin: Infinity,
+    xMax: -Infinity,
+    yMin: Infinity,
+    yMax: -Infinity,
+  };
+  for (const item of loaded) {
+    for (const x of [item.localBounds.xMin, item.localBounds.xMax]) {
+      for (const y of [item.localBounds.yMin, item.localBounds.yMax]) {
+        for (const z of [item.localBounds.zMin, item.localBounds.zMax]) {
+          const projected = new THREE.Vector3(x, y, z)
+            .applyMatrix4(item.componentGroup.matrixWorld)
+            .project(rig.camera);
+          projectedBounds.xMin = Math.min(projectedBounds.xMin, projected.x);
+          projectedBounds.xMax = Math.max(projectedBounds.xMax, projected.x);
+          projectedBounds.yMin = Math.min(projectedBounds.yMin, projected.y);
+          projectedBounds.yMax = Math.max(projectedBounds.yMax, projected.y);
+        }
+      }
+    }
+  }
+
+  if (param("ui", "1") !== "0") {
+    const disclosure = document.createElement("div");
+    disclosure.style.cssText =
+      "position:fixed;left:16px;bottom:16px;max-width:520px;padding:9px 12px;" +
+      "border:1px solid rgba(170,195,230,.45);border-radius:6px;background:rgba(8,12,22,.78);" +
+      "color:#dfe7f4;font:12px/1.45 system-ui,sans-serif;z-index:12";
+    const routeLabel = scene.disclosure === "composed-visualization"
+      ? `Composed visualization · ${scene.components.length} independently recorded G-G components`
+      : "Direct G-G/G-G+ growth recording";
+    disclosure.textContent = `${routeLabel} · ${coldBytes.toLocaleString()} cold bytes`;
+    document.body.appendChild(disclosure);
+  }
+
+  const duration = scene.durationSeconds;
+  const seek = async (seconds: number): Promise<void> => {
+    const progress = Math.max(0, Math.min(1, seconds / duration));
+    for (const item of loaded) {
+      const phase = item.component.phaseOffset;
+      if (progress < phase) {
+        item.mesh.count = 0;
+      } else {
+        const localProgress = phase === 1 ? 1 : (progress - phase) / (1 - phase);
+        const tick = Math.floor(Math.max(0, Math.min(1, localProgress)) * item.asset.finalTick);
+        item.mesh.count = visibleGrowthEventCount(item.asset, tick);
+      }
+    }
+    rig.render();
+  };
+
+  const spikeWindow = window as unknown as SpikeWindow;
+  spikeWindow.__sceneDuration = duration;
+  spikeWindow.__sceneProjectedBounds = projectedBounds;
+  spikeWindow.__sceneSeek = seek;
+  await seek(0);
+  if (param("capture", "0") !== "1") {
+    const start = performance.now();
+    const animate = (now: number): void => {
+      requestAnimationFrame(animate);
+      void seek(((now - start) / 1000) % duration);
+    };
+    requestAnimationFrame(animate);
+  }
+  spikeWindow.__spikeReady = true;
+}
+
 // ── Scene mode (Phase 7 prep Track B, docs/plans/explore-phase7-prep.md) ─────────────────
 // A repo-committed scene script (charter Phase 7 Developer profile) drives camera, frame,
 // and captions from a virtual clock. Read-only over recorded artifacts; cannot alter solver
@@ -1472,6 +1707,11 @@ async function sceneMain(sceneUrl: string): Promise<void> {
 }
 
 async function main(): Promise<void> {
+  const growthSceneUrl = query.get("growthScene");
+  if (growthSceneUrl !== null && growthSceneUrl !== "") {
+    await growthSceneMain(growthSceneUrl);
+    return;
+  }
   const sceneUrl = query.get("scene");
   if (sceneUrl !== null && sceneUrl !== "") {
     await sceneMain(sceneUrl);

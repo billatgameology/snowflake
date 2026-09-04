@@ -1,4 +1,5 @@
 import { createHash } from "node:crypto";
+import { execFileSync } from "node:child_process";
 import { readFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 
@@ -180,6 +181,8 @@ describe("tracked NAS asset catalogue", () => {
       "windows-repo-bundle@2026-08-20": ["active", 3, 10011107],
       "windows-out-scratch@2026-08-20": ["active", 7853, 1723570732],
       "windows-out-gate-artifacts@2026-08-20": ["active", 28, 137079788],
+      "gutcheck-growth-scientific@2026-08-26": ["active", 6_308, 84_247_312_054],
+      "render-worktrees-closeout@2026-09-04": ["active", 18_932, 130_479_382_836],
     } as const;
 
     expect(Object.fromEntries(CATALOG.collections.map((collection) => [
@@ -227,6 +230,24 @@ describe("tracked NAS asset catalogue", () => {
       const bytes = readFileSync(`${REPOSITORY_ROOT}${manifest.path}`);
       expect(bytes.byteLength, manifest.path).toBe(manifest.bytes);
       expect(createHash("sha256").update(bytes).digest("hex"), manifest.path).toBe(manifest.sha256);
+    }
+  });
+
+  it("keeps public owner-manifest checkout bytes independent of line-ending settings", () => {
+    const publicManifestPaths = [...new Set(CATALOG.collections.flatMap((collection) => {
+      const manifest = collection.ownerManifest;
+      return manifest?.storage === "tracked" && manifest.path.startsWith("docs/nas-assets/manifests/")
+        ? [manifest.path]
+        : [];
+    }))];
+    expect(publicManifestPaths.length).toBeGreaterThan(0);
+    const attributes = execFileSync(
+      "git",
+      ["check-attr", "text", "--", ...publicManifestPaths],
+      { cwd: REPOSITORY_ROOT, encoding: "utf8" },
+    );
+    for (const manifestPath of publicManifestPaths) {
+      expect(attributes).toContain(`${manifestPath}: text: unset`);
     }
   });
 

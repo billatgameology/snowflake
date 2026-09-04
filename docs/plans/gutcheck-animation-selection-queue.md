@@ -208,3 +208,141 @@ discarded with the worktree.
 - **Embed 37 live Three.js viewers in the index.** Rejected: dozens of simultaneous WebGL contexts
   are expensive and fragile. Deterministic project-owned PNG thumbnails make selection cheap while
   each row keeps its existing interactive viewer link.
+
+### Windows render lane repair (2026-08-24, branch fix/animation-queue-windows-spawn)
+
+First Windows execution of the render lane (host HIL_ADMIN, Node 24.19.0, maker's exported
+51-item queue). `run --nas-stage` failed before rendering anything: `npx vite build ... failed
+with status null`. Root cause: `runChecked` mapped `npx` to `npx.cmd` on win32 but `spawnSync`
+of a `.cmd` without a shell fails EINVAL since Node's CVE-2024-27980 (BatBadBut) hardening in
+20.12+, and the error surfaced only as `status null` because `result.error` was never inspected.
+The same command succeeded when run manually in a shell, isolating the spawn mechanism.
+
+Fix (two edits in `scripts/gutcheck-animation-queue.ts`): invoke vite through its JS bin
+(`process.execPath` + `node_modules/vite/bin/vite.js`) so only real executables are spawned, and
+throw `result.error` from `runChecked` when the spawn itself fails. The win32 `.cmd` mapping is
+removed as dead. `scene-capture.mjs`'s `ffmpeg` spawn resolves a real `.exe` and is unaffected.
+
+- **Rejected: `shell: true` on win32.** Reintroduces cmd.exe argument-injection surface on paths
+  that include a NAS staging directory; the JS-bin invocation is deterministic and needs no
+  escaping rules.
+
+Verification per this plan's process correction: focused queue tests
+(`runner/test/gutcheck-animation-queue-cli.test.ts`, `app/test/gutcheck-animation-queue.test.ts`,
+5/5 pass), `npm run typecheck`, then the representative sample render (single-item fig13 probe,
+the queue's largest source mesh at 72.7 MB, written to the canonical batch-a NAS staging
+directory so the full run resumes past it by identity).
+
+### Follow-up: growth-event assets for the website (maker direction, 2026-08-24)
+
+The maker reviewed the fig13 turntable and redirected the deliverable: the queue's 51 selections
+need **growth animations (seed to full size)**, consumed by the separate `snowcrystal_website`
+repo's Run B stage. That site replays a `gutcheck-growth-v1` asset — u32 header-length prefix,
+strict JSON header, then eventCount × (u32 flat site index, u32 attach tick) little-endian,
+i-fastest/j-next/k-slowest — and raymarches the arrival-tick volume directly; no meshes, no MP4,
+~8 bytes per attached site (run B: 7.7 MB for 961,597 events). The original baker
+(`gutcheck-bake-growth.ts`) lives only on an unmerged Mac exploration branch
+(`explore/education-ch1-video`, head `44fd4b6`) and is preset-only; the 51 items are spec/stage
+runs, so the writer is added to `gutcheck-grow-params.ts` instead (same reasoning as
+`--frames-dir`: this loop already owns the spec, stages, and stop rules).
+
+Plan:
+
+1. `--growth-out <file>` [+ `--growth-padding`, default 2] on grow-params: seed sites from the
+   t=0 attached field (`a[idx]===1`) as tick-0 events, then `solver.lastAttached` appended after
+   every `step()`; crop tracked over all events plus padding; header mirrors run B's (required
+   decoder fields plus lattice/spec/runIdentity/source provenance and optional expected-endpoint
+   echo from the item's pinned record, warn-only on mismatch — the arm64 control showed habit
+   classes portable but not bitwise trajectories, so x64 regrowths may differ in ULP detail).
+   Assert seedCount + per-step events == final attachedCount; refuse > 8M events (decoder cap).
+2. Focused round-trip test + decode of a real output with the website's own `growthAsset.ts`
+   (the consumer is the contract).
+3. Calibration: regrow fig11 (cheapest item, recorded 351 s) with `--growth-out`; measures this
+   host's speed ratio for the fleet decision and produces the first asset.
+4. Fleet (pending maker scope decision): regrow the 51 with `--growth-out` only (no `--frames-dir`
+   mesh timelines — the site needs events, not meshes), several runs concurrent, recorded hours
+   ≈ 390 total on the original host.
+
+The fig13 turntable render and the batch-a staging output remain valid but are no longer the
+deliverable; the turntable batch is shelved unless the maker asks for it.
+
+Worktree registration (Rule 16): this workstream moved to the isolated worktree
+`C:/Users/HIL_ADMIN/Documents/GitHub/snowflake-animation` on branch
+`fix/animation-queue-windows-spawn` (maker direction, 2026-08-24); the primary checkout returned
+to `main`. Owner: the animation/growth session on the Windows host. Removal condition: after this
+branch's PR merges and its `out/growth-assets/` products are reconciled to NAS staging.
+
+Implementation note: the first `--growth-out` commit used a constructor parameter property,
+which Node's type stripping refuses at runtime (`ERR_UNSUPPORTED_TYPESCRIPT_SYNTAX` — parameter
+properties are non-erasable; the repo runs `.ts` directly). Replaced with an explicit field.
+The round-trip test and both typechecks pass in the worktree.
+
+Fleet execution (2026-08-24): `scripts/gutcheck-growth-fleet.ts` plan|run regrows every queue
+item from its PINNED record (embedded spec, dims, tick cap, seed, extraction; specs/ not
+consulted), longest-first (LPT — cheapest-first would start an 18 h item last and add ~15 h of
+makespan), resume-by-identity on `<id>-growth-v1.bin` + `<id>-record.json`, per-item logs.
+Maker directed 20-way parallelism on this 24-thread host. Calibration on fig11: endpoint
+reproduced exactly (tick 1706, attached 350941, no drift warnings), wall 276 s vs 351 s recorded
+(host ratio ~1.27x faster), asset 2.8 MB, and the snowcrystal_website's own `growthAsset.ts`
+decoder accepts the file and builds its 201x201x109 volume. Fleet projection at 20-wide:
+~15 h wall for the remaining 50.
+
+Maker directions received 2026-08-25 before departing (this session records the assumptions;
+correct on return if wrong):
+
+1. **"Add all needle shape [and hollow column] to the render list."** Habit audit against the
+   grown catalog: fig29 (needle), fig30 (hollow column), fig37/fig38 (tsuzumi capped columns),
+   and fig39 (nucleating needles) were already selected; all 93 gen-records are planar (nz=96).
+   The only needle/hollow-column-class crystal missing was **fig40 (star with needles, §XIII)**;
+   an extended queue `out/growth-assets/queue-plus-needles.json` (52 items, same queueId, sorted)
+   was derived from the maker's export and fig40's regrowth launched. Growing the canonical
+   `needle`/`hollowColumn` presets as NEW crystals is explicitly NOT done — they have no maker
+   -eyeballed record or catalogued mesh; parked as a question for the maker.
+2. **"After web runs complete, a scientific round with a lot more data for all crystals."**
+   Implemented as `--scientific` on the fleet driver: identical replay, plus per crystal the
+   full final GG state checkpoint (`<id>-state.bin`) and a ~120-frame gutcheck-anim-v1 mesh
+   timeline (`<id>-frames/`, cadence max(100, tick/120)), under `out/growth-scientific/`.
+   Runs after the web fleet drains, 20-wide per maker direction. Interpretation of "a lot more
+   data" = state + timeline; metrics remain in logs/records. If the maker meant something
+   further (e.g. per-tick metrics dumps), extend then.
+
+Divergence log: fig6's x64 regrowth left its pinned endpoint (tick 33737/attached 734215 vs
+42981/459787) — the only divergence in the first 39 completions; consistent with d1a0978's
+measured non-portability of exact trajectories. Its regrown mesh needs a maker eyeball against
+the original render before its growth asset ships.
+
+Web round COMPLETE (2026-08-25): 52/52 growth-event assets in `out/growth-assets/`
+(51 maker selections + fig40 needle addition), 187 MB total, every asset decoded by the
+snowcrystal_website's own `growthAsset.ts` (0 failures). Endpoint audit across all logs:
+fig6 is the sole trajectory divergence (see divergence log above); everything else replayed
+its pinned endpoint exactly. The scientific round (`--scientific`, 52 items, 20-wide) started
+immediately after, writing state checkpoints + ~120-frame mesh timelines to
+`out/growth-scientific/`.
+
+Scientific round COMPLETE (2026-08-26): 52/52 bundles in `out/growth-scientific/` — per
+crystal the full final GG state checkpoint, a gutcheck-anim-v1 mesh timeline (~120 frames),
+the growth-event asset, spec, record, and log; 78.5 GB total, 0 failures. Endpoint audit:
+fig6 alone diverges from its pinned arm64 record, and it reproduced its own x64 trajectory
+bit-identically across both rounds (event tables sha-equal), so this host is internally
+deterministic and every fig6 product describes one coherent crystal. Both maker-directed
+rounds are done; remaining maker decisions: (a) eyeball fig6's regrown mesh vs the original
+render, (b) whether to grow canonical needle/hollowColumn presets as new crystals, (c) NAS
+staging / website integration of the 52 web assets.
+
+Maker decisions executed (2026-08-27):
+
+1. **fig6 = original render.** Its x64 growth asset is excluded from the website library
+   (README there records why); fig6 rejoins after an arm64 rebake reproduces the original
+   trajectory. Its scientific bundle is retained as a coherent sibling-crystal record.
+2. **Canonical needle/hollowColumn presets grown — and found to be fig29/fig30 verbatim.**
+   Identical parameter vectors (checked against core/params.ts), same domain and seed; both
+   x64 reruns reproduced the pinned arm64 endpoints exactly (needle 25075/220173, hollow
+   25000/329133). No new library entries — instead the website index names the habits so the
+   needle family is findable. The rerun products live in out/growth-presets/ as a
+   cross-architecture determinism record for these two vectors.
+3. **Website growth library shipped** (snowcrystal_website branch feature/growth-library,
+   commits 2ab1ce0 + e8f82d0): GrowthStage generalized behind a StageTour interface (authored
+   Run B film unchanged by default), /growth/library plays all 51 shipped assets through the
+   same raymarched stage with a generic grow-and-orbit tour; columns are framed by their
+   extent (a radius-framed needle sat inside the near plane and rendered black). Asset
+   binaries (183 MB) deliberately untracked pending the maker's hosting decision.

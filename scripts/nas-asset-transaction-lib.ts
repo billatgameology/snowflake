@@ -640,7 +640,27 @@ const copyExpectedFile = (
     ) {
       throw new Error(`copy source mutated or disagrees with inventory: ${expected.path}`);
     }
-    return destinationOpened;
+    // SMB may commit the destination's final mtime/ctime only when the write descriptor closes.
+    // Capturing the ownership identity from the still-open descriptor made the immediately
+    // following path check reject an unchanged Windows SMB file. Validate the open descriptor
+    // above, then close explicitly and bind all later ownership checks to the post-close path
+    // identity. Object identity, type, link count, mode and size must still agree; only the
+    // close-time metadata transition is accepted.
+    closeSync(destinationFd);
+    destinationFd = null;
+    const destinationClosed = lstatSync(destinationPath);
+    if (
+      !destinationClosed.isFile() ||
+      destinationClosed.isSymbolicLink() ||
+      destinationClosed.nlink !== 1 ||
+      destinationClosed.dev !== destinationOpened.dev ||
+      destinationClosed.ino !== destinationOpened.ino ||
+      destinationClosed.mode !== destinationOpened.mode ||
+      destinationClosed.size !== destinationOpened.size
+    ) {
+      throw new Error(`copy destination changed while closing: ${expected.path}`);
+    }
+    return destinationClosed;
   } finally {
     closeSync(sourceFd);
     if (destinationFd !== null) closeSync(destinationFd);
@@ -712,7 +732,11 @@ const assertOwnedTreeBinding = (binding: OwnedTreeBinding, expected: NasTreeInve
     }
   }
   for (const [path, identity] of binding.directoryIdentities) {
-    if (statIdentity(lstatSync(resolve(binding.rootPath, path))) !== statIdentity(identity)) {
+    // Directory size and timestamps are mutable filesystem metadata. In particular, SMB may
+    // settle them after child handles close even though the directory object and payload bytes
+    // are unchanged. Bind the object identity here; the stable inventory above independently
+    // binds every file path, length, and digest.
+    if (!sameDirectoryObject(identity, lstatSync(resolve(binding.rootPath, path)))) {
       throw new Error(`transaction-owned directory changed: ${path}`);
     }
   }

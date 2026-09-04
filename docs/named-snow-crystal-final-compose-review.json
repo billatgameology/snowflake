@@ -1,0 +1,1211 @@
+{
+  "format": "named-crystal-final-compose-review-v1",
+  "reviewedAt": "2026-08-31T12:31:40.8201784-07:00",
+  "decision": {
+    "path": "docs/named-snow-crystal-final-compose-decisions.json",
+    "byteLength": 3698,
+    "sha256": "b1d5b6d94812bc55c9aac3ccca3cf9641c0dd8710f20644a37db8b349d250d6b"
+  },
+  "composeReport": {
+    "path": "out/named-crystal-catalog/final-compose-v1/report.json",
+    "byteLength": 45797,
+    "sha256": "d20832db1c7af49aaaae8e132b536e0298b8a992a11d9c5a25a1dc62a6513467"
+  },
+  "browserReview": {
+    "path": "out/named-crystal-catalog/final-compose-v1/browser-review.json",
+    "byteLength": 137828,
+    "sha256": "42b25f9177cdadd5ea7aa9931c3b2f74db0459c6bba9d0de1dd3422260d9d311"
+  },
+  "contactSheet": {
+    "path": "out/named-crystal-catalog/final-compose-v1/contact-sheet.png",
+    "byteLength": 5243676,
+    "sha256": "0e2ea39dccb3fbf2b2c5bed4ef81ecf000670c1afbb80e999b76fe1397f47e59"
+  },
+  "counts": {
+    "acceptedFamilies": 11,
+    "acceptedVariants": 33,
+    "browserCaptures": 297,
+    "catalogAcceptedVariants": 99,
+    "catalogRemainingVariants": 0
+  },
+  "routeChanges": [
+    {
+      "typeId": "multiply-capped-columns",
+      "from": "gg-plus",
+      "to": "compose"
+    },
+    {
+      "typeId": "needle-clusters",
+      "from": "gg-plus",
+      "to": "compose"
+    }
+  ],
+  "families": [
+    {
+      "typeId": "12-branched-stars",
+      "rationale": "Face views show two independently recorded six-arm stars at 28, 30 and 32 degree relative rotations, producing twelve distinguishable branches; start, middle and final captures show continuous component growth with clear viewport margins.",
+      "status": "accepted",
+      "variants": [
+        {
+          "entryId": "12-branched-stars-lower",
+          "slot": "lower",
+          "variation": {
+            "driver": "relative-in-plane-rotation",
+            "value": 28,
+            "unit": "degrees"
+          },
+          "coldWebPayloadBytes": 6648759,
+          "scene": {
+            "path": "out/named-crystal-catalog/final-compose-v1/12-branched-stars-lower/scene.json",
+            "byteLength": 1935,
+            "sha256": "5bdce9b8a468b52460eb0ee2228d4a5eec6149946bdb460855fa9cf5c4d25bb5"
+          },
+          "scientificSceneBundle": {
+            "path": "out/named-crystal-catalog/final-compose-v1/12-branched-stars-lower/scientific-scene-bundle.json",
+            "byteLength": 763,
+            "sha256": "ae105b3259e9b310a9085f179b71aca8c172c9ecd811bd2475b84f27478eb93f"
+          },
+          "preview": {
+            "entryId": "12-branched-stars-lower",
+            "typeId": "12-branched-stars",
+            "slot": "lower",
+            "view": "oblique",
+            "tiltDegrees": 55,
+            "yawDegrees": 15,
+            "stage": "final",
+            "fraction": 1,
+            "path": "out/named-crystal-catalog/final-compose-v1/browser-review/12-branched-stars-lower-oblique-final.png",
+            "byteLength": 145925,
+            "sha256": "25cb7bbc27b50a95a8bd8a75acbf77459e3d2c6a58db8d5160dfe8c4d16784fd"
+          }
+        },
+        {
+          "entryId": "12-branched-stars-baseline",
+          "slot": "baseline",
+          "variation": {
+            "driver": "relative-in-plane-rotation",
+            "value": 30,
+            "unit": "degrees"
+          },
+          "coldWebPayloadBytes": 6648762,
+          "scene": {
+            "path": "out/named-crystal-catalog/final-compose-v1/12-branched-stars-baseline/scene.json",
+            "byteLength": 1938,
+            "sha256": "60a0534ba27352c48d4dc4e091d3d33560729681871118a8347cf8da3e132a23"
+          },
+          "scientificSceneBundle": {
+            "path": "out/named-crystal-catalog/final-compose-v1/12-branched-stars-baseline/scientific-scene-bundle.json",
+            "byteLength": 766,
+            "sha256": "53fb074f77991db5b0db0e9d8de0ad2f267a07cd58a35819834991d05a209534"
+          },
+          "preview": {
+            "entryId": "12-branched-stars-baseline",
+            "typeId": "12-branched-stars",
+            "slot": "baseline",
+            "view": "oblique",
+            "tiltDegrees": 55,
+            "yawDegrees": 15,
+            "stage": "final",
+            "fraction": 1,
+            "path": "out/named-crystal-catalog/final-compose-v1/browser-review/12-branched-stars-baseline-oblique-final.png",
+            "byteLength": 145440,
+            "sha256": "46c74124ab60ef098653aadc57abe64fc29821bfedc4277c9c8fe8cb46142071"
+          }
+        },
+        {
+          "entryId": "12-branched-stars-upper",
+          "slot": "upper",
+          "variation": {
+            "driver": "relative-in-plane-rotation",
+            "value": 32,
+            "unit": "degrees"
+          },
+          "coldWebPayloadBytes": 6648757,
+          "scene": {
+            "path": "out/named-crystal-catalog/final-compose-v1/12-branched-stars-upper/scene.json",
+            "byteLength": 1933,
+            "sha256": "f3896e9d239ed2db9c421910d41ef35a54b14efc02651daf482d33f335ee98f4"
+          },
+          "scientificSceneBundle": {
+            "path": "out/named-crystal-catalog/final-compose-v1/12-branched-stars-upper/scientific-scene-bundle.json",
+            "byteLength": 763,
+            "sha256": "cabf4ee93e78fbda2141c9046e9e9e95b3e8a016dc6e84f931919cf2b437a579"
+          },
+          "preview": {
+            "entryId": "12-branched-stars-upper",
+            "typeId": "12-branched-stars",
+            "slot": "upper",
+            "view": "oblique",
+            "tiltDegrees": 55,
+            "yawDegrees": 15,
+            "stage": "final",
+            "fraction": 1,
+            "path": "out/named-crystal-catalog/final-compose-v1/browser-review/12-branched-stars-upper-oblique-final.png",
+            "byteLength": 145326,
+            "sha256": "efb7befb140f07f60350abf873a4f4a146b2c54a2bd15a92c0ee4fcc5ce4b17a"
+          }
+        }
+      ]
+    },
+    {
+      "typeId": "bullet-rosettes",
+      "rationale": "Oblique and axial views show six tapered bullet components radiating from one center; the 48, 52 and 56 degree polar tilts give a controlled trio while retaining separated radial axes.",
+      "status": "accepted",
+      "variants": [
+        {
+          "entryId": "bullet-rosettes-lower",
+          "slot": "lower",
+          "variation": {
+            "driver": "radial-polar-tilt",
+            "value": 48,
+            "unit": "degrees"
+          },
+          "coldWebPayloadBytes": 200664,
+          "scene": {
+            "path": "out/named-crystal-catalog/final-compose-v1/bullet-rosettes-lower/scene.json",
+            "byteLength": 5023,
+            "sha256": "2be77727742c72e132ff4e956ad9a4e2d66399deacebaa077a9fe3ad8a0b9ad6"
+          },
+          "scientificSceneBundle": {
+            "path": "out/named-crystal-catalog/final-compose-v1/bullet-rosettes-lower/scientific-scene-bundle.json",
+            "byteLength": 765,
+            "sha256": "eb3c9d80d25a8da885f3f580b14ebb1df5ab2b1d733cea9a3dab1d043b263830"
+          },
+          "preview": {
+            "entryId": "bullet-rosettes-lower",
+            "typeId": "bullet-rosettes",
+            "slot": "lower",
+            "view": "oblique",
+            "tiltDegrees": 55,
+            "yawDegrees": 15,
+            "stage": "final",
+            "fraction": 1,
+            "path": "out/named-crystal-catalog/final-compose-v1/browser-review/bullet-rosettes-lower-oblique-final.png",
+            "byteLength": 144878,
+            "sha256": "bafa84c3d8fb1620ffe16326be19824199be2bf8ad5237d99ac1b032db307389"
+          }
+        },
+        {
+          "entryId": "bullet-rosettes-baseline",
+          "slot": "baseline",
+          "variation": {
+            "driver": "radial-polar-tilt",
+            "value": 52,
+            "unit": "degrees"
+          },
+          "coldWebPayloadBytes": 200697,
+          "scene": {
+            "path": "out/named-crystal-catalog/final-compose-v1/bullet-rosettes-baseline/scene.json",
+            "byteLength": 5056,
+            "sha256": "3dde70532ed548bdf15de84f3e9c5def1d18f6a96a7585c74299db7ee133f1a3"
+          },
+          "scientificSceneBundle": {
+            "path": "out/named-crystal-catalog/final-compose-v1/bullet-rosettes-baseline/scientific-scene-bundle.json",
+            "byteLength": 768,
+            "sha256": "12e865191a19fe19f7a76fabea2ce190b0eb0a64a5fa02ba2bc486263afef554"
+          },
+          "preview": {
+            "entryId": "bullet-rosettes-baseline",
+            "typeId": "bullet-rosettes",
+            "slot": "baseline",
+            "view": "oblique",
+            "tiltDegrees": 55,
+            "yawDegrees": 15,
+            "stage": "final",
+            "fraction": 1,
+            "path": "out/named-crystal-catalog/final-compose-v1/browser-review/bullet-rosettes-baseline-oblique-final.png",
+            "byteLength": 143767,
+            "sha256": "79537f189570f8de0c88bb500fe4402d8277ef68b509a9a38cabc40a966eec13"
+          }
+        },
+        {
+          "entryId": "bullet-rosettes-upper",
+          "slot": "upper",
+          "variation": {
+            "driver": "radial-polar-tilt",
+            "value": 56,
+            "unit": "degrees"
+          },
+          "coldWebPayloadBytes": 200661,
+          "scene": {
+            "path": "out/named-crystal-catalog/final-compose-v1/bullet-rosettes-upper/scene.json",
+            "byteLength": 5020,
+            "sha256": "714d636bd74a4865641b3a132f52566a462fe91575318c8f903635f6a907d313"
+          },
+          "scientificSceneBundle": {
+            "path": "out/named-crystal-catalog/final-compose-v1/bullet-rosettes-upper/scientific-scene-bundle.json",
+            "byteLength": 765,
+            "sha256": "4aa4a3f4ba0cc1029036232e9bdde413e7fdbd0f215b6eb372021a23e237bacd"
+          },
+          "preview": {
+            "entryId": "bullet-rosettes-upper",
+            "typeId": "bullet-rosettes",
+            "slot": "upper",
+            "view": "oblique",
+            "tiltDegrees": 55,
+            "yawDegrees": 15,
+            "stage": "final",
+            "fraction": 1,
+            "path": "out/named-crystal-catalog/final-compose-v1/browser-review/bullet-rosettes-upper-oblique-final.png",
+            "byteLength": 142798,
+            "sha256": "d89b4343e45f3848de965cd5fa81b0a2c23182f7205e3b45be9a04c42b12474c"
+          }
+        }
+      ]
+    },
+    {
+      "typeId": "radiating-plates",
+      "rationale": "Six plate components form a radial three-dimensional plate cluster in every slot, and the 36, 40 and 44 degree polar tilts visibly vary the fan without changing the accepted component source.",
+      "status": "accepted",
+      "variants": [
+        {
+          "entryId": "radiating-plates-lower",
+          "slot": "lower",
+          "variation": {
+            "driver": "radial-polar-tilt",
+            "value": 36,
+            "unit": "degrees"
+          },
+          "coldWebPayloadBytes": 760379,
+          "scene": {
+            "path": "out/named-crystal-catalog/final-compose-v1/radiating-plates-lower/scene.json",
+            "byteLength": 5012,
+            "sha256": "5fbc0f47e2f84ebc58d3403b9ea35fa601258de2d5efe84447885868fbb7a26f"
+          },
+          "scientificSceneBundle": {
+            "path": "out/named-crystal-catalog/final-compose-v1/radiating-plates-lower/scientific-scene-bundle.json",
+            "byteLength": 766,
+            "sha256": "29f2c026e70a0a4aff456751ffece3939e4dc2db32b7372d4d51161946aad49d"
+          },
+          "preview": {
+            "entryId": "radiating-plates-lower",
+            "typeId": "radiating-plates",
+            "slot": "lower",
+            "view": "oblique",
+            "tiltDegrees": 55,
+            "yawDegrees": 15,
+            "stage": "final",
+            "fraction": 1,
+            "path": "out/named-crystal-catalog/final-compose-v1/browser-review/radiating-plates-lower-oblique-final.png",
+            "byteLength": 162377,
+            "sha256": "9fea80a84b6d3a5cc01b762debfef110770c066543b2bec5de1261dd740d9896"
+          }
+        },
+        {
+          "entryId": "radiating-plates-baseline",
+          "slot": "baseline",
+          "variation": {
+            "driver": "radial-polar-tilt",
+            "value": 40,
+            "unit": "degrees"
+          },
+          "coldWebPayloadBytes": 760413,
+          "scene": {
+            "path": "out/named-crystal-catalog/final-compose-v1/radiating-plates-baseline/scene.json",
+            "byteLength": 5046,
+            "sha256": "8e6cdfea21fb53ead3e6c11b74018070a9b2204ae2c51e3d2fd6c72847bcd3a6"
+          },
+          "scientificSceneBundle": {
+            "path": "out/named-crystal-catalog/final-compose-v1/radiating-plates-baseline/scientific-scene-bundle.json",
+            "byteLength": 769,
+            "sha256": "2af9750a860ddea51829284008ee864be76be095eb8fd7db856f7f022c9e0570"
+          },
+          "preview": {
+            "entryId": "radiating-plates-baseline",
+            "typeId": "radiating-plates",
+            "slot": "baseline",
+            "view": "oblique",
+            "tiltDegrees": 55,
+            "yawDegrees": 15,
+            "stage": "final",
+            "fraction": 1,
+            "path": "out/named-crystal-catalog/final-compose-v1/browser-review/radiating-plates-baseline-oblique-final.png",
+            "byteLength": 163026,
+            "sha256": "33768b78265241a95261fadceea1f3fbf38817ab0a1611f80dd3880efd3fdc10"
+          }
+        },
+        {
+          "entryId": "radiating-plates-upper",
+          "slot": "upper",
+          "variation": {
+            "driver": "radial-polar-tilt",
+            "value": 44,
+            "unit": "degrees"
+          },
+          "coldWebPayloadBytes": 760407,
+          "scene": {
+            "path": "out/named-crystal-catalog/final-compose-v1/radiating-plates-upper/scene.json",
+            "byteLength": 5040,
+            "sha256": "0ebbb7f2d6c603700bcfd622e606239cda789231060c1101c1cdbf051117cf43"
+          },
+          "scientificSceneBundle": {
+            "path": "out/named-crystal-catalog/final-compose-v1/radiating-plates-upper/scientific-scene-bundle.json",
+            "byteLength": 766,
+            "sha256": "098dc114c9728d0911177842e536d2fda2046bae2894aa4ea80f120123469e78"
+          },
+          "preview": {
+            "entryId": "radiating-plates-upper",
+            "typeId": "radiating-plates",
+            "slot": "upper",
+            "view": "oblique",
+            "tiltDegrees": 55,
+            "yawDegrees": 15,
+            "stage": "final",
+            "fraction": 1,
+            "path": "out/named-crystal-catalog/final-compose-v1/browser-review/radiating-plates-upper-oblique-final.png",
+            "byteLength": 162455,
+            "sha256": "b11f409df72b845da33f06d9c2591564549108a3cee27e23a14437746a432c87"
+          }
+        }
+      ]
+    },
+    {
+      "typeId": "radiating-dendrites",
+      "rationale": "Six branched dendritic components remain recognizable in the three review views and form a radial spatial cluster; 44, 48 and 52 degree polar tilts provide the registered small variation.",
+      "status": "accepted",
+      "variants": [
+        {
+          "entryId": "radiating-dendrites-lower",
+          "slot": "lower",
+          "variation": {
+            "driver": "radial-polar-tilt",
+            "value": 44,
+            "unit": "degrees"
+          },
+          "coldWebPayloadBytes": 6862775,
+          "scene": {
+            "path": "out/named-crystal-catalog/final-compose-v1/radiating-dendrites-lower/scene.json",
+            "byteLength": 5088,
+            "sha256": "ff3d4c78510653b48fc2f44c3da1d618aef6ee52d728a46d86f2607777416081"
+          },
+          "scientificSceneBundle": {
+            "path": "out/named-crystal-catalog/final-compose-v1/radiating-dendrites-lower/scientific-scene-bundle.json",
+            "byteLength": 770,
+            "sha256": "a5eefbb883a01fdfd04f22522e7589dc31c41094084899b4347c9735cc3e02b6"
+          },
+          "preview": {
+            "entryId": "radiating-dendrites-lower",
+            "typeId": "radiating-dendrites",
+            "slot": "lower",
+            "view": "oblique",
+            "tiltDegrees": 55,
+            "yawDegrees": 15,
+            "stage": "final",
+            "fraction": 1,
+            "path": "out/named-crystal-catalog/final-compose-v1/browser-review/radiating-dendrites-lower-oblique-final.png",
+            "byteLength": 174524,
+            "sha256": "072b84a93a5270ad81edc003c744621a1e2c9013f0b5b1ebadca4c09fdeddd55"
+          }
+        },
+        {
+          "entryId": "radiating-dendrites-baseline",
+          "slot": "baseline",
+          "variation": {
+            "driver": "radial-polar-tilt",
+            "value": 48,
+            "unit": "degrees"
+          },
+          "coldWebPayloadBytes": 6862746,
+          "scene": {
+            "path": "out/named-crystal-catalog/final-compose-v1/radiating-dendrites-baseline/scene.json",
+            "byteLength": 5059,
+            "sha256": "eb06469c9538f039f705f11735ac7ce3b72e71c9ca8a7effe77b8abc83cf05e5"
+          },
+          "scientificSceneBundle": {
+            "path": "out/named-crystal-catalog/final-compose-v1/radiating-dendrites-baseline/scientific-scene-bundle.json",
+            "byteLength": 773,
+            "sha256": "d8b9cbbcab1b26e17c20605105ae726f39c05c52ee0f2f7d8d0cf0a34fec5ad2"
+          },
+          "preview": {
+            "entryId": "radiating-dendrites-baseline",
+            "typeId": "radiating-dendrites",
+            "slot": "baseline",
+            "view": "oblique",
+            "tiltDegrees": 55,
+            "yawDegrees": 15,
+            "stage": "final",
+            "fraction": 1,
+            "path": "out/named-crystal-catalog/final-compose-v1/browser-review/radiating-dendrites-baseline-oblique-final.png",
+            "byteLength": 174914,
+            "sha256": "eb2ee1d5d418f964f5fbbd75c69f28be8233c475b52de3fc360606ff56e1fe41"
+          }
+        },
+        {
+          "entryId": "radiating-dendrites-upper",
+          "slot": "upper",
+          "variation": {
+            "driver": "radial-polar-tilt",
+            "value": 52,
+            "unit": "degrees"
+          },
+          "coldWebPayloadBytes": 6862771,
+          "scene": {
+            "path": "out/named-crystal-catalog/final-compose-v1/radiating-dendrites-upper/scene.json",
+            "byteLength": 5084,
+            "sha256": "2b089cba2340919b266f00e8bb4740c59b63bb36455d3c1b23c52c41d0feda8c"
+          },
+          "scientificSceneBundle": {
+            "path": "out/named-crystal-catalog/final-compose-v1/radiating-dendrites-upper/scientific-scene-bundle.json",
+            "byteLength": 770,
+            "sha256": "e9cfe6320f728ae63490465debc2cfb4c831548422499963bb24850fa9fca0ed"
+          },
+          "preview": {
+            "entryId": "radiating-dendrites-upper",
+            "typeId": "radiating-dendrites",
+            "slot": "upper",
+            "view": "oblique",
+            "tiltDegrees": 55,
+            "yawDegrees": 15,
+            "stage": "final",
+            "fraction": 1,
+            "path": "out/named-crystal-catalog/final-compose-v1/browser-review/radiating-dendrites-upper-oblique-final.png",
+            "byteLength": 171948,
+            "sha256": "b48eb0cd62096cf7f4b43b62e2385c5fef6348cb4e95737bccf74af01f76f72f"
+          }
+        }
+      ]
+    },
+    {
+      "typeId": "multiply-capped-columns",
+      "rationale": "Oblique and axial views show three capped-column growth records arranged along one long axis, with repeated caps visible and ample vertical clearance; spacing values 0.9, 1.0 and 1.1 distinguish the trio.",
+      "status": "accepted",
+      "variants": [
+        {
+          "entryId": "multiply-capped-columns-lower",
+          "slot": "lower",
+          "variation": {
+            "driver": "axial-instance-spacing",
+            "value": 0.9,
+            "unit": "normalized-units"
+          },
+          "coldWebPayloadBytes": 9764421,
+          "scene": {
+            "path": "out/named-crystal-catalog/final-compose-v1/multiply-capped-columns-lower/scene.json",
+            "byteLength": 2709,
+            "sha256": "3822f0071c33203e507ec58b864172b3d8e7195310de0cbd8f3055092387adba"
+          },
+          "scientificSceneBundle": {
+            "path": "out/named-crystal-catalog/final-compose-v1/multiply-capped-columns-lower/scientific-scene-bundle.json",
+            "byteLength": 771,
+            "sha256": "4abc649685e9e627dad70ba0f29515d5197f7423c566c130464e8fa838dd09f6"
+          },
+          "preview": {
+            "entryId": "multiply-capped-columns-lower",
+            "typeId": "multiply-capped-columns",
+            "slot": "lower",
+            "view": "oblique",
+            "tiltDegrees": 55,
+            "yawDegrees": 15,
+            "stage": "final",
+            "fraction": 1,
+            "path": "out/named-crystal-catalog/final-compose-v1/browser-review/multiply-capped-columns-lower-oblique-final.png",
+            "byteLength": 139934,
+            "sha256": "512beb72f5ff98e58cd470e4f9e353661cec199f56c622babeb33c79461b5dcf"
+          }
+        },
+        {
+          "entryId": "multiply-capped-columns-baseline",
+          "slot": "baseline",
+          "variation": {
+            "driver": "axial-instance-spacing",
+            "value": 1,
+            "unit": "normalized-units"
+          },
+          "coldWebPayloadBytes": 9764422,
+          "scene": {
+            "path": "out/named-crystal-catalog/final-compose-v1/multiply-capped-columns-baseline/scene.json",
+            "byteLength": 2710,
+            "sha256": "0b789c4681dae271713e37abacd009f088b8b9cd70c76b58f34cd5f77bcba7f9"
+          },
+          "scientificSceneBundle": {
+            "path": "out/named-crystal-catalog/final-compose-v1/multiply-capped-columns-baseline/scientific-scene-bundle.json",
+            "byteLength": 774,
+            "sha256": "559d002a8d1d5dfb8b47527eaa79f62ac58ff0c0f529157c55659ca22ffe725f"
+          },
+          "preview": {
+            "entryId": "multiply-capped-columns-baseline",
+            "typeId": "multiply-capped-columns",
+            "slot": "baseline",
+            "view": "oblique",
+            "tiltDegrees": 55,
+            "yawDegrees": 15,
+            "stage": "final",
+            "fraction": 1,
+            "path": "out/named-crystal-catalog/final-compose-v1/browser-review/multiply-capped-columns-baseline-oblique-final.png",
+            "byteLength": 137499,
+            "sha256": "98a8a82191ac272f7a806f5fdee01fdd064debe70d1b12293325b8de35018d26"
+          }
+        },
+        {
+          "entryId": "multiply-capped-columns-upper",
+          "slot": "upper",
+          "variation": {
+            "driver": "axial-instance-spacing",
+            "value": 1.1,
+            "unit": "normalized-units"
+          },
+          "coldWebPayloadBytes": 9764421,
+          "scene": {
+            "path": "out/named-crystal-catalog/final-compose-v1/multiply-capped-columns-upper/scene.json",
+            "byteLength": 2709,
+            "sha256": "24ff485e8bb7c0cf31a161257a68103bb7f9871f41c52e2bcc3b3b04b5a77adc"
+          },
+          "scientificSceneBundle": {
+            "path": "out/named-crystal-catalog/final-compose-v1/multiply-capped-columns-upper/scientific-scene-bundle.json",
+            "byteLength": 771,
+            "sha256": "c62dca7f6dc6598c85ce053fe3cfb7cf621ce27bfac42ef5f3d246ad03c25ac9"
+          },
+          "preview": {
+            "entryId": "multiply-capped-columns-upper",
+            "typeId": "multiply-capped-columns",
+            "slot": "upper",
+            "view": "oblique",
+            "tiltDegrees": 55,
+            "yawDegrees": 15,
+            "stage": "final",
+            "fraction": 1,
+            "path": "out/named-crystal-catalog/final-compose-v1/browser-review/multiply-capped-columns-upper-oblique-final.png",
+            "byteLength": 137613,
+            "sha256": "0c17e37e0f24a2edc70ad0370c31d2c14dc263537d5659b92fd08355fefff379"
+          }
+        }
+      ]
+    },
+    {
+      "typeId": "twin-columns",
+      "rationale": "Two separate solid-column components are visible in oblique and axial review, and the 8, 10 and 12 degree opening angles produce a controlled twin-column variation without overlap or clipping.",
+      "status": "accepted",
+      "variants": [
+        {
+          "entryId": "twin-columns-lower",
+          "slot": "lower",
+          "variation": {
+            "driver": "twin-opening-angle",
+            "value": 8,
+            "unit": "degrees"
+          },
+          "coldWebPayloadBytes": 198473,
+          "scene": {
+            "path": "out/named-crystal-catalog/final-compose-v1/twin-columns-lower/scene.json",
+            "byteLength": 1927,
+            "sha256": "f600b688610b60c5c242ddc0dedb2e756cb274e0d9ddf166a28f9abecd93d139"
+          },
+          "scientificSceneBundle": {
+            "path": "out/named-crystal-catalog/final-compose-v1/twin-columns-lower/scientific-scene-bundle.json",
+            "byteLength": 759,
+            "sha256": "90e44e6411ee0164e12213e352aa25f506a88250427b26109d9ca0ace4e3ae9a"
+          },
+          "preview": {
+            "entryId": "twin-columns-lower",
+            "typeId": "twin-columns",
+            "slot": "lower",
+            "view": "oblique",
+            "tiltDegrees": 55,
+            "yawDegrees": 15,
+            "stage": "final",
+            "fraction": 1,
+            "path": "out/named-crystal-catalog/final-compose-v1/browser-review/twin-columns-lower-oblique-final.png",
+            "byteLength": 167949,
+            "sha256": "4a7fbbd0af51f539cbc94b0baa12a8972f9a60eaf2b0748555c526c94929298b"
+          }
+        },
+        {
+          "entryId": "twin-columns-baseline",
+          "slot": "baseline",
+          "variation": {
+            "driver": "twin-opening-angle",
+            "value": 10,
+            "unit": "degrees"
+          },
+          "coldWebPayloadBytes": 198475,
+          "scene": {
+            "path": "out/named-crystal-catalog/final-compose-v1/twin-columns-baseline/scene.json",
+            "byteLength": 1929,
+            "sha256": "735e5851929cb8a897731eb7f71e535387594a5c84287846068f9af958b532ea"
+          },
+          "scientificSceneBundle": {
+            "path": "out/named-crystal-catalog/final-compose-v1/twin-columns-baseline/scientific-scene-bundle.json",
+            "byteLength": 762,
+            "sha256": "89f552df0e8eddd40282fc57f578d69f2203b6880dc98e9e367277e3ec9f067d"
+          },
+          "preview": {
+            "entryId": "twin-columns-baseline",
+            "typeId": "twin-columns",
+            "slot": "baseline",
+            "view": "oblique",
+            "tiltDegrees": 55,
+            "yawDegrees": 15,
+            "stage": "final",
+            "fraction": 1,
+            "path": "out/named-crystal-catalog/final-compose-v1/browser-review/twin-columns-baseline-oblique-final.png",
+            "byteLength": 168095,
+            "sha256": "81ac074328d4766aa4575ec47a5329bf37d7c57c718f1d4acad8416b6fff46c8"
+          }
+        },
+        {
+          "entryId": "twin-columns-upper",
+          "slot": "upper",
+          "variation": {
+            "driver": "twin-opening-angle",
+            "value": 12,
+            "unit": "degrees"
+          },
+          "coldWebPayloadBytes": 198472,
+          "scene": {
+            "path": "out/named-crystal-catalog/final-compose-v1/twin-columns-upper/scene.json",
+            "byteLength": 1926,
+            "sha256": "195367858604d6b970c4f2e7e0a37e0c3b0460dfa55b18ba79a7f37ef570cb39"
+          },
+          "scientificSceneBundle": {
+            "path": "out/named-crystal-catalog/final-compose-v1/twin-columns-upper/scientific-scene-bundle.json",
+            "byteLength": 759,
+            "sha256": "1e9c4a3dadab364015d56a8754fb0b1c1c0f2340d2b84bf6dacd5030dd7186e1"
+          },
+          "preview": {
+            "entryId": "twin-columns-upper",
+            "typeId": "twin-columns",
+            "slot": "upper",
+            "view": "oblique",
+            "tiltDegrees": 55,
+            "yawDegrees": 15,
+            "stage": "final",
+            "fraction": 1,
+            "path": "out/named-crystal-catalog/final-compose-v1/browser-review/twin-columns-upper-oblique-final.png",
+            "byteLength": 167884,
+            "sha256": "d8b9d5464aef1d9ec906fb01f9662a214ed0dc564d8d855b885ce65bf74ef50d"
+          }
+        }
+      ]
+    },
+    {
+      "typeId": "irregulars",
+      "rationale": "Six reproducible components with explicit unequal positions, orientations and scales form a visibly irregular three-dimensional aggregate; scale spreads 0.08, 0.10 and 0.12 change only the registered driver.",
+      "status": "accepted",
+      "variants": [
+        {
+          "entryId": "irregulars-lower",
+          "slot": "lower",
+          "variation": {
+            "driver": "instance-scale-spread",
+            "value": 0.08,
+            "unit": "fraction"
+          },
+          "coldWebPayloadBytes": 3410680,
+          "scene": {
+            "path": "out/named-crystal-catalog/final-compose-v1/irregulars-lower/scene.json",
+            "byteLength": 4964,
+            "sha256": "1ed6175a11c47a8f23b2f69f34c9fd932926e2a3f92f2fb5fc46f8821674bec6"
+          },
+          "scientificSceneBundle": {
+            "path": "out/named-crystal-catalog/final-compose-v1/irregulars-lower/scientific-scene-bundle.json",
+            "byteLength": 758,
+            "sha256": "f63203db18dd12de4ee258f86dab832ae39b66219c118f69272626256cda2e25"
+          },
+          "preview": {
+            "entryId": "irregulars-lower",
+            "typeId": "irregulars",
+            "slot": "lower",
+            "view": "oblique",
+            "tiltDegrees": 55,
+            "yawDegrees": 15,
+            "stage": "final",
+            "fraction": 1,
+            "path": "out/named-crystal-catalog/final-compose-v1/browser-review/irregulars-lower-oblique-final.png",
+            "byteLength": 165150,
+            "sha256": "87fc524e25cd0b8d3226fc08c29ac0caf5622237e9b43aa1033903dcb8c8e0b9"
+          }
+        },
+        {
+          "entryId": "irregulars-baseline",
+          "slot": "baseline",
+          "variation": {
+            "driver": "instance-scale-spread",
+            "value": 0.1,
+            "unit": "fraction"
+          },
+          "coldWebPayloadBytes": 3410641,
+          "scene": {
+            "path": "out/named-crystal-catalog/final-compose-v1/irregulars-baseline/scene.json",
+            "byteLength": 4925,
+            "sha256": "05d375a1b2576ba16842fcab42dce84b6c6bded04b81557b566f9d660c6f7442"
+          },
+          "scientificSceneBundle": {
+            "path": "out/named-crystal-catalog/final-compose-v1/irregulars-baseline/scientific-scene-bundle.json",
+            "byteLength": 761,
+            "sha256": "a347228827c4aa5c9b6959e5a22cd616d1451d4998ddc922148fbdcc1512fc44"
+          },
+          "preview": {
+            "entryId": "irregulars-baseline",
+            "typeId": "irregulars",
+            "slot": "baseline",
+            "view": "oblique",
+            "tiltDegrees": 55,
+            "yawDegrees": 15,
+            "stage": "final",
+            "fraction": 1,
+            "path": "out/named-crystal-catalog/final-compose-v1/browser-review/irregulars-baseline-oblique-final.png",
+            "byteLength": 164999,
+            "sha256": "a277b12906c8d9639d15392f8715cc3ad9a357cc227195f8909884cf9dcdeae4"
+          }
+        },
+        {
+          "entryId": "irregulars-upper",
+          "slot": "upper",
+          "variation": {
+            "driver": "instance-scale-spread",
+            "value": 0.12,
+            "unit": "fraction"
+          },
+          "coldWebPayloadBytes": 3410645,
+          "scene": {
+            "path": "out/named-crystal-catalog/final-compose-v1/irregulars-upper/scene.json",
+            "byteLength": 4929,
+            "sha256": "91ed0a34cd08849fec19e5171953160f2d49dc61b0e2621ec0d5bec70a6d5043"
+          },
+          "scientificSceneBundle": {
+            "path": "out/named-crystal-catalog/final-compose-v1/irregulars-upper/scientific-scene-bundle.json",
+            "byteLength": 758,
+            "sha256": "0d8bf5d9d9cb0c34e3806fb82e5618a2d6ffbe5fac26f493259d8019f344fa5b"
+          },
+          "preview": {
+            "entryId": "irregulars-upper",
+            "typeId": "irregulars",
+            "slot": "upper",
+            "view": "oblique",
+            "tiltDegrees": 55,
+            "yawDegrees": 15,
+            "stage": "final",
+            "fraction": 1,
+            "path": "out/named-crystal-catalog/final-compose-v1/browser-review/irregulars-upper-oblique-final.png",
+            "byteLength": 164003,
+            "sha256": "542ca7fc0d34d5c07ef04cff3de2794f5413388959d997c02fdabd63b790dae9"
+          }
+        }
+      ]
+    },
+    {
+      "typeId": "needle-clusters",
+      "rationale": "The corrected polar-axis transforms produce six distinct slender needle directions around a common center in oblique review; 40, 44 and 48 degree tilts preserve the cluster while varying its opening.",
+      "status": "accepted",
+      "variants": [
+        {
+          "entryId": "needle-clusters-lower",
+          "slot": "lower",
+          "variation": {
+            "driver": "radial-polar-tilt",
+            "value": 40,
+            "unit": "degrees"
+          },
+          "coldWebPayloadBytes": 1769746,
+          "scene": {
+            "path": "out/named-crystal-catalog/final-compose-v1/needle-clusters-lower/scene.json",
+            "byteLength": 5039,
+            "sha256": "507b408139756a8e3a0783de146f04b31030699665631afe1763e261df6d812e"
+          },
+          "scientificSceneBundle": {
+            "path": "out/named-crystal-catalog/final-compose-v1/needle-clusters-lower/scientific-scene-bundle.json",
+            "byteLength": 763,
+            "sha256": "c707cbf7ac8fb71a9f9bf3720c2976054fc25ae494b7a46bd24efe5239fe1063"
+          },
+          "preview": {
+            "entryId": "needle-clusters-lower",
+            "typeId": "needle-clusters",
+            "slot": "lower",
+            "view": "oblique",
+            "tiltDegrees": 55,
+            "yawDegrees": 15,
+            "stage": "final",
+            "fraction": 1,
+            "path": "out/named-crystal-catalog/final-compose-v1/browser-review/needle-clusters-lower-oblique-final.png",
+            "byteLength": 145171,
+            "sha256": "bfd748378ed61a7e5d06dfc684f086b8e8b79876b376c37dccbe4b1993b53929"
+          }
+        },
+        {
+          "entryId": "needle-clusters-baseline",
+          "slot": "baseline",
+          "variation": {
+            "driver": "radial-polar-tilt",
+            "value": 44,
+            "unit": "degrees"
+          },
+          "coldWebPayloadBytes": 1769746,
+          "scene": {
+            "path": "out/named-crystal-catalog/final-compose-v1/needle-clusters-baseline/scene.json",
+            "byteLength": 5039,
+            "sha256": "6961f802e5c6271b2bfebd05b0fa5558ed75b89efb2deb47b8b52c46a2c0edc1"
+          },
+          "scientificSceneBundle": {
+            "path": "out/named-crystal-catalog/final-compose-v1/needle-clusters-baseline/scientific-scene-bundle.json",
+            "byteLength": 766,
+            "sha256": "62b923f72e32d25185f56d86502c4f611022f6d96f61bbb5e00b4662929d1ca6"
+          },
+          "preview": {
+            "entryId": "needle-clusters-baseline",
+            "typeId": "needle-clusters",
+            "slot": "baseline",
+            "view": "oblique",
+            "tiltDegrees": 55,
+            "yawDegrees": 15,
+            "stage": "final",
+            "fraction": 1,
+            "path": "out/named-crystal-catalog/final-compose-v1/browser-review/needle-clusters-baseline-oblique-final.png",
+            "byteLength": 143693,
+            "sha256": "0ed37f8edc1581c50b8063d888048aa5478caac3df33f3cfd20c054990724009"
+          }
+        },
+        {
+          "entryId": "needle-clusters-upper",
+          "slot": "upper",
+          "variation": {
+            "driver": "radial-polar-tilt",
+            "value": 48,
+            "unit": "degrees"
+          },
+          "coldWebPayloadBytes": 1769713,
+          "scene": {
+            "path": "out/named-crystal-catalog/final-compose-v1/needle-clusters-upper/scene.json",
+            "byteLength": 5006,
+            "sha256": "dba64e8ce30ec25e1f0bb55031797d3772c00374dae7ce85b0573834e9fd8ae0"
+          },
+          "scientificSceneBundle": {
+            "path": "out/named-crystal-catalog/final-compose-v1/needle-clusters-upper/scientific-scene-bundle.json",
+            "byteLength": 763,
+            "sha256": "8ec8edc1be5cad2fb61fb79fdded0e67fade15659338436d4a7c6813e7459bbe"
+          },
+          "preview": {
+            "entryId": "needle-clusters-upper",
+            "typeId": "needle-clusters",
+            "slot": "upper",
+            "view": "oblique",
+            "tiltDegrees": 55,
+            "yawDegrees": 15,
+            "stage": "final",
+            "fraction": 1,
+            "path": "out/named-crystal-catalog/final-compose-v1/browser-review/needle-clusters-upper-oblique-final.png",
+            "byteLength": 144855,
+            "sha256": "55b21e3398870a6de5d2b820e8d2d392cdb9d7a37cca59592307269b5d7a101b"
+          }
+        }
+      ]
+    },
+    {
+      "typeId": "arrowhead-twins",
+      "rationale": "Two branched components meet as a symmetric wing-like arrowhead pair, with face and oblique views confirming the twin construction; 54, 58 and 62 degree openings provide the registered trio.",
+      "status": "accepted",
+      "variants": [
+        {
+          "entryId": "arrowhead-twins-lower",
+          "slot": "lower",
+          "variation": {
+            "driver": "twin-opening-angle",
+            "value": 54,
+            "unit": "degrees"
+          },
+          "coldWebPayloadBytes": 2812795,
+          "scene": {
+            "path": "out/named-crystal-catalog/final-compose-v1/arrowhead-twins-lower/scene.json",
+            "byteLength": 1952,
+            "sha256": "184a2cab413d8607a57da5f44cced9ddbaaeb6ad78792f88947821a8402c9877"
+          },
+          "scientificSceneBundle": {
+            "path": "out/named-crystal-catalog/final-compose-v1/arrowhead-twins-lower/scientific-scene-bundle.json",
+            "byteLength": 762,
+            "sha256": "213be76705ef51baa71250f83f7962bc38584800c0261a3b191550417824d7d8"
+          },
+          "preview": {
+            "entryId": "arrowhead-twins-lower",
+            "typeId": "arrowhead-twins",
+            "slot": "lower",
+            "view": "oblique",
+            "tiltDegrees": 55,
+            "yawDegrees": 15,
+            "stage": "final",
+            "fraction": 1,
+            "path": "out/named-crystal-catalog/final-compose-v1/browser-review/arrowhead-twins-lower-oblique-final.png",
+            "byteLength": 148671,
+            "sha256": "3774e13c358686d85d5dd5f48214403c1b21767fc06b2a9dc4c04d4796dc04f4"
+          }
+        },
+        {
+          "entryId": "arrowhead-twins-baseline",
+          "slot": "baseline",
+          "variation": {
+            "driver": "twin-opening-angle",
+            "value": 58,
+            "unit": "degrees"
+          },
+          "coldWebPayloadBytes": 2812798,
+          "scene": {
+            "path": "out/named-crystal-catalog/final-compose-v1/arrowhead-twins-baseline/scene.json",
+            "byteLength": 1955,
+            "sha256": "4cc3606e33cc8e74d34c4eb0f7c90b8ace6e2894ba6042a83c3364ec0e5ad203"
+          },
+          "scientificSceneBundle": {
+            "path": "out/named-crystal-catalog/final-compose-v1/arrowhead-twins-baseline/scientific-scene-bundle.json",
+            "byteLength": 765,
+            "sha256": "a857e809a2fcbda96957461c6a9ceb738d900048cbf864ffed88f186603dbb82"
+          },
+          "preview": {
+            "entryId": "arrowhead-twins-baseline",
+            "typeId": "arrowhead-twins",
+            "slot": "baseline",
+            "view": "oblique",
+            "tiltDegrees": 55,
+            "yawDegrees": 15,
+            "stage": "final",
+            "fraction": 1,
+            "path": "out/named-crystal-catalog/final-compose-v1/browser-review/arrowhead-twins-baseline-oblique-final.png",
+            "byteLength": 148796,
+            "sha256": "e3f29e6e2b1a509091a6538ac68f0084cda27fa599c49d98f27532e747b554f4"
+          }
+        },
+        {
+          "entryId": "arrowhead-twins-upper",
+          "slot": "upper",
+          "variation": {
+            "driver": "twin-opening-angle",
+            "value": 62,
+            "unit": "degrees"
+          },
+          "coldWebPayloadBytes": 2812793,
+          "scene": {
+            "path": "out/named-crystal-catalog/final-compose-v1/arrowhead-twins-upper/scene.json",
+            "byteLength": 1950,
+            "sha256": "07c4b97fb819bcfe0c4b1fc506b1ee9ed9bf76c633e21792e04c74f93af4b8f0"
+          },
+          "scientificSceneBundle": {
+            "path": "out/named-crystal-catalog/final-compose-v1/arrowhead-twins-upper/scientific-scene-bundle.json",
+            "byteLength": 762,
+            "sha256": "4eb008f560ad788a1ae987b531d1e0d25bf868ea91494fbebc44581b46981857"
+          },
+          "preview": {
+            "entryId": "arrowhead-twins-upper",
+            "typeId": "arrowhead-twins",
+            "slot": "upper",
+            "view": "oblique",
+            "tiltDegrees": 55,
+            "yawDegrees": 15,
+            "stage": "final",
+            "fraction": 1,
+            "path": "out/named-crystal-catalog/final-compose-v1/browser-review/arrowhead-twins-upper-oblique-final.png",
+            "byteLength": 149037,
+            "sha256": "3adfea15dd6401dceffb31702dd837357f4ee104e5dd20fd974e5ae45bc56798"
+          }
+        }
+      ]
+    },
+    {
+      "typeId": "crossed-needles",
+      "rationale": "Face review clearly shows two long needle components crossing on distinct axes rather than overlapping; the measured 86, 90 and 94 degree recipes visibly bracket a right-angle cross.",
+      "status": "accepted",
+      "variants": [
+        {
+          "entryId": "crossed-needles-lower",
+          "slot": "lower",
+          "variation": {
+            "driver": "relative-crossing-angle",
+            "value": 86,
+            "unit": "degrees"
+          },
+          "coldWebPayloadBytes": 1766690,
+          "scene": {
+            "path": "out/named-crystal-catalog/final-compose-v1/crossed-needles-lower/scene.json",
+            "byteLength": 1983,
+            "sha256": "b487a89c8ac9cbfd1cd4f2e87efb3c680781bc00b33e7187dc066e567bec5aeb"
+          },
+          "scientificSceneBundle": {
+            "path": "out/named-crystal-catalog/final-compose-v1/crossed-needles-lower/scientific-scene-bundle.json",
+            "byteLength": 763,
+            "sha256": "55eb272cf027def7a27882d276444601e5250ad890cc45ff9f36b2908ce0229f"
+          },
+          "preview": {
+            "entryId": "crossed-needles-lower",
+            "typeId": "crossed-needles",
+            "slot": "lower",
+            "view": "oblique",
+            "tiltDegrees": 55,
+            "yawDegrees": 15,
+            "stage": "final",
+            "fraction": 1,
+            "path": "out/named-crystal-catalog/final-compose-v1/browser-review/crossed-needles-lower-oblique-final.png",
+            "byteLength": 134737,
+            "sha256": "2707912717c252136bf059dc5e406607ffd1582dd37a3c18d389724eb14f9f9c"
+          }
+        },
+        {
+          "entryId": "crossed-needles-baseline",
+          "slot": "baseline",
+          "variation": {
+            "driver": "relative-crossing-angle",
+            "value": 90,
+            "unit": "degrees"
+          },
+          "coldWebPayloadBytes": 1766691,
+          "scene": {
+            "path": "out/named-crystal-catalog/final-compose-v1/crossed-needles-baseline/scene.json",
+            "byteLength": 1984,
+            "sha256": "11d88cc62f61f56ac05e8783d62d30a2124fb7e76e95ae0a0b31f14c7e00b79d"
+          },
+          "scientificSceneBundle": {
+            "path": "out/named-crystal-catalog/final-compose-v1/crossed-needles-baseline/scientific-scene-bundle.json",
+            "byteLength": 766,
+            "sha256": "4964501ccef04b0a0e6c6e7b71d5058c36242b0c259939fb3cf4438129c65b52"
+          },
+          "preview": {
+            "entryId": "crossed-needles-baseline",
+            "typeId": "crossed-needles",
+            "slot": "baseline",
+            "view": "oblique",
+            "tiltDegrees": 55,
+            "yawDegrees": 15,
+            "stage": "final",
+            "fraction": 1,
+            "path": "out/named-crystal-catalog/final-compose-v1/browser-review/crossed-needles-baseline-oblique-final.png",
+            "byteLength": 134834,
+            "sha256": "831d347e63edcdccc6df3c8efbd3cdd27b70c158b32ed68b0f469813b6bb3ef0"
+          }
+        },
+        {
+          "entryId": "crossed-needles-upper",
+          "slot": "upper",
+          "variation": {
+            "driver": "relative-crossing-angle",
+            "value": 94,
+            "unit": "degrees"
+          },
+          "coldWebPayloadBytes": 1766658,
+          "scene": {
+            "path": "out/named-crystal-catalog/final-compose-v1/crossed-needles-upper/scene.json",
+            "byteLength": 1951,
+            "sha256": "d4a357877776a1ad31803f528ae2c730f5c26c1c8374ca7e910cc08c1fcf2105"
+          },
+          "scientificSceneBundle": {
+            "path": "out/named-crystal-catalog/final-compose-v1/crossed-needles-upper/scientific-scene-bundle.json",
+            "byteLength": 763,
+            "sha256": "f67a5d00950d3352e4851853da602eaeac82abdf54bb2f0e6ce621d896f91a94"
+          },
+          "preview": {
+            "entryId": "crossed-needles-upper",
+            "typeId": "crossed-needles",
+            "slot": "upper",
+            "view": "oblique",
+            "tiltDegrees": 55,
+            "yawDegrees": 15,
+            "stage": "final",
+            "fraction": 1,
+            "path": "out/named-crystal-catalog/final-compose-v1/browser-review/crossed-needles-upper-oblique-final.png",
+            "byteLength": 134690,
+            "sha256": "d78460ba96df0cf40d16d9ad240694d0ba2e623297e4a390f21096625605dc5d"
+          }
+        }
+      ]
+    },
+    {
+      "typeId": "crossed-plates",
+      "rationale": "Oblique and axial views separate two intersecting plate components, while 56, 60 and 64 degree crossing angles form a controlled three-scene range with complete growth progression and clearance.",
+      "status": "accepted",
+      "variants": [
+        {
+          "entryId": "crossed-plates-lower",
+          "slot": "lower",
+          "variation": {
+            "driver": "relative-crossing-angle",
+            "value": 56,
+            "unit": "degrees"
+          },
+          "coldWebPayloadBytes": 757310,
+          "scene": {
+            "path": "out/named-crystal-catalog/final-compose-v1/crossed-plates-lower/scene.json",
+            "byteLength": 1943,
+            "sha256": "560b71ba5d7c65acd91fdf2a28a91e319cb60bd741bb5f84ec501f8e41b54cf6"
+          },
+          "scientificSceneBundle": {
+            "path": "out/named-crystal-catalog/final-compose-v1/crossed-plates-lower/scientific-scene-bundle.json",
+            "byteLength": 764,
+            "sha256": "45925049a207f723a612cfe106916d2358ca4626abb349fddcee83bf89516518"
+          },
+          "preview": {
+            "entryId": "crossed-plates-lower",
+            "typeId": "crossed-plates",
+            "slot": "lower",
+            "view": "oblique",
+            "tiltDegrees": 55,
+            "yawDegrees": 15,
+            "stage": "final",
+            "fraction": 1,
+            "path": "out/named-crystal-catalog/final-compose-v1/browser-review/crossed-plates-lower-oblique-final.png",
+            "byteLength": 168087,
+            "sha256": "e83a73298937194fe0891ea4310ffbd1beafec4555a6036e021125c3c8515004"
+          }
+        },
+        {
+          "entryId": "crossed-plates-baseline",
+          "slot": "baseline",
+          "variation": {
+            "driver": "relative-crossing-angle",
+            "value": 60,
+            "unit": "degrees"
+          },
+          "coldWebPayloadBytes": 757313,
+          "scene": {
+            "path": "out/named-crystal-catalog/final-compose-v1/crossed-plates-baseline/scene.json",
+            "byteLength": 1946,
+            "sha256": "b74f808134cfe265913e3fcaa66cf3fdc6161d993576446f3be651d052508988"
+          },
+          "scientificSceneBundle": {
+            "path": "out/named-crystal-catalog/final-compose-v1/crossed-plates-baseline/scientific-scene-bundle.json",
+            "byteLength": 767,
+            "sha256": "7f505dab44186b3694f46ee791d437c7e1021a97370b1c749204f03a8b40b558"
+          },
+          "preview": {
+            "entryId": "crossed-plates-baseline",
+            "typeId": "crossed-plates",
+            "slot": "baseline",
+            "view": "oblique",
+            "tiltDegrees": 55,
+            "yawDegrees": 15,
+            "stage": "final",
+            "fraction": 1,
+            "path": "out/named-crystal-catalog/final-compose-v1/browser-review/crossed-plates-baseline-oblique-final.png",
+            "byteLength": 165915,
+            "sha256": "49c82cf5f0c15f024f86de0ddc474593975a55f39b94b6f2856be3da093c7145"
+          }
+        },
+        {
+          "entryId": "crossed-plates-upper",
+          "slot": "upper",
+          "variation": {
+            "driver": "relative-crossing-angle",
+            "value": 64,
+            "unit": "degrees"
+          },
+          "coldWebPayloadBytes": 757310,
+          "scene": {
+            "path": "out/named-crystal-catalog/final-compose-v1/crossed-plates-upper/scene.json",
+            "byteLength": 1943,
+            "sha256": "03626a5f82f8f9b8cb3ba3c3672893db0d62f9e7d727432623a563473889be68"
+          },
+          "scientificSceneBundle": {
+            "path": "out/named-crystal-catalog/final-compose-v1/crossed-plates-upper/scientific-scene-bundle.json",
+            "byteLength": 764,
+            "sha256": "b54a2ae51e0e1c704af9c3e18603d4ea8b24a6c70efbadad692f41cc6b3aad3f"
+          },
+          "preview": {
+            "entryId": "crossed-plates-upper",
+            "typeId": "crossed-plates",
+            "slot": "upper",
+            "view": "oblique",
+            "tiltDegrees": 55,
+            "yawDegrees": 15,
+            "stage": "final",
+            "fraction": 1,
+            "path": "out/named-crystal-catalog/final-compose-v1/browser-review/crossed-plates-upper-oblique-final.png",
+            "byteLength": 165480,
+            "sha256": "943d34129f9c4bebe7181c8687b7c10d26b6910c406b4c578802135e7828012e"
+          }
+        }
+      ]
+    }
+  ]
+}
