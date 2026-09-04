@@ -1,6 +1,6 @@
 # Post-Phase-10 adaptive discovery follow-up
 
-**Status:** confirmation wave 1 complete; follow-up wave 2 implemented and ready to launch
+**Status:** confirmation wave 1 complete; follow-up wave 2 running
 **Worktree:** `G:\Code Files\snowflake-science-exploration`
 **Branch:** `explore/post-phase10-discovery`
 **Base:** `ba99d81`
@@ -232,6 +232,12 @@ Pre-launch checks:
   missing ignored recovery-byte and stale frozen-identity failures; the follow-up and other science
   tests passed. This work does not repair or rerun that retired infrastructure; and
 - `git diff --check`: passed.
+
+The clean producer commit is `055458abe151ee9324da42f4752ca08ebc314d0f`. The exact campaign
+launched once at requested concurrency 32 under
+`out/post-phase10-followup/campaign-2026-09-03-wave2`; its campaign manifest records all 134 rows
+and the six pre-registered block counts. Do not duplicate or restart this healthy run. Keep the
+producer source frozen until every worker is terminal.
 
 ## Superseded bounded second-tranche design
 

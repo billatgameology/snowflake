@@ -447,6 +447,12 @@ failures, which this science work does not repair or rerun. The
 [first discovery campaign](plans/post-phase10-discovery-campaign.md) is complete. Phase 7 remains
 a separate parallel product path and is not part of this science workstream.
 
+Wave 2 is now running once from clean producer `055458abe151ee9324da42f4752ca08ebc314d0f` at
+requested concurrency 32 under
+`out/post-phase10-followup/campaign-2026-09-03-wave2`. Its campaign manifest records the exact
+134-row roster and six pre-registered block counts. Do not duplicate or restart the healthy
+campaign; keep its producer source frozen while workers remain active.
+
 The adaptive first tranche is complete from clean producer head `0e55b7b`: 432/432 workers exited
 0 at actual maximum concurrency 16, comprising 288 temperature/forcing rows, 72 pressure rows and
 72 seed-shape rows. The ignored raw completion record is
@@ -574,14 +580,14 @@ the package-specific prerequisites in its charter amendment and execution plan. 
 
 ## Next step
 
-### Commit and launch follow-up wave 2
+### Monitor and analyze the existing follow-up wave 2
 
-Commit the checked finite roster and timeline reuse, then launch the clean producer with
-`node runner/src/post-phase10-discovery-main.ts launch-followup
-out/post-phase10-followup/campaign-2026-09-03-wave2 32`. Keep source frozen while workers run.
-Analyze matched blocks as they finish and promote only wave-2 survivors. Do not involve Phase 7,
-revive C0V/S6 recovery, or build a generic scheduler, dashboard, hostile-runtime defense, or
-facet-hybrid solver change.
+Inspect the existing campaign at
+`out/post-phase10-followup/campaign-2026-09-03-wave2`; do not launch it again. Keep producer source
+frozen while workers run. Analyze matched blocks as they finish using exact first crossings, equal
+plateau age, matched in-plane topology, and path-versus-static contrasts, then promote only wave-2
+survivors. Do not involve Phase 7, revive C0V/S6 recovery, or build a generic scheduler, dashboard,
+hostile-runtime defense, or facet-hybrid solver change.
 
 The prior Phase 10 selection note below is completed reproduction context; its request for a next
 workstream is superseded by the campaign selection above.
