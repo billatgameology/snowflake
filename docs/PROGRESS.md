@@ -104,17 +104,22 @@ detail.
   placed 37 model-only orphan links ahead of them, making the thumbnails appear absent; the
   generator now orders the generated-crystal gallery first and a regression pins that priority.
   This is an operational UX correction only and changes no scientific evidence or phase state.
-- **The maker-directed animation selection, growth replay, and website library are COMPLETE; the
-  scientific bundles' governed NAS publication is active (2026-08-29).** The completed
+- **The maker-directed animation selection, growth replay, website library, and scientific-bundle
+  NAS copy/registration are COMPLETE (2026-08-29).** The completed
   [queue plan](plans/gutcheck-animation-selection-queue.md) adds preview-adjacent selection,
   portable manifests, deterministic disjoint batches, and the later growth-event path. The Windows
   fleet completed 52 web assets and 52 full scientific bundles; the maker kept the original `fig6`,
   and the website library serves the other 51 from `snowcrystal_website`. The local scientific tree
   at `out/growth-scientific/` contains 6,308 files / 84,247,312,054 bytes. Maker direction on
-  2026-08-29 starts its copy-first publication as the provisional generated-cache collection
-  `gutcheck-growth-scientific@2026-08-26`; two Windows/SMB attempts failed closed before final
-  placement, no durable payload has been written, and no local deletion is authorized. The active
-  [publication plan](plans/gutcheck-growth-scientific-nas-publication.md) governs the write.
+  2026-08-29 direction copied it as generated-cache collection
+  `gutcheck-growth-scientific@2026-08-26`. It is active at
+  `collections/gutcheck-growth-scientific/2026-08-26/payload`, with 6,308 files /
+  84,247,312,054 bytes / tree SHA-256
+  `4a1e18634896a58b5e8acf26a041c75de72982bd32a665cae7762976f6465f3e`. The tracked 6,308-row owner
+  manifest tells the project every exact NAS path. Two earlier Windows/SMB attempts failed closed
+  and remain preserved in non-served quarantine; no local deletion was authorized or performed.
+  The [publication plan](plans/gutcheck-growth-scientific-nas-publication.md) records the receipts
+  and narrowed no-restore scope.
 - **The named snow-crystal animation catalog is COMPLETE (2026-08-31).** The strict
   [catalog](named-snow-crystal-catalog.json) and linked [text table](named-snow-crystal-catalog.md)
   report all 35 Libbrecht guide names exactly once: 33 included types with three accepted animations
@@ -186,10 +191,10 @@ and completion credit isolated.
 correction changes no phase claim or credit.
 
 The maker-directed [gut-check animation selection and queue plan](plans/gutcheck-animation-selection-queue.md)
-is complete, including growth-event and full scientific output. The active
-[scientific-bundle NAS publication plan](plans/gutcheck-growth-scientific-nas-publication.md)
-continues the same registered worktree only for durable generated-cache publication; it changes no
-phase status or scientific claim.
+is complete, including growth-event and full scientific output. The
+[scientific-bundle NAS publication plan](plans/gutcheck-growth-scientific-nas-publication.md) is
+also complete after the durable generated-cache copy, manifest registration, and exact repository
+checks; it changes no phase status or scientific claim.
 The maker-selected [named snow-crystal animation catalog plan](plans/named-crystal-animation-catalog.md)
 is a completed product record in `C:/Users/HIL_ADMIN/Documents/GitHub/snowflake-named-catalog` on
 branch `feature/named-crystal-catalog`. Its 99 accepted animations, final table, exact dual-output
@@ -243,41 +248,6 @@ commands, and commit the provisional `render-worktrees-closeout@2026-09-04` cata
 the first new NAS write. Do not remove either worktree until the new collection passes publication,
 tracked manifest registration, a later full verifier, a fresh restore/verify round-trip, required
 repository checks, `main` merge and remote push.
-
-### Gut-check scientific bundles — governed NAS publication active
-
-The marked share resolved to `S:/`, its bootstrap identity check passed, it has sufficient free
-space, and `collections/gutcheck-growth-scientific/2026-08-26/` was absent at the opening check.
-The plan, provisional catalogue entry, and bounded publisher are committed. Its read-only stable
-inventory passed at 6,308 files / 84,247,312,054 bytes / tree SHA-256
-`4a1e18634896a58b5e8acf26a041c75de72982bd32a665cae7762976f6465f3e`, with the final and restore
-targets absent. The first publication attempt failed closed after staging one 18,076-byte file:
-Windows SMB committed mtime/ctime on descriptor close, invalidating the core's pre-close ownership
-snapshot even though the staged SHA-256 equalled source. No final collection or receipt exists.
-The first repair preserves every substantive identity/byte check and captures each file ownership
-snapshot after close. The exact first failed stage and lock are preserved, not deleted, under
-`_control/quarantine/unresolved/gutcheck-growth-scientific-20260829-publish-attempt1/` with a
-failure record. The second transaction copied and verified the full 6,308-file stage, then failed
-closed before final reservation because SMB later settled mutable metadata on one unchanged nested
-directory. No final collection or receipt exists. The directory repair retains exact whole-tree
-path/length/SHA-256 verification and strict file identities while binding directories by their
-device/inode/mode object identity; 46 focused tests passed with six skipped, including the new
-settled-timestamp regression and existing replacement negatives. The exact full second stage was
-re-inventoried at 6,308 files / 84,247,312,054 bytes / tree SHA-256
-`4a1e18634896a58b5e8acf26a041c75de72982bd32a665cae7762976f6465f3e`, then it and its lock moved
-intact, never deleted, to
-`_control/quarantine/unresolved/gutcheck-growth-scientific-20260829-publish-attempt2/` with a failure
-record. The next command is the repaired publication:
-
-`node scripts/nas-publish-gutcheck-growth-scientific.ts --publish`
-
-The command uses the new `publish3` transaction identity. Maker direction later on 2026-08-29
-narrowed completion to the basic durable copy plus an exact tracked owner manifest so the project
-knows the NAS locator. Let the already-running publisher finish its own repeated hashes and receipt,
-then run `node scripts/nas-publish-gutcheck-growth-scientific.ts --register`. Do not run `--restore`,
-the restored-tree verifier, or a later fresh-process full NAS verifier in this task; record them as
-deferred, keep restore status `documented`, and do not claim they ran. Do not delete
-`out/growth-scientific/` or either failed-attempt quarantine; pruning is not part of this request.
 
 ### Named snow-crystal catalog — complete
 

@@ -23,6 +23,27 @@ const CATALOG = parseNasAssetCatalogV1(
 const DIGEST_A = "a".repeat(64);
 const DIGEST_B = "b".repeat(64);
 const DIGEST_C = "c".repeat(64);
+const PROVISIONAL_CATALOG = parseNasAssetCatalogV1(JSON.stringify({
+  ...CATALOG,
+  collections: CATALOG.collections.map((collection) =>
+    `${collection.assetId}@${collection.version}` === GROWTH_SCIENTIFIC_IDENTITY
+      ? {
+          ...collection,
+          state: "provisional",
+          aggregate: { files: 0, bytes: 0 },
+          ownerManifest: null,
+          verification: {
+            status: "unavailable",
+            at: null,
+            host: null,
+            receipt: null,
+            limits: ["Unit-test provisional registration."],
+          },
+          unresolved: ["Unit-test publication pending."],
+        }
+      : collection,
+  ),
+}));
 
 const INVENTORY: NasTreeInventoryV1 = {
   format: "snowflake-nas-tree-inventory-v1",
@@ -67,7 +88,7 @@ describe("gut-check scientific NAS publication registration", () => {
       value: {},
     };
     const activated = activateGrowthScientificCollection({
-      catalogue: CATALOG,
+      catalogue: PROVISIONAL_CATALOG,
       inventory: INVENTORY,
       manifestBytes: manifestBytes.byteLength,
       manifestSha256: createHash("sha256").update(manifestBytes).digest("hex"),
