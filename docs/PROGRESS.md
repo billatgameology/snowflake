@@ -147,7 +147,13 @@ detail.
   non-destructive NAS copy of the generated output from all three worktrees, the standard tracked
   owner manifest and publication receipt, and a pull request to `main`. The maker will merge and
   test restoration on another computer. No worktree, branch, local output, or NAS byte is removed;
-  cleanup is explicitly deferred until the maker confirms that restore.
+  cleanup is explicitly deferred until the maker confirms that restore. The immutable
+  `render-worktrees-closeout@2026-09-04` payload is now published: 18,932 files /
+  130,479,382,836 bytes / tree SHA-256
+  `1a2f9d0f4758a1f54e73f4d11e6da31046d041417f890020c1c7f9e2175960c2`. Its tracked 18,932-row
+  owner manifest is 5,337,142 bytes / SHA-256
+  `c9489ad64f6e693f09853ab35863b158e23dc3107c618c9cdd8282789d8b8a8d`; the standard publication
+  receipt is recorded in the closeout plan. Repository checks and pull-request creation remain.
 - Historical extent-21 artifacts remain valid measured-only comparisons: **CAK 3/90, M1 54/90**
   over their named scopes. They are not the registered conservative-intersection verdict, which
   decision 0045 closed as not computed.
@@ -158,8 +164,8 @@ detail.
   direction) and content stays in-repo unpublished, `test.yml` CI unaffected. Reconciliation is
   a live decision point under **Next step**. Full freeze history:
   [the history file](progress-history-phases-6-8-9.md).
-- **Last updated:** 2026-09-04 (registered the maker-directed render-worktree NAS and Git closeout;
-  no payload write, deletion, phase or scientific-evidence change)
+- **Last updated:** 2026-09-04 (published and registered the maker-directed generated-output NAS
+  snapshot; no deletion, restore, phase or scientific-evidence change)
 
 ## Phase gates
 
@@ -245,13 +251,12 @@ the package-specific prerequisites in its charter amendment and execution plan. 
 
 ### Render-worktree NAS closeout — active
 
-The fresh full-hash verification of `gutcheck-growth-scientific@2026-08-26` passed all 6,308 files /
-84,247,312,054 bytes with zero defects. Commit the simplified copy-only command before the first new
-NAS write, copy the remaining output from all three worktrees, publish and register
-`render-worktrees-closeout@2026-09-04`, run the checks for that boundary, then push the feature branch
-and open a pull request to `main`. Do not merge, restore locally, remove a worktree, delete a branch,
-or delete any output. The maker will test restoration on another computer and authorize cleanup in
-a later session.
+`render-worktrees-closeout@2026-09-04` is published and registered at 18,932 files /
+130,479,382,836 bytes with its tracked owner manifest and publication receipt. Focused catalogue
+and publication tests passed 12/12; both typechecks, Rule 7, and `git diff --check` passed. Commit
+the exact execution record, push `feature/named-crystal-catalog`, and open a pull request to `main`.
+Do not merge, restore locally, remove a worktree, delete a branch, or delete any output. The maker
+will test restoration on another computer and authorize cleanup in a later session.
 
 ### Named snow-crystal catalog — complete
 

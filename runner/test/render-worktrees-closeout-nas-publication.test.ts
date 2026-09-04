@@ -22,6 +22,27 @@ import {
 
 const REPOSITORY_ROOT = fileURLToPath(new URL("../../", import.meta.url));
 const CATALOG = parseNasAssetCatalogV1(readFileSync(`${REPOSITORY_ROOT}docs/nas-assets.json`, "utf8"));
+const PROVISIONAL_CATALOG = parseNasAssetCatalogV1(JSON.stringify({
+  ...CATALOG,
+  collections: CATALOG.collections.map((collection) =>
+    `${collection.assetId}@${collection.version}` === RENDER_CLOSEOUT_IDENTITY
+      ? {
+          ...collection,
+          state: "provisional",
+          aggregate: { files: 0, bytes: 0 },
+          ownerManifest: null,
+          verification: {
+            status: "unavailable",
+            at: null,
+            host: null,
+            receipt: null,
+            limits: ["Synthetic provisional fixture for the activation unit test."],
+          },
+          unresolved: ["Synthetic publication pending."],
+        }
+      : collection,
+  ),
+}));
 const DIGEST_A = "a".repeat(64);
 const DIGEST_B = "b".repeat(64);
 const DIGEST_C = "c".repeat(64);
@@ -74,7 +95,7 @@ describe("render worktree closeout NAS publication", () => {
       value: {},
     };
     const activated = activateRenderCloseoutCollection({
-      catalogue: CATALOG,
+      catalogue: PROVISIONAL_CATALOG,
       inventory: INVENTORY,
       manifestBytes: manifestBytes.byteLength,
       manifestSha256: createHash("sha256").update(manifestBytes).digest("hex"),
@@ -103,7 +124,7 @@ describe("render worktree closeout NAS publication", () => {
         (collection) => `${collection.assetId}@${collection.version}` !== RENDER_CLOSEOUT_IDENTITY,
       ),
     ).toEqual(
-      CATALOG.collections.filter(
+      PROVISIONAL_CATALOG.collections.filter(
         (collection) => `${collection.assetId}@${collection.version}` !== RENDER_CLOSEOUT_IDENTITY,
       ),
     );

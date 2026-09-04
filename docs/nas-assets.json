@@ -2681,17 +2681,30 @@
     {
       "assetId": "render-worktrees-closeout",
       "version": "2026-09-04",
-      "state": "provisional",
+      "state": "active",
       "ownerWorkstream": "named-crystal-catalog",
       "locator": "collections/render-worktrees-closeout/2026-09-04/payload",
       "historicalRepoPath": "out",
       "legacyAliases": [],
       "storageClass": "generated-cache",
       "aggregate": {
-        "files": 0,
-        "bytes": 0
+        "files": 18932,
+        "bytes": 130479382836
       },
-      "ownerManifest": null,
+      "ownerManifest": {
+        "storage": "tracked",
+        "path": "docs/nas-assets/manifests/render-worktrees-closeout/2026-09-04.json",
+        "format": "snowflake-nas-ledger-v1",
+        "bytes": 5337142,
+        "sha256": "c9489ad64f6e693f09853ab35863b158e23dc3107c618c9cdd8282789d8b8a8d",
+        "selector": {
+          "kind": "path-prefixes",
+          "include": [
+            "collections/render-worktrees-closeout/2026-09-04/payload"
+          ],
+          "exclude": []
+        }
+      },
       "rights": {
         "kind": "project-owned",
         "redistribution": "allowed"
@@ -2713,7 +2726,7 @@
       "externalEvidenceAuthority": null,
       "provenance": {
         "record": "docs/plans/render-worktrees-nas-closeout.md",
-        "producerCommit": null,
+        "producerCommit": "8ecb1a6",
         "command": "node scripts/nas-publish-render-worktrees-closeout.ts --publish"
       },
       "reproducibility": {
@@ -2727,12 +2740,14 @@
         "record": "docs/plans/render-worktrees-nas-closeout.md"
       },
       "verification": {
-        "status": "unavailable",
-        "at": null,
-        "host": null,
-        "receipt": null,
+        "status": "full-hash",
+        "at": "2026-09-04",
+        "host": "HIL-SIMULATOR",
+        "receipt": "_control/receipts/publication/render-worktrees-closeout/2026-09-04/render-worktrees-closeout-20260904-publish.json",
         "limits": [
-          "Provisional registration only: the remaining generated output has not yet been copied to its durable NAS payload or bound by its tracked owner manifest and publication receipt."
+          "Publication receipt SHA-256 f83cea7828b8183cfed13b7138a00193e94dcbf60eb15ca652a1c123a4b6ee29; source, stage and final matched 18932 files / 130479382836 bytes / tree SHA-256 1a2f9d0f4758a1f54e73f4d11e6da31046d041417f890020c1c7f9e2175960c2.",
+          "Maker direction on 2026-09-04 requests the standard publication receipt and tracked owner manifest without another same-machine restore or independent verifier.",
+          "The restore command is documented for the maker's test on another computer. All workstation sources, worktrees and branches remain in place until that test is confirmed."
         ]
       },
       "storageDomains": [
@@ -2744,9 +2759,7 @@
         "receipts": []
       },
       "supersedes": [],
-      "unresolved": [
-        "Copy-only preparation, publication, and owner-manifest binding are pending; restoration will be tested by the maker on another computer after the pull request is merged."
-      ]
+      "unresolved": []
     }
   ],
   "overlays": [
