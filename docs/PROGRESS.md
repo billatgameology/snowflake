@@ -356,19 +356,31 @@ detail.
 - CAK→M1 is a confounded parameter-family comparison. Only matched M1 versus
   `M1_NO_DIP_ABLATION` may isolate the implemented dip factors' effect on this solver under the
   frozen configuration; it **cannot establish physical SDAK causality or necessity** in nature.
-- **Education reconciliation is IMPLEMENTED; exact-suite closure pending (2026-09-03).** The
+- **Education reconciliation is IMPLEMENTED and review-corrected; exact-suite closure pending (2026-09-03).** The
   isolated `docs/education-phase10` worktree now preserves Chapters 1–29 as the teaching baseline,
   reconciles their stale Phase 6 status boundary, and adds Chapters 30–33 for the unstarted Phase 7
-  product plan plus the completed Phase 8, 9, and 10 records. The public verifier passed 37 pages,
-  222 browser profiles plus repeats, and 149 negative controls; the offline build and focused
-  visual QA also passed. Exact `npm test` passed Rule 7 and both typechecks but not the full Vitest
+  product plan plus the completed Phase 8, 9, and 10 records. An independent six-agent review on
+  2026-09-03 (fact-checks of Chapters 30–33 against the Phase 6–10 records, a style pass against
+  Chapters 17 and 29, and an accessibility pass) reported 47 factual findings, seven accessibility
+  defects, and tone/pedagogy gaps; every factual and accessibility finding was re-checked against
+  the cited record and corrected in place (for example the Sei–Gonda 40 Pa arithmetic, 16 targets
+  versus 18 entries, the fourth D-BT comparator at 86.88, timed S6 suites of 5.05 h rather than
+  seven, and the Rule 14 tripwire predating Phase 10). After the corrections the public verifier
+  passed 37 pages, 191 checks with zero failures, and 149 negative controls (report generated
+  2026-09-04T00:24:43Z); the earlier offline build and focused visual QA had also passed, and
+  targeted visual QA of the corrected interactives passed again. The corrections are uncommitted
+  in the worktree pending maker review. Exact `npm test` passed Rule 7 and both typechecks but not the full Vitest
   layer: an unrelated 32-worker scientific campaign saturated the host, process/IPC tests exceeded
   their wall-time caps, and untouched Phase 10 byte-identity tests also disagreed. A temporary
   `node_modules` junction that caused 17 additional import-audit suite refusals was removed and
   replaced by local `npm ci`; the exact suite still needs a clean idle-host rerun. See the
   [active plan](plans/education-phase7-10-continuation.md) for the exact counts and commands. This
-  work changes no solver, evidence artifact, phase gate, or validation label; the Pages deploy
-  remains retired.
+  work changes no solver, evidence artifact, phase gate, or validation label. The Pages deploy
+  workflow, retired 2026-08-16, was restored on this branch on 2026-09-04 by maker direction with
+  its `main`-only trigger and a 37-page pin; it publishes only the manifest-pinned public pages
+  (plus assets, `FIGURES.md` and `.nojekyll`, never research media) after the public verifier
+  passes. The live site at https://billatgameology.github.io/snowflake/ still serves the
+  29-chapter build deployed from `main` on 2026-08-06 and refreshes when this branch reaches `main`.
   Full freeze history: [the history file](progress-history-phases-6-8-9.md).
 - **Last updated:** 2026-08-25 (Phase 10 complete-negative; `gate10` exit 0)
 
@@ -494,6 +506,10 @@ the package-specific prerequisites in its charter amendment and execution plan. 
 ## Next step
 
 ### Education continuation through Phase 10 — verification pending
+
+The 2026-09-03 review corrections to Chapters 30–33, the glossary, and the site styles are applied
+and education-verified (37 pages, 191 checks, 0 failures, 149 negative controls); Rule 7 and
+`git diff --check` are clean. They sit uncommitted in the worktree pending maker review.
 
 After the unrelated 32-worker scientific campaign exits, open the
 [education continuation plan](plans/education-phase7-10-continuation.md) in the isolated
@@ -770,10 +786,11 @@ explicitly amends their contract; and no Phase 6 evidence artifact is rewritten.
    verified external-evidence backups; it remains a separate reviewed maker decision. Nothing
    has been deleted.
 2. **Education reconciliation** — Chapters 30–33 and the current-status reconciliation are
-   implemented and education-verified in the isolated `docs/education-phase10` worktree under
-   [its plan](plans/education-phase7-10-continuation.md). Exact-suite closure remains pending an
-   idle-host rerun and separate resolution of any persisting untouched Phase 10 byte-identity
-   failures.
+   implemented, review-corrected (2026-09-03), and education-verified in the isolated
+   `docs/education-phase10` worktree under
+   [its plan](plans/education-phase7-10-continuation.md); the corrections await maker review and
+   commit. Exact-suite closure remains pending an idle-host rerun and separate resolution of any
+   persisting untouched Phase 10 byte-identity failures.
 
 Phase 7 stays on hold as a parallel product/engineering track; it still requires its own
 committed plan and isolated worktree before any work starts, and V4/V4.x apparatus stays

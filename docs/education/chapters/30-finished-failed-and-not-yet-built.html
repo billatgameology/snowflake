@@ -51,7 +51,7 @@
         in great detail, has not started at all?
       </p>
       <div class="chapter-header__meta">
-        <span>~12 min read</span><span>4 interactives</span><span>0 new solver runs</span>
+        <span>~9 min read</span><span>4 interactives</span><span>1 table</span>
       </div>
     </header>
 
@@ -69,8 +69,8 @@
     <aside class="callout callout--key">
       <p class="callout__label">Current boundary &mdash; 2026-08-25 evidence state</p>
       <p>
-        Phase 6 is complete on an accepted negative finding. Phase 7 is independently eligible but
-        not started. Phases 8 and 9 are complete as development work. Phase 10 is complete-negative.
+        Phase 6 is complete on an accepted negative finding. Phase 7 may begin without waiting on
+        Phases 8&ndash;10, but it has not started. Phases 8 and 9 are complete as development work. Phase 10 is complete-negative.
         None of those later phases earned a quantitative-validation claim. This chapter teaches the
         final recorded state; Chapters 28 and 29 preserve the earlier cliffhanger as history.
       </p>
@@ -86,12 +86,24 @@
       rules were still unfinished.
     </p>
     <p>
-      The final Phase 6 work did not rescue the model. A third matched no-dip software intervention
-      matched 5 of 90. An 80-row numerical ladder then returned <strong>NO-PASS</strong> at both grid
-      spacings: 28 of 64 registered comparisons failed the attached-count criterion. The project
-      reported those results, ran its flagless closure gate, and accepted the failure to reproduce
-      the Nakaya diagram as the finding. The gate passed 13 of 13 closure checks. No physical label
-      was upgraded.
+      The final Phase 6 work did not rescue the model. A third arm (an <em>arm</em> is one complete
+      sweep of the same conditions under one set of physics choices) ran the M1 configuration with
+      its two Nakaya-informed dip factors switched off, identical to M1 in every other registered
+      respect, and agreed at 5 of 90 on the same common scope. That &ldquo;common scope&rdquo; needs one
+      clause of explanation: it is CAK&rsquo;s frozen 90-point scoring rule re-applied to the other
+      arms&rsquo; measured classes, a re-scoring rather than a second measurement; M1&rsquo;s own
+      registered scope was 78 points, on which it scored 54. An 80-row numerical ladder then returned
+      <strong>NO-PASS</strong> at both grid spacings (the two sizes of grid cell that were tested):
+      28 of 64 registered comparisons failed the rule that attached-cell counts (the number of grid
+      cells the crystal has claimed, the model&rsquo;s stand-in for mass) must agree within half a
+      percent, so every tally above carries the
+      caveat that its grid resolutions are published as not converged. The ladder&rsquo;s verdict
+      covers only the smallest registered crystal sizes at four check points; the larger size stratum
+      was never verified. The project reported all of it, ran its closure gate with no flags (no
+      command-line switches that could soften a check) on 2026-08-20 (<code>node runner/src/main.ts gate6</code>, exit 0 at commit <code>44488ab</code>),
+      and accepted the failure to reproduce the Nakaya diagram as the finding. The gate passed 13 of
+      13 closure checks. No Evidence label was upgraded: the phase closed with zero
+      &ldquo;quantitatively validated&rdquo; claims.
     </p>
 
     <figure class="anim is-wide" id="c30-two-results" data-phase="6" data-science="negative" data-closure="complete">
@@ -124,11 +136,29 @@
       would reward cheating.
     </p>
 
+    <aside class="callout callout--myth">
+      <p class="callout__label">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+          <circle cx="12" cy="12" r="9.5"/><path d="M12 7.5v5.5M12 16.3v.2"/>
+        </svg>
+        Careful
+      </p>
+      <p>
+        &ldquo;Complete&rdquo; is not a synonym for &ldquo;succeeded&rdquo;. In this project the word
+        marks that a phase reached the terminal rule written for it, either in advance or, as with
+        Phase 6, amended in the open by a numbered decision record before the end. Phase 6 is complete
+        <em>and</em> its model failed the comparison; both halves are true at once, and the rest of
+        Part Two depends on keeping them apart. When you read a status table, always ask which of the
+        two the word is doing.
+      </p>
+    </aside>
+
     <aside class="callout callout--method">
       <p class="callout__label">The rule that made a negative result possible</p>
       <p>
-        The charter said in advance that a negative comparison completes Phase 6 when agreements
-        and disagreements are both reported. It also forbade quiet tuning until the diagram matched.
+        The charter said in advance, in the sentence Chapter 17 quotes in full, that &ldquo;A negative
+        result is a result&rdquo;: a negative comparison completes Phase 6 when agreements and
+        disagreements are both reported. It also forbade quiet tuning until the diagram matched.
         That is why &ldquo;the model lost&rdquo; could be an ending instead of a demand for another knob.
       </p>
     </aside>
@@ -136,11 +166,21 @@
     <h2 id="closure">How failure finished a phase</h2>
 
     <p>
-      A phase is a contract for work, not a promise of good news. Phase 6 promised a comparison,
+      <strong>A phase is a contract for work, not a promise of good news.</strong> Phase 6 promised a comparison,
       numerical controls, preserved artifacts, a readable report, and a gate that rebuilt the
       verdict from those artifacts. Once those existed, the scientific answer was allowed to be
       negative. Completion says the question was asked under the amended contract. It does not say
       the hoped-for answer arrived.
+    </p>
+    <p>
+      The word <em>amended</em> is doing real work there. Two weeks before the close, decision 0045
+      bounded what remained to one week of computing and closed three registered items as
+      &ldquo;not computed&rdquo;: the conservative scoring headline that would have combined measured
+      and extrapolated classes, the production replacement run that Chapter 29 called R15, and the
+      full three-arm campaign of 5,508 rows. The maker&rsquo;s recorded reason was that the phase&rsquo;s
+      answer was already known and more compute would not change it. Amending a contract in the
+      open, with a numbered record, is the honest alternative to either quietly abandoning the
+      obligations or pretending they were met.
     </p>
 
     <figure class="anim" id="c30-label-stack" data-current-status="phase6-complete-negative">
@@ -151,22 +191,26 @@
       <div class="anim__body"><div class="c30-stage" aria-live="polite"></div></div>
       <div class="anim__controls"></div>
       <figcaption class="anim__foot"><span class="built-from">
-        The labels follow the project charter&rsquo;s confidence discipline and the final Phase 6
-        report. Phase completion, numerical disposition, and validation credit are separate fields.
+        The labels follow the charter&rsquo;s &sect;1.5 Type &times; Evidence discipline (Chapter 15)
+        and the final Phase 6 report. Phase completion, numerical disposition, and the Evidence label
+        are separate fields.
       </span></figcaption>
     </figure>
 
     <h2 id="phase-seven">The phase that has not happened</h2>
 
     <p>
-      Phase 7 is written in the charter in enough detail to sound real. It has four view profiles,
-      a polished timeline, smooth ice rendering, save/load experiments, comparisons, a local
-      gallery, and 3-D-print export. It also owns two serious scientific-engineering jobs deferred
-      from Phase 6: a large GPU-parity campaign and four possible held-out comparison families.
+      Phase 7 is written in the charter in enough detail to sound real. The charter gives it four
+      view profiles, a polished timeline, smooth ice rendering, save/load experiments, comparisons,
+      a local gallery, and 3-D-print export. It also owns two serious scientific-engineering jobs
+      deferred from Phase 6: a GPU-parity campaign of at least 200 automated runs, intended to cover
+      all 204 sweep points for each of the three arms, and four named held-out comparison families
+      (growth rates, size-dependent habit, pressure dependence and growth history) that the decision
+      records say cannot be averaged together or discharged by the Nakaya comparison.
     </p>
     <p>
-      But a specification is not an implementation. No Phase 7 plan has been adopted, no Phase 7
-      worktree has been started, and no Phase 7 gate has run. The old development instrument from
+      <strong>But a specification is not an implementation.</strong> No Phase 7 plan has been adopted,
+      no working copy of the code has been opened for it, and no Phase 7 gate has run. The old development instrument from
       Phases 3&ndash;5 exists; the polished Phase 7 product does not. This is not a failure. It is a
       status statement.
     </p>
@@ -179,7 +223,7 @@
       say &ldquo;make it wider, then sprout branches&rdquo;; the compiler would turn that intent into a
       temperature-and-vapour history. A scientist could inspect the same history as numbers. A
       realistic view could render the resulting ice. A developer could replay the exact scene for
-      an explainer video. Changing the window must not change the crystal underneath it.
+      an explainer video. <strong>Changing the window must not change the crystal underneath it.</strong>
     </p>
 
     <figure class="anim is-wide" id="c30-profiles" data-phase7-status="not-started" data-engine-count="1">
@@ -198,10 +242,11 @@
     <h2 id="debts">The work that travels forward</h2>
 
     <p>
-      Moving work to another phase does not make it disappear. Phase 7 still owns three different
-      kinds of work. The product work asks whether people can actually use the instrument. GPU
-      parity asks whether the fast binary32 engine agrees with the slower float64 oracle after the
-      latest symmetry rule is ported. Held-out validation asks whether the model can face data that
+      <strong>Moving work to another phase does not make it disappear.</strong> Phase 7 still owns three
+      different kinds of work. The product work asks whether people can actually use the instrument.
+      GPU parity asks whether the fast graphics-card version, which stores numbers to about seven
+      digits, agrees with the slow processor version that keeps sixteen and acts as the answer key,
+      once the latest symmetry rule has been carried across to it. Held-out validation asks whether the model can face data that
       did not help design it, with apparatus and observable made genuinely comparable first.
     </p>
 
@@ -224,20 +269,42 @@
       The status map below is the shortest honest summary. Notice that <em>complete</em> appears
       beside several different scientific outcomes. Phase 8 completed a data-building job. Phase 9
       completed an all-no-pass model-development campaign. Phase 10 completed a negative evidence
-      package. The shared word tells you the planned work reached its terminal rule; the words after
-      it tell you what was learned.
+      package. <strong>The shared word tells you the planned work reached its terminal rule; the words
+      after it tell you what was learned.</strong>
     </p>
 
     <div class="table-wrap"><table>
+      <caption>Recorded state of Phases 6&ndash;10 at the 2026-08-25 evidence boundary, and the claim each phase did not earn.</caption>
       <thead><tr><th>Phase</th><th>Recorded state</th><th>What it did not earn</th></tr></thead>
       <tbody>
         <tr><td>6</td><td>Complete; accepted failure to reproduce the Nakaya diagram</td><td>Quantitative validation</td></tr>
-        <tr><td>7</td><td>Not started; independently eligible</td><td>Product, GPU, or held-out credit</td></tr>
+        <tr><td>7</td><td>Not started; may begin without waiting on Phases 8&ndash;10</td><td>Product, GPU, or held-out credit</td></tr>
         <tr><td>8</td><td>Complete; laboratory target book and development corpus</td><td>A model score or validation</td></tr>
         <tr><td>9</td><td>Complete; development-only, all-no-pass</td><td>A promoted mechanism or validation</td></tr>
         <tr><td>10</td><td>Complete-negative; source refusal, numerical NO-PASS, incomplete control</td><td>A solver change, target score, or validation</td></tr>
       </tbody>
     </table></div>
+
+    <aside class="callout callout--open">
+      <p class="callout__label">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+          <circle cx="12" cy="12" r="9.5"/><path d="M9.2 9.3a2.9 2.9 0 1 1 3.6 3.4v1.6M12.4 17.4v.2"/>
+        </svg>
+        Still unsettled
+      </p>
+      <p>
+        The no-dip arm&rsquo;s 5 of 90 against M1&rsquo;s 54 of 90 says the two dip factors carried
+        almost all of M1&rsquo;s agreement in this solver, at this crystal size, under this frozen
+        configuration. It does not say the dips are physically right, because they were placed using
+        the very diagram they were scored against (Chapter 17), and the report itself calls the
+        contrast an implementation-level statement, not a claim about nature. Whether any untuned
+        mechanism can produce the diagram&rsquo;s reversals at this crystal size is exactly the
+        question the project has not answered. The three chapters that follow are about what the
+        project did instead of answering it: building a measurement library, running development-only
+        mechanism probes that all came back no-pass, and checking its own numbers and sources. None
+        of that earned validation.
+      </p>
+    </aside>
 
     <p class="handoff">
       Phase 7 is the striking thing that has not happened. The next thing that <em>did</em> happen
@@ -265,7 +332,7 @@
 </div></footer>
 
 <style>
-.c30-stage{display:grid;gap:.75rem;min-height:12rem;align-content:center}.c30-card{border:1px solid var(--rule);border-radius:10px;padding:.85rem;background:var(--surface-sunken)}
+.c30-stage{--accent:var(--accent-key);display:grid;gap:.75rem;min-height:12rem;align-content:center}.c30-card{border:1px solid var(--rule);border-radius:10px;padding:.85rem;background:var(--surface-sunken)}
 .c30-card b{display:block;color:var(--ink-primary);margin-bottom:.25rem}.c30-kicker{font:700 .68rem/1.2 var(--font-sans);letter-spacing:.08em;text-transform:uppercase;color:var(--ink-muted)}
 .c30-answer{font-size:clamp(1.5rem,4vw,2.6rem);font-weight:750;line-height:1.05;margin:.35rem 0;color:var(--ink-primary)}
 .c30-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(9rem,1fr));gap:.55rem}.c30-chip{border:1px solid var(--rule);border-radius:999px;padding:.35rem .55rem;text-align:center;font-size:var(--step--1)}
@@ -282,13 +349,17 @@
   function el(tag, cls, text){var n=document.createElement(tag);if(cls)n.className=cls;if(text!==undefined)n.textContent=text;return n;}
   function box(root){return{stage:root.querySelector(".c30-stage"),controls:root.querySelector(".anim__controls")};}
   function clear(n){while(n.firstChild)n.removeChild(n.firstChild);}
+  function modes(controls,names,onPick){
+    var buttons=names.map(function(name){return Viz.button(controls,name,function(){select(name);},{pressed:false});});
+    function select(name){buttons.forEach(function(b,i){b.setAttribute("aria-pressed",String(names[i]===name));});onPick(name);}
+    select(names[0]); return select;
+  }
 
   (function(){
     var root=document.getElementById("c30-two-results"),b=box(root);
-    var modes={science:{k:"Question 1 · did the model reproduce the target?",a:"NO",p:"The final comparison stayed negative. The ladder was NO-PASS at both spacings, and no validation label was earned."},closure:{k:"Question 2 · did the project complete its amended protocol?",a:"YES — 13 / 13",p:"The gate re-derived the evidence, preserved the negative result, checked the required report, and closed the phase."}};
-    function draw(key){clear(b.stage);var d=modes[key],card=el("div","c30-card");card.appendChild(el("div","c30-kicker",d.k));card.appendChild(el("div","c30-answer",d.a));card.appendChild(el("p","c30-note",d.p));b.stage.appendChild(card);}
-    Viz.button(b.controls,"Scientific result",function(){draw("science");},{pressed:true});
-    Viz.button(b.controls,"Closure result",function(){draw("closure");},{pressed:false});draw("science");
+    var answers={science:{k:"Question 1 · did the model reproduce the target?",a:"NO",p:"The final comparison stayed negative. The ladder was NO-PASS at both spacings, and no Evidence label was upgraded."},closure:{k:"Question 2 · did the project complete its amended protocol?",a:"YES — 13 / 13",p:"Thirteen record checks, all re-derived from committed files: the size-strata freeze, the three arms' tallies, the ladder's NO-PASS, the narrative report, the closure labels and the Phase 7 deferrals. None of the thirteen is a check of the physics."}};
+    function draw(key){clear(b.stage);var d=answers[key],card=el("div","c30-card");card.appendChild(el("div","c30-kicker",d.k));card.appendChild(el("div","c30-answer",d.a));card.appendChild(el("p","c30-note",d.p));b.stage.appendChild(card);}
+    modes(b.controls,["Scientific result","Closure result"],function(n){draw(n==="Scientific result"?"science":"closure");});
   })();
 
   (function(){
@@ -297,24 +368,25 @@
       ["Procedure","complete","The registered closure work reached its terminal rule."],
       ["Numerics","NO-PASS","The tested resolutions did not establish numerical adequacy."],
       ["Science","negative finding","The model did not reproduce the named diagram."],
-      ["Confidence","not validated","No quantitative-validation badge was earned."]
+      ["Evidence","unvalidated","No “quantitatively validated over a named domain” label was earned."]
     ];
     function draw(active){clear(b.stage);var row=el("div","c30-row");rows.forEach(function(d,i){var c=el("div","c30-card");c.style.opacity=i<=active?"1":".38";c.appendChild(el("span","c30-kicker",d[0]));c.appendChild(el("b",null,d[1]));c.appendChild(el("p","c30-note",d[2]));row.appendChild(c);});b.stage.appendChild(row);}
-    rows.forEach(function(d,i){Viz.button(b.controls,d[0],function(){draw(i);},{pressed:i===0});});draw(0);
+    var names=rows.map(function(d){return d[0];});
+    modes(b.controls,names,function(n){draw(names.indexOf(n));});
   })();
 
   (function(){
     var root=document.getElementById("c30-profiles"),b=box(root);
     var profiles={Realistic:["Beautiful ice, few controls","Renders a curated run without changing it."],Scientific:["Fields, rates, and validity controls","Lets a learner inspect why the crystal grew."],Designer:["Intent: widen, branch, seal","Compiles an intent into the same environment schedule."],Developer:["Deterministic scene replay","Uses the same checkpoint and schedule for explainers."]};
-    function draw(name){clear(b.stage);var wrap=el("div","c30-card c30-profile");var snow=el("div","c30-snow","❄");snow.setAttribute("aria-hidden","true");var text=el("div");text.appendChild(el("span","c30-kicker",name+" profile · planned"));text.appendChild(el("div","c30-answer",profiles[name][0]));text.appendChild(el("p","c30-note",profiles[name][1]));text.appendChild(el("p","c30-code","schedule fingerprint: 7f3a…91c2 · solver state: unchanged"));wrap.appendChild(snow);wrap.appendChild(text);b.stage.appendChild(wrap);}
-    Object.keys(profiles).forEach(function(name,i){Viz.button(b.controls,name,function(){draw(name);},{pressed:i===0});});draw("Realistic");
+    function draw(name){clear(b.stage);var wrap=el("div","c30-card c30-profile");var snow=el("div","c30-snow","❄");snow.setAttribute("aria-hidden","true");var text=el("div");text.appendChild(el("span","c30-kicker",name+" profile · planned"));text.appendChild(el("div","c30-answer",profiles[name][0]));text.appendChild(el("p","c30-note",profiles[name][1]));text.appendChild(el("p","c30-code","same saved schedule · same solver state · illustrative only: no Phase 7 artifact exists"));wrap.appendChild(snow);wrap.appendChild(text);b.stage.appendChild(wrap);}
+    modes(b.controls,Object.keys(profiles),draw);
   })();
 
   (function(){
     var root=document.getElementById("c30-debts"),b=box(root);
-    var items={"Product layer":["Make the instrument usable","Profiles, timeline, rendering, save/load, comparison, gallery, export."],"GPU parity":["Prove the fast engine agrees","Port the v6 symmetry order, derive a binary32 error envelope, then run the frozen preview cohort."],"Held-out tests":["Face genuinely unseen evidence","Keep growth rate, size-dependent habit, pressure, and history families separate and apparatus-matched."]};
+    var items={"Product layer":["Make the instrument usable","Profiles, timeline, rendering, save/load, comparison, gallery, export."],"GPU parity":["Test whether the fast engine agrees within a stated tolerance","Port the v6 symmetry order to the graphics-card shader, derive a binary32 error envelope against the float64 oracle, then run at least 200 automated preview-budget runs, intended to be all 204 points for each of the three arms."],"Held-out tests":["Face genuinely unseen evidence","Keep growth rate, size-dependent habit, pressure, and history families separate and apparatus-matched."]};
     function draw(name){clear(b.stage);var c=el("div","c30-card");c.appendChild(el("span","c30-kicker","Phase 7 obligation · not started"));c.appendChild(el("div","c30-answer",items[name][0]));c.appendChild(el("p","c30-note",items[name][1]));c.appendChild(el("p","c30-note","Completing this job would not award the other two jobs' credit."));b.stage.appendChild(c);}
-    Object.keys(items).forEach(function(name,i){Viz.button(b.controls,name,function(){draw(name);},{pressed:i===0});});draw("Product layer");
+    modes(b.controls,Object.keys(items),draw);
   })();
 })();
 </script>

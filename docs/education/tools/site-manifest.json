@@ -248,21 +248,25 @@
     "c30-debts"
   ],
   "chapters/31-a-library-is-not-a-score.html": [
-    "c31-library",
     "c31-matcher",
+    "c31-witnesses",
+    "c31-library",
     "c31-blender",
     "c31-provenance"
   ],
   "chapters/32-the-cheapest-honest-test.html": [
     "c32-funnel",
+    "c32-multipliers",
     "c32-baseline",
-    "c32-ledger",
-    "c32-mapping"
+    "c32-mapping",
+    "c32-ledger"
   ],
   "chapters/33-a-green-gate-that-says-no.html": [
     "c33-two-gates",
     "c33-bridge",
+    "c33-error-sources",
     "c33-ladder",
+    "c33-recoveries",
     "c33-outcomes"
   ]
 }

@@ -1174,20 +1174,20 @@
           Where the project stands, since several of these entries name a status
         </p>
         <p>
-          The validation work &mdash; <strong>Phase&nbsp;6</strong> &mdash; is <strong>still
-          active</strong>. The preserved historical CAK arm completed 204 rows and matched
-          <strong>3 of 90</strong> headline targets, with 6 plate, 168 neutral and 30 column classes.
-          The preserved historical M1 arm also completed 204 rows and matched
-          <strong>54 of 90</strong> on the common scope (54 of 78 on its own), with 75 plate,
-          119 neutral and 10 column classes. Both are independently re-derived measured-only
-          records; neither is the replacement gate. Only ADR&nbsp;0026&rsquo;s conservative-intersection
-          scoring rule is registered. R15 and <code>M1_NO_DIP_ABLATION</code> are planned but
-          unfrozen, unimplemented and unexecuted; numerical adequacy, the GPU cohort and all four
-          held-out validation families remain open.
-          <strong>Phase&nbsp;7 has not started</strong>; the
-          Phase&nbsp;3 browser development instrument is a distinct thing and already exists.
-          Chapters <a href="./chapters/28-the-exam-result.html">28</a> and
-          <a href="./chapters/29-what-it-cost-and-what-is-open.html">29</a> are where that sits.
+          The validation work &mdash; <strong>Phase&nbsp;6</strong> &mdash; is <strong>complete on
+          an accepted negative finding</strong> (2026-08-20). Its three measured-only arms matched
+          <strong>3 of 90</strong> (CAK), <strong>54 of 90</strong> on the common scope (M1, in-sample)
+          and <strong>5 of 90</strong> (the matched no-dip intervention); the 80-row numerical ladder
+          returned NO-PASS on its attached-count criterion at both grid spacings; and the flagless
+          closure gate re-derived 13 of 13 criteria without upgrading any physical label.
+          <strong>Phase&nbsp;7 has not started</strong>; the Phase&nbsp;3 browser development
+          instrument is a distinct thing and already exists. Phases&nbsp;8, 9 and 10 completed as
+          development-only work: an evidence library with zero held-out records, an all-no-pass
+          mechanism screen, and a complete-negative verification package. No quantitative-validation
+          label has been earned. Chapters <a href="./chapters/28-the-exam-result.html">28</a> and
+          <a href="./chapters/29-what-it-cost-and-what-is-open.html">29</a> preserve the in-progress
+          view; Chapters <a href="./chapters/30-finished-failed-and-not-yet-built.html">30</a> to
+          <a href="./chapters/33-a-green-gate-that-says-no.html">33</a> carry the final state.
         </p>
       </aside>
 
@@ -1222,6 +1222,16 @@
               <td><a href="./chapters/18-never-physics-ahead-of-the-machinery.html">18 &middot; Never Physics Ahead of the Machinery</a></td>
             </tr>
             <tr>
+              <td><strong>closure gate</strong> vs <strong>scientific gate</strong></td>
+              <td>A closure gate asks whether the record is complete: every required branch reached an allowed outcome, the artifacts are present and unaltered, and the summary claims no more than they support. A scientific gate asks whether the model matched nature within registered limits. Phase 6 and Phase 10 both passed the first while answering the second with no.</td>
+              <td><a href="./chapters/33-a-green-gate-that-says-no.html">33 &middot; A Green Gate That Says No</a></td>
+            </tr>
+            <tr>
+              <td><strong>complete-negative</strong></td>
+              <td>The recorded state of a phase whose planned work reached its terminal rule with a negative or refused scientific outcome; &ldquo;complete&rdquo; names the procedure, &ldquo;negative&rdquo; names the science, and neither word may borrow the other&rsquo;s meaning.</td>
+              <td><a href="./chapters/30-finished-failed-and-not-yet-built.html">30 &middot; Finished, Failed, and Not Yet Built</a></td>
+            </tr>
+            <tr>
               <td><strong>CPU oracle</strong></td>
               <td>The slow, readable solver, nominated to define the right answer for the fast graphics-card version because nothing else can &mdash; a stand-in for truth, and never deleted, since deleting it would leave the fast version unjudgeable.</td>
               <td><a href="./chapters/25-testing-what-nobody-knows.html">25 &middot; Testing What Nobody Knows</a></td>
@@ -1230,6 +1240,11 @@
               <td><strong>delta check</strong></td>
               <td>The sixfold-symmetry test re-run after a change, so that a modification which quietly broke a symmetry already proved cannot pass unnoticed.</td>
               <td><a href="./chapters/18-never-physics-ahead-of-the-machinery.html">18 &middot; Never Physics Ahead of the Machinery</a></td>
+            </tr>
+            <tr>
+              <td><strong>discriminator</strong></td>
+              <td>The smallest calculation a proposed mechanism must pass before it earns implementation in the solver; it discriminates only if failing it genuinely contradicts the proposal&rsquo;s stated reason for existing, which is why a baseline always sits beside it.</td>
+              <td><a href="./chapters/32-the-cheapest-honest-test.html">32 &middot; The Cheapest Honest Test</a></td>
             </tr>
             <tr>
               <td><strong>done when</strong></td>
@@ -1307,9 +1322,44 @@
               <td><a href="./chapters/27-sealing-the-envelope.html">27 &middot; Sealing the Envelope</a></td>
             </tr>
             <tr>
+              <td><strong>arm</strong></td>
+              <td>One complete line of testing under one set of physics choices. In Phase 6 an arm is a full sweep with one parameter set: Arm 1 the broad-facet CAK run, Arm 2 M1, Arm 3 the no-dip ablation. In Phase 9 an arm is one proposed mechanism&rsquo;s test line, named by a code such as M-W or D-BT.</td>
+              <td><a href="./chapters/30-finished-failed-and-not-yet-built.html">30 &middot; Finished, Failed, and Not Yet Built</a> &middot; <a href="./chapters/32-the-cheapest-honest-test.html">32 &middot; The Cheapest Honest Test</a></td>
+            </tr>
+            <tr>
+              <td><strong>attached count</strong></td>
+              <td>The number of grid cells the simulated crystal has claimed: the model&rsquo;s stand-in for mass, and the quantity the Phase 6 numerical ladder&rsquo;s half-percent criterion is applied to.</td>
+              <td><a href="./chapters/30-finished-failed-and-not-yet-built.html">30 &middot; Finished, Failed, and Not Yet Built</a> &middot; <a href="./chapters/33-a-green-gate-that-says-no.html">33 &middot; A Green Gate That Says No</a></td>
+            </tr>
+            <tr>
+              <td><strong>development evidence</strong></td>
+              <td>Evidence a phase may use to build and reject ideas but that never counts as confirmation, &ldquo;even when a source replay agrees&rdquo;. Every Phase 8B record carries this label, so agreement with one is development, not validation.</td>
+              <td><a href="./chapters/31-a-library-is-not-a-score.html">31 &middot; A Library Is Not a Score</a></td>
+            </tr>
+            <tr>
+              <td><strong>forcing</strong></td>
+              <td>How hard the environment pushes the crystal to grow; in practice the supersaturation the experimenter sets. An archive&rsquo;s forcing labels are usable only when the record says what they are measured against.</td>
+              <td><a href="./chapters/31-a-library-is-not-a-score.html">31 &middot; A Library Is Not a Score</a></td>
+            </tr>
+            <tr>
+              <td><strong>packet</strong></td>
+              <td>One bundled unit of Phase 10 work with its own frozen inputs, checks and outputs. The preflight packet had to pass before the moving and radial control packets could run; the ladder never reached the third.</td>
+              <td><a href="./chapters/33-a-green-gate-that-says-no.html">33 &middot; A Green Gate That Says No</a></td>
+            </tr>
+            <tr>
+              <td><strong>operand</strong>, <strong>source-blocked operand</strong></td>
+              <td>One side of a comparison: a measured quantity or the model output meant to be subtracted from it, each with its apparatus, observable, conditions and history declared. A source-blocked operand is one the comparison needs but that cannot be reconstructed from evidence the project holds, so the record says &ldquo;not recoverable&rdquo; instead of guessing.</td>
+              <td><a href="./chapters/31-a-library-is-not-a-score.html">31 &middot; A Library Is Not a Score</a></td>
+            </tr>
+            <tr>
               <td><strong>oracle</strong> (the oracle problem)</td>
               <td>In testing, whatever tells you the right answer &mdash; the 4 in <code>add(2, 2)</code>. The oracle problem is having none, which is exactly the position of a program computing something nobody has ever measured.</td>
               <td><a href="./chapters/25-testing-what-nobody-knows.html">25 &middot; Testing What Nobody Knows</a></td>
+            </tr>
+            <tr>
+              <td><strong>P0</strong>, <strong>P1</strong>, <strong>P2</strong> (record roles)</td>
+              <td>The three roles in the Phase 8 library: P0 is native data followed through time in the laboratory&rsquo;s own numbers, P1 is a direct mechanism-discriminating measurement including digitized plot series, and P2 is an interpretation safeguard with no measurement coordinates. They are kinds of evidence, not grades, and are unrelated to the provenance classes P1&ndash;P4 below.</td>
+              <td><a href="./chapters/31-a-library-is-not-a-score.html">31 &middot; A Library Is Not a Score</a></td>
             </tr>
             <tr>
               <td><strong>Pass A</strong>, <strong>Pass B</strong></td>
@@ -1330,6 +1380,11 @@
               <td><strong>provenance class</strong> (P1&ndash;P4)</td>
               <td>The stamp every adopted number carries: <strong>P1</strong> a measured or source-tabulated empirical input adopted directly; <strong>P2</strong> a fit, inversion, derivation or figure reading; <strong>P3</strong> a hypothesis or model choice, including the exact M1 narrow-facet prescription; <strong>P4</strong> a numerical or discretization choice.</td>
               <td><a href="./chapters/16-where-the-numbers-came-from.html">16 &middot; Where the Numbers Came From</a></td>
+            </tr>
+            <tr>
+              <td><strong>robustness class</strong> (A, B, C)</td>
+              <td>How many independent witnesses stand behind a laboratory target: Class A needs at least two laboratories using different methods, Class B is a single laboratory or protocol, and Class C records a standing disagreement. The Phase 8 book had one Class A target, seventeen Class B, and none in Class C.</td>
+              <td><a href="./chapters/31-a-library-is-not-a-score.html">31 &middot; A Library Is Not a Score</a></td>
             </tr>
             <tr>
               <td><strong>SHA-256</strong> (hash)</td>
