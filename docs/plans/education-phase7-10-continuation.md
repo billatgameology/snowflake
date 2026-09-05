@@ -164,7 +164,9 @@ is back on this branch in its original form (trigger: pushes to `main` that touc
 `docs/education/**`), with the page pin raised from 33 to 37; it publishes only the manifest-pinned
 public pages plus assets, `FIGURES.md` and `.nojekyll` after the public verifier passes (no research
 media, per decision 0004). Pages itself was never disabled: the site at
-https://billatgameology.github.io/snowflake/ still serves the 29-chapter build deployed from `main`
-on 2026-08-06, and the `github-pages` environment allows only `main`. The 33-chapter course goes
-live when this branch reaches `main`, or when the maker allows this branch in that environment and
-adds it to the workflow trigger. The 2026-09-03 review corrections are committed on this branch.
+https://billatgameology.github.io/snowflake/ served the 29-chapter build deployed from `main` on
+2026-08-06 until this merge. On 2026-09-05 the maker directed that only the education material
+reach `main`: the four education commits were cherry-picked onto `main` with `docs/PROGRESS.md`
+kept at main's version, while the Phase 10 evidence commits stay on their own branch for the
+session that is still running them. The push to `main` triggers the restored workflow, which
+republishes the 33-chapter course.

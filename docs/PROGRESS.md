@@ -161,12 +161,22 @@ detail.
 - CAK→M1 is a confounded parameter-family comparison. Only matched M1 versus
   `M1_NO_DIP_ABLATION` may isolate the implemented dip factors' effect on this solver under the
   frozen configuration; it **cannot establish physical SDAK causality or necessity** in nature.
-- Education is frozen with known-stale prose; the Pages deploy is retired (2026-08-16, maker
-  direction) and content stays in-repo unpublished, `test.yml` CI unaffected. Reconciliation is
-  a live decision point under **Next step**. Full freeze history:
-  [the history file](progress-history-phases-6-8-9.md).
-- **Last updated:** 2026-09-04 (published and registered the maker-directed generated-output NAS
-  snapshot and opened PR #10; no deletion, restore, phase or scientific-evidence change)
+- **Education is reconciled through Phase 10 and published again (2026-09-05).** Chapters 1–29 keep
+  the teaching baseline with their stale Phase 6 status boundary corrected; Chapters 30–33 teach the
+  unstarted Phase 7 plan and the Phase 8–10 records as development and refusal evidence, never
+  validation. Chapters 30–33 describe the Phase 10 package as recorded on the
+  `phase10/evidence-verification` branch (complete-negative, 2026-08-25); that branch is still open
+  in its own session and is not merged here, so this index catches up when it lands. An independent
+  six-agent review corrected 47 factual and seven accessibility findings before the merge; the
+  public verifier then passed 37 pages, 191 checks, 0 failures and 149 negative controls
+  (2026-09-04T00:24:43Z). The Pages deploy workflow retired on 2026-08-16 is restored by maker
+  direction (`.github/workflows/pages.yml`: `main`-only trigger, 37-page pin, manifest-pinned public
+  artifact, no research media), so pushes to `main` touching `docs/education/**` republish
+  https://billatgameology.github.io/snowflake/. Exact `npm test` closure for the education plan is
+  still pending an idle host; see the [education plan](plans/education-phase7-10-continuation.md).
+  Full freeze history: [the history file](progress-history-phases-6-8-9.md).
+- **Last updated:** 2026-09-05 (merged the education continuation through Phase 10 and restored the
+  Pages deploy workflow; no deletion, restore, phase or scientific-evidence change)
 
 ## Phase gates
 
@@ -695,9 +705,11 @@ explicitly amends their contract; and no Phase 6 evidence artifact is rewritten.
    `G:\Code Files\snowflake-phase6-ladder`, archived `out/` trees) is now unblocked by the
    verified external-evidence backups; it remains a separate reviewed maker decision. Nothing
    has been deleted.
-2. **Education reconciliation** — maker-directed, not started. The frozen education verifier
-   oracles (`docs/education/tools/part-two-oracles.mjs`) pin superseded state-document
-   content, including the retired handoff, so they are part of that reconciliation's scope.
+2. **Education reconciliation** — done and merged on 2026-09-05: Chapters 30–33 and the corrected
+   Chapters 13–29 status boundary are on `main`, and the education verifier oracles
+   (`docs/education/tools/part-two-oracles.mjs`) now pin the final Phase 6 state instead of the
+   retired handoff. Still open: the exact `npm test` closure recorded in the education plan, and
+   catching this index up with Chapters 30–33 when the Phase 10 evidence branch merges.
 
 Phase 7 stays on hold as a parallel product/engineering track; it still requires its own
 committed plan and isolated worktree before any work starts, and V4/V4.x apparatus stays
