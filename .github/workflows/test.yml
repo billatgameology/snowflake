@@ -2,7 +2,8 @@
 #
 # WHY THIS EXISTS. Until now this repository had no CI: `.github/workflows/` contained one workflow and
 # it deployed `docs/education` to Pages (that deploy workflow was removed 2026-08-16 by maker
-# direction — GitHub Pages is disabled and the education content stays in the repo, unpublished).
+# direction and restored 2026-09-04 by maker direction as pages.yml; it publishes only the
+# manifest-pinned public education pages).
 # Every test, every hash pin, every preflight check and every
 # freeze assertion was therefore HUMAN-TRIGGERED — the evidence pin register records this as R32,
 # because it means "the suite is green" has always meant "green on whatever the operator happened to
