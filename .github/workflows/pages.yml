@@ -1,0 +1,192 @@
+# Publish the education site to GitHub Pages.
+#
+# SCOPE — this builds an explicit 37-page artifact from the public runtime
+# assets and the pages pinned by tools/site-manifest.json. Repository tooling,
+# the rest of docs/, and research/ never enter the upload directory. FIGURES.md
+# is public runtime content because figure citation cards link to it. Widening
+# the upload path would publish internal material or copyrighted source media.
+#
+# WHAT DOES NOT GET PUBLISHED, BY DESIGN
+# The source figures and recordings are copyrighted third-party work. They live
+# in the gitignored research/ cache, so they are not in the repository and
+# cannot reach Pages. Each one renders as a cited card pointing at its source
+# instead. See docs/decisions/0004-research-media-not-versioned.md.
+
+name: Deploy education site to Pages
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "docs/education/**"
+      - ".github/workflows/pages.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Never let two deploys race; let a newer commit supersede an in-flight run.
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          # education:verify checks git ancestry against historically pinned freeze
+          # commits (Phase 6 provenance). A shallow clone would make those checks fail.
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version: "24"
+          cache: npm
+
+      - run: npm ci
+
+      - name: Install the education verifier browser
+        run: npx playwright install --with-deps chromium
+
+      - name: Verify the public education site
+        run: npm run education:verify -- --public-only
+
+      - name: Stage only the public site bytes
+        shell: bash
+        run: |
+          node --input-type=module <<'NODE'
+          import {
+            copyFileSync,
+            cpSync,
+            existsSync,
+            lstatSync,
+            mkdirSync,
+            readFileSync,
+            readdirSync,
+          } from "node:fs";
+          import { dirname, extname, isAbsolute, join, relative, resolve, sep } from "node:path";
+
+          const source = resolve("docs/education");
+          const staged = resolve("out/education-pages");
+          const manifest = JSON.parse(
+            readFileSync(join(source, "tools/site-manifest.json"), "utf8"),
+          );
+          const expected = Object.keys(manifest).sort();
+          if (expected.length !== 37) {
+            throw new Error(`Expected the pinned 37-page course, got ${expected.length} pages`);
+          }
+          if (existsSync(staged)) {
+            throw new Error(`Refusing to reuse an existing staging directory: ${staged}`);
+          }
+
+          function rejectSymlinks(root) {
+            for (const entry of readdirSync(root, { withFileTypes: true })) {
+              const path = join(root, entry.name);
+              if (entry.isSymbolicLink()) {
+                throw new Error(`Refusing a symlink in public site bytes: ${path}`);
+              }
+              if (entry.isDirectory()) rejectSymlinks(path);
+            }
+          }
+
+          rejectSymlinks(join(source, "assets"));
+          mkdirSync(staged, { recursive: true });
+          cpSync(join(source, "assets"), join(staged, "assets"), { recursive: true });
+          copyFileSync(join(source, ".nojekyll"), join(staged, ".nojekyll"));
+          copyFileSync(join(source, "FIGURES.md"), join(staged, "FIGURES.md"));
+          for (const page of expected) {
+            const authored = resolve(source, page);
+            const output = resolve(staged, page);
+            const sourceRelative = relative(source, authored);
+            const outputRelative = relative(staged, output);
+            const safe = extname(page).toLowerCase() === ".html"
+              && sourceRelative !== "" && outputRelative !== ""
+              && !isAbsolute(sourceRelative) && !isAbsolute(outputRelative)
+              && sourceRelative !== ".." && outputRelative !== ".."
+              && !sourceRelative.startsWith(`..${sep}`)
+              && !outputRelative.startsWith(`..${sep}`);
+            if (!safe || !lstatSync(authored).isFile()) {
+              throw new Error(`Manifest page is not a regular file: ${page}`);
+            }
+            mkdirSync(dirname(output), { recursive: true });
+            copyFileSync(authored, output);
+          }
+
+          function listHtml(root) {
+            const pages = [];
+            for (const entry of readdirSync(root, { withFileTypes: true })) {
+              const path = join(root, entry.name);
+              if (entry.isDirectory()) pages.push(...listHtml(path));
+              else if (extname(path).toLowerCase() === ".html") {
+                pages.push(relative(staged, path).split(sep).join("/"));
+              }
+            }
+            return pages;
+          }
+
+          const actual = listHtml(staged).sort();
+          if (JSON.stringify(actual) !== JSON.stringify(expected)) {
+            throw new Error(
+              `Staged HTML differs from the manifest: expected ${expected.length}, got ${actual.length}`,
+            );
+          }
+          if (existsSync(join(staged, "tools"))) {
+            throw new Error("Repository tooling entered the Pages artifact");
+          }
+          console.log(`Staged exactly ${actual.length} HTML pages; repository tooling excluded.`);
+          NODE
+
+      - name: Fail if binary media slipped into the public artifact
+        shell: bash
+        run: |
+          # Decision 0004: the public artifact carries citation cards, never
+          # cached paper figures, recordings, archives, office files, or fonts.
+          found=$(find out/education-pages -type f \
+            \( -iname '*.3gp' -o -iname '*.7z' -o -iname '*.aac' \
+               -o -iname '*.aiff' -o -iname '*.ai' -o -iname '*.apk' \
+               -o -iname '*.avif' -o -iname '*.avi' -o -iname '*.bin' \
+               -o -iname '*.bmp' -o -iname '*.bz2' -o -iname '*.cab' \
+               -o -iname '*.class' -o -iname '*.deb' -o -iname '*.dmg' \
+               -o -iname '*.dng' -o -iname '*.doc' -o -iname '*.docx' \
+               -o -iname '*.dll' -o -iname '*.dylib' -o -iname '*.eot' -o -iname '*.epub' \
+               -o -iname '*.exe' \
+               -o -iname '*.flac' -o -iname '*.gif' -o -iname '*.gz' \
+               -o -iname '*.heic' -o -iname '*.heif' -o -iname '*.ico' \
+               -o -iname '*.iso' -o -iname '*.jar' \
+               -o -iname '*.jpeg' -o -iname '*.jpg' -o -iname '*.m4a' \
+               -o -iname '*.m4v' -o -iname '*.mkv' -o -iname '*.mov' \
+               -o -iname '*.mp3' -o -iname '*.mp4' -o -iname '*.mpeg' -o -iname '*.msi' \
+               -o -iname '*.mpg' -o -iname '*.oga' -o -iname '*.ogg' \
+               -o -iname '*.ogv' -o -iname '*.opus' -o -iname '*.otf' \
+               -o -iname '*.pdf' -o -iname '*.png' -o -iname '*.ppt' \
+               -o -iname '*.pptx' -o -iname '*.psd' -o -iname '*.rar' \
+               -o -iname '*.raw' -o -iname '*.rpm' -o -iname '*.so' -o -iname '*.svg' \
+               -o -iname '*.svgz' -o -iname '*.tar' -o -iname '*.tgz' \
+               -o -iname '*.tif' -o -iname '*.tiff' -o -iname '*.ttf' \
+               -o -iname '*.wav' -o -iname '*.webm' -o -iname '*.webp' \
+               -o -iname '*.wasm' \
+               -o -iname '*.woff' -o -iname '*.woff2' -o -iname '*.xls' \
+               -o -iname '*.xlsx' -o -iname '*.xz' -o -iname '*.zip' \
+               -o -iname '*.zst' \) -print)
+          if [ -n "$found" ]; then
+            echo "::error::Binary media found in the staged education site — refusing to publish:"
+            echo "$found"
+            exit 1
+          fi
+          echo "No guarded binary-media extensions in the public artifact."
+
+      - uses: actions/configure-pages@v5
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: out/education-pages
+
+      - id: deployment
+        uses: actions/deploy-pages@v4
