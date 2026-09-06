@@ -144,6 +144,11 @@ detail.
   filter/scroll retention and broken-image fallback pass. Next: open the gallery link below.
 - **Last updated:** 2026-09-04 (completed the visual browser for the animation library;
   no phase or scientific-evidence change)
+- **New render approaches are in progress.** The maker asks to replace Darkfield and Chronograph
+  with approaches beyond colour. The final follow-up in the
+  [visual-study plan](plans/dendrite-visual-studies.md) registers Growth Front (recent attachment
+  visibility) and Crystal Cast (sculptural relief and movable light). Next: implement and inspect
+  both across representative library forms; Ion Bloom, Timeglass and the gallery stay available.
 
 ## Phase gates
 

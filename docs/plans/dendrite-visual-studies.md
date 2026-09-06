@@ -1,7 +1,7 @@
 # Plan — dendrite visual studies
 
 - **Phase:** maker-directed pre-Phase 7 presentation exploration; no phase gate
-- **Status:** complete, including the visual gallery, full catalogue and four views
+- **Status:** replacing Darkfield and Chronograph; gallery, Ion Bloom and Timeglass complete
 - **Started:** 2026-09-04
 - **Last touched:** 2026-09-04 by Codex
 
@@ -365,3 +365,38 @@ Verification artifacts under `out/growth-gallery/` are reproducible product insp
   leave the page, and Escape from a search field could be consumed before close. Explicit focus
   wrapping and Escape handling now pass. Close cleanup is synchronous and idempotent so queued
   native close events cannot delay playback restoration or affect a reopened dialog.
+
+## Follow-up — reveal growth and structure beyond colour
+
+Maker direction: remove Darkfield and Chronograph and build two new rendering approaches.
+Continue in the existing clean task worktree on `fix/animation-queue-windows-spawn`. Keep the
+gallery and the accepted Ion Bloom/Timeglass views, including their existing thumbnail recipe.
+
+### Approach and done criteria
+
+- Replace style slots with **Growth Front**, a moving window of recently attached sites with a
+  quiet footprint for orientation, and **Crystal Cast**, a sculptural relief rendered from the
+  projected recorded sites with edge shaping, shadows and movable grazing light. These change
+  temporal visibility and surface rendering, rather than providing new colour palettes.
+- Use bounded offscreen rendering and screen-space compositing for the new approaches. Keep
+  original positions/timestamps and precise CPU visibility thresholds; artistic relief and
+  shadows carry no optical or physical-rate claims. Do not infer vapor flow from event data.
+- Expose a recent-history window and light direction in the relevant focused views. Preserve
+  seeking, pause, reduced motion, camera dragging, all gallery choices and comparison layout.
+- Inspect a dendrite at several playheads in both new views, plus representative column and
+  composed forms. Refine the visuals from actual browser captures. Confirm retired names and
+  time-depth controls are absent from the product UI.
+- Run focused presentation tests, typecheck, Rule 7, app build and a representative browser
+  smoke including new controls, backward seeking, selected-gallery view retention, mobile and
+  GPU resource disposal. No full scientific suite, new simulations or repeat catalogue sweep.
+
+### Next step
+
+Implement the two rendering paths, inspect motion and stills, then record the finished views and
+checks here and in PROGRESS. No source asset or preview regeneration is needed for this request.
+
+### Tried and rejected
+
+- More colour treatments: the maker explicitly asks for different ways of seeing growth.
+- Invented vapor trajectories: these recordings contain attachment events, not a velocity field.
+  The new views must reveal recorded timing and structure without fabricating that information.
