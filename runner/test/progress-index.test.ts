@@ -108,7 +108,6 @@ function currentIndexErrors(text: string): string[] {
     "(plans/phase-8-measurement-corpus.md)",
     "(progress-history-phases-6-8-9.md)",
     "selected no Phase 10 package (2026-08-20)",
-    "- **Last updated:** 2026-08-30",
   ];
   for (const phrase of required) {
     if (!text.includes(phrase)) errors.push(`missing current-state phrase: ${phrase}`);
@@ -126,6 +125,13 @@ function currentIndexErrors(text: string): string[] {
     errors.push("expected exactly one structured Phase 9 status line");
   }
   const lines = text.split(/\r?\n/u);
+  const updatedLines = lines.filter((line) => line.startsWith("- **Last updated:**"));
+  const updatedDate = updatedLines[0]?.match(/^- \*\*Last updated:\*\* (\d{4}-\d{2}-\d{2})(?:\s|$)/u)?.[1];
+  const parsedDate = updatedDate === undefined ? NaN : Date.parse(`${updatedDate}T00:00:00Z`);
+  if (updatedLines.length !== 1 || !Number.isFinite(parsedDate)
+    || new Date(parsedDate).toISOString().slice(0, 10) !== updatedDate) {
+    errors.push("expected exactly one valid ISO Last updated date");
+  }
   const phase8GateLines = lines.filter((line) => line.startsWith("| 8 |"));
   if (phase8GateLines.length !== 1 || !phase8GateLines[0]?.startsWith(PHASE8_GATE_PREFIX)) {
     errors.push("expected exactly one completed Phase 8 gate row");
@@ -207,8 +213,6 @@ describe("compact progress index and byte-exact historical record", () => {
     const text = readFileSync(PROGRESS, "utf8");
     expect(currentIndexErrors(text)).toEqual([]);
 
-    const progressDate = text.match(/^- \*\*Last updated:\*\* (\d{4}-\d{2}-\d{2})/mu)?.[1];
-    expect(progressDate).toBe("2026-08-30");
     // The handoff mechanism is retired (maker direction 2026-08-20). docs/HANDOFF.md remains
     // only as a tombstone so the byte-frozen archive's HANDOFF.md links keep resolving; it
     // must never carry a live dated snapshot heading again.
@@ -244,6 +248,20 @@ describe("compact progress index and byte-exact historical record", () => {
     expect(banner).toContain("Historical snapshot — not current authority");
     expect(banner).toContain("[PROGRESS.md](PROGRESS.md)");
     expect(banner).toContain("preserved as last written");
+  });
+
+  it("allows session dates to advance while rejecting missing, duplicate or invalid dates", () => {
+    const current = readFileSync(PROGRESS, "utf8");
+    const updatedLine = /^- \*\*Last updated:\*\*[^\r\n]*/mu;
+    const advanced = current.replace(updatedLine, "- **Last updated:** 2026-09-05");
+    expect(advanced).not.toBe(current);
+    expect(currentIndexErrors(advanced)).toEqual([]);
+    for (const replacement of ["", "- **Last updated:** tomorrow", "- **Last updated:** 2026-02-30"]) {
+      expect(currentIndexErrors(current.replace(updatedLine, replacement)))
+        .toContain("expected exactly one valid ISO Last updated date");
+    }
+    expect(currentIndexErrors(`${current}\n- **Last updated:** 2026-09-05\n`))
+      .toContain("expected exactly one valid ISO Last updated date");
   });
 
   it("rejects named current-index state-loss mutations", () => {

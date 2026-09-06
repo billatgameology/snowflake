@@ -1,6 +1,9 @@
 import type { DendriteData } from "./dendrite-data.ts";
+import type { GrowthStatistics } from "./growth-statistics.ts";
 
-export async function loadGrowthStudy(url: URL, signal: AbortSignal): Promise<DendriteData> {
+export type LoadedGrowthStudy = DendriteData & { statistics: GrowthStatistics };
+
+export async function loadGrowthStudy(url: URL, signal: AbortSignal): Promise<LoadedGrowthStudy> {
   const response = await fetch(url, { signal });
   if (!response.ok) throw new Error(`Growth replay could not load (${response.status}).`);
   const bytes = await response.arrayBuffer();
@@ -10,7 +13,7 @@ export async function loadGrowthStudy(url: URL, signal: AbortSignal): Promise<De
     const dispose = (): void => { worker.terminate(); signal.removeEventListener("abort", abort); };
     const abort = (): void => { dispose(); reject(new DOMException("Selection changed", "AbortError")); };
     signal.addEventListener("abort", abort, { once: true });
-    worker.onmessage = (event: MessageEvent<{ data?: DendriteData; error?: string }>) => {
+    worker.onmessage = (event: MessageEvent<{ data?: LoadedGrowthStudy; error?: string }>) => {
       dispose();
       if (event.data.data) resolve(event.data.data);
       else reject(new Error(event.data.error ?? "Unable to decode growth replay"));

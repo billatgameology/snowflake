@@ -46,6 +46,12 @@
         <div class="card-footer"><p>A growing relief. Move the light to trace its edges and the spaces between branches.</p><span class="key cast">SCULPTED STRUCTURE</span></div>
       </article>
     </section>
+    <div class="single-view-tools"><button id="toggle-graphs" type="button" aria-expanded="false" aria-controls="growth-graphs" disabled>▥ Graphs</button><span>Explore the growth record</span><button id="export-mp4" type="button" aria-haspopup="dialog" aria-controls="video-export" disabled>Export MP4 ↗</button></div>
+    <section id="growth-graphs" aria-label="Optional growth statistics" hidden>
+      <div class="graph-options"><label><input type="checkbox" data-graph="attached" checked /> Attached sites</label><label><input type="checkbox" data-graph="activity" checked /> New attachments</label><label><input type="checkbox" data-graph="reach" /> Outward reach</label><span>Click a graph to scrub · Faint trace: full recording</span></div>
+      <div class="graph-grid"><div class="growth-graph" data-chart="attached"><canvas tabindex="0" role="img" aria-label="Attached sites graph"></canvas></div><div class="growth-graph" data-chart="activity"><canvas tabindex="0" role="img" aria-label="New attachments graph"></canvas></div><div class="growth-graph" data-chart="reach" hidden><canvas tabindex="0" role="img" aria-label="Outward reach graph"></canvas></div></div>
+      <p id="graphs-empty" hidden>Select a graph above to explore the recording.</p><p id="graphs-provenance"></p>
+    </section>
     <section class="transport" aria-label="Playback controls">
       <div class="buttons"><button id="play" type="button" disabled>Pause</button><button id="replay" type="button" disabled>↺ Replay</button></div>
       <label class="scrubber"><span>SEED</span><input id="timeline" aria-label="Growth timeline" type="range" min="0" max="1000" value="0" disabled /><span>GROWN</span></label>
@@ -57,6 +63,14 @@
     </section>
     <footer><p>RECORDED MODEL GROWTH · FOUR ARTISTIC WAYS TO SEE IT</p><details><summary>What am I seeing?</summary><p>Each site comes from recorded Gravner–Griffeath or G-G+ model growth and appears no earlier than its attachment tick. Composed views arrange independently grown crystals using the catalogue's recorded transforms and phase offsets; they are not one simulated crystal. Sites are not molecules. Ion Bloom and Timeglass use artistic light and colour. Growth Front isolates recent attachments with a faint outline of the crystal grown so far; its window spans part of the recording, not a physical rate. Crystal Cast reconstructs a relief from the projected sites, adding artistic bevels and shadows; it is not simulated ice optics. Recorded site coordinates and explicit scene transforms are preserved at unit lattice Z scale. Playback seconds are presentation time, not physical growth time. This is model output, not validated laboratory growth.</p><p id="source"></p><p id="excluded"></p><p>Focus a study to drag its view. Double-click to reset. Space pauses; R replays; Escape returns to comparison. The same playhead drives all four studies.</p></details></footer>
   </main>
+  <dialog id="video-export" aria-labelledby="export-title" aria-describedby="export-description">
+    <p class="eyebrow">TAKE THE GROWTH WITH YOU</p><h2 id="export-title">Export this view.</h2>
+    <p id="export-description">A full growth cycle with your current camera and rendering controls, followed by a two-second hold. The video is created on this device.</p>
+    <fieldset id="export-settings"><legend>Video settings</legend><label>Duration<select id="export-duration"><option value="10">10 seconds</option><option value="20" selected>20 seconds</option><option value="30">30 seconds</option></select></label><label>Resolution<select id="export-resolution"><option value="720" selected>720p · 1280 × 720</option><option value="1080">1080p · 1920 × 1080</option></select></label><label class="export-include"><input id="export-graphs" type="checkbox" /> Include visible graphs</label></fieldset>
+    <p class="export-note">H.264 MP4 · 30 frames/second · Recording time is not physical growth time.</p>
+    <progress id="export-progress" max="1" value="0" hidden></progress><p id="export-message" role="status">Turn on Graphs in the single view to include them in the video.</p>
+    <div class="export-actions"><button id="close-export" type="button">Close</button><a id="download-mp4" hidden>Save MP4 again</a><button id="start-export" type="button">Create MP4</button></div>
+  </dialog>
   <dialog id="crystal-browser" aria-labelledby="gallery-title" aria-describedby="gallery-description">
     <div class="gallery-heading"><div><p class="eyebrow">THE GROWTH LIBRARY</p><h2 id="gallery-title">Find your next crystal.</h2><p id="gallery-description">Choose a shape. Watch it grow in your current view.</p></div><button id="gallery-close" type="button" aria-label="Close crystal browser">Close ×</button></div>
     <div class="gallery-tools">

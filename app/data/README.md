@@ -116,3 +116,36 @@ Ion Bloom, Timeglass and the existing Timeglass gallery previews retain their re
 
 Run `node app/scripts/growth-structure-smoke.mjs` against the built preview on port 5192 for the
 representative new-view checks; `DENDRITE_STUDY_URL` can select another running page.
+
+## Optional graphs and MP4 export
+
+In any single view, open **Graphs** below the animation and select any combination of:
+
+- **Attached sites**: how many recorded sites have appeared by the current playhead.
+- **New attachments**: additions during the current one-percent interval of the recording,
+  excluding the sites already present at the start. The current interval fills as it plays.
+- **Outward reach**: the furthest attached site from the recorded origin, in lattice units.
+
+The cursor and values follow playback and backward seeking. Click a graph to scrub, or focus it
+and use the arrow keys. Graph choices persist while switching crystals and views. Composed
+scenes report instances and distance from their scene origin, on the normalized scene clock.
+The muted trace shows the full recording as a reference. Counts are not mass and recording
+intervals are not physical time. These are derived, unvalidated model-recording statistics.
+
+**Export MP4** creates a complete growth cycle using the current view, camera and rendering
+controls. Choose a total duration of 10, 20 or 30 seconds and 720p or 1080p; optionally include
+the visible graphs beside the crystal. The final two seconds hold the completed shape. Export
+uses H.264 in a real MP4 container at 30 frames per second, with fixed frame timestamps rather
+than the screen's playback cadence. A download starts when it finishes; **Save MP4 again**
+remains available in the dialog. Cancelling or completing restores playback and the playhead.
+Encoding happens on the device and requires browser H.264 encoding support; an unsupported
+browser receives a useful error. No animation data is uploaded.
+
+`growth-statistics.ts` derives checkpoint samples and exact reach change points in the loader
+worker. `growth-graphs.ts` shares graph drawing between the screen and exported video.
+`growth-video.ts` loads the pinned Mediabunny encoder/muxer integration only when exporting.
+Run `node app/scripts/growth-insights-smoke.mjs` against the built preview on port 5192 for
+graph interactions, independent composed-recording statistics, cancellation/restoration,
+mobile layout and decoded 720p/1080p MP4 checks. Set `DENDRITE_STUDY_URL` for a different page;
+the smoke requires FFmpeg/FFprobe on PATH. Outputs are local product scratch under
+`out/growth-insights/`, not scientific evidence.

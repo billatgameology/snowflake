@@ -142,7 +142,7 @@ detail.
   previews, zero full recording downloads on browse-first entry and no unexpected errors
   (`out/growth-gallery/browser-smoke.json`). Keyboard focus, phone layout, selection, playback,
   filter/scroll retention and broken-image fallback pass. Next: open the gallery link below.
-- **Last updated:** 2026-09-04 (completed Growth Front and Crystal Cast render approaches;
+- **Last updated:** 2026-09-04 (completed optional recording graphs and MP4 export;
   no phase or scientific-evidence change)
 - **New render approaches are complete.** Growth Front (a moving interval of recent attachments)
   and Crystal Cast (sculptural relief with movable light) replace Darkfield and Chronograph.
@@ -151,11 +151,15 @@ detail.
   errors across direct, axial and composed forms. Focused tests, typecheck, Rule 7 and app build
   pass. Next: use the new View choices and their window/light controls. Ion Bloom, Timeglass,
   the gallery, original recording data and Timeglass thumbnails are retained.
-- **Optional graphs and MP4 export are in progress.** The maker requests focused-view statistics
-  and video export. The final [visual-study follow-up](plans/dendrite-visual-studies.md) registers
-  attached-site, interval-attachment and outward-reach graphs plus browser-local frame-based
-  H.264/MP4 export with optional graphs. Next: implement and verify quantities, controls and a
-  real exported file. The new computed readouts require Rule 6's exact `npm test` check.
+- **Optional graphs and MP4 export are complete.** Single views offer attached-site,
+  interval-attachment and outward-reach graphs with independent toggles and synchronized seeking.
+  **Export MP4** creates the current treatment/camera in H.264, with optional graphs. Actual UI
+  downloads pass 720p/1080p stream decoding; composed statistics, cancellation/restoration and
+  mobile checks pass (`out/growth-insights/browser-smoke.json`). Exact `npm test` passed:
+  143 files, 2,248 tests passed / 49 skipped (`out/growth-insights/npm-test-final.log`, exit 0).
+  Build passed. The [visual-study follow-up](plans/dendrite-visual-studies.md) records the controls,
+  canonical Windows temporary-path fix and earlier rejected attempts. Next: use the controls below
+  the single animation. No solver or source recording has changed.
 
 ## Phase gates
 
@@ -193,6 +197,8 @@ and the focused browsing checks in `out/growth-gallery/browser-smoke.json`; it d
 the earlier renderer sweep. The plan's gallery follow-up records the current browsing UI.
 The subsequent structural-rendering pass replaces the two retired treatments and records its
 representative controls/render checks in `out/growth-structure/browser-smoke.json`.
+The completed graphs/export follow-up adds recording-derived readouts and actual MP4 downloads;
+its browser and required full-check records are in `out/growth-insights/` as named above.
 No solver, scientific evidence, source acceptance or phase state changed.
 
 [phase-6-science-first-completion.md](plans/phase-6-science-first-completion.md) is the completed Phase 6 record (see its Completion record).
@@ -237,7 +243,11 @@ remains usable. For already restored producer output, see `app/data/README.md` a
 `GROWTH_STUDY_CATALOG_ROOT`. Timeglass is the default view.
 For the new approaches, start at `dendrite-styles.html?style=2&crystal=named-stellar-dendrites-baseline`
 and adjust **Recent window**, or choose **Crystal Cast** and **Move the light**. Both use the
-selected gallery recording. The plan's final follow-up records the completed replacement work.
+selected gallery recording. Open **Graphs** below any single animation to toggle attached sites,
+new attachments and outward reach, or click a chart to scrub. **Export MP4** offers 720p/1080p,
+10/20/30-second complete-growth clips and optional visible graphs. It retains the current
+camera/rendering controls and restores playback after export. The plan's final follow-up records
+the completed graphs/export work; `app/data/README.md` has usage and browser requirements.
 
 ### Phase 10 — planning complete; maker package selection pending
 

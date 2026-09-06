@@ -485,8 +485,78 @@ to export that view as MP4. Reuse this task branch/worktree; its opening tree is
 
 ### Next step
 
-Implement worker statistics, chart controls and frame-based export; check recorded quantities and
-the downloaded MP4, then update the viewing instructions and completion record.
+Complete. Open **Graphs** or **Export MP4** below the animation in any single view at
+`http://127.0.0.1:5191/dendrite-styles.html`. Viewing and reproduction instructions are in
+`app/data/README.md`. No implementation or required verification remains for this request.
+
+### Implementation and verification record
+
+`growth-statistics.ts` computes checkpoint counts, maximum distance and exact reach change points
+in the existing loader worker. `growth-graphs.ts` draws independently selectable graphs and
+shares its drawing with MP4 export. The current interval counts only attachments that have
+already appeared; the muted reference shows complete intervals. Direct sites and composed
+instances have distinct labels, and the starting count is excluded from new attachments.
+The graphs clear immediately during a source change. Click and keyboard scrubbing pause playback.
+
+`growth-video.ts` loads pinned `mediabunny@1.55.7` only on export, following its official
+[writing-media documentation](https://mediabunny.dev/guide/writing-media-files). It renders the
+selected camera/style/window/light into clean video framing, adds any selected graphs, and
+encodes explicit frame timestamps through WebCodecs into H.264/MP4. Resolution, duration and
+bitrate constrain the in-memory export. Progress and cancellation remain responsive; success,
+cancellation and unsupported-encoder failure restore the prior playback state. No source
+recording, solver, scientific evidence or NAS payload changes.
+
+The initial browser checks downloaded real MP4 files and independently counted the decoded
+Radiating Dendrites composed scene. Final review then found an exact-percentage interval rounding
+edge case; the regression now compares against the original checkpoint fractions. The final
+browser rerun adds those percentage boundaries. `npm run build --workspace app` passed after
+that correction (`out/growth-insights/build-final.log`). Exact `npm test` passed with canonical
+Windows temporary paths: 143 files passed; 2,248 tests passed and 49 skipped, in 445.11 seconds
+(`out/growth-insights/npm-test-final.log`, exit 0 in `npm-test-final.exit`). This includes the
+Rule 7 scan, both typechecks and the independent statistics/timeline controls. The final prose
+scan also passed (`out/growth-insights/rule7-final.log`). No scientific gate or simulation ran.
+
+Final browser command (no app edits or dev reload during capture):
+
+```powershell
+$env:DENDRITE_STUDY_URL = 'http://127.0.0.1:5191/dendrite-styles.html'
+node app/scripts/growth-insights-smoke.mjs
+```
+
+`out/growth-insights/browser-smoke.json` / `.log` report no unexpected browser errors. The
+independent composed-source calculation matches nine playheads, including the corrected
+percentage boundaries. At the final playhead it reports 5,140,734 instances and outward reach
+202.8000085831387 lattice units from the scene origin. These are recording-derived quantities,
+not validation evidence. Graph toggles, click/keyboard seeking, choices across source/view
+changes, cleared loading readouts, comparison visibility, paused/running cancellation,
+successful restoration, unsupported-encoder error and mobile layout all pass.
+
+The same report records FFprobe results for downloaded `timeglass-with-graphs.mp4` (H.264,
+1280 × 720, 4,726,864 bytes) and `crystal-cast-1080p.mp4` (H.264, 1920 × 1080, 2,659,837 bytes).
+Both contain 300 frames at 30 frames/second and last 10 seconds; FFmpeg decoded each complete
+stream without error. The author inspected decoded video frames, desktop graphs and mobile
+graphs/export screenshots. These are observations on this Windows/Chromium host. The export
+timing unit control separately covers all offered durations; actual full-file checks use the
+shortest duration at both resolutions. `node --check app/scripts/growth-insights-smoke.mjs`
+and `git diff --check` also pass.
+
+The first exact `npm test` failed (`out/growth-insights/npm-test.log`): this host's inherited
+`TEMP`/`TMP` resolve through the Windows short alias `HIL_AD~1`, which the existing evidence
+guards correctly reject. The check also exposed a stale hardcoded progress date. The progress
+test now requires one valid ISO date and permits the session date to advance, with missing,
+duplicate and invalid-date controls; all scientific status and archive pins remain intact.
+The final check sets both process-local environment variables to the canonical path before
+running exact `npm test`:
+
+```powershell
+$env:TEMP = 'C:\Users\HIL_ADMIN\AppData\Local\Temp'
+$env:TMP = $env:TEMP
+npm test
+```
+
+The first canonical-path rerun (`npm-test-canonical-temp.log`) was stopped by this session before
+completion to apply the interval-boundary fix; it is not a completed check. The subsequent
+`npm-test-final.log` / `.exit` are the final check record. Evidence guards were not changed.
 
 ### Tried and rejected
 
@@ -494,3 +564,13 @@ the downloaded MP4, then update the viewing instructions and completion record.
   replay clock; neither label is earned by counting sites per playback interval.
 - Renaming WebM to MP4 or relying on screen-recording frame cadence: use actual MP4 muxing and
   explicit frame timestamps so the requested output format and full growth sequence are retained.
+- Deferring the graph's local playhead update until animation repaint made a rapid keyboard seek
+  use the previous click position. Update it synchronously before invoking the shared seek.
+- `ceil(progress * 100)` moved exact percentage boundaries into the next interval when the
+  multiplication rounded upward. Compare with the same checkpoint fractions used for sampling;
+  independent controls cover every checkpoint and the immediately following partial interval.
+- One preview smoke encountered a vanished dynamic chunk while build output was being replaced.
+  The completed live-page smoke uses port 5191 without concurrent app edits; do not rebuild a
+  preview's bundle while testing an open export dialog against it.
+- Relaxing alias/junction evidence guards to accommodate a short Windows temporary path: use
+  canonical process-local `TEMP` and `TMP` instead. A partial rerun is not full-suite evidence.

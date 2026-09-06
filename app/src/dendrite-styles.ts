@@ -5,6 +5,9 @@ import { installGrowthPicker } from "./growth-study-picker.ts";
 import { growthStudyLabel, growthStudyTilt, type GrowthStudyEntry } from "./growth-study-library.ts";
 import { dendriteVertex, dendriteFragment } from "./dendrite-shaders.ts";
 import { GrowthSculpture, recentEventRange } from "./growth-sculpture.ts";
+import { installGrowthGraphs } from "./growth-graphs.ts";
+import { installVideoExport } from "./growth-video.ts";
+import { recordingStatsAt } from "./growth-statistics.ts";
 import "./dendrite-styles.css";
 
 const query = new URLSearchParams(location.search);
@@ -34,6 +37,7 @@ let hold = 0;
 let disposed = false;
 let frameId = 0;
 let dirty = true;
+let graphs: ReturnType<typeof installGrowthGraphs> | undefined;
 addEventListener("resize", () => { dirty = true; });
 addEventListener("scroll", () => { dirty = true; }, { passive: true });
 addEventListener("pageshow", () => { dirty = true; previous = performance.now(); });
@@ -43,6 +47,7 @@ document.addEventListener("visibilitychange", () => { dirty = true; previous = p
 function updateLayout(): void {
   dirty = true;
   document.body.classList.toggle("focused", focused);
+  graphs?.setFocused(focused);
   document.querySelector<HTMLElement>(".window-control")!.hidden = !focused || selected !== 2;
   document.querySelector<HTMLElement>(".light-control")!.hidden = !focused || selected !== 3;
   cards.forEach((card, index) => card.classList.toggle("selected", index === selected));
@@ -89,7 +94,7 @@ el("fullscreen").onclick = () => {
   void request.catch(() => { status.textContent = "Fullscreen is unavailable in this browser. Focus view is still available."; status.classList.remove("ready"); });
 };
 document.addEventListener("keydown", event => {
-  if (document.querySelector<HTMLDialogElement>("#crystal-browser")?.open) return;
+  if (document.querySelector<HTMLDialogElement>("#crystal-browser")?.open || document.querySelector<HTMLDialogElement>("#video-export")?.open) return;
   if (play.disabled) return;
   if (event.target instanceof HTMLInputElement || event.target instanceof HTMLSelectElement || event.target instanceof HTMLButtonElement || event.target instanceof HTMLDetailsElement) return;
   if (event.code === "Space") { event.preventDefault(); setPlaying(!playing); }
@@ -134,6 +139,10 @@ async function start(): Promise<void> {
   let resumeAfterBrowse = false;
   let graphicsReady = true;
   let renderedData: DendriteData | null = null;
+  let exporting = false;
+  let exportSnapshot: { progress: number; playing: boolean; pixelRatio: number } | null = null;
+  graphs = installGrowthGraphs(value => { setPlaying(false); seek(value); }, () => { dirty = true; });
+  graphs.setFocused(focused);
   const uniforms = {
     playhead: { value: 0 }, finalTick: { value: 1 },
     pixelsPerUnit: { value: 1 }, style: { value: 0 }, halo: { value: 0 },
@@ -153,10 +162,11 @@ async function start(): Promise<void> {
   const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0.1, 10000);
   let width = 0;
   let height = 0;
-  function render(): void {
+  function render(outputSize?: { width: number; height: number }): void {
     if (!graphicsReady) return;
-    if (width !== innerWidth || height !== innerHeight) {
-      width = innerWidth; height = innerHeight;
+    const targetWidth = outputSize?.width ?? innerWidth, targetHeight = outputSize?.height ?? innerHeight;
+    if (width !== targetWidth || height !== targetHeight) {
+      width = targetWidth; height = targetHeight;
       renderer.setSize(width, height, false);
     }
     renderer.setScissorTest(false);
@@ -168,7 +178,7 @@ async function start(): Promise<void> {
     renderer.setScissorTest(true);
     views.forEach((viewport, index) => {
       if (focused && selected !== index) return;
-      const rect = viewport.getBoundingClientRect();
+      const rect = outputSize ? new DOMRect(0, 0, width, height) : viewport.getBoundingClientRect();
       if (rect.bottom < 0 || rect.top > height || rect.width === 0) return;
       const aspect = rect.width / rect.height;
       const extent = data.extent * 1.16 / Math.min(aspect, 1);
@@ -193,15 +203,38 @@ async function start(): Promise<void> {
       renderer.render(scene, camera);
     });
     renderer.setScissorTest(false);
+    if (!outputSize) graphs?.draw(progress);
     if (!renderer.getContext().isContextLost()) renderedData = data;
   }
   const capture = {
     get ready() { return currentData !== null && renderedData === currentData && !loading && graphicsReady; },
     seek: (fraction: number) => { setPlaying(false); seek(fraction); render(); },
     focus: (index: number | null) => { focused = index !== null; selected = index ?? selected; yaw = tilt = 0; updateLayout(); render(); },
-    get state() { return { progress, playing, selected, focused, loading, crystalId: currentEntry?.id, visible: currentData ? visibleEventCount(currentData.ticks, progress * currentData.finalTick) : 0, eventCount: currentData?.eventCount, sourceSha256: currentData?.sourceSha256, vertical: currentData?.vertical, geometries: renderer.info.memory.geometries, recent: currentData ? recentEventRange(currentData, progress, Number(el<HTMLInputElement>("growth-window").value) / 100) : null }; },
+    get state() { return { progress, playing, selected, focused, loading, exporting, crystalId: currentEntry?.id, visible: currentData ? visibleEventCount(currentData.ticks, progress * currentData.finalTick) : 0, eventCount: currentData?.eventCount, sourceSha256: currentData?.sourceSha256, vertical: currentData?.vertical, geometries: renderer.info.memory.geometries, recent: currentData ? recentEventRange(currentData, progress, Number(el<HTMLInputElement>("growth-window").value) / 100) : null, statistics: currentData && graphs?.statistics ? recordingStatsAt(currentData, graphs.statistics, progress) : null, graphs: graphs?.visibleKinds }; },
   };
   if (query.has("capture")) (window as unknown as { dendriteStudy: typeof capture }).dendriteStudy = capture;
+  installVideoExport({
+    describe: () => {
+      if (!currentData || !currentEntry || !graphs?.statistics || loading || !focused) throw new Error("Choose a crystal in the single view before exporting.");
+      return { id: currentEntry.id, title: growthStudyLabel(currentEntry), style: names[selected]!, composed: currentEntry.source === "named-compose", data: currentData, statistics: graphs.statistics, graphs: graphs.visibleKinds };
+    },
+    begin: () => {
+      exportSnapshot = { progress, playing, pixelRatio: renderer.getPixelRatio() };
+      exporting = true; setPlaying(false); renderer.setPixelRatio(1);
+    },
+    frame: (frameWidth, frameHeight, at) => {
+      if (!graphicsReady || disposed) throw new Error("Graphics were interrupted. Restore the view and try exporting again.");
+      seek(at); render({ width: frameWidth, height: frameHeight });
+      return canvas;
+    },
+    restore: () => {
+      const snapshot = exportSnapshot; exportSnapshot = null; exporting = false;
+      if (!snapshot || disposed) return;
+      renderer.setPixelRatio(snapshot.pixelRatio); width = height = 0;
+      seek(snapshot.progress); setPlaying(snapshot.playing && graphicsReady && !motion.matches);
+      previous = performance.now(); render(); dirty = false;
+    },
+  });
   async function selectCrystal(entry: GrowthStudyEntry): Promise<void> {
     const version = ++loadVersion;
     pendingLoad?.abort();
@@ -209,10 +242,12 @@ async function start(): Promise<void> {
     loading = true;
     dirty = true;
     setPlaying(false);
+    el<HTMLButtonElement>("export-mp4").disabled = el<HTMLButtonElement>("toggle-graphs").disabled = true;
     play.disabled = replay.disabled = timeline.disabled = true;
     el("retry").hidden = true;
     status.classList.remove("ready");
     status.textContent = `Loading ${growthStudyLabel(entry)}…`;
+    graphs!.clear();
     el("crystal-title").textContent = growthStudyLabel(entry);
     el("source").textContent = "";
     el("recording-kind").textContent = "";
@@ -229,6 +264,7 @@ async function start(): Promise<void> {
       geometry = nextGeometry;
       currentData = data;
       currentEntry = entry;
+      graphs!.setData(data, data.statistics, entry.source === "named-compose");
       uniforms.finalTick.value = data.finalTick;
       camera.far = data.extent * 12;
       camera.position.set(0, 0, data.extent * 5);
@@ -240,6 +276,7 @@ async function start(): Promise<void> {
         setPlaying(false);
       } else setPlaying(!motion.matches);
       play.disabled = replay.disabled = timeline.disabled = false;
+      el<HTMLButtonElement>("export-mp4").disabled = el<HTMLButtonElement>("toggle-graphs").disabled = false;
       status.classList.add("ready");
       const composed = entry.source === "named-compose";
       el("recording-kind").textContent = composed ? "COMPOSED VIEW · Independently grown crystals, with recorded scene orientations and timing" : "DIRECT GROWTH · Recorded attachment history";
@@ -257,11 +294,11 @@ async function start(): Promise<void> {
     if (disposed) return;
     const delta = Math.min((now - previous) / 1000, 0.1);
     previous = now;
-    if (playing && !document.hidden && !loading) {
+    if (playing && !document.hidden && !loading && !exporting) {
       if (progress < 1) seek(progress + delta * Number(speed.value) / 22);
       else { hold += delta; if (hold > 3) seek(0); }
     }
-    if (!document.hidden && dirty) { render(); dirty = false; }
+    if (!document.hidden && dirty && !exporting) { render(); dirty = false; }
     frameId = requestAnimationFrame(animate);
   }
   canvas.addEventListener("webglcontextlost", event => {
