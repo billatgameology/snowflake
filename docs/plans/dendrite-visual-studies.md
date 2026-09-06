@@ -1,7 +1,7 @@
 # Plan — dendrite visual studies
 
 - **Phase:** maker-directed pre-Phase 7 presentation exploration; no phase gate
-- **Status:** complete; maker visual preference pending
+- **Status:** original studies complete; library extension in progress
 - **Started:** 2026-09-04
 - **Last touched:** 2026-09-04 by Codex
 
@@ -119,3 +119,33 @@ NAS publication or serving-policy changes, and changes to existing renders or ev
 - Capturing a film while editing a live Vite development page: a source save triggered a reload
   and destroyed the browser context during the first export. Export from the static production
   preview; the capture helper now also terminates its encoder if capture fails.
+
+## Follow-up — select the available growth library
+
+Maker direction, 2026-09-04: Timeglass is particularly promising; make the available animations
+selectable through all four views. Reuse this worktree and branch. This is presentation work.
+
+### Approach and done criteria
+
+- Commit a compact source manifest for the approved website library plus original Run B.
+  Preserve the earlier exclusion of the divergent Fig. 6 regrowth. The original single-dendrite
+  product asset remains the portable fallback when external local sources are absent.
+- Add a bounded Vite product plugin that packages only exact digest-matched, registered local
+  growth files into the existing presentation format. Development responses omit workstation
+  metadata; production builds emit the same product assets. Read local fleet/website files
+  only; the scientific NAS collection stays non-served. No new retained source copy or NAS
+  publication is created. Build outputs remain reproducible product scratch.
+- Add searchable selection, previous/next controls, linkable crystal identity, and a persistent
+  view choice. Timeglass becomes the default. Only one crystal is loaded at once; cancel stale
+  requests, decode in a worker, dispose replaced GPU geometry, and make load errors retryable.
+- Frame both planar and columnar crystals using their full extent. Keep positions, attachment
+  order, all original events and the rendering/physical-time distinction intact.
+- Verify the complete registered library can be packaged/decoded, test the bounded serving
+  handler and playback controls, and exercise rapid switching, deep links, missing assets,
+  a dendrite, a needle and a hollow column in Chromium. Run focused tests, typecheck, Rule 7
+  and app build; stop at these product-sized checks.
+
+### Next step
+
+Implement the source manifest, bounded product packaging and reusable loading path, then add
+the selector and inspect the non-planar framing before final product checks.
