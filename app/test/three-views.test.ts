@@ -2,10 +2,11 @@ import { describe, expect, it } from "vitest";
 import { studyFrame, studyPanes } from "../src/three-views.ts";
 import type { DendriteData } from "../src/dendrite-data.ts";
 
-describe("three camera presentation", () => {
+describe("two camera presentation", () => {
   it("places disjoint panes inside desktop, mobile, comparison and exported frames", () => {
     for (const [width, height] of [[1280, 690], [808, 552], [1212, 828], [354, 560], [620, 345]]) {
       const panes = studyPanes(width!, height!), entries = Object.values(panes);
+      expect(Object.keys(panes)).toEqual(["top", "detail"]);
       for (const box of entries) {
         expect(box.left).toBeGreaterThanOrEqual(0); expect(box.top).toBeGreaterThanOrEqual(0);
         expect(box.left + box.width).toBeLessThanOrEqual(width!); expect(box.top + box.height).toBeLessThanOrEqual(height!);
@@ -17,7 +18,9 @@ describe("three camera presentation", () => {
       }
       if (width! > 480) {
         expect(panes.detail.left).toBeGreaterThan(panes.top.left);
-        expect(panes.detail.top).toBeGreaterThan(panes.journey.top);
+        expect(panes.detail.top).toBe(0); expect(panes.detail.height).toBe(height!);
+      } else {
+        expect(panes.detail.width).toBe(width!); expect(panes.detail.top).toBeGreaterThan(panes.top.height);
       }
     }
   });

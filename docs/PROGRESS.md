@@ -19,29 +19,19 @@ detail.
 
 ## Current state
 
-- **Two Views simplification is in progress.** The maker wants Branch Journey removed and the
-  branch detail closer. The final [visual-study follow-up](plans/dendrite-visual-studies.md) keeps
-  the overview and expands the detail pane, with stronger default zoom. Next: implement and
-  check the browser/export layout while preserving the scrollbar cropping correction.
+- **Two Views is complete.** Branch Journey is removed,
+  and branch detail fills the right column with stronger default zoom. The final
+  [visual-study follow-up](plans/dendrite-visual-studies.md) records the change. Focused pane/data
+  tests, typecheck, Rule 7 and app build pass. The browser smoke verifies both panes, closer zoom,
+  seeking, graphs and export restoration, with zero colored pixels in all 16 gutter samples and
+  no unexpected browser errors (`out/two-views/browser-smoke.json`). Its actual 1080p MP4 decodes
+  successfully and was visually inspected. Next: open the Two Views link below.
 
-- **Branch journey and web pane-cropping correction are complete.**
-  The final [visual-study follow-up](plans/dendrite-visual-studies.md) replaces the static low angle
-  with a center-to-branch-tip camera journey and sizes rendering from the displayed canvas.
-  The reproduced divider sample has zero stray colored pixels (`out/branch-flight/visual-check.json`),
-  compared with 996 before the correction (`gutter-before.json` there). Focused camera/data tests
-  and typecheck pass. The built browser smoke passes all 16 sampled gutter checks, camera
-  seeking/restoration, phone layout and representative crystal forms with no unexpected errors
-  (`out/branch-flight/browser-smoke.json`). Its actual 1080p MP4 decodes successfully; center,
-  branch-travel and tip-orbit frames were inspected. Next: open Three Views below and press Replay.
-
-- **Three Views and centered Crystal Cast are complete.** Growth Front is replaced by a large
-  top view and two branch panes, with independent
-  pane rotation and detail zoom. Cast uses the correct offscreen pixel viewport. The
-  [visual-study follow-up](plans/dendrite-visual-studies.md) records nine passing centering samples
-  at device scales 1, 1.5 and 2, representative crystal/pane checks and no unexpected browser errors
-  (`out/three-views/browser-smoke.json`). Actual Three Views and Cast MP4s decode successfully.
-  Focused tests, typecheck, Rule 7 and build pass. Next: open the Three Views link below; graphs,
-  original recording coordinates and chronology are preserved.
+- **Web pane cropping and Crystal Cast centering are corrected.** Rendering uses displayed
+  canvas bounds and Cast's own offscreen pixel viewport. The preceding product checks are
+  preserved in `out/branch-flight/browser-smoke.json` and `out/three-views/browser-smoke.json`;
+  the final [visual-study follow-up](plans/dendrite-visual-studies.md) records the current
+  two-pane simplification. Source coordinates, chronology and graph calculations are preserved.
 
 - **Phase 6 is COMPLETE (2026-08-20).** The maker accepts the recorded failure to reproduce the
   Nakaya diagram as the phase's scientific finding. Decision
@@ -166,7 +156,7 @@ detail.
   previews, zero full recording downloads on browse-first entry and no unexpected errors
   (`out/growth-gallery/browser-smoke.json`). Keyboard focus, phone layout, selection, playback,
   filter/scroll retention and broken-image fallback pass. Next: open the gallery link below.
-- **Last updated:** 2026-09-04 (branch journey and web pane cropping;
+- **Last updated:** 2026-09-05 (two views and closer branch detail;
   no phase or scientific-evidence change)
 - **Optional graphs and MP4 export are complete.** Single views offer attached-site,
   interval-attachment and outward-reach graphs with independent toggles and synchronized seeking.
@@ -203,7 +193,7 @@ The maker-directed [growth visual studies](plans/dendrite-visual-studies.md), in
 newer named catalogue, are complete on `fix/animation-queue-windows-spawn` in `snowflake-animation`.
 `out/named-growth-studies/packaging.json` records 151 prepared/decoded replays, including all 99
 newer named entries. The gallery now offers collection and shape filtering; direct recordings and composed
-scenes share Ion Bloom, Timeglass, Three Views and Crystal Cast with explicit composition labels.
+scenes share Ion Bloom, Timeglass, Two Views and Crystal Cast with explicit composition labels.
 Focused tests, typecheck, Rule 7 and app build passed. The earlier production browser sweep records
 604 view renders and no unexpected errors (`out/named-growth-studies/browser-smoke.json`).
 Final camera/timing refinements passed 20 targeted live renders and the rebuilt-production
@@ -217,7 +207,8 @@ representative controls/render checks in `out/growth-structure/browser-smoke.jso
 The completed graphs/export follow-up adds recording-derived readouts and actual MP4 downloads;
 its browser and required full-check records are in `out/growth-insights/` as named above.
 The subsequent Three Views replacement and Cast centering use the representative product checks
-in `out/three-views/`, followed by the moving camera and scrollbar checks in `out/branch-flight/`;
+in `out/three-views/`, followed by the retired moving camera checks in `out/branch-flight/` and
+the current two-pane/cropping checks in `out/two-views/`;
 the earlier catalogue-wide sweep predates these rendering changes.
 No solver, scientific evidence, source acceptance or phase state changed.
 
@@ -262,14 +253,13 @@ beside it. Missing local source files remain visibly unavailable; the tracked or
 remains usable. For already restored producer output, see `app/data/README.md` and
 `GROWTH_STUDY_CATALOG_ROOT`. Timeglass is the default view.
 For the new composition, start at `dendrite-styles.html?style=2&crystal=sweep-t1-sharp`.
-**Three Views** shows the top view, a moving branch journey and a three-quarter branch close-up.
-The journey zooms into the center, travels outward and circles the growing tip. Drag panes
+**Two Views** shows the top view beside a closer three-quarter branch detail. Drag panes
 independently, double-click to reset a pane, or adjust **Detail zoom**. **Crystal Cast** is centered
 and retains **Move the light**. Open **Graphs** below any single animation to toggle attached sites,
 new attachments and outward reach, or click a chart to scrub. **Export MP4** offers 720p/1080p,
 10/20/30-second complete-growth clips and optional visible graphs. It retains the current
 camera/rendering controls and restores playback after export. The plan's final follow-up records
-the camera journey and pane-cropping checks; `app/data/README.md` has usage and browser requirements.
+the two-pane composition and closer detail checks; `app/data/README.md` has usage and browser requirements.
 
 ### Phase 10 — planning complete; maker package selection pending
 

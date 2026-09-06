@@ -5,11 +5,11 @@ import { execFileSync } from "node:child_process";
 import { chromium } from "playwright";
 import { studyPanes } from "../src/three-views.ts";
 
-const output = resolve(import.meta.dirname, "../../out/branch-flight");
+const output = resolve(import.meta.dirname, "../../out/two-views");
 mkdirSync(output, { recursive: true });
 const base = process.env.DENDRITE_STUDY_URL ?? "http://127.0.0.1:5192/dendrite-styles.html";
 const browser = await chromium.launch({ headless: true });
-const errors = [], centering = [], samples = [], cropping = [], journeys = [];
+const errors = [], centering = [], samples = [], cropping = [];
 const listen = page => {
   page.on("pageerror", e => errors.push(e.message));
   page.on("console", m => { if (m.type() === "error") errors.push(m.text()); });
@@ -42,13 +42,10 @@ async function pixels(page, part) {
 const reserveScrollbar = page => page.addStyleTag({ content: "html{overflow-y:scroll;scrollbar-gutter:stable}::-webkit-scrollbar{width:28px}" });
 async function cropped(page, label) {
   const box = await page.locator(".study.selected .viewport").boundingBox(), panes = studyPanes(box.width, box.height);
-  const stacked = panes.journey.left === panes.detail.left;
-  const gaps = stacked ? [
+  const gaps = panes.detail.left > 0 ? [
     { left: panes.top.width + 2, top: 2, width: 6, height: box.height - 4 },
-    { left: panes.journey.left + 2, top: panes.journey.height + 2, width: panes.journey.width - 4, height: 6 },
   ] : [
     { left: 2, top: panes.top.height + 2, width: box.width - 4, height: 6 },
-    { left: panes.journey.width + 2, top: panes.journey.top + 2, width: 6, height: panes.journey.height - 4 },
   ];
   const result = await page.evaluate(({ box, gaps }) => {
     const source = document.querySelector("#crystal-canvas"), display = source.getBoundingClientRect();
@@ -98,32 +95,29 @@ try {
   const page = await browser.newPage({ viewport: { width: 1440, height: 1200 }, deviceScaleFactor: 1.5, acceptDownloads: true }); listen(page);
   await page.goto(`${base}?capture=1&style=2&crystal=sweep-t1-sharp`); await loaded(page, "sweep-t1-sharp");
   await reserveScrollbar(page);
-  assert.doesNotMatch(await page.locator("body").innerText(), /Growth Front|Darkfield|Chronograph|low.angle/iu);
+  assert.doesNotMatch(await page.locator("body").innerText(), /Growth Front|Darkfield|Chronograph|low.angle|journey|Three Views/iu);
   assert.equal(await page.locator("#growth-window").count(), 0);
-  assert.equal(await page.locator("#view option[value='2']").innerText(), "Three Views");
+  assert.equal(await page.locator("#view option[value='2']").innerText(), "Two Views");
+  assert.equal(await page.locator("#detail-zoom").inputValue(), "4");
   for (const id of ["sweep-t1-sharp", "named-stellar-dendrites-baseline", "named-cups-baseline", "named-radiating-dendrites-baseline"]) {
     await page.locator("#crystal").selectOption(id, { force: true }); await loaded(page, id); await focus(page, 2);
     const box = await page.locator(".study.selected .viewport").boundingBox(), panes = studyPanes(box.width, box.height);
     const hashes = [];
-    for (const at of [0, .12, .24, .45, .68, .82, .92, 1, .45]) {
+    for (const at of [0, .35, .82, 1, .35]) {
       await seek(page, at); const current = await state(page);
       if (at === 1) assert.equal(current.visible, current.eventCount);
       assert.ok(current.geometries <= 2); hashes.push((await pixels(page)).hash);
-      journeys.push({ id, at, pose: current.journey, visible: current.visible });
-      if (id === "sweep-t1-sharp" && at > 0) await page.screenshot({ path: resolve(output, `checked-journey-${at}.png`) });
+      assert.deepEqual(Object.keys(current.paneAngles), ["top", "detail"]); assert.equal(current.journey, undefined);
       if (at === .82) {
         for (const [pane, rect] of Object.entries(panes)) {
           const sample = await pixels(page, rect); assert.ok(sample.colored > 100, `${id}/${pane} blank`);
           samples.push({ id, pane, ...sample });
         }
-        await page.screenshot({ path: resolve(output, `${id}-three.png`) });
+        await page.screenshot({ path: resolve(output, `${id}-two.png`) });
         await cropped(page, id);
       }
     }
-    assert.equal(hashes[3], hashes[8]); assert.notEqual(hashes[3], hashes[5]);
-    const poses = journeys.filter(sample => sample.id === id);
-    assert.deepEqual(poses[3].pose, poses[8].pose);
-    assert.ok(Math.abs(poses[7].pose.yaw - poses[4].pose.yaw - 2 * Math.PI) < 1e-9);
+    assert.equal(hashes[1], hashes[4]); assert.notEqual(hashes[1], hashes[2]);
   }
   await page.click("#browse-crystals"); await page.fill("#crystal-search", "sharpened");
   await page.click('[data-crystal="sweep-t1-sharp"]'); await loaded(page, "sweep-t1-sharp");
@@ -136,24 +130,20 @@ try {
   assert.deepEqual((await state(page)).paneAngles.top, initial.paneAngles.top);
   await page.mouse.dblclick(x, y); await seek(page, .82); assert.equal((await pixels(page, panes.detail)).hash, detailBefore.hash);
   await page.locator("#detail-zoom").fill("5"); await seek(page, .82); assert.notEqual((await pixels(page, panes.detail)).hash, detailBefore.hash);
-  await page.locator("#detail-zoom").fill("3.2"); await seek(page, .82);
+  await page.locator("#detail-zoom").fill("4"); await seek(page, .82);
   await page.click("#toggle-graphs"); await page.check('[data-graph="reach"]'); await seek(page, .62);
   assert.equal((await state(page)).statistics.attached, (await state(page)).visible);
   await cropped(page, "graphs open");
-  const beforeExport = await state(page);
   await page.click("#export-mp4"); await page.selectOption("#export-duration", "10"); await page.selectOption("#export-resolution", "1080");
   const downloaded = page.waitForEvent("download", { timeout: 180000 }); await page.click("#start-export");
-  const video = resolve(output, "three-views-with-graphs.mp4"); await (await downloaded).saveAs(video);
+  const video = resolve(output, "two-views-with-graphs.mp4"); await (await downloaded).saveAs(video);
   await page.waitForFunction(() => !window.dendriteStudy.state.exporting);
   assert.equal((await state(page)).progress, .62); assert.equal((await state(page)).playing, false); assert.deepEqual((await state(page)).paneAngles, initial.paneAngles);
-  assert.deepEqual((await state(page)).journey, beforeExport.journey);
+  assert.equal(await page.locator("#detail-zoom").inputValue(), "4");
   const movie = JSON.parse(execFileSync("ffprobe", ["-v", "error", "-show_entries", "stream=codec_name,width,height,nb_frames,r_frame_rate", "-show_entries", "format=duration,size", "-of", "json", video], { encoding: "utf8" }));
   assert.equal(movie.streams[0].codec_name, "h264"); assert.equal(movie.streams[0].height, 1080); assert.equal(movie.streams[0].nb_frames, "300");
   execFileSync("ffmpeg", ["-v", "error", "-i", video, "-f", "null", "-"], { stdio: "pipe" });
   execFileSync("ffmpeg", ["-y", "-v", "error", "-ss", "6", "-i", video, "-frames:v", "1", resolve(output, "export-frame.png")], { stdio: "pipe" });
-  for (const second of [1.6, 3.6, 5.76, 6.56, 7.36]) {
-    execFileSync("ffmpeg", ["-y", "-v", "error", "-ss", String(second), "-i", video, "-frames:v", "1", resolve(output, `export-${second}.png`)], { stdio: "pipe" });
-  }
   await page.click("#close-export");
   await seek(page, .62); await cropped(page, "restored after MP4");
   await page.setViewportSize({ width: 390, height: 844 });
@@ -167,6 +157,6 @@ try {
   await focus(page, 2); await page.emulateMedia({ reducedMotion: "reduce" }); await page.reload(); await loaded(page, "sweep-t1-sharp");
   assert.equal((await state(page)).playing, false); assert.equal((await state(page)).progress, .82);
   assert.deepEqual(errors, []);
-  const report = { base, centering, samples, cropping, journeys, movie, errors, checks: ["center zoom, branch travel, complete tip orbit", "three synchronized panes", "real branch target", "independent pane rotation/reset", "detail zoom", "retired controls removed", "direct/axial/composed forms", "deterministic backward seek", "gallery retention", "graphs", "DPR centering", "reserved scrollbar gutter pixels", "scroll/resize/comparison", "1080p MP4 with all panes and graphs", "restored pose and web cropping", "mobile", "reduced motion"] };
+  const report = { base, centering, samples, cropping, movie, errors, checks: ["two synchronized panes", "journey removed", "real branch target", "independent pane rotation/reset", "closer default detail zoom", "retired controls removed", "direct/axial/composed forms", "deterministic backward seek", "gallery retention", "graphs", "DPR centering", "reserved scrollbar gutter pixels", "scroll/resize/comparison", "1080p MP4 with both panes and graphs", "restored zoom and web cropping", "mobile", "reduced motion"] };
   writeFileSync(resolve(output, "browser-smoke.json"), JSON.stringify(report, null, 2)); console.log(JSON.stringify(report));
 } finally { await browser.close(); }

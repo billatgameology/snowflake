@@ -1,7 +1,7 @@
 # Plan — dendrite visual studies
 
 - **Phase:** maker-directed pre-Phase 7 presentation exploration; no phase gate
-- **Status:** simplifying to top view and closer branch detail
+- **Status:** complete, including two views and closer branch detail
 - **Started:** 2026-09-04
 - **Last touched:** 2026-09-05 by Codex
 
@@ -49,7 +49,7 @@ Run `npm run dev --workspace app -- --port 5191`, then open
 `http://127.0.0.1:5191/dendrite-styles.html`. The existing catalogue links to this page.
 It also ships in the app build and carries its own project-owned data, so a website sibling,
 NAS mount and solver process are unnecessary. Focus a card, drag to turn it, or scrub all
-four at the same tick. Three Views adds independent pane dragging and **Detail zoom**;
+four at the same tick. Two Views adds independent pane dragging and **Detail zoom**;
 Crystal Cast's **Move the light** control changes relief lighting while paused or playing.
 Reduced-motion visitors start on a paused still. The replacement follow-ups below supersede
 Darkfield, Chronograph and Growth Front; their completed records remain historical.
@@ -58,7 +58,7 @@ Darkfield, Chronograph and Growth Front; their completed records remain historic
 |---|---|---|
 | Ion Bloom | Bright mint light on recent attachments, older ice fades to blue | Opening growth shot; the author's preferred visual hook |
 | Timeglass | Persistent arrival-time colour with narrow temporal bands | Show that the shape contains a history |
-| Three Views | Top view, a center-to-tip camera journey and a magnified branch detail | Connect the whole silhouette to an outward journey through local structure |
+| Two Views | Top view beside a magnified branch detail | Connect the whole silhouette to local branch structure |
 | Crystal Cast | Projected surface relief, edge shaping and movable shadows | Make the branch structure and spaces between branches feel tangible |
 
 These are author judgments from inspected browser captures, not audience-test findings.
@@ -766,8 +766,32 @@ task worktree at `4b45d4e`. This is a bounded presentation change.
 
 ### Next step
 
-Remove the journey, expand the remaining detail pane and raise its default zoom, then run the
-focused product checks.
+Open `http://127.0.0.1:5191/dendrite-styles.html?style=2&crystal=sweep-t1-sharp` to use **Two Views**.
+The requested work and product checks are complete; **Detail zoom** remains adjustable.
+
+### Implementation and verification
+
+The treatment is now **Two Views**, with top and detail cameras only. Detail fills the right
+column on desktop and the lower row on phones. Its default zoom is 4 in
+`app/dendrite-styles.html`; the control remains adjustable. The journey implementation and its
+obsolete tests are removed. Both web and MP4 use the same pane layout and labels.
+
+`npx vitest run app/test/three-views.test.ts app/test/dendrite-data.test.ts` passed in the terminal.
+`npm run typecheck`, `npm run lint:rule7` and `npm run build --workspace app` passed, with logs in
+`out/two-views/typecheck.log`, `rule7.log` and `build.log`. The author inspected the sharp dendrite
+browser capture. No full scientific suite or solver run was needed or launched.
+
+`node app/scripts/three-views-smoke.mjs` passed on the built preview at port 5192
+(`out/two-views/browser-smoke.json` / `.log`). It verifies the two remaining cameras, closer default
+zoom, pane turns/reset, backward seeking, graphs and export restoration on representative direct,
+axial and composed recordings. All 16 gutter samples have zero colored pixels; reserved scrollbars,
+display scaling, resize/scroll, comparison and mobile checks pass, with no unexpected browser
+errors. Cast's nine sampled centering checks remain green in that report.
+
+The actual UI export `out/two-views/two-views-with-graphs.mp4` is H.264, 1920 × 1080, 300 frames
+at 30 fps, 10 seconds and 8,420,401 bytes (`browser-smoke.json`). FFmpeg decoded the full stream,
+and the author inspected its `export-frame.png` plus the desktop and phone browser captures.
+These are presentation checks, not scientific validation.
 
 ### Tried and rejected
 

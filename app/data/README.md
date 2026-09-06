@@ -99,23 +99,20 @@ visual audit; `growth-library.json` records that document's digest and navigatio
 Regenerate those display buckets with `node app/scripts/import-growth-browse-shapes.mjs`
 (optional argument: the audit JSON path). Named entries use their accepted catalogue names.
 
-## Three Views and Crystal Cast
+## Two Views and Crystal Cast
 
-The current views are Ion Bloom, Timeglass, Three Views and Crystal Cast. **Three Views** replaces
-Growth Front with a large top view, an upper-right moving branch journey, and a lower-right branch
-close-up. All three show the same recorded moment with Timeglass arrival colours. A marker on the
-top view identifies the detail center. Drag a pane to turn its camera independently, double-click
-to reset that pane, and use **Detail zoom** to adjust magnification. On narrow phone screens the
-two smaller panes sit below the top view.
+The current views are Ion Bloom, Timeglass, Two Views and Crystal Cast. **Two Views** shows a
+large top view beside a magnified branch detail. Both show the same recorded moment with
+Timeglass arrival colours. A marker on the top view identifies the detail center. Drag a pane
+to turn its camera independently, double-click to reset that pane, and use **Detail zoom** to
+adjust magnification (default 4). On narrow phone screens the detail sits below the top view.
 
 The close-up frames a fixed region as growth reaches it. Its center is a recorded site near one
 branch, selected from the complete recording; the target remains stable during playback and
 backward seeks. `three-views.ts` shares pane layout and labels between the player and MP4 export.
-The journey zooms into the center, travels outward along the selected branch and completes an
-orbit around its growing tip. `branch-journey.ts` derives camera targets from the recorded events;
-the shared growth playhead drives its motion, so pause, seeking and MP4 reproduce the same pose.
-Recorded Z height is preserved. On-screen rendering uses the canvas's displayed bounds so pane
-cropping stays aligned when the browser reserves a scrollbar gutter.
+Branch Journey has been removed. Recorded Z height is preserved. On-screen rendering uses the
+canvas's displayed bounds so pane cropping stays aligned when the browser reserves a scrollbar
+gutter.
 
 Crystal Cast reconstructs an artistic screen-space relief with a **Move the light** control.
 `app/src/growth-sculpture.ts` projects the same recorded geometry into a bounded shared mask and
@@ -128,8 +125,9 @@ Ion Bloom, Timeglass and the existing Timeglass gallery previews retain their re
 Run `node app/scripts/three-views-smoke.mjs` against the built preview on port 5192 for camera,
 centering, mobile and actual MP4 checks; `DENDRITE_STUDY_URL` can select another running page.
 The older `growth-structure-smoke.mjs` entry point delegates to this current check. Captures and
-logs under `out/branch-flight/` are reproducible product scratch, not scientific evidence;
-`out/three-views/` preserves the preceding static-camera checks.
+logs under `out/two-views/` are reproducible product scratch, not scientific evidence;
+`out/three-views/` preserves the initial three-camera checks, and `out/branch-flight/` preserves
+the retired journey checks.
 
 ## Optional graphs and MP4 export
 

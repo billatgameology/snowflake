@@ -19,7 +19,7 @@
       <select id="collection" hidden aria-hidden="true" tabindex="-1"><option value="all">All animations</option><option value="named">Named catalogue</option><option value="original">Earlier library</option></select>
       <select id="crystal" hidden aria-hidden="true" tabindex="-1" disabled><option>Loading the library…</option></select>
       <div class="crystal-nav"><button id="previous-crystal" type="button" aria-label="Previous crystal" disabled>←</button><button id="next-crystal" type="button" aria-label="Next crystal" disabled>→</button><span id="search-count"></span></div>
-      <label class="view-label">VIEW<select id="view"><option value="1" selected>Timeglass</option><option value="0">Ion Bloom</option><option value="2">Three Views</option><option value="3">Crystal Cast</option><option value="all">Compare all four</option></select></label>
+      <label class="view-label">VIEW<select id="view"><option value="1" selected>Timeglass</option><option value="0">Ion Bloom</option><option value="2">Two Views</option><option value="3">Crystal Cast</option><option value="all">Compare all four</option></select></label>
     </section>
     <div class="crystal-caption"><p id="crystal-title"></p><p id="library-note"></p></div>
     <p id="recording-kind"></p>
@@ -36,9 +36,9 @@
         <div class="card-footer"><p>A permanent colour signature of when each site joined.</p><span class="key spectrum">EARLY → LATE</span></div>
       </article>
       <article class="study" data-style="2">
-        <div class="card-heading"><span class="number">03</span><button class="style-name" type="button">Three Views <span>↗</span></button><span class="tag">ONE CRYSTAL. THREE ANGLES.</span></div>
-        <div class="viewport multi-viewport" aria-label="Synchronized top view, moving branch journey and branch close-up"><canvas id="study-overlay" aria-hidden="true"></canvas></div>
-        <div class="card-footer"><p>Keep the whole crystal in sight. Travel from its center to a branch tip.</p><span class="key multi">TOP · JOURNEY · DETAIL</span></div>
+        <div class="card-heading"><span class="number">03</span><button class="style-name" type="button">Two Views <span>↗</span></button><span class="tag">THE WHOLE. THE DETAIL.</span></div>
+        <div class="viewport multi-viewport" aria-label="Synchronized top view and branch close-up"><canvas id="study-overlay" aria-hidden="true"></canvas></div>
+        <div class="card-footer"><p>Keep the whole crystal in sight. Get closer to one branch.</p><span class="key multi">TOP · DETAIL</span></div>
       </article>
       <article class="study" data-style="3">
         <div class="card-heading"><span class="number">04</span><button class="style-name" type="button">Crystal Cast <span>↗</span></button><span class="tag">GROWTH YOU CAN ALMOST TOUCH</span></div>
@@ -56,12 +56,12 @@
       <div class="buttons"><button id="play" type="button" disabled>Pause</button><button id="replay" type="button" disabled>↺ Replay</button></div>
       <label class="scrubber"><span>SEED</span><input id="timeline" aria-label="Growth timeline" type="range" min="0" max="1000" value="0" disabled /><span>GROWN</span></label>
       <output id="position">0%</output>
-      <label class="render-control detail-control" hidden>DETAIL ZOOM<input id="detail-zoom" aria-label="Branch detail zoom" type="range" min="1.5" max="6" step="0.1" value="3.2" /><span>wide → close</span></label>
+      <label class="render-control detail-control" hidden>DETAIL ZOOM<input id="detail-zoom" aria-label="Branch detail zoom" type="range" min="1.5" max="6" step="0.1" value="4" /><span>wide → close</span></label>
       <label class="render-control light-control" hidden>MOVE THE LIGHT<input id="light-angle" aria-label="Light direction" type="range" min="0" max="360" value="130" /></label>
       <label class="speed-label">SPEED<select id="speed" aria-label="Playback speed"><option value="0.5">½×</option><option value="1" selected>1×</option><option value="2">2×</option></select></label>
       <button id="fullscreen" type="button">Fullscreen ⛶</button>
     </section>
-    <footer><p>RECORDED MODEL GROWTH · FOUR ARTISTIC WAYS TO SEE IT</p><details><summary>What am I seeing?</summary><p>Each site comes from recorded Gravner–Griffeath or G-G+ model growth and appears no earlier than its attachment tick. Composed views arrange independently grown crystals using the catalogue's recorded transforms and phase offsets; they are not one simulated crystal. Sites are not molecules. Ion Bloom and Timeglass use artistic light and colour. Three Views shows the same recording from above, in a moving branch journey and in a magnified branch detail. The journey zooms into the center, follows a branch outward and circles its growing tip, synchronized to playback. The marker identifies the detail center; each pane can be turned independently by dragging. Recorded height is preserved. Crystal Cast reconstructs a relief from the projected sites, adding artistic bevels and shadows; it is not simulated ice optics. Recorded site coordinates and explicit scene transforms are preserved at unit lattice Z scale. Playback seconds are presentation time, not physical growth time. This is model output, not validated laboratory growth.</p><p id="source"></p><p id="excluded"></p><p>Focus a study to drag its view. Double-click to reset. Space pauses; R replays; Escape returns to comparison. The same playhead drives all four studies.</p></details></footer>
+    <footer><p>RECORDED MODEL GROWTH · FOUR ARTISTIC WAYS TO SEE IT</p><details><summary>What am I seeing?</summary><p>Each site comes from recorded Gravner–Griffeath or G-G+ model growth and appears no earlier than its attachment tick. Composed views arrange independently grown crystals using the catalogue's recorded transforms and phase offsets; they are not one simulated crystal. Sites are not molecules. Ion Bloom and Timeglass use artistic light and colour. Two Views shows the same recording from above and in a magnified branch detail. The marker identifies the detail center; each pane can be turned independently by dragging. Recorded height is preserved. Crystal Cast reconstructs a relief from the projected sites, adding artistic bevels and shadows; it is not simulated ice optics. Recorded site coordinates and explicit scene transforms are preserved at unit lattice Z scale. Playback seconds are presentation time, not physical growth time. This is model output, not validated laboratory growth.</p><p id="source"></p><p id="excluded"></p><p>Focus a study to drag its view. Double-click to reset. Space pauses; R replays; Escape returns to comparison. The same playhead drives all four studies.</p></details></footer>
   </main>
   <dialog id="video-export" aria-labelledby="export-title" aria-describedby="export-description">
     <p class="eyebrow">TAKE THE GROWTH WITH YOU</p><h2 id="export-title">Export this view.</h2>

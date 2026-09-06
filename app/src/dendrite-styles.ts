@@ -6,7 +6,6 @@ import { growthStudyLabel, growthStudyTilt, type GrowthStudyEntry } from "./grow
 import { dendriteVertex, dendriteFragment } from "./dendrite-shaders.ts";
 import { GrowthSculpture } from "./growth-sculpture.ts";
 import { studyFrame, studyPanes, drawStudyOverlay, type StudyPane, type StudyFrame, type ViewBox } from "./three-views.ts";
-import { buildBranchJourney, journeyPose, type BranchJourney } from "./branch-journey.ts";
 import { installGrowthGraphs } from "./growth-graphs.ts";
 import { installVideoExport } from "./growth-video.ts";
 import { recordingStatsAt } from "./growth-statistics.ts";
@@ -26,7 +25,7 @@ const layout = el<HTMLButtonElement>("layout");
 const speed = el<HTMLSelectElement>("speed");
 const cards = [...document.querySelectorAll<HTMLElement>(".study")];
 const views = [...document.querySelectorAll<HTMLElement>(".viewport")];
-const names = ["Ion Bloom", "Timeglass", "Three Views", "Crystal Cast"];
+const names = ["Ion Bloom", "Timeglass", "Two Views", "Crystal Cast"];
 const motion = matchMedia("(prefers-reduced-motion: reduce)");
 let playing = !motion.matches;
 let selected = Math.max(0, Math.min(3, Math.floor(Number(query.get("style") ?? "1") || 0)));
@@ -35,7 +34,7 @@ let progress = motion.matches ? 0.82 : 0;
 let yaw = 0;
 let tilt = 0;
 const paneAngles: Record<StudyPane, { yaw: number; tilt: number }> = {
-  top: { yaw: 0, tilt: 0 }, journey: { yaw: 0, tilt: 0 }, detail: { yaw: 0, tilt: 0 },
+  top: { yaw: 0, tilt: 0 }, detail: { yaw: 0, tilt: 0 },
 };
 function resetCameras(): void {
   yaw = tilt = 0;
@@ -156,7 +155,6 @@ async function start(): Promise<void> {
   let currentData: DendriteData | null = null;
   let currentEntry: GrowthStudyEntry | null = null;
   let framing: StudyFrame | null = null;
-  let journey: BranchJourney | null = null;
   let detailMarker: { x: number; y: number } | null = null;
   const overlay = el<HTMLCanvasElement>("study-overlay");
   const exportCanvas = document.createElement("canvas");
@@ -233,18 +231,16 @@ async function start(): Promise<void> {
         renderer.setScissor(box.left, Math.max(0, height - box.bottom), box.width, Math.min(height, box.bottom) - Math.max(0, box.top));
         renderer.render(scene, camera);
       };
-      if (index === 2 && framing && journey) {
+      if (index === 2 && framing) {
         const panes = studyPanes(rect.width, rect.height);
-        const flight = journeyPose(journey, progress);
-        for (const kind of ["top", "journey", "detail"] as const) {
+        for (const kind of ["top", "detail"] as const) {
           const box = panes[kind], angle = paneAngles[kind];
           const pane = new DOMRect(rect.left + box.left, rect.top + box.top, box.width, box.height);
           if (pane.top >= height || pane.bottom <= 0) continue;
-          const turn = { tilt: (kind === "top" ? 0 : kind === "journey" ? flight.tilt : .95) + angle.tilt,
-            yaw: (kind === "journey" ? flight.yaw : kind === "detail" ? -.4 : Math.PI / 6) + angle.yaw };
-          const span = kind === "journey" ? flight.span
-            : data.extent * (kind === "detail" ? 1.16 / Number(el<HTMLInputElement>("detail-zoom").value) : 1.16);
-          draw(pane, turn, kind === "journey" ? flight.center : kind === "detail" ? framing.detail : framing.center, span, 1);
+          const turn = { tilt: (kind === "top" ? 0 : .95) + angle.tilt,
+            yaw: (kind === "detail" ? -.4 : Math.PI / 6) + angle.yaw };
+          const span = data.extent * (kind === "detail" ? 1.16 / Number(el<HTMLInputElement>("detail-zoom").value) : 1.16);
+          draw(pane, turn, kind === "detail" ? framing.detail : framing.center, span, 1);
           if (kind === "top") {
             const point = new THREE.Vector3(...framing.detail).applyMatrix4(group.matrixWorld).project(camera);
             detailMarker = { x: box.left + (point.x + 1) / 2 * box.width, y: box.top + (1 - point.y) / 2 * box.height };
@@ -254,7 +250,7 @@ async function start(): Promise<void> {
           const ratio = renderer.getPixelRatio();
           overlay.width = Math.round(rect.width * ratio); overlay.height = Math.round(rect.height * ratio);
           const ctx = overlay.getContext("2d")!; ctx.setTransform(ratio, 0, 0, ratio, 0, 0);
-          drawStudyOverlay(ctx, rect.width, rect.height, detailMarker, flight.stage);
+          drawStudyOverlay(ctx, rect.width, rect.height, detailMarker);
         }
         return;
       }
@@ -268,7 +264,7 @@ async function start(): Promise<void> {
     get ready() { return currentData !== null && renderedData === currentData && !loading && graphicsReady; },
     seek: (fraction: number) => { setPlaying(false); seek(fraction); render(); },
     focus: (index: number | null) => { focused = index !== null; selected = index ?? selected; resetCameras(); updateLayout(); render(); },
-    get state() { return { progress, playing, selected, focused, loading, exporting, crystalId: currentEntry?.id, visible: currentData ? visibleEventCount(currentData.ticks, progress * currentData.finalTick) : 0, eventCount: currentData?.eventCount, sourceSha256: currentData?.sourceSha256, vertical: currentData?.vertical, geometries: renderer.info.memory.geometries, framing, paneAngles, journey: journey ? journeyPose(journey, progress) : null, statistics: currentData && graphs?.statistics ? recordingStatsAt(currentData, graphs.statistics, progress) : null, graphs: graphs?.visibleKinds }; },
+    get state() { return { progress, playing, selected, focused, loading, exporting, crystalId: currentEntry?.id, visible: currentData ? visibleEventCount(currentData.ticks, progress * currentData.finalTick) : 0, eventCount: currentData?.eventCount, sourceSha256: currentData?.sourceSha256, vertical: currentData?.vertical, geometries: renderer.info.memory.geometries, framing, paneAngles, statistics: currentData && graphs?.statistics ? recordingStatsAt(currentData, graphs.statistics, progress) : null, graphs: graphs?.visibleKinds }; },
   };
   if (query.has("capture")) (window as unknown as { dendriteStudy: typeof capture }).dendriteStudy = capture;
   installVideoExport({
@@ -286,7 +282,7 @@ async function start(): Promise<void> {
       if (selected === 2) {
         if (exportCanvas.width !== frameWidth || exportCanvas.height !== frameHeight) { exportCanvas.width = frameWidth; exportCanvas.height = frameHeight; }
         const ctx = exportCanvas.getContext("2d")!; ctx.drawImage(canvas, 0, 0);
-        drawStudyOverlay(ctx, frameWidth, frameHeight, detailMarker, journey ? journeyPose(journey, at).stage : undefined);
+        drawStudyOverlay(ctx, frameWidth, frameHeight, detailMarker);
         return exportCanvas;
       }
       return canvas;
@@ -330,7 +326,6 @@ async function start(): Promise<void> {
       currentData = data;
       currentEntry = entry;
       framing = studyFrame(data);
-      journey = buildBranchJourney(data, framing);
       graphs!.setData(data, data.statistics, entry.source === "named-compose");
       uniforms.finalTick.value = data.finalTick;
       camera.far = data.extent * 12;
