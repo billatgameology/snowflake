@@ -26,6 +26,10 @@ detail.
   smoke pass (`out/main-integration/build-final.log`, `catalog-test.log`, `browser-smoke.json`).
   The [integration follow-up](plans/dendrite-visual-studies.md) records full-check and publication work;
   [PR #11](https://github.com/billatgameology/snowflake/pull/11) holds the live checks and merge record.
+  Exact `npm test` is **not green**: 35 failures / 2,308 passes / 49 skipped
+  (`out/main-integration/npm-test-final.log`). All 35 failing test names reproduce in an untouched
+  checkout of fetched main (`main-baseline-test.log`, `baseline-comparison.json` there). The app
+  checks pass; existing catalog test assumptions and Windows byte identities need separate repair.
 
 - **The animation history is published through the connected GitHub app.** The maker approved
   new commit IDs. The [commit map](animation-github-publication.json) records the ordered source
@@ -338,7 +342,8 @@ the package-specific prerequisites in its charter amendment and execution plan. 
 ### Growth visual studies — ready to use
 
 For integration status, open [PR #11](https://github.com/billatgameology/snowflake/pull/11): its
-Tests check and merge record govern publication. After merging, fetch `origin/main`; the viewing
+Tests check and merge record show publication. The existing main failures are recorded above;
+the maker's merge request proceeds on the verified unchanged failure set. Fetch `origin/main`; the viewing
 instructions below apply to the integrated app. No further product implementation is planned.
 
 Open `http://127.0.0.1:5191/dendrite-styles.html?browse=1` to see the thumbnail gallery. Search or

@@ -885,15 +885,18 @@ visual studies. Resolve shared Vite registration and progress-index changes expl
 - Inspect conflicts and the resulting diff. Run exact `npm test` for the combined scientific
   readout / incoming solver and evidence boundaries, plus the app build and representative browser
   smoke for shared app integration. No scientific gate or new production run is authorized.
-- Publish exact verified Git trees through the already approved GitHub app, create the PR, wait
-  for applicable GitHub checks, and merge with the tested head pinned. Fetch and verify main.
+- Publish exact verified Git trees through the already approved GitHub app, create the PR, inspect
+  applicable GitHub checks, and merge with the tested head pinned. Fetch and verify main. Existing
+  main failures reproduced independently are recorded below, not described as a passing suite;
+  no required status check or branch protection may be bypassed.
 - Done when the PR is merged and its animation head is reachable from remote main.
 
 ### Next step
 
 [PR #11](https://github.com/billatgameology/snowflake/pull/11) is the integration and merge record.
 If resuming this session, read its current state and Tests check before any merge attempt; the
-maker has already authorized merging after checks pass. After merge, fetch `origin/main` and use
+maker has already requested merging. The baseline comparison below records the known failures.
+After merge, fetch `origin/main` and use
 the visual-study viewing instructions above. No further product implementation is planned.
 
 ### Integration record
@@ -916,6 +919,26 @@ The full check command is exact `npm test`, with process-local `TEMP` and `TMP` 
 `out/main-integration/npm-test-final.log` and `npm-test-final.exit`. The PR's Tests check records
 the independent Ubuntu/Node 24 check and its result. These records, rather than this pre-merge
 note, determine whether the tested head is ready to merge.
+
+### Full-check result and existing-main comparison
+
+Exact `npm test` exited 1: 10 failed / 156 passed files, 35 failed / 2,308 passed / 49 skipped
+tests (`out/main-integration/npm-test-final.log`, `npm-test-final.exit`, copied at write time).
+All failing files are older named-catalog planning/acceptance tests. A detached checkout of
+`9722561524afc30e171b23089b06912742d2b9b8` at `out/main-integration/main-baseline` reran those
+same ten files: 35 failed / 12 passed. `main-baseline-test.log` records the exact failures, and
+`baseline-comparison.json` confirms the complete failing-test-name sets are equal. The implicated
+scripts and catalog inputs are unchanged from main. Failures include initial catalog-route/empty
+slot assumptions after final acceptance, and Windows checkout bytes against registered pins.
+
+Main's existing [Tests run](https://github.com/billatgameology/snowflake/actions/runs/33983406013)
+also failed before this PR, including the missing-scene startup issue corrected here. GitHub's
+main-branch response reports `protected: false` and no required status contexts. The requested
+merge proceeds with the independently reproduced existing failures documented; it does not
+claim full-suite success, disable checks, change scientific protocols or bypass protection.
+The PR workflow remains visible, and main's normal workflow runs after merging. Repairing the
+older catalog-test fixtures and byte preservation is a separate workstream; start with the
+failed files named in `baseline-comparison.json`, not by changing accepted catalog results.
 
 The integration-plan tree and combined merge tree were recreated through the connected GitHub
 app with exact SHA equality and the merge commit's two parents read back. Local integration
