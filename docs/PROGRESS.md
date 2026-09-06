@@ -24,7 +24,8 @@ detail.
   startup failure is corrected by validating generated Compose files on request; the hash and
   growth allowlist checks remain enforced. App build, fresh-checkout service tests and a browser
   smoke pass (`out/main-integration/build-final.log`, `catalog-test.log`, `browser-smoke.json`).
-  The [integration follow-up](plans/dendrite-visual-studies.md) records full-check and publication work.
+  The [integration follow-up](plans/dendrite-visual-studies.md) records full-check and publication work;
+  [PR #11](https://github.com/billatgameology/snowflake/pull/11) holds the live checks and merge record.
 
 - **The animation history is published through the connected GitHub app.** The maker approved
   new commit IDs. The [commit map](animation-github-publication.json) records the ordered source
@@ -335,6 +336,10 @@ the package-specific prerequisites in its charter amendment and execution plan. 
 ## Next step
 
 ### Growth visual studies — ready to use
+
+For integration status, open [PR #11](https://github.com/billatgameology/snowflake/pull/11): its
+Tests check and merge record govern publication. After merging, fetch `origin/main`; the viewing
+instructions below apply to the integrated app. No further product implementation is planned.
 
 Open `http://127.0.0.1:5191/dendrite-styles.html?browse=1` to see the thumbnail gallery. Search or
 filter by shape/collection, then click a card to play it in the current view. Use **Browse

@@ -891,8 +891,10 @@ visual studies. Resolve shared Vite registration and progress-index changes expl
 
 ### Next step
 
-The merge conflicts are resolved. Complete the full check, publish the combined tree and merge
-the requested PR after applicable checks pass.
+[PR #11](https://github.com/billatgameology/snowflake/pull/11) is the integration and merge record.
+If resuming this session, read its current state and Tests check before any merge attempt; the
+maker has already authorized merging after checks pass. After merge, fetch `origin/main` and use
+the visual-study viewing instructions above. No further product implementation is planned.
 
 ### Integration record
 
@@ -909,7 +911,16 @@ and `npm run build --workspace app` passes (`build-final.log` there). The repres
 smoke renders all four styles, checks the matching age legends and phone width, and reads both
 library indexes with unknown-scene refusal (`browser-smoke.json` there). Two Views was visually
 inspected. The new loopback integration server uses port 5193 (`dev-server.pid` there).
-The full check is running with canonical process-local Windows TEMP/TMP paths.
+The full check command is exact `npm test`, with process-local `TEMP` and `TMP` set to
+`C:\Users\HIL_ADMIN\AppData\Local\Temp`; its output and exit status are
+`out/main-integration/npm-test-final.log` and `npm-test-final.exit`. The PR's Tests check records
+the independent Ubuntu/Node 24 check and its result. These records, rather than this pre-merge
+note, determine whether the tested head is ready to merge.
+
+The integration-plan tree and combined merge tree were recreated through the connected GitHub
+app with exact SHA equality and the merge commit's two parents read back. Local integration
+commits are retained under `backup/animation-main-integration-original-20260906` before aligning
+with the published branch; the earlier animation backup and tracked commit map remain intact.
 
 ### Tried and rejected
 
