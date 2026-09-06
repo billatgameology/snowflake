@@ -840,7 +840,30 @@ target. The source worktree opens clean at `cd4ca7b`.
 
 ### Next step
 
-Inventory the committed changes and publish the verified objects/commit chain through GitHub.
+Continue work on `fix/animation-queue-windows-spawn` using its published commit IDs. Use
+`docs/animation-github-publication.json` to resolve the original IDs in historical plan records.
+Original local history is retained under `backup/animation-before-github-publication-20260906`.
+The stalled Credential Manager push has been stopped; publication uses the approved GitHub app.
+
+### Publication record
+
+The source inventory in `out/github-publication/inventory.json` contains the requested commits
+and the publication-plan commit. Every uploaded blob's returned SHA matches its local Git object
+(`uploaded.json` there). Each reconstructed tree matches the original tree SHA, and each created
+commit was independently read back to check its tree and remapped parent (`mapping.json` there).
+
+The durable [commit map](../animation-github-publication.json) records all 20 source commits through
+that plan, their original author/committer metadata, replacement IDs and identical tree SHAs.
+The source head `52f9b18e7d08b4480ac91b237bedd919f51ddc1f` maps to
+`0ae6ef5948c5c09f4bea2bbcf8a1f914ed565784`, sharing tree
+`3f220d514d2f6c907d85cbd9014308c2b475d4d9` (copied from that map). GitHub's branch ref was read back
+at that replacement head. The following verification-record commit carries its own Original-Commit
+trailer rather than trying to include itself in this map.
+
+The API route changes commit IDs and GitHub-generated authorship/timestamps, as approved. Original
+commit messages are preserved with an Original-Commit trailer, and the local backup retains the
+original Git history. This is source publication with no changed model code or scientific claim;
+no solver run, scientific suite or new animation export is required.
 
 ### Tried and rejected
 

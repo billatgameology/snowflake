@@ -19,10 +19,13 @@ detail.
 
 ## Current state
 
-- **Animation-branch publication through GitHub is in progress.** The maker approved new commit
-  IDs through the connected app. The [visual-study publication follow-up](plans/dendrite-visual-studies.md)
-  preserves the local originals, replays the ordered commits and verifies exact file trees before
-  publishing `fix/animation-queue-windows-spawn`. Next: upload and verify the committed objects.
+- **The animation history is published through the connected GitHub app.** The maker approved
+  new commit IDs. The [commit map](animation-github-publication.json) records the ordered source
+  sequence through its publication plan, with identical file-tree SHAs checked for each replacement.
+  The branch is `fix/animation-queue-windows-spawn`; the local originals are retained under
+  `backup/animation-before-github-publication-20260906`. The
+  [publication follow-up](plans/dendrite-visual-studies.md) records the checks. Next: continue
+  from the published branch and use the map when resolving references to original commit IDs.
 
 - **Two Views is complete.** Branch Journey is removed,
   and branch detail fills the right column with stronger default zoom. The final
@@ -163,7 +166,7 @@ detail.
   previews, zero full recording downloads on browse-first entry and no unexpected errors
   (`out/growth-gallery/browser-smoke.json`). Keyboard focus, phone layout, selection, playback,
   filter/scroll retention and broken-image fallback pass. Next: open the gallery link below.
-- **Last updated:** 2026-09-06 (matching Two Views and Timeglass color-age legends;
+- **Last updated:** 2026-09-06 (animation history published through GitHub with new commit IDs;
   no phase or scientific-evidence change)
 - **Optional graphs and MP4 export are complete.** Single views offer attached-site,
   interval-attachment and outward-reach graphs with independent toggles and synchronized seeking.

@@ -1,0 +1,232 @@
+{
+  "version": 1,
+  "repository": "billatgameology/snowflake",
+  "branch": "fix/animation-queue-windows-spawn",
+  "base": "4d96b08c40497da747e5958a4b9a97d1c65af3a3",
+  "sourceHead": "52f9b18e7d08b4480ac91b237bedd919f51ddc1f",
+  "publishedHistoryHead": "0ae6ef5948c5c09f4bea2bbcf8a1f914ed565784",
+  "verifiedHistoryTree": "3f220d514d2f6c907d85cbd9014308c2b475d4d9",
+  "note": "User-approved publication via the connected GitHub app. Commit IDs and GitHub-generated author/committer metadata differ; original messages, parent order and exact file trees were retained. Original history is preserved in local backup/animation-before-github-publication-20260906. This map covers the source sequence through the publication plan; the subsequent verification-record commit identifies its own local original in its message.",
+  "commits": [
+    {
+      "original": "8598905c5d1b3995bd281706528ebbbe9c1c9af8",
+      "published": "9c9b99945d29dbe053c1a163d3e756122f021b0a",
+      "tree": "bfc0fb0afca5ed84090ba2d4a517c8dbabc7c761",
+      "originalParents": [
+        "4d96b08c40497da747e5958a4b9a97d1c65af3a3"
+      ],
+      "originalAuthor": "Bill Wang <101487342+billatgameology@users.noreply.github.com> 1788564616 -0700",
+      "originalCommitter": "Bill Wang <101487342+billatgameology@users.noreply.github.com> 1788564616 -0700",
+      "subject": "plan: explore dendrite attachment visual styles"
+    },
+    {
+      "original": "b50725b6240c9afcdeff796e51074cd6f5cc0faa",
+      "published": "82ee1c3be5e87cd63063da0a23fa7e4640eee450",
+      "tree": "775646bbfa37a2aa69c0088fd37cbb03a91be073",
+      "originalParents": [
+        "8598905c5d1b3995bd281706528ebbbe9c1c9af8"
+      ],
+      "originalAuthor": "Bill Wang <101487342+billatgameology@users.noreply.github.com> 1788565585 -0700",
+      "originalCommitter": "Bill Wang <101487342+billatgameology@users.noreply.github.com> 1788565585 -0700",
+      "subject": "feat: add four dendrite attachment visual studies"
+    },
+    {
+      "original": "7c478a75984c3f876f3222992f9865e843db852b",
+      "published": "f232f526ababf5cab3058b7caa5cec91d486a1c0",
+      "tree": "17abd4899037d6a85182d5107015b96803233f18",
+      "originalParents": [
+        "b50725b6240c9afcdeff796e51074cd6f5cc0faa"
+      ],
+      "originalAuthor": "Bill Wang <101487342+billatgameology@users.noreply.github.com> 1788566052 -0700",
+      "originalCommitter": "Bill Wang <101487342+billatgameology@users.noreply.github.com> 1788566052 -0700",
+      "subject": "plan: extend visual studies to the growth library"
+    },
+    {
+      "original": "529d36979cc04cb85de5fc4ddd8ee2de4e0eac69",
+      "published": "88b8b2362bf98789d5a97af811998c040f0276a4",
+      "tree": "e76c309e7936bca9828087d764ca1c8094dd0e17",
+      "originalParents": [
+        "7c478a75984c3f876f3222992f9865e843db852b"
+      ],
+      "originalAuthor": "Bill Wang <101487342+billatgameology@users.noreply.github.com> 1788567275 -0700",
+      "originalCommitter": "Bill Wang <101487342+billatgameology@users.noreply.github.com> 1788567275 -0700",
+      "subject": "feat: select growth animations in all four visual studies"
+    },
+    {
+      "original": "d62bbaf55312688c985d11f1b645029da4b6007e",
+      "published": "ffe627ce53dce9298c364faa888a4b0ec41d928e",
+      "tree": "7daf155a4f5f8e58912895289b825d5e1bd4b895",
+      "originalParents": [
+        "529d36979cc04cb85de5fc4ddd8ee2de4e0eac69"
+      ],
+      "originalAuthor": "Bill Wang <101487342+billatgameology@users.noreply.github.com> 1788568412 -0700",
+      "originalCommitter": "Bill Wang <101487342+billatgameology@users.noreply.github.com> 1788568412 -0700",
+      "subject": "plan: include the newer named catalogue in visual studies"
+    },
+    {
+      "original": "562e6e89302c5a0a8c8f4708fc307fa2415c6303",
+      "published": "d261b964433d4efe98a2b84c0172544cb7df46b0",
+      "tree": "8ac91775f609882b55460067ac4d1e47105f34ac",
+      "originalParents": [
+        "d62bbaf55312688c985d11f1b645029da4b6007e"
+      ],
+      "originalAuthor": "Bill Wang <101487342+billatgameology@users.noreply.github.com> 1788569731 -0700",
+      "originalCommitter": "Bill Wang <101487342+billatgameology@users.noreply.github.com> 1788569731 -0700",
+      "subject": "feat: add all 99 named animations to the four visual views"
+    },
+    {
+      "original": "ea84b7c153750a5a6e2e6fbf54908e1f54b4cd91",
+      "published": "318981e850da7619442da87266a471c164d80e27",
+      "tree": "6b2ef13810edaf34f8eefa9899134789ebada69c",
+      "originalParents": [
+        "562e6e89302c5a0a8c8f4708fc307fa2415c6303"
+      ],
+      "originalAuthor": "Bill Wang <101487342+billatgameology@users.noreply.github.com> 1788570121 -0700",
+      "originalCommitter": "Bill Wang <101487342+billatgameology@users.noreply.github.com> 1788570121 -0700",
+      "subject": "plan: browse growth animations through a visual gallery"
+    },
+    {
+      "original": "8be5af8c72a8b5690b3f1c2b2d49c835a96f7fa5",
+      "published": "cc726dae7339eb392eb17df26cd14776822c7c66",
+      "tree": "c875347e5a6ba7e3eee0667fea33ada9231a1815",
+      "originalParents": [
+        "ea84b7c153750a5a6e2e6fbf54908e1f54b4cd91"
+      ],
+      "originalAuthor": "Bill Wang <101487342+billatgameology@users.noreply.github.com> 1788571641 -0700",
+      "originalCommitter": "Bill Wang <101487342+billatgameology@users.noreply.github.com> 1788571641 -0700",
+      "subject": "feat: browse growth animations in a thumbnail gallery"
+    },
+    {
+      "original": "9ec34101212cd43924da6102dde28f211d8272e3",
+      "published": "c35d938f2e3e14d9c8c2fdd87c28191a3221714b",
+      "tree": "759fcc276bde090dcfe7207d6506438e669aa0d5",
+      "originalParents": [
+        "8be5af8c72a8b5690b3f1c2b2d49c835a96f7fa5"
+      ],
+      "originalAuthor": "Bill Wang <101487342+billatgameology@users.noreply.github.com> 1788571794 -0700",
+      "originalCommitter": "Bill Wang <101487342+billatgameology@users.noreply.github.com> 1788571794 -0700",
+      "subject": "plan: reveal growth fronts and sculptural crystal structure"
+    },
+    {
+      "original": "15bafc3c3fb9662dd59ce17ae33c78cdf635f5eb",
+      "published": "cd1025b14ae30d27a14590bad97475f58f469705",
+      "tree": "79cc241096e3e1b22f2d06d81a3ca85cd7a73487",
+      "originalParents": [
+        "9ec34101212cd43924da6102dde28f211d8272e3"
+      ],
+      "originalAuthor": "Bill Wang <101487342+billatgameology@users.noreply.github.com> 1788572757 -0700",
+      "originalCommitter": "Bill Wang <101487342+billatgameology@users.noreply.github.com> 1788572757 -0700",
+      "subject": "feat: reveal growth fronts and sculptural crystal casts"
+    },
+    {
+      "original": "9c2e6859fe053c0cd2954521067b4c6ef7af25c8",
+      "published": "b53656714a40e922831630ec5951955342f24b21",
+      "tree": "9a7b2504a3ed237c183c50f71d452e519eea7df4",
+      "originalParents": [
+        "15bafc3c3fb9662dd59ce17ae33c78cdf635f5eb"
+      ],
+      "originalAuthor": "Bill Wang <101487342+billatgameology@users.noreply.github.com> 1788573976 -0700",
+      "originalCommitter": "Bill Wang <101487342+billatgameology@users.noreply.github.com> 1788573976 -0700",
+      "subject": "plan: add recording graphs and MP4 view export"
+    },
+    {
+      "original": "b54fd94c8aa1b033df11b580139bd1238d7f362e",
+      "published": "d5db51fd83d9a93f1f34cc0cd2551afe77e0c928",
+      "tree": "5a879fa0173c738050957f5e909df35d853b4770",
+      "originalParents": [
+        "9c2e6859fe053c0cd2954521067b4c6ef7af25c8"
+      ],
+      "originalAuthor": "Bill Wang <101487342+billatgameology@users.noreply.github.com> 1788576143 -0700",
+      "originalCommitter": "Bill Wang <101487342+billatgameology@users.noreply.github.com> 1788576143 -0700",
+      "subject": "feat: add synchronized growth graphs and MP4 export"
+    },
+    {
+      "original": "b262c49004db1763e1d36da4c6a55f87df944159",
+      "published": "898ce3987c8921897fa0332e68fab726adc0f043",
+      "tree": "af27b52e0cd2296f8ae1193e78a1f6fe3c9f7b49",
+      "originalParents": [
+        "b54fd94c8aa1b033df11b580139bd1238d7f362e"
+      ],
+      "originalAuthor": "Bill Wang <101487342+billatgameology@users.noreply.github.com> 1788584600 -0700",
+      "originalCommitter": "Bill Wang <101487342+billatgameology@users.noreply.github.com> 1788584600 -0700",
+      "subject": "plan: add three camera views and center Crystal Cast"
+    },
+    {
+      "original": "b875b3a73d473d8fb4e4aff44a75b70b3fe8d607",
+      "published": "44f1e5f7cf2e779c30696c5395c2efbe2680f2d6",
+      "tree": "13f270c6a643c30c58643b16711749a1f4b48d17",
+      "originalParents": [
+        "b262c49004db1763e1d36da4c6a55f87df944159"
+      ],
+      "originalAuthor": "Bill Wang <101487342+billatgameology@users.noreply.github.com> 1788585885 -0700",
+      "originalCommitter": "Bill Wang <101487342+billatgameology@users.noreply.github.com> 1788585885 -0700",
+      "subject": "feat: add three-angle crystal view and correct Cast centering"
+    },
+    {
+      "original": "20daae8723459fc5796a233760cd526f6c5ba7fd",
+      "published": "566e0410b8eaa08495aea56d3c0e8cd4a0ed0e69",
+      "tree": "866888e6047ccbfcabf48084d1cdd73b5fd3b463",
+      "originalParents": [
+        "b875b3a73d473d8fb4e4aff44a75b70b3fe8d607"
+      ],
+      "originalAuthor": "Bill Wang <101487342+billatgameology@users.noreply.github.com> 1788586285 -0700",
+      "originalCommitter": "Bill Wang <101487342+billatgameology@users.noreply.github.com> 1788586285 -0700",
+      "subject": "plan: add branch camera journey and fix pane cropping"
+    },
+    {
+      "original": "4b45d4e75c24f06a9ede4a9caeaa566be378fa7c",
+      "published": "5f5fb2b57f83612d05c6b8a1a4981f89ea3db099",
+      "tree": "77e2eeed579b349cb742b6732a6bdc107fde2207",
+      "originalParents": [
+        "20daae8723459fc5796a233760cd526f6c5ba7fd"
+      ],
+      "originalAuthor": "Bill Wang <101487342+billatgameology@users.noreply.github.com> 1788587268 -0700",
+      "originalCommitter": "Bill Wang <101487342+billatgameology@users.noreply.github.com> 1788587268 -0700",
+      "subject": "feat: follow a growing branch and fix web pane cropping"
+    },
+    {
+      "original": "7ffe30ddf520fd98329e72d9b1f9baa74b6eeeea",
+      "published": "61f8f825dd07b1da427ff9c3afa87c46e0097a9d",
+      "tree": "a59973f8068cd91b789a3fbb5dc49ca593e0cbf1",
+      "originalParents": [
+        "4b45d4e75c24f06a9ede4a9caeaa566be378fa7c"
+      ],
+      "originalAuthor": "Bill Wang <101487342+billatgameology@users.noreply.github.com> 1788677571 -0700",
+      "originalCommitter": "Bill Wang <101487342+billatgameology@users.noreply.github.com> 1788677571 -0700",
+      "subject": "plan: simplify crystal composition to two views"
+    },
+    {
+      "original": "1a9dbf926180b5071e5e46526cab2e62fac1766d",
+      "published": "2cda1f41510d6afe50494ac09a20e9b366cce32a",
+      "tree": "09fd7552254c28c510bf566664ce019fae939996",
+      "originalParents": [
+        "7ffe30ddf520fd98329e72d9b1f9baa74b6eeeea"
+      ],
+      "originalAuthor": "Bill Wang <101487342+billatgameology@users.noreply.github.com> 1788677917 -0700",
+      "originalCommitter": "Bill Wang <101487342+billatgameology@users.noreply.github.com> 1788677917 -0700",
+      "subject": "feat: remove branch journey and enlarge crystal detail"
+    },
+    {
+      "original": "cd4ca7b0313e7de5d369acc19ef3d52e2c437b67",
+      "published": "5931777fa2378d0397e997ea1e88c55187a0379c",
+      "tree": "32c36d0f007a1d2252e109f8310fe4646309fbed",
+      "originalParents": [
+        "1a9dbf926180b5071e5e46526cab2e62fac1766d"
+      ],
+      "originalAuthor": "Bill Wang <101487342+billatgameology@users.noreply.github.com> 1788729422 -0700",
+      "originalCommitter": "Bill Wang <101487342+billatgameology@users.noreply.github.com> 1788729422 -0700",
+      "subject": "fix: match Two Views legend to Timeglass colors"
+    },
+    {
+      "original": "52f9b18e7d08b4480ac91b237bedd919f51ddc1f",
+      "published": "0ae6ef5948c5c09f4bea2bbcf8a1f914ed565784",
+      "tree": "3f220d514d2f6c907d85cbd9014308c2b475d4d9",
+      "originalParents": [
+        "cd4ca7b0313e7de5d369acc19ef3d52e2c437b67"
+      ],
+      "originalAuthor": "Bill Wang <101487342+billatgameology@users.noreply.github.com> 1788730025 -0700",
+      "originalCommitter": "Bill Wang <101487342+billatgameology@users.noreply.github.com> 1788730025 -0700",
+      "subject": "plan: publish animation history through GitHub app"
+    }
+  ]
+}
