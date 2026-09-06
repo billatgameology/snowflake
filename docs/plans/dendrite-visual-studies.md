@@ -1,7 +1,7 @@
 # Plan — dendrite visual studies
 
 - **Phase:** maker-directed pre-Phase 7 presentation exploration; no phase gate
-- **Status:** original studies complete; library extension in progress
+- **Status:** complete, including the selectable growth library
 - **Started:** 2026-09-04
 - **Last touched:** 2026-09-04 by Codex
 
@@ -145,7 +145,58 @@ selectable through all four views. Reuse this worktree and branch. This is prese
   a dendrite, a needle and a hollow column in Chromium. Run focused tests, typecheck, Rule 7
   and app build; stop at these product-sized checks.
 
+### Follow-up completion
+
+The existing page now opens in Timeglass and selects from the approved library, with search,
+previous/next, an explicit view selector and crystal/view identity retained in its URL.
+Known habits are shown beside figure labels. Switching loads only the chosen replay, cancels
+an earlier request, decodes off the UI thread, and disposes replaced GPU geometry. Columns
+are viewed from the side and framed using their full extent; Chronograph reserves room for
+the additional time displacement. Failed requests show a retry action and do not display
+the preceding crystal beneath a new label. Graphics-context restoration redraws the current
+geometry and restores the dark backdrop.
+
+`out/growth-study-library/packaging.json` records 52 prepared/decoded assets, 198,282,280
+presentation bytes and `allPayloadsUnchanged: true` against the original website files.
+The tracked source identities are in `app/data/growth-library.json`; the existing Fig. 6
+exclusion remains explicit. No source payload was added to Git or copied into a new NAS
+collection. A source-limited checkout shows unavailable options and keeps the original
+tracked dendrite usable; this host and its built preview contain the full registered set.
+
+Verification (values copied from the named artifacts at completion):
+
+- `npm run typecheck` — `out/growth-study-library/typecheck.log`.
+- `npm run lint:rule7` — `out/growth-study-library/rule7.log`.
+- `npx vitest run app/test/dendrite-data.test.ts app/test/growth-study-library.test.ts runner/test/growth-study-assets.test.ts runner/test/vite-nas-serving.test.ts`
+  — `out/growth-study-library/focused-tests.log`: 28 passed, two platform-specific skips.
+- `npm run build --workspace app` — `out/growth-study-library/build.log`.
+- `node app/scripts/growth-study-library-smoke.mjs` against the production preview on port
+  5192 — `out/growth-study-library/browser-smoke.json`: 52 crystals through 208 view renders,
+  matching registered endpoints, nonempty rendered pixels, one live GPU geometry, search,
+  navigation, deep links/view retention, delayed-request cancellation, injected failure/retry,
+  mobile overflow and reduced-motion checks; zero unexpected browser errors. The intentionally
+  injected HTTP 503 is excluded from that unexpected-error count.
+- The final habit-label check is `out/growth-study-library/final-ui-smoke.json`; the explicit
+  context-loss/restore probe is `context-restore.json` in that directory. The latter reports
+  ready state restored, status dismissed and the original backdrop pixel `[8, 13, 18, 255]`.
+  Final Timeglass and representative needle/column/Run B stills were inspected in Chromium.
+
+The full-library smoke preceded a display-label clarification and backdrop-restoration fix;
+those final boundaries received the targeted built-page checks above. This is a product
+rendering check on this host, not a general device-performance or scientific validation claim.
+All logs and captures remain reproducible inspection scratch.
+
+### Follow-up tried and rejected
+
+- Announcing capture readiness when decoding finished: Chromium's startup graphics interruption
+  could leave an early capture blank. Readiness now also requires a drawn frame with the current
+  data and a live graphics context; restoration redraws the view. The first full-library smoke
+  caught this through its nonempty-pixel check, before any pass was recorded.
+
 ### Next step
 
-Implement the source manifest, bounded product packaging and reusable loading path, then add
-the selector and inspect the non-planar framing before final product checks.
+Review `http://127.0.0.1:5191/dendrite-styles.html`, select an animation, and keep Timeglass or
+choose another view. A fresh session starts it with
+`npm run dev --workspace app -- --port 5191`; the optional production smoke uses
+`npm run preview --workspace app -- --port 5192` after a build. No implementation work remains
+in this request. Website integration and any new replay sources are later product work.

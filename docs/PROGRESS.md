@@ -130,7 +130,7 @@ detail.
   direction) and content stays in-repo unpublished, `test.yml` CI unaffected. Reconciliation is
   a live decision point under **Next step**. Full freeze history:
   [the history file](progress-history-phases-6-8-9.md).
-- **Last updated:** 2026-09-04 (completed the maker-directed dendrite visual studies;
+- **Last updated:** 2026-09-04 (completed selectable growth animations in all four visual studies;
   no phase or scientific-evidence change)
 
 ## Phase gates
@@ -154,14 +154,19 @@ and every superseded attempt live in the linked plans and historical progress sn
 
 ## Active plan
 
-The maker-directed [dendrite visual studies](plans/dendrite-visual-studies.md) are complete
+The maker-directed [growth visual studies](plans/dendrite-visual-studies.md), including the
+requested full-library extension, are complete
 on `fix/animation-queue-windows-spawn` in the existing `snowflake-animation` worktree. The
-independent `app/dendrite-styles.html` page replays one recorded dendrite through Ion Bloom,
-Timeglass, Darkfield and Chronograph, with synchronized comparison, focus, scrub and time-depth
-controls. Focused tests, typechecks, Rule 7 and the app build passed; the production-browser
-smoke and comparison video completed with no browser errors (`out/dendrite-styles/browser-smoke.json`).
-The plan names commands, inspection artifacts and limits. This is presentation work,
-with no solver or scientific-evidence change.
+independent `app/dendrite-styles.html` page selects 52 approved growth replays, including original
+Run B, through Ion Bloom, Timeglass, Darkfield and Chronograph. Timeglass opens by default;
+search, previous/next, URL selection, comparison, scrubbing and time-depth controls are available.
+Worker decoding, stale-request cancellation, GPU-geometry disposal and full-extent framing
+support the different shapes. The production browser smoke recorded 208 nonempty view renders
+and zero unexpected errors (`out/growth-study-library/browser-smoke.json`); source event payloads
+were unchanged (`out/growth-study-library/packaging.json`). Focused tests, typechecks, Rule 7,
+app build and targeted final UI/context-restoration checks passed. The plan names the commands,
+inspection artifacts and limits. Fig. 6's earlier exclusion is preserved. This changes no solver,
+scientific evidence or phase state.
 
 [phase-6-science-first-completion.md](plans/phase-6-science-first-completion.md) is the completed Phase 6 record (see its Completion record).
 [phase-8-measurement-corpus.md](plans/phase-8-measurement-corpus.md) and
@@ -191,16 +196,16 @@ the package-specific prerequisites in its charter amendment and execution plan. 
 
 ## Next step
 
-### Dendrite visual studies — ready for maker review
+### Growth visual studies — ready to use
 
-Open [the visual-study plan](plans/dendrite-visual-studies.md), then review
-`http://127.0.0.1:5191/dendrite-styles.html` (the running local
-preview; a fresh session can use `npm run dev --workspace app -- --port 5191`). Choose the
-opening style by viewing growth in motion. The packaged asset needs no NAS or website sibling;
-Chronograph deliberately maps attachment time into depth and is not physical ice geometry.
-The generated comparison preview is `out/dendrite-styles/dendrite-styles.mp4`; regenerate it
-with the plan's static-preview command if scratch is absent. The next decision is which
-treatment should lead a later website integration; the author recommends Ion Bloom for the opening.
+Open `http://127.0.0.1:5191/dendrite-styles.html` and use **Animation** to choose a replay and
+**View** to choose Timeglass or another treatment. A fresh session can use
+`npm run dev --workspace app -- --port 5191`. The [plan](plans/dendrite-visual-studies.md)
+records the completed checks and source locations. All registered sources are available here;
+other checkouts show unavailable options when their local fleet/website files are absent and
+retain the original tracked dendrite. Chronograph deliberately maps attachment time into depth.
+No work remains for this request; applying the selected views to the separate website is a later
+product task. The maker's preferred initial treatment is Timeglass.
 
 ### Phase 10 — planning complete; maker package selection pending
 

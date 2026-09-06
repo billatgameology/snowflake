@@ -1,5 +1,8 @@
 import * as THREE from "three";
-import { readDendrite, visibleEventCount } from "./dendrite-data.ts";
+import { visibleEventCount, type DendriteData } from "./dendrite-data.ts";
+import { loadGrowthStudy } from "./growth-study-loader.ts";
+import { installGrowthPicker } from "./growth-study-picker.ts";
+import { growthStudyLabel, type GrowthStudyEntry } from "./growth-study-library.ts";
 import { dendriteVertex, dendriteFragment } from "./dendrite-shaders.ts";
 import "./dendrite-styles.css";
 
@@ -20,8 +23,8 @@ const views = [...document.querySelectorAll<HTMLElement>(".viewport")];
 const names = ["Ion Bloom", "Timeglass", "Darkfield", "Chronograph"];
 const motion = matchMedia("(prefers-reduced-motion: reduce)");
 let playing = !motion.matches;
-let selected = Math.max(0, Math.min(3, Number(query.get("style")) || 0));
-let focused = query.get("focus") === "1";
+let selected = Math.max(0, Math.min(3, Math.floor(Number(query.get("style") ?? "1") || 0)));
+let focused = query.get("focus") !== "0";
 let progress = motion.matches ? 0.82 : 0;
 let yaw = 0;
 let tilt = 0;
@@ -41,6 +44,7 @@ function updateLayout(): void {
   document.body.classList.toggle("focused", focused);
   document.querySelector<HTMLElement>(".depth-control")!.hidden = !focused || selected !== 3;
   cards.forEach((card, index) => card.classList.toggle("selected", index === selected));
+  el<HTMLSelectElement>("view").value = focused ? String(selected) : "all";
   layout.textContent = focused ? "← Compare all four" : `Focus on ${names[selected]} ↗`;
   const url = new URL(location.href);
   url.searchParams.set("style", String(selected));
@@ -60,6 +64,13 @@ function seek(value: number): void {
   el("position").textContent = `${Math.round(progress * 100)}%`;
 }
 layout.onclick = () => { focused = !focused; updateLayout(); };
+el<HTMLSelectElement>("view").onchange = () => {
+  const value = el<HTMLSelectElement>("view").value;
+  focused = value !== "all";
+  if (focused) selected = Number(value);
+  yaw = tilt = 0;
+  updateLayout();
+};
 cards.forEach((card, index) => {
   card.querySelector("button")!.onclick = () => {
     selected = index;
@@ -76,6 +87,7 @@ el("fullscreen").onclick = () => {
   void request.catch(() => { status.textContent = "Fullscreen is unavailable in this browser. Focus view is still available."; status.classList.remove("ready"); });
 };
 document.addEventListener("keydown", event => {
+  if (play.disabled) return;
   if (event.target instanceof HTMLInputElement || event.target instanceof HTMLSelectElement || event.target instanceof HTMLButtonElement || event.target instanceof HTMLDetailsElement) return;
   if (event.code === "Space") { event.preventDefault(); setPlaying(!playing); }
   if (event.code === "KeyR") { seek(0); setPlaying(true); }
@@ -109,17 +121,18 @@ async function start(): Promise<void> {
   renderer.setPixelRatio(Math.min(devicePixelRatio, 1.5));
   renderer.setClearColor(0x080d12);
   renderer.autoClear = false;
-  const response = await fetch(new URL("../data/dendrite-study.bin", import.meta.url));
-  if (!response.ok) throw new Error(`Unable to load the dendrite (${response.status}).`);
-  const data = readDendrite(await response.arrayBuffer());
-  const geometry = new THREE.BufferGeometry();
-  geometry.setAttribute("position", new THREE.BufferAttribute(data.positions, 3));
-  geometry.setAttribute("attachTick", new THREE.BufferAttribute(data.ticks, 1));
-  geometry.computeBoundingSphere();
+  let currentData: DendriteData | null = null;
+  let currentEntry: GrowthStudyEntry | null = null;
+  let geometry = new THREE.BufferGeometry();
+  let loadVersion = 0;
+  let pendingLoad: AbortController | null = null;
+  let loading = true;
+  let graphicsReady = true;
+  let renderedData: DendriteData | null = null;
   const uniforms = {
-    playhead: { value: 0 }, finalTick: { value: data.finalTick },
+    playhead: { value: 0 }, finalTick: { value: 1 },
     pixelsPerUnit: { value: 1 }, style: { value: 0 }, halo: { value: 0 },
-    strength: { value: 1.2 }, spread: { value: data.radius },
+    strength: { value: 1.2 }, spread: { value: 1 },
   };
   const material = new THREE.ShaderMaterial({ vertexShader: dendriteVertex, fragmentShader: dendriteFragment, uniforms, depthTest: true, depthWrite: true });
   const haloUniforms = { ...uniforms, halo: { value: 1 } };
@@ -132,33 +145,37 @@ async function start(): Promise<void> {
   glow.renderOrder = 1;
   group.add(body, glow);
   scene.add(group);
-  const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0.1, data.radius * 12);
-  camera.position.set(0, 0, data.radius * 5);
+  const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0.1, 10000);
   let width = 0;
   let height = 0;
   function render(): void {
+    if (!graphicsReady) return;
     if (width !== innerWidth || height !== innerHeight) {
       width = innerWidth; height = innerHeight;
       renderer.setSize(width, height, false);
     }
-    geometry.setDrawRange(0, visibleEventCount(data.ticks, progress * data.finalTick));
-    uniforms.playhead.value = progress * data.finalTick;
-    uniforms.spread.value = data.radius * 1.5 * Number(el<HTMLInputElement>("depth").value) / 100;
     renderer.setScissorTest(false);
     renderer.clear();
+    const data = currentData;
+    if (data === null || loading) return;
+    geometry.setDrawRange(0, visibleEventCount(data.ticks, progress * data.finalTick));
+    uniforms.playhead.value = progress * data.finalTick;
+    const depthFraction = Number(el<HTMLInputElement>("depth").value) / 100;
+    uniforms.spread.value = data.extent * 1.5 * depthFraction;
     renderer.setScissorTest(true);
     views.forEach((viewport, index) => {
       if (focused && selected !== index) return;
       const rect = viewport.getBoundingClientRect();
       if (rect.bottom < 0 || rect.top > height || rect.width === 0) return;
       const aspect = rect.width / rect.height;
-      const extent = data.radius * 1.16 / Math.min(aspect, 1);
+      const extent = data.extent * (index === 3 ? 1 + 0.75 * depthFraction : 1) * 1.16 / Math.min(aspect, 1);
       camera.left = -extent * aspect;
       camera.right = extent * aspect;
       camera.top = extent;
       camera.bottom = -extent;
       camera.updateProjectionMatrix();
-      group.rotation.set(index === 3 ? 0.65 + tilt : tilt, index === 3 ? -0.12 : 0, Math.PI / 6 + yaw);
+      const baseTilt = data.vertical ? Math.PI / 2 : index === 3 ? 0.65 : 0;
+      group.rotation.set(baseTilt + tilt, index === 3 ? -0.12 : 0, Math.PI / 6 + yaw);
       uniforms.style.value = index;
       uniforms.pixelsPerUnit.value = rect.height / (extent * 2) * renderer.getPixelRatio();
       renderer.setViewport(rect.left, height - rect.bottom, rect.width, rect.height);
@@ -166,22 +183,63 @@ async function start(): Promise<void> {
       renderer.render(scene, camera);
     });
     renderer.setScissorTest(false);
+    if (!renderer.getContext().isContextLost()) renderedData = data;
   }
   const capture = {
-    ready: true,
+    get ready() { return currentData !== null && renderedData === currentData && !loading && graphicsReady; },
     seek: (fraction: number) => { setPlaying(false); seek(fraction); render(); },
     focus: (index: number | null) => { focused = index !== null; selected = index ?? selected; yaw = tilt = 0; updateLayout(); render(); },
-    get state() { return { progress, playing, selected, focused, visible: visibleEventCount(data.ticks, progress * data.finalTick), eventCount: data.eventCount, sourceSha256: data.sourceSha256 }; },
+    get state() { return { progress, playing, selected, focused, loading, crystalId: currentEntry?.id, visible: currentData ? visibleEventCount(currentData.ticks, progress * currentData.finalTick) : 0, eventCount: currentData?.eventCount, sourceSha256: currentData?.sourceSha256, vertical: currentData?.vertical, geometries: renderer.info.memory.geometries }; },
   };
   if (query.has("capture")) (window as unknown as { dendriteStudy: typeof capture }).dendriteStudy = capture;
-  status.classList.add("ready");
-  el("source").textContent = `Source: sweep-t1-sharp · ${data.eventCount.toLocaleString()} attachment events · ${data.finalTick.toLocaleString()} model ticks · original SHA-256 ${data.sourceSha256}. The source stopped at the domain-contact guard; this is a visual study, not gate evidence.`;
-  play.disabled = replay.disabled = timeline.disabled = false;
+  async function selectCrystal(entry: GrowthStudyEntry): Promise<void> {
+    const version = ++loadVersion;
+    pendingLoad?.abort();
+    pendingLoad = new AbortController();
+    loading = true;
+    dirty = true;
+    setPlaying(false);
+    play.disabled = replay.disabled = timeline.disabled = true;
+    el("retry").hidden = true;
+    status.classList.remove("ready");
+    status.textContent = `Loading ${growthStudyLabel(entry)}…`;
+    el("crystal-title").textContent = growthStudyLabel(entry);
+    el("source").textContent = "";
+    try {
+      const data = await loadGrowthStudy(new URL(`./growth-studies/${entry.id}.bin`, document.baseURI), pendingLoad.signal);
+      if (version !== loadVersion || disposed) return;
+      if (data.sourceSha256 !== entry.sourceSha256 || data.eventCount !== entry.eventCount || data.finalTick !== entry.finalTick) throw new Error("The replay does not match the selected crystal.");
+      const nextGeometry = new THREE.BufferGeometry();
+      nextGeometry.setAttribute("position", new THREE.BufferAttribute(data.positions, 3));
+      nextGeometry.setAttribute("attachTick", new THREE.BufferAttribute(data.ticks, 1));
+      nextGeometry.computeBoundingSphere();
+      body.geometry = glow.geometry = nextGeometry;
+      geometry.dispose();
+      geometry = nextGeometry;
+      currentData = data;
+      currentEntry = entry;
+      uniforms.finalTick.value = data.finalTick;
+      camera.far = data.extent * 12;
+      camera.position.set(0, 0, data.extent * 5);
+      yaw = tilt = 0;
+      seek(motion.matches ? 0.82 : 0);
+      loading = false;
+      setPlaying(!motion.matches);
+      play.disabled = replay.disabled = timeline.disabled = false;
+      status.classList.add("ready");
+      el("source").textContent = `Source: ${entry.id} · ${data.eventCount.toLocaleString()} attachment events · ${data.finalTick.toLocaleString()} model ticks · stop: ${entry.terminationReason} · original SHA-256 ${data.sourceSha256}. Visual replay, not gate evidence.`;
+    } catch (error) {
+      if (version !== loadVersion || disposed) return;
+      // Keep old GPU data hidden until a new load succeeds; never relabel the old crystal.
+      status.textContent = `${error instanceof Error ? error.message : String(error)} Choose another crystal or retry.`;
+      el("retry").hidden = false;
+    }
+  }
   function animate(now: number): void {
     if (disposed) return;
     const delta = Math.min((now - previous) / 1000, 0.1);
     previous = now;
-    if (playing && !document.hidden) {
+    if (playing && !document.hidden && !loading) {
       if (progress < 1) seek(progress + delta * Number(speed.value) / 22);
       else { hold += delta; if (hold > 3) seek(0); }
     }
@@ -189,20 +247,29 @@ async function start(): Promise<void> {
     frameId = requestAnimationFrame(animate);
   }
   canvas.addEventListener("webglcontextlost", event => {
-    event.preventDefault(); setPlaying(false);
-    status.textContent = "The graphics context was interrupted. Reload this page to resume the study.";
+    event.preventDefault(); setPlaying(false); graphicsReady = false; renderedData = null;
+    status.textContent = "Graphics were interrupted. Restoring the view…";
     status.classList.remove("ready");
+  });
+  canvas.addEventListener("webglcontextrestored", () => {
+    renderer.setClearColor(0x080d12);
+    renderer.autoClear = false;
+    graphicsReady = true;
+    dirty = true;
+    if (currentData && !loading) status.classList.add("ready");
   });
   addEventListener("pagehide", (event: PageTransitionEvent) => {
     if (event.persisted) return;
     disposed = true; cancelAnimationFrame(frameId);
+    pendingLoad?.abort();
     geometry.dispose(); material.dispose(); haloMaterial.dispose(); renderer.dispose();
   });
   frameId = requestAnimationFrame(animate);
+  await installGrowthPicker(selectCrystal);
 }
 
 void start().catch((error: unknown) => {
-  status.textContent = `${error instanceof Error ? error.message : String(error)} This study needs WebGL2 and its bundled dendrite asset. Try reloading in a current desktop browser.`;
+  status.textContent = `${error instanceof Error ? error.message : String(error)} This study needs WebGL2. Try reloading in a current desktop browser.`;
   status.classList.remove("ready");
   setPlaying(false);
 });

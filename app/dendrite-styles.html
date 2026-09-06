@@ -4,17 +4,24 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="theme-color" content="#080d12" />
-  <title>Ways of seeing a snowflake · The Virtual Cloud Chamber</title>
+  <title>Growth library · Four ways of seeing · The Virtual Cloud Chamber</title>
 </head>
 <body>
   <canvas id="crystal-canvas" aria-hidden="true"></canvas>
   <main>
     <header><a class="wordmark" href="./gutcheck-index.html">THE VIRTUAL CLOUD CHAMBER</a><span class="edition">VISUAL STUDIES &nbsp; / &nbsp; 01</span></header>
     <section class="intro">
-      <div><p class="eyebrow">ONE DENDRITE. FOUR WAYS OF SEEING.</p><h1>A snowflake.<br><em>With its history showing.</em></h1></div>
-      <div class="intro-note"><p>Every branch has a beginning.<br>Watch the moments that build a crystal.</p><button id="layout" type="button">Focus on Ion Bloom ↗</button></div>
+      <div><p class="eyebrow">THE GROWTH LIBRARY. FOUR WAYS OF SEEING.</p><h1>A snow crystal.<br><em>With its history showing.</em></h1></div>
+      <div class="intro-note"><p>Every branch has a beginning.<br>Choose a crystal. Explore its history.</p><button id="layout" type="button">Compare all four</button></div>
     </section>
-    <p id="status" role="status">Loading the recorded dendrite…</p>
+    <section class="library-picker" aria-label="Choose a growth animation">
+      <label class="search-label">FIND A CRYSTAL<input id="crystal-search" type="search" placeholder="Search name, figure, needle…" /></label>
+      <label class="crystal-label">ANIMATION<select id="crystal" disabled><option>Loading the library…</option></select></label>
+      <div class="crystal-nav"><button id="previous-crystal" type="button" aria-label="Previous crystal" disabled>←</button><button id="next-crystal" type="button" aria-label="Next crystal" disabled>→</button><span id="search-count"></span></div>
+      <label class="view-label">VIEW<select id="view"><option value="1" selected>Timeglass</option><option value="0">Ion Bloom</option><option value="2">Darkfield</option><option value="3">Chronograph</option><option value="all">Compare all four</option></select></label>
+    </section>
+    <div class="crystal-caption"><p id="crystal-title"></p><p id="library-note"></p></div>
+    <p id="status" role="status">Loading the growth library…</p><button id="retry" type="button" hidden>Retry this crystal</button>
     <section id="studies" class="studies" aria-label="Four synchronized rendering studies">
       <article class="study selected" data-style="0">
         <div class="card-heading"><span class="number">01</span><button class="style-name" type="button">Ion Bloom <span>↗</span></button><span class="tag">THE GROWING EDGE</span></div>
@@ -45,7 +52,7 @@
       <label class="speed-label">SPEED<select id="speed" aria-label="Playback speed"><option value="0.5">½×</option><option value="1" selected>1×</option><option value="2">2×</option></select></label>
       <button id="fullscreen" type="button">Fullscreen ⛶</button>
     </section>
-    <footer><p>RECORDED MODEL GROWTH · ART-DIRECTED LIGHT & COLOUR</p><details><summary>What am I seeing?</summary><p>Each point is a recorded lattice site from one Gravner–Griffeath model run, revealed at its attachment tick. Points are not molecules. Light and colour are artistic encodings; Chronograph also displaces sites in depth according to their arrival time. The other views keep the recorded coordinates. Playback seconds are presentation time, not physical growth time. This is model output, not validated laboratory growth.</p><p id="source"></p><p>Focus a study to drag its view. Double-click to reset. Space pauses; R replays; Escape returns to comparison. The same playhead drives all four studies.</p></details></footer>
+    <footer><p>RECORDED MODEL GROWTH · ART-DIRECTED LIGHT & COLOUR</p><details><summary>What am I seeing?</summary><p>Each point is a recorded lattice site from one Gravner–Griffeath model run, revealed at its attachment tick. Points are not molecules. Light and colour are artistic encodings; Chronograph also displaces sites in depth according to their arrival time. The other views keep the recorded coordinates. Playback seconds are presentation time, not physical growth time. This is model output, not validated laboratory growth.</p><p id="source"></p><p id="excluded"></p><p>Focus a study to drag its view. Double-click to reset. Space pauses; R replays; Escape returns to comparison. The same playhead drives all four studies.</p></details></footer>
   </main>
   <script type="module" src="/src/dendrite-styles.ts"></script>
 </body>

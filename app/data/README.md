@@ -22,5 +22,26 @@ u32 JSON-header length, that many UTF-8 bytes, then `(u32 flatIndex, u32 attachT
 pairs. Dimensions and integer centre retain the original triangular-lattice embedding.
 The browser checks bounds, uniqueness and ordered timestamps before rendering.
 
-The live page needs only this tracked asset. It does not need the source file, the website
-sibling, a running solver, or access to the non-served scientific NAS collection.
+The original dendrite remains available from this tracked asset without the source file,
+website sibling, a running solver or access to the non-served scientific NAS collection.
+
+## Selectable growth library
+
+`growth-library.json` registers the existing approved website growth set plus original Run B,
+with source digests and display metadata read from those existing event files. The divergent
+Fig. 6 regrowth stays excluded under the maker's earlier decision.
+
+`app/growth-study-assets.ts` prepares the same compact presentation format on demand in
+development and emits it into `app/dist/growth-studies/` during a product build. Only named,
+digest-matched local files are accepted: fleet assets in `out/growth-assets/`, or the existing
+website copies in the sibling `snowcrystal_website/public/growth/library/`. Original Run B is
+read from that sibling's `public/growth/run-b-growth-v1.bin`.
+
+No source binary is copied into Git by the library extension. The build is reproducible product
+scratch; the fleet source bytes already have the recorded scientific-collection preservation
+path. The scientific NAS serving policy remains unchanged. The plugin emits only the compact
+header and unchanged event payload, with no workstation paths or source-command metadata.
+
+Missing sources are marked unavailable in the selector; the original packaged dendrite remains
+usable in a fresh checkout. To include a new approved replay later, add its exact identity and
+digest to the manifest. The browser downloads and decodes only the selected animation.

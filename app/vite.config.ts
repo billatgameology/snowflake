@@ -12,6 +12,7 @@ import type { IncomingMessage, ServerResponse } from "node:http";
 import { isIP } from "node:net";
 import { dirname, isAbsolute, relative, resolve, sep } from "node:path";
 import { defineConfig, type Plugin } from "vite";
+import { growthStudyAssets } from "./growth-study-assets.ts";
 
 import {
   decideNasCatalogServePath,
@@ -869,6 +870,7 @@ export default defineConfig({
     gutcheckIndexJson,
     gutcheckFigurePreviews,
     gutcheckAnimationSelection,
+    growthStudyAssets(REPOSITORY_ROOT),
     nasStatic,
   ],
   worker: { format: "es" },

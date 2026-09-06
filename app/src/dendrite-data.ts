@@ -4,6 +4,8 @@ export interface DendriteData {
   ticks: Float32Array;
   finalTick: number;
   radius: number;
+  extent: number;
+  vertical: boolean;
   eventCount: number;
   sourceSha256: string;
 }
@@ -32,6 +34,8 @@ export function readDendrite(buffer: ArrayBuffer): DendriteData {
   const ticks = new Float32Array(h.eventCount);
   const seen = new Set<number>();
   let radius = 0;
+  let extent = 0;
+  let halfHeight = 0;
   let previous = 0;
   for (let e = 0, offset = 4 + length; e < h.eventCount; e++, offset += 8) {
     const flat = view.getUint32(offset, true);
@@ -48,8 +52,10 @@ export function readDendrite(buffer: ArrayBuffer): DendriteData {
     positions.set([x, y, k - ck], e * 3);
     ticks[e] = tick;
     radius = Math.max(radius, Math.hypot(x, y));
+    extent = Math.max(extent, Math.hypot(x, y, k - ck));
+    halfHeight = Math.max(halfHeight, Math.abs(k - ck));
   }
-  return { positions, ticks, finalTick: h.finalTick, radius, eventCount: h.eventCount, sourceSha256: h.sourceSha256 };
+  return { positions, ticks, finalTick: h.finalTick, radius, extent: Math.max(1, extent), vertical: halfHeight > radius, eventCount: h.eventCount, sourceSha256: h.sourceSha256 };
 }
 
 /** Integer event threshold: the fractional display clock cannot reveal a future site. */
