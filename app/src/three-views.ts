@@ -1,7 +1,7 @@
 import type { DendriteData } from "./dendrite-data.ts";
 
 export interface ViewBox { left: number; top: number; width: number; height: number }
-export type StudyPane = "top" | "profile" | "detail";
+export type StudyPane = "top" | "journey" | "detail";
 export interface StudyFrame { center: [number, number, number]; detail: [number, number, number]; halfSize: [number, number, number] }
 
 /** Stable camera targets from the complete recording; never a change to the recorded sites. */
@@ -25,14 +25,6 @@ export function studyFrame(data: DendriteData): StudyFrame {
     halfSize: max.map((value, axis) => (value - min[axis]!) / 2) as StudyFrame["halfSize"] };
 }
 
-/** Orthographic fit of the complete rotated bounding box, without changing Z scale. */
-export function profileHalfHeight(halfSize: number[], tilt: number, yaw: number, aspect: number): number {
-  const x = Math.abs(Math.cos(yaw)) * halfSize[0]! + Math.abs(Math.sin(yaw)) * halfSize[1]!;
-  const y = Math.abs(Math.cos(tilt) * Math.sin(yaw)) * halfSize[0]!
-    + Math.abs(Math.cos(tilt) * Math.cos(yaw)) * halfSize[1]! + Math.abs(Math.sin(tilt)) * halfSize[2]!;
-  return Math.max(1, y, x / aspect) * 1.12;
-}
-
 /** Camera rectangles are shared by on-screen rendering, pointer controls and MP4 framing. */
 export function studyPanes(width: number, height: number): Record<StudyPane, ViewBox> {
   const gap = 10;
@@ -40,23 +32,23 @@ export function studyPanes(width: number, height: number): Record<StudyPane, Vie
     const topHeight = Math.round(height * .57), sideWidth = (width - gap) / 2;
     return {
       top: { left: 0, top: 0, width, height: topHeight },
-      profile: { left: 0, top: topHeight + gap, width: sideWidth, height: height - topHeight - gap },
+      journey: { left: 0, top: topHeight + gap, width: sideWidth, height: height - topHeight - gap },
       detail: { left: sideWidth + gap, top: topHeight + gap, width: sideWidth, height: height - topHeight - gap },
     };
   }
   const mainWidth = Math.round((width - gap) * .66), sideHeight = (height - gap) / 2;
   return {
     top: { left: 0, top: 0, width: mainWidth, height },
-    profile: { left: mainWidth + gap, top: 0, width: width - mainWidth - gap, height: sideHeight },
+    journey: { left: mainWidth + gap, top: 0, width: width - mainWidth - gap, height: sideHeight },
     detail: { left: mainWidth + gap, top: sideHeight + gap, width: width - mainWidth - gap, height: sideHeight },
   };
 }
 
 export function drawStudyOverlay(ctx: CanvasRenderingContext2D, width: number, height: number,
-  marker: { x: number; y: number } | null): void {
+  marker: { x: number; y: number } | null, journeyStage?: string): void {
   const panes = studyPanes(width, height);
-  const labels: Record<StudyPane, string> = { top: "TOP VIEW", profile: "LOW ANGLE", detail: "BRANCH DETAIL" };
-  for (const kind of ["top", "profile", "detail"] as const) {
+  const labels: Record<StudyPane, string> = { top: "TOP VIEW", journey: "BRANCH JOURNEY", detail: "BRANCH DETAIL" };
+  for (const kind of ["top", "journey", "detail"] as const) {
     const rect = panes[kind];
     ctx.strokeStyle = "#30434e"; ctx.lineWidth = 1;
     ctx.strokeRect(rect.left + .5, rect.top + .5, rect.width - 1, rect.height - 1);
@@ -64,6 +56,11 @@ export function drawStudyOverlay(ctx: CanvasRenderingContext2D, width: number, h
     const label = labels[kind];
     ctx.fillStyle = "#0c1821e8"; ctx.fillRect(rect.left + 8, rect.top + 8, ctx.measureText(label).width + 16, 23);
     ctx.fillStyle = "#b5d8d2"; ctx.textAlign = "left"; ctx.fillText(label, rect.left + 16, rect.top + 23);
+    if (kind === "journey" && journeyStage) {
+      ctx.font = "9px 'Segoe UI', sans-serif";
+      ctx.fillStyle = "#0c1821e8"; ctx.fillRect(rect.left + 8, rect.top + rect.height - 29, ctx.measureText(journeyStage).width + 16, 22);
+      ctx.fillStyle = "#cbded9"; ctx.fillText(journeyStage, rect.left + 16, rect.top + rect.height - 14);
+    }
   }
   if (marker && marker.x > 18 && marker.x < panes.top.width - 18 && marker.y > 35 && marker.y < panes.top.height - 18) {
     ctx.strokeStyle = "#e6e2b9"; ctx.lineWidth = 1;

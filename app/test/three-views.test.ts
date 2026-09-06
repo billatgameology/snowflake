@@ -1,6 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { Euler, Vector3 } from "three";
-import { studyFrame, studyPanes, profileHalfHeight } from "../src/three-views.ts";
+import { studyFrame, studyPanes } from "../src/three-views.ts";
 import type { DendriteData } from "../src/dendrite-data.ts";
 
 describe("three camera presentation", () => {
@@ -18,18 +17,7 @@ describe("three camera presentation", () => {
       }
       if (width! > 480) {
         expect(panes.detail.left).toBeGreaterThan(panes.top.left);
-        expect(panes.detail.top).toBeGreaterThan(panes.profile.top);
-      }
-    }
-  });
-  it("keeps every rotated box corner inside the low-angle camera across aspect ratios", () => {
-    for (const size of [[150, 130, 4], [8, 8, 200], [150, 150, 150]]) {
-      for (const tilt of [0, .95, 1.15, 2.35]) for (const yaw of [-2, .5, 3]) for (const aspect of [.6, 1.3, 2.5]) {
-        const halfHeight = profileHalfHeight(size, tilt, yaw, aspect);
-        for (const x of [-1, 1]) for (const y of [-1, 1]) for (const z of [-1, 1]) {
-          const p = new Vector3(x * size[0]!, y * size[1]!, z * size[2]!).applyEuler(new Euler(tilt, 0, yaw));
-          expect(Math.abs(p.x)).toBeLessThan(halfHeight * aspect); expect(Math.abs(p.y)).toBeLessThan(halfHeight);
-        }
+        expect(panes.detail.top).toBeGreaterThan(panes.journey.top);
       }
     }
   });

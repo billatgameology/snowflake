@@ -1,7 +1,7 @@
 # Plan — dendrite visual studies
 
 - **Phase:** maker-directed pre-Phase 7 presentation exploration; no phase gate
-- **Status:** branch camera journey and scrollbar-aware web cropping in progress
+- **Status:** complete, including branch camera journey and scrollbar-aware web cropping
 - **Started:** 2026-09-04
 - **Last touched:** 2026-09-04 by Codex
 
@@ -58,7 +58,7 @@ Darkfield, Chronograph and Growth Front; their completed records remain historic
 |---|---|---|
 | Ion Bloom | Bright mint light on recent attachments, older ice fades to blue | Opening growth shot; the author's preferred visual hook |
 | Timeglass | Persistent arrival-time colour with narrow temporal bands | Show that the shape contains a history |
-| Three Views | Synchronized top, low-angle and magnified branch cameras | Connect the whole silhouette to the profile and local branch structure |
+| Three Views | Top view, a center-to-tip camera journey and a magnified branch detail | Connect the whole silhouette to an outward journey through local structure |
 | Crystal Cast | Projected surface relief, edge shaping and movable shadows | Make the branch structure and spaces between branches feel tangible |
 
 These are author judgments from inspected browser captures, not audience-test findings.
@@ -699,8 +699,48 @@ at `b875b3a`; opening status is clean.
 
 ### Next step
 
-Implement the displayed-canvas sizing correction and the deterministic branch journey, then
-verify the cropped gutters and camera progression in the browser and MP4.
+Open `http://127.0.0.1:5191/dendrite-styles.html?style=2&crystal=sweep-t1-sharp` and press Replay
+to review the complete center-to-tip journey. The implementation and requested product checks are
+complete. `app/data/README.md` describes the controls and reproduction command. No solver or
+scientific work is pending under this request.
+
+### Implementation and verification
+
+`branch-journey.ts` builds a smoothed camera track along the branch selected by the fixed detail
+view. Camera travel follows recorded outward extremities; approach and orbit use eased transitions
+on the shared playhead. Both the live viewport and exported frame call the same pose function and
+draw the same stage caption. The static profile camera and its fit helper are retired. Geometry,
+recorded height, event visibility and graph calculations are unchanged.
+
+Rendering now uses the displayed canvas rectangle, including its offset, while export retains its
+explicit frame dimensions. `out/branch-flight/visual-check.json` records zero colored pixels in
+the reproduced divider sample, compared with 996 in `gutter-before.json` there. Its center, travel
+and orbit stills were inspected in the actual viewport.
+
+`npx vitest run app/test/branch-journey.test.ts app/test/three-views.test.ts app/test/dendrite-data.test.ts`
+passes eight tests (`out/branch-flight/focused-tests.log`): branch selection rejects a farther site
+outside its cone, source coordinates/ticks remain unchanged, the journey reaches the tip and
+completes an orbit, phase seams are continuous, backwards seeking reproduces the pose, and pane
+rectangles remain contained and disjoint. `npm run typecheck`, `npm run lint:rule7` and
+`npm run build --workspace app` pass (`typecheck.log`, `rule7.log`, `build.log` in that directory).
+No full scientific suite or solver run was needed or launched.
+
+`node app/scripts/three-views-smoke.mjs` passes against the built preview on port 5192
+(`out/branch-flight/browser-smoke.json` / `.log`). All 16 gutter samples contain zero colored pixels,
+covering reserved scrollbars at device scales 1, 1.5 and 2, resized/scrolled and comparison layouts,
+graphs, restored rendering after export and phone layout. The report includes nine passing Cast
+centering samples and 36 camera samples across the original sharp dendrite, named Stellar
+Dendrites, Cups and composed Radiating Dendrites. Backward seeks reproduce the same camera pose
+and pixel hashes; pane turns/reset, detail zoom, gallery retention and reduced motion pass, with
+no unexpected browser errors.
+
+The same UI check downloaded `out/branch-flight/three-views-with-graphs.mp4`: H.264, 1920 × 1080,
+300 frames at 30 fps, 10 seconds, 9,080,998 bytes (`browser-smoke.json`). FFmpeg decodes the full
+stream successfully. The author inspected decoded center-approach, branch-travel and tip-orbit
+frames (`export-1.6.png`, `export-3.6.png`, `export-6.56.png`, `export-7.36.png`), desktop crystal
+samples and the phone viewport. The paused playhead, journey pose, pane angles and correctly sized
+web canvas restore after export. These are presentation checks on this host, not scientific or
+audience validation.
 
 ### Tried and rejected
 
