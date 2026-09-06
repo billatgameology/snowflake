@@ -2677,6 +2677,89 @@
       },
       "supersedes": [],
       "unresolved": []
+    },
+    {
+      "assetId": "render-worktrees-closeout",
+      "version": "2026-09-04",
+      "state": "active",
+      "ownerWorkstream": "named-crystal-catalog",
+      "locator": "collections/render-worktrees-closeout/2026-09-04/payload",
+      "historicalRepoPath": "out",
+      "legacyAliases": [],
+      "storageClass": "generated-cache",
+      "aggregate": {
+        "files": 18932,
+        "bytes": 130479382836
+      },
+      "ownerManifest": {
+        "storage": "tracked",
+        "path": "docs/nas-assets/manifests/render-worktrees-closeout/2026-09-04.json",
+        "format": "snowflake-nas-ledger-v1",
+        "bytes": 5337142,
+        "sha256": "c9489ad64f6e693f09853ab35863b158e23dc3107c618c9cdd8282789d8b8a8d",
+        "selector": {
+          "kind": "path-prefixes",
+          "include": [
+            "collections/render-worktrees-closeout/2026-09-04/payload"
+          ],
+          "exclude": []
+        }
+      },
+      "rights": {
+        "kind": "project-owned",
+        "redistribution": "allowed"
+      },
+      "privacy": "public",
+      "serve": {
+        "policy": "deny",
+        "prefixes": []
+      },
+      "retention": {
+        "policy": "maker-approved-delete-only",
+        "garbageCollection": {
+          "policy": "plan-only",
+          "graceDays": null,
+          "approver": "maker"
+        }
+      },
+      "mutability": "immutable",
+      "externalEvidenceAuthority": null,
+      "provenance": {
+        "record": "docs/plans/render-worktrees-nas-closeout.md",
+        "producerCommit": "8ecb1a6",
+        "command": "node scripts/nas-publish-render-worktrees-closeout.ts --publish"
+      },
+      "reproducibility": {
+        "kind": "exact-recipe",
+        "record": "docs/plans/render-worktrees-nas-closeout.md"
+      },
+      "restore": {
+        "status": "documented",
+        "command": "npm run assets:restore -- --collection render-worktrees-closeout@2026-09-04 --to out/restores/render-worktrees-closeout-2026-09-04",
+        "verifyCommand": "npm run assets:verify-restored -- --collection render-worktrees-closeout@2026-09-04 --from out/restores/render-worktrees-closeout-2026-09-04",
+        "record": "docs/plans/render-worktrees-nas-closeout.md"
+      },
+      "verification": {
+        "status": "full-hash",
+        "at": "2026-09-04",
+        "host": "HIL-SIMULATOR",
+        "receipt": "_control/receipts/publication/render-worktrees-closeout/2026-09-04/render-worktrees-closeout-20260904-publish.json",
+        "limits": [
+          "Publication receipt SHA-256 f83cea7828b8183cfed13b7138a00193e94dcbf60eb15ca652a1c123a4b6ee29; source, stage and final matched 18932 files / 130479382836 bytes / tree SHA-256 1a2f9d0f4758a1f54e73f4d11e6da31046d041417f890020c1c7f9e2175960c2.",
+          "Maker direction on 2026-09-04 requests the standard publication receipt and tracked owner manifest without another same-machine restore or independent verifier.",
+          "The restore command is documented for the maker's test on another computer. All workstation sources, worktrees and branches remain in place until that test is confirmed."
+        ]
+      },
+      "storageDomains": [
+        "snowcrystal-nas"
+      ],
+      "backup": {
+        "status": "not-required",
+        "independentDomains": [],
+        "receipts": []
+      },
+      "supersedes": [],
+      "unresolved": []
     }
   ],
   "overlays": [

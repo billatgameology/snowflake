@@ -1,0 +1,836 @@
+{
+  "format": "named-crystal-resolution-supersession-v1",
+  "decidedAt": "2026-08-30",
+  "reason": "Maker requires established large scientific domains; scaled runs remain screening evidence only.",
+  "firstProductionReview": {
+    "path": "docs/named-snow-crystal-direct-production-review.json",
+    "byteLength": 24369,
+    "sha256": "931e297d66487ab757a9f2964861e2974c72b0b5e639b8d557cfb9f8fd606b07",
+    "priorAcceptedVariants": 24,
+    "disposition": "morphology-screen-pass-resolution-superseded"
+  },
+  "secondProductionScreen": {
+    "report": {
+      "path": "out/named-crystal-catalog/direct-production-v2/report.json",
+      "byteLength": 594644,
+      "sha256": "f5d30f6e896980a19df9716f5400c207c5c9994dce7fcd3804ec0c2ef97b85e1"
+    },
+    "contactSheet": {
+      "path": "out/named-crystal-catalog/direct-production-v2/contact-sheet.png",
+      "byteLength": 9983672,
+      "sha256": "6e849aab1f49ed1e6e107516e42c27578ed6dee37a3d15e7abde5c92d3e6e578",
+      "views": [
+        "face-0-degrees",
+        "oblique-55-degrees",
+        "axial-85-degrees"
+      ]
+    },
+    "executionSummary": {
+      "requestedProcessConcurrency": 24,
+      "actualWorkerCount": 24,
+      "completed": 24,
+      "failed": 0,
+      "minimumWebBytes": 55268,
+      "maximumWebBytes": 3576987,
+      "totalWebBytes": 13209463,
+      "webPayloadLimitBytes": 20000000,
+      "allWebAssetsDecoderVerified": true,
+      "totalScientificBundleBytes": 6568205710,
+      "totalScientificBundleFiles": 3078,
+      "minimumMeshStateCount": 115,
+      "maximumMeshStateCount": 121
+    },
+    "families": [
+      {
+        "typeId": "capped-columns",
+        "status": "morphology-screen-pass-resolution-superseded",
+        "rationale": "All three variants retain one central column and a plate cap at each end.",
+        "variants": [
+          {
+            "jobId": "capped-columns-baseline",
+            "slot": "baseline",
+            "sourceJobId": "capped-columns",
+            "sourceSpecSha256": "8e27a2e0c72495dea277de8d71729d51d044f307d59eaf1b8bb893dba5bf5f11",
+            "specSha256": "00908bd64b32114003c221910cc16db270ab18bae652fac1dbc1119aaff736a1",
+            "driverName": "rho-scale",
+            "driverValue": 1,
+            "dims": [
+              144,
+              144,
+              192
+            ],
+            "tickCap": 6000,
+            "webByteLength": 232292,
+            "webSha256": "ff8dbae5dd5475746dfc55b937f8d60a20ba66978a4bebd0a717a519ceaca40d",
+            "stateByteLength": 67682813,
+            "stateSha256": "c70a9493e5558908dd2517fd0e6fe417a8ee02b1d3dbc30ee44c00c6701be1f6",
+            "meshStateCount": 121,
+            "bundleFileCount": 129,
+            "bundleBytes": 163892221,
+            "bundleTreeSha256": "1505c71b1d9f0be066f9930039eb48ec41cc8412755d0761d3ed6874242e8746",
+            "record": {
+              "path": "out/named-crystal-catalog/direct-production-v2/capped-columns-baseline/record.json",
+              "byteLength": 2730,
+              "sha256": "5abc29f8e7a4cd7682b03c9670995a6cb086c44a356d04ae352d615f1f5986f0"
+            },
+            "verticalClearance": {
+              "lowerLayers": 68,
+              "upperLayers": 68
+            }
+          },
+          {
+            "jobId": "capped-columns-lower",
+            "slot": "lower",
+            "sourceJobId": "capped-columns",
+            "sourceSpecSha256": "8e27a2e0c72495dea277de8d71729d51d044f307d59eaf1b8bb893dba5bf5f11",
+            "specSha256": "367c12abfcd4b4ad5c21e15df425dd76744cf624ecf80ebfee7326c909931268",
+            "driverName": "rho-scale",
+            "driverValue": 0.95,
+            "dims": [
+              144,
+              144,
+              192
+            ],
+            "tickCap": 6000,
+            "webByteLength": 211937,
+            "webSha256": "f6f4b9d11aa20ab37750ceb701683563556725e81449ee45fe1f9d218e6a87c7",
+            "stateByteLength": 67682815,
+            "stateSha256": "01078f63484ec64247f1d0f4b39edd64140331b72e24e841aaa40413760a61bc",
+            "meshStateCount": 121,
+            "bundleFileCount": 129,
+            "bundleBytes": 150110907,
+            "bundleTreeSha256": "38117c1dbadcf32c14e6d1264aff695bb90779b6195fe1cff357e821a7947e06",
+            "record": {
+              "path": "out/named-crystal-catalog/direct-production-v2/capped-columns-lower/record.json",
+              "byteLength": 2733,
+              "sha256": "41f758e8b32f76f01b06e3cd753578dfe5c0ec368440f45f1dfb918409eb7345"
+            },
+            "verticalClearance": {
+              "lowerLayers": 70,
+              "upperLayers": 70
+            }
+          },
+          {
+            "jobId": "capped-columns-upper",
+            "slot": "upper",
+            "sourceJobId": "capped-columns",
+            "sourceSpecSha256": "8e27a2e0c72495dea277de8d71729d51d044f307d59eaf1b8bb893dba5bf5f11",
+            "specSha256": "4ddfa475a623e29053f3265f52ab72ce61118886d3a79b12524b49893a3d2710",
+            "driverName": "rho-scale",
+            "driverValue": 1.05,
+            "dims": [
+              144,
+              144,
+              192
+            ],
+            "tickCap": 6000,
+            "webByteLength": 276865,
+            "webSha256": "9dabb7138d2563000611027904674889cebde616a520ab58fd0999d5f335072b",
+            "stateByteLength": 67682815,
+            "stateSha256": "d3db7cee59d4ca4747a259683f65397767f8a505390d42dba48b6e44006df340",
+            "meshStateCount": 121,
+            "bundleFileCount": 129,
+            "bundleBytes": 172786882,
+            "bundleTreeSha256": "3d8e14c6eed36e71b8ebd7345a4cc1af3b98deae820207c71a7d8f890144f2cc",
+            "record": {
+              "path": "out/named-crystal-catalog/direct-production-v2/capped-columns-upper/record.json",
+              "byteLength": 2733,
+              "sha256": "b7a36c0f316e9deb22b4c167e9dbb364356b9f5b1dcbcef7b83e4c0114fc2def"
+            },
+            "verticalClearance": {
+              "lowerLayers": 66,
+              "upperLayers": 66
+            }
+          }
+        ]
+      },
+      {
+        "typeId": "fernlike-stellar-dendrites",
+        "status": "morphology-screen-pass-resolution-superseded",
+        "rationale": "All three variants retain repeated fernlike sidebranching on six arms.",
+        "variants": [
+          {
+            "jobId": "fernlike-stellar-dendrites-baseline",
+            "slot": "baseline",
+            "sourceJobId": "fernlike-stellar-dendrites",
+            "sourceSpecSha256": "19d3389659a228fef59cf9740c4d659109fcf0edf4e317aaebaa6268aebfeb85",
+            "specSha256": "0e9dd02d2fe006b898b90ad925fcb74ad8b5b9e543452d6e1ef17941acad814e",
+            "driverName": "rho-scale",
+            "driverValue": 1,
+            "dims": [
+              256,
+              256,
+              80
+            ],
+            "tickCap": 6000,
+            "webByteLength": 415424,
+            "webSha256": "13d18367420a08603641c53154da257a6fb5091a1475c4422b4f8a8426d1c3dc",
+            "stateByteLength": 89129474,
+            "stateSha256": "bc374779f7debd005d2086236bc44decbffcaca3d41a97f53b3d2ae50e56f60d",
+            "meshStateCount": 121,
+            "bundleFileCount": 129,
+            "bundleBytes": 305673357,
+            "bundleTreeSha256": "e07254134a49c563a941c2d88680b3734b2b7e015edb5d17a648193b76a3a2d3",
+            "record": {
+              "path": "out/named-crystal-catalog/direct-production-v2/fernlike-stellar-dendrites-baseline/record.json",
+              "byteLength": 2329,
+              "sha256": "5dc9b0cc7813f8490e782092e7178c31832596c8e40b58fbb7d3c06fcc2f5bff"
+            },
+            "verticalClearance": null
+          },
+          {
+            "jobId": "fernlike-stellar-dendrites-lower",
+            "slot": "lower",
+            "sourceJobId": "fernlike-stellar-dendrites",
+            "sourceSpecSha256": "19d3389659a228fef59cf9740c4d659109fcf0edf4e317aaebaa6268aebfeb85",
+            "specSha256": "36f3bfa0a581104740108f0e384671d04ab1e37a9323a2846606d795880949da",
+            "driverName": "rho-scale",
+            "driverValue": 0.95,
+            "dims": [
+              256,
+              256,
+              80
+            ],
+            "tickCap": 6000,
+            "webByteLength": 374715,
+            "webSha256": "3645ce4c03f6c6502d44845dde8a7697802c4563e0581db1126bfdcd89eb5e7e",
+            "stateByteLength": 89129476,
+            "stateSha256": "08eb04d7bb17ff505b83932c955cb7457e9a340cc87d43905c11fc542b7cf4ff",
+            "meshStateCount": 121,
+            "bundleFileCount": 129,
+            "bundleBytes": 269112273,
+            "bundleTreeSha256": "dbd1629e74262c6416a5063ce4e1af31474510101bbeb2e9909003a95bd641c5",
+            "record": {
+              "path": "out/named-crystal-catalog/direct-production-v2/fernlike-stellar-dendrites-lower/record.json",
+              "byteLength": 2331,
+              "sha256": "61818eaac491c003d7ca36fb49386653c4f30c6b3c2123d2248507a67693827c"
+            },
+            "verticalClearance": null
+          },
+          {
+            "jobId": "fernlike-stellar-dendrites-upper",
+            "slot": "upper",
+            "sourceJobId": "fernlike-stellar-dendrites",
+            "sourceSpecSha256": "19d3389659a228fef59cf9740c4d659109fcf0edf4e317aaebaa6268aebfeb85",
+            "specSha256": "2a2db2d47dbb1d15a1171443e0c2246228b2c34157d7716b66f5c5c0f1acb2b9",
+            "driverName": "rho-scale",
+            "driverValue": 1.05,
+            "dims": [
+              256,
+              256,
+              80
+            ],
+            "tickCap": 6000,
+            "webByteLength": 507211,
+            "webSha256": "4f2067dbe5e17beae260b515aa78b232691d99e0f8205dd8cb2aa136d2f8b4fb",
+            "stateByteLength": 89129476,
+            "stateSha256": "de6c89f058081b4afc53b508b7690f2521f7150c6f34204d0f1e5cb1211e2601",
+            "meshStateCount": 121,
+            "bundleFileCount": 129,
+            "bundleBytes": 317904824,
+            "bundleTreeSha256": "6bbb82691c1a74c477732f870afbe735914ec05a62985b44c71affa1c7a8c34f",
+            "record": {
+              "path": "out/named-crystal-catalog/direct-production-v2/fernlike-stellar-dendrites-upper/record.json",
+              "byteLength": 2330,
+              "sha256": "f6763ff63e2c8312d2e9e777eac8b6ee67d24582b63a3c03a753759978b64100"
+            },
+            "verticalClearance": null
+          }
+        ]
+      },
+      {
+        "typeId": "hexagonal-plates",
+        "status": "morphology-screen-pass-resolution-superseded",
+        "rationale": "All three variants retain a thin compact six-sided plate.",
+        "variants": [
+          {
+            "jobId": "hexagonal-plates-baseline",
+            "slot": "baseline",
+            "sourceJobId": "sweep-t2p5-r0p08",
+            "sourceSpecSha256": "0535b0f3bd75767c06b7bb0e2e9bb2d0c2599cf182a413e1c3e297b2c812c28b",
+            "specSha256": "77f80e55ba38c743be37e9b6197b0526733aceef40f629ab7b0212cea0358772",
+            "driverName": "rho-scale",
+            "driverValue": 1,
+            "dims": [
+              192,
+              192,
+              64
+            ],
+            "tickCap": 6000,
+            "webByteLength": 69731,
+            "webSha256": "196ec8d9c420ed1c35c60a83cd86041b02ac89afb4d95959ca7f0b4b2aa9fbfa",
+            "stateByteLength": 40108560,
+            "stateSha256": "eec6d5b1832e681225d9f2cbb469c7826508825fe6638b96998946e2c10ef24b",
+            "meshStateCount": 121,
+            "bundleFileCount": 129,
+            "bundleBytes": 71258324,
+            "bundleTreeSha256": "043ce3b6d3c5b7025a971511c98792170029d649ccba82aa0869a8a45ae2510c",
+            "record": {
+              "path": "out/named-crystal-catalog/direct-production-v2/hexagonal-plates-baseline/record.json",
+              "byteLength": 2378,
+              "sha256": "f6bfd3a0ae676ab32dea879ad0707420fc93f98b8e90a00db84706ffe8b91680"
+            },
+            "verticalClearance": null
+          },
+          {
+            "jobId": "hexagonal-plates-lower",
+            "slot": "lower",
+            "sourceJobId": "sweep-t2p5-r0p08",
+            "sourceSpecSha256": "0535b0f3bd75767c06b7bb0e2e9bb2d0c2599cf182a413e1c3e297b2c812c28b",
+            "specSha256": "7360c8063d157b0942371bea1e833980fe042c37cb1f7685531b0f0cc6d44fd9",
+            "driverName": "rho-scale",
+            "driverValue": 0.95,
+            "dims": [
+              192,
+              192,
+              64
+            ],
+            "tickCap": 6000,
+            "webByteLength": 55268,
+            "webSha256": "b79a2897872c8f95439ba765da48b44f9d77c6e0f225440a901b8bd58a801b53",
+            "stateByteLength": 40108561,
+            "stateSha256": "9554067daaea067648ef360ff115650ac7b9fd8fe20c5d037c7855aa11e405a8",
+            "meshStateCount": 121,
+            "bundleFileCount": 129,
+            "bundleBytes": 68737863,
+            "bundleTreeSha256": "798001080e3395e83922d80e3f88e1b7fd0b2f0937a14940bfb74a9e15837c49",
+            "record": {
+              "path": "out/named-crystal-catalog/direct-production-v2/hexagonal-plates-lower/record.json",
+              "byteLength": 2378,
+              "sha256": "3bb7d2a142d643cbdf361844a0ef72b704b2f0d640a99fa3ca02088b7d3aca1e"
+            },
+            "verticalClearance": null
+          },
+          {
+            "jobId": "hexagonal-plates-upper",
+            "slot": "upper",
+            "sourceJobId": "sweep-t2p5-r0p08",
+            "sourceSpecSha256": "0535b0f3bd75767c06b7bb0e2e9bb2d0c2599cf182a413e1c3e297b2c812c28b",
+            "specSha256": "393503d423dd1ec90db250dd5e1fc8b8fd4c9c9dd1b10d3974c880c157e6583e",
+            "driverName": "rho-scale",
+            "driverValue": 1.05,
+            "dims": [
+              192,
+              192,
+              64
+            ],
+            "tickCap": 6000,
+            "webByteLength": 74236,
+            "webSha256": "61c001874c3d4a0081604853510c91144c01c151f377df3fad47203e0e30a7be",
+            "stateByteLength": 40108561,
+            "stateSha256": "b7b3630fd726f20a73c79cd7ba18c5748fb86ff751612986724f21db62b84511",
+            "meshStateCount": 121,
+            "bundleFileCount": 129,
+            "bundleBytes": 74329387,
+            "bundleTreeSha256": "90cba7f246f3873fbe5293c79b2d548432d09478de6ce4f38c18c9ba6d21138e",
+            "record": {
+              "path": "out/named-crystal-catalog/direct-production-v2/hexagonal-plates-upper/record.json",
+              "byteLength": 2379,
+              "sha256": "10b9f3402fa16d52ceae4cf1663132cc67ef843ad104e67c0f19834334b3ecc5"
+            },
+            "verticalClearance": null
+          }
+        ]
+      },
+      {
+        "typeId": "hollow-columns",
+        "status": "morphology-screen-pass-resolution-superseded",
+        "rationale": "All three variants are elongated hexagonal columns with an open axial cavity.",
+        "variants": [
+          {
+            "jobId": "hollow-columns-baseline",
+            "slot": "baseline",
+            "sourceJobId": "hollow-columns",
+            "sourceSpecSha256": "39dd18c4efc12a290164849220b30f97f1b3f87d84cc727938841a9962236253",
+            "specSha256": "27e55dc118b1498df9305dec84a57fe584b2fb0c446b9aeaabf117c5e769ed1a",
+            "driverName": "rho-scale",
+            "driverValue": 1,
+            "dims": [
+              96,
+              96,
+              192
+            ],
+            "tickCap": 6000,
+            "webByteLength": 314318,
+            "webSha256": "549d3f535477a0b4dbc8f98ffec0bc2f89d92f02fb7d9e48045c2dd18d596a5d",
+            "stateByteLength": 30081524,
+            "stateSha256": "4de3f55b815ea41c76c69a6c833e9004868fcb2f12e86d0e5d9c7ec1e756f9ba",
+            "meshStateCount": 121,
+            "bundleFileCount": 129,
+            "bundleBytes": 134646189,
+            "bundleTreeSha256": "be1db19e07593a0041f6c3b4874c67d25b0f92b345fcbff3673e7ca34feb80f0",
+            "record": {
+              "path": "out/named-crystal-catalog/direct-production-v2/hollow-columns-baseline/record.json",
+              "byteLength": 2272,
+              "sha256": "20b9cda666c845e8d1ffd02f7fe31b2d1c3d611c506ce8d49a5f3327a098d6a3"
+            },
+            "verticalClearance": {
+              "lowerLayers": 45,
+              "upperLayers": 45
+            }
+          },
+          {
+            "jobId": "hollow-columns-lower",
+            "slot": "lower",
+            "sourceJobId": "hollow-columns",
+            "sourceSpecSha256": "39dd18c4efc12a290164849220b30f97f1b3f87d84cc727938841a9962236253",
+            "specSha256": "7fce37f7b8d7a9070af22f698af9531494fc30f0a6353982b4b0556405c0bf90",
+            "driverName": "rho-scale",
+            "driverValue": 0.95,
+            "dims": [
+              96,
+              96,
+              192
+            ],
+            "tickCap": 6000,
+            "webByteLength": 245577,
+            "webSha256": "3304002f26aa87482514d7df1ee0b01c002eabc8fda314538ef87a010a414a7f",
+            "stateByteLength": 30081526,
+            "stateSha256": "86f43e97ab8b06b3b3b0f6b51409bdb5783c3abe6d23a99f3cb2f232f4e76fc6",
+            "meshStateCount": 121,
+            "bundleFileCount": 129,
+            "bundleBytes": 121230065,
+            "bundleTreeSha256": "999a681aa1144c8932231e1aca43503f09b3b3a983d57e9171a477958a9c9616",
+            "record": {
+              "path": "out/named-crystal-catalog/direct-production-v2/hollow-columns-lower/record.json",
+              "byteLength": 2273,
+              "sha256": "c11e6fbcf5925396c956e0e08ef1934ad416d5d36aa0062adc1f0d2e7c469055"
+            },
+            "verticalClearance": {
+              "lowerLayers": 48,
+              "upperLayers": 48
+            }
+          },
+          {
+            "jobId": "hollow-columns-upper",
+            "slot": "upper",
+            "sourceJobId": "hollow-columns",
+            "sourceSpecSha256": "39dd18c4efc12a290164849220b30f97f1b3f87d84cc727938841a9962236253",
+            "specSha256": "7ff8e0e6cd4ceb4513e9705b6b22b1bd77f2195bf8e981694eb813d78a94b5eb",
+            "driverName": "rho-scale",
+            "driverValue": 1.05,
+            "dims": [
+              96,
+              96,
+              192
+            ],
+            "tickCap": 6000,
+            "webByteLength": 341273,
+            "webSha256": "a59fdadff1c88c76afc49997386c115fa4afbede495c8e3fe041c337e3ab3c92",
+            "stateByteLength": 30081526,
+            "stateSha256": "52e8e2fc0909e670f8174b2fac89e137b3b04a586df43475b0366488724790bc",
+            "meshStateCount": 121,
+            "bundleFileCount": 129,
+            "bundleBytes": 150057496,
+            "bundleTreeSha256": "6a0b891dcd230c146fb671030d67d44bdbcb443f8020e56b9258d146832a7746",
+            "record": {
+              "path": "out/named-crystal-catalog/direct-production-v2/hollow-columns-upper/record.json",
+              "byteLength": 2274,
+              "sha256": "3851e0ed26de7f9d9092767bcae18353c00fcf2f00567222ecfb3d1a8e3c4d1f"
+            },
+            "verticalClearance": {
+              "lowerLayers": 41,
+              "upperLayers": 41
+            }
+          }
+        ]
+      },
+      {
+        "typeId": "sectored-plates",
+        "status": "morphology-screen-pass-resolution-superseded",
+        "rationale": "All three variants retain a thin plate divided into six broad sectors.",
+        "variants": [
+          {
+            "jobId": "sectored-plates-baseline",
+            "slot": "baseline",
+            "sourceJobId": "sectored-plates",
+            "sourceSpecSha256": "b64a13a1d35749d346e259a0bb649043b4a1777fc9489a8c8e58a123ca003b58",
+            "specSha256": "7625b8e3922538371c3ad78a4c6c777dcc031f6608f2f4cb088914c52302aeda",
+            "driverName": "rho-scale",
+            "driverValue": 1,
+            "dims": [
+              192,
+              192,
+              64
+            ],
+            "tickCap": 6000,
+            "webByteLength": 62602,
+            "webSha256": "ed71bb3cab4933ddf0b4ebaab10eb7748db408e2a4e939c7c4455f945bf5c441",
+            "stateByteLength": 40108537,
+            "stateSha256": "38f8080085e3189e438d19df9e082a6724a53c705bc47f47fba3c448f4ff153f",
+            "meshStateCount": 121,
+            "bundleFileCount": 129,
+            "bundleBytes": 70687825,
+            "bundleTreeSha256": "18bc1d2fdae1ca990f6df714c68302973fb3d5ccc66b56206eabee7bf00cd7b9",
+            "record": {
+              "path": "out/named-crystal-catalog/direct-production-v2/sectored-plates-baseline/record.json",
+              "byteLength": 2274,
+              "sha256": "c535764462d3398524378cf6fe4ba9bad3fda8762efb7cf6ea473256d8d577a0"
+            },
+            "verticalClearance": null
+          },
+          {
+            "jobId": "sectored-plates-lower",
+            "slot": "lower",
+            "sourceJobId": "sectored-plates",
+            "sourceSpecSha256": "b64a13a1d35749d346e259a0bb649043b4a1777fc9489a8c8e58a123ca003b58",
+            "specSha256": "6eb43fdbbd589768a77652e71421513555b98f25fc058ca8f7e41838da4a0bc1",
+            "driverName": "rho-scale",
+            "driverValue": 0.95,
+            "dims": [
+              192,
+              192,
+              64
+            ],
+            "tickCap": 6000,
+            "webByteLength": 58133,
+            "webSha256": "5b74d7c2752f5ebc895d8fae4c9c24dfefdf0003710e0de646c77c578a9e151c",
+            "stateByteLength": 40108539,
+            "stateSha256": "0432b2e2b19d073d735ff2ca0218c491c2d4c086a26d382e228f8d45c63583c5",
+            "meshStateCount": 121,
+            "bundleFileCount": 129,
+            "bundleBytes": 68086154,
+            "bundleTreeSha256": "5d922ef484495913683571d321393d867376b55db8176d49e8e1c87b0e8cd1f0",
+            "record": {
+              "path": "out/named-crystal-catalog/direct-production-v2/sectored-plates-lower/record.json",
+              "byteLength": 2276,
+              "sha256": "e52e332c2f480793d5fa8c4800270b5a917d0dc0baf837c539f96bd06ee8a0fc"
+            },
+            "verticalClearance": null
+          },
+          {
+            "jobId": "sectored-plates-upper",
+            "slot": "upper",
+            "sourceJobId": "sectored-plates",
+            "sourceSpecSha256": "b64a13a1d35749d346e259a0bb649043b4a1777fc9489a8c8e58a123ca003b58",
+            "specSha256": "ed013797f5f7ce212c83df1a601260c9b38750861544761bf6bf54a9debfbd97",
+            "driverName": "rho-scale",
+            "driverValue": 1.05,
+            "dims": [
+              192,
+              192,
+              64
+            ],
+            "tickCap": 6000,
+            "webByteLength": 67877,
+            "webSha256": "c34ac1344459ed46c21a654077c8a36974e314df5fbb097d274f4dcca5f1c61e",
+            "stateByteLength": 40108539,
+            "stateSha256": "70aef27e9c391790d8e9ab9e07d68567f4b0d67a4719a336a5e25c38c6e383a0",
+            "meshStateCount": 121,
+            "bundleFileCount": 129,
+            "bundleBytes": 72952834,
+            "bundleTreeSha256": "3ce4a6e189cab5217c77c3e1596f128b9b39eb88e8fd8c42758a3b10bc518323",
+            "record": {
+              "path": "out/named-crystal-catalog/direct-production-v2/sectored-plates-upper/record.json",
+              "byteLength": 2277,
+              "sha256": "d2a818bc01fba4b2a54ac06eee635d9adafbb3691ad0919f33b5762362c332a9"
+            },
+            "verticalClearance": null
+          }
+        ]
+      },
+      {
+        "typeId": "simple-needles",
+        "status": "morphology-screen-pass-resolution-superseded",
+        "rationale": "All three variants are slender axial needles rather than planar habits.",
+        "variants": [
+          {
+            "jobId": "simple-needles-baseline",
+            "slot": "baseline",
+            "sourceJobId": "simple-needles",
+            "sourceSpecSha256": "5073c63f66f4b2a4bc1eded67df2a2d67ae3a63079a7b94d4395e2d15ed9dc47",
+            "specSha256": "4b5d5e865b939adf0df515cf8dc3d8aa8906253d00a336a6b200a652d4624b9f",
+            "driverName": "rho-scale",
+            "driverValue": 1,
+            "dims": [
+              96,
+              96,
+              192
+            ],
+            "tickCap": 6000,
+            "webByteLength": 122218,
+            "webSha256": "b2285436619701b91f6c032c5fc19e80277afc2d5d1b10716da1164d330000bc",
+            "stateByteLength": 30081525,
+            "stateSha256": "c1da7b7342b3107811a011da5e23141fef97183549f78f6079e81c538e4cb15b",
+            "meshStateCount": 121,
+            "bundleFileCount": 129,
+            "bundleBytes": 92188017,
+            "bundleTreeSha256": "89c3895f8e0e55c341cf7f19381089b7c4e657e7716d343bcc4b400641debb99",
+            "record": {
+              "path": "out/named-crystal-catalog/direct-production-v2/simple-needles-baseline/record.json",
+              "byteLength": 2267,
+              "sha256": "92509a665d3cf73a7e7bcaf0ab5092dbddcebd6b894e1a31359c57ebb74c627b"
+            },
+            "verticalClearance": {
+              "lowerLayers": 44,
+              "upperLayers": 44
+            }
+          },
+          {
+            "jobId": "simple-needles-lower",
+            "slot": "lower",
+            "sourceJobId": "simple-needles",
+            "sourceSpecSha256": "5073c63f66f4b2a4bc1eded67df2a2d67ae3a63079a7b94d4395e2d15ed9dc47",
+            "specSha256": "781402918f7eeb10bf11812bcb2fda76d4b2aa40e862f9551afd65f345dd4f13",
+            "driverName": "rho-scale",
+            "driverValue": 0.95,
+            "dims": [
+              96,
+              96,
+              192
+            ],
+            "tickCap": 6000,
+            "webByteLength": 115013,
+            "webSha256": "809c8d95482d1283e41e972d8194169d19483408e9999d83355debddf7611d78",
+            "stateByteLength": 30081527,
+            "stateSha256": "db2d80911d574672ef79fe203984037a07b51f9c815347a340d8ccb95534f578",
+            "meshStateCount": 121,
+            "bundleFileCount": 129,
+            "bundleBytes": 86453974,
+            "bundleTreeSha256": "df637fd99cf95f8ed804aa96d19f59e80d0c10d576594629488cc3f1e7e9e731",
+            "record": {
+              "path": "out/named-crystal-catalog/direct-production-v2/simple-needles-lower/record.json",
+              "byteLength": 2269,
+              "sha256": "fa5f2003fcde0a6a3aa5efcd0f72d2d48c24743f05837e0d21de18f0d61192ad"
+            },
+            "verticalClearance": {
+              "lowerLayers": 48,
+              "upperLayers": 48
+            }
+          },
+          {
+            "jobId": "simple-needles-upper",
+            "slot": "upper",
+            "sourceJobId": "simple-needles",
+            "sourceSpecSha256": "5073c63f66f4b2a4bc1eded67df2a2d67ae3a63079a7b94d4395e2d15ed9dc47",
+            "specSha256": "b0c23aa5b8dfa1dbc0351761b49c26ff05f9788fcdc1d056913c1fd468e5f36e",
+            "driverName": "rho-scale",
+            "driverValue": 1.05,
+            "dims": [
+              96,
+              96,
+              192
+            ],
+            "tickCap": 6000,
+            "webByteLength": 142133,
+            "webSha256": "02ca909932ce738c9f1e4de635edf834ede0f24f3e9a6d850d2e008fc3f50c3a",
+            "stateByteLength": 30081527,
+            "stateSha256": "0f930567c008a5e99edd34cded52c443dd9e3174d7cdea555ec010bae71b5648",
+            "meshStateCount": 121,
+            "bundleFileCount": 129,
+            "bundleBytes": 98522165,
+            "bundleTreeSha256": "8187d9b66899668c9d5149cea98957831a8639fa4b86e987de447b856932f411",
+            "record": {
+              "path": "out/named-crystal-catalog/direct-production-v2/simple-needles-upper/record.json",
+              "byteLength": 2268,
+              "sha256": "72e200d4434668bee363bf10dbb7444d224fed894474e89be0adfdf022f77a72"
+            },
+            "verticalClearance": {
+              "lowerLayers": 41,
+              "upperLayers": 41
+            }
+          }
+        ]
+      },
+      {
+        "typeId": "simple-prisms",
+        "status": "morphology-screen-pass-resolution-superseded",
+        "rationale": "All three views retain a compact thick hexagonal prism without plate branching.",
+        "variants": [
+          {
+            "jobId": "simple-prisms-baseline",
+            "slot": "baseline",
+            "sourceJobId": "fig11",
+            "sourceSpecSha256": "2b0190f5256c11d7a964ab5016734826548de905d3e941a0eb52da58cf88e033",
+            "specSha256": "f28434555ef97170417609bee9ddec9bfc6d757b8cbb9392574c54b659f8ccf8",
+            "driverName": "rho-scale",
+            "driverValue": 1,
+            "dims": [
+              400,
+              400,
+              160
+            ],
+            "tickCap": 1706,
+            "webByteLength": 2810842,
+            "webSha256": "d200dfbb921f7c955d197d5cb28aaf0bcd1fdf5698b6e80f451fef83b45d1b9b",
+            "stateByteLength": 435200510,
+            "stateSha256": "8d6aaf842d849e92301c44160341ec7aee5031b52c9d86009c80c66adcb85886",
+            "meshStateCount": 115,
+            "bundleFileCount": 123,
+            "bundleBytes": 1136199729,
+            "bundleTreeSha256": "78635f9045861a7d06474df059f4871c21794c07306485db8509228638aae428",
+            "record": {
+              "path": "out/named-crystal-catalog/direct-production-v2/simple-prisms-baseline/record.json",
+              "byteLength": 2280,
+              "sha256": "60416785795d5521eeb8ad80cb0a2fb64c96f98b6ba196822deccf463647cdc3"
+            },
+            "verticalClearance": null
+          },
+          {
+            "jobId": "simple-prisms-lower",
+            "slot": "lower",
+            "sourceJobId": "fig11",
+            "sourceSpecSha256": "2b0190f5256c11d7a964ab5016734826548de905d3e941a0eb52da58cf88e033",
+            "specSha256": "ceb79e16b4ae83a4f9ab12b5f203d57aba8c3364af5a1d13d218ed00e633185a",
+            "driverName": "rho-scale",
+            "driverValue": 0.95,
+            "dims": [
+              400,
+              400,
+              160
+            ],
+            "tickCap": 1706,
+            "webByteLength": 1948253,
+            "webSha256": "fb72c73a766046d211ef2cf791d96e1e7aa1e64941173b4b069b78720e69fbf5",
+            "stateByteLength": 435200511,
+            "stateSha256": "d5bf54e4283c0dddd02aaf4e8b37f3fa09da762572fd4633b8c6c0219c84ff47",
+            "meshStateCount": 115,
+            "bundleFileCount": 123,
+            "bundleBytes": 955169271,
+            "bundleTreeSha256": "51babb72ebaef6f0aec5d851f89b0d23fb4228806fef015e2495c73dc2e8acaf",
+            "record": {
+              "path": "out/named-crystal-catalog/direct-production-v2/simple-prisms-lower/record.json",
+              "byteLength": 2276,
+              "sha256": "30ee5b8b803749d985c6e88921c49953b37e39ec0f2a65d5f78f981c8449e82a"
+            },
+            "verticalClearance": null
+          },
+          {
+            "jobId": "simple-prisms-upper",
+            "slot": "upper",
+            "sourceJobId": "fig11",
+            "sourceSpecSha256": "2b0190f5256c11d7a964ab5016734826548de905d3e941a0eb52da58cf88e033",
+            "specSha256": "bcf3409bf6f4026a1ac164a3ee8ab219ca4794e7c9c9da4fc9c1f8522c3cb9da",
+            "driverName": "rho-scale",
+            "driverValue": 1.05,
+            "dims": [
+              400,
+              400,
+              160
+            ],
+            "tickCap": 1706,
+            "webByteLength": 3576987,
+            "webSha256": "1631ef7b395f59c05cb00a6138eff46288fe2773799522188dbdad73ff367325",
+            "stateByteLength": 435200511,
+            "stateSha256": "8886fa1257ac6020bed9912759e42fd0b7830fb44fcdc50cc570ba72fdbf16ee",
+            "meshStateCount": 115,
+            "bundleFileCount": 123,
+            "bundleBytes": 1258901360,
+            "bundleTreeSha256": "c0c8b4dcba841cf01678b580e68b1888885fcf02f7126bdee16a3a47fad3532d",
+            "record": {
+              "path": "out/named-crystal-catalog/direct-production-v2/simple-prisms-upper/record.json",
+              "byteLength": 2278,
+              "sha256": "10cc858cd14ebce2fe3564c554a614f0dccc957d64aaa170d7c3e5a52138cbf9"
+            },
+            "verticalClearance": null
+          }
+        ]
+      },
+      {
+        "typeId": "stellar-plates",
+        "status": "morphology-screen-pass-resolution-superseded",
+        "rationale": "All three variants retain six broad plate-like stellar arms.",
+        "variants": [
+          {
+            "jobId": "stellar-plates-baseline",
+            "slot": "baseline",
+            "sourceJobId": "stellar-plates",
+            "sourceSpecSha256": "9a377c887af3c8427a1bec50df3d0f13c6fec425992fe36c5c9b8e0bc3ff9f6f",
+            "specSha256": "5aff3f49592b48376cf582d9a74a2341129ab70bf7dade117515d03f2522e7b8",
+            "driverName": "rho-scale",
+            "driverValue": 1,
+            "dims": [
+              256,
+              256,
+              80
+            ],
+            "tickCap": 6000,
+            "webByteLength": 389286,
+            "webSha256": "8fb1774a09cd68441e062c0fd095462a76724c2bd19d2db07fd2f82feab85a55",
+            "stateByteLength": 89129493,
+            "stateSha256": "73eed5c32e76d4739db13dedcec200ee4bf9c105e0fd6e0abea1657ab644eadc",
+            "meshStateCount": 121,
+            "bundleFileCount": 129,
+            "bundleBytes": 239049397,
+            "bundleTreeSha256": "b5681a1762f9e1328ed521807475e5d2a07a60df1f8f6e2eff68a1c82f1c8937",
+            "record": {
+              "path": "out/named-crystal-catalog/direct-production-v2/stellar-plates-baseline/record.json",
+              "byteLength": 2793,
+              "sha256": "f36f4280aea06e3efabce85ab98a6820b937acd4281d69956c7d889203fd5436"
+            },
+            "verticalClearance": null
+          },
+          {
+            "jobId": "stellar-plates-lower",
+            "slot": "lower",
+            "sourceJobId": "stellar-plates",
+            "sourceSpecSha256": "9a377c887af3c8427a1bec50df3d0f13c6fec425992fe36c5c9b8e0bc3ff9f6f",
+            "specSha256": "8505a175f42b09b19509367a1151f03569090e9f457c0cc0067b7c9a86b632bc",
+            "driverName": "rho-scale",
+            "driverValue": 0.95,
+            "dims": [
+              256,
+              256,
+              80
+            ],
+            "tickCap": 6000,
+            "webByteLength": 340360,
+            "webSha256": "c50e8f67961025bb273749b52e4cb6898b1f14e8424b1fabff1e378d86e08d0d",
+            "stateByteLength": 89129494,
+            "stateSha256": "cbfe145bd40f84dfd5ec2cf89da7251886fb1ddf2259f43c7a198d53e38875fe",
+            "meshStateCount": 121,
+            "bundleFileCount": 129,
+            "bundleBytes": 222749522,
+            "bundleTreeSha256": "88c658b23cb174cb24deae8e34a1e53f56d1bf0c7c69e97e2495b631c490769c",
+            "record": {
+              "path": "out/named-crystal-catalog/direct-production-v2/stellar-plates-lower/record.json",
+              "byteLength": 2796,
+              "sha256": "324df1f94ffd341d7cb8490bd655143f204896f6cc7cba921757455dff97ef7e"
+            },
+            "verticalClearance": null
+          },
+          {
+            "jobId": "stellar-plates-upper",
+            "slot": "upper",
+            "sourceJobId": "stellar-plates",
+            "sourceSpecSha256": "9a377c887af3c8427a1bec50df3d0f13c6fec425992fe36c5c9b8e0bc3ff9f6f",
+            "specSha256": "5d7a2ed017ddb181e3203a146ca1ca72519f36b749fe16b52b6eed1b9fd1544f",
+            "driverName": "rho-scale",
+            "driverValue": 1.05,
+            "dims": [
+              256,
+              256,
+              80
+            ],
+            "tickCap": 6000,
+            "webByteLength": 456912,
+            "webSha256": "9bd797c4de0744a2d29c21da9c80168761ba9617a79ac3e84223f3a9a9c4a907",
+            "stateByteLength": 89129494,
+            "stateSha256": "a44ac59f774c741030a36cc9db9f772a7a8312353d4f8bbdcf3692614bf16e90",
+            "meshStateCount": 121,
+            "bundleFileCount": 129,
+            "bundleBytes": 267505674,
+            "bundleTreeSha256": "57b3fdaf0f43b4ee529d112c2246ea671724addcfe489d4843e4a09d2e1e5803",
+            "record": {
+              "path": "out/named-crystal-catalog/direct-production-v2/stellar-plates-upper/record.json",
+              "byteLength": 2799,
+              "sha256": "6a02eb4d2dddc64e1f7d5d7ad7b67ba9895ff6efe89e355240332bf8988478ef"
+            },
+            "verticalClearance": null
+          }
+        ]
+      }
+    ]
+  },
+  "catalogAfterSupersession": {
+    "taxonomyRows": 35,
+    "includedTypes": 33,
+    "excludedTypes": 2,
+    "ggTypes": 24,
+    "composeTypes": 9,
+    "requiredSlots": 99,
+    "acceptedSlots": 0,
+    "remainingSlots": 99
+  },
+  "preservation": "No run, scientific bundle, web payload, review render, or earlier tracked review was deleted."
+}

@@ -1,0 +1,162 @@
+{
+  "format": "named-crystal-baseline-probe-review-v1",
+  "reviewedAt": "2026-08-29",
+  "sourceManifest": "docs/named-snow-crystal-baseline-probes.json",
+  "sourceReport": {
+    "path": "out/named-crystal-catalog/baseline-probes-v1/report.json",
+    "byteLength": 40380,
+    "sha256": "68221cc4190f4d28008dfc17c8fb0cf3cfa67347fc741ec4e13f9b767904ed3c"
+  },
+  "contactSheet": {
+    "path": "out/named-crystal-catalog/baseline-probes-v1/contact-sheet.png",
+    "byteLength": 9572070,
+    "sha256": "56521b3d836c81f1819b2e6a1134b117c0801aa87810ced7613a08954435ab59",
+    "views": ["face-0-degrees", "oblique-55-degrees", "axial-85-degrees"],
+    "cameraNote": "Rendered after the 3-D extent framing correction; the pre-correction tall-column renders were clipped and were not used for morphology review."
+  },
+  "executionSummary": {
+    "requestedProcessConcurrency": 24,
+    "actualWorkerCount": 24,
+    "completed": 24,
+    "failed": 0,
+    "startedAt": "2026-08-30T03:45:18.929Z",
+    "finishedAt": "2026-08-30T03:50:30.288Z",
+    "minimumWebBytes": 62188,
+    "maximumWebBytes": 830136,
+    "totalWebBytes": 8188899,
+    "webPayloadLimitBytes": 20000000
+  },
+  "statusDefinitions": {
+    "advance-candidate": "The requested named feature is recognizable enough to justify a larger non-contact production candidate; this does not fill a catalog slot.",
+    "retune-candidate": "The result is related but the defining named feature is weak, ambiguous, or overgrown; retain the route but change recipe, stop, or domain.",
+    "failed-probe": "The defining named feature was not retained in this bounded run; the result cannot advance under this recipe."
+  },
+  "counts": {
+    "advanceCandidate": 10,
+    "retuneCandidate": 5,
+    "failedProbe": 9,
+    "formalCatalogSlotsFilled": 0
+  },
+  "reviews": [
+    {
+      "typeId": "simple-prisms",
+      "status": "failed-probe",
+      "rationale": "The radius-2 three-layer seed overgrew into a decorated, branched thick plate and stopped on domain contact; it is not a small simple prism. Reuse the current fig11 candidate or stop much earlier on a larger domain."
+    },
+    {
+      "typeId": "solid-columns",
+      "status": "advance-candidate",
+      "rationale": "Face and oblique views show a compact solid hexagonal column with no open axial cavity."
+    },
+    {
+      "typeId": "sheaths",
+      "status": "advance-candidate",
+      "rationale": "The long thin wall and open annular face remain visible; the form is distinct from the thicker hollow-column candidate."
+    },
+    {
+      "typeId": "scrolls-on-plates",
+      "status": "failed-probe",
+      "rationale": "The hooked seed grew into a complex six-armed plate and stopped on domain contact; no retained rolled or scroll-like plate edge is visible."
+    },
+    {
+      "typeId": "triangular-forms",
+      "status": "failed-probe",
+      "rationale": "The asymmetric seed was overwhelmed by sixfold growth before domain contact; the final outline is hexagonal rather than a truncated triangle or threefold star."
+    },
+    {
+      "typeId": "hexagonal-plates",
+      "status": "failed-probe",
+      "rationale": "The high-growth scale-down became a thick decorated plate and hit the boundary early; it is not a clean thin hexagonal plate baseline."
+    },
+    {
+      "typeId": "hollow-columns",
+      "status": "advance-candidate",
+      "rationale": "The end-on view shows a centered hollow region and the side view remains a slender symmetric column."
+    },
+    {
+      "typeId": "cups",
+      "status": "failed-probe",
+      "rationale": "The recessed seed elongated into a nearly symmetric hollow column; it does not retain a one-ended cup profile."
+    },
+    {
+      "typeId": "columns-on-plates",
+      "status": "retune-candidate",
+      "rationale": "Oblique structure is strongly three-dimensional and plate-bearing, but the central columns are visually crowded by secondary branches; compare a cleaner fig39/fig40-scale candidate."
+    },
+    {
+      "typeId": "stellar-plates",
+      "status": "advance-candidate",
+      "rationale": "The face view shows six broad thin star arms and a plate-like center; production needs a larger domain because this probe contacted the boundary."
+    },
+    {
+      "typeId": "capped-columns",
+      "status": "advance-candidate",
+      "rationale": "The side view clearly shows two plate-like caps on opposite ends of a central column."
+    },
+    {
+      "typeId": "split-plates-and-stars",
+      "status": "advance-candidate",
+      "rationale": "The face view retains two connected offset plate/star lobes rather than returning to one sixfold plate."
+    },
+    {
+      "typeId": "sectored-plates",
+      "status": "advance-candidate",
+      "rationale": "The compact hexagonal plate carries six prominent inward ridges/sectors and remains thin."
+    },
+    {
+      "typeId": "isolated-bullets",
+      "status": "advance-candidate",
+      "rationale": "The side view shows an isolated tapered column with a pointed end, visually distinct from a uniform needle."
+    },
+    {
+      "typeId": "multiply-capped-columns",
+      "status": "failed-probe",
+      "rationale": "The alternating schedule produced end caps but no multiple separated cap levels; it remains visually one capped column."
+    },
+    {
+      "typeId": "skeletal-forms",
+      "status": "retune-candidate",
+      "rationale": "The face view is open and branch-like but resembles a blocky stellar form; the named skeletal feature is ambiguous and needs a type-specific reference comparison."
+    },
+    {
+      "typeId": "simple-stars",
+      "status": "retune-candidate",
+      "rationale": "Six arms are present, but broad secondary growth makes the result too ornate for a clean simple-star baseline."
+    },
+    {
+      "typeId": "simple-needles",
+      "status": "advance-candidate",
+      "rationale": "The side view is a long slender columnar needle with little lateral decoration."
+    },
+    {
+      "typeId": "capped-bullets",
+      "status": "retune-candidate",
+      "rationale": "Two end caps are clear, but growth erased most of the tapered bullet distinction and the result reads primarily as a capped column."
+    },
+    {
+      "typeId": "stellar-dendrites",
+      "status": "failed-probe",
+      "rationale": "The scale-down hit domain contact as a broad sectored/plate-like form without clear tree-like sidebranches; use the existing larger fig7/fig15 candidates."
+    },
+    {
+      "typeId": "needle-clusters",
+      "status": "failed-probe",
+      "rationale": "The separated tips merged into one narrow axial envelope before domain contact; no readable cluster remains."
+    },
+    {
+      "typeId": "double-plates",
+      "status": "retune-candidate",
+      "rationale": "The oblique view is multilayered, but this small run does not clearly resolve one dominant plate plus a smaller nearby plate; retain the existing fig6 scientific anchor."
+    },
+    {
+      "typeId": "fernlike-stellar-dendrites",
+      "status": "advance-candidate",
+      "rationale": "Numerous visible sidebranches give the six main branches a fern-like outline; production needs a larger domain because this probe contacted the boundary."
+    },
+    {
+      "typeId": "hollow-plates",
+      "status": "failed-probe",
+      "rationale": "The annular seed filled and overgrew into a decorated hexagonal plate before domain contact; no stable hollow plate feature remains."
+    }
+  ]
+}

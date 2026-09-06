@@ -184,6 +184,19 @@ path; the restore fixtures require their synthetic destination and repository ro
 same spelling. These checks read the activated catalogue and tracked manifest but performed no NAS
 write, restore, verification, or local-source deletion.
 
+Closeout verification addendum (2026-09-04): a later fresh process ran
+`npm run assets:verify -- --collection gutcheck-growth-scientific@2026-08-26 --full` and exited 0.
+Its report returned `ok=true`, `manifest=verified`, `aggregate=verified`,
+`payload=verified-full`, zero defects, and exact full-payload totals of 6,308 files /
+84,247,312,054 bytes. The ignored raw log in the animation worktree is 761 bytes / SHA-256
+`72aac9e0e4b176834468b5c3475cd89f1560be61c044bea67fc46f8da02e9479` at
+`out/nas-verify-gutcheck-growth-scientific-2026-09-04.log`; the active
+[render-worktree closeout plan](render-worktrees-nas-closeout.md) registers that log in the new
+closeout collection while retaining the animation worktree. This later verifier performed no NAS
+write, restore, movement, quarantine or deletion. A subsequently started restore was stopped under
+the maker's narrowed 2026-09-04 direction and remains incomplete local scratch; the maker will test
+the documented restore on another computer after merging the closeout pull request.
+
 ## Out of scope
 
 - Deleting, pruning, moving, or modifying `out/growth-scientific/`, a restored copy, or any

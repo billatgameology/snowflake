@@ -891,9 +891,30 @@ visual studies. Resolve shared Vite registration and progress-index changes expl
 
 ### Next step
 
-Merge fetched main, resolve shared registrations/state, then execute the checks above.
+The merge conflicts are resolved. Complete the full check, publish the combined tree and merge
+the requested PR after applicable checks pass.
+
+### Integration record
+
+Fetched main at `9722561524afc30e171b23089b06912742d2b9b8`. Vite retains both services and
+page entries, PROGRESS combines both workstreams with main's newer education state, and the
+progress test retains the valid-date check rather than restoring a fixed historical date.
+The incoming catalog service eagerly opened ignored Compose scenes during configuration load,
+blocking this checkout's build. Scene loading and component-allowlist validation now run on
+scene requests; tracked index construction needs no generated output. Hash checks remain intact.
+The fresh-checkout regression covers index access plus missing/unknown asset refusal.
+
+`npx vitest run app/test/named-crystal-catalog-service.test.ts` passes (`out/main-integration/catalog-test.log`),
+and `npm run build --workspace app` passes (`build-final.log` there). The representative built-page
+smoke renders all four styles, checks the matching age legends and phone width, and reads both
+library indexes with unknown-scene refusal (`browser-smoke.json` there). Two Views was visually
+inspected. The new loopback integration server uses port 5193 (`dev-server.pid` there).
+The full check is running with canonical process-local Windows TEMP/TMP paths.
 
 ### Tried and rejected
 
 - Replacing the progress index wholesale with this older branch would restore stale education
   status and omit the completed named catalog. Combine the records using main's newer state.
+- Eagerly opening every generated Compose scene during Vite configuration fails without the
+  producer's ignored output (`out/main-integration/build.log`). Validate a scene when requested.
+  The initial full check was stopped for this correction; it is not passing-suite evidence.

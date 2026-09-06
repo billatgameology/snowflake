@@ -1,0 +1,18 @@
+:root { color-scheme: dark; font-family: Inter, ui-sans-serif, system-ui, sans-serif; background: #03050a; color: #ecf8ff; }
+* { box-sizing: border-box; }
+html, body, #volume-player { width: 100%; height: 100%; margin: 0; overflow: hidden; }
+body { background: #03050a; }
+canvas { position: absolute; inset: 0; display: block; width: 100%; height: 100%; }
+.loading, .error { position: absolute; z-index: 5; inset: 0; display: grid; place-items: center; margin: 0; padding: 30px; color: #9fc7df; background: radial-gradient(circle, #0d1b2a, #03050a 70%); text-align: center; }
+.error { color: #ffc6c6; }
+.error a { color: #8fdcff; }
+.player-head { position: absolute; z-index: 4; top: 0; left: 0; right: 0; display: flex; align-items: start; justify-content: space-between; gap: 20px; padding: 18px 20px 34px; background: linear-gradient(#02050bd9, transparent); pointer-events: none; }
+.player-head h1 { margin: 3px 0 0; font: 500 clamp(20px, 3vw, 32px)/1.05 Georgia, serif; }
+.eyebrow { margin: 0; color: #7bd6ff; font-size: 10px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; }
+.identity { max-width: 48ch; color: #92a9b8; font-size: 11px; line-height: 1.45; text-align: right; }
+.controls { position: absolute; z-index: 4; left: 50%; bottom: 18px; display: flex; align-items: center; gap: 10px; width: min(680px, calc(100% - 28px)); padding: 10px 12px; border: 1px solid #45647b99; border-radius: 14px; background: #07111de8; box-shadow: 0 15px 50px #000a; transform: translateX(-50%); backdrop-filter: blur(16px); }
+.controls button { padding: 8px 11px; border: 1px solid #4c708a; border-radius: 8px; background: #10283a; color: white; cursor: pointer; }
+.controls input { flex: 1; accent-color: #74d5ff; }
+.controls output { width: 52px; color: #9eb6c7; font: 11px ui-monospace, monospace; text-align: right; }
+.capability { position: absolute; z-index: 4; right: 16px; bottom: 72px; color: #648195; font-size: 10px; }
+@media (max-width: 640px) { .identity, .capability { display: none; } .player-head { padding: 14px; } .controls { bottom: 10px; } }

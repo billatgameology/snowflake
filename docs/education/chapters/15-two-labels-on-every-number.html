@@ -1289,9 +1289,8 @@
       verdict.style.color = c.critical;
       verdict.textContent =
         "Refused. “Only Phase 6 can grant the third, and only where the comparison actually " +
-        "holds” (project charter.md:84). Phase 6 is active and incomplete. Historical CAK and M1 " +
-        "arms measured 3 of 90 and 54 of 90 common-scope respectively, but neither executed R15; " +
-        "both remain measured-only. Nothing in the " +
+        "holds” (project charter.md:84). Phase 6 is complete on an accepted negative finding, " +
+        "not a validation. Its closure record cannot promote this picked value. Nothing in the " +
         "application has been promoted — the status footer still ends: all model quantities: " +
         "Evidence = unvalidated (§1.5).";
       pickEv = null;
@@ -1706,9 +1705,9 @@
         "confidence than Phase 6 has earned” (project charter.md:342). " +
         "Missing precondition: a gate-qualified Phase 6 report naming THIS comparison and the " +
         "domain it holds over. The historical CAK and M1 arms measured 3 of 90 and 54 of 90 " +
-        "common-scope respectively. Later verification preserves those measurements; it does not " +
-        "make either one the registered replacement gate. R15 is planned but unfrozen, " +
-        "unimplemented and unexecuted; its charter obligations remain open." };
+        "common-scope respectively. Later verification preserves those measurements; Phase 6 " +
+        "closed on an accepted negative finding and did not grant validation. The missing " +
+        "precondition therefore remains a gate-qualified report for this exact named domain." };
     } else if (row.id !== REPORT_DOMAIN) {
       message = { tone: "bad", text:
         "Refused. The loaded report’s named domain is “growth rates vs (T, σ)”. " +
@@ -1787,8 +1786,8 @@
     note.style.margin = "0.7rem 0 0";
     note.textContent = loaded
       ? "loaded: stand-in report · named domain: growth rates vs (T, σ) · " +
-        "this artifact does not exist — Phase 6 remains active and incomplete. Historical CAK " +
-        "(3/90) and M1 (54/90 common scope) are measured-only, not replacement-gate evidence."
+        "this validation artifact does not exist — Phase 6 closed on a negative finding. " +
+        "Its historical CAK, M1, and no-dip results do not grant validation."
       : "no Phase 6 report loaded · the last three rows are three of the four held-out " +
         "observables named at project charter.md:185 — measurements deliberately not used to " +
         "pick any of the model’s inputs, so they can serve as a fair test.";

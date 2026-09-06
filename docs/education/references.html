@@ -590,8 +590,8 @@
           not as a claim about nature. The strongest honest reading of the record below is: this
           project wrote down what it would count as success before it measured, measured, and then
           reported a bad score without moving the target. That is a claim about method, and the
-          files let you audit it. Whether the physics inside the solver is <em>right</em> is a
-          separate question, and Phase 6 has not answered it.
+          files let you audit it. Phase&nbsp;6 later answered its registered comparison negatively;
+          that scoped result does not prove every possible version of the physics right or wrong.
         </p>
       </aside>
 
@@ -811,10 +811,11 @@
       <ul class="refs">
         <li>
           <span class="ref__title">The cold-start authority chain</span>
-          <span class="ref__meta"><span class="ref__id">docs/HANDOFF.md → docs/phase6-lessons.md → docs/PROGRESS.md → active plan</span></span>
+          <span class="ref__meta"><span class="ref__id">docs/phase6-lessons.md → docs/PROGRESS.md → active plan</span></span>
           <p>
-            Open <code>docs/HANDOFF.md</code> first, then the lessons, then the progress record and
-            the active plan it names. <code>PROGRESS.md</code> carries the phase table with each gate&rsquo;s status and the
+            Open <code>docs/phase6-lessons.md</code> first, then the progress record and the active
+            plan it names. The retired <code>docs/HANDOFF.md</code> is only an archive tombstone.
+            <code>PROGRESS.md</code> carries the phase table with each gate&rsquo;s status and the
             metric that closed it, a <strong>Next step</strong> section that is the current state of
             play, and long passages of &ldquo;traps already known&rdquo; recording defects, dead
             ends, and interrupted runs. Rule 3 requires it be written as work happens rather than
@@ -858,8 +859,40 @@
           <span class="ref__meta"><span class="ref__id">docs/plans/phase-6-nakaya-validation.md</span></span>
           <p>
             The historical plan and its execution record. Its work-package history remains useful,
-            but the active science-first completion plan supersedes it for R15, numerical adequacy,
-            GPU, matched-ablation, and held-out obligations.
+            but the completed science-first plan and decision 0045 now govern the final boundary:
+            three measured-only arms, a criterion-no-pass numerical ladder, and an accepted negative
+            Phase&nbsp;6 closure. GPU parity and held-out work moved to the independently eligible,
+            not-started Phase&nbsp;7 scope.
+          </p>
+        </li>
+        <li>
+          <span class="ref__title">The Phase 8 evidence library</span>
+          <span class="ref__meta"><span class="ref__id">docs/phase8-baseline-guide.md &middot; evidence/phase8b-benchmark-final-v1/report.json</span></span>
+          <p>
+            The source for Chapter&nbsp;31&rsquo;s 51 development records: 18 P0 native histories,
+            28 P1 direct measurements, and 5 P2 interpretation or lineage safeguards, plus 252,134
+            native rows and 431 digitized plot points. The final report explicitly records zero
+            held-out rows and grants no validation claim.
+          </p>
+        </li>
+        <li>
+          <span class="ref__title">The Phase 9 development reports</span>
+          <span class="ref__meta"><span class="ref__id">docs/phase9-knowledge-guide.md &middot; docs/phase9-model-development-guide.md</span></span>
+          <p>
+            The source for Chapter&nbsp;32&rsquo;s development ledger and its two quantitative
+            examples. The Lamb D-BT report records 0/6 strict wins and family mean squared errors
+            431.3416 versus 0.6578183 for the leave-one-history-out rescaling baseline. The M-F/M-K2
+            report records 2/5 diagnostic mappings meeting the effect and forbids a physical score.
+          </p>
+        </li>
+        <li>
+          <span class="ref__title">The Phase 10 closure record</span>
+          <span class="ref__meta"><span class="ref__id">docs/plans/phase-10-evidence-verification-execution.md &middot; evidence/phase10-closure-v1/report.json &middot; evidence/phase10-observation-bridges-v1/report.json &middot; evidence/phase10-numerical-verification-v1/c0-analysis.json</span></span>
+          <p>
+            The source for Chapter&nbsp;33. It records a complete-negative package based on terminal
+            source refusal, six branch outcomes, 48 unresolved operands, criterion-no-pass C0,
+            maker-terminated incomplete C0V, zero downstream candidates, and no scientific upgrade.
+            The separate flagless closure gate passed 7/7 checks of that record.
           </p>
         </li>
         <li>
@@ -1035,8 +1068,9 @@
 
       <ul>
         <li>
-          <strong>Phase 6 is still in development.</strong> It has not concluded, and Phase 7 has
-          not started. This does not erase the Phase&nbsp;3 browser development instrument, which
+          <strong>Phase 6 is complete on an accepted negative finding.</strong> Its flagless closure
+          gate re-derived 13/13 criteria without upgrading any physical label. Phase&nbsp;7 has not
+          started. This does not erase the Phase&nbsp;3 browser development instrument, which
           already exists; Phase&nbsp;7 is the separate polished product layer.
         </li>
         <li>
@@ -1058,11 +1092,10 @@
           pessimistic.
         </li>
         <li>
-          <strong>3 of 90 is measured-only, not replacement-gate evidence.</strong> Later readers
-          preserve and independently re-derive the historical bytes; they do not make those bytes
-          satisfy a protocol that was never implemented. R15 is planned but still unfrozen,
-          unimplemented and unexecuted; it must eventually execute its numerical, GPU,
-          matched-ablation, and held-out obligations after freeze and review.
+          <strong>3 of 90 is a historical measured-only arm, not validation.</strong> Later readers
+          preserve and independently re-derive those bytes. The final Phase&nbsp;6 closure also
+          includes M1 at 54/90 common scope, the no-dip intervention at 5/90, and a numerical
+          criterion-no-pass. GPU parity and held-out validation remain not-started Phase&nbsp;7 work.
         </li>
         <li>
           Arm&nbsp;1&rsquo;s <strong>historical verification hazard remains historical</strong>:
@@ -1071,8 +1104,8 @@
           design. Commit <code>154359d</code> fingerprints the named source graph before and after a
           future sweep and refuses publication when those endpoint fingerprints differ. It does not
           exclude a transient reverted edit, inherited <code>NODE_OPTIONS</code>, or a shadow module.
-          R15 still owes an immutable source snapshot, an environment allowlist, and verified child
-          source identity; none retro-upgrades Arm&nbsp;1.
+          The later science-first machinery added stronger execution controls; none retro-upgrades
+          Arm&nbsp;1 or turns the completed negative phase into validation.
         </li>
         <li>
           Decision record 0035&rsquo;s checks at <code>b701285</code> bind future child inputs and
@@ -1115,7 +1148,7 @@
           provenance, the retraction of its own strongest claim, and the sentence that keeps the whole
           thing honest: <em>these numbers are not yet gate evidence.</em> Its verification inventory
           is a historical snapshot; use <a href="./chapters/28-the-exam-result.html#c28-phase6-status">chapter
-          28&rsquo;s status control</a> to compare it with current authority without merging them.
+          28&rsquo;s status control</a> to compare it with the final Phase&nbsp;6 closure without merging them.
         </p>
       </aside>
 

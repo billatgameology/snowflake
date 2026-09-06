@@ -5,12 +5,13 @@
 // crop that actually contains every event.
 
 import { execFileSync } from "node:child_process";
-import { mkdtempSync, readFileSync, rmSync } from "node:fs";
+import { createHash } from "node:crypto";
+import { mkdtempSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
-import { writeFileSync } from "node:fs";
 
 import { afterEach, describe, expect, it } from "vitest";
+import { decodeCheckpoint } from "@vcc/core";
 
 const REPO = resolve(import.meta.dirname, "../..");
 const SCRIPT = join(REPO, "scripts/gutcheck-grow-params.ts");
@@ -100,6 +101,19 @@ describe("grow-params --growth-out", () => {
     // Canonical seed: radius-2 hexagonal plate, 19 sites, all attached at tick 0, first.
     expect(header.seedCount).toBe(19);
     for (let event = 0; event < 19; event++) expect(decoded.attachTicks[event]).toBe(0);
+    const config = header.config as Record<string, unknown>;
+    expect(config.seedGeometry).toEqual({
+      version: 1,
+      kind: "hexPrism",
+      radius: 2,
+      thickness: 1,
+    });
+    expect(config.seedSiteCount).toBe(19);
+    expect(config.seedSitesSha256).toBe(
+      createHash("sha256")
+        .update(JSON.stringify(Array.from(decoded.flatIndices.subarray(0, 19))))
+        .digest("hex"),
+    );
 
     // Chronological event order, and every non-seed tick within (0, finalTick].
     const finalTick = header.finalTick as number;
@@ -114,8 +128,8 @@ describe("grow-params --growth-out", () => {
 
     // Every event index sits inside the declared crop (flat index = k*nx*ny + j*nx + i).
     const crop = header.crop as Record<string, number>;
-    const config = header.config as { dims: { nx: number; ny: number; nz: number } };
-    const { nx, ny } = config.dims;
+    const dims = config.dims as { nx: number; ny: number; nz: number };
+    const { nx, ny } = dims;
     const seen = new Set<number>();
     for (const index of decoded.flatIndices) {
       expect(seen.has(index)).toBe(false);
@@ -130,5 +144,79 @@ describe("grow-params --growth-out", () => {
       expect(k).toBeGreaterThanOrEqual(crop.kMin!);
       expect(k).toBeLessThanOrEqual(crop.kMax!);
     }
+  });
+
+  it("records and checkpoint-round-trips an exact custom GG+ seed", () => {
+    const root = mkdtempSync(join(tmpdir(), "gutcheck-growth-custom-seed-"));
+    roots.push(root);
+    const seedGeometry = {
+      version: 1,
+      kind: "siteOffsets",
+      offsets: [
+        [0, 0, 0],
+        [1, 0, 0],
+        [2, 0, 0],
+        [2, 0, 1],
+      ],
+    } as const;
+    const specPath = join(root, "spec.json");
+    writeFileSync(
+      specPath,
+      JSON.stringify({
+        label: "custom seed growth-out test crystal",
+        seedGeometry,
+        rho: 0.12,
+        phi: 0.01,
+        ggThreshTable: { "01": 3.5, "10": 1, "11": 1, "20": 1, "21": 1, "30": 1, "31": 1 },
+        kappa: { default: 0.005, overrides: {} },
+        mu: { default: 0.001, overrides: {} },
+      }),
+    );
+    const growthPath = join(root, "growth.bin");
+    const checkpointPath = join(root, "state.vcc");
+    const recordPath = join(root, "record.json");
+    execFileSync(
+      process.execPath,
+      [
+        SCRIPT,
+        "--spec-file", specPath,
+        "--dims", "48,48,16",
+        "--ticks", "20",
+        "--seed", "1",
+        "--noise", "0",
+        "--out-mesh", join(root, "mesh.bin"),
+        "--out-state", checkpointPath,
+        "--record", recordPath,
+        "--growth-out", growthPath,
+        "--metrics-every", "1000",
+      ],
+      { cwd: REPO, stdio: "pipe" },
+    );
+
+    const decoded = decodeGrowthV1(readFileSync(growthPath));
+    const headerConfig = decoded.header.config as Record<string, unknown>;
+    expect(decoded.header.seedCount).toBe(4);
+    expect(decoded.attachTicks.subarray(0, 4)).toEqual(new Uint32Array([0, 0, 0, 0]));
+    expect(headerConfig.seedGeometry).toEqual(seedGeometry);
+    expect(headerConfig.seedRadius).toBe(2);
+    expect(headerConfig.seedThickness).toBe(2);
+    expect(headerConfig.seedSiteCount).toBe(4);
+    const seedSites = Array.from(decoded.flatIndices.subarray(0, 4));
+    expect(headerConfig.seedSitesSha256).toBe(
+      createHash("sha256").update(JSON.stringify(seedSites)).digest("hex"),
+    );
+
+    const checkpoint = decodeCheckpoint(readFileSync(checkpointPath));
+    for (const site of seedSites) {
+      expect(checkpoint.state.a[site]).toBe(1);
+      expect(checkpoint.state.b[site]).toBeGreaterThan(0);
+      expect(checkpoint.state.d[site]).toBe(0);
+    }
+    const record = JSON.parse(readFileSync(recordPath, "utf8")) as Record<string, unknown>;
+    expect(record.seedGeometry).toEqual(seedGeometry);
+    expect(record.seedSitesSha256).toBe(headerConfig.seedSitesSha256);
+    expect((record.runIdentity as Record<string, unknown>).specSha256).toBe(
+      (decoded.header.runIdentity as Record<string, unknown>).specSha256,
+    );
   });
 });
