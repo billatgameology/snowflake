@@ -1,9 +1,9 @@
 # Plan — dendrite visual studies
 
 - **Phase:** maker-directed pre-Phase 7 presentation exploration; no phase gate
-- **Status:** complete, including branch camera journey and scrollbar-aware web cropping
+- **Status:** simplifying to top view and closer branch detail
 - **Started:** 2026-09-04
-- **Last touched:** 2026-09-04 by Codex
+- **Last touched:** 2026-09-05 by Codex
 
 ## Goal
 
@@ -747,3 +747,29 @@ audience validation.
 - The static low angle is explicitly rejected by the maker; replace its behavior, not its palette.
 - The earlier headless smoke had no reserved scrollbar gutter, so its aligned screenshots did
   not cover the maker's web layout. Test a real reserved gutter and use displayed canvas bounds.
+
+## Follow-up — two views and closer branch detail
+
+Maker direction: remove Branch Journey and zoom the branch detail in a bit more. Reuse the clean
+task worktree at `4b45d4e`. This is a bounded presentation change.
+
+### Approach and done criteria
+
+- Remove the journey camera, path construction and captions. Rename the treatment **Two Views**.
+  Keep the large top view and expand branch detail into the right column; stack them on phones.
+- Increase default detail zoom from 3.2 to 4, retaining the existing adjustment control, stable
+  recorded target, pane dragging/reset, synchronized growth, graphs and MP4 composition.
+- Preserve the displayed-canvas cropping fix and source geometry/chronology. No solver or
+  scientific readout changes, and no full scientific suite.
+- Update focused pane tests and the browser smoke, run typecheck, Rule 7 and the app build,
+  then inspect the browser composition and an actual MP4. Update current usage/state records.
+
+### Next step
+
+Remove the journey, expand the remaining detail pane and raise its default zoom, then run the
+focused product checks.
+
+### Tried and rejected
+
+- The maker has rejected Branch Journey. Remove its camera and computation instead of keeping
+  a hidden third pane or leaving an empty space in the composition.

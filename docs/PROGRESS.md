@@ -19,6 +19,11 @@ detail.
 
 ## Current state
 
+- **Two Views simplification is in progress.** The maker wants Branch Journey removed and the
+  branch detail closer. The final [visual-study follow-up](plans/dendrite-visual-studies.md) keeps
+  the overview and expands the detail pane, with stronger default zoom. Next: implement and
+  check the browser/export layout while preserving the scrollbar cropping correction.
+
 - **Branch journey and web pane-cropping correction are complete.**
   The final [visual-study follow-up](plans/dendrite-visual-studies.md) replaces the static low angle
   with a center-to-branch-tip camera journey and sizes rendering from the displayed canvas.
