@@ -1,7 +1,7 @@
 # Plan — dendrite visual studies
 
 - **Phase:** maker-directed pre-Phase 7 presentation exploration; no phase gate
-- **Status:** complete, including Three Views, centered Crystal Cast, graphs and MP4 export
+- **Status:** branch camera journey and scrollbar-aware web cropping in progress
 - **Started:** 2026-09-04
 - **Last touched:** 2026-09-04 by Codex
 
@@ -671,3 +671,39 @@ its video region. It used the normal Export MP4 dialog on the built page, with g
 - The first resized centering sample included an antialiased viewport edge as dark crystal.
   Exclude the narrow raster seam and continue requiring the crystal to stay inside that inset;
   do not loosen the centering/cropping bounds to accept the old pixel-ratio error.
+
+## Follow-up — branch camera journey and pane cropping
+
+Maker direction: fix the branch-detail pane escaping its web frame (MP4 looks correct), remove
+the static low angle, and use a camera movement that zooms into the center, travels outward
+along a branch and circles its tip. Keep the top and fixed detail views. Reuse this task worktree
+at `b875b3a`; opening status is clean.
+
+### Approach and done criteria
+
+- Replace the upper-right low-angle camera with **Branch journey**: smoothly approach the
+  center, follow the selected branch outward, then orbit its growing tip. Derive a deterministic
+  camera path from recorded positions/timestamps, tied to the shared playhead; pause, backwards
+  seeking and MP4 must reproduce the same pose. The path is a camera choice, not simulated motion.
+- Keep the overview and branch close-up, independent pane turns, detail zoom and optional graphs.
+  Preserve original geometry, attachment visibility, graph quantities, reduced-motion behavior
+  and export restoration. No invented height or scientific readout is introduced.
+- Size the on-screen drawing buffer from the displayed canvas rectangle, not `innerWidth`.
+  The reproduced scrollbar-gutter case in `out/branch-flight/crop-before.json` has a 1412-pixel
+  displayed canvas but renders using 1440 CSS pixels, causing the supplied screenshot's bleed.
+  Keep explicit frame dimensions for export, and test actual pixels in pane gutters while using
+  reserved scrollbars, fractional device ratios, resize/scroll, comparison and mobile layouts.
+- Run focused camera-path/layout tests, typecheck, Rule 7, app build and a representative browser
+  smoke. Inspect the journey at each phase and a decoded exported sequence. Product checks only:
+  no full scientific suite, new simulation, solver/source change or gate.
+
+### Next step
+
+Implement the displayed-canvas sizing correction and the deterministic branch journey, then
+verify the cropped gutters and camera progression in the browser and MP4.
+
+### Tried and rejected
+
+- The static low angle is explicitly rejected by the maker; replace its behavior, not its palette.
+- The earlier headless smoke had no reserved scrollbar gutter, so its aligned screenshots did
+  not cover the maker's web layout. Test a real reserved gutter and use displayed canvas bounds.

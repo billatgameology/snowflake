@@ -19,6 +19,12 @@ detail.
 
 ## Current state
 
+- **Branch journey and web pane-cropping correction are in progress.** The maker identified
+  branch-detail bleed with a browser scrollbar and rejected the static low angle. The final
+  [visual-study follow-up](plans/dendrite-visual-studies.md) replaces it with a center-to-branch-tip
+  camera journey and corrects canvas sizing to match its displayed bounds. Next: implement,
+  check reserved-scrollbar pixels and inspect the exported journey.
+
 - **Three Views and centered Crystal Cast are complete.** Growth Front is replaced by a large
   top view, upper-right low-angle overview and lower-right branch close-up, with independent
   pane rotation and detail zoom. Cast uses the correct offscreen pixel viewport. The
