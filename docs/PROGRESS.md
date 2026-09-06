@@ -19,6 +19,11 @@ detail.
 
 ## Current state
 
+- **Animation-branch publication through GitHub is in progress.** The maker approved new commit
+  IDs through the connected app. The [visual-study publication follow-up](plans/dendrite-visual-studies.md)
+  preserves the local originals, replays the ordered commits and verifies exact file trees before
+  publishing `fix/animation-queue-windows-spawn`. Next: upload and verify the committed objects.
+
 - **Two Views is complete.** Branch Journey is removed,
   and branch detail fills the right column with stronger default zoom. The final
   [visual-study follow-up](plans/dendrite-visual-studies.md) records the change. Focused pane/data

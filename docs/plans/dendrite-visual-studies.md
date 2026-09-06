@@ -811,10 +811,40 @@ gradient against Timeglass at desktop and phone widths, with no page errors or h
 
 ### Next step
 
-Open the Two Views link above to see the matching legend. The earlier requested Git push is still
-waiting in Git Credential Manager's **Connect to GitHub** window; after authentication, push the
-current branch again if necessary to include this later legend commit.
+Open the Two Views link above to see the matching legend. Publication now follows the approved
+GitHub-app route below; do not restart the stale Git Credential Manager push.
 
 ### Tried and rejected
 
 - The pane-layout key does not explain the arrival colors. Reuse the existing Timeglass legend.
+
+## Follow-up — publish through the connected GitHub app
+
+The maker explicitly approved publishing the local changes as new commits through the connected
+GitHub app. Its Git-data tools cannot retain the original commit metadata/IDs. The target remains
+`billatgameology/snowflake`, branch `fix/animation-queue-windows-spawn`; main is not a publication
+target. The source worktree opens clean at `cd4ca7b`.
+
+### Approach and done criteria
+
+- Stop only the previous stalled push owned by this session. Preserve the original local history
+  under a backup branch before aligning the task branch with the new published commit IDs.
+- Inventory committed objects from the shared ancestor. Upload exact blob bytes and file modes,
+  reconstruct each tree and require its SHA to equal the corresponding original local tree SHA.
+  Replay commit messages and parent order, adding the original commit ID for traceability.
+- Create the remote branch only after its ordered commit chain is complete. Refuse to overwrite
+  an unexpected remote branch. Record the original-to-published mapping and verify the final
+  published tree matches the local tree before updating local tracking.
+- This is source publication, with no solver execution or implementation changes. Use Git object
+  checks and focused prose/state checks; do not repeat scientific suites or animation exports.
+
+### Next step
+
+Inventory the committed changes and publish the verified objects/commit chain through GitHub.
+
+### Tried and rejected
+
+- The command-line push remained blocked in Git Credential Manager despite the separate GitHub
+  app connection having repository write access. The maker chose API publication with new IDs.
+- Recreating only the final snapshot would lose the requested intermediate commits. Preserve the
+  ordered sequence and verify every reconstructed file tree.
