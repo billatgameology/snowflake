@@ -871,3 +871,29 @@ no solver run, scientific suite or new animation export is required.
   app connection having repository write access. The maker chose API publication with new IDs.
 - Recreating only the final snapshot would lose the requested intermediate commits. Preserve the
   ordered sequence and verify every reconstructed file tree.
+
+## Follow-up — integrate main and merge the animation PR
+
+The maker requests fetching main, combining both branches, creating a PR to main and merging it.
+Continue in this existing isolated animation worktree. Merge fetched `origin/main`, retaining its
+catalog, volume renderer, education publication and scientific records together with the completed
+visual studies. Resolve shared Vite registration and progress-index changes explicitly.
+
+### Approach and done criteria
+
+- Commit this integration plan before merging; preserve both histories and existing backups.
+- Inspect conflicts and the resulting diff. Run exact `npm test` for the combined scientific
+  readout / incoming solver and evidence boundaries, plus the app build and representative browser
+  smoke for shared app integration. No scientific gate or new production run is authorized.
+- Publish exact verified Git trees through the already approved GitHub app, create the PR, wait
+  for applicable GitHub checks, and merge with the tested head pinned. Fetch and verify main.
+- Done when the PR is merged and its animation head is reachable from remote main.
+
+### Next step
+
+Merge fetched main, resolve shared registrations/state, then execute the checks above.
+
+### Tried and rejected
+
+- Replacing the progress index wholesale with this older branch would restore stale education
+  status and omit the completed named catalog. Combine the records using main's newer state.
