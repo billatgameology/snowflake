@@ -1,7 +1,7 @@
 # Plan — dendrite visual studies
 
 - **Phase:** maker-directed pre-Phase 7 presentation exploration; no phase gate
-- **Status:** complete, including the selectable growth library
+- **Status:** visual gallery extension in progress; recorded growth and four views complete
 - **Started:** 2026-09-04
 - **Last touched:** 2026-09-04 by Codex
 
@@ -290,3 +290,38 @@ catalogue, scientific bundle, NAS policy, solver or separate website was changed
   comparisons pass; colour attributes remain float32, while visibility uses float64.
 - An exact side view for Cups hides the cavity. The named direct camera recipe now opens selected
   hollow/capped forms obliquely; point coordinates and attachment times are unchanged.
+
+## Follow-up — browse animations visually
+
+Maker direction, 2026-09-04: the large animation dropdown is difficult to browse. Replace its
+primary UI with a searchable thumbnail gallery in an accessible modal browser, retaining the
+current view, playback controls and all registered animation choices.
+
+### Approach and done criteria
+
+- Show a prominent Browse crystals button, thumbnail cards with names/variant labels, collection
+  and broad shape filters, matching counts and selection state. Keep the recorded Compose label.
+  Clicking a card closes the browser and loads that exact animation through the existing loader.
+- Keep keyboard focus inside the modal, restore it on close, preserve filters/scroll between
+  visits, pause the current playback while browsing, and support narrow screens and empty results.
+- Generate small Timeglass stills using the existing renderer and exact registered source data.
+  Store the bounded project-owned thumbnail derivatives with source/render identities in app/data
+  for portable browsing. Serve only the registered thumbnail paths through the product handler
+  and include them in builds. Do not expose original source paths or private/scientific data.
+- Lazy-load thumbnail images; opening/filtering the gallery must not fetch the full replay for
+  each card. A browse-first URL can show cards before any growth recording is downloaded.
+- Run focused serving/filter checks, typecheck, Rule 7, app build and a representative live browser
+  smoke covering every card's preview, selection in the current style, search/filter/reset,
+  keyboard close, failure fallback and phone layout. Do not repeat the completed all-renderer
+  sweep or run scientific suites; this change is isolated browsing/presentation work.
+
+### Next step
+
+Implement the gallery and bounded thumbnail packaging, generate previews, then verify the browser
+interaction and update PROGRESS with the completed viewing link.
+
+### Tried and rejected
+
+- Another longer dropdown or name-only list: the maker needs to recognize crystal shapes visually.
+- Loading every growth recording to animate gallery cards: that would make discovery needlessly
+  expensive. The existing player loads the selected recording; cards use small derived stills.

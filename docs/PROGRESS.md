@@ -135,7 +135,11 @@ detail.
   The correction in [the visual-study plan](plans/dendrite-visual-studies.md) adds its accepted
   named recordings and explicitly composed scenes to all four views. The live index reports
   151 available entries, including 99 named entries (`out/named-growth-studies/live-index.json`).
-- **Last updated:** 2026-09-04 (completed visual studies for the newer named catalogue;
+- **Visual animation browser is in progress (2026-09-04).** The maker requests an easier way to
+  see the choices than the large dropdown. The [visual-study plan](plans/dendrite-visual-studies.md)
+  now registers a thumbnail gallery with search, shape/collection filters, and click-to-play in
+  the current view. Implement and product-check that browsing surface next.
+- **Last updated:** 2026-09-04 (adding a visual browser for the animation library;
   no phase or scientific-evidence change)
 
 ## Phase gates
