@@ -130,7 +130,12 @@ detail.
   direction) and content stays in-repo unpublished, `test.yml` CI unaffected. Reconciliation is
   a live decision point under **Next step**. Full freeze history:
   [the history file](progress-history-phases-6-8-9.md).
-- **Last updated:** 2026-09-04 (completed selectable growth animations in all four visual studies;
+- **Visual-study catalogue correction is active (2026-09-04).** The maker identified the newer
+  accepted named catalogue in `../snowflake-named-catalog/docs/named-snow-crystal-catalog.json`.
+  The earlier visual-study selector covers only the older website library. The correction in
+  [the visual-study plan](plans/dendrite-visual-studies.md) adds the accepted named recordings and
+  explicitly composed scenes to all four views; implementation and browser verification are next.
+- **Last updated:** 2026-09-04 (extending visual studies to the omitted named catalogue;
   no phase or scientific-evidence change)
 
 ## Phase gates

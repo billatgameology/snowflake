@@ -199,4 +199,39 @@ Review `http://127.0.0.1:5191/dendrite-styles.html`, select an animation, and ke
 choose another view. A fresh session starts it with
 `npm run dev --workspace app -- --port 5191`; the optional production smoke uses
 `npm run preview --workspace app -- --port 5192` after a build. No implementation work remains
-in this request. Website integration and any new replay sources are later product work.
+in that initial library pass. The maker's catalogue correction below supersedes its source scope.
+
+## Correction — include the newer named catalogue
+
+The maker identified the newer batch omitted from the first selector. The sibling worktree
+`../snowflake-named-catalog`, branch `feature/named-crystal-catalog` at `ff15473`, holds the
+completed accepted catalogue in `docs/named-snow-crystal-catalog.json`, with its exact direct
+and Compose review records. Its completion record and PROGRESS supersede the stale in-progress
+heading in its catalogue plan. This task consumes those accepted products without editing that
+worktree or changing its acceptance records.
+
+### Approach and done criteria
+
+- Import a digest-bound product manifest from the accepted catalogue and review records. Keep
+  the earlier library available and put named types/variants first, with a collection filter.
+- Package direct recordings from exact allowlisted local paths. Package Compose using its
+  recorded transforms and phase offsets with deduplicated component event payloads. Decode and
+  combine components in the worker, preserve chronological seeking, and label composed scenes
+  explicitly. Never claim they are one solver run or one shared model-tick clock.
+- Support restored local output or the sibling producer worktree without serving generic out,
+  raw scientific bundles, private metadata, or changing NAS policy. Missing sources remain
+  visible as unavailable. No new simulations or retained binary source copies.
+- Verify the imported manifest matches the accepted identities; exercise all added entries in
+  all four styles and representative composed/axial/planar forms visually. Add focused controls
+  for transforms, phase offsets, deduplication, source mismatch and contained serving. Run
+  typecheck, Rule 7, focused product tests and app build; no full scientific suite or gates.
+
+### Next step
+
+Implement the catalogue importer and composed presentation adapter, then run the focused product
+checks and production browser sweep. Record results here and in PROGRESS.
+
+### Tried and rejected
+
+- Equating the older website index with all available animations: it omitted the accepted named
+  catalogue in a separate worktree. Source discovery must include that tracked catalogue.
