@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#080d12" />
+  <title>Ways of seeing a snowflake · The Virtual Cloud Chamber</title>
+</head>
+<body>
+  <canvas id="crystal-canvas" aria-hidden="true"></canvas>
+  <main>
+    <header><a class="wordmark" href="./gutcheck-index.html">THE VIRTUAL CLOUD CHAMBER</a><span class="edition">VISUAL STUDIES &nbsp; / &nbsp; 01</span></header>
+    <section class="intro">
+      <div><p class="eyebrow">ONE DENDRITE. FOUR WAYS OF SEEING.</p><h1>A snowflake.<br><em>With its history showing.</em></h1></div>
+      <div class="intro-note"><p>Every branch has a beginning.<br>Watch the moments that build a crystal.</p><button id="layout" type="button">Focus on Ion Bloom ↗</button></div>
+    </section>
+    <p id="status" role="status">Loading the recorded dendrite…</p>
+    <section id="studies" class="studies" aria-label="Four synchronized rendering studies">
+      <article class="study selected" data-style="0">
+        <div class="card-heading"><span class="number">01</span><button class="style-name" type="button">Ion Bloom <span>↗</span></button><span class="tag">THE GROWING EDGE</span></div>
+        <div class="viewport" aria-label="Ion Bloom animation"></div>
+        <div class="card-footer"><p>New ice lights up. Older branches fade into blue.</p><span class="key ion">NEW ATTACHMENTS</span></div>
+      </article>
+      <article class="study" data-style="1">
+        <div class="card-heading"><span class="number">02</span><button class="style-name" type="button">Timeglass <span>↗</span></button><span class="tag">COLOUR REMEMBERS</span></div>
+        <div class="viewport" aria-label="Timeglass animation"></div>
+        <div class="card-footer"><p>A permanent colour signature of when each site joined.</p><span class="key spectrum">EARLY → LATE</span></div>
+      </article>
+      <article class="study" data-style="2">
+        <div class="card-heading"><span class="number">03</span><button class="style-name" type="button">Darkfield <span>↗</span></button><span class="tag">SILVER / GOLD</span></div>
+        <div class="viewport" aria-label="Darkfield animation"></div>
+        <div class="card-footer"><p>Etched silver structure. A fine gold edge of new growth.</p><span class="key gold">NEW ATTACHMENTS</span></div>
+      </article>
+      <article class="study" data-style="3">
+        <div class="card-heading"><span class="number">04</span><button class="style-name" type="button">Chronograph <span>↗</span></button><span class="tag">TIME BECOMES DEPTH</span></div>
+        <div class="viewport" aria-label="Chronograph animation"></div>
+        <div class="card-footer"><p>The same sites, lifted by their birth time into a sculpture.</p><span class="key time">DEPTH = ARRIVAL TIME</span></div>
+      </article>
+    </section>
+    <section class="transport" aria-label="Playback controls">
+      <div class="buttons"><button id="play" type="button" disabled>Pause</button><button id="replay" type="button" disabled>↺ Replay</button></div>
+      <label class="scrubber"><span>SEED</span><input id="timeline" aria-label="Growth timeline" type="range" min="0" max="1000" value="0" disabled /><span>GROWN</span></label>
+      <output id="position">0%</output>
+      <label class="depth-control" hidden>UNFOLD TIME<input id="depth" aria-label="Time depth" type="range" min="0" max="100" value="65" /></label>
+      <label class="speed-label">SPEED<select id="speed" aria-label="Playback speed"><option value="0.5">½×</option><option value="1" selected>1×</option><option value="2">2×</option></select></label>
+      <button id="fullscreen" type="button">Fullscreen ⛶</button>
+    </section>
+    <footer><p>RECORDED MODEL GROWTH · ART-DIRECTED LIGHT & COLOUR</p><details><summary>What am I seeing?</summary><p>Each point is a recorded lattice site from one Gravner–Griffeath model run, revealed at its attachment tick. Points are not molecules. Light and colour are artistic encodings; Chronograph also displaces sites in depth according to their arrival time. The other views keep the recorded coordinates. Playback seconds are presentation time, not physical growth time. This is model output, not validated laboratory growth.</p><p id="source"></p><p>Focus a study to drag its view. Double-click to reset. Space pauses; R replays; Escape returns to comparison. The same playhead drives all four studies.</p></details></footer>
+  </main>
+  <script type="module" src="/src/dendrite-styles.ts"></script>
+</body>
+</html>

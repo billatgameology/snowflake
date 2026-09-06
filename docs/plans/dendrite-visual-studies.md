@@ -1,7 +1,7 @@
 # Plan — dendrite visual studies
 
 - **Phase:** maker-directed pre-Phase 7 presentation exploration; no phase gate
-- **Status:** in progress
+- **Status:** complete; maker visual preference pending
 - **Started:** 2026-09-04
 - **Last touched:** 2026-09-04 by Codex
 
@@ -39,9 +39,71 @@ are visual treatments, not measured optics or molecular trajectories. G-G ticks 
 ## Steps
 
 - [x] Read current state, governing presentation clauses, completed animation plan and renderers.
-- [ ] Implement the portable event asset, four treatments, comparison and focus controls.
-- [ ] Inspect live motion/stills and refine composition and readability.
-- [ ] Run product-sized checks and record reproducible review instructions.
+- [x] Implement the portable event asset, four treatments, comparison and focus controls.
+- [x] Inspect live motion/stills and refine composition and readability.
+- [x] Run product-sized checks and record reproducible review instructions.
+
+## Viewing and comparison
+
+Run `npm run dev --workspace app -- --port 5191`, then open
+`http://127.0.0.1:5191/dendrite-styles.html`. The existing catalogue links to this page.
+It also ships in the app build and carries its own project-owned data, so a website sibling,
+NAS mount and solver process are unnecessary. Focus a card, drag to turn it, or scrub all
+four at the same tick. Chronograph's **Unfold time** slider continuously returns its displaced
+sites to their recorded positions at zero. Reduced-motion visitors start on a paused still.
+
+| Treatment | Visual use of the recording | Suggested role |
+|---|---|---|
+| Ion Bloom | Bright mint light on recent attachments, older ice fades to blue | Opening growth shot; the author's preferred visual hook |
+| Timeglass | Persistent arrival-time colour with narrow temporal bands | Show that the shape contains a history |
+| Darkfield | Etched silver body, gold recent attachments | Quieter, more restrained alternative for research pages |
+| Chronograph | Arrival time displaces each site along the depth axis | Interactive reveal: unfold the history, then collapse to the snowflake |
+
+These are author judgments from inspected browser captures, not audience-test findings.
+The website's existing Run B glass renderer was inspected separately at its captured playhead;
+its refraction, dispersion and flyaround remain unchanged. This exploration uses point splats
+to make attachment chronology visible and does not replace the established glass renderer.
+
+## Verification record
+
+Product checks passed; logs are reproducible inspection scratch below `out/dendrite-styles/`:
+
+- `npm run typecheck` — `typecheck.log`.
+- `npm run lint:rule7` — `rule7.log`.
+- `npx vitest run app/test/dendrite-data.test.ts runner/test/vite-nas-serving.test.ts` —
+  `focused-tests.log`, 23 passed and two platform-specific skips (copied from that log).
+- `npm run build --workspace app` — `build.log`, including the new page and packaged asset.
+
+The source payload comparison in `asset-preparation.json` reports
+`eventPayloadUnchanged: true`. The reproducible packager in
+`app/scripts/prepare-dendrite-study.mjs` checks the selected original digest before packaging;
+its format and source identity are documented in `app/data/README.md`.
+
+The live smoke/export command is `node app/scripts/dendrite-study-preview.mjs --video`.
+For a stable production preview, first build the app, run
+`npm run preview --workspace app -- --port 5192`, and set `DENDRITE_STUDY_URL` to
+`http://127.0.0.1:5192/dendrite-styles.html?capture=1` when invoking the script.
+The video requires local FFmpeg. Omit `--video` for the quick browser smoke.
+Rendered stills, the clip and browser report are reproducible inspection scratch, not retained
+scientific evidence or a NAS publication.
+
+Final production-preview smoke completed successfully; `out/dendrite-styles/browser-smoke.json`
+records seed/endpoint visibility, backward seeking, UI scrubbing, all styles, time-depth control,
+paused dragging, play/pause, replay, mobile overflow and reduced-motion checks, with no browser
+errors. `comparison.png`, `style-1.png` through `style-4.png`, and the folded/unfolded/orbit
+Chronograph captures were produced by the smoke. The author inspected the desktop comparison,
+focus renders and a decoded frame of the finished film. The mobile overflow check is automated;
+this record does not claim a general device-performance or audience test.
+
+The completed `out/dendrite-styles/dendrite-styles.mp4` is a comparison preview: 10 seconds,
+1440 × 1260, 24 fps, 240 frames, 3,683,566 bytes (copied from
+`out/dendrite-styles/video-info.json`, produced by FFprobe). The final capture used the static
+production preview on port 5192; the development review page remains on port 5191.
+The temporary website-reference server on port 5190 was stopped after inspection.
+
+Next action is maker visual review: open Ion Bloom in focus, replay from the seed, then compare
+Timeglass and unfold Chronograph while paused. Applying a selected treatment to the website is
+a later product task; this completed study does not start Phase 7 or change its held status.
 
 ## Out of scope
 
@@ -54,3 +116,6 @@ NAS publication or serving-policy changes, and changes to existing renders or ev
   glass recipes already explore this. Use attachment chronology to change what viewers see.
 - Serving the scientific NAS collection directly: its catalogue explicitly denies serving.
   The review page instead carries a bounded project-owned presentation asset in app/data.
+- Capturing a film while editing a live Vite development page: a source save triggered a reload
+  and destroyed the browser context during the first export. Export from the static production
+  preview; the capture helper now also terminates its encoder if capture fails.

@@ -884,6 +884,7 @@ export default defineConfig({
         main: resolve(import.meta.dirname, "index.html"),
         gutcheckIndex: resolve(import.meta.dirname, "gutcheck-index.html"),
         spike: resolve(import.meta.dirname, "spike-gg-realism.html"),
+        dendriteStyles: resolve(import.meta.dirname, "dendrite-styles.html"),
       },
     },
   },

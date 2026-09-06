@@ -130,8 +130,8 @@ detail.
   direction) and content stays in-repo unpublished, `test.yml` CI unaffected. Reconciliation is
   a live decision point under **Next step**. Full freeze history:
   [the history file](progress-history-phases-6-8-9.md).
-- **Last updated:** 2026-08-30 (recorded the completed scientific-bundle NAS copy and manifest
-  registration; no phase or scientific-evidence change)
+- **Last updated:** 2026-09-04 (completed the maker-directed dendrite visual studies;
+  no phase or scientific-evidence change)
 
 ## Phase gates
 
@@ -153,6 +153,15 @@ and every superseded attempt live in the linked plans and historical progress sn
 | 9 | **Complete (development-only)** | The all-no-pass branch closed: D-BT failed, M-F/M-K2 stayed mapping-dependent, controls/path-state/M-PK are unavailable or non-identifiable, and zero items promoted. Exact `TMPDIR=/private/tmp npm test` passed; no result grants validation credit. [Completed plan](plans/phase-9-execution.md). |
 
 ## Active plan
+
+The maker-directed [dendrite visual studies](plans/dendrite-visual-studies.md) are complete
+on `fix/animation-queue-windows-spawn` in the existing `snowflake-animation` worktree. The
+independent `app/dendrite-styles.html` page replays one recorded dendrite through Ion Bloom,
+Timeglass, Darkfield and Chronograph, with synchronized comparison, focus, scrub and time-depth
+controls. Focused tests, typechecks, Rule 7 and the app build passed; the production-browser
+smoke and comparison video completed with no browser errors (`out/dendrite-styles/browser-smoke.json`).
+The plan names commands, inspection artifacts and limits. This is presentation work,
+with no solver or scientific-evidence change.
 
 [phase-6-science-first-completion.md](plans/phase-6-science-first-completion.md) is the completed Phase 6 record (see its Completion record).
 [phase-8-measurement-corpus.md](plans/phase-8-measurement-corpus.md) and
@@ -181,6 +190,17 @@ the package-specific prerequisites in its charter amendment and execution plan. 
 0043–0044's Phase 7 deferrals remain authoritative and cannot be discharged by Phase 10.
 
 ## Next step
+
+### Dendrite visual studies — ready for maker review
+
+Open [the visual-study plan](plans/dendrite-visual-studies.md), then review
+`http://127.0.0.1:5191/dendrite-styles.html` (the running local
+preview; a fresh session can use `npm run dev --workspace app -- --port 5191`). Choose the
+opening style by viewing growth in motion. The packaged asset needs no NAS or website sibling;
+Chronograph deliberately maps attachment time into depth and is not physical ice geometry.
+The generated comparison preview is `out/dendrite-styles/dendrite-styles.mp4`; regenerate it
+with the plan's static-preview command if scratch is absent. The next decision is which
+treatment should lead a later website integration; the author recommends Ion Bloom for the opening.
 
 ### Phase 10 — planning complete; maker package selection pending
 
