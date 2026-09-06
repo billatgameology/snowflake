@@ -1,7 +1,7 @@
 # Plan — dendrite visual studies
 
 - **Phase:** maker-directed pre-Phase 7 presentation exploration; no phase gate
-- **Status:** Three Views replacement and Crystal Cast centering in progress; graphs/export complete
+- **Status:** complete, including Three Views, centered Crystal Cast, graphs and MP4 export
 - **Started:** 2026-09-04
 - **Last touched:** 2026-09-04 by Codex
 
@@ -49,16 +49,16 @@ Run `npm run dev --workspace app -- --port 5191`, then open
 `http://127.0.0.1:5191/dendrite-styles.html`. The existing catalogue links to this page.
 It also ships in the app build and carries its own project-owned data, so a website sibling,
 NAS mount and solver process are unnecessary. Focus a card, drag to turn it, or scrub all
-four at the same tick. Growth Front's **Recent window** control isolates shorter or longer
-intervals; Crystal Cast's **Move the light** control changes relief lighting while paused or
-playing. Reduced-motion visitors start on a paused still. The replacement follow-up at the end
-of this plan supersedes the original Darkfield and Chronograph treatments.
+four at the same tick. Three Views adds independent pane dragging and **Detail zoom**;
+Crystal Cast's **Move the light** control changes relief lighting while paused or playing.
+Reduced-motion visitors start on a paused still. The replacement follow-ups below supersede
+Darkfield, Chronograph and Growth Front; their completed records remain historical.
 
 | Treatment | Visual use of the recording | Suggested role |
 |---|---|---|
 | Ion Bloom | Bright mint light on recent attachments, older ice fades to blue | Opening growth shot; the author's preferred visual hook |
 | Timeglass | Persistent arrival-time colour with narrow temporal bands | Show that the shape contains a history |
-| Growth Front | Recent attachments drawn separately from a faint current footprint | Follow advancing tips and quiet regions without retaining the whole bright body |
+| Three Views | Synchronized top, low-angle and magnified branch cameras | Connect the whole silhouette to the profile and local branch structure |
 | Crystal Cast | Projected surface relief, edge shaping and movable shadows | Make the branch structure and spaces between branches feel tangible |
 
 These are author judgments from inspected browser captures, not audience-test findings.
@@ -604,11 +604,70 @@ Center Crystal Cast. Reuse the existing clean task worktree/branch at `b54fd94`.
 
 ### Next step
 
-Capture the current high-density Crystal Cast offset, implement camera panes and stable detail
-framing, then verify the new view, centering and exported composition.
+Complete. Open `http://127.0.0.1:5191/dendrite-styles.html?style=2&crystal=sweep-t1-sharp`
+for the synchronized panes. Drag a pane or adjust **Detail zoom**; switch to **Crystal Cast**
+for the centered relief. Graphs and MP4 export work with both. No implementation or required
+verification remains. `app/data/README.md` contains the current viewing instructions.
+
+### Implementation and current checks
+
+`three-views.ts` computes stable framing from complete recorded positions and shares the pane
+rectangles and overlay drawing between interactive and exported views. The detail target is an
+actual recorded site near the selected side of the crystal; each pane has independent drag/reset
+angles. Top-view marker coordinates are projected from that target. Camera magnification changes
+neither recorded positions nor event visibility. The low-angle whole-crystal view fits the rotated
+bounding box with margin. On narrow tall screens, the two insets move below the top view.
+
+The main player renders all panes using one event geometry and the existing Timeglass shaders.
+Its transparent overlay carries pane labels and the detail marker; MP4 frames composite the same
+overlay. The retired recent-window control, recent-union shader branch and its obsolete unit test
+are removed. No graph computation or source decoder changed. Existing export controls still
+operate on the complete selected composition.
+
+The pre-fix diagnostic `out/three-views/cast-before.json` sampled the original sharp dendrite at
+its final playhead: at device scale 1.5 the dark-pixel bounding-box center was
+`[0.720703125, 0.447265625]` in normalized viewport coordinates and the shape touched the right/top
+edges; device scale 1 was centered. Three.js `setViewport` multiplied the already-scaled target
+dimensions by the renderer ratio. Removing that call uses the render target's physical viewport
+and corrects the offset; no snowflake geometry is translated to hide it.
+
+`npx vitest run app/test/three-views.test.ts app/test/dendrite-data.test.ts app/test/growth-study-data.test.ts`
+passed nine tests (`out/three-views/focused-tests.log`), including independent Three.js projection
+of bounding-box corners into fitted camera extents, disjoint contained pane rectangles and an
+unchanged recorded detail target. `npm run typecheck`, `npm run lint:rule7` and
+`npm run build --workspace app` passed (`typecheck.log`, `rule7.log`, `build.log` in that directory).
+No exact `npm test`, scientific gate or growth run is required or launched for this render-only pass.
+
+`node app/scripts/three-views-smoke.mjs` passed against the built preview on port 5192
+(`out/three-views/browser-smoke.json` / `.log`): nine Crystal Cast centering samples across device
+scales 1, 1.5 and 2, in focused, resized/scrolled and comparison layouts. At device scale 1.5,
+the corrected focused dark-pixel bounding-box center is `[0.49609375, 0.4921875]`, with visible
+margin on every side. The sampled pixel mask excludes the outer rasterized viewport seam;
+the original clipped shape would still touch the measured interior edge.
+
+The same report verifies top, profile and detail panes on the original sharp dendrite, named
+Stellar Dendrites, Cups and composed Radiating Dendrites, including exact repeated image hashes
+after backward seeking. Independent pane dragging/reset, zoom, gallery retention, graphs,
+bounded geometry reuse, mobile layout and reduced motion pass, with no unexpected browser
+errors. Its downloaded `three-views-with-graphs.mp4` is H.264, 1920 × 1080, 300 frames at 30 fps,
+10 seconds, 8,559,713 bytes; FFmpeg decodes the complete stream without error. Playback/playhead
+and pane angles restore after export. The author inspected its decoded `export-frame.png`,
+desktop dendrite/Cup captures, centered Cast and the actual phone `mobile-viewport.png`.
+These are presentation observations on this host, not audience or scientific validation.
+
+The supplementary actual Cast export from a device-scale-2 page is recorded in
+`out/three-views/cast-export.json`: H.264, 1280 × 720, 300 frames, 10 seconds, 1,700,696 bytes.
+FFmpeg decoded the complete file; `cast-export-frame.png` shows the final crystal centered in
+its video region. It used the normal Export MP4 dialog on the built page, with graphs closed,
+10-second duration and the default 720p size; the paused playhead restored after download.
 
 ### Tried and rejected
 
 - Additional colour palettes do not implement the requested spatial comparison.
 - Exaggerating recorded height would change the geometry's meaning. Use magnification and
   oblique viewpoints; thin model crystals remain thin.
+- Full-page screenshots can misplace a fixed WebGL canvas relative to scrolled DOM content.
+  Inspect the actual viewport instead; the current smoke captures mobile screenshots that way.
+- The first resized centering sample included an antialiased viewport edge as dark crystal.
+  Exclude the narrow raster seam and continue requiring the crystal to stay inside that inset;
+  do not loosen the centering/cropping bounds to accept the old pixel-ratio error.

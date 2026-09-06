@@ -99,23 +99,32 @@ visual audit; `growth-library.json` records that document's digest and navigatio
 Regenerate those display buckets with `node app/scripts/import-growth-browse-shapes.mjs`
 (optional argument: the audit JSON path). Named entries use their accepted catalogue names.
 
-## Growth Front and Crystal Cast
+## Three Views and Crystal Cast
 
-The current views are Ion Bloom, Timeglass, Growth Front and Crystal Cast. Growth Front draws a
-moving recent interval of actual attachments, with a faint outline of the crystal grown so far.
-Its **Recent window** control changes the interval length as a fraction of the recording. The
-CPU computes both interval ends against original ordered timestamps, including composed scenes;
-backward seeking reconstructs the image without a frame-history cache.
+The current views are Ion Bloom, Timeglass, Three Views and Crystal Cast. **Three Views** replaces
+Growth Front with a large top view, an upper-right low-angle overview, and a lower-right branch
+close-up. All three show the same recorded moment with Timeglass arrival colours. A marker on the
+top view identifies the detail center. Drag a pane to turn its camera independently, double-click
+to reset that pane, and use **Detail zoom** to adjust magnification. On narrow phone screens the
+two smaller panes sit below the top view.
+
+The close-up frames a fixed region as growth reaches it. Its center is a recorded site near one
+branch, selected from the complete recording; the target remains stable during playback and
+backward seeks. `three-views.ts` shares pane layout and labels between the player and MP4 export.
+The low-angle camera fits the complete rotated bounding box. Recorded Z height is preserved.
 
 Crystal Cast reconstructs an artistic screen-space relief with a **Move the light** control.
 `app/src/growth-sculpture.ts` projects the same recorded geometry into a bounded shared mask and
 composites surface bevels and shadows. Cell caps and lighting are display choices, not molecular
 geometry or physical ice optics. Small low-resolution recordings retain visible lattice cells.
-The two new views replace Darkfield and Chronograph, including the old time-depth control.
+Its render target uses its own physical-pixel viewport, keeping the crystal centered when display
+pixel density changes. The retired recent-window and time-depth controls are removed.
 Ion Bloom, Timeglass and the existing Timeglass gallery previews retain their rendering recipe.
 
-Run `node app/scripts/growth-structure-smoke.mjs` against the built preview on port 5192 for the
-representative new-view checks; `DENDRITE_STUDY_URL` can select another running page.
+Run `node app/scripts/three-views-smoke.mjs` against the built preview on port 5192 for camera,
+centering, mobile and actual MP4 checks; `DENDRITE_STUDY_URL` can select another running page.
+The older `growth-structure-smoke.mjs` entry point delegates to this current check. Captures and
+logs under `out/three-views/` are reproducible product scratch, not scientific evidence.
 
 ## Optional graphs and MP4 export
 

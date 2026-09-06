@@ -36,7 +36,11 @@ button:disabled { opacity: .35; cursor: wait; }
 .key::before { content: ''; display: block; height: 2px; width: 48px; margin: 0 0 5px; }
 .ion { color: #8fded1; }.ion::before { background: linear-gradient(90deg, #16304d, #9fffe2); }
 .spectrum { color: #b2bed9; }.spectrum::before { background: linear-gradient(90deg, #f3ae50, #d75295, #527df1, #47e2b0); }
-.front { color: #c7edf0; }.front::before { background: #d7faff; box-shadow: 0 0 8px #b1e7ed; }
+.multi { color: #c7edf0; }.multi::before { background: linear-gradient(90deg, #72bdb4 60%, transparent 60%, transparent 70%, #72bdb4 70%); }
+.multi-viewport { position: relative; }
+#study-overlay { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+body.focused .viewport.multi-viewport { min-height: 430px; }
+@media (max-width: 600px) { body.focused .viewport.multi-viewport { min-height: 560px; } }
 .cast { color: #ccd1c8; }.cast::before { background: #cbd2c6; box-shadow: 2px 2px 0 #5b6866; }
 .transport { position: sticky; bottom: 12px; display: flex; gap: 18px; align-items: center; background: #101920f5; border: 1px solid #35444d; border-radius: 7px; padding: 14px 18px; margin-top: 22px; z-index: 2; box-shadow: 0 12px 35px #0008; }
 .buttons { display: flex; gap: 6px; }.buttons button, #fullscreen { font-size: 11px; white-space: nowrap; }

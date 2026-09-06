@@ -4,7 +4,8 @@ import { loadGrowthStudy } from "./growth-study-loader.ts";
 import { installGrowthPicker } from "./growth-study-picker.ts";
 import { growthStudyLabel, growthStudyTilt, type GrowthStudyEntry } from "./growth-study-library.ts";
 import { dendriteVertex, dendriteFragment } from "./dendrite-shaders.ts";
-import { GrowthSculpture, recentEventRange } from "./growth-sculpture.ts";
+import { GrowthSculpture } from "./growth-sculpture.ts";
+import { studyFrame, studyPanes, profileHalfHeight, drawStudyOverlay, type StudyPane, type StudyFrame, type ViewBox } from "./three-views.ts";
 import { installGrowthGraphs } from "./growth-graphs.ts";
 import { installVideoExport } from "./growth-video.ts";
 import { recordingStatsAt } from "./growth-statistics.ts";
@@ -24,7 +25,7 @@ const layout = el<HTMLButtonElement>("layout");
 const speed = el<HTMLSelectElement>("speed");
 const cards = [...document.querySelectorAll<HTMLElement>(".study")];
 const views = [...document.querySelectorAll<HTMLElement>(".viewport")];
-const names = ["Ion Bloom", "Timeglass", "Growth Front", "Crystal Cast"];
+const names = ["Ion Bloom", "Timeglass", "Three Views", "Crystal Cast"];
 const motion = matchMedia("(prefers-reduced-motion: reduce)");
 let playing = !motion.matches;
 let selected = Math.max(0, Math.min(3, Math.floor(Number(query.get("style") ?? "1") || 0)));
@@ -32,6 +33,13 @@ let focused = query.get("focus") !== "0";
 let progress = motion.matches ? 0.82 : 0;
 let yaw = 0;
 let tilt = 0;
+const paneAngles: Record<StudyPane, { yaw: number; tilt: number }> = {
+  top: { yaw: 0, tilt: 0 }, profile: { yaw: 0, tilt: 0 }, detail: { yaw: 0, tilt: 0 },
+};
+function resetCameras(): void {
+  yaw = tilt = 0;
+  for (const angle of Object.values(paneAngles)) angle.yaw = angle.tilt = 0;
+}
 let previous = performance.now();
 let hold = 0;
 let disposed = false;
@@ -48,7 +56,7 @@ function updateLayout(): void {
   dirty = true;
   document.body.classList.toggle("focused", focused);
   graphs?.setFocused(focused);
-  document.querySelector<HTMLElement>(".window-control")!.hidden = !focused || selected !== 2;
+  document.querySelector<HTMLElement>(".detail-control")!.hidden = !focused || selected !== 2;
   document.querySelector<HTMLElement>(".light-control")!.hidden = !focused || selected !== 3;
   cards.forEach((card, index) => card.classList.toggle("selected", index === selected));
   el<HTMLSelectElement>("view").value = focused ? String(selected) : "all";
@@ -75,14 +83,14 @@ el<HTMLSelectElement>("view").onchange = () => {
   const value = el<HTMLSelectElement>("view").value;
   focused = value !== "all";
   if (focused) selected = Number(value);
-  yaw = tilt = 0;
+  resetCameras();
   updateLayout();
 };
 cards.forEach((card, index) => {
   card.querySelector("button")!.onclick = () => {
     selected = index;
     focused = true;
-    yaw = tilt = 0;
+    resetCameras();
     updateLayout();
   };
 });
@@ -103,22 +111,36 @@ document.addEventListener("keydown", event => {
 });
 motion.addEventListener("change", () => { if (motion.matches) setPlaying(false); });
 for (const viewport of views) {
-  let pointer: { x: number; y: number } | undefined;
+  let pointer: { x: number; y: number; pane?: StudyPane } | undefined;
+  const paneAt = (event: PointerEvent | MouseEvent): StudyPane | undefined => {
+    if (selected !== 2) return undefined;
+    const rect = viewport.getBoundingClientRect();
+    return (Object.entries(studyPanes(rect.width, rect.height)) as [StudyPane, ViewBox][])
+      .find(([, box]) => event.clientX - rect.left >= box.left && event.clientX - rect.left <= box.left + box.width
+        && event.clientY - rect.top >= box.top && event.clientY - rect.top <= box.top + box.height)?.[0];
+  };
   viewport.onpointerdown = event => {
     if (!focused) return;
-    pointer = { x: event.clientX, y: event.clientY };
+    pointer = { x: event.clientX, y: event.clientY, pane: paneAt(event) };
     dirty = true;
     viewport.setPointerCapture(event.pointerId);
   };
   viewport.onpointermove = event => {
     if (!pointer) return;
-    yaw += (event.clientX - pointer.x) * 0.006;
-    tilt = Math.max(-1.2, Math.min(1.2, tilt + (event.clientY - pointer.y) * 0.006));
-    pointer = { x: event.clientX, y: event.clientY };
+    const dx = (event.clientX - pointer.x) * .006, dy = (event.clientY - pointer.y) * .006;
+    if (pointer.pane) {
+      const angle = paneAngles[pointer.pane]; angle.yaw += dx;
+      angle.tilt = Math.max(-1.2, Math.min(1.2, angle.tilt + dy));
+    } else { yaw += dx; tilt = Math.max(-1.2, Math.min(1.2, tilt + dy)); }
+    pointer = { ...pointer, x: event.clientX, y: event.clientY };
     dirty = true;
   };
   viewport.onpointerup = viewport.onpointercancel = () => { pointer = undefined; };
-  viewport.ondblclick = () => { yaw = tilt = 0; dirty = true; };
+  viewport.ondblclick = event => {
+    const pane = paneAt(event);
+    if (pane) paneAngles[pane].yaw = paneAngles[pane].tilt = 0; else yaw = tilt = 0;
+    dirty = true;
+  };
 }
 updateLayout();
 setPlaying(playing);
@@ -132,6 +154,10 @@ async function start(): Promise<void> {
   const sculpture = new GrowthSculpture(renderer);
   let currentData: DendriteData | null = null;
   let currentEntry: GrowthStudyEntry | null = null;
+  let framing: StudyFrame | null = null;
+  let detailMarker: { x: number; y: number } | null = null;
+  const overlay = el<HTMLCanvasElement>("study-overlay");
+  const exportCanvas = document.createElement("canvas");
   let geometry = new THREE.BufferGeometry();
   let loadVersion = 0;
   let pendingLoad: AbortController | null = null;
@@ -180,27 +206,51 @@ async function start(): Promise<void> {
       if (focused && selected !== index) return;
       const rect = outputSize ? new DOMRect(0, 0, width, height) : viewport.getBoundingClientRect();
       if (rect.bottom < 0 || rect.top > height || rect.width === 0) return;
-      const aspect = rect.width / rect.height;
-      const extent = data.extent * 1.16 / Math.min(aspect, 1);
-      camera.left = -extent * aspect;
-      camera.right = extent * aspect;
-      camera.top = extent;
-      camera.bottom = -extent;
-      camera.updateProjectionMatrix();
       const baseTilt = data.camera ? data.camera.tiltDegrees * Math.PI / 180
         : growthStudyTilt(currentEntry) ?? (data.vertical ? Math.PI / 2 : 0);
       const baseYaw = data.camera ? data.camera.yawDegrees * Math.PI / 180 : Math.PI / 6;
-      group.rotation.set(baseTilt + tilt, 0, baseYaw + yaw);
-      if (index >= 2) {
-        sculpture.render(scene, camera, geometry, glow, data, rect, height, extent, index, progress,
-          Number(el<HTMLInputElement>("growth-window").value) / 100, Number(el<HTMLInputElement>("light-angle").value) * Math.PI / 180);
+      const draw = (box: DOMRect, turn: { tilt: number; yaw: number }, center: number[], span: number, style: number) => {
+        const aspect = box.width / box.height, extent = span / Math.min(aspect, 1);
+        camera.left = -extent * aspect; camera.right = extent * aspect;
+        camera.top = extent; camera.bottom = -extent; camera.updateProjectionMatrix();
+        group.rotation.set(turn.tilt, 0, turn.yaw);
+        group.position.set(center[0]!, center[1]!, center[2]!).applyEuler(group.rotation).negate();
+        if (style === 3) {
+          sculpture.render(scene, camera, geometry, glow, data, box, height, extent, progress,
+            Number(el<HTMLInputElement>("light-angle").value) * Math.PI / 180);
+          return;
+        }
+        uniforms.style.value = style;
+        uniforms.pixelsPerUnit.value = box.height / (extent * 2) * renderer.getPixelRatio();
+        renderer.setViewport(box.left, height - box.bottom, box.width, box.height);
+        renderer.setScissor(box.left, Math.max(0, height - box.bottom), box.width, Math.min(height, box.bottom) - Math.max(0, box.top));
+        renderer.render(scene, camera);
+      };
+      if (index === 2 && framing) {
+        const panes = studyPanes(rect.width, rect.height);
+        for (const kind of ["top", "profile", "detail"] as const) {
+          const box = panes[kind], angle = paneAngles[kind];
+          const pane = new DOMRect(rect.left + box.left, rect.top + box.top, box.width, box.height);
+          if (pane.top >= height || pane.bottom <= 0) continue;
+          const turn = { tilt: (kind === "top" ? 0 : kind === "profile" ? 1.15 : .95) + angle.tilt,
+            yaw: (kind === "detail" ? -.4 : Math.PI / 6) + angle.yaw };
+          const span = kind === "profile" ? profileHalfHeight(framing.halfSize, turn.tilt, turn.yaw, pane.width / pane.height) * Math.min(pane.width / pane.height, 1)
+            : data.extent * (kind === "detail" ? 1.16 / Number(el<HTMLInputElement>("detail-zoom").value) : 1.16);
+          draw(pane, turn, kind === "detail" ? framing.detail : framing.center, span, 1);
+          if (kind === "top") {
+            const point = new THREE.Vector3(...framing.detail).applyMatrix4(group.matrixWorld).project(camera);
+            detailMarker = { x: box.left + (point.x + 1) / 2 * box.width, y: box.top + (1 - point.y) / 2 * box.height };
+          }
+        }
+        if (!outputSize) {
+          const ratio = renderer.getPixelRatio();
+          overlay.width = Math.round(rect.width * ratio); overlay.height = Math.round(rect.height * ratio);
+          const ctx = overlay.getContext("2d")!; ctx.setTransform(ratio, 0, 0, ratio, 0, 0);
+          drawStudyOverlay(ctx, rect.width, rect.height, detailMarker);
+        }
         return;
       }
-      uniforms.style.value = index;
-      uniforms.pixelsPerUnit.value = rect.height / (extent * 2) * renderer.getPixelRatio();
-      renderer.setViewport(rect.left, height - rect.bottom, rect.width, rect.height);
-      renderer.setScissor(rect.left, Math.max(0, height - rect.bottom), rect.width, Math.min(height, rect.bottom) - Math.max(0, rect.top));
-      renderer.render(scene, camera);
+      draw(rect, { tilt: baseTilt + tilt, yaw: baseYaw + yaw }, [0, 0, 0], data.extent * 1.16, index);
     });
     renderer.setScissorTest(false);
     if (!outputSize) graphs?.draw(progress);
@@ -209,8 +259,8 @@ async function start(): Promise<void> {
   const capture = {
     get ready() { return currentData !== null && renderedData === currentData && !loading && graphicsReady; },
     seek: (fraction: number) => { setPlaying(false); seek(fraction); render(); },
-    focus: (index: number | null) => { focused = index !== null; selected = index ?? selected; yaw = tilt = 0; updateLayout(); render(); },
-    get state() { return { progress, playing, selected, focused, loading, exporting, crystalId: currentEntry?.id, visible: currentData ? visibleEventCount(currentData.ticks, progress * currentData.finalTick) : 0, eventCount: currentData?.eventCount, sourceSha256: currentData?.sourceSha256, vertical: currentData?.vertical, geometries: renderer.info.memory.geometries, recent: currentData ? recentEventRange(currentData, progress, Number(el<HTMLInputElement>("growth-window").value) / 100) : null, statistics: currentData && graphs?.statistics ? recordingStatsAt(currentData, graphs.statistics, progress) : null, graphs: graphs?.visibleKinds }; },
+    focus: (index: number | null) => { focused = index !== null; selected = index ?? selected; resetCameras(); updateLayout(); render(); },
+    get state() { return { progress, playing, selected, focused, loading, exporting, crystalId: currentEntry?.id, visible: currentData ? visibleEventCount(currentData.ticks, progress * currentData.finalTick) : 0, eventCount: currentData?.eventCount, sourceSha256: currentData?.sourceSha256, vertical: currentData?.vertical, geometries: renderer.info.memory.geometries, framing, paneAngles, statistics: currentData && graphs?.statistics ? recordingStatsAt(currentData, graphs.statistics, progress) : null, graphs: graphs?.visibleKinds }; },
   };
   if (query.has("capture")) (window as unknown as { dendriteStudy: typeof capture }).dendriteStudy = capture;
   installVideoExport({
@@ -225,6 +275,12 @@ async function start(): Promise<void> {
     frame: (frameWidth, frameHeight, at) => {
       if (!graphicsReady || disposed) throw new Error("Graphics were interrupted. Restore the view and try exporting again.");
       seek(at); render({ width: frameWidth, height: frameHeight });
+      if (selected === 2) {
+        if (exportCanvas.width !== frameWidth || exportCanvas.height !== frameHeight) { exportCanvas.width = frameWidth; exportCanvas.height = frameHeight; }
+        const ctx = exportCanvas.getContext("2d")!; ctx.drawImage(canvas, 0, 0);
+        drawStudyOverlay(ctx, frameWidth, frameHeight, detailMarker);
+        return exportCanvas;
+      }
       return canvas;
     },
     restore: () => {
@@ -248,6 +304,7 @@ async function start(): Promise<void> {
     status.classList.remove("ready");
     status.textContent = `Loading ${growthStudyLabel(entry)}…`;
     graphs!.clear();
+    overlay.getContext("2d")!.clearRect(0, 0, overlay.width, overlay.height);
     el("crystal-title").textContent = growthStudyLabel(entry);
     el("source").textContent = "";
     el("recording-kind").textContent = "";
@@ -264,11 +321,12 @@ async function start(): Promise<void> {
       geometry = nextGeometry;
       currentData = data;
       currentEntry = entry;
+      framing = studyFrame(data);
       graphs!.setData(data, data.statistics, entry.source === "named-compose");
       uniforms.finalTick.value = data.finalTick;
       camera.far = data.extent * 12;
       camera.position.set(0, 0, data.extent * 5);
-      yaw = tilt = 0;
+      resetCameras();
       seek(motion.matches ? 0.82 : 0);
       loading = false;
       if (document.querySelector<HTMLDialogElement>("#crystal-browser")!.open) {

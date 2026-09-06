@@ -19,11 +19,14 @@ detail.
 
 ## Current state
 
-- **Three Views replacement and Crystal Cast centering are in progress.** The maker requests
-  a top view plus a low-angle view and branch close-up in place of Growth Front. The final
-  [visual-study follow-up](plans/dendrite-visual-studies.md) records the camera/layout approach
-  and the offscreen pixel-ratio centering correction. Next: implement and inspect the new panes,
-  high-density centering and exported composition; preserve graphs and recorded geometry.
+- **Three Views and centered Crystal Cast are complete.** Growth Front is replaced by a large
+  top view, upper-right low-angle overview and lower-right branch close-up, with independent
+  pane rotation and detail zoom. Cast uses the correct offscreen pixel viewport. The
+  [visual-study follow-up](plans/dendrite-visual-studies.md) records nine passing centering samples
+  at device scales 1, 1.5 and 2, representative crystal/pane checks and no unexpected browser errors
+  (`out/three-views/browser-smoke.json`). Actual Three Views and Cast MP4s decode successfully.
+  Focused tests, typecheck, Rule 7 and build pass. Next: open the Three Views link below; graphs,
+  original recording coordinates and chronology are preserved.
 
 - **Phase 6 is COMPLETE (2026-08-20).** The maker accepts the recorded failure to reproduce the
   Nakaya diagram as the phase's scientific finding. Decision
@@ -148,15 +151,8 @@ detail.
   previews, zero full recording downloads on browse-first entry and no unexpected errors
   (`out/growth-gallery/browser-smoke.json`). Keyboard focus, phone layout, selection, playback,
   filter/scroll retention and broken-image fallback pass. Next: open the gallery link below.
-- **Last updated:** 2026-09-04 (completed optional recording graphs and MP4 export;
+- **Last updated:** 2026-09-04 (completed Three Views and Crystal Cast centering;
   no phase or scientific-evidence change)
-- **New render approaches are complete.** Growth Front (a moving interval of recent attachments)
-  and Crystal Cast (sculptural relief with movable light) replace Darkfield and Chronograph.
-  The [visual-study plan](plans/dendrite-visual-studies.md) records implementation and checks;
-  `out/growth-structure/browser-smoke.log` reports 50 sampled renders with no unexpected browser
-  errors across direct, axial and composed forms. Focused tests, typecheck, Rule 7 and app build
-  pass. Next: use the new View choices and their window/light controls. Ion Bloom, Timeglass,
-  the gallery, original recording data and Timeglass thumbnails are retained.
 - **Optional graphs and MP4 export are complete.** Single views offer attached-site,
   interval-attachment and outward-reach graphs with independent toggles and synchronized seeking.
   **Export MP4** creates the current treatment/camera in H.264, with optional graphs. Actual UI
@@ -192,8 +188,8 @@ The maker-directed [growth visual studies](plans/dendrite-visual-studies.md), in
 newer named catalogue, are complete on `fix/animation-queue-windows-spawn` in `snowflake-animation`.
 `out/named-growth-studies/packaging.json` records 151 prepared/decoded replays, including all 99
 newer named entries. The gallery now offers collection and shape filtering; direct recordings and composed
-scenes share Ion Bloom, Timeglass, Growth Front and Crystal Cast with explicit composition labels.
-Focused tests, typecheck, Rule 7 and app build passed. The production browser sweep records
+scenes share Ion Bloom, Timeglass, Three Views and Crystal Cast with explicit composition labels.
+Focused tests, typecheck, Rule 7 and app build passed. The earlier production browser sweep records
 604 view renders and no unexpected errors (`out/named-growth-studies/browser-smoke.json`).
 Final camera/timing refinements passed 20 targeted live renders and the rebuilt-production
 seek check (`final-browser-smoke.json` and `final-production.json` in that directory).
@@ -205,6 +201,8 @@ The subsequent structural-rendering pass replaces the two retired treatments and
 representative controls/render checks in `out/growth-structure/browser-smoke.json`.
 The completed graphs/export follow-up adds recording-derived readouts and actual MP4 downloads;
 its browser and required full-check records are in `out/growth-insights/` as named above.
+The subsequent Three Views replacement and Cast centering use the representative product checks
+in `out/three-views/`; the earlier catalogue-wide sweep predates these rendering changes.
 No solver, scientific evidence, source acceptance or phase state changed.
 
 [phase-6-science-first-completion.md](plans/phase-6-science-first-completion.md) is the completed Phase 6 record (see its Completion record).
@@ -247,13 +245,14 @@ The loopback dev server is recorded at `out/growth-gallery/dev-server.pid`; its 
 beside it. Missing local source files remain visibly unavailable; the tracked original dendrite
 remains usable. For already restored producer output, see `app/data/README.md` and
 `GROWTH_STUDY_CATALOG_ROOT`. Timeglass is the default view.
-For the new approaches, start at `dendrite-styles.html?style=2&crystal=named-stellar-dendrites-baseline`
-and adjust **Recent window**, or choose **Crystal Cast** and **Move the light**. Both use the
-selected gallery recording. Open **Graphs** below any single animation to toggle attached sites,
+For the new composition, start at `dendrite-styles.html?style=2&crystal=sweep-t1-sharp`.
+**Three Views** shows the top view, a low angle and a three-quarter branch close-up. Drag panes
+independently, double-click to reset a pane, or adjust **Detail zoom**. **Crystal Cast** is centered
+and retains **Move the light**. Open **Graphs** below any single animation to toggle attached sites,
 new attachments and outward reach, or click a chart to scrub. **Export MP4** offers 720p/1080p,
 10/20/30-second complete-growth clips and optional visible graphs. It retains the current
 camera/rendering controls and restores playback after export. The plan's final follow-up records
-the completed graphs/export work; `app/data/README.md` has usage and browser requirements.
+the completed Three Views/centering work; `app/data/README.md` has usage and browser requirements.
 
 ### Phase 10 — planning complete; maker package selection pending
 
