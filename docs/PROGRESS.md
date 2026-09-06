@@ -130,12 +130,12 @@ detail.
   direction) and content stays in-repo unpublished, `test.yml` CI unaffected. Reconciliation is
   a live decision point under **Next step**. Full freeze history:
   [the history file](progress-history-phases-6-8-9.md).
-- **Visual-study catalogue correction is active (2026-09-04).** The maker identified the newer
+- **Visual-study catalogue correction is complete (2026-09-04).** The maker identified the newer
   accepted named catalogue in `../snowflake-named-catalog/docs/named-snow-crystal-catalog.json`.
-  The earlier visual-study selector covers only the older website library. The correction in
-  [the visual-study plan](plans/dendrite-visual-studies.md) adds the accepted named recordings and
-  explicitly composed scenes to all four views; implementation and browser verification are next.
-- **Last updated:** 2026-09-04 (extending visual studies to the omitted named catalogue;
+  The correction in [the visual-study plan](plans/dendrite-visual-studies.md) adds its accepted
+  named recordings and explicitly composed scenes to all four views. The live index reports
+  151 available entries, including 99 named entries (`out/named-growth-studies/live-index.json`).
+- **Last updated:** 2026-09-04 (completed visual studies for the newer named catalogue;
   no phase or scientific-evidence change)
 
 ## Phase gates
@@ -160,18 +160,16 @@ and every superseded attempt live in the linked plans and historical progress sn
 ## Active plan
 
 The maker-directed [growth visual studies](plans/dendrite-visual-studies.md), including the
-requested full-library extension, are complete
-on `fix/animation-queue-windows-spawn` in the existing `snowflake-animation` worktree. The
-independent `app/dendrite-styles.html` page selects 52 approved growth replays, including original
-Run B, through Ion Bloom, Timeglass, Darkfield and Chronograph. Timeglass opens by default;
-search, previous/next, URL selection, comparison, scrubbing and time-depth controls are available.
-Worker decoding, stale-request cancellation, GPU-geometry disposal and full-extent framing
-support the different shapes. The production browser smoke recorded 208 nonempty view renders
-and zero unexpected errors (`out/growth-study-library/browser-smoke.json`); source event payloads
-were unchanged (`out/growth-study-library/packaging.json`). Focused tests, typechecks, Rule 7,
-app build and targeted final UI/context-restoration checks passed. The plan names the commands,
-inspection artifacts and limits. Fig. 6's earlier exclusion is preserved. This changes no solver,
-scientific evidence or phase state.
+newer named catalogue, are complete on `fix/animation-queue-windows-spawn` in `snowflake-animation`.
+`out/named-growth-studies/packaging.json` records 151 prepared/decoded replays, including all 99
+newer named entries. The selector now offers collection filtering; direct recordings and composed
+scenes share Ion Bloom, Timeglass, Darkfield and Chronograph with explicit composition labels.
+Focused tests, typecheck, Rule 7 and app build passed. The production browser sweep records
+604 view renders and no unexpected errors (`out/named-growth-studies/browser-smoke.json`).
+Final camera/timing refinements passed 20 targeted live renders and the rebuilt-production
+seek check (`final-browser-smoke.json` and `final-production.json` in that directory).
+Exact source identities are in `app/data/named-growth-library.json`.
+No solver, scientific evidence, source acceptance or phase state changed.
 
 [phase-6-science-first-completion.md](plans/phase-6-science-first-completion.md) is the completed Phase 6 record (see its Completion record).
 [phase-8-measurement-corpus.md](plans/phase-8-measurement-corpus.md) and
@@ -204,13 +202,14 @@ the package-specific prerequisites in its charter amendment and execution plan. 
 ### Growth visual studies — ready to use
 
 Open `http://127.0.0.1:5191/dendrite-styles.html` and use **Animation** to choose a replay and
-**View** to choose Timeglass or another treatment. A fresh session can use
+**View** to choose Timeglass or another treatment. Select **Collection → Named catalogue** for
+the newer named types and their lower/baseline/upper variants. A fresh session can use
 `npm run dev --workspace app -- --port 5191`. The [plan](plans/dendrite-visual-studies.md)
-records the completed checks and source locations. All registered sources are available here;
-other checkouts show unavailable options when their local fleet/website files are absent and
-retain the original tracked dendrite. Chronograph deliberately maps attachment time into depth.
-No work remains for this request; applying the selected views to the separate website is a later
-product task. The maker's preferred initial treatment is Timeglass.
+records the completed checks and source locations. No implementation work remains in this request.
+The loopback dev server is recorded at `out/named-growth-studies/dev-server.pid`; its logs are
+beside it. Missing local source files remain visibly unavailable; the tracked original dendrite
+remains usable. For already restored producer output, see `app/data/README.md` and
+`GROWTH_STUDY_CATALOG_ROOT`. Timeglass is the default view.
 
 ### Phase 10 — planning complete; maker package selection pending
 

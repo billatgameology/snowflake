@@ -2,7 +2,7 @@ import * as THREE from "three";
 import { visibleEventCount, type DendriteData } from "./dendrite-data.ts";
 import { loadGrowthStudy } from "./growth-study-loader.ts";
 import { installGrowthPicker } from "./growth-study-picker.ts";
-import { growthStudyLabel, type GrowthStudyEntry } from "./growth-study-library.ts";
+import { growthStudyLabel, growthStudyTilt, type GrowthStudyEntry } from "./growth-study-library.ts";
 import { dendriteVertex, dendriteFragment } from "./dendrite-shaders.ts";
 import "./dendrite-styles.css";
 
@@ -174,8 +174,10 @@ async function start(): Promise<void> {
       camera.top = extent;
       camera.bottom = -extent;
       camera.updateProjectionMatrix();
-      const baseTilt = data.vertical ? Math.PI / 2 : index === 3 ? 0.65 : 0;
-      group.rotation.set(baseTilt + tilt, index === 3 ? -0.12 : 0, Math.PI / 6 + yaw);
+      const baseTilt = data.camera ? data.camera.tiltDegrees * Math.PI / 180
+        : growthStudyTilt(currentEntry) ?? (data.vertical ? Math.PI / 2 : index === 3 ? 0.65 : 0);
+      const baseYaw = data.camera ? data.camera.yawDegrees * Math.PI / 180 : Math.PI / 6;
+      group.rotation.set(baseTilt + tilt, index === 3 ? -0.12 : 0, baseYaw + yaw);
       uniforms.style.value = index;
       uniforms.pixelsPerUnit.value = rect.height / (extent * 2) * renderer.getPixelRatio();
       renderer.setViewport(rect.left, height - rect.bottom, rect.width, rect.height);
@@ -205,13 +207,14 @@ async function start(): Promise<void> {
     status.textContent = `Loading ${growthStudyLabel(entry)}…`;
     el("crystal-title").textContent = growthStudyLabel(entry);
     el("source").textContent = "";
+    el("recording-kind").textContent = "";
     try {
       const data = await loadGrowthStudy(new URL(`./growth-studies/${entry.id}.bin`, document.baseURI), pendingLoad.signal);
       if (version !== loadVersion || disposed) return;
       if (data.sourceSha256 !== entry.sourceSha256 || data.eventCount !== entry.eventCount || data.finalTick !== entry.finalTick) throw new Error("The replay does not match the selected crystal.");
       const nextGeometry = new THREE.BufferGeometry();
       nextGeometry.setAttribute("position", new THREE.BufferAttribute(data.positions, 3));
-      nextGeometry.setAttribute("attachTick", new THREE.BufferAttribute(data.ticks, 1));
+      nextGeometry.setAttribute("attachTick", new THREE.BufferAttribute(data.ticks instanceof Float32Array ? data.ticks : new Float32Array(data.ticks), 1));
       nextGeometry.computeBoundingSphere();
       body.geometry = glow.geometry = nextGeometry;
       geometry.dispose();
@@ -227,7 +230,11 @@ async function start(): Promise<void> {
       setPlaying(!motion.matches);
       play.disabled = replay.disabled = timeline.disabled = false;
       status.classList.add("ready");
-      el("source").textContent = `Source: ${entry.id} · ${data.eventCount.toLocaleString()} attachment events · ${data.finalTick.toLocaleString()} model ticks · stop: ${entry.terminationReason} · original SHA-256 ${data.sourceSha256}. Visual replay, not gate evidence.`;
+      const composed = entry.source === "named-compose";
+      el("recording-kind").textContent = composed ? "COMPOSED VIEW · Independently grown crystals, with recorded scene orientations and timing" : "DIRECT GROWTH · Recorded attachment history";
+      el("source").textContent = composed
+        ? `Source scene: ${entry.id} · ${data.eventCount.toLocaleString()} instanced attachment events · normalized scene timeline, with each component's recorded phase offset · scene SHA-256 ${data.sourceSha256}. The composition is not one solver state.`
+        : `Source: ${entry.id} · ${data.eventCount.toLocaleString()} attachment events · ${data.finalTick.toLocaleString()} model ticks · stop: ${entry.terminationReason} · original SHA-256 ${data.sourceSha256}. Visual replay, not gate evidence.`;
     } catch (error) {
       if (version !== loadVersion || disposed) return;
       // Keep old GPU data hidden until a new load succeeds; never relabel the old crystal.

@@ -228,10 +228,65 @@ worktree or changing its acceptance records.
 
 ### Next step
 
-Implement the catalogue importer and composed presentation adapter, then run the focused product
-checks and production browser sweep. Record results here and in PROGRESS.
+Open `http://127.0.0.1:5191/dendrite-styles.html` and select **Collection → Named catalogue**.
+Use the named type and variant with Timeglass or any other view. Implementation is complete.
+The restarted live server is recorded under `out/named-growth-studies/dev-server.pid`, with
+stdout/stderr beside it; a fresh session uses `npm run dev --workspace app -- --port 5191`.
+
+### Implementation and source checks
+
+`app/data/named-growth-library.json` binds the accepted catalogue and direct/Compose review
+document identities. `node app/scripts/verify-growth-studies.mjs` produced
+`out/named-growth-studies/packaging.json`: 151 prepared/decoded entries, 99 from the named
+catalogue, and 484,531,000 presentation bytes. Its checks compare every named direct event payload
+byte-for-byte with the producer, compare the accepted scene transforms/phase offsets and unique
+component counts, then independently count visible original events at five progress values for
+each of the 33 composed entries (165 timeline checks). No original event payload changed.
+
+The combined focused product command recorded in `out/named-growth-studies/focused-tests.log`
+passes 32 tests, with two platform-specific skips. The final camera adjustment opens selected
+named hollow/capped forms obliquely; original library camera behavior is preserved.
+
+### Completion checks
+
+Commands and artifacts under `out/named-growth-studies/` (reproducible inspection scratch):
+
+- `npx vitest run app/test/dendrite-data.test.ts app/test/growth-study-data.test.ts app/test/growth-study-library.test.ts runner/test/growth-study-assets.test.ts runner/test/vite-nas-serving.test.ts`
+  — `focused-tests.log`, covering source packaging, bounded reads, selectors, transforms and
+  exact phase-boundary visibility. The named-source fixture proves component deduplication and
+  refuses corrupt or escaping component paths.
+- `npm run typecheck` — `typecheck.log`; `npm run lint:rule7` — `rule7.log`;
+  `npm run build --workspace app` — `build.log`. The final build includes the camera and
+  visibility refinements. No full scientific suite or gate was run for this presentation work.
+- `node app/scripts/growth-study-library-smoke.mjs` — `browser-smoke.json`: 151 entries,
+  604 nonempty view renders, matching source identities/endpoints, one live GPU geometry,
+  collection filters, named trio search, composition labels, URL/view retention, navigation,
+  delayed-request cancellation, failure/retry, mobile overflow and reduced motion; no
+  unexpected browser errors. This production sweep preceded the final camera/seek refinements.
+- With `DENDRITE_STUDY_URL=http://127.0.0.1:5191/dendrite-styles.html?capture=1`,
+  `node app/scripts/named-growth-study-smoke.mjs` — `final-browser-smoke.json`: five selected
+  forms, 20 view renders, five original-source timeline counts for Needle Clusters, mobile
+  overflow and no browser errors. This exercised the final camera/seek code through live Vite.
+- `final-production.json` records the rebuilt-page Needle Clusters regression at 82%, with
+  966,522 visible instanced events, one live GPU geometry and no page errors. The value is copied
+  from that artifact; it matches the independently read source counts in `packaging.json`.
+  `mobile-scrolled-final.png` checks the redraw after scrolling on a phone-sized viewport.
+- `live-index.json` records 151/151 available and 99 named entries on port 5191 after restarting
+  the earlier dev server, whose middleware had retained the original library in memory.
+
+The author inspected Timeglass for stellar/radiating dendrites, bullet rosettes, custom small
+forms, the final oblique Cup and the scrolled mobile composition. These are rendering/product
+checks on this host, not audience studies or scientific validation. No source binary, accepted
+catalogue, scientific bundle, NAS policy, solver or separate website was changed.
 
 ### Tried and rejected
 
 - Equating the older website index with all available animations: it omitted the accepted named
   catalogue in a separate worktree. Source discovery must include that tracked catalogue.
+- Using the algebraic inverse of the composed player's tick test as its exact floating-point
+  arrival: the independent source comparison found a boundary disagreement for Needle Clusters
+  at 82%. The adapter now finds the first representable progress where the original local
+  integer-tick test passes. A focused adjacent-float control and the real-source timeline
+  comparisons pass; colour attributes remain float32, while visibility uses float64.
+- An exact side view for Cups hides the cavity. The named direct camera recipe now opens selected
+  hollow/capped forms obliquely; point coordinates and attachment times are unchanged.

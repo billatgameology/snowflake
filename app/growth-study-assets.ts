@@ -6,15 +6,20 @@ import { resolve } from "node:path";
 import type { Plugin } from "vite";
 import { openContainedRegularFile } from "../scripts/nas-asset-lib.ts";
 import type { GrowthStudyEntry, GrowthStudyLibrary } from "./src/growth-study-library.ts";
+import { readNamedStudy, validNamedStudyPath } from "./named-growth-study-assets.ts";
 
 export function loadStudyManifest(root: string): GrowthStudyLibrary {
   const library = JSON.parse(readFileSync(resolve(root, "app/data/growth-library.json"), "utf8")) as GrowthStudyLibrary;
+  const named = JSON.parse(readFileSync(resolve(root, "app/data/named-growth-library.json"), "utf8")) as GrowthStudyLibrary;
+  library.entries = [...named.entries, ...library.entries];
+  library.excluded.push(...named.excluded);
   const seen = new Set<string>();
   if (library.format !== "growth-study-library-v1" || !Array.isArray(library.entries)) throw new Error("Invalid growth study manifest");
   for (const entry of library.entries) {
     if (!/^[a-z0-9][a-z0-9-]*$/u.test(entry.id) || seen.has(entry.id) ||
-        !["fleet", "run-b"].includes(entry.source) || !/^[a-f0-9]{64}$/u.test(entry.sourceSha256) ||
-        !Number.isInteger(entry.eventCount) || entry.eventCount < 1 || entry.eventCount > 2000000 ||
+        !["fleet", "run-b", "named-direct", "named-compose"].includes(entry.source) || !/^[a-f0-9]{64}$/u.test(entry.sourceSha256) ||
+        (entry.source.startsWith("named-") && (!entry.sourcePath || !validNamedStudyPath(entry.sourcePath))) ||
+        !Number.isInteger(entry.eventCount) || entry.eventCount < 1 || entry.eventCount > (entry.source === "named-compose" ? 16000000 : 2000000) ||
         !Number.isInteger(entry.finalTick) || entry.finalTick < 1 || entry.finalTick > 16777215 ||
         typeof entry.label !== "string" || typeof entry.habit !== "string") throw new Error("Invalid growth study entry");
     seen.add(entry.id);
@@ -47,7 +52,8 @@ export function packageStudy(original: Buffer, entry: GrowthStudyEntry): Buffer 
 }
 
 /** Only the named website replay and fleet files can become public presentation bytes. */
-export function readStudy(root: string, entry: GrowthStudyEntry): Buffer | null {
+export function readStudy(root: string, entry: GrowthStudyEntry, library?: GrowthStudyLibrary): Buffer | null {
+  if (entry.source.startsWith("named-")) return readNamedStudy(root, entry, library ?? loadStudyManifest(root), packageStudy);
   const filename = `${entry.id}-growth-v1.bin`;
   const candidates: Array<[string, string]> = entry.source === "run-b"
     ? [[resolve(root, "../snowcrystal_website/public/growth"), "run-b-growth-v1.bin"]]
@@ -69,6 +75,11 @@ export function readStudy(root: string, entry: GrowthStudyEntry): Buffer | null 
   return null;
 }
 
+function publicEntry(entry: GrowthStudyEntry, available: boolean) {
+  const { sourcePath: _sourcePath, ...published } = entry;
+  return { ...published, available };
+}
+
 export function createGrowthStudyHandler(root: string, library = loadStudyManifest(root)) {
   return (request: IncomingMessage, response: ServerResponse): void => {
     response.setHeader("x-content-type-options", "nosniff");
@@ -80,12 +91,12 @@ export function createGrowthStudyHandler(root: string, library = loadStudyManife
     let bytes: Buffer | null = null;
     try {
       if (path === "/index.json") {
-        bytes = Buffer.from(JSON.stringify({ ...library, entries: library.entries.map(entry => ({ ...entry, available: readStudy(root, entry) !== null })) }));
+        bytes = Buffer.from(JSON.stringify({ ...library, entries: library.entries.map(entry => publicEntry(entry, readStudy(root, entry, library) !== null)) }));
         response.setHeader("content-type", "application/json");
       } else {
         const id = /^\/([a-z0-9][a-z0-9-]*)\.bin$/u.exec(path ?? "")?.[1];
         const entry = library.entries.find(item => item.id === id);
-        if (entry) bytes = readStudy(root, entry);
+        if (entry) bytes = readStudy(root, entry, library);
         response.setHeader("content-type", "application/octet-stream");
       }
       if (bytes === null) { response.statusCode = 404; response.end("Growth replay unavailable"); return; }
@@ -104,9 +115,9 @@ export function growthStudyAssets(root: string): Plugin {
     generateBundle() {
       const library = loadStudyManifest(root);
       const entries = library.entries.map(entry => {
-        const bytes = readStudy(root, entry);
+        const bytes = readStudy(root, entry, library);
         if (bytes) this.emitFile({ type: "asset", fileName: `growth-studies/${entry.id}.bin`, source: bytes });
-        return { ...entry, available: bytes !== null };
+        return publicEntry(entry, bytes !== null);
       });
       this.emitFile({ type: "asset", fileName: "growth-studies/index.json", source: JSON.stringify({ ...library, entries }) });
     },

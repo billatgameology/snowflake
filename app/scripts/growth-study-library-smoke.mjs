@@ -4,10 +4,12 @@ import { resolve } from "node:path";
 import { chromium } from "playwright";
 
 const root = resolve(import.meta.dirname, "../..");
-const output = resolve(root, "out/growth-study-library");
+const output = resolve(root, "out/named-growth-studies");
 mkdirSync(output, { recursive: true });
 const url = process.env.DENDRITE_STUDY_URL ?? "http://127.0.0.1:5192/dendrite-styles.html?capture=1";
 const manifest = JSON.parse(readFileSync(resolve(root, "app/data/growth-library.json"), "utf8"));
+const named = JSON.parse(readFileSync(resolve(root, "app/data/named-growth-library.json"), "utf8"));
+manifest.entries = [...named.entries, ...manifest.entries];
 const browser = await chromium.launch({ headless: true });
 const page = await browser.newPage({ viewport: { width: 1440, height: 1150 }, deviceScaleFactor: 1 });
 const errors = [];
@@ -45,12 +47,23 @@ try {
       styles.push({ style, sampledColors: result.colors });
     }
     rows.push({ id: entry.id, events: entry.eventCount, styles });
-    if ([manifest.defaultId, "fig29", "fig30", "fig38", "run-b"].includes(entry.id)) {
+    if ([manifest.defaultId, "fig29", "fig30", "fig38", "run-b", "named-stellar-dendrites-baseline", "named-radiating-dendrites-baseline", "named-crossed-needles-baseline", "named-cups-baseline", "named-bullet-rosettes-baseline", "named-multiply-capped-columns-baseline", "named-triangular-forms-baseline"].includes(entry.id)) {
       await page.evaluate(() => { window.dendriteStudy.focus(1); window.dendriteStudy.seek(0.82); });
       await page.screenshot({ path: resolve(output, `${entry.id}-verified.png`) });
     }
     if (index % 10 === 0) console.log(`Rendered ${index + 1}/${manifest.entries.length} crystals through all four views`);
   }
+  await page.selectOption("#collection", "named");
+  assert.equal(await page.locator("#crystal option:not([disabled])").count(), 99);
+  await page.fill("#crystal-search", "radiating dendrites");
+  assert.equal(await page.locator("#crystal option:not([disabled])").count(), 3);
+  await page.selectOption("#crystal", "named-radiating-dendrites-baseline"); await loaded("named-radiating-dendrites-baseline");
+  assert.match(await page.locator("#recording-kind").textContent(), /COMPOSED VIEW/);
+  await page.reload(); await loaded("named-radiating-dendrites-baseline");
+  assert.equal(await page.locator("#collection").inputValue(), "named");
+  await page.selectOption("#collection", "original");
+  assert.equal(await page.locator("#crystal option:not([disabled])").count(), 52);
+  await page.selectOption("#collection", "all");
   await page.fill("#crystal-search", "needle");
   assert.ok(await page.locator("#crystal option:not([disabled])").count() >= 1);
   await page.selectOption("#crystal", "fig29");
@@ -97,7 +110,7 @@ try {
   await page.selectOption("#crystal", "fig30"); await loaded("fig30");
   assert.equal(await page.evaluate(() => window.dendriteStudy.state.playing), false);
   assert.deepEqual(errors, []);
-  const report = { url, entries: rows.length, viewRenders: rows.length * 4, errors, checks: ["all registered replays", "all four views produce pixels", "matching endpoints", "one GPU geometry", "search", "next/previous", "deep link and view retained", "rapid switch cancellation", "failure and retry", "mobile overflow", "reduced motion"], rows };
+  const report = { url, entries: rows.length, viewRenders: rows.length * 4, errors, checks: ["all registered replays", "all four views produce pixels", "matching endpoints", "one GPU geometry", "catalogue/earlier collection filters", "named trio search", "composed disclosure", "search", "next/previous", "deep link and view retained", "rapid switch cancellation", "failure and retry", "mobile overflow", "reduced motion"], rows };
   writeFileSync(resolve(output, "browser-smoke.json"), JSON.stringify(report, null, 2));
   console.log(JSON.stringify({ entries: report.entries, viewRenders: report.viewRenders, errors }));
 } finally { await browser.close(); }

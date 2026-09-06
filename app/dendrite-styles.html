@@ -15,12 +15,14 @@
       <div class="intro-note"><p>Every branch has a beginning.<br>Choose a crystal. Explore its history.</p><button id="layout" type="button">Compare all four</button></div>
     </section>
     <section class="library-picker" aria-label="Choose a growth animation">
+      <label class="collection-label">COLLECTION<select id="collection"><option value="all">All animations</option><option value="named">Named catalogue</option><option value="original">Earlier library</option></select></label>
       <label class="search-label">FIND A CRYSTAL<input id="crystal-search" type="search" placeholder="Search name, figure, needle…" /></label>
       <label class="crystal-label">ANIMATION<select id="crystal" disabled><option>Loading the library…</option></select></label>
       <div class="crystal-nav"><button id="previous-crystal" type="button" aria-label="Previous crystal" disabled>←</button><button id="next-crystal" type="button" aria-label="Next crystal" disabled>→</button><span id="search-count"></span></div>
       <label class="view-label">VIEW<select id="view"><option value="1" selected>Timeglass</option><option value="0">Ion Bloom</option><option value="2">Darkfield</option><option value="3">Chronograph</option><option value="all">Compare all four</option></select></label>
     </section>
     <div class="crystal-caption"><p id="crystal-title"></p><p id="library-note"></p></div>
+    <p id="recording-kind"></p>
     <p id="status" role="status">Loading the growth library…</p><button id="retry" type="button" hidden>Retry this crystal</button>
     <section id="studies" class="studies" aria-label="Four synchronized rendering studies">
       <article class="study selected" data-style="0">
@@ -52,7 +54,7 @@
       <label class="speed-label">SPEED<select id="speed" aria-label="Playback speed"><option value="0.5">½×</option><option value="1" selected>1×</option><option value="2">2×</option></select></label>
       <button id="fullscreen" type="button">Fullscreen ⛶</button>
     </section>
-    <footer><p>RECORDED MODEL GROWTH · ART-DIRECTED LIGHT & COLOUR</p><details><summary>What am I seeing?</summary><p>Each point is a recorded lattice site from one Gravner–Griffeath model run, revealed at its attachment tick. Points are not molecules. Light and colour are artistic encodings; Chronograph also displaces sites in depth according to their arrival time. The other views keep the recorded coordinates. Playback seconds are presentation time, not physical growth time. This is model output, not validated laboratory growth.</p><p id="source"></p><p id="excluded"></p><p>Focus a study to drag its view. Double-click to reset. Space pauses; R replays; Escape returns to comparison. The same playhead drives all four studies.</p></details></footer>
+    <footer><p>RECORDED MODEL GROWTH · ART-DIRECTED LIGHT & COLOUR</p><details><summary>What am I seeing?</summary><p>Each point is a recorded lattice site from a Gravner–Griffeath or G-G+ model run, revealed at its attachment tick. Composed views arrange independently grown crystals using the catalogue's recorded transforms and phase offsets; they are not one simulated crystal. Points are not molecules. Light and colour are artistic encodings; Chronograph also displaces sites in depth according to their arrival time. Other views keep recorded sites and any explicit scene transforms, at unit lattice Z scale. Playback seconds are presentation time, not physical growth time. This is model output, not validated laboratory growth.</p><p id="source"></p><p id="excluded"></p><p>Focus a study to drag its view. Double-click to reset. Space pauses; R replays; Escape returns to comparison. The same playhead drives all four studies.</p></details></footer>
   </main>
   <script type="module" src="/src/dendrite-styles.ts"></script>
 </body>

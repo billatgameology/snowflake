@@ -69,14 +69,41 @@ describe("bounded growth presentation assets", () => {
     } finally { await new Promise<void>((resolvePromise, reject) => server.close(error => error ? reject(error) : resolvePromise())); }
   });
 
-  it("registers the approved website set plus Run B and preserves the Fig. 6 exclusion", () => {
+  it("registers both libraries including the accepted named trios and preserves exclusions", () => {
     const root = resolve(import.meta.dirname, "../..");
     const library = loadStudyManifest(root);
-    expect(library.entries).toHaveLength(52);
+    expect(library.entries).toHaveLength(151);
+    expect(library.entries.filter(entry => entry.source === "named-direct")).toHaveLength(66);
+    expect(library.entries.filter(entry => entry.source === "named-compose")).toHaveLength(33);
+    const families = new Map<string, number>();
+    for (const entry of library.entries.filter(entry => entry.source.startsWith("named-"))) families.set(entry.habit, (families.get(entry.habit) ?? 0) + 1);
+    expect(families.size).toBe(33);
+    expect([...families.values()].every(count => count === 3)).toBe(true);
     expect(library.entries.some(entry => entry.id === "run-b")).toBe(true);
     expect(library.entries.some(entry => entry.id === "fig6")).toBe(false);
     expect(library.excluded.some(entry => entry.id === "fig6")).toBe(true);
     const packaged = readFileSync(resolve(root, "app/data/dendrite-study.bin"));
     expect(JSON.parse(packaged.subarray(4, 4 + packaged.readUInt32LE(0)).toString()).sourceSha256).toBe(library.entries.find(entry => entry.id === library.defaultId)!.sourceSha256);
+  });
+
+  it("packages only pinned named components, deduplicating scenes without leaking source paths", async () => {
+    const f = fixture();
+    const direct: GrowthStudyEntry = { ...f.entry, id: "named-sample", source: "named-direct", sourcePath: "out/named-crystal-catalog/final-resolution-a-v1/sample/growth-v1.bin" };
+    mkdirSync(dirname(join(f.root, direct.sourcePath!)), { recursive: true });
+    writeFileSync(join(f.root, direct.sourcePath!), f.original);
+    const sceneBytes = Buffer.from(JSON.stringify({ format: "growth-scene-v1", disclosure: "composed-visualization", camera: { tiltDegrees: 55, yawDegrees: 0 }, components: [0, 0.2].map(phaseOffset => ({ growthAsset: { sha256: direct.sourceSha256, byteLength: f.original.length, url: "/private-source-path" }, scientificBundle: { locator: "private-scientific-path" }, phaseOffset, transform: { translate: [0, 0, 0], rotateDegrees: [0, 0, 0], scale: 1 } })) }));
+    const scene: GrowthStudyEntry = { ...f.entry, id: "named-scene", source: "named-compose", sourcePath: "out/named-crystal-catalog/final-compose-v1/sample/scene.json", sourceSha256: createHash("sha256").update(sceneBytes).digest("hex"), eventCount: 4, finalTick: 1 };
+    mkdirSync(dirname(join(f.root, scene.sourcePath!)), { recursive: true });
+    writeFileSync(join(f.root, scene.sourcePath!), sceneBytes);
+    const library: GrowthStudyLibrary = { ...f.library, entries: [direct, scene] };
+    const bytes = readStudy(f.root, scene, library)!;
+    const header = JSON.parse(bytes.subarray(4, 4 + bytes.readUInt32LE(0)).toString());
+    expect(header.assets).toHaveLength(1);
+    expect(header.components).toHaveLength(2);
+    expect(bytes.toString()).not.toContain("private-");
+    expect(bytes.toString()).not.toContain("workstation-");
+    expect(readStudy(f.root, { ...direct, sourcePath: "out/named-crystal-catalog/../../private.bin" }, library)).toBeNull();
+    writeFileSync(join(f.root, direct.sourcePath!), "corrupt");
+    expect(readStudy(f.root, scene, library)).toBeNull();
   });
 });

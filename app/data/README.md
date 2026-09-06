@@ -45,3 +45,33 @@ header and unchanged event payload, with no workstation paths or source-command 
 Missing sources are marked unavailable in the selector; the original packaged dendrite remains
 usable in a fresh checkout. To include a new approved replay later, add its exact identity and
 digest to the manifest. The browser downloads and decodes only the selected animation.
+
+## Newer named catalogue
+
+`named-growth-library.json` imports the accepted named catalogue and its direct/Compose reviews
+from the separate producer worktree. It records the exact three source-document digests and each
+accepted web/scene identity. Regenerate it using
+`node app/scripts/import-named-growth-studies.mjs ../snowflake-named-catalog`.
+The two manifests combine in the selector; named types appear first, with a collection filter.
+
+`app/named-growth-study-assets.ts` checks exact file digests and accepts only registered growth
+binaries or scene JSON below the final-resolution/Compose product directories. It tries the
+current repository, then sibling `snowflake-named-catalog`. For an already restored local producer
+tree, set `GROWTH_STUDY_CATALOG_ROOT` to the directory containing its `out/named-crystal-catalog/`.
+It never serves the raw source paths or opens the NAS collection through the browser.
+
+Direct recordings use the existing compact format. A `growth-study-scene-v1` presentation file
+has the same u32 JSON-length prefix, a header containing the source-scene digest, unique component
+byte lengths, component indices/transforms/phase offsets and camera angles, followed by each unique
+compact direct payload once. Scientific locators and source commands are omitted. The worker
+applies the explicit XYZ Euler transforms at unit lattice Z scale and merges instance arrivals on
+a normalized scene clock derived from `phaseOffset + (1 - phaseOffset) * attachTick / finalTick`.
+Each arrival is adjusted to the first representable float64 progress where the original player's
+local integer-tick test passes; directly inverting that test can differ by a rounding unit.
+CPU seeking retains float64 scene times; shader attributes use float32 only for artistic colour
+and time displacement. No common model-tick or physical-time meaning is assigned to that clock.
+Composed views are labeled beside the animation, including when the details are collapsed.
+
+Build outputs and browser captures are reproducible product scratch. No source binary or
+scientific state is rewritten, and the producer catalogue's original payload-size measurements
+continue to describe its original web assets, not the downstream renderer's in-memory geometry.

@@ -1,13 +1,14 @@
 /** Presentation-only reader for recorded G-G attachment events. */
 export interface DendriteData {
   positions: Float32Array;
-  ticks: Float32Array;
+  ticks: Float32Array | Float64Array;
   finalTick: number;
   radius: number;
   extent: number;
   vertical: boolean;
   eventCount: number;
   sourceSha256: string;
+  camera?: { tiltDegrees: number; yawDegrees: number };
 }
 
 export function readDendrite(buffer: ArrayBuffer): DendriteData {
@@ -59,7 +60,7 @@ export function readDendrite(buffer: ArrayBuffer): DendriteData {
 }
 
 /** Integer event threshold: the fractional display clock cannot reveal a future site. */
-export function visibleEventCount(ticks: Float32Array, playhead: number): number {
+export function visibleEventCount(ticks: Float32Array | Float64Array, playhead: number): number {
   let lo = 0;
   let hi = ticks.length;
   while (lo < hi) {
