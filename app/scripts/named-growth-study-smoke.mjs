@@ -40,7 +40,7 @@ try {
         for (let i = 0; i < pixels.length; i += 4) colors.add(`${pixels[i]},${pixels[i+1]},${pixels[i+2]}`);
         return { ...window.dendriteStudy.state, colors: colors.size };
       }, style);
-      assert.ok(state.colors > 4); assert.equal(state.geometries, 1);
+      assert.ok(state.colors > 4); assert.ok(state.geometries >= 1 && state.geometries <= 2);
       styles.push({ style, visible: state.visible, colors: state.colors });
     }
     await page.evaluate(() => { window.dendriteStudy.focus(1); window.dendriteStudy.seek(0.82); });

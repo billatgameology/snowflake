@@ -98,3 +98,21 @@ Earlier-library shape buckets come from identity-matched entries in the producer
 visual audit; `growth-library.json` records that document's digest and navigation-only scope.
 Regenerate those display buckets with `node app/scripts/import-growth-browse-shapes.mjs`
 (optional argument: the audit JSON path). Named entries use their accepted catalogue names.
+
+## Growth Front and Crystal Cast
+
+The current views are Ion Bloom, Timeglass, Growth Front and Crystal Cast. Growth Front draws a
+moving recent interval of actual attachments, with a faint outline of the crystal grown so far.
+Its **Recent window** control changes the interval length as a fraction of the recording. The
+CPU computes both interval ends against original ordered timestamps, including composed scenes;
+backward seeking reconstructs the image without a frame-history cache.
+
+Crystal Cast reconstructs an artistic screen-space relief with a **Move the light** control.
+`app/src/growth-sculpture.ts` projects the same recorded geometry into a bounded shared mask and
+composites surface bevels and shadows. Cell caps and lighting are display choices, not molecular
+geometry or physical ice optics. Small low-resolution recordings retain visible lattice cells.
+The two new views replace Darkfield and Chronograph, including the old time-depth control.
+Ion Bloom, Timeglass and the existing Timeglass gallery previews retain their rendering recipe.
+
+Run `node app/scripts/growth-structure-smoke.mjs` against the built preview on port 5192 for the
+representative new-view checks; `DENDRITE_STUDY_URL` can select another running page.

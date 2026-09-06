@@ -45,7 +45,7 @@ try {
       assert.equal(result.visible, entry.eventCount, entry.id);
       assert.equal(result.sourceSha256, entry.sourceSha256, entry.id);
       assert.ok(result.colors > 4, `${entry.id} style ${style} rendered blank`);
-      assert.equal(result.geometries, 1, "previous GPU geometry was retained");
+      assert.ok(result.geometries >= 1 && result.geometries <= 2, "only the recording and shared compositing quad may remain");
       styles.push({ style, sampledColors: result.colors });
     }
     rows.push({ id: entry.id, events: entry.eventCount, styles });

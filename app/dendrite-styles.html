@@ -19,7 +19,7 @@
       <select id="collection" hidden aria-hidden="true" tabindex="-1"><option value="all">All animations</option><option value="named">Named catalogue</option><option value="original">Earlier library</option></select>
       <select id="crystal" hidden aria-hidden="true" tabindex="-1" disabled><option>Loading the library…</option></select>
       <div class="crystal-nav"><button id="previous-crystal" type="button" aria-label="Previous crystal" disabled>←</button><button id="next-crystal" type="button" aria-label="Next crystal" disabled>→</button><span id="search-count"></span></div>
-      <label class="view-label">VIEW<select id="view"><option value="1" selected>Timeglass</option><option value="0">Ion Bloom</option><option value="2">Darkfield</option><option value="3">Chronograph</option><option value="all">Compare all four</option></select></label>
+      <label class="view-label">VIEW<select id="view"><option value="1" selected>Timeglass</option><option value="0">Ion Bloom</option><option value="2">Growth Front</option><option value="3">Crystal Cast</option><option value="all">Compare all four</option></select></label>
     </section>
     <div class="crystal-caption"><p id="crystal-title"></p><p id="library-note"></p></div>
     <p id="recording-kind"></p>
@@ -36,25 +36,26 @@
         <div class="card-footer"><p>A permanent colour signature of when each site joined.</p><span class="key spectrum">EARLY → LATE</span></div>
       </article>
       <article class="study" data-style="2">
-        <div class="card-heading"><span class="number">03</span><button class="style-name" type="button">Darkfield <span>↗</span></button><span class="tag">SILVER / GOLD</span></div>
-        <div class="viewport" aria-label="Darkfield animation"></div>
-        <div class="card-footer"><p>Etched silver structure. A fine gold edge of new growth.</p><span class="key gold">NEW ATTACHMENTS</span></div>
+        <div class="card-heading"><span class="number">03</span><button class="style-name" type="button">Growth Front <span>↗</span></button><span class="tag">WATCH ONLY THE CHANGE</span></div>
+        <div class="viewport" aria-label="Growth Front animation"></div>
+        <div class="card-footer"><p>Let older ice fall away. Follow the moving front of recent attachments.</p><span class="key front">A WINDOW IN TIME</span></div>
       </article>
       <article class="study" data-style="3">
-        <div class="card-heading"><span class="number">04</span><button class="style-name" type="button">Chronograph <span>↗</span></button><span class="tag">TIME BECOMES DEPTH</span></div>
-        <div class="viewport" aria-label="Chronograph animation"></div>
-        <div class="card-footer"><p>The same sites, lifted by their birth time into a sculpture.</p><span class="key time">DEPTH = ARRIVAL TIME</span></div>
+        <div class="card-heading"><span class="number">04</span><button class="style-name" type="button">Crystal Cast <span>↗</span></button><span class="tag">GROWTH YOU CAN ALMOST TOUCH</span></div>
+        <div class="viewport" aria-label="Crystal Cast animation"></div>
+        <div class="card-footer"><p>A growing relief. Move the light to trace its edges and the spaces between branches.</p><span class="key cast">SCULPTED STRUCTURE</span></div>
       </article>
     </section>
     <section class="transport" aria-label="Playback controls">
       <div class="buttons"><button id="play" type="button" disabled>Pause</button><button id="replay" type="button" disabled>↺ Replay</button></div>
       <label class="scrubber"><span>SEED</span><input id="timeline" aria-label="Growth timeline" type="range" min="0" max="1000" value="0" disabled /><span>GROWN</span></label>
       <output id="position">0%</output>
-      <label class="depth-control" hidden>UNFOLD TIME<input id="depth" aria-label="Time depth" type="range" min="0" max="100" value="65" /></label>
+      <label class="render-control window-control" hidden>RECENT WINDOW<input id="growth-window" aria-label="Recent growth window" type="range" min="0.5" max="16" step="0.5" value="2" /><span>short → long</span></label>
+      <label class="render-control light-control" hidden>MOVE THE LIGHT<input id="light-angle" aria-label="Light direction" type="range" min="0" max="360" value="130" /></label>
       <label class="speed-label">SPEED<select id="speed" aria-label="Playback speed"><option value="0.5">½×</option><option value="1" selected>1×</option><option value="2">2×</option></select></label>
       <button id="fullscreen" type="button">Fullscreen ⛶</button>
     </section>
-    <footer><p>RECORDED MODEL GROWTH · ART-DIRECTED LIGHT & COLOUR</p><details><summary>What am I seeing?</summary><p>Each point is a recorded lattice site from a Gravner–Griffeath or G-G+ model run, revealed at its attachment tick. Composed views arrange independently grown crystals using the catalogue's recorded transforms and phase offsets; they are not one simulated crystal. Points are not molecules. Light and colour are artistic encodings; Chronograph also displaces sites in depth according to their arrival time. Other views keep recorded sites and any explicit scene transforms, at unit lattice Z scale. Playback seconds are presentation time, not physical growth time. This is model output, not validated laboratory growth.</p><p id="source"></p><p id="excluded"></p><p>Focus a study to drag its view. Double-click to reset. Space pauses; R replays; Escape returns to comparison. The same playhead drives all four studies.</p></details></footer>
+    <footer><p>RECORDED MODEL GROWTH · FOUR ARTISTIC WAYS TO SEE IT</p><details><summary>What am I seeing?</summary><p>Each site comes from recorded Gravner–Griffeath or G-G+ model growth and appears no earlier than its attachment tick. Composed views arrange independently grown crystals using the catalogue's recorded transforms and phase offsets; they are not one simulated crystal. Sites are not molecules. Ion Bloom and Timeglass use artistic light and colour. Growth Front isolates recent attachments with a faint outline of the crystal grown so far; its window spans part of the recording, not a physical rate. Crystal Cast reconstructs a relief from the projected sites, adding artistic bevels and shadows; it is not simulated ice optics. Recorded site coordinates and explicit scene transforms are preserved at unit lattice Z scale. Playback seconds are presentation time, not physical growth time. This is model output, not validated laboratory growth.</p><p id="source"></p><p id="excluded"></p><p>Focus a study to drag its view. Double-click to reset. Space pauses; R replays; Escape returns to comparison. The same playhead drives all four studies.</p></details></footer>
   </main>
   <dialog id="crystal-browser" aria-labelledby="gallery-title" aria-describedby="gallery-description">
     <div class="gallery-heading"><div><p class="eyebrow">THE GROWTH LIBRARY</p><h2 id="gallery-title">Find your next crystal.</h2><p id="gallery-description">Choose a shape. Watch it grow in your current view.</p></div><button id="gallery-close" type="button" aria-label="Close crystal browser">Close ×</button></div>

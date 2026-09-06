@@ -1,7 +1,7 @@
 # Plan — dendrite visual studies
 
 - **Phase:** maker-directed pre-Phase 7 presentation exploration; no phase gate
-- **Status:** replacing Darkfield and Chronograph; gallery, Ion Bloom and Timeglass complete
+- **Status:** complete, including Growth Front and Crystal Cast replacements
 - **Started:** 2026-09-04
 - **Last touched:** 2026-09-04 by Codex
 
@@ -49,22 +49,24 @@ Run `npm run dev --workspace app -- --port 5191`, then open
 `http://127.0.0.1:5191/dendrite-styles.html`. The existing catalogue links to this page.
 It also ships in the app build and carries its own project-owned data, so a website sibling,
 NAS mount and solver process are unnecessary. Focus a card, drag to turn it, or scrub all
-four at the same tick. Chronograph's **Unfold time** slider continuously returns its displaced
-sites to their recorded positions at zero. Reduced-motion visitors start on a paused still.
+four at the same tick. Growth Front's **Recent window** control isolates shorter or longer
+intervals; Crystal Cast's **Move the light** control changes relief lighting while paused or
+playing. Reduced-motion visitors start on a paused still. The replacement follow-up at the end
+of this plan supersedes the original Darkfield and Chronograph treatments.
 
 | Treatment | Visual use of the recording | Suggested role |
 |---|---|---|
 | Ion Bloom | Bright mint light on recent attachments, older ice fades to blue | Opening growth shot; the author's preferred visual hook |
 | Timeglass | Persistent arrival-time colour with narrow temporal bands | Show that the shape contains a history |
-| Darkfield | Etched silver body, gold recent attachments | Quieter, more restrained alternative for research pages |
-| Chronograph | Arrival time displaces each site along the depth axis | Interactive reveal: unfold the history, then collapse to the snowflake |
+| Growth Front | Recent attachments drawn separately from a faint current footprint | Follow advancing tips and quiet regions without retaining the whole bright body |
+| Crystal Cast | Projected surface relief, edge shaping and movable shadows | Make the branch structure and spaces between branches feel tangible |
 
 These are author judgments from inspected browser captures, not audience-test findings.
 The website's existing Run B glass renderer was inspected separately at its captured playhead;
 its refraction, dispersion and flyaround remain unchanged. This exploration uses point splats
 to make attachment chronology visible and does not replace the established glass renderer.
 
-## Verification record
+## Initial verification record (before the replacement views)
 
 Product checks passed; logs are reproducible inspection scratch below `out/dendrite-styles/`:
 
@@ -392,11 +394,59 @@ gallery and the accepted Ion Bloom/Timeglass views, including their existing thu
 
 ### Next step
 
-Implement the two rendering paths, inspect motion and stills, then record the finished views and
-checks here and in PROGRESS. No source asset or preview regeneration is needed for this request.
+Open `http://127.0.0.1:5191/dendrite-styles.html?style=2&crystal=named-stellar-dendrites-baseline`
+for Growth Front; switch **View → Crystal Cast** and move its light. The implementation and
+product checks are complete. The same Browse crystals gallery selects other recordings. A fresh
+session starts `npm run dev --workspace app -- --port 5191`; the existing server and its logs
+remain recorded in `out/growth-gallery/dev-server.*`.
+
+### Completion record
+
+The new `app/src/growth-sculpture.ts` uses a shared bounded render target and compositing quad
+over the player's existing event geometry. Growth Front combines a faint current footprint with
+a separate union of recent sites. Recent occupancy has its own mask channel, combined with
+componentwise maximum; older points contribute zero to that channel. CPU binary-search bounds
+preserve the original direct/composed timestamp thresholds and
+seeking order. Its short default interval reads as separated advancing tips on the inspected
+stellar dendrite; the longer first default obscured that distinction.
+
+Crystal Cast uses projected surface depth, shallow cell caps, edge bevels and directional cast
+shadows. A floating-point target avoids visible depth bands on this host, with lower-precision
+format fallbacks where the required extensions are absent. These are artistic reconstruction
+choices, not optics or a physical-rate readout. Recorded coordinates, event payloads, source
+metadata and thumbnail bytes are unchanged. Small coarse recordings still show their cell scale.
+The retired treatments and depth slider are removed from the product; capture helpers now use
+the new controls and allow the recording geometry plus one shared screen quad.
+
+Product-sized checks, with reproducible scratch under `out/growth-structure/`:
+
+- `npx vitest run app/test/growth-sculpture.test.ts app/test/dendrite-data.test.ts app/test/growth-study-data.test.ts`
+  — `focused-tests.log`: eight passed, including seed/tied-event interval bounds and backward
+  seeks. The existing direct/composed decode boundaries also pass.
+- `npm run typecheck` — `typecheck.log`; `npm run build --workspace app` — `build.log`;
+  `npm run lint:rule7` — `rule7.log`. No scientific suite, gate or new simulation was run.
+- `node app/scripts/growth-structure-smoke.mjs` — `browser-smoke.json` / `browser-smoke.log`:
+  50 sampled renders across stellar/sharp dendrites, Cups, Radiating Dendrites and Needle Clusters
+  in both new views; no unexpected browser errors. Repeated backward seeks produced identical
+  image hashes; window and light controls visibly changed the expected rendering, with source
+  visibility unchanged by light. The checks include actual gallery selection, paused camera
+  dragging, comparison, playback, phone overflow and reduced motion. Resource counts stayed at
+  the recording geometry plus the shared compositing quad across the sampled switches.
+
+The author inspected dendrite/front/cast, composed, Cup, comparison and mobile captures. These
+are rendering observations on this host; there was no audience study or general device-performance
+test. The earlier catalogue-wide renderer sweep and preview generation were not repeated.
+`live-preview.json` records the final port 5191 check; `comparison-final.png` and
+`mobile-cast-final.png` show the completed live page. Updated capture scripts passed
+`node --check`, and `git diff --check` found no whitespace errors.
 
 ### Tried and rejected
 
 - More colour treatments: the maker explicitly asks for different ways of seeing growth.
 - Invented vapor trajectories: these recordings contain attachment events, not a velocity field.
   The new views must reveal recorded timing and structure without fabricating that information.
+- A long default history window made Growth Front resemble the complete crystal. Shortening the
+  window separated the advancing tips visibly in the inspected stellar dendrite.
+- A broad depth-smoothing kernel introduced crossing patterns on small Cup recordings. Removed;
+  retain shallow cell caps and use supported full-float depth to avoid the half-float banding
+  exposed by a nearly flat cap. Coarse recorded cells remain visible rather than inventing a mesh.

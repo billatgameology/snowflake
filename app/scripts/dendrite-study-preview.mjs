@@ -35,17 +35,17 @@ try {
     await page.evaluate(i => window.dendriteStudy.focus(i), index);
     await page.screenshot({ path: resolve(output, `style-${index + 1}.png`) });
   }
-  await page.locator("#depth").fill("0");
-  await page.screenshot({ path: resolve(output, "chronograph-folded.png") });
-  await page.locator("#depth").fill("90");
-  await page.screenshot({ path: resolve(output, "chronograph-unfolded.png") });
+  await page.locator("#light-angle").fill("0");
+  await page.screenshot({ path: resolve(output, "crystal-cast-light-right.png") });
+  await page.locator("#light-angle").fill("180");
+  await page.screenshot({ path: resolve(output, "crystal-cast-light-left.png") });
   // Exercise the actual drag path while paused (a dirty-render regression boundary).
   const viewport = await page.locator('.study.selected .viewport').boundingBox();
   await page.mouse.move(viewport.x + viewport.width / 2, viewport.y + viewport.height / 2);
   await page.mouse.down();
   await page.mouse.move(viewport.x + viewport.width / 2 + 90, viewport.y + viewport.height / 2 + 25);
   await page.mouse.up();
-  await page.screenshot({ path: resolve(output, "chronograph-orbit.png") });
+  await page.screenshot({ path: resolve(output, "crystal-cast-orbit.png") });
   await page.locator("#layout").click();
   assert.equal(await page.evaluate(() => window.dendriteStudy.state.focused), false);
   await page.locator("#play").click();
@@ -71,7 +71,7 @@ try {
     await page.emulateMedia({ reducedMotion: "no-preference" });
     await page.setViewportSize({ width: 1440, height: 1260 });
     await page.evaluate(() => window.dendriteStudy.focus(null));
-    await page.locator("#depth").evaluate(node => { node.value = "65"; node.dispatchEvent(new Event("input", { bubbles: true })); });
+    await page.locator("#light-angle").evaluate(node => { node.value = "130"; node.dispatchEvent(new Event("input", { bubbles: true })); });
     const film = resolve(output, "dendrite-styles.mp4");
     encoder = spawn("ffmpeg", ["-y", "-hide_banner", "-loglevel", "error", "-f", "image2pipe", "-vcodec", "mjpeg", "-framerate", "24", "-i", "pipe:0", "-an", "-c:v", "libx264", "-crf", "18", "-pix_fmt", "yuv420p", "-movflags", "+faststart", film], { stdio: ["pipe", "ignore", "inherit"] });
     const finished = once(encoder, "close");
@@ -87,7 +87,7 @@ try {
     console.log(film);
   }
   assert.deepEqual(errors, []);
-  const report = { page: url, endpoint, browserErrors: errors, checks: ["seed", "endpoint", "backward seek", "UI scrub", "four styles", "time depth", "paused drag", "play/pause", "replay", "mobile overflow", "reduced motion"], video: process.argv.includes("--video") };
+  const report = { page: url, endpoint, browserErrors: errors, checks: ["seed", "endpoint", "backward seek", "UI scrub", "four styles", "light direction", "paused drag", "play/pause", "replay", "mobile overflow", "reduced motion"], video: process.argv.includes("--video") };
   writeFileSync(resolve(output, "browser-smoke.json"), JSON.stringify(report, null, 2));
   console.log(JSON.stringify(report));
 } finally {

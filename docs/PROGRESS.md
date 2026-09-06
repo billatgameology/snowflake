@@ -142,13 +142,15 @@ detail.
   previews, zero full recording downloads on browse-first entry and no unexpected errors
   (`out/growth-gallery/browser-smoke.json`). Keyboard focus, phone layout, selection, playback,
   filter/scroll retention and broken-image fallback pass. Next: open the gallery link below.
-- **Last updated:** 2026-09-04 (completed the visual browser for the animation library;
+- **Last updated:** 2026-09-04 (completed Growth Front and Crystal Cast render approaches;
   no phase or scientific-evidence change)
-- **New render approaches are in progress.** The maker asks to replace Darkfield and Chronograph
-  with approaches beyond colour. The final follow-up in the
-  [visual-study plan](plans/dendrite-visual-studies.md) registers Growth Front (recent attachment
-  visibility) and Crystal Cast (sculptural relief and movable light). Next: implement and inspect
-  both across representative library forms; Ion Bloom, Timeglass and the gallery stay available.
+- **New render approaches are complete.** Growth Front (a moving interval of recent attachments)
+  and Crystal Cast (sculptural relief with movable light) replace Darkfield and Chronograph.
+  The [visual-study plan](plans/dendrite-visual-studies.md) records implementation and checks;
+  `out/growth-structure/browser-smoke.log` reports 50 sampled renders with no unexpected browser
+  errors across direct, axial and composed forms. Focused tests, typecheck, Rule 7 and app build
+  pass. Next: use the new View choices and their window/light controls. Ion Bloom, Timeglass,
+  the gallery, original recording data and Timeglass thumbnails are retained.
 
 ## Phase gates
 
@@ -175,7 +177,7 @@ The maker-directed [growth visual studies](plans/dendrite-visual-studies.md), in
 newer named catalogue, are complete on `fix/animation-queue-windows-spawn` in `snowflake-animation`.
 `out/named-growth-studies/packaging.json` records 151 prepared/decoded replays, including all 99
 newer named entries. The gallery now offers collection and shape filtering; direct recordings and composed
-scenes share Ion Bloom, Timeglass, Darkfield and Chronograph with explicit composition labels.
+scenes share Ion Bloom, Timeglass, Growth Front and Crystal Cast with explicit composition labels.
 Focused tests, typecheck, Rule 7 and app build passed. The production browser sweep records
 604 view renders and no unexpected errors (`out/named-growth-studies/browser-smoke.json`).
 Final camera/timing refinements passed 20 targeted live renders and the rebuilt-production
@@ -183,7 +185,9 @@ seek check (`final-browser-smoke.json` and `final-production.json` in that direc
 Exact source identities are in `app/data/named-growth-library.json`.
 The subsequent gallery pass adds tracked Timeglass previews (`app/data/growth-previews/index.json`)
 and the focused browsing checks in `out/growth-gallery/browser-smoke.json`; it does not repeat
-the earlier renderer sweep. The plan's final follow-up records the current browsing UI.
+the earlier renderer sweep. The plan's gallery follow-up records the current browsing UI.
+The subsequent structural-rendering pass replaces the two retired treatments and records its
+representative controls/render checks in `out/growth-structure/browser-smoke.json`.
 No solver, scientific evidence, source acceptance or phase state changed.
 
 [phase-6-science-first-completion.md](plans/phase-6-science-first-completion.md) is the completed Phase 6 record (see its Completion record).
@@ -226,6 +230,9 @@ The loopback dev server is recorded at `out/growth-gallery/dev-server.pid`; its 
 beside it. Missing local source files remain visibly unavailable; the tracked original dendrite
 remains usable. For already restored producer output, see `app/data/README.md` and
 `GROWTH_STUDY_CATALOG_ROOT`. Timeglass is the default view.
+For the new approaches, start at `dendrite-styles.html?style=2&crystal=named-stellar-dendrites-baseline`
+and adjust **Recent window**, or choose **Crystal Cast** and **Move the light**. Both use the
+selected gallery recording. The plan's final follow-up records the completed replacement work.
 
 ### Phase 10 — planning complete; maker package selection pending
 

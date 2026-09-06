@@ -4,6 +4,7 @@ import { loadGrowthStudy } from "./growth-study-loader.ts";
 import { installGrowthPicker } from "./growth-study-picker.ts";
 import { growthStudyLabel, growthStudyTilt, type GrowthStudyEntry } from "./growth-study-library.ts";
 import { dendriteVertex, dendriteFragment } from "./dendrite-shaders.ts";
+import { GrowthSculpture, recentEventRange } from "./growth-sculpture.ts";
 import "./dendrite-styles.css";
 
 const query = new URLSearchParams(location.search);
@@ -20,7 +21,7 @@ const layout = el<HTMLButtonElement>("layout");
 const speed = el<HTMLSelectElement>("speed");
 const cards = [...document.querySelectorAll<HTMLElement>(".study")];
 const views = [...document.querySelectorAll<HTMLElement>(".viewport")];
-const names = ["Ion Bloom", "Timeglass", "Darkfield", "Chronograph"];
+const names = ["Ion Bloom", "Timeglass", "Growth Front", "Crystal Cast"];
 const motion = matchMedia("(prefers-reduced-motion: reduce)");
 let playing = !motion.matches;
 let selected = Math.max(0, Math.min(3, Math.floor(Number(query.get("style") ?? "1") || 0)));
@@ -42,7 +43,8 @@ document.addEventListener("visibilitychange", () => { dirty = true; previous = p
 function updateLayout(): void {
   dirty = true;
   document.body.classList.toggle("focused", focused);
-  document.querySelector<HTMLElement>(".depth-control")!.hidden = !focused || selected !== 3;
+  document.querySelector<HTMLElement>(".window-control")!.hidden = !focused || selected !== 2;
+  document.querySelector<HTMLElement>(".light-control")!.hidden = !focused || selected !== 3;
   cards.forEach((card, index) => card.classList.toggle("selected", index === selected));
   el<HTMLSelectElement>("view").value = focused ? String(selected) : "all";
   layout.textContent = focused ? "← Compare all four" : `Focus on ${names[selected]} ↗`;
@@ -122,6 +124,7 @@ async function start(): Promise<void> {
   renderer.setPixelRatio(Math.min(devicePixelRatio, 1.5));
   renderer.setClearColor(0x080d12);
   renderer.autoClear = false;
+  const sculpture = new GrowthSculpture(renderer);
   let currentData: DendriteData | null = null;
   let currentEntry: GrowthStudyEntry | null = null;
   let geometry = new THREE.BufferGeometry();
@@ -134,7 +137,7 @@ async function start(): Promise<void> {
   const uniforms = {
     playhead: { value: 0 }, finalTick: { value: 1 },
     pixelsPerUnit: { value: 1 }, style: { value: 0 }, halo: { value: 0 },
-    strength: { value: 1.2 }, spread: { value: 1 },
+    strength: { value: 1.2 },
   };
   const material = new THREE.ShaderMaterial({ vertexShader: dendriteVertex, fragmentShader: dendriteFragment, uniforms, depthTest: true, depthWrite: true });
   const haloUniforms = { ...uniforms, halo: { value: 1 } };
@@ -162,24 +165,27 @@ async function start(): Promise<void> {
     if (data === null || loading) return;
     geometry.setDrawRange(0, visibleEventCount(data.ticks, progress * data.finalTick));
     uniforms.playhead.value = progress * data.finalTick;
-    const depthFraction = Number(el<HTMLInputElement>("depth").value) / 100;
-    uniforms.spread.value = data.extent * 1.5 * depthFraction;
     renderer.setScissorTest(true);
     views.forEach((viewport, index) => {
       if (focused && selected !== index) return;
       const rect = viewport.getBoundingClientRect();
       if (rect.bottom < 0 || rect.top > height || rect.width === 0) return;
       const aspect = rect.width / rect.height;
-      const extent = data.extent * (index === 3 ? 1 + 0.75 * depthFraction : 1) * 1.16 / Math.min(aspect, 1);
+      const extent = data.extent * 1.16 / Math.min(aspect, 1);
       camera.left = -extent * aspect;
       camera.right = extent * aspect;
       camera.top = extent;
       camera.bottom = -extent;
       camera.updateProjectionMatrix();
       const baseTilt = data.camera ? data.camera.tiltDegrees * Math.PI / 180
-        : growthStudyTilt(currentEntry) ?? (data.vertical ? Math.PI / 2 : index === 3 ? 0.65 : 0);
+        : growthStudyTilt(currentEntry) ?? (data.vertical ? Math.PI / 2 : 0);
       const baseYaw = data.camera ? data.camera.yawDegrees * Math.PI / 180 : Math.PI / 6;
-      group.rotation.set(baseTilt + tilt, index === 3 ? -0.12 : 0, baseYaw + yaw);
+      group.rotation.set(baseTilt + tilt, 0, baseYaw + yaw);
+      if (index >= 2) {
+        sculpture.render(scene, camera, geometry, glow, data, rect, height, extent, index, progress,
+          Number(el<HTMLInputElement>("growth-window").value) / 100, Number(el<HTMLInputElement>("light-angle").value) * Math.PI / 180);
+        return;
+      }
       uniforms.style.value = index;
       uniforms.pixelsPerUnit.value = rect.height / (extent * 2) * renderer.getPixelRatio();
       renderer.setViewport(rect.left, height - rect.bottom, rect.width, rect.height);
@@ -193,7 +199,7 @@ async function start(): Promise<void> {
     get ready() { return currentData !== null && renderedData === currentData && !loading && graphicsReady; },
     seek: (fraction: number) => { setPlaying(false); seek(fraction); render(); },
     focus: (index: number | null) => { focused = index !== null; selected = index ?? selected; yaw = tilt = 0; updateLayout(); render(); },
-    get state() { return { progress, playing, selected, focused, loading, crystalId: currentEntry?.id, visible: currentData ? visibleEventCount(currentData.ticks, progress * currentData.finalTick) : 0, eventCount: currentData?.eventCount, sourceSha256: currentData?.sourceSha256, vertical: currentData?.vertical, geometries: renderer.info.memory.geometries }; },
+    get state() { return { progress, playing, selected, focused, loading, crystalId: currentEntry?.id, visible: currentData ? visibleEventCount(currentData.ticks, progress * currentData.finalTick) : 0, eventCount: currentData?.eventCount, sourceSha256: currentData?.sourceSha256, vertical: currentData?.vertical, geometries: renderer.info.memory.geometries, recent: currentData ? recentEventRange(currentData, progress, Number(el<HTMLInputElement>("growth-window").value) / 100) : null }; },
   };
   if (query.has("capture")) (window as unknown as { dendriteStudy: typeof capture }).dendriteStudy = capture;
   async function selectCrystal(entry: GrowthStudyEntry): Promise<void> {
@@ -274,7 +280,7 @@ async function start(): Promise<void> {
     if (event.persisted) return;
     disposed = true; cancelAnimationFrame(frameId);
     pendingLoad?.abort();
-    geometry.dispose(); material.dispose(); haloMaterial.dispose(); renderer.dispose();
+    geometry.dispose(); material.dispose(); haloMaterial.dispose(); sculpture.dispose(); renderer.dispose();
   });
   frameId = requestAnimationFrame(animate);
   await installGrowthPicker(selectCrystal, open => {

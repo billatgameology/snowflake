@@ -36,8 +36,8 @@ button:disabled { opacity: .35; cursor: wait; }
 .key::before { content: ''; display: block; height: 2px; width: 48px; margin: 0 0 5px; }
 .ion { color: #8fded1; }.ion::before { background: linear-gradient(90deg, #16304d, #9fffe2); }
 .spectrum { color: #b2bed9; }.spectrum::before { background: linear-gradient(90deg, #f3ae50, #d75295, #527df1, #47e2b0); }
-.gold { color: #d5bc8a; }.gold::before { background: linear-gradient(90deg, #48616e, #ffc56c); }
-.time { color: #cfa98e; }.time::before { background: linear-gradient(90deg, #694fa2, #ffa661); }
+.front { color: #c7edf0; }.front::before { background: #d7faff; box-shadow: 0 0 8px #b1e7ed; }
+.cast { color: #ccd1c8; }.cast::before { background: #cbd2c6; box-shadow: 2px 2px 0 #5b6866; }
 .transport { position: sticky; bottom: 12px; display: flex; gap: 18px; align-items: center; background: #101920f5; border: 1px solid #35444d; border-radius: 7px; padding: 14px 18px; margin-top: 22px; z-index: 2; box-shadow: 0 12px 35px #0008; }
 .buttons { display: flex; gap: 6px; }.buttons button, #fullscreen { font-size: 11px; white-space: nowrap; }
 #play { min-width: 64px; background: #b9e4d6; color: #122b28; border-color: #b9e4d6; }
@@ -48,7 +48,7 @@ input[type=range] { min-width: 40px; width: 100%; accent-color: #b2e3d4; cursor:
 footer { display: flex; justify-content: space-between; align-items: start; gap: 30px; margin-top: 20px; color: #748993; }footer > p { font-size: 8px; margin: 4px 0; line-height: 1.5; }details { font-size: 11px; max-width: 600px; line-height: 1.7; }summary { cursor: pointer; text-align: right; color: #a9bdc5; }details p { color: #95a8b3; }#source { overflow-wrap: anywhere; }
 body.focused .studies { display: block; }body.focused .study:not(.selected) { display: none; }body.focused .viewport { height: min(58vh, 690px); min-height: 300px; touch-action: none; cursor: grab; }body.focused .intro { padding: 24px 0; }body.focused h1 { font-size: 32px; }body.focused h1 br { display: none; }body.focused .intro-note p { display: none; }body.focused .intro-note { margin-bottom: 0; }body.focused .card-footer p { max-width: none; }
 @media (max-width: 700px) { main { padding: 20px 18px; }.edition { display: none; }.intro { align-items: start; flex-direction: column; padding: 25px 0; gap: 18px; }.intro-note { max-width: none; }.intro-note p { display: none; }.studies { grid-template-columns: 1fr; }.viewport { height: 310px; }.transport { gap: 9px; flex-wrap: wrap; padding: 11px; }.scrubber { order: 5; flex-basis: 100%; }.speed-label { margin-left: auto; }#fullscreen { display: none; }footer { flex-direction: column; gap: 10px; }summary { text-align: left; }.tag { font-size: 7px; }body.focused .viewport { height: 48vh; } }
-.depth-control { align-items: center; gap: 8px; width: 180px; font-size: 8px; color: #ad9cc4; letter-spacing: 1px; }.depth-control:not([hidden]) { display: flex; }.depth-control input { width: 70px; }body.focused h1 em { margin-left: .2em; }
+.render-control { align-items: center; gap: 8px; font-size: 8px; color: #b9ccc9; letter-spacing: 1px; }.render-control:not([hidden]) { display: flex; }.render-control input { width: 80px; }.render-control span { font-size: 8px; letter-spacing: 0; white-space: nowrap; }body.focused h1 em { margin-left: .2em; }
 .library-picker { display: flex; align-items: end; gap: 16px; padding: 17px; border: 1px solid #2a3740; border-radius: 7px; background: #101920; }
 .library-picker label { display: grid; gap: 8px; font-size: 8px; letter-spacing: 1.2px; color: #93a9b5; }
 .collection-label { width: 155px; flex-shrink: 0; }
