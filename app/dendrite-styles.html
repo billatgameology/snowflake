@@ -15,9 +15,9 @@
       <div class="intro-note"><p>Every branch has a beginning.<br>Choose a crystal. Explore its history.</p><button id="layout" type="button">Compare all four</button></div>
     </section>
     <section class="library-picker" aria-label="Choose a growth animation">
-      <label class="collection-label">COLLECTION<select id="collection"><option value="all">All animations</option><option value="named">Named catalogue</option><option value="original">Earlier library</option></select></label>
-      <label class="search-label">FIND A CRYSTAL<input id="crystal-search" type="search" placeholder="Search name, figure, needle…" /></label>
-      <label class="crystal-label">ANIMATION<select id="crystal" disabled><option>Loading the library…</option></select></label>
+      <button id="browse-crystals" class="browse-button" type="button" aria-haspopup="dialog" aria-controls="crystal-browser" disabled><span>▦ Browse crystals</span><span id="browse-selected">Loading the library…</span></button>
+      <select id="collection" hidden aria-hidden="true" tabindex="-1"><option value="all">All animations</option><option value="named">Named catalogue</option><option value="original">Earlier library</option></select>
+      <select id="crystal" hidden aria-hidden="true" tabindex="-1" disabled><option>Loading the library…</option></select>
       <div class="crystal-nav"><button id="previous-crystal" type="button" aria-label="Previous crystal" disabled>←</button><button id="next-crystal" type="button" aria-label="Next crystal" disabled>→</button><span id="search-count"></span></div>
       <label class="view-label">VIEW<select id="view"><option value="1" selected>Timeglass</option><option value="0">Ion Bloom</option><option value="2">Darkfield</option><option value="3">Chronograph</option><option value="all">Compare all four</option></select></label>
     </section>
@@ -56,6 +56,18 @@
     </section>
     <footer><p>RECORDED MODEL GROWTH · ART-DIRECTED LIGHT & COLOUR</p><details><summary>What am I seeing?</summary><p>Each point is a recorded lattice site from a Gravner–Griffeath or G-G+ model run, revealed at its attachment tick. Composed views arrange independently grown crystals using the catalogue's recorded transforms and phase offsets; they are not one simulated crystal. Points are not molecules. Light and colour are artistic encodings; Chronograph also displaces sites in depth according to their arrival time. Other views keep recorded sites and any explicit scene transforms, at unit lattice Z scale. Playback seconds are presentation time, not physical growth time. This is model output, not validated laboratory growth.</p><p id="source"></p><p id="excluded"></p><p>Focus a study to drag its view. Double-click to reset. Space pauses; R replays; Escape returns to comparison. The same playhead drives all four studies.</p></details></footer>
   </main>
+  <dialog id="crystal-browser" aria-labelledby="gallery-title" aria-describedby="gallery-description">
+    <div class="gallery-heading"><div><p class="eyebrow">THE GROWTH LIBRARY</p><h2 id="gallery-title">Find your next crystal.</h2><p id="gallery-description">Choose a shape. Watch it grow in your current view.</p></div><button id="gallery-close" type="button" aria-label="Close crystal browser">Close ×</button></div>
+    <div class="gallery-tools">
+      <div class="gallery-search-row">
+        <label class="gallery-search"><input id="crystal-search" type="search" aria-label="Search animations" placeholder="Search dendrites, hollow columns, a figure…" /></label>
+        <div class="gallery-collections" role="group" aria-label="Animation collection"><button type="button" data-collection="all">All <span></span></button><button type="button" data-collection="named">Named catalogue <span></span></button><button type="button" data-collection="original">Earlier library <span></span></button></div>
+      </div>
+      <div class="gallery-shapes" role="group" aria-label="Crystal shape"><span>SHAPE</span><button type="button" data-shape="all">All shapes</button><button type="button" data-shape="dendrites">Dendrites</button><button type="button" data-shape="plates">Plates & stars</button><button type="button" data-shape="columns">Columns & needles</button><button type="button" data-shape="other">Other forms</button><output id="gallery-count" aria-live="polite"></output></div>
+    </div>
+    <div id="gallery-results"><div id="gallery-grid"></div><div id="gallery-empty" hidden><h3>No crystals found.</h3><p>Try another name or clear the filters to see the full library.</p><button id="gallery-reset" type="button">Clear all filters</button></div></div>
+    <p class="gallery-bottom">Timeglass still previews · Click a card to play · Composed forms arrange independently grown crystals.</p>
+  </dialog>
   <script type="module" src="/src/dendrite-styles.ts"></script>
 </body>
 </html>

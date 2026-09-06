@@ -4,7 +4,7 @@ import { basename, dirname, join, resolve } from "node:path";
 import { createHash } from "node:crypto";
 import { createServer } from "node:http";
 import { afterEach, describe, expect, it } from "vitest";
-import { createGrowthStudyHandler, loadStudyManifest, packageStudy, readStudy } from "../../app/growth-study-assets.ts";
+import { createGrowthStudyHandler, loadStudyManifest, packageStudy, readStudy, readStudyPreview } from "../../app/growth-study-assets.ts";
 import type { GrowthStudyEntry, GrowthStudyLibrary } from "../../app/src/growth-study-library.ts";
 
 const scratch: string[] = [];
@@ -32,6 +32,30 @@ function fixture() {
 }
 
 describe("bounded growth presentation assets", () => {
+  it("serves only source-matched, digest-matched previews and supports image revalidation", async () => {
+    const f = fixture();
+    const folder = join(f.root, "app/data/growth-previews"); mkdirSync(folder, { recursive: true });
+    const bytes = Buffer.from("png fixture");
+    const image = join(folder, `${f.entry.id}.png`);
+    const manifest = { format: "growth-study-previews-v1", previews: [{ id: f.entry.id, sourceSha256: f.entry.sourceSha256, sha256: createHash("sha256").update(bytes).digest("hex"), byteLength: bytes.length }] };
+    writeFileSync(image, bytes); writeFileSync(join(folder, "index.json"), JSON.stringify(manifest));
+    expect(readStudyPreview(f.root, f.entry)).toEqual(bytes);
+    expect(readStudyPreview(f.root, { ...f.entry, sourceSha256: "f".repeat(64) })).toBeNull();
+    const server = createServer(createGrowthStudyHandler(f.root, f.library));
+    await new Promise<void>(r => server.listen(0, "127.0.0.1", r));
+    const address = server.address(); if (!address || typeof address === "string") throw new Error("Missing address");
+    const base = `http://127.0.0.1:${address.port}`;
+    try {
+      const response = await fetch(`${base}/sample.png`);
+      expect(response.status).toBe(200); expect(response.headers.get("content-type")).toBe("image/png");
+      expect(Buffer.from(await response.arrayBuffer())).toEqual(bytes);
+      expect((await fetch(`${base}/sample.png`, { headers: { "if-none-match": response.headers.get("etag")! } })).status).toBe(304);
+      for (const path of ["/unknown.png", "/%2e%2e%2fprivate.png", "/index.png"]) expect((await fetch(base + path)).status).toBe(404);
+      const head = await fetch(`${base}/sample.png`, { method: "HEAD" });
+      expect(head.headers.get("content-length")).toBe(String(bytes.length)); expect((await head.arrayBuffer()).byteLength).toBe(0);
+      writeFileSync(image, "corrupt"); expect((await fetch(`${base}/sample.png`)).status).toBe(404);
+    } finally { await new Promise<void>(r => server.close(() => r())); }
+  });
   it("keeps original events byte-exact and drops workstation metadata", () => {
     const f = fixture();
     const bytes = packageStudy(f.original, f.entry)!;

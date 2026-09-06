@@ -9,6 +9,8 @@ const verified = JSON.parse(readFileSync(resolve(output, "packaging.json")));
 const url = process.env.DENDRITE_STUDY_URL ?? "http://127.0.0.1:5192/dendrite-styles.html?capture=1";
 const browser = await chromium.launch({ headless: true });
 const page = await browser.newPage({ viewport: { width: 1440, height: 1150 } });
+const selectCrystal = value => page.locator("#crystal").selectOption(value, { force: true });
+const selectCollection = value => page.locator("#collection").selectOption(value, { force: true });
 const errors = [], rows = [];
 page.on("pageerror", e => errors.push(e.message));
 page.on("console", m => { if (m.type() === "error") errors.push(m.text()); });
@@ -16,10 +18,10 @@ const loaded = id => page.waitForFunction(id => window.dendriteStudy?.ready && w
 try {
   await page.goto(url);
   await page.waitForFunction(() => window.dendriteStudy?.ready);
-  await page.selectOption("#collection", "named");
+  await selectCollection( "named");
   assert.equal(await page.locator("#crystal option:not([disabled])").count(), 99);
   for (const id of ["named-cups-baseline", "named-hollow-columns-baseline", "named-double-plates-baseline", "named-stellar-dendrites-baseline", "named-needle-clusters-lower"]) {
-    await page.selectOption("#crystal", id); await loaded(id);
+    await selectCrystal( id); await loaded(id);
     const expected = verified.sceneRows.find(r => r.id === id);
     if (expected) {
       for (const check of expected.checks) {

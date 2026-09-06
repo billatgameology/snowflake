@@ -1,7 +1,7 @@
 # Plan — dendrite visual studies
 
 - **Phase:** maker-directed pre-Phase 7 presentation exploration; no phase gate
-- **Status:** visual gallery extension in progress; recorded growth and four views complete
+- **Status:** complete, including the visual gallery, full catalogue and four views
 - **Started:** 2026-09-04
 - **Last touched:** 2026-09-04 by Codex
 
@@ -317,11 +317,51 @@ current view, playback controls and all registered animation choices.
 
 ### Next step
 
-Implement the gallery and bounded thumbnail packaging, generate previews, then verify the browser
-interaction and update PROGRESS with the completed viewing link.
+Open `http://127.0.0.1:5191/dendrite-styles.html?browse=1` for the gallery, or use **Browse
+crystals** from the player. Pick a thumbnail, keeping Timeglass or the currently selected view.
+The live server's PID and logs are under `out/growth-gallery/dev-server.*`; a fresh session uses
+`npm run dev --workspace app -- --port 5191`. This follow-up is complete.
+
+### Completion record
+
+The thumbnail gallery replaces the visible long selector. It includes names and variant labels,
+collection and shape filters, search/empty/reset behavior, selected-card marking and explicit
+Compose labels. Named dendrites lead the gallery. Earlier-library navigation buckets reuse the
+existing identity-matched visual audit, with its source digest recorded in
+`app/data/growth-library.json`; they do not change scientific morphology claims.
+
+`node app/scripts/growth-study-thumbnails.mjs` generated 151 Timeglass PNGs totaling 12,029,518
+bytes (`app/data/growth-previews/index.json`, `out/growth-gallery/thumbnails.log`). Their manifest
+records source and image digests plus the renderer commit/recipe. They are tracked project-owned
+product derivatives; source recordings, accepted catalogue decisions and NAS policy are unchanged.
+The handler verifies registered preview paths/digests, supports HEAD/ETag and emits previews in
+production builds. Broken images keep their card's name and replay action.
+
+Verification artifacts under `out/growth-gallery/` are reproducible product inspection scratch:
+
+- `npx vitest run app/test/growth-study-library.test.ts runner/test/growth-study-assets.test.ts runner/test/vite-nas-serving.test.ts`
+  — `focused-tests.log`: 28 passed and two platform skips, including browse ordering, original
+  shape metadata, valid preview serving and corrupt/unknown/escaping preview refusal.
+- `npm run typecheck` — `typecheck.log`; `npm run lint:rule7` — `rule7.log`;
+  `npm run build --workspace app` — `build.log`. No scientific suites or gates were run.
+- `node app/scripts/growth-gallery-smoke.mjs` — `browser-smoke.json`: 151 cards and decoded
+  previews; no full growth requests on browse-first entry; no unexpected browser errors.
+  Covers collection/shape/search/reset, exact composed selection, retaining the selected view
+  and comparison layout, keyboard focus/close, playback pause/resume (including load completion
+  while browsing), filter/scroll retention,
+  phone selection/overflow and broken-preview fallback. `desktop-gallery.png` and
+  `mobile-gallery.png` were visually inspected by the author; these are product checks on this
+  host, not audience-response measurements. The earlier exhaustive render sweep was not repeated.
+- `live-preview.json` records the restarted port 5191 page: 151 available recordings with
+  previews, successful Stellar Dendrites selection in Timeglass and no page errors. The updated
+  capture helpers passed `node --check`; `git diff --check` found no whitespace errors.
 
 ### Tried and rejected
 
 - Another longer dropdown or name-only list: the maker needs to recognize crystal shapes visually.
 - Loading every growth recording to animate gallery cards: that would make discovery needlessly
   expensive. The existing player loads the selected recording; cards use small derived stills.
+- Relying solely on the native dialog for keyboard behavior: the browser smoke found Tab could
+  leave the page, and Escape from a search field could be consumed before close. Explicit focus
+  wrapping and Escape handling now pass. Close cleanup is synchronous and idempotent so queued
+  native close events cannot delay playback restoration or affect a reopened dialog.

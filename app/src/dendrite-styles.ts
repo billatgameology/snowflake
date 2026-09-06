@@ -87,6 +87,7 @@ el("fullscreen").onclick = () => {
   void request.catch(() => { status.textContent = "Fullscreen is unavailable in this browser. Focus view is still available."; status.classList.remove("ready"); });
 };
 document.addEventListener("keydown", event => {
+  if (document.querySelector<HTMLDialogElement>("#crystal-browser")?.open) return;
   if (play.disabled) return;
   if (event.target instanceof HTMLInputElement || event.target instanceof HTMLSelectElement || event.target instanceof HTMLButtonElement || event.target instanceof HTMLDetailsElement) return;
   if (event.code === "Space") { event.preventDefault(); setPlaying(!playing); }
@@ -127,6 +128,7 @@ async function start(): Promise<void> {
   let loadVersion = 0;
   let pendingLoad: AbortController | null = null;
   let loading = true;
+  let resumeAfterBrowse = false;
   let graphicsReady = true;
   let renderedData: DendriteData | null = null;
   const uniforms = {
@@ -227,7 +229,10 @@ async function start(): Promise<void> {
       yaw = tilt = 0;
       seek(motion.matches ? 0.82 : 0);
       loading = false;
-      setPlaying(!motion.matches);
+      if (document.querySelector<HTMLDialogElement>("#crystal-browser")!.open) {
+        resumeAfterBrowse = !motion.matches;
+        setPlaying(false);
+      } else setPlaying(!motion.matches);
       play.disabled = replay.disabled = timeline.disabled = false;
       status.classList.add("ready");
       const composed = entry.source === "named-compose";
@@ -272,7 +277,10 @@ async function start(): Promise<void> {
     geometry.dispose(); material.dispose(); haloMaterial.dispose(); renderer.dispose();
   });
   frameId = requestAnimationFrame(animate);
-  await installGrowthPicker(selectCrystal);
+  await installGrowthPicker(selectCrystal, open => {
+    if (open) { resumeAfterBrowse = playing; setPlaying(false); }
+    else if (resumeAfterBrowse && !loading && !motion.matches) setPlaying(true);
+  });
 }
 
 void start().catch((error: unknown) => {

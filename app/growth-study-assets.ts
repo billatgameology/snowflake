@@ -19,6 +19,7 @@ export function loadStudyManifest(root: string): GrowthStudyLibrary {
     if (!/^[a-z0-9][a-z0-9-]*$/u.test(entry.id) || seen.has(entry.id) ||
         !["fleet", "run-b", "named-direct", "named-compose"].includes(entry.source) || !/^[a-f0-9]{64}$/u.test(entry.sourceSha256) ||
         (entry.source.startsWith("named-") && (!entry.sourcePath || !validNamedStudyPath(entry.sourcePath))) ||
+        (entry.browseShape !== undefined && !["dendrites", "plates", "columns", "other"].includes(entry.browseShape)) ||
         !Number.isInteger(entry.eventCount) || entry.eventCount < 1 || entry.eventCount > (entry.source === "named-compose" ? 16000000 : 2000000) ||
         !Number.isInteger(entry.finalTick) || entry.finalTick < 1 || entry.finalTick > 16777215 ||
         typeof entry.label !== "string" || typeof entry.habit !== "string") throw new Error("Invalid growth study entry");
@@ -75,9 +76,21 @@ export function readStudy(root: string, entry: GrowthStudyEntry, library?: Growt
   return null;
 }
 
-function publicEntry(entry: GrowthStudyEntry, available: boolean) {
+export function readStudyPreview(root: string, entry: GrowthStudyEntry): Buffer | null {
+  const folder = resolve(root, "app/data/growth-previews");
+  const manifestBytes = containedBytes(folder, "index.json", 1048576);
+  if (!manifestBytes) return null;
+  const manifest = JSON.parse(manifestBytes.toString("utf8")) as { format: string; previews: Array<{ id: string; sourceSha256: string; sha256: string; byteLength: number }> };
+  if (manifest.format !== "growth-study-previews-v1" || !Array.isArray(manifest.previews)) return null;
+  const preview = manifest.previews.find(item => item.id === entry.id && item.sourceSha256 === entry.sourceSha256);
+  if (!preview || !/^[a-z0-9][a-z0-9-]*$/u.test(entry.id)) return null;
+  const bytes = containedBytes(folder, `${entry.id}.png`, 524288);
+  return bytes && bytes.length === preview.byteLength && createHash("sha256").update(bytes).digest("hex") === preview.sha256 ? bytes : null;
+}
+
+function publicEntry(entry: GrowthStudyEntry, available: boolean, previewAvailable: boolean) {
   const { sourcePath: _sourcePath, ...published } = entry;
-  return { ...published, available };
+  return { ...published, available, previewAvailable };
 }
 
 export function createGrowthStudyHandler(root: string, library = loadStudyManifest(root)) {
@@ -91,13 +104,20 @@ export function createGrowthStudyHandler(root: string, library = loadStudyManife
     let bytes: Buffer | null = null;
     try {
       if (path === "/index.json") {
-        bytes = Buffer.from(JSON.stringify({ ...library, entries: library.entries.map(entry => publicEntry(entry, readStudy(root, entry, library) !== null)) }));
+        bytes = Buffer.from(JSON.stringify({ ...library, entries: library.entries.map(entry => publicEntry(entry, readStudy(root, entry, library) !== null, readStudyPreview(root, entry) !== null)) }));
         response.setHeader("content-type", "application/json");
       } else {
-        const id = /^\/([a-z0-9][a-z0-9-]*)\.bin$/u.exec(path ?? "")?.[1];
+        const match = /^\/([a-z0-9][a-z0-9-]*)\.(bin|png)$/u.exec(path ?? "");
+        const id = match?.[1];
         const entry = library.entries.find(item => item.id === id);
-        if (entry) bytes = readStudy(root, entry, library);
-        response.setHeader("content-type", "application/octet-stream");
+        const preview = match?.[2] === "png";
+        if (entry) bytes = preview ? readStudyPreview(root, entry) : readStudy(root, entry, library);
+        response.setHeader("content-type", preview ? "image/png" : "application/octet-stream");
+        if (preview && bytes) {
+          const etag = `"${createHash("sha256").update(bytes).digest("hex")}"`;
+          response.setHeader("etag", etag);
+          if (request.headers["if-none-match"] === etag) { response.statusCode = 304; response.end(); return; }
+        }
       }
       if (bytes === null) { response.statusCode = 404; response.end("Growth replay unavailable"); return; }
       response.setHeader("content-length", bytes.length);
@@ -117,7 +137,9 @@ export function growthStudyAssets(root: string): Plugin {
       const entries = library.entries.map(entry => {
         const bytes = readStudy(root, entry, library);
         if (bytes) this.emitFile({ type: "asset", fileName: `growth-studies/${entry.id}.bin`, source: bytes });
-        return publicEntry(entry, bytes !== null);
+        const preview = readStudyPreview(root, entry);
+        if (preview) this.emitFile({ type: "asset", fileName: `growth-studies/${entry.id}.png`, source: preview });
+        return publicEntry(entry, bytes !== null, preview !== null);
       });
       this.emitFile({ type: "asset", fileName: "growth-studies/index.json", source: JSON.stringify({ ...library, entries }) });
     },

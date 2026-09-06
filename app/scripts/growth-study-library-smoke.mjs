@@ -12,6 +12,8 @@ const named = JSON.parse(readFileSync(resolve(root, "app/data/named-growth-libra
 manifest.entries = [...named.entries, ...manifest.entries];
 const browser = await chromium.launch({ headless: true });
 const page = await browser.newPage({ viewport: { width: 1440, height: 1150 }, deviceScaleFactor: 1 });
+const selectCrystal = value => page.locator("#crystal").selectOption(value, { force: true });
+const selectCollection = value => page.locator("#collection").selectOption(value, { force: true });
 const errors = [];
 page.on("pageerror", error => errors.push(error.message));
 page.on("console", message => { if (message.type() === "error" && !message.text().includes("503")) errors.push(message.text()); });
@@ -24,7 +26,7 @@ try {
   const options = await page.locator("#crystal option:not([disabled])").count();
   assert.equal(options, manifest.entries.length);
   for (const [index, entry] of manifest.entries.entries()) {
-    await page.selectOption("#crystal", entry.id);
+    await selectCrystal( entry.id);
     await loaded(entry.id);
     await page.evaluate(() => window.dendriteStudy.seek(1));
     const styles = [];
@@ -53,24 +55,27 @@ try {
     }
     if (index % 10 === 0) console.log(`Rendered ${index + 1}/${manifest.entries.length} crystals through all four views`);
   }
-  await page.selectOption("#collection", "named");
+  await selectCollection( "named");
   assert.equal(await page.locator("#crystal option:not([disabled])").count(), 99);
+  await page.locator("#browse-crystals").click();
   await page.fill("#crystal-search", "radiating dendrites");
   assert.equal(await page.locator("#crystal option:not([disabled])").count(), 3);
-  await page.selectOption("#crystal", "named-radiating-dendrites-baseline"); await loaded("named-radiating-dendrites-baseline");
+  await selectCrystal( "named-radiating-dendrites-baseline"); await loaded("named-radiating-dendrites-baseline");
   assert.match(await page.locator("#recording-kind").textContent(), /COMPOSED VIEW/);
   await page.reload(); await loaded("named-radiating-dendrites-baseline");
   assert.equal(await page.locator("#collection").inputValue(), "named");
-  await page.selectOption("#collection", "original");
+  await selectCollection( "original");
   assert.equal(await page.locator("#crystal option:not([disabled])").count(), 52);
-  await page.selectOption("#collection", "all");
+  await selectCollection( "all");
+  await page.locator("#browse-crystals").click();
   await page.fill("#crystal-search", "needle");
   assert.ok(await page.locator("#crystal option:not([disabled])").count() >= 1);
-  await page.selectOption("#crystal", "fig29");
+  await selectCrystal( "fig29");
   await loaded("fig29");
   await page.fill("#crystal-search", "no such snow crystal");
   assert.equal(await page.locator("#crystal").isDisabled(), true);
   await page.fill("#crystal-search", "");
+  await page.locator("#gallery-close").click();
   await page.locator("#next-crystal").click();
   await loaded("fig30");
   await page.locator("#previous-crystal").click();
@@ -85,15 +90,15 @@ try {
     await new Promise(resolvePromise => setTimeout(resolvePromise, 1200));
     await route.continue().catch(() => {});
   });
-  await page.selectOption("#crystal", "run-b"); await loaded("run-b");
-  await page.selectOption("#crystal", "fig29");
-  await page.selectOption("#crystal", "fig30"); await loaded("fig30");
+  await selectCrystal( "run-b"); await loaded("run-b");
+  await selectCrystal( "fig29");
+  await selectCrystal( "fig30"); await loaded("fig30");
   await page.waitForTimeout(1500);
   assert.equal(await page.evaluate(() => window.dendriteStudy.state.crystalId), "fig30");
   await page.unroute("**/growth-studies/fig29.bin");
 
   await page.route("**/growth-studies/fig29.bin", route => route.fulfill({ status: 503, body: "Temporarily unavailable" }));
-  await page.selectOption("#crystal", "fig29");
+  await selectCrystal( "fig29");
   await page.locator("#retry").waitFor({ state: "visible" });
   assert.equal(await page.evaluate(() => window.dendriteStudy.ready), false);
   assert.equal(await page.locator("#play").isDisabled(), true);
@@ -107,7 +112,7 @@ try {
   await page.emulateMedia({ reducedMotion: "reduce" });
   await page.reload(); await loaded("fig29");
   assert.equal(await page.evaluate(() => window.dendriteStudy.state.playing), false);
-  await page.selectOption("#crystal", "fig30"); await loaded("fig30");
+  await selectCrystal( "fig30"); await loaded("fig30");
   assert.equal(await page.evaluate(() => window.dendriteStudy.state.playing), false);
   assert.deepEqual(errors, []);
   const report = { url, entries: rows.length, viewRenders: rows.length * 4, errors, checks: ["all registered replays", "all four views produce pixels", "matching endpoints", "one GPU geometry", "catalogue/earlier collection filters", "named trio search", "composed disclosure", "search", "next/previous", "deep link and view retained", "rapid switch cancellation", "failure and retry", "mobile overflow", "reduced motion"], rows };

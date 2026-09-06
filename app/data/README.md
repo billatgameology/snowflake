@@ -75,3 +75,26 @@ Composed views are labeled beside the animation, including when the details are 
 Build outputs and browser captures are reproducible product scratch. No source binary or
 scientific state is rewritten, and the producer catalogue's original payload-size measurements
 continue to describe its original web assets, not the downstream renderer's in-memory geometry.
+
+## Visual gallery previews
+
+The **Browse crystals** button opens a searchable thumbnail gallery, with collection and shape
+filters and dendrites first. `dendrite-styles.html?browse=1` opens the gallery before downloading
+any full growth recording. A card loads its recording in the current view; reopening the browser
+preserves filters and scroll position. Missing recordings remain visible as unavailable.
+
+`growth-previews/` contains tracked project-owned PNG derivatives from the existing Timeglass
+renderer at the final attachment event. Its `index.json` binds each image's source identity,
+PNG digest, byte length and render recipe. The product handler serves only registered,
+digest-matched previews and includes them in builds. These are artistic navigation stills, not
+new simulations or scientific evidence; no outside media is included.
+
+To regenerate after a deliberate render-recipe change, build the app, start its preview server
+on port 5192, then run `node app/scripts/growth-study-thumbnails.mjs`. It captures at 384 × 320
+and checks source identity, event count and nonempty pixels. `DENDRITE_STUDY_URL` can point to
+another running capture page. Existing preview bytes need no regeneration for gallery UI edits.
+
+Earlier-library shape buckets come from identity-matched entries in the producer's existing
+visual audit; `growth-library.json` records that document's digest and navigation-only scope.
+Regenerate those display buckets with `node app/scripts/import-growth-browse-shapes.mjs`
+(optional argument: the audit JSON path). Named entries use their accepted catalogue names.

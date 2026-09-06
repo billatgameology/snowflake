@@ -1,8 +1,22 @@
 import { describe, expect, it } from "vitest";
-import { filterGrowthEntries, type GrowthStudyEntry } from "../src/growth-study-library.ts";
+import { filterGrowthEntries, growthStudyShape, orderGrowthEntries, type GrowthStudyEntry } from "../src/growth-study-library.ts";
 import { readDendrite } from "../src/dendrite-data.ts";
 
 describe("growth study selection and framing", () => {
+  it("uses specific name-based navigation buckets before the broad planar fallback", () => {
+    const sample = (label: string, habit = "planar") => ({ label, habit }) as GrowthStudyEntry;
+    expect(growthStudyShape(sample("Fernlike Stellar Dendrites"))).toBe("dendrites");
+    expect(growthStudyShape(sample("Columns on Plates"))).toBe("columns");
+    expect(growthStudyShape(sample("Crossed Needles"))).toBe("columns");
+    expect(growthStudyShape(sample("Hollow Plates"))).toBe("plates");
+    expect(growthStudyShape(sample("Bullet Rosettes", "Bullet Rosettes"))).toBe("other");
+    expect(growthStudyShape(sample("12-branched Stars"))).toBe("plates");
+    expect(growthStudyShape({ ...sample("Fig. 13"), browseShape: "dendrites" })).toBe("dendrites");
+    const earlier = { ...sample("Fig. 13"), id: "fig13", source: "fleet", browseShape: "dendrites" } as GrowthStudyEntry;
+    const column = { ...sample("Solid Columns"), id: "column", source: "named-direct" } as GrowthStudyEntry;
+    const dendrite = { ...sample("Stellar Dendrites"), id: "dendrite", source: "named-direct" } as GrowthStudyEntry;
+    expect(orderGrowthEntries([earlier, column, dendrite]).map(entry => entry.id)).toEqual(["dendrite", "column", "fig13"]);
+  });
   it("matches multiple search terms across identity, label and habit", () => {
     const entries = [
       { id: "fig29", label: "Fig. 29", habit: "needle" },
