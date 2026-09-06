@@ -36,7 +36,6 @@ button:disabled { opacity: .35; cursor: wait; }
 .key::before { content: ''; display: block; height: 2px; width: 48px; margin: 0 0 5px; }
 .ion { color: #8fded1; }.ion::before { background: linear-gradient(90deg, #16304d, #9fffe2); }
 .spectrum { color: #b2bed9; }.spectrum::before { background: linear-gradient(90deg, #f3ae50, #d75295, #527df1, #47e2b0); }
-.multi { color: #c7edf0; }.multi::before { background: linear-gradient(90deg, #72bdb4 60%, transparent 60%, transparent 70%, #72bdb4 70%); }
 .multi-viewport { position: relative; }
 #study-overlay { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
 body.focused .viewport.multi-viewport { min-height: 430px; }

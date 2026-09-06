@@ -797,3 +797,24 @@ These are presentation checks, not scientific validation.
 
 - The maker has rejected Branch Journey. Remove its camera and computation instead of keeping
   a hidden third pane or leaving an empty space in the composition.
+
+## Follow-up — shared color-age legend
+
+The maker requested the same color-age legend at the bottom right. This trivial presentation fix
+replaces Two Views' pane-layout key with Timeglass's existing **EARLY → LATE** label and shared
+gradient class, and removes the unused layout-key styling. Rendering and MP4 are unchanged.
+
+`npm run typecheck` and `npm run build --workspace app` pass (build log:
+`out/two-views-legend/build.log`). A built-page browser check compares the rendered label and
+gradient against Timeglass at desktop and phone widths, with no page errors or horizontal overflow
+(`out/two-views-legend/browser-check.json`). The footer screenshot was visually inspected.
+
+### Next step
+
+Open the Two Views link above to see the matching legend. The earlier requested Git push is still
+waiting in Git Credential Manager's **Connect to GitHub** window; after authentication, push the
+current branch again if necessary to include this later legend commit.
+
+### Tried and rejected
+
+- The pane-layout key does not explain the arrival colors. Reuse the existing Timeglass legend.

@@ -103,7 +103,8 @@ Regenerate those display buckets with `node app/scripts/import-growth-browse-sha
 
 The current views are Ion Bloom, Timeglass, Two Views and Crystal Cast. **Two Views** shows a
 large top view beside a magnified branch detail. Both show the same recorded moment with
-Timeglass arrival colours. A marker on the top view identifies the detail center. Drag a pane
+Timeglass arrival colours, with the same **EARLY → LATE** gradient legend. A marker on the top
+view identifies the detail center. Drag a pane
 to turn its camera independently, double-click to reset that pane, and use **Detail zoom** to
 adjust magnification (default 4). On narrow phone screens the detail sits below the top view.
 

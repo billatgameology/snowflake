@@ -25,7 +25,9 @@ detail.
   tests, typecheck, Rule 7 and app build pass. The browser smoke verifies both panes, closer zoom,
   seeking, graphs and export restoration, with zero colored pixels in all 16 gutter samples and
   no unexpected browser errors (`out/two-views/browser-smoke.json`). Its actual 1080p MP4 decodes
-  successfully and was visually inspected. Next: open the Two Views link below.
+  successfully and was visually inspected. The bottom-right legend now uses Timeglass's same
+  **EARLY → LATE** gradient; desktop/phone matching checks pass
+  (`out/two-views-legend/browser-check.json`). Next: open the Two Views link below.
 
 - **Web pane cropping and Crystal Cast centering are corrected.** Rendering uses displayed
   canvas bounds and Cast's own offscreen pixel viewport. The preceding product checks are
@@ -156,7 +158,7 @@ detail.
   previews, zero full recording downloads on browse-first entry and no unexpected errors
   (`out/growth-gallery/browser-smoke.json`). Keyboard focus, phone layout, selection, playback,
   filter/scroll retention and broken-image fallback pass. Next: open the gallery link below.
-- **Last updated:** 2026-09-05 (two views and closer branch detail;
+- **Last updated:** 2026-09-06 (matching Two Views and Timeglass color-age legends;
   no phase or scientific-evidence change)
 - **Optional graphs and MP4 export are complete.** Single views offer attached-site,
   interval-attachment and outward-reach graphs with independent toggles and synchronized seeking.
