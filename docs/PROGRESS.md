@@ -151,6 +151,11 @@ detail.
   errors across direct, axial and composed forms. Focused tests, typecheck, Rule 7 and app build
   pass. Next: use the new View choices and their window/light controls. Ion Bloom, Timeglass,
   the gallery, original recording data and Timeglass thumbnails are retained.
+- **Optional graphs and MP4 export are in progress.** The maker requests focused-view statistics
+  and video export. The final [visual-study follow-up](plans/dendrite-visual-studies.md) registers
+  attached-site, interval-attachment and outward-reach graphs plus browser-local frame-based
+  H.264/MP4 export with optional graphs. Next: implement and verify quantities, controls and a
+  real exported file. The new computed readouts require Rule 6's exact `npm test` check.
 
 ## Phase gates
 

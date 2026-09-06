@@ -1,7 +1,7 @@
 # Plan — dendrite visual studies
 
 - **Phase:** maker-directed pre-Phase 7 presentation exploration; no phase gate
-- **Status:** complete, including Growth Front and Crystal Cast replacements
+- **Status:** optional graphs and MP4 export in progress; gallery and four views complete
 - **Started:** 2026-09-04
 - **Last touched:** 2026-09-04 by Codex
 
@@ -450,3 +450,47 @@ test. The earlier catalogue-wide renderer sweep and preview generation were not 
 - A broad depth-smoothing kernel introduced crossing patterns on small Cup recordings. Removed;
   retain shallow cell caps and use supported full-float depth to avoid the half-float banding
   exposed by a nearly flat cap. Coarse recorded cells remain visible rather than inventing a mesh.
+
+## Follow-up — optional graphs and MP4 export
+
+Maker direction: add at least two optional interesting-stat graphs to the single view and a way
+to export that view as MP4. Reuse this task branch/worktree; its opening tree is clean.
+
+### Approach and done criteria
+
+- Offer independently selectable **Attached sites**, **New attachments** and **Outward reach**
+  graphs in focused mode. Synchronize the cursor/current values with playback and backward
+  seeking; clicking a chart seeks. Preserve choices across crystal/view changes. Comparison
+  stays focused on the four render treatments.
+- Compute graph data off the UI thread from the exact decoded recording: total event count at
+  each playhead, counts in equal one-percent recording intervals (seed reported separately),
+  and maximum distance from the recorded origin in lattice units. Preserve exact current bounds
+  using event indices/reach change points. Composed scenes count instances and use their scene
+  origin/normalized recording clock. Do not call site counts mass or G-G ticks physical seconds.
+  Label these as derived recording statistics, unvalidated model output.
+- Add an export dialog with duration/resolution and include-visible-graphs options. Use browser
+  WebCodecs and the maintained Mediabunny MP4 muxer to produce H.264/MP4 with explicit frame
+  timestamps, complete growth and a final hold. Render clean video framing from the selected
+  camera/style/window/light; preserve and restore the user's playhead/play state on success,
+  cancellation or failure. Display progress and a cancellable operation, with an MP4 download.
+- Keep export entirely local, with no upload, external server execution or NAS change. Bound
+  duration/resolution/output memory; do not relabel another container as MP4. Unsupported
+  encoding receives a useful UI error. Verify an actual downloaded file with FFprobe and inspect
+  decoded frames, including selected graphs.
+- Use independent focused controls for derived statistics, export timing and browser behavior.
+  Run app build and the exact `npm test`: unlike the earlier render-only passes, this task adds
+  computed readouts, so Rule 6's full-check boundary applies. No scientific gate or simulation
+  is needed. Exercise graph toggles/scrub, export cancellation/restoration, a real MP4, mobile
+  layout and a composed recording with the correct labels.
+
+### Next step
+
+Implement worker statistics, chart controls and frame-based export; check recorded quantities and
+the downloaded MP4, then update the viewing instructions and completion record.
+
+### Tried and rejected
+
+- Physical growth-rate or mass labels: these recordings provide model attachment events and a
+  replay clock; neither label is earned by counting sites per playback interval.
+- Renaming WebM to MP4 or relying on screen-recording frame cadence: use actual MP4 muxing and
+  explicit frame timestamps so the requested output format and full growth sequence are retained.
