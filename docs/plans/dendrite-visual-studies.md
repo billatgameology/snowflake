@@ -1,7 +1,7 @@
 # Plan — dendrite visual studies
 
 - **Phase:** maker-directed pre-Phase 7 presentation exploration; no phase gate
-- **Status:** optional graphs and MP4 export in progress; gallery and four views complete
+- **Status:** Three Views replacement and Crystal Cast centering in progress; graphs/export complete
 - **Started:** 2026-09-04
 - **Last touched:** 2026-09-04 by Codex
 
@@ -574,3 +574,41 @@ completion to apply the interval-boundary fix; it is not a completed check. The 
   preview's bundle while testing an open export dialog against it.
 - Relaxing alias/junction evidence guards to accommodate a short Windows temporary path: use
   canonical process-local `TEMP` and `TMP` instead. A partial rerun is not full-suite evidence.
+
+## Follow-up — Three Views and centered Crystal Cast
+
+Maker direction: replace Growth Front with one synchronized multi-angle view: a large normal top
+view, a smaller bottom-right three-quarter branch close-up, and another useful angle at top right.
+Center Crystal Cast. Reuse the existing clean task worktree/branch at `b54fd94`.
+
+### Approach and done criteria
+
+- Replace the third treatment with **Three Views**. Keep a large top view left, a low-angle whole
+  crystal view at upper right, and a magnified branch detail at lower right. Use the existing
+  arrival-colour rendering and recorded geometry; the new contribution is the simultaneous
+  spatial comparison. Add clear pane labels and show which region is magnified.
+- Frame a deterministic branch region from the selected recording. Keep the framing stable
+  during growth/backward seeking so magnification does not chase individual attachment events.
+  Retain real recorded Z geometry and use oblique cameras to expose height. No invented layers,
+  physical thickness readout, or change to derived graph statistics.
+- Preserve source selection, synchronized playhead, graphs, comparison, camera interaction and
+  MP4 export. The exported view must include the three camera panes. Remove the retired recent
+  window control and its obsolete rendering branch. Reuse one recording geometry.
+- Correct Crystal Cast's offscreen viewport scaling. Three.js `setViewport` multiplies by the
+  renderer pixel ratio even when the caller supplies already-scaled target dimensions; use the
+  render target's own pixel viewport. Verify centering at device ratios 1, 1.5 and 2, including
+  scrolling, resized screens, comparison and export.
+- Run focused camera/layout/presentation tests, `npm run typecheck`, Rule 7, app build and a live
+  browser smoke with inspected dendrite, composed/axial and mobile captures plus a real MP4.
+  This is camera/rendering work only: no full scientific suite, gate or new growth run is needed.
+
+### Next step
+
+Capture the current high-density Crystal Cast offset, implement camera panes and stable detail
+framing, then verify the new view, centering and exported composition.
+
+### Tried and rejected
+
+- Additional colour palettes do not implement the requested spatial comparison.
+- Exaggerating recorded height would change the geometry's meaning. Use magnification and
+  oblique viewpoints; thin model crystals remain thin.

@@ -19,6 +19,12 @@ detail.
 
 ## Current state
 
+- **Three Views replacement and Crystal Cast centering are in progress.** The maker requests
+  a top view plus a low-angle view and branch close-up in place of Growth Front. The final
+  [visual-study follow-up](plans/dendrite-visual-studies.md) records the camera/layout approach
+  and the offscreen pixel-ratio centering correction. Next: implement and inspect the new panes,
+  high-density centering and exported composition; preserve graphs and recorded geometry.
+
 - **Phase 6 is COMPLETE (2026-08-20).** The maker accepts the recorded failure to reproduce the
   Nakaya diagram as the phase's scientific finding. Decision
   [0045](decisions/0045-bound-phase6-closure-to-a-compute-week.md) and charter v1.22 defined the
