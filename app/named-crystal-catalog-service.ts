@@ -195,15 +195,8 @@ export const createNamedCrystalCatalogService = (repositoryRoot: string): NamedC
     }),
   }));
 
-  for (const review of composeByEntry.values()) {
-    const scene = parseGrowthSceneV1(JSON.parse(verifiedBytes(repositoryRoot, review.scene).toString("utf8")) as unknown);
-    for (const component of scene.components) {
-      const direct = [...directByEntry.values()].find((item) => item.webAsset.sha256 === component.growthAsset.sha256);
-      if (direct === undefined) throw new Error(`compose component has no accepted direct asset: ${component.growthAsset.sha256}`);
-      growthBySha.set(direct.webAsset.sha256, direct.webAsset);
-    }
-  }
-
+  // The tracked direct review already supplies the complete growth allowlist. Generated scenes
+  // may be absent in a fresh checkout; validate their components when the scene is requested.
   const index: JsonRecord = {
     format: "named-crystal-local-gallery-v1",
     catalogId: catalog.catalogId,
@@ -290,6 +283,11 @@ export const createNamedCrystalCatalogService = (repositoryRoot: string): NamedC
         const compose = composeByEntry.get(entryId);
         if (compose !== undefined) {
           const scene = parseGrowthSceneV1(JSON.parse(verifiedBytes(repositoryRoot, compose.scene).toString("utf8")) as unknown);
+          for (const component of scene.components) {
+            if (!growthBySha.has(component.growthAsset.sha256)) {
+              throw new Error(`compose component has no accepted direct asset: ${component.growthAsset.sha256}`);
+            }
+          }
           const rewritten: GrowthSceneV1 = {
             ...scene,
             components: scene.components.map((component) => ({

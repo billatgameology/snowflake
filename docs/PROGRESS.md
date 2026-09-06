@@ -19,6 +19,42 @@ detail.
 
 ## Current state
 
+- **Animation/main integration is resolved (2026-09-06).** The maker requested a PR and merge.
+  Both Vite gallery services and the newer main records are retained. A missing-local-scenes
+  startup failure is corrected by validating generated Compose files on request; the hash and
+  growth allowlist checks remain enforced. App build, fresh-checkout service tests and a browser
+  smoke pass (`out/main-integration/build-final.log`, `catalog-test.log`, `browser-smoke.json`).
+  The [integration follow-up](plans/dendrite-visual-studies.md) records full-check and publication work;
+  [PR #11](https://github.com/billatgameology/snowflake/pull/11) holds the live checks and merge record.
+  Exact `npm test` is **not green**: 35 failures / 2,308 passes / 49 skipped
+  (`out/main-integration/npm-test-final.log`). All 35 failing test names reproduce in an untouched
+  checkout of fetched main (`main-baseline-test.log`, `baseline-comparison.json` there). The app
+  checks pass; existing catalog test assumptions and Windows byte identities need separate repair.
+
+- **The animation history is published through the connected GitHub app.** The maker approved
+  new commit IDs. The [commit map](animation-github-publication.json) records the ordered source
+  sequence through its publication plan, with identical file-tree SHAs checked for each replacement.
+  The branch is `fix/animation-queue-windows-spawn`; the local originals are retained under
+  `backup/animation-before-github-publication-20260906`. The
+  [publication follow-up](plans/dendrite-visual-studies.md) records the checks. Next: continue
+  from the published branch and use the map when resolving references to original commit IDs.
+
+- **Two Views is complete.** Branch Journey is removed,
+  and branch detail fills the right column with stronger default zoom. The final
+  [visual-study follow-up](plans/dendrite-visual-studies.md) records the change. Focused pane/data
+  tests, typecheck, Rule 7 and app build pass. The browser smoke verifies both panes, closer zoom,
+  seeking, graphs and export restoration, with zero colored pixels in all 16 gutter samples and
+  no unexpected browser errors (`out/two-views/browser-smoke.json`). Its actual 1080p MP4 decodes
+  successfully and was visually inspected. The bottom-right legend now uses Timeglass's same
+  **EARLY → LATE** gradient; desktop/phone matching checks pass
+  (`out/two-views-legend/browser-check.json`). Next: open the Two Views link below.
+
+- **Web pane cropping and Crystal Cast centering are corrected.** Rendering uses displayed
+  canvas bounds and Cast's own offscreen pixel viewport. The preceding product checks are
+  preserved in `out/branch-flight/browser-smoke.json` and `out/three-views/browser-smoke.json`;
+  the final [visual-study follow-up](plans/dendrite-visual-studies.md) records the current
+  two-pane simplification. Source coordinates, chronology and graph calculations are preserved.
+
 - **Phase 6 is COMPLETE (2026-08-20).** The maker accepts the recorded failure to reproduce the
   Nakaya diagram as the phase's scientific finding. Decision
   [0045](decisions/0045-bound-phase6-closure-to-a-compute-week.md) and charter v1.22 defined the
@@ -161,6 +197,28 @@ detail.
 - CAK→M1 is a confounded parameter-family comparison. Only matched M1 versus
   `M1_NO_DIP_ABLATION` may isolate the implemented dip factors' effect on this solver under the
   frozen configuration; it **cannot establish physical SDAK causality or necessity** in nature.
+- **Visual-study catalogue correction is complete (2026-09-04).** The maker identified the newer
+  accepted named catalogue in `../snowflake-named-catalog/docs/named-snow-crystal-catalog.json`.
+  The correction in [the visual-study plan](plans/dendrite-visual-studies.md) adds its accepted
+  named recordings and explicitly composed scenes to all four views. The live index reports
+  151 available entries, including 99 named entries (`out/named-growth-studies/live-index.json`).
+- **Visual animation browser is complete (2026-09-04).** The large dropdown is replaced by
+  **Browse crystals**, a thumbnail gallery with search, shape/collection filters, dendrites first
+  and click-to-play in the current view. The [visual-study plan](plans/dendrite-visual-studies.md)
+  records implementation and checks. The browser smoke verified 151 cards and decoded Timeglass
+  previews, zero full recording downloads on browse-first entry and no unexpected errors
+  (`out/growth-gallery/browser-smoke.json`). Keyboard focus, phone layout, selection, playback,
+  filter/scroll retention and broken-image fallback pass. Next: open the gallery link below.
+- **Last updated:** 2026-09-06 (animation/main integration; no phase or scientific-evidence change)
+- **Optional graphs and MP4 export are complete.** Single views offer attached-site,
+  interval-attachment and outward-reach graphs with independent toggles and synchronized seeking.
+  **Export MP4** creates the current treatment/camera in H.264, with optional graphs. Actual UI
+  downloads pass 720p/1080p stream decoding; composed statistics, cancellation/restoration and
+  mobile checks pass (`out/growth-insights/browser-smoke.json`). Exact `npm test` passed:
+  143 files, 2,248 tests passed / 49 skipped (`out/growth-insights/npm-test-final.log`, exit 0).
+  Build passed. The [visual-study follow-up](plans/dendrite-visual-studies.md) records the controls,
+  canonical Windows temporary-path fix and earlier rejected attempts. Next: use the controls below
+  the single animation. No solver or source recording has changed.
 - **Education is reconciled through Phase 10 and published again (2026-09-05).** Chapters 1–29 keep
   the teaching baseline with their stale Phase 6 status boundary corrected; Chapters 30–33 teach the
   unstarted Phase 7 plan and the Phase 8–10 records as development and refusal evidence, never
@@ -175,8 +233,6 @@ detail.
   https://billatgameology.github.io/snowflake/. Exact `npm test` closure for the education plan is
   still pending an idle host; see the [education plan](plans/education-phase7-10-continuation.md).
   Full freeze history: [the history file](progress-history-phases-6-8-9.md).
-- **Last updated:** 2026-09-05 (merged the education continuation through Phase 10 and restored the
-  Pages deploy workflow; no deletion, restore, phase or scientific-evidence change)
 
 ## Phase gates
 
@@ -198,6 +254,29 @@ and every superseded attempt live in the linked plans and historical progress sn
 | 9 | **Complete (development-only)** | The all-no-pass branch closed: D-BT failed, M-F/M-K2 stayed mapping-dependent, controls/path-state/M-PK are unavailable or non-identifiable, and zero items promoted. Exact `TMPDIR=/private/tmp npm test` passed; no result grants validation credit. [Completed plan](plans/phase-9-execution.md). |
 
 ## Active plan
+
+The maker-directed [growth visual studies](plans/dendrite-visual-studies.md), including the
+newer named catalogue, are complete on `fix/animation-queue-windows-spawn` in `snowflake-animation`.
+`out/named-growth-studies/packaging.json` records 151 prepared/decoded replays, including all 99
+newer named entries. The gallery now offers collection and shape filtering; direct recordings and composed
+scenes share Ion Bloom, Timeglass, Two Views and Crystal Cast with explicit composition labels.
+Focused tests, typecheck, Rule 7 and app build passed. The earlier production browser sweep records
+604 view renders and no unexpected errors (`out/named-growth-studies/browser-smoke.json`).
+Final camera/timing refinements passed 20 targeted live renders and the rebuilt-production
+seek check (`final-browser-smoke.json` and `final-production.json` in that directory).
+Exact source identities are in `app/data/named-growth-library.json`.
+The subsequent gallery pass adds tracked Timeglass previews (`app/data/growth-previews/index.json`)
+and the focused browsing checks in `out/growth-gallery/browser-smoke.json`; it does not repeat
+the earlier renderer sweep. The plan's gallery follow-up records the current browsing UI.
+The subsequent structural-rendering pass replaces the two retired treatments and records its
+representative controls/render checks in `out/growth-structure/browser-smoke.json`.
+The completed graphs/export follow-up adds recording-derived readouts and actual MP4 downloads;
+its browser and required full-check records are in `out/growth-insights/` as named above.
+The subsequent Three Views replacement and Cast centering use the representative product checks
+in `out/three-views/`, followed by the retired moving camera checks in `out/branch-flight/` and
+the current two-pane/cropping checks in `out/two-views/`;
+the earlier catalogue-wide sweep predates these rendering changes.
+No solver, scientific evidence, source acceptance or phase state changed.
 
 [phase-6-science-first-completion.md](plans/phase-6-science-first-completion.md) is the completed Phase 6 record (see its Completion record).
 [phase-8-measurement-corpus.md](plans/phase-8-measurement-corpus.md) and
@@ -259,6 +338,32 @@ the package-specific prerequisites in its charter amendment and execution plan. 
 0043–0044's Phase 7 deferrals remain authoritative and cannot be discharged by Phase 10.
 
 ## Next step
+
+### Growth visual studies — ready to use
+
+For integration status, open [PR #11](https://github.com/billatgameology/snowflake/pull/11): its
+Tests check and merge record show publication. The existing main failures are recorded above;
+the maker's merge request proceeds on the verified unchanged failure set. Fetch `origin/main`; the viewing
+instructions below apply to the integrated app. No further product implementation is planned.
+
+Open `http://127.0.0.1:5191/dendrite-styles.html?browse=1` to see the thumbnail gallery. Search or
+filter by shape/collection, then click a card to play it in the current view. Use **Browse
+crystals** to reopen the gallery and **View** to select Timeglass or another treatment. The
+**Named catalogue** filter shows the newer types and their variants. A fresh session can use
+`npm run dev --workspace app -- --port 5191`. The [plan](plans/dendrite-visual-studies.md)
+records the completed checks and source locations. No implementation work remains in this request.
+The loopback dev server is recorded at `out/growth-gallery/dev-server.pid`; its logs are
+beside it. Missing local source files remain visibly unavailable; the tracked original dendrite
+remains usable. For already restored producer output, see `app/data/README.md` and
+`GROWTH_STUDY_CATALOG_ROOT`. Timeglass is the default view.
+For the new composition, start at `dendrite-styles.html?style=2&crystal=sweep-t1-sharp`.
+**Two Views** shows the top view beside a closer three-quarter branch detail. Drag panes
+independently, double-click to reset a pane, or adjust **Detail zoom**. **Crystal Cast** is centered
+and retains **Move the light**. Open **Graphs** below any single animation to toggle attached sites,
+new attachments and outward reach, or click a chart to scrub. **Export MP4** offers 720p/1080p,
+10/20/30-second complete-growth clips and optional visible graphs. It retains the current
+camera/rendering controls and restores playback after export. The plan's final follow-up records
+the two-pane composition and closer detail checks; `app/data/README.md` has usage and browser requirements.
 
 ### Render-worktree NAS closeout — active
 

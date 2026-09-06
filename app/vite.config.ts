@@ -12,6 +12,7 @@ import type { IncomingMessage, ServerResponse } from "node:http";
 import { isIP } from "node:net";
 import { dirname, isAbsolute, relative, resolve, sep } from "node:path";
 import { defineConfig, type Plugin } from "vite";
+import { growthStudyAssets } from "./growth-study-assets.ts";
 
 import {
   decideNasCatalogServePath,
@@ -879,6 +880,7 @@ export default defineConfig({
     gutcheckIndexJson,
     gutcheckFigurePreviews,
     gutcheckAnimationSelection,
+    growthStudyAssets(REPOSITORY_ROOT),
     namedCrystalCatalogApi,
     nasStatic,
   ],
@@ -897,6 +899,7 @@ export default defineConfig({
         gutcheckIndex: resolve(import.meta.dirname, "gutcheck-index.html"),
         namedCrystalCatalog: resolve(import.meta.dirname, "named-crystal-catalog.html"),
         spike: resolve(import.meta.dirname, "spike-gg-realism.html"),
+        dendriteStyles: resolve(import.meta.dirname, "dendrite-styles.html"),
       },
     },
   },

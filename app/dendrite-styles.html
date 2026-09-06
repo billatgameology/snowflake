@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#080d12" />
+  <title>Growth library · Four ways of seeing · The Virtual Cloud Chamber</title>
+</head>
+<body>
+  <canvas id="crystal-canvas" aria-hidden="true"></canvas>
+  <main>
+    <header><a class="wordmark" href="./gutcheck-index.html">THE VIRTUAL CLOUD CHAMBER</a><span class="edition">VISUAL STUDIES &nbsp; / &nbsp; 01</span></header>
+    <section class="intro">
+      <div><p class="eyebrow">THE GROWTH LIBRARY. FOUR WAYS OF SEEING.</p><h1>A snow crystal.<br><em>With its history showing.</em></h1></div>
+      <div class="intro-note"><p>Every branch has a beginning.<br>Choose a crystal. Explore its history.</p><button id="layout" type="button">Compare all four</button></div>
+    </section>
+    <section class="library-picker" aria-label="Choose a growth animation">
+      <button id="browse-crystals" class="browse-button" type="button" aria-haspopup="dialog" aria-controls="crystal-browser" disabled><span>▦ Browse crystals</span><span id="browse-selected">Loading the library…</span></button>
+      <select id="collection" hidden aria-hidden="true" tabindex="-1"><option value="all">All animations</option><option value="named">Named catalogue</option><option value="original">Earlier library</option></select>
+      <select id="crystal" hidden aria-hidden="true" tabindex="-1" disabled><option>Loading the library…</option></select>
+      <div class="crystal-nav"><button id="previous-crystal" type="button" aria-label="Previous crystal" disabled>←</button><button id="next-crystal" type="button" aria-label="Next crystal" disabled>→</button><span id="search-count"></span></div>
+      <label class="view-label">VIEW<select id="view"><option value="1" selected>Timeglass</option><option value="0">Ion Bloom</option><option value="2">Two Views</option><option value="3">Crystal Cast</option><option value="all">Compare all four</option></select></label>
+    </section>
+    <div class="crystal-caption"><p id="crystal-title"></p><p id="library-note"></p></div>
+    <p id="recording-kind"></p>
+    <p id="status" role="status">Loading the growth library…</p><button id="retry" type="button" hidden>Retry this crystal</button>
+    <section id="studies" class="studies" aria-label="Four synchronized rendering studies">
+      <article class="study selected" data-style="0">
+        <div class="card-heading"><span class="number">01</span><button class="style-name" type="button">Ion Bloom <span>↗</span></button><span class="tag">THE GROWING EDGE</span></div>
+        <div class="viewport" aria-label="Ion Bloom animation"></div>
+        <div class="card-footer"><p>New ice lights up. Older branches fade into blue.</p><span class="key ion">NEW ATTACHMENTS</span></div>
+      </article>
+      <article class="study" data-style="1">
+        <div class="card-heading"><span class="number">02</span><button class="style-name" type="button">Timeglass <span>↗</span></button><span class="tag">COLOUR REMEMBERS</span></div>
+        <div class="viewport" aria-label="Timeglass animation"></div>
+        <div class="card-footer"><p>A permanent colour signature of when each site joined.</p><span class="key spectrum">EARLY → LATE</span></div>
+      </article>
+      <article class="study" data-style="2">
+        <div class="card-heading"><span class="number">03</span><button class="style-name" type="button">Two Views <span>↗</span></button><span class="tag">THE WHOLE. THE DETAIL.</span></div>
+        <div class="viewport multi-viewport" aria-label="Synchronized top view and branch close-up"><canvas id="study-overlay" aria-hidden="true"></canvas></div>
+        <div class="card-footer"><p>Keep the whole crystal in sight. Get closer to one branch.</p><span class="key spectrum">EARLY → LATE</span></div>
+      </article>
+      <article class="study" data-style="3">
+        <div class="card-heading"><span class="number">04</span><button class="style-name" type="button">Crystal Cast <span>↗</span></button><span class="tag">GROWTH YOU CAN ALMOST TOUCH</span></div>
+        <div class="viewport" aria-label="Crystal Cast animation"></div>
+        <div class="card-footer"><p>A growing relief. Move the light to trace its edges and the spaces between branches.</p><span class="key cast">SCULPTED STRUCTURE</span></div>
+      </article>
+    </section>
+    <div class="single-view-tools"><button id="toggle-graphs" type="button" aria-expanded="false" aria-controls="growth-graphs" disabled>▥ Graphs</button><span>Explore the growth record</span><button id="export-mp4" type="button" aria-haspopup="dialog" aria-controls="video-export" disabled>Export MP4 ↗</button></div>
+    <section id="growth-graphs" aria-label="Optional growth statistics" hidden>
+      <div class="graph-options"><label><input type="checkbox" data-graph="attached" checked /> Attached sites</label><label><input type="checkbox" data-graph="activity" checked /> New attachments</label><label><input type="checkbox" data-graph="reach" /> Outward reach</label><span>Click a graph to scrub · Faint trace: full recording</span></div>
+      <div class="graph-grid"><div class="growth-graph" data-chart="attached"><canvas tabindex="0" role="img" aria-label="Attached sites graph"></canvas></div><div class="growth-graph" data-chart="activity"><canvas tabindex="0" role="img" aria-label="New attachments graph"></canvas></div><div class="growth-graph" data-chart="reach" hidden><canvas tabindex="0" role="img" aria-label="Outward reach graph"></canvas></div></div>
+      <p id="graphs-empty" hidden>Select a graph above to explore the recording.</p><p id="graphs-provenance"></p>
+    </section>
+    <section class="transport" aria-label="Playback controls">
+      <div class="buttons"><button id="play" type="button" disabled>Pause</button><button id="replay" type="button" disabled>↺ Replay</button></div>
+      <label class="scrubber"><span>SEED</span><input id="timeline" aria-label="Growth timeline" type="range" min="0" max="1000" value="0" disabled /><span>GROWN</span></label>
+      <output id="position">0%</output>
+      <label class="render-control detail-control" hidden>DETAIL ZOOM<input id="detail-zoom" aria-label="Branch detail zoom" type="range" min="1.5" max="6" step="0.1" value="4" /><span>wide → close</span></label>
+      <label class="render-control light-control" hidden>MOVE THE LIGHT<input id="light-angle" aria-label="Light direction" type="range" min="0" max="360" value="130" /></label>
+      <label class="speed-label">SPEED<select id="speed" aria-label="Playback speed"><option value="0.5">½×</option><option value="1" selected>1×</option><option value="2">2×</option></select></label>
+      <button id="fullscreen" type="button">Fullscreen ⛶</button>
+    </section>
+    <footer><p>RECORDED MODEL GROWTH · FOUR ARTISTIC WAYS TO SEE IT</p><details><summary>What am I seeing?</summary><p>Each site comes from recorded Gravner–Griffeath or G-G+ model growth and appears no earlier than its attachment tick. Composed views arrange independently grown crystals using the catalogue's recorded transforms and phase offsets; they are not one simulated crystal. Sites are not molecules. Ion Bloom and Timeglass use artistic light and colour. Two Views shows the same recording from above and in a magnified branch detail. The marker identifies the detail center; each pane can be turned independently by dragging. Recorded height is preserved. Crystal Cast reconstructs a relief from the projected sites, adding artistic bevels and shadows; it is not simulated ice optics. Recorded site coordinates and explicit scene transforms are preserved at unit lattice Z scale. Playback seconds are presentation time, not physical growth time. This is model output, not validated laboratory growth.</p><p id="source"></p><p id="excluded"></p><p>Focus a study to drag its view. Double-click to reset. Space pauses; R replays; Escape returns to comparison. The same playhead drives all four studies.</p></details></footer>
+  </main>
+  <dialog id="video-export" aria-labelledby="export-title" aria-describedby="export-description">
+    <p class="eyebrow">TAKE THE GROWTH WITH YOU</p><h2 id="export-title">Export this view.</h2>
+    <p id="export-description">A full growth cycle with your current camera and rendering controls, followed by a two-second hold. The video is created on this device.</p>
+    <fieldset id="export-settings"><legend>Video settings</legend><label>Duration<select id="export-duration"><option value="10">10 seconds</option><option value="20" selected>20 seconds</option><option value="30">30 seconds</option></select></label><label>Resolution<select id="export-resolution"><option value="720" selected>720p · 1280 × 720</option><option value="1080">1080p · 1920 × 1080</option></select></label><label class="export-include"><input id="export-graphs" type="checkbox" /> Include visible graphs</label></fieldset>
+    <p class="export-note">H.264 MP4 · 30 frames/second · Recording time is not physical growth time.</p>
+    <progress id="export-progress" max="1" value="0" hidden></progress><p id="export-message" role="status">Turn on Graphs in the single view to include them in the video.</p>
+    <div class="export-actions"><button id="close-export" type="button">Close</button><a id="download-mp4" hidden>Save MP4 again</a><button id="start-export" type="button">Create MP4</button></div>
+  </dialog>
+  <dialog id="crystal-browser" aria-labelledby="gallery-title" aria-describedby="gallery-description">
+    <div class="gallery-heading"><div><p class="eyebrow">THE GROWTH LIBRARY</p><h2 id="gallery-title">Find your next crystal.</h2><p id="gallery-description">Choose a shape. Watch it grow in your current view.</p></div><button id="gallery-close" type="button" aria-label="Close crystal browser">Close ×</button></div>
+    <div class="gallery-tools">
+      <div class="gallery-search-row">
+        <label class="gallery-search"><input id="crystal-search" type="search" aria-label="Search animations" placeholder="Search dendrites, hollow columns, a figure…" /></label>
+        <div class="gallery-collections" role="group" aria-label="Animation collection"><button type="button" data-collection="all">All <span></span></button><button type="button" data-collection="named">Named catalogue <span></span></button><button type="button" data-collection="original">Earlier library <span></span></button></div>
+      </div>
+      <div class="gallery-shapes" role="group" aria-label="Crystal shape"><span>SHAPE</span><button type="button" data-shape="all">All shapes</button><button type="button" data-shape="dendrites">Dendrites</button><button type="button" data-shape="plates">Plates & stars</button><button type="button" data-shape="columns">Columns & needles</button><button type="button" data-shape="other">Other forms</button><output id="gallery-count" aria-live="polite"></output></div>
+    </div>
+    <div id="gallery-results"><div id="gallery-grid"></div><div id="gallery-empty" hidden><h3>No crystals found.</h3><p>Try another name or clear the filters to see the full library.</p><button id="gallery-reset" type="button">Clear all filters</button></div></div>
+    <p class="gallery-bottom">Timeglass still previews · Click a card to play · Composed forms arrange independently grown crystals.</p>
+  </dialog>
+  <script type="module" src="/src/dendrite-styles.ts"></script>
+</body>
+</html>
