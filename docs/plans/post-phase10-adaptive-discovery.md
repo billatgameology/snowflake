@@ -622,6 +622,16 @@ terminal enclosure interval begins at cycle 44 / 3.8218623666161813 seconds. Lat
 again have no same-plane basal center/rim pairs. This extends the thick-seed hollowing observation
 to the second selected temperature, without yet supplying a matched no-dip or grid contrast.
 
+The first no-dip terminal is a different seed configuration: `cavity-seed-wide-t5-nodip`.
+Its admissible extent-29 stop has 6,041 attached sites at cycle 611 / 64.60553627047588 seconds,
+an eleven-plane full-probe waist, and no enclosed center-air plane. The history contains five
+transient enclosure episodes; every recorded snapshot has positive same-plane basal rim-minus-center
+mean kinetic demand. Thus such a contrast is observed without hollowing persisting to this stop.
+Do not compare it as a matched arm against the thick-seed M1 rows. Source:
+`out/post-phase10-cavity/cavity-seed-wide-t5-nodip-analysis-2026-09-08.json` (127,113 bytes,
+SHA-256 `5b23d0bb085a24435f44168b08544453c67ba9769cf92b8857469511ccc8b34f`;
+exact input identities and analysis command inside).
+
 ### Reused domain control and initial spatial observation
 
 The planned same-spacing domain comparison is now measured from the existing data, without new
