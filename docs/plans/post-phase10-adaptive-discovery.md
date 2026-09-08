@@ -567,7 +567,7 @@ closure, rather than cavity appearance versus no cavity ever. It does not distin
 feedback from seed/grid/P4 closure effects. Those are the purpose of the running finite wave;
 the old rows have no raw spatial snapshots and cannot supply the missing field precursor.
 
-### First completed thick-seed row
+### Completed thick-seed M1 rows
 
 `cavity-seed-thick-t4p5-m1` completed with exit 0 and an admissible size-target stop. Its raw
 `result.json` under `out/post-phase10-cavity/campaign-2026-09-08/rows/` records 454 cycles,
@@ -610,6 +610,17 @@ not proof of an exactly zero physical rate. Keep the one-step monopole qualifica
 **Initial-field and cost qualification** below.
 Next obtain the matched no-dip and baseline/seed/grid results before deciding the mechanism
 follow-up; thicker-seed hollowing in this single case does not settle those contrasts.
+
+The second completed row, `cavity-seed-thick-t5-m1`, also exits 0 at an admissible size target.
+Its separate analysis is `out/post-phase10-cavity/cavity-seed-thick-t5-m1-analysis-2026-09-08.json`
+(246,177 bytes, SHA-256 `7e1b36b46f8d25981778d5757d10d42a0e751aeec475f556a63f9da1cb0ea46a`;
+exact analysis argv and source identities inside). It reaches extent 29 with 4,173 attached sites
+at cycle 472 / 36.120990698827114 seconds. It too has 18 enclosed planes and a nine-plane
+probe-full waist; the void sections at offsets +/-13 contain 19 sites rather than the seven
+sites in the other enclosed planes, so the two terminal shapes are not identical. Its
+terminal enclosure interval begins at cycle 44 / 3.8218623666161813 seconds. Later snapshots
+again have no same-plane basal center/rim pairs. This extends the thick-seed hollowing observation
+to the second selected temperature, without yet supplying a matched no-dip or grid contrast.
 
 ### Reused domain control and initial spatial observation
 

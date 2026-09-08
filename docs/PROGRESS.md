@@ -650,9 +650,10 @@ is admissible at its size target. Its retained analysis,
 `out/post-phase10-cavity/cavity-seed-thick-t4p5-m1-analysis-2026-09-08.json`, finds hollow sections
 despite the thicker seed and a growing probe-full waist. Later snapshots show cavity-bottom
 depletion, but have no same-plane basal center/rim comparison; they do not establish initiation.
-The active plan records exact geometry, chronology and numerical qualifications. At 20:01 UTC
-the parent and 19 remaining experiment workers were live, with one completed row and no nonempty
-worker stderr. Analyze the matching controls as they finish; this single row does not settle
+The second thick-seed M1 row, at -5 C, is also complete and retains hollow sections; its separate
+analysis is named in the active plan alongside the exact geometry, chronology and qualifications.
+At 20:19 UTC the parent and 18 remaining experiment workers were live, with two completed rows
+and no nonempty worker stderr. Analyze the matching controls as they finish; these rows do not settle
 arm, seed or grid sensitivity. The conditional facet factorial's coefficient
 combinations have been checked for distinctness; this was scalar feasibility, not a growth run
 or a morphology prediction. Old source hashes are not a scientific veto on a
