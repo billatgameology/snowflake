@@ -617,9 +617,14 @@ The producer is committed at `eb7b5c4f932939e3b40d686a996796fdaceb1894`, and its
 has launched once. Parent PID 13768 and all 20 worker children were confirmed live; all 20 specs and
 host records name that producer. Requested concurrency is 28, actual startup concurrency is 20.
 Read `out/post-phase10-cavity/campaign-2026-09-08.launcher.log`, its `.launcher.stderr.log`, and
-per-row status/exit/result records; do not duplicate the launch. Next implement the plan's bounded
-offline cavity/spatial analysis separately from the running producer, then analyze completed
-configurations while retaining partial/terminal distinctions. The maker's new active goal authorizes autonomous
+per-row status/exit/result records; do not duplicate the launch. The standalone offline analyzer
+`runner/src/post-phase10-cavity-analysis.ts` now reconstructs occupancy, matches physical size/time,
+tracks transient versus terminal enclosure intervals, and profiles basal center/rim snapshots.
+Its focused manufactured-fixture checks and read-only scientific review pass. No running-producer
+imports changed. Next run the single required exact suite for this new scientific analysis surface
+(separate from the already completed producer check), then retain its bounded retrospective report
+for the old cavity trajectories and analyze new configurations as they finish. Keep partial groups
+explicit; their common-time grid can change as additional rows complete. The maker's active goal authorizes autonomous
 finite follow-ups with a maximum of 28 combined experiment/test workers. Keep the solver unchanged; the immediate
 question is whether warm cavity formation persists across explicit grid/seed perturbations and
 has the hypothesized spatial field precursor. Old source hashes are not a scientific veto on a

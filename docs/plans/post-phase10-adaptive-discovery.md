@@ -492,6 +492,25 @@ completed configurations without promoting partial results into an all-row concl
 analysis code separate from the running worker's imports, and keep total experiment/test workers
 at or below 28. The finer rows determine the long tail; no unmeasured ETA is asserted.
 
+The offline analyzer is now implemented in `runner/src/post-phase10-cavity-analysis.ts`, with
+pure geometry and spatial helpers beside it. It is not imported by the experiment producer.
+The focused command `npx vitest run runner/test/post-phase10-cavity-analysis.test.ts
+runner/test/post-phase10-cavity-geometry.test.ts runner/test/post-phase10-cavity-spatial.test.ts
+--maxWorkers=1 --minWorkers=1` passes. Manufactured fixtures independently exercise enclosure
+versus separated arms, transient disappearance and reopening, physical-time event brackets,
+center-span overshoot, fixed-physical probes, snapshot timing, and mean cellwise kinetic demand.
+The first implementation typecheck and `npm run lint:rule7` pass; exact `npm test` remains due
+once at this new scientific-readout checkpoint. Do not repeat the previous producer checkpoint.
+
+One bounded read-only non-author review found no scientific-correctness blocker in these modules,
+including enclosure-episode tracking. The basal rim is the outermost basal-class ring in one
+plane/orientation group, not necessarily the entire physical growth rim or one connected facet.
+An enclosure episode means at least one laterally enclosed center-air layer remains present;
+it does not assert that the same cavity component survives. An open terminal episode is observed
+only through the stop. These distinctions are needed because the retained trajectories contain
+transient pockets as well as persistent-through-stop hollowing; quantified retrospective findings
+will cite the generated report rather than this working observation.
+
 Next mechanism implementation direction (design only): a bounded read-only review located the
 shared coefficient-preparation seam in `LKSolver`. Prefer a finite, explicitly labeled factorial
 preparation selecting basal/prism constants from the existing M1 and no-dip preparations over
