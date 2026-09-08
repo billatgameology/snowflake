@@ -636,7 +636,9 @@ comparison is also complete: `out/post-phase10-cavity/cavity-domain-comparison-2
 finds unchanged cavity/waist measurements at common size across N64/N80, with small attached-count
 differences. `initial-boundary-contrast-2026-09-08.json` beside it records stronger initial basal
 rim/center kinetic-demand contrast in M1; it covers only completed initial snapshots, not terminal
-rows or a causal mechanism. Neither observation settles grid/seed sensitivity. Next watch the existing
+rows or a causal mechanism. Those first-relaxation fields use zero lagged monopole correction,
+not settled outer-boundary feedback (ADR 0024); the active plan explains the observed startup
+cost without changing the solver. Neither observation settles grid/seed sensitivity. Next watch the existing
 campaign's terminal records and analyze configurations as they finish with
 `node runner/src/post-phase10-cavity-analysis.ts campaign out/post-phase10-cavity/campaign-2026-09-08 <new-output.json>`.
 Do not generate repeated all-pending reports. Keep partial groups

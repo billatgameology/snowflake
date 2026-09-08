@@ -607,6 +607,26 @@ diffusion/kinetics explanation, not proof that it causes persistent hollowing. R
 computed demand factors, not measured deposited growth; subsequent geometry and the seed/grid
 perturbations are still needed.
 
+**Initial-field and cost qualification.** ADR 0024 registers a one-interface-step lag in the
+monopole correction. The first relaxation uses zero lagged kinetic demand and therefore a flat
+`sigmaInfinity` shell; the initial spatial observations above are not measurements after the
+outer-boundary feedback has settled. Later spatial observations remain necessary. In
+`solver-cpu/src/lk-solver.ts`, `advanceSurfaceUpdate()` updates `volumeRateM3PerS` from boundary
+kinetic demand even when no cell attaches; the next relaxation uses that revised shell target.
+The vapor field is warm-started, not reset, and partial fill does not enter the relaxation
+operator directly. This is the documented approximation, not a newly demonstrated reset defect
+or physical diffusion time.
+
+The completed first 21 event records in
+`out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-fine-thin-t4p5-m1/events.jsonl`
+show the changing cost: cycle 1 uses 29,035 sweeps, cycle 7 uses 14, and cycles 8–20 use one each.
+Cycle 20 adds 12 sites to the 61-site seed; cycle 21 then uses 17,569 sweeps. These are a bounded
+in-flight event prefix, not a completed row or a whole-wave timing estimate. Root read that prefix,
+the operator/spec and ADR; a shared-context Astra agent independently traced the field/cache and
+monopole update paths. No new simulation, test or benchmark ran for this diagnosis. Do not
+extrapolate the first solve's cost to every remaining step or change the running producer to
+remove the registered lag.
+
 Next mechanism implementation direction (design only): a bounded read-only review located the
 shared coefficient-preparation seam in `LKSolver`. Prefer a finite, explicitly labeled factorial
 preparation selecting basal/prism constants from the existing M1 and no-dip preparations over
