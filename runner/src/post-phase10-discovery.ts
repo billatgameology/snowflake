@@ -42,7 +42,8 @@ export type DiscoveryLane =
   | "followup-seed-localization"
   | "followup-mixed-timestep"
   | "followup-larger"
-  | "followup-history";
+  | "followup-history"
+  | "cavity-mechanism";
 
 export interface DiscoveryTimelineEvent {
   readonly triggerLargestExtent: number;
@@ -67,6 +68,8 @@ export interface DiscoveryRow {
   readonly targetExtent: number;
   readonly maxSteps: number;
   readonly timelineEvent?: DiscoveryTimelineEvent;
+  /** First pre-update extent crossings at which to retain the accepted spatial boundary. */
+  readonly spatialSampleExtents?: readonly number[];
 }
 
 export type DiscoveryStopReason =
@@ -114,6 +117,42 @@ export interface DiscoveryTerminalResult {
   readonly gitHead: string;
   readonly node: string;
   readonly timeline?: DiscoveryTimelineResult;
+  readonly spatialSnapshots?: readonly DiscoverySpatialSnapshotRecord[];
+}
+
+export interface DiscoverySpatialSnapshotRecord {
+  readonly path: string;
+  readonly triggerExtent: number;
+  readonly actualExtent: number;
+  readonly completedCycles: number;
+  readonly simTimeSeconds: number;
+}
+
+export interface DiscoverySpatialSnapshot {
+  readonly schema: "post-phase10-spatial-boundary-v1";
+  readonly rowId: string;
+  readonly timing: "after-converged-relaxation-before-surface-advance";
+  readonly record: DiscoverySpatialSnapshotRecord;
+  readonly dims: { readonly nx: number; readonly ny: number; readonly nz: number };
+  readonly center: readonly number[];
+  readonly dxUm: number;
+  readonly tempC: number;
+  readonly sigmaInfinity: number;
+  readonly seedRadius: number;
+  readonly seedThickness: number;
+  readonly attachedCount: number;
+  readonly cells: readonly {
+    readonly index: number;
+    readonly coords: readonly number[];
+    readonly neighborCounts: readonly number[];
+    readonly facet: FacetClass;
+    readonly fill: number;
+    readonly sigmaOpp: number;
+    readonly sigmaBoundary: number;
+    readonly alphaHKBoundary: number;
+    readonly robinGeometry: number;
+    readonly fillGeometry: number;
+  }[];
 }
 
 export interface DiscoveryTimelineResult {
@@ -512,6 +551,8 @@ export function runPostPhase10DiscoveryRow(
     center,
   });
   const seedSites = solver.attachedCount;
+  const spatialSnapshots: DiscoverySpatialSnapshotRecord[] = [];
+  const pendingSpatialExtents = new Set(candidate.spatialSampleExtents ?? []);
   let currentSmootherDriftAbsLimit = float64SmootherDriftAbsLimit(
     solver.activeCellCount,
     candidate.sigmaInfinity,
@@ -601,6 +642,42 @@ export function runPostPhase10DiscoveryRow(
       }
 
       const boundary = summarizeBoundary(solver);
+      const actualExtent = solver.largestExtent();
+      for (const triggerExtent of pendingSpatialExtents) {
+        if (actualExtent < triggerExtent) continue;
+        const record: DiscoverySpatialSnapshotRecord = {
+          path: `boundary-e${triggerExtent}.json`,
+          triggerExtent,
+          actualExtent,
+          completedCycles: solver.tick,
+          simTimeSeconds: solver.simTimeSeconds,
+        };
+        const snapshot: DiscoverySpatialSnapshot = {
+          schema: "post-phase10-spatial-boundary-v1",
+          rowId: candidate.id,
+          timing: "after-converged-relaxation-before-surface-advance",
+          record,
+          dims,
+          center,
+          dxUm: candidate.dxUm,
+          tempC: solver.tempC,
+          sigmaInfinity: solver.sigmaInfinity,
+          seedRadius: candidate.seedRadius,
+          seedThickness: candidate.seedThickness,
+          attachedCount: solver.attachedCount,
+          cells: solver.boundaryCells().map((index) => ({
+            index,
+            coords: coordsOf(dims, index),
+            neighborCounts: solver.neighborCounts(index),
+            facet: solver.facetClassOf(index),
+            fill: solver.f[index],
+            ...solver.boundaryState(index),
+          })),
+        };
+        writeJson(resolve(output, record.path), snapshot);
+        spatialSnapshots.push(record);
+        pendingSpatialExtents.delete(triggerExtent);
+      }
       const fillBefore = solver.fillLedger;
       const clippedBefore = solver.saturationClippedFill;
       const holeDeficitBefore = solver.holeFillDeficit;
@@ -802,6 +879,7 @@ export function runPostPhase10DiscoveryRow(
     finishedAt: finishedAt.toISOString(),
     gitHead: head,
     node: process.version,
+    ...(candidate.spatialSampleExtents === undefined ? {} : { spatialSnapshots }),
     ...(timelineSchedule === null || timelineCursor === null || timelineTransition === undefined
       ? {}
       : {

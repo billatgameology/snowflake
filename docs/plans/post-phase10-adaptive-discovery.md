@@ -446,6 +446,57 @@ reviews covered charter/source scope, actual analysis semantics and selected raw
 and the dimensionless/grid design. No reviewer reran the historical campaigns, established
 continuum accuracy, acquired external sources, or validated the model against nature.
 
+### Cavity implementation checkpoint
+
+The finite roster and `list-cavity`/`launch-cavity` route are implemented. The launcher now rejects
+requests above 28; all previously 32-worker live defaults are 28. Historical launch records remain
+unchanged. Optional `spatialSampleExtents` records accepted pre-update boundary values without
+changing the solver or the existing event calculations. The exhaustive long-wave lane map has only
+the new non-long lane exclusion added.
+
+`npx vitest run runner/test/post-phase10-spatial.test.ts runner/test/post-phase10-cavity.test.ts
+runner/test/post-phase10-discovery.test.ts runner/test/post-phase10-followup.test.ts` passed four
+files / 17 tests. The spatial test independently reconstructs the pre-update occupancy and neighbor
+counts, recomputes the kinetic coefficient within the nonlinear solve tolerance, and checks exact
+numerical event equality with snapshots off/on. `npm run typecheck` and `git diff --check` pass.
+One bounded non-author Astra review independently listed the old/new rosters and checked spatial
+timing, physical matching arithmetic and concurrency; it found no blocker. It did not run the full
+suite or a campaign.
+
+The single exact `npm test` finished with exit 1: Rule 7 is clean across 1,529 files, both
+typechecks passed, and Vitest reports 163 passed / 9 failed files, with 2,521 passed / 16 failed /
+72 skipped tests in 1,242.03 seconds. All six new cavity/spatial tests pass. The failure roster
+matches the already recorded Phase 10 unavailable recovery bytes/stale identities plus Phase 9's
+two historical source-pin refusals from the earlier subnormal repair; the Phase 10 scope overlay
+also has its existing collection-time failure. No new failure was found. The suite is not green.
+Command, timing and exit are recorded by
+`out/post-phase10-cavity/checkpoint-2026-09-08/run-check.ps1` in that directory's
+`npm-test-exit.json`; full stdout/stderr are in `npm-test.log`. Do not repeat this check or repair
+the retired infrastructure. Next: commit the tested producer, and launch
+`node runner/src/post-phase10-discovery-main.ts launch-cavity out/post-phase10-cavity/campaign-2026-09-08 28`.
+No scientific row is active at this prelaunch checkpoint. This is not experiment completion.
+
+Next mechanism implementation direction (design only): a bounded read-only review located the
+shared coefficient-preparation seam in `LKSolver`. Prefer a finite, explicitly labeled factorial
+preparation selecting basal/prism constants from the existing M1 and no-dip preparations over
+copying the complete solver merely to satisfy an old source hash. A production opt-in would need
+an ADR/spec clarification preserving ordinary behavior and existing checkpoint meanings; a copied
+experimental operator is an alternative, not a scientific necessity. Do not implement either
+through the test-only callback. Require nontrivial ordinary-versus-experimental equivalence for
+the both-dips and neither-dip controls, and retain the same coefficient in Robin relaxation and
+fill. This identifies the next code seam without authorizing a premature new run or a broad
+framework. The current cavity producer still changes no solver behavior.
+
+A direct retained-event check during verification reconstructed the axial attachment sequence in
+`out/post-phase10-followup/campaign-2026-09-03-wave2/rows/` for
+`followup-larger-cavity-t4p5-f0p075-{m1,nodip}` and `followup-larger-cavity-t5-f0p075-{m1,nodip}`
+(each row's `spec.json`, `events.jsonl` and `result.json`). M1 adds center-axis sites only at
+offsets +/-1 and +/-2 in both retained histories; the matched no-dip axes continue to +/-7 and
++/-8 respectively. Every recorded center-axis attachment is classified rough immediately before
+its attachment step. This is not a claim that its earlier accumulated fill was all rough-site
+growth: the facet class can change while a pixel fills. The new spatial snapshots are needed to
+test the proposed basal-center field precursor rather than infer it from the final event label.
+
 ## Superseded bounded second-tranche design
 
 The original design would have selected no more than 12 conditions that cover distinct observed

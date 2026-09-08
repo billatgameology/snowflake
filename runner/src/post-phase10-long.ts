@@ -23,6 +23,7 @@ const LONG_LANES: Readonly<Record<DiscoveryLane, DiscoveryLane | undefined>> = O
   "followup-mixed-timestep": undefined,
   "followup-larger": undefined,
   "followup-history": undefined,
+  "cavity-mechanism": undefined,
 });
 
 export const POST_PHASE10_LONG_ROWS: readonly DiscoveryRow[] = Object.freeze(

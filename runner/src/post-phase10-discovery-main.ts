@@ -43,6 +43,10 @@ import {
   POST_PHASE10_FOLLOWUP_ROW_COUNT,
   findPostPhase10FollowupRow,
 } from "./post-phase10-followup.ts";
+import {
+  POST_PHASE10_CAVITY_ROWS,
+  findPostPhase10CavityRow,
+} from "./post-phase10-cavity.ts";
 
 function writeJson(path: string, value: unknown): void {
   writeFileSync(path, `${JSON.stringify(value, null, 2)}\n`, "utf8");
@@ -64,8 +68,8 @@ function requireCleanTree(): void {
 
 function parseConcurrency(raw: string | undefined, fallback: number): number {
   const value = raw === undefined ? fallback : Number(raw);
-  if (!Number.isSafeInteger(value) || value < 1 || value > 32) {
-    throw new Error(`concurrency must be an integer in [1, 32], got ${String(raw)}`);
+  if (!Number.isSafeInteger(value) || value < 1 || value > 28) {
+    throw new Error(`concurrency must be an integer in [1, 28], got ${String(raw)}`);
   }
   return value;
 }
@@ -467,6 +471,41 @@ async function launchFollowup(campaignDirectory: string, concurrency: number): P
   if (exits.some((exit) => exit.exitCode !== 0 || exit.signal !== null)) process.exitCode = 1;
 }
 
+async function launchCavity(campaignDirectory: string, concurrency: number): Promise<void> {
+  requireCleanTree();
+  const output = resolve(campaignDirectory);
+  if (existsSync(output)) throw new Error(`campaign directory already exists: ${output}`);
+  mkdirSync(output, { recursive: true });
+  const processors = cpus();
+  writeJson(resolve(output, "campaign.json"), {
+    schema: "post-phase10-cavity-campaign-v1",
+    campaignId: basename(output),
+    gitHead: git(["rev-parse", "HEAD"]),
+    branch: git(["branch", "--show-current"]),
+    node: process.version,
+    logicalProcessors: processors.length,
+    cpuModels: [...new Set(processors.map((processor) => processor.model))],
+    totalMemoryBytes: totalmem(),
+    requestedConcurrency: concurrency,
+    plannedMaximumConcurrency: Math.min(concurrency, POST_PHASE10_CAVITY_ROWS.length),
+    rowCount: POST_PHASE10_CAVITY_ROWS.length,
+    totalLatticeCells: POST_PHASE10_CAVITY_ROWS.reduce((sum, row) => sum + row.dimsN ** 3, 0),
+    rows: POST_PHASE10_CAVITY_ROWS,
+    sourcePlan: "docs/plans/post-phase10-adaptive-discovery.md",
+    sourcePlanSection: "Scientific review and resumed cavity experiment — 2026-09-08",
+    sourcePlanCommit: "b439e38338abc90b640a77f469cb969d38408366",
+    exactLaunchCommand: [process.execPath, ...process.argv.slice(1)],
+    createdAt: new Date().toISOString(),
+  });
+  const exits = await launchRows({
+    campaignDirectory: output,
+    launchName: "cavity-wave-1",
+    rows: POST_PHASE10_CAVITY_ROWS,
+    concurrency,
+  });
+  if (exits.some((exit) => exit.exitCode !== 0 || exit.signal !== null)) process.exitCode = 1;
+}
+
 async function main(): Promise<void> {
   const [command, ...args] = process.argv.slice(2);
   switch (command) {
@@ -485,6 +524,9 @@ async function main(): Promise<void> {
     case "list-followup":
       console.log(JSON.stringify(POST_PHASE10_FOLLOWUP_ROWS, null, 2));
       return;
+    case "list-cavity":
+      console.log(JSON.stringify(POST_PHASE10_CAVITY_ROWS, null, 2));
+      return;
     case "run-row": {
       if (args.length !== 2) throw new Error("run-row wants <row-id> <output-directory>");
       const smokeRow = POST_PHASE10_SMOKE_ROWS.find((row) => row.id === args[0]);
@@ -492,6 +534,7 @@ async function main(): Promise<void> {
       const selectedRow =
         smokeRow ??
         adaptiveSmokeRow ??
+        findPostPhase10CavityRow(args[0]) ??
         findPostPhase10FollowupRow(args[0]) ??
         findPostPhase10ConfirmationRow(args[0]) ??
         findPostPhase10LongRow(args[0]) ??
@@ -537,13 +580,19 @@ async function main(): Promise<void> {
       if (args.length < 1 || args.length > 2) {
         throw new Error("launch-confirmation wants <campaign-directory> [concurrency]");
       }
-      await launchConfirmation(args[0], parseConcurrency(args[1], 32));
+      await launchConfirmation(args[0], parseConcurrency(args[1], 28));
       return;
     case "launch-followup":
       if (args.length < 1 || args.length > 2) {
         throw new Error("launch-followup wants <campaign-directory> [concurrency]");
       }
-      await launchFollowup(args[0], parseConcurrency(args[1], 32));
+      await launchFollowup(args[0], parseConcurrency(args[1], 28));
+      return;
+    case "launch-cavity":
+      if (args.length < 1 || args.length > 2) {
+        throw new Error("launch-cavity wants <campaign-directory> [concurrency]");
+      }
+      await launchCavity(args[0], parseConcurrency(args[1], 28));
       return;
     case "analyze":
       if (args.length !== 2) {
@@ -554,13 +603,14 @@ async function main(): Promise<void> {
     default:
       throw new Error(
         "usage: node runner/src/post-phase10-discovery-main.ts " +
-          "list|list-adaptive|list-long|list-confirmation|list-followup|" +
+          "list|list-adaptive|list-long|list-confirmation|list-followup|list-cavity|" +
           "run-row <row-id> <out>|" +
           "launch-initial <campaign-dir> [concurrency]|launch-a112 <campaign-dir>|" +
           "smoke <out>|launch-adaptive <campaign-dir> [concurrency]|smoke-adaptive <out>|" +
           "launch-long <campaign-dir> [concurrency]|" +
           "launch-confirmation <campaign-dir> [concurrency]|" +
           "launch-followup <campaign-dir> [concurrency]|" +
+          "launch-cavity <campaign-dir> [concurrency]|" +
           "analyze <campaign-dir> <output-dir>",
       );
   }

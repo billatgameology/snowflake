@@ -606,9 +606,16 @@ the package-specific prerequisites in its charter amendment and execution plan. 
 ### Resumed cavity mechanism/resolution experiment
 
 The maker explicitly resumed on 2026-09-08. Open **Scientific review and resumed cavity experiment**
-in `docs/plans/post-phase10-adaptive-discovery.md`: implement and test its finite 20-row roster and
-optional raw spatial snapshots, commit the producer, then launch the independent rows. No science
-worker is active at this plan checkpoint. Keep the existing solver unchanged; the immediate
+in `docs/plans/post-phase10-adaptive-discovery.md`. The finite 20-row roster and optional raw spatial
+snapshots are implemented; focused tests (four files / 17 tests), both typechecks and the bounded
+review pass. The exact `npm test` finished: 163/172 files pass, with 2,521 passed / 16 failed /
+72 skipped tests; Rule 7 and both typechecks pass. The failures are the recorded historical
+Phase 9/10 surfaces, not new cavity/snapshot failures. Logs and the exact exit record are under
+`out/post-phase10-cavity/checkpoint-2026-09-08/`; do not repeat the suite or call it green.
+Commit the producer, then run
+`node runner/src/post-phase10-discovery-main.ts launch-cavity out/post-phase10-cavity/campaign-2026-09-08 28`.
+No science worker is active at this checkpoint. The maker's new active goal authorizes autonomous
+finite follow-ups with a maximum of 28 combined experiment/test workers. Keep the solver unchanged; the immediate
 question is whether warm cavity formation persists across explicit grid/seed perturbations and
 has the hypothesized spatial field precursor. Old source hashes are not a scientific veto on a
 separately designed future facet ablation. Do not involve Phase 7, revive C0V/S6 recovery, or build
