@@ -683,8 +683,30 @@ time is 46.78898713498752 seconds (M1 terminal); no-dip is cycle 475 at 46.55763
 bracketed by its next event at 46.82956205013383 seconds, with extent 23 and a nine-plane waist.
 M1's enclosure interval persisting through stop begins at cycle 47 / 4.330048479988489 seconds.
 Its cycle-40 same-plane contrast and later spatial limitations are qualitatively like the -4.5 C
-case. Baseline, thick-seed no-dip and fine-grid rows remain pending; no new mechanism run starts
+case. This pair does not settle baseline/thickness/grid sensitivity; no new mechanism run starts
 on the strength of these coarse results alone.
+
+### First within-arm seed comparison
+
+The -4.5 C M1 baseline also completed admissibly, making all three coarse seed geometries available.
+`out/post-phase10-cavity/m1-seed-t4p5-comparison-2026-09-08.json` (752,406 bytes, SHA-256
+`6271d4b2f2cea36f62eb04c1da247f55077fa8052b552e2a234706df6171926b`) records the joint `rows`
+command, inputs and common-age selection. At the common extent 29 / 9.8-micrometer maximum center
+span, the baseline, thick and wide seeds have respectively 22, 18 and 22 enclosed planes.
+Their probe-full waists grow from 1, 5 and 1 seed planes to 5, 9 and 5 planes: each adds four full
+probe planes in these measured runs. The final waist therefore retains the imposed seed thickness;
+this is not evidence of a seed-independent selected waist, nor a general four-layer law.
+
+At common requested age 37.6854893744537 seconds, the corresponding reconstructed states have
+18, 18 and 16 enclosed planes and the same final waist counts; baseline and wide are at extent 23,
+while thick is at its extent-29 stop. Cavity existence survives both seed changes under these
+comparisons, but detailed geometry does not. For example, at terminal axial offset +5, baseline
+and thick have enclosed area 0.742616783745156 square micrometers, while wide has
+2.0156741273082805. The baseline terminal has 5,369 attached sites at cycle 566 /
+47.173290784590904 seconds. Its post-initial snapshots lack a same-plane basal center/rim pair.
+Keep the binary persistence observation distinct from seed-dependent waist/void dimensions; the
+pending fine-grid experiment addresses whether the new-growth length scales track cells or
+physical distances, subject to its explicitly bracketed seed representation.
 
 ### Reused domain control and initial spatial observation
 

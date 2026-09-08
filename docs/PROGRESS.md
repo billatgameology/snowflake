@@ -651,8 +651,10 @@ for M1 versus none for no-dip at both the common maximum center span and each pa
 The maximum span is axial for M1 and radial for no-dip, not equal axial length. Both thick-seed M1
 rows also retain hollow sections, while both wide-seed no-dip terminals have none; their transient
 histories and spatial observations are recorded in the active plan. The snapshots support
-post-onset interior depletion, not an established initiation mechanism. At 21:20 UTC the parent
-and 14 remaining workers were live, with six completed rows and no nonempty worker stderr.
+post-onset interior depletion, not an established initiation mechanism. The completed -4.5 C M1
+seed comparison (`m1-seed-t4p5-comparison-2026-09-08.json` beside those reports) retains hollowing
+in baseline, thick and wide seeds, but waist thickness and cavity width retain seed dependence.
+At 21:21 UTC the parent and 13 remaining workers were live, with seven completed rows and no nonempty worker stderr.
 Next analyze the remaining matched seed controls and fine-grid rows; seed/grid independence is
 not established. The conditional facet factorial's coefficient
 combinations have been checked for distinctness; this was scalar feasibility, not a growth run
