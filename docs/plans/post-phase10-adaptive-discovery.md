@@ -641,7 +641,7 @@ contrasts in all snapshots, at different event times from the -5 C row; its term
 SHA-256 `bdd2728c11c0b5be0d2be6442786233740003836f409d8970c64591d55512dd5`;
 exact input identities and analysis command inside).
 
-### First seed-matched arm comparison
+### Seed-matched wide-seed arm comparisons
 
 The wide-seed pair at -4.5 C is complete. Its joint report is
 `out/post-phase10-cavity/wide-seed-t4p5-pair-analysis-2026-09-08.json` (363,964 bytes, SHA-256
@@ -672,6 +672,19 @@ controlled initiation intervention. After onset the interior and leading exposed
 occupy different planes; the observed interior depletion still does not identify which coupled
 mechanism initiated it. Complete the other seed-matched pairs and fine-grid comparisons before
 promoting the observation to a seed/grid-robust lead.
+
+The second wide-seed pair, at -5 C, repeats the qualitative contrast. Its joint report is
+`out/post-phase10-cavity/wide-seed-t5-pair-analysis-2026-09-08.json` (363,912 bytes, SHA-256
+`e8b9de69385617e92e20fc334297e6513daea09b4e0b6060225957d2e6809583`; exact argv and inputs inside).
+At extent 29, M1 has 6,017 attached sites, 22 enclosed planes and a five-plane full-probe waist;
+no-dip has 6,041 sites, no enclosed planes and an eleven-plane waist. At their four positive
+common-time samples the enclosed counts are 6, 10, 16, 22 versus zero throughout. The last requested
+time is 46.78898713498752 seconds (M1 terminal); no-dip is cycle 475 at 46.55763457114072 seconds,
+bracketed by its next event at 46.82956205013383 seconds, with extent 23 and a nine-plane waist.
+M1's enclosure interval persisting through stop begins at cycle 47 / 4.330048479988489 seconds.
+Its cycle-40 same-plane contrast and later spatial limitations are qualitatively like the -4.5 C
+case. Baseline, thick-seed no-dip and fine-grid rows remain pending; no new mechanism run starts
+on the strength of these coarse results alone.
 
 ### Reused domain control and initial spatial observation
 

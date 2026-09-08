@@ -645,14 +645,14 @@ Do not generate repeated all-pending reports. Keep partial groups
 explicit; their common-time grid can change as additional rows complete. The maker's active goal authorizes autonomous
 finite follow-ups with a maximum of 28 combined experiment/test workers. Keep the solver unchanged; the immediate
 question is whether warm cavity formation persists across explicit grid/seed perturbations and
-has the hypothesized spatial field precursor. The first seed-matched arm pair is complete:
-`out/post-phase10-cavity/wide-seed-t4p5-pair-analysis-2026-09-08.json` records 22 enclosed planes
-for M1 versus none for no-dip at both the common maximum center span and the common-age sample.
+has the hypothesized spatial field precursor. Both wide-seed arm pairs are complete:
+`out/post-phase10-cavity/wide-seed-t{4p5,5}-pair-analysis-2026-09-08.json` records 22 enclosed planes
+for M1 versus none for no-dip at both the common maximum center span and each pair's final common-age sample.
 The maximum span is axial for M1 and radial for no-dip, not equal axial length. Both thick-seed M1
 rows also retain hollow sections, while both wide-seed no-dip terminals have none; their transient
 histories and spatial observations are recorded in the active plan. The snapshots support
-post-onset interior depletion, not an established initiation mechanism. At 21:13 UTC the parent
-and 15 remaining workers were live, with five completed rows and no nonempty worker stderr.
+post-onset interior depletion, not an established initiation mechanism. At 21:20 UTC the parent
+and 14 remaining workers were live, with six completed rows and no nonempty worker stderr.
 Next analyze the remaining matched seed controls and fine-grid rows; seed/grid independence is
 not established. The conditional facet factorial's coefficient
 combinations have been checked for distinctness; this was scalar feasibility, not a growth run
