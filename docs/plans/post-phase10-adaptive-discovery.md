@@ -1,6 +1,6 @@
 # Post-Phase-10 adaptive discovery follow-up
 
-**Status:** follow-up wave 2 complete; maker-directed pause before any further long run
+**Status:** wave 2 complete; maker resumed 2026-09-08; cavity mechanism/resolution wave selected
 **Worktree:** `G:\Code Files\snowflake-science-exploration`
 **Branch:** `explore/post-phase10-discovery`
 **Base:** `ba99d81`
@@ -353,6 +353,98 @@ not smuggled through the test-only override or the Phase 9-frozen permanent-cont
 Per maker direction, stop here. No worker remains active and no further campaign is authorized.
 When the maker resumes, review this result and choose the next bounded mechanistic question before
 launching any long run. Do not touch Phase 7 or revive Phase 10 recovery.
+
+## Scientific review and resumed cavity experiment — 2026-09-08
+
+The maker explicitly resumed discovery and requested a scientific reassessment. This supersedes
+the pause above, not Phase 10's closure or Phase 7's independence. This is solo scientific
+research: deliberate hostile actors are outside scope, and this block must deliver a cavity
+mechanism/resolution experiment rather than another assurance framework.
+
+**Course correction.** Phase 10 established source/mapping and numerical-verification limits;
+its complete-negative result did not test or exhaust candidate growth mechanisms. Post-Phase-10
+trajectories supply useful implementation-level leads, but repeated M1/no-dip sweeps cannot
+establish the width feedback that M1 does not implement (`docs/attachment-kinetics.md` §3).
+The abandoned facet factorial remains scientifically useful: the old permanent-control source
+pin rejected its implementation route, not its hypothesis. A future separately named experimental
+arm must preserve the controls and the coupled boundary/fill law; the test-only override is not
+that route. Do not reopen S6 or modify historical Phase 9 identities to make this review green.
+
+**Interpretation corrections.** Larger N and growth extent at unchanged spacing are not mesh
+refinement. The Wave 2 analyzer's equal plateau age means equal interface-cycle offset, not
+equal physical time. Its topology sentence saying magnitude weakens with scale conflicts with
+its own positive contrast increases at the first two temperatures. Its blanket cold mixed-map
+reversal summary also has an exception: the -24 C / fraction 0.20 half-step sequence is positive
+at every recorded crossing. Preserve the existing analysis bytes as the original working
+analysis; these qualifications supersede those interpretation strings. Central empty pixels
+alone do not prove a hollow tube: check lateral enclosure as well as axial opening.
+
+The named source hypothesis is diffusion-induced center/rim supersaturation contrast amplified
+by nonlinear attachment (`docs/attachment-kinetics.md` §2). Initial seed geometry and the P4
+nearest-neighbor closure are competing explanations. Current per-facet summary telemetry loses
+spatial association, so add sparse raw boundary snapshots, not a new solver or metric framework.
+
+### One finite 20-row cavity wave
+
+Cross temperatures -4.5/-5 C and M1/no-dip with these five configurations, all at water-relative
+fraction 0.075, pressure 101325 Pa, fill-CFL 0.05, and the unchanged fixed machinery:
+
+| Configuration | N | dx (micrometers) | Seed radius/thickness | Target extent |
+|---|---:|---:|---:|---:|
+| Spatially observed baseline | 64 | 0.35 | 2 / 1 | 29 |
+| Thickness-only perturbation | 64 | 0.35 | 2 / 5 | 29 |
+| Radius-only perturbation | 64 | 0.35 | 3 / 1 | 29 |
+| Fine grid, thin seed bracket | 126 | 0.175 | 4 / 1 | 57 |
+| Fine grid, thick seed bracket | 126 | 0.175 | 4 / 3 | 57 |
+
+N126 is intentional: the even-N hexPrism shell radius is N/2-1, giving the same shell-coordinate
+radius, `31*0.35 = 62*0.175` micrometers. Target center spans match through
+`(29-1)*0.35 = (57-1)*0.175`; inclusive cell-envelope spans do not. Fine seed center-support
+radius matches the baseline, but the voxelized seed geometry/volume is not identical. The two
+fine axial thicknesses bracket the baseline's physical thickness; nonlinear outputs are NOT
+mathematically bounded by those two runs. This is a spacing/initialization discrimination, not
+a convergence-order estimate or continuum-validation gate.
+
+The baseline repeats are specifically for new spatial observations and comparison under the
+current subnormal repair, not replacement of historical rows. Reuse existing N64/N80 cavity
+trajectories at common extent 29 for a same-dx domain-sensitivity comparison. Do not add a new
+pressure sweep yet: the retained seed observations already make initialization the more immediate
+competing explanation.
+
+Record raw boundary coordinates, neighbor counts, facet class, sigmaBoundary, sigmaOpp,
+alphaHKBoundary and fill once after converged relaxation and before surface advance at the first
+pre-update extent reaching each of 5/9/13/17/21/25 (fine: 9/17/25/33/41/49). Include actual cycle,
+physical time, extent, spacing and seed; these snapshots are not terminal post-growth fields.
+Keep snapshotting optional so all old rows and numerical trajectories stay unchanged.
+
+Compare axial and lateral center spans, occupied-cell volume (not total ice mass), per-layer
+central occupancy, lateral enclosure, axial opening, solid-waist thickness and cavity/rim profiles
+in physical units. A central-radius probe uses the same physical radius (coarse r1, fine r2).
+Compare both common physical size and common physical time; bracket discrete events rather than
+invent interpolated occupancy. Inspect basal center/rim field and kinetic contrast before cavity
+onset. If no registered snapshot brackets onset, report that temporal limit rather than infer
+the missing precursor. Strong seed dependence or a waist fixed in cell units weakens a
+size-selected physical interpretation; persistence in physical units across both seed brackets
+strengthens the lead but does not identify physical SDAK. Missing curvature, latent heat and
+width feedback remain explicit model limitations.
+
+**Execution/checks.** Commit this amendment before implementation. Reuse the existing finite
+launcher at requested concurrency 28 (actual maximum 20 independent rows; do not pad the roster).
+Maker direction on 2026-09-08 caps combined experiment/test workers at 28 and authorizes autonomous
+finite follow-ups while the maker is away; routine experiment decisions do not wait for approval.
+Implement only the roster/CLI route and optional raw snapshots. Focused tests must check physical
+matching arithmetic, snapshot timing/content, and identical numerical output with snapshots on/off.
+Run both typechecks and Rule 7, then exact `npm test` once at the stable scientific-telemetry
+checkpoint; report the already known historical failures without repairing or looping them.
+Commit the tested producer before background launch; retain per-row stdout/stderr/exit records.
+The next decision is the cavity/seed/grid result and then a separate facet-factorial design,
+not an automatic broad sweep. Compact report/source preservation remains due before publication;
+the older adaptive raw `out/` collections are retained working data, not a durable archive.
+
+Review provenance: root and three non-author Astra agents shared conversation context. The bounded
+reviews covered charter/source scope, actual analysis semantics and selected raw trajectories,
+and the dimensionless/grid design. No reviewer reran the historical campaigns, established
+continuum accuracy, acquired external sources, or validated the model against nature.
 
 ## Superseded bounded second-tranche design
 

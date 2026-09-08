@@ -447,7 +447,11 @@ failures, which this science work does not repair or rerun. The
 [first discovery campaign](plans/post-phase10-discovery-campaign.md) is complete. Phase 7 remains
 a separate parallel product path and is not part of this science workstream.
 
-Wave 2 is complete and paused. Its original launch is terminal from clean producer
+Wave 2 is complete. The maker resumed scientific review and discovery on 2026-09-08; the active
+plan now selects a finite cavity/seed/grid experiment with sparse spatial boundary observations.
+The review distinguishes larger growth/domain from grid refinement and cycle-offset alignment from
+physical-time matching. Phase 10 remains complete-negative, not a verdict that candidate crystal
+mechanisms are exhausted. Its original launch is terminal from clean producer
 `055458abe151ee9324da42f4752ca08ebc314d0f`. Its ignored completion record is
 `out/post-phase10-followup/campaign-2026-09-03-wave2/followup-wave-2-complete.json`
 (32,684 bytes / SHA-256
@@ -599,15 +603,16 @@ the package-specific prerequisites in its charter amendment and execution plan. 
 
 ## Next step
 
-### Maker-directed pause after completed follow-up wave 2
+### Resumed cavity mechanism/resolution experiment
 
-No scientific worker is active. Do not start another discovery campaign or long run without
-explicit maker direction. On resume, open the **Wave 2 final result** in
-`docs/plans/post-phase10-adaptive-discovery.md` and its bound ignored analysis artifact, then choose
-one bounded mechanistic question from the surviving cavity, core/tip, seed-memory, pressure-history,
-or abrupt-history leads before changing a solver or launching compute. Do not involve Phase 7,
-revive C0V/S6 recovery, or build a generic scheduler, dashboard, hostile-runtime defense, or
-facet-hybrid change by default.
+The maker explicitly resumed on 2026-09-08. Open **Scientific review and resumed cavity experiment**
+in `docs/plans/post-phase10-adaptive-discovery.md`: implement and test its finite 20-row roster and
+optional raw spatial snapshots, commit the producer, then launch the independent rows. No science
+worker is active at this plan checkpoint. Keep the existing solver unchanged; the immediate
+question is whether warm cavity formation persists across explicit grid/seed perturbations and
+has the hypothesized spatial field precursor. Old source hashes are not a scientific veto on a
+separately designed future facet ablation. Do not involve Phase 7, revive C0V/S6 recovery, or build
+a scheduler, dashboard, hostile-runtime defense, or new assurance framework.
 
 The prior Phase 10 selection note below is completed reproduction context; its request for a next
 workstream is superseded by the campaign selection above.
