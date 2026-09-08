@@ -645,19 +645,16 @@ Do not generate repeated all-pending reports. Keep partial groups
 explicit; their common-time grid can change as additional rows complete. The maker's active goal authorizes autonomous
 finite follow-ups with a maximum of 28 combined experiment/test workers. Keep the solver unchanged; the immediate
 question is whether warm cavity formation persists across explicit grid/seed perturbations and
-has the hypothesized spatial field precursor. The first terminal row, `cavity-seed-thick-t4p5-m1`,
-is admissible at its size target. Its retained analysis,
-`out/post-phase10-cavity/cavity-seed-thick-t4p5-m1-analysis-2026-09-08.json`, finds hollow sections
-despite the thicker seed and a growing probe-full waist. Later snapshots show cavity-bottom
-depletion, but have no same-plane basal center/rim comparison; they do not establish initiation.
-The second thick-seed M1 row, at -5 C, is also complete and retains hollow sections; its separate
-analysis is named in the active plan alongside the exact geometry, chronology and qualifications.
-Both wide-seed no-dip rows also finished: each has only transient enclosed layers and none at its
-terminal, despite positive same-plane rim/center demand contrasts in its snapshots. They are not
-seed-matched to the completed thick-seed M1 rows. At 20:56 UTC the parent and 16 remaining
-experiment workers were live, with four completed rows and no nonempty worker stderr.
-Analyze the matching controls as they finish; these rows do not settle
-arm, seed or grid sensitivity. The conditional facet factorial's coefficient
+has the hypothesized spatial field precursor. The first seed-matched arm pair is complete:
+`out/post-phase10-cavity/wide-seed-t4p5-pair-analysis-2026-09-08.json` records 22 enclosed planes
+for M1 versus none for no-dip at both the common maximum center span and the common-age sample.
+The maximum span is axial for M1 and radial for no-dip, not equal axial length. Both thick-seed M1
+rows also retain hollow sections, while both wide-seed no-dip terminals have none; their transient
+histories and spatial observations are recorded in the active plan. The snapshots support
+post-onset interior depletion, not an established initiation mechanism. At 21:13 UTC the parent
+and 15 remaining workers were live, with five completed rows and no nonempty worker stderr.
+Next analyze the remaining matched seed controls and fine-grid rows; seed/grid independence is
+not established. The conditional facet factorial's coefficient
 combinations have been checked for distinctness; this was scalar feasibility, not a growth run
 or a morphology prediction. Old source hashes are not a scientific veto on a
 separately designed future facet ablation. Do not involve Phase 7, revive C0V/S6 recovery, or build
