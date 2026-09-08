@@ -632,6 +632,15 @@ Do not compare it as a matched arm against the thick-seed M1 rows. Source:
 SHA-256 `5b23d0bb085a24435f44168b08544453c67ba9769cf92b8857469511ccc8b34f`;
 exact input identities and analysis command inside).
 
+The matching wide-seed no-dip temperature row, `cavity-seed-wide-t4p5-nodip`, also finishes
+admissibly with extent 29, 6,041 attached sites, eleven probe-full waist planes and no terminal
+enclosed plane. It records five transient enclosure episodes and positive paired basal demand
+contrasts in all snapshots, at different event times from the -5 C row; its terminal is cycle
+585 / 63.02418339749179 seconds. Source:
+`out/post-phase10-cavity/cavity-seed-wide-t4p5-nodip-analysis-2026-09-08.json` (127,200 bytes,
+SHA-256 `bdd2728c11c0b5be0d2be6442786233740003836f409d8970c64591d55512dd5`;
+exact input identities and analysis command inside). No cross-arm seed-matched pair is complete yet.
+
 ### Reused domain control and initial spatial observation
 
 The planned same-spacing domain comparison is now measured from the existing data, without new

@@ -652,10 +652,10 @@ despite the thicker seed and a growing probe-full waist. Later snapshots show ca
 depletion, but have no same-plane basal center/rim comparison; they do not establish initiation.
 The second thick-seed M1 row, at -5 C, is also complete and retains hollow sections; its separate
 analysis is named in the active plan alongside the exact geometry, chronology and qualifications.
-The first completed no-dip row, `cavity-seed-wide-t5-nodip`, has only transient enclosed layers
-and none at its terminal, despite positive same-plane rim/center demand contrasts in its snapshots.
-It is not seed-matched to the completed thick-seed M1 rows. At 20:51 UTC the parent and 17 remaining
-experiment workers were live, with three completed rows and no nonempty worker stderr.
+Both wide-seed no-dip rows also finished: each has only transient enclosed layers and none at its
+terminal, despite positive same-plane rim/center demand contrasts in its snapshots. They are not
+seed-matched to the completed thick-seed M1 rows. At 20:56 UTC the parent and 16 remaining
+experiment workers were live, with four completed rows and no nonempty worker stderr.
 Analyze the matching controls as they finish; these rows do not settle
 arm, seed or grid sensitivity. The conditional facet factorial's coefficient
 combinations have been checked for distinctness; this was scalar feasibility, not a growth run
