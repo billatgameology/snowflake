@@ -645,7 +645,9 @@ Do not generate repeated all-pending reports. Keep partial groups
 explicit; their common-time grid can change as additional rows complete. The maker's active goal authorizes autonomous
 finite follow-ups with a maximum of 28 combined experiment/test workers. Keep the solver unchanged; the immediate
 question is whether warm cavity formation persists across explicit grid/seed perturbations and
-has the hypothesized spatial field precursor. Old source hashes are not a scientific veto on a
+has the hypothesized spatial field precursor. The conditional facet factorial's coefficient
+combinations have been checked for distinctness; this was scalar feasibility, not a growth run
+or a morphology prediction. Old source hashes are not a scientific veto on a
 separately designed future facet ablation. Do not involve Phase 7, revive C0V/S6 recovery, or build
 a scheduler, dashboard, hostile-runtime defense, or new assurance framework.
 

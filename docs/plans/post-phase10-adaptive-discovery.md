@@ -638,6 +638,22 @@ the both-dips and neither-dip controls, and retain the same coefficient in Robin
 fill. This identifies the next code seam without authorizing a premature new run or a broad
 framework. The current cavity producer still changes no solver behavior.
 
+A bounded scalar feasibility check found distinct mixed preparations at the cavity temperatures
+and the prism-dip center: the implemented log-temperature dip tails overlap, so the proposed
+factorial does not merely duplicate its control coefficients there. The prefactors match, and
+the rough/inhibited coefficient rules have no direct preparation dependence; their populations
+and local fields can still respond indirectly. A shared-context Astra agent evaluated the
+preparations and sampled attachment coefficients; root independently evaluated the documented
+dip factors and read the closure. No hybrid growth experiment was run. Keep the factorial
+conditional on the cavity results, and judge any weak cross-facet response using absolute kinetic
+demand at recorded facet-local supersaturation, not coefficient ratios alone. Distinct inputs
+do not establish distinguishable morphologies. Reproduce the preparation comparison from the
+science worktree (inputs from the cavity roster and `core/src/libbrecht.ts`):
+
+```text
+node --input-type=module -e "import { prepareAlphaHK } from './core/src/libbrecht.ts'; for (const tempC of [-4.5, -5, -14.4]) console.log(tempC, prepareAlphaHK(tempC, 'M1'), prepareAlphaHK(tempC, 'M1_NO_DIP_ABLATION'));"
+```
+
 A direct retained-event check during verification reconstructed the axial attachment sequence in
 `out/post-phase10-followup/campaign-2026-09-03-wave2/rows/` for
 `followup-larger-cavity-t4p5-f0p075-{m1,nodip}` and `followup-larger-cavity-t5-f0p075-{m1,nodip}`
