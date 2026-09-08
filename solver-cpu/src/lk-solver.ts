@@ -1490,11 +1490,12 @@ export class LKSolver implements SurfaceOperator {
       };
     }
     const ratio = this.dxM / this.x0M; // G_b = 1 under aggregate-hv-g1h1-v4/v5/v6
+    const iterationTolerance = Math.max(1e-13 * sigmaOpp, Number.MIN_VALUE);
     let sigmaBoundary = sigmaOpp;
     for (let iteration = 0; iteration < 60; iteration++) {
       const coefficient = this.cellAlphaHK(index, sigmaBoundary);
       const next = sigmaOpp / (1 + coefficient * ratio);
-      if (Math.abs(next - sigmaBoundary) <= 1e-13 * sigmaOpp) {
+      if (Math.abs(next - sigmaBoundary) <= iterationTolerance) {
         sigmaBoundary = next;
         break;
       }
@@ -1502,7 +1503,8 @@ export class LKSolver implements SurfaceOperator {
     }
     const alphaHKBoundary = this.cellAlphaHK(index, sigmaBoundary);
     const solved = sigmaOpp / (1 + alphaHKBoundary * ratio);
-    if (Math.abs(solved - sigmaBoundary) > 1e-9 * sigmaOpp) {
+    const residualTolerance = Math.max(1e-9 * sigmaOpp, Number.MIN_VALUE);
+    if (Math.abs(solved - sigmaBoundary) > residualTolerance) {
       throw new Error(
         `aggregate boundary solve did not converge (cell ${index}: sigma_b ${solved} vs iterate ${sigmaBoundary})`,
       );

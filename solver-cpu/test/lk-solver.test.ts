@@ -264,6 +264,36 @@ describe("LKSolver — aggregate-hv-g1h1-v4 topology and boundary law (ADR 0009)
     }
   });
 
+  it("accepts a one-ULP positive-subnormal aggregate boundary update", () => {
+    const coefficient = 1;
+    const sigmaOpp = 2 * Number.MIN_VALUE;
+    const solver = new LKSolver({
+      ...devOptions,
+      surfacePolicy: "aggregate-hv-g1h1-v6",
+      farField: "reflecting",
+      tempC: -24,
+      relaxTol: 1,
+      relaxMaxSweeps: 1,
+      testAlphaOverride: () => coefficient,
+    });
+    solver.sigma.fill(sigmaOpp);
+    const target = solver.boundaryCells()[0];
+    expect(target).not.toBeUndefined();
+    const opposing = independentOpposingCells(solver, target as number);
+    expect(opposing.length).toBeGreaterThan(0);
+    expect(opposing.every((index) => solver.sigma[index] === sigmaOpp)).toBe(true);
+
+    const firstUpdate = sigmaOpp / (1 + coefficient * (solver.dxM / solver.x0M));
+    expect(firstUpdate).toBe(Number.MIN_VALUE);
+    expect(Math.abs(firstUpdate - sigmaOpp)).toBe(Number.MIN_VALUE);
+
+    const report = solver.relaxField();
+    expect(report.converged).toBe(true);
+    const state = solver.boundaryState(target as number);
+    expect(state.sigmaOpp).toBe(sigmaOpp);
+    expect(state.sigmaBoundary).toBe(firstUpdate);
+  });
+
   it("averages unequal post-smoother [20] opposing pixels and reaches the zero-coefficient limit", () => {
     const solver = new LKSolver({
       ...devOptions,
