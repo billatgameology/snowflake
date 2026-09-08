@@ -1,6 +1,6 @@
 # Post-Phase-10 adaptive discovery follow-up
 
-**Status:** confirmation wave 1 complete; follow-up wave 2 running
+**Status:** follow-up wave 2 original launch terminal; one numerical false-failure repair/rerun pending
 **Worktree:** `G:\Code Files\snowflake-science-exploration`
 **Branch:** `explore/post-phase10-discovery`
 **Base:** `ba99d81`
@@ -238,6 +238,41 @@ launched once at requested concurrency 32 under
 `out/post-phase10-followup/campaign-2026-09-03-wave2`; its campaign manifest records all 134 rows
 and the six pre-registered block counts. Do not duplicate or restart this healthy run. Keep the
 producer source frozen until every worker is terminal.
+
+## Wave 2 terminal state and numerical repair pre-registration — 2026-09-08
+
+The original launch is terminal. Its ignored completion record is
+`out/post-phase10-followup/campaign-2026-09-03-wave2/followup-wave-2-complete.json`
+(32,684 bytes / SHA-256
+`745bd401e331434ed3bb582f7ac81d80a145a402694851db62254f228f06f92d`). Its exact exit roster
+contains 133 zero exits and one nonzero exit at actual maximum concurrency 32. The sole invalid
+row is `followup-history-t4p5-to-t24-m1`; its retained 5,873-byte `result.json` has SHA-256
+`ca0cc8f90eeabf32e400824c0daf7fc0b8c512a00372657fa20aa9720be81533` and records a solver error
+after cycle 137, not a scientific endpoint.
+
+The error compares aggregate-boundary values `1.75599e-317` and `1.7559903e-317`. Their displayed
+difference is exactly `Number.MIN_VALUE`, while both the `1e-13` iteration threshold and `1e-9`
+postcondition threshold underflow to zero at the row's positive subnormal scale. Requiring exact
+equality there is an accidental binary64 condition, not the registered relative convergence rule.
+
+Repair only this observed numerical seam:
+
+1. In the positive aggregate-boundary fixed-point solve, floor each scaled convergence tolerance
+   at one positive binary64 ULP, `Number.MIN_VALUE`. Do not alter the equation, damping, iteration
+   cap, nonpositive branch, legacy-v3 path, surface policy, or any campaign parameter.
+2. Add one focused regression that reaches a positive subnormal aggregate boundary value and
+   independently checks the one-ULP residual. Keep the existing nonconvergence refusal intact for
+   residuals above the tolerance.
+3. Because this changes `solver-cpu/` numerical behavior, run the exact required `npm test` once.
+   The already recorded Phase 10 missing-recovery and stale-identity failures are outside this
+   repair; do not repair or repeatedly rerun them.
+4. Commit the tested solver checkpoint, then rerun only
+   `followup-history-t4p5-to-t24-m1` into a new retained directory. Preserve the failed original
+   row unchanged. If the rerun is admissible, use it for the matched history analysis; otherwise
+   classify the remaining failure by its actual cause.
+
+This repair completes the already launched wave. It does not authorize a new discovery wave; the
+maker directed a pause after final Wave 2 analysis and documentation.
 
 ## Superseded bounded second-tranche design
 

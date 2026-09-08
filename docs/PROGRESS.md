@@ -447,11 +447,16 @@ failures, which this science work does not repair or rerun. The
 [first discovery campaign](plans/post-phase10-discovery-campaign.md) is complete. Phase 7 remains
 a separate parallel product path and is not part of this science workstream.
 
-Wave 2 is now running once from clean producer `055458abe151ee9324da42f4752ca08ebc314d0f` at
-requested concurrency 32 under
-`out/post-phase10-followup/campaign-2026-09-03-wave2`. Its campaign manifest records the exact
-134-row roster and six pre-registered block counts. Do not duplicate or restart the healthy
-campaign; keep its producer source frozen while workers remain active.
+Wave 2's original launch is terminal from clean producer
+`055458abe151ee9324da42f4752ca08ebc314d0f`. Its ignored completion record is
+`out/post-phase10-followup/campaign-2026-09-03-wave2/followup-wave-2-complete.json`
+(32,684 bytes / SHA-256
+`745bd401e331434ed3bb582f7ac81d80a145a402694851db62254f228f06f92d`): the exact exit roster
+contains 133 zero exits and one nonzero exit at actual maximum concurrency 32. The sole invalid
+history row hit a positive-subnormal aggregate-boundary fixed-point residual of one binary64 ULP
+after its scaled tolerances underflowed to zero. The active plan pre-registers the minimal
+one-ULP tolerance floor, focused regression, required exact suite, and selective rerun. Preserve
+the original failed row; do not launch a new wave after the repair.
 
 The adaptive first tranche is complete from clean producer head `0e55b7b`: 432/432 workers exited
 0 at actual maximum concurrency 16, comprising 288 temperature/forcing rows, 72 pressure rows and
@@ -580,14 +585,16 @@ the package-specific prerequisites in its charter amendment and execution plan. 
 
 ## Next step
 
-### Monitor and analyze the existing follow-up wave 2
+### Repair and close follow-up wave 2, then pause
 
-Inspect the existing campaign at
-`out/post-phase10-followup/campaign-2026-09-03-wave2`; do not launch it again. Keep producer source
-frozen while workers run. Analyze matched blocks as they finish using exact first crossings, equal
-plateau age, matched in-plane topology, and path-versus-static contrasts, then promote only wave-2
-survivors. Do not involve Phase 7, revive C0V/S6 recovery, or build a generic scheduler, dashboard,
-hostile-runtime defense, or facet-hybrid solver change.
+Open the numerical-repair section in
+`docs/plans/post-phase10-adaptive-discovery.md`. Apply only its one-ULP positive-subnormal
+aggregate-boundary tolerance floor and focused regression, run the exact required `npm test`,
+commit the tested solver checkpoint, and rerun only `followup-history-t4p5-to-t24-m1` into a new
+retained directory. Then complete the artifact-derived Wave 2 analysis and state update, commit,
+and pause. Do not start another discovery wave without explicit maker direction. Do not involve
+Phase 7, revive C0V/S6 recovery, or build a generic scheduler, dashboard, hostile-runtime defense,
+or facet-hybrid solver change.
 
 The prior Phase 10 selection note below is completed reproduction context; its request for a next
 workstream is superseded by the campaign selection above.
