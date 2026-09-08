@@ -1,6 +1,6 @@
 # Post-Phase-10 adaptive discovery follow-up
 
-**Status:** follow-up wave 2 original launch terminal; one numerical false-failure repair/rerun pending
+**Status:** follow-up wave 2 complete; maker-directed pause before any further long run
 **Worktree:** `G:\Code Files\snowflake-science-exploration`
 **Branch:** `explore/post-phase10-discovery`
 **Base:** `ba99d81`
@@ -171,10 +171,12 @@ The matched conclusions that determine the next wave are:
   -19 C, and `1554` at -24 C. The -14.4 and -24 C endpoints nearly reproduce the full-timestep
   `1848` and `1458`; -19 C remains plateau/trajectory sensitive rather than a settled law. Rough
   attachments dominate the terminal interactions.
-- At matched central-plane tip radius, M1 retains a positive sixfold arm-depth contrast against a
-  filled no-dip hexagon: `0.230769...` versus `0` at -12 C, `0.272727...` versus `0` at -14.4 C,
-  and `0.1` versus `0` at -18 C. The -18 C magnitude weakens from the full-timestep result but does
-  not disappear. Branch-count bins are not used for this conclusion.
+- At matched central-plane tip radius **and equal exact-tip plateau age**, M1 retains a positive
+  sixfold arm-depth contrast: `0.230769...` versus `0.076923...` at -12 C,
+  `0.272727...` versus `0.090909...` at -14.4 C, and `0.1` versus `0` at -18 C, giving contrasts
+  `0.153846...`, `0.181818...`, and `0.1`. This corrects the earlier zero-depth wording for the
+  first two no-dip rows, which did not enforce the registered equal-plateau-age comparison.
+  Branch-count bins are not used for this conclusion.
 - At both -4.5 and -5 C, fraction 0.075, half-timestep M1 has a 29-layer crystal whose central
   radius-1 seven-cell section is empty in the 24 layers outside a five-layer solid waist. The
   matched no-dip crystal is centrally filled in every occupied layer. This is an open axial-cavity
@@ -273,6 +275,84 @@ Repair only this observed numerical seam:
 
 This repair completes the already launched wave. It does not authorize a new discovery wave; the
 maker directed a pause after final Wave 2 analysis and documentation.
+
+## Wave 2 final result — complete 2026-09-08
+
+The repair is commit `60487f597061d7d6f9e452d01c40625ca79db401`. It changes only the two
+positive aggregate-boundary scaled tolerances and adds the focused positive-subnormal regression.
+The ignored check record is
+`out/post-phase10-followup/campaign-2026-09-03-wave2-repair-v1/wave2-repair-checks.json`
+(1,013 bytes / SHA-256
+`7c6ab050f98a002e38e674c72fa7e5dbf131df20315225c09efcc927ada51b3a`). The focused solver file
+passes 41/41 tests. Exact `npm test` passed Rule 7, both typechecks, 161/170 test files and 2,515
+tests, with 72 skipped. Its 16 failed tests plus one collection-time suite remain confined to the
+recorded Phase 10 unavailable-recovery/stale-identity surfaces and the two expected Phase 9
+permanent-control byte refusals for this intentional solver edit; the solver suite passed, and
+those historical identities were neither repaired nor rerun.
+
+The selective rerun used only `followup-history-t4p5-to-t24-m1` at concurrency one. Its retained
+4,658-byte `result.json` has SHA-256
+`a4936f86f2b11d8d4080936aa915430f91b1160b479541e4e08a61e8d457eb98`; it exited zero after
+7,287.732 seconds, reached the exact size target at cycle 488 with extent 29, 13,403 attached
+cells, aspect ratio `0.9259259259259259`, exact D6h symmetry, converged relaxation, and zero
+integrity errors. The original failed row remains unchanged. Combining the 133 original valid
+rows with this replacement gives 134/134 admissible endpoints.
+
+The deterministic analysis command is
+`node out/post-phase10-followup/campaign-2026-09-03-wave2-repair-v1/analyze-wave2.mjs`. The script
+is 25,223 bytes / SHA-256
+`bcf1032d3e70b2ea9784997565bd0fae6e5f41fd8491b3742a565b077fc13c84`; two consecutive
+executions produced byte-identical output. Its 393,699-byte
+`out/post-phase10-followup/campaign-2026-09-03-wave2-repair-v1/wave2-analysis.json` has SHA-256
+`83dc597ad20dd58b913f1cbbc6cfd4eac0d63691057b16eae8d883776034f50a` and binds the result and
+event-log identities of all 134 Wave 2 endpoints plus the 88 comparison rows it reads.
+
+The artifact-derived scientific classifications are:
+
+- **Seed memory is strengthened as an initialization-by-kinetics interaction.** At N64 and half
+  timestep, the terminal seed interaction is `-8756`, `+214`, and `+6768` at -7/-8/-9 C. At full
+  timestep the localized sequence is `-1334`, `+2174`, `+4420`, `+7294`, and `+6900` from -8 to
+  -9 C in 0.25 C increments. The N80 exact-crossing sequences from extents 29 through 37 end at
+  `-20700`, `-2318`, and `+14908` at -7/-8/-9 C. The large signs persist with scale, while the
+  neighborhood near -8 C moves with timestep, forcing, and domain: it is a real model memory
+  effect with a sensitive crossover, not endpoint quantization or a fitted physical transition.
+- **The 20 mixed trajectories resolve chiefly as growth-stage sensitivity.** Every warm half-step
+  row from -4 through -6 C is negative by extent 29; the -8 C control is weakly positive; and the
+  -20/-22/-24 C rows retain late negative-to-positive reversals. Half timestep preserves those
+  families but changes their magnitude and crossing age, so a single terminal map is not a stable
+  law.
+- **Pressure remains a trajectory lead, not a monotone pressure law.** At -6 C, the N80
+  low-minus-high pressure interaction ends at `-2826`, `+1430`, and `+3260` for forcing fractions
+  0.10/0.15/0.20; the midpoint changes from `-920` at extent 29 to `+1430` at extent 37. At
+  -19 and -24 C the sign stays positive across all five N80 crossings but ends at only `+454` and
+  `+84`; -14.4 C oscillates and ends at `+52`. The response is forcing- and growth-stage-dependent.
+- **The core/tip morphology survives the larger rung.** At N80, equal-age comparisons at common
+  central-plane tips 16/14/12 give M1 versus no-dip depths `0.25/0.0625`,
+  `0.214285.../0`, and `0.083333.../0` at -12/-14.4/-18 C. The corresponding contrasts
+  `0.1875`, `0.214285...`, and `0.083333...` remain positive. The corrected N64 equal-age
+  contrasts are `0.153846...`, `0.181818...`, and `0.1`; therefore the lead is not an angular-bin
+  artifact, although its lattice-scale magnitude is not a continuum estimate.
+- **The warm axial cavity is the strongest scale-persistent occupancy lead.** At both -4.5 and
+  -5 C, each N80 M1 crystal has 37 occupied axial layers: 32 have an empty central radius-1
+  seven-cell section and only offsets -2 through +2 are full. The no-dip crystals have 15 and 17
+  occupied layers respectively, all centrally full. This reproduces the N64 five-layer M1 waist
+  at greater extent and is not inferred from the hole-fill counter.
+- **Abrupt histories establish deterministic path dependence.** For the repaired -4.5 to -24 C
+  direction, the no-dip-minus-M1 history-uplift interaction across exact extents 21/23/25/27/29 is
+  `146/926/832/1170/1136`; equal-age values are `772/1262/1182/1634/1136`. The other three
+  directions also differ from their static destination controls, with sign and magnitude depending
+  on direction and growth stage. This is path dependence in the implemented model, not physical
+  validation.
+
+Wave 2 therefore produced several real experimental-model leads rather than a null result. It
+strengthens the axial cavity, core/tip, seed-memory, pressure-trajectory, and history effects while
+also explaining why endpoint-only pressure and mixed-map summaries are unstable. A mechanistic
+facet decomposition would require a deliberately separate future model-change experiment; it is
+not smuggled through the test-only override or the Phase 9-frozen permanent-control identity.
+
+Per maker direction, stop here. No worker remains active and no further campaign is authorized.
+When the maker resumes, review this result and choose the next bounded mechanistic question before
+launching any long run. Do not touch Phase 7 or revive Phase 10 recovery.
 
 ## Superseded bounded second-tranche design
 

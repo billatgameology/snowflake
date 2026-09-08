@@ -447,16 +447,30 @@ failures, which this science work does not repair or rerun. The
 [first discovery campaign](plans/post-phase10-discovery-campaign.md) is complete. Phase 7 remains
 a separate parallel product path and is not part of this science workstream.
 
-Wave 2's original launch is terminal from clean producer
+Wave 2 is complete and paused. Its original launch is terminal from clean producer
 `055458abe151ee9324da42f4752ca08ebc314d0f`. Its ignored completion record is
 `out/post-phase10-followup/campaign-2026-09-03-wave2/followup-wave-2-complete.json`
 (32,684 bytes / SHA-256
 `745bd401e331434ed3bb582f7ac81d80a145a402694851db62254f228f06f92d`): the exact exit roster
 contains 133 zero exits and one nonzero exit at actual maximum concurrency 32. The sole invalid
 history row hit a positive-subnormal aggregate-boundary fixed-point residual of one binary64 ULP
-after its scaled tolerances underflowed to zero. The active plan pre-registers the minimal
-one-ULP tolerance floor, focused regression, required exact suite, and selective rerun. Preserve
-the original failed row; do not launch a new wave after the repair.
+after its scaled tolerances underflowed to zero. The pre-registered one-ULP floor and regression
+landed in `60487f597061d7d6f9e452d01c40625ca79db401`; the selective rerun then exited zero and
+reached extent 29 at cycle 488 with 13,403 attached cells, exact D6h symmetry, converged relaxation,
+and zero integrity errors. Its retained `result.json` is 4,658 bytes / SHA-256
+`a4936f86f2b11d8d4080936aa915430f91b1160b479541e4e08a61e8d457eb98`. Preserve the original
+failed row. The combined Wave 2 record now has 134/134 admissible endpoints.
+
+The deterministic 393,699-byte Wave 2 analysis at
+`out/post-phase10-followup/campaign-2026-09-03-wave2-repair-v1/wave2-analysis.json` has SHA-256
+`83dc597ad20dd58b913f1cbbc6cfd4eac0d63691057b16eae8d883776034f50a`. It strengthens five
+implementation-level leads: a scale-persistent warm M1 axial cavity, positive M1/no-dip core-depth
+contrasts at N80, strong seed-shape-by-arm memory with a sensitive crossover near -8 C,
+forcing/growth-stage-dependent pressure interactions, and deterministic warm/cold path dependence.
+The 20 mixed-map controls and several pressure endpoints resolve as trajectory/plateau sensitivity,
+not stable endpoint laws. The active plan records the exact matched sequences, corrects the prior
+N64 topology comparison to enforce equal plateau age, and states the claim limits. These findings
+are exploratory model development, not physical validation or Phase 7/10 credit.
 
 The adaptive first tranche is complete from clean producer head `0e55b7b`: 432/432 workers exited
 0 at actual maximum concurrency 16, comprising 288 temperature/forcing rows, 72 pressure rows and
@@ -585,16 +599,15 @@ the package-specific prerequisites in its charter amendment and execution plan. 
 
 ## Next step
 
-### Repair and close follow-up wave 2, then pause
+### Maker-directed pause after completed follow-up wave 2
 
-Open the numerical-repair section in
-`docs/plans/post-phase10-adaptive-discovery.md`. Apply only its one-ULP positive-subnormal
-aggregate-boundary tolerance floor and focused regression, run the exact required `npm test`,
-commit the tested solver checkpoint, and rerun only `followup-history-t4p5-to-t24-m1` into a new
-retained directory. Then complete the artifact-derived Wave 2 analysis and state update, commit,
-and pause. Do not start another discovery wave without explicit maker direction. Do not involve
-Phase 7, revive C0V/S6 recovery, or build a generic scheduler, dashboard, hostile-runtime defense,
-or facet-hybrid solver change.
+No scientific worker is active. Do not start another discovery campaign or long run without
+explicit maker direction. On resume, open the **Wave 2 final result** in
+`docs/plans/post-phase10-adaptive-discovery.md` and its bound ignored analysis artifact, then choose
+one bounded mechanistic question from the surviving cavity, core/tip, seed-memory, pressure-history,
+or abrupt-history leads before changing a solver or launching compute. Do not involve Phase 7,
+revive C0V/S6 recovery, or build a generic scheduler, dashboard, hostile-runtime defense, or
+facet-hybrid change by default.
 
 The prior Phase 10 selection note below is completed reproduction context; its request for a next
 workstream is superseded by the campaign selection above.
