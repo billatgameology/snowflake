@@ -511,6 +511,44 @@ only through the stop. These distinctions are needed because the retained trajec
 transient pockets as well as persistent-through-stop hollowing; quantified retrospective findings
 will cite the generated report rather than this working observation.
 
+Analysis source checkpoint `8c537638534ec79fa90ce8e2b3bf3899f3097783` is committed. The single
+required exact `npm test` for this new readout code started through hidden PowerShell supervisor
+PID 37596; `out/post-phase10-cavity/analysis-checkpoint-2026-09-08/run-check.ps1` records the
+source head, command, timing, exit and worker counts. Its `npm-test.log` is live and
+`npm-test-exit.json` will appear on termination. Actual launch census was 20 experiment workers
+plus one configured Vitest worker, below the maker's 28-worker cap. Do not duplicate this suite
+or use its known historical failures to reopen retired infrastructure.
+
+The retained retrospective report is
+`out/post-phase10-cavity/retrospective-cavity-2026-09-08.json` (714,050 bytes,
+SHA-256 `b11e432a88e90f54a79cd119b5678fe6c347b2107534f2b016e24d59bcc39738`). Its provenance
+records the exact `rows` CLI command, clean analysis head above and Node v24.13.1; its source
+identities name each old N80 cavity row's spec, events, result and exit. This is retained working
+analysis, not a durable evidence publication or validation gate. Reproduce with
+`node runner/src/post-phase10-cavity-analysis.ts rows <new-output.json> <the four row directories named in report.provenance.command>`.
+
+The report gives the following scoped development observations (all numbers below copied from it):
+
+- Both M1 rows have an early transient enclosed pocket, followed by an enclosure interval beginning
+  at cycle 46 (3.9033450867704653 seconds at -4.5 C; 3.733385643838883 seconds at -5 C) that remains
+  present through the retained stop. Each terminal has 30 laterally enclosed center-air planes and
+  a five-plane probe-full waist, with 1.75-micrometer inclusive thickness. This does not establish
+  persistence of one cavity component or future permanence.
+- No-dip has seven and eight separate transient enclosure intervals respectively, but none at
+  either terminal. Therefore first cavity onset alone is not the discriminating observable.
+  The terminal probe-full waists are 15 and 17 planes respectively.
+- At the common 9.8-micrometer center span (extent 29), M1 has 22 enclosed planes in both rows;
+  no-dip has none. At common physical times 67.94889167720417 and 63.125546530422454 seconds,
+  M1 has 30 enclosed planes while the respective no-dip sampled states have zero and two.
+  The latter is a transient pocket, not an exception to its no-cavity terminal. The no-dip samples
+  are cycle 613 at 67.81834481805937 seconds and cycle 604 at 63.07718325451535 seconds, with their
+  next-event brackets retained; no occupancy interpolation is used.
+
+This sharpens the lead to persistent-through-stop hollowing versus repeated transient layer
+closure, rather than cavity appearance versus no cavity ever. It does not distinguish physical
+feedback from seed/grid/P4 closure effects. Those are the purpose of the running finite wave;
+the old rows have no raw spatial snapshots and cannot supply the missing field precursor.
+
 Next mechanism implementation direction (design only): a bounded read-only review located the
 shared coefficient-preparation seam in `LKSolver`. Prefer a finite, explicitly labeled factorial
 preparation selecting basal/prism constants from the existing M1 and no-dip preparations over

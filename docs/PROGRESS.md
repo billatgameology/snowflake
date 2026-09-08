@@ -621,9 +621,14 @@ per-row status/exit/result records; do not duplicate the launch. The standalone 
 `runner/src/post-phase10-cavity-analysis.ts` now reconstructs occupancy, matches physical size/time,
 tracks transient versus terminal enclosure intervals, and profiles basal center/rim snapshots.
 Its focused manufactured-fixture checks and read-only scientific review pass. No running-producer
-imports changed. Next run the single required exact suite for this new scientific analysis surface
-(separate from the already completed producer check), then retain its bounded retrospective report
-for the old cavity trajectories and analyze new configurations as they finish. Keep partial groups
+imports changed. Analysis source is committed at `8c53763`. Its single exact `npm test` is now
+running under hidden supervisor PID 37596, with one test worker beside the 20 experiments; read
+`out/post-phase10-cavity/analysis-checkpoint-2026-09-08/npm-test.log` and the eventual
+`npm-test-exit.json`. Do not launch another check. The old-trajectory analysis is retained at
+`out/post-phase10-cavity/retrospective-cavity-2026-09-08.json` (source head and exact command inside).
+It distinguishes transient pockets in both arms from enclosure persisting through the M1 stops;
+the active plan records the physical-size/time-qualified findings. Next read the test exit when it
+exists, classify any failures against the known roster, and analyze new configurations as they finish. Keep partial groups
 explicit; their common-time grid can change as additional rows complete. The maker's active goal authorizes autonomous
 finite follow-ups with a maximum of 28 combined experiment/test workers. Keep the solver unchanged; the immediate
 question is whether warm cavity formation persists across explicit grid/seed perturbations and
