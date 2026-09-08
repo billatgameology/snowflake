@@ -567,7 +567,68 @@ closure, rather than cavity appearance versus no cavity ever. It does not distin
 feedback from seed/grid/P4 closure effects. Those are the purpose of the running finite wave;
 the old rows have no raw spatial snapshots and cannot supply the missing field precursor.
 
-### Completed coarse rows
+### Consolidated coarse-grid result
+
+All 12 coarse-grid rows completed with admissible size-target stops, reported symmetry error zero,
+converged relaxations and no recorded integrity errors. Their consolidated analysis is
+`out/post-phase10-cavity/coarse-cavity-comparison-2026-09-08.json` (2,411,492 bytes, SHA-256
+`d2626add2e42f203a797872147b22645a0574fef0f5ea63b606ea5c253dbf6e0`). It was generated from clean
+`4876e42` using `node runner/src/post-phase10-cavity-analysis.ts rows` with that output and the
+sorted 12 non-fine row directories under `out/post-phase10-cavity/campaign-2026-09-08/rows/`.
+The exact expanded argv, source and input identities are inside. The fine-grid rows are excluded,
+not treated as failures or completed evidence. Earlier scoped reports below retain their own
+supplied-row common-age grids; this complete coarse comparison uses one shared age per temperature.
+These files remain local working evidence under `out/`, not a claimed durable archive or publication.
+
+At extent 29, the shared maximum lattice-coordinate center span is 9.8 micrometers. It is axial
+for M1 and in-plane for no-dip, not matched axial length, age or full shape. The terminal findings
+are as follows; every paired entry is **M1 / no-dip** and waists use the fixed physical hex probe.
+
+| Temperature / seed | Attached sites | Full-probe waist planes | Enclosed center-air planes |
+|---|---:|---:|---:|
+| -4.5 C / baseline | 5369 / 6041 | 5 / 11 | 22 / 0 |
+| -5 C / baseline | 5417 / 7135 | 5 / 13 | 22 / 0 |
+| -4.5 C / thick | 4161 / 8637 | 9 / 15 | 18 / 0 |
+| -5 C / thick | 4173 / 9323 | 9 / 17 | 18 / 0 |
+| -4.5 C / wide | 5987 / 6041 | 5 / 11 | 22 / 0 |
+| -5 C / wide | 6017 / 6041 | 5 / 11 | 22 / 0 |
+
+Each M1 history has an early transient enclosure interval followed by an interval continuing
+through its stop; each no-dip history has five or six transient intervals and none continuing
+through stop. The coarse seed perturbations preserve this arm-associated persistence contrast,
+not seed-independent cavity dimensions. All six M1 waists add four full-probe planes beyond their
+seeds. No-dip baseline/thick pairs also retain the seed-thickness difference: both add ten planes
+at -4.5 C and twelve at -5 C; the wide -5 C seed adds ten. These are measured finite-run patterns,
+not universal layer laws or evidence that initial geometry has been forgotten.
+
+Shared terminal ages for the coarse groups are 37.6854893744537 seconds at -4.5 C and
+36.120990698827114 seconds at -5 C. Every M1 row has enclosed sections at the four positive
+sampled fractions of its group's shared age. No-dip is not uniformly cavity-free at those times:
+wide -4.5 C has two enclosed planes at the three-quarter sample, and thick -5 C has two at the
+final common-age sample. The latter is cycle 361 at 36.07881206207073 seconds, bracketed by
+cycle 362 at 36.1571215680336 seconds with unchanged occupancy; its transient ends at cycle 364 /
+36.31374116317927 seconds. It does not survive to terminal. A shared-context Astra agent independently
+reconstructed the four new baseline/thick no-dip endpoints and their common-age samples from
+seed plus events. The distinction remains persistence/closure, not absence of any cavity.
+
+The spatial data do not isolate initiation. Initial same-plane basal rim demand exceeds center
+demand in both arms; most post-initial M1 same-plane comparisons are unavailable because geometry
+has separated the exposed regions. No-dip also shows geometry-dependent reversals: the baseline
+-5 C cycle-60 and thick -4.5 C cycle-62 snapshots have negative paired rim-minus-center demand on
+their new upper basal planes. These are comparisons within sampled planes, not interventions or
+integrated deposited growth. Missing pairs are not zero center demand.
+
+**Next scientific decision:** let the eight existing fine-grid cases finish, then compare
+persistence and added waist thickness beyond the seed in micrometers, with the registered seed
+brackets. The coarse four-layer addition is 1.4 micrometers; at the fine spacing four layers would
+be 0.7 micrometers and eight would be 1.4. These illustrate distinguishable cell-scale versus
+physical-scale outcomes, not predictions or nonlinear bounds. If the persistence lead survives,
+the conditional factorial asks which basal/prism dip intervention changes transient closure into
+persistence. It localizes global kinetic preparation, not width feedback. A strongly cell-locked
+result instead prioritizes understanding the discrete closure before physical interpretation.
+No new mechanism campaign or solver change is made from the coarse data alone.
+
+### Earlier completed-row observations
 
 `cavity-seed-thick-t4p5-m1` completed with exit 0 and an admissible size-target stop. Its raw
 `result.json` under `out/post-phase10-cavity/campaign-2026-09-08/rows/` records 454 cycles,
