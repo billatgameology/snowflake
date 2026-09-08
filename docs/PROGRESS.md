@@ -628,7 +628,7 @@ The old failure roster remains, with additional visual/S6 test and intake-cleanu
 the active plan records the exact distinction. The suite is not green. Read
 `out/post-phase10-cavity/analysis-checkpoint-2026-09-08/npm-test.log` and `npm-test-exit.json`.
 Supervisor 37596 and test worker 27196 have exited. Do not repeat this suite or repair retired
-infrastructure; the 20 experiment workers remain live. The old-trajectory analysis is retained at
+infrastructure. The old-trajectory analysis is retained at
 `out/post-phase10-cavity/retrospective-cavity-2026-09-08.json` (source head and exact command inside).
 It distinguishes transient pockets in both arms from enclosure persisting through the M1 stops;
 the active plan records the physical-size/time-qualified findings. The planned retained-data domain
@@ -645,7 +645,15 @@ Do not generate repeated all-pending reports. Keep partial groups
 explicit; their common-time grid can change as additional rows complete. The maker's active goal authorizes autonomous
 finite follow-ups with a maximum of 28 combined experiment/test workers. Keep the solver unchanged; the immediate
 question is whether warm cavity formation persists across explicit grid/seed perturbations and
-has the hypothesized spatial field precursor. The conditional facet factorial's coefficient
+has the hypothesized spatial field precursor. The first terminal row, `cavity-seed-thick-t4p5-m1`,
+is admissible at its size target. Its retained analysis,
+`out/post-phase10-cavity/cavity-seed-thick-t4p5-m1-analysis-2026-09-08.json`, finds hollow sections
+despite the thicker seed and a growing probe-full waist. Later snapshots show cavity-bottom
+depletion, but have no same-plane basal center/rim comparison; they do not establish initiation.
+The active plan records exact geometry, chronology and numerical qualifications. At 20:01 UTC
+the parent and 19 remaining experiment workers were live, with one completed row and no nonempty
+worker stderr. Analyze the matching controls as they finish; this single row does not settle
+arm, seed or grid sensitivity. The conditional facet factorial's coefficient
 combinations have been checked for distinctness; this was scalar feasibility, not a growth run
 or a morphology prediction. Old source hashes are not a scientific veto on a
 separately designed future facet ablation. Do not involve Phase 7, revive C0V/S6 recovery, or build

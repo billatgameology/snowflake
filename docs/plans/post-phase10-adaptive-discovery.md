@@ -567,6 +567,50 @@ closure, rather than cavity appearance versus no cavity ever. It does not distin
 feedback from seed/grid/P4 closure effects. Those are the purpose of the running finite wave;
 the old rows have no raw spatial snapshots and cannot supply the missing field precursor.
 
+### First completed thick-seed row
+
+`cavity-seed-thick-t4p5-m1` completed with exit 0 and an admissible size-target stop. Its raw
+`result.json` under `out/post-phase10-cavity/campaign-2026-09-08/rows/` records 454 cycles,
+37.6854893744537 physical seconds, 4,161 attached sites and extent 29; all relaxations converged,
+the reported symmetry error is zero, and no integrity error is recorded. The standalone analysis
+from clean `297b86f9dbaf445cfd966b3ac33b800a40343169` is
+`out/post-phase10-cavity/cavity-seed-thick-t4p5-m1-analysis-2026-09-08.json` (246,266 bytes, SHA-256
+`dcbbf3e8e7193229da42c916d5879a2e4b0df73d024230443a3e077a82c57aef`). Reproduce with:
+
+```text
+node runner/src/post-phase10-cavity-analysis.ts rows out/post-phase10-cavity/cavity-seed-thick-t4p5-m1-analysis-2026-09-08.json out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-seed-thick-t4p5-m1
+```
+
+The writer refuses an existing output; use a fresh path for an intentional reproduction. This
+report covers one supplied row, not a completed wave or matched comparison. Its terminal geometry
+has 18 laterally enclosed center-air planes at offsets +/-5 through +/-13, with a straight axial
+opening toward each outer end. The extreme planes at +/-14 remain laterally open. The central
+0.35-micrometer-radius hex probe is full across nine waist planes, versus five in the seed:
+four newly full planes, not nine newly grown planes. Inclusive waist thickness grows from
+1.75 to 3.15 micrometers. A shared-context Astra agent independently reconstructed the final
+occupancy and six-neighbor planar enclosure from the seed and events; no solver rerun was needed.
+
+After an early transient interval, at least one enclosed center-air layer exists continuously
+from cycle 45 (4.038825909708185 seconds) through the terminal. This does not track a single
+unchanging cavity component. Spatial snapshots bracket that interval's onset at cycles 40 and
+103, but neither supplies a same-plane basal center/rim comparison: the exposed center and rim
+are on different axial planes. In fact only the initial snapshot has such paired planes.
+Do not substitute a cross-plane ratio for the registered comparison or infer causation from it.
+
+At the same positive cavity-bottom center site (offset +5), reported boundary supersaturation
+falls from 0.0003993956528544739 at cycle 103 to 0.00001313521858375417 at cycle 177 and
+1.3857684183533194e-7 at cycle 263. This is a post-onset depletion observation consistent with
+suppressed interior growth, not a demonstrated initiation mechanism. The final sampled value,
+1.6102738446221455e-9 at cycle 357, remains a recorded solver diagnostic, not a local accuracy
+claim: the iterate tolerance limits last-sweep change normalized by far-field supersaturation,
+not local relative error. Neither it nor the global divergence check supplies a local
+solution-error bound. Reported
+zero attachment coefficients at the last two snapshots are numerical exponential underflow,
+not proof of an exactly zero physical rate. Keep the one-step monopole qualification in
+**Initial-field and cost qualification** below.
+Next obtain the matched no-dip and baseline/seed/grid results before deciding the mechanism
+follow-up; thicker-seed hollowing in this single case does not settle those contrasts.
+
 ### Reused domain control and initial spatial observation
 
 The planned same-spacing domain comparison is now measured from the existing data, without new
