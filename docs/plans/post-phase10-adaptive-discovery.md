@@ -472,9 +472,25 @@ also has its existing collection-time failure. No new failure was found. The sui
 Command, timing and exit are recorded by
 `out/post-phase10-cavity/checkpoint-2026-09-08/run-check.ps1` in that directory's
 `npm-test-exit.json`; full stdout/stderr are in `npm-test.log`. Do not repeat this check or repair
-the retired infrastructure. Next: commit the tested producer, and launch
-`node runner/src/post-phase10-discovery-main.ts launch-cavity out/post-phase10-cavity/campaign-2026-09-08 28`.
-No scientific row is active at this prelaunch checkpoint. This is not experiment completion.
+the retired infrastructure.
+
+The tested producer is `eb7b5c4f932939e3b40d686a996796fdaceb1894`. From that clean head, the exact
+command `node runner/src/post-phase10-discovery-main.ts launch-cavity out/post-phase10-cavity/campaign-2026-09-08 28`
+launched once through a hidden background Node process. Its parent PID is 13768. The launch log
+records all 20 workers active, and a direct process census confirms 20 live worker children; all
+20 row specs and host records exist and name the same producer head. Requested concurrency is 28,
+actual startup concurrency is 20. This is launch evidence, not completed scientific output.
+
+Campaign metadata and the exact per-row commands are under
+`out/post-phase10-cavity/campaign-2026-09-08/`; parent stdout is
+`out/post-phase10-cavity/campaign-2026-09-08.launcher.log` and parent stderr is the corresponding
+`.launcher.stderr.log`. Each row owns `stdout.log`, `stderr.log`, `status.json`, and terminal
+`exit.json`/`result.json`; the launcher will write `cavity-wave-1-complete.json` after all exits.
+Do not duplicate the launch, rerun a live row, or change the running producer. Next build the
+bounded offline occupancy/spatial analysis described above while these workers run, then analyze
+completed configurations without promoting partial results into an all-row conclusion. Keep new
+analysis code separate from the running worker's imports, and keep total experiment/test workers
+at or below 28. The finer rows determine the long tail; no unmeasured ETA is asserted.
 
 Next mechanism implementation direction (design only): a bounded read-only review located the
 shared coefficient-preparation seam in `LKSolver`. Prefer a finite, explicitly labeled factorial

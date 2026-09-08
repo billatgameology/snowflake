@@ -612,9 +612,14 @@ review pass. The exact `npm test` finished: 163/172 files pass, with 2,521 passe
 72 skipped tests; Rule 7 and both typechecks pass. The failures are the recorded historical
 Phase 9/10 surfaces, not new cavity/snapshot failures. Logs and the exact exit record are under
 `out/post-phase10-cavity/checkpoint-2026-09-08/`; do not repeat the suite or call it green.
-Commit the producer, then run
-`node runner/src/post-phase10-discovery-main.ts launch-cavity out/post-phase10-cavity/campaign-2026-09-08 28`.
-No science worker is active at this checkpoint. The maker's new active goal authorizes autonomous
+The producer is committed at `eb7b5c4f932939e3b40d686a996796fdaceb1894`, and its exact command
+`node runner/src/post-phase10-discovery-main.ts launch-cavity out/post-phase10-cavity/campaign-2026-09-08 28`
+has launched once. Parent PID 13768 and all 20 worker children were confirmed live; all 20 specs and
+host records name that producer. Requested concurrency is 28, actual startup concurrency is 20.
+Read `out/post-phase10-cavity/campaign-2026-09-08.launcher.log`, its `.launcher.stderr.log`, and
+per-row status/exit/result records; do not duplicate the launch. Next implement the plan's bounded
+offline cavity/spatial analysis separately from the running producer, then analyze completed
+configurations while retaining partial/terminal distinctions. The maker's new active goal authorizes autonomous
 finite follow-ups with a maximum of 28 combined experiment/test workers. Keep the solver unchanged; the immediate
 question is whether warm cavity formation persists across explicit grid/seed perturbations and
 has the hypothesized spatial field precursor. Old source hashes are not a scientific veto on a
