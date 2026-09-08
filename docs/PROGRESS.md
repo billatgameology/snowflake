@@ -627,7 +627,12 @@ running under hidden supervisor PID 37596, with one test worker beside the 20 ex
 `npm-test-exit.json`. Do not launch another check. The old-trajectory analysis is retained at
 `out/post-phase10-cavity/retrospective-cavity-2026-09-08.json` (source head and exact command inside).
 It distinguishes transient pockets in both arms from enclosure persisting through the M1 stops;
-the active plan records the physical-size/time-qualified findings. Next read the test exit when it
+the active plan records the physical-size/time-qualified findings. The planned retained-data domain
+comparison is also complete: `out/post-phase10-cavity/cavity-domain-comparison-2026-09-08.json`
+finds unchanged cavity/waist measurements at common size across N64/N80, with small attached-count
+differences. `initial-boundary-contrast-2026-09-08.json` beside it records stronger initial basal
+rim/center kinetic-demand contrast in M1; it covers only completed initial snapshots, not terminal
+rows or a causal mechanism. Neither observation settles grid/seed sensitivity. Next read the test exit when it
 exists, classify any failures against the known roster, and analyze new configurations as they finish. Keep partial groups
 explicit; their common-time grid can change as additional rows complete. The maker's active goal authorizes autonomous
 finite follow-ups with a maximum of 28 combined experiment/test workers. Keep the solver unchanged; the immediate

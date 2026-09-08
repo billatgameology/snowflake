@@ -549,6 +549,46 @@ closure, rather than cavity appearance versus no cavity ever. It does not distin
 feedback from seed/grid/P4 closure effects. Those are the purpose of the running finite wave;
 the old rows have no raw spatial snapshots and cannot supply the missing field precursor.
 
+### Reused domain control and initial spatial observation
+
+The planned same-spacing domain comparison is now measured from the existing data, without new
+solver runs. `out/post-phase10-cavity/cavity-domain-comparison-2026-09-08.json` contains all eight
+named inputs, their identities and the exact analysis command (1,315,486 bytes, SHA-256
+`dbad12883daefd73abe36ace650ede689d3071141879514d7c3b740814d2cd5d`). The N64 rows are
+`out/post-phase10-confirmation/campaign-2026-09-02-wave1/rows/confirm-cavity-cfl-t{4p5,5}-f0p075-{m1,nodip}`;
+their N80 counterparts are the retained `followup-larger-cavity` rows above. The report confirms
+admissible terminals. A bounded read-only comparison found matching recorded forcing, seed,
+spacing, CFL and fixed machinery; the recorded producer heads also resolve to the same LK solver
+and Libbrecht mapping blobs. All use Node v24.13.1. The following measurements are at the common
+9.8-micrometer center span, not at unequal final sizes:
+
+| Temperature / arm | Attached sites N64 / N80 | Probe-full waist planes, both | Enclosed planes, both |
+|---|---:|---:|---:|
+| -4.5 C / M1 | 5369 / 5381 | 5 | 22 |
+| -4.5 C / no-dip | 6041 / 6041 | 11 | 0 |
+| -5 C / M1 | 5417 / 5393 | 5 | 22 |
+| -5 C / no-dip | 7135 / 7135 | 13 | 0 |
+
+This supports small domain sensitivity for these specific observables at this size. It does not
+establish general boundary independence or grid convergence. The live fine-grid experiment remains
+necessary, and no replacement domain sweep is needed.
+
+A separate bounded read of the new coarse baseline initial snapshots is recorded by
+`out/post-phase10-cavity/analyze-initial-boundaries.mjs` in
+`out/post-phase10-cavity/initial-boundary-contrast-2026-09-08.json` (18,038 bytes, SHA-256
+`915ced3ce102c0c88bf46d73a2b13e5b45debd5f2282be6fea6b4a7bd42d602b`). It uses the committed
+spatial profiler and records its own source and each raw snapshot identity. A complete first
+interface event confirms the initial snapshot writer has returned before those files are read;
+the snapshots themselves have completedCycles=0 and physical time zero. This is explicitly not
+a terminal-row or completed-wave analysis. At -4.5 C the basal rim/center mean cellwise kinetic
+demand-factor ratio is 1.192326911123919 for M1 versus 1.093267830208458 for no-dip; at -5 C the
+ratios are 1.1896125972240679 versus 1.0964802916661462. Upward and downward profiles agree.
+Both arms therefore already have center/rim contrast on the same initial seed, with greater
+relative contrast in M1. This supplies an initial spatial observation consistent with the proposed
+diffusion/kinetics explanation, not proof that it causes persistent hollowing. Ratios describe
+computed demand factors, not measured deposited growth; subsequent geometry and the seed/grid
+perturbations are still needed.
+
 Next mechanism implementation direction (design only): a bounded read-only review located the
 shared coefficient-preparation seam in `LKSolver`. Prefer a finite, explicitly labeled factorial
 preparation selecting basal/prism constants from the existing M1 and no-dip preparations over
