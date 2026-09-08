@@ -621,10 +621,14 @@ per-row status/exit/result records; do not duplicate the launch. The standalone 
 `runner/src/post-phase10-cavity-analysis.ts` now reconstructs occupancy, matches physical size/time,
 tracks transient versus terminal enclosure intervals, and profiles basal center/rim snapshots.
 Its focused manufactured-fixture checks and read-only scientific review pass. No running-producer
-imports changed. Analysis source is committed at `8c53763`. Its single exact `npm test` is now
-running under hidden supervisor PID 37596, with one test worker beside the 20 experiments; read
-`out/post-phase10-cavity/analysis-checkpoint-2026-09-08/npm-test.log` and the eventual
-`npm-test-exit.json`. Do not launch another check. The old-trajectory analysis is retained at
+imports changed. Analysis source is committed at `8c53763`. Its single exact `npm test` finished
+with exit 1: 163 passed / 12 failed files; 2,535 passed / 20 failed / 72 skipped tests, plus one
+worker-RPC error. Rule 7 and both typechecks pass; all 18 new offline-analysis tests pass.
+The old failure roster remains, with additional visual/S6 test and intake-cleanup timeouts;
+the active plan records the exact distinction. The suite is not green. Read
+`out/post-phase10-cavity/analysis-checkpoint-2026-09-08/npm-test.log` and `npm-test-exit.json`.
+Supervisor 37596 and test worker 27196 have exited. Do not repeat this suite or repair retired
+infrastructure; the 20 experiment workers remain live. The old-trajectory analysis is retained at
 `out/post-phase10-cavity/retrospective-cavity-2026-09-08.json` (source head and exact command inside).
 It distinguishes transient pockets in both arms from enclosure persisting through the M1 stops;
 the active plan records the physical-size/time-qualified findings. The planned retained-data domain
@@ -632,8 +636,10 @@ comparison is also complete: `out/post-phase10-cavity/cavity-domain-comparison-2
 finds unchanged cavity/waist measurements at common size across N64/N80, with small attached-count
 differences. `initial-boundary-contrast-2026-09-08.json` beside it records stronger initial basal
 rim/center kinetic-demand contrast in M1; it covers only completed initial snapshots, not terminal
-rows or a causal mechanism. Neither observation settles grid/seed sensitivity. Next read the test exit when it
-exists, classify any failures against the known roster, and analyze new configurations as they finish. Keep partial groups
+rows or a causal mechanism. Neither observation settles grid/seed sensitivity. Next watch the existing
+campaign's terminal records and analyze configurations as they finish with
+`node runner/src/post-phase10-cavity-analysis.ts campaign out/post-phase10-cavity/campaign-2026-09-08 <new-output.json>`.
+Do not generate repeated all-pending reports. Keep partial groups
 explicit; their common-time grid can change as additional rows complete. The maker's active goal authorizes autonomous
 finite follow-ups with a maximum of 28 combined experiment/test workers. Keep the solver unchanged; the immediate
 question is whether warm cavity formation persists across explicit grid/seed perturbations and

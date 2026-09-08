@@ -499,8 +499,8 @@ runner/test/post-phase10-cavity-geometry.test.ts runner/test/post-phase10-cavity
 --maxWorkers=1 --minWorkers=1` passes. Manufactured fixtures independently exercise enclosure
 versus separated arms, transient disappearance and reopening, physical-time event brackets,
 center-span overshoot, fixed-physical probes, snapshot timing, and mean cellwise kinetic demand.
-The first implementation typecheck and `npm run lint:rule7` pass; exact `npm test` remains due
-once at this new scientific-readout checkpoint. Do not repeat the previous producer checkpoint.
+The first implementation typecheck and `npm run lint:rule7` pass; the single exact `npm test`
+at this new scientific-readout checkpoint is recorded below. Do not repeat the producer checkpoint.
 
 One bounded read-only non-author review found no scientific-correctness blocker in these modules,
 including enclosure-episode tracking. The basal rim is the outermost basal-class ring in one
@@ -512,12 +512,30 @@ transient pockets as well as persistent-through-stop hollowing; quantified retro
 will cite the generated report rather than this working observation.
 
 Analysis source checkpoint `8c537638534ec79fa90ce8e2b3bf3899f3097783` is committed. The single
-required exact `npm test` for this new readout code started through hidden PowerShell supervisor
-PID 37596; `out/post-phase10-cavity/analysis-checkpoint-2026-09-08/run-check.ps1` records the
-source head, command, timing, exit and worker counts. Its `npm-test.log` is live and
-`npm-test-exit.json` will appear on termination. Actual launch census was 20 experiment workers
-plus one configured Vitest worker, below the maker's 28-worker cap. Do not duplicate this suite
-or use its known historical failures to reopen retired infrastructure.
+required exact `npm test` for this new readout code has finished, exit 1. Its wrapper
+`out/post-phase10-cavity/analysis-checkpoint-2026-09-08/run-check.ps1` records source head,
+command, timing, exit and worker counts in `npm-test-exit.json` (413 bytes, SHA-256
+`b58e9d35e60600bc23590f8a4cc01d5d57663111f1da3d3e02fd97b651eb355d`). The log is `npm-test.log`
+beside it (271,676 bytes, SHA-256 `b865298792b59af0fc6d95d64334e0774e1450be82fac7a7b9dc4012c6dd3cd7`).
+It ran from 2026-09-08T14:55:46.1654491Z to 15:55:03.3827727Z; Vitest reports 3,503.23 seconds.
+Actual launch census was 20 experiment workers plus one configured Vitest worker, below the
+maker's 28-worker cap. The supervisor and test worker have exited; the experiment workers remain live.
+
+The log reports 163 passed / 12 failed files and 2,535 passed / 20 failed / 72 skipped tests,
+with one unhandled worker-RPC timeout. Rule 7 is clean across 1,535 files and both typechecks pass.
+All 18 new offline-analysis tests pass (7 trajectory, 6 geometry, 5 spatial), as they did in the
+separate focused run. The prior producer cavity/snapshot tests also pass.
+
+The previous historical failure roster is still present. The additional failures are three
+`app/test/phase4-verify.test.ts` visual IPC waits at 15 seconds, one
+`runner/test/phase10-c0v-s6-authority.test.ts` test at 300 seconds, and the
+`runner/test/phase10-intake.test.ts` cleanup hook at 10 seconds; the last adds a failed file,
+not a failed test. Vitest also reports `Timeout calling "onTaskUpdate"`. These are observed
+timeout failures outside the new analysis modules, not demonstrated analysis regressions.
+Concurrent execution load is a plausible contributor, not a proven sole cause. The full suite
+is not green and the RPC error limits global assurance. No timeout was widened, no historical
+identity was repaired, and no full-suite retry is warranted for this bounded exploratory analysis.
+Do not duplicate this suite or use these failures to reopen retired infrastructure.
 
 The retained retrospective report is
 `out/post-phase10-cavity/retrospective-cavity-2026-09-08.json` (714,050 bytes,
