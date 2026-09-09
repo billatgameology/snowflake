@@ -700,6 +700,10 @@ when its rows terminate: the four facet rows plus four ordinary baselines, and s
 four disabled rows plus those same four baselines, using the cavity analyzer's `rows` command.
 Keep the fine-grid comparison running. Decide longer follow-ups from those results, not from
 in-flight morphology.
+Maker correction, 2026-09-09: the minute-by-minute monitor was stopped because repeated checks
+and unchanged updates waste tokens and cause compaction. Observe roughly hourly or on a reported
+completion, not every minute. No new check, plan, test or status commit is needed merely because
+another goal continuation begins. The sixteen experiment workers were left running.
 The retained first-axis closure analysis also qualifies the hypothesis: geometric completion
 skips a small remaining fill at those first events, not most of a voxel. Read
 `out/post-phase10-cavity/first-axis-fill-remainders-2026-09-09.json`; the counterfactual is still

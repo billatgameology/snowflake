@@ -872,6 +872,12 @@ on the four terminal disabled rows and the four retained ordinary baselines. Ana
 facet quartet comparison as it completes too. Retain incomplete or inadmissible dispositions;
 select any longer follow-up from the actual matched results, while the fine-grid rows continue.
 
+Maker correction, 2026-09-09: stop minute-by-minute process/file polling and repetitive unchanged
+updates. Use roughly hourly observations or reported completion events, with an interruptible wait
+between them. A goal continuation is not a reason to repeat checks or create another status record.
+The frequent monitor was stopped without stopping any experiment; retain this instruction across
+context compaction.
+
 ### Earlier completed-row observations
 
 `cavity-seed-thick-t4p5-m1` completed with exit 0 and an admissible size-target stop. Its raw
