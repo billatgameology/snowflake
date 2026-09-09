@@ -192,6 +192,8 @@ The consequence to hold onto: temperature is an input to the physics, not a labe
 
 Post-Phase-10 development experiment (decision 0055, 2026-09-09): under the maker's autonomous bounded-science direction, a separately identified constant-environment CPU experiment may select both, neither, basal-only or prism-only M1 dip preparations. It retains the coupled aggregate-v6 Robin/fill operator and ordinary behavior, and cannot use existing checkpoint formats to imply ordinary kinetics. The active discovery plan registers its finite comparisons and controls. These interventions identify effects within the implemented discrete model, not width-dependent SDAK, physical necessity, grid convergence or quantitative validation. They do not reopen Phase 10 or involve the separate Phase 7 path.
 
+Separate geometric-closure experiment (decision 0056, 2026-09-09): a labeled constant-environment CPU diagnostic may disable geometric hole filling while retaining ordinary M1/no-dip kinetics and the aggregate-v6 Robin/fill operator. Ordinary behavior remains unchanged. The first finite comparison does not combine this intervention with dip isolation and uses explicit experimental identity rather than ordinary checkpoint metadata. It tests dependence on a discrete closure rule; artificial sealed vacancies are distinguished from open cavities, and neither outcome validates a physical model. The active discovery plan registers its controls and stopping rules.
+
 Note the symbol collision, which is a live hazard in this repository: Gravner–Griffeath also use α, for an entirely unrelated quantity (a boundary-mass attachment threshold indexed by neighbor count). A bare α is banned from the code and the docs; see §3.3.
 
 2.6 The computable models

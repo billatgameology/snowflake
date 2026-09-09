@@ -748,7 +748,30 @@ from isolated sealed vacancies. Off is a diagnostic counterfactual, not an impro
 model: a result consisting only of artificial trapped lattice voids does not support the open
 cavity mechanism. A preserved contrast, delayed resealing, loss of contrast or broader outline
 change each informs the next hypothesis. Do not combine this intervention with the dip hybrids
-in its first wave. No hole-fill implementation or run has started at this checkpoint.
+in its first wave.
+
+**Implementation protocol (decision 0056):** commit this amendment before building. Use the finite
+`experimentalHoleFilling` enabled/disabled opt-in and a separate experiment identity; old formats,
+ordinary behavior and all running numerical processes remain unchanged. Enabled-versus-ordinary
+equivalence must include a genuine geometric completion, not only an initial fixed point. In a
+matched enabled/disabled witness, independently show identical pre-event field, kinetic demand
+and timestep, with only the enabled side performing geometric completion; disabled keeps kinetic
+growth active and its geometric count/deficit zero. Preserve symmetry with a nontrivial growth
+test. Extend only the finite roster/launcher and necessary analysis identity; no generic plugin
+system, checkpoint format or solver copy. Run focused checks and one exact `npm test` at the new
+scientific-code checkpoint, recording old failures without repairing them. Do not change the
+numerical source under the currently running facet check; its check/launch comes first.
+
+**Finite execution and done when:** four new disabled rows use the exact `cavity-baseline-*`
+configuration for their temperature and parameter set, including extent 29, fill-CFL 0.05 and
+the existing spatial samples, convergence controls and stopping rules. Reuse the four enabled
+ordinary controls after equivalence. Completion requires terminal dispositions plus matched
+eight-row cavity/waist/time analysis with hole mode explicit. Record local vacancy versus open
+cavity limitations rather than silently promoting all empty-center sections. Analyze this first
+comparison before adding a seed, temperature or long-extent extension. With eight fine plus four
+dip plus four closure workers, planned experimental concurrency is sixteen, below the combined
+28-worker cap; actual running counts still govern launches. No hole-fill implementation or run
+has started at this checkpoint.
 
 ### Earlier completed-row observations
 

@@ -244,10 +244,12 @@ Step (ii) runs first, so the `b°` tested here already includes this tick's free
 
 **`LibbrechtKinetics` implementation** (Phase 2b): see
 [attachment-kinetics.md](attachment-kinetics.md) §4.4. The hole-filling rule above is *geometric
-hygiene*, not physics — it prevents interior voids from the discretization. **Decided
-2026-07-15 (§4.4 component 5): it survives** — kept under both rules, and under the kinetics
-rule it is additionally consistent with barrier-free attachment at maximum-coordination kink
-sites, so hollowing results stay interpretable as physics rather than artifacts.
+hygiene*: it fills selected high-coordination sites to remove discretization voids. **Decided
+2026-07-15 (§4.4 component 5): it survives** — kept under both ordinary rules. Barrier-free
+kinetics at high-coordination sites does not establish that immediate geometric completion, or
+the resulting hollowing, is physical. Decision 0056 permits a separately identified LK-only
+hole-fill-off counterfactual; it leaves ordinary LK and all G-G behavior unchanged and must
+distinguish artificial sealed vacancies from open cavities.
 
 ### (iv) Melting — on `x ∈ ∂A_t` that did **not** just attach
 

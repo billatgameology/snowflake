@@ -126,6 +126,15 @@ monopole lag, timestep and ledger remain unchanged. Timeline events and ordinary
 are unsupported for these experiments; their runner writes identified raw events/results, not
 ordinary LK checkpoints. This finite preparation intervention is not a width-feedback closure.
 
+Decision 0056 separately permits `experimentalHoleFilling: "enabled" | "disabled"` for
+constant-environment aggregate-v6 with ordinary M1/no-dip preparations. Absent or enabled retains
+the geometric completion loop in component 4; disabled skips only that loop after kinetic fill.
+Rough-site kinetics, kinetic saturation/attachment, the Robin/fill pair, monopole lag and timestep
+are unchanged. Do not combine this opt-in with experimental dip selection. The opt-in rejects
+timeline events and ordinary resume export; dedicated identified events/results carry its meaning.
+Disabling is a closure counterfactual that can leave artificial sealed vacancies, not a claim to
+improve the physical model. The ordinary rule remains retained as specified below.
+
 ## 4. The seam — continuous velocity → discrete lattice ⚠ THE REAL WORK
 
 **This is the substance of Phase 2b, not an implementation detail of it.** G-G's attachment is a

@@ -675,7 +675,7 @@ geometrically filled, and no-dip resealing also uses that rule heavily. Report:
 `out/post-phase10-cavity/axis-holefill-attribution-2026-09-09.json`. After facet verification/launch,
 the selected independent follow-up is four baseline-matched hole-fill-off rows, with ordinary
 kinetics retained and open cavities distinguished from artificial sealed vacancies. It still
-needs its small contract amendment and implementation; no such run has started. Numerical source
+needs implementation under the now-committed decision 0056 and finite protocol; no such run has started. Numerical source
 remains at `1298912` while its exact check runs; this addition records read-only scientific analysis.
 This identifies intervention effects in the current discrete model, not grid-robust physics.
 Scalar distinctness was already checked; do not repeat that feasibility work. Do not involve Phase 7, revive C0V/S6 recovery, or build
