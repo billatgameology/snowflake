@@ -723,9 +723,14 @@ The extra warmer throats are axially open, not isolated sealed vacancies. Thus t
 trajectory's geometric attachment route was not a proof that its endpoint requires that route.
 The active plan's **Completed mechanism comparisons and selected longer evaluation** records
 the report identities, limitations and a finite extension registered before implementation.
-Next implement the eight longer N80/extent-37 variants using the existing facet/hole-fill
-options and launchers, reusing the four ordinary larger-domain controls. The plan gives exact
-commands and the single combined-checkpoint verification scope. Preserve the eight original
+The eight longer N80/extent-37 variants are implemented at `d743e68`, using existing facet/hole-fill
+options and launchers and reusing the four ordinary larger-domain controls. The focused roster/CLI
+check passed; its transcript-derived record and exact command are in
+`out/post-phase10-mechanism-long/checkpoint-2026-09-09/focused-observations.json`. Next run the
+single combined exact `npm test` with `run-check.ps1` in that directory, then inspect its terminal
+`npm-test-exit.json` and log once before launching the plan's two new finite campaigns. Keep the
+checkpoint source/docs frozen during that check; do not rerun historical failures for confidence.
+The plan gives exact launch commands and the verification scope. Preserve the eight original
 fine-grid runs; do not duplicate or modify their launch. Keep one final quartet report per
 temperature per experiment, without a redundant combined report or frequent pending reports.
 The retained first-axis closure analysis also qualifies the hypothesis: geometric completion

@@ -1021,6 +1021,16 @@ Leave the original fine-grid campaign untouched. This extension is done when the
 comparisons answer these questions over their measured window or name a specific remaining gap;
 select any further mechanism from those results rather than preloading a broad sweep.
 
+**Implementation checkpoint:** `d743e68` adds the separate longer rosters and CLI routes in the
+three existing runner files, with roster/CLI assertions in the two existing test files. There
+is no solver or analyzer change. One focused invocation passed both files and all 16 tests:
+`npx vitest run runner/test/post-phase10-facet-factorial.test.ts runner/test/post-phase10-holefill.test.ts --maxWorkers=2 --minWorkers=1`.
+The original output was retained only in the implementing agent's tool transcript; the explicit
+transcription is `out/post-phase10-mechanism-long/checkpoint-2026-09-09/focused-observations.json`,
+not a fabricated full log. Next run the single combined exact check using `run-check.ps1` beside
+that observation; it records the actual source head, concurrency, log and exit. Keep source and
+docs frozen while it runs. Do not launch the new campaigns twice or repeat historical checks.
+
 ### Earlier completed-row observations
 
 `cavity-seed-thick-t4p5-m1` completed with exit 0 and an admissible size-target stop. Its raw
