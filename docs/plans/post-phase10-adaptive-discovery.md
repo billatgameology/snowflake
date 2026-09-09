@@ -696,11 +696,27 @@ to a tolerance check, with no numerical-code change. Both typechecks passed befo
 runner fixture landed; exact `npm test` below covers the final stable source. Rule 7 and
 `git diff --check` passed. Do not describe these focused results as a full-suite pass.
 
-Next run exact `npm test` once from the committed implementation using the hidden supervisor
-`out/post-phase10-facet-factorial/checkpoint-2026-09-09/run-check.ps1`. Its `npm-test-start.json`,
-`npm-test.log` and eventual `npm-test-exit.json` carry the actual source, concurrency and outcome.
-Inspect existing records/process before starting it; do not duplicate it. Classify old failures
-without repairing retired infrastructure. After this check is accounted for, launch once:
+The one exact `npm test` is complete, not green. It ran from 02:53:27 to 03:22:52 UTC with
+numerical implementation `1298912253971e9aaf1c14d3ddff3a1e22878d11`, one test worker and eight
+experiment workers. The exit record reports exit 1. The log reports 167 passed / 10 failed files,
+2,554 passed / 17 failed / 72 skipped tests, and 1,738.41 seconds for Vitest. Rule 7 and both
+typechecks pass, as do all 30 tests in the five focused files. No unhandled error or timeout is
+reported in this check.
+
+The failures are the nine already recorded historical Phase 9/10 files plus the Phase 9 M-GT
+frozen-specification identity test. The added failure rejects the intentionally extended LK spec;
+it is not a numerical failure. The other failures retain their source/registry/line-ending pins
+and missing retired S6 local files. Do not repair those histories or repeat this completed check.
+Documentation-only findings/decision 0056 landed while it ran: numerical source stayed unchanged,
+but the old fingerprint tests observed two doc revisions. The start head is not a claim that
+the entire documentation tree stayed frozen. Those prose changes received separate Rule 7 checks.
+
+All check records are under `out/post-phase10-facet-factorial/checkpoint-2026-09-09/`:
+`npm-test.log` is 235,152 bytes, SHA-256
+`3eca3834148e32ce19cd4a9f54326c036b85173e3e6a60dddfe7b01653578386`;
+`npm-test-exit.json` is 412 bytes, SHA-256
+`a41cb649145f7e73405321da3db6952394865c75796d484bcbef1cfb9f0d1413`.
+Supervisor 34632 has exited. The check is accounted for; launch once:
 
 ```text
 node runner/src/post-phase10-discovery-main.ts launch-facet-factorial out/post-phase10-facet-factorial/campaign-2026-09-09 4

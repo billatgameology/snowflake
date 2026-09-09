@@ -662,10 +662,13 @@ the earlier serial wait. The small constant-preparation opt-in, four warm hybrid
 analysis labels are implemented. Focused checks pass five files / 30 tests, including nontrivial
 both/neither byte equivalence through attachment and independent hybrid Robin/fill checks;
 read `out/post-phase10-facet-factorial/checkpoint-2026-09-09/focused-tests.log` and the active plan
-for the exact command. The bounded solver review found no blocker. Next account for the one
-required exact `npm test` at this checkpoint: inspect that directory's start/log/exit records and
-supervisor process before launching or waiting. The plan names the hidden script; do not repeat
-completed historical suites or repair old failures. Then launch the four-row factorial once with
+for the exact command. The bounded solver review found no blocker. The one required exact
+`npm test` has finished: 167 passed / 10 failed files; 2,554 passed / 17 failed / 72 skipped tests.
+Rule 7, both typechecks and all 30 focused-file tests pass. The nine historical failed files remain,
+plus the Phase 9 M-GT frozen-spec identity check rejecting the intentionally extended spec. The
+plan records the doc-only updates during this numerically unchanged check and exact log/exit
+identities. Supervisor 34632 has exited; do not repeat this check or repair historical failures.
+Next launch the four-row factorial once with
 the plan's exact `launch-facet-factorial ... 4` command. No hybrid campaign has started at this
 checkpoint. Fine workers continue unchanged. Reuse four completed baseline controls; analyze
 the resulting eight-row factorial before expanding its conditions. The maker also encouraged
