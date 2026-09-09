@@ -670,7 +670,7 @@ plan records the doc-only updates during this numerically unchanged check and ex
 identities. Supervisor 34632 has exited; do not repeat this check or repair historical failures.
 The four-row factorial launched once with the plan's exact `launch-facet-factorial ... 4` command
 under producer `a69240b329874ee8c39412d78a9320574418d2f7`. Parent PID 4416 and four children are
-live; all four host/spec records carry the correct producer and explicit facet arm. See
+live; host records carry that producer and specs identify each explicit facet arm. See
 `out/post-phase10-facet-factorial/campaign-2026-09-09.launcher.log`, its `.launcher.stderr.log`,
 and the campaign's row status/exit/results. Fine parent 13768 still has eight workers: actual
 experimental concurrency is twelve. Do not duplicate either launch. Reuse four completed baseline controls; analyze
@@ -689,8 +689,17 @@ typechecks pass; all 28 tests in the three changed focused files report passes, 
 their standalone checks. The active plan distinguishes the ten prior failed files from the
 S6 graph timeout and intake-cleanup timeout; do not call the suite green or repeat it. Read
 `out/post-phase10-holefill/checkpoint-2026-09-09/npm-test.log` and `npm-test-exit.json`.
-Supervisor 36404 has exited. Next launch the four disabled rows once with the registered
-`launch-holefill ... 4` command. No hole-fill-off run has started at this checkpoint.
+Supervisor 36404 has exited. The four disabled rows launched once with the registered
+`launch-holefill ... 4` command under producer `21da8313c3833e03fac6b9532c7ec52ebcaf7dff`.
+Parent PID 42212 and four worker children were confirmed live; all host records carry that
+producer and all specs identify the disabled mode. At 04:13 UTC actual experiment concurrency
+was sixteen: eight fine, four facet and four hole-fill workers. Read
+`out/post-phase10-holefill/campaign-2026-09-09.launcher.log`, its `.launcher.stderr.log`, and
+per-row status/exit/results. Do not duplicate any launch. Next analyze each finite comparison
+when its rows terminate: the four facet rows plus four ordinary baselines, and separately the
+four disabled rows plus those same four baselines, using the cavity analyzer's `rows` command.
+Keep the fine-grid comparison running. Decide longer follow-ups from those results, not from
+in-flight morphology.
 The retained first-axis closure analysis also qualifies the hypothesis: geometric completion
 skips a small remaining fill at those first events, not most of a voxel. Read
 `out/post-phase10-cavity/first-axis-fill-remainders-2026-09-09.json`; the counterfactual is still

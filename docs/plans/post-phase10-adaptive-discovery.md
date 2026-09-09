@@ -723,8 +723,8 @@ node runner/src/post-phase10-discovery-main.ts launch-facet-factorial out/post-p
 ```
 
 The command launched once under clean producer `a69240b329874ee8c39412d78a9320574418d2f7`.
-Parent PID 4416 and its four worker children were confirmed live; all four host/spec records
-name that producer and their explicit facet arm. Requested and actual startup concurrency are
+Parent PID 4416 and its four worker children were confirmed live; host records name that producer
+and specs identify each explicit facet arm. Requested and actual startup concurrency are
 four; combined with eight fine workers, actual experiment concurrency is twelve. Read
 `out/post-phase10-facet-factorial/campaign-2026-09-09.launcher.log`, its `.launcher.stderr.log`,
 and per-row status/exit/results. Do not duplicate this launch. Keep the eight fine workers
@@ -855,6 +855,22 @@ use noise-free reflection symmetry. Dividing by the event's maximum kinetic incr
 time: local rates, timestep and geometry can change. Small bypassed volume does not establish a
 small topological effect, and the first events do not characterize later closure. Keep the selected
 counterfactual, with delayed closure versus persistent topology change as the key distinction.
+
+**Launch executed once:** the registered `launch-holefill ... 4` command started under clean
+producer `21da8313c3833e03fac6b9532c7ec52ebcaf7dff`. Parent PID 42212 and worker children 14384,
+46844, 47568 and 45868 were confirmed live. All four host records name that producer; the specs
+carry `post-phase10-holefill-isolation-v1` and disabled mode with their ordinary M1/no-dip settings.
+`out/post-phase10-holefill/campaign-2026-09-09.launcher.log` records actual startup concurrency
+four, with separate `.launcher.stderr.log` initially empty; the campaign's `holefill-wave-1-launch.json`
+and `campaign.json` record the exact command, controls and requested concurrency. The 04:13 UTC
+process census counted sixteen experiment workers: eight fine, four facet, four closure. No test
+worker remains. Per-row status/exit/results are the next observations; a parent wave status file
+is not a prerequisite for a live launch. Do not duplicate it or restart the older campaigns.
+
+Next use `runner/src/post-phase10-cavity-analysis.ts rows <new-report.json> <row-directory>...`
+on the four terminal disabled rows and the four retained ordinary baselines. Analyze the separate
+facet quartet comparison as it completes too. Retain incomplete or inadmissible dispositions;
+select any longer follow-up from the actual matched results, while the fine-grid rows continue.
 
 ### Earlier completed-row observations
 
