@@ -711,6 +711,45 @@ the 28-worker ceiling while implementation was underway. No hybrid campaign has 
 checkpoint. Analyze its four row directories together with the four `cavity-baseline-*` controls
 using the existing cavity analyzer's `rows` command; do not use the old two-arm discovery report.
 
+### Geometric closure hypothesis — retained-event finding, 2026-09-09
+
+The maker explicitly encouraged additional reasonable hypothesis-driven experiments, with no
+guaranteed outcome or deadline. A distinct candidate is the geometric hole-fill rule, which every
+existing run and the dip factorial retains. This is a model-closure question, not another scalar
+timestep rung; warm cavity controls already compared fill-CFL 0.1 and 0.05.
+
+Root independently reconstructed the four N64 baseline histories and four retained N80 cavity
+histories after a bounded Astra agent identified the N80 attribution. The report
+`out/post-phase10-cavity/axis-holefill-attribution-2026-09-09.json` is 27,697 bytes, SHA-256
+`f30e3acc6eb3794620262a03df5407be5a72f80b31a076edf4ffc4e0b53c135d`.
+Its source identities include the exact spec/result/events and the standalone analysis script;
+reproduce with `node out/post-phase10-cavity/inspect-axis-holefill.mjs <new-output.json>`.
+
+At both temperatures and both sizes, each M1 history adds four center-axis sites, all by
+geometric hole filling. N64 no-dip adds eight geometric plus two kinetic axis sites at -4.5 C,
+and ten geometric plus two kinetic at -5 C. N80 no-dip adds twelve geometric plus two/four
+kinetic at -4.5/-5 C. Every reconstructed event count and summed hole-fill count matches its
+retained result; no axial attribution remains underdetermined in these rows.
+
+This is not inferred from the rough-facet label: reconstruct the pre-update predicate on all
+attached sites. When the eligible attached count equals the recorded hole-fill count, all those
+eligible attachments are geometric; zero recorded hole filling identifies kinetic completion.
+Other eligible cases would remain underdetermined. Attribution concerns the final attachment
+step, not all earlier partial fill, and does not establish the counterfactual morphology.
+
+**Selected next hypothesis:** forced geometric completion materially controls no-dip resealing
+and/or M1 waist growth. After the current facet verification/launch, implement a separately named
+hole-fill-off diagnostic under its own small contract amendment. Run four new rows: ordinary M1
+and no-dip at each warm anchor, matching the N64 cavity-baseline settings and reusing those four
+controls. Preserve rough-site kinetics, Robin/fill coupling, kinetic saturation, monopole lag and
+timestep; disable only geometric completion. Compare enclosure episodes, straight-axis opening
+witnesses, waist addition and matched physical size/time. Distinguish open multi-plane cavities
+from isolated sealed vacancies. Off is a diagnostic counterfactual, not an improved physical
+model: a result consisting only of artificial trapped lattice voids does not support the open
+cavity mechanism. A preserved contrast, delayed resealing, loss of contrast or broader outline
+change each informs the next hypothesis. Do not combine this intervention with the dip hybrids
+in its first wave. No hole-fill implementation or run has started at this checkpoint.
+
 ### Earlier completed-row observations
 
 `cavity-seed-thick-t4p5-m1` completed with exit 0 and an admissible size-target stop. Its raw

@@ -668,7 +668,15 @@ supervisor process before launching or waiting. The plan names the hidden script
 completed historical suites or repair old failures. Then launch the four-row factorial once with
 the plan's exact `launch-facet-factorial ... 4` command. No hybrid campaign has started at this
 checkpoint. Fine workers continue unchanged. Reuse four completed baseline controls; analyze
-the resulting eight-row factorial before any expansion.
+the resulting eight-row factorial before expanding its conditions. The maker also encouraged
+distinct parallel hypotheses. The active plan's **Geometric closure hypothesis** records a new
+retained-event attribution: M1's added center-axis sites in the matched N64/N80 histories were
+geometrically filled, and no-dip resealing also uses that rule heavily. Report:
+`out/post-phase10-cavity/axis-holefill-attribution-2026-09-09.json`. After facet verification/launch,
+the selected independent follow-up is four baseline-matched hole-fill-off rows, with ordinary
+kinetics retained and open cavities distinguished from artificial sealed vacancies. It still
+needs its small contract amendment and implementation; no such run has started. Numerical source
+remains at `1298912` while its exact check runs; this addition records read-only scientific analysis.
 This identifies intervention effects in the current discrete model, not grid-robust physics.
 Scalar distinctness was already checked; do not repeat that feasibility work. Do not involve Phase 7, revive C0V/S6 recovery, or build
 a scheduler, dashboard, hostile-runtime defense, or new assurance framework.
