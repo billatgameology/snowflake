@@ -683,10 +683,19 @@ the selected independent follow-up is four baseline-matched hole-fill-off rows, 
 kinetics retained and open cavities distinguished from artificial sealed vacancies. Decision
 0056's implementation and focused checks are complete; the active plan records the test-fixture
 correction and bounded review. Read `out/post-phase10-holefill/checkpoint-2026-09-09/focused-observations.json`.
-Next run its one required exact `npm test` from the committed scientific checkpoint, with log
-and exit record in that directory, then launch the four disabled rows once after accounting
-for the check. No hole-fill-off run has started. The loaded fine/facet processes retain their
-original numerical source; their completed checks must not be repeated.
+Its one exact `npm test` is complete at frozen source `b0144b6`: 167 passed / 12 failed files,
+2,571 passed / 18 failed / 72 skipped tests, plus one worker-reporting error. Rule 7 and both
+typechecks pass; all 28 tests in the three changed focused files report passes, corroborating
+their standalone checks. The active plan distinguishes the ten prior failed files from the
+S6 graph timeout and intake-cleanup timeout; do not call the suite green or repeat it. Read
+`out/post-phase10-holefill/checkpoint-2026-09-09/npm-test.log` and `npm-test-exit.json`.
+Supervisor 36404 has exited. Next launch the four disabled rows once with the registered
+`launch-holefill ... 4` command. No hole-fill-off run has started at this checkpoint.
+The retained first-axis closure analysis also qualifies the hypothesis: geometric completion
+skips a small remaining fill at those first events, not most of a voxel. Read
+`out/post-phase10-cavity/first-axis-fill-remainders-2026-09-09.json`; the counterfactual is still
+needed to distinguish a short delay from a consequential topology change. The loaded fine/facet
+processes retain their original numerical source; their completed checks must not be repeated.
 This identifies intervention effects in the current discrete model, not grid-robust physics.
 Scalar distinctness was already checked; do not repeat that feasibility work. Do not involve Phase 7, revive C0V/S6 recovery, or build
 a scheduler, dashboard, hostile-runtime defense, or new assurance framework.

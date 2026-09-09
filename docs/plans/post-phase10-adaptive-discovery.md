@@ -818,6 +818,44 @@ node runner/src/post-phase10-discovery-main.ts launch-holefill out/post-phase10-
 No hole-fill campaign has launched at this checkpoint. The existing fine/facet numerical processes
 remain running and are not restarted or relabeled by this source change.
 
+**Completed scientific check:** exact `npm test` ran at frozen source and documentation
+`b0144b649382b4ea96c13b7a089e0662b695f579` from 03:33:35 to 04:10:57 UTC. Its start/exit records
+name one test worker, twelve experiment workers at launch and the combined ceiling of twenty-eight.
+The exit is 1: 167 passed / 12 failed files; 2,571 passed / 18 failed / 72 skipped tests,
+plus one unhandled worker `onTaskUpdate` timeout. Vitest reports 2,208.00 seconds. Rule 7 and both
+typechecks pass. The changed solver, runner and analyzer files report all eight, six and fourteen
+tests passing respectively, consistent with the independent focused invocations above. The full
+suite's reporting error prevents a blanket clean-suite claim.
+
+Compared directly with the completed facet check, the failed-file roster retains its ten files
+and adds `phase10-c0v-s6-authority.test.ts` (the old supplemental graph check's 300-second timeout)
+and `phase10-intake.test.ts` (the temporary-directory cleanup hook's ten-second timeout).
+Historical byte/registry pins and missing retired S6 files remain. The permanent-control test now
+first rejects the intentionally corrected G-G machinery prose identity, while M-GT rejects the
+extended attachment spec. Those are not numerical mismatches. Do not repair retired infrastructure,
+widen timeouts or repeat this completed check. Supervisor 36404 has exited; the check is accounted
+for and the registered four-row launch is next.
+
+Records: `out/post-phase10-holefill/checkpoint-2026-09-09/npm-test.log` is 252,006 bytes, SHA-256
+`95a747cc3616a4c65e7761e9b56a169d51fa9b70652ec0eff6e958af6e45070d`;
+`npm-test-exit.json` in that directory is 406 bytes, SHA-256
+`c29dda103ab69308bf932a391fd65fa8b234e062ce18a90a96cb69c236f67af6`.
+
+**First-closure qualification from retained data:**
+`out/post-phase10-cavity/first-axis-fill-remainders-2026-09-09.json` is 4,507 bytes, SHA-256
+`63b824a7e84520706870e5d38258a57ede03c6c7aad0d99bbd9c2cb21693217f`.
+It identifies each source event file by bytes/hash and gives the extraction method. At the first
+added axial layer in each N64 baseline, exactly the symmetric axis pair attaches and the geometric
+count is two. The event deficit increment agrees with the independently differenced cumulative
+ledger. Dividing by the pair count gives mean bypassed fill of 0.01818018325467874 / 0.045538292995731755
+for M1/no-dip at -4.5 C, and 0.016296820244502297 / 0.04291355838356359 at -5 C: small remaining
+fractions, not most of a voxel. These are measured pair means; per-site equality would additionally
+use noise-free reflection symmetry. Dividing by the event's maximum kinetic increment gives
+0.326–0.911 event-duration equivalents at that observed maximum rate. This is not actual closure
+time: local rates, timestep and geometry can change. Small bypassed volume does not establish a
+small topological effect, and the first events do not characterize later closure. Keep the selected
+counterfactual, with delayed closure versus persistent topology change as the key distinction.
+
 ### Earlier completed-row observations
 
 `cavity-seed-thick-t4p5-m1` completed with exit 0 and an admissible size-target stop. Its raw
