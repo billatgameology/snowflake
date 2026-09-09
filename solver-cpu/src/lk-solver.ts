@@ -61,6 +61,7 @@ import {
   type PreparedAlphaHK,
 } from "@vcc/core";
 import type { LedgerReport, RelaxationReport, SurfaceOperator, SurfaceReport } from "./operator.ts";
+import { prepareFacetDipExperiment, type LKFacetDipArm } from "./lk-facet-dips.ts";
 
 export interface LKSolverOptions {
   /** Coupled classifier/Robin/fill policy. Required: evidence must never rely on a default. */
@@ -74,6 +75,8 @@ export interface LKSolverOptions {
   readonly dxUm: number;
   readonly pressurePa?: number; // default 1 atm
   readonly paramSet?: NucleationParamSet; // default "CAK_A1" (see libbrecht.ts)
+  /** ADR 0055 development-only constant preparation. M1 base tag alone is NOT its kinetics identity. */
+  readonly experimentalFacetDips?: LKFacetDipArm;
   /** Fill-CFL bound on the selected policy's max per-cell kinetic fill increment. */
   readonly cflFill?: number; // default 0.1
   /** Relaxation: per-sweep max |change| / sigmaInfinity below this = converged. */
@@ -330,6 +333,7 @@ export class LKSolver implements SurfaceOperator {
   readonly dxM: number;
   readonly pressurePa: number;
   readonly paramSet: NucleationParamSet;
+  readonly experimentalFacetDips: LKFacetDipArm | undefined = undefined;
   readonly cflFill: number;
   readonly relaxTol: number;
   readonly divTol: number;
@@ -592,6 +596,7 @@ export class LKSolver implements SurfaceOperator {
     this.dxM = this.dxUmInput * 1e-6;
     this.pressurePa = options.pressurePa ?? 101325;
     this.paramSet = options.paramSet ?? "CAK_A1";
+    this.experimentalFacetDips = options.experimentalFacetDips;
     this.cflFill = options.cflFill ?? 0.1;
     this.relaxTol = options.relaxTol ?? 1e-9;
     this.relaxMaxSweeps = options.relaxMaxSweeps ?? 200_000;
@@ -709,7 +714,13 @@ export class LKSolver implements SurfaceOperator {
     this._maximumKineticVelocityScaleMS = initialScales.maximumKineticVelocityScaleMS;
     this._maximumKineticFillRateScalePerSecond =
       initialScales.maximumKineticFillRateScalePerSecond;
-    this.preparedAlphaHK = prepareAlphaHK(this.tempC, this.paramSet);
+    if (this.experimentalFacetDips !== undefined &&
+      (this.paramSet !== "M1" || this.surfacePolicy !== "aggregate-hv-g1h1-v6")) {
+      throw new Error("experimentalFacetDips requires M1 base metadata and aggregate-hv-g1h1-v6");
+    }
+    this.preparedAlphaHK = this.experimentalFacetDips === undefined
+      ? prepareAlphaHK(this.tempC, this.paramSet)
+      : prepareFacetDipExperiment(this.tempC, this.experimentalFacetDips);
     // Positive raw inputs are not enough: IEEE-754 conversion/derived arithmetic can still
     // collapse an accepted run (for example Number.MIN_VALUE µm -> dxM === 0, or an
     // underflow-scale pressure -> X_0 === Infinity). Validate every derived scale the
@@ -891,6 +902,9 @@ export class LKSolver implements SurfaceOperator {
    * epoch after every awaited sink write.
    */
   resumeStateV3(): LKResumeStateV3 {
+    if (this.experimentalFacetDips !== undefined) {
+      throw new Error("experimentalFacetDips is not represented by ordinary LK checkpoints");
+    }
     if (this.cycleState !== "boundary") {
       throw new Error(
         `LK resume export requires cycle-boundary state (state=${this.cycleState})`,
@@ -1049,6 +1063,9 @@ export class LKSolver implements SurfaceOperator {
    * ledger is touched.
    */
   applyTimelineEnvironment(environment: LKTimelineEnvironment): LKEnvironmentTransitionReport {
+    if (this.experimentalFacetDips !== undefined) {
+      throw new Error("experimentalFacetDips supports constant environment only");
+    }
     if (this.cycleState !== "boundary") {
       throw new Error(
         `LK timeline environment requires a completed interface-cycle boundary (state=${this.cycleState})`,

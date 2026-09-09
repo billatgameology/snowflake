@@ -8,6 +8,8 @@ import { analyzeCavityRows, bracketCavityTime } from "../src/post-phase10-cavity
 const scratch: string[] = [];
 const dims = { nx: 20, ny: 20, nz: 20 };
 const neighbors = [[1, 0], [-1, 0], [0, 1], [0, -1], [1, -1], [-1, 1]];
+const fixed = { surfacePolicy: "aggregate-hv-g1h1-v6", farField: "monopole-matched",
+  pressurePa: 101325, rngSeed: 1, noiseEpsilon: 0, relaxTol: 1e-9, divTol: 1e-7, relaxMaxSweeps: 200000 };
 function json(path: string, value: unknown) { writeFileSync(path, JSON.stringify(value)); }
 function fixture(id: string, timeScale = 1, pending = false) {
   const root = mkdtempSync(join(tmpdir(), "vcc-cavity-analysis-"));
@@ -34,6 +36,20 @@ function fixture(id: string, timeScale = 1, pending = false) {
     json(join(directory, "exit.json"), { rowId: id, exitCode: 0 });
   }
   return { directory, row, events, result };
+}
+
+function facetFixture(id: string, arm: "both" | "neither" | "basal-only" | "prism-only", timeScale = 1, tempC = -4.5) {
+  const data = fixture(id, timeScale);
+  const isHybrid = arm === "basal-only" || arm === "prism-only";
+  const identity = isHybrid ? { experimentId: "post-phase10-facet-isolation-v1", experimentalFacetDips: arm } : {};
+  const row = { ...data.row, tempC, paramSet: arm === "neither" ? "M1_NO_DIP_ABLATION" : "M1",
+    ...(isHybrid ? { experimentalFacetDips: arm } : {}) };
+  const result = { ...data.result, ...identity };
+  const events = data.events.map((event) => ({ ...event, ...identity }));
+  json(join(data.directory, "spec.json"), { row, fixed, ...identity });
+  json(join(data.directory, "result.json"), result);
+  writeFileSync(join(data.directory, "events.jsonl"), events.map((event) => JSON.stringify(event)).join("\n"));
+  return { ...data, row, result, events, identity };
 }
 afterEach(() => {
   for (const directory of scratch.splice(0)) rmSync(directory, { recursive: true, force: true });
@@ -146,5 +162,67 @@ describe("offline cavity trajectory analysis", () => {
     expect(bracket.nextEvent?.cycle).toBe(2);
     expect(bracket.exactEventTime).toBe(true);
     expect(() => bracketCavityTime(states, 4)).toThrow("time outside retained trajectory");
+  });
+
+  it("labels all four effective arms and recomputes common physical age separately for each quartet", () => {
+    const arms = ["both", "neither", "basal-only", "prism-only"] as const;
+    const first = arms.map((arm, n) => facetFixture(`warm-${arm}`, arm, n + 1, -4.5));
+    const second = arms.map((arm, n) => facetFixture(`cool-${arm}`, arm, n + 2, -5));
+    const report = analyzeCavityRows([...first, ...second].map((data) => data.directory));
+    expect(report.groups.map((group) => group.commonTerminalTimeSeconds)).toEqual([4, 8]);
+    expect(report.groups.every((group) => group.facetFactorial.allFourArmsAdmissibleAndMatched)).toBe(true);
+    expect(report.rows.map((row) => row.effectiveFacetDips)).toEqual([...arms, ...arms]);
+    expect(report.rows.map((row) => row.analysis!.effectiveFacetDips)).toEqual([...arms, ...arms]);
+    expect(report.rows.map((row) => row.analysis!.physicalTimeSelections.at(-1)!.requestedTimeSeconds))
+      .toEqual([4, 4, 4, 4, 8, 8, 8, 8]);
+    expect(report.groups[0].rowArms[2]).toMatchObject({
+      baseParamSet: "M1", effectiveFacetDips: "basal-only", experimentalFacetDips: "basal-only",
+    });
+  });
+
+  it("does not mark mismatched configurations or duplicate arms as a matched factorial", () => {
+    const arms = ["both", "neither", "basal-only", "prism-only"] as const;
+    const data = arms.map((arm) => facetFixture(`configuration-${arm}`, arm));
+    const changed = data[2];
+    json(join(changed.directory, "spec.json"), { row: { ...changed.row, cflFill: 0.1 }, fixed, ...changed.identity });
+    const report = analyzeCavityRows(data.map((entry) => entry.directory));
+    expect(report.groups[0].facetFactorial).toEqual({
+      completeFourArmRoster: true, fixedControlsRecorded: true, sameNonKineticConfiguration: false,
+      differingFields: ["cflFill"], allFourArmsAdmissibleAndMatched: false,
+    });
+    const ordinary = fixture("extra-ordinary");
+    const duplicated = analyzeCavityRows([...data.map((entry) => entry.directory), ordinary.directory]);
+    expect(duplicated.groups[0].facetFactorial.completeFourArmRoster).toBe(false);
+    expect(duplicated.groups[0].facetFactorial.allFourArmsAdmissibleAndMatched).toBe(false);
+    json(join(changed.directory, "spec.json"), { row: changed.row, ...changed.identity });
+    const missingControls = analyzeCavityRows(data.map((entry) => entry.directory));
+    expect(missingControls.groups[0].facetFactorial.fixedControlsRecorded).toBe(false);
+    expect(missingControls.groups[0].facetFactorial.allFourArmsAdmissibleAndMatched).toBe(false);
+  });
+
+  it("checks the explicit facet arm across the spec, result, event and spatial snapshot", () => {
+    const data = facetFixture("identified-hybrid", "basal-only");
+    const { directory, row, identity, result, events } = data;
+    json(join(directory, "spec.json"), { row });
+    expect(() => analyzeCavityRows([directory])).toThrow("spec experimental facet identity mismatch");
+    json(join(directory, "spec.json"), { row, ...identity });
+    json(join(directory, "result.json"), { ...result, experimentalFacetDips: "prism-only" });
+    expect(() => analyzeCavityRows([directory])).toThrow("result experimental facet identity mismatch");
+    json(join(directory, "result.json"), result);
+    writeFileSync(join(directory, "events.jsonl"), events.map((event, n) => JSON.stringify(
+      n === 1 ? { ...event, experimentId: "wrong-experiment" } : event)).join("\n"));
+    expect(() => analyzeCavityRows([directory])).toThrow("event 2 experimental facet identity mismatch");
+    writeFileSync(join(directory, "events.jsonl"), events.map((event) => JSON.stringify(event)).join("\n"));
+    const record = { path: "boundary-e3.json", triggerExtent: 3, actualExtent: 3, completedCycles: 1, simTimeSeconds: 1 };
+    result.spatialSnapshots.push(record);
+    json(join(directory, "result.json"), result);
+    const snapshot = { schema: "post-phase10-spatial-boundary-v1", rowId: row.id,
+      timing: "after-converged-relaxation-before-surface-advance", record, dims, center: [10, 10, 10],
+      dxUm: 0.35, tempC: row.tempC, sigmaInfinity: row.sigmaInfinity, seedRadius: 0, seedThickness: 1,
+      attachedCount: 7, cells: [], ...identity };
+    json(join(directory, record.path), snapshot);
+    expect(analyzeCavityRows([directory]).rows[0].analysis!.effectiveFacetDips).toBe("basal-only");
+    json(join(directory, record.path), { ...snapshot, experimentalFacetDips: "neither" });
+    expect(() => analyzeCavityRows([directory])).toThrow("snapshot boundary-e3.json experimental facet identity mismatch");
   });
 });

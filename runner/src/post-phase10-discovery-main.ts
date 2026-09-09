@@ -16,6 +16,9 @@ import {
   postPhase10DiscoveryRow,
   readDiscoveryResult,
   runPostPhase10DiscoveryRow,
+  DISCOVERY_FACET_EXPERIMENT_ID,
+  discoveryFacetIdentity,
+  type DiscoveryFacetIdentity,
   type DiscoveryRow,
 } from "./post-phase10-discovery.ts";
 import { analyzePostPhase10Discovery } from "./post-phase10-discovery-analysis.ts";
@@ -47,6 +50,11 @@ import {
   POST_PHASE10_CAVITY_ROWS,
   findPostPhase10CavityRow,
 } from "./post-phase10-cavity.ts";
+import {
+  POST_PHASE10_FACET_FACTORIAL_ROWS,
+  POST_PHASE10_FACET_REUSED_CONTROLS,
+  findPostPhase10FacetFactorialRow,
+} from "./post-phase10-facet-factorial.ts";
 
 function writeJson(path: string, value: unknown): void {
   writeFileSync(path, `${JSON.stringify(value, null, 2)}\n`, "utf8");
@@ -74,7 +82,7 @@ function parseConcurrency(raw: string | undefined, fallback: number): number {
   return value;
 }
 
-interface RowExit {
+interface RowExit extends DiscoveryFacetIdentity {
   readonly rowId: string;
   readonly exitCode: number | null;
   readonly signal: NodeJS.Signals | null;
@@ -97,8 +105,14 @@ async function launchRows(options: {
 
   const launchedAt = new Date();
   const head = git(["rev-parse", "HEAD"]);
+  const experimentalRows = options.rows.filter((row) => row.experimentalFacetDips !== undefined);
+  const experimentMetadata = experimentalRows.length === 0 ? {} : {
+    experimentId: DISCOVERY_FACET_EXPERIMENT_ID,
+    experimentalRows: experimentalRows.map((row) => ({ rowId: row.id, ...discoveryFacetIdentity(row) })),
+  };
   writeJson(launchPath, {
     schema: "post-phase10-discovery-launch-v1",
+    ...experimentMetadata,
     launchName: options.launchName,
     gitHead: head,
     node: process.version,
@@ -119,6 +133,9 @@ async function launchRows(options: {
   let active = 0;
   let maxActive = 0;
   const runOne = async (row: DiscoveryRow): Promise<void> => {
+    const experimentIdentity = discoveryFacetIdentity(row);
+    const experimentLabel = row.experimentalFacetDips === undefined ? "" :
+      ` experimentId=${DISCOVERY_FACET_EXPERIMENT_ID} experimentalFacetDips=${row.experimentalFacetDips}`;
     const rowDirectory = resolve(rowsRoot, row.id);
     if (existsSync(rowDirectory)) throw new Error(`row directory already exists: ${rowDirectory}`);
     mkdirSync(rowDirectory, { recursive: false });
@@ -126,6 +143,7 @@ async function launchRows(options: {
     const command = [process.execPath, ...args];
     writeJson(resolve(rowDirectory, "process.json"), {
       schema: "post-phase10-discovery-process-v1",
+      ...experimentIdentity,
       rowId: row.id,
       gitHead: head,
       command,
@@ -142,7 +160,7 @@ async function launchRows(options: {
     active++;
     maxActive = Math.max(maxActive, active);
     console.log(
-      `launch row=${row.id} active=${active} remaining=${options.rows.length - next}`,
+      `launch row=${row.id}${experimentLabel} active=${active} remaining=${options.rows.length - next}`,
     );
     const child = spawn(process.execPath, args, {
       cwd: process.cwd(),
@@ -159,6 +177,7 @@ async function launchRows(options: {
     active--;
     const finishedAt = new Date();
     const exit: RowExit = {
+      ...experimentIdentity,
       rowId: row.id,
       exitCode: completion.code,
       signal: completion.signal,
@@ -173,6 +192,7 @@ async function launchRows(options: {
     });
     writeJson(resolve(options.campaignDirectory, `${options.launchName}-status.json`), {
       schema: "post-phase10-discovery-launch-status-v1",
+      ...experimentMetadata,
       launchName: options.launchName,
       total: options.rows.length,
       completed: exits.length,
@@ -182,7 +202,7 @@ async function launchRows(options: {
       updatedAt: new Date().toISOString(),
     });
     console.log(
-      `finish row=${row.id} code=${String(completion.code)} signal=${String(completion.signal)} ` +
+      `finish row=${row.id}${experimentLabel} code=${String(completion.code)} signal=${String(completion.signal)} ` +
         `active=${active} completed=${exits.length}/${options.rows.length}`,
     );
   };
@@ -200,6 +220,7 @@ async function launchRows(options: {
   await Promise.all(workers);
   writeJson(resolve(options.campaignDirectory, `${options.launchName}-complete.json`), {
     schema: "post-phase10-discovery-launch-complete-v1",
+    ...experimentMetadata,
     launchName: options.launchName,
     gitHead: head,
     node: process.version,
@@ -506,6 +527,42 @@ async function launchCavity(campaignDirectory: string, concurrency: number): Pro
   if (exits.some((exit) => exit.exitCode !== 0 || exit.signal !== null)) process.exitCode = 1;
 }
 
+async function launchFacetFactorial(campaignDirectory: string, concurrency: number): Promise<void> {
+  requireCleanTree();
+  const output = resolve(campaignDirectory);
+  if (existsSync(output)) throw new Error(`campaign directory already exists: ${output}`);
+  mkdirSync(output, { recursive: true });
+  const processors = cpus();
+  writeJson(resolve(output, "campaign.json"), {
+    schema: "post-phase10-facet-factorial-campaign-v1",
+    experimentId: DISCOVERY_FACET_EXPERIMENT_ID,
+    campaignId: basename(output),
+    gitHead: git(["rev-parse", "HEAD"]),
+    branch: git(["branch", "--show-current"]),
+    node: process.version,
+    logicalProcessors: processors.length,
+    cpuModels: [...new Set(processors.map((processor) => processor.model))],
+    totalMemoryBytes: totalmem(),
+    requestedConcurrency: concurrency,
+    plannedMaximumConcurrency: Math.min(concurrency, POST_PHASE10_FACET_FACTORIAL_ROWS.length),
+    rowCount: POST_PHASE10_FACET_FACTORIAL_ROWS.length,
+    rows: POST_PHASE10_FACET_FACTORIAL_ROWS,
+    reusedControls: POST_PHASE10_FACET_REUSED_CONTROLS,
+    sourcePlan: "docs/plans/post-phase10-adaptive-discovery.md",
+    sourcePlanSection: "Bounded overlapping facet-isolation experiment — 2026-09-09",
+    sourcePlanCommit: "9caf69079b5dd76f74257c11f9be83fa4733748a",
+    exactLaunchCommand: [process.execPath, ...process.argv.slice(1)],
+    createdAt: new Date().toISOString(),
+  });
+  const exits = await launchRows({
+    campaignDirectory: output,
+    launchName: "facet-factorial-wave-1",
+    rows: POST_PHASE10_FACET_FACTORIAL_ROWS,
+    concurrency,
+  });
+  if (exits.some((exit) => exit.exitCode !== 0 || exit.signal !== null)) process.exitCode = 1;
+}
+
 async function main(): Promise<void> {
   const [command, ...args] = process.argv.slice(2);
   switch (command) {
@@ -527,6 +584,9 @@ async function main(): Promise<void> {
     case "list-cavity":
       console.log(JSON.stringify(POST_PHASE10_CAVITY_ROWS, null, 2));
       return;
+    case "list-facet-factorial":
+      console.log(JSON.stringify(POST_PHASE10_FACET_FACTORIAL_ROWS, null, 2));
+      return;
     case "run-row": {
       if (args.length !== 2) throw new Error("run-row wants <row-id> <output-directory>");
       const smokeRow = POST_PHASE10_SMOKE_ROWS.find((row) => row.id === args[0]);
@@ -534,6 +594,7 @@ async function main(): Promise<void> {
       const selectedRow =
         smokeRow ??
         adaptiveSmokeRow ??
+        findPostPhase10FacetFactorialRow(args[0]) ??
         findPostPhase10CavityRow(args[0]) ??
         findPostPhase10FollowupRow(args[0]) ??
         findPostPhase10ConfirmationRow(args[0]) ??
@@ -594,6 +655,12 @@ async function main(): Promise<void> {
       }
       await launchCavity(args[0], parseConcurrency(args[1], 28));
       return;
+    case "launch-facet-factorial":
+      if (args.length < 1 || args.length > 2) {
+        throw new Error("launch-facet-factorial wants <campaign-directory> [concurrency]");
+      }
+      await launchFacetFactorial(args[0], parseConcurrency(args[1], 4));
+      return;
     case "analyze":
       if (args.length !== 2) {
         throw new Error("analyze wants <campaign-directory> <output-directory>");
@@ -603,7 +670,7 @@ async function main(): Promise<void> {
     default:
       throw new Error(
         "usage: node runner/src/post-phase10-discovery-main.ts " +
-          "list|list-adaptive|list-long|list-confirmation|list-followup|list-cavity|" +
+          "list|list-adaptive|list-long|list-confirmation|list-followup|list-cavity|list-facet-factorial|" +
           "run-row <row-id> <out>|" +
           "launch-initial <campaign-dir> [concurrency]|launch-a112 <campaign-dir>|" +
           "smoke <out>|launch-adaptive <campaign-dir> [concurrency]|smoke-adaptive <out>|" +
@@ -611,6 +678,7 @@ async function main(): Promise<void> {
           "launch-confirmation <campaign-dir> [concurrency]|" +
           "launch-followup <campaign-dir> [concurrency]|" +
           "launch-cavity <campaign-dir> [concurrency]|" +
+          "launch-facet-factorial <campaign-dir> [concurrency]|" +
           "analyze <campaign-dir> <output-dir>",
       );
   }

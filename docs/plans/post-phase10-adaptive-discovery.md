@@ -675,6 +675,42 @@ resolve any mismatch before launch, not by silently accepting altered controls.
 hybrid long-run expansion or infrastructure framework. Eight fine plus four new experiment
 workers use 12 of the allowed 28; do not pad the roster to occupy cores.
 
+**Implementation checkpoint:** the finite preparation option, four-row roster/CLI, and explicit
+artifact/effective-arm labels are implemented. The ordinary preparation call and all numerical
+update loops remain unchanged. The cavity analyzer now distinguishes configuration-matched
+four-corner groups while retaining its existing geometry/time calculations. A bounded non-author
+solver review found no blocker; it checked this diff, not old gates or physical validation.
+
+`out/post-phase10-facet-factorial/checkpoint-2026-09-09/focused-tests.log` records five files /
+30 tests passed with:
+
+```text
+npx vitest run solver-cpu/test/lk-facet-dips.test.ts runner/test/post-phase10-cavity-analysis.test.ts runner/test/post-phase10-facet-factorial.test.ts runner/test/post-phase10-spatial.test.ts runner/test/post-phase10-discovery.test.ts
+```
+
+Those include ordinary/both and ordinary/neither byte equality through attachment at both warm
+anchors, independent hybrid kinetic-law/Robin/fill checks, ordinary snapshot invariance, and
+eight-row/two-quartet identity/time matching. An initial hybrid test incorrectly demanded bit
+equality after the operator's final nonlinear Robin evaluation; only that assertion was corrected
+to a tolerance check, with no numerical-code change. Both typechecks passed before the final
+runner fixture landed; exact `npm test` below covers the final stable source. Rule 7 and
+`git diff --check` passed. Do not describe these focused results as a full-suite pass.
+
+Next run exact `npm test` once from the committed implementation using the hidden supervisor
+`out/post-phase10-facet-factorial/checkpoint-2026-09-09/run-check.ps1`. Its `npm-test-start.json`,
+`npm-test.log` and eventual `npm-test-exit.json` carry the actual source, concurrency and outcome.
+Inspect existing records/process before starting it; do not duplicate it. Classify old failures
+without repairing retired infrastructure. After this check is accounted for, launch once:
+
+```text
+node runner/src/post-phase10-discovery-main.ts launch-facet-factorial out/post-phase10-facet-factorial/campaign-2026-09-09 4
+```
+
+Keep the eight fine workers running. The maker reiterated autonomous run/task management within
+the 28-worker ceiling while implementation was underway. No hybrid campaign has launched at this
+checkpoint. Analyze its four row directories together with the four `cavity-baseline-*` controls
+using the existing cavity analyzer's `rows` command; do not use the old two-arm discovery report.
+
 ### Earlier completed-row observations
 
 `cavity-seed-thick-t4p5-m1` completed with exit 0 and an admissible size-target stop. Its raw

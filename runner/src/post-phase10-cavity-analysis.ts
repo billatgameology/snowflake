@@ -10,7 +10,9 @@ import { measureCavityGeometry, type CavityGeometry } from "./post-phase10-cavit
 import { summarizeCavityBoundary } from "./post-phase10-cavity-spatial.ts";
 
 interface InputIdentity { path: string; byteLength: number; sha256: string }
-interface Event {
+type FacetDipArm = "both" | "neither" | "basal-only" | "prism-only";
+interface ExperimentIdentity { experimentId?: string; experimentalFacetDips?: FacetDipArm }
+interface Event extends ExperimentIdentity {
   cycle: number;
   attached: { index: number; coords: number[] }[];
   attachedCount: number;
@@ -31,11 +33,46 @@ interface LoadedRow {
   result: DiscoveryTerminalResult | null;
   exitCode: number | null;
   sources: InputIdentity[];
+  nonKineticConfiguration: Readonly<Record<string, unknown>>;
   status: "pending" | "inadmissible" | "complete";
 }
 
 const DEFAULT_SPANS_UM = [4.2, 5.6, 7, 8.4, 9.8] as const;
 const TIME_FRACTIONS = [0, 0.25, 0.5, 0.75, 1] as const;
+const FACET_DIP_ARMS = ["both", "neither", "basal-only", "prism-only"] as const;
+const FACET_EXPERIMENT_ID = "post-phase10-facet-isolation-v1";
+
+function effectiveFacetDips(row: DiscoveryRow): FacetDipArm {
+  if (row.experimentalFacetDips !== undefined) {
+    if (!FACET_DIP_ARMS.includes(row.experimentalFacetDips) || row.paramSet !== "M1") {
+      throw new Error(`${row.id}: unsupported experimental facet identity`);
+    }
+    return row.experimentalFacetDips;
+  }
+  if (row.paramSet === "M1") return "both";
+  if (row.paramSet === "M1_NO_DIP_ABLATION") return "neither";
+  throw new Error(`${row.id}: unsupported ordinary cavity parameter set`);
+}
+
+function checkFacetIdentity(row: DiscoveryRow, artifact: ExperimentIdentity, label: string): void {
+  effectiveFacetDips(row);
+  const expectedId = row.experimentalFacetDips === undefined ? undefined : FACET_EXPERIMENT_ID;
+  if (artifact.experimentId !== expectedId || artifact.experimentalFacetDips !== row.experimentalFacetDips) {
+    throw new Error(`${row.id}: ${label} experimental facet identity mismatch`);
+  }
+}
+
+function nonKineticConfiguration(row: DiscoveryRow, fixed: Readonly<Record<string, unknown>> | undefined) {
+  return {
+    tempC: row.tempC, sigmaInfinity: row.sigmaInfinity, fraction: row.fraction,
+    pressurePa: row.pressurePa ?? 101325, dimsN: row.dimsN, dxUm: row.dxUm,
+    cflFill: row.cflFill, seedRadius: row.seedRadius, seedThickness: row.seedThickness,
+    targetExtent: row.targetExtent, maxSteps: row.maxSteps,
+    spatialSampleExtents: row.spatialSampleExtents ?? null,
+    ...Object.fromEntries(["surfacePolicy", "farField", "pressurePa", "rngSeed", "noiseEpsilon",
+      "relaxTol", "divTol", "relaxMaxSweeps"].map((key) => [`fixed.${key}`, fixed?.[key] ?? null])),
+  };
+}
 
 function readInput<T>(path: string, sources: InputIdentity[]): T {
   const bytes = readFileSync(path);
@@ -46,15 +83,21 @@ function readInput<T>(path: string, sources: InputIdentity[]): T {
 
 function loadRow(directory: string): LoadedRow {
   const sources: InputIdentity[] = [];
-  const { row } = readInput<{ row: DiscoveryRow }>(resolve(directory, "spec.json"), sources);
+  const spec = readInput<ExperimentIdentity & { row: DiscoveryRow; fixed?: Readonly<Record<string, unknown>> }>(
+    resolve(directory, "spec.json"), sources);
+  const { row } = spec;
+  checkFacetIdentity(row, spec, "spec");
+  const configuration = nonKineticConfiguration(row, spec.fixed);
   if (row.timelineEvent !== undefined) throw new Error(`${row.id}: cavity analysis is constant-temperature only`);
   if (!existsSync(resolve(directory, "result.json")) || !existsSync(resolve(directory, "exit.json"))) {
-    return { directory, row, result: null, exitCode: null, sources, status: "pending" };
+    return { directory, row, result: null, exitCode: null, sources,
+      nonKineticConfiguration: configuration, status: "pending" };
   }
   const result = readInput<DiscoveryTerminalResult>(resolve(directory, "result.json"), sources);
+  checkFacetIdentity(row, result, "result");
   const exit = readInput<{ rowId: string; exitCode: number }>(resolve(directory, "exit.json"), sources);
   if (result.rowId !== row.id || exit.rowId !== row.id) throw new Error(`${row.id}: terminal row mismatch`);
-  return { directory, row, result, exitCode: exit.exitCode, sources,
+  return { directory, row, result, exitCode: exit.exitCode, sources, nonKineticConfiguration: configuration,
     status: result.admissible && exit.exitCode === 0 ? "complete" : "inadmissible" };
 }
 
@@ -87,6 +130,7 @@ function analyzeCompleteRow(input: LoadedRow, commonTimeSeconds: number, options
   sources.push({ path: eventPath, byteLength: bytes.byteLength,
     sha256: createHash("sha256").update(bytes).digest("hex") });
   const events = bytes.toString("utf8").trim().split("\n").filter(Boolean).map((line) => JSON.parse(line) as Event);
+  for (const event of events) checkFacetIdentity(row, event, `event ${event.cycle}`);
   const states: State[] = [initial, ...events.map(({ cycle, simTimeSeconds, extent, attachedCount }) =>
     ({ cycle, simTimeSeconds, extent, attachedCount }))];
   const final = states[states.length - 1];
@@ -118,6 +162,7 @@ function analyzeCompleteRow(input: LoadedRow, commonTimeSeconds: number, options
   }
   const snapshots = (result.spatialSnapshots ?? []).map((record) => {
     const snapshot = readInput<DiscoverySpatialSnapshot>(resolve(directory, record.path), sources);
+    checkFacetIdentity(row, snapshot, `snapshot ${record.path}`);
     const state = states[record.completedCycles];
     if (state === undefined || snapshot.rowId !== row.id || snapshot.dxUm !== row.dxUm ||
       snapshot.dims.nx !== dims.nx || snapshot.dims.ny !== dims.ny || snapshot.dims.nz !== dims.nz ||
@@ -195,7 +240,8 @@ function analyzeCompleteRow(input: LoadedRow, commonTimeSeconds: number, options
     return { before, atOrAfter, hasBoth: before !== null && atOrAfter !== null };
   };
   const terminalEpisode = openEpisode as EnclosureEpisode | null;
-  return { row, result, sources, commonTimeSeconds, seedOccupiedCellVolumeUm3: frames.get(0)!.geometry.occupiedCellVolumeUm3,
+  return { row, effectiveFacetDips: effectiveFacetDips(row), result, sources, commonTimeSeconds,
+    seedOccupiedCellVolumeUm3: frames.get(0)!.geometry.occupiedCellVolumeUm3,
     firstLaterallyEnclosedCenter: onset,
     onsetSnapshotBracket: snapshotBracket(onset),
     enclosureEpisodes, terminalEnclosureEpisode: terminalEpisode,
@@ -212,16 +258,31 @@ export function analyzeCavityRows(rowDirectories: readonly string[], options: Ca
   const groups = conditions.map((condition) => {
     const group = inputs.filter(({ row }) => `${row.tempC}/${row.sigmaInfinity}/${row.pressurePa ?? 101325}` === condition);
     const complete = group.filter((input) => input.status === "complete");
+    const rowArms = group.map(({ row }) => ({ rowId: row.id, baseParamSet: row.paramSet,
+      effectiveFacetDips: effectiveFacetDips(row), experimentalFacetDips: row.experimentalFacetDips ?? null }));
+    const configuration = group[0].nonKineticConfiguration;
+    const differingFields = Object.keys(configuration).filter((key) => group.some((input) =>
+      JSON.stringify(input.nonKineticConfiguration[key]) !== JSON.stringify(configuration[key])));
+    const fixedControlsRecorded = group.every((input) => Object.entries(input.nonKineticConfiguration)
+      .filter(([key]) => key.startsWith("fixed.")).every(([, value]) => value !== null));
+    const completeFourArmRoster = group.length === 4 &&
+      FACET_DIP_ARMS.every((arm) => rowArms.filter((row) => row.effectiveFacetDips === arm).length === 1);
     return { condition, requestedRowIds: group.map((input) => input.row.id),
       contributingRowIds: complete.map((input) => input.row.id),
+      rowArms,
+      facetFactorial: { completeFourArmRoster, fixedControlsRecorded,
+        sameNonKineticConfiguration: differingFields.length === 0,
+        differingFields, allFourArmsAdmissibleAndMatched:
+          completeFourArmRoster && complete.length === 4 && fixedControlsRecorded && differingFields.length === 0 },
       allRequestedRowsAdmissible: complete.length === group.length,
       commonTerminalTimeSeconds: complete.length === 0 ? null : Math.min(...complete.map((input) => input.result!.simTimeSeconds)) };
   });
   const rows = inputs.map((input) => {
-    if (input.status !== "complete") return { rowId: input.row.id, status: input.status,
+    const arm = effectiveFacetDips(input.row);
+    if (input.status !== "complete") return { rowId: input.row.id, effectiveFacetDips: arm, status: input.status,
       result: input.result, exitCode: input.exitCode, sources: input.sources, analysis: null };
     const group = groups.find((value) => value.contributingRowIds.includes(input.row.id))!;
-    return { rowId: input.row.id, status: input.status, exitCode: input.exitCode,
+    return { rowId: input.row.id, effectiveFacetDips: arm, status: input.status, exitCode: input.exitCode,
       analysis: analyzeCompleteRow(input, group.commonTerminalTimeSeconds!, options) };
   });
   return { schema: "post-phase10-cavity-analysis-v1", generatedAt: new Date().toISOString(),
@@ -234,6 +295,8 @@ export function analyzeCavityRows(rowDirectories: readonly string[], options: Ca
       onset: "First laterally enclosed center-air layer in the retained attachment history; can be transient and does not establish a growth mechanism.",
       episodes: "Intervals with at least one laterally enclosed center-air layer. An open terminal interval persisted only through the recorded stop, not indefinitely; it does not imply the same cavity component survived throughout.",
       spatial: "Converged pre-surface-update samples only. An onset bracket permits inspection but does not establish a temporal causal precursor.",
+      facetDips: "Effective arm is the explicit experimentalFacetDips when present; ordinary M1 maps to both and ordinary M1_NO_DIP_ABLATION maps to neither. Explicit arms require matching experiment identity in spec, result, events and snapshots; M1 base metadata alone does not identify mixed kinetics.",
+      factorial: "A matched four-arm group requires exactly one both, neither, basal-only and prism-only row with identical recorded nonkinetic configuration, all named fixed controls recorded, and admissible endpoints. Configuration matching is not numerical equivalence or physical validation; mixed seed/grid groups remain descriptive comparisons.",
       grid: "Matched center spans and probe radii do not make voxelized seeds identical; two thickness brackets do not bound nonlinear outputs or establish continuum convergence.",
     }, options: { centerSpansUm: options.centerSpansUm ?? DEFAULT_SPANS_UM, probeRadiusUm: options.probeRadiusUm ?? 0.35 },
     allRequestedRowsAdmissible: inputs.every((input) => input.status === "complete"), groups, rows };

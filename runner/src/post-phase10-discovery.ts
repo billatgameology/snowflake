@@ -20,6 +20,7 @@ import {
 import {
   float64SmootherDriftAbsLimit,
   LKSolver,
+  type LKFacetDipArm,
   type LKEnvironmentTransitionReport,
 } from "@vcc/solver-cpu";
 import { validateLKStepEvidence } from "./gate2b-validation.ts";
@@ -70,6 +71,23 @@ export interface DiscoveryRow {
   readonly timelineEvent?: DiscoveryTimelineEvent;
   /** First pre-update extent crossings at which to retain the accepted spatial boundary. */
   readonly spatialSampleExtents?: readonly number[];
+  /** Explicit development kinetics; paramSet remains the M1 base preparation, not the arm. */
+  readonly experimentalFacetDips?: LKFacetDipArm;
+}
+
+export const DISCOVERY_FACET_EXPERIMENT_ID = "post-phase10-facet-isolation-v1" as const;
+
+export interface DiscoveryFacetIdentity {
+  readonly experimentId?: typeof DISCOVERY_FACET_EXPERIMENT_ID;
+  readonly experimentalFacetDips?: LKFacetDipArm;
+}
+
+/** Absent for ordinary rows so historical artifact shapes stay unchanged. */
+export function discoveryFacetIdentity(row: Pick<DiscoveryRow, "experimentalFacetDips">): DiscoveryFacetIdentity {
+  return row.experimentalFacetDips === undefined ? {} : {
+    experimentId: DISCOVERY_FACET_EXPERIMENT_ID,
+    experimentalFacetDips: row.experimentalFacetDips,
+  };
 }
 
 export type DiscoveryStopReason =
@@ -82,7 +100,7 @@ export type DiscoveryStopReason =
 
 export type DiscoveryHabitClass = "plate" | "neutral" | "column" | "invalid";
 
-export interface DiscoveryTerminalResult {
+export interface DiscoveryTerminalResult extends DiscoveryFacetIdentity {
   readonly schema: "post-phase10-discovery-result-v1";
   readonly rowId: string;
   readonly lane: DiscoveryLane;
@@ -128,7 +146,7 @@ export interface DiscoverySpatialSnapshotRecord {
   readonly simTimeSeconds: number;
 }
 
-export interface DiscoverySpatialSnapshot {
+export interface DiscoverySpatialSnapshot extends DiscoveryFacetIdentity {
   readonly schema: "post-phase10-spatial-boundary-v1";
   readonly rowId: string;
   readonly timing: "after-converged-relaxation-before-surface-advance";
@@ -499,6 +517,13 @@ export function runPostPhase10DiscoveryRow(
   outputDirectory: string,
   options: RunDiscoveryRowOptions = {},
 ): DiscoveryTerminalResult {
+  if (candidate.experimentalFacetDips !== undefined &&
+    (candidate.paramSet !== "M1" || candidate.timelineEvent !== undefined)) {
+    throw new Error("facet-isolation rows require the M1 base and a constant environment");
+  }
+  const experimentIdentity = discoveryFacetIdentity(candidate);
+  const experimentLabel = candidate.experimentalFacetDips === undefined ? "" :
+    ` experimentId=${DISCOVERY_FACET_EXPERIMENT_ID} experimentalFacetDips=${candidate.experimentalFacetDips}`;
   const output = resolve(outputDirectory);
   mkdirSync(output, { recursive: true });
   for (const leaf of ["spec.json", "events.jsonl", "result.json"] as const) {
@@ -510,11 +535,12 @@ export function runPostPhase10DiscoveryRow(
   const head = gitHead();
   writeJson(resolve(output, "spec.json"), {
     schema: "post-phase10-discovery-row-v1",
+    ...experimentIdentity,
     row: candidate,
     fixed: FIXED,
     effectivePressurePa: candidate.pressurePa ?? FIXED.pressurePa,
   });
-  writeJson(resolve(output, "host.json"), hostRecord(head));
+  writeJson(resolve(output, "host.json"), { ...hostRecord(head), ...experimentIdentity });
 
   const startedAt = new Date();
   let peakRssBytes = process.memoryUsage().rss;
@@ -538,6 +564,9 @@ export function runPostPhase10DiscoveryRow(
     dxUm: candidate.dxUm,
     pressurePa: candidate.pressurePa ?? FIXED.pressurePa,
     paramSet: candidate.paramSet,
+    ...(candidate.experimentalFacetDips === undefined ? {} : {
+      experimentalFacetDips: candidate.experimentalFacetDips,
+    }),
     cflFill: candidate.cflFill,
     relaxTol: FIXED.relaxTol,
     divTol: FIXED.divTol,
@@ -604,7 +633,7 @@ export function runPostPhase10DiscoveryRow(
   }
   let lastHeartbeat = Date.now();
   options.heartbeat?.(
-    `start row=${candidate.id} lane=${candidate.lane} dims=${candidate.dimsN} ` +
+    `start row=${candidate.id}${experimentLabel} lane=${candidate.lane} dims=${candidate.dimsN} ` +
       `paramSet=${candidate.paramSet} pressurePa=${solver.pressurePa} ` +
       `target=${candidate.targetExtent}`,
   );
@@ -615,7 +644,7 @@ export function runPostPhase10DiscoveryRow(
         const now = Date.now();
         if (now - lastHeartbeat < 60_000) return;
         options.heartbeat?.(
-          `relax row=${candidate.id} cycle=${cycle} sweeps=${progress.sweeps} ` +
+          `relax row=${candidate.id}${experimentLabel} cycle=${cycle} sweeps=${progress.sweeps} ` +
             `residual=${progress.residual} divergence=${String(progress.divergenceResidual)}`,
         );
         lastHeartbeat = now;
@@ -629,6 +658,7 @@ export function runPostPhase10DiscoveryRow(
           resolve(output, "events.jsonl"),
           `${JSON.stringify({
             schema: "post-phase10-discovery-cycle-v1",
+            ...experimentIdentity,
             rowId: candidate.id,
             cycle,
             relaxation,
@@ -654,6 +684,7 @@ export function runPostPhase10DiscoveryRow(
         };
         const snapshot: DiscoverySpatialSnapshot = {
           schema: "post-phase10-spatial-boundary-v1",
+          ...experimentIdentity,
           rowId: candidate.id,
           timing: "after-converged-relaxation-before-surface-advance",
           record,
@@ -760,6 +791,7 @@ export function runPostPhase10DiscoveryRow(
       peakRssBytes = Math.max(peakRssBytes, rssBytes);
       const cycleRecord = {
         schema: "post-phase10-discovery-cycle-v1",
+        ...experimentIdentity,
         rowId: candidate.id,
         cycle: solver.tick,
         relaxation,
@@ -798,6 +830,7 @@ export function runPostPhase10DiscoveryRow(
       );
       writeJson(resolve(output, "status.json"), {
         schema: "post-phase10-discovery-status-v1",
+        ...experimentIdentity,
         rowId: candidate.id,
         cycle: solver.tick,
         attachedCount: solver.attachedCount,
@@ -812,7 +845,7 @@ export function runPostPhase10DiscoveryRow(
       const now = Date.now();
       if (now - lastHeartbeat >= 60_000 || cycle === 1) {
         options.heartbeat?.(
-          `cycle row=${candidate.id} tick=${solver.tick} attached=${solver.attachedCount} ` +
+          `cycle row=${candidate.id}${experimentLabel} tick=${solver.tick} attached=${solver.attachedCount} ` +
             `extent=${extent} aspectRatio=${currentAspectRatio} sweeps=${relaxation.sweeps}`,
         );
         lastHeartbeat = now;
@@ -847,6 +880,7 @@ export function runPostPhase10DiscoveryRow(
     integrityErrors.length === 0;
   const result: DiscoveryTerminalResult = {
     schema: "post-phase10-discovery-result-v1",
+    ...experimentIdentity,
     rowId: candidate.id,
     lane: candidate.lane,
     stopReason,
@@ -893,7 +927,7 @@ export function runPostPhase10DiscoveryRow(
   };
   writeJson(resolve(output, "result.json"), result);
   options.heartbeat?.(
-    `finish row=${candidate.id} stop=${stopReason} cycles=${result.cycles} ` +
+    `finish row=${candidate.id}${experimentLabel} stop=${stopReason} cycles=${result.cycles} ` +
       `attached=${result.attachedCount} extent=${result.extent} wall=${result.wallSeconds}s`,
   );
   return result;

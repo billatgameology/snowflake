@@ -658,9 +658,17 @@ live, with 12 completed rows and no nonempty worker stderr. Next analyze those f
 without relaunching or changing their producer. Compare added waist thickness beyond the seed in
 physical units as well as cells; grid-independent dimensions are not established. Decision 0055
 and the active plan's **Bounded overlapping facet-isolation experiment** now explicitly amend
-the earlier serial wait. Next implement/test the small constant-preparation opt-in and four
-warm hybrid rows while fine runs continue unchanged. Reuse four completed baseline controls only
-after nontrivial both/neither equivalence; analyze the eight-row factorial before any expansion.
+the earlier serial wait. The small constant-preparation opt-in, four warm hybrid rows and explicit
+analysis labels are implemented. Focused checks pass five files / 30 tests, including nontrivial
+both/neither byte equivalence through attachment and independent hybrid Robin/fill checks;
+read `out/post-phase10-facet-factorial/checkpoint-2026-09-09/focused-tests.log` and the active plan
+for the exact command. The bounded solver review found no blocker. Next account for the one
+required exact `npm test` at this checkpoint: inspect that directory's start/log/exit records and
+supervisor process before launching or waiting. The plan names the hidden script; do not repeat
+completed historical suites or repair old failures. Then launch the four-row factorial once with
+the plan's exact `launch-facet-factorial ... 4` command. No hybrid campaign has started at this
+checkpoint. Fine workers continue unchanged. Reuse four completed baseline controls; analyze
+the resulting eight-row factorial before any expansion.
 This identifies intervention effects in the current discrete model, not grid-robust physics.
 Scalar distinctness was already checked; do not repeat that feasibility work. Do not involve Phase 7, revive C0V/S6 recovery, or build
 a scheduler, dashboard, hostile-runtime defense, or new assurance framework.
