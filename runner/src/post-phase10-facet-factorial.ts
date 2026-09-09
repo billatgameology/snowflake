@@ -1,4 +1,5 @@
 import { findPostPhase10CavityRow } from "./post-phase10-cavity.ts";
+import { findPostPhase10FollowupRow } from "./post-phase10-followup.ts";
 import type { DiscoveryRow } from "./post-phase10-discovery.ts";
 
 const TEMPERATURE_TAGS = ["4p5", "5"] as const;
@@ -32,4 +33,32 @@ export const POST_PHASE10_FACET_REUSED_CONTROLS = Object.freeze(
 
 export function findPostPhase10FacetFactorialRow(rowId: string): DiscoveryRow | undefined {
   return POST_PHASE10_FACET_FACTORIAL_ROWS.find((row) => row.id === rowId);
+}
+
+export const POST_PHASE10_FACET_FACTORIAL_LONG_ROWS: readonly DiscoveryRow[] = Object.freeze(
+  TEMPERATURE_TAGS.flatMap((temperature) => {
+    const baseline = findPostPhase10FollowupRow(`followup-larger-cavity-t${temperature}-f0p075-m1`);
+    if (baseline === undefined) throw new Error(`missing larger cavity baseline at temperature ${temperature}`);
+    return HYBRID_ARMS.map((experimentalFacetDips): DiscoveryRow => Object.freeze({
+      ...baseline,
+      id: `facet-isolation-long-t${temperature}-${experimentalFacetDips}`,
+      experimentalFacetDips,
+    }));
+  }),
+);
+
+export const POST_PHASE10_FACET_LONG_REUSED_CONTROLS = Object.freeze(
+  TEMPERATURE_TAGS.flatMap((temperature) => (["m1", "nodip"] as const).map((arm) => {
+    const rowId = `followup-larger-cavity-t${temperature}-f0p075-${arm}`;
+    return Object.freeze({
+      rowId,
+      directory: `out/post-phase10-followup/campaign-2026-09-03-wave2/rows/${rowId}`,
+      effectiveFacetDips: arm === "m1" ? "both" as const : "neither" as const,
+      producerGitHead: "dd4ef5245e6b48fff164b888e3b287665ab6c457",
+    });
+  })),
+);
+
+export function findPostPhase10FacetFactorialLongRow(rowId: string): DiscoveryRow | undefined {
+  return POST_PHASE10_FACET_FACTORIAL_LONG_ROWS.find((row) => row.id === rowId);
 }

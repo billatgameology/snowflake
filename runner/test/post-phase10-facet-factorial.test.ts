@@ -5,6 +5,7 @@ import { join } from "node:path";
 import { afterEach, describe, expect, it } from "vitest";
 import { alphaHK } from "@vcc/core";
 import { findPostPhase10CavityRow } from "../src/post-phase10-cavity.ts";
+import { findPostPhase10FollowupRow } from "../src/post-phase10-followup.ts";
 import {
   DISCOVERY_FACET_EXPERIMENT_ID,
   POST_PHASE10_SMOKE_ROWS,
@@ -15,6 +16,9 @@ import {
   POST_PHASE10_FACET_FACTORIAL_ROWS,
   POST_PHASE10_FACET_REUSED_CONTROLS,
   findPostPhase10FacetFactorialRow,
+  POST_PHASE10_FACET_FACTORIAL_LONG_ROWS,
+  POST_PHASE10_FACET_LONG_REUSED_CONTROLS,
+  findPostPhase10FacetFactorialLongRow,
 } from "../src/post-phase10-facet-factorial.ts";
 
 const temporaryDirectories: string[] = [];
@@ -33,6 +37,48 @@ afterEach(() => {
 });
 
 describe("bounded post-Phase-10 facet factorial", () => {
+  it("adds four larger hybrids matched to the retained snapshot-free N80 controls", () => {
+    const expectedIds = ["4p5", "5"].flatMap((temperature) =>
+      ["basal-only", "prism-only"].map((arm) => `facet-isolation-long-t${temperature}-${arm}`));
+    expect(POST_PHASE10_FACET_FACTORIAL_LONG_ROWS.map((row) => row.id)).toEqual(expectedIds);
+    for (const row of POST_PHASE10_FACET_FACTORIAL_LONG_ROWS) {
+      const temperature = row.tempC === -4.5 ? "4p5" : "5";
+      const baseline = findPostPhase10FollowupRow(`followup-larger-cavity-t${temperature}-f0p075-m1`);
+      expect(baseline).toBeDefined();
+      const { experimentalFacetDips, ...ordinarySettings } = row;
+      expect({ ...ordinarySettings, id: baseline?.id }).toEqual(baseline);
+      expect(row).toMatchObject({ dimsN: 80, targetExtent: 37, dxUm: 0.35, cflFill: 0.05 });
+      expect(row).not.toHaveProperty("spatialSampleExtents");
+      expect(row).not.toHaveProperty("experimentalHoleFilling");
+      expect(["basal-only", "prism-only"]).toContain(experimentalFacetDips);
+      expect(findPostPhase10FacetFactorialLongRow(row.id)).toBe(row);
+      expect(findPostPhase10FacetFactorialRow(row.id)).toBeUndefined();
+    }
+    expect(POST_PHASE10_FACET_LONG_REUSED_CONTROLS).toEqual(
+      ["4p5", "5"].flatMap((temperature) => ["m1", "nodip"].map((arm) => {
+        const rowId = `followup-larger-cavity-t${temperature}-f0p075-${arm}`;
+        return { rowId, directory: `out/post-phase10-followup/campaign-2026-09-03-wave2/rows/${rowId}`,
+          effectiveFacetDips: arm === "m1" ? "both" : "neither",
+          producerGitHead: "dd4ef5245e6b48fff164b888e3b287665ab6c457" };
+      })),
+    );
+  });
+
+  it("lists the separate larger campaign and applies the existing concurrency ceiling", () => {
+    const entry = "runner/src/post-phase10-discovery-main.ts";
+    const listed = execFileSync(process.execPath, [entry, "list-facet-factorial-long"], {
+      encoding: "utf8", windowsHide: true,
+    });
+    expect(JSON.parse(listed)).toEqual(POST_PHASE10_FACET_FACTORIAL_LONG_ROWS);
+    const output = join(scratch(), "unlaunched-long");
+    const rejected = spawnSync(process.execPath, [entry, "launch-facet-factorial-long", output, "29"], {
+      encoding: "utf8", windowsHide: true,
+    });
+    expect(rejected.status).toBe(1);
+    expect(rejected.stderr).toContain("concurrency must be an integer in [1, 28]");
+    expect(existsSync(output)).toBe(false);
+  });
+
   it("launches exactly four hybrids with the completed baseline controls' unchanged settings", () => {
     const expectedIds = ["4p5", "5"].flatMap((temperature) =>
       ["basal-only", "prism-only"].map((arm) => `facet-isolation-t${temperature}-${arm}`),

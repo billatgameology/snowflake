@@ -4,6 +4,7 @@ import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { afterEach, describe, expect, it } from "vitest";
 import { findPostPhase10CavityRow } from "../src/post-phase10-cavity.ts";
+import { findPostPhase10FollowupRow } from "../src/post-phase10-followup.ts";
 import {
   DISCOVERY_FACET_EXPERIMENT_ID,
   DISCOVERY_HOLEFILL_EXPERIMENT_ID,
@@ -15,6 +16,9 @@ import {
   POST_PHASE10_HOLEFILL_ROWS,
   POST_PHASE10_HOLEFILL_REUSED_CONTROLS,
   findPostPhase10HolefillRow,
+  POST_PHASE10_HOLEFILL_LONG_ROWS,
+  POST_PHASE10_HOLEFILL_LONG_REUSED_CONTROLS,
+  findPostPhase10HolefillLongRow,
 } from "../src/post-phase10-holefill.ts";
 
 const temporaryDirectories: string[] = [];
@@ -31,6 +35,48 @@ afterEach(() => {
 });
 
 describe("bounded post-Phase-10 geometric-completion experiment", () => {
+  it("adds four larger disabled rows matched to the retained snapshot-free N80 controls", () => {
+    const expectedIds = ["4p5", "5"].flatMap((temperature) =>
+      ["m1", "nodip"].map((arm) => `holefill-off-long-t${temperature}-${arm}`));
+    expect(POST_PHASE10_HOLEFILL_LONG_ROWS.map((row) => row.id)).toEqual(expectedIds);
+    for (const row of POST_PHASE10_HOLEFILL_LONG_ROWS) {
+      const baselineId = row.id.replace("holefill-off-long", "followup-larger-cavity")
+        .replace(/-(m1|nodip)$/, "-f0p075-$1");
+      const baseline = findPostPhase10FollowupRow(baselineId);
+      expect(baseline).toBeDefined();
+      const { experimentalHoleFilling, ...ordinarySettings } = row;
+      expect(experimentalHoleFilling).toBe("disabled");
+      expect({ ...ordinarySettings, id: baselineId }).toEqual(baseline);
+      expect(row).toMatchObject({ dimsN: 80, targetExtent: 37, dxUm: 0.35, cflFill: 0.05 });
+      expect(row).not.toHaveProperty("spatialSampleExtents");
+      expect(row).not.toHaveProperty("experimentalFacetDips");
+      expect(findPostPhase10HolefillLongRow(row.id)).toBe(row);
+      expect(findPostPhase10HolefillRow(row.id)).toBeUndefined();
+    }
+    expect(POST_PHASE10_HOLEFILL_LONG_REUSED_CONTROLS).toEqual(
+      ["4p5", "5"].flatMap((temperature) => ["m1", "nodip"].map((arm) => {
+        const rowId = `followup-larger-cavity-t${temperature}-f0p075-${arm}`;
+        return { rowId, directory: `out/post-phase10-followup/campaign-2026-09-03-wave2/rows/${rowId}`,
+          effectiveHoleFilling: "enabled", producerGitHead: "dd4ef5245e6b48fff164b888e3b287665ab6c457" };
+      })),
+    );
+  });
+
+  it("lists the separate larger campaign and applies the existing concurrency ceiling", () => {
+    const entry = "runner/src/post-phase10-discovery-main.ts";
+    const listed = execFileSync(process.execPath, [entry, "list-holefill-long"], {
+      encoding: "utf8", windowsHide: true,
+    });
+    expect(JSON.parse(listed)).toEqual(POST_PHASE10_HOLEFILL_LONG_ROWS);
+    const output = join(scratch(), "unlaunched-long");
+    const rejected = spawnSync(process.execPath, [entry, "launch-holefill-long", output, "29"], {
+      encoding: "utf8", windowsHide: true,
+    });
+    expect(rejected.status).toBe(1);
+    expect(rejected.stderr).toContain("concurrency must be an integer in [1, 28]");
+    expect(existsSync(output)).toBe(false);
+  });
+
   it("changes only geometric completion in exactly four baseline-matched rows", () => {
     const expectedIds = ["4p5", "5"].flatMap((temperature) =>
       ["m1", "nodip"].map((arm) => `holefill-off-t${temperature}-${arm}`));
