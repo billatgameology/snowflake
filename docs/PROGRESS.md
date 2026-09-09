@@ -726,10 +726,13 @@ the report identities, limitations and a finite extension registered before impl
 The eight longer N80/extent-37 variants are implemented at `d743e68`, using existing facet/hole-fill
 options and launchers and reusing the four ordinary larger-domain controls. The focused roster/CLI
 check passed; its transcript-derived record and exact command are in
-`out/post-phase10-mechanism-long/checkpoint-2026-09-09/focused-observations.json`. Next run the
-single combined exact `npm test` with `run-check.ps1` in that directory, then inspect its terminal
-`npm-test-exit.json` and log once before launching the plan's two new finite campaigns. Keep the
-checkpoint source/docs frozen during that check; do not rerun historical failures for confidence.
+`out/post-phase10-mechanism-long/checkpoint-2026-09-09/focused-observations.json`. The
+single combined exact `npm test` is complete at frozen `6e6f514`: 169 passed / 10 failed files;
+2,576 passed / 17 failed / 72 skipped tests. Rule 7, both typechecks and both changed test files
+pass. The ten historical missing-file/identity failure surfaces remain, with no reported timeout
+or worker-RPC error. Read `npm-test-exit.json` and `npm-test.log` in that checkpoint directory;
+the active plan records the distinction. Supervisor 49000 has exited. The suite is not green and
+must not be repeated for confidence. Next launch the plan's two new finite campaigns once.
 The plan gives exact launch commands and the verification scope. Preserve the eight original
 fine-grid runs; do not duplicate or modify their launch. Keep one final quartet report per
 temperature per experiment, without a redundant combined report or frequent pending reports.

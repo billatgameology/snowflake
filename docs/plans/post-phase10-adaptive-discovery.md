@@ -1027,9 +1027,18 @@ is no solver or analyzer change. One focused invocation passed both files and al
 `npx vitest run runner/test/post-phase10-facet-factorial.test.ts runner/test/post-phase10-holefill.test.ts --maxWorkers=2 --minWorkers=1`.
 The original output was retained only in the implementing agent's tool transcript; the explicit
 transcription is `out/post-phase10-mechanism-long/checkpoint-2026-09-09/focused-observations.json`,
-not a fabricated full log. Next run the single combined exact check using `run-check.ps1` beside
-that observation; it records the actual source head, concurrency, log and exit. Keep source and
-docs frozen while it runs. Do not launch the new campaigns twice or repeat historical checks.
+not a fabricated full log. The single combined exact `npm test` has now finished at frozen source
+and docs `6e6f514c9233fd2d5f3d27553216305b9acf4c09`. Its `npm-test-exit.json` records
+09:43:04–10:12:14 UTC, exit 1, one test worker and eight existing experiment workers at launch.
+The adjacent `npm-test.log` records 169 passed / 10 failed files and 2,576 passed / 17 failed /
+72 skipped tests, with a Vitest duration of 1,711.06 seconds. Rule 7, both typechecks and all
+16 tests in the two changed files pass. The same ten historical failed files remain: the
+Phase 10 scope-overlay, B acquisition/branches, S6 executor/historical-A-P/lifecycle/preflight
+observer, final-package, and Phase 9 M-GT/permanent-control bindings. Their reported failures
+are the recorded missing retired files and frozen registry/spec identities, not new long-roster
+failures. No worker-RPC error or timeout is reported in this check. It is not a green full suite;
+do not repair those retired surfaces or rerun it. Supervisor 49000 has exited. Next launch the
+two registered finite campaigns once, preserving the original fine-grid workers.
 
 ### Earlier completed-row observations
 
