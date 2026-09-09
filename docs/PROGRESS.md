@@ -363,7 +363,12 @@ the package-specific prerequisites in its charter amendment and execution plan. 
 ### Growth visual studies — ready to use
 
 For integration status, open [PR #11](https://github.com/billatgameology/snowflake/pull/11): its
-Tests check and merge record show publication. The existing main failures are recorded above;
+Tests check and merge record show publication. On macOS the dev server also needs the `/@fs` guard fix
+from [PR #12](https://github.com/billatgameology/snowflake/pull/12) (branch `fix/vite-fs-guard-posix`,
+fix commit `a7f2fbf`; the Current state entry above records the defect and checks). At maker direction
+on 2026-09-09 the merged remote branches `feature/named-crystal-catalog` and
+`fix/animation-queue-windows-spawn` were deleted with zero unique commits beyond `main`; the Windows
+worktrees and their local branches remain the separately authorized cleanup pass in the closeout plan. The existing main failures are recorded above;
 the maker's merge request proceeds on the verified unchanged failure set. Fetch `origin/main`; the viewing
 instructions below apply to the integrated app. No further product implementation is planned.
 
