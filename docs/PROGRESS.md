@@ -712,14 +712,27 @@ no terminal enclosure and eleven waist planes. All four endpoints are admissible
 recorded nonkinetic settings match. At this anchor the basal-side dip reproduces the cavity
 contrast without the prism-side dip; this is a discrete-model intervention result, not physical
 validation. The active plan records histories, common-age matching and the report identity.
-Next analyze the -5 C quartet when its final prism-only row finishes, and the separate hole-fill
-comparisons when complete. Keep one final quartet report per temperature; together the two facet
-reports cover the registered eight rows without regenerating a redundant combined report.
+Both mechanism campaigns are now complete. The final -5 C facet report is
+`out/post-phase10-facet-factorial/t5-comparison-2026-09-09.json`: both/basal-only again retain
+22 open enclosed center-air layers and five waist planes; neither/prism-only have no terminal
+enclosure and thirteen waist planes. The two matched hole-fill reports are
+`out/post-phase10-holefill/t4p5-comparison-2026-09-09.json` and `t5-comparison-2026-09-09.json`.
+Disabling geometric completion preserves persistent M1 enclosure versus no-dip resealing at both
+anchors, but reduces the -4.5 C M1 waist from five to three planes; at -5 C it still reaches five.
+The extra warmer throats are axially open, not isolated sealed vacancies. Thus the enabled
+trajectory's geometric attachment route was not a proof that its endpoint requires that route.
+The active plan's **Completed mechanism comparisons and selected longer evaluation** records
+the report identities, limitations and a finite extension registered before implementation.
+Next implement the eight longer N80/extent-37 variants using the existing facet/hole-fill
+options and launchers, reusing the four ordinary larger-domain controls. The plan gives exact
+commands and the single combined-checkpoint verification scope. Preserve the eight original
+fine-grid runs; do not duplicate or modify their launch. Keep one final quartet report per
+temperature per experiment, without a redundant combined report or frequent pending reports.
 The retained first-axis closure analysis also qualifies the hypothesis: geometric completion
 skips a small remaining fill at those first events, not most of a voxel. Read
-`out/post-phase10-cavity/first-axis-fill-remainders-2026-09-09.json`; the counterfactual is still
-needed to distinguish a short delay from a consequential topology change. The loaded fine/facet
-processes retain their original numerical source; their completed checks must not be repeated.
+`out/post-phase10-cavity/first-axis-fill-remainders-2026-09-09.json`; the completed counterfactual
+above now shows temperature-dependent waist consequences over its measured window. The loaded
+fine processes retain their original numerical source; completed checks must not be repeated.
 This identifies intervention effects in the current discrete model, not grid-robust physics.
 Scalar distinctness was already checked; do not repeat that feasibility work. Do not involve Phase 7, revive C0V/S6 recovery, or build
 a scheduler, dashboard, hostile-runtime defense, or new assurance framework.

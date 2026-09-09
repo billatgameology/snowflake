@@ -921,6 +921,106 @@ size/time grouping. Those two reports collectively cover the eight registered ro
 a third combined copy of the same comparisons. No numerical code or scientific test was rerun for
 this analysis.
 
+### Completed mechanism comparisons and selected longer evaluation — 2026-09-09
+
+Both finite mechanism campaigns have finished. The remaining three final per-temperature reports
+are listed below; their provenance records contain exact analysis argv and input identities.
+All requested rows are admissible, and each report's appropriate four-arm/four-corner matched
+flag is true. These supplement, rather than replace, the completed -4.5 C facet report above.
+
+| Report under `out/` | Bytes | SHA-256 |
+|---|---:|---|
+| `post-phase10-facet-factorial/t5-comparison-2026-09-09.json` | 806,187 | `882d745edca57e59bdb7727799562ee03cdbb2479fa1388b9cf897867df86aa0` |
+| `post-phase10-holefill/t4p5-comparison-2026-09-09.json` | 796,976 | `4132a1202263019b1cd75a93af97d4fc87af61eb56bf45deba6d69f8b7142f17` |
+| `post-phase10-holefill/t5-comparison-2026-09-09.json` | 792,375 | `8ee95fff2994f8ca2771ce0cb96ee73a8960177420c1ca92e9ac8d3f8f0e69b1` |
+
+The -5 C facet comparison repeats the basal-side grouping: both / basal-only finish with
+5,417 / 5,225 sites, five full waist planes and 22 straight-open enclosed center-air layers;
+neither / prism-only finish with 7,135 / 7,135 sites, thirteen waist planes and no terminal
+enclosure. Their physical stopping times are respectively 45.040965064598836 /
+44.100134553806704 and 70.68545053636288 / 68.74897793898809 seconds. Both basal-dip arms have
+two enclosure episodes, including one persisting to stop; the other arms have six transient
+episodes. Equal endpoint counts do not imply an unchanged growth history or no prism effect.
+The model-level basal-side isolation now replicates at both registered temperatures; it does
+not establish a physical mechanism or supply the absent actual facet-width feedback.
+
+The orthogonal geometric-completion intervention gives the following terminal measurements
+directly from the two hole-fill reports. All four disabled results record zero geometric
+attachments and zero geometric deficit.
+
+| Temperature / kinetics | Completion enabled: sites / waist / open enclosed layers | Disabled: sites / waist / open enclosed layers |
+|---|---|---|
+| -4.5 C / M1 | 5,369 / 5 / 22 | 5,415 / 3 / 24 |
+| -4.5 C / no-dip | 6,041 / 11 / 0 | 6,041 / 11 / 0 |
+| -5 C / M1 | 5,417 / 5 / 22 | 5,381 / 5 / 22 |
+| -5 C / no-dip | 7,135 / 13 / 0 | 7,135 / 13 / 0 |
+
+Disabling completion preserves persistent M1 enclosure versus eventual no-dip closure at these
+stops. At -4.5 C it reduces the M1 waist and leaves extra narrow, axially open throats; these
+center-axis sections have outward-opening witnesses, not isolated sealed vacancies. At -5 C
+the M1 waist recovers the enabled thickness through kinetic attachment. Consequently the earlier
+attribution of the enabled trajectory's waist attachments to geometric completion is **not**
+evidence that the same final waist requires that route. No-dip still reseals without it.
+
+Independent seed/event reconstruction corroborated terminal counts, waist and opening profiles.
+A bounded inspection of the disabled M1 rows' `boundary-e*.json` and `events.jsonl` under
+`out/post-phase10-holefill/campaign-2026-09-09/rows/` found the distinguishing throat sites are
+rough, with unit cached attachment coefficient at recorded boundary samples. At the warmer
+anchor their sampled fill approaches a plateau while local boundary supersaturation declines;
+at the colder anchor they complete kinetically early. This suggests early completion versus
+later supply starvation, not a locally inhibited coefficient. There is no final fill snapshot,
+no proof of permanent arrest, and no local relative-error guarantee for the deeply depleted
+field. The connectivity measurement remains center-axis enclosure with straight-opening
+witnesses, not an exhaustive three-dimensional vacancy census.
+
+**Selected finite next experiment (registered before implementation):** extend these two
+comparisons to the existing larger-domain control conditions. This is a longer endpoint test
+of the surviving leads, not another temperature sweep or a new constitutive law.
+
+- Add four `facet-isolation-long-t{4p5,5}-{basal-only,prism-only}` rows, taking the corresponding
+  existing larger M1 row and changing only its identity and explicit facet arm.
+- Add four `holefill-off-long-t{4p5,5}-{m1,nodip}` rows, taking each corresponding larger ordinary
+  row and changing only its identity and explicit disabled-completion option. Do not combine
+  the two experimental options.
+- Reuse, without rerunning or modifying, the four ordinary controls
+  `out/post-phase10-followup/campaign-2026-09-03-wave2/rows/followup-larger-cavity-t{4p5,5}-f0p075-{m1,nodip}`.
+  Their `host.json` producer is `dd4ef5245e6b48fff164b888e3b287665ab6c457`; all four `exit.json`
+  records have exit code zero. Their `spec.json` records prescribe N80, spacing 0.35 micrometers,
+  fill CFL 0.05, radius-two/thickness-one seed, maximum extent 37 and maximum 100,000 steps.
+  Temperature, supersaturation, pressure, noise, convergence controls, policy and far-field
+  condition stay exactly as those specs record. They have no spatial-sampling schedule; the
+  new variants also omit it so the existing analyzer can match configurations unchanged.
+- The larger endpoint's maximum center span is 12.6 micrometers, calculated as
+  `(37 - 1) * 0.35` from those specs. Compare interventions **within N80** at common physical
+  sizes and ages with the existing cavity analyzer. N64-to-N80 also changes the shell, so it is
+  neither pure elapsed-time extension nor mesh refinement. Do not infer convergence from it.
+- Main questions: does basal-only retain the persistent open-cavity outcome at larger size;
+  does the warmer disabled M1 waist remain thinner or recover; do no-dip/prism-side trajectories
+  still reseal or acquire a later persistent cavity? Report transient episodes as well as stops.
+  Retain one final matched quartet report per temperature per experiment, with ordinary controls
+  shared as inputs. Missing or inadmissible corners remain gaps, not negative evidence.
+- Reuse the existing finite roster/launcher functions, logging and analysis. No numerical solver
+  changes, new experiment identity, checkpoint format, diagnostics framework or scheduler are
+  needed. Add explicit `list-facet-factorial-long`, `launch-facet-factorial-long`,
+  `list-holefill-long` and `launch-holefill-long` routes without changing old rosters or commands.
+  Use existing ADR 0055/0056 options; no further charter exception is being introduced.
+- Check the roster/CLI boundary once and perform one exact `npm test` at the stable combined
+  evidence-generation checkpoint, as Rule 6 requires. Do not repeat the solver fixture campaign,
+  repair historical failures, or rerun for confidence. Routine monitoring stays hourly or on
+  reported completion; changing nothing does not create a new check obligation.
+
+Launch each new four-row campaign once from the committed producer:
+
+```text
+node runner/src/post-phase10-discovery-main.ts launch-facet-factorial-long out/post-phase10-facet-factorial/campaign-long-2026-09-09 4
+node runner/src/post-phase10-discovery-main.ts launch-holefill-long out/post-phase10-holefill/campaign-long-2026-09-09 4
+```
+
+Account for actual live workers at launch; the combined experiment/test ceiling remains 28.
+Leave the original fine-grid campaign untouched. This extension is done when the finite matched
+comparisons answer these questions over their measured window or name a specific remaining gap;
+select any further mechanism from those results rather than preloading a broad sweep.
+
 ### Earlier completed-row observations
 
 `cavity-seed-thick-t4p5-m1` completed with exit 0 and an admissible size-target stop. Its raw
