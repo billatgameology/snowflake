@@ -878,6 +878,49 @@ between them. A goal continuation is not a reason to repeat checks or create ano
 The frequent monitor was stopped without stopping any experiment; retain this instruction across
 context compaction.
 
+### First completed facet quartet — -4.5 C, 2026-09-09
+
+The hourly 08:33 UTC observation found both -4.5 C hybrids and the -5 C basal-only row complete,
+all at admissible extent-29 stops; -5 C prism-only and all fine/closure rows remained running.
+The complete -4.5 C quartet is retained at
+`out/post-phase10-facet-factorial/t4p5-comparison-2026-09-09.json` (784,594 bytes, SHA-256
+`b22e50dc17c1f0d83b1b3aee5637170a5b7f8b5846d8ee55e42ee456db104d1d`). It was generated from clean
+`d03038e` with the existing analyzer's `rows` command on the two new `facet-isolation-t4p5-*`
+directories and the two ordinary `cavity-baseline-t4p5-*` controls; its provenance contains the
+exact argv, Node engine and source hashes. All four arms are admissible and matched, with no
+nonkinetic configuration difference. These are local working artifacts, not a published gate.
+
+| Dip preparation | Terminal sites | Open enclosed center-air layers | Full waist planes |
+|---|---:|---:|---:|
+| Both / M1 | 5,369 | 22 | 5 |
+| Basal-only | 5,345 | 22 | 5 |
+| Prism-only | 6,041 | 0 | 11 |
+| Neither / no-dip | 6,041 | 0 | 11 |
+
+Both and basal-only each have two enclosure episodes: an early transient, then an interval from
+cycle 46 through the stop. Neither and prism-only each have five transient episodes and none at
+stop. The common terminal age is 47.11633895038739 seconds. At its positive quarter-age samples,
+both and basal-only have 6/12/18/22 enclosed layers; neither and prism-only have none at those
+samples. This is not a claim that transient no-dip/prism-only pockets never occur between samples.
+Every terminal enclosed layer in the two basal-dip arms has a straight outward axial opening
+witness. Their waist adds four full probe planes beyond the seed, versus ten in the other arms.
+
+An independent read-only reconstruction from seed and events, without the production cavity
+analyzer, corroborated the terminal counts, cavity/opening profiles and waist. Spatial samples
+retain the previous limitation: both and basal-only have same-plane basal center/rim comparisons
+at initialization but not at later recorded snapshots. Their absence is not zero demand or an
+identified initiation mechanism.
+
+**Interpretation and next action:** at this anchor, basal-only reproduces the terminal open-cavity
+outcome and prism-only does not. The combined dip intervention is not required for that outcome
+among these tested configurations; no physical necessity, implemented width feedback or grid
+independence is established. Complete the second temperature and the orthogonal hole-fill test
+before choosing the finite longer extension. To honor the maker's request to avoid repeated work,
+retain one final four-arm report per temperature, using the unchanged pre-registered per-temperature
+size/time grouping. Those two reports collectively cover the eight registered rows; do not regenerate
+a third combined copy of the same comparisons. No numerical code or scientific test was rerun for
+this analysis.
+
 ### Earlier completed-row observations
 
 `cavity-seed-thick-t4p5-m1` completed with exit 0 and an admissible size-target stop. Its raw

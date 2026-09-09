@@ -669,8 +669,8 @@ plus the Phase 9 M-GT frozen-spec identity check rejecting the intentionally ext
 plan records the doc-only updates during this numerically unchanged check and exact log/exit
 identities. Supervisor 34632 has exited; do not repeat this check or repair historical failures.
 The four-row factorial launched once with the plan's exact `launch-facet-factorial ... 4` command
-under producer `a69240b329874ee8c39412d78a9320574418d2f7`. Parent PID 4416 and four children are
-live; host records carry that producer and specs identify each explicit facet arm. See
+under producer `a69240b329874ee8c39412d78a9320574418d2f7`. Parent PID 4416 and four children were
+confirmed live at startup; host records carry that producer and specs identify each explicit facet arm. See
 `out/post-phase10-facet-factorial/campaign-2026-09-09.launcher.log`, its `.launcher.stderr.log`,
 and the campaign's row status/exit/results. Fine parent 13768 still has eight workers: actual
 experimental concurrency is twelve. Do not duplicate either launch. Reuse four completed baseline controls; analyze
@@ -704,6 +704,17 @@ Maker correction, 2026-09-09: the minute-by-minute monitor was stopped because r
 and unchanged updates waste tokens and cause compaction. Observe roughly hourly or on a reported
 completion, not every minute. No new check, plan, test or status commit is needed merely because
 another goal continuation begins. The sixteen experiment workers were left running.
+The 08:33 UTC observation found three facet rows complete and thirteen experiment workers still
+live. The completed -4.5 C quartet is now analyzed at
+`out/post-phase10-facet-factorial/t4p5-comparison-2026-09-09.json`: both and basal-only retain
+22 straight-open enclosed center-air layers and five waist planes; neither and prism-only have
+no terminal enclosure and eleven waist planes. All four endpoints are admissible and their
+recorded nonkinetic settings match. At this anchor the basal-side dip reproduces the cavity
+contrast without the prism-side dip; this is a discrete-model intervention result, not physical
+validation. The active plan records histories, common-age matching and the report identity.
+Next analyze the -5 C quartet when its final prism-only row finishes, and the separate hole-fill
+comparisons when complete. Keep one final quartet report per temperature; together the two facet
+reports cover the registered eight rows without regenerating a redundant combined report.
 The retained first-axis closure analysis also qualifies the hypothesis: geometric completion
 skips a small remaining fill at those first events, not most of a voxel. Read
 `out/post-phase10-cavity/first-axis-fill-remainders-2026-09-09.json`; the counterfactual is still
