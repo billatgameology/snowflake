@@ -633,6 +633,64 @@ describe("Vite loopback and /@fs boundary", () => {
   });
 
   it.skipIf(process.platform === "win32")(
+    "judges the single-slash /@fs form Vite emits on POSIX by the same policy as the fixtures",
+    async () => {
+      // Vite joins "/@fs/" onto the absolute module id, so a POSIX request arrives as
+      // /@fs/Users/... with one slash. The fixtures elsewhere in this file build /@fs//Users/...,
+      // which Vite tolerates but never emits; the guard accepted only that form, so on macOS
+      // every hoisted node_modules module (Vite's own client env.mjs first) was refused while
+      // the suite stayed green. Both forms must reach the same allow/deny decision.
+      const emitted = (absolute: string): string => `/@fs${absolute}`;
+      const viteClientEnv = join(REPOSITORY_ROOT, "node_modules", "vite", "dist", "client", "env.mjs");
+      const coreSource = join(REPOSITORY_ROOT, "core", "src", "index.ts");
+      const deniedTargets = [
+        join(REPOSITORY_ROOT, "out", "private.bin"),
+        join(REPOSITORY_ROOT, "research", "private.bin"),
+        join(REPOSITORY_ROOT, "..", "outside.bin"),
+        join(REPOSITORY_ROOT, ".git", "HEAD"),
+      ];
+
+      const boundary = createViteLocalFileBoundary();
+      await withServer(
+        (request, response) => boundary(request, response, () => {
+          response.statusCode = 204;
+          response.end();
+        }),
+        async (port) => {
+          const allowed = await Promise.all(
+            [viteClientEnv, coreSource].map((target) => fetchFixture(port, emitted(target))),
+          );
+          expect(allowed.map((result) => result.status)).toEqual([204, 204]);
+          const denied = await Promise.all(deniedTargets.map((target) => fetchFixture(port, emitted(target))));
+          expect(denied.map((result) => result.status)).toEqual([403, 403, 403, 403]);
+        },
+      );
+
+      // The live instance pins the exact request the browser makes for Vite's client helper.
+      const vite = await createViteServer({
+        root: join(REPOSITORY_ROOT, "app"),
+        configFile: join(REPOSITORY_ROOT, "app", "vite.config.ts"),
+        logLevel: "silent",
+        server: { host: "127.0.0.1", port: 0, strictPort: false },
+      });
+      await vite.listen();
+      try {
+        const address = vite.httpServer?.address();
+        if (address === null || address === undefined || typeof address === "string") {
+          throw new Error("live Vite fixture has no TCP address");
+        }
+        const env = await fetchFixture(address.port, emitted(viteClientEnv));
+        expect(env.status).toBe(200);
+        expect(env.headers["content-type"]).toContain("javascript");
+        const out = await fetchFixture(address.port, emitted(deniedTargets[0] as string));
+        expect(out.status).toBe(403);
+      } finally {
+        await vite.close();
+      }
+    },
+  );
+
+  it.skipIf(process.platform === "win32")(
     "denies persistent symlinks to research and outside bytes before Vite serves them",
     async () => {
       const privateRoot = mkdtempSync(join(REPOSITORY_ROOT, "research", "vite-private-link-target-"));

@@ -807,6 +807,12 @@ export const createViteLocalFileBoundary = (
     if (decoded.startsWith("/@fs/")) {
       let native = decoded.slice("/@fs/".length);
       if (process.platform === "win32" && /^\/[A-Za-z]:\//u.test(native)) native = native.slice(1);
+      // Vite joins its /@fs/ prefix onto the absolute module id, so on POSIX the request arrives
+      // as /@fs/Users/... with the path's own leading slash consumed by the prefix. Mirror Vite's
+      // fsPathFromId so the guard judges the same native path Vite will serve. Without this every
+      // hoisted dependency under node_modules is refused on macOS/Linux while the double-slash
+      // form still passes, which is how the defect hid behind the existing fixtures.
+      if (!native.startsWith("/") && !/^[A-Za-z]:\//u.test(native)) native = `/${native}`;
       if (!isAbsolute(native) || denyRepositoryPath(resolve(native))) {
         forbidden(response);
         return;
