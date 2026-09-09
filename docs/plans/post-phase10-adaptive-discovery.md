@@ -1037,8 +1037,21 @@ Phase 10 scope-overlay, B acquisition/branches, S6 executor/historical-A-P/lifec
 observer, final-package, and Phase 9 M-GT/permanent-control bindings. Their reported failures
 are the recorded missing retired files and frozen registry/spec identities, not new long-roster
 failures. No worker-RPC error or timeout is reported in this check. It is not a green full suite;
-do not repair those retired surfaces or rerun it. Supervisor 49000 has exited. Next launch the
-two registered finite campaigns once, preserving the original fine-grid workers.
+do not repair those retired surfaces or rerun it. Supervisor 49000 has exited. The log is
+235,412 bytes / SHA-256 `7090aa8541fb7d580441bef00a51619053074e390798626827fc263e1866de6f`;
+the exit record is 411 bytes / SHA-256
+`86947dd9af2b1e3fd208f1cf0b0d06753396537ce1bf31e5042f7d2f90a8383b`.
+
+**Long runs launched once:** both registered commands above executed under producer
+`4c35764965a3726ec0a405817343f5dec21aa76f`. At 10:40:20 UTC, facet parent 21736 had four live
+workers and hole-fill parent 43860 had four; original fine parent 13768 retained eight. Actual
+combined experiment concurrency is sixteen. Each new campaign's `campaign.json`, all row
+`host.json` records and startup launcher log confirm the producer/roster; each launcher logged
+four simultaneously active workers and has empty startup stderr. Logs are the campaign paths
+above plus `.launcher.log` / `.launcher.stderr.log`; per-row logs and terminal exit/results live
+inside their `rows/` subdirectories. Do not duplicate a launch or treat an absent terminal result
+as a failure. Next inspect these existing processes at the hourly/completion cadence and analyze
+finished matched quartets. No additional test or status commit is needed for unchanged work.
 
 ### Earlier completed-row observations
 

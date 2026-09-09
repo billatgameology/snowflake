@@ -732,7 +732,15 @@ single combined exact `npm test` is complete at frozen `6e6f514`: 169 passed / 1
 pass. The ten historical missing-file/identity failure surfaces remain, with no reported timeout
 or worker-RPC error. Read `npm-test-exit.json` and `npm-test.log` in that checkpoint directory;
 the active plan records the distinction. Supervisor 49000 has exited. The suite is not green and
-must not be repeated for confidence. Next launch the plan's two new finite campaigns once.
+must not be repeated for confidence. Both new finite campaigns have now launched once under
+producer `4c35764965a3726ec0a405817343f5dec21aa76f`: facet parent 21736 and hole-fill parent 43860
+each had four live workers at 10:40 UTC, alongside the eight original fine-grid workers, for
+sixteen actual experiments. Read
+`out/post-phase10-facet-factorial/campaign-long-2026-09-09.launcher.log` and
+`out/post-phase10-holefill/campaign-long-2026-09-09.launcher.log`, their separate stderr logs,
+and per-row status/exit/results inside each campaign. Next observe these existing runs roughly
+hourly or on completion and analyze completed matched quartets; do not relaunch or recheck
+unchanged work merely because a goal continuation starts.
 The plan gives exact launch commands and the verification scope. Preserve the eight original
 fine-grid runs; do not duplicate or modify their launch. Keep one final quartet report per
 temperature per experiment, without a redundant combined report or frequent pending reports.
