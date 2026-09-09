@@ -668,18 +668,25 @@ Rule 7, both typechecks and all 30 focused-file tests pass. The nine historical 
 plus the Phase 9 M-GT frozen-spec identity check rejecting the intentionally extended spec. The
 plan records the doc-only updates during this numerically unchanged check and exact log/exit
 identities. Supervisor 34632 has exited; do not repeat this check or repair historical failures.
-Next launch the four-row factorial once with
-the plan's exact `launch-facet-factorial ... 4` command. No hybrid campaign has started at this
-checkpoint. Fine workers continue unchanged. Reuse four completed baseline controls; analyze
+The four-row factorial launched once with the plan's exact `launch-facet-factorial ... 4` command
+under producer `a69240b329874ee8c39412d78a9320574418d2f7`. Parent PID 4416 and four children are
+live; all four host/spec records carry the correct producer and explicit facet arm. See
+`out/post-phase10-facet-factorial/campaign-2026-09-09.launcher.log`, its `.launcher.stderr.log`,
+and the campaign's row status/exit/results. Fine parent 13768 still has eight workers: actual
+experimental concurrency is twelve. Do not duplicate either launch. Reuse four completed baseline controls; analyze
 the resulting eight-row factorial before expanding its conditions. The maker also encouraged
 distinct parallel hypotheses. The active plan's **Geometric closure hypothesis** records a new
 retained-event attribution: M1's added center-axis sites in the matched N64/N80 histories were
 geometrically filled, and no-dip resealing also uses that rule heavily. Report:
 `out/post-phase10-cavity/axis-holefill-attribution-2026-09-09.json`. After facet verification/launch,
 the selected independent follow-up is four baseline-matched hole-fill-off rows, with ordinary
-kinetics retained and open cavities distinguished from artificial sealed vacancies. It still
-needs implementation under the now-committed decision 0056 and finite protocol; no such run has started. Numerical source
-remains at `1298912` while its exact check runs; this addition records read-only scientific analysis.
+kinetics retained and open cavities distinguished from artificial sealed vacancies. Decision
+0056's implementation and focused checks are complete; the active plan records the test-fixture
+correction and bounded review. Read `out/post-phase10-holefill/checkpoint-2026-09-09/focused-observations.json`.
+Next run its one required exact `npm test` from the committed scientific checkpoint, with log
+and exit record in that directory, then launch the four disabled rows once after accounting
+for the check. No hole-fill-off run has started. The loaded fine/facet processes retain their
+original numerical source; their completed checks must not be repeated.
 This identifies intervention effects in the current discrete model, not grid-robust physics.
 Scalar distinctness was already checked; do not repeat that feasibility work. Do not involve Phase 7, revive C0V/S6 recovery, or build
 a scheduler, dashboard, hostile-runtime defense, or new assurance framework.

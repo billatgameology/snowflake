@@ -63,6 +63,8 @@ import {
 import type { LedgerReport, RelaxationReport, SurfaceOperator, SurfaceReport } from "./operator.ts";
 import { prepareFacetDipExperiment, type LKFacetDipArm } from "./lk-facet-dips.ts";
 
+export type LKExperimentalHoleFilling = "enabled" | "disabled";
+
 export interface LKSolverOptions {
   /** Coupled classifier/Robin/fill policy. Required: evidence must never rely on a default. */
   readonly surfacePolicy: LKSurfacePolicy;
@@ -77,6 +79,8 @@ export interface LKSolverOptions {
   readonly paramSet?: NucleationParamSet; // default "CAK_A1" (see libbrecht.ts)
   /** ADR 0055 development-only constant preparation. M1 base tag alone is NOT its kinetics identity. */
   readonly experimentalFacetDips?: LKFacetDipArm;
+  /** ADR 0056 closure counterfactual; ordinary kinetic filling is always retained. */
+  readonly experimentalHoleFilling?: LKExperimentalHoleFilling;
   /** Fill-CFL bound on the selected policy's max per-cell kinetic fill increment. */
   readonly cflFill?: number; // default 0.1
   /** Relaxation: per-sweep max |change| / sigmaInfinity below this = converged. */
@@ -334,6 +338,7 @@ export class LKSolver implements SurfaceOperator {
   readonly pressurePa: number;
   readonly paramSet: NucleationParamSet;
   readonly experimentalFacetDips: LKFacetDipArm | undefined = undefined;
+  readonly experimentalHoleFilling: LKExperimentalHoleFilling | undefined = undefined;
   readonly cflFill: number;
   readonly relaxTol: number;
   readonly divTol: number;
@@ -597,6 +602,7 @@ export class LKSolver implements SurfaceOperator {
     this.pressurePa = options.pressurePa ?? 101325;
     this.paramSet = options.paramSet ?? "CAK_A1";
     this.experimentalFacetDips = options.experimentalFacetDips;
+    this.experimentalHoleFilling = options.experimentalHoleFilling;
     this.cflFill = options.cflFill ?? 0.1;
     this.relaxTol = options.relaxTol ?? 1e-9;
     this.relaxMaxSweeps = options.relaxMaxSweeps ?? 200_000;
@@ -717,6 +723,18 @@ export class LKSolver implements SurfaceOperator {
     if (this.experimentalFacetDips !== undefined &&
       (this.paramSet !== "M1" || this.surfacePolicy !== "aggregate-hv-g1h1-v6")) {
       throw new Error("experimentalFacetDips requires M1 base metadata and aggregate-hv-g1h1-v6");
+    }
+    if (this.experimentalHoleFilling !== undefined) {
+      if (this.experimentalHoleFilling !== "enabled" && this.experimentalHoleFilling !== "disabled") {
+        throw new Error("experimentalHoleFilling must be enabled or disabled");
+      }
+      if (this.surfacePolicy !== "aggregate-hv-g1h1-v6" ||
+        (this.paramSet !== "M1" && this.paramSet !== "M1_NO_DIP_ABLATION")) {
+        throw new Error("experimentalHoleFilling requires aggregate-v6 and ordinary M1/no-dip kinetics");
+      }
+      if (this.experimentalFacetDips !== undefined) {
+        throw new Error("experimental hole filling and facet dips must be tested separately");
+      }
     }
     this.preparedAlphaHK = this.experimentalFacetDips === undefined
       ? prepareAlphaHK(this.tempC, this.paramSet)
@@ -902,8 +920,8 @@ export class LKSolver implements SurfaceOperator {
    * epoch after every awaited sink write.
    */
   resumeStateV3(): LKResumeStateV3 {
-    if (this.experimentalFacetDips !== undefined) {
-      throw new Error("experimentalFacetDips is not represented by ordinary LK checkpoints");
+    if (this.experimentalFacetDips !== undefined || this.experimentalHoleFilling !== undefined) {
+      throw new Error("experimental LK modes are not represented by ordinary LK checkpoints");
     }
     if (this.cycleState !== "boundary") {
       throw new Error(
@@ -1063,8 +1081,8 @@ export class LKSolver implements SurfaceOperator {
    * ledger is touched.
    */
   applyTimelineEnvironment(environment: LKTimelineEnvironment): LKEnvironmentTransitionReport {
-    if (this.experimentalFacetDips !== undefined) {
-      throw new Error("experimentalFacetDips supports constant environment only");
+    if (this.experimentalFacetDips !== undefined || this.experimentalHoleFilling !== undefined) {
+      throw new Error("experimental LK modes support constant environment only");
     }
     if (this.cycleState !== "boundary") {
       throw new Error(
@@ -2080,13 +2098,15 @@ export class LKSolver implements SurfaceOperator {
     // deficit-ledgered SEPARATELY so the kinetic CFL claim cannot be censored by it
     // (round-2 maker review, blocker 6).
     let holeFillCount = 0;
-    for (let bi = 0; bi < nBoundary; bi++) {
-      const x = boundary[bi];
-      if (this.f[x] < 1 && this.nTAtt[x] >= 4 && this.nZAtt[x] >= 1) {
-        this.holeFillDeficit += 1 - this.f[x];
-        this.f[x] = 1;
-        toAttach.push(x);
-        holeFillCount++;
+    if (this.experimentalHoleFilling !== "disabled") {
+      for (let bi = 0; bi < nBoundary; bi++) {
+        const x = boundary[bi];
+        if (this.f[x] < 1 && this.nTAtt[x] >= 4 && this.nZAtt[x] >= 1) {
+          this.holeFillDeficit += 1 - this.f[x];
+          this.f[x] = 1;
+          toAttach.push(x);
+          holeFillCount++;
+        }
       }
     }
     this.holeFillCountTotal += holeFillCount;

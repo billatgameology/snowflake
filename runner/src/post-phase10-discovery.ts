@@ -21,6 +21,7 @@ import {
   float64SmootherDriftAbsLimit,
   LKSolver,
   type LKFacetDipArm,
+  type LKExperimentalHoleFilling,
   type LKEnvironmentTransitionReport,
 } from "@vcc/solver-cpu";
 import { validateLKStepEvidence } from "./gate2b-validation.ts";
@@ -73,17 +74,32 @@ export interface DiscoveryRow {
   readonly spatialSampleExtents?: readonly number[];
   /** Explicit development kinetics; paramSet remains the M1 base preparation, not the arm. */
   readonly experimentalFacetDips?: LKFacetDipArm;
+  /** Explicit geometric-completion intervention; ordinary kinetics are retained. */
+  readonly experimentalHoleFilling?: LKExperimentalHoleFilling;
 }
 
 export const DISCOVERY_FACET_EXPERIMENT_ID = "post-phase10-facet-isolation-v1" as const;
+export const DISCOVERY_HOLEFILL_EXPERIMENT_ID = "post-phase10-holefill-isolation-v1" as const;
 
-export interface DiscoveryFacetIdentity {
-  readonly experimentId?: typeof DISCOVERY_FACET_EXPERIMENT_ID;
+export interface DiscoveryExperimentIdentity {
+  readonly experimentId?: typeof DISCOVERY_FACET_EXPERIMENT_ID | typeof DISCOVERY_HOLEFILL_EXPERIMENT_ID;
   readonly experimentalFacetDips?: LKFacetDipArm;
+  readonly experimentalHoleFilling?: LKExperimentalHoleFilling;
 }
 
 /** Absent for ordinary rows so historical artifact shapes stay unchanged. */
-export function discoveryFacetIdentity(row: Pick<DiscoveryRow, "experimentalFacetDips">): DiscoveryFacetIdentity {
+export function discoveryExperimentIdentity(
+  row: Pick<DiscoveryRow, "experimentalFacetDips" | "experimentalHoleFilling">,
+): DiscoveryExperimentIdentity {
+  if (row.experimentalHoleFilling !== undefined) {
+    if (row.experimentalFacetDips !== undefined) {
+      throw new Error("hole-fill and facet-isolation experiments must remain separate");
+    }
+    return {
+      experimentId: DISCOVERY_HOLEFILL_EXPERIMENT_ID,
+      experimentalHoleFilling: row.experimentalHoleFilling,
+    };
+  }
   return row.experimentalFacetDips === undefined ? {} : {
     experimentId: DISCOVERY_FACET_EXPERIMENT_ID,
     experimentalFacetDips: row.experimentalFacetDips,
@@ -100,7 +116,7 @@ export type DiscoveryStopReason =
 
 export type DiscoveryHabitClass = "plate" | "neutral" | "column" | "invalid";
 
-export interface DiscoveryTerminalResult extends DiscoveryFacetIdentity {
+export interface DiscoveryTerminalResult extends DiscoveryExperimentIdentity {
   readonly schema: "post-phase10-discovery-result-v1";
   readonly rowId: string;
   readonly lane: DiscoveryLane;
@@ -146,7 +162,7 @@ export interface DiscoverySpatialSnapshotRecord {
   readonly simTimeSeconds: number;
 }
 
-export interface DiscoverySpatialSnapshot extends DiscoveryFacetIdentity {
+export interface DiscoverySpatialSnapshot extends DiscoveryExperimentIdentity {
   readonly schema: "post-phase10-spatial-boundary-v1";
   readonly rowId: string;
   readonly timing: "after-converged-relaxation-before-surface-advance";
@@ -521,9 +537,14 @@ export function runPostPhase10DiscoveryRow(
     (candidate.paramSet !== "M1" || candidate.timelineEvent !== undefined)) {
     throw new Error("facet-isolation rows require the M1 base and a constant environment");
   }
-  const experimentIdentity = discoveryFacetIdentity(candidate);
-  const experimentLabel = candidate.experimentalFacetDips === undefined ? "" :
-    ` experimentId=${DISCOVERY_FACET_EXPERIMENT_ID} experimentalFacetDips=${candidate.experimentalFacetDips}`;
+  if (candidate.experimentalHoleFilling !== undefined && candidate.timelineEvent !== undefined) {
+    throw new Error("hole-fill-isolation rows require a constant environment");
+  }
+  const experimentIdentity = discoveryExperimentIdentity(candidate);
+  const experimentLabel = candidate.experimentalHoleFilling !== undefined
+    ? ` experimentId=${DISCOVERY_HOLEFILL_EXPERIMENT_ID} experimentalHoleFilling=${candidate.experimentalHoleFilling}`
+    : candidate.experimentalFacetDips === undefined ? "" :
+      ` experimentId=${DISCOVERY_FACET_EXPERIMENT_ID} experimentalFacetDips=${candidate.experimentalFacetDips}`;
   const output = resolve(outputDirectory);
   mkdirSync(output, { recursive: true });
   for (const leaf of ["spec.json", "events.jsonl", "result.json"] as const) {
@@ -566,6 +587,9 @@ export function runPostPhase10DiscoveryRow(
     paramSet: candidate.paramSet,
     ...(candidate.experimentalFacetDips === undefined ? {} : {
       experimentalFacetDips: candidate.experimentalFacetDips,
+    }),
+    ...(candidate.experimentalHoleFilling === undefined ? {} : {
+      experimentalHoleFilling: candidate.experimentalHoleFilling,
     }),
     cflFill: candidate.cflFill,
     relaxTol: FIXED.relaxTol,

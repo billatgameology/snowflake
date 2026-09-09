@@ -11,7 +11,12 @@ import { summarizeCavityBoundary } from "./post-phase10-cavity-spatial.ts";
 
 interface InputIdentity { path: string; byteLength: number; sha256: string }
 type FacetDipArm = "both" | "neither" | "basal-only" | "prism-only";
-interface ExperimentIdentity { experimentId?: string; experimentalFacetDips?: FacetDipArm }
+type HoleFillMode = "enabled" | "disabled";
+interface ExperimentIdentity {
+  experimentId?: string;
+  experimentalFacetDips?: FacetDipArm;
+  experimentalHoleFilling?: HoleFillMode;
+}
 interface Event extends ExperimentIdentity {
   cycle: number;
   attached: { index: number; coords: number[] }[];
@@ -41,6 +46,7 @@ const DEFAULT_SPANS_UM = [4.2, 5.6, 7, 8.4, 9.8] as const;
 const TIME_FRACTIONS = [0, 0.25, 0.5, 0.75, 1] as const;
 const FACET_DIP_ARMS = ["both", "neither", "basal-only", "prism-only"] as const;
 const FACET_EXPERIMENT_ID = "post-phase10-facet-isolation-v1";
+const HOLEFILL_EXPERIMENT_ID = "post-phase10-holefill-isolation-v1";
 
 function effectiveFacetDips(row: DiscoveryRow): FacetDipArm {
   if (row.experimentalFacetDips !== undefined) {
@@ -54,10 +60,30 @@ function effectiveFacetDips(row: DiscoveryRow): FacetDipArm {
   throw new Error(`${row.id}: unsupported ordinary cavity parameter set`);
 }
 
-function checkFacetIdentity(row: DiscoveryRow, artifact: ExperimentIdentity, label: string): void {
+function effectiveHoleFilling(row: DiscoveryRow): HoleFillMode {
+  if (row.experimentalHoleFilling === undefined) return "enabled";
+  if (row.experimentalFacetDips !== undefined) {
+    throw new Error(`${row.id}: facet and hole-fill experiments cannot be combined`);
+  }
+  if (row.experimentalHoleFilling !== "enabled" && row.experimentalHoleFilling !== "disabled") {
+    throw new Error(`${row.id}: unsupported experimental hole-fill identity`);
+  }
+  return row.experimentalHoleFilling;
+}
+
+function checkExperimentIdentity(row: DiscoveryRow, artifact: ExperimentIdentity, label: string): void {
   effectiveFacetDips(row);
+  effectiveHoleFilling(row);
+  if (row.experimentalHoleFilling !== undefined) {
+    if (artifact.experimentId !== HOLEFILL_EXPERIMENT_ID ||
+      artifact.experimentalHoleFilling !== row.experimentalHoleFilling || artifact.experimentalFacetDips !== undefined) {
+      throw new Error(`${row.id}: ${label} experimental hole-fill identity mismatch`);
+    }
+    return;
+  }
   const expectedId = row.experimentalFacetDips === undefined ? undefined : FACET_EXPERIMENT_ID;
-  if (artifact.experimentId !== expectedId || artifact.experimentalFacetDips !== row.experimentalFacetDips) {
+  if (artifact.experimentId !== expectedId || artifact.experimentalFacetDips !== row.experimentalFacetDips ||
+    artifact.experimentalHoleFilling !== undefined) {
     throw new Error(`${row.id}: ${label} experimental facet identity mismatch`);
   }
 }
@@ -68,6 +94,7 @@ function nonKineticConfiguration(row: DiscoveryRow, fixed: Readonly<Record<strin
     pressurePa: row.pressurePa ?? 101325, dimsN: row.dimsN, dxUm: row.dxUm,
     cflFill: row.cflFill, seedRadius: row.seedRadius, seedThickness: row.seedThickness,
     targetExtent: row.targetExtent, maxSteps: row.maxSteps,
+    effectiveHoleFilling: effectiveHoleFilling(row),
     spatialSampleExtents: row.spatialSampleExtents ?? null,
     ...Object.fromEntries(["surfacePolicy", "farField", "pressurePa", "rngSeed", "noiseEpsilon",
       "relaxTol", "divTol", "relaxMaxSweeps"].map((key) => [`fixed.${key}`, fixed?.[key] ?? null])),
@@ -86,7 +113,7 @@ function loadRow(directory: string): LoadedRow {
   const spec = readInput<ExperimentIdentity & { row: DiscoveryRow; fixed?: Readonly<Record<string, unknown>> }>(
     resolve(directory, "spec.json"), sources);
   const { row } = spec;
-  checkFacetIdentity(row, spec, "spec");
+  checkExperimentIdentity(row, spec, "spec");
   const configuration = nonKineticConfiguration(row, spec.fixed);
   if (row.timelineEvent !== undefined) throw new Error(`${row.id}: cavity analysis is constant-temperature only`);
   if (!existsSync(resolve(directory, "result.json")) || !existsSync(resolve(directory, "exit.json"))) {
@@ -94,7 +121,7 @@ function loadRow(directory: string): LoadedRow {
       nonKineticConfiguration: configuration, status: "pending" };
   }
   const result = readInput<DiscoveryTerminalResult>(resolve(directory, "result.json"), sources);
-  checkFacetIdentity(row, result, "result");
+  checkExperimentIdentity(row, result, "result");
   const exit = readInput<{ rowId: string; exitCode: number }>(resolve(directory, "exit.json"), sources);
   if (result.rowId !== row.id || exit.rowId !== row.id) throw new Error(`${row.id}: terminal row mismatch`);
   return { directory, row, result, exitCode: exit.exitCode, sources, nonKineticConfiguration: configuration,
@@ -117,6 +144,28 @@ function initialState(row: DiscoveryRow, count: number): State {
     extent: Math.max(2 * row.seedRadius + 1, row.seedThickness) };
 }
 
+function enclosureWitnesses(geometry: CavityGeometry) {
+  let laterallyEnclosedLayers = 0;
+  let straightAxiallyOpenLayers = 0;
+  let longestConsecutiveStraightOpenLayerRun = 0;
+  let currentRun = 0;
+  let previousOffset: number | null = null;
+  for (const layer of geometry.layers) {
+    const enclosed = layer.lateralVoid === "enclosed";
+    if (enclosed) laterallyEnclosedLayers++;
+    const open = enclosed && (layer.directAxialOpening.lower === true || layer.directAxialOpening.upper === true);
+    if (open) {
+      straightAxiallyOpenLayers++;
+      currentRun = previousOffset !== null && layer.offset === previousOffset + 1 ? currentRun + 1 : 1;
+      longestConsecutiveStraightOpenLayerRun = Math.max(longestConsecutiveStraightOpenLayerRun, currentRun);
+    } else currentRun = 0;
+    previousOffset = layer.offset;
+  }
+  return { laterallyEnclosedLayers, straightAxiallyOpenLayers,
+    laterallyEnclosedWithoutStraightAxialOpening: laterallyEnclosedLayers - straightAxiallyOpenLayers,
+    longestConsecutiveStraightOpenLayerRun };
+}
+
 function analyzeCompleteRow(input: LoadedRow, commonTimeSeconds: number, options: CavityAnalysisOptions) {
   const { row, sources, directory } = input;
   const result = input.result!;
@@ -130,7 +179,7 @@ function analyzeCompleteRow(input: LoadedRow, commonTimeSeconds: number, options
   sources.push({ path: eventPath, byteLength: bytes.byteLength,
     sha256: createHash("sha256").update(bytes).digest("hex") });
   const events = bytes.toString("utf8").trim().split("\n").filter(Boolean).map((line) => JSON.parse(line) as Event);
-  for (const event of events) checkFacetIdentity(row, event, `event ${event.cycle}`);
+  for (const event of events) checkExperimentIdentity(row, event, `event ${event.cycle}`);
   const states: State[] = [initial, ...events.map(({ cycle, simTimeSeconds, extent, attachedCount }) =>
     ({ cycle, simTimeSeconds, extent, attachedCount }))];
   const final = states[states.length - 1];
@@ -162,7 +211,7 @@ function analyzeCompleteRow(input: LoadedRow, commonTimeSeconds: number, options
   }
   const snapshots = (result.spatialSnapshots ?? []).map((record) => {
     const snapshot = readInput<DiscoverySpatialSnapshot>(resolve(directory, record.path), sources);
-    checkFacetIdentity(row, snapshot, `snapshot ${record.path}`);
+    checkExperimentIdentity(row, snapshot, `snapshot ${record.path}`);
     const state = states[record.completedCycles];
     if (state === undefined || snapshot.rowId !== row.id || snapshot.dxUm !== row.dxUm ||
       snapshot.dims.nx !== dims.nx || snapshot.dims.ny !== dims.ny || snapshot.dims.nz !== dims.nz ||
@@ -240,14 +289,16 @@ function analyzeCompleteRow(input: LoadedRow, commonTimeSeconds: number, options
     return { before, atOrAfter, hasBoth: before !== null && atOrAfter !== null };
   };
   const terminalEpisode = openEpisode as EnclosureEpisode | null;
-  return { row, effectiveFacetDips: effectiveFacetDips(row), result, sources, commonTimeSeconds,
+  return { row, effectiveFacetDips: effectiveFacetDips(row), effectiveHoleFilling: effectiveHoleFilling(row),
+    result, sources, commonTimeSeconds,
     seedOccupiedCellVolumeUm3: frames.get(0)!.geometry.occupiedCellVolumeUm3,
     firstLaterallyEnclosedCenter: onset,
     onsetSnapshotBracket: snapshotBracket(onset),
     enclosureEpisodes, terminalEnclosureEpisode: terminalEpisode,
     terminalEpisodeSnapshotBracket: snapshotBracket(terminalEpisode?.start ?? null),
     sizeSelections, physicalTimeSelections: times,
-    frames: [...frames.values()].sort((a, b) => a.cycle - b.cycle), spatial };
+    frames: [...frames.values()].sort((a, b) => a.cycle - b.cycle)
+      .map((frame) => ({ ...frame, enclosureWitnesses: enclosureWitnesses(frame.geometry) })), spatial };
 }
 
 /** Only completed, admissible rows contribute measurements; live files are never parsed. */
@@ -259,7 +310,8 @@ export function analyzeCavityRows(rowDirectories: readonly string[], options: Ca
     const group = inputs.filter(({ row }) => `${row.tempC}/${row.sigmaInfinity}/${row.pressurePa ?? 101325}` === condition);
     const complete = group.filter((input) => input.status === "complete");
     const rowArms = group.map(({ row }) => ({ rowId: row.id, baseParamSet: row.paramSet,
-      effectiveFacetDips: effectiveFacetDips(row), experimentalFacetDips: row.experimentalFacetDips ?? null }));
+      effectiveFacetDips: effectiveFacetDips(row), experimentalFacetDips: row.experimentalFacetDips ?? null,
+      effectiveHoleFilling: effectiveHoleFilling(row), experimentalHoleFilling: row.experimentalHoleFilling ?? null }));
     const configuration = group[0].nonKineticConfiguration;
     const differingFields = Object.keys(configuration).filter((key) => group.some((input) =>
       JSON.stringify(input.nonKineticConfiguration[key]) !== JSON.stringify(configuration[key])));
@@ -267,6 +319,11 @@ export function analyzeCavityRows(rowDirectories: readonly string[], options: Ca
       .filter(([key]) => key.startsWith("fixed.")).every(([, value]) => value !== null));
     const completeFourArmRoster = group.length === 4 &&
       FACET_DIP_ARMS.every((arm) => rowArms.filter((row) => row.effectiveFacetDips === arm).length === 1);
+    const holeFillOtherDifferingFields = differingFields.filter((field) => field !== "effectiveHoleFilling");
+    const completeHoleFillFourCornerRoster = group.length === 4 &&
+      rowArms.every((row) => row.experimentalFacetDips === null) &&
+      ["both", "neither"].every((arm) => ["enabled", "disabled"].every((mode) =>
+        rowArms.filter((row) => row.effectiveFacetDips === arm && row.effectiveHoleFilling === mode).length === 1));
     return { condition, requestedRowIds: group.map((input) => input.row.id),
       contributingRowIds: complete.map((input) => input.row.id),
       rowArms,
@@ -274,15 +331,23 @@ export function analyzeCavityRows(rowDirectories: readonly string[], options: Ca
         sameNonKineticConfiguration: differingFields.length === 0,
         differingFields, allFourArmsAdmissibleAndMatched:
           completeFourArmRoster && complete.length === 4 && fixedControlsRecorded && differingFields.length === 0 },
+      holeFillFactorial: { completeFourCornerRoster: completeHoleFillFourCornerRoster, fixedControlsRecorded,
+        sameOtherConfiguration: holeFillOtherDifferingFields.length === 0,
+        differingFields: holeFillOtherDifferingFields,
+        allFourCornersAdmissibleAndMatched: completeHoleFillFourCornerRoster && complete.length === 4 &&
+          fixedControlsRecorded && holeFillOtherDifferingFields.length === 0 },
       allRequestedRowsAdmissible: complete.length === group.length,
       commonTerminalTimeSeconds: complete.length === 0 ? null : Math.min(...complete.map((input) => input.result!.simTimeSeconds)) };
   });
   const rows = inputs.map((input) => {
     const arm = effectiveFacetDips(input.row);
-    if (input.status !== "complete") return { rowId: input.row.id, effectiveFacetDips: arm, status: input.status,
+    const holeMode = effectiveHoleFilling(input.row);
+    if (input.status !== "complete") return { rowId: input.row.id, effectiveFacetDips: arm,
+      effectiveHoleFilling: holeMode, status: input.status,
       result: input.result, exitCode: input.exitCode, sources: input.sources, analysis: null };
     const group = groups.find((value) => value.contributingRowIds.includes(input.row.id))!;
-    return { rowId: input.row.id, effectiveFacetDips: arm, status: input.status, exitCode: input.exitCode,
+    return { rowId: input.row.id, effectiveFacetDips: arm, effectiveHoleFilling: holeMode,
+      status: input.status, exitCode: input.exitCode,
       analysis: analyzeCompleteRow(input, group.commonTerminalTimeSeconds!, options) };
   });
   return { schema: "post-phase10-cavity-analysis-v1", generatedAt: new Date().toISOString(),
@@ -292,11 +357,14 @@ export function analyzeCavityRows(rowDirectories: readonly string[], options: Ca
       size: "Largest i/j/k lattice-coordinate center span; i/j are not Cartesian bounding projections. Actual crossings retain overshoot.",
       time: "Common physical time within each named supplied condition group; occupancy is the last completed event, with next-event brackets, not interpolation or metric bounds.",
       cavity: "A center-air component laterally enclosed by ice in a six-neighbor plane; straight axial opening is a sufficient opening witness, not a complete 3D closure test.",
+      enclosureWitnesses: "Per-frame counts distinguish laterally enclosed layers with a straight-axis opening witness from those without one, and report the longest consecutive witnessed-open layer run. Absence of that witness does not establish a sealed vacancy or rule out a non-axial 3D escape route.",
       onset: "First laterally enclosed center-air layer in the retained attachment history; can be transient and does not establish a growth mechanism.",
       episodes: "Intervals with at least one laterally enclosed center-air layer. An open terminal interval persisted only through the recorded stop, not indefinitely; it does not imply the same cavity component survived throughout.",
       spatial: "Converged pre-surface-update samples only. An onset bracket permits inspection but does not establish a temporal causal precursor.",
       facetDips: "Effective arm is the explicit experimentalFacetDips when present; ordinary M1 maps to both and ordinary M1_NO_DIP_ABLATION maps to neither. Explicit arms require matching experiment identity in spec, result, events and snapshots; M1 base metadata alone does not identify mixed kinetics.",
+      holeFilling: "Effective hole filling defaults to enabled for ordinary and facet-dip rows. Explicit hole-fill experiments require their separate identity and mode in spec, result, events and snapshots, and cannot combine with facet-dip opt-ins. Disabled is a geometric-completion counterfactual, not an improved physical model.",
       factorial: "A matched four-arm group requires exactly one both, neither, basal-only and prism-only row with identical recorded nonkinetic configuration, all named fixed controls recorded, and admissible endpoints. Configuration matching is not numerical equivalence or physical validation; mixed seed/grid groups remain descriptive comparisons.",
+      holeFillFactorial: "A matched closure quartet requires ordinary both/neither kinetics crossed with enabled/disabled geometric completion, identical other recorded configuration, all fixed controls recorded and admissible endpoints. A hole-fill-disabled row cannot silently replace an enabled control in a facet comparison.",
       grid: "Matched center spans and probe radii do not make voxelized seeds identical; two thickness brackets do not bound nonlinear outputs or establish continuum convergence.",
     }, options: { centerSpansUm: options.centerSpansUm ?? DEFAULT_SPANS_UM, probeRadiusUm: options.probeRadiusUm ?? 0.35 },
     allRequestedRowsAdmissible: inputs.every((input) => input.status === "complete"), groups, rows };

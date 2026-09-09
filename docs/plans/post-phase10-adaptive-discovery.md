@@ -722,9 +722,14 @@ Supervisor 34632 has exited. The check is accounted for; launch once:
 node runner/src/post-phase10-discovery-main.ts launch-facet-factorial out/post-phase10-facet-factorial/campaign-2026-09-09 4
 ```
 
-Keep the eight fine workers running. The maker reiterated autonomous run/task management within
-the 28-worker ceiling while implementation was underway. No hybrid campaign has launched at this
-checkpoint. Analyze its four row directories together with the four `cavity-baseline-*` controls
+The command launched once under clean producer `a69240b329874ee8c39412d78a9320574418d2f7`.
+Parent PID 4416 and its four worker children were confirmed live; all four host/spec records
+name that producer and their explicit facet arm. Requested and actual startup concurrency are
+four; combined with eight fine workers, actual experiment concurrency is twelve. Read
+`out/post-phase10-facet-factorial/campaign-2026-09-09.launcher.log`, its `.launcher.stderr.log`,
+and per-row status/exit/results. Do not duplicate this launch. Keep the eight fine workers
+running; the maker reiterated autonomous run/task management within the 28-worker ceiling.
+Analyze the four facet row directories together with the four `cavity-baseline-*` controls
 using the existing cavity analyzer's `rows` command; do not use the old two-arm discovery report.
 
 ### Geometric closure hypothesis — retained-event finding, 2026-09-09
@@ -786,8 +791,32 @@ eight-row cavity/waist/time analysis with hole mode explicit. Record local vacan
 cavity limitations rather than silently promoting all empty-center sections. Analyze this first
 comparison before adding a seed, temperature or long-extent extension. With eight fine plus four
 dip plus four closure workers, planned experimental concurrency is sixteen, below the combined
-28-worker cap; actual running counts still govern launches. No hole-fill implementation or run
-has started at this checkpoint.
+28-worker cap; actual running counts still govern launches.
+
+**Implementation checkpoint:** the finite switch now skips only the existing geometric-completion
+loop; ordinary/enabled evolution, kinetic growth and all other update calculations are retained.
+The runner derives the four disabled rows directly from the baseline configurations and propagates
+their separate identity. The analyzer matches enabled/disabled quartets and reports straight-axis
+opening witnesses without equating absence of that witness with general three-dimensional sealing.
+A bounded non-author review found no additional blocker.
+
+Focused command outputs are transcribed in
+`out/post-phase10-holefill/checkpoint-2026-09-09/focused-observations.json`: the initial solver check
+passed six tests and failed two no-dip fixtures because their assumed forty-cycle horizon preceded
+geometric completion. Extending only those fixture horizons to eighty cycles made both pass,
+including byte equality and positive geometric count/deficit; no solver change followed the test
+failure. Runner and analyzer focused checks passed six and fourteen tests respectively. These
+are focused results, not a full-suite pass. Commit this checkpoint and run one exact `npm test`
+with the existing single-test-worker configuration, recording its log and exit under the same
+directory. Keep source and documentation frozen during that check. After accounting for its
+results, launch once with:
+
+```text
+node runner/src/post-phase10-discovery-main.ts launch-holefill out/post-phase10-holefill/campaign-2026-09-09 4
+```
+
+No hole-fill campaign has launched at this checkpoint. The existing fine/facet numerical processes
+remain running and are not restarted or relabeled by this source change.
 
 ### Earlier completed-row observations
 

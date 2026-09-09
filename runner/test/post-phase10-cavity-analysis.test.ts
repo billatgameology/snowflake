@@ -51,6 +51,18 @@ function facetFixture(id: string, arm: "both" | "neither" | "basal-only" | "pris
   writeFileSync(join(data.directory, "events.jsonl"), events.map((event) => JSON.stringify(event)).join("\n"));
   return { ...data, row, result, events, identity };
 }
+
+function holeFixture(id: string, arm: "both" | "neither", mode: "enabled" | "disabled", timeScale = 1, tempC = -4.5) {
+  const data = facetFixture(id, arm, timeScale, tempC);
+  const identity = { experimentId: "post-phase10-holefill-isolation-v1", experimentalHoleFilling: mode };
+  const row = { ...data.row, experimentalHoleFilling: mode };
+  const result = { ...data.result, ...identity };
+  const events = data.events.map((event) => ({ ...event, ...identity }));
+  json(join(data.directory, "spec.json"), { row, fixed, ...identity });
+  json(join(data.directory, "result.json"), result);
+  writeFileSync(join(data.directory, "events.jsonl"), events.map((event) => JSON.stringify(event)).join("\n"));
+  return { ...data, row, result, events, identity };
+}
 afterEach(() => {
   for (const directory of scratch.splice(0)) rmSync(directory, { recursive: true, force: true });
 });
@@ -224,5 +236,88 @@ describe("offline cavity trajectory analysis", () => {
     expect(analyzeCavityRows([directory]).rows[0].analysis!.effectiveFacetDips).toBe("basal-only");
     json(join(directory, record.path), { ...snapshot, experimentalFacetDips: "neither" });
     expect(() => analyzeCavityRows([directory])).toThrow("snapshot boundary-e3.json experimental facet identity mismatch");
+  });
+
+  it("labels ordinary/facet rows as hole-fill-enabled and matches two separate closure quartets", () => {
+    const groups = [-4.5, -5].map((tempC, n) => [
+      facetFixture(`closure-${n}-both-on`, "both", n + 1, tempC),
+      facetFixture(`closure-${n}-neither-on`, "neither", n + 2, tempC),
+      holeFixture(`closure-${n}-both-off`, "both", "disabled", n + 3, tempC),
+      holeFixture(`closure-${n}-neither-off`, "neither", "disabled", n + 4, tempC),
+    ]);
+    const report = analyzeCavityRows(groups.flat().map((data) => data.directory));
+    expect(report.groups.map((group) => group.commonTerminalTimeSeconds)).toEqual([4, 8]);
+    expect(report.groups.every((group) => group.holeFillFactorial.allFourCornersAdmissibleAndMatched)).toBe(true);
+    expect(report.rows.map((row) => row.effectiveHoleFilling)).toEqual([
+      "enabled", "enabled", "disabled", "disabled", "enabled", "enabled", "disabled", "disabled",
+    ]);
+    expect(report.rows.map((row) => row.analysis!.effectiveHoleFilling)).toEqual(
+      report.rows.map((row) => row.effectiveHoleFilling));
+    expect(report.groups[0].rowArms.map((row) => row.effectiveFacetDips)).toEqual(["both", "neither", "both", "neither"]);
+    const hybrid = facetFixture("hybrid-hole-default", "basal-only");
+    expect(analyzeCavityRows([hybrid.directory]).rows[0].effectiveHoleFilling).toBe("enabled");
+    const explicitOn = holeFixture("explicit-on", "neither", "enabled");
+    expect(analyzeCavityRows([explicitOn.directory]).rows[0].effectiveHoleFilling).toBe("enabled");
+  });
+
+  it("cannot substitute a hole-fill-off control into an otherwise complete facet comparison", () => {
+    const off = holeFixture("substituted-off", "both", "disabled");
+    const otherArms = ["neither", "basal-only", "prism-only"] as const;
+    const others = otherArms.map((arm) => facetFixture(`other-${arm}`, arm));
+    const report = analyzeCavityRows([off.directory, ...others.map((row) => row.directory)]);
+    expect(report.groups[0].facetFactorial.completeFourArmRoster).toBe(true);
+    expect(report.groups[0].facetFactorial.sameNonKineticConfiguration).toBe(false);
+    expect(report.groups[0].facetFactorial.differingFields).toEqual(["effectiveHoleFilling"]);
+    expect(report.groups[0].facetFactorial.allFourArmsAdmissibleAndMatched).toBe(false);
+    expect(report.groups[0].holeFillFactorial.completeFourCornerRoster).toBe(false);
+  });
+
+  it("checks hole-fill identity at each artifact boundary and rejects mixed opt-ins", () => {
+    const data = holeFixture("identified-off", "neither", "disabled");
+    const { directory, row, result, events, identity } = data;
+    json(join(directory, "spec.json"), { row, fixed });
+    expect(() => analyzeCavityRows([directory])).toThrow("spec experimental hole-fill identity mismatch");
+    json(join(directory, "spec.json"), { row, fixed, ...identity });
+    json(join(directory, "result.json"), { ...result, experimentalHoleFilling: "enabled" });
+    expect(() => analyzeCavityRows([directory])).toThrow("result experimental hole-fill identity mismatch");
+    json(join(directory, "result.json"), result);
+    writeFileSync(join(directory, "events.jsonl"), events.map((event, n) => JSON.stringify(
+      n === 1 ? { ...event, experimentId: "post-phase10-facet-isolation-v1" } : event)).join("\n"));
+    expect(() => analyzeCavityRows([directory])).toThrow("event 2 experimental hole-fill identity mismatch");
+    writeFileSync(join(directory, "events.jsonl"), events.map((event) => JSON.stringify(event)).join("\n"));
+    const record = { path: "boundary-e3.json", triggerExtent: 3, actualExtent: 3, completedCycles: 1, simTimeSeconds: 1 };
+    result.spatialSnapshots.push(record);
+    json(join(directory, "result.json"), result);
+    const snapshot = { schema: "post-phase10-spatial-boundary-v1", rowId: row.id,
+      timing: "after-converged-relaxation-before-surface-advance", record, dims, center: [10, 10, 10],
+      dxUm: 0.35, tempC: row.tempC, sigmaInfinity: row.sigmaInfinity, seedRadius: 0, seedThickness: 1,
+      attachedCount: 7, cells: [], ...identity };
+    json(join(directory, record.path), snapshot);
+    expect(analyzeCavityRows([directory]).rows[0].effectiveHoleFilling).toBe("disabled");
+    json(join(directory, record.path), { ...snapshot, experimentalFacetDips: "both" });
+    expect(() => analyzeCavityRows([directory])).toThrow("snapshot boundary-e3.json experimental hole-fill identity mismatch");
+    json(join(directory, "spec.json"), { row: { ...row, paramSet: "M1", experimentalFacetDips: "both" }, fixed, ...identity });
+    expect(() => analyzeCavityRows([directory])).toThrow("facet and hole-fill experiments cannot be combined");
+  });
+
+  it("distinguishes a straight-open cavity witness from a capped vacancy without a general 3D closure claim", () => {
+    const open = fixture("open-witness");
+    const openFrame = analyzeCavityRows([open.directory]).rows[0].analysis!.frames.find((frame) => frame.cycle === 1)!;
+    expect(openFrame.enclosureWitnesses).toEqual({ laterallyEnclosedLayers: 1, straightAxiallyOpenLayers: 1,
+      laterallyEnclosedWithoutStraightAxialOpening: 0, longestConsecutiveStraightOpenLayerRun: 1 });
+
+    const capped = fixture("capped-witness");
+    const capIndex = idx(dims, 10, 10, 12);
+    capped.events[0].attached.push({ index: capIndex, coords: coordsOf(dims, capIndex) });
+    for (const event of capped.events) event.attachedCount++;
+    capped.events[1].extent = 4;
+    capped.result.attachedCount++;
+    writeFileSync(join(capped.directory, "events.jsonl"), capped.events.map((event) => JSON.stringify(event)).join("\n"));
+    json(join(capped.directory, "result.json"), capped.result);
+    const report = analyzeCavityRows([capped.directory]);
+    const cappedFrame = report.rows[0].analysis!.frames.find((frame) => frame.cycle === 1)!;
+    expect(cappedFrame.enclosureWitnesses).toEqual({ laterallyEnclosedLayers: 1, straightAxiallyOpenLayers: 0,
+      laterallyEnclosedWithoutStraightAxialOpening: 1, longestConsecutiveStraightOpenLayerRun: 0 });
+    expect(report.definitions.enclosureWitnesses).toContain("does not establish a sealed vacancy");
   });
 });

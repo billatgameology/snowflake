@@ -17,8 +17,9 @@ import {
   readDiscoveryResult,
   runPostPhase10DiscoveryRow,
   DISCOVERY_FACET_EXPERIMENT_ID,
-  discoveryFacetIdentity,
-  type DiscoveryFacetIdentity,
+  DISCOVERY_HOLEFILL_EXPERIMENT_ID,
+  discoveryExperimentIdentity,
+  type DiscoveryExperimentIdentity,
   type DiscoveryRow,
 } from "./post-phase10-discovery.ts";
 import { analyzePostPhase10Discovery } from "./post-phase10-discovery-analysis.ts";
@@ -55,6 +56,11 @@ import {
   POST_PHASE10_FACET_REUSED_CONTROLS,
   findPostPhase10FacetFactorialRow,
 } from "./post-phase10-facet-factorial.ts";
+import {
+  POST_PHASE10_HOLEFILL_ROWS,
+  POST_PHASE10_HOLEFILL_REUSED_CONTROLS,
+  findPostPhase10HolefillRow,
+} from "./post-phase10-holefill.ts";
 
 function writeJson(path: string, value: unknown): void {
   writeFileSync(path, `${JSON.stringify(value, null, 2)}\n`, "utf8");
@@ -82,7 +88,7 @@ function parseConcurrency(raw: string | undefined, fallback: number): number {
   return value;
 }
 
-interface RowExit extends DiscoveryFacetIdentity {
+interface RowExit extends DiscoveryExperimentIdentity {
   readonly rowId: string;
   readonly exitCode: number | null;
   readonly signal: NodeJS.Signals | null;
@@ -105,10 +111,11 @@ async function launchRows(options: {
 
   const launchedAt = new Date();
   const head = git(["rev-parse", "HEAD"]);
-  const experimentalRows = options.rows.filter((row) => row.experimentalFacetDips !== undefined);
+  const experimentalRows = options.rows.filter((row) =>
+    row.experimentalFacetDips !== undefined || row.experimentalHoleFilling !== undefined);
   const experimentMetadata = experimentalRows.length === 0 ? {} : {
-    experimentId: DISCOVERY_FACET_EXPERIMENT_ID,
-    experimentalRows: experimentalRows.map((row) => ({ rowId: row.id, ...discoveryFacetIdentity(row) })),
+    experimentId: discoveryExperimentIdentity(experimentalRows[0]).experimentId,
+    experimentalRows: experimentalRows.map((row) => ({ rowId: row.id, ...discoveryExperimentIdentity(row) })),
   };
   writeJson(launchPath, {
     schema: "post-phase10-discovery-launch-v1",
@@ -133,9 +140,11 @@ async function launchRows(options: {
   let active = 0;
   let maxActive = 0;
   const runOne = async (row: DiscoveryRow): Promise<void> => {
-    const experimentIdentity = discoveryFacetIdentity(row);
-    const experimentLabel = row.experimentalFacetDips === undefined ? "" :
-      ` experimentId=${DISCOVERY_FACET_EXPERIMENT_ID} experimentalFacetDips=${row.experimentalFacetDips}`;
+    const experimentIdentity = discoveryExperimentIdentity(row);
+    const experimentLabel = row.experimentalHoleFilling !== undefined
+      ? ` experimentId=${DISCOVERY_HOLEFILL_EXPERIMENT_ID} experimentalHoleFilling=${row.experimentalHoleFilling}`
+      : row.experimentalFacetDips === undefined ? "" :
+        ` experimentId=${DISCOVERY_FACET_EXPERIMENT_ID} experimentalFacetDips=${row.experimentalFacetDips}`;
     const rowDirectory = resolve(rowsRoot, row.id);
     if (existsSync(rowDirectory)) throw new Error(`row directory already exists: ${rowDirectory}`);
     mkdirSync(rowDirectory, { recursive: false });
@@ -563,6 +572,42 @@ async function launchFacetFactorial(campaignDirectory: string, concurrency: numb
   if (exits.some((exit) => exit.exitCode !== 0 || exit.signal !== null)) process.exitCode = 1;
 }
 
+async function launchHolefill(campaignDirectory: string, concurrency: number): Promise<void> {
+  requireCleanTree();
+  const output = resolve(campaignDirectory);
+  if (existsSync(output)) throw new Error(`campaign directory already exists: ${output}`);
+  mkdirSync(output, { recursive: true });
+  const processors = cpus();
+  writeJson(resolve(output, "campaign.json"), {
+    schema: "post-phase10-holefill-campaign-v1",
+    experimentId: DISCOVERY_HOLEFILL_EXPERIMENT_ID,
+    campaignId: basename(output),
+    gitHead: git(["rev-parse", "HEAD"]),
+    branch: git(["branch", "--show-current"]),
+    node: process.version,
+    logicalProcessors: processors.length,
+    cpuModels: [...new Set(processors.map((processor) => processor.model))],
+    totalMemoryBytes: totalmem(),
+    requestedConcurrency: concurrency,
+    plannedMaximumConcurrency: Math.min(concurrency, POST_PHASE10_HOLEFILL_ROWS.length),
+    rowCount: POST_PHASE10_HOLEFILL_ROWS.length,
+    rows: POST_PHASE10_HOLEFILL_ROWS,
+    reusedControls: POST_PHASE10_HOLEFILL_REUSED_CONTROLS,
+    sourcePlan: "docs/plans/post-phase10-adaptive-discovery.md",
+    sourcePlanSection: "Geometric closure hypothesis — retained-event finding, 2026-09-09",
+    sourcePlanCommit: "9b8939ee765c12fcc629980187ec929aa16d4998",
+    exactLaunchCommand: [process.execPath, ...process.argv.slice(1)],
+    createdAt: new Date().toISOString(),
+  });
+  const exits = await launchRows({
+    campaignDirectory: output,
+    launchName: "holefill-wave-1",
+    rows: POST_PHASE10_HOLEFILL_ROWS,
+    concurrency,
+  });
+  if (exits.some((exit) => exit.exitCode !== 0 || exit.signal !== null)) process.exitCode = 1;
+}
+
 async function main(): Promise<void> {
   const [command, ...args] = process.argv.slice(2);
   switch (command) {
@@ -587,6 +632,9 @@ async function main(): Promise<void> {
     case "list-facet-factorial":
       console.log(JSON.stringify(POST_PHASE10_FACET_FACTORIAL_ROWS, null, 2));
       return;
+    case "list-holefill":
+      console.log(JSON.stringify(POST_PHASE10_HOLEFILL_ROWS, null, 2));
+      return;
     case "run-row": {
       if (args.length !== 2) throw new Error("run-row wants <row-id> <output-directory>");
       const smokeRow = POST_PHASE10_SMOKE_ROWS.find((row) => row.id === args[0]);
@@ -594,6 +642,7 @@ async function main(): Promise<void> {
       const selectedRow =
         smokeRow ??
         adaptiveSmokeRow ??
+        findPostPhase10HolefillRow(args[0]) ??
         findPostPhase10FacetFactorialRow(args[0]) ??
         findPostPhase10CavityRow(args[0]) ??
         findPostPhase10FollowupRow(args[0]) ??
@@ -661,6 +710,12 @@ async function main(): Promise<void> {
       }
       await launchFacetFactorial(args[0], parseConcurrency(args[1], 4));
       return;
+    case "launch-holefill":
+      if (args.length < 1 || args.length > 2) {
+        throw new Error("launch-holefill wants <campaign-directory> [concurrency]");
+      }
+      await launchHolefill(args[0], parseConcurrency(args[1], 4));
+      return;
     case "analyze":
       if (args.length !== 2) {
         throw new Error("analyze wants <campaign-directory> <output-directory>");
@@ -670,7 +725,7 @@ async function main(): Promise<void> {
     default:
       throw new Error(
         "usage: node runner/src/post-phase10-discovery-main.ts " +
-          "list|list-adaptive|list-long|list-confirmation|list-followup|list-cavity|list-facet-factorial|" +
+          "list|list-adaptive|list-long|list-confirmation|list-followup|list-cavity|list-facet-factorial|list-holefill|" +
           "run-row <row-id> <out>|" +
           "launch-initial <campaign-dir> [concurrency]|launch-a112 <campaign-dir>|" +
           "smoke <out>|launch-adaptive <campaign-dir> [concurrency]|smoke-adaptive <out>|" +
@@ -679,6 +734,7 @@ async function main(): Promise<void> {
           "launch-followup <campaign-dir> [concurrency]|" +
           "launch-cavity <campaign-dir> [concurrency]|" +
           "launch-facet-factorial <campaign-dir> [concurrency]|" +
+          "launch-holefill <campaign-dir> [concurrency]|" +
           "analyze <campaign-dir> <output-dir>",
       );
   }
