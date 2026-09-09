@@ -190,6 +190,8 @@ Two warnings attached in v1.3 (decision 0005; provenance corrected by decision 0
 
 The consequence to hold onto: temperature is an input to the physics, not a label applied afterward. α_basal(T, σ_surf) and α_prism(T, σ_surf) are computed each step from the local supersaturation the diffusion field delivers, and the plate↔column habit is an output of their competition rather than a knob. This is what allows the model to be wrong — and therefore worth testing (§3.2, Phase 6).
 
+Post-Phase-10 development experiment (decision 0055, 2026-09-09): under the maker's autonomous bounded-science direction, a separately identified constant-environment CPU experiment may select both, neither, basal-only or prism-only M1 dip preparations. It retains the coupled aggregate-v6 Robin/fill operator and ordinary behavior, and cannot use existing checkpoint formats to imply ordinary kinetics. The active discovery plan registers its finite comparisons and controls. These interventions identify effects within the implemented discrete model, not width-dependent SDAK, physical necessity, grid convergence or quantitative validation. They do not reopen Phase 10 or involve the separate Phase 7 path.
+
 Note the symbol collision, which is a live hazard in this repository: Gravner–Griffeath also use α, for an entirely unrelated quantity (a boundary-mass attachment threshold indexed by neighbor count). A bare α is banned from the code and the docs; see §3.3.
 
 2.6 The computable models

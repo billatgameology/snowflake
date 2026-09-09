@@ -643,7 +643,7 @@ campaign's terminal records and analyze configurations as they finish with
 `node runner/src/post-phase10-cavity-analysis.ts campaign out/post-phase10-cavity/campaign-2026-09-08 <new-output.json>`.
 Do not generate repeated all-pending reports. Keep partial groups
 explicit; their common-time grid can change as additional rows complete. The maker's active goal authorizes autonomous
-finite follow-ups with a maximum of 28 combined experiment/test workers. Keep the solver unchanged; the immediate
+finite follow-ups with a maximum of 28 combined experiment/test workers. Preserve the running cavity producer; its immediate
 question is whether warm cavity formation persists across explicit grid/seed perturbations and
 has the hypothesized spatial field precursor. All 12 coarse rows are now admissible size-target
 terminals. The consolidated report is `out/post-phase10-cavity/coarse-cavity-comparison-2026-09-08.json`;
@@ -656,10 +656,13 @@ and cavity width retain seed dependence. Spatial snapshots support post-onset de
 an established initiation mechanism. At 23:04 UTC the parent and eight fine-grid workers were
 live, with 12 completed rows and no nonempty worker stderr. Next analyze those fine-grid rows
 without relaunching or changing their producer. Compare added waist thickness beyond the seed in
-physical units as well as cells; grid-independent dimensions are not established. The conditional facet factorial's coefficient
-combinations have been checked for distinctness; this was scalar feasibility, not a growth run
-or a morphology prediction. Old source hashes are not a scientific veto on a
-separately designed future facet ablation. Do not involve Phase 7, revive C0V/S6 recovery, or build
+physical units as well as cells; grid-independent dimensions are not established. Decision 0055
+and the active plan's **Bounded overlapping facet-isolation experiment** now explicitly amend
+the earlier serial wait. Next implement/test the small constant-preparation opt-in and four
+warm hybrid rows while fine runs continue unchanged. Reuse four completed baseline controls only
+after nontrivial both/neither equivalence; analyze the eight-row factorial before any expansion.
+This identifies intervention effects in the current discrete model, not grid-robust physics.
+Scalar distinctness was already checked; do not repeat that feasibility work. Do not involve Phase 7, revive C0V/S6 recovery, or build
 a scheduler, dashboard, hostile-runtime defense, or new assurance framework.
 
 The prior Phase 10 selection note below is completed reproduction context; its request for a next

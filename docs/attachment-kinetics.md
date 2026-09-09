@@ -109,12 +109,22 @@ no-SDAK and SDAK-bearing runs separately.
 
 The solver currently implements two bounded alternatives: broad-facet CAK inputs and M1's
 everywhere-narrow approximation. M1 does not query width and does not implement M2's feedback. The
-replacement Phase 6 protocol also intends a matched M1/no-dip ablation; only that pair can isolate
-the implemented dip factors' effect on this solver under the frozen configuration. It cannot
+replacement Phase 6 protocol also intends a matched M1/no-dip ablation; that pair isolates
+the joint implemented dip factors' effect on this solver under the frozen configuration. It cannot
 establish physical SDAK causality or necessity in nature. CAK→M1 changes broad functions,
 prefactors, and dips simultaneously and is not causal evidence. Whether any of these inputs yields
 a plate, column, hollow, or neutral shape is established only by the coupled forward operator and
 frozen evaluator.
+
+Decision 0055 adds a separately identified, constant-environment post-Phase-10 experiment:
+`experimentalFacetDips` selects `both`, `neither`, `basal-only` or `prism-only` at construction.
+The basal and prism prefactor/barrier pairs come independently from the existing M1 or matched
+no-dip preparation. The opt-in requires M1 base metadata and aggregate-v6; its explicit arm, not
+that base tag alone, identifies the effective kinetics. The same prepared coefficient feeds the
+unchanged nonlinear Robin solution and cached fill pair. All rough/inhibited rules, geometry,
+monopole lag, timestep and ledger remain unchanged. Timeline events and ordinary resume export
+are unsupported for these experiments; their runner writes identified raw events/results, not
+ordinary LK checkpoints. This finite preparation intervention is not a width-feedback closure.
 
 ## 4. The seam — continuous velocity → discrete lattice ⚠ THE REAL WORK
 

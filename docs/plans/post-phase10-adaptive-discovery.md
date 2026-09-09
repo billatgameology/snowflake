@@ -437,8 +437,9 @@ matching arithmetic, snapshot timing/content, and identical numerical output wit
 Run both typechecks and Rule 7, then exact `npm test` once at the stable scientific-telemetry
 checkpoint; report the already known historical failures without repairing or looping them.
 Commit the tested producer before background launch; retain per-row stdout/stderr/exit records.
-The next decision is the cavity/seed/grid result and then a separate facet-factorial design,
-not an automatic broad sweep. Compact report/source preservation remains due before publication;
+The original next decision was the cavity/seed/grid result and then a separate facet-factorial
+design. The bounded overlap amendment below now separates model-level intervention from pending
+grid qualification; neither is an automatic broad sweep. Compact report/source preservation remains due before publication;
 the older adaptive raw `out/` collections are retained working data, not a durable archive.
 
 Review provenance: root and three non-author Astra agents shared conversation context. The bounded
@@ -618,15 +619,61 @@ has separated the exposed regions. No-dip also shows geometry-dependent reversal
 their new upper basal planes. These are comparisons within sampled planes, not interventions or
 integrated deposited growth. Missing pairs are not zero center demand.
 
-**Next scientific decision:** let the eight existing fine-grid cases finish, then compare
+**Grid-qualification decision:** let the eight existing fine-grid cases finish, then compare
 persistence and added waist thickness beyond the seed in micrometers, with the registered seed
 brackets. The coarse four-layer addition is 1.4 micrometers; at the fine spacing four layers would
 be 0.7 micrometers and eight would be 1.4. These illustrate distinguishable cell-scale versus
-physical-scale outcomes, not predictions or nonlinear bounds. If the persistence lead survives,
-the conditional factorial asks which basal/prism dip intervention changes transient closure into
-persistence. It localizes global kinetic preparation, not width feedback. A strongly cell-locked
-result instead prioritizes understanding the discrete closure before physical interpretation.
-No new mechanism campaign or solver change is made from the coarse data alone.
+physical-scale outcomes, not predictions or nonlinear bounds. The factorial below asks which
+basal/prism dip intervention changes transient closure into persistence in the current discrete
+model. It localizes global kinetic preparation, not width feedback. A strongly cell-locked fine
+result prioritizes understanding the discrete closure before physical interpretation.
+
+### Bounded overlapping facet-isolation experiment — 2026-09-09
+
+This prospectively supersedes the earlier wait-for-fine/no-coarse-only-launch instruction.
+The completed coarse report named above supplies a model-level contrast worth isolating now;
+fine qualification remains necessary before a grid-robust interpretation. The maker delegated
+finite follow-ups and a maximum of 28 combined experiment/test workers. Root and a bounded
+shared-context Astra design review agree that these two questions need not execute serially.
+
+**Goal:** identify the effects of the basal and prism dip interventions on persistence/closure
+within the present discrete operator. No new physical law, width feedback or validation claim.
+
+**Finite protocol:** four new rows, basal-only and prism-only at each of -4.5 and -5 C.
+Use exactly the corresponding cavity-baseline settings: N64, dx 0.35 micrometers, seed radius 2 /
+thickness 1, fraction 0.075, pressure 101325 Pa, fill-CFL 0.05, target extent 29; retain all
+convergence tolerances, maximum steps/sweeps, noise/seed, aggregate-v6, monopole-matched shell and
+spatial snapshot extents. Reuse only the four completed `cavity-baseline-*` M1/no-dip controls,
+not the seed/grid variants. Those numerical inputs are the existing `spec.json` records under
+`out/post-phase10-cavity/campaign-2026-09-08/rows/`; the new roster derives from that baseline
+constructor, not a new sweep. Four corners per temperature share physical-size and common-age
+analysis with event brackets. Extent 29 is not equal axial length or equal age across arms.
+
+**Implementation/checks:** decision 0055 and the solver spec define a finite constant preparation
+opt-in. Commit this protocol before implementation. No arbitrary callback, numerical kernel
+refactor, new checkpoint format or copied solver. Require nontrivial ordinary/both and
+ordinary/neither bit equivalence for field, fill, occupancy, physical time and ledger, including
+attachment. Independently check hybrid facet preparation and its shared Robin/fill use. Add only
+needed runner identity/roster and analyzer labels; existing geometry analysis stays unchanged.
+Use focused checks, then exact `npm test` once for this new scientific-code checkpoint, reporting
+known historical failures separately. Commit tested source before launch. Existing fine workers
+continue with producer `eb7b5c4`; their code/protocol identity is not relabeled to the new producer.
+
+**Observations and done when:** all four new rows have a terminal disposition and the eight-row
+four-corner report records enclosed-plane counts, straight-axis opening witnesses, enclosure
+episodes and duration through stop, waist addition beyond the seed, and matched size/time
+trajectories. Use the existing size-target, domain-contact, nonconvergence, solver-error, stall
+and step-cap stops; do not extend inconvenient results. Basal-only resembling M1 with prism-only
+resembling no-dip supports a basal intervention explanation here; the reverse supports prism.
+If both persist, either isolated intervention can produce persistence under these conditions;
+if neither persists, the combination is required among these four configurations only. Keep
+intermediate/transient effects rather than force a binary verdict. Examine this result before
+adding temperatures, seeds or longer hybrids. Control reuse is conditional on equivalence;
+resolve any mismatch before launch, not by silently accepting altered controls.
+
+**Deliberately not done:** no Phase 7, C0V recovery, physical necessity claim, new grid sweep,
+hybrid long-run expansion or infrastructure framework. Eight fine plus four new experiment
+workers use 12 of the allowed 28; do not pad the roster to occupy cores.
 
 ### Earlier completed-row observations
 
@@ -744,8 +791,8 @@ time is 46.78898713498752 seconds (M1 terminal); no-dip is cycle 475 at 46.55763
 bracketed by its next event at 46.82956205013383 seconds, with extent 23 and a nine-plane waist.
 M1's enclosure interval persisting through stop begins at cycle 47 / 4.330048479988489 seconds.
 Its cycle-40 same-plane contrast and later spatial limitations are qualitatively like the -4.5 C
-case. This pair does not settle baseline/thickness/grid sensitivity; no new mechanism run starts
-on the strength of these coarse results alone.
+case. At that checkpoint this pair did not settle baseline/thickness/grid sensitivity and no
+new mechanism run started. The later bounded overlap amendment supersedes that serial order.
 
 ### First within-arm seed comparison
 
@@ -837,8 +884,8 @@ an ADR/spec clarification preserving ordinary behavior and existing checkpoint m
 experimental operator is an alternative, not a scientific necessity. Do not implement either
 through the test-only callback. Require nontrivial ordinary-versus-experimental equivalence for
 the both-dips and neither-dip controls, and retain the same coefficient in Robin relaxation and
-fill. This identifies the next code seam without authorizing a premature new run or a broad
-framework. The current cavity producer still changes no solver behavior.
+fill. This earlier design identified the code seam; the bounded overlap amendment now authorizes
+its finite implementation, not a broad framework. The existing cavity producer changes no solver behavior.
 
 A bounded scalar feasibility check found distinct mixed preparations at the cavity temperatures
 and the prism-dip center: the implemented log-temperature dip tails overlap, so the proposed
@@ -846,8 +893,8 @@ factorial does not merely duplicate its control coefficients there. The prefacto
 the rough/inhibited coefficient rules have no direct preparation dependence; their populations
 and local fields can still respond indirectly. A shared-context Astra agent evaluated the
 preparations and sampled attachment coefficients; root independently evaluated the documented
-dip factors and read the closure. No hybrid growth experiment was run. Keep the factorial
-conditional on the cavity results, and judge any weak cross-facet response using absolute kinetic
+dip factors and read the closure. No hybrid growth experiment was run at that checkpoint. The
+bounded overlap amendment now selects the warm factorial; judge any weak cross-facet response using absolute kinetic
 demand at recorded facet-local supersaturation, not coefficient ratios alone. Distinct inputs
 do not establish distinguishable morphologies. Reproduce the preparation comparison from the
 science worktree (inputs from the cavity roster and `core/src/libbrecht.ts`):
