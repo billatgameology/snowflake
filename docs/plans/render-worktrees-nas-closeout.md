@@ -1,9 +1,9 @@
 # Plan — preserve generated worktree output and open the closeout PR
 
 - **Phase:** Pre-Phase 7 product retention; no charter phase or gate is reopened
-- **Status:** active — PR #10 open; awaiting maker cross-machine restore confirmation
+- **Status:** active — PR #10 merged 2026-09-04 (`4cc1cb3`); Mac-side verification 2026-09-09; full cross-machine restore still pending
 - **Started:** 2026-09-04
-- **Last touched:** 2026-09-04 by OpenAI Codex (GPT-5)
+- **Last touched:** 2026-09-09 by Claude Fable 5.1 (Anthropic)
 
 ## Goal
 
@@ -118,6 +118,28 @@ The clean feature branch was pushed to `origin/feature/named-crystal-catalog`, a
 owns merge and cross-machine restore testing of both this collection and the separately owned
 `gutcheck-growth-scientific@2026-08-26` collection. This plan remains active only as the landing
 point for that confirmation and the separately authorized cleanup pass.
+
+### Mac-side check (2026-09-09)
+
+The maker merged PR #10 (`4cc1cb3`, 2026-09-04) and PR #11 (`b9f0a0c`, 2026-09-06); both source
+branches are ancestors of `main`. On the macOS host the marked share mounted at
+`/Volumes/snowcrystal` via `smb://GameStation/snowcrystal`, and `collections/` lists both
+`render-worktrees-closeout` and `gutcheck-growth-scientific`. `npm run assets:verify --
+--collection <id>` returned `ok=true` with `manifest=verified`, `aggregate=verified`,
+`payload=not-run` for each (`out/nas-verify-2026-09-09/*.verify.log`); that mode reads no payload
+byte. A read-only Node copy then took the gallery-facing subset (99 named growth/scene sources,
+99 catalogue previews, 66 recipe files and 51 earlier-library fleet recordings) into local `out/`
+and recomputed every SHA-256 against the tracked owner manifest: 315 / 315 verified,
+388,459,029 bytes (`out/nas-verify-2026-09-09/gallery-subset-copy.json`), plus 99 / 99 volume
+previews (`volume-previews-copy.json`). `npm run assets:verify -- --collection
+render-worktrees-closeout@2026-09-04 --full`, followed sequentially by the same for
+`gutcheck-growth-scientific@2026-08-26`, started at 2026-09-09T23:31:09Z with the SMB link reading
+at roughly 12–23 MB/s; its outcome lands in `out/nas-verify-2026-09-09/full.timeline.log` and the
+per-collection `*.full.log` / `*.full.exit` files and is not yet recorded here. The documented
+restore pair cannot run on this Mac: the volume had 41 GiB free against 130,479,382,836 +
+84,247,312,054 bytes, so the cross-machine restore still needs a host with roughly 215 GB free or
+an external disk. Nothing on the NAS or in the local worktrees was deleted; the local subset is
+reproducible product scratch under `out/`, not a governed restore.
 
 ## Out of scope
 

@@ -19,6 +19,27 @@ detail.
 
 ## Current state
 
+- **macOS dev-server guard defect fixed; NAS closeout checked from the Mac (2026-09-09).** On this
+  Mac the documented `npm run dev --workspace app -- --port 5191` served every gallery page as an
+  unstyled "Loading…" shell. The repository-local `/@fs` guard in `app/vite.config.ts` strips
+  `/@fs/` and then requires an absolute path, but on POSIX Vite emits `/@fs/Users/...` with the
+  leading slash consumed, so every hoisted `node_modules` module (Vite's own `env.mjs` first) was
+  refused while the double-slash fixtures in `runner/test/vite-nas-serving.test.ts` stayed green;
+  Windows was unaffected because its remainder is `C:/...`. The fix mirrors Vite's `fsPathFromId`
+  (re-prefix the slash, then the same allow/deny decision) with a regression test on the emitted
+  form; a pre-fix/post-fix probe returned 403/204 for `env.mjs` and 403/403 for an `out/` file.
+  Focused boundary tests 23/23, typecheck, Rule 7 (1,330 files) and the app build pass
+  (`out/nas-verify-2026-09-09/fix-checks.log`). The change is committed on branch
+  `fix/vite-fs-guard-posix`; the visual-studies section under Next step holds its PR and merge record. Separately, the marked
+  `snowcrystal` share mounted at `/Volumes/snowcrystal`; `assets:verify` confirmed both owner
+  manifests and aggregates without reading payload; the gallery-facing subset of
+  `render-worktrees-closeout@2026-09-04` copied to local `out/` matched the tracked manifest
+  byte-for-byte (315 files / 388,459,029 bytes in `out/nas-verify-2026-09-09/gallery-subset-copy.json`;
+  99 volume previews in `volume-previews-copy.json`); and the `--full` hash verify of that
+  collection, followed by the scientific collection, started at 2026-09-09T23:31:09Z
+  (`out/nas-verify-2026-09-09/full.timeline.log`, `*.full.log`, `*.full.exit`). The documented
+  130 GB + 84 GB local restore cannot run on this Mac (41 GiB free); the closeout section below
+  records that. The dev server on `127.0.0.1:5191` now serves all 151 animations from that subset.
 - **Animation/main integration is resolved (2026-09-06).** The maker requested a PR and merge.
   Both Vite gallery services and the newer main records are retained. A missing-local-scenes
   startup failure is corrected by validating generated Compose files on request; the hash and
@@ -367,10 +388,14 @@ the two-pane composition and closer detail checks; `app/data/README.md` has usag
 
 ### Render-worktree NAS closeout — active
 
-[PR #10](https://github.com/billatgameology/snowflake/pull/10) is open against `main` with the
-tracked locator and owner manifest for `render-worktrees-closeout@2026-09-04`. The maker's next
-action is to merge that PR, fetch `main` on the other computer, attach the marked `snowcrystal` NAS,
-then run:
+[PR #10](https://github.com/billatgameology/snowflake/pull/10) merged into `main` at `4cc1cb3` on
+2026-09-04 with the tracked locator and owner manifest for `render-worktrees-closeout@2026-09-04`;
+[PR #11](https://github.com/billatgameology/snowflake/pull/11) followed at `b9f0a0c` on 2026-09-06.
+The Mac-side check on 2026-09-09 (Current state above) mounted the share, verified both owner
+manifests, hash-verified a 414-file gallery subset against the manifest and started the full-hash
+verify; the full restore below cannot run on that Mac (41 GiB free), so it still needs a host with
+roughly 215 GB free or an external disk. The maker's remaining action is to attach the marked
+`snowcrystal` NAS on such a host, then run:
 
 ```text
 npm run assets:restore -- --collection render-worktrees-closeout@2026-09-04 --to out/restores/render-worktrees-closeout-2026-09-04
