@@ -758,12 +758,18 @@ single-cell surface openings, not a fully closed endpoint or a deep-cavity lead.
 identities and the conditional next-step closure derivation. No simulation/test was repeated for
 these analyses. The eight original fine-grid workers remain active.
 Decision 0057 and that plan section now register two new prism-only/disabled-completion rows,
-using six completed N80 controls. Next implement this small combined-option/identity seam in
-`solver-cpu/src/lk-solver.ts` and the existing discovery runner/analyzer, with same-plane opening
-persistence measured behind advancing tips. Preserve all old rosters and numerical equations.
-Perform the registered focused checks and one exact `npm test` at the stable combined checkpoint,
-then launch `launch-prism-holefill out/post-phase10-prism-holefill/campaign-2026-09-10 2` once.
-The new interaction is not yet implemented or launched; no new physical-validation claim follows.
+using six completed N80 controls, with same-plane opening persistence measured behind advancing
+tips. All old rosters and numerical equations are preserved. The registered launch command is
+`launch-prism-holefill out/post-phase10-prism-holefill/campaign-2026-09-10 2`, executed only once
+after the single exact `npm test` at the stable combined checkpoint.
+The interaction is now implemented in existing files; the five focused solver/runner/analysis
+files pass all 54 tests. Original logs and the new geometry/history readout demonstration are in
+`out/post-phase10-prism-holefill/checkpoint-2026-09-10/`, with exact commands and limits in the
+active plan's **Interaction implementation checkpoint**. Existing-data demonstration separates
+M1's deepening cavity from prism-only's shallow surface pits without rerunning simulations.
+Next perform the single exact `npm test` at this committed checkpoint, assess any changed-surface
+failure, and launch the two interaction rows once. They have not launched yet. No new
+physical-validation claim follows; the eight original fine-grid jobs remain the mesh comparison.
 The plan gives exact launch commands and the verification scope. Preserve the eight original
 fine-grid runs; do not duplicate or modify their launch. Keep one final quartet report per
 temperature per experiment, without a redundant combined report or frequent pending reports.

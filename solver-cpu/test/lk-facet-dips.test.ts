@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 import {
   nucleationABasal, nucleationAPrism, sigma0BasalFor, sigma0PrismFor,
+  symmetryError,
   type NucleationParamSet,
 } from "@vcc/core";
 import { LKSolver, prepareFacetDipExperiment, type LKFacetDipArm } from "@vcc/solver-cpu";
@@ -48,9 +49,13 @@ describe("ADR 0055 finite facet preparation", () => {
     }
   }
 
-  for (const arm of ["basal-only", "prism-only"] as const) {
-    it(`${arm} uses the selected facet law in both Robin solution and deposited fill`, () => {
-      const solver = new LKSolver({ ...options, cflFill: 0.2, experimentalFacetDips: arm });
+  for (const [arm, holeFilling] of [
+    ["basal-only", undefined], ["prism-only", undefined], ["prism-only", "disabled"],
+  ] as const) {
+    const label = holeFilling === undefined ? arm : `${arm}/holefill-off`;
+    it(`${label} uses the selected facet law in both Robin solution and deposited fill`, () => {
+      const solver = new LKSolver({ ...options, cflFill: 0.2, experimentalFacetDips: arm,
+        ...(holeFilling === undefined ? {} : { experimentalHoleFilling: holeFilling }) });
       let attached = false;
       const seenFacets = new Set<string>();
       for (let cycle = 0; cycle < 8; cycle++) {
@@ -81,6 +86,12 @@ describe("ADR 0055 finite facet preparation", () => {
         const previousDemand = solver.fillLedger + solver.saturationClippedFill;
         const previousCount = solver.a.reduce((sum, value) => sum + value, 0);
         const step = solver.advanceSurface();
+        if (holeFilling === "disabled") {
+          expect(step.holeFillCount).toBe(0);
+          expect(solver.holeFillCountTotal).toBe(0);
+          expect(solver.holeFillDeficit).toBe(0);
+          expect(symmetryError(solver.a, solver.dims, solver.center)).toBe(0);
+        }
         const dt = step.deltaTimeSeconds as number;
         expect(dt).toBeGreaterThan(0);
         expect(solver.fillLedger + solver.saturationClippedFill - previousDemand)

@@ -27,6 +27,13 @@ interface Event extends ExperimentIdentity {
 interface State { cycle: number; simTimeSeconds: number; extent: number; attachedCount: number }
 interface Frame extends State { geometry: CavityGeometry }
 interface EnclosureEpisode { start: State; endExclusive: State | null }
+interface StraightOpenPlaneInterval extends EnclosureEpisode {
+  offset: number;
+  side: "lower" | "upper";
+  tipOffsetAtStart: number;
+  maxTipAdvanceWhileOpenUm: number;
+  maxDepthBelowAxialEnvelopeUm: number;
+}
 export interface CavityAnalysisOptions {
   /** Largest occupied lattice-coordinate center span, not a Cartesian bounding diameter. */
   centerSpansUm?: readonly number[];
@@ -47,6 +54,7 @@ const TIME_FRACTIONS = [0, 0.25, 0.5, 0.75, 1] as const;
 const FACET_DIP_ARMS = ["both", "neither", "basal-only", "prism-only"] as const;
 const FACET_EXPERIMENT_ID = "post-phase10-facet-isolation-v1";
 const HOLEFILL_EXPERIMENT_ID = "post-phase10-holefill-isolation-v1";
+const PRISM_HOLEFILL_EXPERIMENT_ID = "post-phase10-prism-holefill-interaction-v1";
 
 function effectiveFacetDips(row: DiscoveryRow): FacetDipArm {
   if (row.experimentalFacetDips !== undefined) {
@@ -62,7 +70,8 @@ function effectiveFacetDips(row: DiscoveryRow): FacetDipArm {
 
 function effectiveHoleFilling(row: DiscoveryRow): HoleFillMode {
   if (row.experimentalHoleFilling === undefined) return "enabled";
-  if (row.experimentalFacetDips !== undefined) {
+  if (row.experimentalFacetDips !== undefined &&
+    !(row.experimentalFacetDips === "prism-only" && row.experimentalHoleFilling === "disabled")) {
     throw new Error(`${row.id}: facet and hole-fill experiments cannot be combined`);
   }
   if (row.experimentalHoleFilling !== "enabled" && row.experimentalHoleFilling !== "disabled") {
@@ -74,6 +83,13 @@ function effectiveHoleFilling(row: DiscoveryRow): HoleFillMode {
 function checkExperimentIdentity(row: DiscoveryRow, artifact: ExperimentIdentity, label: string): void {
   effectiveFacetDips(row);
   effectiveHoleFilling(row);
+  if (row.experimentalFacetDips !== undefined && row.experimentalHoleFilling !== undefined) {
+    if (artifact.experimentId !== PRISM_HOLEFILL_EXPERIMENT_ID ||
+      artifact.experimentalFacetDips !== "prism-only" || artifact.experimentalHoleFilling !== "disabled") {
+      throw new Error(`${row.id}: ${label} prism/hole-fill interaction identity mismatch`);
+    }
+    return;
+  }
   if (row.experimentalHoleFilling !== undefined) {
     if (artifact.experimentId !== HOLEFILL_EXPERIMENT_ID ||
       artifact.experimentalHoleFilling !== row.experimentalHoleFilling || artifact.experimentalFacetDips !== undefined) {
@@ -150,6 +166,7 @@ function enclosureWitnesses(geometry: CavityGeometry) {
   let longestConsecutiveStraightOpenLayerRun = 0;
   let currentRun = 0;
   let previousOffset: number | null = null;
+  let maxStraightOpenDepthBelowAxialEnvelopeUm = 0;
   for (const layer of geometry.layers) {
     const enclosed = layer.lateralVoid === "enclosed";
     if (enclosed) laterallyEnclosedLayers++;
@@ -158,12 +175,18 @@ function enclosureWitnesses(geometry: CavityGeometry) {
       straightAxiallyOpenLayers++;
       currentRun = previousOffset !== null && layer.offset === previousOffset + 1 ? currentRun + 1 : 1;
       longestConsecutiveStraightOpenLayerRun = Math.max(longestConsecutiveStraightOpenLayerRun, currentRun);
+      if (layer.directAxialOpening.lower === true) maxStraightOpenDepthBelowAxialEnvelopeUm = Math.max(
+        maxStraightOpenDepthBelowAxialEnvelopeUm, (layer.k - geometry.spans!.k.min) * geometry.dxUm);
+      if (layer.directAxialOpening.upper === true) maxStraightOpenDepthBelowAxialEnvelopeUm = Math.max(
+        maxStraightOpenDepthBelowAxialEnvelopeUm, (geometry.spans!.k.max - layer.k) * geometry.dxUm);
     } else currentRun = 0;
     previousOffset = layer.offset;
   }
   return { laterallyEnclosedLayers, straightAxiallyOpenLayers,
     laterallyEnclosedWithoutStraightAxialOpening: laterallyEnclosedLayers - straightAxiallyOpenLayers,
-    longestConsecutiveStraightOpenLayerRun };
+    longestConsecutiveStraightOpenLayerRun,
+    longestStraightOpenCenterSpanUm: Math.max(0, longestConsecutiveStraightOpenLayerRun - 1) * geometry.dxUm,
+    maxStraightOpenDepthBelowAxialEnvelopeUm };
 }
 
 function analyzeCompleteRow(input: LoadedRow, commonTimeSeconds: number, options: CavityAnalysisOptions) {
@@ -227,6 +250,8 @@ function analyzeCompleteRow(input: LoadedRow, commonTimeSeconds: number, options
   const spatial: { record: DiscoverySpatialSnapshot["record"]; profile: ReturnType<typeof summarizeCavityBoundary> }[] = [];
   let firstEnclosedCenter: State | null = null;
   const enclosureEpisodes: EnclosureEpisode[] = [];
+  const straightOpenPlaneIntervals: StraightOpenPlaneInterval[] = [];
+  const activePlaneIntervals = new Map<string, StraightOpenPlaneInterval>();
   let openEpisode: EnclosureEpisode | null = null;
   let openEpisodeFrame: Frame | null = null;
   let zMin = center[2] - (row.seedThickness - 1) / 2;
@@ -244,6 +269,35 @@ function analyzeCompleteRow(input: LoadedRow, commonTimeSeconds: number, options
       if (requestedCycles.has(state.cycle)) frames.set(state.cycle, { ...state, geometry });
     }
     if (attachmentChanged) {
+      const openPlanes = new Set<string>();
+      for (const layer of geometry?.layers ?? []) {
+        if (layer.lateralVoid !== "enclosed") continue;
+        for (const side of ["lower", "upper"] as const) {
+          if (layer.directAxialOpening[side] !== true) continue;
+          const key = `${layer.offset}/${side}`;
+          openPlanes.add(key);
+          const tipOffset = (side === "lower" ? zMin : zMax) - center[2];
+          const sign = side === "lower" ? -1 : 1;
+          let interval = activePlaneIntervals.get(key);
+          if (interval === undefined) {
+            interval = { offset: layer.offset, side, start: state, endExclusive: null,
+              tipOffsetAtStart: tipOffset, maxTipAdvanceWhileOpenUm: 0,
+              maxDepthBelowAxialEnvelopeUm: 0 };
+            activePlaneIntervals.set(key, interval);
+            straightOpenPlaneIntervals.push(interval);
+          }
+          interval.maxTipAdvanceWhileOpenUm = Math.max(interval.maxTipAdvanceWhileOpenUm,
+            sign * (tipOffset - interval.tipOffsetAtStart) * row.dxUm);
+          interval.maxDepthBelowAxialEnvelopeUm = Math.max(interval.maxDepthBelowAxialEnvelopeUm,
+            sign * (tipOffset - layer.offset) * row.dxUm);
+        }
+      }
+      for (const [key, interval] of activePlaneIntervals) {
+        if (!openPlanes.has(key)) {
+          interval.endExclusive = state;
+          activePlaneIntervals.delete(key);
+        }
+      }
       const enclosed = geometry?.layers.some((layer) => layer.lateralVoid === "enclosed") ?? false;
       if (enclosed && openEpisode === null) {
         openEpisode = { start: state, endExclusive: null };
@@ -294,11 +348,77 @@ function analyzeCompleteRow(input: LoadedRow, commonTimeSeconds: number, options
     seedOccupiedCellVolumeUm3: frames.get(0)!.geometry.occupiedCellVolumeUm3,
     firstLaterallyEnclosedCenter: onset,
     onsetSnapshotBracket: snapshotBracket(onset),
-    enclosureEpisodes, terminalEnclosureEpisode: terminalEpisode,
+    enclosureEpisodes, terminalEnclosureEpisode: terminalEpisode, straightOpenPlaneIntervals,
     terminalEpisodeSnapshotBracket: snapshotBracket(terminalEpisode?.start ?? null),
     sizeSelections, physicalTimeSelections: times,
     frames: [...frames.values()].sort((a, b) => a.cycle - b.cycle)
       .map((frame) => ({ ...frame, enclosureWitnesses: enclosureWitnesses(frame.geometry) })), spatial };
+}
+
+type CompleteAnalysis = ReturnType<typeof analyzeCompleteRow>;
+interface InteractionCorner {
+  rowId: string;
+  effectiveFacetDips: FacetDipArm;
+  effectiveHoleFilling: HoleFillMode;
+  analysis: CompleteAnalysis;
+}
+
+function interactionValues(frame: Frame, analysis: CompleteAnalysis) {
+  const witness = enclosureWitnesses(frame.geometry);
+  return {
+    attachedCount: frame.attachedCount,
+    waistAddedThicknessUm: frame.geometry.waist.inclusiveThicknessUm -
+      analysis.frames[0].geometry.waist.inclusiveThicknessUm,
+    straightAxiallyOpenLayers: witness.straightAxiallyOpenLayers,
+    longestConsecutiveStraightOpenLayerRun: witness.longestConsecutiveStraightOpenLayerRun,
+    longestStraightOpenCenterSpanUm: witness.longestStraightOpenCenterSpanUm,
+    maxStraightOpenDepthBelowAxialEnvelopeUm: witness.maxStraightOpenDepthBelowAxialEnvelopeUm,
+  };
+}
+
+/** A finite deterministic contrast, not an uncertainty interval or a fitted effect. */
+function prismHoleFillContrasts(corners: readonly InteractionCorner[]) {
+  const sample = (selected: readonly { corner: InteractionCorner; cycle: number; nextEvent: State | null }[],
+    coordinate: "physical-time" | "size" | "terminal-size", requested: number) => {
+    const values = selected.map(({ corner, cycle, nextEvent }) => {
+      const frame = corner.analysis.frames.find((value) => value.cycle === cycle)!;
+      return { rowId: corner.rowId, effectiveFacetDips: corner.effectiveFacetDips,
+        effectiveHoleFilling: corner.effectiveHoleFilling, cycle, simTimeSeconds: frame.simTimeSeconds,
+        actualCenterSpanUm: (frame.extent - 1) * corner.analysis.row.dxUm,
+        nextEvent, values: interactionValues(frame, corner.analysis) };
+    });
+    const matched = coordinate === "physical-time" || values.every((value) =>
+      Math.abs(value.actualCenterSpanUm - requested) <= 1e-12);
+    const cornerValues = (arm: FacetDipArm, mode: HoleFillMode) => values.find((value) =>
+      value.effectiveFacetDips === arm && value.effectiveHoleFilling === mode)!.values;
+    const difference = (left: ReturnType<typeof interactionValues>, right: ReturnType<typeof interactionValues>) =>
+      Object.fromEntries((Object.keys(left) as (keyof typeof left)[]).map((key) => [key, left[key] - right[key]])) as
+        ReturnType<typeof interactionValues>;
+    const enabledPrismEffect = difference(cornerValues("prism-only", "enabled"), cornerValues("neither", "enabled"));
+    const disabledPrismEffect = difference(cornerValues("prism-only", "disabled"), cornerValues("neither", "disabled"));
+    return { coordinate, requestedTimeSeconds: coordinate === "physical-time" ? requested : null,
+      requestedCenterSpanUm: coordinate === "physical-time" ? null : requested, matched, corners: values,
+      enabledPrismEffect: matched ? enabledPrismEffect : null,
+      disabledPrismEffect: matched ? disabledPrismEffect : null,
+      differenceOfEffects: matched ? difference(disabledPrismEffect, enabledPrismEffect) : null };
+  };
+  const first = corners[0].analysis;
+  const physicalTime = first.physicalTimeSelections.map((selection, index) => sample(corners.map((corner) => {
+    const time = corner.analysis.physicalTimeSelections[index];
+    return { corner, cycle: time.atOrBefore.cycle, nextEvent: time.nextEvent };
+  }), "physical-time", selection.requestedTimeSeconds));
+  const sizes = first.sizeSelections.map((selection, index) => {
+    if (corners.some((corner) => corner.analysis.sizeSelections[index].selectedCycle === null)) {
+      return { coordinate: "size" as const, requestedCenterSpanUm: selection.targetCenterSpanUm,
+        matched: false, corners: null, enabledPrismEffect: null, disabledPrismEffect: null, differenceOfEffects: null };
+    }
+    return sample(corners.map((corner) => ({ corner,
+      cycle: corner.analysis.sizeSelections[index].selectedCycle!, nextEvent: null })), "size", selection.targetCenterSpanUm);
+  });
+  const terminalSize = sample(corners.map((corner) => ({ corner,
+    cycle: corner.analysis.result.cycles, nextEvent: null })), "terminal-size",
+  (first.row.targetExtent - 1) * first.row.dxUm);
+  return { physicalTime, sizes, terminalSize };
 }
 
 /** Only completed, admissible rows contribute measurements; live files are never parsed. */
@@ -324,6 +444,9 @@ export function analyzeCavityRows(rowDirectories: readonly string[], options: Ca
       rowArms.every((row) => row.experimentalFacetDips === null) &&
       ["both", "neither"].every((arm) => ["enabled", "disabled"].every((mode) =>
         rowArms.filter((row) => row.effectiveFacetDips === arm && row.effectiveHoleFilling === mode).length === 1));
+    const completePrismHoleFillRoster = group.length === 4 &&
+      ["neither", "prism-only"].every((arm) => ["enabled", "disabled"].every((mode) =>
+        rowArms.filter((row) => row.effectiveFacetDips === arm && row.effectiveHoleFilling === mode).length === 1));
     return { condition, requestedRowIds: group.map((input) => input.row.id),
       contributingRowIds: complete.map((input) => input.row.id),
       rowArms,
@@ -335,6 +458,11 @@ export function analyzeCavityRows(rowDirectories: readonly string[], options: Ca
         sameOtherConfiguration: holeFillOtherDifferingFields.length === 0,
         differingFields: holeFillOtherDifferingFields,
         allFourCornersAdmissibleAndMatched: completeHoleFillFourCornerRoster && complete.length === 4 &&
+          fixedControlsRecorded && holeFillOtherDifferingFields.length === 0 },
+      prismHoleFillInteraction: { completeFourCornerRoster: completePrismHoleFillRoster, fixedControlsRecorded,
+        sameOtherConfiguration: holeFillOtherDifferingFields.length === 0,
+        differingFields: holeFillOtherDifferingFields,
+        allFourCornersAdmissibleAndMatched: completePrismHoleFillRoster && complete.length === 4 &&
           fixedControlsRecorded && holeFillOtherDifferingFields.length === 0 },
       allRequestedRowsAdmissible: complete.length === group.length,
       commonTerminalTimeSeconds: complete.length === 0 ? null : Math.min(...complete.map((input) => input.result!.simTimeSeconds)) };
@@ -350,6 +478,11 @@ export function analyzeCavityRows(rowDirectories: readonly string[], options: Ca
       status: input.status, exitCode: input.exitCode,
       analysis: analyzeCompleteRow(input, group.commonTerminalTimeSeconds!, options) };
   });
+  const measuredGroups = groups.map((group) => ({ ...group,
+    prismHoleFillInteraction: { ...group.prismHoleFillInteraction,
+      contrasts: group.prismHoleFillInteraction.allFourCornersAdmissibleAndMatched
+        ? prismHoleFillContrasts(rows.filter((row) => group.contributingRowIds.includes(row.rowId))
+          .map((row) => ({ ...row, analysis: row.analysis! }))) : null } }));
   return { schema: "post-phase10-cavity-analysis-v1", generatedAt: new Date().toISOString(),
     scope: "Retrospective model-development observations, not a scientific gate or physical validation.",
     definitions: {
@@ -357,17 +490,19 @@ export function analyzeCavityRows(rowDirectories: readonly string[], options: Ca
       size: "Largest i/j/k lattice-coordinate center span; i/j are not Cartesian bounding projections. Actual crossings retain overshoot.",
       time: "Common physical time within each named supplied condition group; occupancy is the last completed event, with next-event brackets, not interpolation or metric bounds.",
       cavity: "A center-air component laterally enclosed by ice in a six-neighbor plane; straight axial opening is a sufficient opening witness, not a complete 3D closure test.",
-      enclosureWitnesses: "Per-frame counts distinguish laterally enclosed layers with a straight-axis opening witness from those without one, and report the longest consecutive witnessed-open layer run. Absence of that witness does not establish a sealed vacancy or rule out a non-axial 3D escape route.",
+      enclosureWitnesses: "Per-frame counts distinguish laterally enclosed layers with a straight-axis opening witness from those without one. Longest-run center span is max(0, layers - 1) times spacing; envelope depth measures distance below the outward occupied axial bound, not local mouth shape or aperture. Absence of that witness does not establish a sealed vacancy or rule out a non-axial 3D escape route.",
+      straightOpenPlaneIntervals: "Continuous witnessed-open intervals track the same signed plane and outward side at every attachment change. End-exclusive is the first recorded loss of that witness; null means right-censored at stop. Tip advance and depth use that side's occupied axial envelope only while the plane remains open, not radial extent or a physical subcell aperture. They do not identify all 3D cavity components or constitute an automatic persistence gate.",
       onset: "First laterally enclosed center-air layer in the retained attachment history; can be transient and does not establish a growth mechanism.",
       episodes: "Intervals with at least one laterally enclosed center-air layer. An open terminal interval persisted only through the recorded stop, not indefinitely; it does not imply the same cavity component survived throughout.",
       spatial: "Converged pre-surface-update samples only. An onset bracket permits inspection but does not establish a temporal causal precursor.",
       facetDips: "Effective arm is the explicit experimentalFacetDips when present; ordinary M1 maps to both and ordinary M1_NO_DIP_ABLATION maps to neither. Explicit arms require matching experiment identity in spec, result, events and snapshots; M1 base metadata alone does not identify mixed kinetics.",
-      holeFilling: "Effective hole filling defaults to enabled for ordinary and facet-dip rows. Explicit hole-fill experiments require their separate identity and mode in spec, result, events and snapshots, and cannot combine with facet-dip opt-ins. Disabled is a geometric-completion counterfactual, not an improved physical model.",
+      holeFilling: "Effective hole filling defaults to enabled for ordinary and facet-dip rows. Explicit hole-fill experiments require matching identity and mode in spec, result, events and snapshots. Only prism-only/disabled may combine opt-ins, under its distinct interaction identity. Disabled is a geometric-completion counterfactual, not an improved physical model.",
       factorial: "A matched four-arm group requires exactly one both, neither, basal-only and prism-only row with identical recorded nonkinetic configuration, all named fixed controls recorded, and admissible endpoints. Configuration matching is not numerical equivalence or physical validation; mixed seed/grid groups remain descriptive comparisons.",
       holeFillFactorial: "A matched closure quartet requires ordinary both/neither kinetics crossed with enabled/disabled geometric completion, identical other recorded configuration, all fixed controls recorded and admissible endpoints. A hole-fill-disabled row cannot silently replace an enabled control in a facet comparison.",
+      prismHoleFillInteraction: "A matched quartet crosses neither/prism-only with enabled/disabled completion, with basal dip absent and identical other recorded settings. Difference of effects is (prism/off - neither/off) - (prism/on - neither/on). Physical-age values are discrete at-or-before states with next-event brackets, not bounds or interpolated geometry. Size contrasts require exact common center span; terminal-size comparison preserves unequal ages. Waist addition subtracts the initial seed's full-probe thickness. These are deterministic observations, not physical validation or statistical significance.",
       grid: "Matched center spans and probe radii do not make voxelized seeds identical; two thickness brackets do not bound nonlinear outputs or establish continuum convergence.",
     }, options: { centerSpansUm: options.centerSpansUm ?? DEFAULT_SPANS_UM, probeRadiusUm: options.probeRadiusUm ?? 0.35 },
-    allRequestedRowsAdmissible: inputs.every((input) => input.status === "complete"), groups, rows };
+    allRequestedRowsAdmissible: inputs.every((input) => input.status === "complete"), groups: measuredGroups, rows };
 }
 
 if (process.argv[1] !== undefined && import.meta.url === pathToFileURL(resolve(process.argv[1])).href) {

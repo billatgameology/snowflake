@@ -1210,6 +1210,34 @@ show delayed closure/resealing, or name a specific missing observation. It does 
 original fine-grid question or authorize a broad combination sweep. Monitoring stays hourly or
 on completion; untouched live processes need no new confidence checks.
 
+**Interaction implementation checkpoint:** the combined-option guard, explicit artifact/log
+identity, two-row roster/CLI and matched interaction readout are implemented in existing files.
+No numerical equation, existing roster, ordinary checkpoint meaning or simulation changed. The
+focused commands ran once on this working implementation:
+
+- `npx vitest run solver-cpu/test/lk-hole-filling.test.ts solver-cpu/test/lk-facet-dips.test.ts --maxWorkers=1 --minWorkers=1`:
+  two files / 17 tests pass, exit zero; original `solver-focused.log` below.
+- `npx vitest run runner/test/post-phase10-holefill.test.ts runner/test/post-phase10-facet-factorial.test.ts --maxWorkers=1 --minWorkers=1`:
+  two files / 19 tests pass, exit zero; original `runner-focused.log` below.
+- `node node_modules/vitest/vitest.mjs run runner/test/post-phase10-cavity-analysis.test.ts --maxWorkers=1 --minWorkers=1`:
+  one file / 18 tests pass, exit zero; original `analysis-focused.log` and exact absolute argv,
+  times and exit in `analysis-focused-exit.json` below.
+
+These logs live under `out/post-phase10-prism-holefill/checkpoint-2026-09-10/`. Manufactured
+fixtures independently exercise a nonzero difference-of-effects, deepening openings on both
+axial sides and migrating pits that must not count as same-plane persistence. A compact existing-
+data demonstration, `readout-demonstration.json` in that directory, uses the completed colder
+M1/enabled and prism-only/enabled controls without rerunning either simulation or replacing their
+reports. It measures a fifteen-layer open run (4.8999999999999995-micrometer center span) and
+maximum 5.25-micrometer axial tip advance while a plane stays open in M1; the prism-only terminal
+has a one-layer run, zero center span and zero corresponding tip advance. These are scoped
+geometry/history observations, not a physical aperture or automatic promotion verdict.
+
+`npm run typecheck` also passed (root and app checks; original exit-zero tool transcript).
+The next action is the one exact `npm test` at the committed combined checkpoint, followed by
+the registered two-worker launch after its changed-surface results are assessed. The full check
+has not yet run on this implementation; no confidence replay or historical repair is authorized.
+
 ### Earlier completed-row observations
 
 `cavity-seed-thick-t4p5-m1` completed with exit 0 and an admissible size-target stop. Its raw

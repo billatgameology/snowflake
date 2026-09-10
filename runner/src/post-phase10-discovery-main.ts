@@ -18,6 +18,7 @@ import {
   runPostPhase10DiscoveryRow,
   DISCOVERY_FACET_EXPERIMENT_ID,
   DISCOVERY_HOLEFILL_EXPERIMENT_ID,
+  DISCOVERY_PRISM_HOLEFILL_INTERACTION_ID,
   discoveryExperimentIdentity,
   type DiscoveryExperimentIdentity,
   type DiscoveryRow,
@@ -66,6 +67,9 @@ import {
   POST_PHASE10_HOLEFILL_LONG_ROWS,
   POST_PHASE10_HOLEFILL_LONG_REUSED_CONTROLS,
   findPostPhase10HolefillLongRow,
+  POST_PHASE10_PRISM_HOLEFILL_ROWS,
+  POST_PHASE10_PRISM_HOLEFILL_REUSED_CONTROLS,
+  findPostPhase10PrismHolefillRow,
 } from "./post-phase10-holefill.ts";
 
 function writeJson(path: string, value: unknown): void {
@@ -147,10 +151,10 @@ async function launchRows(options: {
   let maxActive = 0;
   const runOne = async (row: DiscoveryRow): Promise<void> => {
     const experimentIdentity = discoveryExperimentIdentity(row);
-    const experimentLabel = row.experimentalHoleFilling !== undefined
-      ? ` experimentId=${DISCOVERY_HOLEFILL_EXPERIMENT_ID} experimentalHoleFilling=${row.experimentalHoleFilling}`
-      : row.experimentalFacetDips === undefined ? "" :
-        ` experimentId=${DISCOVERY_FACET_EXPERIMENT_ID} experimentalFacetDips=${row.experimentalFacetDips}`;
+    const experimentLabel = experimentIdentity.experimentId === undefined ? "" :
+      ` experimentId=${experimentIdentity.experimentId}` +
+      (row.experimentalFacetDips === undefined ? "" : ` experimentalFacetDips=${row.experimentalFacetDips}`) +
+      (row.experimentalHoleFilling === undefined ? "" : ` experimentalHoleFilling=${row.experimentalHoleFilling}`);
     const rowDirectory = resolve(rowsRoot, row.id);
     if (existsSync(rowDirectory)) throw new Error(`row directory already exists: ${rowDirectory}`);
     mkdirSync(rowDirectory, { recursive: false });
@@ -686,6 +690,42 @@ async function launchHolefillLong(campaignDirectory: string, concurrency: number
   if (exits.some((exit) => exit.exitCode !== 0 || exit.signal !== null)) process.exitCode = 1;
 }
 
+async function launchPrismHolefill(campaignDirectory: string, concurrency: number): Promise<void> {
+  requireCleanTree();
+  const output = resolve(campaignDirectory);
+  if (existsSync(output)) throw new Error(`campaign directory already exists: ${output}`);
+  mkdirSync(output, { recursive: true });
+  const processors = cpus();
+  writeJson(resolve(output, "campaign.json"), {
+    schema: "post-phase10-prism-holefill-campaign-v1",
+    experimentId: DISCOVERY_PRISM_HOLEFILL_INTERACTION_ID,
+    campaignId: basename(output),
+    gitHead: git(["rev-parse", "HEAD"]),
+    branch: git(["branch", "--show-current"]),
+    node: process.version,
+    logicalProcessors: processors.length,
+    cpuModels: [...new Set(processors.map((processor) => processor.model))],
+    totalMemoryBytes: totalmem(),
+    requestedConcurrency: concurrency,
+    plannedMaximumConcurrency: Math.min(concurrency, POST_PHASE10_PRISM_HOLEFILL_ROWS.length),
+    rowCount: POST_PHASE10_PRISM_HOLEFILL_ROWS.length,
+    rows: POST_PHASE10_PRISM_HOLEFILL_ROWS,
+    reusedControls: POST_PHASE10_PRISM_HOLEFILL_REUSED_CONTROLS,
+    sourcePlan: "docs/plans/post-phase10-adaptive-discovery.md",
+    sourcePlanSection: "Completed colder longer comparisons and selected interaction — 2026-09-10",
+    sourcePlanCommit: "9b8a59d46e0572aed30b790f9ed46d47e5be1897",
+    exactLaunchCommand: [process.execPath, ...process.argv.slice(1)],
+    createdAt: new Date().toISOString(),
+  });
+  const exits = await launchRows({
+    campaignDirectory: output,
+    launchName: "prism-holefill-wave-1",
+    rows: POST_PHASE10_PRISM_HOLEFILL_ROWS,
+    concurrency,
+  });
+  if (exits.some((exit) => exit.exitCode !== 0 || exit.signal !== null)) process.exitCode = 1;
+}
+
 async function main(): Promise<void> {
   const [command, ...args] = process.argv.slice(2);
   switch (command) {
@@ -719,6 +759,9 @@ async function main(): Promise<void> {
     case "list-holefill-long":
       console.log(JSON.stringify(POST_PHASE10_HOLEFILL_LONG_ROWS, null, 2));
       return;
+    case "list-prism-holefill":
+      console.log(JSON.stringify(POST_PHASE10_PRISM_HOLEFILL_ROWS, null, 2));
+      return;
     case "run-row": {
       if (args.length !== 2) throw new Error("run-row wants <row-id> <output-directory>");
       const smokeRow = POST_PHASE10_SMOKE_ROWS.find((row) => row.id === args[0]);
@@ -726,6 +769,7 @@ async function main(): Promise<void> {
       const selectedRow =
         smokeRow ??
         adaptiveSmokeRow ??
+        findPostPhase10PrismHolefillRow(args[0]) ??
         findPostPhase10HolefillLongRow(args[0]) ??
         findPostPhase10FacetFactorialLongRow(args[0]) ??
         findPostPhase10HolefillRow(args[0]) ??
@@ -814,6 +858,12 @@ async function main(): Promise<void> {
       }
       await launchHolefillLong(args[0], parseConcurrency(args[1], 4));
       return;
+    case "launch-prism-holefill":
+      if (args.length < 1 || args.length > 2) {
+        throw new Error("launch-prism-holefill wants <campaign-directory> [concurrency]");
+      }
+      await launchPrismHolefill(args[0], parseConcurrency(args[1], 2));
+      return;
     case "analyze":
       if (args.length !== 2) {
         throw new Error("analyze wants <campaign-directory> <output-directory>");
@@ -824,7 +874,7 @@ async function main(): Promise<void> {
       throw new Error(
         "usage: node runner/src/post-phase10-discovery-main.ts " +
           "list|list-adaptive|list-long|list-confirmation|list-followup|list-cavity|list-facet-factorial|list-holefill|" +
-          "list-facet-factorial-long|list-holefill-long|" +
+          "list-facet-factorial-long|list-holefill-long|list-prism-holefill|" +
           "run-row <row-id> <out>|" +
           "launch-initial <campaign-dir> [concurrency]|launch-a112 <campaign-dir>|" +
           "smoke <out>|launch-adaptive <campaign-dir> [concurrency]|smoke-adaptive <out>|" +
@@ -836,6 +886,7 @@ async function main(): Promise<void> {
           "launch-holefill <campaign-dir> [concurrency]|" +
           "launch-facet-factorial-long <campaign-dir> [concurrency]|" +
           "launch-holefill-long <campaign-dir> [concurrency]|" +
+          "launch-prism-holefill <campaign-dir> [concurrency]|" +
           "analyze <campaign-dir> <output-dir>",
       );
   }

@@ -5,9 +5,11 @@ import { join } from "node:path";
 import { afterEach, describe, expect, it } from "vitest";
 import { findPostPhase10CavityRow } from "../src/post-phase10-cavity.ts";
 import { findPostPhase10FollowupRow } from "../src/post-phase10-followup.ts";
+import { findPostPhase10FacetFactorialLongRow } from "../src/post-phase10-facet-factorial.ts";
 import {
   DISCOVERY_FACET_EXPERIMENT_ID,
   DISCOVERY_HOLEFILL_EXPERIMENT_ID,
+  DISCOVERY_PRISM_HOLEFILL_INTERACTION_ID,
   POST_PHASE10_SMOKE_ROWS,
   discoveryExperimentIdentity,
   runPostPhase10DiscoveryRow,
@@ -19,6 +21,9 @@ import {
   POST_PHASE10_HOLEFILL_LONG_ROWS,
   POST_PHASE10_HOLEFILL_LONG_REUSED_CONTROLS,
   findPostPhase10HolefillLongRow,
+  POST_PHASE10_PRISM_HOLEFILL_ROWS,
+  POST_PHASE10_PRISM_HOLEFILL_REUSED_CONTROLS,
+  findPostPhase10PrismHolefillRow,
 } from "../src/post-phase10-holefill.ts";
 
 const temporaryDirectories: string[] = [];
@@ -164,14 +169,70 @@ describe("bounded post-Phase-10 geometric-completion experiment", () => {
     });
   });
 
-  it("keeps dip isolation and timelines out of the geometric-completion comparison", () => {
+  it("keeps unsupported dip combinations and timelines out of the geometric-completion comparison", () => {
     const output = join(scratch(), "unstarted");
     const row = { ...POST_PHASE10_SMOKE_ROWS[0], experimentalHoleFilling: "disabled" as const };
     expect(() => runPostPhase10DiscoveryRow({ ...row, experimentalFacetDips: "basal-only" }, output))
-      .toThrow("hole-fill and facet-isolation experiments must remain separate");
+      .toThrow("only prism-only with disabled hole filling may be combined");
     expect(() => runPostPhase10DiscoveryRow({
       ...row, timelineEvent: { triggerLargestExtent: 3, tempC: -4.5, sigmaInfinity: 0.005 },
     }, output)).toThrow("hole-fill-isolation rows require a constant environment");
     expect(existsSync(output)).toBe(false);
+  });
+});
+
+describe("bounded prism kinetics and geometric-completion interaction", () => {
+  it("adds only the two missing N80 corners and names six reused controls", () => {
+    expect(POST_PHASE10_PRISM_HOLEFILL_ROWS.map((row) => row.id))
+      .toEqual(["prism-holefill-off-t4p5", "prism-holefill-off-t5"]);
+    for (const row of POST_PHASE10_PRISM_HOLEFILL_ROWS) {
+      const tag = row.tempC === -4.5 ? "4p5" : "5";
+      const baselineId = `facet-isolation-long-t${tag}-prism-only`;
+      const baseline = findPostPhase10FacetFactorialLongRow(baselineId);
+      const { experimentalHoleFilling, ...settings } = row;
+      expect(experimentalHoleFilling).toBe("disabled");
+      expect({ ...settings, id: baselineId }).toEqual(baseline);
+      expect(row).toMatchObject({ dimsN: 80, targetExtent: 37, dxUm: 0.35, cflFill: 0.05,
+        paramSet: "M1", experimentalFacetDips: "prism-only" });
+      expect(row).not.toHaveProperty("spatialSampleExtents");
+      expect(findPostPhase10PrismHolefillRow(row.id)).toBe(row);
+      expect(findPostPhase10HolefillLongRow(row.id)).toBeUndefined();
+    }
+    expect(POST_PHASE10_PRISM_HOLEFILL_REUSED_CONTROLS).toHaveLength(6);
+    for (const tag of ["4p5", "5"]) {
+      const controls = POST_PHASE10_PRISM_HOLEFILL_REUSED_CONTROLS.filter((row) => row.rowId.includes(`-t${tag}-`));
+      expect(controls.map((row) => [row.effectiveFacetDips, row.effectiveHoleFilling]))
+        .toEqual([["neither", "enabled"], ["neither", "disabled"], ["prism-only", "enabled"]]);
+      expect(controls.every((row) => row.directory.endsWith(`/rows/${row.rowId}`))).toBe(true);
+    }
+  });
+
+  it("lists only the interaction rows through the dedicated CLI", () => {
+    const listed = execFileSync(process.execPath,
+      ["runner/src/post-phase10-discovery-main.ts", "list-prism-holefill"],
+      { encoding: "utf8", windowsHide: true });
+    expect(JSON.parse(listed)).toEqual(POST_PHASE10_PRISM_HOLEFILL_ROWS);
+  });
+
+  it("carries both opt-ins through a kinetic smoke run without ordinary checkpoint metadata", () => {
+    const directory = scratch();
+    const messages: string[] = [];
+    const identity = { experimentId: DISCOVERY_PRISM_HOLEFILL_INTERACTION_ID,
+      experimentalFacetDips: "prism-only" as const, experimentalHoleFilling: "disabled" as const };
+    expect(discoveryExperimentIdentity(identity)).toEqual(identity);
+    const result = runPostPhase10DiscoveryRow({ ...POST_PHASE10_SMOKE_ROWS[0], paramSet: "M1",
+      experimentalFacetDips: "prism-only", experimentalHoleFilling: "disabled", spatialSampleExtents: [3],
+    }, directory, { heartbeat: (message) => messages.push(message) });
+    expect(result.admissible, JSON.stringify(result)).toBe(true);
+    expect(result).toMatchObject({ ...identity, cycles: 1, holeFillCountTotal: 0, holeFillDeficit: 0 });
+    expect(result.fillLedger).toBeGreaterThan(0);
+    const event = JSON.parse(readFileSync(join(directory, "events.jsonl"), "utf8").trim());
+    for (const record of [result, event,
+      ...["spec.json", "host.json", "status.json", "result.json", result.spatialSnapshots![0].path]
+        .map((leaf) => readJson(directory, leaf))]) expect(record).toMatchObject(identity);
+    expect(messages.length).toBeGreaterThanOrEqual(2);
+    expect(messages.every((message) => message.includes(identity.experimentId) &&
+      message.includes("experimentalFacetDips=prism-only") && message.includes("experimentalHoleFilling=disabled")))
+      .toBe(true);
   });
 });

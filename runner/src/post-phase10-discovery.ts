@@ -80,9 +80,11 @@ export interface DiscoveryRow {
 
 export const DISCOVERY_FACET_EXPERIMENT_ID = "post-phase10-facet-isolation-v1" as const;
 export const DISCOVERY_HOLEFILL_EXPERIMENT_ID = "post-phase10-holefill-isolation-v1" as const;
+export const DISCOVERY_PRISM_HOLEFILL_INTERACTION_ID = "post-phase10-prism-holefill-interaction-v1" as const;
 
 export interface DiscoveryExperimentIdentity {
-  readonly experimentId?: typeof DISCOVERY_FACET_EXPERIMENT_ID | typeof DISCOVERY_HOLEFILL_EXPERIMENT_ID;
+  readonly experimentId?: typeof DISCOVERY_FACET_EXPERIMENT_ID | typeof DISCOVERY_HOLEFILL_EXPERIMENT_ID |
+    typeof DISCOVERY_PRISM_HOLEFILL_INTERACTION_ID;
   readonly experimentalFacetDips?: LKFacetDipArm;
   readonly experimentalHoleFilling?: LKExperimentalHoleFilling;
 }
@@ -93,7 +95,14 @@ export function discoveryExperimentIdentity(
 ): DiscoveryExperimentIdentity {
   if (row.experimentalHoleFilling !== undefined) {
     if (row.experimentalFacetDips !== undefined) {
-      throw new Error("hole-fill and facet-isolation experiments must remain separate");
+      if (row.experimentalFacetDips !== "prism-only" || row.experimentalHoleFilling !== "disabled") {
+        throw new Error("only prism-only with disabled hole filling may be combined");
+      }
+      return {
+        experimentId: DISCOVERY_PRISM_HOLEFILL_INTERACTION_ID,
+        experimentalFacetDips: row.experimentalFacetDips,
+        experimentalHoleFilling: row.experimentalHoleFilling,
+      };
     }
     return {
       experimentId: DISCOVERY_HOLEFILL_EXPERIMENT_ID,
@@ -541,10 +550,10 @@ export function runPostPhase10DiscoveryRow(
     throw new Error("hole-fill-isolation rows require a constant environment");
   }
   const experimentIdentity = discoveryExperimentIdentity(candidate);
-  const experimentLabel = candidate.experimentalHoleFilling !== undefined
-    ? ` experimentId=${DISCOVERY_HOLEFILL_EXPERIMENT_ID} experimentalHoleFilling=${candidate.experimentalHoleFilling}`
-    : candidate.experimentalFacetDips === undefined ? "" :
-      ` experimentId=${DISCOVERY_FACET_EXPERIMENT_ID} experimentalFacetDips=${candidate.experimentalFacetDips}`;
+  const experimentLabel = experimentIdentity.experimentId === undefined ? "" :
+    ` experimentId=${experimentIdentity.experimentId}` +
+    (candidate.experimentalFacetDips === undefined ? "" : ` experimentalFacetDips=${candidate.experimentalFacetDips}`) +
+    (candidate.experimentalHoleFilling === undefined ? "" : ` experimentalHoleFilling=${candidate.experimentalHoleFilling}`);
   const output = resolve(outputDirectory);
   mkdirSync(output, { recursive: true });
   for (const leaf of ["spec.json", "events.jsonl", "result.json"] as const) {

@@ -39,12 +39,16 @@ describe("ADR 0056 geometric completion counterfactual", () => {
     });
   }
 
-  it("skips only forced completion at a [6,1] gap, preserving the field, demand and timestep", () => {
+  it.each([["ordinary M1", undefined], ["prism-only", "prism-only"]] as const)(
+    "%s skips only forced completion at a [6,1] gap, preserving the field, demand and timestep", (_label, experimentalFacetDips) => {
     const index = (i: number, j: number, k: number) => k * 18 * 18 + j * 18 + i;
     const ring = [[1,0],[-1,0],[0,1],[0,-1],[1,-1],[-1,1]]
       .map(([di,dj]) => index(9+di,9+dj,10));
-    const fixture = { ...options, testMode: true, testExtraSeedSites: ring };
-    const enabled = new LKSolver({ ...fixture, experimentalHoleFilling: "enabled" });
+    const fixture = { ...options, testMode: true, testExtraSeedSites: ring,
+      ...(experimentalFacetDips === undefined ? {} : { experimentalFacetDips }) };
+    // Prism-only's existing single-opt-in path is the geometrically enabled control.
+    const enabled = new LKSolver({ ...fixture,
+      ...(experimentalFacetDips === undefined ? { experimentalHoleFilling: "enabled" as const } : {}) });
     const disabled = new LKSolver({ ...fixture, experimentalHoleFilling: "disabled" });
     const gap = index(9,9,10);
     expect(enabled.neighborCounts(gap)).toEqual([6,1]);
@@ -111,7 +115,13 @@ describe("ADR 0056 geometric completion counterfactual", () => {
     expect(() => solver.resumeStateV3()).toThrow("ordinary LK checkpoints");
     expect(() => solver.applyTimelineEnvironment(solver.timelineEnvironment())).toThrow("constant environment");
     expect(() => new LKSolver({ ...options, experimentalHoleFilling: "disabled", experimentalFacetDips: "both" }))
-      .toThrow("tested separately");
+      .toThrow("only prism-only with disabled hole filling may be combined");
+    expect(() => new LKSolver({ ...options, experimentalHoleFilling: "enabled", experimentalFacetDips: "prism-only" }))
+      .toThrow("only prism-only with disabled hole filling may be combined");
+    const interaction = new LKSolver({ ...options,
+      experimentalFacetDips: "prism-only", experimentalHoleFilling: "disabled" });
+    expect(() => interaction.resumeStateV3()).toThrow("ordinary LK checkpoints");
+    expect(() => interaction.applyTimelineEnvironment(interaction.timelineEnvironment())).toThrow("constant environment");
     expect(() => new LKSolver({ ...options, paramSet: "CAK", experimentalHoleFilling: "disabled" }))
       .toThrow("ordinary M1/no-dip");
     expect(() => new LKSolver({ ...options, experimentalHoleFilling: "invalid" as LKExperimentalHoleFilling }))

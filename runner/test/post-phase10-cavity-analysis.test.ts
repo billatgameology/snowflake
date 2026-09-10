@@ -63,6 +63,35 @@ function holeFixture(id: string, arm: "both" | "neither", mode: "enabled" | "dis
   writeFileSync(join(data.directory, "events.jsonl"), events.map((event) => JSON.stringify(event)).join("\n"));
   return { ...data, row, result, events, identity };
 }
+
+function interactionFixture(id: string, timeScale = 1) {
+  const data = facetFixture(id, "prism-only", timeScale);
+  const identity = { experimentId: "post-phase10-prism-holefill-interaction-v1",
+    experimentalFacetDips: "prism-only", experimentalHoleFilling: "disabled" };
+  const row = { ...data.row, experimentalHoleFilling: "disabled" };
+  const result = { ...data.result, ...identity };
+  const events = data.events.map((event) => ({ ...event, ...identity }));
+  json(join(data.directory, "spec.json"), { row, fixed, ...identity });
+  json(join(data.directory, "result.json"), result);
+  writeFileSync(join(data.directory, "events.jsonl"), events.map((event) => JSON.stringify(event)).join("\n"));
+  return { ...data, row, result, events, identity };
+}
+
+function axialRingHistory(id: string, movingPit: boolean, sign = 1) {
+  const data = fixture(id);
+  let count = 1;
+  const events = [1, 2, 3].map((height, n) => {
+    const batch = neighbors.map(([di, dj]) => idx(dims, 10 + di, 10 + dj, 10 + sign * height));
+    if (movingPit && height > 1) batch.push(idx(dims, 10, 10, 10 + sign * (height - 1)));
+    if (height === 3) batch.push(idx(dims, 13, 10, 10));
+    count += batch.length;
+    return { cycle: n + 1, attached: batch.map((index) => ({ index, coords: coordsOf(dims, index) })),
+      attachedCount: count, extent: [3, 3, 5][n], simTimeSeconds: [1, 2, 4][n] };
+  });
+  writeFileSync(join(data.directory, "events.jsonl"), events.map((event) => JSON.stringify(event)).join("\n"));
+  json(join(data.directory, "result.json"), { ...data.result, attachedCount: count });
+  return data.directory;
+}
 afterEach(() => {
   for (const directory of scratch.splice(0)) rmSync(directory, { recursive: true, force: true });
 });
@@ -304,7 +333,8 @@ describe("offline cavity trajectory analysis", () => {
     const open = fixture("open-witness");
     const openFrame = analyzeCavityRows([open.directory]).rows[0].analysis!.frames.find((frame) => frame.cycle === 1)!;
     expect(openFrame.enclosureWitnesses).toEqual({ laterallyEnclosedLayers: 1, straightAxiallyOpenLayers: 1,
-      laterallyEnclosedWithoutStraightAxialOpening: 0, longestConsecutiveStraightOpenLayerRun: 1 });
+      laterallyEnclosedWithoutStraightAxialOpening: 0, longestConsecutiveStraightOpenLayerRun: 1,
+      longestStraightOpenCenterSpanUm: 0, maxStraightOpenDepthBelowAxialEnvelopeUm: 0 });
 
     const capped = fixture("capped-witness");
     const capIndex = idx(dims, 10, 10, 12);
@@ -317,7 +347,77 @@ describe("offline cavity trajectory analysis", () => {
     const report = analyzeCavityRows([capped.directory]);
     const cappedFrame = report.rows[0].analysis!.frames.find((frame) => frame.cycle === 1)!;
     expect(cappedFrame.enclosureWitnesses).toEqual({ laterallyEnclosedLayers: 1, straightAxiallyOpenLayers: 0,
-      laterallyEnclosedWithoutStraightAxialOpening: 1, longestConsecutiveStraightOpenLayerRun: 0 });
+      laterallyEnclosedWithoutStraightAxialOpening: 1, longestConsecutiveStraightOpenLayerRun: 0,
+      longestStraightOpenCenterSpanUm: 0, maxStraightOpenDepthBelowAxialEnvelopeUm: 0 });
     expect(report.definitions.enclosureWitnesses).toContain("does not establish a sealed vacancy");
+  });
+
+  it("matches the prism/closure quartet and computes a nonzero discrete common-age contrast", () => {
+    const controls = [facetFixture("interaction-neither-on", "neither", 1),
+      holeFixture("interaction-neither-off", "neither", "disabled", 2),
+      facetFixture("interaction-prism-on", "prism-only", 3)];
+    const combined = interactionFixture("interaction-prism-off", 4);
+    const report = analyzeCavityRows([...controls, combined].map((row) => row.directory),
+      { centerSpansUm: [0.7, 1.4, 2] });
+    const group = report.groups[0];
+    expect(group.prismHoleFillInteraction.allFourCornersAdmissibleAndMatched).toBe(true);
+    expect(group.holeFillFactorial.completeFourCornerRoster).toBe(false);
+    expect(group.facetFactorial.completeFourArmRoster).toBe(false);
+    const contrasts = group.prismHoleFillInteraction.contrasts!;
+    const atOneSecond = contrasts.physicalTime[1];
+    expect(atOneSecond.requestedTimeSeconds).toBe(1);
+    expect(atOneSecond.corners.map((corner) => [corner.rowId, corner.cycle])).toEqual([
+      ["interaction-neither-on", 1], ["interaction-neither-off", 0],
+      ["interaction-prism-on", 0], ["interaction-prism-off", 0],
+    ]);
+    // Counts are 7/1/1/1: (1 - 1) - (1 - 7) = 6, independently of report arithmetic.
+    expect(atOneSecond.enabledPrismEffect?.attachedCount).toBe(-6);
+    expect(atOneSecond.disabledPrismEffect?.attachedCount).toBe(0);
+    expect(atOneSecond.differenceOfEffects).toMatchObject({ attachedCount: 6, straightAxiallyOpenLayers: 1 });
+    expect(atOneSecond.corners.map((corner) => corner.nextEvent?.simTimeSeconds)).toEqual([3, 2, 3, 4]);
+    expect(contrasts.sizes[0]).toMatchObject({ matched: true, requestedCenterSpanUm: 0.7 });
+    expect(contrasts.sizes[2]).toMatchObject({ matched: false, differenceOfEffects: null });
+    expect(contrasts.terminalSize).toMatchObject({ coordinate: "terminal-size", matched: true,
+      requestedCenterSpanUm: 1.4, differenceOfEffects: { attachedCount: 0 } });
+    expect(contrasts.terminalSize.corners.map((corner) => corner.simTimeSeconds)).toEqual([4, 8, 12, 16]);
+    json(join(combined.directory, "spec.json"), { row: combined.row, fixed,
+      ...combined.identity, experimentId: "post-phase10-holefill-isolation-v1" });
+    expect(() => analyzeCavityRows([combined.directory])).toThrow("spec prism/hole-fill interaction identity mismatch");
+  });
+
+  it.each([-1, 1])("tracks the same open planes behind the advancing axial envelope in direction %i", (sign) => {
+    const directory = axialRingHistory("deepening-rings", false, sign);
+    const side = sign === -1 ? "lower" : "upper";
+    const analysis = analyzeCavityRows([directory]).rows[0].analysis!;
+    const terminal = analysis.frames.at(-1)!;
+    expect(terminal.enclosureWitnesses).toMatchObject({ straightAxiallyOpenLayers: 3,
+      longestConsecutiveStraightOpenLayerRun: 3, longestStraightOpenCenterSpanUm: 0.7,
+      maxStraightOpenDepthBelowAxialEnvelopeUm: 0.7 });
+    expect(analysis.straightOpenPlaneIntervals.map((interval) => ({
+      offset: interval.offset, side: interval.side, start: interval.start.cycle,
+      end: interval.endExclusive, tip: interval.tipOffsetAtStart,
+      advance: interval.maxTipAdvanceWhileOpenUm, depth: interval.maxDepthBelowAxialEnvelopeUm,
+    }))).toEqual([
+      { offset: sign, side, start: 1, end: null, tip: sign, advance: 0.7, depth: 0.7 },
+      { offset: 2 * sign, side, start: 2, end: null, tip: 2 * sign, advance: 0.35, depth: 0.35 },
+      { offset: 3 * sign, side, start: 3, end: null, tip: 3 * sign, advance: 0, depth: 0 },
+    ]);
+  });
+
+  it("does not mistake successive single-plane pits for persistence of the same interior plane", () => {
+    const directory = axialRingHistory("moving-pits", true);
+    const analysis = analyzeCavityRows([directory]).rows[0].analysis!;
+    expect(analysis.enclosureEpisodes).toHaveLength(1);
+    expect(analysis.enclosureEpisodes[0].endExclusive).toBeNull();
+    expect(analysis.frames.at(-1)!.enclosureWitnesses).toMatchObject({
+      longestConsecutiveStraightOpenLayerRun: 1, longestStraightOpenCenterSpanUm: 0,
+      maxStraightOpenDepthBelowAxialEnvelopeUm: 0 });
+    expect(analysis.straightOpenPlaneIntervals.map((interval) => ({ offset: interval.offset,
+      start: interval.start.cycle, end: interval.endExclusive?.cycle ?? null,
+      advance: interval.maxTipAdvanceWhileOpenUm }))).toEqual([
+      { offset: 1, start: 1, end: 2, advance: 0 },
+      { offset: 2, start: 2, end: 3, advance: 0 },
+      { offset: 3, start: 3, end: null, advance: 0 },
+    ]);
   });
 });

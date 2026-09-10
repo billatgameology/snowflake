@@ -732,8 +732,9 @@ export class LKSolver implements SurfaceOperator {
         (this.paramSet !== "M1" && this.paramSet !== "M1_NO_DIP_ABLATION")) {
         throw new Error("experimentalHoleFilling requires aggregate-v6 and ordinary M1/no-dip kinetics");
       }
-      if (this.experimentalFacetDips !== undefined) {
-        throw new Error("experimental hole filling and facet dips must be tested separately");
+      if (this.experimentalFacetDips !== undefined &&
+        (this.experimentalFacetDips !== "prism-only" || this.experimentalHoleFilling !== "disabled")) {
+        throw new Error("only prism-only with disabled hole filling may be combined");
       }
     }
     this.preparedAlphaHK = this.experimentalFacetDips === undefined
