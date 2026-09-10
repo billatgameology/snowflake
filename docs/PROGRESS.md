@@ -773,9 +773,17 @@ and all 54 focused-file tests pass. The historical missing-file/frozen-identity 
 there is no new interaction failure, timeout or worker-RPC error. The suite is not green and is
 not to be repeated. Read `npm-test.log` and `npm-test-exit.json` in that checkpoint directory;
 the active plan records their identities and scope. Supervisor 26212 has exited.
-Next launch the two interaction rows once from this committed verification record; they have not
-launched yet. No new physical-validation claim follows; the eight original fine-grid jobs remain
-the mesh comparison.
+The two interaction rows launched once under producer `9ab31acbe8ab11f46ffee0fce0b3fb9d335ce135`.
+Parent 44648 and children 13340/31780 were confirmed live at 17:27 UTC, alongside all eight
+original fine-grid jobs: ten experiment workers total, no test worker. Startup logs and specs
+record both opt-ins with the distinct interaction identity; launcher and row stderr are empty.
+Read `out/post-phase10-prism-holefill/campaign-2026-09-10.launcher.log`, its separate stderr log
+and per-row status/exit/results. Next observe these existing processes hourly or on completion;
+analyze each completed new row with its three registered reused controls using
+`node runner/src/post-phase10-cavity-analysis.ts rows <new-report.json> <four-row-directories>`.
+The active plan lists exact controls and readout limits. Do not duplicate launches, repeat
+verification or generate redundant pending reports. No new physical-validation claim follows;
+the original fine-grid jobs remain the mesh comparison.
 The plan gives exact launch commands and the verification scope. Preserve the eight original
 fine-grid runs; do not duplicate or modify their launch. Keep one final quartet report per
 temperature per experiment, without a redundant combined report or frequent pending reports.

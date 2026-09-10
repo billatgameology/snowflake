@@ -1247,8 +1247,18 @@ confidence replay follows. The original log is `npm-test.log` in the checkpoint 
 236,334 bytes / SHA-256 `937b9f1c364d54f1d983af98f7540ed175caaba5f30dbd85fb5b7a9a94f3ad88`;
 `npm-test-exit.json` is 411 bytes / SHA-256
 `8dc420ea08556edc3f7185342e19cee8f0f12755b5469e2939cf9db7b6a751f4`.
-Next execute the registered two-worker interaction launch from the committed verification record,
-leaving the original fine-grid workers unchanged. Assess the new quartet histories when complete.
+**Interaction launched once:** the registered command executed under producer
+`9ab31acbe8ab11f46ffee0fce0b3fb9d335ce135`. At 17:27 UTC launcher 44648 had two live children,
+13340 and 31780, alongside the eight original fine-grid workers (ten experiments total; no test
+worker). The campaign's `campaign.json`, both `host.json`/`spec.json` records and startup log
+confirm the producer, explicit combined identity and both flags. The launcher logged two active
+workers, with empty startup launcher/row stderr. Read
+`out/post-phase10-prism-holefill/campaign-2026-09-10.launcher.log`, its `.launcher.stderr.log`,
+and the campaign's per-row status, stderr, exit and result records. The six named controls were
+not relaunched. Next observe the existing processes roughly hourly or on completion, then use
+the cavity analyzer's `rows` command for one final matched quartet per temperature, including
+the three registered reused controls. Preserve the original fine-grid campaign and all earlier
+reports. Do not duplicate either new row, rerun verification, or add an unchanged-status commit.
 
 ### Earlier completed-row observations
 
