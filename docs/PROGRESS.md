@@ -741,6 +741,17 @@ sixteen actual experiments. Read
 and per-row status/exit/results inside each campaign. Next observe these existing runs roughly
 hourly or on completion and analyze completed matched quartets; do not relaunch or recheck
 unchanged work merely because a goal continuation starts.
+The -4.5 C longer comparisons are now complete at
+`out/post-phase10-facet-factorial/t4p5-long-comparison-2026-09-10.json` and
+`out/post-phase10-holefill/t4p5-long-comparison-2026-09-10.json`. Both quartets are fully admissible
+and matched. Both/basal-only retain 30 open enclosed center-air layers and five waist planes;
+prism-only/no-dip reseal. Disabled M1 retains a three-plane waist through the larger endpoint,
+with 32 open enclosed layers; disabled no-dip still reseals. The active plan's **Completed warmer
+longer comparisons** records the identities, histories, physical-age matching and scope limits.
+This strengthens the model-level lead without establishing grid-independent physics. Next finish
+the -5 C quartets when their two remaining companions terminate, and continue the eight original
+fine-grid runs. Ten workers were confirmed live at 15:22 UTC. No code or numerical checks were
+changed or repeated for these analyses.
 The plan gives exact launch commands and the verification scope. Preserve the eight original
 fine-grid runs; do not duplicate or modify their launch. Keep one final quartet report per
 temperature per experiment, without a redundant combined report or frequent pending reports.

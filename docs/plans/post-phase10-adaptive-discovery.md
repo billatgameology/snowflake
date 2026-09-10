@@ -1053,6 +1053,65 @@ inside their `rows/` subdirectories. Do not duplicate a launch or treat an absen
 as a failure. Next inspect these existing processes at the hourly/completion cadence and analyze
 finished matched quartets. No additional test or status commit is needed for unchanged work.
 
+### Completed warmer longer comparisons — 2026-09-10
+
+The -4.5 C longer facet and hole-fill quartets are complete. The unchanged analyzer generated
+one final report for each from clean `dcaab102decc75c91e716b511d36196edc9b0aaf`; exact argv and
+input identities are inside each report. All endpoints are admissible and both appropriate
+four-arm/four-corner matched flags are true, with no other configuration differences.
+
+| Report under `out/` | Bytes | SHA-256 |
+|---|---:|---|
+| `post-phase10-facet-factorial/t4p5-long-comparison-2026-09-10.json` | 772,866 | `ceeb6202961de81176d123189ada9f5f5ee87ffb44ed2fed1da1635e5868d25b` |
+| `post-phase10-holefill/t4p5-long-comparison-2026-09-10.json` | 775,882 | `0cc1fc3adfe32a69f5906bb87d1debab1dc9e0ecc87bf19e24a37201025a5898` |
+
+Their shared ordinary controls appear only once in this table of terminal measurements:
+
+| Preparation / geometric completion | Attached sites | Full waist planes | Straight-open enclosed center-air layers |
+|---|---:|---:|---:|
+| M1 / enabled | 10,163 | 5 | 30 |
+| Basal-only / enabled | 9,605 | 5 | 30 |
+| Prism-only / enabled | 13,797 | 15 | 0 |
+| No-dip / enabled | 13,809 | 15 | 0 |
+| M1 / disabled | 10,053 | 3 | 32 |
+| No-dip / disabled | 13,797 | 15 | 0 |
+
+The basal-side grouping survives the larger measured endpoint: both and basal-only retain
+open cavities; prism-only and no-dip reseal. Both basal-dip arms have an early transient episode
+followed by enclosure from cycle 46 through stop. Neither/prism-only have seven transient
+episodes and none at stop. The prism-only/no-dip terminal counts now differ slightly, unlike
+the shorter endpoints; the shared coarse classification is not a claim of identical geometry
+or growth history. At the facet quartet's common terminal age, 66.46577194636605 seconds,
+and its positive quarter-age selections, both basal-dip arms retain enclosed/open layers and
+the other arms have none at those selected ages. Transient pockets between samples remain in
+the report; selected states are recorded events at or before the requested age, not interpolated
+states or equal sizes.
+
+The warmer disabled-M1 waist **does not recover** over this longer recorded N80 history. At
+the 9.8-micrometer size selection it has three waist planes and 24 open enclosed layers at
+48.13313296472922 seconds; at the 12.6-micrometer terminal endpoint it still has three waist
+planes, now with 32 open enclosed layers, at 67.58093962988065 seconds. Thus additional growth
+within this N80 run did not close the narrow throats. This is not proof of permanent arrest.
+Both no-dip histories still reseal after seven transient episodes, with unchanged terminal waist
+classification despite their slightly different cell counts. Both disabled rows report zero
+geometric attachments and zero geometric deficit. The closure quartet's common terminal age
+is 67.58093962988065 seconds; its positive quarter-age samples retain the same M1-versus-no-dip
+enclosure distinction. Every terminal enclosed center-air section has a straight axial opening
+witness; this is lattice connectivity, not a measured physical subcell aperture.
+
+The reports retain the existing default size-selection grid through 9.8 micrometers and report
+12.6 micrometers separately as the terminal endpoint. There are no registered spatial snapshots
+in these longer runs, so terminal partial fill and local field accuracy remain unmeasured.
+N64-to-N80 also changes the shell; only within-N80 interventions and history are compared as
+matched here. Neither grid independence nor physical validation follows. No code changed and
+no numerical test or simulation was repeated to obtain these comparisons.
+
+Next complete the two colder quartets when their prism-only/no-dip companion rows terminate,
+then evaluate these longer findings alongside the original fine-grid experiment. The 15:22 UTC
+observation confirmed the two colder companion workers and all eight fine-grid workers live;
+the other six new longer rows have admissible extent-37 results in their campaign row records.
+Do not generate duplicate partial/combined reports or expand into another broad sweep.
+
 ### Earlier completed-row observations
 
 `cavity-seed-thick-t4p5-m1` completed with exit 0 and an admissible size-target stop. Its raw
