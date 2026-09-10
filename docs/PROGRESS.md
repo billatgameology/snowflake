@@ -767,9 +767,15 @@ files pass all 54 tests. Original logs and the new geometry/history readout demo
 `out/post-phase10-prism-holefill/checkpoint-2026-09-10/`, with exact commands and limits in the
 active plan's **Interaction implementation checkpoint**. Existing-data demonstration separates
 M1's deepening cavity from prism-only's shallow surface pits without rerunning simulations.
-Next perform the single exact `npm test` at this committed checkpoint, assess any changed-surface
-failure, and launch the two interaction rows once. They have not launched yet. No new
-physical-validation claim follows; the eight original fine-grid jobs remain the mesh comparison.
+The single exact `npm test` at `29eebb389d9f903ba4b6f595828fb8ceffaf4174` is complete:
+169 passed / 10 failed files; 2,585 passed / 17 failed / 72 skipped tests. Rule 7, both typechecks
+and all 54 focused-file tests pass. The historical missing-file/frozen-identity failures remain;
+there is no new interaction failure, timeout or worker-RPC error. The suite is not green and is
+not to be repeated. Read `npm-test.log` and `npm-test-exit.json` in that checkpoint directory;
+the active plan records their identities and scope. Supervisor 26212 has exited.
+Next launch the two interaction rows once from this committed verification record; they have not
+launched yet. No new physical-validation claim follows; the eight original fine-grid jobs remain
+the mesh comparison.
 The plan gives exact launch commands and the verification scope. Preserve the eight original
 fine-grid runs; do not duplicate or modify their launch. Keep one final quartet report per
 temperature per experiment, without a redundant combined report or frequent pending reports.

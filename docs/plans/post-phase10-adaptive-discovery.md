@@ -1234,9 +1234,21 @@ has a one-layer run, zero center span and zero corresponding tip advance. These 
 geometry/history observations, not a physical aperture or automatic promotion verdict.
 
 `npm run typecheck` also passed (root and app checks; original exit-zero tool transcript).
-The next action is the one exact `npm test` at the committed combined checkpoint, followed by
-the registered two-worker launch after its changed-surface results are assessed. The full check
-has not yet run on this implementation; no confidence replay or historical repair is authorized.
+Implementation and this record were committed together at
+`29eebb389d9f903ba4b6f595828fb8ceffaf4174`. Its one exact `npm test` ran from 16:50:57 to
+17:19:56 UTC, with one test worker and eight existing experiment workers at launch. Supervisor
+26212 has exited. The check reports 169 passed / 10 failed files, 2,585 passed / 17 failed /
+72 skipped tests, exit one and 1,711.15 seconds Vitest duration. Rule 7, both typechecks and all
+54 tests in the five focused files pass. The same historical missing-file/frozen-identity failures
+remain in Phase 10 scope, B acquisition/branches, S6 executor/historical-A-P/lifecycle/observer,
+final-package and Phase 9 M-GT/permanent-control. No timeout or worker-RPC error is reported.
+This is not a green full suite; no new interaction failure was found and no historical repair or
+confidence replay follows. The original log is `npm-test.log` in the checkpoint directory above,
+236,334 bytes / SHA-256 `937b9f1c364d54f1d983af98f7540ed175caaba5f30dbd85fb5b7a9a94f3ad88`;
+`npm-test-exit.json` is 411 bytes / SHA-256
+`8dc420ea08556edc3f7185342e19cee8f0f12755b5469e2939cf9db7b6a751f4`.
+Next execute the registered two-worker interaction launch from the committed verification record,
+leaving the original fine-grid workers unchanged. Assess the new quartet histories when complete.
 
 ### Earlier completed-row observations
 
