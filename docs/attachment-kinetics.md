@@ -130,7 +130,11 @@ Decision 0056 separately permits `experimentalHoleFilling: "enabled" | "disabled
 constant-environment aggregate-v6 with ordinary M1/no-dip preparations. Absent or enabled retains
 the geometric completion loop in component 4; disabled skips only that loop after kinetic fill.
 Rough-site kinetics, kinetic saturation/attachment, the Robin/fill pair, monopole lag and timestep
-are unchanged. Do not combine this opt-in with experimental dip selection. The opt-in rejects
+are unchanged. The original separate comparisons do not combine this opt-in with experimental
+dip selection. Decision 0057 permits only the separately identified `prism-only` plus `disabled`
+combination, with M1 base metadata, under `post-phase10-prism-holefill-interaction-v1`.
+It reuses both existing numerical paths unchanged; other simultaneous selections remain unsupported.
+The opt-in rejects
 timeline events and ordinary resume export; dedicated identified events/results carry its meaning.
 Disabling is a closure counterfactual that can leave artificial sealed vacancies, not a claim to
 improve the physical model. The ordinary rule remains retained as specified below.

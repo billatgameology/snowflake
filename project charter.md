@@ -194,6 +194,8 @@ Post-Phase-10 development experiment (decision 0055, 2026-09-09): under the make
 
 Separate geometric-closure experiment (decision 0056, 2026-09-09): a labeled constant-environment CPU diagnostic may disable geometric hole filling while retaining ordinary M1/no-dip kinetics and the aggregate-v6 Robin/fill operator. Ordinary behavior remains unchanged. The first finite comparison does not combine this intervention with dip isolation and uses explicit experimental identity rather than ordinary checkpoint metadata. It tests dependence on a discrete closure rule; artificial sealed vacancies are distinguished from open cavities, and neither outcome validates a physical model. The active discovery plan registers its controls and stopping rules.
 
+Bounded interaction follow-up (decision 0057, 2026-09-10): after those separate comparisons, a distinctly identified constant-environment aggregate-v6 CPU experiment may combine prism-only dip preparation with disabled geometric completion. The active discovery plan registers the finite matched controls and open-cavity persistence measurements before implementation. This extends only the named development experiments; ordinary behavior, checkpoint meanings and physical-validation boundaries remain unchanged.
+
 Note the symbol collision, which is a live hazard in this repository: Gravner–Griffeath also use α, for an entirely unrelated quantity (a boundary-mass attachment threshold indexed by neighbor count). A bare α is banned from the code and the docs; see §3.3.
 
 2.6 The computable models

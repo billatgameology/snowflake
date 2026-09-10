@@ -1106,11 +1106,109 @@ N64-to-N80 also changes the shell; only within-N80 interventions and history are
 matched here. Neither grid independence nor physical validation follows. No code changed and
 no numerical test or simulation was repeated to obtain these comparisons.
 
-Next complete the two colder quartets when their prism-only/no-dip companion rows terminate,
-then evaluate these longer findings alongside the original fine-grid experiment. The 15:22 UTC
-observation confirmed the two colder companion workers and all eight fine-grid workers live;
-the other six new longer rows have admissible extent-37 results in their campaign row records.
-Do not generate duplicate partial/combined reports or expand into another broad sweep.
+The colder companions subsequently completed; the full longer comparison and selected interaction
+follow-up are below. Do not generate duplicate partial/combined reports or expand into a broad sweep.
+
+### Completed colder longer comparisons and selected interaction — 2026-09-10
+
+All eight new longer rows now have admissible extent-37, exit-zero results. The unchanged analyzer
+generated the two final colder reports from clean `39f8938510cfb5ffcdb2711cbb9f96372f8fcc73`;
+exact argv and input identities are inside them. Both quartets are fully matched and admissible.
+
+| Report under `out/` | Bytes | SHA-256 |
+|---|---:|---|
+| `post-phase10-facet-factorial/t5-long-comparison-2026-09-10.json` | 802,141 | `58a704c73a9ebb1b7e04ce63fc6b22eb01ced930db943d7cec8881814566cf3e` |
+| `post-phase10-holefill/t5-long-comparison-2026-09-10.json` | 772,175 | `3889f417a2e6bc116716c5f416e0a9ab45a062ad440a89ed1402e4880f676148` |
+
+Terminal measurements copied from those reports, with shared ordinary controls listed once:
+
+| Preparation / completion | Attached sites | Full waist planes | Straight-open enclosed layers |
+|---|---:|---:|---:|
+| M1 / enabled | 8,759 | 5 | 30 |
+| Basal-only / enabled | 8,699 | 5 | 30 |
+| Prism-only / enabled | 15,645 | 15 | 2 |
+| No-dip / enabled | 15,635 | 17 | 0 |
+| M1 / disabled | 8,723 | 5 | 30 |
+| No-dip / disabled | 15,635 | 17 | 0 |
+
+The basal-side persistent cavity result survives the colder longer endpoint as well. Disabled
+M1 reaches the same five-plane waist here, unlike the warmer three-plane outcome. Both disabled
+rows have zero geometric attachment count and deficit. Both no-dip histories contain eight
+transient episodes, all closed by stop; equal terminal counts do not establish identical occupancy.
+At the hole-fill quartet's common age, 63.125546530422454 seconds, both no-dip arms temporarily
+have two open layers, so the selected common-age samples are not uniformly cavity-free.
+
+The colder prism-only terminal is **not** fully closed: its eighth episode remains right-censored
+at stop, with two single-cell openings on the outermost planes, offsets +/-8. Its longest
+consecutive open-layer run is one, compared with fifteen for M1/basal-only. The retained final
+event at cycle 1029 in
+`out/post-phase10-facet-factorial/campaign-long-2026-09-09/rows/facet-isolation-long-t5-prism-only/events.jsonl`
+attaches all six lateral neighbors of each center. The centers become raw [6,1] after that event;
+they were basal [0,1] before it. Recorded pre-update basal maximum fill is 0.6806731079673398
+and the fill-CFL increment is 0.05. Thus their fill remains below 0.781 even after another
+admissible kinetic increment. Under the unchanged `lk-solver.ts` start-of-step predicate
+`f < 1 && nTAtt >= 4 && nZAtt >= 1`, both would therefore complete geometrically on the next
+successful positive-time update. This is a conditional code/geometry derivation, independently
+checked by the shared-context mechanism agent, **not an observed continuation**; it says nothing
+about later new pits. Do not spend another full trajectory merely to confirm these two closures.
+
+**Selected finite interaction, registered before implementation (decision 0057):** test prism
+dip absent/present by geometric completion enabled/disabled, keeping the basal dip absent.
+Only the missing two combined rows are new:
+
+- `prism-holefill-off-t4p5` and `prism-holefill-off-t5`, derived from the corresponding
+  `facet-isolation-long-t{4p5,5}-prism-only` rows, changing only the row identity and adding
+  `experimentalHoleFilling: "disabled"`. Both flags are recorded under the new explicit identity
+  `post-phase10-prism-holefill-interaction-v1`; no ordinary checkpoint or timeline route is added.
+- Preserve the existing N80, spacing 0.35 micrometers, fill CFL 0.05, radius-two/thickness-one
+  seed, extent-37 target, maximum 100,000 steps and snapshot-free configuration. Temperature,
+  forcing, pressure, v6 policy, monopole boundary and convergence settings are inherited exactly
+  from the matched longer row specs, not retuned. No new physical mapping/source is adopted.
+- Reuse three completed controls per temperature: ordinary no-dip/enabled at
+  `out/post-phase10-followup/campaign-2026-09-03-wave2/rows/followup-larger-cavity-t{4p5,5}-f0p075-nodip`
+  (producer `dd4ef5245e6b48fff164b888e3b287665ab6c457`); no-dip/disabled at
+  `out/post-phase10-holefill/campaign-long-2026-09-09/rows/holefill-off-long-t{4p5,5}-nodip`;
+  and prism-only/enabled at
+  `out/post-phase10-facet-factorial/campaign-long-2026-09-09/rows/facet-isolation-long-t{4p5,5}-prism-only`
+  (both latter producers `4c35764965a3726ec0a405817343f5dec21aa76f`). No control is relaunched.
+- Hypothesis: kinetic preparation and geometric completion interact through evolving geometry
+  and vapor supply, possibly yielding persistent open cavities despite the single-intervention
+  resealing. Compare the prism effect with completion off against the prism effect with it on:
+  `(prism/off - neither/off) - (prism/on - neither/on)` for each named measured observable.
+- Use the existing size selections through 9.8 micrometers, terminal 12.6-micrometer maximum
+  center span, and within-quartet physical-age brackets. Report open-layer counts, longest
+  consecutive open run, its center depth `max(0, layers - 1) * dxUm`, per-plane void areas and
+  waist addition. Preserve unequal age/axes and event-bracketing caveats.
+- Distinguish growth of a cavity from repeated new pits: compare the same plane indices and
+  outward opening direction across successive selected frames while the corresponding occupied
+  axial tip advances. At least two consecutive open planes persisting behind an advancing tip
+  constitute a candidate for longer evaluation, not a physical gate. Report exact plane sets,
+  depth and tip advance; one-plane pits, one-cell remnants, closed vacancies and shifted layer
+  phase alone are delayed-closure results. Existing geometry and monotone attachment histories
+  supply the observations; no new solver diagnostics or snapshots are needed. The existing
+  attachment-event replay will retain compact per-plane/per-opening-side intervals, including
+  start, end-exclusive, axial tip at start, maximum tip advance while open and maximum depth
+  below that occupied axial envelope. This distinguishes recurrent pits at different planes
+  without storing dense geometry frames; envelope depth is not local mouth shape or aperture.
+- Reuse the finite roster/launcher and cavity analyzer. Add the two explicit list/launch routes
+  and a distinct matched interaction grouping, leaving old rosters and report files unchanged.
+  Focused checks cover the combined numerical options, artifact labels, exact roster inheritance
+  and non-vacuous multi-plane persistence readout. Run one exact `npm test` at the stable combined
+  checkpoint because numerical-option and scientific-readout behavior change. Do not repair
+  historical failures or repeat it for confidence. No registry/scheduler/assurance framework.
+
+Launch once from the verified committed producer, with two actual workers and the eight existing
+fine-grid jobs left untouched (combined experiment/test ceiling remains 28):
+
+```text
+node runner/src/post-phase10-discovery-main.ts launch-prism-holefill out/post-phase10-prism-holefill/campaign-2026-09-10 2
+```
+
+Retain one final matched quartet report per temperature. This finite interaction is done when
+its measured histories either identify a multi-plane persistence lead for a targeted longer test,
+show delayed closure/resealing, or name a specific missing observation. It does not complete the
+original fine-grid question or authorize a broad combination sweep. Monitoring stays hourly or
+on completion; untouched live processes need no new confidence checks.
 
 ### Earlier completed-row observations
 
@@ -1403,6 +1501,10 @@ row ceiling.
 - no fitted dip location, pressure law, or parameter optimization against a target habit.
 
 ## Tried and rejected
+
+- Extending the enabled colder prism trajectory solely to confirm its two terminal single-cell
+  closures: the recorded neighborhood and next successful update rule already settle that
+  conditional consequence. Test the missing prism/disabled interaction throughout growth instead.
 
 - Repeating the Phase 6 grid was rejected because it omits the matched no-dip arm and trajectory
   diagnostics that produced the new questions.

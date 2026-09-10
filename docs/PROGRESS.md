@@ -748,10 +748,22 @@ and matched. Both/basal-only retain 30 open enclosed center-air layers and five 
 prism-only/no-dip reseal. Disabled M1 retains a three-plane waist through the larger endpoint,
 with 32 open enclosed layers; disabled no-dip still reseals. The active plan's **Completed warmer
 longer comparisons** records the identities, histories, physical-age matching and scope limits.
-This strengthens the model-level lead without establishing grid-independent physics. Next finish
-the -5 C quartets when their two remaining companions terminate, and continue the eight original
-fine-grid runs. Ten workers were confirmed live at 15:22 UTC. No code or numerical checks were
-changed or repeated for these analyses.
+This strengthens the model-level lead without establishing grid-independent physics. The final
+-5 C companions have now completed too: all eight longer mechanism rows are admissible extent-37
+results. Their reports are `out/post-phase10-facet-factorial/t5-long-comparison-2026-09-10.json`
+and `out/post-phase10-holefill/t5-long-comparison-2026-09-10.json`. M1/basal-only retain thirty
+open layers and five waist planes; no-dip on/off reseal. Colder prism-only ends with two shallow
+single-cell surface openings, not a fully closed endpoint or a deep-cavity lead. The active plan's
+**Completed colder longer comparisons and selected interaction** records exact measurements,
+identities and the conditional next-step closure derivation. No simulation/test was repeated for
+these analyses. The eight original fine-grid workers remain active.
+Decision 0057 and that plan section now register two new prism-only/disabled-completion rows,
+using six completed N80 controls. Next implement this small combined-option/identity seam in
+`solver-cpu/src/lk-solver.ts` and the existing discovery runner/analyzer, with same-plane opening
+persistence measured behind advancing tips. Preserve all old rosters and numerical equations.
+Perform the registered focused checks and one exact `npm test` at the stable combined checkpoint,
+then launch `launch-prism-holefill out/post-phase10-prism-holefill/campaign-2026-09-10 2` once.
+The new interaction is not yet implemented or launched; no new physical-validation claim follows.
 The plan gives exact launch commands and the verification scope. Preserve the eight original
 fine-grid runs; do not duplicate or modify their launch. Keep one final quartet report per
 temperature per experiment, without a redundant combined report or frequent pending reports.
