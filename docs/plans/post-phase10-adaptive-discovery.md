@@ -1371,6 +1371,155 @@ width law. No new parameter, solver option, protocol or campaign is frozen by th
 Use this bounded investigation while the fine-grid simulations continue, not another prism/
 completion sweep or an assurance framework.
 
+### Local basal-width investigation — 2026-09-11
+
+The next deliverable is a geometry-feasibility calculation on retained no-dip and basal-only
+trajectories, not a new simulator or an assurance layer. It asks whether an integer local-width
+proxy distinguishes exposed rims, broad basal faces and recessed regions before any new
+growth campaign is selected. Existing fine-grid runs stay untouched.
+
+**Source basis checked before choosing a model.** Root read the existing parameter/spec sections
+and the primary sources below; a shared-context, parent-inherited Astra agent independently
+investigated candidate definitions. This is source/design work, not empirical validation.
+
+- [CM9, arXiv:2011.02353v1](https://arxiv.org/pdf/2011.02353v1), printed pages 4 and 7–10,
+  motivates easier growth on narrow basal terraces near -4 C. The inferred kinetic barriers
+  depend on an assumed prism law and inferred local supersaturation. Its broad/narrow
+  substitution is an approximation, not a measured basal barrier-versus-width function.
+  Root used the PDF-reading skill and inspected the relevant extracted page text; web page
+  rendering was unavailable. No figure digitization or new quantitative parameter extraction
+  is claimed.
+- [CM4, arXiv:1512.03389v2, section 5](https://arxiv.org/html/1512.03389v2), gives the original
+  -15 C prism model behind the monograph's summarized width law. It uses
+  `sigma0Prism = sigma0Broad * (1 - exp(-Rc / RESI))`, with `Rc = 2 * deltaR * Nz`, and tests
+  `RESI = 2.5, 3.0, 3.5` micrometers. Its separate molecular-terrace conversion is
+  `w = Nz * a`, with `a` approximately 0.3 nanometers. Those fitted micron-scale surrogate
+  values are not measured warm-basal terrace widths and will not be transplanted as such.
+- The arXiv submission histories checked today list CM9 and
+  [TAX2](https://arxiv.org/abs/2306.13087) at v1, and CM4 at v2. The current
+  [author publication list](https://www.its.caltech.edu/~atomic/publist/kglpub.htm) lists no
+  later snow-growth paper after TAX2; later listed work concerns teaching-lab physics.
+  This bounded check does not claim exhaustive literature coverage or reconciliation of the
+  published monograph. The proposed experiment reuses the existing M1/no-dip endpoints and
+  explicitly labels its mesoscopic width rule P4; no new measured width law is frozen.
+
+The candidate proxy is the shortest of three opposite-direction contiguous chords through an
+attached support's exposed basal face, counted in integer cells. Both vertical signs receive
+the same treatment. Geometry-only replay can show which sites a proposed rule would select;
+it cannot reconstruct their kinetic demand or their partial-fill history. In particular,
+small recessed patches may also be narrow: do not alter the definition to force rim-only
+activation.
+
+**Completed retained-geometry calculation.**
+`scripts/post-phase10-basal-width-feasibility.mjs` ran once, exit zero, using four completed
+N80 rows and the existing facet-comparison onset selections. Its output is
+`out/post-phase10-local-basal/geometry-feasibility-2026-09-11.json`, 7,893,001 bytes, SHA-256
+`4ca75a2dc59703c1772367e53df7edb00b0ac540d030135225f24acc527f53e6`; the report records source
+hashes and helper SHA-256 `9fa18182e2bcdf08f7fe73f834cc2ea04d3eb00df6b5894e548bea3f8fbb9036`.
+It reconstructs 32 sampled states, matching every event's attached count and all recorded basal
+attachment labels. Reproduction (use a new output path; retain the named artifact):
+
+```text
+node scripts/post-phase10-basal-width-feasibility.mjs <new-output.json>
+```
+
+Counts below are copied from that artifact and include both basal sides. At the seed the
+histogram is `L=3:24, L=4:12, L=5:2`. Root independently enumerated the radius-two hexagon:
+the lower threshold selects none, while the upper selects the entire outer ring on each face,
+not just corners. At both no-dip terminals all 1,838 basal cells have widths 18–35 and neither
+threshold selects any. In the basal-only terminals the lower/upper selections are 168/194 of
+194 cells at -4.5 C and 156/182 of 182 at -5 C. The upper threshold therefore selects all
+terminal basal cells in those particular states, but not throughout growth: at the first
+extent-31 state it selects 50/218 at -4.5 C and 170/170 at -5 C.
+
+Crucially, both basal-only terminal axis cells at offsets +/-3 have `L=3`, above seven-site
+floor patches at +/-2, sixteen support-plane spacings below the corresponding outer tips.
+The upper threshold includes these recessed floors; the lower excludes them but still includes
+recessed annular terraces and newly formed single-cell tip patches. Neither is a rim-only
+selector. Recorded basal attachments occurring at pre-update width at most three number
+120/276 at -4.5 C and 108/228 at -5 C for basal-only, versus zero in both no-dip histories.
+These counts are not accumulated-fill or kinetic-demand weights. No raw `[02]` occurs in the
+sampled states or reconstructed basal attachments, so the two-support extension remains
+unexercised by this calculation. Root inspected the helper and these report fields; no solver
+run, test suite, independent morphology reclassification or full-3D validation was performed.
+
+### Selected local basal-width experiment — registered 2026-09-11
+
+**Question:** does conditioning the existing basal dip on a local exposed-terrace width retain
+or initiate a cavity that remains open behind advancing axial tips? This tests the global
+everywhere-narrow assumption, not a fitted molecular width law. Geometry feasibility supports
+two distinct interventions without a morphology-driven exclusion of recessed regions.
+
+Under decision 0058, add `experimentalBasalWidthCells`, a positive integer threshold, to a
+separately identified constant-environment aggregate-v6/M1-base CPU experiment. The selected
+roster uses only thresholds two and three. For a raw `[01]` basal cell, identify its attached
+vertical support; an exposed support-plane site is attached with an active, unattached neighbor
+in that outward vertical direction. Count each of the three opposite in-plane contiguous
+chords through the support, inclusively, and take their integer minimum `L`. For `[02]`, take
+the minimum across both support faces as an explicit P4 aggregate extension. Select the
+existing M1 basal prefactor/barrier pair exactly when `L <= experimentalBasalWidthCells`;
+otherwise use the existing no-dip basal pair. Prism kinetics always use no-dip. Rough and
+inhibited coefficients, geometric completion and all other numerical machinery stay unchanged.
+No depth, center, rim or enclosure predicate enters the coefficient. Width does not depend on
+partial fill. Recompute/cache after attached geometry changes, before relaxation; the same
+selection must feed the self-consistent Robin solve and its cached fill coefficient.
+
+- Add four rows `basal-width-t{4p5,5}-le{2,3}` under identity
+  `post-phase10-local-basal-width-v1`. Copy the matched larger no-dip settings, changing only
+  identity, explicit M1 base metadata and the new width intervention. Use N80, spacing 0.35
+  micrometers, radius-two/thickness-one seed, fill CFL 0.05, maximum extent 37 and maximum
+  100,000 steps. Supersaturation is 0.003375 at -4.5 C and 0.00375 at -5 C; pressure 101325 Pa,
+  seed one/noise zero, monopole far field, v6, residual tolerance 1e-9, divergence tolerance
+  1e-7 and maximum 200,000 relaxation sweeps match the retained specs. No spatial-sampling
+  schedule is added. These numbers are from the specs embedded in the feasibility artifact.
+- Reuse the completed larger no-dip rows under
+  `out/post-phase10-followup/campaign-2026-09-03-wave2/rows/` and basal-only rows under
+  `out/post-phase10-facet-factorial/campaign-long-2026-09-09/rows/`, with their original producer
+  records. They are the broad-everywhere and dipped-basal-everywhere controls. Do not rerun
+  them. Nominal inclusive chord thresholds are 0.70/1.05 micrometers (`L * 0.35`), not measured
+  molecular widths. Any later grid comparison must preserve physical threshold lengths and
+  explicitly register the changed integer counts; this four-row comparison is not that test.
+- Record pre-update basal width/selection counts and the computed per-boundary-pixel kinetic
+  demand partition for selected versus unselected basal cells. This is computed demand, not
+  signed relaxation exchange or placed ice. Keep the original attachment-event history so
+  locations and width histories can be reconstructed. Do not add a topology framework or
+  claim spatially resolved demand that the output does not record.
+- Use the existing cavity analyzer for common-age and common-size histories, terminal waist,
+  straight-open layers, per-plane opening intervals, depth and axial tip advance. A lead must
+  include at least two consecutive open planes persisting behind advancing tips, not just a
+  terminal pit count. Report whether selective demand precedes onset and whether selection
+  becomes effectively everywhere-active during the relevant interval. Preserve the distinction
+  between seed-triggered enhancement, evolving terrace activation and sustained hollowing.
+- A persistent lead receives a targeted longer evaluation after these four terminals, with
+  fine-grid results informing its qualification. Resealing constrains these proxy/threshold
+  choices, not physical SDAK. A convergence/contact/step-budget failure is a specific gap,
+  not a negative morphology result. Do not retune the threshold or remove recessed activation
+  after inspecting a growth result; a changed hypothesis is a separate named follow-up.
+- Reuse the launcher and raw-event/result path. This opt-in does not combine with the other
+  experimental options, ordinary checkpoint export or timeline events. No new checkpoint
+  format, generic scheduler, source-pin recovery or hostile-actor controls are needed.
+
+**Shortest meaningful verification:** focused nonuniform-field control equivalence when all
+basal sites select the broad or dipped endpoint; a mixed-width geometry with an independently
+computed coefficient and Robin/fill demand; geometry-cache refresh after attachment; integer
+D6h/sign symmetry; and focused roster/readout tests showing experimental identities stay
+distinct. Run these during implementation, then one exact `npm test` at the stable combined
+scientific checkpoint. The direct replay helper is internal feasibility analysis, not a phase
+gate; include it in that same checkpoint rather than starting a separate full-suite cycle.
+Retain known historical full-suite failures by name, without repairing or rerunning Phase 10.
+
+Implement the finite CLI route, then launch once from the committed producer:
+
+```text
+node runner/src/post-phase10-discovery-main.ts launch-basal-width out/post-phase10-local-basal/campaign-2026-09-11 4
+```
+
+Record actual concurrency and exact flags. The eight original fine workers remain untouched;
+combined experiment/test workers must stay at or below 28. This experiment is done when both
+matched temperature comparisons classify persistence, resealing or their specific evidence
+gap and select a finite follow-up from the results. It grants no physical validation and does
+not involve Phase 7 or C0V/S6.
+
 ### Earlier completed-row observations
 
 `cavity-seed-thick-t4p5-m1` completed with exit 0 and an admissible size-target stop. Its raw

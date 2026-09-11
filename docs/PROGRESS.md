@@ -795,12 +795,25 @@ no further prism/completion extension is selected. Both interaction workers have
 eight original fine-grid workers were confirmed live at 14:05 UTC. Continue their hourly/completion
 observations and analyze matched seed/grid sets when complete, without relaunching or rechecking
 unchanged work.
-In parallel, investigate one named next model question: basal kinetics localized by facet width
-instead of the everywhere-narrow assumption. Open `docs/libbrecht-parameters.md` sections 4.1a
-and 4.3 and the active plan's branch-synthesis section; check primary sources and a D6h-consistent
-geometry definition before deciding whether to register any new experiment. No width law, new
-solver option or campaign is approved/frozen yet. Keep P3 source prescriptions and P4 geometric/
-sub-grid choices distinct. No physical-validation claim, Phase 7 work or C0V recovery follows.
+The local-width feasibility question now has a measured answer in
+`out/post-phase10-local-basal/geometry-feasibility-2026-09-11.json` (SHA-256
+`4ca75a2dc59703c1772367e53df7edb00b0ac540d030135225f24acc527f53e6`). Integer exposed-face chords
+distinguish broad no-dip faces from evolving narrow terraces, but also select recessed patches;
+this is not a rim-only rule. At the seed, thresholds two/three select zero/twenty-four of
+thirty-eight basal cells. The active plan's **Local basal-width investigation** records the
+source check, exact geometry findings and limits; do not repeat that calculation or source sweep.
+
+Next implement the plan's **Selected local basal-width experiment**, decision 0058 and
+`docs/attachment-kinetics.md` section 3: four new rows condition the existing basal dip on
+integer chord thresholds two/three at the warm anchors, reusing completed no-dip/basal-only
+controls. No growth outcome has been generated for this new rule. First commit this protocol;
+then implement the small solver/runner/readout changes with focused numerical checks, followed
+by one exact full check at the stable checkpoint and a committed producer. The retained-geometry
+helper is an internal calculation, not a new gate; no separate full-suite loop is needed for it.
+The planned launch is `node runner/src/post-phase10-discovery-main.ts launch-basal-width
+out/post-phase10-local-basal/campaign-2026-09-11 4`; the route is not implemented yet. Keep the
+original fine-grid jobs running, the combined worker ceiling at 28, and the geometry rule P4.
+No physical-validation claim, Phase 7 work or C0V recovery follows.
 The plan gives exact launch commands and the verification scope. Preserve the eight original
 fine-grid runs; do not duplicate or modify their launch. Keep one final quartet report per
 temperature per experiment, without a redundant combined report or frequent pending reports.

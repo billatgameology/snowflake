@@ -126,6 +126,23 @@ monopole lag, timestep and ledger remain unchanged. Timeline events and ordinary
 are unsupported for these experiments; their runner writes identified raw events/results, not
 ordinary LK checkpoints. This finite preparation intervention is not a width-feedback closure.
 
+Decision 0058 adds the separately identified `experimentalBasalWidthCells` experiment, with M1
+base metadata, aggregate-v6 and constant environment. It uses no-dip prism kinetics and switches
+each basal cell between the existing no-dip and M1 basal prefactor/barrier pairs. On each attached
+vertical support, form the same-height exposed-face mask: attached sites whose outward vertical
+neighbor is active and unattached. Through the support, count the inclusive contiguous chord in
+each of the three opposite in-plane direction pairs; `L` is their integer minimum. For raw `[02]`,
+take the minimum over both support faces as an explicit P4 aggregate choice. Use the M1 basal
+pair exactly when `L <= experimentalBasalWidthCells`, a positive integer threshold. No center,
+rim, enclosure, depth or partial-fill filter enters this definition. Integer chord counts and
+the symmetric minimum provide the D6h-consistent geometry key. Cache the selection for fixed
+attached geometry and refresh after attachments before relaxation; the same selected coefficient
+must feed the Robin solve and cached fill pair. Rough/inhibited kinetics, geometric completion,
+noise, monopole lag, timestep and ledger retain their existing rules. This opt-in cannot combine
+with the earlier experimental flags, timeline events or ordinary checkpoint export. The active
+plan selects two thresholds at two temperatures under `post-phase10-local-basal-width-v1`.
+This is a mesoscopic P4 width-conditioned counterfactual, not a measured basal width law or full M2.
+
 Decision 0056 separately permits `experimentalHoleFilling: "enabled" | "disabled"` for
 constant-environment aggregate-v6 with ordinary M1/no-dip preparations. Absent or enabled retains
 the geometric completion loop in component 4; disabled skips only that loop after kinetic fill.
