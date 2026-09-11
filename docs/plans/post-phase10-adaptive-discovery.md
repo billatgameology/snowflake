@@ -1307,6 +1307,70 @@ the independently running colder quartet and continue the original fine-grid exp
 colder outcome is not inferred from this one. No code, test, simulation or earlier report was
 repeated to obtain this result.
 
+### Completed colder interaction and branch synthesis — 2026-09-11
+
+The colder row also completed: its registered `result.json` / `exit.json` record an admissible
+extent-37 stop, exit zero, all relaxations converged, zero symmetry error and no integrity errors.
+The campaign's `prism-holefill-wave-1-complete.json` records both exit-zero rows and actual
+maximum concurrency two, finishing at 13:47 UTC. No interaction worker remains live.
+The single final colder report is
+`out/post-phase10-prism-holefill/t5-comparison-2026-09-11.json`, 739,031 bytes / SHA-256
+`f3a2eefa099596ecb48334921e6fabfa012a9e910a26c28b52037de9cb905841`, generated from clean
+`2cf4c11c4bbee7c676ce2eb6ceb73f97aead1585`. Its exact argv/input identities are inside;
+all four corners are admissible and matched, with no other configuration differences.
+
+| Colder preparation / completion | Attached sites | Full waist planes | Terminal open layers | Air sites per terminal pit |
+|---|---:|---:|---:|---:|
+| Neither / enabled | 15,635 | 17 | 0 | — |
+| Neither / disabled | 15,635 | 17 | 0 | — |
+| Prism-only / enabled | 15,645 | 15 | 2 | 1 |
+| Prism-only / disabled | 15,609 | 15 | 2 | 13 |
+
+Each history contains eight enclosure episodes and sixteen signed-plane/opening-side intervals.
+Neither arms close all episodes; each prism arm closes seven and retains the eighth at stop.
+All tracked intervals have zero occupied axial-tip advance while open and zero depth below that
+envelope. The terminal prism openings are on the separate outermost planes +/-8; their maximum
+consecutive open run is one, not a two-plane cavity. Do not call either prism endpoint closed.
+
+The combined row stops at cycle 1039 / 104.59631394982338 seconds. Its last paired pits begin
+at cycle 995 / 100.01061708728145 seconds, with 307 air sites / 32.56905037282327 square
+micrometers in each plane. By stop they have contracted to thirteen sites /
+1.3791454555267184 square micrometers, without axial-tip advancement. Their eventual closure
+is **not observed**. The larger terminal pit area than the enabled prism row is partly a timing
+comparison: at the common requested age, the enabled at-or-before frame instead has seven air
+sites per pit, versus thirteen for disabled. Those are discrete event-bracketed states, not
+exactly interpolated physical shapes.
+
+Every default size selection through 9.8 micrometers has no open center-air layers in any arm.
+At the common age, the two prism arms have two open layers and fifteen waist planes, while the
+neither arms have none and seventeen. The terminal-size difference-of-effects is minus thirty-six
+attached sites; the common-age attached-count contrast is twelve. Both comparisons have zero
+interaction contrast for waist addition, opening count and consecutive depth. This is not a
+claim of identical aperture areas, kinetics or history.
+
+The same shared-context, parent-inherited Astra science reviewer independently inspected this
+report's intervals, onset/terminal frames and age/size selections. It identified contracting
+single-plane pits, not a multi-plane persistence lead, and recommended no further interaction
+extension. It performed no solver, analyzer or test rerun and established no full-3D, physical
+or grid-validity claim.
+
+**Disposition:** this finite interaction is complete at development-observation grade. Warm
+pits reseal; the colder final pits are still contracting when stopped. Neither tested
+combination produces the registered same-plane multi-layer persistence behind advancing tips.
+Retain the closure-timing/aperture sensitivity, but do not launch another long trajectory solely
+to close the last pits. The original eight fine-grid jobs remain the priority and were confirmed
+live at 14:05 UTC; this branch result does not settle their seed/discretization question.
+
+**Next named model question, not yet a selected run:** can basal kinetics localized by a facet-
+width measure sustain the observed basal-side lead without the everywhere-narrow assumption?
+First inspect the existing source basis (`libbrecht-parameters.md` sections 4.1a and 4.3, including
+the adjustable-width law's uncertainty and domain), check primary-source currency, and establish
+whether a D6h-consistent lattice estimator actually distinguishes the relevant basal regions.
+Any sub-grid mapping or interpolation remains a labeled project/model choice, not a measured
+width law. No new parameter, solver option, protocol or campaign is frozen by this question.
+Use this bounded investigation while the fine-grid simulations continue, not another prism/
+completion sweep or an assurance framework.
+
 ### Earlier completed-row observations
 
 `cavity-seed-thick-t4p5-m1` completed with exit 0 and an admissible size-target stop. Its raw
@@ -1603,6 +1667,10 @@ row ceiling.
   the completed matched interaction has zero axial tip advance during every tracked opening,
   all of which reseal. This closes that warmer deepening-cavity lead over the registered window;
   the independently running colder interaction and original fine-grid comparison remain open.
+- Extending either completed prism/completion interaction just to resolve remaining surface pits:
+  neither anchor shows multi-plane persistence behind advancing tips. The colder combined pits
+  contract on stationary outermost planes; their final closure remains unobserved, not presumed.
+  Prioritize the basal-side mechanism and original fine-grid qualification instead.
 
 - Extending the enabled colder prism trajectory solely to confirm its two terminal single-cell
   closures: the recorded neighborhood and next successful update rule already settle that

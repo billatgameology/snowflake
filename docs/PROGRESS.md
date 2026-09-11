@@ -784,13 +784,23 @@ fifteen waist planes and zero terminal center-air enclosure. Each history's seve
 episodes has zero axial tip advance while its tracked planes stay open. The combined intervention
 delays some closure but supplies no registered deepening-cavity lead at this warmer anchor;
 no longer warmer extension is selected. The active plan's **Completed warmer interaction** holds
-exact measurements, source identity and age/size caveats. The colder interaction and eight
-fine-grid workers were confirmed live at 13:02 UTC. Next observe them hourly or on completion;
-analyze the colder row with its three registered reused controls using
-`node runner/src/post-phase10-cavity-analysis.ts rows <new-report.json> <four-row-directories>`.
-The active plan lists exact controls and readout limits. Do not duplicate launches, repeat
-verification or generate redundant pending reports. No new physical-validation claim follows;
-the original fine-grid jobs remain the mesh comparison.
+exact measurements, source identity and age/size caveats. The colder interaction is now complete
+too, with an admissible extent-37 / exit-zero result. Its final matched report is
+`out/post-phase10-prism-holefill/t5-comparison-2026-09-11.json`: neither arms reseal; prism on/off
+retain shallow pits on the two outermost planes, with one/thirteen air sites per pit respectively.
+The combined pits contracted during their recorded interval, with zero axial-tip advance; their
+eventual closure was not observed. The plan's **Completed colder interaction and branch synthesis**
+records exact values and limits. No multi-plane persistence lead emerged at either anchor, so
+no further prism/completion extension is selected. Both interaction workers have exited; all
+eight original fine-grid workers were confirmed live at 14:05 UTC. Continue their hourly/completion
+observations and analyze matched seed/grid sets when complete, without relaunching or rechecking
+unchanged work.
+In parallel, investigate one named next model question: basal kinetics localized by facet width
+instead of the everywhere-narrow assumption. Open `docs/libbrecht-parameters.md` sections 4.1a
+and 4.3 and the active plan's branch-synthesis section; check primary sources and a D6h-consistent
+geometry definition before deciding whether to register any new experiment. No width law, new
+solver option or campaign is approved/frozen yet. Keep P3 source prescriptions and P4 geometric/
+sub-grid choices distinct. No physical-validation claim, Phase 7 work or C0V recovery follows.
 The plan gives exact launch commands and the verification scope. Preserve the eight original
 fine-grid runs; do not duplicate or modify their launch. Keep one final quartet report per
 temperature per experiment, without a redundant combined report or frequent pending reports.
