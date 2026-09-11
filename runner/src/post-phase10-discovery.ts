@@ -76,23 +76,37 @@ export interface DiscoveryRow {
   readonly experimentalFacetDips?: LKFacetDipArm;
   /** Explicit geometric-completion intervention; ordinary kinetics are retained. */
   readonly experimentalHoleFilling?: LKExperimentalHoleFilling;
+  /** P4 exposed-terrace chord threshold; basal kinetics are local, not a global M1 arm. */
+  readonly experimentalBasalWidthCells?: number;
 }
 
 export const DISCOVERY_FACET_EXPERIMENT_ID = "post-phase10-facet-isolation-v1" as const;
 export const DISCOVERY_HOLEFILL_EXPERIMENT_ID = "post-phase10-holefill-isolation-v1" as const;
 export const DISCOVERY_PRISM_HOLEFILL_INTERACTION_ID = "post-phase10-prism-holefill-interaction-v1" as const;
+export const DISCOVERY_BASAL_WIDTH_EXPERIMENT_ID = "post-phase10-local-basal-width-v1" as const;
 
 export interface DiscoveryExperimentIdentity {
   readonly experimentId?: typeof DISCOVERY_FACET_EXPERIMENT_ID | typeof DISCOVERY_HOLEFILL_EXPERIMENT_ID |
-    typeof DISCOVERY_PRISM_HOLEFILL_INTERACTION_ID;
+    typeof DISCOVERY_PRISM_HOLEFILL_INTERACTION_ID | typeof DISCOVERY_BASAL_WIDTH_EXPERIMENT_ID;
   readonly experimentalFacetDips?: LKFacetDipArm;
   readonly experimentalHoleFilling?: LKExperimentalHoleFilling;
+  readonly experimentalBasalWidthCells?: number;
 }
 
 /** Absent for ordinary rows so historical artifact shapes stay unchanged. */
 export function discoveryExperimentIdentity(
-  row: Pick<DiscoveryRow, "experimentalFacetDips" | "experimentalHoleFilling">,
+  row: Pick<DiscoveryRow, "experimentalFacetDips" | "experimentalHoleFilling" | "experimentalBasalWidthCells">,
 ): DiscoveryExperimentIdentity {
+  if (row.experimentalBasalWidthCells !== undefined) {
+    if (!Number.isSafeInteger(row.experimentalBasalWidthCells) || row.experimentalBasalWidthCells < 1) {
+      throw new Error("experimentalBasalWidthCells must be a positive integer");
+    }
+    if (row.experimentalFacetDips !== undefined || row.experimentalHoleFilling !== undefined) {
+      throw new Error("local basal-width rows cannot combine experimental options");
+    }
+    return { experimentId: DISCOVERY_BASAL_WIDTH_EXPERIMENT_ID,
+      experimentalBasalWidthCells: row.experimentalBasalWidthCells };
+  }
   if (row.experimentalHoleFilling !== undefined) {
     if (row.experimentalFacetDips !== undefined) {
       if (row.experimentalFacetDips !== "prism-only" || row.experimentalHoleFilling !== "disabled") {
@@ -195,6 +209,8 @@ export interface DiscoverySpatialSnapshot extends DiscoveryExperimentIdentity {
     readonly alphaHKBoundary: number;
     readonly robinGeometry: number;
     readonly fillGeometry: number;
+    readonly basalWidthCells?: number;
+    readonly basalWidthSelected?: boolean;
   }[];
 }
 
@@ -432,10 +448,26 @@ function finish(summary: MutableNumericSummary): NumericSummary | null {
     : { min: summary.min, max: summary.max, mean: summary.sum / summary.count };
 }
 
-function summarizeBoundary(solver: LKSolver): {
+interface BasalWidthBoundaryRates {
+  readonly thresholdCells: number;
+  readonly completedCyclesBeforeUpdate: number;
+  readonly simTimeSecondsBeforeUpdate: number;
+  readonly widthHistogram: Record<string, number>;
+  selectedBasalCells: number;
+  unselectedBasalCells: number;
+  selectedRatePerSecond: number;
+  unselectedRatePerSecond: number;
+}
+
+function summarizeBoundary(solver: LKSolver, basalWidthThreshold?: number): {
   readonly summary: BoundarySummary;
   readonly facetByIndex: ReadonlyMap<number, FacetClass>;
+  readonly basalWidthRates?: BasalWidthBoundaryRates;
 } {
+  const basalWidthRates: BasalWidthBoundaryRates | undefined = basalWidthThreshold === undefined
+    ? undefined : { thresholdCells: basalWidthThreshold, completedCyclesBeforeUpdate: solver.tick,
+      simTimeSecondsBeforeUpdate: solver.simTimeSeconds, widthHistogram: {}, selectedBasalCells: 0,
+      unselectedBasalCells: 0, selectedRatePerSecond: 0, unselectedRatePerSecond: 0 };
   const facets = ["basal", "prism", "inhibited", "rough"] as const;
   const mutable = new Map(
     facets.map((facet) => [
@@ -454,6 +486,23 @@ function summarizeBoundary(solver: LKSolver): {
   for (const index of solver.boundaryCells()) {
     const facet = solver.facetClassOf(index);
     const state = solver.boundaryState(index);
+    if (basalWidthRates !== undefined && facet === "basal") {
+      const width = state.basalWidthCells;
+      if (width === undefined || !Number.isSafeInteger(width) || width < 1 ||
+        state.basalWidthSelected !== (width <= basalWidthRates.thresholdCells)) {
+        throw new Error(`basal-width observation is missing or inconsistent at cell ${index}`);
+      }
+      basalWidthRates.widthHistogram[width] = (basalWidthRates.widthHistogram[width] ?? 0) + 1;
+      const rate = (state.alphaHKBoundary * solver.vKinMS * state.sigmaBoundary) /
+        (state.fillGeometry * solver.dxM);
+      if (state.basalWidthSelected) {
+        basalWidthRates.selectedBasalCells++;
+        basalWidthRates.selectedRatePerSecond += rate;
+      } else {
+        basalWidthRates.unselectedBasalCells++;
+        basalWidthRates.unselectedRatePerSecond += rate;
+      }
+    }
     const facetSummary = mutable.get(facet) as NonNullable<ReturnType<typeof mutable.get>>;
     facetSummary.count++;
     add(facetSummary.sigmaBoundary, state.sigmaBoundary);
@@ -487,6 +536,7 @@ function summarizeBoundary(solver: LKSolver): {
       neighborConfigurations,
     },
     facetByIndex,
+    ...(basalWidthRates === undefined ? {} : { basalWidthRates }),
   };
 }
 
@@ -549,11 +599,16 @@ export function runPostPhase10DiscoveryRow(
   if (candidate.experimentalHoleFilling !== undefined && candidate.timelineEvent !== undefined) {
     throw new Error("hole-fill-isolation rows require a constant environment");
   }
+  if (candidate.experimentalBasalWidthCells !== undefined &&
+    (candidate.paramSet !== "M1" || candidate.timelineEvent !== undefined)) {
+    throw new Error("local basal-width rows require the M1 base and a constant environment");
+  }
   const experimentIdentity = discoveryExperimentIdentity(candidate);
   const experimentLabel = experimentIdentity.experimentId === undefined ? "" :
     ` experimentId=${experimentIdentity.experimentId}` +
     (candidate.experimentalFacetDips === undefined ? "" : ` experimentalFacetDips=${candidate.experimentalFacetDips}`) +
-    (candidate.experimentalHoleFilling === undefined ? "" : ` experimentalHoleFilling=${candidate.experimentalHoleFilling}`);
+    (candidate.experimentalHoleFilling === undefined ? "" : ` experimentalHoleFilling=${candidate.experimentalHoleFilling}`) +
+    (candidate.experimentalBasalWidthCells === undefined ? "" : ` experimentalBasalWidthCells=${candidate.experimentalBasalWidthCells}`);
   const output = resolve(outputDirectory);
   mkdirSync(output, { recursive: true });
   for (const leaf of ["spec.json", "events.jsonl", "result.json"] as const) {
@@ -599,6 +654,9 @@ export function runPostPhase10DiscoveryRow(
     }),
     ...(candidate.experimentalHoleFilling === undefined ? {} : {
       experimentalHoleFilling: candidate.experimentalHoleFilling,
+    }),
+    ...(candidate.experimentalBasalWidthCells === undefined ? {} : {
+      experimentalBasalWidthCells: candidate.experimentalBasalWidthCells,
     }),
     cflFill: candidate.cflFill,
     relaxTol: FIXED.relaxTol,
@@ -704,7 +762,7 @@ export function runPostPhase10DiscoveryRow(
         break;
       }
 
-      const boundary = summarizeBoundary(solver);
+      const boundary = summarizeBoundary(solver, candidate.experimentalBasalWidthCells);
       const actualExtent = solver.largestExtent();
       for (const triggerExtent of pendingSpatialExtents) {
         if (actualExtent < triggerExtent) continue;
@@ -746,6 +804,9 @@ export function runPostPhase10DiscoveryRow(
       const clippedBefore = solver.saturationClippedFill;
       const holeDeficitBefore = solver.holeFillDeficit;
       const surface = solver.advanceSurface();
+      // SurfaceReport is shared with G-G, whose timestep is null; this observation is LK-only.
+      const widthStepSeconds = boundary.basalWidthRates === undefined ? 0 : surface.deltaTimeSeconds;
+      if (widthStepSeconds === null) throw new Error("basal-width demand requires an LK physical timestep");
       if (surface.stalled) {
         stopReason = "stalled";
       } else {
@@ -829,6 +890,17 @@ export function runPostPhase10DiscoveryRow(
         cycle: solver.tick,
         relaxation,
         boundary: boundary.summary,
+        ...(boundary.basalWidthRates === undefined ? {} : { basalWidthObservation: {
+          timing: "after-converged-relaxation-before-surface-advance",
+          thresholdCells: boundary.basalWidthRates.thresholdCells,
+          completedCyclesBeforeUpdate: boundary.basalWidthRates.completedCyclesBeforeUpdate,
+          simTimeSecondsBeforeUpdate: boundary.basalWidthRates.simTimeSecondsBeforeUpdate,
+          widthHistogram: boundary.basalWidthRates.widthHistogram,
+          selectedBasalCells: boundary.basalWidthRates.selectedBasalCells,
+          unselectedBasalCells: boundary.basalWidthRates.unselectedBasalCells,
+          selectedKineticDemandFill: boundary.basalWidthRates.selectedRatePerSecond * widthStepSeconds,
+          unselectedKineticDemandFill: boundary.basalWidthRates.unselectedRatePerSecond * widthStepSeconds,
+        } }),
         surface,
         attached: attached.map((index) => ({
           index,

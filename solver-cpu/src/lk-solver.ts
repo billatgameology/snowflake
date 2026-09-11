@@ -81,6 +81,8 @@ export interface LKSolverOptions {
   readonly experimentalFacetDips?: LKFacetDipArm;
   /** ADR 0056 closure counterfactual; ordinary kinetic filling is always retained. */
   readonly experimentalHoleFilling?: LKExperimentalHoleFilling;
+  /** ADR 0058: M1 basal kinetics only on exposed-support chords at or below this cell count. */
+  readonly experimentalBasalWidthCells?: number;
   /** Fill-CFL bound on the selected policy's max per-cell kinetic fill increment. */
   readonly cflFill?: number; // default 0.1
   /** Relaxation: per-sweep max |change| / sigmaInfinity below this = converged. */
@@ -339,6 +341,7 @@ export class LKSolver implements SurfaceOperator {
   readonly paramSet: NucleationParamSet;
   readonly experimentalFacetDips: LKFacetDipArm | undefined = undefined;
   readonly experimentalHoleFilling: LKExperimentalHoleFilling | undefined = undefined;
+  readonly experimentalBasalWidthCells: number | undefined = undefined;
   readonly cflFill: number;
   readonly relaxTol: number;
   readonly divTol: number;
@@ -357,6 +360,10 @@ export class LKSolver implements SurfaceOperator {
   private _maximumKineticFillRateScalePerSecond: number;
   /** Facet kinetics constant between accepted temperature events. */
   private preparedAlphaHK: PreparedAlphaHK;
+  /** ADR 0058 geometry-only cache; absent on all ordinary and earlier experimental paths. */
+  private readonly basalWidthCache: Uint32Array | undefined = undefined;
+  private readonly basalWidthDippedPreparation: PreparedAlphaHK | undefined = undefined;
+  private basalWidthCacheDirty = false;
   /** Geometry-adjusted max fill velocity max(rate)·dx (m/s) of the most recent update. */
   lastMaxFillVelocityMS = 0;
   holeFillCountTotal = 0;
@@ -603,6 +610,7 @@ export class LKSolver implements SurfaceOperator {
     this.paramSet = options.paramSet ?? "CAK_A1";
     this.experimentalFacetDips = options.experimentalFacetDips;
     this.experimentalHoleFilling = options.experimentalHoleFilling;
+    this.experimentalBasalWidthCells = options.experimentalBasalWidthCells;
     this.cflFill = options.cflFill ?? 0.1;
     this.relaxTol = options.relaxTol ?? 1e-9;
     this.relaxMaxSweeps = options.relaxMaxSweeps ?? 200_000;
@@ -737,9 +745,24 @@ export class LKSolver implements SurfaceOperator {
         throw new Error("only prism-only with disabled hole filling may be combined");
       }
     }
-    this.preparedAlphaHK = this.experimentalFacetDips === undefined
-      ? prepareAlphaHK(this.tempC, this.paramSet)
-      : prepareFacetDipExperiment(this.tempC, this.experimentalFacetDips);
+    if (this.experimentalBasalWidthCells !== undefined) {
+      if (!Number.isSafeInteger(this.experimentalBasalWidthCells) || this.experimentalBasalWidthCells <= 0) {
+        throw new Error("experimentalBasalWidthCells must be a positive safe integer");
+      }
+      if (this.paramSet !== "M1" || this.surfacePolicy !== "aggregate-hv-g1h1-v6") {
+        throw new Error("experimentalBasalWidthCells requires M1 base metadata and aggregate-hv-g1h1-v6");
+      }
+      if (this.experimentalFacetDips !== undefined || this.experimentalHoleFilling !== undefined) {
+        throw new Error("experimentalBasalWidthCells cannot combine with other experimental LK modes");
+      }
+      this.preparedAlphaHK = prepareAlphaHK(this.tempC, "M1_NO_DIP_ABLATION");
+      this.basalWidthDippedPreparation = prepareAlphaHK(this.tempC, "M1");
+      this.basalWidthCache = new Uint32Array(n);
+    } else {
+      this.preparedAlphaHK = this.experimentalFacetDips === undefined
+        ? prepareAlphaHK(this.tempC, this.paramSet)
+        : prepareFacetDipExperiment(this.tempC, this.experimentalFacetDips);
+    }
     // Positive raw inputs are not enough: IEEE-754 conversion/derived arithmetic can still
     // collapse an accepted run (for example Number.MIN_VALUE µm -> dxM === 0, or an
     // underflow-scale pressure -> X_0 === Infinity). Validate every derived scale the
@@ -921,7 +944,8 @@ export class LKSolver implements SurfaceOperator {
    * epoch after every awaited sink write.
    */
   resumeStateV3(): LKResumeStateV3 {
-    if (this.experimentalFacetDips !== undefined || this.experimentalHoleFilling !== undefined) {
+    if (this.experimentalFacetDips !== undefined || this.experimentalHoleFilling !== undefined ||
+      this.experimentalBasalWidthCells !== undefined) {
       throw new Error("experimental LK modes are not represented by ordinary LK checkpoints");
     }
     if (this.cycleState !== "boundary") {
@@ -1082,7 +1106,8 @@ export class LKSolver implements SurfaceOperator {
    * ledger is touched.
    */
   applyTimelineEnvironment(environment: LKTimelineEnvironment): LKEnvironmentTransitionReport {
-    if (this.experimentalFacetDips !== undefined || this.experimentalHoleFilling !== undefined) {
+    if (this.experimentalFacetDips !== undefined || this.experimentalHoleFilling !== undefined ||
+      this.experimentalBasalWidthCells !== undefined) {
       throw new Error("experimental LK modes support constant environment only");
     }
     if (this.cycleState !== "boundary") {
@@ -1314,6 +1339,7 @@ export class LKSolver implements SurfaceOperator {
 
   private attachCell(index: number): void {
     if (this.a[index] === 1) return;
+    if (this.basalWidthCache !== undefined) this.basalWidthCacheDirty = true;
     this.a[index] = 1;
     this.blocked[index] = 1;
     this.f[index] = 1;
@@ -1356,16 +1382,61 @@ export class LKSolver implements SurfaceOperator {
     return classifyFacet(this.nTAtt[index], this.nZAtt[index], this.surfacePolicy);
   }
 
+  /** Inclusive same-height exposed-support chords, never sampled from fill or vapor. */
+  private exposedBasalSupportWidth(support: number, outwardSign: number): number {
+    const { nx, ny, nz } = this.dims;
+    const plane = nx * ny;
+    const [i, j, k] = coordsOf(this.dims, support);
+    const outwardK = k + outwardSign;
+    const exposed = (ii: number, jj: number): boolean => {
+      if (ii < 0 || ii >= nx || jj < 0 || jj >= ny || outwardK < 0 || outwardK >= nz) return false;
+      const site = k * plane + jj * nx + ii;
+      const outward = site + outwardSign * plane;
+      return this.a[site] === 1 && this.wall[outward] === 0 && this.a[outward] === 0;
+    };
+    let minimum = Infinity;
+    for (const [di, dj] of [[1, 0], [0, 1], [1, -1]]) {
+      let chord = 1;
+      for (const sign of [-1, 1]) {
+        for (let step = 1; exposed(i + sign * step * di, j + sign * step * dj); step++) chord++;
+      }
+      minimum = Math.min(minimum, chord);
+    }
+    return minimum;
+  }
+
+  /** Run once after geometry changes, outside every nonlinear Robin/smoother iteration. */
+  private refreshBasalWidthCache(): void {
+    const widths = this.basalWidthCache;
+    if (widths === undefined || !this.basalWidthCacheDirty) return;
+    const plane = this.dims.nx * this.dims.ny;
+    for (const index of this.boundaryList) {
+      if (this.nTAtt[index] !== 0 || this.nZAtt[index] === 0) continue;
+      let minimum = Infinity;
+      for (const sign of [-1, 1]) {
+        const support = index - sign * plane;
+        if (support >= 0 && support < this.a.length && this.a[support] === 1) {
+          minimum = Math.min(minimum, this.exposedBasalSupportWidth(support, sign));
+        }
+      }
+      widths[index] = minimum;
+    }
+    this.basalWidthCacheDirty = false;
+  }
+
   /**
    * alphaHK of a boundary cell given sigma_surf. Noise is folded in here so the boundary
    * condition and interface update see the same deterministic coefficient for this tick.
    */
   private cellAlphaHK(index: number, sigmaSurf: number): number {
     const facet = this.facetClassOf(index);
+    const prepared = facet === "basal" && this.experimentalBasalWidthCells !== undefined &&
+      this.basalWidthCache![index] <= this.experimentalBasalWidthCells
+      ? this.basalWidthDippedPreparation! : this.preparedAlphaHK;
     let a =
       this.testAlphaOverride !== undefined
         ? this.testAlphaOverride(facet, this.tempC, sigmaSurf)
-        : alphaHKFromPrepared(facet, sigmaSurf, this.preparedAlphaHK);
+        : alphaHKFromPrepared(facet, sigmaSurf, prepared);
     if (this.noiseEpsilon > 0) {
       a *=
         1 - this.noiseEpsilon * randomBit(this.rngSeed, index, this.tick, STREAM_NOISE_ALPHA_HK);
@@ -1899,6 +1970,7 @@ export class LKSolver implements SurfaceOperator {
     this.boundarySigma.fill(0);
     this.boundarySigmaOpp.fill(0);
     try {
+      this.refreshBasalWidthCache();
       let src = this.sigma;
       let dst = this.scratch2;
       let sweeps = 0;
@@ -2222,6 +2294,8 @@ export class LKSolver implements SurfaceOperator {
     readonly alphaHKBoundary: number;
     readonly robinGeometry: number;
     readonly fillGeometry: number;
+    readonly basalWidthCells?: number;
+    readonly basalWidthSelected?: boolean;
   } {
     if (this.surfacePolicy === "legacy-v3") {
       throw new Error("boundaryState is defined only for aggregate surface policies");
@@ -2235,12 +2309,18 @@ export class LKSolver implements SurfaceOperator {
     if (this.inBoundary[index] !== 1 || this.a[index] === 1) {
       throw new Error(`cell ${index} is not an active boundary pixel`);
     }
-    return {
+    const state = {
       sigmaOpp: this.boundarySigmaOpp[index],
       sigmaBoundary: this.boundarySigma[index],
       alphaHKBoundary: this.boundaryAlphaHK[index],
       robinGeometry: 1,
       fillGeometry: 1,
     };
+    if (this.experimentalBasalWidthCells !== undefined && this.facetClassOf(index) === "basal") {
+      const basalWidthCells = this.basalWidthCache![index];
+      return { ...state, basalWidthCells,
+        basalWidthSelected: basalWidthCells <= this.experimentalBasalWidthCells };
+    }
+    return state;
   }
 }

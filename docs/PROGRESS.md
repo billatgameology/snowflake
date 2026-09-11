@@ -803,17 +803,23 @@ this is not a rim-only rule. At the seed, thresholds two/three select zero/twent
 thirty-eight basal cells. The active plan's **Local basal-width investigation** records the
 source check, exact geometry findings and limits; do not repeat that calculation or source sweep.
 
-Next implement the plan's **Selected local basal-width experiment**, decision 0058 and
-`docs/attachment-kinetics.md` section 3: four new rows condition the existing basal dip on
-integer chord thresholds two/three at the warm anchors, reusing completed no-dip/basal-only
-controls. No growth outcome has been generated for this new rule. First commit this protocol;
-then implement the small solver/runner/readout changes with focused numerical checks, followed
-by one exact full check at the stable checkpoint and a committed producer. The retained-geometry
-helper is an internal calculation, not a new gate; no separate full-suite loop is needed for it.
-The planned launch is `node runner/src/post-phase10-discovery-main.ts launch-basal-width
-out/post-phase10-local-basal/campaign-2026-09-11 4`; the route is not implemented yet. Keep the
-original fine-grid jobs running, the combined worker ceiling at 28, and the geometry rule P4.
-No physical-validation claim, Phase 7 work or C0V recovery follows.
+The plan's **Selected local basal-width experiment**, decision 0058 and attachment spec section 3
+were committed before implementation at `5f90eb0330d138a33dbc79537103c3e2f3b44be7`. The solver,
+four-row roster/CLI, demand telemetry and distinct analyzer grouping are now implemented.
+Focused checks passed 21 analyzer tests and six solver/four runner tests; both typechecks passed.
+Exact commands, retained initial fixture/type diagnostics, successful logs and the single bounded
+static review are recorded in the plan's **Local-width implementation checkpoint**. No new growth
+outcome has been generated and no local-width campaign has launched.
+
+Next finish the single exact `npm test` at the committed stable checkpoint. Its narrow supervisor
+and start/log/exit records are under `out/post-phase10-local-basal/checkpoint-2026-09-11/`;
+read `npm-test-start.json` for the existing supervisor PID and `npm-test-exit.json` for completion,
+not another invocation. Classify any failures without retired Phase 10 repairs, then commit the
+verified producer and launch once: `node runner/src/post-phase10-discovery-main.ts launch-basal-width
+out/post-phase10-local-basal/campaign-2026-09-11 4`. The four rows condition basal kinetics on
+chord thresholds two/three and reuse completed no-dip/basal-only controls. Keep original fine-grid
+jobs running, combined workers at or below 28, and the geometry rule P4. No physical-validation
+claim, Phase 7 work or C0V recovery follows.
 The plan gives exact launch commands and the verification scope. Preserve the eight original
 fine-grid runs; do not duplicate or modify their launch. Keep one final quartet report per
 temperature per experiment, without a redundant combined report or frequent pending reports.

@@ -1520,6 +1520,44 @@ matched temperature comparisons classify persistence, resealing or their specifi
 gap and select a finite follow-up from the results. It grants no physical validation and does
 not involve Phase 7 or C0V/S6.
 
+**Local-width implementation checkpoint.** The solver now caches the integer exposed-face
+width after topology changes and uses its selection in the existing coupled coefficient path.
+The runner has the four-row roster/CLI, explicit identities and pre-update demand partitions;
+the analyzer has a distinct broad/dipped/local-two/local-three matched comparison, reusing
+the existing cavity measurements. No local-width campaign has launched at this checkpoint.
+
+Focused evidence is under `out/post-phase10-local-basal/checkpoint-2026-09-11/`:
+
+- `analysis-focused.log` and `analysis-focused-exit.json`: the existing analyzer test file,
+  `node node_modules/vitest/vitest.mjs run runner/test/post-phase10-cavity-analysis.test.ts
+  --maxWorkers=1 --minWorkers=1`, passed 21/21, exit zero.
+- `focused-corrections.log` and `focused-corrections-exit.json`:
+  `npx vitest run solver-cpu/test/lk-basal-width.test.ts runner/test/post-phase10-basal-width.test.ts
+  --maxWorkers=1 --minWorkers=1`, passed six solver and four runner tests, exit zero.
+  The first solver/runner logs are retained: one fixture wrongly required depletion below
+  half the reservoir, and two runner cases wrongly required exact equality when recomputing
+  the coefficient at the final Robin-substituted supersaturation. The fixes assert actual
+  nonuniformity and allow the small final-iteration rounding difference; no solver equation
+  was changed to make those tests pass.
+- `npm run typecheck` initially found the shared G-G/LK surface-report timestep nullable.
+  The new LK-only observation now explicitly narrows that value. The corrected invocation
+  passed both root/app typechecks, exit zero (`typecheck-corrected.log`); `typecheck.log`
+  retains the original diagnostic. The upcoming full check covers the final narrowing edit.
+
+A shared-context, parent-inherited Astra agent performed one bounded non-author static review
+of the stable code/spec/tests and found no concrete scientific correctness defect. It reran
+nothing. Its limits matter: the `[02]` fixture exercises geometry/symmetry with zero opposing
+vapor, not positive kinetic growth; aggregate selected demand does not locate the demand at
+rim versus floor; temporal precedence and successful execution do not establish physical SDAK
+or grid independence. No further assurance work was requested.
+
+Commit this stable implementation before the single exact `npm test`. Use the narrow hidden
+supervisor `out/post-phase10-local-basal/checkpoint-2026-09-11/run-check.ps1`; its
+`npm-test-start.json`, `npm-test.log` and `npm-test-exit.json` identify the one execution.
+Inspect its existing process/result rather than starting another check. Do not launch the
+four scientific rows until that result is classified and the producer checkpoint is committed.
+Keep the original fine-grid campaign unchanged throughout.
+
 ### Earlier completed-row observations
 
 `cavity-seed-thick-t4p5-m1` completed with exit 0 and an admissible size-target stop. Its raw

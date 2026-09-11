@@ -11,11 +11,24 @@ import { summarizeCavityBoundary } from "./post-phase10-cavity-spatial.ts";
 
 interface InputIdentity { path: string; byteLength: number; sha256: string }
 type FacetDipArm = "both" | "neither" | "basal-only" | "prism-only";
+type EffectiveFacetDips = FacetDipArm | "local-basal-width";
 type HoleFillMode = "enabled" | "disabled";
 interface ExperimentIdentity {
   experimentId?: string;
   experimentalFacetDips?: FacetDipArm;
   experimentalHoleFilling?: HoleFillMode;
+  experimentalBasalWidthCells?: number;
+}
+interface BasalWidthObservation {
+  thresholdCells: number;
+  timing: "after-converged-relaxation-before-surface-advance";
+  completedCyclesBeforeUpdate: number;
+  simTimeSecondsBeforeUpdate: number;
+  widthHistogram: Record<string, number>;
+  selectedBasalCells: number;
+  unselectedBasalCells: number;
+  selectedKineticDemandFill: number;
+  unselectedKineticDemandFill: number;
 }
 interface Event extends ExperimentIdentity {
   cycle: number;
@@ -23,6 +36,7 @@ interface Event extends ExperimentIdentity {
   attachedCount: number;
   extent: number;
   simTimeSeconds: number;
+  basalWidthObservation?: BasalWidthObservation;
 }
 interface State { cycle: number; simTimeSeconds: number; extent: number; attachedCount: number }
 interface Frame extends State { geometry: CavityGeometry }
@@ -55,8 +69,16 @@ const FACET_DIP_ARMS = ["both", "neither", "basal-only", "prism-only"] as const;
 const FACET_EXPERIMENT_ID = "post-phase10-facet-isolation-v1";
 const HOLEFILL_EXPERIMENT_ID = "post-phase10-holefill-isolation-v1";
 const PRISM_HOLEFILL_EXPERIMENT_ID = "post-phase10-prism-holefill-interaction-v1";
+const BASAL_WIDTH_EXPERIMENT_ID = "post-phase10-local-basal-width-v1";
 
-function effectiveFacetDips(row: DiscoveryRow): FacetDipArm {
+function effectiveFacetDips(row: DiscoveryRow): EffectiveFacetDips {
+  if (row.experimentalBasalWidthCells !== undefined) {
+    if (!Number.isSafeInteger(row.experimentalBasalWidthCells) || row.experimentalBasalWidthCells <= 0 ||
+      row.paramSet !== "M1" || row.experimentalFacetDips !== undefined || row.experimentalHoleFilling !== undefined) {
+      throw new Error(`${row.id}: unsupported local basal-width identity`);
+    }
+    return "local-basal-width";
+  }
   if (row.experimentalFacetDips !== undefined) {
     if (!FACET_DIP_ARMS.includes(row.experimentalFacetDips) || row.paramSet !== "M1") {
       throw new Error(`${row.id}: unsupported experimental facet identity`);
@@ -83,6 +105,17 @@ function effectiveHoleFilling(row: DiscoveryRow): HoleFillMode {
 function checkExperimentIdentity(row: DiscoveryRow, artifact: ExperimentIdentity, label: string): void {
   effectiveFacetDips(row);
   effectiveHoleFilling(row);
+  if (row.experimentalBasalWidthCells !== undefined) {
+    if (artifact.experimentId !== BASAL_WIDTH_EXPERIMENT_ID ||
+      artifact.experimentalBasalWidthCells !== row.experimentalBasalWidthCells ||
+      artifact.experimentalFacetDips !== undefined || artifact.experimentalHoleFilling !== undefined) {
+      throw new Error(`${row.id}: ${label} local basal-width identity mismatch`);
+    }
+    return;
+  }
+  if (artifact.experimentalBasalWidthCells !== undefined) {
+    throw new Error(`${row.id}: ${label} unexpected local basal-width identity`);
+  }
   if (row.experimentalFacetDips !== undefined && row.experimentalHoleFilling !== undefined) {
     if (artifact.experimentId !== PRISM_HOLEFILL_EXPERIMENT_ID ||
       artifact.experimentalFacetDips !== "prism-only" || artifact.experimentalHoleFilling !== "disabled") {
@@ -187,6 +220,79 @@ function enclosureWitnesses(geometry: CavityGeometry) {
     longestConsecutiveStraightOpenLayerRun,
     longestStraightOpenCenterSpanUm: Math.max(0, longestConsecutiveStraightOpenLayerRun - 1) * geometry.dxUm,
     maxStraightOpenDepthBelowAxialEnvelopeUm };
+}
+
+function summarizeBasalWidthObservations(row: DiscoveryRow, events: readonly Event[], states: readonly State[],
+  firstOnset: State | null, terminalOnset: State | null) {
+  const threshold = row.experimentalBasalWidthCells!;
+  const updates = events.map((event) => {
+    const observation = event.basalWidthObservation;
+    if (observation === undefined || observation.thresholdCells !== threshold ||
+      observation.timing !== "after-converged-relaxation-before-surface-advance" ||
+      observation.completedCyclesBeforeUpdate !== event.cycle - 1 ||
+      observation.simTimeSecondsBeforeUpdate !== states[event.cycle - 1].simTimeSeconds) {
+      throw new Error(`${row.id}: event ${event.cycle} basal-width observation timing/threshold mismatch`);
+    }
+    let selected = 0;
+    let unselected = 0;
+    for (const [width, count] of Object.entries(observation.widthHistogram)) {
+      if (!Number.isSafeInteger(Number(width)) || Number(width) <= 0 || !Number.isSafeInteger(count) || count < 0) {
+        throw new Error(`${row.id}: event ${event.cycle} invalid basal-width histogram`);
+      }
+      if (Number(width) <= threshold) selected += count;
+      else unselected += count;
+    }
+    if (selected !== observation.selectedBasalCells || unselected !== observation.unselectedBasalCells ||
+      ![observation.selectedKineticDemandFill, observation.unselectedKineticDemandFill]
+        .every((value) => Number.isFinite(value) && value >= 0)) {
+      throw new Error(`${row.id}: event ${event.cycle} inconsistent basal-width counts/demand`);
+    }
+    return { cycle: event.cycle, simTimeSecondsAfterUpdate: event.simTimeSeconds, ...observation };
+  });
+  const totals = (selectedUpdates: readonly (typeof updates)[number][]) => {
+    const widthHistogramCellUpdates: Record<string, number> = {};
+    let selectedBasalCellUpdates = 0;
+    let unselectedBasalCellUpdates = 0;
+    let selectedKineticDemandFill = 0;
+    let unselectedKineticDemandFill = 0;
+    const fractions: number[] = [];
+    for (const update of selectedUpdates) {
+      for (const [width, count] of Object.entries(update.widthHistogram)) {
+        widthHistogramCellUpdates[width] = (widthHistogramCellUpdates[width] ?? 0) + count;
+      }
+      selectedBasalCellUpdates += update.selectedBasalCells;
+      unselectedBasalCellUpdates += update.unselectedBasalCells;
+      selectedKineticDemandFill += update.selectedKineticDemandFill;
+      unselectedKineticDemandFill += update.unselectedKineticDemandFill;
+      const basalCells = update.selectedBasalCells + update.unselectedBasalCells;
+      if (basalCells > 0) fractions.push(update.selectedBasalCells / basalCells);
+    }
+    const cellUpdates = selectedBasalCellUpdates + unselectedBasalCellUpdates;
+    const demandFill = selectedKineticDemandFill + unselectedKineticDemandFill;
+    return { observedUpdates: selectedUpdates.length, updatesWithBasalCells: fractions.length,
+      updatesWithSelectedBasalCells: selectedUpdates.filter((update) => update.selectedBasalCells > 0).length,
+      mixedSelectionUpdates: selectedUpdates.filter((update) => update.selectedBasalCells > 0 && update.unselectedBasalCells > 0).length,
+      allBasalSelectedUpdates: selectedUpdates.filter((update) => update.selectedBasalCells > 0 && update.unselectedBasalCells === 0).length,
+      minSelectedBasalFraction: fractions.length === 0 ? null : Math.min(...fractions),
+      maxSelectedBasalFraction: fractions.length === 0 ? null : Math.max(...fractions),
+      widthHistogramCellUpdates, selectedBasalCellUpdates, unselectedBasalCellUpdates,
+      selectedFractionOfBasalCellUpdates: cellUpdates === 0 ? null : selectedBasalCellUpdates / cellUpdates,
+      selectedKineticDemandFill, unselectedKineticDemandFill,
+      selectedFractionOfBasalDemandFill: demandFill === 0 ? null : selectedKineticDemandFill / demandFill };
+  };
+  const onsetContext = (onset: State | null) => onset === null ? null : {
+    onset,
+    updatesCompletedBeforeOnset: totals(updates.filter((update) => update.cycle < onset.cycle)),
+    onsetProducingUpdate: updates.find((update) => update.cycle === onset.cycle) ?? null,
+    updatesAfterOnset: totals(updates.filter((update) => update.cycle > onset.cycle)),
+  };
+  return { experimentId: BASAL_WIDTH_EXPERIMENT_ID, thresholdCells: threshold,
+    nominalInclusiveChordThresholdUm: threshold * row.dxUm,
+    seedUpdate: updates[0] ?? null,
+    firstSelectedUpdate: updates.find((update) => update.selectedBasalCells > 0) ?? null,
+    firstMixedSelectionUpdate: updates.find((update) => update.selectedBasalCells > 0 && update.unselectedBasalCells > 0) ?? null,
+    firstPositiveSelectedDemandUpdate: updates.find((update) => update.selectedKineticDemandFill > 0) ?? null,
+    totals: totals(updates), firstEnclosure: onsetContext(firstOnset), terminalEnclosure: onsetContext(terminalOnset) };
 }
 
 function analyzeCompleteRow(input: LoadedRow, commonTimeSeconds: number, options: CavityAnalysisOptions) {
@@ -349,6 +455,9 @@ function analyzeCompleteRow(input: LoadedRow, commonTimeSeconds: number, options
     firstLaterallyEnclosedCenter: onset,
     onsetSnapshotBracket: snapshotBracket(onset),
     enclosureEpisodes, terminalEnclosureEpisode: terminalEpisode, straightOpenPlaneIntervals,
+    ...(row.experimentalBasalWidthCells === undefined ? {} : {
+      basalWidthObservation: summarizeBasalWidthObservations(row, events, states, onset, terminalEpisode?.start ?? null),
+    }),
     terminalEpisodeSnapshotBracket: snapshotBracket(terminalEpisode?.start ?? null),
     sizeSelections, physicalTimeSelections: times,
     frames: [...frames.values()].sort((a, b) => a.cycle - b.cycle)
@@ -358,7 +467,7 @@ function analyzeCompleteRow(input: LoadedRow, commonTimeSeconds: number, options
 type CompleteAnalysis = ReturnType<typeof analyzeCompleteRow>;
 interface InteractionCorner {
   rowId: string;
-  effectiveFacetDips: FacetDipArm;
+  effectiveFacetDips: EffectiveFacetDips;
   effectiveHoleFilling: HoleFillMode;
   analysis: CompleteAnalysis;
 }
@@ -431,7 +540,9 @@ export function analyzeCavityRows(rowDirectories: readonly string[], options: Ca
     const complete = group.filter((input) => input.status === "complete");
     const rowArms = group.map(({ row }) => ({ rowId: row.id, baseParamSet: row.paramSet,
       effectiveFacetDips: effectiveFacetDips(row), experimentalFacetDips: row.experimentalFacetDips ?? null,
-      effectiveHoleFilling: effectiveHoleFilling(row), experimentalHoleFilling: row.experimentalHoleFilling ?? null }));
+      effectiveHoleFilling: effectiveHoleFilling(row), experimentalHoleFilling: row.experimentalHoleFilling ?? null,
+      ...(row.experimentalBasalWidthCells === undefined ? {} : { experimentId: BASAL_WIDTH_EXPERIMENT_ID,
+        experimentalBasalWidthCells: row.experimentalBasalWidthCells }) }));
     const configuration = group[0].nonKineticConfiguration;
     const differingFields = Object.keys(configuration).filter((key) => group.some((input) =>
       JSON.stringify(input.nonKineticConfiguration[key]) !== JSON.stringify(configuration[key])));
@@ -447,6 +558,14 @@ export function analyzeCavityRows(rowDirectories: readonly string[], options: Ca
     const completePrismHoleFillRoster = group.length === 4 &&
       ["neither", "prism-only"].every((arm) => ["enabled", "disabled"].every((mode) =>
         rowArms.filter((row) => row.effectiveFacetDips === arm && row.effectiveHoleFilling === mode).length === 1));
+    const basalWidthArms = rowArms.map((row) => ({ rowId: row.rowId,
+      arm: row.effectiveFacetDips === "local-basal-width" ? `width<=${row.experimentalBasalWidthCells}` :
+        row.effectiveFacetDips === "neither" ? "broad-everywhere" :
+          row.effectiveFacetDips === "basal-only" ? "dipped-basal-everywhere" : null,
+      thresholdCells: row.experimentalBasalWidthCells ?? null }));
+    const completeBasalWidthRoster = group.length === 4 && rowArms.every((row) => row.effectiveHoleFilling === "enabled") &&
+      ["broad-everywhere", "dipped-basal-everywhere", "width<=2", "width<=3"].every((arm) =>
+        basalWidthArms.filter((row) => row.arm === arm).length === 1);
     return { condition, requestedRowIds: group.map((input) => input.row.id),
       contributingRowIds: complete.map((input) => input.row.id),
       rowArms,
@@ -464,6 +583,11 @@ export function analyzeCavityRows(rowDirectories: readonly string[], options: Ca
         differingFields: holeFillOtherDifferingFields,
         allFourCornersAdmissibleAndMatched: completePrismHoleFillRoster && complete.length === 4 &&
           fixedControlsRecorded && holeFillOtherDifferingFields.length === 0 },
+      basalWidthComparison: { localWidthExperimentId: BASAL_WIDTH_EXPERIMENT_ID, arms: basalWidthArms,
+        completeFourArmRoster: completeBasalWidthRoster, fixedControlsRecorded,
+        sameNonKineticConfiguration: differingFields.length === 0, differingFields,
+        allFourArmsAdmissibleAndMatched: completeBasalWidthRoster && complete.length === 4 &&
+          fixedControlsRecorded && differingFields.length === 0 },
       allRequestedRowsAdmissible: complete.length === group.length,
       commonTerminalTimeSeconds: complete.length === 0 ? null : Math.min(...complete.map((input) => input.result!.simTimeSeconds)) };
   });
@@ -495,11 +619,13 @@ export function analyzeCavityRows(rowDirectories: readonly string[], options: Ca
       onset: "First laterally enclosed center-air layer in the retained attachment history; can be transient and does not establish a growth mechanism.",
       episodes: "Intervals with at least one laterally enclosed center-air layer. An open terminal interval persisted only through the recorded stop, not indefinitely; it does not imply the same cavity component survived throughout.",
       spatial: "Converged pre-surface-update samples only. An onset bracket permits inspection but does not establish a temporal causal precursor.",
-      facetDips: "Effective arm is the explicit experimentalFacetDips when present; ordinary M1 maps to both and ordinary M1_NO_DIP_ABLATION maps to neither. Explicit arms require matching experiment identity in spec, result, events and snapshots; M1 base metadata alone does not identify mixed kinetics.",
+      facetDips: "Local width-conditioned rows are labeled local-basal-width, never global both from their M1 base. Otherwise the effective arm is explicit experimentalFacetDips when present; ordinary M1 maps to both and ordinary M1_NO_DIP_ABLATION maps to neither. Explicit arms require matching experiment identity in spec, result, events and snapshots; M1 base metadata alone does not identify mixed kinetics.",
       holeFilling: "Effective hole filling defaults to enabled for ordinary and facet-dip rows. Explicit hole-fill experiments require matching identity and mode in spec, result, events and snapshots. Only prism-only/disabled may combine opt-ins, under its distinct interaction identity. Disabled is a geometric-completion counterfactual, not an improved physical model.",
       factorial: "A matched four-arm group requires exactly one both, neither, basal-only and prism-only row with identical recorded nonkinetic configuration, all named fixed controls recorded, and admissible endpoints. Configuration matching is not numerical equivalence or physical validation; mixed seed/grid groups remain descriptive comparisons.",
       holeFillFactorial: "A matched closure quartet requires ordinary both/neither kinetics crossed with enabled/disabled geometric completion, identical other recorded configuration, all fixed controls recorded and admissible endpoints. A hole-fill-disabled row cannot silently replace an enabled control in a facet comparison.",
       prismHoleFillInteraction: "A matched quartet crosses neither/prism-only with enabled/disabled completion, with basal dip absent and identical other recorded settings. Difference of effects is (prism/off - neither/off) - (prism/on - neither/on). Physical-age values are discrete at-or-before states with next-event brackets, not bounds or interpolated geometry. Size contrasts require exact common center span; terminal-size comparison preserves unequal ages. Waist addition subtracts the initial seed's full-probe thickness. These are deterministic observations, not physical validation or statistical significance.",
+      basalWidthComparison: "The four matched arms are broad-everywhere, dipped-basal-everywhere, width<=2 and width<=3, with no-dip prism kinetics and enabled geometric completion throughout. Local thresholds are inclusive exposed-support chord counts, not measured molecular widths. Matching identifies an internal P4 intervention comparison, not physical SDAK or validation.",
+      basalWidthObservation: "Selection and histograms describe converged pre-update geometry; each demand-fill amount is already the selected/unselected basal kinetic rate times that update's physical timestep. Sums are computed per-boundary-pixel demand, not placed ice, saturation excess, geometric additions or spatially resolved demand. Histogram/count totals count cell-updates, not unique sites or time-weighted exposure. Seed, first activation and onset-producing updates remain distinct; updatesCompletedBeforeOnset excludes the onset-producing update, and updatesAfterOnset starts after it. Temporal precedence alone does not establish a causal mechanism. Null fractions mean no basal cells or no basal demand in the named observations.",
       grid: "Matched center spans and probe radii do not make voxelized seeds identical; two thickness brackets do not bound nonlinear outputs or establish continuum convergence.",
     }, options: { centerSpansUm: options.centerSpansUm ?? DEFAULT_SPANS_UM, probeRadiusUm: options.probeRadiusUm ?? 0.35 },
     allRequestedRowsAdmissible: inputs.every((input) => input.status === "complete"), groups: measuredGroups, rows };

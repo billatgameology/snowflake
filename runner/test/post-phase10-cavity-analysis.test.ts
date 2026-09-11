@@ -77,6 +77,33 @@ function interactionFixture(id: string, timeScale = 1) {
   return { ...data, row, result, events, identity };
 }
 
+function basalWidthFixture(id: string, thresholdCells: number, timeScale = 1, tempC = -4.5) {
+  const data = facetFixture(id, "both", timeScale, tempC);
+  const identity = { experimentId: "post-phase10-local-basal-width-v1", experimentalBasalWidthCells: thresholdCells };
+  const row = { ...data.row, experimentalBasalWidthCells: thresholdCells };
+  const histograms: Record<string, number>[] = [{ "3": 2 }, { "1": 1, "3": 1, "5": 2 }, { "1": 3 }];
+  // First update has seed geometry, second makes the ring, third leaves it open while extending radially.
+  const batches = [[], data.events[0].attached, data.events[2].attached];
+  let count = 1;
+  const events = data.events.map((event, n) => {
+    count += batches[n].length;
+    const selected = Object.entries(histograms[n]).filter(([width]) => Number(width) <= thresholdCells)
+      .reduce((sum, [, cells]) => sum + cells, 0);
+    const unselected = Object.values(histograms[n]).reduce((sum, cells) => sum + cells, 0) - selected;
+    return { ...event, ...identity, attached: batches[n], attachedCount: count, extent: [1, 3, 5][n],
+      basalWidthObservation: { thresholdCells, timing: "after-converged-relaxation-before-surface-advance",
+        completedCyclesBeforeUpdate: n, simTimeSecondsBeforeUpdate: [0, 1, 3][n] * timeScale,
+        widthHistogram: histograms[n], selectedBasalCells: selected, unselectedBasalCells: unselected,
+        selectedKineticDemandFill: selected * [0.1, 0.2, 0.4][n],
+        unselectedKineticDemandFill: unselected * [0.3, 0.5, 0.6][n] } };
+  });
+  const result = { ...data.result, ...identity, attachedCount: count };
+  json(join(data.directory, "spec.json"), { row, fixed, ...identity });
+  json(join(data.directory, "result.json"), result);
+  writeFileSync(join(data.directory, "events.jsonl"), events.map((event) => JSON.stringify(event)).join("\n"));
+  return { ...data, row, result, events, identity };
+}
+
 function axialRingHistory(id: string, movingPit: boolean, sign = 1) {
   const data = fixture(id);
   let count = 1;
@@ -419,5 +446,73 @@ describe("offline cavity trajectory analysis", () => {
       { offset: 2, start: 2, end: 3, advance: 0 },
       { offset: 3, start: 3, end: null, advance: 0 },
     ]);
+  });
+
+  it("keeps local basal-width arms distinct and matches each temperature's four registered arms", () => {
+    const groups = [-4.5, -5].map((tempC, n) => [
+      facetFixture(`width-${n}-broad`, "neither", n + 1, tempC),
+      facetFixture(`width-${n}-dipped`, "basal-only", n + 2, tempC),
+      basalWidthFixture(`width-${n}-le2`, 2, n + 3, tempC),
+      basalWidthFixture(`width-${n}-le3`, 3, n + 4, tempC),
+    ]);
+    const report = analyzeCavityRows(groups.flat().map((data) => data.directory));
+    expect(report.groups.map((group) => group.commonTerminalTimeSeconds)).toEqual([4, 8]);
+    expect(report.groups.every((group) => group.basalWidthComparison.allFourArmsAdmissibleAndMatched)).toBe(true);
+    expect(report.groups.every((group) => !group.facetFactorial.completeFourArmRoster &&
+      !group.holeFillFactorial.completeFourCornerRoster && !group.prismHoleFillInteraction.completeFourCornerRoster)).toBe(true);
+    expect(report.groups[0].basalWidthComparison.arms.map((row) => [row.arm, row.thresholdCells])).toEqual([
+      ["broad-everywhere", null], ["dipped-basal-everywhere", null], ["width<=2", 2], ["width<=3", 3],
+    ]);
+    expect(report.rows.map((row) => row.effectiveFacetDips)).toEqual([
+      "neither", "basal-only", "local-basal-width", "local-basal-width",
+      "neither", "basal-only", "local-basal-width", "local-basal-width",
+    ]);
+    expect(report.rows[0].analysis).not.toHaveProperty("basalWidthObservation");
+    expect(report.rows[1].analysis).not.toHaveProperty("basalWidthObservation");
+    const duplicate = analyzeCavityRows([groups[0][0], groups[0][1], groups[0][2], groups[0][2]]
+      .map((data) => data.directory));
+    expect(duplicate.groups[0].basalWidthComparison.completeFourArmRoster).toBe(false);
+  });
+
+  it("measures seed versus evolving activation and sums already-integrated demand around onset", () => {
+    const narrow = basalWidthFixture("width-activation-le2", 2, 3);
+    const wide = basalWidthFixture("width-activation-le3", 3, 3);
+    const report = analyzeCavityRows([narrow.directory, wide.directory]);
+    const low = report.rows[0].analysis!.basalWidthObservation!;
+    const high = report.rows[1].analysis!.basalWidthObservation!;
+    expect(low.seedUpdate?.selectedBasalCells).toBe(0);
+    expect(high.seedUpdate?.selectedBasalCells).toBe(2);
+    expect(low.firstSelectedUpdate).toMatchObject({ cycle: 2, completedCyclesBeforeUpdate: 1,
+      simTimeSecondsBeforeUpdate: 3, simTimeSecondsAfterUpdate: 9 });
+    expect(high.firstPositiveSelectedDemandUpdate).toMatchObject({ cycle: 1, simTimeSecondsBeforeUpdate: 0 });
+    expect(low.totals).toMatchObject({ observedUpdates: 3, updatesWithSelectedBasalCells: 2,
+      mixedSelectionUpdates: 1, allBasalSelectedUpdates: 1, minSelectedBasalFraction: 0, maxSelectedBasalFraction: 1,
+      widthHistogramCellUpdates: { "1": 4, "3": 3, "5": 2 }, selectedBasalCellUpdates: 4, unselectedBasalCellUpdates: 5 });
+    // The fixture supplies demand-fill amounts, despite physical timesteps 3/6/3 seconds.
+    // Their sums are 0 + 0.2 + 1.2 and 0.6 + 1.5 + 0; never multiply these amounts by dt again.
+    expect(low.totals.selectedKineticDemandFill).toBeCloseTo(1.4, 14);
+    expect(low.totals.unselectedKineticDemandFill).toBeCloseTo(2.1, 14);
+    expect(high.totals.selectedKineticDemandFill).toBeCloseTo(1.8, 14);
+    expect(high.totals.unselectedKineticDemandFill).toBe(1);
+    expect(high.totals.allBasalSelectedUpdates).toBe(2);
+    expect(low.firstEnclosure?.onset.cycle).toBe(2);
+    expect(low.firstEnclosure?.updatesCompletedBeforeOnset).toMatchObject({ observedUpdates: 1,
+      selectedKineticDemandFill: 0 });
+    expect(high.firstEnclosure?.updatesCompletedBeforeOnset.selectedKineticDemandFill).toBeCloseTo(0.2, 14);
+    expect(low.firstEnclosure?.onsetProducingUpdate).toMatchObject({ cycle: 2, selectedBasalCells: 1,
+      unselectedBasalCells: 3 });
+    expect(low.terminalEnclosure?.updatesAfterOnset).toMatchObject({ observedUpdates: 1,
+      allBasalSelectedUpdates: 1, unselectedBasalCellUpdates: 0 });
+  });
+
+  it("requires the width identity and pre-update observation instead of silently reading global M1", () => {
+    const data = basalWidthFixture("width-identity", 2);
+    json(join(data.directory, "spec.json"), { row: data.row, fixed, ...data.identity,
+      experimentId: "post-phase10-facet-isolation-v1" });
+    expect(() => analyzeCavityRows([data.directory])).toThrow("spec local basal-width identity mismatch");
+    json(join(data.directory, "spec.json"), { row: data.row, fixed, ...data.identity });
+    data.events[0].basalWidthObservation.completedCyclesBeforeUpdate = 1;
+    writeFileSync(join(data.directory, "events.jsonl"), data.events.map((event) => JSON.stringify(event)).join("\n"));
+    expect(() => analyzeCavityRows([data.directory])).toThrow("event 1 basal-width observation timing/threshold mismatch");
   });
 });
