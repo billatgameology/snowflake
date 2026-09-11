@@ -774,12 +774,19 @@ there is no new interaction failure, timeout or worker-RPC error. The suite is n
 not to be repeated. Read `npm-test.log` and `npm-test-exit.json` in that checkpoint directory;
 the active plan records their identities and scope. Supervisor 26212 has exited.
 The two interaction rows launched once under producer `9ab31acbe8ab11f46ffee0fce0b3fb9d335ce135`.
-Parent 44648 and children 13340/31780 were confirmed live at 17:27 UTC, alongside all eight
-original fine-grid jobs: ten experiment workers total, no test worker. Startup logs and specs
-record both opt-ins with the distinct interaction identity; launcher and row stderr are empty.
+Parent 44648 and children 13340/31780 were confirmed live at launch alongside the eight original
+fine-grid jobs. Startup logs and specs record both opt-ins with the distinct interaction identity.
 Read `out/post-phase10-prism-holefill/campaign-2026-09-10.launcher.log`, its separate stderr log
-and per-row status/exit/results. Next observe these existing processes hourly or on completion;
-analyze each completed new row with its three registered reused controls using
+and per-row status/exit/results. The warmer interaction has now completed with an admissible
+extent-37 stop, exit zero and no integrity errors. Its final matched report is
+`out/post-phase10-prism-holefill/t4p5-comparison-2026-09-11.json`: all four corners reseal, with
+fifteen waist planes and zero terminal center-air enclosure. Each history's seven transient
+episodes has zero axial tip advance while its tracked planes stay open. The combined intervention
+delays some closure but supplies no registered deepening-cavity lead at this warmer anchor;
+no longer warmer extension is selected. The active plan's **Completed warmer interaction** holds
+exact measurements, source identity and age/size caveats. The colder interaction and eight
+fine-grid workers were confirmed live at 13:02 UTC. Next observe them hourly or on completion;
+analyze the colder row with its three registered reused controls using
 `node runner/src/post-phase10-cavity-analysis.ts rows <new-report.json> <four-row-directories>`.
 The active plan lists exact controls and readout limits. Do not duplicate launches, repeat
 verification or generate redundant pending reports. No new physical-validation claim follows;

@@ -1260,6 +1260,53 @@ the cavity analyzer's `rows` command for one final matched quartet per temperatu
 the three registered reused controls. Preserve the original fine-grid campaign and all earlier
 reports. Do not duplicate either new row, rerun verification, or add an unchanged-status commit.
 
+### Completed warmer interaction — 2026-09-11
+
+`prism-holefill-off-t4p5` completed at 12:46 UTC with an admissible extent-37 stop, exit zero,
+all relaxations converged, zero symmetry error and no recorded integrity errors. Its
+`result.json` / `exit.json` remain under the registered interaction campaign. The one final
+quartet report is `out/post-phase10-prism-holefill/t4p5-comparison-2026-09-11.json`, 653,705 bytes /
+SHA-256 `b45744a3f54efc78c6cc3b4330c2a941f9a8e67ede26b32e8b29257dbaedde96`, generated from clean
+`da9890b8cce6df3b573f5e37d0bca8a8c3aa4f7d`. Exact argv and all four input identities are inside.
+Its distinct interaction group is fully admissible and matched, with no other configuration
+differences.
+
+The combination stops at cycle 987 / 103.90282043064693 physical seconds with 13,797 attached
+sites, fifteen full waist planes and no terminal center-air enclosure. All three controls also
+finish with fifteen waist planes and no enclosure. Neither/enabled has 13,809 sites; both
+neither/disabled and prism-only/enabled have 13,797. Equal counts do not imply equal occupancy
+or history.
+
+Each of the four histories has seven transient enclosure episodes and fourteen signed-plane /
+opening-side intervals, all closed by stop. Every tracked interval has zero axial tip advance
+while open and zero depth below its outward occupied axial envelope. Thus the registered
+multi-plane persistence-behind-growing-tips lead is absent in this warmer comparison: these are
+recurrent surface pits, not observed deepening center-axis cavities. The combination's last
+episode closes at 98.59120430481292 seconds, versus 97.94947577948896 for prism-only/enabled;
+delayed closure is a measured effect, not a reason by itself to launch a longer cavity chase.
+
+At the quartet's common age, 103.53059836006673 seconds, all four selected states have no
+enclosure; the first positive quarter-age selection instead has two open layers in each arm.
+The terminal-size difference-of-effects is twelve attached sites and zero for the waist/opening
+observables; at 9.8 micrometers it is zero for all reported observables, while the common-age
+attached-count contrast is minus thirty-six. This shows why neither a common endpoint count nor
+one timing comparison implies an inert intervention. Ages are event-bracketed, not interpolated;
+equal maximum center spans are not equal axial sizes. These remain N80 model-development
+observations with straight-axis witnesses, not exhaustive three-dimensional connectivity or
+physical/grid validation.
+
+The shared-context `phase10_science_review` agent (parent-inherited model, maker-selected Astra)
+independently inspected the retained intervals/frames and recomputed pit durations. It likewise
+found recurrent single-plane pits rather than a multi-plane persistence lead, and noted that
+nonzero cell-count/timing contrasts preclude a blanket no-interaction claim. It did not rerun
+the solver, analyzer or tests, inspect the live colder morphology, or establish physical/full-3D
+validity. No separate review artifact or assurance layer was created.
+
+No further warmer extension is selected for this shallow delayed-closure result. Next complete
+the independently running colder quartet and continue the original fine-grid experiment; the
+colder outcome is not inferred from this one. No code, test, simulation or earlier report was
+repeated to obtain this result.
+
 ### Earlier completed-row observations
 
 `cavity-seed-thick-t4p5-m1` completed with exit 0 and an admissible size-target stop. Its raw
@@ -1551,6 +1598,11 @@ row ceiling.
 - no fitted dip location, pressure law, or parameter optimization against a target habit.
 
 ## Tried and rejected
+
+- Extending the warmer prism-only/disabled row on its longer transient pit durations alone:
+  the completed matched interaction has zero axial tip advance during every tracked opening,
+  all of which reseal. This closes that warmer deepening-cavity lead over the registered window;
+  the independently running colder interaction and original fine-grid comparison remain open.
 
 - Extending the enabled colder prism trajectory solely to confirm its two terminal single-cell
   closures: the recorded neighborhood and next successful update rule already settle that
