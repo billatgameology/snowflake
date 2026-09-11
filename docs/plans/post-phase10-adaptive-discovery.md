@@ -1573,8 +1573,22 @@ non-author reviewer independently confirmed this explanation, without edits or t
 This is not a green full suite, but no new numerical failure was found. Do not reshape valid
 solver code or repair retired C0V infrastructure to clear the historical assertion.
 
-Next commit this classified verification record and launch the four registered rows once.
-Keep the original fine-grid campaign unchanged; no further checkpoint check is needed.
+**Local-width campaign launched once:** the registered command above executed at 15:07:49 UTC
+on 2026-09-11 under producer `13f15d1227bea5877904e0af06e2df77ba33d952`. The campaign's
+`campaign.json` records the exact executable/argv, producer and reused controls. Parent 23280
+launched children 12516 (`t4p5-le2`), 41580 (`t4p5-le3`), 28944 (`t5-le2`) and 8128 (`t5-le3`);
+all four were observed live alongside the eight unchanged original fine workers. Actual startup
+concurrency is four new / twelve total experiment workers, with no test worker. The startup log
+records all four active launches; each spec records its distinct width identity and threshold.
+Logs are `out/post-phase10-local-basal/campaign-2026-09-11.launcher.log`, its
+`.launcher.stderr.log`, and the existing per-row stdout/stderr/status/exit/result paths.
+Initial stderr files are empty; no completed growth outcome exists at this observation.
+
+Next observe these existing processes hourly or on completion, without another launch/check.
+After completion use the registered four-arm comparisons at each temperature, reusing the
+completed controls. Keep original fine-grid jobs unchanged and analyze their matched seed/grid
+sets when complete. The unanswered question is local-width cavity persistence, not execution
+success; no longer extension is selected before the four registered outcomes are read.
 
 ### Earlier completed-row observations
 

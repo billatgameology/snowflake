@@ -808,8 +808,8 @@ were committed before implementation at `5f90eb0330d138a33dbc79537103c3e2f3b44be
 four-row roster/CLI, demand telemetry and distinct analyzer grouping are now implemented.
 Focused checks passed 21 analyzer tests and six solver/four runner tests; both typechecks passed.
 Exact commands, retained initial fixture/type diagnostics, successful logs and the single bounded
-static review are recorded in the plan's **Local-width implementation checkpoint**. No new growth
-outcome has been generated and no local-width campaign has launched.
+static review are recorded in the plan's **Local-width implementation checkpoint**. No completed
+local-width growth outcome exists yet; the campaign launch is recorded below.
 
 The single exact `npm test` at `271c70868e03a125939d97e2bee8b4f2a38ba8ce` completed, exit one:
 170 passed / 11 failed files, 2,597 passed / 18 failed / 72 skipped tests. These counts are from
@@ -820,12 +820,20 @@ tests pass. The plan classifies the retained historical failures and the one add
 source-shape assertion: all required boundary fields remain returned, but its static checker
 does not resolve a local object/spread. No numerical defect was found in that diagnostic;
 the full suite is not green, and no retired repair or repeat check follows.
-Next commit the classified checkpoint and launch once:
+The four rows launched once at 15:07:49 UTC on 2026-09-11 under producer
+`13f15d1227bea5877904e0af06e2df77ba33d952`, using:
 `node runner/src/post-phase10-discovery-main.ts launch-basal-width
-out/post-phase10-local-basal/campaign-2026-09-11 4`. The four rows condition basal kinetics on
-chord thresholds two/three and reuse completed no-dip/basal-only controls. Keep original fine-grid
-jobs running, combined workers at or below 28, and the geometry rule P4. No physical-validation
-claim, Phase 7 work or C0V recovery follows.
+out/post-phase10-local-basal/campaign-2026-09-11 4`. Its `campaign.json` and startup
+`out/post-phase10-local-basal/campaign-2026-09-11.launcher.log` record the exact argv and four
+active launches. Parent 23280 and children 12516/41580/28944/8128 were confirmed live alongside
+the eight original fine-grid workers: twelve experiment workers total, no test worker. Separate
+launcher/per-row stderr logs are initially empty. The rows condition basal kinetics on chord
+thresholds two/three and reuse completed no-dip/basal-only controls.
+Next observe existing processes hourly or on completion; do not launch/check again. Read this
+plan section and existing per-row `status.json`, `exit.json` and `result.json`, then make one
+matched quartet report per temperature when complete. Original fine-grid jobs continue unchanged;
+their matched seed/grid analysis remains pending. Keep combined workers at or below 28 and the
+geometry rule P4. No physical-validation claim, Phase 7 work or C0V recovery follows.
 The plan gives exact launch commands and the verification scope. Preserve the eight original
 fine-grid runs; do not duplicate or modify their launch. Keep one final quartet report per
 temperature per experiment, without a redundant combined report or frequent pending reports.
