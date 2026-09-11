@@ -1542,7 +1542,7 @@ Focused evidence is under `out/post-phase10-local-basal/checkpoint-2026-09-11/`:
 - `npm run typecheck` initially found the shared G-G/LK surface-report timestep nullable.
   The new LK-only observation now explicitly narrows that value. The corrected invocation
   passed both root/app typechecks, exit zero (`typecheck-corrected.log`); `typecheck.log`
-  retains the original diagnostic. The upcoming full check covers the final narrowing edit.
+  retains the original diagnostic. The completed full check below covers the final narrowing edit.
 
 A shared-context, parent-inherited Astra agent performed one bounded non-author static review
 of the stable code/spec/tests and found no concrete scientific correctness defect. It reran
@@ -1551,12 +1551,30 @@ vapor, not positive kinetic growth; aggregate selected demand does not locate th
 rim versus floor; temporal precedence and successful execution do not establish physical SDAK
 or grid independence. No further assurance work was requested.
 
-Commit this stable implementation before the single exact `npm test`. Use the narrow hidden
-supervisor `out/post-phase10-local-basal/checkpoint-2026-09-11/run-check.ps1`; its
-`npm-test-start.json`, `npm-test.log` and `npm-test-exit.json` identify the one execution.
-Inspect its existing process/result rather than starting another check. Do not launch the
-four scientific rows until that result is classified and the producer checkpoint is committed.
-Keep the original fine-grid campaign unchanged throughout.
+Implementation was committed at `271c70868e03a125939d97e2bee8b4f2a38ba8ce`. Its single exact
+`npm test` completed from 14:32:20 to 15:01:33 UTC on 2026-09-11, with one test worker and eight
+existing experiment workers at launch. The existing checkpoint's `npm-test-exit.json` records
+exit one; `npm-test.log` reports 170 passed / 11 failed files and 2,597 passed / 18 failed /
+72 skipped tests, with 1,725.18 seconds Vitest duration. Rule 7, both typechecks and all 31 tests
+in the three experiment-focused files pass. Supervisor 44996 has exited; do not rerun it.
+The log is 241,470 bytes / SHA-256
+`da0ed6bbe07bfed03879b01576f8f50be3a5ab20c32360f2c9c4561e5d7fd867`; the exit record is
+408 bytes / SHA-256 `e707435722701d78a32509fc303bb9094ea930c8d3bf7df369db35fa0dffb231`.
+
+The prior historical failures remain in Phase 10 scope, B acquisition/branches, S6
+executor/historical-A-P/lifecycle/observer, final-package and Phase 9 M-GT/permanent-control.
+The one additional failing test is `phase10-c0v-moving-static-reference.test.ts`'s frozen
+current-source-shape check. Direct inspection of `phase10-c0v-static-refusal-check.ts` shows it
+collects field names only from literal returned object properties, without resolving local
+variables or spreads. `LKSolver.boundaryState()` now constructs `state` with all five required
+fields and returns either that object or its spread with optional width diagnostics. Those
+fields remain returned; the checker does not recognize that source shape. The same bounded
+non-author reviewer independently confirmed this explanation, without edits or test runs.
+This is not a green full suite, but no new numerical failure was found. Do not reshape valid
+solver code or repair retired C0V infrastructure to clear the historical assertion.
+
+Next commit this classified verification record and launch the four registered rows once.
+Keep the original fine-grid campaign unchanged; no further checkpoint check is needed.
 
 ### Earlier completed-row observations
 

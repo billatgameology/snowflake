@@ -811,11 +811,17 @@ Exact commands, retained initial fixture/type diagnostics, successful logs and t
 static review are recorded in the plan's **Local-width implementation checkpoint**. No new growth
 outcome has been generated and no local-width campaign has launched.
 
-Next finish the single exact `npm test` at the committed stable checkpoint. Its narrow supervisor
-and start/log/exit records are under `out/post-phase10-local-basal/checkpoint-2026-09-11/`;
-read `npm-test-start.json` for the existing supervisor PID and `npm-test-exit.json` for completion,
-not another invocation. Classify any failures without retired Phase 10 repairs, then commit the
-verified producer and launch once: `node runner/src/post-phase10-discovery-main.ts launch-basal-width
+The single exact `npm test` at `271c70868e03a125939d97e2bee8b4f2a38ba8ce` completed, exit one:
+170 passed / 11 failed files, 2,597 passed / 18 failed / 72 skipped tests. These counts are from
+`out/post-phase10-local-basal/checkpoint-2026-09-11/npm-test.log` (SHA-256
+`da0ed6bbe07bfed03879b01576f8f50be3a5ab20c32360f2c9c4561e5d7fd867`); the adjacent
+`npm-test-exit.json` records completion. Rule 7, both typechecks and all 31 experiment-focused
+tests pass. The plan classifies the retained historical failures and the one additional C0V
+source-shape assertion: all required boundary fields remain returned, but its static checker
+does not resolve a local object/spread. No numerical defect was found in that diagnostic;
+the full suite is not green, and no retired repair or repeat check follows.
+Next commit the classified checkpoint and launch once:
+`node runner/src/post-phase10-discovery-main.ts launch-basal-width
 out/post-phase10-local-basal/campaign-2026-09-11 4`. The four rows condition basal kinetics on
 chord thresholds two/three and reuse completed no-dip/basal-only controls. Keep original fine-grid
 jobs running, combined workers at or below 28, and the geometry rule P4. No physical-validation
