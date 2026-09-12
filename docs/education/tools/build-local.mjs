@@ -8,12 +8,10 @@
  *
  * WHY THIS EXISTS
  * ---------------
- * The site resolves figures out of the gitignored research/ cache, two levels
- * above itself. That works when you open it from a checkout, but it means the
- * site is not portable: move the folder and the figures vanish. This build
- * copies every referenced local image or video beside the pages and rewrites
- * the paths, so the result is one folder you can move, archive, or read on a
- * machine that has no checkout at all.
+ * The site resolves figures from the governed private NAS collection when it
+ * is attached, otherwise from the gitignored research/ cache. This build copies
+ * every referenced image or video beside the pages and rewrites the paths, so
+ * the result is one folder you can move, archive, or read offline.
  *
  * WHERE IT WRITES, AND WHY THAT MATTERS
  * -------------------------------------
@@ -53,6 +51,7 @@ import {
   resolve,
   sep,
 } from "node:path";
+import { loadNasResearchMedia } from "./nas-research-media.mjs";
 
 const REPO = resolve(import.meta.dirname, "../../..");
 const RESEARCH = resolve(REPO, "research");
@@ -63,6 +62,7 @@ const MEDIADIR = join(OUT, "media");
 const SOURCE_MAP = join(OUT, "source-media-map.json");
 const SITE_MANIFEST = join(SRC, "tools/site-manifest.json");
 const canonicalPath = realpathSync.native ?? realpathSync;
+const nasResearchMedia = loadNasResearchMedia(REPO);
 
 const FIGURE_TYPES = new Map([
   [".avif", "image/avif"],
@@ -201,6 +201,23 @@ function resolveSource(authoredPage, src, kind) {
     : resolve(dirname(authoredPage), src);
   if (!isWithin(RESEARCH, lexical) || lexical === RESEARCH) {
     throw new Error(`Refusing ${kind} path outside this worktree's research/ mount: ${src}`);
+  }
+  const researchPath = slash(relative(RESEARCH, lexical));
+  const nasSource = nasResearchMedia?.resolve(researchPath);
+  if (nasSource) {
+    validateSignature(nasSource.path, extension, kind);
+    const sourceSha256 = sha256(nasSource.path);
+    if (sourceSha256 !== nasSource.sha256) {
+      throw new Error(`NAS ${kind} does not match the tracked research inventory: ${src}`);
+    }
+    return {
+      status: "present",
+      canonical: nasSource.path,
+      canonicalResearchPath: nasSource.canonicalResearchPath,
+      extension,
+      mimeType,
+      bytes: nasSource.bytes,
+    };
   }
   if (!existsSync(lexical)) return { status: "missing" };
 
@@ -435,9 +452,9 @@ const mediaBytes = [...copiedMedia.values()]
 writeFileSync(join(OUT, "README.txt"), `Snow Crystals — personal local copy
 ===================================
 
-Open index.html in a browser. Everything works offline; locally cached source
-figures and video are included beside the pages so this folder can be moved or
-copied anywhere for personal study.
+Open index.html in a browser. Everything works offline; catalogue-verified
+source figures and video are included beside the pages so this folder can be
+moved or copied anywhere for personal study.
 
 DO NOT PUBLISH THIS FOLDER.
 
@@ -473,6 +490,7 @@ const missingFigures = sourceMap.figures.filter((entry) => entry.status === "mis
 const missingVideos = sourceMap.videos.filter((entry) => entry.status === "missing");
 
 console.log(`Built ${OUT}`);
+console.log(`  media source: ${nasResearchMedia?.collection ?? "registered-worktree research cache"}`);
 console.log(`  ${pages.length} pages`);
 console.log(`  ${copied.size} figures copied (${(bytes / 1024 / 1024).toFixed(1)} MB), ${rewritten} references rewritten`);
 console.log(`  ${copiedMedia.size} local video(s) copied (${(mediaBytes / 1024 / 1024).toFixed(1)} MB), ${mediaRewritten} references rewritten`);

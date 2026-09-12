@@ -29,6 +29,7 @@ import { chromium } from "playwright";
 import {
   runCheckpointProductionOracle,
 } from "./checkpoint-production-oracle.mjs";
+import { loadNasResearchMedia } from "./nas-research-media.mjs";
 import {
   checkpointViolations,
   cm6VisibleLimitViolations,
@@ -633,6 +634,7 @@ function verifyOfflineSourceMap() {
   }
 
   const expected = collectAuthoredMediaReferences();
+  const nasResearchMedia = loadNasResearchMedia(REPO);
   const problems = [];
   if (sourceMap.schemaVersion !== 1) problems.push(`schemaVersion=${sourceMap.schemaVersion}`);
   if (sourceMap.buildKind !== "personal-offline-education") {
@@ -708,9 +710,13 @@ function verifyOfflineSourceMap() {
       mappedOutputs.add(copiedFilename);
 
       const authoredPage = join(PUBLIC_ROOT, pages[0]);
-      const sourcePath = kind === "figure"
+      const localSourcePath = kind === "figure"
         ? resolve(REPO, source)
         : resolve(dirname(authoredPage), source);
+      const researchPath = relative(join(REPO, "research"), localSourcePath)
+        .split(sep).join("/");
+      const nasSource = nasResearchMedia?.resolve(researchPath);
+      const sourcePath = nasSource?.path ?? localSourcePath;
       if (!existsSync(sourcePath) || !statSync(sourcePath).isFile()) {
         problems.push(`${kind}:${source}:missing source`);
         continue;
@@ -719,7 +725,8 @@ function verifyOfflineSourceMap() {
       const outputHash = sha256(output);
       const outputBytes = statSync(output).size;
       if (
-        entry.sourceSha256 !== sourceHash
+        (nasSource && nasSource.sha256 !== sourceHash)
+        || entry.sourceSha256 !== sourceHash
         || entry.outputSha256 !== outputHash
         || sourceHash !== outputHash
         || entry.bytes !== outputBytes

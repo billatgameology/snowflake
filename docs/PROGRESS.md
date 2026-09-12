@@ -751,9 +751,20 @@ explicitly amends their contract; and no Phase 6 evidence artifact is rewritten.
    `G:\Code Files\snowflake-phase6-ladder`, archived `out/` trees) is now unblocked by the
    verified external-evidence backups; it remains a separate reviewed maker decision. Nothing
    has been deleted.
-2. **Education reconciliation** — maker-directed, not started. The frozen education verifier
-   oracles (`docs/education/tools/part-two-oracles.mjs`) pin superseded state-document
-   content, including the retired handoff, so they are part of that reconciliation's scope.
+2. **Education reconciliation** — maker-directed content reconciliation remains not started. A
+   bounded 2026-09-12 tooling correction connected the personal offline builder and its independent
+   media-copy check to the governed `research-private-freeze@2026-08-11` collection through the
+   marked-share resolver and catalogue-bound tracked inventory; it did not make private media
+   serveable. `node docs/education/tools/build-local.mjs` exited 0 with all authored media copied;
+   its `out/education-local/source-media-map.json` was 88,016 bytes, SHA-256
+   `c7f97e991543220e075e1266258b896d9aa454a54ab62d29cfc41821912fc68c`. The focused
+   `node docs/education/tools/verify.mjs --offline-only` passed the NAS source-map and movie-hash
+   checks but exited 1 on the nine already-registered stale state/link findings. Exact `npm test`
+   then ran all 165 files: 164 passed, 1 failed only when `phase10-intake.test.ts`'s `afterAll`
+   temporary-root cleanup exceeded its 10-second hook timeout after all 12 tests in that file had
+   passed; totals were 2,533 passed / 49 skipped, plus the associated Vitest worker-update timeout.
+   This is not a suite-green claim. Next remains reconciliation of the frozen education oracles and
+   retired-handoff links without weakening their negative controls.
 
 Phase 7 stays on hold as a parallel product/engineering track; it still requires its own
 committed plan and isolated worktree before any work starts, and V4/V4.x apparatus stays
