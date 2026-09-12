@@ -65,6 +65,11 @@ import { prepareFacetDipExperiment, type LKFacetDipArm } from "./lk-facet-dips.t
 
 export type LKExperimentalHoleFilling = "enabled" | "disabled";
 
+export interface LKExperimentalBasalWidthHistory {
+  readonly mode: "early-only" | "late-only";
+  readonly cutoffSeconds: number;
+}
+
 export interface LKSolverOptions {
   /** Coupled classifier/Robin/fill policy. Required: evidence must never rely on a default. */
   readonly surfacePolicy: LKSurfacePolicy;
@@ -83,6 +88,8 @@ export interface LKSolverOptions {
   readonly experimentalHoleFilling?: LKExperimentalHoleFilling;
   /** ADR 0058: M1 basal kinetics only on exposed-support chords at or below this cell count. */
   readonly experimentalBasalWidthCells?: number;
+  /** ADR 0059: optional early/late window evaluated before each complete coupled update. */
+  readonly experimentalBasalWidthHistory?: LKExperimentalBasalWidthHistory;
   /** Fill-CFL bound on the selected policy's max per-cell kinetic fill increment. */
   readonly cflFill?: number; // default 0.1
   /** Relaxation: per-sweep max |change| / sigmaInfinity below this = converged. */
@@ -342,6 +349,7 @@ export class LKSolver implements SurfaceOperator {
   readonly experimentalFacetDips: LKFacetDipArm | undefined = undefined;
   readonly experimentalHoleFilling: LKExperimentalHoleFilling | undefined = undefined;
   readonly experimentalBasalWidthCells: number | undefined = undefined;
+  readonly experimentalBasalWidthHistory: LKExperimentalBasalWidthHistory | undefined = undefined;
   readonly cflFill: number;
   readonly relaxTol: number;
   readonly divTol: number;
@@ -364,6 +372,8 @@ export class LKSolver implements SurfaceOperator {
   private readonly basalWidthCache: Uint32Array | undefined = undefined;
   private readonly basalWidthDippedPreparation: PreparedAlphaHK | undefined = undefined;
   private basalWidthCacheDirty = false;
+  /** Time selection for the current Robin/fill pair, independent of cached geometry. */
+  private basalWidthUpdateActive = true;
   /** Geometry-adjusted max fill velocity max(rate)·dx (m/s) of the most recent update. */
   lastMaxFillVelocityMS = 0;
   holeFillCountTotal = 0;
@@ -611,6 +621,12 @@ export class LKSolver implements SurfaceOperator {
     this.experimentalFacetDips = options.experimentalFacetDips;
     this.experimentalHoleFilling = options.experimentalHoleFilling;
     this.experimentalBasalWidthCells = options.experimentalBasalWidthCells;
+    if (options.experimentalBasalWidthHistory !== undefined) {
+      this.experimentalBasalWidthHistory = Object.freeze({
+        mode: options.experimentalBasalWidthHistory.mode,
+        cutoffSeconds: options.experimentalBasalWidthHistory.cutoffSeconds,
+      });
+    }
     this.cflFill = options.cflFill ?? 0.1;
     this.relaxTol = options.relaxTol ?? 1e-9;
     this.relaxMaxSweeps = options.relaxMaxSweeps ?? 200_000;
@@ -744,6 +760,17 @@ export class LKSolver implements SurfaceOperator {
         (this.experimentalFacetDips !== "prism-only" || this.experimentalHoleFilling !== "disabled")) {
         throw new Error("only prism-only with disabled hole filling may be combined");
       }
+    }
+    if (this.experimentalBasalWidthHistory !== undefined) {
+      if (this.experimentalBasalWidthCells === undefined) {
+        throw new Error("experimentalBasalWidthHistory requires experimentalBasalWidthCells");
+      }
+      if (this.experimentalBasalWidthHistory.mode !== "early-only" &&
+        this.experimentalBasalWidthHistory.mode !== "late-only") {
+        throw new Error("experimentalBasalWidthHistory mode must be early-only or late-only");
+      }
+      requirePositiveFinite(this.experimentalBasalWidthHistory.cutoffSeconds,
+        "experimentalBasalWidthHistory cutoffSeconds");
     }
     if (this.experimentalBasalWidthCells !== undefined) {
       if (!Number.isSafeInteger(this.experimentalBasalWidthCells) || this.experimentalBasalWidthCells <= 0) {
@@ -1431,7 +1458,7 @@ export class LKSolver implements SurfaceOperator {
   private cellAlphaHK(index: number, sigmaSurf: number): number {
     const facet = this.facetClassOf(index);
     const prepared = facet === "basal" && this.experimentalBasalWidthCells !== undefined &&
-      this.basalWidthCache![index] <= this.experimentalBasalWidthCells
+      this.basalWidthUpdateActive && this.basalWidthCache![index] <= this.experimentalBasalWidthCells
       ? this.basalWidthDippedPreparation! : this.preparedAlphaHK;
     let a =
       this.testAlphaOverride !== undefined
@@ -1955,6 +1982,15 @@ export class LKSolver implements SurfaceOperator {
     return this.sweepAggregate(src, dst);
   }
 
+  /** ADR 0059 window eligibility at the current pre-update time; no gate means active. */
+  basalWidthHistoryActive(): boolean {
+    const history = this.experimentalBasalWidthHistory;
+    if (history === undefined) return true;
+    return history.mode === "early-only"
+      ? this.simTimeSeconds < history.cutoffSeconds
+      : this.simTimeSeconds >= history.cutoffSeconds;
+  }
+
   /** §4.4 step 1: relax to tolerance; for either maintained shell, require divergence too. */
   relaxField(onProgress?: (progress: RelaxationProgress) => void): RelaxationReport {
     if (this.cycleState !== "boundary" && this.cycleState !== "incomplete") {
@@ -1970,6 +2006,7 @@ export class LKSolver implements SurfaceOperator {
     this.boundarySigma.fill(0);
     this.boundarySigmaOpp.fill(0);
     try {
+      this.basalWidthUpdateActive = this.basalWidthHistoryActive();
       this.refreshBasalWidthCache();
       let src = this.sigma;
       let dst = this.scratch2;
@@ -2319,7 +2356,7 @@ export class LKSolver implements SurfaceOperator {
     if (this.experimentalBasalWidthCells !== undefined && this.facetClassOf(index) === "basal") {
       const basalWidthCells = this.basalWidthCache![index];
       return { ...state, basalWidthCells,
-        basalWidthSelected: basalWidthCells <= this.experimentalBasalWidthCells };
+        basalWidthSelected: this.basalWidthUpdateActive && basalWidthCells <= this.experimentalBasalWidthCells };
     }
     return state;
   }

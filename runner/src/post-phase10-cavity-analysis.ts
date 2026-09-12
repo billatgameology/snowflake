@@ -13,14 +13,17 @@ interface InputIdentity { path: string; byteLength: number; sha256: string }
 type FacetDipArm = "both" | "neither" | "basal-only" | "prism-only";
 type EffectiveFacetDips = FacetDipArm | "local-basal-width";
 type HoleFillMode = "enabled" | "disabled";
+type BasalWidthHistory = { mode: "early-only" | "late-only"; cutoffSeconds: number };
 interface ExperimentIdentity {
   experimentId?: string;
   experimentalFacetDips?: FacetDipArm;
   experimentalHoleFilling?: HoleFillMode;
   experimentalBasalWidthCells?: number;
+  experimentalBasalWidthHistory?: BasalWidthHistory;
 }
 interface BasalWidthObservation {
   thresholdCells: number;
+  historyActive?: boolean;
   timing: "after-converged-relaxation-before-surface-advance";
   completedCyclesBeforeUpdate: number;
   simTimeSecondsBeforeUpdate: number;
@@ -31,6 +34,7 @@ interface BasalWidthObservation {
   unselectedKineticDemandFill: number;
 }
 interface Event extends ExperimentIdentity {
+  [key: string]: unknown;
   cycle: number;
   attached: { index: number; coords: number[] }[];
   attachedCount: number;
@@ -47,6 +51,14 @@ interface StraightOpenPlaneInterval extends EnclosureEpisode {
   tipOffsetAtStart: number;
   maxTipAdvanceWhileOpenUm: number;
   maxDepthBelowAxialEnvelopeUm: number;
+  postCutoff?: {
+    origin: "open-at-cutoff-boundary" | "new-post-cutoff-interval";
+    referenceState: State;
+    tipOffsetAtReference: number;
+    maxTipAdvanceWhileOpenUm: number;
+    maxDepthBelowAxialEnvelopeUm: number;
+    axisOccupiedAtWitnessLoss?: boolean;
+  };
 }
 export interface CavityAnalysisOptions {
   /** Largest occupied lattice-coordinate center span, not a Cartesian bounding diameter. */
@@ -70,8 +82,15 @@ const FACET_EXPERIMENT_ID = "post-phase10-facet-isolation-v1";
 const HOLEFILL_EXPERIMENT_ID = "post-phase10-holefill-isolation-v1";
 const PRISM_HOLEFILL_EXPERIMENT_ID = "post-phase10-prism-holefill-interaction-v1";
 const BASAL_WIDTH_EXPERIMENT_ID = "post-phase10-local-basal-width-v1";
+const BASAL_HISTORY_EXPERIMENT_ID = "post-phase10-basal-width-history-v1";
 
 function effectiveFacetDips(row: DiscoveryRow): EffectiveFacetDips {
+  const history = row.experimentalBasalWidthHistory;
+  if (history !== undefined && (row.experimentalBasalWidthCells === undefined ||
+    (history.mode !== "early-only" && history.mode !== "late-only") ||
+    !Number.isFinite(history.cutoffSeconds) || history.cutoffSeconds <= 0)) {
+    throw new Error(`${row.id}: unsupported basal-width history identity`);
+  }
   if (row.experimentalBasalWidthCells !== undefined) {
     if (!Number.isSafeInteger(row.experimentalBasalWidthCells) || row.experimentalBasalWidthCells <= 0 ||
       row.paramSet !== "M1" || row.experimentalFacetDips !== undefined || row.experimentalHoleFilling !== undefined) {
@@ -106,14 +125,17 @@ function checkExperimentIdentity(row: DiscoveryRow, artifact: ExperimentIdentity
   effectiveFacetDips(row);
   effectiveHoleFilling(row);
   if (row.experimentalBasalWidthCells !== undefined) {
-    if (artifact.experimentId !== BASAL_WIDTH_EXPERIMENT_ID ||
+    const history = row.experimentalBasalWidthHistory;
+    if (artifact.experimentId !== (history === undefined ? BASAL_WIDTH_EXPERIMENT_ID : BASAL_HISTORY_EXPERIMENT_ID) ||
       artifact.experimentalBasalWidthCells !== row.experimentalBasalWidthCells ||
+      artifact.experimentalBasalWidthHistory?.mode !== history?.mode ||
+      artifact.experimentalBasalWidthHistory?.cutoffSeconds !== history?.cutoffSeconds ||
       artifact.experimentalFacetDips !== undefined || artifact.experimentalHoleFilling !== undefined) {
       throw new Error(`${row.id}: ${label} local basal-width identity mismatch`);
     }
     return;
   }
-  if (artifact.experimentalBasalWidthCells !== undefined) {
+  if (artifact.experimentalBasalWidthCells !== undefined || artifact.experimentalBasalWidthHistory !== undefined) {
     throw new Error(`${row.id}: ${label} unexpected local basal-width identity`);
   }
   if (row.experimentalFacetDips !== undefined && row.experimentalHoleFilling !== undefined) {
@@ -223,8 +245,9 @@ function enclosureWitnesses(geometry: CavityGeometry) {
 }
 
 function summarizeBasalWidthObservations(row: DiscoveryRow, events: readonly Event[], states: readonly State[],
-  firstOnset: State | null, terminalOnset: State | null) {
+  firstOnset: State | null, terminalOnset: State | null, referenceCutoffSeconds?: number) {
   const threshold = row.experimentalBasalWidthCells!;
+  const history = row.experimentalBasalWidthHistory;
   const updates = events.map((event) => {
     const observation = event.basalWidthObservation;
     if (observation === undefined || observation.thresholdCells !== threshold ||
@@ -232,6 +255,12 @@ function summarizeBasalWidthObservations(row: DiscoveryRow, events: readonly Eve
       observation.completedCyclesBeforeUpdate !== event.cycle - 1 ||
       observation.simTimeSecondsBeforeUpdate !== states[event.cycle - 1].simTimeSeconds) {
       throw new Error(`${row.id}: event ${event.cycle} basal-width observation timing/threshold mismatch`);
+    }
+    const active = history === undefined || (history.mode === "early-only"
+      ? observation.simTimeSecondsBeforeUpdate < history.cutoffSeconds
+      : observation.simTimeSecondsBeforeUpdate >= history.cutoffSeconds);
+    if (history === undefined ? observation.historyActive !== undefined : observation.historyActive !== active) {
+      throw new Error(`${row.id}: event ${event.cycle} basal-width history activity mismatch`);
     }
     let selected = 0;
     let unselected = 0;
@@ -242,7 +271,9 @@ function summarizeBasalWidthObservations(row: DiscoveryRow, events: readonly Eve
       if (Number(width) <= threshold) selected += count;
       else unselected += count;
     }
+    if (!active) { unselected += selected; selected = 0; }
     if (selected !== observation.selectedBasalCells || unselected !== observation.unselectedBasalCells ||
+      (!active && observation.selectedKineticDemandFill !== 0) ||
       ![observation.selectedKineticDemandFill, observation.unselectedKineticDemandFill]
         .every((value) => Number.isFinite(value) && value >= 0)) {
       throw new Error(`${row.id}: event ${event.cycle} inconsistent basal-width counts/demand`);
@@ -280,22 +311,44 @@ function summarizeBasalWidthObservations(row: DiscoveryRow, events: readonly Eve
       selectedKineticDemandFill, unselectedKineticDemandFill,
       selectedFractionOfBasalDemandFill: demandFill === 0 ? null : selectedKineticDemandFill / demandFill };
   };
+  const exposure = (selectedUpdates: readonly (typeof updates)[number][]) => {
+    const summary = totals(selectedUpdates);
+    const eligible = (update: (typeof updates)[number]) => Object.entries(update.widthHistogram)
+      .filter(([width]) => Number(width) <= threshold).reduce((sum, [, count]) => sum + count, 0);
+    return { ...summary, widthEligibleBasalCellUpdates: selectedUpdates.reduce((sum, update) => sum + eligible(update), 0),
+      updatesWithWidthEligibleBasalCells: selectedUpdates.filter((update) => eligible(update) > 0).length };
+  };
   const onsetContext = (onset: State | null) => onset === null ? null : {
     onset,
     updatesCompletedBeforeOnset: totals(updates.filter((update) => update.cycle < onset.cycle)),
     onsetProducingUpdate: updates.find((update) => update.cycle === onset.cycle) ?? null,
     updatesAfterOnset: totals(updates.filter((update) => update.cycle > onset.cycle)),
   };
-  return { experimentId: BASAL_WIDTH_EXPERIMENT_ID, thresholdCells: threshold,
+  return { experimentId: history === undefined ? BASAL_WIDTH_EXPERIMENT_ID : BASAL_HISTORY_EXPERIMENT_ID, thresholdCells: threshold,
     nominalInclusiveChordThresholdUm: threshold * row.dxUm,
     seedUpdate: updates[0] ?? null,
     firstSelectedUpdate: updates.find((update) => update.selectedBasalCells > 0) ?? null,
     firstMixedSelectionUpdate: updates.find((update) => update.selectedBasalCells > 0 && update.unselectedBasalCells > 0) ?? null,
     firstPositiveSelectedDemandUpdate: updates.find((update) => update.selectedKineticDemandFill > 0) ?? null,
-    totals: totals(updates), firstEnclosure: onsetContext(firstOnset), terminalEnclosure: onsetContext(terminalOnset) };
+    totals: totals(updates), firstEnclosure: onsetContext(firstOnset), terminalEnclosure: onsetContext(terminalOnset),
+    ...(referenceCutoffSeconds === undefined ? {} : { cutoffExposure: { cutoffSeconds: referenceCutoffSeconds,
+      before: exposure(updates.filter((update) => update.simTimeSecondsBeforeUpdate < referenceCutoffSeconds)),
+      after: exposure(updates.filter((update) => update.simTimeSecondsBeforeUpdate >= referenceCutoffSeconds)) } }) };
 }
 
-function analyzeCompleteRow(input: LoadedRow, commonTimeSeconds: number, options: CavityAnalysisOptions) {
+function cutoffBoundary(states: readonly State[], cutoffSeconds: number) {
+  const boundaryIndex = states.findIndex((state) => state.simTimeSeconds >= cutoffSeconds);
+  const boundaryState = boundaryIndex < 0 ? null : states[boundaryIndex];
+  const lastBeforeIndex = boundaryIndex < 0 ? states.length - 1 : boundaryIndex;
+  return { cutoffSeconds, boundaryState,
+    lastUpdateStartingBeforeCutoff: lastBeforeIndex === 0 ? null : {
+      before: states[lastBeforeIndex - 1], after: states[lastBeforeIndex] },
+    firstUpdateStartingAtOrAfterCutoff: boundaryIndex < 0 || boundaryIndex === states.length - 1 ? null : {
+      before: states[boundaryIndex], after: states[boundaryIndex + 1] } };
+}
+
+function analyzeCompleteRow(input: LoadedRow, commonTimeSeconds: number, options: CavityAnalysisOptions,
+  referenceCutoffSeconds?: number, recordedEvents?: Map<string, readonly Event[]>) {
   const { row, sources, directory } = input;
   const result = input.result!;
   const dims: Dims = { nx: row.dimsN, ny: row.dimsN, nz: row.dimsN };
@@ -308,6 +361,7 @@ function analyzeCompleteRow(input: LoadedRow, commonTimeSeconds: number, options
   sources.push({ path: eventPath, byteLength: bytes.byteLength,
     sha256: createHash("sha256").update(bytes).digest("hex") });
   const events = bytes.toString("utf8").trim().split("\n").filter(Boolean).map((line) => JSON.parse(line) as Event);
+  recordedEvents?.set(row.id, events);
   for (const event of events) checkExperimentIdentity(row, event, `event ${event.cycle}`);
   const states: State[] = [initial, ...events.map(({ cycle, simTimeSeconds, extent, attachedCount }) =>
     ({ cycle, simTimeSeconds, extent, attachedCount }))];
@@ -333,6 +387,8 @@ function analyzeCompleteRow(input: LoadedRow, commonTimeSeconds: number, options
   const times = TIME_FRACTIONS.map((fraction) => ({ fraction,
     ...bracketCavityTime(states, fraction * commonTimeSeconds) }));
   const requestedCycles = new Set([0, final.cycle]);
+  const cutoff = referenceCutoffSeconds === undefined ? null : cutoffBoundary(states, referenceCutoffSeconds);
+  if (cutoff?.boundaryState !== null && cutoff?.boundaryState !== undefined) requestedCycles.add(cutoff.boundaryState.cycle);
   for (const size of sizeSelections) if (size.selectedCycle !== null) requestedCycles.add(size.selectedCycle);
   for (const time of times) {
     requestedCycles.add(time.atOrBefore.cycle);
@@ -374,7 +430,7 @@ function analyzeCompleteRow(input: LoadedRow, commonTimeSeconds: number, options
           geometry.spans.k.inclusiveCells) !== state.extent) throw new Error(`${row.id}: geometry/event mismatch`);
       if (requestedCycles.has(state.cycle)) frames.set(state.cycle, { ...state, geometry });
     }
-    if (attachmentChanged) {
+    if (attachmentChanged || state.cycle === cutoff?.boundaryState?.cycle) {
       const openPlanes = new Set<string>();
       for (const layer of geometry?.layers ?? []) {
         if (layer.lateralVoid !== "enclosed") continue;
@@ -396,11 +452,22 @@ function analyzeCompleteRow(input: LoadedRow, commonTimeSeconds: number, options
             sign * (tipOffset - interval.tipOffsetAtStart) * row.dxUm);
           interval.maxDepthBelowAxialEnvelopeUm = Math.max(interval.maxDepthBelowAxialEnvelopeUm,
             sign * (tipOffset - layer.offset) * row.dxUm);
+          if (cutoff?.boundaryState !== null && cutoff?.boundaryState !== undefined && state.cycle >= cutoff.boundaryState.cycle) {
+            interval.postCutoff ??= {
+              origin: interval.start.cycle <= cutoff.boundaryState.cycle ? "open-at-cutoff-boundary" : "new-post-cutoff-interval",
+              referenceState: state, tipOffsetAtReference: tipOffset,
+              maxTipAdvanceWhileOpenUm: 0, maxDepthBelowAxialEnvelopeUm: 0 };
+            interval.postCutoff.maxTipAdvanceWhileOpenUm = Math.max(interval.postCutoff.maxTipAdvanceWhileOpenUm,
+              sign * (tipOffset - interval.postCutoff.tipOffsetAtReference) * row.dxUm);
+            interval.postCutoff.maxDepthBelowAxialEnvelopeUm = Math.max(interval.postCutoff.maxDepthBelowAxialEnvelopeUm,
+              sign * (tipOffset - layer.offset) * row.dxUm);
+          }
         }
       }
       for (const [key, interval] of activePlaneIntervals) {
         if (!openPlanes.has(key)) {
           interval.endExclusive = state;
+          if (interval.postCutoff !== undefined) interval.postCutoff.axisOccupiedAtWitnessLoss = occupiedAxis.has(center[2] + interval.offset);
           activePlaneIntervals.delete(key);
         }
       }
@@ -456,8 +523,17 @@ function analyzeCompleteRow(input: LoadedRow, commonTimeSeconds: number, options
     onsetSnapshotBracket: snapshotBracket(onset),
     enclosureEpisodes, terminalEnclosureEpisode: terminalEpisode, straightOpenPlaneIntervals,
     ...(row.experimentalBasalWidthCells === undefined ? {} : {
-      basalWidthObservation: summarizeBasalWidthObservations(row, events, states, onset, terminalEpisode?.start ?? null),
+      basalWidthObservation: summarizeBasalWidthObservations(row, events, states, onset, terminalEpisode?.start ?? null, referenceCutoffSeconds),
     }),
+    ...(cutoff === null ? {} : { basalWidthHistory: {
+      experimentalBasalWidthHistory: row.experimentalBasalWidthHistory ?? null,
+      cutoffBoundary: cutoff,
+      actualSwitchTimeSeconds: row.experimentalBasalWidthHistory === undefined ? null :
+        cutoff.firstUpdateStartingAtOrAfterCutoff?.before.simTimeSeconds ?? null,
+      boundaryFrameCycle: cutoff.boundaryState?.cycle ?? null,
+      originalOpeningIntervals: straightOpenPlaneIntervals.filter((interval) => interval.postCutoff?.origin === "open-at-cutoff-boundary"),
+      newPostCutoffOpeningIntervals: straightOpenPlaneIntervals.filter((interval) => interval.postCutoff?.origin === "new-post-cutoff-interval"),
+    } }),
     terminalEpisodeSnapshotBracket: snapshotBracket(terminalEpisode?.start ?? null),
     sizeSelections, physicalTimeSelections: times,
     frames: [...frames.values()].sort((a, b) => a.cycle - b.cycle)
@@ -530,6 +606,55 @@ function prismHoleFillContrasts(corners: readonly InteractionCorner[]) {
   return { physicalTime, sizes, terminalSize };
 }
 
+/** Compare recorded numerical summaries, not unrecorded field arrays or complete solver state. */
+function recordedPrefixComparison(left: CompleteAnalysis, right: CompleteAnalysis,
+  eventsByRow: ReadonlyMap<string, readonly Event[]>, cutoffSeconds: number) {
+  const prefix = (rowId: string) => {
+    const events = eventsByRow.get(rowId)!;
+    return events.filter((_, n) => n === 0 || events[n - 1].simTimeSeconds < cutoffSeconds);
+  };
+  const leftEvents = prefix(left.row.id);
+  const rightEvents = prefix(right.row.id);
+  const fields = ["cycle", "relaxation", "boundary", "surface", "attached", "attachmentFacets", "attachmentEventD6h",
+    "attachedCount", "extent", "aspectRatio", "symmetryError", "simTimeSeconds", "ledgers"];
+  const compareWidth = left.row.experimentalBasalWidthCells !== undefined && right.row.experimentalBasalWidthCells !== undefined;
+  if (compareWidth) fields.push("basalWidthObservation");
+  const canonical = (value: unknown): unknown => Array.isArray(value) ? value.map(canonical) :
+    value !== null && typeof value === "object" ? Object.fromEntries(Object.entries(value)
+      .sort(([a], [b]) => a.localeCompare(b)).map(([key, entry]) => [key, canonical(entry)])) : value;
+  const value = (event: Event, field: string) => field === "basalWidthObservation" ?
+    Object.fromEntries(Object.entries(event.basalWidthObservation!).filter(([key]) => key !== "historyActive")) : event[field];
+  let firstDifference: { cycle: number; field: string } | null = null;
+  let equalCycles = 0;
+  for (let n = 0; n < Math.min(leftEvents.length, rightEvents.length); n++) {
+    const field = fields.find((name) => JSON.stringify(canonical(value(leftEvents[n], name))) !==
+      JSON.stringify(canonical(value(rightEvents[n], name))));
+    if (field !== undefined) { firstDifference = { cycle: n + 1, field }; break; }
+    equalCycles++;
+  }
+  if (firstDifference === null && leftEvents.length !== rightEvents.length) {
+    firstDifference = { cycle: equalCycles + 1, field: "pre-cutoff-update-count" };
+  }
+  return { leftRowId: left.row.id, rightRowId: right.row.id, cutoffSeconds,
+    leftPreCutoffUpdates: leftEvents.length, rightPreCutoffUpdates: rightEvents.length,
+    equalCycles, firstDifference, recordedPrefixEqual: equalCycles > 0 && firstDifference === null,
+    bothPrefixesReachCutoff: [leftEvents, rightEvents].every((events) => (events.at(-1)?.simTimeSeconds ?? 0) >= cutoffSeconds),
+    comparedFields: fields.filter((field) => [...leftEvents, ...rightEvents].some((event) => event[field] !== undefined)),
+    excluded: ["row/experiment labels", "schema label", "RSS and wall-clock metadata",
+      compareWidth ? "basalWidthObservation.historyActive (absent from full-history control)" :
+        "basalWidthObservation (absent from broad control)"],
+    leftLastEqualTimeSeconds: equalCycles === 0 ? null : leftEvents[equalCycles - 1].simTimeSeconds,
+    rightLastEqualTimeSeconds: equalCycles === 0 ? null : rightEvents[equalCycles - 1].simTimeSeconds };
+}
+
+function basalHistoryArm(row: DiscoveryRow) {
+  const arm = effectiveFacetDips(row);
+  if (arm === "neither") return "broad";
+  if (arm === "basal-only") return "global-basal";
+  if (arm !== "local-basal-width" || row.experimentalBasalWidthCells !== 3) return null;
+  return row.experimentalBasalWidthHistory?.mode ?? "full-width3";
+}
+
 /** Only completed, admissible rows contribute measurements; live files are never parsed. */
 export function analyzeCavityRows(rowDirectories: readonly string[], options: CavityAnalysisOptions = {}) {
   if (rowDirectories.length === 0) throw new Error("at least one cavity row is required");
@@ -541,8 +666,10 @@ export function analyzeCavityRows(rowDirectories: readonly string[], options: Ca
     const rowArms = group.map(({ row }) => ({ rowId: row.id, baseParamSet: row.paramSet,
       effectiveFacetDips: effectiveFacetDips(row), experimentalFacetDips: row.experimentalFacetDips ?? null,
       effectiveHoleFilling: effectiveHoleFilling(row), experimentalHoleFilling: row.experimentalHoleFilling ?? null,
-      ...(row.experimentalBasalWidthCells === undefined ? {} : { experimentId: BASAL_WIDTH_EXPERIMENT_ID,
-        experimentalBasalWidthCells: row.experimentalBasalWidthCells }) }));
+      ...(row.experimentalBasalWidthCells === undefined ? {} : {
+        experimentId: row.experimentalBasalWidthHistory === undefined ? BASAL_WIDTH_EXPERIMENT_ID : BASAL_HISTORY_EXPERIMENT_ID,
+        experimentalBasalWidthCells: row.experimentalBasalWidthCells,
+        ...(row.experimentalBasalWidthHistory === undefined ? {} : { experimentalBasalWidthHistory: row.experimentalBasalWidthHistory }) }) }));
     const configuration = group[0].nonKineticConfiguration;
     const differingFields = Object.keys(configuration).filter((key) => group.some((input) =>
       JSON.stringify(input.nonKineticConfiguration[key]) !== JSON.stringify(configuration[key])));
@@ -559,13 +686,24 @@ export function analyzeCavityRows(rowDirectories: readonly string[], options: Ca
       ["neither", "prism-only"].every((arm) => ["enabled", "disabled"].every((mode) =>
         rowArms.filter((row) => row.effectiveFacetDips === arm && row.effectiveHoleFilling === mode).length === 1));
     const basalWidthArms = rowArms.map((row) => ({ rowId: row.rowId,
-      arm: row.effectiveFacetDips === "local-basal-width" ? `width<=${row.experimentalBasalWidthCells}` :
+      arm: row.effectiveFacetDips === "local-basal-width" ? (row.experimentalBasalWidthHistory === undefined
+        ? `width<=${row.experimentalBasalWidthCells}` : null) :
         row.effectiveFacetDips === "neither" ? "broad-everywhere" :
           row.effectiveFacetDips === "basal-only" ? "dipped-basal-everywhere" : null,
       thresholdCells: row.experimentalBasalWidthCells ?? null }));
     const completeBasalWidthRoster = group.length === 4 && rowArms.every((row) => row.effectiveHoleFilling === "enabled") &&
       ["broad-everywhere", "dipped-basal-everywhere", "width<=2", "width<=3"].every((arm) =>
         basalWidthArms.filter((row) => row.arm === arm).length === 1);
+    const historyArms = group.map(({ row }) => ({ rowId: row.id, arm: basalHistoryArm(row),
+      thresholdCells: row.experimentalBasalWidthCells ?? null,
+      experimentalBasalWidthHistory: row.experimentalBasalWidthHistory ?? null }));
+    const temporalArms = historyArms.filter((row) => row.experimentalBasalWidthHistory !== null);
+    const sharedCutoffSeconds = temporalArms.length === 2 && temporalArms.every((row) =>
+      row.experimentalBasalWidthHistory!.cutoffSeconds === 20) ? 20 : null;
+    const completeHistoryRoster = group.length === 5 && sharedCutoffSeconds !== null &&
+      rowArms.every((row) => row.effectiveHoleFilling === "enabled") &&
+      ["broad", "global-basal", "full-width3", "early-only", "late-only"].every((arm) =>
+        historyArms.filter((row) => row.arm === arm).length === 1);
     return { condition, requestedRowIds: group.map((input) => input.row.id),
       contributingRowIds: complete.map((input) => input.row.id),
       rowArms,
@@ -588,9 +726,15 @@ export function analyzeCavityRows(rowDirectories: readonly string[], options: Ca
         sameNonKineticConfiguration: differingFields.length === 0, differingFields,
         allFourArmsAdmissibleAndMatched: completeBasalWidthRoster && complete.length === 4 &&
           fixedControlsRecorded && differingFields.length === 0 },
+      basalWidthHistoryComparison: { historyExperimentId: BASAL_HISTORY_EXPERIMENT_ID, arms: historyArms,
+        registeredCutoffSeconds: 20, sharedCutoffSeconds, completeFiveArmRoster: completeHistoryRoster,
+        fixedControlsRecorded, sameNonKineticConfiguration: differingFields.length === 0, differingFields,
+        allFiveArmsAdmissibleAndMatched: completeHistoryRoster && complete.length === 5 &&
+          fixedControlsRecorded && differingFields.length === 0 },
       allRequestedRowsAdmissible: complete.length === group.length,
       commonTerminalTimeSeconds: complete.length === 0 ? null : Math.min(...complete.map((input) => input.result!.simTimeSeconds)) };
   });
+  const recordedEvents = new Map<string, readonly Event[]>();
   const rows = inputs.map((input) => {
     const arm = effectiveFacetDips(input.row);
     const holeMode = effectiveHoleFilling(input.row);
@@ -600,13 +744,23 @@ export function analyzeCavityRows(rowDirectories: readonly string[], options: Ca
     const group = groups.find((value) => value.contributingRowIds.includes(input.row.id))!;
     return { rowId: input.row.id, effectiveFacetDips: arm, effectiveHoleFilling: holeMode,
       status: input.status, exitCode: input.exitCode,
-      analysis: analyzeCompleteRow(input, group.commonTerminalTimeSeconds!, options) };
+      analysis: analyzeCompleteRow(input, group.commonTerminalTimeSeconds!, options,
+        group.basalWidthHistoryComparison.sharedCutoffSeconds ?? input.row.experimentalBasalWidthHistory?.cutoffSeconds,
+        group.basalWidthHistoryComparison.completeFiveArmRoster ? recordedEvents : undefined) };
   });
   const measuredGroups = groups.map((group) => ({ ...group,
     prismHoleFillInteraction: { ...group.prismHoleFillInteraction,
       contrasts: group.prismHoleFillInteraction.allFourCornersAdmissibleAndMatched
         ? prismHoleFillContrasts(rows.filter((row) => group.contributingRowIds.includes(row.rowId))
-          .map((row) => ({ ...row, analysis: row.analysis! }))) : null } }));
+          .map((row) => ({ ...row, analysis: row.analysis! }))) : null },
+    basalWidthHistoryComparison: { ...group.basalWidthHistoryComparison,
+      recordedPreSwitchPrefixes: group.basalWidthHistoryComparison.allFiveArmsAdmissibleAndMatched ?
+        [["full-width3", "early-only"], ["broad", "late-only"]].map(([leftArm, rightArm]) => {
+          const analysis = (arm: string) => rows.find((row) => row.rowId ===
+            group.basalWidthHistoryComparison.arms.find((candidate) => candidate.arm === arm)!.rowId)!.analysis!;
+          return recordedPrefixComparison(analysis(leftArm), analysis(rightArm), recordedEvents,
+            group.basalWidthHistoryComparison.sharedCutoffSeconds!);
+        }) : null } }));
   return { schema: "post-phase10-cavity-analysis-v1", generatedAt: new Date().toISOString(),
     scope: "Retrospective model-development observations, not a scientific gate or physical validation.",
     definitions: {
@@ -626,19 +780,27 @@ export function analyzeCavityRows(rowDirectories: readonly string[], options: Ca
       prismHoleFillInteraction: "A matched quartet crosses neither/prism-only with enabled/disabled completion, with basal dip absent and identical other recorded settings. Difference of effects is (prism/off - neither/off) - (prism/on - neither/on). Physical-age values are discrete at-or-before states with next-event brackets, not bounds or interpolated geometry. Size contrasts require exact common center span; terminal-size comparison preserves unequal ages. Waist addition subtracts the initial seed's full-probe thickness. These are deterministic observations, not physical validation or statistical significance.",
       basalWidthComparison: "The four matched arms are broad-everywhere, dipped-basal-everywhere, width<=2 and width<=3, with no-dip prism kinetics and enabled geometric completion throughout. Local thresholds are inclusive exposed-support chord counts, not measured molecular widths. Matching identifies an internal P4 intervention comparison, not physical SDAK or validation.",
       basalWidthObservation: "Selection and histograms describe converged pre-update geometry; each demand-fill amount is already the selected/unselected basal kinetic rate times that update's physical timestep. Sums are computed per-boundary-pixel demand, not placed ice, saturation excess, geometric additions or spatially resolved demand. Histogram/count totals count cell-updates, not unique sites or time-weighted exposure. Seed, first activation and onset-producing updates remain distinct; updatesCompletedBeforeOnset excludes the onset-producing update, and updatesAfterOnset starts after it. Temporal precedence alone does not establish a causal mechanism. Null fractions mean no basal cells or no basal demand in the named observations.",
+      basalWidthHistory: "The five arms are broad, global-basal, full-width3, early-only and late-only, with a shared registered twenty-second cutoff. Activity is determined at update start: the crossing update retains its old mode. The boundary state is the first completed state at/after cutoff; an actual temporal switch is recorded only if a subsequent update exists. Controls use this as a reference boundary, not an intervention. Exposure partitions whole updates by pre-update time; width eligibility remains geometric even when actual selection is off. Original intervals are open at the boundary; new intervals start afterward. Post-cutoff tip advance is measured only while that same plane/side stays witnessed open. Witness loss with occupied center records resealing at that plane; other witness loss is not proof of complete closure. Null interval ends are stop-censored. Recorded prefix comparison includes the crossing update and all common numerical cycle summaries, not unrecorded full field, per-cell partial fill or complete solver-state equivalence. Prefix equality is observational, not an automatic gate. Existing per-row common-age brackets and largest-span selections retain their meanings; N112 is a larger domain, not mesh refinement.",
       grid: "Matched center spans and probe radii do not make voxelized seeds identical; two thickness brackets do not bound nonlinear outputs or establish continuum convergence.",
     }, options: { centerSpansUm: options.centerSpansUm ?? DEFAULT_SPANS_UM, probeRadiusUm: options.probeRadiusUm ?? 0.35 },
     allRequestedRowsAdmissible: inputs.every((input) => input.status === "complete"), groups: measuredGroups, rows };
 }
 
 if (process.argv[1] !== undefined && import.meta.url === pathToFileURL(resolve(process.argv[1])).href) {
-  const [mode, first, second, ...rest] = process.argv.slice(2);
+  const args = process.argv.slice(2);
+  const spanFlags = args.filter((arg) => arg.startsWith("--center-spans-um="));
+  const centerSpansUm = spanFlags[0]?.slice("--center-spans-um=".length).split(",").map(Number);
+  if (spanFlags.length > 1 || (centerSpansUm !== undefined &&
+    (spanFlags[0].endsWith("=") || centerSpansUm.some((span) => !Number.isFinite(span) || span < 0)))) {
+    throw new Error("--center-spans-um requires one comma-separated list of finite nonnegative spans");
+  }
+  const [mode, first, second, ...rest] = args.filter((arg) => !arg.startsWith("--center-spans-um="));
   if ((mode !== "campaign" && mode !== "rows") || !first || !second) {
-    throw new Error("Usage: node runner/src/post-phase10-cavity-analysis.ts campaign <campaign-directory> <new-output.json> | rows <new-output.json> <row-directory> [...]");
+    throw new Error("Usage: node runner/src/post-phase10-cavity-analysis.ts campaign <campaign-directory> <new-output.json> | rows <new-output.json> <row-directory> [...] [--center-spans-um=4.2,5.6,7,8.4,9.8,12.6,18.2]");
   }
   const campaign = mode === "campaign" ? JSON.parse(readFileSync(resolve(first, "campaign.json"), "utf8")) as { rows: DiscoveryRow[] } : null;
   const directories = campaign === null ? [second, ...rest] : campaign.rows.map((row) => resolve(first, "rows", row.id));
-  const report = analyzeCavityRows(directories);
+  const report = analyzeCavityRows(directories, centerSpansUm === undefined ? {} : { centerSpansUm });
   const output = mode === "campaign" ? second : first;
   const provenance = { command: process.argv, node: process.version,
     analysisGitHead: execFileSync("git", ["rev-parse", "HEAD"], { encoding: "utf8" }).trim(),

@@ -1,4 +1,5 @@
 import { mkdtempSync, mkdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
+import { spawnSync } from "node:child_process";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { coordsOf, idx } from "@vcc/core";
@@ -118,6 +119,52 @@ function axialRingHistory(id: string, movingPit: boolean, sign = 1) {
   writeFileSync(join(data.directory, "events.jsonl"), events.map((event) => JSON.stringify(event)).join("\n"));
   json(join(data.directory, "result.json"), { ...data.result, attachedCount: count });
   return data.directory;
+}
+
+function historyFixture(id: string, arm: "broad" | "global-basal" | "full" | "early-only" | "late-only",
+  cutoffSeconds = 20, movingPit = false, times = [10, 30, 40, 50]) {
+  const data = fixture(id);
+  const temporal = arm === "early-only" || arm === "late-only";
+  const width = arm !== "broad" && arm !== "global-basal";
+  const history = temporal ? { mode: arm, cutoffSeconds } : undefined;
+  const identity = width ? { experimentId: temporal ? "post-phase10-basal-width-history-v1" : "post-phase10-local-basal-width-v1",
+    experimentalBasalWidthCells: 3, ...(history === undefined ? {} : { experimentalBasalWidthHistory: history }) } :
+    arm === "global-basal" ? { experimentId: "post-phase10-facet-isolation-v1", experimentalFacetDips: "basal-only" } : {};
+  const row = { ...data.row, paramSet: arm === "broad" ? "M1_NO_DIP_ABLATION" : "M1",
+    ...(width ? { experimentalBasalWidthCells: 3 } : {}),
+    ...(arm === "global-basal" ? { experimentalFacetDips: "basal-only" } : {}),
+    ...(history === undefined ? {} : { experimentalBasalWidthHistory: history }) };
+  const histograms: Record<string, number>[] = [{ "3": 2 }, { "1": 1, "3": 1, "5": 2 }, { "1": 3 }, { "1": 3 }];
+  let count = 1;
+  const events = [1, null, 2, 3].map((height, n) => {
+    const beforeTime = n === 0 ? 0 : times[n - 1];
+    const active = !temporal || (arm === "early-only" ? beforeTime < cutoffSeconds : beforeTime >= cutoffSeconds);
+    const batch = height === null ? [] : neighbors.map(([di, dj]) => idx(dims, 10 + di, 10 + dj, 10 + height));
+    if (movingPit && height !== null && height > 1) batch.push(idx(dims, 10, 10, 10 + height - 1));
+    if (height === 3) batch.push(idx(dims, 13, 10, 10));
+    count += batch.length;
+    const selected = active ? Object.entries(histograms[n]).filter(([size]) => Number(size) <= 3)
+      .reduce((sum, [, cells]) => sum + cells, 0) : 0;
+    const unselected = Object.values(histograms[n]).reduce((sum, cells) => sum + cells, 0) - selected;
+    return { ...identity, rowId: id, cycle: n + 1, simTimeSeconds: times[n],
+      attached: batch.map((index) => ({ index, coords: coordsOf(dims, index) })), attachedCount: count,
+      extent: [3, 3, 3, 5][n], relaxation: { residual: 1e-10, sweeps: 7 },
+      boundary: { count: 42, facets: { basal: { fill: { mean: 0.25 } } } },
+      surface: { deltaTimeSeconds: times[n] - beforeTime }, ledgers: { fillLedger: n + 0.5 },
+      rssBytes: id.length * 1024,
+      ...(width ? { basalWidthObservation: { thresholdCells: 3,
+        timing: "after-converged-relaxation-before-surface-advance",
+        ...(temporal ? { historyActive: active } : {}), completedCyclesBeforeUpdate: n,
+        simTimeSecondsBeforeUpdate: beforeTime, widthHistogram: histograms[n],
+        selectedBasalCells: selected, unselectedBasalCells: unselected,
+        selectedKineticDemandFill: selected * [0.1, 0.2, 0.4, 0.5][n],
+        unselectedKineticDemandFill: unselected * [0.3, 0.5, 0.6, 0.7][n] } } : {}) };
+  });
+  const result = { ...data.result, ...identity, cycles: 4, attachedCount: count, simTimeSeconds: times.at(-1)! };
+  json(join(data.directory, "spec.json"), { row, fixed, ...identity });
+  json(join(data.directory, "result.json"), result);
+  writeFileSync(join(data.directory, "events.jsonl"), events.map((event) => JSON.stringify(event)).join("\n"));
+  return { ...data, row, result, events, identity };
 }
 afterEach(() => {
   for (const directory of scratch.splice(0)) rmSync(directory, { recursive: true, force: true });
@@ -514,5 +561,109 @@ describe("offline cavity trajectory analysis", () => {
     data.events[0].basalWidthObservation.completedCyclesBeforeUpdate = 1;
     writeFileSync(join(data.directory, "events.jsonl"), data.events.map((event) => JSON.stringify(event)).join("\n"));
     expect(() => analyzeCavityRows([data.directory])).toThrow("event 1 basal-width observation timing/threshold mismatch");
+  });
+
+  it("matches five distinct history arms and compares crossing-update numerical prefixes without label/RSS equivalence", () => {
+    const arms = ["broad", "global-basal", "full", "early-only", "late-only"] as const;
+    const fixtures = arms.map((arm) => historyFixture(`history-${arm}`, arm));
+    const report = analyzeCavityRows(fixtures.map((data) => data.directory), { centerSpansUm: [0.7, 1.4, 18.2] });
+    const group = report.groups[0].basalWidthHistoryComparison;
+    expect(group.allFiveArmsAdmissibleAndMatched).toBe(true);
+    expect(group.arms.map((row) => row.arm)).toEqual(["broad", "global-basal", "full-width3", "early-only", "late-only"]);
+    expect(report.groups[0].basalWidthComparison.completeFourArmRoster).toBe(false);
+    expect(group.recordedPreSwitchPrefixes).toHaveLength(2);
+    for (const prefix of group.recordedPreSwitchPrefixes!) {
+      expect(prefix).toMatchObject({ equalCycles: 2, firstDifference: null, recordedPrefixEqual: true,
+        bothPrefixesReachCutoff: true, leftLastEqualTimeSeconds: 30, rightLastEqualTimeSeconds: 30 });
+      expect(prefix.comparedFields).toEqual(expect.arrayContaining(["relaxation", "boundary", "surface", "attached", "ledgers"]));
+    }
+    expect(group.recordedPreSwitchPrefixes![0].comparedFields).toContain("basalWidthObservation");
+    expect(group.recordedPreSwitchPrefixes![1].comparedFields).not.toContain("basalWidthObservation");
+    expect(report.rows[0].analysis!.basalWidthHistory!.actualSwitchTimeSeconds).toBeNull();
+    expect(report.rows[3].analysis!.basalWidthHistory!.actualSwitchTimeSeconds).toBe(30);
+    expect(report.rows[3].analysis!.sizeSelections.at(-1)!.selectedCycle).toBeNull();
+    // A changed stored boundary quantity must be surfaced, even with identical attachments.
+    fixtures[3].events[1].boundary.facets.basal.fill.mean = 0.26;
+    writeFileSync(join(fixtures[3].directory, "events.jsonl"), fixtures[3].events.map((event) => JSON.stringify(event)).join("\n"));
+    const changed = analyzeCavityRows(fixtures.map((data) => data.directory));
+    expect(changed.groups[0].basalWidthHistoryComparison.recordedPreSwitchPrefixes![0]).toMatchObject({
+      equalCycles: 1, recordedPrefixEqual: false, firstDifference: { cycle: 2, field: "boundary" } });
+    const wrongCutoff = historyFixture("history-late-wrong-cutoff", "late-only", 21);
+    const mismatched = analyzeCavityRows([...fixtures.slice(0, 4), wrongCutoff].map((data) => data.directory));
+    expect(mismatched.groups[0].basalWidthHistoryComparison).toMatchObject({ sharedCutoffSeconds: null,
+      allFiveArmsAdmissibleAndMatched: false, recordedPreSwitchPrefixes: null });
+  });
+
+  it("partitions exposure by pre-update time and retains width eligibility while inactive, including no-attachment crossing", () => {
+    const early = historyFixture("history-early-exposure", "early-only");
+    const late = historyFixture("history-late-exposure", "late-only");
+    const report = analyzeCavityRows([early.directory, late.directory]);
+    const earlyAnalysis = report.rows[0].analysis!;
+    expect(earlyAnalysis.basalWidthHistory!.cutoffBoundary).toMatchObject({ cutoffSeconds: 20,
+      boundaryState: { cycle: 2, simTimeSeconds: 30 },
+      lastUpdateStartingBeforeCutoff: { before: { cycle: 1, simTimeSeconds: 10 }, after: { cycle: 2, simTimeSeconds: 30 } },
+      firstUpdateStartingAtOrAfterCutoff: { before: { cycle: 2, simTimeSeconds: 30 }, after: { cycle: 3, simTimeSeconds: 40 } } });
+    expect(early.events[1].attached).toHaveLength(0);
+    expect(earlyAnalysis.basalWidthObservation!.cutoffExposure!.before).toMatchObject({ observedUpdates: 2,
+      widthEligibleBasalCellUpdates: 4, selectedBasalCellUpdates: 4 });
+    expect(earlyAnalysis.basalWidthObservation!.cutoffExposure!.before.selectedKineticDemandFill).toBeCloseTo(0.6, 14);
+    expect(earlyAnalysis.basalWidthObservation!.cutoffExposure!.after).toMatchObject({ observedUpdates: 2,
+      widthEligibleBasalCellUpdates: 6, updatesWithWidthEligibleBasalCells: 2, selectedBasalCellUpdates: 0,
+      unselectedBasalCellUpdates: 6, selectedKineticDemandFill: 0 });
+    const lateExposure = report.rows[1].analysis!.basalWidthObservation!.cutoffExposure!;
+    expect(lateExposure.before).toMatchObject({ widthEligibleBasalCellUpdates: 4, selectedBasalCellUpdates: 0,
+      selectedKineticDemandFill: 0 });
+    expect(lateExposure.after).toMatchObject({ widthEligibleBasalCellUpdates: 6, selectedBasalCellUpdates: 6 });
+    expect(lateExposure.after.selectedKineticDemandFill).toBeCloseTo(2.7, 14);
+    const exact = historyFixture("history-exact-cutoff", "late-only", 20, false, [10, 20, 30, 40]);
+    expect(analyzeCavityRows([exact.directory]).rows[0].analysis!.basalWidthHistory!.actualSwitchTimeSeconds).toBe(20);
+    const notReached = historyFixture("history-not-reached", "early-only", 100);
+    expect(analyzeCavityRows([notReached.directory]).rows[0].analysis!.basalWidthHistory).toMatchObject({
+      actualSwitchTimeSeconds: null, boundaryFrameCycle: null, originalOpeningIntervals: [], newPostCutoffOpeningIntervals: [] });
+    const atStop = historyFixture("history-crossing-at-stop", "early-only", 50);
+    expect(analyzeCavityRows([atStop.directory]).rows[0].analysis!.basalWidthHistory).toMatchObject({
+      actualSwitchTimeSeconds: null, boundaryFrameCycle: 4 });
+  });
+
+  it("separates original post-switch growth from newly opened planes and records resealing at an occupied axis", () => {
+    const persistent = historyFixture("history-original-and-new", "early-only");
+    const moving = historyFixture("history-original-reseals", "early-only", 20, true);
+    const report = analyzeCavityRows([persistent.directory, moving.directory]);
+    const continued = report.rows[0].analysis!.basalWidthHistory!;
+    expect(continued.originalOpeningIntervals).toHaveLength(1);
+    expect(continued.originalOpeningIntervals[0]).toMatchObject({ offset: 1, start: { cycle: 1 }, endExclusive: null,
+      postCutoff: { referenceState: { cycle: 2 }, maxTipAdvanceWhileOpenUm: 0.7, maxDepthBelowAxialEnvelopeUm: 0.7 } });
+    expect(continued.newPostCutoffOpeningIntervals.map((interval) => [interval.offset, interval.start.cycle,
+      interval.postCutoff!.maxTipAdvanceWhileOpenUm])).toEqual([[2, 3, 0.35], [3, 4, 0]]);
+    const resealed = report.rows[1].analysis!.basalWidthHistory!;
+    expect(resealed.originalOpeningIntervals[0]).toMatchObject({ offset: 1, endExclusive: { cycle: 3 },
+      postCutoff: { maxTipAdvanceWhileOpenUm: 0, axisOccupiedAtWitnessLoss: true } });
+    expect(resealed.newPostCutoffOpeningIntervals[0]).toMatchObject({ offset: 2, endExclusive: { cycle: 4 },
+      postCutoff: { axisOccupiedAtWitnessLoss: true } });
+  });
+
+  it("keeps temporal identity/activity explicit and does not relabel a history arm as a full-width control", () => {
+    const data = historyFixture("history-identity", "early-only");
+    const report = analyzeCavityRows([data.directory]);
+    expect(report.groups[0].rowArms[0].experimentId).toBe("post-phase10-basal-width-history-v1");
+    expect(report.rows[0].analysis!.basalWidthObservation!.experimentId).toBe("post-phase10-basal-width-history-v1");
+    expect(report.groups[0].basalWidthComparison.arms[0].arm).toBeNull();
+    json(join(data.directory, "spec.json"), { row: data.row, fixed, ...data.identity,
+      experimentId: "post-phase10-local-basal-width-v1" });
+    expect(() => analyzeCavityRows([data.directory])).toThrow("spec local basal-width identity mismatch");
+    json(join(data.directory, "spec.json"), { row: data.row, fixed, ...data.identity });
+    data.events[2].basalWidthObservation!.historyActive = true;
+    writeFileSync(join(data.directory, "events.jsonl"), data.events.map((event) => JSON.stringify(event)).join("\n"));
+    expect(() => analyzeCavityRows([data.directory])).toThrow("event 3 basal-width history activity mismatch");
+  });
+
+  it("accepts the named long CLI spans while retaining old defaults", () => {
+    const data = fixture("history-cli-spans");
+    expect(analyzeCavityRows([data.directory]).options.centerSpansUm).toEqual([4.2, 5.6, 7, 8.4, 9.8]);
+    const output = join(data.directory, "long-analysis.json");
+    const child = spawnSync(process.execPath, ["runner/src/post-phase10-cavity-analysis.ts", "rows", output,
+      data.directory, "--center-spans-um=4.2,5.6,7,8.4,9.8,12.6,18.2"], { encoding: "utf8", windowsHide: true });
+    expect(child.status, child.stderr).toBe(0);
+    expect(JSON.parse(readFileSync(output, "utf8")).options.centerSpansUm).toEqual([4.2, 5.6, 7, 8.4, 9.8, 12.6, 18.2]);
   });
 });

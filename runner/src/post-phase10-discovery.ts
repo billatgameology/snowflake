@@ -22,6 +22,7 @@ import {
   LKSolver,
   type LKFacetDipArm,
   type LKExperimentalHoleFilling,
+  type LKExperimentalBasalWidthHistory,
   type LKEnvironmentTransitionReport,
 } from "@vcc/solver-cpu";
 import { validateLKStepEvidence } from "./gate2b-validation.ts";
@@ -78,25 +79,41 @@ export interface DiscoveryRow {
   readonly experimentalHoleFilling?: LKExperimentalHoleFilling;
   /** P4 exposed-terrace chord threshold; basal kinetics are local, not a global M1 arm. */
   readonly experimentalBasalWidthCells?: number;
+  /** Early-growth-history counterfactual; the cutoff uses pre-update physical time. */
+  readonly experimentalBasalWidthHistory?: LKExperimentalBasalWidthHistory;
 }
 
 export const DISCOVERY_FACET_EXPERIMENT_ID = "post-phase10-facet-isolation-v1" as const;
 export const DISCOVERY_HOLEFILL_EXPERIMENT_ID = "post-phase10-holefill-isolation-v1" as const;
 export const DISCOVERY_PRISM_HOLEFILL_INTERACTION_ID = "post-phase10-prism-holefill-interaction-v1" as const;
 export const DISCOVERY_BASAL_WIDTH_EXPERIMENT_ID = "post-phase10-local-basal-width-v1" as const;
+export const DISCOVERY_BASAL_WIDTH_HISTORY_EXPERIMENT_ID = "post-phase10-basal-width-history-v1" as const;
 
 export interface DiscoveryExperimentIdentity {
   readonly experimentId?: typeof DISCOVERY_FACET_EXPERIMENT_ID | typeof DISCOVERY_HOLEFILL_EXPERIMENT_ID |
-    typeof DISCOVERY_PRISM_HOLEFILL_INTERACTION_ID | typeof DISCOVERY_BASAL_WIDTH_EXPERIMENT_ID;
+    typeof DISCOVERY_PRISM_HOLEFILL_INTERACTION_ID | typeof DISCOVERY_BASAL_WIDTH_EXPERIMENT_ID |
+    typeof DISCOVERY_BASAL_WIDTH_HISTORY_EXPERIMENT_ID;
   readonly experimentalFacetDips?: LKFacetDipArm;
   readonly experimentalHoleFilling?: LKExperimentalHoleFilling;
   readonly experimentalBasalWidthCells?: number;
+  readonly experimentalBasalWidthHistory?: LKExperimentalBasalWidthHistory;
 }
 
 /** Absent for ordinary rows so historical artifact shapes stay unchanged. */
 export function discoveryExperimentIdentity(
-  row: Pick<DiscoveryRow, "experimentalFacetDips" | "experimentalHoleFilling" | "experimentalBasalWidthCells">,
+  row: Pick<DiscoveryRow, "experimentalFacetDips" | "experimentalHoleFilling" | "experimentalBasalWidthCells" |
+    "experimentalBasalWidthHistory">,
 ): DiscoveryExperimentIdentity {
+  const history = row.experimentalBasalWidthHistory;
+  if (history !== undefined) {
+    if (row.experimentalBasalWidthCells === undefined) {
+      throw new Error("basal-width history requires experimentalBasalWidthCells");
+    }
+    if (history === null || (history.mode !== "early-only" && history.mode !== "late-only") ||
+      !Number.isFinite(history.cutoffSeconds) || history.cutoffSeconds <= 0) {
+      throw new Error("basal-width history requires early-only/late-only and a finite positive cutoffSeconds");
+    }
+  }
   if (row.experimentalBasalWidthCells !== undefined) {
     if (!Number.isSafeInteger(row.experimentalBasalWidthCells) || row.experimentalBasalWidthCells < 1) {
       throw new Error("experimentalBasalWidthCells must be a positive integer");
@@ -104,8 +121,10 @@ export function discoveryExperimentIdentity(
     if (row.experimentalFacetDips !== undefined || row.experimentalHoleFilling !== undefined) {
       throw new Error("local basal-width rows cannot combine experimental options");
     }
-    return { experimentId: DISCOVERY_BASAL_WIDTH_EXPERIMENT_ID,
-      experimentalBasalWidthCells: row.experimentalBasalWidthCells };
+    return { experimentId: history === undefined ? DISCOVERY_BASAL_WIDTH_EXPERIMENT_ID :
+      DISCOVERY_BASAL_WIDTH_HISTORY_EXPERIMENT_ID,
+      experimentalBasalWidthCells: row.experimentalBasalWidthCells,
+      ...(history === undefined ? {} : { experimentalBasalWidthHistory: history }) };
   }
   if (row.experimentalHoleFilling !== undefined) {
     if (row.experimentalFacetDips !== undefined) {
@@ -450,6 +469,7 @@ function finish(summary: MutableNumericSummary): NumericSummary | null {
 
 interface BasalWidthBoundaryRates {
   readonly thresholdCells: number;
+  readonly historyActive?: boolean;
   readonly completedCyclesBeforeUpdate: number;
   readonly simTimeSecondsBeforeUpdate: number;
   readonly widthHistogram: Record<string, number>;
@@ -464,8 +484,11 @@ function summarizeBoundary(solver: LKSolver, basalWidthThreshold?: number): {
   readonly facetByIndex: ReadonlyMap<number, FacetClass>;
   readonly basalWidthRates?: BasalWidthBoundaryRates;
 } {
+  const historyActive = solver.experimentalBasalWidthHistory === undefined
+    ? true : solver.basalWidthHistoryActive();
   const basalWidthRates: BasalWidthBoundaryRates | undefined = basalWidthThreshold === undefined
     ? undefined : { thresholdCells: basalWidthThreshold, completedCyclesBeforeUpdate: solver.tick,
+      ...(solver.experimentalBasalWidthHistory === undefined ? {} : { historyActive }),
       simTimeSecondsBeforeUpdate: solver.simTimeSeconds, widthHistogram: {}, selectedBasalCells: 0,
       unselectedBasalCells: 0, selectedRatePerSecond: 0, unselectedRatePerSecond: 0 };
   const facets = ["basal", "prism", "inhibited", "rough"] as const;
@@ -489,7 +512,7 @@ function summarizeBoundary(solver: LKSolver, basalWidthThreshold?: number): {
     if (basalWidthRates !== undefined && facet === "basal") {
       const width = state.basalWidthCells;
       if (width === undefined || !Number.isSafeInteger(width) || width < 1 ||
-        state.basalWidthSelected !== (width <= basalWidthRates.thresholdCells)) {
+        state.basalWidthSelected !== (historyActive && width <= basalWidthRates.thresholdCells)) {
         throw new Error(`basal-width observation is missing or inconsistent at cell ${index}`);
       }
       basalWidthRates.widthHistogram[width] = (basalWidthRates.widthHistogram[width] ?? 0) + 1;
@@ -608,7 +631,10 @@ export function runPostPhase10DiscoveryRow(
     ` experimentId=${experimentIdentity.experimentId}` +
     (candidate.experimentalFacetDips === undefined ? "" : ` experimentalFacetDips=${candidate.experimentalFacetDips}`) +
     (candidate.experimentalHoleFilling === undefined ? "" : ` experimentalHoleFilling=${candidate.experimentalHoleFilling}`) +
-    (candidate.experimentalBasalWidthCells === undefined ? "" : ` experimentalBasalWidthCells=${candidate.experimentalBasalWidthCells}`);
+    (candidate.experimentalBasalWidthCells === undefined ? "" : ` experimentalBasalWidthCells=${candidate.experimentalBasalWidthCells}`) +
+    (candidate.experimentalBasalWidthHistory === undefined ? "" :
+      ` experimentalBasalWidthHistory=${candidate.experimentalBasalWidthHistory.mode}` +
+      ` cutoffSeconds=${candidate.experimentalBasalWidthHistory.cutoffSeconds}`);
   const output = resolve(outputDirectory);
   mkdirSync(output, { recursive: true });
   for (const leaf of ["spec.json", "events.jsonl", "result.json"] as const) {
@@ -657,6 +683,9 @@ export function runPostPhase10DiscoveryRow(
     }),
     ...(candidate.experimentalBasalWidthCells === undefined ? {} : {
       experimentalBasalWidthCells: candidate.experimentalBasalWidthCells,
+    }),
+    ...(candidate.experimentalBasalWidthHistory === undefined ? {} : {
+      experimentalBasalWidthHistory: candidate.experimentalBasalWidthHistory,
     }),
     cflFill: candidate.cflFill,
     relaxTol: FIXED.relaxTol,
@@ -893,6 +922,9 @@ export function runPostPhase10DiscoveryRow(
         ...(boundary.basalWidthRates === undefined ? {} : { basalWidthObservation: {
           timing: "after-converged-relaxation-before-surface-advance",
           thresholdCells: boundary.basalWidthRates.thresholdCells,
+          ...(boundary.basalWidthRates.historyActive === undefined ? {} : {
+            historyActive: boundary.basalWidthRates.historyActive,
+          }),
           completedCyclesBeforeUpdate: boundary.basalWidthRates.completedCyclesBeforeUpdate,
           simTimeSecondsBeforeUpdate: boundary.basalWidthRates.simTimeSecondsBeforeUpdate,
           widthHistogram: boundary.basalWidthRates.widthHistogram,

@@ -20,6 +20,7 @@ import {
   DISCOVERY_HOLEFILL_EXPERIMENT_ID,
   DISCOVERY_PRISM_HOLEFILL_INTERACTION_ID,
   DISCOVERY_BASAL_WIDTH_EXPERIMENT_ID,
+  DISCOVERY_BASAL_WIDTH_HISTORY_EXPERIMENT_ID,
   discoveryExperimentIdentity,
   type DiscoveryExperimentIdentity,
   type DiscoveryRow,
@@ -77,6 +78,11 @@ import {
   POST_PHASE10_BASAL_WIDTH_REUSED_CONTROLS,
   findPostPhase10BasalWidthRow,
 } from "./post-phase10-basal-width.ts";
+import {
+  POST_PHASE10_BASAL_HISTORY_ROWS,
+  POST_PHASE10_BASAL_HISTORY_CUTOFF_SECONDS,
+  findPostPhase10BasalHistoryRow,
+} from "./post-phase10-basal-history.ts";
 
 function writeJson(path: string, value: unknown): void {
   writeFileSync(path, `${JSON.stringify(value, null, 2)}\n`, "utf8");
@@ -118,6 +124,8 @@ async function launchRows(options: {
   readonly launchName: string;
   readonly rows: readonly DiscoveryRow[];
   readonly concurrency: number;
+  /** Explicit campaign label for a matched roster containing distinct intervention identities. */
+  readonly experimentId?: DiscoveryExperimentIdentity["experimentId"];
 }): Promise<readonly RowExit[]> {
   const entryPath = fileURLToPath(import.meta.url);
   const rowsRoot = resolve(options.campaignDirectory, "rows");
@@ -131,7 +139,7 @@ async function launchRows(options: {
     row.experimentalFacetDips !== undefined || row.experimentalHoleFilling !== undefined ||
     row.experimentalBasalWidthCells !== undefined);
   const experimentMetadata = experimentalRows.length === 0 ? {} : {
-    experimentId: discoveryExperimentIdentity(experimentalRows[0]).experimentId,
+    experimentId: options.experimentId ?? discoveryExperimentIdentity(experimentalRows[0]).experimentId,
     experimentalRows: experimentalRows.map((row) => ({ rowId: row.id, ...discoveryExperimentIdentity(row) })),
   };
   writeJson(launchPath, {
@@ -162,7 +170,10 @@ async function launchRows(options: {
       ` experimentId=${experimentIdentity.experimentId}` +
       (row.experimentalFacetDips === undefined ? "" : ` experimentalFacetDips=${row.experimentalFacetDips}`) +
       (row.experimentalHoleFilling === undefined ? "" : ` experimentalHoleFilling=${row.experimentalHoleFilling}`) +
-      (row.experimentalBasalWidthCells === undefined ? "" : ` experimentalBasalWidthCells=${row.experimentalBasalWidthCells}`);
+      (row.experimentalBasalWidthCells === undefined ? "" : ` experimentalBasalWidthCells=${row.experimentalBasalWidthCells}`) +
+      (row.experimentalBasalWidthHistory === undefined ? "" :
+        ` experimentalBasalWidthHistory=${row.experimentalBasalWidthHistory.mode}` +
+        ` cutoffSeconds=${row.experimentalBasalWidthHistory.cutoffSeconds}`);
     const rowDirectory = resolve(rowsRoot, row.id);
     if (existsSync(rowDirectory)) throw new Error(`row directory already exists: ${rowDirectory}`);
     mkdirSync(rowDirectory, { recursive: false });
@@ -766,6 +777,38 @@ async function launchBasalWidth(campaignDirectory: string, concurrency: number):
   if (exits.some((exit) => exit.exitCode !== 0 || exit.signal !== null)) process.exitCode = 1;
 }
 
+async function launchBasalHistory(campaignDirectory: string, concurrency: number): Promise<void> {
+  requireCleanTree();
+  const output = resolve(campaignDirectory);
+  if (existsSync(output)) throw new Error(`campaign directory already exists: ${output}`);
+  mkdirSync(output, { recursive: true });
+  const processors = cpus();
+  writeJson(resolve(output, "campaign.json"), {
+    schema: "post-phase10-basal-history-campaign-v1",
+    experimentId: DISCOVERY_BASAL_WIDTH_HISTORY_EXPERIMENT_ID,
+    campaignId: basename(output),
+    gitHead: git(["rev-parse", "HEAD"]),
+    branch: git(["branch", "--show-current"]),
+    node: process.version,
+    logicalProcessors: processors.length,
+    cpuModels: [...new Set(processors.map((processor) => processor.model))],
+    totalMemoryBytes: totalmem(),
+    requestedConcurrency: concurrency,
+    plannedMaximumConcurrency: Math.min(concurrency, POST_PHASE10_BASAL_HISTORY_ROWS.length),
+    rowCount: POST_PHASE10_BASAL_HISTORY_ROWS.length,
+    rows: POST_PHASE10_BASAL_HISTORY_ROWS,
+    cutoffSeconds: POST_PHASE10_BASAL_HISTORY_CUTOFF_SECONDS,
+    sourcePlan: "docs/plans/post-phase10-adaptive-discovery.md",
+    sourcePlanSection: "Basal-width early/late longer investigation — registered 2026-09-12",
+    sourcePlanCommit: "856379a5536b852eca1983ceddb84901ce176902",
+    exactLaunchCommand: [process.execPath, ...process.argv.slice(1)],
+    createdAt: new Date().toISOString(),
+  });
+  const exits = await launchRows({ campaignDirectory: output, launchName: "basal-history-wave-1",
+    rows: POST_PHASE10_BASAL_HISTORY_ROWS, concurrency, experimentId: DISCOVERY_BASAL_WIDTH_HISTORY_EXPERIMENT_ID });
+  if (exits.some((exit) => exit.exitCode !== 0 || exit.signal !== null)) process.exitCode = 1;
+}
+
 async function main(): Promise<void> {
   const [command, ...args] = process.argv.slice(2);
   switch (command) {
@@ -805,6 +848,9 @@ async function main(): Promise<void> {
     case "list-basal-width":
       console.log(JSON.stringify(POST_PHASE10_BASAL_WIDTH_ROWS, null, 2));
       return;
+    case "list-basal-history":
+      console.log(JSON.stringify(POST_PHASE10_BASAL_HISTORY_ROWS, null, 2));
+      return;
     case "run-row": {
       if (args.length !== 2) throw new Error("run-row wants <row-id> <output-directory>");
       const smokeRow = POST_PHASE10_SMOKE_ROWS.find((row) => row.id === args[0]);
@@ -812,6 +858,7 @@ async function main(): Promise<void> {
       const selectedRow =
         smokeRow ??
         adaptiveSmokeRow ??
+        findPostPhase10BasalHistoryRow(args[0]) ??
         findPostPhase10BasalWidthRow(args[0]) ??
         findPostPhase10PrismHolefillRow(args[0]) ??
         findPostPhase10HolefillLongRow(args[0]) ??
@@ -914,6 +961,12 @@ async function main(): Promise<void> {
       }
       await launchBasalWidth(args[0], parseConcurrency(args[1], 4));
       return;
+    case "launch-basal-history":
+      if (args.length < 1 || args.length > 2) {
+        throw new Error("launch-basal-history wants <campaign-directory> [concurrency]");
+      }
+      await launchBasalHistory(args[0], parseConcurrency(args[1], 10));
+      return;
     case "analyze":
       if (args.length !== 2) {
         throw new Error("analyze wants <campaign-directory> <output-directory>");
@@ -924,7 +977,7 @@ async function main(): Promise<void> {
       throw new Error(
         "usage: node runner/src/post-phase10-discovery-main.ts " +
           "list|list-adaptive|list-long|list-confirmation|list-followup|list-cavity|list-facet-factorial|list-holefill|" +
-          "list-facet-factorial-long|list-holefill-long|list-prism-holefill|list-basal-width|" +
+          "list-facet-factorial-long|list-holefill-long|list-prism-holefill|list-basal-width|list-basal-history|" +
           "run-row <row-id> <out>|" +
           "launch-initial <campaign-dir> [concurrency]|launch-a112 <campaign-dir>|" +
           "smoke <out>|launch-adaptive <campaign-dir> [concurrency]|smoke-adaptive <out>|" +
@@ -938,6 +991,7 @@ async function main(): Promise<void> {
           "launch-holefill-long <campaign-dir> [concurrency]|" +
           "launch-prism-holefill <campaign-dir> [concurrency]|" +
           "launch-basal-width <campaign-dir> [concurrency]|" +
+          "launch-basal-history <campaign-dir> [concurrency]|" +
           "analyze <campaign-dir> <output-dir>",
       );
   }

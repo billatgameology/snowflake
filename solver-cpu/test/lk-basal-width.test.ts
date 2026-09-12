@@ -4,7 +4,7 @@ import {
   sigma0BasalFor, sigma0PrismFor, symmetryError, zmirror,
   type NucleationParamSet,
 } from "@vcc/core";
-import { LKSolver } from "@vcc/solver-cpu";
+import { LKSolver, type LKExperimentalBasalWidthHistory } from "@vcc/solver-cpu";
 
 const options = {
   dims: { nx: 18, ny: 18, nz: 18 },
@@ -233,5 +233,172 @@ describe("ADR 0058 exposed-support basal width experiment", () => {
     expect(() => new LKSolver({ ...options, experimentalBasalWidthCells: 2, surfacePolicy: "aggregate-hv-g1h1-v5" })).toThrow("aggregate-hv-g1h1-v6");
     expect(() => new LKSolver({ ...options, experimentalBasalWidthCells: 2, experimentalFacetDips: "basal-only" })).toThrow("cannot combine");
     expect(() => new LKSolver({ ...options, experimentalBasalWidthCells: 2, experimentalHoleFilling: "enabled" })).toThrow("cannot combine");
+  });
+});
+
+describe("ADR 0059 early/late basal-width history", () => {
+  /** Recompute the selected preparation and demand without using the reported selection. */
+  function independentDemand(solver: LKSolver, active: boolean) {
+    const cells: { index: number; before: number; rate: number }[] = [];
+    let sum = 0, selectedCount = 0, broadCount = 0;
+    for (const index of solver.boundaryCells()) {
+      const facet = solver.facetClassOf(index), state = solver.boundaryState(index);
+      const selected = facet === "basal" && active && Math.min(...referenceWidths(solver, index)) <= 3;
+      if (facet === "basal") {
+        expect(state.basalWidthCells).toBe(Math.min(...referenceWidths(solver, index)));
+        expect(state.basalWidthSelected).toBe(selected);
+        if (selected) selectedCount++; else broadCount++;
+      }
+      const set: NucleationParamSet = selected ? "M1" : "M1_NO_DIP_ABLATION";
+      const coefficient = facet === "inhibited" || state.sigmaBoundary <= 0 ? 0 :
+        facet === "rough" ? 1 : facet === "basal" ?
+          nucleationABasal(solver.tempC, set) * Math.exp(-sigma0BasalFor(solver.tempC, set) / state.sigmaBoundary) :
+          nucleationAPrism(solver.tempC, "M1_NO_DIP_ABLATION") *
+            Math.exp(-sigma0PrismFor(solver.tempC, "M1_NO_DIP_ABLATION") / state.sigmaBoundary);
+      expect(state.alphaHKBoundary).toBeCloseTo(coefficient, 11);
+      expect(state.sigmaBoundary).toBeCloseTo(state.sigmaOpp / (1 + coefficient * solver.dxM / solver.x0M), 12);
+      const rate = coefficient * solver.vKinMS * state.sigmaBoundary / solver.dxM;
+      sum += rate;
+      cells.push({ index, before: solver.f[index], rate });
+    }
+    return { cells, sum, selectedCount, broadCount };
+  }
+
+  for (const mode of ["early-only", "late-only"] as const) {
+    it(`preserves the nonuniform ${mode} numerical prefix and accumulated fill`, () => {
+      const control = new LKSolver({ ...options, ...(mode === "early-only"
+        ? { experimentalBasalWidthCells: 3 } : { paramSet: "M1_NO_DIP_ABLATION" as const }) });
+      const solver = new LKSolver({ ...options, experimentalBasalWidthCells: 3,
+        experimentalBasalWidthHistory: { mode, cutoffSeconds: 20 } });
+      depletedStart(control);
+      depletedStart(solver);
+      for (let cycle = 0; cycle < 8; cycle++) {
+        expect(solver.simTimeSeconds).toBeLessThan(20);
+        expect(solver.basalWidthHistoryActive()).toBe(mode === "early-only");
+        const relaxation = control.relaxField();
+        expect(relaxation.converged).toBe(true);
+        expect(solver.relaxField()).toEqual(relaxation);
+        for (const index of solver.boundaryCells()) {
+          const actual = solver.boundaryState(index);
+          if (mode === "early-only") expect(actual).toEqual(control.boundaryState(index));
+          else {
+            const { basalWidthCells, basalWidthSelected, ...ordinary } = actual;
+            expect(ordinary).toEqual(control.boundaryState(index));
+            if (solver.facetClassOf(index) === "basal") {
+              expect(basalWidthCells).toBe(Math.min(...referenceWidths(solver, index)));
+              expect(basalWidthSelected).toBe(false);
+            }
+          }
+        }
+        expect(solver.advanceSurface()).toEqual(control.advanceSurface());
+        for (const field of ["a", "f", "sigma"] as const) expect(bytes(solver[field])).toEqual(bytes(control[field]));
+        expect(solver.ledger()).toEqual(control.ledger());
+        expect(solver.simTimeSeconds).toBe(control.simTimeSeconds);
+      }
+      expect(solver.simTimeSeconds).toBeLessThan(20);
+      expect(solver.fillLedger).toBeGreaterThan(0);
+      const vapor = solver.sigma.filter((_value, index) => !solver.a[index] && !solver.wall[index]);
+      expect(Math.min(...vapor)).toBeLessThan(Math.max(...vapor));
+      expect(new LKSolver(options).basalWidthHistoryActive()).toBe(true);
+    });
+
+    it(`crosses the ${mode} cutoff without splitting and changes both coupled kinetics without attachment`, () => {
+      const cutoffSeconds = 1e-6;
+      const activeBefore = mode === "early-only";
+      const control = new LKSolver({ ...options, ...(activeBefore
+        ? { experimentalBasalWidthCells: 3 } : { paramSet: "M1_NO_DIP_ABLATION" as const }) });
+      const solver = new LKSolver({ ...options, experimentalBasalWidthCells: 3,
+        experimentalBasalWidthHistory: { mode, cutoffSeconds } });
+      depletedStart(control);
+      depletedStart(solver);
+      const relaxation = control.relaxField();
+      expect(relaxation.converged).toBe(true);
+      expect(solver.relaxField()).toEqual(relaxation);
+      const beforeDemand = independentDemand(solver, activeBefore);
+      expect(beforeDemand.selectedCount).toBe(activeBefore ? 24 : 0);
+      const first = solver.advanceSurface();
+      expect(first).toEqual(control.advanceSurface());
+      expect(first.deltaTimeSeconds).toBeGreaterThan(cutoffSeconds);
+      expect(first.attachedNow).toBe(0);
+      expect(solver.attachedCount).toBe(19);
+      for (const field of ["a", "f", "sigma"] as const) expect(bytes(solver[field])).toEqual(bytes(control[field]));
+      expect(solver.ledger()).toEqual(control.ledger());
+      expect(solver.simTimeSeconds).toBe(control.simTimeSeconds);
+
+      const fields = { a: solver.a.slice(), f: solver.f.slice(), sigma: solver.sigma.slice() };
+      const time = solver.simTimeSeconds, tick = solver.tick;
+      const ledger = solver.ledger();
+      const fill = solver.fillLedger, clipped = solver.saturationClippedFill, holes = solver.holeFillDeficit;
+      expect(solver.basalWidthHistoryActive()).toBe(!activeBefore);
+      for (const field of ["a", "f", "sigma"] as const) expect(bytes(solver[field])).toEqual(bytes(fields[field]));
+      expect(solver.ledger()).toEqual(ledger);
+      expect(solver.relaxField().converged).toBe(true);
+      expect(bytes(solver.a)).toEqual(bytes(fields.a));
+      expect(bytes(solver.f)).toEqual(bytes(fields.f));
+      expect(solver.simTimeSeconds).toBe(time);
+      expect(solver.tick).toBe(tick);
+      expect(solver.fillLedger).toBe(fill);
+      expect(solver.saturationClippedFill).toBe(clipped);
+      expect(solver.holeFillDeficit).toBe(holes);
+
+      // The changed-mode solve still uses the previous update's demand for its monopole shell.
+      const siteVolume = Math.sqrt(3) / 2 * solver.dxM * solver.dxM * solver.dxM;
+      const previousVolumeRate = beforeDemand.sum * siteVolume;
+      const shellTarget = solver.sigmaInfinity - previousVolumeRate /
+        (4 * Math.PI * solver.x0M * solver.vKinMS) / (8 * solver.dxM);
+      expect(solver.sigma[indexOf(9, 9, 17)]).toBeCloseTo(shellTarget, 14);
+      expect(shellTarget).toBeLessThan(solver.sigmaInfinity);
+
+      const afterDemand = independentDemand(solver, !activeBefore);
+      expect(afterDemand.selectedCount).toBe(activeBefore ? 0 : 24);
+      expect(afterDemand.broadCount).toBe(activeBefore ? 38 : 14);
+      const update = solver.advanceSurface(), dt = update.deltaTimeSeconds as number;
+      expect(dt).toBeGreaterThan(0);
+      expect(update.attachedNow).toBe(0);
+      expect(solver.fillLedger + solver.saturationClippedFill - fill - clipped).toBeCloseTo(afterDemand.sum * dt, 10);
+      for (const cell of afterDemand.cells) expect(solver.f[cell.index]).toBeCloseTo(cell.before + cell.rate * dt, 12);
+      expect(symmetryError(solver.a, solver.dims, solver.center)).toBe(0);
+    });
+  }
+
+  it("uses the new window when accumulated time equals the cutoff exactly", () => {
+    for (const mode of ["early-only", "late-only"] as const) {
+      const control = new LKSolver({ ...options, ...(mode === "early-only"
+        ? { experimentalBasalWidthCells: 3 } : { paramSet: "M1_NO_DIP_ABLATION" as const }) });
+      depletedStart(control);
+      expect(control.relaxField().converged).toBe(true);
+      const update = control.advanceSurface();
+      const cutoffSeconds = control.simTimeSeconds;
+      expect(cutoffSeconds).toBeGreaterThan(0);
+      const solver = new LKSolver({ ...options, experimentalBasalWidthCells: 3,
+        experimentalBasalWidthHistory: { mode, cutoffSeconds } });
+      depletedStart(solver);
+      expect(solver.relaxField().converged).toBe(true);
+      expect(solver.advanceSurface()).toEqual(update);
+      expect(solver.simTimeSeconds).toBe(cutoffSeconds);
+      expect(solver.basalWidthHistoryActive()).toBe(mode === "late-only");
+      expect(solver.relaxField().converged).toBe(true);
+      expect(solver.boundaryState(indexOf(11, 9, 10)).basalWidthSelected).toBe(mode === "late-only");
+    }
+  });
+
+  it("snapshots history inputs and rejects incomplete or invalid accidental selections", () => {
+    const history: { mode: "early-only" | "late-only"; cutoffSeconds: number } = { mode: "early-only", cutoffSeconds: 20 };
+    const solver = new LKSolver({ ...options, experimentalBasalWidthCells: 3, experimentalBasalWidthHistory: history });
+    history.mode = "late-only";
+    history.cutoffSeconds = 1;
+    expect(solver.experimentalBasalWidthHistory).toEqual({ mode: "early-only", cutoffSeconds: 20 });
+    expect(solver.experimentalBasalWidthHistory).not.toBe(history);
+    expect(solver.basalWidthHistoryActive()).toBe(true);
+    expect(() => new LKSolver({ ...options, experimentalBasalWidthHistory: history })).toThrow("requires experimentalBasalWidthCells");
+    for (const cutoffSeconds of [0, -1, NaN, Infinity]) {
+      expect(() => new LKSolver({ ...options, experimentalBasalWidthCells: 3,
+        experimentalBasalWidthHistory: { mode: "early-only", cutoffSeconds } })).toThrow("cutoffSeconds must be finite and > 0");
+    }
+    expect(() => new LKSolver({ ...options, experimentalBasalWidthCells: 3,
+      experimentalBasalWidthHistory: { mode: "full", cutoffSeconds: 20 } as unknown as LKExperimentalBasalWidthHistory }))
+      .toThrow("mode must be early-only or late-only");
+    expect(() => solver.resumeStateV3()).toThrow("ordinary LK checkpoints");
+    expect(() => solver.applyTimelineEnvironment(solver.timelineEnvironment())).toThrow("constant environment");
   });
 });

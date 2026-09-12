@@ -1813,6 +1813,56 @@ our counterfactual, not a source claim. One shared-context Astra scientific-desi
 compared the temporal intervention with changing seed radius, without code, tests or new runs;
 the temporal choice avoids confounding the initial kinetic intervention with seed volume.
 
+### Early/late implementation checkpoint — 2026-09-12
+
+The protocol was committed at `856379a5536b852eca1983ceddb84901ce176902` before implementation.
+The solver now snapshots time eligibility at relaxation entry independently of its attached-geometry
+cache. The accepted coefficient and selection feed the existing fill path; no state reset,
+timestep split, environmental event or checkpoint extension was added. Ordinary and full-width
+behavior retain their existing identities. The finite roster in
+`runner/src/post-phase10-basal-history.ts` and the existing launcher's `list-basal-history` /
+`launch-basal-history` routes implement the registered ten rows. Mixed-arm campaign metadata uses
+the history experiment label without relabeling its ordinary/global/full-width controls.
+
+The runner records pre-update window activity, actual selection and integrated selected/unselected
+computed demand. The existing cavity analyzer now retains the switch boundary, original versus
+new post-boundary opening intervals, tip advance and occupied-axis resealing witnesses. Its paired
+prefix comparison includes the recorded numerical summaries and crossing update, not unstored
+field/partial-fill equivalence. Geometric width eligibility remains distinct from active selection.
+The optional `--center-spans-um=4.2,5.6,7,8.4,9.8,12.6,18.2` readout retains the old defaults when
+absent. Historical reports have not been regenerated.
+
+Each focused file ran once, with one test worker, and passed:
+
+- `npx.cmd vitest run solver-cpu/test/lk-basal-width.test.ts --maxWorkers=1 --minWorkers=1`:
+  12/12, exit zero, 21.51 seconds in
+  `out/post-phase10-basal-history/checkpoint-2026-09-12/solver-focused.log`.
+- `node node_modules/vitest/vitest.mjs run runner/test/post-phase10-cavity-analysis.test.ts --maxWorkers=1 --minWorkers=1`:
+  26/26, exit zero, 2.40 seconds in the same directory's `analysis-focused.log` and
+  `analysis-focused-exit.json`.
+- `npx.cmd vitest run runner/test/post-phase10-basal-history.test.ts --maxWorkers=1 --minWorkers=1`:
+  4/4, exit zero, 1.39 seconds in `runner-focused.log`, with the exact command and exit in
+  `runner-focused.command.txt` and `runner-focused.exit.txt`.
+
+These checks include nonuniform numerical prefixes, both no-attachment cutoff transitions,
+independently calculated Robin/fill demand, retained partial fill/time/monopole history, recorded
+activity and identity propagation, and manufactured advancing/resealing geometries. Tiny runner
+diagnostics intentionally stop at the step cap; they are not admissible morphology results.
+`npm.cmd run typecheck` passed both root and app checks, exit zero; original output is retained
+in the same directory's `typecheck.log`. One non-author, parent-inherited Astra agent with shared
+conversation context reviewed the stable implementation against decision 0059, the timing spec,
+finite protocol and focused fixtures and found no concrete blocker. It inspected cutoff timing,
+coupling/state preservation, roster, identity/telemetry and post-switch/prefix interpretation;
+it did not rerun tests, independently recompute values, run a simulation, regenerate a report or
+review retired infrastructure. The operational reminder is to supply the explicit longer-span
+analysis option above. This is a bounded static review, not physical or full-state verification.
+
+The exact full check and registered campaign have not started. Commit this stable implementation,
+then run `npm test` once using `out/post-phase10-basal-history/checkpoint-2026-09-12/run-check.ps1`
+to retain the exact source head, command, worker count, original log and exit. Classify its result
+against the already recorded historical failures without repairing retired machinery or repeating
+the suite for confidence, then launch the registered ten rows once.
+
 ### Earlier completed-row observations
 
 `cavity-seed-thick-t4p5-m1` completed with exit 0 and an admissible size-target stop. Its raw

@@ -846,12 +846,18 @@ active launches. Parent 23280 and children 12516/41580/28944/8128 were confirmed
 the eight original fine-grid workers: twelve experiment workers total, no test worker. Separate
 launcher/per-row stderr logs are initially empty. The rows condition basal kinetics on chord
 thresholds two/three and reuse completed no-dip/basal-only controls.
-Next implement the plan's **Basal-width early/late longer investigation**, decision 0059 and
-matching attachment-spec extension after committing that protocol. Ten N112 / extent-53 rows
+The plan's **Basal-width early/late longer investigation**, decision 0059 and matching spec were
+committed at `856379a5536b852eca1983ceddb84901ce176902` before implementation. The solver,
+runner, finite roster/CLI and matched history analyzer are now implemented. Focused checks passed
+12 solver, 26 analyzer and four runner tests once; original commands/output are retained under
+`out/post-phase10-basal-history/checkpoint-2026-09-12/` and detailed in the plan's
+**Early/late implementation checkpoint**. Both typechecks passed (`npm.cmd run typecheck`,
+`typecheck.log`); the one bounded non-author static review found no concrete blocker and did not
+rerun tests or simulations. No full check or history campaign has started. Ten N112 / extent-53 rows
 cross the two temperatures with broad, global-basal, full width-three, early-only and late-only
 kinetics. A fixed twenty-second physical-time cutoff tests early growth history, not seed-only
-effects; switches occur at complete coupled-update boundaries and preserve state. Use focused
-transition/prefix/readout tests, one bounded stable review and one exact `npm test`, then the
+effects; switches occur at complete coupled-update boundaries and preserve state. Next commit
+this stable implementation, run one exact `npm test` with the retained `run-check.ps1`, then use the
 registered `launch-basal-history` command once. No new history run exists yet. Do not regenerate
 the two completed width reports, scan thresholds or change the original fine-grid jobs. Their
 matched seed/grid analysis remains pending. Keep combined workers at or below 28 and the
