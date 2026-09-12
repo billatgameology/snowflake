@@ -182,8 +182,9 @@ detail.
   Focused replay/NAS/progress tests, both loopback-serving test files with bind permission, typecheck,
   and the app build pass. Exact `TMPDIR=/private/tmp npm test` reproduces the already documented
   `main` catalog failures; its extra sandbox-only bind failures pass in the focused permitted runs.
-  PR creation and the final URL record are the next integration action; this does not close the
-  pending browser/visual or Rule 13 review boundaries.
+  Merge commit `5ef0d69` is published in
+  [PR #13](https://github.com/billatgameology/snowflake/pull/13); this does not close the pending
+  browser/visual or Rule 13 review boundaries.
 - **Maker directions (2026-08-20).** Phase 7 is on hold and, when resumed, runs as a parallel
   product/engineering track beside the science workstream (charter v1.23 already makes it
   standalone; this adds no new authority and starts nothing). The handoff mechanism is retired:

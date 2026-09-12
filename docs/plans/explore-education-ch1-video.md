@@ -114,7 +114,8 @@ Deliverables live under `docs/video/` (new directory, long-form track), separate
 ## Integration record — 2026-09-12
 
 The surviving PR branch is `explore/education-ch1-video`. It merged fetched `origin/main` at
-`c2dd1d4` into branch head `0882118`; the merge commit and PR URL will be recorded after creation.
+`c2dd1d4` into branch head `0882118`; merge commit `5ef0d69` is published in
+[PR #13](https://github.com/billatgameology/snowflake/pull/13).
 The Rule 16 audit classified the clean `main` worktree and unattached `plan/phase10-options` branch
 as unrelated, and retained ignored `out/gutcheck-growth-runB/` as plan-governed local output excluded
 from Git. No second branch contains this task's intended PR history.

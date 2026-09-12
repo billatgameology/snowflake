@@ -149,8 +149,8 @@ Branch `explore/education-ch1-video` is the sole surviving PR branch for this ca
 related Journey/media history. It merged fetched `origin/main` at `c2dd1d4` into branch head
 `0882118`, preserving both compact `?growth=` and composed `?growthScene=` render paths. The Rule 16
 audit found the clean `main` worktree and unattached `plan/phase10-options` branch unrelated; ignored
-`out/gutcheck-growth-runB/` remains this plan's local, excluded candidate output. The merge commit
-and PR URL will be added after creation.
+`out/gutcheck-growth-runB/` remains this plan's local, excluded candidate output. Merge commit
+`5ef0d69` is published in [PR #13](https://github.com/billatgameology/snowflake/pull/13).
 
 Focused replay/NAS/progress tests, both loopback-serving files with bind permission, typecheck, and
 the app build pass on the reconciled tree. Exact `TMPDIR=/private/tmp npm test` reproduces the
