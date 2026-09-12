@@ -808,8 +808,14 @@ were committed before implementation at `5f90eb0330d138a33dbc79537103c3e2f3b44be
 four-row roster/CLI, demand telemetry and distinct analyzer grouping are now implemented.
 Focused checks passed 21 analyzer tests and six solver/four runner tests; both typechecks passed.
 Exact commands, retained initial fixture/type diagnostics, successful logs and the single bounded
-static review are recorded in the plan's **Local-width implementation checkpoint**. No completed
-local-width growth outcome exists yet; the campaign launch is recorded below.
+static review are recorded in the plan's **Local-width implementation checkpoint**. The first
+local-width row, `basal-width-t4p5-le3`, has completed: its `result.json` under
+`out/post-phase10-local-basal/campaign-2026-09-11/rows/` records a size-target stop at extent 37,
+920 cycles, 12,781 attached sites and 82.56715479712955 simulated seconds, with no integrity
+errors. Its adjacent `exit.json` records exit zero at 12:18:29 UTC on 2026-09-12. The other
+three local-width workers and eight original fine-grid workers were observed live at 13:13 UTC.
+This is an execution result, not a cavity classification; wait for its same-temperature mate
+before producing the single matched quartet report. The original campaign launch follows.
 
 The single exact `npm test` at `271c70868e03a125939d97e2bee8b4f2a38ba8ce` completed, exit one:
 170 passed / 11 failed files, 2,597 passed / 18 failed / 72 skipped tests. These counts are from
