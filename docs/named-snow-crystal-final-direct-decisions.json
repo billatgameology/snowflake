@@ -1,0 +1,176 @@
+{
+  "format": "named-crystal-final-direct-decisions-v1",
+  "reviewedAt": "2026-08-31T16:59:59.2557141Z",
+  "fleets": [
+    {
+      "fleet": "a",
+      "report": {
+        "path": "out/named-crystal-catalog/final-resolution-a-v1/report.json",
+        "byteLength": 591740,
+        "sha256": "3f2450ea36371ad66198004e5f66368d59eeccb0e2ac021b46b973a121aa1cfd"
+      },
+      "contactSheet": {
+        "path": "out/named-crystal-catalog/final-resolution-a-v1/contact-sheet.png",
+        "byteLength": 10913625,
+        "sha256": "66222f9f5a84edb1b0132f7d049319b519c199eefa1c4f85f35af40a2572fcdf"
+      },
+      "verticalClearance": {
+        "path": "out/named-crystal-catalog/final-resolution-a-v1/vertical-clearance.json",
+        "byteLength": 4225,
+        "sha256": "8badf5ef28933e6f3247edff9938ac30fe0345b38839492ae3439a166615f456"
+      },
+      "families": [
+        {
+          "typeId": "simple-prisms",
+          "rationale": "All three views retain a compact simple hexagonal prism across the registered rho variation.",
+          "selectedJobIds": ["simple-prisms-lower", "simple-prisms-baseline", "simple-prisms-upper"]
+        },
+        {
+          "typeId": "hexagonal-plates",
+          "rationale": "All three variants remain broad six-sided planar plates with modest edge thickness.",
+          "selectedJobIds": ["hexagonal-plates-lower", "hexagonal-plates-baseline", "hexagonal-plates-upper"]
+        },
+        {
+          "typeId": "hollow-columns",
+          "rationale": "Oblique and axial views retain the long hollow axial column and every variant is fully framed.",
+          "selectedJobIds": ["hollow-columns-lower", "hollow-columns-baseline", "hollow-columns-upper"]
+        },
+        {
+          "typeId": "stellar-plates",
+          "rationale": "Each planar crystal keeps six broad stellar arms while varying branch reach modestly.",
+          "selectedJobIds": ["stellar-plates-lower", "stellar-plates-baseline", "stellar-plates-upper"]
+        },
+        {
+          "typeId": "capped-columns",
+          "rationale": "Every variant shows a central axial column bounded by distinct plate caps with ample vertical clearance.",
+          "selectedJobIds": ["capped-columns-lower", "capped-columns-baseline", "capped-columns-upper"]
+        },
+        {
+          "typeId": "sectored-plates",
+          "rationale": "The face views retain six broad divided sectors in all three registered variants.",
+          "selectedJobIds": ["sectored-plates-lower", "sectored-plates-baseline", "sectored-plates-upper"]
+        },
+        {
+          "typeId": "simple-needles",
+          "rationale": "All three variants remain slender axial needles and are fully contained in the tall domain.",
+          "selectedJobIds": ["simple-needles-lower", "simple-needles-baseline", "simple-needles-upper"]
+        },
+        {
+          "typeId": "fernlike-stellar-dendrites",
+          "rationale": "Each face view retains dense fernlike secondary branching along all six primary arms.",
+          "selectedJobIds": ["fernlike-stellar-dendrites-lower", "fernlike-stellar-dendrites-baseline", "fernlike-stellar-dendrites-upper"]
+        }
+      ]
+    },
+    {
+      "fleet": "b",
+      "report": {
+        "path": "out/named-crystal-catalog/final-resolution-b-v1/report.json",
+        "byteLength": 568078,
+        "sha256": "51c23843bcbb0953d07fcd4ad0fe2d8734ee07b3c7a73e130fea713c5b8a97fe"
+      },
+      "contactSheet": {
+        "path": "out/named-crystal-catalog/final-resolution-b-v1/contact-sheet.png",
+        "byteLength": 8666417,
+        "sha256": "31dd77b506bf723dd110330e9497acc6c637286f061766b5ee172008b2386cae"
+      },
+      "verticalClearance": {
+        "path": "out/named-crystal-catalog/final-resolution-b-v1/vertical-clearance.json",
+        "byteLength": 5342,
+        "sha256": "0ce28de986c0424ea7adc2aabf720180ecfdccb7bfcdfaa8c78f062998235339"
+      },
+      "families": [
+        {
+          "typeId": "solid-columns",
+          "rationale": "Each result remains a solid elongated hexagonal column and is fully framed vertically.",
+          "selectedJobIds": ["solid-columns-lower", "solid-columns-baseline", "solid-columns-upper"]
+        },
+        {
+          "typeId": "sheaths",
+          "rationale": "The trio retains thin elongated sheath-like axial forms with sufficient vertical clearance.",
+          "selectedJobIds": ["sheaths-lower", "sheaths-baseline", "sheaths-upper"]
+        },
+        {
+          "typeId": "split-plates-and-stars",
+          "rationale": "All three face views retain visibly divided or split planar stellar structure.",
+          "selectedJobIds": ["split-plates-and-stars-lower", "split-plates-and-stars-baseline", "split-plates-and-stars-upper"]
+        },
+        {
+          "typeId": "isolated-bullets",
+          "rationale": "Each tall result retains an isolated tapered bullet-like axial body and remains fully framed.",
+          "selectedJobIds": ["isolated-bullets-lower", "isolated-bullets-baseline", "isolated-bullets-upper"]
+        },
+        {
+          "typeId": "scrolls-on-plates",
+          "rationale": "The raised asymmetric scroll feature remains connected to the plate in every selected stop.",
+          "selectedJobIds": ["scrolls-on-plates-lower", "scrolls-on-plates-baseline", "scrolls-on-plates-upper"]
+        },
+        {
+          "typeId": "triangular-forms",
+          "rationale": "All three selected early stops retain the triangular outer form while showing positive growth.",
+          "selectedJobIds": ["triangular-forms-lower", "triangular-forms-baseline", "triangular-forms-upper"]
+        },
+        {
+          "typeId": "cups",
+          "rationale": "Oblique and axial views retain an open cup wall and base across all three selected stops.",
+          "selectedJobIds": ["cups-lower", "cups-baseline", "cups-upper"]
+        },
+        {
+          "typeId": "hollow-plates",
+          "rationale": "Every variant preserves a visible central plate cavity at its registered cavity radius.",
+          "selectedJobIds": ["hollow-plates-lower", "hollow-plates-baseline", "hollow-plates-upper"]
+        }
+      ]
+    },
+    {
+      "fleet": "c",
+      "report": {
+        "path": "out/named-crystal-catalog/final-resolution-c-v1/report.json",
+        "byteLength": 686526,
+        "sha256": "0807b91d123516b4cbfc6d9be8306e8a1838b21f36e1f0e76d8363240e380490"
+      },
+      "contactSheet": {
+        "path": "out/named-crystal-catalog/final-resolution-c-v1/contact-sheet.png",
+        "byteLength": 9654924,
+        "sha256": "4addc816196a172831df0702b7901d5f2028188076d8aaca1405672015cbee5d"
+      },
+      "verticalClearance": {
+        "path": "out/named-crystal-catalog/final-resolution-c-v1/vertical-clearance.json",
+        "byteLength": 4703,
+        "sha256": "b368839ad836f358f83bedea994318bc686ba08078869a3e4ff7c880ba5067a0"
+      },
+      "families": [
+        {
+          "typeId": "columns-on-plates",
+          "rationale": "Oblique and axial views retain a raised central axial structure over the plate, with all three variants fully framed.",
+          "selectedJobIds": ["columns-on-plates-lower", "columns-on-plates-baseline", "columns-on-plates-upper"]
+        },
+        {
+          "typeId": "skeletal-forms",
+          "rationale": "All three results retain open blocky skeletal arms rather than a filled planar plate.",
+          "selectedJobIds": ["skeletal-forms-lower", "skeletal-forms-baseline", "skeletal-forms-upper"]
+        },
+        {
+          "typeId": "simple-stars",
+          "rationale": "Each face view retains a six-primary-arm star outline across the small rho variation.",
+          "selectedJobIds": ["simple-stars-lower", "simple-stars-baseline", "simple-stars-upper"]
+        },
+        {
+          "typeId": "stellar-dendrites",
+          "rationale": "All three crystals retain long sixfold arms with visible secondary side branching.",
+          "selectedJobIds": ["stellar-dendrites-lower", "stellar-dendrites-baseline", "stellar-dendrites-upper"]
+        },
+        {
+          "typeId": "double-plates",
+          "rationale": "Axial and oblique views retain two separated plate levels in all three variants.",
+          "selectedJobIds": ["double-plates-lower", "double-plates-baseline", "double-plates-upper"]
+        },
+        {
+          "typeId": "capped-bullets",
+          "rationale": "The adjacent 4500, 5000 and 5500 stops each retain a long tapered bullet body and distinct hexagonal plate cap, with a visibly broadening cap sequence.",
+          "selectedJobIds": ["capped-bullets-stop-4500", "capped-bullets-stop-5000", "capped-bullets-stop-5500"]
+        }
+      ]
+    }
+  ]
+}

@@ -5,9 +5,10 @@ between them. Any model may pick up work another left mid-flight. `docs/PROGRESS
 current-state index, and the active plans hold the detailed work records; logs, checkpoints, and
 other artifacts are evidence only when one of those current records points to them.
 
-`docs/HANDOFF.md` is a manually triggered stop/restart snapshot, not a second live progress log.
-Update it only when the maker explicitly says the session is stopping, restarting, or needs an
-immediate saved handoff. During ordinary work and long runs, leave it untouched.
+The handoff mechanism is retired (maker direction, 2026-08-20). There is no live handoff
+document: `docs/PROGRESS.md` and the active plans are the sole live state, and work proceeds in
+isolated worktrees per Rule 16. `docs/HANDOFF.md` remains only as a tombstone because the
+byte-frozen progress archive links to it; never revive it as a snapshot.
 
 **`CLAUDE.md` is a symlink to this file.** Keep `AGENTS.md` canonical and never replace the
 symlink with a second copy; two instruction files will drift.
@@ -29,8 +30,7 @@ Templates live at `docs/plans/_TEMPLATE.md` and `docs/decisions/_TEMPLATE.md`.
 
 Read in this order on every cold start:
 
-0. **Read `docs/HANDOFF.md`.** It is the last explicitly requested stop/restart snapshot and may
-   predate ongoing work. Then read **`docs/phase6-lessons.md`** — every rule in it came from a real incident that cost time or
+0. **Read `docs/phase6-lessons.md`** — every rule in it came from a real incident that cost time or
    nearly cost evidence, and several are enforced by `npm test`
    (`runner/test/evidence-integrity.test.ts`).
 1. Read `docs/PROGRESS.md` completely, including **Next step**.
@@ -102,7 +102,7 @@ The root is a strict-TypeScript ESM npm workspace on Node 23.6 or newer.
 | `solver-cpu/` | Permanent float64 oracle. Exports `GGSolver`, `LKSolver`, and their shared `SurfaceOperator` contract. No Node APIs or file I/O. |
 | `runner/` | Node-only CLI and evidence boundary: argument validation, runs, stopping rules, metrics, PGM dumps, checkpoint I/O and round-trip checks, and enforced gates. |
 | `spike/` | Frozen Phase 1 Reiter prototype, deliberately outside the npm workspace. Do not evolve it into the product. |
-| `research/` | Tracked source indexes and citations; most downloaded media are local and gitignored. Never force-add copyrighted media. |
+| `research/` | Tracked source indexes and citations plus temporary, ignored local input staging. Durable private source bytes belong in governed, non-served NAS collections; never force-add copyrighted or private media. |
 | `evidence/` | Tracked, digest-pinned artifacts: evidence backing published claims (ADR 0038) plus the gut-check spike's recipes and run records (`gutcheck-gg-realism/`, relocated out of `out/` 2026-08-12). Every artifact file below it, except the two root control manifests `evidence/MANIFEST.json` and `evidence/OUT-TREES-MANIFEST.json`, must be tracked and pinned in `evidence/MANIFEST.json`; `npm test` enforces file mode, presence, byte length, and SHA-256. |
 | `app/` | Phase 3 Three.js development instrument: Web Worker CPU solver, overlays, vapor slice, picking/readouts, stop-rule parity, and deterministic visual harness. Phase 4 extends it without moving solver work onto the UI thread. |
 | `solver-gpu/` | Phase 5 WebGPU implementation and Windows/Chromium/D3D12 evidence path. Phase 7 GPU-parity work must preserve the accepted Phase 5 protocols and remains downstream of its own freeze/comparison gate. |
@@ -256,7 +256,9 @@ node runner/src/main.ts gate2b
 ```
 
 - `npm test` runs the Rule 7 scan, strict typecheck, and all Vitest suites. It is the required
-  local check, but a green self-test is not sufficient evidence for a scientific gate.
+  full check for the scientific and cross-cutting changes named in Rule 6; it is not the default
+  check for isolated website, presentation, or animation-orchestration work. A green self-test is
+  not sufficient evidence for a scientific gate.
 - `grow` is observational unless the appropriate enforcement flag is present. Printed metrics
   do not turn exit 0 into a gate result.
 - `grow-lk` is exploratory. `gate2b` is flagless because it encodes the pre-registered protocol;
@@ -296,14 +298,18 @@ node runner/src/main.ts gate2b
 - The NAS share `\\GameStation\snowcrystal` is mounted `S:` on Windows and
   `/Volumes/snowcrystal` on macOS. Never hardcode a mount: resolve it via
   `scripts/nas-root.ts` and address share files by share-relative path (the dev server's
-  `/nas/<path>` route). The emitted URL is mount-agnostic by construction; end-to-end index
-  and streaming behavior was measured on macOS, while the current Windows `S:/` path remains
-  unexecuted. Paid for twice: the 2026-08-06 and 2026-08-12 machine transfers each broke the
-  same tooling.
-- Nothing under `out/` is tracked. Treat it as disposable workspace, not a byte-for-byte
-  backup set: durable provenance lives under `evidence/`; ledgered bulk and archived scratch
-  can be restored from the NAS through `docs/nas-ledger.json`; transient logs and checks are
-  regenerated or discarded. `scripts/gutcheck-grow-batch.mjs`,
+  `/nas/<path>` route). That route authorizes only the exact public generated prefixes in
+  `docs/nas-assets.json`; share containment alone is not permission to serve a file. Emitted URLs
+  are mount-agnostic by construction. After the physical marker was installed on 2026-08-15, the
+  governed index rebuilt on macOS and a live loopback check returned 200 for a catalogued file,
+  206 for its byte range, and 403 for private and unknown roots. The Windows `S:/` write path
+  executed 2026-08-20 (the Windows write lane in `docs/plans/nas-asset-governance.md`): reads,
+  semantics probe, staged archival with receipt, and fresh-process verifies all green; SMB
+  rename crash-durability stays verification-based (win32 cannot fsync a directory handle).
+  Paid for twice: the 2026-08-06 and 2026-08-12 machine transfers each broke the same tooling.
+- Nothing under `out/` is tracked. It and ignored payloads under `research/` are local staging,
+  not evidence of either preservation or disposability; Rule 15 governs retention and cleanup.
+  `scripts/gutcheck-grow-batch.mjs`,
   `scripts/gutcheck-sweep-specs.mjs`, and `scripts/gutcheck-archive-pack.ts` re-pin the
   gut-check evidence subtree automatically. After a direct writer invocation or hand edit
   under `evidence/gutcheck-gg-realism/`, run `npm run evidence:pin`; it re-pins that subtree
@@ -387,13 +393,31 @@ Scientific milestones are **automated metrics, not screenshots** (§3.3). So:
   paragraph, and the `5463e76` retraction of the Phase 6 structural bound, whose script
   counted sigma_0 crossings while the claim governed habit — which depends on the full
   attachment coefficient alphaHK, a different quantity with a different crossing count.
-- **For executable code, tests, build configuration, gate/evidence generation or verification,
-  or any change whose governing plan names the full suite, the required local check is exact
-  `npm test`, and nothing else counts as it.** A green `npx vitest run` omits the Rule 7 scan
-  and both typechecks; quoting it as verification is how 319 scan violations merged to `main`
-  unnoticed on 2026-07-29. Pure prose, source-index, and governance edits use the cheapest check
-  that covers their actual failure surfaces, including the Rule 7 scan when repository prose
-  changes, and are never described as "suite green." Name the exact command beside any claim.
+- **Choose verification by the surface and decision risk before running it.** Exact `npm test` is
+  required when a change touches numerical or scientific behavior in `core/`, `solver-cpu/`, or
+  `solver-gpu/`; scientific readout or claim logic; a phase gate; evidence generation,
+  verification, integrity, or publication; root-wide test/build configuration; or a mixture of
+  those surfaces with product code. It also remains required when a charter or accepted ADR names
+  it for that exact scope. A green `npx vitest run` does not substitute for the full check in those
+  cases: it omits the Rule 7 scan and both typechecks, which is how 319 scan violations merged to
+  `main` unnoticed on 2026-07-29.
+- **Isolated product work stops at product-sized checks.** A presentation-only website, gallery,
+  selection UI, animation queue, camera/render recipe, or batch-orchestration change that does not
+  alter solver behavior, scientific readouts or claims, evidence, or gates uses the focused Vitest
+  files for the changed boundary, `npm run typecheck`, the app build when bundled app code changes,
+  and a live browser smoke, dry run, or representative sample render as applicable. When those pass,
+  stop. Do not run exact `npm test`, scientific gates, or unrelated solver suites merely because a
+  TypeScript file changed or because extra confidence feels desirable.
+- A plan for isolated product work must not add exact `npm test` as a default done criterion. If an
+  inherited plan does so without a scientific or cross-cutting failure surface, amend the plan to
+  this rule before continuing; a completed historical record still reports what actually ran but
+  is not precedent for repeating it.
+- Pure prose, source-index, and governance edits use the cheapest check that covers their actual
+  failure surfaces, including the Rule 7 scan when repository prose changes, and are never
+  described as "suite green." Name the exact command beside any claim.
+- Before starting any check expected to take more than five minutes, tell the maker which required
+  failure surface it covers and that it is starting. If the check is not required by the tiers
+  above and a cheaper check covers the changed boundary, do not launch it.
 
 ## Rule 7 — A bare `alpha` is banned from this repository
 
@@ -521,6 +545,103 @@ the next experiment, or a published claim. State the residual uncertainty and mo
 tripwire—not a tracked metric—if process consumes roughly one quarter of a work block without
 producing source coverage, measurements, calculations, code, experiments, or the requested
 decision, or if a second meta-validation layer appears, stop and simplify before continuing.
+
+## Rule 15 — Ignored is neither preserved nor disposable
+
+Tracked source records under `research/` remain Git authority; ignored payloads staged under
+`research/` and every byte under `out/` are temporary worktree bytes. Before a useful untracked
+byte outlives its immediate task or any local source is pruned, either promote claim-bearing bytes
+to tracked `evidence/` under decision 0038 or classify and publish the collection under decision
+0051 to the governed NAS. Scratch is explicitly declared and discarded. An ignore rule, pathname,
+digest, raw copy, or current NAS presence alone grants neither preservation nor deletion authority.
+
+On the NAS, durable payloads live only at `collections/<asset-id>/<version>/payload/`; `_control/`
+is temporary non-served operational custody. Apart from the share identity marker, those are the
+only project-owned top-level namespaces. Public-safe owner manifests live at
+`docs/nas-assets/manifests/<asset-id>/<version>.json`; manifests containing private filenames live
+at `collections/<asset-id>/<version>/manifest.private.jsonl`, and Git binds only their digest and
+aggregate. Do not recreate top-level NAS `out/` or `research-cache/`; producer-era paths are
+historical identities translated by catalogue-aware readers, not current storage destinations.
+
+Governed publication requires a catalogue entry, one owner manifest, final byte verification, a
+publication receipt, an executable restore procedure, and a successful fresh-stage restore. Local
+pruning is a separate reviewed decision derived from those committed records; no publish or restore
+command silently deletes its source. Migrated pre-transaction registrations may carry only a
+level-qualified historical verification record; that makes them discoverable and restorable, not
+transaction-certified or prune-authorizing. A detached, unmarked, or conflicting share fails
+closed and never falls back to a local worktree. Use exact reviewed targets, never a broad
+repository clean.
+
+Credentials are not assets. They never enter Git, asset collections, manifests, receipts,
+archives, or `/nas`; use the approved credential manager or runtime environment. Only catalogue-
+approved public generated prefixes may be served. Loose copies, archives, snapshots, and recycle
+entries on the same NAS are one failure domain, not an independent backup. External evidence,
+unique private sources, and irreplaceable masters require their class-specific independent recovery
+domain before the last workstation copy may be pruned.
+
+For every new retained untracked collection, execute this order:
+
+1. Inventory the local staging bytes and classify them as tracked evidence, external evidence,
+   private source, irreplaceable master, generated cache, or scratch. Do not mix classes, rights,
+   privacy, serving, or retention policies in one collection.
+2. Before writing a durable NAS path, choose one stable `<asset-id>` and immutable `<version>` and
+   add a provisional entry to `docs/nas-assets.json` with its owner workstream, class, rights,
+   privacy, serving, retention, recovery, and backup requirements.
+3. Use only `collections/<asset-id>/<version>/payload/`. Write exactly one owner manifest at the
+   public or private standard path above and bind its exact bytes, SHA-256, file count, and byte
+   count in the catalogue. Unknown or mixed material goes to a dated
+   `_control/quarantine/unresolved/<batch-id>/` inventory instead of being guessed into a class.
+4. Follow decision 0051's copy-first publication order: stable regular-file inventory; uniquely
+   named same-share `_control/` staging; source/stage hash comparison; absent immutable final
+   placement; final re-hash; publication receipt; catalogue update; then fresh restore and exact
+   restored-tree verification. Never publish with raw `rsync --ignore-existing`, merge into an
+   existing target, or make an in-place cache mutation look like a new version.
+5. Run `npm run assets:verify -- --collection <asset-id>@<version> --full`, restore to a fresh
+   `out/restores/` path, and run `npm run assets:verify-restored`. Record the exact commands and
+   results. A legacy or collection-specific procedure that cannot emit the required receipts is
+   explicitly non-prune-authorizing.
+6. Commit the catalogue, public manifest or private-manifest binding, provenance, recipe where
+   applicable, verification record, and restore procedure together. Only then may documentation
+   call the NAS copy durable.
+7. Delete local staging only through a separately reviewed exact prune list after every class-
+   specific backup requirement passes. Otherwise retain it or quarantine it. Never use broad
+   `git clean`, recursive deletion, or directory-wide globbing as the retention decision.
+
+There is intentionally no registered generic forward `assets:publish` or `assets:prune` command
+yet. Until a concrete use justifies one, a new publication uses a bounded plan that spells out the
+same steps and exact commands; the missing convenience command is never permission to skip them.
+
+## Rule 16 — One task, one branch and one worktree; reconcile before PR
+
+Default to one implementation branch in one worktree for an active task. Before creating either,
+run `git worktree list --porcelain` and `git branch -vv`; reuse the existing task worktree when it
+exists. Subagents share that worktree and do not create branches, backup refs, or additional
+worktrees unless the coordinator assigns an isolation need that cannot be met safely in place.
+
+At most one temporary detached review worktree may accompany the implementation worktree. Record
+its path, exact commit/tree, purpose, owner, and removal condition in the active plan or progress
+record when it is created. Remove it immediately when that review ends. Do not create chains named
+`backup`, `finalize`, `close`, or similar as a substitute for committing coherent checkpoints on
+the task branch. An emergency recovery ref must name what it protects and must be reconciled or
+deleted before publication.
+
+Before pushing or opening a PR, the owning agent must:
+
+1. list every registered worktree and local branch;
+2. inspect staged, unstaged, untracked, and ignored task-relevant state in each;
+3. classify every delta as included, independently owned, or verified superseded—never silently
+   discard another workstream such as education;
+4. remove temporary worktrees, then delete redundant task and backup branches only after their
+   unique changes are committed, moved to their owning worktree, or explicitly approved for
+   deletion;
+5. verify `git worktree list --porcelain` and `git branch -vv` show the primary worktree, named
+   unrelated ongoing worktrees, and exactly one branch for the PR; and
+6. record the surviving branch, head commit, checks, and PR URL in the active plan/PROGRESS and PR
+   description.
+
+`git worktree remove --force` and `git branch -D` are destructive cleanup tools, not ordinary
+workflow. Use them only after exact path/ref resolution and the disposition audit above; a dirty
+worktree by itself is never evidence that its contents are disposable.
 
 ---
 

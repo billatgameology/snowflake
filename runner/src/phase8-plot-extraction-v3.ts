@@ -29,6 +29,7 @@ import {
   type Phase8PlotRead,
   type Phase8PlotRegistration,
 } from "./phase8-plot-extraction.ts";
+import { currentResearchSharePath } from "./phase9-nas.ts";
 
 export const PHASE8_PLOT_V3_OPERATOR = "phase8b-adjudicated-plot-digitization-v3" as const;
 export const PHASE8_PLOT_V3_REGISTRATION_PATH =
@@ -743,7 +744,10 @@ function writeAtomicDirectory(directory: string, artifacts: ReadonlyMap<string, 
 }
 
 function readRegisteredNasFile(registration: Phase8PlotV3Registration, pinValue: PinnedInput): Uint8Array {
-  const path = resolve(registration.output.physicalStorageRoot, pinValue.path);
+  const path = resolve(
+    registration.output.physicalStorageRoot,
+    currentResearchSharePath(pinValue.path),
+  );
   ensureDescendant(registration.output.physicalStorageRoot, path, pinValue.path);
   return new Uint8Array(readFileSync(path));
 }
@@ -765,7 +769,10 @@ function main(argv: readonly string[]): void {
     adjudicationBytes: readRegisteredNasFile(registration, registration.inputs.adjudication),
     adjudicationReportBytes: readRegisteredNasFile(registration, registration.inputs.adjudicationReport),
   });
-  const dataDirectory = resolve(registration.output.physicalStorageRoot, registration.output.dataLogicalRoot);
+  const dataDirectory = resolve(
+    registration.output.physicalStorageRoot,
+    currentResearchSharePath(registration.output.dataLogicalRoot),
+  );
   const metadataDirectory = resolve(repositoryRoot, metadataLogicalRoot);
   writeAtomicDirectory(dataDirectory, bundle.dataArtifacts, registration.output.physicalStorageRoot);
   try {

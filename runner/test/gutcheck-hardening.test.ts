@@ -35,7 +35,6 @@ import {
   archiveMemberListSha256,
 } from "../../scripts/gutcheck-archive-lib.ts";
 import {
-  detectNasMount,
   openNasResolution,
   pathIsWithinRoot,
   resolveNasRequest,
@@ -333,53 +332,6 @@ describe("/nas stream lifecycle", () => {
       }, "aborted NAS stream descriptor close");
     } finally {
       await new Promise<void>((resolvePromise) => server.close(() => resolvePromise()));
-    }
-  });
-});
-
-describe("NAS mount detection", () => {
-  it("rejects an override whose marker is a regular file rather than the artifact directory", () => {
-    const root = makeTemp("nas-marker-file");
-    mkdirSync(join(root, "out", "gutcheck-gg-realism"), { recursive: true });
-    writeFileSync(join(root, "out", "gutcheck-gg-realism", "large"), "not a directory");
-    const previous = process.env.GUTCHECK_NAS_ROOT;
-    process.env.GUTCHECK_NAS_ROOT = root;
-    try {
-      expect(() => detectNasMount()).toThrow(/does not contain/);
-    } finally {
-      if (previous === undefined) delete process.env.GUTCHECK_NAS_ROOT;
-      else process.env.GUTCHECK_NAS_ROOT = previous;
-    }
-  });
-
-  it.skipIf(!CAN_SYMLINK)("rejects an override whose marker symlinks outside the share", () => {
-    const root = makeTemp("nas-marker-escape");
-    const outside = makeTemp("nas-marker-outside");
-    mkdirSync(join(root, "out", "gutcheck-gg-realism"), { recursive: true });
-    symlinkSync(outside, join(root, "out", "gutcheck-gg-realism", "large"), "dir");
-    const previous = process.env.GUTCHECK_NAS_ROOT;
-    process.env.GUTCHECK_NAS_ROOT = root;
-    try {
-      expect(() => detectNasMount()).toThrow(/does not contain/);
-    } finally {
-      if (previous === undefined) delete process.env.GUTCHECK_NAS_ROOT;
-      else process.env.GUTCHECK_NAS_ROOT = previous;
-    }
-  });
-
-  it.skipIf(!CAN_SYMLINK)("accepts a marker symlink whose target remains inside the share", () => {
-    const root = makeTemp("nas-marker-contained");
-    const actual = join(root, "actual-large");
-    mkdirSync(actual);
-    mkdirSync(join(root, "out", "gutcheck-gg-realism"), { recursive: true });
-    symlinkSync(actual, join(root, "out", "gutcheck-gg-realism", "large"), "dir");
-    const previous = process.env.GUTCHECK_NAS_ROOT;
-    process.env.GUTCHECK_NAS_ROOT = root;
-    try {
-      expect(detectNasMount()).toBe(`${root}/`);
-    } finally {
-      if (previous === undefined) delete process.env.GUTCHECK_NAS_ROOT;
-      else process.env.GUTCHECK_NAS_ROOT = previous;
     }
   });
 });

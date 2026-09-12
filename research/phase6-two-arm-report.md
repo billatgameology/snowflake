@@ -1,5 +1,7 @@
 # Phase 6 — the historical two-arm measured comparison
 
+> **Phase 6 completed 2026-08-20.** The amended gate (decision 0045) was discharged by the flagless gate6 at exit 0; the WP5 preview-GPU cohort moved to Phase 7 by decision 0044. Statements of an active plan or open gate below are historical as of their own dates. See docs/PROGRESS.md and evidence/phase6-three-arm-report/report.md.
+
 > **Gate status corrected 2026-08-01.** The 3/90 and 54/90 values in this report are measured-only
 > counts, not ADR 0026's registered conservative-intersection headline. R15 and the charter's GPU
 > and held-out obligations remain open under the science-first completion plan.

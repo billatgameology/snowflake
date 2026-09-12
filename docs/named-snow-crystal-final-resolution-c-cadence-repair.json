@@ -1,0 +1,104 @@
+{
+  "format": "named-crystal-final-resolution-c-cadence-repair-v1",
+  "fleetManifest": "docs/named-snow-crystal-final-resolution-production-c.json",
+  "firstPassRoot": "out/named-crystal-catalog/final-resolution-c-v1",
+  "repairRoot": "out/named-crystal-catalog/final-resolution-c-cadence-repair-v1",
+  "archiveRoot": "out/named-crystal-catalog/final-resolution-c-cadence-failures-v1",
+  "firstPass": {
+    "report": {
+      "path": "out/named-crystal-catalog/final-resolution-c-v1/report.json",
+      "byteLength": 524024,
+      "sha256": "84415852227cc635782358f5f2342173ff47edd9d2b910614a7a1b919e0d320e"
+    },
+    "launch": {
+      "path": "out/named-crystal-catalog/final-resolution-c-v1/launch.json",
+      "byteLength": 47120,
+      "sha256": "0ed478a883ec62b498418b6d3514cf02d02e225935f73e64d408114231322349"
+    },
+    "verticalClearance": {
+      "path": "out/named-crystal-catalog/final-resolution-c-v1/vertical-clearance.json",
+      "byteLength": 4703,
+      "sha256": "b368839ad836f358f83bedea994318bc686ba08078869a3e4ff7c880ba5067a0"
+    }
+  },
+  "jobs": [
+    {
+      "jobId": "columns-on-plates-upper",
+      "finalTick": 10251,
+      "firstFramesEvery": 119,
+      "firstFrameCount": 88,
+      "repairFramesEvery": 86,
+      "expectedRepairFrameCount": 121,
+      "invariantFiles": {
+        "mesh.bin": {
+          "byteLength": 20258404,
+          "sha256": "642ed732e5cc98a130d648738b907f951370d6d06114b8298ed46a3f49268693"
+        },
+        "state.bin": {
+          "byteLength": 1175040520,
+          "sha256": "ff2376f6c5357b11546cfa74c462b23f037983f03fea0590755ed0cfd45a95d0"
+        },
+        "record.json": {
+          "byteLength": 2314,
+          "sha256": "0c82075d5e4c45e76e1dcba0aa973bfb3eee9247fd2059b723da907fa1023b12"
+        },
+        "growth-v1.bin": {
+          "byteLength": 1599556,
+          "sha256": "21e93af6a17e4114247784b88e958d4a93315c7be056c9f8b1d899ccfe38dc92"
+        }
+      }
+    },
+    {
+      "jobId": "double-plates-baseline",
+      "finalTick": 33737,
+      "firstFramesEvery": 359,
+      "firstFrameCount": 95,
+      "repairFramesEvery": 282,
+      "expectedRepairFrameCount": 121,
+      "invariantFiles": {
+        "mesh.bin": {
+          "byteLength": 46396564,
+          "sha256": "7a96f4cae2f7cc43b9de31d9d3771937a0e778247c75772420338dab07d697a1"
+        },
+        "state.bin": {
+          "byteLength": 587520510,
+          "sha256": "28b98648c70d6ff9b1e98b850edd65b40b281e0e012ecaa05894b248021b8975"
+        },
+        "record.json": {
+          "byteLength": 2285,
+          "sha256": "de3c3d9c5ce494155b3ed7a009df4d467d2a2af2f95fd63bd4f0f93ef7074020"
+        },
+        "growth-v1.bin": {
+          "byteLength": 5877043,
+          "sha256": "4b946c21e570e6e445e0ca9e50cd1edefe2da5544d44a8d1b3d862e092a2ff5f"
+        }
+      }
+    },
+    {
+      "jobId": "double-plates-upper",
+      "finalTick": 31081,
+      "firstFramesEvery": 359,
+      "firstFrameCount": 88,
+      "repairFramesEvery": 260,
+      "expectedRepairFrameCount": 121,
+      "invariantFiles": {
+        "mesh.bin": {
+          "byteLength": 46553772,
+          "sha256": "d5641bc8a8c876f60e60f92fae21de86867657f80f661610e4b973e1f635ce2b"
+        },
+        "state.bin": {
+          "byteLength": 587520512,
+          "sha256": "8190eaffb5a3273fb7ba2ac75edd162809a1801158745d3941c257cee23351e5"
+        },
+        "record.json": {
+          "byteLength": 2287,
+          "sha256": "804b9cb1456ac21ec0aaeee95fa581c24d5839419a7fe396269d79bfa09eadbb"
+        },
+        "growth-v1.bin": {
+          "byteLength": 6214238,
+          "sha256": "d40529a8ce8363d7e5c5ab102fd97ca71d0ffc8f7879ac365d19982ea171cde3"
+        }
+      }
+    }
+  ]
+}

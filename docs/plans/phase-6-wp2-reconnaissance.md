@@ -1,7 +1,8 @@
 # Plan — Phase 6 WP2 reconnaissance: cost, axes, and the third arm (non-transferable)
 
 - **Phase:** Phase 6 — Validation against the Nakaya diagram
-- **Status:** in progress
+- **Status:** CLOSED 2026-08-20 — Stage A closed by amendment as the ladder's cost model;
+  Stage B closed unexecuted under decision 0045; Phase 6 is complete
 - **Started:** 2026-08-06
 - **Last touched:** 2026-08-06 by Claude Fable 5
 

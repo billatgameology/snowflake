@@ -20,6 +20,7 @@ import {
   sha256Bytes,
   type StrictJson,
 } from "./gate4-evidence.ts";
+import { currentResearchSharePath } from "./phase9-nas.ts";
 
 const OPERATOR = "phase8b-two-reader-plot-digitization-v2";
 const OPERATOR_PATH = "research/phase8b-plot-operator-v2.json";
@@ -1096,7 +1097,7 @@ function descendant(root: string, path: string, label: string): string {
 
 function expectedPhysicalPath(registration: Registration, logicalRoot: string, label: string): string {
   const physicalRoot = realpathSync(registration.roots.physicalStorageRoot);
-  const candidate = resolve(physicalRoot, logicalRoot);
+  const candidate = resolve(physicalRoot, currentResearchSharePath(logicalRoot));
   const displacement = relative(physicalRoot, candidate);
   if (displacement === "" || displacement === ".." || displacement.startsWith(`..${sep}`) || isAbsolute(displacement)) {
     throw new Error(`${label} leaves the registered physical storage root`);

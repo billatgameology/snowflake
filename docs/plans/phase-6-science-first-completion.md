@@ -1,7 +1,8 @@
 # Plan — Phase 6 science-first gate completion
 
 - **Phase:** Phase 6 — Validation against the Nakaya diagram
-- **Status:** in progress
+- **Status:** COMPLETE 2026-08-20 — `gate6` exit 0 discharged the decision-0045-amended Done
+  when; see the Completion record below
 - **Started:** 2026-08-01
 - **Last touched:** 2026-08-10 by OpenAI Codex (current authority summary reconciled)
 
@@ -478,7 +479,9 @@ producer-supplied pass field is trusted.
 - [ ] Use reconnaissance only to estimate feasibility and freeze candidate axes plus deterministic
   escalation rules. It cannot select or certify a production geometry, discharge domain/grid/time
   adequacy, or enter the gate result.
-- [ ] **Pre-register the deterministic numerical-control ladder.** After WP1 freezes exact
+- [x] (0045-amended form: docs/plans/phase-6-wp2-ladder.md, frozen 2026-08-08 after a
+  three-round pre-execution review) **Pre-register the deterministic numerical-control
+  ladder.** After WP1 freezes exact
   source-derived physical-size strata, commit and independently review the control protocol before
   any transferable row runs. Freeze the exact arms/points, rational spacing rungs, domain
   increments, timestep halvings, relaxation controls, physical-seed mappings and sensitivities,
@@ -486,7 +489,9 @@ producer-supplied pass field is trusted.
   set, binary64 schema, immutable execution provenance, and the deterministic function that selects
   one production configuration or returns no-pass. Reconnaissance may inform the candidate ladder
   but cannot satisfy it.
-- [ ] **Execute the registered numerical-control ladder.** At each physical size and spacing,
+- [x] (0045-amended form executed 2026-08-08 → 2026-08-20: 80/80 rows, budget-capped scope
+  per the frozen ladder plan) **Execute the registered numerical-control ladder.** At each
+  physical size and spacing,
   expand the far boundary until two successive registered increments pass; execute the whole
   204-point domain matrix for every arm/spacing/size unless an independently reviewed bound covers
   omissions; use at least three spacings plus ADR 0026's conditional fourth; halve the interface
@@ -494,7 +499,9 @@ producer-supplied pass field is trusted.
   Preserve every rung under `evidence/` and apply only the pre-registered numerical criteria and
   selection function. Morphology agreement may not choose a rung. If the ladder exhausts, publish
   that numerical blocker; any extension requires a new reviewed pre-registration.
-- [ ] **Publish the artifact-derived numerical-control result.** Independent recomputation derives
+- [x] (published 2026-08-20: evidence/phase6-wp2-ladder/, NO-PASS class criterion,
+  review-confirmed independent re-derivation, suite-pinned verifier) **Publish the
+  artifact-derived numerical-control result.** Independent recomputation derives
   either the exact selected spacing/domain/timestep/relaxation/seed configuration or no-pass from
   the registered bytes. These rows are numerical-control evidence only and are not recycled into
   R15 production morphology evidence.
@@ -615,20 +622,93 @@ configuration or no-pass → WP3 production binding → fresh R15 production exe
 
 ### WP8 — gate, publication, and handoff
 
-- [ ] Build one flagless Phase 6 gate whose preflight and evaluator re-derive every obligation from
+- [x] (2026-08-20: `runner/src/gate6-aggregate.ts`, `node runner/src/main.ts gate6`, exit 0 at
+  `44488ab`, 13/13 criteria; under decision 0045 the R15 conservative intersection is
+  re-derived as its closure label — not computed — never as a computed verdict) Build one
+  flagless Phase 6 gate whose preflight and evaluator re-derive every obligation from
   committed evidence: freeze identity, source-derived size strata, numerical controls, R15
   conservative intersection, all three separate float64 arms, diagrams, reports, evidence labels,
   and the decision-0043/0044 deferral records. It verifies the deferrals without pretending the
   deferred executions are gate evidence.
-- [ ] Execute all registered negative controls and prove each named mutation occurred independently
-  of the verifier it attacks.
-- [ ] Run exact `npm test`; no substitute command counts as the required local check.
-- [ ] Obtain the gate unit's one proportionate non-author review under decision 0042. It states
+- [x] (2026-08-20: 14 controls in `runner/test/gate6-aggregate.test.ts` covering all 13
+  criteria and the six registered names plus the 0045-converted closure-label swap; each
+  mutation is a plain-data edit on a cloned capture, executed and witnessed independently of
+  the evaluator) Execute all registered negative controls and prove each named mutation
+  occurred independently of the verifier it attacks.
+- [x] (2026-08-20, recorded in the completion record below) Run exact `npm test`; no
+  substitute command counts as the required local check.
+- [x] (2026-08-20, recorded in the completion record below) Obtain the gate unit's one
+  proportionate non-author review under decision 0042. It states
   model/context provenance, independently re-executed checks, explicit limits, and separates
   blockers from non-blocking hardening suggestions.
-- [ ] Reconcile the charter, ADRs, solver specs, plan, `docs/PROGRESS.md`, reports, and user-facing
+- [x] (2026-08-20: PROGRESS carries the completion record and gate-table row; the closure
+  labels and deferral language verify by gate criterion; education prose stays frozen as
+  post-Phase-6 maker-directed territory; HANDOFF untouched — no stop/restart was requested)
+  Reconcile the charter, ADRs, solver specs, plan, `docs/PROGRESS.md`, reports, and user-facing
   evidence labels. Reconcile `docs/HANDOFF.md` only if the maker requests a stop/restart handoff.
   Phase 6 changes to complete only if the artifact-derived gate exits zero.
+
+## Completion record (2026-08-20)
+
+Phase 6 changed to complete on `gate6`'s exit 0 (13/13 criteria at `44488ab`), per WP8's rule.
+The discharge is decision 0045's amended Done-when: frozen WP1 strata; the executed 80/80
+numerical-control ladder with its published, review-confirmed **NO-PASS (criterion)** verdict;
+the three measured-only arms (CAK 3/90; M1 54/78 arm scope, 54/90 common denominator;
+`M1_NO_DIP_ABLATION` 5/78, 5/90); the pinned three-arm narrative
+(`evidence/phase6-three-arm-report/report.md`) stating agreements, disagreements, numerical
+limits, and the accepted failure to reproduce the Nakaya diagram; the 0043/0044 deferral
+records verified as unexecuted Phase 7 property; and the closure labels everywhere the gate
+checks. The unchecked boxes remaining in WP2 (reconnaissance items), WP3, WP4, and WP6 above
+are intentionally unexecuted: decision 0045 closed those obligations as **not computed**,
+never as satisfied, and checking them would misstate history. No Phase 6 label was upgraded;
+the phase closes with zero quantitative-validation claims. The gate unit's non-author review
+and the exact `npm test` run that gated the closure push are recorded in the review record
+appended below and in PROGRESS.
+
+## Gate unit review record (post-execution, 2026-08-20)
+
+**Engagement.** The WP8 gate unit's one proportionate non-author review under decision 0042
+(adversarial, per decision 0049's phase-gate tier). Provenance (Rule 10): nine independent
+Claude Fable 5 (`claude-fable-5`) agent contexts orchestrated from the authoring session but
+sharing no conversation state with it — four reviewers (adversarial code review with executed
+novel mutations; a firewalled independent re-execution of every criterion from the obligations
+documents; a full-number accuracy audit of the narrative; a repo-wide reconciliation sweep)
+plus adversarial verification of every claimed blocker. Different-model status is NOT
+established (the same limitation every prior unit review recorded).
+
+**Confirmed blockers, all remediated same-session.** (1) The gate was fail-open to additive
+contradictions in manifest-pinned prose: the reviewer EXECUTED an end-to-end escape —
+a merged-tally "quantitatively validating" sentence committed into the narrative with a
+self-consistently refreshed manifest pin passed every criterion. Fix: a code-frozen identity
+register (`GATE6_FROZEN_EVIDENCE`) now pins the exact bytes of all 13 closure-evidence files
+in gate source, so any edit requires a gate code change; the executed attack is a suite-pinned
+negative control (`NC-ADDITIVE-CONTRADICTION`). (2–5) Four stale-status documents contradicted
+the completion: PROGRESS's "active Phase 6 authority" line, this plan's own status header,
+README's project-status list ("Phase 6: active", "ladder is executing"), and the WP2 ladder
+plan's pre-execution FROZEN header — all reconciled, and the progress-index guard gained
+Phase 6 contradiction patterns so the stale forms can never return silently.
+
+**Concerns adopted.** Manifest criterion upgraded from a count floor to the exact
+26-path set (executed entry-swap escape now a control, `NC-MANIFEST-ENTRY-SWAP`); row-honesty
+made bidirectional (an excluded score on a valid run is a defect; executed laundering escape
+now `NC-EXCLUDED-LAUNDERING`); arm 2's gated values hash now verified like arms 1 and 3
+(`NC-ARM2-PROVENANCE-FORGE`); the pin register, Phase 6 conclusion record, arm-3 and
+reconnaissance plan headers, and the Phase 9 bullet's "unpublished verdict" phrasing all
+carry dated corrections. The narrative-vs-arm-tally cross-check concern is closed by the
+frozen-identity register (the narrative can no longer drift from the reports it quotes,
+because neither can change without a gate code change).
+
+**Accepted limitations, recorded.** The charter's decision-0046/0050 sequencing clauses still
+say "while Phase 6 remains active" — they are permission grants that are now moot, and
+retiring them is charter-amendment territory for the maker's next ADR, not a WP8 edit.
+Deferred hardening (non-blocking, recorded): the gut-check Designer-unavailable reason string
+(`app/src/spike-gg-realism.ts`) and the two social-exploration rationale lines still cite an
+active Phase 6; their functional conclusions remain correct. The independent re-execution and
+narrative-accuracy reviewers returned zero blockers: every recomputed tally, per-regime count,
+bistable figure, ladder number, and hash abbreviation verified against the artifact bytes.
+
+**Verdict: CONFIRMED after remediation — 0 open blockers.** The gate's negative-control suite
+grew 14 → 18, all executed. The closure push is gated on exact `npm.cmd test` exit 0.
 
 ## Evidence topology
 

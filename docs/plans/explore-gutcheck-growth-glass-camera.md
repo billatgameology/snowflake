@@ -142,3 +142,18 @@ selection returned no available session, so no fresh WebGL capture or visual ins
 this record. The historical v5 browser record remains the latest accepted visual evidence, but it
 validates the prior bold-ice/stationary-camera presentation only and must not be cited for this
 candidate.
+
+## Integration record — 2026-09-12
+
+Branch `explore/education-ch1-video` is the sole surviving PR branch for this candidate and the
+related Journey/media history. It merged fetched `origin/main` at `c2dd1d4` into branch head
+`0882118`, preserving both compact `?growth=` and composed `?growthScene=` render paths. The Rule 16
+audit found the clean `main` worktree and unattached `plan/phase10-options` branch unrelated; ignored
+`out/gutcheck-growth-runB/` remains this plan's local, excluded candidate output. The merge commit
+and PR URL will be added after creation.
+
+Focused replay/NAS/progress tests, both loopback-serving files with bind permission, typecheck, and
+the app build pass on the reconciled tree. Exact `TMPDIR=/private/tmp npm test` reproduces the
+already-recorded `main` catalog failures; additional sandbox-only bind denials pass in those focused
+permitted runs. This reconciliation does not supply the still-pending fresh browser/WebGL visual
+acceptance.

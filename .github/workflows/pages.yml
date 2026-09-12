@@ -1,6 +1,6 @@
 # Publish the education site to GitHub Pages.
 #
-# SCOPE — this builds an explicit 33-page artifact from the public runtime
+# SCOPE — this builds an explicit 37-page artifact from the public runtime
 # assets and the pages pinned by tools/site-manifest.json. Repository tooling,
 # the rest of docs/, and research/ never enter the upload directory. FIGURES.md
 # is public runtime content because figure citation cards link to it. Widening
@@ -79,8 +79,8 @@ jobs:
             readFileSync(join(source, "tools/site-manifest.json"), "utf8"),
           );
           const expected = Object.keys(manifest).sort();
-          if (expected.length !== 33) {
-            throw new Error(`Expected the pinned 33-page course, got ${expected.length} pages`);
+          if (expected.length !== 37) {
+            throw new Error(`Expected the pinned 37-page course, got ${expected.length} pages`);
           }
           if (existsSync(staged)) {
             throw new Error(`Refusing to reuse an existing staging directory: ${staged}`);

@@ -110,3 +110,17 @@ Deliverables live under `docs/video/` (new directory, long-form track), separate
   same. If the maker wants an on-camera presenter, the ON SCREEN column needs a pass.
 - Whether the cold open should later be upgraded with a MODEL growth-timeline render once one
   is cleared for use (with the spoken disclosure). The script works without it.
+
+## Integration record — 2026-09-12
+
+The surviving PR branch is `explore/education-ch1-video`. It merged fetched `origin/main` at
+`c2dd1d4` into branch head `0882118`; the merge commit and PR URL will be recorded after creation.
+The Rule 16 audit classified the clean `main` worktree and unattached `plan/phase10-options` branch
+as unrelated, and retained ignored `out/gutcheck-growth-runB/` as plan-governed local output excluded
+from Git. No second branch contains this task's intended PR history.
+
+Verification on the reconciled tree: the replay/NAS/progress focused tests passed; both local-server
+test files passed with loopback permission; `npm run typecheck` and `npm run build --workspace app`
+passed. Exact `TMPDIR=/private/tmp npm test` reproduced the failure set already documented on
+`main`, plus sandbox-only loopback bind denials that the permitted focused runs discharged. This
+integration changes neither the pending Rule 13 adversarial audit nor the publication boundary.

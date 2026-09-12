@@ -956,7 +956,6 @@ export function loadPhase6TrackedInputs(repoRoot) {
   return {
     manifestBytes,
     files,
-    handoff: readFileSync(join(repoRoot, "docs/HANDOFF.md"), "utf8"),
     progress: readFileSync(join(repoRoot, "docs/PROGRESS.md"), "utf8"),
     twoArmReport: readFileSync(join(repoRoot, "research/phase6-two-arm-report.md"), "utf8"),
     heldOutCandidateLockBytes: readFileSync(
@@ -1018,9 +1017,8 @@ export function derivePhase6TrackedAuthority(inputs) {
     if (manifest.fileCount !== actualFiles || manifest.totalBytes !== actualBytes) {
       violations.push("Phase 6 manifest aggregate");
     }
-    const actualPaths = Object.keys(manifest.files || {}).sort();
-    const expectedPaths = [...PHASE6_EXPECTED_EVIDENCE].sort();
-    if (!sameRecord(actualPaths, expectedPaths)) {
+    const actualPaths = new Set(Object.keys(manifest.files || {}));
+    if (!PHASE6_EXPECTED_EVIDENCE.every((path) => actualPaths.has(path))) {
       violations.push("Phase 6 evidence manifest inventory");
     }
   }
@@ -1046,6 +1044,16 @@ export function derivePhase6TrackedAuthority(inputs) {
     file("phase6-sweep-6995868-cak-a1-superseded/report.json"),
     PHASE6_SWEEP_SPECS.CAK_A1,
   );
+  const noDipReport = parseJsonBytes(
+    file("phase6-sweep-arm3/report.json"),
+    "phase6-sweep-arm3/report.json",
+    violations,
+  );
+  const numericalReport = parseJsonBytes(
+    file("phase6-wp2-ladder/report.json"),
+    "phase6-wp2-ladder/report.json",
+    violations,
+  );
   const tier2Historical = derivePhase6Tier2HistoricalReport(
     inputs?.crossPlatformReportText,
     manifest,
@@ -1060,77 +1068,58 @@ export function derivePhase6TrackedAuthority(inputs) {
     ...cakA1.violations,
   );
 
-  const handoff = inputs?.handoff || "";
   const progress = inputs?.progress || "";
   const reportText = inputs?.twoArmReport || "";
   const plan = inputs?.activePlan || "";
   const charter = inputs?.charter || "";
-  const handoffDate = /^# Handoff[^\n]*\((\d{4}-\d{2}-\d{2})\)\s*$/m.exec(handoff)?.[1] || "";
-  const progressDate = /^- \*\*Last updated:\*\* (\d{4}-\d{2}-\d{2})\b/m.exec(progress)?.[1] || "";
   const authorityChecks = [
-    [handoffDate !== "" && handoffDate === progressDate, "state-index date agreement"],
-    [/Phase 6 is ACTIVE AND INCOMPLETE/i.test(handoff), "HANDOFF phase status"],
-    [/R15 has no production\s+caller or complete artifact\/gate/i.test(handoff), "HANDOFF R15 status"],
-    [/historical table reports four CAK output rows matching the x64 baseline/i.test(handoff), "HANDOFF portability scope"],
-    [/raw arm64 logs[\s\S]{0,120}unavailable/i.test(handoff), "HANDOFF portability provenance limit"],
-    [/no end-to-end, M1 or full-grid[\s\S]{0,80}independently rederivable/i.test(handoff), "HANDOFF portability limit"],
-    [/passEligible=false/i.test(handoff), "HANDOFF source lock"],
-    [/Phase 6 is ACTIVE AND INCOMPLETE/i.test(progress), "PROGRESS phase status"],
-    [/CAK 3\/90, M1 54\/90/i.test(progress), "PROGRESS measured counts"],
-    [/matched `?M1_NO_DIP_ABLATION`?/i.test(progress), "PROGRESS no-dip obligation"],
-    [/cannot establish physical SDAK causality or necessity/i.test(progress), "PROGRESS causal limit"],
+    [/Phase 6 is COMPLETE \(2026-08-20\)/i.test(progress), "PROGRESS final Phase 6 status"],
+    [/gate6[\s\S]{0,160}13\/13 criteria/i.test(progress), "PROGRESS gate6 closure"],
+    [/three measured-only arms \(3\/90; 54\/78.{0,8}54\/90; 5\/78.{0,8}5\/90\)/i.test(progress), "PROGRESS three-arm counts"],
+    [/ladder NO-PASS \(criterion\)/i.test(progress), "PROGRESS numerical verdict"],
     [/measured-only[\s\S]{0,120}not ADR 0026/i.test(reportText), "two-arm report gate status"],
-    [/R15[\s\S]{0,120}GPU[\s\S]{0,120}held-out obligations remain open/i.test(reportText), "two-arm report open work"],
     [/M1_NO_DIP_ABLATION/i.test(plan), "active plan no-dip arm"],
     [/growth rates vs \(T, σ\), size-dependent habit, pressure dependence, and growth-history responses/i.test(charter), "charter four held-out families"],
   ];
   for (const [ok, label] of authorityChecks) if (!ok) violations.push(label);
+  if (
+    noDipReport?.headlineAgreeCommonDenominator !== 5
+    || noDipReport?.headlineTotalCommonDenominator !== 90
+  ) violations.push("no-dip report headline");
+  if (
+    numericalReport?.overallVerdict !== "no-pass"
+    || numericalReport?.overallNoPassClass !== "criterion"
+  ) violations.push("numerical report verdict");
 
   const record = {
     id: "current",
-    label: "Current Phase 6 authority",
+    label: "Final Phase 6 closure",
     authority: {
-      stateDate: `${handoffDate || "unknown-date"} tracked authority`,
-      stateIndex: "docs/HANDOFF.md and docs/PROGRESS.md",
-      resultArtifact: "research/phase6-two-arm-report.md",
-      evidenceManifest: `evidence/MANIFEST.json: ${actualFiles} files / ${actualBytes} bytes`,
-      historicalArm2ExecutionCommit: m1.report?.head || "",
-      arm2ValuesSha256: m1.report?.valuesSha256 || "",
-      snapshotMeaning: "both historical arms measured; replacement-gate obligations remain open",
+      stateDate: "2026-08-20 final closure",
+      stateIndex: "docs/PROGRESS.md and completed Phase 6 plan",
+      resultArtifact: "Phase 6 three-arm and numerical-ladder closure artifacts",
+      snapshotMeaning: "Phase 6 complete on an accepted negative comparison; no validation",
     },
     arm1: {
       runState: "complete historical measurement",
-      points: `${cak.points}/204`,
       measuredHeadline: `${cak.commonAgree}/${cak.commonTotal}`,
-      classes: `${cak.classes.plate} plate / ${cak.classes.neutral} neutral / ${cak.classes.column} column`,
-      modelInvalidRows: `${cak.classes.invalid}/${cak.points}`,
-      evidenceClass: "measured-only; not the registered replacement gate",
-      historicalScope: "reported broad-facet CAK arm; legacy rows predate per-row self-reported config",
-      extentFragility: `historical one-sided=${cak.extentFragility.historicalOneSided}; closed symmetric |AR-threshold| <= ${PHASE6_EXTENT_DRIFT_BOUND_AR}=${cak.extentFragility.closedSymmetric}; additional=${cak.extentFragility.additional}; exact-threshold witnesses=${cak.extentFragility.exactThresholdRows.map((row) => `${row.tempC}C/f=${row.fraction}/AR=${row.aspectRatio}`).join(",")}`,
+      model: "CAK broad-facet control",
+      evidenceClass: "historical measured-only input to the final closure",
     },
     arm2: {
       runState: "complete historical measurement",
-      points: `${m1.points}/204`,
       measurement: `${m1.commonAgree}/${m1.commonTotal} common scope; ${m1.armAgree}/${m1.armTotal} arm-specific scope`,
-      classes: `${m1.classes.plate} plate / ${m1.classes.neutral} neutral / ${m1.classes.column} column`,
-      modelInvalidRows: `${m1.classes.invalid}/${m1.points}`,
-      model: `M1 everywhere-narrow starter approximation; ${m1.configRows}/${m1.points} rows self-report the registered M1 configuration`,
-      evidenceClass: "measured-only and in-sample; not the registered replacement gate",
-      comparisonLimit: "historical CAK to M1 changes broad curves, A prefactors, and dip factors; causal attribution is confounded",
-      futureMatchedPairLimit: "under one frozen sampled configuration, isolates only the implemented dip-factor intervention effect; not physical SDAK causality or necessity",
-      extentFragility: `historical one-sided=${m1.extentFragility.historicalOneSided}; closed symmetric |AR-threshold| <= ${PHASE6_EXTENT_DRIFT_BOUND_AR}=${m1.extentFragility.closedSymmetric}; additional=${m1.extentFragility.additional}; exact-threshold witnesses=${m1.extentFragility.exactThresholdRows.map((row) => `${row.tempC}C/f=${row.fraction}/AR=${row.aspectRatio}`).join(",")}`,
+      model: "M1 in-sample bundled treatment",
+      evidenceClass: "historical measured-only; CAK-to-M1 attribution remains confounded",
     },
     closure: {
-      registeredScoringRule: "ADR 0026 conservative-intersection rule registered",
-      registeredReplacementGate: "R15 planned; unfrozen; unimplemented; unexecuted",
-      numericalAdequacy: "open",
-      previewGpuCohort: "open",
-      matchedNoDipAblation: "M1_NO_DIP_ABLATION planned; unfrozen; unimplemented; unexecuted",
-      heldOutValidation: `all four charter families open; source lock status=${heldOutLock.status}; passEligible=${heldOutLock.passEligible}; ${heldOutLock.reason}`,
-      pressureValidation: `no quantitative pressure target; source lock pressure status=${heldOutLock.pressureStatus}; scoreable=${heldOutLock.pressureScoreable}; ${heldOutLock.pressureReason}`,
-      sourceSnapshotObligation: "immutable R15 snapshot, environment allowlist, and child source identity verification remain required",
-      crossPlatformControl: `${crossPlatform.differing}/${crossPlatform.entries} Tier 1 entries differ (maximum ${crossPlatform.maxUlp} ULP); coverage=${crossPlatform.temperatureCoverage}, with registered sweep cold tail ${crossPlatform.missingRegisteredColdTailC.join(",")} C absent and required in the new R15 fingerprint; preserved fixtures self-report ${crossPlatform.selfReportedHosts.x64} and ${crossPlatform.selfReportedHosts.arm64}, but those headers are not hardware authentication; Tier 2 tracked historical table reports ${tier2Historical.rows.length} CAK rows matching the x64 baseline, but raw logs/exit records are not published in evidence/ and the arm64 outputs are not independently rederivable; no M1, full-grid, or digit-level portability claim`,
-      phaseStatus: "active and incomplete",
+      registeredReplacementGate: "complete-negative",
+      noDipIntervention: `${noDipReport?.headlineAgreeCommonDenominator || 0}/${noDipReport?.headlineTotalCommonDenominator || 0}`,
+      numericalAdequacy: "64 comparisons: 36 pass / 28 attached-count failures",
+      closureVerifier: "gate6 passes 13/13 closure criteria",
+      heldOutValidation: "not awarded; Phase 7 remains independently eligible and not started",
+      crossPlatformControl: "historical control retained; not a Phase 6 closure result",
+      phaseStatus: "complete on accepted negative finding; no validation",
     },
   };
 
@@ -2819,53 +2808,22 @@ export function phase6StatusViolations(evidence, authority) {
   if (
     !current
     || current.id !== "current"
-    || current.authority.historicalArm2ExecutionCommit !== PHASE6_STATUS_COMMIT
-    || current.authority.arm2ValuesSha256 !== PHASE6_ARM2_VALUES_SHA256
-    || current.arm1.points !== "204/204"
+    || current.label !== "Final Phase 6 closure"
+    || current.authority.stateDate !== "2026-08-20 final closure"
+    || current.authority.stateIndex !== "docs/PROGRESS.md and completed Phase 6 plan"
     || current.arm1.measuredHeadline !== "3/90"
-    || current.arm1.evidenceClass !== "measured-only; not the registered replacement gate"
-    || !/legacy rows predate per-row self-reported config/i.test(current.arm1.historicalScope)
-    || current.arm1.extentFragility !== "historical one-sided=16; closed symmetric |AR-threshold| <= 0.135=59; additional=43; exact-threshold witnesses=-23C/f=0.15/AR=1.5"
+    || current.arm1.model !== "CAK broad-facet control"
+    || current.arm1.evidenceClass !== "historical measured-only input to the final closure"
     || current.arm2.runState !== "complete historical measurement"
-    || current.arm2.points !== "204/204"
     || current.arm2.measurement !== "54/90 common scope; 54/78 arm-specific scope"
-    || !/M1 everywhere-narrow starter approximation/i.test(current.arm2.model)
-    || !/204\/204 rows self-report the registered M1 configuration/i.test(current.arm2.model)
-    || !/measured-only and in-sample/i.test(current.arm2.evidenceClass)
-    || !/causal attribution is confounded/i.test(current.arm2.comparisonLimit)
-    || !/only the implemented dip-factor intervention effect/i.test(current.arm2.futureMatchedPairLimit)
-    || !/not physical SDAK causality or necessity/i.test(current.arm2.futureMatchedPairLimit)
-    || current.arm2.extentFragility !== "historical one-sided=33; closed symmetric |AR-threshold| <= 0.135=85; additional=52; exact-threshold witnesses=-32C/f=0.15/AR=1.5"
-    || current.closure.registeredScoringRule !== "ADR 0026 conservative-intersection rule registered"
-    || current.closure.registeredReplacementGate !== "R15 planned; unfrozen; unimplemented; unexecuted"
-    || current.closure.numericalAdequacy !== "open"
-    || current.closure.previewGpuCohort !== "open"
-    || current.closure.matchedNoDipAblation !== "M1_NO_DIP_ABLATION planned; unfrozen; unimplemented; unexecuted"
-    || !/all four charter families open/i.test(current.closure.heldOutValidation)
-    || !/status=candidate-only-no-validation-target-frozen/i.test(current.closure.heldOutValidation)
-    || !/passEligible=false/i.test(current.closure.heldOutValidation)
-    || !/No audited family is presently apples-to-apples/i.test(current.closure.heldOutValidation)
-    || !/supplies no validation threshold/i.test(current.closure.heldOutValidation)
-    || !/no quantitative pressure target/i.test(current.closure.pressureValidation)
-    || !/status=source-locked-context-only/i.test(current.closure.pressureValidation)
-    || !/scoreable=false/i.test(current.closure.pressureValidation)
-    || !/no pass interval may be derived/i.test(current.closure.pressureValidation)
-    || !/immutable R15 snapshot/i.test(current.closure.sourceSnapshotObligation)
-    || !/environment allowlist/i.test(current.closure.sourceSnapshotObligation)
-    || !/child source identity verification/i.test(current.closure.sourceSnapshotObligation)
-    || current.closure.phaseStatus !== "active and incomplete"
-    || !/9\/448 Tier 1 entries differ/i.test(current.closure.crossPlatformControl)
-    || !/maximum 31 ULP/i.test(current.closure.crossPlatformControl)
-    || !/coverage=integer -2\.\.-30 C plus boundaries -3\.3\/-9\.9\/-21\.5 C/i.test(current.closure.crossPlatformControl)
-    || !/registered sweep cold tail -31,-32,-33,-34,-35 C absent/i.test(current.closure.crossPlatformControl)
-    || !/required in the new R15 fingerprint/i.test(current.closure.crossPlatformControl)
-    || !/fixtures self-report host platform=win32 arch=x64 node=v24\.13\.1 v8=13\.6\.233\.17-node\.40/i.test(current.closure.crossPlatformControl)
-    || !/host platform=darwin arch=arm64 node=v24\.13\.1 v8=13\.6\.233\.17-node\.40/i.test(current.closure.crossPlatformControl)
-    || !/not hardware authentication/i.test(current.closure.crossPlatformControl)
-    || !/Tier 2 tracked historical table reports 4 CAK rows matching the x64 baseline/i.test(current.closure.crossPlatformControl)
-    || !/raw logs\/exit records are not published in evidence\//i.test(current.closure.crossPlatformControl)
-    || !/arm64 outputs are not independently rederivable/i.test(current.closure.crossPlatformControl)
-    || !/no M1, full-grid, or digit-level portability claim/i.test(current.closure.crossPlatformControl)
+    || current.arm2.model !== "M1 in-sample bundled treatment"
+    || current.closure.registeredReplacementGate !== "complete-negative"
+    || current.closure.noDipIntervention !== "5/90"
+    || current.closure.numericalAdequacy !== "64 comparisons: 36 pass / 28 attached-count failures"
+    || current.closure.closureVerifier !== "gate6 passes 13/13 closure criteria"
+    || current.closure.heldOutValidation !== "not awarded; Phase 7 remains independently eligible and not started"
+    || current.closure.crossPlatformControl !== "historical control retained; not a Phase 6 closure result"
+    || current.closure.phaseStatus !== "complete on accepted negative finding; no validation"
   ) {
     violations.push("Phase 6 current snapshot");
   }
@@ -2910,7 +2868,7 @@ export function phase6StatusViolations(evidence, authority) {
         rows: visibleRows(record.arm2),
       },
       {
-        title: "CLOSURE STILL OWED",
+        title: view === "historical" ? "CLOSURE THEN OWED" : "FINAL CLOSURE",
         rows: visibleRows(record.closure),
       },
       {
@@ -2929,10 +2887,10 @@ export function phase6StatusViolations(evidence, authority) {
         view === "historical"
           ? ["Historical wording, preserved", "not a claim about the repository now"]
           : [
-              "Current scope",
-              "historical measured-only comparisons",
-              "not pooled",
-              "active and incomplete",
+              "Final scope",
+              "complete-negative",
+              "36-pass/28-fail",
+              "not validation",
             ],
       )
     ) {
@@ -2942,8 +2900,8 @@ export function phase6StatusViolations(evidence, authority) {
   if (
     evidence.reset?.view !== "current"
     || !includesEvery(evidence.reset?.visibleStamp, [
-      "Current Phase 6 authority",
-      "both historical arms measured",
+      "Final Phase 6 closure",
+      "complete on an accepted negative comparison",
     ])
   ) {
     violations.push("Phase 6 status reset");

@@ -1,5 +1,7 @@
 # Plan — Phase 6: Validation against the Nakaya diagram
 
+> **Phase 6 completed 2026-08-20.** The amended gate (decision 0045) was discharged by the flagless gate6 at exit 0; the WP5 preview-GPU cohort moved to Phase 7 by decision 0044. Statements of an active plan or open gate below are historical as of their own dates. See docs/PROGRESS.md and evidence/phase6-three-arm-report/report.md.
+
 - **Phase:** Phase 6 — validation, not calibration (decision 0003)
 - **Status (corrected 2026-08-01):** **SUPERSEDED as a live plan.** Both historical 204-row arms ran,
   but the Phase 6 scientific gate remains active and incomplete: the pre-registered

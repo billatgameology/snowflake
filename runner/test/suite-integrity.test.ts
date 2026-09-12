@@ -30,8 +30,10 @@ const REGISTERED_SUITES = [
   { dir: "solver-gpu/test", glob: "solver-gpu/test/**/*.test.ts", floor: 9 },
   // Raised 23 → 25 (suite-integrity, phase6-provenance) → 26 (phase6-sdak). Raising the floor on
   // add is the point: a floor left behind protects only the files that predate it. Raised to 28 on
-  // adding evidence-integrity (ADR 0038 / phase6-lessons).
-  { dir: "runner/test", glob: "runner/test/**/*.test.ts", floor: 28 },
+  // adding evidence-integrity (ADR 0038 / phase6-lessons). Raised to 81 on adding the WP2
+  // independent ladder verifier and the WP8 final gate (the intervening growth to 79 came from
+  // Phase 8/9 and NAS-governance units that predate this bump).
+  { dir: "runner/test", glob: "runner/test/**/*.test.ts", floor: 81 },
   { dir: "app/test", glob: "app/test/**/*.test.ts", floor: 20 },
 ] as const;
 

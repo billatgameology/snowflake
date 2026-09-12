@@ -3,3 +3,7 @@
 # pins the root file's exact bytes).
 attachment-kinetics.md -text
 gg-machinery.md -text
+
+# The NAS asset catalogue byte-pins this tracked owner manifest (docs/nas-assets.json,
+# ownerManifest bytes + sha256); Windows CRLF checkout inflated it by its line count.
+nas-ledger.json -text

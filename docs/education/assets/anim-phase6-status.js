@@ -2,8 +2,7 @@
  * Phase 6 historical/current status control.
  *
  * The two records are deliberately separate. Switching views never rewrites the
- * historical Arm 1 artifact and never combines either measured-only arm into
- * the still-unexecuted registered replacement gate.
+ * historical Arm 1 artifact and never turns a closure result into validation.
  */
 (function () {
   "use strict";
@@ -36,49 +35,33 @@
     },
     current: {
       id: "current",
-      label: "Current Phase 6 authority",
+      label: "Final Phase 6 closure",
       authority: {
-        stateDate: "2026-08-02 tracked authority",
-        stateIndex: "docs/HANDOFF.md and docs/PROGRESS.md",
-        resultArtifact: "research/phase6-two-arm-report.md",
-        evidenceManifest: "evidence/MANIFEST.json: 18 files / 974627 bytes",
-        historicalArm2ExecutionCommit: "8c781b166db2c72d2fa86cef001e2e8c48ac96c3",
-        arm2ValuesSha256: "13e678d5eec467a391958a18c71c8d170900d6efd0d5c23bb4362d863b9acd76",
-        snapshotMeaning: "both historical arms measured; replacement-gate obligations remain open"
+        stateDate: "2026-08-20 final closure",
+        stateIndex: "docs/PROGRESS.md and completed Phase 6 plan",
+        resultArtifact: "Phase 6 three-arm and numerical-ladder closure artifacts",
+        snapshotMeaning: "Phase 6 complete on an accepted negative comparison; no validation"
       },
       arm1: {
         runState: "complete historical measurement",
-        points: "204/204",
         measuredHeadline: "3/90",
-        classes: "6 plate / 168 neutral / 30 column",
-        modelInvalidRows: "0/204",
-        evidenceClass: "measured-only; not the registered replacement gate",
-        historicalScope: "reported broad-facet CAK arm; legacy rows predate per-row self-reported config",
-        extentFragility: "historical one-sided=16; closed symmetric |AR-threshold| <= 0.135=59; additional=43; exact-threshold witnesses=-23C/f=0.15/AR=1.5"
+        model: "CAK broad-facet control",
+        evidenceClass: "historical measured-only input to the final closure"
       },
       arm2: {
         runState: "complete historical measurement",
-        points: "204/204",
         measurement: "54/90 common scope; 54/78 arm-specific scope",
-        classes: "75 plate / 119 neutral / 10 column",
-        modelInvalidRows: "0/204",
-        model: "M1 everywhere-narrow starter approximation; 204/204 rows self-report the registered M1 configuration",
-        evidenceClass: "measured-only and in-sample; not the registered replacement gate",
-        comparisonLimit: "historical CAK to M1 changes broad curves, A prefactors, and dip factors; causal attribution is confounded",
-        futureMatchedPairLimit: "under one frozen sampled configuration, isolates only the implemented dip-factor intervention effect; not physical SDAK causality or necessity",
-        extentFragility: "historical one-sided=33; closed symmetric |AR-threshold| <= 0.135=85; additional=52; exact-threshold witnesses=-32C/f=0.15/AR=1.5"
+        model: "M1 in-sample bundled treatment",
+        evidenceClass: "historical measured-only; CAK-to-M1 attribution remains confounded"
       },
       closure: {
-        registeredScoringRule: "ADR 0026 conservative-intersection rule registered",
-        registeredReplacementGate: "R15 planned; unfrozen; unimplemented; unexecuted",
-        numericalAdequacy: "open",
-        previewGpuCohort: "open",
-        matchedNoDipAblation: "M1_NO_DIP_ABLATION planned; unfrozen; unimplemented; unexecuted",
-        heldOutValidation: "all four charter families open; source lock status=candidate-only-no-validation-target-frozen; passEligible=false; No audited family is presently apples-to-apples with the current single-crystal free-prism solver. This lock prevents source and extraction drift; it supplies no validation threshold.",
-        pressureValidation: "no quantitative pressure target; source lock pressure status=source-locked-context-only; scoreable=false; Pressure is confounded with liquid-water content, temperature drift, apparatus/run population, polycrystallinity, ventilation, and riming; no pass interval may be derived.",
-        sourceSnapshotObligation: "immutable R15 snapshot, environment allowlist, and child source identity verification remain required",
-        crossPlatformControl: "9/448 Tier 1 entries differ (maximum 31 ULP); coverage=integer -2..-30 C plus boundaries -3.3/-9.9/-21.5 C, with registered sweep cold tail -31,-32,-33,-34,-35 C absent and required in the new R15 fingerprint; preserved fixtures self-report host platform=win32 arch=x64 node=v24.13.1 v8=13.6.233.17-node.40 and host platform=darwin arch=arm64 node=v24.13.1 v8=13.6.233.17-node.40, but those headers are not hardware authentication; Tier 2 tracked historical table reports 4 CAK rows matching the x64 baseline, but raw logs/exit records are not published in evidence/ and the arm64 outputs are not independently rederivable; no M1, full-grid, or digit-level portability claim",
-        phaseStatus: "active and incomplete"
+        registeredReplacementGate: "complete-negative",
+        noDipIntervention: "5/90",
+        numericalAdequacy: "64 comparisons: 36 pass / 28 attached-count failures",
+        closureVerifier: "gate6 passes 13/13 closure criteria",
+        heldOutValidation: "not awarded; Phase 7 remains independently eligible and not started",
+        crossPlatformControl: "historical control retained; not a Phase 6 closure result",
+        phaseStatus: "complete on accepted negative finding; no validation"
       }
     }
   };
@@ -175,7 +158,7 @@
       grid.className = "p6s-grid";
       grid.appendChild(card("Arm 1 — measured control", record.arm1));
       grid.appendChild(card("Arm 2 — separate treatment", record.arm2));
-      grid.appendChild(card("Closure still owed", record.closure));
+      grid.appendChild(card(view === "historical" ? "Closure then owed" : "Final closure", record.closure));
       grid.appendChild(card("Provenance for this view", record.authority));
       body.appendChild(grid);
 
@@ -185,9 +168,9 @@
         banner.innerHTML = "<b>Historical wording, preserved:</b> this view explains why the report " +
           "says “six” and “no verifier.” It is not a claim about the repository now.";
       } else {
-        banner.innerHTML = "<b>Current scope:</b> CAK 3/90 and M1 54/90 are separate, historical " +
-          "measured-only comparisons. They are not pooled, and neither is the registered replacement " +
-          "gate. Phase 6 remains active and incomplete until the named closure obligations run.";
+        banner.innerHTML = "<b>Final scope:</b> Phase 6 is complete-negative. CAK 3/90, M1 54/90 " +
+          "on the common scope, no-dip 5/90, and the 36-pass/28-fail numerical ladder support a " +
+          "closed negative record, not validation.";
       }
       body.appendChild(banner);
     }

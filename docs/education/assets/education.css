@@ -748,7 +748,7 @@ img { max-width: 100%; height: auto; display: block; }
   border-color: var(--control-selected);
   color: #fff;
 }
-
+.button:disabled { opacity: 0.45; cursor: not-allowed; }
 .mobile-pan-note,
 .sweep-mobile-picker {
   display: none;
@@ -1196,6 +1196,7 @@ tbody tr:last-child td { border-bottom: 0; }
 .refs .ref__title { font-weight: 640; color: var(--ink-primary); display: block; }
 .refs .ref__meta { color: var(--ink-secondary); }
 .refs .ref__id { font-family: var(--font-mono); color: var(--ink-muted); font-size: 0.8rem; }
+
 
 /* --------------------------------------------------------------- footer --- */
 

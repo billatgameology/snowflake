@@ -82,13 +82,19 @@
       </section>
 
       <aside class="callout callout--open">
-        <p class="callout__label">Current Phase 6 status &mdash; corrected 2026-08-01</p>
+        <p class="callout__label">Historical Phase 6 snapshot &mdash; superseded after 2026-08-01</p>
         <p>
-          This chapter preserves the historical CAK story below, but the second historical arm has
-          also finished. At the executed extent-21 configuration the measured-only results are
+          <strong>The CAK and M1 story below is preserved at its original in-progress boundary.</strong>
+          Phase&nbsp;6 later completed on an accepted negative result: the no-dip arm matched 5/90,
+          the numerical ladder passed 36 of 64 comparisons and failed 28 on attached count, and
+          <code>gate6</code> verified 13/13 closure criteria. That closure did not validate the model.
+        </p>
+        <p>
+          At this snapshot, the second historical arm had also finished. At the executed extent-21
+          configuration the measured-only results were
           <strong>CAK 3/90</strong> and <strong>M1 54/90 on the common scope, 54/78 on M1's own
           scope</strong>. M1 is in-sample for Nakaya. Neither count is ADR&nbsp;0026's registered
-          conservative-intersection headline, and Phase&nbsp;6 remains <strong>active and
+          conservative-intersection headline, and Phase&nbsp;6 remained <strong>active and
           incomplete</strong>. Only ADR&nbsp;0026&rsquo;s conservative-intersection scoring rule is
           registered. R15 and <code>M1_NO_DIP_ABLATION</code> are planned but unfrozen,
           unimplemented and unexecuted; a composed numerical-adequacy campaign, the preview-budget
@@ -320,7 +326,7 @@
         <div class="anim__head">
           <p class="anim__title">Do not let the status overwrite the history</p>
           <p class="anim__sub">
-            Switch between the Arm&nbsp;1 report&rsquo;s own snapshot and the later status record.
+            Switch between the Arm&nbsp;1 report&rsquo;s own snapshot and the final closure record.
             The historical bytes stay 3 of 90. Later verification does not rewrite them, and the
             completed M1 arm remains a separate, in-sample, measured-only lane.
           </p>
@@ -337,13 +343,9 @@
             <code>b701285</code>, the future-sweep source fingerprint at <code>154359d</code>, and
             Arm&nbsp;2&rsquo;s M1 value content frozen at <code>483f7ee</code>, its freeze ancestry
             and final values-hash pin recorded at <code>0cb52bf</code>, and its arm-specific
-            combined protocol revision hash recorded at <code>8c781b1</code>. That combined hash moves with
-            prose and is revision-pinned rather than a durable gate; the separate values hash is
-            the historical frozen input. The first launch stopped when its first line exposed the
-            wrong arm's combined hash. The repaired 204-row M1 execution later completed: 54/90 on
-            the common scope and 54/78 on its arm scope, with classes 75 plate, 119 neutral, and 10
-            column. These remain historical measured-only, in-sample results; they are not pooled
-            with CAK and do not close the replacement gate.
+            combined protocol revision hash recorded at <code>8c781b1</code>. The final view now
+            adds the completed no-dip arm, numerical ladder, and 13/13 closure result without
+            rewriting either historical arm.
           </span>
         </figcaption>
       </figure>
@@ -355,8 +357,8 @@
         <strong>confounded</strong>: CAK&rarr;M1 changes broad curves, prefactors, and dip factors
         together. The report's rule still applies: &ldquo;The numbers below are complete and final for
         this arm; what they <em>mean</em> for the phase waits.&rdquo; A matched M1/no-dip ablation and
-        the other R15 obligations are still needed. So this chapter is reading historical results,
-        not a completed Phase&nbsp;6 verdict.
+        the other replacement obligations were still needed at this snapshot. So this chapter is
+        reading historical results; Chapter&nbsp;30 explains the later completed Phase&nbsp;6 verdict.
       </p>
 
       <h2 id="corrected">How the headline got corrected</h2>
@@ -1397,8 +1399,8 @@
         while Arm&nbsp;1 remains historically honest about the per-row fields it lacks. None of that
         closes the replacement scientific gate. The fuller historical account, with file names and
         what each gap was, is earlier in this chapter. Current authority is
-        <code>docs/HANDOFF.md</code>, <code>docs/PROGRESS.md</code>, and the science-first Phase&nbsp;6
-        plan, not the old audit-cutoff snapshot.
+        <code>docs/PROGRESS.md</code> and its linked completed plans, not the retired handoff or
+        this old audit-cutoff snapshot.
       </p>
 
       <p>
@@ -1501,8 +1503,9 @@
         page &mdash; is an LLM review. Maker audits are recorded separately, and the maker is not
         identified as a domain scientist. The project&rsquo;s own sharing rules require that at least one human
         domain scientist read any manuscript before submission, and treat the absence of a recorded
-        review as a disclosed limitation, not a substitute. Phase 6 remains active and incomplete as this
-        is written. A Phase&nbsp;3 browser development instrument already exists &mdash; solver in a
+        review as a disclosed limitation, not a substitute. At this chapter&rsquo;s historical snapshot,
+        Phase&nbsp;6 remained active and incomplete. A Phase&nbsp;3 browser development instrument
+        already exists &mdash; solver in a
         worker, overlays, vapour slice, picking, and readouts. Phase&nbsp;7, the polished product
         layer and its audience profiles, has not started.
       </p>
@@ -1539,9 +1542,10 @@
         both, plus verifier hardening and adversarial controls. A historical prose table reports four
         CAK rows attributed to a self-reported <code>darwin/arm64</code> fixture, but that header is
         not hardware authentication and its Tier&nbsp;2 raw output and exit records are absent. The
-        historical M1 sweep has run. R15, composed numerical adequacy, the preview-budget GPU
-        cohort, matched M1/no-dip evidence, and held-out validation remain owed &mdash; that is the
-        next chapter, along with the list of things this project still does not know.
+        historical M1 sweep had run. At this snapshot, R15, composed numerical adequacy, the
+        preview-budget GPU cohort, matched M1/no-dip evidence, and held-out validation remained
+        owed &mdash; the next chapter preserves that bill, and Chapter&nbsp;30 records how the
+        science-first work eventually closed.
       </p>
 
       <nav class="chapter-nav" aria-label="Chapter navigation">

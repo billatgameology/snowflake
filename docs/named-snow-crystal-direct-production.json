@@ -1,0 +1,114 @@
+{
+  "format": "named-crystal-direct-production-v1",
+  "catalog": "docs/named-snow-crystal-catalog.json",
+  "sources": {
+    "baselineManifest": "docs/named-snow-crystal-baseline-probes.json",
+    "baselineReview": "docs/named-snow-crystal-baseline-probe-review.json",
+    "earlyStopManifest": "docs/named-snow-crystal-early-stop-probes.json",
+    "earlyStopReview": "docs/named-snow-crystal-early-stop-probe-review.json",
+    "hardFormManifest": "docs/named-snow-crystal-hard-form-probes.json",
+    "hardFormReview": "docs/named-snow-crystal-hard-form-probe-review.json"
+  },
+  "webPayloadLimitBytes": 20000000,
+  "scientificFrameTarget": 120,
+  "scientificFrameCountMinimum": 100,
+  "scientificFrameCountMaximum": 122,
+  "execution": {
+    "processConcurrency": 24,
+    "hostProcessor": "Intel Core Ultra 9 285K",
+    "physicalCores": 24,
+    "logicalProcessors": 24,
+    "rngSeed": 1,
+    "noiseEpsilon": 0,
+    "domain": "hexPrism",
+    "spacing": 0.6,
+    "sigma": 0.45,
+    "normalDelta": 3
+  },
+  "families": [
+    {
+      "typeId": "solid-columns",
+      "sourceLane": "baseline-rho",
+      "sourceSpecSha256": "c74dd484ad2f9ed18c6aebc1dbc14eeae9c432f864c35fdd0ac4a1571f06fbdf",
+      "driverName": "rho-scale",
+      "variants": [
+        { "slot": "lower", "driverValue": 0.95 },
+        { "slot": "baseline", "driverValue": 1 },
+        { "slot": "upper", "driverValue": 1.05 }
+      ]
+    },
+    {
+      "typeId": "sheaths",
+      "sourceLane": "baseline-rho",
+      "sourceSpecSha256": "18ba4d63c7e9158391d33b52cec9858a7615a7e5d73ade877e3fa52cbb202d2e",
+      "driverName": "rho-scale",
+      "variants": [
+        { "slot": "lower", "driverValue": 0.95 },
+        { "slot": "baseline", "driverValue": 1 },
+        { "slot": "upper", "driverValue": 1.05 }
+      ]
+    },
+    {
+      "typeId": "split-plates-and-stars",
+      "sourceLane": "baseline-rho",
+      "sourceSpecSha256": "76a67ab8b55b1e47dfdbb2020ff9e79093a7d731f06bef2c5708ffe2a14412d3",
+      "driverName": "rho-scale",
+      "variants": [
+        { "slot": "lower", "driverValue": 0.95 },
+        { "slot": "baseline", "driverValue": 1 },
+        { "slot": "upper", "driverValue": 1.05 }
+      ]
+    },
+    {
+      "typeId": "isolated-bullets",
+      "sourceLane": "baseline-rho",
+      "sourceSpecSha256": "db1912ab496d12e4b726dd599dba7e20260481f2538669abaa1db479ad78e0ab",
+      "driverName": "rho-scale",
+      "variants": [
+        { "slot": "lower", "driverValue": 0.95 },
+        { "slot": "baseline", "driverValue": 1 },
+        { "slot": "upper", "driverValue": 1.05 }
+      ]
+    },
+    {
+      "typeId": "scrolls-on-plates",
+      "sourceLane": "early-stop",
+      "driverName": "stop-tick",
+      "variants": [
+        { "slot": "lower", "driverValue": 100, "sourceJobId": "scrolls-on-plates-stop-100", "sourceSpecSha256": "8645ea739f4129698a7af8573762055351fd7bc1f534e083dec062e24c477ed6" },
+        { "slot": "baseline", "driverValue": 300, "sourceJobId": "scrolls-on-plates-stop-300", "sourceSpecSha256": "0696b2b9818652cde6d69ae6c2d1ff87b93b7df81ece8fede92c9b99283edce4" },
+        { "slot": "upper", "driverValue": 400, "sourceJobId": "scrolls-on-plates-stop-400", "sourceSpecSha256": "83d0f73fde64e10cdfa978004c17ed59a943c83149577527c06a67538f361f0c" }
+      ]
+    },
+    {
+      "typeId": "triangular-forms",
+      "sourceLane": "early-stop",
+      "driverName": "stop-tick",
+      "variants": [
+        { "slot": "lower", "driverValue": 200, "sourceJobId": "triangular-forms-stop-200", "sourceSpecSha256": "76d703dc25b3ba7ab89652637120b794df6eb826986cb4be47dfe1a19d260982" },
+        { "slot": "baseline", "driverValue": 400, "sourceJobId": "triangular-forms-stop-400", "sourceSpecSha256": "31f8fc9758ac3e5e785ca1bd290a76861d7734ae27227a7af69b6d77d23a9295" },
+        { "slot": "upper", "driverValue": 600, "sourceJobId": "triangular-forms-stop-600", "sourceSpecSha256": "d251752840aaafd26e31d593802f9facdb547e5da7739b4c6df31622ac5dbe69" }
+      ]
+    },
+    {
+      "typeId": "cups",
+      "sourceLane": "early-stop",
+      "driverName": "stop-tick",
+      "variants": [
+        { "slot": "lower", "driverValue": 100, "sourceJobId": "cups-stop-100", "sourceSpecSha256": "66f62f924adf162385d3be3c456443e859a171c12be1e1532929481ed86e05bf" },
+        { "slot": "baseline", "driverValue": 200, "sourceJobId": "cups-stop-200", "sourceSpecSha256": "97f453eade9fb377f7c1645b7d5c2ea2398e17238df0bf1908c3775204bae51b" },
+        { "slot": "upper", "driverValue": 400, "sourceJobId": "cups-stop-400", "sourceSpecSha256": "e7264da0d7b2a64e0030c658a8dc62139e311c83a8a00307d02b347ec7e432e5" }
+      ]
+    },
+    {
+      "typeId": "hollow-plates",
+      "sourceLane": "hard-form",
+      "driverName": "cavity-radius",
+      "variants": [
+        { "slot": "lower", "driverValue": 1, "sourceJobId": "hollow-plates-cavity-radius-1", "sourceSpecSha256": "cc9251f2a3e88d5072579ea10fc9a8935a287d18f53ed78541cd7269f2ab0e45" },
+        { "slot": "baseline", "driverValue": 2, "sourceJobId": "hollow-plates-cavity-radius-2", "sourceSpecSha256": "90802cec507f034ce2656610bc6c754a52f3fae72a3aade73a791ea948ad83dc" },
+        { "slot": "upper", "driverValue": 4, "sourceJobId": "hollow-plates-cavity-radius-4", "sourceSpecSha256": "e5345e7ed286304eb0d23e830fb7ab65d0f3df0a4d8683ee15ac0525207eba8a" }
+      ]
+    }
+  ]
+}

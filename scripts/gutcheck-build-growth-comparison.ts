@@ -59,7 +59,7 @@ import {
 } from "../app/src/gutcheck-growth-comparison-record.ts";
 import {
   detectGovernedVccNasMount,
-  detectNasMount,
+  detectLegacyGutcheckNasMount,
   resolveNasRequest,
   VCC_NAS_MARKER_TEXT,
 } from "./nas-root.ts";
@@ -476,7 +476,7 @@ function legacyRunBManifestBinding(
   shareRelativePath: string,
   label: string,
 ): RunBShareBinding {
-  const mount = detectNasMount();
+  const mount = detectLegacyGutcheckNasMount();
   if (mount === null) fail(`snowcrystal NAS share is not attached; cannot bind the ${label} manifest path`);
   const expected = resolveNasRequest(shareRelativePath, mount);
   if (expected.kind !== "ok") fail(`registered ${label} share-relative manifest cannot be resolved safely`);
