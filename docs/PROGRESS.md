@@ -817,9 +817,16 @@ open; the two-cell rule's nine transient episodes reseal, with zero such advance
 **Completed warmer local-width comparison** records exact age/size contrasts and the key limit:
 the successful rule is seed-active, and 284 of 920 updates select every basal cell, including
 the onset-producing update. This is a persistent model lead, not isolated ongoing width-feedback
-causality, grid robustness or physical validation. The colder two-cell row also finished,
-exit zero (`campaign-2026-09-11/rows/basal-width-t5-le2/exit.json`); its companion worker 8128
-and all eight original fine-grid workers were observed live at 19:03 UTC on 2026-09-12.
+causality, grid robustness or physical validation. All four local-width rows are now complete,
+exit zero (`campaign-2026-09-11/basal-width-wave-1-complete.json`). The colder matched report,
+`out/post-phase10-local-basal/t5-comparison-2026-09-12.json` (SHA-256
+`f0a7cfa8b4b71b3fbc808869d77a7f6a3c87cd0286fb86bf5821205c21584837`), also retains the
+three-cell lead: 34 open planes, one-plane waist and approximately 5.95 micrometers of tracked
+tip advance. Its two-cell arm retains only two outer-plane pits with zero depth/advance.
+The successful colder rule supplies only 27.85% of whole-history computed basal demand through
+selected cells (rounded); its final selected demand is zero. The plan's **Completed colder
+local-width comparison and synthesis** records why early history and later feedback remain
+entangled. The original eight fine-grid workers were confirmed live at 23:09 UTC on 2026-09-12.
 
 The single exact `npm test` at `271c70868e03a125939d97e2bee8b4f2a38ba8ce` completed, exit one:
 170 passed / 11 failed files, 2,597 passed / 18 failed / 72 skipped tests. These counts are from
@@ -839,13 +846,16 @@ active launches. Parent 23280 and children 12516/41580/28944/8128 were confirmed
 the eight original fine-grid workers: twelve experiment workers total, no test worker. Separate
 launcher/per-row stderr logs are initially empty. The rows condition basal kinetics on chord
 thresholds two/three and reuse completed no-dip/basal-only controls.
-Next observe existing processes hourly or on completion; do not launch/check again. After the
-colder three-cell row finishes, produce its single matched quartet report with the same two
-registered control types; do not regenerate the completed warmer report. Then use both outcomes
-to register the promised longer evaluation and a targeted initialization/width-feedback
-discriminator. Original fine-grid jobs continue unchanged; their matched seed/grid analysis
-remains pending. Keep combined workers at or below 28 and the geometry rule P4. No physical-
-validation claim, Phase 7 work or C0V recovery follows.
+Next implement the plan's **Basal-width early/late longer investigation**, decision 0059 and
+matching attachment-spec extension after committing that protocol. Ten N112 / extent-53 rows
+cross the two temperatures with broad, global-basal, full width-three, early-only and late-only
+kinetics. A fixed twenty-second physical-time cutoff tests early growth history, not seed-only
+effects; switches occur at complete coupled-update boundaries and preserve state. Use focused
+transition/prefix/readout tests, one bounded stable review and one exact `npm test`, then the
+registered `launch-basal-history` command once. No new history run exists yet. Do not regenerate
+the two completed width reports, scan thresholds or change the original fine-grid jobs. Their
+matched seed/grid analysis remains pending. Keep combined workers at or below 28 and the
+counterfactual P4; no physical-validation claim, Phase 7 work or C0V recovery follows.
 The plan gives exact launch commands and the verification scope. Preserve the eight original
 fine-grid runs; do not duplicate or modify their launch. Keep one final quartet report per
 temperature per experiment, without a redundant combined report or frequent pending reports.

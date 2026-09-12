@@ -1655,6 +1655,164 @@ initialization/width-feedback discriminator from both outcomes. Do not rerun the
 add a combined pending report, retune the threshold, or claim grid robustness while fine rows
 are incomplete.
 
+### Completed colder local-width comparison and synthesis — 2026-09-12
+
+The campaign completed at 22:10:42 UTC on 2026-09-12, with four exit-zero rows and actual
+maximum concurrency four (`campaign-2026-09-11/basal-width-wave-1-complete.json`). The original
+eight fine-grid workers remain live. The colder analyzer ran once from clean
+`d2aed5ef48c2d3f1b1aff296ba444805829ec1de`:
+
+```text
+node runner/src/post-phase10-cavity-analysis.ts rows out/post-phase10-local-basal/t5-comparison-2026-09-12.json out/post-phase10-followup/campaign-2026-09-03-wave2/rows/followup-larger-cavity-t5-f0p075-nodip out/post-phase10-facet-factorial/campaign-long-2026-09-09/rows/facet-isolation-long-t5-basal-only out/post-phase10-local-basal/campaign-2026-09-11/rows/basal-width-t5-le2 out/post-phase10-local-basal/campaign-2026-09-11/rows/basal-width-t5-le3
+```
+
+The report is 884,454 bytes / SHA-256
+`f0a7cfa8b4b71b3fbc808869d77a7f6a3c87cd0286fb86bf5821205c21584837`. All four arms are
+admissible and matched with no differing nonkinetic fields. Its terminal measurements are:
+
+| Basal rule | Terminal simulated seconds | Attached sites | Full-probe waist planes | Straight-open enclosed planes |
+|---|---:|---:|---:|---:|
+| Broad everywhere | 107.48829970599455 | 15635 | 17 | 0 |
+| Dipped everywhere | 61.55530397376282 | 8699 | 5 | 30 |
+| Local width at most two | 117.02345167998584 | 19297 | 19 | 2 |
+| Local width at most three | 128.04413898363663 | 26701 | 1 | 34 |
+
+The three-cell rule again retains a persistent deepening-cavity lead: its single episode
+starts at cycle 21 / 1.6094216171709066 seconds. Upper planes at offsets one/two open at
+cycles 21/43 and remain witnessed-open through cycle 1385, with approximately 5.95/5.60
+micrometers of axial-tip advance while open. The terminal longest run is seventeen planes
+per side. In contrast, the two-cell rule has ten episodes and twenty signed opening intervals,
+all with zero tip advance while open. Its two terminal pits are on offsets minus/plus ten,
+with zero depth below the stationary axial tips, not consecutive open planes. Their eventual
+closure was not observed. Do not extend that arm simply to close the remaining pits.
+
+At the common age 61.55530397376282 seconds, the discrete at-or-before open-plane counts are
+0/30/0/26 in table order; at the exact 9.8-micrometer largest-center-span selection they are
+0/22/0/26. The colder three-cell terminal spans are 33/33/37 lattice cells, versus the
+global-basal control's 19/19/37: equal largest extent does not make their shapes or ages equal.
+
+The colder activation record also retains the initialization ambiguity. The three-cell rule
+selects 24 of 38 basal seed cells; selected demand supplies 91.19% (rounded) of computed basal
+demand strictly before onset, and all fourteen basal cells select on the onset-producing
+update. Its totals record 295 all-selected updates out of 1385, with selected cell-update
+and computed-demand fractions of only 8.61% / 27.85% (rounded) over the whole run. The final
+raw event selects just two of 1634 basal cells and assigns them zero computed demand, while
+unselected demand fill is 7.125008458361806. The longer-lived cavity therefore is not evidence
+of an everywhere-dipped rule throughout growth, nor does its continued existence alone prove
+that ongoing selected demand maintains it. The two-cell rule never selects all basal cells;
+its selected demand also precedes onset but yields no deepening lead. A bounded shared-context
+non-author read of the report/raw events reached the same activation limits without writes,
+tests or report regeneration. Whole-history percentages cover unequal ages and are not
+time-weighted surface exposure or placed ice.
+
+**Synthesis:** the three-cell lead survives both tested temperatures, but early history and
+ongoing feedback are not separated. The two-cell intervention does not retain a registered
+deepening lead at either anchor. The next experiment should distinguish those histories while
+extending the surviving lead, not scan more thresholds or repeat the finished reports.
+
+### Basal-width early/late longer investigation — registered 2026-09-12
+
+**Deliverable:** a longer matched test of the surviving three-cell lead at both temperatures,
+with an early/late intervention that separates initial growth history from continued width
+feedback. This is a development counterfactual, not a molecular mechanism or a validation gate.
+A twenty-second cutoff is an explicitly P4 experimental choice informed by the observed early
+all-selected regime; it is not a measured material timescale and will not be tuned afterward.
+Call it early-growth history, not seed-only: cavity onset already precedes the cutoff.
+
+Under decision 0059, add the single optional object
+`experimentalBasalWidthHistory: { mode: "early-only" | "late-only", cutoffSeconds: number }`.
+It requires the existing local-width opt-in, M1 base metadata and aggregate-v6, with no other
+experimental combinations, environment timeline or ordinary checkpoint/resume export. Absent
+means the unchanged full-history width rule. The finite roster uses threshold three and cutoff
+twenty seconds only. All rows retain no-dip prism kinetics and enabled geometric completion.
+
+At the start of each complete coupled update, let `t` be accumulated physical interface time.
+Early-only enables the width rule when `t < cutoffSeconds`; late-only enables it when
+`t >= cutoffSeconds`. Outside the window every basal cell uses the broad/no-dip preparation.
+Inside it the unchanged integer-width predicate selects the M1 basal preparation. One mode
+applies throughout relaxation and its cached fill update. An update crossing twenty seconds
+finishes in its original mode; the next relaxation uses the new mode. Do not split a timestep,
+reset occupancy/partial fill/field/time/ledgers/monopole history, or advance fill from an old-mode
+boundary solution. Record the actual transition time and its bracketing update, rather than
+claiming an exact twenty-second switch. Width geometry remains cached by attached geometry;
+time eligibility must refresh even when a step attaches no new cell.
+
+Launch ten independent rows, using tags `4p5` and `5` for the two temperatures:
+
+| Row suffix in `basal-history-t{tag}-...` | Before cutoff | From cutoff onward |
+|---|---|---|
+| `broad` | Broad basal | Broad basal |
+| `global-basal` | Global basal dip | Global basal dip |
+| `full` | Width-three rule | Width-three rule |
+| `early` | Width-three rule | Broad basal |
+| `late` | Broad basal | Width-three rule |
+
+The broad/full/early/late arms form a two-by-two early/late intervention; global-basal is a
+separate mechanism benchmark. Temporal rows use identity `post-phase10-basal-width-history-v1`;
+ordinary, global-basal and full-width controls retain their existing distinct identities. No
+old artifact is relabeled. All ten runs use N112, spacing 0.35 micrometers, radius-two /
+thickness-one seed, target largest extent 53, maximum 100000 steps, fill CFL 0.05, noise zero,
+seed one, aggregate-v6 and monopole far field. Reuse the existing temperature/forcing pairs
+(-4.5 C / 0.003375 and -5 C / 0.00375), pressure 101325 Pa, residual tolerance 1e-9, divergence
+tolerance 1e-7 and maximum 200000 relaxation sweeps. No new spatial-sampling schedule is added.
+These are larger-domain, longer evaluations, not restarts of the N80 rows and not mesh
+refinement. Controls must rerun in N112 because the N80 controls do not match that domain.
+
+Reuse the existing launcher, raw events and cavity analyzer. Keep width histograms distinct
+from actual kinetic selection while a window is off, and record pre-update window activity
+and selected/unselected demand. Extend the matched readout for the five arms and report:
+
+- Actual switch boundary; full/early and broad/late recorded pre-switch numerical/event prefix
+  agreement, ignoring labels and wall-clock fields rather than ignoring numerical differences.
+- Persistent original opening intervals, new post-switch open planes, tip advance/depth,
+  resealing, waist and separate axial/in-plane spans. Stored cavities without further advancing
+  tips are not the same result as sustained post-switch hollow growth.
+- Actual late-phase width-eligible cells and selected demand. A negative late-only result with
+  almost no selected demand is limited intervention exposure, not evidence against feedback.
+- Common-age and common-largest-span comparisons, retaining time brackets. Include center spans
+  12.6 and 18.2 micrometers (derived from `(37 - 1) * 0.35` and `(53 - 1) * 0.35`) alongside
+  the existing selections. Compare N112 at extent 37 with retained N80 matched baseline arms
+  to expose domain sensitivity, not to assert domain independence or equality of axes.
+
+If early-only grows persistent post-switch openings while broad does not, early exposure can
+produce that observed outcome without continued width feedback over this window. If early-only
+reseals while full persists, later feedback matters from their shared early trajectory. A
+positive late-only result shows initialization-active feedback is not required in that row;
+if only full persists, neither isolated window reproduces it. Preserve weaker explanations
+when late exposure is negligible or the domain change removes the baseline lead. Contact,
+convergence and step-budget failures remain explicit gaps. This wave is done when both matched
+sets classify these outcomes or their specific gaps and select the next finite scientific step.
+
+**Shortest meaningful check:** focused nonuniform-field full/early and broad/late prefix
+equivalence; a mixed-width transition that refreshes kinetics without requiring attachment,
+preserves state and uses the same coefficient for Robin and fill; cutoff-crossing telemetry;
+and roster/readout tests for all five arms and post-switch geometry/demand. Use one bounded
+non-author review after the implementation and focused tests stabilize, then one exact `npm test`
+at the combined checkpoint. Classify historical failures without repairing C0V or rerunning the
+suite for confidence. No general scheduler, arbitrary event timeline, new checkpoint format,
+source-pin regeneration or hostile-runtime assurance is part of this slice.
+
+Commit this protocol before implementation, then launch once from its checked producer:
+
+```text
+node runner/src/post-phase10-discovery-main.ts launch-basal-history out/post-phase10-basal-history/campaign-2026-09-12 10
+```
+
+Record actual concurrency and exact argv. Ten new workers plus the eight untouched fine-grid
+workers would be eighteen, below the maker's cap of twenty-eight including test workers. The
+eight fine rows still own their unresolved grid/seed question; do not replace or duplicate them.
+
+**Scoped source-currency check, 2026-09-12:** the existing source versions remain
+[CM9 v1](https://arxiv.org/abs/2011.02353), [CM4 v2](https://arxiv.org/abs/1512.03389) and
+[TAX2 v1](https://arxiv.org/abs/2306.13087). The
+[author's publication list](https://www.its.caltech.edu/~atomic/publist/kglpub.htm) lists later
+teaching-lab papers but no later listed snow-growth paper superseding that extraction. This
+reuses the recorded input functions and source limits; no new physical parameter extraction,
+full monograph reconciliation or broad literature search was performed. The time window is
+our counterfactual, not a source claim. One shared-context Astra scientific-design agent
+compared the temporal intervention with changing seed radius, without code, tests or new runs;
+the temporal choice avoids confounding the initial kinetic intervention with seed volume.
+
 ### Earlier completed-row observations
 
 `cavity-seed-thick-t4p5-m1` completed with exit 0 and an admissible size-target stop. Its raw
@@ -1946,6 +2104,14 @@ row ceiling.
 - no fitted dip location, pressure law, or parameter optimization against a target habit.
 
 ## Tried and rejected
+
+- Expanding the new width lead into a radius-two/radius-three seed matrix before separating
+  early and late feedback: changing radius changes volume, perimeter and diffusion as well as
+  initial width selection. The selected same-seed temporal counterfactual addresses the named
+  history question more directly; seed robustness remains a later option, not a causal substitute.
+- Extending the colder width-two row solely to close its terminal pits: every tracked opening
+  has zero tip advance and no multi-plane depth. The persistent width-three lead, at both
+  temperatures, receives the longer evaluation instead.
 
 - Extending the warmer prism-only/disabled row on its longer transient pit durations alone:
   the completed matched interaction has zero axial tip advance during every tracked opening,

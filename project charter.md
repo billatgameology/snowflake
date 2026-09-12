@@ -198,6 +198,8 @@ Bounded interaction follow-up (decision 0057, 2026-09-10): after those separate 
 
 Local basal-width experiment (decision 0058, 2026-09-11): a separately identified constant-environment aggregate-v6 CPU experiment may select the existing M1 or no-dip basal kinetics using an integer exposed-terrace chord threshold, while retaining no-dip prism kinetics and geometric completion. This is an explicitly P4 mesoscopic width rule, not a measured molecular law, full M2 implementation or physical validation. The attachment spec defines its symmetric geometry and coupled Robin/fill evaluation; the active discovery plan registers the finite comparisons, observables and reused controls before implementation. Ordinary operators, historical evidence, checkpoint meanings and the separate Phase 7 path remain unchanged.
 
+Early/late basal-width counterfactual (decision 0059, 2026-09-12): a separately identified constant-environment CPU experiment may enable that width rule before or after a registered physical-time cutoff, using broad basal kinetics outside its window. Switch only between complete coupled updates, re-relax before fill, and preserve accumulated state. The active plan registers matched controls, actual transition-time observations and longer growth comparisons. This tests early-growth history versus continuing feedback within the discrete model; it adds no physical-validation claim, arbitrary environment timeline or ordinary checkpoint meaning.
+
 Note the symbol collision, which is a live hazard in this repository: Gravner–Griffeath also use α, for an entirely unrelated quantity (a boundary-mass attachment threshold indexed by neighbor count). A bare α is banned from the code and the docs; see §3.3.
 
 2.6 The computable models

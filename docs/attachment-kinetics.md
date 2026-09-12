@@ -143,6 +143,22 @@ with the earlier experimental flags, timeline events or ordinary checkpoint expo
 plan selects two thresholds at two temperatures under `post-phase10-local-basal-width-v1`.
 This is a mesoscopic P4 width-conditioned counterfactual, not a measured basal width law or full M2.
 
+Decision 0059 adds only the separately identified optional object
+`experimentalBasalWidthHistory: { mode: "early-only" | "late-only", cutoffSeconds: number }`,
+with a finite positive cutoff and the existing width/M1/aggregate-v6 requirements. Absent retains
+the full-history width rule. At pre-update physical time `t`, early-only activates width selection
+when `t < cutoffSeconds`, and late-only when `t >= cutoffSeconds`. Inactive means the broad/no-dip
+basal preparation regardless of width; prism remains no-dip. Keep this selection fixed through
+the coupled relaxation/fill update. A step crossing the cutoff finishes in its old mode; the
+next relaxation switches without resetting occupancy, partial fill, field, physical time,
+monopole history or ledgers. Reuse cached integer geometry, but reevaluate time eligibility even
+if no site attached. Record pre-update activity and the actual switch bracket. Width-eligible
+cells and kinetically selected cells differ while inactive; demand partitions use the latter.
+The finite twenty-second early/late protocol is an early-growth-history counterfactual under
+`post-phase10-basal-width-history-v1`, not an exact-time environment event, seed-only perturbation,
+measured timescale or physical SDAK claim. All earlier opt-in, timeline and export exclusions
+remain in force except this named temporal extension of local width selection.
+
 Decision 0056 separately permits `experimentalHoleFilling: "enabled" | "disabled"` for
 constant-environment aggregate-v6 with ordinary M1/no-dip preparations. Absent or enabled retains
 the geometric completion loop in component 4; disabled skips only that loop after kinetic fill.
