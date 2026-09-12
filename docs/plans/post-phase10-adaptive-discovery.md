@@ -1590,6 +1590,71 @@ completed controls. Keep original fine-grid jobs unchanged and analyze their mat
 sets when complete. The unanswered question is local-width cavity persistence, not execution
 success; no longer extension is selected before the four registered outcomes are read.
 
+### Completed warmer local-width comparison — 2026-09-12
+
+Both warmer rows stopped admissibly at extent 37, with exit zero, exact event symmetry and
+converged relaxations. The existing analyzer ran once from clean
+`d00d6753b096ac7393eea68a6d86a38aff11f31c`, reusing the registered broad/basal-only controls:
+
+```text
+node runner/src/post-phase10-cavity-analysis.ts rows out/post-phase10-local-basal/t4p5-comparison-2026-09-12.json out/post-phase10-followup/campaign-2026-09-03-wave2/rows/followup-larger-cavity-t4p5-f0p075-nodip out/post-phase10-facet-factorial/campaign-long-2026-09-09/rows/facet-isolation-long-t4p5-basal-only out/post-phase10-local-basal/campaign-2026-09-11/rows/basal-width-t4p5-le2 out/post-phase10-local-basal/campaign-2026-09-11/rows/basal-width-t4p5-le3
+```
+
+The report is 863,208 bytes / SHA-256
+`8e06391c81e5f71f322fcb1c6690683ada2b5bfaaa4b69184bf3196ee8b1d5fe`.
+Its `basalWidthComparison.allFourArmsAdmissibleAndMatched` is true, with no differing
+nonkinetic configuration fields. These measurements are copied from its results/final frames:
+
+| Basal rule | Terminal simulated seconds | Attached sites | Full-probe waist planes | Straight-open enclosed planes |
+|---|---:|---:|---:|---:|
+| Broad everywhere | 105.23421936764207 | 13809 | 15 | 0 |
+| Dipped everywhere | 66.46577194636605 | 9605 | 5 | 30 |
+| Local width at most two | 115.44632424764544 | 17413 | 19 | 0 |
+| Local width at most three | 82.56715479712955 | 12781 | 1 | 34 |
+
+**The three-cell rule is a surviving model-development lead.** Its single enclosure episode
+starts at cycle 21 / 1.672683189667774 seconds and remains open through the recorded stop.
+There are seventeen consecutive open planes on each side of the seed, with a maximum envelope
+depth of approximately 5.95 micrometers. This is not merely a terminal count: upper planes
+at offsets one/two open at cycles 21/44, remain witnessed-open through cycle 920, and retain
+approximately 5.95/5.60 micrometers of axial-tip advance while open. The two-cell rule instead
+has nine transient episodes, eighteen signed opening intervals, zero tip advance while open
+and no terminal enclosure. The broad control also reseals; the dipped-basal control retains
+its earlier persistent lead. These are finite-history straight-opening witnesses, not a full
+three-dimensional cavity classification or physical validation.
+
+The distinction also appears in the retained matched readouts. At common age
+66.46577194636605 seconds, discrete at-or-before states have open-plane counts
+0/30/0/26 in table order. At the exact 9.8-micrometer largest-center-span selection they have
+0/22/0/26. The report retains event-time brackets; equal largest span does not equalize
+in-plane and axial spans, and the terminal ages differ. Do not call these identical geometries
+or interpolate cavity measurements between attachment events.
+
+**Initiation and ongoing feedback remain entangled.** The report's pre-update observations
+show the three-cell rule selects 24 of 38 basal seed cells from the first update. Selected
+demand supplies 92.04% (rounded) of computed basal demand strictly before first enclosure;
+the onset-producing update selects all fourteen basal cells. Across the whole run,
+284 of 920 updates select every basal cell, although the whole-history selected cell-update
+fraction is only 42.38% and its computed-demand fraction is 79.55% (rounded).
+The final raw event selects 350 of 362 basal cells, with selected/unselected demand fill
+4.943510917102731 / 1.067021121828466e-14. It is not a permanently everywhere-selected rule,
+but early everywhere-active growth and later demand dominance prevent a clean narrow-region-
+only causal claim. Conversely, the two-cell rule first has positive selected demand at cycle
+21, before its cycle-56 enclosure, yet reseals; preceding activation alone is insufficient in
+these measured rows. Its selected whole-history demand fraction is 11.57% (rounded).
+Demand here is computed per-boundary-pixel kinetic demand, not placed ice or spatially
+resolved rim/floor uptake. A bounded shared-context non-author read of the report and named
+raw events confirmed these activation limits without rerunning any analysis or tests.
+
+The colder two-cell row has also completed: its campaign `result.json` records extent 37,
+1140 cycles, 19297 attached sites and 117.02345167998584 simulated seconds; `exit.json` records
+exit zero at 17:59:33 UTC on 2026-09-12. The colder three-cell worker 8128 and the original
+eight fine-grid workers remain live at the 19:03 UTC observation. Next finish the colder
+quartet once its companion exits, then register the promised longer evaluation and a targeted
+initialization/width-feedback discriminator from both outcomes. Do not rerun the warmer report,
+add a combined pending report, retune the threshold, or claim grid robustness while fine rows
+are incomplete.
+
 ### Earlier completed-row observations
 
 `cavity-seed-thick-t4p5-m1` completed with exit 0 and an admissible size-target stop. Its raw

@@ -808,14 +808,18 @@ were committed before implementation at `5f90eb0330d138a33dbc79537103c3e2f3b44be
 four-row roster/CLI, demand telemetry and distinct analyzer grouping are now implemented.
 Focused checks passed 21 analyzer tests and six solver/four runner tests; both typechecks passed.
 Exact commands, retained initial fixture/type diagnostics, successful logs and the single bounded
-static review are recorded in the plan's **Local-width implementation checkpoint**. The first
-local-width row, `basal-width-t4p5-le3`, has completed: its `result.json` under
-`out/post-phase10-local-basal/campaign-2026-09-11/rows/` records a size-target stop at extent 37,
-920 cycles, 12,781 attached sites and 82.56715479712955 simulated seconds, with no integrity
-errors. Its adjacent `exit.json` records exit zero at 12:18:29 UTC on 2026-09-12. The other
-three local-width workers and eight original fine-grid workers were observed live at 13:13 UTC.
-This is an execution result, not a cavity classification; wait for its same-temperature mate
-before producing the single matched quartet report. The original campaign launch follows.
+static review are recorded in the plan's **Local-width implementation checkpoint**. The warmer
+quartet is now complete in `out/post-phase10-local-basal/t4p5-comparison-2026-09-12.json`
+(SHA-256 `8e06391c81e5f71f322fcb1c6690683ada2b5bfaaa4b69184bf3196ee8b1d5fe`). All four arms
+are admissible and matched. The three-cell rule retains 34 straight-open enclosed planes and a
+one-plane waist, with approximately 5.95 micrometers of tip advance while a tracked plane stays
+open; the two-cell rule's nine transient episodes reseal, with zero such advance. The plan's
+**Completed warmer local-width comparison** records exact age/size contrasts and the key limit:
+the successful rule is seed-active, and 284 of 920 updates select every basal cell, including
+the onset-producing update. This is a persistent model lead, not isolated ongoing width-feedback
+causality, grid robustness or physical validation. The colder two-cell row also finished,
+exit zero (`campaign-2026-09-11/rows/basal-width-t5-le2/exit.json`); its companion worker 8128
+and all eight original fine-grid workers were observed live at 19:03 UTC on 2026-09-12.
 
 The single exact `npm test` at `271c70868e03a125939d97e2bee8b4f2a38ba8ce` completed, exit one:
 170 passed / 11 failed files, 2,597 passed / 18 failed / 72 skipped tests. These counts are from
@@ -835,11 +839,13 @@ active launches. Parent 23280 and children 12516/41580/28944/8128 were confirmed
 the eight original fine-grid workers: twelve experiment workers total, no test worker. Separate
 launcher/per-row stderr logs are initially empty. The rows condition basal kinetics on chord
 thresholds two/three and reuse completed no-dip/basal-only controls.
-Next observe existing processes hourly or on completion; do not launch/check again. Read this
-plan section and existing per-row `status.json`, `exit.json` and `result.json`, then make one
-matched quartet report per temperature when complete. Original fine-grid jobs continue unchanged;
-their matched seed/grid analysis remains pending. Keep combined workers at or below 28 and the
-geometry rule P4. No physical-validation claim, Phase 7 work or C0V recovery follows.
+Next observe existing processes hourly or on completion; do not launch/check again. After the
+colder three-cell row finishes, produce its single matched quartet report with the same two
+registered control types; do not regenerate the completed warmer report. Then use both outcomes
+to register the promised longer evaluation and a targeted initialization/width-feedback
+discriminator. Original fine-grid jobs continue unchanged; their matched seed/grid analysis
+remains pending. Keep combined workers at or below 28 and the geometry rule P4. No physical-
+validation claim, Phase 7 work or C0V recovery follows.
 The plan gives exact launch commands and the verification scope. Preserve the eight original
 fine-grid runs; do not duplicate or modify their launch. Keep one final quartet report per
 temperature per experiment, without a redundant combined report or frequent pending reports.
