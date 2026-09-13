@@ -1857,11 +1857,27 @@ it did not rerun tests, independently recompute values, run a simulation, regene
 review retired infrastructure. The operational reminder is to supply the explicit longer-span
 analysis option above. This is a bounded static review, not physical or full-state verification.
 
-The exact full check and registered campaign have not started. Commit this stable implementation,
-then run `npm test` once using `out/post-phase10-basal-history/checkpoint-2026-09-12/run-check.ps1`
-to retain the exact source head, command, worker count, original log and exit. Classify its result
-against the already recorded historical failures without repairing retired machinery or repeating
-the suite for confidence, then launch the registered ten rows once.
+The implementation checkpoint is `f93f40c288ced2d4e3b12aff22423e42a9b6353e`. Its single exact
+`npm test`, launched by `out/post-phase10-basal-history/checkpoint-2026-09-12/run-check.ps1`, ran
+from 2026-09-12T23:42:43.9305119Z to 2026-09-13T00:22:21.9849901Z and exited one. The retained
+`npm-test.log` records 171 passed / 11 failed files, 2,612 passed / 18 failed / 72 skipped tests,
+and Vitest duration 2,348.80 seconds. Rule 7 passed across 1,553 files, both typechecks passed,
+and the four local-width/history solver/runner/analyzer files passed all 46 tests. The original
+log is 251,054 bytes / SHA-256
+`4e9bc52c070aa568849eb333e434874837df397b689739cf5dab0bd4cd8ff2f2`; adjacent
+`npm-test-exit.json` is 410 bytes /
+`e4dbf93ad1ee432fecbde9ee82a8dfc8b3f0d78556cce18169bda172db0850c1`.
+The start/exit records identify one test worker alongside eight original experiment workers;
+supervisor 18576 has exited.
+
+The eighteen failing tests plus one failed-suite heading match the prior local-width check's
+nineteen headings exactly. Inspection retains the same classification: historical scope/B/final
+package byte bindings, absent retired S6 recovery fixtures, the known static-checker local-object
+limitation, and Phase 9 specification pins. The attachment-spec pin now sees the prospective
+0059 extension; it is not a new failure or a numerical defect. No new failing test appeared.
+The full suite is not green. No source-pin repair, recovery, solver reshaping or repeat check
+follows. Commit this classification, then launch the registered ten rows once; no history
+campaign exists yet.
 
 ### Earlier completed-row observations
 

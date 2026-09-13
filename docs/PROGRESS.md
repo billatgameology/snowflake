@@ -853,11 +853,19 @@ runner, finite roster/CLI and matched history analyzer are now implemented. Focu
 `out/post-phase10-basal-history/checkpoint-2026-09-12/` and detailed in the plan's
 **Early/late implementation checkpoint**. Both typechecks passed (`npm.cmd run typecheck`,
 `typecheck.log`); the one bounded non-author static review found no concrete blocker and did not
-rerun tests or simulations. No full check or history campaign has started. Ten N112 / extent-53 rows
+rerun tests or simulations. The implementation is committed at
+`f93f40c288ced2d4e3b12aff22423e42a9b6353e`. Its one exact `npm test` completed, exit one:
+171 passed / 11 failed files, 2,612 passed / 18 failed / 72 skipped tests, with Rule 7, both
+typechecks and all 46 local-width/history focused tests passing. Counts and classification are
+in the plan's checkpoint and the retained `npm-test.log` (SHA-256
+`4e9bc52c070aa568849eb333e434874837df397b689739cf5dab0bd4cd8ff2f2`); `npm-test-exit.json`
+records completion. The failure headings match the preceding check; no new failing test appeared.
+Do not call the full suite green or repair retired pins/recovery. No history campaign has started.
+Ten N112 / extent-53 rows
 cross the two temperatures with broad, global-basal, full width-three, early-only and late-only
 kinetics. A fixed twenty-second physical-time cutoff tests early growth history, not seed-only
 effects; switches occur at complete coupled-update boundaries and preserve state. Next commit
-this stable implementation, run one exact `npm test` with the retained `run-check.ps1`, then use the
+the completed-check record and use the
 registered `launch-basal-history` command once. No new history run exists yet. Do not regenerate
 the two completed width reports, scan thresholds or change the original fine-grid jobs. Their
 matched seed/grid analysis remains pending. Keep combined workers at or below 28 and the
