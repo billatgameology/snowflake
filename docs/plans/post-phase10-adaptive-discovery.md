@@ -1876,8 +1876,27 @@ package byte bindings, absent retired S6 recovery fixtures, the known static-che
 limitation, and Phase 9 specification pins. The attachment-spec pin now sees the prospective
 0059 extension; it is not a new failure or a numerical defect. No new failing test appeared.
 The full suite is not green. No source-pin repair, recovery, solver reshaping or repeat check
-follows. Commit this classification, then launch the registered ten rows once; no history
-campaign exists yet.
+follows.
+
+**Launch executed once:** the registered `launch-basal-history ... 10` command started at
+2026-09-13T00:36:20.107Z (2026-09-12 local date) from clean producer
+`a8fa8b3fe3f6665b77cdcd13adde9035d06b451b`. The campaign manifest at
+`out/post-phase10-basal-history/campaign-2026-09-12/campaign.json` records the exact executable,
+argv, source, roster and requested concurrency. Its sibling `campaign-2026-09-12.launcher.log`
+records actual startup concurrency ten. Parent 28708 and children
+46616/51968/49592/51020/51976/43620/48584/9076/52600/47540 were confirmed live alongside the
+eight original fine-grid workers: eighteen experiment workers, no test worker. Parent and row
+stderr logs were initially empty. Per-row stdout, stderr, status and eventual exit/result files
+use the existing runner layout. Do not relaunch or modify these jobs.
+
+Next wait for hourly/completion observations. Once a temperature's five rows finish, use the
+existing `post-phase10-cavity-analysis.ts rows` command on that temperature's `broad`,
+`global-basal`, `full`, `early` and `late` directories, supplying
+`--center-spans-um=4.2,5.6,7,8.4,9.8,12.6,18.2`, and retain one new report. Inspect actual
+prefix/switch agreement, intervention exposure and post-switch advancing versus resealing
+openings before selecting another experiment. Compare its extent-37 baseline arms with the
+retained N80 reports; do not regenerate those reports. The fine-grid matched question remains
+separate and unresolved. No further suite invocation or pending-state report is needed.
 
 ### Earlier completed-row observations
 

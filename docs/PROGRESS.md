@@ -860,13 +860,21 @@ typechecks and all 46 local-width/history focused tests passing. Counts and clas
 in the plan's checkpoint and the retained `npm-test.log` (SHA-256
 `4e9bc52c070aa568849eb333e434874837df397b689739cf5dab0bd4cd8ff2f2`); `npm-test-exit.json`
 records completion. The failure headings match the preceding check; no new failing test appeared.
-Do not call the full suite green or repair retired pins/recovery. No history campaign has started.
+Do not call the full suite green or repair retired pins/recovery.
 Ten N112 / extent-53 rows
 cross the two temperatures with broad, global-basal, full width-three, early-only and late-only
 kinetics. A fixed twenty-second physical-time cutoff tests early growth history, not seed-only
-effects; switches occur at complete coupled-update boundaries and preserve state. Next commit
-the completed-check record and use the
-registered `launch-basal-history` command once. No new history run exists yet. Do not regenerate
+effects; switches occur at complete coupled-update boundaries and preserve state. The registered
+`launch-basal-history out/post-phase10-basal-history/campaign-2026-09-12 10` command has now
+launched once from clean producer `a8fa8b3fe3f6665b77cdcd13adde9035d06b451b`, at
+2026-09-13T00:36:20.107Z. The campaign manifest and sibling `.launcher.log` record exact argv
+and ten actual concurrent launches; parent 28708 and all ten children were confirmed live
+alongside the eight original fine-grid jobs, with no test worker. Initial stderr files are empty.
+Next use hourly/completion observations, not another launch or test. On each temperature's
+five-row completion, generate one report from its broad/global-basal/full/early/late directories
+with `node runner/src/post-phase10-cavity-analysis.ts rows <new-output.json> <row-directories>`
+and `--center-spans-um=4.2,5.6,7,8.4,9.8,12.6,18.2`. The plan's checkpoint gives paths and
+interpretation limits. Do not regenerate
 the two completed width reports, scan thresholds or change the original fine-grid jobs. Their
 matched seed/grid analysis remains pending. Keep combined workers at or below 28 and the
 counterfactual P4; no physical-validation claim, Phase 7 work or C0V recovery follows.
