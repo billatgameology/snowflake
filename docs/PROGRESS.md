@@ -135,6 +135,56 @@ detail.
   [artifact](../evidence/phase9-knowledge-baseline-v1/report.json) (5,263 bytes; SHA-256
   `37c7aadf18bce7420883930f66d6c6a473100dd27e1468dd8396a3c1214b1f96`) preserve 18 sources and
   15 hypotheses. It is now a bound S0B input; no model ran during its construction.
+- Snow Crystal Journey media proceeds in parallel. Transcript entries `JTS-M006`/`JTS-M007` record
+  the one-long-documentary source, manga-like scroll story/autoplay export, and intent to continue
+  through Phase 10. The versioned narrative score and fixed-frame export interpretation is recorded
+  by plan commit `86fe656`; Chapter 1 remains the bounded pilot and scientific authority is unchanged.
+- The maker-directed compact G-G growth replay is **COMPLETE AS A LOCAL VERIFIED CANDIDATE** under
+  [explore-gutcheck-growth-volume.md](plans/explore-gutcheck-growth-volume.md); governed NAS
+  publication is deferred. Commit `44fd4b6` records exact attachment index/tick events and renders a
+  separately labeled smoothed surface without changing solver/phase authority or replacing the
+  immutable 701 meshes. `out/gutcheck-growth-runB/live.log` records the restart-only Run B exit at
+  tick 70,000 after 36,348.1 solver seconds under its original Node v24.13.1 engine. The asset is
+  7,695,060 bytes, SHA-256
+  `475c1f7c227c45b005bfdb8691b1250599b405fa59902462110312a4f26ceb7d`; strict validation plus a
+  separate handwritten parser are bound by the 618-byte and 1,234-byte records named in the plan.
+  They confirmed 961,597 unique ordered events, the canonical seed, ticks 0–70,000, the
+  593×593×17 crop, source/runtime identity and reconstructed 69,120,000-cell occupancy SHA-256
+  `9c98fe41e5ea2f6b2020063218b37255877548bdeb49dadf4235a4cf039cf9f7`.
+  `out/gutcheck-growth-runB/comparison-record-v2.json` (3,002 bytes, SHA-256
+  `5488f738f3068e74cfdbc38e07c35c1a30e21fe73f891a22ab1e8d50399086f8`) derives the measured
+  6,622,194,703-byte quantized sequence versus the 7,695,060-byte compact asset: 861x smaller after
+  rounding. The accepted Chromium/SwiftShader v5 browser record is 48,961 bytes, SHA-256
+  `ea194edc23dd583d9591c5009449c96d45f515291664b1baf76f8d508a3f2cb1`; it passed play/pause,
+  exact seek/reverse, orbit, keyboard, reduced motion, portrait/desktop containment and five scoped
+  failure lanes while fetching one compact asset and zero legacy meshes. The non-author closing
+  reviews found no blocker/high issue. Final exact `TMPDIR=/private/tmp npm test` passed 123/123
+  files, 2,091 tests with 8 skipped; its 33,723-byte log is
+  `out/checks/gutcheck-growth-final-npm-test-v3.log`, SHA-256
+  `8750759f51abe23f45e72dc1bac1424b7417c94f8330b4ae67a026a01bc67fe4`. The parallel NAS migration
+  retired the old top-level `out/` destination; do not run or retarget the legacy publisher, recreate
+  aliases, or claim public availability. Forward publication waits for the governed catalogue,
+  owner-manifest, receipt and fresh-restore contract.
+- The [glass/camera follow-up](plans/explore-gutcheck-growth-glass-camera.md) is **IMPLEMENTED AS A
+  LOCAL CANDIDATE; BROWSER/VISUAL ACCEPTANCE IS PENDING**. It binds the compact replay to the exact
+  `growth-B-intro` clock/camera track, retains exact-tick/manual-orbit/reduced-motion paths, and labels
+  the shader `GLASS-STYLED · MODEL / UNVALIDATED`; the panes are not live-transport-locked. Exact
+  `TMPDIR=/private/tmp npm test`, the app build and non-author source audit passed after four named
+  repairs recorded in the plan. No browser session was available, so there is no fresh WebGL visual
+  verdict; v5 remains evidence only for the prior bold-ice/stationary-camera version.
+- **The Journey/media branch is reconciled with current `main` for review (2026-09-12).** Branch
+  `explore/education-ch1-video` merged fetched `origin/main` at `c2dd1d4`, retaining both the
+  compact `?growth=` replay and the newer composed `?growthScene=` presentation path. The conflict
+  resolution also keeps both Vite entry points and separates the historical compact-comparison NAS
+  lookup from the governed collection detector. The Rule 16 audit found this as the sole PR branch;
+  the clean `main` worktree and unattached `plan/phase10-options` branch are unrelated, while ignored
+  `out/gutcheck-growth-runB/` remains the plan-governed local candidate and is excluded from Git.
+  Focused replay/NAS/progress tests, both loopback-serving test files with bind permission, typecheck,
+  and the app build pass. Exact `TMPDIR=/private/tmp npm test` reproduces the already documented
+  `main` catalog failures; its extra sandbox-only bind failures pass in the focused permitted runs.
+  Merge commit `5ef0d69` is published in
+  [PR #13](https://github.com/billatgameology/snowflake/pull/13); this does not close the pending
+  browser/visual or Rule 13 review boundaries.
 - **Maker directions (2026-08-20).** Phase 7 is on hold and, when resumed, runs as a parallel
   product/engineering track beside the science workstream (charter v1.23 already makes it
   standalone; this adds no new authority and starts nothing). The handoff mechanism is retired:
@@ -309,6 +359,13 @@ history, not execution authority. Decisions 0046–0050 keep worktrees, processe
 and completion credit isolated.
 [nas-asset-governance.md](plans/nas-asset-governance.md) is a completed infrastructure record; its
 correction changes no phase claim or credit.
+
+The [compact gutcheck growth-replay plan](plans/explore-gutcheck-growth-volume.md) is the completed
+local Journey/media implementation record; only governed NAS publication remains deferred. It is
+parallel to, and cannot change, the Phase 6 lane.
+
+The [glass/camera follow-up](plans/explore-gutcheck-growth-glass-camera.md) remains the active local
+Journey presentation record; browser/visual acceptance is still pending.
 
 The maker-directed [gut-check animation selection and queue plan](plans/gutcheck-animation-selection-queue.md)
 is complete, including growth-event and full scientific output. The
@@ -862,6 +919,23 @@ reproduced gate6 13/13 / exit 0 and exact `TMPDIR=/private/tmp npm test` green: 
 2,250 passed / 7 skipped in 403.61 s. Full closure detail:
 [the history file](progress-history-phases-6-8-9.md). Held-out and preview-GPU work remain
 Phase 7 property with no Phase 6 credit.
+
+### Journey compact growth replay — glass/camera parity follow-up active (2026-08-16)
+
+Open [explore-gutcheck-growth-glass-camera.md](plans/explore-gutcheck-growth-glass-camera.md), then
+[explore-gutcheck-growth-volume.md](plans/explore-gutcheck-growth-volume.md). The strict format,
+baker, full Run B asset, smooth viewer, measured comparison page, strict v5 Chromium record, visual
+inspection, adversarial reviews and final full suite are complete locally. No Journey/media action is
+required for those accepted v5 bytes. Hard-refresh
+`http://127.0.0.1:4177/gutcheck-growth-comparison.html?record=%2Fcomparison-record.json` and inspect
+poster views, final-state camera hold, orbit and `follow tour`. When Browser is available, add
+presentation/camera/manual-hold witnesses to `app/scripts/growth-comparison-capture.mjs`, capture to
+a new no-clobber directory, inspect the screenshots, then close the follow-up plan. Do not cite v5
+for this look. Governed publication still waits for the parallel NAS-governance workstream's forward
+collection command and catalogue/owner-manifest/receipt/fresh-restore contract. Do not run or
+retarget `scripts/gutcheck-publish-growth-comparison.ts`, recreate the retired NAS `out/` tree, or
+append the old ledger. Preserve the legacy meshes and do not count this media work toward any phase
+gate.
 
 ### Phase 8B record — closed; external search remains stopped
 

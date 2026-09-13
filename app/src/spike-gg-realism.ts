@@ -1,6 +1,7 @@
 // Gut-check spike renderer (docs/plans/explore-gg-realism-gutcheck.md): renders
 // gutcheck-mesh-v1 binaries (scripts/gutcheck-mesh-lib.ts) in two maker-directed styles,
-// as a single static frame, an orbitable viewer, or a growth timeline.
+// as a single static frame, an orbitable viewer, a mesh-frame timeline, or one compact
+// attachment-time volume.
 //
 //   ?style=ice     (default) the ADR 0029 Realistic look aimed at the J0521r2p footage.
 //   ?style=povray  the G-G paper's Fig. 4 ray-trace look.
@@ -9,6 +10,8 @@
 //                  slider + play/pause scrub through frame meshes, orbit controls always
 //                  on, "face-on" resets the camera. ?frame=N picks the initial frame
 //                  (default 0, the seed). ?fps=N sets playback rate (default 5).
+//   ?growth=<url>  smooth implicit-surface replay of one gutcheck-growth-v1 asset. Exact
+//                  attachment ticks remain in the asset; the displayed shell is interpolated.
 //   ?growthScene=<url> strict growth-scene-v1 direct/composed playback over verified growth assets.
 //
 // Static captures stay bit-stable for the recorded recipes: fixed backdrop plane, pixel
@@ -20,6 +23,14 @@ import * as THREE from "three";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 
 import { createSceneEditor } from "./scene-editor.ts";
+import { runGutcheckGrowthView } from "./gutcheck-growth-view.ts";
+import {
+  RUN_B_GROWTH_PRESENTATION,
+  RUN_B_GROWTH_PRESENTATION_ID,
+  decodeSceneMotion,
+  sampleSceneCamera,
+  sampleSceneFrame,
+} from "./gutcheck-scene-motion.ts";
 import { decodeGrowthAssetV1, visibleGrowthEventCount } from "./growth-asset.ts";
 import {
   GROWTH_SCENE_WEB_LIMIT_BYTES,
@@ -1487,13 +1498,6 @@ async function growthSceneMain(sceneUrl: string): Promise<void> {
 // for deterministic frame capture. Look/background/frameExtent come from URL params, which
 // the capture runner derives from the scene file.
 
-interface SceneKeyframe {
-  t: number;
-  tilt?: number;
-  yaw?: number;
-  zoom?: number;
-  ease?: "linear" | "inOutCubic";
-}
 interface SceneScript {
   format: string;
   title?: string;
@@ -1502,8 +1506,6 @@ interface SceneScript {
   duration: number;
   fps?: number;
   source: { manifest?: string; mesh?: string };
-  camera?: SceneKeyframe[];
-  frames?: Array<{ t: number; frame: number }>;
   captions?: Array<{ t0: number; t1: number; text: string }>;
 }
 
@@ -1511,10 +1513,9 @@ async function sceneMain(sceneUrl: string): Promise<void> {
   const sceneAbsolute = new URL(sceneUrl, window.location.href);
   const sceneResponse = await fetch(sceneAbsolute);
   if (!sceneResponse.ok) throw new Error(`scene fetch failed: ${sceneResponse.status} ${sceneUrl}`);
-  const script = (await sceneResponse.json()) as SceneScript;
-  if (script.format !== "gutcheck-scene-v1") {
-    throw new Error(`unexpected scene format: ${script.format}`);
-  }
+  const rawScript = (await sceneResponse.json()) as unknown;
+  const motion = decodeSceneMotion(rawScript);
+  const script = rawScript as SceneScript;
   // A committed scene names its own look. Previewing ?scene=... without ?look would
   // otherwise render with the default recipe — the scene's authored appearance is part of
   // the artifact, so redirect once to apply it (capture already passes ?look explicitly).
@@ -1524,16 +1525,8 @@ async function sceneMain(sceneUrl: string): Promise<void> {
     window.location.search = next.toString();
     return;
   }
-  if (!Number.isFinite(script.duration) || script.duration <= 0) {
-    throw new Error(`scene duration must be a positive number, got ${String(script.duration)}`);
-  }
-  // Keyframe tracks are interpolated by scanning forward, so out-of-order times would
-  // silently make segments unreachable. Fail loudly instead of rendering a wrong scene.
-  const sorted = (times: number[]): boolean => times.every((t, i) => i === 0 || t >= times[i - 1]!);
-  if (!sorted((script.camera ?? []).map((k) => k.t))) throw new Error("scene camera keyframes are not sorted by t");
-  if (!sorted((script.frames ?? []).map((k) => k.t))) throw new Error("scene frame keyframes are not sorted by t");
   const capture = param("capture", "0") === "1";
-  const duration = Math.max(0.1, script.duration);
+  const duration = motion.duration;
 
   // Sources resolve relative to the scene file so committed scenes work from any host root.
   let manifest: AnimManifest | null = null;
@@ -1558,7 +1551,7 @@ async function sceneMain(sceneUrl: string): Promise<void> {
     bb !== undefined
       ? new THREE.Vector3(bb.xMax - bb.xMin, bb.yMax - bb.yMin, bb.zMax - bb.zMin)
       : new THREE.Vector3(1, 1, 1);
-  const frameExtent = Number(param("frameExtent", String(script.frameExtent ?? 0)));
+  const frameExtent = Number(param("frameExtent", String(motion.frameExtent ?? 0)));
   if (frameExtent > 0) {
     extent.x = frameExtent;
     extent.y = frameExtent;
@@ -1604,53 +1597,12 @@ async function sceneMain(sceneUrl: string): Promise<void> {
     return geometry;
   };
 
-  const frameAt = (t: number): number => {
-    if (manifest === null) return -1;
-    const track =
-      script.frames !== undefined && script.frames.length > 0
-        ? script.frames
-        : [
-            { t: 0, frame: 0 },
-            { t: duration, frame: manifest.frames.length - 1 },
-          ];
-    if (t <= track[0]!.t) return track[0]!.frame;
-    for (let i = 1; i < track.length; i++) {
-      const a = track[i - 1]!;
-      const b = track[i]!;
-      if (t <= b.t) {
-        const k = b.t === a.t ? 1 : (t - a.t) / (b.t - a.t);
-        return Math.round(a.frame + (b.frame - a.frame) * k);
-      }
-    }
-    return track[track.length - 1]!.frame;
-  };
-
-  const cameraAt = (t: number): { tilt: number; yaw: number; zoom: number } => {
-    const track = script.camera ?? [];
-    const fill = (k: SceneKeyframe | undefined): { tilt: number; yaw: number; zoom: number } => ({
-      tilt: k?.tilt ?? 0,
-      yaw: k?.yaw ?? 0,
-      zoom: k?.zoom ?? 1,
-    });
-    if (track.length === 0) return fill(undefined);
-    if (t <= track[0]!.t) return fill(track[0]);
-    for (let i = 1; i < track.length; i++) {
-      const a = track[i - 1]!;
-      const b = track[i]!;
-      if (t <= b.t) {
-        const raw = b.t === a.t ? 1 : (t - a.t) / (b.t - a.t);
-        const k = (b.ease ?? "inOutCubic") === "linear" ? raw : easeInOutCubic(raw);
-        const av = fill(a);
-        const bv = fill(b);
-        return {
-          tilt: av.tilt + (bv.tilt - av.tilt) * k,
-          yaw: av.yaw + (bv.yaw - av.yaw) * k,
-          zoom: av.zoom + (bv.zoom - av.zoom) * k,
-        };
-      }
-    }
-    return fill(track[track.length - 1]);
-  };
+  const frameTrack = motion.frames.length > 0 || manifest === null
+    ? motion.frames
+    : Object.freeze([
+        Object.freeze({ t: 0, frame: 0 }),
+        Object.freeze({ t: duration, frame: manifest.frames.length - 1 }),
+      ]);
 
   const caption = document.createElement("div");
   caption.style.cssText =
@@ -1663,14 +1615,14 @@ async function sceneMain(sceneUrl: string): Promise<void> {
   const seek = async (tSeconds: number): Promise<void> => {
     const t = Math.max(0, Math.min(duration, tSeconds));
     if (manifest !== null) {
-      const index = frameAt(t);
+      const index = sampleSceneFrame(frameTrack, t);
       if (index !== shownFrame) {
         const geometry = await loadFrame(index);
         shownFrame = index;
         setRigGeometry(rig, geometry);
       }
     }
-    const cam = cameraAt(t);
+    const cam = sampleSceneCamera(motion.camera, t);
     const tiltRad = (cam.tilt * Math.PI) / 180;
     const yawRad = (cam.yaw * Math.PI) / 180;
     const arc = new THREE.Vector3(0, Math.sin(tiltRad) * baseDist, Math.cos(tiltRad) * baseDist);
@@ -1707,6 +1659,32 @@ async function sceneMain(sceneUrl: string): Promise<void> {
 }
 
 async function main(): Promise<void> {
+  const growthUrl = query.get("growth");
+  if (growthUrl !== null && growthUrl !== "") {
+    const presentationName = query.get("presentation");
+    if (presentationName !== null && presentationName !== RUN_B_GROWTH_PRESENTATION_ID) {
+      throw new Error(`unsupported growth presentation: ${presentationName || "(empty)"}`);
+    }
+    const backdrop = backdropDefaults();
+    await runGutcheckGrowthView(growthUrl, {
+      query,
+      backdropTop: backdrop.a,
+      backdropBottom: backdrop.b,
+      bodyColor: "#" + param("body", "f4f8ff", "cfe2f8"),
+      edgeColor: "#" + param("edgeCool", "c9dcff", "edf6ff"),
+      zScale: zscale,
+      presentation: presentationName === null ? null : RUN_B_GROWTH_PRESENTATION,
+      appearance: {
+        name: activeLookName ?? "default",
+        style: activeLookName === "glass" ? "glass" : "solid",
+        ior: Number(param("ior", "1.31")),
+        roughness: Number(param("rough", "0.08")),
+        specular: Number(param("spec", "1.0")),
+        clearcoat: Number(param("cc", "0")),
+      },
+    });
+    return;
+  }
   const growthSceneUrl = query.get("growthScene");
   if (growthSceneUrl !== null && growthSceneUrl !== "") {
     await growthSceneMain(growthSceneUrl);
@@ -1728,5 +1706,12 @@ async function main(): Promise<void> {
 main().catch((err: unknown) => {
   const message = err instanceof Error ? (err.stack ?? err.message) : String(err);
   (window as unknown as SpikeWindow).__spikeError = message;
+  const card = document.createElement("div");
+  card.style.cssText =
+    "position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);max-width:680px;" +
+    "padding:16px 18px;border:1px solid #6f3e4d;border-radius:7px;background:#160d14;" +
+    "color:#ffdce6;font:13px/1.5 ui-monospace,monospace;white-space:pre-wrap;z-index:30";
+  card.textContent = `Replay unavailable\n${message}`;
+  document.body.appendChild(card);
   console.error("spike render failed:", message);
 });

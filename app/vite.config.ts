@@ -905,6 +905,7 @@ export default defineConfig({
         gutcheckIndex: resolve(import.meta.dirname, "gutcheck-index.html"),
         namedCrystalCatalog: resolve(import.meta.dirname, "named-crystal-catalog.html"),
         spike: resolve(import.meta.dirname, "spike-gg-realism.html"),
+        growthComparison: resolve(import.meta.dirname, "gutcheck-growth-comparison.html"),
         dendriteStyles: resolve(import.meta.dirname, "dendrite-styles.html"),
       },
     },
