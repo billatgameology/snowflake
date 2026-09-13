@@ -603,6 +603,31 @@ the package-specific prerequisites in its charter amendment and execution plan. 
 
 ## Next step
 
+### Maker-requested consolidation pause — 2026-09-13
+
+Do not launch another experiment wave before the maker's requested cross-machine consolidation.
+Let the current fine-grid and basal-history campaigns finish, perform their named analyses, then
+pause scientific expansion. Selecting a possible follow-up is permitted; executing it waits for
+the common grounding point. This supersedes automatic follow-up launch wording below, not the
+current registered runs. Do not kill, restart, move or delete their execution worktree: the
+discovery runner writes observations/results but no restartable checkpoint, and experimental
+kinetics cannot use ordinary LK resume export. No merge or process interruption has occurred.
+
+The maker's next-wave topology is this 32-logical-processor PC, another 24-core PC, and a Mac mini
+for story/website work. Converge their intended committed changes and retained result ownership
+to one integration baseline before splitting work again. The other machines' current heads and
+uncommitted work have not yet been inspected. Keep the present worker cap unchanged; determine
+the second PC's available budget and exact runtime before assigning it work. Prefer disjoint
+independent case groups on the two PCs, with the same recorded scientific producer/runtime,
+explicit row ownership and separate output directories. Keep Mac story/website changes isolated
+from experiment production. A short assignment section in the active plan is enough; no generic
+distributed scheduler or coordination framework is requested.
+
+Code integration may be prepared separately while this worktree's jobs continue. Full retirement
+of execution worktrees or a restart must wait for terminal results and their preservation, unless
+the maker explicitly chooses to abandon partial runs. Reconcile branch intent and all machines'
+local-only changes before merging; do not merge every historical/retired branch blindly.
+
 ### Resumed cavity mechanism/resolution experiment
 
 The maker explicitly resumed on 2026-09-08. Open **Scientific review and resumed cavity experiment**

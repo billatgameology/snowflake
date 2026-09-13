@@ -1898,6 +1898,19 @@ openings before selecting another experiment. Compare its extent-37 baseline arm
 retained N80 reports; do not regenerate those reports. The fine-grid matched question remains
 separate and unresolved. No further suite invocation or pending-state report is needed.
 
+**Maker direction, 2026-09-13:** after these current campaigns and their analyses, pause before
+another long wave so work from the 32-core PC, the second 24-core PC and the story/website Mac mini
+can converge to one shared baseline. Do not automatically launch the next selected experiment.
+No current job is stopped by this instruction. The discovery runner has no restart-checkpoint
+writer, and the experimental modes reject ordinary resume export; existing observations are not
+a restart state. Preserve the live execution worktree until completion or an explicit maker
+decision to abandon partial work. Code integration can be prepared separately without touching
+that worktree. Before the next wave, record one common scientific producer/runtime and assign
+disjoint independent case groups to the two PCs, with separate output paths and actual per-host
+worker budgets. The second PC's current branch, runtime and available budget remain to be checked;
+the present concurrency cap is unchanged. The Mac keeps story/website ownership. A concise work
+assignment suffices; no distributed scheduler or new assurance machinery is needed.
+
 ### Earlier completed-row observations
 
 `cavity-seed-thick-t4p5-m1` completed with exit 0 and an admissible size-target stop. Its raw
