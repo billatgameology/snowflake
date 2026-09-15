@@ -19,7 +19,7 @@
       {"time":5,"tick":500,"tilt":12,"yaw":210,"span":2,"minimum":8,"target":0},
       {"time":11,"tick":7000,"tilt":0,"yaw":210,"span":3.4,"minimum":8,"target":0},
       {"time":14,"tick":7000,"tilt":0,"yaw":210,"span":3.4,"minimum":8,"target":0},
-      {"time":62,"tick":7000,"tilt":0,"yaw":210,"span":3.4,"minimum":8,"target":0},
+      {"time":62,"tick":7000,"tilt":0,"yaw":210,"span":1.5,"minimum":8,"target":0.6},
       {"time":64,"tick":12000,"tilt":0,"yaw":210,"span":2.1,"minimum":8,"target":0.15},
       {"time":69,"tick":46000,"tilt":32,"yaw":218,"span":1.45,"minimum":8,"target":0},
       {"time":74,"tick":70000,"tilt":42,"yaw":230,"span":1.35,"minimum":8,"target":0},
