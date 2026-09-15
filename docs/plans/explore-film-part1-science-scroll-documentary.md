@@ -1265,6 +1265,41 @@ Earlier receipts remain historical; final verification paths are
 in the website worktree. The next implementation is WP4/WP5 on this improved runtime; maker
 visual acceptance, aloud read and actual narration remain separate from the technical checks.
 
+## WP4/WP5 opening-chapter execution — 2026-09-15
+
+The maker accepted the improved prototype and asked to keep working. The next bounded product
+slice is the first four sequences of `part1-score.json.productionDraft`: S00, S01, S02 and S05,
+through its S05 endpoint. Build that actual opening chapter, not another technical demo or
+an empty full-length timeline. Preserve the prototype as an explicitly selectable comparison
+edition on the same film route; the default becomes the clearly labeled opening chapter.
+
+Compile a separate `docs/video/part1-opening-score.json` from the reviewed sequence rows with
+`scripts/build-part1-opening-score.mjs`. Bind script/review/source identities, copy the narration
+verbatim, derive provisional sentence-sized captions and retain silent holds. Keep the full
+`productionDraft.activeForPlayback:false`; selecting a prepared opening slice does not approve
+unproduced scenes or the maker's unrecorded voice. Commit this score before importing it.
+
+Implement original reversible diagrams for scale change, independent plate/column examples,
+the qualified habit map, deposition versus frozen drop, crystal/aggregate/rime, supercooling,
+and the liquid–vapour–ice relay. Use the existing persistent replay for the cropped opening
+and seed. No completed model silhouette appears. Diagrams are qualitative; include the
+same-temperature equilibrium comparison, ice-relative supersaturation wording, hatched cold
+region, illustrative freezing timing, and attribution/scope for the large-crystal budget.
+No measured boundaries, particle trajectories, rates or new physical readouts are invented.
+
+Extend the checked watch/reader transport with edition and sequence navigation. Phone and
+no-JavaScript reading get image-only static figures and real text. Keep maker narration pending;
+the chapter's temporary timing track is an explicitly labeled fixture. Preserve the old
+prototype's export and browser tests; add focused opening-score/transport checks and frame
+samples of each new visual family, including reverse/reload and a short decoded export.
+Run the product build, then asset capture, then live browser checks sequentially to avoid
+development reload interference. Visually inspect desktop and phone output before closeout.
+
+Done for this slice: the selected opening chapter can play, seek and read in order, with every
+reviewed row represented, no placeholder visuals, correct source/model/diagram labels, checked
+static access and an honest endpoint. Full-film expansion, actual narration and final export
+remain later work under WP4–WP8; this is execution of the approved plan, not a new plan review.
+
 ## Tried and rejected
 
 - **Treat a paused media time as a reader anchor.** Phone caption reflow jumped into the

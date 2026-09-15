@@ -20,6 +20,10 @@ detail.
 ## Current state
 
 - **Part 1 prototype visually revised and checked (2026-09-15).** The
+  maker accepted this revision and asked to continue. WP4/WP5 is now building the actual
+  opening chapter from the reviewed S00/S01/S02/S05 rows; new chapter verification is pending.
+  The completed prototype remains available as a comparison edition, not silently discarded.
+  The
   [implemented revision](reviews/film-part1-visual-revision-2026-09-15.md) addresses the
   requested visual review: full-width watch presentation, cropped opening detail, directed
   corner close-up, aligned representation cuts, in-renderer ending pullback and phone
