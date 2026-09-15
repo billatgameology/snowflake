@@ -30,7 +30,10 @@ detail.
   sources govern claim scope; the old Phase 6 education freeze is not reinstated.
   Documentation checks pass: `node scripts/lint-rule7.mjs` and `git diff --check`; the review
   records the sample-script arithmetic and limits. No film runtime or final narration exists.
-  Next: the plan's WP0A, a minimal internal score and local website prototype.
+  The [author-response addendum](reviews/film-part1-plan-review-2026-09-15.md#author-response-and-wp1-notes)
+  records the source-wording refinements for WP1 and the author-run graph check; the revision
+  and prototype-first sequence are retained. Next: WP0A, a minimal internal score and local
+  website prototype; apply the addendum when writing the full narration.
 - **macOS dev-server guard defect fixed; NAS closeout checked from the Mac (2026-09-09).** On this
   Mac the documented `npm run dev --workspace app -- --port 5191` served every gallery page as an
   unstyled "Loading…" shell. The repository-local `/@fs` guard in `app/vite.config.ts` strips
@@ -447,7 +450,9 @@ diffs before changing that repository. The plan records the website refs observe
 Resolve local replay assets by their existing identities; public hosting does not block this
 prototype. Prove reverse/manual scrolling, intentional playback, interruption/resume, static
 reading and a short full-composition export before porting the larger diagram inventory.
-Then write the selected full narration and score, fact-check it, and record the maker's voice.
+Then write the selected full narration and score, incorporating the review's author-response
+notes for S04/S05/S18, the opening reveal and the sourced first-person hook; fact-check it and
+record the maker's voice. No further scene-plan review is required by that response.
 
 Traps: the hero's snowfall and some source diagrams hold accumulated state; a camera snap and a
 seed alone do not make reverse/direct capture deterministic. Whole-film captions and DOM diagrams

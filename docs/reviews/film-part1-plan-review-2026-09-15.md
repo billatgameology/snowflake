@@ -22,7 +22,9 @@ film remain the production steps defined by the revised plan.
 
 ## Findings on the submitted bytes
 
-Original line numbers below refer to the reviewed commit, before repairs.
+Original line numbers below refer to the reviewed commit, before repairs. The
+[author response and WP1 notes](#author-response-and-wp1-notes) clarify the source wording in
+R2 and the subsequent author-run prerequisite check. They govern those points going forward.
 
 ### R1 — High: the closing claim contradicts the film's own evidence
 
@@ -39,15 +41,20 @@ hypotheses to examine. Retain the promise of testing models without granting a v
 ### R2 — High: several scene summaries strengthen or change their sources
 
 - S04, lines 375–383: “below zero none … freeze” changes Chapter 1's `#supercooling`
-  account of droplets freezing across a range. State that cooling below zero does not make all
-  droplets freeze at once.
-- S05, lines 385–398: exhausting liquid droplets is a limit of the described mixed-phase supply
-  mechanism, not a general definition of “too cold to snow.” Remove that shortcut.
+  account of droplets freezing across a range. WP1 should retain its more precise statement
+  that none of the droplets in the described cloud freeze right at zero, followed by the
+  explanation of supercooling and freezing across a range.
+- S05, lines 385–398: “too cold to snow” is directly sourced in Chapter 1, including the printed
+  p. 20 quotation. My original “shortcut” wording failed to distinguish source provenance from
+  scope. Retaining this beat is an editorial option; keep the chapter's explanation of the
+  depleted liquid-water supply in the described cloud rather than imply cold itself prohibits snow.
 - S06, lines 402–412: the ring-angle animation is an illustrative construction, not a proof of
   ice Ih from the isolated water molecule's angle. Teach the observed lattice and distinguish
   the model of its bonding from a tiling analogy.
-- S18, lines 571–584: “diffusion can never make a plate” exceeds Chapter 7's comparison about
-  extreme aspect ratios with comparable facet kinetics. Name the modeled comparison.
+- S18, lines 571–584: “diffusion can never make a plate” is Chapter 7's actual heading. My
+  criticism should have distinguished that source wording from the scope of the underlying
+  comparison. WP1 may keep it as the hook with the equal/comparable-kinetics and thin-plate
+  qualification from the chapter's body.
 - S22, lines 633–646: Chapter 10 Eq. 6.1 divides the density difference by the saturation density
   at the substrate. The plan omits that denominator. Its twentyfold depletion example also
   depends on the stated chamber geometry, not coverage alone; ideal zero and measured zero
@@ -276,3 +283,51 @@ No software suite was run: these changes are prose, source references and planni
 The sibling website remains clean. Production behaviour remains untested: the next step is
 WP0A's short local website prototype, then full script/score, complete-script fact-check, maker
 recording and final product review.
+
+## Author response and WP1 notes
+
+The maker supplied the plan author's response on 2026-09-15 and directed that the revision stay,
+with the following wording handled in WP1 rather than another scene-plan revision. The
+coordinator checked the cited chapter passages and JTS-M004 directly. No additional review
+engagement or production gate is created.
+
+**Source wording for WP1**
+
+- **S18:** retain the chapter's “diffusion can never make a plate” hook if useful, immediately
+  tied to thin plates and the comparison with equal/comparable basal and prism attachment
+  coefficients. Chapter 7 `#not-diffusion` names that heading, gives the p. 112 comparison and
+  quotes p. 111 on extreme aspect ratios. Source support and scope are separate questions;
+  the heading was not an invention by the plan author.
+- **S04:** use the chapter's explicit zero-degree statement for the droplets being described,
+  then explain that many remain supercooled and freeze over a range below zero. Chapter 1
+  `#supercooling` says “none will freeze right at 0 C.” The original “below zero none” was
+  wrong; the revision's “not all” unnecessarily weakened this specific source statement.
+- **S05:** “too cold to snow” can remain, or be cut for pacing. It is a sourced section and
+  printed-p. 20 quotation in Chapter 1 `#too-cold-to-snow`. Preserve the accompanying “Careful”
+  explanation: the described cloud has spent its liquid droplets; the saying concerns that
+  fuel supply, not cold air refusing to make snow. The source provenance is sound; the remaining
+  concern is how broadly the spoken line is understood.
+
+**Order check and editorial choices**
+
+- The supplied response reports an author-run script check of 43 prerequisite edges with zero
+  violations in the original scene order. It reports no edge requiring S25 before S20. This
+  closes the graph-order objection on that attributed author check; the reviewer did not
+  independently run that script or inspect its graph artifact. The defective rejection rationale remains corrected:
+  it criticized chapter order for a sequence the film itself used. That inconsistency was not
+  evidence of a violated graph edge or an unsound scene order.
+- Prefer a mid-growth glimpse, or omit the opening preview, when WP1 chooses its cues. Reserve
+  the completed crystal for the ending. The existing sample is provisional; its preview is not
+  a requirement to reveal the final state early.
+- S17's photograph remark is an editorial choice. It can return if the maker finds it useful;
+  removal was a pacing preference, not a scientific correction. Do not invent a legal restriction
+  as the reason for using a date card or diagram.
+- JTS-M004 supplies an authentic personal starting point: the maker recalled expecting “pretty
+  simple rules and few parameters.” WP1 may paraphrase that recollection as a first-person hook,
+  preserving its status as an initial impression rather than a scientific conclusion.
+- Restore the template's **Open questions** heading; production inputs can sit beneath it.
+
+Disposition: retain the reviewed plan and WP0A-first sequence. These are scripting notes for
+WP1, plus a small record/heading correction now. The chapter source checks above do not establish
+new scientific results or repeat the complete narration audit. Verification for this addendum:
+`node scripts/lint-rule7.mjs` and `git diff --check`, both exit 0.

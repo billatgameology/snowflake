@@ -256,9 +256,10 @@ merged, because the Run B crystal growing across the film *is* a biography and t
 Part 2 is the search for the answer to the mystery. The history chapter is split: Kepler and
 Barnes serve the lattice act; Bentley, Nakaya and the modern chamber form the instruments act.
 The early map is an editorial choice that supplies a question to revisit. Chapter order is not
-mandatory, and neither is this first scene order. The claimed prerequisite-graph check from the
-extraction session was not independently reproduced; the original table itself introduces G-G
-before terrace nucleation. Select the final sequence through the story and table read.
+mandatory, and neither is this first scene order. The author's subsequent script check reports
+no prerequisite violations; the [review addendum](../reviews/film-part1-plan-review-2026-09-15.md#author-response-and-wp1-notes)
+records its attribution and limits. The rejected-order rationale was inconsistent, not evidence
+that the scene order violated the graph. Select the final sequence through the story and table read.
 
 ## The film
 
@@ -1115,7 +1116,11 @@ figure.
 - AI-generated raster/video assets and Libbrecht figures. Generated visuals here are authored
   browser diagrams and identified model replays.
 
-## Remaining production inputs
+## Open questions
+
+The following are remaining production inputs. The
+[author-response notes for WP1](../reviews/film-part1-plan-review-2026-09-15.md#author-response-and-wp1-notes)
+carry the accepted source-wording and editorial refinements; incorporate them during scripting.
 
 - **Narration:** the maker's actual recording, comfortable delivery pace and pronunciation
   preferences are needed at WP6. Start with per-act clean tracks; the score supplies global
