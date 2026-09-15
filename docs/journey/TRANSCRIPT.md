@@ -193,6 +193,28 @@ narrative-score, playback-mode, and export rules recorded under JTS-M006/M007. T
 not start Phase 7, reopen the frozen education site, authorize publication, assign a public `SCJ`
 number, or change scientific authority.
 
+### JTS-M009 — Review the film plan; prioritize story within an under-one-hour film
+
+- **Selection:** one complete maker turn.
+- **Captured:** 2026-09-15, day precision.
+- **Remembered occurrence:** not applicable; current review and media direction.
+- **Repository exposure at capture:** local task branch `explore/film-part1-plan`, after the
+  original plan commit `d7d1de70251be1fb8b8596b8e6da35d82ef2b8a4`.
+- **Journey publication:** no known release.
+
+```text
+The plan is to use chapters 1-13 as source material, write a <1hr film documentary video of what's happened so far in science. The order of chapters and the content is not strict, the goal is story telling with impressive generated web visual as website either auto scrolls or user manual scroll. The film will be narrated by me.
+
+The plan has been created and committed please go do a full review, then document your response, suggestions, feedback in a file. Then you have permission to act on your feedback.
+```
+
+This direction permits flexible source selection and ordering within a total runtime under one
+hour, with the maker's narration and both viewing modes. It updates JTS-M008's narrower initial
+runtime choice and authorizes the requested review and its corrections. The
+[review](../reviews/film-part1-plan-review-2026-09-15.md) records the findings and applied plan
+revisions. Historical transcript entries remain unchanged; current scientific and education
+status comes from `docs/PROGRESS.md`.
+
 ## Contemporaneous maker quotation
 
 ### JTS-Q001 — Informal Phase 1 play-test response

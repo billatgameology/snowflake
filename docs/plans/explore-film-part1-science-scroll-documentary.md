@@ -3,19 +3,21 @@
 - **Phase:** Maker-directed Journey/media exploration, outside Phase 6 scope (precedents:
   [explore-journey-scroll-documentary.md](explore-journey-scroll-documentary.md),
   [explore-education-ch1-video.md](explore-education-ch1-video.md))
-- **Status:** in progress
+- **Status:** planning reviewed and revised; production not started
 - **Started:** 2026-09-14
-- **Last touched:** 2026-09-15 by Claude Fable 5.1 (`claude-fable-5-1`)
+- **Last touched:** 2026-09-15 by OpenAI Codex (review and authorized plan revisions)
+- **Review:** [findings and dispositions](../reviews/film-part1-plan-review-2026-09-15.md),
+  reviewing the original plan at `d7d1de70251be1fb8b8596b8e6da35d82ef2b8a4`.
 
 ## Goal
 
 Turn education chapters 1–13 — the science half of the course — into **Part 1 of the living
 documentary**: one tall page on the Cryosphere website (`snowcrystal_website`, the sibling
 repository) that opens with the Run B hero, can be read by scrolling or played with the maker's
-recorded narration driving the scroll, and renders frame-exactly to a 16:9 film. Part 1 exists so
-that Part 2 — the story of building a growth model in software, testing it against Nakaya's
-diagram, and reporting the negative result — can be followed by someone who arrived knowing
-nothing.
+recorded narration driving the scroll, and renders frame-exactly to a 16:9 film. Tell a satisfying
+science story in its own right: how invisible water builds an intricate crystal, how people
+learned to observe and measure that process, and why predicting its shape remains difficult.
+This also prepares a new viewer for Part 2's model-development story and recorded negative result.
 
 This plan is the first draft of Part 1's **narrative score** (media spec, "Living scroll
 documentary"): the act and scene order, what each scene must teach and why Part 2 needs it, the
@@ -23,31 +25,34 @@ visual that carries each beat and where it comes from, the narration budget per 
 and confidence labels, and the runtime shape the website needs. The complete narration script is
 the next deliverable, not this one; one scene is scripted here as the template.
 
-Maker direction is preserved verbatim in the Journey transcript as `JTS-M008`
+The original maker direction is preserved verbatim in the Journey transcript as `JTS-M008`
 ([TRANSCRIPT.md](../journey/TRANSCRIPT.md)), together with the four decisions the maker selected:
 about 20–25 minutes; browser-rendered originals plus public-domain history, no Libbrecht figures;
 the maker's own first-person narration at a smart-teenager level; scene plan plus one scripted
-scene in this pass.
+scene in that pass. **The subsequent direction in `JTS-M009` governs this revision:** chapters
+1–13 are source material; order and content selection are flexible; the complete documentary is
+**under one hour**, narrated by the maker, with impressive generated web visuals and automatic
+playback or manual scrolling. The earlier 20–25-minute choice remains the first draft's context,
+not a ceiling that requires rushed speech. Review and correction are authorized in this pass.
 
 ## Done when
 
-No charter clause governs video production. This planning unit is done when:
+There is no chartered film milestone. The charter's scientific-claim discipline still applies.
+This planning and review unit is done when:
 
-- every idea in the must-know set (§"What Part 2 needs") is assigned to at least one scene, and
-  every scene names its source chapters and the confidence label of each claim it carries, as the
-  chapters label it;
-- the scene table's narration budget sums to **3,000–3,700 words**, which at the Chapter 1 pilot's
-  pacing of 2.4 words per second is 20:50–25:40 of playback;
+- the story, essential concepts and optional depth are distinguished; selected scenes name their
+  sources and preserve their qualifications, with corrections to the source chapters identified;
+- the runtime method budgets narration, visual holds, transitions, titles and credits together
+  below one hour; word counts support comfortable delivery rather than determine a fixed cut;
 - one scene is fully scripted in the house `TIME | VOICEOVER | ON SCREEN` format with its
   fact-check table, as the template for the rest;
-- every visual is browser-rendered or a public-domain archive image with a rights row, and no
-  Libbrecht figure appears anywhere in the plan;
+- every proposed visual is an original browser rendering or an archive candidate with a named
+  clearance step and an original-diagram fallback; no Libbrecht figure is an asset;
 - the website runtime section names, for scroll/read, watch/listen, and export, which mechanism
   carries it and whether that mechanism exists today or is a gap;
 - `docs/PROGRESS.md` records the plan and the next media step; and
-- the plan's interpretive content has had the author's skeptical pass. The full Rule 13
-  adversarial fact-check audit is a named gate on the narration script (WP2) before any recording;
-  it is not a gate on this plan.
+- the requested review is recorded with applied corrections and evidence limits. The full Rule
+  13 fact-check audit remains a gate on the complete narration before final recording.
 
 ## Approach
 
@@ -59,6 +64,49 @@ driving the page, and a deterministic fixed-frame export. The scene records in t
 draft score. Each carries a stable scene key, the chapter anchor it teaches, the source chapters
 and claim labels, the narration beats and word budget, the visual state (layer, component,
 driver), the on-screen tags, and its share of the film clock.
+
+Before implementation, create the internal draft score at `docs/video/part1-score.json`; this
+repository owns it. It references the script by stable scene key, source chapter path/anchor and
+Git revision, claim/review status, visual origin and cues, reader text/description, caption cues,
+audio clip identity and offsets, and capture settings. The website imports an identified snapshot
+and records its revision/digest; edits return to this source. Public `SCJ` allocation and the
+immutable release package remain later work. The draft score needs no new publication registry.
+
+### Story and visual priorities
+
+The viewer's question is **how a snow crystal gets its shape, and how we know**. Use the early
+plate/column puzzle to create curiosity, then change scale as each explanation becomes useful:
+
+1. **Meet the crystal.** Reveal its beauty and the MODEL disclosure, pose the changing shapes,
+   then distinguish vapour growth from a frozen raindrop.
+2. **Follow the water.** Move from lattice and facets to the invisible vapour field. Make the
+   runaway corner the first large visual payoff.
+3. **Read its history.** Follow changing conditions, common arm histories and the limits of
+   reading a finished shape. Return to the map with more understanding.
+4. **Ask how we know.** One memorable instrument sequence turns observation into a measurement;
+   use it to introduce the difference between a measurement, a fitted curve and a hypothesis.
+5. **Reach the frontier.** Explain the surface barrier and proposed narrow-edge feedback at the
+   level needed to understand the uncertainty. Finish with what a model can be asked to predict.
+
+These are editorial movements, not new scene identifiers. Existing S00–S34 keys remain a source
+inventory and may be combined, shortened, reordered or moved to optional reader notes. Keep the
+essential concepts: vapour deposition and nucleation; ice Ih's lattice and facet directions;
+supersaturation and diffusion; attachment and branching; growth history and the morphology map;
+measurement versus model inputs; and the limits of proposed surface explanations. The detailed
+coverage map below is an aid, not a requirement to speak every item.
+
+Prioritize four signature visual sequences: a crystal-to-lattice scale change (S06–S08), a vapour
+halo becoming a runaway corner (S09/S13), a journey written into growth (S15–S17), and an
+instrument measurement becoming a model input (S22/S26–S29). Give each a clear question, visible
+change and spoken payoff. Hold the result long enough to inspect it; use silence deliberately.
+Keep exact taxonomy counts, repository identifier naming, crossing counts, and the detailed
+retraction story in optional reading or Part 2 if they interrupt this arc. A viewer should leave
+with an answer about snow crystals, not merely instructions for a sequel.
+
+Before porting the diagram inventory, make a short prototype of the halo/corner sequence with a
+Run B handover, temporary timing and readable prose. It must exercise manual reverse scroll,
+intentional playback, interruption/resume, static reading and a short export. This tests the
+visual ambition and runtime together while the full script is still easy to edit.
 
 ### The spine: Run B grows across the whole of Part 1
 
@@ -76,8 +124,8 @@ Why this shape:
 - The crystal is **model output, unvalidated** — a Gravner–Griffeath run, not a photograph — and
   Part 2 is about whether that kind of crystal deserves to be believed. Saying so in the cold open
   is both the series bible's mandatory spoken MODEL disclosure and the film's promise.
-- The whole growth history is already scrubbable at any frame (the raymarcher holds every arrival
-  tick), so scrolling backward is free.
+- The compact growth history supports seeking. Loading, decoding, rendering and camera state
+  still have costs; the prototype checks backward seeks on the actual assets.
 
 Rules the spine obeys:
 
@@ -85,20 +133,21 @@ Rules the spine obeys:
 - The GROW IT rule from the series bible: the replay may only *illustrate* a claim the chapters
   independently establish. It never demonstrates a physical claim, and the narration never says
   "watch how the physics does X" over it.
-- Growth is a monotone function of film progress: a table of `(scene key → growth fraction at
-  scene start, at scene end)`. Scenes where the crystal is offstage hold the fraction constant.
-  Cold open shows the seed; the crystal is finished at the end of the frontier act, so the
+- After the explicitly cued opening preview, growth is a monotone function of film progress:
+  a table of `(scene key → growth fraction at scene start, at scene end)`. Revisit the inherited
+  growth hints when cues are selected; offstage growth may advance only through an explicit cue.
+  The continuous story starts at the seed; the crystal is finished at the end of the frontier act, so the
   branching act, the diary act, and the menagerie act each get a visibly different stage of it.
-- The crystal is a stellar-dendrite-class plate at −15 °C-like conditions in the model's terms
-  only. The narration may say "a computer's crystal"; it may not name a temperature for it.
+- Run B is a G-G plate/dendrite rendering with phenomenological inputs and no physical temperature
+  assignment. The narration may say "a computer's crystal"; it may not name a temperature for it.
 
 ### Four visual layers and their tags
 
 | Layer | Tag on screen | What it is | Where it comes from |
 |---|---|---|---|
 | **SPECIMEN** | `MODEL` | Measured solver replays: Run B, and other assets from the growth library for the menagerie scene | This repository's growth assets, already decoded by the site's `growthAsset.ts` |
-| **DIAGRAM** | `DIAGRAM` | Original animations that carry every quantitative and causal beat | The twenty education interactives (`docs/education/assets/anim-*.js`, project-original canvas code) ported to progress-driven components; the Chapter 1 pilot's A1–A13 designs compressed; new pieces listed per scene |
-| **ARCHIVE** | `ARCHIVE` (photograph or drawing, dated) | Public-domain historical images, each with a rights row | Kepler 1611, Descartes 1637, Hooke 1665, Bentley plates checked individually, USDA LT-SEM micrographs (US government work); never a Nakaya photograph |
+| **DIAGRAM** | `DIAGRAM` | Original animations that carry explanatory and quantitative beats within stated limits | Selected education interactives and pilot designs, adapted to externally driven state; no obligation to port the entire inventory |
+| **ARCHIVE** | `ARCHIVE` (photograph or drawing, dated) | Candidate historical images, used only after individual clearance | Kepler, Descartes, Hooke, Bentley and USDA candidates checked at the exact item level; original-diagram alternatives |
 | **ATMOSPHERE** | none | The site's procedural rooms (the `/hero1` snowfield, the home lattice, the powers-of-ten dive, the museum rooms, the tiling zoo, the light room) | Already built; used for mood and transitions only |
 
 An ATMOSPHERE piece never carries a fact. If a scene needs one to (the tiling zoo for "why not
@@ -108,34 +157,36 @@ its limits begin — carried into the film.
 
 ### Voice
 
-First person, the maker, at the register of [video-explainer.md](../video-explainer.md): "when I
-started I thought a snowflake was frozen rain." The "I" is the learner, not the builder; Part 1
-stays about the science and the build is not narrated until Part 2. Scene openers use the hook
-bank's native grammar — *you'd think X; it's the opposite* — because that is what the source
-material says at every scale, not a device. The Chapter 1 pilot script is compressed, not
-rewritten: its beats, its glosses, and its pre-flagged audit items carry over. Each act ends on a
-confidence badge — `SETTLED`, `MOSTLY`, `HYPOTHESIS`, or `NOBODY KNOWS` — and the series bible's
-3:1 ratio of settled to nobody-knows endings holds across Part 1.
+First person, the maker, at the accessible register of [video-explainer.md](../video-explainer.md).
+Write observations the maker can own; statements about prior beliefs or personal experience need
+the maker's confirmation. Part 1 follows the science; detailed software history belongs to Part 2.
+Vary scene openings between a question, an observation, an experiment and a reveal. The Chapter 1
+pilot supplies material to rewrite and fact-check, not approved dialogue to inherit unchanged.
+Use the media specification's 120–140 spoken words per minute as a draft estimate, then measure
+the maker's table read. Short-feed rules about a 60-percent reveal, terminal badges and a 3:1
+publication ratio do not govern this film's acts. Qualify the actual claim at the point it matters;
+do not assign SETTLED to a sequence containing unresolved mechanisms.
 
 ### Scroll/read, watch/listen, export — concrete behaviour
 
 These are the media spec's required behaviours made specific for this page.
 
-**Scroll/read (the base performance).** Each scene is a tall section whose scroll budget is
-proportional to its narration seconds, with a sticky full-viewport stage. Progress is computed from
-the section's bounding rect on the shared ticker, exactly as the `/biography` cloud column does
-today, and written to the stage — never to React state. The narration text is visible as readable
-prose beside or beneath the stage, so the argument is complete with sound off and with animation
-off. Audio never starts because the page scrolled. Chapter headings are real headings; every act
-has a stable fragment anchor and a resume point.
+**Scroll/read (the base performance).** Semantic article sections contain real headings, complete
+prose, visual descriptions, sources and stable act/scene anchors. One shared sticky visual stage
+serves them; each section's layout provides measured scroll anchors, without forcing scroll
+distance to equal narration duration. A piecewise cue map connects those anchors to film time.
+The complete article remains usable without JavaScript, WebGL, audio or continuous animation.
+Decorative stage overlays are hidden from assistive technology; inactive interactive overlays
+cannot receive focus. The renderer consumes progress without requiring per-frame React updates.
 
 **Watch/listen.** An explicit Play control starts the maker's recorded narration. A cue map —
 narration time → film progress — drives the film clock, and the document scroll follows the clock
-through Lenis so the reader sees the same page they would have scrolled to. Manual scrolling during
-playback pauses the narration, leaves the page where the reader put it, and shows a "resume from
-here" affordance that restarts the audio at the cue nearest the current scene. Keyboard: Space
-plays and pauses, arrow keys step scenes, and focus is never moved by the player. Captions are the
-narration text itself, already on the page.
+through the site's scroll mechanism. Reader scroll intent pauses audio and releases automatic
+movement before the next write, preserving the reader's position. Resume maps that position back
+to the corresponding cue time. Controls include play/pause, seek, mute/volume, captions and act
+navigation. Player keyboard shortcuts apply within the player controls, never while typing or
+using normal page navigation, and playback does not move focus. Reviewed, time-aligned captions
+are separate from the complete reading text; retain VTT/SRT, transcript and visual descriptions.
 
 **Export.** The site's capture bridge (`?capture=1`) already lets an offline renderer set a clock
 to an exact time and wait for the painted frame. The film page exposes the film clock through the
@@ -144,52 +195,56 @@ composition with reader chrome hidden, and narration is assembled offline agains
 map. The render notes record the recipe, the detected renderer, and the settings, as the Run B
 export notes do today. A screen recording of someone scrolling is not the film.
 
-**Reduced motion.** On `prefers-reduced-motion`, the spine holds the finished crystal, every scene
-resolves to its composed still, auto-scroll and continuous scroll-linked motion are disabled, and
+**Reduced motion.** On `prefers-reduced-motion`, each scene uses its selected composed still
+(a seed, intermediate or finished crystal as appropriate), auto-scroll and continuous scroll-linked motion are disabled, and
 the reading order, headings, prose, and sources remain complete. A persistent audience override is
-offered.
+offered. Playback may advance discrete scene stills and captions while audio plays, but does not
+scroll the document or continuously scrub the crystal in this mode. Reader-initiated navigation
+remains available.
 
 ### Where the build lives
 
 - **This repository (authority):** this plan; the narration script and its fact-check table under
   `docs/video/`; the rights register; the Rule 13 audit record; the score records as they mature.
-  Nothing under `docs/education/` is edited — the freeze holds; chapters are read, not changed.
+  Source chapters are read, not edited in this task. The historical freeze ended with Phase 6;
+  `docs/PROGRESS.md` records its closure and the later education update.
 - **The website repository (`snowcrystal_website`):** a new route for the film, the film runtime,
   the ported diagram components, the narration cue file and audio, and the export script. Its
-  README gets one pointer to this plan; there is no second copy of the plan. Work starts from
-  `origin/master` (which carries the 16-bit capture path merged after the hero), on one branch.
-- The narrative-score manifest, `SCJ` numbering, and release identity are deferred until a
-  release is proposed (numbering spec, "Living scroll documentary"): the choice between one
-  synthesis entry and several freezes before numbers are assigned, and not before.
+  README gets one pointer to this plan. Recheck the website's branch state before implementation
+  and reuse its task worktree under its rules; the runtime review below names the inspected refs.
+- The internal score precedes the runtime. Public `SCJ` numbering and the immutable release
+  package are deferred until a release is proposed, under the numbering specification.
 
 ### Rights
 
-- **No Libbrecht figure, crop, or adaptation.** All 139 figures the chapters cite are third-party
-  research media (decision 0004) and stay out of the film exactly as they stay out of Git.
+- **No Libbrecht figure, crop, or traced/reconstructed source image.** This is the maker's asset
+  constraint, consistent with decision 0004. Original teaching diagrams may use cited facts and
+  equations without reproducing a source figure's expressive composition.
 - **Public-domain archive images only**, each with a rights row: source URL, publication date,
-  author death date where relevant, license statement, date checked, and who checked. A Bentley
-  plate is checked as an individual image, not as "Bentley is public domain": his 1931 book is not
-  yet clear in every jurisdiction, while Smithsonian-held plates and his pre-1929 publications
-  are. An image without a passing row is a `DIAGRAM` stand-in until it has one.
-- **USDA LT-SEM micrographs** are US government works and may appear with attribution (the social
-  README already records this).
+  author and relevant rights information, intended use, date checked, and who checked. Dates,
+  author names and institutional custody alone do not clear a selected file. An item without a
+  passing row is replaced by an original `DIAGRAM` or omitted.
+- **USDA LT-SEM micrographs** are candidates; check the selected item's credit and reuse statement
+  before use. No archive image is cleared by this plan review.
 - **No AI-generated video or imagery.** The Chapter 1 pilot's optional V-series B-roll track is
   not used: the maker chose browser-rendered originals, and the site's identity is real-time
   rendering with no pre-baked frames.
-- **Nakaya:** the morphology diagram is redrawn from the chapter's own `anim-nakaya.js` (a
-  `DIAGRAM`, with its caveat that the boundaries are qualitative). Nakaya's photographs are not
-  public domain and do not appear.
+- **Nakaya:** make an original diagram from the chapter's cited observations and equations,
+  retaining uncertainty and constant-condition qualifications. Historical photographs are not
+  selected for this film; a date card needs no comment about unavailable media in the narration.
 
 ## How the source material was read
 
-Thirteen independent readers extracted every load-bearing fact from chapters 1–13 with the
+The original plan author reported the following extraction process: thirteen readers extracted
+load-bearing facts from chapters 1–13 with the
 confidence label the chapter gives it, the figures and interactives each chapter uses, and what
 Part 2 later calls back to; seven readers catalogued every visual panel on the Cryosphere site
 (driver, fidelity, what it may and may not be used to claim); one assessed the site's runtime
 against the film's needs; one story editor merged the extractions into 29 must-know ideas, a
 43-edge prerequisite graph, and five candidate teaching orders (workflow `wf_0b937e68-061`,
 2026-09-14; 22 agents, none failed; per-agent returns in that run's `journal.jsonl`). The
-extractions are working material, not evidence: every claim below is re-cited to the chapter and
+extractions are working material, not evidence. This review did not inspect that workflow. The
+scene inventory carries citations to the chapter and
 printed page the readers reported, and the narration script (WP1) re-checks each against the
 chapter text before the Rule 13 audit.
 
@@ -200,26 +255,34 @@ alternation as an unexplained map before teaching anything) and the single-cryst
 merged, because the Run B crystal growing across the film *is* a biography and the maker's
 Part 2 is the search for the answer to the mystery. The history chapter is split: Kepler and
 Barnes serve the lattice act; Bentley, Nakaya and the modern chamber form the instruments act.
-Pure chapter order was rejected: it reaches the map at minute twelve with no pull, and it teaches
-the Gravner–Griffeath automaton before the nucleation barrier that replaces its surface rule.
+The early map is an editorial choice that supplies a question to revisit. Chapter order is not
+mandatory, and neither is this first scene order. The claimed prerequisite-graph check from the
+extraction session was not independently reproduced; the original table itself introduces G-G
+before terrace nucleation. Select the final sequence through the story and table read.
 
 ## The film
 
-Ten acts, 35 scenes, **3,480 narrated words** (summed from the table below on 2026-09-15),
-24:10 of narration at the Chapter 1 pilot's 2.4 words per second, plus about 20 seconds of
-unnarrated handover at the end: **≈24:30**. The budget sits inside the 3,000–3,700-word target.
-Timecodes are planning values from the word budgets (per-scene seconds rounded, so the last scene
-ends at 24:13 in the table); they lock at the recording session, keeping two placements: the
-two-part engine lands at about 60 % of runtime (S14–S20), and the Part 1 badge sits inside the
-final scene.
+The inherited inventory has **35 candidate scenes and 3,480 budgeted words**, independently
+summed from its rows in the [review](../reviews/film-part1-plan-review-2026-09-15.md). These are
+draft allocations, not a finished narration count or a required cut. At the media specification's
+120–140 words/minute, that word budget alone takes roughly 25–29 minutes; deliberate holds,
+transitions and credits add time. A roughly half-hour first cut is a useful starting point, with
+freedom to shorten or expand as the story earns it. The maker's hard limit is **total runtime
+strictly below 60:00**, including silence, opening, handover and credits. Never accelerate the
+voice to meet it. The final cue table comes from the selected script and actual recorded audio.
 
-**Spine column.** `stage` = the Run B crystal fills the frame; `witness` = it is small and dim in
-a corner, still growing, so the through-line never breaks; `off` = hidden while a diagram or
+The table's **legacy start** offsets and the seconds in scene headings preserve the original
+continuous-speech draft for comparison; they are not implementation cues. WP1 replaces them in
+the score with explicit narration, hold and transition durations. The revised cold open below
+has its own provisional timing and supersedes S00/S01's original allocation.
+
+**Spine column.** `stage` = the Run B crystal fills the frame; `witness` = an optional small
+corner view, omitted when it competes with a diagram; `off` = hidden while a diagram or
 archive carries the beat. **g** = fraction of Run B's 70,000 ticks shown at the scene's end (the
-mapping into tour seconds is `g × 13`; exact per-scene values are tuned in WP4 against the
-crystal's actual look, but the monotone order is fixed here).
+original mapping into tour seconds was `g × 13`; WP0A checks the actual appearance, then WP1
+records the chosen mapping in the score. The draft fractions below are not locked cues).
 
-| Key | Start | Act | Scene | Ch. | Must-know ids | Layer · visual | Spine | g | Words |
+| Key | Legacy start | Act | Scene | Ch. | Coverage ids | Layer · visual | Spine | g | Draft words |
 |---|---|---|---|---|---|---|---|---|---|
 | S00 | 0:00 | 0 Cold open | Nineteen cells | 1, 9 | (disclosure) | SPECIMEN · Run B seed on the void | stage | 0.02 | 90 |
 | S01 | 0:38 | 0 | Flat, tall, flat, tall | 7, 1 | nakaya_diagram (posed), habit_flip_open | DIAGRAM · thermometer + schematic prism (ch7 `anim-alternation`) | witness | 0.02 | 120 |
@@ -227,7 +290,7 @@ crystal's actual look, but the monotone order is fixed here).
 | S03 | 2:10 | I | Crystal or flake | 1, 2, 9 | single_crystal_vs_flake | DIAGRAM · dark sleeve, hexagons fusing into clumps (ch1 `anim-aggregate`) | off | 0.04 | 80 |
 | S04 | 2:43 | I | Nothing freezes at zero | 1 | deposition (seed, nucleation) | DIAGRAM · supercooling roulette (ch1 `anim-supercool`) | off | 0.04 | 100 |
 | S05 | 3:25 | I | The one-way robbery | 1, 4 | supersaturation_vs_ice, deposition | DIAGRAM · droplet vs ice, 100,000 counter (ch1 `anim-budget`, pilot A8) | witness | 0.10 | 110 |
-| S06 | 4:11 | II Why six | Five cannot close | 3 | hexagonal_lattice_six | DIAGRAM · bent molecule, ring proof (ch3 `anim-why-six`; `/zoo` acts re-scoped) | off | 0.10 | 110 |
+| S06 | 4:11 | II Why six | Six directions in ordinary ice | 3 | hexagonal_lattice_six | DIAGRAM · ice Ih stacking; ring exercise labeled ideal geometry | off | 0.10 | 110 |
 | S07 | 4:57 | II | Kepler's question, Barnes's film | 2, 3 | instruments_change_questions, statics_vs_dynamics | ARCHIVE · Kepler 1611 title page; DIAGRAM · diffraction spots (ch2 `anim-diffract`) | off | 0.10 | 80 |
 | S08 | 5:30 | II | One solid, every crystal | 3, 1, 7 | facet_families, statics_vs_dynamics | DIAGRAM · labelled prism, plate↔column morph (ch3 `prism-anim`, ch7 `anim-aspect`) | witness | 0.10 | 110 |
 | S09 | 6:16 | III The supply line | The halo | 4 | diffusion_supplies | DIAGRAM · hex-lattice depletion halo, 'hide the vapour' (ch4/6 `anim-diffusion`) | witness | 0.20 | 110 |
@@ -251,23 +314,23 @@ crystal's actual look, but the monotone order is fixed here).
 | S27 | 18:47 | VII | Fits, not laws | 11, 5, 12, 13 | parameters_are_fits, history_dependence | DIAGRAM · 0.7 vs 0.73 card; sagging prism ceiling; the −5 °C collision; Penn State fall (`anim-cm6-history`) | witness | 0.88 | 110 |
 | S28 | 19:33 | VIII Why the shape flips | Fifty nanometres | 12 | sdak_dips | DIAGRAM · wide vs narrow terrace (ch12 `anim-crowding`); the loop that will not stop (`anim-esi`) | witness | 0.90 | 100 |
 | S29 | 20:15 | VIII | Numbers written down by hand | 12, 13 | sdak_dips (status) | DIAGRAM · three numbers you can move (ch13 `chosen-numbers`); ×2 vs ×10 shortfall (`anim-esi-shortfall`) | off | 0.90 | 100 |
-| S30 | 20:57 | VIII | A crossing is not a boundary | 12, 13 | crossing_not_boundary | DIAGRAM · crossing count flickers 0–3 (`anim-sigma0` mountAlphaHK); 'structural, not numerical' struck through | off | 0.92 | 100 |
+| S30 | 20:57 | VIII | A crossing is not a boundary | 12, 13 | crossing_not_boundary | DIAGRAM · input comparison and coupled growth; technical correction in reader notes | off | 0.92 | 100 |
 | S31 | 21:39 | VIII | Fit, guide, or guess | 13 | four_kinds_of_line | DIAGRAM · four panels, same six dots (ch13 `epistemic-lines`) | witness | 0.94 | 80 |
 | S32 | 22:12 | IX The frontier | A handful of souls | 13 | instruments_change_questions | DIAGRAM · open-clock bar race, confidence map ending on the skin (ch13 `open-clock`, `confidence-map`) | witness | 0.96 | 100 |
-| S33 | 22:54 | IX | What a model would have to leave out | 13, 12, 5, 4, 9 | stated_omissions | DIAGRAM · omissions checklist, each stamped 'carried as a systematic' | witness | 0.98 | 80 |
+| S33 | 22:54 | IX | What a model leaves out | 13, 12, 5, 4, 9 | stated_omissions | DIAGRAM · represented, parameterized, omitted; effects still to assess | witness | 0.98 | 80 |
 | S34 | 23:27 | IX Handover | Finished | 1, 7, 13 | habit_flip_open (restated) | SPECIMEN · Run B completes, holds; then the hero's fall-away, beacon, snowfall | stage | 1.00 | 110 |
 
-**Act badges** (the series bible's terminal beat, once per act): I SETTLED · II SETTLED ·
-III SETTLED · IV SETTLED · V MOSTLY (the map) and NOBODY KNOWS (the flip) · VI SETTLED ·
-VII MOSTLY · VIII HYPOTHESIS · IX/Part 1: SETTLED, with one open door. Five settled endings
-against one open question stated twice keeps the bible's 3:1 ratio, and every "nobody knows"
-names which kind of open it is (S18: unexplained since 1936; S32: neglect as much as difficulty).
+**Confidence treatment.** Identify observations, modeled illustrations and hypotheses when each
+appears. The final recap distinguishes established foundations, measured/fitted inputs and open
+surface questions; it does not assign a single badge to the whole film. Short-feed badge ratios
+are not a reason to strengthen a scientific statement.
 
-## What Part 2 needs
+## Coverage reference for Part 2
 
-The 29 ideas the story editor found a viewer must hold to follow Part 2, each with its status as
-the chapters label it and the scenes that carry it. Every idea is carried at least once; the
-first-listed scene is where it is taught, later ones are reprises.
+The original editor's 29 ideas and proposed placements are retained for source navigation. They
+are not 29 compulsory explanations or a measured account of audience comprehension. The essential
+concepts above govern selection; technical details can become optional reading or Part 2 material.
+These draft labels must remain scoped to the claim, including the review corrections below.
 
 | Must-know id | Status (as the chapters label it) | Taught in | Reprised |
 |---|---|---|---|
@@ -309,7 +372,9 @@ line in S33; the FACET/CM7 table; Gibbs–Thomson; Koch curves and succinonitril
 photographic matrices; the "no two alike" counting argument; classification-system counts beyond
 the 35-box chart; riming stages and double-plate statistics; electric ice needles; screw
 dislocations beyond one line; the −6/−8.4/−10.9 °C crossing history; the funding bar chart (the
-quote survives). Nothing on this list feeds Part 2.
+quote survives). Revisit these cuts if the chosen Part 2 story needs one; this list is an editorial
+choice, not a proof of which concepts every viewer will need. Retain the ice Ih stacking caveat
+in S06 even if the wider ice-polymorph discussion stays optional.
 
 ## Scene records
 
@@ -324,27 +389,28 @@ the chapter text before the Rule 13 audit.
 **S00 · Nineteen cells** (90 words · 38 s · g 0 → 0.02 · spine: stage)
 - *Teaches:* the crystal on screen is a model, not a photograph; the film's promise.
 - *Beats:* this is a snow crystal, nineteen cells of ice in a computer → it is not real, say so
-  first, MODEL in the corner whenever it is on screen → when I started I thought I knew what a
-  snowflake was → Part 1 is what it actually is; Part 2 is whether this thing deserves belief.
-- *Visual:* SPECIMEN. Run B at tick 0, face-on, the 19-site seed; the first ticks fire on the
-  last beat. Title rises: PART ONE · HOW A SNOWFLAKE IS MADE.
+  first, MODEL in the corner whenever it is on screen → ask how water builds a crystal → follow
+  what has been learned and what remains uncertain. Use the revised scripted example below.
+- *Visual:* SPECIMEN. Use the revised cold-open table as the current cue design: seed, explicit
+  preview, return to the seed. Title: HOW A SNOWFLAKE IS MADE. The original timing above is a
+  superseded allocation, not the production clock.
 - *Tags/text:* `MODEL` from frame one; mono provenance line (lattice, seed, no noise, tick cap).
 - *Sources:* run provenance from the site README "The Run B stage" and this repository's growth
   asset record; 19-site seed (AGENTS.md trap; ch3 bridge). Labels: measured (project artifact).
 - *Exists:* `RunBHero` stage. *Build:* film clock mapping; the title.
 
 **S01 · Flat, tall, flat, tall** (120 words · 50 s · g holds · spine: witness)
-- *Teaches:* the mystery. Hold moisture still, cool the air, the shape flips three times; nobody
-  has explained it since the 1930s.
+- *Teaches:* the mystery. Under specified growth conditions, the characteristic shape changes
+  with temperature; observations are clearer than the full quantitative explanation.
 - *Beats:* here is the puzzle that got me → near −2 plates, near −5 columns, near −15 plates
   again (the big stars), colder still the map says columns again, though that corner is the least
-  trusted → same water, same ice, a few degrees apart → Nakaya mapped it in the 1930s; ninety
-  years later, nobody can say why → everything in this film exists so you can read a computer's
-  answer to that question yourself.
-- *Visual:* DIAGRAM. A thermometer descends 0 → −35 °C; a schematic prism flattens, stretches,
-  flattens, stretches; band labels appear as each is crossed; a "3 flips" counter; "1936" with a
-  hairline running to today. Port of ch7's inline `anim-alternation` (schematic aspect targets,
-  not measurements; the port keeps its caption).
+  trusted → same water, same ice, a few degrees apart → Nakaya mapped the pattern in the 1930s;
+  proposed explanations now exist, but predicting the shapes remains unfinished → follow the
+  growth and the experiments that made those explanations possible.
+- *Visual:* DIAGRAM. Separate constant-condition plate/column examples follow the revised cold
+  open, with the cold region hatched. Do not morph one crystal into a reversed growth history,
+  score “3 flips,” or imply that no explanation has appeared since 1936. Preserve the source
+  animation's schematic-aspect qualification.
 - *Sources:* ch7 band boundaries −3.3/−9.9/−21.5 °C read ±0.5 (arXiv:1211.5555v1 Fig. via
   `anim-nakaya.js`); Libbrecht's ranges (arXiv:2012.12916v1 p. 1); cold end contested (Bailey &
   Hallett, ch7); "remains elusive" (ch1 printed pp. 16–17; ch7 printed p. 157). Labels: measured
@@ -356,7 +422,8 @@ the chapter text before the Rule 13 audit.
 **S02 · Not frozen rain** (100 words · 42 s · g → 0.04 · spine: witness)
 - *Beats:* freeze a raindrop and you get sleet, a grey bead → a snow crystal is built the other
   way: molecules arrive as gas and lock on, one at a time, no liquid step, deposition → the seed
-  is the one exception, a frozen droplet, one part in a hundred thousand of the finished thing.
+  often begins as a frozen cloud droplet in the path described here; the chapter's illustrative
+  budget makes that seed a small fraction of the finished crystal, not a universal ratio.
 - *Visual:* DIAGRAM. Pilot A1 acts 1–2 compressed: the bead lands dead; beside it dots assemble
   a six-branched outline. Overlay GAS → SOLID = DEPOSITION.
 - *Sources:* ch1 printed p. 17 (sleet, deposition), pp. 18–19 (seed 10–20 µm), seed fraction is
@@ -374,21 +441,24 @@ the chapter text before the Rule 13 audit.
 - *Build:* port (fall speeds are the animation's device; caption kept).
 
 **S04 · Nothing freezes at zero** (100 words · 42 s · spine: off)
-- *Beats:* a cloud is liquid droplets, not vapour → below zero none of them freeze; supercooled
-  → freezing needs somewhere to start, a speck; pure water holds to nearly −40, dust about −10,
-  silver iodide −4, some bacteria −2 → the speck picks the birthday, not the design.
+- *Beats:* the visible cloud contains droplets → they do not all freeze when temperature crosses
+  zero; many remain liquid below it, supercooled → freezing starts by nucleation, often helped
+  by a speck → the chapter's examples span a range of nucleators and temperatures, not universal
+  switch points → the nucleator helps set when growth starts and usually has little effect on
+  the later design in the example being described.
 - *Visual:* DIAGRAM. ch1 `anim-supercool`: sixty droplets, thermometer ticks to −40 °C,
   histogram fills; in-frame caption "spread illustrative — marked temperatures from the source".
 - *Sources:* ch1 printed pp. 18–19 (nucleators), p. 59 (homogeneous nucleation). Labels:
-  established. The "birthday, not design" gloss is pre-flagged in the pilot for audit.
+  established. Preserve the chapter's "usually" qualifier; the pilot's absolute gloss is not used.
 - *Build:* port.
 
 **S05 · The one-way robbery** (110 words · 46 s · g → 0.10 · spine: witness)
 - *Beats:* ice holds its molecules tighter than liquid water → air in balance with droplets is
   already oversupplied for ice; that surplus, measured against ice, is supersaturation, the word
   the whole film runs on → the droplets evaporate to feed the crystal: liquid → gas → ice, about
-  a hundred thousand of them per crystal → one line: when the droplets are spent, it is too
-  cold to snow.
+  a hundred thousand in the chapter's illustrative crystal budget → as the liquid droplets
+  disappear, this mixed-phase transfer loses its liquid-water supply. Do not infer a universal
+  temperature cutoff for snowfall from this mechanism.
 - *Visual:* DIAGRAM. ch1 `anim-budget` as a time-lapse: droplet field consumed nearest-first,
   counter 0 → 100,000; pilot A8's side-by-side droplet vs ice. Run B witness grows to a small
   faceted plate in the corner.
@@ -399,24 +469,24 @@ the chapter text before the Rule 13 audit.
 
 ### Act II — Why six (chapters 3 and 2)
 
-**S06 · Five cannot close** (110 words · 46 s · spine: off)
-- *Beats:* a water molecule is bent, 104.5°, five degrees short of the tetrahedral 109.5° → try
-  to close a ring of oxygens at that angle: three, four, five all fail, five by one and a half
-  degrees; six overshoots and folds into a chair → repeat the ring and you get a honeycomb with
-  six equivalent directions → the six is in the stacking, not in the molecule.
-- *Visual:* DIAGRAM. ch3 `anim-why-six` as a scroll-driven proof; then `anim-lattice`'s honeycomb
-  spreading. The site's `/zoo` HexAct/PentAct (exact plane geometry) may carry the "five cannot
-  close" beat if re-scoped and tagged DIAGRAM; it must not be presented as molecular.
-- *Sources:* ch3 printed pp. 48–49 (bond angles, near-tetrahedral bonding); the ring argument is
-  the chapter's own from that input. Labels: established.
+**S06 · Six directions in ordinary ice** (110 draft words · spine: off)
+- *Beats:* a water molecule is bent → ordinary ice Ih has roughly tetrahedral oxygen neighbours
+  arranged in a particular stacking → that stacking contains six-membered rings and six
+  equivalent directions → local bonding alone does not uniquely select it; cubic stacking can
+  share that local arrangement → the six belongs to the crystal structure.
+- *Visual:* DIAGRAM. Label molecular bond angle and oxygen-neighbour angle separately, then
+  reveal `anim-lattice`'s ice Ih stacking. If retained, `anim-why-six` is an ideal geometric
+  exercise, not a unique derivation of ice Ih. A plane-tiling analogy is labeled as such.
+- *Sources:* ch3 printed pp. 48–49 and its explicit ice Ih/ice Ic stacking caveat. Labels:
+  established (structure); illustrative geometric model (ring exercise).
 - *Build:* ports.
 
 **S07 · Kepler's question, Barnes's film** (80 words · 33 s · spine: off)
 - *Beats:* in 1611 Kepler asked why six and guessed cannonballs: right idea, wrong stack → the
   answer arrived in 1929 on X-ray film, 318 years later: six-fold spots → that settled how ice
   stacks; it said nothing about how a crystal grows, and that is the half still open.
-- *Visual:* ARCHIVE · Kepler, *Strena seu de Nive Sexangula* (1611) title page, public domain,
-  rights row in WP3. DIAGRAM · ch2 `anim-diffract`: lattice angle slides 90° → 60°, four spots
+- *Visual:* ARCHIVE candidate · Kepler, *Strena seu de Nive Sexangula* (1611) title page,
+  exact item checked in WP3. DIAGRAM · ch2 `anim-diffract`: lattice angle slides 90° → 60°, four spots
   become six; a rebuilt negative turns 60° and lands on itself (Barnes's photograph itself is not
   shown).
 - *Sources:* ch2 printed pp. 25, 28 (Kepler, Barnes 1929, Fig. 1.19); ch2 'Careful' callout
@@ -425,10 +495,11 @@ the chapter text before the Rule 13 audit.
 - *Build:* port; archive scan.
 
 **S08 · One solid, every crystal** (110 words · 46 s · spine: witness)
-- *Beats:* stripped down, every snow crystal is a hexagonal prism: two basal caps, six prism
-  sides → stretch it, a column; squash it, a plate; one number, height over width, is the whole
-  habit → the lattice fixes the six and every angle; it cannot say plate or column, because
-  every ice crystal has the same lattice → that is decided at the growing surface.
+- *Beats:* begin with a simple ice Ih hexagonal prism: two basal caps, six prism
+  sides → stretch it, a column; squash it, a plate; height over width usefully summarizes that
+  simple prism's habit → the lattice does not by itself decide plate or column, because
+  these ice Ih plates and columns share that lattice → their relative growth is decided at
+  the growing surface. Habit is more than one number for irregular or polycrystalline forms.
 - *Visual:* DIAGRAM. ch3 `prism-anim` labelling pass (basal, prism, c-axis, a-axes), then ch7
   `anim-aspect` on a log dial 0.01 → 20. The Run B witness is a small hexagonal plate at this
   point, which the narration may point at.
@@ -441,8 +512,8 @@ the chapter text before the Rule 13 audit.
 
 **S09 · The halo** (110 words · 46 s · g → 0.20 · spine: witness)
 - *Beats:* nothing steers vapour to the crystal; molecules random-walk in → the crystal eats the
-  air around it, leaving a dried-out halo every molecule must cross → the halo re-forms in about
-  50 milliseconds, thousands of times faster than the ice changes, so it is always there, glued
+  air around it, leaving a depleted halo → the halo re-forms in about
+  50 milliseconds at the chapter's example scale, much faster than the ice changes, staying close
   to the outline → it has been photographed as a clean moat in a fog of droplets; its edge is a
   contour of an invisible humidity field.
 - *Visual:* DIAGRAM. `anim-diffusion` with the field shown: seed, halo blooms, 'hide the vapour'
@@ -466,8 +537,8 @@ the chapter text before the Rule 13 audit.
 - *Beats:* molecules stick to rough patches and mostly bounce off flat ones → rough patches race
   outward until they collide and vanish from the outline; the slow flat faces are what is left →
   you see flat faces because they are the worst at growing; nothing chose the hexagon, it
-  survived → this is a story about rates, not the lowest-energy shape (ice would need eight days
-  to settle; a cloud will not hold still for eight seconds).
+  survived → this is a story about growth rates; the chapter's equilibrium-shape estimate is
+  slow compared with the growth process being described, rather than a universal cloud clock.
 - *Visual:* DIAGRAM. ch5 `anim-slow-wins`: scroll sets the facet speed ratio, a hexagon condenses
   out of a lumpy blob, the seed left as a ghost; per-segment sticking bars (Fig. 1.8 rebuild).
 - *Sources:* ch1 Fig. 1.8 printed p. 21; ch5 printed p. 46 and pp. 59–65 (energy argument killed
@@ -493,8 +564,8 @@ the chapter text before the Rule 13 audit.
 
 **S13 · Poke the flat ice** (120 words · 50 s · g → 0.52 · spine: stage)
 - *Beats:* the air next to a growing crystal is drier → any bump that pokes out reaches richer
-  air, grows faster, pokes out further → a perfectly flat growing face is a valid answer to the
-  physics that nature cannot hold, a pencil on its point → push a hexagon hard enough and the
+  air, grows faster, pokes out further under the conditions illustrated → in this instability,
+  small disturbances can grow rather than disappear → push a hexagon hard enough and the
   face centre runs out of stickiness to spend (the coefficient cannot pass 1), so the switch is
   abrupt, and all six corners cross together → watch it happen to the computer's crystal.
 - *Visual:* DIAGRAM ch6 `anim-bump` (Libbrecht's 'grows slightly faster … sticks out even
@@ -523,9 +594,9 @@ the chapter text before the Rule 13 audit.
 **S15 · A snowflake is a diary** (120 words · 50 s · g → 0.64 · spine: witness)
 - *Beats:* a cloud has two knobs, temperature and spare vapour; Libbrecht grew a whole crystal in
   45 minutes by turning them on a schedule → a cloud does not hold still, so a real crystal drags
-  a line across the map → new ice only adds outside, so the crystal is a stack of moments,
-  oldest in the middle → a capped column is column-then-plate, readable from geometry alone → the
-  six arms match because they rode together; nothing passes between them, and the fine
+  a line across the map → during the deposition history illustrated, new growth extends the
+  solid, retaining traces of earlier growth → a capped column is column-then-plate, readable from geometry alone → the
+  six arms share similar conditions; they need no arm-to-arm signalling, and the fine
   sidebranches, seeded by chance, do not match.
 - *Visual:* DIAGRAM ch8 `#journey` (route dragged across the redrawn diagram, run forward then
   backward: the plate has nowhere to go); `#six-arms` (shift one arm's clock). SPECIMEN: a capped
@@ -551,7 +622,7 @@ the chapter text before the Rule 13 audit.
 **S17 · Nakaya's freezer** (120 words · 50 s · g → 0.70 · spine: witness)
 - *Beats:* a natural crystal shows you an answer but never the question → Nakaya stopped waiting
   for snow: a walk-in freezer at Hokkaido, a rabbit hair, the first synthetic crystal on 12 March
-  1936; the photograph exists, it has a date, and I cannot show it → years of growing and
+  1936 → years of growing and
   varying gave the map: plates, columns, plates, then a mixed cold band; boundaries read at −3.3,
   −9.9, −21.5 °C, give or take half a degree → three later laboratories redrew it and the
   alternation held; free-fall crystals put the warm boundaries within a degree or two with blocky
@@ -567,20 +638,18 @@ the chapter text before the Rule 13 audit.
   measured; open (cold band).
 - *Build:* ports; ribbons overlay.
 
-**S18 · Which face is stubborn** (110 words · 46 s · g → 0.74 · spine: witness)
-- *Beats:* a growing crystal ends up bounded by its slowest faces → so a thin plate needs the
-  basal coefficient very much smaller than the prism one; a needle the reverse → diffusion can
-  never make a plate: set the two coefficients equal and a plate un-flattens toward a block even
-  while it keeps branching; surface energy is too even-handed → so flat, tall, flat, tall can only
-  mean the two faces swap which is stubborn, three times, as the air cools → nothing in the settled
-  physics says why. That is the open question, and it has been open since the map was drawn.
-- *Visual:* DIAGRAM. `anim-aspect` dial with the "which face must be harder" verdict; the
-  un-flattening plate (Fig. 3.30/3.29 idea, original); ch7 `anim-alternation` with the two face
-  bars trading places three times; badge NOBODY KNOWS — "unexplained since 1936, in a field of a
-  handful of people" (the kind of open is named).
-- *Sources:* ch7 printed p. 111 (rule), pp. 111–112 (diffusion cannot yield extreme aspect
-  ratios), 'Still unsettled' (arXiv:2011.02353v1 p. 1; printed p. 157). Labels: established
-  (rule); model result (un-flattening); open.
+**S18 · Which face is stubborn** (110 draft words · spine: witness)
+- *Beats:* thin plates require much slower growth normal to the basal faces than to the prism
+  faces; needles reverse that balance → in the equal-kinetics calculation described in the
+  chapter, a thin plate thickens toward a block → explaining the map means explaining how the
+  balance changes with conditions → proposed surface mechanisms address that problem, but a
+  complete quantitative prediction is still unfinished.
+- *Visual:* DIAGRAM. The aspect dial, then the named equal-kinetics calculation and two face
+  bars. Caption the assumptions of the comparison; no universal claim that diffusion cannot
+  produce any plate. End with “surface explanation still incomplete.”
+- *Sources:* ch7 printed pp. 111–112 (extreme aspect ratios and comparable facet kinetics);
+  printed p. 157; the account of active modeling in `docs/video-explainer.md`.
+  Labels: established (direction of facet growth); model result (comparison); open (full account).
 - *Build:* ports.
 
 **S19 · The menagerie** (100 words · 42 s · spine: off; specimens on stage)
@@ -609,6 +678,8 @@ the chapter text before the Rule 13 audit.
 - *Visual:* DIAGRAM. `anim-gg-zoo` one-layer G-G with four presets as the viewer scrolls; the
   two-alphas card (`alphaHK` sticking probability versus `ggThreshAlpha` boundary-mass cutoff, a
   bare letter struck through).
+- *Editorial option:* retain the contrast between a useful generative model and measured physical
+  inputs; move the repository spelling card to optional reading or Part 2.
 - *Sources:* ch9 (Gravner & Griffeath 2009 rule; knobs without units); ch5 naming rule ('Putting
   a number on stickiness'). Labels: model result; naming convention.
 - *Build:* port; the card.
@@ -630,19 +701,21 @@ the chapter text before the Rule 13 audit.
   cameras), Fig. 1.15. Labels: historical; measured (selection); established (argument).
 - *Build:* port; archive rows; timeline.
 
-**S22 · The sensor that eats its reading** (110 words · 46 s · spine: off)
-- *Beats:* temperature is easy; humidity is not, because any sensor in a cold chamber grows ice
-  and corrupts its own reading → so you construct it: frost on the ceiling at one temperature,
-  the crystal on the floor at another, the difference of two saturated densities is the
-  supersaturation; equal temperatures give exactly zero → check it with droplets: the line is not
-  a fit, nothing to tune → the mistake that looks like nothing: stray crystals covering one
-  percent of the floor pull the value down twentyfold; older growth data may be off a
-  hundredfold.
-- *Visual:* DIAGRAM. ch10 `anim-two-thermometers` (readout climbs from exactly 0.0 %); Fig. 7.6
-  idea as an original droplet-check plot; `anim-why-l-1mm` causal chain ("20× too high").
-- *Sources:* ch10 printed pp. 221–222 (Eq. 6.1), p. 255 (droplet check, zero hunt), p. 251
-  (Eqs. 7.6–7.7, Fig. 7.2), p. 254. Labels: established; measured.
-- *Build:* ports.
+**S22 · The sensor that eats its reading** (110 draft words · spine: off)
+- *Beats:* measuring humidity near growing ice is difficult → a chamber can instead use the
+  temperature of an ice reservoir and the crystal substrate to calculate the fractional vapour
+  excess → the difference of the two equilibrium densities is divided by the equilibrium density
+  at the substrate → equal temperatures give zero in that ideal calculation; the experiment's
+  zero setting still has uncertainty → unwanted crystals also consume vapour, so an apparently
+  small amount of neighbouring ice can seriously change the inferred supply.
+- *Visual:* DIAGRAM. The two-thermometer experiment, a normalized excess readout and a crowding
+  reveal. If the twentyfold example is retained, label the chapter's roughly centimetre chamber,
+  micrometre-scale crystal radii and consumption assumptions; do not make coverage alone its cause.
+  Use a newly composed plot of the cited droplet-check relation, not a copy of Fig. 7.6.
+- *Sources:* ch10 Eq. 6.1 (printed pp. 221–222), zero-setting uncertainty and droplet check
+  (p. 255), and the worked chamber geometry (pp. 251–254). Labels: calculated under stated
+  assumptions; measured (experimental check).
+- *Build:* selected ports.
 
 **S23 · Counting flickers** (70 words · 29 s · spine: off)
 - *Beats:* thickness is measured with light as the ruler: two reflections going in and out of
@@ -694,23 +767,22 @@ the chapter text before the Rule 13 audit.
   (fingerprint).
 - *Build:* port.
 
-**S27 · Fits, not laws** (110 words · 46 s · g → 0.88 · spine: witness)
-- *Beats:* where do the barrier numbers come from? Grow a prism, time a face, divide, fit; the
-  curves are "little more than parameterized fits" → the same barrier is printed 0.7 % in one
-  paper and 0.73 % in another: good to a few tens of percent, not three decimals → the prism
-  ceiling sags below 1 above −10 °C with no explanation anyone accepts → and at −5 °C the broad
-  facet numbers say plate, where the map says column: that should stop you → a second
-  laboratory, weighing a levitated frozen droplet by the voltage that holds it, sees the
-  coefficient fall tenfold as the crystal matures. The surface remembers.
-- *Visual:* DIAGRAM. Two-panel σ₀(T), A(T) chart re-plotted from the closed forms in
-  `docs/libbrecht-parameters.md`, provenance-coloured; "0.7 versus 0.73" card; `barrier-chart`
-  with the −5 °C presets pinned under "plate in the column band"; `anim-cm6-history` fork; Penn
-  State data card.
-- *Sources:* ch11 printed p. 145 and Fig. 4.5; arXiv:1912.03230v1 pp. 3, 5; arXiv:1912.09440v1
-  p. 11; Fig. 4.18 printed p. 162 (−5 °C); printed pp. 55, 146 (ceiling); Pokrifka et al. 2020,
-  Harrison et al. 2016. Labels: model result (fits); measured (−5 °C data, levitation); open
-  (ceiling); hypothesis (kinetics-transition interpretation).
-- *Build:* chart; ports.
+**S27 · Fits, not laws** (110 draft words · spine: witness)
+- *Beats:* barrier values come from growth measurements interpreted through a model → useful
+  fits have a scope and uncertainty → the broad-facet comparison at minus five degrees uses
+  small prisms near vacuum and low supersaturation; it favours plate-like growth under those
+  conditions, unlike the familiar atmospheric column band → a levitation experiment in another
+  laboratory infers a falling effective attachment coefficient from a fit to one crystal's
+  growth → those observations invite questions about conditions and history, not a universal
+  rule that every surface remembers in the same way.
+- *Visual:* DIAGRAM. A measurement-to-fit sequence, explicit pressure/supersaturation labels,
+  then the levitation example. The provenance-coloured parameter chart and 0.7/0.73 comparison
+  are optional reader detail if the full set crowds the narration.
+- *Sources:* ch11 printed p. 145, Fig. 4.5; its low-pressure/low-supersaturation qualification
+  around Fig. 4.18 (p. 162); the explicitly fitted levitation example in its Penn State section,
+  citing Pokrifka et al. 2020 and Harrison et al. 2016. Labels: measured growth, model-conditioned
+  fitted coefficients, hypothesis (history interpretation), open (unexplained prefactors).
+- *Build:* selected chart and ports.
 
 ### Act VIII — Why the shape flips (chapters 12 and 13)
 
@@ -743,27 +815,26 @@ the chapter text before the Rule 13 audit.
   Labels: hypothesis; model-conditioned inference.
 - *Build:* ports.
 
-**S30 · A crossing is not a boundary** (100 words · 42 s · g → 0.92 · spine: off)
-- *Beats:* it is tempting to read where the two barrier curves cross as where plates become
-  columns → it is not: a crossing says only which barrier is lower at one shared surplus;
-  restore the ceiling and the count of crossings depends on the surplus you chose → this course
-  once claimed a "structural, not numerical" bound from crossing counts; an adversarial review
-  found it invalid and it was retracted → habit belongs only to a complete three-dimensional
-  forward run judged by a frozen evaluator. Remember that sentence; Part 2 is built on it.
-- *Visual:* DIAGRAM. `anim-sigma0` mountAlphaHK: the σ_surf slider flickers the crossing count
-  0, 1, 2, 3; the words "structural, not numerical" struck through on screen; the "Corrected"
-  callout wording.
-- *Sources:* ch12 Key idea; arXiv:2009.08404v2 p. 3 Eqs. 1–5; the correction recorded in
-  `research/libbrecht-figure-findings.md`; retraction commit `5463e76` (Rule 6). Labels:
-  corrected.
-- *Build:* port.
+**S30 · A crossing is not a boundary** (100 draft words · optional technical depth)
+- *Beats:* two barrier curves crossing is a comparison of model inputs → it does not by itself
+  locate a plate-to-column boundary → the full attachment coefficients also depend on prefactors
+  and surface supersaturation, while the growing shape changes its own surrounding field →
+  predicting a shape requires those pieces to work together.
+- *Visual:* DIAGRAM. Compare barriers, then full coefficients at a labeled shared surface
+  supersaturation, then return to the three-dimensional growth problem. Crossing counts are an
+  input diagnostic; do not present them as a morphology result.
+- *Sources:* ch12's corrected Key idea; ch13 `anim-sigma0`; the correction in
+  `research/libbrecht-figure-findings.md`. Label: conditional input comparison.
+- *Reader/Part 2 note:* the project's retracted crossing-bound claim and frozen evaluator belong
+  to its development story. They are not a general definition of how laboratory habit is known.
+- *Build:* selected port.
 
 **S31 · Fit, guide, or guess** (80 words · 33 s · g → 0.94 · spine: witness)
 - *Beats:* the most memorable line on a science graph is often not a result; nine words in a
   caption tell you → four kinds of line: a measurement or an inversion through a model; a fit
   whose shape a person chose; an eye guide with no equation; a convenient shape with tuned
-  numbers → papers say which in one skippable clause → Part 2 stamps every number it uses with
-  one of those four.
+  numbers → papers say which in one skippable clause → asking where a curve comes from changes how much
+  weight it can carry. These teaching categories are not the project's separate P1–P4 taxonomy.
 - *Visual:* DIAGRAM. ch13 `epistemic-lines`: the same six dots, then a solid line, then a dotted
   one, then the dots vanish and a formula remains; the real caption words each time.
 - *Sources:* Snow Crystals Fig. 4.26 caption printed p. 172; arXiv:2009.08404v2 p. 3 and Fig. 18
@@ -772,130 +843,203 @@ the chapter text before the Rule 13 audit.
 
 ### Act IX — The frontier, and the handover (chapter 13)
 
-**S32 · A handful of souls** (100 words · 42 s · g → 0.96 · spine: witness)
-- *Beats:* the man behind most of these measurements calls it "forbidden research", "mainly just
-  me and my credit card" → "typically, there are a handful of interested souls around the globe"
-  → these questions are open because barely anyone has looked as much as because they are hard;
-  difficulty and neglect look identical from outside → every one of them comes back to the last
-  molecular skin of the ice, which nothing has photographed a molecule at a time → "we do not
-  know" is a position; it says where to start.
-- *Visual:* DIAGRAM. ch13 `open-clock` bar race (only "why six" ever closes); `confidence-map`
-  orbit of one crystal, six markers, ending on the surface marker "the skin is the frontier".
-- *Sources:* Snow Crystals printed p. 41; arXiv:2012.12916v1 p. 11; ch13 'places the account runs
-  out'. Labels: historical (quotes); open.
-- *Build:* ports.
+**S32 · A handful of souls** (100 draft words · spine: witness)
+- *Beats:* Libbrecht describes a small experimental field and difficult measurements → the
+  growing surface remains a focus of the questions in these sources → useful explanations and
+  open questions coexist → uncertainty can identify the next measurement worth making.
+- *Visual:* DIAGRAM. A source-dated view of the field, then selected points on the confidence
+  map. Avoid a race labeled “today” or a claim about everything scientists have ever imaged.
+- *Sources:* Snow Crystals printed p. 41; arXiv:2012.12916v1 p. 11; ch13's listed open questions.
+  Labels: attributed historical perspective; open questions in the named source set.
+- *Build:* selected ports.
 
-**S33 · What a model would have to leave out** (80 words · 33 s · g → 0.98 · spine: witness)
-- *Beats:* so suppose you tried to build one. You would solve vapour and nothing else → no latent
-  heat, no wind from falling, no slushy skin, no molecules walking on the surface, no facet
-  width, no pressure, no rime, no sublimation, no collisions, one fixed seed → none of that is
-  automatically harmless; each has to be bounded or carried as a stated error → a model built
-  this way can be wrong in ways it can name. That is the best thing about it.
-- *Visual:* DIAGRAM. The omissions checklist card, each line stamped "carried as a systematic";
-  `anim-aerodynamics` and `anim-qll` as one-beat inserts.
-- *Sources:* ch4, ch5, ch9, ch12, ch13 stated-omission passages (ch5 'Scope before acronym';
-  ch12 closing; arXiv:2306.13087v1 pp. 5, 7). Labels: stated model limitations.
+**S33 · What a model leaves out** (80 draft words · spine: witness)
+- *Beats:* a model chooses what to resolve → this project's physical formulation couples vapour
+  transport to a parameterized surface rule; pressure affects diffusion and some surface effects
+  enter fitted inputs → heat transport, explicit surface motion and other processes remain
+  omitted or simplified → their consequences need assessment before a quantitative claim.
+- *Visual:* DIAGRAM. Distinguish “represented,” “parameterized” and “omitted/simplified.”
+  Unassessed omissions read “effect not yet bounded,” never “carried as a systematic” by default.
+  Keep this physical formulation distinct from the decorative G-G Run B replay.
+- *Sources:* ch13's model-limit passage; ch11's premelting qualification;
+  `docs/libbrecht-parameters.md` pressure-dependent diffusion; charter §§2.2, 2.6–2.7.
+  Labels: stated implementation scope; unresolved error.
 - *Build:* the card.
 
-**S34 · Finished** (110 words · 46 s · g → 1.00, then the hero ending · spine: stage)
-- *Beats:* the computer's crystal is finished: 961,597 sites, each with the tick it froze on →
-  everything you know now is settled science except one thing, and the film has been honest
-  about which → so here is the exam: give a program temperature and spare vapour, nothing else,
-  and ask it to grow flat, tall, flat, tall → this is what one program grew from a toy's rules;
-  whether it grew the right thing at the right temperature is Part 2 → badge: SETTLED, with one
-  open door → and then it falls, one flake among the rest of the weather.
-- *Visual:* SPECIMEN. Run B completes and holds (the tour's 13 s mark), the resting turn; then
-  the existing hero ending: the camera falls away, the crossfade to the beacon glyph, the
-  snowfield fades in, the flake drifts down and off. Card over the snow: PART TWO · A MODEL THAT
-  CAN BE WRONG. The MODEL tag stays until the crossfade.
-- *Sources:* run provenance (site README, growth asset record); ch1/ch7/ch13 open question;
-  ch13 handoff. Labels: measured (artifact); open.
-- *Exists:* the whole hero ending; the beacon must be seeded (no `Math.random`) for export.
-- *Build:* the end card; the beacon seed.
+**S34 · What the crystal leaves us with** (110 draft words · g → 1.00, then handover)
+- *Beats:* the computer's crystal completes → ordinary ice gives us the lattice, vapour supplies
+  material, and surface growth and changing conditions shape the result → measurements and
+  fitted descriptions explain parts of that story; important surface questions remain →
+  the next challenge is to put a specified model together and compare its predictions with
+  observations → the final crystal falls into the snowfield, carrying that question onward.
+- *Visual:* SPECIMEN, tagged MODEL. Complete Run B, hold for inspection, then use the hero's
+  fall-away and beacon handover. Show the established foundations and remaining questions
+  together, without a whole-film SETTLED badge. The optional Part 2 card follows the payoff.
+- *Sources:* ch1/ch7/ch13, current project claim limits and the Run B artifact record.
+  Labels: model output; established foundations; fitted descriptions; open questions.
+- *Exists:* the hero ending as an interactive sequence. *Build:* a version whose hero phases,
+  camera, beacon and snowfall can be sought from film time; seeding alone is insufficient.
 
 ## Fully scripted scene: the cold open (S00 + S01)
 
-The template for WP1. Timestamps are planning values at 2.4 words per second; ON SCREEN
-describes layer, component, tags, and the film-clock state so the runtime can be built from the
-row. British spellings on screen, as in the chapters.
+This revised example supersedes the original 88-second allocation. Its timing is provisional,
+with pauses inside the visual holds; it must be read aloud by the maker before recording.
+The same words become semantic page text and reviewed timed captions. British spelling is used
+on screen, as in the chapters. No sentence invents the maker's earlier beliefs.
 
-**Editorial spine (one sentence):** the crystal you are watching is a computer's, said out loud
-in the first ten seconds, and the reason it exists is a map nobody has explained since 1936.
+**Editorial spine:** meet a computer-grown crystal, ask what shapes real ice, and promise a
+journey through what experiments have taught us.
 
 | TIME | VOICEOVER | ON SCREEN |
 |---|---|---|
-| 0:00–0:09 | This is a snow crystal. Nineteen cells of ice on a hexagonal grid, inside a computer, about to grow. | SPECIMEN. Run B at tick 0 on the void, face-on, the 19-site seed filling about a fifth of the frame; nothing else. Tag `MODEL` top-right from frame one. Film clock `t = 0`, growth fraction `g = 0`. |
-| 0:09–0:24 | It isn't real. I want to say that before anything else. No camera saw this. A program grew it, from a handful of rules, over about ten hours. Every time it's on screen you'll see the word MODEL in the corner. | The first ticks fire: cells attach at the six corners of the seed (`g` 0 → 0.01). The `MODEL` tag pulses once. Mono provenance line fades in beneath it: **Gravner–Griffeath model · 1200 × 1200 × 48 lattice · seed 1 · no noise · 70 000 steps**. |
-| 0:24–0:38 | When I started, I thought I knew what a snowflake was. Frozen rain. Six sides. No two alike. Nearly all of that turned out to be wrong, or not what I thought it meant. So this is the first half of the story: what a snow crystal actually is, told well enough that the second half makes sense. | The tour camera drifts a few degrees (its authored pose near `t = 0`); the crystal is a small hexagonal outline now (`g` → 0.02). Title rises in the display face: **PART ONE · HOW A SNOWFLAKE IS MADE**. |
-| 0:38–0:44 | And the second half is whether this thing — | — deserves to be believed. | Hard cut to DIAGRAM. Tag `DIAGRAM` top-right. A vertical thermometer on the left, 0 to −35 °C, marker at 0; a schematic hexagonal prism centre frame, blocky. The Run B crystal shrinks to a witness thumbnail bottom-left, still tagged `MODEL`, growth paused. |
-| 0:44–1:03 | Here's the puzzle that got me. Hold the moisture still, and cool the air. Near minus two, ice grows flat plates. Near minus five, columns. Near minus fifteen, plates again — the big stars. And colder still, the map says columns again, though that corner of the map is the part people trust least. | The marker descends. The prism flattens to a wafer, stretches to a pencil, flattens, stretches (port of ch7 `anim-alternation`, schematic aspect targets). Band labels appear as each boundary is crossed: **PLATES · COLUMNS · PLATES · COLUMNS**, the last one hatched. Muted mono caption held under the prism: *schematic — encodes which habit each band produces, not a measured aspect ratio*. |
-| 1:03–1:16 | Flat, tall, flat, tall. Same water. Same ice. A few degrees apart. Ukichiro Nakaya mapped this in the nineteen-thirties. Ninety years later, nobody can say why. | The four bands settle into a strip. A counter stamps **3 FLIPS**. A hairline draws from **1936** to a right-hand mark labelled **today**; the line stays open at the right end. |
-| 1:16–1:28 | So everything in this film is here for one reason: so that when a computer sits that exam in Part Two, you can read its answer for yourself. | The strip fades. The prism cross-dissolves into the Run B seed, which returns to the stage (SPECIMEN, `MODEL`), and the growth resumes (`g` 0.02 → 0.04 into S02). Eyebrow for the next act fades in bottom-left: **01 · WHAT FALLS**. |
+| 0:00–0:16 | This crystal grew inside a computer. Nineteen cells became a branching shape. Those are model cells, not individual molecules. But the question it raises belongs to real snow. | SPECIMEN, MODEL from frame one. Begin on the seed; a controlled reveal introduces the branching form as a brief preview, then returns to the seed before the continuous story begins. Caption the preview so it is not read as elapsed physical time. |
+| 0:16–0:34 | How does water build something like this? A snow crystal grows as water vapour joins the ice. And the shape depends on the conditions around it. Change those conditions, and the result can look completely different. | Original DIAGRAM: vapour joining a simple crystal, then plate and column silhouettes. Hold a moment on the contrast. Title: HOW A SNOWFLAKE IS MADE. |
+| 0:34–0:55 | Near minus two degrees, plates are familiar. Near minus five, columns. Near minus fifteen, plates again, including the great branching stars. Farther into the cold, the classical map shows columns again, although that region is more complicated. | Separate schematic examples under constant growth conditions; these are not one crystal reversing its past growth. Temperature in °C, specified supersaturation context, hatched cold region. No precise boundary or three-flip score is claimed. |
+| 0:55–1:14 | Ukichiro Nakaya began mapping that pattern in the nineteen-thirties. We have learned a great deal since. There are measurements, models and proposed explanations. But putting them together to predict the changing shapes is still unfinished. | Original diagram of observations, then an experiment and a proposed surface mechanism. Label their different roles. The present-day statement is scoped to the film's reviewed sources. |
+| 1:14–1:32 | I want to follow the water, from an invisible molecule to the edge of a crystal. Along the way, we will see what people managed to measure, what those measurements explain, and where the next questions begin. | Return to the Run B seed, MODEL visible. A quiet hold, then the first continuous growth cue leads into WHAT FALLS. Film time is a presentation clock; G-G ticks are not seconds in a cloud. |
 
-**Fact-check**
+**Fact-check for this example**
 
-| CLAIM (as spoken) | ROW | CITATION | CONFIDENCE |
-|---|---|---|---|
-| The seed is nineteen cells on a hexagonal grid | 0:00 | AGENTS.md ("the canonical radius-2, thickness-1 seed has 19 sites; the paper's 20 is an erratum"); ch3 bridge (19-site sixfold seed) | measured (project artifact) |
-| No camera saw it; a program grew it | 0:09 | Site README "The Run B stage": a Gravner–Griffeath solver run, 1200×1200×48 lattice, seed 1, no noise; 961,597 attachment events | measured (project artifact) |
-| About ten hours | 0:09 | Site README: stopped on its 70,000-tick cap after 36,348 s of compute (10.1 h) | measured (project artifact) |
-| A handful of rules | 0:09 | Ch 9: G-G automaton = vapour diffusion on a hexagonal lattice, a neighbour-count attachment threshold, hole filling (Gravner & Griffeath 2009) | model result |
-| Frozen rain / six sides / no two alike as misconceptions | 0:24 | Ch 1 printed p. 17 (sleet vs deposition); ch 1 (stars are one type; columns near −5 °C); ch 8 printed pp. 42–44 ("alike" depends on the meaning) | established |
-| Near −2 plates, near −5 columns, near −15 plates, colder columns; cold corner least trusted | 0:44 | Ch 7: boundaries read at −3.3, −9.9, −21.5 °C ± 0.5 (arXiv:1211.5555v1 figure via `anim-nakaya.js`); Libbrecht's ranges "platelike above −3, columnar −4 to −6, platelike −11 to −18, columnar below −30" (arXiv:2012.12916v1 p. 1); Bailey & Hallett cold-end revision (ch 7) | measured (warm boundaries, three laboratories); open (cold band) |
-| Hold the moisture still: the diagram applies only to constant conditions | 0:44 | Ch 7/8: Fig. 10.1 caption printed p. 383 | established (source's own caveat) |
-| Nakaya mapped it in the 1930s | 1:03 | Ch 2/10 printed pp. 30–31; first synthetic crystal 12 March 1936 | historical |
-| Ninety years later nobody can say why | 1:03 | Ch 1 printed pp. 16–17 ("remains elusive"); ch 7 'Still unsettled', printed p. 157; arXiv:2011.02353v1 p. 1 | open question |
-| "The computer sits that exam" | 1:16 | Gloss on Part 2's Phase 6 comparison (docs/PROGRESS.md, Phase 6 accepted negative finding); no scientific claim | gloss (audit: confirm the wording does not imply a result) |
+| Claim | Source and scope | Status |
+|---|---|---|
+| Run B begins with nineteen model cells and becomes a branching crystal | [Run B record](explore-gutcheck-growth-volume.md), “Full Run B bake — complete and independently validated,” and strict growth decoder; the seed is the canonical radius-2 seed. Verify the selected local asset identity in the prototype. | Project artifact; model output |
+| Model cells are not individual molecules | Charter §1.3: mesoscopic cells; no molecular-scale interpretation of the replay. | Model definition |
+| Snow crystals grow by deposition and depend on surrounding conditions | Ch1 `01-not-a-frozen-raindrop.html#not-a-raindrop` and `#no-blueprint`, printed pp. 17–23. Nucleation and later growth are distinguished in the following act. | Established mechanism |
+| Approximate warm plate/column bands; complicated cold region | Ch7 `#alternation`, `#the-map` and `#cold-end-rewritten`, including supersaturation/constant-condition caveats. The diagram illustrates ranges, not measured aspect ratios or a continuous cooling experiment on one crystal. | Observed pattern; cold-end qualification |
+| Nakaya's 1930s work | Ch2 `#nakaya` or ch10 `#bad-laboratory`, printed pp. 30–31. | Historical |
+| Measurements and proposed explanations exist; the end-to-end account is unfinished | Ch7/ch11–13, `docs/video-explainer.md` active-modeling discussion and charter §2.7's reviewed-source scope. | Scoped account of progress and uncertainty |
+| “I want to follow the water” | Authored invitation for the maker to narrate; no assertion about private biography. | Editorial voice |
 
-**Runtime notes for this scene.** Growth fraction `g` runs 0 → 0.02 across S00 and holds
-through S01; the witness thumbnail is the same canvas scaled, not a second WebGL context. Under
-reduced motion S00 shows the finished seed still, S01 shows the four bands with four static prisms
-side by side and the same captions. Under capture the title and eyebrow are driven from `t`, not
-CSS transitions.
+**Runtime notes.** The preview is a separate explicit cue; after it the Run B history progresses
+monotonically except when the reader seeks backward. Before any claimed branching transition,
+inspect the actual asset frame. Use the same visual context for stage and witness. Reduced motion
+shows selected static views; it neither replays the preview motion nor forces a scroll. Titles,
+diagrams, labels and the return to the seed are driven by cue time in capture mode.
 
 ## Website runtime and build brief
 
-The runtime assessment (workflow `wf_0b937e68-061`, `inventory:runtime-mechanisms`) read the
-site's ticker, scroll, hooks, stage, hero, tour, capture bridge and export script on both the local
-branch and `origin/master`. What it found, and what the film page therefore is:
+Read-only review on 2026-09-15 inspected the website checkout at `6e2592c` on
+`run-b-growth-stage`, cached `origin/master@adae4041ec32638b92afc159c5ee50d4770360c9` and
+`origin/feature/growth-library@e8f82d0`. These are observed local refs, not a live remote check.
+The [review](../reviews/film-part1-plan-review-2026-09-15.md) records code locations and limits.
 
-| Need | Today | Mechanism / gap |
-|---|---|---|
-| Drive every scene from one page value | exists three times | The house idiom: tall section, sticky `h-svh` stage, one `onTick` reading the section rect into a ref. Gap: no shared page-progress store; Motion's `useScroll` was observed non-monotonic under Lenis and must not be used. |
-| Auto-scroll at narration pace; detect manual scroll | **gap** | Per-frame `lenis.scrollTo(y, {immediate: true, force: true})` from the ticker (native instant scroll when Lenis is absent). Manual input: compare `window.scrollY` with the y written last frame, plus Lenis's `virtual-scroll` event; any discrepancy pauses narration. `stopScroll()` is a lock, not a detector. |
-| Map the Run B tour clock to the film | exists | `TourClock {elapsed, playing, seekTo}`; everything is a pure function of `elapsed`, the whole history resident. Gaps: the camera has two damped states, so add a `snap` path; the R3F canvas runs its own rAF, so switch to `frameloop="never"` and step it with `advance(t)` from the site ticker; the resting orbit is unbounded past 16 s, so give the film a finite end. |
-| Narration sync | **gap** | No audio playback exists. Use an `HTMLAudioElement` as the master clock in play mode, polled on the ticker (`timeupdate` is ~4 Hz). Play starts only inside the Play button's click handler (autoplay policy enforces the "never from scrolling" rule). COEP `require-corp` means the audio file must be same-origin. |
-| Frame-exact export | exists for `/growth` | `?capture=1` installs `seek/renderedAt/frames`; the exporter's `seekExact` waits two painted frames. Promote to a page-level `__filmCapture.seek(t)`; force lazy gates open; freeze CSS transitions and wall-clock effects; seed the beacon; DOM-layer frames go through the compositor screenshot path. |
-| Reduced motion | exists | Composed stills, Lenis absent, transitions zeroed. Decide that scrubbing survives (native scroll still drives the ticker) with `frameloop="demand"` on the crystal; Play jumps between cue positions. |
-| Lazy mounting | exists by viewport | `useIsActive` with a 25 % margin. Gap: the 7.7 MB volume needs seconds to tens of seconds; start the growth worker at page mount and prefetch other heavy scenes by cue time, not proximity. Never unmount inside the sticky stage. |
-| Chapter anchors and resume | **gap** | No hash routing. Resume by `?t=` or `#act`, restored into `film.t` with an instant scroll and `scroll-margin-top` for the fixed nav; never starts audio. |
+### Page, controls and time
 
-**The page.** One route (proposed `/film/part-1`; promoting it to `/` is a later decision). One
-tall `<section>` whose height is the sum of the scene budgets, wrapping one sticky full-viewport
-stage. Every scene lives inside that stage as a layer (DOM caption blocks, 2D canvases, and one
-react-three-fiber canvas for the Run B spine), toggled by opacity and visibility, never as
-separate sticky sections, so there is one WebGL context for the crystal and one clock. A
-module-level `film = { t, mode: 'scroll' | 'play' | 'still', lastY }` ref is written by exactly one
-ticker subscription just above Lenis's priority: in scroll mode it inverts the cue table from the
-section rect; in play mode it reads `audio.currentTime`, sets `t`, scrolls the document to
-`y(t)`, and watches for manual input. Every scene is a pure function of `film.t`; the spine sets
-`clock.current.elapsed = tourTime(g(t))` with `playing = false` and the snap flag. The cue table
-is one strictly decoded array `[{ t0, t1, scene, sceneProgress }]` in the shape of
-`sceneMotion.ts`'s captions, and it is the only mapping between seconds and page position in
-both directions, so scrubbing backward lands on the frame playing forward produced.
+Use a new `/film/part-1` route with semantic article sections and one shared visual stage.
+Keep the renderer persistent, not every scene's resources. On small screens or static reading,
+place each scene's prose and descriptive still in reading order; keep the argument complete
+when enhanced rendering is unavailable. Do not put the entire transcript into overlapping
+opacity layers.
 
-**Branch and merge order.** Build on `origin/master` (PR #2's 16-bit capture path is there; the
-local branch lacks it). The menagerie and capped-column replays need the growth-library branch's
-`StageTour` generalisation (`makeLibraryTour`, columns framed by extent), so merge or rebase
-`feature/growth-library` first, or cherry-pick `2ab1ce0` and `e8f82d0`; a film that edits
-`GrowthStage` without that refactor conflicts with it later.
+One controller owns film time and scroll writes. It has reading, playing, paused, seeking,
+loading and ended states. The draft score supplies these mappings:
 
-**Assets.** `public/growth/run-b-growth-v1.bin` (7.7 MB) plus the seven catalog replays the
-scenes name (S15's capped column, S19's six types), each 0.2–10 MB and currently untracked
-everywhere (the library README calls hosting an open decision). Narration audio per act.
+- **Global film seconds ↔ scene/cue/local progress.** Use explicit cue intervals, including
+  silence, titles, inspection holds and the ending. No overlapping or missing timeline spans.
+- **Global film seconds ↔ audio clip/local seconds.** Per-act recordings have a global start
+  offset, trim offsets and duration. Include approved silence in the assembled per-act media so
+  the audio clock covers visual holds; use explicit inter-act offsets and seamless transitions.
+  If a transition is audible or introduces a gap, assemble one continuous playback track.
+- **Film seconds ↔ measured page anchors.** Compute layout after fonts and content are ready.
+  Map within cue intervals in both directions. Distinct endpoints remain addressable even for
+  a visual hold; avoid a many-times-to-one-position mapping that makes resume ambiguous.
+- **Film seconds → Run B tick and camera pose.** Growth ticks are model chronology, not physical
+  seconds. Authored time compression and the explicit opening preview are recorded in the score.
 
-**Diagram components (WP5).** Ported from the education interactives, each taking an external
-progress value and keeping its original caption and limits: ch1 `anim-aggregate`,
+Read the audio clock while playing, using the global offset. The first play request comes from
+an intentional user action; handle a rejected `play()` promise visibly without scrolling.
+Buffering or a missing required visual pauses progression and shows a recoverable state.
+A hidden tab pauses the film; returning offers resume. At the end, hold the final composition
+and stop audio/scrolling without looping. Seeking to another act loads the appropriate clip and
+visuals before resuming only if that was the user's selected state.
+
+Wheel, touch, scrolling keys and scrollbar dragging release playback control before the next
+automatic scroll write. Distinguish tagged programmatic scrolls, subpixel rounding and layout
+changes from reader intent; a difference from last frame's Y alone is not the detector.
+A resize/font change preserves film time in playback, recomputes anchors and corrects position;
+reading mode preserves the reader's scene/progress without starting audio. Reduced motion
+disables automatic scrolling and continuous scrubbing, including after a live preference or
+persistent override change. Audio may accompany discrete still changes with reviewed captions.
+
+Use the site's shared ticker and section-rect mechanism as an integration starting point.
+The controller owns render scheduling; make its ordering with Lenis and the WebGL draw explicit
+in code. Do not mix the canvas's independent animation loop with an exact capture driver.
+Shortcuts are scoped to focused player controls and never intercept an editable field or native
+reading keys elsewhere. Resume URLs use stable scene/act anchors and optional bounded time;
+they never start playback automatically.
+
+### Deterministic visuals and capture
+
+The existing capture bridge is a foundation. Camera damping, hero phase transitions, beacon
+sway, snowfall and some education simulations also hold state. A component must either evaluate
+directly from cue time, or replay deterministic fixed steps from a known seed/checkpoint. For
+stateful diffusion diagrams, choose a bounded precomputed sequence or deterministic replay cache;
+an external progress prop alone does not implement reverse seeking.
+
+A page capture acknowledgement covers the requested time, loaded asset identities, completed
+worker results, fonts, diagrams, DOM overlays and final WebGL draw. Two painted frames or the
+crystal clock alone are insufficient. A missing dependency fails the frame capture explicitly;
+never encode a loading indicator as an accepted film frame.
+
+**Initial export profile (production choice to prove in the prototype):** full-composition
+1920×1080, 30 fps, 8-bit output through the compositor, with specified colour handling, timed
+captions and 48 kHz audio assembly. The website's higher-precision path captures the crystal
+canvas only; it does not establish high-precision DOM/diagram composition. A later resolution
+or precision increase requires its own representative render and cost estimate, not a claim
+borrowed from the canvas exporter. Retain score and asset identities, renderer/browser version,
+frame count/rate, colour settings, audio offsets, caption sidecar and final media probe.
+Render resumable scene/act chunks with exact frame ranges and common audio time, then assemble
+and decode the result; verify that joins neither duplicate nor omit frames or speech.
+
+### Assets, memory and presentation
+
+Resolve Run B and selected catalogue recordings from the existing local files or governed NAS
+catalogue and verify their recorded identities. The named catalogue and its scientific/source
+bindings are already tracked in this repository; files being ignored in the website does not
+mean they are unpreserved everywhere. Public hosting is a later deployment choice and does not
+block a local prototype.
+
+Measure download bytes, decoded CPU memory, GPU textures and render targets separately. Keep
+current/next-scene assets in a bounded cache, evict obsolete entries, terminate finished workers
+and dispose replaceable GPU resources. Prefetch by cue and readiness without keeping every
+volume and canvas live. Inactive layers do no animation work. Missing optional visuals get an
+honest static fallback while readable content remains available; required export visuals fail.
+
+The reviewed website renderer exaggerates thickness and can decimate catalogue previews.
+Record those choices in render notes. For a scene teaching aspect ratio or thickness, use
+undistorted geometry or a clearly labeled separate schematic; do not let a MODEL tag silently
+stand in for dimensional fidelity. Inspect actual seed, branching, column and final-crystal
+views before assigning their cues.
+
+### Integration and checks
+
+Before edits in the website, inspect its worktrees, dirty state and current branch diff. Reuse
+the film task worktree if present; otherwise isolate implementation from the existing hero work.
+The reviewed library branch descends from the reviewed master and supplies `StageTour` and
+column framing. Carry only needed, understood changes into the film branch after checking its
+current state; this is an ordinary local dependency decision, not a requirement to merge another
+agent's branch into master. Preserve existing routes and unrelated work.
+
+The representative prototype covers:
+
+| Boundary | Demonstration |
+|---|---|
+| Story and render | A sourced science diagram, crystal handover, text/labels and an ending cue at intended size; inspect the result visually |
+| Manual reading | Forward/reverse scroll, act/scene links, reload/resume, touch and keyboard navigation without trapping focus |
+| Playback | Intentional play; exact mapped seek/resume; reader takeover by wheel, touch, keys and scrollbar; act join and ended state |
+| Failure and layout | Slow/missing asset, audio rejection/buffering, hidden tab, resize and late fonts; no unexpected scrolling or silent gap |
+| Access | Phone portrait, enlarged text, reviewed caption layout, live reduced-motion change and complete no-WebGL/static reading |
+| Export | The same representative cue times reached forward, backward, directly and after reload; inspect equivalent states under a declared renderer tolerance; decode a short audiovisual file including labels and ending |
+
+Use focused tests for cue mapping, time/asset readiness, transport and seek state, the website's
+typecheck/lint/build, and a live browser smoke plus sample export. State actual measured render
+cost before launching a full-film export. These are product checks under Rule 6; exact
+`npm test` and scientific gates are not default film checks. If later implementation touches
+scientific readouts, evidence or solver behaviour, reclassify that specific change under Rule 6.
+
+**Candidate diagram inventory.** WP0A/WP1 select what the story needs; WP5 does not port this
+whole list. Selected components need directly evaluated or reproducibly replayed state, and retain
+their source captions and limits: ch1 `anim-aggregate`,
 `anim-supercool`, `anim-budget`; ch2 `anim-diffract`, `anim-album`; ch3 `anim-why-six`,
 `anim-lattice`, `prism-anim`; ch4 `chart-vapour`, `chart-excess` (both on `anim-nakaya.js`'s
 Murphy & Koop functions); ch4/6 `anim-diffusion`; ch5 `anim-slow-wins`, `anim-facet-balance`;
@@ -914,110 +1058,113 @@ HexAct/PentAct only if re-scoped and tagged for S06.
 **Archive items (WP3 rights rows).** Kepler 1611 title page (S07); Olaus Magnus 1555 woodcut,
 Descartes 1637 figure, Hooke 1665 Micrographia plate, Bentley plates checked individually (S21);
 optional USDA LT-SEM micrographs (S03 or S19). Not used under any framing: Barnes's 1929
-photograph (rebuilt as `anim-diffract`), Nakaya's photographs (date card only), every Libbrecht
+photograph (its teaching idea becomes an original diffraction diagram), Nakaya's photographs
+(date card only), every Libbrecht
 figure.
 
 ## Steps
 
-- [x] **WP0 — This plan.** Framework, must-know set, scene table, scene records, one scripted
-      scene, runtime brief, `docs/PROGRESS.md` entry; committed on `explore/film-part1-plan`
-      (2026-09-15). Checks: `node scripts/lint-rule7.mjs` and `git diff --check`; the scene
-      table's word sum and the 29-id coverage were recomputed by script before commit.
-- [ ] **WP1 — Full narration draft.** `docs/video/part1-script.md`: every scene in the house
-      `TIME | VOICEOVER | ON SCREEN` format, a fact-check table in which every factual beat carries
-      a chapter and printed-page citation or is marked as the chapter's gloss, word count inside the
-      budget, badges placed.
-- [ ] **WP2 — Rule 13 adversarial fact-check audit** of WP1 by a non-author reviewer, a different
-      model preferred (Rule 10), against the fact-check table and the chapters; repairs; script
-      locked. No recording before this.
-- [ ] **WP3 — Rights register** for every ARCHIVE item; any image without a passing row is replaced
-      by its `DIAGRAM` stand-in.
-- [ ] **WP4 — Film runtime on the website.** One branch off `origin/master`: the route, the film
-      clock, scene sections with sticky stages, the Run B spine mapping, readable narration prose,
-      fragment anchors, keyboard navigation, reduced-motion path. Verified in a real browser the
-      way the site's own build record says it must be: navigate, scroll the stage into view, watch a
-      live number move. Typecheck and lint are not verification for a WebGL page.
-- [ ] **WP5 — Diagram components.** Port the education interactives the scene records name, build
-      the new pieces, each driven by an external progress value and carrying its tag; each states
-      what it encodes and its limits in its own copy, as the education originals do.
-- [ ] **WP6 — Narration and watch/listen.** The maker records against the locked script; per-act
-      audio and the cue map; the Play control, cue-driven scroll, the manual-scroll pause and
-      resume, captions.
-- [ ] **WP7 — Export.** Extend the Run B export script into a film export: fixed-frame render of
-      the 16:9 composition through the capture bridge, offline audio assembly, a notes file with
-      the recipe and the detected renderer.
-- [ ] **WP8 — Review and record.** A skeptical read of the built page against the media spec's
-      required behaviours for all three performances (each marked working, not implemented, or not
-      tested); the maker's visual inspection; the review record with what was and was not checked.
+- [x] **WP0 — Original plan and requested review.** The initial plan is committed at `d7d1de7`.
+      The review file records the complete diff assessment, corrections and evidence limits.
+- [ ] **WP0A — Representative film prototype.** Create the minimal internal score for the selected
+      halo/corner sequence and Run B transitions, with source references and temporary timing;
+      implement it in the website task branch. Exercise the runtime/check matrix above, including
+      static reading and a short whole-composition export. Temporary audio is an engineering
+      fixture, never a replacement for the maker's final voice. Resolve demonstrated feasibility
+      problems before bulk diagram work.
+- [ ] **WP1 — Full narration and draft score.** Write `docs/video/part1-script.md` in
+      `TIME | VOICEOVER | ON SCREEN` form for the selected story, using stable scene keys.
+      Complete `docs/video/part1-score.json` with exact source chapter revision/path/anchors,
+      claim scope, prose/descriptions, visual and audio/caption references. Every factual beat
+      has a source or is identified as interpretation. Cut/merge optional scenes; budget pauses,
+      transitions and credits. Read aloud and keep the complete cut under one hour.
+- [ ] **WP2 — Complete-script fact-check.** A non-author review under Rules 10/13 checks WP1
+      against the sources and the repairs here. Resolve factual blockers before final narration
+      recording; this plan review does not approve unwritten dialogue.
+- [ ] **WP3 — Selected archive rights.** Record the exact item and reuse basis for each chosen
+      archive asset. Replace unresolved candidates with original diagrams or omit them. This can
+      proceed alongside script work and does not block a diagram-only prototype.
+- [ ] **WP4 — Expand the verified runtime.** Add the selected story to the shared stage and
+      semantic article, keeping time, controls, loading and reduced-motion behaviour from WP0A.
+      Import the identified score version and preserve existing website routes.
+- [ ] **WP5 — Selected visuals.** Produce the signature sequences first; adapt only the supporting
+      diagrams the final story uses. Each preserves its source limits and has reversible state
+      plus a descriptive static view. Review clarity and presentation at phone and film sizes.
+- [ ] **WP6 — Maker narration and access tracks.** Record the fact-checked script in the maker's
+      own voice; retain clean audio. Align actual clip durations and global offsets; review
+      pronunciations, captions, VTT/SRT, transcript and essential visual descriptions. Recheck
+      complete runtime including silence and credits.
+- [ ] **WP7 — Full export.** Render the approved cue timeline in resumable chunks, assemble
+      narration/captions on the same timebase, and inspect/decode the final output and joins.
+      Record the recipe, identities, renderer and observed duration; it must remain under 60:00.
+- [ ] **WP8 — Final product review.** Exercise the three performances with the actual content,
+      obtain the maker's visual and narration review, and record what worked and what remains
+      untested. Publication and public identities remain separate release work.
 
 ## Out of scope
 
-- Editing `docs/education/**` (frozen until Phase 6 closes). Chapters are read, not changed.
-- Part 2 (chapters 14–33), its script, or its visuals; this plan only leaves the handover to it.
-- Any solver, evidence, gate, charter, ADR, or Phase 6/7/10 change; any scientific claim beyond
-  what the chapters already label.
-- Publication, upload, `SCJ` allocation, the narrative-score manifest, or NAS publication of media.
-- Replacing or changing the website's existing routes, including `/growth` and `/run-b-hero`; the
-  film is a new route that reuses their components.
-- AI-generated video or imagery; Libbrecht figures under any framing.
+- Editing `docs/education/**` in this task. Its chapters supply source material; the historical
+  freeze is not a current blocker.
+- Part 2's complete script and visuals. This film may prepare its questions while delivering
+  its own science story.
+- Solver, evidence, gate, charter, ADR or phase-state changes. Any claim newly exposed by a
+  diagram or readout must retain its own scientific review and Rule 6 verification tier.
+- Publication, upload, public `SCJ` allocation or NAS publication of new media. The internal
+  draft score and local development asset resolution are in scope.
+- Replacing the website's existing routes or index. The proposed film route is `/film/part-1`.
+- AI-generated raster/video assets and Libbrecht figures. Generated visuals here are authored
+  browser diagrams and identified model replays.
+
+## Remaining production inputs
+
+- **Narration:** the maker's actual recording, comfortable delivery pace and pronunciation
+  preferences are needed at WP6. Start with per-act clean tracks; the score supplies global
+  offsets and the final export can use a continuous assembled track.
+- **Archive selections:** use original diagrams until an exact selected item has a passing
+  rights record. No historical image is necessary for the prototype.
+- **Public hosting and release identity:** choose at publication. Existing local or governed
+  replay files support development after identity checks; no new remote upload is implied.
+- **Cue appearance:** inspect Run B's actual seed, branching and final frames in WP0A, then choose
+  camera and growth cues. The inherited g column is a draft hint, not evidence about appearance.
+- **Site integration:** inspect current branches before WP0A. Resolve local dependency order
+  from their actual code; preserve the independent hero/library work and defer merging to master.
+
+## Review completion
+
+The [review record](../reviews/film-part1-plan-review-2026-09-15.md) names the findings, applied
+corrections, commands and limits. Planning revisions cover story selection, runtime budgeting,
+the sample narration, scientific qualifications, score ownership, access, seekable visuals and
+prototype-first production. The next step is WP0A; full narration, recording, visual acceptance
+and export remain production work. No result of those future checks is claimed here.
 
 ## Tried and rejected
 
-- **Use the Chapter 1 pilot's V-series generated B-roll.** Rejected 2026-09-14: the maker chose
-  browser-rendered originals, and the site's stated identity is real-time rendering with no
-  pre-baked frames. The A-series diagram designs carry over; the V-series does not.
-- **Screen-record a scroll session as the film.** Rejected by the media spec before this plan: a
-  wheel-scroll recording makes browser chrome, scroll jitter, and dropped frames the pacing
-  system. The export steps a clock frame-exactly instead, as the Run B export already does.
-- **Make the exported movie the master.** Rejected by the scroll-documentary plan: corrections,
-  responsive layouts, accessibility, and outlet-native hooks need the score and the source
-  packages beneath the film.
-- **Play the hero's 13-second growth as-is at the top and treat the rest as unrelated scenes.**
-  Rejected in this plan: it spends the only continuous visual asset in the first minute and leaves
-  twenty minutes without a through-line. Stretching the tour clock over the whole of Part 1 costs
-  nothing (the history is fully scrubbable) and gives every act a visibly different crystal.
-- **Tell the film in chapter order.** Rejected: the Nakaya map, the only pull the story has,
-  would arrive at minute twelve, and the Gravner–Griffeath automaton would be met before the
-  nucleation barrier that replaces its surface rule. Mystery-first plus a single-crystal biography
-  respects every edge of the prerequisite graph (checked against the 43 edges in the map).
-- **Drive the film from Motion's `useScroll`.** Rejected: the site's own `/hero1` page records it
-  running non-monotonically under Lenis and computes progress from the section rect instead. The
-  film uses the rect idiom in scroll mode and the audio clock in play mode.
-- **Render a lookalike of Nakaya's 12 March 1936 photograph.** Rejected: a rendered stand-in for
-  a specific historical photograph is a fake photograph whatever the tag says. S17 uses a date
-  card and the redrawn diagram, and the narration says the photograph exists and cannot be shown.
-- **Let the site's procedural rooms carry facts** (the `/kshow` Nakaya wall, the `/biography`
-  cloud column's altitude and temperature bands, the `/storm` census). Rejected as fact carriers:
-  their habit thresholds are hand-placed (`habitFromConditions`) and their numbers are authored,
-  which the inventory confirms file by file. They are atmosphere only, or re-scoped and re-tagged
-  as `DIAGRAM` with the claim narrowed to what they actually encode (the `/zoo` plane-tiling acts).
-- **Show Barnes's 1929 X-ray photograph or any figure from the monograph.** Rejected on rights
-  (decision 0004); the diffraction beat is rebuilt from ch2's `anim-diffract`.
-- **Separate sticky sections per scene, each with its own canvas.** Rejected by the runtime
-  assessment: browsers cap live WebGL contexts and the site never unmounts a mounted stage, so a
-  35-scene page built that way accumulates contexts and rAF loops. One sticky stage, one crystal
-  canvas, layers toggled by visibility.
-
-## Open questions
-
-- **Route name and whether the film becomes the site's index.** The maker called the hero "the
-  main page of the education"; this plan builds the film as a new route and leaves promoting it to
-  `/` as a later, separate decision.
-- **Narration recording setup and per-act versus per-scene audio files.** Per-act is proposed for
-  fewer cue seams; the maker's recording workflow decides.
-- **Bentley plate rights, per image.** Deferred to WP3 with the rule above; nothing in the scene
-  records depends on a specific plate passing.
-- **Release identity** (one synthesis entry versus several) is deliberately not decided here.
-- **Hosting for the replay assets.** Run B (7.7 MB) plus the seven catalog replays the scenes
-  name (0.2–10 MB each) are untracked in both repositories; the growth-library README calls
-  hosting an open decision (repository, bucket, or release asset). The menagerie scene cannot be
-  built until it is made.
-- **Merge order with `feature/growth-library`.** The film needs its `StageTour` path for the
-  catalog replays; whether that branch merges to master first or the film branch carries the two
-  commits is the maker's call before WP4 starts.
-- **The cold-end line in S01 and S17.** "Colder still, the map says columns again, though that
-  corner is the least trusted" is the proposed wording that respects Bailey & Hallett; the Rule 13
-  audit should confirm it neither asserts nor denies the classical cold band.
-- **Per-scene growth fractions.** The `g` column fixes the monotone order; the exact frames at
-  which the plate looks like "one solid" (S08) and the corners break (S13) are read off the Run B
-  radius envelope during WP4, not from this table.
+- **Treat chapters or the original scene order as compulsory film structure.** Superseded by
+  JTS-M009: use them as source material and edit for story and understanding.
+- **Use the short-feed badge ratio or 60-percent reveal as a film rule.** Superseded in review.
+  Those rules govern short-feed cadence; they do not justify an overall SETTLED film ending.
+- **Preserve the original cold-open schedule.** Rejected in review: the spoken text exceeded its
+  allocation, one row required rushed speech and another had a malformed table. The revised
+  example is provisional until a table read.
+- **Use the Chapter 1 pilot's V-series generated B-roll.** The maker chose browser-rendered
+  originals. The A-series teaching designs remain candidate inputs with their qualifications.
+- **Screen-record a wheel-scroll session as the film.** Render cue states at fixed frames;
+  documentary timing must not depend on a person's scrolling or dropped display frames.
+- **Make the exported movie the master.** The shared score and source package retain the
+  editable content, timing and correction relationships.
+- **Spend the whole Run B reveal and abandon it after the opening.** Keep it as a recurring
+  story object, with a labeled preview if useful and room to disappear during dense diagrams.
+  Its presence in every corner is not a requirement.
+- **Assume timeline stretching is free.** The asset supports seeking, but the renderer, camera,
+  snowfall and stateful diagrams require explicit time control and measured cost.
+- **Reproduce a restricted historical photograph as a lookalike.** Use an original teaching
+  diagram or date card. Source photographs and their expressive compositions are not the assets.
+- **Let procedural atmosphere carry unverified scientific facts.** Re-scope any selected piece
+  as an explicitly labeled diagram with supported conditions; otherwise keep it atmospheric.
+- **One canvas/context and animation loop per scene.** Use a shared renderer with bounded live
+  resources and semantic article sections. Do not replace readable prose with hidden overlays.
+- **Treat a camera snap, seeded beacon or two painted frames as whole-film determinism.** Every
+  visible layer and readiness dependency participates in capture; stateful diagrams and snowfall
+  need direct evaluation or reproducible fixed-step replay.
+- **Block local prototyping on public hosting or a merge to master.** Resolve local assets and
+  integrate needed dependencies on the isolated task branch; public release decisions come later.

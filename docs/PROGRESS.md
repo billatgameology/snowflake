@@ -19,22 +19,18 @@ detail.
 
 ## Current state
 
-- **Part 1 film plan written (2026-09-15).** Maker direction of 2026-09-14 (`JTS-M008` in the
-  Journey transcript) starts building the living scroll documentary on the Cryosphere website
-  (`snowcrystal_website`) from its `/run-b-hero` route.
-  [The plan](plans/explore-film-part1-science-scroll-documentary.md) turns education chapters 1–13
-  into Part 1: ten acts, 35 scenes, 3,480 narrated words (≈24:10 at the Chapter 1 pilot's
-  2.4 words per second; summed from the plan's scene table at write time), the Run B replay growing
-  across the whole film as a `MODEL`-tagged spine, one fully scripted scene (the cold open) with
-  its fact-check table, a coverage map of the 29 ideas Part 2 depends on, per-scene sources with
-  the chapters' own confidence labels, and a website runtime brief naming three gaps (cue-driven
-  auto-scroll with manual-scroll detection, narration audio sync, chapter anchors). Rights:
-  browser-rendered originals plus public-domain archive images only; no Libbrecht figures, no
-  Nakaya photographs, no AI imagery. The source material came from a 22-agent extraction (workflow
-  `wf_0b937e68-061`), which is working material, not evidence. Nothing scientific changes: no
-  claim, phase state, or education content (`docs/education/**` stays frozen). Checks run:
-  `node scripts/lint-rule7.mjs` and `git diff --check`. Next: WP1, the full narration draft, then
-  the Rule 13 audit before any recording.
+- **Part 1 film plan reviewed and revised (2026-09-15).** The maker's latest direction
+  (`JTS-M009`) uses education chapters 1–13 as flexible source material for a documentary under
+  one hour, with the maker's narration and generated web visuals in playback/manual reading.
+  The [review](reviews/film-part1-plan-review-2026-09-15.md) assesses original commit `d7d1de7`
+  and records applied story, scientific-wording, pacing, accessibility and runtime corrections.
+  [The revised plan](plans/explore-film-part1-science-scroll-documentary.md) keeps Run B as the
+  story object, makes the scene list optional editorial material, replaces the rushed cold open,
+  and puts a representative visual/playback/export prototype before bulk production. Current
+  sources govern claim scope; the old Phase 6 education freeze is not reinstated.
+  Documentation checks pass: `node scripts/lint-rule7.mjs` and `git diff --check`; the review
+  records the sample-script arithmetic and limits. No film runtime or final narration exists.
+  Next: the plan's WP0A, a minimal internal score and local website prototype.
 - **macOS dev-server guard defect fixed; NAS closeout checked from the Mac (2026-09-09).** On this
   Mac the documented `npm run dev --workspace app -- --port 5191` served every gallery page as an
   unstyled "Loading…" shell. The repository-local `/@fs` guard in `app/vite.config.ts` strips
@@ -296,7 +292,7 @@ detail.
   previews, zero full recording downloads on browse-first entry and no unexpected errors
   (`out/growth-gallery/browser-smoke.json`). Keyboard focus, phone layout, selection, playback,
   filter/scroll retention and broken-image fallback pass. Next: open the gallery link below.
-- **Last updated:** 2026-09-06 (animation/main integration; no phase or scientific-evidence change)
+- **Last updated:** 2026-09-15 (Part 1 film plan review and revisions; no phase or scientific-evidence change)
 - **Optional graphs and MP4 export are complete.** Single views offer attached-site,
   interval-attachment and outward-reach graphs with independent toggles and synchronized seeking.
   **Export MP4** creates the current treatment/camera in H.264, with optional graphs. Actual UI
@@ -341,6 +337,10 @@ and every superseded attempt live in the linked plans and historical progress sn
 | 9 | **Complete (development-only)** | The all-no-pass branch closed: D-BT failed, M-F/M-K2 stayed mapping-dependent, controls/path-state/M-PK are unavailable or non-identifiable, and zero items promoted. Exact `TMPDIR=/private/tmp npm test` passed; no result grants validation credit. [Completed plan](plans/phase-9-execution.md). |
 
 ## Active plan
+
+The [Part 1 film plan](plans/explore-film-part1-science-scroll-documentary.md) is reviewed and
+revised on `explore/film-part1-plan`. Its next production step is the local website prototype;
+the [review record](reviews/film-part1-plan-review-2026-09-15.md) holds findings and dispositions.
 
 The maker-directed [growth visual studies](plans/dendrite-visual-studies.md), including the
 newer named catalogue, are complete on `fix/animation-queue-windows-spawn` in `snowflake-animation`.
@@ -433,21 +433,26 @@ the package-specific prerequisites in its charter amendment and execution plan. 
 
 ## Next step
 
-### Part 1 film — next media step
+### Part 1 film — review complete; prototype next
 
-Branch `explore/film-part1-plan` holds
-[the Part 1 film plan](plans/explore-film-part1-science-scroll-documentary.md) (WP0 done). The next
-action is **WP1**: write `docs/video/part1-script.md`, every scene in the house
-`TIME | VOICEOVER | ON SCREEN` format with a fact-check table, using the plan's scripted cold open
-as the template and its scene records for the beats, sources and labels; keep the total inside
-3,000–3,700 words, and re-verify every cited page against the chapter text (the extraction JSON
-under the workflow's transcript directory is working material only). Then **WP2**, the Rule 13
-adversarial fact-check audit by a non-author reviewer, before any recording. Two maker decisions
-block WP4 (the website build) and are listed under the plan's open questions: hosting for the
-untracked replay assets, and the merge order with the site's `feature/growth-library` branch.
-Traps: the site's Motion `useScroll` runs non-monotonically under Lenis (use the section-rect
-idiom); build on the site's `origin/master`, not the local `run-b-growth-stage` checkout, which
-lacks the 16-bit capture path merged in its PR #2.
+On `explore/film-part1-plan`, open the
+[review and dispositions](reviews/film-part1-plan-review-2026-09-15.md), then the revised
+[film plan](plans/explore-film-part1-science-scroll-documentary.md). The next production step is
+**WP0A**: create the internal draft score for the halo/corner sequence and Run B handovers, then
+implement the short prototype in the sibling website task worktree. First run
+`git -C ../snowcrystal_website status --short --branch`,
+`git -C ../snowcrystal_website worktree list --porcelain` and
+`git -C ../snowcrystal_website branch -vv`; read its current instructions and inspect dependency
+diffs before changing that repository. The plan records the website refs observed during review.
+Resolve local replay assets by their existing identities; public hosting does not block this
+prototype. Prove reverse/manual scrolling, intentional playback, interruption/resume, static
+reading and a short full-composition export before porting the larger diagram inventory.
+Then write the selected full narration and score, fact-check it, and record the maker's voice.
+
+Traps: the hero's snowfall and some source diagrams hold accumulated state; a camera snap and a
+seed alone do not make reverse/direct capture deterministic. Whole-film captions and DOM diagrams
+also do not inherit the crystal-only high-precision export path. The cue clock, semantic article,
+reduced-motion policy, asset lifecycle and product-sized checks are specified in the plan.
 
 ### Growth visual studies — ready to use
 
