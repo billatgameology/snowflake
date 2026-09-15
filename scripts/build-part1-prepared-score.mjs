@@ -160,11 +160,11 @@ export function buildPreparedScore(
     { time: 1030, tick: 30000, tilt: 18, yaw: 210, span: 0.60, minimum: 8, target: 0.72 },
     { time: 1040, tick: 30000, tilt: 18, yaw: 210, span: 0.60, minimum: 8, target: 0.72 },
     { time: 2009.999, tick: 30000, tilt: 18, yaw: 210, span: 0.60, minimum: 8, target: 0.72 },
-    { time: 2010, tick: 70000, tilt: 18, yaw: 210, span: 3.4, minimum: 8, target: 0, cut: true },
-    { time: 2040, tick: 70000, tilt: 24, yaw: 220, span: 3.4, minimum: 8, target: 0 },
-    { time: 2070, tick: 70000, tilt: 28, yaw: 230, span: 3.6, minimum: 8, target: 0 },
-    { time: 2080, tick: 70000, tilt: 28, yaw: 230, span: 7, minimum: 8, target: 0 },
-    { time: 2120, tick: 70000, tilt: 28, yaw: 230, span: 7, minimum: 8, target: 0 }
+    { time: 2010, tick: 70000, tilt: 18, yaw: 210, span: 1.5, minimum: 8, target: 0, cut: true },
+    { time: 2040, tick: 70000, tilt: 24, yaw: 220, span: 1.5, minimum: 8, target: 0 },
+    { time: 2070, tick: 70000, tilt: 28, yaw: 230, span: 1.6, minimum: 8, target: 0 },
+    { time: 2080, tick: 70000, tilt: 28, yaw: 230, span: 5, minimum: 8, target: 0 },
+    { time: 2120, tick: 70000, tilt: 28, yaw: 230, span: 5, minimum: 8, target: 0 }
   ];
   assert.equal(shots[6].time, 520, 'Opening camera endpoint changed');
   assert.equal(shots[6].tick, 7000, 'Opening model must hold at tick 7,000');

@@ -220,7 +220,7 @@
         "tick": 70000,
         "tilt": 18,
         "yaw": 210,
-        "span": 3.4,
+        "span": 1.5,
         "minimum": 8,
         "target": 0,
         "cut": true
@@ -230,7 +230,7 @@
         "tick": 70000,
         "tilt": 24,
         "yaw": 220,
-        "span": 3.4,
+        "span": 1.5,
         "minimum": 8,
         "target": 0
       },
@@ -239,7 +239,7 @@
         "tick": 70000,
         "tilt": 28,
         "yaw": 230,
-        "span": 3.6,
+        "span": 1.6,
         "minimum": 8,
         "target": 0
       },
@@ -248,7 +248,7 @@
         "tick": 70000,
         "tilt": 28,
         "yaw": 230,
-        "span": 7,
+        "span": 5,
         "minimum": 8,
         "target": 0
       },
@@ -257,7 +257,7 @@
         "tick": 70000,
         "tilt": 28,
         "yaw": 230,
-        "span": 7,
+        "span": 5,
         "minimum": 8,
         "target": 0
       }
