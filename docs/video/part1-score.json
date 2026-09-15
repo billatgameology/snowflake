@@ -8,6 +8,25 @@
   "audio": {"id": "wp0a-timing", "url": "/film/part1-timing.wav", "offset": 0, "trim": 0, "duration": 80, "kind": "generated timing tones; no speech; not the maker's voice", "sampleRate": 48000},
   "capture": {"width": 1920, "height": 1080, "fps": 30, "bits": 8, "colour": "browser sRGB compositor to BT.709 limited-range yuv420p", "audioSampleRate": 48000},
   "model": {"id": "run-b", "url": "/growth/run-b-growth-v1.bin", "sha256": "475c1f7c227c45b005bfdb8691b1250599b405fa59902462110312a4f26ceb7d", "bytes": 7695060, "engine": "Gravner–Griffeath", "label": "MODEL · unvalidated", "decimation": 1, "thicknessScale": 2.6, "exposure": 0.7, "glowStrength": 0.2, "physicalTime": false, "source": "docs/plans/explore-gutcheck-growth-volume.md"},
+  "visualDirection": {
+    "revision": "directed-attention-v2",
+    "contract": "Presentation-only camera and lighting. Smoothstep between keys; a cut key holds the preceding shot until its time. Target is a fraction of measured model radius toward the right-facing corner. No physical camera scale or growth rate is implied. The opening shows only a cropped mid-growth detail, never the final silhouette.",
+    "look": {"exposure": 0.58, "glowStrength": 0.08, "seeThrough": 0.38, "iridescence": 0.06},
+    "shots": [
+      {"time":0,"tick":28000,"tilt":24,"yaw":210,"span":0.42,"minimum":8,"target":0.7},
+      {"time":3.4,"tick":30000,"tilt":20,"yaw":210,"span":0.46,"minimum":8,"target":0.72},
+      {"time":3.5,"tick":0,"tilt":12,"yaw":210,"span":2,"minimum":8,"target":0,"cut":true},
+      {"time":5,"tick":500,"tilt":12,"yaw":210,"span":2,"minimum":8,"target":0},
+      {"time":11,"tick":7000,"tilt":0,"yaw":210,"span":3.4,"minimum":8,"target":0},
+      {"time":14,"tick":7000,"tilt":0,"yaw":210,"span":3.4,"minimum":8,"target":0},
+      {"time":62,"tick":7000,"tilt":0,"yaw":210,"span":3.4,"minimum":8,"target":0},
+      {"time":64,"tick":12000,"tilt":0,"yaw":210,"span":2.1,"minimum":8,"target":0.15},
+      {"time":69,"tick":46000,"tilt":32,"yaw":218,"span":1.45,"minimum":8,"target":0},
+      {"time":74,"tick":70000,"tilt":42,"yaw":230,"span":1.35,"minimum":8,"target":0},
+      {"time":77,"tick":71000,"tilt":42,"yaw":233,"span":1.35,"minimum":8,"target":0},
+      {"time":80,"tick":73000,"tilt":42,"yaw":236,"span":1.9,"minimum":8,"target":0}
+    ]
+  },
   "cues": [
     {"id": "S09-arrival", "start": 0, "end": 14, "title": "A crystal changes the air", "eyebrow": "01 / Follow the water", "kind": "model", "narration": "A growing crystal draws water vapour out of the air around it. Near the ice, the supply becomes depleted. The crystal creates an invisible halo around itself.", "description": "The Run B model grows from its seed to an early plate. No vapour field is shown over this replay.", "qualification": "The mechanism is sourced separately; this replay does not measure its field or rates. Model ticks are not physical seconds. Thickness is styled at 2.6 times.", "sources": [{"path": "docs/education/chapters/04-the-fuel-supply.html", "anchor": "the-hungry-halo"}], "review": "Prototype wording source-checked by non-author research agent; full-script review pending", "visual": {"component": "RunB", "origin": "identified project replay", "ticks": [0, 7000]}, "captions": [{"start": 0, "end": 5, "text": "A growing crystal draws water vapour out of the air around it."}, {"start": 5, "end": 9, "text": "Near the ice, the supply becomes depleted."}, {"start": 9, "end": 14, "text": "The crystal creates an invisible halo around itself."}]},
     {"id": "S09-halo", "start": 14, "end": 30, "title": "The invisible supply", "eyebrow": "02 / The depleted halo", "kind": "diagram", "narration": "Even in still air, random molecular motion carries a net supply inward. These colours show an imagined cross-section of that supply, not something a camera would see.", "description": "Qualitative contour bands surround a hexagonal ice cross-section. The inward arrows represent net delivery, not individual molecular paths. Closely spaced bands near the ice indicate a changing supply.", "qualification": "Schematic, not a computed field. No numerical concentration, physical scale or elapsed cloud time is implied.", "sources": [{"path": "docs/education/chapters/04-the-fuel-supply.html", "anchor": "the-last-millimetre"}, {"path": "docs/education/chapters/04-the-fuel-supply.html", "anchor": "the-hungry-halo"}], "review": "Prototype wording source-checked by non-author research agent; full-script review pending", "visual": {"component": "HaloCorner", "origin": "original authored diagram", "progress": [0, 0.32]}, "captions": [{"start": 14, "end": 21, "text": "Even in still air, random molecular motion carries a net supply inward."}, {"start": 21, "end": 30, "text": "These colours show an imagined cross-section, not something a camera would see."}]},

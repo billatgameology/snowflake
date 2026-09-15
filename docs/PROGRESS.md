@@ -37,6 +37,9 @@ detail.
   a provisional 2,120-second (35:20) cut; these are draft arithmetic, not recorded delivery.
   Repro: `node scripts/build-part1-production-score.mjs --check`. The maker's aloud read and
   recording remain unperformed; full-story visual expansion is still future work.
+  The maker has authorized the visual revision; implementation is in progress in the same
+  isolated website worktree. The score now owns its prototype camera direction. Verification
+  and new visual acceptance are still pending; the existing receipts remain historical.
   The subsequent [requested visual inspection](reviews/film-part1-visual-review-2026-09-15.md)
   finds the prototype below the documentary's visual ambition: competing playback/transcript
   focus, repetitive diagram framing, unmatched cuts, an exposed rectangular ending backdrop,

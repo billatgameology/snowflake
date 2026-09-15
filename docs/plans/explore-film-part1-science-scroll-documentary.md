@@ -1234,6 +1234,15 @@ that pattern into the full story. No website or score changes were made in the i
 Keep the approved story/source contract and existing runtime; this is visual execution work,
 not another scene-plan pass or an expansion of scientific claims.
 
+The maker authorized these improvements. Execution now adds a score-owned camera track,
+full-width watch presentation with deliberate reader takeover, progressive corner framing,
+an in-renderer ending pullback and legible phone figures. The cropped opening detail is a
+flash-forward within the unfinished model, then a cut to the seed; the final silhouette is
+reserved for the return. Model/diagram handovers return to the same face-on scale and corner
+orientation before switching representation. Narration and the inactive full-film draft are
+unchanged. Verify focused transport/camera tests, build, the phone seek regression and new
+captured shots; preserve the previous verification artifacts as historical records.
+
 ## Tried and rejected
 
 - **Treat functional checks as visual acceptance.** The maker's viewing and the requested
