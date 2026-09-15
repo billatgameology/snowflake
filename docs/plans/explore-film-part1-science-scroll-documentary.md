@@ -1300,7 +1300,44 @@ reviewed row represented, no placeholder visuals, correct source/model/diagram l
 static access and an honest endpoint. Full-film expansion, actual narration and final export
 remain later work under WP4–WP8; this is execution of the approved plan, not a new plan review.
 
+## Opening-chapter outcome — 2026-09-15
+
+The bounded S00/S01/S02/S05 slice is implemented and checked in website
+`explore/film-part1@a1c7ed32d8acb8e468885405f31a34dab874fe15`. The default `/film/part-1`
+plays the prepared opening; `/film/part-1/prototype` preserves the comparison and its independent
+static page. The [implementation/visual record](../reviews/film-part1-opening-implementation-2026-09-15.md)
+documents changes, non-author findings, repaired failures and limits. The opening score imported
+from `aea24c1` remains separate from the inactive full production draft.
+
+The [receipt](../video/part1-opening-verification.json) derives 520 seconds / 20 rows / 956 spoken
+words / 56 provisional captions from the score, and records 13 focused tests, 8 opening browser
+checks, 18 prototype browser checks and a successful TypeScript/Vite build. Its opening montage
+decoded as 6.000 seconds / 180 frames at 1920×1080/30 fps, with 19.56-second sample export wall
+time. All 19 recorded implementation hashes match. Repeated/reverse/reload samples pass the
+unchanged exact-byte comparator under the named 2D software-raster/Metal-WebGL capture recipe.
+These are product/sample checks, not whole-film performance or scientific-gate evidence.
+
+The root inspected desktop and phone samples; a non-author source/visual pass confirmed the
+hexagonal column, compact frozen-drop symbol, surface-attached rime, exhausted-liquid label,
+qualified cold region and budget title. No maker voice was synthesized. No publish, merge,
+solver or chapter change occurred. Continue at S06 after recording the next bounded production
+slice; final motion polish, reader-copy polish, maker read/recording and full-film acceptance
+remain open. The original prototype's earlier visual-acceptance uncertainty is superseded by
+the maker's direction to keep it; this opening still needs its own maker viewing.
+
 ## Tried and rejected
+
+- **Default GPU SVG rasterization as an exact capture recipe.** Sparse edge pixels changed
+  on reload. Markup retention, geometricPrecision and image isolation did not alone fix it.
+  The opening export pins 2D software rasterization while preserving Metal WebGL, and passes
+  the original exact comparator. No cross-device pixel claim is made.
+- **A shared Run B component name as an edition discriminator.** It selected opening stills
+  for prototype static reading. Separate edition identification and a negative-control export
+  check now prevent page/score/media mixing.
+- **Pure balanced-word captions.** They left a dangling start of the next sentence. The
+  generated opening uses sentence/clause-aware chunks without rewriting narration.
+- **Updating restart status only after audio seeking.** It left the ended message visible
+  during restart. Seek intent updates status immediately; obsolete ended events are ignored.
 
 - **Treat a paused media time as a reader anchor.** Phone caption reflow jumped into the
   article. Explicit player/reader ownership now authorizes correction only for actual reading.

@@ -1,0 +1,1781 @@
+{
+  "format": "part1-opening-product-verification-v1",
+  "date": "2026-09-15",
+  "scope": "Prepared opening chapter only; no scientific gate, finished narration, whole-film performance or release claim.",
+  "website": {
+    "repository": "snowcrystal_website",
+    "worktree": "/Users/clipper/github/snowcrystal_website-film-part1",
+    "branch": "explore/film-part1",
+    "revision": "a1c7ed32d8acb8e468885405f31a34dab874fe15",
+    "preview": "http://127.0.0.1:5185/film/part-1",
+    "prototype": "http://127.0.0.1:5185/film/part-1/prototype"
+  },
+  "checks": {
+    "focused": {
+      "command": "git diff --check && git status --short && node --test --test-reporter=tap scripts/film-timeline.test.mjs scripts/film-opening.test.mjs",
+      "exitCode": 0,
+      "tests": 13,
+      "output": " M .gitignore\n M docs/film-part1-prototype.md\n M scripts/export-part1-prototype.mjs\n M scripts/film-browser-check.mjs\n M scripts/film-content.mjs\n M scripts/sync-film-score.mjs\n M src/film/Part1Film.tsx\n M src/film/film.css\n M src/film/filmTour.ts\n M src/router.tsx\n?? public/film/stills/opening-macro.png\n?? public/film/stills/opening-origin.json\n?? public/film/stills/opening-seed.png\n?? scripts/film-opening-browser-check.mjs\n?? scripts/film-opening.test.mjs\n?? src/film/OpeningDiagram.tsx\n?? src/film/filmEdition.ts\n?? src/film/opening-score-origin.json\n?? src/film/openingGeometry.ts\n?? src/film/part1-opening-score.json\nTAP version 13\n# Subtest: opening preserves reviewed words, sources, timing and imported bytes\nok 1 - opening preserves reviewed words, sources, timing and imported bytes\n  ---\n  duration_ms: 2.225125\n  type: 'test'\n  ...\n# Subtest: camera crop, seed cut and endpoint do not reveal completed model\nok 2 - camera crop, seed cut and endpoint do not reveal completed model\n  ---\n  duration_ms: 0.201834\n  type: 'test'\n  ...\n# Subtest: every authored diagram is finite and order-independent\nok 3 - every authored diagram is finite and order-independent\n  ---\n  duration_ms: 14.777458\n  type: 'test'\n  ...\n# Subtest: source qualifiers survive explanatory and image-only reading modes\nok 4 - source qualifiers survive explanatory and image-only reading modes\n  ---\n  duration_ms: 0.424208\n  type: 'test'\n  ...\n# Subtest: no-JavaScript editions keep independent headings and model images\nok 5 - no-JavaScript editions keep independent headings and model images\n  ---\n  duration_ms: 4.642625\n  type: 'test'\n  ...\n# Subtest: score covers every film instant with unique ordered cues and contained captions\nok 6 - score covers every film instant with unique ordered cues and contained captions\n  ---\n  duration_ms: 0.396917\n  type: 'test'\n  ...\n# Subtest: score import retains byte identity\nok 7 - score import retains byte identity\n  ---\n  duration_ms: 0.661458\n  type: 'test'\n  ...\n# Subtest: authored camera is path-independent and keeps the complete reveal out of the opening\nok 8 - authored camera is path-independent and keeps the complete reveal out of the opening\n  ---\n  duration_ms: 0.420375\n  type: 'test'\n  ...\n# Subtest: diagram directs attention from halo to corner, delivery and attachment opposition\nok 9 - diagram directs attention from halo to corner, delivery and attachment opposition\n  ---\n  duration_ms: 0.081167\n  type: 'test'\n  ...\n# Subtest: anchor mapping round trips arbitrary forward/reverse times including visual holds\nok 10 - anchor mapping round trips arbitrary forward/reverse times including visual holds\n  ---\n  duration_ms: 0.100542\n  type: 'test'\n  ...\n# Subtest: manual input cancels late audio play fulfillment\nok 11 - manual input cancels late audio play fulfillment\n  ---\n  duration_ms: 0.056625\n  type: 'test'\n  ...\n# Subtest: seek cancels prior request; only newest play owns clock\nok 12 - seek cancels prior request; only newest play owns clock\n  ---\n  duration_ms: 0.064667\n  type: 'test'\n  ...\n# Subtest: stale play A cannot pause newer play B, but manual pause still wins\nok 13 - stale play A cannot pause newer play B, but manual pause still wins\n  ---\n  duration_ms: 0.048042\n  type: 'test'\n  ...\n1..13\n# tests 13\n# suites 0\n# pass 13\n# fail 0\n# cancelled 0\n# skipped 0\n# todo 0\n# duration_ms 92.746334\n"
+    },
+    "build": {
+      "command": "node /Users/clipper/.codex/plugins/cache/openai-bundled/sites/0.1.70/scripts/build-site.mjs",
+      "exitCode": 0,
+      "output": "\n> snowcrystal_website@0.0.0 build\n> tsc -b && vite build\n\nvite v8.2.0 building client environment for production...\n\u001b[2K\rtransforming...✓ 1258 modules transformed.\nrendering chunks...\ncomputing gzip size...\ndist/index.html                                                     2.03 kB │ gzip:   0.83 kB\ndist/assets/frost.worker-v1MXNKLA.js                                2.27 kB\ndist/assets/dla.worker-MLqpM1vB.js                                  2.76 kB\ndist/assets/growthVolume.worker-bxlmQOaj.js                         5.16 kB\ndist/assets/outline-1-tT7e6H.js                                     6.97 kB\ndist/assets/jetbrains-mono-vietnamese-wght-normal-Bt-aOZkq.woff2    7.50 kB\ndist/assets/jetbrains-mono-greek-wght-normal-Bw9x6K1M.woff2         9.00 kB\ndist/assets/inter-tight-vietnamese-wght-normal-TKKdAiBA.woff2      10.48 kB\ndist/assets/inter-tight-greek-ext-wght-normal-DQgQPNk4.woff2       11.70 kB\ndist/assets/jetbrains-mono-cyrillic-wght-normal-D73BlboJ.woff2     12.10 kB\ndist/assets/jetbrains-mono-latin-ext-wght-normal-DBQx-q_a.woff2    15.19 kB\ndist/assets/inter-tight-cyrillic-wght-normal-BS41q_Tv.woff2        16.99 kB\ndist/assets/inter-tight-greek-wght-normal-sS1B39LI.woff2           22.19 kB\ndist/assets/inter-tight-cyrillic-ext-wght-normal-okcGN4Nq.woff2    26.66 kB\ndist/assets/jetbrains-mono-latin-wght-normal-B9CIFXIH.woff2        40.40 kB\ndist/assets/inter-tight-latin-wght-normal-DX-nOvPD.woff2           44.87 kB\ndist/assets/inter-tight-latin-ext-wght-normal-B4u9PlvR.woff2       89.80 kB\ndist/assets/Part1Film-DmkrVAQa.css                                 11.27 kB │ gzip:   2.87 kB\ndist/assets/index-PLRKfGR2.css                                    128.07 kB │ gzip:  23.25 kB\ndist/assets/FlakeCanvas-Di2yPGXI.js                                 1.98 kB │ gzip:   1.05 kB\ndist/assets/AnimatePresence-DEp-xR_d.js                             4.20 kB │ gzip:   1.91 kB\ndist/assets/GrowthLibraryPage-CaNHbBQg.js                           5.26 kB │ gzip:   2.33 kB\ndist/assets/StageFrame-dBo5GhAj.js                                  5.60 kB │ gzip:   2.01 kB\ndist/assets/RunBHeroPage-DZkWaQBD.js                                6.42 kB │ gzip:   2.79 kB\ndist/assets/CrystalStage-CqbdgmJF.js                                8.13 kB │ gzip:   3.41 kB\ndist/assets/MonogramPage-B8-zcdxR.js                                9.78 kB │ gzip:   3.57 kB\ndist/assets/render-eysKOteR.js                                     10.34 kB │ gzip:   4.55 kB\ndist/assets/StormPage-jQpoifRj.js                                  11.06 kB │ gzip:   4.49 kB\ndist/assets/BiographyPage-DYIkm1gs.js                              12.07 kB │ gzip:   4.66 kB\ndist/assets/CatchPage-ug49nW2I.js                                  12.27 kB │ gzip:   5.24 kB\ndist/assets/DivePage-BqWQDZlE.js                                   12.86 kB │ gzip:   5.01 kB\ndist/assets/KshowPage-CawrcH19.js                                  14.25 kB │ gzip:   5.26 kB\ndist/assets/GrowthPage-CYJxuxm0.js                                 14.81 kB │ gzip:   5.41 kB\ndist/assets/MuseumPage-uBIsYUzy.js                                 15.29 kB │ gzip:   4.81 kB\ndist/assets/Hero1Page-DQ88_GKI.js                                  16.35 kB │ gzip:   6.19 kB\ndist/assets/controls-CXJEc1TB.js                                   17.69 kB │ gzip:   5.18 kB\ndist/assets/ZooPage-CKfmdL1H.js                                    19.88 kB │ gzip:   7.37 kB\ndist/assets/KaleidoPage-ZZtqiqlj.js                                20.39 kB │ gzip:   7.67 kB\ndist/assets/KimiPage-DMjsVGrp.js                                   20.67 kB │ gzip:   6.33 kB\ndist/assets/particleEngine-CDRCe8H9.js                             21.12 kB │ gzip:   9.05 kB\ndist/assets/snowfallGL-B8IdR7QB.js                                 21.21 kB │ gzip:   9.55 kB\ndist/assets/FallPage-JXAJZI9K.js                                   22.24 kB │ gzip:   7.78 kB\ndist/assets/chamber-B84owSVA.js                                    40.62 kB │ gzip:  13.36 kB\ndist/assets/MeltPage-WYFfIi91.js                                   44.96 kB │ gzip:  16.12 kB\ndist/assets/useGrowthVolume-Cc4cKCz5.js                            63.95 kB │ gzip:  22.23 kB\ndist/assets/LabPage-DdsOJX7C.js                                    66.63 kB │ gzip:  21.22 kB\ndist/assets/CrystalMesh-ChhhVJi3.js                                74.44 kB │ gzip:  25.66 kB\ndist/assets/MakePage-aTFT178v.js                                   80.06 kB │ gzip:  30.07 kB\ndist/assets/LightPage-CrlygmC3.js                                  80.76 kB │ gzip:  28.60 kB\ndist/assets/GrowPage-WrGZANyB.js                                   90.12 kB │ gzip:  31.16 kB\ndist/assets/ViewsPage-DIQppc_5.js                                 160.72 kB │ gzip:  50.30 kB\ndist/assets/Part1Film-CLFrVyh6.js                                 221.84 kB │ gzip:  51.48 kB\ndist/assets/index-jallOn_P.js                                     527.32 kB │ gzip: 168.96 kB\ndist/assets/dist-Ct6qOGAJ.js                                      956.29 kB │ gzip: 252.06 kB\n\n✓ built in 398ms\n[plugin builtin:vite-reporter] \n(!) Some chunks are larger than 500 kB after minification. Consider:\n- Using dynamic import() to code-split the application\n- Use build.rolldownOptions.output.codeSplitting to improve chunking: https://rolldown.rs/reference/OutputOptions.codeSplitting\n- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.\n"
+    },
+    "authority": {
+      "command": "node scripts/build-part1-opening-score.mjs --check && node scripts/build-part1-production-score.mjs --check && node scripts/lint-rule7.mjs && git diff --check",
+      "exitCode": 0,
+      "output": "Opening score current: 20 rows; 520s; 56 provisional captions; script SHA-256 3a55b48ade327a360ce14d14dc2f7979bd956200c57120324bfdab2561b86e36\nproductionDraft current: 3924 VOICEOVER words; 16 scenes + credits; 82 rows; 2120s; script SHA-256 3a55b48ade327a360ce14d14dc2f7979bd956200c57120324bfdab2561b86e36\nrule7: clean (1382 files scanned)\n",
+      "note": "Executed before this receipt and closeout prose were added; final prose scan recorded in the review."
+    }
+  },
+  "summary": {
+    "duration": 520,
+    "cues": 20,
+    "spokenWords": 956,
+    "captions": 56,
+    "openingBrowserChecks": 8,
+    "prototypeBrowserChecks": 18,
+    "exportFrames": 180,
+    "exportSeconds": 6,
+    "exportWallSeconds": 19.56,
+    "stills": 31,
+    "sourceHashes": 19,
+    "focusedTests": 13
+  },
+  "commands": {
+    "openingExport": "FILM_OUT=export/part1-opening-final node scripts/export-part1-prototype.mjs --opening",
+    "openingBrowser": "FILM_CHECK_OUT=export/film-opening-final-check-v4 node scripts/film-opening-browser-check.mjs",
+    "prototypeExport": "FILM_OUT=export/part1-prototype-opening-regression node scripts/export-part1-prototype.mjs --stills",
+    "prototypeBrowser": "FILM_CHECK_OUT=export/film-prototype-opening-regression node scripts/film-browser-check.mjs",
+    "negativeControl": "FILM_URL=http://127.0.0.1:5185/film/part-1 FILM_OUT=export/opening-edition-negative-control node scripts/export-part1-prototype.mjs --stills (expected exit 1)"
+  },
+  "sourceChecks": [
+    {
+      "path": "src/film/Part1Film.tsx",
+      "expected": "da8933e7d2fcd1a2274bf256692caa9624cd6b517f498032a06379ea2c4b31cb",
+      "actual": "da8933e7d2fcd1a2274bf256692caa9624cd6b517f498032a06379ea2c4b31cb"
+    },
+    {
+      "path": "src/film/HaloCorner.tsx",
+      "expected": "9d25042fcce3aa207072e9891d08a0cbd2a36d6aebb16e457367bd23f57b22f6",
+      "actual": "9d25042fcce3aa207072e9891d08a0cbd2a36d6aebb16e457367bd23f57b22f6"
+    },
+    {
+      "path": "src/film/diagramGeometry.ts",
+      "expected": "eb028eb914a70bd0c6bdc556592a22ba176cdea1168e14246f77d0d230c287ec",
+      "actual": "eb028eb914a70bd0c6bdc556592a22ba176cdea1168e14246f77d0d230c287ec"
+    },
+    {
+      "path": "src/film/choreography.ts",
+      "expected": "4fa3f464faafa16d2b74dda711efd404d991ff4b196cae6788b7e8b3ac2c3cd7",
+      "actual": "4fa3f464faafa16d2b74dda711efd404d991ff4b196cae6788b7e8b3ac2c3cd7"
+    },
+    {
+      "path": "src/film/filmTour.ts",
+      "expected": "18684ab941e3de017f4a6e8427765534dcbc73e5c7bb10503ded896694e8bc67",
+      "actual": "18684ab941e3de017f4a6e8427765534dcbc73e5c7bb10503ded896694e8bc67"
+    },
+    {
+      "path": "src/growth/stageTour.ts",
+      "expected": "f9cc6306334b889bc748caf46c735dd86c594faa85a65a933f47854db2cf56f1",
+      "actual": "f9cc6306334b889bc748caf46c735dd86c594faa85a65a933f47854db2cf56f1"
+    },
+    {
+      "path": "src/film/film.css",
+      "expected": "b5aa3c660af9c90cb8eff55f69ee30b295e4bf95374db8bb17ec9cb4fff8b021",
+      "actual": "b5aa3c660af9c90cb8eff55f69ee30b295e4bf95374db8bb17ec9cb4fff8b021"
+    },
+    {
+      "path": "src/film/timeline.ts",
+      "expected": "35faf002c35b3dce835b11d8c36b9b1628722f1f52f4ac7814d0407bac19b4c0",
+      "actual": "35faf002c35b3dce835b11d8c36b9b1628722f1f52f4ac7814d0407bac19b4c0"
+    },
+    {
+      "path": "src/growth/GrowthStage.tsx",
+      "expected": "822d6627e2156d05b247686694691d84653b60a98008a69e32b67a6b5a3d8c86",
+      "actual": "822d6627e2156d05b247686694691d84653b60a98008a69e32b67a6b5a3d8c86"
+    },
+    {
+      "path": "src/growth/iceMaterial.ts",
+      "expected": "a66eceb0ea6e255b06c8f0cc668158782a8a4209285481ed4287c1ab36bf80fa",
+      "actual": "a66eceb0ea6e255b06c8f0cc668158782a8a4209285481ed4287c1ab36bf80fa"
+    },
+    {
+      "path": "src/growth/env.glsl.ts",
+      "expected": "3a40b4e3cb375be54ab9d017c20dba0fe22b52cad90756a312eebfdbcb193ba8",
+      "actual": "3a40b4e3cb375be54ab9d017c20dba0fe22b52cad90756a312eebfdbcb193ba8"
+    },
+    {
+      "path": "src/growth/tour.ts",
+      "expected": "0be1463fe470e726c8c575164d95c9057734ed6bd6356120d7ced052ed64277f",
+      "actual": "0be1463fe470e726c8c575164d95c9057734ed6bd6356120d7ced052ed64277f"
+    },
+    {
+      "path": "src/growth/sceneMotion.ts",
+      "expected": "4441857e1cdca9b3221ba66ecfa6167e21725fd65708714e11487b5318de7ef0",
+      "actual": "4441857e1cdca9b3221ba66ecfa6167e21725fd65708714e11487b5318de7ef0"
+    },
+    {
+      "path": "scripts/export-part1-prototype.mjs",
+      "expected": "96f67fa0b637f20d7347e338d16ee010977c51cc191197629e75ec410c7560da",
+      "actual": "96f67fa0b637f20d7347e338d16ee010977c51cc191197629e75ec410c7560da"
+    },
+    {
+      "path": "scripts/film-gpu-meter.mjs",
+      "expected": "66cd38e5c397686924f8d10fccffffc219deae491b608c533ac892e89463e094",
+      "actual": "66cd38e5c397686924f8d10fccffffc219deae491b608c533ac892e89463e094"
+    },
+    {
+      "path": "src/film/OpeningDiagram.tsx",
+      "expected": "121f3d5fa29d51e37946bba633e57a4d41f2c852888421872a8280058cf337a1",
+      "actual": "121f3d5fa29d51e37946bba633e57a4d41f2c852888421872a8280058cf337a1"
+    },
+    {
+      "path": "src/film/openingGeometry.ts",
+      "expected": "ec871dc81f4ebeaca83049aa35219398f16119d9dbfb69ee00880e2c5895876b",
+      "actual": "ec871dc81f4ebeaca83049aa35219398f16119d9dbfb69ee00880e2c5895876b"
+    },
+    {
+      "path": "src/film/filmEdition.ts",
+      "expected": "f20a9a443f888013a69a8fcc08612caaf703a58e0273e3866674061057a4c00f",
+      "actual": "f20a9a443f888013a69a8fcc08612caaf703a58e0273e3866674061057a4c00f"
+    },
+    {
+      "path": "scripts/film-content.mjs",
+      "expected": "fc211513c29df8bdc134cd4541f072c7fa8fffb3c797a3cf43320cdb6a1eb579",
+      "actual": "fc211513c29df8bdc134cd4541f072c7fa8fffb3c797a3cf43320cdb6a1eb579"
+    }
+  ],
+  "reports": {
+    "openingExport": {
+      "path": "export/part1-opening-final/report.json",
+      "sha256": "2912fd370b50533691ceafbe55b667a74ea4f81fa138b59251aea7c1d9c957fb",
+      "bytes": 34011,
+      "report": {
+        "browser": "153.0.8010.36",
+        "base": "http://127.0.0.1:5185/film/part-1",
+        "score": {
+          "repository": "snowflake",
+          "path": "docs/video/part1-opening-score.json",
+          "revision": "aea24c18b72d1a05b8d7215bbdba81b32f05697b",
+          "sha256": "86c3abc6e6a5413815e79b5887ac5c3afdcecf155c68ed014c2e346706f054c7"
+        },
+        "profile": {
+          "width": 1920,
+          "height": 1080,
+          "fps": 30,
+          "bits": 8,
+          "colour": "browser sRGB compositor to BT.709 limited-range yuv420p",
+          "audioSampleRate": 48000
+        },
+        "segments": [
+          {
+            "start": 29,
+            "duration": 2,
+            "frames": 60,
+            "wallSeconds": 6.68,
+            "ffmpeg": [
+              "-y",
+              "-framerate",
+              "30",
+              "-i",
+              "/Users/clipper/github/snowcrystal_website-film-part1/export/part1-opening-final/segment-0/frame-%05d.png",
+              "-ss",
+              "29",
+              "-i",
+              "/Users/clipper/github/snowcrystal_website-film-part1/public/film/part1-opening-timing.wav",
+              "-t",
+              "2",
+              "-vf",
+              "scale=in_range=full:out_range=tv:out_color_matrix=bt709,format=yuv420p",
+              "-c:v",
+              "libx264",
+              "-crf",
+              "18",
+              "-preset",
+              "fast",
+              "-color_primaries",
+              "bt709",
+              "-color_trc",
+              "bt709",
+              "-colorspace",
+              "bt709",
+              "-c:a",
+              "aac",
+              "-ar",
+              "48000",
+              "-movflags",
+              "+faststart",
+              "/Users/clipper/github/snowcrystal_website-film-part1/export/part1-opening-final/segment-0.mp4"
+            ]
+          },
+          {
+            "start": 338,
+            "duration": 2,
+            "frames": 60,
+            "wallSeconds": 4.207,
+            "ffmpeg": [
+              "-y",
+              "-framerate",
+              "30",
+              "-i",
+              "/Users/clipper/github/snowcrystal_website-film-part1/export/part1-opening-final/segment-1/frame-%05d.png",
+              "-ss",
+              "338",
+              "-i",
+              "/Users/clipper/github/snowcrystal_website-film-part1/public/film/part1-opening-timing.wav",
+              "-t",
+              "2",
+              "-vf",
+              "scale=in_range=full:out_range=tv:out_color_matrix=bt709,format=yuv420p",
+              "-c:v",
+              "libx264",
+              "-crf",
+              "18",
+              "-preset",
+              "fast",
+              "-color_primaries",
+              "bt709",
+              "-color_trc",
+              "bt709",
+              "-colorspace",
+              "bt709",
+              "-c:a",
+              "aac",
+              "-ar",
+              "48000",
+              "-movflags",
+              "+faststart",
+              "/Users/clipper/github/snowcrystal_website-film-part1/export/part1-opening-final/segment-1.mp4"
+            ]
+          },
+          {
+            "start": 433,
+            "duration": 2,
+            "frames": 60,
+            "wallSeconds": 4.232,
+            "ffmpeg": [
+              "-y",
+              "-framerate",
+              "30",
+              "-i",
+              "/Users/clipper/github/snowcrystal_website-film-part1/export/part1-opening-final/segment-2/frame-%05d.png",
+              "-ss",
+              "433",
+              "-i",
+              "/Users/clipper/github/snowcrystal_website-film-part1/public/film/part1-opening-timing.wav",
+              "-t",
+              "2",
+              "-vf",
+              "scale=in_range=full:out_range=tv:out_color_matrix=bt709,format=yuv420p",
+              "-c:v",
+              "libx264",
+              "-crf",
+              "18",
+              "-preset",
+              "fast",
+              "-color_primaries",
+              "bt709",
+              "-color_trc",
+              "bt709",
+              "-colorspace",
+              "bt709",
+              "-c:a",
+              "aac",
+              "-ar",
+              "48000",
+              "-movflags",
+              "+faststart",
+              "/Users/clipper/github/snowcrystal_website-film-part1/export/part1-opening-final/segment-2.mp4"
+            ]
+          }
+        ],
+        "stills": [
+          {
+            "time": 0,
+            "file": "still-0-0.png",
+            "sha256": "d63d2168b6e54696cf39017bc868c41d0529667dad58cf4dbf8fc21354fc99ea",
+            "ack": {
+              "time": 0,
+              "cue": "S00-01",
+              "asset": "475c1f7c227c45b005bfdb8691b1250599b405fa59902462110312a4f26ceb7d",
+              "scoreSha256": "86c3abc6e6a5413815e79b5887ac5c3afdcecf155c68ed014c2e346706f054c7",
+              "fonts": "loaded",
+              "decodedBytes": 23912132,
+              "textureBytes": 23912132,
+              "targets": "tier-dependent screen/post targets; reported separately by capture",
+              "bits": 8
+            }
+          },
+          {
+            "time": 12,
+            "file": "still-1-12.png",
+            "sha256": "527445abc9fc382c4bfd6680e6260c13589fc7e5e4c49a26a8e4bcb67e7c8131",
+            "ack": {
+              "time": 12,
+              "cue": "S00-01",
+              "asset": "475c1f7c227c45b005bfdb8691b1250599b405fa59902462110312a4f26ceb7d",
+              "scoreSha256": "86c3abc6e6a5413815e79b5887ac5c3afdcecf155c68ed014c2e346706f054c7",
+              "fonts": "loaded",
+              "decodedBytes": 23912132,
+              "textureBytes": 23912132,
+              "targets": "tier-dependent screen/post targets; reported separately by capture",
+              "bits": 8
+            }
+          },
+          {
+            "time": 29.9667,
+            "file": "still-2-29.9667.png",
+            "sha256": "c85084ae0d3dd31e399ef648062bb7ab36cc8366c376dd77da48eaf7e269a32e",
+            "ack": {
+              "time": 29.9667,
+              "cue": "S00-01",
+              "asset": "475c1f7c227c45b005bfdb8691b1250599b405fa59902462110312a4f26ceb7d",
+              "scoreSha256": "86c3abc6e6a5413815e79b5887ac5c3afdcecf155c68ed014c2e346706f054c7",
+              "fonts": "loaded",
+              "decodedBytes": 23912132,
+              "textureBytes": 23912132,
+              "targets": "tier-dependent screen/post targets; reported separately by capture",
+              "bits": 8
+            }
+          },
+          {
+            "time": 30,
+            "file": "still-3-30.png",
+            "sha256": "eeec9df7a52a7fd1d7185bc7236e1e4fa5d93eb97a6550687364e755368fc081",
+            "ack": {
+              "time": 30,
+              "cue": "S00-02",
+              "asset": "475c1f7c227c45b005bfdb8691b1250599b405fa59902462110312a4f26ceb7d",
+              "scoreSha256": "86c3abc6e6a5413815e79b5887ac5c3afdcecf155c68ed014c2e346706f054c7",
+              "fonts": "loaded",
+              "decodedBytes": 23912132,
+              "textureBytes": 23912132,
+              "targets": "tier-dependent screen/post targets; reported separately by capture",
+              "bits": 8
+            }
+          },
+          {
+            "time": 42,
+            "file": "still-4-42.png",
+            "sha256": "05d7fb2cc7c04d5e7bb6e4d61e1d09ede4cf4ff02a2384e4295fc9d4ee8af62a",
+            "ack": {
+              "time": 42,
+              "cue": "S00-02",
+              "asset": "475c1f7c227c45b005bfdb8691b1250599b405fa59902462110312a4f26ceb7d",
+              "scoreSha256": "86c3abc6e6a5413815e79b5887ac5c3afdcecf155c68ed014c2e346706f054c7",
+              "fonts": "loaded",
+              "decodedBytes": 23912132,
+              "textureBytes": 23912132,
+              "targets": "tier-dependent screen/post targets; reported separately by capture",
+              "bits": 8
+            }
+          },
+          {
+            "time": 59.9667,
+            "file": "still-5-59.9667.png",
+            "sha256": "bc0d7338e8625bc71ecb9cbb323066bd4465b03a9988a982b3cbe540da48e01a",
+            "ack": {
+              "time": 59.9667,
+              "cue": "S00-02",
+              "asset": "475c1f7c227c45b005bfdb8691b1250599b405fa59902462110312a4f26ceb7d",
+              "scoreSha256": "86c3abc6e6a5413815e79b5887ac5c3afdcecf155c68ed014c2e346706f054c7",
+              "fonts": "loaded",
+              "decodedBytes": 23912132,
+              "textureBytes": 23912132,
+              "targets": "tier-dependent screen/post targets; reported separately by capture",
+              "bits": 8
+            }
+          },
+          {
+            "time": 81.6,
+            "file": "still-6-81.6.png",
+            "sha256": "fcd5f06ae375c7028fe8f708a4a1fe493564c1085557411a739e8b6ba5ac1065",
+            "ack": {
+              "time": 81.6,
+              "cue": "S00-03",
+              "asset": "475c1f7c227c45b005bfdb8691b1250599b405fa59902462110312a4f26ceb7d",
+              "scoreSha256": "86c3abc6e6a5413815e79b5887ac5c3afdcecf155c68ed014c2e346706f054c7",
+              "fonts": "loaded",
+              "decodedBytes": 23912132,
+              "textureBytes": 23912132,
+              "targets": "tier-dependent screen/post targets; reported separately by capture",
+              "bits": 8
+            }
+          },
+          {
+            "time": 111.6,
+            "file": "still-7-111.6.png",
+            "sha256": "28e7b4fd14a2bed36bc6185a782722e4bd951cf637320e8ea6a50e66b7c1bc31",
+            "ack": {
+              "time": 111.6,
+              "cue": "S00-04",
+              "asset": "475c1f7c227c45b005bfdb8691b1250599b405fa59902462110312a4f26ceb7d",
+              "scoreSha256": "86c3abc6e6a5413815e79b5887ac5c3afdcecf155c68ed014c2e346706f054c7",
+              "fonts": "loaded",
+              "decodedBytes": 23912132,
+              "textureBytes": 23912132,
+              "targets": "tier-dependent screen/post targets; reported separately by capture",
+              "bits": 8
+            }
+          },
+          {
+            "time": 127.2,
+            "file": "still-8-127.2.png",
+            "sha256": "0bfde711e8b628e318c2731fde71725b9657aeff942ed4fbc6a13c5ac5159a99",
+            "ack": {
+              "time": 127.2,
+              "cue": "S00-05",
+              "asset": "475c1f7c227c45b005bfdb8691b1250599b405fa59902462110312a4f26ceb7d",
+              "scoreSha256": "86c3abc6e6a5413815e79b5887ac5c3afdcecf155c68ed014c2e346706f054c7",
+              "fonts": "loaded",
+              "decodedBytes": 23912132,
+              "textureBytes": 23912132,
+              "targets": "tier-dependent screen/post targets; reported separately by capture",
+              "bits": 8
+            }
+          },
+          {
+            "time": 151.6,
+            "file": "still-9-151.6.png",
+            "sha256": "04f9403dff05d8b37be3bf8169951e4c46d5688e7c2d22579ec0945d00a9ff1f",
+            "ack": {
+              "time": 151.6,
+              "cue": "S01-01",
+              "asset": "475c1f7c227c45b005bfdb8691b1250599b405fa59902462110312a4f26ceb7d",
+              "scoreSha256": "86c3abc6e6a5413815e79b5887ac5c3afdcecf155c68ed014c2e346706f054c7",
+              "fonts": "loaded",
+              "decodedBytes": 23912132,
+              "textureBytes": 23912132,
+              "targets": "tier-dependent screen/post targets; reported separately by capture",
+              "bits": 8
+            }
+          },
+          {
+            "time": 181.6,
+            "file": "still-10-181.6.png",
+            "sha256": "bf2b6b36c9685e733e0baf088d26150c299f424b009db914716a2d1456a5fca4",
+            "ack": {
+              "time": 181.6,
+              "cue": "S01-02",
+              "asset": "475c1f7c227c45b005bfdb8691b1250599b405fa59902462110312a4f26ceb7d",
+              "scoreSha256": "86c3abc6e6a5413815e79b5887ac5c3afdcecf155c68ed014c2e346706f054c7",
+              "fonts": "loaded",
+              "decodedBytes": 23912132,
+              "textureBytes": 23912132,
+              "targets": "tier-dependent screen/post targets; reported separately by capture",
+              "bits": 8
+            }
+          },
+          {
+            "time": 211.6,
+            "file": "still-11-211.6.png",
+            "sha256": "547206a03184f2c1ec72dfba12b4039aa70eb62888fdac81970ee87a396657f0",
+            "ack": {
+              "time": 211.6,
+              "cue": "S01-03",
+              "asset": "475c1f7c227c45b005bfdb8691b1250599b405fa59902462110312a4f26ceb7d",
+              "scoreSha256": "86c3abc6e6a5413815e79b5887ac5c3afdcecf155c68ed014c2e346706f054c7",
+              "fonts": "loaded",
+              "decodedBytes": 23912132,
+              "textureBytes": 23912132,
+              "targets": "tier-dependent screen/post targets; reported separately by capture",
+              "bits": 8
+            }
+          },
+          {
+            "time": 241.6,
+            "file": "still-12-241.6.png",
+            "sha256": "97073faa0bc71c025f00b74d7a11cb3e81a3550e621dd0bf306f24b8820b7363",
+            "ack": {
+              "time": 241.6,
+              "cue": "S01-04",
+              "asset": "475c1f7c227c45b005bfdb8691b1250599b405fa59902462110312a4f26ceb7d",
+              "scoreSha256": "86c3abc6e6a5413815e79b5887ac5c3afdcecf155c68ed014c2e346706f054c7",
+              "fonts": "loaded",
+              "decodedBytes": 23912132,
+              "textureBytes": 23912132,
+              "targets": "tier-dependent screen/post targets; reported separately by capture",
+              "bits": 8
+            }
+          },
+          {
+            "time": 257.2,
+            "file": "still-13-257.2.png",
+            "sha256": "73eebfb79de50246db4dcc5e535832b5279602777bbf743fe0f5128380f413c1",
+            "ack": {
+              "time": 257.2,
+              "cue": "S01-05",
+              "asset": "475c1f7c227c45b005bfdb8691b1250599b405fa59902462110312a4f26ceb7d",
+              "scoreSha256": "86c3abc6e6a5413815e79b5887ac5c3afdcecf155c68ed014c2e346706f054c7",
+              "fonts": "loaded",
+              "decodedBytes": 23912132,
+              "textureBytes": 23912132,
+              "targets": "tier-dependent screen/post targets; reported separately by capture",
+              "bits": 8
+            }
+          },
+          {
+            "time": 281.6,
+            "file": "still-14-281.6.png",
+            "sha256": "c49f9b972de1a41d0572f1991aad3c8cdc57dfc5fb9984bbfee0b35f9ba07d61",
+            "ack": {
+              "time": 281.6,
+              "cue": "S02-01",
+              "asset": "475c1f7c227c45b005bfdb8691b1250599b405fa59902462110312a4f26ceb7d",
+              "scoreSha256": "86c3abc6e6a5413815e79b5887ac5c3afdcecf155c68ed014c2e346706f054c7",
+              "fonts": "loaded",
+              "decodedBytes": 23912132,
+              "textureBytes": 23912132,
+              "targets": "tier-dependent screen/post targets; reported separately by capture",
+              "bits": 8
+            }
+          },
+          {
+            "time": 311.6,
+            "file": "still-15-311.6.png",
+            "sha256": "cf0efb90557437c3e6ef53f77eb3e23be50a8c52a900fd6d68ac3763e7226987",
+            "ack": {
+              "time": 311.6,
+              "cue": "S02-02",
+              "asset": "475c1f7c227c45b005bfdb8691b1250599b405fa59902462110312a4f26ceb7d",
+              "scoreSha256": "86c3abc6e6a5413815e79b5887ac5c3afdcecf155c68ed014c2e346706f054c7",
+              "fonts": "loaded",
+              "decodedBytes": 23912132,
+              "textureBytes": 23912132,
+              "targets": "tier-dependent screen/post targets; reported separately by capture",
+              "bits": 8
+            }
+          },
+          {
+            "time": 341.6,
+            "file": "still-16-341.6.png",
+            "sha256": "6469ba92af13ae964c2979393b0509a851a4abb1f1460c4001e0112e3b6c72a1",
+            "ack": {
+              "time": 341.6,
+              "cue": "S02-03",
+              "asset": "475c1f7c227c45b005bfdb8691b1250599b405fa59902462110312a4f26ceb7d",
+              "scoreSha256": "86c3abc6e6a5413815e79b5887ac5c3afdcecf155c68ed014c2e346706f054c7",
+              "fonts": "loaded",
+              "decodedBytes": 23912132,
+              "textureBytes": 23912132,
+              "targets": "tier-dependent screen/post targets; reported separately by capture",
+              "bits": 8
+            }
+          },
+          {
+            "time": 371.6,
+            "file": "still-17-371.6.png",
+            "sha256": "ce8a1144d925273776ddc1ef82748f36b76d83e250e758dc061ef498d3df9dc3",
+            "ack": {
+              "time": 371.6,
+              "cue": "S02-04",
+              "asset": "475c1f7c227c45b005bfdb8691b1250599b405fa59902462110312a4f26ceb7d",
+              "scoreSha256": "86c3abc6e6a5413815e79b5887ac5c3afdcecf155c68ed014c2e346706f054c7",
+              "fonts": "loaded",
+              "decodedBytes": 23912132,
+              "textureBytes": 23912132,
+              "targets": "tier-dependent screen/post targets; reported separately by capture",
+              "bits": 8
+            }
+          },
+          {
+            "time": 387.2,
+            "file": "still-18-387.2.png",
+            "sha256": "25173d3e550b860f1da8cd9c863be695f17aafba98763386905d86f26b74d736",
+            "ack": {
+              "time": 387.2,
+              "cue": "S02-05",
+              "asset": "475c1f7c227c45b005bfdb8691b1250599b405fa59902462110312a4f26ceb7d",
+              "scoreSha256": "86c3abc6e6a5413815e79b5887ac5c3afdcecf155c68ed014c2e346706f054c7",
+              "fonts": "loaded",
+              "decodedBytes": 23912132,
+              "textureBytes": 23912132,
+              "targets": "tier-dependent screen/post targets; reported separately by capture",
+              "bits": 8
+            }
+          },
+          {
+            "time": 411.6,
+            "file": "still-19-411.6.png",
+            "sha256": "077991674a977809bd75b619ec2254058e705153a534c590a9bae1578c151f65",
+            "ack": {
+              "time": 411.6,
+              "cue": "S05-01",
+              "asset": "475c1f7c227c45b005bfdb8691b1250599b405fa59902462110312a4f26ceb7d",
+              "scoreSha256": "86c3abc6e6a5413815e79b5887ac5c3afdcecf155c68ed014c2e346706f054c7",
+              "fonts": "loaded",
+              "decodedBytes": 23912132,
+              "textureBytes": 23912132,
+              "targets": "tier-dependent screen/post targets; reported separately by capture",
+              "bits": 8
+            }
+          },
+          {
+            "time": 441.6,
+            "file": "still-20-441.6.png",
+            "sha256": "3a0ba469d1249e89e4cd91c99911a4b6cf55cb8d6e1a6731a65ab1648b39ae79",
+            "ack": {
+              "time": 441.6,
+              "cue": "S05-02",
+              "asset": "475c1f7c227c45b005bfdb8691b1250599b405fa59902462110312a4f26ceb7d",
+              "scoreSha256": "86c3abc6e6a5413815e79b5887ac5c3afdcecf155c68ed014c2e346706f054c7",
+              "fonts": "loaded",
+              "decodedBytes": 23912132,
+              "textureBytes": 23912132,
+              "targets": "tier-dependent screen/post targets; reported separately by capture",
+              "bits": 8
+            }
+          },
+          {
+            "time": 471.6,
+            "file": "still-21-471.6.png",
+            "sha256": "1976a4b030ba85817c2b5e9ba8c068c7cbdeca64a88bb1d9395ae2abd4fa750b",
+            "ack": {
+              "time": 471.6,
+              "cue": "S05-03",
+              "asset": "475c1f7c227c45b005bfdb8691b1250599b405fa59902462110312a4f26ceb7d",
+              "scoreSha256": "86c3abc6e6a5413815e79b5887ac5c3afdcecf155c68ed014c2e346706f054c7",
+              "fonts": "loaded",
+              "decodedBytes": 23912132,
+              "textureBytes": 23912132,
+              "targets": "tier-dependent screen/post targets; reported separately by capture",
+              "bits": 8
+            }
+          },
+          {
+            "time": 501.6,
+            "file": "still-22-501.6.png",
+            "sha256": "9716e56e554f97ad240e6686ee1440c8b002aac63704d4e0f057eacbb1bee8bf",
+            "ack": {
+              "time": 501.6,
+              "cue": "S05-04",
+              "asset": "475c1f7c227c45b005bfdb8691b1250599b405fa59902462110312a4f26ceb7d",
+              "scoreSha256": "86c3abc6e6a5413815e79b5887ac5c3afdcecf155c68ed014c2e346706f054c7",
+              "fonts": "loaded",
+              "decodedBytes": 23912132,
+              "textureBytes": 23912132,
+              "targets": "tier-dependent screen/post targets; reported separately by capture",
+              "bits": 8
+            }
+          },
+          {
+            "time": 517.2,
+            "file": "still-23-517.2.png",
+            "sha256": "b623566eb334fde6cbdbdfcdc65277402bbc88d148905d809d7321d8a96ac1d5",
+            "ack": {
+              "time": 517.2,
+              "cue": "S05-05",
+              "asset": "475c1f7c227c45b005bfdb8691b1250599b405fa59902462110312a4f26ceb7d",
+              "scoreSha256": "86c3abc6e6a5413815e79b5887ac5c3afdcecf155c68ed014c2e346706f054c7",
+              "fonts": "loaded",
+              "decodedBytes": 23912132,
+              "textureBytes": 23912132,
+              "targets": "tier-dependent screen/post targets; reported separately by capture",
+              "bits": 8
+            }
+          },
+          {
+            "time": 520,
+            "file": "still-24-520.png",
+            "sha256": "d5ae076ede4bad676f322ab264c553d08f28346fd16be2a41b4cbcad908844c0",
+            "ack": {
+              "time": 520,
+              "cue": "S05-05",
+              "asset": "475c1f7c227c45b005bfdb8691b1250599b405fa59902462110312a4f26ceb7d",
+              "scoreSha256": "86c3abc6e6a5413815e79b5887ac5c3afdcecf155c68ed014c2e346706f054c7",
+              "fonts": "loaded",
+              "decodedBytes": 23912132,
+              "textureBytes": 23912132,
+              "targets": "tier-dependent screen/post targets; reported separately by capture",
+              "bits": 8
+            }
+          },
+          {
+            "time": 175,
+            "file": "still-25-175.png",
+            "sha256": "60b14d72b8226d65b35c890848a378710936abd6306cede97a4ac12b1a3af719",
+            "ack": {
+              "time": 175,
+              "cue": "S01-02",
+              "asset": "475c1f7c227c45b005bfdb8691b1250599b405fa59902462110312a4f26ceb7d",
+              "scoreSha256": "86c3abc6e6a5413815e79b5887ac5c3afdcecf155c68ed014c2e346706f054c7",
+              "fonts": "loaded",
+              "decodedBytes": 23912132,
+              "textureBytes": 23912132,
+              "targets": "tier-dependent screen/post targets; reported separately by capture",
+              "bits": 8
+            }
+          },
+          {
+            "time": 340,
+            "file": "still-26-340.png",
+            "sha256": "61e45659630ff0e233d5fe0262605d10727a02326630ff94faa63a349b27a418",
+            "ack": {
+              "time": 340,
+              "cue": "S02-03",
+              "asset": "475c1f7c227c45b005bfdb8691b1250599b405fa59902462110312a4f26ceb7d",
+              "scoreSha256": "86c3abc6e6a5413815e79b5887ac5c3afdcecf155c68ed014c2e346706f054c7",
+              "fonts": "loaded",
+              "decodedBytes": 23912132,
+              "textureBytes": 23912132,
+              "targets": "tier-dependent screen/post targets; reported separately by capture",
+              "bits": 8
+            }
+          },
+          {
+            "time": 500,
+            "file": "still-27-500.png",
+            "sha256": "e4f4062b541c13fd2ddc461a29e1142fb5c084d1194f21ecc8edb0b6c27a8fc3",
+            "ack": {
+              "time": 500,
+              "cue": "S05-04",
+              "asset": "475c1f7c227c45b005bfdb8691b1250599b405fa59902462110312a4f26ceb7d",
+              "scoreSha256": "86c3abc6e6a5413815e79b5887ac5c3afdcecf155c68ed014c2e346706f054c7",
+              "fonts": "loaded",
+              "decodedBytes": 23912132,
+              "textureBytes": 23912132,
+              "targets": "tier-dependent screen/post targets; reported separately by capture",
+              "bits": 8
+            }
+          },
+          {
+            "time": 175,
+            "file": "still-28-175.png",
+            "sha256": "60b14d72b8226d65b35c890848a378710936abd6306cede97a4ac12b1a3af719",
+            "ack": {
+              "time": 175,
+              "cue": "S01-02",
+              "asset": "475c1f7c227c45b005bfdb8691b1250599b405fa59902462110312a4f26ceb7d",
+              "scoreSha256": "86c3abc6e6a5413815e79b5887ac5c3afdcecf155c68ed014c2e346706f054c7",
+              "fonts": "loaded",
+              "decodedBytes": 23912132,
+              "textureBytes": 23912132,
+              "targets": "tier-dependent screen/post targets; reported separately by capture",
+              "bits": 8
+            }
+          },
+          {
+            "time": 340,
+            "file": "still-29-340.png",
+            "sha256": "61e45659630ff0e233d5fe0262605d10727a02326630ff94faa63a349b27a418",
+            "ack": {
+              "time": 340,
+              "cue": "S02-03",
+              "asset": "475c1f7c227c45b005bfdb8691b1250599b405fa59902462110312a4f26ceb7d",
+              "scoreSha256": "86c3abc6e6a5413815e79b5887ac5c3afdcecf155c68ed014c2e346706f054c7",
+              "fonts": "loaded",
+              "decodedBytes": 23912132,
+              "textureBytes": 23912132,
+              "targets": "tier-dependent screen/post targets; reported separately by capture",
+              "bits": 8
+            }
+          },
+          {
+            "time": 500,
+            "file": "still-30-500.png",
+            "sha256": "e4f4062b541c13fd2ddc461a29e1142fb5c084d1194f21ecc8edb0b6c27a8fc3",
+            "ack": {
+              "time": 500,
+              "cue": "S05-04",
+              "asset": "475c1f7c227c45b005bfdb8691b1250599b405fa59902462110312a4f26ceb7d",
+              "scoreSha256": "86c3abc6e6a5413815e79b5887ac5c3afdcecf155c68ed014c2e346706f054c7",
+              "fonts": "loaded",
+              "decodedBytes": 23912132,
+              "textureBytes": 23912132,
+              "targets": "tier-dependent screen/post targets; reported separately by capture",
+              "bits": 8
+            }
+          }
+        ],
+        "frameAcks": [
+          {
+            "time": 29,
+            "cue": "S00-01",
+            "asset": "475c1f7c227c45b005bfdb8691b1250599b405fa59902462110312a4f26ceb7d",
+            "scoreSha256": "86c3abc6e6a5413815e79b5887ac5c3afdcecf155c68ed014c2e346706f054c7",
+            "fonts": "loaded",
+            "decodedBytes": 23912132,
+            "textureBytes": 23912132,
+            "targets": "tier-dependent screen/post targets; reported separately by capture",
+            "bits": 8
+          },
+          {
+            "time": 30.966666666666665,
+            "cue": "S00-02",
+            "asset": "475c1f7c227c45b005bfdb8691b1250599b405fa59902462110312a4f26ceb7d",
+            "scoreSha256": "86c3abc6e6a5413815e79b5887ac5c3afdcecf155c68ed014c2e346706f054c7",
+            "fonts": "loaded",
+            "decodedBytes": 23912132,
+            "textureBytes": 23912132,
+            "targets": "tier-dependent screen/post targets; reported separately by capture",
+            "bits": 8
+          },
+          {
+            "time": 338,
+            "cue": "S02-03",
+            "asset": "475c1f7c227c45b005bfdb8691b1250599b405fa59902462110312a4f26ceb7d",
+            "scoreSha256": "86c3abc6e6a5413815e79b5887ac5c3afdcecf155c68ed014c2e346706f054c7",
+            "fonts": "loaded",
+            "decodedBytes": 23912132,
+            "textureBytes": 23912132,
+            "targets": "tier-dependent screen/post targets; reported separately by capture",
+            "bits": 8
+          },
+          {
+            "time": 339.96666666666664,
+            "cue": "S02-03",
+            "asset": "475c1f7c227c45b005bfdb8691b1250599b405fa59902462110312a4f26ceb7d",
+            "scoreSha256": "86c3abc6e6a5413815e79b5887ac5c3afdcecf155c68ed014c2e346706f054c7",
+            "fonts": "loaded",
+            "decodedBytes": 23912132,
+            "textureBytes": 23912132,
+            "targets": "tier-dependent screen/post targets; reported separately by capture",
+            "bits": 8
+          },
+          {
+            "time": 433,
+            "cue": "S05-02",
+            "asset": "475c1f7c227c45b005bfdb8691b1250599b405fa59902462110312a4f26ceb7d",
+            "scoreSha256": "86c3abc6e6a5413815e79b5887ac5c3afdcecf155c68ed014c2e346706f054c7",
+            "fonts": "loaded",
+            "decodedBytes": 23912132,
+            "textureBytes": 23912132,
+            "targets": "tier-dependent screen/post targets; reported separately by capture",
+            "bits": 8
+          },
+          {
+            "time": 434.96666666666664,
+            "cue": "S05-02",
+            "asset": "475c1f7c227c45b005bfdb8691b1250599b405fa59902462110312a4f26ceb7d",
+            "scoreSha256": "86c3abc6e6a5413815e79b5887ac5c3afdcecf155c68ed014c2e346706f054c7",
+            "fonts": "loaded",
+            "decodedBytes": 23912132,
+            "textureBytes": 23912132,
+            "targets": "tier-dependent screen/post targets; reported separately by capture",
+            "bits": 8
+          }
+        ],
+        "errors": [],
+        "launchArgs": [
+          "--ignore-gpu-blocklist",
+          "--use-gl=angle",
+          "--use-angle=metal",
+          "--disable-gpu-rasterization"
+        ],
+        "implementation": {
+          "src/film/Part1Film.tsx": "da8933e7d2fcd1a2274bf256692caa9624cd6b517f498032a06379ea2c4b31cb",
+          "src/film/HaloCorner.tsx": "9d25042fcce3aa207072e9891d08a0cbd2a36d6aebb16e457367bd23f57b22f6",
+          "src/film/diagramGeometry.ts": "eb028eb914a70bd0c6bdc556592a22ba176cdea1168e14246f77d0d230c287ec",
+          "src/film/choreography.ts": "4fa3f464faafa16d2b74dda711efd404d991ff4b196cae6788b7e8b3ac2c3cd7",
+          "src/film/filmTour.ts": "18684ab941e3de017f4a6e8427765534dcbc73e5c7bb10503ded896694e8bc67",
+          "src/growth/stageTour.ts": "f9cc6306334b889bc748caf46c735dd86c594faa85a65a933f47854db2cf56f1",
+          "src/film/film.css": "b5aa3c660af9c90cb8eff55f69ee30b295e4bf95374db8bb17ec9cb4fff8b021",
+          "src/film/timeline.ts": "35faf002c35b3dce835b11d8c36b9b1628722f1f52f4ac7814d0407bac19b4c0",
+          "src/growth/GrowthStage.tsx": "822d6627e2156d05b247686694691d84653b60a98008a69e32b67a6b5a3d8c86",
+          "src/growth/iceMaterial.ts": "a66eceb0ea6e255b06c8f0cc668158782a8a4209285481ed4287c1ab36bf80fa",
+          "src/growth/env.glsl.ts": "3a40b4e3cb375be54ab9d017c20dba0fe22b52cad90756a312eebfdbcb193ba8",
+          "src/growth/tour.ts": "0be1463fe470e726c8c575164d95c9057734ed6bd6356120d7ced052ed64277f",
+          "src/growth/sceneMotion.ts": "4441857e1cdca9b3221ba66ecfa6167e21725fd65708714e11487b5318de7ef0",
+          "scripts/export-part1-prototype.mjs": "96f67fa0b637f20d7347e338d16ee010977c51cc191197629e75ec410c7560da",
+          "scripts/film-gpu-meter.mjs": "66cd38e5c397686924f8d10fccffffc219deae491b608c533ac892e89463e094",
+          "src/film/OpeningDiagram.tsx": "121f3d5fa29d51e37946bba633e57a4d41f2c852888421872a8280058cf337a1",
+          "src/film/openingGeometry.ts": "ec871dc81f4ebeaca83049aa35219398f16119d9dbfb69ee00880e2c5895876b",
+          "src/film/filmEdition.ts": "f20a9a443f888013a69a8fcc08612caaf703a58e0273e3866674061057a4c00f",
+          "scripts/film-content.mjs": "fc211513c29df8bdc134cd4541f072c7fa8fffb3c797a3cf43320cdb6a1eb579"
+        },
+        "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M4, Unspecified Version)",
+        "gpuAllocations": [
+          {
+            "kind": "texture2d",
+            "format": 6408,
+            "width": 1,
+            "height": 1,
+            "bytes": 4
+          },
+          {
+            "kind": "textureArray",
+            "format": 6408,
+            "width": 1,
+            "height": 1,
+            "depth": 1,
+            "bytes": 4
+          },
+          {
+            "kind": "textureArray",
+            "format": 6408,
+            "width": 1,
+            "height": 1,
+            "depth": 1,
+            "bytes": 4
+          },
+          {
+            "kind": "renderbuffer",
+            "format": 34842,
+            "width": 1920,
+            "height": 1080,
+            "samples": 2,
+            "bytes": 33177600
+          },
+          {
+            "kind": "renderbuffer",
+            "format": 33190,
+            "width": 1920,
+            "height": 1080,
+            "samples": 2,
+            "bytes": 16588800
+          },
+          {
+            "kind": "texture2d",
+            "format": 34842,
+            "width": 1920,
+            "height": 1080,
+            "bytes": 16588800
+          },
+          {
+            "kind": "renderbuffer",
+            "format": 33190,
+            "width": 1920,
+            "height": 1080,
+            "bytes": 8294400
+          },
+          {
+            "kind": "textureArray",
+            "format": 33334,
+            "width": 593,
+            "height": 593,
+            "depth": 17,
+            "levels": 1,
+            "bytes": 23912132
+          }
+        ],
+        "gpuAllocationNote": "Instrumented texture/renderbuffer allocation payloads only. Default drawing buffer, driver overhead, compositor and CPU staging are excluded; format with zero bytes would require manual resolution.",
+        "determinism": "Exact screenshot byte equality for repeated/reverse/reload cue samples on this renderer only",
+        "readingStills": [
+          {
+            "file": "opening-macro.png",
+            "time": 12,
+            "frame": "image-only central square",
+            "width": 1000,
+            "height": 1000,
+            "sha256": "10eba3aa56edcc1205efdda320dd63f347952052fce6ef19f7212c4075ee26c5",
+            "ack": {
+              "time": 12,
+              "cue": "S00-01",
+              "asset": "475c1f7c227c45b005bfdb8691b1250599b405fa59902462110312a4f26ceb7d",
+              "scoreSha256": "86c3abc6e6a5413815e79b5887ac5c3afdcecf155c68ed014c2e346706f054c7",
+              "fonts": "loaded",
+              "decodedBytes": 23912132,
+              "textureBytes": 23912132,
+              "targets": "tier-dependent screen/post targets; reported separately by capture",
+              "bits": 8
+            }
+          },
+          {
+            "file": "opening-seed.png",
+            "time": 30,
+            "frame": "image-only central square",
+            "width": 1000,
+            "height": 1000,
+            "sha256": "7d34c65bea393402fc60603ba548cd297c0dcd8f1da5f11c86cf9fe5d7fa9398",
+            "ack": {
+              "time": 30,
+              "cue": "S00-02",
+              "asset": "475c1f7c227c45b005bfdb8691b1250599b405fa59902462110312a4f26ceb7d",
+              "scoreSha256": "86c3abc6e6a5413815e79b5887ac5c3afdcecf155c68ed014c2e346706f054c7",
+              "fonts": "loaded",
+              "decodedBytes": 23912132,
+              "textureBytes": 23912132,
+              "targets": "tier-dependent screen/post targets; reported separately by capture",
+              "bits": 8
+            }
+          }
+        ],
+        "probe": {
+          "streams": [
+            {
+              "index": 0,
+              "codec_name": "h264",
+              "codec_long_name": "H.264 / AVC / MPEG-4 AVC / MPEG-4 part 10",
+              "profile": "High",
+              "codec_type": "video",
+              "codec_tag_string": "avc1",
+              "codec_tag": "0x31637661",
+              "width": 1920,
+              "height": 1080,
+              "coded_width": 1920,
+              "coded_height": 1088,
+              "has_b_frames": 2,
+              "pix_fmt": "yuv420p",
+              "level": 40,
+              "color_range": "tv",
+              "color_space": "bt709",
+              "chroma_location": "left",
+              "field_order": "progressive",
+              "refs": 4,
+              "is_avc": "true",
+              "nal_length_size": "4",
+              "id": "0x1",
+              "r_frame_rate": "30/1",
+              "avg_frame_rate": "30/1",
+              "time_base": "1/15360",
+              "start_pts": 0,
+              "start_time": "0.000000",
+              "duration_ts": 92160,
+              "duration": "6.000000",
+              "bit_rate": "666037",
+              "bits_per_raw_sample": "8",
+              "nb_frames": "180",
+              "nb_read_frames": "180",
+              "extradata_size": 50,
+              "disposition": {
+                "default": 1,
+                "dub": 0,
+                "original": 0,
+                "comment": 0,
+                "lyrics": 0,
+                "karaoke": 0,
+                "forced": 0,
+                "hearing_impaired": 0,
+                "visual_impaired": 0,
+                "clean_effects": 0,
+                "attached_pic": 0,
+                "timed_thumbnails": 0,
+                "non_diegetic": 0,
+                "captions": 0,
+                "descriptions": 0,
+                "metadata": 0,
+                "dependent": 0,
+                "still_image": 0,
+                "multilayer": 0
+              },
+              "tags": {
+                "language": "und",
+                "handler_name": "VideoHandler",
+                "vendor_id": "[0][0][0][0]",
+                "encoder": "Lavc62.11.100 libx264"
+              }
+            },
+            {
+              "index": 1,
+              "codec_name": "aac",
+              "codec_long_name": "AAC (Advanced Audio Coding)",
+              "profile": "LC",
+              "codec_type": "audio",
+              "codec_tag_string": "mp4a",
+              "codec_tag": "0x6134706d",
+              "sample_fmt": "fltp",
+              "sample_rate": "48000",
+              "channels": 1,
+              "channel_layout": "mono",
+              "bits_per_sample": 0,
+              "initial_padding": 0,
+              "id": "0x2",
+              "r_frame_rate": "0/0",
+              "avg_frame_rate": "0/0",
+              "time_base": "1/48000",
+              "start_pts": 0,
+              "start_time": "0.000000",
+              "duration_ts": 288000,
+              "duration": "6.000000",
+              "bit_rate": "4907",
+              "nb_frames": "283",
+              "nb_read_frames": "282",
+              "extradata_size": 5,
+              "disposition": {
+                "default": 1,
+                "dub": 0,
+                "original": 0,
+                "comment": 0,
+                "lyrics": 0,
+                "karaoke": 0,
+                "forced": 0,
+                "hearing_impaired": 0,
+                "visual_impaired": 0,
+                "clean_effects": 0,
+                "attached_pic": 0,
+                "timed_thumbnails": 0,
+                "non_diegetic": 0,
+                "captions": 0,
+                "descriptions": 0,
+                "metadata": 0,
+                "dependent": 0,
+                "still_image": 0,
+                "multilayer": 0
+              },
+              "tags": {
+                "language": "und",
+                "handler_name": "SoundHandler",
+                "vendor_id": "[0][0][0][0]"
+              }
+            }
+          ],
+          "format": {
+            "filename": "/Users/clipper/github/snowcrystal_website-film-part1/export/part1-opening-final/part1-opening.mp4",
+            "nb_streams": 2,
+            "nb_programs": 0,
+            "nb_stream_groups": 0,
+            "format_name": "mov,mp4,m4a,3gp,3g2,mj2",
+            "format_long_name": "QuickTime / MOV",
+            "start_time": "0.000000",
+            "duration": "6.000000",
+            "size": "511241",
+            "bit_rate": "681654",
+            "probe_score": 100,
+            "tags": {
+              "major_brand": "isom",
+              "minor_version": "512",
+              "compatible_brands": "isomiso2avc1mp41",
+              "encoder": "Lavf62.3.100"
+            }
+          }
+        },
+        "decode": "passed",
+        "output": "/Users/clipper/github/snowcrystal_website-film-part1/export/part1-opening-final/part1-opening.mp4",
+        "captionNote": "Montage sidecar remaps/clips draft captions to the listed segments. Full-score sidecar is retained separately.",
+        "wallSeconds": 19.56
+      }
+    },
+    "openingBrowser": {
+      "path": "export/film-opening-final-check-v4/report.json",
+      "sha256": "31c67dbcb7cf70fd7581cc6517219b973bf820a4dae1b47ac0407d04b5ba7ec2",
+      "bytes": 915,
+      "report": {
+        "browser": "153.0.8010.36",
+        "url": "http://127.0.0.1:5185/film/part-1",
+        "score": {
+          "repository": "snowflake",
+          "path": "docs/video/part1-opening-score.json",
+          "revision": "aea24c18b72d1a05b8d7215bbdba81b32f05697b",
+          "sha256": "86c3abc6e6a5413815e79b5887ac5c3afdcecf155c68ed014c2e346706f054c7"
+        },
+        "checks": [
+          "complete opening score, captions and 520-second timing track",
+          "every row selects its own visual, captions and model/diagram label",
+          "sequence navigation and honest endpoint/restart",
+          "play uses media clock, wheel interrupts, reverse seek remains exact",
+          "phone uses decoded image-only figures and does not overflow at 200% text",
+          "phone playback does not scroll and reading stays complete",
+          "both editions render complete no-JavaScript text and available model images",
+          "comparison link loads independent prototype transport"
+        ],
+        "errors": []
+      }
+    },
+    "prototypeBrowser": {
+      "path": "export/film-prototype-opening-regression/report.json",
+      "sha256": "88558d722c755b92f9f9c4e8070c74ca239653453c814b34b092774c91cba0f1",
+      "bytes": 1221,
+      "report": {
+        "browser": "153.0.8010.36",
+        "url": "http://127.0.0.1:5185/film/part-1/prototype",
+        "checks": [
+          "semantic article has all six cue headings",
+          "audio fixture is decoded and has the complete timeline",
+          "intentional playback advances, wheel interrupts before resume",
+          "seek writes exact audio time and never autoplays",
+          "reverse reading returns to the halo",
+          "live reduced motion disables auto-scroll",
+          "compacting the page preserves a later reading cue",
+          "phone slider remains player-owned through caption reflow and enlarged text",
+          "wheel over player controls pauses before native scrolling",
+          "phone and enlarged text remain within viewport",
+          "blocked audio play never starts automatic scrolling",
+          "no WebGL shows static model views with readable prose",
+          "lost WebGL context rejects a capture acknowledgement",
+          "lost live context pauses audio and exposes Retry",
+          "hidden-tab event pauses and never autostarts on return",
+          "scrolling keys and touch release playback without custom key prevention",
+          "no JavaScript reading contains the complete argument",
+          "required missing model fails capture rather than recording a spinner"
+        ],
+        "errors": []
+      }
+    },
+    "prototypeExport": {
+      "path": "export/part1-prototype-opening-regression/report.json",
+      "sha256": "50da1468959215beb313adddda5a5481a3d01fc2c22b5afedcc7f7285440b49f",
+      "bytes": 17852,
+      "report": {
+        "browser": "153.0.8010.36",
+        "base": "http://127.0.0.1:5185/film/part-1/prototype",
+        "score": {
+          "repository": "snowflake",
+          "path": "docs/video/part1-score.json",
+          "revision": "6cbafec93a7b341f8117293f341aac9c6dde4281",
+          "sha256": "5f89b5a3255faf8916e50b1278cba3ac0af2d9b39650fefb7ae4c779321d4704"
+        },
+        "profile": {
+          "width": 1920,
+          "height": 1080,
+          "fps": 30,
+          "bits": 8,
+          "colour": "browser sRGB compositor to BT.709 limited-range yuv420p",
+          "audioSampleRate": 48000
+        },
+        "segments": [
+          {
+            "start": 13,
+            "duration": 2
+          },
+          {
+            "start": 61,
+            "duration": 2
+          },
+          {
+            "start": 76,
+            "duration": 2
+          }
+        ],
+        "stills": [
+          {
+            "time": 0,
+            "file": "still-0-0.png",
+            "sha256": "d1006519204b7578596f46b0a05f0eb1350420e5b6577e12ecc99e9c199ed398",
+            "ack": {
+              "time": 0,
+              "cue": "S09-arrival",
+              "asset": "475c1f7c227c45b005bfdb8691b1250599b405fa59902462110312a4f26ceb7d",
+              "scoreSha256": "5f89b5a3255faf8916e50b1278cba3ac0af2d9b39650fefb7ae4c779321d4704",
+              "fonts": "loaded",
+              "decodedBytes": 23912132,
+              "textureBytes": 23912132,
+              "targets": "tier-dependent screen/post targets; reported separately by capture",
+              "bits": 8
+            }
+          },
+          {
+            "time": 3.5,
+            "file": "still-1-3.5.png",
+            "sha256": "51abd0f8d89621f40fd1749a03d568acac99422557d3426e2253fbfe6b1efe75",
+            "ack": {
+              "time": 3.5,
+              "cue": "S09-arrival",
+              "asset": "475c1f7c227c45b005bfdb8691b1250599b405fa59902462110312a4f26ceb7d",
+              "scoreSha256": "5f89b5a3255faf8916e50b1278cba3ac0af2d9b39650fefb7ae4c779321d4704",
+              "fonts": "loaded",
+              "decodedBytes": 23912132,
+              "textureBytes": 23912132,
+              "targets": "tier-dependent screen/post targets; reported separately by capture",
+              "bits": 8
+            }
+          },
+          {
+            "time": 7,
+            "file": "still-2-7.png",
+            "sha256": "d7ec430ac40a92afa488236e2451a390e6b9ddfbbaf0505fdebf3a6dca2543b4",
+            "ack": {
+              "time": 7,
+              "cue": "S09-arrival",
+              "asset": "475c1f7c227c45b005bfdb8691b1250599b405fa59902462110312a4f26ceb7d",
+              "scoreSha256": "5f89b5a3255faf8916e50b1278cba3ac0af2d9b39650fefb7ae4c779321d4704",
+              "fonts": "loaded",
+              "decodedBytes": 23912132,
+              "textureBytes": 23912132,
+              "targets": "tier-dependent screen/post targets; reported separately by capture",
+              "bits": 8
+            }
+          },
+          {
+            "time": 13.9667,
+            "file": "still-3-13.9667.png",
+            "sha256": "6b586c57b49a2f820bc9878f4e84609f788fd10067d1abffa14e6f2016074ed2",
+            "ack": {
+              "time": 13.9667,
+              "cue": "S09-arrival",
+              "asset": "475c1f7c227c45b005bfdb8691b1250599b405fa59902462110312a4f26ceb7d",
+              "scoreSha256": "5f89b5a3255faf8916e50b1278cba3ac0af2d9b39650fefb7ae4c779321d4704",
+              "fonts": "loaded",
+              "decodedBytes": 23912132,
+              "textureBytes": 23912132,
+              "targets": "tier-dependent screen/post targets; reported separately by capture",
+              "bits": 8
+            }
+          },
+          {
+            "time": 14,
+            "file": "still-4-14.png",
+            "sha256": "5eec17e66c3b69e47b929489755852c87b6582fe0872e8270fb7cc8158aa8a46",
+            "ack": {
+              "time": 14,
+              "cue": "S09-halo",
+              "asset": "475c1f7c227c45b005bfdb8691b1250599b405fa59902462110312a4f26ceb7d",
+              "scoreSha256": "5f89b5a3255faf8916e50b1278cba3ac0af2d9b39650fefb7ae4c779321d4704",
+              "fonts": "loaded",
+              "decodedBytes": 23912132,
+              "textureBytes": 23912132,
+              "targets": "tier-dependent screen/post targets; reported separately by capture",
+              "bits": 8
+            }
+          },
+          {
+            "time": 22,
+            "file": "still-5-22.png",
+            "sha256": "e5807c8e6fa4ac9a9015367888642c4e00173131001cfde37ca27a1a0252e5b3",
+            "ack": {
+              "time": 22,
+              "cue": "S09-halo",
+              "asset": "475c1f7c227c45b005bfdb8691b1250599b405fa59902462110312a4f26ceb7d",
+              "scoreSha256": "5f89b5a3255faf8916e50b1278cba3ac0af2d9b39650fefb7ae4c779321d4704",
+              "fonts": "loaded",
+              "decodedBytes": 23912132,
+              "textureBytes": 23912132,
+              "targets": "tier-dependent screen/post targets; reported separately by capture",
+              "bits": 8
+            }
+          },
+          {
+            "time": 33,
+            "file": "still-6-33.png",
+            "sha256": "7b9dc9ce4ad9de14d1792869ec9b4e8824b5cd0813ec7a1e9153c4aab960a6bf",
+            "ack": {
+              "time": 33,
+              "cue": "S13-corner",
+              "asset": "475c1f7c227c45b005bfdb8691b1250599b405fa59902462110312a4f26ceb7d",
+              "scoreSha256": "5f89b5a3255faf8916e50b1278cba3ac0af2d9b39650fefb7ae4c779321d4704",
+              "fonts": "loaded",
+              "decodedBytes": 23912132,
+              "textureBytes": 23912132,
+              "targets": "tier-dependent screen/post targets; reported separately by capture",
+              "bits": 8
+            }
+          },
+          {
+            "time": 40,
+            "file": "still-7-40.png",
+            "sha256": "d038d61b7a2eb44768c8c36d36aed0fb9505e3690135099d24560b623594fff0",
+            "ack": {
+              "time": 40,
+              "cue": "S13-corner",
+              "asset": "475c1f7c227c45b005bfdb8691b1250599b405fa59902462110312a4f26ceb7d",
+              "scoreSha256": "5f89b5a3255faf8916e50b1278cba3ac0af2d9b39650fefb7ae4c779321d4704",
+              "fonts": "loaded",
+              "decodedBytes": 23912132,
+              "textureBytes": 23912132,
+              "targets": "tier-dependent screen/post targets; reported separately by capture",
+              "bits": 8
+            }
+          },
+          {
+            "time": 50,
+            "file": "still-8-50.png",
+            "sha256": "c9e8a4dbf9157a388f4c0aa2e8fc1a14961f0bf6ac05529b49618b6cec8ea7da",
+            "ack": {
+              "time": 50,
+              "cue": "S13-feedback",
+              "asset": "475c1f7c227c45b005bfdb8691b1250599b405fa59902462110312a4f26ceb7d",
+              "scoreSha256": "5f89b5a3255faf8916e50b1278cba3ac0af2d9b39650fefb7ae4c779321d4704",
+              "fonts": "loaded",
+              "decodedBytes": 23912132,
+              "textureBytes": 23912132,
+              "targets": "tier-dependent screen/post targets; reported separately by capture",
+              "bits": 8
+            }
+          },
+          {
+            "time": 58,
+            "file": "still-9-58.png",
+            "sha256": "bb3fbdce842f9a93663ccf29d634ead6612447d0ce9c208c4e3d226f22d6dd1c",
+            "ack": {
+              "time": 58,
+              "cue": "S13-feedback",
+              "asset": "475c1f7c227c45b005bfdb8691b1250599b405fa59902462110312a4f26ceb7d",
+              "scoreSha256": "5f89b5a3255faf8916e50b1278cba3ac0af2d9b39650fefb7ae4c779321d4704",
+              "fonts": "loaded",
+              "decodedBytes": 23912132,
+              "textureBytes": 23912132,
+              "targets": "tier-dependent screen/post targets; reported separately by capture",
+              "bits": 8
+            }
+          },
+          {
+            "time": 61.9667,
+            "file": "still-10-61.9667.png",
+            "sha256": "bb3fbdce842f9a93663ccf29d634ead6612447d0ce9c208c4e3d226f22d6dd1c",
+            "ack": {
+              "time": 61.9667,
+              "cue": "S13-feedback",
+              "asset": "475c1f7c227c45b005bfdb8691b1250599b405fa59902462110312a4f26ceb7d",
+              "scoreSha256": "5f89b5a3255faf8916e50b1278cba3ac0af2d9b39650fefb7ae4c779321d4704",
+              "fonts": "loaded",
+              "decodedBytes": 23912132,
+              "textureBytes": 23912132,
+              "targets": "tier-dependent screen/post targets; reported separately by capture",
+              "bits": 8
+            }
+          },
+          {
+            "time": 62,
+            "file": "still-11-62.png",
+            "sha256": "f6b39ce8e2cc1dd96c71e4aa92b70877c3f1b473c56d235a66f8a2eec54a7550",
+            "ack": {
+              "time": 62,
+              "cue": "S13-return",
+              "asset": "475c1f7c227c45b005bfdb8691b1250599b405fa59902462110312a4f26ceb7d",
+              "scoreSha256": "5f89b5a3255faf8916e50b1278cba3ac0af2d9b39650fefb7ae4c779321d4704",
+              "fonts": "loaded",
+              "decodedBytes": 23912132,
+              "textureBytes": 23912132,
+              "targets": "tier-dependent screen/post targets; reported separately by capture",
+              "bits": 8
+            }
+          },
+          {
+            "time": 68,
+            "file": "still-12-68.png",
+            "sha256": "4cca03667372a8541865bb3271927f1e7ea18908e1b952ed7559f3eb67393f82",
+            "ack": {
+              "time": 68,
+              "cue": "S13-return",
+              "asset": "475c1f7c227c45b005bfdb8691b1250599b405fa59902462110312a4f26ceb7d",
+              "scoreSha256": "5f89b5a3255faf8916e50b1278cba3ac0af2d9b39650fefb7ae4c779321d4704",
+              "fonts": "loaded",
+              "decodedBytes": 23912132,
+              "textureBytes": 23912132,
+              "targets": "tier-dependent screen/post targets; reported separately by capture",
+              "bits": 8
+            }
+          },
+          {
+            "time": 76,
+            "file": "still-13-76.png",
+            "sha256": "87c910614583afa10c2073751488185da62ba4522e6dd6824f053e95bb5b2aa6",
+            "ack": {
+              "time": 76,
+              "cue": "S35-ending-test",
+              "asset": "475c1f7c227c45b005bfdb8691b1250599b405fa59902462110312a4f26ceb7d",
+              "scoreSha256": "5f89b5a3255faf8916e50b1278cba3ac0af2d9b39650fefb7ae4c779321d4704",
+              "fonts": "loaded",
+              "decodedBytes": 23912132,
+              "textureBytes": 23912132,
+              "targets": "tier-dependent screen/post targets; reported separately by capture",
+              "bits": 8
+            }
+          },
+          {
+            "time": 78,
+            "file": "still-14-78.png",
+            "sha256": "705a3b9f1ae4068aa52b13075e4fcbc70032d403d613103f0982091a57919396",
+            "ack": {
+              "time": 78,
+              "cue": "S35-ending-test",
+              "asset": "475c1f7c227c45b005bfdb8691b1250599b405fa59902462110312a4f26ceb7d",
+              "scoreSha256": "5f89b5a3255faf8916e50b1278cba3ac0af2d9b39650fefb7ae4c779321d4704",
+              "fonts": "loaded",
+              "decodedBytes": 23912132,
+              "textureBytes": 23912132,
+              "targets": "tier-dependent screen/post targets; reported separately by capture",
+              "bits": 8
+            }
+          },
+          {
+            "time": 80,
+            "file": "still-15-80.png",
+            "sha256": "8c20029f19ee56d5aec109dd7e15712013290f27abcfaf4d6da4caecb67db804",
+            "ack": {
+              "time": 80,
+              "cue": "S35-ending-test",
+              "asset": "475c1f7c227c45b005bfdb8691b1250599b405fa59902462110312a4f26ceb7d",
+              "scoreSha256": "5f89b5a3255faf8916e50b1278cba3ac0af2d9b39650fefb7ae4c779321d4704",
+              "fonts": "loaded",
+              "decodedBytes": 23912132,
+              "textureBytes": 23912132,
+              "targets": "tier-dependent screen/post targets; reported separately by capture",
+              "bits": 8
+            }
+          },
+          {
+            "time": 40,
+            "file": "still-16-40.png",
+            "sha256": "d038d61b7a2eb44768c8c36d36aed0fb9505e3690135099d24560b623594fff0",
+            "ack": {
+              "time": 40,
+              "cue": "S13-corner",
+              "asset": "475c1f7c227c45b005bfdb8691b1250599b405fa59902462110312a4f26ceb7d",
+              "scoreSha256": "5f89b5a3255faf8916e50b1278cba3ac0af2d9b39650fefb7ae4c779321d4704",
+              "fonts": "loaded",
+              "decodedBytes": 23912132,
+              "textureBytes": 23912132,
+              "targets": "tier-dependent screen/post targets; reported separately by capture",
+              "bits": 8
+            }
+          },
+          {
+            "time": 7,
+            "file": "still-17-7.png",
+            "sha256": "d7ec430ac40a92afa488236e2451a390e6b9ddfbbaf0505fdebf3a6dca2543b4",
+            "ack": {
+              "time": 7,
+              "cue": "S09-arrival",
+              "asset": "475c1f7c227c45b005bfdb8691b1250599b405fa59902462110312a4f26ceb7d",
+              "scoreSha256": "5f89b5a3255faf8916e50b1278cba3ac0af2d9b39650fefb7ae4c779321d4704",
+              "fonts": "loaded",
+              "decodedBytes": 23912132,
+              "textureBytes": 23912132,
+              "targets": "tier-dependent screen/post targets; reported separately by capture",
+              "bits": 8
+            }
+          },
+          {
+            "time": 78,
+            "file": "still-18-78.png",
+            "sha256": "705a3b9f1ae4068aa52b13075e4fcbc70032d403d613103f0982091a57919396",
+            "ack": {
+              "time": 78,
+              "cue": "S35-ending-test",
+              "asset": "475c1f7c227c45b005bfdb8691b1250599b405fa59902462110312a4f26ceb7d",
+              "scoreSha256": "5f89b5a3255faf8916e50b1278cba3ac0af2d9b39650fefb7ae4c779321d4704",
+              "fonts": "loaded",
+              "decodedBytes": 23912132,
+              "textureBytes": 23912132,
+              "targets": "tier-dependent screen/post targets; reported separately by capture",
+              "bits": 8
+            }
+          }
+        ],
+        "frameAcks": [],
+        "errors": [],
+        "launchArgs": [
+          "--ignore-gpu-blocklist",
+          "--use-gl=angle",
+          "--use-angle=metal"
+        ],
+        "implementation": {
+          "src/film/Part1Film.tsx": "da8933e7d2fcd1a2274bf256692caa9624cd6b517f498032a06379ea2c4b31cb",
+          "src/film/HaloCorner.tsx": "9d25042fcce3aa207072e9891d08a0cbd2a36d6aebb16e457367bd23f57b22f6",
+          "src/film/diagramGeometry.ts": "eb028eb914a70bd0c6bdc556592a22ba176cdea1168e14246f77d0d230c287ec",
+          "src/film/choreography.ts": "4fa3f464faafa16d2b74dda711efd404d991ff4b196cae6788b7e8b3ac2c3cd7",
+          "src/film/filmTour.ts": "18684ab941e3de017f4a6e8427765534dcbc73e5c7bb10503ded896694e8bc67",
+          "src/growth/stageTour.ts": "f9cc6306334b889bc748caf46c735dd86c594faa85a65a933f47854db2cf56f1",
+          "src/film/film.css": "b5aa3c660af9c90cb8eff55f69ee30b295e4bf95374db8bb17ec9cb4fff8b021",
+          "src/film/timeline.ts": "35faf002c35b3dce835b11d8c36b9b1628722f1f52f4ac7814d0407bac19b4c0",
+          "src/growth/GrowthStage.tsx": "822d6627e2156d05b247686694691d84653b60a98008a69e32b67a6b5a3d8c86",
+          "src/growth/iceMaterial.ts": "a66eceb0ea6e255b06c8f0cc668158782a8a4209285481ed4287c1ab36bf80fa",
+          "src/growth/env.glsl.ts": "3a40b4e3cb375be54ab9d017c20dba0fe22b52cad90756a312eebfdbcb193ba8",
+          "src/growth/tour.ts": "0be1463fe470e726c8c575164d95c9057734ed6bd6356120d7ced052ed64277f",
+          "src/growth/sceneMotion.ts": "4441857e1cdca9b3221ba66ecfa6167e21725fd65708714e11487b5318de7ef0",
+          "scripts/export-part1-prototype.mjs": "96f67fa0b637f20d7347e338d16ee010977c51cc191197629e75ec410c7560da",
+          "scripts/film-gpu-meter.mjs": "66cd38e5c397686924f8d10fccffffc219deae491b608c533ac892e89463e094",
+          "src/film/OpeningDiagram.tsx": "121f3d5fa29d51e37946bba633e57a4d41f2c852888421872a8280058cf337a1",
+          "src/film/openingGeometry.ts": "ec871dc81f4ebeaca83049aa35219398f16119d9dbfb69ee00880e2c5895876b",
+          "src/film/filmEdition.ts": "f20a9a443f888013a69a8fcc08612caaf703a58e0273e3866674061057a4c00f",
+          "scripts/film-content.mjs": "fc211513c29df8bdc134cd4541f072c7fa8fffb3c797a3cf43320cdb6a1eb579"
+        },
+        "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M4, Unspecified Version)",
+        "gpuAllocations": [
+          {
+            "kind": "texture2d",
+            "format": 6408,
+            "width": 1,
+            "height": 1,
+            "bytes": 4
+          },
+          {
+            "kind": "textureArray",
+            "format": 6408,
+            "width": 1,
+            "height": 1,
+            "depth": 1,
+            "bytes": 4
+          },
+          {
+            "kind": "textureArray",
+            "format": 6408,
+            "width": 1,
+            "height": 1,
+            "depth": 1,
+            "bytes": 4
+          },
+          {
+            "kind": "renderbuffer",
+            "format": 34842,
+            "width": 1920,
+            "height": 1080,
+            "samples": 2,
+            "bytes": 33177600
+          },
+          {
+            "kind": "renderbuffer",
+            "format": 33190,
+            "width": 1920,
+            "height": 1080,
+            "samples": 2,
+            "bytes": 16588800
+          },
+          {
+            "kind": "texture2d",
+            "format": 34842,
+            "width": 1920,
+            "height": 1080,
+            "bytes": 16588800
+          },
+          {
+            "kind": "renderbuffer",
+            "format": 33190,
+            "width": 1920,
+            "height": 1080,
+            "bytes": 8294400
+          },
+          {
+            "kind": "textureArray",
+            "format": 33334,
+            "width": 593,
+            "height": 593,
+            "depth": 17,
+            "levels": 1,
+            "bytes": 23912132
+          }
+        ],
+        "gpuAllocationNote": "Instrumented texture/renderbuffer allocation payloads only. Default drawing buffer, driver overhead, compositor and CPU staging are excluded; format with zero bytes would require manual resolution.",
+        "determinism": "Exact screenshot byte equality for repeated/reverse/reload cue samples on this renderer only",
+        "readingStills": [
+          {
+            "file": "run-b-arrival.png",
+            "time": 10,
+            "frame": "image-only central square",
+            "width": 600,
+            "height": 600,
+            "sha256": "1911d61d4229d2d77b546d28de1f90dd375300348a1c7d8e1e57dff2e45903f6",
+            "ack": {
+              "time": 10,
+              "cue": "S09-arrival",
+              "asset": "475c1f7c227c45b005bfdb8691b1250599b405fa59902462110312a4f26ceb7d",
+              "scoreSha256": "5f89b5a3255faf8916e50b1278cba3ac0af2d9b39650fefb7ae4c779321d4704",
+              "fonts": "loaded",
+              "decodedBytes": 23912132,
+              "textureBytes": 23912132,
+              "targets": "tier-dependent screen/post targets; reported separately by capture",
+              "bits": 8
+            }
+          },
+          {
+            "file": "run-b-return.png",
+            "time": 72,
+            "frame": "image-only central square",
+            "width": 1000,
+            "height": 1000,
+            "sha256": "d10aea397dd05c2d8c789745bb511439bed4453fcde2fd8719262d98ca70f5d2",
+            "ack": {
+              "time": 72,
+              "cue": "S13-return",
+              "asset": "475c1f7c227c45b005bfdb8691b1250599b405fa59902462110312a4f26ceb7d",
+              "scoreSha256": "5f89b5a3255faf8916e50b1278cba3ac0af2d9b39650fefb7ae4c779321d4704",
+              "fonts": "loaded",
+              "decodedBytes": 23912132,
+              "textureBytes": 23912132,
+              "targets": "tier-dependent screen/post targets; reported separately by capture",
+              "bits": 8
+            }
+          },
+          {
+            "file": "run-b-ending.png",
+            "time": 76,
+            "frame": "image-only central square",
+            "width": 1000,
+            "height": 1000,
+            "sha256": "49dcf29d8a7a77544c1dc466d2f32241704cd294ec4a2de2dec98c4853843176",
+            "ack": {
+              "time": 76,
+              "cue": "S35-ending-test",
+              "asset": "475c1f7c227c45b005bfdb8691b1250599b405fa59902462110312a4f26ceb7d",
+              "scoreSha256": "5f89b5a3255faf8916e50b1278cba3ac0af2d9b39650fefb7ae4c779321d4704",
+              "fonts": "loaded",
+              "decodedBytes": 23912132,
+              "textureBytes": 23912132,
+              "targets": "tier-dependent screen/post targets; reported separately by capture",
+              "bits": 8
+            }
+          }
+        ],
+        "wallSeconds": 3.9
+      }
+    },
+    "negativeControl": {
+      "path": "export/opening-edition-negative-control/report.json",
+      "sha256": "695795b2d30f6fbdc8a28d8485cf56960a6c3195ad32e29df136069cfa86400e",
+      "bytes": 3099,
+      "report": {
+        "browser": "153.0.8010.36",
+        "base": "http://127.0.0.1:5185/film/part-1",
+        "score": {
+          "repository": "snowflake",
+          "path": "docs/video/part1-score.json",
+          "revision": "6cbafec93a7b341f8117293f341aac9c6dde4281",
+          "sha256": "5f89b5a3255faf8916e50b1278cba3ac0af2d9b39650fefb7ae4c779321d4704"
+        },
+        "profile": {
+          "width": 1920,
+          "height": 1080,
+          "fps": 30,
+          "bits": 8,
+          "colour": "browser sRGB compositor to BT.709 limited-range yuv420p",
+          "audioSampleRate": 48000
+        },
+        "segments": [
+          {
+            "start": 13,
+            "duration": 2
+          },
+          {
+            "start": 61,
+            "duration": 2
+          },
+          {
+            "start": 76,
+            "duration": 2
+          }
+        ],
+        "stills": [],
+        "frameAcks": [],
+        "errors": [],
+        "launchArgs": [
+          "--ignore-gpu-blocklist",
+          "--use-gl=angle",
+          "--use-angle=metal"
+        ],
+        "implementation": {
+          "src/film/Part1Film.tsx": "da8933e7d2fcd1a2274bf256692caa9624cd6b517f498032a06379ea2c4b31cb",
+          "src/film/HaloCorner.tsx": "9d25042fcce3aa207072e9891d08a0cbd2a36d6aebb16e457367bd23f57b22f6",
+          "src/film/diagramGeometry.ts": "eb028eb914a70bd0c6bdc556592a22ba176cdea1168e14246f77d0d230c287ec",
+          "src/film/choreography.ts": "4fa3f464faafa16d2b74dda711efd404d991ff4b196cae6788b7e8b3ac2c3cd7",
+          "src/film/filmTour.ts": "18684ab941e3de017f4a6e8427765534dcbc73e5c7bb10503ded896694e8bc67",
+          "src/growth/stageTour.ts": "f9cc6306334b889bc748caf46c735dd86c594faa85a65a933f47854db2cf56f1",
+          "src/film/film.css": "b5aa3c660af9c90cb8eff55f69ee30b295e4bf95374db8bb17ec9cb4fff8b021",
+          "src/film/timeline.ts": "35faf002c35b3dce835b11d8c36b9b1628722f1f52f4ac7814d0407bac19b4c0",
+          "src/growth/GrowthStage.tsx": "822d6627e2156d05b247686694691d84653b60a98008a69e32b67a6b5a3d8c86",
+          "src/growth/iceMaterial.ts": "a66eceb0ea6e255b06c8f0cc668158782a8a4209285481ed4287c1ab36bf80fa",
+          "src/growth/env.glsl.ts": "3a40b4e3cb375be54ab9d017c20dba0fe22b52cad90756a312eebfdbcb193ba8",
+          "src/growth/tour.ts": "0be1463fe470e726c8c575164d95c9057734ed6bd6356120d7ced052ed64277f",
+          "src/growth/sceneMotion.ts": "4441857e1cdca9b3221ba66ecfa6167e21725fd65708714e11487b5318de7ef0",
+          "scripts/export-part1-prototype.mjs": "96f67fa0b637f20d7347e338d16ee010977c51cc191197629e75ec410c7560da",
+          "scripts/film-gpu-meter.mjs": "66cd38e5c397686924f8d10fccffffc219deae491b608c533ac892e89463e094",
+          "src/film/OpeningDiagram.tsx": "121f3d5fa29d51e37946bba633e57a4d41f2c852888421872a8280058cf337a1",
+          "src/film/openingGeometry.ts": "ec871dc81f4ebeaca83049aa35219398f16119d9dbfb69ee00880e2c5895876b",
+          "src/film/filmEdition.ts": "f20a9a443f888013a69a8fcc08612caaf703a58e0273e3866674061057a4c00f",
+          "scripts/film-content.mjs": "fc211513c29df8bdc134cd4541f072c7fa8fffb3c797a3cf43320cdb6a1eb579"
+        },
+        "failure": "Error: Capture edition or asset identity does not match selected export score\n    at assertAck (file:///Users/clipper/github/snowcrystal_website-film-part1/scripts/export-part1-prototype.mjs:31:84)\n    at file:///Users/clipper/github/snowcrystal_website-film-part1/scripts/export-part1-prototype.mjs:37:3",
+        "wallSeconds": 0.46
+      }
+    }
+  },
+  "visualInspection": {
+    "author": "Root implementation agent; live Codex browser at 1440×900 and 390×844, plus exported samples. Not a continuous watch of the entire 520 seconds.",
+    "liveSamples": [
+      "opening macro",
+      "30-second seed cut",
+      "175-second qualified map",
+      "429–456-second relay-to-budget playback with explicit pause",
+      "phone opening and 340-second supercooling"
+    ],
+    "nonAuthor": "science_review examined 13 initial frame samples, then seven final PNGs; source/frame identities matched. Confirmed fixes to hexagonal columns, frozen-droplet symbol, rime placement, liquid-exhaustion label, cold-region wording, budget title and abstract historical experiment diagram.",
+    "limits": [
+      "No real mobile-device or screen-reader certification.",
+      "Phone enlarged-text emulation is a browser check.",
+      "Sample video is 6 seconds, not the full chapter export.",
+      "GPU rasterization disabled only for the named opening capture recipe; WebGL remains Metal.",
+      "Full script remains source-reviewed but inactive beyond this selected opening; maker recording and final visual acceptance remain pending."
+    ]
+  }
+}

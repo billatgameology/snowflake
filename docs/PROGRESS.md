@@ -19,32 +19,38 @@ detail.
 
 ## Current state
 
-- **Part 1 prototype visually revised and checked (2026-09-15).** The
-  maker accepted this revision and asked to continue. WP4/WP5 is now building the actual
-  opening chapter from the reviewed S00/S01/S02/S05 rows; new chapter verification is pending.
-  The completed prototype remains available as a comparison edition, not silently discarded.
+- **Part 1 opening chapter implemented and checked (2026-09-15).** The maker
+  accepted the prototype revision and asked to continue. The separate
+  [opening score](video/part1-opening-score.json), imported from `aea24c1`, compiles reviewed
+  S00/S01/S02/S05 into 20 rows / 520 seconds / 56 provisional captions; reproduce with
+  `node scripts/build-part1-opening-score.mjs --check`. Website
+  `explore/film-part1@a1c7ed32d8acb8e468885405f31a34dab874fe15` has the chapter, original diagrams,
+  sequence navigation and reading editions implemented. The
+  [implementation/visual record](reviews/film-part1-opening-implementation-2026-09-15.md) and
+  [receipt](video/part1-opening-verification.json) record 13 focused tests, 8 opening browser
+  checks, 18 prototype browser checks, the successful TypeScript/Vite build and decoded
+  6.000-second / 180-frame sample. Its 19.56-second export wall time is bounded sample cost;
+  full-film performance is unmeasured. The default local route now plays this opening,
+  not the inactive full draft. `/film/part-1/prototype` preserves the original comparison study.
   The
-  [implemented revision](reviews/film-part1-visual-revision-2026-09-15.md) addresses the
+  earlier [implemented revision](reviews/film-part1-visual-revision-2026-09-15.md) addressed the
   requested visual review: full-width watch presentation, cropped opening detail, directed
   corner close-up, aligned representation cuts, in-renderer ending pullback and phone
-  image-only reading/seek fixes. Website `explore/film-part1@3e17dfa2bd35ac0386f89f6d11da77381ef71a2e`
-  is in `/Users/clipper/github/snowcrystal_website-film-part1`; preview
+  image-only reading/seek fixes at website `3e17dfa`. Current website worktree:
+  `/Users/clipper/github/snowcrystal_website-film-part1`; preview
   `http://127.0.0.1:5185/film/part-1`. Nothing was pushed or published; the original hero
   checkout remains clean and untouched.
-  The [new receipt](video/part1-visual-revision-verification.json) records 8 focused tests,
-  18 browser checks, successful TypeScript/Vite build, and a decoded 6.000-second,
-  180-frame sample export at 1920×1080/30 fps. Its 27.784-second export wall time is
-  bounded sample cost on the named renderer, not full-film performance. Visual observations,
-  independent-context limits, repaired failures and remaining polish are in the revision record.
-  The route remains the 80-second prototype with timing tones, not narration or the full film.
+  The [earlier revision receipt](video/part1-visual-revision-verification.json) covers the
+  80-second prototype, not the new opening or full film. New visual observations,
+  independent-context limits, repaired failures and remaining polish are in the opening record.
   The original [receipt](video/part1-prototype-verification.json) and
   [visual critique](reviews/film-part1-visual-review-2026-09-15.md) are historical.
   The [full script](video/part1-script.md) and resolved
   [source audit](reviews/film-part1-script-review-2026-09-15.md) are unchanged. The score's
   inactive `productionDraft` still records 3,924 spoken words and a provisional 2,120-second
   (35:20) cut; reproduce with `node scripts/build-part1-production-score.mjs --check`.
-  Maker visual acceptance/aloud read and recording remain open; full-story WP4/WP5 expansion
-  is next. Do not silently activate the full draft in the prototype player.
+  The new chapter's maker visual acceptance/aloud read and recording remain open; full-story
+  WP4/WP5 expansion remains in progress. Do not silently activate the full draft.
 
 - **Part 1 film plan reviewed and revised (2026-09-15).** The maker's latest direction
   (`JTS-M009`) uses education chapters 1–13 as flexible source material for a documentary under
@@ -466,13 +472,14 @@ the package-specific prerequisites in its charter amendment and execution plan. 
 
 ## Next step
 
-### Part 1 film — continue from the visually revised prototype
+### Part 1 film — continue after the prepared opening
 
 On `explore/film-part1-plan`, open the
 [execution record](plans/explore-film-part1-science-scroll-documentary.md#execution-record--2026-09-15)
-and the [implemented visual revision](reviews/film-part1-visual-revision-2026-09-15.md).
-The requested prototype improvement is committed and inspected; use that camera/attention
-pattern for WP4/WP5 rather than rebuilding the static layout. Maker visual acceptance remains
+and the [opening implementation/visual record](reviews/film-part1-opening-implementation-2026-09-15.md).
+The prototype improvement and prepared opening are committed and inspected. Continue with
+S06 in `docs/video/part1-script.md` (molecular structure, then surface and transport), recording
+the next bounded production slice in the active plan before implementation. Opening maker visual acceptance remains
 an input, not a test verdict. Preserve source qualifications and frame-exact runtime.
 The [full script](video/part1-script.md) has a resolved
 [source review](reviews/film-part1-script-review-2026-09-15.md). Run
@@ -480,13 +487,17 @@ The [full script](video/part1-script.md) has a resolved
 and its script/review identities. The maker's aloud read is the remaining WP1 input; use it to
 adjust speech slots before final recording, checking affected claims if dialogue changes.
 WP4/WP5 expand the selected story and signature visuals on the checked runtime. Keep
-provisional timing distinct from the maker's unrecorded voice. The website currently imports
-the score at `6cbafec`, including inactive full-draft metadata; only the short root cue
-timeline plays. Do not activate the complete draft silently.
-Continue WP4/WP5 in `/Users/clipper/github/snowcrystal_website-film-part1` after inspecting its
+provisional timing distinct from the maker's unrecorded voice. The website imports the prototype
+score at `6cbafec` and the separate opening score at `aea24c1`; only those prepared editions
+play. Do not activate the complete draft silently.
+Continue WP4/WP5 from website `a1c7ed3` in `/Users/clipper/github/snowcrystal_website-film-part1` after inspecting its
 `git status --short --branch` and `docs/film-part1-prototype.md`. The local preview command is
 `npm run dev -- --host 127.0.0.1 --port 5185 --strictPort`; check for the retained server first.
 No further scene-plan review or publication is required to continue local production.
+Run `node scripts/build-part1-opening-score.mjs --check` in this repository before extending
+the generated slice. Focused website checks are documented in `docs/film-part1-prototype.md`;
+do not launch scientific gates for presentation work. Fine motion direction, final reader copy,
+maker narration and full-duration export remain open.
 
 Traps: use pure cue-time state and the external renderer's readiness acknowledgement; the old
 hero's accumulated snowfall and root view-transition fade are not capture-safe. The implemented
