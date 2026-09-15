@@ -19,6 +19,16 @@ detail.
 
 ## Current state
 
+- **Part 1 film execution started (2026-09-15).** The maker approved the revised plan and
+  prototype-first sequence. The [internal score](video/part1-score.json) now supplies the
+  halo/corner prototype, source pins, captions and explicitly temporary timing audio. Website
+  work is isolated on `explore/film-part1` at
+  `/Users/clipper/github/snowcrystal_website-film-part1`, based on the inspected growth-library
+  dependency tip `e8f82d0`; the original hero checkout is unchanged. The
+  [execution record](plans/explore-film-part1-science-scroll-documentary.md#execution-record--2026-09-15)
+  names implementation and verification scope. Next: implement and verify WP0A before bulk
+  visuals or full narration. No runtime completion or final recording is claimed yet.
+
 - **Part 1 film plan reviewed and revised (2026-09-15).** The maker's latest direction
   (`JTS-M009`) uses education chapters 1–13 as flexible source material for a documentary under
   one hour, with the maker's narration and generated web visuals in playback/manual reading.
@@ -436,13 +446,14 @@ the package-specific prerequisites in its charter amendment and execution plan. 
 
 ## Next step
 
-### Part 1 film — review complete; prototype next
+### Part 1 film — WP0A in progress
 
 On `explore/film-part1-plan`, open the
 [review and dispositions](reviews/film-part1-plan-review-2026-09-15.md), then the revised
 [film plan](plans/explore-film-part1-science-scroll-documentary.md). The next production step is
 **WP0A**: create the internal draft score for the halo/corner sequence and Run B handovers, then
-implement the short prototype in the sibling website task worktree. First run
+implement the short prototype in `/Users/clipper/github/snowcrystal_website-film-part1` on
+`explore/film-part1` (dependency inspection complete; see execution record). Before continuing run
 `git -C ../snowcrystal_website status --short --branch`,
 `git -C ../snowcrystal_website worktree list --porcelain` and
 `git -C ../snowcrystal_website branch -vv`; read its current instructions and inspect dependency

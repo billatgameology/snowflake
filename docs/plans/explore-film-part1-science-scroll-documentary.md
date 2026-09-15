@@ -3,7 +3,7 @@
 - **Phase:** Maker-directed Journey/media exploration, outside Phase 6 scope (precedents:
   [explore-journey-scroll-documentary.md](explore-journey-scroll-documentary.md),
   [explore-education-ch1-video.md](explore-education-ch1-video.md))
-- **Status:** planning reviewed and revised; production not started
+- **Status:** execution authorized; WP0A prototype in progress
 - **Started:** 2026-09-14
 - **Last touched:** 2026-09-15 by OpenAI Codex (review and authorized plan revisions)
 - **Review:** [findings and dispositions](../reviews/film-part1-plan-review-2026-09-15.md),
@@ -1141,6 +1141,27 @@ corrections, commands and limits. Planning revisions cover story selection, runt
 the sample narration, scientific qualifications, score ownership, access, seekable visuals and
 prototype-first production. The next step is WP0A; full narration, recording, visual acceptance
 and export remain production work. No result of those future checks is claimed here.
+
+## Execution record — 2026-09-15
+
+The maker approved execution after the author-response addendum. WP0A starts with the
+[internal score](../video/part1-score.json); its cue timings and engineering audio are provisional,
+not an approved narration recording. Sources are pinned to the pre-execution repository snapshot.
+The original halo/corner diagram will be an explicitly qualitative schematic, not a solver port
+or new scientific readout. Existing source chapters and numerical code remain untouched.
+
+A fresh website fetch confirmed the reviewed dependency chain. Film implementation is isolated
+at `/Users/clipper/github/snowcrystal_website-film-part1`, branch `explore/film-part1`, starting
+from `origin/feature/growth-library@e8f82d0`. That tip includes the reusable `StageTour` seam and
+column framing over `origin/master@adae404`; the existing `run-b-growth-stage` checkout stays
+unchanged. No remote branch is merged or published by this work.
+
+Implementation choice: one exact, externally advanced renderer; pure cue-time diagrams and
+ending particles; semantic article plus generated no-JavaScript fallback from the score; one
+assembled timing-tone track for browser-clock and audiovisual-export checks. Final speech
+remains the maker's. The route is `/film/part-1`. Product checks are focused clock/score tests,
+website typecheck/build, the approved live browser matrix and a short full-composition export.
+No scientific test suite or gate is launched for this presentation-only slice.
 
 ## Tried and rejected
 
