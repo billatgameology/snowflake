@@ -218,7 +218,7 @@
     <p>
       Chapter 30 told you the Phase 6 numerical ladder returned NO-PASS. C0 asked a narrower
       question: if you throw away the original verdict and recompute it from the 80 stored rows
-      alone, do you get the same answer? This is what Chapters 27 and 28 called an independent
+      alone, do you get the same answer? This is what Chapter 28 and the glossary call an independent
       verifier, a second, separately written program that re-derives the verdict from the stored
       bytes; the Phase 10 record calls it a sibling verifier. The retained first attempt&rsquo;s worker
       took 0.652 seconds (its publication then failed closed on a parser defect, and the published
@@ -229,7 +229,8 @@
     <p>
       The re-derivation also ranked the sources of disagreement, which the original report had not
       done, and the ranking is the useful physics in this phase. Changing the seed radius by one
-      cell moved the attached count by up to 9.3&nbsp;%. Halving the time step moved it by up to
+      cell &mdash; which also changes its thickness by two, since the three tested seeds are 16/33,
+      17/35 and 18/37 cells &mdash; moved the attached count by up to 9.3&nbsp;%. Halving the time step moved it by up to
       3.1&nbsp;%. Enlarging the box moved it by up to 4.8&nbsp;% at the coarse spacing and 1.1&nbsp;%
       at the fine one. Tightening the relaxation tolerance tenfold moved it by exactly
       <strong>zero</strong>, in all eight rows. The solver&rsquo;s inner loop was not the problem; the
@@ -239,7 +240,7 @@
     <figure class="anim is-wide" id="c33-error-sources" data-seed="9.29" data-cfl="3.10" data-domain-coarse="4.78" data-domain-fine="1.11" data-relaxtol="0">
       <div class="anim__head">
         <p class="anim__title">Rank the sources of disagreement</p>
-        <p class="anim__sub">Each bar is the largest attached-count change the ladder saw when one thing was varied. Choose how to read it.</p>
+        <p class="anim__sub">Read the same five sources two ways: by the largest change each one caused, or by how many of its comparisons failed. The order is not the same.</p>
       </div>
       <div class="anim__body"><div class="c33-stage" aria-live="polite"></div></div>
       <div class="anim__controls"></div>
@@ -333,8 +334,10 @@
         timed exactly, then checked a reference derivation against an independent one. The two
         derivations agreed on every numeric quantity to sixteen decimal places: the two residuals were
         about 1.2 and 1.8 parts in ten quadrillion, against a frozen tolerance of one part in a
-        hundred trillion. But one condition in the checker&rsquo;s record, an exact match of the
-        endpoint record, came out false, and the pre-registered rule said any disagreement between
+        hundred trillion. But the checker recorded one failed group, and its error line reads
+        &ldquo;monotonicity/bracket/residual scalar check failed&rdquo;. Every tolerance inside that
+        group passed, so what failed was the remaining condition in it: the exact-equality check on
+        the record of where the search ended. The pre-registered rule said any disagreement between
         reference and check closes the layer as a refusal. It closed. You may judge whether that was
         an honest refusal or a pedantic one; the answer key is that a rule registered before the
         result is not renegotiated after it.</li>
@@ -386,8 +389,9 @@
       these is physics. None of them is even the solver. Each one cost a new frozen recovery version,
       a full test suite of twenty to thirty minutes, and an audit that reported zero blockers and then
       missed the seam the next run hit. Five of the ten stops (runs 3, 4, 9, 10 and 11) trace to one
-      repeated mistake: code that read the frozen version-2 paths of the immutable matrix where the
-      live version-3 overlay was needed. The package had a budget of 24 governed process-hours for
+      shared path resolver: four of them read a frozen path out of the immutable plan where the live
+      overlay was needed, and the fifth refused a path that was perfectly correct and merely
+      read-only. The package had a budget of 24 governed process-hours for
       its controls and used 0.148 of them, nearly all on the preflight checking its own obligations.
       Time the harness spent policing itself and time spent on the experiment are different columns,
       and the second column stayed at zero.
@@ -599,11 +603,21 @@
   /* --- sources of disagreement --- */
   (function(){
     var root=document.getElementById("c33-error-sources"); if(!root) return; var b=box(root);
-    var rows=[["seed radius ±1 cell",9.29,"14 of 16 fail"],["box size, coarse grid",4.78,"5 of 16 fail"],["time step halved",3.10,"3 of 8 fail"],["box size, fine grid",1.11,"6 of 16 fail"],["relaxation tolerance ÷10",0,"0 of 8 fail"]];
+    /* [label, max relative difference %, failures, comparisons] */
+    var rows=[["seed radius ±1 cell",9.29,14,16],["box size, coarse grid",4.78,5,16],["time step halved",3.10,3,8],["box size, fine grid",1.11,6,16],["relaxation tolerance ÷10",0,0,8]];
     function draw(mode){
-      clear(b.stage); var m=el("div","c33-meter"); var max=10; var rule=mode==="Against the 0.5 % rule";
-      rows.forEach(function(x){var row=el("div","c33-row"); row.appendChild(el("strong",null,x[0])); var tr=el("div","c33-track"),f=el("div","c33-fill"+(x[1]>0.5?" is-fail":"")); f.style.width=Math.max(0.6,x[1]/max*100)+"%"; tr.appendChild(f); if(rule){var c=el("div","c33-crit"); c.style.left=(0.5/max*100)+"%"; c.setAttribute("aria-hidden","true"); tr.appendChild(c);} row.appendChild(tr); row.appendChild(el("span",null,rule?x[1].toFixed(2)+" %":x[2])); m.appendChild(row);});
-      m.appendChild(el("p","c33-note",rule?"The thin dark line is the registered half-percent limit. Four of five sources cross it; the solver's inner relaxation loop contributes nothing at all.":"How many registered comparisons failed for each source. The seed radius, a change of one cell in the starting crystal, is the largest driver."));
+      clear(b.stage); var m=el("div","c33-meter"); var rule=mode==="Against the 0.5 % rule"; var max=10;
+      rows.forEach(function(x){
+        var row=el("div","c33-row"); row.appendChild(el("strong",null,x[0]));
+        /* Each mode draws the quantity it names: the maximum difference, or the failure fraction. */
+        var frac=rule?x[1]/max:x[2]/x[3];
+        var tr=el("div","c33-track"),f=el("div","c33-fill"+((rule?x[1]>0.5:x[2]>0)?" is-fail":""));
+        f.style.width=Math.max(0.6,frac*100)+"%"; tr.appendChild(f);
+        if(rule){var c=el("div","c33-crit"); c.style.left=(0.5/max*100)+"%"; c.setAttribute("aria-hidden","true"); tr.appendChild(c);}
+        row.appendChild(tr); row.appendChild(el("span",null,rule?x[1].toFixed(2)+" %":x[2]+" of "+x[3]));
+        m.appendChild(row);
+      });
+      m.appendChild(el("p","c33-note",rule?"Bar length is the largest relative attached-count difference that source produced, on a 0 to 10 % scale. The thin dark line is the registered half-percent limit. Four of five sources cross it; the solver's inner relaxation loop contributes nothing at all.":"Bar length is now the fraction of that source's comparisons that failed, which is a different question: the fine grid produced the smaller largest miss of the two box sizes (1.11 % against 4.78 %) and yet failed more comparisons (6 against 5). A smaller worst case does not mean fewer rows over the line."));
       b.stage.appendChild(m);
     }
     modes(b.controls,["Against the 0.5 % rule","Comparisons failed"],draw);

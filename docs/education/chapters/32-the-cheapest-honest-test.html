@@ -170,11 +170,86 @@
       The test needed no lattice, no facets, no three-dimensional field. Take six of the Penn State
       levitation histories from Chapter 31: two crystals at &minus;33.8&nbsp;&deg;C in air 17&nbsp;%
       supersaturated over ice, four at &minus;35.7&nbsp;&deg;C at 28.6&nbsp;%, all starting between
-      about 8 and 10 micrometres in radius, each followed second by second from time zero until its
-      record ends, between 311 and 499 seconds later. Treat each crystal as a sphere. Add up its
-      predicted growth second by second (integrate it) under four different rules, and compare each
-      predicted mass curve with the measured one.
+      about 8 and 10 micrometres in radius, each scored second by second from time zero to at most
+      499 seconds &mdash; the domain the rule&rsquo;s authors claimed. Four of the records end
+      naturally between 311 and 464 seconds; the two labelled 725 run on past 900 seconds, and those
+      later seconds were simply not scored. Treat each crystal as a sphere. Step its predicted growth
+      forward one second at a time (that is what <em>integrating</em> means here: the program takes
+      four trial slopes inside each second and blends them &mdash; a Runge&ndash;Kutta step &mdash;
+      on a one-second grid), and compare each predicted mass curve with the measured one.
     </p>
+
+    <p>
+      Here is the rule this chapter keeps calling <em>plain continuum theory</em>, written out. It
+      is one line, and almost everything else in this section is an argument about it.
+    </p>
+
+    <div class="equation">
+      <p class="equation__math">
+        d<em>m</em>/d<em>t</em> = 4&pi; <em>r</em> &sigma; <em>K</em>,
+        &nbsp;&nbsp;&nbsp;
+        <em>K</em> = 1 &divide; (<em>R</em><sub>vapour</sub> + <em>R</em><sub>heat</sub>)
+      </p>
+      <div class="equation__where">
+        <strong>where</strong>
+        <dl>
+          <dt>d<em>m</em>/d<em>t</em></dt><dd>how much mass the crystal gains this second, in kilograms per second</dd>
+          <dt><em>r</em></dt><dd>the radius of the sphere with the same volume as the crystal, in metres &mdash; this is the step where a real snow crystal is replaced by a ball</dd>
+          <dt>&sigma;</dt><dd>supersaturation: the surplus vapour the air carries over what ice can hold, from Chapter 4. Here 0.17 for the two crystals at &minus;33.8&nbsp;&deg;C and 0.286 for the four at &minus;35.7&nbsp;&deg;C</dd>
+          <dt><em>K</em></dt><dd>the transfer coefficient: how easily vapour is delivered, in kilograms per metre per second. It is one divided by the sum of two costs, exactly as two resistances add in series</dd>
+          <dt><em>R</em><sub>vapour</sub></dt><dd>the cost of diffusing vapour through the air to the surface</dd>
+          <dt><em>R</em><sub>heat</sub></dt><dd>the cost of carrying the heat released by freezing away again</dd>
+        </dl>
+      </div>
+      <p class="equation__cite">
+        Transcribed from <code>runner/src/phase9-dbt-model.ts</code>, the committed constants and
+        transfer functions of the Phase 9 D-BT test. Chapter 4 wrote the same two doors in different
+        letters (<em>X</em><sub>0</sub>/<em>R</em> and <code>alphaHK</code>) and set heat aside; this
+        rule keeps heat and has no surface term at all, which is another way of saying it assumes
+        every molecule that arrives sticks.
+      </p>
+    </div>
+
+    <p>
+      Put a real crystal into it. At &minus;33.8&nbsp;&deg;C and 97,055&nbsp;pascals the transfer
+      coefficient works out at
+      <strong>3.72&nbsp;&times;&nbsp;10<sup>&minus;9</sup></strong> kilograms per metre per second,
+      and the heat cost is only about 5&nbsp;% of the total: this is a diffusion-limited
+      calculation, and the heat door is nearly wide open. Crystal 725c starts at a radius of
+      8.9&nbsp;micrometres, which for a ball of ice weighs 2.69&nbsp;nanograms. The rule says it
+      collects 0.0708&nbsp;nanograms in its first second &mdash; 2.6&nbsp;% of itself. Add that on,
+      work out the new radius, ask again. That is the whole calculation, repeated 499 times.
+    </p>
+
+    <p>
+      Because <em>K</em> hardly changes while the crystal grows, this particular rule also has an
+      exact answer, which is handy for checking the arithmetic: the <em>square</em> of the radius
+      grows in a straight line.
+    </p>
+
+    <div class="equation">
+      <p class="equation__math">
+        <em>r</em><sup>2</sup> = <em>r</em><sub>0</sub><sup>2</sup> + 2&sigma;<em>Kt</em>&nbsp;&divide;&nbsp;&rho;
+        &nbsp;&nbsp;&nbsp;so&nbsp;&nbsp;&nbsp;
+        <em>m</em>/<em>m</em><sub>0</sub> = (1 + 2&sigma;<em>Kt</em>&nbsp;&divide;&nbsp;&rho;<em>r</em><sub>0</sub><sup>2</sup>)<sup>3/2</sup>
+      </p>
+      <div class="equation__where">
+        <strong>where</strong>
+        <dl>
+          <dt><em>r</em><sub>0</sub></dt><dd>the radius at time zero</dd>
+          <dt>&rho;</dt><dd>the density of ice: 910 kilograms per cubic metre in this model</dd>
+          <dt><em>m</em>/<em>m</em><sub>0</sub></dt><dd>the <strong>mass ratio</strong>, the crystal&rsquo;s mass divided by its starting mass. This is what the test actually compares, so a value of 3 means the crystal has tripled.</dd>
+        </dl>
+      </div>
+      <p class="equation__cite">
+        The same committed constants, integrated. At the &minus;33.8&nbsp;&deg;C conditions the
+        square of the radius grows by 1.391&nbsp;square micrometres every second; at
+        &minus;35.7&nbsp;&deg;C, by 1.909. Both are this course&rsquo;s arithmetic on committed
+        constants, not a Phase 9 result. Chapter 31&rsquo;s &ldquo;mass like time to the power
+        1.5&rdquo; is this same formula at long times.
+      </p>
+    </div>
+
     <p>
       The four rules were plain continuum theory (diffusion of vapour plus conduction of heat, as
       in Chapter 4); a project hybrid that adds a surface-attachment term and a near-surface vapour
@@ -226,7 +301,40 @@
       first, then average the six crystals with equal weight, so that a 500-sample history does not
       outvote a 312-sample one. Smaller is better; a perfect prediction scores zero. The square root
       of a score is the typical miss: about 9 starting masses for plain theory, about 21 for the
-      Lamb rule, under 1 for the baseline. Here is what came back for the family of six histories.
+      Lamb rule, under 1 for the baseline. Here is that sentence as arithmetic.
+    </p>
+
+    <div class="equation">
+      <p class="equation__math">
+        MSE<sub>crystal</sub> =
+        (1/<em>N</em>) &Sigma; (<em>p</em><sub>i</sub> &minus; <em>o</em><sub>i</sub>)<sup>2</sup>
+        &nbsp;&nbsp;&nbsp;
+        MSE<sub>family</sub> = (1/6) &Sigma; MSE<sub>crystal</sub>
+      </p>
+      <div class="equation__where">
+        <strong>where</strong>
+        <dl>
+          <dt><em>p</em><sub>i</sub></dt><dd>the mass ratio the rule predicts at the <em>i</em>-th sampled second</dd>
+          <dt><em>o</em><sub>i</sub></dt><dd>the mass ratio the laboratory measured at that same second</dd>
+          <dt><em>p</em><sub>i</sub> &minus; <em>o</em><sub>i</sub></dt><dd>the <strong>residual</strong>: predicted minus measured. Positive means the rule overshot. (This is not Chapter 22&rsquo;s residual, which measures how far a solver&rsquo;s inner loop is from settling.)</dd>
+          <dt><em>N</em></dt><dd>how many seconds that crystal was scored over: 500, 500, 450, 464, 324 and 312 for the six, 2,550 in all</dd>
+          <dt>&Sigma;</dt><dd>&ldquo;add up all of them&rdquo;</dd>
+        </dl>
+      </div>
+      <p class="equation__cite">
+        Squaring does two jobs at once: it makes a miss in either direction count the same, and it
+        makes one big miss cost more than several small ones. Averaging inside each crystal
+        <em>first</em> is the step that stops the longest history from owning the answer &mdash; the
+        same choice Chapter 31 showed you can make four different ways.
+      </p>
+    </div>
+
+    <p>
+      A worked miniature, with invented numbers: suppose a rule&rsquo;s residuals over five seconds
+      are 0, +0.5, &minus;0.5, +0.5 and +1. Square them (0, 0.25, 0.25, 0.25, 1), average
+      (0.35), and the typical miss is the square root, 0.59. Now replace that last +1 with +3 and the
+      score jumps to 1.95, nearly six times worse, for one bad second out of five. Here is what came
+      back for the real family of six histories.
     </p>
 
     <div class="table-wrap">
@@ -314,12 +422,15 @@
       <div class="anim__body"><div class="c32-stage" aria-live="polite"></div></div>
       <div class="anim__controls"></div>
       <figcaption class="anim__foot"><span class="built-from">
-        Recorded Phase 9 result
-        (<code>evidence/phase9-mf-mk2-planar-diagnostic-v1/mapping-decisions.jsonl</code>) on the
-        two matched prism series (&minus;7 and &minus;15&nbsp;&deg;C):
+        Recorded Phase 9 result on the two matched prism series (&minus;7 and &minus;15&nbsp;&deg;C):
         mean squared error in (µm/s)² for the inherited broad-facet law and the two-branch law at
-        each mapping, against a zero-growth control scoring 0.4508. The two-branch law meets the
-        registered effect at two of five mappings.
+        each mapping, from
+        <code>evidence/phase9-mf-mk2-planar-diagnostic-v1/mapping-decisions.jsonl</code>. The
+        zero-growth control of 0.4508 is not in that file: it is the equal-weight mean of the two
+        matched prism zero-growth rows in the same bundle&rsquo;s <code>series-scores.jsonl</code>
+        (0.361853 and 0.539723). <code>mapping-decisions.jsonl</code> carries a different control,
+        0.40288, over all six series. The two-branch law meets the registered effect at two of five
+        mappings.
       </span></figcaption>
     </figure>
 
@@ -346,9 +457,12 @@
         The family errors are the <code>comparatorFamilyMse</code> values in
         <code>evidence/phase9-dbt-six-history-development-v3/report.json</code>; the six multipliers
         and the residual sign counts are in that record&rsquo;s <code>scores.jsonl</code>. The ten
-        mapping errors and the zero-growth control are the matched-prism and six-series values in
-        <code>evidence/phase9-mf-mk2-planar-diagnostic-v1/mapping-decisions.jsonl</code>. To
-        reproduce &ldquo;five and a half times worse&rdquo;, divide 0.381919 by 0.069841. The two
+        mapping errors are the matched-prism values in
+        <code>evidence/phase9-mf-mk2-planar-diagnostic-v1/mapping-decisions.jsonl</code>; that file
+        also holds a six-series zero-growth control of 0.40288. The 0.4508 control used above is a
+        different number and comes from a different file: it is the equal-weight mean of the two
+        matched prism zero-growth rows in <code>series-scores.jsonl</code>, 0.361853 and 0.539723.
+        To reproduce &ldquo;five and a half times worse&rdquo;, divide 0.381919 by 0.069841. The two
         durations in this chapter come from commit timestamps in the repository history, not from
         any record.
       </p>

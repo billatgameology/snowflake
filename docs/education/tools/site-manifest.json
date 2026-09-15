@@ -242,7 +242,8 @@
     "c29-claim"
   ],
   "chapters/30-finished-failed-and-not-yet-built.html": [
-    "c30-two-results",
+    "c30-gate-board",
+    "c30-rungs",
     "c30-label-stack",
     "c30-profiles",
     "c30-debts"

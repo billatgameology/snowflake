@@ -94,8 +94,8 @@
     </p>
     <p>
       Snow-crystal experiments differ in exactly this way. Some measure how fast a face advances.
-      Some sort the finished crystal into <em>plate</em> or <em>column</em>. Some follow one
-      crystal&rsquo;s mass second by second. The crystals hang in an electric field, or sit on a
+      Some sort the finished crystal into <em>plate</em> or <em>column</em>. Some weigh one
+      crystal about sixteen times a second for an hour. The crystals hang in an electric field, or sit on a
       sapphire window, or fall through a cloud tunnel, or drop through thin helium, or grow in air
       at a mere 40 pascals. The air pressure, the gas, the temperature control, the crystal size and even the
       definition of &ldquo;growth&rdquo; change from paper to paper.
@@ -123,7 +123,7 @@
         <caption>The main experiment families Phase 8 recorded, what they hold the crystal with, and what they write down. Rows marked &ldquo;8A book only&rdquo; sit in the 18-entry target book but are not among the 51 benchmark records.</caption>
         <thead><tr><th>Laboratory and paper</th><th>How the crystal is held</th><th>What is recorded</th><th>In the library</th></tr></thead>
         <tbody>
-          <tr><td>Penn State levitation chamber (Harrison 2016; Pokrifka 2020)</td><td>A frozen droplet floats in an electric field, touching nothing</td><td>The crystal&rsquo;s mass, second by second, for up to an hour, between &minus;31 and &minus;36&nbsp;&deg;C at about 97&nbsp;kPa</td><td class="num">16 mass histories, 252,040 rows</td></tr>
+          <tr><td>Penn State levitation chamber (Harrison 2016; Pokrifka 2020)</td><td>A frozen droplet floats in an electric field, touching nothing</td><td>The crystal&rsquo;s mass, about sixteen readings every second, for up to an hour, between &minus;31 and &minus;36&nbsp;&deg;C at about 97&nbsp;kPa</td><td class="num">16 mass histories, 252,040 rows</td></tr>
           <tr><td>Penn State thermal-gradient chamber (Harrington &amp; Pokrifka 2026 archive)</td><td>A crystal grows on a support at &minus;50&nbsp;&deg;C</td><td>Two dimension histories over hours; the forcing (how hard the environment pushes the crystal to grow, in practice the supersaturation the experimenter sets) is labelled &ldquo;48&nbsp;%&rdquo; and &ldquo;20&nbsp;%&rdquo; without saying 48&nbsp;% of what</td><td class="num">2 histories, 94 rows</td></tr>
           <tr><td>Libbrecht 2011, Caltech</td><td>Two crystals on a temperature-controlled sapphire window at &minus;15&nbsp;&deg;C, 1&nbsp;bar</td><td>Radius and thickness against time while the far-field supersaturation is stepped through a schedule</td><td class="num">207 digitized points</td></tr>
           <tr><td>Libbrecht 2016, Caltech</td><td>Two needle crystals at &minus;5&nbsp;&deg;C, 1&nbsp;bar</td><td>Height and tip radius against time; the height curves carry an arbitrary constant the paper subtracted (about 15 and 10 micrometres at time zero), which must not be read as a real starting height</td><td class="num">78 digitized points</td></tr>
@@ -191,7 +191,10 @@
         Teaching example built from the Phase 8 record for Libbrecht 2011 (two crystals at
         &minus;15&nbsp;&deg;C on sapphire, 1&nbsp;bar;
         <code>evidence/phase8b-plot-digitization-v3/records.jsonl</code>). The matching rule is simplified to three
-        checks; real records carry units, uncertainty where available, and explicit gaps.
+        checks; real records carry units, uncertainty where available, and explicit gaps. Every option
+        here ends refused, which is the honest state of this record: no substrate representation has
+        been adopted for the solver, so there is no model operand to subtract, and Phase 8 subtracted
+        nothing. The figure cannot show what such a comparison would come out at.
       </span></figcaption>
     </figure>
 
@@ -235,7 +238,55 @@
       and it did so conditionally: Takahashi&rsquo;s free-falling crystals gained mass like time to
       the power 1.5, and Bacon&rsquo;s levitated particles grew in radius like the square root of
       time. Those are the same law if the crystal keeps roughly the same shape and density, because
-      mass goes as radius cubed, and the cube of a square root is the power 1.5. The other fifteen
+      mass goes as radius cubed, and the cube of a square root is the power 1.5.
+    </p>
+
+    <div class="equation">
+      <p class="equation__math">
+        <em>m</em> = &rho;&thinsp;<em>k</em>&thinsp;<em>r</em><sup>3</sup>
+        &nbsp;&nbsp;and&nbsp;&nbsp;
+        <em>r</em> = <em>a</em>&thinsp;<em>t</em><sup><em>p</em></sup>
+        &nbsp;&nbsp;so&nbsp;&nbsp;
+        <em>m</em> &prop; <em>t</em><sup>3<em>p</em></sup>
+      </p>
+      <div class="equation__where">
+        <strong>where</strong>
+        <dl>
+          <dt><em>m</em></dt><dd>the crystal&rsquo;s mass</dd>
+          <dt>&rho;</dt><dd>the density of ice &mdash; constant, as long as the crystal stays solid rather than turning hollow or feathery</dd>
+          <dt><em>k</em></dt><dd>a shape factor (4&pi;/3 for a sphere). It stays constant only while the crystal keeps its proportions. <strong>This is the condition.</strong></dd>
+          <dt><em>r</em></dt><dd>the radius of the sphere with the same volume as the crystal</dd>
+          <dt><em>a</em></dt><dd>a constant set by the conditions; it fixes the size, not the shape of the curve</dd>
+          <dt><em>p</em></dt><dd>the radius exponent: 0.5 in Bacon&rsquo;s levitated particles</dd>
+          <dt>3<em>p</em></dt><dd>the mass exponent that follows &mdash; 1.5, which is Takahashi&rsquo;s number for isometric crystals</dd>
+          <dt>&prop;</dt><dd>&ldquo;grows in proportion to&rdquo;</dd>
+        </dl>
+      </div>
+      <p class="equation__cite">
+        Exponents from <code>research/phase8-target-book.jsonl</code>, entry
+        <code>P8-T-BACON-DIFFUSION-SCALING</code> (radius as time to the one-half power) and
+        <code>P8X-T91-OBS-08</code> (1.5 for isometric crystals at &minus;3.7, &minus;8.6,
+        &minus;10.6, &minus;20.1 and &minus;22.0&nbsp;&deg;C). Only the exponents are recorded
+        values; the algebra joining them is this course&rsquo;s.
+      </p>
+    </div>
+
+    <p>
+      Put numbers on it. Double the time: the radius grows by a factor of 1.41, the square root of
+      two, and the mass by 2.83, which is two to the power 1.5. Two laboratories measured different
+      quantities with different instruments and landed on one growth law. <strong>Now break the
+      condition.</strong> Let the crystal grow as a plate whose thickness stays fixed: mass now goes
+      as radius <em>squared</em>, the mass exponent falls to 1.0, and the two witnesses stop agreeing
+      without either of them being wrong. Takahashi&rsquo;s own shape-enhanced cases run above 1.9.
+      That is what the word <em>conditional</em> is doing in &ldquo;Class A, conditional&rdquo;. A
+      second limit travels with the pair: Takahashi&rsquo;s time points are different crystals at
+      different ages while Bacon followed individual particles through time, and the sources supply
+      no common raw rows for a joint fit. Chapter 32 meets the same law from the other end, as the
+      rule the Phase 9 sphere test integrates second by second.
+    </p>
+
+    <p>
+      The other fifteen
       targets, and both inputs, were Class B. None was Class C. One candidate disagreement, about the
       cold end below &minus;20&nbsp;&deg;C, could not be filed because the papers that govern it were
       never acquired and extracted; the other, two laboratories&rsquo; fitted attachment coefficients,
@@ -332,14 +383,19 @@
     <figure class="anim is-wide" id="c31-blender" data-lesson="no-global-score">
       <div class="anim__head">
         <p class="anim__title">Blend or keep the labels?</p>
-        <p class="anim__sub">Compare two ways of summarizing unlike evidence, and notice what the single number hides.</p>
+        <p class="anim__sub">Squeeze three unlike families into one headline, twice, under two defensible rules. Watch the headline move.</p>
       </div>
       <div class="anim__body"><div class="c31-stage" aria-live="polite"></div></div>
       <div class="anim__controls"></div>
       <figcaption class="anim__foot"><span class="built-from">
-        Conceptual demonstration. The sample values are invented to expose weighting and
-        compatibility problems. Phase 8 published no global score, and this figure does not
-        reconstruct one.
+        The three family scores are <strong>invented</strong>, and are labelled so on the figure; they
+        exist only to expose weighting and compatibility problems. The row counts that do the
+        weighting are the committed ones (252,040 levitation rows,
+        <code>evidence/phase8b-native-histories-v1/records.jsonl</code>; Takahashi&rsquo;s two habit
+        boundaries; 50 Gonda&ndash;Komabayasi points,
+        <code>evidence/phase8b-plot-digitization-v3/records.jsonl</code>). Every headline shown is
+        computed on the page from those bars under the named rule, never quoted. Phase 8 published no
+        global score; this figure does not reconstruct one and cannot say which rule would be right.
       </span></figcaption>
     </figure>
 
@@ -543,7 +599,7 @@
     var cases={
       "A finished habit label":{obs:"plate or column class",where:"free crystal in the model box",cond:"−15 °C, one constant forcing",checks:[false,false,false],verdict:"No match",why:"A class is not a radius; the box has no window; a constant forcing is not the recorded schedule."},
       "Radius at one constant forcing":{obs:"radius against time",where:"free crystal in the model box",cond:"−15 °C, one constant forcing",checks:[true,false,false],verdict:"Not yet",why:"Same observable. But the window that cooled the real crystal is absent, and the real forcing was ramped through a recorded schedule during the run (37 recorded forcing points for crystal 1), not held constant."},
-      "Radius, mirrored window, schedule":{obs:"radius against time",where:"mirror-plane stand-in for the window",cond:"−15 °C, the recorded schedule replayed",checks:[true,true,true],verdict:"Comparable, with limits",why:"All three checks pass on paper. The record still carries a limit: the window's heat flow is represented by an assumption, not measured, and that limit travels with any result. Comparable means the subtraction is allowed, not that it came out small: Phase 8 performed no subtraction at all."}
+      "Radius, recorded schedule replayed":{obs:"radius against time",where:"free crystal in the model box",cond:"−15 °C, the recorded schedule replayed",checks:[true,false,true],verdict:"Still refused: apparatus",why:"Two of three now match, and the third cannot be fixed by choosing a different output. The real crystal sat on a sapphire window that carried heat and vapour away asymmetrically; the model has no window, and no substrate representation has been adopted for it (the Phase 9 plan still lists one as an open decision). Three-of-four green is not a pass: a refused operand is refused."}
     };
     function draw(name){
       clear(b.stage); var c=cases[name];
@@ -565,14 +621,14 @@
   (function(){
     var root=document.getElementById("c31-witnesses"); if(!root) return; var b=box(root);
     var cases={
-      "Mass grows like t to the 1.5":{labs:["Hokkaido cloud tunnel (Takahashi 1991)","Electrodynamic balance (Bacon 2003)"],cls:"Class A, conditional",why:"Two laboratories, two methods, one law: mass like t^1.5 and radius like t^0.5 agree if shape and density stay roughly fixed. The only Class A target in the book, and it carries that condition."},
-      "Plates give way to columns at −4.0 °C":{labs:["Hokkaido cloud tunnel (Takahashi 1991)"],cls:"Class B",why:"One laboratory, one apparatus, one protocol. Real and useful, but a single point of view. Libbrecht's near-equal face rates at −8 °C are recorded as context, not as a second witness."},
-      "Habit boundary below −20 °C":{labs:[],cls:"No target",why:"The papers that would carry it (Bailey and Hallett, 2004 to 2012) were never acquired. Only a 2002 precursor is on file, and it was recorded as a source gap rather than digitized."},
-      "Libbrecht vs Penn State coefficients":{labs:["Caltech substrate growth","Penn State levitation"],cls:"Not Class C",why:"Two laboratories, but they inverted different quantities under different assumptions. Unlike quantities cannot disagree, so the book refused to file this as a standing disagreement. Both records are calibration inputs, not targets, and an input can never validate the model whatever its class (Chapter 17)."}
+      "Mass grows like t to the 1.5":{labs:["Hokkaido cloud tunnel (Takahashi 1991)","Electrodynamic balance (Bacon 2003)"],witnesses:2,cls:"Class A, conditional",why:"Two laboratories, two methods, one law: mass like t^1.5 and radius like t^0.5 agree if shape and density stay roughly fixed. The only Class A target in the book, and it carries that condition."},
+      "Plates give way to columns at −4.0 °C":{labs:["Hokkaido cloud tunnel (Takahashi 1991)"],witnesses:1,cls:"Class B",why:"One laboratory, one apparatus, one protocol. Real and useful, but a single point of view. Libbrecht's near-equal face rates at −8 °C are recorded as context, not as a second witness."},
+      "Habit boundary below −20 °C":{labs:[],witnesses:0,cls:"No target",why:"The papers that would carry it (Bailey and Hallett, 2004 to 2012) were never acquired. Only a 2002 precursor is on file, and it was recorded as a source gap rather than digitized."},
+      "Libbrecht vs Penn State coefficients":{labs:["Caltech substrate growth","Penn State levitation"],witnesses:0,cls:"Not Class C",why:"Two laboratories, but they inverted different quantities under different assumptions. Unlike quantities cannot disagree, so neither counts as a witness to the other and the book refused to file this as a standing disagreement. Both records are calibration inputs, not targets, and an input can never validate the model whatever its class (Chapter 17)."}
     };
     function draw(name){
       clear(b.stage); var c=cases[name]; var card=el("div","c31-card");
-      card.appendChild(el("span","c31-kicker","independent witnesses: "+c.labs.length));
+      card.appendChild(el("span","c31-kicker","laboratories consulted: "+c.labs.length+" · comparable witnesses: "+c.witnesses));
       var w=el("div","c31-witness"); if(c.labs.length){c.labs.forEach(function(l){w.appendChild(el("span","c31-badge is-lab",l));});}else{w.appendChild(el("span","c31-badge","no acquired source"));}
       card.appendChild(w); card.appendChild(el("div","c31-answer",c.cls)); card.appendChild(el("p","c31-note",c.why));
       b.stage.appendChild(card);
@@ -600,22 +656,44 @@
   /* --- blender: one score vs typed --- */
   (function(){
     var root=document.getElementById("c31-blender"); if(!root) return; var b=box(root);
+    /* Three invented family scores, and the committed row counts of the real families they stand
+       in for. The headline is COMPUTED from these under the named rule, never printed as a
+       literal, so that changing the rule visibly changes the number. */
+    var fams=[
+      {name:"growth speed",score:82,rows:252040,note:"native history · one laboratory"},
+      {name:"habit class",score:48,rows:2,note:"categorical · two numbers"},
+      {name:"pressure response",score:61,rows:50,note:"different apparatus · other gas"}
+    ];
+    var rules={
+      "Keep the labels":null,
+      "One score · equal weight":function(){var s=0;fams.forEach(function(f){s+=f.score;});return{v:s/fams.length,rule:"(82 + 48 + 61) ÷ 3 — one vote per family, whatever it cost to measure"};},
+      "One score · weight by rows":function(){var n=0,s=0;fams.forEach(function(f){n+=f.rows;s+=f.score*f.rows;});return{v:s/n,rule:"each family weighted by its row count (252,040 : 2 : 50) — the biggest instrument decides"};}
+    };
     function draw(mode){
       clear(b.stage);
-      if(mode==="One score"){
-        var d=el("div","c31-card"); d.appendChild(el("span","c31-kicker","apparently simple")); d.appendChild(el("div","c31-answer","73 / 100"));
-        d.appendChild(el("p","c31-note","Which instrument dominated? Were the units compatible? What happened to the rows with no uncertainty? The number hides every one of those questions, and it invites tuning."));
-        b.stage.appendChild(d);
+      var rack=el("div","c31-rack");
+      fams.forEach(function(f){
+        var q=el("div","c31-row"); q.appendChild(el("strong",null,f.name));
+        var t=el("div","c31-track"),fi=el("div","c31-fill"); fi.style.width=f.score+"%"; t.appendChild(fi);
+        q.appendChild(t); q.appendChild(el("span","c31-note",f.score+" · "+f.note)); rack.appendChild(q);
+      });
+      b.stage.appendChild(rack);
+      var d=el("div","c31-card");
+      if(!rules[mode]){
+        d.appendChild(el("span","c31-kicker","three answers, kept apart"));
+        d.appendChild(el("div","c31-answer","no single number"));
+        d.appendChild(el("p","c31-note","Each bar keeps its own label, its own apparatus and its own limits, so a later question can be asked of the compatible rows only."));
       } else {
-        var rack=el("div","c31-rack");
-        [["growth speed",82,"native history · one laboratory"],["habit class",48,"categorical · two numbers"],["pressure response",61,"different apparatus · other gas"]].forEach(function(x){
-          var q=el("div","c31-row"); q.appendChild(el("strong",null,x[0])); var t=el("div","c31-track"),f=el("div","c31-fill"); f.style.width=x[1]+"%"; t.appendChild(f); q.appendChild(t); q.appendChild(el("span","c31-note",x[2])); rack.appendChild(q);
-        });
-        rack.appendChild(el("p","c31-note","Invented values. Each bar keeps its own label, its own apparatus and its own limits, so a later question can be asked of the compatible rows only."));
-        b.stage.appendChild(rack);
+        var r=rules[mode]();
+        d.appendChild(el("span","c31-kicker","apparently simple"));
+        d.appendChild(el("div","c31-answer",r.v.toFixed(1)+" / 100"));
+        d.appendChild(el("p","c31-note","Weighting rule: "+r.rule+"."));
+        d.appendChild(el("p","c31-note","Two defensible rules, two different headlines from the same three bars. Which instrument dominated? Were the units compatible? What happened to the rows with no uncertainty? A single number hides every one of those questions, and it invites tuning."));
       }
+      d.appendChild(el("p","c31-note","The three scores are invented. Only the row counts are real (252,040 levitation rows; Takahashi's two habit boundaries; 50 Gonda–Komabayasi points). Phase 8 published no global score, and this figure does not reconstruct one."));
+      b.stage.appendChild(d);
     }
-    modes(b.controls,["Keep the labels","One score"],draw);
+    modes(b.controls,["Keep the labels","One score · equal weight","One score · weight by rows"],draw);
   })();
 
   /* --- provenance chain --- */
