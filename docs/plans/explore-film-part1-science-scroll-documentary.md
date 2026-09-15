@@ -3,9 +3,9 @@
 - **Phase:** Maker-directed Journey/media exploration, outside Phase 6 scope (precedents:
   [explore-journey-scroll-documentary.md](explore-journey-scroll-documentary.md),
   [explore-education-ch1-video.md](explore-education-ch1-video.md))
-- **Status:** execution authorized; WP0A prototype in progress
+- **Status:** WP0A complete; WP1 script/score drafted (maker read pending); WP2 text review resolved
 - **Started:** 2026-09-14
-- **Last touched:** 2026-09-15 by OpenAI Codex (review and authorized plan revisions)
+- **Last touched:** 2026-09-15 by OpenAI Codex (authorized implementation and full-script draft)
 - **Review:** [findings and dispositions](../reviews/film-part1-plan-review-2026-09-15.md),
   reviewing the original plan at `d7d1de70251be1fb8b8596b8e6da35d82ef2b8a4`.
 
@@ -22,8 +22,9 @@ This also prepares a new viewer for Part 2's model-development story and recorde
 This plan is the first draft of Part 1's **narrative score** (media spec, "Living scroll
 documentary"): the act and scene order, what each scene must teach and why Part 2 needs it, the
 visual that carries each beat and where it comes from, the narration budget per scene, the tags
-and confidence labels, and the runtime shape the website needs. The complete narration script is
-the next deliverable, not this one; one scene is scripted here as the template.
+and confidence labels, and the runtime shape the website needs. The full narration now lives in
+[part1-script.md](../video/part1-script.md); the inventory and sample below retain the reviewed
+planning context. The execution record identifies the selected production draft and its checks.
 
 The original maker direction is preserved verbatim in the Journey transcript as `JTS-M008`
 ([TRANSCRIPT.md](../journey/TRANSCRIPT.md)), together with the four decisions the maker selected:
@@ -1067,7 +1068,7 @@ figure.
 
 - [x] **WP0 — Original plan and requested review.** The initial plan is committed at `d7d1de7`.
       The review file records the complete diff assessment, corrections and evidence limits.
-- [ ] **WP0A — Representative film prototype.** Create the minimal internal score for the selected
+- [x] **WP0A — Representative film prototype.** Create the minimal internal score for the selected
       halo/corner sequence and Run B transitions, with source references and temporary timing;
       implement it in the website task branch. Exercise the runtime/check matrix above, including
       static reading and a short whole-composition export. Temporary audio is an engineering
@@ -1079,12 +1080,17 @@ figure.
       claim scope, prose/descriptions, visual and audio/caption references. Every factual beat
       has a source or is identified as interpretation. Cut/merge optional scenes; budget pauses,
       transitions and credits. Read aloud and keep the complete cut under one hour.
-- [ ] **WP2 — Complete-script fact-check.** A non-author review under Rules 10/13 checks WP1
+      Draft text/score are prepared; the checkbox remains open for the maker's aloud read.
+- [x] **WP2 — Complete-script fact-check.** A non-author review under Rules 10/13 checks WP1
       against the sources and the repairs here. Resolve factual blockers before final narration
       recording; this plan review does not approve unwritten dialogue.
-- [ ] **WP3 — Selected archive rights.** Record the exact item and reuse basis for each chosen
+      The [complete-script review](../reviews/film-part1-script-review-2026-09-15.md) resolves
+      the text check for its named hash; changed dialogue does not inherit that verdict.
+- [x] **WP3 — Selected archive rights.** Record the exact item and reuse basis for each chosen
       archive asset. Replace unresolved candidates with original diagrams or omit them. This can
       proceed alongside script work and does not block a diagram-only prototype.
+      No archive image is selected in the full draft: original diagrams and the identified
+      project replay suffice. Reopen this item if an external image is introduced.
 - [ ] **WP4 — Expand the verified runtime.** Add the selected story to the shared stage and
       semantic article, keeping time, controls, loading and reduced-motion behaviour from WP0A.
       Import the identified score version and preserve existing website routes.
@@ -1129,32 +1135,34 @@ carry the accepted source-wording and editorial refinements; incorporate them du
   rights record. No historical image is necessary for the prototype.
 - **Public hosting and release identity:** choose at publication. Existing local or governed
   replay files support development after identity checks; no new remote upload is implied.
-- **Cue appearance:** inspect Run B's actual seed, branching and final frames in WP0A, then choose
-  camera and growth cues. The inherited g column is a draft hint, not evidence about appearance.
-- **Site integration:** inspect current branches before WP0A. Resolve local dependency order
-  from their actual code; preserve the independent hero/library work and defer merging to master.
+- **Cue appearance:** WP0A inspected actual seed, branching and final frames. Full-story camera
+  and growth cues still need selection; the inherited g column is a draft hint, not evidence.
+- **Site integration:** dependency inspection and isolated implementation are complete as recorded
+  below. Preserve the independent hero/library work; merging to master remains separate work.
 
 ## Review completion
 
 The [review record](../reviews/film-part1-plan-review-2026-09-15.md) names the findings, applied
 corrections, commands and limits. Planning revisions cover story selection, runtime budgeting,
 the sample narration, scientific qualifications, score ownership, access, seekable visuals and
-prototype-first production. The next step is WP0A; full narration, recording, visual acceptance
-and export remain production work. No result of those future checks is claimed here.
+prototype-first production. At review completion the next step was WP0A; its executed result
+and current production state are recorded below. The plan review itself did not approve final
+narration, visuals or export.
 
 ## Execution record — 2026-09-15
 
-The maker approved execution after the author-response addendum. WP0A starts with the
+The maker approved execution after the author-response addendum. WP0A started with the
 [internal score](../video/part1-score.json); its cue timings and engineering audio are provisional,
 not an approved narration recording. Sources are pinned to the pre-execution repository snapshot.
-The original halo/corner diagram will be an explicitly qualitative schematic, not a solver port
+The original halo/corner diagram is an explicitly qualitative schematic, not a solver port
 or new scientific readout. Existing source chapters and numerical code remain untouched.
 
 A fresh website fetch confirmed the reviewed dependency chain. Film implementation is isolated
 at `/Users/clipper/github/snowcrystal_website-film-part1`, branch `explore/film-part1`, starting
 from `origin/feature/growth-library@e8f82d0`. That tip includes the reusable `StageTour` seam and
 column framing over `origin/master@adae404`; the existing `run-b-growth-stage` checkout stays
-unchanged. No remote branch is merged or published by this work.
+unchanged. Website implementation is committed at `a9d18b3252ca0e456d478cdf23293cf175c5bd97`.
+No remote branch is merged or published by this work.
 
 Implementation choice: one exact, externally advanced renderer; pure cue-time diagrams and
 ending particles; semantic article plus generated no-JavaScript fallback from the score; one
@@ -1163,7 +1171,66 @@ remains the maker's. The route is `/film/part-1`. Product checks are focused clo
 website typecheck/build, the approved live browser matrix and a short full-composition export.
 No scientific test suite or gate is launched for this presentation-only slice.
 
+**WP0A result.** The [verification record](../video/part1-prototype-verification.json) copies
+the browser/export reports and successful build/test output at write time. The website imports
+the prototype score from `40e7891`, byte digest recorded in `src/film/score-origin.json`.
+The source chapters bind published revision `929189b7ff0132fe288a562796812c68ec886840`,
+verified byte-identical to the reviewed chapter snapshot. The replay is checked by its score
+digest in the decoding worker before use. One audio clock owns playback; reader input and
+hidden-tab events pause it, with no automatic restart. Reduced-motion/phone/no-WebGL modes
+retain descriptive stills and the complete semantic article; a generated no-JavaScript page
+contains the same argument. The diagram is visibly schematic and Run B remains unvalidated,
+with its thickness styling disclosed.
+
+Recorded checks: 6 focused timeline tests and 16 browser checks pass; the existing TypeScript/
+Vite build exits 0 (existing large-chunk warning retained). A 180-frame montage spanning two
+model/diagram boundaries and the ending decodes with both video and audio at exactly 6.000 s,
+1920×1080/30 fps, 8-bit yuv420p/BT.709 and 48 kHz AAC. Its observed export wall time is 28.061 s.
+Selected direct/reverse/reload samples are byte-identical on Chrome 153.0.8010.36 / Apple M4
+Metal. The decoded replay uses 23,912,132 bytes; instrumented GPU allocation payloads total
+85,290,704 bytes, excluding browser/driver/default-framebuffer/compositor overhead. These
+numbers are copied from the named verification JSON, not estimates for the complete film.
+Representative decoded MP4 frames were visually inspected; no narrated-film viewing is claimed.
+Touch/visibility/scroll-key events were synthesized, not tested on real mobile hardware.
+
+The [bounded non-author runtime review](../reviews/film-part1-runtime-review-2026-09-15.md)
+records the discovered defects, repairs and no-remaining-blocker WP0A verdict. It distinguishes
+the reviewer's own source/hash checks from the implementation agent's executed product checks.
+A final live navigation smoke also returned from the film to the original homepage and Run B
+page, exercised its FINAL control, and returned to the film. This was an observed navigation
+smoke, not a full audit of the existing pages' content or behavior.
+
+**WP1 draft and WP2 result.** [The full script](../video/part1-script.md) selects sixteen
+sequences and incorporates the author-response refinements. Its separate `productionDraft`
+member in the same score preserves the checked prototype playback fields. Draft statistics,
+copied from that member and reproduced by `node scripts/build-part1-production-score.mjs --check`:
+3,924 spoken words, 82 timed rows (64 spoken), 1,920 allocated speech seconds plus 200 explicit
+silent seconds, 2,120 seconds total (35:20), and a maximum allocated row rate of 140 words/minute.
+These are arithmetic on authored time slots, not measured maker delivery. The generator binds
+the full script and review bytes, source revision/path/anchors and source scope; it rejects stale
+identity, malformed timings/columns and score drift. Its default command prints the generated
+member without writing files; apply changes as a reviewed patch, then use `--check`.
+
+The [complete non-author source audit](../reviews/film-part1-script-review-2026-09-15.md) found
+no recording-blocking factual issue. It independently checked the selected Run B payload's
+nineteen-cell seed and reaffirmed the current script hash after metadata-only status changes.
+WP2 text review is resolved; no aloud maker read or final recording has occurred, so WP1's read
+criterion remains open. No external archive images are selected (WP3); original diagrams and
+project replay supply the chosen visuals. WP4/WP5 expand this story on the checked runtime;
+full visual production, actual narration/captions, full export and maker acceptance remain open.
+
+Closeout checks for the documentation/score boundary: `node --check scripts/build-part1-production-score.mjs`,
+`node scripts/build-part1-production-score.mjs --check`, `node scripts/lint-rule7.mjs`, and
+`git diff --check`. These are not a scientific suite or phase-gate claim.
+
 ## Tried and rejected
+
+- **Assume the renderer is ready when its worker returns.** R3F mounts later; an explicit
+  driver-ready handshake and texture-ready draw are required before capture acknowledgement.
+- **Reuse the hero's near plane and root transition unchanged.** The former hid the seed;
+  the latter caused reload sample differences. Exact film rendering owns these settings.
+- **Join independently AAC-encoded sample clips.** Padding moved audio beyond the video end;
+  cut the original continuous PCM fixture and encode the joined audio once.
 
 - **Treat chapters or the original scene order as compulsory film structure.** Superseded by
   JTS-M009: use them as source material and edit for story and understanding.

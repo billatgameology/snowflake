@@ -19,15 +19,24 @@ detail.
 
 ## Current state
 
-- **Part 1 film execution started (2026-09-15).** The maker approved the revised plan and
-  prototype-first sequence. The [internal score](video/part1-score.json) now supplies the
-  halo/corner prototype, source pins, captions and explicitly temporary timing audio. Website
-  work is isolated on `explore/film-part1` at
-  `/Users/clipper/github/snowcrystal_website-film-part1`, based on the inspected growth-library
-  dependency tip `e8f82d0`; the original hero checkout is unchanged. The
-  [execution record](plans/explore-film-part1-science-scroll-documentary.md#execution-record--2026-09-15)
-  names implementation and verification scope. Next: implement and verify WP0A before bulk
-  visuals or full narration. No runtime completion or final recording is claimed yet.
+- **Part 1 film prototype implemented and checked (2026-09-15).** WP0A now runs at
+  `http://127.0.0.1:5185/film/part-1` in the isolated sibling website worktree
+  `/Users/clipper/github/snowcrystal_website-film-part1`, branch `explore/film-part1`, committed
+  at `a9d18b3252ca0e456d478cdf23293cf175c5bd97`. Nothing was pushed or published.
+  The [verification record](video/part1-prototype-verification.json) copies the executed checks:
+  6 focused timeline tests, 16 browser checks, successful TypeScript/Vite build, and a decoded
+  6.000-second, 180-frame audiovisual montage at 1920×1080/30 fps. Export wall time was 28.061 s
+  on the named Apple M4/Chrome renderer; this is a bounded sample, not full-film cost.
+  The route itself is an 80-second halo/corner and ending rehearsal with timing tones, not
+  maker narration. Static reading, reduced motion, reverse seeking and interrupted playback
+  are exercised with the limits in that record. The original hero checkout is unchanged.
+  The [runtime review](reviews/film-part1-runtime-review-2026-09-15.md) has no remaining
+  blocking/high WP0A finding. The [full script](video/part1-script.md) has passed its
+  [non-author source audit](reviews/film-part1-script-review-2026-09-15.md), including actual
+  Run B seed identity. The score's separate `productionDraft` records 3,924 spoken words and
+  a provisional 2,120-second (35:20) cut; these are draft arithmetic, not recorded delivery.
+  Repro: `node scripts/build-part1-production-score.mjs --check`. The maker's aloud read and
+  recording remain unperformed; full-story visual expansion is still future work.
 
 - **Part 1 film plan reviewed and revised (2026-09-15).** The maker's latest direction
   (`JTS-M009`) uses education chapters 1–13 as flexible source material for a documentary under
@@ -39,11 +48,12 @@ detail.
   and puts a representative visual/playback/export prototype before bulk production. Current
   sources govern claim scope; the old Phase 6 education freeze is not reinstated.
   Documentation checks pass: `node scripts/lint-rule7.mjs` and `git diff --check`; the review
-  records the sample-script arithmetic and limits. No film runtime or final narration exists.
+  records the sample-script arithmetic and limits. No runtime or final narration existed at
+  that review point; the execution entry above is current.
   The [author-response addendum](reviews/film-part1-plan-review-2026-09-15.md#author-response-and-wp1-notes)
   records the source-wording refinements for WP1 and the author-run graph check; the revision
-  and prototype-first sequence are retained. Next: WP0A, a minimal internal score and local
-  website prototype; apply the addendum when writing the full narration.
+  and prototype-first sequence are retained. Its accepted wording and reveal refinements are
+  incorporated into the full narration draft.
 - **macOS dev-server guard defect fixed; NAS closeout checked from the Mac (2026-09-09).** On this
   Mac the documented `npm run dev --workspace app -- --port 5191` served every gallery page as an
   unstyled "Loading…" shell. The repository-local `/@fs` guard in `app/vite.config.ts` strips
@@ -305,7 +315,7 @@ detail.
   previews, zero full recording downloads on browse-first entry and no unexpected errors
   (`out/growth-gallery/browser-smoke.json`). Keyboard focus, phone layout, selection, playback,
   filter/scroll retention and broken-image fallback pass. Next: open the gallery link below.
-- **Last updated:** 2026-09-15 (Part 1 film plan review and revisions; no phase or scientific-evidence change)
+- **Last updated:** 2026-09-15 (Part 1 film prototype and narration execution; no phase or scientific-evidence change)
 - **Optional graphs and MP4 export are complete.** Single views offer attached-site,
   interval-attachment and outward-reach graphs with independent toggles and synchronized seeking.
   **Export MP4** creates the current treatment/camera in H.264, with optional graphs. Actual UI
@@ -351,9 +361,11 @@ and every superseded attempt live in the linked plans and historical progress sn
 
 ## Active plan
 
-The [Part 1 film plan](plans/explore-film-part1-science-scroll-documentary.md) is reviewed and
-revised on `explore/film-part1-plan`. Its next production step is the local website prototype;
-the [review record](reviews/film-part1-plan-review-2026-09-15.md) holds findings and dispositions.
+The [Part 1 film plan](plans/explore-film-part1-science-scroll-documentary.md) is executing on
+`explore/film-part1-plan`, with website implementation isolated on `explore/film-part1`.
+WP0A is checked and committed in the website; WP1's script/score are drafted and WP2's source
+audit is resolved. The aloud maker read is still an open WP1 production input.
+The [plan review](reviews/film-part1-plan-review-2026-09-15.md) holds earlier dispositions.
 
 The maker-directed [growth visual studies](plans/dendrite-visual-studies.md), including the
 newer named catalogue, are complete on `fix/animation-queue-windows-spawn` in `snowflake-animation`.
@@ -446,29 +458,28 @@ the package-specific prerequisites in its charter amendment and execution plan. 
 
 ## Next step
 
-### Part 1 film — WP0A in progress
+### Part 1 film — maker read-through and full-story visual expansion
 
 On `explore/film-part1-plan`, open the
-[review and dispositions](reviews/film-part1-plan-review-2026-09-15.md), then the revised
-[film plan](plans/explore-film-part1-science-scroll-documentary.md). The next production step is
-**WP0A**: create the internal draft score for the halo/corner sequence and Run B handovers, then
-implement the short prototype in `/Users/clipper/github/snowcrystal_website-film-part1` on
-`explore/film-part1` (dependency inspection complete; see execution record). Before continuing run
-`git -C ../snowcrystal_website status --short --branch`,
-`git -C ../snowcrystal_website worktree list --porcelain` and
-`git -C ../snowcrystal_website branch -vv`; read its current instructions and inspect dependency
-diffs before changing that repository. The plan records the website refs observed during review.
-Resolve local replay assets by their existing identities; public hosting does not block this
-prototype. Prove reverse/manual scrolling, intentional playback, interruption/resume, static
-reading and a short full-composition export before porting the larger diagram inventory.
-Then write the selected full narration and score, incorporating the review's author-response
-notes for S04/S05/S18, the opening reveal and the sourced first-person hook; fact-check it and
-record the maker's voice. No further scene-plan review is required by that response.
+[execution record](plans/explore-film-part1-science-scroll-documentary.md#execution-record--2026-09-15)
+and [full script](video/part1-script.md), whose
+[source review](reviews/film-part1-script-review-2026-09-15.md) is resolved. Run
+`node scripts/build-part1-production-score.mjs --check` to verify the generated `productionDraft`
+and its script/review identities. The maker's aloud read is the remaining WP1 input; use it to
+adjust speech slots before final recording, checking affected claims if dialogue changes.
+WP4/WP5 expand the selected story and signature visuals on the checked runtime. Keep
+provisional timing distinct from the maker's unrecorded voice. The website currently imports
+the tested prototype score at
+`40e7891`; do not replace that short playback timeline silently with the complete draft.
+Continue WP4/WP5 in `/Users/clipper/github/snowcrystal_website-film-part1` after inspecting its
+`git status --short --branch` and `docs/film-part1-prototype.md`. The local preview command is
+`npm run dev -- --host 127.0.0.1 --port 5185 --strictPort`; check for the retained server first.
+No further scene-plan review or publication is required to continue local production.
 
-Traps: the hero's snowfall and some source diagrams hold accumulated state; a camera snap and a
-seed alone do not make reverse/direct capture deterministic. Whole-film captions and DOM diagrams
-also do not inherit the crystal-only high-precision export path. The cue clock, semantic article,
-reduced-motion policy, asset lifecycle and product-sized checks are specified in the plan.
+Traps: use pure cue-time state and the external renderer's readiness acknowledgement; the old
+hero's accumulated snowfall and root view-transition fade are not capture-safe. The implemented
+whole-composition path is 8-bit, not the crystal-only high-precision path. Browser checks use the
+installed Chrome channel. Preserve explicit MODEL/DIAGRAM qualifications and descriptive stills.
 
 ### Growth visual studies — ready to use
 

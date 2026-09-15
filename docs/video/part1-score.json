@@ -4,7 +4,7 @@
   "title": "The shape of the invisible",
   "duration": 80,
   "sourceRevision": "929189b7ff0132fe288a562796812c68ec886840",
-  "script": "Prototype narration is inline by stable cue ID; full WP1 script remains pending.",
+  "script": "Prototype narration is inline by stable cue ID; the separate productionDraft binds the full WP1 script.",
   "audio": {"id": "wp0a-timing", "url": "/film/part1-timing.wav", "offset": 0, "trim": 0, "duration": 80, "kind": "generated timing tones; no speech; not the maker's voice", "sampleRate": 48000},
   "capture": {"width": 1920, "height": 1080, "fps": 30, "bits": 8, "colour": "browser sRGB compositor to BT.709 limited-range yuv420p", "audioSampleRate": 48000},
   "model": {"id": "run-b", "url": "/growth/run-b-growth-v1.bin", "sha256": "475c1f7c227c45b005bfdb8691b1250599b405fa59902462110312a4f26ceb7d", "bytes": 7695060, "engine": "Gravner–Griffeath", "label": "MODEL · unvalidated", "decimation": 1, "thicknessScale": 2.6, "exposure": 0.7, "glowStrength": 0.2, "physicalTime": false, "source": "docs/plans/explore-gutcheck-growth-volume.md"},
@@ -15,5 +15,2362 @@
     {"id": "S13-feedback", "start": 46, "end": 62, "title": "Growth feeds growth", "eyebrow": "04 / A feedback loop", "kind": "diagram", "narration": "That makes it stick out farther, increasing its advantage. This is the branching instability. Surface attachment can oppose it, so a bump does not always become a branch.", "description": "The protrusion extends, then holds while the opposing role of surface attachment appears. The diagram does not make every perturbation grow or turn all corners into branches.", "qualification": "Surface attachment can resist the diffusion-driven feedback. Not every bump becomes a branch.", "sources": [{"path": "docs/education/chapters/06-the-runaway-bump.html", "anchor": "anim-bump"}, {"path": "docs/education/chapters/06-the-runaway-bump.html", "anchor": "why-the-switch-is-sudden"}], "review": "Prototype wording source-checked by non-author research agent; full-script review pending", "visual": {"component": "HaloCorner", "origin": "original authored diagram", "progress": [0.7, 1]}, "captions": [{"start": 46, "end": 51, "text": "That makes it stick out farther, increasing its advantage."}, {"start": 51, "end": 55, "text": "This is the branching instability."}, {"start": 55, "end": 62, "text": "Surface attachment can oppose it. A bump does not always become a branch."}]},
     {"id": "S13-return", "start": 62, "end": 76, "title": "The shape we want to explain", "eyebrow": "05 / Back to the crystal", "kind": "model", "narration": "Now return to our computer-grown crystal. Its branches illustrate the shape we are trying to understand. This replay is model output, not proof of the explanation.", "description": "The schematic disappears completely before the Run B replay resumes from its held early state and grows toward its final silhouette.", "qualification": "Model output, unvalidated. No temperature, supersaturation or physical growth seconds are assigned to G-G ticks.", "sources": [{"path": "docs/plans/explore-gutcheck-growth-volume.md", "anchor": ""}, {"path": "project charter.md", "anchor": ""}], "review": "Model disclosure checked against plan and charter; full-script review pending", "visual": {"component": "RunB", "origin": "identified project replay", "ticks": [7000, 70000]}, "captions": [{"start": 62, "end": 66, "text": "Now return to our computer-grown crystal."}, {"start": 66, "end": 71, "text": "Its branches illustrate the shape we are trying to understand."}, {"start": 71, "end": 76, "text": "Model output, not proof of the explanation."}]},
     {"id": "S35-ending-test", "start": 76, "end": 80, "title": "The air leaves its signature", "eyebrow": "Ending transition / rehearsal", "kind": "ending", "narration": "", "description": "The completed model holds and recedes into a quiet authored snowfall. Each particle position is evaluated from cue time; it does not accumulate state.", "qualification": "Editorial transition, not atmospheric simulation. The full-film opening will not reveal the finished crystal.", "sources": [], "review": "Editorial; visual acceptance pending", "visual": {"component": "RunBAndSnow", "origin": "identified model plus deterministic authored particles", "ticks": [70000, 70000]}, "captions": []}
-  ]
+  ],
+  "productionDraft": {
+    "format": "part1-production-draft-v1",
+    "status": "Provisional narration draft; not approved for recording or finished-film acceptance",
+    "activeForPlayback": false,
+    "script": {
+      "path": "docs/video/part1-script.md",
+      "sha256": "3a55b48ade327a360ce14d14dc2f7979bd956200c57120324bfdab2561b86e36",
+      "bytes": 60305
+    },
+    "sourceRevision": "929189b7ff0132fe288a562796812c68ec886840",
+    "timing": {
+      "kind": "provisional-absolute-global-seconds",
+      "durationSeconds": 2120,
+      "includesHoldsAndCredits": true,
+      "makerTableRead": "pending",
+      "actualRecordedTiming": "pending",
+      "narrationRateIsMeasuredDelivery": false
+    },
+    "review": {
+      "status": "source-reviewed; maker-read-and-recording-pending",
+      "statusPointer": {
+        "path": "docs/reviews/film-part1-script-review-2026-09-15.md",
+        "anchor": "verdict",
+        "sha256": "62dc45308f2cbd6861d70bfc60eec766e28090f2f02456982d60a3d7ba1e79d0",
+        "bytes": 19917
+      },
+      "currentReviewedScriptSha256": "3a55b48ade327a360ce14d14dc2f7979bd956200c57120324bfdab2561b86e36",
+      "scriptAgenda": {
+        "path": "docs/video/part1-script.md",
+        "anchor": "fact-check-and-production-handoff"
+      },
+      "note": "Non-author source review binds these script bytes. It is not maker recording approval or acceptance of an unbuilt film; prototype playback retains its separate snapshot."
+    },
+    "statistics": {
+      "primaryScenes": 16,
+      "sequencesIncludingCredits": 17,
+      "rows": 82,
+      "spokenRows": 64,
+      "silentRows": 18,
+      "spokenWords": 3924,
+      "allocatedNarrationSeconds": 1920,
+      "explicitSilenceSeconds": 200,
+      "maximumAllocatedRowWordsPerMinute": 140,
+      "wordCountMethod": "VOICEOVER cells only; whitespace tokens containing a Unicode letter or number; em-dash silence excluded"
+    },
+    "sequences": [
+      {
+        "key": "S00",
+        "originalSceneKey": "S00",
+        "title": "It looked simple",
+        "scriptHeadingLine": 47,
+        "startSeconds": 0,
+        "endSeconds": 130,
+        "durationSeconds": 130,
+        "sourceSceneKeys": [
+          "S00"
+        ],
+        "sourceBindingText": "Source scenes: S00. Bindings: [JTS-M004](../journey/TRANSCRIPT.md#jts-m004--the-selected-origin-recollection)\nfor the personal recollection; [Chapter 9, one rule](../education/chapters/09-the-menagerie.html#one-rule)\nfor the model distinction; [Chapter 1, no blueprint](../education/chapters/01-not-a-frozen-raindrop.html#no-blueprint),\nprinted pp. 21–23, for growth and environment. The nineteen-cell seed is the project artifact\nidentified by [the Run B record](../plans/explore-gutcheck-growth-volume.md); verify the selected\nasset against that record before final production. The model-cell definition also follows charter\n§1.3. Status: attributed recollection, model output, and established growth concepts.",
+        "sourceScope": "attributed recollection, model output, and established growth concepts.",
+        "sources": [
+          {
+            "label": "JTS-M004",
+            "path": "docs/journey/TRANSCRIPT.md",
+            "anchor": "jts-m004--the-selected-origin-recollection",
+            "revision": "929189b7ff0132fe288a562796812c68ec886840",
+            "sha256": "2a8c683c8d65b570f3c1a8e8a3c9e71a2f2f2f66acf02f55952ee16272d43421",
+            "bytes": 21855,
+            "kind": "supporting-record"
+          },
+          {
+            "label": "Chapter 9, one rule",
+            "path": "docs/education/chapters/09-the-menagerie.html",
+            "anchor": "one-rule",
+            "revision": "929189b7ff0132fe288a562796812c68ec886840",
+            "sha256": "04737555957c13971e06988bb1a616d4d18a4a9922a2cd71e1c93d5382ab6a7a",
+            "bytes": 137767,
+            "kind": "chapter"
+          },
+          {
+            "label": "Chapter 1, no blueprint",
+            "path": "docs/education/chapters/01-not-a-frozen-raindrop.html",
+            "anchor": "no-blueprint",
+            "revision": "929189b7ff0132fe288a562796812c68ec886840",
+            "sha256": "930afb87e53ec7700ae8555a4411049ea40107a9c34de13d1f12166b77feab5d",
+            "bytes": 86656,
+            "kind": "chapter"
+          },
+          {
+            "label": "the Run B record",
+            "path": "docs/plans/explore-gutcheck-growth-volume.md",
+            "anchor": "",
+            "revision": "929189b7ff0132fe288a562796812c68ec886840",
+            "sha256": "cea068d2d794dd311387215e8351404cc97946bf199848a3beea20941f0cc802",
+            "bytes": 34184,
+            "kind": "supporting-record"
+          }
+        ],
+        "inheritedSourceSequenceKeys": [],
+        "media": {
+          "audio": {
+            "status": "pending-maker-recording",
+            "ref": null
+          },
+          "captions": {
+            "status": "pending-reviewed-audio-derived-timing",
+            "ref": null
+          },
+          "visuals": {
+            "status": "pending-production-assets",
+            "ref": null
+          }
+        },
+        "rows": [
+          {
+            "id": "S00-01",
+            "scriptLine": 59,
+            "startSeconds": 0,
+            "endSeconds": 30,
+            "durationSeconds": 30,
+            "kind": "narration",
+            "narration": "I wanted to make a toy that grew pretty snowflakes. That was the idea. I had seen crystals being grown in a laboratory, and it looked as though a few rules and a few parameters could produce all that variety. With a computer to do the work, I thought I could turn the equations into a program. Easy peasy.",
+            "onScreen": "MODEL from the first visible replay frame. Begin close to a mid-growth branch; its outline extends beyond the frame. This is a labeled preview, not the final reveal. No recreated laboratory video or invented personal scene.",
+            "spokenWords": 59,
+            "audioRef": null,
+            "captionRef": null,
+            "visualRef": null
+          },
+          {
+            "id": "S00-02",
+            "scriptLine": 60,
+            "startSeconds": 30,
+            "endSeconds": 60,
+            "durationSeconds": 30,
+            "kind": "narration",
+            "narration": "This crystal grew inside a computer. It began with nineteen cells on a grid. Those are model cells, not individual water molecules, and the rules that grew this particular crystal are a simplified model. It is a beautiful object to look at. Whether a model can predict what real ice will do is a different question.",
+            "onScreen": "Return to the seed, then begin the continuous replay. Quiet label: MODEL CELLS, NOT MOLECULES. Keep run provenance in the reader/source layer; do not fill the film frame with configuration data.",
+            "spokenWords": 56,
+            "audioRef": null,
+            "captionRef": null,
+            "visualRef": null
+          },
+          {
+            "id": "S00-03",
+            "scriptLine": 61,
+            "startSeconds": 60,
+            "endSeconds": 90,
+            "durationSeconds": 30,
+            "kind": "narration",
+            "narration": "Before asking the computer for an answer, I want to follow the thing it is trying to describe. Water moving through a cloud. Molecules joining a surface. A shape that changes the conditions around it as it grows. People have spent centuries finding ways to look at those events, and each new way of looking has changed the question.",
+            "onScreen": "The model gives way to an original diagram: cloud, vapor, growing interface. Show these as the successive scales the film will visit. Title: HOW A SNOWFLAKE IS MADE.",
+            "spokenWords": 59,
+            "audioRef": null,
+            "captionRef": null,
+            "visualRef": null
+          },
+          {
+            "id": "S00-04",
+            "scriptLine": 62,
+            "startSeconds": 90,
+            "endSeconds": 120,
+            "durationSeconds": 30,
+            "kind": "narration",
+            "narration": "By the end, the crystal should look different to us, even though it is the same object. We will be able to recognize some of the processes written into its form, see what experiments have established, and understand why other parts remain difficult to predict. Let's start with the part of snow that refuses to behave like a simple rule.",
+            "onScreen": "Place a simple plate and column side by side, tagged DIAGRAM. The wording is an editorial invitation, not a measured learning outcome. Fade the title before introducing the shape comparison.",
+            "spokenWords": 60,
+            "audioRef": null,
+            "captionRef": null,
+            "visualRef": null
+          },
+          {
+            "id": "S00-05",
+            "scriptLine": 63,
+            "startSeconds": 120,
+            "endSeconds": 130,
+            "durationSeconds": 10,
+            "kind": "silence",
+            "narration": "",
+            "onScreen": "Hold the two contrasting shapes without new information.",
+            "spokenWords": 0,
+            "audioRef": null,
+            "captionRef": null,
+            "visualRef": null
+          }
+        ]
+      },
+      {
+        "key": "S01",
+        "originalSceneKey": "S01",
+        "title": "Same water, different shapes",
+        "scriptHeadingLine": 65,
+        "startSeconds": 130,
+        "endSeconds": 260,
+        "durationSeconds": 130,
+        "sourceSceneKeys": [
+          "S01"
+        ],
+        "sourceBindingText": "Source scenes: S01. Bindings: [Chapter 7, the map](../education/chapters/07-plates-columns-plates-columns.html#the-map),\n[alternation](../education/chapters/07-plates-columns-plates-columns.html#alternation),\n[cold-end revision](../education/chapters/07-plates-columns-plates-columns.html#cold-end-rewritten),\nand [the open question](../education/chapters/07-plates-columns-plates-columns.html#mystery);\n[Chapter 8, constant conditions](../education/chapters/08-a-snowflake-is-a-record.html#a-map-for-still-weather),\nFig. 10.1 caption, printed p. 383. Status: observed qualitative patterns and scoped uncertainty.\nTemperature examples are representative bands, not precise boundaries or sufficient conditions.",
+        "sourceScope": "observed qualitative patterns and scoped uncertainty.\nTemperature examples are representative bands, not precise boundaries or sufficient conditions.",
+        "sources": [
+          {
+            "label": "Chapter 7, the map",
+            "path": "docs/education/chapters/07-plates-columns-plates-columns.html",
+            "anchor": "the-map",
+            "revision": "929189b7ff0132fe288a562796812c68ec886840",
+            "sha256": "db89095329a40df18455018e0d424c51ab7ca1314414855108e9fa171df38220",
+            "bytes": 120734,
+            "kind": "chapter"
+          },
+          {
+            "label": "alternation",
+            "path": "docs/education/chapters/07-plates-columns-plates-columns.html",
+            "anchor": "alternation",
+            "revision": "929189b7ff0132fe288a562796812c68ec886840",
+            "sha256": "db89095329a40df18455018e0d424c51ab7ca1314414855108e9fa171df38220",
+            "bytes": 120734,
+            "kind": "chapter"
+          },
+          {
+            "label": "cold-end revision",
+            "path": "docs/education/chapters/07-plates-columns-plates-columns.html",
+            "anchor": "cold-end-rewritten",
+            "revision": "929189b7ff0132fe288a562796812c68ec886840",
+            "sha256": "db89095329a40df18455018e0d424c51ab7ca1314414855108e9fa171df38220",
+            "bytes": 120734,
+            "kind": "chapter"
+          },
+          {
+            "label": "the open question",
+            "path": "docs/education/chapters/07-plates-columns-plates-columns.html",
+            "anchor": "mystery",
+            "revision": "929189b7ff0132fe288a562796812c68ec886840",
+            "sha256": "db89095329a40df18455018e0d424c51ab7ca1314414855108e9fa171df38220",
+            "bytes": 120734,
+            "kind": "chapter"
+          },
+          {
+            "label": "Chapter 8, constant conditions",
+            "path": "docs/education/chapters/08-a-snowflake-is-a-record.html",
+            "anchor": "a-map-for-still-weather",
+            "revision": "929189b7ff0132fe288a562796812c68ec886840",
+            "sha256": "0eeb71969db1d2ecf0c0e194cc593232d58791f516b2ae818450985474e4d131",
+            "bytes": 93026,
+            "kind": "chapter"
+          }
+        ],
+        "inheritedSourceSequenceKeys": [],
+        "media": {
+          "audio": {
+            "status": "pending-maker-recording",
+            "ref": null
+          },
+          "captions": {
+            "status": "pending-reviewed-audio-derived-timing",
+            "ref": null
+          },
+          "visuals": {
+            "status": "pending-production-assets",
+            "ref": null
+          }
+        },
+        "rows": [
+          {
+            "id": "S01-01",
+            "scriptLine": 77,
+            "startSeconds": 130,
+            "endSeconds": 160,
+            "durationSeconds": 30,
+            "kind": "narration",
+            "narration": "Here are some familiar possibilities. Near minus two degrees Celsius, ice can grow into plates. Near minus five, columns. Near minus fifteen, plates again, including the great branching stars. Farther into the cold, the classical map shows another column region, although that part of the story is more complicated than the old picture suggests.",
+            "onScreen": "Separate constant-condition schematic examples, each tagged DIAGRAM. Display °C and identify the map's other axis as supersaturation relative to ice. Hatch the cold region. Never morph one existing crystal into a reversed growth history.",
+            "spokenWords": 54,
+            "audioRef": null,
+            "captionRef": null,
+            "visualRef": null
+          },
+          {
+            "id": "S01-02",
+            "scriptLine": 78,
+            "startSeconds": 160,
+            "endSeconds": 190,
+            "durationSeconds": 30,
+            "kind": "narration",
+            "narration": "The amount of spare water vapour matters too. At the same temperature, changing that supply changes how the crystal develops. So this is a map with two directions: temperature across it, and the available vapour up it. It is a rough guide to what grows under conditions held steady, not a precise forecast for every crystal in a cloud.",
+            "onScreen": "Reveal the two-axis map with broad regions and qualitative boundaries. Label CONSTANT GROWTH CONDITIONS. Show compact and elaborate schematic forms within an illustrative temperature band; do not invent numerical boundary values.",
+            "spokenWords": 59,
+            "audioRef": null,
+            "captionRef": null,
+            "visualRef": null
+          },
+          {
+            "id": "S01-03",
+            "scriptLine": 79,
+            "startSeconds": 190,
+            "endSeconds": 220,
+            "durationSeconds": 30,
+            "kind": "narration",
+            "narration": "The Japanese physicist Ukichiro Nakaya began mapping these patterns in the nineteen-thirties. Later experiments expanded and revised the picture. That is already an achievement: the shapes are not just a collection of beautiful accidents. There are repeatable relationships to investigate. But seeing a relationship is the beginning of an explanation, not the end of one.",
+            "onScreen": "Date text and original laboratory icon lead into multiple observations on the map. No historical portrait, fabricated photograph or unverified priority claim.",
+            "spokenWords": 55,
+            "audioRef": null,
+            "captionRef": null,
+            "visualRef": null
+          },
+          {
+            "id": "S01-04",
+            "scriptLine": 80,
+            "startSeconds": 220,
+            "endSeconds": 250,
+            "durationSeconds": 30,
+            "kind": "narration",
+            "narration": "Why should the same substance prefer to grow wide in one range, tall in another, and wide again? Measurements, models and proposed explanations give us parts of the answer. Putting those parts together remains unfinished in the scientific account we are following. To understand why, we have to leave the finished shapes for a while and follow the water that builds them.",
+            "onScreen": "Hold plate and column, then dissolve their outlines into individual diagram particles. A small source note scopes the account to the reviewed chapter sources; do not show a “nobody knows” or three-flip score.",
+            "spokenWords": 62,
+            "audioRef": null,
+            "captionRef": null,
+            "visualRef": null
+          },
+          {
+            "id": "S01-05",
+            "scriptLine": 81,
+            "startSeconds": 250,
+            "endSeconds": 260,
+            "durationSeconds": 10,
+            "kind": "silence",
+            "narration": "",
+            "onScreen": "The vapor particles move into the next scene; use a still composition under reduced motion.",
+            "spokenWords": 0,
+            "audioRef": null,
+            "captionRef": null,
+            "visualRef": null
+          }
+        ]
+      },
+      {
+        "key": "S02",
+        "originalSceneKey": "S02",
+        "title": "A different route into ice",
+        "scriptHeadingLine": 83,
+        "startSeconds": 260,
+        "endSeconds": 390,
+        "durationSeconds": 130,
+        "sourceSceneKeys": [
+          "S02",
+          "S03",
+          "S04"
+        ],
+        "sourceBindingText": "Source scenes: S02, selected S03/S04. Bindings: [Chapter 1, two words](../education/chapters/01-not-a-frozen-raindrop.html#two-words),\n[not a raindrop](../education/chapters/01-not-a-frozen-raindrop.html#not-a-raindrop),\n[cloud material](../education/chapters/01-not-a-frozen-raindrop.html#into-the-cloud), and\n[supercooling](../education/chapters/01-not-a-frozen-raindrop.html#supercooling), printed pp. 17–19.\nStatus: established mechanisms, scoped to the cloud-droplet route described by these passages.\nRime and other growth histories are not erased by selecting this route.",
+        "sourceScope": "established mechanisms, scoped to the cloud-droplet route described by these passages.\nRime and other growth histories are not erased by selecting this route.",
+        "sources": [
+          {
+            "label": "Chapter 1, two words",
+            "path": "docs/education/chapters/01-not-a-frozen-raindrop.html",
+            "anchor": "two-words",
+            "revision": "929189b7ff0132fe288a562796812c68ec886840",
+            "sha256": "930afb87e53ec7700ae8555a4411049ea40107a9c34de13d1f12166b77feab5d",
+            "bytes": 86656,
+            "kind": "chapter"
+          },
+          {
+            "label": "not a raindrop",
+            "path": "docs/education/chapters/01-not-a-frozen-raindrop.html",
+            "anchor": "not-a-raindrop",
+            "revision": "929189b7ff0132fe288a562796812c68ec886840",
+            "sha256": "930afb87e53ec7700ae8555a4411049ea40107a9c34de13d1f12166b77feab5d",
+            "bytes": 86656,
+            "kind": "chapter"
+          },
+          {
+            "label": "cloud material",
+            "path": "docs/education/chapters/01-not-a-frozen-raindrop.html",
+            "anchor": "into-the-cloud",
+            "revision": "929189b7ff0132fe288a562796812c68ec886840",
+            "sha256": "930afb87e53ec7700ae8555a4411049ea40107a9c34de13d1f12166b77feab5d",
+            "bytes": 86656,
+            "kind": "chapter"
+          },
+          {
+            "label": "supercooling",
+            "path": "docs/education/chapters/01-not-a-frozen-raindrop.html",
+            "anchor": "supercooling",
+            "revision": "929189b7ff0132fe288a562796812c68ec886840",
+            "sha256": "930afb87e53ec7700ae8555a4411049ea40107a9c34de13d1f12166b77feab5d",
+            "bytes": 86656,
+            "kind": "chapter"
+          }
+        ],
+        "inheritedSourceSequenceKeys": [],
+        "media": {
+          "audio": {
+            "status": "pending-maker-recording",
+            "ref": null
+          },
+          "captions": {
+            "status": "pending-reviewed-audio-derived-timing",
+            "ref": null
+          },
+          "visuals": {
+            "status": "pending-production-assets",
+            "ref": null
+          }
+        },
+        "rows": [
+          {
+            "id": "S02-01",
+            "scriptLine": 94,
+            "startSeconds": 260,
+            "endSeconds": 290,
+            "durationSeconds": 30,
+            "kind": "narration",
+            "narration": "Freeze a raindrop on its way down and you get an ice pellet: sleet. A snow crystal takes a different route. Water molecules arrive through the air as vapour and join the ice directly. That passage from gas to solid is called deposition. The arms and flat faces grow by adding material, rather than by freezing a raindrop into an elaborate shape.",
+            "onScreen": "DIAGRAM: a drop becomes a pellet; beside it, vapor joins a growing ice outline. Label GAS → SOLID. Keep this crystal schematic distinct from the Run B model.",
+            "spokenWords": 62,
+            "audioRef": null,
+            "captionRef": null,
+            "visualRef": null
+          },
+          {
+            "id": "S02-02",
+            "scriptLine": 95,
+            "startSeconds": 290,
+            "endSeconds": 320,
+            "durationSeconds": 30,
+            "kind": "narration",
+            "narration": "A snow crystal is one continuous crystal of ice. A snowflake can be one of those crystals, or a clump of several that collided and stuck together. And liquid droplets can freeze onto an existing crystal too, coating it with rime. For now, we are following the vapor-grown crystal underneath: the part whose shape we want to explain.",
+            "onScreen": "An original small aggregate diagram distinguishes crystal, aggregate and rime. Labels arrive one at a time. Return to one uncoated crystal; no claim that every falling snow particle follows this one history.",
+            "spokenWords": 58,
+            "audioRef": null,
+            "captionRef": null,
+            "visualRef": null
+          },
+          {
+            "id": "S02-03",
+            "scriptLine": 96,
+            "startSeconds": 320,
+            "endSeconds": 350,
+            "durationSeconds": 30,
+            "kind": "narration",
+            "narration": "Its beginning can involve liquid after all. In the cloud we are following, tiny droplets cool below zero. None freeze right at zero degrees. Many stay liquid as the temperature falls further: supercooled water. Freezing needs a beginning, a first patch of ice. A suitable particle can help that patch form, so different droplets freeze at different temperatures.",
+            "onScreen": "Show droplets crossing 0 °C without freezing, then freezing over a range below zero. The distribution and animation timing are labeled illustrative. Do not say that none freeze anywhere below zero.",
+            "spokenWords": 58,
+            "audioRef": null,
+            "captionRef": null,
+            "visualRef": null
+          },
+          {
+            "id": "S02-04",
+            "scriptLine": 97,
+            "startSeconds": 350,
+            "endSeconds": 380,
+            "durationSeconds": 30,
+            "kind": "narration",
+            "narration": "Once a droplet freezes, there is an ice seed for vapour to grow on. The distinction matters: making that first seed and building the later crystal are different steps. In the route described here, the seed was liquid, while the subsequent patterned growth arrives through the gas. Around it, other droplets can remain liquid. That mixture is about to become a source of material.",
+            "onScreen": "One seed is highlighted among remaining droplets. Use qualitative size contrast, not an unsourced universal seed fraction. Show deposition beginning on the seed without implying the diagram's seconds are physical growth time.",
+            "spokenWords": 64,
+            "audioRef": null,
+            "captionRef": null,
+            "visualRef": null
+          },
+          {
+            "id": "S02-05",
+            "scriptLine": 98,
+            "startSeconds": 380,
+            "endSeconds": 390,
+            "durationSeconds": 10,
+            "kind": "silence",
+            "narration": "",
+            "onScreen": "Hold the mixed liquid-and-ice cloud.",
+            "spokenWords": 0,
+            "audioRef": null,
+            "captionRef": null,
+            "visualRef": null
+          }
+        ]
+      },
+      {
+        "key": "S05",
+        "originalSceneKey": "S05",
+        "title": "The cloud pays for it",
+        "scriptHeadingLine": 100,
+        "startSeconds": 390,
+        "endSeconds": 520,
+        "durationSeconds": 130,
+        "sourceSceneKeys": [
+          "S05"
+        ],
+        "sourceBindingText": "Source scenes: S05; the optional “too cold to snow” beat is retained with its source qualification.\nBindings: [Chapter 1, the relay](../education/chapters/01-not-a-frozen-raindrop.html#the-relay) and\n[fuel exhaustion](../education/chapters/01-not-a-frozen-raindrop.html#too-cold-to-snow), printed\npp. 19–20; [Chapter 4, saturation](../education/chapters/04-the-fuel-supply.html#what-saturated-means)\nand [two surfaces](../education/chapters/04-the-fuel-supply.html#the-gap), printed pp. 57–58.\nStatus: equilibrium vapor-pressure relationship and source-scoped approximate budget. The\nhundred-thousand figure describes a large stellar crystal, not every snow particle.",
+        "sourceScope": "equilibrium vapor-pressure relationship and source-scoped approximate budget. The\nhundred-thousand figure describes a large stellar crystal, not every snow particle.",
+        "sources": [
+          {
+            "label": "Chapter 1, the relay",
+            "path": "docs/education/chapters/01-not-a-frozen-raindrop.html",
+            "anchor": "the-relay",
+            "revision": "929189b7ff0132fe288a562796812c68ec886840",
+            "sha256": "930afb87e53ec7700ae8555a4411049ea40107a9c34de13d1f12166b77feab5d",
+            "bytes": 86656,
+            "kind": "chapter"
+          },
+          {
+            "label": "fuel exhaustion",
+            "path": "docs/education/chapters/01-not-a-frozen-raindrop.html",
+            "anchor": "too-cold-to-snow",
+            "revision": "929189b7ff0132fe288a562796812c68ec886840",
+            "sha256": "930afb87e53ec7700ae8555a4411049ea40107a9c34de13d1f12166b77feab5d",
+            "bytes": 86656,
+            "kind": "chapter"
+          },
+          {
+            "label": "Chapter 4, saturation",
+            "path": "docs/education/chapters/04-the-fuel-supply.html",
+            "anchor": "what-saturated-means",
+            "revision": "929189b7ff0132fe288a562796812c68ec886840",
+            "sha256": "a1acc6892d5c7a971887cfb7756f8379250b1aad689412aec1f654babdd0b0f3",
+            "bytes": 100545,
+            "kind": "chapter"
+          },
+          {
+            "label": "two surfaces",
+            "path": "docs/education/chapters/04-the-fuel-supply.html",
+            "anchor": "the-gap",
+            "revision": "929189b7ff0132fe288a562796812c68ec886840",
+            "sha256": "a1acc6892d5c7a971887cfb7756f8379250b1aad689412aec1f654babdd0b0f3",
+            "bytes": 100545,
+            "kind": "chapter"
+          }
+        ],
+        "inheritedSourceSequenceKeys": [],
+        "media": {
+          "audio": {
+            "status": "pending-maker-recording",
+            "ref": null
+          },
+          "captions": {
+            "status": "pending-reviewed-audio-derived-timing",
+            "ref": null
+          },
+          "visuals": {
+            "status": "pending-production-assets",
+            "ref": null
+          }
+        },
+        "rows": [
+          {
+            "id": "S05-01",
+            "scriptLine": 112,
+            "startSeconds": 390,
+            "endSeconds": 420,
+            "durationSeconds": 30,
+            "kind": "narration",
+            "narration": "The ice and the liquid droplets share the same air, but they do not reach balance with it at the same vapour density. Below zero, the equilibrium vapour pressure over liquid water is higher than over ice. Air that is just right for the droplets can therefore contain more vapour than the ice needs for balance. To the ice, there is a surplus.",
+            "onScreen": "DIAGRAM: two clearly labeled balance levels, LIQUID WATER and ICE. This is a conceptual comparison, not a numerical plot. Avoid the misleading image of air as a container with a hard capacity.",
+            "spokenWords": 63,
+            "audioRef": null,
+            "captionRef": null,
+            "visualRef": null
+          },
+          {
+            "id": "S05-02",
+            "scriptLine": 113,
+            "startSeconds": 420,
+            "endSeconds": 450,
+            "durationSeconds": 30,
+            "kind": "narration",
+            "narration": "We call that surplus supersaturation. Throughout this film it means the spare vapour relative to ice: how much the local amount exceeds the amount that would balance an ice surface at that temperature. As the crystal consumes vapour, nearby droplets can evaporate and replenish it. Water travels from liquid, through gas, into solid ice. A roundabout route, but an effective one.",
+            "onScreen": "Animate the relay through distinct phases. Keep the word SUPERSATURATION with the phrase RELATIVE TO ICE. Do not confuse relative humidity over liquid water with the ice-relative quantity.",
+            "spokenWords": 61,
+            "audioRef": null,
+            "captionRef": null,
+            "visualRef": null
+          },
+          {
+            "id": "S05-03",
+            "scriptLine": 114,
+            "startSeconds": 450,
+            "endSeconds": 480,
+            "durationSeconds": 30,
+            "kind": "narration",
+            "narration": "Libbrecht gives a striking scale for this process: about a hundred thousand cloud droplets evaporating to supply one large stellar snow crystal. That is an approximate example, not a standard price for every flake. The important thing is the transfer. Much of the material in this growing crystal can have come from liquid droplets without those droplets ever crashing into it.",
+            "onScreen": "A labeled illustrative budget expands outward from one path to many. On-screen: APPROXIMATE LARGE-CRYSTAL EXAMPLE. No exact simulation claim attaches to the diagram counter.",
+            "spokenWords": 61,
+            "audioRef": null,
+            "captionRef": null,
+            "visualRef": null
+          },
+          {
+            "id": "S05-04",
+            "scriptLine": 115,
+            "startSeconds": 480,
+            "endSeconds": 510,
+            "durationSeconds": 30,
+            "kind": "narration",
+            "narration": "This also gives a particular meaning to the saying “too cold to snow.” In the cloud described by this account, continued cooling has already used up the liquid droplets that fed growth: some froze, others evaporated. The relay runs out of fuel. It is not a rule that cold air refuses to make snow. The condition of the cloud, and its remaining water supply, matter.",
+            "onScreen": "The remaining droplet supply diminishes; keep ice and vapor visible. Label THIS CLOUD HAS SPENT ITS LIQUID SUPPLY. Do not impose a global temperature cutoff on snowfall.",
+            "spokenWords": 65,
+            "audioRef": null,
+            "captionRef": null,
+            "visualRef": null
+          },
+          {
+            "id": "S05-05",
+            "scriptLine": 116,
+            "startSeconds": 510,
+            "endSeconds": 520,
+            "durationSeconds": 10,
+            "kind": "silence",
+            "narration": "",
+            "onScreen": "Follow one final vapor particle toward a facet, then hold.",
+            "spokenWords": 0,
+            "audioRef": null,
+            "captionRef": null,
+            "visualRef": null
+          }
+        ]
+      },
+      {
+        "key": "S06",
+        "originalSceneKey": "S06",
+        "title": "Where the six comes from",
+        "scriptHeadingLine": 118,
+        "startSeconds": 520,
+        "endSeconds": 650,
+        "durationSeconds": 130,
+        "sourceSceneKeys": [
+          "S06",
+          "S07",
+          "S08"
+        ],
+        "sourceBindingText": "Source scenes: S06–S08 and selected S07 history. Bindings:\n[Chapter 2, Kepler](../education/chapters/02-four-hundred-years-of-looking.html#kepler), printed\np. 25, and [X-rays](../education/chapters/02-four-hundred-years-of-looking.html#x-rays), printed\npp. 28–30; [Chapter 3, ice Ih stacking](../education/chapters/03-why-six-sides.html#the-honeycomb),\n[facet families](../education/chapters/03-why-six-sides.html#naming-the-faces), and\n[the lattice's limits](../education/chapters/03-why-six-sides.html#what-it-does-not-say), printed\npp. 46, 48–53. Status: historical attribution and established crystallography. The ideal lattice\nillustration is not a molecular growth simulation or a claim that bond angle alone selects ice Ih.",
+        "sourceScope": "historical attribution and established crystallography. The ideal lattice\nillustration is not a molecular growth simulation or a claim that bond angle alone selects ice Ih.",
+        "sources": [
+          {
+            "label": "Chapter 2, Kepler",
+            "path": "docs/education/chapters/02-four-hundred-years-of-looking.html",
+            "anchor": "kepler",
+            "revision": "929189b7ff0132fe288a562796812c68ec886840",
+            "sha256": "c0bfd5e9c74e02fcd3cca2d9201710d42de90e8bae41789e288d4098728915f9",
+            "bytes": 79539,
+            "kind": "chapter"
+          },
+          {
+            "label": "X-rays",
+            "path": "docs/education/chapters/02-four-hundred-years-of-looking.html",
+            "anchor": "x-rays",
+            "revision": "929189b7ff0132fe288a562796812c68ec886840",
+            "sha256": "c0bfd5e9c74e02fcd3cca2d9201710d42de90e8bae41789e288d4098728915f9",
+            "bytes": 79539,
+            "kind": "chapter"
+          },
+          {
+            "label": "Chapter 3, ice Ih stacking",
+            "path": "docs/education/chapters/03-why-six-sides.html",
+            "anchor": "the-honeycomb",
+            "revision": "929189b7ff0132fe288a562796812c68ec886840",
+            "sha256": "6f1268a444d8c063c59d70ce3b1bb19d7ac2a3a536b332efc16edcd260994da7",
+            "bytes": 101330,
+            "kind": "chapter"
+          },
+          {
+            "label": "facet families",
+            "path": "docs/education/chapters/03-why-six-sides.html",
+            "anchor": "naming-the-faces",
+            "revision": "929189b7ff0132fe288a562796812c68ec886840",
+            "sha256": "6f1268a444d8c063c59d70ce3b1bb19d7ac2a3a536b332efc16edcd260994da7",
+            "bytes": 101330,
+            "kind": "chapter"
+          },
+          {
+            "label": "the lattice's limits",
+            "path": "docs/education/chapters/03-why-six-sides.html",
+            "anchor": "what-it-does-not-say",
+            "revision": "929189b7ff0132fe288a562796812c68ec886840",
+            "sha256": "6f1268a444d8c063c59d70ce3b1bb19d7ac2a3a536b332efc16edcd260994da7",
+            "bytes": 101330,
+            "kind": "chapter"
+          }
+        ],
+        "inheritedSourceSequenceKeys": [],
+        "media": {
+          "audio": {
+            "status": "pending-maker-recording",
+            "ref": null
+          },
+          "captions": {
+            "status": "pending-reviewed-audio-derived-timing",
+            "ref": null
+          },
+          "visuals": {
+            "status": "pending-production-assets",
+            "ref": null
+          }
+        },
+        "rows": [
+          {
+            "id": "S06-01",
+            "scriptLine": 131,
+            "startSeconds": 520,
+            "endSeconds": 550,
+            "durationSeconds": 30,
+            "kind": "narration",
+            "narration": "Why six? Johannes Kepler asked that question in sixteen eleven. He wondered whether the geometry of packing small things together might have something to do with it. Centuries later, X-rays gave researchers a way to investigate the structure inside ice. The repeating arrangement of molecules, rather than the outline alone, was something they could now test.",
+            "onScreen": "DIAGRAM: date and packing idea → an original diffraction teaching sketch. Do not stage a specific historical photograph or assert that Kepler's analogy was a correct molecular model.",
+            "spokenWords": 56,
+            "audioRef": null,
+            "captionRef": null,
+            "visualRef": null
+          },
+          {
+            "id": "S06-02",
+            "scriptLine": 132,
+            "startSeconds": 550,
+            "endSeconds": 580,
+            "durationSeconds": 30,
+            "kind": "narration",
+            "narration": "Ordinary snow crystals are built from the hexagonal form of ice, called ice one H. Here is an ideal picture of its lattice: a repeating arrangement extending through the solid. Look along one direction and rings of six stand out. Turn the structure and you see a different view of the same arrangement. The six belongs to this lattice, not to a six-sided water molecule.",
+            "onScreen": "Signature scale change into an ideal ice Ih lattice. Show ICE Ih and pronounce it “ice one H.” Rotate between the c-axis and side views; keep DIAGRAM visible and show the structure's three-dimensional stacking.",
+            "spokenWords": 65,
+            "audioRef": null,
+            "captionRef": null,
+            "visualRef": null
+          },
+          {
+            "id": "S06-03",
+            "scriptLine": 133,
+            "startSeconds": 580,
+            "endSeconds": 610,
+            "durationSeconds": 30,
+            "kind": "narration",
+            "narration": "Pull back and those equivalent directions help explain the familiar hexagonal form. The simplest shape to keep in mind is a prism: two flat ends and six sides. The ends are called basal faces; the side walls are prism faces. A short, wide version is a plate. A long, narrow version is a column. Keep the ends and sides in mind; their different growth rates will matter.",
+            "onScreen": "Label ends before BASAL, then sides before PRISM. Change only an explicitly schematic prism's proportions; this is a comparison of forms, not a crystal undoing deposited ice.",
+            "spokenWords": 67,
+            "audioRef": null,
+            "captionRef": null,
+            "visualRef": null
+          },
+          {
+            "id": "S06-04",
+            "scriptLine": 134,
+            "startSeconds": 610,
+            "endSeconds": 640,
+            "durationSeconds": 30,
+            "kind": "narration",
+            "narration": "But the lattice has not solved the whole puzzle. Plates and columns can share that same internal structure. Equivalent directions do not guarantee that six arms will develop identical details, either. The lattice gives the growth process a geometry to work with. To discover what it actually builds, we need to watch what happens when water reaches the surface.",
+            "onScreen": "Return to distinct plate and column diagrams over the same lattice inset. Keep the finished Run B silhouette withheld. Transition to rough and smooth surface patches.",
+            "spokenWords": 59,
+            "audioRef": null,
+            "captionRef": null,
+            "visualRef": null
+          },
+          {
+            "id": "S06-05",
+            "scriptLine": 135,
+            "startSeconds": 640,
+            "endSeconds": 650,
+            "durationSeconds": 10,
+            "kind": "silence",
+            "narration": "",
+            "onScreen": "Hold the ends-and-sides comparison.",
+            "spokenWords": 0,
+            "audioRef": null,
+            "captionRef": null,
+            "visualRef": null
+          }
+        ]
+      },
+      {
+        "key": "S11",
+        "originalSceneKey": "S11",
+        "title": "The slow faces survive",
+        "scriptHeadingLine": 137,
+        "startSeconds": 650,
+        "endSeconds": 780,
+        "durationSeconds": 130,
+        "sourceSceneKeys": [
+          "S11",
+          "S12"
+        ],
+        "sourceBindingText": "Source scenes: S11, selected S12. Bindings:\n[Chapter 5, slow faces](../education/chapters/05-the-restless-surface.html#the-slowest-faces-win),\n[attachment coefficient](../education/chapters/05-the-restless-surface.html#the-attachment-coefficient),\nand [rates versus equilibrium](../education/chapters/05-the-restless-surface.html#the-low-energy-myth),\nprinted pp. 29, 46, 59–65, 93. Status: explanatory growth-rate account; the geometric animation\nillustrates the stated rule and is not numerical evidence for natural crystals.",
+        "sourceScope": "explanatory growth-rate account; the geometric animation\nillustrates the stated rule and is not numerical evidence for natural crystals.",
+        "sources": [
+          {
+            "label": "Chapter 5, slow faces",
+            "path": "docs/education/chapters/05-the-restless-surface.html",
+            "anchor": "the-slowest-faces-win",
+            "revision": "929189b7ff0132fe288a562796812c68ec886840",
+            "sha256": "db2094ffb900b6a4818c2b823675793ea5f313e57eb7476aa79e1baafa8b13d3",
+            "bytes": 123919,
+            "kind": "chapter"
+          },
+          {
+            "label": "attachment coefficient",
+            "path": "docs/education/chapters/05-the-restless-surface.html",
+            "anchor": "the-attachment-coefficient",
+            "revision": "929189b7ff0132fe288a562796812c68ec886840",
+            "sha256": "db2094ffb900b6a4818c2b823675793ea5f313e57eb7476aa79e1baafa8b13d3",
+            "bytes": 123919,
+            "kind": "chapter"
+          },
+          {
+            "label": "rates versus equilibrium",
+            "path": "docs/education/chapters/05-the-restless-surface.html",
+            "anchor": "the-low-energy-myth",
+            "revision": "929189b7ff0132fe288a562796812c68ec886840",
+            "sha256": "db2094ffb900b6a4818c2b823675793ea5f313e57eb7476aa79e1baafa8b13d3",
+            "bytes": 123919,
+            "kind": "chapter"
+          }
+        ],
+        "inheritedSourceSequenceKeys": [],
+        "media": {
+          "audio": {
+            "status": "pending-maker-recording",
+            "ref": null
+          },
+          "captions": {
+            "status": "pending-reviewed-audio-derived-timing",
+            "ref": null
+          },
+          "visuals": {
+            "status": "pending-production-assets",
+            "ref": null
+          }
+        },
+        "rows": [
+          {
+            "id": "S11-01",
+            "scriptLine": 148,
+            "startSeconds": 650,
+            "endSeconds": 680,
+            "durationSeconds": 30,
+            "kind": "narration",
+            "narration": "A flat face looks orderly and complete. You might expect it to be the part that is best at collecting more ice. The growth story runs the other way: the flat faces we see are the slow ones. An arriving molecule has different opportunities on a rough patch full of unfinished sites than on a smooth, well-aligned terrace.",
+            "onScreen": "DIAGRAM: rough patch and smooth terrace, with a few possible attachment sites. Distinguish a loose surface molecule from one incorporated into the lattice.",
+            "spokenWords": 58,
+            "audioRef": null,
+            "captionRef": null,
+            "visualRef": null
+          },
+          {
+            "id": "S11-02",
+            "scriptLine": 149,
+            "startSeconds": 680,
+            "endSeconds": 710,
+            "durationSeconds": 30,
+            "kind": "narration",
+            "narration": "Rough regions can fill in quickly. As the crystal grows, fast-moving surface orientations disappear from the outside shape, leaving the slower faces as its boundary. In this simplified drawing, we can change the relative growth rates and watch the outline respond. The hexagon appears because those directions advance more slowly, not because someone is carving a hexagon out of the ice.",
+            "onScreen": "Grow the original slow-face diagram. Show the initial outline as a ghost so the viewer sees addition rather than erosion. Caption RELATIVE GROWTH-RATE ILLUSTRATION.",
+            "spokenWords": 61,
+            "audioRef": null,
+            "captionRef": null,
+            "visualRef": null
+          },
+          {
+            "id": "S11-03",
+            "scriptLine": 150,
+            "startSeconds": 710,
+            "endSeconds": 740,
+            "durationSeconds": 30,
+            "kind": "narration",
+            "narration": "This is why the shape of a growing crystal cannot simply be read as the shape with the least surface energy. A crystal growing in a cloud is an active process, receiving material and changing its boundary. How readily each part advances matters. The same flatness that affects its surface energy also affects the opportunities an arriving molecule has to join.",
+            "onScreen": "Contrast a labeled equilibrium question with a growing-boundary diagram, without asserting a universal relaxation time. Keep only one comparison visible at a time.",
+            "spokenWords": 61,
+            "audioRef": null,
+            "captionRef": null,
+            "visualRef": null
+          },
+          {
+            "id": "S11-04",
+            "scriptLine": 151,
+            "startSeconds": 740,
+            "endSeconds": 770,
+            "durationSeconds": 30,
+            "kind": "narration",
+            "narration": "Physicists describe the surface response with an attachment coefficient. In the growth law we are following, it tells us how effective attachment is compared with the kinetic limit. But surface willingness is not enough. The molecules still have to arrive. A hungry surface with a poor supply can grow slowly, just as a reluctant surface can grow slowly even when plenty of vapour is available.",
+            "onScreen": "Plain-language cards: DELIVERY and ATTACHMENT. If the coefficient appears symbolically, use `alphaHK` with its Hertz–Knudsen provenance; no repository naming lesson. Introduce the two constraints without claiming other transport effects never matter.",
+            "spokenWords": 65,
+            "audioRef": null,
+            "captionRef": null,
+            "visualRef": null
+          },
+          {
+            "id": "S11-05",
+            "scriptLine": 152,
+            "startSeconds": 770,
+            "endSeconds": 780,
+            "durationSeconds": 10,
+            "kind": "silence",
+            "narration": "",
+            "onScreen": "Hold the two constraints, then reveal the surrounding air.",
+            "spokenWords": 0,
+            "audioRef": null,
+            "captionRef": null,
+            "visualRef": null
+          }
+        ]
+      },
+      {
+        "key": "S09",
+        "originalSceneKey": "S09",
+        "title": "The invisible shortage",
+        "scriptHeadingLine": 154,
+        "startSeconds": 780,
+        "endSeconds": 910,
+        "durationSeconds": 130,
+        "sourceSceneKeys": [
+          "S09",
+          "S12"
+        ],
+        "sourceBindingText": "Source scenes: S09 and selected S12. Bindings:\n[Chapter 4, the last millimetre](../education/chapters/04-the-fuel-supply.html#the-last-millimetre),\n[two bottlenecks](../education/chapters/04-the-fuel-supply.html#two-bottlenecks-in-series), and\n[the hungry halo](../education/chapters/04-the-fuel-supply.html#the-hungry-halo), printed pp. 76–78,\n92, 96–98; [Chapter 5, keeping a facet flat](../education/chapters/05-the-restless-surface.html#how-a-facet-stays-flat),\nprinted p. 80. Status: diffusion and coupled growth explanation. The diagram's colors encode an\nillustrative field, not Run B's measured field or actual droplet trajectories.",
+        "sourceScope": "diffusion and coupled growth explanation. The diagram's colors encode an\nillustrative field, not Run B's measured field or actual droplet trajectories.",
+        "sources": [
+          {
+            "label": "Chapter 4, the last millimetre",
+            "path": "docs/education/chapters/04-the-fuel-supply.html",
+            "anchor": "the-last-millimetre",
+            "revision": "929189b7ff0132fe288a562796812c68ec886840",
+            "sha256": "a1acc6892d5c7a971887cfb7756f8379250b1aad689412aec1f654babdd0b0f3",
+            "bytes": 100545,
+            "kind": "chapter"
+          },
+          {
+            "label": "two bottlenecks",
+            "path": "docs/education/chapters/04-the-fuel-supply.html",
+            "anchor": "two-bottlenecks-in-series",
+            "revision": "929189b7ff0132fe288a562796812c68ec886840",
+            "sha256": "a1acc6892d5c7a971887cfb7756f8379250b1aad689412aec1f654babdd0b0f3",
+            "bytes": 100545,
+            "kind": "chapter"
+          },
+          {
+            "label": "the hungry halo",
+            "path": "docs/education/chapters/04-the-fuel-supply.html",
+            "anchor": "the-hungry-halo",
+            "revision": "929189b7ff0132fe288a562796812c68ec886840",
+            "sha256": "a1acc6892d5c7a971887cfb7756f8379250b1aad689412aec1f654babdd0b0f3",
+            "bytes": 100545,
+            "kind": "chapter"
+          },
+          {
+            "label": "Chapter 5, keeping a facet flat",
+            "path": "docs/education/chapters/05-the-restless-surface.html",
+            "anchor": "how-a-facet-stays-flat",
+            "revision": "929189b7ff0132fe288a562796812c68ec886840",
+            "sha256": "db2094ffb900b6a4818c2b823675793ea5f313e57eb7476aa79e1baafa8b13d3",
+            "bytes": 123919,
+            "kind": "chapter"
+          }
+        ],
+        "inheritedSourceSequenceKeys": [],
+        "media": {
+          "audio": {
+            "status": "pending-maker-recording",
+            "ref": null
+          },
+          "captions": {
+            "status": "pending-reviewed-audio-derived-timing",
+            "ref": null
+          },
+          "visuals": {
+            "status": "pending-production-assets",
+            "ref": null
+          }
+        },
+        "rows": [
+          {
+            "id": "S09-01",
+            "scriptLine": 166,
+            "startSeconds": 780,
+            "endSeconds": 810,
+            "durationSeconds": 30,
+            "kind": "narration",
+            "narration": "Water vapour does not travel through ordinary air in a straight, purposeful stream towards a snow crystal. Molecules collide with the surrounding gas and wander. Across many molecules, that wandering produces diffusion: a net flow down a concentration gradient. As ice takes up vapour, it creates a shortage nearby. The surrounding air has to supply what the growing surface is removing.",
+            "onScreen": "DIAGRAM: a few illustrative molecular walks resolve into a smooth field. Label particle tracks SCHEMATIC; particles do not represent every molecule or measured paths.",
+            "spokenWords": 61,
+            "audioRef": null,
+            "captionRef": null,
+            "visualRef": null
+          },
+          {
+            "id": "S09-02",
+            "scriptLine": 167,
+            "startSeconds": 810,
+            "endSeconds": 840,
+            "durationSeconds": 30,
+            "kind": "narration",
+            "narration": "Now make that shortage visible. Around the crystal is a depleted region, with less spare vapour than farther away. The color here shows the field our eyes normally miss. It is not a stain carried along behind the crystal. Under the slow-growth conditions behind this picture, diffusion adjusts the field much faster than the outline changes appreciably.",
+            "onScreen": "The halo forms around a stationary seed; show a persistent low-to-high legend. No universal millisecond readout. Keep growth and field time compression identified as illustrative.",
+            "spokenWords": 57,
+            "audioRef": null,
+            "captionRef": null,
+            "visualRef": null
+          },
+          {
+            "id": "S09-03",
+            "scriptLine": 168,
+            "startSeconds": 840,
+            "endSeconds": 870,
+            "durationSeconds": 30,
+            "kind": "narration",
+            "narration": "There is an ingenious way to reveal part of this field experimentally. Tiny liquid droplets only persist where conditions allow them to. Around growing ice, a droplet-free region can mark where the vapour has fallen below that threshold. The edge becomes a visible clue to an invisible quantity. Our drawing explains that method; it is not the laboratory photograph.",
+            "onScreen": "An original droplet-threshold diagram appears beside the field. Caption EXPERIMENTAL PRINCIPLE · ORIGINAL DIAGRAM. Make the threshold boundary, rather than an invented humidity map, the observed feature being explained.",
+            "spokenWords": 59,
+            "audioRef": null,
+            "captionRef": null,
+            "visualRef": null
+          },
+          {
+            "id": "S09-04",
+            "scriptLine": 169,
+            "startSeconds": 870,
+            "endSeconds": 900,
+            "durationSeconds": 30,
+            "kind": "narration",
+            "narration": "The geometry now matters. An exposed part of the crystal and a sheltered recess do not receive the same delivery. What controls diffusive flow is how sharply the concentration changes with distance. A steep gradient can feed rapid growth. So the crystal is shaping its own supply, and that supply is helping shape the crystal. The two problems have become one feedback system.",
+            "onScreen": "Highlight field gradients at a tip and recess. Do not equate greater flux with a universally greater local surface supersaturation. End on a slight bump in the diagram, ready for S13.",
+            "spokenWords": 63,
+            "audioRef": null,
+            "captionRef": null,
+            "visualRef": null
+          },
+          {
+            "id": "S09-05",
+            "scriptLine": 170,
+            "startSeconds": 900,
+            "endSeconds": 910,
+            "durationSeconds": 10,
+            "kind": "silence",
+            "narration": "",
+            "onScreen": "Hold the gradient contrast.",
+            "spokenWords": 0,
+            "audioRef": null,
+            "captionRef": null,
+            "visualRef": null
+          }
+        ]
+      },
+      {
+        "key": "S13",
+        "originalSceneKey": "S13",
+        "title": "A corner gets ahead",
+        "scriptHeadingLine": 172,
+        "startSeconds": 910,
+        "endSeconds": 1040,
+        "durationSeconds": 130,
+        "sourceSceneKeys": [
+          "S13",
+          "S14"
+        ],
+        "sourceBindingText": "Source scenes: S13 and selected S14. Bindings:\n[Chapter 6, the runaway bump](../education/chapters/06-the-runaway-bump.html#the-runaway-bump),\n[six corners](../education/chapters/06-the-runaway-bump.html#six-corners-at-once),\n[directional control](../education/chapters/06-the-runaway-bump.html#turn-off-the-directions), and\n[order and chaos](../education/chapters/06-the-runaway-bump.html#order-and-chaos), printed\npp. 81–85, 107; Chapter 1 Fig. 1.9 caption, printed p. 21.\nStatus: branching-instability explanation; directional-control examples are model results.\nRun B remains a separately labeled illustration, not evidence for the preceding mechanism.",
+        "sourceScope": "branching-instability explanation; directional-control examples are model results.\nRun B remains a separately labeled illustration, not evidence for the preceding mechanism.",
+        "sources": [
+          {
+            "label": "Chapter 6, the runaway bump",
+            "path": "docs/education/chapters/06-the-runaway-bump.html",
+            "anchor": "the-runaway-bump",
+            "revision": "929189b7ff0132fe288a562796812c68ec886840",
+            "sha256": "a264db73eca1589b1941c3d465ed402f611f5e9cfed6e64c808f03d3d04427f3",
+            "bytes": 90083,
+            "kind": "chapter"
+          },
+          {
+            "label": "six corners",
+            "path": "docs/education/chapters/06-the-runaway-bump.html",
+            "anchor": "six-corners-at-once",
+            "revision": "929189b7ff0132fe288a562796812c68ec886840",
+            "sha256": "a264db73eca1589b1941c3d465ed402f611f5e9cfed6e64c808f03d3d04427f3",
+            "bytes": 90083,
+            "kind": "chapter"
+          },
+          {
+            "label": "directional control",
+            "path": "docs/education/chapters/06-the-runaway-bump.html",
+            "anchor": "turn-off-the-directions",
+            "revision": "929189b7ff0132fe288a562796812c68ec886840",
+            "sha256": "a264db73eca1589b1941c3d465ed402f611f5e9cfed6e64c808f03d3d04427f3",
+            "bytes": 90083,
+            "kind": "chapter"
+          },
+          {
+            "label": "order and chaos",
+            "path": "docs/education/chapters/06-the-runaway-bump.html",
+            "anchor": "order-and-chaos",
+            "revision": "929189b7ff0132fe288a562796812c68ec886840",
+            "sha256": "a264db73eca1589b1941c3d465ed402f611f5e9cfed6e64c808f03d3d04427f3",
+            "bytes": 90083,
+            "kind": "chapter"
+          }
+        ],
+        "inheritedSourceSequenceKeys": [],
+        "media": {
+          "audio": {
+            "status": "pending-maker-recording",
+            "ref": null
+          },
+          "captions": {
+            "status": "pending-reviewed-audio-derived-timing",
+            "ref": null
+          },
+          "visuals": {
+            "status": "pending-production-assets",
+            "ref": null
+          }
+        },
+        "rows": [
+          {
+            "id": "S13-01",
+            "scriptLine": 185,
+            "startSeconds": 910,
+            "endSeconds": 940,
+            "durationSeconds": 30,
+            "kind": "narration",
+            "narration": "Take a growing surface and give it a small bump. In the simple situation shown here, that bump reaches farther into the surrounding vapour field and receives more material than its neighbours. It grows a little faster, which makes it stick out farther. That strengthens its advantage. A small difference has found a way to increase itself.",
+            "onScreen": "WP0A original halo/corner diagram, tagged DIAGRAM. Bring up each step in the feedback while retaining the field legend. Do not use model replay as the diagram's causal measurement.",
+            "spokenWords": 57,
+            "audioRef": null,
+            "captionRef": null,
+            "visualRef": null
+          },
+          {
+            "id": "S13-02",
+            "scriptLine": 186,
+            "startSeconds": 940,
+            "endSeconds": 970,
+            "durationSeconds": 30,
+            "kind": "narration",
+            "narration": "This is the branching instability. The important word is instability: an evenly advancing front can be a mathematical solution without being able to recover from a disturbance. The bump does not have to begin as an arm. It only needs an advantage that growth amplifies. The elaborate structure comes later, as new protrusions compete with sheltered regions for the supply.",
+            "onScreen": "The perturbation increases; draw the original front faintly behind it. Caption ILLUSTRATIVE GROWTH FRONT. Avoid a claim that every flat facet under every condition must branch.",
+            "spokenWords": 60,
+            "audioRef": null,
+            "captionRef": null,
+            "visualRef": null
+          },
+          {
+            "id": "S13-03",
+            "scriptLine": 187,
+            "startSeconds": 970,
+            "endSeconds": 1000,
+            "durationSeconds": 30,
+            "kind": "narration",
+            "narration": "On a thin hexagonal plate, the corners already project into the surrounding air. They provide natural starting places for branches. The lattice and the surface's directional preferences help organize the growth, while the uneven delivery promotes branching. Neither part is the whole explanation. Remove the directional preference in suitable model experiments and the branching becomes much less like a neat six-armed star.",
+            "onScreen": "Return to a six-corner plate diagram. If the directional-control comparison is used, tag it MODEL EXPERIMENT and name its source; otherwise illustrate the distinction with a schematic, without fabricated run output.",
+            "spokenWords": 62,
+            "audioRef": null,
+            "captionRef": null,
+            "visualRef": null
+          },
+          {
+            "id": "S13-04",
+            "scriptLine": 188,
+            "startSeconds": 1000,
+            "endSeconds": 1030,
+            "durationSeconds": 30,
+            "kind": "narration",
+            "narration": "Here is our computer crystal developing branches too. The label matters: seeing the same kind of feature in a model does not establish that the model has the right physical explanation. But it lets us inspect the emerging form. What first looked like decoration now has a question attached to it: where was material arriving, and which surfaces could make use of it?",
+            "onScreen": "Switch visibly to Run B, MODEL · UNVALIDATED. Use an inspected branching frame and a close camera; do not expose the complete final silhouette. The spoken distinction remains through the handover.",
+            "spokenWords": 63,
+            "audioRef": null,
+            "captionRef": null,
+            "visualRef": null
+          },
+          {
+            "id": "S13-05",
+            "scriptLine": 189,
+            "startSeconds": 1030,
+            "endSeconds": 1040,
+            "durationSeconds": 10,
+            "kind": "silence",
+            "narration": "",
+            "onScreen": "Inspect the mid-growth branches in silence.",
+            "spokenWords": 0,
+            "audioRef": null,
+            "captionRef": null,
+            "visualRef": null
+          }
+        ]
+      },
+      {
+        "key": "S15",
+        "originalSceneKey": "S15",
+        "title": "The shape remembers",
+        "scriptHeadingLine": 191,
+        "startSeconds": 1040,
+        "endSeconds": 1170,
+        "durationSeconds": 130,
+        "sourceSceneKeys": [
+          "S15",
+          "S16"
+        ],
+        "sourceBindingText": "Source scenes: S15 and a brief S16 limit. Bindings:\n[Chapter 8, a map for still weather](../education/chapters/08-a-snowflake-is-a-record.html#a-map-for-still-weather),\n[capped column](../education/chapters/08-a-snowflake-is-a-record.html#reading-a-capped-column),\n[shared arm histories](../education/chapters/08-a-snowflake-is-a-record.html#why-the-six-arms-match),\n[fine detail](../education/chapters/08-a-snowflake-is-a-record.html#where-the-symmetry-runs-out), and\n[reading limits](../education/chapters/08-a-snowflake-is-a-record.html#what-the-record-does-not-say),\nprinted pp. 18, 21–23, 83–84, 383. Status: established environmental-history explanation with\na schematic example. It is neither unique weather reconstruction nor a blanket preservation rule\ncovering sublimation, riming, collisions and every later process.",
+        "sourceScope": "established environmental-history explanation with\na schematic example. It is neither unique weather reconstruction nor a blanket preservation rule\ncovering sublimation, riming, collisions and every later process.",
+        "sources": [
+          {
+            "label": "Chapter 8, a map for still weather",
+            "path": "docs/education/chapters/08-a-snowflake-is-a-record.html",
+            "anchor": "a-map-for-still-weather",
+            "revision": "929189b7ff0132fe288a562796812c68ec886840",
+            "sha256": "0eeb71969db1d2ecf0c0e194cc593232d58791f516b2ae818450985474e4d131",
+            "bytes": 93026,
+            "kind": "chapter"
+          },
+          {
+            "label": "capped column",
+            "path": "docs/education/chapters/08-a-snowflake-is-a-record.html",
+            "anchor": "reading-a-capped-column",
+            "revision": "929189b7ff0132fe288a562796812c68ec886840",
+            "sha256": "0eeb71969db1d2ecf0c0e194cc593232d58791f516b2ae818450985474e4d131",
+            "bytes": 93026,
+            "kind": "chapter"
+          },
+          {
+            "label": "shared arm histories",
+            "path": "docs/education/chapters/08-a-snowflake-is-a-record.html",
+            "anchor": "why-the-six-arms-match",
+            "revision": "929189b7ff0132fe288a562796812c68ec886840",
+            "sha256": "0eeb71969db1d2ecf0c0e194cc593232d58791f516b2ae818450985474e4d131",
+            "bytes": 93026,
+            "kind": "chapter"
+          },
+          {
+            "label": "fine detail",
+            "path": "docs/education/chapters/08-a-snowflake-is-a-record.html",
+            "anchor": "where-the-symmetry-runs-out",
+            "revision": "929189b7ff0132fe288a562796812c68ec886840",
+            "sha256": "0eeb71969db1d2ecf0c0e194cc593232d58791f516b2ae818450985474e4d131",
+            "bytes": 93026,
+            "kind": "chapter"
+          },
+          {
+            "label": "reading limits",
+            "path": "docs/education/chapters/08-a-snowflake-is-a-record.html",
+            "anchor": "what-the-record-does-not-say",
+            "revision": "929189b7ff0132fe288a562796812c68ec886840",
+            "sha256": "0eeb71969db1d2ecf0c0e194cc593232d58791f516b2ae818450985474e4d131",
+            "bytes": 93026,
+            "kind": "chapter"
+          }
+        ],
+        "inheritedSourceSequenceKeys": [],
+        "media": {
+          "audio": {
+            "status": "pending-maker-recording",
+            "ref": null
+          },
+          "captions": {
+            "status": "pending-reviewed-audio-derived-timing",
+            "ref": null
+          },
+          "visuals": {
+            "status": "pending-production-assets",
+            "ref": null
+          }
+        },
+        "rows": [
+          {
+            "id": "S15-01",
+            "scriptLine": 205,
+            "startSeconds": 1040,
+            "endSeconds": 1070,
+            "durationSeconds": 30,
+            "kind": "narration",
+            "narration": "A cloud does not keep one temperature and one vapour supply around a crystal for its entire life. The crystal moves through changing conditions. While it keeps growing by deposition, new regions develop on the structure that is already there. Its final shape can therefore carry traces of different stages. The map becomes a route rather than a single point.",
+            "onScreen": "DIAGRAM: a chosen route across the qualitative map, alongside a schematic history. Label ILLUSTRATIVE SCHEDULE; the animation clock is not measured cloud time.",
+            "spokenWords": 60,
+            "audioRef": null,
+            "captionRef": null,
+            "visualRef": null
+          },
+          {
+            "id": "S15-02",
+            "scriptLine": 206,
+            "startSeconds": 1070,
+            "endSeconds": 1100,
+            "durationSeconds": 30,
+            "kind": "narration",
+            "narration": "A capped column makes this idea easy to picture. First a column grows. Later, conditions favour plate growth, and plates spread from its ends. The earlier structure remains part of the later one. That is a useful way to read the shape, although a finished photograph does not give us a unique itinerary or a reliable clock for the journey.",
+            "onScreen": "Column-first, plates-later diagram with distinct early/late textures as well as color. No reverse-history morph. Do not assign exact temperatures to a named model asset.",
+            "spokenWords": 60,
+            "audioRef": null,
+            "captionRef": null,
+            "visualRef": null
+          },
+          {
+            "id": "S15-03",
+            "scriptLine": 207,
+            "startSeconds": 1100,
+            "endSeconds": 1130,
+            "durationSeconds": 30,
+            "kind": "narration",
+            "narration": "The six arms of a stellar crystal travel together. Broad changes in temperature and vapour supply reach them together, and their equivalent lattice directions give them similar ways to respond. They do not need to send one another instructions to develop matching large-scale patterns. The common history does much of the coordinating. At finer scales, the resemblance can be far less exact.",
+            "onScreen": "Six diagram arms follow one shared condition track. Label SHARED CONDITIONS, not “no interaction”: they still share and compete for the field. Show fine details differing.",
+            "spokenWords": 62,
+            "audioRef": null,
+            "captionRef": null,
+            "visualRef": null
+          },
+          {
+            "id": "S15-04",
+            "scriptLine": 208,
+            "startSeconds": 1130,
+            "endSeconds": 1160,
+            "durationSeconds": 30,
+            "kind": "narration",
+            "narration": "Small disturbances can start sidebranches in different places, and the crystal's own growth can create features that complicate a simple weather reading. So its shape is a record with ambiguities. It can suggest a plausible history; it cannot tell us everything that happened. This is where an observer's next question becomes powerful: what if we chose the conditions ourselves and watched the whole process?",
+            "onScreen": "A few possible histories appear under one schematic feature; label POSSIBLE HISTORIES. Transition to a controlled chamber rather than presenting an invented inverse reconstruction.",
+            "spokenWords": 64,
+            "audioRef": null,
+            "captionRef": null,
+            "visualRef": null
+          },
+          {
+            "id": "S15-05",
+            "scriptLine": 209,
+            "startSeconds": 1160,
+            "endSeconds": 1170,
+            "durationSeconds": 10,
+            "kind": "silence",
+            "narration": "",
+            "onScreen": "Hold the growing-history diagram beside the chamber.",
+            "spokenWords": 0,
+            "audioRef": null,
+            "captionRef": null,
+            "visualRef": null
+          }
+        ]
+      },
+      {
+        "key": "S17",
+        "originalSceneKey": "S17",
+        "title": "Return to the map",
+        "scriptHeadingLine": 211,
+        "startSeconds": 1170,
+        "endSeconds": 1300,
+        "durationSeconds": 130,
+        "sourceSceneKeys": [
+          "S17",
+          "S18"
+        ],
+        "sourceBindingText": "Source scenes: S17–S18. Bindings:\n[Chapter 2, Nakaya](../education/chapters/02-four-hundred-years-of-looking.html#nakaya), printed\npp. 30–32; [Chapter 7, aspect-ratio rule](../education/chapters/07-plates-columns-plates-columns.html#the-rule),\n[diffusion comparison](../education/chapters/07-plates-columns-plates-columns.html#not-diffusion),\n[other laboratories](../education/chapters/07-plates-columns-plates-columns.html#second-opinions), and\n[cold end](../education/chapters/07-plates-columns-plates-columns.html#cold-end-rewritten), printed\npp. 111–115. Status: historical controlled growth, qualitative observation and a scoped\ngrowth-equation comparison. Extreme aspect ratio is not inferred from a barrier crossing alone.",
+        "sourceScope": "historical controlled growth, qualitative observation and a scoped\ngrowth-equation comparison. Extreme aspect ratio is not inferred from a barrier crossing alone.",
+        "sources": [
+          {
+            "label": "Chapter 2, Nakaya",
+            "path": "docs/education/chapters/02-four-hundred-years-of-looking.html",
+            "anchor": "nakaya",
+            "revision": "929189b7ff0132fe288a562796812c68ec886840",
+            "sha256": "c0bfd5e9c74e02fcd3cca2d9201710d42de90e8bae41789e288d4098728915f9",
+            "bytes": 79539,
+            "kind": "chapter"
+          },
+          {
+            "label": "Chapter 7, aspect-ratio rule",
+            "path": "docs/education/chapters/07-plates-columns-plates-columns.html",
+            "anchor": "the-rule",
+            "revision": "929189b7ff0132fe288a562796812c68ec886840",
+            "sha256": "db89095329a40df18455018e0d424c51ab7ca1314414855108e9fa171df38220",
+            "bytes": 120734,
+            "kind": "chapter"
+          },
+          {
+            "label": "diffusion comparison",
+            "path": "docs/education/chapters/07-plates-columns-plates-columns.html",
+            "anchor": "not-diffusion",
+            "revision": "929189b7ff0132fe288a562796812c68ec886840",
+            "sha256": "db89095329a40df18455018e0d424c51ab7ca1314414855108e9fa171df38220",
+            "bytes": 120734,
+            "kind": "chapter"
+          },
+          {
+            "label": "other laboratories",
+            "path": "docs/education/chapters/07-plates-columns-plates-columns.html",
+            "anchor": "second-opinions",
+            "revision": "929189b7ff0132fe288a562796812c68ec886840",
+            "sha256": "db89095329a40df18455018e0d424c51ab7ca1314414855108e9fa171df38220",
+            "bytes": 120734,
+            "kind": "chapter"
+          },
+          {
+            "label": "cold end",
+            "path": "docs/education/chapters/07-plates-columns-plates-columns.html",
+            "anchor": "cold-end-rewritten",
+            "revision": "929189b7ff0132fe288a562796812c68ec886840",
+            "sha256": "db89095329a40df18455018e0d424c51ab7ca1314414855108e9fa171df38220",
+            "bytes": 120734,
+            "kind": "chapter"
+          }
+        ],
+        "inheritedSourceSequenceKeys": [],
+        "media": {
+          "audio": {
+            "status": "pending-maker-recording",
+            "ref": null
+          },
+          "captions": {
+            "status": "pending-reviewed-audio-derived-timing",
+            "ref": null
+          },
+          "visuals": {
+            "status": "pending-production-assets",
+            "ref": null
+          }
+        },
+        "rows": [
+          {
+            "id": "S17-01",
+            "scriptLine": 224,
+            "startSeconds": 1170,
+            "endSeconds": 1200,
+            "durationSeconds": 30,
+            "kind": "narration",
+            "narration": "In the nineteen-thirties, Nakaya built a refrigerated laboratory and grew snow crystals under conditions he could choose. Instead of only collecting what the sky supplied, he could change the environment and observe the result. The map we met at the beginning comes from that kind of work. Later laboratories repeated the comparisons and revised parts of the picture, especially in the colder regions.",
+            "onScreen": "Original chamber diagram and dated text. Bring back the opening's qualitative map; no fabricated archive photograph, exhaustive historical claim or narration about an imagined rights prohibition.",
+            "spokenWords": 63,
+            "audioRef": null,
+            "captionRef": null,
+            "visualRef": null
+          },
+          {
+            "id": "S17-02",
+            "scriptLine": 225,
+            "startSeconds": 1200,
+            "endSeconds": 1230,
+            "durationSeconds": 30,
+            "kind": "narration",
+            "narration": "We can now ask a more specific question about it. To make a very thin plate, growth must extend the crystal sideways much faster than it thickens it. To make a slender column, the balance goes the other way. The two principal face families are the ends and sides we named earlier. Sustaining an extreme shape requires a strong difference in their growth behaviour.",
+            "onScreen": "Two arrows on a prism indicate thickness and width growth. Reveal the words BASAL and PRISM only after the directions are clear. Keep the examples separate and schematic.",
+            "spokenWords": 64,
+            "audioRef": null,
+            "captionRef": null,
+            "visualRef": null
+          },
+          {
+            "id": "S17-03",
+            "scriptLine": 226,
+            "startSeconds": 1230,
+            "endSeconds": 1260,
+            "durationSeconds": 30,
+            "kind": "narration",
+            "narration": "Diffusion alone does not explain that thinness. In the comparison Libbrecht describes, begin with a thin plate and make attachment on the ends and sides comparable. The edges thicken, and the overall proportions move back towards a less extreme shape, even though branching can continue. Branching and staying paper-thin are different jobs. A supply pattern cannot simply stand in for the missing surface difference.",
+            "onScreen": "A labeled model-comparison diagram: COMPARABLE FACE ATTACHMENT. Show thickening by addition, not the existing plate shrinking. State that the comparison concerns sustained extreme aspect ratio.",
+            "spokenWords": 64,
+            "audioRef": null,
+            "captionRef": null,
+            "visualRef": null
+          },
+          {
+            "id": "S17-04",
+            "scriptLine": 227,
+            "startSeconds": 1260,
+            "endSeconds": 1290,
+            "durationSeconds": 30,
+            "kind": "narration",
+            "narration": "So the map is directing our attention to the surface. As conditions change, the relative behaviour of its faces changes too. But how would we find out what either face is doing? A photograph gives us a shape, not the attachment process itself. We need to measure growth under controlled conditions, then account for how much vapour actually reached the ice.",
+            "onScreen": "Move from the map to a single controlled test crystal. Separate the icons for measured dimensions, environmental estimate and inferred attachment response.",
+            "spokenWords": 61,
+            "audioRef": null,
+            "captionRef": null,
+            "visualRef": null
+          },
+          {
+            "id": "S17-05",
+            "scriptLine": 228,
+            "startSeconds": 1290,
+            "endSeconds": 1300,
+            "durationSeconds": 10,
+            "kind": "silence",
+            "narration": "",
+            "onScreen": "Hold those three roles before assembling the instrument.",
+            "spokenWords": 0,
+            "audioRef": null,
+            "captionRef": null,
+            "visualRef": null
+          }
+        ]
+      },
+      {
+        "key": "S22",
+        "originalSceneKey": "S22",
+        "title": "The experiment that makes its own weather",
+        "scriptHeadingLine": 230,
+        "startSeconds": 1300,
+        "endSeconds": 1430,
+        "durationSeconds": 130,
+        "sourceSceneKeys": [
+          "S22",
+          "S23"
+        ],
+        "sourceBindingText": "Source scenes: S22–S23. Bindings:\n[Chapter 10, two thermometers](../education/chapters/10-how-we-know.html#two-thermometers), Eq. 6.1,\nprinted pp. 221–222, 255; [isolated substrate](../education/chapters/10-how-we-know.html#empty-substrate),\nprinted pp. 251–257; [interference measurement](../education/chapters/10-how-we-know.html#counting-fringes),\nprinted pp. 228–229, 255–260. Status: experimental method and its limitations. Numerical\nuncertainty, twentyfold examples and invented plot coordinates are deliberately not introduced.\nThe white-light and laser methods must remain distinct.",
+        "sourceScope": "experimental method and its limitations. Numerical\nuncertainty, twentyfold examples and invented plot coordinates are deliberately not introduced.\nThe white-light and laser methods must remain distinct.",
+        "sources": [
+          {
+            "label": "Chapter 10, two thermometers",
+            "path": "docs/education/chapters/10-how-we-know.html",
+            "anchor": "two-thermometers",
+            "revision": "929189b7ff0132fe288a562796812c68ec886840",
+            "sha256": "a86bbc206495a5e6b353af234f43628489908b67ddbeab8939511920a5c7b40f",
+            "bytes": 113602,
+            "kind": "chapter"
+          },
+          {
+            "label": "isolated substrate",
+            "path": "docs/education/chapters/10-how-we-know.html",
+            "anchor": "empty-substrate",
+            "revision": "929189b7ff0132fe288a562796812c68ec886840",
+            "sha256": "a86bbc206495a5e6b353af234f43628489908b67ddbeab8939511920a5c7b40f",
+            "bytes": 113602,
+            "kind": "chapter"
+          },
+          {
+            "label": "interference measurement",
+            "path": "docs/education/chapters/10-how-we-know.html",
+            "anchor": "counting-fringes",
+            "revision": "929189b7ff0132fe288a562796812c68ec886840",
+            "sha256": "a86bbc206495a5e6b353af234f43628489908b67ddbeab8939511920a5c7b40f",
+            "bytes": 113602,
+            "kind": "chapter"
+          }
+        ],
+        "inheritedSourceSequenceKeys": [],
+        "media": {
+          "audio": {
+            "status": "pending-maker-recording",
+            "ref": null
+          },
+          "captions": {
+            "status": "pending-reviewed-audio-derived-timing",
+            "ref": null
+          },
+          "visuals": {
+            "status": "pending-production-assets",
+            "ref": null
+          }
+        },
+        "rows": [
+          {
+            "id": "S22-01",
+            "scriptLine": 242,
+            "startSeconds": 1300,
+            "endSeconds": 1330,
+            "durationSeconds": 30,
+            "kind": "narration",
+            "narration": "Temperature is comparatively straightforward to measure. Supersaturation is harder. Put a humidity sensor inside a cold growth chamber and ice can grow on the sensor itself, removing vapour and changing the thing you wanted to read. One solution is to construct a known supply from two controlled temperatures: a frost reservoir above, and a test crystal on a substrate below.",
+            "onScreen": "Signature original apparatus diagram. Label reservoir and substrate separately. An illustrative sensor grows ice; this is the method's stated disturbance, not footage or a universal claim about every instrument.",
+            "spokenWords": 60,
+            "audioRef": null,
+            "captionRef": null,
+            "visualRef": null
+          },
+          {
+            "id": "S22-02",
+            "scriptLine": 243,
+            "startSeconds": 1330,
+            "endSeconds": 1360,
+            "durationSeconds": 30,
+            "kind": "narration",
+            "narration": "The reservoir temperature sets an equilibrium vapour density; the substrate temperature sets the balance value for ice there. Their difference, divided by that second value, gives the fractional excess in the ideal calculation. Equal temperatures give zero in that calculation. The real experiment still has to locate its zero and assess uncertainty. Other crystals on the floor also consume vapour, so isolation matters.",
+            "onScreen": "Build the normalized difference as a plain-language fraction. Caption IDEAL CALCULATION; show a separate experimental uncertainty indication without assigning a new value. Introduce unwanted neighboring crystals qualitatively.",
+            "spokenWords": 63,
+            "audioRef": null,
+            "captionRef": null,
+            "visualRef": null
+          },
+          {
+            "id": "S22-03",
+            "scriptLine": 244,
+            "startSeconds": 1360,
+            "endSeconds": 1390,
+            "durationSeconds": 30,
+            "kind": "narration",
+            "narration": "Then light becomes a ruler. Reflections from the top and bottom of the ice interfere. As the thickness changes, that interference changes too. A laser can produce a cycling bright spot; a white-light method measures bands in a spectrum. They have different strengths, but both turn something difficult to see directly into an optical signal that can be interpreted.",
+            "onScreen": "Separate LASER and WHITE-LIGHT diagram panels. Never present a synthetic oscillation as raw laboratory data. Use relative fringe counts without unsupported wavelength-to-thickness conversion.",
+            "spokenWords": 59,
+            "audioRef": null,
+            "captionRef": null,
+            "visualRef": null
+          },
+          {
+            "id": "S22-04",
+            "scriptLine": 245,
+            "startSeconds": 1390,
+            "endSeconds": 1420,
+            "durationSeconds": 30,
+            "kind": "narration",
+            "narration": "Combine thickness measurements with an image of the crystal's width, and changes over time give growth rates in two directions. Repeat under different conditions and patterns emerge. The apparatus does not make interpretation disappear: the substrate, the vapour field and the analysis still matter. What it provides is a disciplined connection between an observation, a controlled setting and a quantity someone wants to explain.",
+            "onScreen": "Assemble dimension/time → growth-rate arrows. No invented measured dots. End with a source-labeled diagram of the measurement-to-inference chain; physical dimensions and units appear only if drawn from an audited source.",
+            "spokenWords": 64,
+            "audioRef": null,
+            "captionRef": null,
+            "visualRef": null
+          },
+          {
+            "id": "S22-05",
+            "scriptLine": 246,
+            "startSeconds": 1420,
+            "endSeconds": 1430,
+            "durationSeconds": 10,
+            "kind": "silence",
+            "narration": "",
+            "onScreen": "Hold the complete apparatus and chain without additional labels.",
+            "spokenWords": 0,
+            "audioRef": null,
+            "captionRef": null,
+            "visualRef": null
+          }
+        ]
+      },
+      {
+        "key": "S25",
+        "originalSceneKey": "S25",
+        "title": "Starting the next layer",
+        "scriptHeadingLine": 248,
+        "startSeconds": 1430,
+        "endSeconds": 1560,
+        "durationSeconds": 130,
+        "sourceSceneKeys": [
+          "S25"
+        ],
+        "sourceBindingText": "Source scenes: S25. Bindings:\n[Chapter 11, starting a layer](../education/chapters/11-the-stickiness-of-ice.html#starting-a-layer),\nprinted pp. 138, 141–142, including its defect-free assumption and screw-dislocation exception;\n[Chapter 5, staircase](../education/chapters/05-the-restless-surface.html#a-staircase-not-a-wall).\nStatus: terrace-nucleation account for the specified surface, not the only possible growth mode.\nIsland sizes, waiting times and particle trajectories are schematic.",
+        "sourceScope": "terrace-nucleation account for the specified surface, not the only possible growth mode.\nIsland sizes, waiting times and particle trajectories are schematic.",
+        "sources": [
+          {
+            "label": "Chapter 11, starting a layer",
+            "path": "docs/education/chapters/11-the-stickiness-of-ice.html",
+            "anchor": "starting-a-layer",
+            "revision": "929189b7ff0132fe288a562796812c68ec886840",
+            "sha256": "dd1f63896de87f0d275a7c22b20dca2007cd9cb4ecc79f785fd6d299d9b84676",
+            "bytes": 121290,
+            "kind": "chapter"
+          },
+          {
+            "label": "Chapter 5, staircase",
+            "path": "docs/education/chapters/05-the-restless-surface.html",
+            "anchor": "a-staircase-not-a-wall",
+            "revision": "929189b7ff0132fe288a562796812c68ec886840",
+            "sha256": "db2094ffb900b6a4818c2b823675793ea5f313e57eb7476aa79e1baafa8b13d3",
+            "bytes": 123919,
+            "kind": "chapter"
+          }
+        ],
+        "inheritedSourceSequenceKeys": [],
+        "media": {
+          "audio": {
+            "status": "pending-maker-recording",
+            "ref": null
+          },
+          "captions": {
+            "status": "pending-reviewed-audio-derived-timing",
+            "ref": null
+          },
+          "visuals": {
+            "status": "pending-production-assets",
+            "ref": null
+          }
+        },
+        "rows": [
+          {
+            "id": "S25-01",
+            "scriptLine": 259,
+            "startSeconds": 1430,
+            "endSeconds": 1460,
+            "durationSeconds": 30,
+            "kind": "narration",
+            "narration": "Now zoom in on a flat face. Imagine a clean terrace without a permanent step supplied by a crystal defect. A molecule can land, move around for a while, and leave again. Reaching the surface is not the same as becoming a lasting part of the lattice. If there is no nearby step to join, the next layer has to find a way to start.",
+            "onScreen": "DIAGRAM · DEFECT-FREE TERRACE. Distinguish vapor, a mobile surface molecule and incorporated ice. Do not treat the illustration as a molecular simulation.",
+            "spokenWords": 65,
+            "audioRef": null,
+            "captionRef": null,
+            "visualRef": null
+          },
+          {
+            "id": "S25-02",
+            "scriptLine": 260,
+            "startSeconds": 1460,
+            "endSeconds": 1490,
+            "durationSeconds": 30,
+            "kind": "narration",
+            "narration": "A few molecules can gather into a tiny island. But a small island has a lot of edge relative to its area, and creating that edge costs energy. Under the conditions we are describing, small islands tend to fall apart. An island large enough to survive can grow, spreading a new layer across the face. Starting is the difficult part.",
+            "onScreen": "Show several small islands forming and disappearing; one survives and spreads. Caption SIZES AND TIMING SCHEMATIC. Avoid a sharp universal molecule-count threshold.",
+            "spokenWords": 60,
+            "audioRef": null,
+            "captionRef": null,
+            "visualRef": null
+          },
+          {
+            "id": "S25-03",
+            "scriptLine": 261,
+            "startSeconds": 1490,
+            "endSeconds": 1520,
+            "durationSeconds": 30,
+            "kind": "narration",
+            "narration": "That gives us a reason a smooth face can be slow. It may spend much of its time waiting for successful starts, even while molecules are landing and leaving. Increase the spare vapour at the surface and those starts become easier. The visible growth rate can change steeply. We have connected a large-scale observation, the slow face, to a possible sequence of events at molecular scale.",
+            "onScreen": "Return briefly to S11's slow facet, then show the terrace again. Keep the account's assumptions visible; do not imply all steps or all conditions obey one exact waiting process.",
+            "spokenWords": 66,
+            "audioRef": null,
+            "captionRef": null,
+            "visualRef": null
+          },
+          {
+            "id": "S25-04",
+            "scriptLine": 262,
+            "startSeconds": 1520,
+            "endSeconds": 1550,
+            "durationSeconds": 30,
+            "kind": "narration",
+            "narration": "The qualification is useful. A screw dislocation, a particular kind of defect, can supply a continuing step, so the face need not keep starting isolated islands in this way. A physical explanation becomes more valuable when it says where it applies. For the nucleation-limited case, the next question is quantitative: can the difficulty of starting a layer account for the growth rates people measure?",
+            "onScreen": "A small contrasting spiral-step diagram is labeled ALTERNATIVE GROWTH MODE. Return to the defect-free case rather than expanding into a separate dislocation lesson.",
+            "spokenWords": 64,
+            "audioRef": null,
+            "captionRef": null,
+            "visualRef": null
+          },
+          {
+            "id": "S25-05",
+            "scriptLine": 263,
+            "startSeconds": 1550,
+            "endSeconds": 1560,
+            "durationSeconds": 10,
+            "kind": "silence",
+            "narration": "",
+            "onScreen": "Hold one layer completing.",
+            "spokenWords": 0,
+            "audioRef": null,
+            "captionRef": null,
+            "visualRef": null
+          }
+        ]
+      },
+      {
+        "key": "S26",
+        "originalSceneKey": "S26",
+        "title": "From an observation to a curve",
+        "scriptHeadingLine": 265,
+        "startSeconds": 1560,
+        "endSeconds": 1690,
+        "durationSeconds": 130,
+        "sourceSceneKeys": [
+          "S26",
+          "S27",
+          "S31"
+        ],
+        "sourceBindingText": "Source scenes: S26–S27 and selected S31. Bindings:\n[Chapter 11, barrier](../education/chapters/11-the-stickiness-of-ice.html#the-barrier), Eqs. 4.4–4.5,\nprinted pp. 142–145; [parameter extraction](../education/chapters/11-the-stickiness-of-ice.html#where-the-numbers-come-from),\nincluding “Scope before acronym”; [Chapter 13, kinds of line](../education/chapters/13-the-frontier.html#four-kinds-of-line).\nStatus: theory under assumptions, model-conditioned parameter inference and source fits. No\nnumerical parameter, measured point or quantitatively scaled plotted trace is newly authored here.",
+        "sourceScope": "theory under assumptions, model-conditioned parameter inference and source fits. No\nnumerical parameter, measured point or quantitatively scaled plotted trace is newly authored here.",
+        "sources": [
+          {
+            "label": "Chapter 11, barrier",
+            "path": "docs/education/chapters/11-the-stickiness-of-ice.html",
+            "anchor": "the-barrier",
+            "revision": "929189b7ff0132fe288a562796812c68ec886840",
+            "sha256": "dd1f63896de87f0d275a7c22b20dca2007cd9cb4ecc79f785fd6d299d9b84676",
+            "bytes": 121290,
+            "kind": "chapter"
+          },
+          {
+            "label": "parameter extraction",
+            "path": "docs/education/chapters/11-the-stickiness-of-ice.html",
+            "anchor": "where-the-numbers-come-from",
+            "revision": "929189b7ff0132fe288a562796812c68ec886840",
+            "sha256": "dd1f63896de87f0d275a7c22b20dca2007cd9cb4ecc79f785fd6d299d9b84676",
+            "bytes": 121290,
+            "kind": "chapter"
+          },
+          {
+            "label": "Chapter 13, kinds of line",
+            "path": "docs/education/chapters/13-the-frontier.html",
+            "anchor": "four-kinds-of-line",
+            "revision": "929189b7ff0132fe288a562796812c68ec886840",
+            "sha256": "b109eea1fb461ff422b2384ec60cd893e896de232a42ff98e23ecfcd6d132abe",
+            "bytes": 115988,
+            "kind": "chapter"
+          }
+        ],
+        "inheritedSourceSequenceKeys": [],
+        "media": {
+          "audio": {
+            "status": "pending-maker-recording",
+            "ref": null
+          },
+          "captions": {
+            "status": "pending-reviewed-audio-derived-timing",
+            "ref": null
+          },
+          "visuals": {
+            "status": "pending-production-assets",
+            "ref": null
+          }
+        },
+        "rows": [
+          {
+            "id": "S26-01",
+            "scriptLine": 276,
+            "startSeconds": 1560,
+            "endSeconds": 1590,
+            "durationSeconds": 30,
+            "kind": "narration",
+            "narration": "Terrace-nucleation theory gives a compact way to describe how the attachment coefficient changes with surface supersaturation. There is a barrier scale and a prefactor setting the upper response in that description. At low surplus, successful starts can be rare. With more surplus, attachment rises steeply. The equation gives a shape to look for in the measured growth behaviour.",
+            "onScreen": "Original qualitative response diagram, labeled SCHEMATIC RELATION, with no fabricated data points. If showing the source equation, retain `alphaHK`, surface supersaturation, barrier and prefactor definitions together.",
+            "spokenWords": 58,
+            "audioRef": null,
+            "captionRef": null,
+            "visualRef": null
+          },
+          {
+            "id": "S26-02",
+            "scriptLine": 277,
+            "startSeconds": 1590,
+            "endSeconds": 1620,
+            "durationSeconds": 30,
+            "kind": "narration",
+            "narration": "To obtain the parameters, researchers do not place a barrier meter on the ice. They measure a face's growth speed, account for the kinetic scale and the estimated vapour at its surface, and infer an attachment response. They fit a description to that response. Repeating the procedure at different temperatures produces the curves that a growth model may later use.",
+            "onScreen": "Measurement → analysis → inferred response → fit. Keep these four stages visually distinct. Do not transform a fitted parameter into a “direct measurement” label.",
+            "spokenWords": 60,
+            "audioRef": null,
+            "captionRef": null,
+            "visualRef": null
+          },
+          {
+            "id": "S26-03",
+            "scriptLine": 278,
+            "startSeconds": 1620,
+            "endSeconds": 1650,
+            "durationSeconds": 30,
+            "kind": "narration",
+            "narration": "There is a lot of experiment inside those curves. There are also assumptions. A smooth line can hide scatter, disagreement between experiments and choices made during analysis. That does not make the line worthless. It tells us how to use it: with its origin, its uncertainty and the conditions under which it was obtained still attached to it.",
+            "onScreen": "Show a curve as a labeled object with source, conditions and uncertainty notes. The graphic is conceptual; do not create synthetic scatter and call it the experiment's observed scatter.",
+            "spokenWords": 58,
+            "audioRef": null,
+            "captionRef": null,
+            "visualRef": null
+          },
+          {
+            "id": "S26-04",
+            "scriptLine": 279,
+            "startSeconds": 1650,
+            "endSeconds": 1680,
+            "durationSeconds": 30,
+            "kind": "narration",
+            "narration": "One condition becomes especially important on a developed snow crystal. Much of this work characterizes broad facets. But the growing edge of a thin plate can carry an extremely narrow terrace. A broad face and a narrow strip have the same crystallographic orientation without necessarily having the same growth behaviour. This is where geometry may change more than the delivery of vapour.",
+            "onScreen": "Move from a broad experimental facet to a magnified rim strip. Label the scale change as an illustration, with no invented measured width. Introduce the next scene's hypothesis before its mechanism moves.",
+            "spokenWords": 62,
+            "audioRef": null,
+            "captionRef": null,
+            "visualRef": null
+          },
+          {
+            "id": "S26-05",
+            "scriptLine": 280,
+            "startSeconds": 1680,
+            "endSeconds": 1690,
+            "durationSeconds": 10,
+            "kind": "silence",
+            "narration": "",
+            "onScreen": "Hold wide facet and narrow rim side by side.",
+            "spokenWords": 0,
+            "audioRef": null,
+            "captionRef": null,
+            "visualRef": null
+          }
+        ]
+      },
+      {
+        "key": "S28",
+        "originalSceneKey": "S28",
+        "title": "The edge may change the rules",
+        "scriptHeadingLine": 282,
+        "startSeconds": 1690,
+        "endSeconds": 1820,
+        "durationSeconds": 130,
+        "sourceSceneKeys": [
+          "S28",
+          "S29"
+        ],
+        "sourceBindingText": "Source scenes: S28–S29. Bindings:\n[Chapter 12, narrow facets](../education/chapters/12-why-the-shape-flips.html#narrow-facets), printed\npp. 148–152; [edge sharpening](../education/chapters/12-why-the-shape-flips.html#esi), printed\npp. 154–156 and the pressure qualification; [status](../education/chapters/12-why-the-shape-flips.html#how-sure);\n[Chapter 13, working hypothesis](../education/chapters/13-the-frontier.html#working-hypothesis),\nincluding arXiv:2009.08404v2 p. 5, arXiv:2012.12916v1 pp. 9–11 and arXiv:2306.13087v1 pp. 5–6.\nStatus: proposed mechanism, model-conditioned narrow-facet inference and chosen analytic forms.\nNo claim of first-principles prediction, uniqueness or quantitative validation is made.",
+        "sourceScope": "proposed mechanism, model-conditioned narrow-facet inference and chosen analytic forms.\nNo claim of first-principles prediction, uniqueness or quantitative validation is made.",
+        "sources": [
+          {
+            "label": "Chapter 12, narrow facets",
+            "path": "docs/education/chapters/12-why-the-shape-flips.html",
+            "anchor": "narrow-facets",
+            "revision": "929189b7ff0132fe288a562796812c68ec886840",
+            "sha256": "3141cdf2b0b9cb57342cb790e14858312059775e36da22d5266339debac5c5f4",
+            "bytes": 128692,
+            "kind": "chapter"
+          },
+          {
+            "label": "edge sharpening",
+            "path": "docs/education/chapters/12-why-the-shape-flips.html",
+            "anchor": "esi",
+            "revision": "929189b7ff0132fe288a562796812c68ec886840",
+            "sha256": "3141cdf2b0b9cb57342cb790e14858312059775e36da22d5266339debac5c5f4",
+            "bytes": 128692,
+            "kind": "chapter"
+          },
+          {
+            "label": "status",
+            "path": "docs/education/chapters/12-why-the-shape-flips.html",
+            "anchor": "how-sure",
+            "revision": "929189b7ff0132fe288a562796812c68ec886840",
+            "sha256": "3141cdf2b0b9cb57342cb790e14858312059775e36da22d5266339debac5c5f4",
+            "bytes": 128692,
+            "kind": "chapter"
+          },
+          {
+            "label": "Chapter 13, working hypothesis",
+            "path": "docs/education/chapters/13-the-frontier.html",
+            "anchor": "working-hypothesis",
+            "revision": "929189b7ff0132fe288a562796812c68ec886840",
+            "sha256": "b109eea1fb461ff422b2384ec60cd893e896de232a42ff98e23ecfcd6d132abe",
+            "bytes": 115988,
+            "kind": "chapter"
+          }
+        ],
+        "inheritedSourceSequenceKeys": [],
+        "media": {
+          "audio": {
+            "status": "pending-maker-recording",
+            "ref": null
+          },
+          "captions": {
+            "status": "pending-reviewed-audio-derived-timing",
+            "ref": null
+          },
+          "visuals": {
+            "status": "pending-production-assets",
+            "ref": null
+          }
+        },
+        "rows": [
+          {
+            "id": "S28-01",
+            "scriptLine": 295,
+            "startSeconds": 1690,
+            "endSeconds": 1720,
+            "durationSeconds": 30,
+            "kind": "narration",
+            "narration": "Here is a proposed explanation, and it needs that label before we watch it. Libbrecht calls it structure-dependent attachment kinetics: the idea that local geometry, particularly the width of a facet, can change how readily it grows. On a narrow strip, molecular traffic near its edges may matter across much of the available surface. On a broad face, the same edge region is a much smaller part.",
+            "onScreen": "DIAGRAM · HYPOTHESIS from the start. Reveal the full term once, then use NARROW-FACET RESPONSE. Contrast edge region with total facet area; illustrative geometry only.",
+            "spokenWords": 67,
+            "audioRef": null,
+            "captionRef": null,
+            "visualRef": null
+          },
+          {
+            "id": "S28-02",
+            "scriptLine": 296,
+            "startSeconds": 1720,
+            "endSeconds": 1750,
+            "durationSeconds": 30,
+            "kind": "narration",
+            "narration": "In the proposed molecular picture, the surroundings of a sharp edge can supply additional molecules to a narrow terrace and make new layers easier to start. Now imagine the feedback: faster growth can sharpen the edge; the narrower terrace can grow more readily; the edge sharpens further. The proposal couples surface behaviour to diffusion through the surrounding gas. It is not simply a surface switch operating independently of the air.",
+            "onScreen": "Show the feedback one arrow at a time. HYPOTHESIS stays visible. Include the gas-transport connection; do not make the same runaway automatically occur in a near-vacuum apparatus.",
+            "spokenWords": 70,
+            "audioRef": null,
+            "captionRef": null,
+            "visualRef": null
+          },
+          {
+            "id": "S28-03",
+            "scriptLine": 297,
+            "startSeconds": 1750,
+            "endSeconds": 1780,
+            "durationSeconds": 30,
+            "kind": "narration",
+            "narration": "Growth studies motivate reduced effective barriers on narrow facets in particular temperature regions. But the barrier values are inferred through growth models, not read directly from the surface. The analytic dips used in one account also contain choices about their positions, widths and depths. Their authors describe important parts of the account as a working hypothesis. A convincing-looking curve does not remove those distinctions.",
+            "onScreen": "Separate OBSERVED GROWTH, MODEL-INFERRED PARAMETERS and CHOSEN FIT FORM. Use schematic line styles; no source figure reproduction, invented points or crossing-count verdict.",
+            "spokenWords": 64,
+            "audioRef": null,
+            "captionRef": null,
+            "visualRef": null
+          },
+          {
+            "id": "S28-04",
+            "scriptLine": 298,
+            "startSeconds": 1780,
+            "endSeconds": 1810,
+            "durationSeconds": 30,
+            "kind": "narration",
+            "narration": "Attempts to calculate the proposed mechanism have not yet supplied the full quantitative answer in these sources. That leaves useful questions: which part of the effect survives a different experiment, what sets its temperature dependence, and how well does the combined model predict new growth? The idea offers a way forward. It does not turn the old map into a solved problem by being drawn over it.",
+            "onScreen": "Return to the qualitative map with hypothesis overlays clearly distinguished. Caption WORKING HYPOTHESIS. Keep the research questions as questions; do not imply a new test has been performed here.",
+            "spokenWords": 67,
+            "audioRef": null,
+            "captionRef": null,
+            "visualRef": null
+          },
+          {
+            "id": "S28-05",
+            "scriptLine": 299,
+            "startSeconds": 1810,
+            "endSeconds": 1820,
+            "durationSeconds": 10,
+            "kind": "silence",
+            "narration": "",
+            "onScreen": "Hold observations and hypothesis together without upgrading either label.",
+            "spokenWords": 0,
+            "audioRef": null,
+            "captionRef": null,
+            "visualRef": null
+          }
+        ]
+      },
+      {
+        "key": "S32",
+        "originalSceneKey": "S32",
+        "title": "What have we explained?",
+        "scriptHeadingLine": 301,
+        "startSeconds": 1820,
+        "endSeconds": 1950,
+        "durationSeconds": 130,
+        "sourceSceneKeys": [
+          "S32",
+          "S33"
+        ],
+        "sourceBindingText": "Source scenes: selected S32/S33. Bindings:\n[Chapter 13, where the account runs out](../education/chapters/13-the-frontier.html#where-it-runs-out),\n[working hypothesis](../education/chapters/13-the-frontier.html#working-hypothesis), and\n[why bother](../education/chapters/13-the-frontier.html#why-bother), together with the earlier\nsequence bindings for lattice, diffusion and branching. Implementation-specific limitations are\nbounded by [the parameter specification](../libbrecht-parameters.md) and charter §§1.3, 1.5,\n2.6–2.7. Status: synthesis of established foundations, inferred/fitted descriptions and remaining\nquestions in the reviewed source set. No whole-film SETTLED badge or universal absence claim.",
+        "sourceScope": "synthesis of established foundations, inferred/fitted descriptions and remaining\nquestions in the reviewed source set. No whole-film SETTLED badge or universal absence claim.",
+        "sources": [
+          {
+            "label": "Chapter 13, where the account runs out",
+            "path": "docs/education/chapters/13-the-frontier.html",
+            "anchor": "where-it-runs-out",
+            "revision": "929189b7ff0132fe288a562796812c68ec886840",
+            "sha256": "b109eea1fb461ff422b2384ec60cd893e896de232a42ff98e23ecfcd6d132abe",
+            "bytes": 115988,
+            "kind": "chapter"
+          },
+          {
+            "label": "working hypothesis",
+            "path": "docs/education/chapters/13-the-frontier.html",
+            "anchor": "working-hypothesis",
+            "revision": "929189b7ff0132fe288a562796812c68ec886840",
+            "sha256": "b109eea1fb461ff422b2384ec60cd893e896de232a42ff98e23ecfcd6d132abe",
+            "bytes": 115988,
+            "kind": "chapter"
+          },
+          {
+            "label": "why bother",
+            "path": "docs/education/chapters/13-the-frontier.html",
+            "anchor": "why-bother",
+            "revision": "929189b7ff0132fe288a562796812c68ec886840",
+            "sha256": "b109eea1fb461ff422b2384ec60cd893e896de232a42ff98e23ecfcd6d132abe",
+            "bytes": 115988,
+            "kind": "chapter"
+          },
+          {
+            "label": "the parameter specification",
+            "path": "docs/libbrecht-parameters.md",
+            "anchor": "",
+            "revision": "929189b7ff0132fe288a562796812c68ec886840",
+            "sha256": "c0b314b681146152207f061209a3097609e34a234b0027ed73faa427334c79e2",
+            "bytes": 50464,
+            "kind": "supporting-record"
+          }
+        ],
+        "inheritedSourceSequenceKeys": [
+          "S00",
+          "S01",
+          "S02",
+          "S05",
+          "S06",
+          "S11",
+          "S09",
+          "S13",
+          "S15",
+          "S17",
+          "S22",
+          "S25",
+          "S26",
+          "S28"
+        ],
+        "media": {
+          "audio": {
+            "status": "pending-maker-recording",
+            "ref": null
+          },
+          "captions": {
+            "status": "pending-reviewed-audio-derived-timing",
+            "ref": null
+          },
+          "visuals": {
+            "status": "pending-production-assets",
+            "ref": null
+          }
+        },
+        "rows": [
+          {
+            "id": "S32-01",
+            "scriptLine": 314,
+            "startSeconds": 1820,
+            "endSeconds": 1850,
+            "durationSeconds": 30,
+            "kind": "narration",
+            "narration": "We began with shapes that seemed to change their minds as the air cooled. Now we have more than names for them. The lattice gives equivalent directions. Vapour provides the material, diffusion distributes its supply, and attachment controls how surfaces advance. A growing shape changes that supply in return. Those connections explain a great deal of the structure that first looked like decoration.",
+            "onScreen": "Revisit lattice, supply field and facet diagrams in their original visual language. Each receives one brief spoken payoff; no flashing montage or unsupported claim labels.",
+            "spokenWords": 63,
+            "audioRef": null,
+            "captionRef": null,
+            "visualRef": null
+          },
+          {
+            "id": "S32-02",
+            "scriptLine": 315,
+            "startSeconds": 1850,
+            "endSeconds": 1880,
+            "durationSeconds": 30,
+            "kind": "narration",
+            "narration": "We have also seen how people made the questions measurable: grow a crystal under chosen conditions, read its dimensions, interpret an optical signal, repeat. The resulting descriptions are not all the same kind of knowledge. Some relationships are established physical machinery. Some numbers are inferred through a model. Some curves are fitted summaries. Some molecular explanations remain hypotheses.",
+            "onScreen": "Bring back the apparatus, then the measurement-to-fit chain. Preserve the distinction between inference and direct observation. The semantic transcript describes each role for readers who cannot see the graphics.",
+            "spokenWords": 58,
+            "audioRef": null,
+            "captionRef": null,
+            "visualRef": null
+          },
+          {
+            "id": "S32-03",
+            "scriptLine": 316,
+            "startSeconds": 1880,
+            "endSeconds": 1910,
+            "durationSeconds": 30,
+            "kind": "narration",
+            "narration": "Turning those ingredients into a model requires choices about what to represent. Heat must be carried away as ice forms; falling changes transport; the surface can be more complicated than a single effective rule. A model may omit a process, simplify it, or capture part of its influence in fitted inputs. Those choices need assessment wherever someone wants to make a quantitative claim.",
+            "onScreen": "Three columns: REPRESENTED, SIMPLIFIED, OMITTED. Use examples as choices a model must state, not a falsely complete inventory. Unassessed effects read EFFECT NOT YET BOUNDED.",
+            "spokenWords": 63,
+            "audioRef": null,
+            "captionRef": null,
+            "visualRef": null
+          },
+          {
+            "id": "S32-04",
+            "scriptLine": 317,
+            "startSeconds": 1910,
+            "endSeconds": 1940,
+            "durationSeconds": 30,
+            "kind": "narration",
+            "narration": "This is not a reason to give up on the equations. It is a reason to ask them a clear question and compare the answer with observations. A model that draws a beautiful crystal has accomplished something. A model that predicts the right growth under specified conditions has accomplished something more demanding. We need a test that can tell those achievements apart.",
+            "onScreen": "The diagram model and observation occupy separate frames. Label the proposed comparison as a future task, not an executed gate. Prepare the camera for the final Run B reveal.",
+            "spokenWords": 62,
+            "audioRef": null,
+            "captionRef": null,
+            "visualRef": null
+          },
+          {
+            "id": "S32-05",
+            "scriptLine": 318,
+            "startSeconds": 1940,
+            "endSeconds": 1950,
+            "durationSeconds": 10,
+            "kind": "silence",
+            "narration": "",
+            "onScreen": "Quiet transition; keep the complete final outline concealed until S34.",
+            "spokenWords": 0,
+            "audioRef": null,
+            "captionRef": null,
+            "visualRef": null
+          }
+        ]
+      },
+      {
+        "key": "S34",
+        "originalSceneKey": "S34",
+        "title": "Look again",
+        "scriptHeadingLine": 320,
+        "startSeconds": 1950,
+        "endSeconds": 2080,
+        "durationSeconds": 130,
+        "sourceSceneKeys": [
+          "S34"
+        ],
+        "sourceBindingText": "Source scenes: S34. Bindings: the earlier sequence sources, especially\n[Chapter 13, why bother](../education/chapters/13-the-frontier.html#why-bother) and\n[Chapter 8, reading limits](../education/chapters/08-a-snowflake-is-a-record.html#what-the-record-does-not-say);\n[JTS-M004](../journey/TRANSCRIPT.md#jts-m004--the-selected-origin-recollection) for the return to the\nmaker's initial impression; the identified Run B record for the replay. Status: editorial synthesis\nand model output. No natural temperature, unique reconstructed history or physical validation is\nattributed to the model's final frame.",
+        "sourceScope": "editorial synthesis\nand model output. No natural temperature, unique reconstructed history or physical validation is\nattributed to the model's final frame.",
+        "sources": [
+          {
+            "label": "Chapter 13, why bother",
+            "path": "docs/education/chapters/13-the-frontier.html",
+            "anchor": "why-bother",
+            "revision": "929189b7ff0132fe288a562796812c68ec886840",
+            "sha256": "b109eea1fb461ff422b2384ec60cd893e896de232a42ff98e23ecfcd6d132abe",
+            "bytes": 115988,
+            "kind": "chapter"
+          },
+          {
+            "label": "Chapter 8, reading limits",
+            "path": "docs/education/chapters/08-a-snowflake-is-a-record.html",
+            "anchor": "what-the-record-does-not-say",
+            "revision": "929189b7ff0132fe288a562796812c68ec886840",
+            "sha256": "0eeb71969db1d2ecf0c0e194cc593232d58791f516b2ae818450985474e4d131",
+            "bytes": 93026,
+            "kind": "chapter"
+          },
+          {
+            "label": "JTS-M004",
+            "path": "docs/journey/TRANSCRIPT.md",
+            "anchor": "jts-m004--the-selected-origin-recollection",
+            "revision": "929189b7ff0132fe288a562796812c68ec886840",
+            "sha256": "2a8c683c8d65b570f3c1a8e8a3c9e71a2f2f2f66acf02f55952ee16272d43421",
+            "bytes": 21855,
+            "kind": "supporting-record"
+          }
+        ],
+        "inheritedSourceSequenceKeys": [
+          "S00",
+          "S01",
+          "S02",
+          "S05",
+          "S06",
+          "S11",
+          "S09",
+          "S13",
+          "S15",
+          "S17",
+          "S22",
+          "S25",
+          "S26",
+          "S28",
+          "S32"
+        ],
+        "media": {
+          "audio": {
+            "status": "pending-maker-recording",
+            "ref": null
+          },
+          "captions": {
+            "status": "pending-reviewed-audio-derived-timing",
+            "ref": null
+          },
+          "visuals": {
+            "status": "pending-production-assets",
+            "ref": null
+          }
+        },
+        "rows": [
+          {
+            "id": "S34-01",
+            "scriptLine": 332,
+            "startSeconds": 1950,
+            "endSeconds": 1980,
+            "durationSeconds": 30,
+            "kind": "narration",
+            "narration": "Before we return to the computer, look once more at the kind of crystal we set out to understand. Its six directions connect to a lattice. Its branching connects to an unstable growth front and an uneven supply. Its overall proportions lead us back to the relative behaviour of its faces. These are different questions occupying the same small piece of ice.",
+            "onScreen": "First show an original crystal diagram, tagged DIAGRAM, with the three explanations from earlier scenes. Do not lay these physical causal labels over Run B as if its exact mechanism had been validated.",
+            "spokenWords": 62,
+            "audioRef": null,
+            "captionRef": null,
+            "visualRef": null
+          },
+          {
+            "id": "S34-02",
+            "scriptLine": 333,
+            "startSeconds": 1980,
+            "endSeconds": 2010,
+            "durationSeconds": 30,
+            "kind": "narration",
+            "narration": "A finished crystal can also suggest a history, although it does not hand us a complete record of the weather. And at its growing surface, familiar water is doing things the models still describe imperfectly. The wonder has not disappeared as we learned more. It has become more specific: particular structures, particular measurements, and particular questions that an experiment might answer.",
+            "onScreen": "Remove explanatory callouts one at a time. End on the surface, then transition visibly to the model view. The words about wonder are editorial reflection offered for the maker's narration.",
+            "spokenWords": 61,
+            "audioRef": null,
+            "captionRef": null,
+            "visualRef": null
+          },
+          {
+            "id": "S34-03",
+            "scriptLine": 334,
+            "startSeconds": 2010,
+            "endSeconds": 2040,
+            "durationSeconds": 30,
+            "kind": "narration",
+            "narration": "Here is the computer's crystal, complete. It is still a model, and its beauty still is not a verdict. I started with the thought that a few rules could make pretty snowflakes. Now we can see what a physical account would have to contain, and why putting equations into code is only one part of the task.",
+            "onScreen": "First complete Run B reveal. MODEL · UNVALIDATED remains visible. Hold a composed full silhouette and a slow optional turn; under reduced motion, a still. No physical temperature or cloud-time label.",
+            "spokenWords": 57,
+            "audioRef": null,
+            "captionRef": null,
+            "visualRef": null
+          },
+          {
+            "id": "S34-04",
+            "scriptLine": 335,
+            "startSeconds": 2040,
+            "endSeconds": 2070,
+            "durationSeconds": 30,
+            "kind": "narration",
+            "narration": "The next part of the journey is to put a specified model together, ask it to predict growth, and compare what it produces with what people have observed. But this part has already given us something worth keeping. A snow crystal is a meeting between material, geometry, environment and history. We can look at it now and know more clearly what to ask.",
+            "onScreen": "Allow the full crystal to remain readable before the hero fall-away begins. The optional PART TWO card follows the spoken standalone payoff. Its actual story and scientific verdict are not invented here.",
+            "spokenWords": 63,
+            "audioRef": null,
+            "captionRef": null,
+            "visualRef": null
+          },
+          {
+            "id": "S34-05",
+            "scriptLine": 336,
+            "startSeconds": 2070,
+            "endSeconds": 2080,
+            "durationSeconds": 10,
+            "kind": "silence",
+            "narration": "",
+            "onScreen": "Final inspection hold, then the deterministic hero handover into the snowfield. MODEL stays until the replay has crossfaded out. Snowfall is atmosphere, not a simulated cloud census.",
+            "spokenWords": 0,
+            "audioRef": null,
+            "captionRef": null,
+            "visualRef": null
+          }
+        ]
+      },
+      {
+        "key": "credits",
+        "originalSceneKey": null,
+        "title": "Credits and sources",
+        "scriptHeadingLine": 338,
+        "startSeconds": 2080,
+        "endSeconds": 2120,
+        "durationSeconds": 40,
+        "sourceSceneKeys": [],
+        "sourceBindingText": "",
+        "sourceScope": "Editorial credits and source locator; no final recording, public URL, rights clearance or publication claim.",
+        "sources": [],
+        "inheritedSourceSequenceKeys": [],
+        "media": {
+          "audio": {
+            "status": "pending-maker-recording",
+            "ref": null
+          },
+          "captions": {
+            "status": "pending-reviewed-audio-derived-timing",
+            "ref": null
+          },
+          "visuals": {
+            "status": "pending-production-assets",
+            "ref": null
+          }
+        },
+        "rows": [
+          {
+            "id": "credits-01",
+            "scriptLine": 342,
+            "startSeconds": 2080,
+            "endSeconds": 2100,
+            "durationSeconds": 20,
+            "kind": "silence",
+            "narration": "",
+            "onScreen": "Narration: the maker. Original browser diagrams and identified Gravner–Griffeath model replay. Science sources: the linked education chapters and their underlying cited research. Keep readable text within the film composition; do not claim final recording or completed implementation in a draft export.",
+            "spokenWords": 0,
+            "audioRef": null,
+            "captionRef": null,
+            "visualRef": null
+          },
+          {
+            "id": "credits-02",
+            "scriptLine": 343,
+            "startSeconds": 2100,
+            "endSeconds": 2120,
+            "durationSeconds": 20,
+            "kind": "silence",
+            "narration": "",
+            "onScreen": "Hold the source/correction locator supplied by the approved release, or SOURCES IN THE ACCOMPANYING TRANSCRIPT for a local candidate. No invented public URL, public SCJ identity, rights clearance or publication claim. End on a static frame.",
+            "spokenWords": 0,
+            "audioRef": null,
+            "captionRef": null,
+            "visualRef": null
+          }
+        ]
+      }
+    ]
+  }
 }
