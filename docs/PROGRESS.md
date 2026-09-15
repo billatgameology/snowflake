@@ -19,6 +19,13 @@ detail.
 
 ## Current state
 
+- **Part 1 complete visual-film execution in progress (2026-09-15).** The maker requests all
+  remaining sequences followed by a review/edit loop, with narration recorded at the end.
+  The [committed execution scope](plans/explore-film-part1-science-scroll-documentary.md#complete-visual-film-execution--2026-09-15)
+  continues the existing prepared edition through credits, then whole-film product/visual
+  review and a provisional full-length viewing export. Preserve the reviewed dialogue;
+  recording and the post-recording retime are deferred inputs, not reasons to stop this build.
+
 - **Part 1 prepared film extended and checked (2026-09-15).** Maker direction: “Keep going.” The
   [bounded next slice](plans/explore-film-part1-science-scroll-documentary.md#next-prepared-film-slice--2026-09-15)
   adds S06/S11/S09/S13 from the reviewed production score: molecular structure, surface
@@ -490,15 +497,14 @@ the package-specific prerequisites in its charter amendment and execution plan. 
 
 ## Next step
 
-### Part 1 film — continue from the prepared branch sequence
+### Part 1 film — complete the visual film, then review and edit
 
 Open the [prepared implementation/visual record](reviews/film-part1-prepared-implementation-2026-09-15.md)
 and the [active plan's continuation outcome](plans/explore-film-part1-science-scroll-documentary.md#prepared-film-continuation-outcome--2026-09-15).
-S06/S11/S09/S13 are implemented and checked. The next concrete sequence is S15, “The shape
-remembers,” in `docs/video/part1-script.md`. Record its bounded production selection in the
-existing plan before implementation, then extend `scripts/build-part1-prepared-score.mjs`
-and the same prepared artifact. Preserve the existing source-reviewed dialogue and qualifiers.
-No further scene-plan review is needed.
+S06/S11/S09/S13 are implemented and checked. Follow the plan's complete visual-film execution
+scope: extend `scripts/build-part1-prepared-score.mjs` and the existing prepared artifact from
+S15 through credits; complete the visuals, review/edit loop and full provisional viewing copy.
+Preserve the existing source-reviewed dialogue and qualifiers. Maker narration comes last.
 
 Start from website `explore/film-part1@834c7690cc46ec9da8cfae09344ce9814597e1f4` in
 `/Users/clipper/github/snowcrystal_website-film-part1`; inspect its status and
@@ -506,8 +512,8 @@ Start from website `explore/film-part1@834c7690cc46ec9da8cfae09344ce9814597e1f4`
 `http://127.0.0.1:5185/film/part-1`; check before starting another server. Its command is
 `npm run dev -- --host 127.0.0.1 --port 5185 --strictPort`.
 The default prepared film, original opening at `/film/part-1/opening`, and prototype at
-`/film/part-1/prototype` have distinct identities. Do not activate the remaining full draft
-or create a new edition for each additional slice.
+`/film/part-1/prototype` have distinct identities. Extend the prepared edition; do not create a
+new edition for each additional slice or change the historical prototype's root score.
 
 Run `node scripts/build-part1-prepared-score.mjs --check` and
 `node scripts/build-part1-production-score.mjs --check` in this authority repository.

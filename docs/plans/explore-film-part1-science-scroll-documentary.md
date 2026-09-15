@@ -1384,6 +1384,42 @@ repairs from maker visual acceptance and final voice timing, which remain open. 
 merge, solver, chapter or scientific-gate work occurred. Continue at S15 in the same prepared
 artifact after recording the next bounded slice; no repeat of the scene-plan review is required.
 
+## Complete visual-film execution — 2026-09-15
+
+Maker direction supersedes the earlier bounded-slice stopping point: “I do narration at the
+end. Continue until all complete. Then run a review and edit loop.” Complete the remaining
+reviewed S15/S17/S22/S25/S26/S28/S32/S34 and credits in the existing prepared edition. The
+source for duration, row boundaries and dialogue is `docs/video/part1-score.json`'s bound
+`productionDraft`; the narration and its source-review identity remain unchanged.
+
+Implementation order:
+
+1. Extend the prepared-score compiler through the final credits, preserving its existing
+   opening and structure/branch cues. Build directly evaluated, reversible original diagrams
+   for history, experimental inference, terrace nucleation, fitted response and hypothesis.
+2. Finish the delayed complete Run B reveal, deterministic atmospheric handover, readable
+   credits and sources. Retain the model disclaimer and thickness-rendering qualification.
+   Keep hypothesis labeling visible before proposed mechanisms move. Adapt chapter navigation
+   and static/phone reading for the complete content.
+3. Inspect the actual complete sequence inventory and transitions in the browser and captured
+   composition. Run a documented non-author source/runtime/story review, repair actionable
+   findings, then repeat affected checks and visual inspection. Review provenance and limits
+   must distinguish independent checks from shared-session review and maker acceptance.
+4. Verify focused product tests, typecheck/build, playback/static/failure/access checks,
+   exact representative forward/reverse/reload captures and decoded sample output. Measure
+   export cost before launching a full-length, resumable 1080p/30-fps viewing export with the
+   existing explicitly identified timing fixture and caption sidecar. Decode the assembly
+   and check frame joins and under-one-hour runtime. Asset writers precede live playback QA.
+
+Done for this execution: all reviewed visual sequences and credits are present; whole-film
+review/edit findings are resolved or explicitly bounded; the full visual viewing copy and
+reproduction record exist; the current-state record points to the final source/site identities.
+Maker recording is deliberately last, not a blocker to this work. WP6 and the post-recording
+retime/final voiced master remain maker-dependent production inputs; do not claim their
+completion, or claim maker visual acceptance on the maker's behalf. WP7's viewing copy can
+prove the full visual pipeline before voice exists, with its provisional status stated.
+Publication, merges, solver changes and edits to source chapters remain out of scope.
+
 ## Tried and rejected
 
 - **Radial shading beneath a deformed field.** It encoded a different concentration pattern
