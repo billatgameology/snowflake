@@ -130,6 +130,7 @@ export function buildPreparedScore(
       const isReplay = sequence.key === 'S34' && index >= 2;
       const isEnding = sequence.key === 'S34' && index === 4;
       const isHypothesis = sequence.key === 'S28';
+      const visualProgress = !row.narration && cues.at(-1).visual.theme === theme ? [1, 1] : [0, 1];
       const scope = sequence.sourceScope.replace(/\s+/gu, ' ');
       const qualification = isReplay
         ? `MODEL · UNVALIDATED. The complete identified Run B replay is shown only at the final reveal. Thickness is styled ×${opening.model.thicknessScale}; cells are model cells, not molecules, and G-G ticks are not physical seconds. No natural temperature, unique weather history or physical validation is attributed to its shape. Keep the model disclosure until the replay has crossfaded out; the snowfall is an editorial atmosphere, not a simulated cloud census.`
@@ -145,7 +146,7 @@ export function buildPreparedScore(
         inheritedSourceSequenceKeys: copy(sequence.inheritedSourceSequenceKeys),
         scriptLine: row.scriptLine,
         review: 'Narration and original ON SCREEN text are source-reviewed at the bound script identity; generated caption timing and visual implementation remain provisional.',
-        visual: { component: isReplay ? 'RunB' : 'OpeningDiagram', theme, origin: isReplay ? 'identified complete Run B replay; editorial snowfall only during handover' : isCredits ? 'editorial credit and source cards' : 'original authored diagram', progress: [0, 1], ...(isReplay ? { ticks: [70000, 70000] } : {}), ...(isHypothesis ? { status: 'hypothesis' } : {}) },
+        visual: { component: isReplay ? 'RunB' : 'OpeningDiagram', theme, origin: isReplay ? 'identified complete Run B replay; editorial snowfall only during handover' : isCredits ? 'editorial credit and source cards' : 'original authored diagram', progress: visualProgress, ...(isReplay ? { ticks: [70000, 70000] } : {}), ...(isHypothesis ? { status: 'hypothesis' } : {}) },
         captions: provisionalCaptions(row.narration, row.startSeconds, row.endSeconds)
       });
     }
