@@ -1095,10 +1095,10 @@ figure.
       proceed alongside script work and does not block a diagram-only prototype.
       No archive image is selected in the full draft: original diagrams and the identified
       project replay suffice. Reopen this item if an external image is introduced.
-- [ ] **WP4 — Expand the verified runtime.** Add the selected story to the shared stage and
+- [x] **WP4 — Expand the verified runtime.** Add the selected story to the shared stage and
       semantic article, keeping time, controls, loading and reduced-motion behaviour from WP0A.
       Import the identified score version and preserve existing website routes.
-- [ ] **WP5 — Selected visuals.** Produce the signature sequences first; adapt only the supporting
+- [x] **WP5 — Selected visuals.** Produce the signature sequences first; adapt only the supporting
       diagrams the final story uses. Each preserves its source limits and has reversible state
       plus a descriptive static view. Review clarity and presentation at phone and film sizes.
 - [ ] **WP6 — Maker narration and access tracks.** Record the fact-checked script in the maker's
@@ -1420,7 +1420,35 @@ completion, or claim maker visual acceptance on the maker's behalf. WP7's viewin
 prove the full visual pipeline before voice exists, with its provisional status stated.
 Publication, merges, solver changes and edits to source chapters remain out of scope.
 
+### Implementation and review checkpoint
+
+The full prepared artifact is compiled/imported from authority
+`95c837678291014327af6b6970596d17dc244d22`. Its source is
+`docs/video/part1-prepared-score.json` (SHA-256
+`f9eb32fd6bbe8996b2d6842f4c8223ec7c4c4d6478f1f1b7e9d75967465ecc0f`):
+the entire reviewed dialogue, sequence inventory and credits now play in the existing edition.
+The original opening and prototype retain their separate scores/routes. WP4/WP5 are implemented;
+the [complete review/edit record](../reviews/film-part1-complete-review-2026-09-15.md) documents
+shared-session reviewer provenance, source/diagram repairs and root visual inspection.
+The full-length export and final verification receipt remain the next execution step at this
+checkpoint. WP6 and maker acceptance stay open, as directed above.
+
 ## Tried and rejected
+
+- **Skip hidden draws and their health checks together.** Final prototype regression exposed
+  capture accepting a diagram after loss of its persistent WebGL context. The draw path now
+  checks resource health even when hidden rendering work is skipped; model and diagram seeks
+  both execute the context-loss negative case.
+- **A fixed far clipping plane during the final dolly.** The crystal vanished before the
+  explicit fade. Prepared-only dynamic far-plane headroom fixes the shot; a captured-pixel
+  sentinel rejects the retained bad frame and accepts the corrected one.
+- **Restart a completed drawing for a silent hold.** Constant final progress now survives
+  animated, reading and no-JavaScript evaluations. Silence is not a replay trigger.
+- **Static thickness with animated interference, or a completing layer beyond its face.**
+  Optical paths now share growing thickness; completed layers clip to the terrace footprint.
+- **Trust the receipt's consumed filename, or wait indefinitely for encoder drain.** The full
+  exporter derives chunk filenames, checks the actual bytes, and races writes against handled
+  process completion. Real receipt substitution and early-exit cases fail closed.
 
 - **Radial shading beneath a deformed field.** It encoded a different concentration pattern
   from the contours. Use neutral air and one ordered set of deformed qualitative contours.

@@ -25,6 +25,18 @@ detail.
   continues the existing prepared edition through credits, then whole-film product/visual
   review and a provisional full-length viewing export. Preserve the reviewed dialogue;
   recording and the post-recording retime are deferred inputs, not reasons to stop this build.
+  All visual sequences and credits are now implemented in the isolated website worktree.
+  The full prepared score is committed/imported from `95c837678291014327af6b6970596d17dc244d22`;
+  `docs/video/part1-prepared-score.json` is the current timeline authority. The whole-film
+  source/story/runtime review has produced repairs to experimental drawings, layer geometry,
+  hypothesis presentation, silent holds, the reveal and the ending camera. Actual captured
+  clipping at the late handover is fixed and negatively tested against the retained bad frame
+  (`export/part1-complete-farclip-check/late-handover-negative-control.json` in the website).
+  The implementation is now committed at website `9d181afb6937a1e91fb89091b3543091c5f46eb5`.
+  Final product checks and build freeze passed; the full-length render is running with its
+  frozen recipe under website `export/part1-full-final/`. The
+  [complete review/edit record](reviews/film-part1-complete-review-2026-09-15.md) names final
+  sampler and browser receipts, including the repaired hidden-renderer context-loss regression.
 
 - **Part 1 prepared film extended and checked (2026-09-15).** Maker direction: “Keep going.” The
   [bounded next slice](plans/explore-film-part1-science-scroll-documentary.md#next-prepared-film-slice--2026-09-15)
@@ -501,9 +513,14 @@ the package-specific prerequisites in its charter amendment and execution plan. 
 
 Open the [prepared implementation/visual record](reviews/film-part1-prepared-implementation-2026-09-15.md)
 and the [active plan's continuation outcome](plans/explore-film-part1-science-scroll-documentary.md#prepared-film-continuation-outcome--2026-09-15).
-S06/S11/S09/S13 are implemented and checked. Follow the plan's complete visual-film execution
-scope: extend `scripts/build-part1-prepared-score.mjs` and the existing prepared artifact from
-S15 through credits; complete the visuals, review/edit loop and full provisional viewing copy.
+The prepared score and visuals now extend through credits, and final product checks pass.
+The full render is running from website `9d181afb6937a1e91fb89091b3543091c5f46eb5` via
+`FILM_OUT=export/part1-full-final node scripts/export-part1-full.mjs` in the isolated worktree.
+Inspect that process and `export/part1-full-final/progress.json` before launching anything;
+wait for its completed report, then inspect the assembled movie and write the final receipt.
+The full exporter has a bounded `--test` path and verifies
+resumable chunks against its build/recipe fingerprint; never modify `dist` during a render.
+Finish the full provisional viewing copy and document the completed review/edit loop.
 Preserve the existing source-reviewed dialogue and qualifiers. Maker narration comes last.
 
 Start from website `explore/film-part1@834c7690cc46ec9da8cfae09344ce9814597e1f4` in
