@@ -53,7 +53,7 @@
         failed. How can both be true, and what does the green light actually certify?
       </p>
       <div class="chapter-header__meta">
-        <span>~20 min read</span><span>7 interactives</span><span>1 table</span><span>0 solver runs in this phase</span>
+        <span>~21 min read</span><span>7 interactives</span><span>1 table</span><span>1 equation</span><span>0 solver runs in this phase</span>
       </div>
     </header>
 
@@ -386,6 +386,36 @@
         figures in <code>docs/plans/phase-10-evidence-verification-execution.md</code>.
       </p>
     </aside>
+
+    <p>
+      Chapter 30 wrote that rule out for one pair of box sizes. It is the same arithmetic here, with
+      one setting changed instead of the box, so it is worth seeing once in the form C0 applied 64
+      times.
+    </p>
+
+    <div class="equation">
+      <p class="equation__math">
+        rel = |<em>N</em><sub>B</sub> &minus; <em>N</em><sub>A</sub>| &divide; <em>N</em><sub>A</sub>
+        &nbsp;&nbsp;&nbsp;
+        pass when rel &le; 0.005
+      </p>
+      <div class="equation__where">
+        <strong>where</strong>
+        <dl>
+          <dt><em>N</em><sub>A</sub></dt><dd>the attached-cell count of the <strong>base</strong> row &mdash; the run with every registered setting at its frozen value. It is always the denominator.</dd>
+          <dt><em>N</em><sub>B</sub></dt><dd>the count of the row with exactly <strong>one</strong> setting changed: a different box, a halved time step, a tighter tolerance, or a seed one cell bigger or smaller</dd>
+          <dt>0.005</dt><dd>the registered tolerance, which is the half a percent the prose keeps saying. Both spellings name the same rule.</dd>
+        </dl>
+      </div>
+      <p class="equation__cite">
+        Worked once, at &minus;27&nbsp;&deg;C with the CAK kinetics: shrink the seed by one cell and
+        the count falls from <strong>64,813</strong> to <strong>58,795</strong>. That is
+        6,018&nbsp;&divide;&nbsp;64,813&nbsp;=&nbsp;0.0929, a 9.29&nbsp;% move against an allowance of
+        about 324 cells. Halve the time step instead and it falls to 64,549: 0.41&nbsp;%, a pass.
+        Tighten the vapour tolerance tenfold and it does not move at all. Every value is a row of
+        <code>evidence/phase10-numerical-verification-v1/c0-comparisons.jsonl</code>.
+      </p>
+    </div>
 
     <p>
       Why not say &ldquo;more than half the comparisons passed&rdquo;? Because the criterion was
