@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 // No arguments: print the prepared-film score. --check: reject byte/provenance drift.
-// Only the first eight reviewed sequences are prepared; upstream files are read-only.
+// All reviewed sequences and credits are scored; voice timing remains provisional.
 import assert from 'node:assert/strict';
 import { createHash } from 'node:crypto';
 import { readFileSync } from 'node:fs';
@@ -14,7 +14,7 @@ const openingPath = 'docs/video/part1-opening-score.json';
 const outputPath = 'docs/video/part1-prepared-score.json';
 const sha256 = bytes => createHash('sha256').update(bytes).digest('hex');
 const copy = value => structuredClone(value);
-const sequenceKeys = ['S00', 'S01', 'S02', 'S05', 'S06', 'S11', 'S09', 'S13'];
+const sequenceKeys = ['S00', 'S01', 'S02', 'S05', 'S06', 'S11', 'S09', 'S13', 'S15', 'S17', 'S22', 'S25', 'S26', 'S28', 'S32', 'S34', 'credits'];
 const direction = {
   S06: [
     ['diffraction', 'The hidden arrangement'], ['lattice', 'Inside ice'],
@@ -31,6 +31,41 @@ const direction = {
   S13: [
     ['corner-feedback', 'A corner gets ahead'], ['perturbation', 'A disturbance grows'],
     ['six-corners', 'Direction and delivery'], ['model-return', 'Look at this branch'], ['model-return', 'A question in the ice']
+  ],
+  S15: [
+    ['history-route', 'A route through the cloud'], ['capped-column', 'Column, then plates'],
+    ['shared-weather', 'One shared weather history'], ['possible-histories', 'More than one possible past'], ['history-lab', 'Choose the conditions']
+  ],
+  S17: [
+    ['cold-lab', 'A laboratory winter'], ['face-rates', 'Two directions of growth'],
+    ['aspect-limit', 'Branching is not thinness'], ['inference-chain', 'From shape to measurement'], ['inference-chain', 'Observe, estimate, infer']
+  ],
+  S22: [
+    ['two-temperatures', 'Two controlled temperatures'], ['normalized-excess', 'The fractional excess'],
+    ['optical-methods', 'Light becomes a ruler'], ['measurement-chain', 'From dimensions to rates'], ['measurement-chain', 'What the instrument tells us']
+  ],
+  S25: [
+    ['terrace-islands', 'Starting on a terrace'], ['island-survival', 'An island survives'],
+    ['layer-waiting', 'Waiting for a new layer'], ['spiral-step', 'A continuing step'], ['layer-complete', 'One layer completes']
+  ],
+  S26: [
+    ['attachment-curve', 'An attachment response'], ['inference-fit', 'Observation to fit'],
+    ['fit-limits', 'Keep the assumptions'], ['narrow-facet', 'A narrow growing edge'], ['narrow-facet', 'Broad face, narrow rim']
+  ],
+  S28: [
+    ['edge-hypothesis', 'A proposed explanation'], ['edge-feedback', 'The edge feedback'],
+    ['epistemic-lines', 'Three kinds of knowledge'], ['open-mechanism', 'Questions still open'], ['open-mechanism', 'Keep the hypothesis visible']
+  ],
+  S32: [
+    ['synthesis', 'Look at what connects'], ['knowledge-chain', 'Different kinds of knowledge'],
+    ['model-choices', 'What a model chooses'], ['prediction-test', 'A test of prediction'], ['final-question', 'Return to the crystal']
+  ],
+  S34: [
+    ['final-connections', 'One crystal, several questions'], ['final-questions', 'The wonder becomes specific'],
+    ['model-complete', 'The crystal, complete'], ['model-complete', 'What we now know to ask'], ['snow-handover', 'Into the snowfield']
+  ],
+  credits: [
+    ['film-credits', 'Narration and original visuals'], ['source-credits', 'Sources and corrections']
   ]
 };
 const qualifiers = {
@@ -51,8 +86,8 @@ export function buildPreparedScore(
   const opening = JSON.parse(openingBytes.toString('utf8'));
   const source = JSON.parse(sourceBytes.toString('utf8'));
   const draft = source.productionDraft;
-  assert.deepEqual(draft.sequences.slice(0, 8).map(sequence => sequence.key), sequenceKeys, 'Prepared sequence selection/order changed');
-  assert.equal(draft.activeForPlayback, false, 'Do not activate unprepared production rows');
+  assert.deepEqual(draft.sequences.map(sequence => sequence.key), sequenceKeys, 'Complete prepared sequence selection/order changed');
+  assert.equal(draft.activeForPlayback, false, 'The canonical production draft remains inactive; this score is its prepared runtime edition');
   const cues = copy(opening.cues);
   assert.equal(cues.length, 20, 'Expected the complete twenty-row opening');
   assert.equal(cues.at(-1).id, 'S05-05', 'Opening transition identity changed');
@@ -85,26 +120,69 @@ export function buildPreparedScore(
   const unchangedOpening = copy(cues.slice(0, 20));
   unchangedOpening.at(-1).visual.theme = 'interface';
   assert.deepEqual(unchangedOpening, opening.cues, 'The prepared edition must preserve the opening except its final theme');
+  for (const sequence of draft.sequences.slice(8)) {
+    const isCredits = sequence.key === 'credits';
+    assert.equal(sequence.rows.length, isCredits ? 2 : 5, `Unexpected reviewed row count in ${sequence.key}`);
+    for (const [index, row] of sequence.rows.entries()) {
+      assert.equal(row.id, `${sequence.key}-${String(index + 1).padStart(2, '0')}`, 'Reviewed final row identity changed');
+      assert.equal(row.startSeconds, cues.at(-1).end, 'Final row gap or overlap');
+      const [theme, title] = direction[sequence.key][index];
+      const isReplay = sequence.key === 'S34' && index >= 2;
+      const isEnding = sequence.key === 'S34' && index === 4;
+      const isHypothesis = sequence.key === 'S28';
+      const scope = sequence.sourceScope.replace(/\s+/gu, ' ');
+      const qualification = isReplay
+        ? `MODEL · UNVALIDATED. The complete identified Run B replay is shown only at the final reveal. Thickness is styled ×${opening.model.thicknessScale}; cells are model cells, not molecules, and G-G ticks are not physical seconds. No natural temperature, unique weather history or physical validation is attributed to its shape. Keep the model disclosure until the replay has crossfaded out; the snowfall is an editorial atmosphere, not a simulated cloud census.`
+        : isCredits
+          ? sequence.sourceScope
+          : `${isHypothesis ? 'DIAGRAM · HYPOTHESIS before motion and throughout the sequence.' : 'DIAGRAM · qualitative, not measured data or a molecular simulation.'} Source scope: ${scope} Retain the original ON SCREEN qualifications; do not add unsourced numerical axes, observations or validation claims.`;
+      cues.push({
+        id: row.id, sequenceKey: sequence.key, start: row.startSeconds, end: row.endSeconds,
+        title, eyebrow: sequence.title, kind: isEnding ? 'ending' : isReplay ? 'model' : 'diagram',
+        narration: row.narration, description: row.onScreen, qualification,
+        sources: sequence.sources.map(({ path: sourceFile, anchor }) => ({ path: sourceFile, anchor })),
+        sourceBindings: copy(sequence.sources), sourceBindingText: sequence.sourceBindingText, sourceScope: sequence.sourceScope,
+        inheritedSourceSequenceKeys: copy(sequence.inheritedSourceSequenceKeys),
+        scriptLine: row.scriptLine,
+        review: 'Narration and original ON SCREEN text are source-reviewed at the bound script identity; generated caption timing and visual implementation remain provisional.',
+        visual: { component: isReplay ? 'RunB' : 'OpeningDiagram', theme, origin: isReplay ? 'identified complete Run B replay; editorial snowfall only during handover' : isCredits ? 'editorial credit and source cards' : 'original authored diagram', progress: [0, 1], ...(isReplay ? { ticks: [70000, 70000] } : {}), ...(isHypothesis ? { status: 'hypothesis' } : {}) },
+        captions: provisionalCaptions(row.narration, row.startSeconds, row.endSeconds)
+      });
+    }
+  }
+  assert.equal(cues.length, 82, 'Expected all eighty-two reviewed rows including credits');
+  assert.equal(cues.at(-1).end, 2120, 'Complete score must end at the reviewed credit endpoint');
+  assert.equal(cues.at(-1).sequenceKey, 'credits', 'Credits must be terminal without an invented scene key');
+  assert(cues.filter(cue => cue.sequenceKey === 'S28').every(cue => cue.visual.status === 'hypothesis'), 'Hypothesis must be explicit before every S28 visual state');
   const shots = [
     ...copy(opening.visualDirection.shots),
     { time: 1000, tick: 18000, tilt: 0, yaw: 210, span: 0.55, minimum: 8, target: 0.72, cut: true },
     { time: 1030, tick: 30000, tilt: 18, yaw: 210, span: 0.60, minimum: 8, target: 0.72 },
-    { time: 1040, tick: 30000, tilt: 18, yaw: 210, span: 0.60, minimum: 8, target: 0.72 }
+    { time: 1040, tick: 30000, tilt: 18, yaw: 210, span: 0.60, minimum: 8, target: 0.72 },
+    { time: 2009.999, tick: 30000, tilt: 18, yaw: 210, span: 0.60, minimum: 8, target: 0.72 },
+    { time: 2010, tick: 70000, tilt: 18, yaw: 210, span: 3.4, minimum: 8, target: 0, cut: true },
+    { time: 2040, tick: 70000, tilt: 24, yaw: 220, span: 3.4, minimum: 8, target: 0 },
+    { time: 2070, tick: 70000, tilt: 28, yaw: 230, span: 3.6, minimum: 8, target: 0 },
+    { time: 2080, tick: 70000, tilt: 28, yaw: 230, span: 7, minimum: 8, target: 0 },
+    { time: 2120, tick: 70000, tilt: 28, yaw: 230, span: 7, minimum: 8, target: 0 }
   ];
   assert.equal(shots[6].time, 520, 'Opening camera endpoint changed');
   assert.equal(shots[6].tick, 7000, 'Opening model must hold at tick 7,000');
   return {
     ...copy(opening), edition: 'prepared-film',
-    status: 'WP4/WP5 prepared film through S13; reviewed narration with timing-only audio; maker read, recording, later sequences and finished-film acceptance pending',
-    title: 'How a snowflake is made — prepared film', duration: 1040,
-    script: 'The first eight reviewed production sequences, S00 through the selected S13 endpoint, are copied unchanged. This prepared edition does not activate the unproduced remainder of the full film.',
+    status: 'Complete visual-score coverage through credits; reviewed narration and timing-only audio; timing provisional, maker read/recording and finished-film acceptance pending',
+    title: 'How a snowflake is made — prepared film', duration: 2120,
+    script: 'All sixteen reviewed production sequences and terminal credits are copied unchanged. Visual-score coverage is complete; timing remains provisional and no maker narration or final voiced-film acceptance is claimed.',
     provenance: { ...copy(opening.provenance), generator: 'scripts/build-part1-prepared-score.mjs', openingScore: { path: openingPath, sha256: sha256(openingBytes), bytes: openingBytes.length }, selectedSequenceKeys: sequenceKeys, openingChange: 'S05-05 visual.theme changes from interface to interface-transition; all other opening cue fields are preserved.' },
-    audio: { ...copy(opening.audio), id: 'part1-prepared-timing', url: '/film/part1-prepared-timing.wav', duration: 1040 },
+    audio: { ...copy(opening.audio), id: 'part1-prepared-timing', url: '/film/part1-prepared-timing.wav', duration: 2120 },
     visualDirection: {
-      revision: 'prepared-film-directed-attention-v1',
-      contract: `${opening.visualDirection.contract} The opening camera keys are unchanged through 520 seconds. Hold tick 7,000 offstage until the explicit cut at 1,000 seconds, which advances to tick 18,000. Continue to a cropped tick-30,000 branch and hold; do not reveal the final silhouette. Film time, G-G ticks and camera scale have no implied physical-time or length equivalence.`,
+      revision: 'prepared-film-directed-attention-v2',
+      contract: `${opening.visualDirection.contract} Existing camera keys are unchanged through 1,040 seconds. Hold tick 7,000 offstage until the cut at 1,000 seconds to tick 18,000; continue to the cropped tick-30,000 branch and hold through 2,009.999 seconds. The cut at 2,010 seconds advances offstage to tick 70,000 and is the first completed-silhouette reveal. Keep MODEL · UNVALIDATED and the thickness styling qualification visible through the replay, then hand over to editorial snowfall and credits. Film time, G-G ticks and camera scale have no implied physical-time or length equivalence.`,
       look: copy(opening.visualDirection.look), shots,
-      offstageAdvances: [{ time: 1000, fromTick: 7000, toTick: 18000, kind: 'explicit-model-time-compression-cut', physicalTime: false, qualification: 'The hidden model advances before the cropped return; this is editorial time compression, not a physical growth duration or measured event.' }]
+      offstageAdvances: [
+        { time: 1000, fromTick: 7000, toTick: 18000, kind: 'explicit-model-time-compression-cut', physicalTime: false, qualification: 'The hidden model advances before the cropped return; this is editorial time compression, not a physical growth duration or measured event.' },
+        { time: 2010, fromTick: 30000, toTick: 70000, kind: 'explicit-model-time-compression-cut', physicalTime: false, qualification: 'The hidden model advances to the identified complete Run B crystal for the final reveal; this is editorial time compression, not physical growth time or validation.' }
+      ]
     },
     cues
   };
