@@ -174,28 +174,28 @@
         "tick": 18000,
         "tilt": 0,
         "yaw": 210,
-        "span": 1.1,
+        "span": 0.55,
         "minimum": 8,
-        "target": 0.55,
+        "target": 0.72,
         "cut": true
       },
       {
         "time": 1030,
         "tick": 30000,
-        "tilt": 12,
+        "tilt": 18,
         "yaw": 210,
-        "span": 1,
+        "span": 0.6,
         "minimum": 8,
-        "target": 0.55
+        "target": 0.72
       },
       {
         "time": 1040,
         "tick": 30000,
-        "tilt": 12,
+        "tilt": 18,
         "yaw": 210,
-        "span": 1,
+        "span": 0.6,
         "minimum": 8,
-        "target": 0.55
+        "target": 0.72
       }
     ],
     "offstageAdvances": [

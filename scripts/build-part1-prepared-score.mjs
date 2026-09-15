@@ -87,9 +87,9 @@ export function buildPreparedScore(
   assert.deepEqual(unchangedOpening, opening.cues, 'The prepared edition must preserve the opening except its final theme');
   const shots = [
     ...copy(opening.visualDirection.shots),
-    { time: 1000, tick: 18000, tilt: 0, yaw: 210, span: 1.1, minimum: 8, target: 0.55, cut: true },
-    { time: 1030, tick: 30000, tilt: 12, yaw: 210, span: 1, minimum: 8, target: 0.55 },
-    { time: 1040, tick: 30000, tilt: 12, yaw: 210, span: 1, minimum: 8, target: 0.55 }
+    { time: 1000, tick: 18000, tilt: 0, yaw: 210, span: 0.55, minimum: 8, target: 0.72, cut: true },
+    { time: 1030, tick: 30000, tilt: 18, yaw: 210, span: 0.60, minimum: 8, target: 0.72 },
+    { time: 1040, tick: 30000, tilt: 18, yaw: 210, span: 0.60, minimum: 8, target: 0.72 }
   ];
   assert.equal(shots[6].time, 520, 'Opening camera endpoint changed');
   assert.equal(shots[6].tick, 7000, 'Opening model must hold at tick 7,000');
