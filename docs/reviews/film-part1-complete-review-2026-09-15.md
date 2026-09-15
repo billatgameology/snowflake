@@ -2,7 +2,7 @@
 
 ## Status and scope
 
-This is the in-progress review record for the [complete visual-film execution](../plans/explore-film-part1-science-scroll-documentary.md#complete-visual-film-execution--2026-09-15), not final film acceptance. The maker asked to finish the visuals and review/edit loop before recording narration. The separate prepared runtime now covers the reviewed story through credits; the full-length viewing export has **not yet been launched at this record's initial write**. Root will append its actual final receipts and disposition.
+The [complete visual-film execution](../plans/explore-film-part1-science-scroll-documentary.md#complete-visual-film-outcome) and review/edit loop are complete. The maker asked to finish the visuals before recording narration. The prepared runtime covers the reviewed story through credits, and the full-length viewing export passed its final output checks. Root found no blocking presentation defect in the inspected decoded samples. This is pre-narration technical completion, not maker acceptance or final voiced-master acceptance; the [final receipt](../video/part1-complete-verification.json) binds the source, implementation, checks and actual output.
 
 At write time, [the prepared score](../video/part1-prepared-score.json) is 420,546 bytes, SHA-256 `f9eb32fd6bbe8996b2d6842f4c8223ec7c4c4d6478f1f1b7e9d75967465ecc0f`, imported from authority revision `95c837678291014327af6b6970596d17dc244d22`. Its actual JSON contains 82 rows and a provisional 2,120-second duration. The [script](../video/part1-script.md) remains 60,305 bytes, SHA-256 `3a55b48ade327a360ce14d14dc2f7979bd956200c57120324bfdab2561b86e36`; its [existing source review](film-part1-script-review-2026-09-15.md) is not replaced by this implementation review. No new spoken text, source chapter, solver or scientific gate is approved here.
 
@@ -10,7 +10,7 @@ At write time, [the prepared score](../video/part1-prepared-score.json) is 420,5
 
 The reviewers were OpenAI Codex inherited-session lanes `runtime_review`, `science_review` and `story_review`, with exact model IDs unavailable. They shared task context and exchanged findings with the implementation agent. This was **not blind, independent-context, or independently reproduced browser review**. `story_review` also authored earlier script/score assets; its current code/source review is not an independent audit of those authored assets.
 
-For this loop the reviewer lanes inspected code, score and relevant source text read-only. Root alone edited the website, executed browser/capture checks and visually viewed the 82-cue contact sheets and corrected frames. Those visual observations are root's reports, not observations made by the document author. Contact-sheet and sampled-frame inspection is not an uninterrupted real-time watch of the narrated film. The website worktree is `/Users/clipper/github/snowcrystal_website-film-part1`; website-relative paths below refer to it.
+For this loop the reviewer lanes inspected code, score and relevant source text read-only; the story lane also drafted this review record. Root alone edited the website, executed browser/capture checks and visually viewed the source captures, corrected frames and final decoded-MP4 samples. Root appended the final execution disposition here. Contact-sheet and sampled-frame inspection is not an uninterrupted real-time watch of the narrated film. The website worktree is `/Users/clipper/github/snowcrystal_website-film-part1`; website-relative paths below refer to it.
 
 ## Findings and applied repairs
 
@@ -27,12 +27,12 @@ The following dispositions are supported by the current implementation and root'
 | Historical and later experimental apparatus could be confused. | The historical chamber uses a suspended-fibre growth sketch; the later experiment retains its separate frost reservoir, substrate and temperature controls. Qualitative map directions and the revised cold end are identified. |
 | Proposed edge sharpening and explanatory labels needed a clear reading. | The edge-growth polygon retains earlier ice rather than carving it away; gas supply and outward growth remain distinct. Root adjusted explanatory label placement/scrims after viewing corrected frames. This is a hypothesis diagram, not a validated Run B mechanism. |
 | Root/runtime found the final dolly could lose the crystal at the camera's fixed far plane. | A prepared-film-only `cameraFar` hook in `StageTour`/`GrowthStage`, driven by `filmFarPlane` in `choreography.ts`, keeps clipping beyond the authored camera move and recomputes on reverse seek. The intended model fade, not clipping, owns the disappearance; other tours keep their prior default. |
-| Resumable export could trust the wrong receipt filename, and encoder failure/backpressure needed fail-closed handling. | Root added receipt-to-chunk filename/interval/fingerprint checks, verifies actual resumed bytes and decoded dimensions/frame counts, and introduced `encoderPipe` with handled spawn/early-exit/write failure. An executed filename-substitution negative control rejects before assembly. Full-duration verification remains pending. |
+| Resumable export could trust the wrong receipt filename, and encoder failure/backpressure needed fail-closed handling. | Root added receipt-to-chunk filename/interval/fingerprint checks, verifies actual resumed bytes and decoded dimensions/frame counts, and introduced `encoderPipe` with handled spawn/early-exit/write failure. An executed filename-substitution negative control rejects before assembly. The actual full-duration assembly also passes the output checks recorded below. |
 | Final regression testing found that skipping hidden-crystal draws also bypassed context-loss detection during diagrams. | Root restored the inexpensive context-health check independently of drawing, retaining the rendering optimization. The executed context-loss test now covers both model and diagram capture seeks; the prototype matrix passes after the repair. The failed report is preserved at `export/film-prototype-complete-regression/report.json`, and the corrected run at `export/film-prototype-complete-regression-v2/report.json`. |
 
-The final comparison remains explicitly a proposed future test, not invented observed data. Credits identify the original diagrams, identified unvalidated replay, pending maker recording and accompanying source transcript. Credits have no invented source binding or public release URL. The existing repeated recaps and provisional speech slots are retained; this loop does not silently rewrite or retime the maker's narration.
+The film's closing scientific comparison remains explicitly a proposed future test, not invented observed data. Credits identify the original diagrams, identified unvalidated replay, pending maker recording and accompanying source transcript. Credits have no invented source binding or public release URL. The existing repeated recaps and provisional speech slots are retained; this loop does not silently rewrite or retime the maker's narration.
 
-## Existing local evidence, not a full-length export
+## Historical local evidence, not a full-length export
 
 These reports were read at write time. Their implementation/score identities, rather than words such as “final” in folder names, determine scope.
 
@@ -42,7 +42,7 @@ These reports were read at write time. Their implementation/score identities, ra
 - `export/part1-full-pipeline-test-v1/report.json`: bounded **three-second** pipeline test, decoded assembly and resumed chunks, using two workers; per-frame presentation timestamps and decoded chunk-boundary comparisons are recorded. SHA-256 `fb0eab7f312ff915cde6edb47787d0fe9c2b150ba7983c19997f1abf917e26c1`. Its resumed-run wall time is not fresh rendering cost or full-film performance.
 - `export/part1-full-resume-negative-v1/negative-control.json`: actual equal-duration chunk filename substitution rejected with exit 1 before assembly; original chunk bytes preserved. SHA-256 `0e66c964571da147c53664c1686ff398ab1722de1cffad53e6553408f021c7bf`.
 
-The prepared/product and export-contract test files contain targeted regressions for the repaired boundaries. This draft does not invent a final test/build count or claim the document author executed root's checks. Root must bind the final command outputs and website commit in the reproduction receipt.
+The prepared/product and export-contract test files contain targeted regressions for the repaired boundaries. These historical samples do not replace the final command outputs and website identities bound in the receipt below.
 
 ## Final-build checkpoint
 
@@ -72,21 +72,59 @@ samples only for the implemented product surfaces they test:
 
 The science reviewer rechecked the shared thickness/laser-phase parameter and connected fibre;
 no remaining blocker was found within its bounded source/diagram audit. The runtime reviewer
-rechecked the prepared-only far-plane change and reverse-seek recomputation with no blocker.
-These final lane checks were read-only code inspection, not browser execution.
+rechecked the prepared-only far-plane change, reverse-seek recomputation and final separation
+of context-health checks from hidden rendering, with no blocker. It inspected root's corrected
+prototype report but did not rerun it. These final lane checks were read-only inspection, not
+independently executed browser checks.
+The story lane's final read-only close-out check found no current-status contradiction among
+the plan, progress index, this review and the final receipt; it did not perform another
+implementation or browser audit.
 
-The full export is running with two rendering workers via
-`FILM_OUT=export/part1-full-final node scripts/export-part1-full.mjs`. Its built site and export
-recipe are frozen. Do not call the full viewing copy complete until its actual final report
-and decoded output have passed the remaining checks below.
+## Final full-length output and disposition
 
-## Pending close-out
+The [final receipt](../video/part1-complete-verification.json) binds 27 passing focused tests,
+successful typecheck/build, 10 complete-film / 8 opening / 18 prototype browser checks and
+the final capture/output reports. Website documentation is committed at
+`a0163d360bbd252b2cb442465c3e7b23d6c5500c`; the implementation remains `9d181af…` above.
+The final sampler contains 126 still entries and a decoded six-second montage. Its
+`health-repair-visual-comparison.json` compares the pre/post health-check repair captures with
+zero mismatches. None of these small samples is substituted for the actual full export.
 
-1. Record the final focused test/build, browser, capture and source/compiler receipts against the actual committed implementation; preserve failed attempts as scoped history.
-2. Launch the full-length resumable viewing export from the frozen build. Verify its actual duration/frame inventory, decoded audio/video, presentation timestamps, every chunk join, caption sidecar and output hashes. Neither the short montage nor the bounded pipeline test discharges this step.
-3. Inspect the assembled viewing copy and affected transitions, then record the final review disposition and remaining polish. Do not infer an uninterrupted watch from contact sheets or successful decoding.
-4. Keep maker visual acceptance, aloud read, recording, voice-aligned captions, post-recording retime and final voiced-master acceptance explicitly open. Publication and scientific validation remain outside this execution.
+Root completed `FILM_OUT=export/part1-full-final node scripts/export-part1-full.mjs` with two
+rendering workers. The actual `export/part1-full-final/report.json` records:
 
-At this initial write, the review/edit loop has produced concrete repairs and bounded verification artifacts; full visual-viewing-copy acceptance remains pending. Root owns the final receipt and current-state update.
+- 2120 seconds (35:20), 63600 frames, 1920×1080 at 30 fps; 8-bit H.264 / BT.709 limited-range
+  video and 48 kHz timing-only audio. No maker voice is present.
+- 71 chunks, with the first/last decoded frame pair of each checked against the assembly
+  (71 boundary pairs, not 71 internal joins). Every frame's presentation timestamp/duration,
+  chunk keyframes and complete audio/video decode passed; no errors were reported.
+- 3158.362 seconds of rendering/verification wall time. The MP4 is 280575547 bytes,
+  SHA-256 `17273d2a5f3d353f9c1e9f711b4b796992e66da03195b845878f0ad71f8dbf44`.
+  The adjacent VTT contains 229 provisional caption rows; its bytes/hash and the full recipe,
+  browser and renderer identities are bound in the final receipt.
 
-Document-only checks: `node scripts/lint-rule7.mjs` reported clean; `git diff --no-index --check -- /dev/null docs/reviews/film-part1-complete-review-2026-09-15.md` reported no whitespace errors for the new file. These are not website or scientific-suite results.
+Root then inspected all 16 contact sheets containing 95 decoded MP4 samples: one selected
+state from every scored row plus selected cuts, fades and endpoint states. Four repaired
+scenes were also viewed at full frame size. The bound
+`export/part1-full-final/assembled-visual-inspection.json` records the observations and limits.
+Caption/figure separation remains readable in the inspected frames, the layer and optical
+repairs are present, hypothesis labeling remains visible, the full crystal reveal is delayed,
+and the crystal survives the late pullback until the intended fade. Credits are present and
+readable. The final disposition is **no blocking presentation defect found in inspected
+samples**. This is not an uninterrupted 35:20 watch, a maker approval, or a scientific metric.
+
+The visual-film implementation, review/edit loop and provisional viewing copy are complete.
+All export/inspection bundles remain local ignored working artifacts; no archival, backup,
+upload or publication is claimed. No source chapter, solver or scientific gate changed.
+
+## Remaining maker-dependent production
+
+The maker's viewing, aloud read and recording come next, followed by actual-voice caption and
+clip alignment, any necessary pacing/retime changes, and final voiced-master acceptance.
+Recheck changed scenes and regenerate the voiced output under new recorded identities.
+Real mobile hardware and OS background playback policy were not certified by the emulated
+browser checks. Publication and scientific validation remain separate work.
+
+Final document/source checks are recorded in the receipt: the prepared, opening and production
+score compilers pass their `--check` commands, and `node scripts/lint-rule7.mjs` is clean.
+`git diff --check` covers the close-out edits; these checks are not scientific-suite results.

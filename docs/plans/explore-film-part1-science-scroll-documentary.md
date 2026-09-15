@@ -1108,9 +1108,20 @@ figure.
 - [ ] **WP7 — Full export.** Render the approved cue timeline in resumable chunks, assemble
       narration/captions on the same timebase, and inspect/decode the final output and joins.
       Record the recipe, identities, renderer and observed duration; it must remain under 60:00.
+
+  - [x] Pre-narration visual viewing copy: complete timeline, provisional captions, full
+    assembly/decode/frame-boundary verification and sampled visual inspection are recorded
+    in [Complete visual-film outcome](#complete-visual-film-outcome).
+  - [ ] Final voiced master: align the maker recording, retime as needed and repeat the
+    affected output checks. The timing-only viewing copy does not discharge this item.
+
 - [ ] **WP8 — Final product review.** Exercise the three performances with the actual content,
       obtain the maker's visual and narration review, and record what worked and what remains
       untested. Publication and public identities remain separate release work.
+
+  - [x] Complete visual-film technical review/edit loop and product checks, with shared-session
+    provenance and sampled-watch limits recorded in the complete review.
+  - [ ] Maker visual/narration acceptance and final post-recording pacing/access review.
 
 ## Out of scope
 
@@ -1430,8 +1441,48 @@ the entire reviewed dialogue, sequence inventory and credits now play in the exi
 The original opening and prototype retain their separate scores/routes. WP4/WP5 are implemented;
 the [complete review/edit record](../reviews/film-part1-complete-review-2026-09-15.md) documents
 shared-session reviewer provenance, source/diagram repairs and root visual inspection.
-The full-length export and final verification receipt remain the next execution step at this
-checkpoint. WP6 and maker acceptance stay open, as directed above.
+The completed full-length export and final verification receipt are recorded below. WP6 and
+maker acceptance stay open, as directed above.
+
+### Complete visual-film outcome
+
+The requested pre-narration execution is complete. The
+[final receipt](../video/part1-complete-verification.json) binds the prepared score to website
+implementation `9d181afb6937a1e91fb89091b3543091c5f46eb5` and final website documentation
+revision `a0163d360bbd252b2cb442465c3e7b23d6c5500c`. It derives 2120 seconds, 82 rows,
+3924 spoken words and 229 provisional captions from the identified score. All reviewed
+sequences and credits are present; the original opening and prototype remain separate.
+
+Root executed 27 focused tests, typecheck/build and the final 10 complete-film / 8 opening /
+18 prototype browser checks, as bound by that receipt. Representative repeat/reverse/reload
+captures compare exactly under the recorded renderer. The review/edit loop repaired drawing,
+source-qualification, silent-hold, camera-clipping, context-health and export-failure issues;
+the [review](../reviews/film-part1-complete-review-2026-09-15.md) preserves findings, failed
+attempts, reviewer provenance and verification limits. These are product checks, not a
+scientific gate or real-device accessibility certification.
+
+The actual command, run in `/Users/clipper/github/snowcrystal_website-film-part1`, was
+`FILM_OUT=export/part1-full-final node scripts/export-part1-full.mjs`.
+`export/part1-full-final/report.json` records 63600 frames at 1920×1080/30 fps, 2120 seconds,
+71 chunks with their first/last decoded frame pairs checked against the assembly, and
+3158.362 seconds of render/verification wall time with two rendering workers. Full audio/video
+decode and every frame's presentation timestamp/duration passed. The adjacent MP4 is
+280575547 bytes, SHA-256 `17273d2a5f3d353f9c1e9f711b4b796992e66da03195b845878f0ad71f8dbf44`;
+the caption sidecar and exact recipe identities are bound in the receipt. This is an 8-bit
+timing-only viewing copy, not recorded narration or a 16-bit whole-compositor master.
+
+Root inspected all 16 contact sheets containing 95 decoded MP4 samples, covering every scored
+row plus selected cuts/fades/end states, and four repaired scenes at full frame size. The
+bound `assembled-visual-inspection.json` records no blocking presentation defect in those
+samples. This was not an uninterrupted 35:20 watch and does not imply maker acceptance.
+The full MP4, sidecar and inspection artifacts are preserved as ignored local working output;
+no NAS archival, backup or publication is claimed.
+
+Next: maker viewing and aloud read/recording of `docs/video/part1-script.md`, followed by WP6
+voice/caption alignment and any necessary retime. Export the voiced master into a new output
+folder and repeat affected product/output checks against its actual identities. No further
+visual implementation is required by this execution's done criterion; no push, merge, source
+chapter change, solver change or publication occurred.
 
 ## Tried and rejected
 

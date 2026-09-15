@@ -19,30 +19,30 @@ detail.
 
 ## Current state
 
-- **Part 1 complete visual-film execution in progress (2026-09-15).** The maker requests all
-  remaining sequences followed by a review/edit loop, with narration recorded at the end.
-  The [committed execution scope](plans/explore-film-part1-science-scroll-documentary.md#complete-visual-film-execution--2026-09-15)
-  continues the existing prepared edition through credits, then whole-film product/visual
-  review and a provisional full-length viewing export. Preserve the reviewed dialogue;
-  recording and the post-recording retime are deferred inputs, not reasons to stop this build.
-  All visual sequences and credits are now implemented in the isolated website worktree.
-  The full prepared score is committed/imported from `95c837678291014327af6b6970596d17dc244d22`;
-  `docs/video/part1-prepared-score.json` is the current timeline authority. The whole-film
-  source/story/runtime review has produced repairs to experimental drawings, layer geometry,
-  hypothesis presentation, silent holds, the reveal and the ending camera. Actual captured
-  clipping at the late handover is fixed and negatively tested against the retained bad frame
-  (`export/part1-complete-farclip-check/late-handover-negative-control.json` in the website).
-  The implementation is now committed at website `9d181afb6937a1e91fb89091b3543091c5f46eb5`.
-  Final product checks and build freeze passed; the full-length render is running with its
-  frozen recipe under website `export/part1-full-final/`. The
-  [complete review/edit record](reviews/film-part1-complete-review-2026-09-15.md) names final
-  sampler and browser receipts, including the repaired hidden-renderer context-loss regression.
+- **Part 1 visual film and review/edit loop complete (2026-09-15).** The maker's requested
+  pre-narration execution is finished through credits. The
+  [complete receipt](video/part1-complete-verification.json) derives 2120 seconds / 82 rows /
+  3924 spoken words / 229 provisional captions from the identified prepared score, imported
+  from `95c837678291014327af6b6970596d17dc244d22`. Website implementation is
+  `9d181afb6937a1e91fb89091b3543091c5f46eb5`, with final execution documentation at
+  `a0163d360bbd252b2cb442465c3e7b23d6c5500c`. The receipt records 27 focused tests,
+  successful typecheck/build, 10 complete-film / 8 opening / 18 prototype browser checks,
+  exact representative reverse/reload captures and the verified full viewing copy.
+  Website `export/part1-full-final/report.json` records 63600 frames, 2120 seconds,
+  71 checked chunk-boundary pairs and 3158.362 seconds of render/verification wall time
+  with two workers. The MP4 and VTT are beside that report; this is an 8-bit 1080p/30-fps
+  timing-only copy, not recorded narration. Root inspected decoded samples spanning every
+  scored row and selected joins/end states, not an uninterrupted watch. The
+  [review/edit record](reviews/film-part1-complete-review-2026-09-15.md) documents source,
+  drawing, pacing, camera and runtime repairs with reviewer provenance and limits.
+  Maker viewing/read/recording, voice-aligned timing/captions and the final voiced master
+  remain next. Nothing was pushed, merged or published; the original website checkout is clean.
 
-- **Part 1 prepared film extended and checked (2026-09-15).** Maker direction: “Keep going.” The
+- **Earlier Part 1 prepared-film milestone (2026-09-15).** Maker direction: “Keep going.” The
   [bounded next slice](plans/explore-film-part1-science-scroll-documentary.md#next-prepared-film-slice--2026-09-15)
   adds S06/S11/S09/S13 from the reviewed production score: molecular structure, surface
   growth, diffusion and corner feedback. The source-bound
-  [prepared score](video/part1-prepared-score.json) is imported from `a2c5555`; website
+  prepared score at that milestone was imported from `a2c5555`; website
   implementation is committed at `834c7690cc46ec9da8cfae09344ce9814597e1f4`. The
   [receipt](video/part1-prepared-verification.json) derives 1040 seconds / 40 rows / 1930 words /
   113 captions and records 21 focused tests, 9 prepared browser checks, 8 opening checks,
@@ -53,7 +53,7 @@ detail.
   the lattice, contour field, branch camera, portrait figures, late-metadata seek and control-focus
   scrolling. Default `/film/part-1` is now the prepared film; `/opening` and `/prototype` below
   that route preserve both earlier editions. Nothing was pushed/published; original checkout
-  remains clean. Maker viewing/recording remain inputs. Continue at S15, “The shape remembers.”
+  remains clean. This bounded milestone is superseded by the complete visual-film record above.
 
 - **Part 1 opening chapter implemented and checked (2026-09-15).** The maker
   accepted the prototype revision and asked to continue. The separate
@@ -86,8 +86,9 @@ detail.
   [source audit](reviews/film-part1-script-review-2026-09-15.md) are unchanged. The score's
   inactive `productionDraft` still records 3,924 spoken words and a provisional 2,120-second
   (35:20) cut; reproduce with `node scripts/build-part1-production-score.mjs --check`.
-  The new chapter's maker visual acceptance/aloud read and recording remain open; full-story
-  WP4/WP5 expansion remains in progress. Do not silently activate the full draft.
+  These opening-only checks are historical; use the complete-film receipt above for current
+  implementation status. The prototype's embedded full draft remains inactive: the separately
+  identified prepared artifact supplies the complete film.
 
 - **Part 1 film plan reviewed and revised (2026-09-15).** The maker's latest direction
   (`JTS-M009`) uses education chapters 1–13 as flexible source material for a documentary under
@@ -509,42 +510,30 @@ the package-specific prerequisites in its charter amendment and execution plan. 
 
 ## Next step
 
-### Part 1 film — complete the visual film, then review and edit
+### Part 1 film — ready for maker viewing and narration
 
-Open the [prepared implementation/visual record](reviews/film-part1-prepared-implementation-2026-09-15.md)
-and the [active plan's continuation outcome](plans/explore-film-part1-science-scroll-documentary.md#prepared-film-continuation-outcome--2026-09-15).
-The prepared score and visuals now extend through credits, and final product checks pass.
-The full render is running from website `9d181afb6937a1e91fb89091b3543091c5f46eb5` via
-`FILM_OUT=export/part1-full-final node scripts/export-part1-full.mjs` in the isolated worktree.
-Inspect that process and `export/part1-full-final/progress.json` before launching anything;
-wait for its completed report, then inspect the assembled movie and write the final receipt.
-The full exporter has a bounded `--test` path and verifies
-resumable chunks against its build/recipe fingerprint; never modify `dist` during a render.
-Finish the full provisional viewing copy and document the completed review/edit loop.
-Preserve the existing source-reviewed dialogue and qualifiers. Maker narration comes last.
+Open the [complete review/edit record](reviews/film-part1-complete-review-2026-09-15.md),
+[verification receipt](video/part1-complete-verification.json) and
+[active execution outcome](plans/explore-film-part1-science-scroll-documentary.md#complete-visual-film-outcome).
+The visual film, review/edit loop and provisional full viewing copy are complete. Next is the
+maker's viewing/aloud read of `docs/video/part1-script.md`, followed by recording. Do not launch
+another render merely because earlier bounded-slice records still exist.
 
-Start from website `explore/film-part1@834c7690cc46ec9da8cfae09344ce9814597e1f4` in
-`/Users/clipper/github/snowcrystal_website-film-part1`; inspect its status and
-`docs/film-part1-prototype.md`. Reuse the retained preview at
-`http://127.0.0.1:5185/film/part-1`; check before starting another server. Its command is
-`npm run dev -- --host 127.0.0.1 --port 5185 --strictPort`.
-The default prepared film, original opening at `/film/part-1/opening`, and prototype at
-`/film/part-1/prototype` have distinct identities. Extend the prepared edition; do not create a
-new edition for each additional slice or change the historical prototype's root score.
+The isolated website is `explore/film-part1@a0163d360bbd252b2cb442465c3e7b23d6c5500c` in
+`/Users/clipper/github/snowcrystal_website-film-part1`. Reuse
+`http://127.0.0.1:5185/film/part-1` and its retained server; check before starting another.
+The MP4 is `export/part1-full-final/part1-visual-film.mp4`, with its VTT and verified report
+beside it. These are local working artifacts, not governed archival/publication claims.
+Keep the original opening and prototype routes/scores intact.
 
-Run `node scripts/build-part1-prepared-score.mjs --check` and
-`node scripts/build-part1-production-score.mjs --check` in this authority repository.
-Product-sized tests/build/browser/capture commands are in the website execution record.
-Keep asset writers separate from playback checks and use new output directories rather than
-overwriting referenced reports. No scientific suite or gate is required for presentation work.
-
-Traps: retain pure cue-time state and acknowledged rendering readiness; the whole-composition
-export is 8-bit. Phone/control focus is not a reader anchor, and visual readiness does not imply
-timing-track metadata readiness. Preserve the delayed-audio and post-Pause cue assertions.
-Use the installed Chrome channel and the named software-2D-raster/Metal-WebGL exact-capture
-recipe. Keep MODEL/DIAGRAM distinctions and the complete reveal for the later ending.
-Maker aloud read/recording, audio-aligned captions, final motion/reader polish and full-duration
-playback/export remain production work, not accepted outcomes.
+When voice files arrive, follow WP6: align actual audio durations and captions, retime the
+prepared score without silently changing reviewed words, then repeat the affected product
+checks and create a new voiced-master export folder. Start by running
+`node scripts/build-part1-prepared-score.mjs --check` in this authority repository and reading
+website `docs/film-part1-prototype.md` for the build/browser/export commands. Preserve pure
+cue-time evaluation, renderer-health and clipping checks, delayed-metadata handling and
+phone/control ownership. Asset writers must finish before browser QA; keep `dist` frozen during
+export. No scientific suite/gate, push, merge or publication is authorized by this media task.
 
 ### Growth visual studies — ready to use
 
