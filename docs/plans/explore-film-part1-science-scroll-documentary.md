@@ -3,7 +3,7 @@
 - **Phase:** Maker-directed Journey/media exploration, outside Phase 6 scope (precedents:
   [explore-journey-scroll-documentary.md](explore-journey-scroll-documentary.md),
   [explore-education-ch1-video.md](explore-education-ch1-video.md))
-- **Status:** WP0A visually revised and product-checked (maker acceptance pending); WP1 script/score drafted (maker read pending); WP2 text review resolved
+- **Status:** Prototype revision retained by maker direction; opening implemented and checked; next prepared-film slice in execution. WP1 maker read/recording pending; WP2 text review resolved.
 - **Started:** 2026-09-14
 - **Last touched:** 2026-09-15 by OpenAI Codex (authorized implementation and full-script draft)
 - **Review:** [findings and dispositions](../reviews/film-part1-plan-review-2026-09-15.md),
@@ -1324,6 +1324,41 @@ solver or chapter change occurred. Continue at S06 after recording the next boun
 slice; final motion polish, reader-copy polish, maker read/recording and full-film acceptance
 remain open. The original prototype's earlier visual-acceptance uncertainty is superseded by
 the maker's direction to keep it; this opening still needs its own maker viewing.
+
+## Next prepared-film slice — 2026-09-15
+
+The maker says “Keep going.” Continue the approved production, selecting reviewed S06, S11,
+S09 and S13 from `docs/video/part1-score.json` `productionDraft` (520–1040 seconds, copied
+from those sequence bounds). Do not rewrite narration or activate unimplemented later rows.
+Compile a separate prepared-film score containing the opening plus these four sequences.
+The prepared edition becomes `/film/part-1`; preserve the unchanged opening at
+`/film/part-1/opening` and the prototype at `/film/part-1/prototype`. This prepared artifact
+can grow in subsequent slices; do not create another edition per slice.
+
+Original browser diagrams move through historical packing/diffraction ideas, the ideal ice Ih
+oxygen sublattice, basal/prism faces, molecular terraces, slow-face survival by addition,
+delivery and attachment, random walks and qualitative diffusion, the substrate-droplet
+threshold principle, then corner amplification. Reuse Chapter 3's cited oxygen basis for
+three-dimensional lattice geometry; distinguish oxygen-only structure from hydrogen placement,
+macroscopic habit and the Run B model grid. Preserve low-to-high vapour labels and distinguish
+net inward transport from outward growth. No synthetic experimental results or new physics.
+
+Keep the opening's narration and rows unchanged; only its final visual theme changes from an
+opening endpoint to a transition. Hold the model offstage after the seed; explicitly cut at
+S13-04 to an inspected mid-growth branch (18,000–30,000 G-G ticks, art-directed camera), not
+the completed silhouette. No physical time or measured field is inferred from this replay.
+
+Root owns website edits and browser/build actions. A bounded delegate may compile the new
+score in the authority repository; a read-only source check supplies visual constraints.
+Implement all selected rows, inspect desktop and phone output, run focused edition/geometry/
+transport tests and TypeScript/Vite build, then representative exact captures and a short
+decoded export, then browser playback checks. Keep asset-writing jobs separate from playback
+checks. These are product checks; no scientific suite, gate, publishing or narration synthesis.
+
+Done for this slice: every selected reviewed row has a working, source-qualified visual and
+reader representation; prepared/opening/prototype identity is checked; playback, seeking,
+reverse/reload capture and static access pass. Record actual outcomes and remaining limits
+before moving to S15. Maker viewing, full-film performance and final voice timing remain open.
 
 ## Tried and rejected
 

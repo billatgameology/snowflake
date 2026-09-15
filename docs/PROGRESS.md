@@ -19,6 +19,13 @@ detail.
 
 ## Current state
 
+- **Part 1 continuation in execution (2026-09-15).** Maker direction: “Keep going.” The
+  [bounded next slice](plans/explore-film-part1-science-scroll-documentary.md#next-prepared-film-slice--2026-09-15)
+  selects S06/S11/S09/S13 from the reviewed production score: molecular structure, surface
+  growth, diffusion and corner feedback. Preserve the opening/prototype comparisons and
+  extend a separate prepared-film edition. Implementation and visual checks are next; no
+  new completed material is claimed by this entry.
+
 - **Part 1 opening chapter implemented and checked (2026-09-15).** The maker
   accepted the prototype revision and asked to continue. The separate
   [opening score](video/part1-opening-score.json), imported from `aea24c1`, compiles reviewed
@@ -472,7 +479,14 @@ the package-specific prerequisites in its charter amendment and execution plan. 
 
 ## Next step
 
-### Part 1 film — continue after the prepared opening
+### Part 1 film — execute the next prepared-film slice
+
+Open the [bounded execution section](plans/explore-film-part1-science-scroll-documentary.md#next-prepared-film-slice--2026-09-15).
+Implement S06/S11/S09/S13 in the isolated website worktree, compiling a separate prepared score
+and preserving both earlier editions. Start with the ideal oxygen-sublattice diagram, then
+surface and diffusion visuals. Run focused checks, inspect actual desktop/phone output, and
+record the resulting identities before continuing to S15. The older paragraph below describes
+the verified opening baseline, not the endpoint of this newly authorized slice.
 
 On `explore/film-part1-plan`, open the
 [execution record](plans/explore-film-part1-science-scroll-documentary.md#execution-record--2026-09-15)
