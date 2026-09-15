@@ -1,0 +1,876 @@
+{
+  "format": "part1-visual-revision-verification-v1",
+  "date": "2026-09-15",
+  "websiteRevision": "3e17dfa2bd35ac0386f89f6d11da77381ef71a2e",
+  "export": {
+    "path": "export/part1-visual-revision-checked/report.json",
+    "bytes": 27046,
+    "sha256": "c41ef42826cd38246731846cb4d9748b98e68274e8b549a3a39f6909f625e5b3",
+    "content": {
+      "browser": "153.0.8010.36",
+      "base": "http://127.0.0.1:5185/film/part-1",
+      "score": {
+        "repository": "snowflake",
+        "path": "docs/video/part1-score.json",
+        "revision": "6cbafec93a7b341f8117293f341aac9c6dde4281",
+        "sha256": "5f89b5a3255faf8916e50b1278cba3ac0af2d9b39650fefb7ae4c779321d4704"
+      },
+      "profile": {
+        "width": 1920,
+        "height": 1080,
+        "fps": 30,
+        "bits": 8,
+        "colour": "browser sRGB compositor to BT.709 limited-range yuv420p",
+        "audioSampleRate": 48000
+      },
+      "segments": [
+        {
+          "start": 13,
+          "duration": 2,
+          "frames": 60,
+          "wallSeconds": 6.89,
+          "ffmpeg": [
+            "-y",
+            "-framerate",
+            "30",
+            "-i",
+            "/Users/clipper/github/snowcrystal_website-film-part1/export/part1-visual-revision-checked/segment-0/frame-%05d.png",
+            "-ss",
+            "13",
+            "-i",
+            "/Users/clipper/github/snowcrystal_website-film-part1/public/film/part1-timing.wav",
+            "-t",
+            "2",
+            "-vf",
+            "scale=in_range=full:out_range=tv:out_color_matrix=bt709,format=yuv420p",
+            "-c:v",
+            "libx264",
+            "-crf",
+            "18",
+            "-preset",
+            "fast",
+            "-color_primaries",
+            "bt709",
+            "-color_trc",
+            "bt709",
+            "-colorspace",
+            "bt709",
+            "-c:a",
+            "aac",
+            "-ar",
+            "48000",
+            "-movflags",
+            "+faststart",
+            "/Users/clipper/github/snowcrystal_website-film-part1/export/part1-visual-revision-checked/segment-0.mp4"
+          ]
+        },
+        {
+          "start": 61,
+          "duration": 2,
+          "frames": 60,
+          "wallSeconds": 9.338,
+          "ffmpeg": [
+            "-y",
+            "-framerate",
+            "30",
+            "-i",
+            "/Users/clipper/github/snowcrystal_website-film-part1/export/part1-visual-revision-checked/segment-1/frame-%05d.png",
+            "-ss",
+            "61",
+            "-i",
+            "/Users/clipper/github/snowcrystal_website-film-part1/public/film/part1-timing.wav",
+            "-t",
+            "2",
+            "-vf",
+            "scale=in_range=full:out_range=tv:out_color_matrix=bt709,format=yuv420p",
+            "-c:v",
+            "libx264",
+            "-crf",
+            "18",
+            "-preset",
+            "fast",
+            "-color_primaries",
+            "bt709",
+            "-color_trc",
+            "bt709",
+            "-colorspace",
+            "bt709",
+            "-c:a",
+            "aac",
+            "-ar",
+            "48000",
+            "-movflags",
+            "+faststart",
+            "/Users/clipper/github/snowcrystal_website-film-part1/export/part1-visual-revision-checked/segment-1.mp4"
+          ]
+        },
+        {
+          "start": 76,
+          "duration": 2,
+          "frames": 60,
+          "wallSeconds": 6.267,
+          "ffmpeg": [
+            "-y",
+            "-framerate",
+            "30",
+            "-i",
+            "/Users/clipper/github/snowcrystal_website-film-part1/export/part1-visual-revision-checked/segment-2/frame-%05d.png",
+            "-ss",
+            "76",
+            "-i",
+            "/Users/clipper/github/snowcrystal_website-film-part1/public/film/part1-timing.wav",
+            "-t",
+            "2",
+            "-vf",
+            "scale=in_range=full:out_range=tv:out_color_matrix=bt709,format=yuv420p",
+            "-c:v",
+            "libx264",
+            "-crf",
+            "18",
+            "-preset",
+            "fast",
+            "-color_primaries",
+            "bt709",
+            "-color_trc",
+            "bt709",
+            "-colorspace",
+            "bt709",
+            "-c:a",
+            "aac",
+            "-ar",
+            "48000",
+            "-movflags",
+            "+faststart",
+            "/Users/clipper/github/snowcrystal_website-film-part1/export/part1-visual-revision-checked/segment-2.mp4"
+          ]
+        }
+      ],
+      "stills": [
+        {
+          "time": 0,
+          "file": "still-0-0.png",
+          "sha256": "c4bc730538cceda203986fc9670ff8bbba6e2e2b9d945236a8ba1b002872ad58",
+          "ack": {
+            "time": 0,
+            "cue": "S09-arrival",
+            "asset": "475c1f7c227c45b005bfdb8691b1250599b405fa59902462110312a4f26ceb7d",
+            "scoreSha256": "5f89b5a3255faf8916e50b1278cba3ac0af2d9b39650fefb7ae4c779321d4704",
+            "fonts": "loaded",
+            "decodedBytes": 23912132,
+            "textureBytes": 23912132,
+            "targets": "tier-dependent screen/post targets; reported separately by capture",
+            "bits": 8
+          }
+        },
+        {
+          "time": 3.5,
+          "file": "still-1-3.5.png",
+          "sha256": "848e8ace3490056ba47236a106aa530fe103d4f04e8cf4f9c0e17ce19318f84f",
+          "ack": {
+            "time": 3.5,
+            "cue": "S09-arrival",
+            "asset": "475c1f7c227c45b005bfdb8691b1250599b405fa59902462110312a4f26ceb7d",
+            "scoreSha256": "5f89b5a3255faf8916e50b1278cba3ac0af2d9b39650fefb7ae4c779321d4704",
+            "fonts": "loaded",
+            "decodedBytes": 23912132,
+            "textureBytes": 23912132,
+            "targets": "tier-dependent screen/post targets; reported separately by capture",
+            "bits": 8
+          }
+        },
+        {
+          "time": 7,
+          "file": "still-2-7.png",
+          "sha256": "37f084f92b9a831e852c65ce2bf565c2a18fe56cbdcee55b19f21d05f9e6807f",
+          "ack": {
+            "time": 7,
+            "cue": "S09-arrival",
+            "asset": "475c1f7c227c45b005bfdb8691b1250599b405fa59902462110312a4f26ceb7d",
+            "scoreSha256": "5f89b5a3255faf8916e50b1278cba3ac0af2d9b39650fefb7ae4c779321d4704",
+            "fonts": "loaded",
+            "decodedBytes": 23912132,
+            "textureBytes": 23912132,
+            "targets": "tier-dependent screen/post targets; reported separately by capture",
+            "bits": 8
+          }
+        },
+        {
+          "time": 13.9667,
+          "file": "still-3-13.9667.png",
+          "sha256": "515d880bed882c01bd4f0f1ed77c6f1843084bdfb9e0f2966bc325d1eeebb9fc",
+          "ack": {
+            "time": 13.9667,
+            "cue": "S09-arrival",
+            "asset": "475c1f7c227c45b005bfdb8691b1250599b405fa59902462110312a4f26ceb7d",
+            "scoreSha256": "5f89b5a3255faf8916e50b1278cba3ac0af2d9b39650fefb7ae4c779321d4704",
+            "fonts": "loaded",
+            "decodedBytes": 23912132,
+            "textureBytes": 23912132,
+            "targets": "tier-dependent screen/post targets; reported separately by capture",
+            "bits": 8
+          }
+        },
+        {
+          "time": 14,
+          "file": "still-4-14.png",
+          "sha256": "1b6e790a15730bf3f438a328ea0afa169f8acf6ed7839dd437dc04fff1c5ebb6",
+          "ack": {
+            "time": 14,
+            "cue": "S09-halo",
+            "asset": "475c1f7c227c45b005bfdb8691b1250599b405fa59902462110312a4f26ceb7d",
+            "scoreSha256": "5f89b5a3255faf8916e50b1278cba3ac0af2d9b39650fefb7ae4c779321d4704",
+            "fonts": "loaded",
+            "decodedBytes": 23912132,
+            "textureBytes": 23912132,
+            "targets": "tier-dependent screen/post targets; reported separately by capture",
+            "bits": 8
+          }
+        },
+        {
+          "time": 22,
+          "file": "still-5-22.png",
+          "sha256": "0be08c3cbf5f6888c795b580d9d2357459768cdbaada4d1fc192f3fedff84e67",
+          "ack": {
+            "time": 22,
+            "cue": "S09-halo",
+            "asset": "475c1f7c227c45b005bfdb8691b1250599b405fa59902462110312a4f26ceb7d",
+            "scoreSha256": "5f89b5a3255faf8916e50b1278cba3ac0af2d9b39650fefb7ae4c779321d4704",
+            "fonts": "loaded",
+            "decodedBytes": 23912132,
+            "textureBytes": 23912132,
+            "targets": "tier-dependent screen/post targets; reported separately by capture",
+            "bits": 8
+          }
+        },
+        {
+          "time": 33,
+          "file": "still-6-33.png",
+          "sha256": "6c114360497b6c8f48fc43861a13ae337c0c4042962e32eb30b00407465c3d0a",
+          "ack": {
+            "time": 33,
+            "cue": "S13-corner",
+            "asset": "475c1f7c227c45b005bfdb8691b1250599b405fa59902462110312a4f26ceb7d",
+            "scoreSha256": "5f89b5a3255faf8916e50b1278cba3ac0af2d9b39650fefb7ae4c779321d4704",
+            "fonts": "loaded",
+            "decodedBytes": 23912132,
+            "textureBytes": 23912132,
+            "targets": "tier-dependent screen/post targets; reported separately by capture",
+            "bits": 8
+          }
+        },
+        {
+          "time": 40,
+          "file": "still-7-40.png",
+          "sha256": "3cc9adbf26d058c3e4194c6cdde6d41de32f7f9da85cd81197533079a963dde6",
+          "ack": {
+            "time": 40,
+            "cue": "S13-corner",
+            "asset": "475c1f7c227c45b005bfdb8691b1250599b405fa59902462110312a4f26ceb7d",
+            "scoreSha256": "5f89b5a3255faf8916e50b1278cba3ac0af2d9b39650fefb7ae4c779321d4704",
+            "fonts": "loaded",
+            "decodedBytes": 23912132,
+            "textureBytes": 23912132,
+            "targets": "tier-dependent screen/post targets; reported separately by capture",
+            "bits": 8
+          }
+        },
+        {
+          "time": 50,
+          "file": "still-8-50.png",
+          "sha256": "32cd3e92c5422d06916a46a696ea3b41c69eb34977661c71bd4524f2c2bd7b0e",
+          "ack": {
+            "time": 50,
+            "cue": "S13-feedback",
+            "asset": "475c1f7c227c45b005bfdb8691b1250599b405fa59902462110312a4f26ceb7d",
+            "scoreSha256": "5f89b5a3255faf8916e50b1278cba3ac0af2d9b39650fefb7ae4c779321d4704",
+            "fonts": "loaded",
+            "decodedBytes": 23912132,
+            "textureBytes": 23912132,
+            "targets": "tier-dependent screen/post targets; reported separately by capture",
+            "bits": 8
+          }
+        },
+        {
+          "time": 58,
+          "file": "still-9-58.png",
+          "sha256": "413a67ac1b74076f7269fc287765ebfbb4e87f14de3c5205361aff787a7b9a37",
+          "ack": {
+            "time": 58,
+            "cue": "S13-feedback",
+            "asset": "475c1f7c227c45b005bfdb8691b1250599b405fa59902462110312a4f26ceb7d",
+            "scoreSha256": "5f89b5a3255faf8916e50b1278cba3ac0af2d9b39650fefb7ae4c779321d4704",
+            "fonts": "loaded",
+            "decodedBytes": 23912132,
+            "textureBytes": 23912132,
+            "targets": "tier-dependent screen/post targets; reported separately by capture",
+            "bits": 8
+          }
+        },
+        {
+          "time": 61.9667,
+          "file": "still-10-61.9667.png",
+          "sha256": "413a67ac1b74076f7269fc287765ebfbb4e87f14de3c5205361aff787a7b9a37",
+          "ack": {
+            "time": 61.9667,
+            "cue": "S13-feedback",
+            "asset": "475c1f7c227c45b005bfdb8691b1250599b405fa59902462110312a4f26ceb7d",
+            "scoreSha256": "5f89b5a3255faf8916e50b1278cba3ac0af2d9b39650fefb7ae4c779321d4704",
+            "fonts": "loaded",
+            "decodedBytes": 23912132,
+            "textureBytes": 23912132,
+            "targets": "tier-dependent screen/post targets; reported separately by capture",
+            "bits": 8
+          }
+        },
+        {
+          "time": 62,
+          "file": "still-11-62.png",
+          "sha256": "4410a35bfd43f542b5ded7207a12e9cf0eca689e8f02bbf4b065c036ccf4c5aa",
+          "ack": {
+            "time": 62,
+            "cue": "S13-return",
+            "asset": "475c1f7c227c45b005bfdb8691b1250599b405fa59902462110312a4f26ceb7d",
+            "scoreSha256": "5f89b5a3255faf8916e50b1278cba3ac0af2d9b39650fefb7ae4c779321d4704",
+            "fonts": "loaded",
+            "decodedBytes": 23912132,
+            "textureBytes": 23912132,
+            "targets": "tier-dependent screen/post targets; reported separately by capture",
+            "bits": 8
+          }
+        },
+        {
+          "time": 68,
+          "file": "still-12-68.png",
+          "sha256": "a0567bbbf364f43f5e3488421c5c213bdd04aa867cdea594d98e73984dae676b",
+          "ack": {
+            "time": 68,
+            "cue": "S13-return",
+            "asset": "475c1f7c227c45b005bfdb8691b1250599b405fa59902462110312a4f26ceb7d",
+            "scoreSha256": "5f89b5a3255faf8916e50b1278cba3ac0af2d9b39650fefb7ae4c779321d4704",
+            "fonts": "loaded",
+            "decodedBytes": 23912132,
+            "textureBytes": 23912132,
+            "targets": "tier-dependent screen/post targets; reported separately by capture",
+            "bits": 8
+          }
+        },
+        {
+          "time": 76,
+          "file": "still-13-76.png",
+          "sha256": "e7b7939b5dedb904daba9a51bb7756e02b4fd90350669ce80890cbd4dd0051c6",
+          "ack": {
+            "time": 76,
+            "cue": "S35-ending-test",
+            "asset": "475c1f7c227c45b005bfdb8691b1250599b405fa59902462110312a4f26ceb7d",
+            "scoreSha256": "5f89b5a3255faf8916e50b1278cba3ac0af2d9b39650fefb7ae4c779321d4704",
+            "fonts": "loaded",
+            "decodedBytes": 23912132,
+            "textureBytes": 23912132,
+            "targets": "tier-dependent screen/post targets; reported separately by capture",
+            "bits": 8
+          }
+        },
+        {
+          "time": 78,
+          "file": "still-14-78.png",
+          "sha256": "f209d14c513d0ed380210fac90b5dcfa6e4aed65f3c4d619024dbb8b21b66dd2",
+          "ack": {
+            "time": 78,
+            "cue": "S35-ending-test",
+            "asset": "475c1f7c227c45b005bfdb8691b1250599b405fa59902462110312a4f26ceb7d",
+            "scoreSha256": "5f89b5a3255faf8916e50b1278cba3ac0af2d9b39650fefb7ae4c779321d4704",
+            "fonts": "loaded",
+            "decodedBytes": 23912132,
+            "textureBytes": 23912132,
+            "targets": "tier-dependent screen/post targets; reported separately by capture",
+            "bits": 8
+          }
+        },
+        {
+          "time": 80,
+          "file": "still-15-80.png",
+          "sha256": "57aac0181b518feab56494815469864a74e0ad6f5f84988792678c2e873d3a77",
+          "ack": {
+            "time": 80,
+            "cue": "S35-ending-test",
+            "asset": "475c1f7c227c45b005bfdb8691b1250599b405fa59902462110312a4f26ceb7d",
+            "scoreSha256": "5f89b5a3255faf8916e50b1278cba3ac0af2d9b39650fefb7ae4c779321d4704",
+            "fonts": "loaded",
+            "decodedBytes": 23912132,
+            "textureBytes": 23912132,
+            "targets": "tier-dependent screen/post targets; reported separately by capture",
+            "bits": 8
+          }
+        },
+        {
+          "time": 40,
+          "file": "still-16-40.png",
+          "sha256": "3cc9adbf26d058c3e4194c6cdde6d41de32f7f9da85cd81197533079a963dde6",
+          "ack": {
+            "time": 40,
+            "cue": "S13-corner",
+            "asset": "475c1f7c227c45b005bfdb8691b1250599b405fa59902462110312a4f26ceb7d",
+            "scoreSha256": "5f89b5a3255faf8916e50b1278cba3ac0af2d9b39650fefb7ae4c779321d4704",
+            "fonts": "loaded",
+            "decodedBytes": 23912132,
+            "textureBytes": 23912132,
+            "targets": "tier-dependent screen/post targets; reported separately by capture",
+            "bits": 8
+          }
+        },
+        {
+          "time": 7,
+          "file": "still-17-7.png",
+          "sha256": "37f084f92b9a831e852c65ce2bf565c2a18fe56cbdcee55b19f21d05f9e6807f",
+          "ack": {
+            "time": 7,
+            "cue": "S09-arrival",
+            "asset": "475c1f7c227c45b005bfdb8691b1250599b405fa59902462110312a4f26ceb7d",
+            "scoreSha256": "5f89b5a3255faf8916e50b1278cba3ac0af2d9b39650fefb7ae4c779321d4704",
+            "fonts": "loaded",
+            "decodedBytes": 23912132,
+            "textureBytes": 23912132,
+            "targets": "tier-dependent screen/post targets; reported separately by capture",
+            "bits": 8
+          }
+        },
+        {
+          "time": 78,
+          "file": "still-18-78.png",
+          "sha256": "f209d14c513d0ed380210fac90b5dcfa6e4aed65f3c4d619024dbb8b21b66dd2",
+          "ack": {
+            "time": 78,
+            "cue": "S35-ending-test",
+            "asset": "475c1f7c227c45b005bfdb8691b1250599b405fa59902462110312a4f26ceb7d",
+            "scoreSha256": "5f89b5a3255faf8916e50b1278cba3ac0af2d9b39650fefb7ae4c779321d4704",
+            "fonts": "loaded",
+            "decodedBytes": 23912132,
+            "textureBytes": 23912132,
+            "targets": "tier-dependent screen/post targets; reported separately by capture",
+            "bits": 8
+          }
+        }
+      ],
+      "frameAcks": [
+        {
+          "time": 13,
+          "cue": "S09-arrival",
+          "asset": "475c1f7c227c45b005bfdb8691b1250599b405fa59902462110312a4f26ceb7d",
+          "scoreSha256": "5f89b5a3255faf8916e50b1278cba3ac0af2d9b39650fefb7ae4c779321d4704",
+          "fonts": "loaded",
+          "decodedBytes": 23912132,
+          "textureBytes": 23912132,
+          "targets": "tier-dependent screen/post targets; reported separately by capture",
+          "bits": 8
+        },
+        {
+          "time": 14.966666666666667,
+          "cue": "S09-halo",
+          "asset": "475c1f7c227c45b005bfdb8691b1250599b405fa59902462110312a4f26ceb7d",
+          "scoreSha256": "5f89b5a3255faf8916e50b1278cba3ac0af2d9b39650fefb7ae4c779321d4704",
+          "fonts": "loaded",
+          "decodedBytes": 23912132,
+          "textureBytes": 23912132,
+          "targets": "tier-dependent screen/post targets; reported separately by capture",
+          "bits": 8
+        },
+        {
+          "time": 61,
+          "cue": "S13-feedback",
+          "asset": "475c1f7c227c45b005bfdb8691b1250599b405fa59902462110312a4f26ceb7d",
+          "scoreSha256": "5f89b5a3255faf8916e50b1278cba3ac0af2d9b39650fefb7ae4c779321d4704",
+          "fonts": "loaded",
+          "decodedBytes": 23912132,
+          "textureBytes": 23912132,
+          "targets": "tier-dependent screen/post targets; reported separately by capture",
+          "bits": 8
+        },
+        {
+          "time": 62.96666666666667,
+          "cue": "S13-return",
+          "asset": "475c1f7c227c45b005bfdb8691b1250599b405fa59902462110312a4f26ceb7d",
+          "scoreSha256": "5f89b5a3255faf8916e50b1278cba3ac0af2d9b39650fefb7ae4c779321d4704",
+          "fonts": "loaded",
+          "decodedBytes": 23912132,
+          "textureBytes": 23912132,
+          "targets": "tier-dependent screen/post targets; reported separately by capture",
+          "bits": 8
+        },
+        {
+          "time": 76,
+          "cue": "S35-ending-test",
+          "asset": "475c1f7c227c45b005bfdb8691b1250599b405fa59902462110312a4f26ceb7d",
+          "scoreSha256": "5f89b5a3255faf8916e50b1278cba3ac0af2d9b39650fefb7ae4c779321d4704",
+          "fonts": "loaded",
+          "decodedBytes": 23912132,
+          "textureBytes": 23912132,
+          "targets": "tier-dependent screen/post targets; reported separately by capture",
+          "bits": 8
+        },
+        {
+          "time": 77.96666666666667,
+          "cue": "S35-ending-test",
+          "asset": "475c1f7c227c45b005bfdb8691b1250599b405fa59902462110312a4f26ceb7d",
+          "scoreSha256": "5f89b5a3255faf8916e50b1278cba3ac0af2d9b39650fefb7ae4c779321d4704",
+          "fonts": "loaded",
+          "decodedBytes": 23912132,
+          "textureBytes": 23912132,
+          "targets": "tier-dependent screen/post targets; reported separately by capture",
+          "bits": 8
+        }
+      ],
+      "errors": [],
+      "implementation": {
+        "src/film/Part1Film.tsx": "26edb4ab34104504c361e90981e5fc046e7cc88ddb18f75502766152c3c2e870",
+        "src/film/HaloCorner.tsx": "9d25042fcce3aa207072e9891d08a0cbd2a36d6aebb16e457367bd23f57b22f6",
+        "src/film/diagramGeometry.ts": "eb028eb914a70bd0c6bdc556592a22ba176cdea1168e14246f77d0d230c287ec",
+        "src/film/choreography.ts": "4fa3f464faafa16d2b74dda711efd404d991ff4b196cae6788b7e8b3ac2c3cd7",
+        "src/film/filmTour.ts": "44dcbca8d65177a1249bbe3d1b5f0c9a2b870cec63311ae6bf19e18e39158fbc",
+        "src/growth/stageTour.ts": "f9cc6306334b889bc748caf46c735dd86c594faa85a65a933f47854db2cf56f1",
+        "src/film/film.css": "679b739ad78be46981b1b24f68db0ee70385bd13da2d9f79d3de55ed4fa2a9e2",
+        "src/film/timeline.ts": "35faf002c35b3dce835b11d8c36b9b1628722f1f52f4ac7814d0407bac19b4c0",
+        "src/growth/GrowthStage.tsx": "822d6627e2156d05b247686694691d84653b60a98008a69e32b67a6b5a3d8c86",
+        "src/growth/iceMaterial.ts": "a66eceb0ea6e255b06c8f0cc668158782a8a4209285481ed4287c1ab36bf80fa",
+        "src/growth/env.glsl.ts": "3a40b4e3cb375be54ab9d017c20dba0fe22b52cad90756a312eebfdbcb193ba8",
+        "src/growth/tour.ts": "0be1463fe470e726c8c575164d95c9057734ed6bd6356120d7ced052ed64277f",
+        "src/growth/sceneMotion.ts": "4441857e1cdca9b3221ba66ecfa6167e21725fd65708714e11487b5318de7ef0",
+        "scripts/export-part1-prototype.mjs": "8e3650f9168c1c95bebd30c40ec5282b35abdc4246e4015fe5e3285a703cba21",
+        "scripts/film-gpu-meter.mjs": "66cd38e5c397686924f8d10fccffffc219deae491b608c533ac892e89463e094"
+      },
+      "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M4, Unspecified Version)",
+      "gpuAllocations": [
+        {
+          "kind": "texture2d",
+          "format": 6408,
+          "width": 1,
+          "height": 1,
+          "bytes": 4
+        },
+        {
+          "kind": "textureArray",
+          "format": 6408,
+          "width": 1,
+          "height": 1,
+          "depth": 1,
+          "bytes": 4
+        },
+        {
+          "kind": "textureArray",
+          "format": 6408,
+          "width": 1,
+          "height": 1,
+          "depth": 1,
+          "bytes": 4
+        },
+        {
+          "kind": "renderbuffer",
+          "format": 34842,
+          "width": 1920,
+          "height": 1080,
+          "samples": 2,
+          "bytes": 33177600
+        },
+        {
+          "kind": "renderbuffer",
+          "format": 33190,
+          "width": 1920,
+          "height": 1080,
+          "samples": 2,
+          "bytes": 16588800
+        },
+        {
+          "kind": "texture2d",
+          "format": 34842,
+          "width": 1920,
+          "height": 1080,
+          "bytes": 16588800
+        },
+        {
+          "kind": "renderbuffer",
+          "format": 33190,
+          "width": 1920,
+          "height": 1080,
+          "bytes": 8294400
+        },
+        {
+          "kind": "textureArray",
+          "format": 33334,
+          "width": 593,
+          "height": 593,
+          "depth": 17,
+          "levels": 1,
+          "bytes": 23912132
+        }
+      ],
+      "gpuAllocationNote": "Instrumented texture/renderbuffer allocation payloads only. Default drawing buffer, driver overhead, compositor and CPU staging are excluded; format with zero bytes would require manual resolution.",
+      "determinism": "Exact screenshot byte equality for repeated/reverse/reload cue samples on this renderer only",
+      "readingStills": [
+        {
+          "file": "run-b-arrival.png",
+          "time": 10,
+          "frame": "image-only central square",
+          "width": 600,
+          "height": 600,
+          "sha256": "1911d61d4229d2d77b546d28de1f90dd375300348a1c7d8e1e57dff2e45903f6",
+          "ack": {
+            "time": 10,
+            "cue": "S09-arrival",
+            "asset": "475c1f7c227c45b005bfdb8691b1250599b405fa59902462110312a4f26ceb7d",
+            "scoreSha256": "5f89b5a3255faf8916e50b1278cba3ac0af2d9b39650fefb7ae4c779321d4704",
+            "fonts": "loaded",
+            "decodedBytes": 23912132,
+            "textureBytes": 23912132,
+            "targets": "tier-dependent screen/post targets; reported separately by capture",
+            "bits": 8
+          }
+        },
+        {
+          "file": "run-b-return.png",
+          "time": 72,
+          "frame": "image-only central square",
+          "width": 1000,
+          "height": 1000,
+          "sha256": "d10aea397dd05c2d8c789745bb511439bed4453fcde2fd8719262d98ca70f5d2",
+          "ack": {
+            "time": 72,
+            "cue": "S13-return",
+            "asset": "475c1f7c227c45b005bfdb8691b1250599b405fa59902462110312a4f26ceb7d",
+            "scoreSha256": "5f89b5a3255faf8916e50b1278cba3ac0af2d9b39650fefb7ae4c779321d4704",
+            "fonts": "loaded",
+            "decodedBytes": 23912132,
+            "textureBytes": 23912132,
+            "targets": "tier-dependent screen/post targets; reported separately by capture",
+            "bits": 8
+          }
+        },
+        {
+          "file": "run-b-ending.png",
+          "time": 76,
+          "frame": "image-only central square",
+          "width": 1000,
+          "height": 1000,
+          "sha256": "49dcf29d8a7a77544c1dc466d2f32241704cd294ec4a2de2dec98c4853843176",
+          "ack": {
+            "time": 76,
+            "cue": "S35-ending-test",
+            "asset": "475c1f7c227c45b005bfdb8691b1250599b405fa59902462110312a4f26ceb7d",
+            "scoreSha256": "5f89b5a3255faf8916e50b1278cba3ac0af2d9b39650fefb7ae4c779321d4704",
+            "fonts": "loaded",
+            "decodedBytes": 23912132,
+            "textureBytes": 23912132,
+            "targets": "tier-dependent screen/post targets; reported separately by capture",
+            "bits": 8
+          }
+        }
+      ],
+      "probe": {
+        "streams": [
+          {
+            "index": 0,
+            "codec_name": "h264",
+            "codec_long_name": "H.264 / AVC / MPEG-4 AVC / MPEG-4 part 10",
+            "profile": "High",
+            "codec_type": "video",
+            "codec_tag_string": "avc1",
+            "codec_tag": "0x31637661",
+            "width": 1920,
+            "height": 1080,
+            "coded_width": 1920,
+            "coded_height": 1088,
+            "has_b_frames": 2,
+            "pix_fmt": "yuv420p",
+            "level": 40,
+            "color_range": "tv",
+            "color_space": "bt709",
+            "chroma_location": "left",
+            "field_order": "progressive",
+            "refs": 4,
+            "is_avc": "true",
+            "nal_length_size": "4",
+            "id": "0x1",
+            "r_frame_rate": "30/1",
+            "avg_frame_rate": "30/1",
+            "time_base": "1/15360",
+            "start_pts": 0,
+            "start_time": "0.000000",
+            "duration_ts": 92160,
+            "duration": "6.000000",
+            "bit_rate": "3720525",
+            "bits_per_raw_sample": "8",
+            "nb_frames": "180",
+            "nb_read_frames": "180",
+            "extradata_size": 50,
+            "disposition": {
+              "default": 1,
+              "dub": 0,
+              "original": 0,
+              "comment": 0,
+              "lyrics": 0,
+              "karaoke": 0,
+              "forced": 0,
+              "hearing_impaired": 0,
+              "visual_impaired": 0,
+              "clean_effects": 0,
+              "attached_pic": 0,
+              "timed_thumbnails": 0,
+              "non_diegetic": 0,
+              "captions": 0,
+              "descriptions": 0,
+              "metadata": 0,
+              "dependent": 0,
+              "still_image": 0,
+              "multilayer": 0
+            },
+            "tags": {
+              "language": "und",
+              "handler_name": "VideoHandler",
+              "vendor_id": "[0][0][0][0]",
+              "encoder": "Lavc62.11.100 libx264"
+            }
+          },
+          {
+            "index": 1,
+            "codec_name": "aac",
+            "codec_long_name": "AAC (Advanced Audio Coding)",
+            "profile": "LC",
+            "codec_type": "audio",
+            "codec_tag_string": "mp4a",
+            "codec_tag": "0x6134706d",
+            "sample_fmt": "fltp",
+            "sample_rate": "48000",
+            "channels": 1,
+            "channel_layout": "mono",
+            "bits_per_sample": 0,
+            "initial_padding": 0,
+            "id": "0x2",
+            "r_frame_rate": "0/0",
+            "avg_frame_rate": "0/0",
+            "time_base": "1/48000",
+            "start_pts": 0,
+            "start_time": "0.000000",
+            "duration_ts": 288000,
+            "duration": "6.000000",
+            "bit_rate": "11608",
+            "nb_frames": "283",
+            "nb_read_frames": "282",
+            "extradata_size": 5,
+            "disposition": {
+              "default": 1,
+              "dub": 0,
+              "original": 0,
+              "comment": 0,
+              "lyrics": 0,
+              "karaoke": 0,
+              "forced": 0,
+              "hearing_impaired": 0,
+              "visual_impaired": 0,
+              "clean_effects": 0,
+              "attached_pic": 0,
+              "timed_thumbnails": 0,
+              "non_diegetic": 0,
+              "captions": 0,
+              "descriptions": 0,
+              "metadata": 0,
+              "dependent": 0,
+              "still_image": 0,
+              "multilayer": 0
+            },
+            "tags": {
+              "language": "und",
+              "handler_name": "SoundHandler",
+              "vendor_id": "[0][0][0][0]"
+            }
+          }
+        ],
+        "format": {
+          "filename": "/Users/clipper/github/snowcrystal_website-film-part1/export/part1-visual-revision-checked/part1-prototype.mp4",
+          "nb_streams": 2,
+          "nb_programs": 0,
+          "nb_stream_groups": 0,
+          "format_name": "mov,mp4,m4a,3gp,3g2,mj2",
+          "format_long_name": "QuickTime / MOV",
+          "start_time": "0.000000",
+          "duration": "6.000000",
+          "size": "2807138",
+          "bit_rate": "3742850",
+          "probe_score": 100,
+          "tags": {
+            "major_brand": "isom",
+            "minor_version": "512",
+            "compatible_brands": "isomiso2avc1mp41",
+            "encoder": "Lavf62.3.100"
+          }
+        }
+      },
+      "decode": "passed",
+      "output": "/Users/clipper/github/snowcrystal_website-film-part1/export/part1-visual-revision-checked/part1-prototype.mp4",
+      "captionNote": "Montage sidecar remaps/clips draft captions to the listed segments. Full-score sidecar is retained separately.",
+      "wallSeconds": 27.784
+    }
+  },
+  "browser": {
+    "path": "export/film-visual-revision-final-verification/report.json",
+    "bytes": 1211,
+    "sha256": "574bdb6e52e0c77f60dbfeaa2f52579f95e729f68848c4df0fc8e53e7396e633",
+    "content": {
+      "browser": "153.0.8010.36",
+      "url": "http://127.0.0.1:5185/film/part-1",
+      "checks": [
+        "semantic article has all six cue headings",
+        "audio fixture is decoded and has the complete timeline",
+        "intentional playback advances, wheel interrupts before resume",
+        "seek writes exact audio time and never autoplays",
+        "reverse reading returns to the halo",
+        "live reduced motion disables auto-scroll",
+        "compacting the page preserves a later reading cue",
+        "phone slider remains player-owned through caption reflow and enlarged text",
+        "wheel over player controls pauses before native scrolling",
+        "phone and enlarged text remain within viewport",
+        "blocked audio play never starts automatic scrolling",
+        "no WebGL shows static model views with readable prose",
+        "lost WebGL context rejects a capture acknowledgement",
+        "lost live context pauses audio and exposes Retry",
+        "hidden-tab event pauses and never autostarts on return",
+        "scrolling keys and touch release playback without custom key prevention",
+        "no JavaScript reading contains the complete argument",
+        "required missing model fails capture rather than recording a spinner"
+      ],
+      "errors": []
+    }
+  },
+  "sourceHashesMatched": 15,
+  "supplementarySources": [
+    {
+      "path": "scripts/film-browser-check.mjs",
+      "bytes": 14057,
+      "sha256": "c1066627ff4a69cb2dd8c22dc4476407a3777a5c9a077205f9b99ea40537c6f3"
+    },
+    {
+      "path": "scripts/film-content.mjs",
+      "bytes": 5240,
+      "sha256": "8fa2c67549cf27b7073b53db4066a4c344b94438cfe98330d7bc364d2ddce63d"
+    },
+    {
+      "path": "scripts/film-timeline.test.mjs",
+      "bytes": 4191,
+      "sha256": "708c2d649fd82feb7815d05fece0070028c0f62eb44406a21732aba77ed7cec2"
+    }
+  ],
+  "video": {
+    "path": "export/part1-visual-revision-checked/part1-prototype.mp4",
+    "bytes": 2807138,
+    "sha256": "ab437be290707e5574b327b4bc8730a52604066f58037aea2222818a1eda20d8"
+  },
+  "unit": {
+    "command": "node --test --test-reporter=tap scripts/film-timeline.test.mjs",
+    "exitCode": 0,
+    "output": "TAP version 13\n# Subtest: score covers every film instant with unique ordered cues and contained captions\nok 1 - score covers every film instant with unique ordered cues and contained captions\n  ---\n  duration_ms: 0.4395\n  type: 'test'\n  ...\n# Subtest: score import retains byte identity\nok 2 - score import retains byte identity\n  ---\n  duration_ms: 0.559708\n  type: 'test'\n  ...\n# Subtest: authored camera is path-independent and keeps the complete reveal out of the opening\nok 3 - authored camera is path-independent and keeps the complete reveal out of the opening\n  ---\n  duration_ms: 0.411583\n  type: 'test'\n  ...\n# Subtest: diagram directs attention from halo to corner, delivery and attachment opposition\nok 4 - diagram directs attention from halo to corner, delivery and attachment opposition\n  ---\n  duration_ms: 0.073916\n  type: 'test'\n  ...\n# Subtest: anchor mapping round trips arbitrary forward/reverse times including visual holds\nok 5 - anchor mapping round trips arbitrary forward/reverse times including visual holds\n  ---\n  duration_ms: 0.09525\n  type: 'test'\n  ...\n# Subtest: manual input cancels late audio play fulfillment\nok 6 - manual input cancels late audio play fulfillment\n  ---\n  duration_ms: 0.052\n  type: 'test'\n  ...\n# Subtest: seek cancels prior request; only newest play owns clock\nok 7 - seek cancels prior request; only newest play owns clock\n  ---\n  duration_ms: 0.061916\n  type: 'test'\n  ...\n# Subtest: stale play A cannot pause newer play B, but manual pause still wins\nok 8 - stale play A cannot pause newer play B, but manual pause still wins\n  ---\n  duration_ms: 0.044875\n  type: 'test'\n  ...\n1..8\n# tests 8\n# suites 0\n# pass 8\n# fail 0\n# cancelled 0\n# skipped 0\n# todo 0\n# duration_ms 62.86625\n"
+  },
+  "build": {
+    "command": "node /Users/clipper/.codex/plugins/cache/openai-bundled/sites/0.1.70/scripts/build-site.mjs",
+    "invoked": "npm run build (tsc -b && vite build)",
+    "exitCode": 0,
+    "output": "vite v8.2.0 building client environment for production...\n\u001b[2K\rtransforming...✓ 1253 modules transformed.\nrendering chunks...\ncomputing gzip size...\ndist/index.html                                                     2.03 kB │ gzip:   0.83 kB\ndist/assets/frost.worker-v1MXNKLA.js                                2.27 kB\ndist/assets/dla.worker-MLqpM1vB.js                                  2.76 kB\ndist/assets/growthVolume.worker-bxlmQOaj.js                         5.16 kB\ndist/assets/outline-1-tT7e6H.js                                     6.97 kB\ndist/assets/jetbrains-mono-vietnamese-wght-normal-Bt-aOZkq.woff2    7.50 kB\ndist/assets/jetbrains-mono-greek-wght-normal-Bw9x6K1M.woff2         9.00 kB\ndist/assets/inter-tight-vietnamese-wght-normal-TKKdAiBA.woff2      10.48 kB\ndist/assets/inter-tight-greek-ext-wght-normal-DQgQPNk4.woff2       11.70 kB\ndist/assets/jetbrains-mono-cyrillic-wght-normal-D73BlboJ.woff2     12.10 kB\ndist/assets/jetbrains-mono-latin-ext-wght-normal-DBQx-q_a.woff2    15.19 kB\ndist/assets/inter-tight-cyrillic-wght-normal-BS41q_Tv.woff2        16.99 kB\ndist/assets/inter-tight-greek-wght-normal-sS1B39LI.woff2           22.19 kB\ndist/assets/inter-tight-cyrillic-ext-wght-normal-okcGN4Nq.woff2    26.66 kB\ndist/assets/jetbrains-mono-latin-wght-normal-B9CIFXIH.woff2        40.40 kB\ndist/assets/inter-tight-latin-wght-normal-DX-nOvPD.woff2           44.87 kB\ndist/assets/inter-tight-latin-ext-wght-normal-B4u9PlvR.woff2       89.80 kB\ndist/assets/Part1Film-Cnln3kOh.css                                  8.65 kB │ gzip:   2.46 kB\ndist/assets/index-PLRKfGR2.css                                    128.07 kB │ gzip:  23.25 kB\ndist/assets/FlakeCanvas-DndlhKFv.js                                 1.98 kB │ gzip:   1.05 kB\ndist/assets/AnimatePresence-CL9pIc3I.js                             4.20 kB │ gzip:   1.91 kB\ndist/assets/GrowthLibraryPage-C2Pi9L1j.js                           5.26 kB │ gzip:   2.33 kB\ndist/assets/StageFrame-DLYmbB9x.js                                  5.60 kB │ gzip:   2.01 kB\ndist/assets/RunBHeroPage-C6mR8yXB.js                                6.42 kB │ gzip:   2.79 kB\ndist/assets/CrystalStage-4uQYRfIa.js                                8.13 kB │ gzip:   3.41 kB\ndist/assets/MonogramPage-B82yBbau.js                                9.78 kB │ gzip:   3.57 kB\ndist/assets/render-D1Lq32m2.js                                     10.34 kB │ gzip:   4.55 kB\ndist/assets/StormPage-DrauKQ6V.js                                  11.06 kB │ gzip:   4.50 kB\ndist/assets/BiographyPage-XLxz8CW4.js                              12.07 kB │ gzip:   4.66 kB\ndist/assets/CatchPage-BG0xAF9G.js                                  12.27 kB │ gzip:   5.24 kB\ndist/assets/DivePage-DyF1mmEC.js                                   12.86 kB │ gzip:   5.01 kB\ndist/assets/KshowPage-Bd1XqrWc.js                                  14.25 kB │ gzip:   5.26 kB\ndist/assets/GrowthPage-BNfmvOFO.js                                 14.81 kB │ gzip:   5.41 kB\ndist/assets/MuseumPage-k8olckNw.js                                 15.29 kB │ gzip:   4.81 kB\ndist/assets/Hero1Page-CLT803vx.js                                  16.35 kB │ gzip:   6.19 kB\ndist/assets/controls-dzxXRCPb.js                                   17.69 kB │ gzip:   5.18 kB\ndist/assets/ZooPage-CnlC5wHE.js                                    19.88 kB │ gzip:   7.37 kB\ndist/assets/KaleidoPage-ChQTXjbj.js                                20.39 kB │ gzip:   7.67 kB\ndist/assets/KimiPage-CBkaK1V6.js                                   20.67 kB │ gzip:   6.33 kB\ndist/assets/particleEngine-CDRCe8H9.js                             21.12 kB │ gzip:   9.05 kB\ndist/assets/snowfallGL-CmX3GYJL.js                                 21.21 kB │ gzip:   9.56 kB\ndist/assets/FallPage-DgGBKDjZ.js                                   22.24 kB │ gzip:   7.78 kB\ndist/assets/chamber-B84owSVA.js                                    40.62 kB │ gzip:  13.36 kB\ndist/assets/MeltPage-D0dPnBB5.js                                   44.96 kB │ gzip:  16.12 kB\ndist/assets/useGrowthVolume-C96EPLk1.js                            63.95 kB │ gzip:  22.23 kB\ndist/assets/LabPage-DNz2fYxO.js                                    66.63 kB │ gzip:  21.22 kB\ndist/assets/CrystalMesh-DjGhicJz.js                                74.44 kB │ gzip:  25.66 kB\ndist/assets/MakePage-Bjai5FwM.js                                   80.06 kB │ gzip:  30.07 kB\ndist/assets/LightPage-Da4esHTZ.js                                  80.76 kB │ gzip:  28.60 kB\ndist/assets/GrowPage-BTsiaiYv.js                                   90.12 kB │ gzip:  31.16 kB\ndist/assets/Part1Film-YvsRp5mF.js                                 126.20 kB │ gzip:  35.69 kB\ndist/assets/ViewsPage-m9lEEZ12.js                                 160.72 kB │ gzip:  50.30 kB\ndist/assets/index-CVp1Yrcl.js                                     527.16 kB │ gzip: 168.94 kB\ndist/assets/dist-87iH24wP.js                                      956.29 kB │ gzip: 252.06 kB\n\n✓ built in 347ms\n[plugin builtin:vite-reporter] \n(!) Some chunks are larger than 500 kB after minification. Consider:\n- Using dynamic import() to code-split the application\n- Use build.rolldownOptions.output.codeSplitting to improve chunking: https://rolldown.rs/reference/OutputOptions.codeSplitting\n- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.\n"
+  },
+  "scope": "Local product verification; no solver, scientific gate, source chapter or published evidence changed. Timing tones only, not narration. Exact sampled screenshot equality is limited to the named renderer. Visual inspection is separately recorded, not inferred from test counts."
+}

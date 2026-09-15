@@ -3,7 +3,7 @@
 - **Phase:** Maker-directed Journey/media exploration, outside Phase 6 scope (precedents:
   [explore-journey-scroll-documentary.md](explore-journey-scroll-documentary.md),
   [explore-education-ch1-video.md](explore-education-ch1-video.md))
-- **Status:** WP0A technically checked; visual revision needed before expansion; WP1 script/score drafted (maker read pending); WP2 text review resolved
+- **Status:** WP0A visually revised and product-checked (maker acceptance pending); WP1 script/score drafted (maker read pending); WP2 text review resolved
 - **Started:** 2026-09-14
 - **Last touched:** 2026-09-15 by OpenAI Codex (authorized implementation and full-script draft)
 - **Review:** [findings and dispositions](../reviews/film-part1-plan-review-2026-09-15.md),
@@ -181,9 +181,11 @@ Decorative stage overlays are hidden from assistive technology; inactive interac
 cannot receive focus. The renderer consumes progress without requiring per-frame React updates.
 
 **Watch/listen.** An explicit Play control starts the maker's recorded narration. A cue map —
-narration time → film progress — drives the film clock, and the document scroll follows the clock
-through the site's scroll mechanism. Reader scroll intent pauses audio and releases automatic
-movement before the next write, preserving the reader's position. Resume maps that position back
+narration time → film progress — drives the film clock. The visual revision gives this performance
+full-width focus without continuously moving transcript prose alongside it. The measured
+time/anchor map remains available for deliberate reader takeover, not automatic watch-mode
+document repositioning. Reader scroll intent pauses audio and releases automatic visual
+progression before the next write. Resume maps the actual reader position back
 to the corresponding cue time. Controls include play/pause, seek, mute/volume, captions and act
 navigation. Player keyboard shortcuts apply within the player controls, never while typing or
 using normal page navigation, and playback does not move focus. Reviewed, time-aligned captions
@@ -934,7 +936,8 @@ when enhanced rendering is unavailable. Do not put the entire transcript into ov
 opacity layers.
 
 One controller owns film time and scroll writes. It has reading, playing, paused, seeking,
-loading and ended states. The draft score supplies these mappings:
+loading and ended states, with separate film/reader position ownership. Pausing or slider
+seeking does not by itself establish a reader anchor. The draft score supplies these mappings:
 
 - **Global film seconds ↔ scene/cue/local progress.** Use explicit cue intervals, including
   silence, titles, inspection holds and the ending. No overlapping or missing timeline spans.
@@ -958,8 +961,9 @@ visuals before resuming only if that was the user's selected state.
 Wheel, touch, scrolling keys and scrollbar dragging release playback control before the next
 automatic scroll write. Distinguish tagged programmatic scrolls, subpixel rounding and layout
 changes from reader intent; a difference from last frame's Y alone is not the detector.
-A resize/font change preserves film time in playback, recomputes anchors and corrects position;
-reading mode preserves the reader's scene/progress without starting audio. Reduced motion
+A resize/font change preserves film time in playback and recomputes anchors without scrolling
+the film-owned page; reading mode restores only an actual saved reader scene/progress without
+starting audio. Reduced motion
 disables automatic scrolling and continuous scrubbing, including after a live preference or
 persistent override change. Audio may accompany discrete still changes with reviewed captions.
 
@@ -1243,7 +1247,33 @@ orientation before switching representation. Narration and the inactive full-fil
 unchanged. Verify focused transport/camera tests, build, the phone seek regression and new
 captured shots; preserve the previous verification artifacts as historical records.
 
+## Visual revision result — 2026-09-15
+
+The [revision record](../reviews/film-part1-visual-revision-2026-09-15.md) documents the changes,
+live desktop/phone observations, separate reviewers and limits. Website commit
+`3e17dfa2bd35ac0386f89f6d11da77381ef71a2e` replaces the old split-playback composition with focused
+watch/reader ownership, score-driven camera shots, progressive corner attention, matched cuts,
+an in-renderer ending pullback and image-only phone figures. No narration or scientific claim
+was revised. The full-film draft is imported as inactive metadata, not activated for playback.
+
+The [new receipt](../video/part1-visual-revision-verification.json) copies 8 focused test passes,
+18 browser passes, the successful typecheck/build and a decoded 6.000-second/180-frame
+sample at 1920×1080/30 fps. Export wall time 27.784 seconds is limited to that sample.
+Its 15 capture source digests were recomputed against the committed website and matched.
+Earlier receipts remain historical; final verification paths are
+`export/part1-visual-revision-checked/` and `export/film-visual-revision-final-verification/`
+in the website worktree. The next implementation is WP4/WP5 on this improved runtime; maker
+visual acceptance, aloud read and actual narration remain separate from the technical checks.
+
 ## Tried and rejected
+
+- **Treat a paused media time as a reader anchor.** Phone caption reflow jumped into the
+  article. Explicit player/reader ownership now authorizes correction only for actual reading.
+- **Hide a phone renderer with display:none before it is ready.** A diagram-first load had a
+  zero-size rendering viewport and could not complete readiness. Visibility hides it while
+  preserving its viewport.
+- **Overlap asset-writing build/export jobs with live playback tests.** The development
+  reload can interrupt the test. Final browser verification runs after those writers finish.
 
 - **Treat functional checks as visual acceptance.** The maker's viewing and the requested
   visual pass exposed presentation defects the transport/export checks did not cover. Inspect
