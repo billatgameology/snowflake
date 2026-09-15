@@ -19,12 +19,22 @@ detail.
 
 ## Current state
 
-- **Part 1 continuation in execution (2026-09-15).** Maker direction: “Keep going.” The
+- **Part 1 prepared film extended and checked (2026-09-15).** Maker direction: “Keep going.” The
   [bounded next slice](plans/explore-film-part1-science-scroll-documentary.md#next-prepared-film-slice--2026-09-15)
-  selects S06/S11/S09/S13 from the reviewed production score: molecular structure, surface
-  growth, diffusion and corner feedback. Preserve the opening/prototype comparisons and
-  extend a separate prepared-film edition. Implementation and visual checks are next; no
-  new completed material is claimed by this entry.
+  adds S06/S11/S09/S13 from the reviewed production score: molecular structure, surface
+  growth, diffusion and corner feedback. The source-bound
+  [prepared score](video/part1-prepared-score.json) is imported from `a2c5555`; website
+  implementation is committed at `834c7690cc46ec9da8cfae09344ce9814597e1f4`. The
+  [receipt](video/part1-prepared-verification.json) derives 1040 seconds / 40 rows / 1930 words /
+  113 captions and records 21 focused tests, 9 prepared browser checks, 8 opening checks,
+  18 prototype checks and successful build. Its 59 sampled still entries pass exact repeated/
+  reverse/reload comparison on the named capture recipe; a 6.000000-second / 180-frame sample
+  decodes successfully. The 21.811-second export wall time is sample cost, not full-film performance.
+  [Visual findings and repairs](reviews/film-part1-prepared-implementation-2026-09-15.md) include
+  the lattice, contour field, branch camera, portrait figures, late-metadata seek and control-focus
+  scrolling. Default `/film/part-1` is now the prepared film; `/opening` and `/prototype` below
+  that route preserve both earlier editions. Nothing was pushed/published; original checkout
+  remains clean. Maker viewing/recording remain inputs. Continue at S15, “The shape remembers.”
 
 - **Part 1 opening chapter implemented and checked (2026-09-15).** The maker
   accepted the prototype revision and asked to continue. The separate
@@ -37,8 +47,9 @@ detail.
   [receipt](video/part1-opening-verification.json) record 13 focused tests, 8 opening browser
   checks, 18 prototype browser checks, the successful TypeScript/Vite build and decoded
   6.000-second / 180-frame sample. Its 19.56-second export wall time is bounded sample cost;
-  full-film performance is unmeasured. The default local route now plays this opening,
-  not the inactive full draft. `/film/part-1/prototype` preserves the original comparison study.
+  full-film performance is unmeasured. This earlier opening milestone is now retained at
+  `/film/part-1/opening`; the default route is the extended prepared film described above.
+  `/film/part-1/prototype` preserves the original comparison study.
   The
   earlier [implemented revision](reviews/film-part1-visual-revision-2026-09-15.md) addressed the
   requested visual review: full-width watch presentation, cropped opening detail, directed
@@ -479,44 +490,38 @@ the package-specific prerequisites in its charter amendment and execution plan. 
 
 ## Next step
 
-### Part 1 film — execute the next prepared-film slice
+### Part 1 film — continue from the prepared branch sequence
 
-Open the [bounded execution section](plans/explore-film-part1-science-scroll-documentary.md#next-prepared-film-slice--2026-09-15).
-Implement S06/S11/S09/S13 in the isolated website worktree, compiling a separate prepared score
-and preserving both earlier editions. Start with the ideal oxygen-sublattice diagram, then
-surface and diffusion visuals. Run focused checks, inspect actual desktop/phone output, and
-record the resulting identities before continuing to S15. The older paragraph below describes
-the verified opening baseline, not the endpoint of this newly authorized slice.
+Open the [prepared implementation/visual record](reviews/film-part1-prepared-implementation-2026-09-15.md)
+and the [active plan's continuation outcome](plans/explore-film-part1-science-scroll-documentary.md#prepared-film-continuation-outcome--2026-09-15).
+S06/S11/S09/S13 are implemented and checked. The next concrete sequence is S15, “The shape
+remembers,” in `docs/video/part1-script.md`. Record its bounded production selection in the
+existing plan before implementation, then extend `scripts/build-part1-prepared-score.mjs`
+and the same prepared artifact. Preserve the existing source-reviewed dialogue and qualifiers.
+No further scene-plan review is needed.
 
-On `explore/film-part1-plan`, open the
-[execution record](plans/explore-film-part1-science-scroll-documentary.md#execution-record--2026-09-15)
-and the [opening implementation/visual record](reviews/film-part1-opening-implementation-2026-09-15.md).
-The prototype improvement and prepared opening are committed and inspected. Continue with
-S06 in `docs/video/part1-script.md` (molecular structure, then surface and transport), recording
-the next bounded production slice in the active plan before implementation. Opening maker visual acceptance remains
-an input, not a test verdict. Preserve source qualifications and frame-exact runtime.
-The [full script](video/part1-script.md) has a resolved
-[source review](reviews/film-part1-script-review-2026-09-15.md). Run
-`node scripts/build-part1-production-score.mjs --check` to verify the generated `productionDraft`
-and its script/review identities. The maker's aloud read is the remaining WP1 input; use it to
-adjust speech slots before final recording, checking affected claims if dialogue changes.
-WP4/WP5 expand the selected story and signature visuals on the checked runtime. Keep
-provisional timing distinct from the maker's unrecorded voice. The website imports the prototype
-score at `6cbafec` and the separate opening score at `aea24c1`; only those prepared editions
-play. Do not activate the complete draft silently.
-Continue WP4/WP5 from website `a1c7ed3` in `/Users/clipper/github/snowcrystal_website-film-part1` after inspecting its
-`git status --short --branch` and `docs/film-part1-prototype.md`. The local preview command is
-`npm run dev -- --host 127.0.0.1 --port 5185 --strictPort`; check for the retained server first.
-No further scene-plan review or publication is required to continue local production.
-Run `node scripts/build-part1-opening-score.mjs --check` in this repository before extending
-the generated slice. Focused website checks are documented in `docs/film-part1-prototype.md`;
-do not launch scientific gates for presentation work. Fine motion direction, final reader copy,
-maker narration and full-duration export remain open.
+Start from website `explore/film-part1@834c7690cc46ec9da8cfae09344ce9814597e1f4` in
+`/Users/clipper/github/snowcrystal_website-film-part1`; inspect its status and
+`docs/film-part1-prototype.md`. Reuse the retained preview at
+`http://127.0.0.1:5185/film/part-1`; check before starting another server. Its command is
+`npm run dev -- --host 127.0.0.1 --port 5185 --strictPort`.
+The default prepared film, original opening at `/film/part-1/opening`, and prototype at
+`/film/part-1/prototype` have distinct identities. Do not activate the remaining full draft
+or create a new edition for each additional slice.
 
-Traps: use pure cue-time state and the external renderer's readiness acknowledgement; the old
-hero's accumulated snowfall and root view-transition fade are not capture-safe. The implemented
-whole-composition path is 8-bit, not the crystal-only high-precision path. Browser checks use the
-installed Chrome channel. Preserve explicit MODEL/DIAGRAM qualifications and descriptive stills.
+Run `node scripts/build-part1-prepared-score.mjs --check` and
+`node scripts/build-part1-production-score.mjs --check` in this authority repository.
+Product-sized tests/build/browser/capture commands are in the website execution record.
+Keep asset writers separate from playback checks and use new output directories rather than
+overwriting referenced reports. No scientific suite or gate is required for presentation work.
+
+Traps: retain pure cue-time state and acknowledged rendering readiness; the whole-composition
+export is 8-bit. Phone/control focus is not a reader anchor, and visual readiness does not imply
+timing-track metadata readiness. Preserve the delayed-audio and post-Pause cue assertions.
+Use the installed Chrome channel and the named software-2D-raster/Metal-WebGL exact-capture
+recipe. Keep MODEL/DIAGRAM distinctions and the complete reveal for the later ending.
+Maker aloud read/recording, audio-aligned captions, final motion/reader polish and full-duration
+playback/export remain production work, not accepted outcomes.
 
 ### Growth visual studies — ready to use
 

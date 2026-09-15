@@ -1,0 +1,1108 @@
+{
+  "format": "part1-prepared-product-verification-v1",
+  "date": "2026-09-15",
+  "sourceChecks": {
+    "command": "node scripts/build-part1-prepared-score.mjs --check && node scripts/build-part1-opening-score.mjs --check && node scripts/build-part1-production-score.mjs --check && node scripts/lint-rule7.mjs && git diff --check",
+    "exitCode": 0,
+    "output": "Prepared score current: 40 rows; 1040s; 113 provisional captions; script SHA-256 3a55b48ade327a360ce14d14dc2f7979bd956200c57120324bfdab2561b86e36\nOpening score current: 20 rows; 520s; 56 provisional captions; script SHA-256 3a55b48ade327a360ce14d14dc2f7979bd956200c57120324bfdab2561b86e36\nproductionDraft current: 3924 VOICEOVER words; 16 scenes + credits; 82 rows; 2120s; script SHA-256 3a55b48ade327a360ce14d14dc2f7979bd956200c57120324bfdab2561b86e36\nrule7: clean (1388 files scanned)\n"
+  },
+  "website": {
+    "path": "/Users/clipper/github/snowcrystal_website-film-part1",
+    "branch": "explore/film-part1",
+    "revision": "834c7690cc46ec9da8cfae09344ce9814597e1f4"
+  },
+  "score": {
+    "bytes": 211372,
+    "sha256": "0920b8d60d1353149f46348197cc4310c8b4951cae9979ed78931d38bec8b554",
+    "durationSeconds": 1040,
+    "rows": 40,
+    "spokenWords": 1930,
+    "captions": 113,
+    "sequenceKeys": [
+      "S00",
+      "S01",
+      "S02",
+      "S05",
+      "S06",
+      "S11",
+      "S09",
+      "S13"
+    ],
+    "script": {
+      "path": "docs/video/part1-script.md",
+      "sha256": "3a55b48ade327a360ce14d14dc2f7979bd956200c57120324bfdab2561b86e36",
+      "bytes": 60305
+    },
+    "review": {
+      "status": "source-reviewed; maker-read-and-recording-pending",
+      "statusPointer": {
+        "path": "docs/reviews/film-part1-script-review-2026-09-15.md",
+        "anchor": "verdict",
+        "sha256": "62dc45308f2cbd6861d70bfc60eec766e28090f2f02456982d60a3d7ba1e79d0",
+        "bytes": 19917
+      },
+      "currentReviewedScriptSha256": "3a55b48ade327a360ce14d14dc2f7979bd956200c57120324bfdab2561b86e36",
+      "scriptAgenda": {
+        "path": "docs/video/part1-script.md",
+        "anchor": "fact-check-and-production-handoff"
+      },
+      "note": "Non-author source review binds these script bytes. It is not maker recording approval or acceptance of an unbuilt film; prototype playback retains its separate snapshot."
+    },
+    "openingScore": {
+      "path": "docs/video/part1-opening-score.json",
+      "sha256": "86c3abc6e6a5413815e79b5887ac5c3afdcecf155c68ed014c2e346706f054c7",
+      "bytes": 106708
+    }
+  },
+  "reports": {
+    "preparedExport": {
+      "path": "export/part1-prepared-final-v3/report.json",
+      "bytes": 50437,
+      "sha256": "8a138f7791e27f8820c2c05c392810498d6179c7ecca6ff6521a906f145754e8",
+      "browser": "153.0.8010.36",
+      "url": "http://127.0.0.1:5185/film/part-1",
+      "score": {
+        "repository": "snowflake",
+        "path": "docs/video/part1-prepared-score.json",
+        "revision": "a2c55557fce59ed190a8a7f9b81f0b02e9c4c848",
+        "sha256": "0920b8d60d1353149f46348197cc4310c8b4951cae9979ed78931d38bec8b554"
+      },
+      "stills": [
+        {
+          "time": 0,
+          "file": "still-0-0.png",
+          "sha256": "a193ea20b3a6ea6e203b8b89423a0b3bb95031a02ee311db5b3690b4226e972e"
+        },
+        {
+          "time": 12,
+          "file": "still-1-12.png",
+          "sha256": "bca86fb60b6ccc10cfe7718ce64590d6b4531336d6783e8a3022566634ac850e"
+        },
+        {
+          "time": 29.9667,
+          "file": "still-2-29.9667.png",
+          "sha256": "4441a5c0fdfdb16168d84dad879ac359394c59792be320218f47441361f3c159"
+        },
+        {
+          "time": 30,
+          "file": "still-3-30.png",
+          "sha256": "95d093ccda74c73f52cf1e57183efc6933e03507ed7a7705f069398401636efe"
+        },
+        {
+          "time": 42,
+          "file": "still-4-42.png",
+          "sha256": "a48127a71da774b3e7724c5a5d59349e62451dfae9b9003e8ecca611ff2bfe7c"
+        },
+        {
+          "time": 59.9667,
+          "file": "still-5-59.9667.png",
+          "sha256": "855c38d0fd3891b423685cc835adef7175631a8afb8549d4ea90604ff2e03ca1"
+        },
+        {
+          "time": 81.6,
+          "file": "still-6-81.6.png",
+          "sha256": "6cc8bd35e1e4c7a6a0b52f132f67a3198ae9c332cb6c9642da16d2c2b6d46be7"
+        },
+        {
+          "time": 111.6,
+          "file": "still-7-111.6.png",
+          "sha256": "b54acdc365c58ac2c520e024838705959a66fa070081299e561f11e4aceb4522"
+        },
+        {
+          "time": 127.2,
+          "file": "still-8-127.2.png",
+          "sha256": "d5eb40c75763cee4ee440c3644fc2525de7feab53bbd1d402473c85e9c420cf1"
+        },
+        {
+          "time": 151.6,
+          "file": "still-9-151.6.png",
+          "sha256": "7703fa8986907ed06613e79987e4a02346549e2389048499e3a2eb216e9ad842"
+        },
+        {
+          "time": 181.6,
+          "file": "still-10-181.6.png",
+          "sha256": "91692cb8593e8e93e9a64dad0192f726eb5d63dec79b91209f985e75b4c1a902"
+        },
+        {
+          "time": 211.6,
+          "file": "still-11-211.6.png",
+          "sha256": "248a4c74ec43681d7997510b16ad1235000a6c06424e5f8cc65fffb39021689e"
+        },
+        {
+          "time": 241.6,
+          "file": "still-12-241.6.png",
+          "sha256": "971e06a6c5dde8934fe31e8f8ef4b051fdc2f914321d235d23443801c199a43a"
+        },
+        {
+          "time": 257.2,
+          "file": "still-13-257.2.png",
+          "sha256": "89357210ceef90bd6bcb91d3eac4d7c52fdc5ca4ec741419547104558b22baf6"
+        },
+        {
+          "time": 281.6,
+          "file": "still-14-281.6.png",
+          "sha256": "ecfceba5d390be9545acf0d5e6b8abd177bc0b59a9abaf4df0d7f6aeea3500bd"
+        },
+        {
+          "time": 311.6,
+          "file": "still-15-311.6.png",
+          "sha256": "b9df01901f3ddafab7713e4336254ea38f53d5d3e6d720f6ebe1aa632b2a46f3"
+        },
+        {
+          "time": 341.6,
+          "file": "still-16-341.6.png",
+          "sha256": "372a0ad82e74832ba40106187b49bf33fde199dd34969660d0e34b0632794633"
+        },
+        {
+          "time": 371.6,
+          "file": "still-17-371.6.png",
+          "sha256": "45e32c5546cde30758a711e1575547a0eebf18dfe14302d4e48c19fb2fb84061"
+        },
+        {
+          "time": 387.2,
+          "file": "still-18-387.2.png",
+          "sha256": "38565ac618967f3242915e41d487cb1ec94122475792d61204d0eb02d8012dec"
+        },
+        {
+          "time": 411.6,
+          "file": "still-19-411.6.png",
+          "sha256": "032227f9607dea7d9430132525150d6efab1bb07d49770d0f2801adbe7e0c195"
+        },
+        {
+          "time": 441.6,
+          "file": "still-20-441.6.png",
+          "sha256": "791a0ff66e54e608e7838dbbeb83c6a897b5500ffed566f3713b210aad1960e5"
+        },
+        {
+          "time": 471.6,
+          "file": "still-21-471.6.png",
+          "sha256": "7fb96f9434cbe3773dc2657ec0526a23b1a977f0719d66d6895da064ac4b4c76"
+        },
+        {
+          "time": 501.6,
+          "file": "still-22-501.6.png",
+          "sha256": "4fa7fc916da5655db8b5a79442a33ca86cb411a493ec4db3d4abe539cc5e1fd2"
+        },
+        {
+          "time": 517.2,
+          "file": "still-23-517.2.png",
+          "sha256": "1159d29bda9543697a3592b859fa816156e13c0fefc9d9a9fcd84a5bf2013645"
+        },
+        {
+          "time": 541.6,
+          "file": "still-24-541.6.png",
+          "sha256": "4cbb4d2241f7fc3efbf1ccc1d559dff46d69edd0dfcabfdefbf82c757c779c0f"
+        },
+        {
+          "time": 571.6,
+          "file": "still-25-571.6.png",
+          "sha256": "1d02f1c7bc4195518282ce31b9e61d071d52bd5211b65d6d737e596b764bed19"
+        },
+        {
+          "time": 601.6,
+          "file": "still-26-601.6.png",
+          "sha256": "3643b095c80b58fc2783aa378e1b2df4457d46925926a74034e4338f6784e76c"
+        },
+        {
+          "time": 631.6,
+          "file": "still-27-631.6.png",
+          "sha256": "bff9fd1cdef01db38d5adcdc562a3a58a6c50029dc6df4a18e7e070dfa3b381f"
+        },
+        {
+          "time": 647.2,
+          "file": "still-28-647.2.png",
+          "sha256": "bf8e0075e59e22f16712fac3880a0d8d7c552d126b16cb46f8bfd2e7c9ee34c7"
+        },
+        {
+          "time": 671.6,
+          "file": "still-29-671.6.png",
+          "sha256": "32dd6cdfb9e5d22b945f46885f56f0bb82b9ee1d078ef6c5f2190cc83d3990c4"
+        },
+        {
+          "time": 701.6,
+          "file": "still-30-701.6.png",
+          "sha256": "6ae9444b4da447c4639ad1307ce87e318f82cd32f8e1100735c2d1b14fef234f"
+        },
+        {
+          "time": 731.6,
+          "file": "still-31-731.6.png",
+          "sha256": "f2d7fad6ffe124b90be3a776a209a3bf2c94801c1d9941863f7adae1a2f2b3cd"
+        },
+        {
+          "time": 761.6,
+          "file": "still-32-761.6.png",
+          "sha256": "86b98b8c0152cede0908a91023ff5fe8348664b6f2e90d784859a3116d09f458"
+        },
+        {
+          "time": 777.2,
+          "file": "still-33-777.2.png",
+          "sha256": "516dd18df35afe7828383228761dd0cfddfa07f8028bc8aabbf002e150a2c553"
+        },
+        {
+          "time": 801.6,
+          "file": "still-34-801.6.png",
+          "sha256": "bb6c6c5235bcef933dda1b45ff07346217ed56f16745b44da0c24de8bd5ec440"
+        },
+        {
+          "time": 831.6,
+          "file": "still-35-831.6.png",
+          "sha256": "b27332ddc550eb3fac9c861e3640334fe9fa904e487152694bd5c86ac5f2417f"
+        },
+        {
+          "time": 861.6,
+          "file": "still-36-861.6.png",
+          "sha256": "0a7d0c4b72afa6f6a1f33a5c18f8fd305ca5d152e68e5d97ef230f43910ceaf1"
+        },
+        {
+          "time": 891.6,
+          "file": "still-37-891.6.png",
+          "sha256": "a907352c1805bd7b4c09f18d5d984724c48aef2ba35f2cf93e28820df668e80a"
+        },
+        {
+          "time": 907.2,
+          "file": "still-38-907.2.png",
+          "sha256": "3680b50fa05a9fc9c074a84f445dd8301ca06992d3d6395df296418f57be01f1"
+        },
+        {
+          "time": 931.6,
+          "file": "still-39-931.6.png",
+          "sha256": "ce48904d1b9009a8a4f40fa88d4b2cbeffd1fbae6232166431746daf9c2858f8"
+        },
+        {
+          "time": 961.6,
+          "file": "still-40-961.6.png",
+          "sha256": "fec6cc540159eeb1c2b6c38cbf2e528ade8a19ad5b62fd05a855e96f61491f7d"
+        },
+        {
+          "time": 991.6,
+          "file": "still-41-991.6.png",
+          "sha256": "bbdebf03fc76be41cd29eba9044e714b4877af580305b9ddcf5af85c0f43cff2"
+        },
+        {
+          "time": 551,
+          "file": "still-42-551.png",
+          "sha256": "6fa65d4ef316e10dddbf03c5e9e9a6f3b531269731ccb4aa45c0d11f0fe0d885"
+        },
+        {
+          "time": 579,
+          "file": "still-43-579.png",
+          "sha256": "b4febf757ef3749960ae21f1c291aebc2b109d5cb84cf39e3bc7e5f2fba14124"
+        },
+        {
+          "time": 681,
+          "file": "still-44-681.png",
+          "sha256": "d507253a36518d7dd1303a910693cd5552d08543fc90268ef13ba08df3c56806"
+        },
+        {
+          "time": 709,
+          "file": "still-45-709.png",
+          "sha256": "104e473c7ebe4f22adf2830dd39a1627e4d9cb115e01c3bceb2dc82361bf567c"
+        },
+        {
+          "time": 911,
+          "file": "still-46-911.png",
+          "sha256": "893991590ed10d341a73b6c382b13be790bca145e5ea3ba99f606161e2612f00"
+        },
+        {
+          "time": 939,
+          "file": "still-47-939.png",
+          "sha256": "0dbf3c8262974d05adc3db0204b976c4a2b45efc208bf64c91b0a43e9bceb4fd"
+        },
+        {
+          "time": 999.9667,
+          "file": "still-48-999.9667.png",
+          "sha256": "cf063863fc3d78d960c8b72436f7aa99047083f9af88ae9e09ad7d2023766d7b"
+        },
+        {
+          "time": 1000,
+          "file": "still-49-1000.png",
+          "sha256": "08512245a0af4de4a44abbe94e02ff43f114f11e2a86df9f82828737bc02cc60"
+        },
+        {
+          "time": 1022,
+          "file": "still-50-1022.png",
+          "sha256": "c53b4faff2c912ac6eecef5dd4fa54a5b455cd918aa647bdba3700b367af3f5d"
+        },
+        {
+          "time": 1035,
+          "file": "still-51-1035.png",
+          "sha256": "81afa0c4e30b5c627d6a257aaef5e6fc7b231825fccceafc7419d5f4c49155c6"
+        },
+        {
+          "time": 1040,
+          "file": "still-52-1040.png",
+          "sha256": "81afa0c4e30b5c627d6a257aaef5e6fc7b231825fccceafc7419d5f4c49155c6"
+        },
+        {
+          "time": 570,
+          "file": "still-53-570.png",
+          "sha256": "73fef40e66b8ab523008b0e3525494202ed968ee125be11051762be96a7a3e88"
+        },
+        {
+          "time": 695,
+          "file": "still-54-695.png",
+          "sha256": "92b83aa527e3f5b4d91bd5f7debf15cb04181509c13fce10311309e4e3eadb32"
+        },
+        {
+          "time": 933,
+          "file": "still-55-933.png",
+          "sha256": "15800b03634d0e6c96066a5d495c60ee56a8aa65cccf51a5560dd525f68d6251"
+        },
+        {
+          "time": 570,
+          "file": "still-56-570.png",
+          "sha256": "73fef40e66b8ab523008b0e3525494202ed968ee125be11051762be96a7a3e88"
+        },
+        {
+          "time": 695,
+          "file": "still-57-695.png",
+          "sha256": "92b83aa527e3f5b4d91bd5f7debf15cb04181509c13fce10311309e4e3eadb32"
+        },
+        {
+          "time": 933,
+          "file": "still-58-933.png",
+          "sha256": "15800b03634d0e6c96066a5d495c60ee56a8aa65cccf51a5560dd525f68d6251"
+        }
+      ],
+      "determinism": "Exact screenshot byte equality for repeated/reverse/reload cue samples on this renderer only",
+      "implementation": {
+        "src/film/Part1Film.tsx": "eed7908840a9b2646e67002477f1231a299c8340f6f82e7d79bf2ff20f485afe",
+        "src/film/HaloCorner.tsx": "9d25042fcce3aa207072e9891d08a0cbd2a36d6aebb16e457367bd23f57b22f6",
+        "src/film/diagramGeometry.ts": "eb028eb914a70bd0c6bdc556592a22ba176cdea1168e14246f77d0d230c287ec",
+        "src/film/choreography.ts": "4fa3f464faafa16d2b74dda711efd404d991ff4b196cae6788b7e8b3ac2c3cd7",
+        "src/film/filmTour.ts": "18684ab941e3de017f4a6e8427765534dcbc73e5c7bb10503ded896694e8bc67",
+        "src/growth/stageTour.ts": "f9cc6306334b889bc748caf46c735dd86c594faa85a65a933f47854db2cf56f1",
+        "src/film/film.css": "d0a919ea225ed68b74e232049474740c65038bf33496d5972ac5a07fdb6ec138",
+        "src/film/timeline.ts": "35faf002c35b3dce835b11d8c36b9b1628722f1f52f4ac7814d0407bac19b4c0",
+        "src/growth/GrowthStage.tsx": "822d6627e2156d05b247686694691d84653b60a98008a69e32b67a6b5a3d8c86",
+        "src/growth/iceMaterial.ts": "a66eceb0ea6e255b06c8f0cc668158782a8a4209285481ed4287c1ab36bf80fa",
+        "src/growth/env.glsl.ts": "3a40b4e3cb375be54ab9d017c20dba0fe22b52cad90756a312eebfdbcb193ba8",
+        "src/growth/tour.ts": "0be1463fe470e726c8c575164d95c9057734ed6bd6356120d7ced052ed64277f",
+        "src/growth/sceneMotion.ts": "4441857e1cdca9b3221ba66ecfa6167e21725fd65708714e11487b5318de7ef0",
+        "scripts/export-part1-prototype.mjs": "f6aff0e3addbceee444e9e00b226df9fe9f37b52d647c6ba62227e86fd0af4d8",
+        "scripts/film-gpu-meter.mjs": "66cd38e5c397686924f8d10fccffffc219deae491b608c533ac892e89463e094",
+        "src/film/OpeningDiagram.tsx": "a095eda2fd1a0e6bccf6340d28d5843fab5b37536e3b0334c27145d02a04b60b",
+        "src/film/openingGeometry.ts": "b897a21e9a6311299dd462b49995b64b781c8660939264d9f00f9b927dec2b21",
+        "src/film/structureGeometry.ts": "22797426bf7827452ff54b29cfd62d5aaf50d74381edd50c338101ff9a8ab8f8",
+        "src/film/editionIdentity.ts": "f16beaccd5e833afc6cdb7943f5e1a0e81cb431ed222b0ac9c86f69c706e3f71",
+        "src/film/filmEdition.ts": "83206281967960c42b7406e7012a4accfadee40e1f67783cff81552b0566587f",
+        "scripts/film-content.mjs": "26a4baa0ac123c0ae4bf27359b7616b54b022dd861404686fecfff276139abc2"
+      },
+      "implementationMatches": true,
+      "readingStills": [
+        {
+          "file": "prepared-branch.png",
+          "time": 1022,
+          "frame": "image-only central square",
+          "width": 1000,
+          "height": 1000,
+          "sha256": "c4c859e6622f06b0772445d6af0b7409257ebddcc187b9e19a9a7ecdc66d3f6b",
+          "ack": {
+            "time": 1022,
+            "cue": "S13-04",
+            "asset": "475c1f7c227c45b005bfdb8691b1250599b405fa59902462110312a4f26ceb7d",
+            "scoreSha256": "0920b8d60d1353149f46348197cc4310c8b4951cae9979ed78931d38bec8b554",
+            "fonts": "loaded",
+            "decodedBytes": 23912132,
+            "textureBytes": 23912132,
+            "targets": "tier-dependent screen/post targets; reported separately by capture",
+            "bits": 8
+          }
+        }
+      ],
+      "launchArgs": [
+        "--ignore-gpu-blocklist",
+        "--use-gl=angle",
+        "--use-angle=metal",
+        "--disable-gpu-rasterization"
+      ],
+      "segments": [
+        {
+          "start": 558,
+          "duration": 2,
+          "frames": 60,
+          "wallSeconds": 4.324
+        },
+        {
+          "start": 689,
+          "duration": 2,
+          "frames": 60,
+          "wallSeconds": 4.234
+        },
+        {
+          "start": 999,
+          "duration": 2,
+          "frames": 60,
+          "wallSeconds": 6.571
+        }
+      ],
+      "video": {
+        "duration": "6.000000",
+        "width": 1920,
+        "height": 1080,
+        "frames": "180",
+        "frameRate": "30/1",
+        "pixelFormat": "yuv420p",
+        "colorSpace": "bt709",
+        "audioSampleRate": "48000"
+      },
+      "decode": "passed",
+      "wallSeconds": 21.811
+    },
+    "openingExport": {
+      "path": "export/part1-opening-prepared-regression/report.json",
+      "bytes": 24615,
+      "sha256": "1fa35eee05ec154e07c825f707ecf837ed3b9c2d7c0e52469be94b26a6f207a5",
+      "browser": "153.0.8010.36",
+      "url": "http://127.0.0.1:5185/film/part-1/opening",
+      "score": {
+        "repository": "snowflake",
+        "path": "docs/video/part1-opening-score.json",
+        "revision": "aea24c18b72d1a05b8d7215bbdba81b32f05697b",
+        "sha256": "86c3abc6e6a5413815e79b5887ac5c3afdcecf155c68ed014c2e346706f054c7"
+      },
+      "stills": [
+        {
+          "time": 0,
+          "file": "still-0-0.png",
+          "sha256": "d63d2168b6e54696cf39017bc868c41d0529667dad58cf4dbf8fc21354fc99ea"
+        },
+        {
+          "time": 12,
+          "file": "still-1-12.png",
+          "sha256": "527445abc9fc382c4bfd6680e6260c13589fc7e5e4c49a26a8e4bcb67e7c8131"
+        },
+        {
+          "time": 29.9667,
+          "file": "still-2-29.9667.png",
+          "sha256": "c85084ae0d3dd31e399ef648062bb7ab36cc8366c376dd77da48eaf7e269a32e"
+        },
+        {
+          "time": 30,
+          "file": "still-3-30.png",
+          "sha256": "eeec9df7a52a7fd1d7185bc7236e1e4fa5d93eb97a6550687364e755368fc081"
+        },
+        {
+          "time": 42,
+          "file": "still-4-42.png",
+          "sha256": "05d7fb2cc7c04d5e7bb6e4d61e1d09ede4cf4ff02a2384e4295fc9d4ee8af62a"
+        },
+        {
+          "time": 59.9667,
+          "file": "still-5-59.9667.png",
+          "sha256": "bc0d7338e8625bc71ecb9cbb323066bd4465b03a9988a982b3cbe540da48e01a"
+        },
+        {
+          "time": 81.6,
+          "file": "still-6-81.6.png",
+          "sha256": "fcd5f06ae375c7028fe8f708a4a1fe493564c1085557411a739e8b6ba5ac1065"
+        },
+        {
+          "time": 111.6,
+          "file": "still-7-111.6.png",
+          "sha256": "28e7b4fd14a2bed36bc6185a782722e4bd951cf637320e8ea6a50e66b7c1bc31"
+        },
+        {
+          "time": 127.2,
+          "file": "still-8-127.2.png",
+          "sha256": "0bfde711e8b628e318c2731fde71725b9657aeff942ed4fbc6a13c5ac5159a99"
+        },
+        {
+          "time": 151.6,
+          "file": "still-9-151.6.png",
+          "sha256": "04f9403dff05d8b37be3bf8169951e4c46d5688e7c2d22579ec0945d00a9ff1f"
+        },
+        {
+          "time": 181.6,
+          "file": "still-10-181.6.png",
+          "sha256": "bf2b6b36c9685e733e0baf088d26150c299f424b009db914716a2d1456a5fca4"
+        },
+        {
+          "time": 211.6,
+          "file": "still-11-211.6.png",
+          "sha256": "547206a03184f2c1ec72dfba12b4039aa70eb62888fdac81970ee87a396657f0"
+        },
+        {
+          "time": 241.6,
+          "file": "still-12-241.6.png",
+          "sha256": "97073faa0bc71c025f00b74d7a11cb3e81a3550e621dd0bf306f24b8820b7363"
+        },
+        {
+          "time": 257.2,
+          "file": "still-13-257.2.png",
+          "sha256": "73eebfb79de50246db4dcc5e535832b5279602777bbf743fe0f5128380f413c1"
+        },
+        {
+          "time": 281.6,
+          "file": "still-14-281.6.png",
+          "sha256": "c49f9b972de1a41d0572f1991aad3c8cdc57dfc5fb9984bbfee0b35f9ba07d61"
+        },
+        {
+          "time": 311.6,
+          "file": "still-15-311.6.png",
+          "sha256": "cf0efb90557437c3e6ef53f77eb3e23be50a8c52a900fd6d68ac3763e7226987"
+        },
+        {
+          "time": 341.6,
+          "file": "still-16-341.6.png",
+          "sha256": "6469ba92af13ae964c2979393b0509a851a4abb1f1460c4001e0112e3b6c72a1"
+        },
+        {
+          "time": 371.6,
+          "file": "still-17-371.6.png",
+          "sha256": "ce8a1144d925273776ddc1ef82748f36b76d83e250e758dc061ef498d3df9dc3"
+        },
+        {
+          "time": 387.2,
+          "file": "still-18-387.2.png",
+          "sha256": "25173d3e550b860f1da8cd9c863be695f17aafba98763386905d86f26b74d736"
+        },
+        {
+          "time": 411.6,
+          "file": "still-19-411.6.png",
+          "sha256": "077991674a977809bd75b619ec2254058e705153a534c590a9bae1578c151f65"
+        },
+        {
+          "time": 441.6,
+          "file": "still-20-441.6.png",
+          "sha256": "3a0ba469d1249e89e4cd91c99911a4b6cf55cb8d6e1a6731a65ab1648b39ae79"
+        },
+        {
+          "time": 471.6,
+          "file": "still-21-471.6.png",
+          "sha256": "1976a4b030ba85817c2b5e9ba8c068c7cbdeca64a88bb1d9395ae2abd4fa750b"
+        },
+        {
+          "time": 501.6,
+          "file": "still-22-501.6.png",
+          "sha256": "9716e56e554f97ad240e6686ee1440c8b002aac63704d4e0f057eacbb1bee8bf"
+        },
+        {
+          "time": 517.2,
+          "file": "still-23-517.2.png",
+          "sha256": "b623566eb334fde6cbdbdfcdc65277402bbc88d148905d809d7321d8a96ac1d5"
+        },
+        {
+          "time": 520,
+          "file": "still-24-520.png",
+          "sha256": "d5ae076ede4bad676f322ab264c553d08f28346fd16be2a41b4cbcad908844c0"
+        },
+        {
+          "time": 175,
+          "file": "still-25-175.png",
+          "sha256": "60b14d72b8226d65b35c890848a378710936abd6306cede97a4ac12b1a3af719"
+        },
+        {
+          "time": 340,
+          "file": "still-26-340.png",
+          "sha256": "61e45659630ff0e233d5fe0262605d10727a02326630ff94faa63a349b27a418"
+        },
+        {
+          "time": 500,
+          "file": "still-27-500.png",
+          "sha256": "e4f4062b541c13fd2ddc461a29e1142fb5c084d1194f21ecc8edb0b6c27a8fc3"
+        },
+        {
+          "time": 175,
+          "file": "still-28-175.png",
+          "sha256": "60b14d72b8226d65b35c890848a378710936abd6306cede97a4ac12b1a3af719"
+        },
+        {
+          "time": 340,
+          "file": "still-29-340.png",
+          "sha256": "61e45659630ff0e233d5fe0262605d10727a02326630ff94faa63a349b27a418"
+        },
+        {
+          "time": 500,
+          "file": "still-30-500.png",
+          "sha256": "e4f4062b541c13fd2ddc461a29e1142fb5c084d1194f21ecc8edb0b6c27a8fc3"
+        }
+      ],
+      "determinism": "Exact screenshot byte equality for repeated/reverse/reload cue samples on this renderer only",
+      "implementation": {
+        "src/film/Part1Film.tsx": "eed7908840a9b2646e67002477f1231a299c8340f6f82e7d79bf2ff20f485afe",
+        "src/film/HaloCorner.tsx": "9d25042fcce3aa207072e9891d08a0cbd2a36d6aebb16e457367bd23f57b22f6",
+        "src/film/diagramGeometry.ts": "eb028eb914a70bd0c6bdc556592a22ba176cdea1168e14246f77d0d230c287ec",
+        "src/film/choreography.ts": "4fa3f464faafa16d2b74dda711efd404d991ff4b196cae6788b7e8b3ac2c3cd7",
+        "src/film/filmTour.ts": "18684ab941e3de017f4a6e8427765534dcbc73e5c7bb10503ded896694e8bc67",
+        "src/growth/stageTour.ts": "f9cc6306334b889bc748caf46c735dd86c594faa85a65a933f47854db2cf56f1",
+        "src/film/film.css": "d0a919ea225ed68b74e232049474740c65038bf33496d5972ac5a07fdb6ec138",
+        "src/film/timeline.ts": "35faf002c35b3dce835b11d8c36b9b1628722f1f52f4ac7814d0407bac19b4c0",
+        "src/growth/GrowthStage.tsx": "822d6627e2156d05b247686694691d84653b60a98008a69e32b67a6b5a3d8c86",
+        "src/growth/iceMaterial.ts": "a66eceb0ea6e255b06c8f0cc668158782a8a4209285481ed4287c1ab36bf80fa",
+        "src/growth/env.glsl.ts": "3a40b4e3cb375be54ab9d017c20dba0fe22b52cad90756a312eebfdbcb193ba8",
+        "src/growth/tour.ts": "0be1463fe470e726c8c575164d95c9057734ed6bd6356120d7ced052ed64277f",
+        "src/growth/sceneMotion.ts": "4441857e1cdca9b3221ba66ecfa6167e21725fd65708714e11487b5318de7ef0",
+        "scripts/export-part1-prototype.mjs": "f6aff0e3addbceee444e9e00b226df9fe9f37b52d647c6ba62227e86fd0af4d8",
+        "scripts/film-gpu-meter.mjs": "66cd38e5c397686924f8d10fccffffc219deae491b608c533ac892e89463e094",
+        "src/film/OpeningDiagram.tsx": "a095eda2fd1a0e6bccf6340d28d5843fab5b37536e3b0334c27145d02a04b60b",
+        "src/film/openingGeometry.ts": "b897a21e9a6311299dd462b49995b64b781c8660939264d9f00f9b927dec2b21",
+        "src/film/structureGeometry.ts": "22797426bf7827452ff54b29cfd62d5aaf50d74381edd50c338101ff9a8ab8f8",
+        "src/film/editionIdentity.ts": "f16beaccd5e833afc6cdb7943f5e1a0e81cb431ed222b0ac9c86f69c706e3f71",
+        "src/film/filmEdition.ts": "83206281967960c42b7406e7012a4accfadee40e1f67783cff81552b0566587f",
+        "scripts/film-content.mjs": "26a4baa0ac123c0ae4bf27359b7616b54b022dd861404686fecfff276139abc2"
+      },
+      "implementationMatches": true,
+      "readingStills": [
+        {
+          "file": "opening-macro.png",
+          "time": 12,
+          "frame": "image-only central square",
+          "width": 1000,
+          "height": 1000,
+          "sha256": "10eba3aa56edcc1205efdda320dd63f347952052fce6ef19f7212c4075ee26c5",
+          "ack": {
+            "time": 12,
+            "cue": "S00-01",
+            "asset": "475c1f7c227c45b005bfdb8691b1250599b405fa59902462110312a4f26ceb7d",
+            "scoreSha256": "86c3abc6e6a5413815e79b5887ac5c3afdcecf155c68ed014c2e346706f054c7",
+            "fonts": "loaded",
+            "decodedBytes": 23912132,
+            "textureBytes": 23912132,
+            "targets": "tier-dependent screen/post targets; reported separately by capture",
+            "bits": 8
+          }
+        },
+        {
+          "file": "opening-seed.png",
+          "time": 30,
+          "frame": "image-only central square",
+          "width": 1000,
+          "height": 1000,
+          "sha256": "7d34c65bea393402fc60603ba548cd297c0dcd8f1da5f11c86cf9fe5d7fa9398",
+          "ack": {
+            "time": 30,
+            "cue": "S00-02",
+            "asset": "475c1f7c227c45b005bfdb8691b1250599b405fa59902462110312a4f26ceb7d",
+            "scoreSha256": "86c3abc6e6a5413815e79b5887ac5c3afdcecf155c68ed014c2e346706f054c7",
+            "fonts": "loaded",
+            "decodedBytes": 23912132,
+            "textureBytes": 23912132,
+            "targets": "tier-dependent screen/post targets; reported separately by capture",
+            "bits": 8
+          }
+        }
+      ],
+      "launchArgs": [
+        "--ignore-gpu-blocklist",
+        "--use-gl=angle",
+        "--use-angle=metal",
+        "--disable-gpu-rasterization"
+      ],
+      "segments": [
+        {
+          "start": 29,
+          "duration": 2
+        },
+        {
+          "start": 338,
+          "duration": 2
+        },
+        {
+          "start": 433,
+          "duration": 2
+        }
+      ],
+      "wallSeconds": 3.584
+    },
+    "prototypeExport": {
+      "path": "export/part1-prototype-prepared-regression/report.json",
+      "bytes": 18062,
+      "sha256": "dd45bef252aaf2edeb31e1205047bcde27d074e6631cc6cbad8c38907530b326",
+      "browser": "153.0.8010.36",
+      "url": "http://127.0.0.1:5185/film/part-1/prototype",
+      "score": {
+        "repository": "snowflake",
+        "path": "docs/video/part1-score.json",
+        "revision": "6cbafec93a7b341f8117293f341aac9c6dde4281",
+        "sha256": "5f89b5a3255faf8916e50b1278cba3ac0af2d9b39650fefb7ae4c779321d4704"
+      },
+      "stills": [
+        {
+          "time": 0,
+          "file": "still-0-0.png",
+          "sha256": "c3fdfa345519605b6eaa9a8da73a5e24b4d197fca450e9015a3a948dbe89f265"
+        },
+        {
+          "time": 3.5,
+          "file": "still-1-3.5.png",
+          "sha256": "e317a469f427f4484b400b3e30dc3251a35fabcb55769573a486b762be8abcec"
+        },
+        {
+          "time": 7,
+          "file": "still-2-7.png",
+          "sha256": "ac687874f6beaa36677f0ca07bd8b16c1f2b973f14d1f914f59974be7d23bfa2"
+        },
+        {
+          "time": 13.9667,
+          "file": "still-3-13.9667.png",
+          "sha256": "a442fd9509ed5dbff9f5ceb38b8dbb803c9e027bb34c37988b845d7f84a02724"
+        },
+        {
+          "time": 14,
+          "file": "still-4-14.png",
+          "sha256": "0ad20b54043f141582a08c08a0e12c2396adacf4775362a22bc49e741d731f9a"
+        },
+        {
+          "time": 22,
+          "file": "still-5-22.png",
+          "sha256": "91e5f133d2c19e8f139f17ae28c753e7bd18a03cd7fcfa8a93c104f4d1d4ea93"
+        },
+        {
+          "time": 33,
+          "file": "still-6-33.png",
+          "sha256": "f13da5d9baf2e07559486aa86cce00fcdfe1ebe7cbc534d07538d49dcee6349a"
+        },
+        {
+          "time": 40,
+          "file": "still-7-40.png",
+          "sha256": "669e5599a9caca04bf2c36aea56f96de34c0bc1b2b43de5ea5b03965610ef081"
+        },
+        {
+          "time": 50,
+          "file": "still-8-50.png",
+          "sha256": "0b35444d729fce192099262c9889d2922a0f36ae64c55151de7d9a5e52bd1aa4"
+        },
+        {
+          "time": 58,
+          "file": "still-9-58.png",
+          "sha256": "f680d2f3a25424fa0c46fdcc52abc0e58b1b677d392170d02a8931129e74d580"
+        },
+        {
+          "time": 61.9667,
+          "file": "still-10-61.9667.png",
+          "sha256": "f680d2f3a25424fa0c46fdcc52abc0e58b1b677d392170d02a8931129e74d580"
+        },
+        {
+          "time": 62,
+          "file": "still-11-62.png",
+          "sha256": "c9970792648ff8712d40a4eb65fb295957aba78443fbbbc0755e824a90ef52b3"
+        },
+        {
+          "time": 68,
+          "file": "still-12-68.png",
+          "sha256": "db620190e5cde9808788b75d3cf5503aff0ff3e77025837830de8b788a4f8e5a"
+        },
+        {
+          "time": 76,
+          "file": "still-13-76.png",
+          "sha256": "0a6a5b38258c47889771b76117a8ebb06f69ca0da936a94806f236487b49c54e"
+        },
+        {
+          "time": 78,
+          "file": "still-14-78.png",
+          "sha256": "0ffde56316e87535847d44079f67099588d7875849eaffe27b5b8486779e0f3c"
+        },
+        {
+          "time": 80,
+          "file": "still-15-80.png",
+          "sha256": "35953d112b354b329702d199d1bbc11ca6751be2e31f6ef52cea51ef788d596e"
+        },
+        {
+          "time": 40,
+          "file": "still-16-40.png",
+          "sha256": "669e5599a9caca04bf2c36aea56f96de34c0bc1b2b43de5ea5b03965610ef081"
+        },
+        {
+          "time": 7,
+          "file": "still-17-7.png",
+          "sha256": "ac687874f6beaa36677f0ca07bd8b16c1f2b973f14d1f914f59974be7d23bfa2"
+        },
+        {
+          "time": 78,
+          "file": "still-18-78.png",
+          "sha256": "0ffde56316e87535847d44079f67099588d7875849eaffe27b5b8486779e0f3c"
+        }
+      ],
+      "determinism": "Exact screenshot byte equality for repeated/reverse/reload cue samples on this renderer only",
+      "implementation": {
+        "src/film/Part1Film.tsx": "eed7908840a9b2646e67002477f1231a299c8340f6f82e7d79bf2ff20f485afe",
+        "src/film/HaloCorner.tsx": "9d25042fcce3aa207072e9891d08a0cbd2a36d6aebb16e457367bd23f57b22f6",
+        "src/film/diagramGeometry.ts": "eb028eb914a70bd0c6bdc556592a22ba176cdea1168e14246f77d0d230c287ec",
+        "src/film/choreography.ts": "4fa3f464faafa16d2b74dda711efd404d991ff4b196cae6788b7e8b3ac2c3cd7",
+        "src/film/filmTour.ts": "18684ab941e3de017f4a6e8427765534dcbc73e5c7bb10503ded896694e8bc67",
+        "src/growth/stageTour.ts": "f9cc6306334b889bc748caf46c735dd86c594faa85a65a933f47854db2cf56f1",
+        "src/film/film.css": "d0a919ea225ed68b74e232049474740c65038bf33496d5972ac5a07fdb6ec138",
+        "src/film/timeline.ts": "35faf002c35b3dce835b11d8c36b9b1628722f1f52f4ac7814d0407bac19b4c0",
+        "src/growth/GrowthStage.tsx": "822d6627e2156d05b247686694691d84653b60a98008a69e32b67a6b5a3d8c86",
+        "src/growth/iceMaterial.ts": "a66eceb0ea6e255b06c8f0cc668158782a8a4209285481ed4287c1ab36bf80fa",
+        "src/growth/env.glsl.ts": "3a40b4e3cb375be54ab9d017c20dba0fe22b52cad90756a312eebfdbcb193ba8",
+        "src/growth/tour.ts": "0be1463fe470e726c8c575164d95c9057734ed6bd6356120d7ced052ed64277f",
+        "src/growth/sceneMotion.ts": "4441857e1cdca9b3221ba66ecfa6167e21725fd65708714e11487b5318de7ef0",
+        "scripts/export-part1-prototype.mjs": "f6aff0e3addbceee444e9e00b226df9fe9f37b52d647c6ba62227e86fd0af4d8",
+        "scripts/film-gpu-meter.mjs": "66cd38e5c397686924f8d10fccffffc219deae491b608c533ac892e89463e094",
+        "src/film/OpeningDiagram.tsx": "a095eda2fd1a0e6bccf6340d28d5843fab5b37536e3b0334c27145d02a04b60b",
+        "src/film/openingGeometry.ts": "b897a21e9a6311299dd462b49995b64b781c8660939264d9f00f9b927dec2b21",
+        "src/film/structureGeometry.ts": "22797426bf7827452ff54b29cfd62d5aaf50d74381edd50c338101ff9a8ab8f8",
+        "src/film/editionIdentity.ts": "f16beaccd5e833afc6cdb7943f5e1a0e81cb431ed222b0ac9c86f69c706e3f71",
+        "src/film/filmEdition.ts": "83206281967960c42b7406e7012a4accfadee40e1f67783cff81552b0566587f",
+        "scripts/film-content.mjs": "26a4baa0ac123c0ae4bf27359b7616b54b022dd861404686fecfff276139abc2"
+      },
+      "implementationMatches": true,
+      "readingStills": [
+        {
+          "file": "run-b-arrival.png",
+          "time": 10,
+          "frame": "image-only central square",
+          "width": 600,
+          "height": 600,
+          "sha256": "1911d61d4229d2d77b546d28de1f90dd375300348a1c7d8e1e57dff2e45903f6",
+          "ack": {
+            "time": 10,
+            "cue": "S09-arrival",
+            "asset": "475c1f7c227c45b005bfdb8691b1250599b405fa59902462110312a4f26ceb7d",
+            "scoreSha256": "5f89b5a3255faf8916e50b1278cba3ac0af2d9b39650fefb7ae4c779321d4704",
+            "fonts": "loaded",
+            "decodedBytes": 23912132,
+            "textureBytes": 23912132,
+            "targets": "tier-dependent screen/post targets; reported separately by capture",
+            "bits": 8
+          }
+        },
+        {
+          "file": "run-b-return.png",
+          "time": 72,
+          "frame": "image-only central square",
+          "width": 1000,
+          "height": 1000,
+          "sha256": "d10aea397dd05c2d8c789745bb511439bed4453fcde2fd8719262d98ca70f5d2",
+          "ack": {
+            "time": 72,
+            "cue": "S13-return",
+            "asset": "475c1f7c227c45b005bfdb8691b1250599b405fa59902462110312a4f26ceb7d",
+            "scoreSha256": "5f89b5a3255faf8916e50b1278cba3ac0af2d9b39650fefb7ae4c779321d4704",
+            "fonts": "loaded",
+            "decodedBytes": 23912132,
+            "textureBytes": 23912132,
+            "targets": "tier-dependent screen/post targets; reported separately by capture",
+            "bits": 8
+          }
+        },
+        {
+          "file": "run-b-ending.png",
+          "time": 76,
+          "frame": "image-only central square",
+          "width": 1000,
+          "height": 1000,
+          "sha256": "49dcf29d8a7a77544c1dc466d2f32241704cd294ec4a2de2dec98c4853843176",
+          "ack": {
+            "time": 76,
+            "cue": "S35-ending-test",
+            "asset": "475c1f7c227c45b005bfdb8691b1250599b405fa59902462110312a4f26ceb7d",
+            "scoreSha256": "5f89b5a3255faf8916e50b1278cba3ac0af2d9b39650fefb7ae4c779321d4704",
+            "fonts": "loaded",
+            "decodedBytes": 23912132,
+            "textureBytes": 23912132,
+            "targets": "tier-dependent screen/post targets; reported separately by capture",
+            "bits": 8
+          }
+        }
+      ],
+      "launchArgs": [
+        "--ignore-gpu-blocklist",
+        "--use-gl=angle",
+        "--use-angle=metal"
+      ],
+      "segments": [
+        {
+          "start": 13,
+          "duration": 2
+        },
+        {
+          "start": 61,
+          "duration": 2
+        },
+        {
+          "start": 76,
+          "duration": 2
+        }
+      ],
+      "wallSeconds": 3.908
+    },
+    "preparedBrowser": {
+      "path": "export/film-prepared-final-verified/report.json",
+      "bytes": 993,
+      "sha256": "e167d68da07a024c82b2514f1c355a7f01d27206f7121da50f1c8599370f2a50",
+      "browser": "153.0.8010.36",
+      "url": "http://127.0.0.1:5185/film/part-1",
+      "score": {
+        "repository": "snowflake",
+        "path": "docs/video/part1-prepared-score.json",
+        "revision": "a2c55557fce59ed190a8a7f9b81f0b02e9c4c848",
+        "sha256": "0920b8d60d1353149f46348197cc4310c8b4951cae9979ed78931d38bec8b554"
+      },
+      "checks": [
+        "complete prepared score and 1040-second timing track",
+        "every row selects its own visual, captions and model/diagram label",
+        "sequence navigation and honest endpoint/restart",
+        "play uses media clock, wheel interrupts, reverse seek remains exact",
+        "phone uses decoded image-only figures and does not overflow at 200% text",
+        "phone playback does not scroll and reading stays complete",
+        "all three editions render complete no-JavaScript text and available model images",
+        "comparison link loads independent prototype transport",
+        "delayed metadata preserves the latest seek without autoplay or scrolling"
+      ],
+      "passedChecks": 9,
+      "implementationMatches": false
+    },
+    "openingBrowser": {
+      "path": "export/film-opening-final-verified/report.json",
+      "bytes": 918,
+      "sha256": "5fd48f360bb20fa46b9f26ee18cc9e33aabda204cbdbad20c5cedacd540a1622",
+      "browser": "153.0.8010.36",
+      "url": "http://127.0.0.1:5185/film/part-1/opening",
+      "score": {
+        "repository": "snowflake",
+        "path": "docs/video/part1-opening-score.json",
+        "revision": "aea24c18b72d1a05b8d7215bbdba81b32f05697b",
+        "sha256": "86c3abc6e6a5413815e79b5887ac5c3afdcecf155c68ed014c2e346706f054c7"
+      },
+      "checks": [
+        "complete opening score and 520-second timing track",
+        "every row selects its own visual, captions and model/diagram label",
+        "sequence navigation and honest endpoint/restart",
+        "play uses media clock, wheel interrupts, reverse seek remains exact",
+        "phone uses decoded image-only figures and does not overflow at 200% text",
+        "phone playback does not scroll and reading stays complete",
+        "all three editions render complete no-JavaScript text and available model images",
+        "comparison link loads independent prototype transport"
+      ],
+      "passedChecks": 8,
+      "implementationMatches": false
+    },
+    "prototypeBrowser": {
+      "path": "export/film-prototype-final-verified/report.json",
+      "bytes": 1221,
+      "sha256": "88558d722c755b92f9f9c4e8070c74ca239653453c814b34b092774c91cba0f1",
+      "browser": "153.0.8010.36",
+      "url": "http://127.0.0.1:5185/film/part-1/prototype",
+      "checks": [
+        "semantic article has all six cue headings",
+        "audio fixture is decoded and has the complete timeline",
+        "intentional playback advances, wheel interrupts before resume",
+        "seek writes exact audio time and never autoplays",
+        "reverse reading returns to the halo",
+        "live reduced motion disables auto-scroll",
+        "compacting the page preserves a later reading cue",
+        "phone slider remains player-owned through caption reflow and enlarged text",
+        "wheel over player controls pauses before native scrolling",
+        "phone and enlarged text remain within viewport",
+        "blocked audio play never starts automatic scrolling",
+        "no WebGL shows static model views with readable prose",
+        "lost WebGL context rejects a capture acknowledgement",
+        "lost live context pauses audio and exposes Retry",
+        "hidden-tab event pauses and never autostarts on return",
+        "scrolling keys and touch release playback without custom key prevention",
+        "no JavaScript reading contains the complete argument",
+        "required missing model fails capture rather than recording a spinner"
+      ],
+      "passedChecks": 18,
+      "implementationMatches": false
+    },
+    "wrongEdition": {
+      "path": "export/prepared-edition-negative-control/report.json",
+      "bytes": 3365,
+      "sha256": "a73cef7d57c051031934636564254e896cc772af9e2cb459d1e70ddbbde454aa",
+      "browser": "153.0.8010.36",
+      "url": "http://127.0.0.1:5185/film/part-1/prototype",
+      "score": {
+        "repository": "snowflake",
+        "path": "docs/video/part1-prepared-score.json",
+        "revision": "a2c55557fce59ed190a8a7f9b81f0b02e9c4c848",
+        "sha256": "0920b8d60d1353149f46348197cc4310c8b4951cae9979ed78931d38bec8b554"
+      },
+      "stills": [],
+      "implementation": {
+        "src/film/Part1Film.tsx": "eed7908840a9b2646e67002477f1231a299c8340f6f82e7d79bf2ff20f485afe",
+        "src/film/HaloCorner.tsx": "9d25042fcce3aa207072e9891d08a0cbd2a36d6aebb16e457367bd23f57b22f6",
+        "src/film/diagramGeometry.ts": "eb028eb914a70bd0c6bdc556592a22ba176cdea1168e14246f77d0d230c287ec",
+        "src/film/choreography.ts": "4fa3f464faafa16d2b74dda711efd404d991ff4b196cae6788b7e8b3ac2c3cd7",
+        "src/film/filmTour.ts": "18684ab941e3de017f4a6e8427765534dcbc73e5c7bb10503ded896694e8bc67",
+        "src/growth/stageTour.ts": "f9cc6306334b889bc748caf46c735dd86c594faa85a65a933f47854db2cf56f1",
+        "src/film/film.css": "d0a919ea225ed68b74e232049474740c65038bf33496d5972ac5a07fdb6ec138",
+        "src/film/timeline.ts": "35faf002c35b3dce835b11d8c36b9b1628722f1f52f4ac7814d0407bac19b4c0",
+        "src/growth/GrowthStage.tsx": "822d6627e2156d05b247686694691d84653b60a98008a69e32b67a6b5a3d8c86",
+        "src/growth/iceMaterial.ts": "a66eceb0ea6e255b06c8f0cc668158782a8a4209285481ed4287c1ab36bf80fa",
+        "src/growth/env.glsl.ts": "3a40b4e3cb375be54ab9d017c20dba0fe22b52cad90756a312eebfdbcb193ba8",
+        "src/growth/tour.ts": "0be1463fe470e726c8c575164d95c9057734ed6bd6356120d7ced052ed64277f",
+        "src/growth/sceneMotion.ts": "4441857e1cdca9b3221ba66ecfa6167e21725fd65708714e11487b5318de7ef0",
+        "scripts/export-part1-prototype.mjs": "f6aff0e3addbceee444e9e00b226df9fe9f37b52d647c6ba62227e86fd0af4d8",
+        "scripts/film-gpu-meter.mjs": "66cd38e5c397686924f8d10fccffffc219deae491b608c533ac892e89463e094",
+        "src/film/OpeningDiagram.tsx": "a095eda2fd1a0e6bccf6340d28d5843fab5b37536e3b0334c27145d02a04b60b",
+        "src/film/openingGeometry.ts": "b897a21e9a6311299dd462b49995b64b781c8660939264d9f00f9b927dec2b21",
+        "src/film/structureGeometry.ts": "22797426bf7827452ff54b29cfd62d5aaf50d74381edd50c338101ff9a8ab8f8",
+        "src/film/editionIdentity.ts": "f16beaccd5e833afc6cdb7943f5e1a0e81cb431ed222b0ac9c86f69c706e3f71",
+        "src/film/filmEdition.ts": "83206281967960c42b7406e7012a4accfadee40e1f67783cff81552b0566587f",
+        "scripts/film-content.mjs": "26a4baa0ac123c0ae4bf27359b7616b54b022dd861404686fecfff276139abc2"
+      },
+      "implementationMatches": true,
+      "launchArgs": [
+        "--ignore-gpu-blocklist",
+        "--use-gl=angle",
+        "--use-angle=metal",
+        "--disable-gpu-rasterization"
+      ],
+      "segments": [
+        {
+          "start": 558,
+          "duration": 2
+        },
+        {
+          "start": 689,
+          "duration": 2
+        },
+        {
+          "start": 999,
+          "duration": 2
+        }
+      ],
+      "wallSeconds": 0.557,
+      "expectedRejection": "Error: Capture edition or asset identity does not match selected export score\n    at assertAck (file:///Users/clipper/github/snowcrystal_website-film-part1/scripts/export-part1-prototype.mjs:34:84)\n    at file:///Users/clipper/github/snowcrystal_website-film-part1/scripts/export-part1-prototype.mjs:40:3"
+    }
+  },
+  "staticBuild": {
+    "prepared": {
+      "path": "dist/film/part-1/index.html",
+      "bytes": 597683,
+      "sha256": "58892c2dbe09321d53e8e9dd0265c818ffcd6d4bcd7b63a804080fbc5a4674dd",
+      "sections": 40
+    },
+    "opening": {
+      "path": "dist/film/part-1/opening/index.html",
+      "bytes": 249606,
+      "sha256": "482d3369269b324378d890c6498e3c3b33536a7f5009c910e6ed0a48646d067d",
+      "sections": 20
+    },
+    "prototype": {
+      "path": "dist/film/part-1/prototype/index.html",
+      "bytes": 151788,
+      "sha256": "2b78a30d88e70555baec2398803f4c6ba8b86c432254f4684ba0c1b656992fd9",
+      "sections": 6
+    }
+  },
+  "focusedTests": {
+    "command": "node --test scripts/film-timeline.test.mjs scripts/film-opening.test.mjs scripts/film-prepared.test.mjs",
+    "exitCode": 0,
+    "output": "✔ opening preserves reviewed words, sources, timing and imported bytes (1.729167ms)\n✔ camera crop, seed cut and endpoint do not reveal completed model (0.164833ms)\n✔ every authored diagram is finite and order-independent (15.496791ms)\n✔ source qualifiers survive explanatory and image-only reading modes (0.350875ms)\n✔ no-JavaScript editions keep independent headings and model images (4.969833ms)\n✔ prepared edition extends exact reviewed rows and preserves its opening (1.416375ms)\n✔ three edition routes, imported identities, static rows and stills stay independent (48.029875ms)\n✔ offstage model advance is an explicit cut to a cropped mid-growth return (0.129ms)\n✔ new drawings are finite, bounded and exactly re-evaluable out of order (48.28125ms)\n✔ reading figures recompose narrow screens without embedding tiny text (7.665583ms)\n✔ oxygen diagram has depth and at most four nearest-neighbor bonds, not flat hexagonal tiles (0.191916ms)\n✔ slow-face illustration adds ice instead of cutting away the initial solid (0.312666ms)\n✔ substrate, field and instability qualifications survive the image-only reading copy (1.941916ms)\n✔ score covers every film instant with unique ordered cues and contained captions (0.404ms)\n✔ score import retains byte identity (0.470625ms)\n✔ authored camera is path-independent and keeps the complete reveal out of the opening (0.4435ms)\n✔ diagram directs attention from halo to corner, delivery and attachment opposition (0.083125ms)\n✔ anchor mapping round trips arbitrary forward/reverse times including visual holds (0.099208ms)\n✔ manual input cancels late audio play fulfillment (0.059125ms)\n✔ seek cancels prior request; only newest play owns clock (0.0675ms)\n✔ stale play A cannot pause newer play B, but manual pause still wins (0.043666ms)\nℹ tests 21\nℹ suites 0\nℹ pass 21\nℹ fail 0\nℹ cancelled 0\nℹ skipped 0\nℹ todo 0\nℹ duration_ms 182.790583\n"
+  },
+  "build": {
+    "command": "node /Users/clipper/.codex/plugins/cache/openai-bundled/sites/0.1.70/scripts/build-site.mjs",
+    "runs": "npm run build: tsc -b && vite build",
+    "exitCode": 0,
+    "output": "vite v8.2.0 building client environment for production...\n\u001b[2K\rtransforming...✓ 1262 modules transformed.\nrendering chunks...\ncomputing gzip size...\ndist/index.html                                                     2.03 kB │ gzip:   0.83 kB\ndist/assets/frost.worker-v1MXNKLA.js                                2.27 kB\ndist/assets/dla.worker-MLqpM1vB.js                                  2.76 kB\ndist/assets/growthVolume.worker-bxlmQOaj.js                         5.16 kB\ndist/assets/outline-1-tT7e6H.js                                     6.97 kB\ndist/assets/jetbrains-mono-vietnamese-wght-normal-Bt-aOZkq.woff2    7.50 kB\ndist/assets/jetbrains-mono-greek-wght-normal-Bw9x6K1M.woff2         9.00 kB\ndist/assets/inter-tight-vietnamese-wght-normal-TKKdAiBA.woff2      10.48 kB\ndist/assets/inter-tight-greek-ext-wght-normal-DQgQPNk4.woff2       11.70 kB\ndist/assets/jetbrains-mono-cyrillic-wght-normal-D73BlboJ.woff2     12.10 kB\ndist/assets/jetbrains-mono-latin-ext-wght-normal-DBQx-q_a.woff2    15.19 kB\ndist/assets/inter-tight-cyrillic-wght-normal-BS41q_Tv.woff2        16.99 kB\ndist/assets/inter-tight-greek-wght-normal-sS1B39LI.woff2           22.19 kB\ndist/assets/inter-tight-cyrillic-ext-wght-normal-okcGN4Nq.woff2    26.66 kB\ndist/assets/jetbrains-mono-latin-wght-normal-B9CIFXIH.woff2        40.40 kB\ndist/assets/inter-tight-latin-wght-normal-DX-nOvPD.woff2           44.87 kB\ndist/assets/inter-tight-latin-ext-wght-normal-B4u9PlvR.woff2       89.80 kB\ndist/assets/Part1Film-BiqszVSt.css                                 11.59 kB │ gzip:   2.92 kB\ndist/assets/index-PLRKfGR2.css                                    128.07 kB │ gzip:  23.25 kB\ndist/assets/FlakeCanvas-CM-9Lwo-.js                                 1.98 kB │ gzip:   1.06 kB\ndist/assets/AnimatePresence-CvfqEPTr.js                             4.20 kB │ gzip:   1.91 kB\ndist/assets/GrowthLibraryPage-C1P9D0k0.js                           5.26 kB │ gzip:   2.33 kB\ndist/assets/StageFrame-Bmbd4kGz.js                                  5.60 kB │ gzip:   2.01 kB\ndist/assets/RunBHeroPage-Bhtl3q-0.js                                6.42 kB │ gzip:   2.79 kB\ndist/assets/CrystalStage-B-TrF3mU.js                                8.13 kB │ gzip:   3.41 kB\ndist/assets/MonogramPage-Ce0GFplQ.js                                9.78 kB │ gzip:   3.57 kB\ndist/assets/render-kVYxKpNU.js                                     10.34 kB │ gzip:   4.55 kB\ndist/assets/StormPage-CKRp8kDe.js                                  11.06 kB │ gzip:   4.50 kB\ndist/assets/BiographyPage-BkoSLE8b.js                              12.07 kB │ gzip:   4.66 kB\ndist/assets/CatchPage-BGypexzK.js                                  12.27 kB │ gzip:   5.25 kB\ndist/assets/DivePage-C6CBcTYZ.js                                   12.86 kB │ gzip:   5.01 kB\ndist/assets/KshowPage-KMUh6wfX.js                                  14.25 kB │ gzip:   5.26 kB\ndist/assets/GrowthPage-hJX1TOuf.js                                 14.81 kB │ gzip:   5.41 kB\ndist/assets/MuseumPage-BRhE2Ih3.js                                 15.29 kB │ gzip:   4.81 kB\ndist/assets/Hero1Page-6LdewXD6.js                                  16.35 kB │ gzip:   6.19 kB\ndist/assets/controls-D7wUq5PI.js                                   17.69 kB │ gzip:   5.18 kB\ndist/assets/ZooPage-CTyKdbmS.js                                    19.88 kB │ gzip:   7.37 kB\ndist/assets/KaleidoPage-xNQtErCa.js                                20.39 kB │ gzip:   7.68 kB\ndist/assets/KimiPage-DY0w9Yg5.js                                   20.67 kB │ gzip:   6.33 kB\ndist/assets/particleEngine-CDRCe8H9.js                             21.12 kB │ gzip:   9.05 kB\ndist/assets/snowfallGL-BsVTL2tK.js                                 21.21 kB │ gzip:   9.56 kB\ndist/assets/FallPage-oGU0RoxJ.js                                   22.24 kB │ gzip:   7.78 kB\ndist/assets/chamber-B84owSVA.js                                    40.62 kB │ gzip:  13.36 kB\ndist/assets/MeltPage-DRXDvD9N.js                                   44.96 kB │ gzip:  16.12 kB\ndist/assets/useGrowthVolume-BFBMpaq3.js                            63.95 kB │ gzip:  22.23 kB\ndist/assets/LabPage-BhFRr79C.js                                    66.63 kB │ gzip:  21.22 kB\ndist/assets/CrystalMesh-PcpLK5tR.js                                74.44 kB │ gzip:  25.66 kB\ndist/assets/MakePage-DI_H6IzF.js                                   80.06 kB │ gzip:  30.07 kB\ndist/assets/LightPage-D3OwSVLk.js                                  80.76 kB │ gzip:  28.60 kB\ndist/assets/GrowPage-PtPQKP2O.js                                   90.12 kB │ gzip:  31.16 kB\ndist/assets/ViewsPage-C70hT52S.js                                 160.72 kB │ gzip:  50.31 kB\ndist/assets/Part1Film-J74SkRCL.js                                 401.21 kB │ gzip:  76.91 kB\ndist/assets/index-C7iLjBvb.js                                     527.48 kB │ gzip: 168.99 kB\ndist/assets/dist-CJEk49ef.js                                      956.29 kB │ gzip: 252.07 kB\n\n✓ built in 491ms\n[plugin builtin:vite-reporter] \n(!) Some chunks are larger than 500 kB after minification. Consider:\n- Using dynamic import() to code-split the application\n- Use build.rolldownOptions.output.codeSplitting to improve chunking: https://rolldown.rs/reference/OutputOptions.codeSplitting\n- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.\n"
+  },
+  "visualInspection": {
+    "author": "Root implementation agent; sampled inspection, not continuous whole-film watch",
+    "desktop": "1440×900 live lattice playback from 552 to 565 seconds, pause retained selected scene; 1920×1080 exact exported samples across new diagram families and model return.",
+    "phone": "390×844 browser emulation, normal and 200% text; portrait lattice/stacked rough/smooth figures, reading branch, controls and current-cue preservation.",
+    "sourceReview": "science_review, same-thread context, read-only bounded source/PNG inspection; fixed inconsistent radial vapor shading; source-only final recheck confirmed neutral air with ordered deformed contours and initial ellipse.",
+    "runtimeReview": "runtime_review, same-thread context, read-only; caught shadowed export identity/VTT and missing static opening link; reviewed metadata fix and proposed executed delayed-response/superseded-seek negative control.",
+    "compiler": "story_review authored bounded prepared compiler/artifact and camera refinement in authority repo; root reviewed, committed and imported. No delegate edited website."
+  },
+  "limits": [
+    "Timing tones only; no maker recording or audio-aligned captions.",
+    "No full-duration export, continuous watch, device-wide pixel equality, real-device accessibility certification, or scientific validation is claimed.",
+    "No publish, push, merge, solver, scientific readout, chapter or evidence/gate change.",
+    "Original opening and prototype remain available; full 2120-second production draft remains inactive."
+  ]
+}

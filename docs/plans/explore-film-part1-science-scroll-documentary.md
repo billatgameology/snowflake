@@ -3,9 +3,9 @@
 - **Phase:** Maker-directed Journey/media exploration, outside Phase 6 scope (precedents:
   [explore-journey-scroll-documentary.md](explore-journey-scroll-documentary.md),
   [explore-education-ch1-video.md](explore-education-ch1-video.md))
-- **Status:** Prototype revision retained by maker direction; opening implemented and checked; next prepared-film slice in execution. WP1 maker read/recording pending; WP2 text review resolved.
+- **Status:** Prototype revision retained; prepared film through S13 implemented and product-checked. WP1 maker read/recording pending; WP2 text review resolved; later production continues at S15.
 - **Started:** 2026-09-14
-- **Last touched:** 2026-09-15 by OpenAI Codex (authorized implementation and full-script draft)
+- **Last touched:** 2026-09-15 by OpenAI Codex (prepared film through S13; product and visual checks)
 - **Review:** [findings and dispositions](../reviews/film-part1-plan-review-2026-09-15.md),
   reviewing the original plan at `d7d1de70251be1fb8b8596b8e6da35d82ef2b8a4`.
 
@@ -1360,7 +1360,43 @@ reader representation; prepared/opening/prototype identity is checked; playback,
 reverse/reload capture and static access pass. Record actual outcomes and remaining limits
 before moving to S15. Maker viewing, full-film performance and final voice timing remain open.
 
+## Prepared-film continuation outcome — 2026-09-15
+
+The bounded S06/S11/S09/S13 extension is implemented at website
+`explore/film-part1@834c7690cc46ec9da8cfae09344ce9814597e1f4`. The prepared score imported
+from `a2c5555` now owns `/film/part-1`; the unchanged opening and prototype retain their own
+routes. The [implementation/visual record](../reviews/film-part1-prepared-implementation-2026-09-15.md)
+states reviewer provenance, actual inspections, repaired failures and limits. The
+[receipt](../video/part1-prepared-verification.json) derives 1040 seconds / 40 rows / 1930 spoken
+words / 113 captions from the selected score and records 21 focused tests, 9 prepared browser
+checks, 8 opening checks, 18 prototype checks and successful TypeScript/Vite build.
+
+Its final prepared export has 59 sampled still entries, unchanged exact repeated/reverse/reload
+comparisons, and a decoded 6.000000-second / 180-frame sample at 1920×1080/30 fps. Sample export
+wall time is 21.811 seconds; this is not full-film performance. All recorded implementation
+digests match. The earlier editions' still exports pass, and wrong-edition capture is rejected.
+
+Visual inspection tightened the return camera beyond the initial slice recipe while preserving
+its ticks and explicit cut. A conflicting radial vapour wash was removed; the portrait reading
+figures were recomposed. Late audio metadata now preserves the newest seek, and control-focus
+scrolling no longer resets phone playback to the opening. The record distinguishes those actual
+repairs from maker visual acceptance and final voice timing, which remain open. No publish,
+merge, solver, chapter or scientific-gate work occurred. Continue at S15 in the same prepared
+artifact after recording the next bounded slice; no repeat of the scene-plan review is required.
+
 ## Tried and rejected
+
+- **Radial shading beneath a deformed field.** It encoded a different concentration pattern
+  from the contours. Use neutral air and one ordered set of deformed qualitative contours.
+- **A full-width mid-growth return.** It spent too much silhouette and diluted the branch
+  question. The final prepared score tightens the camera while retaining the selected ticks.
+- **Tiny landscape miniatures on phones.** Reading figures need portrait composition and
+  reflowing labels, not simply a smaller film frame.
+- **Assume visual readiness implies audio metadata.** A longer fixture exposed that race.
+  Apply the latest chosen time when metadata arrives; test an intentionally delayed response.
+- **Map watch-panel scrolling to the first article anchor.** Control focus and text reflow
+  reset selected scenes. Reader mapping begins at the article, and control-focus motion is not
+  reader intent. Check actual paused screenshots as well as earlier audio advancement.
 
 - **Default GPU SVG rasterization as an exact capture recipe.** Sparse edge pixels changed
   on reload. Markup retention, geometricPrecision and image isolation did not alone fix it.
