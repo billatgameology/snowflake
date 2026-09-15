@@ -157,6 +157,42 @@ uncharted and inactive. The maker's words are preserved without using them to re
 records. They do not by themselves start Phase 7, charter or start Phase 10, reopen the frozen
 education site, authorize publication, or change Phase 6's active protocol.
 
+### JTS-M008 — Build Part 1 on the Cryosphere website; plan the film scene by scene
+
+- **Selection:** two complete maker turns, followed by the maker's selections in a four-question
+  decision prompt (option labels chosen, not maker prose).
+- **Captured:** 2026-09-14, day precision.
+- **Remembered occurrence:** not applicable; this is current media direction.
+- **Repository exposure at capture:** local working tree on branch `explore/film-part1-plan`; this
+  task does not push.
+- **Journey publication:** no known release.
+
+```text
+take a look at the fancy snowcrystal_website repo one level above, Run B Hero. that is the main page of the education. It will take the education story telling from this repo and build it into a single page scrolling video concept. can you see it?
+```
+
+```text
+let's use that snowcrystal website to begin building our story. keep using that hero b, pretend you are creating a documentary film on chapter 1-13 of education video here, you should write a plan on how you would write the video scene by scene, going from text + demo in current education website, how would you reshape everything into a film? it doesn't need to be in same order of the chapter, but content coverage should be sufficient to cover important science facts to gain understanding so that when part 2 of movie talks about this project development, people can follow.
+
+let's write a video plan with in mind that people can either auto scroll "playing the video" or manual scroll. either option, there should be video script where I narrate, and something visual to go with narration.
+
+questions?
+```
+
+Decisions the maker selected from offered options, recorded as the option labels chosen: Part 1
+runs about 20–25 minutes when auto-played; visuals are browser-rendered originals plus
+public-domain historical images, with no Libbrecht figures; the narration is the maker's own voice,
+first person, at a smart-teenager level; this pass delivers the scene plan plus one fully scripted
+scene, with the complete narration draft as the next deliverable.
+
+"Run B Hero" names the `/run-b-hero` route of the Cryosphere site (`snowcrystal_website`, merged to
+its `master` on 2026-08-22), which replays this repository's Gravner–Griffeath Run B growth asset and
+ends by handing the crystal to a falling marker in a snowfield. The planning interpretation lives in
+[the Part 1 film plan](../plans/explore-film-part1-science-scroll-documentary.md) and inherits the
+narrative-score, playback-mode, and export rules recorded under JTS-M006/M007. The maker's words do
+not start Phase 7, reopen the frozen education site, authorize publication, assign a public `SCJ`
+number, or change scientific authority.
+
 ## Contemporaneous maker quotation
 
 ### JTS-Q001 — Informal Phase 1 play-test response

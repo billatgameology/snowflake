@@ -19,6 +19,22 @@ detail.
 
 ## Current state
 
+- **Part 1 film plan written (2026-09-15).** Maker direction of 2026-09-14 (`JTS-M008` in the
+  Journey transcript) starts building the living scroll documentary on the Cryosphere website
+  (`snowcrystal_website`) from its `/run-b-hero` route.
+  [The plan](plans/explore-film-part1-science-scroll-documentary.md) turns education chapters 1–13
+  into Part 1: ten acts, 35 scenes, 3,480 narrated words (≈24:10 at the Chapter 1 pilot's
+  2.4 words per second; summed from the plan's scene table at write time), the Run B replay growing
+  across the whole film as a `MODEL`-tagged spine, one fully scripted scene (the cold open) with
+  its fact-check table, a coverage map of the 29 ideas Part 2 depends on, per-scene sources with
+  the chapters' own confidence labels, and a website runtime brief naming three gaps (cue-driven
+  auto-scroll with manual-scroll detection, narration audio sync, chapter anchors). Rights:
+  browser-rendered originals plus public-domain archive images only; no Libbrecht figures, no
+  Nakaya photographs, no AI imagery. The source material came from a 22-agent extraction (workflow
+  `wf_0b937e68-061`), which is working material, not evidence. Nothing scientific changes: no
+  claim, phase state, or education content (`docs/education/**` stays frozen). Checks run:
+  `node scripts/lint-rule7.mjs` and `git diff --check`. Next: WP1, the full narration draft, then
+  the Rule 13 audit before any recording.
 - **macOS dev-server guard defect fixed; NAS closeout checked from the Mac (2026-09-09).** On this
   Mac the documented `npm run dev --workspace app -- --port 5191` served every gallery page as an
   unstyled "Loading…" shell. The repository-local `/@fs` guard in `app/vite.config.ts` strips
@@ -416,6 +432,22 @@ the package-specific prerequisites in its charter amendment and execution plan. 
 0043–0044's Phase 7 deferrals remain authoritative and cannot be discharged by Phase 10.
 
 ## Next step
+
+### Part 1 film — next media step
+
+Branch `explore/film-part1-plan` holds
+[the Part 1 film plan](plans/explore-film-part1-science-scroll-documentary.md) (WP0 done). The next
+action is **WP1**: write `docs/video/part1-script.md`, every scene in the house
+`TIME | VOICEOVER | ON SCREEN` format with a fact-check table, using the plan's scripted cold open
+as the template and its scene records for the beats, sources and labels; keep the total inside
+3,000–3,700 words, and re-verify every cited page against the chapter text (the extraction JSON
+under the workflow's transcript directory is working material only). Then **WP2**, the Rule 13
+adversarial fact-check audit by a non-author reviewer, before any recording. Two maker decisions
+block WP4 (the website build) and are listed under the plan's open questions: hosting for the
+untracked replay assets, and the merge order with the site's `feature/growth-library` branch.
+Traps: the site's Motion `useScroll` runs non-monotonically under Lenis (use the section-rect
+idiom); build on the site's `origin/master`, not the local `run-b-growth-stage` checkout, which
+lacks the 16-bit capture path merged in its PR #2.
 
 ### Growth visual studies — ready to use
 
