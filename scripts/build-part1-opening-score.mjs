@@ -44,12 +44,35 @@ export function provisionalCaptions(narration, start, end) {
   if (!narration) return [];
   const words = narration.split(/\s+/u);
   assert.equal(words.join(' '), narration, 'Narration whitespace is not canonical; do not silently rewrite it');
-  const chunkCount = Math.ceil(words.length / 18);
+  const sentenceEnd = words.map((word, index) => /[.!?][”’"')\]]*$/u.test(word) || index === words.length - 1);
+  const clauseEnd = words.map(word => /[,;:—][”’"')\]]*$/u.test(word));
+  const dangling = new Set('a an the and or but with in on at of to for as than that which who whose if so because while whether i we you it they he she these those this into from can could will would should has have is are was were'.split(' '));
+  // Choose the whole partition, not a greedy word limit that steals the next sentence's start.
+  // Sentence/clause endings dominate the soft 12–22-word preference; 24 is a hard maximum.
+  const best = Array(words.length + 1).fill(null);
+  best[words.length] = { cost: 0, next: words.length };
+  for (let begin = words.length - 1; begin >= 0; begin--) {
+    let passedSentenceEnd = false;
+    for (let next = begin + 1; next <= Math.min(begin + 24, words.length); next++) {
+      const complete = sentenceEnd[next - 1];
+      // A chunk containing a completed sentence cannot end in a fragment of its successor.
+      const allowed = !passedSentenceEnd || complete;
+      passedSentenceEnd ||= complete;
+      if (!allowed || !best[next]) continue;
+      const size = next - begin;
+      const lengthCost = size < 12 ? (12 - size) * 0.6 : size > 22 ? (size - 22) * 0.8 : Math.abs(17 - size) * 0.03;
+      const boundaryCost = complete ? 0 : clauseEnd[next - 1] ? 3 : 18;
+      const lastWord = words[next - 1].replace(/[^\p{L}\p{N}]/gu, '').toLowerCase();
+      const danglingCost = !complete && !clauseEnd[next - 1] && dangling.has(lastWord) ? 12 : 0;
+      const cost = 2 + lengthCost + boundaryCost + danglingCost + best[next].cost;
+      if (!best[begin] || cost < best[begin].cost) best[begin] = { cost, next };
+    }
+  }
+  assert(best[0], 'Cannot partition captions within the hard word limit');
   const result = [];
   let consumed = 0;
-  for (let i = 0; i < chunkCount; i++) {
-    const size = Math.floor(words.length / chunkCount) + (i < words.length % chunkCount ? 1 : 0);
-    const next = consumed + size;
+  while (consumed < words.length) {
+    const next = best[consumed].next;
     const timestamp = count => count === words.length ? end : Number((start + (end - start) * count / words.length).toFixed(6));
     result.push({ start: timestamp(consumed), end: timestamp(next), text: words.slice(consumed, next).join(' ') });
     consumed = next;
@@ -114,7 +137,7 @@ export function buildOpeningScore(sourceBytes = readFileSync(path.join(repoRoot,
     title: 'How a snowflake is made — opening chapter', duration: 520, sourceRevision: draft.sourceRevision,
     script: 'Reviewed S00, S01, S02 and S05 narration is copied unchanged from productionDraft; this prepared opening does not activate the full film.',
     provenance: { generator: 'scripts/build-part1-opening-score.mjs', sourceScore: { path: sourcePath, sha256: sha256(sourceBytes), bytes: sourceBytes.length }, sourceDraftFormat: draft.format, sourceRevision: draft.sourceRevision, script: copy(draft.script), review: copy(draft.review), selectedSequenceKeys: keys, sourceDraftActiveForPlayback: false },
-    captionStatus: { kind: 'provisional-word-weighted-timing', maximumChunkWords: 18, timing: 'Balanced word chunks occupy proportional shares of their reviewed row; six-decimal global seconds, not audio-aligned captions.', makerAudioAligned: false, text: 'Exact narration words and order preserved; silent holds have no captions.' },
+    captionStatus: { kind: 'provisional-punctuation-aware-word-weighted-timing', preferredChunkWords: [12, 22], maximumChunkWords: 24, timing: 'Sentence and clause boundaries take precedence over the soft 12–22-word target; short complete sentences are permitted. Chunks occupy word-proportional shares of their reviewed row in six-decimal global seconds, not audio-aligned timing.', makerAudioAligned: false, text: 'Exact narration words and order preserved. A completed sentence is never followed by only the start of the next sentence in the same chunk; silent holds have no captions.' },
     audio: { id: 'part1-opening-timing', url: '/film/part1-opening-timing.wav', offset: 0, trim: 0, duration: 520, kind: "generated timing tones; no speech; not the maker's voice", sampleRate: 48000 },
     capture: copy(source.capture), model: copy(source.model),
     visualDirection: { revision: 'opening-chapter-directed-attention-v1', contract: 'Presentation-only camera and lighting. Smoothstep between keys; the cut at 30 seconds holds the preceding cropped preview until returning to the seed. Target is a fraction of measured model radius toward the right-facing corner. No physical camera scale or growth rate is implied. The completed crystal is not revealed in this opening.', look: copy(source.visualDirection.look), shots },

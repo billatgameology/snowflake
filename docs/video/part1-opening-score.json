@@ -44,11 +44,15 @@
     "sourceDraftActiveForPlayback": false
   },
   "captionStatus": {
-    "kind": "provisional-word-weighted-timing",
-    "maximumChunkWords": 18,
-    "timing": "Balanced word chunks occupy proportional shares of their reviewed row; six-decimal global seconds, not audio-aligned captions.",
+    "kind": "provisional-punctuation-aware-word-weighted-timing",
+    "preferredChunkWords": [
+      12,
+      22
+    ],
+    "maximumChunkWords": 24,
+    "timing": "Sentence and clause boundaries take precedence over the soft 12–22-word target; short complete sentences are permitted. Chunks occupy word-proportional shares of their reviewed row in six-decimal global seconds, not audio-aligned timing.",
     "makerAudioAligned": false,
-    "text": "Exact narration words and order preserved; silent holds have no captions."
+    "text": "Exact narration words and order preserved. A completed sentence is never followed by only the start of the next sentence in the same chunk; silent holds have no captions."
   },
   "audio": {
     "id": "part1-opening-timing",
@@ -245,23 +249,23 @@
       "captions": [
         {
           "start": 0,
-          "end": 7.627119,
-          "text": "I wanted to make a toy that grew pretty snowflakes. That was the idea. I"
+          "end": 7.118644,
+          "text": "I wanted to make a toy that grew pretty snowflakes. That was the idea."
         },
         {
-          "start": 7.627119,
-          "end": 15.254237,
-          "text": "had seen crystals being grown in a laboratory, and it looked as though a few"
+          "start": 7.118644,
+          "end": 11.694915,
+          "text": "I had seen crystals being grown in a laboratory,"
         },
         {
-          "start": 15.254237,
-          "end": 22.881356,
-          "text": "rules and a few parameters could produce all that variety. With a computer to do"
+          "start": 11.694915,
+          "end": 20.338983,
+          "text": "and it looked as though a few rules and a few parameters could produce all that variety."
         },
         {
-          "start": 22.881356,
+          "start": 20.338983,
           "end": 30,
-          "text": "the work, I thought I could turn the equations into a program. Easy peasy."
+          "text": "With a computer to do the work, I thought I could turn the equations into a program. Easy peasy."
         }
       ]
     },
@@ -357,18 +361,13 @@
         },
         {
           "start": 37.5,
-          "end": 45,
-          "text": "Those are model cells, not individual water molecules, and the rules that grew this"
+          "end": 48.214286,
+          "text": "Those are model cells, not individual water molecules, and the rules that grew this particular crystal are a simplified model."
         },
         {
-          "start": 45,
-          "end": 52.5,
-          "text": "particular crystal are a simplified model. It is a beautiful object to look at."
-        },
-        {
-          "start": 52.5,
+          "start": 48.214286,
           "end": 60,
-          "text": "Whether a model can predict what real ice will do is a different question."
+          "text": "It is a beautiful object to look at. Whether a model can predict what real ice will do is a different question."
         }
       ]
     },
@@ -455,23 +454,18 @@
       "captions": [
         {
           "start": 60,
-          "end": 67.627119,
-          "text": "Before asking the computer for an answer, I want to follow the thing it is"
+          "end": 69.152542,
+          "text": "Before asking the computer for an answer, I want to follow the thing it is trying to describe."
         },
         {
-          "start": 67.627119,
-          "end": 75.254237,
-          "text": "trying to describe. Water moving through a cloud. Molecules joining a surface. A shape that"
+          "start": 69.152542,
+          "end": 79.322034,
+          "text": "Water moving through a cloud. Molecules joining a surface. A shape that changes the conditions around it as it grows."
         },
         {
-          "start": 75.254237,
-          "end": 82.881356,
-          "text": "changes the conditions around it as it grows. People have spent centuries finding ways to"
-        },
-        {
-          "start": 82.881356,
+          "start": 79.322034,
           "end": 90,
-          "text": "look at those events, and each new way of looking has changed the question."
+          "text": "People have spent centuries finding ways to look at those events, and each new way of looking has changed the question."
         }
       ]
     },
@@ -558,23 +552,18 @@
       "captions": [
         {
           "start": 90,
-          "end": 97.5,
-          "text": "By the end, the crystal should look different to us, even though it is the"
+          "end": 98.5,
+          "text": "By the end, the crystal should look different to us, even though it is the same object."
         },
         {
-          "start": 97.5,
-          "end": 105,
-          "text": "same object. We will be able to recognize some of the processes written into its"
+          "start": 98.5,
+          "end": 108,
+          "text": "We will be able to recognize some of the processes written into its form, see what experiments have established,"
         },
         {
-          "start": 105,
-          "end": 112.5,
-          "text": "form, see what experiments have established, and understand why other parts remain difficult to predict."
-        },
-        {
-          "start": 112.5,
+          "start": 108,
           "end": 120,
-          "text": "Let's start with the part of snow that refuses to behave like a simple rule."
+          "text": "and understand why other parts remain difficult to predict. Let's start with the part of snow that refuses to behave like a simple rule."
         }
       ]
     },
@@ -756,18 +745,23 @@
       "captions": [
         {
           "start": 130,
-          "end": 140,
-          "text": "Here are some familiar possibilities. Near minus two degrees Celsius, ice can grow into plates. Near minus five,"
+          "end": 138.333333,
+          "text": "Here are some familiar possibilities. Near minus two degrees Celsius, ice can grow into plates."
         },
         {
-          "start": 140,
-          "end": 150,
-          "text": "columns. Near minus fifteen, plates again, including the great branching stars. Farther into the cold, the classical map"
+          "start": 138.333333,
+          "end": 146.111111,
+          "text": "Near minus five, columns. Near minus fifteen, plates again, including the great branching stars."
         },
         {
-          "start": 150,
+          "start": 146.111111,
+          "end": 152.222222,
+          "text": "Farther into the cold, the classical map shows another column region,"
+        },
+        {
+          "start": 152.222222,
           "end": 160,
-          "text": "shows another column region, although that part of the story is more complicated than the old picture suggests."
+          "text": "although that part of the story is more complicated than the old picture suggests."
         }
       ]
     },
@@ -867,23 +861,18 @@
       "captions": [
         {
           "start": 160,
-          "end": 167.627119,
-          "text": "The amount of spare water vapour matters too. At the same temperature, changing that supply"
+          "end": 170.169492,
+          "text": "The amount of spare water vapour matters too. At the same temperature, changing that supply changes how the crystal develops."
         },
         {
-          "start": 167.627119,
-          "end": 175.254237,
-          "text": "changes how the crystal develops. So this is a map with two directions: temperature across"
+          "start": 170.169492,
+          "end": 178.813559,
+          "text": "So this is a map with two directions: temperature across it, and the available vapour up it."
         },
         {
-          "start": 175.254237,
-          "end": 182.881356,
-          "text": "it, and the available vapour up it. It is a rough guide to what grows"
-        },
-        {
-          "start": 182.881356,
+          "start": 178.813559,
           "end": 190,
-          "text": "under conditions held steady, not a precise forecast for every crystal in a cloud."
+          "text": "It is a rough guide to what grows under conditions held steady, not a precise forecast for every crystal in a cloud."
         }
       ]
     },
@@ -983,23 +972,18 @@
       "captions": [
         {
           "start": 190,
-          "end": 197.636364,
-          "text": "The Japanese physicist Ukichiro Nakaya began mapping these patterns in the nineteen-thirties. Later experiments"
+          "end": 200.363636,
+          "text": "The Japanese physicist Ukichiro Nakaya began mapping these patterns in the nineteen-thirties. Later experiments expanded and revised the picture."
         },
         {
-          "start": 197.636364,
-          "end": 205.272727,
-          "text": "expanded and revised the picture. That is already an achievement: the shapes are not"
+          "start": 200.363636,
+          "end": 208.545455,
+          "text": "That is already an achievement: the shapes are not just a collection of beautiful accidents."
         },
         {
-          "start": 205.272727,
-          "end": 212.909091,
-          "text": "just a collection of beautiful accidents. There are repeatable relationships to investigate. But seeing"
-        },
-        {
-          "start": 212.909091,
+          "start": 208.545455,
           "end": 220,
-          "text": "a relationship is the beginning of an explanation, not the end of one."
+          "text": "There are repeatable relationships to investigate. But seeing a relationship is the beginning of an explanation, not the end of one."
         }
       ]
     },
@@ -1099,23 +1083,18 @@
       "captions": [
         {
           "start": 220,
-          "end": 227.741935,
-          "text": "Why should the same substance prefer to grow wide in one range, tall in another, and"
+          "end": 228.709677,
+          "text": "Why should the same substance prefer to grow wide in one range, tall in another, and wide again?"
         },
         {
-          "start": 227.741935,
-          "end": 235.483871,
-          "text": "wide again? Measurements, models and proposed explanations give us parts of the answer. Putting those parts"
+          "start": 228.709677,
+          "end": 240.322581,
+          "text": "Measurements, models and proposed explanations give us parts of the answer. Putting those parts together remains unfinished in the scientific account we are following."
         },
         {
-          "start": 235.483871,
-          "end": 242.741935,
-          "text": "together remains unfinished in the scientific account we are following. To understand why, we have"
-        },
-        {
-          "start": 242.741935,
+          "start": 240.322581,
           "end": 250,
-          "text": "to leave the finished shapes for a while and follow the water that builds them."
+          "text": "To understand why, we have to leave the finished shapes for a while and follow the water that builds them."
         }
       ]
     },
@@ -1297,23 +1276,18 @@
       "captions": [
         {
           "start": 260,
-          "end": 267.741935,
-          "text": "Freeze a raindrop on its way down and you get an ice pellet: sleet. A snow"
+          "end": 270.16129,
+          "text": "Freeze a raindrop on its way down and you get an ice pellet: sleet. A snow crystal takes a different route."
         },
         {
-          "start": 267.741935,
-          "end": 275.483871,
-          "text": "crystal takes a different route. Water molecules arrive through the air as vapour and join the"
+          "start": 270.16129,
+          "end": 280.806452,
+          "text": "Water molecules arrive through the air as vapour and join the ice directly. That passage from gas to solid is called deposition."
         },
         {
-          "start": 275.483871,
-          "end": 282.741935,
-          "text": "ice directly. That passage from gas to solid is called deposition. The arms and flat"
-        },
-        {
-          "start": 282.741935,
+          "start": 280.806452,
           "end": 290,
-          "text": "faces grow by adding material, rather than by freezing a raindrop into an elaborate shape."
+          "text": "The arms and flat faces grow by adding material, rather than by freezing a raindrop into an elaborate shape."
         }
       ]
     },
@@ -1400,23 +1374,23 @@
       "captions": [
         {
           "start": 290,
-          "end": 297.758621,
-          "text": "A snow crystal is one continuous crystal of ice. A snowflake can be one of"
+          "end": 294.655172,
+          "text": "A snow crystal is one continuous crystal of ice."
         },
         {
-          "start": 297.758621,
-          "end": 305.517241,
-          "text": "those crystals, or a clump of several that collided and stuck together. And liquid droplets"
+          "start": 294.655172,
+          "end": 303.965517,
+          "text": "A snowflake can be one of those crystals, or a clump of several that collided and stuck together."
         },
         {
-          "start": 305.517241,
-          "end": 312.758621,
-          "text": "can freeze onto an existing crystal too, coating it with rime. For now, we"
+          "start": 303.965517,
+          "end": 311.206897,
+          "text": "And liquid droplets can freeze onto an existing crystal too, coating it with rime."
         },
         {
-          "start": 312.758621,
+          "start": 311.206897,
           "end": 320,
-          "text": "are following the vapor-grown crystal underneath: the part whose shape we want to explain."
+          "text": "For now, we are following the vapor-grown crystal underneath: the part whose shape we want to explain."
         }
       ]
     },
@@ -1503,23 +1477,18 @@
       "captions": [
         {
           "start": 320,
-          "end": 327.758621,
-          "text": "Its beginning can involve liquid after all. In the cloud we are following, tiny droplets"
+          "end": 329.310345,
+          "text": "Its beginning can involve liquid after all. In the cloud we are following, tiny droplets cool below zero."
         },
         {
-          "start": 327.758621,
-          "end": 335.517241,
-          "text": "cool below zero. None freeze right at zero degrees. Many stay liquid as the temperature"
+          "start": 329.310345,
+          "end": 337.586207,
+          "text": "None freeze right at zero degrees. Many stay liquid as the temperature falls further: supercooled water."
         },
         {
-          "start": 335.517241,
-          "end": 342.758621,
-          "text": "falls further: supercooled water. Freezing needs a beginning, a first patch of ice. A"
-        },
-        {
-          "start": 342.758621,
+          "start": 337.586207,
           "end": 350,
-          "text": "suitable particle can help that patch form, so different droplets freeze at different temperatures."
+          "text": "Freezing needs a beginning, a first patch of ice. A suitable particle can help that patch form, so different droplets freeze at different temperatures."
         }
       ]
     },
@@ -1606,23 +1575,23 @@
       "captions": [
         {
           "start": 350,
-          "end": 357.5,
-          "text": "Once a droplet freezes, there is an ice seed for vapour to grow on. The distinction"
+          "end": 356.5625,
+          "text": "Once a droplet freezes, there is an ice seed for vapour to grow on."
         },
         {
-          "start": 357.5,
-          "end": 365,
-          "text": "matters: making that first seed and building the later crystal are different steps. In the route"
+          "start": 356.5625,
+          "end": 363.59375,
+          "text": "The distinction matters: making that first seed and building the later crystal are different steps."
         },
         {
-          "start": 365,
-          "end": 372.5,
-          "text": "described here, the seed was liquid, while the subsequent patterned growth arrives through the gas. Around"
+          "start": 363.59375,
+          "end": 372.03125,
+          "text": "In the route described here, the seed was liquid, while the subsequent patterned growth arrives through the gas."
         },
         {
-          "start": 372.5,
+          "start": 372.03125,
           "end": 380,
-          "text": "it, other droplets can remain liquid. That mixture is about to become a source of material."
+          "text": "Around it, other droplets can remain liquid. That mixture is about to become a source of material."
         }
       ]
     },
@@ -1791,23 +1760,23 @@
       "captions": [
         {
           "start": 390,
-          "end": 397.619048,
-          "text": "The ice and the liquid droplets share the same air, but they do not reach balance"
+          "end": 400.952381,
+          "text": "The ice and the liquid droplets share the same air, but they do not reach balance with it at the same vapour density."
         },
         {
-          "start": 397.619048,
-          "end": 405.238095,
-          "text": "with it at the same vapour density. Below zero, the equilibrium vapour pressure over liquid water"
+          "start": 400.952381,
+          "end": 407.619048,
+          "text": "Below zero, the equilibrium vapour pressure over liquid water is higher than over ice."
         },
         {
-          "start": 405.238095,
-          "end": 412.857143,
-          "text": "is higher than over ice. Air that is just right for the droplets can therefore contain"
+          "start": 407.619048,
+          "end": 416.666667,
+          "text": "Air that is just right for the droplets can therefore contain more vapour than the ice needs for balance."
         },
         {
-          "start": 412.857143,
+          "start": 416.666667,
           "end": 420,
-          "text": "more vapour than the ice needs for balance. To the ice, there is a surplus."
+          "text": "To the ice, there is a surplus."
         }
       ]
     },
@@ -1894,23 +1863,28 @@
       "captions": [
         {
           "start": 420,
+          "end": 422.459016,
+          "text": "We call that surplus supersaturation."
+        },
+        {
+          "start": 422.459016,
           "end": 427.868852,
-          "text": "We call that surplus supersaturation. Throughout this film it means the spare vapour relative to ice:"
+          "text": "Throughout this film it means the spare vapour relative to ice:"
         },
         {
           "start": 427.868852,
-          "end": 435.245902,
-          "text": "how much the local amount exceeds the amount that would balance an ice surface at"
+          "end": 436.229508,
+          "text": "how much the local amount exceeds the amount that would balance an ice surface at that temperature."
         },
         {
-          "start": 435.245902,
-          "end": 442.622951,
-          "text": "that temperature. As the crystal consumes vapour, nearby droplets can evaporate and replenish it. Water"
+          "start": 436.229508,
+          "end": 442.131148,
+          "text": "As the crystal consumes vapour, nearby droplets can evaporate and replenish it."
         },
         {
-          "start": 442.622951,
+          "start": 442.131148,
           "end": 450,
-          "text": "travels from liquid, through gas, into solid ice. A roundabout route, but an effective one."
+          "text": "Water travels from liquid, through gas, into solid ice. A roundabout route, but an effective one."
         }
       ]
     },
@@ -1997,23 +1971,18 @@
       "captions": [
         {
           "start": 450,
-          "end": 457.868852,
-          "text": "Libbrecht gives a striking scale for this process: about a hundred thousand cloud droplets evaporating to"
+          "end": 460.819672,
+          "text": "Libbrecht gives a striking scale for this process: about a hundred thousand cloud droplets evaporating to supply one large stellar snow crystal."
         },
         {
-          "start": 457.868852,
-          "end": 465.245902,
-          "text": "supply one large stellar snow crystal. That is an approximate example, not a standard price"
+          "start": 460.819672,
+          "end": 469.672131,
+          "text": "That is an approximate example, not a standard price for every flake. The important thing is the transfer."
         },
         {
-          "start": 465.245902,
-          "end": 472.622951,
-          "text": "for every flake. The important thing is the transfer. Much of the material in this"
-        },
-        {
-          "start": 472.622951,
+          "start": 469.672131,
           "end": 480,
-          "text": "growing crystal can have come from liquid droplets without those droplets ever crashing into it."
+          "text": "Much of the material in this growing crystal can have come from liquid droplets without those droplets ever crashing into it."
         }
       ]
     },
@@ -2100,23 +2069,23 @@
       "captions": [
         {
           "start": 480,
-          "end": 487.846154,
-          "text": "This also gives a particular meaning to the saying “too cold to snow.” In the cloud described"
+          "end": 486,
+          "text": "This also gives a particular meaning to the saying “too cold to snow.”"
         },
         {
-          "start": 487.846154,
-          "end": 495.230769,
-          "text": "by this account, continued cooling has already used up the liquid droplets that fed growth: some"
+          "start": 486,
+          "end": 496.615385,
+          "text": "In the cloud described by this account, continued cooling has already used up the liquid droplets that fed growth: some froze, others evaporated."
         },
         {
-          "start": 495.230769,
-          "end": 502.615385,
-          "text": "froze, others evaporated. The relay runs out of fuel. It is not a rule that cold"
+          "start": 496.615385,
+          "end": 504.923077,
+          "text": "The relay runs out of fuel. It is not a rule that cold air refuses to make snow."
         },
         {
-          "start": 502.615385,
+          "start": 504.923077,
           "end": 510,
-          "text": "air refuses to make snow. The condition of the cloud, and its remaining water supply, matter."
+          "text": "The condition of the cloud, and its remaining water supply, matter."
         }
       ]
     },
