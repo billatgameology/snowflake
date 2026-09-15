@@ -382,7 +382,29 @@ detail.
   passes. The live site at https://billatgameology.github.io/snowflake/ still serves the
   29-chapter build deployed from `main` on 2026-08-06 and refreshes when this branch reaches `main`.
   Full freeze history: [the history file](progress-history-phases-6-8-9.md).
-- **Last updated:** 2026-08-25 (Phase 10 complete-negative; `gate10` exit 0)
+- **Chapters 30–33 now carry worked examples and recomputing demos (2026-09-15).** The maker asked on
+  2026-09-09 why Chapters 30–33 look light on examples beside Chapters 1–5. A two-pass multi-agent
+  audit measured it — all twenty "interactives" were tab strips, with no slider, no SVG, no canvas
+  and nothing recomputed from reader input, and zero equation blocks — and produced 77 ranked
+  proposals, published 2026-09-14. Its [continuation plan](plans/education-ch30-33-demos.md) is
+  implemented in branch `docs/education-ch30-33-demos` off `docs/education-phase10`: nine confirmed
+  errata corrected, the three misleading figures replaced or rebuilt (`c31-blender`'s literal
+  "73 / 100", `c31-matcher`'s uncommitted mirror-plane case, `c33-error-sources`'s mismatched bar
+  widths), five equation blocks with *where* lists added, the ch30 three-arm and ch33 knob tables
+  added, eight glossary headwords added, and twelve new interactives built on one shared component
+  module — among them a live Runge–Kutta integration of the committed sphere-growth rule against the
+  six recorded D-BT conditions, the thirteen gate6 and seven gate10 criteria as sabotage boards, and
+  all 64 C0 ladder comparisons as a dot strip with a what-if tolerance line. Two independent
+  multi-agent passes re-derived every load-bearing number from the committed records and
+  adversarially reviewed the result; every confirmed finding was fixed. Checks on the final bytes:
+  the public education verifier passes (37 pages, 205 visual roots, 191 checks, 222 profile loads,
+  149 negative controls, zero failures), the offline build exits 0, screenshots pass 16/16 profiles,
+  `npm run lint:rule7` is clean across 1,518 files, `node --check` passes on every changed script,
+  and `git diff --check` is clean. Exact `npm test` was **not** run: an unrelated 18-process
+  discovery campaign held the host, and this work touches only `docs/education/`, its plan and this
+  index. No evidence artifact, phase gate, solver or validation label changed; Phase 6 stays
+  measured-only, Phase 7 stays not started, and Phases 8–10 stay development or refusal.
+- **Last updated:** 2026-09-15 (education chapters 30–33 demos; no phase state changed)
 
 ## Phase gates
 
@@ -509,9 +531,12 @@ the package-specific prerequisites in its charter amendment and execution plan. 
 
 The 2026-09-03 review corrections to Chapters 30–33, the glossary, and the site styles are applied
 and education-verified (37 pages, 191 checks, 0 failures, 149 negative controls); Rule 7 and
-`git diff --check` are clean. They sit uncommitted in the worktree pending maker review.
+`git diff --check` are clean. They sit uncommitted in the worktree pending maker review. The
+2026-09-15 demo work of [the ch30–33 plan](plans/education-ch30-33-demos.md) sits on top of them on
+branch `docs/education-ch30-33-demos`, education-verified on its own final bytes. Both still need
+the same exact-suite rerun.
 
-After the unrelated 32-worker scientific campaign exits, open the
+After the unrelated multi-process scientific campaign exits, open the
 [education continuation plan](plans/education-phase7-10-continuation.md) in the isolated
 `docs/education-phase10` worktree and run exact `npm test` with the worktree's real local
 `node_modules`. If the untouched Phase 10 byte-identity failures persist, reconcile them only in
@@ -788,9 +813,11 @@ explicitly amends their contract; and no Phase 6 evidence artifact is rewritten.
 2. **Education reconciliation** — Chapters 30–33 and the current-status reconciliation are
    implemented, review-corrected (2026-09-03), and education-verified in the isolated
    `docs/education-phase10` worktree under
-   [its plan](plans/education-phase7-10-continuation.md); the corrections await maker review and
-   commit. Exact-suite closure remains pending an idle-host rerun and separate resolution of any
-   persisting untouched Phase 10 byte-identity failures.
+   [its plan](plans/education-phase7-10-continuation.md). The 2026-09-15 worked-example and demo
+   pass for those four chapters is committed on `docs/education-ch30-33-demos` under
+   [its own plan](plans/education-ch30-33-demos.md) and is education-verified on its final bytes.
+   Both await maker review. Exact-suite closure remains pending an idle-host rerun and separate
+   resolution of any persisting untouched Phase 10 byte-identity failures.
 
 Phase 7 stays on hold as a parallel product/engineering track; it still requires its own
 committed plan and isolated worktree before any work starts, and V4/V4.x apparatus stays

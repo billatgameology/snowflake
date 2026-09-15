@@ -53,7 +53,7 @@
         failed. How can both be true, and what does the green light actually certify?
       </p>
       <div class="chapter-header__meta">
-        <span>~17 min read</span><span>6 interactives</span><span>0 solver runs in this phase</span>
+        <span>~20 min read</span><span>7 interactives</span><span>1 table</span><span>0 solver runs in this phase</span>
       </div>
     </header>
 
@@ -64,7 +64,7 @@
         <li>Explain what an unresolved operand does to a proposed evidence bridge, using the six real branches.</li>
         <li>Read a numerical ladder with a registered criterion without averaging away the failed rows.</li>
         <li>Describe how a project&rsquo;s assurance machinery can consume its experiment, and name the rule that was sharpened afterwards to stop it.</li>
-        <li>Tell &ldquo;refused&rdquo;, &ldquo;incomplete&rdquo;, &ldquo;not executed&rdquo; and &ldquo;no verdict&rdquo; apart, and say why the difference matters.</li>
+        <li>Tell &ldquo;refused&rdquo;, &ldquo;incomplete&rdquo;, &ldquo;not executed with no verdict&rdquo; and &ldquo;could not be identified&rdquo; apart, and say why the difference matters.</li>
       </ul>
     </section>
 
@@ -100,17 +100,26 @@
       charter&rsquo;s Phase 10 clause.)
     </p>
 
-    <figure class="anim" id="c33-two-gates" data-closure="7-of-7" data-science="no-pass">
+    <figure class="anim is-wide" id="c33-gate-board" data-closure="7-of-7" data-science="no-pass" data-checks="7">
       <div class="anim__head">
-        <p class="anim__title">Ask which gate is green</p>
-        <p class="anim__sub">Switch between the two questions the same record answers.</p>
+        <p class="anim__title">Forge the closure report</p>
+        <p class="anim__sub">Seven checks, and not one of them is about snow. Try to make the record claim more than its files support, and see which named check goes red.</p>
       </div>
-      <div class="anim__body"><div class="c33-stage" aria-live="polite"></div></div>
+      <div class="anim__body"><div class="p2-stage" aria-live="polite"></div></div>
       <div class="anim__controls"></div>
       <figcaption class="anim__foot"><span class="built-from">
-        Recorded Phase 10 distinction (<code>evidence/phase10-closure-v1/gate10-report.json</code>):
-        <code>gate10</code>, run with no flags, passed 7 of 7 closure criteria. That verifies the terminal record and its allowed outcomes; it reports no
-        successful physical comparison.
+        Original interactive. The seven lamps are the <code>checkId</code> strings of
+        <code>evidence/phase10-closure-v1/gate10-report.json</code>; the editable fields are copied
+        from <code>evidence/phase10-closure-v1/report.json</code> (its claim boundary, workstream
+        completions, C0V layers and prior-phase labels). Two honest simplifications: the real
+        <code>gate10</code> is not seven independent lamps &mdash; it runs about fifteen assertions in
+        one pass and throws on the first that fails, publishing nothing and printing one message
+        &mdash; and the trip rules here are this page&rsquo;s plain-English paraphrase of what each
+        check guards, not the repository&rsquo;s code. The edits act on a throwaway in-page copy that
+        Reset discards. You did this with thirteen checks in Chapter 30; these seven are different in
+        kind, because three of them check that the record <em>refrains</em> from claiming. A green
+        board certifies that the record claims no more than its files support; it cannot certify any
+        comparison with nature, and no such comparison ran in Phase 10.
       </span></figcaption>
     </figure>
 
@@ -136,6 +145,58 @@
       no scores, none of the other lettered packages, no emails to authors, and no automatically
       spawned follow-up work. Phase 10 was verification, not exploration.
     </p>
+
+    <h3>Three different questions hide in the word &ldquo;check&rdquo;</h3>
+
+    <p>
+      That last sentence needs unpacking, because <em>check</em> is doing three jobs at once and this
+      chapter turns on telling them apart.
+      <strong>Consistency</strong> asks whether the answer depends on something it should not &mdash;
+      the size of the box, the length of a step, the starting seed. You answer it by running the same
+      thing again with that one thing changed, which is what Chapter 30&rsquo;s ladder did and what C0
+      re-derived here. <strong>Verification</strong> asks whether the program computes what its own
+      equations say. You answer it by working out the answer a second, independent way &mdash; by
+      hand, or with a separately written program that shares no code &mdash; and comparing. That is
+      what the three absolute controls were for: a sphere in a vapour field has a textbook answer, and
+      a solver that misses it is wrong before nature is ever consulted. <strong>Validation</strong>
+      asks whether those are the right equations for snow at all, and only a measurement of the real
+      world can answer it. That is what the six bridges were for.
+    </p>
+
+    <aside class="callout callout--key">
+      <p class="callout__label">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+          <path d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.7V17h8v-2.3A7 7 0 0 0 12 2z"/>
+        </svg>
+        Key idea
+      </p>
+      <p>
+        A solver can be perfectly consistent, perfectly verified, and still wrong about snow. The
+        three questions are ordered, not interchangeable: answering an earlier one buys you the right
+        to ask the next, and nothing more. The closure gate at the top of this chapter asks a fourth
+        question that is none of these &mdash; whether the record is honest about which of the three
+        got answered.
+      </p>
+    </aside>
+
+    <figure class="anim is-wide" id="c33-three-questions" data-consistency="criterion-no-pass" data-verification="no-verdict" data-validation="terminal-source-refusal">
+      <div class="anim__head">
+        <p class="anim__title">Three questions, three sets of endings</p>
+        <p class="anim__sub">Pick a question and see which parts of Phase 10 were trying to answer it, and how each one ended.</p>
+      </div>
+      <div class="anim__body"><div class="p2-stage" aria-live="polite"></div></div>
+      <div class="anim__controls"></div>
+      <figcaption class="anim__foot"><span class="built-from">
+        Original figure. Every box carries a recorded ending from
+        <code>evidence/phase10-closure-v1/report.json</code>
+        (<code>workstreams[].scientificDisposition</code> and
+        <code>c0vLayers[].scientificDisposition</code>). Sorting the phase&rsquo;s parts into three
+        questions is this course&rsquo;s framing of the charter&rsquo;s C0, C0V and B obligations,
+        not a label the record uses. It encodes recorded endings only, and cannot show that any box
+        would have passed had it run.
+      </span></figcaption>
+    </figure>
+
     <p>
       The dates matter for what follows. The reference derivations were published on 2026-08-22.
       All eleven harness runs happened on 2026-08-24. The acquisition round ran at 05:22 UTC on
@@ -237,22 +298,71 @@
       observable was.
     </p>
 
-    <figure class="anim is-wide" id="c33-error-sources" data-seed="9.29" data-cfl="3.10" data-domain-coarse="4.78" data-domain-fine="1.11" data-relaxtol="0">
-      <div class="anim__head">
-        <p class="anim__title">Rank the sources of disagreement</p>
-        <p class="anim__sub">Read the same five sources two ways: by the largest change each one caused, or by how many of its comparisons failed. The order is not the same.</p>
-      </div>
-      <div class="anim__body"><div class="c33-stage" aria-live="polite"></div></div>
-      <div class="anim__controls"></div>
-      <figcaption class="anim__foot"><span class="built-from">
-        Built from the Phase 10 C0 analysis of the Phase 6 ladder rows
-        (<code>evidence/phase10-numerical-verification-v1/c0-analysis.json</code>): maximum relative
-        attached-count differences of 9.29&nbsp;% (seed radius, 14 of 16 comparisons failing),
-        4.78&nbsp;% (coarse-spacing domain, 5 of 16), 3.10&nbsp;% (time step, 3 of 8), 1.11&nbsp;%
-        (fine-spacing domain, 6 of 16) and 0 (relaxation tolerance, 0 of 8), against the 0.5&nbsp;%
-        criterion.
-      </span></figcaption>
-    </figure>
+    <div class="table-wrap"><table>
+      <caption>The five things the ladder varied, what each one actually is, and what varying it did.
+        Every figure is recomputed from the 64 rows of
+        <code>evidence/phase10-numerical-verification-v1/c0-comparisons.jsonl</code>; &ldquo;largest
+        move&rdquo; is the biggest relative attached-count difference that knob produced, against an
+        allowance of 0.5&nbsp;%.</caption>
+      <thead><tr>
+        <th>Knob</th><th>What it is</th><th>The values compared</th>
+        <th class="num">Pairs</th><th class="num">Largest move</th><th class="num">Pairs failing</th>
+      </tr></thead>
+      <tbody>
+        <tr>
+          <td>Seed radius</td>
+          <td>The little hexagonal prism of ice the run starts from</td>
+          <td>radius 17, thickness 35 cells, against 16/33 and 18/37</td>
+          <td class="num">16</td><td class="num">9.29&nbsp;%</td><td class="num">14</td>
+        </tr>
+        <tr>
+          <td>Box size, coarse grid</td>
+          <td>How much empty space surrounds the crystal, in 0.7&nbsp;µm cells</td>
+          <td>48 &rarr; 64 &rarr; 80 cells (33.6 &rarr; 44.8 &rarr; 56&nbsp;µm across)</td>
+          <td class="num">16</td><td class="num">4.78&nbsp;%</td><td class="num">5</td>
+        </tr>
+        <tr>
+          <td>Time step</td>
+          <td>The fill cap of Chapter 21: how much of a cell may be filled in one step</td>
+          <td>0.1 &rarr; 0.05</td>
+          <td class="num">8</td><td class="num">3.10&nbsp;%</td><td class="num">3</td>
+        </tr>
+        <tr>
+          <td>Box size, fine grid</td>
+          <td>The same, in 0.35&nbsp;µm cells</td>
+          <td>96 &rarr; 112 &rarr; 128 cells (33.6 &rarr; 39.2 &rarr; 44.8&nbsp;µm across)</td>
+          <td class="num">16</td><td class="num">1.11&nbsp;%</td><td class="num">6</td>
+        </tr>
+        <tr>
+          <td>Relaxation tolerance</td>
+          <td>When the vapour sweep of Chapter 22 is allowed to stop</td>
+          <td>1&times;10<sup>&minus;9</sup> &rarr; 1&times;10<sup>&minus;10</sup></td>
+          <td class="num">8</td><td class="num">0</td><td class="num">0</td>
+        </tr>
+      </tbody>
+    </table></div>
+
+    <p>
+      Two rows in that table are worth staring at. The <strong>relaxation tolerance</strong> row is a
+      clean zero: tightening the vapour solve tenfold changed the attached count by not one cell in
+      any of eight runs. The solver&rsquo;s inner loop had already settled. And the two box-size rows
+      rank <em>differently</em> depending on which column you read: the fine grid produced the smaller
+      worst case (1.11&nbsp;% against 4.78&nbsp;%) and yet failed more comparisons (6 against 5). A
+      smaller largest miss does not mean fewer rows over the line, which is exactly why a criterion
+      counts rows rather than looking at a maximum.
+    </p>
+
+    <p>
+      The seed row deserves its own arithmetic, because 9.29&nbsp;% from a one-cell change sounds
+      impossible until you count. Chapter 19 gave the number of cells in a hexagonal disc of radius
+      <em>r</em>: 3<em>r</em>&sup2;&nbsp;+&nbsp;3<em>r</em>&nbsp;+&nbsp;1. At radius 17 that is 919
+      cells per layer, and the seed is 35 layers thick, so the run <em>starts</em> with 32,165 cells
+      &mdash; very nearly half of the 64,813 it finishes with. Radius 16 by thickness 33 is 26,961;
+      radius 18 by 37 is 37,999. The seed is not a detail the crystal forgets; it is half the answer.
+      And yet the arithmetic does not go the obvious way: the <em>bigger</em> seed, 18, finished
+      <em>below</em> the seed-17 run (64,485 against 64,813). The starting size moved, and so did the
+      path the growth took.
+    </p>
 
     <aside class="callout callout--method">
       <p class="callout__label">
@@ -262,12 +372,17 @@
         How we know
       </p>
       <p>
-        The five percentages are the largest relative attached-count difference per error source in
-        the C0 analysis&rsquo;s numerical ranking; the failure counts are the comparison rows whose
-        difference exceeds the 0.005 tolerance copied from the Phase 6 thresholds
-        (<code>evidence/phase10-numerical-verification-v1/c0-comparisons.jsonl</code>). The 48
+        Both the five percentages and the failure counts come from the 64 rows of
+        <code>evidence/phase10-numerical-verification-v1/c0-comparisons.jsonl</code>: each row&rsquo;s
+        <code>attachedCountRelativeDifference</code>, which divides by the <em>base</em> row&rsquo;s
+        count, against the 0.005 tolerance copied from the Phase 6 thresholds. Watch out for one
+        trap if you open the files yourself: the ranking table in
+        <code>c0-analysis.json</code> normalises the same differences by the <em>larger</em> of the
+        two counts, so for the two box-size lanes it prints 4.56&nbsp;% and 1.09&nbsp;% where the
+        rows themselves give 4.78&nbsp;% and 1.11&nbsp;%. Same disagreements, different denominator.
+        The 48
         unresolved operands are 4&nbsp;+&nbsp;7&nbsp;+&nbsp;10&nbsp;+&nbsp;15&nbsp;+&nbsp;4&nbsp;+&nbsp;8
-        from the bridges report. The suite times and the 0.148 governed process-hours are the S6
+        from the bridges report. The suite times and the 0.1479 governed process-hours are the S6
         figures in <code>docs/plans/phase-10-evidence-verification-execution.md</code>.
       </p>
     </aside>
@@ -276,24 +391,38 @@
       Why not say &ldquo;more than half the comparisons passed&rdquo;? Because the criterion was
       registered as <em>every</em> comparison, and a gate is not a vote. If each row guards a required
       condition, one failed row blocks the claim. Averaging the rows after seeing them would replace
-      the rule with a friendlier one. C0 in fact caught an older script that had done something
-      similar by accident, requiring only <em>some</em> spacing to pass instead of every spacing; it
-      recorded the defect as a historical limit without changing the verdict, since both spacings had
-      failed anyway.
+      the rule with a friendlier one.
+    </p>
+    <p>
+      There is a second, subtler way to get this wrong, and C0 caught the project doing it. The rule
+      has two <em>everys</em> in it, not one: at <strong>every</strong> grid spacing,
+      <strong>every</strong> comparison must pass. An older sibling program, written for the Phase 6
+      report, had accidentally spelled the outer one as &ldquo;at <em>some</em> spacing&rdquo;. Those
+      are the names of two ordinary list operations &mdash; <em>every</em> means all of them,
+      <em>some</em> means at least one &mdash; and swapping them turns a gate into a much weaker
+      claim. The record names the two spellings <code>all-spacings-every</code> and
+      <code>any-spacing-some</code>. Here it happened not to matter, because both spacings failed, so
+      C0 filed the defect as a historical limit rather than a retraction. Try it below: the two
+      spellings only come apart once you make one spacing pass.
     </p>
 
-    <figure class="anim is-wide" id="c33-ladder" data-total="64" data-pass="36" data-fail="28" data-verdict="criterion-no-pass">
+    <figure class="anim is-wide" id="c33-comparisons" data-total="64" data-pass="36" data-fail="28" data-tolerance="0.005" data-verdict="criterion-no-pass">
       <div class="anim__head">
-        <p class="anim__title">Count rows, or apply the criterion</p>
-        <p class="anim__sub">Change the summary rule and watch the verdict.</p>
+        <p class="anim__title">Slide the line across the sixty-four rows</p>
+        <p class="anim__sub">Every dot is one recorded comparison. Move the line, spell the rule two ways, and watch what it takes to turn NO-PASS into a pass.</p>
       </div>
-      <div class="anim__body"><div class="c33-stage" aria-live="polite"></div></div>
+      <div class="anim__body"><div class="p2-stage" aria-live="polite"></div></div>
       <div class="anim__controls"></div>
       <figcaption class="anim__foot"><span class="built-from">
-        Recorded C0 result (<code>evidence/phase10-numerical-verification-v1/c0-report.json</code>):
-        64 comparisons, 36 passing and 28 failing on attached count; registered
-        aggregate verdict criterion-no-pass. The majority summary is shown only to explain why it is
-        not the gate rule.
+        Original interactive. Every dot is one of the 64 rows of
+        <code>evidence/phase10-numerical-verification-v1/c0-comparisons.jsonl</code>, plotted at its
+        recorded <code>attachedCountRelativeDifference</code>; the two spellings of the rule are the
+        <code>observedReduction</code> and <code>authoritativeReduction</code> fields of
+        <code>c0-historical-verifier-limit.json</code>. The tolerance slider and the
+        &ldquo;suppose the fine spacing had passed&rdquo; button are <strong>what-ifs invented by
+        this page</strong>: the tolerance was fixed at 0.005 before these rows were seen, and the
+        registered verdict, printed on the figure and never recomputed away, is criterion-no-pass. It
+        cannot tell you whether 0.5&nbsp;% was the right adequacy test for a claim about shape.
       </span></figcaption>
     </figure>
 
@@ -305,13 +434,17 @@
         Still unsettled
       </p>
       <p>
-        Attached-cell count is a proxy for mass. The habit label, the thing the Nakaya comparison is
-        about, read &ldquo;neutral&rdquo; on both sides of all 64 comparisons, which the record says
-        is too coarse to count as a habit observable at all; the aspect ratio itself moved by up to
-        5&nbsp;% in some seed and domain steps while the count drifted by percent. So the ladder never
-        produced a shape that any count criterion could have tested. Whether the half-percent count
-        criterion was ever the right adequacy test for a habit claim is a question the project has
-        raised and not settled.
+        Say it plainly first: <strong>the habit criterion passed on all 64 pairs, and every one of
+        the 28 failures was the count.</strong> That sounds like good news and is not. Chapter 28
+        gave the rule &mdash; aspect ratio at or below 0.6667 is a plate, at or above 1.5 a column,
+        anything between is neutral &mdash; and all 128 ratios in these comparisons lie between 0.74
+        and 1.42. Nineteen of the 64 pairs did move their ratio, one of them by 5&nbsp;%, and not one
+        crossed a band edge, because there was no edge anywhere near them. The habit check could not
+        have failed; it also could not have told you anything. That is why the record calls
+        &ldquo;neutral on both sides&rdquo; too coarse to count as a habit observable at all, and why
+        the ladder never produced a shape that a count criterion could have tested. Whether the
+        half-percent count criterion was ever the right adequacy test for a claim about shape is a
+        question the project has raised and not settled.
       </p>
     </aside>
 
@@ -374,9 +507,10 @@
         Built from the Phase 10 execution plan&rsquo;s S6 record
         (<code>docs/plans/phase-10-evidence-verification-execution.md</code>): eleven registered
         runs on 2026-08-24, ten fail-stops on harness defects, one preflight pass with no scientific
-        content, nine frozen recovery versions, more than five hours of timed full test suites plus
-        four untimed reruns, 0.148 governed process-hours (about nine minutes, almost all of it the
-        preflight&rsquo;s own obligation checks), zero solver runs.
+        content, nine frozen recovery versions, eleven timed full test suites that day totalling
+        18,183.8 seconds &mdash; more than five hours &mdash; plus four untimed reruns, 0.1479
+        governed process-hours (about nine minutes, almost all of it the preflight&rsquo;s own
+        obligation checks), zero solver runs.
       </span></figcaption>
     </figure>
 
@@ -387,14 +521,18 @@
       Five hand-typed labels in the executor still said version one when the moving run was version
       two. A digest hashed pretty-printed JSON on one side and compact JSON on the other. None of
       these is physics. None of them is even the solver. Each one cost a new frozen recovery version,
-      a full test suite of twenty to thirty minutes, and an audit that reported zero blockers and then
+      a full test suite of twenty-one to thirty-one minutes, and an audit that reported zero blockers and then
       missed the seam the next run hit. Five of the ten stops (runs 3, 4, 9, 10 and 11) trace to one
       shared path resolver: four of them read a frozen path out of the immutable plan where the live
-      overlay was needed, and the fifth refused a path that was perfectly correct and merely
-      read-only. The package had a budget of 24 governed process-hours for
-      its controls and used 0.148 of them, nearly all on the preflight checking its own obligations.
-      Time the harness spent policing itself and time spent on the experiment are different columns,
-      and the second column stayed at zero.
+      overlay was needed, and one (run 10, the fourth moving-control attempt) refused a path that was
+      perfectly correct and merely read-only. The package had a budget of 24 <strong>governed process-hours</strong> for its
+      controls and used 0.1479 of them, nearly all on the preflight checking its own obligations.
+      That phrase needs unpacking, because it is the clock the project is actually budgeted on: a
+      governed process-hour is running time of the <em>registered worker programs</em>, metered in
+      nanoseconds and charged against the cap. Test suites, audits and human thought are real hours
+      and are not on that clock, which is how a phase can eat a whole day while its budget barely
+      moves. Time the harness spent policing itself and time spent on the experiment are different
+      columns, and the second column stayed at zero.
     </p>
     <p>
       The maker stopped it on the tenth failure. The decision record that closed the phase says why
@@ -433,31 +571,89 @@
       drawn, noticed, and sharpened the rule.
     </p>
 
+    <figure class="anim is-wide" id="c33-clocks" data-governed-hours="0.1479" data-budget-hours="24" data-solver-seconds="0">
+      <div class="anim__head">
+        <p class="anim__title">Four clocks, one day</p>
+        <p class="anim__sub">2026-08-24 measured four different ways. Only one of the four was ever going to be science.</p>
+      </div>
+      <div class="anim__body"><div class="p2-stage" aria-live="polite"></div></div>
+      <div class="anim__controls"></div>
+      <figcaption class="anim__foot"><span class="built-from">
+        Original chart. The eleven suite durations and the governed nanosecond intervals are the S6
+        figures recorded in <code>docs/plans/phase-10-evidence-verification-execution.md</code>; the
+        24-hour cap is decision 0052, item 7; solver time is zero by record
+        (<code>c0-analysis.json</code> carries <code>solverExecuted: false</code>, and every S6 stop
+        is recorded as having invoked no solver). Audit time and human time were never metered and
+        are not drawn, so the ungoverned column is an <em>under</em>-count, not an over-count. Rule
+        14&rsquo;s one-quarter tripwire is deliberately &ldquo;a judgment tripwire, not a tracked
+        metric&rdquo;, so this chart does not draw it as a line. It cannot say whether the harness
+        would have caught a solver defect had it ever reached one.
+      </span></figcaption>
+    </figure>
+
     <h2 id="stamps">Stamp the exact outcome</h2>
 
     <p>
-      &ldquo;Refused&rdquo;, &ldquo;incomplete&rdquo;, &ldquo;not executed&rdquo; and &ldquo;no
-      verdict&rdquo; are four different words, and the closure record uses each one deliberately. A
-      refusal is a decision reached under a rule. Incomplete means the work was stopped by a
-      decision, not finished. Not executed means the machinery never reached the science. No verdict
-      means nobody is allowed to say pass or fail. <strong>Compressing them into one vague failure would
+The closure record has a small vocabulary and uses every word of it deliberately. A
+      <strong>refusal</strong> is a decision reached under a rule that was registered in advance.
+      <strong>Incomplete</strong> means the work was stopped by a decision rather than finished.
+      <strong>Not executed, no verdict</strong> travel together: the machinery never reached the
+      science, so nobody is allowed to say pass or fail. <strong>Could not be identified</strong> is
+      the fifth: not that a comparison failed, but that no comparison could even be picked out to
+      attempt. Two more words, <em>passed</em> and <em>failed</em>, are missing from the record
+      entirely, because both need a comparison that actually ran. <strong>Compressing them into one vague failure would
       destroy information the next investigator needs about what authority would be required to
       continue.</strong>
     </p>
 
-    <figure class="anim" id="c33-outcomes" data-target-rows="0" data-habit-rows="0" data-c1-c5-rows="0">
+    <p>
+      Which word applies is not a matter of taste. Each absolute control had two stages: derive a
+      reference answer and check it against a second, independently written program; then run the
+      solver and compare. Read where a route stopped and whether a registered rule fired, and the
+      word follows. Try it yourself below before reading the record&rsquo;s answer.
+    </p>
+
+    <figure class="anim is-wide" id="c33-stamps" data-target-rows="0" data-habit-rows="0" data-c1-c5-rows="0" data-routes="6">
       <div class="anim__head">
-        <p class="anim__title">Stamp the exact outcome</p>
-        <p class="anim__sub">Inspect each route and read the word the record chose for it.</p>
+        <p class="anim__title">Stamp it yourself</p>
+        <p class="anim__sub">Six routes, six stamps, and two of the stamps are decoys. Read the facts, choose a word, then see which one the record used and what it would take to continue.</p>
       </div>
-      <div class="anim__body"><div class="c33-stage" aria-live="polite"></div></div>
+      <div class="anim__body"><div class="p2-stage" aria-live="polite"></div></div>
       <div class="anim__controls"></div>
       <figcaption class="anim__foot"><span class="built-from">
-        Recorded Phase 10 boundaries from the closure report
-        (<code>evidence/phase10-closure-v1/report.json</code>). Zero target, habit and C1&ndash;C5
-        rows were produced; no unexecuted route receives a scientific verdict here.
+        Original interactive. The facts and the words are the <code>workstreams</code>,
+        <code>c0vLayers</code> and <code>branchOutcomes</code> of
+        <code>evidence/phase10-closure-v1/report.json</code>. The &ldquo;to continue&rdquo; column
+        is mixed provenance and should be read as such: the radial and C0V entries quote decision
+        0054&rsquo;s <em>Forecloses</em> and <em>Costs</em>, the moving entry paraphrases decision
+        0053, and the static, B and B3 entries are this page&rsquo;s reading of the static refusal
+        artifact and the charter&rsquo;s acquisition limits rather than quotations. The &ldquo;suppose radial had run and missed its
+        tolerance&rdquo; button is a hypothetical this page invents to show why <em>not executed</em>
+        is not <em>failed</em>; it is labelled on the stamp. Nothing here is a verdict on the solver,
+        and the record produced zero target rows, zero habit rows and zero C1&ndash;C5 rows.
       </span></figcaption>
     </figure>
+
+    <aside class="callout callout--method">
+      <p class="callout__label">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+          <path d="M9 2h6M10 2v6.5L4.6 18a2.5 2.5 0 0 0 2.2 3.7h10.4A2.5 2.5 0 0 0 19.4 18L14 8.5V2"/>
+        </svg>
+        Who checked this chapter
+      </p>
+      <p>      The check names, dispositions and counts on this page come from
+      <code>evidence/phase10-closure-v1/</code>,
+      <code>evidence/phase10-observation-bridges-v1/report.json</code>,
+      <code>evidence/phase10-numerical-verification-v1/</code> and decision 0054; the 64 dots are the
+      committed rows of <code>c0-comparisons.jsonl</code>, and the tolerance sweep is recomputed from
+      them rather than quoted. An independent review on 2026-09-03 and a multi-agent audit on
+      2026-09-14 re-derived all of it from the bytes. Four things this chapter said have been
+      corrected as a result: the cross-reference to an independent verifier pointed at the wrong
+      chapter, the seed perturbation changed thickness as well as radius, the run-10 stop was
+      described as the wrong kind of mistake, and one figure drew maximum differences while its label
+      said failure counts. The &ldquo;more than five hours&rdquo; figure was challenged and
+      survived: eleven timed suites on 2026-08-24 total 18,183.8 seconds.</p>
+    </aside>
 
     <h2 id="earned">What the project earned</h2>
 
@@ -554,6 +750,7 @@
 
 <script src="../assets/site.js"></script>
 <script src="../assets/viz.js"></script>
+<script src="../assets/anim-part2-evidence.js"></script>
 <script>
 (function(){
   "use strict";
@@ -565,19 +762,6 @@
     function select(name){buttons.forEach(function(b,i){b.setAttribute("aria-pressed",String(names[i]===name));});onPick(name);}
     select(names[0]); return select;
   }
-
-  /* --- two gates --- */
-  (function(){
-    var root=document.getElementById("c33-two-gates"); if(!root) return; var b=box(root);
-    function draw(which){
-      clear(b.stage); var g=el("div","c33-lights");
-      var a=el("div","c33-light is-on"); a.appendChild(el("div","c33-kicker","closure gate")); a.appendChild(el("div","c33-dot")); a.appendChild(el("strong",null,which==="Closure record"?"7 of 7 checks pass":"Still 7 of 7, but it is not the question"));
-      var s=el("div","c33-light"); s.appendChild(el("div","c33-kicker","scientific comparison")); s.appendChild(el("div","c33-dot")); s.appendChild(el("strong",null,which==="Closure record"?"Not asked by this gate":"No scientific pass exists"));
-      g.appendChild(a); g.appendChild(s); b.stage.appendChild(g);
-      b.stage.appendChild(el("p","c33-note",which==="Closure record"?"The record is complete, unaltered and claims no more than its artifacts support.":"No comparison of model with nature ran in Phase 10, so there is no scientific light to switch on."));
-    }
-    modes(b.controls,["Closure record","Scientific claim"],draw);
-  })();
 
   /* --- six spans --- */
   (function(){
@@ -600,41 +784,6 @@
     modes(b.controls,branches.map(function(x){return x[0];}),draw);
   })();
 
-  /* --- sources of disagreement --- */
-  (function(){
-    var root=document.getElementById("c33-error-sources"); if(!root) return; var b=box(root);
-    /* [label, max relative difference %, failures, comparisons] */
-    var rows=[["seed radius ±1 cell",9.29,14,16],["box size, coarse grid",4.78,5,16],["time step halved",3.10,3,8],["box size, fine grid",1.11,6,16],["relaxation tolerance ÷10",0,0,8]];
-    function draw(mode){
-      clear(b.stage); var m=el("div","c33-meter"); var rule=mode==="Against the 0.5 % rule"; var max=10;
-      rows.forEach(function(x){
-        var row=el("div","c33-row"); row.appendChild(el("strong",null,x[0]));
-        /* Each mode draws the quantity it names: the maximum difference, or the failure fraction. */
-        var frac=rule?x[1]/max:x[2]/x[3];
-        var tr=el("div","c33-track"),f=el("div","c33-fill"+((rule?x[1]>0.5:x[2]>0)?" is-fail":""));
-        f.style.width=Math.max(0.6,frac*100)+"%"; tr.appendChild(f);
-        if(rule){var c=el("div","c33-crit"); c.style.left=(0.5/max*100)+"%"; c.setAttribute("aria-hidden","true"); tr.appendChild(c);}
-        row.appendChild(tr); row.appendChild(el("span",null,rule?x[1].toFixed(2)+" %":x[2]+" of "+x[3]));
-        m.appendChild(row);
-      });
-      m.appendChild(el("p","c33-note",rule?"Bar length is the largest relative attached-count difference that source produced, on a 0 to 10 % scale. The thin dark line is the registered half-percent limit. Four of five sources cross it; the solver's inner relaxation loop contributes nothing at all.":"Bar length is now the fraction of that source's comparisons that failed, which is a different question: the fine grid produced the smaller largest miss of the two box sizes (1.11 % against 4.78 %) and yet failed more comparisons (6 against 5). A smaller worst case does not mean fewer rows over the line."));
-      b.stage.appendChild(m);
-    }
-    modes(b.controls,["Against the 0.5 % rule","Comparisons failed"],draw);
-  })();
-
-  /* --- ladder criterion vs majority --- */
-  (function(){
-    var root=document.getElementById("c33-ladder"); if(!root) return; var b=box(root);
-    function draw(rule){
-      clear(b.stage); var m=el("div","c33-meter");
-      [["passing rows",36,false],["failing rows",28,true]].forEach(function(x){var row=el("div","c33-row"); row.appendChild(el("strong",null,x[0])); var tr=el("div","c33-track"),f=el("div","c33-fill"+(x[2]?" is-fail":"")); f.style.width=(x[1]/64*100)+"%"; tr.appendChild(f); row.appendChild(tr); row.appendChild(el("span",null,x[1]+" / 64")); m.appendChild(row);});
-      var c=el("div","c33-card"); c.appendChild(el("div","c33-kicker",rule)); c.appendChild(el("div","c33-answer",rule==="Registered criterion"?"NO-PASS":"36 is a majority")); c.appendChild(el("p","c33-note",rule==="Registered criterion"?"Every comparison had to pass. Twenty-eight required rows failed the attached-count condition, so the ladder fails.":"True arithmetic, wrong decision rule: it replaces the registered criterion with a friendlier one after seeing the rows."));
-      m.appendChild(c); b.stage.appendChild(m);
-    }
-    modes(b.controls,["Registered criterion","Majority shortcut"],draw);
-  })();
-
   /* --- eleven runs --- */
   (function(){
     var root=document.getElementById("c33-recoveries"); if(!root) return; var b=box(root);
@@ -647,7 +796,7 @@
       ["Preflight run 6","passed","The preflight packet completed, ten of ten checks. It contains no science; it is the permission slip for the science.",true],
       ["Moving control run 1","stopped before preflight","An accounting reader checked the previous packet's nine-file attempt root against a roster that listed only six of them; the three candidate files were missing from its list.",false],
       ["Moving control run 2","stopped immediately after locking","Five hand-typed labels in the executor still said version one when the moving run was version two.",false],
-      ["Moving control run 3","stopped during observation","A classifier for outputs compared the current files against the frozen version-2 paths instead of the live version-3 ones.",false],
+      ["Moving control run 3","stopped during observation","A classifier for outputs compared the current files against the frozen version-2 paths instead of the live version-6 ones.",false],
       ["Moving control run 4","stopped at finalization","The shared path checker rejected the frozen, read-only protocol path as if the run needed to write to it. One 35-millisecond discrepancy evaluation ran; no solver.",false],
       ["Moving control run 5","stopped at finalization","The publication check compared the fresh version-3 preflight path directly with the frozen version-2 path. Again one 34-millisecond discrepancy evaluation ran, and no solver. The maker stopped the ladder the same day.",false]
     ];
@@ -662,15 +811,586 @@
     Viz.button(b.controls,"Restart",function(){idx=0;draw();});
     draw();
   })();
-
-  /* --- stamps --- */
-  (function(){
-    var root=document.getElementById("c33-outcomes"); if(!root) return; var b=box(root);
-    var routes={"C0V as a whole":["Incomplete · no-pass","Stopped by the maker's decision; an interrupted route is not turned into a verdict."],"Radial control":["Not executed · no verdict","The reference was frozen and checked; the production comparison never ran."],"Moving control":["Reference-discrepancy refusal","The reference and its independent check disagreed on a bookkeeping condition, and the rule closes the layer on any disagreement."],"Static control":["Refused before implementation","No independent reference existed that did not share the solver's own arithmetic."],"Source bridges":["Terminal source refusal","Forty-eight operands unresolved across six branches; the basis on which the package completed."]};
-    function draw(k){clear(b.stage); var s=el("div","c33-stamp"); s.appendChild(el("div","c33-kicker",k)); s.appendChild(el("strong",null,routes[k][0])); s.appendChild(el("p","c33-note",routes[k][1])); b.stage.appendChild(s);}
-    modes(b.controls,Object.keys(routes),draw);
-  })();
 })();
 </script>
+<script>
+/* ===========================================================================
+   Chapter 33 — forge the closure report.
+   The seven checkIds are those of evidence/phase10-closure-v1/gate10-report.json;
+   the editable fields are copied from evidence/phase10-closure-v1/report.json.
+   The trip rules are this page's paraphrase of what each check guards; the real
+   gate10.ts runs one pass of assertions and throws on the first failure.
+   ======================================================================== */
+(function(){
+  "use strict";
+  var root=document.getElementById("c33-gate-board"); if(!root) return;
+
+  var CHECKS=[
+    {id:"phase10-selected-workstreams-terminal",kind:"record",
+     plain:"Did every selected piece of work reach one of the endings it was allowed to have? Six of them: A-P, A-S, A-I, B, C0 and C0V."},
+    {id:"phase10-b-refusal-completion-basis",kind:"record",
+     plain:"Does the package rest on the source refusal, as the charter allows — with B recorded as a refusal and all six of its branches present?"},
+    {id:"phase10-c0v-incomplete-no-credit",kind:"record",
+     plain:"Is the numerical-control work reported as incomplete with no credit, with radial “not executed / no verdict”, moving a refusal and static a refusal?"},
+    {id:"phase10-no-downstream-or-validation-credit",kind:"record",
+     plain:"Does the record claim no validation, no Phase 7, 8 or 9 credit, no target score, no habit rows, and authorise no downstream work? This check wants sixteen fields and expects thirteen of them to be false."},
+    {id:"phase10-prior-labels-preserved",kind:"record",
+     plain:"Are the four earlier phases still labelled exactly as they were: 6 complete, 7 not started, 8 complete, 9 complete development-only?"},
+    {id:"phase10-exact-suite-pass",kind:"record",
+     plain:"Is there a receipt for the full test suite, and does it say exit code 0?"},
+    {id:"phase10-non-author-review-pass",kind:"record",
+     plain:"Is there a review by somebody who did not write the work, and does it close with zero unresolved blockers?"}
+  ];
+
+  function initial(){
+    return {validationEarned:false,phase7Credit:false,phase6Label:"complete",
+            c0vPass:false,radialDisposition:"no-verdict",branchOutcomes:6};
+  }
+
+  function evaluate(s){
+    var out={};
+    CHECKS.forEach(function(c){out[c.id]={pass:true,reasons:[]};});
+    /* accumulate: two different edits can trip the same check, and both reasons
+       have to survive */
+    function fail(id,reason){out[id].pass=false;out[id].reasons.push(reason);}
+    if(s.validationEarned) fail("phase10-no-downstream-or-validation-credit",
+      "claim boundary: quantitativeValidationEarned must be false and is true");
+    if(s.phase7Credit) fail("phase10-no-downstream-or-validation-credit",
+      "claim boundary: phase7CreditEarned must be false and is true");
+    if(s.phase6Label!=="complete") fail("phase10-prior-labels-preserved",
+      "prior phase labels differ from the committed four");
+    if(s.c0vPass) fail("phase10-c0v-incomplete-no-credit",
+      "C0V is not reported incomplete with no packet credit");
+    if(s.radialDisposition!=="no-verdict") fail("phase10-c0v-incomplete-no-credit",
+      "the radial layer no longer reads not-executed / no-verdict");
+    if(s.branchOutcomes!==6) fail("phase10-b-refusal-completion-basis",
+      "B outcome differs: the six branch outcomes are not all present");
+    return out;
+  }
+
+  Part2.gateBoard(root,{
+    criteria:CHECKS,
+    predict:false,
+    initial:initial,
+    evaluate:evaluate,
+    sabotage:[
+      {label:"Claim validation was earned",note:"quantitativeValidationEarned set true",
+       apply:function(s){s.validationEarned=true;}},
+      {label:"Claim Phase 7 credit",note:"phase7CreditEarned set true",
+       apply:function(s){s.phase7Credit=true;}},
+      {label:"Relabel Phase 6 as “validated”",note:"prior label rewritten",
+       apply:function(s){s.phase6Label="validated";}},
+      {label:"Call the numerical controls passed",note:"C0V aggregate set to pass",
+       apply:function(s){s.c0vPass=true;}},
+      {label:"Call the unrun control “refused”",note:"radial relabelled a refusal",
+       apply:function(s){s.radialDisposition="refusal";}},
+      {label:"Delete one bridge outcome",note:"a branch outcome removed",
+       apply:function(s){s.branchOutcomes=5;}}
+    ],
+    exitNote:function(allPass){
+      return allPass
+        ? "Seven of seven. That is the state the project recorded: gate10, run with no flags, evaluator verdict pass, at commit 2823189."
+        : "Red. Notice the direction every one of these buttons points: each makes the record claim MORE, and each makes the gate refuse. A closure gate is not impressed by good news; it is checking that the summary does not outrun its files.";
+    },
+    footNote:"There is an eighth guard the lamps do not show. Change one byte of the report — even a "
+      +"space — and the gate still refuses, because after re-deriving the record it also re-derives "
+      +"every pinned file's length and fingerprint against the evidence manifest. And one honest "
+      +"limit: the "
+      +"verifier already knows the expected answers. Its own source names “complete-negative”, "
+      +"“no-verdict”, “refusal”, “refusal”, and it refuses anything else. So it can certify that the "
+      +"record is consistent with the decision that was made. It cannot certify the decision."
+  });
+})();
+
+/* ===========================================================================
+   Chapter 33 — three questions, three sets of endings (verification vs validation).
+   Endings transcribed from evidence/phase10-closure-v1/report.json.
+   ======================================================================== */
+(function(){
+  "use strict";
+  var root=document.getElementById("c33-three-questions"); if(!root) return;
+  var stage=root.querySelector(".p2-stage"), controls=root.querySelector(".anim__controls");
+
+  var Q={
+    "Consistency":{
+      ask:"Does the answer depend on something it should not — the box, the step, the seed?",
+      how:"Run the same thing again with one of those changed, and compare.",
+      boxes:[["C0 · re-derive the Phase 6 ladder","criterion no-pass","28 of 64 comparisons over the half-percent line","refused"]],
+      verdict:"Answered, and the answer was no."
+    },
+    "Verification":{
+      ask:"Does the program compute what its own equations say?",
+      how:"Derive the answer a second, independent way — by hand or with a program that shares no code — and compare.",
+      boxes:[
+        ["Radial control","not executed · no verdict","The reference was derived and independently checked; the comparison with the solver never ran."],
+        ["Moving control","refusal","Reference and independent check disagreed on one exact-equality condition, and the registered rule closes the layer on any disagreement."],
+        ["Static control","refused before implementation","No independent reference existed that did not share the solver's own arithmetic."]
+      ],
+      verdict:"Not answered. One route never ran, two closed as refusals."
+    },
+    "Validation":{
+      ask:"Are those the right equations for snow?",
+      how:"Compare with a measurement of the real world — which first means getting hold of one.",
+      boxes:[
+        ["B1a, B1b, B2, B4, B5","terminal source refusal","The papers or the storage could not be reached inside the project's rules."],
+        ["B3","non-identification","No same-geometry crossed design could be identified at all."]
+      ],
+      verdict:"Not answered. Every span stopped at its source end."
+    },
+    "…and the gate":{
+      ask:"Is the record honest about which of the three got answered?",
+      how:"Re-open the pinned files and re-derive that the summary claims no more than they support.",
+      boxes:[["gate10 closure verifier","7 of 7 pass","The only green light in the phase.","ok"]],
+      verdict:"Answered, and the answer was yes. It is not one of the three above."
+    }
+  };
+
+  function draw(name){
+    Part2.clear(stage);
+    var q=Q[name];
+    var head=Part2.el("div","p2-card");
+    head.appendChild(Part2.el("span","p2-kicker","the question"));
+    head.appendChild(Part2.el("b",null,q.ask));
+    head.appendChild(Part2.el("p","p2-note","How you answer it: "+q.how));
+    stage.appendChild(head);
+    var grid=Part2.el("div","p2-grid");
+    q.boxes.forEach(function(b){
+      /* the state is declared per box, never inferred from the wording: "criterion
+         no-pass" contains the substring "pass" and must not be styled as one */
+      grid.appendChild(Part2.recordCard({kicker:b[0],title:b[1],note:b[2],
+        state:b[3]||"refused"}));
+    });
+    stage.appendChild(grid);
+    stage.appendChild(Part2.el("p","p2-note",q.verdict));
+  }
+
+  Part2.tabs(controls,Object.keys(Q),draw);
+  Viz.onThemeChange(function(){});
+})();
+
+/* ===========================================================================
+   Chapter 33 — slide the line across the sixty-four rows.
+   Every row below is one line of
+   evidence/phase10-numerical-verification-v1/c0-comparisons.jsonl:
+   [lane, base count, perturbed count, recorded attachedCountRelativeDifference,
+    conditions, what changed, cell size]. The recorded tolerance is 0.005 and the
+   registered verdict is criterion-no-pass; the slider is a what-if.
+   ======================================================================== */
+(function(){
+  "use strict";
+  var root=document.getElementById("c33-comparisons"); if(!root) return;
+  var stage=root.querySelector(".p2-stage"), controls=root.querySelector(".anim__controls");
+  var TOL=0.005;
+
+  /* lane, base count, perturbed count, recorded relative difference, conditions, what changed, cell size (um) */
+  var LADDER=[
+    ["cfl",84501,84537,0.00042603,"-13 °C, f 0.15, CAK","fill cap 0.1→0.05",0.35],
+    ["tol",84501,84501,0,"-13 °C, f 0.15, CAK","relaxation tolerance 1e-09→1e-10",0.35],
+    ["seed",84501,83451,0.01242589,"-13 °C, f 0.15, CAK","seed radius 17→16 (thickness 35→33)",0.35],
+    ["seed",84501,86445,0.02300564,"-13 °C, f 0.15, CAK","seed radius 17→18 (thickness 35→37)",0.35],
+    ["cfl",56671,56719,0.00084699,"-13 °C, f 0.15, M1","fill cap 0.1→0.05",0.35],
+    ["tol",56671,56671,0,"-13 °C, f 0.15, M1","relaxation tolerance 1e-09→1e-10",0.35],
+    ["seed",56671,53383,0.05801909,"-13 °C, f 0.15, M1","seed radius 17→16 (thickness 35→33)",0.35],
+    ["seed",56671,59037,0.04174975,"-13 °C, f 0.15, M1","seed radius 17→18 (thickness 35→37)",0.35],
+    ["cfl",64813,64549,0.00407326,"-27 °C, f 0.15, CAK","fill cap 0.1→0.05",0.35],
+    ["tol",64813,64813,0,"-27 °C, f 0.15, CAK","relaxation tolerance 1e-09→1e-10",0.35],
+    ["seed",64813,58795,0.09285174,"-27 °C, f 0.15, CAK","seed radius 17→16 (thickness 35→33)",0.35],
+    ["seed",64813,64485,0.00506071,"-27 °C, f 0.15, CAK","seed radius 17→18 (thickness 35→37)",0.35],
+    ["cfl",86845,86869,0.00027635,"-27 °C, f 0.15, M1","fill cap 0.1→0.05",0.35],
+    ["tol",86845,86845,0,"-27 °C, f 0.15, M1","relaxation tolerance 1e-09→1e-10",0.35],
+    ["seed",86845,85591,0.01443952,"-27 °C, f 0.15, M1","seed radius 17→16 (thickness 35→33)",0.35],
+    ["seed",86845,87145,0.00345443,"-27 °C, f 0.15, M1","seed radius 17→18 (thickness 35→37)",0.35],
+    ["cfl",69383,68625,0.01092487,"-31 °C, f 0.6, CAK","fill cap 0.1→0.05",0.35],
+    ["tol",69383,69383,0,"-31 °C, f 0.6, CAK","relaxation tolerance 1e-09→1e-10",0.35],
+    ["seed",69383,66969,0.03479238,"-31 °C, f 0.6, CAK","seed radius 17→16 (thickness 35→33)",0.35],
+    ["seed",69383,72623,0.04669732,"-31 °C, f 0.6, CAK","seed radius 17→18 (thickness 35→37)",0.35],
+    ["cfl",77021,76385,0.00825749,"-31 °C, f 0.6, M1","fill cap 0.1→0.05",0.35],
+    ["tol",77021,77021,0,"-31 °C, f 0.6, M1","relaxation tolerance 1e-09→1e-10",0.35],
+    ["seed",77021,75759,0.01638514,"-31 °C, f 0.6, M1","seed radius 17→16 (thickness 35→33)",0.35],
+    ["seed",77021,80131,0.0403786,"-31 °C, f 0.6, M1","seed radius 17→18 (thickness 35→37)",0.35],
+    ["cfl",98871,98559,0.00315563,"-6 °C, f 0.15, CAK","fill cap 0.1→0.05",0.35],
+    ["tol",98871,98871,0,"-6 °C, f 0.15, CAK","relaxation tolerance 1e-09→1e-10",0.35],
+    ["seed",98871,98463,0.00412659,"-6 °C, f 0.15, CAK","seed radius 17→16 (thickness 35→33)",0.35],
+    ["seed",98871,99855,0.00995236,"-6 °C, f 0.15, CAK","seed radius 17→18 (thickness 35→37)",0.35],
+    ["cfl",64113,62127,0.03097656,"-6 °C, f 0.15, M1","fill cap 0.1→0.05",0.35],
+    ["tol",64113,64113,0,"-6 °C, f 0.15, M1","relaxation tolerance 1e-09→1e-10",0.35],
+    ["seed",64113,60897,0.05016143,"-6 °C, f 0.15, M1","seed radius 17→16 (thickness 35→33)",0.35],
+    ["seed",64113,67115,0.04682358,"-6 °C, f 0.15, M1","seed radius 17→18 (thickness 35→37)",0.35],
+    ["fine",84669,85533,0.01020444,"-13 °C, f 0.15, CAK","box 112→128 cells",0.35],
+    ["fine",57079,57343,0.00462517,"-13 °C, f 0.15, M1","box 112→128 cells",0.35],
+    ["fine",64809,64963,0.00237621,"-27 °C, f 0.15, CAK","box 112→128 cells",0.35],
+    ["fine",86893,86845,0.0005524,"-27 °C, f 0.15, M1","box 112→128 cells",0.35],
+    ["fine",69863,70007,0.00206118,"-31 °C, f 0.6, CAK","box 112→128 cells",0.35],
+    ["fine",77873,78281,0.0052393,"-31 °C, f 0.6, M1","box 112→128 cells",0.35],
+    ["fine",99177,98793,0.00387187,"-6 °C, f 0.15, CAK","box 112→128 cells",0.35],
+    ["fine",64149,64545,0.00617313,"-6 °C, f 0.15, M1","box 112→128 cells",0.35],
+    ["fine",84501,84669,0.00198814,"-13 °C, f 0.15, CAK","box 96→112 cells",0.35],
+    ["fine",56671,57079,0.00719945,"-13 °C, f 0.15, M1","box 96→112 cells",0.35],
+    ["fine",64813,64809,6.172e-05,"-27 °C, f 0.15, CAK","box 96→112 cells",0.35],
+    ["fine",86845,86893,0.00055271,"-27 °C, f 0.15, M1","box 96→112 cells",0.35],
+    ["fine",69383,69863,0.00691812,"-31 °C, f 0.6, CAK","box 96→112 cells",0.35],
+    ["fine",77021,77873,0.01106192,"-31 °C, f 0.6, M1","box 96→112 cells",0.35],
+    ["fine",98871,99177,0.00309494,"-6 °C, f 0.15, CAK","box 96→112 cells",0.35],
+    ["fine",64113,64149,0.00056151,"-6 °C, f 0.15, M1","box 96→112 cells",0.35],
+    ["coarse",9851,9813,0.00385748,"-13 °C, f 0.15, CAK","box 48→64 cells",0.7],
+    ["coarse",7249,7249,0,"-13 °C, f 0.15, M1","box 48→64 cells",0.7],
+    ["coarse",6651,6627,0.00360848,"-27 °C, f 0.15, CAK","box 48→64 cells",0.7],
+    ["coarse",9923,9923,0,"-27 °C, f 0.15, M1","box 48→64 cells",0.7],
+    ["coarse",8281,8677,0.04782031,"-31 °C, f 0.6, CAK","box 48→64 cells",0.7],
+    ["coarse",9363,9621,0.02755527,"-31 °C, f 0.6, M1","box 48→64 cells",0.7],
+    ["coarse",11579,11627,0.00414544,"-6 °C, f 0.15, CAK","box 48→64 cells",0.7],
+    ["coarse",7489,7465,0.0032047,"-6 °C, f 0.15, M1","box 48→64 cells",0.7],
+    ["coarse",9813,9827,0.00142668,"-13 °C, f 0.15, CAK","box 64→80 cells",0.7],
+    ["coarse",7249,7225,0.0033108,"-13 °C, f 0.15, M1","box 64→80 cells",0.7],
+    ["coarse",6627,6711,0.01267542,"-27 °C, f 0.15, CAK","box 64→80 cells",0.7],
+    ["coarse",9923,9923,0,"-27 °C, f 0.15, M1","box 64→80 cells",0.7],
+    ["coarse",8677,8713,0.0041489,"-31 °C, f 0.6, CAK","box 64→80 cells",0.7],
+    ["coarse",9621,9477,0.01496726,"-31 °C, f 0.6, M1","box 64→80 cells",0.7],
+    ["coarse",11627,11579,0.00412832,"-6 °C, f 0.15, CAK","box 64→80 cells",0.7],
+    ["coarse",7465,7693,0.03054253,"-6 °C, f 0.15, M1","box 64→80 cells",0.7]
+  ];
+
+  var LANES=[
+    {key:"seed",label:"seed radius ±1 cell"},
+    {key:"coarse",label:"box size, 0.7 µm cells"},
+    {key:"cfl",label:"time step halved"},
+    {key:"fine",label:"box size, 0.35 µm cells"},
+    {key:"tol",label:"relaxation tolerance ÷10"}
+  ];
+
+  var rows=LADDER.map(function(r){
+    return {lane:r[0],value:r[3],name:r[4]+", "+r[5],
+      detail:r[4]+" — "+r[5]+": "+r[1].toLocaleString("en-GB")+" cells → "+r[2].toLocaleString("en-GB")
+        +" cells. |"+r[2].toLocaleString("en-GB")+" − "+r[1].toLocaleString("en-GB")+"| ÷ "
+        +r[1].toLocaleString("en-GB")+" = "+(r[3]*100).toFixed(3)+" %"
+        +(r[3]>TOL?" — over the registered line.":" — under the registered line."),
+      dx:r[6]};
+  });
+
+  var strip=Part2.dotStrip(stage,{
+    lanes:LANES, rows:rows,
+    criterion:{value:TOL,label:"registered 0.5 %"},
+    axis:{min:0.00005,max:0.12,title:"how far the attached-cell count moved, as a fraction of the base count"},
+    zeroLabel:"exactly 0",
+    label:"Sixty-four recorded comparisons in five lanes on a logarithmic scale, with the registered half-percent line.",
+    hint:"Choose a dot to see the two counts it compares.",
+    desc:"Each dot is one comparison; dots to the right of the upright line failed the registered criterion."
+  });
+
+  var readout=Part2.el("div","p2-card");
+  stage.appendChild(readout);
+
+  var whatIf=TOL, quantifier="every spacing", hypothetical=false;
+
+  function fails(lane,t){return rows.filter(function(r){return r.lane===lane&&r.value>t;}).length;}
+
+  function render(){
+    strip.draw(whatIf);
+    stage.appendChild(readout);
+    Part2.clear(readout);
+
+    var auxFails=fails("seed",whatIf)+fails("cfl",whatIf)+fails("tol",whatIf);
+    var coarsePass=fails("coarse",whatIf)===0&&auxFails===0;
+    var finePass=hypothetical?true:(fails("fine",whatIf)===0&&auxFails===0);
+    var verdict=quantifier==="every spacing"?(coarsePass&&finePass):(coarsePass||finePass);
+    var total=rows.filter(function(r){return r.value>whatIf;}).length;
+
+    readout.appendChild(Part2.el("span","p2-kicker","spell the rule, then read the verdict"));
+    [["0.7 µm spacing",coarsePass,"its 16 box comparisons and all 32 auxiliary ones must pass"],
+     ["0.35 µm spacing",finePass,hypothetical
+        ?"HYPOTHETICAL: this page has forced this spacing to pass. Nothing in the record did."
+        :"its 16 box comparisons and all 32 auxiliary ones must pass"]].forEach(function(sp){
+      var row=Part2.el("div","p2-check");
+      var head=Part2.el("div","p2-check__head");
+      head.appendChild(Part2.el("strong",null,sp[0]));
+      head.appendChild(Part2.lamp(sp[1]?"pass":"fail"));
+      row.appendChild(head);
+      row.appendChild(Part2.el("p","p2-check__plain",sp[2]));
+      readout.appendChild(row);
+    });
+
+    readout.appendChild(Part2.el("div","p2-verdict__num",
+      verdict?"would pass under your line":"NO-PASS"));
+    readout.appendChild(Part2.el("p","p2-note",
+      quantifier==="every spacing"
+        ? "all-spacings-every: the registered spelling. Both spacings must pass."
+        : "any-spacing-some: the older sibling program's spelling. One spacing passing was enough."));
+    readout.appendChild(Part2.el("p","p2-note",
+      total+" of 64 comparisons are over your line ("+(whatIf*100).toFixed(2)+" %). "
+      +"At the registered 0.5 % it is 28, and nothing passes until the line sits at or above "
+      +"9.285 %, the largest disagreement the ladder recorded."));
+    if(hypothetical&&!coarsePass){
+      readout.appendChild(Part2.el("p","p2-note",
+        "With the fine spacing forced to pass, the two spellings finally disagree: the registered "
+        +"one still says NO-PASS, the older one says pass. That is the difference between a gate and "
+        +"a vote, and it is why C0 recorded the defect even though it changed no verdict."));
+    } else if(hypothetical){
+      readout.appendChild(Part2.el("p","p2-note",
+        "Your line is now loose enough that both spacings pass on their own, so the hypothetical has "
+        +"nothing left to separate. Tighten it back towards 0.5 % to see the two spellings come "
+        +"apart."));
+    }
+    var fixed=Part2.el("p","p2-note");
+    fixed.style.fontWeight="650";
+    fixed.textContent="Registered verdict, unchanged by anything on this page: criterion-no-pass.";
+    readout.appendChild(fixed);
+  }
+
+  /* Viz.slider is linear-step only, so the slider drives an exponent and the
+     tolerance is 10^x. Ticks land on the decades of the log axis. */
+  var slider=Viz.slider(controls,{
+    label:"what-if tolerance", id:"c33-tol",
+    min:Math.log10(0.001), max:Math.log10(0.12), step:0.01, value:Math.log10(TOL),
+    format:function(v){return (Math.pow(10,v)*100).toFixed(2)+" %";},
+    onInput:function(v){whatIf=Math.pow(10,v);render();}
+  });
+  Viz.button(controls,"Back to the registered 0.5 %",function(){
+    /* the range input snaps to its 0.01 grid, so move the control for display
+       and then restore the exact registered tolerance for the computation */
+    slider.value=Math.log10(TOL);
+    whatIf=TOL;
+    render();
+  });
+  Part2.tabs(controls,["every spacing","any one spacing"],function(n){
+    quantifier=n==="every spacing"?"every spacing":"any spacing";render();
+  });
+  Viz.button(controls,"Suppose the fine spacing had passed",function(b){
+    hypothetical=!hypothetical;
+    b.setAttribute("aria-pressed",String(hypothetical));
+    b.textContent=hypothetical?"Back to the recorded rows":"Suppose the fine spacing had passed";
+    render();
+  },{pressed:false});
+
+  Viz.onThemeChange(render);
+  render();
+})();
+
+/* ===========================================================================
+   Chapter 33 — four clocks, one day.
+   Suite durations and governed nanosecond intervals are the S6 figures in
+   docs/plans/phase-10-evidence-verification-execution.md; the 24-hour cap is
+   decision 0052 item 7; solver time is zero by record.
+   ======================================================================== */
+(function(){
+  "use strict";
+  var root=document.getElementById("c33-clocks"); if(!root) return;
+  var stage=root.querySelector(".p2-stage"), controls=root.querySelector(".anim__controls");
+
+  var SUITES=[1654.54,1710.83,1723.63,1753.81,1814.54,1843.13,1881.32,1631.64,1485.25,1425.82,1259.25];
+  var suiteTotal=SUITES.reduce(function(a,b){return a+b;},0);          /* 18,183.76 s */
+  var governedHours=0.1478804613611111;
+  var governedSeconds=governedHours*3600;                               /* 532.37 s */
+  var budgetHours=24;
+
+  var VIEWS={
+    "The four clocks":function(){
+      var box=Part2.el("div","p2-card");
+      box.appendChild(Part2.el("span","p2-kicker","2026-08-24, in seconds"));
+      Part2.barRows(box,[
+        {label:"timed test suites",value:suiteTotal,display:Math.round(suiteTotal).toLocaleString("en-GB")+" s",
+         note:"eleven full runs: one implementation-freeze suite before run 1, then one after each recovery version. 5 h 03 min. None of it is on the budgeted clock."},
+        {label:"governed worker time",value:governedSeconds,display:governedSeconds.toFixed(0)+" s",fail:false,muted:true,
+         note:"0.1479 process-hours, about nine minutes, of which the preflight checking its own obligations is 99.99 %. This is the only clock the 24-hour cap counts."},
+        {label:"solver time",value:0,display:"0 s",muted:true,
+         note:"The only clock that would have been science. It never started."}
+      ],{max:suiteTotal});
+      box.appendChild(Part2.el("p","p2-note",
+        "The fourth clock is the wall clock, and it is the whole day. Audit time and human time were "
+        +"never metered at all, so the top bar is an under-count of what checking actually cost."));
+      return box;
+    },
+    "Against the budget":function(){
+      var box=Part2.el("div","p2-card");
+      box.appendChild(Part2.el("span","p2-kicker","the 24 governed process-hours the package was allowed"));
+      Part2.barRows(box,[
+        {label:"budget",value:budgetHours,display:"24 h",muted:true},
+        {label:"used",value:governedHours,display:governedHours.toFixed(4)+" h",
+         note:"About six tenths of one percent of the cap. The budget was never the binding constraint; the harness was."}
+      ],{max:budgetHours});
+      box.appendChild(Part2.el("p","p2-note",
+        "A cap that is never approached is not protecting anything. What actually ran out on "
+        +"2026-08-24 was patience, and Rule 14 calls that a judgment — deliberately not a metric, "
+        +"which is why this figure does not draw a tripwire line."));
+      return box;
+    },
+    "Suite by suite":function(){
+      var box=Part2.el("div","p2-card");
+      box.appendChild(Part2.el("span","p2-kicker","the eleven timed suites, in order"));
+      Part2.barRows(box,SUITES.map(function(s,i){
+        return {label:i===0?"freeze suite":"suite "+(i+1),value:s,
+          display:s.toFixed(2)+" s",muted:i===0};
+      }),{max:2000});
+      box.appendChild(Part2.el("p","p2-note",
+        "Twenty-one to thirty-one minutes each, in the order the plan records them. The first ran "
+        +"at 01:28, before any of the eleven harness runs, to freeze the implementation; the other "
+        +"ten followed the stops and the one pass. Those ten total 16,529.22 s (4 h 35 min); all "
+        +"eleven total 18,183.76 s, which is where “more than five hours” comes from."));
+      return box;
+    }
+  };
+
+  function draw(name){Part2.clear(stage);stage.appendChild(VIEWS[name]());}
+  Part2.tabs(controls,Object.keys(VIEWS),draw);
+})();
+
+/* ===========================================================================
+   Chapter 33 — stamp it yourself.
+   Facts and words from evidence/phase10-closure-v1/report.json; the authority
+   sentences quote decision 0054's Forecloses, Costs and Alternatives.
+   ======================================================================== */
+(function(){
+  "use strict";
+  var root=document.getElementById("c33-stamps"); if(!root) return;
+  var stage=root.querySelector(".p2-stage"), controls=root.querySelector(".anim__controls");
+
+  var STAMPS=["refused","incomplete","not executed · no verdict","could not be identified","failed","passed"];
+
+  var ROUTES={
+    "Radial control":{
+      facts:[["reference derived?","yes — two independent derivations agreeing to two parts in a thousand trillion"],
+             ["independently checked?","yes, and the check passed"],
+             ["production run?","no — the shared harness failed ten times on the packets ahead of it"],
+             ["did a registered rule fire?","no"],
+             ["stopped by a decision?","yes, the maker stopped the ladder"]],
+      word:"not executed · no verdict",
+      clause:"No rule fired, so it is not a refusal. No solver ran, so it is not a failure. Decision 0054 rejected calling it a refusal in as many words: “no allowed scientific refusal route was executed, so the honest label is incomplete/no-credit.”",
+      authority:"a new C0V lineage under new authority. Decision 0054 forecloses recovery-v10, deleting the retained lock, and “claiming the radial control passed, failed, or refused”."
+    },
+    "Moving control":{
+      facts:[["reference derived?","yes"],
+             ["independently checked?","yes, and the check disagreed on one exact-equality condition"],
+             ["production run?","no"],
+             ["did a registered rule fire?","yes — any reference/check disagreement closes the layer"],
+             ["stopped by a decision?","no, it closed under its own rule"]],
+      word:"refused",
+      clause:"A refusal is a decision reached under a rule that was registered before the result. Every tolerance in the failed group passed; what failed was the exact-equality check on the record of where the search ended.",
+      authority:"a newly registered protocol. Decision 0053 forecloses weakening that exact endpoint criterion after seeing it fail."
+    },
+    "Static control":{
+      facts:[["reference derived?","no — none exists that does not share the solver's own arithmetic"],
+             ["independently checked?","the refusal itself was checked, and passed"],
+             ["production run?","no"],
+             ["did a registered rule fire?","yes — a scoped reference-independence refusal"],
+             ["stopped by a decision?","no"]],
+      word:"refused",
+      clause:"Refused before any code was written, for a stated reason: the current contract supplies no admissible independent reference, and comparing the solver with itself at finer grids was explicitly forbidden as a substitute.",
+      authority:"a change to the solver contract that supplies an independent reference."
+    },
+    "C0V as a whole":{
+      facts:[["reference derived?","for two of three layers"],
+             ["independently checked?","yes"],
+             ["production run?","never, for any layer"],
+             ["did a registered rule fire?","for two layers, not for the aggregate"],
+             ["stopped by a decision?","yes — this is an aggregate, stopped by the maker"]],
+      word:"incomplete",
+      clause:"An aggregate stopped by a decision rather than finished. The record says “incomplete-no-pass”, never PASS, never FAIL, and never a fabricated refusal.",
+      authority:"new authority entirely. “Future work that needs C0V must start under new authority and cannot claim that this phase passed it.”"
+    },
+    "The source bridges (B)":{
+      facts:[["sources reached?","no — five refused, one could not be identified"],
+             ["independently checked?","yes; the aggregate independently returns refusal"],
+             ["production run?","no comparison was possible"],
+             ["did a registered rule fire?","yes — the charter allows a source refusal to close the package"],
+             ["stopped by a decision?","no"]],
+      word:"refused",
+      clause:"Five branches are terminal refusals and one is a non-identification; the workstream as a whole is recorded as a refusal, and the package completes on it. “It blocks dependent future work but does not become a pass.”",
+      authority:"either buying the papers or writing to their authors — both forbidden by the charter — or a new maker decision."
+    },
+    "Branch B3 on its own":{
+      facts:[["sources reached?","the 2026 article was never obtained"],
+             ["independently checked?","yes"],
+             ["production run?","no"],
+             ["did a registered rule fire?","no rule could even be applied"],
+             ["stopped by a decision?","no"]],
+      word:"could not be identified",
+      clause:"Fifteen unresolved operands, and the record's own word is “non-identification”: not that the comparison failed, but that no same-geometry crossed design could be picked out to attempt.",
+      authority:"the article, the carrier-gas literature, a two-reader operator for the video, and a resolved temperature conflict — fifteen pieces in all."
+    }
+  };
+
+  var names=Object.keys(ROUTES);
+  var current=names[0], guess=null, revealed=false, hypothetical=false;
+  var right=0, asked=0;
+
+  function draw(){
+    Part2.clear(stage);
+    var r=ROUTES[current];
+    var word=hypothetical&&current==="Radial control"?"failed":r.word;
+
+    var card=Part2.el("div","p2-card");
+    card.appendChild(Part2.el("span","p2-kicker","what the record says happened"));
+    var dl=Part2.el("dl","p2-fields");
+    r.facts.forEach(function(f){
+      dl.appendChild(Part2.el("dt",null,f[0]));
+      dl.appendChild(Part2.el("dd",null,f[1]));
+    });
+    if(hypothetical&&current==="Radial control"){
+      dl.appendChild(Part2.el("dt",null,"HYPOTHETICAL"));
+      dl.appendChild(Part2.el("dd",null,"suppose the production comparison HAD run, and missed its tolerance"));
+    }
+    card.appendChild(dl);
+    stage.appendChild(card);
+
+    if(!revealed){
+      stage.appendChild(Part2.el("p","p2-note","Choose the word you would stamp on it, then reveal."));
+      var pick=Part2.el("div","p2-check__pick");
+      STAMPS.forEach(function(s){
+        var b=Viz.button(pick,s,function(){guess=s;draw();},{pressed:guess===s});
+        b.classList.add("p2-mini");
+      });
+      stage.appendChild(pick);
+      return;
+    }
+
+    var isHypo=hypothetical&&current==="Radial control";
+    var st=Part2.stamp({
+      kicker:isHypo?"HYPOTHETICAL — "+current:current,
+      word:word,
+      clause:isHypo
+        ?"Invented fact, not the record: if the comparison HAD run and missed its tolerance, a rule "
+         +"would have fired on a real result and “failed” would be the honest word. Nothing like "
+         +"that happened. Press the button again to return to what was recorded."
+        :r.clause,
+      authority:isHypo?null:r.authority,
+      hypothetical:isHypo});
+    stage.appendChild(st);
+
+    if(guess&&guess!==word){
+      var tell=Part2.el("p","p2-note");
+      tell.textContent=guess==="passed"||guess==="failed"
+        ? "“"+guess+"” needs a comparison that actually ran. None did: the claim boundary records "
+          +"quantitativeValidationEarned as false and no solver executed anywhere in Phase 10."
+        : "The record used a different word, and the difference is the point: it tells the next "
+          +"investigator what kind of authority would be needed to carry on.";
+      stage.appendChild(tell);
+    }
+    if(hypothetical&&current==="Radial control"){
+      stage.appendChild(Part2.el("p","p2-note",
+        "The scoreboard is paused while the hypothetical is on: there is no recorded answer to be "
+        +"right about."));
+    } else if(asked){
+      stage.appendChild(Part2.el("p","p2-note","Stamped as the record did: "+right+" of "+asked+"."));
+    }
+  }
+
+  Part2.tabs(controls,names,function(n){current=n;guess=null;revealed=false;draw();});
+  Viz.button(controls,"Reveal the record’s word",function(){
+    /* the tally always scores against the recorded word; the hypothetical is not
+       something a reader can be right about */
+    if(!revealed&&guess&&!(hypothetical&&current==="Radial control")){
+      asked++;
+      if(guess===ROUTES[current].word) right++;
+    }
+    revealed=true;draw();
+  });
+  Viz.button(controls,"Suppose radial had run and missed its tolerance",function(b){
+    hypothetical=!hypothetical;
+    b.setAttribute("aria-pressed",String(hypothetical));
+    revealed=false;guess=null;draw();
+  },{pressed:false});
+  draw();
+})();
+</script>
+
 </body>
 </html>

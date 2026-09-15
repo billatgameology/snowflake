@@ -51,7 +51,7 @@
         in great detail, has not started at all?
       </p>
       <div class="chapter-header__meta">
-        <span>~13 min read</span><span>5 interactives</span><span>3 tables</span><span>2 equations</span>
+        <span>~13 min read</span><span>5 interactives</span><span>3 tables</span><span>1 equation</span>
       </div>
     </header>
 
@@ -220,7 +220,7 @@
         <p class="anim__title">Climb one ladder</p>
         <p class="anim__sub">Same crystal, same physics, bigger box. Pick a check point and watch whether the count settles down.</p>
       </div>
-      <div class="anim__body"><div class="p2-stage"></div></div>
+      <div class="anim__body"><div class="p2-stage" aria-live="polite"></div></div>
       <div class="anim__controls"></div>
       <figcaption class="anim__foot"><span class="built-from">
         Original interactive. Every count is one row of
@@ -245,16 +245,17 @@
         <p class="anim__title">Run the closure gate</p>
         <p class="anim__sub">Thirteen checks. Sort them first: which ask about the project&rsquo;s record, and which ask about nature? Then try to make the record claim more, and watch what happens.</p>
       </div>
-      <div class="anim__body"><div class="p2-stage"></div></div>
+      <div class="anim__body"><div class="p2-stage" aria-live="polite"></div></div>
       <div class="anim__controls"></div>
       <figcaption class="anim__foot"><span class="built-from">
-        Original interactive. The thirteen criterion names and the failure strings are transcribed
-        from <code>runner/src/gate6-aggregate.ts</code>; the sabotage buttons are shaped after the
+        Original interactive. The thirteen criterion ids are transcribed from
+        <code>runner/src/gate6-aggregate.ts</code>, and the failure strings are transcribed from its
+        criterion labels or paraphrased from them; the sabotage buttons are shaped after the
         named negative controls in <code>runner/test/gate6-aggregate.test.ts</code>
         (<code>NC-LADDER-VERDICT-FORGE</code>, <code>NC-CLOSURE-LABEL-SWAP</code>,
         <code>NC-DEFERRAL-ELIGIBILITY-FLIP</code>, <code>NC-DIRTY-TREE</code>). This is a
-        re-implementation of the selection rule on a throwaway in-page copy, not the gate itself, and
-        the fingerprint it shows is a labelled stand-in, not a SHA-256 verification. It shows that
+        re-implementation of the selection rule on a throwaway in-page copy, not the gate itself.
+        It shows that
         the gate certifies the record and can be made to fail; it proves nothing about whether any
         physics is right.
       </span></figcaption>
@@ -354,7 +355,8 @@
       <figcaption class="anim__foot"><span class="built-from">
         The labels follow the charter&rsquo;s &sect;1.5 Type &times; Evidence discipline (Chapter 15)
         and the final Phase 6 report. Phase completion, numerical disposition, and the Evidence label
-        are separate fields.
+        are separate fields. It shows how the four recorded labels compose; it cannot show that any of
+        them was earned, and nothing in it compares the model with nature.
       </span></figcaption>
     </figure>
 
@@ -521,6 +523,7 @@
   var POINTS=["−31 °C, f 0.60","−13 °C, f 0.15","−6 °C, f 0.15","−27 °C, f 0.15"];
   var SPACING={
     "0.7 µm cells":{boxes:[48,64,80],widthUm:[33.6,44.8,56],seed:"seed radius 8 cells",
+      reach:"27 cells across, which at this cell size is 18.9 micrometres",
       counts:{
         "−31 °C, f 0.60":{M1:[9363,9621,9477],CAK:[8281,8677,8713]},
         "−13 °C, f 0.15":{M1:[7249,7249,7225],CAK:[9851,9813,9827]},
@@ -528,6 +531,7 @@
         "−27 °C, f 0.15":{M1:[9923,9923,9923],CAK:[6651,6627,6711]}
       }},
     "0.35 µm cells":{boxes:[96,112,128],widthUm:[33.6,39.2,44.8],seed:"seed radius 17 cells",
+      reach:"55 cells across, which at this cell size is 19.25 micrometres — the registered target was 54 cells, and every run at this spacing stopped one cell past it",
       counts:{
         "−31 °C, f 0.60":{M1:[77021,77873,78281],CAK:[69383,69863,70007]},
         "−13 °C, f 0.15":{M1:[56671,57079,57343],CAK:[84501,84669,85533]},
@@ -608,7 +612,7 @@
     var bothPass=rows.every(function(r){return !r.fail;});
     wrap.appendChild(Part2.el("p","p2-note",
       bothPass
-        ? "Both steps pass here. That is one check point out of the sixty-four; the registered rule needed every one of them."
+        ? "Both steps pass here. That is two of the sixty-four comparisons; the registered rule needed every one of them."
         : "One step over the line is enough: the registered rule was every comparison, at both spacings."));
     wrap.appendChild(Part2.el("p","p2-note",
       "Habit class at all three box sizes: neutral. Every one of the 80 ladder runs came out neutral "
@@ -617,8 +621,8 @@
 
     stage.appendChild(Part2.el("p","p2-note",
       "The vertical axis is zoomed to the three counts and does not start at zero — a "
-      +"half-percent move would be invisible if it did. "+sp.seed+"; both arms grow the same "
-      +"18.9-micrometre crystal at the same four check points."));
+      +"half-percent move would be invisible if it did. "+sp.seed+". Both arms grow to the same "
+      +"stopping size at the same four check points: "+sp.reach+"."));
   }
 
   Part2.tabs(controls,POINTS,function(n){pick.point=n;draw();},{initial:POINTS[2]});
@@ -651,7 +655,7 @@
     {id:"G6-NARRATIVE",kind:"record",plain:"Does the three-arm report still contain all eight required sentences, and still print 3/90, 54/78, 54/90, 5/78 and 5/90?"},
     {id:"G6-CLOSURE-LABELS",kind:"record",plain:"Do the decision record, the progress index and the charter all still say “not computed by decision 0045” about the three abandoned obligations?"},
     {id:"G6-DEFERRALS",kind:"record",plain:"Is the held-out lock still marked not eligible to pass, and does the narrative still name the obligations handed to Phase 7?"},
-    {id:"G6-PARAMETER-TABLE",kind:"record",plain:"Does the parameter table still match the fingerprint frozen at the end of Phase 6?"},
+    {id:"G6-PARAMETER-TABLE",kind:"record",plain:"Does the parameter table still match the fingerprint decision 0040 pinned to it?"},
     {id:"G6-HISTORY",kind:"record",plain:"Is the withdrawn early run still different from the live arm 1, and the stranded copy of arm 2 still byte-identical to it?"}
   ];
 
@@ -670,29 +674,21 @@
   function evaluate(s){
     var out={};
     CRITERIA.forEach(function(c){out[c.id]={pass:true,reasons:[]};});
-    if(!s.treeClean) out["G6-TREE-CLEAN"]={pass:false,reasons:["tracked tree must be clean at gate time"]};
-    if(s.ladderReportVerdict!=="no-pass"){
-      out["G6-LADDER"]={pass:false,reasons:["report.overallVerdict is not the published no-pass"]};
-    }
+    /* accumulate: two different edits can trip the same criterion, and both
+       reasons have to survive */
+    function fail(id,reason){out[id].pass=false;out[id].reasons.push(reason);}
+    if(!s.treeClean) fail("G6-TREE-CLEAN","tracked tree must be clean at gate time");
+    if(s.ladderReportVerdict!=="no-pass") fail("G6-LADDER","report.overallVerdict is not the published no-pass");
     if(!s.ladderRowsIntact){
-      out["G6-LADDER"]={pass:false,reasons:[
-        "rows.jsonl bytes do not match the frozen identity",
-        "report.rowsSha256 does not bind the rows bytes",
-        "the rows re-derive a PASS, contradicting the published no-pass verdict"
-      ]};
+      fail("G6-LADDER","rows.jsonl bytes do not match the frozen identity");
+      fail("G6-LADDER","report.rowsSha256 does not bind the rows bytes");
+      fail("G6-LADDER","the rows re-derive a PASS, contradicting the published no-pass verdict");
     }
-    if(s.closureLabel!=="not computed by decision 0045"){
-      out["G6-CLOSURE-LABELS"]={pass:false,reasons:["the closure sentence is missing from the decision record, the progress index or the charter"]};
-    }
-    if(s.passEligible!==false){
-      out["G6-DEFERRALS"]={pass:false,reasons:["the lock no longer reads passEligible=false"]};
-    }
-    if(!s.narrativeIntact){
-      out["G6-NARRATIVE"]={pass:false,reasons:["a required narrative sentence or bold count is missing"]};
-    }
-    if(!s.manifestIntact){
-      out["G6-MANIFEST-PHASE6"]={pass:false,reasons:["a registered file no longer matches its pinned bytes"]};
-    }
+    if(s.closureLabel!=="not computed by decision 0045")
+      fail("G6-CLOSURE-LABELS","the closure sentence is missing from the decision record, the progress index or the charter");
+    if(s.passEligible!==false) fail("G6-DEFERRALS","the lock no longer reads passEligible=false");
+    if(!s.narrativeIntact) fail("G6-NARRATIVE","a required narrative sentence or bold count is missing");
+    if(!s.manifestIntact) fail("G6-MANIFEST-PHASE6","a registered file no longer matches its pinned bytes");
     return out;
   }
 
@@ -738,7 +734,7 @@
   }
 
   (function(){
-    var root=document.getElementById("c30-label-stack"),b=box(root);
+    var root=document.getElementById("c30-label-stack"); if(!root) return; var b=box(root);
     var rows=[
       ["Procedure","complete","The registered closure work reached its terminal rule."],
       ["Numerics","NO-PASS","The tested resolutions did not establish numerical adequacy."],
@@ -751,14 +747,14 @@
   })();
 
   (function(){
-    var root=document.getElementById("c30-profiles"),b=box(root);
+    var root=document.getElementById("c30-profiles"); if(!root) return; var b=box(root);
     var profiles={Realistic:["Beautiful ice, few controls","Renders a curated run without changing it."],Scientific:["Fields, rates, and validity controls","Lets a learner inspect why the crystal grew."],Designer:["Intent: widen, branch, seal","Compiles an intent into the same environment schedule."],Developer:["Deterministic scene replay","Uses the same checkpoint and schedule for explainers."]};
     function draw(name){clear(b.stage);var wrap=el("div","c30-card c30-profile");var snow=el("div","c30-snow","❄");snow.setAttribute("aria-hidden","true");var text=el("div");text.appendChild(el("span","c30-kicker",name+" profile · planned"));text.appendChild(el("div","c30-answer",profiles[name][0]));text.appendChild(el("p","c30-note",profiles[name][1]));text.appendChild(el("p","c30-code","same saved schedule · same solver state · illustrative only: no Phase 7 artifact exists"));wrap.appendChild(snow);wrap.appendChild(text);b.stage.appendChild(wrap);}
     modes(b.controls,Object.keys(profiles),draw);
   })();
 
   (function(){
-    var root=document.getElementById("c30-debts"),b=box(root);
+    var root=document.getElementById("c30-debts"); if(!root) return; var b=box(root);
     var items={"Product layer":["Make the instrument usable","Profiles, timeline, rendering, save/load, comparison, gallery, export."],"GPU parity":["Test whether the fast engine agrees within a stated tolerance","Port the v6 symmetry order to the graphics-card shader, derive a binary32 error envelope against the float64 oracle, then run at least 200 automated preview-budget runs, intended to be all 204 points for each of the three arms."],"Held-out tests":["Face genuinely unseen evidence","Keep growth rate, size-dependent habit, pressure, and history families separate and apparatus-matched."]};
     function draw(name){clear(b.stage);var c=el("div","c30-card");c.appendChild(el("span","c30-kicker","Phase 7 obligation · not started"));c.appendChild(el("div","c30-answer",items[name][0]));c.appendChild(el("p","c30-note",items[name][1]));c.appendChild(el("p","c30-note","Completing this job would not award the other two jobs' credit."));b.stage.appendChild(c);}
     modes(b.controls,Object.keys(items),draw);

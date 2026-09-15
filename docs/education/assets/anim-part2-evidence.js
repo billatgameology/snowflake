@@ -10,8 +10,7 @@
                        thirteen criteria; Chapter 33 for gate10's seven.
      Part2.dotStrip    one dot per recorded comparison, in lanes, on a log axis,
                        with a registered criterion line and an optional what-if
-                       line.  Chapter 33 mounts it for the 64 ladder rows;
-                       Chapter 32 for the six per-history contests.
+                       line.  Chapter 33 mounts it for the 64 ladder rows.
      Part2.barRows     labelled horizontal bars with an optional rule line, used
                        wherever a handful of recorded numbers need comparing.
      Part2.recordCard  a titled card of field/value rows, for laboratory records
@@ -59,22 +58,6 @@
     return select;
   }
 
-  /**
-   * A 32-bit FNV-1a hash of a string.
-   *
-   * This is a LABELLED STAND-IN for SHA-256, not a verification: it exists so a
-   * demo can show that changing a byte changes a fingerprint. Every caller must
-   * say so on the page. (Viz has an internal hashString, but it is not
-   * exported, so the stand-in lives here where it can carry its own warning.)
-   */
-  function hash32(s) {
-    var h = 0x811c9dc5;
-    for (var i = 0; i < s.length; i++) {
-      h ^= s.charCodeAt(i);
-      h = Math.imul(h, 0x01000193);
-    }
-    return (h >>> 0).toString(16).padStart(8, "0");
-  }
 
   /* ------------------------------------------------------------- lamps --- */
 
@@ -138,6 +121,7 @@
     var applied = [];
     var sorted = {};          // criterion id -> "record" | "nature"
     var revealed = !spec.predict;
+    var sabotageButtons = [];
 
     function render() {
       clear(stage);
@@ -178,9 +162,11 @@
 
       if (!revealed) {
         var n = Object.keys(sorted).length;
-        stage.appendChild(el("p", "p2-note", "Sorted " + n + " of " + spec.criteria.length + "."));
+        stage.appendChild(el("p", "p2-note", "Sorted " + n + " of " + spec.criteria.length +
+          ". The sabotage buttons wake up once you reveal."));
         return;
       }
+      sabotageButtons.forEach(function (b) { if (!b.dataset.used) b.disabled = false; });
 
       var passes = spec.criteria.filter(function (c) { return results[c.id].pass; }).length;
       var exit = allPass ? 0 : 1;
@@ -195,28 +181,36 @@
       stage.appendChild(card);
     }
 
+    var revealButton = null;
     if (spec.predict) {
-      Viz.button(controls, "Reveal the lamps", function (b) {
+      revealButton = Viz.button(controls, "Reveal the lamps", function (b) {
         revealed = true;
         b.disabled = true;
-        var wrong = spec.criteria.filter(function (c) { return sorted[c.id] === "nature"; }).length;
+        /* score each sort against the criterion's own kind, rather than assuming
+           every wrong answer is "nature" */
+        var wrong = spec.criteria.filter(function (c) {
+          return sorted[c.id] && sorted[c.id] !== c.kind;
+        }).length;
         render();
         stage.insertBefore(el("p", "p2-note",
           wrong === 0
             ? "Every one of the " + spec.criteria.length + " checks asks about the record. None asks about nature."
-            : "You filed " + wrong + " under nature. The record's answer: all " +
+            : "You filed " + wrong + " of them the other way. The record's answer: all " +
               spec.criteria.length + " ask about the record; not one asks about nature."),
           stage.firstChild);
       });
     }
 
     spec.sabotage.forEach(function (s) {
-      Viz.button(controls, s.label, function () {
+      var b = Viz.button(controls, s.label, function () {
+        if (!revealed) return;              // sabotage is meaningless behind the sorting screen
         s.apply(state);
-        applied.push(s.note || s.label);
-        revealed = true;
+        if (applied.indexOf(s.note || s.label) < 0) applied.push(s.note || s.label);
+        b.disabled = true;
         render();
       });
+      b.disabled = !revealed;
+      sabotageButtons.push(b);
     });
 
     Viz.button(controls, "Reset to the committed record", function () {
@@ -224,6 +218,8 @@
       applied = [];
       sorted = {};
       revealed = !spec.predict;
+      if (revealButton) revealButton.disabled = false;
+      sabotageButtons.forEach(function (b) { b.disabled = !revealed; });
       render();
     });
 
@@ -247,9 +243,9 @@
    * pass null to hide it. Selecting a dot prints its detail underneath.
    */
   function dotStrip(container, spec) {
-    var W = 720;
+    var W = 760;
     var laneH = 44;
-    var padL = 168, padR = 26, padT = 18, padB = 52;
+    var padL = 212, padR = 26, padT = 18, padB = 52;
     var H = padT + spec.lanes.length * laneH + padB;
     var selected = null;
     var svg = null;
@@ -263,6 +259,9 @@
         label: spec.label,
         desc: spec.desc,
       });
+      /* the dots below are focusable, so this must not stay role="img": that
+         would make the whole chart one opaque graphic to a screen reader */
+      svg.setAttribute("role", "group");
       container.insertBefore(svg, detail);
 
       var zeroX = padL - 34;
@@ -300,10 +299,10 @@
           return r.value > (whatIf == null ? spec.criterion.value : whatIf);
         }).length;
 
-        var lt = Viz.svgEl("text", { class: "tick-text", x: padL - 56, y: y - 3, "text-anchor": "end" });
+        var lt = Viz.svgEl("text", { class: "tick-text", x: padL - 62, y: y - 3, "text-anchor": "end" });
         lt.textContent = lane.label;
         svg.appendChild(lt);
-        var lc = Viz.svgEl("text", { class: "tick-text", x: padL - 56, y: y + 12, "text-anchor": "end" });
+        var lc = Viz.svgEl("text", { class: "tick-text", x: padL - 62, y: y + 12, "text-anchor": "end" });
         lc.textContent = fails + " of " + rows.length + " over the line";
         lc.setAttribute("fill", fails ? c.critical : c.good);
         svg.appendChild(lc);
@@ -315,8 +314,10 @@
         rows.forEach(function (r, ri) {
           var over = r.value > (whatIf == null ? spec.criterion.value : whatIf);
           var px = r.value <= 0 ? zeroX : x(Math.max(spec.axis.min, r.value));
-          /* deterministic jitter so coincident dots stay countable */
-          var dy = ((ri % 3) - 1) * 5;
+          /* deterministic spread across the lane so coincident dots stay countable:
+             the eight exactly-zero rows must render as eight dots, not three */
+          var span = Math.min(14, 28 / Math.max(1, rows.length));
+          var dy = (ri - (rows.length - 1) / 2) * span;
           var dot = Viz.svgEl("circle", {
             cx: px, cy: y + dy, r: selected === r ? 7 : 5,
             fill: over ? c.critical : c.good,
@@ -359,7 +360,7 @@
       row.appendChild(el("strong", null, r.label));
       var track = el("div", "p2-bar__track");
       var fill = el("div", "p2-bar__fill" + (r.fail ? " is-fail" : "") + (r.muted ? " is-muted" : ""));
-      fill.style.width = Math.max(0.6, Math.min(100, (r.value / max) * 100)) + "%";
+      fill.style.width = (r.value > 0 ? Math.max(0.6, Math.min(100, (r.value / max) * 100)) : 0) + "%";
       track.appendChild(fill);
       if (o.rule) {
         var mark = el("div", "p2-bar__rule");
@@ -421,7 +422,6 @@
     el: el,
     clear: clear,
     tabs: tabs,
-    hash32: hash32,
     lamp: lamp,
     gateBoard: gateBoard,
     dotStrip: dotStrip,
