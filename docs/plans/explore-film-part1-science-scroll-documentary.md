@@ -3,7 +3,7 @@
 - **Phase:** Maker-directed Journey/media exploration, outside Phase 6 scope (precedents:
   [explore-journey-scroll-documentary.md](explore-journey-scroll-documentary.md),
   [explore-education-ch1-video.md](explore-education-ch1-video.md))
-- **Status:** WP0A complete; WP1 script/score drafted (maker read pending); WP2 text review resolved
+- **Status:** WP0A technically checked; visual revision needed before expansion; WP1 script/score drafted (maker read pending); WP2 text review resolved
 - **Started:** 2026-09-14
 - **Last touched:** 2026-09-15 by OpenAI Codex (authorized implementation and full-script draft)
 - **Review:** [findings and dispositions](../reviews/film-part1-plan-review-2026-09-15.md),
@@ -1223,7 +1223,22 @@ Closeout checks for the documentation/score boundary: `node --check scripts/buil
 `node scripts/build-part1-production-score.mjs --check`, `node scripts/lint-rule7.mjs`, and
 `git diff --check`. These are not a scientific suite or phase-gate claim.
 
+## Requested visual inspection — 2026-09-15
+
+The maker described the prototype as “just okay” and requested actual visual inspection.
+The [visual review](../reviews/film-part1-visual-review-2026-09-15.md) records live desktop/phone
+observations, exported frame comparisons, reviewer context and limits. The technical checks
+do not establish the desired cinematic quality. Revise the short prototype's attention hierarchy,
+corner progression, cut continuity, ending composition and phone presentation before propagating
+that pattern into the full story. No website or score changes were made in the inspection.
+Keep the approved story/source contract and existing runtime; this is visual execution work,
+not another scene-plan pass or an expansion of scientific claims.
+
 ## Tried and rejected
+
+- **Treat functional checks as visual acceptance.** The maker's viewing and the requested
+  visual pass exposed presentation defects the transport/export checks did not cover. Inspect
+  the actual shots and reading experience before multiplying the diagram layout.
 
 - **Assume the renderer is ready when its worker returns.** R3F mounts later; an explicit
   driver-ready handshake and texture-ready draw are required before capture acknowledgement.

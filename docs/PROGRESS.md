@@ -37,6 +37,12 @@ detail.
   a provisional 2,120-second (35:20) cut; these are draft arithmetic, not recorded delivery.
   Repro: `node scripts/build-part1-production-score.mjs --check`. The maker's aloud read and
   recording remain unperformed; full-story visual expansion is still future work.
+  The subsequent [requested visual inspection](reviews/film-part1-visual-review-2026-09-15.md)
+  finds the prototype below the documentary's visual ambition: competing playback/transcript
+  focus, repetitive diagram framing, unmatched cuts, an exposed rectangular ending backdrop,
+  and weak phone still/seek presentation. Functional checks are not visual acceptance.
+  No website changes were made in that inspection. Next: revise this short sequence before
+  propagating its presentation pattern across the full story.
 
 - **Part 1 film plan reviewed and revised (2026-09-15).** The maker's latest direction
   (`JTS-M009`) uses education chapters 1–13 as flexible source material for a documentary under
@@ -458,12 +464,16 @@ the package-specific prerequisites in its charter amendment and execution plan. 
 
 ## Next step
 
-### Part 1 film — maker read-through and full-story visual expansion
+### Part 1 film — improve the prototype's visual storytelling first
 
 On `explore/film-part1-plan`, open the
 [execution record](plans/explore-film-part1-science-scroll-documentary.md#execution-record--2026-09-15)
-and [full script](video/part1-script.md), whose
-[source review](reviews/film-part1-script-review-2026-09-15.md) is resolved. Run
+and the [visual findings](reviews/film-part1-visual-review-2026-09-15.md). The next website edit
+should address focused playback, the corner close-up/continuity, the ending rectangle and phone
+reading/seek behavior in the existing prototype before bulk WP4/WP5 expansion. This needs no new
+scene-plan review. Preserve the current score/source qualifications and frame-exact runtime.
+The [full script](video/part1-script.md) has a resolved
+[source review](reviews/film-part1-script-review-2026-09-15.md). Run
 `node scripts/build-part1-production-score.mjs --check` to verify the generated `productionDraft`
 and its script/review identities. The maker's aloud read is the remaining WP1 input; use it to
 adjust speech slots before final recording, checking affected claims if dialogue changes.
