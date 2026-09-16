@@ -24,8 +24,11 @@ detail.
   The [implementation slice](plans/explore-journey-science-series.md#implementation--separate-series-home-and-episode-1)
   connects the existing Run B Hero growth to the exact Hero1 snowfall, then the title and
   Episode 1. New website routes are `/series` and `/series/episode-1`; existing film artifacts
-  and routes stay intact. Next: implement the opening while drafting/source-checking E01, then
-  complete the episode's scroll/playback and inspect the actual transitions in the browser.
+  and routes stay intact. The [E01 narration draft](video/science-series-e01-script.md) has a
+  resolved bounded Chapter 1/4 source review, including source-section dispositions. The new
+  routes and complete reader/player are implemented but still undergoing browser/review fixes;
+  this is not visual acceptance. Next: finish transition, responsive and playback QA, then
+  record the exact website commit/checks. Maker narration remains later work.
 
 - **Science-series editorial rework prepared (2026-09-15).** Maker feedback
   [JTS-M010/M011](journey/TRANSCRIPT.md#jts-m010--the-format-works-the-content-needs-rethinking)

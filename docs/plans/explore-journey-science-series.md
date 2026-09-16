@@ -246,7 +246,8 @@ These checks protect factual and technical quality. They do not compute or certi
   methods, and visual attraction as a first-class production requirement.
 - [ ] Browse the animation/treatment library alongside drafting; build E01's shot shortlist and
   identify where reuse, adaptation or new visual work best serves the story.
-- [ ] Draft E01's full script and section-level source/coverage table, including a read-through.
+- [x] Draft E01's full script and section-level source/coverage table; bounded source review is
+  recorded in `docs/video/science-series-e01-script.md`. Spoken read-through remains a narration task.
 - [ ] Produce and review one representative crystal/mechanism sequence against the revised story.
 - [ ] Adapt the existing runtime to episode-level navigation and score ownership, using an
   implementation plan committed before code changes. Reuse the current player contracts.
