@@ -19,13 +19,22 @@ detail.
 
 ## Current state
 
-- **Continuous series/full E01 narration revision in progress (2026-09-16).** The maker
-  accepts the opening handover, reports dark rendering artifacts and unclear episode growth,
-  and asks for one continuous home-to-episode auto-scroll with manual takeover. The
+- **Continuous series/full E01 narration implemented (2026-09-16).** Website
+  `explore/film-part1@fd4ee2f2c61004dab8629b5920372b418e3a4767` preserves the opening
+  handover, repairs the observed dark streaks, makes episode growth visible with fixed
+  framing, and places home/E01 in one document with narrated auto-scroll/manual takeover. The
   [bounded revision](plans/explore-journey-science-series.md#continuous-series-renderer-repair-and-full-e01-voice--2026-09-16)
   also authorizes full unchanged E01 narration using supplied voice `yUj9r3iC7zOlXqMJy2qy`,
-  visibly labeled AI-generated. Prior film/sample assets remain intact. Next: render diagnosis,
-  continuous runtime implementation, source-bound synthesis and focused visual/playback review.
+  visibly labeled AI-generated. Source-bound synthesis is complete: the website's
+  `docs/series-narration/report.json` records all 10 sections, 844.6750120000002 seconds,
+  master SHA-256 `8d734b20709c0eda4081b28a7050a29b5fc40da969d7cd3b820b3a672c23214c`.
+  Independent source/hash/decode review found no missing stored text; this is not human
+  listening acceptance. `docs/series-tests.tap` at that website commit records 52 focused
+  passes; TypeScript/build and bounded desktop/phone visual and keyboard/wheel checks pass.
+  [Review/edit record](reviews/science-series-continuous-e01-2026-09-16.md) names exact
+  scope, repairs, hot-reload observation and untested device/listening boundaries. Prior
+  film/sample assets remain intact. Next: maker uninterrupted listening and real-phone check;
+  no regeneration, later episode, export or publication is implied.
 
 - **E01 opening voice sample implemented (2026-09-15).** Website
   `explore/film-part1@d36ba9eca25b8cef108afafbbe14789d4b585873` includes the requested
@@ -574,28 +583,29 @@ the package-specific prerequisites in its charter amendment and execution plan. 
 
 ## Next step
 
-### Science series — review the implemented first episode, then align narration
+### Science series — maker listening and physical-device acceptance
 
-The separate home and full E01 visual draft are built. Do not redraft or rebuild them from
-the earlier planning-only entry. Open the [active plan](plans/explore-journey-science-series.md),
-[script](video/science-series-e01-script.md) and [implementation review](reviews/science-series-home-e01-2026-09-15.md).
-The current website is `explore/film-part1@d36ba9eca25b8cef108afafbbe14789d4b585873` in
-`/Users/clipper/github/snowcrystal_website-film-part1`. Reuse its retained server and open
-`http://127.0.0.1:5185/series/episode-1` and choose **Hear the opening sample** (or Play at
-the start) for the new Isla Sterling take. It pauses after the sample; Play then continues
-silently. Final maker narration and full editorial viewing/read-through remain later.
-Exercise a real trackpad/touch interruption: keyboard interruption passed,
-but computer-use scrolling did not generate the needed wheel event. Do not claim that
-physical-input path has passed. Record changes by E01 section ID.
+Open the [active plan](plans/explore-journey-science-series.md), unchanged
+[script](video/science-series-e01-script.md) and current
+[implementation review](reviews/science-series-continuous-e01-2026-09-16.md).
+Website `explore/film-part1@fd4ee2f2c61004dab8629b5920372b418e3a4767` is in
+`/Users/clipper/github/snowcrystal_website-film-part1`. Reuse port 5185 and open
+`http://127.0.0.1:5185/series`; click Episode 01 to descend into full narrated playback.
+Scrolling takes over; Play resumes there. `/series/episode-1` enters the same document at
+E01 without autoplay. All source words are retained, and actual audio timing supersedes
+the earlier silent rehearsal/opening-only timeline. Do not regenerate the completed takes.
 
-Website `docs/science-series.md` contains the shot selection, runtime contract, review repairs
-and exact check commands. After an approved script edit, run
+Next is an uninterrupted maker listening pass, especially pronunciation and section joins,
+plus a physical-phone/iOS/touch check. Desktop wheel and keyboard takeover were observed;
+phone-sized emulation is not a physical-device result. Record feedback by E01 section ID.
+If the recorded hot-reload GPU-context issue recurs on cold load, inspect Hero1 engine
+boot/dispose ownership; do not silently claim a blanket clean-device-loss result.
+
+Website `docs/science-series.md` names exact focused check commands. After an approved script edit, run
 `node scripts/import-series-episode.mjs /Users/clipper/github/snowflake/docs/video/science-series-e01-script.md`
-from that website and run its focused tests/build. The current timing is provisional, not
-an episode-length constraint; the maker records narration later. The old voice auditions
-do not authorize synthesis of this series. The new request separately authorizes the bounded
-opening sample above, now aligned and implemented, not full-episode synthesis. No final
-full-episode narration alignment or E01 MP4 exists.
+from that website, then revise affected alignment/voice only with an explicit generation
+decision and run focused tests/build. The generated duration is not a target for other
+episodes. No E01 MP4 exists; a possible later maker recording remains a separate production input.
 
 Keep `http://127.0.0.1:5185/film/part-1`, its earlier edition routes, and
 `export/part1-full-final/part1-visual-film.mp4` intact. The new series is additive.

@@ -349,6 +349,15 @@ with full labeled AI narration and aligned visuals, yields immediately to manual
 the reported renderer/growth defects have a documented observed repair. Maker listening and
 editorial acceptance remain separate; the earlier film and source science stay intact.
 
+Implemented at website `fd4ee2f2c61004dab8629b5920372b418e3a4767`.
+The [implementation review](../reviews/science-series-continuous-e01-2026-09-16.md) records
+bounded before/after visual observations, continuous-runtime checks, review repairs and
+limits. Website `docs/series-narration/report.json` binds the ten complete takes and joined
+844.6750120000002-second master; `docs/series-tests.tap` records 52 focused passes.
+TypeScript/build and full audio decode pass. The old film and sample remain intact. This
+revision's implementation criteria are complete; maker listening, physical-device coverage
+and any later narration/export are not marked accepted.
+
 ### Authorized E01 opening voice sample — 2026-09-15
 
 The maker now asks to add ElevenLabs audio to E01 as a sample. This specifically supersedes
@@ -399,11 +408,20 @@ audio-generation or scientific checks were run for this prose-only rework.
 
 - Exact episode boundaries and lengths: resolve by drafting and watching, not a preset duration.
 - Crystal appearance: approve a representative treatment before scaling it across episodes.
-- Final narration: maker recording remains the default; the two voice auditions settle nothing.
+- Final narration: E01 now has the specifically requested full AI sample voice; maker listening
+  and a possible later maker recording remain separate from technical playback completion.
 - The later model-building story: identify its own source horizon before expanding beyond the
   current science series. Publication and release identities remain separate decisions.
 
 ## Tried and rejected
+
+- **Swap routes/readers to enter watch mode.** It breaks the continuous descent and can jump
+  on takeover. The home and source article now remain mounted in one document.
+- **Track the crystal radius while teaching growth.** Keeping its screen size constant hid
+  the increasing radius. E01 uses fixed framing; the accepted home camera remains separate.
+- **Treat a denser ray march as the first artifact fix.** The accepted catalog diagnosis
+  identified invalid normals/far-crossing sampling; the scoped shading repair leaves geometry
+  and first-hit budgets intact.
 
 - **Use a single-film runtime as the content budget.** Maker direction removes the ceiling; keep
   the causal and experimental steps whose removal made the pilot feel thin.
