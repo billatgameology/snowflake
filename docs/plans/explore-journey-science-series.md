@@ -314,6 +314,27 @@ selection remains active for later episodes, not a requirement to insert unrelat
 
 ## Review and limits
 
+### Authorized E01 opening voice sample — 2026-09-15
+
+The maker now asks to add ElevenLabs audio to E01 as a sample. This specifically supersedes
+the no-new-generation boundary above for one short opening take only, using the latest requested
+library voice `qSR2T7SqN7Pcd0YpO3Vd` (Isla Sterling). Final maker narration remains the default;
+this does not authorize synthesis of the full episode or series.
+
+1. Generate E01-01's first two unchanged narration paragraphs as a contiguous opening excerpt,
+   with character timing from ElevenLabs. Read the maker's existing key only in the local
+   generation process; never put it in browser code, output, Git, or a receipt.
+2. Retain the MP3, non-secret request/provenance and alignment in the website, separate from
+   the previous film auditions. Use the actual sample clock and aligned captions in its span;
+   keep the remainder explicitly silent/provisional. No automatic audio on page load.
+3. Integrate Play/Pause, seek, rate, read/scroll interruption, hidden-tab pause and cleanup;
+   cancel stale asynchronous play requests. Mark the voice as AI-generated sample narration.
+4. Verify MP3 duration/complete decode, focused timing/transport tests, typecheck/build and
+   the requested browser playback/visual checks. Record limits and leave the old film unchanged.
+
+Done means the opening sample is audible from E01's user-initiated player, stays synchronized
+through normal controls, and its boundary is clear. No publication or full-episode audio/export.
+
 OpenAI Codex `story_review`, with inherited shared context and exact model ID unavailable,
 independently proposed question-led boundaries from the chapters and identified prerequisite,
 duplication and delayed-payoff risks. It did not edit files, run a browser, recheck every cited

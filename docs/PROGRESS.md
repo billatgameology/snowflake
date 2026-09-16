@@ -19,6 +19,12 @@ detail.
 
 ## Current state
 
+- **E01 opening voice sample authorized and in progress (2026-09-15).** The maker requests
+  ElevenLabs audio as a sample. The [bounded addition](plans/explore-journey-science-series.md#authorized-e01-opening-voice-sample--2026-09-15)
+  uses the latest requested Isla Sterling voice for the first two E01 narration paragraphs,
+  with actual audio timing and player integration. No full-episode synthesis, final narrator
+  choice or old-film changes are authorized. Next: generate one take, integrate and verify it.
+
 - **Separate series home and complete E01 visual draft implemented (2026-09-15).** Website
   `explore/film-part1@8c336ff0dcd88e51d6bfc8308a57eda8782b34a4` adds `/series` and
   `/series/episode-1`, preserving the old film. The home joins Run B growth to the actual
@@ -573,7 +579,8 @@ and exact check commands. After an approved script edit, run
 `node scripts/import-series-episode.mjs /Users/clipper/github/snowflake/docs/video/science-series-e01-script.md`
 from that website and run its focused tests/build. The current timing is provisional, not
 an episode-length constraint; the maker records narration later. The old voice auditions
-do not authorize synthesis of this series. No final narration alignment or E01 MP4 exists.
+do not authorize synthesis of this series. The new request separately authorizes the bounded
+opening sample above, not full-episode synthesis. No final narration alignment or E01 MP4 exists.
 
 Keep `http://127.0.0.1:5185/film/part-1`, its earlier edition routes, and
 `export/part1-full-final/part1-visual-film.mp4` intact. The new series is additive.
