@@ -314,6 +314,41 @@ selection remains active for later episodes, not a requirement to insert unrelat
 
 ## Review and limits
 
+### Continuous series, renderer repair and full E01 voice — 2026-09-16
+
+The maker accepts the opening's growth-to-snowfall blend and asks for a continuous downward
+experience, visible crystal growth, removal of black rendering artifacts, and narration of
+the entire unchanged episode using supplied ElevenLabs voice `yUj9r3iC7zOlXqMJy2qy`.
+This request supersedes the prior opening-sample-only generation boundary for E01 only.
+Label the output AI-generated narration; do not represent it as the real person's recording.
+
+1. Preserve the accepted opening transition, old film and previous voice samples. Place E01
+   below the series home in the same document. The episode entry starts a graceful downward
+   transition and narrated auto-scroll, without a hard route replacement. Retain a direct
+   episode URL for sharing/reload and a clear resume control.
+2. Let actual audio time drive the illustrated narrative and document position. Programmatic
+   scroll must not cancel itself; genuine up/down wheel, touch, navigation-key or scrollbar
+   input hands control to manual reading and pauses narration. Resume starts at that position.
+   Keep Pause, seek, rate, reduced-motion/static reading, metadata/error and stale-play safety.
+3. Trace black lines through the actual shared renderer, compare observed before/after views,
+   and apply a presentation-only repair without changing recording bytes or claiming physics.
+   Avoid a global look change to the old film where a scoped series repair suffices.
+4. Use an early-to-late growth interval and steadier camera for E01's opening, timed to speech,
+   so newly added material is visibly distinct from rotation. Preserve reversible seeking.
+5. Generate the complete source-bound E01 narration in bounded source sections, one take per
+   section, using the existing key locally. Preserve requests, character alignment and measured
+   durations without credentials. Resume only completed local work; never automatically repeat
+   an uncertain paid request. Join and align the actual audio; do not impose the old rehearsal
+   runtime or truncate the argument. No new subscription or other episode is authorized.
+6. Run focused product tests, typecheck/build, complete audio decoding and browser/visual review
+   of entry, auto/manual ownership, reverse seek, growth/artifacts and phone layout. Record what
+   actually passed and remaining listening/device limits. No scientific suite, gate or publication.
+
+Done means the complete episode can be entered continuously from the retained opening, plays
+with full labeled AI narration and aligned visuals, yields immediately to manual scroll, and
+the reported renderer/growth defects have a documented observed repair. Maker listening and
+editorial acceptance remain separate; the earlier film and source science stay intact.
+
 ### Authorized E01 opening voice sample — 2026-09-15
 
 The maker now asks to add ElevenLabs audio to E01 as a sample. This specifically supersedes

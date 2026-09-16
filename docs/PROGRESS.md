@@ -19,6 +19,14 @@ detail.
 
 ## Current state
 
+- **Continuous series/full E01 narration revision in progress (2026-09-16).** The maker
+  accepts the opening handover, reports dark rendering artifacts and unclear episode growth,
+  and asks for one continuous home-to-episode auto-scroll with manual takeover. The
+  [bounded revision](plans/explore-journey-science-series.md#continuous-series-renderer-repair-and-full-e01-voice--2026-09-16)
+  also authorizes full unchanged E01 narration using supplied voice `yUj9r3iC7zOlXqMJy2qy`,
+  visibly labeled AI-generated. Prior film/sample assets remain intact. Next: render diagnosis,
+  continuous runtime implementation, source-bound synthesis and focused visual/playback review.
+
 - **E01 opening voice sample implemented (2026-09-15).** Website
   `explore/film-part1@d36ba9eca25b8cef108afafbbe14789d4b585873` includes the requested
   Isla Sterling / ElevenLabs opening sample. Its `docs/series-audio-sample/report.json`
