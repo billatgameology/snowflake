@@ -239,6 +239,12 @@ Decision 0011 resolves the timeline seam left open by decision 0005 D5:
   parallel processes whenever the registered protocol and available memory allow it. Preserve
   deterministic per-case semantics and never alter a pre-registered protocol merely to increase
   concurrency.
+- Before any future nontrivial scientific campaign launches, prove a real pause/resume path on one
+  representative row. Resume must preserve the scientific state needed to continue the same row;
+  record the checkpoint cadence and exact resume command. One representative interruption test is
+  enough unless the checkpoint contract changes. If a runner cannot resume, split the work into
+  short independently terminal stages before launch; a status or observation log is not restart
+  state. Never launch another multi-day non-resumable campaign.
 - Every long evidence launch records the actual process concurrency and exact launch command and
   flags in its bundle; the intended concurrency is not silently substituted for what executed.
 - The current float64 CPU oracle is effectively single-threaded per process, so exploit the host

@@ -1911,6 +1911,12 @@ worker budgets. The second PC's current branch, runtime and available budget rem
 the present concurrency cap is unchanged. The Mac keeps story/website ownership. A concise work
 assignment suffices; no distributed scheduler or new assurance machinery is needed.
 
+Maker direction on 2026-09-16 makes the current lack of restart support unacceptable as precedent:
+before any next nontrivial campaign, demonstrate pause/resume on one representative row and record
+the checkpoint cadence and exact resume command. One interruption test is sufficient unless the
+checkpoint contract changes. If the runner cannot resume, divide the work into short independently
+terminal stages before launch. Do not retrofit or interrupt the two campaigns already in flight.
+
 ### Earlier completed-row observations
 
 `cavity-seed-thick-t4p5-m1` completed with exit 0 and an admissible size-target stop. Its raw

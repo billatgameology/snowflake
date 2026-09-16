@@ -613,6 +613,12 @@ current registered runs. Do not kill, restart, move or delete their execution wo
 discovery runner writes observations/results but no restartable checkpoint, and experimental
 kinetics cannot use ordinary LK resume export. No merge or process interruption has occurred.
 
+**Maker direction, 2026-09-16:** every future nontrivial scientific campaign must demonstrate a
+real pause/resume path on one representative row before full launch, with its checkpoint cadence
+and exact resume command recorded. If resumable state is unavailable, split the work into short
+independently terminal stages first. Status and observation logs do not qualify as restart state.
+This rule does not interrupt or retrofit the two already-running non-resumable campaigns.
+
 The maker's next-wave topology is this 32-logical-processor PC, another 24-core PC, and a Mac mini
 for story/website work. Converge their intended committed changes and retained result ownership
 to one integration baseline before splitting work again. The other machines' current heads and
