@@ -3,8 +3,8 @@
 - **Phase:** Maker-directed Journey/media; no scientific phase or gate change
 - **Status:** series brief and working episode map prepared; episode scripts and revised visuals not yet built
 - **Started:** 2026-09-15
-- **Last touched:** 2026-09-15 by OpenAI Codex
-- **Direction:** [JTS-M010/M011](../journey/TRANSCRIPT.md#jts-m010--the-format-works-the-content-needs-rethinking)
+- **Last touched:** 2026-09-15 by OpenAI Codex (animation-library reuse and rendering freedom added)
+- **Direction:** [JTS-M010/M011](../journey/TRANSCRIPT.md#jts-m010--the-format-works-the-content-needs-rethinking), plus [JTS-M012 visual-production direction](../journey/TRANSCRIPT.md#jts-m012--use-the-animation-library-and-rendering-experiments-freely)
 - **Supersedes:** the single-film editorial constraints in [the Part 1 plan](explore-film-part1-science-scroll-documentary.md), not its recorded implementation or verification results
 
 ## Goal
@@ -37,8 +37,10 @@ qualification aloud. The audience should see why a claim is worth believing and 
 - Maker feedback accepts the format's direction, not every content or crystal-design choice.
   Visual quality and episode storytelling remain open review surfaces.
 - Preserve original browser-generated visuals, source/status labels, accessible static reading,
-  reversible cue state and exact export identity. No external photographs, raster/video generation,
-  archive rights, music, publication or public `SCJ` numbering are newly authorized.
+  reversible cue state and exact export identity. Existing project animations/renderers and new
+  local rendering treatments are in scope under JTS-M012. External photographs, external
+  generative-media services, archive rights, music, publication and public `SCJ` numbering are
+  not newly authorized.
 - Narration follows the revised script. The Lydia and Isla auditions remain voice tests of the
   old opening, not selection of a final narrator or permission to synthesize the series.
 
@@ -130,17 +132,62 @@ proportionate fact check before being imported into a production score.
 
 ### Visual rework
 
+**Visuals are a primary attraction and a core storytelling tool, not a finishing layer.** Under
+[JTS-M012](../journey/TRANSCRIPT.md#jts-m012--use-the-animation-library-and-rendering-experiments-freely),
+draw extensively from the project's generated animation library and rendering experiments. Use
+as much of that material as serves the episodes; there is no clip quota, requirement to show
+everything, or restriction to Run B, one rendering method or the pilot's visual style. Reuse,
+adapt or combine existing treatments, and create new renderers, materials, lighting, camera
+sequences, cutaways or explanatory animations where the story benefits. New rendering work is
+an authorized production option, not an exception requiring another editorial permission.
+
+Start visual development alongside script drafting by browsing the existing library and making
+an episode shot shortlist. Use these discovery points rather than rebuilding known assets:
+
+- [Growth-library usage and rendering controls](../../app/data/README.md), with the browse-first
+  gallery at `http://127.0.0.1:5191/dendrite-styles.html?browse=1` when its local server is running.
+- [Earlier growth library](../../app/data/growth-library.json),
+  [named direct/Compose library](../../app/data/named-growth-library.json),
+  [preview index](../../app/data/growth-previews/index.json) and
+  [named-crystal catalog](../named-snow-crystal-catalog.md) for source identities and choices.
+- [Visual studies](dendrite-visual-studies.md) for Ion Bloom, Timeglass, Two Views and Crystal
+  Cast; [volume rendering](named-crystal-volume-gallery.md) and its
+  [stability correction](named-crystal-volume-stability-correction.md); and the
+  [glass/camera study](explore-gutcheck-growth-glass-camera.md) for additional approaches.
+  Read the applicable implementation record and rejected attempts before adapting a method;
+  a tested method is a candidate, not a fresh acceptance of its appearance in this episode.
+
+The two library manifests above register 151 choices: 52 earlier-library entries and 99 named
+variants (66 direct, 33 Compose). This is an entry count from those manifests, not a count of
+independent solver runs or a new playback-quality verdict.
+
+Keep a lightweight shot table with each episode's script: story purpose, source asset ID/path,
+selected growth interval, treatment/camera, and whether it is reused, adapted or newly created.
+Mark missing local payloads explicitly and use the documented source/restore path; a preview or
+catalog entry alone does not establish that its animation is currently playable. This is a shot
+selection pass, not a new catalog system or a mandate to render the entire library.
+
+Build visual hooks into openings and transitions: striking growth, close inspection, useful
+contrasts and changes of scale should invite the question or reveal the answer. Compare existing
+and new treatments on representative sequences in motion, not just attractive stills. Inspect
+the actual scroll/playback and decoded export for readability, pacing, framing, artifacts and
+visual variety. Keep enough time to see the phenomenon; do not add arbitrary motion or cuts to
+simulate engagement. Scientific labels and explanations should remain legible within the spectacle.
+
 The opening's thick blue-purple model rendering and sparse diagram cards are not the accepted
 quality bar for the series. First test a small set of crystal views: readable thin facets,
 convincing edge lighting, restrained colour, useful depth/scale cues and deliberate comparisons.
 Keep numerical geometry versus display styling explicit; do not alter scientific output to earn
 a prettier validation claim. An illustrative crystal remains illustrative even if it looks real.
+Retain direct-recording versus Compose labels, source conditions and model limits. Arrival colours,
+relief, smoothing, thickness exaggeration and artistic lighting are display treatments, not measured
+ice properties. Do not use a striking model animation as experimental proof of its narrated mechanism.
 
 Distinguish three jobs: a crystal view that rewards observation, a diagram that makes a mechanism
 legible, and a model replay that shows what that model produced. Neither every diagram nor every
 episode needs Run B. Use changing views to answer a question—not to keep a static slide busy.
 Test a representative sequence with temporary voice and pauses before porting the whole inventory.
-No new voice generation or asset acquisition is implied by this planning step.
+No new voice generation or external asset acquisition is implied by this planning step.
 
 ### First episode treatment to draft next
 
@@ -174,6 +221,8 @@ is a pre-narration production candidate when:
 - its question, prerequisites, complete source disposition and ending are written;
 - its script teaches the mechanism through at least one concrete observation, demonstration,
   worked example or experimental comparison, with the relevant limits;
+- its shot table shows deliberate library reuse and treatment selection, with new visual work
+  identified where useful; representative moving sequences have been visually inspected;
 - source/claim review covers the actual revised words and visuals, not the old script's verdict;
 - a complete temporary-voice performance has been watched for pacing and comprehension, and the
   maker has reviewed its story and representative crystal treatment before large-scale production;
@@ -193,6 +242,10 @@ These checks protect factual and technical quality. They do not compute or certi
 - [x] Preserve the new maker brief and supersede the single-film ceiling and editorial structure.
 - [x] Establish the working question-led map, chapter allocations, first-episode treatment and
   specific visual revision target; retain the previous implementation without rewriting it.
+- [x] Record JTS-M012: extensive animation-library reuse, freedom to adapt or create rendering
+  methods, and visual attraction as a first-class production requirement.
+- [ ] Browse the animation/treatment library alongside drafting; build E01's shot shortlist and
+  identify where reuse, adaptation or new visual work best serves the story.
 - [ ] Draft E01's full script and section-level source/coverage table, including a read-through.
 - [ ] Produce and review one representative crystal/mechanism sequence against the revised story.
 - [ ] Adapt the existing runtime to episode-level navigation and score ownership, using an
@@ -248,3 +301,6 @@ audio-generation or scientific checks were run for this prose-only rework.
   coverage; deliberate story selection and a substantive reader preserve engagement and access.
 - **Declare the series finished because its runtime works.** Keep technical completion separate
   from source review, editorial judgment, visual acceptance and the maker's final performance.
+- **Treat the pilot's crystal or renderer as the only visual vocabulary.** The project library
+  and rendering experiments are available for broad reuse; choose or create treatments by their
+  storytelling job, without forcing every available animation into the series.

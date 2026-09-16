@@ -251,6 +251,25 @@ retaining the requirement to be interesting and engaging. The
 It does not select a final narrator, authorize publication, expand the scientific programme,
 or turn a media explanation into new experimental evidence.
 
+### JTS-M012 — Use the animation library and rendering experiments freely
+
+- **Selection:** complete maker turn.
+- **Captured:** 2026-09-15, day precision.
+- **Remembered occurrence:** not applicable; current visual-production direction.
+- **Repository exposure at capture:** local task branch; this task does not push.
+- **Journey publication:** no known release.
+
+```text
+i think there are over 100+ animation generated in the project, feel free to use as much of them as possible, there are also many different rendering methods tested, use any of them or create new ones as needed, the visual is what catch people attention. let's add that to the plan
+```
+
+The maker prioritizes compelling visuals and authorizes broad reuse of the project's generated
+animations and tested rendering methods, plus new rendering treatments as needed for the story.
+The count in this quotation is the maker's estimate, not a newly verified asset census. The
+[series plan](../plans/explore-journey-science-series.md#visual-rework) records discovery and
+selection from the existing catalogs, preserving each asset's model/illustration meaning.
+This turn requests the plan amendment; it does not launch rendering or scientific experiments.
+
 ## Contemporaneous maker quotation
 
 ### JTS-Q001 — Informal Phase 1 play-test response

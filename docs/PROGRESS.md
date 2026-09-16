@@ -25,12 +25,17 @@ detail.
   crystal presentation. The new [active plan](plans/explore-journey-science-series.md) removes
   the single-film runtime ceiling and organizes chapters 1–13 into provisional question-led
   episodes: observations, mechanisms, experiments, counterexamples and scoped conclusions.
+  [JTS-M012](journey/TRANSCRIPT.md#jts-m012--use-the-animation-library-and-rendering-experiments-freely)
+  adds extensive reuse of the animation library and tested renderers, plus new rendering
+  treatments as needed. Visual attraction is a core requirement; the plan now links the source
+  catalogs/render studies and calls for episode shot shortlists and inspection in motion.
   Episode count and lengths remain open. The working map, first-episode treatment and visual
   revision target are written; revised scripts and visuals are not yet produced. The old film
   remains a reusable technical pilot with its identified score/export unchanged, not an
-  approved series edit. Next: draft E01's full script with section-level source disposition,
-  then test a representative crystal/mechanism sequence before expanding production. This
-  documentation change does not alter the website, audio, scientific work or publication state.
+  approved series edit. Next: draft E01's full script with section-level source disposition and
+  browse the visual library alongside it, then test a representative crystal/mechanism sequence
+  before expanding production. This documentation change does not alter the website, audio,
+  scientific work or publication state.
   Documentation checks: `node scripts/lint-rule7.mjs` and `git diff --check` pass; no product or
   scientific suites were needed for this prose-only rework.
 
@@ -395,7 +400,7 @@ detail.
   previews, zero full recording downloads on browse-first entry and no unexpected errors
   (`out/growth-gallery/browser-smoke.json`). Keyboard focus, phone layout, selection, playback,
   filter/scroll retention and broken-image fallback pass. Next: open the gallery link below.
-- **Last updated:** 2026-09-15 (Part 1 film prototype and narration execution; no phase or scientific-evidence change)
+- **Last updated:** 2026-09-15 (science-series editorial and visual-production direction; no phase or scientific-evidence change)
 - **Optional graphs and MP4 export are complete.** Single views offer attached-site,
   interval-attachment and outward-reach graphs with independent toggles and synchronized seeking.
   **Export MP4** creates the current treatment/camera in H.264, with optional graphs. Actual UI
@@ -441,11 +446,12 @@ and every superseded attempt live in the linked plans and historical progress sn
 
 ## Active plan
 
-The [Part 1 film plan](plans/explore-film-part1-science-scroll-documentary.md) is executing on
-`explore/film-part1-plan`, with website implementation isolated on `explore/film-part1`.
-WP0A is checked and committed in the website; WP1's script/score are drafted and WP2's source
-audit is resolved. The aloud maker read is still an open WP1 production input.
-The [plan review](reviews/film-part1-plan-review-2026-09-15.md) holds earlier dispositions.
+The [science-series plan](plans/explore-journey-science-series.md) is the active editorial record
+on `explore/film-part1-plan`, including JTS-M012's library-reuse and rendering direction.
+The [Part 1 plan](plans/explore-film-part1-science-scroll-documentary.md) and its
+[review](reviews/film-part1-plan-review-2026-09-15.md) preserve the earlier technical pilot;
+its website implementation remains isolated on `explore/film-part1`. E01's revised script,
+shot shortlist and representative visual treatment are next, not recording the old full script.
 
 The maker-directed [growth visual studies](plans/dendrite-visual-studies.md), including the
 newer named catalogue, are complete on `fix/animation-queue-windows-spawn` in `snowflake-animation`.
@@ -545,8 +551,12 @@ treatment, coverage requirements and **Tried and rejected**. Draft the first epi
 `docs/video/science-series-e01-script.md`: where the crystal's water comes from, with a visible
 puzzle, the seed/relay explanation, a worked source example and an earned ending. Read the
 relevant chapter sections in full; give every substantive section an explicit source-table
-disposition. Read the script aloud before assigning cue durations. Do not extend the old
-uniform timing or replace compression with more preamble. For these prose changes, run
+disposition. Browse the existing animation and rendering library alongside drafting, using
+`app/data/README.md` and the plan's **Visual rework** links; record the candidate source IDs,
+treatments and story purpose in E01's shot table. Reuse widely and create new treatments where
+needed, rather than defaulting every shot to Run B. Read the script aloud before assigning cue
+durations. Do not extend the old uniform timing or replace compression with more preamble.
+For these prose changes, run
 `node scripts/lint-rule7.mjs` and `git diff --check`; do not launch scientific suites or gates.
 
 Next produce one representative crystal/mechanism sequence and review its complete temporary
