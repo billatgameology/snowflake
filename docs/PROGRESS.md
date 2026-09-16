@@ -19,16 +19,17 @@ detail.
 
 ## Current state
 
-- **New series home and Episode 1 are in progress (2026-09-15).** The maker approves the
-  targeted editorial revisions and requests a separate page/tab, preserving the old film.
-  The [implementation slice](plans/explore-journey-science-series.md#implementation--separate-series-home-and-episode-1)
-  connects the existing Run B Hero growth to the exact Hero1 snowfall, then the title and
-  Episode 1. New website routes are `/series` and `/series/episode-1`; existing film artifacts
-  and routes stay intact. The [E01 narration draft](video/science-series-e01-script.md) has a
-  resolved bounded Chapter 1/4 source review, including source-section dispositions. The new
-  routes and complete reader/player are implemented but still undergoing browser/review fixes;
-  this is not visual acceptance. Next: finish transition, responsive and playback QA, then
-  record the exact website commit/checks. Maker narration remains later work.
+- **Separate series home and complete E01 visual draft implemented (2026-09-15).** Website
+  `explore/film-part1@8c336ff0dcd88e51d6bfc8308a57eda8782b34a4` adds `/series` and
+  `/series/episode-1`, preserving the old film. The home joins Run B growth to the actual
+  Hero1 snowfall, then the title/episode entry. The [source-reviewed script](video/science-series-e01-script.md)
+  is imported into a full scroll/playback reader with owned illustration timing and Still mode.
+  [Review and repairs](reviews/science-series-home-e01-2026-09-15.md) record exact provenance,
+  browser observations and limitations. The website's `docs/series-verification.json` records
+  10 sections / 2,241 narration words / 1145.1363636363637 provisional seconds;
+  `docs/series-tests.tap` records 35 passing focused tests. TypeScript/build passed.
+  Next: maker editorial viewing/read-through, physical scroll interruption check, and later
+  narration alignment. This is a pre-narration draft, not audience acceptance or publication.
 
 - **Science-series editorial rework prepared (2026-09-15).** Maker feedback
   [JTS-M010/M011](journey/TRANSCRIPT.md#jts-m010--the-format-works-the-content-needs-rethinking)
@@ -555,46 +556,32 @@ the package-specific prerequisites in its charter amendment and execution plan. 
 
 ## Next step
 
-### Science series — draft the first investigation
+### Science series — review the implemented first episode, then align narration
 
-The maker has now requested implementation, not another planning pass: follow the
-[home/E01 slice](plans/explore-journey-science-series.md#implementation--separate-series-home-and-episode-1)
-in the existing isolated website worktree. Preserve the old film and existing Hero routes.
+The separate home and full E01 visual draft are built. Do not redraft or rebuild them from
+the earlier planning-only entry. Open the [active plan](plans/explore-journey-science-series.md),
+[script](video/science-series-e01-script.md) and [implementation review](reviews/science-series-home-e01-2026-09-15.md).
+The current website is `explore/film-part1@8c336ff0dcd88e51d6bfc8308a57eda8782b34a4` in
+`/Users/clipper/github/snowcrystal_website-film-part1`. Reuse its retained server and open
+`http://127.0.0.1:5185/series/episode-1` for an uninterrupted editorial viewing and maker
+read-through. Exercise a real trackpad/touch interruption: keyboard interruption passed,
+but computer-use scrolling did not generate the needed wheel event. Do not claim that
+physical-input path has passed. Record changes by E01 section ID.
 
-Open the [active series plan](plans/explore-journey-science-series.md), especially the E01
-treatment, coverage requirements and **Tried and rejected**. Draft the first episode in
-`docs/video/science-series-e01-script.md`: where the crystal's water comes from, with a visible
-puzzle, the seed/relay explanation, a worked source example and an earned ending. Read the
-relevant chapter sections in full; give every substantive section an explicit source-table
-disposition. Browse the existing animation and rendering library alongside drafting, using
-`app/data/README.md` and the plan's **Visual rework** links; record the candidate source IDs,
-treatments and story purpose in E01's shot table. Reuse widely and create new treatments where
-needed, rather than defaulting every shot to Run B. Read the script aloud before assigning cue
-durations. Do not extend the old uniform timing or replace compression with more preamble.
-For these prose changes, run
-`node scripts/lint-rule7.mjs` and `git diff --check`; do not launch scientific suites or gates.
+Website `docs/science-series.md` contains the shot selection, runtime contract, review repairs
+and exact check commands. After an approved script edit, run
+`node scripts/import-series-episode.mjs /Users/clipper/github/snowflake/docs/video/science-series-e01-script.md`
+from that website and run its focused tests/build. The current timing is provisional, not
+an episode-length constraint; the maker records narration later. The old voice auditions
+do not authorize synthesis of this series. No final narration alignment or E01 MP4 exists.
 
-Next produce one representative crystal/mechanism sequence and review its complete temporary
-performance before expanding across episodes. Commit the applicable implementation plan
-before website code changes. Maker narration remains the default; the existing Lydia/Isla
-auditions are comparisons of the old opening, not authority to synthesize the series or a
-reason to record the old full script. No fixed episode count or length is prescribed.
-
-The isolated website is `explore/film-part1@a0163d360bbd252b2cb442465c3e7b23d6c5500c` in
-`/Users/clipper/github/snowcrystal_website-film-part1`. Reuse
-`http://127.0.0.1:5185/film/part-1` and its retained server; check before starting another.
-The MP4 is `export/part1-full-final/part1-visual-film.mp4`, with its VTT and verified report
-beside it. These are local working artifacts, not governed archival/publication claims.
-Keep the original opening and prototype routes/scores intact. The
-[complete pilot review](reviews/film-part1-complete-review-2026-09-15.md) and
-[verification receipt](video/part1-complete-verification.json) describe that implementation,
-not acceptance of the new series. Do not re-render the unchanged pilot.
-
-For future runtime work, read website `docs/film-part1-prototype.md` for the existing
-build/browser/export commands and adapt checks to the new episode score. Preserve pure
-cue-time evaluation, renderer-health and clipping checks, delayed-metadata handling and
-phone/control ownership. Asset writers must finish before browser QA; keep `dist` frozen during
-export. No scientific suite/gate, push, merge or publication is authorized by this media task.
+Keep `http://127.0.0.1:5185/film/part-1`, its earlier edition routes, and
+`export/part1-full-final/part1-visual-film.mp4` intact. The new series is additive.
+Do not re-render the unchanged pilot. Before expanding the treatment across later episodes,
+review the whole first-episode performance and browse the wider library for each new story
+job using `app/data/README.md` and the plan's **Visual rework** links. No fixed episode count
+or runtime is prescribed, and other renderers remain available. No scientific suite/gate,
+push, merge or publication is authorized by this presentation task.
 
 ### Growth visual studies — ready to use
 

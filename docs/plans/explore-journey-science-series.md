@@ -3,7 +3,7 @@
 - **Phase:** Maker-directed Journey/media; no scientific phase or gate change
 - **Status:** separate series home and Episode 1 implementation authorized and in progress; previous film preserved
 - **Started:** 2026-09-15
-- **Last touched:** 2026-09-15 by OpenAI Codex (animation-library reuse and rendering freedom added)
+- **Last touched:** 2026-09-15 by OpenAI Codex (separate home/E01 visual draft implemented and reviewed)
 - **Direction:** [JTS-M010/M011](../journey/TRANSCRIPT.md#jts-m010--the-format-works-the-content-needs-rethinking), plus [JTS-M012 visual-production direction](../journey/TRANSCRIPT.md#jts-m012--use-the-animation-library-and-rendering-experiments-freely)
 - **Supersedes:** the single-film editorial constraints in [the Part 1 plan](explore-film-part1-science-scroll-documentary.md), not its recorded implementation or verification results
 
@@ -248,9 +248,10 @@ These checks protect factual and technical quality. They do not compute or certi
   identify where reuse, adaptation or new visual work best serves the story.
 - [x] Draft E01's full script and section-level source/coverage table; bounded source review is
   recorded in `docs/video/science-series-e01-script.md`. Spoken read-through remains a narration task.
-- [ ] Produce and review one representative crystal/mechanism sequence against the revised story.
-- [ ] Adapt the existing runtime to episode-level navigation and score ownership, using an
-  implementation plan committed before code changes. Reuse the current player contracts.
+- [x] Produce and inspect representative crystal/mechanism scenes against the revised story;
+  bounded browser review and repairs are recorded below, not final audience acceptance.
+- [x] Adapt the existing runtime to episode-level navigation and score ownership, using the
+  implementation plan committed before code changes. Preserve the original film separately.
 - [ ] Review E01 as a pre-narration editorial/visual prototype before multiplying its production
   treatment across the series; later source research and script drafting may proceed meanwhile.
 - [ ] Draft, check and produce later episodes in dependency order, revising boundaries as needed.
@@ -299,6 +300,17 @@ routes. Do not replace `/film/part-1`, its script/score, viewing copy, opening o
 Done for this slice means the new home and complete Episode 1 are usable, the requested original
 scenes are reused, the old film remains available and unchanged, and actual checks/remaining
 narration limits are recorded. A working home alone is not completion of the episode request.
+
+### Implementation result
+
+This local slice is implemented at website commit
+`8c336ff0dcd88e51d6bfc8308a57eda8782b34a4`. The [review record](../reviews/science-series-home-e01-2026-09-15.md)
+binds the source script, product test receipt, exact asset choices, browser inspection and edit
+loop. Website `docs/science-series.md` is the detailed runtime/shot record, with regeneration
+commands. The original film remains unchanged. The episode is a complete pre-narration draft;
+maker read-through, uninterrupted editorial viewing, physical-input checks, actual narration
+alignment and any eventual episode export are not silently marked complete. Wider library
+selection remains active for later episodes, not a requirement to insert unrelated shapes here.
 
 ## Review and limits
 
