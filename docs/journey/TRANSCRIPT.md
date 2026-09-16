@@ -215,6 +215,42 @@ runtime choice and authorizes the requested review and its corrections. The
 revisions. Historical transcript entries remain unchanged; current scientific and education
 status comes from `docs/PROGRESS.md`.
 
+### JTS-M010 — The format works; the content needs rethinking
+
+- **Selection:** complete maker turn.
+- **Captured:** 2026-09-15, day precision.
+- **Remembered occurrence:** not applicable; feedback on the current visual film.
+- **Repository exposure at capture:** local task branch; this task does not push.
+- **Journey publication:** no known release.
+
+```text
+i feel the format is good, the scrolling and video playing is working well. I'm not sure about the content itself. it feels a little slow at first 5 minutes. the ice crystal representation is just okay,&#x20;
+
+i'm not sure if making it condensed into 35 minutes is a good call. i feel a lot of details are missing.
+```
+
+This accepts the format's direction while identifying pacing, depth and crystal-presentation
+concerns. It is not final editorial or visual acceptance of the film.
+
+### JTS-M011 — Let the investigation determine the length; consider multiple episodes
+
+- **Selection:** complete maker turn.
+- **Captured:** 2026-09-15, day precision.
+- **Remembered occurrence:** not applicable; current editorial direction.
+- **Repository exposure at capture:** local task branch; this task does not push.
+- **Journey publication:** no known release.
+
+```text
+let's rework this as, what if we can take all the time we need as long as content is interesting and engaging. it could be a multi episode story and that relieves the need to compress, but be thorough just like our experiment
+```
+
+This supersedes JTS-M009's total-runtime ceiling and the single-film compression choice. It
+authorizes reworking the science story with flexible episode boundaries and durations, while
+retaining the requirement to be interesting and engaging. The
+[science-series plan](../plans/explore-journey-science-series.md) records the working structure.
+It does not select a final narrator, authorize publication, expand the scientific programme,
+or turn a media explanation into new experimental evidence.
+
 ## Contemporaneous maker quotation
 
 ### JTS-Q001 — Informal Phase 1 play-test response

@@ -95,13 +95,20 @@ or call to action for every outlet.
 
 ## Living scroll documentary and narrative score
 
-The long-horizon synthesis is a continuous, chaptered scroll story and a documentary generated from
-the same approved **narrative score**. It is intended to follow the programme through Phase 10;
-Phase 6 is one major act, not the terminal chapter. Media work may proceed in parallel with the
-scientific roadmap, but every release names the exact story and scientific horizon its sources
-actually cover. Phases 8 and 9 are chartered and complete, Phase 7 is independently eligible but
-unstarted, Phase 6 remains active, and Phase 10 is uncharted and inactive. This media record does
-not start or reopen a phase or promote any scientific claim.
+The long-horizon synthesis is a chaptered scroll story and documentary or documentary series
+generated from the same approved **narrative score**. The larger project journey retains its
+intended Phase 10 horizon; Phase 6 is one major act, not a required terminal chapter. Media work
+may proceed alongside science, but every release names the exact story and scientific horizon
+its sources actually cover. Current phase status comes from [PROGRESS](../PROGRESS.md), not this
+media specification. This record does not start or reopen a phase or promote a scientific claim.
+
+For the science story sourced from chapters 1–13, [JTS-M011](TRANSCRIPT.md#jts-m011--let-the-investigation-determine-the-length-consider-multiple-episodes)
+supersedes the single under-one-hour film brief. The
+[science-series plan](../plans/explore-journey-science-series.md) uses question-led episodes with
+no fixed aggregate or per-episode runtime. Each must earn its duration and deliver a substantive
+payoff; a longer series is not permission for repetitive setup or deferred explanations. Episode
+units remain internal drafts until release identities are explicitly assigned. Existing pilot
+scores and exports retain their exact earlier identities.
 
 The narrative score is an immutable, digested manifest member of the synthesis entry's versioned
 source package, not a finished edit or a parallel unowned record. Its own schema version and member

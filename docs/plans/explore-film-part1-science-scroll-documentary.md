@@ -3,13 +3,21 @@
 - **Phase:** Maker-directed Journey/media exploration, outside Phase 6 scope (precedents:
   [explore-journey-scroll-documentary.md](explore-journey-scroll-documentary.md),
   [explore-education-ch1-video.md](explore-education-ch1-video.md))
-- **Status:** Prototype revision retained; prepared film through S13 implemented and product-checked. WP1 maker read/recording pending; WP2 text review resolved; later production continues at S15.
+- **Status:** complete single-film technical pilot retained; editorial direction superseded by the question-led science series under JTS-M011
 - **Started:** 2026-09-14
-- **Last touched:** 2026-09-15 by OpenAI Codex (prepared film through S13; product and visual checks)
+- **Last touched:** 2026-09-15 by OpenAI Codex (series supersession; pilot and voice auditions preserved)
 - **Review:** [findings and dispositions](../reviews/film-part1-plan-review-2026-09-15.md),
   reviewing the original plan at `d7d1de70251be1fb8b8596b8e6da35d82ef2b8a4`.
 
-## Goal
+**Current direction:** [the science-series plan](explore-journey-science-series.md) now governs
+content, length, episode boundaries and crystal revision. JTS-M010 accepts the viewing format
+but questions the pace/depth and crystal presentation; JTS-M011 removes the total-runtime ceiling
+and permits an episodic investigation. The under-one-hour, one-film and continuous-reveal rules
+below describe the earlier pilot, not requirements for new work. Its implementation and checks
+remain valid for their identified bytes. Do not record the old full script as the next production
+step without revisiting it under the series brief.
+
+## Original single-film goal (superseded)
 
 Turn education chapters 1–13 — the science half of the course — into **Part 1 of the living
 documentary**: one tall page on the Cryosphere website (`snowcrystal_website`, the sibling

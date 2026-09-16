@@ -75,14 +75,17 @@ type, or as part of a chapter or larger story arc.
 
 ## The living scroll documentary
 
-The Journey also builds toward one long, chaptered documentary covering the project through its
-intended Phase 10 horizon. Phase 6 is a major act with a published measured-only negative result,
-while its gate remains active and incomplete; it is not the end of the story. The scientific
-programme has already advanced in parallel: Phases 8 and 9 are chartered and complete, Phase 7 is
-independently eligible but unstarted, and Phase 10 remains uncharted and inactive. The maker intends
-the programme and story to continue toward Phase 10 after Phase 6 closes. Media creation proceeds
-in parallel and does not wait for the final phase before the first chapter, scene, animation,
-narration, or edition is made.
+The Journey also builds a chaptered documentary or documentary series, with each release naming
+the story horizon its sources cover. The maker's latest
+[direction](TRANSCRIPT.md#jts-m011--let-the-investigation-determine-the-length-consider-multiple-episodes)
+reworks the science material from chapters 1–13 into a thorough, engaging investigation with
+flexible episode lengths and no total-runtime ceiling. The
+[science-series plan](../plans/explore-journey-science-series.md) is the active editorial record.
+The earlier single-film implementation remains a working technical pilot, not the approved
+series structure or final crystal treatment. The larger project journey retains its intended
+Phase 10 horizon; that continuation is not part of this chapter 1–13 series rework. Current
+scientific phase status and authority come from [PROGRESS](../PROGRESS.md).
+Media creation can proceed alongside science without starting or reopening a scientific phase.
 
 The documentary and its manga-inspired website are two performances of one approved, versioned
 **narrative score**, backed by the Journey entries and their reusable source packages. The score
@@ -115,11 +118,10 @@ load-bearing source rather than replacing their pages or identities. Smaller med
 scenes, clean assets, narration, and transcript, while each selected outlet still receives its own
 honest hook, payoff, framing, accessibility treatment, scientific qualifier, and native-fit review.
 
-The existing Chapter 1 long-form package is the bounded first pilot input for this architecture. It
-does not silently expand to later chapters, implement the story runtime, or satisfy an audience
-test. The current education-site freeze remains in force until Phase 6 closes; parallel media work
-uses source material without editing the frozen education implementation unless the maker
-separately changes that boundary.
+The Chapter 1 package and later single-film pilot supply reusable material for this architecture.
+Their source and implementation checks do not establish audience acceptance of new episodes.
+The current media task uses the education chapters as sources and does not change their
+implementation; no obsolete Phase 6 education freeze is asserted here.
 
 ## Working principles
 
@@ -142,12 +144,15 @@ separately changes that boundary.
 
 ## Current boundary
 
-This folder is only the home for the concept. It does not start a production system, alter the
-education site, publish media, or change any scientific status. The active Phase 6 education freeze
-remains in force.
+This folder records the concept and its source, editorial and publication rules. The active
+series plan governs current media work; its predecessor records the implemented player and
+single-film pilot. Neither these documents nor that implementation authorizes publication,
+source-chapter edits or a change to scientific status.
 
 ## Related planning
 
+- [Question-led science series](../plans/explore-journey-science-series.md) records the current
+  chapter 1–13 editorial direction, provisional episode map and next script/visual work.
 - [Source transcript](TRANSCRIPT.md) preserves the maker's selected word-for-word recollections,
   contemporaneous quotations, and separately labeled Git observations before any public scripting.
 - [Living scroll-documentary plan](../plans/explore-journey-scroll-documentary.md) records the

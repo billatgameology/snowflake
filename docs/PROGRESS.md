@@ -19,17 +19,33 @@ detail.
 
 ## Current state
 
+- **Science-series editorial rework prepared (2026-09-15).** Maker feedback
+  [JTS-M010/M011](journey/TRANSCRIPT.md#jts-m010--the-format-works-the-content-needs-rethinking)
+  accepts the scroll/playback format while questioning the opening pace, missing depth and
+  crystal presentation. The new [active plan](plans/explore-journey-science-series.md) removes
+  the single-film runtime ceiling and organizes chapters 1–13 into provisional question-led
+  episodes: observations, mechanisms, experiments, counterexamples and scoped conclusions.
+  Episode count and lengths remain open. The working map, first-episode treatment and visual
+  revision target are written; revised scripts and visuals are not yet produced. The old film
+  remains a reusable technical pilot with its identified score/export unchanged, not an
+  approved series edit. Next: draft E01's full script with section-level source disposition,
+  then test a representative crystal/mechanism sequence before expanding production. This
+  documentation change does not alter the website, audio, scientific work or publication state.
+  Documentation checks: `node scripts/lint-rule7.mjs` and `git diff --check` pass; no product or
+  scientific suites were needed for this prose-only rework.
+
 - **Opening voice comparison ready (2026-09-15).** At the maker's request, ElevenLabs Lydia
   and Isla Sterling read the same unchanged opening excerpt with the same generation settings.
   Local `out/film-part1-voice-sample-oN30O8/report.json` records Lydia at 27.724626 seconds;
   `out/film-part1-voice-sample-XjXJPP/report.json` records Isla at 30.278821 seconds. Both
   complete MP3 decodes passed; audio and non-secret timing/settings are beside each report. The
   [audition record](plans/explore-film-part1-science-scroll-documentary.md#opening-voice-audition--2026-09-15)
-  binds its identity and retained shorter take. Next: maker listening. This is an audio-only
+  binds its identity and retained shorter take. Maker listening remains optional input to the
+  voice choice; these audition the old opening, not the revised series. This is an audio-only
   sample; no website, score, full-film export or final narration choice changed.
 
-- **Part 1 visual film and review/edit loop complete (2026-09-15).** The maker's requested
-  pre-narration execution is finished through credits. The
+- **Earlier single-film technical pilot complete (2026-09-15).** The requested pre-narration
+  implementation and its recorded review/edit loop reached the credits. The
   [complete receipt](video/part1-complete-verification.json) derives 2120 seconds / 82 rows /
   3924 spoken words / 229 provisional captions from the identified prepared score, imported
   from `95c837678291014327af6b6970596d17dc244d22`. Website implementation is
@@ -44,8 +60,10 @@ detail.
   scored row and selected joins/end states, not an uninterrupted watch. The
   [review/edit record](reviews/film-part1-complete-review-2026-09-15.md) documents source,
   drawing, pacing, camera and runtime repairs with reviewer provenance and limits.
-  Maker viewing/read/recording, voice-aligned timing/captions and the final voiced master
-  remain next. Nothing was pushed, merged or published; the original website checkout is clean.
+  The series rework above now supersedes this cut's editorial direction: recording the old
+  full script is no longer the next step. Its checks remain scoped to the identified pilot,
+  not evidence that the maker accepted its content or crystal treatment. Nothing was pushed,
+  merged or published; the original website checkout is clean.
 
 - **Earlier Part 1 prepared-film milestone (2026-09-15).** Maker direction: “Keep going.” The
   [bounded next slice](plans/explore-film-part1-science-scroll-documentary.md#next-prepared-film-slice--2026-09-15)
@@ -99,9 +117,10 @@ detail.
   implementation status. The prototype's embedded full draft remains inactive: the separately
   identified prepared artifact supplies the complete film.
 
-- **Part 1 film plan reviewed and revised (2026-09-15).** The maker's latest direction
-  (`JTS-M009`) uses education chapters 1–13 as flexible source material for a documentary under
-  one hour, with the maker's narration and generated web visuals in playback/manual reading.
+- **Earlier Part 1 film plan reviewed and revised (2026-09-15).** The then-current direction
+  (`JTS-M009`, now superseded by `JTS-M011`) used education chapters 1–13 as flexible source
+  material for a documentary under one hour, with the maker's narration and generated web
+  visuals in playback/manual reading.
   The [review](reviews/film-part1-plan-review-2026-09-15.md) assesses original commit `d7d1de7`
   and records applied story, scientific-wording, pacing, accessibility and runtime corrections.
   [The revised plan](plans/explore-film-part1-science-scroll-documentary.md) keeps Run B as the
@@ -519,33 +538,35 @@ the package-specific prerequisites in its charter amendment and execution plan. 
 
 ## Next step
 
-### Part 1 film — ready for maker viewing and narration
+### Science series — draft the first investigation
 
-Compare the requested Isla Sterling audition at
-`out/film-part1-voice-sample-XjXJPP/opening-isla-sterling.mp3` with Lydia at
-`out/film-part1-voice-sample-oN30O8/opening-lydia.mp3`. Settings/timings and the shorter first
-take are recorded in the plan; wait for the maker's choice before expanding synthetic speech
-or replacing the timing track. The existing film and final-narration decision are unchanged.
+Open the [active series plan](plans/explore-journey-science-series.md), especially the E01
+treatment, coverage requirements and **Tried and rejected**. Draft the first episode in
+`docs/video/science-series-e01-script.md`: where the crystal's water comes from, with a visible
+puzzle, the seed/relay explanation, a worked source example and an earned ending. Read the
+relevant chapter sections in full; give every substantive section an explicit source-table
+disposition. Read the script aloud before assigning cue durations. Do not extend the old
+uniform timing or replace compression with more preamble. For these prose changes, run
+`node scripts/lint-rule7.mjs` and `git diff --check`; do not launch scientific suites or gates.
 
-Open the [complete review/edit record](reviews/film-part1-complete-review-2026-09-15.md),
-[verification receipt](video/part1-complete-verification.json) and
-[active execution outcome](plans/explore-film-part1-science-scroll-documentary.md#complete-visual-film-outcome).
-The visual film, review/edit loop and provisional full viewing copy are complete. Next is the
-maker's viewing/aloud read of `docs/video/part1-script.md`, followed by recording. Do not launch
-another render merely because earlier bounded-slice records still exist.
+Next produce one representative crystal/mechanism sequence and review its complete temporary
+performance before expanding across episodes. Commit the applicable implementation plan
+before website code changes. Maker narration remains the default; the existing Lydia/Isla
+auditions are comparisons of the old opening, not authority to synthesize the series or a
+reason to record the old full script. No fixed episode count or length is prescribed.
 
 The isolated website is `explore/film-part1@a0163d360bbd252b2cb442465c3e7b23d6c5500c` in
 `/Users/clipper/github/snowcrystal_website-film-part1`. Reuse
 `http://127.0.0.1:5185/film/part-1` and its retained server; check before starting another.
 The MP4 is `export/part1-full-final/part1-visual-film.mp4`, with its VTT and verified report
 beside it. These are local working artifacts, not governed archival/publication claims.
-Keep the original opening and prototype routes/scores intact.
+Keep the original opening and prototype routes/scores intact. The
+[complete pilot review](reviews/film-part1-complete-review-2026-09-15.md) and
+[verification receipt](video/part1-complete-verification.json) describe that implementation,
+not acceptance of the new series. Do not re-render the unchanged pilot.
 
-When voice files arrive, follow WP6: align actual audio durations and captions, retime the
-prepared score without silently changing reviewed words, then repeat the affected product
-checks and create a new voiced-master export folder. Start by running
-`node scripts/build-part1-prepared-score.mjs --check` in this authority repository and reading
-website `docs/film-part1-prototype.md` for the build/browser/export commands. Preserve pure
+For future runtime work, read website `docs/film-part1-prototype.md` for the existing
+build/browser/export commands and adapt checks to the new episode score. Preserve pure
 cue-time evaluation, renderer-health and clipping checks, delayed-metadata handling and
 phone/control ownership. Asset writers must finish before browser QA; keep `dist` frozen during
 export. No scientific suite/gate, push, merge or publication is authorized by this media task.
