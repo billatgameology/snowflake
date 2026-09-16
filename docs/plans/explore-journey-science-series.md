@@ -342,6 +342,13 @@ worktree, not a script rewrite or new synthesis request.
 Done means the requested attention cues and short demonstrations are implemented and observed
 at representative narrated times, with exact checks and remaining acceptance limits recorded.
 
+Implemented at website `82c4e10b7698f6c47b1a871df6ff10eefd5c5a8e`.
+The [review/edit record](../reviews/science-series-e01-visual-cues-2026-09-16.md) names source,
+timing, layout and Still-mode repairs and bounded browser observations. Website
+`docs/series-tests.tap` records 58 focused passes; TypeScript/build pass. Full narration,
+source script, home and old film remain intact. The implementation slice is complete;
+maker playback/comprehension acceptance and physical-device coverage remain separate.
+
 ### Continuous series, renderer repair and full E01 voice — 2026-09-16
 
 The maker accepts the opening's growth-to-snowfall blend and asks for a continuous downward

@@ -19,12 +19,16 @@ detail.
 
 ## Current state
 
-- **E01 visual-cue revision in progress (2026-09-16).** Maker playback accepts the continuous
-  format and home transition but requests clearer attention and perceptible motion in E01-01
-  through E01-05. The [bounded plan](plans/explore-journey-science-series.md#e01-visual-attention-and-demonstration-timing--2026-09-16)
-  preserves all narration/source bytes and the old film; next is implementation in
-  `/Users/clipper/github/snowcrystal_website-film-part1/src/series/episodeDrawing.ts`, followed
-  by narration-cue tests and live desktop/phone inspection. No new synthesis or solver work.
+- **E01 visual-cue revision implemented (2026-09-16).** Website
+  `explore/film-part1@82c4e10b7698f6c47b1a871df6ff10eefd5c5a8e` revises E01-01 through
+  E01-05 with clear opening typography, a pointed-out shrinking donor, narrated grid focus,
+  staged cloud/nucleation views and an explicitly magnified, visibly moving ice face. The
+  [review/edit record](reviews/science-series-e01-visual-cues-2026-09-16.md) records timing,
+  source-depiction, small-window and Still repairs; website `docs/series-tests.tap` records
+  58 focused passes. TypeScript/build and bounded desktop/phone-sized browser checks pass.
+  Narration/source bytes, accepted home and old film are preserved. Next: maker playback
+  acceptance of these cues, then uninterrupted listening and real-phone checks. No synthesis,
+  solver work, export or publication occurred.
 
 - **Continuous series/full E01 narration implemented (2026-09-16).** Website
   `explore/film-part1@fd4ee2f2c61004dab8629b5920372b418e3a4767` preserves the opening
@@ -446,7 +450,7 @@ detail.
   previews, zero full recording downloads on browse-first entry and no unexpected errors
   (`out/growth-gallery/browser-smoke.json`). Keyboard focus, phone layout, selection, playback,
   filter/scroll retention and broken-image fallback pass. Next: open the gallery link below.
-- **Last updated:** 2026-09-15 (science-series editorial and visual-production direction; no phase or scientific-evidence change)
+- **Last updated:** 2026-09-16 (E01 visual-cue revision; no phase or scientific-evidence change)
 - **Optional graphs and MP4 export are complete.** Single views offer attached-site,
   interval-attachment and outward-reach graphs with independent toggles and synchronized seeking.
   **Export MP4** creates the current treatment/camera in H.264, with optional graphs. Actual UI
@@ -496,8 +500,8 @@ The [science-series plan](plans/explore-journey-science-series.md) is the active
 on `explore/film-part1-plan`, including JTS-M012's library-reuse and rendering direction.
 The [Part 1 plan](plans/explore-film-part1-science-scroll-documentary.md) and its
 [review](reviews/film-part1-plan-review-2026-09-15.md) preserve the earlier technical pilot;
-its website implementation remains isolated on `explore/film-part1`. E01's revised script,
-shot shortlist and representative visual treatment are next, not recording the old full script.
+its website implementation remains isolated on `explore/film-part1`. E01's source script,
+full AI narration and revised visual treatment are implemented; maker acceptance is next.
 
 The maker-directed [growth visual studies](plans/dendrite-visual-studies.md), including the
 newer named catalogue, are complete on `fix/animation-queue-windows-spawn` in `snowflake-animation`.
@@ -590,18 +594,18 @@ the package-specific prerequisites in its charter amendment and execution plan. 
 
 ## Next step
 
-### Science series — E01 visual-cue revision
+### Science series — review the revised E01 cues
 
-Implement the [visual-attention amendment](plans/explore-journey-science-series.md#e01-visual-attention-and-demonstration-timing--2026-09-16)
-in the retained website worktree. Use `src/series/episode-narration.json` sentence alignment for
-E01-01 through E01-05, then run the focused series tests, TypeScript/build and representative
-desktop/phone playback inspection. Preserve the accepted home, continuous runtime and audio.
-Record the review/edit loop and replace this in-progress next step with the actual result.
+Review the implemented [visual-attention amendment](plans/explore-journey-science-series.md#e01-visual-attention-and-demonstration-timing--2026-09-16)
+with the maker. `src/series/episodeCues.ts` binds the retained sentence timings and
+`earlyEpisodeDrawing.ts` implements the revised views. Opening droplet attention/shrink,
+category focus, cloud stages, nucleation and ice-face movement are the specific acceptance
+questions. Do not stretch actions back over whole sections or restore fixed-fraction Still.
 
 Open the [active plan](plans/explore-journey-science-series.md), unchanged
 [script](video/science-series-e01-script.md) and current
-[implementation review](reviews/science-series-continuous-e01-2026-09-16.md).
-Website `explore/film-part1@fd4ee2f2c61004dab8629b5920372b418e3a4767` is in
+[implementation review](reviews/science-series-e01-visual-cues-2026-09-16.md).
+Website `explore/film-part1@82c4e10b7698f6c47b1a871df6ff10eefd5c5a8e` is in
 `/Users/clipper/github/snowcrystal_website-film-part1`. Reuse port 5185 and open
 `http://127.0.0.1:5185/series`; click Episode 01 to descend into full narrated playback.
 Scrolling takes over; Play resumes there. `/series/episode-1` enters the same document at
