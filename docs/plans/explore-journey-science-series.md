@@ -3,7 +3,7 @@
 - **Phase:** Maker-directed Journey/media; no scientific phase or gate change
 - **Status:** separate series home and Episode 1 implementation authorized and in progress; previous film preserved
 - **Started:** 2026-09-15
-- **Last touched:** 2026-09-15 by OpenAI Codex (separate home/E01 visual draft implemented and reviewed)
+- **Last touched:** 2026-09-16 by OpenAI Codex (E01 narration-aligned visual revision)
 - **Direction:** [JTS-M010/M011](../journey/TRANSCRIPT.md#jts-m010--the-format-works-the-content-needs-rethinking), plus [JTS-M012 visual-production direction](../journey/TRANSCRIPT.md#jts-m012--use-the-animation-library-and-rendering-experiments-freely)
 - **Supersedes:** the single-film editorial constraints in [the Part 1 plan](explore-film-part1-science-scroll-documentary.md), not its recorded implementation or verification results
 
@@ -314,6 +314,34 @@ selection remains active for later episodes, not a requirement to insert unrelat
 
 ## Review and limits
 
+### E01 visual attention and demonstration timing — 2026-09-16
+
+Maker playback feedback requests a clearer opening number and singled-out shrinking droplet;
+attention guidance within the four-category overview; changing cloud explanations; visible
+nucleation/freezing; and an explicitly identified, visibly advancing/retreating ice surface.
+This is a bounded presentation revision of E01-01 through E01-05 in the retained website
+worktree, not a script rewrite or new synthesis request.
+
+1. Derive reversible cue state from the existing narration alignment, not a uniform fraction
+   of each section. Give short actions perceptible motion during their spoken explanation.
+2. Keep the opening quantity in a quiet, high-contrast area. Spotlight and point to one droplet,
+   retain a before-size outline, and show shrink then vapour transfer without liquid collision.
+3. Keep the useful four-cell overview, but highlight/enlarge the narrated category and return
+   it to context. Keep deposition, rime and aggregation visually distinct.
+4. Develop the cloud into speech-aligned views of visible liquid/invisible gas, rising/cooling
+   air, condensation, droplet scale and the liquid reservoir. Show supercooling, a local ordered
+   patch, freezing and liquid neighbours in separate legible stages, with source qualifiers.
+5. Establish the ice face with a crystal-to-surface magnification cue. Keep the solid visibly
+   filled below its boundary, show a before line and movement arrows, and retain simultaneous
+   arrival/departure at equilibrium. Motion/scale remain explicitly illustrative.
+6. Preserve Still/reduced-motion and deterministic reverse scrubbing, full audio/source bytes,
+   continuous auto/manual scroll and the accepted home/old film. Verify focused diagram/cue
+   tests, TypeScript/build, desktop/phone visual inspection and a read-only review/edit loop.
+   No scientific suite, solver work, export, paid generation or publication.
+
+Done means the requested attention cues and short demonstrations are implemented and observed
+at representative narrated times, with exact checks and remaining acceptance limits recorded.
+
 ### Continuous series, renderer repair and full E01 voice — 2026-09-16
 
 The maker accepts the opening's growth-to-snowfall blend and asks for a continuous downward
@@ -415,6 +443,9 @@ audio-generation or scientific checks were run for this prose-only rework.
 
 ## Tried and rejected
 
+- **Spread each demonstration across a whole section.** Maker playback found shrinking and
+  boundary motion imperceptible; the first nucleation image also lagged its spoken concept.
+  Use the recorded sentence timings and short actions instead of proportional scene stages.
 - **Swap routes/readers to enter watch mode.** It breaks the continuous descent and can jump
   on takeover. The home and source article now remain mounted in one document.
 - **Track the crystal radius while teaching growth.** Keeping its screen size constant hid

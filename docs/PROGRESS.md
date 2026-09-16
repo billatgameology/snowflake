@@ -19,6 +19,13 @@ detail.
 
 ## Current state
 
+- **E01 visual-cue revision in progress (2026-09-16).** Maker playback accepts the continuous
+  format and home transition but requests clearer attention and perceptible motion in E01-01
+  through E01-05. The [bounded plan](plans/explore-journey-science-series.md#e01-visual-attention-and-demonstration-timing--2026-09-16)
+  preserves all narration/source bytes and the old film; next is implementation in
+  `/Users/clipper/github/snowcrystal_website-film-part1/src/series/episodeDrawing.ts`, followed
+  by narration-cue tests and live desktop/phone inspection. No new synthesis or solver work.
+
 - **Continuous series/full E01 narration implemented (2026-09-16).** Website
   `explore/film-part1@fd4ee2f2c61004dab8629b5920372b418e3a4767` preserves the opening
   handover, repairs the observed dark streaks, makes episode growth visible with fixed
@@ -583,7 +590,13 @@ the package-specific prerequisites in its charter amendment and execution plan. 
 
 ## Next step
 
-### Science series — maker listening and physical-device acceptance
+### Science series — E01 visual-cue revision
+
+Implement the [visual-attention amendment](plans/explore-journey-science-series.md#e01-visual-attention-and-demonstration-timing--2026-09-16)
+in the retained website worktree. Use `src/series/episode-narration.json` sentence alignment for
+E01-01 through E01-05, then run the focused series tests, TypeScript/build and representative
+desktop/phone playback inspection. Preserve the accepted home, continuous runtime and audio.
+Record the review/edit loop and replace this in-progress next step with the actual result.
 
 Open the [active plan](plans/explore-journey-science-series.md), unchanged
 [script](video/science-series-e01-script.md) and current
