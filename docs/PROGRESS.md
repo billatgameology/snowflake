@@ -19,6 +19,14 @@ detail.
 
 ## Current state
 
+- **Opening voice audition ready (2026-09-15).** At the maker's request, ElevenLabs Lydia
+  (`t1myskmYQbiTpxXcDfBx`) reads the unchanged opening excerpt. The actual local
+  `out/film-part1-voice-sample-oN30O8/report.json` records 27.724626 seconds and successful
+  MP3 decoding; audio and non-secret timing/settings are beside it. The
+  [audition record](plans/explore-film-part1-science-scroll-documentary.md#opening-voice-audition--2026-09-15)
+  binds its identity and retained shorter take. Next: maker listening. This is an audio-only
+  sample; no website, score, full-film export or final narration choice changed.
+
 - **Part 1 visual film and review/edit loop complete (2026-09-15).** The maker's requested
   pre-narration execution is finished through credits. The
   [complete receipt](video/part1-complete-verification.json) derives 2120 seconds / 82 rows /
@@ -511,6 +519,11 @@ the package-specific prerequisites in its charter amendment and execution plan. 
 ## Next step
 
 ### Part 1 film — ready for maker viewing and narration
+
+First listen to the requested Lydia audition at
+`out/film-part1-voice-sample-oN30O8/opening-lydia.mp3`. Its settings/timings and shorter first
+take are recorded in the plan; wait for the maker's choice before expanding synthetic speech
+or replacing the timing track. The existing film and final-narration decision are unchanged.
 
 Open the [complete review/edit record](reviews/film-part1-complete-review-2026-09-15.md),
 [verification receipt](video/part1-complete-verification.json) and

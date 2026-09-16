@@ -1497,6 +1497,18 @@ Do not automatically retry a synthesis request whose completion is uncertain.
 The first successful paragraph take is shorter than the requested half minute; make one
 extended take including the first two complete sentences of `S00-02`, preserving both takes.
 
+Outcome: `out/film-part1-voice-sample-oN30O8/report.json` records a 27.724626-second,
+444752-byte MP3 (`opening-lydia.mp3`), SHA-256
+`64fef15439db6911db1f1e5aa60047c66a73e2117a39c6cb5c137d5b8ac91713`.
+The request uses `eleven_multilingual_v2` with speed 0.85 and the unchanged opening excerpt.
+FFprobe and complete FFmpeg decoding passed; no independent transcription or listening
+acceptance is claimed. Request settings and character timing are beside the audio, without
+credentials. The shorter initial take remains at `out/film-part1-voice-sample-3Dq5aO/`.
+The named public library voice worked directly for synthesis despite the account-scoped
+voice-metadata lookup returning `voice_not_found`; no voice import or subscription change was
+needed. Both takes are immediate local audition output, not archived masters. Next: maker
+listening and choice; no film integration or approval of full synthetic narration is inferred.
+
 ## Tried and rejected
 
 - **Skip hidden draws and their health checks together.** Final prototype regression exposed
