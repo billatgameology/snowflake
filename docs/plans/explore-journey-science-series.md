@@ -335,6 +335,17 @@ this does not authorize synthesis of the full episode or series.
 Done means the opening sample is audible from E01's user-initiated player, stays synchronized
 through normal controls, and its boundary is clear. No publication or full-episode audio/export.
 
+Implemented at website `d36ba9eca25b8cef108afafbbe14789d4b585873`. The website's
+`docs/series-audio-sample/report.json` records one take, 37.941406 seconds, 608174 bytes,
+SHA-256 `78f406d12175b25f037c04099a3385ca56ebed7c2dade9b10464d4e388f0dfc5`.
+`docs/series-verification.json` records the resulting 1146.3504969090911-second mixed
+audio/provisional timeline; `docs/series-tests.tap` records 43 passes. Source words remain
+unchanged. TypeScript/build, complete MP3 decode and bounded browser checks passed.
+The [follow-up review](../reviews/science-series-home-e01-2026-09-15.md#opening-audio-sample-follow-up)
+records the decoder-error and sticky-button repairs, provenance and untested boundaries.
+Next: maker listening, not automatic full-episode synthesis. This sample does not satisfy
+the full temporary-voice performance or final narration criteria above.
+
 OpenAI Codex `story_review`, with inherited shared context and exact model ID unavailable,
 independently proposed question-led boundaries from the chapters and identified prerequisite,
 duplication and delayed-payoff risks. It did not edit files, run a browser, recheck every cited

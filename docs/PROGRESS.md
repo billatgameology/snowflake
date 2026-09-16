@@ -19,11 +19,15 @@ detail.
 
 ## Current state
 
-- **E01 opening voice sample authorized and in progress (2026-09-15).** The maker requests
-  ElevenLabs audio as a sample. The [bounded addition](plans/explore-journey-science-series.md#authorized-e01-opening-voice-sample--2026-09-15)
-  uses the latest requested Isla Sterling voice for the first two E01 narration paragraphs,
-  with actual audio timing and player integration. No full-episode synthesis, final narrator
-  choice or old-film changes are authorized. Next: generate one take, integrate and verify it.
+- **E01 opening voice sample implemented (2026-09-15).** Website
+  `explore/film-part1@d36ba9eca25b8cef108afafbbe14789d4b585873` includes the requested
+  Isla Sterling / ElevenLabs opening sample. Its `docs/series-audio-sample/report.json`
+  binds 37.941406 seconds / 608174 bytes / 72 unchanged opening words; the sample owns
+  playback/caption timing, pauses at its end, and offers explicit silent continuation.
+  `docs/series-tests.tap` records 43 passing focused tests; typecheck/build and bounded
+  browser playback/phone inspection passed. [Review](reviews/science-series-home-e01-2026-09-15.md#opening-audio-sample-follow-up)
+  records repairs and limits. Original film unchanged; no full-episode synthesis or final
+  narrator selection. Next: open E01 and listen; maker voice/performance acceptance is pending.
 
 - **Separate series home and complete E01 visual draft implemented (2026-09-15).** Website
   `explore/film-part1@8c336ff0dcd88e51d6bfc8308a57eda8782b34a4` adds `/series` and
@@ -567,10 +571,12 @@ the package-specific prerequisites in its charter amendment and execution plan. 
 The separate home and full E01 visual draft are built. Do not redraft or rebuild them from
 the earlier planning-only entry. Open the [active plan](plans/explore-journey-science-series.md),
 [script](video/science-series-e01-script.md) and [implementation review](reviews/science-series-home-e01-2026-09-15.md).
-The current website is `explore/film-part1@8c336ff0dcd88e51d6bfc8308a57eda8782b34a4` in
+The current website is `explore/film-part1@d36ba9eca25b8cef108afafbbe14789d4b585873` in
 `/Users/clipper/github/snowcrystal_website-film-part1`. Reuse its retained server and open
-`http://127.0.0.1:5185/series/episode-1` for an uninterrupted editorial viewing and maker
-read-through. Exercise a real trackpad/touch interruption: keyboard interruption passed,
+`http://127.0.0.1:5185/series/episode-1` and choose **Hear the opening sample** (or Play at
+the start) for the new Isla Sterling take. It pauses after the sample; Play then continues
+silently. Final maker narration and full editorial viewing/read-through remain later.
+Exercise a real trackpad/touch interruption: keyboard interruption passed,
 but computer-use scrolling did not generate the needed wheel event. Do not claim that
 physical-input path has passed. Record changes by E01 section ID.
 
@@ -580,7 +586,8 @@ and exact check commands. After an approved script edit, run
 from that website and run its focused tests/build. The current timing is provisional, not
 an episode-length constraint; the maker records narration later. The old voice auditions
 do not authorize synthesis of this series. The new request separately authorizes the bounded
-opening sample above, not full-episode synthesis. No final narration alignment or E01 MP4 exists.
+opening sample above, now aligned and implemented, not full-episode synthesis. No final
+full-episode narration alignment or E01 MP4 exists.
 
 Keep `http://127.0.0.1:5185/film/part-1`, its earlier edition routes, and
 `export/part1-full-final/part1-visual-film.mp4` intact. The new series is additive.

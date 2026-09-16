@@ -3,6 +3,9 @@
 Status: complete local pre-narration implementation, with review repairs applied. This is
 not final narration, audience acceptance, an exported episode or a public release.
 
+The initial implementation record below binds website `8c336ff`; the later requested
+opening sample is separately recorded in the follow-up at the end.
+
 ## Exact work and preservation
 
 Website: `/Users/clipper/github/snowcrystal_website-film-part1`, branch `explore/film-part1`,
@@ -95,3 +98,42 @@ loss handling was source-reviewed, not forcibly induced. No new E01 MP4 was expo
 The next concrete viewing action is to open `/series/episode-1`, use **Play**, inspect the
 whole draft, then exercise **Read** and a real trackpad/touch interruption. Record specific
 content/visual changes against the stable E01 section IDs; preserve the original film.
+
+## Opening audio sample follow-up
+
+Maker direction adds ElevenLabs audio as a sample, using the latest requested Isla Sterling
+voice. Authority plan amendment `3028889` preceded implementation. Website commit
+`d36ba9eca25b8cef108afafbbe14789d4b585873` retains one generated take and its non-secret
+request, character alignment and report under `docs/series-audio-sample/`; the MP3 is
+`public/series/e01-opening-isla-sterling.mp3`. The existing credential was read only by
+the local generation process, never served or recorded in the output.
+
+Copied from that report and the updated website receipt: 72 unchanged E01 opening words,
+37.941406 seconds, 608174 bytes, eight aligned caption cards. MP3 SHA-256:
+`78f406d12175b25f037c04099a3385ca56ebed7c2dade9b10464d4e388f0dfc5`.
+The whole mixed audio/provisional timeline is now 1146.3504969090911 seconds; the new
+duration follows the actual sample, not an editorial runtime constraint. Later text/timing
+is unchanged apart from a continuous offset. No full episode was synthesized.
+
+Root observed user-initiated media time advancement, aligned captions, pause/resume,
+2× speed, clean sample-end pause, explicit silent continuation, section seeking outside
+and back into the voiced interval, Read interruption and keyboard Page Down takeover.
+Default-window and 390×844 phone inspections found readable sample status/captions and
+no horizontal overflow at the phone size. The sample entry was initially covered by the
+sticky diagram after auto-scrolling; a scroll-margin correction made the same entry click
+work. The temporary viewport was reset.
+
+Shared-context `runtime_review` performed read-only source review (exact model ID unavailable),
+finding no concrete transport blocker but identifying a decoder receipt that could miss
+error stderr despite exit 0. The script now checks stderr and uses FFmpeg `-xerror`.
+The existing MP3 was rechecked, not regenerated: FFprobe and complete FFmpeg decode both
+returned exit 0 and zero error-stderr bytes. Website `docs/series-tests.tap` now records
+43 passes / zero failures; typecheck/build passed, with the pre-existing large-chunk advisory.
+The original `src/film` and `public/film` remain diff-free against their recorded baseline;
+the 280575547-byte old viewing copy remains present and was not rerendered.
+
+This is provider-timed AI sample narration, not an independent transcription, human listening
+acceptance or final maker recording. Physical trackpad/touch, live hidden-tab interruption
+and real-phone behavior remain unverified; their code paths are not claimed as browser-tested.
+No publication, push, full-episode audio or new E01 MP4. Next: maker listens from the start
+of `/series/episode-1`; final narration choice remains open.
