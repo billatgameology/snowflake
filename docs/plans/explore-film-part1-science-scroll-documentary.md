@@ -1488,12 +1488,14 @@ chapter change, solver change or publication occurred.
 
 The maker explicitly requests an approximately half-minute ElevenLabs sample using library
 voice `t1myskmYQbiTpxXcDfBx` (the linked public page identifies Lydia). This authorizes a
-single opening-paragraph audition, not replacement of the maker's full narration. Use the
+bounded opening-excerpt audition, not replacement of the maker's full narration. Use the
 unchanged prepared score's `S00-01` text, obtain timestamped MP3 output and measure/decode the
 actual audio. Keep the credential in runtime memory only; never log or archive it. Save the
 sample and non-secret request/settings/timing metadata as local generated working output for
 this audition. No website, score, full-film export, account plan or publication change.
 Do not automatically retry a synthesis request whose completion is uncertain.
+The first successful paragraph take is shorter than the requested half minute; make one
+extended take including the first two complete sentences of `S00-02`, preserving both takes.
 
 ## Tried and rejected
 
