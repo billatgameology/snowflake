@@ -19,10 +19,11 @@ detail.
 
 ## Current state
 
-- **Opening voice audition ready (2026-09-15).** At the maker's request, ElevenLabs Lydia
-  (`t1myskmYQbiTpxXcDfBx`) reads the unchanged opening excerpt. The actual local
-  `out/film-part1-voice-sample-oN30O8/report.json` records 27.724626 seconds and successful
-  MP3 decoding; audio and non-secret timing/settings are beside it. The
+- **Opening voice comparison ready (2026-09-15).** At the maker's request, ElevenLabs Lydia
+  and Isla Sterling read the same unchanged opening excerpt with the same generation settings.
+  Local `out/film-part1-voice-sample-oN30O8/report.json` records Lydia at 27.724626 seconds;
+  `out/film-part1-voice-sample-XjXJPP/report.json` records Isla at 30.278821 seconds. Both
+  complete MP3 decodes passed; audio and non-secret timing/settings are beside each report. The
   [audition record](plans/explore-film-part1-science-scroll-documentary.md#opening-voice-audition--2026-09-15)
   binds its identity and retained shorter take. Next: maker listening. This is an audio-only
   sample; no website, score, full-film export or final narration choice changed.
@@ -520,8 +521,9 @@ the package-specific prerequisites in its charter amendment and execution plan. 
 
 ### Part 1 film — ready for maker viewing and narration
 
-First listen to the requested Lydia audition at
-`out/film-part1-voice-sample-oN30O8/opening-lydia.mp3`. Its settings/timings and shorter first
+Compare the requested Isla Sterling audition at
+`out/film-part1-voice-sample-XjXJPP/opening-isla-sterling.mp3` with Lydia at
+`out/film-part1-voice-sample-oN30O8/opening-lydia.mp3`. Settings/timings and the shorter first
 take are recorded in the plan; wait for the maker's choice before expanding synthetic speech
 or replacing the timing track. The existing film and final-narration decision are unchanged.
 

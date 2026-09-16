@@ -1509,6 +1509,16 @@ voice-metadata lookup returning `voice_not_found`; no voice import or subscripti
 needed. Both takes are immediate local audition output, not archived masters. Next: maker
 listening and choice; no film integration or approval of full synthetic narration is inferred.
 
+The maker next requests the same audition with `qSR2T7SqN7Pcd0YpO3Vd`, identified on its
+linked public page as Isla Sterling. Keep the extended excerpt, model and voice settings
+unchanged for comparison; generate one new take and preserve the Lydia samples. This remains
+an audio-only audition, not a final voice selection or film integration.
+The new `out/film-part1-voice-sample-XjXJPP/report.json` records 30.278821 seconds,
+485712 bytes and a successful complete MP3 decode; `opening-isla-sterling.mp3` has SHA-256
+`d963d1b14a3ccc7dbd7df547ebf7d192065f1d4c9d0e9f157259822b022ccfc3`.
+Use the two extended takes for maker listening; duration is the generated performance, not a
+changed film cue allocation. No listening acceptance is claimed.
+
 ## Tried and rejected
 
 - **Skip hidden draws and their health checks together.** Final prototype regression exposed
