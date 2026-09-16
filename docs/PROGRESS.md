@@ -19,18 +19,23 @@ detail.
 
 ## Current state
 
-- **E01 maker follow-up in progress (2026-09-16).** Keep the accepted surface scene unchanged;
-  sustain opening-budget vapour arrivals, remove the premature crystal in the cloud's air-gap
-  passage, and distinguish liquid droplet, non-ice speck and new ice in a labelled cutaway.
-  The [active amendment](plans/explore-journey-science-series.md#maker-follow-up-identity-and-sequence)
-  preserves narration and playback. Next: bounded diagram edits and desktop/phone review.
+- **E01 identity/sequence follow-up implemented (2026-09-16).** Website
+  `explore/film-part1@094911865d2e1af3de44e837bce6dfbf911996a0` sustains opening-budget
+  vapour arrivals, removes the premature crystal from the cloud passage, and distinguishes
+  liquid, non-ice speck and first ice in a labelled magnified cutaway. The accepted surface
+  scene's drawing/cue remain byte-identical to `82c4e10`. The
+  [review follow-up](reviews/science-series-e01-visual-cues-2026-09-16.md#maker-follow-up-identity-and-sequence)
+  records freeze-continuity/label repairs and bounded desktop/phone-sized inspection;
+  website `docs/series-tests.tap` at the new commit records 60 focused passes. TypeScript/build
+  pass, narration/home/old film remain intact. Next: maker comprehension/playback acceptance;
+  no new synthesis, export, solver work or publication.
 
 - **E01 visual-cue revision implemented (2026-09-16).** Website
   `explore/film-part1@82c4e10b7698f6c47b1a871df6ff10eefd5c5a8e` revises E01-01 through
   E01-05 with clear opening typography, a pointed-out shrinking donor, narrated grid focus,
   staged cloud/nucleation views and an explicitly magnified, visibly moving ice face. The
   [review/edit record](reviews/science-series-e01-visual-cues-2026-09-16.md) records timing,
-  source-depiction, small-window and Still repairs; website `docs/series-tests.tap` records
+  source-depiction, small-window and Still repairs; website `docs/series-tests.tap` at that commit records
   58 focused passes. TypeScript/build and bounded desktop/phone-sized browser checks pass.
   Narration/source bytes, accepted home and old film are preserved. Next: maker playback
   acceptance of these cues, then uninterrupted listening and real-phone checks. No synthesis,
@@ -600,18 +605,19 @@ the package-specific prerequisites in its charter amendment and execution plan. 
 
 ## Next step
 
-### Science series — review the revised E01 cues
+### Science series — review the E01 identity/sequence follow-up
 
-Review the implemented [visual-attention amendment](plans/explore-journey-science-series.md#e01-visual-attention-and-demonstration-timing--2026-09-16)
+Review the implemented [identity/sequence amendment](plans/explore-journey-science-series.md#maker-follow-up-identity-and-sequence)
 with the maker. `src/series/episodeCues.ts` binds the retained sentence timings and
-`earlyEpisodeDrawing.ts` implements the revised views. Opening droplet attention/shrink,
-category focus, cloud stages, nucleation and ice-face movement are the specific acceptance
-questions. Do not stretch actions back over whole sections or restore fixed-fraction Still.
+`earlyEpisodeDrawing.ts` implements the revised views. Check incoming vapour during the
+opening budget, the air-gap passage without an early crystal, and whether the labelled
+droplet/speck/first-ice close-up removes the sphere ambiguity. The maker accepted E01-05;
+leave it unchanged. Do not stretch actions over whole sections or restore fixed-fraction Still.
 
 Open the [active plan](plans/explore-journey-science-series.md), unchanged
 [script](video/science-series-e01-script.md) and current
 [implementation review](reviews/science-series-e01-visual-cues-2026-09-16.md).
-Website `explore/film-part1@82c4e10b7698f6c47b1a871df6ff10eefd5c5a8e` is in
+Website `explore/film-part1@094911865d2e1af3de44e837bce6dfbf911996a0` is in
 `/Users/clipper/github/snowcrystal_website-film-part1`. Reuse port 5185 and open
 `http://127.0.0.1:5185/series`; click Episode 01 to descend into full narrated playback.
 Scrolling takes over; Play resumes there. `/series/episode-1` enters the same document at

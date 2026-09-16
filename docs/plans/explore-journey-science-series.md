@@ -327,6 +327,16 @@ new ordered ice at its surface, then the droplet freezing. Preserve source quali
 speech timing and all narration bytes. Verify targeted drawing/cue tests, typecheck/build,
 representative desktop/phone views and a bounded depiction review. No new synthesis or export.
 
+Implemented after plan commit `82ceb53`, at website
+`094911865d2e1af3de44e837bce6dfbf911996a0`. The [review follow-up](../reviews/science-series-e01-visual-cues-2026-09-16.md#maker-follow-up-identity-and-sequence)
+records source-depiction review, frozen-state continuity and phase-label/contrast repairs.
+Website `docs/series-tests.tap` at that commit records 60 focused passes; TypeScript/build pass.
+Root inspected representative desktop/phone-sized before/first-ice/freezing/frozen states,
+source-example cards, air gaps and budget playback. Accepted E01-05 drawing/cue bytes,
+narration, home and old film are preserved. Maker comprehension acceptance remains separate.
+
+#### Earlier first-five-scene revision
+
 Maker playback feedback requests a clearer opening number and singled-out shrinking droplet;
 attention guidance within the four-category overview; changing cloud explanations; visible
 nucleation/freezing; and an explicitly identified, visibly advancing/retreating ice surface.
@@ -356,7 +366,7 @@ at representative narrated times, with exact checks and remaining acceptance lim
 Implemented at website `82c4e10b7698f6c47b1a871df6ff10eefd5c5a8e`.
 The [review/edit record](../reviews/science-series-e01-visual-cues-2026-09-16.md) names source,
 timing, layout and Still-mode repairs and bounded browser observations. Website
-`docs/series-tests.tap` records 58 focused passes; TypeScript/build pass. Full narration,
+`docs/series-tests.tap` at that commit records 58 focused passes; TypeScript/build pass. Full narration,
 source script, home and old film remain intact. The implementation slice is complete;
 maker playback/comprehension acceptance and physical-device coverage remain separate.
 
@@ -461,6 +471,11 @@ audio-generation or scientific checks were run for this prose-only rework.
 
 ## Tried and rejected
 
+- **Use similar spheres for droplets, particles and first ice.** Maker feedback found the
+  identities unclear. The new close-up links one droplet to a rectangular magnified interior:
+  irregular labelled non-ice speck, translucent liquid and hatched solid ice. The same droplet
+  remains frozen across the temperature-example cards; replaying its freeze without explaining
+  a replay was caught and removed in review. Phase keys must stay readable over solid ice.
 - **Spread each demonstration across a whole section.** Maker playback found shrinking and
   boundary motion imperceptible; the first nucleation image also lagged its spoken concept.
   Use the recorded sentence timings and short actions instead of proportional scene stages.

@@ -51,3 +51,39 @@ Both match website `docs/series-verification.json`. The retained old MP4 is **28
 diff against `fd4ee2f` is empty outside the named series presentation files. No scientific
 suite/gate, deployment, push or new paid generation. Maker comprehension/listening acceptance
 remains the next check, not something these tests establish.
+
+## Maker follow-up: identity and sequence
+
+Authority amendment `82ceb53` preceded website implementation
+`094911865d2e1af3de44e837bce6dfbf911996a0`. The maker accepted E01-05 and requested
+white vapour arriving during the opening budget, no premature snowflake in the cloud's
+air-gap explanation, and distinguishable droplet/speck/first-ice identities.
+
+The opening now sustains illustrative white arrivals at the budget cue. Cloud air gaps
+contain gas tracers between liquid droplets, without a crystal. E01-04 links a labelled
+droplet to its rectangular magnified interior: an unchanged irregular particle, amber
+liquid, and newly formed hatched ice on the particle's surface. Text-led temperature
+examples keep their clean-water/bacterial-protein qualifiers and non-universal scope.
+
+The same shared-context `science_review` agent reviewed the depiction read-only. It caught
+the selected droplet freezing then resetting across example cards, and phase labels lagging
+the spreading ice. Both were repaired: the freeze finishes during “Some droplets freeze”,
+stays complete on returning to the selected seed, and transitional labels identify materials
+with a texture key. The reviewer confirmed those fixes in source. Root's phone view then
+exposed poor key contrast over the final ice; an opaque label strip corrected it. No subagent
+browser work, blind review, or independently identified reviewer model is claimed.
+
+Root inspected representative desktop 1270×710 and phone-sized 390×844 views: budget
+arrivals, air gaps, liquid before nucleation, first ice, partial/final freezing, and qualified
+example cards. Actual opening audio/auto-scroll advancement and reverse seeking were
+observed. Viewport override reset; final preview console query returned no errors. This
+bounded pass is not uninterrupted listening, physical-phone testing or audience acceptance.
+
+Website `docs/series-tests.tap` at the implementation commit records **60 passes**, zero
+failures, including budget arrivals and material-label/seed-continuity regressions. Exact
+focused command is in website `docs/science-series.md`; `npx tsc -b` and the standalone Sites
+production build pass with the existing chunk-size advisory. A read-only comparison against
+`82c4e10` found E01-05's entire drawing block and `surfaceCue` byte-identical. Home/player,
+source imports, narration and old-film paths have no diff from that baseline. Re-read master
+and script SHA-256 values match those recorded above, and `stat` still reports the old MP4
+as **280575547 bytes**. No synthesis, export, scientific suite, push or publication occurred.
