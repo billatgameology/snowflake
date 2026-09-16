@@ -316,6 +316,17 @@ selection remains active for later episodes, not a requirement to insert unrelat
 
 ### E01 visual attention and demonstration timing — 2026-09-16
 
+#### Maker follow-up: identity and sequence
+
+The maker likes the revised opening and explicitly accepts E01-05's surface scene. Keep
+that scene unchanged. In E01-01's approximate-budget paragraph, sustain visible white vapour
+tracers arriving at the growing crystal. In E01-03's air-between-droplets passage, show air,
+liquid and invisible vapour without a premature snowflake. Rework E01-04's confusing nested
+spheres into an explicitly labelled droplet and magnified cutaway: an irregular non-ice speck,
+new ordered ice at its surface, then the droplet freezing. Preserve source qualifiers, actual
+speech timing and all narration bytes. Verify targeted drawing/cue tests, typecheck/build,
+representative desktop/phone views and a bounded depiction review. No new synthesis or export.
+
 Maker playback feedback requests a clearer opening number and singled-out shrinking droplet;
 attention guidance within the four-category overview; changing cloud explanations; visible
 nucleation/freezing; and an explicitly identified, visibly advancing/retreating ice surface.

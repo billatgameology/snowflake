@@ -19,6 +19,12 @@ detail.
 
 ## Current state
 
+- **E01 maker follow-up in progress (2026-09-16).** Keep the accepted surface scene unchanged;
+  sustain opening-budget vapour arrivals, remove the premature crystal in the cloud's air-gap
+  passage, and distinguish liquid droplet, non-ice speck and new ice in a labelled cutaway.
+  The [active amendment](plans/explore-journey-science-series.md#maker-follow-up-identity-and-sequence)
+  preserves narration and playback. Next: bounded diagram edits and desktop/phone review.
+
 - **E01 visual-cue revision implemented (2026-09-16).** Website
   `explore/film-part1@82c4e10b7698f6c47b1a871df6ff10eefd5c5a8e` revises E01-01 through
   E01-05 with clear opening typography, a pointed-out shrinking donor, narrated grid focus,
