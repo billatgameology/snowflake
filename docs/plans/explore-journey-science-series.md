@@ -1,7 +1,7 @@
 # Plan — Snow Crystal Journey: a question-led science series
 
 - **Phase:** Maker-directed Journey/media; no scientific phase or gate change
-- **Status:** series brief and working episode map prepared; episode scripts and revised visuals not yet built
+- **Status:** separate series home and Episode 1 implementation authorized and in progress; previous film preserved
 - **Started:** 2026-09-15
 - **Last touched:** 2026-09-15 by OpenAI Codex (animation-library reuse and rendering freedom added)
 - **Direction:** [JTS-M010/M011](../journey/TRANSCRIPT.md#jts-m010--the-format-works-the-content-needs-rethinking), plus [JTS-M012 visual-production direction](../journey/TRANSCRIPT.md#jts-m012--use-the-animation-library-and-rendering-experiments-freely)
@@ -264,6 +264,40 @@ These checks protect factual and technical quality. They do not compute or certi
 - New paid generation, final synthetic-voice selection, external media acquisition, uploading,
   publishing, public numbering, pushing or merging.
 - A compulsory episode count, schedule, uniform duration or artificial series-wide cliffhanger.
+
+## Implementation — separate series home and Episode 1
+
+Maker direction after JTS-M012 accepts the targeted director-review revisions and asks for a new
+page/tab, explicitly preserving the previous film. Build in the existing isolated website
+`/Users/clipper/github/snowcrystal_website-film-part1`, with new `/series` and `/series/episode-1`
+routes. Do not replace `/film/part-1`, its script/score, viewing copy, opening or prototype.
+
+- Home: reuse Run B Hero's actual volume asset, authored camera and crystal renderer. Speed the
+  growth modestly on the new route only. At completion, the same on-screen crystal shrinks and
+  drifts into Hero1's snowfall, using the existing Hero1 field implementation and fallback chain,
+  not an approximate replacement. Then reveal the Cryosphere title and Episode 1 entry.
+- Add a new navigation tab and open the new home in a separate browser tab; retain the old film.
+  Keep skip/replay and reduced-motion access so viewing the opening is not a compulsory wait.
+- Episode 1: write and implement the complete first investigation, opening on disappearing
+  droplets feeding a crystal, then seed formation, vapour deposition, equilibrium/supply,
+  the worked approximate material budget and source-scoped limits. End on growth without a
+  blueprint and the shape question. The recurring series question is how water builds these
+  forms without a blueprint and how an explanation can be tested. Keep source labels and the
+  distinction between illustrative motion and measured/modelled histories.
+- Write actual episode narration and source/shot tables in the authority repository, then use
+  the same content in a separate scroll/playback page. Timing remains provisional until narration;
+  no paid speech generation or full-film re-render is required by this implementation.
+- Preserve default behavior on `/run-b-hero` and `/hero1`; new component options must default
+  to the existing behavior. User-requested exact visual continuity calls for live inspection of
+  growth, handover, snowfall, title, episode scrolling/playback and reduced-motion/mobile states.
+- Verify with focused product tests, website TypeScript/build, live browser smoke and visual
+  inspection. Compare the old score/script identities and smoke the old film. No solver or
+  scientific claim logic changes; do not run scientific gates or the scientific full suite for
+  presentation-only changes. No deployment, push, merge or asset cleanup is requested.
+
+Done for this slice means the new home and complete Episode 1 are usable, the requested original
+scenes are reused, the old film remains available and unchanged, and actual checks/remaining
+narration limits are recorded. A working home alone is not completion of the episode request.
 
 ## Review and limits
 

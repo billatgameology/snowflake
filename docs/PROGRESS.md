@@ -19,6 +19,14 @@ detail.
 
 ## Current state
 
+- **New series home and Episode 1 are in progress (2026-09-15).** The maker approves the
+  targeted editorial revisions and requests a separate page/tab, preserving the old film.
+  The [implementation slice](plans/explore-journey-science-series.md#implementation--separate-series-home-and-episode-1)
+  connects the existing Run B Hero growth to the exact Hero1 snowfall, then the title and
+  Episode 1. New website routes are `/series` and `/series/episode-1`; existing film artifacts
+  and routes stay intact. Next: implement the opening while drafting/source-checking E01, then
+  complete the episode's scroll/playback and inspect the actual transitions in the browser.
+
 - **Science-series editorial rework prepared (2026-09-15).** Maker feedback
   [JTS-M010/M011](journey/TRANSCRIPT.md#jts-m010--the-format-works-the-content-needs-rethinking)
   accepts the scroll/playback format while questioning the opening pace, missing depth and
@@ -545,6 +553,10 @@ the package-specific prerequisites in its charter amendment and execution plan. 
 ## Next step
 
 ### Science series — draft the first investigation
+
+The maker has now requested implementation, not another planning pass: follow the
+[home/E01 slice](plans/explore-journey-science-series.md#implementation--separate-series-home-and-episode-1)
+in the existing isolated website worktree. Preserve the old film and existing Hero routes.
 
 Open the [active series plan](plans/explore-journey-science-series.md), especially the E01
 treatment, coverage requirements and **Tried and rejected**. Draft the first episode in
