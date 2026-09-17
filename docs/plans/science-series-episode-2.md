@@ -1,7 +1,7 @@
 # Plan — E02: Why six is only the beginning
 
 - **Phase:** Journey/media; no scientific phase or gate change
-- **Status:** reviewed script ready for implementation; silent rehearsal only
+- **Status:** complete silent visual draft; reviewed and ready for maker feedback
 - **Started:** 2026-09-16
 - **Authority:** maker requests plan → science/fact check → animations/episode → design-guide critique; **no audio generation**
 - **Parent:** [series plan](explore-journey-science-series.md), [maker design guide](../video/science-series-design-guide.md)
@@ -63,12 +63,18 @@ photographs, third-party generated artwork, new scientific runs or asset publica
 - [x] Draft [script, sources/dispositions and visual beat table](../video/science-series-e02-script.md).
 - [x] Fact-check and source-review actual words/visual claims; repair findings before building.
   [Review record](../reviews/science-series-e02-review-2026-09-16.md) names checks and limits.
-- [ ] Commit this plan and reviewed script before website implementation.
-- [ ] Build complete silent E02, continuous entry and purposeful reversible animations.
-- [ ] Run focused content/geometry/timing/transport tests, TypeScript and app production build.
-- [ ] Inspect normal-speed representative playback, each scene's before/action/after, desktop/
+- [x] Commit this plan and reviewed script before website implementation (`f619d6a`).
+- [x] Build complete silent E02, continuous entry and purposeful reversible animations.
+- [x] Run focused content/geometry/timing/transport tests, TypeScript and app production build.
+- [x] Inspect normal-speed representative playback, each scene's before/action/after, desktop/
   phone, transitions, reverse seek and Still; review against maker design guide and repair.
-- [ ] Record exact implementation/checks, preservation and untested narration/device boundaries.
+- [x] Record exact implementation/checks, preservation and untested narration/device boundaries.
+
+Implementation: website `f02a3be751e32d70ac26584651b564620ed2bf4c`. The
+[review/edit record](../reviews/science-series-e02-review-2026-09-16.md#build-and-design-guide-review)
+names bounded viewing versus code-only checks. Website `docs/episode-two-tests.tap` at that
+commit records **81 passes, zero failures**; TypeScript and production build passed.
+No final narration or uninterrupted narrated viewing is implied.
 
 ## Done when
 

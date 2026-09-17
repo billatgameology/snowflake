@@ -261,7 +261,7 @@ the outer branches still have to grow.
 
 - Show basal/c-axis repeat brackets on an oriented cell before values; distinguish cell from
   oxygen-neighbour distance. Layer detail shows labelled spacings and fixed prior surface.
-  Logarithmic conceptual scale ladder keeps the macroscopic example separate from Run B.
+  Explicitly broken conceptual scale ladder keeps the macroscopic example separate from Run B.
   Constants/source-derived comparisons, no new physical calculator or measured model scale.
 - `docs/education/chapters/03-why-six-sides.html#how-big`
 

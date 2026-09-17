@@ -58,5 +58,77 @@ implementation correctness. Production tests and visual inspection follow separa
 
 ## Build and design-guide review
 
-Pending implementation. No rendered-scene, normal-speed, phone, final narration or maker
-acceptance verdict is inferred from the source review above.
+Implemented at website `explore/film-part1@f02a3be751e32d70ac26584651b564620ed2bf4c`, in
+`/Users/clipper/github/snowcrystal_website-film-part1`. Route:
+`http://127.0.0.1:5185/series/episode-2`. The final imported script SHA-256, recorded in
+website `src/series/episode-two.json`, is
+`9bb74d7496c40a636b124a3d7b49dada7cf0362c8bed021e0cb0471395d34b13`.
+The script's scale ladder description was clarified as explicitly broken, not logarithmic.
+
+### Review/edit loop
+
+After the complete implementation, the same shared-context non-author reviewers inspected
+science depiction, design-guide correspondence and playback ownership. Root performed the
+live visual pass. Code-only reviewers did not claim browser comprehension testing.
+
+| Scene / cue | Observed or code-derived problem → repair |
+| --- | --- |
+| 1, “plate … column … star” | Initial highlight was a flat hexagon over an oblique plate, and omitted the column end. Select the actual projected plate and column faces; retain six star directions. |
+| 2, retained record | Paragraph-local action reset made the completed record shrink and enlarge again. Keep the completed magnification while the population/selection argument continues. |
+| 4, smaller spacing then Barnes | Contraction restarted in the historical paragraph. Hold the completed spacing, add geometrically consistent extra-path segments and move the spacing label off its line. Normal-speed wave reinforcement/cancellation was visibly readable. |
+| 5, hydrogen bonds | The initially arbitrary molecule drawing had different apparent angles from the immediately preceding lesson. Use the same 104.5° construction for both molecules, with a donor hydrogen pointing toward the accepting oxygen; retain solid versus dashed bonds. |
+| 6, turn the same atoms | Project the c-axis from an end-on dot rather than prematurely drawing an in-plane arrow. Carry all six numbered IDs into a full side view, with higher/lower reference levels. Background network nodes fade before entering heading/caption space; retain the completed reveal. |
+| 7, stacking disorder | The established Ih/Ic stacks restarted as the new stack entered. Preserve their completed layers, build only the new mixed stack and hold all through the laboratory-result paragraph. |
+| 8, add on side walls | Completed end growth disappeared. Keep the increased height while side shells add. Replace slash-only legends with separate ring/crystal and corner/normal labels. |
+| 9, repeat and layer sizes | A generic prism did not identify the repeat endpoints; both local layers advanced upward. Use a translation-cell detail with a/c endpoints, a retained basal surface with upward addition, and a prism-side surface with outward addition. Add explicit dimension marks and a broken-scale comparison. |
+| 10, air around the model | Keep the recorded model while tracers visibly traverse the surrounding space. These are approaching schematic paths, not a computed field or a claim of contact at a model's bounding circle. |
+
+The science reviewer closed the named geometry repairs after reading the changed code and
+independently checking the extra-path geometry. Runtime review found and closed E01's retained
+ownership on audio error/end and paused scrollbar takeover defects. A final narrow resize
+finding was repaired: manual intro/footer reading is not reanchored into the timed paragraph
+range. Root observed a middle-of-episode position survive the desktop-to-narrow change.
+
+### Visual and interaction observations
+
+Root inspected live desktop `1270×710`, narrow `390×844` and the default app viewport.
+Representative states across all scenes were examined, with extra passes through the
+molecule/tetrahedron/bond distinction, ring face-on/side/reveal states, stacking, end/side
+addition, 30° comparison, repeat/layer sizes and closing air paths. Normal-speed samples
+included the opening progression, wave reinforcement/cancellation and ring rotation/reveal;
+other paragraph states used controlled seeks. This was **not an uninterrupted full-episode
+watch**, and there was deliberately no E02 narration to listen to.
+
+Still retained the ring's higher/lower result. Native scrolling changed E02 from following
+to manual; reverse movement moved its reading time backward. Direct entry stayed idle.
+The retained home offered both episode entries without layout overlap in the narrow view.
+E01 entry played its existing narration; E02 entry immediately paused it and, after the
+descent, remained the sole following player. The URL did not navigate for those button
+actions. E02 stopped at its clock's end after a changed-speed trial. Temporary viewport
+overrides were reset, and E02 was left idle as the deliverable.
+
+The final cold-load log inspection found no errors; existing Three.js clock deprecation
+warnings remain. This is not a physical-phone/iOS, assistive-device or all-GPU guarantee.
+The original home renderer/choreography, E01 narration/content/drawings and `src/film/`
+showed no byte changes against website baseline `c3143a2` in the targeted preservation diff.
+E01's player changed only for ownership, upstream measurements and the continuation control.
+
+### Checks and verdict
+
+Website `docs/episode-two-tests.tap` at the implementation commit records **81 passes, zero
+failures** from:
+
+```text
+node --test --test-reporter=tap --test-reporter-destination=docs/episode-two-tests.tap scripts/episode-two.test.mjs scripts/series-continuous.test.mjs scripts/series-audio.test.mjs scripts/series.test.mjs scripts/film-timeline.test.mjs scripts/film-opening.test.mjs scripts/film-prepared.test.mjs scripts/film-export.test.mjs
+```
+
+New coverage checks source import, ideal oxygen geometry, ring identity, cue/Still states,
+scroll inversion, silent-clock completion, pending E01 audio interruption and finite drawing
+coordinates. Existing series/film tests remain included. `npx tsc -b`, the Sites
+`build-site.mjs` production build and `git diff --check` passed. The existing large-bundle
+warning remains. No scientific suite/gate, synthesis, credential read, export or deployment.
+
+**Ready for maker review as a complete silent visual draft.** The maker's guide materially
+changed continuity, labels, timing and the meaning of dimension displays. This verdict is
+not maker praise, an engagement measurement or final episode production acceptance. Next:
+maker comprehension/pace feedback, then separately authorized narration and actual alignment.

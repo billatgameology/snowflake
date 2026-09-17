@@ -343,6 +343,11 @@ then critique against the design guide, explicitly **without audio generation**.
 This authorizes proceeding beyond E01's prototype checkpoint, not relabelling E01's unreviewed
 repairs as accepted. Preserve all prior content and the accepted continuous experience.
 
+E02's complete silent draft is now implemented at website `f02a3be751e32d70ac26584651b564620ed2bf4c`.
+The linked review records source/code critics, live visual observations and repairs. Next is maker
+comprehension/pace review, not automatic narration or E03 production. Final audio/alignment remains
+outside this authorized silent-draft delivery.
+
 ### Maker-feedback synthesis and future-episode requirements — 2026-09-16
 
 The maker asks to preserve how they critique scenes, understand what changed before their praise,

@@ -19,13 +19,15 @@ detail.
 
 ## Current state
 
-- **Episode 2 planning/fact check active (2026-09-16).** Maker authorizes plan, science review,
-  complete animation/episode implementation and a final critique against the design guide,
-  explicitly without audio generation. The [E02 plan](plans/science-series-episode-2.md)
-  follows the structure/shape question with a silent, continuous series addition. The complete
-  [script](video/science-series-e02-script.md) has bounded science/story review and corrections
-  recorded in the [review](reviews/science-series-e02-review-2026-09-16.md). Next: implement
-  the reviewed draft, then product checks and design-guide inspection; preserve E01/home/film.
+- **Episode 2 complete silent draft, science/design review and repairs (2026-09-16).** Website
+  `explore/film-part1@f02a3be751e32d70ac26584651b564620ed2bf4c` adds `/series/episode-2`
+  in the same continuous document, preserving home, E01 and the original film. The [E02 plan](plans/science-series-episode-2.md),
+  [source-bound script](video/science-series-e02-script.md) and [review/edit record](reviews/science-series-e02-review-2026-09-16.md)
+  cover fact checking, original structure animations, semantic-label/continuity repairs and
+  exclusive playback. Website `docs/episode-two-tests.tap` at that commit records **81 passes,
+  zero failures**; TypeScript/build and bounded desktop/narrow viewing checks passed. No audio
+  generation, credential access, scientific suite/gate, export or deployment. Next: maker
+  comprehension/pace review; final narration/alignment and physical-phone checks remain pending.
 
 - **Science-series maker critique is now reusable design guidance (2026-09-16).** The
   [guide](video/science-series-design-guide.md) records the maker's feedback across the pilot,
@@ -654,13 +656,16 @@ the package-specific prerequisites in its charter amendment and execution plan. 
 
 ## Next step
 
-### Episode 2 — build the reviewed silent draft
+### Episode 2 — maker review of the complete silent draft
 
 Open [E02 plan](plans/science-series-episode-2.md), [script](video/science-series-e02-script.md)
-and [source review](reviews/science-series-e02-review-2026-09-16.md). Implement in the existing
-website worktree on port 5185, append the episode without hard navigation and enforce exclusive
-playback. No audio generation or credential access. Use focused tests, typecheck, build and
-the design guide's visual review/edit loop; final narration and maker acceptance stay pending.
+and [review/edit record](reviews/science-series-e02-review-2026-09-16.md). In the existing website
+worktree on port 5185, open `http://127.0.0.1:5185/series/episode-2` and use Play for the silent
+rehearsal. Seek/scroll/Still support inspection; there is no E02 audio to troubleshoot.
+For requested revisions, open `src/series/episodeTwoDrawing.ts`, `episodeTwoCues.ts` and the
+authority script; preserve numbered-ring identity and completed additions across paragraphs.
+Run the exact focused command in the review, not the scientific suite. Narration needs separate
+authorization and actual alignment. Do not automatically generate speech or start E03.
 
 ### Science series — apply the maker's design guide to E01 review and later episodes
 
