@@ -110,6 +110,14 @@ payoff; a longer series is not permission for repetitive setup or deferred expla
 units remain internal drafts until release identities are explicitly assigned. Existing pilot
 scores and exports retain their exact earlier identities.
 
+For this science series, the [maker-feedback and episode design guide](../video/science-series-design-guide.md)
+turns the pilot/E01 critique into reusable scene requirements and review practice. Author the
+spoken cue, subject/focus, visible action, stable comparison and transition together in the
+existing shot table. Review first at intended playback speed; an event visible only while
+scrubbing is not yet a clear narrated demonstration. Preserve scoped praise separately from
+implemented-but-unaccepted fixes. This adds editorial guidance, not a new scientific gate,
+runtime quota, required cut rate or authorization to generate narration or publish.
+
 The narrative score is an immutable, digested manifest member of the synthesis entry's versioned
 source package, not a finished edit or a parallel unowned record. Its own schema version and member
 digest are bound by that package manifest. For every act and scene it binds:

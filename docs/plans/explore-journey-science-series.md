@@ -1,9 +1,9 @@
 # Plan — Snow Crystal Journey: a question-led science series
 
 - **Phase:** Maker-directed Journey/media; no scientific phase or gate change
-- **Status:** separate series home and Episode 1 implementation authorized and in progress; previous film preserved
+- **Status:** E01 implemented; maker editorial/listening acceptance pending; reusable next-episode design guide active; previous film preserved
 - **Started:** 2026-09-15
-- **Last touched:** 2026-09-16 by OpenAI Codex (E01 narration-aligned visual revision)
+- **Last touched:** 2026-09-16 by OpenAI Codex (maker-feedback synthesis and future-episode requirements)
 - **Direction:** [JTS-M010/M011](../journey/TRANSCRIPT.md#jts-m010--the-format-works-the-content-needs-rethinking), plus [JTS-M012 visual-production direction](../journey/TRANSCRIPT.md#jts-m012--use-the-animation-library-and-rendering-experiments-freely)
 - **Supersedes:** the single-film editorial constraints in [the Part 1 plan](explore-film-part1-science-scroll-documentary.md), not its recorded implementation or verification results
 
@@ -132,6 +132,11 @@ proportionate fact check before being imported into a production score.
 
 ### Visual rework
 
+The [maker-feedback and episode design guide](../video/science-series-design-guide.md) is the
+reusable design/review standard for this series. Read it before drafting or reviewing the next
+episode; the [E01 guide](../video/science-series-e01-visual-guide.md) is its worked local history.
+The maker's scoped praise does not approve all E01 scenes or any later episode by inheritance.
+
 **Visuals are a primary attraction and a core storytelling tool, not a finishing layer.** Under
 [JTS-M012](../journey/TRANSCRIPT.md#jts-m012--use-the-animation-library-and-rendering-experiments-freely),
 draw extensively from the project's generated animation library and rendering experiments. Use
@@ -163,6 +168,11 @@ independent solver runs or a new playback-quality verdict.
 
 Keep a lightweight shot table with each episode's script: story purpose, source asset ID/path,
 selected growth interval, treatment/camera, and whether it is reused, adapted or newly created.
+Use the design guide's [scene worksheet](../video/science-series-design-guide.md#small-scene-design-worksheet)
+inside that same table: spoken cue, identifiable subject/focus/scale, before → action → after,
+stable comparison, transition continuity, expected takeaway and likely misconception. Supply
+the narrow/Still treatment and note actual review/acceptance separately. This is not an extra
+registry or a mandatory new animation for each sentence.
 Mark missing local payloads explicitly and use the documented source/restore path; a preview or
 catalog entry alone does not establish that its animation is currently playable. This is a shot
 selection pass, not a new catalog system or a mandate to render the entire library.
@@ -223,12 +233,20 @@ is a pre-narration production candidate when:
   worked example or experimental comparison, with the relevant limits;
 - its shot table shows deliberate library reuse and treatment selection, with new visual work
   identified where useful; representative moving sequences have been visually inspected;
+- its load-bearing visual beats satisfy the [design requirements](../video/science-series-design-guide.md#requirements-for-subsequent-episodes):
+  the subject/focus is identifiable, the narrated change is perceptible at intended speed without
+  scrubbing, the comparison explains its meaning, and transitions retain object/scale/state;
 - source/claim review covers the actual revised words and visuals, not the old script's verdict;
 - a complete temporary-voice performance has been watched for pacing and comprehension, and the
   maker has reviewed its story and representative crystal treatment before large-scale production;
 - its scroll, playback, static/access and exported forms preserve the same argument and labels;
 - product-sized checks cover changes actually made, with actual output identities and explicit
   untested boundaries recorded.
+
+Use the guide's [review method](../video/science-series-design-guide.md#how-a-future-reviewer-should-critique-a-scene)
+to report exact cue → observed image → comprehension problem → repair. Source correctness,
+playback readability, technical checks and maker acceptance remain distinct findings. Record
+scoped praise alongside unresolved concerns; silence and test passes do not constitute approval.
 
 Final narration, caption alignment, episode timing and maker acceptance are separately required
 for a completed episode. The earlier editorial/visual checkpoint governs multiplying a production
@@ -244,6 +262,8 @@ These checks protect factual and technical quality. They do not compute or certi
   specific visual revision target; retain the previous implementation without rewriting it.
 - [x] Record JTS-M012: extensive animation-library reuse, freedom to adapt or create rendering
   methods, and visual attraction as a first-class production requirement.
+- [x] Synthesize the maker's film/E01 feedback into a reusable design/reviewer guide, distinguish
+  explicit praise from unaccepted repairs, and apply it to future shot tables and done criteria.
 - [ ] Browse the animation/treatment library alongside drafting; build E01's shot shortlist and
   identify where reuse, adaptation or new visual work best serves the story.
 - [x] Draft E01's full script and section-level source/coverage table; bounded source review is
@@ -313,6 +333,28 @@ alignment and any eventual episode export are not silently marked complete. Wide
 selection remains active for later episodes, not a requirement to insert unrelated shapes here.
 
 ## Review and limits
+
+### Maker-feedback synthesis and future-episode requirements — 2026-09-16
+
+The maker asks to preserve how they critique scenes, understand what changed before their praise,
+and use those lessons in subsequent episodes. This is a direct analysis/documentation task, not
+another website build. [The reusable guide](../video/science-series-design-guide.md) records
+selected verbatim feedback, scene-by-scene response/status, bounded interpretation of the praised
+home/opening/surface treatments, practical requirements, one lightweight shot worksheet and the
+reviewer's viewing method. It retains the pilot's depth-versus-pace lesson and library freedom.
+
+The plan, media specification and E01 guide now point to that standard. Root compared maker
+messages with the recorded implementation responses; shared-context read-only story review
+checked the interpretation and acceptance boundaries. Exact model identity was unavailable.
+The review retained new rendering as a creative option (not a last resort), linked the existing
+source-disposition safeguard against lost depth, and scoped first-watch instructions to visual
+review rather than code-only review. Those refinements are incorporated.
+This does not grant maker acceptance to the latest E01 repairs. No source script, website,
+audio, scientific contract or release state changes. Documentation verification uses the Rule 7
+scan, changed-link check and diff whitespace check; no product rebuild or scientific suite.
+Executed: `node scripts/lint-rule7.mjs` and `git diff --check` pass. A one-off
+`node --input-type=module` check resolves relative file links in the guide/integration documents
+and the newly linked guide headings; it is not new permanent verification machinery.
 
 ### E01 meaning-before-numbers follow-up — 2026-09-16
 

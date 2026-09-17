@@ -19,6 +19,13 @@ detail.
 
 ## Current state
 
+- **Science-series maker critique is now reusable design guidance (2026-09-16).** The
+  [guide](video/science-series-design-guide.md) records the maker's feedback across the pilot,
+  home and E01, actual praise versus unaccepted repairs, and concrete future-episode design/
+  review requirements. The active plan's shot-table/done criteria, media specification and
+  E01 guide link it. Next: use it while reviewing the latest E01 passages and drafting later
+  episodes; no new scene, narration, scientific or publication acceptance is implied.
+
 - **E01 meaning-before-numbers follow-up implemented (2026-09-16).** Website
   `explore/film-part1@c3143a2dbc4ce7d9902515b58614156b6c0cefc0` clarifies liquid/gas and
   supercooling in scenes 3–4, shows scene 6's same air keeping liquid steady while ice grows,
@@ -495,7 +502,7 @@ detail.
   previews, zero full recording downloads on browse-first entry and no unexpected errors
   (`out/growth-gallery/browser-smoke.json`). Keyboard focus, phone layout, selection, playback,
   filter/scroll retention and broken-image fallback pass. Next: open the gallery link below.
-- **Last updated:** 2026-09-16 (E01 scenes 3/4/6/10 meaning follow-up; no phase or scientific-evidence change)
+- **Last updated:** 2026-09-16 (maker-feedback design guide; no phase or scientific-evidence change)
 - **Optional graphs and MP4 export are complete.** Single views offer attached-site,
   interval-attachment and outward-reach graphs with independent toggles and synchronized seeking.
   **Export MP4** creates the current treatment/camera in H.264, with optional graphs. Actual UI
@@ -639,7 +646,13 @@ the package-specific prerequisites in its charter amendment and execution plan. 
 
 ## Next step
 
-### Science series — review the completed E01 meaning-before-numbers follow-up
+### Science series — apply the maker's design guide to E01 review and later episodes
+
+Start with the [maker-feedback and design guide](video/science-series-design-guide.md): use its
+scene worksheet inside the next episode's script/shot table and its normal-speed viewing method
+for review. Preserve the named praised features, not an assumed approval of whole scenes. The
+latest E01 repairs below still need the maker's comprehension/listening response; later source
+research and script drafting can proceed without final narration or a new generation request.
 
 Review the implemented [follow-up amendment](plans/explore-journey-science-series.md#e01-meaning-before-numbers-follow-up--2026-09-16)
 and [visual guide](video/science-series-e01-visual-guide.md) with the maker. In the website,

@@ -5,6 +5,13 @@ Maker-directed revision, 2026-09-16. This guide records what is already produced
 It guides a presentation-only rewrite, not new narration, quantitative science or model output.
 The source-bound [script](science-series-e01-script.md) and recorded speech remain unchanged.
 
+For future episodes, start with the [maker-feedback and series design guide](science-series-design-guide.md).
+It preserves the actual critique/praise, distinguishes requested or implemented fixes from maker
+acceptance, and supplies reusable requirements and the review worksheet. This file remains E01's
+shot-specific history and example; its baseline table is not a claim that all five scenes were
+approved. In particular, scene 5's praised surface mechanics and its later-revised entrance have
+different acceptance histories.
+
 ## What the first five scenes already do
 
 | Scene | Produced visual treatment | What makes it useful / remaining repair |
@@ -51,6 +58,10 @@ The source-bound [script](science-series-e01-script.md) and recorded speech rema
 | 10 | Keep the grown crystal as payoff; resolve the material route beside it. Shift attention to faces/directions/branches. For the source's laboratory promise, show a labelled conceptual reconstruction: conditions change, then new material appears while earlier geometry stays fixed. Return to the grown object and the open question “Why six?” No fabricated physical controls on Run B. |
 
 ## Completion and checks
+
+Apply the series guide's [normal-speed, first-viewer review](science-series-design-guide.md#how-a-future-reviewer-should-critique-a-scene)
+before diagnosing by scrubbing. Report the exact narrated cue and observed image, not just whether
+the scene animates. Preserve praise by named feature; later implementations await their own response.
 
 Implement the full sequence in the retained series route; preserve the old film, home,
 voice and source text. Inspect representative sentence states and transitions in real playback,
