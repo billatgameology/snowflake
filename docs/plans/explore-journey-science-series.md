@@ -332,6 +332,19 @@ playback/Still/reverse inspection, and a bounded source-depiction review/edit lo
 all requested scenes and the guide are implemented and checked, with remaining audience and
 physical-device limits stated. No synthesis, export, push, merge or publication.
 
+Implemented after plan commit `9368961` in website
+`explore/film-part1@68e31f265b4b463a528cf53ef608968698cf5528`. The guide now links the produced
+result and [review/edit record](../reviews/science-series-e01-visual-cues-2026-09-16.md#full-visual-storytelling-pass).
+Cloud context/formation, same-seed magnification and all later staged explanations are in place.
+Review corrected false surface contact, lost fallback growth, prematurely stopped net-boundary
+movement, a freezing-blind liquid gauge, label overlap and a stale Still contact label.
+Website `docs/series-tests.tap` at this commit records **66 focused passes, zero failures**;
+TypeScript and production build pass. Root inspected desktop/phone-sized sentence states,
+live seed zoom and handover, reverse seeking, Still and wheel-up manual takeover. Exact checks
+and development hot-reload limitation are in website `docs/science-series.md`. Narration,
+home and old-film bytes are retained. Next: maker comprehension/listening review, not another
+speculative plan pass; physical-phone/touch and uninterrupted performance remain unverified.
+
 ### E01 visual attention and demonstration timing — 2026-09-16
 
 #### Maker follow-up: identity and sequence

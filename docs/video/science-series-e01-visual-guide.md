@@ -58,9 +58,34 @@ including a narrow viewport, reverse seek and Still. Run focused diagram/transpo
 website TypeScript and production build. Review the changed depiction against this guide and
 the script. Document repairs and limits; software tests do not establish audience engagement.
 
+## Implemented result
+
+Website `explore/film-part1@68e31f265b4b463a528cf53ef608968698cf5528` implements this pass,
+following authority plan commit `9368961`. The first-five-scene table above records the baseline
+assessment; the cloud and seed-transition repairs it calls for are now produced. Scene 5's
+surface mechanics remain intact. New `laterEpisodeCues.ts` and `laterEpisodeDrawing.ts` stage
+all later explanations against the retained spoken sentences; `seedDrawing.ts` carries the
+same compact hatched ice and buried particle across the transition.
+
+The relay uses a linked surface detail and then a larger contact-edge cutaway, not a presumed
+circular boundary around the branched Run B model. Its selected molecule becomes part of the
+drawn solid while arrivals and departures continue through the exterior. The later comparisons
+retain separate source-value/amount scales and caveats. The reservoir shows both liquid-loss
+routes, then cloud history, the cold-supply limit and remaining water. The ending's laboratory
+shot is explicitly conceptual; new outer branches are distinguished from retained earlier ice.
+
+The [review/edit record](../reviews/science-series-e01-visual-cues-2026-09-16.md#full-visual-storytelling-pass)
+names the depiction, spacing and Still repairs. Website `docs/series-tests.tap` at the named
+commit records **66 passes, zero failures**; its `docs/science-series.md` records the commands,
+TypeScript/build and bounded desktop/phone-sized playback checks. This is an implemented
+visual draft, not maker comprehension/listening acceptance or scientific validation.
+
 ## Tried and rejected
 
 - One static chart/table for the full explanation: maker feedback found it visually insufficient.
 - Unlabelled yellow/white circles: phase identity was ambiguous.
 - Replacing the frozen seed with a star before magnifying: breaks object continuity.
 - Only donor-to-crystal paths: misrepresents the explicitly narrated two-way molecular traffic.
+- Treating a crystal's bounding circle as solid: put molecular contact on a drawn surface.
+- One static chart for the whole section: retain source charts as individual shots, surrounded
+  by the physical objects and comparisons that give their numbers meaning.

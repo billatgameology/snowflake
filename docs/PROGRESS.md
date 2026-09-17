@@ -19,13 +19,16 @@ detail.
 
 ## Current state
 
-- **E01 full visual storytelling pass in progress (2026-09-16).** The maker requests clearer
-  cloud labels/formation, the same seed carried into scene 5, and scene 5's explanatory quality
-  extended through scenes 6–10. The [visual guide](video/science-series-e01-visual-guide.md)
-  documents the first-five-scene treatments and the new shot sequence. The
-  [active amendment](plans/explore-journey-science-series.md#e01-full-visual-storytelling-pass--2026-09-16)
-  retains narration and the accepted surface mechanics. Next: implement the staged diagrams in
-  the existing website worktree, then focused tests and visual/source review. No new synthesis.
+- **E01 full visual storytelling pass implemented (2026-09-16).** Website
+  `explore/film-part1@68e31f265b4b463a528cf53ef608968698cf5528` adds labelled cloud formation,
+  same-seed surface magnification and staged explanations through scenes 6–10. The
+  [visual guide](video/science-series-e01-visual-guide.md) records the first-five-scene lessons;
+  the [review/edit record](reviews/science-series-e01-visual-cues-2026-09-16.md#full-visual-storytelling-pass)
+  records contact-boundary, two-way traffic, reservoir, readability and Still repairs.
+  Website `docs/series-tests.tap` at that commit records **66 focused passes, zero failures**;
+  TypeScript/build and bounded desktop/phone-sized playback/seek/Still checks pass. Narration,
+  home, accepted surface mechanics and old film remain intact. Next: maker comprehension and
+  uninterrupted listening acceptance; no synthesis, solver work, export or publication.
 
 - **E01 identity/sequence follow-up implemented (2026-09-16).** Website
   `explore/film-part1@094911865d2e1af3de44e837bce6dfbf911996a0` sustains opening-budget
@@ -469,7 +472,7 @@ detail.
   previews, zero full recording downloads on browse-first entry and no unexpected errors
   (`out/growth-gallery/browser-smoke.json`). Keyboard focus, phone layout, selection, playback,
   filter/scroll retention and broken-image fallback pass. Next: open the gallery link below.
-- **Last updated:** 2026-09-16 (E01 visual-cue revision; no phase or scientific-evidence change)
+- **Last updated:** 2026-09-16 (E01 full visual storytelling pass; no phase or scientific-evidence change)
 - **Optional graphs and MP4 export are complete.** Single views offer attached-site,
   interval-attachment and outward-reach graphs with independent toggles and synchronized seeking.
   **Export MP4** creates the current treatment/camera in H.264, with optional graphs. Actual UI
@@ -613,19 +616,21 @@ the package-specific prerequisites in its charter amendment and execution plan. 
 
 ## Next step
 
-### Science series — review the E01 identity/sequence follow-up
+### Science series — review the completed E01 visual storytelling pass
 
-Review the implemented [identity/sequence amendment](plans/explore-journey-science-series.md#maker-follow-up-identity-and-sequence)
-with the maker. `src/series/episodeCues.ts` binds the retained sentence timings and
-`earlyEpisodeDrawing.ts` implements the revised views. Check incoming vapour during the
-opening budget, the air-gap passage without an early crystal, and whether the labelled
-droplet/speck/first-ice close-up removes the sphere ambiguity. The maker accepted E01-05;
-leave it unchanged. Do not stretch actions over whole sections or restore fixed-fraction Still.
+Review the implemented [full visual amendment](plans/explore-journey-science-series.md#e01-full-visual-storytelling-pass--2026-09-16)
+and [visual guide](video/science-series-e01-visual-guide.md) with the maker. In the website,
+`src/series/episodeCues.ts` and `laterEpisodeCues.ts` bind the retained sentence timings;
+`earlyEpisodeDrawing.ts` and `laterEpisodeDrawing.ts` implement the shots. Check whether
+the labelled cloud, parcel condensation, same-seed magnification and staged later scenes
+make each narrated mechanism clear. E01-05's entrance/inset was explicitly authorized to
+change; its accepted boundary mechanics remain preserved. Do not stretch short actions over
+whole sections, restore fixed-fraction Still, or use a branched model's bounding circle as ice.
 
 Open the [active plan](plans/explore-journey-science-series.md), unchanged
 [script](video/science-series-e01-script.md) and current
 [implementation review](reviews/science-series-e01-visual-cues-2026-09-16.md).
-Website `explore/film-part1@094911865d2e1af3de44e837bce6dfbf911996a0` is in
+Website `explore/film-part1@68e31f265b4b463a528cf53ef608968698cf5528` is in
 `/Users/clipper/github/snowcrystal_website-film-part1`. Reuse port 5185 and open
 `http://127.0.0.1:5185/series`; click Episode 01 to descend into full narrated playback.
 Scrolling takes over; Play resumes there. `/series/episode-1` enters the same document at
