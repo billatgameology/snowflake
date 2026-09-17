@@ -1,9 +1,9 @@
 # Plan — E02: Why six is only the beginning
 
 - **Phase:** Journey/media; no scientific phase or gate change
-- **Status:** updated-guide comprehension revision complete (2026-09-17); ready for maker review, no audio
+- **Status:** narrated E02 implementation in progress (2026-09-17); updated-guide revision retained
 - **Started:** 2026-09-16
-- **Authority:** maker requests plan → science/fact check → animations/episode → design-guide critique; **no audio generation**
+- **Authority:** initial silent build followed by explicit maker authorization on 2026-09-17: add audio using the latest E01 voice and synchronize timing
 - **Parent:** [series plan](explore-journey-science-series.md), [maker design guide](../video/science-series-design-guide.md)
 - **Worktrees:** authority `/Users/clipper/github/snowflake` on `explore/film-part1-plan`;
   website `/Users/clipper/github/snowcrystal_website-film-part1` on `explore/film-part1`, baseline `c3143a2`
@@ -166,6 +166,33 @@ records scoped source/story/runtime findings, repairs and actual visual/interact
 Website `docs/episode-two-guide-tests.tap` records **82 passes, zero failures**; TypeScript
 and production build pass. E01/home/old film/assets remain unchanged. Next: maker comprehension
 review; complete spoken rehearsal and a fresh uncoached audience account remain pending.
+
+## Narrated performance amendment — 2026-09-17
+
+The maker now explicitly authorizes full E02 narration. This amendment supersedes the earlier
+no-audio/credential-access restrictions for E02 only; prior silent-build records remain historical.
+Use the latest E01 voice, Juniper (`aMSt68OGf4xUZAnLpTU8`), with its retained multilingual-v2
+settings. Read the authorized credential only inside synthesis, never into logs or committed files.
+Keep the reviewed E02 spoken paragraphs unchanged; optional reader depth is not narrated.
+
+1. Preserve immutable per-scene requests, audio and provider character alignment in a new E02
+   directory. Pin source/audio identities. Never automatically repeat an uncertain paid request.
+2. Decode and compose sample-indexed PCM, retaining original takes. Insert actual pauses before
+   each of the four in-paragraph prediction answers, plus ordinary paragraph/scene breaths.
+   Transform caption, paragraph and visual phrase cues through the same sample map.
+3. Replace E02's provisional reading clock with the existing narration transport. Actual media
+   time owns visuals and scrolling, including rate changes and buffering. Preserve direct entry,
+   interruptible continuous descent, exclusive episode ownership, manual/seek/reverse/Still modes,
+   explicit retry on audio failure, and end stopping. Update silent UI labels only outside E02.
+4. Verify every take/master decodes, exact spoken-source coverage, alignment bounds and actual
+   prediction pauses. Run focused episode/audio/continuity tests, typecheck, production build,
+   and live desktop/narrow playback inspections with independent source/runtime/cue review.
+   Distinguish automated synchronization and sampled viewing from full human listening acceptance.
+
+Done when the complete E02 narration is playable with phrase-aligned causal visuals and scrolling,
+all four prediction answers are withheld through their pauses, checks and limitations are recorded,
+and E01/home/old-film behavior and retained audio remain intact. No new voice selection, script
+rewrite, E03, solver/gate changes, publication or export. Root remains sole Site editor.
 
 ## Tried and rejected
 

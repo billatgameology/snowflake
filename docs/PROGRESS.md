@@ -735,7 +735,17 @@ the immutable takes, start E03, publish or run scientific gates without a new re
 Requested E01 revisions begin with `src/series/episodeCues.ts`, `laterEpisodeCues.ts` and their
 corresponding drawing files; the focused check command is in the review.
 
-### Episode 2 — updated-guide revision ready for review
+### Episode 2 — authorized narration in progress
+
+The maker now authorizes full E02 audio with the latest E01 voice, Juniper
+(`aMSt68OGf4xUZAnLpTU8`). Follow the committed
+[audio amendment](plans/science-series-episode-2.md#narrated-performance-amendment--2026-09-17):
+retain reviewed speech and immutable takes, insert real prediction pauses, and make actual audio
+own E02 cues/scrolling. The silent-build notes below are historical, not a current prohibition.
+Next: generate retained source-bound takes, integrate transformed alignment, then focused checks
+and live playback review. Preserve E01's source/audio and the original film.
+
+#### Updated-guide revision baseline
 
 Current delivery: the [2026-09-17 guide amendment](plans/science-series-episode-2.md#updated-guide-comprehension-revision--2026-09-17)
 is implemented at website `414dbe85c704fc750dec7db66057717a62d46de7`. Open
