@@ -1,7 +1,7 @@
 # Plan — E02: Why six is only the beginning
 
 - **Phase:** Journey/media; no scientific phase or gate change
-- **Status:** narrated E02 implementation in progress (2026-09-17); updated-guide revision retained
+- **Status:** narrated E02 complete (2026-09-17); source retained, maker listening/comprehension review pending
 - **Started:** 2026-09-16
 - **Authority:** initial silent build followed by explicit maker authorization on 2026-09-17: add audio using the latest E01 voice and synchronize timing
 - **Parent:** [series plan](explore-journey-science-series.md), [maker design guide](../video/science-series-design-guide.md)
@@ -194,7 +194,19 @@ all four prediction answers are withheld through their pauses, checks and limita
 and E01/home/old-film behavior and retained audio remain intact. No new voice selection, script
 rewrite, E03, solver/gate changes, publication or export. Root remains sole Site editor.
 
+Completed at website `5fcd95a`: full Juniper narration, sample-mapped prediction pauses and media-owned visual/scroll
+timing are implemented. The [review/edit record](../reviews/science-series-e02-review-2026-09-16.md#authorized-juniper-narration-and-synchronization--2026-09-17)
+names retained identities, independent artifact/ASR/runtime review, repaired findings and actual
+browser coverage. Website `docs/episode-two-audio-tests.tap` records **86 passes, zero failures**;
+TypeScript and production build pass. Human pronunciation listening and audience teach-back
+remain pending; next is maker review, not more automatic synthesis.
+
 ## Tried and rejected
+
+- Driving narrated playback with the provisional reading clock or matching prediction words
+  after discarding punctuation (a question's “wider?” is not the answer's “Wider:”).
+- Reusing unverified ignored PCM caches as composition inputs; preserve verified takes and
+  derive fresh explicit-format PCM. Do not resynthesize an intact take to repair timing code.
 
 - Keeping optional complexity in the spoken path while calling citations a substantive reader.
 - Reducing plane spacing and changing beam angle simultaneously, hiding the lost-match step.

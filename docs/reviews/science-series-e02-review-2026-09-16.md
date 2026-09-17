@@ -311,3 +311,66 @@ The changed implementation paths are E02-only. The new E01 performance, home cho
 original film, six crystal payloads and shared transport/rendering code are unchanged from
 website baseline `1fd50e6`. **Ready for maker review; human performance and fresh audience
 understanding remain open.** No E03, export, push, deployment or publication.
+
+## Authorized Juniper narration and synchronization — 2026-09-17
+
+Delivered at website `explore/film-part1@5fcd95a`.
+
+Maker authorization superseded the prior no-audio scope; plan amendment `ab5bd8b` preceded
+implementation. The eight-scene source remains byte-identical at SHA-256
+`86b818171353dbf7a5c4ec9a7737c7d836fa2d52546ab1f7ac4e1c9194a60b1f`.
+The latest E01 voice was independently resolved as Juniper (`aMSt68OGf4xUZAnLpTU8`), not an
+earlier sample voice. All requests use E01's multilingual-v2 settings. No reader-depth prose
+was synthesized, no uncertain paid call retried, and no earlier take/master overwritten.
+
+Website `docs/series-narration/2026-09-17-e02-juniper/paced-report.json` records the complete
+master: **664.5643310657597 seconds**, **29,307,287 decoded samples** at 44.1 kHz, SHA-256
+`6cb793dca161eb7b39430294ace35d52e650a4f3fe47e88673255e401e28ecec`.
+This is delivered speech plus pauses, not a new runtime constraint or script cut. Scene,
+paragraph, word and caption times are mapped through the same PCM segmentation, including
+four real in-paragraph prediction holds. Actual media time, not animation frame deltas, owns
+playback, scrolling and visual states.
+
+### Review provenance and repairs
+
+Shared-context, read-only story, science/audio and runtime reviewers were non-authors of
+the implementation; exact model identifiers were not exposed. Root implemented their fixes
+and performed live browser checks. No reviewer is presented as an uncoached audience member.
+
+- Story review separated the X-ray answer “Not for” from the later instruction to increase
+  the beam angle. Neighbour connections, tetrahedral cage, sheet reveal/tilt/orbit, layer
+  additions and air-delivery versus incorporation now use the appropriate spoken phrases.
+  The closing library holds completed features when named, including the hollow-end view.
+- Tests found that stripping punctuation matched “wider?” in the question instead of “Wider:”
+  in its answer. Matching now respects authored punctuation and rejects ambiguous phrases.
+  Before/after/reverse/Still tests protect all four prediction releases.
+- Runtime review found Read could rewind within an equal-scroll-position prediction pause.
+  Preserve the clock until actual manual movement; the post-scroll fallback separately forces
+  one inversion so scrollbar-only movement is not ignored. Live Read at 442.8 seconds retained
+  that position; wheel/optional-reader takeover paused real media.
+- Runtime review found the composer trusted ignored scratch PCM. It now verifies MP3 input
+  hashes, freshly decodes explicit-format PCM, validates sample format and regenerates silence.
+  The existing master was not replaced: an independent fresh decode/correlation audit already
+  bound every current segment to the retained takes and checked all pause interiors.
+
+### Actual verification and remaining limits
+
+The copied website `signal-source-pacing-audit.json` independently checks exact source,
+voice/settings, all takes/masters, source-sample coverage, mapped timing and signal. It records
+no failures or clipped samples. `asr-comparison.json` records full audio-only cached-Whisper
+transcription and its differences: no sentence/paragraph omission was found. These checks
+are not human listening or a pronunciation guarantee. “Ice Ih,” “Libbrecht,” and “Faster end
+advance” merit a human listening check; unchanged clips and reproduction commands live in
+local staging `out/e02-audio-review/README.md` and `listening-clips.json`.
+
+Website `docs/episode-two-audio-tests.tap`: **86 passes, zero failures**; exact command is in
+website `docs/science-series-episode-two.md`. TypeScript and standalone Sites build pass,
+with the pre-existing chunk advisory. No scientific suite/gate was required or run.
+
+Root sampled actual normal-speed playback and inspected all eight scene states on desktop and
+narrow layouts: recordings, diffraction question/correction, molecule/cage, sheet/network,
+all four prediction holds, separate surface layers and ending features. Checked actual media
+against slider time, 1.5× rate, reverse seeking, Still before/after, wheel and reader takeover,
+natural stop at the decoded endpoint, and E01→E02 continuous entry with only one audio playing.
+This is bounded viewing, not one uninterrupted whole-episode performance or a physical-phone test.
+Maker listening and fresh audience teach-back remain pending; no E03 or export is authorized.

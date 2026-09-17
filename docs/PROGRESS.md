@@ -19,6 +19,18 @@ detail.
 
 ## Current state
 
+- **Episode 2 full Juniper narration complete (2026-09-17).** Website
+  `explore/film-part1@5fcd95a` adds the latest E01 voice to all eight unchanged E02 scenes.
+  Actual media time owns the visuals and continuous scrolling, including four real prediction
+  pauses; E01/home/original film are preserved. Website
+  `docs/series-narration/2026-09-17-e02-juniper/paced-report.json` records **664.5643310657597 s**,
+  SHA-256 `6cb793dca161eb7b39430294ace35d52e650a4f3fe47e88673255e401e28ecec`.
+  `docs/episode-two-audio-tests.tap` records **86 passes, zero failures**; typecheck/build pass.
+  Independent source/signal/ASR checks and sampled desktop/narrow playback are in the
+  [audio review/edit record](reviews/science-series-e02-review-2026-09-16.md#authorized-juniper-narration-and-synchronization--2026-09-17).
+  Next: maker listening/comprehension review, not automatic resynthesis or E03. Full human
+  listening and fresh audience acceptance are not claimed.
+
 - **Episode 2 updated-guide revision complete (2026-09-17).** Website
   `explore/film-part1@414dbe85c704fc750dec7db66057717a62d46de7` revises the silent episode
   with conversational explanation, demonstrated prerequisites, substantive optional reading
@@ -573,7 +585,7 @@ detail.
   previews, zero full recording downloads on browse-first entry and no unexpected errors
   (`out/growth-gallery/browser-smoke.json`). Keyboard focus, phone layout, selection, playback,
   filter/scroll retention and broken-image fallback pass. Next: open the gallery link below.
-- **Last updated:** 2026-09-17 (updated design guide applied to silent E02; no phase or scientific-evidence change)
+- **Last updated:** 2026-09-17 (authorized E02 narration and synchronized playback; no phase or scientific-evidence change)
 - **Optional graphs and MP4 export are complete.** Single views offer attached-site,
   interval-attachment and outward-reach graphs with independent toggles and synchronized seeking.
   **Export MP4** creates the current treatment/camera in H.264, with optional graphs. Actual UI
@@ -735,19 +747,24 @@ the immutable takes, start E03, publish or run scientific gates without a new re
 Requested E01 revisions begin with `src/series/episodeCues.ts`, `laterEpisodeCues.ts` and their
 corresponding drawing files; the focused check command is in the review.
 
-### Episode 2 — authorized narration in progress
+### Episode 2 — narrated performance ready for review
 
-The maker now authorizes full E02 audio with the latest E01 voice, Juniper
-(`aMSt68OGf4xUZAnLpTU8`). Follow the committed
-[audio amendment](plans/science-series-episode-2.md#narrated-performance-amendment--2026-09-17):
-retain reviewed speech and immutable takes, insert real prediction pauses, and make actual audio
-own E02 cues/scrolling. The silent-build notes below are historical, not a current prohibition.
-Next: generate retained source-bound takes, integrate transformed alignment, then focused checks
-and live playback review. Preserve E01's source/audio and the original film.
+Open `http://127.0.0.1:5185/series/episode-2` and press Play. Website `5fcd95a` is paused at the
+opening with the latest E01 voice, Juniper, and audio-owned timing. The preview server remains
+running. Read [the audio amendment](plans/science-series-episode-2.md#narrated-performance-amendment--2026-09-17)
+and [review](reviews/science-series-e02-review-2026-09-16.md#authorized-juniper-narration-and-synchronization--2026-09-17)
+for retained identities and verification limits. Next: human listening, especially “ice Ih,”
+“Libbrecht,” and “Faster end advance,” then uncoached prediction/meaning feedback.
+Local unchanged listening clips and exact audit commands are indexed by
+`out/e02-audio-review/README.md` and `listening-clips.json`; these are staging, not phase evidence.
+For repairs, start in website `src/series/episodeTwoCues.ts` and `EpisodeTwo.tsx`; run the focused
+command in website `docs/science-series-episode-two.md`. Do not rerun synthesis as a test or
+overwrite retained takes. Cold-reload after canvas changes. Preserve E01 speech/home/old film;
+no E03, export, push or publication is implied. Silent-build notes below are historical.
 
 #### Updated-guide revision baseline
 
-Current delivery: the [2026-09-17 guide amendment](plans/science-series-episode-2.md#updated-guide-comprehension-revision--2026-09-17)
+Pre-audio baseline: the [2026-09-17 guide amendment](plans/science-series-episode-2.md#updated-guide-comprehension-revision--2026-09-17)
 is implemented at website `414dbe85c704fc750dec7db66057717a62d46de7`. Open
 `http://127.0.0.1:5185/series/episode-2`; preview is running and paused at the opening.
 Use Play for the revised silent performance and “A closer look” for optional depth.

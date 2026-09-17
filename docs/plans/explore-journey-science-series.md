@@ -3,7 +3,7 @@
 - **Phase:** Maker-directed Journey/media; no scientific phase or gate change
 - **Status:** E01 conversational revision produced with new narration; bounded content/visual/audio review complete; audience acceptance open; previous film preserved
 - **Started:** 2026-09-15
-- **Last touched:** 2026-09-17 by OpenAI Codex (updated guide applied to silent E02)
+- **Last touched:** 2026-09-17 by OpenAI Codex (authorized E02 Juniper narration and audio-owned timing)
 - **Direction:** [JTS-M010/M011](../journey/TRANSCRIPT.md#jts-m010--the-format-works-the-content-needs-rethinking), plus [JTS-M012 visual-production direction](../journey/TRANSCRIPT.md#jts-m012--use-the-animation-library-and-rendering-experiments-freely)
 - **Supersedes:** the single-film editorial constraints in [the Part 1 plan](explore-film-part1-science-scroll-documentary.md), not its recorded implementation or verification results
 
@@ -461,6 +461,14 @@ words/audio/cues were changed. Next: maker script approval, then an approved pro
 and another general-adult comprehension check; not automatic import or speech generation.
 
 ### E02 authorization — 2026-09-16
+
+**Audio authorization, 2026-09-17:** the maker subsequently requested complete E02 audio using
+the latest E01 voice and synchronized timing. The committed
+[audio amendment](science-series-episode-2.md#narrated-performance-amendment--2026-09-17)
+supersedes the earlier silent-only restriction. Full Juniper narration, real prediction pauses,
+and actual-audio-owned cues/scrolling are implemented; the latest E02 review records tests,
+independent artifact checks, bounded viewing and remaining human listening. Earlier entries
+below describe their executed scopes, not a continuing prohibition.
 
 **Updated-guide revision, 2026-09-17:** the maker explicitly requests review/update of E02.
 The bounded [E02 amendment](science-series-episode-2.md#updated-guide-comprehension-revision--2026-09-17)
