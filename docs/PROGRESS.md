@@ -19,6 +19,14 @@ detail.
 
 ## Current state
 
+- **Episode 2 planning/fact check active (2026-09-16).** Maker authorizes plan, science review,
+  complete animation/episode implementation and a final critique against the design guide,
+  explicitly without audio generation. The [E02 plan](plans/science-series-episode-2.md)
+  follows the structure/shape question with a silent, continuous series addition. The complete
+  [script](video/science-series-e02-script.md) has bounded science/story review and corrections
+  recorded in the [review](reviews/science-series-e02-review-2026-09-16.md). Next: implement
+  the reviewed draft, then product checks and design-guide inspection; preserve E01/home/film.
+
 - **Science-series maker critique is now reusable design guidance (2026-09-16).** The
   [guide](video/science-series-design-guide.md) records the maker's feedback across the pilot,
   home and E01, actual praise versus unaccepted repairs, and concrete future-episode design/
@@ -645,6 +653,14 @@ the package-specific prerequisites in its charter amendment and execution plan. 
 0043–0044's Phase 7 deferrals remain authoritative and cannot be discharged by Phase 10.
 
 ## Next step
+
+### Episode 2 — build the reviewed silent draft
+
+Open [E02 plan](plans/science-series-episode-2.md), [script](video/science-series-e02-script.md)
+and [source review](reviews/science-series-e02-review-2026-09-16.md). Implement in the existing
+website worktree on port 5185, append the episode without hard navigation and enforce exclusive
+playback. No audio generation or credential access. Use focused tests, typecheck, build and
+the design guide's visual review/edit loop; final narration and maker acceptance stay pending.
 
 ### Science series — apply the maker's design guide to E01 review and later episodes
 

@@ -334,6 +334,15 @@ selection remains active for later episodes, not a requirement to insert unrelat
 
 ## Review and limits
 
+### E02 authorization — 2026-09-16
+
+The maker now authorizes planning, science/fact review, a complete new episode/animation build,
+then critique against the design guide, explicitly **without audio generation**. The bounded
+[E02 plan](science-series-episode-2.md), [script](../video/science-series-e02-script.md) and
+[source review](../reviews/science-series-e02-review-2026-09-16.md) govern that implementation.
+This authorizes proceeding beyond E01's prototype checkpoint, not relabelling E01's unreviewed
+repairs as accepted. Preserve all prior content and the accepted continuous experience.
+
 ### Maker-feedback synthesis and future-episode requirements — 2026-09-16
 
 The maker asks to preserve how they critique scenes, understand what changed before their praise,
