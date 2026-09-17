@@ -46,7 +46,7 @@ The source-bound [script](science-series-e01-script.md) and recorded speech rema
 | 4→5 | Keep the hatched frozen droplet and buried speck through the end of 4. In 5, enclose that seed with air at fixed temperature, select its outer boundary, then zoom into the existing moving surface. No instant star or new seed identity. |
 | 6 | Start with ice and liquid surfaces exchanging both ways at the same temperature. Compare their different balance points; introduce 1.65 and 1.91 mbar only with the source example. Keep one air marker fixed while switching the reference from water to ice. Finally place the air between the two references and show liquid shrinking while ice grows. Water balance means no net liquid loss; both-way traffic persists. |
 | 7 | Return to the cloud and its already-grown crystal. Show local vapour drawdown and donor shrink. Follow one highlighted molecule through departure, wandering gas and incorporation, while other arrivals/departures remain visible at both surfaces. Resolve the approximate budget, then widen attention to the surrounding-air journey. |
-| 8 | Pose the rising-percentage prediction; highlight the denominator. Reveal the existing sourced temperature examples one at a time. Then compare percent and absolute excess in separate aligned, fixed-scale panels, dynamically highlighting the contrasting cold-end trends. A labelled schematic trend may illustrate the near−12°C maximum; no new numerical curve. Keep the −40°C caveat adjacent. |
+| 8 | Pose the rising-percentage prediction with equal-volume, equal-value dot samples; identify the ice-balance denominator and extra water. Reveal the existing sourced temperature examples one at a time. Then physically separate the surplus units for an absolute-amount comparison. Rounded dots do not replace printed source percentages. A labelled schematic trend may illustrate the near−12°C maximum; no new numerical curve. Keep the −40°C caveat adjacent. |
 | 9 | Follow the same donor population: some freeze into compact ice and others evaporate. Show the liquid reservoir diminishing while ice and some vapour remain. Contextual source temperature is not an on/off switch. Finish by selecting the remaining water and its route through air. |
 | 10 | Keep the grown crystal as payoff; resolve the material route beside it. Shift attention to faces/directions/branches. For the source's laboratory promise, show a labelled conceptual reconstruction: conditions change, then new material appears while earlier geometry stays fixed. Return to the grown object and the open question “Why six?” No fabricated physical controls on Run B. |
 
@@ -80,7 +80,36 @@ commit records **66 passes, zero failures**; its `docs/science-series.md` record
 TypeScript/build and bounded desktop/phone-sized playback checks. This is an implemented
 visual draft, not maker comprehension/listening acceptance or scientific validation.
 
+## Follow-up: show the air, count the water, keep the cloud
+
+Maker feedback on the prior implementation requested more visible action in scenes 7–9.
+Website `explore/film-part1@068dc120037063c28b4ee78034307fcd6dc82695`, following authority
+plan commit `639859e`, now implements:
+
+- A magnified surrounding-air region with moving vapour, path tails and contact at different
+  positions on the drawn ice face. Surface exchange remains reciprocal. The label explicitly
+  distinguishes illustrative wandering vapour from wind.
+- Equal-volume water samples adapted from Chapter 4 `#anim-chambers`, followed by an
+  animated separation of the extra above ice balance. The fixed rounded dot amount makes
+  the much smaller cold reference visible before the percentages and amounts are compared.
+- One persistent cloud population: identified droplets freeze or evaporate; frozen remnants
+  and vapour remain after liquid donors disappear. History outlines preserve earlier positions.
+  The cold paragraph moves an uncalibrated equilibrium reference, not the actual cloud's
+  counted water; the remaining-water paragraph resumes visible air transport.
+
+The [follow-up review](../reviews/science-series-e01-visual-cues-2026-09-16.md#air-counted-water-and-persistent-cloud-follow-up)
+records the source check and bounded desktop/phone playback, reverse/Still inspection.
+Website `docs/series-tests.tap` at that commit records **68 passes, zero failures**. The prior
+implemented-result section remains the historical record of the broader pass; this follow-up
+supersedes its scene 8 comparison treatment and scene 9 cutaway sequence.
+
 ## Tried and rejected
+
+- Static air arrows during a narrated journey: the travel distance and motion must be visible.
+- Percentage-only or chart-only comparison: first show the different reference quantities.
+- Unrelated icons replacing a cloud midway through its history: preserve the same objects.
+- Arbitrary cold-water dot counts: countable units imply ratios; use sourced samples or an
+  explicitly uncalibrated reference, not invented numerical change.
 
 - One static chart/table for the full explanation: maker feedback found it visually insufficient.
 - Unlabelled yellow/white circles: phase identity was ambiguous.

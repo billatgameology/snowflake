@@ -146,3 +146,54 @@ Both match website `docs/series-verification.json`. Source/import/alignment/mast
 and old-film paths have no diff from the website baseline. `stat` on the old export still
 reports **280575547 bytes** at `export/part1-full-final/part1-visual-film.mp4`. No generation,
 export, dependency change, scientific suite/gate, push, merge or publication occurred.
+
+## Air, counted water and persistent cloud follow-up
+
+Authority plan-before-code commit `639859e`; website baseline `68e31f2`; implemented website
+`explore/film-part1@068dc120037063c28b4ee78034307fcd6dc82695`. Scope is scene 7's final
+air-transport passage and scenes 8–9, following the maker's specific comprehension feedback.
+No narration, audio or earlier-scene rewrite.
+
+Produced: moving wandering vapour routes across a labelled surrounding-air region to drawn
+ice; equal-volume/equal-value-dot samples with the excess separated into visible shelves;
+and one retained cloud population through freezing, evaporation, depletion, history,
+qualitative cooling reference and final vapour transport. Static chapter references are
+`docs/education/chapters/04-the-fuel-supply.html#anim-chambers` and `#chart-excess`.
+The former's original samples depict ice-saturated totals; the new partition into ice
+reference plus excess is explicitly an editorial adaptation, not a copied scientific result.
+
+Root used the read-only, shared-context `science_review` agent for source discovery and then
+a bounded changed-code review. Exact model ID was unavailable; this is not blind review.
+Both root and reviewer evaluated the existing chapter saturation functions in
+`docs/education/assets/anim-nakaya.js`. Website `src/series/waterStory.ts` records rounded
+counts **162+8, 69+11, 6+3** at −5/−15/−40 °C, for a fixed **0.02 g/m³** dot unit, and excess
+labels **0.162, 0.218, 0.056 g/m³**. The independent recomputation agrees. Source table
+percentages remain separately printed; rounded-dot ratios need not equal them exactly.
+Extra is an arithmetic difference, not a molecular species or a prediction of deposited ice.
+The −40 °C comparison does not promise a liquid-filled cloud at that temperature.
+
+The reviewer confirmed actual edge contact, retained frozen donor identities, no refilling
+of evaporated donors, and surviving gas. The liquid gauge follows both loss routes but is
+qualitative, not a conserved-mass measurement. It rejected a proposed arbitrary counted
+cold-supply change; the implemented cold paragraph moves an uncalibrated equilibrium
+reference while holding the illustrated cloud unchanged. No material source/numerical
+blocker remained in that bounded review. No new runtime-agent review is claimed for this
+follow-up; earlier agent records above apply to the preceding full pass.
+
+Root inspected requested states at desktop **1270×710** and phone-sized **390×844**. Live
+playback showed air motion and the same cloud before/after liquid depletion while the reader
+followed. Whole samples, separated extras, history outlines, cooling reference and final
+gas paths were seek-inspected. Still and forward/reverse seeking preserved the intended
+sentence states. Phone DOM reported no horizontal overflow; viewport override was reset.
+The final cold-load/scene-seek error query since `2026-09-17T02:14:42.263Z` returned no new
+errors. These are bounded checks, not uninterrupted listening, physical-touch testing or
+audience acceptance, and do not establish historical Hero1 device-loss recovery.
+
+Website `docs/series-tests.tap` at the implementation commit records **68 passes, zero failures**;
+its `docs/science-series.md` names the exact command. `npx tsc -b` passed. The standalone
+Sites build initially exited 139 during TypeScript with a segmentation fault; an immediate
+unchanged-source retry passed TypeScript and Vite, retaining the chunk-size advisory. No
+code workaround was added for that transient failure. The path-scoped baseline diff is empty
+for earlier drawing/cues, home, narration import/alignment/assets and old film. The retained
+master hash matches website `docs/series-verification.json`. No synthesis, export, dependency
+or solver change, scientific suite/gate, push, merge or publication occurred.

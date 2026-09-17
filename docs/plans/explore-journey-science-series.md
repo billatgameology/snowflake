@@ -343,6 +343,19 @@ the requested concepts have visible actions, targeted drawing/cue/transport test
 TypeScript/build pass, and bounded desktop/phone playback/Still/reverse inspection plus a
 source-depiction review have been completed. No new synthesis, assets, solvers, export or release.
 
+Implemented after plan commit `639859e` in website
+`explore/film-part1@068dc120037063c28b4ee78034307fcd6dc82695`. `waterStory.ts` supplies
+rounded source-derived dot samples, reversible wandering paths and persistent donor identities;
+`laterEpisodeDrawing.ts` presents the requested scenes. The
+[follow-up review](../reviews/science-series-e01-visual-cues-2026-09-16.md#air-counted-water-and-persistent-cloud-follow-up)
+records source recomputation, rejected unsupported cold counts, bounded browser checks and
+the unchanged-source build retry. Website `docs/series-tests.tap` at that commit records
+**68 passes, zero failures**. TypeScript and the production build pass. Desktop/phone-sized
+inspection, live air/reservoir playback, reverse seeking and Still completed; no new cold-load
+console errors appeared in the recorded query. Narration, earlier drawing/cues, home and old
+film have no path-scoped diff against the website baseline. Next: maker comprehension and
+listening acceptance; this is not a physical cloud simulation or an audience test.
+
 ### E01 full visual storytelling pass — 2026-09-16
 
 The maker requests a written account of what works in scenes 1–5, especially 5, then a
@@ -530,6 +543,18 @@ audio-generation or scientific checks were run for this prose-only rework.
   current science series. Publication and release identities remain separate decisions.
 
 ## Tried and rejected
+
+- **Name surrounding-air transport without showing it.** Maker feedback on `68e31f2` found
+  the static final relay view insufficient. Follow wandering tracers across the labelled air
+  region to an actual solid boundary; do not imply bulk wind or measured travel times.
+- **Show percentages without their countable reference amounts.** The follow-up uses the
+  static chapter's equal-volume/equal-water-per-dot language, then separates the surplus.
+  Rounded integer ratios are not substituted for the independently printed source percentages.
+- **Replace the reservoir with unrelated later icons.** Keep the donor identities, frozen
+  remnants, gas and ice across the entire explanation, including the history qualification.
+- **Invent a counted cold-supply comparison.** A proposed arbitrary smaller dot population
+  would imply unsupported quantitative change. Cooling now moves a qualitative equilibrium
+  reference while the actual illustrated cloud remains unchanged.
 
 - **Use similar spheres for droplets, particles and first ice.** Maker feedback found the
   identities unclear. The new close-up links one droplet to a rectangular magnified interior:

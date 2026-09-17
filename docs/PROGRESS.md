@@ -19,12 +19,17 @@ detail.
 
 ## Current state
 
-- **E01 transport/amount/reservoir follow-up in progress (2026-09-16).** The maker requests
-  visible air transport in scene 7, countable-water imagery from the static chapter in scene 8,
-  and a persistent cloud-reservoir story in scene 9. The
+- **E01 transport/amount/reservoir follow-up implemented (2026-09-16).** Website
+  `explore/film-part1@068dc120037063c28b4ee78034307fcd6dc82695` adds moving surrounding-air
+  paths in scene 7, equal-volume counted water and separated surplus in scene 8, and one
+  persistent cloud population through scene 9. The
   [bounded amendment](plans/explore-journey-science-series.md#e01-transport-amount-and-reservoir-follow-up--2026-09-16)
-  preserves narration and accepted scenes. Next: implement these three views in the retained
-  website worktree, then focused tests and visual/source review.
+  and [follow-up review](reviews/science-series-e01-visual-cues-2026-09-16.md#air-counted-water-and-persistent-cloud-follow-up)
+  record source recomputation, bounded desktop/phone playback/seek/Still checks and the
+  unchanged-source build retry. Website `docs/series-tests.tap` at that commit records
+  **68 passes, zero failures**; TypeScript/build pass. Narration, earlier drawings/cues, home
+  and old film remain intact. Next: maker comprehension/listening acceptance; no synthesis,
+  scientific suite/gate, export or publication.
 
 - **E01 full visual storytelling pass implemented (2026-09-16).** Website
   `explore/film-part1@68e31f265b4b463a528cf53ef608968698cf5528` adds labelled cloud formation,
@@ -479,7 +484,7 @@ detail.
   previews, zero full recording downloads on browse-first entry and no unexpected errors
   (`out/growth-gallery/browser-smoke.json`). Keyboard focus, phone layout, selection, playback,
   filter/scroll retention and broken-image fallback pass. Next: open the gallery link below.
-- **Last updated:** 2026-09-16 (E01 full visual storytelling pass; no phase or scientific-evidence change)
+- **Last updated:** 2026-09-16 (E01 scenes 7–9 visual follow-up; no phase or scientific-evidence change)
 - **Optional graphs and MP4 export are complete.** Single views offer attached-site,
   interval-attachment and outward-reach graphs with independent toggles and synchronized seeking.
   **Export MP4** creates the current treatment/camera in H.264, with optional graphs. Actual UI
@@ -623,21 +628,21 @@ the package-specific prerequisites in its charter amendment and execution plan. 
 
 ## Next step
 
-### Science series — review the completed E01 visual storytelling pass
+### Science series — review the completed E01 air, amount and cloud follow-up
 
-Review the implemented [full visual amendment](plans/explore-journey-science-series.md#e01-full-visual-storytelling-pass--2026-09-16)
+Review the implemented [follow-up amendment](plans/explore-journey-science-series.md#e01-transport-amount-and-reservoir-follow-up--2026-09-16)
 and [visual guide](video/science-series-e01-visual-guide.md) with the maker. In the website,
-`src/series/episodeCues.ts` and `laterEpisodeCues.ts` bind the retained sentence timings;
-`earlyEpisodeDrawing.ts` and `laterEpisodeDrawing.ts` implement the shots. Check whether
-the labelled cloud, parcel condensation, same-seed magnification and staged later scenes
-make each narrated mechanism clear. E01-05's entrance/inset was explicitly authorized to
-change; its accepted boundary mechanics remain preserved. Do not stretch short actions over
-whole sections, restore fixed-fraction Still, or use a branched model's bounding circle as ice.
+open `src/series/waterStory.ts`, `laterEpisodeCues.ts` and `laterEpisodeDrawing.ts` for the
+latest changes. Check whether scene 7's visible air journeys, scene 8's countable reference/
+surplus and scene 9's persistent donor history resolve the stated comprehension problems.
+Earlier labelled cloud/seed/surface work remains intact. Do not stretch short actions over
+whole sections, invent counted water ratios, refill depleted donors during later caveats,
+restore fixed-fraction Still, or use a branched model's bounding circle as ice.
 
 Open the [active plan](plans/explore-journey-science-series.md), unchanged
 [script](video/science-series-e01-script.md) and current
 [implementation review](reviews/science-series-e01-visual-cues-2026-09-16.md).
-Website `explore/film-part1@68e31f265b4b463a528cf53ef608968698cf5528` is in
+Website `explore/film-part1@068dc120037063c28b4ee78034307fcd6dc82695` is in
 `/Users/clipper/github/snowcrystal_website-film-part1`. Reuse port 5185 and open
 `http://127.0.0.1:5185/series`; click Episode 01 to descend into full narrated playback.
 Scrolling takes over; Play resumes there. `/series/episode-1` enters the same document at
