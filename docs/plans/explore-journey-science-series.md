@@ -334,6 +334,41 @@ selection remains active for later episodes, not a requirement to insert unrelat
 
 ## Review and limits
 
+### E01 general-adult comprehension review — 2026-09-16
+
+The maker reports one general-adult viewer found the episode dense, did not understand
+water-vapour pressure or equilibrium, became lost after scene 6, and found scene 8 too dense.
+This is secondhand audience feedback, not a measured population result. The maker requests a
+full review of all ten scenes, a circular magnifier in scene 4 and a wavy liquid surface in
+scene 6. On the narration choice the maker selected **visual fixes and revised script first**.
+
+Goal: a viewer without prior physical chemistry can explain the liquid → vapour → ice route,
+what equal two-way exchange means, why one air state can shrink liquid while growing ice,
+and why a larger percentage need not mean more water. Introduce, demonstrate, explain and
+allow reuse before relying on a concept. Merely displaying its name is insufficient.
+
+1. Review all current narration and scene prescriptions against the design guide, with
+   independent read-only story/source/code criticism and bounded browser inspection. Record
+   exact prerequisite gaps, likely misconceptions and review limits in one review document.
+2. Prepare a complete separately named E01 comprehension-revision script for maker approval;
+   keep the current narration authority, imported runtime text, audio and alignment unchanged.
+   Explain pressure/equilibrium with concrete referents; separate optional quantitative depth
+   from the required causal chain, recording source dispositions rather than losing content.
+3. Update the reusable guide with the reported feedback, comprehension goals, prerequisite
+   checks and open-ended teach-back prompts. Do not claim learning success without a viewer test.
+4. Implement only the two requested live visual changes. The circular lens keeps its selected
+   parent droplet, magnification label and non-ice-speck identity. Liquid waves remain centred
+   on a stable mean level; surface exchange meets the local wave, without false net gain/loss.
+5. Verify the changed drawings with focused product tests, TypeScript/build and desktop/narrow
+   playback, reverse-seek and Still checks. Use Rule 7 and whitespace/link checks for prose.
+   Preserve home, the original film, Episode 2, praised scene 5 and all narration bytes.
+
+Done for this pass: the full review and approval-only revised script are written; the design
+guide records the new requirement; the two visual fixes are implemented and checked. New
+script import, retiming, audio generation, a new episode route, scientific suites/gates and
+publication are explicitly out of scope. Audience comprehension remains an acceptance question,
+not a status inferred from tests. Commit this amendment before implementation.
+
 ### E02 authorization — 2026-09-16
 
 The maker now authorizes planning, science/fact review, a complete new episode/animation build,
@@ -648,6 +683,11 @@ audio-generation or scientific checks were run for this prose-only rework.
   current science series. Publication and release identities remain separate decisions.
 
 ## Tried and rejected
+
+- **Naming before explaining.** The new audience report identifies a real comprehension
+  failure despite the previous visual repairs. Review the whole prerequisite chain, not only
+  the scene where the viewer became lost. Do not restore dense pressure/humidity arithmetic
+  merely because it is source-correct or already narrated.
 
 - **Pressure lines without visible surface consequences.** Maker feedback on `068dc12`
   found the source-table comparison unexplained. Keep actual surfaces and two-way traffic
