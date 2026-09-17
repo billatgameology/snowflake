@@ -314,6 +314,35 @@ selection remains active for later episodes, not a requirement to insert unrelat
 
 ## Review and limits
 
+### E01 transport, amount and reservoir follow-up — 2026-09-16
+
+Maker feedback on website `68e31f2`: scene 7's last paragraph names surrounding-air transport
+without showing it; scene 8 needs the static chapter's countable-water imagery; scene 9 still
+does not visually explain its narration. Revise only these scenes, preserving the performance,
+source text, home, earlier accepted views and original film.
+
+- Scene 7: widen the molecular handover into an explicitly magnified air region. Animate
+  wandering vapour tracers over the full distance to a drawn solid boundary, with path tails,
+  different contact locations and reciprocal surface traffic. No teleportation, bulk wind
+  claim, measured diffusion rates or invented tip/recess growth prediction.
+- Scene 8: adapt Chapter 4 `#anim-chambers`' equal-volume/equal-dot-amount language, not its
+  independent animation clock. Show visibly many versus few water-vapour units; distinguish
+  ice-balance amount from the surplus above it. Printed percentages remain relative to the
+  ice-balance denominator, not percentages of the total water-balanced population. Keep exact
+  existing displayed percentages/absolute-excess values and the −40 °C equilibrium caveat;
+  use a labelled illustrative population if rounding counts. No new interactive calculator.
+- Scene 9: retain one identifiable cloud population and its ice collector across the scene.
+  Show individual droplets freezing or evaporating through vapour into the existing ice;
+  leave frozen particles and vapour present as liquid donors disappear. Keep that depleted
+  state through the source's temperature/history caveats, highlight the remaining water and
+  animate its air route. Contextual cooling must not become a universal snow-off switch.
+
+Commit this bounded amendment before website edits. Use the existing visual guide, source
+paragraphs and sentence cues; update the guide/result record after implementation. Done when
+the requested concepts have visible actions, targeted drawing/cue/transport tests and website
+TypeScript/build pass, and bounded desktop/phone playback/Still/reverse inspection plus a
+source-depiction review have been completed. No new synthesis, assets, solvers, export or release.
+
 ### E01 full visual storytelling pass — 2026-09-16
 
 The maker requests a written account of what works in scenes 1–5, especially 5, then a

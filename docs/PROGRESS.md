@@ -19,6 +19,13 @@ detail.
 
 ## Current state
 
+- **E01 transport/amount/reservoir follow-up in progress (2026-09-16).** The maker requests
+  visible air transport in scene 7, countable-water imagery from the static chapter in scene 8,
+  and a persistent cloud-reservoir story in scene 9. The
+  [bounded amendment](plans/explore-journey-science-series.md#e01-transport-amount-and-reservoir-follow-up--2026-09-16)
+  preserves narration and accepted scenes. Next: implement these three views in the retained
+  website worktree, then focused tests and visual/source review.
+
 - **E01 full visual storytelling pass implemented (2026-09-16).** Website
   `explore/film-part1@68e31f265b4b463a528cf53ef608968698cf5528` adds labelled cloud formation,
   same-seed surface magnification and staged explanations through scenes 6–10. The
