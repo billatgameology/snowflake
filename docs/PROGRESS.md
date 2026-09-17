@@ -19,18 +19,23 @@ detail.
 
 ## Current state
 
-- **E01 comprehension production authorized and in progress (2026-09-17).** The maker now
-  requests the revised website, complete narration with voice `aMSt68OGf4xUZAnLpTU8`, and a
-  visual/audio/content self-review. The [bounded production amendment](plans/explore-journey-science-series.md#e01-approved-comprehension-production-and-new-narration--2026-09-17)
-  supersedes the approval-only boundary below for E01. Preserve the old film, prior audio,
-  home and E02. Next: source preflight, eleven-section import/visual adaptation and new takes.
+- **E01 conversational production and review/edit loop complete (2026-09-17).** Website
+  `explore/film-part1@1fd50e6cde5e49e7d553c60126ce45b2e8b31201` implements the eleven-section
+  revision with the requested voice `aMSt68OGf4xUZAnLpTU8` (Juniper). Its
+  `docs/series-narration/2026-09-17-conversational/paced-report.json` records **945.981724 s**;
+  `docs/episode-one-conversational-tests.tap` records **52 passes, zero failures**.
+  TypeScript/build pass. [Review and limits](reviews/science-series-e01-conversational-production-2026-09-17.md)
+  record source checks, independent audio decode/alignment/ASR, bounded desktop/narrow
+  playback, timing/attention repairs, manual takeover, Still and natural end. Old film,
+  prior audio, home and E02 remain preserved. Next: human listening and fresh general-adult
+  teach-back, particularly scenes 5/6/8/9—not another automatic narration or compression pass.
 
 - **E01 narration-tone direction adopted (2026-09-17).** The maker approved the teenager-friendly
   two-neighbours sample. The [approval draft](video/science-series-e01-comprehension-draft.md)
   now uses that conversational, concrete voice throughout, with the fixed-condition qualifiers
   and separate quantitative reader retained. The [guide](video/science-series-design-guide.md#narrators-voice--maker-approved-direction-2026-09-17)
-  records the voice for future writing. This is tone approval, not complete-script or audio
-  approval. Next: maker read-through of the revised draft; live website/narration unchanged.
+  records the voice for future writing. This was initially tone-only approval; the later
+  production request and completed checkpoint above supersede its no-import/no-audio boundary.
 
 - **E01 full comprehension review and approval script (2026-09-16).** A maker-reported general
   adult was lost after scene 6; the [full review](reviews/science-series-e01-comprehension-review-2026-09-16.md)
@@ -548,7 +553,7 @@ detail.
   previews, zero full recording downloads on browse-first entry and no unexpected errors
   (`out/growth-gallery/browser-smoke.json`). Keyboard focus, phone layout, selection, playback,
   filter/scroll retention and broken-image fallback pass. Next: open the gallery link below.
-- **Last updated:** 2026-09-17 (E01 approval-draft tone revision; no phase or scientific-evidence change)
+- **Last updated:** 2026-09-17 (E01 conversational production and bounded review complete; no phase or scientific-evidence change)
 - **Optional graphs and MP4 export are complete.** Single views offer attached-site,
   interval-attachment and outward-reach graphs with independent toggles and synchronized seeking.
   **Export MP4** creates the current treatment/camera in H.264, with optional graphs. Actual UI
@@ -692,31 +697,23 @@ the package-specific prerequisites in its charter amendment and execution plan. 
 
 ## Next step
 
-### Episode 1 — implement the approved comprehension revision and new voice
+### Episode 1 — listen and test comprehension of the completed revision
 
-The maker's latest request authorizes website/audio production and self-review. Follow the
-[production amendment](plans/explore-journey-science-series.md#e01-approved-comprehension-production-and-new-narration--2026-09-17)
-in the retained website worktree; voice `aMSt68OGf4xUZAnLpTU8`. The approval-only instructions
-in the following historical checkpoint are superseded for E01 only. Do not regenerate E02,
-publish, or alter the original film. Record source/visual/audio review and actual check limits.
+Open the [production review](reviews/science-series-e01-conversational-production-2026-09-17.md)
+and [performed conversational source](video/science-series-e01-comprehension-draft.md).
+Website `1fd50e6` in `/Users/clipper/github/snowcrystal_website-film-part1` serves the completed
+eleven-section revision at `http://127.0.0.1:5185/series/episode-1`. The earlier approval-only
+instructions are superseded. The server was left running; if needed, check the existing
+listener before `npm run dev -- --host 127.0.0.1 --port 5185 --strictPort` in that worktree.
+Cold reload after drawing-code edits: hot reload can retain a stale canvas callback.
 
-The maker's 2026-09-17 tone feedback is incorporated throughout the approval draft. Use its
-conversational two-neighbours treatment as the voice reference, while keeping the explanation
-sequence and scientific conditions. The maker approved that sample's tone, not this whole script.
-
-Open the [whole-episode review](reviews/science-series-e01-comprehension-review-2026-09-16.md)
-and [approval-only script](video/science-series-e01-comprehension-draft.md). The maker selected
-visual fixes plus revised script first. Do not import this draft or rewrite `episode-one.json`,
-`episode-narration.json`, audio or exact spoken cue prefixes yet: the current performance remains
-source-bound. The proposed eleven-section edit adds a dedicated pressure explanation after the
-physical relay and moves detailed arithmetic into supplied reader text. No runtime target.
-
-The circular scene-4 lens and wavy scene-6 liquid are implemented in the retained website on
-port 5185; cold reload `/series/episode-1` to avoid a stale development canvas callback. Exact
-product checks and viewing limits are in the review. Next is the maker's script decision, then
-an approved cue/visual rewrite and a new general-adult teach-back pass. Prior scene-5 visual
-praise remains valid but is not evidence that the whole episode was understood. E02, home and
-the original film remain untouched. No speech generation, scientific suite or release is implied.
+Next is a human listen for delivery/proper names and an uncoached general-adult teach-back
+of balance, the two neighbours, water-vapour pressure and the percentage reference. Review
+records distinguish automated audio checks and sampled browser playback from those open
+acceptance questions. Preserve the original film/audio, home and silent E02. Do not resynthesize
+the immutable takes, start E03, publish or run scientific gates without a new relevant request.
+Requested E01 revisions begin with `src/series/episodeCues.ts`, `laterEpisodeCues.ts` and their
+corresponding drawing files; the focused check command is in the review.
 
 ### Episode 2 — maker-directed library and molecular-continuity revision
 

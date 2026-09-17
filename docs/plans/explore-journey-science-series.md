@@ -1,9 +1,9 @@
 # Plan — Snow Crystal Journey: a question-led science series
 
 - **Phase:** Maker-directed Journey/media; no scientific phase or gate change
-- **Status:** E01 implemented; full comprehension review and separate revision ready for script approval; reusable next-episode design guide active; previous film preserved
+- **Status:** E01 conversational revision produced with new narration; bounded content/visual/audio review complete; audience acceptance open; previous film preserved
 - **Started:** 2026-09-15
-- **Last touched:** 2026-09-17 by OpenAI Codex (maker-approved conversational tone applied to the approval draft)
+- **Last touched:** 2026-09-17 by OpenAI Codex (approved revision produced and reviewed with Juniper narration)
 - **Direction:** [JTS-M010/M011](../journey/TRANSCRIPT.md#jts-m010--the-format-works-the-content-needs-rethinking), plus [JTS-M012 visual-production direction](../journey/TRANSCRIPT.md#jts-m012--use-the-animation-library-and-rendering-experiments-freely)
 - **Supersedes:** the single-film editorial constraints in [the Part 1 plan](explore-film-part1-science-scroll-documentary.md), not its recorded implementation or verification results
 
@@ -366,6 +366,24 @@ Done when all eleven revised sections and their complete new narration play toge
 reader retains displaced depth, the review/edit loop is documented, and prior work remains intact.
 Root owns website edits and browser QA; delegated source/runtime reviews are read-only.
 Commit this amendment before production changes.
+
+**Completed:** website `1fd50e6cde5e49e7d553c60126ce45b2e8b31201`; the
+[production review](../reviews/science-series-e01-conversational-production-2026-09-17.md)
+records actual observations, independent checks, repairs and limits. Source preflight corrected
+joining-versus-merely-arriving language; all eleven sections are imported and illustrated.
+Raw narration uses Juniper, the exact
+requested voice, resolved from the shared voice library. Original audio remains intact.
+Website `docs/series-narration/2026-09-17-conversational/paced-report.json` records the new
+945.981724-second master. Scene 6 is slowed without pitch change, with deliberate paragraph
+and prediction holds. Independent source/depiction review found and prompted a shared-gas
+density reduction and a correction to the percentage scene's reference highlighting. Browser
+review additionally repaired prediction spoilers and narrow-screen spacing. Website
+`docs/episode-one-conversational-tests.tap` records 52 passes, zero failures; TypeScript and
+the production build pass. All sections received bounded visual inspection, with sampled
+normal-speed playback, manual takeover/reverse, Still, optional reading and natural-end checks.
+Independent PCM/source/ASR review is recorded separately from human listening. This completes
+the requested implementation and self-review, not audience acceptance; next is an uncoached
+adult teach-back and human listening pass. No push, publication, E02 speech or science gate.
 
 ### E01 general-adult comprehension review — 2026-09-16
 
@@ -737,6 +755,17 @@ audio-generation or scientific checks were run for this prose-only rework.
 
 ## Tried and rejected
 
+- **A question whose diagram already prints the answer.** Prediction pauses must hold the
+  result and label that editorial hold, while presenting the changed input. The production
+  review removed premature “ice grows” text and made the added vapour visible before release.
+- **Highlighting the surplus while naming the reference.** The denominator must be identified
+  first. Use separate reference/extra cue states; rounded dots must not masquerade as an exact
+  derivation of the source table's decimal percentages.
+- **Accepting one globally chosen speaking speed without measuring difficult sections.** The
+  first scene-6 take was materially faster; retained audio was paced without a new paid take.
+- **Trusting a hot-reloaded canvas as final production inspection.** The drawing callback can
+  retain a prior function; cold-load the page before judging the current source's repairs.
+
 - **Naming before explaining.** The new audience report identifies a real comprehension
   failure despite the previous visual repairs. Review the whole prerequisite chain, not only
   the scene where the viewer became lost. Do not restore dense pressure/humidity arithmetic
@@ -759,7 +788,7 @@ audio-generation or scientific checks were run for this prose-only rework.
   remnants, gas and ice across the entire explanation, including the history qualification.
 - **Invent a counted cold-supply comparison.** A proposed arbitrary smaller dot population
   would imply unsupported quantitative change. Cooling now moves a qualitative equilibrium
-  reference while the actual illustrated cloud remains unchanged.
+reference while the actual illustrated cloud remains unchanged.
 
 - **Use similar spheres for droplets, particles and first ice.** Maker feedback found the
   identities unclear. The new close-up links one droplet to a rectangular magnified interior:

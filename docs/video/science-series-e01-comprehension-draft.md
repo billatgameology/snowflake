@@ -1,6 +1,6 @@
-# Episode 1 — comprehension revision for approval
+# Episode 1 — conversational comprehension revision
 
-**Status: approval-only script, not imported or narrated.** The current [performed script](science-series-e01-script.md), website text, audio and alignment remain unchanged. Maker direction: “Visual fixes and revised script first”, followed by a full Episode 1 review. This draft implements the editorial recommendations in the [whole-episode review](../reviews/science-series-e01-comprehension-review-2026-09-16.md).
+**Status: approved for website and narration production, 2026-09-17.** The maker now requests this revised website and complete audio using the newly supplied voice, followed by visual/audio/content review. This is the active E01 production source; the [earlier performed script](science-series-e01-script.md) and its recorded takes remain historical, preserved work. This revision implements the editorial recommendations in the [whole-episode review](../reviews/science-series-e01-comprehension-review-2026-09-16.md).
 
 ## Audience promise and structure
 
@@ -100,7 +100,7 @@ Water molecules are arriving from the air, and some stay on the ice. Others are 
 
 Start with very little water vapour in the box. More leaves than returns, so the ice shrinks. But the water hasn't disappeared. It's entered the gas. As more water molecules collect there, more can come back to the ice. We've left enough ice in this example for the two journeys eventually to balance.
 
-Watch for a moment. Just as much water arrives as leaves, so the ice stays the same size. That balance has a name: equilibrium. It doesn't mean everything has stopped. It means the two changes cancel out.
+Watch for a moment. Just as much water joins the ice as leaves it, so the ice stays the same size. That balance has a name: equilibrium. It doesn't mean everything has stopped. It means the two changes cancel out.
 
 What if we add more water vapour? Briefly open the box to add it, then close it again. Don't change the temperature or the box's size. Which way do you think the ice surface will move?
 
@@ -122,7 +122,7 @@ Look at these two neighbours: a drop of liquid water and a tiny piece of ice. Th
 
 The drop has the same two-way traffic we just saw at the ice. Water leaves, and water returns. But it has a different balance point. Water escapes from liquid more readily than from ice. So the liquid needs more water vapour around it to replace what it loses.
 
-To see the difference, put them in separate boxes for a moment. Give both boxes the same amount of space for the gas, and keep them at the same temperature. This smaller amount of vapour keeps the ice steady. The liquid needs this larger amount. In each box, as much water arrives as leaves.
+To see the difference, put them in separate boxes for a moment. Give both boxes the same amount of space for the gas, and keep them at the same temperature. This smaller amount of vapour keeps the ice steady. The liquid needs this larger amount. In each box, as much water joins the surface as leaves it.
 
 Bring them back into the same air. Start with enough vapour to keep the liquid drop the same size. What happens to the ice?
 
@@ -288,8 +288,7 @@ Can we change what a crystal builds? In Libbrecht's laboratory examples, changin
 | Ch1 `#no-blueprint` | R11 material/shape distinction; lab history in supplied reader and later E07/E08. |
 | Remaining Ch4 transport, halo, sublimation, ventilation | E03 as in the active plan; R07 establishes a journey, not its full resistance mechanism. |
 
-Approval means selecting this teaching structure and words, not authorising speech generation.
-After approval: adapt cues/visuals, rehearse each new conceptual beat at ordinary speaking speed,
-then conduct another general-adult teach-back review. Do not stretch existing audio over these
-words or assume the current timestamps fit. Audio generation/alignment requires a separate
-production decision. No audience has yet tested this draft.
+The maker's subsequent production decision authorizes E01 audio generation as well as import.
+Adapt cues/visuals to the new actual performance; do not stretch the old audio over these words.
+The source preflight distinguishes water joining a surface from collisions that do not stick.
+A new general-adult teach-back review remains separate: no audience has yet tested this revision.
