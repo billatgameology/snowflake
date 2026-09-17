@@ -19,6 +19,12 @@ detail.
 
 ## Current state
 
+- **E01 comprehension production authorized and in progress (2026-09-17).** The maker now
+  requests the revised website, complete narration with voice `aMSt68OGf4xUZAnLpTU8`, and a
+  visual/audio/content self-review. The [bounded production amendment](plans/explore-journey-science-series.md#e01-approved-comprehension-production-and-new-narration--2026-09-17)
+  supersedes the approval-only boundary below for E01. Preserve the old film, prior audio,
+  home and E02. Next: source preflight, eleven-section import/visual adaptation and new takes.
+
 - **E01 narration-tone direction adopted (2026-09-17).** The maker approved the teenager-friendly
   two-neighbours sample. The [approval draft](video/science-series-e01-comprehension-draft.md)
   now uses that conversational, concrete voice throughout, with the fixed-condition qualifiers
@@ -686,7 +692,13 @@ the package-specific prerequisites in its charter amendment and execution plan. 
 
 ## Next step
 
-### Episode 1 — approve the comprehension revision before changing narration
+### Episode 1 — implement the approved comprehension revision and new voice
+
+The maker's latest request authorizes website/audio production and self-review. Follow the
+[production amendment](plans/explore-journey-science-series.md#e01-approved-comprehension-production-and-new-narration--2026-09-17)
+in the retained website worktree; voice `aMSt68OGf4xUZAnLpTU8`. The approval-only instructions
+in the following historical checkpoint are superseded for E01 only. Do not regenerate E02,
+publish, or alter the original film. Record source/visual/audio review and actual check limits.
 
 The maker's 2026-09-17 tone feedback is incorporated throughout the approval draft. Use its
 conversational two-neighbours treatment as the voice reference, while keeping the explanation

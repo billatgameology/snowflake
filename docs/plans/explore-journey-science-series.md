@@ -334,6 +334,39 @@ selection remains active for later episodes, not a requirement to insert unrelat
 
 ## Review and limits
 
+### E01 approved comprehension production and new narration — 2026-09-17
+
+The maker now asks to update the website and audio using ElevenLabs voice
+`aMSt68OGf4xUZAnLpTU8`, then self-review visuals, audio/visual matching and content.
+This explicitly supersedes the approval-only/no-import/no-synthesis boundary below for E01.
+Use the complete conversational [revision](../video/science-series-e01-comprehension-draft.md),
+not the former ten-scene performance. No other episode, subscription, export or publication is
+authorized. Keep old audio files and the original film; preserve E02 and the praised home.
+
+1. Source-check the actual revised dialogue before synthesis. Promote the revision to the
+   performed-script authority, retaining its source/reader detail and recording the supersession.
+2. Import eleven sections into the existing website worktree. Adapt each drawing and exact
+   sentence cue, retain the praised donor/grid/ice-surface mechanics, remove premature pressure
+   numbers from the first comparison, add the dedicated molecular-pressure scene, and separate
+   invented arithmetic from source-derived equal-volume water examples. Include the substantive
+   reader without speaking production instructions.
+3. Generate one source-bound take per section using the requested voice and existing local key.
+   Use a new immutable take directory; never log the credential or repeat an uncertain paid
+   request. Preserve request text/settings, alignment, decoded duration and hashes. Join with
+   small reading/transition holds where useful; actual audio owns captions, visuals and scrolling.
+4. Run focused product checks, TypeScript/build, full audio decode and source/alignment checks.
+   Inspect all sections and transitions in browser playback, including the difficult comparison,
+   pressure and percentage sequences. Check desktop/narrow layout, manual takeover, reverse
+   seeking and Still; verify prior film/E02 preservation. No scientific suite or gate is needed.
+5. Review the delivered words, visible mechanisms and actual audio matching against the design
+   guide, fix material defects and record exact observations and any listening/device limits.
+   Technical completion does not claim a new audience-understanding result.
+
+Done when all eleven revised sections and their complete new narration play together, the
+reader retains displaced depth, the review/edit loop is documented, and prior work remains intact.
+Root owns website edits and browser QA; delegated source/runtime reviews are read-only.
+Commit this amendment before production changes.
+
 ### E01 general-adult comprehension review — 2026-09-16
 
 **Tone follow-up, 2026-09-17:** the maker approves the conversational, teenager-friendly
