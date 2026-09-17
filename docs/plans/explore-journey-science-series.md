@@ -314,6 +314,40 @@ selection remains active for later episodes, not a requirement to insert unrelat
 
 ## Review and limits
 
+### E01 meaning-before-numbers follow-up — 2026-09-16
+
+Maker feedback on website `068dc12` identifies confusing passages in scenes 3, 4, 6 and 10.
+In particular, a source-table reference and two pressure lines do not explain what balance
+means. Keep the current narration, earlier accepted mechanics, scenes 7–9, home and old film;
+rework the images and short explanatory labels against the retained sentence cues.
+
+- Scene 3 ending: keep liquid reservoirs and magnified gas in the same view. Identify other
+  gases separately, follow water leaving a selected droplet into gas, then magnify the same
+  liquid/gas relationship while a qualitative below-zero cue leaves droplets visibly liquid.
+  No premature branched crystal, atom-to-droplet scale claim or bulk wind.
+- Scene 4 examples: replace text-only cards with two explicitly separate source examples:
+  a clean droplet remaining liquid during cooling and a labelled helpful protein surface
+  with a local ice patch. Keep “can”, the qualified temperatures and non-universal warning;
+  these are schematic examples, not assigned deterministic freeze thresholds. Return to the
+  retained story seed afterwards without changing its frozen identity.
+- Scene 6: retain the actual surfaces throughout the worked comparison. Establish balance
+  as equal arrivals/departures and no net size change, then attach 1.65/1.91 mbar to that
+  physical meaning. Compare the same air against liquid and ice: liquid balanced, ice gaining.
+  Keep pressure units, partial-pressure meaning and source attribution secondary but explicit.
+  Show the extra relative to the ice reference, not a full-air capacity or growth-rate reading.
+  The final between-values case still shrinks liquid while growing ice at one temperature.
+- Scene 10 opening: visibly replay the material route beside the retained opening crystal,
+  using a linked drawn surface detail for actual molecule contact. Then quiet the material
+  animation and show concrete labelled shape features, using a clearly schematic detail where
+  the model cannot support a precise feature pointer. Do not claim the Run B recording is a
+  cloud experiment, infer a physical rate, or replace existing growth with a carving effect.
+
+Done when these passages have readable sentence-aligned actions, a bounded source-depiction
+review, focused diagram/transport tests, TypeScript/build and desktop/phone playback/Still/
+reverse inspection. Root owns website edits/browser; delegated review is read-only. No new
+voice synthesis, source-script rewrite, solver change, external asset, export or publication.
+Commit this amendment before implementation; record resulting checks and rejected attempts here.
+
 ### E01 transport, amount and reservoir follow-up — 2026-09-16
 
 Maker feedback on website `68e31f2`: scene 7's last paragraph names surrounding-air transport

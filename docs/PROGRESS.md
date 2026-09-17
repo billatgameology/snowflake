@@ -19,6 +19,13 @@ detail.
 
 ## Current state
 
+- **E01 meaning-before-numbers follow-up in progress (2026-09-16).** Maker feedback requests
+  clearer liquid/gas and supercooling imagery in scenes 3–4, physical meaning for scene 6's
+  pressure/balance comparison, and a stronger material-to-shape recap in scene 10. The
+  [bounded amendment](plans/explore-journey-science-series.md#e01-meaning-before-numbers-follow-up--2026-09-16)
+  preserves narration and accepted surrounding work. Next: implement and inspect these
+  passages in the retained website worktree, then record source and product-sized checks.
+
 - **E01 transport/amount/reservoir follow-up implemented (2026-09-16).** Website
   `explore/film-part1@068dc120037063c28b4ee78034307fcd6dc82695` adds moving surrounding-air
   paths in scene 7, equal-volume counted water and separated surplus in scene 8, and one
