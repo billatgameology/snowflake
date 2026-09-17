@@ -3,7 +3,7 @@
 - **Phase:** Maker-directed Journey/media; no scientific phase or gate change
 - **Status:** E01 conversational revision produced with new narration; bounded content/visual/audio review complete; audience acceptance open; previous film preserved
 - **Started:** 2026-09-15
-- **Last touched:** 2026-09-17 by OpenAI Codex (approved revision produced and reviewed with Juniper narration)
+- **Last touched:** 2026-09-17 by OpenAI Codex (production lessons integrated into the future-episode design guide)
 - **Direction:** [JTS-M010/M011](../journey/TRANSCRIPT.md#jts-m010--the-format-works-the-content-needs-rethinking), plus [JTS-M012 visual-production direction](../journey/TRANSCRIPT.md#jts-m012--use-the-animation-library-and-rendering-experiments-freely)
 - **Supersedes:** the single-film editorial constraints in [the Part 1 plan](explore-film-part1-science-scroll-documentary.md), not its recorded implementation or verification results
 
@@ -333,6 +333,26 @@ alignment and any eventual episode export are not silently marked complete. Wide
 selection remains active for later episodes, not a requirement to insert unrelated shapes here.
 
 ## Review and limits
+
+### Future-episode design-reference refresh — 2026-09-17
+
+At the maker's request, the [canonical guide](../video/science-series-design-guide.md) now
+integrates the completed conversational production's reusable lessons: visible changed inputs,
+unspoiled prediction holds, reference-before-surplus, precise ordinary language, substantive
+optional reading, local pacing and cues bound to the delivered audio. Its creation workflow,
+expanded scene worksheet and review checklist belong in the existing episode documents, not
+a new registry. Historical scene numbers and approval-only wording are clarified; the
+performed script remains unchanged. Production self-review is not relabelled maker praise
+or a successful audience test. The dated production review below remains the detailed evidence.
+
+This is a documentation-only update, not another build or narration request. Root and a
+shared-context read-only story reviewer checked the synthesis; exact model identity was
+unavailable; the bounded final diff review found no actionable issue. No new browser, audio
+or audience inspection occurred. `npm run lint:rule7` and `git diff --check` pass. A one-off
+`node --input-type=module` check resolves the guide's local files/headings and incoming guide
+links from this plan and PROGRESS, with no failures; no new verification tool was added.
+Next: use the guide for the next authorized episode and retain E01's open human-listening/
+general-adult teach-back boundary.
 
 ### E01 approved comprehension production and new narration — 2026-09-17
 

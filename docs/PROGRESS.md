@@ -19,6 +19,16 @@ detail.
 
 ## Current state
 
+- **Future-episode design reference updated (2026-09-17).** The
+  [canonical guide](video/science-series-design-guide.md) now integrates the conversational
+  production lessons: demonstrated prerequisites, visible input changes, prediction/reveal
+  timing, reference-before-surplus, usable optional depth and actual-audio cue ownership.
+  Its workflow, scene worksheet and scoped review checklist distinguish technical readiness,
+  human listening and audience understanding. Earlier scene critiques remain historical,
+  not approval of the revised cut. Documentation only; website, script and audio unchanged.
+  Next: use this guide in the next authorized episode's existing plan/shot table; E01 still
+  awaits the human listening and general-adult teach-back recorded below.
+
 - **E01 conversational production and review/edit loop complete (2026-09-17).** Website
   `explore/film-part1@1fd50e6cde5e49e7d553c60126ce45b2e8b31201` implements the eleven-section
   revision with the requested voice `aMSt68OGf4xUZAnLpTU8` (Juniper). Its
@@ -553,7 +563,7 @@ detail.
   previews, zero full recording downloads on browse-first entry and no unexpected errors
   (`out/growth-gallery/browser-smoke.json`). Keyboard focus, phone layout, selection, playback,
   filter/scroll retention and broken-image fallback pass. Next: open the gallery link below.
-- **Last updated:** 2026-09-17 (E01 conversational production and bounded review complete; no phase or scientific-evidence change)
+- **Last updated:** 2026-09-17 (future-episode guide incorporates E01 production lessons; no website, phase or scientific-evidence change)
 - **Optional graphs and MP4 export are complete.** Single views offer attached-site,
   interval-attachment and outward-reach graphs with independent toggles and synchronized seeking.
   **Export MP4** creates the current treatment/camera in H.264, with optional graphs. Actual UI
@@ -738,51 +748,31 @@ authorization and actual alignment. Do not automatically generate speech or star
 
 ### Science series — apply the maker's design guide to E01 review and later episodes
 
-Start with the [maker-feedback and design guide](video/science-series-design-guide.md): use its
-scene worksheet inside the next episode's script/shot table and its normal-speed viewing method
-for review. Preserve the named praised features, not an assumed approval of whole scenes. The
-latest E01 repairs below still need the maker's comprehension/listening response; later source
-research and script drafting can proceed without final narration or a new generation request.
+Start with the [guide's creation workflow](video/science-series-design-guide.md#start-here-when-creating-an-episode),
+then use its scene worksheet in the next authorized episode's existing script/shot table.
+Read the [active plan](plans/explore-journey-science-series.md) for source dispositions and
+library/rendering discovery. Prototype the hardest explanatory passage, earn prerequisites
+before reuse, and review the actual performance rather than only its words or stills.
+No fixed episode duration, new narrator selection or automatic speech generation is implied.
 
-Review the implemented [follow-up amendment](plans/explore-journey-science-series.md#e01-meaning-before-numbers-follow-up--2026-09-16)
-and [visual guide](video/science-series-e01-visual-guide.md) with the maker. In the website,
-open `src/series/earlyEpisodeDrawing.ts`, `episodeCues.ts`, `laterEpisodeCues.ts` and
-`laterEpisodeDrawing.ts`. Check whether scenes 3–4 maintain phase identity, scene 6 now
-explains what the pressure values mean, and scene 10 distinguishes material from shape.
-Scenes 7–9's air journeys, counted water and persistent donors remain intact. Do not collapse
-separate balance examples into one air state, stretch short actions across whole sections,
-compress gas coordinates during growth, translate ice instead of adding it, invent counted
-ratios, refill depleted donors or use a branched model's bounding circle as solid ice.
+For the current E01 reference, use the
+[performed conversational source](video/science-series-e01-comprehension-draft.md) and
+[production review](reviews/science-series-e01-conversational-production-2026-09-17.md), not
+the superseded ten-scene script or its old import command. The current website/next checks
+are in the E01 subsection above. Earlier visual guides/reviews remain useful repair history;
+their scene numbers and timestamps are not the new cut's timing authority. Preserve the
+praised home, donor and surface principles without inferring approval of entire scenes.
 
-Open the [active plan](plans/explore-journey-science-series.md), unchanged
-[script](video/science-series-e01-script.md) and current
-[implementation review](reviews/science-series-e01-visual-cues-2026-09-16.md).
-Website `explore/film-part1@c3143a2dbc4ce7d9902515b58614156b6c0cefc0` is in
-`/Users/clipper/github/snowcrystal_website-film-part1`. Reuse port 5185 and open
-`http://127.0.0.1:5185/series`; click Episode 01 to descend into full narrated playback.
-Scrolling takes over; Play resumes there. `/series/episode-1` enters the same document at
-E01 without autoplay. All source words are retained, and actual audio timing supersedes
-the earlier silent rehearsal/opening-only timeline. Do not regenerate the completed takes.
+The reusable guide now requires visible input changes, a genuine prediction pause, reference
+before extra, substantive optional reading and timing bound to the actual delivered audio.
+For a future production review, distinguish content, visuals, audio/matching, interaction
+and uncoached audience understanding. Human listening and fresh adult teach-back remain open
+for E01; technical completion did not settle those questions.
 
-Next is an uninterrupted maker listening pass, especially pronunciation and section joins,
-plus a physical-phone/iOS/touch check. Desktop wheel and keyboard takeover were observed;
-phone-sized emulation is not a physical-device result. Record feedback by E01 section ID.
-If the recorded hot-reload GPU-context issue recurs on cold load, inspect Hero1 engine
-boot/dispose ownership; do not silently claim a blanket clean-device-loss result.
-
-Website `docs/science-series.md` names exact focused check commands. After an approved script edit, run
-`node scripts/import-series-episode.mjs /Users/clipper/github/snowflake/docs/video/science-series-e01-script.md`
-from that website, then revise affected alignment/voice only with an explicit generation
-decision and run focused tests/build. The generated duration is not a target for other
-episodes. No E01 MP4 exists; a possible later maker recording remains a separate production input.
-
-Keep `http://127.0.0.1:5185/film/part-1`, its earlier edition routes, and
-`export/part1-full-final/part1-visual-film.mp4` intact. The new series is additive.
-Do not re-render the unchanged pilot. Before expanding the treatment across later episodes,
-review the whole first-episode performance and browse the wider library for each new story
-job using `app/data/README.md` and the plan's **Visual rework** links. No fixed episode count
-or runtime is prescribed, and other renderers remain available. No scientific suite/gate,
-push, merge or publication is authorized by this presentation task.
+Documentation-only changes use `npm run lint:rule7`, changed-link checks and `git diff --check`.
+Website revisions use their scoped commands in the production review. Keep the original film,
+earlier audio, home and silent E02 intact; no new episode build, synthesis, scientific gate,
+export or publication is authorized by this guide update.
 
 ### Growth visual studies — ready to use
 

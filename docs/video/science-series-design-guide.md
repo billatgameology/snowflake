@@ -1,9 +1,38 @@
 # Science series — maker's critique and episode design guide
 
-Captured 2026-09-16 from the maker's feedback in the film/series task, through the request to
-write these lessons for future reviewers. This is the reusable editorial/design guide for
+Captured 2026-09-16 from the maker's feedback; updated 2026-09-17 with the conversational E01
+production and review lessons at the maker's request. This is the reusable editorial/design guide for
 the [active series plan](../plans/explore-journey-science-series.md), not a scientific gate.
 The [E01 visual guide](science-series-e01-visual-guide.md) holds that episode's shot history.
+The [conversational production review](../reviews/science-series-e01-conversational-production-2026-09-17.md)
+records the latest repairs and their limits. Those self-review findings inform the requirements
+below; they are not new maker praise or evidence of audience comprehension. Earlier scene
+numbers in the feedback record refer to the earlier cut, not the revised episode's section order.
+
+## Start here when creating an episode
+
+Use this sequence within the existing episode plan, script/shot table and review record—not
+as another set of production documents:
+
+1. Choose one question and a plain-language takeaway. Trace its prerequisites to actual
+   demonstrations, not earlier mentions. Keep source dispositions so depth is not silently lost.
+2. Draft in the [conversational voice](#narrators-voice--maker-approved-direction-2026-09-17)
+   while browsing the animation library linked from the active plan. Write words and visible
+   explanations together; do not finish a lecture and then decorate it.
+3. Fill the [scene worksheet](#small-scene-design-worksheet), including input, action, result,
+   likely misconception and transitions. Put optional quantitative depth in an actual reader.
+4. Source-check the revised words **and what the diagram implies**, then prototype the hardest
+   explanatory passage with a spoken rehearsal before multiplying the treatment.
+5. Review a complete temporary-voice performance for pacing and understanding before scaling
+   production. Record any partial coverage honestly; sampled checks do not fulfill that review.
+6. When narration is authorized, follow the [audio and timing contract](#narration-and-timing-contract).
+   Retime cues to the delivered performance; rehearse again after pause or tempo changes.
+7. Apply the [viewing method](#how-a-future-reviewer-should-critique-a-scene) and
+   [completion checklist](#completion-checklist-and-acceptance-boundaries). Fix specific defects,
+   then distinguish technical readiness from listening and audience acceptance.
+
+No fixed duration, paid-voice requirement or authorization to start another episode follows
+from this guide. Keep the previous film and approved features intact.
 
 ## The central reading of the feedback
 
@@ -115,7 +144,9 @@ requires concepts to be introduced **and explained before being built on**. This
 feedback from one viewer, not a population study; the exact viewed revision is not identified.
 It supersedes any assumption that the earlier visual repairs established understanding.
 The [full E01 review](../reviews/science-series-e01-comprehension-review-2026-09-16.md) and
-[approval-only script](science-series-e01-comprehension-draft.md) apply this requirement.
+[performed conversational script](science-series-e01-comprehension-draft.md) apply this requirement.
+That file retains its original draft filename but now binds the produced narration; do not
+treat it as an unperformed scratch draft or edit it without an explicit script revision.
 
 **Goal:** a general adult without prior physical chemistry can explain the episode's causal
 story in ordinary words and make a simple prediction using its important concepts. Vocabulary
@@ -135,14 +166,19 @@ recall, beautiful animation, correct citations and agreeing with the narrator ar
 - Earn the physical payoff before optional arithmetic. Keep necessary caveats in the main
   argument, but retain additional examples/derivations in a substantive reader or named later
   episode when they interrupt it. No detail silently disappears and no essential premise is
-  exiled to a footnote. More useful explanation may require more time or another section.
+  exiled to a footnote. The reader supplies the explanation, units, conditions and calculation,
+  with precise source links—not just a list of references or internal production shorthand.
+  More useful explanation may require more time or another section.
 - Explain every representational change: what a dot, colour, box, axis, unit or letter means,
   what is held fixed and what it cannot imply. Do not recolour vapour as the established liquid
   colour merely to distinguish an arithmetic subset. Invented teaching counters must be
   explicitly separate from source-derived scientific examples.
 - Rehearse at ordinary speaking speed. Give the viewer a chance to predict a consequence
   before revealing it, without mandatory quiz UI. A quiet hold should support thinking about
-  an understood picture, not waiting for an unexplained symbol to acquire meaning.
+  an understood picture, not waiting for an unexplained symbol to acquire meaning. Show the
+  changed input before the question; withhold answer labels and result motion until its release.
+  If geometry is held for prediction, identify that editorial hold rather than imply physical
+  balance. Keep continuing molecular traffic visible when that is part of the explanation.
 - Ask a general-adult reviewer open questions: “What happened?”, “Why?”, “What would happen
   if we changed this?” and “What does this not tell us?” Record their actual answer and the
   first missing link, not just “clear?” or a satisfaction score. Do not coach the answer and
@@ -158,7 +194,9 @@ Preserve scene 5's explicitly praised visuals while improving its vocabulary bri
 
 The maker found the revised tone too technical, requested a teenager-friendly sample of the
 hardest idea, then explicitly liked the two-neighbours sample and asked to apply its tone to
-the draft. This approves the **voice direction**, not the complete episode or new audio.
+the draft. That approved the **voice direction**. A later explicit request authorized E01
+production and new audio; neither action establishes audience understanding or authorizes
+narration for later episodes.
 
 Sound like a curious person helping someone notice a surprising event. Start with concrete
 subjects (“a drop and a piece of ice”), ask an honest question (“same cold air, opposite
@@ -175,10 +213,16 @@ Avoid repeated reassurance about not remembering names, claims that an idea is o
 intentional-sounding molecules. Keep essential conditions and caveats in natural language:
 same temperature, equal gas space, both-way traffic, and the specific example's limits.
 
-R05–R07 of the [approval draft](science-series-e01-comprehension-draft.md) adapt the approved
+R05–R07 of the [performed script](science-series-e01-comprehension-draft.md) adapt the approved
 sample while retaining the earlier demonstration and avoiding an unnecessary second full
-equilibrium lesson. The whole draft now follows that voice. A spoken rehearsal and audience
-understanding check still remain; written tone approval cannot substitute for either.
+equilibrium lesson. The whole script follows that voice. Production and bounded synchronization
+review are complete; human listening and a fresh audience-understanding check remain open.
+Written tone approval cannot substitute for either.
+
+Use its conversational pattern where useful: **notice something → ask what changed → follow
+the cause → name the idea → use it**. It is not a mandatory rhythm for every paragraph.
+Preserve precision in the ordinary words: water that reaches a surface has not necessarily
+joined it. Simplifying the vocabulary must not simplify away the mechanism or its conditions.
 
 ### Visual and editorial requirements
 
@@ -203,9 +247,13 @@ understanding check still remain; written tone approval cannot substitute for ei
 5. **A comparison the viewer can read.** Preserve a before-outline, fixed boundary, scale or
    matched view when change is the lesson. Camera tracking must not conceal growth. Rotation
    is not growth; a sliding block is not added material. State what is held fixed and changed.
+   Anchor old material and the rear edge while the growing face advances. Do not compress the
+   gas coordinates simply because less drawing space remains; clip at the new solid boundary.
 6. **Motion that explains the mechanism.** Animate the causal journey and its outcome, not
    ambient busyness. When narration distinguishes reciprocal traffic from net change, show
    both. A route reaches its actual surface; a boundary's label, traffic and movement agree.
+   Show the changed input as well as the outcome: saying “less vapour” cannot leave an identical
+   gas picture with only a different caption. Distinguish qualitative staging from counted data.
 7. **Object and scale continuity.** Carry the same parcel, donor, seed, face or crystal through
    related beats. Introduce a close-up with a selection/leader and retain a parent reference
    when helpful. If the shot is a new specimen, example, model or schematic, say so. Preserve
@@ -214,6 +262,9 @@ understanding check still remain; written tone approval cannot substitute for ei
    question and what the compared quantities do. Attach units and reference conditions to
    objects. Show the denominator and absolute amount when a percentage can mislead. Keep
    provenance available, but do not make understanding depend on knowing the cited table.
+   Highlight the reference first, then the extra; preserve equal volumes and constant dot units
+   when comparing amounts. Rounded populations must not imply an exact decimal percentage.
+   Clearly label invented counters as a teaching example, separate from scientific quantities.
 9. **Enough imagery for the ideas, not an animation quota.** A multi-concept passage needs
    corresponding visible stages, comparisons or discoveries. One image may evolve; a chart
    may be useful; neither is forbidden. Reject a static diagram that stops explaining while
@@ -228,6 +279,8 @@ understanding check still remain; written tone approval cannot substitute for ei
     user-initiated narration, and immediate manual takeover. Use the same explanatory states
     for audio time and reversible reading. Still/reduced motion retains the idea, reference
     and result even when animation is removed. Do not make motion the sole source of meaning.
+    Still should be a legible pose for the current spoken idea, not an arbitrary frozen frame
+    or the entire scene's final answer shown too soon.
 12. **Honest scope and acceptance.** Source qualifiers survive the visual: an example is not
     a universal threshold, a styled model is not measured reality, and illustrative rates
     are not predictions. Keep author/reviewer observations and maker praise distinct. Preserve
@@ -244,9 +297,9 @@ A scene can have several conceptual beats. Group sentences that share one visibl
 | Prerequisites and explanation | What must already be understood, where was it demonstrated, and what plain-language causal explanation earns the new concept? |
 | Understanding check and depth | What can the viewer predict or explain without a term prompt? Which nonessential quantitative detail is retained in the reader or a named later episode? |
 | Source and misconception | Source anchor/conditions; the likely wrong reading the image must prevent. |
-| Beat / spoken cue | Exact script phrase; provisional beat timing, replaced by actual narration alignment when available. |
+| Beat / spoken cue | Exact script phrase; provisional timing replaced by actual narration alignment; local inspection/prediction hold and answer-release cue where needed. |
 | Subject / focus / scale | What to look at; how it is identified and selected; parent object if magnified. |
-| Before → action → after | Observable change, fixed reference, result held for inspection; what the motion means and does not mean. |
+| Before → action → after | Visible input change, observable response, fixed reference, result held for inspection; what the motion means and does not mean. |
 | Visual choice | Asset identity and growth interval; renderer/camera; reuse, adaptation or new diagram; model/schematic/source status. |
 | Connection | Which object/state survives the preceding and following shot; explicit reset/example change if any. |
 | Reading alternatives | Essential labels and description; phone composition; Still/discrete pose preserving the argument. |
@@ -255,6 +308,39 @@ A scene can have several conceptual beats. Group sentences that share one visibl
 For a comparison, include the denominator, units and held-fixed conditions in these cells.
 For a deliberately quiet beat, say what the viewer is inspecting. No arbitrary minimum number
 of animations, labels, assets or cuts is required.
+
+## Narration and timing contract
+
+Words, images and pauses are one performance. A correct transcript beside a correct diagram
+can still fail if the useful action happens before the viewer knows where to look.
+
+- Before recording or synthesis, review the exact spoken source and its diagram implications.
+  Separate spoken text, reader text and animator instructions. Record the approved source
+  identity and the authorized narrator/voice; an earlier sample grants no new generation scope.
+- Preserve original takes and request text, non-secret voice/model/settings, source hashes,
+  alignment and decoded durations. Keep any paced derivative separate. Never log credentials,
+  overwrite prior masters or automatically repeat an uncertain paid request.
+- Actual media time owns captions, visual cues and guided scrolling. Buffering or a failed
+  play request must not let an independent clock keep narrating visually. Silent rehearsal
+  timing remains explicitly provisional; user input pauses guided playback and hands over.
+- Pace difficult passages locally. Listen/rehearse the delivered phrase and inspect whether
+  the viewer has time to identify the subject, see the action and understand the result.
+  Words per minute can flag a rushed passage but cannot certify clarity. Use useful pauses or
+  bounded tempo adjustment when appropriate; do not copy E01's exact speeds/holds as a recipe.
+- After editing tempo, inserting pauses or joining takes, rebuild the timeline from decoded
+  audio segments, then recheck affected captions, cue boundaries and transitions at normal
+  playback speed. Accurate paragraph endpoints do not prove accurate word timing. Label
+  interpolated timings as such; use fresh alignment if the required cue precision needs it.
+- Keep AI narration visibly identified. Technical signal/source checks and optional independent
+  transcription can catch defects; they cannot approve pronunciation, natural delivery or the
+  emotional fit. A human listen remains a separate, explicitly recorded task.
+
+Worked example: E01's comparison needed more thinking time, not a blanket slower film.
+The retained take was paced locally; the changed vapour input became visible before the
+question, its answer label waited for the release, and the surface then moved against a fixed
+reference. The [production review](../reviews/science-series-e01-conversational-production-2026-09-17.md)
+records what was measured and watched. This is a tested production repair, not proof that a
+fresh viewer now understands the comparison.
 
 ## How a future reviewer should critique a scene
 
@@ -291,6 +377,43 @@ is reported separately from visual judgment; visual judgment separately from mak
 After a fix, replay the affected passage with its incoming/outgoing transition. Preserve any
 praised component outside the defect. Stop once the bounded issue is resolved; do not start a
 review-of-review programme or await final narration before useful drafting can continue.
+
+## Completion checklist and acceptance boundaries
+
+Use these prompts in the existing review record; mark each relevant item checked, needs repair
+or not checked. Record the build/source/audio identities and actual coverage. A silent draft
+marks final-audio checks pending rather than inventing speech or claiming a completed performance.
+
+- **Content:** prerequisites are demonstrated before reuse; conversational wording remains
+  source-correct; qualifiers survive the image; optional depth is actually available; symbols
+  and reference quantities are explained. Have a bounded non-author review of load-bearing
+  words/depictions before treating them as production-ready.
+- **Visual performance:** watch the main causal beats and incoming/outgoing transitions at
+  normal speed without scrubbing first. Inspect focus, visible input/action/result, comparison,
+  prediction/answer timing and continuity. Check actual desktop and narrow-browser compositions,
+  including labels, counters and space left around moving boundaries; geometry tests alone
+  do not establish readability. Name sampled coverage separately from a complete viewing.
+- **Audio and matching:** decode the delivered file and check source coverage, duration,
+  joins/pauses and clipping. Verify that the browser loads that exact master and that important
+  phrases coincide with the intended visible action. State whether anyone actually listened;
+  provider alignment or independent transcription is not listening or pronunciation acceptance.
+- **Interaction/access:** test forward and reverse seeking, manual takeover/resume, Still,
+  reduced motion, loading/buffering/error behavior, natural end and exclusive playback across
+  home/episodes. Describe which wheel, keyboard, touch and device paths were exercised;
+  a phone-sized viewport is not a physical-phone test. Preserve earlier content.
+- **Current-build checks:** cold-reload after drawing edits before the final browser verdict;
+  hot reload can retain a stale canvas callback. Record a fresh error-observation window and
+  separate existing limitations from new failures. Use focused product checks for product-only
+  changes and the repository's risk-based rules for scientific/evidence changes—not blanket gates.
+- **Audience acceptance:** ask an uncoached first-time viewer to explain and predict using the
+  central ideas. Record their actual account and first missing link. Keep `ready for maker
+  review`, `human listening pending` and `audience understanding not checked` separate from
+  passing automated checks. Do not infer acceptance from silence or a beautiful image.
+
+Every review identifies its author/model when known, whether context was shared, what it
+independently checked and what it did not. Do not present a specialist's source review as a
+first-time viewer test. Repair the identified issue and replay its affected context; record
+remaining limits instead of expanding a bounded review into unrelated work.
 
 ## Applying the lessons beyond E01
 
@@ -335,6 +458,8 @@ Future feedback adds its exact scoped response and refines the relevant rule her
 rewrite an earlier quotation or infer approval from silence. Update the active plan's next action
 and link the latest episode review; do not copy a growing chronology into every episode.
 
-Prepared by the root OpenAI Codex agent from the available maker messages and linked records.
-Shared-context read-only story review checked the synthesis; exact model identity was unavailable.
-No new browser inspection, code change, audio generation or audience test is claimed by this document.
+Prepared and updated by the root OpenAI Codex agent from the available maker messages and linked
+records. Shared-context read-only story review checked the original synthesis and this update;
+exact model identity was unavailable. This documentation update adds no browser inspection,
+code change, audio generation or audience test. The linked production review owns those earlier
+observations and limits; a future episode must earn its own review.
