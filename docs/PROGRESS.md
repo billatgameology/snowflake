@@ -19,6 +19,17 @@ detail.
 
 ## Current state
 
+- **Episode 2 maker revision: library and molecular continuity (2026-09-16).** Website
+  `explore/film-part1@707ca01ec8f9c753f49389ac667e6559c8268daa` replaces the opening drawings
+  with recorded crystals, adds three further library growths, removes the history detours,
+  defines necessary symbols and carries an explicit-H sheet through rotation into a connected
+  network. [Plan](plans/science-series-episode-2.md) and
+  [review/edit record](reviews/science-series-e02-review-2026-09-16.md#maker-revision--recordings-and-a-continuous-molecular-story)
+  document source/asset checks, code-review repairs and bounded desktop/narrow viewing.
+  Website `docs/episode-two-revision-tests.tap` at that commit: **85 passes, zero failures**;
+  TypeScript/build pass. Home/E01/old film preserved; no audio generation or scientific gate.
+  Next: maker comprehension/pace review of the eight-scene silent revision.
+
 - **Episode 2 complete silent draft, science/design review and repairs (2026-09-16).** Website
   `explore/film-part1@f02a3be751e32d70ac26584651b564620ed2bf4c` adds `/series/episode-2`
   in the same continuous document, preserving home, E01 and the original film. The [E02 plan](plans/science-series-episode-2.md),
@@ -661,9 +672,12 @@ the package-specific prerequisites in its charter amendment and execution plan. 
 The maker requested more actual crystal recordings, no unearned history detour, spoken symbol
 definitions, an explained tetrahedral neighbourhood, and a continuous H₂O sheet → rotating
 network → stack. The bounded amendment is in [E02 plan](plans/science-series-episode-2.md#maker-revision--library-meaning-and-molecular-continuity).
-Implement in the existing website worktree, regenerate the source-bound script import, run
-product-sized checks and inspect live on port 5185. No audio. Initial completed draft below is
-the baseline, not acceptance of the newly requested fixes.
+The eight-scene rewrite, six manifest-pinned recordings, explicit hydrogen network and continuous
+sheet/stack are complete at website `707ca01ec8f9c753f49389ac667e6559c8268daa`. Independent
+source/code-review findings are repaired; checks and bounded viewing are in the
+[latest review](reviews/science-series-e02-review-2026-09-16.md#maker-revision--recordings-and-a-continuous-molecular-story).
+Next is maker comprehension/pace feedback on port 5185, not more automatic implementation.
+No audio. The original draft below is historical baseline, not acceptance of the revised scenes.
 
 Open [E02 plan](plans/science-series-episode-2.md), [script](video/science-series-e02-script.md)
 and [review/edit record](reviews/science-series-e02-review-2026-09-16.md). In the existing website

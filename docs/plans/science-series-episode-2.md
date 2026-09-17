@@ -1,7 +1,7 @@
 # Plan — E02: Why six is only the beginning
 
 - **Phase:** Journey/media; no scientific phase or gate change
-- **Status:** maker-directed visual revision in progress; initial silent draft retained in history
+- **Status:** maker-directed visual revision complete; ready for comprehension/pace review
 - **Started:** 2026-09-16
 - **Authority:** maker requests plan → science/fact check → animations/episode → design-guide critique; **no audio generation**
 - **Parent:** [series plan](explore-journey-science-series.md), [maker design guide](../video/science-series-design-guide.md)
@@ -123,6 +123,13 @@ Bounded approach, committed before implementation:
 
 Done when these exact comprehension repairs are implemented, reviewed and recorded, with maker
 acceptance still pending. Preserve E01/home/old film and the source-section disposition record.
+
+Completed at website `707ca01ec8f9c753f49389ac667e6559c8268daa`; the
+[bounded review/edit record](../reviews/science-series-e02-review-2026-09-16.md#maker-revision--recordings-and-a-continuous-molecular-story)
+names actual viewing, independent code/source findings and repairs. Website
+`docs/episode-two-revision-tests.tap` at that commit records **85 passes, zero failures**.
+TypeScript/production build pass; eight-scene source import hash is recorded in the review.
+Next: maker feedback on the revised page, not automatic narration generation or E03 production.
 
 ## Tried and rejected
 

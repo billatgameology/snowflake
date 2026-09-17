@@ -132,3 +132,106 @@ warning remains. No scientific suite/gate, synthesis, credential read, export or
 changed continuity, labels, timing and the meaning of dimension displays. This verdict is
 not maker praise, an engagement measurement or final episode production acceptance. Next:
 maker comprehension/pace feedback, then separately authorized narration and actual alignment.
+
+## Maker revision — recordings and a continuous molecular story
+
+Implemented at website `707ca01ec8f9c753f49389ac667e6559c8268daa`, following the pre-build
+authority amendment `2397f9c`. This supersedes the initial visual treatment above, not its
+historical check record. The source script is now eight scenes; source IDs retain gaps for
+the two history detours moved out of playback. Its imported hash, copied from website
+`src/series/episode-two.json`, is
+`3d50ff7ab58b59b061d59cea6c067d4a92d69727a2afd2803dad3950742e79d0`.
+
+### Request interpreted and implemented
+
+The maker asked for actual library recordings in the three-across shot, useful explanation
+instead of unnecessary history, spoken meanings for necessary symbols, an explained
+tetrahedron, the education H₂O honeycomb idea, a whole-network zoom/orbit, and continuity into
+layer positions. The reusable [design guide](../video/science-series-design-guide.md#episode-2-feedback-meaning-library-use-and-continuity)
+now records these as comprehension requirements, not newly inferred praise.
+
+- Opening: actual hexagonal-plate, solid-column and stellar-dendrite recordings, growing in
+  fixed independent frames. Ending: hollow-column, capped-column and sectored-plate recordings;
+  the hollow end gets a labelled close-up after growth. The six selected baseline IDs,
+  source/served/event hashes and crop/stopping metadata are in website
+  `src/series/episode-two-crystals.json`, traced to authority
+  `app/data/named-growth-library.json`. Source events are unchanged; served headers omit
+  producer commands and workstation paths. No private NAS route was enabled.
+- These remain G–G visual examples, not natural specimens or validated physical predictions.
+  Ticks are not physical seconds; views are independently framed. E02 explicitly uses unit-Z
+  geometry. Other renderer callers retain their existing 2.6 default. No new solver run.
+- Observation biography and Kepler packing are optional source reading. X-rays stay because
+  they answer how hidden spacing is measured, with wavelength, perpendicular plane spacing
+  and glancing beam angle defined in narration and labelled in words. No unexplained d/theta.
+- A retained central molecule supplies two hydrogens on donated bonds and accepts two other
+  connections. The tetrahedron appears only after its four neighbouring oxygen positions.
+  The script separates the isolated molecule's internal angle from idealized network angles.
+- The education animation was inspected directly: its H atoms fade before a final 2D oxygen
+  honeycomb. We adapted the recognizable-water/sheet idea, not that implementation or its
+  angle-alone derivation. The new ideal Ih geometry keeps one allowed periodic hydrogen
+  assignment, persistent oxygen IDs and the same basal chair ring. It is not a disordered
+  proton sample, measured hydrogen geometry or molecular dynamics.
+- A sheet reveals neighbouring rings, tilts, pulls back and turns; the exact outgoing sheet
+  and camera persist into connections above and below. The whole network then turns. A later
+  secondary key defines A/B/C as registry positions without replacing or morphing the Ih
+  molecular view. Necessary a/c length symbols are now spoken; micrometre is spelled out.
+
+### Review provenance and edits
+
+Root OpenAI Codex authored the revision and performed browser viewing. Shared-context
+read-only science, story and runtime agents independently inspected the actual script/code,
+source geometry and selected asset integrity. They did not inspect the browser. Exact model
+identity was unavailable; these were advisory reviews, not independent audience tests.
+
+The reviews found and the root repaired:
+
+1. The central molecule briefly lost an owned H during neighbour reveal, and cropped network
+   oxygens could lose owned H. All visible oxygens now draw both owned hydrogens independently
+   of neighbour visibility/cropping; there is still only one donor per O–O edge.
+2. The last molecule paragraph completed a sheet that the next scene then removed. It now
+   ends ring-only at the identical incoming pose, and the sheet is revealed once.
+3. Existing out-of-sheet stubs vanished when the surrounding-network fade first became
+   positive. Stub fade is separate from owned H and newly revealed connections.
+4. The wavelength bracket had the right length but did not track crests. It now follows two
+   consecutive crests. Finished recordings also retain their orbit across paragraph seams.
+5. Unchanged paused/Still model frames were needlessly raymarched. Exact rendering now caches
+   time, viewport and ready revision; the ready callback is stable and the visual component
+   is memoized. At most three catalogue contexts mount in the relevant visible scene.
+
+The science reviewer re-read the repaired H/stub/continuity/bracket sites and closed its
+identified findings. Root browser inspection additionally repaired over-close model framing,
+Run-B-sized glow intervals washing out the short column run, harsh rectangular backdrops,
+small registry letters and crowding between diagram labels and the caption. A cold reload
+was required after changing the React export to a memo wrapper; the hot-refresh-only
+“Component is not a function” failure did not persist after reload.
+
+### What was actually checked
+
+Website `docs/episode-two-revision-tests.tap` at the implementation commit records **85 passes,
+zero failures**, copied from the receipt at write time. Exact command:
+
+```text
+node --test --test-reporter=tap --test-reporter-destination=docs/episode-two-revision-tests.tap scripts/episode-two.test.mjs scripts/series-continuous.test.mjs scripts/series-audio.test.mjs scripts/series.test.mjs scripts/film-timeline.test.mjs scripts/film-opening.test.mjs scripts/film-prepared.test.mjs scripts/film-export.test.mjs
+```
+
+Coverage includes source-import equality/hash, independent nearest-neighbour and ice-rule
+counts, one donor per link, sheet membership and exact sheet→stack camera seam, all six
+source/derivative/event payload hashes and decode/volume builds, monotonic recording growth,
+orbit seams, cue/Still/finite-drawing checks, timeline/ownership and retained film tests.
+`npx tsc -b`, `git diff --check`, and the standalone Sites production build
+(`node /Users/clipper/.codex/plugins/cache/openai-bundled/sites/0.1.70/scripts/build-site.mjs`)
+passed. The existing large-chunk build warning remains. Authority prose uses
+`npm run lint:rule7` and `git diff --check`, not the scientific suite.
+
+Root inspected representative states in all eight scenes at desktop `1270×710`, plus the
+recorded trio, spacing/angle labels, donated/accepted/tetrahedron view, sheet, registry key and
+Still pose at narrow `390×844`. Normal-speed portions included visible opening growth and
+the sheet pullback/orbit through the retained landmark into the connected network reveal.
+Controlled seeks supplied other before/action/after and reverse comparisons. Native scrolling
+interrupted Play; Still retained an explanatory pose. Final cold-load viewing showed all
+recordings loaded and the retained face/scale scenes intact. This is bounded sampling, not
+an uninterrupted full-episode watch, narration alignment, physical-phone or all-GPU test.
+
+The final website diff leaves E01 source/audio/drawings, SeriesHome choreography and original
+film scene files unchanged. No synthesis, credentials, scientific suite/gate, export, push or
+deployment. **Ready for maker comprehension/pace review, not maker accepted.**
