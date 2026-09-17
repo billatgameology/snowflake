@@ -314,6 +314,24 @@ selection remains active for later episodes, not a requirement to insert unrelat
 
 ## Review and limits
 
+### E01 full visual storytelling pass — 2026-09-16
+
+The maker requests a written account of what works in scenes 1–5, especially 5, then a
+complete visual rewrite beyond 5. The [visual guide](../video/science-series-e01-visual-guide.md)
+records the produced treatments, reusable principles and narration-bound shot sequence.
+Improve scene 3's labels, cloud context and parcel/condensation imagery; carry the same frozen
+seed from 4 into 5's magnified surface. This explicitly supersedes the earlier blanket “keep
+E01-05 unchanged” only for its entrance/inset; retain its accepted boundary demonstration.
+
+Implement in the existing website worktree after committing this amendment: scene 3 and the
+4→5 transition, then all of 6–10 as staged mechanisms/comparisons instead of static charts.
+Preserve the exact narration/import/audio, home, continuous runtime, and old film. Keep the
+existing sourced numerical examples; add no solver, numerical calculator or scientific claim.
+Use focused diagram/cue/transport tests, TypeScript/build, representative desktop/phone
+playback/Still/reverse inspection, and a bounded source-depiction review/edit loop. Done means
+all requested scenes and the guide are implemented and checked, with remaining audience and
+physical-device limits stated. No synthesis, export, push, merge or publication.
+
 ### E01 visual attention and demonstration timing — 2026-09-16
 
 #### Maker follow-up: identity and sequence

@@ -19,6 +19,14 @@ detail.
 
 ## Current state
 
+- **E01 full visual storytelling pass in progress (2026-09-16).** The maker requests clearer
+  cloud labels/formation, the same seed carried into scene 5, and scene 5's explanatory quality
+  extended through scenes 6–10. The [visual guide](video/science-series-e01-visual-guide.md)
+  documents the first-five-scene treatments and the new shot sequence. The
+  [active amendment](plans/explore-journey-science-series.md#e01-full-visual-storytelling-pass--2026-09-16)
+  retains narration and the accepted surface mechanics. Next: implement the staged diagrams in
+  the existing website worktree, then focused tests and visual/source review. No new synthesis.
+
 - **E01 identity/sequence follow-up implemented (2026-09-16).** Website
   `explore/film-part1@094911865d2e1af3de44e837bce6dfbf911996a0` sustains opening-budget
   vapour arrivals, removes the premature crystal from the cloud passage, and distinguishes
