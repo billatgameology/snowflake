@@ -44,7 +44,7 @@ The source-bound [script](science-series-e01-script.md) and recorded speech rema
 | --- | --- |
 | 3 | “Vapour…” → label white gas tracers and amber droplets explicitly. “In the winter cloud…” → the same population pulls into a recognizable cloud overview, with liquid and compact ice identified. “Lift moist air…” → follow one parcel rising; its envelope expands and its temperature cue cools. “Amount … becomes smaller” → qualitative balance reference falls, without a capacity metaphor. “Condensing…” → liquid builds around visible particles and the parcel becomes cloud; then select one droplet for the existing scale/air-gap/supercooling shots. |
 | 4→5 | Keep the hatched frozen droplet and buried speck through the end of 4. In 5, enclose that seed with air at fixed temperature, select its outer boundary, then zoom into the existing moving surface. No instant star or new seed identity. |
-| 6 | Start with ice and liquid surfaces exchanging both ways at the same temperature. Compare their different balance points; introduce 1.65 and 1.91 mbar only with the source example. Keep one air marker fixed while switching the reference from water to ice. Finally place the air between the two references and show liquid shrinking while ice grows. Water balance means no net liquid loss; both-way traffic persists. |
+| 6 | Keep ice and liquid surfaces visible throughout. First show equal arrivals/departures and stationary surfaces in explicitly separate balance comparisons; introduce 1.65 and 1.91 mbar beside them. Then hold the same air at the water-balance value: liquid stays steady, ice gains. Only then introduce the relative-humidity labels. Finally show air between the two balance values: liquid shrinks while ice grows. Both-way traffic persists. |
 | 7 | Return to the cloud and its already-grown crystal. Show local vapour drawdown and donor shrink. Follow one highlighted molecule through departure, wandering gas and incorporation, while other arrivals/departures remain visible at both surfaces. Resolve the approximate budget, then widen attention to the surrounding-air journey. |
 | 8 | Pose the rising-percentage prediction with equal-volume, equal-value dot samples; identify the ice-balance denominator and extra water. Reveal the existing sourced temperature examples one at a time. Then physically separate the surplus units for an absolute-amount comparison. Rounded dots do not replace printed source percentages. A labelled schematic trend may illustrate the near−12°C maximum; no new numerical curve. Keep the −40°C caveat adjacent. |
 | 9 | Follow the same donor population: some freeze into compact ice and others evaporate. Show the liquid reservoir diminishing while ice and some vapour remain. Contextual source temperature is not an on/off switch. Finish by selecting the remaining water and its route through air. |
@@ -103,7 +103,34 @@ Website `docs/series-tests.tap` at that commit records **68 passes, zero failure
 implemented-result section remains the historical record of the broader pass; this follow-up
 supersedes its scene 8 comparison treatment and scene 9 cutaway sequence.
 
+## Follow-up: explain the meaning before the numbers
+
+Website `explore/film-part1@c3143a2dbc4ce7d9902515b58614156b6c0cefc0`, following authority
+plan commit `d0d7561`, supersedes the ending of scene 3, scene 4's example cards, scene 6's
+pressure-marker comparison and scene 10's opening recap.
+
+The shared principle is to retain the physical subject while explaining it. Scene 3 keeps
+liquid and labelled gas together through magnification and cooling. Scene 4 gives its separate
+source examples different actions, with a local ice patch contained in the liquid and its
+helpful protein surface still identifiable. Scene 6 shows what balance does before its values:
+equal exchange and no size change, then the same air balancing liquid but growing ice. Scene
+10 follows donor water into a linked surface close-up, then identifies concrete schematic
+shape features without pretending to pick a precise facet on the model.
+
+Keep fixed reference geometry: gas cannot become denser merely because the ice moves up,
+and growing ice needs a stable rear edge/texture rather than a sliding block. Source example
+qualifiers, illustrative scale/rates, pressure units and the ice-relative denominator stay
+visible. The [review record](../reviews/science-series-e01-visual-cues-2026-09-16.md#meaning-before-numbers-follow-up)
+records repairs and bounded inspection. Website `docs/series-tests.tap` at the named commit
+records **72 passes, zero failures**; narration and surrounding work remain intact.
+
 ## Tried and rejected
+
+- Source-table attribution as the explanation: first show what the values mean at a surface.
+- Growing a local ice patch outside its example droplet or hiding the helpful surface: preserve
+  phase containment and the starting condition's identity.
+- Translating a solid inset or compressing gas coordinates as ice advances: fix the reference
+  frame and let the solid gain area instead.
 
 - Static air arrows during a narrated journey: the travel distance and motion must be visible.
 - Percentage-only or chart-only comparison: first show the different reference quantities.

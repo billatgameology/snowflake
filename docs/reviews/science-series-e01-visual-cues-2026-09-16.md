@@ -197,3 +197,55 @@ code workaround was added for that transient failure. The path-scoped baseline d
 for earlier drawing/cues, home, narration import/alignment/assets and old film. The retained
 master hash matches website `docs/series-verification.json`. No synthesis, export, dependency
 or solver change, scientific suite/gate, push, merge or publication occurred.
+
+## Meaning before numbers follow-up
+
+Authority plan-before-code commit `d0d7561`; website baseline `068dc12`; implemented website
+`explore/film-part1@c3143a2dbc4ce7d9902515b58614156b6c0cefc0`. Scope: requested passages in
+scenes 3, 4, 6 and 10. Narration and source text remain unchanged.
+
+Scene 3 retains liquid reservoirs and labelled water vapour/other gases through a magnified
+view and below-zero cue. Scene 4 animates two separate qualified source examples: clean
+liquid during cooling and a local ice patch on a helpful protein surface. Scene 6 keeps the
+actual surfaces visible: separate stationary balance comparisons, source pressure values,
+then the same air making ice grow while liquid remains balanced. Relative-humidity labels
+follow the physical result. The last between-values comparison retains opposite tendencies.
+Scene 10 replays donor shrink and vapour contact on a linked growing surface detail, then
+shows concrete schematic keys for faces, six directions and branches beside the model.
+
+Root edited and inspected the browser. The OpenAI Codex `science_review` agent worked
+read-only with shared context; exact model ID was unavailable, so no blind/different-model
+review is claimed. It checked the retained script and Chapter 1 `#supercooling` / `#no-blueprint`
+and Chapter 4 `#what-saturated-means` / `#the-gap`, then reviewed the changed depiction.
+Its three material findings were repaired and rechecked in source:
+
+- The example's local ice patch crossed the liquid boundary. It is now clipped inside the
+  droplet, with the helpful protein surface drawn distinctly and remaining unchanged.
+- The same-air comparison compressed fixed-count gas dots as ice advanced. Their coordinates
+  now stay fixed; the moving boundary only clips them, rather than implying rising gas density.
+- The recap surface detail translated instead of growing. The rear edge and texture now stay
+  fixed while the contact edge advances and solid area increases.
+
+No remaining blocker among those findings was reported in the source recheck. Root visual
+inspection also replaced a bar-like ice patch with a hatched polygon, moved the linked detail
+clear of the model so it did not resemble a pedestal, labelled the magnification and moved
+the phone donor-status label away from its vapour path. No new runtime/story-agent review
+is claimed here; their earlier records apply only to the preceding passes.
+
+Website `docs/series-tests.tap` at the implementation commit records **72 passes, zero failures**.
+Its `docs/science-series.md` names the exact focused command. New tests cover retained phase
+labels/cues, qualified examples, surfaces throughout the pressure explanation, unchanged
+liquid and fixed gas coordinates under shared air, fixed-back deposition and shape keys.
+`npx tsc -b` and the standalone Sites production build passed, with the existing chunk-size
+advisory. Root inspected representative desktop **1270×710** and phone-sized **390×844**
+states, forward/reverse seeking and Still. Bounded live scene 6 and scene 10 playback showed
+the corresponding changes with audio-clock advancement and reader follow. The phone DOM
+reported no horizontal overflow; viewport override reset.
+
+The final cold-load/scene-seek error query since `2026-09-17T03:01:07.961Z` returned no new
+errors. This is not uninterrupted listening, physical-device/touch testing, audience acceptance,
+all-frame comparison or a claim to fix historical Hero1 hot-reload/device-loss behavior.
+Path-scoped baseline diffs are empty for home, player, model controller, source import/alignment,
+narration assets, water-count/seed helpers and old film. The accepted scene 5 mechanics and
+scenes 7–9 treatment remain intact. No synthesis, export, dependency or solver change,
+scientific suite/gate, push, merge or publication occurred.

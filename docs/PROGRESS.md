@@ -19,12 +19,16 @@ detail.
 
 ## Current state
 
-- **E01 meaning-before-numbers follow-up in progress (2026-09-16).** Maker feedback requests
-  clearer liquid/gas and supercooling imagery in scenes 3–4, physical meaning for scene 6's
-  pressure/balance comparison, and a stronger material-to-shape recap in scene 10. The
+- **E01 meaning-before-numbers follow-up implemented (2026-09-16).** Website
+  `explore/film-part1@c3143a2dbc4ce7d9902515b58614156b6c0cefc0` clarifies liquid/gas and
+  supercooling in scenes 3–4, shows scene 6's same air keeping liquid steady while ice grows,
+  and replays material transfer before scene 10's concrete shape questions. The
   [bounded amendment](plans/explore-journey-science-series.md#e01-meaning-before-numbers-follow-up--2026-09-16)
-  preserves narration and accepted surrounding work. Next: implement and inspect these
-  passages in the retained website worktree, then record source and product-sized checks.
+  and [review](reviews/science-series-e01-visual-cues-2026-09-16.md#meaning-before-numbers-follow-up)
+  record source/depiction repairs and bounded desktop/phone playback, reverse/Still checks.
+  Website `docs/series-tests.tap` at that commit records **72 passes, zero failures**;
+  TypeScript/build pass. Narration, home and old film remain intact. Next: maker comprehension/
+  listening acceptance; no synthesis, scientific suite/gate, export or publication.
 
 - **E01 transport/amount/reservoir follow-up implemented (2026-09-16).** Website
   `explore/film-part1@068dc120037063c28b4ee78034307fcd6dc82695` adds moving surrounding-air
@@ -491,7 +495,7 @@ detail.
   previews, zero full recording downloads on browse-first entry and no unexpected errors
   (`out/growth-gallery/browser-smoke.json`). Keyboard focus, phone layout, selection, playback,
   filter/scroll retention and broken-image fallback pass. Next: open the gallery link below.
-- **Last updated:** 2026-09-16 (E01 scenes 7–9 visual follow-up; no phase or scientific-evidence change)
+- **Last updated:** 2026-09-16 (E01 scenes 3/4/6/10 meaning follow-up; no phase or scientific-evidence change)
 - **Optional graphs and MP4 export are complete.** Single views offer attached-site,
   interval-attachment and outward-reach graphs with independent toggles and synchronized seeking.
   **Export MP4** creates the current treatment/camera in H.264, with optional graphs. Actual UI
@@ -635,21 +639,22 @@ the package-specific prerequisites in its charter amendment and execution plan. 
 
 ## Next step
 
-### Science series — review the completed E01 air, amount and cloud follow-up
+### Science series — review the completed E01 meaning-before-numbers follow-up
 
-Review the implemented [follow-up amendment](plans/explore-journey-science-series.md#e01-transport-amount-and-reservoir-follow-up--2026-09-16)
+Review the implemented [follow-up amendment](plans/explore-journey-science-series.md#e01-meaning-before-numbers-follow-up--2026-09-16)
 and [visual guide](video/science-series-e01-visual-guide.md) with the maker. In the website,
-open `src/series/waterStory.ts`, `laterEpisodeCues.ts` and `laterEpisodeDrawing.ts` for the
-latest changes. Check whether scene 7's visible air journeys, scene 8's countable reference/
-surplus and scene 9's persistent donor history resolve the stated comprehension problems.
-Earlier labelled cloud/seed/surface work remains intact. Do not stretch short actions over
-whole sections, invent counted water ratios, refill depleted donors during later caveats,
-restore fixed-fraction Still, or use a branched model's bounding circle as ice.
+open `src/series/earlyEpisodeDrawing.ts`, `episodeCues.ts`, `laterEpisodeCues.ts` and
+`laterEpisodeDrawing.ts`. Check whether scenes 3–4 maintain phase identity, scene 6 now
+explains what the pressure values mean, and scene 10 distinguishes material from shape.
+Scenes 7–9's air journeys, counted water and persistent donors remain intact. Do not collapse
+separate balance examples into one air state, stretch short actions across whole sections,
+compress gas coordinates during growth, translate ice instead of adding it, invent counted
+ratios, refill depleted donors or use a branched model's bounding circle as solid ice.
 
 Open the [active plan](plans/explore-journey-science-series.md), unchanged
 [script](video/science-series-e01-script.md) and current
 [implementation review](reviews/science-series-e01-visual-cues-2026-09-16.md).
-Website `explore/film-part1@068dc120037063c28b4ee78034307fcd6dc82695` is in
+Website `explore/film-part1@c3143a2dbc4ce7d9902515b58614156b6c0cefc0` is in
 `/Users/clipper/github/snowcrystal_website-film-part1`. Reuse port 5185 and open
 `http://127.0.0.1:5185/series`; click Episode 01 to descend into full narrated playback.
 Scrolling takes over; Play resumes there. `/series/episode-1` enters the same document at

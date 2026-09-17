@@ -348,6 +348,21 @@ reverse inspection. Root owns website edits/browser; delegated review is read-on
 voice synthesis, source-script rewrite, solver change, external asset, export or publication.
 Commit this amendment before implementation; record resulting checks and rejected attempts here.
 
+Implemented at website `explore/film-part1@c3143a2dbc4ce7d9902515b58614156b6c0cefc0`,
+following authority plan commit `d0d7561`. Liquid/gas identity persists through magnification
+and cooling; the qualified freezing examples now have different visible actions. Scene 6
+shows stationary balanced surfaces before introducing their pressure values, then shows the
+same air keeping liquid steady while ice grows. Scene 10 connects donor/vapour/deposition to
+the retained model, then uses concrete schematic shape keys. The
+[review record](../reviews/science-series-e01-visual-cues-2026-09-16.md#meaning-before-numbers-follow-up)
+records the source review, three repaired misleading cues and root's layout edits.
+
+Website `docs/series-tests.tap` at that commit records **72 passes, zero failures**. Its
+`docs/science-series.md` names the exact command, TypeScript/build result and bounded desktop/
+phone playback, reverse/Still and cold-load checks. No new errors appeared in the final
+cold-load query. Narration, home, accepted surface mechanics, scenes 7–9 and old film remain
+intact. Next: maker comprehension/listening acceptance; no new synthesis or scientific claim.
+
 ### E01 transport, amount and reservoir follow-up — 2026-09-16
 
 Maker feedback on website `68e31f2`: scene 7's last paragraph names surrounding-air transport
@@ -577,6 +592,13 @@ audio-generation or scientific checks were run for this prose-only rework.
   current science series. Publication and release identities remain separate decisions.
 
 ## Tried and rejected
+
+- **Pressure lines without visible surface consequences.** Maker feedback on `068dc12`
+  found the source-table comparison unexplained. Keep actual surfaces and two-way traffic
+  visible; distinguish separate balance comparisons from the later same-air comparison.
+- **Move a diagram's frame while claiming material growth.** A recap inset initially
+  translated, and an ice boundary compressed its gas-dot region. Keep the inset rear edge
+  and texture fixed; keep gas positions fixed and clip them at the advancing solid.
 
 - **Name surrounding-air transport without showing it.** Maker feedback on `68e31f2` found
   the static final relay view insufficient. Follow wandering tracers across the labelled air
