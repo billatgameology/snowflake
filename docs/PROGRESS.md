@@ -19,12 +19,15 @@ detail.
 
 ## Current state
 
-- **Same-page Chinese translation started (2026-09-17).** The maker requests Simplified Chinese
-  under one **English / 中文** toggle, with unchanged page/link and current story position.
-  The [bounded plan](plans/science-series-bilingual.md) covers current E01/E02 and shared text;
-  both English recordings remain intact. Mandarin audio is deferred until the maker supplies
-  the voice ID; no credential or generation request is authorized. Next: translate, integrate
-  the shared text preference, and run bounded content/position/layout checks.
+- **Same-page Chinese text complete (2026-09-17).** Website `explore/film-part1@e37bf80`
+  adds one **English / 中文** toggle to the existing series home/E01/E02, with translated
+  reader, controls and diagram labels. Same URL and story position are retained; English
+  recordings remain unchanged and Chinese mode identifies English audio. The
+  [review](reviews/science-series-bilingual-2026-09-17.md) records translation/runtime repairs
+  and bounded browser checks; website `docs/series-localization-tests.txt` records **64 passes,
+  zero failures**, and the TypeScript/production build passes. The
+  [plan](plans/science-series-bilingual.md) is complete for text only. Next: maker reads Chinese;
+  Mandarin generation/alignment waits for a supplied voice ID and production request.
 
 - **Episode 2 full Juniper narration complete (2026-09-17).** Website
   `explore/film-part1@5fcd95a` adds the latest E01 voice to all eight unchanged E02 scenes.
@@ -638,8 +641,8 @@ and every superseded attempt live in the linked plans and historical progress sn
 
 ## Active plan
 
-The [same-page bilingual plan](plans/science-series-bilingual.md) governs the current Simplified
-Chinese text pass. Mandarin speech is explicitly deferred; current English narration remains.
+The [same-page bilingual plan](plans/science-series-bilingual.md) records the completed Simplified
+Chinese text pass and its review. Mandarin speech is explicitly deferred; English narration remains.
 
 The [science-series plan](plans/explore-journey-science-series.md) is the active editorial record
 on `explore/film-part1-plan`, including JTS-M012's library-reuse and rendering direction.
@@ -739,13 +742,15 @@ the package-specific prerequisites in its charter amendment and execution plan. 
 
 ## Next step
 
-### Same-page Chinese translation — in progress
+### Same-page Chinese translation — ready to read; Mandarin voice pending
 
-Open [the bilingual plan](plans/science-series-bilingual.md) and the design guide. Work in the
-retained website `/Users/clipper/github/snowcrystal_website-film-part1`; preserve its new E02
-narration. Add aligned Chinese text and a shared same-page toggle, then check position retention
-and labels. Do not access the voice credential or run synthesis. Current English sources and
-audio timing remain authoritative until actual Mandarin narration is separately authorized.
+Open [the bilingual review](reviews/science-series-bilingual-2026-09-17.md) and
+`http://127.0.0.1:5185/series/episode-1`; select **中文**. The retained website worktree is
+`/Users/clipper/github/snowcrystal_website-film-part1` at `e37bf80`; both current episodes are
+translated. The review names the focused rerun command and all outstanding coverage limits.
+Wait for the maker's voice ID/production request before reading credentials or synthesizing.
+Then align actual Mandarin speech by shared scene/paragraph/cue identities, not equal elapsed
+seconds. English source, alignment and recordings remain preserved.
 
 ### Episode 1 — listen and test comprehension of the completed revision
 

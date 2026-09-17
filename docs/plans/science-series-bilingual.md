@@ -1,6 +1,6 @@
 # Plan — same-page English / 中文 series
 
-- **Status:** translation and text-toggle implementation in progress
+- **Status:** text translation and same-page toggle complete; Mandarin voice/timing deferred
 - **Started:** 2026-09-17
 - **Scope:** maker-requested Simplified Chinese translation; Mandarin voice explicitly deferred
 - **Parent:** [series plan](explore-journey-science-series.md), [episode design guide](../video/science-series-design-guide.md)
@@ -52,6 +52,31 @@ voice ID and production request. No new dependency is expected.
 Mandarin voice ID remains maker-supplied. A fluent audience listening/understanding review follows
 the eventual recorded performance; text review cannot establish spoken timing or delivery.
 
+## Execution and verification — 2026-09-17
+
+Website `explore/film-part1@e37bf80` implements the shared top toggle, translated home/E01/E02
+reader and diagrams, CJK typography, position restoration and an explicit English-audio notice.
+Chinese authority assets are `docs/video/science-series-e01-zh-CN.json`,
+`science-series-e02-zh-CN.json` and `science-series-diagrams-zh-CN.json`; website copies match.
+English cue identities, sources, audio and models remain unchanged. No Mandarin synthesis or
+credential access occurred.
+
+The [review](../reviews/science-series-bilingual-2026-09-17.md) records shared-context translation
+cross-review, runtime review, fixes and sampled browser observations. Website
+`docs/series-localization-tests.txt` records **64 passes, zero failures** for the exact focused
+command in that review. The Sites build, including TypeScript, passes with the existing
+large-chunk advisory. `npm run lint:rule7` in this authority repo and `git diff --check` in both
+repos pass. Product-sized checks only; no full scientific suite/gate.
+
+Website `docs/series-localization-browser-checks.json` records paused and playing switches,
+manual reading, optional-note continuity, persisted preference, and representative desktop/
+phone-sized layouts. Physical-phone interaction, a full listening pass and live switching
+inside a prediction hold were not verified. Mandarin performance/timing remains unproduced.
+
+Next: maker reads the Chinese text on the existing series URL. Wait for the voice ID and
+production request before synthesis; then align actual Mandarin speech to semantic story
+positions rather than raw English seconds. Preserve the completed English performances.
+
 ## Tried and rejected
 
 - Matching languages by elapsed seconds: translations have different durations. Retain shared
@@ -59,3 +84,7 @@ the eventual recorded performance; text review cannot establish spoken timing or
 - Creating a Chinese route or remounting the player on toggle: loses continuity and conflicts
   with the maker's explicit same-page/same-link requirement.
 - Generating a placeholder Mandarin voice: specifically disallowed by the current request.
+- Re-running clock effects when language changes: their cleanup pauses narration. Keep the
+  transport effects independent of locale and update only displayed content/geometry.
+- English character-count pill sizing and the old hidden-header fallback: translated glyphs
+  and the taller phone toggle header require measured widths and correct reading geometry.
