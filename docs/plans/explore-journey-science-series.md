@@ -3,7 +3,7 @@
 - **Phase:** Maker-directed Journey/media; no scientific phase or gate change
 - **Status:** E01 conversational revision produced with new narration; bounded content/visual/audio review complete; audience acceptance open; previous film preserved
 - **Started:** 2026-09-15
-- **Last touched:** 2026-09-17 by OpenAI Codex (production lessons integrated into the future-episode design guide)
+- **Last touched:** 2026-09-17 by OpenAI Codex (updated guide applied to silent E02)
 - **Direction:** [JTS-M010/M011](../journey/TRANSCRIPT.md#jts-m010--the-format-works-the-content-needs-rethinking), plus [JTS-M012 visual-production direction](../journey/TRANSCRIPT.md#jts-m012--use-the-animation-library-and-rendering-experiments-freely)
 - **Supersedes:** the single-film editorial constraints in [the Part 1 plan](explore-film-part1-science-scroll-documentary.md), not its recorded implementation or verification results
 
@@ -461,6 +461,14 @@ words/audio/cues were changed. Next: maker script approval, then an approved pro
 and another general-adult comprehension check; not automatic import or speech generation.
 
 ### E02 authorization — 2026-09-16
+
+**Updated-guide revision, 2026-09-17:** the maker explicitly requests review/update of E02.
+The bounded [E02 amendment](science-series-episode-2.md#updated-guide-comprehension-revision--2026-09-17)
+is complete at website `414dbe85c704fc750dec7db66057717a62d46de7`: conversational source,
+visible input/prediction/reveal beats and substantive optional reading. The linked E02 review
+records source/code repairs, bounded visual checks and the focused test receipt. The latest
+E01 performance and earlier work remain intact. Still no E02 audio; maker understanding and
+complete spoken rehearsal are not inferred from technical completion.
 
 The maker now authorizes planning, science/fact review, a complete new episode/animation build,
 then critique against the design guide, explicitly **without audio generation**. The bounded

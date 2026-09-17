@@ -1,6 +1,6 @@
 # E02 — Why six is only the beginning
 
-Maker-revised eight-scene silent-rehearsal script (stable source IDs retain gaps for the removed history), 2026-09-16. Primary narrative sources: education Chapters 2–3
+Conversational eight-scene silent revision, 2026-09-17 (stable source IDs retain gaps for removed history). Primary narrative sources: education Chapters 2–3
 and their citations to Libbrecht, *Snow Crystals*, with current primary-source corrections in
 the [science review](../reviews/science-series-e02-review-2026-09-16.md). No audio generation.
 Structure drawings are explanatory, not molecular dynamics or experimental diffraction images.
@@ -9,19 +9,18 @@ Structure drawings are explanatory, not molecular dynamics or experimental diffr
 
 ### Narration
 
-We followed the water into a growing crystal. But the shape is still waiting for an explanation.
-These are three recorded growths from our project's model library: a plate, a column, and a
-branching crystal. Watch material appear while their frames stay fixed. They are separate runs,
-not stages of one crystal. Playback is accelerated, and the model's ticks are not physical seconds.
+The water has arrived. But why does it build shapes like these? Watch a plate spread out,
+a column grow long, and a star send out branches. These are three separate computer-grown
+examples from our library, sped up for us to watch—not three stages of one snow crystal.
 
-Now look past their proportions. The plate has six sides. The column has a six-sided cross-section.
-The branching crystal spreads along six principal directions. Each recording is framed to fit;
-their displayed sizes are not a size comparison. Something repeats across these different
-objects. Where does that shared geometry come from?
+Their proportions are different, but look at the directions. Six sides around the plate.
+Six around the column when we look along its length. Six main arms on the star. We've fitted
+each example to its own view, so don't compare their sizes. Compare that recurring six.
+What could such different shapes have in common inside?
 
-These are selected model examples, not a census of natural snow and not validated predictions.
-To investigate the shared geometry, we need to look inside the solid. How can we measure an
-arrangement far too small to see with ordinary light?
+The recordings pose the question; they don't prove an answer about real ice. For that, we need
+measurements. The arrangement inside a crystal is far too small to see with ordinary light.
+But there is a way to learn about it without taking a picture of each atom.
 
 ### Visual and sources
 
@@ -39,31 +38,33 @@ arrangement far too small to see with ordinary light?
 
 ### Narration
 
-Waves can reveal a spacing too small to see directly. Start with two waves. When their crests
-arrive together, they reinforce. Wavelength means the distance from one crest to the next.
-Shift one wave by half that distance and a crest meets a trough: they cancel in this ideal
-example. The result depends on the difference in their paths.
+Start with these two waves. A crest is the high part; a trough is the low part. The bottom
+line adds them together. Crests arriving together make a bigger wave. Now shift one: its high
+parts meet the other's low parts, and the two cancel in this simple example. The distance
+from one crest to the next is called the wavelength.
 
-X-rays scattered by a repeating crystal structure also interfere. Some directions reinforce
-strongly. Recording those directions gives a diffraction pattern. It is not a photograph of
-little atoms. It is evidence from which a structure can be inferred and tested.
+X-rays are waves too. Inside a crystal, the same arrangement repeats. These parallel lines
+mark repeating planes—not solid mirrors. X-rays scattered from different planes travel
+different distances. In some outgoing directions their crests arrive together, making a
+strong signal. A detector can measure those directions. That pattern is called diffraction.
 
-These lines mark parallel repeating planes inside the crystal. Plane spacing means the gap
-between neighbouring planes, measured straight across them. The beam angle is measured from
-the planes, not from their perpendicular. Keep the wavelength fixed and bring the planes closer
-together. The white segments show the extra distance travelled by the deeper ray. For the
-one-wavelength extra path shown here, reinforcement now occurs at a larger beam angle.
+Let's change the gap between the planes, keeping the wavelength the same. Bring the planes
+closer, but hold the beam angle where it was. The deeper ray now has less extra distance to
+travel. Will the old direction still bring these crests together? Not for the one-wavelength
+match we're following. Increase the angle from the planes and that match returns. A smaller
+gap has shifted the direction of the strong signal.
 
-That is the useful result: changing an internal spacing changes something we can measure outside
-the crystal. A full structure determination uses many such measurements, not just this pair of
-planes. X-ray experiments established the oxygen arrangement in ordinary ice. Our drawing
-explains the principle; it is not an experimental image or the evidence itself.
+That's the useful trick: an invisible gap changes a signal we can measure outside the crystal.
+Scientists compare many such signals with possible arrangements, not just this one pair of
+planes. X-ray measurements established where the oxygen atoms sit in ordinary ice. Let's
+look at that structure now. The drawings are our explanation of it, not experimental photographs.
 
 ### Visual and sources
 
 - Wave sums establish reinforcement/cancellation and a crest-to-crest wavelength bracket.
-  Label plane spacing and beam angle in words, no unexplained d/theta shorthand. Fixed
-  wavelength, changed separation/angle, persistent old-spacing reference. No fabricated
+  Fixed wavelength; reduce plane gap while retaining the original angle, compare extra-path
+  length to wavelength, pause the prediction, then increase the angle to restore the match.
+  Label spacing and angle in words, retaining the old-spacing reference. No fabricated
   diffraction photograph or claim that a single pair of planes determines the structure.
 - `docs/education/chapters/02-four-hundred-years-of-looking.html#x-rays`
 - `docs/education/chapters/02-four-hundred-years-of-looking.html#anim-diffract`
@@ -73,32 +74,31 @@ explains the principle; it is not an experimental image or the evidence itself.
 
 ### Narration
 
-Here is one water molecule. One oxygen atom, two hydrogen atoms. It is bent, not hexagonal.
-For an isolated water molecule, the angle between its two oxygen–hydrogen bonds is about
-one hundred and four and a half degrees. That is an angle inside one molecule.
+Here is one water molecule: a larger blue oxygen atom and two smaller white hydrogen atoms.
+The short solid links hold this molecule together. It's bent, not a tiny hexagon. So the six
+can't come from copying a six-sided molecule. We need to look at how water molecules connect.
 
-Keep that central water molecule in view. In ice, hydrogen bonds connect it to neighbouring
-water molecules. Follow its two hydrogens: each points toward another oxygen. The central
-molecule donates these two hydrogen bonds. Two more neighbours point their hydrogens toward
-the central oxygen, which accepts those bonds. Two donated and two accepted connections give
-it four hydrogen-bonded neighbours in this ideal ice-rule picture.
+Keep the blue oxygen in the centre. Two connections lead out through its own hydrogens.
+Two more neighbours point their hydrogens back toward it. Those weaker, dashed connections
+between intact molecules are called hydrogen bonds. No hydrogen is being handed away.
+Together they connect this water molecule to four
+neighbours. The solid links inside a molecule and the dashed links between molecules are
+different kinds of connection.
 
-Why draw a tetrahedron? The four neighbouring oxygens do not sit in one flat circle. They
-surround the central oxygen in approximately tetrahedral directions. Join those four positions
-and the geometric guide appears. It describes the neighbours around a molecule, not the shape
-of that molecule. In an ideal tetrahedron these directions meet at about one hundred and nine
-and a half degrees. Counting four neighbours alone does not prove their spatial arrangement.
+Now turn those four neighbours. They don't sit in a flat circle around the centre. Join
+their positions and a little four-cornered cage appears. That shape is a tetrahedron. It
+helps us see the approximately tetrahedral arrangement found in ice; it isn't the
+shape of one water molecule. Four neighbours alone wouldn't tell us where to put them.
 
-We will keep the water recognisable: larger blue dots for oxygen, smaller white dots for hydrogen.
-Solid short links belong inside each molecule; dashed links are hydrogen bonds between molecules.
-Our network positions are idealized, not a measurement of the isolated molecule's angle.
-There is one hydrogen along each oxygen-to-oxygen connection, and two close to each oxygen.
-Many hydrogen arrangements satisfy these rules. We are showing one, not a unique alignment.
+Follow those connections beyond one molecule. They lead into rings and then into a much
+larger network. We'll keep blue for oxygen and white for hydrogen. This is a simplified
+structural model, with one allowed arrangement of the hydrogens. It shows the connections,
+not molecules moving into place during freezing.
 
 ### Visual and sources
 
-- Identify O and H before the internal-angle arc. Retain a central molecule; reveal its own
-  two donated bonds then two accepted connections before drawing the tetrahedron. Maintain
+- Identify O and H before connections. Retain a central molecule; reveal its own
+  two outward connections then two incoming connections before drawing the tetrahedron. Maintain
   two-out/two-in orientation on the ideal Ih graph; no decorative H placement. Distinguish
   the isolated-molecule angle from idealized network geometry.
 - `docs/education/chapters/03-why-six-sides.html#the-bent-molecule`
@@ -108,23 +108,22 @@ Many hydrogen arrangements satisfy these rules. We are showing one, not a unique
 
 ### Narration
 
-Now reveal more water molecules without losing their identities. Follow the gold path: six
-oxygen atoms connected into a ring through hydrogen bonds. Neighbouring rings share the pattern,
-forming a sheet within ordinary hexagonal ice. The large dots are oxygens; the small dots are
-hydrogens. The hexagon belongs to their arrangement, not to any single molecule.
+Follow the gold path around these six oxygens. The water molecules connect into a ring.
+Reveal their neighbours and the pattern spreads into a sheet of joined rings. Here is our
+first answer: the hexagon belongs to the arrangement of molecules, not to one molecule.
 
-Keep the numbered ring in view while we tilt the whole sheet. It is not flat. Alternate oxygens
-sit at different heights in a puckered, chair-like arrangement. The oblique view reveals
-depth that the top view concealed. Turning the camera changed our view, not the molecules.
+From above, it looks almost flat. Is it? Keep the numbered ring in view as we tilt it.
+Some oxygens sit higher than their neighbours. The ring is puckered, a little like a folded
+chair. Those heights were there all along; turning the view has let us see them.
 
-Pull back and turn this same patch. From above, its hexagonal pattern is clear. From the side,
-its puckering is clear. The direction perpendicular to the overall sheet is called the c-axis.
-The short connections pointing out of our selected sheet are a clue: every interior molecule
-has a fourth neighbour beyond the sheet. This is a slice of a three-dimensional network.
+Pull back and turn the same patch. We can move from the hexagons seen from above to the
+folds seen from the side. The arrow points straight through the overall sheet. That direction
+is called the c-axis. It's a reference direction, not an extra bond or a physical rod inside ice.
 
-Freeze that view for a moment and keep the gold ring as our landmark. We have not made a flat
-substance or watched molecules assemble in real time. We isolated part of an existing structure
-to inspect it. Next, let the connections continue above and below it.
+Look at the short connections pointing out of the sheet. A molecule inside the crystal has
+a fourth neighbour beyond this view. So this isn't a separate flat substance. We've picked
+out part of something larger. Keep the gold ring as our landmark and follow those unfinished
+connections.
 
 ### Visual and sources
 
@@ -139,32 +138,29 @@ to inspect it. Next, let the connections continue above and below it.
 
 ### Narration
 
-Keep the sheet where it is. Follow its unfinished connections as the neighbouring sheets appear
-above and below it. They join into one network, with the original gold ring still inside.
-Nothing has become a different kind of atom. This is a reveal of the structure, not a film of
-whole sheets landing during growth.
+The connections continue above and below the sheet. More neighbours come into view, joined
+to the same network. Our gold ring is still there. We're revealing a structure that already
+exists—not watching entire sheets land as the crystal grows.
 
-Now turn the whole network, not just one ring. Looking along the c-axis brings back the
-hexagonal pattern. Turning toward the side reveals the staggered connections between sheets.
-This ordinary hexagonal structure is called ice Ih. The name identifies the structure, not
-whether its outer shape is a plate, a column or a star.
+Turn the whole patch now. Looking along the c-axis brings back the hexagons. From the side,
+we see how the sheets connect at different heights. This is the ordinary hexagonal structure
+of ice. Its short name is ice Ih. The name describes the inside, not whether the outside
+is a plate, a column or a star.
 
-Local tetrahedral bonding is not enough to specify every stacking choice. In the small key,
-the letters A, B and C mean different sideways positions in a repeating stack, not atom types.
-Hexagonal stacking repeats A, B, A, B; cubic stacking repeats A, B, C, A, B, C. These are
-symbolic registry guides beside our molecular network, not drawings of individual water molecules.
-Sequences can also mix, producing stacking disorder.
+Look first at the highlighted molecule and its nearby connections. Then look at the larger
+pattern around it. Those are two different questions: how does one molecule connect to its
+neighbours, and how does the whole arrangement repeat? The same kind of local connections
+can fit into other repeating structures. Four neighbours alone don't settle the whole pattern.
 
-Pure cubic ice without detectable stacking disorder has been made in laboratory experiments.
-That does not turn the snow crystal we are following into a cube. Our reference stays ordinary
-hexagonal ice. The important point is that local connections and the way the network repeats
-are two different levels of description. Neither is yet a rule for how fast an outer face grows.
+Other arrangements, including cubic ice made in laboratory experiments, are real. The closer
+look below explains how their stacking differs. We'll stay with ordinary hexagonal ice here.
+Now we know what repeats inside it. How does that help us describe the surfaces on the outside?
 
 ### Visual and sources
 
 - Keep exact sheet IDs/camera at entry; reveal neighbouring connected sheets above/below,
-  then orbit the whole network. Later add a secondary registry key with words before letters;
-  keep the molecular view as Ih, never pretend it morphs into Ic. The key is not a molecular sheet.
+  then orbit the whole network. Spotlight one molecule's neighbours before restoring the
+  larger pattern. Keep the view as Ih; alternate stacking is substantive optional reading.
 - `docs/education/chapters/03-why-six-sides.html#two-ways-to-stack`
 - [Komatsu et al., 2020, Ice Ic without stacking disorder](https://www.nature.com/articles/s41467-020-14346-5)
 
@@ -172,32 +168,35 @@ are two different levels of description. Neither is yet a rule for how fast an o
 
 ### Narration
 
-Return to a simple hexagonal prism. First select its two flat ends. These are the basal faces.
-The c-axis passes through them, perpendicular to their planes. Add material on these ends and
-the crystal becomes thicker along that axis.
+Take a simple six-sided crystal. The arrow points through the molecular sheets,
+from one flat end to the other. Highlight those two ends. If we add ice there, which way
+will the crystal get bigger? It gets thicker along the arrow. Those ends are called basal
+faces, and the arrow is our c-axis.
 
-Now select the six side walls. These are the prism faces. Growth normal to a side wall advances
-that wall outward and widens the crystal. The two face families offer different surface
-arrangements even though they belong to the same underlying ice.
+Now select the six side walls instead. If new ice joins these walls, will that mainly make
+the crystal taller or wider? Wider: each wall advances straight outward. These are called
+prism faces. The old material stays in place while new material appears outside it. We
+haven't stretched the crystal like rubber.
 
-Look down onto a basal face. The six equivalent corner directions lie in this plane. Those
-corner directions are not the same arrows as the outward normals at the centres of the side
-walls. There is another distinction: the molecular ring we inspected is rotated thirty degrees
-relative to the crystallographic hexagon associated with this prism outline. Do not line up a
-little ring's corners with the big crystal's corners as though they were the same object.
+Look down onto one flat end. Point toward a corner, then straight out through the middle
+of a side. Those arrows go in different directions. The first picks out a corner direction;
+the second shows which way that side face advances. We need to distinguish them before
+we talk about faces growing or arms spreading.
 
-A thin plate and a long column can have the same underlying lattice and the same face names.
-These separate schematic examples change the proportions, not the crystal structure. Names
-give us a way to ask which surfaces advanced; they do not yet tell us how fast they grew.
+A thin plate and a long column can share the same internal arrangement and the same face
+names. Try a new case: let the side walls advance faster than the ends. Will the shape
+become broader or longer? Broader: the added ice makes a plate-like shape. Faster end
+advance would favour a longer column instead. The structure gives us directions, but not
+what sets those different speeds.
 
 ### Visual and sources
 
 - Persistent faceted prism: select basal top/bottom with c-axis; retain old-solid outline while
   adding end shells. Then select side walls and add side shells with normal arrows. Top view
-  distinguishes corner directions from face normals. Separate plate/column comparison, never
-  stretch existing solid as a pretend deposition process. Motions have no physical rate.
-  Inset compares the ring and crystallographic hexagon with an explicit 30° offset; they are
-  at different scales, not nested physical-sized objects. Ideal network geometry is not a
+  distinguishes corner directions from face normals. A common starting prism has visibly
+  larger side than end addition after a prediction hold; never stretch existing solid.
+  Motions have no physical rate. The ring/crystal 30° comparison stays in the reader.
+  Ideal network geometry is not a
   measurement of the rounded constants used in the following scene.
 - `docs/education/chapters/03-why-six-sides.html#naming-the-faces`
 - [Brumberg et al., 2017, Facets of ice](https://digitalcommons.dartmouth.edu/facoa/3201/)
@@ -206,29 +205,29 @@ give us a way to ask which surfaces advanced; they do not yet tell us how fast t
 
 ### Narration
 
-We have drawn the structure large enough to inspect. Now attach a scale to it. Near zero degrees
-Celsius, the measured basal-plane repeat, labelled a, is about zero point four five two nanometres.
-The repeat along the c-axis, labelled c, is about zero point seven three six nanometres. A nanometre is one
-billionth of a metre. These lengths describe a repeating cell, not the diameter of a water molecule.
+Our molecular picture is enormously enlarged. Pick one repeating part and mark the distance
+to the next copy in the sheet. Near zero degrees Celsius that repeat is about half a
+nanometre. One nanometre is a billionth of a metre. The bracket measures a repeat in the
+pattern, not the width of a water molecule.
 
-The layer spacings are smaller pieces of that geometry. A basal layer is about zero point three
-seven nanometres thick. The corresponding prism-layer spacing is about zero point three nine
-nanometres. Completing layers on different faces changes the large crystal in different directions.
-The detailed mechanism that makes and moves a step will need its own investigation.
+Now look at a surface. Adding a layer there moves the boundary by a very small distance.
+On an end face that adds thickness; on a side face it adds width. Each step is tiny, but
+many completed layers can build a crystal we can see. How a layer starts and spreads is
+a question we'll follow later.
 
-For a sense of scale, Libbrecht describes a crystal two point three millimetres across. That
-length spans roughly five million basal-plane repeats. Our view cannot draw all of them. The
-scale ladder is a comparison, not a literal zoom through millions of rendered molecules, and
-not a measurement of the computer-grown crystal used in our opening.
+For comparison, Libbrecht describes a real crystal two point three millimetres across—small
+enough to fit on a fingertip. About five million of those in-sheet repeat distances fit across
+it. Our scale picture skips most of that distance. It compares lengths; it isn't a literal
+zoom through every molecule or a measurement of our opening models.
 
-That is the bridge from small to large: a repeating orientation can persist across an enormous
-number of molecules. It is not a tiny snowflake copied at every position. The network repeats;
-the outer branches still have to grow.
+So the small pattern can carry the same orientation across a large crystal. But there isn't
+a tiny finished snowflake at each position. Connections repeat inside the solid. Branches
+are something the outer surface builds as it grows. Let's return to those very different shapes.
 
 ### Visual and sources
 
-- Show basal/c-axis repeat brackets on an oriented cell before values; distinguish cell from
-  oxygen-neighbour distance. Layer detail shows labelled spacings and fixed prior surface.
+- Select matching oxygen sites one lattice translation apart in the retained sheet, then
+  bracket that repeat rather than a neighbouring-molecule distance. Layer detail retains the prior surface.
   Explicitly broken conceptual scale ladder keeps the macroscopic example separate from Run B.
   Constants/source-derived comparisons, no new physical calculator or measured model scale.
 - `docs/education/chapters/03-why-six-sides.html#how-big`
@@ -237,24 +236,22 @@ the outer branches still have to grow.
 
 ### Narration
 
-Return to our three recorded shapes. The hexagonal structure gives them equivalent directions and
-families of surfaces. It helps explain the recurring six-fold organization. It does not tell
-us that every arm must have an identical history, or that every snow crystal must be a star.
+Here's our plate, column and star again. We can now explain where their recurring directions
+come from: the arrangement inside ordinary ice. But that doesn't make every crystal a star,
+or make all six arms live exactly the same history.
 
-Our library has more to inspect: a hollow column, a capped column, and a sectored plate.
-These are three more model recordings, not natural specimens. Watch the hollows, the broad
-ends, and the divided regions of the plate. The model can produce different forms; that does
-not validate a physical explanation. Structure alone does not supply the growth rates or
-the evolving shape.
+Look at three more computer-grown examples: a hollow column with an open centre, a capped
+column with broad ends, and a plate with divided regions. They're model recordings, not natural
+specimens. The variety makes the limit of our answer clear. Naming the internal structure
+doesn't tell us how quickly each part of the outside will grow.
 
-Even a flat face is not explained simply by calling it a low-energy surface. A growing crystal
-is not necessarily settling into its final equilibrium shape. How molecules reach a surface,
-and how they become incorporated there, both matter. We will separate those questions before
-putting them back together.
+Think about one water molecule on its way to the crystal. First it has to travel through
+the air and reach the surface. Then it has to become part of the solid. Arriving and joining
+are not the same event. Either part of that journey can limit how quickly the crystal grows.
 
-So the six was a real answer, but not the whole answer. Keep the crystal in view and look at
-the air around it. Before a molecule can join any face or tip, it has to get there. In the next
-episode, the space that looked empty becomes part of the story.
+We've answered why six keeps appearing, not why this crystal became a plate and that one
+grew branches. Keep the crystal in view, but look at the air around it. Before water can
+join any face or tip, it has to get there. That's our next investigation.
 
 ### Visual and sources
 
@@ -265,6 +262,115 @@ episode, the space that looked empty becomes part of the story.
   air question with explicitly schematic paths, not a computed model field.
 - `docs/education/chapters/03-why-six-sides.html#what-it-does-not-say`
 - `docs/education/chapters/03-why-six-sides.html#naming-the-faces`
+
+## Reader depth retained, not discarded
+
+### Two kinds of connection, two different angles
+
+A water molecule contains two O–H covalent bonds. Hydrogen bonds connect neighbouring intact
+water molecules; “donating” a hydrogen bond does not mean that its hydrogen atom leaves its
+molecule. In the ideal ice-rule picture, each oxygen has four oxygen neighbours, one hydrogen
+lies along each connecting O–O link, and two of those hydrogens are close to each oxygen. This
+gives two donated and two accepted links. Many hydrogen arrangements satisfy those rules.
+Our drawing shows one allowed arrangement, not the uniquely ordered hydrogen structure of ice.
+
+For an isolated water molecule the experimental internal H–O–H angle is about 104.5°. The
+ideal tetrahedral angle between directions from a centre to four neighbours is about 109.5°.
+These are different angles describing different things. Our ideal ice-network drawing uses
+tetrahedral oxygen geometry, not a precise measurement of an isolated molecule. Counting four
+neighbours alone cannot determine their spatial arrangement; structural measurements are needed.
+
+Sources: `docs/education/chapters/03-why-six-sides.html#the-bent-molecule`;
+[NIST experimental water geometry](https://cccbdb.nist.gov/exp2x.asp?casno=7732185&charge=0).
+
+### How a measured direction reveals a hidden gap
+
+The ray diagram is a cut through parallel repeating planes in a crystal. Atoms scatter the
+X-rays; the lines do not represent solid mirrors. Call the perpendicular gap between planes d,
+the wavelength λ, and the angle from the plane θ. The extra distance travelled by the deeper
+ray is 2d sin θ. When it is a whole number of wavelengths, the scattered waves reinforce.
+For the first-order match shown here, 2d sin θ = λ. Keep λ fixed: reducing d requires a
+larger θ for the same match. Merely reducing the gap at the original angle loses that match.
+
+The animation separates those actions: smaller gap first, then a larger angle that restores the match. Its initial
+and final matched states have the same wavelength. The bright direction is a measurable
+consequence of spacing, not a picture of individual atoms. Real structure determination uses
+many reflections, their positions and intensities; one plane pair is not enough to identify
+an entire crystal structure. Barnes's 1929 measurements established the oxygen arrangement
+of ordinary ice. The explanatory diagram here is not a reproduction of those measurements.
+
+Sources: `docs/education/chapters/02-four-hundred-years-of-looking.html#x-rays`;
+[Barnes, The crystal structure of ice](https://doi.org/10.1098/rspa.1929.0195).
+
+### Same nearby connections, different stacking
+
+The ordinary hexagonal structure is ice Ih. Related tetrahedral networks can repeat differently
+over larger distances. In a symbolic stacking key, A, B and C mean three different sideways
+registry positions, not three kinds of atom. Hexagonal stacking repeats ABAB; cubic stacking
+repeats ABCABC. A sequence can mix those motifs, producing stacking disorder. Such letters
+summarize how layers are registered; they are not drawings of water molecules or a film of
+whole sheets landing during growth. The on-screen molecular network stays Ih throughout.
+
+The older chapter's statement that pure cubic ice has never been observed is superseded:
+Komatsu and colleagues reported ice Ic without detectable stacking disorder in 2020. Cubic
+ice is a structural description, not a claim that the snow crystal followed in this story
+becomes a cube. Nor does four-neighbour coordination uniquely determine Ih or Ic: the local
+connections and long-range repetition are distinct parts of the structure description.
+
+Sources: `docs/education/chapters/03-why-six-sides.html#two-ways-to-stack`;
+[Komatsu et al., Ice Ic without stacking disorder](https://www.nature.com/articles/s41467-020-14346-5).
+
+### Face directions and molecular orientation
+
+The two basal faces are perpendicular to the c-axis; growth on them adds thickness along
+that axis. The six primary prism faces are side walls; their outward normal directions
+lie in the basal plane and their advance adds width. A face normal means a direction straight
+out from that face, not a direction toward a corner. The molecular chair-ring hexagon and
+the crystallographic hexagon used for this prism outline differ in orientation by 30°.
+They also refer to different scales: one is not a tiny outline of the complete snow crystal.
+
+Not every possible cut through a lattice becomes a visible flat facet. Structure describes
+possible arrangements; growth depends on delivery and incorporation. A growing crystal need
+not have the equilibrium shape that minimizes surface free energy. The steps that spread
+across a face belong to E04, and the rarer forms and pyramidal-angle construction to E07.
+
+Sources: `docs/education/chapters/03-why-six-sides.html#naming-the-faces`;
+`docs/education/chapters/03-why-six-sides.html#what-it-does-not-say`;
+[Brumberg et al., Facets of ice](https://digitalcommons.dartmouth.edu/facoa/3201/).
+
+### The actual small lengths—and the large comparison
+
+Near 0 °C, the measured in-plane lattice repeat a is approximately 0.452 nanometres and the
+repeat along the c-axis, c, is approximately 0.736 nanometres. A nanometre is one billionth
+of a metre; a micrometre is one millionth. These repeats describe a translation cell, not
+the diameter of a water molecule. The rounded layer spacings used by the chapter are about
+0.37 nm for basal layers and 0.39 nm for prism layers. In this geometry they correspond to
+c/2 and a√3/2, respectively. Layer spacing and full cell repeat are not interchangeable.
+
+Libbrecht's 2.3 mm specimen spans roughly 2,300,000 nm / 0.452 nm ≈ 5.1 million in-plane
+repeat lengths, rounded to about five million in the story. This is a length ratio, not a
+count of every molecule in the crystal. It is also not a physical size assigned to our
+G–G recordings. Their ticks have no physical-time interpretation, and the six recordings
+are independently framed with unit geometric thickness scaling. Their visual variety is
+not a validation of the model against measurements.
+
+Sources: `docs/education/chapters/03-why-six-sides.html#how-big`;
+`docs/education/chapters/03-why-six-sides.html#what-it-does-not-say`.
+
+### Why the history is optional here
+
+Early descriptions established that sixfold forms recur; improved observation and photography
+made their variety easier to inspect. Bentley's selected photographs are not an unbiased census
+of natural snow. Kepler's sphere-packing analogy was an attempt to connect a visible pattern
+to an unseen arrangement, not a measurement of the molecular structure of ice. E02 keeps
+the measurement idea that advances its central question; it does not need the chronology
+before examining the structure. The linked sections retain that history. E06 returns to
+controlled habit comparisons and E08 to how experiments obtain their measurements.
+
+Sources: `docs/education/chapters/02-four-hundred-years-of-looking.html#noticing`;
+`docs/education/chapters/02-four-hundred-years-of-looking.html#better-eyes`;
+`docs/education/chapters/02-four-hundred-years-of-looking.html#bentley`;
+`docs/education/chapters/02-four-hundred-years-of-looking.html#kepler`.
 
 ## Source dispositions
 
@@ -278,9 +384,9 @@ episode, the space that looked empty becomes part of the story.
 | Ch3 `#the-map` | Brief ordinary-Ih context here; detailed phase-map discussion stays in linked reader with the science-review warnings about universal/pressure wording. E01 already taught deposition. |
 | Ch3 `#the-bent-molecule` | E02-05, including molecular/network distinction and ideal ice rules. Full hydrogen-disorder combinatorics deferred beyond this explanatory scope. |
 | Ch3 `#the-honeycomb`, `#rotate-anim` | E02-06. The source's polygon-fold argument is deliberately not taught as a unique derivation of Ih; direct ideal-network inspection avoids that false implication. |
-| Ch3 `#two-ways-to-stack` | E02-07 with primary-source currency correction. Detailed twin origin/morphology in E07. |
+| Ch3 `#two-ways-to-stack` | E02-07 explains local versus repeating structure. Substantive reader explains registry letters and primary-source currency correction. Detailed twin origin/morphology in E07. |
 | Ch3 `#naming-the-faces` | E02-08; notation and secondary-prism/terrace-step discussion in linked reader and E04. No claim that every lattice cut becomes a facet. |
-| Ch3 `#how-big` | E02-09 repeats/layer spacing/size example. Pyramidal-angle construction and projection distinction remain in linked reader, to return with rare forms in E07; avoid adding another geometry detour before the payoff. |
+| Ch3 `#how-big` | E02-09 repeat/layer/size meaning; actual dimensions and calculation in the substantive reader. Pyramidal-angle construction deferred to E07 with rare forms; avoid another geometry detour before the payoff. |
 | Ch3 `#what-it-does-not-say` | E02-01/10; growth/energy distinction motivated here and developed in E03–E05. |
 
 ## Design-guide shot worksheet
@@ -289,13 +395,18 @@ All beats use the exact paragraph's words as rehearsal cues. After identity/focu
 action a conspicuous part of that paragraph and hold its result; do not spread small changes
 uniformly across a whole section. Actual recorded-word alignment is pending future narration.
 
-| Scene | Question / likely wrong reading | Stable subject and visible comparison | Continuity, choice and accessible pose |
+| Scene | Prerequisite / question and takeaway | Input → action → result; misconception | Understanding check / depth / continuity |
 | --- | --- | --- | --- |
-| 01 | Six means all shapes identical? | Three actual library growths | Fixed framing makes growth visible; unit Z and independent view sizes; Still retains finished recordings. |
-| 04 | Spots are pictures of atoms? | Wave sums; fixed wavelength, changed plane spacing/direction | New diagram, explicit ideal/schematic labels; before-reference and static result readable. |
-| 05 | Why tetrahedron? | Two donated plus two accepted connections precede guide | Idealized H positions obey ice rules; molecule/network angles distinguished. |
-| 06 | Is the sheet flat? | Same numbered ring and H₂O sheet through zoom/orbit | Out-of-sheet stubs, persistent atom IDs, blue O / white H; Still shows puckering. |
-| 07 | Is this a new object? | Same sheet with connected neighbours above/below | Exact entry pose; whole-network orbit; secondary registry key never replaces it. |
-| 08 | Corner direction equals side-face normal? | Same prism; named faces, old-solid outline, different arrow families | Draw added shells, not stretched material; separate shape comparison. Static geometry gives the meaning. |
-| 09 | Lattice cell equals molecule, or Run B has known mm size? | Repeat/layer brackets and explicit source specimen example | Reference sizes never placed on Run B; scale stages retain parent labels. |
-| 10 | Lattice determines all rates/branches? | Same opening examples, same structural keys, different added material | End on an identified surrounding-air question, not a substitute mystery or newly simulated field. |
+| 01 | E01 demonstrated deposition; why recurring six? | Three actual recordings grow in fixed frames, then turn. Independent models, not one specimen or matched sizes. | Identify what repeats despite different proportions. Retain all six source-bound assets across opening/ending. |
+| 04 | No prior wave knowledge: demonstrate crest/trough sum first. How measure invisible spacing? | Fixed wavelength; decrease gap at old angle, show path mismatch, hold “Will the old direction…”; “Not for…” releases larger angle and recovered match. | Explain what changed outside when an inside gap changed. Bragg equation/multiple-reflection limits in reader. Still/description must not reveal answer before release. |
+| 05 | One labelled H₂O; how connect four neighbours? | Distinguish internal solid links from weaker intermolecular dashed links, reveal four neighbours, turn and add tetrahedral guide. No hydrogen handed away. | Explain molecule versus neighbour arrangement without naming angles. Angles/ice-rule detail in reader. Same colours carry to sheet. |
+| 06 | Connections demonstrated in 05; is apparent hexagonal sheet flat? | Same gold numbered ring expands to sheet, tilts to reveal heights, pulls back and rotates, holds pose. Camera movement is not molecular growth. | Predict whether a side view preserves apparent flatness. c-axis earned with arrow; Still oblique view, shared IDs and out-of-sheet links persist. |
+| 07 | Out-of-sheet links in 06; what lies beyond? | Same pose, connected neighbours reveal above/below, whole network rotates; local neighbourhood spotlight expands to whole pattern. | Distinguish four nearby connections from long-range repetition. Registry/cubic correction in actual reader, not unexplained cards. |
+| 08 | c-axis in 06, network in 07; which way does adding ice change shape? | Selected ends/side walls before additions, old-solid reference retained; holds before “It gets thicker”/“Wider”. New case shows faster side advance arrows, holds “broader or longer?”, releases common-prism side growth at “Broader”. | Predict broader versus longer without term prompt. Face names follow action; 30° comparison in reader. Still holds current conceptual beat, no early result. |
+| 09 | Repetition in 07 and layer directions in 08; how small becomes large? | Select two corresponding sites, bracket repeat; retain surfaces through layer additions; explicit broken-scale real-specimen example. | Explain repeat length versus molecule size, and why five million is a length ratio. Exact constants/calculation in reader; never assign model physical scale. |
+| 10 | Structure/face directions demonstrated; what is still unanswered? | Same opening models, then three further recordings; move focus to journey through air versus joining surface. | Explain why common structure doesn't determine rates or complete shape. Preserve model disclosure and motivate E03 without unexplained equilibrium-energy jargon. |
+
+Local prediction holds are three provisional seconds, inserted before the named answer phrase;
+they are not measured narration alignment. Screen labels share the cue's release state.
+Review outcome: see the dated review linked at the top; final voice, full spoken rehearsal
+and independent audience teach-back remain unperformed, not inferred from code tests.

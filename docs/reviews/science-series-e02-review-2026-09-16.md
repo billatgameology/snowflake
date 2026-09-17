@@ -235,3 +235,79 @@ an uninterrupted full-episode watch, narration alignment, physical-phone or all-
 The final website diff leaves E01 source/audio/drawings, SeriesHome choreography and original
 film scene files unchanged. No synthesis, credentials, scientific suite/gate, export, push or
 deployment. **Ready for maker comprehension/pace review, not maker accepted.**
+
+## Updated-guide comprehension revision — 2026-09-17
+
+Maker request: review and update E02 against the refreshed episode guide. Pre-build authority
+amendment `e7710fb`; website baseline `1fd50e6`. This is an authorized revision of the silent
+draft, not permission for narration. Source/import identity at completion:
+`86b818171353dbf7a5c4ec9a7737c7d836fa2d52546ab1f7ac4e1c9194a60b1f` in website
+`src/series/episode-two.json`. Implementation identity is recorded in the plan/PROGRESS.
+
+### Findings and repairs
+
+| Passage / problem | Revision and disposition |
+| --- | --- |
+| Opening/ending sounded partly like instructions to the animator; growth-energy jargon introduced a theory only to reject it. | Concrete plate/column/star observations; spoken model qualification retained, implementation details in visible notes. End directly distinguishes reaching from joining the surface. |
+| X-ray lesson named waves/planes but assumed the connection; spacing and matching angle changed together. | Define crest/trough and combined wave first. Explain X-rays as scattered waves. Reduce spacing at the original angle, show the shorter extra-path bar, hold the question, then restore the one-wavelength match at a larger angle. |
+| Bond terminology could imply giving away hydrogen; angles arrived before their purpose. | Explain solid internal links versus weaker dashed links between intact molecules; explicitly no hydrogen transfer. Four neighbours precede the tetrahedral guide. Detailed angles and ice rules remain explained in the reader. |
+| Alternate-stack letters, 30° orientation and several decimal dimensions crowded the main chain. | Retain the necessary distinctions in ordinary language; supply six substantive reader entries with their own precise sources, not just citations or a disposition table. The known cubic-ice correction is beside its explanation. |
+| Network view provided little direction on “this molecule”. | Dim the surrounding network, identify the selected molecule with a leader, emphasize its links, then restore the larger pattern. Preserve gold-ring identity and exact sheet/stack seam. |
+| Face naming showed answers without a chance to use the idea. | End/side prediction holds and a new common-prism test with visibly faster side advance. The old solid remains fixed; larger lateral additions produce the broader result. Labels and description wait for release. |
+| Still skipped the new comparison, including wave shift and local focus. | Prediction states use the current conceptual beat, not the scene's end. Wave and local-neighbour Still poses also retain their before states until the authored change. |
+| Small repeat label crossed lower network details in narrow view. | Quiet label band separates the actual repeat bracket from background atoms. The bracket links matching sites one lattice translation apart, not nearest neighbours. |
+
+### Provenance and source checks
+
+Root OpenAI Codex authored the source/implementation and inspected the browser. Shared-context
+read-only `story_review`, `science_review` and `runtime_review` independently read their named
+source/code boundaries; exact model IDs were unavailable. None performed an audience test or
+browser review. The story findings led to the conversational rewrite, real optional reader,
+bond clarification and prediction opportunity. Runtime review independently reproduced the
+Still defect and checked new prediction states, reverse behavior and reader/clock separation.
+
+Science review compared the revised words/reader with Chapters 2–3 and previously checked
+primary sources, independently recomputed the length comparison and inspected changed code.
+It verified that the Bragg comparison loses and regains the selected match, the faster-side
+case has larger side-normal than basal advance, and the scale bracket connects equivalent
+oxygen sites with matching hydrogen orientations. It found “restored angle” imprecise and
+a caption restarting “Turn the beam…” after matching was already complete; both are fixed.
+Root additionally reopened the [NIST water geometry](https://cccbdb.nist.gov/exp2x.asp?casno=7732185&charge=0)
+and [Komatsu 2020](https://www.nature.com/articles/s41467-020-14346-5) primary pages, and checked
+the local chapter's printed lattice/layer dimensions and specimen-size passage. No new
+scientific measurement, numerical solver change or validation claim follows.
+
+### Checked, and not checked
+
+- **Content: checked over the named scope.** Eight revised scenes and six substantive reader
+  entries; demonstrated prerequisites and understanding prompts are in the source shot table.
+  Extra quantitative depth remains available; pyramid construction is explicitly deferred
+  to E07 rather than falsely described as supplied here.
+- **Visuals: bounded viewing.** Root inspected desktop 1270×710 and narrow 390×844. Normal-speed
+  samples covered the changed-gap X-ray passage and face selection/reveal; selected before/
+  question/result/reverse poses covered bonds, local focus, speed contrast and scale. A final
+  cold load followed drawing changes. The unchanged recording assets and sheet seam are
+  protected by focused tests, not relabelled a new full viewing of every retained animation.
+- **Interaction: sampled checks.** Native upward scroll yielded manual mode; reader expansion
+  during Play yielded manual mode; reverse seek/Still kept the question unspoiled; resumed
+  playback reached natural end and paused. Desktop/narrow layouts were inspected and the
+  override reset. No physical-phone/touch, OS reduced-motion toggle, forced GPU/network error
+  or new full E01/old-film playback pass was performed.
+- **Audio/performance: pending by scope.** No E02 audio, credential access, synthesis or full
+  spoken rehearsal. Word-rate cue locations and local pauses remain explicitly provisional.
+- **Audience: not checked.** Ask an uncoached viewer to explain how a hidden gap changes a
+  measured signal; what the tetrahedron surrounds; what a side view reveals; which direction
+  faster side addition favours; and why knowing the structure does not settle the final shape.
+  Their actual account, not agreement or test passes, is the next comprehension evidence.
+
+Website `docs/episode-two-guide-tests.tap` records **82 passes, zero failures** (copied from
+the receipt at write time). The command is in website `docs/science-series-episode-two.md`;
+it includes the focused E02, continuous-series/audio and retained film tests. TypeScript and
+the standalone Sites production build pass, retaining the existing chunk-size advisory.
+Final cold-load error queries returned an empty error list. Authority `npm run lint:rule7`
+and both worktrees' `git diff --check` pass. No full scientific suite or gate was warranted.
+
+The changed implementation paths are E02-only. The new E01 performance, home choreography,
+original film, six crystal payloads and shared transport/rendering code are unchanged from
+website baseline `1fd50e6`. **Ready for maker review; human performance and fresh audience
+understanding remain open.** No E03, export, push, deployment or publication.

@@ -1,7 +1,7 @@
 # Plan — E02: Why six is only the beginning
 
 - **Phase:** Journey/media; no scientific phase or gate change
-- **Status:** updated-guide comprehension revision in progress (2026-09-17); still no audio
+- **Status:** updated-guide comprehension revision complete (2026-09-17); ready for maker review, no audio
 - **Started:** 2026-09-16
 - **Authority:** maker requests plan → science/fact check → animations/episode → design-guide critique; **no audio generation**
 - **Parent:** [series plan](explore-journey-science-series.md), [maker design guide](../video/science-series-design-guide.md)
@@ -160,7 +160,19 @@ credential access, E01 rewrite, solver/gate work, new episode, export, deploymen
 Silent timing is provisional; full spoken rehearsal and uncoached audience teach-back stay pending.
 Root is the sole website editor. This amendment is committed before implementation.
 
+Completed at website `414dbe85c704fc750dec7db66057717a62d46de7`. The
+[review/edit record](../reviews/science-series-e02-review-2026-09-16.md#updated-guide-comprehension-revision--2026-09-17)
+records scoped source/story/runtime findings, repairs and actual visual/interaction coverage.
+Website `docs/episode-two-guide-tests.tap` records **82 passes, zero failures**; TypeScript
+and production build pass. E01/home/old film/assets remain unchanged. Next: maker comprehension
+review; complete spoken rehearsal and a fresh uncoached audience account remain pending.
+
 ## Tried and rejected
+
+- Keeping optional complexity in the spoken path while calling citations a substantive reader.
+- Reducing plane spacing and changing beam angle simultaneously, hiding the lost-match step.
+- Forcing every Still paragraph to its final pose, revealing a prediction answer prematurely.
+- Replacing specific comprehension repairs with a blanket shorter duration or faster playback.
 
 - Making the water molecule itself hexagonal; using a 2D honeycomb as the full 3D crystal.
 - Treating tetrahedral bonding as proof of exactly two possible structures or identical six arms.

@@ -19,11 +19,15 @@ detail.
 
 ## Current state
 
-- **Episode 2 updated-guide revision in progress (2026-09-17).** Maker authorizes applying the
-  refreshed guide to the existing silent episode. The [bounded amendment](plans/science-series-episode-2.md#updated-guide-comprehension-revision--2026-09-17)
-  covers conversational explanation, demonstrated prerequisites, substantive optional reading
-  and visible prediction/reveal beats. Preserve the new E01 performance and all earlier work.
-  Next: revise source and drawings, then scoped source/runtime/visual review. No E02 audio.
+- **Episode 2 updated-guide revision complete (2026-09-17).** Website
+  `explore/film-part1@414dbe85c704fc750dec7db66057717a62d46de7` revises the silent episode
+  with conversational explanation, demonstrated prerequisites, substantive optional reading
+  and visible prediction/reveal beats. The [plan](plans/science-series-episode-2.md#updated-guide-comprehension-revision--2026-09-17)
+  and [review/edit record](reviews/science-series-e02-review-2026-09-16.md#updated-guide-comprehension-revision--2026-09-17)
+  name source/runtime repairs and bounded desktop/narrow viewing. Website
+  `docs/episode-two-guide-tests.tap`: **82 passes, zero failures**; TypeScript/build pass.
+  New E01, home, original film and crystal assets are preserved. Next: maker comprehension
+  review and later authorized spoken rehearsal; no E02 audio or audience acceptance claimed.
 
 - **Future-episode design reference updated (2026-09-17).** The
   [canonical guide](video/science-series-design-guide.md) now integrates the conversational
@@ -569,7 +573,7 @@ detail.
   previews, zero full recording downloads on browse-first entry and no unexpected errors
   (`out/growth-gallery/browser-smoke.json`). Keyboard focus, phone layout, selection, playback,
   filter/scroll retention and broken-image fallback pass. Next: open the gallery link below.
-- **Last updated:** 2026-09-17 (future-episode guide incorporates E01 production lessons; no website, phase or scientific-evidence change)
+- **Last updated:** 2026-09-17 (updated design guide applied to silent E02; no phase or scientific-evidence change)
 - **Optional graphs and MP4 export are complete.** Single views offer attached-site,
   interval-attachment and outward-reach graphs with independent toggles and synchronized seeking.
   **Export MP4** creates the current treatment/camera in H.264, with optional graphs. Actual UI
@@ -731,10 +735,19 @@ the immutable takes, start E03, publish or run scientific gates without a new re
 Requested E01 revisions begin with `src/series/episodeCues.ts`, `laterEpisodeCues.ts` and their
 corresponding drawing files; the focused check command is in the review.
 
-### Episode 2 — maker-directed library and molecular-continuity revision
+### Episode 2 — updated-guide revision ready for review
 
-Current action: implement the [2026-09-17 guide amendment](plans/science-series-episode-2.md#updated-guide-comprehension-revision--2026-09-17)
-in the existing source and website worktree; the completed revision below is its baseline.
+Current delivery: the [2026-09-17 guide amendment](plans/science-series-episode-2.md#updated-guide-comprehension-revision--2026-09-17)
+is implemented at website `414dbe85c704fc750dec7db66057717a62d46de7`. Open
+`http://127.0.0.1:5185/series/episode-2`; preview is running and paused at the opening.
+Use Play for the revised silent performance and “A closer look” for optional depth.
+The [latest review](reviews/science-series-e02-review-2026-09-16.md#updated-guide-comprehension-revision--2026-09-17)
+names actual checked states and pending audience questions. Next is an uncoached explanation
+of the X-ray comparison, molecule/network distinction and faster-side-growth prediction—not
+automatic narration. Requested repairs start in the authority script and website
+`episodeTwoCues.ts`/`episodeTwoDrawing.ts`; the focused command is in
+website `docs/science-series-episode-two.md`. Cold-reload after canvas edits. No E02 audio.
+The earlier library revision below is the preserved baseline, not the latest source identity.
 
 The maker requested more actual crystal recordings, no unearned history detour, spoken symbol
 definitions, an explained tetrahedral neighbourhood, and a continuous H₂O sheet → rotating
