@@ -64,7 +64,7 @@ inspection. This is not a new scientific validation result.
 
 ## Visual and runtime review
 
-Root inspected the browser at its desktop viewport (1270×714) and a temporary 390×844
+Root inspected the browser at its desktop viewport (1280×720) and a temporary 390×844
 viewport, subsequently reset. Inspection used the actual player, source-bound audio,
 seek control, manual scrolling and Still mode—not screenshots rendered by a separate
 implementation. Representative observations:
@@ -87,8 +87,13 @@ These were sampled intervals, not an uninterrupted frame-by-frame viewing of eve
 Forward/reverse seeking reproduced the ideas. Upward wheel input paused audio and switched
 to manual mode; downward scrolling changed the visual position; Play resumed from the new
 reading position. Still retained the current idea as a completed sentence pose. Narrow-screen
-DOM inspection reported no horizontal overflow. The final cold-load error query returned
-an empty list; existing Three.js deprecation warnings are not claimed fixed.
+DOM inspection reported no horizontal overflow. The earlier bounded playback error query
+returned an empty list. Documentation-triggered hot reload later produced the previously
+known Hero1 `GPUCanvasContext` not-configured errors at 14:24:26 UTC. After a fresh reload,
+the new E01 master and model played correctly; the error query bounded after
+2026-09-17T14:29:03Z returned no new errors. The retained home GPU hot-reload/device lifecycle
+issue and existing Three.js deprecation warnings are **not** claimed fixed. This limits the
+runtime claim; it is not hidden behind a global “console clean” statement.
 
 The full master reached its natural end at 945.981723 s with `ended: true`, paused media
 and a 15:45/15:45 control display. Optional pressure and percentage disclosures opened with
