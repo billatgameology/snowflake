@@ -1,7 +1,7 @@
 # Plan — E02: Why six is only the beginning
 
 - **Phase:** Journey/media; no scientific phase or gate change
-- **Status:** maker-directed visual revision complete; ready for comprehension/pace review
+- **Status:** updated-guide comprehension revision in progress (2026-09-17); still no audio
 - **Started:** 2026-09-16
 - **Authority:** maker requests plan → science/fact check → animations/episode → design-guide critique; **no audio generation**
 - **Parent:** [series plan](explore-journey-science-series.md), [maker design guide](../video/science-series-design-guide.md)
@@ -130,6 +130,35 @@ names actual viewing, independent code/source findings and repairs. Website
 `docs/episode-two-revision-tests.tap` at that commit records **85 passes, zero failures**.
 TypeScript/production build pass; eight-scene source import hash is recorded in the review.
 Next: maker feedback on the revised page, not automatic narration generation or E03 production.
+
+## Updated-guide comprehension revision — 2026-09-17
+
+The maker now requests review and implementation against the updated design guide. Preserve the
+eight-scene investigation, six real model recordings and continuous H₂O sheet/network. The
+new E01 performance at website `1fd50e6` is independently owned and must remain unchanged.
+
+1. Rewrite E02's narration in the approved concrete, conversational voice. Explain what each
+   representation does before its technical name; remove production instructions from speech.
+   Keep model/source qualifiers, but relocate repeated implementation detail to visible notes.
+2. Repair the largest prerequisite burdens: waves before measurement, connections before the
+   tetrahedron, a repeated network before stacking terminology, direction of added material
+   before face vocabulary, and repeated distance before scale arithmetic.
+3. Supply a substantive optional reader inside the same source file and live page for molecular
+   angles/ice rules, diffraction geometry, alternate stacking, face orientation, lattice/layer
+   dimensions and history. Keep precise source links and explicit section dispositions. Do not
+   silently drop depth or exile a necessary premise.
+4. Revise corresponding drawings and paragraph cues. Add deliberate input/question/result holds
+   where a viewer can predict a change; withhold result labels until release. Preserve deterministic
+   reverse/Still states, retained object identity, fixed references and the existing recordings.
+5. Obtain bounded read-only story/source/runtime review, focused tests, typecheck/build, and
+   cold-load desktop/narrow visual review of changed beats with incoming/outgoing context.
+   Record actual coverage separately from complete performance and audience comprehension.
+
+Done when revised words, explanatory actions and optional depth are available in the silent E02,
+material review findings are repaired, and checks/limits are recorded. No audio generation or
+credential access, E01 rewrite, solver/gate work, new episode, export, deployment or publication.
+Silent timing is provisional; full spoken rehearsal and uncoached audience teach-back stay pending.
+Root is the sole website editor. This amendment is committed before implementation.
 
 ## Tried and rejected
 

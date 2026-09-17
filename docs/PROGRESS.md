@@ -19,6 +19,12 @@ detail.
 
 ## Current state
 
+- **Episode 2 updated-guide revision in progress (2026-09-17).** Maker authorizes applying the
+  refreshed guide to the existing silent episode. The [bounded amendment](plans/science-series-episode-2.md#updated-guide-comprehension-revision--2026-09-17)
+  covers conversational explanation, demonstrated prerequisites, substantive optional reading
+  and visible prediction/reveal beats. Preserve the new E01 performance and all earlier work.
+  Next: revise source and drawings, then scoped source/runtime/visual review. No E02 audio.
+
 - **Future-episode design reference updated (2026-09-17).** The
   [canonical guide](video/science-series-design-guide.md) now integrates the conversational
   production lessons: demonstrated prerequisites, visible input changes, prediction/reveal
@@ -726,6 +732,9 @@ Requested E01 revisions begin with `src/series/episodeCues.ts`, `laterEpisodeCue
 corresponding drawing files; the focused check command is in the review.
 
 ### Episode 2 — maker-directed library and molecular-continuity revision
+
+Current action: implement the [2026-09-17 guide amendment](plans/science-series-episode-2.md#updated-guide-comprehension-revision--2026-09-17)
+in the existing source and website worktree; the completed revision below is its baseline.
 
 The maker requested more actual crystal recordings, no unearned history detour, spoken symbol
 definitions, an explained tetrahedral neighbourhood, and a continuous H₂O sheet → rotating
