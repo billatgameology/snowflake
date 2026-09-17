@@ -19,6 +19,13 @@ detail.
 
 ## Current state
 
+- **E01 narration-tone direction adopted (2026-09-17).** The maker approved the teenager-friendly
+  two-neighbours sample. The [approval draft](video/science-series-e01-comprehension-draft.md)
+  now uses that conversational, concrete voice throughout, with the fixed-condition qualifiers
+  and separate quantitative reader retained. The [guide](video/science-series-design-guide.md#narrators-voice--maker-approved-direction-2026-09-17)
+  records the voice for future writing. This is tone approval, not complete-script or audio
+  approval. Next: maker read-through of the revised draft; live website/narration unchanged.
+
 - **E01 full comprehension review and approval script (2026-09-16).** A maker-reported general
   adult was lost after scene 6; the [full review](reviews/science-series-e01-comprehension-review-2026-09-16.md)
   identifies prerequisite debt from scene 3 and overload in scenes 6/8. The separate
@@ -535,7 +542,7 @@ detail.
   previews, zero full recording downloads on browse-first entry and no unexpected errors
   (`out/growth-gallery/browser-smoke.json`). Keyboard focus, phone layout, selection, playback,
   filter/scroll retention and broken-image fallback pass. Next: open the gallery link below.
-- **Last updated:** 2026-09-16 (E01 comprehension review and approval draft; no phase or scientific-evidence change)
+- **Last updated:** 2026-09-17 (E01 approval-draft tone revision; no phase or scientific-evidence change)
 - **Optional graphs and MP4 export are complete.** Single views offer attached-site,
   interval-attachment and outward-reach graphs with independent toggles and synchronized seeking.
   **Export MP4** creates the current treatment/camera in H.264, with optional graphs. Actual UI
@@ -680,6 +687,10 @@ the package-specific prerequisites in its charter amendment and execution plan. 
 ## Next step
 
 ### Episode 1 — approve the comprehension revision before changing narration
+
+The maker's 2026-09-17 tone feedback is incorporated throughout the approval draft. Use its
+conversational two-neighbours treatment as the voice reference, while keeping the explanation
+sequence and scientific conditions. The maker approved that sample's tone, not this whole script.
 
 Open the [whole-episode review](reviews/science-series-e01-comprehension-review-2026-09-16.md)
 and [approval-only script](video/science-series-e01-comprehension-draft.md). The maker selected

@@ -154,6 +154,32 @@ versus all-air pressure; a percentage's reference amount; and what remains unkno
 They are acceptance questions for a future viewer, not a new automated gate or claimed result.
 Preserve scene 5's explicitly praised visuals while improving its vocabulary bridge.
 
+### Narrator's voice — maker-approved direction, 2026-09-17
+
+The maker found the revised tone too technical, requested a teenager-friendly sample of the
+hardest idea, then explicitly liked the two-neighbours sample and asked to apply its tone to
+the draft. This approves the **voice direction**, not the complete episode or new audio.
+
+Sound like a curious person helping someone notice a surprising event. Start with concrete
+subjects (“a drop and a piece of ice”), ask an honest question (“same cold air, opposite
+changes?”), and walk through the cause in ordinary words. Name the concept once its meaning
+is visible. The accepted equilibrium wording is the reference: “It doesn't mean everything
+has stopped. It means the two changes cancel out.” Teenager-friendly means no assumed specialist
+background, not slang, baby talk, or less accurate science.
+
+Prefer conversational sentences and natural contractions. Questions should lead to something
+the viewer can see, not become a quiz every paragraph. Replace abstract lecture language and
+lesson announcements with observations. Keep instructions to the animator out of spoken text;
+“look what remains” is narration, whereas “do not erase the atmosphere” is a production note.
+Avoid repeated reassurance about not remembering names, claims that an idea is obvious, and
+intentional-sounding molecules. Keep essential conditions and caveats in natural language:
+same temperature, equal gas space, both-way traffic, and the specific example's limits.
+
+R05–R07 of the [approval draft](science-series-e01-comprehension-draft.md) adapt the approved
+sample while retaining the earlier demonstration and avoiding an unnecessary second full
+equilibrium lesson. The whole draft now follows that voice. A spoken rehearsal and audience
+understanding check still remain; written tone approval cannot substitute for either.
+
 ### Visual and editorial requirements
 
 1. **An earned investigation.** Open with an observable puzzle or transformation, promptly

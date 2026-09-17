@@ -3,7 +3,7 @@
 - **Phase:** Maker-directed Journey/media; no scientific phase or gate change
 - **Status:** E01 implemented; full comprehension review and separate revision ready for script approval; reusable next-episode design guide active; previous film preserved
 - **Started:** 2026-09-15
-- **Last touched:** 2026-09-16 by OpenAI Codex (general-adult comprehension review, approval script and two live visual fixes)
+- **Last touched:** 2026-09-17 by OpenAI Codex (maker-approved conversational tone applied to the approval draft)
 - **Direction:** [JTS-M010/M011](../journey/TRANSCRIPT.md#jts-m010--the-format-works-the-content-needs-rethinking), plus [JTS-M012 visual-production direction](../journey/TRANSCRIPT.md#jts-m012--use-the-animation-library-and-rendering-experiments-freely)
 - **Supersedes:** the single-film editorial constraints in [the Part 1 plan](explore-film-part1-science-scroll-documentary.md), not its recorded implementation or verification results
 
@@ -335,6 +335,13 @@ selection remains active for later episodes, not a requirement to insert unrelat
 ## Review and limits
 
 ### E01 general-adult comprehension review — 2026-09-16
+
+**Tone follow-up, 2026-09-17:** the maker approves the conversational, teenager-friendly
+two-neighbours sample and requests that voice throughout the approval draft. All narration
+sections now use concrete observations, ordinary-language causes and earned terminology;
+production instructions remain unspoken. The series guide records the accepted direction.
+This is a prose revision under the existing scope, not script/production approval. The live
+episode, source import, recorded narration and alignment remain unchanged.
 
 The maker reports one general-adult viewer found the episode dense, did not understand
 water-vapour pressure or equilibrium, became lost after scene 6, and found scene 8 too dense.

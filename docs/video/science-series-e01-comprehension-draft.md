@@ -6,6 +6,8 @@
 
 A general adult should be able to follow one cloud droplet's water into ice, explain why an unchanged ice surface is still busy, and explain how the same cold air can shrink liquid while growing ice. Pressure and percentages then describe something already understood. No chemistry background, equation recall or vocabulary test is assumed. This is a design goal, not an achieved audience result.
 
+**Tone direction accepted by the maker, 2026-09-17:** write as a curious person helping a teenager notice something surprising, not as a textbook or a lecturer simplifying vocabulary. Use the maker-approved two-neighbours sample as the voice reference: concrete objects, natural questions, short causal steps, ordinary words before scientific names, and a satisfying physical payoff. No forced slang, talking down, or claiming the viewer understands. This pass applies that tone throughout the narration; source qualifications and production instructions remain separate. Tone approval is not yet approval of this complete revised script or permission to generate audio.
+
 The existing ten scenes are reviewed individually; the proposed performance has eleven sections. The only added section is a dedicated pressure explanation **after the relay payoff**, not inside the two-surface comparison. These draft IDs are intentionally not the live E01 IDs. No runtime ceiling is assigned. Directions and comprehension prompts are not spoken; only paragraphs under **Narration** are dialogue.
 
 Source baseline: the Chapter 1/4 passages and qualified quantitative examples recorded in the performed script. Original explanatory diagrams remain schematic; Run B remains an unvalidated model illustration, with nonphysical ticks and no claimed molecular scale. The new pressure bridge also uses [NASA's molecular pressure explanation](https://www.grc.nasa.gov/www/k-12/airplane/pressure.html), its [gas relation](https://www.grc.nasa.gov/www/k-12/airplane/eqstat.html), and the AMS definitions of [vapour pressure](https://glossary.ametsoc.org/wiki/vapor-pressure/) and [equilibrium vapour pressure](https://glossary.ametsoc.org/wiki/equilibrium-vapor-pressure/). No original Libbrecht-paper re-audit is claimed.
@@ -14,13 +16,13 @@ Source baseline: the Chapter 1/4 passages and qualified quantitative examples re
 
 ### Narration
 
-Watch this one little drop of liquid water. It is getting smaller. Beside it, a snow crystal is growing. But the drop never touches the crystal. Where does its water go?
+Watch this one drop of water. It's getting smaller. Beside it, a snow crystal is growing. But the drop never touches the crystal. Where does its water go?
 
-It leaves the drop as water vapour: water in the form of an invisible gas. That water can travel through the air and become part of the ice. The white dots in our close-up make this invisible journey visible. They stand for water molecules, tiny units of water. A single cloud droplet contains an enormous number of them.
+It leaves as water vapour—the invisible gas form of water. That gas can travel through the air and join the ice. We can't see the journey with our eyes, so our close-up uses white dots to follow it. Each stands for a water molecule, a tiny unit of water. An enormous number of those molecules make up just one drop.
 
-The difference in size is striking. Snow-crystal physicist Kenneth Libbrecht gives an approximate example: the water in about a hundred thousand cloud droplets can supply one large, star-shaped crystal. That is not a fixed number for every snowflake. It gives us a sense of how much tiny drops can contribute.
+Now imagine this happening with many drops around the crystal. Physicist Kenneth Libbrecht gives a striking example: about a hundred thousand cloud droplets can supply the water for one large, star-shaped crystal. Not every snowflake needs that number. It's an example of how much those tiny drops can contribute.
 
-The surprising part is the route. Liquid water becomes gas, and gas becomes ice. How can a drop lose water in the very same cold air where the crystal gains it? Let's keep these neighbours in view and find out.
+Liquid becomes gas. Gas becomes ice. But here's the puzzle: how can the same cold air let one neighbour lose water while the other gains it?
 
 ### Direction and understanding check
 
@@ -32,15 +34,15 @@ Source: Ch1 `#the-relay`; Ch4 `#eating-the-cloud`. Opening preview shows the out
 
 ### Narration
 
-Start with a drop of rain. If that liquid freezes, it becomes an ice pellet. Its water was already gathered together before it became ice.
+Freeze a drop of rain and you get an ice pellet. The water was already gathered together. Freezing turned that liquid into solid ice.
 
-Now look at the other picture. Water arrives through the air as gas and joins an existing piece of ice. The solid grows by adding material at its surface. This gas-to-solid change is called deposition. It is not a large frozen drop being carved into branches.
+Look at the crystal beside it. Here, water arrives as gas and joins ice that's already there. Bit by bit, the solid gets bigger. That change from gas straight to solid is called deposition. Nothing is carving branches out of a frozen bead. The crystal is being built by addition.
 
-Both routes can occur in weather, and there are others. A liquid cloud droplet can hit a crystal and freeze onto it. The little frozen beads form a coating called rime. Enough coating can bury the original shape in a lumpy pellet called graupel.
+Real snow can mix several stories. A liquid drop can hit a crystal and freeze onto it, leaving a little frozen bead. A coating of these beads is called rime. Add enough and the original shape can disappear inside a lumpy pellet called graupel.
 
-Separate ice crystals can also collide and stick together. What looks like one large, fluffy snowflake may be a cluster of smaller crystals.
+Or two crystals can collide and stick together. That big, fluffy snowflake falling past the window might be a cluster of smaller crystals, not one giant crystal.
 
-You do not need to remember all those names. Keep the actions separate: freezing a drop, adding water from gas, collecting liquid drops, or joining pieces of ice. Our story follows the second action: water arriving as gas and building a crystal.
+The useful difference is what arrives: a liquid drop, a piece of ice, or water carried as gas. We're following that last route. How does something we can't even see build a crystal we can?
 
 ### Direction and understanding check
 
@@ -52,15 +54,15 @@ Source: Ch1 `#not-a-raindrop`, `#two-words`. Rime remains a genuine liquid-impac
 
 ### Narration
 
-From outside, the cloud looks like one white object. Move closer and it separates into tiny particles. In the cloud we are following, many are liquid water droplets. Some ice can be present too. Those particles make the cloud visible. Water vapour itself is invisible.
+From a distance, a cloud looks like one white thing. Get closer and that whiteness comes from tiny particles. In our cloud, many are liquid drops. There can be ice too. But the white mist isn't water vapour. Vapour is invisible.
 
-Look between the drops. Most of that space is air: a mixture of gases, mainly nitrogen and oxygen. Some of the molecules mixed among them are water. Water has not disappeared when it becomes vapour. It has changed form.
+Look between the drops. There's mostly air: gases such as nitrogen and oxygen, with water molecules mixed among them. Water hasn't vanished when it becomes vapour. It's still water, just in a different form.
 
-Here is one way the liquid drops can form. Moist air rises, expands and cools. In suitable conditions, some water molecules in the gas collect on tiny particles and become liquid. Gas becoming liquid is called condensation. We are showing the change here; shortly we will look closer at the exchange that makes water collect or leave.
+How did the liquid drops get here? One way begins with moist air rising. It expands and cools. In the right conditions, some of its water vapour collects on tiny particles and becomes liquid. Watch a drop appear where there was only invisible water in the gas. That change is condensation.
 
-These cloud droplets are much smaller than ordinary raindrops. A typical diameter in Libbrecht's account is only one or two hundredths of a millimetre. Air resistance slows their fall; moving air can keep them suspended. They are not tiny rain falling at rain's speed.
+These drops are much smaller than raindrops. In Libbrecht's account, a typical one is only one or two hundredths of a millimetre across. Air resistance slows their fall, and moving air can keep them suspended. A cloud isn't simply rain waiting to hit the ground.
 
-Keep two forms of water in view: drops that store liquid water, and invisible gas that can carry water between them and ice. Now cool our cloud below zero. Many of its drops are still liquid. Why have they not all frozen?
+So we have water gathered in liquid drops, and water moving through the air as gas. Cool our cloud below zero and something else is surprising: many drops are still liquid. Why haven't they frozen?
 
 ### Direction and understanding check
 
@@ -72,15 +74,15 @@ Source: Ch1 `#into-the-cloud`; Ch4 `#where-the-water-is`. No “air can hold onl
 
 ### Narration
 
-A small water droplet can remain liquid below zero degrees Celsius. This is called supercooled water. It is not half-liquid, half-ice. It is liquid water at a temperature where ice can form, but has not yet started.
+Below zero, we expect water to freeze. But a small drop can stay liquid. We call that supercooled water. It isn't halfway to being ice. It's still liquid—cold enough for ice to form, but the freezing hasn't started.
 
-Magnify the inside of this drop. The small irregular speck is not ice. It is a different material immersed in the water. A suitable surface can help nearby water molecules form a small organised patch of ice. That first patch is solid; the surrounding water is still liquid.
+Look through the magnifying glass into this drop. See that irregular speck? It's not ice. It's another material sitting in the water. If its surface is helpful, nearby water molecules can arrange themselves into a small patch of ice. Now there's a tiny bit of solid inside a drop that's otherwise still liquid.
 
-Watch the patch spread through the drop. The important event was getting ice started. That beginning is called nucleation. Different surfaces help by different amounts, and not every particle is helpful. A particle on which a cloud droplet formed does not guarantee that it will freeze at zero.
+Watch the ice spread. The crucial step was getting that first patch started. Scientists call that beginning nucleation. Some surfaces help more than others; some don't help much at all. A particle that helped a liquid drop form doesn't necessarily help it freeze.
 
-That is why neighbouring drops need not freeze together. The starting conditions matter as well as the temperature. Very clean small drops can stay liquid far below zero; some biological surfaces can help ice start much closer to zero. The detailed examples are available with this scene, not universal freezing instructions.
+That's why a cloud doesn't have to freeze all at once. Very clean small drops can stay liquid far below zero, while certain proteins made by bacteria can help ice start much closer to zero. Temperature matters, but so does how the ice gets its start.
 
-Follow the drop that did freeze. We now have one small ice seed among liquid neighbours. This is one route to a seed, not the only route in nature. The speck helped ice begin. It did not contain a miniature drawing of the branches. Those branches still have to grow.
+Keep the drop that froze in view. It's now a small ice seed among liquid neighbours. Not every ice particle begins this way, but this is the one we'll follow. The speck helped it get started. It didn't carry a drawing of a snowflake. The branches still have to grow.
 
 ### Direction and understanding check
 
@@ -92,19 +94,19 @@ Source: Ch1 `#supercooling`, `#not-a-raindrop`. Optional example text: “Libbre
 
 ### Narration
 
-Keep that same seed. Imagine putting it in a sealed box with air around it, at a steady temperature. Move closer until the ice surface fills the picture. The filled region is solid ice. Above it is gas.
+Put that seed in a sealed box with air around it, and keep the temperature steady. It looks still. But zoom in on its surface: below this line is solid ice; above it is gas. There's a lot happening at the boundary.
 
-Some water molecules leave the ice and enter the gas. Others arrive from the gas and stay. Both journeys can happen at once. Whether the ice gets bigger depends on how much water joins compared with how much leaves.
+Water molecules are arriving from the air, and some stay on the ice. Others are leaving. Both journeys happen at once. To tell whether the ice will grow, we have to compare them: is more water joining, or more leaving?
 
-Begin with very little water vapour. More water leaves the ice than returns, so the ice gets smaller. Follow the departing water: it is now in the gas. With more water molecules around, more can return to the surface. In this example we have enough ice left for those two amounts eventually to match.
+Start with very little water vapour in the box. More leaves than returns, so the ice shrinks. But the water hasn't disappeared. It's entered the gas. As more water molecules collect there, more can come back to the ice. We've left enough ice in this example for the two journeys eventually to balance.
 
-Now watch over the same stretch of time. As much water joins as leaves. The amount of ice stays the same overall, even though individual molecules keep moving. This continuing balance is called equilibrium. Equilibrium does not mean that nothing is happening.
+Watch for a moment. Just as much water arrives as leaves, so the ice stays the same size. That balance has a name: equilibrium. It doesn't mean everything has stopped. It means the two changes cancel out.
 
-Let's test that picture. Briefly add more water vapour, then close the box again. Keep the temperature and box size unchanged. What would you expect the ice to do?
+What if we add more water vapour? Briefly open the box to add it, then close it again. Don't change the temperature or the box's size. Which way do you think the ice surface will move?
 
-More water can now join than leave, so the ice grows. As it takes water from the gas, that extra vapour is reduced. Let the ice and gas reach balance again. Now briefly remove some vapour, taking it below that balance amount. More water leaves than returns, and the ice shrinks. We changed the water around it, not the temperature.
+More water can now join than leave. The ice grows, taking some of that extra water out of the gas. Let it reach balance again. Then briefly remove some vapour and close the box. Now there's less than the balance amount: more water leaves than returns, and the ice shrinks. Same temperature. Different result.
 
-For a given temperature, there is a vapour amount that balances this ice surface. More than that favours growth; less favours loss. The air is not a container that has become full. It can have more water vapour than the ice's balance amount—and that changes what happens to the ice.
+So the useful question isn't whether the air is “full”. It's whether there's enough water vapour to replace what this ice surface loses. More than that can grow the ice. Less can shrink it.
 
 ### Direction and understanding check
 
@@ -116,23 +118,23 @@ Source: Ch4 `#what-saturated-means`; AMS equilibrium definition. Surface curvatu
 
 ### Narration
 
-Now compare ice with liquid water that has stayed liquid below zero. Keep both at the same temperature. Start with two separate boxes with equal-sized spaces for the gas, so we can find each surface's balance on its own.
+Look at these two neighbours: a drop of liquid water and a tiny piece of ice. They're in the same cold air. Yet the drop is getting smaller while the ice gets bigger. How can the same surroundings do opposite things?
 
-The liquid surface is busy too: water leaves it as gas, and water from the gas joins it. But liquid water gives up water to the gas more readily than ice does. To replace what the liquid loses, we need more water vapour around it.
+The drop has the same two-way traffic we just saw at the ice. Water leaves, and water returns. But it has a different balance point. Water escapes from liquid more readily than from ice. So the liquid needs more water vapour around it to replace what it loses.
 
-Watch the two comparisons settle. This smaller vapour amount keeps the ice unchanged. This larger amount keeps the liquid unchanged. In both pictures, unchanged means equal exchange—not stopped molecules. The two pictures have the same temperature, but different amounts of water vapour.
+To see the difference, put them in separate boxes for a moment. Give both boxes the same amount of space for the gas, and keep them at the same temperature. This smaller amount of vapour keeps the ice steady. The liquid needs this larger amount. In each box, as much water arrives as leaves.
 
-Now change the experiment. Put liquid and ice in the same air. Choose enough vapour to keep the liquid steady. What will happen to the ice?
+Bring them back into the same air. Start with enough vapour to keep the liquid drop the same size. What happens to the ice?
 
-It gains water. The same air that just balances the liquid is above the ice's balance amount. Nothing special happened to the air when we looked from one surface to the other. The surfaces have different requirements.
+It grows. The air has more water vapour than the ice needs to replace what it loses. We didn't warm one neighbour or cool the other. The difference is between liquid water and ice.
 
-Finally, reduce the vapour a little, to an amount between those two balance values. There is now too little to replace everything leaving the liquid, but still more than the ice needs for balance. The liquid shrinks while the ice grows. Two neighbours, one temperature, opposite changes.
+Now reduce the vapour to an amount between their two balance points. There's enough for the ice to grow, but not enough to keep the liquid drop from shrinking. That gives us the pair we started with: two neighbours, one temperature, opposite changes.
 
-That is the possibility we needed. A cold cloud can contain liquid water that is losing material and ice that is gaining it. We can now return to the cloud and follow the transfer.
+Let's take that picture back into the cloud. Where does the water go as the drops shrink?
 
 ### Direction and understanding check
 
-No pressure values, percentages or humidity gauge in this first causal comparison. Clearly separated boxes → deliberate shared-air state → deliberate reduction into the gap. Wavy liquid, flat hatched ice; waves oscillate around the liquid's mean level and are not a rate measurement. Use labelled qualitative vapour samples without countable numeric ratios. Ask: **Why can this same air grow ice without growing liquid? When can liquid shrink as well?**
+No pressure values, percentages or humidity gauge in this first causal comparison. Briefly recall the opening pair as the puzzle, then explicitly separate equal-gas-volume boxes → deliberate shared-air state → deliberate reduction into the gap. The initial pair is a preview, not two different vapour amounts occupying one shared space. Wavy liquid, flat hatched ice; waves oscillate around the liquid's mean level and are not a rate measurement. Use labelled qualitative vapour samples without countable numeric ratios. Ask: **Why can this same air grow ice without growing liquid? When can liquid shrink as well?**
 
 Source: Ch4 `#the-gap`. Comparisons refer to bulk/pure reference surfaces at fixed temperature. A water-balanced far field is not asserted to remain water-balanced at the growing crystal's surface. The scene demonstrates a tendency, not a complete cloud-growth rate.
 
@@ -140,17 +142,17 @@ Source: Ch4 `#the-gap`. Comparisons refer to bulk/pure reference surfaces at fix
 
 ### Narration
 
-Return to our ice seed and the liquid drops around it. There is enough water vapour for the ice to gain more water than it loses. As water joins the ice, less remains in the nearby gas.
+As the ice grows, it takes water out of the nearby gas. Fewer water molecules return to the liquid drops, so the drops lose more than they get back. Their water enters the air, where some of it can reach the ice.
 
-That matters to the droplets. With fewer water molecules returning from the gas, a drop can lose more than it gets back. The drop shrinks. Its departing water adds to the vapour that the ice is using.
+Watch the connection: the ice gains water, the nearby gas loses some, and the shrinking drops help replace it. With many drops around, that replacement can keep supplying the growing ice.
 
-Follow one example. A water molecule leaves liquid. It moves through the surrounding air as gas. If it reaches the ice and stays, it becomes part of the solid. The water has changed form twice, without the whole drop touching the crystal.
+Follow one water molecule. It leaves a drop, moves through the air as gas, and—if it reaches the crystal and stays—becomes part of the ice. Liquid, then gas, then solid.
 
-Other molecules are travelling the opposite way. Not every molecule that leaves a drop ends up in this crystal. The overall transfer is what matters: the drops lose water, and the ice gains it. Many liquid droplets can help replenish the vapour as ice removes it.
+Other molecules are going the opposite way. Not every molecule that leaves a drop will end up here. We're following the overall change: the drops are losing water while the crystal gains it.
 
-Now the opening number has a mechanism. In Libbrecht's approximate example, about a hundred thousand tiny drops supply one large star-shaped crystal. That is an amount of water, not a hundred thousand impacts. The crystal does not have to catch those drops like a net.
+Remember those hundred thousand drops in Libbrecht's example? That's a water budget, not a count of collisions. The crystal doesn't have to catch the drops like a net. A drop's water can make the journey without the drop itself.
 
-And the journey takes space and time. Water removed near the ice has to be replaced through the air around it. It does not teleport across the gap. We will later investigate how that journey changes growth at different parts of a crystal. Here, we have followed where its water comes from.
+But watch the space between them. The water has to travel through that air; it can't jump straight from drop to crystal. That journey will matter when we ask why some parts of a crystal grow differently from others. For now, we've followed the water all the way to the ice.
 
 ### Direction and understanding check
 
@@ -162,19 +164,19 @@ Source: Ch1 `#the-relay`; Ch4 `#eating-the-cloud`, `#where-the-water-is`. Detail
 
 ### Narration
 
-We have described more or less water in the gas. Scientists often express that using a quantity called water-vapour pressure. Let's connect the name to something physical before using it.
+How could we put a number on the water vapour around the ice? You'll often see scientists use the words “water-vapour pressure”. It sounds like a new idea, but it connects to the same moving molecules we've been watching.
 
-Return to a box of gas. Its molecules move around and strike the walls. Many tiny impacts together exert a push. Pressure describes that push spread over an area.
+Picture those molecules inside a box. They move around and bump into the walls. Each collision gives the wall a tiny push. Put all those pushes together and spread them over the wall's area: that's pressure.
 
-Air is a mixture. Most molecules in this box are not water. Highlight just the water molecules. Water-vapour pressure is the water molecules' contribution to the pressure—not the pressure of all the air, and not the weight of the liquid drops.
+But most of the molecules in air aren't water. Pick out just the water molecules. The part of the pressure that comes from them is water-vapour pressure. We're not counting the push from all the other gases, or the weight of liquid drops.
 
-Keep the box size and temperature fixed. Add more water molecules to the gas. Their contribution to pressure rises. Under these fixed conditions, a higher water-vapour pressure means more water vapour in the same space. It is another way of describing the gas we have already been watching, not a new kind of water.
+Keep the box the same size and the temperature steady. Add more water molecules to the gas. Their contribution to the pressure goes up. As long as those conditions stay the same, more water-vapour pressure means more water vapour in that space. It's another way to describe how much gaseous water is there.
 
-Now bring back the ice surface. Recall equilibrium: as much water joins as leaves. The water-vapour pressure at that balance is called the equilibrium vapour pressure over ice. The shorter phrase saturation vapour pressure refers to this balance value for the reference surface.
+Bring back our piece of ice. Remember the moment when just as much water joined as left? That was equilibrium. The water-vapour pressure at that balance is its equilibrium vapour pressure. For the ice surface we're using, you'll also hear that balance value called saturation vapour pressure.
 
-Above that value, we say the air is supersaturated with respect to ice. That long phrase means there is more water vapour than the ice needs for balance. It does not mean the molecules stop, that the air is full, or that every surface has the same balance value.
+If there's more vapour than that, scientists say the air is supersaturated with respect to ice. Behind the long phrase is our simple picture: more water can join the ice than leave it. The air isn't full. And, as we saw with the liquid drop, a different surface can have a different balance point.
 
-You can follow the cloud without remembering those technical names. When they appear, translate them back into our picture: which water is in the gas, which surface are we comparing it with, and is more joining that surface than leaving?
+Whenever those names appear, come back to the ice. Is it gaining water, losing water, or staying the same size while molecules keep moving both ways?
 
 ### Direction and understanding check
 
@@ -186,19 +188,19 @@ Source: NASA/AMS links above; Ch4 `#what-saturated-means`, `#the-gap`. Dilute/id
 
 ### Narration
 
-There is one more trap in describing the water. A percentage tells us how one amount compares with another. It does not give us the amount on its own.
+Forty percent sounds bigger than sixteen percent. But does it mean more water? Here's the catch: forty percent of what?
 
-Set the cloud aside for a moment. These counters are a simple arithmetic example, not a measurement of air. Start with a reference pile of one hundred counters. Add sixteen more. Sixteen extra for every hundred is sixteen percent extra.
+Set the cloud aside and try it with counters. These are made-up counting examples, not measurements of air. Start with a pile of one hundred counters and add sixteen. That's sixteen extra for every hundred: sixteen percent extra.
 
-Now use a reference pile of only ten counters and add four. Four is forty percent of ten. Forty percent is a bigger percentage than sixteen percent. But four extra counters are fewer than sixteen extra counters. The reference pile changed.
+Now start with just ten counters and add four. Four is forty percent of ten. The percentage is bigger—but look at the extra pile. Four counters are still fewer than sixteen. We changed the amount we were comparing against.
 
-Return to water vapour. Our reference is the amount that balances ice. The extra is the amount above that reference. To compare amounts, use equal-sized spaces and let each dot stand for the same amount of water. Separate the reference dots from the extra dots; all of them are water vapour, not different kinds of water.
+Back in our vapour comparison, take two equal-sized spaces, with each dot standing for the same amount of water. At each temperature, start with enough vapour to balance liquid water. Mark how much would balance ice at that same temperature. That's our reference pile; the difference is the extra. Pull those extra dots aside. They haven't become a different kind of water—we're just counting them separately.
 
-As temperature falls, the balance amounts over both liquid water and ice become smaller. In the source comparison shown here, the colder sample has a bigger percentage extra above ice balance, but fewer extra water-vapour dots. The percentage and the extra amount answer different questions.
+Cooling changes the starting piles. Both liquid water and ice balance with smaller amounts of vapour at lower temperatures. Look at the two cases here: the colder one has a bigger percentage extra above ice balance, yet fewer extra water-vapour dots. Just like the counters, a bigger percentage doesn't settle which pile is bigger.
 
-These are calculated comparisons of balance values, not two observed clouds or a promise that liquid drops survive at every temperature. The extra vapour shown is also not all the water a crystal could ever receive. Liquid droplets can replenish it, and air can bring in more water.
+These two cases come from calculations of balance values, not from watching two real clouds. They don't promise that liquid drops survive at every temperature shown. And those extra dots aren't all the water a crystal could ever get. Remember the droplets replacing vapour as the ice used it? Moving air can bring more water too.
 
-So when we hear “more percent”, ask “compared with how much?” A percentage alone cannot tell us the amount of water available, still less how quickly a crystal will grow.
+So a percentage is useful—but it needs a companion question. Compared with how much? Without that, it can't tell us how much extra water there is, let alone how fast a crystal will grow.
 
 ### Direction and understanding check
 
@@ -212,13 +214,13 @@ Source: Ch4 `#what-saturated-means`, `#the-gap`, `#the-peak`; exact existing cal
 
 ### Narration
 
-Keep following the same cloud. Some liquid drops freeze and become pieces of ice. Other drops lose their water through the gas while the existing crystals grow. Both changes reduce the liquid water remaining in the drops.
+Keep watching our cloud. Some drops freeze. Others get smaller as their water passes through the gas and into growing ice. Either way, there's less liquid water left in the drops.
 
-Do not erase everything when the last illustrated drop disappears. Ice remains. Water vapour remains. What has diminished is the liquid supply feeding the particular route we followed.
+Look around when the last drop in our picture disappears. The ice is still there. So is some water vapour. The cloud hasn't lost all its water. It's lost the liquid drops that were helping feed this particular journey.
 
-This is one limit of our explanation. Having a cold cloud is not the same as having an endless supply of water for a crystal. We need to know what water remains, how the cloud has changed, and whether water can reach the ice.
+A cold cloud isn't an endless supply. To know what a crystal can do next, we need to ask what's left and whether that water can reach it. The cloud's history matters.
 
-It does not give us a universal temperature below which snow is impossible. Existing crystals can still fall, and ice can grow in colder conditions when water is available. The point is a changing supply, not a magic switch on a thermometer.
+That doesn't give us a temperature below which snow becomes impossible. Crystals that already exist can still fall. Ice can grow in colder conditions when water is available. There's no magic switch on the thermometer that tells the whole story.
 
 ### Direction and understanding check
 
@@ -230,15 +232,15 @@ Source: Ch1 `#too-cold-to-snow`; Ch4 `#eating-the-cloud`. The source's selected 
 
 ### Narration
 
-Return to the opening pair: a liquid drop and the grown crystal. Can you trace the water between them now?
+Look again at the drop and the crystal we started with. Can you follow the water between them now?
 
-It leaves liquid as invisible gas, travels through the air, and can join the ice. At the right vapour amount, the drop loses more than returns while the ice gains more than leaves. We did not need the drop to collide with the crystal. We needed to understand exchange at two different surfaces.
+It leaves the drop as invisible gas, travels through the air, and can join the ice. With the right amount of vapour around them, the drop loses more water than it gets back while the ice gains more than it loses. The drop never has to touch the crystal.
 
-Now look at what was built. Flat faces. Six main directions. Branching arms. Following the water explains the material route. It does not yet explain that shape.
+But look at what was built. Flat faces. Six main directions. Branching arms. We've followed the water. We haven't yet explained why it made this shape.
 
-The seed carried no drawing of those branches. New material was added as the crystal grew; a larger lump was not carved away. To understand the form, we need to look at how water is arranged inside ice and how growth happens at its surface.
+There was no drawing of those branches inside the seed. No one carved them out of a larger lump. They appeared as new water joined the ice. To understand why, we'll need to look inside the solid—and then at how its different surfaces grow.
 
-That is our next question: why six?
+First, let's start with the number that keeps coming back. Why six?
 
 ### Direction and understanding check
 
@@ -252,11 +254,11 @@ These are actual proposed reader passages, not placeholders for missing explanat
 
 ### The pressure numbers and humidity
 
-At −15 °C, Libbrecht's Table 2.1 gives about 1.65 millibar over ice and 1.91 millibar over supercooled liquid water. A millibar is a unit of pressure. Both numbers describe the contribution of water vapour, not the total air pressure. The smaller number is enough for equal exchange with ice; the larger is needed for equal exchange with liquid in the bulk reference comparison.
+Want to put numbers on the two neighbours? At −15 °C, Libbrecht's Table 2.1 gives about 1.65 millibar over ice and 1.91 millibar over supercooled liquid water. A millibar is a unit of pressure. These numbers count only water vapour's contribution, not the pressure of all the air. The smaller value balances ice; the liquid needs the larger one. This is the book's comparison of bulk reference surfaces, not a prediction for every tiny, impure droplet.
 
-Air at 1.91 millibar therefore balances liquid but exceeds ice's balance. The excess pressure is 1.91 − 1.65 = 0.26 millibar. Divide that extra by the ice reference, not by the final total: 0.26 ÷ 1.65 is approximately 0.158, or about sixteen percent. Separately rounded source columns need not recompute to identical last digits.
+So air at 1.91 millibar keeps the liquid steady, but has extra vapour compared with what balances ice. How much extra? Subtract: 1.91 − 1.65 = 0.26 millibar. To express that as a percentage, compare it with the ice's starting value: 0.26 ÷ 1.65 is approximately 0.158, or about sixteen percent. Don't divide by the final total instead. The source rounds its columns separately, so the last digits need not match when we recalculate from the printed numbers.
 
-Relative humidity names a ratio: actual vapour pressure divided by the chosen saturation vapour pressure, expressed as a percentage. Relative to water, this air is at 100%; relative to ice, about 116%. The air did not change when we changed the reference. This does not imply that a growing crystal's local surface always has the same vapour value as the distant air. Source: Ch4 `#the-gap`.
+Relative humidity asks a related question: how does the vapour pressure we actually have compare with the balance value we've chosen? Divide the actual value by that balance value and express the result as a percentage. Our air is at 100% relative to water, but about 116% relative to ice. We haven't changed the air—only what we're comparing it with. And this doesn't mean air right next to a growing crystal always has the same vapour value as air farther away. Source: Ch4 `#the-gap`.
 
 ### Percentage, vapour excess and the temperature curve
 
@@ -266,11 +268,11 @@ Those masses use the Murphy–Koop pressure expressions and ideal-gas conversion
 
 ### “Too cold to snow” and what the source actually describes
 
-Libbrecht's selected cooling-cloud account describes much of the liquid disappearing by around −20 °C through freezing or transfer to growing ice. That particular liquid-fed route is losing its donors. It is not a universal disappearance temperature, and it is not a prohibition on snowfall or ice growth at lower temperatures. The cloud's history and continuing water supply matter. Source: Ch1 `#too-cold-to-snow`.
+In the cooling-cloud story Libbrecht describes, much of the liquid has disappeared by around −20 °C. Some froze; some supplied growing ice through vapour. That particular route is running short of liquid donors. It doesn't mean every cloud loses its drops at that temperature, or that snow cannot fall or ice cannot grow below it. We still have to ask what happened to this cloud and what water is reaching it now. Source: Ch1 `#too-cold-to-snow`.
 
 ### Conditions can change new growth
 
-Libbrecht's laboratory examples show that changing temperature and vapour supply during growth changes the features that develop. The experimenter sets conditions, not a stencil for each branch. These are the source author's experiments; Run B is not a reproduction of them. Detailed histories and apparatus remain E07/E08 subjects. Source: Ch1 `#no-blueprint`, Figs. 1.10, 1.11 and 1.26 as cited by the chapter.
+Can we change what a crystal builds? In Libbrecht's laboratory examples, changing the temperature and vapour supply during growth changed the features that appeared. The experimenter changed the surroundings, not a stencil for each branch. Those are Libbrecht's experiments; our Run B model is not a reproduction of them. We'll return to growth histories and the laboratory equipment in E07/E08. Source: Ch1 `#no-blueprint`, Figs. 1.10, 1.11 and 1.26 as cited by the chapter.
 
 ## Coverage and production disposition
 

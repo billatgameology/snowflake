@@ -168,3 +168,26 @@ allocation before importing words or remapping visual cues. Then rehearse the re
 and ask a general adult the open questions above without first teaching them the answers. Record
 actual responses and the earliest missing link. Technical success must not be called audience
 acceptance by inference.
+
+## Maker-approved tone follow-up — 2026-09-17
+
+The maker found the draft's voice too technical, liked a teenager-friendly sample explaining
+the two neighbours, and requested that tone in the draft. Root revised every approval-only
+narration block, adapting the accepted sample into R05–R07 without repeating the whole balance
+lesson. Concrete observations and causal questions replace lecture announcements; animator
+instructions no longer appear as spoken lines. Selected reader passages also use plainer prose.
+Scientific qualifications, the explanation sequence and reader depth remain. Tone approval is
+not whole-script approval, an audience result, or permission to replace the current audio.
+
+Shared-context read-only Codex `e01_story_review` reviewed the actual rewritten prose; exact
+model identifier unavailable. It found the tone consistent and the main conditions retained,
+but flagged an under-specified R09 comparison. The draft now explicitly starts each sample at
+liquid-water balance, then identifies ice balance and their difference, so an arbitrary colder
+air sample is not said to have a larger relative surplus. A remaining textbook phrase in R08
+was also replaced. This was a bounded prose review, not a new paper audit or playback test.
+
+Executed: `npm run lint:rule7`, `git diff --check`, and a one-off structural/link check of the
+changed prose. No website files, imported text, audio, alignment or cue timings changed; no
+product rebuild, scientific suite, new narration or browser pass was needed for this edit.
+Next: maker read-through of the revised approval draft, then the already-recorded production
+and audience-review steps if approved.
