@@ -19,6 +19,13 @@ detail.
 
 ## Current state
 
+- **Same-page Chinese translation started (2026-09-17).** The maker requests Simplified Chinese
+  under one **English / 中文** toggle, with unchanged page/link and current story position.
+  The [bounded plan](plans/science-series-bilingual.md) covers current E01/E02 and shared text;
+  both English recordings remain intact. Mandarin audio is deferred until the maker supplies
+  the voice ID; no credential or generation request is authorized. Next: translate, integrate
+  the shared text preference, and run bounded content/position/layout checks.
+
 - **Episode 2 full Juniper narration complete (2026-09-17).** Website
   `explore/film-part1@5fcd95a` adds the latest E01 voice to all eight unchanged E02 scenes.
   Actual media time owns the visuals and continuous scrolling, including four real prediction
@@ -631,6 +638,9 @@ and every superseded attempt live in the linked plans and historical progress sn
 
 ## Active plan
 
+The [same-page bilingual plan](plans/science-series-bilingual.md) governs the current Simplified
+Chinese text pass. Mandarin speech is explicitly deferred; current English narration remains.
+
 The [science-series plan](plans/explore-journey-science-series.md) is the active editorial record
 on `explore/film-part1-plan`, including JTS-M012's library-reuse and rendering direction.
 The [Part 1 plan](plans/explore-film-part1-science-scroll-documentary.md) and its
@@ -728,6 +738,14 @@ the package-specific prerequisites in its charter amendment and execution plan. 
 0043–0044's Phase 7 deferrals remain authoritative and cannot be discharged by Phase 10.
 
 ## Next step
+
+### Same-page Chinese translation — in progress
+
+Open [the bilingual plan](plans/science-series-bilingual.md) and the design guide. Work in the
+retained website `/Users/clipper/github/snowcrystal_website-film-part1`; preserve its new E02
+narration. Add aligned Chinese text and a shared same-page toggle, then check position retention
+and labels. Do not access the voice credential or run synthesis. Current English sources and
+audio timing remain authoritative until actual Mandarin narration is separately authorized.
 
 ### Episode 1 — listen and test comprehension of the completed revision
 
