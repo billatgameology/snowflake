@@ -656,7 +656,14 @@ the package-specific prerequisites in its charter amendment and execution plan. 
 
 ## Next step
 
-### Episode 2 — maker review of the complete silent draft
+### Episode 2 — maker-directed library and molecular-continuity revision
+
+The maker requested more actual crystal recordings, no unearned history detour, spoken symbol
+definitions, an explained tetrahedral neighbourhood, and a continuous H₂O sheet → rotating
+network → stack. The bounded amendment is in [E02 plan](plans/science-series-episode-2.md#maker-revision--library-meaning-and-molecular-continuity).
+Implement in the existing website worktree, regenerate the source-bound script import, run
+product-sized checks and inspect live on port 5185. No audio. Initial completed draft below is
+the baseline, not acceptance of the newly requested fixes.
 
 Open [E02 plan](plans/science-series-episode-2.md), [script](video/science-series-e02-script.md)
 and [review/edit record](reviews/science-series-e02-review-2026-09-16.md). In the existing website

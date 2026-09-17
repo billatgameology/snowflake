@@ -1,7 +1,7 @@
 # Plan — E02: Why six is only the beginning
 
 - **Phase:** Journey/media; no scientific phase or gate change
-- **Status:** complete silent visual draft; reviewed and ready for maker feedback
+- **Status:** maker-directed visual revision in progress; initial silent draft retained in history
 - **Started:** 2026-09-16
 - **Authority:** maker requests plan → science/fact check → animations/episode → design-guide critique; **no audio generation**
 - **Parent:** [series plan](explore-journey-science-series.md), [maker design guide](../video/science-series-design-guide.md)
@@ -90,6 +90,40 @@ No exact scientific `npm test` or gate for this isolated presentation/content ad
 Final voice, actual performance timing and maker comprehension response remain later inputs.
 Physical-phone/iOS behavior cannot be inferred from a desktop narrow viewport.
 
+## Maker revision — library, meaning and molecular continuity
+
+2026-09-16 feedback on the initial build: replace the opening's schematic plate/column with
+real project recordings; history must earn its place; explain necessary notation in the narration;
+explain why the tetrahedron is relevant; reuse the education honeycomb idea and carry that same
+sheet through a rotating, zoomed-out network and stacking view.
+
+Bounded approach, committed before implementation:
+
+- Reduce playback to eight scenes by moving observation history and Kepler's packing detour
+  to the existing source reader. Retain diffraction as an answer to how hidden spacing is
+  measured, with plain-language labels and narration definitions before any shorthand.
+- Use the six locally available, manifest-registered direct G–G recordings for hexagonal plates,
+  solid columns, stellar dendrites, hollow columns, capped columns and sectored plates. Publish
+  only minimal-header derivatives of these project-generated payloads into the website, pinning
+  source and served hashes. No private NAS route or new simulation. This explicitly extends the
+  initial no-new-asset-publication scope for the maker-requested catalogue reuse.
+- Use three actual growths in the opening, and the other three in the ending's diversity beat.
+  Keep visible model/unvalidated, accelerated nonphysical-tick and independently framed labels.
+  Add an opt-in unit-Z render setting; preserve legacy 2.6-times styling on other pages.
+- Explain two donated plus two accepted hydrogen bonds before introducing the tetrahedral
+  neighbour directions. Label idealized network hydrogen positions, distinct from the isolated
+  molecule's measured internal angle. Check one H per O–O edge and two donated links per O.
+- Adapt the education sheet's visual idea, not its final oxygen-only 2D geometry: keep persistent
+  atom IDs in the reviewed puckered Ih ring/sheet, reveal neighbouring rings, zoom and orbit,
+  then reveal connections above/below the same sheet. Registry comparison is secondary, explicitly
+  symbolic, not a substituted sheet or physical layer-deposition movie.
+- Verify focused geometry/content/assets/timeline tests, TypeScript, production build and bounded
+  live desktop/narrow before/action/after, reverse seek and Still viewing. Root is sole Site editor;
+  read-only asset, story and science reviewers advise independently. No audio or solver changes.
+
+Done when these exact comprehension repairs are implemented, reviewed and recorded, with maker
+acceptance still pending. Preserve E01/home/old film and the source-section disposition record.
+
 ## Tried and rejected
 
 - Making the water molecule itself hexagonal; using a 2D honeycomb as the full 3D crystal.
@@ -98,3 +132,5 @@ Physical-phone/iOS behavior cannot be inferred from a desktop narrow viewport.
 - Presenting a generated diffraction illustration as an experimental photograph or unique solution.
 - Using a growth-model cell or styled thickness as a molecular dimension or physical specimen size.
 - Replacing the accepted E01 player to obtain a silent E02 rehearsal clock.
+- Treating history as a compulsory introduction, unexplained letters as self-evident, or one
+  actual crystal plus two drawings as sufficient use of the available recording library.

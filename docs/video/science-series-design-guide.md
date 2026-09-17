@@ -217,6 +217,31 @@ review-of-review programme or await final narration before useful drafting can c
 
 ## Applying the lessons beyond E01
 
+### Episode 2 feedback: meaning, library use and continuity
+
+The maker's response to the initial E02 draft adds these concrete checks (requested, not yet
+accepted fixes):
+
+- “there are hundreds of crystal animations” and the three-across comparison used only one
+  model: inspect the existing library first. Use actual recorded examples when comparing crystal
+  appearances; label their model status, camera scale and any geometric exaggeration. A drawing
+  remains useful for a mechanism, but is not a substitute for the available crystal imagery.
+- “mere history lesson” and the qualified value of X-rays: names and dates are optional. Keep a
+  historical method when it answers a live question, such as how invisible spacing is measured.
+  Move biography/chronology to the reader when it delays the investigation.
+- “the \"d\" … wasn't explained”: every necessary symbol must have its referent shown and its
+  meaning spoken before it is used. Prefer “plane spacing” to an unexplained letter. Apply the
+  same rule to axis names, angles, scales and stacking letters—not just equations.
+- “why tetrahedron?”: naming a geometric object is not an explanation. Show the four neighbouring
+  molecules and what connects them before revealing the geometric guide; distinguish observed
+  structure from any claimed deduction of it.
+- Wants the education H₂O sheet, a zoomed-out rotating network, and layer positions to continue
+  that sheet: preserve identifiable atoms/rings across camera and scale changes. Begin top-down,
+  reveal puckering obliquely, then show interlayer connections. Do not substitute symbolic cards
+  at the very moment the audience expects the same object to become three-dimensional.
+
+This is scoped feedback on E02, not rejection of the praised E01 surface scene or home transition.
+
 These are design prompts for the provisional episode map, not new science claims or approved shots.
 
 | Future story job | Apply the lesson |
