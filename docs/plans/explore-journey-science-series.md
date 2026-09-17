@@ -1,9 +1,9 @@
 # Plan — Snow Crystal Journey: a question-led science series
 
 - **Phase:** Maker-directed Journey/media; no scientific phase or gate change
-- **Status:** E01 implemented; maker editorial/listening acceptance pending; reusable next-episode design guide active; previous film preserved
+- **Status:** E01 implemented; full comprehension review and separate revision ready for script approval; reusable next-episode design guide active; previous film preserved
 - **Started:** 2026-09-15
-- **Last touched:** 2026-09-16 by OpenAI Codex (maker-feedback synthesis and future-episode requirements)
+- **Last touched:** 2026-09-16 by OpenAI Codex (general-adult comprehension review, approval script and two live visual fixes)
 - **Direction:** [JTS-M010/M011](../journey/TRANSCRIPT.md#jts-m010--the-format-works-the-content-needs-rethinking), plus [JTS-M012 visual-production direction](../journey/TRANSCRIPT.md#jts-m012--use-the-animation-library-and-rendering-experiments-freely)
 - **Supersedes:** the single-film editorial constraints in [the Part 1 plan](explore-film-part1-science-scroll-documentary.md), not its recorded implementation or verification results
 
@@ -368,6 +368,19 @@ guide records the new requirement; the two visual fixes are implemented and chec
 script import, retiming, audio generation, a new episode route, scientific suites/gates and
 publication are explicitly out of scope. Audience comprehension remains an acceptance question,
 not a status inferred from tests. Commit this amendment before implementation.
+
+Completed bounded delivery: website `2ecebe2d7cd97fee7a35af683e420bd3525e67d6` contains the
+circular magnifier/wavy liquid and records **87 passes, zero failures** in
+`docs/episode-one-comprehension-tests.tap`, with successful TypeScript/build and bounded
+desktop/narrow/short-window playback, Still and reverse checks. The
+[full review](../reviews/science-series-e01-comprehension-review-2026-09-16.md) covers all ten
+current scenes and records code/source criticism, repairs and untested boundaries. The
+[approval script](../video/science-series-e01-comprehension-draft.md) adds a dedicated pressure
+lesson after the physical payoff and supplies retained quantitative reader text. Its actual
+science review repaired the reset-before-removal condition and equal gas volumes. The reusable
+guide now requires demonstrated prerequisites and open-ended understanding checks. No live
+words/audio/cues were changed. Next: maker script approval, then an approved production revision
+and another general-adult comprehension check; not automatic import or speech generation.
 
 ### E02 authorization — 2026-09-16
 

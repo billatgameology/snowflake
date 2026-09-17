@@ -137,6 +137,15 @@ records **72 passes, zero failures**; narration and surrounding work remain inta
 
 ## Tried and rejected
 
+Latest bounded follow-up: the maker's general-adult report triggered a
+[whole-episode comprehension review](../reviews/science-series-e01-comprehension-review-2026-09-16.md)
+and [separate approval script](science-series-e01-comprehension-draft.md). The live scene-4
+rectangle is superseded by the requested circular magnifying lens with a handle and parent
+leader; those cues preserve its distinction from a droplet. Scene 6's liquid is wavy again,
+around a stable mean level, while ice remains flat. Current recorded words/timing are unchanged.
+The new script is not imported until approval. See the series guide's general-adult requirement;
+the historical shot tables above are not evidence that the viewer understood the narration.
+
 - Source-table attribution as the explanation: first show what the values mean at a surface.
 - Growing a local ice patch outside its example droplet or hiding the helpful surface: preserve
   phase containment and the starting condition's identity.

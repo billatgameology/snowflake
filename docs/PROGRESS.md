@@ -19,6 +19,18 @@ detail.
 
 ## Current state
 
+- **E01 full comprehension review and approval script (2026-09-16).** A maker-reported general
+  adult was lost after scene 6; the [full review](reviews/science-series-e01-comprehension-review-2026-09-16.md)
+  identifies prerequisite debt from scene 3 and overload in scenes 6/8. The separate
+  [approval draft](video/science-series-e01-comprehension-draft.md) explains equilibrium before
+  reuse, puts pressure after the relay payoff and retains quantitative depth in supplied reader
+  text. The guide now requires demonstrated prerequisites and plain-language understanding
+  checks. Only the requested circular magnifier/wavy-liquid live visuals change; existing words
+  and narration remain intact. Website `2ecebe2d7cd97fee7a35af683e420bd3525e67d6` records
+  **87 passes, zero failures** in `docs/episode-one-comprehension-tests.tap`; TypeScript/build
+  and bounded visual checks pass. Full verification is in the review; next is maker
+  script approval and a subsequent audience check, not automatic narration generation.
+
 - **Episode 2 maker revision: library and molecular continuity (2026-09-16).** Website
   `explore/film-part1@707ca01ec8f9c753f49389ac667e6559c8268daa` replaces the opening drawings
   with recorded crystals, adds three further library growths, removes the history detours,
@@ -523,7 +535,7 @@ detail.
   previews, zero full recording downloads on browse-first entry and no unexpected errors
   (`out/growth-gallery/browser-smoke.json`). Keyboard focus, phone layout, selection, playback,
   filter/scroll retention and broken-image fallback pass. Next: open the gallery link below.
-- **Last updated:** 2026-09-16 (maker-feedback design guide; no phase or scientific-evidence change)
+- **Last updated:** 2026-09-16 (E01 comprehension review and approval draft; no phase or scientific-evidence change)
 - **Optional graphs and MP4 export are complete.** Single views offer attached-site,
   interval-attachment and outward-reach graphs with independent toggles and synchronized seeking.
   **Export MP4** creates the current treatment/camera in H.264, with optional graphs. Actual UI
@@ -666,6 +678,22 @@ the package-specific prerequisites in its charter amendment and execution plan. 
 0043–0044's Phase 7 deferrals remain authoritative and cannot be discharged by Phase 10.
 
 ## Next step
+
+### Episode 1 — approve the comprehension revision before changing narration
+
+Open the [whole-episode review](reviews/science-series-e01-comprehension-review-2026-09-16.md)
+and [approval-only script](video/science-series-e01-comprehension-draft.md). The maker selected
+visual fixes plus revised script first. Do not import this draft or rewrite `episode-one.json`,
+`episode-narration.json`, audio or exact spoken cue prefixes yet: the current performance remains
+source-bound. The proposed eleven-section edit adds a dedicated pressure explanation after the
+physical relay and moves detailed arithmetic into supplied reader text. No runtime target.
+
+The circular scene-4 lens and wavy scene-6 liquid are implemented in the retained website on
+port 5185; cold reload `/series/episode-1` to avoid a stale development canvas callback. Exact
+product checks and viewing limits are in the review. Next is the maker's script decision, then
+an approved cue/visual rewrite and a new general-adult teach-back pass. Prior scene-5 visual
+praise remains valid but is not evidence that the whole episode was understood. E02, home and
+the original film remain untouched. No speech generation, scientific suite or release is implied.
 
 ### Episode 2 — maker-directed library and molecular-continuity revision
 

@@ -107,6 +107,55 @@ attention/story layer without unnecessarily rebuilding the structure that alread
 Use these in the existing script/shot table and review record. They are human editorial
 requirements, not a new scoring system, generated registry or scientific acceptance gate.
 
+### General-adult comprehension requirement
+
+New maker report: one general-adult reviewer found E01 dense, did not understand “water vapor
+pressure” or “equilibrium”, became lost after scene 6, and found scene 8 too dense. The maker
+requires concepts to be introduced **and explained before being built on**. This is secondhand
+feedback from one viewer, not a population study; the exact viewed revision is not identified.
+It supersedes any assumption that the earlier visual repairs established understanding.
+The [full E01 review](../reviews/science-series-e01-comprehension-review-2026-09-16.md) and
+[approval-only script](science-series-e01-comprehension-draft.md) apply this requirement.
+
+**Goal:** a general adult without prior physical chemistry can explain the episode's causal
+story in ordinary words and make a simple prediction using its important concepts. Vocabulary
+recall, beautiful animation, correct citations and agreeing with the narrator are not substitutes.
+
+- Before depending on an idea, identify its concrete subject, show what happens, explain why
+  that supports the relationship, then allow a prediction or rephrasing. A definition alone
+  does not establish usable understanding. Introduce the technical name at the demonstrated
+  event; do not introduce several names as though they were one concept.
+- Write each scene's prerequisites and point to the earlier demonstration that earns them.
+  If the prerequisite is only mentioned there, repair that earlier scene. The place a viewer
+  gets lost may be downstream of the first missing explanation.
+- Separate **event, explanation, measurement and calculation** into intelligible beats.
+  For E01: equal exchange → equilibrium; two surfaces → different consequences; gas-wall
+  impacts → pressure; water's contribution → water-vapour pressure; reference amount → percent.
+  Do not introduce the whole compound term and immediately calculate with it.
+- Earn the physical payoff before optional arithmetic. Keep necessary caveats in the main
+  argument, but retain additional examples/derivations in a substantive reader or named later
+  episode when they interrupt it. No detail silently disappears and no essential premise is
+  exiled to a footnote. More useful explanation may require more time or another section.
+- Explain every representational change: what a dot, colour, box, axis, unit or letter means,
+  what is held fixed and what it cannot imply. Do not recolour vapour as the established liquid
+  colour merely to distinguish an arithmetic subset. Invented teaching counters must be
+  explicitly separate from source-derived scientific examples.
+- Rehearse at ordinary speaking speed. Give the viewer a chance to predict a consequence
+  before revealing it, without mandatory quiz UI. A quiet hold should support thinking about
+  an understood picture, not waiting for an unexplained symbol to acquire meaning.
+- Ask a general-adult reviewer open questions: “What happened?”, “Why?”, “What would happen
+  if we changed this?” and “What does this not tell us?” Record their actual answer and the
+  first missing link, not just “clear?” or a satisfaction score. Do not coach the answer and
+  then count it as independent understanding. Repeat only the affected explanation after repair.
+
+For E01, the proposed checks are the water route without collision; equal exchange despite
+unchanged size; different outcomes for liquid and ice in the same air; water-vapour pressure
+versus all-air pressure; a percentage's reference amount; and what remains unknown about shape.
+They are acceptance questions for a future viewer, not a new automated gate or claimed result.
+Preserve scene 5's explicitly praised visuals while improving its vocabulary bridge.
+
+### Visual and editorial requirements
+
 1. **An earned investigation.** Open with an observable puzzle or transformation, promptly
    identify the question and develop its explanation. Preserve the important causal steps,
    evidence, conditions and counterexamples. End by showing what was answered and why the next
@@ -166,6 +215,8 @@ A scene can have several conceptual beats. Group sentences that share one visibl
 | Field | Author must supply |
 | --- | --- |
 | Question and takeaway | What should a first-time viewer understand by the end that they did not at the start? |
+| Prerequisites and explanation | What must already be understood, where was it demonstrated, and what plain-language causal explanation earns the new concept? |
+| Understanding check and depth | What can the viewer predict or explain without a term prompt? Which nonessential quantitative detail is retained in the reader or a named later episode? |
 | Source and misconception | Source anchor/conditions; the likely wrong reading the image must prevent. |
 | Beat / spoken cue | Exact script phrase; provisional beat timing, replaced by actual narration alignment when available. |
 | Subject / focus / scale | What to look at; how it is identified and selected; parent object if magnified. |
