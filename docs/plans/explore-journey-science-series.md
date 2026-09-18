@@ -916,6 +916,35 @@ TypeScript/build success. English revision `2026-09-17-e01-hook` replaces only t
 Mandarin keeps its performed words/bytes with a registered clock-only variation. The guide is
 updated. Ready for maker viewing; no new MP4 or audience acceptance claimed.
 
+## Nivogenesis identity, opening collection and sound — planned 2026-09-17
+
+Maker request: rename the series Nivogenesis, remove the top original-film link, add three
+more recorded crystal types already used in E02, and create/integrate the suggested restrained
+wind-and-crystalline-tone atmosphere. This is product/asset work, not a narration rewrite.
+
+1. Rename the series home, episode brand and page title consistently; preserve the experiment
+   instrument, original film, routes, stored language preference and all performed narration.
+   Remove only the top original-film link; the old film remains reachable at its existing URL.
+2. Introduce hollow column, capped column and sectored plate alongside the existing opening
+   plate/column/Run B. Use the catalogued recordings and established renderer. Keep bounded
+   small static draws, one expanded inspector, deterministic placement and offscreen release;
+   preserve the incoming Run B handover and compact-screen access.
+3. Generate an original, deterministic short stereo WAV outside the site via a reproducible
+   synthesis recipe: restrained air/noise, sparse six-tone crystalline accents, gentle tail.
+   It is composed sound design, not a scientific sonification or field recording. Root alone
+   integrates the selected audio into the site. No paid API, new narration or dependencies.
+4. Add an explicit play-with-sound/mute control. No unsolicited audible autoplay. Coordinate
+   replay with the opening; fade/stop on episode entry, manual exit, hidden page, Still and
+   unmount. Handle loading and rejected playback; retain the quiet original experience.
+5. Check focused collection/audio-lifecycle contracts, typecheck/build and sampled live
+   desktop/narrow UI. Decode/check the generated audio and record source/asset identity and
+   actual listening limits. Update the design guide and current index; no new MP4 or deploy.
+
+Done when Nivogenesis appears consistently in the series, the additional actual model types
+are available in the opening, and the optional sound behaves coherently without overlapping
+narration. Existing material is preserved. Root owns site/browser edits; delegated work is
+bounded asset generation or read-only review, never independent site mutation.
+
 ## Tried and rejected
 
 - **Static exact-rendered canvas without a retained drawing buffer.** Browser enlargement

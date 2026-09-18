@@ -6,6 +6,15 @@ true after every session that changes anything.** Rules: [AGENTS.md](../AGENTS.m
 2026-08-20): this index plus the active plans are the sole live state, and work proceeds in
 isolated worktrees per Rule 16.
 
+## Active Nivogenesis opening update — 2026-09-17
+
+The maker requests the Nivogenesis series name, removal of the top original-film link, three
+additional E02 recordings in the opening and original sound design. The
+[bounded amendment](plans/explore-journey-science-series.md#nivogenesis-identity-opening-collection-and-sound--planned-2026-09-17)
+governs implementation. Next: extend the existing recorded collection, synthesize a quiet
+optional opening atmosphere, integrate sound controls without narration overlap and inspect
+the existing page. Original film, narration, routes and completed export remain preserved.
+
 ## Completed opening inspection and E01 follow-up — 2026-09-17
 
 The maker's latest screenshot requests real inspectable snowfall crystals, removal of two
@@ -819,6 +828,13 @@ the package-specific prerequisites in its charter amendment and execution plan. 
 0043–0044's Phase 7 deferrals remain authoritative and cannot be discharged by Phase 10.
 
 ## Next step
+
+### Nivogenesis opening — implement
+
+Read the [amendment](plans/explore-journey-science-series.md#nivogenesis-identity-opening-collection-and-sound--planned-2026-09-17).
+Work in the retained website checkout from `64ce9c6`: `SeriesHome.tsx`, recorded marker
+selection and a new isolated optional opening-audio controller. Do not edit episode narration
+or the original film; root owns site edits and browser checks.
 
 ### Opening inspection and E01 follow-up — ready for maker viewing
 
