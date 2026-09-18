@@ -963,6 +963,21 @@ lifecycle findings, repaired async-boot/DPR defects, sampled browser checks and 
 human audition or long mobile performance measurement. Next is maker viewing/listening on the
 existing series page, not new narration, export, deployment or another episode.
 
+## Opening copy and Episode 2 release hold — planned 2026-09-17
+
+The maker asks to remove All experiments from the opening, replace the tagline with
+“Every flake is a record of its fall.”, match the episode card sizes, and show Episode 2 as
+Coming soon without displaying its content. Preserve the completed E02 implementation/assets.
+
+Implement one explicit E02 release gate covering its mounted content, direct route and E01
+continuation. Use matching card structure and equal grid rows, with a disabled E02 card and
+localized Coming soon text; keep E01 and the opening soundtrack/collection unchanged. Translate
+the new tagline for the existing same-page Chinese control. Check focused release/localization
+and opening contracts, TypeScript/build, and sampled wide/narrow layout and direct-route behavior.
+No narration rewrite/generation, content deletion, new export, deployment or scientific change.
+Done means E01 remains playable, E02 is withheld from these routes, both cards match, and the
+new copy is visible. Record the result in the current index; no new production plan is needed.
+
 ## Tried and rejected
 
 - **Mute audio while waiting for slow visual loading.** Playback still consumes the file and

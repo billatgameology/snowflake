@@ -8,6 +8,12 @@ isolated worktrees per Rule 16.
 
 ## Completed Nivogenesis opening update — 2026-09-17
 
+**Active follow-up:** the maker requests removal of All experiments, the new tagline
+“Every flake is a record of its fall.”, matching cards and an E02 Coming soon release hold.
+The [bounded amendment](plans/explore-journey-science-series.md#opening-copy-and-episode-2-release-hold--planned-2026-09-17)
+preserves E02 source/assets while hiding its content and entry actions. Next: implement the
+release gate and matching layout, then check the existing page and direct E02 URL.
+
 The maker requests the Nivogenesis series name, removal of the top original-film link, three
 additional E02 recordings in the opening and original sound design. The
 [bounded amendment](plans/explore-journey-science-series.md#nivogenesis-identity-opening-collection-and-sound--planned-2026-09-17)
