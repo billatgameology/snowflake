@@ -14,7 +14,7 @@ the retained website worktree. Current Mandarin narration and landscape export a
 working choices. No source words, recordings, old film, solver or scientific gate will change.
 The faster opening and fixed-frame compositor are implemented; the prototype and sampled section
 frames were inspected. Website `docs/series-export-checks.json` records focused tests/build results.
-The complete render is running under website `export/series-e01-zh-2026-09-17/`; its manifest and
+The complete render is running under website `export/series-e01-zh-2026-09-17-fast-v2/`; its manifest and
 worker-equivalence record bind the actual recipe. Next: finish assembly, decode/inspect the final
 movie and audit audio alignment. Do not rebuild the website during capture.
 

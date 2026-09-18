@@ -1,6 +1,6 @@
 # Plan — faster opening and complete home-to-E01 MP4
 
-- Status: implementation starting
+- Status: implementation and prototype checked; full export in progress
 - Date: 2026-09-17
 - Baselines: authority `a60e4d3`; website `d434084`
 - Parent: [series plan](explore-journey-science-series.md)
@@ -73,9 +73,20 @@ checking the original manifest, identical built bytes/timing/renderer/encoder co
 and file hashes, dimensions and decoded frame count; record explicit reuse provenance. Partial
 chunks are not reused. This is a capture-encoding repair, not lower-resolution or lossy imagery.
 
+The first fast attempt stopped before any new chunk: its worker-equivalence assertion found a
+compositor synchronization mismatch (`export/series-e01-zh-2026-09-17-fast/failure.json`). The
+paused benchmark did not test publication immediately after a new frame. The exporter now waits
+for fonts and two animation frames, reads layout and captures the explicit viewport. The new
+`export/series-e01-zh-2026-09-17-fast-v2/worker-equivalence.json` records equal decoded RGB across
+workers **and** the ordinary screenshot path at both probes. Its saved proof PNGs make the
+comparison independently inspectable. This changes only the exporter, not the frozen site.
+The full render continues there; the earlier directories and partial files remain intact.
+
 ## Tried and rejected
 
 - Canvas-only capture: excludes the reader, title and multi-layer snowfall.
 - A whole-episode English/Mandarin duration ratio: contradicts the delivered phrase alignment.
 - Random access into accumulated weather: cannot reproduce the opening's actual continuous state.
 - Setting the rate to 2 instead of doubling 1.25: would only speed current growth by 1.6 times.
+- Fast PNG capture without a final paint/layout fence: failed the worker equivalence check;
+  a stable paused-frame benchmark alone was insufficient. Keep the equality check.
