@@ -1,7 +1,8 @@
 # Science series — maker's critique and episode design guide
 
 Captured 2026-09-16 from the maker's feedback; updated 2026-09-17 with the conversational E01
-production and review lessons at the maker's request. This is the reusable editorial/design guide for
+production lessons and the subsequent introduction, visual-flow and comparison feedback.
+This is the reusable editorial/design guide for
 the [active series plan](../plans/explore-journey-science-series.md), not a scientific gate.
 The [E01 visual guide](science-series-e01-visual-guide.md) holds that episode's shot history.
 The [conversational production review](../reviews/science-series-e01-conversational-production-2026-09-17.md)
@@ -25,14 +26,16 @@ as another set of production documents:
    explanatory passage with a spoken rehearsal before multiplying the treatment.
 5. Review a complete temporary-voice performance for pacing and understanding before scaling
    production. Record any partial coverage honestly; sampled checks do not fulfill that review.
-6. When narration is authorized, follow the [audio and timing contract](#narration-and-timing-contract).
+6. Follow the [audio and timing contract](#narration-and-timing-contract), including the maker's
+   standing direction to refresh affected English narration when its words are rewritten.
    Retime cues to the delivered performance; rehearse again after pause or tempo changes.
 7. Apply the [viewing method](#how-a-future-reviewer-should-critique-a-scene) and
    [completion checklist](#completion-checklist-and-acceptance-boundaries). Fix specific defects,
    then distinguish technical readiness from listening and audience acceptance.
 
-No fixed duration, paid-voice requirement or authorization to start another episode follows
-from this guide. Keep the previous film and approved features intact.
+No fixed duration or authorization to start another episode follows from this guide. The
+standing English-narration refresh does not authorize a new voice or Mandarin recording.
+Keep the previous film and approved features intact.
 
 ## The central reading of the feedback
 
@@ -72,10 +75,12 @@ was another reviewer's opinion; it is not relabelled as the maker's own scene-by
 | “looks rotated a little then stopped”; “weird black lines or artifacts” | Growth must be visible as added material, not camera motion; inspect the render in motion as well as still. | Fixed episode framing and scoped shader repairs are recorded in the [continuous-series review](../reviews/science-series-continuous-e01-2026-09-16.md); no all-device guarantee. |
 
 Narration was initially reserved for the maker at the end; later requests authorized specific
-samples and full E01 AI sample narration. Those are production decisions, not a requirement to
-buy or regenerate speech for every design iteration. Draft words and visuals together, rehearse
-with available temporary speech, and retime to the actual performance when it exists. Do not
-infer a final narrator choice or series-wide generation permission from E01's sample.
+samples and full E01 AI sample narration. The maker's subsequent standing direction is to
+refresh affected English narration whenever the spoken English is rewritten, as specified in
+the [audio contract](#narration-and-timing-contract). Visual-only changes do not by themselves
+require new speech. Draft words and visuals together and retime to the actual performance.
+Mandarin voice selection and recording remain explicitly deferred; an English sample or refresh
+is not permission to invent them.
 
 ### Scene-by-scene critique and response
 
@@ -106,6 +111,25 @@ Response provenance: [first-five-scene revision and identity follow-up](../revie
 and [latest meaning-first follow-up](../reviews/science-series-e01-visual-cues-2026-09-16.md#meaning-before-numbers-follow-up).
 Those records name implementation revisions and check limits. Neither passing tests nor the
 absence of another complaint upgrades an implemented response to maker acceptance.
+
+### Follow-up on the narrated eleven-section revision
+
+The maker subsequently requested a substantive Kenneth Libbrecht introduction and reported
+that section 6 still spent too many words over little visible change, with poor explanatory
+flow. The whole section 9 comparison remained confusing; its percentage numbers appeared
+before their purpose was established. These are maker-reported problems with the later cut,
+not a retraction of the earlier praise for scene 5's surface treatment.
+
+The [current script](science-series-e01-comprehension-draft.md) responds by giving Libbrecht
+a relevant one-sentence introduction, rebuilding R06 as visible controlled comparisons, and
+keeping R09 on the actual extra-vapour amounts in equal-volume −15/−40 °C reference samples.
+All percentages and their calculation remain in the optional reader. This is a requested
+revision, not a claim that a fresh viewer has accepted the result.
+
+Carry forward three lessons: introduce a cited person by why their work matters; establish
+what is being compared before displaying its numbers; and make each causal step visible as
+it is spoken. Adding friendlier words to an unchanged image does not resolve a visual-flow
+problem. The exact cold pair is an E01 example, not a rule to repeat in future episodes.
 
 ## What to carry forward from the praise
 
@@ -184,9 +208,11 @@ recall, beautiful animation, correct citations and agreeing with the narrator ar
   first missing link, not just “clear?” or a satisfaction score. Do not coach the answer and
   then count it as independent understanding. Repeat only the affected explanation after repair.
 
-For E01, the proposed checks are the water route without collision; equal exchange despite
+For E01, the main checks are the water route without collision; equal exchange despite
 unchanged size; different outcomes for liquid and ice in the same air; water-vapour pressure
-versus all-air pressure; a percentage's reference amount; and what remains unknown about shape.
+versus all-air pressure; the reference and extra vapour in equal-volume samples; and what
+remains unknown about shape. Percentage reasoning is now an optional-reader check, not a
+prerequisite for following the narrated story.
 They are acceptance questions for a future viewer, not a new automated gate or claimed result.
 Preserve scene 5's explicitly praised visuals while improving its vocabulary bridge.
 
@@ -194,9 +220,9 @@ Preserve scene 5's explicitly praised visuals while improving its vocabulary bri
 
 The maker found the revised tone too technical, requested a teenager-friendly sample of the
 hardest idea, then explicitly liked the two-neighbours sample and asked to apply its tone to
-the draft. That approved the **voice direction**. A later explicit request authorized E01
-production and new audio; neither action establishes audience understanding or authorizes
-narration for later episodes.
+the draft. That approved the **voice direction**. Later requests authorized production and
+English audio, followed by the standing refresh direction below. None of these actions
+establishes audience understanding or authorizes Mandarin narration.
 
 Sound like a curious person helping someone notice a surprising event. Start with concrete
 subjects (“a drop and a piece of ice”), ask an honest question (“same cold air, opposite
@@ -215,9 +241,10 @@ same temperature, equal gas space, both-way traffic, and the specific example's 
 
 R05–R07 of the [performed script](science-series-e01-comprehension-draft.md) adapt the approved
 sample while retaining the earlier demonstration and avoiding an unnecessary second full
-equilibrium lesson. The whole script follows that voice. Production and bounded synchronization
-review are complete; human listening and a fresh audience-understanding check remain open.
-Written tone approval cannot substitute for either.
+equilibrium lesson. The whole script follows that voice. The earlier cut's production and
+bounded synchronization checks did not establish audience understanding; the later R06/R09
+feedback requires changes to the visible explanation as well as the words. Human listening
+and uncoached audience-understanding checks remain distinct from tone approval.
 
 Use its conversational pattern where useful: **notice something → ask what changed → follow
 the cause → name the idea → use it**. It is not a mandatory rhythm for every paragraph.
@@ -244,6 +271,10 @@ joined it. Simplifying the vocabulary must not simplify away the mechanism or it
    must be legible at intended playback speed without seeking. Identify → act → hold is the
    default pattern, not a mandatory cut per sentence. Fix time mapping/framing/contrast before
    adding decoration. Quiet holds are valuable when they permit inspection of an understood result.
+   When a passage advances the explanation, give it a corresponding visible change or a clear
+   inspection target. Do not spend several introductory paragraphs restating a puzzle over an
+   almost unchanged diagram before the first useful action. Carry an already-understood state
+   forward and change one condition where that makes the next cause easier to see.
 5. **A comparison the viewer can read.** Preserve a before-outline, fixed boundary, scale or
    matched view when change is the lesson. Camera tracking must not conceal growth. Rotation
    is not growth; a sliding block is not added material. State what is held fixed and changed.
@@ -262,6 +293,11 @@ joined it. Simplifying the vocabulary must not simplify away the mechanism or it
    question and what the compared quantities do. Attach units and reference conditions to
    objects. Show the denominator and absolute amount when a percentage can mislead. Keep
    provenance available, but do not make understanding depend on knowing the cited table.
+   Introduce the quantity, reference and purpose before the comparison numbers appear; an
+   unexplained percentage is not a useful opening hook. A cited person's name also needs
+   context: briefly explain their relevant work before relying on their authority. If arithmetic
+   creates a second lesson that obscures the physical story, retain it in an actual reader
+   while teaching the physical comparison in the main scene.
    Highlight the reference first, then the extra; preserve equal volumes and constant dot units
    when comparing amounts. Rounded populations must not imply an exact decimal percentage.
    Clearly label invented counters as a teaching example, separate from scientific quantities.
@@ -314,9 +350,21 @@ of animations, labels, assets or cuts is required.
 Words, images and pauses are one performance. A correct transcript beside a correct diagram
 can still fail if the useful action happens before the viewer knows where to look.
 
+**Standing maker direction for future spoken-English rewrites:** automatically refresh the
+affected English narration as part of the rewrite, using the current approved English voice,
+**Juniper** (`aMSt68OGf4xUZAnLpTU8`), and update its alignment, captions and scene cues. This is
+explicit ongoing direction, not permission inferred from an old sample. Reuse unchanged takes
+where appropriate; do not leave old spoken words playing against a rewritten transcript.
+Visual-only or optional-reader-only edits do not require synthesis when the spoken words are
+unchanged. Preserve earlier recordings and the exact source of each new take. Keep the Chinese
+text in step with the revised meaning, but do not generate Mandarin speech: its voice and
+production remain deferred until the maker supplies that separate direction. The standing
+refresh does not authorize a different English voice or an unrequested new episode.
+
 - Before recording or synthesis, review the exact spoken source and its diagram implications.
   Separate spoken text, reader text and animator instructions. Record the approved source
-  identity and the authorized narrator/voice; an earlier sample grants no new generation scope.
+  identity and the narrator/voice authorized for this revision. Apply the standing English
+  refresh above within its scope; an earlier sample alone grants no additional scope.
 - Preserve original takes and request text, non-secret voice/model/settings, source hashes,
   alignment and decoded durations. Keep any paced derivative separate. Never log credentials,
   overwrite prior masters or automatically repeat an uncertain paid request.

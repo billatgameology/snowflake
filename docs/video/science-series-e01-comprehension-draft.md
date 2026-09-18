@@ -4,9 +4,9 @@
 
 ## Audience promise and structure
 
-A general adult should be able to follow one cloud droplet's water into ice, explain why an unchanged ice surface is still busy, and explain how the same cold air can shrink liquid while growing ice. Pressure and percentages then describe something already understood. No chemistry background, equation recall or vocabulary test is assumed. This is a design goal, not an achieved audience result.
+A general adult should be able to follow one cloud droplet's water into ice, explain why an unchanged ice surface is still busy, and explain how the same cold air can shrink liquid while growing ice. Pressure and a comparison of extra vapour then describe something already understood; percentages remain optional reader depth. No chemistry background, equation recall or vocabulary test is assumed. This is a design goal, not an achieved audience result.
 
-**Tone direction accepted by the maker, 2026-09-17:** write as a curious person helping a teenager notice something surprising, not as a textbook or a lecturer simplifying vocabulary. Use the maker-approved two-neighbours sample as the voice reference: concrete objects, natural questions, short causal steps, ordinary words before scientific names, and a satisfying physical payoff. No forced slang, talking down, or claiming the viewer understands. This pass applies that tone throughout the narration; source qualifications and production instructions remain separate. Tone approval is not yet approval of this complete revised script or permission to generate audio.
+**Tone direction accepted by the maker, 2026-09-17:** write as a curious person helping a teenager notice something surprising, not as a textbook or a lecturer simplifying vocabulary. Use the maker-approved two-neighbours sample as the voice reference: concrete objects, natural questions, short causal steps, ordinary words before scientific names, and a satisfying physical payoff. No forced slang, talking down, or claiming the viewer understands. Source qualifications and production instructions remain separate. The later production request authorized the English recording; the current follow-up also requires affected English narration to be refreshed when its words change. Mandarin narration remains deferred.
 
 The existing ten scenes are reviewed individually; the proposed performance has eleven sections. The only added section is a dedicated pressure explanation **after the relay payoff**, not inside the two-surface comparison. These draft IDs are intentionally not the live E01 IDs. No runtime ceiling is assigned. Directions and comprehension prompts are not spoken; only paragraphs under **Narration** are dialogue.
 
@@ -20,7 +20,7 @@ Watch this one drop of water. It's getting smaller. Beside it, a snow crystal is
 
 It leaves as water vapour—the invisible gas form of water. That gas can travel through the air and join the ice. We can't see the journey with our eyes, so our close-up uses white dots to follow it. Each stands for a water molecule, a tiny unit of water. An enormous number of those molecules make up just one drop.
 
-Now imagine this happening with many drops around the crystal. Physicist Kenneth Libbrecht gives a striking example: about a hundred thousand cloud droplets can supply the water for one large, star-shaped crystal. Not every snowflake needs that number. It's an example of how much those tiny drops can contribute.
+Now imagine this happening with many drops around the crystal. Kenneth Libbrecht is a physicist at Caltech who grows and studies ice crystals under controlled conditions to understand how snowflakes form. He gives a striking example: about a hundred thousand cloud droplets can supply the water for one large, star-shaped crystal. Not every snowflake needs that number. It's an example of how much those tiny drops can contribute.
 
 Liquid becomes gas. Gas becomes ice. But here's the puzzle: how can the same cold air let one neighbour lose water while the other gains it?
 
@@ -28,7 +28,7 @@ Liquid becomes gas. Gas becomes ice. But here's the puzzle: how can the same col
 
 Preserve the praised selected donor, before-outline, visible shrink and fixed-frame crystal growth. Speak the gas identity before expecting the viewer to interpret dots. Show the number only after the route is identifiable; no dot-to-model mass calibration. Keep “magnified schematic” beside the donor and model status beside Run B. Ask afterwards: **Did the droplet have to hit the crystal? What travelled between them?**
 
-Source: Ch1 `#the-relay`; Ch4 `#eating-the-cloud`. Opening preview shows the outcome; R05–R07 earn its cause.
+Source: Ch1 `#the-relay`; Ch4 `#eating-the-cloud`. The biographical introduction is supported by [Caltech's faculty profile](https://www.pma.caltech.edu/people/kenneth-g-libbrecht) and [Libbrecht's Caltech research page](https://www.its.caltech.edu/~atomic/). Opening preview shows the outcome; R05–R07 earn its cause. During the introduction, retain visible growth and briefly identify the scientist; do not hold a biography card instead of the material event.
 
 ## R02 — Different ways to make falling ice
 
@@ -118,23 +118,35 @@ Source: Ch4 `#what-saturated-means`; AMS equilibrium definition. Surface curvatu
 
 ### Narration
 
-Look at these two neighbours: a drop of liquid water and a tiny piece of ice. They're in the same cold air. Yet the drop is getting smaller while the ice gets bigger. How can the same surroundings do opposite things?
+Keep our ice at balance. Beside it, put liquid water in a separate box. Same temperature, same space for the gas, same starting amount of vapour.
 
-The drop has the same two-way traffic we just saw at the ice. Water leaves, and water returns. But it has a different balance point. Water escapes from liquid more readily than from ice. So the liquid needs more water vapour around it to replace what it loses.
+Watch the liquid surface fall. More water leaves than joins. Water escapes more readily from liquid than from ice, so this vapour amount cannot replace everything the liquid loses. In these drawings, we control the vapour from outside, keeping it at the amount we choose while the surface changes.
 
-To see the difference, put them in separate boxes for a moment. Give both boxes the same amount of space for the gas, and keep them at the same temperature. This smaller amount of vapour keeps the ice steady. The liquid needs this larger amount. In each box, as much water joins the surface as leaves it.
+Add water vapour to the liquid's box. More water can now return to its surface. Keep adding until the liquid stops shrinking. Molecules still come and go, but now the amounts joining and leaving match. The liquid needed more vapour than the ice did.
 
-Bring them back into the same air. Start with enough vapour to keep the liquid drop the same size. What happens to the ice?
+Now give the ice that same, larger amount of vapour. Keep the temperature unchanged. What will happen to it?
 
-It grows. The air has more water vapour than the ice needs to replace what it loses. We didn't warm one neighbour or cool the other. The difference is between liquid water and ice.
+It grows. The liquid stays the same size, while the ice gains water. Both now have the same amount of vapour around them, but that amount is above the ice's balance point.
 
-Now reduce the vapour to an amount between their two balance points. There's enough for the ice to grow, but not enough to keep the liquid drop from shrinking. That gives us the pair we started with: two neighbours, one temperature, opposite changes.
+Put the two surfaces together in the same air. Then remove a little vapour—not all the way down to the ice's balance point. Watch both surfaces. The liquid starts shrinking, but the ice keeps growing. There is still more than the ice needs for balance, yet less than the liquid needs.
 
-Let's take that picture back into the cloud. Where does the water go as the drops shrink?
+Same air. Same temperature. Two different surfaces, losing and gaining water. Now take that picture back into the cloud. Where does the water go as the drops shrink?
 
 ### Direction and understanding check
 
-No pressure values, percentages or humidity gauge in this first causal comparison. Briefly recall the opening pair as the puzzle, then explicitly separate equal-gas-volume boxes → deliberate shared-air state → deliberate reduction into the gap. The initial pair is a preview, not two different vapour amounts occupying one shared space. Wavy liquid, flat hatched ice; waves oscillate around the liquid's mean level and are not a rate measurement. Use labelled qualitative vapour samples without countable numeric ratios. Ask: **Why can this same air grow ice without growing liquid? When can liquid shrink as well?**
+No pressure values, percentages or humidity gauge. Start from the already-understood balanced ice, not another spoken puzzle preview. Introduce the separate liquid comparison during the first paragraph; make its loss visible immediately at “Watch the liquid surface fall.” These are externally controlled schematic comparisons, not sealed-box simulations. Show inlet/outlet or control cues and a persistent “vapour maintained from outside” label from the start. Keep temperature and equal gas volumes fixed while the selected vapour amount is maintained; do not suggest water remains conserved inside a closed box as its surface gains or loses material.
+
+| Spoken cue | Required visible action |
+| --- | --- |
+| “Beside it, put liquid water…” | Retain the ice from R05; introduce a distinct wavy liquid surface in a separate, matched gas volume. Start both with the ice-balancing vapour amount. |
+| “Watch the liquid surface fall.” | Liquid visibly recedes against a before-line while ice stays steady. Both-way exchange continues. |
+| “Add water vapour to the liquid's box.” | Add visible gas only to the liquid view; its loss slows and stops at its own maintained balance amount. Hold the different gas amounts in the two separate boxes. |
+| “Now give the ice that same, larger amount…” | Increase gas in the ice view to match the liquid view before the prediction. Identify any deliberate held-surface pose; do not reveal the answer label early. |
+| “It grows.” | Ice advances against fixed old material; the liquid remains steady. The common vapour amount is maintained externally. |
+| “Put the two surfaces together…remove a little vapour” | Join the already matched air regions, then visibly reduce their shared vapour to between the two reference values. Liquid recedes while ice advances. Never put two different simultaneous vapour amounts in one uniform air region. |
+| “Now take that picture back into the cloud.” | Carry the selected ice/liquid states into R07, rather than restart growth or repeat the full explanation. |
+
+Waves oscillate around the liquid's mean level and are not a rate measurement. Use illustrative vapour populations without inferred physical ratios. Ask: **What changed when we added vapour to the liquid view? Why did the same added amount grow the ice?**
 
 Source: Ch4 `#the-gap`. Comparisons refer to bulk/pure reference surfaces at fixed temperature. A water-balanced far field is not asserted to remain water-balanced at the growing crystal's surface. The scene demonstrates a tendency, not a complete cloud-growth rate.
 
@@ -184,31 +196,38 @@ This is a dedicated new lesson, not an overlay on R06. Reuse the box and water/o
 
 Source: NASA/AMS links above; Ch4 `#what-saturated-means`, `#the-gap`. Dilute/ideal-gas amount relation; do not use pressure alone to compare water amounts at different temperatures. No symbol or unit is required in the spoken path. The sourced millibar example is explained in the reader below.
 
-## R09 — A bigger percentage of what?
+## R09 — How much extra water is there?
 
 ### Narration
 
-Forty percent sounds bigger than sixteen percent. But does it mean more water? Here's the catch: forty percent of what?
+Take a sample of air at minus fifteen degrees Celsius. Start with just enough water vapour to balance ice. As much water joins the ice as leaves it. Mark that vapour amount: it is our starting point.
 
-Set the cloud aside and try it with counters. These are made-up counting examples, not measurements of air. Start with a pile of one hundred counters and add sixteen. That's sixteen extra for every hundred: sixteen percent extra.
+Now add vapour until there is enough to balance liquid water at the same temperature. We need more, just as we saw with our two neighbours. Mark the original amount first, then pick out what we added. That difference is the extra vapour above ice balance.
 
-Now start with just ten counters and add four. Four is forty percent of ten. The percentage is bigger—but look at the extra pile. Four counters are still fewer than sixteen. We changed the amount we were comparing against.
+Move those extra dots aside so we can see them clearly. They are still water vapour, not little pieces of ice. We are counting how much water lies above the ice's balance amount.
 
-Back in our vapour comparison, take two equal-sized spaces, with each dot standing for the same amount of water. At each temperature, start with enough vapour to balance liquid water. Mark how much would balance ice at that same temperature. That's our reference pile; the difference is the extra. Pull those extra dots aside. They haven't become a different kind of water—we're just counting them separately.
+Now make a second, calculated comparison at minus forty degrees. Use the same size of air sample, and let every dot represent the same amount of water in both pictures. At this colder temperature, both surfaces balance with much smaller amounts of vapour. Mark the ice reference again, then separate the extra needed to reach the liquid-water balance.
 
-Cooling changes the starting piles. Both liquid water and ice balance with smaller amounts of vapour at lower temperatures. Look at the two cases here: the colder one has a bigger percentage extra above ice balance, yet fewer extra water-vapour dots. Just like the counters, a bigger percentage doesn't settle which pile is bigger.
+Bring the two extra amounts together. Which contains more water? In this comparison, the minus fifteen sample has more extra vapour than the minus forty sample. The colder sample does not automatically provide more. We have to compare the actual amounts, not just the temperatures.
 
-These two cases come from calculations of balance values, not from watching two real clouds. They don't promise that liquid drops survive at every temperature shown. And those extra dots aren't all the water a crystal could ever get. Remember the droplets replacing vapour as the ice used it? Moving air can bring more water too.
-
-So a percentage is useful—but it needs a companion question. Compared with how much? Without that, it can't tell us how much extra water there is, let alone how fast a crystal will grow.
+These are calculated balance comparisons, not observations of two clouds. They do not promise liquid droplets at minus forty. And the extra vapour is not all the water a crystal could ever receive: droplets and moving air can replenish it. This comparison answers one question about the supply; it does not predict the crystal's growth speed.
 
 ### Direction and understanding check
 
-Two deliberately separated examples: arithmetic with no temperatures, then source-derived equal-volume samples. Teach the reference before separating surplus. Keep vapour identity white; use outlines or hatching for the selected extra subset, not amber liquid colour. Give the source comparison its own visible introductory legend and hold. Use the retained −15/−40 equilibrium comparison only with the theoretical-comparison/no-guaranteed-liquid qualification already visible; do not depict −40 as a surviving cloud. If that caveat distracts in rehearsal, retain the arithmetic lesson here and move the full temperature comparison to the reader, rather than invent easier scientific counts.
+The complete main scene follows one physical question: how much vapour is above the ice balance in a fixed volume? Remove the invented-counter detour and all main-scene percentage labels. Keep the source-derived −15/−40 comparison; no new fabricated quantities or monotonic “colder means less excess” claim. Equal-volume samples and a constant water amount per dot are required. Keep exact amounts, percentages, formulas and their provenance in the unchanged reader below. Rounded dots illustrate amounts rather than replace those exact values.
 
-Ask: **Which example has more extra water, and can the bigger percentage answer that by itself?** No density formula, three-temperature recital, humidity conversion or peak curve in the main narration.
+| Spoken cue | Required visible action |
+| --- | --- |
+| “Start with just enough water vapour to balance ice.” | Establish the −15 °C reference sample and select its ice-balancing vapour amount. Identify this as a calculated reference comparison, not cloud footage. |
+| “Now add vapour…balance liquid water” | Add vapour in the same fixed-volume sample. Preserve the original ice-reference selection before identifying the added subset. Do not imply both surfaces remain at equilibrium at this one vapour value. |
+| “Move those extra dots aside” | Extract only the surplus into a linked comparison area; retain its white vapour identity and the reference it came from. This is a counting move, not molecules turning into ice. |
+| “Now make a second, calculated comparison…” | Introduce the equally sized −40 °C sample and repeat ice reference → liquid reference → extra selection. Keep “calculated equilibrium comparison; liquid droplets not guaranteed at −40 °C” adjacent from its first appearance. Do not draw a surviving liquid cloud there. |
+| “Which contains more water?” | Align the extracted surplus amounts on the same scale. Leave a prediction hold before revealing that this pair has more at −15 °C. |
+| “Droplets and moving air can replenish it.” | Reconnect replenishment as a separate cloud mechanism without adding those future deliveries to the counted reference surplus. |
 
-Source: Ch4 `#what-saturated-means`, `#the-gap`, `#the-peak`; exact existing calculated values and their limits remain below. Counters are explicitly invented teaching arithmetic, not empirical numbers.
+These are sequential reference states, not a sealed-box time evolution. Source qualifiers must survive labels, Still mode and Chinese translation. Ask: **Which sample has more extra vapour, what was it extra compared with, and what does that comparison not tell us?** No percentages, density formula, three-temperature recital, humidity conversion or peak curve in the main narration.
+
+Source: Ch4 `#what-saturated-means`, `#the-gap`, `#the-peak`; exact existing calculated values and their limits remain below. The −15/−40 comparison is scoped to this pair; the reader retains the nonmonotonic temperature curve and its near−12 °C maximum.
 
 ## R10 — A cloud can spend its liquid water
 
@@ -283,7 +302,7 @@ Can we change what a crystal builds? In Libbrecht's laboratory examples, changin
 | Ch1 `#supercooling` | R04 main mechanism; exact −2/near−40 examples in its reader text. Silver iodide and temperature distributions remain the chapter reader. |
 | Ch1 `#the-relay`; Ch4 `#eating-the-cloud` | R01 preview, R06–R07 cause/payoff, R10 limit; source-scoped budget retained. |
 | Ch4 `#what-saturated-means`, `#the-gap` | R05 exchange/equilibrium; R06 two surfaces; dedicated R08 pressure/saturation; millibar/RH calculation in supplied reader. |
-| Ch4 `#the-peak` | R09 percentage/amount distinction; temperature table, density conversion and peak in supplied reader. No “total cloud supply” shortcut. |
+| Ch4 `#the-peak` | R09 source-derived equal-volume −15/−40 excess-amount comparison; all percentages and their explanation, the full temperature table, density conversion and peak remain in the supplied reader. No “total cloud supply” or monotonic cold shortcut. |
 | Ch1 `#too-cold-to-snow` | R10 main donor depletion; selected-temperature/folk-saying account in supplied reader. |
 | Ch1 `#no-blueprint` | R11 material/shape distinction; lab history in supplied reader and later E07/E08. |
 | Remaining Ch4 transport, halo, sublimation, ventilation | E03 as in the active plan; R07 establishes a journey, not its full resistance mechanism. |

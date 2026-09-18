@@ -810,6 +810,16 @@ Done when the revised words, visible actions, Chinese text and English sample ag
 reading does not reverse at paragraph boundaries; earlier film, home and E02 remain intact.
 No solver, evidence gate, Mandarin generation, new episode, publication or deployment is in scope.
 
+**Implemented and reviewed in website `9fd4a37`.** The [review/edit record](../reviews/science-series-e01-clearer-2026-09-17.md)
+documents source-based paragraph ownership, removal of the terminal un-timed offset,
+Libbrecht's introduction, controlled scene-6 experiments and reference-first scene-9 amounts.
+The canonical guide and Chinese display text now follow this direction. Website
+`docs/series-e01-clearer-tests.txt` records **68 passes, zero failures**; its build and browser
+records name the bounded verification. English audio revision `2026-09-17-e01-clearer` preserves
+old masters, refreshes only the changed takes and reuses unchanged source-matching bytes.
+The independent source/PCM/alignment/ASR audit is copied beside that revision's report.
+Next is maker listening and an uncoached comprehension check, not automatic new episode work.
+
 ## Open questions
 
 - Exact episode boundaries and lengths: resolve by drafting and watching, not a preset duration.
@@ -820,6 +830,13 @@ No solver, evidence gate, Mandarin generation, new episode, publication or deplo
   current science series. Publication and release identities remain separate decisions.
 
 ## Tried and rejected
+
+- **Infer paragraph ownership from rounded start times.** A following paragraph's caption can
+  start microscopically before its stored paragraph boundary. Assign by exact source-text
+  ownership; validate ordered reading positions and do not hide reversals with extra smoothing.
+- **Start a lesson with unexplained percentages, then teach arithmetic and a new temperature
+  dependence together.** The maker remained lost. The current main scene stays with reference
+  and extra water; exact arithmetic and the fuller curve remain accessible in the reader.
 
 - **A question whose diagram already prints the answer.** Prediction pauses must hold the
   result and label that editorial hold, while presenting the changed input. The production

@@ -19,13 +19,19 @@ detail.
 
 ## Current state
 
-- **Episode 1 maker playback repair in progress (2026-09-17).** The
+- **Episode 1 maker playback repair complete (2026-09-17).** The
   [active series plan](plans/explore-journey-science-series.md#maker-playback-repair--2026-09-17-planned-before-implementation)
-  now covers guided-reading reversals, Libbrecht's introduction, and scene 6/9 comprehension
-  and visual changes. Every English rewrite now includes matching English narration under
-  maker authorization; Mandarin voice generation remains deferred. Next: implement reviewed
-  source/animation changes and correct paragraph ownership, then synthesize changed takes
-  and verify playback. The previous bilingual implementation remains the starting baseline.
+  lands as website `explore/film-part1@9fd4a37`: source-owned forward reading, Libbrecht's introduction, controlled scene-6
+  experiments and a full scene-9 reference/extra-water rewrite; Chinese text follows the new
+  meaning. The [review](reviews/science-series-e01-clearer-2026-09-17.md) names the edits,
+  independent science/audio review and sampled desktop/narrow playback. Website
+  `docs/series-e01-clearer-tests.txt` records **68 passes, zero failures**; build/typecheck pass.
+  Audio `docs/series-narration/2026-09-17-e01-clearer/paced-report.json` records
+  **956.3235169999996 s**, SHA-256
+  `d69db9caac009f1e73b8b64d6126950732ba3ec3437bc3b655c9e17b8105cb6e`.
+  Every future spoken-English rewrite now includes matching Juniper narration under maker
+  direction. Mandarin recording remains deferred. Next: maker listening/teach-back; no
+  subjective or audience acceptance is inferred from these technical checks.
 
 - **Same-page Chinese text complete (2026-09-17).** Website `explore/film-part1@e37bf80`
   adds one **English / 中文** toggle to the existing series home/E01/E02, with translated
@@ -754,27 +760,30 @@ the package-specific prerequisites in its charter amendment and execution plan. 
 
 Open [the bilingual review](reviews/science-series-bilingual-2026-09-17.md) and
 `http://127.0.0.1:5185/series/episode-1`; select **中文**. The retained website worktree is
-`/Users/clipper/github/snowcrystal_website-film-part1` at `e37bf80`; both current episodes are
-translated. The review names the focused rerun command and all outstanding coverage limits.
-Wait for the maker's voice ID/production request before reading credentials or synthesizing.
+`/Users/clipper/github/snowcrystal_website-film-part1`; both current episodes are translated,
+including the later [E01 repair](reviews/science-series-e01-clearer-2026-09-17.md). The reviews
+name the focused rerun commands and outstanding coverage limits.
+Wait for the maker's Mandarin voice ID/production request before Mandarin synthesis.
 Then align actual Mandarin speech by shared scene/paragraph/cue identities, not equal elapsed
 seconds. English source, alignment and recordings remain preserved.
 
-### Episode 1 — listen and test comprehension of the completed revision
+### Episode 1 — listen and test comprehension of the clearer revision
 
-Open the [production review](reviews/science-series-e01-conversational-production-2026-09-17.md)
+Open the [latest review](reviews/science-series-e01-clearer-2026-09-17.md)
 and [performed conversational source](video/science-series-e01-comprehension-draft.md).
-Website `1fd50e6` in `/Users/clipper/github/snowcrystal_website-film-part1` serves the completed
-eleven-section revision at `http://127.0.0.1:5185/series/episode-1`. The earlier approval-only
+Website `9fd4a37` in `/Users/clipper/github/snowcrystal_website-film-part1` serves the completed
+eleven-section repair at `http://127.0.0.1:5185/series/episode-1`. The earlier approval-only
 instructions are superseded. The server was left running; if needed, check the existing
 listener before `npm run dev -- --host 127.0.0.1 --port 5185 --strictPort` in that worktree.
 Cold reload after drawing-code edits: hot reload can retain a stale canvas callback.
 
 Next is a human listen for delivery/proper names and an uncoached general-adult teach-back
-of balance, the two neighbours, water-vapour pressure and the percentage reference. Review
+of balance, the two neighbours, water-vapour pressure, and reference versus extra water. Review
 records distinguish automated audio checks and sampled browser playback from those open
-acceptance questions. Preserve the original film/audio, home and silent E02. Do not resynthesize
-the immutable takes, start E03, publish or run scientific gates without a new relevant request.
+acceptance questions. Preserve the original film/audio, home and narrated E02. For every future
+spoken-English rewrite, automatically refresh the affected Juniper takes in a new retained
+revision and retime captions/cues. Mandarin audio remains deferred. Do not start E03, publish
+or run scientific gates without a new relevant request.
 Requested E01 revisions begin with `src/series/episodeCues.ts`, `laterEpisodeCues.ts` and their
 corresponding drawing files; the focused check command is in the review.
 
