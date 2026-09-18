@@ -6,6 +6,16 @@ true after every session that changes anything.** Rules: [AGENTS.md](../AGENTS.m
 2026-08-20): this index plus the active plans are the sole live state, and work proceeds in
 isolated worktrees per Rule 16.
 
+## In progress: Nivogenesis public release — 2026-09-18
+
+The maker-authored [public release plan](plans/explore-nivogenesis-public-release.md) is in
+execution after a second-pass review; its final section records the maker's decisions D10–D21
+(Firebase Spark, Yun approved, agent deploys, models move to `public/growth/models/`, no opening
+label, new favicon, merge-and-tag branch structure) and the corrections that change execution.
+Work happens in the website release worktree `/Users/clipper/github/snowcrystal_website-release`
+on `release/nivogenesis-public` from `e343142`. Nothing is public yet. This entry is replaced by the
+completion record when the live deploy lands.
+
 ## Completed Chinese refinement, Susan audition and Yun restoration — 2026-09-18
 
 The maker supplied a DeepSeek rendering as a second reference and ElevenLabs voice
