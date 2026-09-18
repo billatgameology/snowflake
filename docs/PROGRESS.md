@@ -6,6 +6,14 @@ true after every session that changes anything.** Rules: [AGENTS.md](../AGENTS.m
 2026-08-20): this index plus the active plans are the sole live state, and work proceeds in
 isolated worktrees per Rule 16.
 
+## Active media export — 2026-09-17
+
+The maker requests twice-speed series opening growth and one home → continuous entry → E01 MP4.
+The [bounded export plan](plans/science-series-home-e01-export.md) governs the implementation in
+the retained website worktree. Current Mandarin narration and landscape export are the stated
+working choices. No source words, recordings, old film, solver or scientific gate will change.
+Next: implement and prototype the fixed-frame compositor, then render and review the full file.
+
 ## Historical record
 
 The complete pre-compaction state and chronology through 2026-08-02 (Phases 0–5 and early
