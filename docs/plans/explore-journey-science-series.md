@@ -877,6 +877,37 @@ Spoken sources and both language recordings are unchanged; no synthesis or new M
 The canonical design guide carries the clutter critique and bounded scene-9 praise. Next:
 maker viewing and general-adult teach-back, not another speculative production pass.
 
+## Opening inspection and E01 follow-up — 2026-09-17, planned before implementation
+
+The maker asks to remove the opening's production sentence and scene 1's model badge,
+replace the large snowfall glyphs with inspectable recorded crystals, clarify scene 3's
+droplet/air image, and make the closing sentence a next-episode hook. Keep provenance in
+accessible Sources: this moves disclosure, not model status or a scientific claim.
+
+1. Preserve the praised Run B → Hero1 transition. Add a bounded series-only selection of
+   recorded crystals using the opening's existing volume-rendering style. Hover enlarges;
+   tap/keyboard also opens; drag rotates and bounded controls/wheel zoom. Keep ordinary
+   scrolling outside the inspector, useful loading/failure states, and release when closed
+   or offscreen. Do not replace the decorative weather field with a physical snow model.
+2. Remove the two named on-stage notes; leave source/model limitations available in Sources.
+   Do not remove scientific conditions or change standalone Hero1 defaults.
+3. Keep one identified small droplet: diameter first, then labelled upward resistance below
+   the descending drop, then rising airflow that can keep it suspended. Distinguish airflow
+   strokes from vapour dots; retain labels on narrow screens and a meaningful Still pose.
+4. Replace only the English closing paragraph with a forward hook and refresh the final
+   Juniper take under standing maker direction. Reuse exact matching earlier takes, preserve
+   prior masters, and retime the final visual cues. This remains the English-only editorial
+   pass: retain Mandarin words/audio and explicitly bind a clock-only semantic remap to the
+   new English timing, without pretending the new wording was spoken in Chinese.
+5. Use focused product/timing checks, TypeScript/build, full audio decode/source checks and
+   sampled desktop/narrow browser inspection of hover/rotation/zoom, the droplet beat, end
+   hook and language continuity. Record actual coverage and remaining listening limits.
+
+Done when all five requested changes work together on the existing page, the changed English
+speech matches its transcript and visuals, and retained content/audio remain intact. Root owns
+website/browser edits; bounded delegated reviews are read-only. No solver, new episode, export,
+publication, dependency replacement or deletion. Update the existing guide with reusable lessons.
+
 ## Tried and rejected
 
 - **Show the whole explanation, then narrate over it.** The maker praises the latest scene 9

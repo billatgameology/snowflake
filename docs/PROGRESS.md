@@ -6,6 +6,14 @@ true after every session that changes anything.** Rules: [AGENTS.md](../AGENTS.m
 2026-08-20): this index plus the active plans are the sole live state, and work proceeds in
 isolated worktrees per Rule 16.
 
+## Active opening inspection and E01 follow-up — 2026-09-17
+
+The maker's latest screenshot requests real inspectable snowfall crystals, removal of two
+on-stage notes, a labelled droplet/air explanation and a next-episode closing hook. The
+[bounded amendment](plans/explore-journey-science-series.md#opening-inspection-and-e01-follow-up--2026-09-17-planned-before-implementation)
+governs work in the retained website checkout. Implementation and the English final-take
+refresh are next; prior film, Mandarin recordings and completed export stay preserved.
+
 ## Completed English E01 attention revision — 2026-09-17
 
 The maker requests a sweeping declutter/progressive-reveal pass after the scene-7 screenshot,
@@ -798,6 +806,14 @@ the package-specific prerequisites in its charter amendment and execution plan. 
 0043–0044's Phase 7 deferrals remain authoritative and cannot be discharged by Phase 10.
 
 ## Next step
+
+### Opening inspection and E01 follow-up — implement
+
+Read the [bounded amendment](plans/explore-journey-science-series.md#opening-inspection-and-e01-follow-up--2026-09-17-planned-before-implementation).
+In the retained website checkout, start with `RunBHero.tsx`, `SnowMarkers.tsx`,
+`EpisodeTwoVisual.tsx` and scene 3's `earlyEpisodeDrawing.ts`. Reuse actual recorded models,
+not glyphs. Refresh only the changed English final section in a new revision and explicitly
+remap the retained Mandarin clock; do not overwrite existing audio or export files.
 
 ### English E01 attention pass — ready for maker viewing
 
