@@ -1,6 +1,6 @@
 # Plan — same-page English / 中文 series
 
-- **Status:** translation refinement and Susan-voice Mandarin re-production in progress (2026-09-18); fluent listening/understanding review remains
+- **Status:** translation refinement and Susan-voice Mandarin re-production complete (2026-09-18); fluent listening/understanding review remains
 - **Started:** 2026-09-17
 - **Scope:** existing Simplified Chinese series; Mandarin voice `4AfodMgwXps9oZFhHzoj` (2026-09-17 revisions, retained) superseded by maker-supplied `0H4ruoQ81Ei2FCwjW5j1` (2026-09-18 amendment below)
 - **Parent:** [series plan](explore-journey-science-series.md), [episode design guide](../video/science-series-design-guide.md)
@@ -173,6 +173,26 @@ audience comprehension, E02 release, export, deployment, push, or any English na
 
 Out of scope: English text/audio, solver, scientific gates, E02 release hold, export, publication.
 
+## Execution and verification — 2026-09-18
+
+Website `explore/film-part1@e3bfbb4` implements the amendment. Authority assets
+`docs/video/science-series-e01-zh-CN.json` and `science-series-e02-zh-CN.json` carry the refined text with
+the current English import digests (E01 no longer needs an editorial variation); website copies are
+byte-identical. Cue files live inside the new revision directories
+(`docs/series-narration/2026-09-18-e01-mandarin-susan/cues-early.json`, `cues-late.json`,
+`…e02-mandarin-susan/cues.json`); the 2026-09-17 cue files and revisions are untouched history.
+
+The [review](../reviews/science-series-mandarin-susan-2026-09-18.md) records the translation decisions,
+the paced masters (E01 1360.3771201814059 s, SHA-256
+`ba44db1195822940a042cdb677127728cba580fd2ff56355e6add347f6277d46`; E02 918.683514739229 s,
+`9cbcc8cc7fd26b0b7a919e7d98e02fedf4904e3dba189b18311e15cd2b1eecaf`), the rerun independent audits, the
+ASR spot-check, **97 focused passes, zero failures**, TypeScript/build success, sampled desktop and phone
+live checks, and a loudness observation (Susan about 4 LU above the English masters; no gain change made).
+No English text, audio, solver, gate, export or publication changed; E02 remains unreleased.
+
+Next: maker listens in 中文 on the existing E01 page and judges Susan's delivery and the refined wording;
+decide whether to match Mandarin loudness to English. Human listening and audience comprehension stay open.
+
 ## Tried and rejected
 
 - Matching languages by elapsed seconds: translations have different durations. Shared
@@ -188,3 +208,10 @@ Out of scope: English text/audio, solver, scientific gates, E02 release hold, ex
 - Prioritizing PCM cut points over spoken onsets when one performance has no natural gap:
   delayed some E02 answer reveals. Preserve actual cue onsets; record collapsed lower-priority
   endpoints and test the entire thinking interval through actual answer release.
+- **Reading prediction anchors from a fixed top-level cue path in tests.** The live score names its own
+  semantic sources; a revision-specific cue file made the fixed path read superseded `answerZh` strings and
+  fail against correct audio. Tests now read the sources the score pins.
+- **Overwriting the shared top-level cue files for a new revision.** The retained 2026-09-17 scores pin
+  those bytes; new revisions keep their cue files inside their own directories and pass `--cues=`.
+- **Waiting for Playwright network idle on the episode page.** Streaming narration never idles; wait for the
+  language toggle instead.
