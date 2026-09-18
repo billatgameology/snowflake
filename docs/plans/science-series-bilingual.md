@@ -1,8 +1,8 @@
 # Plan — same-page English / 中文 series
 
-- **Status:** text, Mandarin production and semantic switching complete; fluent listening/understanding review remains
+- **Status:** translation refinement and Susan-voice Mandarin re-production in progress (2026-09-18); fluent listening/understanding review remains
 - **Started:** 2026-09-17
-- **Scope:** existing Simplified Chinese series plus maker-authorized Mandarin voice `4AfodMgwXps9oZFhHzoj`
+- **Scope:** existing Simplified Chinese series; Mandarin voice `4AfodMgwXps9oZFhHzoj` (2026-09-17 revisions, retained) superseded by maker-supplied `0H4ruoQ81Ei2FCwjW5j1` (2026-09-18 amendment below)
 - **Parent:** [series plan](explore-journey-science-series.md), [episode design guide](../video/science-series-design-guide.md)
 - **Baselines:** authority `696dad8`; website `5fcd95a` on the retained `explore/film-part1` worktree
 
@@ -122,6 +122,56 @@ Next: maker listens in 中文 on the same episode links and gives pronunciation/
 comprehension feedback. The review names the uncertain machine-transcription checkpoints;
 no fluent-listener or audience acceptance is claimed. Refresh affected authorized-language
 takes when their spoken text changes; never leave a stale recording against rewritten words.
+
+## Translation refinement and Susan voice amendment — 2026-09-18 (planned before implementation)
+
+The maker supplied an independent DeepSeek rendering of the E01/E02 page text as a second
+reference and asked for a closer, more natural Simplified Chinese version by editorial judgment,
+then asked to change the Mandarin narration to ElevenLabs voice `0H4ruoQ81Ei2FCwjW5j1`. Library
+metadata for that ID (read through the shared-voice search, not the account library) is
+"Susan - Warm Narrator": Mandarin (`cmn-CN`, Beijing), professional narration category. It is not
+yet in the account library. Baselines: authority `8df2b44`, website `d7eb937`.
+
+Both requests converge: rewritten spoken Chinese words require fresh Mandarin takes under the
+standing refresh direction, and the new voice replaces the voice for every take, so no 2026-09-17
+Mandarin take is reusable. E02 stays unreleased (`EPISODE_TWO_RELEASED = false`) but its retained
+translation and narration are refreshed together, so no stale recording plays against rewritten words
+if it is released later.
+
+1. Author the refined E01/E02 Chinese at bilingual phrase-anchor granularity: every paragraph is the
+   exact concatenation of its cue pairs, so the semantic clock sources and the spoken text cannot
+   drift apart. Keep section IDs, paragraph counts, source lists, names, symbols, numbers and every
+   scientific qualifier; improve rhythm and idiom, using the DeepSeek text where it is more natural
+   and rejecting it where it is literal, wrong (`水晶`, `利布布雷希特`) or drops a qualifier.
+   E01-11's closing paragraph now translates the current English ending, so the new E01 clock binds
+   the current English import directly; the retained `2026-09-17-e01-hook/english-variation.json`
+   stays as history for the retained 2026-09-17 revision only. Update status fields, and only those
+   reader/UI/diagram strings that read awkwardly. Validate anchors (ordered, unique, full coverage,
+   prediction answers present) before any paid request.
+2. Add the shared voice to the account library (ElevenLabs requires this before synthesis; it is
+   the maker's explicit voice choice, reversible, and not a voice-library edit of any other voice).
+   Give the generator an explicit Mandarin voice option defaulting to the new ID, then synthesize one
+   source-bound take per section for both episodes into new immutable revisions
+   `2026-09-18-e01-mandarin-susan` and `2026-09-18-e02-mandarin-susan` with the same model and
+   settings, one paid request per take, no automatic retry of an uncertain outcome. Prior Mandarin
+   revisions, masters and scores remain retained and untouched.
+3. Give the pacing script a revision option, pace both episodes (E01 three holds, E02 four holds,
+   unchanged breath/join lengths) and rebuild the semantic clocks from the new cue files and
+   `answerZh` anchors. The live website scores point at the new revisions.
+4. Update the voice pin and variation-contract tests, website copies of the three Chinese assets,
+   Chinese status/disclosure text and the website production doc. Run the focused series tests,
+   TypeScript/production build, the retained independent audio/pace/semantic audit scripts
+   parameterized for the new revisions, a bounded offline ASR spot-check, and sampled live
+   playback/toggle checks on the existing preview at `http://127.0.0.1:5185`.
+5. Record the result: authority review, this plan's execution record, `docs/PROGRESS.md`, the
+   design guide's Mandarin voice line and the next-session prompt; scoped commits per repository.
+
+Done when both episodes play the refined Chinese text with Susan-voice Mandarin from the same-page
+toggle at the corresponding story position, focused tests and build pass, prior audio and English
+assets are preserved, and the records above are updated. Not claimed: fluent-listener acceptance,
+audience comprehension, E02 release, export, deployment, push, or any English narration change.
+
+Out of scope: English text/audio, solver, scientific gates, E02 release hold, export, publication.
 
 ## Tried and rejected
 
