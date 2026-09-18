@@ -19,6 +19,14 @@ detail.
 
 ## Current state
 
+- **Episode 1 maker playback repair in progress (2026-09-17).** The
+  [active series plan](plans/explore-journey-science-series.md#maker-playback-repair--2026-09-17-planned-before-implementation)
+  now covers guided-reading reversals, Libbrecht's introduction, and scene 6/9 comprehension
+  and visual changes. Every English rewrite now includes matching English narration under
+  maker authorization; Mandarin voice generation remains deferred. Next: implement reviewed
+  source/animation changes and correct paragraph ownership, then synthesize changed takes
+  and verify playback. The previous bilingual implementation remains the starting baseline.
+
 - **Same-page Chinese text complete (2026-09-17).** Website `explore/film-part1@e37bf80`
   adds one **English / 中文** toggle to the existing series home/E01/E02, with translated
   reader, controls and diagram labels. Same URL and story position are retained; English

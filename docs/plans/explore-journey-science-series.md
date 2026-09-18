@@ -780,6 +780,36 @@ Documentation verification: `node scripts/lint-rule7.mjs` and `git diff --check`
 brief and its transcript, supersession and current-state updates. No code, browser, render,
 audio-generation or scientific checks were run for this prose-only rework.
 
+### Maker playback repair — 2026-09-17 (planned before implementation)
+
+The latest maker review requests smooth downward English reading, an introduction to
+Kenneth Libbrecht, and clearer, more active scenes 6 and 9. It also authorizes a standing
+workflow change: every subsequent English script rewrite includes matching English audio.
+This supersedes earlier no-resynthesis defaults for changed narration only. Mandarin audio
+still waits for its own voice ID; Chinese text must follow the revised English content.
+
+Implementation sequence:
+
+1. Correct paragraph/caption ownership in guided scrolling; test actual audio metadata,
+   prediction holds, forward monotonicity and terminal continuity. Do not conceal malformed
+   anchors with a second browser smooth-scroll clock.
+2. Introduce Libbrecht on first mention. Rebuild scene 6 as visible controlled experiments
+   from the already-understood balanced ice, with immediate surface consequences.
+3. Rewrite scene 9 around identified reference and extra vapour. Exact percentages and their
+   derivation may move to the existing optional reader; never open with unexplained numbers.
+   Preserve the scoped equal-volume cold-supply comparison and its scientific limitations.
+4. Review source/visual beats, update Simplified Chinese, then generate affected English takes
+   with the requested Juniper voice. Retain old takes/masters; reuse unchanged takes only with
+   exact spoken-text/voice/settings checks and explicit provenance. Do not retry uncertain paid
+   calls automatically.
+5. Update the episode design guide with the maker's number-context and automatic English-audio
+   requirements. Verify focused product tests, typecheck/build, decoded audio/alignment and
+   sampled live desktop/narrow playback. Record what was actually inspected, not audience acceptance.
+
+Done when the revised words, visible actions, Chinese text and English sample agree; automatic
+reading does not reverse at paragraph boundaries; earlier film, home and E02 remain intact.
+No solver, evidence gate, Mandarin generation, new episode, publication or deployment is in scope.
+
 ## Open questions
 
 - Exact episode boundaries and lengths: resolve by drafting and watching, not a preset duration.
