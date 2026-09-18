@@ -19,6 +19,13 @@ detail.
 
 ## Current state
 
+- **Mandarin narration and seamless language switching in progress (2026-09-17).** Maker
+  supplied voice `4AfodMgwXps9oZFhHzoj`, authorizing production for the already translated E01/E02.
+  The [bilingual plan amendment](plans/science-series-bilingual.md#mandarin-production-amendment--2026-09-17)
+  now covers source-bound takes, semantic alignment and same-page audio switching. Preserve
+  current English source/audio and visuals. Next: generate Mandarin once per section, build
+  phrase-based clock mappings, then review switching, playback and audio identity.
+
 - **Episode 1 maker playback repair complete (2026-09-17).** The
   [active series plan](plans/explore-journey-science-series.md#maker-playback-repair--2026-09-17-planned-before-implementation)
   lands as website `explore/film-part1@9fd4a37`: source-owned forward reading, Libbrecht's introduction, controlled scene-6

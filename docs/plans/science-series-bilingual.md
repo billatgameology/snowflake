@@ -1,8 +1,8 @@
 # Plan — same-page English / 中文 series
 
-- **Status:** text translation and same-page toggle complete; Mandarin voice/timing deferred
+- **Status:** text complete; Mandarin production and semantic switching authorized, in progress
 - **Started:** 2026-09-17
-- **Scope:** maker-requested Simplified Chinese translation; Mandarin voice explicitly deferred
+- **Scope:** existing Simplified Chinese series plus maker-authorized Mandarin voice `4AfodMgwXps9oZFhHzoj`
 - **Parent:** [series plan](explore-journey-science-series.md), [episode design guide](../video/science-series-design-guide.md)
 - **Baselines:** authority `696dad8`; website `5fcd95a` on the retained `explore/film-part1` worktree
 
@@ -49,8 +49,39 @@ voice ID and production request. No new dependency is expected.
 
 ## Open questions
 
-Mandarin voice ID remains maker-supplied. A fluent audience listening/understanding review follows
-the eventual recorded performance; text review cannot establish spoken timing or delivery.
+A fluent audience listening/understanding review follows the recorded performance; text review
+and machine audio checks cannot establish subjective delivery or audience comprehension.
+
+## Mandarin production amendment — 2026-09-17
+
+The maker has now supplied `4AfodMgwXps9oZFhHzoj` for Mandarin. This lifts the earlier speech
+generation deferral for the two already translated episodes. Baselines: authority `4496d5d`,
+website `9fd4a37`. English recordings, the revised source/visuals, old film and home remain intact.
+
+1. Generate one source-bound Mandarin take per existing section from the reviewed Simplified
+   Chinese paragraphs, retaining requests, alignment, hashes and decoded samples. Use the
+   existing authorized ElevenLabs credential without logging it. New immutable language-specific
+   revision directories; one paid request per take and no automatic retry of an uncertain outcome.
+2. Retain shared section/paragraph IDs and author English/Chinese semantic phrase anchors.
+   Compose Mandarin with its own paragraph and prediction pauses; map its real aligned speech
+   to the retained English story clock. Never equate elapsed seconds or use a whole-episode
+   duration ratio. Visual cues and scroll position follow the shared story position.
+3. Upgrade the one existing English / 中文 toggle to select text and the corresponding audio.
+   Preserve current concept/progress, paused/playing state, speed, manual scrolling and prediction
+   pauses. Keep the same DOM, route and URL; pause old audio before new playback, invalidate stale
+   play promises, and handle not-yet-loaded or unavailable media without restarting or double sound.
+4. Update duration/disclosures for the selected language; retain English playback and sample
+   provenance. Review Mandarin pronunciation/meaning with bounded independent machine checks
+   where available, distinguish those from native-speaker listening acceptance.
+5. Verify semantic-map monotonicity and round trips, source/voice/audio identity, mode/race/error
+   behavior and both episode timelines with focused tests. Run TypeScript/production build and
+   standing-authorized live playback/toggle checks on desktop and narrow layouts. Update this
+   plan, PROGRESS and a production review with actual coverage and remaining listening limits.
+
+Done when both translated episodes play the requested Mandarin voice and the top toggle changes
+languages at the corresponding story position without resetting the episode, with verified cues
+and preserved English assets. No new episode, voice-library mutation, solver work, scientific
+gate, new language page, export, deployment, push or publication is authorized by this amendment.
 
 ## Execution and verification — 2026-09-17
 
