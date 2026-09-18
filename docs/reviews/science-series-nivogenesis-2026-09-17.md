@@ -69,3 +69,20 @@ The canonical design guide records the reusable sound/collection and lifecycle l
 Next: maker playback at `http://127.0.0.1:5185/series`, using **Play with sound**, then inspect
 the added crystals. Existing bilingual narration, original film and previous MP4 remain
 preserved. No new export or deployment was requested or performed.
+
+## Opening copy and Episode 2 release hold follow-up
+
+The subsequent maker request replaces the tagline with “Every flake is a record of its fall.”,
+removes All experiments, matches card sizes and withholds E02 behind Coming soon. Website
+`d7eb937` implements this without deleting E02 source or media. A single explicit release
+constant gates its home action, direct entry, mounting and E01 continuation; the direct E02
+URL remains a valid series/coming-soon entry. E02's recorded crystal catalog is still available
+to the opening. The new interface copy has Chinese equivalents, with no spoken-word changes.
+
+Website `docs/series-release-hold-verification.json` records the exact focused commands,
+31 passes/zero failures, successful TypeScript/build and sampled browser observations. Both
+cards had equal bounds in default English and phone-width English/Chinese; no horizontal
+overflow was observed. Home and both direct episode URLs had no E02 DOM/audio/continuation;
+E01's existing narration still played. The independent entry-point audit was read-only; root
+performed implementation and UI inspection. Next remains maker viewing, with E02 intentionally
+unreleased. No audio regeneration or new export was performed.

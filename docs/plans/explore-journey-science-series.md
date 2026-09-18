@@ -978,6 +978,16 @@ No narration rewrite/generation, content deletion, new export, deployment or sci
 Done means E01 remains playable, E02 is withheld from these routes, both cards match, and the
 new copy is visible. Record the result in the current index; no new production plan is needed.
 
+Implemented in website `d7eb937`. `EPISODE_TWO_RELEASED=false` gates the home action, direct
+entry, mounted episode and E01 continuation while retaining all production files. Cards use
+shared structure/equal grid rows; the tagline and Coming soon status have Chinese display
+copies. Website `docs/series-release-hold-verification.json` records 31 focused passes, zero
+failures, successful TypeScript/build, equal measured card bounds on default and phone layouts,
+absent E02 DOM/audio at every series route, and existing English E01 playback. Read-only
+non-author audit identified the complete entry surface before implementation. Next: maker
+viewing of the same series page; release E02 only on explicit maker direction. No narration,
+original film, export, source content or scientific contract changed.
+
 ## Tried and rejected
 
 - **Mute audio while waiting for slow visual loading.** Playback still consumes the file and

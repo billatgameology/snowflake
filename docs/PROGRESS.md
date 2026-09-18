@@ -8,11 +8,15 @@ isolated worktrees per Rule 16.
 
 ## Completed Nivogenesis opening update — 2026-09-17
 
-**Active follow-up:** the maker requests removal of All experiments, the new tagline
+**Completed follow-up:** the maker requests removal of All experiments, the new tagline
 “Every flake is a record of its fall.”, matching cards and an E02 Coming soon release hold.
 The [bounded amendment](plans/explore-journey-science-series.md#opening-copy-and-episode-2-release-hold--planned-2026-09-17)
-preserves E02 source/assets while hiding its content and entry actions. Next: implement the
-release gate and matching layout, then check the existing page and direct E02 URL.
+preserves E02 source/assets while hiding its content and entry actions. Website `d7eb937`
+implements the release gate, matching cards and localized tagline. Website
+`docs/series-release-hold-verification.json` records 31 focused passes, zero failures,
+TypeScript/build success, equal card bounds on default/phone layouts, no E02 content/audio at
+the series and direct episode URLs, and retained E01 playback. Next: maker viewing of `/series`;
+E02 remains unreleased until explicitly requested. Its recordings still supply opening models.
 
 The maker requests the Nivogenesis series name, removal of the top original-film link, three
 additional E02 recordings in the opening and original sound design. The
@@ -849,6 +853,10 @@ capped column and sectored plate. For a concrete follow-up, start in website
 run `node --test scripts/series-opening-sound.test.mjs`. Preserve the explicit opt-in,
 pending-play cancellation and pre-narration stop. Human audition remains the next useful check;
 do not regenerate narration or the previous MP4 without a new request.
+The latest opening has no experiment links and says “Every flake is a record of its fall.”
+E02's matching card says Coming soon; `src/series/seriesRelease.ts` deliberately keeps it
+unmounted on all series routes and removes E01 continuation. Preserve this release hold until
+the maker asks to expose it; do not mistake preserved E02 source/assets for a live release.
 
 ### Opening inspection and E01 follow-up — ready for maker viewing
 
