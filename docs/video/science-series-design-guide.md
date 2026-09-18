@@ -1,7 +1,7 @@
 # Science series — maker's critique and episode design guide
 
 Captured 2026-09-16 from the maker's feedback; updated 2026-09-17 with the conversational E01
-production lessons and the subsequent introduction, visual-flow and comparison feedback.
+production lessons and the subsequent introduction, visual-flow, comparison and visual-clutter feedback.
 This is the reusable editorial/design guide for
 the [active series plan](../plans/explore-journey-science-series.md), not a scientific gate.
 The [E01 visual guide](science-series-e01-visual-guide.md) holds that episode's shot history.
@@ -126,12 +126,41 @@ The [current script](science-series-e01-comprehension-draft.md) responds by givi
 a relevant one-sentence introduction, rebuilding R06 as visible controlled comparisons, and
 keeping R09 on the actual extra-vapour amounts in equal-volume −15/−40 °C reference samples.
 All percentages and their calculation remain in the optional reader. This is a requested
-revision, not a claim that a fresh viewer has accepted the result.
+revision; later maker praise below specifically accepts its sequential visual construction,
+not proof of a fresh viewer's understanding of every comparison.
 
 Carry forward three lessons: introduce a cited person by why their work matters; establish
 what is being compared before displaying its numbers; and make each causal step visible as
 it is spoken. Adding friendlier words to an unchanged image does not resolve a visual-flow
 problem. The exact cold pair is an E01 example, not a rule to repeat in future episodes.
+
+### Follow-up: attention, clutter and the praised scene-9 build-up
+
+The maker's later English scene-7 screenshot shows chapter navigation, Sources and Still,
+a chapter eyebrow and title, a second diagram heading, a quantity plus qualification, local
+labels, a net-flow sentence and a long model disclaimer competing in a narrow frame. The maker
+says there are “way to many titles and words that are not helpful” throughout the episode and
+requests a Menu for the secondary tools. This is an attention/hierarchy critique, not a request
+to make every label smaller or strip away the identities they previously asked us to explain.
+
+The maker explicitly praises revised scene 9 because “you don't show everything at once” and
+“you show items one at a time as you explain, and build up the scene”. Carry forward the method:
+reference first, change next, comparison once both operands mean something. The praise applies
+to that construction, not automatic acceptance of all science, timing or audience comprehension.
+
+The resulting English E01 pass keeps the spoken script and audio, moves secondary controls and
+full production notes into Menu → Sources, and makes detail arrival depend on the existing
+spoken cues. Shared display labels retain Chinese equivalents to avoid breaking the existing
+toggle; this pass does not rewrite either performed language or synthesize narration.
+The [attention-pass review](../reviews/science-series-e01-attention-2026-09-17.md) owns the
+actual verification and its limits. These implemented responses are not new maker praise.
+
+For each beat, decide three things: **what enters now, what remains as a useful reference,
+and what can retire**. Keep the object stable when its context changes. A selected drop can
+lead to a magnifier; a plain box can lead to wall impacts, then water's contribution, then a
+pressure indicator. Do not introduce all four explanations at entry and merely highlight them
+later. A comparison overview can still be useful—the earlier four-panel overview was praised—
+but unvisited panels need not already display every result name or mechanism annotation.
 
 ## What to carry forward from the praise
 
@@ -156,6 +185,10 @@ continuity was requested separately. Copy this explanatory grammar, not a blue s
 **Grid and player: keep the useful structure.** The maker liked the category overview and
 scroll/play format while asking for focus, continuity and deeper content. Repair the weak
 attention/story layer without unnecessarily rebuilding the structure that already helps.
+
+**Revised scene 9: understanding accumulates.** The later praise singles out how the picture
+is built in time. Copy the reference → change → result sequence, not its specific dots, boxes
+or temperatures. This supports the design direction, not a new universal scene template.
 
 ## Requirements for subsequent episodes
 
@@ -314,6 +347,19 @@ joined it. Simplifying the vocabulary must not simplify away the mechanism or it
     inspect lighting/facets/depth in motion, and remove distracting artifacts. Put essential
     labels/numbers in quiet, high-contrast space. Check narrow layouts without squeezing all
     annotations into the image. Attractive rendering must not mask identity or imply validation.
+    The animation is not a slide deck: do not stack the chapter title, a subsection title,
+    an action heading and a full-sentence explanation of the same event. Put chapter navigation,
+    sources and Still in an accessible secondary menu; leave core playback reachable. Keep
+    chapter titles in the reader/navigation. On the stage use at most one current-beat heading
+    when it helps, and prefer direct object labels/pointing to repeated headlines.
+    A useful label identifies an otherwise ambiguous object, condition, quantity or change.
+    Introduce it when it becomes relevant; retain it only while it helps decode the image.
+    Remove a redundant label rather than shrinking it or dimming it into illegibility.
+    Move generic repeated production caveats into Sources; keep model identity and validation
+    status tied to the renderer actually displayed, and keep inference-critical qualifiers
+    locally at the relevant beat (approximate example, held prediction, fixed temperature,
+    equal volume/dot unit, externally controlled vapour, or altered model thickness).
+    Accessible detail is not permission to omit the condition that makes the visible claim true.
 11. **Continuous experience with reader control.** Preserve filmic entry and transitions,
     user-initiated narration, and immediate manual takeover. Use the same explanatory states
     for audio time and reversible reading. Still/reduced motion retains the idea, reference
@@ -339,6 +385,7 @@ A scene can have several conceptual beats. Group sentences that share one visibl
 | Beat / spoken cue | Exact script phrase; provisional timing replaced by actual narration alignment; local inspection/prediction hold and answer-release cue where needed. |
 | Subject / focus / scale | What to look at; how it is identified and selected; parent object if magnified. |
 | Before → action → after | Visible input change, observable response, fixed reference, result held for inspection; what the motion means and does not mean. |
+| Attention and disclosure | What enters now, what remains as reference, what retires; which local labels are necessary and which headings/details belong in the reader or Menu → Sources. |
 | Visual choice | Asset identity and growth interval; renderer/camera; reuse, adaptation or new diagram; model/schematic/source status. |
 | Connection | Which object/state survives the preceding and following shot; explicit reset/example change if any. |
 | Reading alternatives | Essential labels and description; phone composition; Still/discrete pose preserving the argument. |
@@ -421,6 +468,8 @@ that playback comprehension was not assessed. For the viewing pass, ask in viewe
 - Do the labels/numbers mean something now, or am I only seeing that they differ?
 - Is this the same object at another scale, or did the subject silently change?
 - What new understanding or worthwhile observation makes this passage earn its time?
+- Is the next idea already fully drawn before its explanation? What can arrive later without
+  losing the reference needed for comparison? Which text repeats something already clear?
 
 Then replay only the suspect beat: inspect focus, before/action/after, transitions, a narrow
 viewport, reverse seek and Still. Check the source where the image can change the scientific
@@ -459,6 +508,10 @@ marks final-audio checks pending rather than inventing speech or claiming a comp
   prediction/answer timing and continuity. Check actual desktop and narrow-browser compositions,
   including labels, counters and space left around moving boundaries; geometry tests alone
   do not establish readability. Name sampled coverage separately from a complete viewing.
+  Inspect the actual visible frame, not just the strings emitted by a drawing function:
+  a correctly named label at zero opacity still fails. Check that a model badge disappears
+  when the diagram fallback is shown. Include a narrow-frame text-stack check and verify that
+  the result or next technical term is not exposed before the relevant spoken cue.
 - **Audio and matching:** decode the delivered file and check source coverage, duration,
   joins/pauses and clipping. Verify that the browser loads that exact master and that important
   phrases coincide with the intended visible action. State whether anyone actually listened;
@@ -467,6 +520,9 @@ marks final-audio checks pending rather than inventing speech or claiming a comp
   reduced motion, loading/buffering/error behavior, natural end and exclusive playback across
   home/episodes. Describe which wheel, keyboard, touch and device paths were exercised;
   a phone-sized viewport is not a physical-phone test. Preserve earlier content.
+  Secondary menus must not move reader geometry or restart playback. Test Escape, backwards
+  Tab from the first control, outside dismissal, chapter selection and focus return without
+  scrolling; closing a paused menu does not silently resume narration.
 - **Current-build checks:** cold-reload after drawing edits before the final browser verdict;
   hot reload can retain a stale canvas callback. Record a fresh error-observation window and
   separate existing limitations from new failures. Use focused product checks for product-only
@@ -526,6 +582,7 @@ and link the latest episode review; do not copy a growing chronology into every 
 
 Prepared and updated by the root OpenAI Codex agent from the available maker messages and linked
 records. Shared-context read-only story review checked the original synthesis and this update;
-exact model identity was unavailable. This documentation update adds no browser inspection,
-code change, audio generation or audience test. The linked production review owns those earlier
-observations and limits; a future episode must earn its own review.
+exact model identity was unavailable. The initial documentation-only synthesis added no browser
+inspection or audience test. The later attention-pass review separately records code changes
+and sampled visual inspection; no audience test or new audio generation follows from this guide.
+A future episode must earn its own review.

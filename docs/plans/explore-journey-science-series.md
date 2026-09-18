@@ -865,6 +865,18 @@ provenance remains reachable, existing clocks/assets are preserved, the guide is
 the checked/unchecked surfaces are recorded. No full scientific suite, new episode, export,
 deployment or deletion is part of this request.
 
+### Execution and review
+
+Complete in website `explore/film-part1@4d7cc52`. The
+[attention review](../reviews/science-series-e01-attention-2026-09-17.md) records per-section
+changes, bounded non-author reviews, repairs and browser sampling. Website
+`docs/series-e01-attention-tests.txt` records 61 passes and zero failures;
+`docs/series-e01-attention-build.json` records the build/typecheck pass;
+`docs/series-e01-attention-browser.json` names observed layouts, playback/menu checks and limits.
+Spoken sources and both language recordings are unchanged; no synthesis or new MP4 render.
+The canonical design guide carries the clutter critique and bounded scene-9 praise. Next:
+maker viewing and general-adult teach-back, not another speculative production pass.
+
 ## Tried and rejected
 
 - **Show the whole explanation, then narrate over it.** The maker praises the latest scene 9

@@ -6,15 +6,21 @@ true after every session that changes anything.** Rules: [AGENTS.md](../AGENTS.m
 2026-08-20): this index plus the active plans are the sole live state, and work proceeds in
 isolated worktrees per Rule 16.
 
-## Active English E01 attention revision — 2026-09-17
+## Completed English E01 attention revision — 2026-09-17
 
 The maker requests a sweeping declutter/progressive-reveal pass after the scene-7 screenshot,
 with chapter navigation/Sources/Still behind one Menu and the scene-9 build-up used as the
 reference. The [series plan amendment](plans/explore-journey-science-series.md#english-e01-attention-pass--2026-09-17-planned-before-implementation)
-governs website work and the canonical design-guide update. Current source words/audio,
-Chinese assets, E02, previous film and completed MP4 are preserved unless a necessary English
-spoken rewrite requires its matching recording. Next: implement the Menu and remove redundant
-stage text, then audit and revise all eleven scene compositions against actual phrase cues.
+governs website work and the canonical design-guide update. The Menu, reduced stage text and
+all-section attention pass are implemented; spoken source and recordings remain unchanged.
+Shared display labels retain Chinese equivalents, while the prior film, E02 and completed MP4
+are preserved. The canonical guide now records the clutter critique and bounded scene-9 praise.
+Website `explore/film-part1@4d7cc52` contains the revision. The
+[review](reviews/science-series-e01-attention-2026-09-17.md) records the per-section pass,
+bounded non-author findings and repairs, and sampled narrow/desktop interaction checks.
+Website `docs/series-e01-attention-tests.txt` records 61 passes, zero failures;
+`docs/series-e01-attention-build.json` records build/typecheck success. This is ready for maker
+viewing, not audience acceptance. Next: review the existing E01 page; no new audio or MP4 needed.
 
 ## Completed media export — 2026-09-17
 
@@ -792,6 +798,17 @@ the package-specific prerequisites in its charter amendment and execution plan. 
 0043–0044's Phase 7 deferrals remain authoritative and cannot be discharged by Phase 10.
 
 ## Next step
+
+### English E01 attention pass — ready for maker viewing
+
+Open the [series amendment](plans/explore-journey-science-series.md#english-e01-attention-pass--2026-09-17-planned-before-implementation).
+The retained website has the Menu and progressive, decluttered scenes. Open the
+[attention review](reviews/science-series-e01-attention-2026-09-17.md), then
+`http://127.0.0.1:5185/series/episode-1` in English: review the scene-7 budget, scene-4 magnifier
+entrance and the separate ending feature reveals. Focused tests/build and sampled live checks
+are recorded; no complete uninterrupted viewing or audience comprehension is claimed.
+Do not regenerate audio: the spoken script is unchanged. Preserve the existing Mandarin
+export; this web revision is not a new MP4 request. Address subsequent concrete feedback.
 
 ### Home → E01 MP4 — ready to watch
 
