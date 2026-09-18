@@ -908,7 +908,23 @@ speech matches its transcript and visuals, and retained content/audio remain int
 website/browser edits; bounded delegated reviews are read-only. No solver, new episode, export,
 publication, dependency replacement or deletion. Update the existing guide with reusable lessons.
 
+Implemented in website `explore/film-part1@725c69c`. The
+[follow-up review](../reviews/science-series-e01-opening-followup-2026-09-17.md) records the
+bounded independent reviews, fixes, sampled browser checks and listening limits. Website
+`docs/series-opening-verification.json` records 64 focused passes and zero failures plus
+TypeScript/build success. English revision `2026-09-17-e01-hook` replaces only the final take;
+Mandarin keeps its performed words/bytes with a registered clock-only variation. The guide is
+updated. Ready for maker viewing; no new MP4 or audience acceptance claimed.
+
 ## Tried and rejected
+
+- **Static exact-rendered canvas without a retained drawing buffer.** Browser enlargement
+  could leave the model blank after compositing/resizing. Retain its draw; do not substitute
+  a procedural glyph or restart a continuous expensive render loop.
+- **Raise the whole opening layer to put the inspector over the title.** Its opaque background
+  hid the title too. Raise only the recorded-marker layer.
+- **Declare zero mounted loading markers ready for capture.** IntersectionObserver may not yet
+  have mounted any. Compare actual ready markers to an explicit expected visible-layer count.
 
 - **Show the whole explanation, then narrate over it.** The maker praises the latest scene 9
   because it builds the picture as ideas arrive. Repeated titles and full production caveats

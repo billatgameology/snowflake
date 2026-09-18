@@ -259,7 +259,7 @@ But look at what was built. Flat faces. Six main directions. Branching arms. We'
 
 There was no drawing of those branches inside the seed. No one carved them out of a larger lump. They appeared as new water joined the ice. To understand why, we'll need to look inside the solid—and then at how its different surfaces grow.
 
-First, let's start with the number that keeps coming back. Why six?
+Next episode, we're going inside the ice. What could a flat plate and a branching star have in common? Why six?
 
 ### Direction and understanding check
 

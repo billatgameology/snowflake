@@ -1,7 +1,8 @@
 # Science series — maker's critique and episode design guide
 
 Captured 2026-09-16 from the maker's feedback; updated 2026-09-17 with the conversational E01
-production lessons and the subsequent introduction, visual-flow, comparison and visual-clutter feedback.
+production lessons and the subsequent introduction, visual-flow, comparison, visual-clutter,
+real-model inspection and closing-hook feedback.
 This is the reusable editorial/design guide for
 the [active series plan](../plans/explore-journey-science-series.md), not a scientific gate.
 The [E01 visual guide](science-series-e01-visual-guide.md) holds that episode's shot history.
@@ -161,6 +162,34 @@ lead to a magnifier; a plain box can lead to wall impacts, then water's contribu
 pressure indicator. Do not introduce all four explanations at entry and merely highlight them
 later. A comparison overview can still be useful—the earlier four-panel overview was praised—
 but unvisited panels need not already display every result name or mechanism annotation.
+
+### Follow-up: meaningful labels, real inspection and an actual ending hook
+
+The maker's next screenshot identifies an unlabeled upward arrow beside a large droplet.
+Keep the diameter visible first. When explaining air resistance, place the upward indication
+below the falling drop and name its effect: it slows the fall. Then show rising air separately,
+which can keep a small drop suspended. Grey airflow strokes must not be mistaken for the
+white water-vapour tracers. This is a direction/referent/sequence problem, not a demand for more
+text everywhere; a small screen must retain the essential label.
+
+The maker also requests removal of the opening production sentence and scene-1 model badge.
+Those particular on-stage notes move to accessible Sources; model status has not changed.
+Do not generalize this into removing conditions necessary to understand a comparison.
+
+An inspectable snowfall flake should be an actual project recording in the established ice
+renderer, not a decorative glyph revealed at larger size. Preserve its identity and camera
+through the opening handover. Hover may enlarge it, but click/touch/keyboard must also work;
+rotation, bounded zoom, reset and dismissal must not hijack ordinary page scrolling. Test
+loading, redraw after enlargement, offscreen release and phone-sized framing. Keep decorative
+weather separate from any claim of physical prediction.
+
+The final line should leave a specific unanswered question that belongs to the next episode,
+not sound like restarting this one. The E01 revision says “Next episode, we're going inside
+the ice,” then asks what a flat plate and branching star have in common, ending with “Why six?”
+Refresh the changed narration and its visual cues together. These are implemented responses
+to the maker's requests, not yet new praise or comprehension evidence. The
+[follow-up review](../reviews/science-series-e01-opening-followup-2026-09-17.md) records verification
+and remaining limits.
 
 ## What to carry forward from the praise
 
@@ -356,7 +385,9 @@ joined it. Simplifying the vocabulary must not simplify away the mechanism or it
     Introduce it when it becomes relevant; retain it only while it helps decode the image.
     Remove a redundant label rather than shrinking it or dimming it into illegibility.
     Move generic repeated production caveats into Sources; keep model identity and validation
-    status tied to the renderer actually displayed, and keep inference-critical qualifiers
+    status tied to the renderer actually displayed in those accessible details. A persistent
+    on-stage badge is not mandatory (the maker explicitly removes E01's first-scene badge).
+    Keep inference-critical qualifiers
     locally at the relevant beat (approximate example, held prediction, fixed temperature,
     equal volume/dot unit, externally controlled vapour, or altered model thickness).
     Accessible detail is not permission to omit the condition that makes the visible claim true.
@@ -546,7 +577,8 @@ accepted fixes):
 
 - “there are hundreds of crystal animations” and the three-across comparison used only one
   model: inspect the existing library first. Use actual recorded examples when comparing crystal
-  appearances; label their model status, camera scale and any geometric exaggeration. A drawing
+  appearances; retain their model status and rendering recipe in Sources, with camera scale or
+  geometric exaggeration local when needed to interpret the visible comparison. A drawing
   remains useful for a mechanism, but is not a substitute for the available crystal imagery.
 - “mere history lesson” and the qualified value of X-rays: names and dates are optional. Keep a
   historical method when it answers a live question, such as how invisible spacing is measured.

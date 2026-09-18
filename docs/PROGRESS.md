@@ -6,13 +6,20 @@ true after every session that changes anything.** Rules: [AGENTS.md](../AGENTS.m
 2026-08-20): this index plus the active plans are the sole live state, and work proceeds in
 isolated worktrees per Rule 16.
 
-## Active opening inspection and E01 follow-up — 2026-09-17
+## Completed opening inspection and E01 follow-up — 2026-09-17
 
 The maker's latest screenshot requests real inspectable snowfall crystals, removal of two
 on-stage notes, a labelled droplet/air explanation and a next-episode closing hook. The
 [bounded amendment](plans/explore-journey-science-series.md#opening-inspection-and-e01-follow-up--2026-09-17-planned-before-implementation)
-governs work in the retained website checkout. Implementation and the English final-take
-refresh are next; prior film, Mandarin recordings and completed export stay preserved.
+governs work in the retained website checkout. Website `explore/film-part1@725c69c` implements
+real recorded-model inspection, note removal, labelled below-drop airflow and the new English
+ending. The new final take is retained under website `docs/series-narration/2026-09-17-e01-hook/`;
+earlier takes and Mandarin audio remain unchanged. Website `docs/series-opening-verification.json`
+records 64 focused passes, zero failures and TypeScript/build success. The
+[follow-up review](reviews/science-series-e01-opening-followup-2026-09-17.md) records independent
+source/audio checks, sampled phone/desktop visual checks and remaining listening limits.
+The design guide is updated. Prior film, E02 and completed export stay preserved. Next: maker
+viewing of the same series/E01 page, not a new export or an audience-acceptance claim.
 
 ## Completed English E01 attention revision — 2026-09-17
 
@@ -807,13 +814,16 @@ the package-specific prerequisites in its charter amendment and execution plan. 
 
 ## Next step
 
-### Opening inspection and E01 follow-up — implement
+### Opening inspection and E01 follow-up — ready for maker viewing
 
-Read the [bounded amendment](plans/explore-journey-science-series.md#opening-inspection-and-e01-follow-up--2026-09-17-planned-before-implementation).
-In the retained website checkout, start with `RunBHero.tsx`, `SnowMarkers.tsx`,
-`EpisodeTwoVisual.tsx` and scene 3's `earlyEpisodeDrawing.ts`. Reuse actual recorded models,
-not glyphs. Refresh only the changed English final section in a new revision and explicitly
-remap the retained Mandarin clock; do not overwrite existing audio or export files.
+Open the [follow-up review](reviews/science-series-e01-opening-followup-2026-09-17.md), then
+`http://127.0.0.1:5185/series` and `/series/episode-1`. Check hover/drag/zoom on recorded snowfall
+crystals, scene 3's below-drop labelled airflow and the final English hook. For a concrete
+follow-up edit, start in `src/hero1/RecordedSnowMarker.tsx`, `src/series/earlyEpisodeDrawing.ts`
+or the canonical E01 draft as appropriate. Reproduce the website receipt's focused commands,
+not scientific gates. The English final take is already refreshed; Mandarin retains its words
+and audio with an explicit editorial-variation clock. Do not replace prior masters or MP4.
+Human listening and uncoached audience comprehension remain unverified.
 
 ### English E01 attention pass — ready for maker viewing
 
@@ -823,8 +833,8 @@ The retained website has the Menu and progressive, decluttered scenes. Open the
 `http://127.0.0.1:5185/series/episode-1` in English: review the scene-7 budget, scene-4 magnifier
 entrance and the separate ending feature reveals. Focused tests/build and sampled live checks
 are recorded; no complete uninterrupted viewing or audience comprehension is claimed.
-Do not regenerate audio: the spoken script is unchanged. Preserve the existing Mandarin
-export; this web revision is not a new MP4 request. Address subsequent concrete feedback.
+That attention-only pass did not change audio; the newer follow-up above owns the current
+English hook revision. Preserve the existing Mandarin export; no new MP4 was requested.
 
 ### Home → E01 MP4 — ready to watch
 
