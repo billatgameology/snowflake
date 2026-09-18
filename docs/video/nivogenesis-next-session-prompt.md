@@ -35,7 +35,8 @@ PROGRESS as meaningful steps complete, leaving its Next step true.
 
 ## Current experience to preserve
 
-- Local preview: `http://127.0.0.1:5185/series`; direct E01: `/series/episode-1`.
+- Public site: `https://nivogenesis.web.app` (Firebase, deployed 2026-09-18; see the public release plan).
+  Local preview: `http://127.0.0.1:5185/`; direct E01: `/episode-1`; experiments index `/experiments`.
   Reuse the existing server and browser tab. If the exact URL is unavailable, inspect the
   existing process first; from the WEBSITE checkout the normal start command is
   `npm run dev -- --host 127.0.0.1 --port 5185 --strictPort`. Do not kill an unrelated process
@@ -97,7 +98,7 @@ All paths in this section are relative to `/Users/clipper/github/snowcrystal_web
 | Work | Main files |
 | --- | --- |
 | Opening copy/cards, shared language control, same-document episode ownership | `src/series/SeriesHome.tsx`; `src/series/series.css` |
-| Release availability | `src/series/seriesRelease.ts`; route entry in `src/router.tsx` |
+| Release availability and public build | `src/series/seriesRelease.ts`; `src/router.tsx`; `src/series/publicRoutes.tsx`; `scripts/public-release.mjs`; `firebase.json`; website `docs/public-release.md` |
 | Run B growth/camera/handover | `src/growth/RunBHero.tsx`; `src/series/openingTiming.ts`; `src/growth/scene/growth-B-intro.json` |
 | Snowfall and real-model inspection | `src/pages/Hero1Page.tsx`; `src/hero1/SnowMarkers.tsx`; `RecordedSnowMarker.tsx`; `recordedCollection.ts`; `markerField.ts` in `src/hero1/` |
 | Shared volume renderer/shading | `src/growth/GrowthStage.tsx`; `iceMaterial.ts`; `useGrowthVolume.ts` in `src/growth/` — touch only for renderer work |
@@ -110,7 +111,7 @@ All paths in this section are relative to `/Users/clipper/github/snowcrystal_web
 | Playback, reading motion and bilingual time mapping | `src/series/BilingualAudio.tsx`; `bilingualMedia.ts`; `languagePosition.ts`; `narrationTransport.ts`; `episodeTransport.ts`; `episodeTimeline.ts`; `scrollTimeline.ts` |
 | Active narration scores | `src/series/episode-narration.json` (English E01); `episode-one-narration.zh-CN.json`; `episode-two-narration.json`; `episode-two-narration.zh-CN.json` |
 | Preserved narration assets/provenance | `public/series/narration/<revision>/`; `docs/series-narration/<revision>/` |
-| Recorded crystal assets | `src/series/episode-two-crystals.json`; `public/growth/episode-2/`; `public/growth/run-b-growth-v1.bin` |
+| Recorded crystal assets | `src/growth/recorded-models.json` (general catalog, formerly episode-two-crystals.json); `public/growth/models/`; `public/growth/run-b-growth-v1.bin` |
 
 `scripts/import-episode-two-crystals.mjs` accepts the authority checkout and imports catalogued
 recordings; inspect its selection and source identities before using it. It is not a command

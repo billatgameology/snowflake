@@ -6,15 +6,19 @@ true after every session that changes anything.** Rules: [AGENTS.md](../AGENTS.m
 2026-08-20): this index plus the active plans are the sole live state, and work proceeds in
 isolated worktrees per Rule 16.
 
-## In progress: Nivogenesis public release — 2026-09-18
+## Completed Nivogenesis public release — 2026-09-18
 
-The maker-authored [public release plan](plans/explore-nivogenesis-public-release.md) is in
-execution after a second-pass review; its final section records the maker's decisions D10–D21
-(Firebase Spark, Yun approved, agent deploys, models move to `public/growth/models/`, no opening
-label, new favicon, merge-and-tag branch structure) and the corrections that change execution.
-Work happens in the website release worktree `/Users/clipper/github/snowcrystal_website-release`
-on `release/nivogenesis-public` from `e343142`. Nothing is public yet. This entry is replaced by the
-completion record when the live deploy lands.
+**Live at https://nivogenesis.web.app** (Firebase Hosting, Spark). The maker-authored
+[public release plan](plans/explore-nivogenesis-public-release.md) was executed after a second-pass
+review; its completion record names the deployed website commit `30d05f6` (tag
+`nivogenesis-public-2026-09-18`, pushed; merged into `explore/film-part1` at `fa26ecd`), the 32-file,
+74,390,477-byte public output, 99 focused passes with the eleven-control release test, clean
+emulator/preview/live smokes on desktop and mobile emulation, and the
+[independent science review](reviews/nivogenesis-e01-public-science-review-2026-09-18.md) (Opus,
+no shared context; site fixes applied before launch, chapter follow-ups deferred). The public site
+carries only the opening and Episode 1 in English and Mandarin (Yun); experiments, the film, drafts and
+the frozen Episode 2 stay local. Local dev routes changed with it: `/`, `/episode-1`, `/experiments`.
+Next: the maker views and listens on the live site; education-chapter follow-ups are the next content task.
 
 ## Completed Chinese refinement, Susan audition and Yun restoration — 2026-09-18
 
@@ -931,10 +935,22 @@ audio and Chinese reader content. Website `docs/series-export.md` names the repr
 is running. Preserve this file and the earlier prototype/partial directories; any requested new
 export uses a new directory, not an overwrite. Human viewing/listening acceptance remains open.
 
+### Nivogenesis is live — view it, then decide the follow-ups
+
+Open **https://nivogenesis.web.app** (and `/episode-1`) on desktop and phone; switch EN / 中文 and press
+Play with sound. Everything shipped is in the [plan's completion record](plans/explore-nivogenesis-public-release.md#completion-record--2026-09-18).
+To change the site: work on `explore/film-part1` in the retained website worktree, run
+`npm run build:public`, `node --test scripts/public-release.test.mjs`, the smoke against
+`firebase serve --only hosting --host 127.0.0.1 --port 5099`, commit, then
+`firebase deploy --only hosting --project nivogenesis` from that committed head and tag it. Never deploy
+`dist/`. Candidate follow-ups, none started: the education-chapter findings in the
+[science review](reviews/nivogenesis-e01-public-science-review-2026-09-18.md); Mandarin loudness matching;
+a custom domain. Episode 2 remains frozen and unreleased.
+
 ### Same-page Chinese and Mandarin — Yun voice on reviewed E01 text, ready to listen
 
 Open the [review addendum](reviews/science-series-mandarin-susan-2026-09-18.md#addendum--yun-restored-for-e01-over-independently-reviewed-text-later-on-2026-09-18),
-then `http://127.0.0.1:5185/series/episode-1` and select **中文**. The retained website worktree is
+then `http://127.0.0.1:5185/episode-1` (local; the public site is https://nivogenesis.web.app/episode-1) and select **中文**. The retained website worktree is
 `/Users/clipper/github/snowcrystal_website-film-part1` at `e343142`. E01 plays Yun
 (`4AfodMgwXps9oZFhHzoj`) over the reviewed refined Chinese; E02 is frozen on its Susan revision and stays
 unreleased until the maker asks for E02 work. Judge pronunciation, delivery and the refined wording. For

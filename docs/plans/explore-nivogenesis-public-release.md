@@ -1,7 +1,7 @@
 # Plan — Nivogenesis public release (completed work only, clean URLs)
 
 - **Phase:** Maker-directed Journey/media release; no scientific phase, solver or gate change
-- **Status:** in execution since 2026-09-18 (second pass); host and open questions resolved by the maker (see the second-pass section at the end)
+- **Status:** complete — live at https://nivogenesis.web.app since 2026-09-18 from website `30d05f6` (tag `nivogenesis-public-2026-09-18`); see the completion record at the end
 - **Started:** 2026-09-18
 - **Last touched:** 2026-09-18 by Claude Fable 5.1 (second-pass review, maker decisions D10–D21, execution)
 - **Related:** [science series plan](explore-journey-science-series.md), [bilingual plan](science-series-bilingual.md) (the Yun-voice amendment in flight), [next-session file map](../video/nivogenesis-next-session-prompt.md)
@@ -151,20 +151,20 @@ change, not an accident of what sits in `public/`.
 
 ## Steps
 
-- [ ] **0. Plan committed** in snowflake (this file) and a pointer added to `docs/PROGRESS.md`.
-- [ ] **1. Worktree** `release/nivogenesis-public` created per Approach §1; path, base commit,
+- [x] **0. Plan committed** in snowflake (this file) and a pointer added to `docs/PROGRESS.md`.
+- [x] **1. Worktree** `release/nivogenesis-public` created per Approach §1; path, base commit,
       purpose and removal condition recorded in this plan. Check: `git worktree list --porcelain`.
-- [ ] **2. Clean routes** (Approach §2). Check: the focused series tests pass with updated
+- [x] **2. Clean routes** (Approach §2). Check: the focused series tests pass with updated
       URLs — `node --test scripts/series-release.test.mjs scripts/series-opening-sound.test.mjs
       scripts/series-localization.test.mjs scripts/series-continuous.test.mjs
       scripts/series-export.test.mjs scripts/series.test.mjs
       scripts/series-bilingual-audio.test.mjs scripts/series-reading.test.mjs`; `npm run build`
       still produces `dist/film/part-1/index.html`; a dev-server check shows `/` = series home,
       `/episode-1` = direct E01 entry, `/experiments` = old index.
-- [ ] **3. Public build mode** (Approach §3) with allowlist copy (Approach §4) and generated
+- [x] **3. Public build mode** (Approach §3) with allowlist copy (Approach §4) and generated
       `_headers`. Check: `npm run build:public` succeeds; `npm run build` output unchanged
       apart from the step 2 path changes.
-- [ ] **4. Release test** `scripts/public-release.test.mjs`, run against `dist-public/`, fails
+- [x] **4. Release test** `scripts/public-release.test.mjs`, run against `dist-public/`, fails
       if any of these hold:
       - a file outside the allowlist is present;
       - an allowlisted or score-referenced file is missing;
@@ -177,7 +177,7 @@ change, not an accident of what sits in `public/`.
       Each check gets a negative control that plants the offending file or string in a temp
       copy and confirms the test fails (Rule 9) — keep this to one small test file, not a new
       verification framework.
-- [ ] **5. Live-browser smoke on `dist-public/`**, served by a local static server that mimics
+- [x] **5. Live-browser smoke on `dist-public/`**, served by a local static server that mimics
       the host fallback (Playwright with `executablePath: '/opt/pw-browsers/chromium'` only if
       the pinned Playwright cannot find its browser; on the Mac use the project's existing
       setup):
@@ -190,12 +190,12 @@ change, not an accident of what sits in `public/`.
 
       Record results in website `docs/public-release-verification.json`, following the existing
       `docs/series-*-verification.json` style.
-- [ ] **6. Metadata and preview image** (Approach §7) drafted; maker approves copy and image.
-- [ ] **7. Preview deploy** (after the Mandarin precondition is met): Cloudflare
+- [x] **6. Metadata and preview image** (Approach §7) drafted; maker approves copy and image.
+- [x] **7. Preview deploy** (after the Mandarin precondition is met): Cloudflare
       `wrangler pages deploy dist-public --branch preview` (or Firebase
       `firebase hosting:channel:deploy preview --expires 7d`). Note: preview URLs are public to
       anyone who has the link. Maker clicks through on desktop and phone.
-- [ ] **8. Independent science review (D6, Rule 13)** of the public E01, run while or after the
+- [x] **8. Independent science review (D6, Rule 13)** of the public E01, run while or after the
       preview is up. Reviewer: a different model from the one that implements this plan, with
       no shared context. Scope:
       - the performed English narration text;
@@ -206,12 +206,12 @@ change, not an accident of what sits in `public/`.
 
       Record at snowflake `docs/reviews/nivogenesis-e01-public-science-review-<date>.md` with
       Rule 10 provenance and stated limits. Defects are fixed and re-checked before step 9.
-- [ ] **9. Live deploy** from a committed, pushed head of `release/nivogenesis-public`, never
+- [x] **9. Live deploy** from a committed, pushed head of `release/nivogenesis-public`, never
       from a dirty tree. Record the host URL, commit, `dist-public/` file count and total bytes,
       and the release-test result in this plan and `docs/PROGRESS.md`. The maker decides the
       fate of the snowflake-root Firebase placeholder files and, if Cloudflare is chosen,
       whether to keep the Firebase project.
-- [ ] **10. Rule 16 reconcile:**
+- [x] **10. Rule 16 reconcile:**
       - merge or hand off the release branch into the website's retained branch as the maker
         directs;
       - remove the release worktree;
@@ -290,6 +290,38 @@ supersede the conflicting sentences above; earlier text is kept as the planning 
 9. **Verification wording.** There is no `npm run typecheck`; typechecking is the `tsc -b` inside `npm run build`.
 10. **Worktree record (Rule 16).** `/Users/clipper/github/snowcrystal_website-release` on `release/nivogenesis-public`, base `e343142`, purpose: public release implementation and deploy; removed after the merge in step 10. `/Users/clipper/github/snowcrystal_website` (`run-b-growth-stage`) is an unrelated ongoing worktree and is not touched.
 11. **Firebase specifics.** Headers live in `firebase.json` `source` globs; the `**` rewrite outranks any 404 page; preview is `firebase hosting:channel:deploy preview --expires 7d`; live is `firebase deploy --only hosting --project nivogenesis` from the release worktree.
+
+## Completion record — 2026-09-18
+
+Live: **https://nivogenesis.web.app** (Firebase Hosting, project `nivogenesis`, Spark). Deployed from
+website `30d05f6` (branch `release/nivogenesis-public`, pushed; tag `nivogenesis-public-2026-09-18`, pushed;
+fast-forwarded into `explore/film-part1` at `fa26ecd`; release worktree and local branch removed).
+Preview channel first: `https://nivogenesis--preview-l7a5exc7.web.app` (expires 2026-09-25).
+
+Deployed `dist-public/`: **32 files, 74,390,477 bytes**; largest file the Mandarin narration at
+21,787,001 B (website `docs/public-release-verification.json`, inventory with SHA-256 per file).
+Public bundle chunks: SeriesHome, the growth worker, the entry and fonts only; no experiment, film,
+chrome or Episode 2 chunk (release-test string probes pass). Assets shipped: the two active E01 narration
+files, six recorded models from `public/growth/models/`, the Run B volume, the opening sound, four brand
+files. Checks, all recorded in the website receipts: `npm run build` (unchanged local build, film edition
+intact) and `npm run build:public` exit 0; **99 focused tests passed, 0 failed** including the release test
+and its eleven negative controls; hosting-emulator, preview-channel and live smokes clean on desktop and
+mobile emulation (routes, `no-cache` pages, immutable assets, seven-day media, WebGL2 markers 6/6,
+EN/中文 playback and switching at story position, Play with sound, network inside the allowlist,
+unknown and unreleased paths landing on the opening). Twelve GitHub Pages Sources links return 200.
+
+Step 8 review: [nivogenesis-e01-public-science-review-2026-09-18.md](../reviews/nivogenesis-e01-public-science-review-2026-09-18.md)
+(Opus reviewers, no shared context): 8 confirmed, 6 contested, 22 rejected; the five site-level fixes
+landed in `30d05f6` before the live deploy; the chapter-level findings are deferred follow-ups for the
+education content, not this deploy.
+
+Records: website `docs/public-release.md`, `docs/public-release-verification.json`,
+`docs/public-release-smoke-{emulator,preview,live}.json`. Local dev URLs changed with the clean routes:
+the opening is `/`, Episode 1 `/episode-1`, the experiments index `/experiments`.
+
+Open after launch: the maker's own viewing/listening on the live site; loudness matching (Mandarin about
+3.6 LU below English) if wanted; the education-chapter follow-ups from the science review; the AMS
+glossary links answer a bot challenge to automated clients; Episode 2 stays frozen and local.
 
 ## Tried and rejected
 
