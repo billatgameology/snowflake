@@ -82,10 +82,10 @@ samples and full E01 AI sample narration. The maker's subsequent standing direct
 refresh affected English narration whenever the spoken English is rewritten, as specified in
 the [audio contract](#narration-and-timing-contract). Visual-only changes do not by themselves
 require new speech. Draft words and visuals together and retime to the actual performance.
-The later maker-supplied Mandarin voice `4AfodMgwXps9oZFhHzoj` lifted the Mandarin deferral for
-the translated episodes; on 2026-09-18 the maker replaced it with `0H4ruoQ81Ei2FCwjW5j1`
-(Susan - Warm Narrator), which is now the Mandarin refresh voice. Neither authorizes inventing
-another voice.
+The later maker-supplied Mandarin voice `4AfodMgwXps9oZFhHzoj` (Yun) lifted the Mandarin deferral for
+the translated episodes. On 2026-09-18 the maker auditioned `0H4ruoQ81Ei2FCwjW5j1` (Susan - Warm
+Narrator) and then chose Yun again, so Yun is the Mandarin refresh voice; the Susan revisions are
+retained. Neither authorizes inventing another voice.
 
 ### Scene-by-scene critique and response
 
@@ -463,9 +463,10 @@ explicit ongoing direction, not permission inferred from an old sample. Reuse un
 where appropriate; do not leave old spoken words playing against a rewritten transcript.
 Visual-only or optional-reader-only edits do not require synthesis when the spoken words are
 unchanged. Preserve earlier recordings and the exact source of each new take. Keep the Chinese
-text in step with the revised meaning. The maker supplied Mandarin voice `4AfodMgwXps9oZFhHzoj`
-on 2026-09-17 and replaced it with **Susan** (`0H4ruoQ81Ei2FCwjW5j1`) on 2026-09-18; Susan is the
-current Mandarin refresh voice, and the 2026-09-17 revisions stay retained. When a rewrite changes
+text in step with the revised meaning. The maker supplied Mandarin voice **Yun**
+(`4AfodMgwXps9oZFhHzoj`) on 2026-09-17, auditioned **Susan** (`0H4ruoQ81Ei2FCwjW5j1`) on 2026-09-18
+and chose Yun again the same day; Yun is the current Mandarin refresh voice, and the Susan
+revisions stay retained (E02's live score keeps its Susan revision while E02 is frozen). When a rewrite changes
 performed Chinese words, refresh the affected Mandarin take and rebuild its semantic alignment
 as well; do not play a stale translation against the new meaning. The standing refresh does
 not authorize a different voice or an unrequested new episode.

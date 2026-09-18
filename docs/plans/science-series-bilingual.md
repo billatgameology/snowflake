@@ -1,6 +1,6 @@
 # Plan — same-page English / 中文 series
 
-- **Status:** Yun voice restoration on the refined text in progress (2026-09-18, later); Susan revisions retained; fluent listening/understanding review remains
+- **Status:** E01 Mandarin restored to Yun over independently reviewed refined text (2026-09-18); E02 frozen on its Susan revision; fluent listening/understanding review remains
 - **Started:** 2026-09-17
 - **Scope:** existing Simplified Chinese series; Mandarin voice `4AfodMgwXps9oZFhHzoj` (2026-09-17 revisions, retained) superseded by maker-supplied `0H4ruoQ81Ei2FCwjW5j1` (2026-09-18 amendment below)
 - **Parent:** [series plan](explore-journey-science-series.md), [episode design guide](../video/science-series-design-guide.md)
@@ -203,16 +203,31 @@ stale recording against the refined text. Baselines: authority `d105441`, websit
    (per-section meaning, qualifiers, numbers, naturalness, terminology consistency) with adversarial
    verification of each finding; apply accepted fixes through the phrase-anchor authoring so paragraphs
    and cue pairs stay identical, and rebuild the authority/website assets.
-2. Regenerate both episodes with Yun (`4AfodMgwXps9oZFhHzoj`, explicit `--voice=`) into new immutable
-   revisions `2026-09-18-e01-mandarin-yun` and `2026-09-18-e02-mandarin-yun`, one request per section, no
-   retry; pace with revision-specific cue files; restore Yun as the generator's default Mandarin voice.
-   Susan and 2026-09-17 revisions remain retained.
+2. Regenerate **E01 only** with Yun (`4AfodMgwXps9oZFhHzoj`, explicit `--voice=`) into the new immutable
+   revision `2026-09-18-e01-mandarin-yun`, one request per section, no retry; pace with revision-specific
+   cue files; restore Yun as the generator's default Mandarin voice. The maker directed (2026-09-18, after
+   this amendment was first committed) that Episode 2 not be worked on: its live score keeps the retained
+   Susan revision over its refined text, unreleased and unchanged, and E02 review findings are recorded
+   but not applied. Susan and 2026-09-17 revisions remain retained.
 3. Re-pin the voice in tests, rerun the focused tests, TypeScript/build, the parameterized audits, the
    ASR spot-check and the sampled live checks; then an independent records check of the quoted numbers.
 4. Update the review, this plan, PROGRESS, guide and prompt voice lines; scoped commits per repository.
 
-Done when both live Mandarin scores play Yun over the refined (reviewed) text with verified cues and
-retained prior assets. Not claimed: listener acceptance, audience comprehension, E02 release, export.
+Done when the live E01 Mandarin score plays Yun over the refined (reviewed) text with verified cues and
+retained prior assets, and E02 is left untouched. Not claimed: listener acceptance, audience comprehension, E02 release, export.
+
+## Execution and verification — Yun restoration, 2026-09-18
+
+Website `explore/film-part1@e343142`. The independent review workflow (137 agents) confirmed 18 of 39
+findings; the 11 E01 fixes and two E01 terminology fixes were applied through the phrase-anchor authoring
+(authority `docs/video/science-series-e01-zh-CN.json`; website copy byte-identical); E02 findings are
+recorded but deferred with the frozen episode. E01 was regenerated with Yun into
+`2026-09-18-e01-mandarin-yun` (paced 1361.6309977324263 s, SHA-256
+`b59d63ab8e46893fb835de04c669eb5bc416ad0db600ec7b730c1653f4a99779`, 317 anchors, 3 holds, 0 dropped
+onsets). The [review addendum](../reviews/science-series-mandarin-susan-2026-09-18.md#addendum--yun-restored-for-e01-over-independently-reviewed-text-later-on-2026-09-18)
+records the translation decisions, **97 focused passes, zero failures**, TypeScript/build success, the
+E01 audits, ASR spot-check, live checks and the loudness measurement (−28.8 LUFS vs English −25.2 LUFS).
+E02's live score remains `2026-09-18-e02-mandarin-susan`, unreleased. Next: maker listens in 中文 to E01.
 
 ## Tried and rejected
 
@@ -236,3 +251,7 @@ retained prior assets. Not claimed: listener acceptance, audience comprehension,
   those bytes; new revisions keep their cue files inside their own directories and pass `--cues=`.
 - **Waiting for Playwright network idle on the episode page.** Streaming narration never idles; wait for the
   language toggle instead.
+- **Re-pointing the live score at the retained Yun takes after a text refinement.** Those takes speak the
+  superseded wording; a voice change over rewritten words is a regeneration, not a pointer switch.
+- **Overwriting a retained revision's cue files when rebuilding text.** The builder now writes cue files
+  only into the revision being produced; retained revisions keep the bytes their reports pin.

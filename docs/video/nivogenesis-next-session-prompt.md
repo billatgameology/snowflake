@@ -136,9 +136,9 @@ section bindings, or explicitly revise/review them when the source changes.
 - The maker's standing direction is to refresh affected narration when its spoken words are
   rewritten. Retain unchanged takes when their text/voice/settings match. UI/tagline changes
   are not spoken episode changes and do not need new narration.
-- Current English voice: `aMSt68OGf4xUZAnLpTU8` (Juniper); Mandarin: `0H4ruoQ81Ei2FCwjW5j1`
-  (Susan - Warm Narrator, maker-supplied 2026-09-18; the earlier `4AfodMgwXps9oZFhHzoj` revisions
-  are retained history). Do not substitute older audition voices or invent a new voice.
+- Current English voice: `aMSt68OGf4xUZAnLpTU8` (Juniper); Mandarin: `4AfodMgwXps9oZFhHzoj` (Yun,
+  chosen again on 2026-09-18 after a Susan `0H4ruoQ81Ei2FCwjW5j1` audition whose revisions are
+  retained history). Do not substitute older audition voices or invent a new voice.
 - Inspect `scripts/generate-series-narration.mjs` before use. It supports explicit revision,
   reuse, episode and language options; no-generation invocation is a dry run. Actual generation
   uses `--generate` plus the credential file argument. The local key was supplied at
@@ -149,10 +149,10 @@ section bindings, or explicitly revise/review them when the source changes.
   revision paths; read before running and use a new revision, not overwrite. Uncertain paid
   synthesis attempts must be investigated, not automatically retried.
 - Current E01 English score points to `2026-09-17-e01-hook`; E02 English points to
-  `2026-09-17-e02-juniper`. Current Mandarin assets are in `2026-09-18-e01-mandarin-susan` and
-  `2026-09-18-e02-mandarin-susan`; their cue files live inside those revision directories, and
-  the 2026-09-17 Mandarin directories are retained history. Read the active JSON for current
-  identities rather than assuming the newest folder name is active.
+  `2026-09-17-e02-juniper`. Current E01 Mandarin is `2026-09-18-e01-mandarin-yun`; the unreleased
+  E02 keeps `2026-09-18-e02-mandarin-susan` until the maker asks for E02 work. Cue files live inside
+  those revision directories; the 2026-09-17 and Susan E01 directories are retained history. Read
+  the active JSON for current identities rather than assuming the newest folder name is active.
 - The 2026-09-18 E01 Mandarin translates the current English ending directly, so its clock binds
   the current English import with no variation record. The retained 2026-09-17 revision still
   carries `docs/series-narration/2026-09-17-e01-hook/english-variation.json` and its

@@ -108,3 +108,51 @@ node scripts/series-mandarin-live-check.mjs <output-dir>
 
 The audit and ASR commands are in the website audit README named above. Authority checks:
 `node scripts/lint-rule7.mjs --file <changed files>` and `git diff --check` in both repositories.
+
+## Addendum — Yun restored for E01 over independently reviewed text (later on 2026-09-18)
+
+After listening, the maker preferred the earlier voice and asked to switch Mandarin back, then directed
+that Episode 2 not be worked on. Plan amendment: authority `dc263e3` (scope corrected to E01 in the
+same file). Implementation: website `explore/film-part1@e343142`. E02's live score keeps the retained
+Susan revision above, unreleased and unchanged; the Susan E01 revision stays as history.
+
+**Independent translation review before synthesis.** Because the retained Yun takes speak the superseded
+wording, the refined text was regenerated rather than re-pointed. First, a read-only workflow of 137
+agents reviewed the refined Chinese: one reviewer per section (19), one cross-episode terminology
+reviewer, and three adversarial refuters per finding; a finding counted as confirmed when at least two
+of three refuters judged it real. Result: 39 findings, 18 confirmed, 21 rejected, 4 terminology notes
+(website `docs/series-narration/2026-09-18-e01-mandarin-yun/translation-review.json` records every
+finding, the refuters' reasons and the disposition). The 11 confirmed E01 findings were applied, some
+reworded by the translator: the merged two-sentence group in E01-02 split to match the English sentence
+boundary; `常常` restored to the possibility `可能会`; the graupel sentence no longer reuses `冰粒`, the term
+already assigned to ice pellets; `扩展` → `蔓延` for ice spreading; the box-reopening step made explicit so
+`短暂` cannot be heard as "temporarily removed"; `它会怎么样` → `冰会怎么样` after a temperature sentence; the
+minus-fifteen/minus-forty sentence now compares the two extra amounts rather than the samples; two
+translationese constructions in E01-10/E01-11 rephrased; the star habit is `星形` throughout; "ice particle"
+no longer reads as "ice pellet". Three translator-discretion changes are listed in the record, as is the
+unvoiced reader-note source line restored to cite the chapter's `#the-peak` section (its heading,
+"Percentages are not grams", is the section the earlier clause paraphrased). The seven confirmed E02
+findings and one E02 terminology note are deferred with E02.
+
+**Audio and checks.** One Yun take per E01 section, `eleven_multilingual_v2`, retained settings, all
+11 requests succeeded first time. Values copied from website
+`docs/series-narration/mandarin-review-2026-09-18-yun/` and `docs/series-mandarin-yun-verification.json`:
+
+| Item | Value |
+|---|---|
+| Paced E01 Mandarin | 1361.6309977324263 s, 60,047,927 samples |
+| Paced MP3 SHA-256 | `b59d63ab8e46893fb835de04c669eb5bc416ad0db600ec7b730c1653f4a99779` |
+| Anchors / holds / dropped spoken onsets | 317 / 3 / 0 |
+| Focused tests | 97 passed, 0 failed; `tsc -b` and build exit 0 |
+| Audits | integrity warnings 0; pace min. correlation 0.9995850904544035, pause interiors 0; semantic `pass` (E02 re-verified) |
+| ASR spot-check | E01-06 262/416, E01-09 425/501 normalized matches |
+| Loudness | Yun master −28.8 LUFS vs English −25.2 LUFS; no gain change |
+
+Live checks (`docs/series-mandarin-yun-browser-checks.json`) repeat the desktop/phone sequence above
+against the Yun revision: cold load binds `2026-09-18-e01-mandarin-yun`, Play starts Mandarin only,
+mid-play switches hand over at the story position both ways, paused toggles stay paused, no page errors,
+`/series/episode-2` still withheld. The bilingual test now pins voices per episode (E01 Yun, E02 Susan).
+
+**Not covered.** Unchanged from above: no listener acceptance, no audience comprehension, no complete
+viewing, no physical phone, no E02 live playback, no loudness decision. The translation review is an
+agent review with shared project context, not a fluent human reviewer.

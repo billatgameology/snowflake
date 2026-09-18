@@ -6,24 +6,24 @@ true after every session that changes anything.** Rules: [AGENTS.md](../AGENTS.m
 2026-08-20): this index plus the active plans are the sole live state, and work proceeds in
 isolated worktrees per Rule 16.
 
-## Completed Chinese refinement and Susan-voice Mandarin — 2026-09-18
+## Completed Chinese refinement, Susan audition and Yun restoration — 2026-09-18
 
 The maker supplied a DeepSeek rendering as a second reference and ElevenLabs voice
-`0H4ruoQ81Ei2FCwjW5j1` (Susan - Warm Narrator, Mandarin). The
-[bilingual plan amendment](plans/science-series-bilingual.md#translation-refinement-and-susan-voice-amendment--2026-09-18-planned-before-implementation)
-governs the work. Both episodes' Simplified Chinese is refined at phrase-anchor granularity
-(authority `docs/video/science-series-e01-zh-CN.json`, `science-series-e02-zh-CN.json`); E01-11 now
-translates the current English hook, so the E01 clock binds current English directly. Website
-`explore/film-part1@e3bfbb4` regenerates both Mandarin narrations with Susan into retained revisions
-`2026-09-18-e01-mandarin-susan` (paced 1360.3771201814059 s, SHA-256
-`ba44db1195822940a042cdb677127728cba580fd2ff56355e6add347f6277d46`) and `2026-09-18-e02-mandarin-susan`
-(918.683514739229 s, `9cbcc8cc7fd26b0b7a919e7d98e02fedf4904e3dba189b18311e15cd2b1eecaf`); the 2026-09-17
-Yun revisions stay retained. Website `docs/series-mandarin-susan-verification.json` records 97 focused
-passes, zero failures, TypeScript/build success, rerun independent audits, an ASR spot-check and sampled
-desktop/phone live checks. The [review](reviews/science-series-mandarin-susan-2026-09-18.md) records the
-translation decisions, a loudness observation (Susan about 4 LU above English; no gain change) and the
-open listening limits. English narration, old film, E02 release hold and the completed MP4 are unchanged.
-Next: maker listens in 中文 at the existing E01 URL and decides on loudness matching.
+`0H4ruoQ81Ei2FCwjW5j1` (Susan), then after listening chose the earlier Yun voice again and froze
+Episode 2. The [bilingual plan amendments](plans/science-series-bilingual.md#translation-refinement-and-susan-voice-amendment--2026-09-18-planned-before-implementation)
+govern both steps. Both episodes' Simplified Chinese was refined at phrase-anchor granularity; an
+independent 137-agent review then confirmed 18 of 39 findings, and the E01 fixes were applied before
+regeneration (authority `docs/video/science-series-e01-zh-CN.json`; E02 findings deferred). Website
+`explore/film-part1@e343142` plays E01 Mandarin from `2026-09-18-e01-mandarin-yun` (Yun
+`4AfodMgwXps9oZFhHzoj`; paced 1361.6309977324263 s, SHA-256
+`b59d63ab8e46893fb835de04c669eb5bc416ad0db600ec7b730c1653f4a99779`, 317 anchors, 3 holds); E02's live
+score keeps `2026-09-18-e02-mandarin-susan` (918.683514739229 s), unreleased and unchanged; the Susan E01
+and 2026-09-17 revisions are retained history. Website `docs/series-mandarin-yun-verification.json`
+records 97 focused passes, zero failures, TypeScript/build success, rerun audits, an ASR spot-check and
+sampled desktop/phone live checks. The [review](reviews/science-series-mandarin-susan-2026-09-18.md)
+and its addendum record the translation decisions, the loudness measurements (Yun −28.8 LUFS vs English
+−25.2 LUFS; no gain change) and the open listening limits. English narration, old film, E02 release hold
+and the completed MP4 are unchanged. Next: maker listens in 中文 at the existing E01 URL.
 
 ## Completed Nivogenesis opening update — 2026-09-17
 
@@ -113,11 +113,11 @@ detail.
 
 ## Current state
 
-- **Refined Chinese text and Susan-voice Mandarin complete (2026-09-18).** Maker-supplied voice
-  `0H4ruoQ81Ei2FCwjW5j1` replaces Yun in both live Mandarin scores; refined translation and new retained
-  revisions are recorded in the top entry and the
+- **Refined Chinese text, Susan audition and Yun restoration complete (2026-09-18).** E01 Mandarin
+  plays Yun (`4AfodMgwXps9oZFhHzoj`) over independently reviewed refined text; E02 is frozen on its
+  Susan revision and unreleased. Details in the top entry and the
   [review](reviews/science-series-mandarin-susan-2026-09-18.md). The 2026-09-17 production below is
-  retained history. Next: maker listening in 中文; loudness matching is an open decision.
+  retained history. Next: maker listening in 中文.
 
 - **Mandarin narration and same-page language switching complete (2026-09-17; superseded by the
   2026-09-18 Susan revisions above).** Maker
@@ -921,21 +921,21 @@ audio and Chinese reader content. Website `docs/series-export.md` names the repr
 is running. Preserve this file and the earlier prototype/partial directories; any requested new
 export uses a new directory, not an overwrite. Human viewing/listening acceptance remains open.
 
-### Same-page Chinese and Mandarin — Susan voice ready to listen and review
+### Same-page Chinese and Mandarin — Yun voice on reviewed E01 text, ready to listen
 
-Open the [Susan review](reviews/science-series-mandarin-susan-2026-09-18.md), then
-`http://127.0.0.1:5185/series/episode-1` and select **中文**. The retained website worktree is
-`/Users/clipper/github/snowcrystal_website-film-part1` at `e3bfbb4`; both episodes carry the refined
-Chinese text and Susan-voice Mandarin (`0H4ruoQ81Ei2FCwjW5j1`), with E02 still unreleased. Judge
-pronunciation, delivery, the refined wording and whether Mandarin should be loudness-matched to English
-(Susan measures about 4 LU louder; no gain step exists yet). For wording edits, change the authority
-`docs/video/science-series-e0N-zh-CN.json` through its cue pairs (each paragraph is the concatenation of
-its pairs in `docs/series-narration/2026-09-18-e0N-mandarin-susan/cues*.json`), regenerate the affected
-take in a new revision with `--voice=` defaulting to Susan, pace with `--revision=` and `--cues=`, and
-rerun the focused command in the review. The earlier
-[Mandarin production review](reviews/science-series-mandarin-production-2026-09-17.md) describes the
-retained Yun revisions. Recordings follow shared scene/paragraph/cue identities, not equal elapsed
-seconds. English remains preserved.
+Open the [review addendum](reviews/science-series-mandarin-susan-2026-09-18.md#addendum--yun-restored-for-e01-over-independently-reviewed-text-later-on-2026-09-18),
+then `http://127.0.0.1:5185/series/episode-1` and select **中文**. The retained website worktree is
+`/Users/clipper/github/snowcrystal_website-film-part1` at `e343142`. E01 plays Yun
+(`4AfodMgwXps9oZFhHzoj`) over the reviewed refined Chinese; E02 is frozen on its Susan revision and stays
+unreleased until the maker asks for E02 work. Judge pronunciation, delivery and the refined wording. For
+wording edits, change the authority `docs/video/science-series-e01-zh-CN.json` through its cue pairs
+(each paragraph is the concatenation of its pairs in
+`docs/series-narration/2026-09-18-e01-mandarin-yun/cues-early.json` and `cues-late.json`), regenerate
+the affected take in a new revision (the generator defaults to Yun; `--voice=` selects another retained
+voice), pace with `--revision=` and `--cues=`, and rerun the focused command in the review. Deferred E02
+translation findings are in website `docs/series-narration/2026-09-18-e01-mandarin-yun/translation-review.json`.
+Recordings follow shared scene/paragraph/cue identities, not equal elapsed seconds. English remains
+preserved.
 
 ### Episode 1 — listen and test comprehension of the clearer revision
 
