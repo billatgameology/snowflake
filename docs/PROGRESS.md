@@ -6,6 +6,16 @@ true after every session that changes anything.** Rules: [AGENTS.md](../AGENTS.m
 2026-08-20): this index plus the active plans are the sole live state, and work proceeds in
 isolated worktrees per Rule 16.
 
+## Active English E01 attention revision — 2026-09-17
+
+The maker requests a sweeping declutter/progressive-reveal pass after the scene-7 screenshot,
+with chapter navigation/Sources/Still behind one Menu and the scene-9 build-up used as the
+reference. The [series plan amendment](plans/explore-journey-science-series.md#english-e01-attention-pass--2026-09-17-planned-before-implementation)
+governs website work and the canonical design-guide update. Current source words/audio,
+Chinese assets, E02, previous film and completed MP4 are preserved unless a necessary English
+spoken rewrite requires its matching recording. Next: implement the Menu and remove redundant
+stage text, then audit and revise all eleven scene compositions against actual phrase cues.
+
 ## Completed media export — 2026-09-17
 
 The maker requests twice-speed series opening growth and one home → continuous entry → E01 MP4.

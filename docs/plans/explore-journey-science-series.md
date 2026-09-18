@@ -829,7 +829,48 @@ Next is maker listening and an uncoached comprehension check, not automatic new 
 - The later model-building story: identify its own source horizon before expanding beyond the
   current science series. Publication and release identities remain separate decisions.
 
+## English E01 attention pass — 2026-09-17, planned before implementation
+
+The maker's scene-7 screenshot exposes repeated navigation, chapter/subsection headings,
+diagram captions and production disclaimers competing with the explanation. The maker
+explicitly praises the revised scene 9's sequential construction, not every earlier visual,
+and requests a sweeping English E01 revision and reusable design-guide update.
+
+Work in the retained website checkout, preserving the original film, E02, Chinese sources/
+recordings and completed MP4. Root owns website edits and browser checks; parallel reviewers
+inspect source/code only. This is presentation work, not a scientific claim or solver change.
+
+1. Put chapter navigation, Sources and Still behind one accessible Menu. Keep playback and
+   the existing language control available; do not create another page or reset story time.
+2. Remove the repeated stage chapter-title stack. Use local object labels and one useful
+   current action/question at most, rather than chapter + subtitle + explanatory sentence.
+   Move repeated production paragraphs into scene-aware Sources. Keep compact model identity
+   and inference-critical conditions visible; do not turn model output into observation.
+3. Audit all eleven English sections: introduce the current subject, reveal the narrated
+   action, hold its result, then add the next relationship. Use existing recorded phrase
+   cues, preserve scene 5's mechanism and scene 9's reference-before-extra comparison, and
+   keep reverse seek/Still meaningful. Retain unchanged spoken words/audio when they already
+   support the sequence; any necessary English spoken rewrite includes matching Juniper
+   narration and revised alignment. No Mandarin synthesis in this English-only pass.
+4. Update the canonical episode design guide with the maker's specific clutter critique
+   and bounded scene-9 praise: progressive disclosure applies to the image, labels and UI.
+5. Run focused product tests, TypeScript/build, prose Rule 7 scan and diff checks. Inspect
+   representative beats across all sections, narrow/desktop layouts, Menu keyboard/focus,
+   forward/reverse seek and Still in the live existing preview. Record sampled coverage and
+   separate technical checks from audience/listening acceptance. Obtain bounded non-author
+   review and repair substantive regressions.
+
+Done when the controls and all eleven scene compositions implement that attention hierarchy,
+provenance remains reachable, existing clocks/assets are preserved, the guide is updated, and
+the checked/unchecked surfaces are recorded. No full scientific suite, new episode, export,
+deployment or deletion is part of this request.
+
 ## Tried and rejected
+
+- **Show the whole explanation, then narrate over it.** The maker praises the latest scene 9
+  because it builds the picture as ideas arrive. Repeated titles and full production caveats
+  on every frame take attention away from that sequence; preserve meaning with timely labels
+  and accessible Sources rather than stacking all levels of text on the animation.
 
 - **Infer paragraph ownership from rounded start times.** A following paragraph's caption can
   start microscopically before its stored paragraph boundary. Assign by exact source-text
