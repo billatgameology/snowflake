@@ -844,6 +844,11 @@ the package-specific prerequisites in its charter amendment and execution plan. 
 
 ## Next step
 
+User-requested [next-session prompt and two-repository file map](video/nivogenesis-next-session-prompt.md)
+is saved for continuing this video work. It is a launcher, not another live state document:
+this index and the affected active plans still govern. Read their latest entries before using
+the prompt's baseline references; the E02 release hold remains intentional.
+
 ### Nivogenesis opening — ready for maker viewing and listening
 
 Read the [review](reviews/science-series-nivogenesis-2026-09-17.md), then open

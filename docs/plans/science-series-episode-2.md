@@ -1,7 +1,7 @@
 # Plan — E02: Why six is only the beginning
 
 - **Phase:** Journey/media; no scientific phase or gate change
-- **Status:** narrated E02 complete (2026-09-17); source retained, maker listening/comprehension review pending
+- **Status:** narrated E02 complete but intentionally unreleased (2026-09-17); source retained, maker listening/comprehension review pending
 - **Started:** 2026-09-16
 - **Authority:** initial silent build followed by explicit maker authorization on 2026-09-17: add audio using the latest E01 voice and synchronize timing
 - **Parent:** [series plan](explore-journey-science-series.md), [maker design guide](../video/science-series-design-guide.md)
@@ -9,6 +9,13 @@
   website `/Users/clipper/github/snowcrystal_website-film-part1` on `explore/film-part1`, baseline `c3143a2`
 
 ## Goal
+
+**Current release override:** the maker's later
+[opening-card request](explore-journey-science-series.md#opening-copy-and-episode-2-release-hold--planned-2026-09-17)
+holds E02 behind Coming soon. Website `d7eb937` gates its mounting, direct entry, home action
+and E01 continuation through `src/series/seriesRelease.ts`. Preserve this hold until explicit
+release direction; the original runtime requirements below describe the retained implementation,
+not permission to expose it now. Source, bilingual recordings and reusable crystal catalog remain.
 
 Continue E01's earned shape question: what does ice's molecular arrangement explain, and what
 does it leave for growth physics? The audience should distinguish molecule from lattice, infer
